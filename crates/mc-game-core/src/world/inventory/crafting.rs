@@ -27,7 +27,11 @@ impl CraftingInput {
         self.items.iter().all(ItemStack::is_empty)
     }
 
-    pub fn of_positioned(width: usize, height: usize, items: &[ItemStack]) -> PositionedCraftingInput {
+    pub fn of_positioned(
+        width: usize,
+        height: usize,
+        items: &[ItemStack],
+    ) -> PositionedCraftingInput {
         if width == 0 || height == 0 {
             return PositionedCraftingInput::default();
         }
@@ -50,8 +54,19 @@ impl CraftingInput {
             return PositionedCraftingInput::default();
         }
         let (nw, nh) = (right - left + 1, bottom - top + 1);
-        let new_items = (0..nh).flat_map(|y| (0..nw).map(move |x| (x, y))).map(|(x, y)| items[x + left + (y + top) * width].clone()).collect();
-        PositionedCraftingInput { input: CraftingInput { width: nw, height: nh, items: new_items }, left, top }
+        let new_items = (0..nh)
+            .flat_map(|y| (0..nw).map(move |x| (x, y)))
+            .map(|(x, y)| items[x + left + (y + top) * width].clone())
+            .collect();
+        PositionedCraftingInput {
+            input: CraftingInput {
+                width: nw,
+                height: nh,
+                items: new_items,
+            },
+            left,
+            top,
+        }
     }
 }
 
@@ -66,7 +81,12 @@ pub struct TransientCraftingContainer {
 
 impl TransientCraftingContainer {
     pub fn new(width: usize, height: usize) -> Self {
-        Self { items: vec![ItemStack::empty(); width * height], width, height, pending: 0 }
+        Self {
+            items: vec![ItemStack::empty(); width * height],
+            width,
+            height,
+            pending: 0,
+        }
     }
     pub fn get_width(&self) -> usize {
         self.width
@@ -187,7 +207,10 @@ pub struct ResultSlot {
 
 impl ResultSlot {
     pub fn new(craft_slots: usize) -> Self {
-        Self { craft_slots, remove_count: std::cell::Cell::new(0) }
+        Self {
+            craft_slots,
+            remove_count: std::cell::Cell::new(0),
+        }
     }
 
     fn check_take_achievements(&self) {
@@ -203,7 +226,8 @@ impl SlotBehavior for ResultSlot {
     }
     fn remove(&self, slot: &Slot, env: &mut SlotEnv, amount: i32) -> ItemStack {
         if slot.get_item(env).count() > 0 {
-            self.remove_count.set(self.remove_count.get() + amount.min(slot.get_item(env).count()));
+            self.remove_count
+                .set(self.remove_count.get() + amount.min(slot.get_item(env).count()));
         }
         slot.base_remove(env, amount)
     }
@@ -221,7 +245,10 @@ impl SlotBehavior for ResultSlot {
     fn on_take(&self, _slot: &Slot, env: &mut SlotEnv, _carried: &ItemStack) {
         self.check_take_achievements();
         let (positioned, craft_width) = {
-            let craft = env.locals[self.craft_slots].as_any().downcast_ref::<TransientCraftingContainer>().expect("ResultSlot craft container");
+            let craft = env.locals[self.craft_slots]
+                .as_any()
+                .downcast_ref::<TransientCraftingContainer>()
+                .expect("ResultSlot craft container");
             (craft.as_positioned_craft_input(), craft.get_width())
         };
         let input = &positioned.input;
@@ -259,5 +286,11 @@ impl SlotBehavior for ResultSlot {
 
 /// `AbstractCraftingMenu.addResultSlot`.
 pub fn result_slot(result_local: usize, craft_local: usize, x: i32, y: i32) -> Slot {
-    Slot::with_behavior(ContainerKey::Local(result_local), 0, x, y, Box::new(ResultSlot::new(craft_local)))
+    Slot::with_behavior(
+        ContainerKey::Local(result_local),
+        0,
+        x,
+        y,
+        Box::new(ResultSlot::new(craft_local)),
+    )
 }

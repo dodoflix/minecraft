@@ -1,10 +1,12 @@
 //! `net.minecraft.world.level.block.WitherRoseBlock` (extends `FlowerBlock`).
-use mc_game_core::register_block_class;
 use super::flower_block::FlowerBlock;
-use mc_game_core::world::level::block::impls::prelude::*;
-use mc_game_core::world::level::block::impls::vegetation_block::{MayPlaceOn, vegetation_behaviour_methods};
-use mc_game_core::world::entity::effect::MobEffectInstance;
 use mc_data::MobEffect;
+use mc_game_core::register_block_class;
+use mc_game_core::world::entity::effect::MobEffectInstance;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::world::level::block::impls::vegetation_block::{
+    MayPlaceOn, vegetation_behaviour_methods,
+};
 use mc_protocol::components::SuspiciousStewEffects;
 
 pub struct WitherRoseBlock(FlowerBlock);
@@ -30,17 +32,33 @@ impl BlockBehaviour for WitherRoseBlock {
         _is_precise: bool,
     ) {
         use mc_game_core::server::level::level_data::ServerLevelData;
-        if level.level_data.get_difficulty() != mc_world::level_storage::Difficulty::Peaceful && entity.living().is_some() {
+        if level.level_data.get_difficulty() != mc_world::level_storage::Difficulty::Peaceful
+            && entity.living().is_some()
+        {
             let source = level.damage_sources().wither();
             if !entity.is_invulnerable_to(level, &source) {
-                entity.add_effect(level, MobEffectInstance::new(MobEffect::WITHER, 40, 0, false, true, true, None), None);
+                entity.add_effect(
+                    level,
+                    MobEffectInstance::new(MobEffect::WITHER, 40, 0, false, true, true, None),
+                    None,
+                );
             }
         }
     }
     /// `getBeeInteractionEffect`: `new MobEffectInstance(MobEffects.WITHER, 40)`.
     fn get_bee_interaction_effect(&self) -> Option<MobEffectInstance> {
-        Some(MobEffectInstance::new(MobEffect::WITHER, 40, 0, false, true, true, None))
+        Some(MobEffectInstance::new(
+            MobEffect::WITHER,
+            40,
+            0,
+            false,
+            true,
+            true,
+            None,
+        ))
     }
 }
 
-register_block_class!("WitherRoseBlock", |block| Box::new(WitherRoseBlock(FlowerBlock::new(block))));
+register_block_class!("WitherRoseBlock", |block| Box::new(WitherRoseBlock(
+    FlowerBlock::new(block)
+)));

@@ -42,15 +42,21 @@ impl FlatLevelGeneratorPreset {
         let fields = Fields::new(value)?;
         let display_item = fields.required("display", |v| {
             let id = parse_identifier(v)?;
-            let item = Item::by_name(&id.to_string())
-                .ok_or_else(|| LoadError::new(format!("Unknown registry key in minecraft:item: {id}")))?;
+            let item = Item::by_name(&id.to_string()).ok_or_else(|| {
+                LoadError::new(format!("Unknown registry key in minecraft:item: {id}"))
+            })?;
             if item == Item::AIR {
                 return Err(LoadError::new("Item must not be minecraft:air"));
             }
             Ok(item)
         })?;
-        let settings = fields.required("settings", |v| FlatLevelGeneratorSettings::from_json(v, registries, biomes))?;
-        Ok(FlatLevelGeneratorPreset { display_item, settings })
+        let settings = fields.required("settings", |v| {
+            FlatLevelGeneratorSettings::from_json(v, registries, biomes)
+        })?;
+        Ok(FlatLevelGeneratorPreset {
+            display_item,
+            settings,
+        })
     }
 
     /// The registered preset `id` (memoized, shared like a `Holder.Reference`).
@@ -59,9 +65,11 @@ impl FlatLevelGeneratorPreset {
         biomes: &BiomeRegistry,
         id: &Identifier,
     ) -> LoadResult<Arc<FlatLevelGeneratorPreset>> {
-        registries.memoized(FLAT_LEVEL_GENERATOR_PRESET_REGISTRY, id, |json, registries| {
-            FlatLevelGeneratorPreset::from_json(json, registries, biomes)
-        })
+        registries.memoized(
+            FLAT_LEVEL_GENERATOR_PRESET_REGISTRY,
+            id,
+            |json, registries| FlatLevelGeneratorPreset::from_json(json, registries, biomes),
+        )
     }
 
     /// Every registered preset in id order.

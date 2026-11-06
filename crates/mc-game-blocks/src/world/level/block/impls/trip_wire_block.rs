@@ -1,8 +1,8 @@
 //! `net.minecraft.world.level.block.TripWireBlock`.
-use mc_game_core::{register_block_class, update_shape};
-use mc_game_core::world::level::block::impls::prelude::*;
 use super::trip_wire_hook_block::calculate_state;
 use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::{register_block_class, update_shape};
 
 pub struct TripWireBlock;
 
@@ -56,39 +56,84 @@ fn check_pressed_with(level: &mut ServerLevel, pos: BlockPos, any_triggering: bo
 /// `TripWireBlock.checkPressed(level, pos)`: the entities (`NO_SPECTATORS`) inside the wire's shape.
 fn check_pressed(level: &mut ServerLevel, pos: BlockPos) {
     let state = level.get_block_state(pos);
-    let bounds = state.get_shape(&*level, pos).bounds().move_(f64::from(pos.x()), f64::from(pos.y()), f64::from(pos.z()));
-    let triggering = !level.get_entities(None, &bounds, |e| !e.is_spectator() && !e.is_ignoring_block_triggers()).is_empty();
+    let bounds = state.get_shape(&*level, pos).bounds().move_(
+        f64::from(pos.x()),
+        f64::from(pos.y()),
+        f64::from(pos.z()),
+    );
+    let triggering = !level
+        .get_entities(None, &bounds, |e| {
+            !e.is_spectator() && !e.is_ignoring_block_triggers()
+        })
+        .is_empty();
     check_pressed_with(level, pos, triggering);
 }
 
 impl BlockBehaviour for TripWireBlock {
-    update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
-        if direction.get_axis().is_horizontal() {
-            state.set(helpers::pipe_property(direction), should_connect_to(state.block(), neighbour_state, direction))
-        } else {
-            state
+    update_shape!(
+        |self, state, level, pos, direction, neighbour_pos, neighbour_state| {
+            if direction.get_axis().is_horizontal() {
+                state.set(
+                    helpers::pipe_property(direction),
+                    should_connect_to(state.block(), neighbour_state, direction),
+                )
+            } else {
+                state
+            }
         }
-    });
-    fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &mc_game_core::world::item::BlockPlaceContext) -> Option<BlockState> {
+    );
+    fn get_state_for_placement(
+        &self,
+        block: Block,
+        level: &mut ServerLevel,
+        context: &mc_game_core::world::item::BlockPlaceContext,
+    ) -> Option<BlockState> {
         let pos = context.get_clicked_pos();
         let mut state = block.default_state();
-        for direction in [Direction::North, Direction::East, Direction::South, Direction::West] {
+        for direction in [
+            Direction::North,
+            Direction::East,
+            Direction::South,
+            Direction::West,
+        ] {
             let neighbour = level.get_block_state(pos.relative(direction));
-            state = state.set(helpers::pipe_property(direction), should_connect_to(block, neighbour, direction));
+            state = state.set(
+                helpers::pipe_property(direction),
+                should_connect_to(block, neighbour, direction),
+            );
         }
         Some(state)
     }
-    fn on_place(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, old_state: BlockState, _moved_by_piston: bool) {
+    fn on_place(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        old_state: BlockState,
+        _moved_by_piston: bool,
+    ) {
         if !old_state.is_block(state.block()) {
             update_source(level, pos, state);
         }
     }
-    fn affect_neighbors_after_removal(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, moved_by_piston: bool) {
+    fn affect_neighbors_after_removal(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        moved_by_piston: bool,
+    ) {
         if !moved_by_piston {
             update_source(level, pos, state.set(props::POWERED, true));
         }
     }
-    fn get_entity_inside_collision_shape(&self, state: BlockState, level: &dyn BlockGetter, pos: BlockPos, _entity: &dyn mc_game_core::world::entity::Entity) -> mc_core::phys::shapes::VoxelShape {
+    fn get_entity_inside_collision_shape(
+        &self,
+        state: BlockState,
+        level: &dyn BlockGetter,
+        pos: BlockPos,
+        _entity: &dyn mc_game_core::world::entity::Entity,
+    ) -> mc_core::phys::shapes::VoxelShape {
         state.get_shape(level, pos)
     }
     fn entity_inside(
@@ -104,12 +149,24 @@ impl BlockBehaviour for TripWireBlock {
             check_pressed_with(level, pos, !entity.is_ignoring_block_triggers());
         }
     }
-    fn player_will_destroy(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, player: &mut mc_game_core::world::entity::ServerPlayer) -> BlockState {
+    fn player_will_destroy(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        player: &mut mc_game_core::world::entity::ServerPlayer,
+    ) -> BlockState {
         use mc_game_core::world::entity::Entity as _;
         let held = player.get_item_in_hand(mc_game_core::world::item::InteractionHand::MainHand);
         if !held.is_empty() && held.is(mc_data::Item::SHEARS) {
             level.set_block_flags(pos, state.set(props::DISARMED, true), 260);
-            level.game_event_at_block(mc_data::GameEvent::SHEAR, pos, &mc_game_core::world::level::gameevent::GameEventContext::of_entity(Some(player.id())));
+            level.game_event_at_block(
+                mc_data::GameEvent::SHEAR,
+                pos,
+                &mc_game_core::world::level::gameevent::GameEventContext::of_entity(Some(
+                    player.id(),
+                )),
+            );
         }
         mc_game_core::server::level::block_break::player_will_destroy(level, pos, state, player)
     }
@@ -119,10 +176,18 @@ impl BlockBehaviour for TripWireBlock {
         }
     }
     fn rotate(&self, state: BlockState, rotation: Rotation) -> BlockState {
-        helpers::rotate_sides(state, rotation, [props::NORTH, props::EAST, props::SOUTH, props::WEST])
+        helpers::rotate_sides(
+            state,
+            rotation,
+            [props::NORTH, props::EAST, props::SOUTH, props::WEST],
+        )
     }
     fn mirror(&self, state: BlockState, mirror: Mirror) -> BlockState {
-        helpers::mirror_sides(state, mirror, [props::NORTH, props::EAST, props::SOUTH, props::WEST])
+        helpers::mirror_sides(
+            state,
+            mirror,
+            [props::NORTH, props::EAST, props::SOUTH, props::WEST],
+        )
     }
 }
 

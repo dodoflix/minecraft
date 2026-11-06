@@ -12,15 +12,16 @@ mod state;
 mod structure_set;
 
 pub use locate::{
-    LocateResult, StructureGeneratingAt, find_nearest_map_structure, get_nearest_generated_structure_random_spread,
-    get_nearest_generated_structure_rings, random_spread_candidates,
+    LocateResult, StructureGeneratingAt, find_nearest_map_structure,
+    get_nearest_generated_structure_random_spread, get_nearest_generated_structure_rings,
+    random_spread_candidates,
 };
 pub use placement::{
-    ConcentricRingsStructurePlacement, ExclusionZone, FrequencyReductionMethod, RandomSpreadStructurePlacement,
-    RandomSpreadType, SpreadingPlacement, StructurePlacement,
+    ConcentricRingsStructurePlacement, ExclusionZone, FrequencyReductionMethod,
+    RandomSpreadStructurePlacement, RandomSpreadType, SpreadingPlacement, StructurePlacement,
 };
 pub use state::ChunkGeneratorStructureState;
 pub use structure_set::{
-    STRUCTURE_REGISTRY, STRUCTURE_SET_REGISTRY, StructureSelectionEntry, StructureSet, StructureSetHolder,
-    StructureSetRegistry, structure_biomes,
+    STRUCTURE_REGISTRY, STRUCTURE_SET_REGISTRY, StructureSelectionEntry, StructureSet,
+    StructureSetHolder, StructureSetRegistry, structure_biomes,
 };

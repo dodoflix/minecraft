@@ -10,8 +10,8 @@ use std::collections::HashMap;
 use mc_core::direction::{Axis, Direction, FrontAndTop};
 use mc_core::math::octahedral_group::{OctahedralGroup, SymmetricGroup3};
 use mc_core::mirror::Mirror;
-use mc_core::phys::shapes::{AttachFace, DiscreteVoxelShape, Shapes, VoxelShape};
 use mc_core::phys::Vec3;
+use mc_core::phys::shapes::{AttachFace, DiscreteVoxelShape, Shapes, VoxelShape};
 use mc_core::rotation::Rotation;
 
 const SCRIPT: &str = include_str!("../fixtures/octahedral/octahedral.script");
@@ -28,22 +28,54 @@ fn fx(f: f32) -> String {
 }
 
 fn joined<T: ToString>(it: impl IntoIterator<Item = T>, sep: &str) -> String {
-    it.into_iter().map(|v| v.to_string()).collect::<Vec<_>>().join(sep)
+    it.into_iter()
+        .map(|v| v.to_string())
+        .collect::<Vec<_>>()
+        .join(sep)
 }
 
 fn dump(s: &VoxelShape) -> String {
     let d = s.shape();
-    let mut b = format!("kind={}", if s.is_cube_voxel_shape() { "cube" } else { "array" });
+    let mut b = format!(
+        "kind={}",
+        if s.is_cube_voxel_shape() {
+            "cube"
+        } else {
+            "array"
+        }
+    );
     let (disc, words) = match &**d {
         DiscreteVoxelShape::BitSet(bs) => {
             let w = bs.bits();
-            ("bitset", if w.is_empty() { "-".to_string() } else { joined(w.iter().map(|w| format!("{w:x}")), ",") })
+            (
+                "bitset",
+                if w.is_empty() {
+                    "-".to_string()
+                } else {
+                    joined(w.iter().map(|w| format!("{w:x}")), ",")
+                },
+            )
         }
         DiscreteVoxelShape::Sub(_) => ("sub", "-".to_string()),
     };
-    b += &format!(" disc={disc} size={},{},{}", d.get_x_size(), d.get_y_size(), d.get_z_size());
-    b += &format!(" first={},{},{}", d.first_full(Axis::X), d.first_full(Axis::Y), d.first_full(Axis::Z));
-    b += &format!(" last={},{},{}", d.last_full(Axis::X), d.last_full(Axis::Y), d.last_full(Axis::Z));
+    b += &format!(
+        " disc={disc} size={},{},{}",
+        d.get_x_size(),
+        d.get_y_size(),
+        d.get_z_size()
+    );
+    b += &format!(
+        " first={},{},{}",
+        d.first_full(Axis::X),
+        d.first_full(Axis::Y),
+        d.first_full(Axis::Z)
+    );
+    b += &format!(
+        " last={},{},{}",
+        d.last_full(Axis::X),
+        d.last_full(Axis::Y),
+        d.last_full(Axis::Z)
+    );
     b += &format!(" words={words} cells=");
     for x in 0..d.get_x_size() {
         for y in 0..d.get_y_size() {
@@ -54,10 +86,17 @@ fn dump(s: &VoxelShape) -> String {
     }
     b += " ckind=";
     for a in Axis::VALUES {
-        b.push(if s.get_coords(a).is_cube_point_range() { 'c' } else { 'a' });
+        b.push(if s.get_coords(a).is_cube_point_range() {
+            'c'
+        } else {
+            'a'
+        });
     }
     for (n, a) in [("cx", Axis::X), ("cy", Axis::Y), ("cz", Axis::Z)] {
-        b += &format!(" {n}={}", joined(s.get_coords(a).to_vec().into_iter().map(hx), ","));
+        b += &format!(
+            " {n}={}",
+            joined(s.get_coords(a).to_vec().into_iter().map(hx), ",")
+        );
     }
     b
 }
@@ -68,11 +107,18 @@ fn emit_shape(out: &mut Vec<String>, label: &str, r: &VoxelShape, src: &VoxelSha
 }
 
 fn group(constant_name: &str) -> OctahedralGroup {
-    OctahedralGroup::by_name(&constant_name.to_lowercase()).unwrap_or_else(|| panic!("bad group {constant_name}"))
+    OctahedralGroup::by_name(&constant_name.to_lowercase())
+        .unwrap_or_else(|| panic!("bad group {constant_name}"))
 }
 
 fn point(t: &[&str], from: usize) -> Option<Vec3> {
-    (t.len() >= from + 3).then(|| Vec3::new(t[from].parse().unwrap(), t[from + 1].parse().unwrap(), t[from + 2].parse().unwrap()))
+    (t.len() >= from + 3).then(|| {
+        Vec3::new(
+            t[from].parse().unwrap(),
+            t[from + 1].parse().unwrap(),
+            t[from + 2].parse().unwrap(),
+        )
+    })
 }
 
 fn opt_ord(o: Option<FrontAndTop>) -> String {
@@ -82,9 +128,16 @@ fn opt_ord(o: Option<FrontAndTop>) -> String {
 fn tables(out: &mut Vec<String>) {
     let g = OctahedralGroup::ALL;
     for a in g {
-        out.push(format!("compose {}: {}", a.ordinal(), joined(g.iter().map(|&c| a.compose(c).ordinal()), " ")));
+        out.push(format!(
+            "compose {}: {}",
+            a.ordinal(),
+            joined(g.iter().map(|&c| a.compose(c).ordinal()), " ")
+        ));
     }
-    out.push(format!("inverse: {}", joined(g.iter().map(|a| a.inverse().ordinal()), " ")));
+    out.push(format!(
+        "inverse: {}",
+        joined(g.iter().map(|a| a.inverse().ordinal()), " ")
+    ));
     for a in g {
         let inv = |ax| a.inverts(ax) as i32;
         out.push(format!(
@@ -117,9 +170,20 @@ fn tables(out: &mut Vec<String>) {
         )
     ));
     for a in g {
-        out.push(format!("rotdir {}: {}", a.ordinal(), joined(Direction::ALL.map(|d| a.rotate(d).ordinal()), " ")));
+        out.push(format!(
+            "rotdir {}: {}",
+            a.ordinal(),
+            joined(Direction::ALL.map(|d| a.rotate(d).ordinal()), " ")
+        ));
     }
-    let vecs = [[1, 2, 3], [-4, 5, 6], [0, 0, 0], [7, -8, 9], [i32::MIN, 1, -1], [100, -200, 300]];
+    let vecs = [
+        [1, 2, 3],
+        [-4, 5, 6],
+        [0, 0, 0],
+        [7, -8, 9],
+        [i32::MIN, 1, -1],
+        [100, -200, 300],
+    ];
     for a in g {
         let parts = vecs.map(|v| {
             let r = a.rotate_vec3i(v);
@@ -131,21 +195,37 @@ fn tables(out: &mut Vec<String>) {
         out.push(format!(
             "rotfat {}: {}",
             a.ordinal(),
-            joined(FrontAndTop::ALL.map(|f| opt_ord(a.rotate_front_and_top(f))), " ")
+            joined(
+                FrontAndTop::ALL.map(|f| opt_ord(a.rotate_front_and_top(f))),
+                " "
+            )
         ));
     }
     for f in FrontAndTop::ALL {
-        out.push(format!("fat {} {} {} {}", f.ordinal(), f.get_serialized_name(), f.front().ordinal(), f.top().ordinal()));
+        out.push(format!(
+            "fat {} {} {} {}",
+            f.ordinal(),
+            f.get_serialized_name(),
+            f.front().ordinal(),
+            f.top().ordinal()
+        ));
     }
     for f in Direction::ALL {
         out.push(format!(
             "fatlookup {}: {}",
             f.ordinal(),
-            joined(Direction::ALL.map(|t| opt_ord(FrontAndTop::from_front_and_top(f, t))), " ")
+            joined(
+                Direction::ALL.map(|t| opt_ord(FrontAndTop::from_front_and_top(f, t))),
+                " "
+            )
         ));
     }
     for r in Rotation::ALL {
-        out.push(format!("rotation {} {}", r.ordinal(), r.rotation().ordinal()));
+        out.push(format!(
+            "rotation {} {}",
+            r.ordinal(),
+            r.rotation().ordinal()
+        ));
     }
     for m in Mirror::ALL {
         out.push(format!("mirror {} {}", m as usize, m.rotation().ordinal()));
@@ -157,11 +237,17 @@ fn tables(out: &mut Vec<String>) {
             "sym {} inv={} compose={} permute={}{}{} axis={} vi={},{},{} vf={},{},{} m={}",
             a.ordinal(),
             a.inverse().ordinal(),
-            SymmetricGroup3::ALL.iter().map(|&c| format!("{},", a.compose(c).ordinal())).collect::<String>(),
+            SymmetricGroup3::ALL
+                .iter()
+                .map(|&c| format!("{},", a.compose(c).ordinal()))
+                .collect::<String>(),
             a.permute(0),
             a.permute(1),
             a.permute(2),
-            Axis::VALUES.iter().map(|&x| a.permute_axis(x).ordinal().to_string()).collect::<String>(),
+            Axis::VALUES
+                .iter()
+                .map(|&x| a.permute_axis(x).ordinal().to_string())
+                .collect::<String>(),
             vi[0],
             vi[1],
             vi[2],
@@ -173,7 +259,12 @@ fn tables(out: &mut Vec<String>) {
     }
 }
 
-fn emit_dir_map(out: &mut Vec<String>, label: &str, m: &HashMap<Direction, VoxelShape>, src: &VoxelShape) {
+fn emit_dir_map(
+    out: &mut Vec<String>,
+    label: &str,
+    m: &HashMap<Direction, VoxelShape>,
+    src: &VoxelShape,
+) {
     for d in Direction::ALL {
         if let Some(s) = m.get(&d) {
             emit_shape(out, &format!("{label} {}", d.get_name()), s, src);
@@ -182,7 +273,12 @@ fn emit_dir_map(out: &mut Vec<String>, label: &str, m: &HashMap<Direction, Voxel
     out.push(format!("{label} keys={}", m.len()));
 }
 
-fn emit_axis_map(out: &mut Vec<String>, label: &str, m: &HashMap<Axis, VoxelShape>, src: &VoxelShape) {
+fn emit_axis_map(
+    out: &mut Vec<String>,
+    label: &str,
+    m: &HashMap<Axis, VoxelShape>,
+    src: &VoxelShape,
+) {
     for a in Axis::VALUES {
         if let Some(s) = m.get(&a) {
             emit_shape(out, &format!("{label} {}", a.get_name()), s, src);
@@ -250,14 +346,24 @@ fn run(script: &str) -> Vec<String> {
                         Some(p) => Shapes::rotate_with_point(src, g, p),
                     };
                     let pt = if p.is_some() { " pt" } else { "" };
-                    emit_shape(&mut out, &format!("rotall {} {}{pt}", t[1], g.ordinal()), &r, src);
+                    emit_shape(
+                        &mut out,
+                        &format!("rotall {} {}{pt}", t[1], g.ordinal()),
+                        &r,
+                        src,
+                    );
                 }
             }
             "disc" => {
                 let src = &sh[t[1]];
                 let r = src.shape().rotate(group(t[2]));
                 // vanilla wraps both in fresh CubeVoxelShapes, so the reference is always "new"
-                out.push(format!("disc {} {} ref=new {}", t[1], t[2], dump(&VoxelShape::cube(r))));
+                out.push(format!(
+                    "disc {} {} ref=new {}",
+                    t[1],
+                    t[2],
+                    dump(&VoxelShape::cube(r))
+                ));
             }
             "horizaxis" => {
                 let src = &sh[t[1]];
@@ -289,7 +395,9 @@ fn run(script: &str) -> Vec<String> {
                 let src = &sh[t[1]];
                 let g = (t.len() > 2 && t[2] != "-").then(|| group(t[2]));
                 let m = match (g, point(&t, 3)) {
-                    (Some(g), p) => Shapes::rotate_all_with(src, g, &p.unwrap_or(Vec3::new(0.5, 0.5, 0.5))),
+                    (Some(g), p) => {
+                        Shapes::rotate_all_with(src, g, &p.unwrap_or(Vec3::new(0.5, 0.5, 0.5)))
+                    }
                     (None, None) => Shapes::rotate_all(src),
                     (None, Some(p)) => Shapes::rotate_all_with_center(src, &p),
                 };
@@ -303,7 +411,12 @@ fn run(script: &str) -> Vec<String> {
                     Shapes::rotate_attach_face(src)
                 };
                 for f in AttachFace::ALL {
-                    emit_dir_map(&mut out, &format!("{line} {}", f.get_serialized_name()), &m[&f], src);
+                    emit_dir_map(
+                        &mut out,
+                        &format!("{line} {}", f.get_serialized_name()),
+                        &m[&f],
+                        src,
+                    );
                 }
                 out.push(format!("{line} faces={}", m.len()));
             }

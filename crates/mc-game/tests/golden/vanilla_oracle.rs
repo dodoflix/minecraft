@@ -31,23 +31,36 @@ fn read_packets(name: &str) -> Vec<ClientboundConfigurationPacket> {
 }
 
 fn read_log(name: &str) -> Vec<String> {
-    std::fs::read_to_string(fixture_dir().join(format!("{name}.server-log.txt"))).unwrap().lines().map(str::to_owned).collect()
+    std::fs::read_to_string(fixture_dir().join(format!("{name}.server-log.txt")))
+        .unwrap()
+        .lines()
+        .map(str::to_owned)
+        .collect()
 }
 
 // ---- comparisons ------------------------------------------------------------------------------------------------
 
 /// Vanilla's `registry_data` + `update_tags` of a scenario as `registry -> [(entry, nbt)]` and `registry -> tag -> ids`.
-type VanillaView = (Vec<(String, Vec<(Identifier, Option<Tag>)>)>, BTreeMap<String, BTreeMap<Identifier, Vec<i32>>>);
+type VanillaView = (
+    Vec<(String, Vec<(Identifier, Option<Tag>)>)>,
+    BTreeMap<String, BTreeMap<Identifier, Vec<i32>>>,
+);
 
 fn vanilla_view(name: &str) -> VanillaView {
     let mut registries = Vec::new();
     let mut tags = BTreeMap::new();
     for p in read_packets(name) {
         match p {
-            ClientboundConfigurationPacket::RegistryData(r) => registries.push((r.registry.to_string(), r.entries.into_iter().map(|e| (e.id, e.data)).collect())),
+            ClientboundConfigurationPacket::RegistryData(r) => registries.push((
+                r.registry.to_string(),
+                r.entries.into_iter().map(|e| (e.id, e.data)).collect(),
+            )),
             ClientboundConfigurationPacket::UpdateTags(t) => {
                 for (reg, payload) in t.tags {
-                    tags.insert(reg.to_string(), payload.tags.into_iter().collect::<BTreeMap<_, _>>());
+                    tags.insert(
+                        reg.to_string(),
+                        payload.tags.into_iter().collect::<BTreeMap<_, _>>(),
+                    );
                 }
             }
             _ => {}
@@ -63,25 +76,44 @@ fn compare_scenario(name: &str, setup: impl FnOnce(&Path)) -> Vec<String> {
     let dir = tempfile::tempdir().unwrap();
     let world = dir.path().join("world");
     setup(&world);
-    let (_, stem) = common::load_world(&world, WorldDataConfiguration::DEFAULT, true).expect("loads");
+    let (_, stem) =
+        common::load_world(&world, WorldDataConfiguration::DEFAULT, true).expect("loads");
     let ours = common::take_logs();
     let (vanilla_registries, vanilla_tags) = vanilla_view(name);
 
     // registry_data: same registries in the same order, same entries with the same ids
     let access = stem.registries.composite_access();
     let packed = pack_registries(access, &HashSet::new());
-    assert_eq!(packed.iter().map(|p| &p.0).collect::<Vec<_>>(), vanilla_registries.iter().map(|p| &p.0).collect::<Vec<_>>(), "registry order");
-    let typed = [keys::DIMENSION_TYPE, keys::BIOME, keys::DAMAGE_TYPE, keys::CHAT_TYPE, keys::ENCHANTMENT];
+    assert_eq!(
+        packed.iter().map(|p| &p.0).collect::<Vec<_>>(),
+        vanilla_registries.iter().map(|p| &p.0).collect::<Vec<_>>(),
+        "registry order"
+    );
+    let typed = [
+        keys::DIMENSION_TYPE,
+        keys::BIOME,
+        keys::DAMAGE_TYPE,
+        keys::CHAT_TYPE,
+        keys::ENCHANTMENT,
+    ];
     let mut approx: Vec<String> = Vec::new();
     for ((key, entries), (vkey, ventries)) in packed.iter().zip(&vanilla_registries) {
         assert_eq!(key, vkey);
-        assert_eq!(entries.iter().map(|e| &e.id).collect::<Vec<_>>(), ventries.iter().map(|e| &e.0).collect::<Vec<_>>(), "{key}: entry names/ids");
+        assert_eq!(
+            entries.iter().map(|e| &e.id).collect::<Vec<_>>(),
+            ventries.iter().map(|e| &e.0).collect::<Vec<_>>(),
+            "{key}: entry names/ids"
+        );
         for (e, (id, vdata)) in entries.iter().zip(ventries) {
             if e.data == *vdata {
                 continue;
             }
             if typed.contains(&key.as_str()) {
-                panic!("{key} {id}: network NBT differs at {}\nours:    {:?}\nvanilla: {vdata:?}", first_diff(e.data.as_ref(), vdata.as_ref(), ""), e.data);
+                panic!(
+                    "{key} {id}: network NBT differs at {}\nours:    {:?}\nvanilla: {vdata:?}",
+                    first_diff(e.data.as_ref(), vdata.as_ref(), ""),
+                    e.data
+                );
             }
             if std::env::var("DUMP_DIFFS").is_ok_and(|v| key.contains(&v)) {
                 eprintln!("{key} {id}\n ours:    {:?}\n vanilla: {vdata:?}", e.data);
@@ -91,16 +123,34 @@ fn compare_scenario(name: &str, setup: impl FnOnce(&Path)) -> Vec<String> {
     }
     let mut per_registry: BTreeMap<&str, usize> = BTreeMap::new();
     for a in &approx {
-        *per_registry.entry(a.split(' ').next().unwrap()).or_default() += 1;
+        *per_registry
+            .entry(a.split(' ').next().unwrap())
+            .or_default() += 1;
     }
-    eprintln!("[{name}] untyped registry entries whose NBT differs from vanilla's codec output: {} {per_registry:?}", approx.len());
+    eprintln!(
+        "[{name}] untyped registry entries whose NBT differs from vanilla's codec output: {} {per_registry:?}",
+        approx.len()
+    );
 
     // update_tags: every tag of every registry vanilla sent, same ids in the same order
-    let ours_tags: BTreeMap<String, BTreeMap<Identifier, Vec<i32>>> = serialize_tags_to_network(&stem.registries)
-        .into_iter()
-        .map(|(k, p)| (k, p.tags.into_iter().map(|(t, ids)| (t, ids.into_iter().map(|i| i as i32).collect())).collect()))
-        .collect();
-    assert_eq!(ours_tags.keys().collect::<Vec<_>>(), vanilla_tags.keys().collect::<Vec<_>>(), "registries with tags");
+    let ours_tags: BTreeMap<String, BTreeMap<Identifier, Vec<i32>>> =
+        serialize_tags_to_network(&stem.registries)
+            .into_iter()
+            .map(|(k, p)| {
+                (
+                    k,
+                    p.tags
+                        .into_iter()
+                        .map(|(t, ids)| (t, ids.into_iter().map(|i| i as i32).collect()))
+                        .collect(),
+                )
+            })
+            .collect();
+    assert_eq!(
+        ours_tags.keys().collect::<Vec<_>>(),
+        vanilla_tags.keys().collect::<Vec<_>>(),
+        "registries with tags"
+    );
     for (k, v) in &vanilla_tags {
         assert_eq!(&ours_tags[k], v, "tags of {k}");
     }
@@ -128,7 +178,11 @@ fn default_world_matches_vanilla() {
     compare_scenario("default", |_| {});
     // vanilla only logs the pack selection when something is found; a default world is quiet
     let v = vanilla_messages(&read_log("default"));
-    assert!(!v.iter().any(|m| m.contains("data pack") || m.contains("Registry loading")), "{v:?}");
+    assert!(
+        !v.iter()
+            .any(|m| m.contains("data pack") || m.contains("Registry loading")),
+        "{v:?}"
+    );
 }
 
 #[test]
@@ -138,10 +192,22 @@ fn custom_packs_world_matches_vanilla() {
         world_path = w.display().to_string();
         common::test_packs::write_custom_packs(w);
     });
-    let ours: Vec<String> = ours.iter().map(|l| normalize(l.lines().next().unwrap(), &world_path)).collect();
-    let ours: Vec<String> = ours.iter().map(|l| l.replace("world/datapacks", "./world/datapacks").replace("././", "./")).collect();
+    let ours: Vec<String> = ours
+        .iter()
+        .map(|l| normalize(l.lines().next().unwrap(), &world_path))
+        .collect();
+    let ours: Vec<String> = ours
+        .iter()
+        .map(|l| {
+            l.replace("world/datapacks", "./world/datapacks")
+                .replace("././", "./")
+        })
+        .collect();
     let wanted = |m: &String| m.contains("pack") || m.contains("Registry loading");
-    let vanilla: Vec<String> = vanilla_messages(&read_log("custom")).into_iter().filter(wanted).collect();
+    let vanilla: Vec<String> = vanilla_messages(&read_log("custom"))
+        .into_iter()
+        .filter(wanted)
+        .collect();
     assert_eq!(ours.into_iter().filter(wanted).collect::<Vec<_>>(), vanilla);
 }
 
@@ -157,7 +223,9 @@ fn broken_pack_fails_like_vanilla() {
         Ok(_) => panic!("vanilla refuses this world, so must we"),
     };
     let _ = common::take_logs();
-    let mc_game::server::world_loader::WorldLoadError::Registries(failure) = err else { panic!("{err}") };
+    let mc_game::server::world_loader::WorldLoadError::Registries(failure) = err else {
+        panic!("{err}")
+    };
 
     // what vanilla reported: (registry, element, "Caused by" lines)
     let log = read_log("broken");
@@ -171,7 +239,11 @@ fn broken_pack_fails_like_vanilla() {
             if let Some(r) = line.strip_prefix("> Errors in registry ") {
                 registry = r.trim_end_matches(':').to_owned();
             } else if let Some(e) = line.strip_prefix(">> Errors in element ") {
-                expected.push((registry.clone(), e.trim_end_matches(':').to_owned(), Vec::new()));
+                expected.push((
+                    registry.clone(),
+                    e.trim_end_matches(':').to_owned(),
+                    Vec::new(),
+                ));
             } else if let Some(c) = line.strip_prefix("Caused by: ") {
                 expected.last_mut().unwrap().2.push(c.to_owned());
             } else if line.starts_with('[') {
@@ -183,12 +255,24 @@ fn broken_pack_fails_like_vanilla() {
     let ours: Vec<(String, String, Vec<String>)> = failure
         .errors
         .iter()
-        .map(|((r, id), e)| (r.clone(), id.to_string(), e.cause.iter().map(|(c, m)| format!("{c}: {m}")).collect()))
+        .map(|((r, id), e)| {
+            (
+                r.clone(),
+                id.to_string(),
+                e.cause.iter().map(|(c, m)| format!("{c}: {m}")).collect(),
+            )
+        })
         .collect();
-    assert_eq!(ours.iter().map(|e| (&e.0, &e.1)).collect::<Vec<_>>(), expected.iter().map(|e| (&e.0, &e.1)).collect::<Vec<_>>());
+    assert_eq!(
+        ours.iter().map(|e| (&e.0, &e.1)).collect::<Vec<_>>(),
+        expected.iter().map(|e| (&e.0, &e.1)).collect::<Vec<_>>()
+    );
     for (o, v) in ours.iter().zip(&expected) {
         if o.1.ends_with("bad_syntax") {
-            assert!(o.2[0].starts_with("com.google.gson.JsonSyntaxException: ") && v.2[0].starts_with("com.google.gson.JsonSyntaxException: "));
+            assert!(
+                o.2[0].starts_with("com.google.gson.JsonSyntaxException: ")
+                    && v.2[0].starts_with("com.google.gson.JsonSyntaxException: ")
+            );
         } else {
             assert_eq!(o.2[0], v.2[0], "{}", o.1);
         }
@@ -205,7 +289,9 @@ fn first_diff(a: Option<&Tag>, b: Option<&Tag>, path: &str) -> String {
             for (k, v) in x.iter() {
                 match y.get(k) {
                     None => return format!("{path}/{k} (only ours)"),
-                    Some(w) if w != v => return first_diff(Some(v), Some(w), &format!("{path}/{k}")),
+                    Some(w) if w != v => {
+                        return first_diff(Some(v), Some(w), &format!("{path}/{k}"));
+                    }
                     _ => {}
                 }
             }

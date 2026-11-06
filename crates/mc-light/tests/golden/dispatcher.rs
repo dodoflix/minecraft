@@ -17,7 +17,9 @@ use std::collections::HashMap;
 use std::path::Path;
 
 fn fnv(bytes: &[u8]) -> u64 {
-    bytes.iter().fold(0xcbf29ce484222325u64, |h, &b| (h ^ u64::from(b)).wrapping_mul(0x100000001b3))
+    bytes.iter().fold(0xcbf29ce484222325u64, |h, &b| {
+        (h ^ u64::from(b)).wrapping_mul(0x100000001b3)
+    })
 }
 
 struct Scenario {
@@ -43,7 +45,10 @@ impl Scenario {
         for cz in 0..n {
             for cx in 0..n {
                 let pos = ChunkPos::new(cx, cz);
-                getter.insert(pos, ProtoChunk::new(pos, UpgradeData::empty(), height, factory, None));
+                getter.insert(
+                    pos,
+                    ProtoChunk::new(pos, UpgradeData::empty(), height, factory, None),
+                );
             }
         }
         Scenario {
@@ -60,15 +65,29 @@ impl Scenario {
     }
 
     fn apply_section(&mut self, f: &[&str]) {
-        let (cx, sy, cz): (i32, i32, i32) = (f[1].parse().unwrap(), f[2].parse().unwrap(), f[3].parse().unwrap());
-        let chunk = self.getter.chunks.get_mut(&ChunkPos::pack_xz(cx, cz)).unwrap();
-        let section = &mut chunk.access.sections[self.height.section_index_from_section_y(sy) as usize];
+        let (cx, sy, cz): (i32, i32, i32) = (
+            f[1].parse().unwrap(),
+            f[2].parse().unwrap(),
+            f[3].parse().unwrap(),
+        );
+        let chunk = self
+            .getter
+            .chunks
+            .get_mut(&ChunkPos::pack_xz(cx, cz))
+            .unwrap();
+        let section =
+            &mut chunk.access.sections[self.height.section_index_from_section_y(sy) as usize];
         let mut i = 0;
         for run in f[4].split(',') {
             let (count, id) = run.split_once(':').unwrap();
             let state = BlockState::from_id(id.parse().unwrap()).unwrap();
             for _ in 0..count.parse::<usize>().unwrap() {
-                section.set_block_state((i & 15) as i32, (i >> 8) as i32, ((i >> 4) & 15) as i32, state);
+                section.set_block_state(
+                    (i & 15) as i32,
+                    (i >> 8) as i32,
+                    ((i >> 4) & 15) as i32,
+                    state,
+                );
                 i += 1;
             }
         }
@@ -124,7 +143,9 @@ impl Scenario {
             }
         }
         let mut packet = Vec::new();
-        engine.light_update_packet_data(pos, None, None).write(&mut packet);
+        engine
+            .light_update_packet_data(pos, None, None)
+            .write(&mut packet);
         (fnv(&all), fnv(&packet))
     }
 }
@@ -154,7 +175,9 @@ fn light_task_order_matches_vanilla_dispatcher() {
             ended = true;
             continue;
         }
-        let Some(s) = scen.as_mut() else { panic!("no scenario at {}", ctx()) };
+        let Some(s) = scen.as_mut() else {
+            panic!("no scenario at {}", ctx())
+        };
         match f[0] {
             "SEC" => s.apply_section(&f),
             "INIT" => s.init(),
@@ -164,13 +187,18 @@ fn light_task_order_matches_vanilla_dispatcher() {
             }
             "INITLIGHT" => {
                 let lighted: bool = f[3].parse().unwrap();
-                s.engine.initialize_light(&s.getter.chunks[&pos().pack()].access, lighted);
+                s.engine
+                    .initialize_light(&s.getter.chunks[&pos().pack()].access, lighted);
             }
             "LIGHTCHUNK" => s.engine.light_chunk(pos(), f[3].parse().unwrap()),
             "SET" => {
                 let (x, y, z) = (int(1), int(2), int(3));
                 let state = BlockState::from_id(int(4) as u16 as _).unwrap();
-                let chunk = s.getter.chunks.get_mut(&ChunkPos::pack_xz(x >> 4, z >> 4)).unwrap();
+                let chunk = s
+                    .getter
+                    .chunks
+                    .get_mut(&ChunkPos::pack_xz(x >> 4, z >> 4))
+                    .unwrap();
                 chunk.set_block_state(BlockPos::new(x, y, z), state, Some(&mut s.engine));
             }
             "BARRIER" => {
@@ -182,7 +210,10 @@ fn light_task_order_matches_vanilla_dispatcher() {
             "PROP" => s.engine.propagate_light_sources(pos()),
             "ENABLE" => s.engine.set_light_enabled(pos(), f[3].parse().unwrap()),
             "RETAIN" => s.engine.retain_data(pos(), f[3].parse().unwrap()),
-            "SECT" => s.engine.update_section_status(SectionPos::of(int(1), int(2), int(3)), f[4].parse().unwrap()),
+            "SECT" => s.engine.update_section_status(
+                SectionPos::of(int(1), int(2), int(3)),
+                f[4].parse().unwrap(),
+            ),
             "STATUS" => s.engine.update_chunk_status(pos()),
             "PUMP" => {
                 pumps += 1;
@@ -197,9 +228,19 @@ fn light_task_order_matches_vanilla_dispatcher() {
             }
             "DONE" => {
                 checks += 1;
-                let expected_done: Vec<String> = f[1..].iter().filter(|t| !t.is_empty()).map(|t| t.to_string()).collect();
+                let expected_done: Vec<String> = f[1..]
+                    .iter()
+                    .filter(|t| !t.is_empty())
+                    .map(|t| t.to_string())
+                    .collect();
                 if s.done != expected_done {
-                    fail.push(format!("[{}] {}: completion order {:?} != {:?}", s.name, ctx(), s.done, expected_done));
+                    fail.push(format!(
+                        "[{}] {}: completion order {:?} != {:?}",
+                        s.name,
+                        ctx(),
+                        s.done,
+                        expected_done
+                    ));
                 }
             }
             "UPD" => {
@@ -208,7 +249,11 @@ fn light_task_order_matches_vanilla_dispatcher() {
                 let got = (s.updates.len(), fnv(&bytes));
                 let want = (int(1) as usize, u64::from_str_radix(f[2], 16).unwrap());
                 if got != want {
-                    fail.push(format!("[{}] {}: onLightUpdate sections {got:x?} != {want:x?}", s.name, ctx()));
+                    fail.push(format!(
+                        "[{}] {}: onLightUpdate sections {got:x?} != {want:x?}",
+                        s.name,
+                        ctx()
+                    ));
                 }
             }
             "CH" => {
@@ -216,7 +261,13 @@ fn light_task_order_matches_vanilla_dispatcher() {
                 let (layers, packet) = s.chunk_hashes(pos());
                 let got = format!("{layers:x} {packet:x}");
                 if got != format!("{} {}", f[3], f[4]) {
-                    fail.push(format!("[{}] {}: light layers/packet {got} != {} {}", s.name, ctx(), f[3], f[4]));
+                    fail.push(format!(
+                        "[{}] {}: light layers/packet {got} != {} {}",
+                        s.name,
+                        ctx(),
+                        f[3],
+                        f[4]
+                    ));
                 }
             }
             _ => panic!("bad line {}", ctx()),

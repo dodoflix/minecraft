@@ -6,11 +6,15 @@ use mc_core::math::mth;
 use mc_core::phys::Vec3;
 use mc_core::random::RandomSource;
 use mc_data::{Attribute, EntityType, GameEvent, MobEffect, SoundEvent};
-use mc_protocol::packets::play::{ClientboundDamageEventPacket, ClientboundEntityEventPacket, SoundSource};
+use mc_protocol::packets::play::{
+    ClientboundDamageEventPacket, ClientboundEntityEventPacket, SoundSource,
+};
 
 use crate::server::level::ServerLevel;
 use crate::world::damagesource::combat_rules;
-use crate::world::damagesource::{DamageSource, DamageTypeTags, DamageTypes, HurtKnockbackDirection};
+use crate::world::damagesource::{
+    DamageSource, DamageTypeTags, DamageTypes, HurtKnockbackDirection,
+};
 use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::{Entity, EntityId};
 use crate::world::item::enchantment::actors::Actors;
@@ -21,8 +25,14 @@ const STAT_DAMAGE_LIMIT: f32 = 3.4028235E37;
 
 /// `Level.broadcastEntityEvent(entity, event)`: to the tracking players and the entity itself.
 pub fn broadcast_entity_event(level: &mut ServerLevel, id: EntityId, event_id: i8) {
-    let packet = ClientboundEntityEventPacket { entity_id: id, event_id };
-    level.entity_tracker.send_to_tracking_players_and_self(id, &crate::server::level::level_events::encode_packet(&packet));
+    let packet = ClientboundEntityEventPacket {
+        entity_id: id,
+        event_id,
+    };
+    level.entity_tracker.send_to_tracking_players_and_self(
+        id,
+        &crate::server::level::level_events::encode_packet(&packet),
+    );
 }
 
 /// `ServerLevel.broadcastDamageEvent(entity, source)`.
@@ -39,16 +49,27 @@ fn broadcast_damage_event(level: &mut ServerLevel, entity_id: EntityId, source: 
         source_direct_id: source.direct_entity.unwrap_or(-1),
         source_position: source.source_position_raw(),
     };
-    level.entity_tracker.send_to_tracking_players_and_self(entity_id, &crate::server::level::level_events::encode_packet(&packet));
+    level.entity_tracker.send_to_tracking_players_and_self(
+        entity_id,
+        &crate::server::level::level_events::encode_packet(&packet),
+    );
 }
 
 /// `ServerPlayer` view of an entity (stats, connection) for the parts vanilla guards with `instanceof ServerPlayer`.
-pub fn as_server_player(entity: &mut dyn Entity) -> Option<&mut crate::world::entity::ServerPlayer> {
-    entity.as_any_mut().downcast_mut::<crate::world::entity::ServerPlayer>()
+pub fn as_server_player(
+    entity: &mut dyn Entity,
+) -> Option<&mut crate::world::entity::ServerPlayer> {
+    entity
+        .as_any_mut()
+        .downcast_mut::<crate::world::entity::ServerPlayer>()
 }
 
 /// `LivingEntity.isInvulnerableTo(level, source)`.
-pub fn is_invulnerable_to(entity: &mut dyn Entity, level: &mut ServerLevel, source: &DamageSource) -> bool {
+pub fn is_invulnerable_to(
+    entity: &mut dyn Entity,
+    level: &mut ServerLevel,
+    source: &DamageSource,
+) -> bool {
     if entity.is_invulnerable_to_base(level, source) {
         return true;
     }
@@ -62,7 +83,12 @@ pub fn is_invulnerable_to(entity: &mut dyn Entity, level: &mut ServerLevel, sour
 }
 
 /// `LivingEntity.hurtServer(level, source, damage)`.
-pub fn hurt_server(entity: &mut dyn Entity, level: &mut ServerLevel, source: &DamageSource, mut damage: f32) -> bool {
+pub fn hurt_server(
+    entity: &mut dyn Entity,
+    level: &mut ServerLevel,
+    source: &DamageSource,
+    mut damage: f32,
+) -> bool {
     if entity.living().is_none() {
         return false;
     }
@@ -72,7 +98,11 @@ pub fn hurt_server(entity: &mut dyn Entity, level: &mut ServerLevel, source: &Da
     if entity.is_dead_or_dying() {
         return false;
     }
-    if source.is_tag(level, DamageTypeTags::IS_FIRE) && entity.living().is_some_and(|l| l.active_effects.contains_key(&MobEffect::FIRE_RESISTANCE)) {
+    if source.is_tag(level, DamageTypeTags::IS_FIRE)
+        && entity
+            .living()
+            .is_some_and(|l| l.active_effects.contains_key(&MobEffect::FIRE_RESISTANCE))
+    {
         return false;
     }
     if entity.is_sleeping() {
@@ -87,10 +117,15 @@ pub fn hurt_server(entity: &mut dyn Entity, level: &mut ServerLevel, source: &Da
     let damage_blocked = super::blocking::apply_item_blocking(entity, level, source, damage);
     damage -= damage_blocked;
     let blocked = damage_blocked > 0.0;
-    if source.is_tag(level, DamageTypeTags::IS_FREEZING) && mc_data::tags::get::<EntityType>("freeze_hurts_extra_types").is_some_and(|t| t.contains(entity.get_type())) {
+    if source.is_tag(level, DamageTypeTags::IS_FREEZING)
+        && mc_data::tags::get::<EntityType>("freeze_hurts_extra_types")
+            .is_some_and(|t| t.contains(entity.get_type()))
+    {
         damage *= 5.0;
     }
-    if source.is_tag(level, DamageTypeTags::DAMAGES_HELMET) && !entity.get_item_by_slot(EquipmentSlot::Head).is_empty() {
+    if source.is_tag(level, DamageTypeTags::DAMAGES_HELMET)
+        && !entity.get_item_by_slot(EquipmentSlot::Head).is_empty()
+    {
         entity.hurt_helmet(level, source, damage);
         damage *= 0.75;
     }
@@ -101,7 +136,9 @@ pub fn hurt_server(entity: &mut dyn Entity, level: &mut ServerLevel, source: &Da
     let mut took_full_damage = true;
     {
         let l = entity.living().expect("living");
-        if l.damage_cooldown_time as f32 > 10.0 && !source.is_tag(level, DamageTypeTags::BYPASSES_COOLDOWN) {
+        if l.damage_cooldown_time as f32 > 10.0
+            && !source.is_tag(level, DamageTypeTags::BYPASSES_COOLDOWN)
+        {
             let last_hurt = l.last_hurt;
             if damage <= last_hurt {
                 return false;
@@ -123,7 +160,9 @@ pub fn hurt_server(entity: &mut dyn Entity, level: &mut ServerLevel, source: &Da
     // [Villagers] the subclass part of `setLastHurtByMob(livingSource)` (reputation event), before the field is set
     if let Some(causing) = source.causing_info().filter(|c| c.is_living) {
         let no_anger = source.is_tag(level, DamageTypeTags::NO_ANGER)
-            || (source.is(DamageTypes::WIND_CHARGE) && mc_data::tags::get::<EntityType>("no_anger_from_wind_charge").is_some_and(|t| t.contains(entity.get_type())));
+            || (source.is(DamageTypes::WIND_CHARGE)
+                && mc_data::tags::get::<EntityType>("no_anger_from_wind_charge")
+                    .is_some_and(|t| t.contains(entity.get_type())));
         if !no_anger {
             entity.on_set_last_hurt_by_mob(level, causing.uuid, causing.is_player);
         }
@@ -131,7 +170,8 @@ pub fn hurt_server(entity: &mut dyn Entity, level: &mut ServerLevel, source: &Da
     resolve_mob_responsible_for_damage(entity, level, source);
     resolve_player_responsible_for_damage(entity, source);
     if took_full_damage {
-        let blocks_attacks = item_in_use.get(&mc_protocol::components::values::combat::BLOCKS_ATTACKS);
+        let blocks_attacks =
+            item_in_use.get(&mc_protocol::components::values::combat::BLOCKS_ATTACKS);
         match blocks_attacks {
             Some(ba) if blocked => super::blocking::on_blocked(level, entity, ba),
             _ => broadcast_damage_event(level, entity.id(), source),
@@ -173,16 +213,27 @@ pub fn hurt_server(entity: &mut dyn Entity, level: &mut ServerLevel, source: &Da
     }
 
     if let Some(player) = as_server_player(entity) {
-        crate::advancements::triggers::CriteriaTriggers::ENTITY_HURT_PLAYER.trigger(level, player, source, damage, damage, blocked);
+        crate::advancements::triggers::CriteriaTriggers::ENTITY_HURT_PLAYER
+            .trigger(level, player, source, damage, damage, blocked);
         if damage_blocked > 0.0 && damage_blocked < STAT_DAMAGE_LIMIT {
-            player.award_stat(level, crate::stats::stats::Stats::DAMAGE_BLOCKED_BY_SHIELD, mc_core::math::java::round_f32(damage_blocked * 10.0));
+            player.award_stat(
+                level,
+                crate::stats::stats::Stats::DAMAGE_BLOCKED_BY_SHIELD,
+                mc_core::math::java::round_f32(damage_blocked * 10.0),
+            );
         }
     }
     if let Some(source_player) = source.get_entity().filter(|_| source.causing_is_player()) {
         let source = source.clone();
-        crate::advancements::triggers::fire_with_entity(level, source_player, &*entity, move |level, player, victim| {
-            crate::advancements::triggers::CriteriaTriggers::PLAYER_HURT_ENTITY.matches(level, player, victim, &source, damage, damage, blocked)
-        });
+        crate::advancements::triggers::fire_with_entity(
+            level,
+            source_player,
+            &*entity,
+            move |level, player, victim| {
+                crate::advancements::triggers::CriteriaTriggers::PLAYER_HURT_ENTITY
+                    .matches(level, player, victim, &source, damage, damage, blocked)
+            },
+        );
     }
     success
 }
@@ -193,7 +244,13 @@ fn stop_sleeping(entity: &mut dyn Entity, level: &mut ServerLevel) {
 }
 
 /// `LivingEntity.dealDefaultKnockback(source, damage, blocked)`.
-pub fn deal_default_knockback(entity: &mut dyn Entity, level: &mut ServerLevel, source: &DamageSource, damage: f32, blocked: bool) {
+pub fn deal_default_knockback(
+    entity: &mut dyn Entity,
+    level: &mut ServerLevel,
+    source: &DamageSource,
+    damage: f32,
+    blocked: bool,
+) {
     let mut xd = 0.0;
     let mut zd = 0.0;
     let direct = source.direct_info();
@@ -201,7 +258,10 @@ pub fn deal_default_knockback(entity: &mut dyn Entity, level: &mut ServerLevel, 
         let (projectile, kind) = dir;
         let (dx, dz) = match kind {
             HurtKnockbackDirection::DeltaMovement { x, z } => (x, z),
-            HurtKnockbackDirection::AwayFromProjectile => (entity.position().x - projectile.position.x, entity.position().z - projectile.position.z),
+            HurtKnockbackDirection::AwayFromProjectile => (
+                entity.position().x - projectile.position.x,
+                entity.position().z - projectile.position.z,
+            ),
         };
         xd = -dx;
         zd = -dz;
@@ -216,8 +276,19 @@ pub fn deal_default_knockback(entity: &mut dyn Entity, level: &mut ServerLevel, 
 }
 
 /// `LivingEntity.knockback(power, xd, zd, source, damage, comesFromEffect)`.
-pub fn knockback(entity: &mut dyn Entity, mut power: f64, mut xd: f64, mut zd: f64, _source: &DamageSource, _damage: f32, _comes_from_effect: bool) {
-    let resistance = entity.living().expect("living").get_attribute_value(Attribute::KNOCKBACK_RESISTANCE);
+pub fn knockback(
+    entity: &mut dyn Entity,
+    mut power: f64,
+    mut xd: f64,
+    mut zd: f64,
+    _source: &DamageSource,
+    _damage: f32,
+    _comes_from_effect: bool,
+) {
+    let resistance = entity
+        .living()
+        .expect("living")
+        .get_attribute_value(Attribute::KNOCKBACK_RESISTANCE);
     power *= 1.0 - resistance;
     if !(power <= 0.0) {
         entity.base_mut().needs_sync = true;
@@ -228,18 +299,34 @@ pub fn knockback(entity: &mut dyn Entity, mut power: f64, mut xd: f64, mut zd: f
             zd = (random.next_double() - random.next_double()) * 0.01;
         }
         let delta_vector = Vec3::new(xd, 0.0, zd).normalize().scale(power);
-        let y = if entity.base().on_ground() { (0.4f64).min(delta_movement.y / 2.0 + power) } else { delta_movement.y };
-        entity.base_mut().set_delta_movement_xyz(delta_movement.x / 2.0 - delta_vector.x, y, delta_movement.z / 2.0 - delta_vector.z);
+        let y = if entity.base().on_ground() {
+            (0.4f64).min(delta_movement.y / 2.0 + power)
+        } else {
+            delta_movement.y
+        };
+        entity.base_mut().set_delta_movement_xyz(
+            delta_movement.x / 2.0 - delta_vector.x,
+            y,
+            delta_movement.z / 2.0 - delta_vector.z,
+        );
     }
 }
 
 /// `LivingEntity.resolveMobResponsibleForDamage(source)`.
-pub fn resolve_mob_responsible_for_damage(entity: &mut dyn Entity, level: &ServerLevel, source: &DamageSource) {
-    let Some(causing) = source.causing_info().filter(|c| c.is_living) else { return };
+pub fn resolve_mob_responsible_for_damage(
+    entity: &mut dyn Entity,
+    level: &ServerLevel,
+    source: &DamageSource,
+) {
+    let Some(causing) = source.causing_info().filter(|c| c.is_living) else {
+        return;
+    };
     if source.is_tag(level, DamageTypeTags::NO_ANGER) {
         return;
     }
-    let from_wind_charge = source.is(DamageTypes::WIND_CHARGE) && mc_data::tags::get::<EntityType>("no_anger_from_wind_charge").is_some_and(|t| t.contains(entity.get_type()));
+    let from_wind_charge = source.is(DamageTypes::WIND_CHARGE)
+        && mc_data::tags::get::<EntityType>("no_anger_from_wind_charge")
+            .is_some_and(|t| t.contains(entity.get_type()));
     if from_wind_charge {
         return;
     }
@@ -252,7 +339,9 @@ pub fn resolve_mob_responsible_for_damage(entity: &mut dyn Entity, level: &Serve
 
 /// `LivingEntity.resolvePlayerResponsibleForDamage(source)`.
 pub fn resolve_player_responsible_for_damage(entity: &mut dyn Entity, source: &DamageSource) {
-    let Some(causing) = source.causing_info() else { return };
+    let Some(causing) = source.causing_info() else {
+        return;
+    };
     let l = entity.living_mut().expect("living");
     if causing.is_player {
         l.last_hurt_by_player = Some(causing.uuid);
@@ -272,16 +361,33 @@ pub fn resolve_player_responsible_for_damage(entity: &mut dyn Entity, source: &D
 }
 
 /// `LivingEntity.checkTotemDeathProtection(killingDamage)`.
-fn check_totem_death_protection(entity: &mut dyn Entity, level: &mut ServerLevel, killing_damage: &DamageSource) -> bool {
+fn check_totem_death_protection(
+    entity: &mut dyn Entity,
+    level: &mut ServerLevel,
+    killing_damage: &DamageSource,
+) -> bool {
     super::totem::check_totem_death_protection(entity, level, killing_damage)
 }
 
 /// `LivingEntity.playSecondaryHurtSound(source)`.
 fn play_secondary_hurt_sound(entity: &dyn Entity, level: &mut ServerLevel, source: &DamageSource) {
     if source.is(DamageTypes::THORNS) {
-        let sound_source = if entity.is_player() { SoundSource::Players } else { SoundSource::Hostile };
+        let sound_source = if entity.is_player() {
+            SoundSource::Players
+        } else {
+            SoundSource::Hostile
+        };
         let p = entity.position();
-        level.play_sound_at(None, p.x, p.y, p.z, SoundEvent::ENCHANT_THORNS_HIT, sound_source, 1.0, 1.0);
+        level.play_sound_at(
+            None,
+            p.x,
+            p.y,
+            p.z,
+            SoundEvent::ENCHANT_THORNS_HIT,
+            sound_source,
+            1.0,
+            1.0,
+        );
     }
 }
 
@@ -304,22 +410,41 @@ pub fn make_sound(entity: &mut dyn Entity, level: &mut ServerLevel, sound: Sound
 }
 
 /// `LivingEntity.getDamageAfterArmorAbsorb(source, damage)`.
-pub fn get_damage_after_armor_absorb(entity: &mut dyn Entity, level: &mut ServerLevel, source: &DamageSource, mut damage: f32) -> f32 {
+pub fn get_damage_after_armor_absorb(
+    entity: &mut dyn Entity,
+    level: &mut ServerLevel,
+    source: &DamageSource,
+    mut damage: f32,
+) -> f32 {
     if !source.is_tag(level, DamageTypeTags::BYPASSES_ARMOR) {
         entity.hurt_armor(level, source, damage);
-        let toughness = entity.living().expect("living").get_attribute_value(Attribute::ARMOR_TOUGHNESS) as f32;
+        let toughness = entity
+            .living()
+            .expect("living")
+            .get_attribute_value(Attribute::ARMOR_TOUGHNESS) as f32;
         let armor = entity.get_armor_value() as f32;
-        damage = combat_rules::get_damage_after_absorb(level, entity, damage, source, armor, toughness);
+        damage =
+            combat_rules::get_damage_after_absorb(level, entity, damage, source, armor, toughness);
     }
     damage
 }
 
 /// `LivingEntity.getDamageAfterMagicAbsorb(source, damage)`.
-pub fn get_damage_after_magic_absorb(entity: &mut dyn Entity, level: &mut ServerLevel, source: &DamageSource, mut damage: f32) -> f32 {
+pub fn get_damage_after_magic_absorb(
+    entity: &mut dyn Entity,
+    level: &mut ServerLevel,
+    source: &DamageSource,
+    mut damage: f32,
+) -> f32 {
     if source.is_tag(level, DamageTypeTags::BYPASSES_EFFECTS) {
         return damage;
     }
-    let resistance = entity.living().expect("living").active_effects.get(&MobEffect::RESISTANCE).map(|e| e.amplifier);
+    let resistance = entity
+        .living()
+        .expect("living")
+        .active_effects
+        .get(&MobEffect::RESISTANCE)
+        .map(|e| e.amplifier);
     if let Some(amplifier) = resistance {
         if !source.is_tag(level, DamageTypeTags::BYPASSES_RESISTANCE) {
             let absorb_value = (amplifier + 1) * 5;
@@ -330,12 +455,23 @@ pub fn get_damage_after_magic_absorb(entity: &mut dyn Entity, level: &mut Server
             let damage_resisted = old_damage - damage;
             if damage_resisted > 0.0 && damage_resisted < STAT_DAMAGE_LIMIT {
                 if let Some(player) = as_server_player(entity) {
-                    player.award_stat(level, crate::stats::stats::Stats::DAMAGE_RESISTED, mc_core::math::java::round_f32(damage_resisted * 10.0));
+                    player.award_stat(
+                        level,
+                        crate::stats::stats::Stats::DAMAGE_RESISTED,
+                        mc_core::math::java::round_f32(damage_resisted * 10.0),
+                    );
                 } else if source.causing_is_player() {
                     let causing = source.causing_entity.expect("causing");
                     level.with_entity_or_defer(causing, move |level, e| {
-                        if let Some(p) = e.as_any_mut().downcast_mut::<crate::world::entity::ServerPlayer>() {
-                            p.award_stat(level, crate::stats::stats::Stats::DAMAGE_DEALT_RESISTED, mc_core::math::java::round_f32(damage_resisted * 10.0));
+                        if let Some(p) = e
+                            .as_any_mut()
+                            .downcast_mut::<crate::world::entity::ServerPlayer>()
+                        {
+                            p.award_stat(
+                                level,
+                                crate::stats::stats::Stats::DAMAGE_DEALT_RESISTED,
+                                mc_core::math::java::round_f32(damage_resisted * 10.0),
+                            );
                         }
                     });
                 }
@@ -364,7 +500,12 @@ pub fn get_damage_after_magic_absorb(entity: &mut dyn Entity, level: &mut Server
 }
 
 /// `LivingEntity.actuallyHurt(level, source, dmg)`.
-pub fn actually_hurt(entity: &mut dyn Entity, level: &mut ServerLevel, source: &DamageSource, dmg: f32) {
+pub fn actually_hurt(
+    entity: &mut dyn Entity,
+    level: &mut ServerLevel,
+    source: &DamageSource,
+    dmg: f32,
+) {
     if entity.is_invulnerable_to(level, source) {
         return;
     }
@@ -377,15 +518,25 @@ pub fn actually_hurt(entity: &mut dyn Entity, level: &mut ServerLevel, source: &
     if absorbed_damage > 0.0 && absorbed_damage < STAT_DAMAGE_LIMIT && source.causing_is_player() {
         let causing = source.causing_entity.expect("causing");
         level.with_entity_or_defer(causing, move |level, e| {
-            if let Some(p) = e.as_any_mut().downcast_mut::<crate::world::entity::ServerPlayer>() {
-                p.award_stat(level, crate::stats::stats::Stats::DAMAGE_DEALT_ABSORBED, mc_core::math::java::round_f32(absorbed_damage * 10.0));
+            if let Some(p) = e
+                .as_any_mut()
+                .downcast_mut::<crate::world::entity::ServerPlayer>()
+            {
+                p.award_stat(
+                    level,
+                    crate::stats::stats::Stats::DAMAGE_DEALT_ABSORBED,
+                    mc_core::math::java::round_f32(absorbed_damage * 10.0),
+                );
             }
         });
     }
     if var10 != 0.0 {
         super::combat::record_damage(entity, level, source, var10);
         let health = entity.get_health();
-        entity.living_mut().expect("living").set_health(health - var10);
+        entity
+            .living_mut()
+            .expect("living")
+            .set_health(health - var10);
         let absorption = entity.get_absorption_amount();
         entity.set_absorption_amount(absorption - var10);
         entity.game_event(level, GameEvent::ENTITY_DAMAGE);
@@ -393,14 +544,22 @@ pub fn actually_hurt(entity: &mut dyn Entity, level: &mut ServerLevel, source: &
 }
 
 /// `LivingEntity.doHurtEquipment(damageSource, damage, slots...)`.
-pub fn do_hurt_equipment(entity: &mut dyn Entity, level: &mut ServerLevel, source: &DamageSource, damage: f32, slots: &[EquipmentSlot]) {
+pub fn do_hurt_equipment(
+    entity: &mut dyn Entity,
+    level: &mut ServerLevel,
+    source: &DamageSource,
+    damage: f32,
+    slots: &[EquipmentSlot],
+) {
     if damage <= 0.0 {
         return;
     }
     let durability_damage = f32::max(1.0, damage / 4.0) as i32;
     for &slot in slots {
         let stack = entity.get_item_by_slot(slot);
-        let damage_on_hurt = stack.get(&mc_protocol::components::values::combat::EQUIPPABLE).is_some_and(|e| e.damage_on_hurt);
+        let damage_on_hurt = stack
+            .get(&mc_protocol::components::values::combat::EQUIPPABLE)
+            .is_some_and(|e| e.damage_on_hurt);
         if damage_on_hurt && stack.is_damageable_item() && can_be_hurt_by(&stack, level, source) {
             entity.hurt_and_break_equipment(level, slot, durability_damage);
         }
@@ -408,14 +567,32 @@ pub fn do_hurt_equipment(entity: &mut dyn Entity, level: &mut ServerLevel, sourc
 }
 
 /// `ItemStack.canBeHurtBy(source)`: the `damage_resistant` component.
-fn can_be_hurt_by(stack: &crate::world::item::ItemStack, level: &ServerLevel, source: &DamageSource) -> bool {
-    stack.get(&mc_protocol::components::values::combat::DAMAGE_RESISTANT).is_none_or(|r| !source.is_in_holder_set(level, &r.types))
+fn can_be_hurt_by(
+    stack: &crate::world::item::ItemStack,
+    level: &ServerLevel,
+    source: &DamageSource,
+) -> bool {
+    stack
+        .get(&mc_protocol::components::values::combat::DAMAGE_RESISTANT)
+        .is_none_or(|r| !source.is_in_holder_set(level, &r.types))
 }
 
 /// `LivingEntity.causeFallDamage(fallDistance, damageModifier, damageSource)`.
-pub fn cause_fall_damage(entity: &mut dyn Entity, level: &mut ServerLevel, fall_distance: f64, damage_modifier: f32, source: &DamageSource) -> bool {
+pub fn cause_fall_damage(
+    entity: &mut dyn Entity,
+    level: &mut ServerLevel,
+    fall_distance: f64,
+    damage_modifier: f32,
+    source: &DamageSource,
+) -> bool {
     if entity.living().is_none() {
-        return crate::world::entity::entity::cause_fall_damage_base(entity, level, fall_distance, damage_modifier, source);
+        return crate::world::entity::entity::cause_fall_damage_base(
+            entity,
+            level,
+            fall_distance,
+            damage_modifier,
+            source,
+        );
     }
     let effective_fall_distance;
     let impact = entity.living().expect("living").current_impulse_impact_pos;
@@ -431,7 +608,13 @@ pub fn cause_fall_damage(entity: &mut dyn Entity, level: &mut ServerLevel, fall_
         effective_fall_distance = fall_distance;
     }
 
-    let damaged = crate::world::entity::entity::cause_fall_damage_base(entity, level, effective_fall_distance, damage_modifier, source);
+    let damaged = crate::world::entity::entity::cause_fall_damage_base(
+        entity,
+        level,
+        effective_fall_distance,
+        damage_modifier,
+        source,
+    );
     let dmg = entity.calculate_fall_damage(effective_fall_distance, damage_modifier);
     if dmg > 0 {
         reset_current_impulse_context(entity);
@@ -453,12 +636,19 @@ fn fall_damage_sound(entity: &dyn Entity, dmg: i32) -> SoundEvent {
 
 /// `LivingEntity.calculateFallDamage(fallDistance, damageModifier)`.
 pub fn calculate_fall_damage(entity: &dyn Entity, fall_distance: f64, damage_modifier: f32) -> i32 {
-    if mc_data::tags::get::<EntityType>("fall_damage_immune").is_some_and(|t| t.contains(entity.get_type())) {
+    if mc_data::tags::get::<EntityType>("fall_damage_immune")
+        .is_some_and(|t| t.contains(entity.get_type()))
+    {
         return 0;
     }
     let living = entity.living().expect("living");
-    let base_damage = fall_distance + 1.0E-6 - living.get_attribute_value(Attribute::SAFE_FALL_DISTANCE);
-    mth::floor_f64(base_damage * f64::from(damage_modifier) * living.get_attribute_value(Attribute::FALL_DAMAGE_MULTIPLIER))
+    let base_damage =
+        fall_distance + 1.0E-6 - living.get_attribute_value(Attribute::SAFE_FALL_DISTANCE);
+    mth::floor_f64(
+        base_damage
+            * f64::from(damage_modifier)
+            * living.get_attribute_value(Attribute::FALL_DAMAGE_MULTIPLIER),
+    )
 }
 
 /// `LivingEntity.playBlockFallSound()`.
@@ -469,11 +659,20 @@ pub fn play_block_fall_sound(entity: &mut dyn Entity, level: &mut ServerLevel) {
         return;
     }
     let p = entity.position();
-    let pos = mc_core::pos::BlockPos::new(mth::floor_f64(p.x), mth::floor_f64(p.y - f64::from(0.2f32)), mth::floor_f64(p.z));
+    let pos = mc_core::pos::BlockPos::new(
+        mth::floor_f64(p.x),
+        mth::floor_f64(p.y - f64::from(0.2f32)),
+        mth::floor_f64(p.z),
+    );
     let state = level.get_block_state(pos);
     if !state.is_air() {
         let sound_type = state.get_sound_type();
-        entity.play_sound(level, sound_type.fall_sound, sound_type.volume * 0.5, sound_type.pitch * 0.75);
+        entity.play_sound(
+            level,
+            sound_type.fall_sound,
+            sound_type.volume * 0.5,
+            sound_type.pitch * 0.75,
+        );
     }
 }
 
@@ -486,7 +685,12 @@ pub fn reset_current_impulse_context(entity: &mut dyn Entity) {
 
 /// `tryResetCurrentImpulseContext()`.
 fn try_reset_current_impulse_context(entity: &mut dyn Entity) {
-    if entity.living().expect("living").current_impulse_context_reset_grace_time == 0 {
+    if entity
+        .living()
+        .expect("living")
+        .current_impulse_context_reset_grace_time
+        == 0
+    {
         reset_current_impulse_context(entity);
     }
 }

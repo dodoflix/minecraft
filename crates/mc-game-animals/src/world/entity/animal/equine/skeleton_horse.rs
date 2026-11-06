@@ -1,27 +1,31 @@
 //! `SkeletonHorse`: the skeleton trap horse (`SkeletonTrapGoal`), swims on the water surface.
 
-use mc_game_core::world::entity::animal::equine::abstract_horse::{self, AbstractHorse, AbstractHorseData, DATA_ID_FLAGS};
 use super::skeleton_trap_goal::SkeletonTrapGoal;
-use mc_game_core::registry::RegistryAccess;
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::damagesource::DamageSource;
-use mc_game_core::world::difficulty_instance::DifficultyInstance;
-use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
-use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
-use mc_game_core::world::entity::equipment::EquipmentSlot;
-use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
-use mc_game_core::world::entity::mob::{self, MobData, MobKind};
-use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
-use mc_game_core::world::entity::spawn_predicates;
-use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
-use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
-use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::enums::{EntitySpawnReason, Pose};
 use mc_data::{Attribute, EntityType, SoundEvent};
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::animal::equine::abstract_horse::{
+    self, AbstractHorse, AbstractHorseData, DATA_ID_FLAGS,
+};
+use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
+use mc_game_core::world::entity::equipment::EquipmentSlot;
+use mc_game_core::world::entity::factory::{
+    ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest,
+};
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::spawn_predicates;
+use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
+use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_nbt::CompoundTag;
 
 const TRAP_MAX_LIFE: i32 = 18000;
@@ -30,7 +34,8 @@ const TRAP_MAX_LIFE: i32 = 18000;
 fn baby_dimensions() -> EntityDimensions {
     let ty = EntityType::SKELETON_HORSE;
     let base = EntityDimensions::of_type(ty);
-    let attachments = EntityAttachments::create_default(base.width, base.height).with_passenger(Vec3::new(0.0, f64::from(ty.data().height - 0.25), 0.0));
+    let attachments = EntityAttachments::create_default(base.width, base.height)
+        .with_passenger(Vec3::new(0.0, f64::from(ty.data().height - 0.25), 0.0));
     base.with_attachments(attachments).scale(0.7)
 }
 
@@ -48,13 +53,21 @@ impl SkeletonHorse {
         let mob = MobData::new(ty, id, MobKind::Animal, |b| {
             b.define(DATA_ID_FLAGS, 0i8);
         });
-        let mut horse = SkeletonHorse { mob, horse: AbstractHorseData::new(), is_trap: false, trap_time: 0 };
+        let mut horse = SkeletonHorse {
+            mob,
+            horse: AbstractHorseData::new(),
+            is_trap: false,
+            trap_time: 0,
+        };
         let navigation = StandardPathNavigation::ground(&horse);
         horse.mob.set_navigation(Box::new(navigation));
         abstract_horse::register_goals(&mut horse, |_| {});
         horse.create_inventory();
         // `skeletonTrapGoal` (see `SkeletonTrapGoal`): registered while `isTrap`; kept registered and gated by the flag
-        horse.mob.goal_selector.add_goal(1, Box::new(SkeletonTrapGoal));
+        horse
+            .mob
+            .goal_selector
+            .add_goal(1, Box::new(SkeletonTrapGoal));
         horse
     }
 
@@ -87,15 +100,25 @@ impl SkeletonHorse {
 }
 
 /// `SkeletonHorse.checkSkeletonHorseSpawnRules`.
-pub fn check_skeleton_horse_spawn_rules(ty: EntityType, level: &dyn ServerLevelAccessor, reason: EntitySpawnReason, pos: BlockPos, random: &mut dyn RandomSource) -> bool {
+pub fn check_skeleton_horse_spawn_rules(
+    ty: EntityType,
+    level: &dyn ServerLevelAccessor,
+    reason: EntitySpawnReason,
+    pos: BlockPos,
+    random: &mut dyn RandomSource,
+) -> bool {
     if !spawn_predicates::is_spawner(reason) {
         spawn_predicates::check_animal_spawn_rules(ty, level, reason, pos, random)
     } else {
-        spawn_predicates::ignores_light_requirements(reason) || spawn_predicates::is_bright_enough_to_spawn(level, pos)
+        spawn_predicates::ignores_light_requirements(reason)
+            || spawn_predicates::is_bright_enough_to_spawn(level, pos)
     }
 }
 
-mc_game_core::register_spawn_placement!(EntityType::SKELETON_HORSE, check_skeleton_horse_spawn_rules);
+mc_game_core::register_spawn_placement!(
+    EntityType::SKELETON_HORSE,
+    check_skeleton_horse_spawn_rules
+);
 
 impl AbstractHorse for SkeletonHorse {
     fn horse(&self) -> &AbstractHorseData {
@@ -107,14 +130,24 @@ impl AbstractHorse for SkeletonHorse {
 
     fn randomize_attributes(&mut self, random: &mut dyn RandomSource) {
         let jump = abstract_horse::generate_jump_strength(|| random.next_double());
-        if let Some(i) = self.mob.living.attributes.get_instance(Attribute::JUMP_STRENGTH) {
+        if let Some(i) = self
+            .mob
+            .living
+            .attributes
+            .get_instance(Attribute::JUMP_STRENGTH)
+        {
             i.set_base_value(jump);
         }
     }
 
     fn play_jump_sound(&mut self, level: &mut ServerLevel) {
         if self.is_in_water() {
-            self.play_sound(level, SoundEvent::ENTITY_SKELETON_HORSE_JUMP_WATER, 0.4, 1.0);
+            self.play_sound(
+                level,
+                SoundEvent::ENTITY_SKELETON_HORSE_JUMP_WATER,
+                0.4,
+                1.0,
+            );
         } else {
             self.play_sound(level, SoundEvent::ENTITY_HORSE_JUMP, 0.4, 1.0);
         }
@@ -130,7 +163,11 @@ impl Entity for SkeletonHorse {
     }
 
     fn get_dimensions(&self, _pose: Pose) -> EntityDimensions {
-        if self.is_baby() { baby_dimensions() } else { EntityDimensions::of_type(self.mob.living.entity.entity_type) }
+        if self.is_baby() {
+            baby_dimensions()
+        } else {
+            EntityDimensions::of_type(self.mob.living.entity.entity_type)
+        }
     }
 
     fn ai_step(&mut self, level: &mut ServerLevel) {
@@ -156,16 +193,31 @@ impl Entity for SkeletonHorse {
         abstract_horse::is_immobile(self)
     }
 
-    fn cause_fall_damage(&mut self, level: &mut ServerLevel, fall_distance: f64, damage_modifier: f32, source: &DamageSource) -> bool {
+    fn cause_fall_damage(
+        &mut self,
+        level: &mut ServerLevel,
+        fall_distance: f64,
+        damage_modifier: f32,
+        source: &DamageSource,
+    ) -> bool {
         abstract_horse::cause_fall_damage(self, level, fall_distance, damage_modifier, source)
     }
 
-    fn play_step_sound(&mut self, level: &mut ServerLevel, pos: BlockPos, state: mc_data::block::BlockState) {
+    fn play_step_sound(
+        &mut self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        state: mc_data::block::BlockState,
+    ) {
         abstract_horse::play_step_sound(self, level, pos, state);
     }
 
     fn play_swim_sound(&mut self, level: &mut ServerLevel, volume: f32) {
-        let volume = if self.base().on_ground() { 0.3 } else { f32::min(0.1, volume * 25.0) };
+        let volume = if self.base().on_ground() {
+            0.3
+        } else {
+            f32::min(0.1, volume * 25.0)
+        };
         let sound = self.next_swim_sound();
         let a = self.base_mut().random.next_float();
         let b = self.base_mut().random.next_float();
@@ -176,8 +228,17 @@ impl Entity for SkeletonHorse {
         0.96
     }
 
-    fn get_passenger_attachment_point(&self, passenger: &dyn Entity, dimensions: &EntityDimensions, scale: f32) -> Vec3 {
-        let base = mc_game_core::world::entity::entity::default_passenger_attachment_point(self.as_dyn(), passenger, &dimensions.attachments);
+    fn get_passenger_attachment_point(
+        &self,
+        passenger: &dyn Entity,
+        dimensions: &EntityDimensions,
+        scale: f32,
+    ) -> Vec3 {
+        let base = mc_game_core::world::entity::entity::default_passenger_attachment_point(
+            self.as_dyn(),
+            passenger,
+            &dimensions.attachments,
+        );
         abstract_horse::get_passenger_attachment_point(self, base, scale)
     }
 
@@ -186,7 +247,11 @@ impl Entity for SkeletonHorse {
     }
 
     fn get_ambient_sound(&self) -> Option<SoundEvent> {
-        Some(if self.is_eye_in_fluid("water") { SoundEvent::ENTITY_SKELETON_HORSE_AMBIENT_WATER } else { SoundEvent::ENTITY_SKELETON_HORSE_AMBIENT })
+        Some(if self.is_eye_in_fluid("water") {
+            SoundEvent::ENTITY_SKELETON_HORSE_AMBIENT_WATER
+        } else {
+            SoundEvent::ENTITY_SKELETON_HORSE_AMBIENT
+        })
     }
 
     fn get_death_sound(&self) -> Option<SoundEvent> {
@@ -197,8 +262,17 @@ impl Entity for SkeletonHorse {
         Some(SoundEvent::ENTITY_SKELETON_HORSE_HURT)
     }
 
-    fn mob_interact(&mut self, level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) -> InteractionResult {
-        if !abstract_horse::is_tamed(self) { InteractionResult::PASS } else { abstract_horse::mob_interact(self, level, player, hand) }
+    fn mob_interact(
+        &mut self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        hand: InteractionHand,
+    ) -> InteractionResult {
+        if !abstract_horse::is_tamed(self) {
+            InteractionResult::PASS
+        } else {
+            abstract_horse::mob_interact(self, level, player, hand)
+        }
     }
 
     fn can_mate(&self, _partner: &dyn Entity) -> bool {
@@ -209,8 +283,19 @@ impl Entity for SkeletonHorse {
         false
     }
 
-    fn get_breed_offspring(&mut self, level: &mut ServerLevel, _partner: EntityId) -> Option<Box<dyn Entity>> {
-        mc_game_core::world::entity::factory::create(EntityType::SKELETON_HORSE, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })
+    fn get_breed_offspring(
+        &mut self,
+        level: &mut ServerLevel,
+        _partner: EntityId,
+    ) -> Option<Box<dyn Entity>> {
+        mc_game_core::world::entity::factory::create(
+            EntityType::SKELETON_HORSE,
+            level,
+            EntitySpawnRequest {
+                reason: EntitySpawnReason::Breeding,
+                ignore_checks: false,
+            },
+        )
     }
 
     fn finalize_spawn(
@@ -238,5 +323,7 @@ impl Entity for SkeletonHorse {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static SKELETON_HORSE: EntityRegistration =
-    EntityRegistration { entity_type: EntityType::SKELETON_HORSE, create: |ty, id, registries| Box::new(SkeletonHorse::new(ty, id, registries)) };
+static SKELETON_HORSE: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::SKELETON_HORSE,
+    create: |ty, id, registries| Box::new(SkeletonHorse::new(ty, id, registries)),
+};

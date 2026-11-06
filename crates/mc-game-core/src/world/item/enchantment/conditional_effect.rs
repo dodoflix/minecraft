@@ -12,9 +12,15 @@ pub enum EnchantmentTarget {
     Victim,
 }
 
-static TARGETS: [(EnchantmentTarget, &str); 3] =
-    [(EnchantmentTarget::Attacker, "attacker"), (EnchantmentTarget::DamagingEntity, "damaging_entity"), (EnchantmentTarget::Victim, "victim")];
-static NON_DAMAGE_TARGETS: [(EnchantmentTarget, &str); 2] = [(EnchantmentTarget::Attacker, "attacker"), (EnchantmentTarget::Victim, "victim")];
+static TARGETS: [(EnchantmentTarget, &str); 3] = [
+    (EnchantmentTarget::Attacker, "attacker"),
+    (EnchantmentTarget::DamagingEntity, "damaging_entity"),
+    (EnchantmentTarget::Victim, "victim"),
+];
+static NON_DAMAGE_TARGETS: [(EnchantmentTarget, &str); 2] = [
+    (EnchantmentTarget::Attacker, "attacker"),
+    (EnchantmentTarget::Victim, "victim"),
+];
 
 impl EnchantmentTarget {
     /// `CODEC`.
@@ -78,8 +84,17 @@ impl<T: Clone + Send + Sync + 'static> TargetedConditionalEffect<T> {
             requirements: requirement_codec().optional_field_of("requirements"),
         })
         .xmap(
-            |r| TargetedConditionalEffect { enchanted: r.enchanted, affected: EnchantmentTarget::Victim, effect: r.effect, requirements: r.requirements },
-            |t: &TargetedConditionalEffect<T>| Rec { enchanted: t.enchanted, effect: t.effect.clone(), requirements: t.requirements.clone() },
+            |r| TargetedConditionalEffect {
+                enchanted: r.enchanted,
+                affected: EnchantmentTarget::Victim,
+                effect: r.effect,
+                requirements: r.requirements,
+            },
+            |t: &TargetedConditionalEffect<T>| Rec {
+                enchanted: t.enchanted,
+                effect: t.effect.clone(),
+                requirements: t.requirements.clone(),
+            },
         )
         .codec()
     }

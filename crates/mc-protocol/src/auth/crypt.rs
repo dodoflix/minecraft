@@ -36,7 +36,9 @@ impl ServerKeyPair {
 
     /// Loads a PKCS#8 DER private key (Java `PrivateKey.getEncoded()`).
     pub fn from_pkcs8_der(der: &[u8]) -> Result<Self, CryptError> {
-        Self::from_private(RsaPrivateKey::from_pkcs8_der(der).map_err(|e| CryptError::Key(e.to_string()))?)
+        Self::from_private(
+            RsaPrivateKey::from_pkcs8_der(der).map_err(|e| CryptError::Key(e.to_string()))?,
+        )
     }
 
     fn from_private(private: RsaPrivateKey) -> Result<Self, CryptError> {
@@ -44,7 +46,10 @@ impl ServerKeyPair {
             .to_public_key_der()
             .map_err(|e| CryptError::Key(e.to_string()))?
             .into_vec();
-        Ok(Self { private, public_der })
+        Ok(Self {
+            private,
+            public_der,
+        })
     }
 
     /// X.509 SubjectPublicKeyInfo, exactly the bytes of `ClientboundHelloPacket.publicKey`.
@@ -62,7 +67,9 @@ impl ServerKeyPair {
         // modulus (stripped leading zeros) is still valid.
         let mut padded = vec![0u8; k];
         padded[k - ciphertext.len()..].copy_from_slice(ciphertext);
-        Ok(self.private.decrypt_blinded(&mut OsRng, Pkcs1v15Encrypt, &padded)?)
+        Ok(self
+            .private
+            .decrypt_blinded(&mut OsRng, Pkcs1v15Encrypt, &padded)?)
     }
 
     /// `Crypt.decryptByteToSecretKey` followed by the AES init of `Crypt.getCipher`; see
@@ -100,7 +107,10 @@ impl PublicKey {
 /// `Crypt.byteToPublicKey`.
 pub fn public_key_from_der(der: &[u8]) -> Result<PublicKey, CryptError> {
     let key = RsaPublicKey::from_public_key_der(der).map_err(|e| CryptError::Key(e.to_string()))?;
-    Ok(PublicKey { key, der: der.to_vec() })
+    Ok(PublicKey {
+        key,
+        der: der.to_vec(),
+    })
 }
 
 /// `Crypt.encryptUsingKey` with a DER-encoded public key.
@@ -133,7 +143,10 @@ impl Decode for PublicKey {
 /// signed two's-complement number (leading `-` when negative, no leading zeros).
 pub fn digest_server_id(server_id: &str, shared_secret: &[u8], public_key_der: &[u8]) -> String {
     // `String.getBytes("ISO_8859_1")`: unmappable characters (one per code point) become '?'.
-    let id: Vec<u8> = server_id.chars().map(|c| u8::try_from(c as u32).unwrap_or(b'?')).collect();
+    let id: Vec<u8> = server_id
+        .chars()
+        .map(|c| u8::try_from(c as u32).unwrap_or(b'?'))
+        .collect();
     let mut digest: [u8; 20] = Sha1::new()
         .chain_update(&id)
         .chain_update(shared_secret)

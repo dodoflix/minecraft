@@ -42,7 +42,10 @@ pub struct RconConsoleSource {
 
 impl RconConsoleSource {
     pub fn new(broadcast_to_ops: Arc<AtomicBool>) -> Self {
-        Self { buffer: Mutex::new(String::new()), broadcast_to_ops }
+        Self {
+            buffer: Mutex::new(String::new()),
+            broadcast_to_ops,
+        }
     }
 
     pub fn prepare_for_command(&self) {

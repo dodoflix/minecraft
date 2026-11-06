@@ -3,7 +3,8 @@
 
 use crate::enums::{AttributeModifierOperation, AttributeSentiment, MobEffectCategory};
 use crate::ids::{
-    Attribute, Block, BlockEntityType, DataComponentType, GameEvent, MenuType, MobEffect, ParticleType, Potion, SoundEvent,
+    Attribute, Block, BlockEntityType, DataComponentType, GameEvent, MenuType, MobEffect,
+    ParticleType, Potion, SoundEvent,
 };
 
 #[derive(Debug)]
@@ -113,5 +114,9 @@ data_accessor!(GameEvent, GameEventData, GAME_EVENT_DATA);
 data_accessor!(SoundEvent, SoundEventData, SOUND_EVENT_DATA);
 data_accessor!(ParticleType, ParticleTypeData, PARTICLE_TYPE_DATA);
 data_accessor!(MenuType, MenuTypeData, MENU_TYPE_DATA);
-data_accessor!(DataComponentType, DataComponentTypeData, DATA_COMPONENT_TYPE_DATA);
+data_accessor!(
+    DataComponentType,
+    DataComponentTypeData,
+    DATA_COMPONENT_TYPE_DATA
+);
 data_accessor!(BlockEntityType, BlockEntityTypeData, BLOCK_ENTITY_TYPE_DATA);

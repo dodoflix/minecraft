@@ -5,7 +5,6 @@
 //! result, the feature random afterwards and every changed dump line (blocks, block entities, heightmaps, post-processing,
 //! ticks, entities, region random) are compared; the codec cases compare accept/reject with vanilla.
 
-
 use crate::common::feature_harness::*;
 use mc_core::ident::Identifier;
 use mc_core::pos::BlockPos;
@@ -13,8 +12,8 @@ use mc_core::random::{LegacyRandomSource, RandomSource, XoroshiroRandomSource};
 use mc_data::block::Block;
 use mc_game::world::level::levelgen::feature::Feature;
 use mc_game::world::level::levelgen::gen_level::GenLevel;
-use mc_game::world::level::{BlockGetter, LevelAccessor};
 use mc_game::world::level::levelgen::registries::{Cells, DecodeCtx};
+use mc_game::world::level::{BlockGetter, LevelAccessor};
 use mc_world::status::ChunkStatus;
 use mc_worldgen::data::{FsDataSource, WorldgenDataSource};
 use std::collections::HashMap;
@@ -34,7 +33,16 @@ fn prep(level: &mut GenLevel<'_>, kind: &str, seed: i64, o: BlockPos) {
                     for y in (o.y() - 20).max(min_y)..=(o.y() + 20).min(max_y) {
                         let p = BlockPos::new(x, y, z);
                         let s = level.get_block_state(p).block();
-                        if [Block::STONE, Block::DEEPSLATE, Block::DIRT, Block::GRASS_BLOCK, Block::SAND, Block::GRAVEL].contains(&s) {
+                        if [
+                            Block::STONE,
+                            Block::DEEPSLATE,
+                            Block::DIRT,
+                            Block::GRASS_BLOCK,
+                            Block::SAND,
+                            Block::GRAVEL,
+                        ]
+                        .contains(&s)
+                        {
                             let c = hmod(h(seed, i64::from(x), i64::from(y), i64::from(z)), 10);
                             let b = match c {
                                 0..=5 => Block::NETHERRACK,
@@ -53,7 +61,11 @@ fn prep(level: &mut GenLevel<'_>, kind: &str, seed: i64, o: BlockPos) {
             for x in o.x() - 12..=o.x() + 12 {
                 for z in o.z() - 12..=o.z() + 12 {
                     for y in (o.y() - 6).max(min_y)..=(o.y() + 5).min(max_y) {
-                        set(level, BlockPos::new(x, y, z), if y < o.y() { Block::STONE } else { Block::AIR });
+                        set(
+                            level,
+                            BlockPos::new(x, y, z),
+                            if y < o.y() { Block::STONE } else { Block::AIR },
+                        );
                     }
                 }
             }
@@ -68,11 +80,29 @@ fn prep(level: &mut GenLevel<'_>, kind: &str, seed: i64, o: BlockPos) {
             }
             let around = [o.west(), o.east(), o.north(), o.south(), o.below()];
             for (i, p) in around.into_iter().enumerate() {
-                if hmod(h(seed, i64::from(o.x()) + i as i64, i64::from(o.y()), i64::from(o.z())), 4) == 0 {
+                if hmod(
+                    h(
+                        seed,
+                        i64::from(o.x()) + i as i64,
+                        i64::from(o.y()),
+                        i64::from(o.z()),
+                    ),
+                    4,
+                ) == 0
+                {
                     set(level, p, Block::AIR);
                 }
             }
-            if hmod(h(seed, i64::from(o.x()), i64::from(o.y()) + 9, i64::from(o.z())), 3) == 0 {
+            if hmod(
+                h(
+                    seed,
+                    i64::from(o.x()),
+                    i64::from(o.y()) + 9,
+                    i64::from(o.z()),
+                ),
+                3,
+            ) == 0
+            {
                 set(level, o, Block::AIR);
             }
         }
@@ -82,16 +112,28 @@ fn prep(level: &mut GenLevel<'_>, kind: &str, seed: i64, o: BlockPos) {
 
 fn fixture() -> String {
     let mut out = String::new();
-    flate2::read::GzDecoder::new(std::fs::File::open(concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures/feat_ores.txt.gz")).expect("fixture present"))
-        .read_to_string(&mut out)
-        .expect("fixture is gzip");
+    flate2::read::GzDecoder::new(
+        std::fs::File::open(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/tests/fixtures/feat_ores.txt.gz"
+        ))
+        .expect("fixture present"),
+    )
+    .read_to_string(&mut out)
+    .expect("fixture is gzip");
     out
 }
 
 fn with_ctx<T>(f: impl FnOnce(&DecodeCtx<'_>) -> T) -> T {
-    let source: Arc<dyn WorldgenDataSource> = Arc::new(FsDataSource::new(std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../ref/src/data")));
+    let source: Arc<dyn WorldgenDataSource> = Arc::new(FsDataSource::new(
+        std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../ref/src/data"),
+    ));
     let cells = Cells::new(source);
-    let ctx = DecodeCtx { worldgen: &WORLD.worldgen, biomes: &WORLD.biomes, cells: &cells };
+    let ctx = DecodeCtx {
+        worldgen: &WORLD.worldgen,
+        biomes: &WORLD.biomes,
+        cells: &cells,
+    };
     f(&ctx)
 }
 
@@ -99,33 +141,52 @@ fn with_ctx<T>(f: impl FnOnce(&DecodeCtx<'_>) -> T) -> T {
 fn feat_ores_codec_accepts_and_rejects_like_vanilla() {
     let (mut cases, mut mismatches) = (0, Vec::new());
     for line in fixture().lines() {
-        let Some(rest) = line.strip_prefix("CODEC ") else { continue };
+        let Some(rest) = line.strip_prefix("CODEC ") else {
+            continue;
+        };
         let (verdict, json) = rest.split_once(' ').expect("verdict json");
         let value: serde_json::Value = serde_json::from_str(json).expect("json");
         let ours = with_ctx(|ctx| ctx.feature(&value).map(|_| ()));
         cases += 1;
         if ours.is_ok() != (verdict == "ok") {
-            mismatches.push(format!("vanilla {verdict}, ours {:?}: {json}", ours.err().map(|e| e.to_string())));
+            mismatches.push(format!(
+                "vanilla {verdict}, ours {:?}: {json}",
+                ours.err().map(|e| e.to_string())
+            ));
         }
     }
     assert!(cases > 60, "fixture has {cases} codec cases");
-    assert!(mismatches.is_empty(), "{} of {cases} codec cases differ:\n{}", mismatches.len(), mismatches.join("\n"));
+    assert!(
+        mismatches.is_empty(),
+        "{} of {cases} codec cases differ:\n{}",
+        mismatches.len(),
+        mismatches.join("\n")
+    );
 }
 
 #[test]
 fn feat_ores_match_vanilla() {
-    assert!(WORLD.registries_loaded, "the vanilla feature registries must decode completely");
+    assert!(
+        WORLD.registries_loaded,
+        "the vanilla feature registries must decode completely"
+    );
     let text = fixture();
     let mut inline: HashMap<String, Arc<dyn Feature>> = HashMap::new();
     for line in text.lines() {
         if let Some(rest) = line.strip_prefix("INLINE ") {
             let (name, json) = rest.split_once(' ').expect("name json");
             let value: serde_json::Value = serde_json::from_str(json).expect("json");
-            let feature = with_ctx(|ctx| mc_game::world::level::levelgen::feature::decode_direct(&value, ctx)).unwrap_or_else(|e| panic!("inline {name}: {e}"));
+            let feature = with_ctx(|ctx| {
+                mc_game::world::level::levelgen::feature::decode_direct(&value, ctx)
+            })
+            .unwrap_or_else(|e| panic!("inline {name}: {e}"));
             inline.insert(name.to_string(), feature);
         }
     }
-    let mut lines = text.lines().filter(|l| !l.starts_with("CODEC ") && !l.starts_with("INLINE ")).peekable();
+    let mut lines = text
+        .lines()
+        .filter(|l| !l.starts_with("CODEC ") && !l.starts_with("INLINE "))
+        .peekable();
     let (mut scenarios, mut placed, mut dump_lines) = (0, 0, 0);
     let mut failures: Vec<String> = Vec::new();
     let mut per_entry: HashMap<String, (usize, usize)> = HashMap::new();
@@ -133,11 +194,29 @@ fn feat_ores_match_vanilla() {
         let h: Vec<&str> = header.split(' ').collect();
         assert_eq!(h[0], "S", "{header}");
         let name = h[1];
-        let (seed, rng_kind, rng_seed) = (h[2].parse::<i64>().unwrap(), h[3], h[4].parse::<i64>().unwrap());
+        let (seed, rng_kind, rng_seed) = (
+            h[2].parse::<i64>().unwrap(),
+            h[3],
+            h[4].parse::<i64>().unwrap(),
+        );
         let prep_kind = h[10];
-        let (cx, cz, x, y, z) = (h[5].parse::<i32>().unwrap(), h[6].parse::<i32>().unwrap(), h[7].parse::<i32>().unwrap(), h[8].parse::<i32>().unwrap(), h[9].parse::<i32>().unwrap());
-        let want_result = lines.next().and_then(|l| l.strip_prefix("R ")).expect("R line").to_string();
-        let want_f = lines.next().and_then(|l| l.strip_prefix("F ")).expect("F line").to_string();
+        let (cx, cz, x, y, z) = (
+            h[5].parse::<i32>().unwrap(),
+            h[6].parse::<i32>().unwrap(),
+            h[7].parse::<i32>().unwrap(),
+            h[8].parse::<i32>().unwrap(),
+            h[9].parse::<i32>().unwrap(),
+        );
+        let want_result = lines
+            .next()
+            .and_then(|l| l.strip_prefix("R "))
+            .expect("R line")
+            .to_string();
+        let want_f = lines
+            .next()
+            .and_then(|l| l.strip_prefix("F "))
+            .expect("F line")
+            .to_string();
         let mut want_dump = Vec::new();
         for line in lines.by_ref() {
             if line == "END" {
@@ -150,7 +229,12 @@ fn feat_ores_match_vanilla() {
         }
         let feature: Arc<dyn Feature> = match inline.get(name) {
             Some(f) => f.clone(),
-            None => WORLD.registries.feature(&Identifier::with_default_namespace(name).unwrap()).unwrap_or_else(|| panic!("feature {name} missing")).value().clone(),
+            None => WORLD
+                .registries
+                .feature(&Identifier::with_default_namespace(name).unwrap())
+                .unwrap_or_else(|| panic!("feature {name} missing"))
+                .value()
+                .clone(),
         };
 
         let mut synth = SynthRegion::new(seed, cx, cz, ChunkStatus::Features, 2);
@@ -159,8 +243,14 @@ fn feat_ores_match_vanilla() {
         let mut level = synth.level();
         prep(&mut level, prep_kind, seed, BlockPos::new(x, y, z));
         let base = dump(&mut level, &before);
-        let mut random: Box<dyn RandomSource> = if rng_kind == "0" { Box::new(XoroshiroRandomSource::new(rng_seed)) } else { Box::new(LegacyRandomSource::new(rng_seed)) };
-        let result = feature.place(&mut level, &env, &mut *random, BlockPos::new(x, y, z)).to_string();
+        let mut random: Box<dyn RandomSource> = if rng_kind == "0" {
+            Box::new(XoroshiroRandomSource::new(rng_seed))
+        } else {
+            Box::new(LegacyRandomSource::new(rng_seed))
+        };
+        let result = feature
+            .place(&mut level, &env, &mut *random, BlockPos::new(x, y, z))
+            .to_string();
         let got_f = random.next_long().to_string();
         let mut base_count: HashMap<&str, usize> = HashMap::new();
         for l in &base {
@@ -185,10 +275,16 @@ fn feat_ores_match_vanilla() {
             placed += 1;
             entry.1 += 1;
         }
-        let tag = format!("{name} seed {seed} rng {rng_kind}/{rng_seed} chunk {cx},{cz} origin {x},{y},{z}");
+        let tag = format!(
+            "{name} seed {seed} rng {rng_kind}/{rng_seed} chunk {cx},{cz} origin {x},{y},{z}"
+        );
         if result != want_result || got_f != want_f || got_dump != want_dump {
             if failures.len() < 12 {
-                let first = got_dump.iter().zip(&want_dump).position(|(a, b)| a != b).unwrap_or(got_dump.len().min(want_dump.len()));
+                let first = got_dump
+                    .iter()
+                    .zip(&want_dump)
+                    .position(|(a, b)| a != b)
+                    .unwrap_or(got_dump.len().min(want_dump.len()));
                 failures.push(format!(
                     "{tag}: result {result}/{want_result}, F {got_f}/{want_f}, dump {} vs {} lines, first diff at {first}: ours `{}` vanilla `{}`",
                     got_dump.len(),
@@ -203,8 +299,19 @@ fn feat_ores_match_vanilla() {
     }
     let failed = failures.len();
     let shown: Vec<String> = failures.into_iter().filter(|f| !f.is_empty()).collect();
-    assert!(failed == 0, "{failed} of {scenarios} scenarios differ ({placed} placed, {dump_lines} dump lines):\n{}", shown.join("\n"));
-    let silent: Vec<&String> = per_entry.iter().filter(|(_, (_, ok))| *ok == 0).map(|(n, _)| n).collect();
-    eprintln!("{scenarios} scenarios over {} entries, {placed} placed, {dump_lines} dump lines; entries never placing: {silent:?}", per_entry.len());
+    assert!(
+        failed == 0,
+        "{failed} of {scenarios} scenarios differ ({placed} placed, {dump_lines} dump lines):\n{}",
+        shown.join("\n")
+    );
+    let silent: Vec<&String> = per_entry
+        .iter()
+        .filter(|(_, (_, ok))| *ok == 0)
+        .map(|(n, _)| n)
+        .collect();
+    eprintln!(
+        "{scenarios} scenarios over {} entries, {placed} placed, {dump_lines} dump lines; entries never placing: {silent:?}",
+        per_entry.len()
+    );
     assert!(scenarios > 500 && dump_lines > 5000, "fixture too small");
 }

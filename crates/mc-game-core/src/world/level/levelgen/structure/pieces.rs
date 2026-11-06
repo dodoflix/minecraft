@@ -1,6 +1,9 @@
 //! `pieces/PiecesContainer` and `pieces/StructurePiecesBuilder`.
 
-use super::piece::{StructurePiece, StructurePieceSerializationContext, StructurePieceType, create_bounding_box, find_collision_piece};
+use super::piece::{
+    StructurePiece, StructurePieceSerializationContext, StructurePieceType, create_bounding_box,
+    find_collision_piece,
+};
 use mc_core::bounding_box::BoundingBox;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
@@ -22,7 +25,9 @@ impl PiecesContainer {
 
     /// `isInsidePiece(pos)`.
     pub fn is_inside_piece(&self, start_pos: BlockPos) -> bool {
-        self.pieces.iter().any(|p| p.base().bounding_box.is_inside(&start_pos))
+        self.pieces
+            .iter()
+            .any(|p| p.base().bounding_box.is_inside(&start_pos))
     }
 
     /// `save(context)`: the `Children` list.
@@ -35,7 +40,10 @@ impl PiecesContainer {
     }
 
     /// `load(children, context)`: unknown ids and pieces whose loader fails are logged and skipped.
-    pub fn load(children: &ListTag, context: &StructurePieceSerializationContext<'_>) -> PiecesContainer {
+    pub fn load(
+        children: &ListTag,
+        context: &StructurePieceSerializationContext<'_>,
+    ) -> PiecesContainer {
         let mut pieces = Vec::new();
         for child in children.iter() {
             let empty = CompoundTag::new();
@@ -46,7 +54,9 @@ impl PiecesContainer {
                 None => ("minecraft".to_owned(), old_id.clone()),
             };
             // `RENAMES`: legacy ids that became jigsaw pieces.
-            let (namespace, path) = if namespace == "minecraft" && matches!(path.as_str(), "nvi" | "pcp" | "bastionremnant" | "runtime") {
+            let (namespace, path) = if namespace == "minecraft"
+                && matches!(path.as_str(), "nvi" | "pcp" | "bastionremnant" | "runtime")
+            {
                 ("minecraft".to_owned(), "jigsaw".to_owned())
             } else {
                 (namespace, path)
@@ -55,7 +65,9 @@ impl PiecesContainer {
                 None => log::error!("Unknown structure piece id: {namespace}:{path}"),
                 Some(piece_type) => match (piece_type.load)(context, piece_tag) {
                     Ok(piece) => pieces.push(piece),
-                    Err(e) => log::error!("Exception loading structure piece with id {namespace}:{path}: {e}"),
+                    Err(e) => log::error!(
+                        "Exception loading structure piece with id {namespace}:{path}: {e}"
+                    ),
                 },
             }
         }
@@ -82,7 +94,12 @@ impl StructurePiece for TakenOutPiece {
     fn base_mut(&mut self) -> &mut super::piece::PieceBase {
         &mut self.base
     }
-    fn add_additional_save_data(&self, _: &StructurePieceSerializationContext<'_>, _: &mut CompoundTag) {}
+    fn add_additional_save_data(
+        &self,
+        _: &StructurePieceSerializationContext<'_>,
+        _: &mut CompoundTag,
+    ) {
+    }
     fn post_process(
         &mut self,
         _: &mut dyn crate::world::level::levelgen::WorldGenLevel,
@@ -124,7 +141,9 @@ impl StructurePiecesBuilder {
         random: &mut dyn RandomSource,
     ) -> usize {
         let index = self.pieces.len();
-        let stand_in = Box::new(TakenOutPiece { base: piece.base().clone() });
+        let stand_in = Box::new(TakenOutPiece {
+            base: piece.base().clone(),
+        });
         self.pieces.push(stand_in);
         let mut piece = piece;
         piece.add_children(start_piece, self, random);
@@ -145,7 +164,9 @@ impl StructurePiecesBuilder {
     /// [`Self::add_piece_and_children`]) so it can be used mutably next to the builder; hand it back with
     /// [`Self::put_back`]. For generators that keep the pieces they still have to expand (`pendingChildren`).
     pub fn take_out(&mut self, index: usize) -> Box<dyn StructurePiece> {
-        let stand_in = Box::new(TakenOutPiece { base: self.pieces[index].base().clone() });
+        let stand_in = Box::new(TakenOutPiece {
+            base: self.pieces[index].base().clone(),
+        });
         std::mem::replace(&mut self.pieces[index], stand_in)
     }
 
@@ -175,7 +196,13 @@ impl StructurePiecesBuilder {
     }
 
     /// `moveBelowSeaLevel(seaLevel, minY, random, offset)`.
-    pub fn move_below_sea_level(&mut self, sea_level: i32, min_y: i32, random: &mut dyn RandomSource, offset: i32) -> i32 {
+    pub fn move_below_sea_level(
+        &mut self,
+        sea_level: i32,
+        min_y: i32,
+        random: &mut dyn RandomSource,
+        offset: i32,
+    ) -> i32 {
         let max_y = sea_level - offset;
         let bounding_box = self.get_bounding_box();
         let mut y1_pos = bounding_box.get_y_span() + min_y + 1;
@@ -188,10 +215,19 @@ impl StructurePiecesBuilder {
     }
 
     /// `moveInsideHeights(random, lowestAllowed, highestAllowed)`.
-    pub fn move_inside_heights(&mut self, random: &mut dyn RandomSource, lowest_allowed: i32, highest_allowed: i32) {
+    pub fn move_inside_heights(
+        &mut self,
+        random: &mut dyn RandomSource,
+        lowest_allowed: i32,
+        highest_allowed: i32,
+    ) {
         let bounding_box = self.get_bounding_box();
         let height_span = highest_allowed - lowest_allowed + 1 - bounding_box.get_y_span();
-        let y0_pos = if height_span > 1 { lowest_allowed + random.next_int_bounded(height_span) } else { lowest_allowed };
+        let y0_pos = if height_span > 1 {
+            lowest_allowed + random.next_int_bounded(height_span)
+        } else {
+            lowest_allowed
+        };
         let dy = y0_pos - bounding_box.min_y();
         self.offset_pieces_vertically(dy);
     }

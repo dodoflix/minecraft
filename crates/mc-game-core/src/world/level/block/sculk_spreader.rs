@@ -46,7 +46,15 @@ impl SculkSpreader {
         charge_decay_rate: i32,
         additional_decay_rate: i32,
     ) -> SculkSpreader {
-        SculkSpreader { is_world_generation, replaceable_blocks, growth_spawn_cost, no_growth_radius, charge_decay_rate, additional_decay_rate, cursors: Vec::new() }
+        SculkSpreader {
+            is_world_generation,
+            replaceable_blocks,
+            growth_spawn_cost,
+            no_growth_radius,
+            charge_decay_rate,
+            additional_decay_rate,
+            cursors: Vec::new(),
+        }
     }
 
     /// `createLevelSpreader()`.
@@ -103,7 +111,8 @@ impl SculkSpreader {
     /// `load(input)`: the `cursors` list (at most 32; a failed decode keeps its partial list).
     pub fn load(&mut self, tag: &CompoundTag) {
         self.cursors.clear();
-        let cursors = crate::world::block_entity::read_codec(tag, "cursors", &CURSORS_CODEC).unwrap_or_default();
+        let cursors = crate::world::block_entity::read_codec(tag, "cursors", &CURSORS_CODEC)
+            .unwrap_or_default();
         for cursor in cursors {
             self.add_cursor(cursor);
         }
@@ -123,14 +132,21 @@ impl SculkSpreader {
     }
 
     /// `updateCursors(level, originPos, random, spreadVeins)`.
-    pub fn update_cursors(&mut self, level: &mut dyn LevelAccessor, origin_pos: BlockPos, random: &mut dyn RandomSource, spread_veins: bool) {
+    pub fn update_cursors(
+        &mut self,
+        level: &mut dyn LevelAccessor,
+        origin_pos: BlockPos,
+        random: &mut dyn RandomSource,
+        spread_veins: bool,
+    ) {
         if self.cursors.is_empty() {
             return;
         }
         let mut processed_cursors: Vec<ChargeCursor> = Vec::new();
         // position -> index into `processed_cursors` (`mergeableCursors`)
         let mut mergeable_cursors: HashMap<BlockPos, usize> = HashMap::new();
-        let mut charge_map: Object2IntOpenHashMap<BlockPos> = Object2IntOpenHashMap::new(|pos| pos.hash_code());
+        let mut charge_map: Object2IntOpenHashMap<BlockPos> =
+            Object2IntOpenHashMap::new(|pos| pos.hash_code());
 
         for mut cursor in std::mem::take(&mut self.cursors) {
             if !cursor.is_pos_unreasonable(origin_pos) {
@@ -145,7 +161,11 @@ impl SculkSpreader {
                             mergeable_cursors.insert(pos, processed_cursors.len());
                             processed_cursors.push(cursor);
                         }
-                        Some(existing) if !self.is_world_generation && cursor.charge + processed_cursors[existing].charge <= MAX_CHARGE => {
+                        Some(existing)
+                            if !self.is_world_generation
+                                && cursor.charge + processed_cursors[existing].charge
+                                    <= MAX_CHARGE =>
+                        {
                             processed_cursors[existing].merge_with(&mut cursor);
                         }
                         Some(existing) => {
@@ -162,7 +182,9 @@ impl SculkSpreader {
         }
 
         for (pos, charge) in charge_map.into_entries() {
-            let faces = mergeable_cursors.get(&pos).and_then(|i| processed_cursors[*i].get_facing_data());
+            let faces = mergeable_cursors
+                .get(&pos)
+                .and_then(|i| processed_cursors[*i].get_facing_data());
             if charge > 0
                 && let Some(faces) = faces
             {
@@ -197,7 +219,10 @@ static NON_CORNER_NEIGHBOURS: LazyLock<Vec<Vec3i>> = LazyLock::new(|| {
 
 /// `ChargeCursor.CODEC`.
 static CURSOR_CODEC: LazyLock<Codec<ChargeCursor>> = LazyLock::new(|| {
-    let direction = string_resolver(|d: &Direction| Some(d.get_name().to_string()), Direction::by_name);
+    let direction = string_resolver(
+        |d: &Direction| Some(d.get_name().to_string()),
+        Direction::by_name,
+    );
     // `DIRECTION_SET`: an enum set, so ordinal order and no duplicates
     let direction_set = direction.list_of().xmap(
         |mut l: Vec<Direction>| {
@@ -216,12 +241,20 @@ static CURSOR_CODEC: LazyLock<Codec<ChargeCursor>> = LazyLock::new(|| {
     })
     .codec()
 });
-static CURSORS_CODEC: LazyLock<Codec<Vec<ChargeCursor>>> = LazyLock::new(|| CURSOR_CODEC.size_limited_list_of(MAX_CURSORS));
-static CURSORS_LIST_CODEC: LazyLock<Codec<Vec<ChargeCursor>>> = LazyLock::new(|| CURSOR_CODEC.list_of());
+static CURSORS_CODEC: LazyLock<Codec<Vec<ChargeCursor>>> =
+    LazyLock::new(|| CURSOR_CODEC.size_limited_list_of(MAX_CURSORS));
+static CURSORS_LIST_CODEC: LazyLock<Codec<Vec<ChargeCursor>>> =
+    LazyLock::new(|| CURSOR_CODEC.list_of());
 
 impl ChargeCursor {
     pub fn new(pos: BlockPos, charge: i32) -> ChargeCursor {
-        ChargeCursor { pos, charge, update_delay: 0, decay_delay: 1, facings: None }
+        ChargeCursor {
+            pos,
+            charge,
+            update_delay: 0,
+            decay_delay: 1,
+            facings: None,
+        }
     }
 
     pub fn get_pos(&self) -> BlockPos {
@@ -255,7 +288,14 @@ impl ChargeCursor {
     }
 
     /// `update(level, originPos, random, spreader, spreadVeins)`.
-    pub fn update(&mut self, level: &mut dyn LevelAccessor, origin_pos: BlockPos, random: &mut dyn RandomSource, spreader: &SculkSpreader, spread_veins: bool) {
+    pub fn update(
+        &mut self,
+        level: &mut dyn LevelAccessor,
+        origin_pos: BlockPos,
+        random: &mut dyn RandomSource,
+        spreader: &SculkSpreader,
+        spread_veins: bool,
+    ) {
         if !self.should_update(&*level, origin_pos, spreader.is_world_generation) {
             return;
         }
@@ -265,19 +305,42 @@ impl ChargeCursor {
         }
         let mut current_state = level.get_block_state(self.pos);
         let mut sculk_behaviour = get_block_behaviour(current_state.block());
-        if spread_veins && sculk_behaviour.attempt_spread_vein(level, self.pos, current_state, self.facings.as_deref(), spreader.is_world_generation()) {
+        if spread_veins
+            && sculk_behaviour.attempt_spread_vein(
+                level,
+                self.pos,
+                current_state,
+                self.facings.as_deref(),
+                spreader.is_world_generation(),
+            )
+        {
             if sculk_behaviour.can_change_block_state_on_spread() {
                 current_state = level.get_block_state(self.pos);
                 sculk_behaviour = get_block_behaviour(current_state.block());
             }
-            level.play_sound(None, self.pos, SoundEvent::BLOCK_SCULK_SPREAD, SoundSource::Blocks, 1.0, 1.0);
+            level.play_sound(
+                None,
+                self.pos,
+                SoundEvent::BLOCK_SCULK_SPREAD,
+                SoundSource::Blocks,
+                1.0,
+                1.0,
+            );
         }
 
-        self.charge = sculk_behaviour.attempt_use_charge(self, level, origin_pos, random, spreader, spread_veins);
+        self.charge = sculk_behaviour.attempt_use_charge(
+            self,
+            level,
+            origin_pos,
+            random,
+            spreader,
+            spread_veins,
+        );
         if self.charge <= 0 {
             sculk_behaviour.on_discharged(level, current_state, self.pos, random);
         } else {
-            let transfer_pos = get_valid_movement_pos(level, self.pos, random, origin_pos, spreader);
+            let transfer_pos =
+                get_valid_movement_pos(level, self.pos, random, origin_pos, spreader);
             if let Some(transfer_pos) = transfer_pos {
                 sculk_behaviour.on_discharged(level, current_state, self.pos, random);
                 self.pos = transfer_pos;
@@ -324,7 +387,9 @@ fn get_valid_movement_pos(
         let neighbour = pos.offset_vec(&offset);
         if can_move_to_pos(origin_pos, neighbour, spreader) {
             let transferee = level.get_block_state(neighbour);
-            if sculk_behaviour::sculk_behaviour_of(transferee.block()).is_some() && is_movement_unobstructed(level, pos, neighbour) {
+            if sculk_behaviour::sculk_behaviour_of(transferee.block()).is_some()
+                && is_movement_unobstructed(level, pos, neighbour)
+            {
                 sculk_position = neighbour;
                 if sculk_vein_block::has_substrate_access(level, transferee, neighbour) {
                     break;
@@ -332,14 +397,19 @@ fn get_valid_movement_pos(
             }
         }
     }
-    if sculk_position == pos { None } else { Some(sculk_position) }
+    if sculk_position == pos {
+        None
+    } else {
+        Some(sculk_position)
+    }
 }
 
 fn can_move_to_pos(origin: BlockPos, target: BlockPos, spreader: &SculkSpreader) -> bool {
     if !spreader.is_world_generation() {
         true
     } else {
-        let distance_sq = mth::square_i32(origin.x() - target.x()) + mth::square_i32(origin.z() - target.z());
+        let distance_sq =
+            mth::square_i32(origin.x() - target.x()) + mth::square_i32(origin.z() - target.z());
         distance_sq <= 144
     }
 }
@@ -349,9 +419,21 @@ fn is_movement_unobstructed(level: &dyn LevelAccessor, from: BlockPos, to: Block
         return true;
     }
     let delta = to.subtract(&from);
-    let direction_x = if delta.x() < 0 { Direction::West } else { Direction::East };
-    let direction_y = if delta.y() < 0 { Direction::Down } else { Direction::Up };
-    let direction_z = if delta.z() < 0 { Direction::North } else { Direction::South };
+    let direction_x = if delta.x() < 0 {
+        Direction::West
+    } else {
+        Direction::East
+    };
+    let direction_y = if delta.y() < 0 {
+        Direction::Down
+    } else {
+        Direction::Up
+    };
+    let direction_z = if delta.z() < 0 {
+        Direction::North
+    } else {
+        Direction::South
+    };
     if delta.x() == 0 {
         is_unobstructed(level, from, direction_y) || is_unobstructed(level, from, direction_z)
     } else if delta.y() == 0 {
@@ -363,5 +445,7 @@ fn is_movement_unobstructed(level: &dyn LevelAccessor, from: BlockPos, to: Block
 
 fn is_unobstructed(level: &dyn LevelAccessor, from: BlockPos, direction: Direction) -> bool {
     let test_pos = from.relative(direction);
-    !level.get_block_state(test_pos).is_face_sturdy_at(level, test_pos, direction.get_opposite())
+    !level
+        .get_block_state(test_pos)
+        .is_face_sturdy_at(level, test_pos, direction.get_opposite())
 }

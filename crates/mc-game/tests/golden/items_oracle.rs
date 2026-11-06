@@ -6,13 +6,13 @@ use crate::common;
 use crate::common::entity_oracle::*;
 use mc_core::ident::Identifier;
 use mc_core::pos::BlockPos;
+use mc_data::Item;
 use mc_data::block::{Block, BlockState};
 use mc_game::server::level::ServerLevel;
 use mc_game::world::entity::item::ItemEntity;
 use mc_game::world::entity::{Entity, EntityId};
 use mc_game::world::item::ItemStack;
 use mc_game::world::level::LevelAccessor;
-use mc_data::Item;
 
 thread_local! {
     /// Next pinned entity id (tests run on their own threads).
@@ -21,12 +21,18 @@ thread_local! {
 
 /// The flat world of the oracle: grass at y=-61 (the player stands at y=-60).
 fn registries() -> mc_game::registry::RegistryAccess {
-    static ACCESS: std::sync::OnceLock<mc_game::registry::RegistryAccess> = std::sync::OnceLock::new();
+    static ACCESS: std::sync::OnceLock<mc_game::registry::RegistryAccess> =
+        std::sync::OnceLock::new();
     ACCESS
         .get_or_init(|| {
             let _serial = common::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
             let dir = tempfile::tempdir().unwrap();
-            let (_, stem) = common::load_world(dir.path(), mc_world::level_storage::WorldDataConfiguration::DEFAULT, true).expect("default world loads");
+            let (_, stem) = common::load_world(
+                dir.path(),
+                mc_world::level_storage::WorldDataConfiguration::DEFAULT,
+                true,
+            )
+            .expect("default world loads");
             stem.registries.composite_access().clone()
         })
         .clone()
@@ -37,13 +43,19 @@ fn flat_level() -> ServerLevel {
     level.registries = registries();
     for x in -3..=20 {
         for z in -4..=4 {
-            level.set_block_and_update(BlockPos::new(x, -61, z), Block::GRASS_BLOCK.default_state());
+            level
+                .set_block_and_update(BlockPos::new(x, -61, z), Block::GRASS_BLOCK.default_state());
         }
     }
     level
 }
 
-fn fill(level: &mut ServerLevel, (x1, y1, z1): (i32, i32, i32), (x2, y2, z2): (i32, i32, i32), state: BlockState) {
+fn fill(
+    level: &mut ServerLevel,
+    (x1, y1, z1): (i32, i32, i32),
+    (x2, y2, z2): (i32, i32, i32),
+    state: BlockState,
+) {
     for x in x1..=x2 {
         for y in y1..=y2 {
             for z in z1..=z2 {
@@ -57,7 +69,13 @@ fn fill(level: &mut ServerLevel, (x1, y1, z1): (i32, i32, i32), (x2, y2, z2): (i
 ///
 /// Entity ids are not printed by the oracle, but a resting item moves only every `(tickCount + id) % 4`th tick: the ids of
 /// the scenario are pinned to `1001 + spawn index` (only `id % 4` matters; 1001 reproduces the vanilla oracle).
-fn spawn_item(level: &mut ServerLevel, stack: ItemStack, pos: (f64, f64, f64), motion: (f64, f64, f64), yaw: f32) -> EntityId {
+fn spawn_item(
+    level: &mut ServerLevel,
+    stack: ItemStack,
+    pos: (f64, f64, f64),
+    motion: (f64, f64, f64),
+    yaw: f32,
+) -> EntityId {
     let id = NEXT_ID.with(|n| {
         n.set(n.get() + 1);
         n.get() - 1
@@ -65,7 +83,8 @@ fn spawn_item(level: &mut ServerLevel, stack: ItemStack, pos: (f64, f64, f64), m
     let mut e = ItemEntity::new(mc_data::EntityType::ITEM, id);
     e.set_pos(pos.0, pos.1, pos.2);
     e.set_item(stack);
-    e.base_mut().set_delta_movement_xyz(motion.0, motion.1, motion.2);
+    e.base_mut()
+        .set_delta_movement_xyz(motion.0, motion.1, motion.2);
     e.set_rot(yaw, 0.0);
     let id = e.id();
     level.add_fresh_entity(Box::new(e));
@@ -118,23 +137,65 @@ fn describe_item(name: &str, e: &ItemEntity) -> String {
 #[test]
 fn item_fall_matches_vanilla() {
     let mut level = flat_level();
-    fill(&mut level, (9, -61, -2), (12, -61, 2), Block::PACKED_ICE.default_state());
-    fill(&mut level, (13, -61, -3), (17, -56, 3), Block::STONE.default_state());
-    fill(&mut level, (14, -60, -2), (16, -56, 2), Block::WATER.default_state());
+    fill(
+        &mut level,
+        (9, -61, -2),
+        (12, -61, 2),
+        Block::PACKED_ICE.default_state(),
+    );
+    fill(
+        &mut level,
+        (13, -61, -3),
+        (17, -56, 3),
+        Block::STONE.default_state(),
+    );
+    fill(
+        &mut level,
+        (14, -60, -2),
+        (16, -56, 2),
+        Block::WATER.default_state(),
+    );
     let diamond = || ItemStack::new(Item::DIAMOND);
     let names = ["a", "b", "c", "w"];
     let ids = [
-        spawn_item(&mut level, diamond(), (0.5, -50.0, 0.5), (0.0, 0.0, 0.0), 0.0),
-        spawn_item(&mut level, diamond(), (3.5, -58.0, 0.5), (0.1, 0.2, -0.05), 90.0),
-        spawn_item(&mut level, diamond(), (10.5, -60.0, 0.5), (0.3, 0.0, 0.0), 0.0),
-        spawn_item(&mut level, diamond(), (15.0, -52.0, 0.5), (0.0, 0.0, 0.0), 0.0),
+        spawn_item(
+            &mut level,
+            diamond(),
+            (0.5, -50.0, 0.5),
+            (0.0, 0.0, 0.0),
+            0.0,
+        ),
+        spawn_item(
+            &mut level,
+            diamond(),
+            (3.5, -58.0, 0.5),
+            (0.1, 0.2, -0.05),
+            90.0,
+        ),
+        spawn_item(
+            &mut level,
+            diamond(),
+            (10.5, -60.0, 0.5),
+            (0.3, 0.0, 0.0),
+            0.0,
+        ),
+        spawn_item(
+            &mut level,
+            diamond(),
+            (15.0, -52.0, 0.5),
+            (0.0, 0.0, 0.0),
+            0.0,
+        ),
     ];
     let mut actual = Vec::new();
     for t in 1..=100 {
         tick_entities(&mut level, &ids);
         actual.push(format!("T {t}"));
         for (name, &id) in names.iter().zip(&ids) {
-            if let Some(e) = level.get_entity(id).and_then(|e| e.as_any().downcast_ref::<ItemEntity>()) {
+            if let Some(e) = level
+                .get_entity(id)
+                .and_then(|e| e.as_any().downcast_ref::<ItemEntity>())
+            {
                 actual.push(describe_item(name, e));
             }
         }
@@ -143,9 +204,13 @@ fn item_fall_matches_vanilla() {
 }
 
 fn golden_lines(prefix: &str) -> Vec<Vec<String>> {
-    let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/item_entity_golden.txt");
+    let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("tests/fixtures/item_entity_golden.txt");
     let text = std::fs::read_to_string(path).unwrap();
-    text.lines().filter(|l| l.starts_with(prefix)).map(|l| l.split(' ').skip(1).map(str::to_string).collect()).collect()
+    text.lines()
+        .filter(|l| l.starts_with(prefix))
+        .map(|l| l.split(' ').skip(1).map(str::to_string).collect())
+        .collect()
 }
 
 #[test]
@@ -166,7 +231,11 @@ fn experience_orb_split_and_value_match_vanilla() {
     }
     for line in golden_lines("orb_value ") {
         let v: i32 = line[0].parse().unwrap();
-        assert_eq!(ExperienceOrb::get_experience_value(v).to_string(), line[1], "value {v}");
+        assert_eq!(
+            ExperienceOrb::get_experience_value(v).to_string(),
+            line[1],
+            "value {v}"
+        );
     }
 }
 
@@ -182,7 +251,10 @@ fn item_merge_rules_match_vanilla() {
             _ => ItemStack::new(Item::IRON_SWORD),
         };
         if kind == "named_diamond" {
-            s.set(mc_protocol::components::CUSTOM_NAME, mc_text::Component::literal("x"));
+            s.set(
+                mc_protocol::components::CUSTOM_NAME,
+                mc_text::Component::literal("x"),
+            );
         }
         if kind == "damaged_sword" {
             s.set_damage_value(5);
@@ -192,7 +264,12 @@ fn item_merge_rules_match_vanilla() {
     let lines = golden_lines("merge ");
     assert!(lines.len() > 800);
     for l in &lines {
-        let (a, ca, b, cb) = (&l[0], l[1].parse::<i32>().unwrap(), &l[2], l[3].parse::<i32>().unwrap());
+        let (a, ca, b, cb) = (
+            &l[0],
+            l[1].parse::<i32>().unwrap(),
+            &l[2],
+            l[3].parse::<i32>().unwrap(),
+        );
         let (to, mut from) = (make(a, ca), make(b, cb));
         let mergable = are_mergable(&to, &from);
         let new_to = merge_stacks(&to, &mut from, 64);
@@ -222,7 +299,13 @@ fn item_merge_pickup_delay_and_despawn_match_vanilla() {
     let mut names = Vec::new();
     let mut ids = Vec::new();
     for (name, item, count, pos, age, pickup) in specs {
-        let id = spawn_item(&mut level, ItemStack::with_count(item, count), pos, (0.0, 0.0, 0.0), 0.0);
+        let id = spawn_item(
+            &mut level,
+            ItemStack::with_count(item, count),
+            pos,
+            (0.0, 0.0, 0.0),
+            0.0,
+        );
         level.with_entity(id, |_, e| {
             let e = e.as_any_mut().downcast_mut::<ItemEntity>().unwrap();
             e.age = age;
@@ -236,7 +319,10 @@ fn item_merge_pickup_delay_and_despawn_match_vanilla() {
         tick_entities(&mut level, &ids);
         actual.push(format!("T {t}"));
         for (name, &id) in names.iter().zip(&ids) {
-            if let Some(e) = level.get_entity(id).and_then(|e| e.as_any().downcast_ref::<ItemEntity>()) {
+            if let Some(e) = level
+                .get_entity(id)
+                .and_then(|e| e.as_any().downcast_ref::<ItemEntity>())
+            {
                 actual.push(describe_item(name, e));
             }
         }

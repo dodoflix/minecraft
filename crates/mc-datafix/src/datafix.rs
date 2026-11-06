@@ -55,7 +55,11 @@ impl DataFix {
     /// `getInputSchema()`.
     pub fn input_schema(&self) -> Schema {
         if self.0.changes_type {
-            self.0.output_schema.parent().expect("a type-changing fix needs a parent schema").clone()
+            self.0
+                .output_schema
+                .parent()
+                .expect("a type-changing fix needs a parent schema")
+                .clone()
         } else {
             self.0.output_schema.clone()
         }
@@ -179,7 +183,12 @@ impl DataFix {
 
     /// `fixTypeEverywhere(type, view)`.
     pub fn fix_type_everywhere_view(&self, ty: &Type, view: RewriteResult) -> TypeRewriteRule {
-        TypeRewriteRule::everywhere(TypeRewriteRule::if_same(ty, view), OptimizationRule::Standard, true, true)
+        TypeRewriteRule::everywhere(
+            TypeRewriteRule::if_same(ty, view),
+            OptimizationRule::Standard,
+            true,
+            true,
+        )
     }
 
     // ---- views --------------------------------------------------------------------------------------------------
@@ -209,7 +218,10 @@ impl DataFix {
             View::create(name, ty, new_type, move |ops, a| {
                 let result = f(Typed::new(ty2.clone(), *ops, a));
                 if !new_type2.equals_with(&result.ty, true, false) {
-                    panic!("Dynamic type check failed: {} not equal to {}", new_type2, result.ty);
+                    panic!(
+                        "Dynamic type check failed: {} not equal to {}",
+                        new_type2, result.ty
+                    );
                 }
                 result.value
             }),

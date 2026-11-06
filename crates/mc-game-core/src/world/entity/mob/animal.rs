@@ -1,6 +1,5 @@
 //! `Animal`: love mode, breeding, food interaction, walk target value, NBT.
 
-use mc_core::random::RandomSource;
 use super::ageable;
 use super::ext;
 use crate::server::level::ServerLevel;
@@ -10,6 +9,7 @@ use crate::world::entity::{Entity, EntityId, ServerPlayer};
 use crate::world::item::{InteractionHand, InteractionResult};
 use crate::world::level::LevelReader;
 use mc_core::pos::BlockPos;
+use mc_core::random::RandomSource;
 use mc_data::block::Block;
 use mc_nbt::CompoundTag;
 use uuid::Uuid;
@@ -61,7 +61,11 @@ pub fn ai_step_after(e: &mut dyn Entity, _level: &mut ServerLevel) {
 
 /// `Animal.getWalkTargetValue(pos, level)`.
 pub fn get_walk_target_value(pos: BlockPos, level: &dyn LevelReader) -> f32 {
-    if level.get_block_state(pos.below()).block() == Block::GRASS_BLOCK { 10.0 } else { level.get_pathfinding_cost_from_light_levels(pos) }
+    if level.get_block_state(pos.below()).block() == Block::GRASS_BLOCK {
+        10.0
+    } else {
+        level.get_pathfinding_cost_from_light_levels(pos)
+    }
 }
 
 /// `Animal.getBaseExperienceReward(level)`.
@@ -107,7 +111,10 @@ pub fn reset_love(e: &mut dyn Entity) {
 /// `getLoveCause()`: the player id when it is still in the level.
 pub fn get_love_cause(e: &dyn Entity, level: &ServerLevel) -> Option<EntityId> {
     let uuid = an(e).love_cause?;
-    level.get_entity_by_uuid(uuid).filter(|p| p.is_player()).map(|p| p.id())
+    level
+        .get_entity_by_uuid(uuid)
+        .filter(|p| p.is_player())
+        .map(|p| p.id())
 }
 
 /// `canMate(partner)`: same class and both in love.
@@ -118,11 +125,19 @@ pub fn can_mate(e: &dyn Entity, partner: &dyn Entity) -> bool {
     if partner.as_any().type_id() != e.as_any().type_id() {
         return false;
     }
-    is_in_love(e) && partner.mob().is_some_and(|m| m.animal.as_ref().is_some_and(|a| a.in_love > 0))
+    is_in_love(e)
+        && partner
+            .mob()
+            .is_some_and(|m| m.animal.as_ref().is_some_and(|a| a.in_love > 0))
 }
 
 /// `Animal.mobInteract(player, hand)`: feeding. `None` when the item is not food / nothing applies (`super.mobInteract`).
-pub fn mob_interact(e: &mut dyn Entity, level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) -> Option<InteractionResult> {
+pub fn mob_interact(
+    e: &mut dyn Entity,
+    level: &mut ServerLevel,
+    player: &mut ServerPlayer,
+    hand: InteractionHand,
+) -> Option<InteractionResult> {
     let item_stack = player.get_item_in_hand(hand);
     if e.is_food(&item_stack) {
         let age = ageable::get_age(e);
@@ -134,7 +149,12 @@ pub fn mob_interact(e: &mut dyn Entity, level: &mut ServerLevel, player: &mut Se
         }
         if e.can_age_up() {
             e.use_player_item(level, player, hand);
-            ageable::age_up(e, level, ageable::get_speed_up_seconds_when_feeding(-age), true);
+            ageable::age_up(
+                e,
+                level,
+                ageable::get_speed_up_seconds_when_feeding(-age),
+                true,
+            );
             e.play_eating_sound(level);
             return Some(InteractionResult::SUCCESS);
         }
@@ -148,8 +168,14 @@ pub fn spawn_child_from_breeding(e: &mut dyn Entity, level: &mut ServerLevel, pa
 }
 
 /// `Animal.spawnChildFromBreeding(level, partner)` (the `super` call of the overrides).
-pub fn spawn_child_from_breeding_super(e: &mut dyn Entity, level: &mut ServerLevel, partner: EntityId) {
-    let Some(mut offspring) = e.get_breed_offspring(level, partner) else { return };
+pub fn spawn_child_from_breeding_super(
+    e: &mut dyn Entity,
+    level: &mut ServerLevel,
+    partner: EntityId,
+) {
+    let Some(mut offspring) = e.get_breed_offspring(level, partner) else {
+        return;
+    };
     ageable::set_baby(&mut *offspring, true);
     let p = e.position();
     offspring.snap_to(p.x, p.y, p.z, 0.0, 0.0);
@@ -158,8 +184,17 @@ pub fn spawn_child_from_breeding_super(e: &mut dyn Entity, level: &mut ServerLev
 }
 
 /// `finalizeSpawnChildFromBreeding(level, partner, offspring)`.
-pub fn finalize_spawn_child_from_breeding(e: &mut dyn Entity, level: &mut ServerLevel, partner: EntityId, offspring: Option<&mut dyn Entity>) {
-    let cause = get_love_cause(e, level).or_else(|| level.get_entity(partner).and_then(|p| get_love_cause(p, level)));
+pub fn finalize_spawn_child_from_breeding(
+    e: &mut dyn Entity,
+    level: &mut ServerLevel,
+    partner: EntityId,
+    offspring: Option<&mut dyn Entity>,
+) {
+    let cause = get_love_cause(e, level).or_else(|| {
+        level
+            .get_entity(partner)
+            .and_then(|p| get_love_cause(p, level))
+    });
     if let Some(cause) = cause {
         level.with_player(cause, |level, player| {
             player.award_stat(level, Stats::ANIMALS_BRED, 1);
@@ -167,7 +202,9 @@ pub fn finalize_spawn_child_from_breeding(e: &mut dyn Entity, level: &mut Server
         ext::trigger_bred_animals(level, cause, e, partner, offspring.as_deref());
     }
     ageable::set_age_in_level(e, level, PARENT_AGE_AFTER_BREEDING);
-    level.with_entity(partner, |level, p| ageable::set_age_in_level(p, level, PARENT_AGE_AFTER_BREEDING));
+    level.with_entity(partner, |level, p| {
+        ageable::set_age_in_level(p, level, PARENT_AGE_AFTER_BREEDING)
+    });
     reset_love(e);
     level.with_entity(partner, |_, p| reset_love(p));
     level.broadcast_entity_event(e.id(), 18);
@@ -183,7 +220,10 @@ pub fn finalize_spawn_child_from_breeding(e: &mut dyn Entity, level: &mut Server
 pub fn add_additional_save_data(e: &dyn Entity, out: &mut CompoundTag) {
     out.put_int("InLove", an(e).in_love);
     if let Some(uuid) = an(e).love_cause {
-        out.put_int_array("LoveCause", mc_core::uuid_util::uuid_to_int_array(&uuid).to_vec());
+        out.put_int_array(
+            "LoveCause",
+            mc_core::uuid_util::uuid_to_int_array(&uuid).to_vec(),
+        );
     }
 }
 

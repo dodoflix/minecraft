@@ -73,11 +73,21 @@ impl GoalSelector {
     pub fn add_goal(&mut self, prio: i32, goal: Box<dyn Goal>) {
         let id = self.next_id;
         self.next_id += 1;
-        self.available_goals.push(WrappedGoal { id, priority: prio, goal, running: false });
+        self.available_goals.push(WrappedGoal {
+            id,
+            priority: prio,
+            goal,
+            running: false,
+        });
     }
 
     /// `removeAllGoals(predicate)`: running matches are stopped first.
-    pub fn remove_all_goals(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel, mut predicate: impl FnMut(&dyn Goal) -> bool) {
+    pub fn remove_all_goals(
+        &mut self,
+        mob: &mut dyn Entity,
+        level: &mut ServerLevel,
+        mut predicate: impl FnMut(&dyn Goal) -> bool,
+    ) {
         for g in &mut self.available_goals {
             if predicate(&*g.goal) && g.running {
                 g.stop(mob, level);
@@ -89,15 +99,27 @@ impl GoalSelector {
     /// `removeGoal(goal)` for the goal object matching `predicate` (identity in vanilla): hands the goal back so its state
     /// survives a later `addGoal` of the same object, and whether it was running. A running goal is NOT stopped here (no
     /// level at hand); the caller stops it.
-    pub fn take_goal_where(&mut self, mut predicate: impl FnMut(&dyn Goal) -> bool) -> Option<(Box<dyn Goal>, bool)> {
-        let index = self.available_goals.iter().position(|g| predicate(&*g.goal))?;
+    pub fn take_goal_where(
+        &mut self,
+        mut predicate: impl FnMut(&dyn Goal) -> bool,
+    ) -> Option<(Box<dyn Goal>, bool)> {
+        let index = self
+            .available_goals
+            .iter()
+            .position(|g| predicate(&*g.goal))?;
         let wrapped = self.available_goals.remove(index);
         Some((wrapped.goal, wrapped.running))
     }
 
     /// `removeGoal(goal)` for goals that cannot be running (construction time, NBT load): no `stop()` is called.
     pub fn remove_all_goals_not_running(&mut self, mut predicate: impl FnMut(&dyn Goal) -> bool) {
-        debug_assert!(!self.available_goals.iter().any(|g| g.running && predicate(&*g.goal)), "goal is running: use remove_all_goals");
+        debug_assert!(
+            !self
+                .available_goals
+                .iter()
+                .any(|g| g.running && predicate(&*g.goal)),
+            "goal is running: use remove_all_goals"
+        );
         self.available_goals.retain(|g| !predicate(&*g.goal));
     }
 
@@ -112,16 +134,22 @@ impl GoalSelector {
 
     /// Whether a running goal satisfies `predicate` (`getAvailableGoals()` scan for `isRunning() && instanceof`).
     pub fn is_running_where(&self, mut predicate: impl FnMut(&dyn Goal) -> bool) -> bool {
-        self.available_goals.iter().any(|g| g.running && predicate(&*g.goal))
+        self.available_goals
+            .iter()
+            .any(|g| g.running && predicate(&*g.goal))
     }
 
     /// The first goal of concrete type `T`.
     pub fn find_goal<T: Goal>(&self) -> Option<&T> {
-        self.available_goals.iter().find_map(|g| (&*g.goal as &dyn std::any::Any).downcast_ref::<T>())
+        self.available_goals
+            .iter()
+            .find_map(|g| (&*g.goal as &dyn std::any::Any).downcast_ref::<T>())
     }
 
     pub fn find_goal_mut<T: Goal>(&mut self) -> Option<&mut T> {
-        self.available_goals.iter_mut().find_map(|g| (&mut *g.goal as &mut dyn std::any::Any).downcast_mut::<T>())
+        self.available_goals
+            .iter_mut()
+            .find_map(|g| (&mut *g.goal as &mut dyn std::any::Any).downcast_mut::<T>())
     }
 
     pub fn disable_control_flag(&mut self, flag: Flag) {
@@ -147,14 +175,17 @@ impl GoalSelector {
     /// `lockedFlags.getOrDefault(flag, NO_GOAL).canBeReplacedBy(goal)` for all flags of `idx`.
     fn can_be_replaced_for_all_flags(&self, idx: usize) -> bool {
         let goal = &self.available_goals[idx];
-        goal.goal.flags().iter().all(|flag| match self.locked_flags[flag as usize] {
-            // NO_GOAL: interruptable, priority MAX
-            None => true,
-            Some(id) => match self.available_goals.iter().find(|g| g.id == id) {
-                Some(holder) => holder.can_be_replaced_by(goal.priority),
+        goal.goal
+            .flags()
+            .iter()
+            .all(|flag| match self.locked_flags[flag as usize] {
+                // NO_GOAL: interruptable, priority MAX
                 None => true,
-            },
-        })
+                Some(id) => match self.available_goals.iter().find(|g| g.id == id) {
+                    Some(holder) => holder.can_be_replaced_by(goal.priority),
+                    None => true,
+                },
+            })
     }
 
     /// `tick()`.
@@ -163,7 +194,9 @@ impl GoalSelector {
         for i in 0..self.available_goals.len() {
             if self.available_goals[i].running {
                 let flags = self.available_goals[i].goal.flags();
-                if flags.intersects(self.disabled_flags) || !self.available_goals[i].goal.can_continue_to_use(mob, level) {
+                if flags.intersects(self.disabled_flags)
+                    || !self.available_goals[i].goal.can_continue_to_use(mob, level)
+                {
                     self.available_goals[i].stop(mob, level);
                 }
             }
@@ -199,7 +232,12 @@ impl GoalSelector {
     }
 
     /// `tickRunningGoals(forceTickAllRunningGoals)`.
-    pub fn tick_running_goals(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel, force_tick_all_running_goals: bool) {
+    pub fn tick_running_goals(
+        &mut self,
+        mob: &mut dyn Entity,
+        level: &mut ServerLevel,
+        force_tick_all_running_goals: bool,
+    ) {
         for g in &mut self.available_goals {
             if g.running && (force_tick_all_running_goals || g.goal.requires_update_every_tick()) {
                 g.goal.tick(mob, level);

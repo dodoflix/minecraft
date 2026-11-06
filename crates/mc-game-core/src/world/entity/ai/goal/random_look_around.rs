@@ -1,9 +1,9 @@
 //! `RandomLookAroundGoal`.
 
-use mc_core::random::RandomSource;
 use super::{Flag, Goal, GoalFlags};
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
+use mc_core::random::RandomSource;
 
 pub struct RandomLookAroundGoal {
     rel_x: f64,
@@ -13,7 +13,11 @@ pub struct RandomLookAroundGoal {
 
 impl RandomLookAroundGoal {
     pub fn new() -> Self {
-        Self { rel_x: 0.0, rel_z: 0.0, look_time: 0 }
+        Self {
+            rel_x: 0.0,
+            rel_z: 0.0,
+            look_time: 0,
+        }
     }
 }
 
@@ -45,7 +49,11 @@ impl Goal for RandomLookAroundGoal {
 
     fn tick(&mut self, mob: &mut dyn Entity, _level: &mut ServerLevel) {
         self.look_time -= 1;
-        let (x, eye_y, z) = (mob.base().x() + self.rel_x, mob.base().get_eye_y(), mob.base().z() + self.rel_z);
+        let (x, eye_y, z) = (
+            mob.base().x() + self.rel_x,
+            mob.base().get_eye_y(),
+            mob.base().z() + self.rel_z,
+        );
         crate::world::entity::mob::look_at_xyz(mob, x, eye_y, z);
     }
 

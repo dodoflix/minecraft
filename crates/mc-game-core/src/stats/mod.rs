@@ -7,9 +7,9 @@ pub mod hash_order;
 pub mod server_stats_counter;
 pub mod stat;
 pub mod stat_formatter;
-pub mod stats_counter;
 #[allow(clippy::module_inception)]
 pub mod stats;
+pub mod stats_counter;
 
 pub use server_stats_counter::ServerStatsCounter;
 pub use stat::Stat;
@@ -29,6 +29,8 @@ impl SharedStats {
     }
 
     pub fn lock(&self) -> MutexGuard<'_, ServerStatsCounter> {
-        self.0.lock().unwrap_or_else(std::sync::PoisonError::into_inner)
+        self.0
+            .lock()
+            .unwrap_or_else(std::sync::PoisonError::into_inner)
     }
 }

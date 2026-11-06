@@ -37,14 +37,38 @@ impl PartialEq for MobEffectInstance {
 impl From<&mc_protocol::components::MobEffectInstance> for MobEffectInstance {
     /// `new MobEffectInstance(effect)` of a component value: the copy constructor drops the hidden effect.
     fn from(c: &mc_protocol::components::MobEffectInstance) -> Self {
-        Self { effect: c.effect, duration: c.duration, amplifier: c.amplifier, ambient: c.ambient, visible: c.visible, show_icon: c.show_icon, hidden_effect: None }
+        Self {
+            effect: c.effect,
+            duration: c.duration,
+            amplifier: c.amplifier,
+            ambient: c.ambient,
+            visible: c.visible,
+            show_icon: c.show_icon,
+            hidden_effect: None,
+        }
     }
 }
 
 impl MobEffectInstance {
     /// `new MobEffectInstance(effect, duration, amplifier, ambient, visible, showIcon, hidden)`: the amplifier is clamped to 0..=255.
-    pub fn new(effect: MobEffect, duration: i32, amplifier: i32, ambient: bool, visible: bool, show_icon: bool, hidden_effect: Option<Box<MobEffectInstance>>) -> Self {
-        Self { effect, duration, amplifier: amplifier.clamp(0, 255), ambient, visible, show_icon, hidden_effect }
+    pub fn new(
+        effect: MobEffect,
+        duration: i32,
+        amplifier: i32,
+        ambient: bool,
+        visible: bool,
+        show_icon: bool,
+        hidden_effect: Option<Box<MobEffectInstance>>,
+    ) -> Self {
+        Self {
+            effect,
+            duration,
+            amplifier: amplifier.clamp(0, 255),
+            ambient,
+            visible,
+            show_icon,
+            hidden_effect,
+        }
     }
 
     /// `new MobEffectInstance(effect, duration, amplifier)`.
@@ -53,13 +77,22 @@ impl MobEffectInstance {
     }
 
     /// `new MobEffectInstance(effect, duration, amplifier, ambient, visible)` (`showIcon = visible`).
-    pub fn with_flags(effect: MobEffect, duration: i32, amplifier: i32, ambient: bool, visible: bool) -> Self {
+    pub fn with_flags(
+        effect: MobEffect,
+        duration: i32,
+        amplifier: i32,
+        ambient: bool,
+        visible: bool,
+    ) -> Self {
         Self::new(effect, duration, amplifier, ambient, visible, visible, None)
     }
 
     /// `new MobEffectInstance(copy)`: details only, no hidden effect.
     pub fn copy(&self) -> Self {
-        Self { hidden_effect: None, ..self.clone() }
+        Self {
+            hidden_effect: None,
+            ..self.clone()
+        }
     }
 
     /// `setDetailsFrom(copy)`.
@@ -116,7 +149,8 @@ impl MobEffectInstance {
     }
 
     fn is_shorter_duration_than(&self, other: &MobEffectInstance) -> bool {
-        !self.is_infinite_duration() && (self.duration < other.duration || other.is_infinite_duration())
+        !self.is_infinite_duration()
+            && (self.duration < other.duration || other.is_infinite_duration())
     }
 
     pub fn is_infinite_duration(&self) -> bool {
@@ -136,7 +170,11 @@ impl MobEffectInstance {
 
     /// `mapDuration(mapper)`.
     pub fn map_duration(&self, mapper: impl FnOnce(i32) -> i32) -> i32 {
-        if !self.is_infinite_duration() && self.duration != 0 { mapper(self.duration) } else { self.duration }
+        if !self.is_infinite_duration() && self.duration != 0 {
+            mapper(self.duration)
+        } else {
+            self.duration
+        }
     }
 
     /// `hasRemainingDuration()`.
@@ -168,14 +206,18 @@ impl MobEffectInstance {
     pub fn compare_to(&self, o: &MobEffectInstance) -> Ordering {
         const UPDATE_CUT_OFF: i32 = 32147;
         let color = |e: &Self| e.effect.data().color;
-        if (self.duration <= UPDATE_CUT_OFF || o.duration <= UPDATE_CUT_OFF) && (!self.ambient || !o.ambient) {
+        if (self.duration <= UPDATE_CUT_OFF || o.duration <= UPDATE_CUT_OFF)
+            && (!self.ambient || !o.ambient)
+        {
             self.ambient
                 .cmp(&o.ambient)
                 .then(self.is_infinite_duration().cmp(&o.is_infinite_duration()))
                 .then(self.duration.cmp(&o.duration))
                 .then(color(self).cmp(&color(o)))
         } else {
-            self.ambient.cmp(&o.ambient).then(color(self).cmp(&color(o)))
+            self.ambient
+                .cmp(&o.ambient)
+                .then(color(self).cmp(&color(o)))
         }
     }
 
@@ -243,6 +285,14 @@ impl MobEffectInstance {
             Some(h) => Some(Box::new(Self::read_details(effect, h)?)),
             None => None,
         };
-        Some(Self::new(effect, duration, amplifier & 0xFF, ambient, visible, show_icon, hidden))
+        Some(Self::new(
+            effect,
+            duration,
+            amplifier & 0xFF,
+            ambient,
+            visible,
+            show_icon,
+            hidden,
+        ))
     }
 }

@@ -10,13 +10,21 @@ fn normalize(text: &str) -> Vec<String> {
     text.lines()
         .enumerate()
         .filter(|(i, _)| *i != 1)
-        .map(|(_, l)| if l.starts_with("management-server-secret=") && l.len() == 25 + 40 { "management-server-secret=<random>".to_owned() } else { l.to_owned() })
+        .map(|(_, l)| {
+            if l.starts_with("management-server-secret=") && l.len() == 25 + 40 {
+                "management-server-secret=<random>".to_owned()
+            } else {
+                l.to_owned()
+            }
+        })
         .collect()
 }
 
 fn ours(input: &str) -> String {
     let props = DedicatedServerProperties::new(Properties::load(input).unwrap()).unwrap();
-    props.properties().store(Some("Minecraft server properties"))
+    props
+        .properties()
+        .store(Some("Minecraft server properties"))
 }
 
 #[test]

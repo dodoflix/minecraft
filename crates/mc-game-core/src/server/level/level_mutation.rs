@@ -2,16 +2,18 @@
 //! notification, scheduled ticks), `destroyBlock`/`removeBlock`, and the `LevelAccessor` / `NeighborUpdateHost` /
 //! `CollisionGetter` implementations of `ServerLevel`.
 
-use super::ServerLevel;
 use super::FullChunkStatus;
+use super::ServerLevel;
 use crate::world::entity::EntityId;
 use crate::world::entity::ai::village::poi::PoiTypes;
-use crate::world::level::block::helpers::{drop_resources, update_or_destroy_limited};
 use crate::world::level::block::BlockStateExt;
+use crate::world::level::block::helpers::{drop_resources, update_or_destroy_limited};
 use crate::world::level::flags::*;
 use crate::world::level::gameevent::GameEventContext;
 use crate::world::level::material::FluidStateExt as _;
-use crate::world::level::redstone::{CollectingNeighborUpdater, NeighborUpdateHost, Orientation, SideBias};
+use crate::world::level::redstone::{
+    CollectingNeighborUpdater, NeighborUpdateHost, Orientation, SideBias,
+};
 use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
 use mc_core::direction::{Direction, Plane};
 use mc_core::phys::Vec3;
@@ -31,7 +33,11 @@ impl ServerLevel {
 
     /// `isInWorldBounds(pos)`.
     pub fn is_in_world_bounds(&self, pos: BlockPos) -> bool {
-        !self.is_outside_build_height(pos.y()) && pos.x() >= -30_000_000 && pos.z() >= -30_000_000 && pos.x() < 30_000_000 && pos.z() < 30_000_000
+        !self.is_outside_build_height(pos.y())
+            && pos.x() >= -30_000_000
+            && pos.z() >= -30_000_000
+            && pos.x() < 30_000_000
+            && pos.z() < 30_000_000
     }
 
     /// Make sure the full chunk of `pos` is loaded (vanilla `getChunkAt(pos)` blocks until it is).
@@ -43,7 +49,13 @@ impl ServerLevel {
     }
 
     /// `Level.setBlock(pos, state, flags, updateLimit)`.
-    pub fn set_block_impl(&mut self, pos: BlockPos, block_state: BlockState, flags: u32, update_limit: i32) -> bool {
+    pub fn set_block_impl(
+        &mut self,
+        pos: BlockPos,
+        block_state: BlockState,
+        flags: u32,
+        update_limit: i32,
+    ) -> bool {
         if !self.is_in_valid_bounds(pos) {
             return false;
         }
@@ -58,7 +70,11 @@ impl ServerLevel {
         let new_state = BlockGetter::get_block_state(self, pos);
         if new_state == block_state {
             // `setBlocksDirty` is a client-only hook.
-            if flags & UPDATE_CLIENTS != 0 && self.full_chunk_status(pos.x() >> 4, pos.z() >> 4).is_or_after(FullChunkStatus::BlockTicking) {
+            if flags & UPDATE_CLIENTS != 0
+                && self
+                    .full_chunk_status(pos.x() >> 4, pos.z() >> 4)
+                    .is_or_after(FullChunkStatus::BlockTicking)
+            {
                 self.send_block_updated(pos, old_state, block_state, flags);
             }
             if flags & UPDATE_NEIGHBORS != 0 {
@@ -69,9 +85,24 @@ impl ServerLevel {
             }
             if flags & UPDATE_KNOWN_SHAPE == 0 && update_limit > 0 {
                 let neighbour_update_flags = flags & !34;
-                old_state.update_indirect_neighbour_shapes(self, pos, neighbour_update_flags, update_limit - 1);
-                block_state.update_neighbour_shapes(self, pos, neighbour_update_flags, update_limit - 1);
-                block_state.update_indirect_neighbour_shapes(self, pos, neighbour_update_flags, update_limit - 1);
+                old_state.update_indirect_neighbour_shapes(
+                    self,
+                    pos,
+                    neighbour_update_flags,
+                    update_limit - 1,
+                );
+                block_state.update_neighbour_shapes(
+                    self,
+                    pos,
+                    neighbour_update_flags,
+                    update_limit - 1,
+                );
+                block_state.update_indirect_neighbour_shapes(
+                    self,
+                    pos,
+                    neighbour_update_flags,
+                    update_limit - 1,
+                );
             }
             self.update_poi_on_block_state_change(pos, old_state, new_state);
         }
@@ -79,7 +110,13 @@ impl ServerLevel {
     }
 
     /// `ServerLevel.sendBlockUpdated(pos, old, current, flags)`.
-    pub fn send_block_updated(&mut self, pos: BlockPos, _old: BlockState, _current: BlockState, _flags: u32) {
+    pub fn send_block_updated(
+        &mut self,
+        pos: BlockPos,
+        _old: BlockState,
+        _current: BlockState,
+        _flags: u32,
+    ) {
         self.block_changed(pos);
         self.path_type_cache.lock().invalidate(pos);
         // Navigation recomputation of mobs follows with the mobs (`navigatingMobs`).
@@ -92,23 +129,65 @@ impl ServerLevel {
     }
 
     /// `updateNeighborsAt(pos, sourceBlock, orientation)`.
-    pub fn update_neighbors_at_with_orientation_impl(&mut self, pos: BlockPos, source_block: Block, orientation: Option<Orientation>) {
-        CollectingNeighborUpdater::update_neighbors_at_except_from_facing(self, pos, source_block, None, orientation);
+    pub fn update_neighbors_at_with_orientation_impl(
+        &mut self,
+        pos: BlockPos,
+        source_block: Block,
+        orientation: Option<Orientation>,
+    ) {
+        CollectingNeighborUpdater::update_neighbors_at_except_from_facing(
+            self,
+            pos,
+            source_block,
+            None,
+            orientation,
+        );
     }
 
     /// `updateNeighborsAtExceptFromFacing(pos, block, skipDirection, orientation)`.
-    pub fn update_neighbors_at_except_from_facing(&mut self, pos: BlockPos, block: Block, skip_direction: Direction, orientation: Option<Orientation>) {
-        CollectingNeighborUpdater::update_neighbors_at_except_from_facing(self, pos, block, Some(skip_direction), orientation);
+    pub fn update_neighbors_at_except_from_facing(
+        &mut self,
+        pos: BlockPos,
+        block: Block,
+        skip_direction: Direction,
+        orientation: Option<Orientation>,
+    ) {
+        CollectingNeighborUpdater::update_neighbors_at_except_from_facing(
+            self,
+            pos,
+            block,
+            Some(skip_direction),
+            orientation,
+        );
     }
 
     /// `neighborChanged(pos, changedBlock, orientation)`.
-    pub fn neighbor_changed(&mut self, pos: BlockPos, changed_block: Block, orientation: Option<Orientation>) {
+    pub fn neighbor_changed(
+        &mut self,
+        pos: BlockPos,
+        changed_block: Block,
+        orientation: Option<Orientation>,
+    ) {
         CollectingNeighborUpdater::neighbor_changed(self, pos, changed_block, orientation);
     }
 
     /// `neighborChanged(state, pos, changedBlock, orientation, movedByPiston)`.
-    pub fn neighbor_changed_with_state(&mut self, state: BlockState, pos: BlockPos, changed_block: Block, orientation: Option<Orientation>, moved_by_piston: bool) {
-        CollectingNeighborUpdater::neighbor_changed_with_state(self, state, pos, changed_block, orientation, moved_by_piston);
+    pub fn neighbor_changed_with_state(
+        &mut self,
+        state: BlockState,
+        pos: BlockPos,
+        changed_block: Block,
+        orientation: Option<Orientation>,
+        moved_by_piston: bool,
+    ) {
+        CollectingNeighborUpdater::neighbor_changed_with_state(
+            self,
+            state,
+            pos,
+            changed_block,
+            orientation,
+            moved_by_piston,
+        );
     }
 
     /// `Level.updateNeighbourForOutputSignal(pos, changedBlock)`.
@@ -123,7 +202,13 @@ impl ServerLevel {
                     relative = relative.relative(direction);
                     state = BlockGetter::get_block_state(self, relative);
                     if state.block() == Block::COMPARATOR {
-                        self.neighbor_changed_with_state(state, relative, changed_block, None, false);
+                        self.neighbor_changed_with_state(
+                            state,
+                            relative,
+                            changed_block,
+                            None,
+                            false,
+                        );
                     }
                 }
             }
@@ -145,11 +230,19 @@ impl ServerLevel {
     }
 
     /// `ExperimentalRedstoneUtils.initialOrientation(level, front, up)`.
-    pub fn initial_orientation(&mut self, front: Option<Direction>, up: Option<Direction>) -> Option<Orientation> {
-        if !self.enabled_features().contains_all(FeatureFlagSet::REDSTONE_EXPERIMENTS) {
+    pub fn initial_orientation(
+        &mut self,
+        front: Option<Direction>,
+        up: Option<Direction>,
+    ) -> Option<Orientation> {
+        if !self
+            .enabled_features()
+            .contains_all(FeatureFlagSet::REDSTONE_EXPERIMENTS)
+        {
             return None;
         }
-        let mut orientation = Orientation::random(&mut self.tick_state.random).with_side_bias(SideBias::Left);
+        let mut orientation =
+            Orientation::random(&mut self.tick_state.random).with_side_bias(SideBias::Left);
         if let Some(up) = up {
             orientation = orientation.with_up(up);
         }
@@ -160,7 +253,13 @@ impl ServerLevel {
     }
 
     /// `Level.destroyBlock(pos, dropResources, breaker, updateLimit)`.
-    pub fn destroy_block_impl(&mut self, pos: BlockPos, drop_block: bool, breaker: Option<EntityId>, update_limit: i32) -> bool {
+    pub fn destroy_block_impl(
+        &mut self,
+        pos: BlockPos,
+        drop_block: bool,
+        breaker: Option<EntityId>,
+        update_limit: i32,
+    ) -> bool {
         let block_state = BlockGetter::get_block_state(self, pos);
         if block_state.is_air() {
             return false;
@@ -171,9 +270,18 @@ impl ServerLevel {
             drop_resources(self, block_state, pos, breaker);
         }
         let fluid_state = self.get_fluid_state(pos);
-        let destroyed = self.set_block_impl(pos, fluid_state.create_legacy_block(), UPDATE_ALL, update_limit);
+        let destroyed = self.set_block_impl(
+            pos,
+            fluid_state.create_legacy_block(),
+            UPDATE_ALL,
+            update_limit,
+        );
         if destroyed {
-            self.game_event_at_block(GameEvent::BLOCK_DESTROY, pos, &GameEventContext::of(breaker, Some(block_state)));
+            self.game_event_at_block(
+                GameEvent::BLOCK_DESTROY,
+                pos,
+                &GameEventContext::of(breaker, Some(block_state)),
+            );
         }
         destroyed
     }
@@ -181,20 +289,41 @@ impl ServerLevel {
     /// `Level.removeBlock(pos, movedByPiston)`.
     pub fn remove_block_impl(&mut self, pos: BlockPos, moved_by_piston: bool) -> bool {
         let fluid_state = self.get_fluid_state(pos);
-        self.set_block_impl(pos, fluid_state.create_legacy_block(), UPDATE_ALL | if moved_by_piston { UPDATE_MOVE_BY_PISTON } else { 0 }, 512)
+        self.set_block_impl(
+            pos,
+            fluid_state.create_legacy_block(),
+            UPDATE_ALL
+                | if moved_by_piston {
+                    UPDATE_MOVE_BY_PISTON
+                } else {
+                    0
+                },
+            512,
+        )
     }
 
     /// `updatePOIOnBlockStateChange(pos, old, new)`: the removal/registration is `getServer().execute(task)`: inline on the game thread outside a task, else queued.
-    pub fn update_poi_on_block_state_change(&mut self, pos: BlockPos, old_state: BlockState, new_state: BlockState) {
-        let (old_type, new_type) = (PoiTypes::for_state(old_state), PoiTypes::for_state(new_state));
+    pub fn update_poi_on_block_state_change(
+        &mut self,
+        pos: BlockPos,
+        old_state: BlockState,
+        new_state: BlockState,
+    ) {
+        let (old_type, new_type) = (
+            PoiTypes::for_state(old_state),
+            PoiTypes::for_state(new_state),
+        );
         if old_type != new_type {
             if self.shared.runs_tasks_inline() {
-                self.poi_manager().apply_block_state_change(pos, old_type, new_type);
+                self.poi_manager()
+                    .apply_block_state_change(pos, old_type, new_type);
             } else {
                 let dimension = self.dimension.clone();
                 self.shared.execute(move |server| {
                     if let Some(level) = server.level_mut(&dimension) {
-                        level.poi_manager().apply_block_state_change(pos, old_type, new_type);
+                        level
+                            .poi_manager()
+                            .apply_block_state_change(pos, old_type, new_type);
                     }
                 });
             }
@@ -213,16 +342,36 @@ impl ServerLevel {
 
     /// `blockTicks.willTickThisTick(pos, block)`.
     pub fn will_tick_block_this_tick(&self, pos: BlockPos, block: Block) -> bool {
-        self.tick_state.ticks.lock().block.will_tick_this_tick(&pos, block)
+        self.tick_state
+            .ticks
+            .lock()
+            .block
+            .will_tick_this_tick(&pos, block)
     }
 
     /// `fluidTicks.willTickThisTick(pos, fluid)`.
     pub fn will_tick_fluid_this_tick(&self, pos: BlockPos, fluid: Fluid) -> bool {
-        self.tick_state.ticks.lock().fluid.will_tick_this_tick(&pos, fluid)
+        self.tick_state
+            .ticks
+            .lock()
+            .fluid
+            .will_tick_this_tick(&pos, fluid)
     }
 
-    fn create_tick<T>(&mut self, pos: BlockPos, ty: T, delay: i32, priority: TickPriority) -> ScheduledTick<T> {
-        ScheduledTick { ty, pos, trigger_tick: self.game_time().wrapping_add(i64::from(delay)), priority, sub_tick_order: self.next_sub_tick() }
+    fn create_tick<T>(
+        &mut self,
+        pos: BlockPos,
+        ty: T,
+        delay: i32,
+        priority: TickPriority,
+    ) -> ScheduledTick<T> {
+        ScheduledTick {
+            ty,
+            pos,
+            trigger_tick: self.game_time().wrapping_add(i64::from(delay)),
+            priority,
+            sub_tick_order: self.next_sub_tick(),
+        }
     }
 
     fn next_sub_tick(&mut self) -> i64 {
@@ -234,7 +383,9 @@ impl ServerLevel {
 
 impl LevelAccessor for ServerLevel {
     fn as_world_gen_level(&self) -> Option<&dyn crate::world::level::levelgen::WorldGenLevel> {
-        self.gen_env.as_ref().map(|_| self as &dyn crate::world::level::levelgen::WorldGenLevel)
+        self.gen_env
+            .as_ref()
+            .map(|_| self as &dyn crate::world::level::levelgen::WorldGenLevel)
     }
 
     fn as_server_level_mut(&mut self) -> Option<&mut ServerLevel> {
@@ -243,10 +394,19 @@ impl LevelAccessor for ServerLevel {
 
     fn is_unobstructed_block(&self, pos: BlockPos) -> bool {
         use crate::world::level::collision::CollisionGetter as _;
-        self.is_unobstructed(None, &mc_core::phys::shapes::Shapes::block().move_vec3i(*pos))
+        self.is_unobstructed(
+            None,
+            &mc_core::phys::shapes::Shapes::block().move_vec3i(*pos),
+        )
     }
 
-    fn set_block(&mut self, pos: BlockPos, state: BlockState, flags: u32, update_limit: i32) -> bool {
+    fn set_block(
+        &mut self,
+        pos: BlockPos,
+        state: BlockState,
+        flags: u32,
+        update_limit: i32,
+    ) -> bool {
         self.set_block_impl(pos, state, flags, update_limit)
     }
 
@@ -254,7 +414,13 @@ impl LevelAccessor for ServerLevel {
         self.remove_block_impl(pos, moved_by_piston)
     }
 
-    fn destroy_block(&mut self, pos: BlockPos, drop_block: bool, breaker: Option<EntityId>, update_limit: i32) -> bool {
+    fn destroy_block(
+        &mut self,
+        pos: BlockPos,
+        drop_block: bool,
+        breaker: Option<EntityId>,
+        update_limit: i32,
+    ) -> bool {
         self.destroy_block_impl(pos, drop_block, breaker, update_limit)
     }
 
@@ -270,38 +436,82 @@ impl LevelAccessor for ServerLevel {
         &mut self.tick_state.random
     }
 
-    fn get_block_entity_mut(&mut self, pos: BlockPos) -> Option<&mut dyn crate::world::block_entity::BlockEntity> {
+    fn get_block_entity_mut(
+        &mut self,
+        pos: BlockPos,
+    ) -> Option<&mut dyn crate::world::block_entity::BlockEntity> {
         self.get_block_entity_check_mut(pos)
     }
 
-    fn schedule_block_tick(&mut self, pos: BlockPos, block: Block, delay: i32, priority: TickPriority) {
+    fn schedule_block_tick(
+        &mut self,
+        pos: BlockPos,
+        block: Block,
+        delay: i32,
+        priority: TickPriority,
+    ) {
         let tick = self.create_tick(pos, block, delay, priority);
         self.tick_state.ticks.lock().block.schedule(tick);
     }
 
-    fn schedule_fluid_tick(&mut self, pos: BlockPos, fluid: Fluid, delay: i32, priority: TickPriority) {
+    fn schedule_fluid_tick(
+        &mut self,
+        pos: BlockPos,
+        fluid: Fluid,
+        delay: i32,
+        priority: TickPriority,
+    ) {
         let tick = self.create_tick(pos, fluid, delay, priority);
         self.tick_state.ticks.lock().fluid.schedule(tick);
     }
 
     fn has_scheduled_block_tick(&self, pos: BlockPos, block: Block) -> bool {
-        self.tick_state.ticks.lock().block.has_scheduled_tick(&pos, block)
+        self.tick_state
+            .ticks
+            .lock()
+            .block
+            .has_scheduled_tick(&pos, block)
     }
 
     fn has_scheduled_fluid_tick(&self, pos: BlockPos, fluid: Fluid) -> bool {
-        self.tick_state.ticks.lock().fluid.has_scheduled_tick(&pos, fluid)
+        self.tick_state
+            .ticks
+            .lock()
+            .fluid
+            .has_scheduled_tick(&pos, fluid)
     }
 
     fn update_neighbors_at(&mut self, pos: BlockPos, source_block: Block) {
         self.update_neighbors_at_impl(pos, source_block);
     }
 
-    fn update_neighbors_at_with_orientation(&mut self, pos: BlockPos, source_block: Block, orientation: Option<Orientation>) {
+    fn update_neighbors_at_with_orientation(
+        &mut self,
+        pos: BlockPos,
+        source_block: Block,
+        orientation: Option<Orientation>,
+    ) {
         self.update_neighbors_at_with_orientation_impl(pos, source_block, orientation);
     }
 
-    fn neighbor_shape_changed(&mut self, direction: Direction, pos: BlockPos, neighbor_pos: BlockPos, neighbor_state: BlockState, update_flags: u32, update_limit: i32) {
-        CollectingNeighborUpdater::shape_update(self, direction, neighbor_state, pos, neighbor_pos, update_flags, update_limit);
+    fn neighbor_shape_changed(
+        &mut self,
+        direction: Direction,
+        pos: BlockPos,
+        neighbor_pos: BlockPos,
+        neighbor_state: BlockState,
+        update_flags: u32,
+        update_limit: i32,
+    ) {
+        CollectingNeighborUpdater::shape_update(
+            self,
+            direction,
+            neighbor_state,
+            pos,
+            neighbor_pos,
+            update_flags,
+            update_limit,
+        );
     }
 
     fn game_event(&mut self, event: GameEvent, position: Vec3, context: &GameEventContext) {
@@ -312,7 +522,15 @@ impl LevelAccessor for ServerLevel {
         self.level_event_impl(source, event_type, pos, data);
     }
 
-    fn play_sound(&mut self, except: Option<EntityId>, pos: BlockPos, sound: mc_data::SoundEvent, source: mc_protocol::packets::play::level::SoundSource, volume: f32, pitch: f32) {
+    fn play_sound(
+        &mut self,
+        except: Option<EntityId>,
+        pos: BlockPos,
+        sound: mc_data::SoundEvent,
+        source: mc_protocol::packets::play::level::SoundSource,
+        volume: f32,
+        pitch: f32,
+    ) {
         ServerLevel::play_sound(self, except, pos, sound, source, volume, pitch);
     }
 
@@ -334,24 +552,54 @@ impl NeighborUpdateHost for ServerLevel {
         BlockGetter::get_block_state(self, pos)
     }
 
-    fn execute_shape_update(&mut self, direction: Direction, pos: BlockPos, neighbor_pos: BlockPos, neighbor_state: BlockState, update_flags: u32, update_limit: i32) {
+    fn execute_shape_update(
+        &mut self,
+        direction: Direction,
+        pos: BlockPos,
+        neighbor_pos: BlockPos,
+        neighbor_state: BlockState,
+        update_flags: u32,
+        update_limit: i32,
+    ) {
         // `NeighborUpdater.executeShapeUpdate`
         let current_state = BlockGetter::get_block_state(self, pos);
-        if update_flags & UPDATE_SKIP_SHAPE_UPDATE_ON_WIRE == 0 || current_state.block() != Block::REDSTONE_WIRE {
-            let new_state = current_state.update_shape(self, pos, direction, neighbor_pos, neighbor_state);
-            update_or_destroy_limited(current_state, new_state, self, pos, update_flags, update_limit);
+        if update_flags & UPDATE_SKIP_SHAPE_UPDATE_ON_WIRE == 0
+            || current_state.block() != Block::REDSTONE_WIRE
+        {
+            let new_state =
+                current_state.update_shape(self, pos, direction, neighbor_pos, neighbor_state);
+            update_or_destroy_limited(
+                current_state,
+                new_state,
+                self,
+                pos,
+                update_flags,
+                update_limit,
+            );
         }
     }
 
-    fn execute_update(&mut self, state: BlockState, pos: BlockPos, changed_block: Block, orientation: Option<Orientation>, moved_by_piston: bool) {
+    fn execute_update(
+        &mut self,
+        state: BlockState,
+        pos: BlockPos,
+        changed_block: Block,
+        orientation: Option<Orientation>,
+        moved_by_piston: bool,
+    ) {
         state.handle_neighbor_changed(self, pos, changed_block, orientation, moved_by_piston);
     }
 
     fn redstone_experiments(&self) -> bool {
-        self.enabled_features().contains_all(FeatureFlagSet::REDSTONE_EXPERIMENTS)
+        self.enabled_features()
+            .contains_all(FeatureFlagSet::REDSTONE_EXPERIMENTS)
     }
 
-    fn initial_orientation(&mut self, front: Option<Direction>, up: Option<Direction>) -> Option<Orientation> {
+    fn initial_orientation(
+        &mut self,
+        front: Option<Direction>,
+        up: Option<Direction>,
+    ) -> Option<Orientation> {
         ServerLevel::initial_orientation(self, front, up)
     }
 }

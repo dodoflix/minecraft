@@ -8,7 +8,11 @@ fn status(name: &str) -> ChunkStatus {
 }
 
 fn keys(types: &[HeightmapType]) -> String {
-    types.iter().map(|t| t.serialization_key()).collect::<Vec<_>>().join(",")
+    types
+        .iter()
+        .map(|t| t.serialization_key())
+        .collect::<Vec<_>>()
+        .join(",")
 }
 
 #[test]
@@ -19,7 +23,10 @@ fn matches_vanilla_chunk_status() {
         let (kind, rest) = line.split_once([' ', '\t']).unwrap_or((line, ""));
         match kind {
             "LIST" => {
-                let names: Vec<String> = ChunkStatus::get_status_list().iter().map(|s| s.name()).collect();
+                let names: Vec<String> = ChunkStatus::get_status_list()
+                    .iter()
+                    .map(|s| s.name())
+                    .collect();
                 assert_eq!(names.join(","), rest);
             }
             "STATUS" => {
@@ -52,7 +59,10 @@ fn matches_vanilla_chunk_status() {
                     assert_eq!(a.is_after(*b), bit(1));
                     assert_eq!(a.is_or_before(*b), bit(2));
                     assert_eq!(a.is_before(*b), bit(3));
-                    assert_eq!(ChunkStatus::max(a, *b).index(), c[4].to_digit(10).unwrap() as i32);
+                    assert_eq!(
+                        ChunkStatus::max(a, *b).index(),
+                        c[4].to_digit(10).unwrap() as i32
+                    );
                 }
             }
             "FINAL" => assert_eq!(keys(FINAL_HEIGHTMAPS), rest),
@@ -66,7 +76,12 @@ fn matches_vanilla_chunk_status() {
                 } else {
                     assert_eq!(f[1], "n/a");
                 }
-                assert_eq!(ChunkStatus::decode(&tag).map_or("ERR".to_owned(), |s| s.name()), f[2], "CODEC {}", f[0]);
+                assert_eq!(
+                    ChunkStatus::decode(&tag).map_or("ERR".to_owned(), |s| s.name()),
+                    f[2],
+                    "CODEC {}",
+                    f[0]
+                );
             }
             _ => panic!("bad line {line}"),
         }
@@ -92,7 +107,10 @@ fn registry_order_matches_report() {
     ];
     for (path, id) in expected {
         assert_eq!(ChunkStatus::from_id(id).unwrap().path(), path);
-        assert_eq!(mc_data::registry::registries::CHUNK_STATUS.id_of(&format!("minecraft:{path}")), Some(id));
+        assert_eq!(
+            mc_data::registry::registries::CHUNK_STATUS.id_of(&format!("minecraft:{path}")),
+            Some(id)
+        );
     }
     assert_eq!(ChunkStatus::from_id(10), None);
     assert_eq!(ChunkStatus::Empty.parent(), ChunkStatus::Empty);

@@ -1,15 +1,17 @@
 //! `TheEndGatewayBlockEntity`: `Age`, `exit_portal` and `ExactTeleport`, sent to clients as update tag/packet, the
 //! portal ticker (spawn animation, cooldown), the exit position search and the exit gateway creation.
 
-use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec};
+use super::{
+    BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec,
+};
 use crate::commands::arguments::coordinates::block_pos_argument::is_in_spawnable_bounds;
-use linkme::distributed_slice;
 use crate::server::level::ServerLevel;
 use crate::server::world_dimensions::end_key;
 use crate::world::level::block::{BlockStateExt, behaviour};
 use crate::world::level::levelgen::feature::Feature;
 use crate::world::level::levelgen::feature::end_gateway_feature::EndGatewayFeature;
 use crate::world::level::{BlockGetter, LevelReader};
+use linkme::distributed_slice;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_core::random::{LegacyRandomSource, RandomSource};
@@ -29,7 +31,13 @@ pub struct TheEndGatewayBlockEntity {
 
 impl TheEndGatewayBlockEntity {
     pub fn new(pos: BlockPos, state: BlockState) -> Self {
-        Self { base: BlockEntityData::new(BlockEntityType::END_GATEWAY, pos, state), age: 0, teleport_cooldown: 0, exit_portal: None, exact_teleport: false }
+        Self {
+            base: BlockEntityData::new(BlockEntityType::END_GATEWAY, pos, state),
+            age: 0,
+            teleport_cooldown: 0,
+            exit_portal: None,
+            exact_teleport: false,
+        }
     }
 
     const SPAWN_TIME: i64 = 200;
@@ -56,14 +64,30 @@ impl TheEndGatewayBlockEntity {
     }
 
     /// `getPortalPosition(currentLevel, portalEntryPos)`.
-    pub fn get_portal_position(&mut self, level: &mut ServerLevel, portal_entry_pos: BlockPos) -> Option<Vec3> {
+    pub fn get_portal_position(
+        &mut self,
+        level: &mut ServerLevel,
+        portal_entry_pos: BlockPos,
+    ) -> Option<Vec3> {
         if self.exit_portal.is_none() && level.dimension == end_key() {
-            let exit_portal_pos = find_or_create_valid_teleport_pos(level, portal_entry_pos).above_n(Self::GATEWAY_HEIGHT_ABOVE_SURFACE);
-            spawn_gateway_portal(level, exit_portal_pos, &EndGatewayFeature { exit: Some(portal_entry_pos), exact: false });
+            let exit_portal_pos = find_or_create_valid_teleport_pos(level, portal_entry_pos)
+                .above_n(Self::GATEWAY_HEIGHT_ABOVE_SURFACE);
+            spawn_gateway_portal(
+                level,
+                exit_portal_pos,
+                &EndGatewayFeature {
+                    exit: Some(portal_entry_pos),
+                    exact: false,
+                },
+            );
             self.set_exit_position(exit_portal_pos, self.exact_teleport);
         }
         let exit = self.exit_portal?;
-        let pos = if self.exact_teleport { exit } else { find_exit_position(level, exit) };
+        let pos = if self.exact_teleport {
+            exit
+        } else {
+            find_exit_position(level, exit)
+        };
         Some(Vec3::at_bottom_center_of(&pos))
     }
 
@@ -79,7 +103,8 @@ impl BlockEntity for TheEndGatewayBlockEntity {
 
     fn load_additional(&mut self, tag: &CompoundTag) {
         self.age = tag.get_long_or("Age", 0);
-        self.exit_portal = read_codec(tag, "exit_portal", &block_pos_codec()).filter(|p| is_in_spawnable_bounds(*p));
+        self.exit_portal = read_codec(tag, "exit_portal", &block_pos_codec())
+            .filter(|p| is_in_spawnable_bounds(*p));
         self.exact_teleport = tag.get_boolean_or("ExactTeleport", false);
     }
 
@@ -122,13 +147,19 @@ impl BlockEntity for TheEndGatewayBlockEntity {
     }
 
     fn get_update_packet(&self) -> Option<ClientboundBlockEntityDataPacket> {
-        Some(ClientboundBlockEntityDataPacket { pos: self.get_block_pos(), r#type: self.get_type(), tag: self.get_update_tag() })
+        Some(ClientboundBlockEntityDataPacket {
+            pos: self.get_block_pos(),
+            r#type: self.get_type(),
+            tag: self.get_update_tag(),
+        })
     }
 }
 
 #[distributed_slice(BLOCK_ENTITY_TYPES)]
-static END_GATEWAY: BlockEntityRegistration =
-    BlockEntityRegistration { ty: BlockEntityType::END_GATEWAY, create: |pos, state| Box::new(TheEndGatewayBlockEntity::new(pos, state)) };
+static END_GATEWAY: BlockEntityRegistration = BlockEntityRegistration {
+    ty: BlockEntityType::END_GATEWAY,
+    create: |pos, state| Box::new(TheEndGatewayBlockEntity::new(pos, state)),
+};
 
 /// `findExitPosition(level, exitPortal)`.
 fn find_exit_position(level: &ServerLevel, exit_portal: BlockPos) -> BlockPos {
@@ -136,14 +167,23 @@ fn find_exit_position(level: &ServerLevel, exit_portal: BlockPos) -> BlockPos {
 }
 
 /// `findOrCreateValidTeleportPos(level, endGatewayPos)`.
-fn find_or_create_valid_teleport_pos(level: &mut ServerLevel, end_gateway_pos: BlockPos) -> BlockPos {
+fn find_or_create_valid_teleport_pos(
+    level: &mut ServerLevel,
+    end_gateway_pos: BlockPos,
+) -> BlockPos {
     let tentative = find_exit_portal_xz_pos_tentative(level, end_gateway_pos);
-    let mut exit_portal_pos = find_valid_spawn_in_chunk(level, mc_core::math::mth::floor_f64(tentative.x / 16.0), mc_core::math::mth::floor_f64(tentative.z / 16.0));
+    let mut exit_portal_pos = find_valid_spawn_in_chunk(
+        level,
+        mc_core::math::mth::floor_f64(tentative.x / 16.0),
+        mc_core::math::mth::floor_f64(tentative.z / 16.0),
+    );
     if exit_portal_pos.is_none() {
         let new_pos = BlockPos::containing(tentative.x + 0.5, 75.0, tentative.z + 0.5);
         // `EndFeatures.END_ISLAND.place(level, generator, RandomSource.create(newExitPortalPos.asLong()), newExitPortalPos)`
         let env = level.gen_env().clone();
-        if let Some(island) = env.registries.feature(&mc_core::ident::Identifier::with_default_namespace("end_island").expect("valid id")) {
+        if let Some(island) = env.registries.feature(
+            &mc_core::ident::Identifier::with_default_namespace("end_island").expect("valid id"),
+        ) {
             let mut random = LegacyRandomSource::new(new_pos.as_long());
             island.value().place(level, &env, &mut random, new_pos);
         }
@@ -153,19 +193,32 @@ fn find_or_create_valid_teleport_pos(level: &mut ServerLevel, end_gateway_pos: B
 }
 
 fn chunk_of(level: &mut ServerLevel, pos: Vec3) -> (i32, i32) {
-    let (cx, cz) = (mc_core::math::mth::floor_f64(pos.x / 16.0), mc_core::math::mth::floor_f64(pos.z / 16.0));
+    let (cx, cz) = (
+        mc_core::math::mth::floor_f64(pos.x / 16.0),
+        mc_core::math::mth::floor_f64(pos.z / 16.0),
+    );
     level.chunk_blocking_mut(cx, cz);
     (cx, cz)
 }
 
 fn is_chunk_empty(level: &mut ServerLevel, xz_pos: Vec3) -> bool {
     let (cx, cz) = chunk_of(level, xz_pos);
-    level.chunk_blocking_mut(cx, cz).data.access.get_highest_filled_section_index() == -1
+    level
+        .chunk_blocking_mut(cx, cz)
+        .data
+        .access
+        .get_highest_filled_section_index()
+        == -1
 }
 
 /// `findExitPortalXZPosTentative(level, endGatewayPos)`.
 fn find_exit_portal_xz_pos_tentative(level: &mut ServerLevel, end_gateway_pos: BlockPos) -> Vec3 {
-    let direction = Vec3::new(f64::from(end_gateway_pos.x()), 0.0, f64::from(end_gateway_pos.z())).normalize();
+    let direction = Vec3::new(
+        f64::from(end_gateway_pos.x()),
+        0.0,
+        f64::from(end_gateway_pos.z()),
+    )
+    .normalize();
     let mut tentative = direction.scale(1024.0);
     let mut chunk_limit = 16;
     while !is_chunk_empty(level, tentative) && {
@@ -187,7 +240,12 @@ fn find_exit_portal_xz_pos_tentative(level: &mut ServerLevel, end_gateway_pos: B
 }
 
 /// `findTallestBlock(level, around, dist, allowBedrock)`.
-fn find_tallest_block(level: &dyn BlockGetter, around: BlockPos, dist: i32, allow_bedrock: bool) -> BlockPos {
+fn find_tallest_block(
+    level: &dyn BlockGetter,
+    around: BlockPos,
+    dist: i32,
+    allow_bedrock: bool,
+) -> BlockPos {
     let mut tallest: Option<BlockPos> = None;
     for xd in -dist..=dist {
         for zd in -dist..=dist {
@@ -196,7 +254,9 @@ fn find_tallest_block(level: &dyn BlockGetter, around: BlockPos, dist: i32, allo
                 while y > tallest.map_or(level.get_min_y(), |t| t.y()) {
                     let pos = BlockPos::new(around.x() + xd, y, around.z() + zd);
                     let state = level.get_block_state(pos);
-                    if behaviour(state.block()).is_collision_shape_full_block(state, level, pos) && (allow_bedrock || state.block() != mc_data::block::Block::BEDROCK) {
+                    if behaviour(state.block()).is_collision_shape_full_block(state, level, pos)
+                        && (allow_bedrock || state.block() != mc_data::block::Block::BEDROCK)
+                    {
                         tallest = Some(pos);
                         break;
                     }
@@ -209,8 +269,18 @@ fn find_tallest_block(level: &dyn BlockGetter, around: BlockPos, dist: i32, allo
 }
 
 /// `findValidSpawnInChunk(chunk)`.
-fn find_valid_spawn_in_chunk(level: &mut ServerLevel, chunk_x: i32, chunk_z: i32) -> Option<BlockPos> {
-    let max_y = level.chunk_blocking_mut(chunk_x, chunk_z).data.access.get_highest_section_position() + 16 - 1;
+fn find_valid_spawn_in_chunk(
+    level: &mut ServerLevel,
+    chunk_x: i32,
+    chunk_z: i32,
+) -> Option<BlockPos> {
+    let max_y = level
+        .chunk_blocking_mut(chunk_x, chunk_z)
+        .data
+        .access
+        .get_highest_section_position()
+        + 16
+        - 1;
     let start = BlockPos::new(chunk_x * 16, 30, chunk_z * 16);
     let end = BlockPos::new(chunk_x * 16 + 15, max_y, chunk_z * 16 + 15);
     let full = |level: &ServerLevel, pos: BlockPos| {
@@ -220,7 +290,10 @@ fn find_valid_spawn_in_chunk(level: &mut ServerLevel, chunk_x: i32, chunk_z: i32
     let mut closest: Option<BlockPos> = None;
     let mut closest_dist = 0.0;
     for pos in BlockPos::between_closed(&start, &end) {
-        if level.get_block_state(pos).block() == mc_data::block::Block::END_STONE && !full(level, pos.above()) && !full(level, pos.above_n(2)) {
+        if level.get_block_state(pos).block() == mc_data::block::Block::END_STONE
+            && !full(level, pos.above())
+            && !full(level, pos.above_n(2))
+        {
             let dist = pos.dist_to_center_sqr_xyz(0.0, 0.0, 0.0);
             if closest.is_none() || dist < closest_dist {
                 closest = Some(pos);
@@ -232,7 +305,11 @@ fn find_valid_spawn_in_chunk(level: &mut ServerLevel, chunk_x: i32, chunk_z: i32
 }
 
 /// `spawnGatewayPortal(level, portalPos, feature)`: `feature.place(level, generator, RandomSource.create(), portalPos)`.
-fn spawn_gateway_portal(level: &mut ServerLevel, portal_pos: BlockPos, feature: &EndGatewayFeature) {
+fn spawn_gateway_portal(
+    level: &mut ServerLevel,
+    portal_pos: BlockPos,
+    feature: &EndGatewayFeature,
+) {
     let env = level.gen_env().clone();
     let mut random = LegacyRandomSource::new(mc_core::random::generate_unique_seed());
     feature.place(level, &env, &mut random, portal_pos);

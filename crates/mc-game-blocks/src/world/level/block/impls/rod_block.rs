@@ -1,8 +1,8 @@
 //! `net.minecraft.world.level.block.RodBlock` (extends `DirectionalBlock`; end rod, lightning rod). Subclasses that register
 //! their own behavior (`LightningRodBlock`) delegate to `RodBlock` for the methods they do not override.
+use mc_data::block::PathComputationType;
 use mc_game_core::register_block_class;
 use mc_game_core::world::level::block::impls::prelude::*;
-use mc_data::block::PathComputationType;
 
 pub struct RodBlock;
 

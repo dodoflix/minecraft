@@ -5,13 +5,14 @@
 //! of three synthetic worlds (`tests/common/feature_harness.rs`) with the same result: predicate 0/1 string, provider state ids
 //! of `getState` and `getOptionalState` plus the random state afterwards, or the exception.
 
-
 use crate::common::feature_harness::*;
 use mc_core::pos::BlockPos;
 use mc_core::random::{LegacyRandomSource, RandomSource};
 use mc_game::world::level::LevelAccessor;
 use mc_game::world::level::levelgen::blockpredicates::{self, BlockPredicate};
-use mc_game::world::level::levelgen::registries::{BLOCK_STATE_PROVIDER_REGISTRY, Cells, DecodeCtx, load_registry};
+use mc_game::world::level::levelgen::registries::{
+    BLOCK_STATE_PROVIDER_REGISTRY, Cells, DecodeCtx, load_registry,
+};
 use mc_game::world::level::levelgen::stateproviders::{self, BlockStateProvider};
 use mc_world::status::ChunkStatus;
 use mc_worldgen::data::{FsDataSource, WorldgenDataSource};
@@ -33,8 +34,16 @@ struct Fixture {
 }
 
 fn load_fixture() -> Fixture {
-    let text = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures/levelgen/predicate_provider_golden.txt")).expect("fixture");
-    let mut f = Fixture { cases: Vec::new(), scenarios: Vec::new(), results: HashMap::new() };
+    let text = std::fs::read_to_string(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/tests/fixtures/levelgen/predicate_provider_golden.txt"
+    ))
+    .expect("fixture");
+    let mut f = Fixture {
+        cases: Vec::new(),
+        scenarios: Vec::new(),
+        results: HashMap::new(),
+    };
     for line in text.lines() {
         let (tag, rest) = line.split_once(' ').expect("line");
         match tag {
@@ -44,7 +53,11 @@ fn load_fixture() -> Fixture {
                 assert_eq!(i, f.cases.len());
                 let kind = t.next().unwrap().to_string();
                 let json = serde_json::from_str(t.next().unwrap()).expect("case json");
-                f.cases.push(Case { kind, json, accepted: false });
+                f.cases.push(Case {
+                    kind,
+                    json,
+                    accepted: false,
+                });
             }
             "DEC" => {
                 let mut t = rest.splitn(3, ' ');
@@ -53,7 +66,12 @@ fn load_fixture() -> Fixture {
             }
             "SCENARIO" => {
                 let t: Vec<&str> = rest.split(' ').collect();
-                f.scenarios.push((t[1].parse().unwrap(), t[2].parse().unwrap(), t[3].parse().unwrap(), Vec::new()));
+                f.scenarios.push((
+                    t[1].parse().unwrap(),
+                    t[2].parse().unwrap(),
+                    t[3].parse().unwrap(),
+                    Vec::new(),
+                ));
             }
             "POS" => {
                 let (s, ps) = rest.split_once(' ').unwrap();
@@ -85,23 +103,38 @@ enum Decoded {
 
 fn decode_all(fixture: &Fixture) -> (Vec<Option<Decoded>>, Vec<String>) {
     let w = &*WORLD;
-    let source: Arc<dyn WorldgenDataSource> = Arc::new(FsDataSource::new(concat!(env!("CARGO_MANIFEST_DIR"), "/../../ref/src/data")));
+    let source: Arc<dyn WorldgenDataSource> = Arc::new(FsDataSource::new(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/../../ref/src/data"
+    )));
     let cells = Cells::new(source);
-    let ctx = DecodeCtx { worldgen: &w.worldgen, biomes: &w.biomes, cells: &cells };
+    let ctx = DecodeCtx {
+        worldgen: &w.worldgen,
+        biomes: &w.biomes,
+        cells: &cells,
+    };
     // the `worldgen/block_state_provider` registry binds the holder cells that `"minecraft:<id>"` references resolve to
-    load_registry(&ctx, BLOCK_STATE_PROVIDER_REGISTRY, |v, c| stateproviders::decode_direct(v, c)).expect("block_state_provider registry decodes");
+    load_registry(&ctx, BLOCK_STATE_PROVIDER_REGISTRY, |v, c| {
+        stateproviders::decode_direct(v, c)
+    })
+    .expect("block_state_provider registry decodes");
     let mut problems = Vec::new();
     let mut out = Vec::new();
     for (i, case) in fixture.cases.iter().enumerate() {
         let result = catch_unwind(AssertUnwindSafe(|| match case.kind.as_str() {
             "pred" => blockpredicates::decode(&case.json, &ctx).map(Decoded::Pred),
-            _ => ctx.block_state_provider(&case.json).map(|h| Decoded::Prov(h.value().clone())),
+            _ => ctx
+                .block_state_provider(&case.json)
+                .map(|h| Decoded::Prov(h.value().clone())),
         }));
         let decoded = match result {
             Ok(Ok(d)) => Some(d),
             Ok(Err(e)) => {
                 if case.accepted {
-                    problems.push(format!("case {i} {}: vanilla accepts, we reject: {e}\n  {}", case.kind, case.json));
+                    problems.push(format!(
+                        "case {i} {}: vanilla accepts, we reject: {e}\n  {}",
+                        case.kind, case.json
+                    ));
                 }
                 None
             }
@@ -111,24 +144,51 @@ fn decode_all(fixture: &Fixture) -> (Vec<Option<Decoded>>, Vec<String>) {
             }
         };
         if decoded.is_some() && !case.accepted {
-            problems.push(format!("case {i} {}: vanilla rejects, we accept\n  {}", case.kind, case.json));
+            problems.push(format!(
+                "case {i} {}: vanilla rejects, we accept\n  {}",
+                case.kind, case.json
+            ));
         }
         out.push(decoded);
     }
     (out, problems)
 }
 
-fn evaluate(decoded: &Decoded, level: &dyn LevelAccessor, positions: &[BlockPos], seed: i64, index: usize) -> String {
+fn evaluate(
+    decoded: &Decoded,
+    level: &dyn LevelAccessor,
+    positions: &[BlockPos],
+    seed: i64,
+    index: usize,
+) -> String {
     match decoded {
-        Decoded::Pred(pred) => positions.iter().map(|&pos| if pred.test(level, pos) { '1' } else { '0' }).collect(),
+        Decoded::Pred(pred) => positions
+            .iter()
+            .map(|&pos| if pred.test(level, pos) { '1' } else { '0' })
+            .collect(),
         Decoded::Prov(prov) => {
             let random_seed = seed.wrapping_mul(31).wrapping_add(index as i64);
             let mut random = LegacyRandomSource::new(random_seed);
-            let ids: Vec<String> = positions.iter().map(|&pos| prov.get_state(level, &mut random, pos).id().to_string()).collect();
+            let ids: Vec<String> = positions
+                .iter()
+                .map(|&pos| prov.get_state(level, &mut random, pos).id().to_string())
+                .collect();
             let l1 = random.next_long();
             let mut random = LegacyRandomSource::new(random_seed);
-            let opt: Vec<String> = positions.iter().map(|&pos| prov.get_optional_state(level, &mut random, pos).map_or("-1".to_string(), |s| s.id().to_string())).collect();
-            format!("{}|{}|{},{}", ids.join(","), opt.join(","), l1, random.next_long())
+            let opt: Vec<String> = positions
+                .iter()
+                .map(|&pos| {
+                    prov.get_optional_state(level, &mut random, pos)
+                        .map_or("-1".to_string(), |s| s.id().to_string())
+                })
+                .collect();
+            format!(
+                "{}|{}|{},{}",
+                ids.join(","),
+                opt.join(","),
+                l1,
+                random.next_long()
+            )
         }
     }
 }
@@ -159,12 +219,18 @@ fn run(survive: bool) {
                 continue;
             }
             let expected = &fixture.results[&(i, s)];
-            let got = match catch_unwind(AssertUnwindSafe(|| evaluate(d, &level, positions, *seed, i))) {
+            let got = match catch_unwind(AssertUnwindSafe(|| {
+                evaluate(d, &level, positions, *seed, i)
+            })) {
                 Ok(r) => r,
                 Err(_) => "X".to_string(),
             };
             evaluated += 1;
-            let matches = if let Some(exception) = expected.strip_prefix("X ") { got == "X" || exception.is_empty() } else { got == *expected };
+            let matches = if let Some(exception) = expected.strip_prefix("X ") {
+                got == "X" || exception.is_empty()
+            } else {
+                got == *expected
+            };
             if !matches {
                 let at = expected.chars().zip(got.chars()).position(|(a, b)| a != b);
                 let shown = |r: &str| r.chars().take(240).collect::<String>();
@@ -179,6 +245,14 @@ fn run(survive: bool) {
         }
     }
     std::panic::set_hook(quiet);
-    assert!(evaluated > if survive { 20 } else { 600 }, "evaluated only {evaluated} (case, scenario) pairs");
-    assert!(problems.is_empty(), "{} problems:\n{}", problems.len(), problems.join("\n"));
+    assert!(
+        evaluated > if survive { 20 } else { 600 },
+        "evaluated only {evaluated} (case, scenario) pairs"
+    );
+    assert!(
+        problems.is_empty(),
+        "{} problems:\n{}",
+        problems.len(),
+        problems.join("\n")
+    );
 }

@@ -1,20 +1,27 @@
 //! `StartCelebratingIfTargetDead`.
 
-use mc_game_core::world::entity::ai::behavior::declarative::BehaviorBuilder;
-use mc_game_core::world::entity::ai::behavior::OneShot;
 use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::entity::ai::memory::memory_module_type::{ANGRY_AT, ATTACK_TARGET, CELEBRATE_LOCATION, DANCING};
+use mc_game_core::world::entity::ai::behavior::OneShot;
+use mc_game_core::world::entity::ai::behavior::declarative::BehaviorBuilder;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{
+    ANGRY_AT, ATTACK_TARGET, CELEBRATE_LOCATION, DANCING,
+};
 use mc_game_core::world::entity::entity::Entity;
 
 /// `create(celebrateDuration, dancePredicate)`: the predicate gets `(level, body, target)` (vanilla lambdas read the level through the body).
-pub fn create(celebrate_duration: i32, dance_predicate: impl Fn(&ServerLevel, &dyn Entity, &dyn Entity) -> bool + 'static) -> OneShot {
+pub fn create(
+    celebrate_duration: i32,
+    dance_predicate: impl Fn(&ServerLevel, &dyn Entity, &dyn Entity) -> bool + 'static,
+) -> OneShot {
     let mut i = BehaviorBuilder::instance();
     let attack_target = i.present(&ATTACK_TARGET);
     let angry_at = i.registered(&ANGRY_AT);
     let celebrate_at = i.absent(&CELEBRATE_LOCATION);
     let dancing = i.registered(&DANCING);
     i.create(move |c| {
-        let Some(target) = c.level.get_entity(c.get(&attack_target).0) else { return false };
+        let Some(target) = c.level.get_entity(c.get(&attack_target).0) else {
+            return false;
+        };
         if !target.is_dead_or_dying() {
             return false;
         }

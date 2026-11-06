@@ -1,9 +1,13 @@
 //! `net.minecraft.world.entity.animal.squid.GlowSquid`.
 
-use mc_core::random::RandomSource as _;
-use mc_game_core::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
-use mc_game_core::world::level::material::FluidStateExt as _;
 use super::squid::{self, SquidData, SquidLike, squid_entity};
+use linkme::distributed_slice;
+use mc_core::pos::BlockPos;
+use mc_core::random::RandomSource as _;
+use mc_core::random::RandomSource;
+use mc_data::block::Block;
+use mc_data::enums::EntitySpawnReason;
+use mc_data::{EntityType, SoundEvent};
 use mc_game_core::define_accessor;
 use mc_game_core::register_spawn_placement;
 use mc_game_core::server::level::ServerLevel;
@@ -12,13 +16,9 @@ use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
 use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
 use mc_game_core::world::entity::mob::{self, MobData, MobKind};
 use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
+use mc_game_core::world::level::material::FluidStateExt as _;
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
-use linkme::distributed_slice;
-use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
-use mc_data::block::Block;
-use mc_data::enums::EntitySpawnReason;
-use mc_data::{EntityType, SoundEvent};
 use mc_nbt::CompoundTag;
 use mc_protocol::packets::play::ParticleOptions;
 
@@ -44,12 +44,20 @@ impl GlowSquid {
 
     /// `setDarkTicks(ticks)`.
     fn set_dark_ticks(&mut self, ticks: i32) {
-        self.mob.living.entity.entity_data.set(DATA_DARK_TICKS_REMAINING, ticks);
+        self.mob
+            .living
+            .entity
+            .entity_data
+            .set(DATA_DARK_TICKS_REMAINING, ticks);
     }
 
     /// `getDarkTicksRemaining()`.
     pub fn get_dark_ticks_remaining(&self) -> i32 {
-        self.mob.living.entity.entity_data.get(DATA_DARK_TICKS_REMAINING)
+        self.mob
+            .living
+            .entity
+            .entity_data
+            .get(DATA_DARK_TICKS_REMAINING)
     }
 }
 
@@ -78,7 +86,11 @@ impl Entity for GlowSquid {
         Some("minecraft:glow_squid")
     }
 
-    fn get_breed_offspring(&mut self, level: &mut ServerLevel, _partner: EntityId) -> Option<Box<dyn Entity>> {
+    fn get_breed_offspring(
+        &mut self,
+        level: &mut ServerLevel,
+        _partner: EntityId,
+    ) -> Option<Box<dyn Entity>> {
         squid::get_breed_offspring(EntityType::GLOW_SQUID, level)
     }
 
@@ -128,11 +140,22 @@ impl Entity for GlowSquid {
 }
 
 /// `GlowSquid.checkGlowSquidSpawnRules`.
-fn check_glow_squid_spawn_rules(_ty: EntityType, level: &dyn ServerLevelAccessor, _reason: EntitySpawnReason, pos: BlockPos, _random: &mut dyn RandomSource) -> bool {
-    pos.y() <= level.get_sea_level() - 33 && level.get_raw_brightness(pos, 0) == 0 && level.get_block_state(pos).block() == Block::WATER
+fn check_glow_squid_spawn_rules(
+    _ty: EntityType,
+    level: &dyn ServerLevelAccessor,
+    _reason: EntitySpawnReason,
+    pos: BlockPos,
+    _random: &mut dyn RandomSource,
+) -> bool {
+    pos.y() <= level.get_sea_level() - 33
+        && level.get_raw_brightness(pos, 0) == 0
+        && level.get_block_state(pos).block() == Block::WATER
 }
 
 register_spawn_placement!(EntityType::GLOW_SQUID, check_glow_squid_spawn_rules);
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static GLOW_SQUID: EntityRegistration = EntityRegistration { entity_type: EntityType::GLOW_SQUID, create: |ty, id, _registries| Box::new(GlowSquid::new(ty, id)) };
+static GLOW_SQUID: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::GLOW_SQUID,
+    create: |ty, id, _registries| Box::new(GlowSquid::new(ty, id)),
+};

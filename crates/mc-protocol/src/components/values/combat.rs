@@ -1,35 +1,52 @@
 //! Combat-flavoured components: tools, weapons, blocking, swing animations, equipment.
 
+use super::effects::{
+    dec_opt, dec_sound_opt, enc_opt, enc_sound_opt, feq, float_field_default, ident,
+};
 use crate::codec::EncodeResult;
-use super::effects::{dec_opt, dec_sound_opt, enc_opt, enc_sound_opt, feq, float_field_default, ident};
-use crate::codec::{read_varint, write_varint, DecodeResult};
+use crate::codec::{DecodeResult, read_varint, write_varint};
+use crate::components::SoundEvent;
 use crate::components::common::RegistrySet;
 use crate::components::component::{ComponentDef, ComponentKey};
-use crate::components::holder::{self, holder_fixed_codec, holder_set_codec, Holder, HolderSet, NoDirect};
-use crate::components::SoundEvent;
+use crate::components::holder::{
+    self, Holder, HolderSet, NoDirect, holder_fixed_codec, holder_set_codec,
+};
 use crate::packets::play::{EquipmentSlot, SwingAnimation, SwingAnimationType};
 use crate::{Decode, Encode};
 use mc_core::ident::Identifier;
 use mc_data::{Block, DataComponentType, EntityType};
-use mc_dfu::extra::{extra_float_range, IDENTIFIER, NON_NEGATIVE_FLOAT, NON_NEGATIVE_INT, POSITIVE_FLOAT};
-use mc_dfu::{float_range, string_enum_codec, Codec, BOOL, FLOAT};
+use mc_dfu::extra::{
+    IDENTIFIER, NON_NEGATIVE_FLOAT, NON_NEGATIVE_INT, POSITIVE_FLOAT, extra_float_range,
+};
+use mc_dfu::{BOOL, Codec, FLOAT, float_range, string_enum_codec};
 
 pub const TOOL: ComponentKey<Tool> = ComponentKey::new(DataComponentType::TOOL);
 pub const WEAPON: ComponentKey<Weapon> = ComponentKey::new(DataComponentType::WEAPON);
-pub const ATTACK_RANGE: ComponentKey<AttackRange> = ComponentKey::new(DataComponentType::ATTACK_RANGE);
-pub const BLOCKS_ATTACKS: ComponentKey<BlocksAttacks> = ComponentKey::new(DataComponentType::BLOCKS_ATTACKS);
-pub const KINETIC_WEAPON: ComponentKey<KineticWeapon> = ComponentKey::new(DataComponentType::KINETIC_WEAPON);
-pub const PIERCING_WEAPON: ComponentKey<PiercingWeapon> = ComponentKey::new(DataComponentType::PIERCING_WEAPON);
-pub const ATTACK_ANIMATION: ComponentKey<SwingAnimation> = ComponentKey::new(DataComponentType::ATTACK_ANIMATION);
-pub const INTERACT_ANIMATION: ComponentKey<SwingAnimation> = ComponentKey::new(DataComponentType::INTERACT_ANIMATION);
-pub const DAMAGE_RESISTANT: ComponentKey<DamageResistant> = ComponentKey::new(DataComponentType::DAMAGE_RESISTANT);
+pub const ATTACK_RANGE: ComponentKey<AttackRange> =
+    ComponentKey::new(DataComponentType::ATTACK_RANGE);
+pub const BLOCKS_ATTACKS: ComponentKey<BlocksAttacks> =
+    ComponentKey::new(DataComponentType::BLOCKS_ATTACKS);
+pub const KINETIC_WEAPON: ComponentKey<KineticWeapon> =
+    ComponentKey::new(DataComponentType::KINETIC_WEAPON);
+pub const PIERCING_WEAPON: ComponentKey<PiercingWeapon> =
+    ComponentKey::new(DataComponentType::PIERCING_WEAPON);
+pub const ATTACK_ANIMATION: ComponentKey<SwingAnimation> =
+    ComponentKey::new(DataComponentType::ATTACK_ANIMATION);
+pub const INTERACT_ANIMATION: ComponentKey<SwingAnimation> =
+    ComponentKey::new(DataComponentType::INTERACT_ANIMATION);
+pub const DAMAGE_RESISTANT: ComponentKey<DamageResistant> =
+    ComponentKey::new(DataComponentType::DAMAGE_RESISTANT);
 pub const EQUIPPABLE: ComponentKey<Equippable> = ComponentKey::new(DataComponentType::EQUIPPABLE);
 
 const DAMAGE_TYPE: &str = "minecraft:damage_type";
 
 /// `RegistryCodecs.holderSet(Registries.DAMAGE_TYPE)`.
 fn damage_type_set_codec() -> Codec<HolderSet<NoDirect>> {
-    holder_set_codec(DAMAGE_TYPE, &holder_fixed_codec::<NoDirect>(DAMAGE_TYPE), false)
+    holder_set_codec(
+        DAMAGE_TYPE,
+        &holder_fixed_codec::<NoDirect>(DAMAGE_TYPE),
+        false,
+    )
 }
 fn enc_damage_types(set: &HolderSet<NoDirect>, out: &mut Vec<u8>) -> EncodeResult<()> {
     holder::encode_holder_set(DAMAGE_TYPE, set, out)
@@ -77,7 +94,11 @@ impl Encode for ToolRule {
 }
 impl Decode for ToolRule {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
-        Ok(ToolRule { blocks: RegistrySet::decode_stream(input)?, speed: Decode::decode(input)?, correct_for_drops: Decode::decode(input)? })
+        Ok(ToolRule {
+            blocks: RegistrySet::decode_stream(input)?,
+            speed: Decode::decode(input)?,
+            correct_for_drops: Decode::decode(input)?,
+        })
     }
 }
 
@@ -103,7 +124,8 @@ impl Tool {
             rules: ToolRule::codec().list_of().field_of("rules"),
             default_mining_speed: float_field_default(&FLOAT, "default_mining_speed", 1.0),
             damage_per_block: NON_NEGATIVE_INT.optional_field_of_default("damage_per_block", 1),
-            can_destroy_blocks_in_creative: BOOL.optional_field_of_default("can_destroy_blocks_in_creative", true),
+            can_destroy_blocks_in_creative: BOOL
+                .optional_field_of_default("can_destroy_blocks_in_creative", true),
         })
         .codec()
     }
@@ -139,14 +161,23 @@ pub struct Weapon {
 }
 impl PartialEq for Weapon {
     fn eq(&self, o: &Self) -> bool {
-        self.item_damage_per_attack == o.item_damage_per_attack && feq(self.disable_blocking_for_seconds, o.disable_blocking_for_seconds)
+        self.item_damage_per_attack == o.item_damage_per_attack
+            && feq(
+                self.disable_blocking_for_seconds,
+                o.disable_blocking_for_seconds,
+            )
     }
 }
 impl Weapon {
     pub fn codec() -> Codec<Weapon> {
         mc_dfu::record!(Weapon {
-            item_damage_per_attack: NON_NEGATIVE_INT.optional_field_of_default("item_damage_per_attack", 1),
-            disable_blocking_for_seconds: float_field_default(&NON_NEGATIVE_FLOAT, "disable_blocking_for_seconds", 0.0),
+            item_damage_per_attack: NON_NEGATIVE_INT
+                .optional_field_of_default("item_damage_per_attack", 1),
+            disable_blocking_for_seconds: float_field_default(
+                &NON_NEGATIVE_FLOAT,
+                "disable_blocking_for_seconds",
+                0.0
+            ),
         })
         .codec()
     }
@@ -199,13 +230,20 @@ pub struct BlocksAttacksDamageReduction {
 }
 impl PartialEq for BlocksAttacksDamageReduction {
     fn eq(&self, o: &Self) -> bool {
-        feq(self.horizontal_blocking_angle, o.horizontal_blocking_angle) && self.r#type == o.r#type && feq(self.base, o.base) && feq(self.factor, o.factor)
+        feq(self.horizontal_blocking_angle, o.horizontal_blocking_angle)
+            && self.r#type == o.r#type
+            && feq(self.base, o.base)
+            && feq(self.factor, o.factor)
     }
 }
 impl BlocksAttacksDamageReduction {
     pub fn codec() -> Codec<BlocksAttacksDamageReduction> {
         mc_dfu::record!(BlocksAttacksDamageReduction {
-            horizontal_blocking_angle: float_field_default(&POSITIVE_FLOAT, "horizontal_blocking_angle", 90.0),
+            horizontal_blocking_angle: float_field_default(
+                &POSITIVE_FLOAT,
+                "horizontal_blocking_angle",
+                90.0
+            ),
             r#type: damage_type_set_codec().optional_field_of("type"),
             base: FLOAT.field_of("base"),
             factor: FLOAT.field_of("factor"),
@@ -246,7 +284,11 @@ impl PartialEq for BlocksAttacksItemDamageFunction {
     }
 }
 impl BlocksAttacksItemDamageFunction {
-    pub const DEFAULT: BlocksAttacksItemDamageFunction = BlocksAttacksItemDamageFunction { threshold: 1.0, base: 0.0, factor: 1.0 };
+    pub const DEFAULT: BlocksAttacksItemDamageFunction = BlocksAttacksItemDamageFunction {
+        threshold: 1.0,
+        base: 0.0,
+        factor: 1.0,
+    };
     pub fn codec() -> Codec<BlocksAttacksItemDamageFunction> {
         mc_dfu::record!(BlocksAttacksItemDamageFunction {
             threshold: NON_NEGATIVE_FLOAT.field_of("threshold"),
@@ -281,13 +323,28 @@ impl PartialEq for BlocksAttacks {
 }
 impl BlocksAttacks {
     pub fn codec() -> Codec<BlocksAttacks> {
-        let default_reductions =
-            vec![BlocksAttacksDamageReduction { horizontal_blocking_angle: 90.0, r#type: None, base: 0.0, factor: 1.0 }];
+        let default_reductions = vec![BlocksAttacksDamageReduction {
+            horizontal_blocking_angle: 90.0,
+            r#type: None,
+            base: 0.0,
+            factor: 1.0,
+        }];
         mc_dfu::record!(BlocksAttacks {
-            block_delay_seconds: float_field_default(&NON_NEGATIVE_FLOAT, "block_delay_seconds", 0.0),
-            disable_cooldown_scale: float_field_default(&NON_NEGATIVE_FLOAT, "disable_cooldown_scale", 1.0),
-            damage_reductions: BlocksAttacksDamageReduction::codec().list_of().optional_field_of_default("damage_reductions", default_reductions),
-            item_damage: BlocksAttacksItemDamageFunction::codec().optional_field_of_default("item_damage", BlocksAttacksItemDamageFunction::DEFAULT),
+            block_delay_seconds: float_field_default(
+                &NON_NEGATIVE_FLOAT,
+                "block_delay_seconds",
+                0.0
+            ),
+            disable_cooldown_scale: float_field_default(
+                &NON_NEGATIVE_FLOAT,
+                "disable_cooldown_scale",
+                1.0
+            ),
+            damage_reductions: BlocksAttacksDamageReduction::codec()
+                .list_of()
+                .optional_field_of_default("damage_reductions", default_reductions),
+            item_damage: BlocksAttacksItemDamageFunction::codec()
+                .optional_field_of_default("item_damage", BlocksAttacksItemDamageFunction::DEFAULT),
             bypassed_by: damage_type_set_codec().optional_field_of("bypassed_by"),
             block_sound: SoundEvent::holder_codec().optional_field_of("block_sound"),
             disable_sound: SoundEvent::holder_codec().optional_field_of("disabled_sound"),
@@ -332,7 +389,9 @@ pub struct KineticWeaponCondition {
 }
 impl PartialEq for KineticWeaponCondition {
     fn eq(&self, o: &Self) -> bool {
-        self.max_duration_ticks == o.max_duration_ticks && feq(self.min_speed, o.min_speed) && feq(self.min_relative_speed, o.min_relative_speed)
+        self.max_duration_ticks == o.max_duration_ticks
+            && feq(self.min_speed, o.min_speed)
+            && feq(self.min_relative_speed, o.min_relative_speed)
     }
 }
 impl KineticWeaponCondition {
@@ -355,7 +414,11 @@ impl Encode for KineticWeaponCondition {
 }
 impl Decode for KineticWeaponCondition {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
-        Ok(KineticWeaponCondition { max_duration_ticks: read_varint(input)?, min_speed: f32::decode(input)?, min_relative_speed: f32::decode(input)? })
+        Ok(KineticWeaponCondition {
+            max_duration_ticks: read_varint(input)?,
+            min_speed: f32::decode(input)?,
+            min_relative_speed: f32::decode(input)?,
+        })
     }
 }
 
@@ -389,7 +452,8 @@ impl KineticWeapon {
     pub fn codec() -> Codec<KineticWeapon> {
         let condition = KineticWeaponCondition::codec();
         mc_dfu::record!(KineticWeapon {
-            contact_cooldown_ticks: NON_NEGATIVE_INT.optional_field_of_default("contact_cooldown_ticks", 10),
+            contact_cooldown_ticks: NON_NEGATIVE_INT
+                .optional_field_of_default("contact_cooldown_ticks", 10),
             delay_ticks: NON_NEGATIVE_INT.optional_field_of_default("delay_ticks", 0),
             dismount_conditions: condition.optional_field_of("dismount_conditions"),
             knockback_conditions: condition.optional_field_of("knockback_conditions"),
@@ -473,14 +537,18 @@ impl Decode for PiercingWeapon {
 
 // ---- SwingAnimation ------------------------------------------------------------------------------------------------------------
 
-static SWING_TYPES: [(SwingAnimationType, &str); 3] =
-    [(SwingAnimationType::None, "none"), (SwingAnimationType::Whack, "whack"), (SwingAnimationType::Stab, "stab")];
+static SWING_TYPES: [(SwingAnimationType, &str); 3] = [
+    (SwingAnimationType::None, "none"),
+    (SwingAnimationType::Whack, "whack"),
+    (SwingAnimationType::Stab, "stab"),
+];
 
 impl SwingAnimation {
     /// `SwingAnimation.CODEC`.
     pub fn codec() -> Codec<SwingAnimation> {
         mc_dfu::record!(SwingAnimation {
-            kind: string_enum_codec(&SWING_TYPES).optional_field_of_default("type", SwingAnimationType::Whack),
+            kind: string_enum_codec(&SWING_TYPES)
+                .optional_field_of_default("type", SwingAnimationType::Whack),
             duration: NON_NEGATIVE_INT.optional_field_of_default("duration", 6),
         })
         .codec()
@@ -496,7 +564,10 @@ pub struct DamageResistant {
 }
 impl DamageResistant {
     pub fn codec() -> Codec<DamageResistant> {
-        mc_dfu::record!(DamageResistant { types: damage_type_set_codec().field_of("types") }).codec()
+        mc_dfu::record!(DamageResistant {
+            types: damage_type_set_codec().field_of("types")
+        })
+        .codec()
     }
 }
 impl Encode for DamageResistant {
@@ -507,7 +578,9 @@ impl Encode for DamageResistant {
 }
 impl Decode for DamageResistant {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
-        Ok(DamageResistant { types: dec_damage_types(input)? })
+        Ok(DamageResistant {
+            types: dec_damage_types(input)?,
+        })
     }
 }
 
@@ -548,16 +621,23 @@ impl Equippable {
     pub fn codec() -> Codec<Equippable> {
         mc_dfu::record!(Equippable {
             slot: equipment_slot_codec().field_of("slot"),
-            equip_sound: SoundEvent::holder_codec().optional_field_of_default("equip_sound", Holder::Reference(ident("minecraft:item.armor.equip_generic"))),
+            equip_sound: SoundEvent::holder_codec().optional_field_of_default(
+                "equip_sound",
+                Holder::Reference(ident("minecraft:item.armor.equip_generic"))
+            ),
             asset_id: IDENTIFIER.optional_field_of("asset_id"),
             camera_overlay: IDENTIFIER.optional_field_of("camera_overlay"),
-            allowed_entities: RegistrySet::<EntityType>::codec().optional_field_of("allowed_entities"),
+            allowed_entities: RegistrySet::<EntityType>::codec()
+                .optional_field_of("allowed_entities"),
             dispensable: BOOL.optional_field_of_default("dispensable", true),
             swappable: BOOL.optional_field_of_default("swappable", true),
             damage_on_hurt: BOOL.optional_field_of_default("damage_on_hurt", true),
             equip_on_interact: BOOL.optional_field_of_default("equip_on_interact", false),
             can_be_sheared: BOOL.optional_field_of_default("can_be_sheared", false),
-            shearing_sound: SoundEvent::holder_codec().optional_field_of_default("shearing_sound", Holder::Reference(ident("minecraft:item.shears.snip"))),
+            shearing_sound: SoundEvent::holder_codec().optional_field_of_default(
+                "shearing_sound",
+                Holder::Reference(ident("minecraft:item.shears.snip"))
+            ),
         })
         .codec()
     }
@@ -597,14 +677,64 @@ impl Decode for Equippable {
 }
 
 pub(crate) fn defs(out: &mut Vec<ComponentDef>) {
-    out.push(ComponentDef::builder(TOOL).persistent(Tool::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(WEAPON).persistent(Weapon::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(ATTACK_RANGE).persistent(AttackRange::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(BLOCKS_ATTACKS).persistent(BlocksAttacks::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(KINETIC_WEAPON).persistent(KineticWeapon::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(PIERCING_WEAPON).persistent(PiercingWeapon::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(ATTACK_ANIMATION).persistent(SwingAnimation::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(INTERACT_ANIMATION).persistent(SwingAnimation::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(DAMAGE_RESISTANT).persistent(DamageResistant::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(EQUIPPABLE).persistent(Equippable::codec()).network_synchronized().build());
+    out.push(
+        ComponentDef::builder(TOOL)
+            .persistent(Tool::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(WEAPON)
+            .persistent(Weapon::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(ATTACK_RANGE)
+            .persistent(AttackRange::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(BLOCKS_ATTACKS)
+            .persistent(BlocksAttacks::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(KINETIC_WEAPON)
+            .persistent(KineticWeapon::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(PIERCING_WEAPON)
+            .persistent(PiercingWeapon::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(ATTACK_ANIMATION)
+            .persistent(SwingAnimation::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(INTERACT_ANIMATION)
+            .persistent(SwingAnimation::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(DAMAGE_RESISTANT)
+            .persistent(DamageResistant::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(EQUIPPABLE)
+            .persistent(Equippable::codec())
+            .network_synchronized()
+            .build(),
+    );
 }

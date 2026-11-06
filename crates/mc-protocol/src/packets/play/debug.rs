@@ -154,7 +154,9 @@ mod checked_debug_data {
 
     pub fn encode(data: &DebugPathData, out: &mut Vec<u8>) -> EncodeResult<()> {
         if data.target_nodes.is_empty() {
-            return Err(crate::codec::EncodeError::msg("java.lang.IllegalStateException: Missing debug data"));
+            return Err(crate::codec::EncodeError::msg(
+                "java.lang.IllegalStateException: Missing debug data",
+            ));
         }
         data.encode(out)
     }
@@ -474,7 +476,7 @@ mod long_array {
         write_varint(out, v.len() as i32);
         for l in v {
             l.encode(out)?;
-        };
+        }
         Ok(())
     }
     pub fn decode(input: &mut &[u8]) -> DecodeResult<Vec<i64>> {

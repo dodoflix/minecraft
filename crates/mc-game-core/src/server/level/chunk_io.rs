@@ -19,19 +19,39 @@ use std::time::Duration;
 
 /// What a worker thread hands back to the game thread.
 pub enum WorkerMessage {
-    ChunkRead { key: i64, result: io::Result<Option<CompoundTag>> },
-    ChunkParsed { key: i64, result: Result<Option<SerializableChunkData>, ChunkReadException> },
+    ChunkRead {
+        key: i64,
+        result: io::Result<Option<CompoundTag>>,
+    },
+    ChunkParsed {
+        key: i64,
+        result: Result<Option<SerializableChunkData>, ChunkReadException>,
+    },
     BatchDone(Box<BatchResult>),
     /// A generation step panicked: the game thread throws the report (`BlockableEventLoop.relayDelayCrash`).
     BatchFailed(Box<CrashReport>),
 }
 
 enum IoRequest {
-    Read { key: i64 },
-    ReadBlocking { key: i64, reply: Sender<io::Result<Option<CompoundTag>>> },
-    Write { pos: ChunkPos, tag: Option<CompoundTag>, active_writes: Option<Arc<AtomicI32>> },
-    Synchronize { flush: bool, done: Sender<io::Result<()>> },
-    Close { done: Sender<io::Result<()>> },
+    Read {
+        key: i64,
+    },
+    ReadBlocking {
+        key: i64,
+        reply: Sender<io::Result<Option<CompoundTag>>>,
+    },
+    Write {
+        pos: ChunkPos,
+        tag: Option<CompoundTag>,
+        active_writes: Option<Arc<AtomicI32>>,
+    },
+    Synchronize {
+        flush: bool,
+        done: Sender<io::Result<()>>,
+    },
+    Close {
+        done: Sender<io::Result<()>>,
+    },
 }
 
 /// `IOWorker` over a [`SimpleRegionStorage`] on its own thread.
@@ -41,13 +61,27 @@ pub struct RegionIo {
 }
 
 impl RegionIo {
-    pub fn new(info: RegionStorageInfo, folder: PathBuf, sync_writes: bool, results: Sender<WorkerMessage>) -> Self {
+    pub fn new(
+        info: RegionStorageInfo,
+        folder: PathBuf,
+        sync_writes: bool,
+        results: Sender<WorkerMessage>,
+    ) -> Self {
         let (tx, rx) = channel::<IoRequest>();
         let thread = std::thread::Builder::new()
             .name(format!("IO-Worker-{}", info.dimension))
-            .spawn(move || io_loop(SimpleRegionStorage::new(info, folder, sync_writes), rx, results))
+            .spawn(move || {
+                io_loop(
+                    SimpleRegionStorage::new(info, folder, sync_writes),
+                    rx,
+                    results,
+                )
+            })
             .expect("spawn IO worker");
-        Self { tx, thread: Some(thread) }
+        Self {
+            tx,
+            thread: Some(thread),
+        }
     }
 
     /// `read(pos)`: the result arrives as [`WorkerMessage::ChunkRead`].
@@ -58,25 +92,41 @@ impl RegionIo {
     /// `readChunk(pos).join()`.
     pub fn read_blocking(&self, pos: ChunkPos) -> io::Result<Option<CompoundTag>> {
         let (reply, rx) = channel();
-        let _ = self.tx.send(IoRequest::ReadBlocking { key: pos.pack(), reply });
-        rx.recv().unwrap_or_else(|_| Err(io::Error::other("IO worker is gone")))
+        let _ = self.tx.send(IoRequest::ReadBlocking {
+            key: pos.pack(),
+            reply,
+        });
+        rx.recv()
+            .unwrap_or_else(|_| Err(io::Error::other("IO worker is gone")))
     }
 
     /// A clonable write-only handle for worker threads.
     pub fn handle(&self) -> RegionIoHandle {
-        RegionIoHandle { tx: self.tx.clone() }
+        RegionIoHandle {
+            tx: self.tx.clone(),
+        }
     }
 
     /// `write(pos, tag)`; `active_writes` is decremented once the chunk reached the region file.
-    pub fn write(&self, pos: ChunkPos, tag: Option<CompoundTag>, active_writes: Option<Arc<AtomicI32>>) {
-        let _ = self.tx.send(IoRequest::Write { pos, tag, active_writes });
+    pub fn write(
+        &self,
+        pos: ChunkPos,
+        tag: Option<CompoundTag>,
+        active_writes: Option<Arc<AtomicI32>>,
+    ) {
+        let _ = self.tx.send(IoRequest::Write {
+            pos,
+            tag,
+            active_writes,
+        });
     }
 
     /// `synchronize(flush).join()`.
     pub fn synchronize(&self, flush: bool) -> io::Result<()> {
         let (done, rx) = channel();
         let _ = self.tx.send(IoRequest::Synchronize { flush, done });
-        rx.recv().unwrap_or_else(|_| Err(io::Error::other("IO worker is gone")))
+        rx.recv()
+            .unwrap_or_else(|_| Err(io::Error::other("IO worker is gone")))
     }
 
     /// `close()`: drains the queued writes and closes the region files.
@@ -98,12 +148,25 @@ pub struct RegionIoHandle {
 }
 
 impl RegionIoHandle {
-    pub fn write(&self, pos: ChunkPos, tag: Option<CompoundTag>, active_writes: Option<Arc<AtomicI32>>) {
-        let _ = self.tx.send(IoRequest::Write { pos, tag, active_writes });
+    pub fn write(
+        &self,
+        pos: ChunkPos,
+        tag: Option<CompoundTag>,
+        active_writes: Option<Arc<AtomicI32>>,
+    ) {
+        let _ = self.tx.send(IoRequest::Write {
+            pos,
+            tag,
+            active_writes,
+        });
     }
 }
 
-fn io_loop(mut storage: SimpleRegionStorage, rx: Receiver<IoRequest>, results: Sender<WorkerMessage>) {
+fn io_loop(
+    mut storage: SimpleRegionStorage,
+    rx: Receiver<IoRequest>,
+    results: Sender<WorkerMessage>,
+) {
     // Mirror of the storage's pending-write order (same insertion semantics): the counters to release per chunk.
     let mut pending: indexmap::IndexMap<i64, Vec<Arc<AtomicI32>>> = indexmap::IndexMap::new();
     fn release(counters: Vec<Arc<AtomicI32>>) {
@@ -115,14 +178,21 @@ fn io_loop(mut storage: SimpleRegionStorage, rx: Receiver<IoRequest>, results: S
         match rx.recv_timeout(Duration::from_millis(5)) {
             Ok(IoRequest::Read { key }) => {
                 let result = storage.read(&ChunkPos::unpack(key));
-                if results.send(WorkerMessage::ChunkRead { key, result }).is_err() {
+                if results
+                    .send(WorkerMessage::ChunkRead { key, result })
+                    .is_err()
+                {
                     return;
                 }
             }
             Ok(IoRequest::ReadBlocking { key, reply }) => {
                 let _ = reply.send(storage.read(&ChunkPos::unpack(key)));
             }
-            Ok(IoRequest::Write { pos, tag, active_writes }) => {
+            Ok(IoRequest::Write {
+                pos,
+                tag,
+                active_writes,
+            }) => {
                 storage.write(&pos, tag);
                 let entry = pending.entry(pos.pack()).or_default();
                 entry.extend(active_writes);
@@ -189,7 +259,10 @@ impl WorkerPool {
                     .expect("spawn worker")
             })
             .collect();
-        Self { tx: Some(tx), threads }
+        Self {
+            tx: Some(tx),
+            threads,
+        }
     }
 
     pub fn submit(&self, job: impl FnOnce() -> Option<WorkerMessage> + Send + 'static) {
@@ -229,7 +302,10 @@ impl WorldgenThread {
                 }
             })
             .expect("spawn worldgen thread");
-        Self { tx: Some(tx), thread: Some(thread) }
+        Self {
+            tx: Some(tx),
+            thread: Some(thread),
+        }
     }
 
     pub fn submit(&self, ctx: Arc<WorldGenContext>, batch: GenBatch) {

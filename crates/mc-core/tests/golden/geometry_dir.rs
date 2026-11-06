@@ -4,21 +4,30 @@
 //! Fixture line format: `op in-tokens = out-tokens`; doubles are 16 hex digits of the (canonical-NaN) bit pattern,
 //! floats 8 hex digits, ints decimal, booleans 0/1, `null` = absent, `ERR` = vanilla threw.
 
-use mc_core::direction::{Axis, AxisCycle, AxisDirection, CompositeDirection, Direction, Direction8, Directional, Plane};
+use mc_core::direction::{
+    Axis, AxisCycle, AxisDirection, CompositeDirection, Direction, Direction8, Directional, Plane,
+};
 use mc_core::mirror::Mirror;
 use mc_core::phys::aabb::Builder;
-use mc_core::phys::{Vec2, Vec3, AABB};
+use mc_core::phys::{AABB, Vec2, Vec3};
 use mc_core::pos::{BlockPos, Vec3i};
 use mc_core::random::{self, RandomSource};
 use mc_core::rotation::Rotation;
 use std::collections::BTreeMap;
-use std::panic::{catch_unwind, AssertUnwindSafe};
+use std::panic::{AssertUnwindSafe, catch_unwind};
 
 const FIXTURE: &str = include_str!("../fixtures/geometry_dir/geometry_dir.txt");
 
 // ---- formatting (Rust values -> fixture tokens) ----
 fn d(v: f64) -> String {
-    format!("{:016x}", if v.is_nan() { 0x7ff8_0000_0000_0000 } else { v.to_bits() })
+    format!(
+        "{:016x}",
+        if v.is_nan() {
+            0x7ff8_0000_0000_0000
+        } else {
+            v.to_bits()
+        }
+    )
 }
 fn f(v: f32) -> String {
     format!("{:08x}", if v.is_nan() { 0x7fc0_0000 } else { v.to_bits() })
@@ -39,7 +48,9 @@ fn v2(v: Vec2) -> String {
     format!("{} {}", f(v.x), f(v.y))
 }
 fn bb(a: &AABB) -> String {
-    [a.min_x, a.min_y, a.min_z, a.max_x, a.max_y, a.max_z].map(d).join(" ")
+    [a.min_x, a.min_y, a.min_z, a.max_x, a.max_y, a.max_z]
+        .map(d)
+        .join(" ")
 }
 fn guard<T>(g: impl FnOnce() -> T, fmt: impl FnOnce(T) -> String) -> String {
     catch_unwind(AssertUnwindSafe(g)).map_or("ERR".to_string(), fmt)
@@ -115,15 +126,24 @@ impl<'a> Toks<'a> {
     }
     fn rot(&mut self) -> Rotation {
         let s = self.s();
-        Rotation::ALL.into_iter().find(|r| rot_name(*r) == s).unwrap()
+        Rotation::ALL
+            .into_iter()
+            .find(|r| rot_name(*r) == s)
+            .unwrap()
     }
     fn mirror(&mut self) -> Mirror {
         let s = self.s();
-        Mirror::ALL.into_iter().find(|m| mirror_name(*m) == s).unwrap()
+        Mirror::ALL
+            .into_iter()
+            .find(|m| mirror_name(*m) == s)
+            .unwrap()
     }
     fn cycle(&mut self) -> AxisCycle {
         let s = self.s();
-        AxisCycle::VALUES.into_iter().find(|c| cycle_name(*c) == s).unwrap()
+        AxisCycle::VALUES
+            .into_iter()
+            .find(|c| cycle_name(*c) == s)
+            .unwrap()
     }
     fn v3(&mut self) -> Vec3 {
         Vec3::new(self.d(), self.d(), self.d())
@@ -191,15 +211,36 @@ fn run(op: &str, mut t: Toks) -> String {
         }
         "from_axis_dir" => {
             let a = t.axis();
-            let ad = if t.s() == "POSITIVE" { AxisDirection::Positive } else { AxisDirection::Negative };
-            format!("{} {}", dir(Some(Direction::from_axis_and_direction(a, ad))), dir(Some(Direction::get(ad, a))))
+            let ad = if t.s() == "POSITIVE" {
+                AxisDirection::Positive
+            } else {
+                AxisDirection::Negative
+            };
+            format!(
+                "{} {}",
+                dir(Some(Direction::from_axis_and_direction(a, ad))),
+                dir(Some(Direction::get(ad, a)))
+            )
         }
         "axis_direction" => {
-            let ad = if t.s() == "POSITIVE" { AxisDirection::Positive } else { AxisDirection::Negative };
-            format!("{} {} {}", ad.get_step(), ad_name(ad.opposite()), ad.get_name().replace(' ', "_"))
+            let ad = if t.s() == "POSITIVE" {
+                AxisDirection::Positive
+            } else {
+                AxisDirection::Negative
+            };
+            format!(
+                "{} {} {}",
+                ad.get_step(),
+                ad_name(ad.opposite()),
+                ad.get_name().replace(' ', "_")
+            )
         }
         "plane" => {
-            let p = if t.s() == "HORIZONTAL" { Plane::Horizontal } else { Plane::Vertical };
+            let p = if t.s() == "HORIZONTAL" {
+                Plane::Horizontal
+            } else {
+                Plane::Vertical
+            };
             let tests: String = Direction::ALL.iter().map(|x| b(p.test(*x))).collect();
             let faces: Vec<Direction> = p.into_iter().collect();
             format!("{} {} {}", p.length(), dirs(&faces), tests)
@@ -216,20 +257,31 @@ fn run(op: &str, mut t: Toks) -> String {
         "from_yrot" => dir(Some(Direction::from_y_rot(t.d()))),
         "nearest_int" => {
             let (x, y, z) = (t.i(), t.i(), t.i());
-            format!("{} {}", dir(Direction::get_nearest(x, y, z, None)), dir(Direction::get_nearest(x, y, z, Some(Direction::Up))))
+            format!(
+                "{} {}",
+                dir(Direction::get_nearest(x, y, z, None)),
+                dir(Direction::get_nearest(x, y, z, Some(Direction::Up)))
+            )
         }
         "approx_nearest" => {
             let (x, y, z) = (t.d(), t.d(), t.d());
             format!(
                 "{} {} {}",
                 dir(Some(Direction::get_approximate_nearest(x, y, z))),
-                dir(Some(Direction::get_approximate_nearest_f32(x as f32, y as f32, z as f32))),
-                dir(Some(Direction::get_approximate_nearest_vec3(Vec3::new(x, y, z))))
+                dir(Some(Direction::get_approximate_nearest_f32(
+                    x as f32, y as f32, z as f32
+                ))),
+                dir(Some(Direction::get_approximate_nearest_vec3(Vec3::new(
+                    x, y, z
+                ))))
             )
         }
         "facing_angle" => {
             let yaw = t.f();
-            Direction::ALL.iter().map(|x| b(x.is_facing_angle(yaw))).collect()
+            Direction::ALL
+                .iter()
+                .map(|x| b(x.is_facing_angle(yaw)))
+                .collect()
         }
         "ordered_by_nearest" => {
             let (pitch, yaw) = (t.f(), t.f());
@@ -241,7 +293,10 @@ fn run(op: &str, mut t: Toks) -> String {
                 dir(Some(Direction::get_facing_axis(Axis::Z, pitch, yaw)))
             )
         }
-        "axis_step_order" => Direction::axis_step_order(t.v3()).iter().map(|a| a.get_name()).collect(),
+        "axis_step_order" => Direction::axis_step_order(t.v3())
+            .iter()
+            .map(|a| a.get_name())
+            .collect(),
         "dir_random" => {
             let mut r = random::create(t.l());
             let mut s = String::new();
@@ -253,7 +308,11 @@ fn run(op: &str, mut t: Toks) -> String {
             }
             for p in [Plane::Horizontal, Plane::Vertical] {
                 for _ in 0..3 {
-                    s += &format!("{},{},", p.get_random_direction(&mut r).get_name(), p.get_random_axis(&mut r).get_name());
+                    s += &format!(
+                        "{},{},",
+                        p.get_random_direction(&mut r).get_name(),
+                        p.get_random_axis(&mut r).get_name()
+                    );
                 }
                 s += &dirs(&p.shuffled_copy(&mut r));
             }
@@ -263,7 +322,12 @@ fn run(op: &str, mut t: Toks) -> String {
         "cycle_inverse" => cycle_name(t.cycle().inverse()).to_string(),
         "cycle" => {
             let (c, a) = (t.cycle(), t.axis());
-            format!("{} {} {}", ax(c.cycle_axis(a)), c.cycle_i32(10, 20, 30, a), d(c.cycle_f64(1.5, 2.5, 3.5, a)))
+            format!(
+                "{} {} {}",
+                ax(c.cycle_axis(a)),
+                c.cycle_i32(10, 20, 30, a),
+                d(c.cycle_f64(1.5, 2.5, 3.5, a))
+            )
         }
         "cycle_between" => {
             let (a, c) = (t.axis(), t.axis());
@@ -299,16 +363,43 @@ fn run(op: &str, mut t: Toks) -> String {
                 "NORTH_WEST_DOWN" => CompositeDirection::NORTH_WEST_DOWN,
                 other => panic!("unknown composite {other}"),
             };
-            format!("{} {} {} {}", dirs(&c.directions()), c.get_step_x(), c.get_step_y(), c.get_step_z())
+            format!(
+                "{} {} {} {}",
+                dirs(&c.directions()),
+                c.get_step_x(),
+                c.get_step_y(),
+                c.get_step_z()
+            )
         }
         "direction8" => {
             let name = t.s();
-            let d8 = Direction8::ALL.into_iter().find(|d| format!("{d:?}").to_uppercase().replace("NORTHEAST", "NORTH_EAST").replace("SOUTHEAST", "SOUTH_EAST").replace("SOUTHWEST", "SOUTH_WEST").replace("NORTHWEST", "NORTH_WEST") == name).unwrap();
-            format!("{} {} {} {}", dirs(&d8.get_directions()), d8.get_step_x(), d8.get_step_y(), d8.get_step_z())
+            let d8 = Direction8::ALL
+                .into_iter()
+                .find(|d| {
+                    format!("{d:?}")
+                        .to_uppercase()
+                        .replace("NORTHEAST", "NORTH_EAST")
+                        .replace("SOUTHEAST", "SOUTH_EAST")
+                        .replace("SOUTHWEST", "SOUTH_WEST")
+                        .replace("NORTHWEST", "NORTH_WEST")
+                        == name
+                })
+                .unwrap();
+            format!(
+                "{} {} {} {}",
+                dirs(&d8.get_directions()),
+                d8.get_step_x(),
+                d8.get_step_y(),
+                d8.get_step_z()
+            )
         }
         "rotation" => {
             let r = t.rot();
-            format!("{} {}", r.get_serialized_name(), rot_name(Rotation::by_id(r.get_index())))
+            format!(
+                "{} {}",
+                r.get_serialized_name(),
+                rot_name(Rotation::by_id(r.get_index()))
+            )
         }
         "rotation_rotated" => {
             let (r, o) = (t.rot(), t.rot());
@@ -320,7 +411,9 @@ fn run(op: &str, mut t: Toks) -> String {
         }
         "rotation_steps" => {
             let (r, steps) = (t.rot(), t.i());
-            (-2..=steps + 2).map(|i| format!("{},", r.rotate_steps(i, steps))).collect()
+            (-2..=steps + 2)
+                .map(|i| format!("{},", r.rotate_steps(i, steps)))
+                .collect()
         }
         "rotation_by_id" => rot_name(Rotation::by_id(t.i())).to_string(),
         "rotation_random" => {
@@ -341,7 +434,9 @@ fn run(op: &str, mut t: Toks) -> String {
         }
         "mirror_steps" => {
             let (m, steps) = (t.mirror(), t.i());
-            (-2..=steps + 2).map(|i| format!("{},", m.mirror_steps(i, steps))).collect()
+            (-2..=steps + 2)
+                .map(|i| format!("{},", m.mirror_steps(i, steps)))
+                .collect()
         }
         "vec2_unary" => {
             let a = t.v2();
@@ -360,16 +455,37 @@ fn run(op: &str, mut t: Toks) -> String {
         }
         "vec2_binary" => {
             let (a, c) = (t.v2(), t.v2());
-            format!("{} {} {} {}", f(a.dot(c)), v2(a.add(c)), f(a.distance_to_sqr(c)), b(a == c))
+            format!(
+                "{} {} {} {}",
+                f(a.dot(c)),
+                v2(a.add(c)),
+                f(a.distance_to_sqr(c)),
+                b(a == c)
+            )
         }
         "vec3_flags" => {
             let a = t.v3();
             let copy = Vec3::new(a.x, a.y, a.z);
-            format!("{} {} {} {} {} {}", b(a.is_finite()), b(a == a), b(a == copy), a.hash_code(), d(a.length()), d(a.length_sqr()))
+            format!(
+                "{} {} {} {} {} {}",
+                b(a.is_finite()),
+                b(a == a),
+                b(a == copy),
+                a.hash_code(),
+                d(a.length()),
+                d(a.length_sqr())
+            )
         }
         "vec3_special_unary" => {
             let a = t.v3();
-            format!("{} {} {} {} {}", v3(a.normalize()), v3(a.reverse()), v3(a.horizontal()), d(a.horizontal_distance()), d(a.horizontal_distance_sqr()))
+            format!(
+                "{} {} {} {} {}",
+                v3(a.normalize()),
+                v3(a.reverse()),
+                v3(a.horizontal()),
+                d(a.horizontal_distance()),
+                d(a.horizontal_distance_sqr())
+            )
         }
         "vec3_unary" => {
             let a = t.v3();
@@ -413,7 +529,10 @@ fn run(op: &str, mut t: Toks) -> String {
         }
         "vec3_align" => {
             let (a, mask) = (t.v3(), t.i());
-            let axes: Vec<Axis> = Axis::ALL.into_iter().filter(|x| mask >> x.ordinal() & 1 != 0).collect();
+            let axes: Vec<Axis> = Axis::ALL
+                .into_iter()
+                .filter(|x| mask >> x.ordinal() & 1 != 0)
+                .collect();
             v3(a.align(&axes))
         }
         "vec3_binary" => {
@@ -441,7 +560,11 @@ fn run(op: &str, mut t: Toks) -> String {
         }
         "vec3_direction_from_rotation" => {
             let (rx, ry) = (t.f(), t.f());
-            format!("{} {}", v3(Vec3::direction_from_rotation(rx, ry)), v3(Vec3::direction_from_rotation_vec2(Vec2::new(rx, ry))))
+            format!(
+                "{} {}",
+                v3(Vec3::direction_from_rotation(rx, ry)),
+                v3(Vec3::direction_from_rotation_vec2(Vec2::new(rx, ry)))
+            )
         }
         "vec3_offset_random" => {
             let mut r = random::create(t.l());
@@ -491,7 +614,11 @@ fn run(op: &str, mut t: Toks) -> String {
         }
         "aabb_ctor" => {
             let (x, y) = (t.d(), t.d());
-            format!("{} {}", bb(&AABB::new(x, y, x, y, x, y)), bb(&AABB::new(y, x, y, x, y, x)))
+            format!(
+                "{} {}",
+                bb(&AABB::new(x, y, x, y, x, y)),
+                bb(&AABB::new(y, x, y, x, y, x))
+            )
         }
         "aabb_axis" => {
             let (a, axis) = (t.bb(), t.axis());
@@ -499,7 +626,18 @@ fn run(op: &str, mut t: Toks) -> String {
         }
         "aabb_set" => {
             let (a, lo, hi) = (t.bb(), t.d(), t.d());
-            [a.set_min_x(lo), a.set_min_y(hi), a.set_min_z(lo), a.set_max_x(hi), a.set_max_y(lo), a.set_max_z(hi)].iter().map(bb).collect::<Vec<_>>().join(" ")
+            [
+                a.set_min_x(lo),
+                a.set_min_y(hi),
+                a.set_min_z(lo),
+                a.set_max_x(hi),
+                a.set_max_y(lo),
+                a.set_max_z(hi),
+            ]
+            .iter()
+            .map(bb)
+            .collect::<Vec<_>>()
+            .join(" ")
         }
         "aabb_delta" => {
             let (a, dl) = (t.bb(), t.v3());
@@ -513,7 +651,12 @@ fn run(op: &str, mut t: Toks) -> String {
                 bb(&a.deflate_scalar(dl.y)),
                 bb(&a.move_vec(dl)),
                 bb(&a.move_(dl.x, dl.y, dl.z)),
-                bb(&AABB::of_size(dl, a.get_xsize(), a.get_ysize(), a.get_zsize())),
+                bb(&AABB::of_size(
+                    dl,
+                    a.get_xsize(),
+                    a.get_ysize(),
+                    a.get_zsize(),
+                )),
                 bb(&AABB::unit_cube_from_lower_corner(dl)),
                 bb(&AABB::from_corners(dl, dl.add(a.get_center()))),
                 b(a.contains_vec3(dl)),
@@ -538,7 +681,12 @@ fn run(op: &str, mut t: Toks) -> String {
         }
         "aabb_pos" => {
             let (a, p) = (t.bb(), t.pos());
-            format!("{} {} {}", bb(&a.move_block_pos(&p)), b(a.intersects_block_pos(&p)), bb(&AABB::from_block_pos(&p)))
+            format!(
+                "{} {} {}",
+                bb(&a.move_block_pos(&p)),
+                b(a.intersects_block_pos(&p)),
+                bb(&AABB::from_block_pos(&p))
+            )
         }
         "aabb_full_blocks" => {
             let (p, q) = (t.pos(), t.pos());
@@ -553,7 +701,9 @@ fn run(op: &str, mut t: Toks) -> String {
             format!(
                 "{} {}",
                 ov3(a.clip(from, to)),
-                ov3(AABB::clip_box_coords(a.min_x, a.min_y, a.min_z, a.max_x, a.max_y, a.max_z, from, to))
+                ov3(AABB::clip_box_coords(
+                    a.min_x, a.min_y, a.min_z, a.max_x, a.max_y, a.max_z, from, to
+                ))
             )
         }
         "aabb_clip_boxes" => {
@@ -602,13 +752,27 @@ fn golden_geometry_dir() {
         let (lhs, expected) = line.split_once(" = ").expect("fixture line");
         let (op, input) = lhs.split_once(' ').expect("op");
         // Rust panics inside `run` (e.g. a missing ERR guard) must fail the test, so no catch here.
-        let actual = run(op, Toks { t: input.split(' ').collect(), i: 0 });
+        let actual = run(
+            op,
+            Toks {
+                t: input.split(' ').collect(),
+                i: 0,
+            },
+        );
         *counts.entry(op).or_default() += 1;
         if actual != expected && failures.len() < 20 {
-            failures.push(format!("line {}: {op} {input}\n  expected: {expected}\n  actual:   {actual}", n + 1));
+            failures.push(format!(
+                "line {}: {op} {input}\n  expected: {expected}\n  actual:   {actual}",
+                n + 1
+            ));
         }
     }
-    assert!(failures.is_empty(), "{} shown mismatches:\n{}", failures.len(), failures.join("\n"));
+    assert!(
+        failures.is_empty(),
+        "{} shown mismatches:\n{}",
+        failures.len(),
+        failures.join("\n")
+    );
     assert!(counts.len() >= 55, "fixture lost ops: {counts:?}");
 }
 

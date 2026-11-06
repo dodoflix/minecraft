@@ -1,20 +1,20 @@
 //! `net.minecraft.world.level.block.HopperBlock`.
-use mc_game_core::register_block_class;
 use super::dispenser_block::update_neighbours_after_destroy;
-use mc_game_core::world::level::block::impls::prelude::*;
-use mc_game_core::server::level::ServerLevel;
-use crate::world::block_entity::hopper_block_entity;
-use mc_game_core::world::entity::Entity;
-use mc_game_core::world::entity::item::ItemEntity;
-use mc_game_core::world::item::BlockPlaceContext;
-use mc_game_core::world::level::redstone::Orientation;
-use mc_game_core::world::level::signal_getter::has_neighbor_signal;
-use mc_game_core::stats::stats::Stats;
 use crate::world::block_entity::container_menu_provider::BlockEntityMenuProvider;
-use mc_game_core::world::entity::ServerPlayer;
-use mc_game_core::world::item::InteractionResult;
+use crate::world::block_entity::hopper_block_entity;
 use mc_core::phys::BlockHitResult;
 use mc_data::block::PathComputationType;
+use mc_game_core::register_block_class;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::stats::stats::Stats;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::ServerPlayer;
+use mc_game_core::world::entity::item::ItemEntity;
+use mc_game_core::world::item::BlockPlaceContext;
+use mc_game_core::world::item::InteractionResult;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::world::level::redstone::Orientation;
+use mc_game_core::world::level::signal_getter::has_neighbor_signal;
 
 pub struct HopperBlock;
 
@@ -34,19 +34,47 @@ impl BlockBehaviour for HopperBlock {
         helpers::mirror_facing(state, props::FACING_HOPPER, mirror)
     }
 
-    fn get_state_for_placement(&self, block: Block, _level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
+    fn get_state_for_placement(
+        &self,
+        block: Block,
+        _level: &mut ServerLevel,
+        context: &BlockPlaceContext,
+    ) -> Option<BlockState> {
         let direction = context.get_clicked_face().get_opposite();
-        let facing = if direction.get_axis() == Axis::Y { Direction::Down } else { direction };
-        Some(block.default_state().set(props::FACING_HOPPER, facing).set(props::ENABLED, true))
+        let facing = if direction.get_axis() == Axis::Y {
+            Direction::Down
+        } else {
+            direction
+        };
+        Some(
+            block
+                .default_state()
+                .set(props::FACING_HOPPER, facing)
+                .set(props::ENABLED, true),
+        )
     }
 
-    fn on_place(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, old_state: BlockState, _moved_by_piston: bool) {
+    fn on_place(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        old_state: BlockState,
+        _moved_by_piston: bool,
+    ) {
         if !old_state.is_block(state.block()) {
             check_powered_state(level, pos, state);
         }
     }
 
-    fn use_without_item(&self, _state: BlockState, level: &mut ServerLevel, pos: BlockPos, player: &mut ServerPlayer, _hit: &BlockHitResult) -> InteractionResult {
+    fn use_without_item(
+        &self,
+        _state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        player: &mut ServerPlayer,
+        _hit: &BlockHitResult,
+    ) -> InteractionResult {
         if let Some(provider) = BlockEntityMenuProvider::of(level, pos) {
             player.open_menu(level, &provider);
             player.award_stat_once(level, Stats::INSPECT_HOPPER);
@@ -54,20 +82,48 @@ impl BlockBehaviour for HopperBlock {
         InteractionResult::SUCCESS
     }
 
-    fn neighbor_changed(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, _block: Block, _orientation: Option<Orientation>, _moved_by_piston: bool) {
+    fn neighbor_changed(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        _block: Block,
+        _orientation: Option<Orientation>,
+        _moved_by_piston: bool,
+    ) {
         check_powered_state(level, pos, state);
     }
 
-    fn affect_neighbors_after_removal(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, _moved_by_piston: bool) {
+    fn affect_neighbors_after_removal(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        _moved_by_piston: bool,
+    ) {
         update_neighbours_after_destroy(state, level, pos);
     }
 
-    fn get_menu_provider(&self, _state: BlockState, level: &ServerLevel, pos: BlockPos) -> Option<Box<dyn mc_game_core::world::inventory::MenuProvider>> {
-        BlockEntityMenuProvider::of(level, pos).map(|p| Box::new(p) as Box<dyn mc_game_core::world::inventory::MenuProvider>)
+    fn get_menu_provider(
+        &self,
+        _state: BlockState,
+        level: &ServerLevel,
+        pos: BlockPos,
+    ) -> Option<Box<dyn mc_game_core::world::inventory::MenuProvider>> {
+        BlockEntityMenuProvider::of(level, pos)
+            .map(|p| Box::new(p) as Box<dyn mc_game_core::world::inventory::MenuProvider>)
     }
 
-    fn get_analog_output_signal(&self, _state: BlockState, level: &ServerLevel, pos: BlockPos, _direction: Direction) -> i32 {
-        mc_game_core::world::container::get_redstone_signal_from_block_entity(level.get_block_entity(pos))
+    fn get_analog_output_signal(
+        &self,
+        _state: BlockState,
+        level: &ServerLevel,
+        pos: BlockPos,
+        _direction: Direction,
+    ) -> i32 {
+        mc_game_core::world::container::get_redstone_signal_from_block_entity(
+            level.get_block_entity(pos),
+        )
     }
 
     fn entity_inside(

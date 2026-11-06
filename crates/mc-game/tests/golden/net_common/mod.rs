@@ -1,21 +1,31 @@
 //! Shared harness for the network integration tests: a mock server behind `NetworkHooks`, a game-thread loop, and
 //! client helpers built on `mc_protocol::net`.
-#![allow(dead_code, reason = "each test target uses a subset of the shared helpers")]
+#![allow(
+    dead_code,
+    reason = "each test target uses a subset of the shared helpers"
+)]
 
 use indexmap::IndexMap;
 use mc_core::ident::Identifier;
+use mc_game::server::MinecraftServer;
+use mc_game::server::network::PendingPlayer;
 use mc_game::server::network::config::PrepareSpawn;
 use mc_game::server::network::configuration_task::TaskError;
-use mc_game::server::network::PendingPlayer;
-use mc_game::server::network::hooks::{ConfigurationData, GameTask, GameThread, LegacyServerInfo, RegistrySynchronization, ServerHandle};
+use mc_game::server::network::hooks::{
+    ConfigurationData, GameTask, GameThread, LegacyServerInfo, RegistrySynchronization,
+    ServerHandle,
+};
 use mc_game::server::network::{NetworkHooks, NetworkSettings, ServerConnectionListener};
-use mc_game::server::MinecraftServer;
 use mc_protocol::auth::{ServerKeyPair, SessionClient};
 use mc_protocol::codec::GameProfile;
 use mc_protocol::net::Connection;
 use mc_protocol::packets::common::UntrustedEntry;
-use mc_protocol::packets::configuration::{ClientboundRegistryDataPacket, ClientboundUpdateTagsPacket, KnownPack};
-use mc_protocol::packets::handshake::{ClientIntent, ClientIntentionPacket, ServerboundHandshakePacket};
+use mc_protocol::packets::configuration::{
+    ClientboundRegistryDataPacket, ClientboundUpdateTagsPacket, KnownPack,
+};
+use mc_protocol::packets::handshake::{
+    ClientIntent, ClientIntentionPacket, ServerboundHandshakePacket,
+};
 use mc_protocol::packets::status::{Players, ServerStatus, Version};
 use mc_text::Component;
 use parking_lot::Mutex;
@@ -43,7 +53,10 @@ impl GameThread for TestGameThread {
 
 pub struct NoRegistries;
 impl RegistrySynchronization for NoRegistries {
-    fn pack_registries(&self, _negotiated: &HashSet<KnownPack>) -> Vec<ClientboundRegistryDataPacket> {
+    fn pack_registries(
+        &self,
+        _negotiated: &HashSet<KnownPack>,
+    ) -> Vec<ClientboundRegistryDataPacket> {
         Vec::new()
     }
     fn tags(&self) -> ClientboundUpdateTagsPacket {
@@ -82,7 +95,11 @@ impl PrepareSpawn for MockSpawn {
     }
     fn keep_alive(&mut self, _server: &mut dyn ServerHandle) {}
     fn close(&mut self, _server: &mut dyn ServerHandle) {}
-    fn spawn_player(&mut self, _server: &mut dyn ServerHandle, pending: PendingPlayer) -> Result<(), TaskError> {
+    fn spawn_player(
+        &mut self,
+        _server: &mut dyn ServerHandle,
+        pending: PendingPlayer,
+    ) -> Result<(), TaskError> {
         self.spawned.lock().push(pending);
         Ok(())
     }
@@ -94,13 +111,23 @@ impl MockHooks {
         let (tx, rx) = std::sync::mpsc::channel();
         let status = ServerStatus {
             description: Component::literal("A Minecraft Server"),
-            players: Some(Players { max: 20, online: 0, sample: Vec::new() }),
-            version: Some(Version { name: "26.3".into(), protocol: mc_protocol::PROTOCOL_VERSION }),
+            players: Some(Players {
+                max: 20,
+                online: 0,
+                sample: Vec::new(),
+            }),
+            version: Some(Version {
+                name: "26.3".into(),
+                protocol: mc_protocol::PROTOCOL_VERSION,
+            }),
             favicon: None,
             enforces_secure_chat: false,
         };
         Arc::new(Self {
-            settings: Mutex::new(NetworkSettings { uses_authentication: false, ..NetworkSettings::default() }),
+            settings: Mutex::new(NetworkSettings {
+                uses_authentication: false,
+                ..NetworkSettings::default()
+            }),
             status: Mutex::new(Some(Arc::new(status))),
             key_pair: Arc::new(ServerKeyPair::generate().unwrap()),
             session: Mutex::new(SessionClient::default()),
@@ -117,7 +144,11 @@ impl MockHooks {
 
 pub fn default_configuration() -> ConfigurationData {
     ConfigurationData {
-        known_packs: vec![KnownPack { namespace: "minecraft".into(), id: "core".into(), version: "26.3".into() }],
+        known_packs: vec![KnownPack {
+            namespace: "minecraft".into(),
+            id: "core".into(),
+            version: "26.3".into(),
+        }],
         enabled_features: vec![Identifier::with_default_namespace("vanilla").unwrap()],
         server_links: Vec::<UntrustedEntry>::new(),
         code_of_conducts: IndexMap::new(),
@@ -134,7 +165,12 @@ impl NetworkHooks for MockHooks {
         self.status.lock().clone()
     }
     fn legacy_info(&self) -> LegacyServerInfo {
-        LegacyServerInfo { motd: "A Minecraft Server".into(), player_count: 0, max_players: 20, server_version: "26.3".into() }
+        LegacyServerInfo {
+            motd: "A Minecraft Server".into(),
+            player_count: 0,
+            max_players: 20,
+            server_version: "26.3".into(),
+        }
     }
     fn key_pair(&self) -> Arc<ServerKeyPair> {
         self.key_pair.clone()
@@ -148,11 +184,22 @@ impl NetworkHooks for MockHooks {
     fn game_thread(&self) -> Arc<dyn GameThread> {
         self.game.clone()
     }
-    fn can_player_login(&self, _server: &mut dyn ServerHandle, _addr: SocketAddr, profile: &GameProfile) -> Option<Component> {
-        self.log.lock().push(format!("can_player_login {}", profile.name));
+    fn can_player_login(
+        &self,
+        _server: &mut dyn ServerHandle,
+        _addr: SocketAddr,
+        profile: &GameProfile,
+    ) -> Option<Component> {
+        self.log
+            .lock()
+            .push(format!("can_player_login {}", profile.name));
         self.login_error.lock().clone()
     }
-    fn disconnect_all_players_with_profile(&self, _server: &mut dyn ServerHandle, id: Uuid) -> bool {
+    fn disconnect_all_players_with_profile(
+        &self,
+        _server: &mut dyn ServerHandle,
+        id: Uuid,
+    ) -> bool {
         self.online.lock().contains(&id)
     }
     fn is_player_in_world(&self, _server: &mut dyn ServerHandle, id: Uuid) -> bool {
@@ -161,8 +208,14 @@ impl NetworkHooks for MockHooks {
     fn report_login_activity(&self, _server: &mut dyn ServerHandle) {
         self.log.lock().push("login_activity".into());
     }
-    fn prepare_spawn(&self, _server: &mut dyn ServerHandle, _profile: &GameProfile) -> Box<dyn PrepareSpawn> {
-        Box::new(MockSpawn { spawned: self.spawned.clone() })
+    fn prepare_spawn(
+        &self,
+        _server: &mut dyn ServerHandle,
+        _profile: &GameProfile,
+    ) -> Box<dyn PrepareSpawn> {
+        Box::new(MockSpawn {
+            spawned: self.spawned.clone(),
+        })
     }
 }
 
@@ -177,7 +230,11 @@ pub struct TestServer {
 
 impl TestServer {
     pub fn start(hooks: Arc<MockHooks>) -> Self {
-        let rx = hooks.game_tasks.lock().take().expect("one server per MockHooks");
+        let rx = hooks
+            .game_tasks
+            .lock()
+            .take()
+            .expect("one server per MockHooks");
         let running = Arc::new(std::sync::atomic::AtomicBool::new(true));
         let flag = running.clone();
         let game_thread = std::thread::Builder::new()
@@ -193,15 +250,24 @@ impl TestServer {
             })
             .unwrap();
         let mut listener = ServerConnectionListener::new(hooks.clone()).unwrap();
-        let addr = listener.start_tcp_server_listener(Some("127.0.0.1".parse().unwrap()), 0).unwrap();
-        Self { hooks, addr, listener, running, game_thread: Some(game_thread) }
+        let addr = listener
+            .start_tcp_server_listener(Some("127.0.0.1".parse().unwrap()), 0)
+            .unwrap();
+        Self {
+            hooks,
+            addr,
+            listener,
+            running,
+            game_thread: Some(game_thread),
+        }
     }
 }
 
 impl Drop for TestServer {
     fn drop(&mut self) {
         self.listener.stop();
-        self.running.store(false, std::sync::atomic::Ordering::Release);
+        self.running
+            .store(false, std::sync::atomic::Ordering::Release);
         if let Some(t) = self.game_thread.take() {
             let _ = t.join();
         }
@@ -217,7 +283,11 @@ pub async fn write_payload(conn: &mut Connection<TcpStream>, payload: &[u8]) {
     conn.flush().await.unwrap();
 }
 
-pub async fn handshake(conn: &mut Connection<TcpStream>, protocol_version: i32, intention: ClientIntent) {
+pub async fn handshake(
+    conn: &mut Connection<TcpStream>,
+    protocol_version: i32,
+    intention: ClientIntent,
+) {
     let mut buf = Vec::new();
     ServerboundHandshakePacket::ClientIntention(ClientIntentionPacket {
         protocol_version,
@@ -225,12 +295,16 @@ pub async fn handshake(conn: &mut Connection<TcpStream>, protocol_version: i32, 
         port: 25565,
         intention,
     })
-    .encode_payload(&mut buf).unwrap();
+    .encode_payload(&mut buf)
+    .unwrap();
     write_payload(conn, &buf).await;
 }
 
 pub async fn read(conn: &mut Connection<TcpStream>) -> Vec<u8> {
-    tokio::time::timeout(Duration::from_secs(10), conn.read_payload()).await.expect("read timed out").expect("read")
+    tokio::time::timeout(Duration::from_secs(10), conn.read_payload())
+        .await
+        .expect("read timed out")
+        .expect("read")
 }
 
 /// The next read must fail because the server closed the connection.

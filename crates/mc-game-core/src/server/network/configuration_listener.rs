@@ -4,12 +4,14 @@
 //! (`ensureRunningOnSameThread` + `Connection.tick`).
 
 use super::common_listener::{
-    CommonListenerCookie, KeepAliveAction, ServerCommonListener, disconnect_unexpected_query, timeout_disconnection_message,
+    CommonListenerCookie, KeepAliveAction, ServerCommonListener, disconnect_unexpected_query,
+    timeout_disconnection_message,
+};
+use super::config::{
+    JoinWorldTask, PrepareSpawnTask, ServerCodeOfConductConfigurationTask,
+    ServerResourcePackConfigurationTask, SynchronizeRegistriesTask,
 };
 use super::configuration_task::{ConfigurationTask, TaskType};
-use super::config::{
-    JoinWorldTask, PrepareSpawnTask, ServerCodeOfConductConfigurationTask, ServerResourcePackConfigurationTask, SynchronizeRegistriesTask,
-};
 use super::connection::{ConnectionSender, ReadError, get_millis};
 use super::connection_task::{ConnectionContext, Event, ListenerShared};
 use super::hooks::{ConfigurationData, GameThread, NetworkHooks, ServerHandle, on_server};
@@ -20,8 +22,9 @@ use mc_protocol::net::NetError;
 use mc_protocol::packet::ConnectionState;
 use mc_protocol::packets::common::{ClientInformation, CustomPayload, ResourcePackAction};
 use mc_protocol::packets::configuration::{
-    ClientboundConfigurationPacket, ClientboundCustomPayloadPacket, ClientboundKeepAlivePacket, ClientboundServerLinksPacket,
-    ClientboundUpdateEnabledFeaturesPacket, ServerboundConfigurationPacket,
+    ClientboundConfigurationPacket, ClientboundCustomPayloadPacket, ClientboundKeepAlivePacket,
+    ClientboundServerLinksPacket, ClientboundUpdateEnabledFeaturesPacket,
+    ServerboundConfigurationPacket,
 };
 use mc_text::Component;
 use parking_lot::Mutex;
@@ -73,7 +76,12 @@ pub struct ServerConfigurationPacketListenerImpl {
 }
 
 impl ServerConfigurationPacketListenerImpl {
-    pub(super) fn new(sender: ConnectionSender, hooks: Arc<dyn NetworkHooks>, listener: Arc<ListenerShared>, cookie: CommonListenerCookie) -> Self {
+    pub(super) fn new(
+        sender: ConnectionSender,
+        hooks: Arc<dyn NetworkHooks>,
+        listener: Arc<ListenerShared>,
+        cookie: CommonListenerCookie,
+    ) -> Self {
         let (inbound_tx, inbound_rx) = channel();
         Self {
             common: ServerCommonListener::new(&cookie, get_millis()),
@@ -108,25 +116,39 @@ impl ServerConfigurationPacketListenerImpl {
     }
 
     /// `startConfiguration`.
-    pub(super) fn start_configuration(&mut self, server: &mut dyn ServerHandle) -> Result<(), String> {
+    pub(super) fn start_configuration(
+        &mut self,
+        server: &mut dyn ServerHandle,
+    ) -> Result<(), String> {
         let brand = self.hooks.settings().server_mod_name;
         // `BrandPayload.write` = `writeUtf(brand)`: a brand over 32767 chars fails when the packet is encoded.
         match CustomPayload::brand(&brand) {
-            Ok(payload) => self.send(ClientboundConfigurationPacket::CustomPayload(ClientboundCustomPayloadPacket { payload })),
-            Err(cause) => self.sender.encode_failed(&mc_protocol::packet::PacketEncodeError {
-                packet_type: "clientbound/minecraft:custom_payload".to_owned(),
-                skippable: false,
-                cause,
-            }),
+            Ok(payload) => self.send(ClientboundConfigurationPacket::CustomPayload(
+                ClientboundCustomPayloadPacket { payload },
+            )),
+            Err(cause) => self
+                .sender
+                .encode_failed(&mc_protocol::packet::PacketEncodeError {
+                    packet_type: "clientbound/minecraft:custom_payload".to_owned(),
+                    skippable: false,
+                    cause,
+                }),
         }
         let data = self.configuration.clone();
         if !data.server_links.is_empty() {
-            self.send(ClientboundConfigurationPacket::ServerLinks(ClientboundServerLinksPacket { links: data.server_links.clone() }));
+            self.send(ClientboundConfigurationPacket::ServerLinks(
+                ClientboundServerLinksPacket {
+                    links: data.server_links.clone(),
+                },
+            ));
         }
-        self.send(ClientboundConfigurationPacket::UpdateEnabledFeatures(ClientboundUpdateEnabledFeaturesPacket {
-            features: data.enabled_features.clone(),
-        }));
-        let task = SynchronizeRegistriesTask::new(data.known_packs.clone(), data.registries.clone());
+        self.send(ClientboundConfigurationPacket::UpdateEnabledFeatures(
+            ClientboundUpdateEnabledFeaturesPacket {
+                features: data.enabled_features.clone(),
+            },
+        ));
+        let task =
+            SynchronizeRegistriesTask::new(data.known_packs.clone(), data.registries.clone());
         self.synchronize_registries_task = Some(task.clone());
         self.configuration_tasks.push_back(Box::new(task));
         self.add_optional_tasks();
@@ -147,25 +169,31 @@ impl ServerConfigurationPacketListenerImpl {
         let codes = self.configuration.code_of_conducts.clone();
         if !codes.is_empty() {
             let language = self.language.clone();
-            self.configuration_tasks.push_back(Box::new(ServerCodeOfConductConfigurationTask::new(move || {
-                let language = language.lock().to_lowercase();
-                codes
-                    .get(&language)
-                    .or_else(|| codes.get("en_us"))
-                    .or_else(|| codes.values().next())
-                    .cloned()
-                    .unwrap_or_default()
-            })));
+            self.configuration_tasks.push_back(Box::new(
+                ServerCodeOfConductConfigurationTask::new(move || {
+                    let language = language.lock().to_lowercase();
+                    codes
+                        .get(&language)
+                        .or_else(|| codes.get("en_us"))
+                        .or_else(|| codes.values().next())
+                        .cloned()
+                        .unwrap_or_default()
+                }),
+            ));
         }
         if let Some(info) = self.configuration.resource_pack.clone() {
-            self.configuration_tasks.push_back(Box::new(ServerResourcePackConfigurationTask::new(info)));
+            self.configuration_tasks
+                .push_back(Box::new(ServerResourcePackConfigurationTask::new(info)));
         }
     }
 
     /// `startNextTask`.
     fn start_next_task(&mut self, server: &mut dyn ServerHandle) -> Result<(), String> {
         if let Some(current) = &self.current_task {
-            return Err(illegal_state(format!("Task {} has not finished yet", current.task_type().id())));
+            return Err(illegal_state(format!(
+                "Task {} has not finished yet",
+                current.task_type().id()
+            )));
         }
         if self.is_accepting_messages()
             && let Some(mut task) = self.configuration_tasks.pop_front()
@@ -185,11 +213,17 @@ impl ServerConfigurationPacketListenerImpl {
     }
 
     /// `finishCurrentTask`.
-    fn finish_current_task(&mut self, server: &mut dyn ServerHandle, to_finish: TaskType) -> Result<(), String> {
+    fn finish_current_task(
+        &mut self,
+        server: &mut dyn ServerHandle,
+        to_finish: TaskType,
+    ) -> Result<(), String> {
         let current = self.current_task.as_ref().map(|t| t.task_type());
         if current != Some(to_finish) {
             let current = current.map_or_else(|| "null".to_owned(), |t| t.to_string());
-            return Err(illegal_state(format!("Unexpected request for task finish, current task: {current}, requested: {to_finish}")));
+            return Err(illegal_state(format!(
+                "Unexpected request for task finish, current task: {current}, requested: {to_finish}"
+            )));
         }
         self.current_task = None;
         self.start_next_task(server)
@@ -199,7 +233,9 @@ impl ServerConfigurationPacketListenerImpl {
     pub(super) fn tick(&mut self, server: &mut dyn ServerHandle) -> Result<(), String> {
         match self.common.poll_keep_alive(get_millis()) {
             KeepAliveAction::Nothing => {}
-            KeepAliveAction::Send(id) => self.send(ClientboundConfigurationPacket::KeepAlive(ClientboundKeepAlivePacket { id })),
+            KeepAliveAction::Send(id) => self.send(ClientboundConfigurationPacket::KeepAlive(
+                ClientboundKeepAlivePacket { id },
+            )),
             KeepAliveAction::Timeout => self.disconnect(timeout_disconnection_message()),
         }
         if let Some(task) = self.current_task.as_mut() {
@@ -220,18 +256,32 @@ impl ServerConfigurationPacketListenerImpl {
     }
 
     /// Dispatch of the serverbound configuration packets. `Err` carries the Java exception text for `exceptionCaught`.
-    pub(super) fn handle_packet(&mut self, server: &mut dyn ServerHandle, packet: ServerboundConfigurationPacket) -> Result<Flow, String> {
+    pub(super) fn handle_packet(
+        &mut self,
+        server: &mut dyn ServerHandle,
+        packet: ServerboundConfigurationPacket,
+    ) -> Result<Flow, String> {
         match packet {
             ServerboundConfigurationPacket::ClientInformation(p) => {
                 *self.language.lock() = p.information.language.clone();
                 self.client_information = p.information;
             }
-            ServerboundConfigurationPacket::CookieResponse(_) => self.disconnect(disconnect_unexpected_query()),
-            ServerboundConfigurationPacket::CustomPayload(_) | ServerboundConfigurationPacket::Pong(_) => {}
+            ServerboundConfigurationPacket::CookieResponse(_) => {
+                self.disconnect(disconnect_unexpected_query())
+            }
+            ServerboundConfigurationPacket::CustomPayload(_)
+            | ServerboundConfigurationPacket::Pong(_) => {}
             ServerboundConfigurationPacket::CustomClickAction(p) => {
                 // `MinecraftServer.handleCustomClickAction`
-                let payload = p.payload.0.as_ref().map_or_else(|| "null".to_owned(), |t| t.to_string());
-                log::debug!("Received custom click action {} with payload {payload}", p.id);
+                let payload = p
+                    .payload
+                    .0
+                    .as_ref()
+                    .map_or_else(|| "null".to_owned(), |t| t.to_string());
+                log::debug!(
+                    "Received custom click action {} with payload {payload}",
+                    p.id
+                );
             }
             ServerboundConfigurationPacket::KeepAlive(p) => {
                 if self.common.handle_keep_alive(p.id, get_millis()) {
@@ -239,9 +289,18 @@ impl ServerConfigurationPacketListenerImpl {
                 }
             }
             ServerboundConfigurationPacket::ResourcePack(p) => {
-                if p.action == ResourcePackAction::Declined && self.configuration.is_resource_pack_required() {
-                    log::info!("Disconnecting {} due to resource pack {} rejection", self.game_profile.name, p.id);
-                    self.disconnect(Component::translatable("multiplayer.requiredTexturePrompt.disconnect", vec![]));
+                if p.action == ResourcePackAction::Declined
+                    && self.configuration.is_resource_pack_required()
+                {
+                    log::info!(
+                        "Disconnecting {} due to resource pack {} rejection",
+                        self.game_profile.name,
+                        p.id
+                    );
+                    self.disconnect(Component::translatable(
+                        "multiplayer.requiredTexturePrompt.disconnect",
+                        vec![],
+                    ));
                 }
                 if p.action.is_terminal() {
                     self.finish_current_task(server, ServerResourcePackConfigurationTask::TYPE)?;
@@ -249,22 +308,31 @@ impl ServerConfigurationPacketListenerImpl {
             }
             ServerboundConfigurationPacket::SelectKnownPacks(p) => {
                 let Some(task) = self.synchronize_registries_task.clone() else {
-                    return Err(illegal_state("Unexpected response from client: received pack selection, but no negotiation ongoing"));
+                    return Err(illegal_state(
+                        "Unexpected response from client: received pack selection, but no negotiation ongoing",
+                    ));
                 };
                 let (sender, common) = (&self.sender, &mut self.common);
-                task.handle_response(&p.known_packs, &mut |packet| send_packet(sender, common, packet));
+                task.handle_response(&p.known_packs, &mut |packet| {
+                    send_packet(sender, common, packet)
+                });
                 self.finish_current_task(server, SynchronizeRegistriesTask::TYPE)?;
             }
             ServerboundConfigurationPacket::AcceptCodeOfConduct(_) => {
                 self.finish_current_task(server, ServerCodeOfConductConfigurationTask::TYPE)?;
             }
-            ServerboundConfigurationPacket::FinishConfiguration(_) => return self.handle_configuration_finished(server),
+            ServerboundConfigurationPacket::FinishConfiguration(_) => {
+                return self.handle_configuration_finished(server);
+            }
         }
         Ok(Flow::Continue)
     }
 
     /// `handleConfigurationFinished`.
-    fn handle_configuration_finished(&mut self, server: &mut dyn ServerHandle) -> Result<Flow, String> {
+    fn handle_configuration_finished(
+        &mut self,
+        server: &mut dyn ServerHandle,
+    ) -> Result<Flow, String> {
         self.finish_current_task(server, JoinWorldTask::TYPE)?;
         self.sender.set_outbound_state(ConnectionState::Play);
         let id = self.game_profile.id;
@@ -273,12 +341,15 @@ impl ServerConfigurationPacketListenerImpl {
             return Ok(Flow::Continue);
         }
         if let Some(addr) = self.sender.remote_address()
-            && let Some(error) = self.hooks.can_player_login(server, addr, &self.game_profile)
+            && let Some(error) = self
+                .hooks
+                .can_player_login(server, addr, &self.game_profile)
         {
             self.disconnect(error);
             return Ok(Flow::Continue);
         }
-        let (Some(task), Some(inbound)) = (self.prepare_spawn_task.clone(), self.inbound_rx.take()) else {
+        let (Some(task), Some(inbound)) = (self.prepare_spawn_task.clone(), self.inbound_rx.take())
+        else {
             return Err(illegal_state("Player spawn was not ready"));
         };
         let pending = PendingPlayer {
@@ -293,7 +364,8 @@ impl ServerConfigurationPacketListenerImpl {
         };
         match task.spawn_player(server, pending) {
             Ok(()) => {
-                self.listener.register_play_connection(id, self.sender.handle());
+                self.listener
+                    .register_play_connection(id, self.sender.handle());
                 Ok(Flow::EnterPlay)
             }
             Err(e) => {
@@ -306,7 +378,12 @@ impl ServerConfigurationPacketListenerImpl {
 
     /// `onDisconnect`.
     fn on_disconnect(&mut self, server: &mut dyn ServerHandle, reason: &str) {
-        log::info!("{} ({}) lost connection: {}", self.game_profile.name, self.game_profile.id, reason);
+        log::info!(
+            "{} ({}) lost connection: {}",
+            self.game_profile.name,
+            self.game_profile.id,
+            reason
+        );
         if let Some(task) = self.prepare_spawn_task.take() {
             task.close(server);
         }
@@ -314,8 +391,15 @@ impl ServerConfigurationPacketListenerImpl {
 }
 
 /// `ServerCommonPacketListenerImpl.send`.
-fn send_packet(sender: &ConnectionSender, common: &mut ServerCommonListener, packet: ClientboundConfigurationPacket) {
-    if matches!(packet, ClientboundConfigurationPacket::FinishConfiguration(_)) {
+fn send_packet(
+    sender: &ConnectionSender,
+    common: &mut ServerCommonListener,
+    packet: ClientboundConfigurationPacket,
+) {
+    if matches!(
+        packet,
+        ClientboundConfigurationPacket::FinishConfiguration(_)
+    ) {
         common.close(get_millis());
     }
     let mut buf = Vec::with_capacity(64);
@@ -332,13 +416,24 @@ fn send_packet(sender: &ConnectionSender, common: &mut ServerCommonListener, pac
 
 /// Runs the configuration phase on the connection's task until the connection ends or the player is placed (then the
 /// reader turns into the play-protocol inbound pump).
-pub(super) async fn run(ctx: &mut ConnectionContext, cookie: CommonListenerCookie) -> Option<CommonListenerCookie> {
-    let listener = ServerConfigurationPacketListenerImpl::new(ctx.sender.clone(), ctx.hooks.clone(), ctx.listener.clone(), cookie);
+pub(super) async fn run(
+    ctx: &mut ConnectionContext,
+    cookie: CommonListenerCookie,
+) -> Option<CommonListenerCookie> {
+    let listener = ServerConfigurationPacketListenerImpl::new(
+        ctx.sender.clone(),
+        ctx.hooks.clone(),
+        ctx.listener.clone(),
+        cookie,
+    );
     let game = ctx.game.clone();
     let mut listener = Some(Box::new(listener));
 
     // `handleLoginAcknowledgement`: `startConfiguration()`.
-    let started = lend(&*game, &mut listener, |l, server| l.start_configuration(server)).await?;
+    let started = lend(&*game, &mut listener, |l, server| {
+        l.start_configuration(server)
+    })
+    .await?;
     if let Err(cause) = started {
         ctx.fault_cause(&cause);
     }
@@ -350,24 +445,31 @@ pub(super) async fn run(ctx: &mut ConnectionContext, cookie: CommonListenerCooki
                 let reason = ctx
                     .handle
                     .disconnection_details()
-                    .map_or_else(|| Component::translatable("multiplayer.disconnect.generic", vec![]), |d| d.reason)
+                    .map_or_else(
+                        || Component::translatable("multiplayer.disconnect.generic", vec![]),
+                        |d| d.reason,
+                    )
                     .get_string();
                 // The listener's logging + spawn-task cleanup happen on the server thread, like `handleDisconnection`.
-                let _ = lend(&*game, &mut listener, move |l, server| l.on_disconnect(server, &reason)).await;
+                let _ = lend(&*game, &mut listener, move |l, server| {
+                    l.on_disconnect(server, &reason)
+                })
+                .await;
                 return None;
             }
             Event::ReadError(e) => ctx.fault(e),
-            Event::Tick => {
-                match lend(&*game, &mut listener, |l, server| l.tick(server)).await {
-                    None => return None,
-                    Some(Err(cause)) => ctx.fault_cause(&cause),
-                    Some(Ok(())) => {}
-                }
-            }
+            Event::Tick => match lend(&*game, &mut listener, |l, server| l.tick(server)).await {
+                None => return None,
+                Some(Err(cause)) => ctx.fault_cause(&cause),
+                Some(Ok(())) => {}
+            },
             Event::Payload(p) => match ServerboundConfigurationPacket::decode_payload(&p) {
                 Err(e) => ctx.fault(ReadError::Net(NetError::Decode(e))),
                 Ok(packet) => {
-                    let result = lend(&*game, &mut listener, move |l, server| l.handle_packet(server, packet)).await?;
+                    let result = lend(&*game, &mut listener, move |l, server| {
+                        l.handle_packet(server, packet)
+                    })
+                    .await?;
                     match result {
                         Err(cause) => ctx.fault_cause(&cause),
                         Ok(Flow::Continue) => {}
@@ -386,7 +488,9 @@ pub(super) async fn run(ctx: &mut ConnectionContext, cookie: CommonListenerCooki
 async fn lend<R: Send + 'static>(
     game: &dyn GameThread,
     slot: &mut Option<Box<ServerConfigurationPacketListenerImpl>>,
-    f: impl FnOnce(&mut ServerConfigurationPacketListenerImpl, &mut dyn ServerHandle) -> R + Send + 'static,
+    f: impl FnOnce(&mut ServerConfigurationPacketListenerImpl, &mut dyn ServerHandle) -> R
+    + Send
+    + 'static,
 ) -> Option<R> {
     let mut listener = slot.take()?;
     let (listener, result) = on_server(game, move |server| {

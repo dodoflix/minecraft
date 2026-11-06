@@ -3,9 +3,9 @@
 use super::FOLIAGE_PLACER_TYPES;
 use super::foliage_placer::{FoliageAttachment, FoliageBase, FoliagePlacer};
 use super::tree_feature::{TreeFeature, TreeSetter};
+use mc_core::random::RandomSource;
 use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry, parse_int_range};
 use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
-use mc_core::random::RandomSource;
 use std::sync::Arc;
 
 pub struct BlobFoliagePlacer {
@@ -46,17 +46,40 @@ impl FoliagePlacer for BlobFoliagePlacer {
         let foliage_height_with_offset = foliage_height + foliage_attachment.foliage_height_offset;
         let mut yo = offset;
         while yo >= offset - foliage_height_with_offset {
-            let current_radius = (leaf_radius + foliage_attachment.radius_offset_xz - 1 - yo / 2).max(0);
-            self.place_leaves_row(level, foliage_setter, random, tree, foliage_attachment.pos, current_radius, yo, foliage_attachment.double_trunk());
+            let current_radius =
+                (leaf_radius + foliage_attachment.radius_offset_xz - 1 - yo / 2).max(0);
+            self.place_leaves_row(
+                level,
+                foliage_setter,
+                random,
+                tree,
+                foliage_attachment.pos,
+                current_radius,
+                yo,
+                foliage_attachment.double_trunk(),
+            );
             yo -= 1;
         }
     }
 
-    fn foliage_height(&self, _random: &mut dyn RandomSource, _tree_height: i32, _tree: &TreeFeature) -> i32 {
+    fn foliage_height(
+        &self,
+        _random: &mut dyn RandomSource,
+        _tree_height: i32,
+        _tree: &TreeFeature,
+    ) -> i32 {
         self.height
     }
 
-    fn should_skip_location(&self, random: &mut dyn RandomSource, dx: i32, y: i32, dz: i32, current_radius: i32, _double_trunk: bool) -> bool {
+    fn should_skip_location(
+        &self,
+        random: &mut dyn RandomSource,
+        dx: i32,
+        y: i32,
+        dz: i32,
+        current_radius: i32,
+        _double_trunk: bool,
+    ) -> bool {
         dx == current_radius && dz == current_radius && (random.next_int_bounded(2) == 0 || y == 0)
     }
 }

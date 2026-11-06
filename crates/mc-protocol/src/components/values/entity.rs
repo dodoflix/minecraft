@@ -1,7 +1,7 @@
 //! Entity-related components: `entity_data` / `block_entity_data` (`TypedEntityData`) and the variant components of
 //! mobs (registry-backed `Holder`s and the `StringRepresentable` variant enums with their `ByIdMap` stream forms).
 use crate::codec::EncodeResult;
-use crate::codec::{read_varint, write_varint, Decode, DecodeResult, Encode};
+use crate::codec::{Decode, DecodeResult, Encode, read_varint, write_varint};
 use crate::components::common::{custom_data_compound_tag_codec, read_enum_zero};
 use crate::components::component::{ComponentDef, ComponentKey};
 use crate::components::holder::{self, Holder};
@@ -33,30 +33,37 @@ impl<T: Clone + Send + Sync + 'static> TypedEntityData<T> {
     /// `TypedEntityData.codec(typeCodec)`: the compound with the type flattened into its `id` key.
     pub fn codec(type_codec: &Codec<T>) -> Codec<TypedEntityData<T>> {
         let (tc_enc, tc_dec) = (type_codec.clone(), type_codec.clone());
-        let (compound_enc, compound_dec) = (custom_data_compound_tag_codec(), custom_data_compound_tag_codec());
+        let (compound_enc, compound_dec) = (
+            custom_data_compound_tag_codec(),
+            custom_data_compound_tag_codec(),
+        );
         Codec::from_fns(
             move |ops, input: &TypedEntityData<T>, prefix| {
                 let compound_enc = compound_enc.clone();
-                tc_enc.encode_start(&NBT, &input.ty).flat_map(move |d: Dyn| match d.to_tag() {
-                    Ok(type_tag) => {
-                        let mut tag = input.tag.clone();
-                        tag.put("id", type_tag);
-                        compound_enc.encode(ops, &tag, prefix)
-                    }
-                    Err(e) => DataResult::error(move || e.clone()),
-                })
+                tc_enc
+                    .encode_start(&NBT, &input.ty)
+                    .flat_map(move |d: Dyn| match d.to_tag() {
+                        Ok(type_tag) => {
+                            let mut tag = input.tag.clone();
+                            tag.put("id", type_tag);
+                            compound_enc.encode(ops, &tag, prefix)
+                        }
+                        Err(e) => DataResult::error(move || e.clone()),
+                    })
             },
             move |ops, input| {
                 let tc_dec = tc_dec.clone();
-                compound_dec.decode(ops, input).flat_map(move |(mut tag, rest)| match tag.remove("id") {
-                    None => {
-                        let shown = input.to_string();
-                        DataResult::error(move || format!("Expected 'id' field in {shown}"))
-                    }
-                    Some(type_tag) => tc_dec
-                        .parse(&NBT, &Dyn::from(&type_tag))
-                        .map(move |ty| (TypedEntityData { ty, tag }, rest)),
-                })
+                compound_dec
+                    .decode(ops, input)
+                    .flat_map(move |(mut tag, rest)| match tag.remove("id") {
+                        None => {
+                            let shown = input.to_string();
+                            DataResult::error(move || format!("Expected 'id' field in {shown}"))
+                        }
+                        Some(type_tag) => tc_dec
+                            .parse(&NBT, &Dyn::from(&type_tag))
+                            .map(move |ty| (TypedEntityData { ty, tag }, rest)),
+                    })
             },
         )
     }
@@ -77,7 +84,8 @@ impl<T: Decode> Decode for TypedEntityData<T> {
     }
 }
 
-pub const ENTITY_DATA: ComponentKey<TypedEntityData<mc_data::EntityType>> = ComponentKey::new(DataComponentType::ENTITY_DATA);
+pub const ENTITY_DATA: ComponentKey<TypedEntityData<mc_data::EntityType>> =
+    ComponentKey::new(DataComponentType::ENTITY_DATA);
 pub const BLOCK_ENTITY_DATA: ComponentKey<TypedEntityData<mc_data::BlockEntityType>> =
     ComponentKey::new(DataComponentType::BLOCK_ENTITY_DATA);
 
@@ -121,7 +129,8 @@ holder_variants! {
 }
 
 /// `painting/variant`: persistent as a reference, stream form allows an inline `PaintingVariant` (`ByteBufCodecs.holder`).
-pub const PAINTING_VARIANT: ComponentKey<Holder<PaintingVariant>> = ComponentKey::new(DataComponentType::PAINTING_VARIANT);
+pub const PAINTING_VARIANT: ComponentKey<Holder<PaintingVariant>> =
+    ComponentKey::new(DataComponentType::PAINTING_VARIANT);
 
 // ---- StringRepresentable variant enums -------------------------------------------------------------------------
 
@@ -213,7 +222,11 @@ string_enum! {
 impl RabbitVariant {
     /// `Rabbit.Variant.id()`.
     pub fn wire_id(self) -> i32 {
-        if self == RabbitVariant::Evil { 99 } else { self.id() }
+        if self == RabbitVariant::Evil {
+            99
+        } else {
+            self.id()
+        }
     }
 }
 impl Encode for RabbitVariant {
@@ -226,7 +239,11 @@ impl Decode for RabbitVariant {
     /// `ByIdMap.sparse(.., DEFAULT = BROWN)`.
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
         let id = read_varint(input)?;
-        Ok(RabbitVariant::ALL.iter().copied().find(|v| v.wire_id() == id).unwrap_or(RabbitVariant::Brown))
+        Ok(RabbitVariant::ALL
+            .iter()
+            .copied()
+            .find(|v| v.wire_id() == id)
+            .unwrap_or(RabbitVariant::Brown))
     }
 }
 
@@ -243,7 +260,11 @@ impl TropicalFishPattern {
     /// `getPackedId()`: base id (small 0, large 1) | index << 8.
     pub fn packed_id(self) -> i32 {
         let ordinal = self.id();
-        let (base, index) = if ordinal < 6 { (0, ordinal) } else { (1, ordinal - 6) };
+        let (base, index) = if ordinal < 6 {
+            (0, ordinal)
+        } else {
+            (1, ordinal - 6)
+        };
         base | index << 8
     }
 }
@@ -257,40 +278,66 @@ impl Decode for TropicalFishPattern {
     /// `ByIdMap.sparse(.., KOB)`.
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
         let id = read_varint(input)?;
-        Ok(TropicalFishPattern::ALL.iter().copied().find(|v| v.packed_id() == id).unwrap_or(TropicalFishPattern::Kob))
+        Ok(TropicalFishPattern::ALL
+            .iter()
+            .copied()
+            .find(|v| v.packed_id() == id)
+            .unwrap_or(TropicalFishPattern::Kob))
     }
 }
 
 pub const FOX_VARIANT: ComponentKey<FoxVariant> = ComponentKey::new(DataComponentType::FOX_VARIANT);
-pub const SALMON_SIZE: ComponentKey<SalmonVariant> = ComponentKey::new(DataComponentType::SALMON_SIZE);
-pub const PARROT_VARIANT: ComponentKey<ParrotVariant> = ComponentKey::new(DataComponentType::PARROT_VARIANT);
-pub const TROPICAL_FISH_PATTERN: ComponentKey<TropicalFishPattern> = ComponentKey::new(DataComponentType::TROPICAL_FISH_PATTERN);
-pub const MOOSHROOM_VARIANT: ComponentKey<MushroomCowVariant> = ComponentKey::new(DataComponentType::MOOSHROOM_VARIANT);
-pub const RABBIT_VARIANT: ComponentKey<RabbitVariant> = ComponentKey::new(DataComponentType::RABBIT_VARIANT);
-pub const HORSE_VARIANT: ComponentKey<HorseVariant> = ComponentKey::new(DataComponentType::HORSE_VARIANT);
-pub const LLAMA_VARIANT: ComponentKey<LlamaVariant> = ComponentKey::new(DataComponentType::LLAMA_VARIANT);
-pub const AXOLOTL_VARIANT: ComponentKey<AxolotlVariant> = ComponentKey::new(DataComponentType::AXOLOTL_VARIANT);
+pub const SALMON_SIZE: ComponentKey<SalmonVariant> =
+    ComponentKey::new(DataComponentType::SALMON_SIZE);
+pub const PARROT_VARIANT: ComponentKey<ParrotVariant> =
+    ComponentKey::new(DataComponentType::PARROT_VARIANT);
+pub const TROPICAL_FISH_PATTERN: ComponentKey<TropicalFishPattern> =
+    ComponentKey::new(DataComponentType::TROPICAL_FISH_PATTERN);
+pub const MOOSHROOM_VARIANT: ComponentKey<MushroomCowVariant> =
+    ComponentKey::new(DataComponentType::MOOSHROOM_VARIANT);
+pub const RABBIT_VARIANT: ComponentKey<RabbitVariant> =
+    ComponentKey::new(DataComponentType::RABBIT_VARIANT);
+pub const HORSE_VARIANT: ComponentKey<HorseVariant> =
+    ComponentKey::new(DataComponentType::HORSE_VARIANT);
+pub const LLAMA_VARIANT: ComponentKey<LlamaVariant> =
+    ComponentKey::new(DataComponentType::LLAMA_VARIANT);
+pub const AXOLOTL_VARIANT: ComponentKey<AxolotlVariant> =
+    ComponentKey::new(DataComponentType::AXOLOTL_VARIANT);
 
 pub(crate) fn defs(out: &mut Vec<ComponentDef>) {
     out.push(
         ComponentDef::builder(ENTITY_DATA)
-            .persistent(TypedEntityData::codec(&holder::registry_by_name_codec::<mc_data::EntityType>()))
+            .persistent(TypedEntityData::codec(&holder::registry_by_name_codec::<
+                mc_data::EntityType,
+            >()))
             .network_synchronized()
             .build(),
     );
     out.push(
         ComponentDef::builder(BLOCK_ENTITY_DATA)
-            .persistent(TypedEntityData::codec(&holder::registry_by_name_codec::<mc_data::BlockEntityType>()))
+            .persistent(TypedEntityData::codec(&holder::registry_by_name_codec::<
+                mc_data::BlockEntityType,
+            >()))
             .network_synchronized()
             .build(),
     );
     holder_defs(out);
     out.push(
         ComponentDef::builder(PAINTING_VARIANT)
-            .persistent(holder::holder_fixed_codec::<PaintingVariant>("minecraft:painting_variant"))
+            .persistent(holder::holder_fixed_codec::<PaintingVariant>(
+                "minecraft:painting_variant",
+            ))
             .network_with(
-                |h, out| holder::encode_holder("minecraft:painting_variant", h, out, |v, o| v.encode(o)),
-                |input| holder::decode_holder("minecraft:painting_variant", input, PaintingVariant::decode),
+                |h, out| {
+                    holder::encode_holder("minecraft:painting_variant", h, out, |v, o| v.encode(o))
+                },
+                |input| {
+                    holder::decode_holder(
+                        "minecraft:painting_variant",
+                        input,
+                        PaintingVariant::decode,
+                    )
+                },
             )
             .build(),
     );

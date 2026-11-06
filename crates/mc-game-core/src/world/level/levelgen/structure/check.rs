@@ -66,7 +66,11 @@ pub struct StructureCheck {
 }
 
 /// `checkStructureInfo(cachedResult, structure, requireUnreferenced)`.
-fn check_structure_info(cached: &HashMap<Identifier, i32>, structure: &Identifier, require_unreferenced: bool) -> StructureCheckResult {
+fn check_structure_info(
+    cached: &HashMap<Identifier, i32>,
+    structure: &Identifier,
+    require_unreferenced: bool,
+) -> StructureCheckResult {
     let reference_count = cached.get(structure).copied().unwrap_or(-1);
     if reference_count == -1 || (require_unreferenced && reference_count != 0) {
         StructureCheckResult::StartNotPresent
@@ -77,7 +81,10 @@ fn check_structure_info(cached: &HashMap<Identifier, i32>, structure: &Identifie
 
 impl StructureCheck {
     pub fn new(storage_access: Box<dyn ChunkScanAccess>) -> StructureCheck {
-        StructureCheck { storage_access, state: Mutex::new(State::default()) }
+        StructureCheck {
+            storage_access,
+            state: Mutex::new(State::default()),
+        }
     }
 
     fn state(&self) -> std::sync::MutexGuard<'_, State> {
@@ -85,16 +92,28 @@ impl StructureCheck {
     }
 
     /// `checkStart(pos, structure, placement, requireUnreferenced)`.
-    pub fn check_start(&self, env: &GenEnv, pos: ChunkPos, structure: &Holder<dyn Structure>, placement: &StructurePlacement, require_unreferenced: bool) -> StructureCheckResult {
+    pub fn check_start(
+        &self,
+        env: &GenEnv,
+        pos: ChunkPos,
+        structure: &Holder<dyn Structure>,
+        placement: &StructurePlacement,
+        require_unreferenced: bool,
+    ) -> StructureCheckResult {
         let pos_key = pos.pack();
-        let Some(id) = structure.id() else { return StructureCheckResult::StartNotPresent };
+        let Some(id) = structure.id() else {
+            return StructureCheckResult::StartNotPresent;
+        };
         {
             let state = self.state();
             if let Some(cached) = state.loaded_chunks.get(&pos_key) {
                 return check_structure_info(cached, id, require_unreferenced);
             }
         }
-        let without_starts = self.state().chunks_without_starts_in_storage.contains(&pos_key);
+        let without_starts = self
+            .state()
+            .chunks_without_starts_in_storage
+            .contains(&pos_key);
         if !without_starts {
             if let Some(result) = self.try_load_from_storage(env, pos, id, require_unreferenced) {
                 return result;
@@ -108,28 +127,52 @@ impl StructureCheck {
         if !placement.apply_additional_chunk_restrictions(pos.x, pos.z, env.seed) {
             return StructureCheckResult::StartNotPresent;
         }
-        let cached = self.state().feature_checks.get(id).and_then(|m| m.get(&pos_key)).copied();
+        let cached = self
+            .state()
+            .feature_checks
+            .get(id)
+            .and_then(|m| m.get(&pos_key))
+            .copied();
         let is_feature_chunk = match cached {
             Some(v) => v,
             None => {
                 let v = Self::can_create_structure(env, pos, structure);
-                self.state().feature_checks.entry(id.clone()).or_default().insert(pos_key, v);
+                self.state()
+                    .feature_checks
+                    .entry(id.clone())
+                    .or_default()
+                    .insert(pos_key, v);
                 v
             }
         };
-        if is_feature_chunk { StructureCheckResult::ChunkLoadNeeded } else { StructureCheckResult::StartNotPresent }
+        if is_feature_chunk {
+            StructureCheckResult::ChunkLoadNeeded
+        } else {
+            StructureCheckResult::StartNotPresent
+        }
     }
 
     /// `canCreateStructure(pos, structure)`.
-    fn can_create_structure(env: &GenEnv, pos: ChunkPos, structure: &Holder<dyn Structure>) -> bool {
+    fn can_create_structure(
+        env: &GenEnv,
+        pos: ChunkPos,
+        structure: &Holder<dyn Structure>,
+    ) -> bool {
         let value = structure.value();
         let valid_biome = |biome| value.biomes().contains(&biome);
-        let mut context = GenerationContext::new(env, env.seed, pos, env.level_height, &valid_biome);
+        let mut context =
+            GenerationContext::new(env, env.seed, pos, env.level_height, &valid_biome);
         value.find_valid_generation_point(&mut context).is_some()
     }
 
     /// `tryLoadFromStorage(pos, structure, requireUnreferenced)`.
-    fn try_load_from_storage(&self, env: &GenEnv, pos: ChunkPos, structure: &Identifier, require_unreferenced: bool) -> Option<StructureCheckResult> {
+    fn try_load_from_storage(
+        &self,
+        env: &GenEnv,
+        pos: ChunkPos,
+        structure: &Identifier,
+        require_unreferenced: bool,
+    ) -> Option<StructureCheckResult> {
         let chunk_tag = match self.storage_access.scan_chunk(pos) {
             Ok(Some(tag)) => tag,
             Ok(None) => return None,
@@ -140,9 +183,19 @@ impl StructureCheck {
         };
         // Gap: chunks from older data versions are not datafixed; their `Level.Structures.Starts` is read as is.
         let starts = if chunk_tag.get_int_or(DATA_VERSION_TAG, 0) < WORLD_VERSION {
-            chunk_tag.get_compound("structures").and_then(|t| t.get_compound("starts")).or_else(|| chunk_tag.get_compound("Level").and_then(|l| l.get_compound("Structures")).and_then(|s| s.get_compound("Starts")))
+            chunk_tag
+                .get_compound("structures")
+                .and_then(|t| t.get_compound("starts"))
+                .or_else(|| {
+                    chunk_tag
+                        .get_compound("Level")
+                        .and_then(|l| l.get_compound("Structures"))
+                        .and_then(|s| s.get_compound("Starts"))
+                })
         } else {
-            chunk_tag.get_compound("structures").and_then(|t| t.get_compound("starts"))
+            chunk_tag
+                .get_compound("structures")
+                .and_then(|t| t.get_compound("starts"))
         };
         let starts = starts?;
         let known_starts = Self::load_structures(env, starts);
@@ -155,7 +208,9 @@ impl StructureCheck {
     fn load_structures(env: &GenEnv, starts: &CompoundTag) -> HashMap<Identifier, i32> {
         let mut known = HashMap::new();
         for (key, tag) in starts.iter() {
-            let Some(id) = Identifier::try_parse(key) else { continue };
+            let Some(id) = Identifier::try_parse(key) else {
+                continue;
+            };
             if env.structures.get(&id).is_none() {
                 continue;
             }
@@ -191,7 +246,12 @@ impl StructureCheck {
     pub fn increment_reference(&self, chunk_pos: ChunkPos, structure: &Identifier) {
         let pos_key = chunk_pos.pack();
         let mut state = self.state();
-        *state.loaded_chunks.entry(pos_key).or_default().entry(structure.clone()).or_insert(0) += 1;
+        *state
+            .loaded_chunks
+            .entry(pos_key)
+            .or_default()
+            .entry(structure.clone())
+            .or_insert(0) += 1;
         state.chunks_without_starts_in_storage.remove(&pos_key);
     }
 }

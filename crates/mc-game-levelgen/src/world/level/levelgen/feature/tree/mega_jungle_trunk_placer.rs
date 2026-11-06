@@ -5,11 +5,11 @@ use super::foliage_placer::FoliageAttachment;
 use super::giant_trunk_placer::place_giant_trunk;
 use super::tree_feature::{TreeFeature, TreeSetter};
 use super::trunk_placer::{TrunkBase, TrunkPlacer};
-use mc_game_core::world::level::levelgen::codec::TypeEntry;
-use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::math::mth;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
+use mc_game_core::world::level::levelgen::codec::TypeEntry;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use std::sync::Arc;
 
 pub struct MegaJungleTrunkPlacer {
@@ -30,7 +30,8 @@ impl TrunkPlacer for MegaJungleTrunkPlacer {
         origin: BlockPos,
         tree: &TreeFeature,
     ) -> Vec<FoliageAttachment> {
-        let mut attachments = place_giant_trunk(self, level, trunk_setter, random, tree_height, origin, tree);
+        let mut attachments =
+            place_giant_trunk(self, level, trunk_setter, random, tree_height, origin, tree);
 
         let mut branch_height = tree_height - 2 - random.next_int_bounded(4);
         while branch_height > tree_height / 2 {
@@ -43,7 +44,11 @@ impl TrunkPlacer for MegaJungleTrunkPlacer {
                 let pos = origin.offset(bx, branch_height - 3 + b / 2, bz);
                 self.place_log(level, trunk_setter, random, pos, tree);
             }
-            attachments.push(FoliageAttachment::new(origin.offset(bx, branch_height, bz), -2, false));
+            attachments.push(FoliageAttachment::new(
+                origin.offset(bx, branch_height, bz),
+                -2,
+                false,
+            ));
             branch_height -= 2 + random.next_int_bounded(4);
         }
         attachments
@@ -53,5 +58,9 @@ impl TrunkPlacer for MegaJungleTrunkPlacer {
 #[linkme::distributed_slice(TRUNK_PLACER_TYPES)]
 static MEGA_JUNGLE_TRUNK_PLACER: TypeEntry<dyn TrunkPlacer> = TypeEntry {
     name: "mega_jungle_trunk_placer",
-    decode: |fields, _| Ok(Arc::new(MegaJungleTrunkPlacer { base: TrunkBase::decode(fields)? })),
+    decode: |fields, _| {
+        Ok(Arc::new(MegaJungleTrunkPlacer {
+            base: TrunkBase::decode(fields)?,
+        }))
+    },
 };

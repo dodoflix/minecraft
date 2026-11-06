@@ -19,7 +19,9 @@ pub mod signed_message_validator;
 pub use chat_type::Bound as ChatTypeBound;
 pub use filter_mask::FilterMaskExt;
 pub use filtered_text::FilteredText;
-pub use last_seen_messages::{LastSeenMessages, LastSeenMessagesTracker, LastSeenMessagesValidator};
+pub use last_seen_messages::{
+    LastSeenMessages, LastSeenMessagesTracker, LastSeenMessagesValidator,
+};
 pub use message_signature::MessageSignature;
 pub use message_signature_cache::MessageSignatureCache;
 pub use outgoing_chat_message::{OutgoingChatMessage, OutgoingChatState};
@@ -56,13 +58,17 @@ impl std::error::Error for ThrowingComponent {}
 
 /// `Instant.now()` (millisecond precision is all the wire carries).
 pub fn instant_now() -> Instant {
-    let ms = std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).map_or(0, |d| d.as_millis() as i64);
+    let ms = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map_or(0, |d| d.as_millis() as i64);
     Instant(ms)
 }
 
 /// `Instant.toString()` (ISO-8601 UTC, fraction only when non-zero).
 pub fn instant_to_string(instant: Instant) -> String {
     use chrono::{DateTime, SecondsFormat};
-    DateTime::from_timestamp_millis(instant.0)
-        .map_or_else(|| instant.0.to_string(), |t| t.to_rfc3339_opts(SecondsFormat::AutoSi, true))
+    DateTime::from_timestamp_millis(instant.0).map_or_else(
+        || instant.0.to_string(),
+        |t| t.to_rfc3339_opts(SecondsFormat::AutoSi, true),
+    )
 }

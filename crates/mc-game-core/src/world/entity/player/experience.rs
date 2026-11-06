@@ -50,19 +50,23 @@ impl ServerPlayer {
         let score = self.player.get_score();
         self.player.set_score(score.wrapping_add(i));
         self.player.experience_progress += i as f32 / self.get_xp_needed_for_next_level() as f32;
-        self.player.total_experience = mth::clamp_i32(self.player.total_experience.wrapping_add(i), 0, i32::MAX);
+        self.player.total_experience =
+            mth::clamp_i32(self.player.total_experience.wrapping_add(i), 0, i32::MAX);
         while self.player.experience_progress < 0.0 {
-            let remaining = self.player.experience_progress * self.get_xp_needed_for_next_level() as f32;
+            let remaining =
+                self.player.experience_progress * self.get_xp_needed_for_next_level() as f32;
             if self.player.experience_level > 0 {
                 self.give_experience_levels(level, -1);
-                self.player.experience_progress = 1.0 + remaining / self.get_xp_needed_for_next_level() as f32;
+                self.player.experience_progress =
+                    1.0 + remaining / self.get_xp_needed_for_next_level() as f32;
             } else {
                 self.give_experience_levels(level, -1);
                 self.player.experience_progress = 0.0;
             }
         }
         while self.player.experience_progress >= 1.0 {
-            self.player.experience_progress = (self.player.experience_progress - 1.0) * self.get_xp_needed_for_next_level() as f32;
+            self.player.experience_progress = (self.player.experience_progress - 1.0)
+                * self.get_xp_needed_for_next_level() as f32;
             self.give_experience_levels(level, 1);
             self.player.experience_progress /= self.get_xp_needed_for_next_level() as f32;
         }
@@ -82,10 +86,26 @@ impl ServerPlayer {
             p.total_experience = 0;
         }
         let tick_count = self.base().tick_count;
-        if amount > 0 && self.player.experience_level % 5 == 0 && (self.player.last_level_up_time as f32) < tick_count as f32 - 100.0 {
-            let vol = if self.player.experience_level > 30 { 1.0 } else { self.player.experience_level as f32 / 30.0 };
+        if amount > 0
+            && self.player.experience_level % 5 == 0
+            && (self.player.last_level_up_time as f32) < tick_count as f32 - 100.0
+        {
+            let vol = if self.player.experience_level > 30 {
+                1.0
+            } else {
+                self.player.experience_level as f32 / 30.0
+            };
             let (x, y, z) = (self.base().x(), self.base().y(), self.base().z());
-            level.play_sound_at(None, x, y, z, SoundEvent::ENTITY_PLAYER_LEVELUP, SoundSource::Players, vol * 0.75, 1.0);
+            level.play_sound_at(
+                None,
+                x,
+                y,
+                z,
+                SoundEvent::ENTITY_PLAYER_LEVELUP,
+                SoundSource::Players,
+                vol * 0.75,
+                1.0,
+            );
             self.player.last_level_up_time = tick_count;
         }
         self.last_sent_exp = -1;
@@ -106,6 +126,10 @@ impl ServerPlayer {
 
     /// `Player.getBaseExperienceReward(level)`: what a dying player drops as experience.
     pub fn get_base_experience_reward(&self, keep_inventory: bool) -> i32 {
-        if !keep_inventory && !self.is_spectator() { (self.player.experience_level.wrapping_mul(7)).min(100) } else { 0 }
+        if !keep_inventory && !self.is_spectator() {
+            (self.player.experience_level.wrapping_mul(7)).min(100)
+        } else {
+            0
+        }
     }
 }

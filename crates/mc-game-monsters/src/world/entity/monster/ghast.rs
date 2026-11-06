@@ -1,18 +1,30 @@
 //! `net.minecraft.world.entity.monster.Ghast` (+ the shared `GhastMoveControl`, `RandomFloatAroundGoal`, `GhastLookGoal` and
 //! `faceMovementDirection` the happy ghast reuses).
 
+use linkme::distributed_slice;
+use mc_core::direction::Direction;
+use mc_core::math::mth;
+use mc_core::phys::Vec3;
+use mc_core::pos::BlockPos;
+use mc_core::random::RandomSource;
+use mc_data::enums::EntitySpawnReason;
+use mc_data::{Attribute, EntityType, SoundEvent};
 use mc_game_core::define_accessor;
 use mc_game_core::register_spawn_placement;
 use mc_game_core::registry::RegistryAccess;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::damagesource::DamageSource;
-use mc_game_core::world::entity::ai::control::move_control::{MoveControl, MoveControlBase, Operation};
+use mc_game_core::world::entity::ai::control::move_control::{
+    MoveControl, MoveControlBase, Operation,
+};
 use mc_game_core::world::entity::ai::goal::target::{NearestAttackableTargetGoal, TargetType};
 use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags};
 use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
 use mc_game_core::world::entity::ai::targeting::TargetingConditions;
 use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
-use mc_game_core::world::entity::inside_block_effects::{collided_with_fluid, collided_with_shape_moving_from};
+use mc_game_core::world::entity::inside_block_effects::{
+    collided_with_fluid, collided_with_shape_moving_from,
+};
 use mc_game_core::world::entity::mob::{self, MobData, MobKind};
 use mc_game_core::world::entity::projectile::hurting::large_fireball::LargeFireball;
 use mc_game_core::world::entity::spawn_predicates::check_mob_spawn_rules;
@@ -22,14 +34,6 @@ use mc_game_core::world::level::collision::for_each_block_intersected_between;
 use mc_game_core::world::level::material::FluidStateExt as _;
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_game_core::world::level::{BlockGetter, LevelAccessor, LevelReader};
-use linkme::distributed_slice;
-use mc_core::direction::Direction;
-use mc_core::math::mth;
-use mc_core::phys::Vec3;
-use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
-use mc_data::enums::EntitySpawnReason;
-use mc_data::{Attribute, EntityType, SoundEvent};
 use mc_nbt::CompoundTag;
 use mc_protocol::packets::play::SoundSource;
 use mc_world::heightmap::HeightmapType;
@@ -53,7 +57,10 @@ impl Ghast {
             b.define(DATA_IS_CHARGING, false);
         });
         mob.enemy = true;
-        let mut ghast = Ghast { mob, explosion_power: DEFAULT_EXPLOSION_POWER };
+        let mut ghast = Ghast {
+            mob,
+            explosion_power: DEFAULT_EXPLOSION_POWER,
+        };
         let navigation = StandardPathNavigation::ground(&ghast);
         ghast.mob.set_navigation(Box::new(navigation));
         ghast.mob.xp_reward = 5;
@@ -68,7 +75,9 @@ impl Ghast {
         goals.add_goal(5, Box::new(RandomFloatAroundGoal::new(0)));
         goals.add_goal(7, Box::new(GhastLookGoal));
         goals.add_goal(7, Box::new(GhastShootFireballGoal { charge_time: 0 }));
-        self.mob.target_selector.add_goal(1, Box::new(GhastTargetGoal::new()));
+        self.mob
+            .target_selector
+            .add_goal(1, Box::new(GhastTargetGoal::new()));
     }
 
     /// `isCharging()`.
@@ -78,7 +87,11 @@ impl Ghast {
 
     /// `setCharging(onOff)`.
     pub fn set_charging(&mut self, on_off: bool) {
-        self.mob.living.entity.entity_data.set(DATA_IS_CHARGING, on_off);
+        self.mob
+            .living
+            .entity
+            .entity_data
+            .set(DATA_IS_CHARGING, on_off);
     }
 
     /// `getExplosionPower()`.
@@ -89,7 +102,10 @@ impl Ghast {
 
 /// `Ghast.isReflectedFireball(source)`.
 fn is_reflected_fireball(source: &DamageSource) -> bool {
-    source.direct_info().is_some_and(|d| d.entity_type == EntityType::FIREBALL) && source.causing_is_player()
+    source
+        .direct_info()
+        .is_some_and(|d| d.entity_type == EntityType::FIREBALL)
+        && source.causing_is_player()
 }
 
 impl Entity for Ghast {
@@ -97,10 +113,21 @@ impl Entity for Ghast {
 
     fn is_invulnerable_to(&mut self, level: &mut ServerLevel, source: &DamageSource) -> bool {
         (self.is_invulnerable() && !source.is_tag(level, "bypasses_invulnerability"))
-            || (!is_reflected_fireball(source) && mc_game_core::world::entity::living_entity::damage::is_invulnerable_to(self, level, source))
+            || (!is_reflected_fireball(source)
+                && mc_game_core::world::entity::living_entity::damage::is_invulnerable_to(
+                    self, level, source,
+                ))
     }
 
-    fn check_fall_damage(&mut self, _level: &mut ServerLevel, _ya: f64, _on_ground: bool, _on_state: mc_data::block::BlockState, _pos: BlockPos) {}
+    fn check_fall_damage(
+        &mut self,
+        _level: &mut ServerLevel,
+        _ya: f64,
+        _on_ground: bool,
+        _on_state: mc_data::block::BlockState,
+        _pos: BlockPos,
+    ) {
+    }
 
     fn on_climbable(&self, _level: &ServerLevel) -> bool {
         false
@@ -112,12 +139,16 @@ impl Entity for Ghast {
 
     fn hurt_server(&mut self, level: &mut ServerLevel, source: &DamageSource, damage: f32) -> bool {
         if is_reflected_fireball(source) {
-            mc_game_core::world::entity::living_entity::damage::hurt_server(self, level, source, 1000.0);
+            mc_game_core::world::entity::living_entity::damage::hurt_server(
+                self, level, source, 1000.0,
+            );
             true
         } else if self.is_invulnerable_to(level, source) {
             false
         } else {
-            mc_game_core::world::entity::living_entity::damage::hurt_server(self, level, source, damage)
+            mc_game_core::world::entity::living_entity::damage::hurt_server(
+                self, level, source, damage,
+            )
         }
     }
 
@@ -152,7 +183,8 @@ impl Entity for Ghast {
 
     fn read_additional_save_data(&mut self, input: &CompoundTag) {
         mob::nbt::read_additional_save_data(self, input);
-        self.explosion_power = i32::from(input.get_byte_or("ExplosionPower", DEFAULT_EXPLOSION_POWER as i8));
+        self.explosion_power =
+            i32::from(input.get_byte_or("ExplosionPower", DEFAULT_EXPLOSION_POWER as i8));
     }
 
     fn support_quad_leash_as_holder(&self) -> bool {
@@ -169,8 +201,16 @@ impl Entity for Ghast {
 }
 
 /// `Ghast.checkGhastSpawnRules`.
-fn check_ghast_spawn_rules(ty: EntityType, level: &dyn ServerLevelAccessor, reason: EntitySpawnReason, pos: BlockPos, random: &mut dyn RandomSource) -> bool {
-    level.get_difficulty() != Difficulty::Peaceful && random.next_int_bounded(20) == 0 && check_mob_spawn_rules(ty, level, reason, pos, random)
+fn check_ghast_spawn_rules(
+    ty: EntityType,
+    level: &dyn ServerLevelAccessor,
+    reason: EntitySpawnReason,
+    pos: BlockPos,
+    random: &mut dyn RandomSource,
+) -> bool {
+    level.get_difficulty() != Difficulty::Peaceful
+        && random.next_int_bounded(20) == 0
+        && check_mob_spawn_rules(ty, level, reason, pos, random)
 }
 
 register_spawn_placement!(EntityType::GHAST, check_ghast_spawn_rules);
@@ -181,7 +221,9 @@ pub fn face_movement_direction(ghast: &mut dyn Entity, level: &ServerLevel) {
     match mob::tick::get_target_checked(ghast, level).and_then(|t| level.get_entity(t)) {
         None => {
             let movement = ghast.base().delta_movement();
-            ghast.base_mut().set_y_rot(-(mth::atan2(movement.x, movement.z) as f32) * (180.0 / pi));
+            ghast
+                .base_mut()
+                .set_y_rot(-(mth::atan2(movement.x, movement.z) as f32) * (180.0 / pi));
             let y_rot = ghast.base().y_rot();
             ghast.living_mut().expect("living").y_body_rot = y_rot;
         }
@@ -189,7 +231,9 @@ pub fn face_movement_direction(ghast: &mut dyn Entity, level: &ServerLevel) {
             if target.base().distance_to_sqr_vec(ghast.position()) < 4096.0 {
                 let xdd = target.base().x() - ghast.base().x();
                 let zdd = target.base().z() - ghast.base().z();
-                ghast.base_mut().set_y_rot(-(mth::atan2(xdd, zdd) as f32) * (180.0 / pi));
+                ghast
+                    .base_mut()
+                    .set_y_rot(-(mth::atan2(xdd, zdd) as f32) * (180.0 / pi));
                 let y_rot = ghast.base().y_rot();
                 ghast.living_mut().expect("living").y_body_rot = y_rot;
             }
@@ -227,8 +271,16 @@ pub struct GhastMoveControl {
 }
 
 impl GhastMoveControl {
-    pub fn new(careful: bool, should_be_stopped: Arc<dyn Fn(&dyn Entity) -> bool + Send + Sync>) -> Self {
-        Self { base: MoveControlBase::default(), float_duration: 0, careful, should_be_stopped }
+    pub fn new(
+        careful: bool,
+        should_be_stopped: Arc<dyn Fn(&dyn Entity) -> bool + Send + Sync>,
+    ) -> Self {
+        Self {
+            base: MoveControlBase::default(),
+            float_duration: 0,
+            careful,
+            should_be_stopped,
+        }
     }
 
     /// `canReach(travel)`.
@@ -246,20 +298,58 @@ impl GhastMoveControl {
         let is_in_lava = mob.is_in_lava();
         let start = mob.position();
         let end = start.add(travel);
-        for_each_block_intersected_between(start, end, &aabb_at_destination, &mut |block_pos: BlockPos, _i: i32| {
-            if aabb.intersects_block_pos(&block_pos) { true } else { self.block_traversal_possible(mob, level, Some(start), Some(end), block_pos, is_in_water, is_in_lava) }
-        })
+        for_each_block_intersected_between(
+            start,
+            end,
+            &aabb_at_destination,
+            &mut |block_pos: BlockPos, _i: i32| {
+                if aabb.intersects_block_pos(&block_pos) {
+                    true
+                } else {
+                    self.block_traversal_possible(
+                        mob,
+                        level,
+                        Some(start),
+                        Some(end),
+                        block_pos,
+                        is_in_water,
+                        is_in_lava,
+                    )
+                }
+            },
+        )
     }
 
     #[allow(clippy::too_many_arguments)]
-    fn block_traversal_possible(&self, mob: &dyn Entity, level: &ServerLevel, start: Option<Vec3>, end: Option<Vec3>, pos: BlockPos, can_path_through_water: bool, can_path_through_lava: bool) -> bool {
+    fn block_traversal_possible(
+        &self,
+        mob: &dyn Entity,
+        level: &ServerLevel,
+        start: Option<Vec3>,
+        end: Option<Vec3>,
+        pos: BlockPos,
+        can_path_through_water: bool,
+        can_path_through_lava: bool,
+    ) -> bool {
         let state = level.get_block_state(pos);
         if state.is_air() {
             return true;
         }
         let precise_block_collisions = start.is_some() && end.is_some();
         let path_no_collisions = if let (Some(start), Some(end)) = (start, end) {
-            !collided_with_shape_moving_from(mob, start, end, &state.get_collision_shape(level, pos).move_vec(Vec3::new(f64::from(pos.x()), f64::from(pos.y()), f64::from(pos.z()))).to_aabbs())
+            !collided_with_shape_moving_from(
+                mob,
+                start,
+                end,
+                &state
+                    .get_collision_shape(level, pos)
+                    .move_vec(Vec3::new(
+                        f64::from(pos.x()),
+                        f64::from(pos.y()),
+                        f64::from(pos.z()),
+                    ))
+                    .to_aabbs(),
+            )
         } else {
             state.get_collision_shape(level, pos).is_empty()
         };
@@ -270,7 +360,17 @@ impl GhastMoveControl {
             return false;
         }
         let fluid_state = level.get_fluid_state(pos);
-        if !fluid_state.is_empty() && (!precise_block_collisions || collided_with_fluid(mob, level, fluid_state, pos, start.expect("start"), end.expect("end"))) {
+        if !fluid_state.is_empty()
+            && (!precise_block_collisions
+                || collided_with_fluid(
+                    mob,
+                    level,
+                    fluid_state,
+                    pos,
+                    start.expect("start"),
+                    end.expect("end"),
+                ))
+        {
             if fluid_state.is_tag("water") {
                 return can_path_through_water;
             }
@@ -300,12 +400,19 @@ impl MoveControl for GhastMoveControl {
             let previous = self.float_duration;
             self.float_duration -= 1;
             if previous <= 0 {
-                self.float_duration = self.float_duration + mob.base_mut().random.next_int_bounded(5) + 2;
-                let travel = Vec3::new(self.base.wanted_x - mob.base().x(), self.base.wanted_y - mob.base().y(), self.base.wanted_z - mob.base().z());
+                self.float_duration =
+                    self.float_duration + mob.base_mut().random.next_int_bounded(5) + 2;
+                let travel = Vec3::new(
+                    self.base.wanted_x - mob.base().x(),
+                    self.base.wanted_y - mob.base().y(),
+                    self.base.wanted_z - mob.base().z(),
+                );
                 if self.can_reach(mob, level, travel) {
                     let flying_speed = mob::attribute_value(mob, Attribute::FLYING_SPEED);
                     let movement = mob.base().delta_movement();
-                    mob.base_mut().set_delta_movement(movement.add(travel.normalize().scale(flying_speed * 5.0 / 3.0)));
+                    mob.base_mut().set_delta_movement(
+                        movement.add(travel.normalize().scale(flying_speed * 5.0 / 3.0)),
+                    );
                 } else {
                     self.base.operation = Operation::Wait;
                 }
@@ -322,12 +429,16 @@ struct GhastTargetGoal {
 
 impl GhastTargetGoal {
     fn new() -> Self {
-        Self { inner: NearestAttackableTargetGoal::build(TargetType::Player, 10, true, false, None) }
+        Self {
+            inner: NearestAttackableTargetGoal::build(TargetType::Player, 10, true, false, None),
+        }
     }
 
     fn refresh_selector(&mut self, mob: &dyn Entity) {
         let y = mob.base().y();
-        self.inner.target_conditions = TargetingConditions::for_combat().selector(Some(Arc::new(move |target: &dyn Entity, _level: &ServerLevel| (target.base().y() - y).abs() <= 4.0)));
+        self.inner.target_conditions = TargetingConditions::for_combat().selector(Some(Arc::new(
+            move |target: &dyn Entity, _level: &ServerLevel| (target.base().y() - y).abs() <= 4.0,
+        )));
     }
 }
 
@@ -379,10 +490,19 @@ impl Goal for GhastShootFireballGoal {
     }
 
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
-        let Some(target_id) = mob::tick::get_target_checked(mob, level) else { return };
-        let Some(target) = level.get_entity(target_id) else { return };
-        let in_sight = target.base().distance_to_sqr_vec(mob.position()) < 4096.0 && mob::ext::has_line_of_sight(level, mob, target);
-        let (target_x, target_y_half, target_z) = (target.base().x(), target.base().get_y_progress(0.5), target.base().z());
+        let Some(target_id) = mob::tick::get_target_checked(mob, level) else {
+            return;
+        };
+        let Some(target) = level.get_entity(target_id) else {
+            return;
+        };
+        let in_sight = target.base().distance_to_sqr_vec(mob.position()) < 4096.0
+            && mob::ext::has_line_of_sight(level, mob, target);
+        let (target_x, target_y_half, target_z) = (
+            target.base().x(),
+            target.base().get_y_progress(0.5),
+            target.base().z(),
+        );
         if in_sight {
             self.charge_time += 1;
             if self.charge_time == 10 && !mob.base().is_silent() {
@@ -397,10 +517,18 @@ impl Goal for GhastShootFireballGoal {
                 if !mob.base().is_silent() {
                     level.level_event(None, 1016, mob.block_position(), 0);
                 }
-                let power = mob.as_any().downcast_ref::<Ghast>().map_or(DEFAULT_EXPLOSION_POWER, Ghast::get_explosion_power);
-                let mut fireball = LargeFireball::from_mob(level, mob, direction.normalize(), power);
+                let power = mob
+                    .as_any()
+                    .downcast_ref::<Ghast>()
+                    .map_or(DEFAULT_EXPLOSION_POWER, Ghast::get_explosion_power);
+                let mut fireball =
+                    LargeFireball::from_mob(level, mob, direction.normalize(), power);
                 let fz = fireball.base().z();
-                fireball.set_pos(mob.base().x() + view_vector.x * 4.0, mob.base().get_y_progress(0.5) + 0.5, fz + view_vector.z * 4.0);
+                fireball.set_pos(
+                    mob.base().x() + view_vector.x * 4.0,
+                    mob.base().get_y_progress(0.5) + 0.5,
+                    fz + view_vector.z * 4.0,
+                );
                 level.add_fresh_entity(Box::new(fireball));
                 self.charge_time = -40;
             }
@@ -432,7 +560,11 @@ impl RandomFloatAroundGoal {
     }
 
     /// `getSuitableFlyToPosition(mob, distanceToBlocks)`.
-    pub fn get_suitable_fly_to_position(mob: &mut dyn Entity, level: &ServerLevel, distance_to_blocks: i32) -> Vec3 {
+    pub fn get_suitable_fly_to_position(
+        mob: &mut dyn Entity,
+        level: &ServerLevel,
+        distance_to_blocks: i32,
+    ) -> Vec3 {
         let center = mob.position();
         let mut result: Option<Vec3> = None;
         for _ in 0..Self::MAX_ATTEMPTS {
@@ -447,7 +579,11 @@ impl RandomFloatAroundGoal {
         let pos = BlockPos::containing(result.x, result.y, result.z);
         let height_y = level.get_height_at(HeightmapType::MotionBlocking, pos.x(), pos.z());
         if height_y < pos.y() && height_y > level.get_min_y() {
-            result = Vec3::new(result.x, mob.base().y() - (mob.base().y() - result.y).abs(), result.z);
+            result = Vec3::new(
+                result.x,
+                mob.base().y() - (mob.base().y() - result.y).abs(),
+                result.z,
+            );
         }
         result
     }
@@ -482,13 +618,20 @@ impl RandomFloatAroundGoal {
     fn choose_random_position_with_restriction(mob: &mut dyn Entity, center: Vec3) -> Option<Vec3> {
         let target = Self::choose_random_position(mob, center);
         let m = mob.mob().expect("mob");
-        if m.has_home() && !m.is_within_home_vec(target) { None } else { Some(target) }
+        if m.has_home() && !m.is_within_home_vec(target) {
+            None
+        } else {
+            Some(target)
+        }
     }
 }
 
 impl Goal for RandomFloatAroundGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, _level: &mut ServerLevel) -> bool {
-        let control = mob.mob().and_then(|m| m.move_control.as_deref()).expect("move control");
+        let control = mob
+            .mob()
+            .and_then(|m| m.move_control.as_deref())
+            .expect("move control");
         if !control.has_wanted() {
             true
         } else {
@@ -515,4 +658,7 @@ impl Goal for RandomFloatAroundGoal {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static GHAST: EntityRegistration = EntityRegistration { entity_type: EntityType::GHAST, create: |ty, id, registries| Box::new(Ghast::new(ty, id, registries)) };
+static GHAST: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::GHAST,
+    create: |ty, id, registries| Box::new(Ghast::new(ty, id, registries)),
+};

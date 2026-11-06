@@ -1,15 +1,15 @@
 //! `OfferFlowerGoal`.
 
-use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags};
+use mc_core::phys::AABB;
+use mc_core::random::RandomSource;
+use mc_data::{EntityType, Item};
 use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags};
 use mc_game_core::world::entity::ai::targeting::TargetingConditions;
 use mc_game_core::world::entity::equipment::EquipmentSlot;
 use mc_game_core::world::entity::mob;
 use mc_game_core::world::entity::{Entity, EntityId};
 use mc_game_core::world::item::ItemStack;
-use mc_core::phys::AABB;
-use mc_core::random::RandomSource;
-use mc_data::{EntityType, Item};
 
 pub const OFFER_TICKS: i32 = 400;
 
@@ -25,7 +25,12 @@ pub struct OfferFlowerGoal {
 
 impl OfferFlowerGoal {
     pub fn new(offer_flower: OfferFlowerFn) -> Self {
-        Self { offer_target_context: TargetingConditions::for_non_combat().range(6.0), entity: None, tick: 0, offer_flower }
+        Self {
+            offer_target_context: TargetingConditions::for_non_combat().range(6.0),
+            entity: None,
+            tick: 0,
+            offer_flower,
+        }
     }
 
     fn get_golem_bounding_box(golem: &dyn Entity) -> AABB {
@@ -43,12 +48,18 @@ impl Goal for OfferFlowerGoal {
         }
         let tag = mc_data::tags::get::<EntityType>("candidate_for_iron_golem_gift");
         let bb = Self::get_golem_bounding_box(golem);
-        let candidates = level.get_entities_of_class(&bb, |e| e.living().is_some() && tag.is_some_and(|t| t.contains(e.get_type())), |_| true);
+        let candidates = level.get_entities_of_class(
+            &bb,
+            |e| e.living().is_some() && tag.is_some_and(|t| t.contains(e.get_type())),
+            |_| true,
+        );
         let pos = golem.position();
         let mut best_distance = f64::MAX;
         self.entity = None;
         for id in candidates {
-            let Some(e) = level.get_entity(id) else { continue };
+            let Some(e) = level.get_entity(id) else {
+                continue;
+            };
             if self.offer_target_context.test(level, Some(golem), e) {
                 let distance = e.base().distance_to_sqr_xyz(pos.x, pos.y, pos.z);
                 if distance < best_distance {
@@ -83,7 +94,12 @@ impl Goal for OfferFlowerGoal {
                 });
                 if ok {
                     level.with_entity(id, |level, m| {
-                        mob::equipment::set_item_slot(m, level, EquipmentSlot::Saddle, ItemStack::new(Item::POPPY));
+                        mob::equipment::set_item_slot(
+                            m,
+                            level,
+                            EquipmentSlot::Saddle,
+                            ItemStack::new(Item::POPPY),
+                        );
                         mob::equipment::set_guaranteed_drop(m, EquipmentSlot::Saddle);
                     });
                 }

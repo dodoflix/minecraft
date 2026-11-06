@@ -14,7 +14,10 @@ fn int_triple(tag: &Tag) -> Option<[i32; 3]> {
     // `Codec.INT_STREAM`: an int array or a list of numbers
     let ints: Vec<i32> = match tag {
         Tag::IntArray(a) => a.clone(),
-        Tag::List(l) => l.iter().map(|t| t.as_number().map(|n| n.int_value())).collect::<Option<_>>()?,
+        Tag::List(l) => l
+            .iter()
+            .map(|t| t.as_number().map(|n| n.int_value()))
+            .collect::<Option<_>>()?,
         _ => return None,
     };
     <[i32; 3]>::try_from(ints).ok()
@@ -23,7 +26,10 @@ fn int_triple(tag: &Tag) -> Option<[i32; 3]> {
 fn uuid_of(tag: &Tag) -> Option<uuid::Uuid> {
     let ints: Vec<i32> = match tag {
         Tag::IntArray(a) => a.clone(),
-        Tag::List(l) => l.iter().map(|t| t.as_number().map(|n| n.int_value())).collect::<Option<_>>()?,
+        Tag::List(l) => l
+            .iter()
+            .map(|t| t.as_number().map(|n| n.int_value()))
+            .collect::<Option<_>>()?,
         _ => return None,
     };
     <[i32; 4]>::try_from(ints).ok().map(uuid_from_int_array)
@@ -44,7 +50,10 @@ fn global_pos_of(tag: &Tag) -> Option<GlobalPos> {
     let c = tag.as_compound()?;
     let dimension = Identifier::try_parse(c.get_string("dimension")?)?;
     let [x, y, z] = int_triple(c.get("pos")?)?;
-    Some(GlobalPos { dimension, pos: BlockPos::new(x, y, z) })
+    Some(GlobalPos {
+        dimension,
+        pos: BlockPos::new(x, y, z),
+    })
 }
 
 fn global_pos_list_tag<'a>(list: impl Iterator<Item = &'a GlobalPos>) -> Tag {
@@ -69,7 +78,9 @@ pub fn encode_value(codec: MemoryCodec, value: &MemoryValue) -> Option<Tag> {
         (MemoryCodec::GlobalPos, MemoryValue::GlobalPos(v)) => global_pos_tag(v),
         (MemoryCodec::BlockPos, MemoryValue::BlockPos(v)) => block_pos_tag(*v),
         (MemoryCodec::Uuid, MemoryValue::Uuid(v)) => Tag::IntArray(uuid_to_int_array(v).to_vec()),
-        (MemoryCodec::GlobalPosList, MemoryValue::GlobalPosList(v)) => global_pos_list_tag(v.iter()),
+        (MemoryCodec::GlobalPosList, MemoryValue::GlobalPosList(v)) => {
+            global_pos_list_tag(v.iter())
+        }
         (MemoryCodec::GlobalPosSet, MemoryValue::GlobalPosSet(v)) => global_pos_list_tag(v.iter()),
         _ => return None,
     })
@@ -91,7 +102,11 @@ pub fn decode_value(codec: MemoryCodec, tag: &Tag) -> Option<MemoryValue> {
         }
         MemoryCodec::Uuid => MemoryValue::Uuid(uuid_of(tag)?),
         MemoryCodec::GlobalPosList => MemoryValue::GlobalPosList(global_pos_list_of(tag)?),
-        MemoryCodec::GlobalPosSet => MemoryValue::GlobalPosSet(global_pos_list_of(tag)?.into_iter().collect::<GlobalPosSet>()),
+        MemoryCodec::GlobalPosSet => MemoryValue::GlobalPosSet(
+            global_pos_list_of(tag)?
+                .into_iter()
+                .collect::<GlobalPosSet>(),
+        ),
     })
 }
 
@@ -109,8 +124,14 @@ pub fn encode_expirable(type_id: MemoryTypeId, value: &ExpirableValue<MemoryValu
 pub fn decode_expirable(type_id: MemoryTypeId, tag: &Tag) -> Option<ExpirableValue<MemoryValue>> {
     let c = tag.as_compound()?;
     let value = decode_value(type_id.info().codec, c.get("value")?)?;
-    let time_to_live = c.get("ttl").and_then(Tag::as_number).map(|n| n.long_value());
-    Some(ExpirableValue { value, time_to_live })
+    let time_to_live = c
+        .get("ttl")
+        .and_then(Tag::as_number)
+        .map(|n| n.long_value());
+    Some(ExpirableValue {
+        value,
+        time_to_live,
+    })
 }
 
 impl MemoryMap {
@@ -130,7 +151,10 @@ impl MemoryMap {
     pub fn from_nbt(tag: &CompoundTag) -> MemoryMap {
         let mut out = MemoryMap::default();
         for (key, value) in tag.iter() {
-            let Some(type_id) = Identifier::try_parse(key).and_then(|id| MemoryTypeId::by_id(&id)) else { continue };
+            let Some(type_id) = Identifier::try_parse(key).and_then(|id| MemoryTypeId::by_id(&id))
+            else {
+                continue;
+            };
             if !type_id.can_serialize() {
                 continue;
             }

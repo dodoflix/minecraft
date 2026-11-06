@@ -12,13 +12,14 @@ pub struct BrewedPotionTriggerInstance {
 
 impl TriggerInstance for BrewedPotionTriggerInstance {
     fn codec() -> Codec<Self> {
-        static C: std::sync::LazyLock<Codec<BrewedPotionTriggerInstance>> = std::sync::LazyLock::new(|| {
-            mc_dfu::record!(BrewedPotionTriggerInstance {
-                player: condition_holder_codec().optional_field_of("player"),
-                potion: PotionsPredicate::codec().optional_field_of("potion"),
-            })
-            .codec()
-        });
+        static C: std::sync::LazyLock<Codec<BrewedPotionTriggerInstance>> =
+            std::sync::LazyLock::new(|| {
+                mc_dfu::record!(BrewedPotionTriggerInstance {
+                    player: condition_holder_codec().optional_field_of("player"),
+                    potion: PotionsPredicate::codec().optional_field_of("potion"),
+                })
+                .codec()
+            });
         C.clone()
     }
 }
@@ -44,7 +45,12 @@ impl BrewedPotionTriggerInstance {
 
 impl Trigger<BrewedPotionTriggerInstance> {
     /// `trigger(player, potion)`.
-    pub fn trigger(&self, level: &mut ServerLevel, player: &mut ServerPlayer, potion: &PotionContents) {
+    pub fn trigger(
+        &self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        potion: &PotionContents,
+    ) {
         self.trigger_with(level, player, |t| t.matches(potion));
     }
 }

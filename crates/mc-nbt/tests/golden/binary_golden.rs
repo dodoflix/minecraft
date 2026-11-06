@@ -1,13 +1,15 @@
 //! Differential tests of binary IO against vanilla (`fixtures/BinaryOracle.java`).
 
-use mc_nbt::{compound, nbt_io, snbt, CompoundTag, ListTag, NbtAccounter, NbtError, Tag};
+use mc_nbt::{CompoundTag, ListTag, NbtAccounter, NbtError, Tag, compound, nbt_io, snbt};
 
 fn hex(b: &[u8]) -> String {
     b.iter().map(|x| format!("{x:02x}")).collect()
 }
 
 fn unhex(h: &str) -> Vec<u8> {
-    (0..h.len() / 2).map(|i| u8::from_str_radix(&h[2 * i..2 * i + 2], 16).unwrap()).collect()
+    (0..h.len() / 2)
+        .map(|i| u8::from_str_radix(&h[2 * i..2 * i + 2], 16).unwrap())
+        .collect()
 }
 
 fn named(c: &CompoundTag) -> String {
@@ -41,7 +43,10 @@ fn scenario(name: &str) -> CompoundTag {
         "order40" => (0..40).map(|i| (format!("k{i}"), i)).collect(),
         "order13" => (0..13).map(|i| (format!("key_{i}"), i)).collect(),
         "collide" | "collide_rev" => {
-            let mut keys = ["Aa", "BB", "AaAa", "BBBB", "AaBB", "BBAa", "C#", "Bb", "Aa1", "BB1"].to_vec();
+            let mut keys = [
+                "Aa", "BB", "AaAa", "BBBB", "AaBB", "BBAa", "C#", "Bb", "Aa1", "BB1",
+            ]
+            .to_vec();
             if name == "collide_rev" {
                 keys.reverse();
             }
@@ -89,7 +94,21 @@ fn scenario(name: &str) -> CompoundTag {
             s7
         }
         "strings" => {
-            let strs = ["", "a", "\0", "a\0b", "\u{1}", "\u{7f}", "\u{80}", "\u{7ff}", "\u{800}", "\u{ffff}", "\u{1F600}", "é日本語😀", "\u{d7ff}\u{e000}"];
+            let strs = [
+                "",
+                "a",
+                "\0",
+                "a\0b",
+                "\u{1}",
+                "\u{7f}",
+                "\u{80}",
+                "\u{7ff}",
+                "\u{800}",
+                "\u{ffff}",
+                "\u{1F600}",
+                "é日本語😀",
+                "\u{d7ff}\u{e000}",
+            ];
             let mut c = CompoundTag::new();
             for (i, s) in strs.iter().enumerate() {
                 c.put_string(format!("s{i}"), *s);
@@ -99,7 +118,10 @@ fn scenario(name: &str) -> CompoundTag {
         }
         "longstring" => {
             let mut c = CompoundTag::new();
-            c.put_string("long", format!("{}{}", "x".repeat(30000), "\u{800}".repeat(30000)));
+            c.put_string(
+                "long",
+                format!("{}{}", "x".repeat(30000), "\u{800}".repeat(30000)),
+            );
             c.put_string("ok", "y".repeat(65535));
             c.put_string("x".repeat(70000), "v");
             c
@@ -124,7 +146,15 @@ fn scenario(name: &str) -> CompoundTag {
             c.put("lists", lists);
             c.put("withEnd", ListTag::from(vec![Tag::End]));
             c.put("withEnd2", ListTag::from(vec![Tag::End, Tag::Int(1)]));
-            c.put("hetNum", ListTag::from(vec![Tag::Int(1), Tag::Long(2), Tag::Double(0.5), Tag::IntArray(vec![1, 2])]));
+            c.put(
+                "hetNum",
+                ListTag::from(vec![
+                    Tag::Int(1),
+                    Tag::Long(2),
+                    Tag::Double(0.5),
+                    Tag::IntArray(vec![1, 2]),
+                ]),
+            );
             c
         }
         "misc" => {
@@ -162,7 +192,11 @@ fn scenario(name: &str) -> CompoundTag {
 
 #[test]
 fn binary_matches_vanilla() {
-    let data = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures/binary_golden.tsv")).unwrap();
+    let data = std::fs::read_to_string(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/tests/fixtures/binary_golden.tsv"
+    ))
+    .unwrap();
     let mut failures = Vec::new();
     let (mut scenarios, mut reads, mut hands) = (0, 0, 0);
     for line in data.lines() {
@@ -172,7 +206,12 @@ fn binary_matches_vanilla() {
                 scenarios += 1;
                 let got = named(&scenario(f[1]));
                 if got != f[2] {
-                    failures.push(format!("scenario {}:\n  got  {}\n  want {}", f[1], &got[..got.len().min(400)], &f[2][..f[2].len().min(400)]));
+                    failures.push(format!(
+                        "scenario {}:\n  got  {}\n  want {}",
+                        f[1],
+                        &got[..got.len().min(400)],
+                        &f[2][..f[2].len().min(400)]
+                    ));
                 }
             }
             "R" => {
@@ -185,32 +224,61 @@ fn binary_matches_vanilla() {
                     usage.to_string(),
                     result(&bytes, NbtAccounter::new((usage - 1).max(0), 512)),
                     result(&bytes, NbtAccounter::new(usage / 2, 512)),
-                    result(&bytes[..bytes.len().saturating_sub(1)], NbtAccounter::unlimited_heap()),
+                    result(
+                        &bytes[..bytes.len().saturating_sub(1)],
+                        NbtAccounter::unlimited_heap(),
+                    ),
                     result(&bytes[..bytes.len() / 2], NbtAccounter::unlimited_heap()),
                 ];
                 if got.iter().map(String::as_str).ne(f[2..7].iter().copied()) {
-                    failures.push(format!("read {}:\n  got  {:?}\n  want {:?}", f[1], got, &f[2..7]));
+                    failures.push(format!(
+                        "read {}:\n  got  {:?}\n  want {:?}",
+                        f[1],
+                        got,
+                        &f[2..7]
+                    ));
                 }
             }
             "H" => {
                 hands += 1;
                 let got = result(&unhex(f[1]), NbtAccounter::default_quota());
                 if got != f[2] {
-                    failures.push(format!("hand {}: got {got:?} want {:?}", &f[1][..f[1].len().min(60)], f[2]));
+                    failures.push(format!(
+                        "hand {}: got {got:?} want {:?}",
+                        &f[1][..f[1].len().min(60)],
+                        f[2]
+                    ));
                 }
             }
             other => panic!("bad row {other}"),
         }
     }
-    assert!(scenarios == 15 && reads > 100 && hands > 30, "fixture too small: {scenarios} {reads} {hands}");
-    assert!(failures.is_empty(), "{} mismatches:\n{}", failures.len(), failures.iter().take(15).cloned().collect::<Vec<_>>().join("\n"));
+    assert!(
+        scenarios == 15 && reads > 100 && hands > 30,
+        "fixture too small: {scenarios} {reads} {hands}"
+    );
+    assert!(
+        failures.is_empty(),
+        "{} mismatches:\n{}",
+        failures.len(),
+        failures
+            .iter()
+            .take(15)
+            .cloned()
+            .collect::<Vec<_>>()
+            .join("\n")
+    );
 }
 
 /// Every vanilla-parseable SNBT sample survives `write_any_tag` -> `read_any_tag` unchanged
 /// (heterogeneous lists are wrapped on write and unwrapped on read).
 #[test]
 fn roundtrip_snbt_corpus() {
-    let data = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures/snbt_golden.tsv")).unwrap();
+    let data = std::fs::read_to_string(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/tests/fixtures/snbt_golden.tsv"
+    ))
+    .unwrap();
     let mut n = 0;
     for line in data.lines() {
         let f: Vec<&str> = line.split('\t').collect();
@@ -218,7 +286,8 @@ fn roundtrip_snbt_corpus() {
             continue;
         }
         let bytes = unhex(f[4]);
-        let tag = nbt_io::read_any_tag(&mut &bytes[..], &mut NbtAccounter::unlimited_heap()).unwrap();
+        let tag =
+            nbt_io::read_any_tag(&mut &bytes[..], &mut NbtAccounter::unlimited_heap()).unwrap();
         let mut again = Vec::new();
         nbt_io::write_any_tag(&tag, &mut again).unwrap();
         assert_eq!(hex(&again), f[4], "re-encode differs for {}", f[0]);
@@ -230,14 +299,23 @@ fn roundtrip_snbt_corpus() {
 #[test]
 fn gzip_and_zlib_roundtrip() {
     let c = snbt::parse_compound("{a:1,b:[1,2,3],c:\"x\",d:{e:1.5d}}").unwrap();
-    for bytes in [mc_nbt::compress::write_compressed(&c), mc_nbt::compress::write_compressed_zlib(&c)] {
+    for bytes in [
+        mc_nbt::compress::write_compressed(&c),
+        mc_nbt::compress::write_compressed_zlib(&c),
+    ] {
         assert_ne!(bytes, nbt_io::to_bytes(&c));
     }
     let gz = mc_nbt::compress::write_compressed(&c);
     assert_eq!(&gz[..2], &[0x1f, 0x8b]);
-    assert_eq!(mc_nbt::compress::read_compressed(&gz, &mut NbtAccounter::default_quota()).unwrap(), c);
+    assert_eq!(
+        mc_nbt::compress::read_compressed(&gz, &mut NbtAccounter::default_quota()).unwrap(),
+        c
+    );
     let z = mc_nbt::compress::write_compressed_zlib(&c);
-    assert_eq!(mc_nbt::compress::read_compressed_zlib(&z, &mut NbtAccounter::default_quota()).unwrap(), c);
+    assert_eq!(
+        mc_nbt::compress::read_compressed_zlib(&z, &mut NbtAccounter::default_quota()).unwrap(),
+        c
+    );
     // a decompressed size beyond the quota is rejected
     assert!(mc_nbt::compress::read_compressed(&gz, &mut NbtAccounter::create(10)).is_err());
 }

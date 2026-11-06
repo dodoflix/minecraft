@@ -7,9 +7,9 @@ use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistr
 use crate::commands::CommandSourceStack;
 use crate::server::level::ServerLevel;
 use crate::server::permissions::LevelBasedPermissionSet;
+use crate::world::level::BlockGetter;
 use crate::world::level::base_command_block::{BaseCommandBlock, Begin};
 use crate::world::level::block::BlockStateExt;
-use crate::world::level::BlockGetter;
 use linkme::distributed_slice;
 use mc_core::phys::{Vec2, Vec3};
 use mc_core::pos::BlockPos;
@@ -29,7 +29,9 @@ pub struct CommandBlockEntity {
 
 /// `state.getBlock() instanceof CommandBlock`.
 pub fn is_command_block(block: Block) -> bool {
-    block == Block::COMMAND_BLOCK || block == Block::REPEATING_COMMAND_BLOCK || block == Block::CHAIN_COMMAND_BLOCK
+    block == Block::COMMAND_BLOCK
+        || block == Block::REPEATING_COMMAND_BLOCK
+        || block == Block::CHAIN_COMMAND_BLOCK
 }
 
 impl CommandBlockEntity {
@@ -103,7 +105,8 @@ impl CommandBlockEntity {
         self.condition_met = true;
         if self.is_conditional(level) {
             let pos = self.get_block_pos();
-            let relative = pos.relative(level.get_block_state(pos).get(props::FACING).get_opposite());
+            let relative =
+                pos.relative(level.get_block_state(pos).get(props::FACING).get_opposite());
             if is_command_block(level.get_block_state(relative).block()) {
                 self.condition_met = level
                     .get_block_entity(relative)
@@ -137,7 +140,13 @@ impl CommandBlockEntity {
     }
 
     /// `createCommandSourceStack(level, source)` of the anonymous `BaseCommandBlock`.
-    fn create_command_source_stack(level: &ServerLevel, pos: BlockPos, state: BlockState, name: mc_text::Component, source: std::sync::Arc<dyn crate::commands::CommandSource>) -> CommandSourceStack {
+    fn create_command_source_stack(
+        level: &ServerLevel,
+        pos: BlockPos,
+        state: BlockState,
+        name: mc_text::Component,
+        source: std::sync::Arc<dyn crate::commands::CommandSource>,
+    ) -> CommandSourceStack {
         let facing = state.get(props::FACING);
         CommandSourceStack::named(
             source,
@@ -168,7 +177,9 @@ impl CommandBlockEntity {
         let begin = level.with_typed_block_entity::<CommandBlockEntity, _>(pos, |level, be| {
             let name = be.command_block.get_name();
             let state = be.get_block_state();
-            be.command_block.begin_perform(level, |source| Self::create_command_source_stack(level, pos, state, name, source))
+            be.command_block.begin_perform(level, |source| {
+                Self::create_command_source_stack(level, pos, state, name, source)
+            })
         });
         match begin {
             // the entity vanished: nothing to run
@@ -202,7 +213,11 @@ impl BlockEntity for CommandBlockEntity {
         self.auto = tag.get_boolean_or("auto", false);
     }
 
-    fn load_additional_in_level(&mut self, level: &mut ServerLevel, tag: &CompoundTag) -> Option<BlockState> {
+    fn load_additional_in_level(
+        &mut self,
+        level: &mut ServerLevel,
+        tag: &CompoundTag,
+    ) -> Option<BlockState> {
         self.command_block.load(tag);
         self.powered = tag.get_boolean_or("powered", false);
         self.condition_met = tag.get_boolean_or("conditionMet", false);
@@ -219,10 +234,13 @@ impl BlockEntity for CommandBlockEntity {
 
     /// `applyImplicitComponents`: the custom name.
     fn apply_components_from_item_stack(&mut self, stack: &crate::world::item::ItemStack) {
-        self.command_block.set_custom_name(stack.get(&mc_protocol::components::CUSTOM_NAME).cloned());
+        self.command_block
+            .set_custom_name(stack.get(&mc_protocol::components::CUSTOM_NAME).cloned());
     }
 }
 
 #[distributed_slice(BLOCK_ENTITY_TYPES)]
-static COMMAND_BLOCK: BlockEntityRegistration =
-    BlockEntityRegistration { ty: BlockEntityType::COMMAND_BLOCK, create: |pos, state| Box::new(CommandBlockEntity::new(pos, state)) };
+static COMMAND_BLOCK: BlockEntityRegistration = BlockEntityRegistration {
+    ty: BlockEntityType::COMMAND_BLOCK,
+    create: |pos, state| Box::new(CommandBlockEntity::new(pos, state)),
+};

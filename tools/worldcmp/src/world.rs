@@ -9,7 +9,9 @@ use mc_core::pos::ChunkPos;
 use mc_nbt::CompoundTag;
 use mc_world::region::{RegionFileStorage, RegionStorageInfo};
 
-use crate::compare::{compare_chunk, compare_entity_chunks, status_rank, Category, ChunkDiff, StartMismatch};
+use crate::compare::{
+    Category, ChunkDiff, StartMismatch, compare_chunk, compare_entity_chunks, status_rank,
+};
 
 /// Folder holding `region/` and `entities/` of a dimension: `dimensions/<ns>/<path>` (26.x layout), else the legacy
 /// layout (`.` / `DIM-1` / `DIM1`). `dim` is `overworld|nether|end|the_nether|the_end|ns:path`.
@@ -42,11 +44,20 @@ struct Store {
 impl Store {
     fn new(folder: PathBuf, dim: &str, kind: &str) -> Self {
         let id = Identifier::parse(dim).expect("dimension id validated by caller");
-        Self { storage: RegionFileStorage::new(RegionStorageInfo::new("worldcmp", id, kind), &folder, false), folder }
+        Self {
+            storage: RegionFileStorage::new(
+                RegionStorageInfo::new("worldcmp", id, kind),
+                &folder,
+                false,
+            ),
+            folder,
+        }
     }
 
     fn regions(&self) -> BTreeSet<(i32, i32)> {
-        let Ok(rd) = std::fs::read_dir(&self.folder) else { return BTreeSet::new() };
+        let Ok(rd) = std::fs::read_dir(&self.folder) else {
+            return BTreeSet::new();
+        };
         rd.filter_map(|e| {
             let name = e.ok()?.file_name().into_string().ok()?;
             let mut it = name.strip_prefix("r.")?.strip_suffix(".mca")?.split('.');
@@ -56,7 +67,14 @@ impl Store {
     }
 
     fn read(&mut self, pos: ChunkPos) -> Result<Option<CompoundTag>, String> {
-        self.storage.read(&pos).map_err(|e| format!("chunk [{},{}] in {}: {e}", pos.x, pos.z, self.folder.display()))
+        self.storage.read(&pos).map_err(|e| {
+            format!(
+                "chunk [{},{}] in {}: {e}",
+                pos.x,
+                pos.z,
+                self.folder.display()
+            )
+        })
     }
 }
 
@@ -104,16 +122,30 @@ fn rank(c: &CompoundTag) -> usize {
 pub fn compare_dimension(a_world: &Path, b_world: &Path, dim: &str, f: &Filter) -> DimReport {
     let (name, da) = dimension_dir(a_world, dim);
     let (_, db) = dimension_dir(b_world, dim);
-    let mut r = DimReport { dim: name.clone(), ignored: f.ignore.iter().map(|c| c.name()).collect(), ..DimReport::default() };
-    let (mut ca, mut cb) = (Store::new(da.join("region"), &name, "chunk"), Store::new(db.join("region"), &name, "chunk"));
-    let (mut ea, mut eb) = (Store::new(da.join("entities"), &name, "entities"), Store::new(db.join("entities"), &name, "entities"));
+    let mut r = DimReport {
+        dim: name.clone(),
+        ignored: f.ignore.iter().map(|c| c.name()).collect(),
+        ..DimReport::default()
+    };
+    let (mut ca, mut cb) = (
+        Store::new(da.join("region"), &name, "chunk"),
+        Store::new(db.join("region"), &name, "chunk"),
+    );
+    let (mut ea, mut eb) = (
+        Store::new(da.join("entities"), &name, "entities"),
+        Store::new(db.join("entities"), &name, "entities"),
+    );
     let regions: BTreeSet<(i32, i32)> = ca.regions().union(&cb.regions()).copied().collect();
     for (rx, rz) in regions {
         for lz in 0..32 {
             for lx in 0..32 {
                 let pos = ChunkPos::new(rx * 32 + lx, rz * 32 + lz);
                 if let Some((x1, z1, x2, z2)) = f.chunks {
-                    if pos.x < x1.min(x2) || pos.x > x1.max(x2) || pos.z < z1.min(z2) || pos.z > z1.max(z2) {
+                    if pos.x < x1.min(x2)
+                        || pos.x > x1.max(x2)
+                        || pos.z < z1.min(z2)
+                        || pos.z > z1.max(z2)
+                    {
                         continue;
                     }
                 }
@@ -206,7 +238,12 @@ pub fn render_text(a: &str, b: &str, dims: &[DimReport], max_chunks_listed: usiz
         if !r.starts.is_empty() {
             writeln!(s, "structure start mismatches:").unwrap();
             for (id, m) in &r.starts {
-                writeln!(s, "  {id}: only in A {}, only in B {}, differing {}", m.only_a, m.only_b, m.differs).unwrap();
+                writeln!(
+                    s,
+                    "  {id}: only in A {}, only in B {}, differing {}",
+                    m.only_a, m.only_b, m.differs
+                )
+                .unwrap();
             }
         }
         if !r.block_hist.is_empty() {
@@ -220,7 +257,11 @@ pub fn render_text(a: &str, b: &str, dims: &[DimReport], max_chunks_listed: usiz
         if !r.differing.is_empty() {
             writeln!(s, "differing chunks ({}):", r.differing.len()).unwrap();
             for (pos, d) in r.differing.iter().take(max_chunks_listed) {
-                let sum: Vec<String> = d.cats.iter().map(|(c, v)| format!("{}={}", c.name(), v.count)).collect();
+                let sum: Vec<String> = d
+                    .cats
+                    .iter()
+                    .map(|(c, v)| format!("{}={}", c.name(), v.count))
+                    .collect();
                 writeln!(s, "  [{},{}] {}", pos.x, pos.z, sum.join(" ")).unwrap();
                 for (c, v) in &d.cats {
                     for m in &v.samples {
@@ -232,7 +273,16 @@ pub fn render_text(a: &str, b: &str, dims: &[DimReport], max_chunks_listed: usiz
                 writeln!(s, "  ... {} more", r.differing.len() - max_chunks_listed).unwrap();
             }
         }
-        writeln!(s, "{}", if r.is_clean() { "RESULT: IDENTICAL" } else { "RESULT: DIFFERENT" }).unwrap();
+        writeln!(
+            s,
+            "{}",
+            if r.is_clean() {
+                "RESULT: IDENTICAL"
+            } else {
+                "RESULT: DIFFERENT"
+            }
+        )
+        .unwrap();
     }
     s
 }
@@ -253,7 +303,15 @@ fn js(s: &str) -> String {
 }
 
 pub fn render_json(a: &str, b: &str, dims: &[DimReport]) -> String {
-    let obj = |kv: Vec<(String, String)>| format!("{{{}}}", kv.into_iter().map(|(k, v)| format!("{}:{v}", js(&k))).collect::<Vec<_>>().join(","));
+    let obj = |kv: Vec<(String, String)>| {
+        format!(
+            "{{{}}}",
+            kv.into_iter()
+                .map(|(k, v)| format!("{}:{v}", js(&k)))
+                .collect::<Vec<_>>()
+                .join(",")
+        )
+    };
     let arr = |v: Vec<String>| format!("[{}]", v.join(","));
     let dims_json: Vec<String> = dims
         .iter()
@@ -290,5 +348,10 @@ pub fn render_json(a: &str, b: &str, dims: &[DimReport]) -> String {
             )
         })
         .collect();
-    format!("{{\"a\":{},\"b\":{},\"dimensions\":{}}}\n", js(a), js(b), arr(dims_json))
+    format!(
+        "{{\"a\":{},\"b\":{},\"dimensions\":{}}}\n",
+        js(a),
+        js(b),
+        arr(dims_json)
+    )
 }

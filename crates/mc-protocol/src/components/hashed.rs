@@ -1,11 +1,11 @@
 //! `HashedStack` / `HashedPatchMap`: the item stacks a client sends in container clicks, with components reduced to
 //! CRC32C hashes of their codec encoding (`HashOps`).
 
-use crate::codec::EncodeResult;
 use super::item_stack::ItemStack;
 use super::map::{DataComponentPatch, TypedDataComponent};
 use super::registry::def;
-use crate::codec::{read_count, read_varint, write_varint, Decode, DecodeResult, Encode};
+use crate::codec::EncodeResult;
+use crate::codec::{Decode, DecodeResult, Encode, read_count, read_varint, write_varint};
 use mc_data::{DataComponentType, Item};
 use mc_dfu::HASH;
 
@@ -15,7 +15,11 @@ pub type HashGenerator<'a> = &'a dyn Fn(&TypedDataComponent) -> i32;
 /// The server's hasher (`ServerPlayer` container synchronizer): `codecOrThrow().encodeStart(HashOps, value).asInt()`.
 pub fn component_hash(component: &TypedDataComponent) -> i32 {
     let d = def(component.id);
-    match d.codec_or_throw().encode_start(&HASH, &component.value).into_result() {
+    match d
+        .codec_or_throw()
+        .encode_start(&HASH, &component.value)
+        .into_result()
+    {
         Ok(tree) => mc_dfu::hash_dyn(&tree) as i32,
         Err(e) => panic!("Failed to hash {}: {e}", component.id.name()),
     }
@@ -32,12 +36,25 @@ pub struct HashedPatchMap {
 impl HashedPatchMap {
     pub fn create(patch: &DataComponentPatch, hasher: HashGenerator) -> HashedPatchMap {
         let (added, removed) = patch.split();
-        let mut added_components: Vec<_> =
-            added.iter().map(|(k, v)| (k, hasher(&TypedDataComponent { id: k, value: v.clone() }))).collect();
+        let mut added_components: Vec<_> = added
+            .iter()
+            .map(|(k, v)| {
+                (
+                    k,
+                    hasher(&TypedDataComponent {
+                        id: k,
+                        value: v.clone(),
+                    }),
+                )
+            })
+            .collect();
         added_components.sort_by_key(|(k, _)| k.id());
         let mut removed_components = removed;
         removed_components.sort_by_key(|k| k.id());
-        HashedPatchMap { added_components, removed_components }
+        HashedPatchMap {
+            added_components,
+            removed_components,
+        }
     }
 
     pub fn matches(&self, patch: &DataComponentPatch, hasher: HashGenerator) -> bool {
@@ -50,7 +67,11 @@ impl HashedPatchMap {
             match self.added_components.iter().find(|(t, _)| *t == k) {
                 None => return false,
                 Some((_, expected)) => {
-                    if hasher(&TypedDataComponent { id: k, value: v.clone() }) != *expected {
+                    if hasher(&TypedDataComponent {
+                        id: k,
+                        value: v.clone(),
+                    }) != *expected
+                    {
                         return false;
                     }
                 }
@@ -70,7 +91,7 @@ impl Encode for HashedPatchMap {
         crate::codec::write_count(out, self.removed_components.len(), 256)?;
         for k in &self.removed_components {
             k.encode(out)?;
-        };
+        }
         Ok(())
     }
 }
@@ -97,7 +118,10 @@ impl Decode for HashedPatchMap {
         }
         added.sort_by_key(|(k, _)| k.id());
         removed.sort_by_key(|k| k.id());
-        Ok(HashedPatchMap { added_components: added, removed_components: removed })
+        Ok(HashedPatchMap {
+            added_components: added,
+            removed_components: removed,
+        })
     }
 }
 
@@ -105,7 +129,11 @@ impl Decode for HashedPatchMap {
 pub enum HashedStack {
     #[default]
     Empty,
-    ActualItem { item: Item, count: i32, components: HashedPatchMap },
+    ActualItem {
+        item: Item,
+        count: i32,
+        components: HashedPatchMap,
+    },
 }
 
 impl HashedStack {
@@ -124,8 +152,14 @@ impl HashedStack {
     pub fn matches(&self, stack: &ItemStack, hasher: HashGenerator) -> bool {
         match self {
             HashedStack::Empty => stack.is_empty(),
-            HashedStack::ActualItem { item, count, components } => {
-                *count == stack.count() && *item == stack.item() && components.matches(&stack.get_components_patch(), hasher)
+            HashedStack::ActualItem {
+                item,
+                count,
+                components,
+            } => {
+                *count == stack.count()
+                    && *item == stack.item()
+                    && components.matches(&stack.get_components_patch(), hasher)
             }
         }
     }
@@ -136,7 +170,11 @@ impl Encode for HashedStack {
     fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         match self {
             HashedStack::Empty => out.push(0),
-            HashedStack::ActualItem { item, count, components } => {
+            HashedStack::ActualItem {
+                item,
+                count,
+                components,
+            } => {
                 out.push(1);
                 item.encode(out)?;
                 write_varint(out, *count);
@@ -155,6 +193,10 @@ impl Decode for HashedStack {
         let item = crate::codec::read_registry_id::<Item>(input)?;
         let count = read_varint(input)?;
         let components = HashedPatchMap::decode(input)?;
-        Ok(HashedStack::ActualItem { item, count, components })
+        Ok(HashedStack::ActualItem {
+            item,
+            count,
+            components,
+        })
     }
 }

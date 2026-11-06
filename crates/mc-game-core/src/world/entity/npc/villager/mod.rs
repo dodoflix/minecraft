@@ -18,5 +18,7 @@ pub fn villager_ref(e: &dyn Entity) -> Option<&Villager> {
 
 /// A behavior typed `Behavior<Villager>` only ever runs on villagers.
 pub fn villager_mut(e: &mut dyn Entity) -> &mut Villager {
-    e.as_any_mut().downcast_mut::<Villager>().expect("villager behavior on a non-villager")
+    e.as_any_mut()
+        .downcast_mut::<Villager>()
+        .expect("villager behavior on a non-villager")
 }

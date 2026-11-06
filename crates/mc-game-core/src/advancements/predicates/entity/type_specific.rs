@@ -6,7 +6,7 @@ use super::entity_predicate::{EntityPredicate, EntitySubPredicateImpl};
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
 use mc_core::phys::Vec3;
-use mc_dfu::{Codec, BOOL};
+use mc_dfu::{BOOL, Codec};
 use mc_protocol::components::Ints;
 use std::sync::LazyLock;
 
@@ -21,7 +21,8 @@ impl EntitySubPredicateImpl for LightningBoltPredicate {
     fn codec() -> Codec<Self> {
         static C: LazyLock<Codec<LightningBoltPredicate>> = LazyLock::new(|| {
             mc_dfu::record!(LightningBoltPredicate {
-                blocks_set_on_fire: Ints::codec().optional_field_of_default("blocks_set_on_fire", Ints::any()),
+                blocks_set_on_fire: Ints::codec()
+                    .optional_field_of_default("blocks_set_on_fire", Ints::any()),
                 entity_struck: EntityPredicate::lazy_codec().optional_field_of("entity_struck"),
             })
             .codec()
@@ -29,13 +30,27 @@ impl EntitySubPredicateImpl for LightningBoltPredicate {
         C.clone()
     }
 
-    fn matches<'a>(&self, entity: &'a dyn Entity, level: &'a ServerLevel, position: Option<Vec3>, lent: &[&'a dyn Entity]) -> bool {
-        let Some(bolt) = entity.lightning_bolt_state() else { return false };
+    fn matches<'a>(
+        &self,
+        entity: &'a dyn Entity,
+        level: &'a ServerLevel,
+        position: Option<Vec3>,
+        lent: &[&'a dyn Entity],
+    ) -> bool {
+        let Some(bolt) = entity.lightning_bolt_state() else {
+            return false;
+        };
         self.blocks_set_on_fire.matches(bolt.blocks_set_on_fire)
-            && self
-                .entity_struck
-                .as_ref()
-                .is_none_or(|struck| bolt.hit_entities.iter().any(|&id| struck.matches_nullable_lent(level, position, super::support::resolve(level, lent, id), lent)))
+            && self.entity_struck.as_ref().is_none_or(|struck| {
+                bolt.hit_entities.iter().any(|&id| {
+                    struck.matches_nullable_lent(
+                        level,
+                        position,
+                        super::support::resolve(level, lent, id),
+                        lent,
+                    )
+                })
+            })
     }
 }
 
@@ -47,12 +62,22 @@ pub struct FishingHookPredicate {
 
 impl EntitySubPredicateImpl for FishingHookPredicate {
     fn codec() -> Codec<Self> {
-        static C: LazyLock<Codec<FishingHookPredicate>> =
-            LazyLock::new(|| mc_dfu::record!(FishingHookPredicate { in_open_water: BOOL.optional_field_of("in_open_water") }).codec());
+        static C: LazyLock<Codec<FishingHookPredicate>> = LazyLock::new(|| {
+            mc_dfu::record!(FishingHookPredicate {
+                in_open_water: BOOL.optional_field_of("in_open_water")
+            })
+            .codec()
+        });
         C.clone()
     }
 
-    fn matches<'a>(&self, entity: &'a dyn Entity, _level: &'a ServerLevel, _position: Option<Vec3>, _lent: &[&'a dyn Entity]) -> bool {
+    fn matches<'a>(
+        &self,
+        entity: &'a dyn Entity,
+        _level: &'a ServerLevel,
+        _position: Option<Vec3>,
+        _lent: &[&'a dyn Entity],
+    ) -> bool {
         match self.in_open_water {
             None => true,
             Some(want) => entity.fishing_hook_open_water() == Some(want),
@@ -68,13 +93,25 @@ pub struct CubeMobPredicate {
 
 impl EntitySubPredicateImpl for CubeMobPredicate {
     fn codec() -> Codec<Self> {
-        static C: LazyLock<Codec<CubeMobPredicate>> =
-            LazyLock::new(|| mc_dfu::record!(CubeMobPredicate { size: Ints::codec().optional_field_of_default("size", Ints::any()) }).codec());
+        static C: LazyLock<Codec<CubeMobPredicate>> = LazyLock::new(|| {
+            mc_dfu::record!(CubeMobPredicate {
+                size: Ints::codec().optional_field_of_default("size", Ints::any())
+            })
+            .codec()
+        });
         C.clone()
     }
 
-    fn matches<'a>(&self, entity: &'a dyn Entity, _level: &'a ServerLevel, _position: Option<Vec3>, _lent: &[&'a dyn Entity]) -> bool {
-        entity.cube_mob_size().is_some_and(|size| self.size.matches(size))
+    fn matches<'a>(
+        &self,
+        entity: &'a dyn Entity,
+        _level: &'a ServerLevel,
+        _position: Option<Vec3>,
+        _lent: &[&'a dyn Entity],
+    ) -> bool {
+        entity
+            .cube_mob_size()
+            .is_some_and(|size| self.size.matches(size))
     }
 }
 
@@ -97,8 +134,15 @@ impl EntitySubPredicateImpl for RaiderPredicate {
         C.clone()
     }
 
-    fn matches<'a>(&self, entity: &'a dyn Entity, level: &'a ServerLevel, _position: Option<Vec3>, _lent: &[&'a dyn Entity]) -> bool {
-        crate::world::entity::raid::raider::raider_state(entity, level) == Some((self.has_raid, self.is_captain))
+    fn matches<'a>(
+        &self,
+        entity: &'a dyn Entity,
+        level: &'a ServerLevel,
+        _position: Option<Vec3>,
+        _lent: &[&'a dyn Entity],
+    ) -> bool {
+        crate::world::entity::raid::raider::raider_state(entity, level)
+            == Some((self.has_raid, self.is_captain))
     }
 }
 
@@ -110,12 +154,24 @@ pub struct SheepPredicate {
 
 impl EntitySubPredicateImpl for SheepPredicate {
     fn codec() -> Codec<Self> {
-        static C: LazyLock<Codec<SheepPredicate>> =
-            LazyLock::new(|| mc_dfu::record!(SheepPredicate { sheared: BOOL.optional_field_of("sheared") }).codec());
+        static C: LazyLock<Codec<SheepPredicate>> = LazyLock::new(|| {
+            mc_dfu::record!(SheepPredicate {
+                sheared: BOOL.optional_field_of("sheared")
+            })
+            .codec()
+        });
         C.clone()
     }
 
-    fn matches<'a>(&self, entity: &'a dyn Entity, _level: &'a ServerLevel, _position: Option<Vec3>, _lent: &[&'a dyn Entity]) -> bool {
-        entity.sheep_sheared().is_some_and(|sheared| self.sheared.is_none_or(|want| sheared == want))
+    fn matches<'a>(
+        &self,
+        entity: &'a dyn Entity,
+        _level: &'a ServerLevel,
+        _position: Option<Vec3>,
+        _lent: &[&'a dyn Entity],
+    ) -> bool {
+        entity
+            .sheep_sheared()
+            .is_some_and(|sheared| self.sheared.is_none_or(|want| sheared == want))
     }
 }

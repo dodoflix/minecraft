@@ -36,7 +36,13 @@ impl Cause {
 
     /// A lightning bolt (`LightningBolt.thunderHit`).
     pub fn lightning(id: EntityId) -> Cause {
-        Cause { id, is_player: false, instabuild: false, may_build: false, is_lightning: true }
+        Cause {
+            id,
+            is_player: false,
+            instabuild: false,
+            may_build: false,
+            is_lightning: true,
+        }
     }
 }
 
@@ -84,7 +90,11 @@ pub fn tick<E: BlockAttached>(e: &mut E, level: &mut ServerLevel) {
 }
 
 /// `BlockAttachedEntity.skipAttackInteraction(source)`.
-pub fn skip_attack_interaction<E: BlockAttached>(e: &mut E, level: &mut ServerLevel, source: &dyn Entity) -> bool {
+pub fn skip_attack_interaction<E: BlockAttached>(
+    e: &mut E,
+    level: &mut ServerLevel,
+    source: &dyn Entity,
+) -> bool {
     if !source.is_player() {
         return false;
     }
@@ -110,7 +120,12 @@ pub fn kill<E: BlockAttached>(e: &mut E, level: &mut ServerLevel, attributed_to:
 }
 
 /// `BlockAttachedEntity.hurtServer(level, source, damage)`.
-pub fn hurt_server<E: BlockAttached>(e: &mut E, level: &mut ServerLevel, source: &DamageSource, _damage: f32) -> bool {
+pub fn hurt_server<E: BlockAttached>(
+    e: &mut E,
+    level: &mut ServerLevel,
+    source: &DamageSource,
+    _damage: f32,
+) -> bool {
     if e.is_invulnerable_to_base(level, source) {
         return false;
     }
@@ -127,7 +142,10 @@ pub fn hurt_server<E: BlockAttached>(e: &mut E, level: &mut ServerLevel, source:
 
 /// `BlockAttachedEntity.ignoreExplosion(explosion)` given `super.ignoreExplosion` (the entity's own `Entity.ignoreExplosion`).
 pub fn ignore_explosion(explosion: &dyn crate::world::level::explosion::Explosion) -> bool {
-    if explosion.get_direct_source_entity_ref().is_some_and(|d| d.is_in_water()) {
+    if explosion
+        .get_direct_source_entity_ref()
+        .is_some_and(|d| d.is_in_water())
+    {
         true
     } else {
         !explosion.should_affect_blocklike_entities()
@@ -167,7 +185,9 @@ pub fn add_additional_save_data<E: BlockAttached + ?Sized>(e: &E, out: &mut Comp
 pub fn read_additional_save_data<E: BlockAttached>(e: &mut E, input: &CompoundTag) {
     let stored = input.get("block_pos").and_then(read_block_pos);
     match stored {
-        Some(pos) if pos.closer_than(&e.base().block_position(), 16.0) => e.attached_mut().pos = pos,
+        Some(pos) if pos.closer_than(&e.base().block_position(), 16.0) => {
+            e.attached_mut().pos = pos
+        }
         other => log::error!("Block-attached entity at invalid position: {other:?}"),
     }
 }

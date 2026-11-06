@@ -10,9 +10,9 @@ use mc_core::pos::BlockPos;
 use mc_data::Item;
 use mc_data::block::{Block, BlockState};
 use mc_game::server::level::ServerLevel;
+use mc_game::world::entity::EntityId;
 use mc_game::world::entity::entity::{Entity, common_tick};
 use mc_game::world::entity::item::ItemEntity;
-use mc_game::world::entity::EntityId;
 use mc_game::world::item::ItemStack;
 use mc_game::world::level::LevelAccessor;
 
@@ -21,9 +21,17 @@ fn parse_state(text: &str) -> BlockState {
         Some((n, p)) => (n, p.trim_end_matches(']')),
         None => (text, ""),
     };
-    let block = Block::by_name(name.trim_start_matches("minecraft:")).or_else(|| Block::by_name(name)).unwrap_or_else(|| panic!("unknown block {name}"));
-    let pairs: Vec<(&str, &str)> = props.split(',').filter(|s| !s.is_empty()).map(|kv| kv.split_once('=').expect("k=v")).collect();
-    block.state_from_properties(pairs).unwrap_or_else(|| panic!("bad state {text}"))
+    let block = Block::by_name(name.trim_start_matches("minecraft:"))
+        .or_else(|| Block::by_name(name))
+        .unwrap_or_else(|| panic!("unknown block {name}"));
+    let pairs: Vec<(&str, &str)> = props
+        .split(',')
+        .filter(|s| !s.is_empty())
+        .map(|kv| kv.split_once('=').expect("k=v"))
+        .collect();
+    block
+        .state_from_properties(pairs)
+        .unwrap_or_else(|| panic!("bad state {text}"))
 }
 
 fn fmt_vec(x: f64, y: f64, z: f64) -> String {
@@ -31,12 +39,18 @@ fn fmt_vec(x: f64, y: f64, z: f64) -> String {
 }
 
 fn registries() -> mc_game::registry::RegistryAccess {
-    static ACCESS: std::sync::OnceLock<mc_game::registry::RegistryAccess> = std::sync::OnceLock::new();
+    static ACCESS: std::sync::OnceLock<mc_game::registry::RegistryAccess> =
+        std::sync::OnceLock::new();
     ACCESS
         .get_or_init(|| {
             let _serial = common::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
             let dir = tempfile::tempdir().unwrap();
-            let (_, stem) = common::load_world(dir.path(), mc_world::level_storage::WorldDataConfiguration::DEFAULT, true).expect("default world loads");
+            let (_, stem) = common::load_world(
+                dir.path(),
+                mc_world::level_storage::WorldDataConfiguration::DEFAULT,
+                true,
+            )
+            .expect("default world loads");
             stem.registries.composite_access().clone()
         })
         .clone()
@@ -50,30 +64,57 @@ fn replay(scenario: &str) -> Vec<String> {
     // `level flat`: grass at y=-61 (bedrock and dirt below are irrelevant for these scenarios)
     for x in -48..=64 {
         for z in -16..=48 {
-            level.set_block(BlockPos::new(x, -61, z), Block::GRASS_BLOCK.default_state(), 3, 512);
+            level.set_block(
+                BlockPos::new(x, -61, z),
+                Block::GRASS_BLOCK.default_state(),
+                3,
+                512,
+            );
         }
     }
     for cx in -4..=4 {
         for cz in -2..=4 {
-            level.entity_manager.update_chunk_status(mc_core::pos::ChunkPos::new(cx, cz), mc_game::world::level::entity::Visibility::Ticking);
+            level.entity_manager.update_chunk_status(
+                mc_core::pos::ChunkPos::new(cx, cz),
+                mc_game::world::level::entity::Visibility::Ticking,
+            );
         }
     }
     let mut refs: Vec<(String, EntityId)> = Vec::new();
     let mut out = Vec::new();
     let mut tick = 0;
-    for line in text.lines().map(str::trim).filter(|l| !l.is_empty() && !l.starts_with('#')) {
+    for line in text
+        .lines()
+        .map(str::trim)
+        .filter(|l| !l.is_empty() && !l.starts_with('#'))
+    {
         let t: Vec<&str> = line.split_whitespace().collect();
         let num = |i: usize| t[i].parse::<f64>().unwrap();
         match t[0] {
-            "level" | "watch" | "difficulty" | "preload" | "seed" | "gamerule" | "entity_counter" => {}
+            "level" | "watch" | "difficulty" | "preload" | "seed" | "gamerule"
+            | "entity_counter" => {}
             "block" => {
-                level.set_block(BlockPos::new(num(1) as i32, num(2) as i32, num(3) as i32), parse_state(t[4]), 3, 512);
+                level.set_block(
+                    BlockPos::new(num(1) as i32, num(2) as i32, num(3) as i32),
+                    parse_state(t[4]),
+                    3,
+                    512,
+                );
             }
             "fill" => {
                 let state = parse_state(t[7]);
-                let (x0, x1) = ((num(1) as i32).min(num(4) as i32), (num(1) as i32).max(num(4) as i32));
-                let (y0, y1) = ((num(2) as i32).min(num(5) as i32), (num(2) as i32).max(num(5) as i32));
-                let (z0, z1) = ((num(3) as i32).min(num(6) as i32), (num(3) as i32).max(num(6) as i32));
+                let (x0, x1) = (
+                    (num(1) as i32).min(num(4) as i32),
+                    (num(1) as i32).max(num(4) as i32),
+                );
+                let (y0, y1) = (
+                    (num(2) as i32).min(num(5) as i32),
+                    (num(2) as i32).max(num(5) as i32),
+                );
+                let (z0, z1) = (
+                    (num(3) as i32).min(num(6) as i32),
+                    (num(3) as i32).max(num(6) as i32),
+                );
                 for x in x0..=x1 {
                     for y in y0..=y1 {
                         for z in z0..=z1 {
@@ -84,7 +125,16 @@ fn replay(scenario: &str) -> Vec<String> {
             }
             "spawn_item" => {
                 let item = Item::by_name(t[2].trim_start_matches("minecraft:")).expect("item");
-                let mut e = ItemEntity::with_stack_and_motion(&level, num(3), num(4), num(5), ItemStack::with_count(item, 1), num(6), num(7), num(8));
+                let mut e = ItemEntity::with_stack_and_motion(
+                    &level,
+                    num(3),
+                    num(4),
+                    num(5),
+                    ItemStack::with_count(item, 1),
+                    num(6),
+                    num(7),
+                    num(8),
+                );
                 // A resting item moves only every `(tickCount + id) % 4`th tick and the oracle does not print ids: pin them like
                 // items_oracle.rs (our id counter is shared by parallel tests; 1001 reproduces the vanilla oracle's phase).
                 e.base_mut().id = 1001 + refs.len() as EntityId;
@@ -106,7 +156,9 @@ fn replay(scenario: &str) -> Vec<String> {
                     tick += 1;
                     out.push(format!("T {tick}"));
                     for (name, id) in &refs {
-                        let Some(e) = level.get_entity(*id) else { continue };
+                        let Some(e) = level.get_entity(*id) else {
+                            continue;
+                        };
                         let b = e.base();
                         let age = e.as_any().downcast_ref::<ItemEntity>().map_or(0, |i| i.age);
                         out.push(format!(
@@ -132,7 +184,13 @@ fn replay(scenario: &str) -> Vec<String> {
 fn compare_scenario(name: &str) {
     let fixture = Fixture::load(name);
     let actual = replay(name);
-    let opts = Options { ignore_fields: vec!["rot", "pose", "item", "pickup", "health", "owner", "thrower", "age"], ignore_kinds: vec!["#", "C", "PKT"], ..Default::default() };
+    let opts = Options {
+        ignore_fields: vec![
+            "rot", "pose", "item", "pickup", "health", "owner", "thrower", "age",
+        ],
+        ignore_kinds: vec!["#", "C", "PKT"],
+        ..Default::default()
+    };
     fixture.assert_matches(&actual, &opts);
 }
 

@@ -57,13 +57,23 @@ impl<T: SavedData> SavedDataType<T> {
         decode: impl Fn(&Tag) -> DecodeResult<T> + Send + Sync + 'static,
         encode: impl Fn(&T) -> DataResult<Tag> + Send + Sync + 'static,
     ) -> Self {
-        SavedDataType { id, constructor: Arc::new(constructor), decode: Arc::new(decode), encode: Arc::new(encode) }
+        SavedDataType {
+            id,
+            constructor: Arc::new(constructor),
+            decode: Arc::new(decode),
+            encode: Arc::new(encode),
+        }
     }
 }
 
 impl<T: SavedData> Clone for SavedDataType<T> {
     fn clone(&self) -> Self {
-        SavedDataType { id: self.id.clone(), constructor: self.constructor.clone(), decode: self.decode.clone(), encode: self.encode.clone() }
+        SavedDataType {
+            id: self.id.clone(),
+            constructor: self.constructor.clone(),
+            decode: self.decode.clone(),
+            encode: self.encode.clone(),
+        }
     }
 }
 
@@ -104,7 +114,11 @@ impl PendingSave {
                 write_compressed(&tag, &path)
             })();
             if let Err(e) = result {
-                log::error!("Could not save data to {}: {e}", path.file_name().map_or_else(String::new, |n| n.to_string_lossy().into_owned()));
+                log::error!(
+                    "Could not save data to {}: {e}",
+                    path.file_name()
+                        .map_or_else(String::new, |n| n.to_string_lossy().into_owned())
+                );
             }
         }
     }
@@ -119,7 +133,11 @@ pub struct SavedDataManager {
 
 impl SavedDataManager {
     pub fn new(storage: SavedDataStorage) -> Self {
-        SavedDataManager { storage, cache: HashMap::new(), closed: false }
+        SavedDataManager {
+            storage,
+            cache: HashMap::new(),
+            closed: false,
+        }
     }
 
     pub fn storage(&self) -> &SavedDataStorage {
@@ -138,17 +156,31 @@ impl SavedDataManager {
     /// was never loaded. For `&self` readers (level ticking) of data the server loaded at startup.
     pub fn peek<T: SavedData>(&self, ty: &SavedDataType<T>) -> Option<&T> {
         let entry = self.cache.get(&ty.id)?;
-        entry.data.as_ref().and_then(|d| (&**d as &dyn Any).downcast_ref::<T>())
+        entry
+            .data
+            .as_ref()
+            .and_then(|d| (&**d as &dyn Any).downcast_ref::<T>())
     }
 
     /// `get`: reads and caches on first access; `None` when absent or unreadable (logged).
     pub fn get<T: SavedData>(&mut self, ty: &SavedDataType<T>) -> Option<&mut T> {
         if !self.cache.contains_key(&ty.id) {
-            let data = self.read_saved_data(ty).map(|d| Box::new(d) as Box<dyn SavedData>);
-            self.cache.insert(ty.id.clone(), Entry { data, encode: erased_encoder(ty) });
+            let data = self
+                .read_saved_data(ty)
+                .map(|d| Box::new(d) as Box<dyn SavedData>);
+            self.cache.insert(
+                ty.id.clone(),
+                Entry {
+                    data,
+                    encode: erased_encoder(ty),
+                },
+            );
         }
         let entry = self.cache.get_mut(&ty.id)?;
-        entry.data.as_mut().and_then(|d| (&mut **d as &mut dyn Any).downcast_mut::<T>())
+        entry
+            .data
+            .as_mut()
+            .and_then(|d| (&mut **d as &mut dyn Any).downcast_mut::<T>())
     }
 
     /// `readSavedData`.
@@ -167,17 +199,28 @@ impl SavedDataManager {
     /// `set`: stores `data` and marks it dirty. Returns the stored instance.
     pub fn set<T: SavedData>(&mut self, ty: &SavedDataType<T>, mut data: T) -> &mut T {
         data.set_dirty();
-        self.cache.insert(ty.id.clone(), Entry { data: Some(Box::new(data)), encode: erased_encoder(ty) });
+        self.cache.insert(
+            ty.id.clone(),
+            Entry {
+                data: Some(Box::new(data)),
+                encode: erased_encoder(ty),
+            },
+        );
         self.get(ty).expect("just inserted")
     }
 
     /// `collectDirtyTagsToSave` + the file paths: encodes every dirty instance and clears its flag.
     /// Encoding failures are errors in vanilla (`getOrThrow`); here they are logged and the file is skipped.
     pub fn schedule_save(&mut self) -> PendingSave {
-        assert!(!self.closed, "Trying to schedule save when SavedDataStorage is already closed");
+        assert!(
+            !self.closed,
+            "Trying to schedule save when SavedDataStorage is already closed"
+        );
         let mut writes = Vec::new();
         for (id, entry) in &mut self.cache {
-            let Some(data) = entry.data.as_mut().filter(|d| d.is_dirty()) else { continue };
+            let Some(data) = entry.data.as_mut().filter(|d| d.is_dirty()) else {
+                continue;
+            };
             let tag = match (entry.encode)(&**data) {
                 Ok(tag) => tag,
                 Err(e) => {
@@ -201,7 +244,10 @@ impl SavedDataManager {
 
     /// `close`: saves and refuses further saves.
     pub fn close(&mut self) {
-        assert!(!self.closed, "Trying to close SavedDataStorage when it is already closed");
+        assert!(
+            !self.closed,
+            "Trying to close SavedDataStorage when it is already closed"
+        );
         self.save_and_join();
         self.closed = true;
     }

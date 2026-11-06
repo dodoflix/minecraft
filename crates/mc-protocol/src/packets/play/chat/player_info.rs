@@ -104,10 +104,9 @@ impl Encode for ClientboundPlayerInfoUpdatePacket {
             for action in self.actions.iter() {
                 match action {
                     A::AddPlayer => {
-                        let profile = e
-                            .profile
-                            .as_ref()
-                            .ok_or_else(|| crate::codec::EncodeError::msg("java.lang.NullPointerException"))?;
+                        let profile = e.profile.as_ref().ok_or_else(|| {
+                            crate::codec::EncodeError::msg("java.lang.NullPointerException")
+                        })?;
                         crate::codec::write_utf(out, &profile.name, 16)?;
                         crate::codec::write_properties(out, &profile.properties)?;
                     }
@@ -120,7 +119,7 @@ impl Encode for ClientboundPlayerInfoUpdatePacket {
                     A::UpdateHat => e.show_hat.encode(out)?,
                 }
             }
-        };
+        }
         Ok(())
     }
 }

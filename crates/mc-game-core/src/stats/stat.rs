@@ -27,7 +27,11 @@ pub fn stat_type_name(stat: &Stat) -> &'static str {
 pub fn value_name(stat: &Stat) -> &'static str {
     match stat {
         Stat::Mined(b) => b.name(),
-        Stat::Crafted(i) | Stat::Used(i) | Stat::Broken(i) | Stat::PickedUp(i) | Stat::Dropped(i) => i.name(),
+        Stat::Crafted(i)
+        | Stat::Used(i)
+        | Stat::Broken(i)
+        | Stat::PickedUp(i)
+        | Stat::Dropped(i) => i.name(),
         Stat::Killed(e) | Stat::KilledBy(e) => e.name(),
         Stat::Custom(c) => c.name(),
     }
@@ -35,7 +39,11 @@ pub fn value_name(stat: &Stat) -> &'static str {
 
 /// `Stat.buildName(type, value)`: `<type>:<value>` with `:` replaced by `.` in both ids (`minecraft.mined:minecraft.stone`).
 pub fn build_name(stat: &Stat) -> String {
-    format!("{}:{}", stat_type_name(stat).replace(':', "."), value_name(stat).replace(':', "."))
+    format!(
+        "{}:{}",
+        stat_type_name(stat).replace(':', "."),
+        value_name(stat).replace(':', ".")
+    )
 }
 
 /// A stat from the ids of its type and its value; `Err` is the codec error text (`Unknown registry key in <registry>: <id>`).
@@ -44,7 +52,10 @@ pub fn by_names(type_id: &Identifier, value_id: &Identifier) -> Result<Stat, Str
     let value_key = value_id.to_string();
     let unknown = |registry: &str| format!("Unknown registry key in {registry}: {value_key}");
     let stat = match type_key.as_str() {
-        "minecraft:mined" => Stat::Mined(Block::by_name(&value_key).ok_or_else(|| unknown("ResourceKey[minecraft:root / minecraft:block]"))?),
+        "minecraft:mined" => Stat::Mined(
+            Block::by_name(&value_key)
+                .ok_or_else(|| unknown("ResourceKey[minecraft:root / minecraft:block]"))?,
+        ),
         "minecraft:crafted" => Stat::Crafted(item(&value_key)?),
         "minecraft:used" => Stat::Used(item(&value_key)?),
         "minecraft:broken" => Stat::Broken(item(&value_key)?),
@@ -52,18 +63,31 @@ pub fn by_names(type_id: &Identifier, value_id: &Identifier) -> Result<Stat, Str
         "minecraft:dropped" => Stat::Dropped(item(&value_key)?),
         "minecraft:killed" => Stat::Killed(entity_type(&value_key)?),
         "minecraft:killed_by" => Stat::KilledBy(entity_type(&value_key)?),
-        "minecraft:custom" => Stat::Custom(CustomStat::by_name(&value_key).ok_or_else(|| unknown("ResourceKey[minecraft:root / minecraft:custom_stat]"))?),
-        _ => return Err(format!("Unknown registry key in ResourceKey[minecraft:root / minecraft:stat_type]: {type_key}")),
+        "minecraft:custom" => Stat::Custom(
+            CustomStat::by_name(&value_key)
+                .ok_or_else(|| unknown("ResourceKey[minecraft:root / minecraft:custom_stat]"))?,
+        ),
+        _ => {
+            return Err(format!(
+                "Unknown registry key in ResourceKey[minecraft:root / minecraft:stat_type]: {type_key}"
+            ));
+        }
     };
     Ok(stat)
 }
 
 fn item(key: &str) -> Result<Item, String> {
-    Item::by_name(key).ok_or_else(|| format!("Unknown registry key in ResourceKey[minecraft:root / minecraft:item]: {key}"))
+    Item::by_name(key).ok_or_else(|| {
+        format!("Unknown registry key in ResourceKey[minecraft:root / minecraft:item]: {key}")
+    })
 }
 
 fn entity_type(key: &str) -> Result<EntityType, String> {
-    EntityType::by_name(key).ok_or_else(|| format!("Unknown registry key in ResourceKey[minecraft:root / minecraft:entity_type]: {key}"))
+    EntityType::by_name(key).ok_or_else(|| {
+        format!(
+            "Unknown registry key in ResourceKey[minecraft:root / minecraft:entity_type]: {key}"
+        )
+    })
 }
 
 /// `ObjectiveCriteria.byName` resolver for `<stat_type>:<value>` criteria: both ids must exist.
@@ -77,9 +101,19 @@ mod tests {
 
     #[test]
     fn names_round_trip() {
-        let stat = by_names(&Identifier::parse("minecraft:mined").unwrap(), &Identifier::parse("minecraft:stone").unwrap()).unwrap();
+        let stat = by_names(
+            &Identifier::parse("minecraft:mined").unwrap(),
+            &Identifier::parse("minecraft:stone").unwrap(),
+        )
+        .unwrap();
         assert_eq!(build_name(&stat), "minecraft.mined:minecraft.stone");
         assert_eq!(value_name(&stat), "minecraft:stone");
-        assert!(by_names(&Identifier::parse("minecraft:mined").unwrap(), &Identifier::parse("minecraft:nope").unwrap()).is_err());
+        assert!(
+            by_names(
+                &Identifier::parse("minecraft:mined").unwrap(),
+                &Identifier::parse("minecraft:nope").unwrap()
+            )
+            .is_err()
+        );
     }
 }

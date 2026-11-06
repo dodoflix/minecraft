@@ -7,10 +7,10 @@ use crate::common::entity_oracle::*;
 use mc_core::ident::Identifier;
 use mc_data::{Block, MobEffect};
 use mc_game::server::level::ServerLevel;
-use mc_game::world::level::LevelAccessor;
 use mc_game::server::level::level_data::{PrimaryServerLevelData, default_world_data};
 use mc_game::world::entity::effect::MobEffectInstance;
 use mc_game::world::entity::{Entity, ServerPlayer};
+use mc_game::world::level::LevelAccessor;
 use mc_protocol::codec::GameProfile;
 use mc_world::level_storage::Difficulty;
 
@@ -22,15 +22,29 @@ fn replay(name: &str) -> Vec<String> {
     let flat = |level: &mut ServerLevel| {
         for x in -4..=4 {
             for z in -4..=4 {
-                for (y, block) in [(-64, Block::BEDROCK), (-63, Block::DIRT), (-62, Block::DIRT), (-61, Block::GRASS_BLOCK)] {
-                    level.set_block(mc_core::pos::BlockPos::new(x, y, z), block.default_state(), 3, 512);
+                for (y, block) in [
+                    (-64, Block::BEDROCK),
+                    (-63, Block::DIRT),
+                    (-62, Block::DIRT),
+                    (-61, Block::GRASS_BLOCK),
+                ] {
+                    level.set_block(
+                        mc_core::pos::BlockPos::new(x, y, z),
+                        block.default_state(),
+                        3,
+                        512,
+                    );
                 }
             }
         }
     };
     let mut player: Option<ServerPlayer> = None;
     let (mut out, mut tick) = (Vec::new(), 0);
-    for line in text.lines().map(str::trim).filter(|l| !l.is_empty() && !l.starts_with('#')) {
+    for line in text
+        .lines()
+        .map(str::trim)
+        .filter(|l| !l.is_empty() && !l.starts_with('#'))
+    {
         let t: Vec<&str> = line.split(' ').collect();
         let num = |s: &str| s.parse::<f64>().unwrap();
         match t[0] {
@@ -45,11 +59,23 @@ fn replay(name: &str) -> Vec<String> {
             }
             "gamerule" => {
                 assert_eq!(t[1], "natural_health_regeneration");
-                level.server_state.rules.update(|r| r.natural_health_regeneration = t[2] == "true");
+                level
+                    .server_state
+                    .rules
+                    .update(|r| r.natural_health_regeneration = t[2] == "true");
             }
             "spawn_player" => {
-                let profile = GameProfile { id: uuid::Uuid::from_u128(1), name: t[1].into(), properties: vec![] };
-                let mut p = ServerPlayer::new(1, Identifier::parse("minecraft:overworld").unwrap(), profile, Default::default());
+                let profile = GameProfile {
+                    id: uuid::Uuid::from_u128(1),
+                    name: t[1].into(),
+                    properties: vec![],
+                };
+                let mut p = ServerPlayer::new(
+                    1,
+                    Identifier::parse("minecraft:overworld").unwrap(),
+                    profile,
+                    Default::default(),
+                );
                 p.snap_to(num(t[3]), num(t[4]), num(t[5]), 0.0, 0.0);
                 p.base_mut().first_tick = true;
                 player = Some(p);
@@ -67,8 +93,19 @@ fn replay(name: &str) -> Vec<String> {
             }
             "effect" => {
                 let effect = MobEffect::by_name(t[2]).unwrap();
-                let instance = MobEffectInstance::new(effect, num(t[4]) as i32, num(t[3]) as i32, false, true, true, None);
-                player.as_mut().unwrap().add_effect(&mut level, instance, None);
+                let instance = MobEffectInstance::new(
+                    effect,
+                    num(t[4]) as i32,
+                    num(t[3]) as i32,
+                    false,
+                    true,
+                    true,
+                    None,
+                );
+                player
+                    .as_mut()
+                    .unwrap()
+                    .add_effect(&mut level, instance, None);
             }
             "tick" => {
                 for _ in 0..t.get(1).map_or(1, |n| num(n) as usize) {
@@ -81,7 +118,13 @@ fn replay(name: &str) -> Vec<String> {
                     tick += 1;
                     out.push(format!("T {tick}"));
                     let f = &p.player.food_data;
-                    out.push(format!("P Steve minecraft:player hp={} food={} sat={} exh={}", p.player.living.get_health(), f.food_level, f.saturation_level, f.exhaustion_level));
+                    out.push(format!(
+                        "P Steve minecraft:player hp={} food={} sat={} exh={}",
+                        p.player.living.get_health(),
+                        f.food_level,
+                        f.saturation_level,
+                        f.exhaustion_level
+                    ));
                 }
             }
             other => panic!("unsupported scenario command `{other}`"),
@@ -93,7 +136,10 @@ fn replay(name: &str) -> Vec<String> {
 fn check(name: &str) {
     let opts = Options {
         ignore_kinds: vec!["I", "PKT", "C", "#", "B", "EFFECT", "DIG", "HURT"],
-        ignore_fields: vec!["pos", "delta", "rot", "og", "fall", "fire", "air", "alive", "pose", "abs", "hurt", "death", "fx", "gm", "xp", "sel", "main"],
+        ignore_fields: vec![
+            "pos", "delta", "rot", "og", "fall", "fire", "air", "alive", "pose", "abs", "hurt",
+            "death", "fx", "gm", "xp", "sel", "main",
+        ],
         ..Default::default()
     };
     Fixture::load(name).assert_matches(&replay(name), &opts);

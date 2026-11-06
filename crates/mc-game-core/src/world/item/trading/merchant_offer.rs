@@ -27,13 +27,35 @@ pub struct MerchantOffer {
 
 impl MerchantOffer {
     /// `new MerchantOffer(buy, result, maxUses, xp, priceMultiplier)`.
-    pub fn new(buy: ItemCost, result: ItemStack, max_uses: i32, xp: i32, price_multiplier: f32) -> MerchantOffer {
+    pub fn new(
+        buy: ItemCost,
+        result: ItemStack,
+        max_uses: i32,
+        xp: i32,
+        price_multiplier: f32,
+    ) -> MerchantOffer {
         MerchantOffer::with_cost_b(buy, None, result, max_uses, xp, price_multiplier)
     }
 
     /// `new MerchantOffer(baseCostA, costB, result, maxUses, xp, priceMultiplier)`.
-    pub fn with_cost_b(base_cost_a: ItemCost, cost_b: Option<ItemCost>, result: ItemStack, max_uses: i32, xp: i32, price_multiplier: f32) -> MerchantOffer {
-        MerchantOffer::with_uses(base_cost_a, cost_b, result, 0, max_uses, xp, price_multiplier, 0)
+    pub fn with_cost_b(
+        base_cost_a: ItemCost,
+        cost_b: Option<ItemCost>,
+        result: ItemStack,
+        max_uses: i32,
+        xp: i32,
+        price_multiplier: f32,
+    ) -> MerchantOffer {
+        MerchantOffer::with_uses(
+            base_cost_a,
+            cost_b,
+            result,
+            0,
+            max_uses,
+            xp,
+            price_multiplier,
+            0,
+        )
     }
 
     /// `new MerchantOffer(baseCostA, costB, result, uses, maxUses, xp, priceMultiplier, demand)`.
@@ -48,7 +70,18 @@ impl MerchantOffer {
         price_multiplier: f32,
         demand: i32,
     ) -> MerchantOffer {
-        MerchantOffer { base_cost_a, cost_b, result, uses, max_uses, reward_exp: true, special_price_diff: 0, demand, price_multiplier, xp }
+        MerchantOffer {
+            base_cost_a,
+            cost_b,
+            result,
+            uses,
+            max_uses,
+            reward_exp: true,
+            special_price_diff: 0,
+            demand,
+            price_multiplier,
+            xp,
+        }
     }
 
     /// `getBaseCostA()`.
@@ -58,19 +91,31 @@ impl MerchantOffer {
 
     /// `getCostA()`: the base cost with demand and special price applied.
     pub fn get_cost_a(&self) -> ItemStack {
-        self.base_cost_a.item_stack().copy_with_count(self.get_modified_cost_count(&self.base_cost_a))
+        self.base_cost_a
+            .item_stack()
+            .copy_with_count(self.get_modified_cost_count(&self.base_cost_a))
     }
 
     fn get_modified_cost_count(&self, cost: &ItemCost) -> i32 {
         let base_price = cost.count();
         // `basePrice * demand` is an int product, `* priceMultiplier` a float one
-        let demand_diff = mth::floor_f32(base_price.wrapping_mul(self.demand) as f32 * self.price_multiplier).max(0);
-        mth::clamp_i32(base_price.wrapping_add(demand_diff).wrapping_add(self.special_price_diff), 1, cost.item_stack().get_max_stack_size())
+        let demand_diff =
+            mth::floor_f32(base_price.wrapping_mul(self.demand) as f32 * self.price_multiplier)
+                .max(0);
+        mth::clamp_i32(
+            base_price
+                .wrapping_add(demand_diff)
+                .wrapping_add(self.special_price_diff),
+            1,
+            cost.item_stack().get_max_stack_size(),
+        )
     }
 
     /// `getCostB()`: `ItemStack.EMPTY` without a second cost.
     pub fn get_cost_b(&self) -> ItemStack {
-        self.cost_b.as_ref().map_or_else(ItemStack::empty, |c| c.item_stack().clone())
+        self.cost_b
+            .as_ref()
+            .map_or_else(ItemStack::empty, |c| c.item_stack().clone())
     }
 
     /// `getItemCostA()`.
@@ -90,7 +135,10 @@ impl MerchantOffer {
 
     /// `updateDemand()`.
     pub fn update_demand(&mut self) {
-        self.demand = self.demand.wrapping_add(self.uses).wrapping_sub(self.max_uses.wrapping_sub(self.uses));
+        self.demand = self
+            .demand
+            .wrapping_add(self.uses)
+            .wrapping_sub(self.max_uses.wrapping_sub(self.uses));
     }
 
     /// `assemble()`.
@@ -164,7 +212,9 @@ impl MerchantOffer {
 
     /// `satisfiedBy(buyA, buyB)`.
     pub fn satisfied_by(&self, buy_a: &ItemStack, buy_b: &ItemStack) -> bool {
-        if !self.base_cost_a.test(buy_a) || buy_a.count() < self.get_modified_cost_count(&self.base_cost_a) {
+        if !self.base_cost_a.test(buy_a)
+            || buy_a.count() < self.get_modified_cost_count(&self.base_cost_a)
+        {
             return false;
         }
         match &self.cost_b {
@@ -259,17 +309,30 @@ impl MerchantOffers {
     }
 
     /// `getRecipeFor(buyA, buyB, selectionHint)`.
-    pub fn get_recipe_for(&mut self, buy_a: &ItemStack, buy_b: &ItemStack, selection_hint: i32) -> Option<&mut MerchantOffer> {
+    pub fn get_recipe_for(
+        &mut self,
+        buy_a: &ItemStack,
+        buy_b: &ItemStack,
+        selection_hint: i32,
+    ) -> Option<&mut MerchantOffer> {
         if selection_hint > 0 && (selection_hint as usize) < self.0.len() {
             let offer = &mut self.0[selection_hint as usize];
-            return if offer.satisfied_by(buy_a, buy_b) { Some(offer) } else { None };
+            return if offer.satisfied_by(buy_a, buy_b) {
+                Some(offer)
+            } else {
+                None
+            };
         }
         self.0.iter_mut().find(|o| o.satisfied_by(buy_a, buy_b))
     }
 
     /// `MerchantOffers.CODEC`: `{Recipes: [...]}` (absent when empty).
     pub fn codec() -> Codec<MerchantOffers> {
-        MerchantOffer::codec().list_of().optional_field_of_default("Recipes", Vec::new()).xmap(MerchantOffers, |o: &MerchantOffers| o.0.clone()).codec()
+        MerchantOffer::codec()
+            .list_of()
+            .optional_field_of_default("Recipes", Vec::new())
+            .xmap(MerchantOffers, |o: &MerchantOffers| o.0.clone())
+            .codec()
     }
 
     /// `MerchantOffers.STREAM_CODEC` value: the offers as the packet carries them.

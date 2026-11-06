@@ -7,7 +7,10 @@ use std::time::Duration;
 
 use mc_protocol::codec::{Decode, read_varint};
 use mc_protocol::packet::{ConnectionState, PacketFlow, packet_name};
-use mc_protocol::packets::play::{ClientboundBlockEntityDataPacket, ClientboundBlockUpdatePacket, ClientboundLevelEventPacket, ClientboundSectionBlocksUpdatePacket};
+use mc_protocol::packets::play::{
+    ClientboundBlockEntityDataPacket, ClientboundBlockUpdatePacket, ClientboundLevelEventPacket,
+    ClientboundSectionBlocksUpdatePacket,
+};
 use mc_testbot::conn::Conn;
 use mc_testbot::join::*;
 use mc_testbot::log::PacketLog;
@@ -41,7 +44,9 @@ fn in_script_area(line: &str) -> bool {
         return num("SectionPos{x=").is_some_and(|x| (5..=6).contains(&x)) && num("y=") == Some(8);
     }
     match (num("BlockPos{x="), num(", y="), num(", z=")) {
-        (Some(x), Some(y), Some(z)) => (88..=112).contains(&x) && y >= 139 && (-26..=-2).contains(&z),
+        (Some(x), Some(y), Some(z)) => {
+            (88..=112).contains(&x) && y >= 139 && (-26..=-2).contains(&z)
+        }
         _ => true,
     }
 }
@@ -49,11 +54,15 @@ fn in_script_area(line: &str) -> bool {
 #[tokio::test(flavor = "multi_thread")]
 #[ignore = "oracle: starts the vanilla server"]
 async fn record_vanilla_setblock() {
-    let server = mc_testbot::harness::vanilla(12345, "survival", &[]).start().expect("start vanilla");
+    let server = mc_testbot::harness::vanilla(12345, "survival", &[])
+        .start()
+        .expect("start vanilla");
     let opts = BotOptions::new("127.0.0.1", server.port, "Bot");
     let log = Arc::new(Mutex::new(PacketLog::new()));
     let mut conn = open(&opts, log.clone()).await.unwrap();
-    login_and_configure(&mut conn, &opts).await.expect("configure");
+    login_and_configure(&mut conn, &opts)
+        .await
+        .expect("configure");
     drain(&mut conn, Duration::from_secs(8)).await;
     server.cmd("gamemode spectator Bot");
     drain(&mut conn, Duration::from_secs(2)).await;
@@ -62,16 +71,24 @@ async fn record_vanilla_setblock() {
         server.cmd(command);
         let packets = drain(&mut conn, Duration::from_millis(1200)).await;
         out.push_str(&format!("# {i} {command}\n"));
-        for p in packets.into_iter().filter(|p| std::env::var("MC_RECORD_ALL").is_ok() || in_script_area(p)) {
+        for p in packets
+            .into_iter()
+            .filter(|p| std::env::var("MC_RECORD_ALL").is_ok() || in_script_area(p))
+        {
             out.push_str(&p);
             out.push('\n');
         }
     }
-    let fixture = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../mc-game-core/tests/fixtures/setblock_vanilla.txt");
+    let fixture = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../mc-game-core/tests/fixtures/setblock_vanilla.txt");
     if std::env::var("MC_UPDATE_FIXTURES").is_ok_and(|v| v == "1") {
         std::fs::write(&fixture, out).unwrap();
     } else {
-        assert_eq!(std::fs::read_to_string(&fixture).expect("setblock_vanilla.txt"), out, "vanilla changed: rerun with MC_UPDATE_FIXTURES=1 to rewrite the fixture");
+        assert_eq!(
+            std::fs::read_to_string(&fixture).expect("setblock_vanilla.txt"),
+            out,
+            "vanilla changed: rerun with MC_UPDATE_FIXTURES=1 to rewrite the fixture"
+        );
     }
 }
 
@@ -95,10 +112,18 @@ async fn drain(conn: &mut Conn, duration: Duration) -> Vec<String> {
             eprintln!("packet {name}");
         }
         let line = match name {
-            "minecraft:block_update" => ClientboundBlockUpdatePacket::decode(&mut body).map(|p| format!("{p:?}")),
-            "minecraft:section_blocks_update" => ClientboundSectionBlocksUpdatePacket::decode(&mut body).map(|p| format!("{p:?}")),
-            "minecraft:level_event" => ClientboundLevelEventPacket::decode(&mut body).map(|p| format!("{p:?}")),
-            "minecraft:block_entity_data" => ClientboundBlockEntityDataPacket::decode(&mut body).map(|p| format!("{p:?}")),
+            "minecraft:block_update" => {
+                ClientboundBlockUpdatePacket::decode(&mut body).map(|p| format!("{p:?}"))
+            }
+            "minecraft:section_blocks_update" => {
+                ClientboundSectionBlocksUpdatePacket::decode(&mut body).map(|p| format!("{p:?}"))
+            }
+            "minecraft:level_event" => {
+                ClientboundLevelEventPacket::decode(&mut body).map(|p| format!("{p:?}"))
+            }
+            "minecraft:block_entity_data" => {
+                ClientboundBlockEntityDataPacket::decode(&mut body).map(|p| format!("{p:?}"))
+            }
             _ => continue,
         };
         // the bot's own explosion/other level events (e.g. spectator teleport) are not part of the script

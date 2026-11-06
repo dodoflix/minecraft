@@ -72,7 +72,9 @@ impl LevelGenerator {
     pub fn biome_source(&self) -> Arc<dyn BiomeSource> {
         match self {
             LevelGenerator::Noise(n) => n.generator.biome_source_arc().clone(),
-            _ => Arc::new(FixedBiomeSource::new(self.as_chunk_generator().biome_source().possible_biomes()[0])),
+            _ => Arc::new(FixedBiomeSource::new(
+                self.as_chunk_generator().biome_source().possible_biomes()[0],
+            )),
         }
     }
 
@@ -98,9 +100,12 @@ pub fn level_generator_from_json(
         "minecraft:noise" => {
             let biome_source_json = fields.required("biome_source", Ok)?;
             let source_fields = Fields::new(biome_source_json).map_err(|e| e.at("biome_source"))?;
-            let biome_source_type = source_fields.required("type", parse_identifier).map_err(|e| e.at("biome_source"))?;
+            let biome_source_type = source_fields
+                .required("type", parse_identifier)
+                .map_err(|e| e.at("biome_source"))?;
             let biome_source: Arc<dyn BiomeSource> =
-                crate::biome::biome_source_from_json(biome_source_json, registries, biomes).map_err(|e| e.at("biome_source"))?;
+                crate::biome::biome_source_from_json(biome_source_json, registries, biomes)
+                    .map_err(|e| e.at("biome_source"))?;
             let (settings, settings_id) = fields.required("settings", |v| match v {
                 Value::String(_) => {
                     let id = parse_identifier(v)?;
@@ -108,19 +113,45 @@ pub fn level_generator_from_json(
                 }
                 _ => Ok((NoiseGeneratorSettings::from_json(v, registries)?, None)),
             })?;
-            let generator =
-                NoiseBasedChunkGenerator::new(biome_source, Arc::new(settings), registries.clone(), biomes.clone())?;
-            let biome_source_preset = (biome_source_type == minecraft("multi_noise") && biome_source_json.get("biomes").is_none())
-                .then(|| biome_source_json.get("preset").and_then(Value::as_str).and_then(Identifier::try_parse))
-                .flatten();
-            Ok(LevelGenerator::Noise(NoiseGenerator { generator: Arc::new(generator), biome_source_type, biome_source_preset, settings: settings_id }))
+            let generator = NoiseBasedChunkGenerator::new(
+                biome_source,
+                Arc::new(settings),
+                registries.clone(),
+                biomes.clone(),
+            )?;
+            let biome_source_preset = (biome_source_type == minecraft("multi_noise")
+                && biome_source_json.get("biomes").is_none())
+            .then(|| {
+                biome_source_json
+                    .get("preset")
+                    .and_then(Value::as_str)
+                    .and_then(Identifier::try_parse)
+            })
+            .flatten();
+            Ok(LevelGenerator::Noise(NoiseGenerator {
+                generator: Arc::new(generator),
+                biome_source_type,
+                biome_source_preset,
+                settings: settings_id,
+            }))
         }
         "minecraft:flat" => {
-            let settings = fields.required("settings", |v| FlatLevelGeneratorSettings::from_json(v, registries, biomes))?;
-            Ok(LevelGenerator::Flat(Arc::new(FlatLevelSource::new(settings, biomes.clone()))))
+            let settings = fields.required("settings", |v| {
+                FlatLevelGeneratorSettings::from_json(v, registries, biomes)
+            })?;
+            Ok(LevelGenerator::Flat(Arc::new(FlatLevelSource::new(
+                settings,
+                biomes.clone(),
+            ))))
         }
-        "minecraft:debug" => Ok(LevelGenerator::Debug(Arc::new(DebugLevelSource::new(get_default_biome(biomes)?, biomes.clone())))),
-        other => Err(LoadError::new(format!("Unknown registry key in minecraft:chunk_generator: {other}")).at("type")),
+        "minecraft:debug" => Ok(LevelGenerator::Debug(Arc::new(DebugLevelSource::new(
+            get_default_biome(biomes)?,
+            biomes.clone(),
+        )))),
+        other => Err(LoadError::new(format!(
+            "Unknown registry key in minecraft:chunk_generator: {other}"
+        ))
+        .at("type")),
     }
 }
 
@@ -178,11 +209,17 @@ pub trait DimensionTypes {
 }
 
 /// `DimensionType.CODEC` = `RegistryFileCodec`: a string is a registry reference, anything else an inline definition.
-pub fn dimension_type_holder_from_json<D: DimensionTypes>(value: &Value, dimension_types: &D) -> LoadResult<Holder<D::Value>> {
+pub fn dimension_type_holder_from_json<D: DimensionTypes>(
+    value: &Value,
+    dimension_types: &D,
+) -> LoadResult<Holder<D::Value>> {
     match value {
         Value::String(_) => {
             let id = parse_identifier(value)?;
-            Ok(Holder::Reference(id.clone(), dimension_types.reference(&id)?))
+            Ok(Holder::Reference(
+                id.clone(),
+                dimension_types.reference(&id)?,
+            ))
         }
         _ => Ok(Holder::Direct(dimension_types.direct(value)?)),
     }
@@ -203,9 +240,16 @@ impl<D> LevelStem<D> {
         dimension_types: &T,
     ) -> LoadResult<LevelStem<D>> {
         let fields = Fields::new(value)?;
-        let dimension_type = fields.required("type", |v| dimension_type_holder_from_json(v, dimension_types))?;
-        let generator = fields.required("generator", |v| level_generator_from_json(v, registries, biomes))?;
-        Ok(LevelStem { dimension_type, generator })
+        let dimension_type = fields.required("type", |v| {
+            dimension_type_holder_from_json(v, dimension_types)
+        })?;
+        let generator = fields.required("generator", |v| {
+            level_generator_from_json(v, registries, biomes)
+        })?;
+        Ok(LevelStem {
+            dimension_type,
+            generator,
+        })
     }
 }
 
@@ -224,7 +268,11 @@ pub fn end_key() -> Identifier {
 /// `WorldDimensions.keysInOrder`: overworld, nether, end (when known), then the rest in the given order.
 pub fn keys_in_order(known: &[Identifier]) -> Vec<Identifier> {
     let builtin = [overworld_key(), nether_key(), end_key()];
-    let mut out: Vec<Identifier> = builtin.iter().filter(|k| known.contains(k)).cloned().collect();
+    let mut out: Vec<Identifier> = builtin
+        .iter()
+        .filter(|k| known.contains(k))
+        .cloned()
+        .collect();
     out.extend(known.iter().filter(|k| !builtin.contains(k)).cloned());
     out
 }
@@ -249,7 +297,11 @@ pub enum Lifecycle {
 impl Lifecycle {
     /// `Lifecycle.add`.
     pub fn add(self, other: Lifecycle) -> Lifecycle {
-        if self == Lifecycle::Experimental || other == Lifecycle::Experimental { Lifecycle::Experimental } else { Lifecycle::Stable }
+        if self == Lifecycle::Experimental || other == Lifecycle::Experimental {
+            Lifecycle::Experimental
+        } else {
+            Lifecycle::Stable
+        }
     }
 }
 
@@ -260,7 +312,9 @@ pub struct WorldDimensions<D> {
 
 impl<D> Clone for WorldDimensions<D> {
     fn clone(&self) -> Self {
-        WorldDimensions { dimensions: self.dimensions.clone() }
+        WorldDimensions {
+            dimensions: self.dimensions.clone(),
+        }
     }
 }
 
@@ -290,7 +344,9 @@ fn special_property_of(generator: &LevelGenerator) -> SpecialWorldProperty {
 
 impl<D> WorldDimensions<D> {
     /// `new WorldDimensions(map)`: "Overworld settings missing" without an overworld.
-    pub fn new(dimensions: Vec<(Identifier, Arc<LevelStem<D>>)>) -> Result<WorldDimensions<D>, LoadError> {
+    pub fn new(
+        dimensions: Vec<(Identifier, Arc<LevelStem<D>>)>,
+    ) -> Result<WorldDimensions<D>, LoadError> {
         if !dimensions.iter().any(|(k, _)| *k == overworld_key()) {
             return Err(LoadError::new("Overworld settings missing"));
         }
@@ -307,7 +363,9 @@ impl<D> WorldDimensions<D> {
         let fields = Fields::new(value)?;
         // The record codec builds `WorldDimensions` from the partial map of a failed `unboundedMap`, so a failing
         // overworld stem surfaces as the constructor's "Overworld settings missing", not as its own error.
-        let (dimensions, error) = fields.required("dimensions", |v| stems_from_json_partial(v, registries, biomes, dimension_types))?;
+        let (dimensions, error) = fields.required("dimensions", |v| {
+            stems_from_json_partial(v, registries, biomes, dimension_types)
+        })?;
         let world = WorldDimensions::new(dimensions)?;
         match error {
             Some(error) => Err(error),
@@ -320,7 +378,10 @@ impl<D> WorldDimensions<D> {
     }
 
     pub fn get(&self, key: &Identifier) -> Option<&Arc<LevelStem<D>>> {
-        self.dimensions.iter().find(|(k, _)| k == key).map(|(_, v)| v)
+        self.dimensions
+            .iter()
+            .find(|(k, _)| k == key)
+            .map(|(_, v)| v)
     }
 
     pub fn overworld(&self) -> &Arc<LevelStem<D>> {
@@ -343,8 +404,15 @@ impl<D> WorldDimensions<D> {
     }
 
     /// `withOverworld(dimensions, type, generator)`: replaces (or adds) the overworld stem.
-    pub fn with_overworld(&self, dimension_type: Holder<D>, generator: LevelGenerator) -> WorldDimensions<D> {
-        let stem = Arc::new(LevelStem { dimension_type, generator });
+    pub fn with_overworld(
+        &self,
+        dimension_type: Holder<D>,
+        generator: LevelGenerator,
+    ) -> WorldDimensions<D> {
+        let stem = Arc::new(LevelStem {
+            dimension_type,
+            generator,
+        });
         let mut dimensions = self.dimensions.clone();
         match dimensions.iter_mut().find(|(k, _)| *k == overworld_key()) {
             Some(entry) => entry.1 = stem,
@@ -377,22 +445,46 @@ impl<D> WorldDimensions<D> {
                 known.push(key.clone());
             }
         }
-        let mut registry_lifecycle =
-            if [overworld_key(), nether_key(), end_key()].iter().all(|k| known.contains(k)) { Lifecycle::Stable } else { Lifecycle::Experimental };
+        let mut registry_lifecycle = if [overworld_key(), nether_key(), end_key()]
+            .iter()
+            .all(|k| known.contains(k))
+        {
+            Lifecycle::Stable
+        } else {
+            Lifecycle::Experimental
+        };
         let mut dimensions = Vec::new();
         for key in keys_in_order(&known) {
-            let stem = base_dimensions.iter().find(|(k, _)| *k == key).map(|(_, v)| v).or_else(|| self.get(&key));
+            let stem = base_dimensions
+                .iter()
+                .find(|(k, _)| *k == key)
+                .map(|(_, v)| v)
+                .or_else(|| self.get(&key));
             if let Some(stem) = stem {
-                let lifecycle = if is_vanilla_like(&key, stem) { Lifecycle::Stable } else { Lifecycle::Experimental };
+                let lifecycle = if is_vanilla_like(&key, stem) {
+                    Lifecycle::Stable
+                } else {
+                    Lifecycle::Experimental
+                };
                 registry_lifecycle = registry_lifecycle.add(lifecycle);
-                dimensions.push(BakedDimension { key, stem: stem.clone(), lifecycle });
+                dimensions.push(BakedDimension {
+                    key,
+                    stem: stem.clone(),
+                    lifecycle,
+                });
             }
         }
         let special_world_property = dimensions
             .iter()
             .find(|d| d.key == overworld_key())
-            .map_or(SpecialWorldProperty::None, |d| special_property_of(&d.stem.generator));
-        Complete { dimensions, special_world_property, lifecycle: registry_lifecycle }
+            .map_or(SpecialWorldProperty::None, |d| {
+                special_property_of(&d.stem.generator)
+            });
+        Complete {
+            dimensions,
+            special_world_property,
+            lifecycle: registry_lifecycle,
+        }
     }
 }
 
@@ -404,13 +496,21 @@ fn stems_from_json_partial<D, T: DimensionTypes<Value = D>>(
     biomes: &Arc<BiomeRegistry>,
     dimension_types: &T,
 ) -> Result<(Stems<D>, Option<LoadError>), LoadError> {
-    let map: &Map<String, Value> = value.as_object().ok_or_else(|| LoadError::new("expected object"))?;
+    let map: &Map<String, Value> = value
+        .as_object()
+        .ok_or_else(|| LoadError::new("expected object"))?;
     let mut stems = Vec::new();
     let mut first_error = None;
     for (key, stem) in map {
         let decoded = Identifier::read(key)
             .map_err(|e| LoadError::new(e).at(key))
-            .and_then(|id| Ok((id, LevelStem::from_json(stem, registries, biomes, dimension_types).map_err(|e| e.at(key))?)));
+            .and_then(|id| {
+                Ok((
+                    id,
+                    LevelStem::from_json(stem, registries, biomes, dimension_types)
+                        .map_err(|e| e.at(key))?,
+                ))
+            });
         match decoded {
             Ok((id, stem)) => stems.push((id, Arc::new(stem))),
             Err(e) => {
@@ -443,14 +543,23 @@ pub fn is_vanilla_like<D>(key: &Identifier, stem: &LevelStem<D>) -> bool {
     let multi_noise = |noise: &NoiseGenerator| noise.biome_source_type == minecraft("multi_noise");
     if *key == overworld_key() {
         // `isStableOverworld`: a multi-noise source must use the registered overworld preset; other sources pass
-        (stem.dimension_type.is(&minecraft("overworld")) || stem.dimension_type.is(&minecraft("overworld_caves")))
-            && !noise.is_some_and(|n| multi_noise(n) && n.biome_source_preset != Some(minecraft("overworld")))
+        (stem.dimension_type.is(&minecraft("overworld"))
+            || stem.dimension_type.is(&minecraft("overworld_caves")))
+            && !noise.is_some_and(|n| {
+                multi_noise(n) && n.biome_source_preset != Some(minecraft("overworld"))
+            })
     } else if *key == nether_key() {
         stem.dimension_type.is(&minecraft("the_nether"))
-            && noise.is_some_and(|n| n.stable(&minecraft("nether")) && multi_noise(n) && n.biome_source_preset == Some(minecraft("nether")))
+            && noise.is_some_and(|n| {
+                n.stable(&minecraft("nether"))
+                    && multi_noise(n)
+                    && n.biome_source_preset == Some(minecraft("nether"))
+            })
     } else if *key == end_key() {
         stem.dimension_type.is(&minecraft("the_end"))
-            && noise.is_some_and(|n| n.stable(&minecraft("end")) && n.biome_source_type == minecraft("the_end"))
+            && noise.is_some_and(|n| {
+                n.stable(&minecraft("end")) && n.biome_source_type == minecraft("the_end")
+            })
     } else {
         false
     }
@@ -472,7 +581,9 @@ impl<D> WorldPreset<D> {
         dimension_types: &T,
     ) -> LoadResult<WorldPreset<D>> {
         let fields = Fields::new(value)?;
-        let dimensions = fields.required("dimensions", |v| stems_from_json(v, registries, biomes, dimension_types))?;
+        let dimensions = fields.required("dimensions", |v| {
+            stems_from_json(v, registries, biomes, dimension_types)
+        })?;
         if !dimensions.iter().any(|(k, _)| *k == overworld_key()) {
             return Err(LoadError::new("Missing overworld dimension"));
         }
@@ -484,14 +595,24 @@ impl<D> WorldPreset<D> {
         let keys: Vec<Identifier> = self.dimensions.iter().map(|(k, _)| k.clone()).collect();
         let ordered = keys_in_order(&keys)
             .into_iter()
-            .filter_map(|k| self.dimensions.iter().find(|(d, _)| *d == k).map(|(_, v)| (k, v.clone())))
+            .filter_map(|k| {
+                self.dimensions
+                    .iter()
+                    .find(|(d, _)| *d == k)
+                    .map(|(_, v)| (k, v.clone()))
+            })
             .collect();
-        WorldDimensions { dimensions: ordered }
+        WorldDimensions {
+            dimensions: ordered,
+        }
     }
 
     /// `overworld()`.
     pub fn overworld(&self) -> Option<&Arc<LevelStem<D>>> {
-        self.dimensions.iter().find(|(k, _)| *k == overworld_key()).map(|(_, v)| v)
+        self.dimensions
+            .iter()
+            .find(|(k, _)| *k == overworld_key())
+            .map(|(_, v)| v)
     }
 }
 
@@ -514,7 +635,9 @@ pub mod world_presets {
         dimension_types: &T,
         id: &Identifier,
     ) -> LoadResult<Arc<WorldPreset<T::Value>>> {
-        registries.memoized(WORLD_PRESET_REGISTRY, id, |json, _| WorldPreset::from_json(json, registries, biomes, dimension_types))
+        registries.memoized(WORLD_PRESET_REGISTRY, id, |json, _| {
+            WorldPreset::from_json(json, registries, biomes, dimension_types)
+        })
     }
 
     /// `fromSettings`: the preset key the overworld generator maps back to.
@@ -533,7 +656,10 @@ pub mod world_presets {
         biomes: &Arc<BiomeRegistry>,
         dimension_types: &T,
     ) -> LoadResult<WorldDimensions<T::Value>> {
-        Ok(load(registries, biomes, dimension_types, &minecraft(NORMAL))?.create_world_dimensions())
+        Ok(
+            load(registries, biomes, dimension_types, &minecraft(NORMAL))?
+                .create_world_dimensions(),
+        )
     }
 
     /// `getNormalOverworld`.
@@ -554,7 +680,13 @@ pub mod world_presets {
         biomes: &Arc<BiomeRegistry>,
         dimension_types: &T,
     ) -> LoadResult<WorldDimensions<T::Value>> {
-        Ok(load(registries, biomes, dimension_types, &minecraft(FLAT_ALL_DIMENSIONS))?.create_world_dimensions())
+        Ok(load(
+            registries,
+            biomes,
+            dimension_types,
+            &minecraft(FLAT_ALL_DIMENSIONS),
+        )?
+        .create_world_dimensions())
     }
 }
 
@@ -566,8 +698,11 @@ pub fn flat_settings_for_biome_and_layers(
     biome: &Identifier,
     layers: &[FlatLayerInfo],
 ) -> LoadResult<FlatLevelGeneratorSettings> {
-    let biome = biomes
-        .id_of(biome)
-        .ok_or_else(|| LoadError::new(format!("Missing element {biome} in minecraft:worldgen/biome")))?;
-    Ok(FlatLevelGeneratorSettings::get_default(registries, biomes)?.with_biome_and_layers(layers, None, biome))
+    let biome = biomes.id_of(biome).ok_or_else(|| {
+        LoadError::new(format!(
+            "Missing element {biome} in minecraft:worldgen/biome"
+        ))
+    })?;
+    Ok(FlatLevelGeneratorSettings::get_default(registries, biomes)?
+        .with_biome_and_layers(layers, None, biome))
 }

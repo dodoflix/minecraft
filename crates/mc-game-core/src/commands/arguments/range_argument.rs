@@ -3,7 +3,9 @@
 use super::min_max_bounds::{Doubles, Ints};
 use crate::commands::CommandSourceStack;
 use mc_brigadier::arguments::value;
-use mc_brigadier::{ArgumentType, CommandContext, CommandSyntaxException, ParsedValue, StringReader};
+use mc_brigadier::{
+    ArgumentType, CommandContext, CommandSyntaxException, ParsedValue, StringReader,
+};
 
 /// `RangeArgument.Ints`.
 #[derive(Clone, Copy, Debug, Default)]
@@ -25,7 +27,9 @@ impl ArgumentType<CommandSourceStack> for IntRangeArgument {
     }
 
     fn get_examples(&self) -> Vec<String> {
-        ["0..5", "0", "-5", "-100..", "..100"].map(String::from).to_vec()
+        ["0..5", "0", "-5", "-100..", "..100"]
+            .map(String::from)
+            .to_vec()
     }
 
     fn describe(&self) -> String {
@@ -53,7 +57,9 @@ impl ArgumentType<CommandSourceStack> for FloatRangeArgument {
     }
 
     fn get_examples(&self) -> Vec<String> {
-        ["0..5.2", "0", "-5.4", "-100.76..", "..100"].map(String::from).to_vec()
+        ["0..5.2", "0", "-5.4", "-100.76..", "..100"]
+            .map(String::from)
+            .to_vec()
     }
 
     fn describe(&self) -> String {
@@ -61,5 +67,9 @@ impl ArgumentType<CommandSourceStack> for FloatRangeArgument {
     }
 }
 
-crate::register_argument_type!(IntRangeArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::IntRange);
-crate::register_argument_type!(FloatRangeArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::FloatRange);
+crate::register_argument_type!(IntRangeArgument, |_a| {
+    mc_protocol::packets::play::ArgumentTypeTemplate::IntRange
+});
+crate::register_argument_type!(FloatRangeArgument, |_a| {
+    mc_protocol::packets::play::ArgumentTypeTemplate::FloatRange
+});

@@ -32,7 +32,10 @@ fn ch(s: &'static str) -> Term {
 }
 /// `characters(a, b)`; `s` is `"a|b"`.
 fn chs(s: &'static str) -> Term {
-    Term::Chars(CharSet::Two(s.as_bytes()[0] as u16, s.as_bytes()[2] as u16), s)
+    Term::Chars(
+        CharSet::Two(s.as_bytes()[0] as u16, s.as_bytes()[2] as u16),
+        s,
+    )
 }
 fn seq(v: Vec<Term>) -> Term {
     Term::Sequence(v)
@@ -56,7 +59,13 @@ fn mstr(atom: Atom, s: &str) -> Term {
     Term::Marker(atom, Val::Str(s.encode_utf16().collect()))
 }
 fn rep_sep(element: Atom, list: Atom) -> Term {
-    Term::RepeatedWithSeparator { element, list, separator: Box::new(ch(",")), min: 0, trailing: true }
+    Term::RepeatedWithSeparator {
+        element,
+        list,
+        separator: Box::new(ch(",")),
+        min: 0,
+        trailing: true,
+    }
 }
 
 // ---- scope accessors
@@ -141,7 +150,10 @@ impl Num {
 }
 
 fn number_parse_failure(ps: &mut Ps<'_>, message: String) {
-    ps.store_here(Reason::Msg("snbt.parser.number_parse_failure", Some(message)));
+    ps.store_here(Reason::Msg(
+        "snbt.parser.number_parse_failure",
+        Some(message),
+    ));
 }
 
 impl IntegerLiteral {
@@ -190,10 +202,16 @@ impl IntegerLiteral {
             (true, TypeSuffix::Short) => javanum::parse_short(&digits, radix).map(Num::Short),
             (true, TypeSuffix::Int) => javanum::parse_int(&digits, radix).map(Num::Int),
             (true, TypeSuffix::Long) => javanum::parse_long(&digits, radix).map(Num::Long),
-            (false, TypeSuffix::Byte) => javanum::parse_unsigned_byte(&digits, radix).map(Num::Byte),
-            (false, TypeSuffix::Short) => javanum::parse_unsigned_short(&digits, radix).map(Num::Short),
+            (false, TypeSuffix::Byte) => {
+                javanum::parse_unsigned_byte(&digits, radix).map(Num::Byte)
+            }
+            (false, TypeSuffix::Short) => {
+                javanum::parse_unsigned_short(&digits, radix).map(Num::Short)
+            }
             (false, TypeSuffix::Int) => javanum::parse_unsigned_int(&digits, radix).map(Num::Int),
-            (false, TypeSuffix::Long) => javanum::parse_unsigned_long(&digits, radix).map(Num::Long),
+            (false, TypeSuffix::Long) => {
+                javanum::parse_unsigned_long(&digits, radix).map(Num::Long)
+            }
             _ => {
                 ps.store_here(msg("snbt.parser.expected_integer_type"));
                 return None;
@@ -223,7 +241,9 @@ impl ArrayPrefix {
             || match self {
                 ArrayPrefix::Byte => false,
                 ArrayPrefix::Int => matches!(t, TypeSuffix::Byte | TypeSuffix::Short),
-                ArrayPrefix::Long => matches!(t, TypeSuffix::Byte | TypeSuffix::Short | TypeSuffix::Int),
+                ArrayPrefix::Long => {
+                    matches!(t, TypeSuffix::Byte | TypeSuffix::Short | TypeSuffix::Int)
+                }
             }
     }
 
@@ -321,7 +341,10 @@ fn a_scope_atom(ps: &mut Ps<'_>, atom: Atom) -> Option<Val> {
 fn a_integer_literal(ps: &mut Ps<'_>) -> Option<Val> {
     let suffix = match ps.scope.get(INTEGER_SUFFIX) {
         Some(Val::IntSuffix(s)) => *s,
-        _ => IntegerSuffix { signed: None, ty: None },
+        _ => IntegerSuffix {
+            signed: None,
+            ty: None,
+        },
     };
     let sign = sign_or_plus(ps);
     let (base, digits) = if let Some(d) = get_str(ps, DECIMAL_NUMERAL) {
@@ -331,7 +354,12 @@ fn a_integer_literal(ps: &mut Ps<'_>) -> Option<Val> {
     } else {
         (Base::Binary, get_str(ps, BINARY_NUMERAL)?)
     };
-    Some(Val::IntLit(IntegerLiteral { sign, base, digits: ascii(&digits), suffix }))
+    Some(Val::IntLit(IntegerLiteral {
+        sign,
+        base,
+        digits: ascii(&digits),
+        suffix,
+    }))
 }
 
 fn a_float_exponent_part(ps: &mut Ps<'_>) -> Option<Val> {
@@ -343,11 +371,16 @@ fn a_string_escape_sequence(ps: &mut Ps<'_>) -> Option<Val> {
     if let Some(v) = ps.scope.get(STRING_ESCAPE_SEQUENCE) {
         return Some(v.clone());
     }
-    if let Some(Val::Str(hex)) = ps.scope.get_any(&[STRING_HEX_2, STRING_HEX_4, STRING_HEX_8]) {
+    if let Some(Val::Str(hex)) = ps
+        .scope
+        .get_any(&[STRING_HEX_2, STRING_HEX_4, STRING_HEX_8])
+    {
         // HexFormat.fromHexDigits: int arithmetic (8 digits may wrap negative).
         let mut cp: i32 = 0;
         for &u in hex {
-            cp = cp.wrapping_shl(4).wrapping_add((u as u8 as char).to_digit(16).unwrap() as i32);
+            cp = cp
+                .wrapping_shl(4)
+                .wrapping_add((u as u8 as char).to_digit(16).unwrap() as i32);
         }
         if !(0..=0x10FFFF).contains(&cp) {
             let arg = format!("U+{:08X}", cp as u32);
@@ -377,7 +410,9 @@ fn code_point_units(cp: u32) -> Vec<u16> {
 }
 
 fn join_list(ps: &Ps<'_>) -> Option<Val> {
-    let Some(Val::List(chunks)) = ps.scope.get(STRING_CHUNKS) else { return None };
+    let Some(Val::List(chunks)) = ps.scope.get(STRING_CHUNKS) else {
+        return None;
+    };
     let mut out = Vec::new();
     for c in chunks {
         if let Val::Str(s) = c {
@@ -399,7 +434,16 @@ fn a_unquoted_string_or_builtin(ps: &mut Ps<'_>) -> Option<Val> {
     let contents = get_str(ps, UNQUOTED_STRING)?;
     if !contents.is_empty() && is_allowed_to_start_unquoted_string(contents[0]) {
         if let Some(Val::List(args)) = ps.scope.get(ARGUMENTS) {
-            let args: Vec<&Tag> = args.iter().map(|v| if let Val::Tag(t) = v { t } else { unreachable!() }).collect();
+            let args: Vec<&Tag> = args
+                .iter()
+                .map(|v| {
+                    if let Val::Tag(t) = v {
+                        t
+                    } else {
+                        unreachable!()
+                    }
+                })
+                .collect();
             let name = ascii(&contents);
             let key = format!("{}/{}", name, args.len());
             return match (name.as_str(), args.len()) {
@@ -422,7 +466,12 @@ fn a_unquoted_string_or_builtin(ps: &mut Ps<'_>) -> Option<Val> {
                         _ => None,
                     };
                     match parsed {
-                        Some((m, l)) => Some(Val::Tag(Tag::IntArray(vec![(m >> 32) as i32, m as i32, (l >> 32) as i32, l as i32]))),
+                        Some((m, l)) => Some(Val::Tag(Tag::IntArray(vec![
+                            (m >> 32) as i32,
+                            m as i32,
+                            (l >> 32) as i32,
+                            l as i32,
+                        ]))),
                         None => {
                             ps.store_here(msg("snbt.parser.expected_string_uuid"));
                             None
@@ -450,7 +499,9 @@ fn a_unquoted_string_or_builtin(ps: &mut Ps<'_>) -> Option<Val> {
 }
 
 fn a_map_key(ps: &mut Ps<'_>) -> Option<Val> {
-    ps.scope.get_any(&[QUOTED_STRING_LITERAL, UNQUOTED_STRING]).cloned()
+    ps.scope
+        .get_any(&[QUOTED_STRING_LITERAL, UNQUOTED_STRING])
+        .cloned()
 }
 
 fn a_map_entry(ps: &mut Ps<'_>) -> Option<Val> {
@@ -466,7 +517,9 @@ fn a_map_entry(ps: &mut Ps<'_>) -> Option<Val> {
 }
 
 fn a_map_literal(ps: &mut Ps<'_>) -> Option<Val> {
-    let Some(Val::List(entries)) = ps.scope.get(MAP_ENTRIES) else { return None };
+    let Some(Val::List(entries)) = ps.scope.get(MAP_ENTRIES) else {
+        return None;
+    };
     let mut c = CompoundTag::new();
     for e in entries {
         if let Val::Entry(k, t) = e {
@@ -479,8 +532,19 @@ fn a_map_literal(ps: &mut Ps<'_>) -> Option<Val> {
 
 fn a_list_literal(ps: &mut Ps<'_>) -> Option<Val> {
     if let Some(Val::ArrayPrefix(prefix)) = ps.scope.get(ARRAY_PREFIX).cloned() {
-        let Some(Val::List(entries)) = ps.scope.get(INT_ARRAY_ENTRIES) else { return None };
-        let lits: Vec<IntegerLiteral> = entries.iter().filter_map(|v| if let Val::IntLit(l) = v { Some(l.clone()) } else { None }).collect();
+        let Some(Val::List(entries)) = ps.scope.get(INT_ARRAY_ENTRIES) else {
+            return None;
+        };
+        let lits: Vec<IntegerLiteral> = entries
+            .iter()
+            .filter_map(|v| {
+                if let Val::IntLit(l) = v {
+                    Some(l.clone())
+                } else {
+                    None
+                }
+            })
+            .collect();
         if lits.is_empty() {
             return Some(Val::Tag(match prefix {
                 ArrayPrefix::Byte => Tag::ByteArray(Vec::new()),
@@ -490,8 +554,19 @@ fn a_list_literal(ps: &mut Ps<'_>) -> Option<Val> {
         }
         return prefix.create(&lits, ps).map(Val::Tag);
     }
-    let Some(Val::List(entries)) = ps.scope.get(LIST_ENTRIES) else { return None };
-    let tags: Vec<Tag> = entries.iter().filter_map(|v| if let Val::Tag(t) = v { Some(t.clone()) } else { None }).collect();
+    let Some(Val::List(entries)) = ps.scope.get(LIST_ENTRIES) else {
+        return None;
+    };
+    let tags: Vec<Tag> = entries
+        .iter()
+        .filter_map(|v| {
+            if let Val::Tag(t) = v {
+                Some(t.clone())
+            } else {
+                None
+            }
+        })
+        .collect();
     Some(Val::Tag(Tag::List(ListTag::from(tags))))
 }
 
@@ -538,13 +613,22 @@ fn t(rules: &mut [Option<Rule>], atom: Atom, term: Term, action: Action) {
 fn build() -> Grammar {
     let mut rules: Vec<Option<Rule>> = (0..ATOM_COUNT).map(|_| None).collect();
 
-    t(&mut rules, SIGN, alt(vec![seq(vec![ch("+"), marker(SIGN, Val::Sign(Sign::Plus))]), seq(vec![ch("-"), marker(SIGN, Val::Sign(Sign::Minus))])]), |ps| {
-        a_scope_atom(ps, SIGN)
-    });
+    t(
+        &mut rules,
+        SIGN,
+        alt(vec![
+            seq(vec![ch("+"), marker(SIGN, Val::Sign(Sign::Plus))]),
+            seq(vec![ch("-"), marker(SIGN, Val::Sign(Sign::Minus))]),
+        ]),
+        |ps| a_scope_atom(ps, SIGN),
+    );
 
-    let suffix_alt = |signed: Option<SignedPrefix>, ty: TypeSuffix, c: &'static str| seq(vec![chs(c), marker(INTEGER_SUFFIX, is(signed, Some(ty)))]);
+    let suffix_alt = |signed: Option<SignedPrefix>, ty: TypeSuffix, c: &'static str| {
+        seq(vec![chs(c), marker(INTEGER_SUFFIX, is(signed, Some(ty)))])
+    };
     use SignedPrefix::{Signed, Unsigned};
-    t(&mut rules, 
+    t(
+        &mut rules,
         INTEGER_SUFFIX,
         alt(vec![
             seq(vec![
@@ -589,8 +673,8 @@ fn build() -> Grammar {
         underscore: msg("snbt.parser.underscore_not_allowed"),
     });
 
-
-    t(&mut rules, 
+    t(
+        &mut rules,
         INTEGER_LITERAL,
         seq(vec![
             opt(named(SIGN)),
@@ -601,7 +685,11 @@ fn build() -> Grammar {
                     alt(vec![
                         seq(vec![chs("x|X"), Term::Cut, named(HEX_NUMERAL)]),
                         seq(vec![chs("b|B"), named(BINARY_NUMERAL)]),
-                        seq(vec![named(DECIMAL_NUMERAL), Term::Cut, Term::Fail(msg("snbt.parser.leading_zero_not_allowed"))]),
+                        seq(vec![
+                            named(DECIMAL_NUMERAL),
+                            Term::Cut,
+                            Term::Fail(msg("snbt.parser.leading_zero_not_allowed")),
+                        ]),
                         marker(DECIMAL_NUMERAL, Val::Str(vec![0x30])),
                     ]),
                 ]),
@@ -612,18 +700,31 @@ fn build() -> Grammar {
         a_integer_literal,
     );
 
-    t(&mut rules, 
+    t(
+        &mut rules,
         FLOAT_TYPE_SUFFIX,
         alt(vec![
-            seq(vec![chs("f|F"), marker(FLOAT_TYPE_SUFFIX, Val::TypeSuffix(TypeSuffix::Float))]),
-            seq(vec![chs("d|D"), marker(FLOAT_TYPE_SUFFIX, Val::TypeSuffix(TypeSuffix::Double))]),
+            seq(vec![
+                chs("f|F"),
+                marker(FLOAT_TYPE_SUFFIX, Val::TypeSuffix(TypeSuffix::Float)),
+            ]),
+            seq(vec![
+                chs("d|D"),
+                marker(FLOAT_TYPE_SUFFIX, Val::TypeSuffix(TypeSuffix::Double)),
+            ]),
         ]),
         |ps| a_scope_atom(ps, FLOAT_TYPE_SUFFIX),
     );
 
-    t(&mut rules, FLOAT_EXPONENT_PART, seq(vec![chs("e|E"), opt(named(SIGN)), named(DECIMAL_NUMERAL)]), a_float_exponent_part);
+    t(
+        &mut rules,
+        FLOAT_EXPONENT_PART,
+        seq(vec![chs("e|E"), opt(named(SIGN)), named(DECIMAL_NUMERAL)]),
+        a_float_exponent_part,
+    );
 
-    t(&mut rules, 
+    t(
+        &mut rules,
         FLOAT_LITERAL,
         seq(vec![
             opt(named(SIGN)),
@@ -643,14 +744,27 @@ fn build() -> Grammar {
                     opt(named(FLOAT_EXPONENT_PART)),
                     opt(named(FLOAT_TYPE_SUFFIX)),
                 ]),
-                seq(vec![alias(DECIMAL_NUMERAL, FLOAT_WHOLE_PART), named(FLOAT_EXPONENT_PART), Term::Cut, opt(named(FLOAT_TYPE_SUFFIX))]),
-                seq(vec![alias(DECIMAL_NUMERAL, FLOAT_WHOLE_PART), opt(named(FLOAT_EXPONENT_PART)), named(FLOAT_TYPE_SUFFIX)]),
+                seq(vec![
+                    alias(DECIMAL_NUMERAL, FLOAT_WHOLE_PART),
+                    named(FLOAT_EXPONENT_PART),
+                    Term::Cut,
+                    opt(named(FLOAT_TYPE_SUFFIX)),
+                ]),
+                seq(vec![
+                    alias(DECIMAL_NUMERAL, FLOAT_WHOLE_PART),
+                    opt(named(FLOAT_EXPONENT_PART)),
+                    named(FLOAT_TYPE_SUFFIX),
+                ]),
             ]),
         ]),
         create_float,
     );
 
-    for (atom, size, text) in [(STRING_HEX_2, 2usize, "2"), (STRING_HEX_4, 4, "4"), (STRING_HEX_8, 8, "8")] {
+    for (atom, size, text) in [
+        (STRING_HEX_2, 2usize, "2"),
+        (STRING_HEX_4, 4, "4"),
+        (STRING_HEX_8, 8, "8"),
+    ] {
         rules[atom] = Some(Rule::Greedy {
             accept: is_hex_digit,
             min: size,
@@ -658,11 +772,15 @@ fn build() -> Grammar {
             error: Reason::Msg("snbt.parser.expected_hex_escape", Some(text.to_string())),
         });
     }
-    rules[STRING_UNICODE_NAME] =
-        Some(Rule::Greedy { accept: is_unicode_name, min: 1, max: usize::MAX, error: msg("snbt.parser.invalid_character_name") });
+    rules[STRING_UNICODE_NAME] = Some(Rule::Greedy {
+        accept: is_unicode_name,
+        min: 1,
+        max: usize::MAX,
+        error: msg("snbt.parser.invalid_character_name"),
+    });
 
-
-    t(&mut rules, 
+    t(
+        &mut rules,
         STRING_ESCAPE_SEQUENCE,
         alt(vec![
             seq(vec![ch("b"), mstr(STRING_ESCAPE_SEQUENCE, "\u{8}")]),
@@ -682,92 +800,194 @@ fn build() -> Grammar {
         a_string_escape_sequence,
     );
 
-    rules[STRING_PLAIN_CONTENTS] =
-        Some(Rule::Greedy { accept: is_plain_string_chunk, min: 1, max: usize::MAX, error: msg("snbt.parser.invalid_string_contents") });
+    rules[STRING_PLAIN_CONTENTS] = Some(Rule::Greedy {
+        accept: is_plain_string_chunk,
+        min: 1,
+        max: usize::MAX,
+        error: msg("snbt.parser.invalid_string_contents"),
+    });
 
-
-    t(&mut rules, 
+    t(
+        &mut rules,
         SINGLE_QUOTED_STRING_CHUNK,
         alt(vec![
             alias(STRING_PLAIN_CONTENTS, STRING_CONTENTS),
-            seq(vec![ch("\\"), alias(STRING_ESCAPE_SEQUENCE, STRING_CONTENTS)]),
+            seq(vec![
+                ch("\\"),
+                alias(STRING_ESCAPE_SEQUENCE, STRING_CONTENTS),
+            ]),
             seq(vec![ch("\""), mstr(STRING_CONTENTS, "\"")]),
         ]),
         a_string_contents,
     );
-    t(&mut rules, 
+    t(
+        &mut rules,
         SINGLE_QUOTED_STRING_CONTENTS,
-        Term::Repeated { element: SINGLE_QUOTED_STRING_CHUNK, list: STRING_CHUNKS, min: 0 },
+        Term::Repeated {
+            element: SINGLE_QUOTED_STRING_CHUNK,
+            list: STRING_CHUNKS,
+            min: 0,
+        },
         |ps| join_list(ps),
     );
-    t(&mut rules, 
+    t(
+        &mut rules,
         DOUBLE_QUOTED_STRING_CHUNK,
         alt(vec![
             alias(STRING_PLAIN_CONTENTS, STRING_CONTENTS),
-            seq(vec![ch("\\"), alias(STRING_ESCAPE_SEQUENCE, STRING_CONTENTS)]),
+            seq(vec![
+                ch("\\"),
+                alias(STRING_ESCAPE_SEQUENCE, STRING_CONTENTS),
+            ]),
             seq(vec![ch("'"), mstr(STRING_CONTENTS, "'")]),
         ]),
         a_string_contents,
     );
-    t(&mut rules, 
+    t(
+        &mut rules,
         DOUBLE_QUOTED_STRING_CONTENTS,
-        Term::Repeated { element: DOUBLE_QUOTED_STRING_CHUNK, list: STRING_CHUNKS, min: 0 },
+        Term::Repeated {
+            element: DOUBLE_QUOTED_STRING_CHUNK,
+            list: STRING_CHUNKS,
+            min: 0,
+        },
         |ps| join_list(ps),
     );
-    t(&mut rules, 
+    t(
+        &mut rules,
         QUOTED_STRING_LITERAL,
         alt(vec![
-            seq(vec![ch("\""), Term::Cut, opt(alias(DOUBLE_QUOTED_STRING_CONTENTS, STRING_CONTENTS)), ch("\"")]),
-            seq(vec![ch("'"), opt(alias(SINGLE_QUOTED_STRING_CONTENTS, STRING_CONTENTS)), ch("'")]),
+            seq(vec![
+                ch("\""),
+                Term::Cut,
+                opt(alias(DOUBLE_QUOTED_STRING_CONTENTS, STRING_CONTENTS)),
+                ch("\""),
+            ]),
+            seq(vec![
+                ch("'"),
+                opt(alias(SINGLE_QUOTED_STRING_CONTENTS, STRING_CONTENTS)),
+                ch("'"),
+            ]),
         ]),
         a_string_contents,
     );
 
-    rules[UNQUOTED_STRING] = Some(Rule::Unquoted { error: msg("snbt.parser.expected_unquoted_string") });
+    rules[UNQUOTED_STRING] = Some(Rule::Unquoted {
+        error: msg("snbt.parser.expected_unquoted_string"),
+    });
 
-
-    t(&mut rules, ARGUMENTS, rep_sep(LITERAL, ARGUMENTS), |ps| a_arguments_or_entries(ps, ARGUMENTS));
-    t(&mut rules, 
+    t(&mut rules, ARGUMENTS, rep_sep(LITERAL, ARGUMENTS), |ps| {
+        a_arguments_or_entries(ps, ARGUMENTS)
+    });
+    t(
+        &mut rules,
         UNQUOTED_STRING_OR_BUILTIN,
-        seq(vec![named(UNQUOTED_STRING), opt(seq(vec![ch("("), named(ARGUMENTS), ch(")")]))]),
+        seq(vec![
+            named(UNQUOTED_STRING),
+            opt(seq(vec![ch("("), named(ARGUMENTS), ch(")")])),
+        ]),
         a_unquoted_string_or_builtin,
     );
-    t(&mut rules, MAP_KEY, alt(vec![named(QUOTED_STRING_LITERAL), named(UNQUOTED_STRING)]), a_map_key);
-    t(&mut rules, MAP_ENTRY, seq(vec![named(MAP_KEY), ch(":"), named(LITERAL)]), a_map_entry);
-    t(&mut rules, MAP_ENTRIES, rep_sep(MAP_ENTRY, MAP_ENTRIES), |ps| a_arguments_or_entries(ps, MAP_ENTRIES));
-    t(&mut rules, MAP_LITERAL, seq(vec![ch("{"), named(MAP_ENTRIES), ch("}")]), a_map_literal);
-    t(&mut rules, LIST_ENTRIES, rep_sep(LITERAL, LIST_ENTRIES), |ps| a_arguments_or_entries(ps, LIST_ENTRIES));
-    t(&mut rules, 
+    t(
+        &mut rules,
+        MAP_KEY,
+        alt(vec![named(QUOTED_STRING_LITERAL), named(UNQUOTED_STRING)]),
+        a_map_key,
+    );
+    t(
+        &mut rules,
+        MAP_ENTRY,
+        seq(vec![named(MAP_KEY), ch(":"), named(LITERAL)]),
+        a_map_entry,
+    );
+    t(
+        &mut rules,
+        MAP_ENTRIES,
+        rep_sep(MAP_ENTRY, MAP_ENTRIES),
+        |ps| a_arguments_or_entries(ps, MAP_ENTRIES),
+    );
+    t(
+        &mut rules,
+        MAP_LITERAL,
+        seq(vec![ch("{"), named(MAP_ENTRIES), ch("}")]),
+        a_map_literal,
+    );
+    t(
+        &mut rules,
+        LIST_ENTRIES,
+        rep_sep(LITERAL, LIST_ENTRIES),
+        |ps| a_arguments_or_entries(ps, LIST_ENTRIES),
+    );
+    t(
+        &mut rules,
         ARRAY_PREFIX,
         alt(vec![
-            seq(vec![ch("B"), marker(ARRAY_PREFIX, Val::ArrayPrefix(ArrayPrefix::Byte))]),
-            seq(vec![ch("L"), marker(ARRAY_PREFIX, Val::ArrayPrefix(ArrayPrefix::Long))]),
-            seq(vec![ch("I"), marker(ARRAY_PREFIX, Val::ArrayPrefix(ArrayPrefix::Int))]),
+            seq(vec![
+                ch("B"),
+                marker(ARRAY_PREFIX, Val::ArrayPrefix(ArrayPrefix::Byte)),
+            ]),
+            seq(vec![
+                ch("L"),
+                marker(ARRAY_PREFIX, Val::ArrayPrefix(ArrayPrefix::Long)),
+            ]),
+            seq(vec![
+                ch("I"),
+                marker(ARRAY_PREFIX, Val::ArrayPrefix(ArrayPrefix::Int)),
+            ]),
         ]),
         |ps| a_scope_atom(ps, ARRAY_PREFIX),
     );
-    t(&mut rules, INT_ARRAY_ENTRIES, rep_sep(INTEGER_LITERAL, INT_ARRAY_ENTRIES), |ps| a_arguments_or_entries(ps, INT_ARRAY_ENTRIES));
-    t(&mut rules, 
+    t(
+        &mut rules,
+        INT_ARRAY_ENTRIES,
+        rep_sep(INTEGER_LITERAL, INT_ARRAY_ENTRIES),
+        |ps| a_arguments_or_entries(ps, INT_ARRAY_ENTRIES),
+    );
+    t(
+        &mut rules,
         LIST_LITERAL,
-        seq(vec![ch("["), alt(vec![seq(vec![named(ARRAY_PREFIX), ch(";"), named(INT_ARRAY_ENTRIES)]), named(LIST_ENTRIES)]), ch("]")]),
+        seq(vec![
+            ch("["),
+            alt(vec![
+                seq(vec![named(ARRAY_PREFIX), ch(";"), named(INT_ARRAY_ENTRIES)]),
+                named(LIST_ENTRIES),
+            ]),
+            ch("]"),
+        ]),
         a_list_literal,
     );
-    t(&mut rules, 
+    t(
+        &mut rules,
         LITERAL,
         alt(vec![
             seq(vec![
                 Term::LookAhead(Box::new(Term::Chars(CharSet::NumberStart, "")), true),
                 alt(vec![alias(FLOAT_LITERAL, LITERAL), named(INTEGER_LITERAL)]),
             ]),
-            seq(vec![Term::LookAhead(Box::new(chs("\"|'")), true), Term::Cut, named(QUOTED_STRING_LITERAL)]),
-            seq(vec![Term::LookAhead(Box::new(ch("{")), true), Term::Cut, alias(MAP_LITERAL, LITERAL)]),
-            seq(vec![Term::LookAhead(Box::new(ch("[")), true), Term::Cut, alias(LIST_LITERAL, LITERAL)]),
+            seq(vec![
+                Term::LookAhead(Box::new(chs("\"|'")), true),
+                Term::Cut,
+                named(QUOTED_STRING_LITERAL),
+            ]),
+            seq(vec![
+                Term::LookAhead(Box::new(ch("{")), true),
+                Term::Cut,
+                alias(MAP_LITERAL, LITERAL),
+            ]),
+            seq(vec![
+                Term::LookAhead(Box::new(ch("[")), true),
+                Term::Cut,
+                alias(LIST_LITERAL, LITERAL),
+            ]),
             alias(UNQUOTED_STRING_OR_BUILTIN, LITERAL),
         ]),
         a_literal,
     );
 
-    Grammar { rules, top: LITERAL }
+    Grammar {
+        rules,
+        top: LITERAL,
+    }
 }
 
 pub(crate) static GRAMMAR: LazyLock<Grammar> = LazyLock::new(build);

@@ -1,9 +1,9 @@
 //! `CommandResponseTracker`: accumulates per-element command results and renders the single/multiple feedback message.
 //! Vanilla's `Messages`/`Dispatch*` records and the `…WithArg(s)` variants are closures capturing the extra arguments.
+use mc_brigadier::CommandSyntaxException;
 use mc_game_core::commands::CommandSourceStack;
 use mc_game_core::commands::arguments::selector::EntityRef;
 use mc_game_core::commands::host;
-use mc_brigadier::CommandSyntaxException;
 use mc_text::Component;
 
 /// `CommandResponseTracker.ElementType`.
@@ -23,7 +23,13 @@ pub struct CommandResponseTracker<E> {
 
 impl<E: Clone> Default for CommandResponseTracker<E> {
     fn default() -> Self {
-        Self { total_value: 0, only_element: None, element_count: 0, only_non_zero_element: None, non_zero_element_count: 0 }
+        Self {
+            total_value: 0,
+            only_element: None,
+            element_count: 0,
+            only_non_zero_element: None,
+            non_zero_element_count: 0,
+        }
     }
 }
 
@@ -35,10 +41,18 @@ impl<E: Clone> CommandResponseTracker<E> {
     pub fn track(&mut self, element: &E, value: i32) {
         self.total_value += value;
         self.element_count += 1;
-        self.only_element = if self.element_count == 1 { Some(element.clone()) } else { None };
+        self.only_element = if self.element_count == 1 {
+            Some(element.clone())
+        } else {
+            None
+        };
         if value != 0 {
             self.non_zero_element_count += 1;
-            self.only_non_zero_element = if self.non_zero_element_count == 1 { Some(element.clone()) } else { None };
+            self.only_non_zero_element = if self.non_zero_element_count == 1 {
+                Some(element.clone())
+            } else {
+                None
+            };
         }
     }
 
@@ -94,14 +108,20 @@ impl<E: Clone> CommandResponseTracker<E> {
                 return Err(on_zero());
             }
         }
-        source.send_success(|| self.dispatch(element_type, on_single, on_multiple), broadcast);
+        source.send_success(
+            || self.dispatch(element_type, on_single, on_multiple),
+            broadcast,
+        );
         Ok(self.total_value)
     }
 }
 
 /// `player.getDisplayName()` of a selected player (empty when it vanished meanwhile).
 pub fn display_name(source: &CommandSourceStack, entity: &EntityRef) -> Component {
-    source.with_server(|server| host::get_entity(server, entity).map_or_else(Component::empty, |e| host::entity_display_name(server, e)))
+    source.with_server(|server| {
+        host::get_entity(server, entity)
+            .map_or_else(Component::empty, |e| host::entity_display_name(server, e))
+    })
 }
 
 impl<E: Clone> CommandResponseTracker<E> {
@@ -119,6 +139,13 @@ impl<E: Clone> CommandResponseTracker<E> {
         on_single: impl FnOnce(&E, i32) -> Component,
         on_multiple: impl FnOnce(i32, i32) -> Component,
     ) -> Result<i32, CommandSyntaxException> {
-        self.send_feedback(source, broadcast, ElementType::NonZero, on_zero.map(|f| move || f()), on_single, on_multiple)
+        self.send_feedback(
+            source,
+            broadcast,
+            ElementType::NonZero,
+            on_zero.map(|f| move || f()),
+            on_single,
+            on_multiple,
+        )
     }
 }

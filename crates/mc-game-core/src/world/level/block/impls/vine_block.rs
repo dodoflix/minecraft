@@ -13,14 +13,32 @@ pub fn get_property_for_face(direction: Direction) -> BooleanProperty {
 }
 
 /// `VineBlock.isAcceptableNeighbour`.
-pub fn is_acceptable_neighbour(level: &dyn BlockGetter, neighbour_pos: BlockPos, direction_to_neighbour: Direction) -> bool {
-    multiface_block::can_attach_to(level, direction_to_neighbour, neighbour_pos, level.get_block_state(neighbour_pos))
+pub fn is_acceptable_neighbour(
+    level: &dyn BlockGetter,
+    neighbour_pos: BlockPos,
+    direction_to_neighbour: Direction,
+) -> bool {
+    multiface_block::can_attach_to(
+        level,
+        direction_to_neighbour,
+        neighbour_pos,
+        level.get_block_state(neighbour_pos),
+    )
 }
 
-const FACE_PROPERTIES: [BooleanProperty; 5] = [props::UP, props::NORTH, props::EAST, props::SOUTH, props::WEST];
+const FACE_PROPERTIES: [BooleanProperty; 5] = [
+    props::UP,
+    props::NORTH,
+    props::EAST,
+    props::SOUTH,
+    props::WEST,
+];
 
 fn count_faces(state: BlockState) -> usize {
-    FACE_PROPERTIES.into_iter().filter(|p| state.get(*p)).count()
+    FACE_PROPERTIES
+        .into_iter()
+        .filter(|p| state.get(*p))
+        .count()
 }
 
 fn has_faces(state: BlockState) -> bool {
@@ -28,11 +46,18 @@ fn has_faces(state: BlockState) -> bool {
 }
 
 fn has_horizontal_connection(state: BlockState) -> bool {
-    state.get(props::NORTH) || state.get(props::EAST) || state.get(props::SOUTH) || state.get(props::WEST)
+    state.get(props::NORTH)
+        || state.get(props::EAST)
+        || state.get(props::SOUTH)
+        || state.get(props::WEST)
 }
 
 /// `copyRandomFaces`.
-fn copy_random_faces(from: BlockState, mut to: BlockState, random: &mut dyn RandomSource) -> BlockState {
+fn copy_random_faces(
+    from: BlockState,
+    mut to: BlockState,
+    random: &mut dyn RandomSource,
+) -> BlockState {
     for direction in Direction::HORIZONTAL {
         if random.next_boolean() {
             let property = get_property_for_face(direction);
@@ -48,7 +73,11 @@ fn copy_random_faces(from: BlockState, mut to: BlockState, random: &mut dyn Rand
 fn can_spread(level: &dyn BlockGetter, pos: BlockPos) -> bool {
     let min_pos = pos.offset(-4, -1, -4);
     let max_pos = pos.offset(4, 1, 4);
-    BlockPos::between_closed(&min_pos, &max_pos).filter(|p| level.get_block_state(*p).is_block(Block::VINE)).take(5).count() <= 4
+    BlockPos::between_closed(&min_pos, &max_pos)
+        .filter(|p| level.get_block_state(*p).is_block(Block::VINE))
+        .take(5)
+        .count()
+        <= 4
 }
 
 fn can_support_at_face(level: &dyn BlockGetter, pos: BlockPos, direction: Direction) -> bool {
@@ -70,7 +99,10 @@ fn can_support_at_face(level: &dyn BlockGetter, pos: BlockPos, direction: Direct
 fn get_updated_state(mut state: BlockState, level: &dyn BlockGetter, pos: BlockPos) -> BlockState {
     let above_pos = pos.above();
     if state.get(props::UP) {
-        state = state.set(props::UP, is_acceptable_neighbour(level, above_pos, Direction::Down));
+        state = state.set(
+            props::UP,
+            is_acceptable_neighbour(level, above_pos, Direction::Down),
+        );
     }
     let mut above_state: Option<BlockState> = None;
     for direction in Direction::HORIZONTAL {
@@ -94,7 +126,9 @@ fn random_tick(state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
     }
     let test_direction = Direction::get_random(level.random());
     let above_pos = pos.above();
-    if test_direction.get_axis().is_horizontal() && !state.get(get_property_for_face(test_direction)) {
+    if test_direction.get_axis().is_horizontal()
+        && !state.get(get_property_for_face(test_direction))
+    {
         if !can_spread(&*level, pos) {
             return;
         }
@@ -108,22 +142,53 @@ fn random_tick(state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
             let cw_test_pos = test_pos.relative(cw_direction);
             let ccw_test_pos = test_pos.relative(ccw_direction);
             let vine = Block::VINE.default_state();
-            if cw_has_connecting_face && is_acceptable_neighbour(&*level, cw_test_pos, cw_direction) {
-                level.set_block_flags(test_pos, vine.set(get_property_for_face(cw_direction), true), 2);
-            } else if ccw_has_connecting_face && is_acceptable_neighbour(&*level, ccw_test_pos, ccw_direction) {
-                level.set_block_flags(test_pos, vine.set(get_property_for_face(ccw_direction), true), 2);
+            if cw_has_connecting_face && is_acceptable_neighbour(&*level, cw_test_pos, cw_direction)
+            {
+                level.set_block_flags(
+                    test_pos,
+                    vine.set(get_property_for_face(cw_direction), true),
+                    2,
+                );
+            } else if ccw_has_connecting_face
+                && is_acceptable_neighbour(&*level, ccw_test_pos, ccw_direction)
+            {
+                level.set_block_flags(
+                    test_pos,
+                    vine.set(get_property_for_face(ccw_direction), true),
+                    2,
+                );
             } else {
                 let opposite = test_direction.get_opposite();
-                if cw_has_connecting_face && level.is_empty_block(cw_test_pos) && is_acceptable_neighbour(&*level, pos.relative(cw_direction), opposite) {
-                    level.set_block_flags(cw_test_pos, vine.set(get_property_for_face(opposite), true), 2);
-                } else if ccw_has_connecting_face && level.is_empty_block(ccw_test_pos) && is_acceptable_neighbour(&*level, pos.relative(ccw_direction), opposite) {
-                    level.set_block_flags(ccw_test_pos, vine.set(get_property_for_face(opposite), true), 2);
-                } else if (level.random().next_float() as f64) < 0.05 && is_acceptable_neighbour(&*level, test_pos.above(), Direction::Up) {
+                if cw_has_connecting_face
+                    && level.is_empty_block(cw_test_pos)
+                    && is_acceptable_neighbour(&*level, pos.relative(cw_direction), opposite)
+                {
+                    level.set_block_flags(
+                        cw_test_pos,
+                        vine.set(get_property_for_face(opposite), true),
+                        2,
+                    );
+                } else if ccw_has_connecting_face
+                    && level.is_empty_block(ccw_test_pos)
+                    && is_acceptable_neighbour(&*level, pos.relative(ccw_direction), opposite)
+                {
+                    level.set_block_flags(
+                        ccw_test_pos,
+                        vine.set(get_property_for_face(opposite), true),
+                        2,
+                    );
+                } else if (level.random().next_float() as f64) < 0.05
+                    && is_acceptable_neighbour(&*level, test_pos.above(), Direction::Up)
+                {
                     level.set_block_flags(test_pos, vine.set(props::UP, true), 2);
                 }
             }
         } else if is_acceptable_neighbour(&*level, test_pos, test_direction) {
-            level.set_block_flags(pos, state.set(get_property_for_face(test_direction), true), 2);
+            level.set_block_flags(
+                pos,
+                state.set(get_property_for_face(test_direction), true),
+                2,
+            );
         }
     } else {
         if test_direction == Direction::Up && pos.y() < level.get_max_y() {
@@ -137,7 +202,13 @@ fn random_tick(state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
                 }
                 let mut above_state = state;
                 for direction in Direction::HORIZONTAL {
-                    if level.random().next_boolean() || !is_acceptable_neighbour(&*level, above_pos.relative(direction), direction) {
+                    if level.random().next_boolean()
+                        || !is_acceptable_neighbour(
+                            &*level,
+                            above_pos.relative(direction),
+                            direction,
+                        )
+                    {
                         above_state = above_state.set(get_property_for_face(direction), false);
                     }
                 }
@@ -151,7 +222,11 @@ fn random_tick(state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
             let below_pos = pos.below();
             let below_state = level.get_block_state(below_pos);
             if below_state.is_air() || below_state.is_block(Block::VINE) {
-                let before = if below_state.is_air() { Block::VINE.default_state() } else { below_state };
+                let before = if below_state.is_air() {
+                    Block::VINE.default_state()
+                } else {
+                    below_state
+                };
                 let after = copy_random_faces(state, before, level.random());
                 if before != after && has_horizontal_connection(after) {
                     level.set_block_flags(below_pos, after, 2);
@@ -165,7 +240,11 @@ impl BlockBehaviour for VineBlock {
     fn random_tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         random_tick(state, level, pos);
     }
-    fn can_be_replaced(&self, state: BlockState, context: &crate::world::item::BlockPlaceContext) -> bool {
+    fn can_be_replaced(
+        &self,
+        state: BlockState,
+        context: &crate::world::item::BlockPlaceContext,
+    ) -> bool {
         // `state` is the state at the clicked position (`context.getLevel().getBlockState(context.getClickedPos())`)
         if state.is_block(Block::VINE) {
             count_faces(state) < FACE_PROPERTIES.len()
@@ -173,15 +252,26 @@ impl BlockBehaviour for VineBlock {
             crate::world::level::block::PlainBlock.can_be_replaced(state, context)
         }
     }
-    fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+    fn get_state_for_placement(
+        &self,
+        block: Block,
+        level: &mut ServerLevel,
+        context: &crate::world::item::BlockPlaceContext,
+    ) -> Option<BlockState> {
         let clicked_state = level.get_block_state(context.get_clicked_pos());
         let clicked_vine = clicked_state.is_block(block);
-        let result = if clicked_vine { clicked_state } else { block.default_state() };
+        let result = if clicked_vine {
+            clicked_state
+        } else {
+            block.default_state()
+        };
         for direction in context.get_nearest_looking_directions() {
             if direction != Direction::Down {
                 let face = get_property_for_face(direction);
                 let face_occupied = clicked_vine && clicked_state.get(face);
-                if !face_occupied && can_support_at_face(&*level, context.get_clicked_pos(), direction) {
+                if !face_occupied
+                    && can_support_at_face(&*level, context.get_clicked_pos(), direction)
+                {
                     return Some(result.set(face, true));
                 }
             }
@@ -191,19 +281,33 @@ impl BlockBehaviour for VineBlock {
     fn can_survive(&self, state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         has_faces(get_updated_state(state, level, pos))
     }
-    update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
-        if direction == Direction::Down {
-            state
-        } else {
-            let block_state = get_updated_state(state, &*level, pos);
-            if !has_faces(block_state) { air() } else { block_state }
+    update_shape!(
+        |self, state, level, pos, direction, neighbour_pos, neighbour_state| {
+            if direction == Direction::Down {
+                state
+            } else {
+                let block_state = get_updated_state(state, &*level, pos);
+                if !has_faces(block_state) {
+                    air()
+                } else {
+                    block_state
+                }
+            }
         }
-    });
+    );
     fn rotate(&self, state: BlockState, rotation: Rotation) -> BlockState {
-        helpers::rotate_sides(state, rotation, [props::NORTH, props::EAST, props::SOUTH, props::WEST])
+        helpers::rotate_sides(
+            state,
+            rotation,
+            [props::NORTH, props::EAST, props::SOUTH, props::WEST],
+        )
     }
     fn mirror(&self, state: BlockState, mirror: Mirror) -> BlockState {
-        helpers::mirror_sides(state, mirror, [props::NORTH, props::EAST, props::SOUTH, props::WEST])
+        helpers::mirror_sides(
+            state,
+            mirror,
+            [props::NORTH, props::EAST, props::SOUTH, props::WEST],
+        )
     }
 }
 

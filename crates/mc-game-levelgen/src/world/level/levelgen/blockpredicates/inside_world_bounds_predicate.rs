@@ -1,9 +1,11 @@
 //! `InsideWorldBoundsPredicate` (`inside_world_bounds`).
 
-use mc_game_core::world::level::levelgen::blockpredicates::{BLOCK_PREDICATE_TYPES, BlockPredicate};
-use mc_game_core::world::level::LevelAccessor;
-use mc_game_core::world::level::levelgen::codec::{TypeEntry, parse_vec3i_offset};
 use mc_core::pos::{BlockPos, Vec3i};
+use mc_game_core::world::level::LevelAccessor;
+use mc_game_core::world::level::levelgen::blockpredicates::{
+    BLOCK_PREDICATE_TYPES, BlockPredicate,
+};
+use mc_game_core::world::level::levelgen::codec::{TypeEntry, parse_vec3i_offset};
 use std::sync::Arc;
 
 pub struct InsideWorldBoundsPredicate {
@@ -21,7 +23,9 @@ impl BlockPredicate for InsideWorldBoundsPredicate {
 static INSIDE_WORLD_BOUNDS: TypeEntry<dyn BlockPredicate> = TypeEntry {
     name: "inside_world_bounds",
     decode: |fields, _| {
-        let offset = fields.optional("offset", |v| parse_vec3i_offset(v, 16))?.unwrap_or(Vec3i::ZERO);
+        let offset = fields
+            .optional("offset", |v| parse_vec3i_offset(v, 16))?
+            .unwrap_or(Vec3i::ZERO);
         Ok(Arc::new(InsideWorldBoundsPredicate { offset }))
     },
 };

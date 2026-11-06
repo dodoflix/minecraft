@@ -25,7 +25,11 @@ pub trait VillagerDataExt: Sized {
 
 impl VillagerDataExt for VillagerData {
     fn new(r#type: VillagerType, profession: VillagerProfession, level: i32) -> Self {
-        VillagerData { r#type, profession, level: level.max(1) }
+        VillagerData {
+            r#type,
+            profession,
+            level: level.max(1),
+        }
     }
     fn with_type(self, r#type: VillagerType) -> Self {
         Self::new(r#type, self.profession, self.level)
@@ -44,8 +48,14 @@ impl VillagerDataExt for VillagerData {
         tag
     }
     fn load(tag: &CompoundTag) -> Self {
-        let r#type = tag.get_string("type").and_then(VillagerType::by_name).unwrap_or(Self::DEFAULT_TYPE);
-        let profession = tag.get_string("profession").and_then(VillagerProfession::by_name).unwrap_or(VillagerProfession::NONE);
+        let r#type = tag
+            .get_string("type")
+            .and_then(VillagerType::by_name)
+            .unwrap_or(Self::DEFAULT_TYPE);
+        let profession = tag
+            .get_string("profession")
+            .and_then(VillagerProfession::by_name)
+            .unwrap_or(VillagerProfession::NONE);
         let level = tag.get_int_or("level", 1);
         Self::new(r#type, profession, level)
     }
@@ -53,12 +63,20 @@ impl VillagerDataExt for VillagerData {
 
 /// `VillagerData.getMinXpPerLevel(level)`.
 pub fn get_min_xp_per_level(level: i32) -> i32 {
-    if can_level_up(level) { NEXT_LEVEL_XP_THRESHOLDS[(level - 1) as usize] } else { 0 }
+    if can_level_up(level) {
+        NEXT_LEVEL_XP_THRESHOLDS[(level - 1) as usize]
+    } else {
+        0
+    }
 }
 
 /// `VillagerData.getMaxXpPerLevel(level)`.
 pub fn get_max_xp_per_level(level: i32) -> i32 {
-    if can_level_up(level) { NEXT_LEVEL_XP_THRESHOLDS[level as usize] } else { 0 }
+    if can_level_up(level) {
+        NEXT_LEVEL_XP_THRESHOLDS[level as usize]
+    } else {
+        0
+    }
 }
 
 /// `VillagerData.canLevelUp(currentLevel)`.

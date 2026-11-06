@@ -43,26 +43,93 @@ struct TwoByTwoSaplingPos {
 
 macro_rules! grower {
     ($name:literal, $trees:expr, $mega:expr, $flowers:expr, $shortest:expr) => {
-        TreeGrower { name: $name, trees: $trees, mega_trees: $mega, flower_trees: $flowers, shortest_tree_type: $shortest }
+        TreeGrower {
+            name: $name,
+            trees: $trees,
+            mega_trees: $mega,
+            flower_trees: $flowers,
+            shortest_tree_type: $shortest,
+        }
     };
 }
 
 impl TreeGrower {
-    pub const OAK: TreeGrower = grower!("oak", &[("oak", 9), ("fancy_oak", 1)], &[], &[("oak_bees_005", 9), ("fancy_oak_bees_005", 1)], Some("oak"));
-    pub const SPRUCE: TreeGrower = grower!("spruce", &[("spruce", 1)], &[("mega_spruce", 1), ("mega_pine", 1)], &[], Some("spruce"));
-    pub const MANGROVE: TreeGrower = grower!("mangrove", &[("mangrove", 15), ("tall_mangrove", 85)], &[], &[], Some("mangrove"));
-    pub const AZALEA: TreeGrower = grower!("azalea", &[("azalea_tree", 1)], &[], &[], Some("azalea_tree"));
-    pub const BIRCH: TreeGrower = grower!("birch", &[("birch", 1)], &[], &[("birch_bees_005", 1)], Some("birch"));
-    pub const JUNGLE: TreeGrower = grower!("jungle", &[("jungle_tree_no_vine", 1)], &[("mega_jungle_tree", 1)], &[], Some("jungle_tree_no_vine"));
+    pub const OAK: TreeGrower = grower!(
+        "oak",
+        &[("oak", 9), ("fancy_oak", 1)],
+        &[],
+        &[("oak_bees_005", 9), ("fancy_oak_bees_005", 1)],
+        Some("oak")
+    );
+    pub const SPRUCE: TreeGrower = grower!(
+        "spruce",
+        &[("spruce", 1)],
+        &[("mega_spruce", 1), ("mega_pine", 1)],
+        &[],
+        Some("spruce")
+    );
+    pub const MANGROVE: TreeGrower = grower!(
+        "mangrove",
+        &[("mangrove", 15), ("tall_mangrove", 85)],
+        &[],
+        &[],
+        Some("mangrove")
+    );
+    pub const AZALEA: TreeGrower = grower!(
+        "azalea",
+        &[("azalea_tree", 1)],
+        &[],
+        &[],
+        Some("azalea_tree")
+    );
+    pub const BIRCH: TreeGrower = grower!(
+        "birch",
+        &[("birch", 1)],
+        &[],
+        &[("birch_bees_005", 1)],
+        Some("birch")
+    );
+    pub const JUNGLE: TreeGrower = grower!(
+        "jungle",
+        &[("jungle_tree_no_vine", 1)],
+        &[("mega_jungle_tree", 1)],
+        &[],
+        Some("jungle_tree_no_vine")
+    );
     pub const ACACIA: TreeGrower = grower!("acacia", &[("acacia", 1)], &[], &[], Some("acacia"));
-    pub const CHERRY: TreeGrower = grower!("cherry", &[("cherry", 1)], &[], &[("cherry_bees_005", 1)], Some("cherry"));
+    pub const CHERRY: TreeGrower = grower!(
+        "cherry",
+        &[("cherry", 1)],
+        &[],
+        &[("cherry_bees_005", 1)],
+        Some("cherry")
+    );
     pub const DARK_OAK: TreeGrower = grower!("dark_oak", &[], &[("dark_oak", 1)], &[], None);
-    pub const PALE_OAK: TreeGrower = grower!("pale_oak", &[], &[("pale_oak_bonemeal", 1)], &[], None);
-    pub const POPLAR: TreeGrower = grower!("poplar", &[("red_poplar", 1), ("orange_poplar", 1), ("yellow_poplar", 1)], &[], &[], Some("red_poplar"));
+    pub const PALE_OAK: TreeGrower =
+        grower!("pale_oak", &[], &[("pale_oak_bonemeal", 1)], &[], None);
+    pub const POPLAR: TreeGrower = grower!(
+        "poplar",
+        &[
+            ("red_poplar", 1),
+            ("orange_poplar", 1),
+            ("yellow_poplar", 1)
+        ],
+        &[],
+        &[],
+        Some("red_poplar")
+    );
 
     /// `getConfiguredFeature(random, hasFlowers)`.
-    fn get_configured_feature(&self, random: &mut dyn RandomSource, has_flowers: bool) -> Option<&'static str> {
-        if has_flowers && !self.flower_trees.is_empty() { get_random(self.flower_trees, random) } else { get_random(self.trees, random) }
+    fn get_configured_feature(
+        &self,
+        random: &mut dyn RandomSource,
+        has_flowers: bool,
+    ) -> Option<&'static str> {
+        if has_flowers && !self.flower_trees.is_empty() {
+            get_random(self.flower_trees, random)
+        } else {
+            get_random(self.trees, random)
+        }
     }
 
     /// `getConfiguredMegaFeature(random)`.
@@ -78,7 +145,10 @@ impl TreeGrower {
         {
             let blocks = two_by_two.ground_level_surrounding_blocks;
             remove_saplings(level, &blocks);
-            if level.place_feature_value(&*feature, pos.offset(two_by_two.offset_x, 0, two_by_two.offset_z)) {
+            if level.place_feature_value(
+                &*feature,
+                pos.offset(two_by_two.offset_x, 0, two_by_two.offset_z),
+            ) {
                 return true;
             }
             reset_saplings(level, &blocks);
@@ -102,7 +172,12 @@ impl TreeGrower {
 
     /// `hasFlowers(level, pos)`.
     fn has_flowers(&self, level: &dyn crate::world::level::LevelReader, pos: BlockPos) -> bool {
-        blockscan::any_matched(level, pos.offset(-2, -1, -2), pos.offset(2, 1, 2), &|state| state.is_tag("flowers"))
+        blockscan::any_matched(
+            level,
+            pos.offset(-2, -1, -2),
+            pos.offset(2, 1, 2),
+            &|state| state.is_tag("flowers"),
+        )
     }
 
     /// `getMinimumHeight(level)`.
@@ -116,12 +191,21 @@ impl TreeGrower {
         let has_flowers = self.has_flowers(&*level, pos);
         let feature_key = self.get_configured_feature(level.random(), has_flowers);
         let mega_feature_key = self.get_configured_mega_feature(level.random());
-        if feature_key.is_none() && mega_feature_key.is_some() { find_two_by_two_sapling_pos(level, state, pos).is_some() } else { true }
+        if feature_key.is_none() && mega_feature_key.is_some() {
+            find_two_by_two_sapling_pos(level, state, pos).is_some()
+        } else {
+            true
+        }
     }
 }
 
 /// `getSurroundingBlockStates(level, pos, dx, dz)`.
-fn get_surrounding_block_states(level: &dyn BlockGetter, pos: BlockPos, dx: i32, dz: i32) -> [(BlockState, BlockPos); 4] {
+fn get_surrounding_block_states(
+    level: &dyn BlockGetter,
+    pos: BlockPos,
+    dx: i32,
+    dz: i32,
+) -> [(BlockState, BlockPos); 4] {
     [(0, 0), (1, 0), (0, 1), (1, 1)].map(|(ox, oz)| {
         let p = pos.offset(dx + ox, 0, dz + oz);
         (level.get_block_state(p), p)
@@ -129,12 +213,20 @@ fn get_surrounding_block_states(level: &dyn BlockGetter, pos: BlockPos, dx: i32,
 }
 
 /// `findTwoByTwoSaplingPos(level, state, pos)`.
-fn find_two_by_two_sapling_pos(level: &dyn BlockGetter, state: BlockState, pos: BlockPos) -> Option<TwoByTwoSaplingPos> {
+fn find_two_by_two_sapling_pos(
+    level: &dyn BlockGetter,
+    state: BlockState,
+    pos: BlockPos,
+) -> Option<TwoByTwoSaplingPos> {
     for dx in [0, -1] {
         for dz in [0, -1] {
             let surrounding = get_surrounding_block_states(level, pos, dx, dz);
             if surrounding.iter().all(|(s, _)| s.is_block(state.block())) {
-                return Some(TwoByTwoSaplingPos { offset_x: dx, offset_z: dz, ground_level_surrounding_blocks: surrounding });
+                return Some(TwoByTwoSaplingPos {
+                    offset_x: dx,
+                    offset_z: dz,
+                    ground_level_surrounding_blocks: surrounding,
+                });
             }
         }
     }

@@ -46,10 +46,17 @@ pub fn hash_map_order(hashes: &[i32], initial_capacity: usize) -> Vec<usize> {
 }
 
 /// `items` (distinct keys, in `put` order) reordered into `java.util.HashMap` iteration order, see [`hash_map_order`].
-pub fn hash_map_ordered<T>(items: Vec<T>, hash: impl Fn(&T) -> i32, initial_capacity: usize) -> Vec<T> {
+pub fn hash_map_ordered<T>(
+    items: Vec<T>,
+    hash: impl Fn(&T) -> i32,
+    initial_capacity: usize,
+) -> Vec<T> {
     let hashes: Vec<i32> = items.iter().map(&hash).collect();
     let mut slots: Vec<Option<T>> = items.into_iter().map(Some).collect();
-    hash_map_order(&hashes, initial_capacity).into_iter().filter_map(|i| slots[i].take()).collect()
+    hash_map_order(&hashes, initial_capacity)
+        .into_iter()
+        .filter_map(|i| slots[i].take())
+        .collect()
 }
 
 /// fastutil `HashCommon.mix(int)`.
@@ -75,7 +82,9 @@ pub struct FastOpenHashMap<K, V> {
 impl<K: PartialEq, V> FastOpenHashMap<K, V> {
     /// `HashCommon.arraySize(expected, 0.75F)`.
     fn array_size(expected: usize) -> usize {
-        ((expected as f32 / 0.75f32).ceil() as u64).next_power_of_two().max(2) as usize
+        ((expected as f32 / 0.75f32).ceil() as u64)
+            .next_power_of_two()
+            .max(2) as usize
     }
 
     /// `HashCommon.maxFill(n, 0.75F)`.
@@ -92,7 +101,15 @@ impl<K: PartialEq, V> FastOpenHashMap<K, V> {
     /// As [`Self::new`]; `is_null` selects the key stored outside the table (`k == 0` for fastutil's `Int2...` maps).
     pub fn with_null_key(expected: usize, hash: fn(&K) -> i32, is_null: fn(&K) -> bool) -> Self {
         let n = Self::array_size(expected);
-        FastOpenHashMap { null_key: None, is_null, slots: (0..n).map(|_| None).collect(), mask: n - 1, max_fill: Self::max_fill(n), size: 0, hash }
+        FastOpenHashMap {
+            null_key: None,
+            is_null,
+            slots: (0..n).map(|_| None).collect(),
+            mask: n - 1,
+            max_fill: Self::max_fill(n),
+            size: 0,
+            hash,
+        }
     }
 
     pub fn put(&mut self, k: K, v: V) {
@@ -144,12 +161,18 @@ impl<K: PartialEq, V> FastOpenHashMap<K, V> {
 
     /// The map iterator walks the table from its last slot down.
     pub fn into_entries(self) -> Vec<(K, V)> {
-        self.null_key.into_iter().chain(self.slots.into_iter().rev().flatten()).collect()
+        self.null_key
+            .into_iter()
+            .chain(self.slots.into_iter().rev().flatten())
+            .collect()
     }
 }
 
 /// `FastOpenHashMap` keyed by `String`.
-pub fn fast_open_hash_order_string<V>(expected: usize, entries: impl IntoIterator<Item = (String, V)>) -> Vec<(String, V)> {
+pub fn fast_open_hash_order_string<V>(
+    expected: usize,
+    entries: impl IntoIterator<Item = (String, V)>,
+) -> Vec<(String, V)> {
     let mut m = FastOpenHashMap::new(expected, |k: &String| java_string_hash(k));
     for (k, v) in entries {
         m.put(k, v);

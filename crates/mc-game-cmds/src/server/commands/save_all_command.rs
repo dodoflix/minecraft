@@ -1,12 +1,13 @@
 //! `SaveAllCommand`.
+use mc_brigadier::ArgumentBuilder;
+use mc_brigadier::{CommandSyntaxException, SimpleCommandExceptionType};
 use mc_game_core::commands::message::simple_translatable;
 use mc_game_core::commands::{CommandSourceStack, LEVEL_OWNERS, has_permission, literal};
-use mc_brigadier::ArgumentBuilder;
 use mc_game_core::{register_command, translatable};
-use mc_brigadier::{CommandSyntaxException, SimpleCommandExceptionType};
 use std::sync::LazyLock;
 
-static ERROR_FAILED: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| simple_translatable("commands.save.failed"));
+static ERROR_FAILED: LazyLock<SimpleCommandExceptionType> =
+    LazyLock::new(|| simple_translatable("commands.save.failed"));
 
 register_command!("SaveAllCommand", |ctx| {
     ctx.dispatcher.register(

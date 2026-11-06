@@ -36,14 +36,21 @@ fn parse_stack(snbt: &str) -> ItemStack {
         return ItemStack::empty();
     }
     let tag = mc_nbt::snbt::parse(snbt).unwrap_or_else(|e| panic!("snbt {snbt}: {e:?}"));
-    ItemStack::from_tag(&tag).into_result().unwrap_or_else(|e| panic!("stack {snbt}: {e}"))
+    ItemStack::from_tag(&tag)
+        .into_result()
+        .unwrap_or_else(|e| panic!("stack {snbt}: {e}"))
 }
 
 fn registries() -> RegistryAccess {
     static ACCESS: std::sync::LazyLock<RegistryAccess> = std::sync::LazyLock::new(|| {
         let _serial = common::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
         let dir = tempfile::tempdir().unwrap();
-        let (_, stem) = common::load_world(dir.path(), mc_world::level_storage::WorldDataConfiguration::DEFAULT, true).expect("default world loads");
+        let (_, stem) = common::load_world(
+            dir.path(),
+            mc_world::level_storage::WorldDataConfiguration::DEFAULT,
+            true,
+        )
+        .expect("default world loads");
         stem.registries.composite_access().clone()
     });
     ACCESS.clone()
@@ -123,7 +130,14 @@ impl MenuPlayer for TestPlayer {
 struct Sync(Rc<RefCell<Vec<String>>>);
 
 impl ContainerSynchronizer for Sync {
-    fn send_initial_data(&mut self, id: i32, state_id: i32, items: Vec<ItemStack>, carried: ItemStack, data: &[i32]) {
+    fn send_initial_data(
+        &mut self,
+        id: i32,
+        state_id: i32,
+        items: Vec<ItemStack>,
+        carried: ItemStack,
+        data: &[i32],
+    ) {
         let mut b = format!("PKT content {id} {state_id} carried={}", st(&carried));
         for (i, s) in items.iter().enumerate() {
             if !s.is_empty() {
@@ -136,13 +150,19 @@ impl ContainerSynchronizer for Sync {
         }
     }
     fn send_slot_change(&mut self, id: i32, state_id: i32, slot: usize, stack: ItemStack) {
-        self.0.borrow_mut().push(format!("PKT slot {id} {state_id} {slot} {}", st(&stack)));
+        self.0
+            .borrow_mut()
+            .push(format!("PKT slot {id} {state_id} {slot} {}", st(&stack)));
     }
     fn send_carried_change(&mut self, stack: ItemStack) {
-        self.0.borrow_mut().push(format!("PKT cursor {}", st(&stack)));
+        self.0
+            .borrow_mut()
+            .push(format!("PKT cursor {}", st(&stack)));
     }
     fn send_data_change(&mut self, id: i32, data_id: usize, value: i32) {
-        self.0.borrow_mut().push(format!("PKT data {id} {data_id} {value}"));
+        self.0
+            .borrow_mut()
+            .push(format!("PKT data {id} {data_id} {value}"));
     }
     fn create_slot(&self) -> RemoteSlot {
         RemoteSlot::new_synchronized()
@@ -170,11 +190,21 @@ impl Session {
         // entities are only found in accessible sections (vanilla: the chunk is loaded and ticking)
         for cx in -1..=0 {
             for cz in -1..=0 {
-                level.entity_manager.update_chunk_status(mc_core::pos::ChunkPos::new(cx, cz), mc_game::world::level::entity::Visibility::Ticking);
+                level.entity_manager.update_chunk_status(
+                    mc_core::pos::ChunkPos::new(cx, cz),
+                    mc_game::world::level::entity::Visibility::Ticking,
+                );
             }
         }
         Self {
-            player: TestPlayer { inv: Inventory::new(), creative: false, xp_level: 0, seed: 0, rng: LegacyRandomSource::new(0), level },
+            player: TestPlayer {
+                inv: Inventory::new(),
+                creative: false,
+                xp_level: 0,
+                seed: 0,
+                rng: LegacyRandomSource::new(0),
+                level,
+            },
             menu: None,
             packets: Rc::default(),
             prev: HashMap::new(),
@@ -190,7 +220,11 @@ impl Session {
 
     fn orbs(&mut self) -> Vec<mc_game::world::entity::EntityId> {
         let area = mc_core::phys::AABB::new(0.0, 70.0, 0.0, 1.0, 71.0, 1.0).inflate(8.0, 8.0, 8.0);
-        self.player.level.get_entities_of_class(&area, |e| e.as_any().is::<ExperienceOrb>(), |_| true)
+        self.player.level.get_entities_of_class(
+            &area,
+            |e| e.as_any().is::<ExperienceOrb>(),
+            |_| true,
+        )
     }
 
     fn open(&mut self, parts: &[&str]) -> Vec<String> {
@@ -210,10 +244,14 @@ impl Session {
             self.player.inv.set_item(i, ItemStack::empty());
         }
         for id in self.orbs() {
-            self.player.level.remove_entity(id, mc_game::world::entity::RemovalReason::Discarded);
+            self.player
+                .level
+                .remove_entity(id, mc_game::world::entity::RemovalReason::Discarded);
         }
         for pos in std::mem::take(&mut self.placed) {
-            self.player.level.set_block_and_update(pos, Block::AIR.default_state());
+            self.player
+                .level
+                .set_block_and_update(pos, Block::AIR.default_state());
         }
         self.player.xp_level = xp;
         self.player.seed = seed;
@@ -230,10 +268,16 @@ impl Session {
         self.set_block(TABLE, block.default_state());
         if kind == "enchant" {
             for off in BOOKSHELF_OFFSETS.iter().take(shelves) {
-                self.set_block(TABLE.offset(off.x(), off.y(), off.z()), Block::BOOKSHELF.default_state());
+                self.set_block(
+                    TABLE.offset(off.x(), off.y(), off.z()),
+                    Block::BOOKSHELF.default_state(),
+                );
             }
             for off in BOOKSHELF_OFFSETS.iter().take(blockers) {
-                self.set_block(TABLE.offset(off.x() / 2, off.y(), off.z() / 2), Block::STONE.default_state());
+                self.set_block(
+                    TABLE.offset(off.x() / 2, off.y(), off.z() / 2),
+                    Block::STONE.default_state(),
+                );
             }
         }
         self.container_counter = self.container_counter % 100 + 1;
@@ -250,9 +294,12 @@ impl Session {
             _ => "anvil",
         };
         self.packets.borrow_mut().clear();
-        self.packets.borrow_mut().push(format!("PKT open {id} {type_name}"));
+        self.packets
+            .borrow_mut()
+            .push(format!("PKT open {id} {type_name}"));
         menu.add_slot_listener(Box::new(NoListener), &mut self.player);
-        menu.base_mut().set_synchronizer(Box::new(Sync(self.packets.clone())), &mut self.player);
+        menu.base_mut()
+            .set_synchronizer(Box::new(Sync(self.packets.clone())), &mut self.player);
         self.menu = Some(menu);
         Vec::new()
     }
@@ -269,7 +316,9 @@ impl Session {
         if let Some(menu) = self.menu.as_mut() {
             let mut s = String::from("S");
             for i in 0..menu.base().slots.len() {
-                let it = menu.base_mut().with_slot(&mut self.player, i, |sl, e| sl.get_item(e));
+                let it = menu
+                    .base_mut()
+                    .with_slot(&mut self.player, i, |sl, e| sl.get_item(e));
                 if !it.is_empty() {
                     s += &format!(" {i}={}", st(&it));
                 }
@@ -295,7 +344,10 @@ impl Session {
         self.state(&mut out, "X", x);
         let bs = self.player.level.get_block_state(TABLE);
         let mut b = format!("B {}", bs.block().name().trim_start_matches("minecraft:"));
-        if matches!(bs.block(), Block::ANVIL | Block::CHIPPED_ANVIL | Block::DAMAGED_ANVIL | Block::GRINDSTONE) {
+        if matches!(
+            bs.block(),
+            Block::ANVIL | Block::CHIPPED_ANVIL | Block::DAMAGED_ANVIL | Block::GRINDSTONE
+        ) {
             b += " north";
         }
         self.state(&mut out, "B", b);
@@ -332,9 +384,16 @@ fn input(name: &str) -> ContainerInput {
 }
 
 fn read_fixture(name: &str) -> String {
-    let path = format!("{}/tests/fixtures/enchant_anvil/{name}.txt.gz", env!("CARGO_MANIFEST_DIR"));
+    let path = format!(
+        "{}/tests/fixtures/enchant_anvil/{name}.txt.gz",
+        env!("CARGO_MANIFEST_DIR")
+    );
     let mut text = String::new();
-    flate2::read::GzDecoder::new(std::fs::File::open(&path).unwrap_or_else(|e| panic!("{path}: {e}"))).read_to_string(&mut text).unwrap();
+    flate2::read::GzDecoder::new(
+        std::fs::File::open(&path).unwrap_or_else(|e| panic!("{path}: {e}")),
+    )
+    .read_to_string(&mut text)
+    .unwrap();
     text
 }
 
@@ -353,7 +412,8 @@ fn run_op(s: &mut Session, op: &str) -> Vec<String> {
             let slot: usize = slot.parse().unwrap();
             let Session { player, menu, .. } = s;
             let menu = menu.as_mut().unwrap();
-            menu.base_mut().with_slot(player, slot, |sl, e| sl.set(e, stack));
+            menu.base_mut()
+                .with_slot(player, slot, |sl, e| sl.set(e, stack));
             menu.flush_container_events(player);
             menu.broadcast_changes(player);
             s.dump()
@@ -371,7 +431,13 @@ fn run_op(s: &mut Session, op: &str) -> Vec<String> {
             let Session { player, menu, .. } = s;
             let menu = menu.as_mut().unwrap();
             menu.base_mut().suppress_remote_updates();
-            menu.clicked(parts[0].parse().unwrap(), parts[1].parse().unwrap(), input(parts[2]), player).expect("click in range");
+            menu.clicked(
+                parts[0].parse().unwrap(),
+                parts[1].parse().unwrap(),
+                input(parts[2]),
+                player,
+            )
+            .expect("click in range");
             menu.base_mut().resume_remote_updates();
             menu.broadcast_changes(player);
             s.dump()
@@ -389,7 +455,12 @@ fn run_op(s: &mut Session, op: &str) -> Vec<String> {
         }
         "NAME" => {
             let Session { player, menu, .. } = s;
-            let anvil = menu.as_mut().unwrap().as_any_mut().downcast_mut::<AnvilMenu>().expect("anvil menu");
+            let anvil = menu
+                .as_mut()
+                .unwrap()
+                .as_any_mut()
+                .downcast_mut::<AnvilMenu>()
+                .expect("anvil menu");
             let r = anvil.set_item_name(player, rest);
             let mut out = vec![format!("R {r}")];
             out.append(&mut s.dump());
@@ -414,16 +485,26 @@ fn replay(section: &str) {
     let mut op_line = String::new();
     let mut recent: Vec<String> = Vec::new();
     let mut ops = 0usize;
-    let finish = |op: &str, actual: &mut Vec<String>, expected: &mut Vec<&str>, recent: &[String]| {
+    let finish = |op: &str,
+                  actual: &mut Vec<String>,
+                  expected: &mut Vec<&str>,
+                  recent: &[String]| {
         for i in 0..actual.len().max(expected.len()) {
-            assert_eq!(actual.get(i).map(String::as_str), expected.get(i).copied(), "after op `{op}` (line {i}); recent ops {recent:#?}\nactual={actual:#?}\nexpected={expected:#?}");
+            assert_eq!(
+                actual.get(i).map(String::as_str),
+                expected.get(i).copied(),
+                "after op `{op}` (line {i}); recent ops {recent:#?}\nactual={actual:#?}\nexpected={expected:#?}"
+            );
         }
         actual.clear();
         expected.clear();
     };
     for line in text.lines() {
         if let Some(offsets) = line.strip_prefix("OFFSETS ") {
-            let ours: Vec<String> = BOOKSHELF_OFFSETS.iter().map(|b| format!("{},{},{}", b.x(), b.y(), b.z())).collect();
+            let ours: Vec<String> = BOOKSHELF_OFFSETS
+                .iter()
+                .map(|b| format!("{},{},{}", b.x(), b.y(), b.z()))
+                .collect();
             assert_eq!(ours.join(";"), offsets, "BOOKSHELF_OFFSETS");
             continue;
         }
@@ -434,7 +515,9 @@ fn replay(section: &str) {
             expected.push(out);
             continue;
         }
-        let op = line.strip_prefix("OP ").unwrap_or_else(|| panic!("unexpected line {line}"));
+        let op = line
+            .strip_prefix("OP ")
+            .unwrap_or_else(|| panic!("unexpected line {line}"));
         if !op_line.is_empty() {
             finish(&op_line, &mut actual, &mut expected, &recent);
         }

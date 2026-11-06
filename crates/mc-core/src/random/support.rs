@@ -73,7 +73,9 @@ pub fn generate_unique_seed() -> i64 {
         return updated ^ 0x2545F4914F6CDD1D;
     }
     let prev = SEED_UNIQUIFIER
-        .fetch_update(Ordering::SeqCst, Ordering::SeqCst, |c| Some(c.wrapping_mul(1181783497276652981)))
+        .fetch_update(Ordering::SeqCst, Ordering::SeqCst, |c| {
+            Some(c.wrapping_mul(1181783497276652981))
+        })
         .expect("closure always returns Some");
     let updated = prev.wrapping_mul(1181783497276652981);
     let nanos = std::time::SystemTime::now()

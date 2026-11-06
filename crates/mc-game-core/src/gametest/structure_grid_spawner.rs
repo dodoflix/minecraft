@@ -34,8 +34,17 @@ pub struct StructureGridSpawner {
 }
 
 impl StructureGridSpawner {
-    pub fn new(first_test_north_west_corner: FirstCorner, tests_per_row: i32, clear_on_batch: bool) -> Rc<Self> {
-        Rc::new(Self { tests_per_row, first_test_north_west_corner, clear_on_batch, grids: RefCell::new(HashMap::new()) })
+    pub fn new(
+        first_test_north_west_corner: FirstCorner,
+        tests_per_row: i32,
+        clear_on_batch: bool,
+    ) -> Rc<Self> {
+        Rc::new(Self {
+            tests_per_row,
+            first_test_north_west_corner,
+            clear_on_batch,
+            grids: RefCell::new(HashMap::new()),
+        })
     }
 }
 
@@ -46,9 +55,14 @@ impl StructureSpawner for StructureGridSpawner {
         }
         for grid in self.grids.borrow_mut().values_mut() {
             for info in &grid.tests_in_last_batch {
-                let Some(view) = info.get_test_instance_view(server) else { continue };
+                let Some(view) = info.get_test_instance_view(server) else {
+                    continue;
+                };
                 if let Some(level) = server.level_mut(info.level()) {
-                    structure_utils::clear_space_for_structure(level, &view.get_test_bounding_box());
+                    structure_utils::clear_space_for_structure(
+                        level,
+                        &view.get_test_bounding_box(),
+                    );
                 }
             }
             grid.tests_in_last_batch.clear();
@@ -58,7 +72,11 @@ impl StructureSpawner for StructureGridSpawner {
         }
     }
 
-    fn spawn_structure(&self, server: &mut MinecraftServer, test_info: &Rc<GameTestInfo>) -> Option<Rc<GameTestInfo>> {
+    fn spawn_structure(
+        &self,
+        server: &mut MinecraftServer,
+        test_info: &Rc<GameTestInfo>,
+    ) -> Option<Rc<GameTestInfo>> {
         let dimension = test_info.get_test().info().dimension.clone();
         if !self.grids.borrow().contains_key(&dimension) {
             let start = (self.first_test_north_west_corner)(server, &dimension);
@@ -81,12 +99,24 @@ impl StructureSpawner for StructureGridSpawner {
         let mut grids = self.grids.borrow_mut();
         let grid = grids.get_mut(&dimension).expect("inserted above");
         grid.row_bounds = grid.row_bounds.minmax(&structure_bounds);
-        grid.next_corner = grid.next_corner.offset(structure_bounds.get_xsize() as i32 + SPACE_BETWEEN_COLUMNS, 0, 0);
+        grid.next_corner = grid.next_corner.offset(
+            structure_bounds.get_xsize() as i32 + SPACE_BETWEEN_COLUMNS,
+            0,
+            0,
+        );
         grid.current_row_count += 1;
         if grid.current_row_count >= self.tests_per_row {
             grid.current_row_count = 0;
-            grid.next_corner = grid.next_corner.offset(0, 0, grid.row_bounds.get_zsize() as i32 + SPACE_BETWEEN_ROWS);
-            grid.next_corner = BlockPos::new(grid.first_test_north_west_corner.x(), grid.next_corner.y(), grid.next_corner.z());
+            grid.next_corner = grid.next_corner.offset(
+                0,
+                0,
+                grid.row_bounds.get_zsize() as i32 + SPACE_BETWEEN_ROWS,
+            );
+            grid.next_corner = BlockPos::new(
+                grid.first_test_north_west_corner.x(),
+                grid.next_corner.y(),
+                grid.next_corner.z(),
+            );
             grid.row_bounds = AABB::from_block_pos(&grid.next_corner);
         }
         grid.tests_in_last_batch.push(test_info.clone());

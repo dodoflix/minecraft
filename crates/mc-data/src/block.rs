@@ -192,7 +192,10 @@ impl Block {
 
     /// The block's properties in vanilla order (sorted by name).
     pub fn properties(self) -> impl ExactSizeIterator<Item = &'static PropertyDef> {
-        self.data().props.iter().map(|&p| &PROPERTY_DEFS[p as usize])
+        self.data()
+            .props
+            .iter()
+            .map(|&p| &PROPERTY_DEFS[p as usize])
     }
 
     pub fn has_property<P: Property>(self, p: P) -> bool {
@@ -214,7 +217,10 @@ impl Block {
 
     /// State with the given `(property name, value name)` pairs applied to the default state; None if a property does not
     /// exist or a value is not one of its values (vanilla `StateHolder` codec behaviour).
-    pub fn state_from_properties<'a>(self, props: impl IntoIterator<Item = (&'a str, &'a str)>) -> Option<BlockState> {
+    pub fn state_from_properties<'a>(
+        self,
+        props: impl IntoIterator<Item = (&'a str, &'a str)>,
+    ) -> Option<BlockState> {
         let mut s = self.default_state();
         for (name, value) in props {
             s = s.with_property_str(name, value)?;
@@ -236,7 +242,11 @@ impl BlockState {
     }
 
     pub fn from_id(id: u32) -> Option<BlockState> {
-        if (id as usize) < STATE_COUNT { Some(BlockState(id as u16)) } else { None }
+        if (id as usize) < STATE_COUNT {
+            Some(BlockState(id as u16))
+        } else {
+            None
+        }
     }
 
     pub fn block(self) -> Block {
@@ -274,7 +284,8 @@ impl BlockState {
 
     /// `getValue`: panics if the block has no such property (vanilla throws `IllegalArgumentException`).
     pub fn get<P: Property>(self, p: P) -> P::Value {
-        self.try_get(p).unwrap_or_else(|| panic!("{} does not have property {}", self.block(), p.def().name))
+        self.try_get(p)
+            .unwrap_or_else(|| panic!("{} does not have property {}", self.block(), p.def().name))
     }
 
     /// `getOptionalValue`.
@@ -288,12 +299,15 @@ impl BlockState {
         let (stride, size) = self.locate(p.index())?;
         let cur = self.local() / stride % size;
         let new = p.value_index(value);
-        Some(BlockState((self.0 as usize + new * stride - cur * stride) as u16))
+        Some(BlockState(
+            (self.0 as usize + new * stride - cur * stride) as u16,
+        ))
     }
 
     /// `setValue`: panics if the block has no such property or the property cannot hold the value.
     pub fn set<P: Property>(self, p: P, value: P::Value) -> BlockState {
-        self.try_set(p, value).unwrap_or_else(|| panic!("{} does not have property {}", self.block(), p.def().name))
+        self.try_set(p, value)
+            .unwrap_or_else(|| panic!("{} does not have property {}", self.block(), p.def().name))
     }
 
     /// Alias of [`BlockState::set`] (vanilla `setValue`).
@@ -314,7 +328,14 @@ impl BlockState {
     /// `(definition, value index)` for every property of the block.
     pub fn values(self) -> impl Iterator<Item = (&'static PropertyDef, usize)> {
         let local = self.local();
-        let mut stride = self.block().data().props.iter().map(|&p| PROPERTY_DEFS[p as usize].values.len()).product::<usize>().max(1);
+        let mut stride = self
+            .block()
+            .data()
+            .props
+            .iter()
+            .map(|&p| PROPERTY_DEFS[p as usize].values.len())
+            .product::<usize>()
+            .max(1);
         self.block().data().props.iter().map(move |&pi| {
             let def = &PROPERTY_DEFS[pi as usize];
             stride /= def.values.len();
@@ -324,16 +345,26 @@ impl BlockState {
 
     /// Serialized value of a property by serialized name.
     pub fn get_property_str(self, name: &str) -> Option<&'static str> {
-        self.values().find(|(d, _)| d.name == name).map(|(d, i)| d.values[i])
+        self.values()
+            .find(|(d, _)| d.name == name)
+            .map(|(d, i)| d.values[i])
     }
 
     /// Sets a property from its serialized name/value (e.g. when reading `Properties` from NBT or a command).
     pub fn with_property_str(self, name: &str, value: &str) -> Option<BlockState> {
-        let (pi, def) = self.block().data().props.iter().map(|&p| (p as usize, &PROPERTY_DEFS[p as usize])).find(|(_, d)| d.name == name)?;
+        let (pi, def) = self
+            .block()
+            .data()
+            .props
+            .iter()
+            .map(|&p| (p as usize, &PROPERTY_DEFS[p as usize]))
+            .find(|(_, d)| d.name == name)?;
         let new = def.value_index(value)?;
         let (stride, size) = self.locate(pi)?;
         let cur = self.local() / stride % size;
-        Some(BlockState((self.0 as usize + new * stride - cur * stride) as u16))
+        Some(BlockState(
+            (self.0 as usize + new * stride - cur * stride) as u16,
+        ))
     }
 
     // --- BlockStateBase queries -------------------------------------------------------------------------------

@@ -16,7 +16,10 @@ pub struct IdHashSet {
 
 impl Default for IdHashSet {
     fn default() -> Self {
-        Self { insertion_order: Vec::new(), capacity: 16 }
+        Self {
+            insertion_order: Vec::new(),
+            capacity: 16,
+        }
     }
 }
 
@@ -77,11 +80,23 @@ struct ConnectionTable {
 
 impl ConnectionTable {
     fn get(&self, player: i32, waypoint: i32) -> Option<&Connection> {
-        self.rows.iter().find(|(p, _)| *p == player)?.1.iter().find(|(w, _)| *w == waypoint).map(|(_, c)| c)
+        self.rows
+            .iter()
+            .find(|(p, _)| *p == player)?
+            .1
+            .iter()
+            .find(|(w, _)| *w == waypoint)
+            .map(|(_, c)| c)
     }
 
     fn get_mut(&mut self, player: i32, waypoint: i32) -> Option<&mut Connection> {
-        self.rows.iter_mut().find(|(p, _)| *p == player)?.1.iter_mut().find(|(w, _)| *w == waypoint).map(|(_, c)| c)
+        self.rows
+            .iter_mut()
+            .find(|(p, _)| *p == player)?
+            .1
+            .iter_mut()
+            .find(|(w, _)| *w == waypoint)
+            .map(|(_, c)| c)
     }
 
     /// `put(player, waypoint, connection)`: an existing cell keeps its position.
@@ -109,12 +124,20 @@ impl ConnectionTable {
 
     /// `row(player).keySet()` in order.
     fn row_keys(&self, player: i32) -> Vec<i32> {
-        self.rows.iter().find(|(p, _)| *p == player).map(|(_, row)| row.iter().map(|(w, _)| *w).collect()).unwrap_or_default()
+        self.rows
+            .iter()
+            .find(|(p, _)| *p == player)
+            .map(|(_, row)| row.iter().map(|(w, _)| *w).collect())
+            .unwrap_or_default()
     }
 
     /// `column(waypoint).keySet()` in order (rows in insertion order).
     fn column_keys(&self, waypoint: i32) -> Vec<i32> {
-        self.rows.iter().filter(|(_, row)| row.iter().any(|(w, _)| *w == waypoint)).map(|(p, _)| *p).collect()
+        self.rows
+            .iter()
+            .filter(|(_, row)| row.iter().any(|(w, _)| *w == waypoint))
+            .map(|(p, _)| *p)
+            .collect()
     }
 
     fn has_cell(&self, player: i32, waypoint: i32) -> bool {
@@ -253,7 +276,9 @@ impl ServerWaypointManager {
         if player == waypoint || !ctx.locator_bar_enabled() {
             return;
         }
-        let Some(connection) = self.connections.get_mut(player, waypoint) else { return };
+        let Some(connection) = self.connections.get_mut(player, waypoint) else {
+            return;
+        };
         if !connection.is_broken(ctx) {
             connection.update(ctx);
             return;
@@ -284,7 +309,9 @@ mod tests {
     use crate::world::waypoints::{Icon, ReceiverView, TransmitterView};
     use mc_core::phys::Vec3;
     use mc_core::pos::{BlockPos, ChunkPos};
-    use mc_protocol::packets::play::{ClientboundTrackedWaypointPacket, TrackedWaypointData, WaypointOperation};
+    use mc_protocol::packets::play::{
+        ClientboundTrackedWaypointPacket, TrackedWaypointData, WaypointOperation,
+    };
     use std::cell::RefCell;
     use uuid::Uuid;
 
@@ -311,7 +338,12 @@ mod tests {
     }
 
     fn receiver(id: i32, x: f64, z: f64) -> ReceiverView {
-        ReceiverView { id, position: Vec3::new(x, 64.0, z), spectator: false, receive_range: 6.0e7 }
+        ReceiverView {
+            id,
+            position: Vec3::new(x, 64.0, z),
+            spectator: false,
+            receive_range: 6.0e7,
+        }
     }
 
     impl WaypointContext for Ctx {
@@ -323,7 +355,10 @@ mod tests {
         }
         fn is_chunk_visible(&self, receiver: i32, chunk: ChunkPos) -> bool {
             let r = self.receiver(receiver).unwrap();
-            let (cx, cz) = ((r.position.x.floor() as i32) >> 4, (r.position.z.floor() as i32) >> 4);
+            let (cx, cz) = (
+                (r.position.x.floor() as i32) >> 4,
+                (r.position.z.floor() as i32) >> 4,
+            );
             (chunk.x - cx).abs().max((chunk.z - cz).abs()) <= self.visible_radius
         }
         fn has_indirect_passenger(&self, _source: i32, _receiver: i32) -> bool {
@@ -338,7 +373,12 @@ mod tests {
     }
 
     fn ctx(transmitters: Vec<TransmitterView>, receivers: Vec<ReceiverView>) -> Ctx {
-        Ctx { transmitters, receivers, visible_radius: 2, sent: RefCell::new(Vec::new()) }
+        Ctx {
+            transmitters,
+            receivers,
+            visible_radius: 2,
+            sent: RefCell::new(Vec::new()),
+        }
     }
 
     #[test]
@@ -359,7 +399,10 @@ mod tests {
 
     #[test]
     fn nearby_transmitter_gets_a_block_connection_and_updates_on_move() {
-        let mut c = ctx(vec![transmitter(1, 8.0, 8.0), transmitter(2, 40.0, 8.0)], vec![receiver(2, 40.0, 8.0)]);
+        let mut c = ctx(
+            vec![transmitter(1, 8.0, 8.0), transmitter(2, 40.0, 8.0)],
+            vec![receiver(2, 40.0, 8.0)],
+        );
         let mut manager = ServerWaypointManager::default();
         manager.track_waypoint(&c, 1);
         manager.add_player(&c, 2, true);
@@ -369,26 +412,41 @@ mod tests {
             let (to, packet) = &sent[0];
             assert_eq!(*to, 2);
             assert_eq!(packet.operation, WaypointOperation::Track);
-            assert_eq!(packet.waypoint.data, TrackedWaypointData::Vec3i(mc_core::pos::vec3i::Vec3i::new(8, 64, 8)));
+            assert_eq!(
+                packet.waypoint.data,
+                TrackedWaypointData::Vec3i(mc_core::pos::vec3i::Vec3i::new(8, 64, 8))
+            );
         }
         c.transmitters[0] = transmitter(1, 9.5, 8.0);
         manager.update_waypoint(&c, 1);
         let sent = c.sent.borrow();
         assert_eq!(sent.len(), 2);
         assert_eq!(sent[1].1.operation, WaypointOperation::Update);
-        assert_eq!(sent[1].1.waypoint.data, TrackedWaypointData::Vec3i(mc_core::pos::vec3i::Vec3i::new(9, 64, 8)));
+        assert_eq!(
+            sent[1].1.waypoint.data,
+            TrackedWaypointData::Vec3i(mc_core::pos::vec3i::Vec3i::new(9, 64, 8))
+        );
     }
 
     #[test]
     fn far_transmitter_is_an_azimuth_and_out_of_view_a_chunk() {
-        let c = ctx(vec![transmitter(1, 0.0, 0.0), transmitter(3, 1000.0, 0.0)], vec![receiver(2, 100.0, 0.0)]);
+        let c = ctx(
+            vec![transmitter(1, 0.0, 0.0), transmitter(3, 1000.0, 0.0)],
+            vec![receiver(2, 100.0, 0.0)],
+        );
         let mut manager = ServerWaypointManager::default();
         manager.add_player(&c, 2, false);
         manager.track_waypoint(&c, 1);
         manager.track_waypoint(&c, 3);
         let sent = c.sent.borrow();
-        assert!(matches!(sent[0].1.waypoint.data, TrackedWaypointData::Chunk(_)), "100 blocks away: outside the view distance of 2 chunks");
-        assert!(matches!(sent[1].1.waypoint.data, TrackedWaypointData::Azimuth(_)), "900 blocks away: really far");
+        assert!(
+            matches!(sent[0].1.waypoint.data, TrackedWaypointData::Chunk(_)),
+            "100 blocks away: outside the view distance of 2 chunks"
+        );
+        assert!(
+            matches!(sent[1].1.waypoint.data, TrackedWaypointData::Azimuth(_)),
+            "900 blocks away: really far"
+        );
     }
 
     #[test]

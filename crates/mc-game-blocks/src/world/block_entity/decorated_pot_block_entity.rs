@@ -1,18 +1,22 @@
 //! `DecoratedPotBlockEntity` (single-item container with sherds, loot table and the wobble animation state).
 
-use mc_game_core::block_entity_base;
-use mc_game_core::world::block_entity::randomizable_container::{self, RandomizableContainerData};
-use mc_game_core::world::block_entity::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration};
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::container::Container;
-use mc_game_core::world::entity::EntityId;
-use mc_game_core::world::item::ItemStack;
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
 use mc_data::block::BlockState;
 use mc_data::{BlockEntityType, Item};
+use mc_game_core::block_entity_base;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::block_entity::randomizable_container::{self, RandomizableContainerData};
+use mc_game_core::world::block_entity::{
+    BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration,
+};
+use mc_game_core::world::container::Container;
+use mc_game_core::world::entity::EntityId;
+use mc_game_core::world::item::ItemStack;
 use mc_nbt::CompoundTag;
-use mc_protocol::components::{CONTAINER, ItemContainerContents, POT_DECORATIONS, PotDecorations, map::DataComponentMapBuilder};
+use mc_protocol::components::{
+    CONTAINER, ItemContainerContents, POT_DECORATIONS, PotDecorations, map::DataComponentMapBuilder,
+};
 use mc_protocol::packets::play::level::ClientboundBlockEntityDataPacket;
 
 /// `DecoratedPotBlockEntity.WobbleStyle` (`ordinal` is the block event parameter).
@@ -76,7 +80,11 @@ impl DecoratedPotBlockEntity {
         self.item = stack;
     }
 
-    pub fn unpack(&mut self, level: &ServerLevel, player: Option<&dyn mc_game_core::world::entity::Entity>) {
+    pub fn unpack(
+        &mut self,
+        level: &ServerLevel,
+        player: Option<&dyn mc_game_core::world::entity::Entity>,
+    ) {
         let mut loot = std::mem::take(&mut self.loot);
         let pos = self.base.pos;
         randomizable_container::unpack_loot_table(level, pos, &mut loot, self, player);
@@ -85,7 +93,12 @@ impl DecoratedPotBlockEntity {
 
     /// `wobble(style)`.
     pub fn wobble(&self, level: &mut ServerLevel, style: WobbleStyle) {
-        level.block_event(self.base.pos, self.base.block_state.block(), 1, style as i32);
+        level.block_event(
+            self.base.pos,
+            self.base.block_state.block(),
+            1,
+            style as i32,
+        );
     }
 }
 
@@ -103,10 +116,18 @@ impl Container for DecoratedPotBlockEntity {
         self.item.is_empty()
     }
     fn get_item(&self, slot: usize) -> &ItemStack {
-        if slot == 0 { &self.item } else { mc_game_core::world::container::empty_stack() }
+        if slot == 0 {
+            &self.item
+        } else {
+            mc_game_core::world::container::empty_stack()
+        }
     }
     fn get_item_mut(&mut self, slot: usize) -> Option<&mut ItemStack> {
-        if slot == 0 { Some(&mut self.item) } else { None }
+        if slot == 0 {
+            Some(&mut self.item)
+        } else {
+            None
+        }
     }
     fn remove_item(&mut self, slot: usize, count: i32) -> ItemStack {
         if slot != 0 {
@@ -142,9 +163,14 @@ impl BlockEntity for DecoratedPotBlockEntity {
     block_entity_base!();
 
     fn load_additional(&mut self, tag: &CompoundTag) {
-        self.decorations = mc_game_core::world::block_entity::read_codec(tag, "sherds", &PotDecorations::codec()).unwrap_or_default();
+        self.decorations =
+            mc_game_core::world::block_entity::read_codec(tag, "sherds", &PotDecorations::codec())
+                .unwrap_or_default();
         if !self.loot.try_load_loot_table(tag) {
-            self.item = tag.get("item").and_then(|t| ItemStack::from_tag(t).into_result().ok()).unwrap_or_else(ItemStack::empty);
+            self.item = tag
+                .get("item")
+                .and_then(|t| ItemStack::from_tag(t).into_result().ok())
+                .unwrap_or_else(ItemStack::empty);
         } else {
             self.item = ItemStack::empty();
         }
@@ -152,7 +178,8 @@ impl BlockEntity for DecoratedPotBlockEntity {
 
     fn save_additional(&self, tag: &mut CompoundTag) {
         if self.decorations != PotDecorations::default()
-            && let Ok(t) = mc_dfu::encode_nbt(&PotDecorations::codec(), &self.decorations).into_result()
+            && let Ok(t) =
+                mc_dfu::encode_nbt(&PotDecorations::codec(), &self.decorations).into_result()
         {
             tag.put("sherds", t);
         }
@@ -170,36 +197,61 @@ impl BlockEntity for DecoratedPotBlockEntity {
     }
 
     fn get_update_packet(&self) -> Option<ClientboundBlockEntityDataPacket> {
-        Some(ClientboundBlockEntityDataPacket { pos: self.base.pos, r#type: self.base.ty, tag: self.get_update_tag() })
+        Some(ClientboundBlockEntityDataPacket {
+            pos: self.base.pos,
+            r#type: self.base.ty,
+            tag: self.get_update_tag(),
+        })
     }
 
     fn apply_components_from_item_stack(&mut self, stack: &ItemStack) {
         self.decorations = stack.get(&POT_DECORATIONS).cloned().unwrap_or_default();
-        self.item = stack.get(&CONTAINER).map(|c| {
-            let mut one = [ItemStack::empty()];
-            c.copy_into(&mut one);
-            let [first] = one;
-            first
-        }).unwrap_or_default();
+        self.item = stack
+            .get(&CONTAINER)
+            .map(|c| {
+                let mut one = [ItemStack::empty()];
+                c.copy_into(&mut one);
+                let [first] = one;
+                first
+            })
+            .unwrap_or_default();
     }
 
     fn collect_implicit_components(&self, builder: &mut DataComponentMapBuilder) {
-        *builder = std::mem::take(builder).set(POT_DECORATIONS, self.decorations.clone()).set(CONTAINER, ItemContainerContents::from_item_stacks(std::slice::from_ref(&self.item)));
+        *builder = std::mem::take(builder)
+            .set(POT_DECORATIONS, self.decorations.clone())
+            .set(
+                CONTAINER,
+                ItemContainerContents::from_item_stacks(std::slice::from_ref(&self.item)),
+            );
     }
 
     fn trigger_event(&mut self, level: &mut ServerLevel, event: i32, data: i32) -> bool {
         if event == 1 && (0..2).contains(&data) {
             self.wobble_started_at_tick = level.game_time();
-            self.last_wobble_style = Some(if data == 0 { WobbleStyle::Positive } else { WobbleStyle::Negative });
+            self.last_wobble_style = Some(if data == 0 {
+                WobbleStyle::Positive
+            } else {
+                WobbleStyle::Negative
+            });
             true
         } else {
             false
         }
     }
 
-    fn pre_remove_side_effects(&mut self, level: &mut ServerLevel, pos: BlockPos, _state: BlockState) {
+    fn pre_remove_side_effects(
+        &mut self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        _state: BlockState,
+    ) {
         self.unpack(level, None);
-        mc_game_core::world::containers::drop_contents_list(level, pos, std::slice::from_ref(&self.item));
+        mc_game_core::world::containers::drop_contents_list(
+            level,
+            pos,
+            std::slice::from_ref(&self.item),
+        );
     }
 
     fn as_container(&self) -> Option<&dyn Container> {
@@ -219,7 +271,11 @@ impl BlockEntity for DecoratedPotBlockEntity {
         mc_game_core::world::block_entity::set_changed(level, self.base.pos, self.base.block_state);
     }
 
-    fn unpack_loot_table(&mut self, level: &ServerLevel, player: Option<&dyn mc_game_core::world::entity::Entity>) {
+    fn unpack_loot_table(
+        &mut self,
+        level: &ServerLevel,
+        player: Option<&dyn mc_game_core::world::entity::Entity>,
+    ) {
         self.unpack(level, player);
     }
 
@@ -229,5 +285,7 @@ impl BlockEntity for DecoratedPotBlockEntity {
 }
 
 #[distributed_slice(BLOCK_ENTITY_TYPES)]
-static DECORATED_POT: BlockEntityRegistration =
-    BlockEntityRegistration { ty: BlockEntityType::DECORATED_POT, create: |pos, state| Box::new(DecoratedPotBlockEntity::new(pos, state)) };
+static DECORATED_POT: BlockEntityRegistration = BlockEntityRegistration {
+    ty: BlockEntityType::DECORATED_POT,
+    create: |pos, state| Box::new(DecoratedPotBlockEntity::new(pos, state)),
+};

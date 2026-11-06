@@ -17,7 +17,10 @@ use super::mob_view::PathfindingMob;
 use super::node::{Node, NodeId, Target};
 use super::path_type::PathType;
 use super::pathfinding_context::PathfindingContext;
-use super::{amphibious_node_evaluator as amphibious, fly_node_evaluator as fly, swim_node_evaluator as swim, walk_node_evaluator as walk};
+use super::{
+    amphibious_node_evaluator as amphibious, fly_node_evaluator as fly,
+    swim_node_evaluator as swim, walk_node_evaluator as walk,
+};
 use mc_core::direction::Direction;
 use mc_core::math::mth;
 use mc_core::pos::BlockPos;
@@ -144,12 +147,18 @@ impl EvaluatorState {
 
     /// `new SwimNodeEvaluator(allowBreaching)`.
     pub fn swim(allow_breaching: bool) -> Self {
-        EvaluatorState { allow_breaching, ..Self::new(EvaluatorClass::Swim) }
+        EvaluatorState {
+            allow_breaching,
+            ..Self::new(EvaluatorClass::Swim)
+        }
     }
 
     /// `new AmphibiousNodeEvaluator(prefersShallowSwimming)`.
     pub fn amphibious(prefers_shallow_swimming: bool) -> Self {
-        EvaluatorState { prefers_shallow_swimming, ..Self::new(EvaluatorClass::Amphibious) }
+        EvaluatorState {
+            prefers_shallow_swimming,
+            ..Self::new(EvaluatorClass::Amphibious)
+        }
     }
 
     /// `new FlyNodeEvaluator()`.
@@ -180,7 +189,12 @@ pub trait NodeEvaluator {
         default_get_target(self, x, y, z)
     }
     /// `getNeighbors(neighbors, pos)`: fills `neighbors`, returns how many.
-    fn get_neighbors(&mut self, env: &mut PathEnv<'_>, neighbors: &mut [NodeId; 32], pos: NodeId) -> usize {
+    fn get_neighbors(
+        &mut self,
+        env: &mut PathEnv<'_>,
+        neighbors: &mut [NodeId; 32],
+        pos: NodeId,
+    ) -> usize {
         default_get_neighbors(self, env, neighbors, pos)
     }
     /// `getPathTypeOfMob(context, x, y, z, mob)`.
@@ -227,14 +241,35 @@ pub trait NodeEvaluator {
         travel_direction: Direction,
         block_path_type_current: PathType,
     ) -> Option<NodeId> {
-        walk::find_accepted_node(self, env, x, y, z, jump_size, node_height, travel_direction, block_path_type_current)
+        walk::find_accepted_node(
+            self,
+            env,
+            x,
+            y,
+            z,
+            jump_size,
+            node_height,
+            travel_direction,
+            block_path_type_current,
+        )
     }
     /// `isNeighborValid(neighbor, current)`.
-    fn is_neighbor_valid(&mut self, env: &mut PathEnv<'_>, neighbor: Option<NodeId>, current: NodeId) -> bool {
+    fn is_neighbor_valid(
+        &mut self,
+        env: &mut PathEnv<'_>,
+        neighbor: Option<NodeId>,
+        current: NodeId,
+    ) -> bool {
         walk::is_neighbor_valid(self, env, neighbor, current)
     }
     /// `isDiagonalValid(pos, ew, ns)`.
-    fn is_diagonal_valid_between(&mut self, env: &mut PathEnv<'_>, pos: NodeId, ew: Option<NodeId>, ns: Option<NodeId>) -> bool {
+    fn is_diagonal_valid_between(
+        &mut self,
+        env: &mut PathEnv<'_>,
+        pos: NodeId,
+        ew: Option<NodeId>,
+        ns: Option<NodeId>,
+    ) -> bool {
         walk::is_diagonal_valid_between(self, env, pos, ew, ns)
     }
     /// `isDiagonalValid(diagonal)`.
@@ -312,14 +347,24 @@ pub fn default_get_start<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut Path
     }
 }
 
-pub fn default_get_target<N: NodeEvaluator + ?Sized>(this: &mut N, x: f64, y: f64, z: f64) -> Target {
+pub fn default_get_target<N: NodeEvaluator + ?Sized>(
+    this: &mut N,
+    x: f64,
+    y: f64,
+    z: f64,
+) -> Target {
     match this.state().class {
         EvaluatorClass::Amphibious => amphibious::get_target(this, x, y, z),
         _ => this.state_mut().base.get_target_node_at(x, y, z),
     }
 }
 
-pub fn default_get_neighbors<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>, neighbors: &mut [NodeId; 32], pos: NodeId) -> usize {
+pub fn default_get_neighbors<N: NodeEvaluator + ?Sized>(
+    this: &mut N,
+    env: &mut PathEnv<'_>,
+    neighbors: &mut [NodeId; 32],
+    pos: NodeId,
+) -> usize {
     match this.state().class {
         EvaluatorClass::Walk => walk::get_neighbors(this, env, neighbors, pos),
         EvaluatorClass::Swim => swim::get_neighbors(this, env, neighbors, pos),
@@ -328,14 +373,26 @@ pub fn default_get_neighbors<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut 
     }
 }
 
-pub fn default_get_path_type_of_mob<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>, x: i32, y: i32, z: i32) -> PathType {
+pub fn default_get_path_type_of_mob<N: NodeEvaluator + ?Sized>(
+    this: &mut N,
+    env: &mut PathEnv<'_>,
+    x: i32,
+    y: i32,
+    z: i32,
+) -> PathType {
     match this.state().class {
         EvaluatorClass::Swim => swim::get_path_type_of_mob(this, env, x, y, z),
         _ => walk::get_path_type_of_mob(this, env, x, y, z),
     }
 }
 
-pub fn default_get_path_type<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>, x: i32, y: i32, z: i32) -> PathType {
+pub fn default_get_path_type<N: NodeEvaluator + ?Sized>(
+    this: &mut N,
+    env: &mut PathEnv<'_>,
+    x: i32,
+    y: i32,
+    z: i32,
+) -> PathType {
     match this.state().class {
         EvaluatorClass::Walk => walk::get_path_type(env, x, y, z),
         EvaluatorClass::Swim => this.get_path_type_of_mob(env, x, y, z),
@@ -344,7 +401,11 @@ pub fn default_get_path_type<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut 
     }
 }
 
-pub fn default_can_start_at<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>, pos: BlockPos) -> bool {
+pub fn default_can_start_at<N: NodeEvaluator + ?Sized>(
+    this: &mut N,
+    env: &mut PathEnv<'_>,
+    pos: BlockPos,
+) -> bool {
     match this.state().class {
         EvaluatorClass::Fly => fly::can_start_at(this, env, pos),
         _ => walk::can_start_at(this, env, pos),

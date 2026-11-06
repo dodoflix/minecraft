@@ -10,8 +10,6 @@ use std::sync::Arc;
 
 pub mod state_testing_predicate;
 
-
-
 pub trait BlockPredicate: Send + Sync {
     /// `test(level, pos)`.
     fn test(&self, level: &dyn LevelAccessor, pos: BlockPos) -> bool;

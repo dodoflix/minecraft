@@ -40,7 +40,13 @@ impl ExperienceOrb {
         let base = EntityData::new(ty, id, super::entity::TOTAL_AIR_SUPPLY, |b| {
             b.define(DATA_VALUE, 0);
         });
-        Self { base, age: 0, health: DEFAULT_HEALTH, count: 1, following_player: None }
+        Self {
+            base,
+            age: 0,
+            health: DEFAULT_HEALTH,
+            count: 1,
+            following_player: None,
+        }
     }
 
     /// `ExperienceOrb(level, x, y, z, value)`.
@@ -55,7 +61,11 @@ impl ExperienceOrb {
         let yaw = orb.base.random.next_float() * 360.0;
         orb.base.set_y_rot(yaw);
         let r = &mut orb.base.random;
-        let mut random_movement = Vec3::new((r.next_double() * 0.2 - 0.1) * 2.0, r.next_double() * 0.2 * 2.0, (r.next_double() * 0.2 - 0.1) * 2.0);
+        let mut random_movement = Vec3::new(
+            (r.next_double() * 0.2 - 0.1) * 2.0,
+            r.next_double() * 0.2 * 2.0,
+            (r.next_double() * 0.2 - 0.1) * 2.0,
+        );
         if roughly.length_sqr() > 0.0 && roughly.dot(random_movement) < 0.0 {
             random_movement = random_movement.scale(-1.0);
         }
@@ -74,7 +84,12 @@ impl ExperienceOrb {
         let height = f64::from(self.base.get_bb_height());
         let width = f64::from(self.base.get_bb_width());
         let center = self.base.position().add(Vec3::new(0.0, height / 2.0, 0.0));
-        let allowed_centers = Shapes::create(AABB::of_size(center, max_distance, max_distance, max_distance));
+        let allowed_centers = Shapes::create(AABB::of_size(
+            center,
+            max_distance,
+            max_distance,
+            max_distance,
+        ));
         let context = movement::collision_context(self);
         let border = level.world_border_ref();
         let free = level.find_free_position(
@@ -140,7 +155,12 @@ impl ExperienceOrb {
     }
 
     /// `awardWithDirection(level, pos, roughDirection, amount)`.
-    pub fn award_with_direction(level: &mut ServerLevel, pos: &Vec3, rough_direction: Vec3, mut amount: i32) {
+    pub fn award_with_direction(
+        level: &mut ServerLevel,
+        pos: &Vec3,
+        rough_direction: Vec3,
+        mut amount: i32,
+    ) {
         while amount > 0 {
             let new_count = Self::get_experience_value(amount);
             amount -= new_count;
@@ -155,8 +175,18 @@ impl ExperienceOrb {
     fn try_merge_to_existing(level: &mut ServerLevel, pos: Vec3, value: i32) -> bool {
         let area = AABB::of_size(pos, 1.0, 1.0, 1.0);
         let id = level.random().next_int_bounded(ORB_GROUPS_PER_AREA);
-        let orbs = level.get_entities_of_class(&area, |e| e.as_any().is::<ExperienceOrb>(), |e| e.as_any().downcast_ref::<ExperienceOrb>().is_some_and(|o| can_merge_static(o, id, value)));
-        let Some(&first) = orbs.first() else { return false };
+        let orbs = level.get_entities_of_class(
+            &area,
+            |e| e.as_any().is::<ExperienceOrb>(),
+            |e| {
+                e.as_any()
+                    .downcast_ref::<ExperienceOrb>()
+                    .is_some_and(|o| can_merge_static(o, id, value))
+            },
+        );
+        let Some(&first) = orbs.first() else {
+            return false;
+        };
         level.with_entity(first, |_, e| {
             if let Some(orb) = e.as_any_mut().downcast_mut::<ExperienceOrb>() {
                 orb.count += 1;
@@ -180,7 +210,15 @@ impl ExperienceOrb {
 
     fn scan_for_merges(&mut self, level: &mut ServerLevel) {
         let area = self.base.bounding_box().inflate_scalar(0.5);
-        let orbs = level.get_entities_of_class(&area, |e| e.as_any().is::<ExperienceOrb>(), |e| e.as_any().downcast_ref::<ExperienceOrb>().is_some_and(|o| self.can_merge(o)));
+        let orbs = level.get_entities_of_class(
+            &area,
+            |e| e.as_any().is::<ExperienceOrb>(),
+            |e| {
+                e.as_any()
+                    .downcast_ref::<ExperienceOrb>()
+                    .is_some_and(|o| self.can_merge(o))
+            },
+        );
         for id in orbs {
             level.with_entity(id, |_, e| {
                 if let Some(orb) = e.as_any_mut().downcast_mut::<ExperienceOrb>() {
@@ -192,36 +230,62 @@ impl ExperienceOrb {
 
     /// `followNearbyPlayer()`.
     fn follow_nearby_player(&mut self, level: &ServerLevel) {
-        let following_valid = self.following_player.and_then(|id| level.get_entity(id)).is_some_and(|p| !p.is_spectator() && p.base().distance_to_sqr_vec(self.base.position()) <= 64.0);
+        let following_valid = self
+            .following_player
+            .and_then(|id| level.get_entity(id))
+            .is_some_and(|p| {
+                !p.is_spectator() && p.base().distance_to_sqr_vec(self.base.position()) <= 64.0
+            });
         if !following_valid {
             let pos = self.base.position();
-            let nearest = level.get_nearest_player(pos.x, pos.y, pos.z, MAX_FOLLOW_DIST, |p| !p.is_spectator());
-            self.following_player = nearest.filter(|&id| level.get_entity(id).is_some_and(|p| !p.is_spectator() && !p.living().is_some_and(|l| l.get_health() <= 0.0)));
+            let nearest = level
+                .get_nearest_player(pos.x, pos.y, pos.z, MAX_FOLLOW_DIST, |p| !p.is_spectator());
+            self.following_player = nearest.filter(|&id| {
+                level.get_entity(id).is_some_and(|p| {
+                    !p.is_spectator() && !p.living().is_some_and(|l| l.get_health() <= 0.0)
+                })
+            });
         }
         if let Some(player) = self.following_player.and_then(|id| level.get_entity(id)) {
             let (pp, here) = (player.base().position(), self.base.position());
-            let delta = Vec3::new(pp.x - here.x, pp.y + f64::from(player.base().eye_height) / 2.0 - here.y, pp.z - here.z);
+            let delta = Vec3::new(
+                pp.x - here.x,
+                pp.y + f64::from(player.base().eye_height) / 2.0 - here.y,
+                pp.z - here.z,
+            );
             let length = delta.length_sqr();
             let power = 1.0 - length.sqrt() / 8.0;
             let dm = self.base.delta_movement();
-            self.base.set_delta_movement(dm.add(delta.normalize().scale(power * power * 0.1)));
+            self.base
+                .set_delta_movement(dm.add(delta.normalize().scale(power * power * 0.1)));
         }
     }
 
     /// `setUnderwaterMovement()`.
     fn set_underwater_movement(&mut self) {
         let m = self.base.delta_movement();
-        self.base.set_delta_movement_xyz(m.x * f64::from(0.99f32), (m.y + f64::from(5.0E-4f32)).min(f64::from(0.06f32)), m.z * f64::from(0.99f32));
+        self.base.set_delta_movement_xyz(
+            m.x * f64::from(0.99f32),
+            (m.y + f64::from(5.0E-4f32)).min(f64::from(0.06f32)),
+            m.z * f64::from(0.99f32),
+        );
     }
 
     /// `repairPlayerItems(player, amount)`: mending. Returns the experience that is left over.
-    fn repair_player_items(&self, level: &mut ServerLevel, player: &mut ServerPlayer, amount: i32) -> i32 {
+    fn repair_player_items(
+        &self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        amount: i32,
+    ) -> i32 {
         super::player::pickup::repair_player_items(level, player, amount)
     }
 }
 
 fn can_merge_static(orb: &ExperienceOrb, id: i32, value: i32) -> bool {
-    !orb.base.is_removed() && orb.base.id.wrapping_sub(id) % ORB_GROUPS_PER_AREA == 0 && orb.get_value() == value
+    !orb.base.is_removed()
+        && orb.base.id.wrapping_sub(id) % ORB_GROUPS_PER_AREA == 0
+        && orb.get_value() == value
 }
 
 impl Entity for ExperienceOrb {
@@ -263,7 +327,12 @@ impl Entity for ExperienceOrb {
     fn do_water_splash_effect(&mut self, _level: &mut ServerLevel) {}
 
     /// `hurtServer(level, source, damage)`: health 5, no extra immunity.
-    fn hurt_server(&mut self, level: &mut ServerLevel, source: &crate::world::damagesource::DamageSource, damage: f32) -> bool {
+    fn hurt_server(
+        &mut self,
+        level: &mut ServerLevel,
+        source: &crate::world::damagesource::DamageSource,
+        damage: f32,
+    ) -> bool {
         if self.is_invulnerable_to_base(level, source) {
             return false;
         }
@@ -283,7 +352,10 @@ impl Entity for ExperienceOrb {
         } else if !colliding {
             self.apply_gravity();
         }
-        if level.get_fluid_state(self.base.block_position()).is_tag("lava") {
+        if level
+            .get_fluid_state(self.base.block_position())
+            .is_tag("lava")
+        {
             let r = &mut self.base.random;
             let x = f64::from((r.next_float() - r.next_float()) * 0.2f32);
             let z = f64::from((r.next_float() - r.next_float()) * 0.2f32);
@@ -294,11 +366,24 @@ impl Entity for ExperienceOrb {
         }
         self.follow_nearby_player(level);
         if self.following_player.is_none() && colliding {
-            let next_colliding = !level.no_collision(None, None, &self.base.bounding_box().move_vec(self.base.delta_movement()));
+            let next_colliding = !level.no_collision(
+                None,
+                None,
+                &self
+                    .base
+                    .bounding_box()
+                    .move_vec(self.base.delta_movement()),
+            );
             if next_colliding {
                 let bb = self.base.bounding_box();
                 let p = self.base.position();
-                super::item::move_towards_closest_space(self, level, p.x, (bb.min_y + bb.max_y) / 2.0, p.z);
+                super::item::move_towards_closest_space(
+                    self,
+                    level,
+                    p.x,
+                    (bb.min_y + bb.max_y) / 2.0,
+                    p.z,
+                );
                 self.base.needs_sync = true;
             }
         }
@@ -315,7 +400,8 @@ impl Entity for ExperienceOrb {
         self.base.set_delta_movement(m.scale(f64::from(friction)));
         if self.base.vertical_collision_below && fall_speed < -self.get_gravity() {
             let m = self.base.delta_movement();
-            self.base.set_delta_movement_xyz(m.x, -fall_speed * 0.4, m.z);
+            self.base
+                .set_delta_movement_xyz(m.x, -fall_speed * 0.4, m.z);
         }
         self.age += 1;
         if self.age >= LIFETIME {

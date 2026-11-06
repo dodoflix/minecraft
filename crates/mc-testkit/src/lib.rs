@@ -67,7 +67,11 @@ fn lock<T>(m: &Mutex<T>) -> MutexGuard<'_, T> {
 
 /// A port the OS reported free a moment ago. Not reserved: [`Builder::start`] retries when the server cannot bind it.
 pub fn free_port() -> u16 {
-    TcpListener::bind((Ipv4Addr::LOCALHOST, 0)).expect("bind a loopback port").local_addr().expect("local address").port()
+    TcpListener::bind((Ipv4Addr::LOCALHOST, 0))
+        .expect("bind a loopback port")
+        .local_addr()
+        .expect("local address")
+        .port()
 }
 
 fn repo_root() -> PathBuf {
@@ -148,7 +152,11 @@ impl Log {
                 return None;
             }
             let left = deadline.checked_duration_since(Instant::now())?;
-            state = self.changed.wait_timeout(state, left).unwrap_or_else(PoisonError::into_inner).0;
+            state = self
+                .changed
+                .wait_timeout(state, left)
+                .unwrap_or_else(PoisonError::into_inner)
+                .0;
         }
     }
 }
@@ -165,13 +173,21 @@ impl Proc {
     /// Starts `cmd` in `dir` with piped stdin, stdout captured into the log and stderr in `dir/stderr.log`.
     fn start(mut cmd: Command, dir: &Path) -> io::Result<Proc> {
         let (out, out_writer) = io::pipe()?;
-        cmd.current_dir(dir).stdin(Stdio::piped()).stdout(out_writer).stderr(File::create(dir.join("stderr.log"))?);
+        cmd.current_dir(dir)
+            .stdin(Stdio::piped())
+            .stdout(out_writer)
+            .stderr(File::create(dir.join("stderr.log"))?);
         let mut child = spawn_in_group(cmd)?;
         let stdin = child.stdin.take();
         let log = Arc::new(Log::default());
         let sink = log.clone();
         std::thread::spawn(move || sink.fill(out));
-        Ok(Proc { pgid: child.id() as libc::pid_t, child: Mutex::new(child), stdin: Mutex::new(stdin), log })
+        Ok(Proc {
+            pgid: child.id() as libc::pid_t,
+            child: Mutex::new(child),
+            stdin: Mutex::new(stdin),
+            log,
+        })
     }
 
     fn cmd(&self, command: &str) {
@@ -204,7 +220,8 @@ impl Proc {
             let _ = child.wait();
         }
         drop(child);
-        self.log.wait(Duration::from_secs(5), |s| s.eof.then_some(()));
+        self.log
+            .wait(Duration::from_secs(5), |s| s.eof.then_some(()));
     }
 }
 
@@ -250,7 +267,10 @@ impl Server {
 
     /// Everything the server printed so far.
     pub fn log(&self) -> String {
-        lock(&self.proc.log.state).lines.iter().fold(String::new(), |all, l| all + l + "\n")
+        lock(&self.proc.log.state)
+            .lines
+            .iter()
+            .fold(String::new(), |all, l| all + l + "\n")
     }
 
     /// Runs a console command, e.g. `op Bot`.
@@ -261,7 +281,11 @@ impl Server {
     /// Waits up to `timeout_s` for a line matching `regex` (anywhere in the output so far or later); returns the last match.
     pub fn wait_log(&self, regex: &str, timeout_s: u32) -> Option<String> {
         let re = regex::Regex::new(regex).expect("wait_log regex");
-        self.proc.log.wait(Duration::from_secs(timeout_s.into()), |s| s.lines.iter().rev().find(|l| re.is_match(l)).cloned())
+        self.proc
+            .log
+            .wait(Duration::from_secs(timeout_s.into()), |s| {
+                s.lines.iter().rev().find(|l| re.is_match(l)).cloned()
+            })
     }
 
     /// Waits for the process to exit by itself (for example a server that rejects its data packs).
@@ -290,21 +314,38 @@ impl Server {
     }
 
     fn failure(&self, what: &str) -> Error {
-        let log = lock(&self.proc.log.state).lines.iter().rev().take(30).rev().fold(String::new(), |all, l| all + l + "\n");
+        let log = lock(&self.proc.log.state)
+            .lines
+            .iter()
+            .rev()
+            .take(30)
+            .rev()
+            .fold(String::new(), |all, l| all + l + "\n");
         let stderr = fs::read_to_string(self.dir.join("stderr.log")).unwrap_or_default();
-        Error(format!("{what}\n--- server output (tail) ---\n{log}--- stderr ---\n{stderr}"))
+        Error(format!(
+            "{what}\n--- server output (tail) ---\n{log}--- stderr ---\n{stderr}"
+        ))
     }
 
     /// `Done (` is printed when the listener opens, but the main loop is not ticking yet and drops early
     /// connections; a status ping is only answered by a ticking server.
     fn wait_ready(&self) -> Result<()> {
         let deadline = Instant::now() + READY_TIMEOUT;
-        if self.proc.log.wait(READY_TIMEOUT, |s| s.lines.iter().any(|l| l.contains("Done (")).then_some(())).is_none() {
+        if self
+            .proc
+            .log
+            .wait(READY_TIMEOUT, |s| {
+                s.lines.iter().any(|l| l.contains("Done (")).then_some(())
+            })
+            .is_none()
+        {
             return Err(self.failure("the server exited or timed out before printing `Done (`"));
         }
         while status_ping(self.port).is_err() {
             if Instant::now() >= deadline || lock(&self.proc.log.state).eof {
-                return Err(self.failure("the server printed `Done (` but never answered a status ping"));
+                return Err(
+                    self.failure("the server printed `Done (` but never answered a status ping")
+                );
             }
             std::thread::sleep(Duration::from_millis(50));
         }
@@ -330,7 +371,13 @@ pub struct Builder {
 
 impl Builder {
     fn new(program: Program) -> Self {
-        Builder { program, props: Vec::new(), dir: None, prepare: None, xmx: "1G".into() }
+        Builder {
+            program,
+            props: Vec::new(),
+            dir: None,
+            prepare: None,
+            xmx: "1G".into(),
+        }
     }
 
     /// One `server.properties` entry. `server-port` and `server-ip=127.0.0.1` are set by the launcher; anything else
@@ -344,7 +391,9 @@ impl Builder {
     /// `key=value` entries, see [`Self::property`].
     pub fn properties<'a>(mut self, entries: impl IntoIterator<Item = &'a str>) -> Self {
         for entry in entries {
-            let (key, value) = entry.split_once('=').unwrap_or_else(|| panic!("property `{entry}` is not key=value"));
+            let (key, value) = entry
+                .split_once('=')
+                .unwrap_or_else(|| panic!("property `{entry}` is not key=value"));
             self = self.property(key, value);
         }
         self
@@ -377,7 +426,13 @@ impl Builder {
         for _ in 0..PORT_ATTEMPTS {
             let server = self.launch(&dir)?;
             match server.wait_ready() {
-                Ok(()) => return Ok(Server { _temp: temp, _permit: Some(permit), ..server }),
+                Ok(()) => {
+                    return Ok(Server {
+                        _temp: temp,
+                        _permit: Some(permit),
+                        ..server
+                    });
+                }
                 Err(e) if server.log().contains("FAILED TO BIND") => last = Some(e),
                 Err(e) => return Err(e),
             }
@@ -390,7 +445,11 @@ impl Builder {
     pub fn start_unready(mut self) -> Result<Server> {
         let permit = permit::acquire();
         let (dir, temp) = self.prepare_dir()?;
-        Ok(Server { _temp: temp, _permit: Some(permit), ..self.launch(&dir)? })
+        Ok(Server {
+            _temp: temp,
+            _permit: Some(permit),
+            ..self.launch(&dir)?
+        })
     }
 
     fn prepare_dir(&mut self) -> Result<(PathBuf, Option<TempDir>)> {
@@ -404,7 +463,10 @@ impl Builder {
         let (dir, temp) = match &self.dir {
             Some(dir) => (dir.clone(), None),
             None => {
-                let temp = tempfile::Builder::new().prefix("mc-server-").tempdir().map_err(|e| io("create the server directory", e))?;
+                let temp = tempfile::Builder::new()
+                    .prefix("mc-server-")
+                    .tempdir()
+                    .map_err(|e| io("create the server directory", e))?;
                 (temp.path().to_path_buf(), Some(temp))
             }
         };
@@ -420,22 +482,33 @@ impl Builder {
     /// One launch on a fresh port; retries share the directory.
     fn launch(&self, dir: &Path) -> Result<Server> {
         let port = free_port();
-        let mut props = vec![("server-port".to_owned(), port.to_string()), ("server-ip".to_owned(), "127.0.0.1".to_owned())];
+        let mut props = vec![
+            ("server-port".to_owned(), port.to_string()),
+            ("server-ip".to_owned(), "127.0.0.1".to_owned()),
+        ];
         for (k, v) in &self.props {
             props.retain(|(pk, _)| pk != k);
             props.push((k.clone(), v.clone()));
         }
         let text: String = props.iter().map(|(k, v)| format!("{k}={v}\n")).collect();
-        fs::write(dir.join("server.properties"), text).map_err(|e| Error(format!("write server.properties: {e}")))?;
+        fs::write(dir.join("server.properties"), text)
+            .map_err(|e| Error(format!("write server.properties: {e}")))?;
         let (program, cmd) = match &self.program {
             Program::Vanilla => {
-                let jar = repo_root().join("ref/server.jar").canonicalize().map_err(|e| Error(format!("ref/server.jar: {e}")))?;
+                let jar = repo_root()
+                    .join("ref/server.jar")
+                    .canonicalize()
+                    .map_err(|e| Error(format!("ref/server.jar: {e}")))?;
                 // A differently named link keeps `pkill -f server.jar` from touching it.
                 let link = dir.join("vanilla-under-test.jar");
                 let _ = fs::remove_file(&link);
-                std::os::unix::fs::symlink(jar, &link).map_err(|e| Error(format!("link the jar: {e}")))?;
+                std::os::unix::fs::symlink(jar, &link)
+                    .map_err(|e| Error(format!("link the jar: {e}")))?;
                 let mut cmd = Command::new("java");
-                cmd.arg(format!("-Xmx{}", self.xmx)).arg("-jar").arg(link).arg("nogui");
+                cmd.arg(format!("-Xmx{}", self.xmx))
+                    .arg("-jar")
+                    .arg(link)
+                    .arg("nogui");
                 ("java".to_owned(), cmd)
             }
             Program::Ours(bin) => {
@@ -445,10 +518,19 @@ impl Builder {
             }
         };
         let proc = Proc::start(cmd, dir).map_err(|e| match (e.kind(), &self.program) {
-            (io::ErrorKind::NotFound, Program::Vanilla) => Error("java was not found on PATH: install JDK 25 (scripts/setup-ref.sh needs it too)".into()),
+            (io::ErrorKind::NotFound, Program::Vanilla) => Error(
+                "java was not found on PATH: install JDK 25 (scripts/setup-ref.sh needs it too)"
+                    .into(),
+            ),
             _ => Error(format!("cannot start {program}: {e}")),
         })?;
-        Ok(Server { port, proc, dir: dir.to_path_buf(), _temp: None, _permit: None })
+        Ok(Server {
+            port,
+            proc,
+            dir: dir.to_path_buf(),
+            _temp: None,
+            _permit: None,
+        })
     }
 }
 
@@ -457,7 +539,9 @@ fn eula_opt_in(value: Option<&str>) -> Result<()> {
     if value == Some("1") {
         return Ok(());
     }
-    fail(format!("starting the vanilla server accepts the Minecraft EULA ({EULA_URL}) in your name: set MC_ACCEPT_EULA=1 if you accept it"))
+    fail(format!(
+        "starting the vanilla server accepts the Minecraft EULA ({EULA_URL}) in your name: set MC_ACCEPT_EULA=1 if you accept it"
+    ))
 }
 
 // ---- readiness probe --------------------------------------------------------------------------------------------
@@ -488,7 +572,8 @@ fn read_varint(r: &mut impl Read) -> io::Result<u32> {
 
 /// A server list ping: handshake with the status intent, status request, read the response packet.
 fn status_ping(port: u16) -> io::Result<()> {
-    let mut s = TcpStream::connect_timeout(&(Ipv4Addr::LOCALHOST, port).into(), Duration::from_secs(2))?;
+    let mut s =
+        TcpStream::connect_timeout(&(Ipv4Addr::LOCALHOST, port).into(), Duration::from_secs(2))?;
     s.set_read_timeout(Some(Duration::from_secs(2)))?;
     s.set_write_timeout(Some(Duration::from_secs(2)))?;
     let mut handshake = vec![0, 0]; // packet id, protocol version (not checked for status)
@@ -517,7 +602,10 @@ mod tests {
         assert!(eula_opt_in(Some("1")).is_ok());
         for v in [None, Some(""), Some("0"), Some("true")] {
             let e = eula_opt_in(v).unwrap_err().to_string();
-            assert!(e.contains("MC_ACCEPT_EULA=1") && e.contains(EULA_URL), "{e}");
+            assert!(
+                e.contains("MC_ACCEPT_EULA=1") && e.contains(EULA_URL),
+                "{e}"
+            );
         }
     }
 
@@ -537,7 +625,15 @@ mod tests {
         let mut sh = Command::new("sh");
         sh.args(["-c", "sleep 300 & echo grandchild $!; wait"]);
         let proc = Proc::start(sh, dir.path()).unwrap();
-        let line = proc.log.wait(Duration::from_secs(10), |s| s.lines.iter().find(|l| l.starts_with("grandchild ")).cloned()).expect("pid line");
+        let line = proc
+            .log
+            .wait(Duration::from_secs(10), |s| {
+                s.lines
+                    .iter()
+                    .find(|l| l.starts_with("grandchild "))
+                    .cloned()
+            })
+            .expect("pid line");
         let pid: u32 = line["grandchild ".len()..].parse().unwrap();
         let proc_dir = PathBuf::from(format!("/proc/{pid}"));
         assert!(proc_dir.exists());

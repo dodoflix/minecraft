@@ -13,14 +13,15 @@ pub struct SlideDownBlockTriggerInstance {
 
 impl TriggerInstance for SlideDownBlockTriggerInstance {
     fn codec() -> Codec<Self> {
-        static C: std::sync::LazyLock<Codec<SlideDownBlockTriggerInstance>> = std::sync::LazyLock::new(|| {
-            mc_dfu::record!(SlideDownBlockTriggerInstance {
-                player: condition_holder_codec().optional_field_of("player"),
-                block: RegistrySet::<mc_data::Block>::codec().optional_field_of("blocks"),
-                state: StatePropertiesPredicate::codec().optional_field_of("state"),
-            })
-            .codec()
-        });
+        static C: std::sync::LazyLock<Codec<SlideDownBlockTriggerInstance>> =
+            std::sync::LazyLock::new(|| {
+                mc_dfu::record!(SlideDownBlockTriggerInstance {
+                    player: condition_holder_codec().optional_field_of("player"),
+                    block: RegistrySet::<mc_data::Block>::codec().optional_field_of("blocks"),
+                    state: StatePropertiesPredicate::codec().optional_field_of("state"),
+                })
+                .codec()
+            });
         C.clone()
     }
 }
@@ -40,7 +41,11 @@ crate::register_triggers!(SlideDownBlockTriggerInstance {
 impl SlideDownBlockTriggerInstance {
     /// `matches(state)`.
     pub fn matches(&self, state: BlockState) -> bool {
-        if self.block.as_ref().is_some_and(|b| !b.contains(state.block())) {
+        if self
+            .block
+            .as_ref()
+            .is_some_and(|b| !b.contains(state.block()))
+        {
             return false;
         }
         self.state.as_ref().is_none_or(|p| p.matches(state))

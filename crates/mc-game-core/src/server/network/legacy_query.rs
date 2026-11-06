@@ -26,7 +26,11 @@ pub(super) async fn sniff(ctx: &mut ConnectionContext) -> Sniffed {
     };
     match parse(&first) {
         Some(kind) => {
-            let socket = ctx.handle.remote_address().map(|a| java_socket_address_string(&a)).unwrap_or_default();
+            let socket = ctx
+                .handle
+                .remote_address()
+                .map(|a| java_socket_address_string(&a))
+                .unwrap_or_default();
             let info = ctx.hooks.legacy_info();
             let body = match kind {
                 Kind::PreFourteen => {
@@ -118,26 +122,36 @@ impl Reader<'_> {
         self.take(2).map(|b| u16::from_be_bytes([b[0], b[1]]))
     }
     fn i32(&mut self) -> Option<i32> {
-        self.take(4).map(|b| i32::from_be_bytes([b[0], b[1], b[2], b[3]]))
+        self.take(4)
+            .map(|b| i32::from_be_bytes([b[0], b[1], b[2], b[3]]))
     }
     /// `LegacyProtocolUtils.readLegacyString`: a signed short char count (negative = exception in Java) then UTF-16BE.
     fn legacy_string(&mut self) -> Option<String> {
         let char_count = i16::from_be_bytes(self.take(2)?.try_into().ok()?);
         let byte_count = usize::try_from(char_count).ok()? * 2;
         let bytes = self.take(byte_count)?;
-        let units: Vec<u16> = bytes.chunks_exact(2).map(|c| u16::from_be_bytes([c[0], c[1]])).collect();
+        let units: Vec<u16> = bytes
+            .chunks_exact(2)
+            .map(|c| u16::from_be_bytes([c[0], c[1]]))
+            .collect();
         Some(String::from_utf16_lossy(&units))
     }
 }
 
 /// `createVersion0Response`: `motd§players§max`.
 fn create_version0_response(info: &LegacyServerInfo) -> String {
-    format!("{}\u{a7}{}\u{a7}{}", info.motd, info.player_count, info.max_players)
+    format!(
+        "{}\u{a7}{}\u{a7}{}",
+        info.motd, info.player_count, info.max_players
+    )
 }
 
 /// `createVersion1Response`: `§1\0127\0version\0motd\0players\0max`.
 fn create_version1_response(info: &LegacyServerInfo) -> String {
-    format!("\u{a7}1\0{FAKE_PROTOCOL_VERSION}\0{}\0{}\0{}\0{}", info.server_version, info.motd, info.player_count, info.max_players)
+    format!(
+        "\u{a7}1\0{FAKE_PROTOCOL_VERSION}\0{}\0{}\0{}\0{}",
+        info.server_version, info.motd, info.player_count, info.max_players
+    )
 }
 
 /// `createLegacyDisconnectPacket`: `0xFF` + `writeLegacyString` (UTF-16 unit count as a short, UTF-16BE chars).
@@ -163,7 +177,10 @@ mod tests {
         payload.extend(&host16);
         payload.extend(port.to_be_bytes());
         let mut out = vec![254, 1, 250];
-        let channel: Vec<u8> = "MC|PingHost".encode_utf16().flat_map(u16::to_be_bytes).collect();
+        let channel: Vec<u8> = "MC|PingHost"
+            .encode_utf16()
+            .flat_map(u16::to_be_bytes)
+            .collect();
         out.extend(11u16.to_be_bytes());
         out.extend(channel);
         out.extend((payload.len() as u16).to_be_bytes());
@@ -175,7 +192,10 @@ mod tests {
     fn detects_the_three_legacy_forms() {
         assert_eq!(parse(&[254]), Some(Kind::PreFourteen));
         assert_eq!(parse(&[254, 1]), Some(Kind::OneFour));
-        assert_eq!(parse(&ping_host_packet(74, "localhost", 25565)), Some(Kind::OneSix));
+        assert_eq!(
+            parse(&ping_host_packet(74, "localhost", 25565)),
+            Some(Kind::OneSix)
+        );
     }
 
     #[test]
@@ -195,9 +215,20 @@ mod tests {
 
     #[test]
     fn response_format() {
-        let info = LegacyServerInfo { motd: "A Minecraft Server".into(), player_count: 1, max_players: 20, server_version: "26.3".into() };
-        assert_eq!(create_version0_response(&info), "A Minecraft Server\u{a7}1\u{a7}20");
-        assert_eq!(create_version1_response(&info), "\u{a7}1\0127\026.3\0A Minecraft Server\01\020");
+        let info = LegacyServerInfo {
+            motd: "A Minecraft Server".into(),
+            player_count: 1,
+            max_players: 20,
+            server_version: "26.3".into(),
+        };
+        assert_eq!(
+            create_version0_response(&info),
+            "A Minecraft Server\u{a7}1\u{a7}20"
+        );
+        assert_eq!(
+            create_version1_response(&info),
+            "\u{a7}1\0127\026.3\0A Minecraft Server\01\020"
+        );
         let packet = create_legacy_disconnect_packet("ab\u{a7}");
         assert_eq!(packet, [255, 0, 3, 0, b'a', 0, b'b', 0, 0xa7]);
     }

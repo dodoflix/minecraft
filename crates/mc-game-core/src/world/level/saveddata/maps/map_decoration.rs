@@ -40,10 +40,22 @@ pub struct MapDecoration {
 
 impl MapDecoration {
     pub fn new(ty: MapDecorationType, x: i8, y: i8, rot: i8, name: Option<Component>) -> Self {
-        MapDecoration { ty, x, y, rot: rot & 15, name }
+        MapDecoration {
+            ty,
+            x,
+            y,
+            rot: rot & 15,
+            name,
+        }
     }
 
     pub fn to_packet(&self) -> mc_protocol::packets::play::MapDecoration {
-        mc_protocol::packets::play::MapDecoration { decoration_type: self.ty, x: self.x, y: self.y, rot: self.rot, name: self.name.clone() }
+        mc_protocol::packets::play::MapDecoration {
+            decoration_type: self.ty,
+            x: self.x,
+            y: self.y,
+            rot: self.rot,
+            name: self.name.clone(),
+        }
     }
 }

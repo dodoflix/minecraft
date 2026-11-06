@@ -4,7 +4,8 @@ use std::collections::HashMap;
 
 use mc_core::ident::Identifier;
 use mc_core::random::{
-    PositionalRandomFactory, RandomSource, Xoroshiro128PlusPlus, XoroshiroRandomSource, seed_from_hash_of, upgrade_seed_to_128bit_unmixed,
+    PositionalRandomFactory, RandomSource, Xoroshiro128PlusPlus, XoroshiroRandomSource,
+    seed_from_hash_of, upgrade_seed_to_128bit_unmixed,
 };
 use mc_nbt::{CompoundTag, Tag};
 
@@ -24,7 +25,9 @@ impl RandomSequence {
         if let Some(key) = key {
             seed128 = seed128.xor_seed(Self::seed_for_key(key));
         }
-        RandomSequence { source: XoroshiroRandomSource::from_seed128(seed128.mixed()) }
+        RandomSequence {
+            source: XoroshiroRandomSource::from_seed128(seed128.mixed()),
+        }
     }
 
     /// `seedForKey`.
@@ -45,7 +48,9 @@ impl RandomSequence {
         }
         let lo = codec::long(&longs[0])?;
         let hi = codec::long(&longs[1])?;
-        Ok(RandomSequence { source: XoroshiroRandomSource::from_generator(Xoroshiro128PlusPlus::new(lo, hi)) })
+        Ok(RandomSequence {
+            source: XoroshiroRandomSource::from_generator(Xoroshiro128PlusPlus::new(lo, hi)),
+        })
     }
 
     fn encode(&self) -> Tag {
@@ -67,7 +72,13 @@ impl_saved_data!(RandomSequences);
 
 impl Default for RandomSequences {
     fn default() -> Self {
-        RandomSequences { dirty: false, salt: 0, include_world_seed: true, include_sequence_id: true, sequences: HashMap::new() }
+        RandomSequences {
+            dirty: false,
+            salt: 0,
+            include_world_seed: true,
+            include_sequence_id: true,
+            sequences: HashMap::new(),
+        }
     }
 }
 
@@ -122,13 +133,29 @@ impl RandomSequences {
     /// itself mark the data dirty — only drawing does).
     pub fn get(&mut self, key: &Identifier, world_seed: i64) -> DirtyMarkingRandomSource<'_> {
         if !self.sequences.contains_key(key) {
-            let seq = self.create_sequence(key, world_seed, self.salt, self.include_world_seed, self.include_sequence_id);
+            let seq = self.create_sequence(
+                key,
+                world_seed,
+                self.salt,
+                self.include_world_seed,
+                self.include_sequence_id,
+            );
             self.sequences.insert(key.clone(), seq);
         }
-        DirtyMarkingRandomSource { owner: &mut self.dirty, random: self.sequences.get_mut(key).expect("present").random() }
+        DirtyMarkingRandomSource {
+            owner: &mut self.dirty,
+            random: self.sequences.get_mut(key).expect("present").random(),
+        }
     }
 
-    fn create_sequence(&self, key: &Identifier, world_seed: i64, salt: i32, include_world_seed: bool, include_sequence_id: bool) -> RandomSequence {
+    fn create_sequence(
+        &self,
+        key: &Identifier,
+        world_seed: i64,
+        salt: i32,
+        include_world_seed: bool,
+        include_sequence_id: bool,
+    ) -> RandomSequence {
         let seed = (if include_world_seed { world_seed } else { 0 }) ^ (salt as i64);
         RandomSequence::new(seed, include_sequence_id.then_some(key))
     }
@@ -139,7 +166,12 @@ impl RandomSequences {
         }
     }
 
-    pub fn set_seed_defaults(&mut self, salt: i32, include_world_seed: bool, include_sequence_id: bool) {
+    pub fn set_seed_defaults(
+        &mut self,
+        salt: i32,
+        include_world_seed: bool,
+        include_sequence_id: bool,
+    ) {
         self.salt = salt;
         self.include_world_seed = include_world_seed;
         self.include_sequence_id = include_sequence_id;
@@ -152,12 +184,31 @@ impl RandomSequences {
     }
 
     pub fn reset(&mut self, id: &Identifier, world_seed: i64) {
-        let seq = self.create_sequence(id, world_seed, self.salt, self.include_world_seed, self.include_sequence_id);
+        let seq = self.create_sequence(
+            id,
+            world_seed,
+            self.salt,
+            self.include_world_seed,
+            self.include_sequence_id,
+        );
         self.sequences.insert(id.clone(), seq);
     }
 
-    pub fn reset_with(&mut self, id: &Identifier, world_seed: i64, salt: i32, include_world_seed: bool, include_sequence_id: bool) {
-        let seq = self.create_sequence(id, world_seed, salt, include_world_seed, include_sequence_id);
+    pub fn reset_with(
+        &mut self,
+        id: &Identifier,
+        world_seed: i64,
+        salt: i32,
+        include_world_seed: bool,
+        include_sequence_id: bool,
+    ) {
+        let seq = self.create_sequence(
+            id,
+            world_seed,
+            salt,
+            include_world_seed,
+            include_sequence_id,
+        );
         self.sequences.insert(id.clone(), seq);
     }
 
@@ -174,9 +225,15 @@ impl RandomSequences {
     fn decode(tag: &Tag) -> DecodeResult<RandomSequences> {
         let m = codec::compound(tag)?;
         let salt = codec::int(codec::field(m, "salt")?)?;
-        let include_world_seed = codec::optional(m, "include_world_seed", codec::boolean)?.unwrap_or(true);
-        let include_sequence_id = codec::optional(m, "include_sequence_id", codec::boolean)?.unwrap_or(true);
-        let sequences = codec::unbounded_map(codec::field(m, "sequences")?, Identifier::read, RandomSequence::decode);
+        let include_world_seed =
+            codec::optional(m, "include_world_seed", codec::boolean)?.unwrap_or(true);
+        let include_sequence_id =
+            codec::optional(m, "include_sequence_id", codec::boolean)?.unwrap_or(true);
+        let sequences = codec::unbounded_map(
+            codec::field(m, "sequences")?,
+            Identifier::read,
+            RandomSequence::decode,
+        );
         map_decoded(sequences, |sequences| RandomSequences {
             dirty: false,
             salt,
@@ -204,6 +261,11 @@ impl RandomSequences {
     }
 
     pub fn type_() -> SavedDataType<RandomSequences> {
-        SavedDataType::new(Identifier::parse("minecraft:random_sequences").expect("static id"), RandomSequences::default, RandomSequences::decode, RandomSequences::encode)
+        SavedDataType::new(
+            Identifier::parse("minecraft:random_sequences").expect("static id"),
+            RandomSequences::default,
+            RandomSequences::decode,
+            RandomSequences::encode,
+        )
     }
 }

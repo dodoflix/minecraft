@@ -17,7 +17,12 @@ pub struct Score {
 
 impl Default for Score {
     fn default() -> Self {
-        Score { value: 0, locked: true, display: None, number_format: None }
+        Score {
+            value: 0,
+            locked: true,
+            display: None,
+            number_format: None,
+        }
     }
 }
 
@@ -36,7 +41,10 @@ impl Score {
     }
     /// `ReadOnlyScoreInfo.formatValue(defaultFormat)`.
     pub fn format_value(&self, default_format: &NumberFormat) -> Component {
-        self.number_format.as_ref().unwrap_or(default_format).format(self.value)
+        self.number_format
+            .as_ref()
+            .unwrap_or(default_format)
+            .format(self.value)
     }
 
     /// `Score.Packed.MAP_CODEC` decode (fields live in the surrounding compound).
@@ -44,7 +52,9 @@ impl Score {
         Ok(Score {
             value: codec::optional(m, "Score", codec::int)?.unwrap_or(0),
             locked: codec::optional(m, "Locked", codec::boolean)?.unwrap_or(false),
-            display: codec::optional(m, "display", |t| Component::from_nbt(t).map_err(|e| e.to_string()))?,
+            display: codec::optional(m, "display", |t| {
+                Component::from_nbt(t).map_err(|e| e.to_string())
+            })?,
             number_format: codec::optional(m, "format", NumberFormat::decode)?,
         })
     }
@@ -82,11 +92,16 @@ impl PlayerScoreEntry {
     }
 
     pub fn owner_name(&self) -> Component {
-        self.display.clone().unwrap_or_else(|| Component::literal(self.owner.clone()))
+        self.display
+            .clone()
+            .unwrap_or_else(|| Component::literal(self.owner.clone()))
     }
 
     pub fn format_value(&self, default: &NumberFormat) -> Component {
-        self.number_format_override.as_ref().unwrap_or(default).format(self.value)
+        self.number_format_override
+            .as_ref()
+            .unwrap_or(default)
+            .format(self.value)
     }
 }
 
@@ -100,7 +115,11 @@ pub trait ScoreHolder {
 
     fn get_feedback_display_name(&self) -> Component {
         match self.get_display_name() {
-            Some(name) => name.with_style_fn(|s| s.with_hover_event(Some(HoverEvent::show_text(Component::literal(self.get_scoreboard_name()))))),
+            Some(name) => name.with_style_fn(|s| {
+                s.with_hover_event(Some(HoverEvent::show_text(Component::literal(
+                    self.get_scoreboard_name(),
+                ))))
+            }),
             None => Component::literal(self.get_scoreboard_name()),
         }
     }
@@ -140,11 +159,21 @@ mod tests {
     #[test]
     fn packed_defaults_omitted() {
         let mut m = CompoundTag::new();
-        Score { value: 0, locked: false, display: None, number_format: None }.encode_fields(&mut m).unwrap();
+        Score {
+            value: 0,
+            locked: false,
+            display: None,
+            number_format: None,
+        }
+        .encode_fields(&mut m)
+        .unwrap();
         assert!(m.is_empty());
         let mut m = CompoundTag::new();
         Score::default().encode_fields(&mut m).unwrap();
-        assert_eq!(mc_nbt::Tag::Compound(m.clone()), mc_nbt::snbt::parse("{Locked:1b}").unwrap());
+        assert_eq!(
+            mc_nbt::Tag::Compound(m.clone()),
+            mc_nbt::snbt::parse("{Locked:1b}").unwrap()
+        );
         assert_eq!(Score::decode_fields(&m).unwrap(), Score::default());
         assert!(!Score::decode_fields(&CompoundTag::new()).unwrap().locked);
     }

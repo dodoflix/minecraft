@@ -9,9 +9,9 @@ use super::MinecraftServer;
 use crate::server::level::ServerLevel;
 use crate::server::level::level_tick::{LevelTickEnv, WeatherState};
 use crate::world::entity::Entity;
+use crate::world::level::DimensionKey;
 use crate::world::level::gamerules::GameRules;
 use crate::world::level::saveddata::weather_data::WeatherData;
-use crate::world::level::DimensionKey;
 use mc_core::pos::BlockPos;
 use mc_protocol::packets::play::ClientboundGameEventPacket;
 use mc_world::level_storage::Difficulty;
@@ -29,7 +29,9 @@ impl LevelTickEnv for ServerTickEnv<'_> {
     }
 
     fn is_entity_frozen(&self, entity: &dyn Entity, count_player_passengers: i32) -> bool {
-        self.server.tick_rate_manager.is_entity_frozen(entity.is_player(), count_player_passengers)
+        self.server
+            .tick_rate_manager
+            .is_entity_frozen(entity.is_player(), count_player_passengers)
     }
 
     fn weather(&self) -> WeatherState {
@@ -58,7 +60,12 @@ impl LevelTickEnv for ServerTickEnv<'_> {
     }
 
     fn difficulty(&self) -> Difficulty {
-        self.server.world_data.lock().settings.difficulty_settings.difficulty
+        self.server
+            .world_data
+            .lock()
+            .settings
+            .difficulty_settings
+            .difficulty
     }
 
     fn overworld_clock_time(&self) -> i64 {
@@ -73,9 +80,16 @@ impl LevelTickEnv for ServerTickEnv<'_> {
         self.server.player_list.broadcast_all(packet);
     }
 
-    fn perform_prefixed_command(&mut self, level: &mut ServerLevel, source: crate::commands::CommandSourceStack, command: &str) {
+    fn perform_prefixed_command(
+        &mut self,
+        level: &mut ServerLevel,
+        source: crate::commands::CommandSourceStack,
+        command: &str,
+    ) {
         let commands = self.server.commands.clone();
-        self.server.with_lent_level(level, |server| commands.perform_prefixed_command(server, source, command));
+        self.server.with_lent_level(level, |server| {
+            commands.perform_prefixed_command(server, source, command)
+        });
     }
 
     fn command_rules(&self) -> crate::server::level::level_commands::CommandRules {
@@ -93,6 +107,10 @@ impl LevelTickEnv for ServerTickEnv<'_> {
     }
 
     fn teleport_through_portal(&mut self, level: &mut ServerLevel, entity: &mut dyn Entity) {
-        crate::server::players::dimension_change::teleport_through_portal(self.server, level, entity);
+        crate::server::players::dimension_change::teleport_through_portal(
+            self.server,
+            level,
+            entity,
+        );
     }
 }

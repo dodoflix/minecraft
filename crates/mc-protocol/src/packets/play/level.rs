@@ -135,7 +135,7 @@ mod heightmaps {
             for l in longs {
                 l.encode(out)?;
             }
-        };
+        }
         Ok(())
     }
     pub fn decode(input: &mut &[u8]) -> DecodeResult<Vec<(HeightmapTypes, Vec<i64>)>> {
@@ -158,7 +158,7 @@ mod clock_updates {
         for (id, state) in updates {
             write_varint(out, *id);
             state.encode(out)?;
-        };
+        }
         Ok(())
     }
     pub fn decode(input: &mut &[u8]) -> DecodeResult<Vec<(i32, ClockNetworkState)>> {
@@ -255,7 +255,7 @@ impl Encode for ClientboundSectionBlocksUpdatePacket {
         write_varint(out, self.changes.len() as i32);
         for (pos, state) in &self.changes {
             write_varlong(out, i64::from(state.id()) << 12 | i64::from(*pos));
-        };
+        }
         Ok(())
     }
 }

@@ -1,7 +1,7 @@
 //! `net.minecraft.world.level.block.AttachedStemBlock` (extends `VegetationBlock`).
-use mc_game_core::{register_block_class, update_shape};
 use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::world::level::block::impls::vegetation_block::{self, MayPlaceOn};
+use mc_game_core::{register_block_class, update_shape};
 
 /// The fruit block the stem attaches to, the (grown) stem block it reverts to, and its support tag.
 pub struct AttachedStemBlock {
@@ -21,13 +21,27 @@ impl BlockBehaviour for AttachedStemBlock {
     fn can_survive(&self, _state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         vegetation_block::can_survive(self, level, pos)
     }
-    update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
-        if !neighbour_state.is_block(self.fruit) && direction == state.get(props::HORIZONTAL_FACING) {
-            return self.stem.default_state().try_set(props::AGE_7, 7).unwrap_or(self.stem.default_state());
+    update_shape!(
+        |self, state, level, pos, direction, neighbour_pos, neighbour_state| {
+            if !neighbour_state.is_block(self.fruit)
+                && direction == state.get(props::HORIZONTAL_FACING)
+            {
+                return self
+                    .stem
+                    .default_state()
+                    .try_set(props::AGE_7, 7)
+                    .unwrap_or(self.stem.default_state());
+            }
+            vegetation_block::update_shape(state, &*level, pos)
         }
-        vegetation_block::update_shape(state, &*level, pos)
-    });
-    fn get_clone_item_stack(&self, _state: BlockState, _level: &mc_game_core::server::level::ServerLevel, _pos: BlockPos, _include_data: bool) -> mc_game_core::world::item::ItemStack {
+    );
+    fn get_clone_item_stack(
+        &self,
+        _state: BlockState,
+        _level: &mc_game_core::server::level::ServerLevel,
+        _pos: BlockPos,
+        _include_data: bool,
+    ) -> mc_game_core::world::item::ItemStack {
         mc_game_core::world::item::ItemStack::new(self.seed)
     }
     fn rotate(&self, state: BlockState, rotation: Rotation) -> BlockState {
@@ -38,8 +52,20 @@ impl BlockBehaviour for AttachedStemBlock {
     }
 }
 
-register_block_class!("AttachedStemBlock", |block| Box::new(match block.data().name {
-    "minecraft:attached_pumpkin_stem" => AttachedStemBlock { fruit: Block::PUMPKIN, stem: Block::PUMPKIN_STEM, seed: mc_data::Item::PUMPKIN_SEEDS, support_blocks: "supports_pumpkin_stem" },
-    "minecraft:attached_melon_stem" => AttachedStemBlock { fruit: Block::MELON, stem: Block::MELON_STEM, seed: mc_data::Item::MELON_SEEDS, support_blocks: "supports_melon_stem" },
-    name => panic!("unexpected AttachedStemBlock {name}"),
-}));
+register_block_class!("AttachedStemBlock", |block| Box::new(
+    match block.data().name {
+        "minecraft:attached_pumpkin_stem" => AttachedStemBlock {
+            fruit: Block::PUMPKIN,
+            stem: Block::PUMPKIN_STEM,
+            seed: mc_data::Item::PUMPKIN_SEEDS,
+            support_blocks: "supports_pumpkin_stem"
+        },
+        "minecraft:attached_melon_stem" => AttachedStemBlock {
+            fruit: Block::MELON,
+            stem: Block::MELON_STEM,
+            seed: mc_data::Item::MELON_SEEDS,
+            support_blocks: "supports_melon_stem"
+        },
+        name => panic!("unexpected AttachedStemBlock {name}"),
+    }
+));

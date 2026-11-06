@@ -19,7 +19,10 @@ pub struct Problem {
 
 impl Problem {
     pub fn new(description: impl Into<String>) -> Problem {
-        Problem { description: description.into(), fatal: false }
+        Problem {
+            description: description.into(),
+            fatal: false,
+        }
     }
 }
 
@@ -66,7 +69,11 @@ impl ProblemCollector {
                 None => groups.push((path, vec![&problem.description])),
             }
         }
-        groups.iter().map(|(path, v)| format!(" at {path}: {}", v.join("; "))).collect::<Vec<_>>().join("\n")
+        groups
+            .iter()
+            .map(|(path, v)| format!(" at {path}: {}", v.join("; ")))
+            .collect::<Vec<_>>()
+            .join("\n")
     }
 }
 
@@ -82,13 +89,32 @@ pub struct ValidationContext<'a> {
 
 impl<'a> ValidationContext<'a> {
     /// `new ValidationContext(reporter, contextKeySet, resolver)`.
-    pub fn new(problems: &ProblemCollector, context_key_set: ContextKeySet, resolver: &'a RegistryAccess) -> ValidationContext<'a> {
-        ValidationContext { problems: problems.clone(), path: String::new(), context_key_set, resolver: Some(resolver), visited: Vec::new() }
+    pub fn new(
+        problems: &ProblemCollector,
+        context_key_set: ContextKeySet,
+        resolver: &'a RegistryAccess,
+    ) -> ValidationContext<'a> {
+        ValidationContext {
+            problems: problems.clone(),
+            path: String::new(),
+            context_key_set,
+            resolver: Some(resolver),
+            visited: Vec::new(),
+        }
     }
 
     /// `new ValidationContext(reporter, contextKeySet)` (references not allowed).
-    pub fn without_resolver(problems: &ProblemCollector, context_key_set: ContextKeySet) -> ValidationContext<'static> {
-        ValidationContext { problems: problems.clone(), path: String::new(), context_key_set, resolver: None, visited: Vec::new() }
+    pub fn without_resolver(
+        problems: &ProblemCollector,
+        context_key_set: ContextKeySet,
+    ) -> ValidationContext<'static> {
+        ValidationContext {
+            problems: problems.clone(),
+            path: String::new(),
+            context_key_set,
+            resolver: None,
+            visited: Vec::new(),
+        }
     }
 
     pub fn context_key_set(&self) -> &ContextKeySet {
@@ -119,7 +145,12 @@ impl<'a> ValidationContext<'a> {
     }
 
     /// `enterElement(ElementReferencePathElement(id), id)`.
-    pub fn enter_element(&self, element_text: &str, registry: &str, id: &Identifier) -> ValidationContext<'a> {
+    pub fn enter_element(
+        &self,
+        element_text: &str,
+        registry: &str,
+        id: &Identifier,
+    ) -> ValidationContext<'a> {
         let mut c = self.for_child(element_text);
         c.visited.push(visited_key("element", registry, id));
         c
@@ -129,7 +160,12 @@ impl<'a> ValidationContext<'a> {
         self.visited.contains(&visited_key("element", registry, id))
     }
 
-    pub fn enter_tag(&self, element_text: &str, registry: &str, tag: &Identifier) -> ValidationContext<'a> {
+    pub fn enter_tag(
+        &self,
+        element_text: &str,
+        registry: &str,
+        tag: &Identifier,
+    ) -> ValidationContext<'a> {
         let mut c = self.for_child(element_text);
         c.visited.push(visited_key("tag", registry, tag));
         c
@@ -149,12 +185,19 @@ impl<'a> ValidationContext<'a> {
 
     /// `validateContextUsage(user)`.
     pub fn validate_context_usage(&self, referenced: &[ContextKey]) {
-        let mut not_provided: Vec<ContextKey> = referenced.iter().copied().filter(|k| !self.context_key_set.allows(*k)).collect();
+        let mut not_provided: Vec<ContextKey> = referenced
+            .iter()
+            .copied()
+            .filter(|k| !self.context_key_set.allows(*k))
+            .collect();
         not_provided.sort();
         not_provided.dedup();
         if !not_provided.is_empty() {
             let list: Vec<String> = not_provided.iter().map(|k| k.to_string()).collect();
-            self.report(format!("Parameters [{}] are not provided in this context", list.join(", ")));
+            self.report(format!(
+                "Parameters [{}] are not provided in this context",
+                list.join(", ")
+            ));
         }
     }
 
@@ -175,8 +218,14 @@ pub struct ValidationContextSource<'a> {
 }
 
 impl<'a> ValidationContextSource<'a> {
-    pub fn new(problems: &ProblemCollector, loot_data: &'a RegistryAccess) -> ValidationContextSource<'a> {
-        ValidationContextSource { problems: problems.clone(), loot_data }
+    pub fn new(
+        problems: &ProblemCollector,
+        loot_data: &'a RegistryAccess,
+    ) -> ValidationContextSource<'a> {
+        ValidationContextSource {
+            problems: problems.clone(),
+            loot_data,
+        }
     }
 
     /// `context(params)`.
@@ -216,7 +265,10 @@ pub trait ValidatableData: Send + Sync + 'static {
 }
 
 /// `Validatable.validateHolder(context, holder)`.
-pub fn validate_holder<T: ?Sized + ValidatableData>(context: &ValidationContext, holder: &Holder<T>) {
+pub fn validate_holder<T: ?Sized + ValidatableData>(
+    context: &ValidationContext,
+    holder: &Holder<T>,
+) {
     let element_context = match holder {
         Holder::Reference { registry, id } => {
             if context.has_visited_element(registry, id) {
@@ -234,18 +286,30 @@ pub fn validate_holder<T: ?Sized + ValidatableData>(context: &ValidationContext,
     }
 }
 
-pub fn validate_holder_field<T: ?Sized + ValidatableData>(context: &ValidationContext, name: &str, holder: &Holder<T>) {
+pub fn validate_holder_field<T: ?Sized + ValidatableData>(
+    context: &ValidationContext,
+    name: &str,
+    holder: &Holder<T>,
+) {
     validate_holder(&context.for_field(name), holder);
 }
 
-pub fn validate_holder_opt<T: ?Sized + ValidatableData>(context: &ValidationContext, name: &str, holder: &Option<Holder<T>>) {
+pub fn validate_holder_opt<T: ?Sized + ValidatableData>(
+    context: &ValidationContext,
+    name: &str,
+    holder: &Option<Holder<T>>,
+) {
     if let Some(h) = holder {
         validate_holder_field(context, name, h);
     }
 }
 
 /// `validateHolder(context, name, list)`: element values only (references are not entered).
-pub fn validate_holder_list<T: ?Sized + ValidatableData>(context: &ValidationContext, name: &str, list: &[Holder<T>]) {
+pub fn validate_holder_list<T: ?Sized + ValidatableData>(
+    context: &ValidationContext,
+    name: &str,
+    list: &[Holder<T>],
+) {
     for (i, h) in list.iter().enumerate() {
         if let Some(v) = h.try_value(context.resolver()) {
             v.validate_value(&context.for_indexed_field(name, i));
@@ -254,7 +318,12 @@ pub fn validate_holder_list<T: ?Sized + ValidatableData>(context: &ValidationCon
 }
 
 /// `Validatable.validateHolderSet(context, name, set, minSize)`.
-pub fn validate_holder_set_min<T: ?Sized + ValidatableData>(context: &ValidationContext, name: &str, set: &HolderSet<T>, min_size: usize) {
+pub fn validate_holder_set_min<T: ?Sized + ValidatableData>(
+    context: &ValidationContext,
+    name: &str,
+    set: &HolderSet<T>,
+    min_size: usize,
+) {
     let named = context.for_field(name);
     validate_holder_set_in(&named, set);
     if set.size(named.resolver()) < min_size {
@@ -262,11 +331,18 @@ pub fn validate_holder_set_min<T: ?Sized + ValidatableData>(context: &Validation
     }
 }
 
-pub fn validate_holder_set<T: ?Sized + ValidatableData>(context: &ValidationContext, name: &str, set: &HolderSet<T>) {
+pub fn validate_holder_set<T: ?Sized + ValidatableData>(
+    context: &ValidationContext,
+    name: &str,
+    set: &HolderSet<T>,
+) {
     validate_holder_set_in(&context.for_field(name), set);
 }
 
-fn validate_holder_set_in<T: ?Sized + ValidatableData>(context: &ValidationContext, set: &HolderSet<T>) {
+fn validate_holder_set_in<T: ?Sized + ValidatableData>(
+    context: &ValidationContext,
+    set: &HolderSet<T>,
+) {
     let resolver = context.resolver();
     if !set.is_bound(resolver) {
         return;
@@ -274,7 +350,8 @@ fn validate_holder_set_in<T: ?Sized + ValidatableData>(context: &ValidationConte
     let collection_context = match set {
         HolderSet::Named { registry, tag } => {
             if context.has_visited_tag(registry, tag) {
-                let mut p = Problem::new(format!("#{tag} of type {registry} is recursively called"));
+                let mut p =
+                    Problem::new(format!("#{tag} of type {registry} is recursively called"));
                 p.fatal = true;
                 context.report_problem(p);
                 return;

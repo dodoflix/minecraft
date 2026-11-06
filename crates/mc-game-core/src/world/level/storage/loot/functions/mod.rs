@@ -116,7 +116,8 @@ static TYPES: LazyLock<Arc<TypeTable<dyn LootItemFunction>>> = LazyLock::new(|| 
 /// `LootItemFunctions.TYPED_CODEC`.
 pub fn typed_function_codec() -> Codec<LootItemFunctionRef> {
     Codec::lazy(|| {
-        static C: LazyLock<Codec<LootItemFunctionRef>> = LazyLock::new(|| TYPES.codec(|f| f.type_name()));
+        static C: LazyLock<Codec<LootItemFunctionRef>> =
+            LazyLock::new(|| TYPES.codec(|f| f.type_name()));
         C.clone()
     })
 }
@@ -126,7 +127,10 @@ pub fn function_codec() -> Codec<LootItemFunctionRef> {
     Codec::lazy(|| {
         static C: LazyLock<Codec<LootItemFunctionRef>> = LazyLock::new(|| {
             let typed = typed_function_codec();
-            let inline = function_list_codec_typed().xmap(|functions| SequenceFunction::new(None, functions), |s: &SequenceFunction| s.functions().clone());
+            let inline = function_list_codec_typed().xmap(
+                |functions| SequenceFunction::new(None, functions),
+                |s: &SequenceFunction| s.functions().clone(),
+            );
             typed.either(&inline).xmap(
                 |e| match e {
                     Either::Left(f) => f,

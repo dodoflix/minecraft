@@ -14,9 +14,9 @@ use std::sync::Arc;
 
 pub use bool_argument::BoolArgumentType;
 pub use number::{
-    DoubleArgumentType, FloatArgumentType, IntegerArgumentType, LongArgumentType, double_arg, double_arg_min,
-    double_arg_range, float_arg, float_arg_min, float_arg_range, integer, integer_min, integer_range, long_arg,
-    long_arg_min, long_arg_range,
+    DoubleArgumentType, FloatArgumentType, IntegerArgumentType, LongArgumentType, double_arg,
+    double_arg_min, double_arg_range, float_arg, float_arg_min, float_arg_range, integer,
+    integer_min, integer_range, long_arg, long_arg_min, long_arg_range,
 };
 pub use string_argument::{StringArgumentType, StringType, escape_if_required};
 
@@ -38,11 +38,19 @@ pub trait ArgumentType<S>: Any + Send + Sync {
     fn parse(&self, reader: &mut StringReader) -> Result<ParsedValue, CommandSyntaxException>;
 
     /// `parse(StringReader, S)`; override when parsing depends on the source.
-    fn parse_with_source(&self, reader: &mut StringReader, _source: &S) -> Result<ParsedValue, CommandSyntaxException> {
+    fn parse_with_source(
+        &self,
+        reader: &mut StringReader,
+        _source: &S,
+    ) -> Result<ParsedValue, CommandSyntaxException> {
         self.parse(reader)
     }
 
-    fn list_suggestions(&self, _context: &CommandContext<S>, _builder: SuggestionsBuilder) -> Suggestions {
+    fn list_suggestions(
+        &self,
+        _context: &CommandContext<S>,
+        _builder: SuggestionsBuilder,
+    ) -> Suggestions {
         Suggestions::empty()
     }
 

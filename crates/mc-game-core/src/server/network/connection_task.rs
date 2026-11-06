@@ -6,7 +6,8 @@
 use super::common_listener::CommonListenerCookie;
 use super::configuration_listener;
 use super::connection::{
-    ConnectionHandle, ConnectionSender, FrameReader, ReadError, generic_reason, internal_exception_text, run_writer,
+    ConnectionHandle, ConnectionSender, FrameReader, ReadError, generic_reason,
+    internal_exception_text, run_writer,
 };
 use super::handshake_listener::{self, HandshakeOutcome};
 use super::hooks::{GameThread, NetworkHooks};
@@ -37,7 +38,11 @@ pub struct ListenerShared {
 
 impl ListenerShared {
     pub fn new() -> Arc<Self> {
-        Arc::new(Self { session_id: Mutex::new(None), connections: Mutex::new(Vec::new()), play_connections: Mutex::new(Vec::new()) })
+        Arc::new(Self {
+            session_id: Mutex::new(None),
+            connections: Mutex::new(Vec::new()),
+            play_connections: Mutex::new(Vec::new()),
+        })
     }
 
     /// `getSessionId`: one random UUID for as long as there are connections.
@@ -67,12 +72,18 @@ impl ListenerShared {
 
     /// The play connections to tick, in connection order, each with whether it was already closed at this point.
     pub(super) fn play_snapshot(&self) -> Vec<(Uuid, bool)> {
-        self.play_connections.lock().iter().map(|(id, h)| (*id, !h.is_connected())).collect()
+        self.play_connections
+            .lock()
+            .iter()
+            .map(|(id, h)| (*id, !h.is_connected()))
+            .collect()
     }
 
     /// Forgets the play connections that were closed when `snapshot` was taken (their listener saw the disconnect).
     pub(super) fn drop_closed_play_connections(&self, snapshot: &[(Uuid, bool)]) {
-        self.play_connections.lock().retain(|(id, h)| !(snapshot.iter().any(|(i, closed)| i == id && *closed) && !h.is_connected()));
+        self.play_connections.lock().retain(|(id, h)| {
+            !(snapshot.iter().any(|(i, closed)| i == id && *closed) && !h.is_connected())
+        });
     }
 
     pub fn connection_count(&self) -> usize {
@@ -113,12 +124,21 @@ impl ConnectionContext {
     /// `Connection.tick`'s once-a-second part (`tickSecond`) + the rate-limit kick.
     fn tick_second(&mut self) {
         // Mth.lerp(0.75F, received, average)
-        self.average_received_packets = self.received_packets as f32 + 0.75 * (self.average_received_packets - self.received_packets as f32);
+        self.average_received_packets = self.received_packets as f32
+            + 0.75 * (self.average_received_packets - self.received_packets as f32);
         self.received_packets = 0;
         if self.rate_limit > 0 && self.average_received_packets > self.rate_limit as f32 {
             let average = self.average_received_packets;
-            self.log_on_server(move || log::warn!("Player exceeded rate-limit (sent {} packets per second)", java_float_to_string(average)));
-            self.sender.disconnect(Component::translatable("disconnect.exceeded_packet_rate", vec![]));
+            self.log_on_server(move || {
+                log::warn!(
+                    "Player exceeded rate-limit (sent {} packets per second)",
+                    java_float_to_string(average)
+                )
+            });
+            self.sender.disconnect(Component::translatable(
+                "disconnect.exceeded_packet_rate",
+                vec![],
+            ));
         }
     }
 
@@ -149,11 +169,13 @@ impl ConnectionContext {
         match error {
             ReadError::Eof => {
                 // `channelInactive`: `disconnect(Component.translatable("disconnect.endOfStream"))`.
-                self.sender.close_with(Component::translatable("disconnect.endOfStream", vec![]));
+                self.sender
+                    .close_with(Component::translatable("disconnect.endOfStream", vec![]));
             }
             ReadError::Timeout => {
                 log::debug!("Timeout");
-                self.sender.close_with(Component::translatable("disconnect.timeout", vec![]));
+                self.sender
+                    .close_with(Component::translatable("disconnect.timeout", vec![]));
             }
             ReadError::Net(e) => self.fault_text(&internal_exception_text(&e)),
         }
@@ -193,7 +215,12 @@ impl ConnectionContext {
 }
 
 /// Creates the tasks of an accepted socket and runs the connection until it ends or the play protocol takes over.
-pub(super) async fn run_connection(socket: TcpStream, id: u64, hooks: Arc<dyn NetworkHooks>, listener: Arc<ListenerShared>) {
+pub(super) async fn run_connection(
+    socket: TcpStream,
+    id: u64,
+    hooks: Arc<dyn NetworkHooks>,
+    listener: Arc<ListenerShared>,
+) {
     let _ = socket.set_nodelay(true);
     let remote = socket.peer_addr().ok();
     let (read, write) = socket.into_split();
@@ -251,8 +278,14 @@ async fn run_protocols(ctx: &mut ConnectionContext) {
         HandshakeOutcome::Status(status) => status_listener::run(ctx, status).await,
         HandshakeOutcome::Login { transferred } => {
             if let Some(profile) = login_listener::run(ctx).await {
-                ctx.sender.set_outbound_state(ConnectionState::Configuration);
-                let mut cookie = CommonListenerCookie { profile, latency: 0, client_information: ClientInformation::default(), transferred };
+                ctx.sender
+                    .set_outbound_state(ConnectionState::Configuration);
+                let mut cookie = CommonListenerCookie {
+                    profile,
+                    latency: 0,
+                    client_information: ClientInformation::default(),
+                    transferred,
+                };
                 // Play -> configuration switches (`ServerboundConfigurationAcknowledgedPacket`) come back here.
                 while let Some(next) = configuration_listener::run(ctx, cookie).await {
                     cookie = next;

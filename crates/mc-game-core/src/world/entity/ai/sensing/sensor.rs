@@ -25,8 +25,17 @@ pub fn targeting_range() -> f64 {
     TARGETING_RANGE.with(Cell::get)
 }
 
-fn conditions(combat: bool, ignore_invisibility: bool, ignore_line_of_sight: bool) -> TargetingConditions {
-    let mut c = if combat { TargetingConditions::for_combat() } else { TargetingConditions::for_non_combat() }.range(targeting_range());
+fn conditions(
+    combat: bool,
+    ignore_invisibility: bool,
+    ignore_line_of_sight: bool,
+) -> TargetingConditions {
+    let mut c = if combat {
+        TargetingConditions::for_combat()
+    } else {
+        TargetingConditions::for_non_combat()
+    }
+    .range(targeting_range());
     if ignore_line_of_sight {
         c = c.ignore_line_of_sight();
     }
@@ -37,7 +46,8 @@ fn conditions(combat: bool, ignore_invisibility: bool, ignore_line_of_sight: boo
 }
 
 fn is_attack_target(body: &dyn Entity, entity: &dyn Entity) -> bool {
-    body.brain().is_memory_value(&ATTACK_TARGET, &EntityRef(entity.id()))
+    body.brain()
+        .is_memory_value(&ATTACK_TARGET, &EntityRef(entity.id()))
 }
 
 /// `Sensor.isEntityTargetable(level, body, entity)`.
@@ -51,12 +61,19 @@ pub fn is_entity_attackable(level: &ServerLevel, body: &dyn Entity, target: &dyn
 }
 
 /// `Sensor.isEntityAttackableIgnoringLineOfSight(level, body, target)`.
-pub fn is_entity_attackable_ignoring_line_of_sight(level: &ServerLevel, body: &dyn Entity, target: &dyn Entity) -> bool {
+pub fn is_entity_attackable_ignoring_line_of_sight(
+    level: &ServerLevel,
+    body: &dyn Entity,
+    target: &dyn Entity,
+) -> bool {
     conditions(true, is_attack_target(body, target), true).test(level, Some(body), target)
 }
 
 /// `Sensor.rememberPositives(invocations, predicate)`: a positive result sticks for the next `invocations` calls.
-pub fn remember_positives<T: ?Sized, U: ?Sized>(invocations: i32, mut predicate: impl FnMut(&T, &U) -> bool) -> impl FnMut(&T, &U) -> bool {
+pub fn remember_positives<T: ?Sized, U: ?Sized>(
+    invocations: i32,
+    mut predicate: impl FnMut(&T, &U) -> bool,
+) -> impl FnMut(&T, &U) -> bool {
     let mut positives_left = 0i32;
     move |t, u| {
         if predicate(t, u) {
@@ -93,7 +110,11 @@ pub struct SensorInstance {
 impl SensorInstance {
     pub fn new(sensor: Box<dyn Sensor>) -> Self {
         let scan_rate = sensor.scan_rate();
-        Self { sensor: Some(sensor), scan_rate, time_to_tick: 0 }
+        Self {
+            sensor: Some(sensor),
+            scan_rate,
+            time_to_tick: 0,
+        }
     }
 
     /// `randomlyDelayStart(random)`: `timeToTick = random.nextInt(scanRate)`.
@@ -102,7 +123,10 @@ impl SensorInstance {
     }
 
     pub fn requires(&self) -> Vec<MemoryTypeId> {
-        self.sensor.as_ref().map(|s| s.requires()).unwrap_or_default()
+        self.sensor
+            .as_ref()
+            .map(|s| s.requires())
+            .unwrap_or_default()
     }
 
     pub fn time_to_tick(&self) -> i64 {
@@ -124,7 +148,10 @@ impl SensorInstance {
 /// `Sensor.updateTargetingConditionRanges(body)`.
 pub(crate) fn update_targeting_condition_ranges(body: &dyn Entity) {
     // vanilla throws for a body without `FOLLOW_RANGE`; only mobs own sensors, so this is the mob path (a plain living test body keeps the range)
-    if let Some(l) = body.living().filter(|l| l.attributes.has_attribute(mc_data::Attribute::FOLLOW_RANGE)) {
+    if let Some(l) = body
+        .living()
+        .filter(|l| l.attributes.has_attribute(mc_data::Attribute::FOLLOW_RANGE))
+    {
         TARGETING_RANGE.with(|r| r.set(l.get_attribute_value(mc_data::Attribute::FOLLOW_RANGE)));
     }
 }

@@ -1,9 +1,9 @@
 //! `InsideBrownianWalk`.
 
-use super::declarative::BehaviorBuilder;
 use super::OneShot;
-use crate::world::entity::ai::memory::memory_module_type::WALK_TARGET;
+use super::declarative::BehaviorBuilder;
 use crate::world::entity::ai::memory::WalkTarget;
+use crate::world::entity::ai::memory::memory_module_type::WALK_TARGET;
 use crate::world::entity::ai::navigation::entity_can_stand_on;
 use crate::world::entity::movement::collision_context;
 use crate::world::level::BlockGetter;
@@ -21,7 +21,15 @@ pub fn create(speed_modifier: f32) -> OneShot {
         if c.level.can_see_sky(body_pos) {
             return false;
         }
-        let mut poses: Vec<BlockPos> = BlockPos::between_closed_xyz(body_pos.x() - 1, body_pos.y() - 1, body_pos.z() - 1, body_pos.x() + 1, body_pos.y() + 1, body_pos.z() + 1).collect();
+        let mut poses: Vec<BlockPos> = BlockPos::between_closed_xyz(
+            body_pos.x() - 1,
+            body_pos.y() - 1,
+            body_pos.z() - 1,
+            body_pos.x() + 1,
+            body_pos.y() + 1,
+            body_pos.z() + 1,
+        )
+        .collect();
         // `Collections.shuffle(poses)` (unseeded `java.util.Random`): same algorithm, level random
         for n in (2..=poses.len()).rev() {
             let j = c.level.tick_state.random.next_int_bounded(n as i32) as usize;
@@ -33,10 +41,17 @@ pub fn create(speed_modifier: f32) -> OneShot {
             !level.can_see_sky(pos)
                 && level.is_loaded(pos)
                 && entity_can_stand_on(level.get_block_state(pos), level, pos, body)
-                && level.no_collision(Some(body.id()), Some(&collision_context(body)), &body.get_bounding_box())
+                && level.no_collision(
+                    Some(body.id()),
+                    Some(&collision_context(body)),
+                    &body.get_bounding_box(),
+                )
         });
         if let Some(target) = target {
-            c.set(&walk_target, WalkTarget::from_block_pos(target, speed_modifier, 0));
+            c.set(
+                &walk_target,
+                WalkTarget::from_block_pos(target, speed_modifier, 0),
+            );
         }
         true
     })

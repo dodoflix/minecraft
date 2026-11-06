@@ -14,7 +14,9 @@ use super::context::LootContext;
 use super::functions::{FunctionHolder, decorate, function_holder_codec};
 use super::holder::{Holder, HolderSet, holder_set_codec};
 use super::predicates::{ConditionHolder, condition_holder_codec};
-use super::validation::{ValidationContext, validate_holder_field, validate_holder_opt, validate_holder_set};
+use super::validation::{
+    ValidationContext, validate_holder_field, validate_holder_opt, validate_holder_set,
+};
 use crate::registry::keys;
 use crate::world::item::slot::{SlotSourceHolder, slot_source_holder_codec};
 
@@ -33,9 +35,17 @@ pub struct Uniform {
 pub enum EntryKind {
     Empty(Uniform),
     Item(Item, Uniform),
-    Tag { items: RegistrySet<Item>, expand: bool, uniform: Uniform },
+    Tag {
+        items: RegistrySet<Item>,
+        expand: bool,
+        uniform: Uniform,
+    },
     Dynamic(Identifier, Uniform),
-    LootTable { value: HolderSet<LootTable>, expand: bool, uniform: Uniform },
+    LootTable {
+        value: HolderSet<LootTable>,
+        expand: bool,
+        uniform: Uniform,
+    },
     Slots(SlotSourceHolder, Uniform),
     Alternatives(Vec<LootPoolEntryContainer>),
     Sequence(Vec<LootPoolEntryContainer>),
@@ -70,7 +80,11 @@ pub struct LootPoolEntry {
 
 impl LootPoolEntry {
     fn new(uniform: Uniform, source: EntrySource) -> LootPoolEntry {
-        LootPoolEntry { uniform, source, modifiers: Vec::new() }
+        LootPoolEntry {
+            uniform,
+            source,
+            modifiers: Vec::new(),
+        }
     }
 
     /// `getWeight(luck)`.
@@ -164,7 +178,11 @@ impl LootPoolEntryContainer {
                 output.push(LootPoolEntry::new(*u, EntrySource::Slots(source.clone())));
                 true
             }
-            EntryKind::Tag { items, expand, uniform } => {
+            EntryKind::Tag {
+                items,
+                expand,
+                uniform,
+            } => {
                 let list = tag_items(context, items);
                 if *expand {
                     for item in list {
@@ -175,7 +193,11 @@ impl LootPoolEntryContainer {
                 }
                 true
             }
-            EntryKind::LootTable { value, expand, uniform } => {
+            EntryKind::LootTable {
+                value,
+                expand,
+                uniform,
+            } => {
                 let holders = value.holders(context.get_resolver());
                 if *expand {
                     for table in holders {
@@ -226,7 +248,9 @@ impl LootPoolEntryContainer {
                     }
                 }
             }
-            EntryKind::Sequence(children) | EntryKind::Group(children) => composite_validate(context, children),
+            EntryKind::Sequence(children) | EntryKind::Group(children) => {
+                composite_validate(context, children)
+            }
             _ => {}
         }
     }
@@ -247,8 +271,15 @@ fn tag_items(context: &LootContext, items: &RegistrySet<Item>) -> Vec<Item> {
         RegistrySet::Entries(v) => v.clone(),
         RegistrySet::Tag(tag) => {
             let registries = context.get_resolver();
-            let Some(registry) = registries.registry("minecraft:item") else { return Vec::new() };
-            registry.tag(tag).unwrap_or(&[]).iter().filter_map(|id| Item::from_id(*id)).collect()
+            let Some(registry) = registries.registry("minecraft:item") else {
+                return Vec::new();
+            };
+            registry
+                .tag(tag)
+                .unwrap_or(&[])
+                .iter()
+                .filter_map(|id| Item::from_id(*id))
+                .collect()
         }
     }
 }
@@ -273,12 +304,35 @@ fn uniform_entry<T: Clone + Send + Sync + 'static>(
     to_kind: fn(T, Uniform) -> EntryKind,
     from_kind: fn(&EntryKind) -> Option<(T, Uniform)>,
 ) -> MapCodec<LootPoolEntryContainer> {
-    let rest = record!(UniformFields { weight: weight(), quality: quality(), condition: common_condition(), modifier: common_modifier() });
+    let rest = record!(UniformFields {
+        weight: weight(),
+        quality: quality(),
+        condition: common_condition(),
+        modifier: common_modifier()
+    });
     fields.pair(&rest).xmap(
-        move |(t, r)| LootPoolEntryContainer { condition: r.condition, modifier: r.modifier, kind: to_kind(t, Uniform { weight: r.weight, quality: r.quality }) },
+        move |(t, r)| LootPoolEntryContainer {
+            condition: r.condition,
+            modifier: r.modifier,
+            kind: to_kind(
+                t,
+                Uniform {
+                    weight: r.weight,
+                    quality: r.quality,
+                },
+            ),
+        },
         move |c: &LootPoolEntryContainer| {
             let (t, u) = from_kind(&c.kind).expect("entry kind matches its codec");
-            (t, UniformFields { weight: u.weight, quality: u.quality, condition: c.condition.clone(), modifier: c.modifier.clone() })
+            (
+                t,
+                UniformFields {
+                    weight: u.weight,
+                    quality: u.quality,
+                    condition: c.condition.clone(),
+                    modifier: c.modifier.clone(),
+                },
+            )
         },
     )
 }
@@ -299,13 +353,31 @@ fn common_modifier() -> MapCodec<Option<FunctionHolder>> {
     function_holder_codec().optional_field_of("modifier")
 }
 
-fn composite_entry(children_of: fn(&EntryKind) -> Option<&Vec<LootPoolEntryContainer>>, make: fn(Vec<LootPoolEntryContainer>) -> EntryKind) -> MapCodec<LootPoolEntryContainer> {
-    let children = entry_codec().list_of().optional_field_of_default_vec("children");
-    let common = record!(Common { condition: common_condition(), modifier: common_modifier() });
+fn composite_entry(
+    children_of: fn(&EntryKind) -> Option<&Vec<LootPoolEntryContainer>>,
+    make: fn(Vec<LootPoolEntryContainer>) -> EntryKind,
+) -> MapCodec<LootPoolEntryContainer> {
+    let children = entry_codec()
+        .list_of()
+        .optional_field_of_default_vec("children");
+    let common = record!(Common {
+        condition: common_condition(),
+        modifier: common_modifier()
+    });
     children.pair(&common).xmap(
-        move |(children, c)| LootPoolEntryContainer { condition: c.condition, modifier: c.modifier, kind: make(children) },
+        move |(children, c)| LootPoolEntryContainer {
+            condition: c.condition,
+            modifier: c.modifier,
+            kind: make(children),
+        },
         move |e: &LootPoolEntryContainer| {
-            (children_of(&e.kind).expect("composite").clone(), Common { condition: e.condition.clone(), modifier: e.modifier.clone() })
+            (
+                children_of(&e.kind).expect("composite").clone(),
+                Common {
+                    condition: e.condition.clone(),
+                    modifier: e.modifier.clone(),
+                },
+            )
         },
     )
 }
@@ -316,7 +388,10 @@ trait OptionalDefaultVec<T> {
 
 impl<T: Clone + Send + Sync + 'static> OptionalDefaultVec<T> for Codec<Vec<T>> {
     fn optional_field_of_default_vec(&self, name: &str) -> MapCodec<Vec<T>> {
-        self.optional_field_of(name).xmap(|o| o.unwrap_or_default(), |v: &Vec<T>| if v.is_empty() { None } else { Some(v.clone()) })
+        self.optional_field_of(name).xmap(
+            |o| o.unwrap_or_default(),
+            |v: &Vec<T>| if v.is_empty() { None } else { Some(v.clone()) },
+        )
     }
 }
 
@@ -350,7 +425,15 @@ pub fn entry_codec() -> Codec<LootPoolEntryContainer> {
 fn build_entry_codec() -> Codec<LootPoolEntryContainer> {
     use mc_dfu::extra::IDENTIFIER;
     let names = [
-        "empty", "item", "loot_table", "dynamic", "tag", "slots", "alternatives", "sequence", "group",
+        "empty",
+        "item",
+        "loot_table",
+        "dynamic",
+        "tag",
+        "slots",
+        "alternatives",
+        "sequence",
+        "group",
     ];
     let type_codec: Codec<&'static str> = IDENTIFIER.flat_xmap(
         move |id: Identifier| match (id.namespace() == "minecraft").then(|| names.iter().find(|n| **n == id.path())).flatten() {
@@ -366,42 +449,123 @@ fn build_entry_codec() -> Codec<LootPoolEntryContainer> {
             "empty" => uniform_entry(
                 MapCodec::unit(()),
                 |_, u| EntryKind::Empty(u),
-                |k| if let EntryKind::Empty(u) = k { Some(((), *u)) } else { None },
+                |k| {
+                    if let EntryKind::Empty(u) = k {
+                        Some(((), *u))
+                    } else {
+                        None
+                    }
+                },
             ),
             "item" => uniform_entry(
                 mc_protocol::components::holder::registry_by_name_codec::<Item>().field_of("name"),
                 |i, u| EntryKind::Item(i, u),
-                |k| if let EntryKind::Item(i, u) = k { Some((*i, *u)) } else { None },
+                |k| {
+                    if let EntryKind::Item(i, u) = k {
+                        Some((*i, *u))
+                    } else {
+                        None
+                    }
+                },
             ),
             "loot_table" => {
                 let codec = expandable_fields(table_list_codec().field_of("value"));
                 uniform_entry(
                     codec,
-                    |(value, expand), uniform| EntryKind::LootTable { value, expand, uniform },
-                    |k| if let EntryKind::LootTable { value, expand, uniform } = k { Some(((value.clone(), *expand), *uniform)) } else { None },
+                    |(value, expand), uniform| EntryKind::LootTable {
+                        value,
+                        expand,
+                        uniform,
+                    },
+                    |k| {
+                        if let EntryKind::LootTable {
+                            value,
+                            expand,
+                            uniform,
+                        } = k
+                        {
+                            Some(((value.clone(), *expand), *uniform))
+                        } else {
+                            None
+                        }
+                    },
                 )
             }
             "dynamic" => uniform_entry(
                 IDENTIFIER.field_of("name"),
                 |n, u| EntryKind::Dynamic(n, u),
-                |k| if let EntryKind::Dynamic(n, u) = k { Some((n.clone(), *u)) } else { None },
+                |k| {
+                    if let EntryKind::Dynamic(n, u) = k {
+                        Some((n.clone(), *u))
+                    } else {
+                        None
+                    }
+                },
             ),
             "tag" => {
                 let codec = expandable_fields(RegistrySet::<Item>::codec().field_of("items"));
                 uniform_entry(
                     codec,
-                    |(items, expand), uniform| EntryKind::Tag { items, expand, uniform },
-                    |k| if let EntryKind::Tag { items, expand, uniform } = k { Some(((items.clone(), *expand), *uniform)) } else { None },
+                    |(items, expand), uniform| EntryKind::Tag {
+                        items,
+                        expand,
+                        uniform,
+                    },
+                    |k| {
+                        if let EntryKind::Tag {
+                            items,
+                            expand,
+                            uniform,
+                        } = k
+                        {
+                            Some(((items.clone(), *expand), *uniform))
+                        } else {
+                            None
+                        }
+                    },
                 )
             }
             "slots" => uniform_entry(
                 slot_source_holder_codec().field_of("slot_source"),
                 |s, u| EntryKind::Slots(s, u),
-                |k| if let EntryKind::Slots(s, u) = k { Some((s.clone(), *u)) } else { None },
+                |k| {
+                    if let EntryKind::Slots(s, u) = k {
+                        Some((s.clone(), *u))
+                    } else {
+                        None
+                    }
+                },
             ),
-            "alternatives" => composite_entry(|k| if let EntryKind::Alternatives(c) = k { Some(c) } else { None }, EntryKind::Alternatives),
-            "sequence" => composite_entry(|k| if let EntryKind::Sequence(c) = k { Some(c) } else { None }, EntryKind::Sequence),
-            _ => composite_entry(|k| if let EntryKind::Group(c) = k { Some(c) } else { None }, EntryKind::Group),
+            "alternatives" => composite_entry(
+                |k| {
+                    if let EntryKind::Alternatives(c) = k {
+                        Some(c)
+                    } else {
+                        None
+                    }
+                },
+                EntryKind::Alternatives,
+            ),
+            "sequence" => composite_entry(
+                |k| {
+                    if let EntryKind::Sequence(c) = k {
+                        Some(c)
+                    } else {
+                        None
+                    }
+                },
+                EntryKind::Sequence,
+            ),
+            _ => composite_entry(
+                |k| {
+                    if let EntryKind::Group(c) = k {
+                        Some(c)
+                    } else {
+                        None
+                    }
+                },
+                EntryKind::Group,
+            ),
         },
     )
 }

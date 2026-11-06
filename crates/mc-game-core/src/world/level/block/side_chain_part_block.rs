@@ -70,7 +70,8 @@ impl Neighbor {
         self.part.is_none_or(is_chain_end)
     }
     fn connects_towards(&self, end_part: SideChainPart) -> bool {
-        self.part.is_some_and(|p| is_connection_towards(p, end_part))
+        self.part
+            .is_some_and(|p| is_connection_towards(p, end_part))
     }
 }
 
@@ -82,11 +83,26 @@ pub trait SideChainPartBlock {
     fn get_max_chain_length(&self) -> i32;
 
     /// `Neighbors.left(steps)` (`right` = counter-clockwise) built from the current level state.
-    fn neighbor(&self, level: &dyn BlockGetter, facing: Direction, center: BlockPos, left: bool, steps: i32) -> Neighbor {
-        let dir = if left { facing.get_clockwise() } else { facing.get_counter_clockwise() };
+    fn neighbor(
+        &self,
+        level: &dyn BlockGetter,
+        facing: Direction,
+        center: BlockPos,
+        left: bool,
+        steps: i32,
+    ) -> Neighbor {
+        let dir = if left {
+            facing.get_clockwise()
+        } else {
+            facing.get_counter_clockwise()
+        };
         let pos = center.relative_n(dir, steps);
         let state = level.get_block_state(pos);
-        let part = if self.is_connectable(state) && self.get_facing(state) == facing { Some(self.get_side_chain_part(state)) } else { None };
+        let part = if self.is_connectable(state) && self.get_facing(state) == facing {
+            Some(self.get_side_chain_part(state))
+        } else {
+            None
+        };
         Neighbor { pos, part }
     }
 
@@ -103,7 +119,11 @@ pub trait SideChainPartBlock {
             for steps in 1..self.get_max_chain_length() {
                 let neighbor = self.neighbor(level, facing, pos, left, steps);
                 if neighbor.connects_towards(end_part) {
-                    if left { results.push_front(neighbor.pos) } else { results.push_back(neighbor.pos) }
+                    if left {
+                        results.push_front(neighbor.pos)
+                    } else {
+                        results.push_back(neighbor.pos)
+                    }
                 }
                 if neighbor.is_unconnectable_or_chain_end() {
                     break;
@@ -114,7 +134,12 @@ pub trait SideChainPartBlock {
     }
 
     /// `updateNeighborsAfterPoweringDown(level, pos, state)`.
-    fn update_neighbors_after_powering_down(&self, level: &mut dyn LevelAccessor, pos: BlockPos, state: BlockState) {
+    fn update_neighbors_after_powering_down(
+        &self,
+        level: &mut dyn LevelAccessor,
+        pos: BlockPos,
+        state: BlockState,
+    ) {
         let facing = self.get_facing(state);
         let left = self.neighbor(&*level, facing, pos, true, 1);
         let right = self.neighbor(&*level, facing, pos, false, 1);
@@ -127,12 +152,19 @@ pub trait SideChainPartBlock {
     }
 
     /// `updateSelfAndNeighborsOnPoweringUp(level, pos, state, oldState)`.
-    fn update_self_and_neighbors_on_powering_up(&self, level: &mut dyn LevelAccessor, pos: BlockPos, state: BlockState, old_state: BlockState) {
+    fn update_self_and_neighbors_on_powering_up(
+        &self,
+        level: &mut dyn LevelAccessor,
+        pos: BlockPos,
+        state: BlockState,
+        old_state: BlockState,
+    ) {
         if !self.is_connectable(state) {
             return;
         }
         let is_getting_connected = is_connected(self.get_side_chain_part(state));
-        let has_been_connected_before = self.is_connectable(old_state) && is_connected(self.get_side_chain_part(old_state));
+        let has_been_connected_before =
+            self.is_connectable(old_state) && is_connected(self.get_side_chain_part(old_state));
         if is_getting_connected || has_been_connected_before {
             return;
         }
@@ -140,8 +172,16 @@ pub trait SideChainPartBlock {
         let left = self.neighbor(&*level, facing, pos, true, 1);
         let right = self.neighbor(&*level, facing, pos, false, 1);
         let mut new_part_for_self = SideChainPart::Unconnected;
-        let existing_chain_on_the_left = if left.is_connectable() { self.get_all_blocks_connected_to(&*level, left.pos).len() as i32 } else { 0 };
-        let existing_chain_on_the_right = if right.is_connectable() { self.get_all_blocks_connected_to(&*level, right.pos).len() as i32 } else { 0 };
+        let existing_chain_on_the_left = if left.is_connectable() {
+            self.get_all_blocks_connected_to(&*level, left.pos).len() as i32
+        } else {
+            0
+        };
+        let existing_chain_on_the_right = if right.is_connectable() {
+            self.get_all_blocks_connected_to(&*level, right.pos).len() as i32
+        } else {
+            0
+        };
         let mut current_chain_length = 1;
         if self.can_connect(existing_chain_on_the_left, current_chain_length) {
             new_part_for_self = when_connected_to_the_left(new_part_for_self);
@@ -160,7 +200,8 @@ pub trait SideChainPartBlock {
     }
 
     fn can_connect(&self, new_blocks_to_connect_to: i32, current_chain_length: i32) -> bool {
-        new_blocks_to_connect_to > 0 && current_chain_length + new_blocks_to_connect_to <= self.get_max_chain_length()
+        new_blocks_to_connect_to > 0
+            && current_chain_length + new_blocks_to_connect_to <= self.get_max_chain_length()
     }
 
     /// `setPart(level, pos, newPart)`.

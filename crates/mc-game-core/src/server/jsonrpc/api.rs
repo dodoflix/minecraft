@@ -12,7 +12,9 @@ use mc_world::level_storage::{Difficulty, GameType};
 use uuid::Uuid;
 
 use crate::server::permissions::PermissionLevel;
-use crate::server::players::{IpBanListEntry, NameAndId, ServerOpListEntry, UserBanListEntry, UserWhiteListEntry};
+use crate::server::players::{
+    IpBanListEntry, NameAndId, ServerOpListEntry, UserBanListEntry, UserWhiteListEntry,
+};
 
 /// `ClientInfo`: the numbered RPC connection a call came from.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -134,7 +136,12 @@ pub trait ManagementApi: Send + Sync {
     // --- operators ---------------------------------------------------------------------------------------------
     fn operator_entries(&self) -> Vec<ServerOpListEntry>;
     /// `PlayerList.op(user, permissions, bypassesPlayerLimit)`; both optional, `None` = vanilla's defaults.
-    fn op(&self, user: NameAndId, level: Option<PermissionLevel>, bypasses_player_limit: Option<bool>);
+    fn op(
+        &self,
+        user: NameAndId,
+        level: Option<PermissionLevel>,
+        bypasses_player_limit: Option<bool>,
+    );
     fn deop(&self, user: &NameAndId);
     fn clear_operators(&self);
 

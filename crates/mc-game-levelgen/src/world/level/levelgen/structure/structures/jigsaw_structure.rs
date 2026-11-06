@@ -1,18 +1,20 @@
 //! `JigsawStructure` (type `jigsaw`): villages, pillager outposts, bastions, ancient cities, trail ruins, trial chambers,
 //! abandoned camps — everything built from a template pool by `JigsawPlacement`.
 
-use mc_game_core::world::level::levelgen::codec::*;
-use mc_game_core::world::level::levelgen::holder::Holder;
-use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use crate::world::level::levelgen::structure::pool_element_structure_piece::DEFAULT_LIQUID_SETTINGS;
 use crate::world::level::levelgen::structure::pools::alias::{PoolAliasBinding, PoolAliasLookup};
 use crate::world::level::levelgen::structure::pools::dimension_padding::DimensionPadding;
 use crate::world::level::levelgen::structure::pools::jigsaw_placement::{MaxDistance, add_pieces};
-use mc_game_core::world::level::levelgen::structure::pools::structure_template_pool::StructureTemplatePool;
-use mc_game_core::world::level::levelgen::structure::structure::{GenerationContext, GenerationStub, STRUCTURE_TYPES, Structure, StructureSettings};
-use mc_game_core::world::level::levelgen::structure::templatesystem::LiquidSettings;
 use mc_core::ident::Identifier;
 use mc_core::pos::BlockPos;
+use mc_game_core::world::level::levelgen::codec::*;
+use mc_game_core::world::level::levelgen::holder::Holder;
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::structure::pools::structure_template_pool::StructureTemplatePool;
+use mc_game_core::world::level::levelgen::structure::structure::{
+    GenerationContext, GenerationStub, STRUCTURE_TYPES, Structure, StructureSettings,
+};
+use mc_game_core::world::level::levelgen::structure::templatesystem::LiquidSettings;
 use mc_world::heightmap::HeightmapType;
 use mc_worldgen::beardifier::TerrainAdjustment;
 use mc_worldgen::provider::HeightProvider;
@@ -38,7 +40,8 @@ pub struct JigsawStructure {
 /// `Heightmap.Types.CODEC`.
 fn parse_heightmap(value: &Value) -> LoadResult<HeightmapType> {
     let name = parse_str(value)?;
-    HeightmapType::from_serialization_key(name).ok_or_else(|| LoadError::new(format!("Unknown element name:{name}")))
+    HeightmapType::from_serialization_key(name)
+        .ok_or_else(|| LoadError::new(format!("Unknown element name:{name}")))
 }
 
 impl JigsawStructure {
@@ -50,20 +53,35 @@ impl JigsawStructure {
         let max_depth = fields.required("size", |v| parse_int_range(v, 0, 20))?;
         let start_height = fields.required("start_height", HeightProvider::from_json)?;
         let use_expansion_hack = fields.required("use_expansion_hack", parse_bool)?;
-        let project_start_to_heightmap = fields.optional("project_start_to_heightmap", parse_heightmap)?;
-        let max_distance_from_center = fields.required("max_distance_from_center", MaxDistance::from_json)?;
-        let pool_aliases = fields.optional("pool_aliases", |v| parse_list(v, PoolAliasBinding::from_json))?.unwrap_or_default();
-        let dimension_padding = fields.optional("dimension_padding", DimensionPadding::from_json)?.unwrap_or(DimensionPadding::ZERO);
+        let project_start_to_heightmap =
+            fields.optional("project_start_to_heightmap", parse_heightmap)?;
+        let max_distance_from_center =
+            fields.required("max_distance_from_center", MaxDistance::from_json)?;
+        let pool_aliases = fields
+            .optional("pool_aliases", |v| {
+                parse_list(v, PoolAliasBinding::from_json)
+            })?
+            .unwrap_or_default();
+        let dimension_padding = fields
+            .optional("dimension_padding", DimensionPadding::from_json)?
+            .unwrap_or(DimensionPadding::ZERO);
         let liquid_settings = fields
             .optional("liquid_settings", |v| {
                 let name = parse_str(v)?;
-                LiquidSettings::by_name(name).ok_or_else(|| LoadError::new(format!("Unknown element name:{name}")))
+                LiquidSettings::by_name(name)
+                    .ok_or_else(|| LoadError::new(format!("Unknown element name:{name}")))
             })?
             .unwrap_or(DEFAULT_LIQUID_SETTINGS);
         // `verifyRange`
-        let edge_needed = if settings.terrain_adaptation == TerrainAdjustment::None { 0 } else { 12 };
+        let edge_needed = if settings.terrain_adaptation == TerrainAdjustment::None {
+            0
+        } else {
+            12
+        };
         if max_distance_from_center.horizontal + edge_needed > MAX_TOTAL_STRUCTURE_RANGE {
-            return Err(LoadError::new("Horizontal structure size including terrain adaptation must not exceed 128"));
+            return Err(LoadError::new(
+                "Horizontal structure size including terrain adaptation must not exceed 128",
+            ));
         }
         Ok(Arc::new(JigsawStructure {
             settings,
@@ -96,11 +114,22 @@ impl Structure for JigsawStructure {
         &self.settings
     }
 
-    fn find_generation_point<'a>(&'a self, context: &mut GenerationContext<'_>) -> Option<GenerationStub<'a>> {
+    fn find_generation_point<'a>(
+        &'a self,
+        context: &mut GenerationContext<'_>,
+    ) -> Option<GenerationStub<'a>> {
         let chunk_pos = context.chunk_pos;
-        let world_context = context.env.world_generation_context(context.height_accessor);
-        let height = self.start_height.sample(&mut context.random, &world_context);
-        let start_pos = BlockPos::new(chunk_pos.get_min_block_x(), height, chunk_pos.get_min_block_z());
+        let world_context = context
+            .env
+            .world_generation_context(context.height_accessor);
+        let height = self
+            .start_height
+            .sample(&mut context.random, &world_context);
+        let start_pos = BlockPos::new(
+            chunk_pos.get_min_block_x(),
+            height,
+            chunk_pos.get_min_block_z(),
+        );
         let lookup = PoolAliasLookup::create(&self.pool_aliases, start_pos, context.seed);
         add_pieces(
             context,
@@ -123,4 +152,7 @@ impl Structure for JigsawStructure {
 }
 
 #[linkme::distributed_slice(STRUCTURE_TYPES)]
-static TYPE: TypeEntry<dyn Structure> = TypeEntry { name: "jigsaw", decode: JigsawStructure::decode };
+static TYPE: TypeEntry<dyn Structure> = TypeEntry {
+    name: "jigsaw",
+    decode: JigsawStructure::decode,
+};

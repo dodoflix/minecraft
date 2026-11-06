@@ -22,7 +22,12 @@ use std::sync::LazyLock;
 static REGISTRIES: LazyLock<mc_game::registry::RegistryAccess> = LazyLock::new(|| {
     let _serial = common::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
     let dir = tempfile::tempdir().unwrap();
-    let (_, stem) = common::load_world(dir.path(), mc_world::level_storage::WorldDataConfiguration::DEFAULT, true).expect("default world loads");
+    let (_, stem) = common::load_world(
+        dir.path(),
+        mc_world::level_storage::WorldDataConfiguration::DEFAULT,
+        true,
+    )
+    .expect("default world loads");
     stem.registries.composite_access().clone()
 });
 
@@ -32,7 +37,8 @@ fn flat_level() -> ServerLevel {
     level.registries = REGISTRIES.clone();
     for x in -4..=40 {
         for z in -12..=12 {
-            level.set_block_and_update(BlockPos::new(x, -61, z), Block::GRASS_BLOCK.default_state());
+            level
+                .set_block_and_update(BlockPos::new(x, -61, z), Block::GRASS_BLOCK.default_state());
             level.set_block_and_update(BlockPos::new(x, -62, z), Block::DIRT.default_state());
             level.set_block_and_update(BlockPos::new(x, -63, z), Block::DIRT.default_state());
             level.set_block_and_update(BlockPos::new(x, -64, z), Block::BEDROCK.default_state());
@@ -62,13 +68,27 @@ struct Harness {
 
 impl Harness {
     fn new(level: ServerLevel) -> Self {
-        Harness { level, named: Vec::new(), counters: HashMap::new(), out: Vec::new(), tick: 0 }
+        Harness {
+            level,
+            named: Vec::new(),
+            counters: HashMap::new(),
+            out: Vec::new(),
+            tick: 0,
+        }
     }
 
     /// `spawn REF ...` + `snap` + `velocity` + `entity_seed`.
-    fn spawn(&mut self, name: &str, mut e: Box<dyn Entity>, pos: (f64, f64, f64), delta: (f64, f64, f64), seed: Option<i64>) {
+    fn spawn(
+        &mut self,
+        name: &str,
+        mut e: Box<dyn Entity>,
+        pos: (f64, f64, f64),
+        delta: (f64, f64, f64),
+        seed: Option<i64>,
+    ) {
         e.snap_to(pos.0, pos.1, pos.2, 0.0, 0.0);
-        e.base_mut().set_delta_movement_xyz(delta.0, delta.1, delta.2);
+        e.base_mut()
+            .set_delta_movement_xyz(delta.0, delta.1, delta.2);
         if let Some(seed) = seed {
             e.base_mut().random = LegacyRandomSource::new(seed);
         }
@@ -83,7 +103,15 @@ impl Harness {
         ids.sort_unstable();
         for id in ids {
             if self.named.iter().all(|(_, n)| *n != id) {
-                let path = self.level.get_entity(id).unwrap().get_type().data().name.trim_start_matches("minecraft:").to_string();
+                let path = self
+                    .level
+                    .get_entity(id)
+                    .unwrap()
+                    .get_type()
+                    .data()
+                    .name
+                    .trim_start_matches("minecraft:")
+                    .to_string();
                 let n = self.counters.entry(path.clone()).or_insert(0);
                 *n += 1;
                 self.named.push((format!("{path}#{n}"), id));
@@ -151,7 +179,10 @@ fn fixture_lines(name: &str) -> Vec<String> {
         .map(|l| {
             if let Some(rest) = l.strip_prefix("E experience_orb#") {
                 let (n, rest) = rest.split_once(' ').unwrap();
-                let value = rest.split_whitespace().find_map(|t| t.strip_prefix("value=")).unwrap();
+                let value = rest
+                    .split_whitespace()
+                    .find_map(|t| t.strip_prefix("value="))
+                    .unwrap();
                 format!("O experience_orb#{n} value={value}")
             } else {
                 l.replacen("E ", "E ", 1)
@@ -161,7 +192,17 @@ fn fixture_lines(name: &str) -> Vec<String> {
 }
 
 fn check(h: &Harness, name: &str) {
-    Fixture { name: name.to_string(), lines: fixture_lines(name) }.assert_matches(&h.out, &Options { ignore_kinds: vec!["#"], ..Default::default() });
+    Fixture {
+        name: name.to_string(),
+        lines: fixture_lines(name),
+    }
+    .assert_matches(
+        &h.out,
+        &Options {
+            ignore_kinds: vec!["#"],
+            ..Default::default()
+        },
+    );
 }
 
 fn item(i: mc_data::Item) -> ItemStack {
@@ -171,9 +212,24 @@ fn item(i: mc_data::Item) -> ItemStack {
 #[test]
 fn snowballs_match_vanilla() {
     let mut level = flat_level();
-    fill(&mut level, (12, -60, -3), (12, -50, 3), Block::STONE.default_state());
-    fill(&mut level, (20, -61, -3), (24, -56, 3), Block::STONE.default_state());
-    fill(&mut level, (21, -60, -2), (23, -56, 2), Block::WATER.default_state());
+    fill(
+        &mut level,
+        (12, -60, -3),
+        (12, -50, 3),
+        Block::STONE.default_state(),
+    );
+    fill(
+        &mut level,
+        (20, -61, -3),
+        (24, -56, 3),
+        Block::STONE.default_state(),
+    );
+    fill(
+        &mut level,
+        (21, -60, -2),
+        (23, -56, 2),
+        Block::WATER.default_state(),
+    );
     let mut h = Harness::new(level);
     let a = Snowball::at(&h.level, 0.5, -58.0, 0.5, &item(mc_data::Item::SNOWBALL));
     h.spawn("a", Box::new(a), (0.5, -58.0, 0.5), (0.6, 0.3, 0.1), None);
@@ -190,8 +246,20 @@ fn experience_bottle_matches_vanilla() {
     let mut level = flat_level();
     LevelAccessor::random(&mut level).set_seed(5);
     let mut h = Harness::new(level);
-    let a = ThrownExperienceBottle::at(&h.level, 0.5, -56.0, 0.5, &item(mc_data::Item::EXPERIENCE_BOTTLE));
-    h.spawn("a", Box::new(a), (0.5, -56.0, 0.5), (0.4, 0.1, 0.2), Some(99));
+    let a = ThrownExperienceBottle::at(
+        &h.level,
+        0.5,
+        -56.0,
+        0.5,
+        &item(mc_data::Item::EXPERIENCE_BOTTLE),
+    );
+    h.spawn(
+        "a",
+        Box::new(a),
+        (0.5, -56.0, 0.5),
+        (0.4, 0.1, 0.2),
+        Some(99),
+    );
     h.run(30);
     check(&h, "throw_xp_bottle");
 }

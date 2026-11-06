@@ -1,22 +1,6 @@
 //! `Horse`: variants + markings, breeding (mule when crossed with a donkey).
 
-use mc_game_core::world::entity::animal::equine::abstract_horse::{self, AbstractHorse, AbstractHorseData, DATA_ID_FLAGS};
 use super::markings::Markings;
-use mc_game_core::define_accessor;
-use mc_game_core::registry::RegistryAccess;
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::damagesource::DamageSource;
-use mc_game_core::world::difficulty_instance::DifficultyInstance;
-use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
-use mc_game_core::world::entity::equipment::EquipmentSlot;
-use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
-use mc_game_core::world::entity::mob::spawn::AgeableMobGroupData;
-use mc_game_core::world::entity::mob::{self, MobData, MobKind};
-use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
-use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
-use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
-use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
-use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
@@ -24,6 +8,26 @@ use mc_core::random::RandomSource;
 use mc_data::block::SoundType;
 use mc_data::enums::{EntitySpawnReason, Pose};
 use mc_data::{Attribute, EntityType, Item, SoundEvent};
+use mc_game_core::define_accessor;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::animal::equine::abstract_horse::{
+    self, AbstractHorse, AbstractHorseData, DATA_ID_FLAGS,
+};
+use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
+use mc_game_core::world::entity::equipment::EquipmentSlot;
+use mc_game_core::world::entity::factory::{
+    ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest,
+};
+use mc_game_core::world::entity::mob::spawn::AgeableMobGroupData;
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
+use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_nbt::CompoundTag;
 use mc_protocol::components::{DataComponentMap, HORSE_VARIANT, HorseVariant};
 
@@ -33,7 +37,8 @@ define_accessor!(pub DATA_ID_TYPE_VARIANT: Int = Horse);
 fn baby_dimensions() -> EntityDimensions {
     let ty = EntityType::HORSE;
     let base = EntityDimensions::of_type(ty);
-    let attachments = EntityAttachments::create_default(base.width, base.height).with_passenger(Vec3::new(0.0, f64::from(ty.data().height - 0.125), 0.0));
+    let attachments = EntityAttachments::create_default(base.width, base.height)
+        .with_passenger(Vec3::new(0.0, f64::from(ty.data().height - 0.125), 0.0));
     base.with_attachments(attachments).scale(0.7)
 }
 
@@ -68,7 +73,10 @@ impl Horse {
             b.define(DATA_ID_FLAGS, 0i8);
             b.define(DATA_ID_TYPE_VARIANT, 0);
         });
-        let mut horse = Horse { mob, horse: AbstractHorseData::new() };
+        let mut horse = Horse {
+            mob,
+            horse: AbstractHorseData::new(),
+        };
         let navigation = StandardPathNavigation::ground(&horse);
         horse.mob.set_navigation(Box::new(navigation));
         abstract_horse::register_goals(&mut horse, abstract_horse::add_behaviour_goals);
@@ -81,7 +89,11 @@ impl Horse {
     }
 
     fn set_type_variant(&mut self, value: i32) {
-        self.mob.living.entity.entity_data.set(DATA_ID_TYPE_VARIANT, value);
+        self.mob
+            .living
+            .entity
+            .entity_data
+            .set(DATA_ID_TYPE_VARIANT, value);
     }
 
     /// `setVariantAndMarkings(variant, markings)`.
@@ -91,7 +103,8 @@ impl Horse {
 
     /// `getVariant()`.
     pub fn get_variant(&self) -> HorseVariant {
-        HorseVariant::ALL[(self.type_variant() & 0xFF).rem_euclid(HorseVariant::ALL.len() as i32) as usize]
+        HorseVariant::ALL
+            [(self.type_variant() & 0xFF).rem_euclid(HorseVariant::ALL.len() as i32) as usize]
     }
 
     /// `setVariant(variant)`.
@@ -115,15 +128,25 @@ impl AbstractHorse for Horse {
     }
 
     fn get_eating_sound(&self) -> Option<SoundEvent> {
-        Some(if self.is_baby() { SoundEvent::ENTITY_BABY_HORSE_EAT } else { SoundEvent::ENTITY_HORSE_EAT })
+        Some(if self.is_baby() {
+            SoundEvent::ENTITY_BABY_HORSE_EAT
+        } else {
+            SoundEvent::ENTITY_HORSE_EAT
+        })
     }
 
     fn get_angry_sound(&self) -> Option<SoundEvent> {
-        Some(if self.is_baby() { SoundEvent::ENTITY_BABY_HORSE_ANGRY } else { SoundEvent::ENTITY_HORSE_ANGRY })
+        Some(if self.is_baby() {
+            SoundEvent::ENTITY_BABY_HORSE_ANGRY
+        } else {
+            SoundEvent::ENTITY_HORSE_ANGRY
+        })
     }
 
     fn randomize_attributes(&mut self, random: &mut dyn RandomSource) {
-        let health = f64::from(abstract_horse::generate_max_health(|bound| random.next_int_bounded(bound)));
+        let health = f64::from(abstract_horse::generate_max_health(|bound| {
+            random.next_int_bounded(bound)
+        }));
         let speed = abstract_horse::generate_speed(|| random.next_double());
         let jump = abstract_horse::generate_jump_strength(|| random.next_double());
         let attributes = &mut self.mob.living.attributes;
@@ -139,9 +162,18 @@ impl AbstractHorse for Horse {
     }
 
     fn play_gallop_sound(&mut self, level: &mut ServerLevel, sound_type: &SoundType) {
-        self.play_sound(level, SoundEvent::ENTITY_HORSE_GALLOP, sound_type.volume * 0.15, sound_type.pitch);
+        self.play_sound(
+            level,
+            SoundEvent::ENTITY_HORSE_GALLOP,
+            sound_type.volume * 0.15,
+            sound_type.pitch,
+        );
         if self.base_mut().random.next_int_bounded(10) == 0 {
-            let breathe = if self.is_baby() { SoundEvent::ENTITY_BABY_HORSE_BREATHE } else { SoundEvent::ENTITY_HORSE_BREATHE };
+            let breathe = if self.is_baby() {
+                SoundEvent::ENTITY_BABY_HORSE_BREATHE
+            } else {
+                SoundEvent::ENTITY_HORSE_BREATHE
+            };
             self.play_sound(level, breathe, sound_type.volume * 0.6, sound_type.pitch);
         }
     }
@@ -156,7 +188,11 @@ impl Entity for Horse {
     }
 
     fn get_dimensions(&self, _pose: Pose) -> EntityDimensions {
-        if self.is_baby() { baby_dimensions() } else { EntityDimensions::of_type(self.mob.living.entity.entity_type) }
+        if self.is_baby() {
+            baby_dimensions()
+        } else {
+            EntityDimensions::of_type(self.mob.living.entity.entity_type)
+        }
     }
 
     fn ai_step(&mut self, level: &mut ServerLevel) {
@@ -175,16 +211,36 @@ impl Entity for Horse {
         abstract_horse::is_immobile(self)
     }
 
-    fn cause_fall_damage(&mut self, level: &mut ServerLevel, fall_distance: f64, damage_modifier: f32, source: &DamageSource) -> bool {
+    fn cause_fall_damage(
+        &mut self,
+        level: &mut ServerLevel,
+        fall_distance: f64,
+        damage_modifier: f32,
+        source: &DamageSource,
+    ) -> bool {
         abstract_horse::cause_fall_damage(self, level, fall_distance, damage_modifier, source)
     }
 
-    fn play_step_sound(&mut self, level: &mut ServerLevel, pos: BlockPos, state: mc_data::block::BlockState) {
+    fn play_step_sound(
+        &mut self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        state: mc_data::block::BlockState,
+    ) {
         abstract_horse::play_step_sound(self, level, pos, state);
     }
 
-    fn get_passenger_attachment_point(&self, passenger: &dyn Entity, dimensions: &EntityDimensions, scale: f32) -> Vec3 {
-        let base = mc_game_core::world::entity::entity::default_passenger_attachment_point(self.as_dyn(), passenger, &dimensions.attachments);
+    fn get_passenger_attachment_point(
+        &self,
+        passenger: &dyn Entity,
+        dimensions: &EntityDimensions,
+        scale: f32,
+    ) -> Vec3 {
+        let base = mc_game_core::world::entity::entity::default_passenger_attachment_point(
+            self.as_dyn(),
+            passenger,
+            &dimensions.attachments,
+        );
         abstract_horse::get_passenger_attachment_point(self, base, scale)
     }
 
@@ -193,20 +249,41 @@ impl Entity for Horse {
     }
 
     fn get_ambient_sound(&self) -> Option<SoundEvent> {
-        Some(if self.is_baby() { SoundEvent::ENTITY_BABY_HORSE_AMBIENT } else { SoundEvent::ENTITY_HORSE_AMBIENT })
+        Some(if self.is_baby() {
+            SoundEvent::ENTITY_BABY_HORSE_AMBIENT
+        } else {
+            SoundEvent::ENTITY_HORSE_AMBIENT
+        })
     }
 
     fn get_death_sound(&self) -> Option<SoundEvent> {
-        Some(if self.is_baby() { SoundEvent::ENTITY_BABY_HORSE_DEATH } else { SoundEvent::ENTITY_HORSE_DEATH })
+        Some(if self.is_baby() {
+            SoundEvent::ENTITY_BABY_HORSE_DEATH
+        } else {
+            SoundEvent::ENTITY_HORSE_DEATH
+        })
     }
 
     fn get_hurt_sound(&self, _source: &DamageSource) -> Option<SoundEvent> {
-        Some(if self.is_baby() { SoundEvent::ENTITY_BABY_HORSE_HURT } else { SoundEvent::ENTITY_HORSE_HURT })
+        Some(if self.is_baby() {
+            SoundEvent::ENTITY_BABY_HORSE_HURT
+        } else {
+            SoundEvent::ENTITY_HORSE_HURT
+        })
     }
 
-    fn mob_interact(&mut self, level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) -> InteractionResult {
-        let should_open_inventory = !self.is_baby() && abstract_horse::is_tamed(self) && player.is_shift_key_down();
-        if !self.base().is_vehicle() && !should_open_inventory && (!self.is_baby() || !abstract_horse::is_holding(player, Item::GOLDEN_DANDELION)) {
+    fn mob_interact(
+        &mut self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        hand: InteractionHand,
+    ) -> InteractionResult {
+        let should_open_inventory =
+            !self.is_baby() && abstract_horse::is_tamed(self) && player.is_shift_key_down();
+        if !self.base().is_vehicle()
+            && !should_open_inventory
+            && (!self.is_baby() || !abstract_horse::is_holding(player, Item::GOLDEN_DANDELION))
+        {
             let item_stack = player.get_item_in_hand(hand);
             if !item_stack.is_empty() {
                 if self.is_food(&item_stack) {
@@ -227,29 +304,57 @@ impl Entity for Horse {
         if partner.id() == self.id() {
             return false;
         }
-        let is_donkey_or_horse = partner.get_type() == EntityType::DONKEY || partner.as_any().is::<Horse>();
+        let is_donkey_or_horse =
+            partner.get_type() == EntityType::DONKEY || partner.as_any().is::<Horse>();
         if !is_donkey_or_horse {
             return false;
         }
-        abstract_horse::can_parent(self) && partner.as_abstract_horse().is_some_and(|h| h.can_parent())
+        abstract_horse::can_parent(self)
+            && partner.as_abstract_horse().is_some_and(|h| h.can_parent())
     }
 
-    fn get_breed_offspring(&mut self, level: &mut ServerLevel, partner: EntityId) -> Option<Box<dyn Entity>> {
-        let partner_is_donkey = level.get_entity(partner).is_some_and(|p| p.get_type() == EntityType::DONKEY);
+    fn get_breed_offspring(
+        &mut self,
+        level: &mut ServerLevel,
+        partner: EntityId,
+    ) -> Option<Box<dyn Entity>> {
+        let partner_is_donkey = level
+            .get_entity(partner)
+            .is_some_and(|p| p.get_type() == EntityType::DONKEY);
         if partner_is_donkey {
-            let mut baby = mc_game_core::world::entity::factory::create(EntityType::MULE, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })?;
+            let mut baby = mc_game_core::world::entity::factory::create(
+                EntityType::MULE,
+                level,
+                EntitySpawnRequest {
+                    reason: EntitySpawnReason::Breeding,
+                    ignore_checks: false,
+                },
+            )?;
             abstract_horse::set_offspring_attributes(self, level, partner, baby.as_mut());
             return Some(baby);
         }
-        let mut baby = mc_game_core::world::entity::factory::create(EntityType::HORSE, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })?;
-        let (partner_variant, partner_markings) = level.get_entity(partner).and_then(|p| p.as_any().downcast_ref::<Horse>()).map(|p| (p.get_variant(), p.get_markings()))?;
+        let mut baby = mc_game_core::world::entity::factory::create(
+            EntityType::HORSE,
+            level,
+            EntitySpawnRequest {
+                reason: EntitySpawnReason::Breeding,
+                ignore_checks: false,
+            },
+        )?;
+        let (partner_variant, partner_markings) = level
+            .get_entity(partner)
+            .and_then(|p| p.as_any().downcast_ref::<Horse>())
+            .map(|p| (p.get_variant(), p.get_markings()))?;
         let select_skin = self.base_mut().random.next_int_bounded(9);
         let variant = if select_skin < 4 {
             self.get_variant()
         } else if select_skin < 8 {
             partner_variant
         } else {
-            let n = self.base_mut().random.next_int_bounded(HorseVariant::ALL.len() as i32);
+            let n = self
+                .base_mut()
+                .random
+                .next_int_bounded(HorseVariant::ALL.len() as i32);
             HorseVariant::ALL[n as usize]
         };
         let select_marking = self.base_mut().random.next_int_bounded(5);
@@ -258,7 +363,10 @@ impl Entity for Horse {
         } else if select_marking < 4 {
             partner_markings
         } else {
-            let n = self.base_mut().random.next_int_bounded(Markings::ALL.len() as i32);
+            let n = self
+                .base_mut()
+                .random
+                .next_int_bounded(Markings::ALL.len() as i32);
             Markings::ALL[n as usize]
         };
         if let Some(horse) = baby.as_any_mut().downcast_mut::<Horse>() {
@@ -269,7 +377,13 @@ impl Entity for Horse {
     }
 
     fn hurt_armor(&mut self, level: &mut ServerLevel, source: &DamageSource, damage: f32) {
-        mc_game_core::world::entity::living_entity::damage::do_hurt_equipment(self.as_dyn_mut(), level, source, damage, &[EquipmentSlot::Body]);
+        mc_game_core::world::entity::living_entity::damage::do_hurt_equipment(
+            self.as_dyn_mut(),
+            level,
+            source,
+            damage,
+            &[EquipmentSlot::Body],
+        );
     }
 
     fn finalize_spawn(
@@ -282,13 +396,22 @@ impl Entity for Horse {
         let variant;
         let group_data = match group_data {
             Some(data) if data.as_any().is::<HorseGroupData>() => {
-                variant = data.as_any().downcast_ref::<HorseGroupData>().expect("horse group data").variant;
+                variant = data
+                    .as_any()
+                    .downcast_ref::<HorseGroupData>()
+                    .expect("horse group data")
+                    .variant;
                 data
             }
             _ => {
-                let n = level.random().next_int_bounded(HorseVariant::ALL.len() as i32);
+                let n = level
+                    .random()
+                    .next_int_bounded(HorseVariant::ALL.len() as i32);
                 variant = HorseVariant::ALL[n as usize];
-                Box::new(HorseGroupData { base: AgeableMobGroupData::with_baby(true), variant }) as Box<dyn SpawnGroupData>
+                Box::new(HorseGroupData {
+                    base: AgeableMobGroupData::with_baby(true),
+                    variant,
+                }) as Box<dyn SpawnGroupData>
             }
         };
         let m = level.random().next_int_bounded(Markings::ALL.len() as i32);
@@ -309,8 +432,13 @@ impl Entity for Horse {
     }
 
     fn entity_components(&self) -> DataComponentMap {
-        let base = mc_game_core::advancements::predicates::entity::support::base_entity_components(self.base());
-        DataComponentMap::builder().add_all(&base).set(HORSE_VARIANT, self.get_variant()).build()
+        let base = mc_game_core::advancements::predicates::entity::support::base_entity_components(
+            self.base(),
+        );
+        DataComponentMap::builder()
+            .add_all(&base)
+            .set(HORSE_VARIANT, self.get_variant())
+            .build()
     }
 
     fn apply_implicit_components(&mut self, stack: &ItemStack) {
@@ -322,4 +450,7 @@ impl Entity for Horse {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static HORSE: EntityRegistration = EntityRegistration { entity_type: EntityType::HORSE, create: |ty, id, registries| Box::new(Horse::new(ty, id, registries)) };
+static HORSE: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::HORSE,
+    create: |ty, id, registries| Box::new(Horse::new(ty, id, registries)),
+};

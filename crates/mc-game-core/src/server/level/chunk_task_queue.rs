@@ -5,8 +5,8 @@
 //! hands task bodies to an executor. Here the messages are queued and [`ChunkTaskDispatcher::process`] drains them in
 //! the same priority order on the game thread; task bodies run through the caller-provided closure.
 
-use super::fastutil::{LongOpenHashMap, LongOpenHashSet};
 use super::chunk_level;
+use super::fastutil::{LongOpenHashMap, LongOpenHashSet};
 pub use mc_light::chunk_task_queue::ChunkTaskPriorityQueue;
 
 /// `ChunkTaskPriorityQueue.PRIORITY_LEVEL_COUNT`.
@@ -15,9 +15,20 @@ pub fn priority_level_count() -> i32 {
 }
 
 enum Message<T, R> {
-    LevelChange { pos: i64, new_level: i32 },
-    Release { pos: i64, clear_queue: bool, when_released: Option<R> },
-    Submit { task: T, pos: i64, level: i32 },
+    LevelChange {
+        pos: i64,
+        new_level: i32,
+    },
+    Release {
+        pos: i64,
+        clear_queue: bool,
+        when_released: Option<R>,
+    },
+    Submit {
+        task: T,
+        pos: i64,
+        level: i32,
+    },
 }
 
 /// `ChunkTaskDispatcher` with an optional `maxChunksInExecution` throttle (`ThrottlingChunkTaskDispatcher`).
@@ -54,7 +65,10 @@ impl<T, R> ChunkTaskDispatcher<T, R> {
 
     /// The queue level currently recorded for `pos` (`ChunkMap.getChunkQueueLevel` / `PlayerTicketTracker.queueLevels`).
     pub fn queue_level(&self, pos: i64) -> i32 {
-        self.queue_levels.get(pos).copied().unwrap_or(self.default_queue_level)
+        self.queue_levels
+            .get(pos)
+            .copied()
+            .unwrap_or(self.default_queue_level)
     }
 
     /// `onLevelChange(pos, oldLevel, newLevel, setQueueLevel)`.
@@ -64,7 +78,11 @@ impl<T, R> ChunkTaskDispatcher<T, R> {
 
     /// `release(pos, whenReleased, clearQueue)`.
     pub fn release(&mut self, pos: i64, when_released: Option<R>, clear_queue: bool) {
-        self.messages.push(Message::Release { pos, clear_queue, when_released });
+        self.messages.push(Message::Release {
+            pos,
+            clear_queue,
+            when_released,
+        });
     }
 
     /// `submit(task, pos, level)`.
@@ -80,7 +98,8 @@ impl<T, R> ChunkTaskDispatcher<T, R> {
             if messages.is_empty() {
                 break;
             }
-            let (mut level_changes, mut releases, mut submits) = (Vec::new(), Vec::new(), Vec::new());
+            let (mut level_changes, mut releases, mut submits) =
+                (Vec::new(), Vec::new(), Vec::new());
             for message in messages {
                 match message {
                     Message::LevelChange { .. } => level_changes.push(message),
@@ -100,7 +119,12 @@ impl<T, R> ChunkTaskDispatcher<T, R> {
                 }
             }
             for message in releases {
-                if let Message::Release { pos, clear_queue, when_released } = message {
+                if let Message::Release {
+                    pos,
+                    clear_queue,
+                    when_released,
+                } = message
+                {
                     self.queue.release(pos, clear_queue);
                     self.chunk_positions_in_execution.remove(pos);
                     self.sleeping = false;
@@ -125,7 +149,9 @@ impl<T, R> ChunkTaskDispatcher<T, R> {
 
     fn poll(&mut self, run: &mut impl FnMut(i64, T)) {
         loop {
-            let throttled = self.max_chunks_in_execution.is_some_and(|max| self.chunk_positions_in_execution.len() >= max);
+            let throttled = self
+                .max_chunks_in_execution
+                .is_some_and(|max| self.chunk_positions_in_execution.len() >= max);
             let popped = if throttled { None } else { self.queue.pop() };
             match popped {
                 None => {
@@ -146,8 +172,11 @@ impl<T, R> ChunkTaskDispatcher<T, R> {
 
     /// `getDebugStatus()` of the throttling dispatcher.
     pub fn debug_status(&self, name: &str) -> String {
-        let positions: Vec<String> =
-            self.chunk_positions_in_execution.iter().map(|k| format!("{k}:{}", mc_core::pos::ChunkPos::unpack(k))).collect();
+        let positions: Vec<String> = self
+            .chunk_positions_in_execution
+            .iter()
+            .map(|k| format!("{k}:{}", mc_core::pos::ChunkPos::unpack(k)))
+            .collect();
         format!("{name}=[{}], s={}", positions.join(","), self.sleeping)
     }
 }

@@ -2,11 +2,13 @@
 //! parsed-start cache of a level.
 
 use super::piece::StructurePieceSerializationContext;
-use super::pools::structure_template_pool::{StructureTemplatePool, TEMPLATE_POOL_REGISTRY, load_template_pools};
+use super::pools::structure_template_pool::{
+    StructureTemplatePool, TEMPLATE_POOL_REGISTRY, load_template_pools,
+};
 use super::structure::{STRUCTURE_TYPES, Structure, decode_direct};
-use super::templatesystem::structure_processor_list::load_processor_lists;
-use super::templatesystem::StructureProcessorList;
 use super::structure_start::{StartHandle, StructureStart};
+use super::templatesystem::StructureProcessorList;
+use super::templatesystem::structure_processor_list::load_processor_lists;
 use crate::world::level::levelgen::codec::{LoadError, LoadResult};
 use crate::world::level::levelgen::env::GenEnv;
 use crate::world::level::levelgen::generation_step::Decoration;
@@ -38,9 +40,17 @@ pub struct StructureRegistries {
 
 impl StructureRegistries {
     /// Decodes `worldgen/structure` from `source`.
-    pub fn load(source: Arc<dyn WorldgenDataSource>, worldgen: &WorldgenRegistries, biomes: &BiomeRegistry) -> LoadResult<StructureRegistries> {
+    pub fn load(
+        source: Arc<dyn WorldgenDataSource>,
+        worldgen: &WorldgenRegistries,
+        biomes: &BiomeRegistry,
+    ) -> LoadResult<StructureRegistries> {
         let cells = Cells::new(source);
-        let ctx = DecodeCtx { worldgen, biomes, cells: &cells };
+        let ctx = DecodeCtx {
+            worldgen,
+            biomes,
+            cells: &cells,
+        };
         Self::load_with(&ctx)
     }
 
@@ -51,34 +61,59 @@ impl StructureRegistries {
         let mut entries = indexmap::IndexMap::new();
         let mut unported = Vec::new();
         for id in ctx.cells.list(STRUCTURE_REGISTRY) {
-            let json = ctx.cells.source().get(STRUCTURE_REGISTRY, &id).ok_or_else(|| LoadError::new("no such registry entry").in_entry(STRUCTURE_REGISTRY, &id))?;
-            let registered = json.get("type").and_then(|t| t.as_str()).and_then(|t| t.strip_prefix("minecraft:")).is_some_and(|t| STRUCTURE_TYPES.iter().any(|e| e.name == t));
+            let json = ctx
+                .cells
+                .source()
+                .get(STRUCTURE_REGISTRY, &id)
+                .ok_or_else(|| {
+                    LoadError::new("no such registry entry").in_entry(STRUCTURE_REGISTRY, &id)
+                })?;
+            let registered = json
+                .get("type")
+                .and_then(|t| t.as_str())
+                .and_then(|t| t.strip_prefix("minecraft:"))
+                .is_some_and(|t| STRUCTURE_TYPES.iter().any(|e| e.name == t));
             if !registered {
                 unported.push(id);
                 continue;
             }
-            let value = decode_direct(&json, ctx).map_err(|e| e.in_entry(STRUCTURE_REGISTRY, &id))?;
-            let holder = Holder::reference(id.clone(), ctx.cells.cell::<dyn Structure>(STRUCTURE_REGISTRY, &id));
+            let value =
+                decode_direct(&json, ctx).map_err(|e| e.in_entry(STRUCTURE_REGISTRY, &id))?;
+            let holder = Holder::reference(
+                id.clone(),
+                ctx.cells.cell::<dyn Structure>(STRUCTURE_REGISTRY, &id),
+            );
             holder.bind(value);
             entries.insert(id, holder);
         }
         let structures = TypedRegistry::new(STRUCTURE_REGISTRY, entries);
-        ctx.cells.check_all_bound::<dyn Structure>(STRUCTURE_REGISTRY)?;
+        ctx.cells
+            .check_all_bound::<dyn Structure>(STRUCTURE_REGISTRY)?;
         let mut structures_by_step = vec![Vec::new(); Decoration::ALL.len()];
         for (_, holder) in structures.iter() {
             structures_by_step[holder.value().step().ordinal()].push(holder.clone());
         }
-        Ok(StructureRegistries { processor_lists, template_pools, structures, unported, structures_by_step })
+        Ok(StructureRegistries {
+            processor_lists,
+            template_pools,
+            structures,
+            unported,
+            structures_by_step,
+        })
     }
 
     /// A registry without structures.
     pub fn empty() -> StructureRegistries {
         StructureRegistries {
-            processor_lists: TypedRegistry::new("worldgen/processor_list", indexmap::IndexMap::new()),
+            processor_lists: TypedRegistry::new(
+                "worldgen/processor_list",
+                indexmap::IndexMap::new(),
+            ),
             template_pools: TypedRegistry::new(TEMPLATE_POOL_REGISTRY, indexmap::IndexMap::new()),
             structures: TypedRegistry::new(STRUCTURE_REGISTRY, indexmap::IndexMap::new()),
             unported: Vec::new(),
-            structures_by_step: vec![Vec::new(); Decoration::ALL.len()] }
+            structures_by_step: vec![Vec::new(); Decoration::ALL.len()],
+        }
     }
 
     pub fn get(&self, id: &Identifier) -> Option<&Holder<dyn Structure>> {
@@ -110,7 +145,13 @@ pub struct StartCache {
 impl StartCache {
     /// `chunk.getStartForStructure(structure)`: `None` if the chunk has no start for it (or it fails to load); INVALID
     /// starts are returned as invalid handles.
-    pub fn get_or_parse(&self, env: &GenEnv, chunk_pos: ChunkPos, structure_id: &str, raw: &CompoundTag) -> Option<StartHandle> {
+    pub fn get_or_parse(
+        &self,
+        env: &GenEnv,
+        chunk_pos: ChunkPos,
+        structure_id: &str,
+        raw: &CompoundTag,
+    ) -> Option<StartHandle> {
         let key = (chunk_pos.pack(), structure_id.to_owned());
         {
             let entries = self.entries.lock().unwrap_or_else(|e| e.into_inner());
@@ -132,17 +173,35 @@ impl StartCache {
         if entries.len() >= START_CACHE_CAPACITY {
             entries.clear();
         }
-        entries.insert(key, CacheEntry { source: raw.clone(), start: start.clone() });
+        entries.insert(
+            key,
+            CacheEntry {
+                source: raw.clone(),
+                start: start.clone(),
+            },
+        );
         start
     }
 
     /// Records that the chunk's tag for `structure_id` is now `raw` and the live start is `start` (after the start
     /// was created, or its state was written back).
-    pub fn put(&self, chunk_pos: ChunkPos, structure_id: &str, raw: CompoundTag, start: StartHandle) {
+    pub fn put(
+        &self,
+        chunk_pos: ChunkPos,
+        structure_id: &str,
+        raw: CompoundTag,
+        start: StartHandle,
+    ) {
         let mut entries = self.entries.lock().unwrap_or_else(|e| e.into_inner());
         if entries.len() >= START_CACHE_CAPACITY {
             entries.clear();
         }
-        entries.insert((chunk_pos.pack(), structure_id.to_owned()), CacheEntry { source: raw, start: Some(start) });
+        entries.insert(
+            (chunk_pos.pack(), structure_id.to_owned()),
+            CacheEntry {
+                source: raw,
+                start: Some(start),
+            },
+        );
     }
 }

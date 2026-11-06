@@ -1,14 +1,14 @@
 //! `net.minecraft.world.level.block.EyeblossomBlock` (extends `FlowerBlock`): opens and closes with the
 //! `gameplay/eyeblossom_open` attribute.
-use mc_game_core::register_block;
-use mc_game_core::world::level::block::impls::prelude::*;
-use mc_game_core::world::level::block::impls::vegetation_block::vegetation_behaviour_methods;
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::entity::effect::MobEffectInstance;
-use mc_game_core::world::level::blockscan;
-use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_core::phys::Vec3;
 use mc_data::{GameEvent, MobEffect, SoundEvent};
+use mc_game_core::register_block;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::effect::MobEffectInstance;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::world::level::block::impls::vegetation_block::vegetation_behaviour_methods;
+use mc_game_core::world::level::blockscan;
+use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_protocol::components::SuspiciousStewEffects;
 use mc_protocol::packets::play::ParticleOptions;
 use mc_protocol::packets::play::level::SoundSource;
@@ -27,20 +27,36 @@ impl Type {
     const CLOSED: Type = Type { open: false };
 
     pub(super) fn block(self) -> Block {
-        if self.open { Block::OPEN_EYEBLOSSOM } else { Block::CLOSED_EYEBLOSSOM }
+        if self.open {
+            Block::OPEN_EYEBLOSSOM
+        } else {
+            Block::CLOSED_EYEBLOSSOM
+        }
     }
     pub(super) fn transform(self) -> Type {
         Type { open: !self.open }
     }
     /// `effect` and `effectDuration` (seconds).
     fn effect(self) -> (MobEffect, f32) {
-        if self.open { (MobEffect::BLINDNESS, 11.0) } else { (MobEffect::NAUSEA, 7.0) }
+        if self.open {
+            (MobEffect::BLINDNESS, 11.0)
+        } else {
+            (MobEffect::NAUSEA, 7.0)
+        }
     }
     pub(super) fn long_switch_sound(self) -> SoundEvent {
-        if self.open { SoundEvent::BLOCK_EYEBLOSSOM_OPEN_LONG } else { SoundEvent::BLOCK_EYEBLOSSOM_CLOSE_LONG }
+        if self.open {
+            SoundEvent::BLOCK_EYEBLOSSOM_OPEN_LONG
+        } else {
+            SoundEvent::BLOCK_EYEBLOSSOM_CLOSE_LONG
+        }
     }
     fn short_switch_sound(self) -> SoundEvent {
-        if self.open { SoundEvent::BLOCK_EYEBLOSSOM_OPEN } else { SoundEvent::BLOCK_EYEBLOSSOM_CLOSE }
+        if self.open {
+            SoundEvent::BLOCK_EYEBLOSSOM_OPEN
+        } else {
+            SoundEvent::BLOCK_EYEBLOSSOM_CLOSE
+        }
     }
     fn particle_color(self) -> i32 {
         if self.open { 16545810 } else { 6250335 }
@@ -50,9 +66,17 @@ impl Type {
         let start = Vec3::at_center_of(&pos);
         let random = level.random();
         let lifetime = 0.5 + random.next_double();
-        let velocity = Vec3::new(random.next_double() - 0.5, random.next_double() + 1.0, random.next_double() - 0.5);
+        let velocity = Vec3::new(
+            random.next_double() - 0.5,
+            random.next_double() + 1.0,
+            random.next_double() - 0.5,
+        );
         let target = start.add(velocity.scale(lifetime));
-        let particle = ParticleOptions::Trail { target, color: self.particle_color(), duration: (20.0 * lifetime) as i32 };
+        let particle = ParticleOptions::Trail {
+            target,
+            color: self.particle_color(),
+            duration: (20.0 * lifetime) as i32,
+        };
         level.send_particles(particle, start.x, start.y, start.z, 1, 0.0, 0.0, 0.0, 0.0);
     }
 }
@@ -68,25 +92,51 @@ pub struct EyeblossomBlock {
 
 impl EyeblossomBlock {
     /// `tryChangingState(state, level, pos, random)`.
-    fn try_changing_state(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) -> bool {
-        let should_be_open = level.attribute_tri_state(mc_game_core::world::attribute::attributes::EYEBLOSSOM_OPEN, pos).to_boolean(self.ty.open);
+    fn try_changing_state(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+    ) -> bool {
+        let should_be_open = level
+            .attribute_tri_state(
+                mc_game_core::world::attribute::attributes::EYEBLOSSOM_OPEN,
+                pos,
+            )
+            .to_boolean(self.ty.open);
         if should_be_open == self.ty.open {
             return false;
         }
         let new_type = self.ty.transform();
         level.set_block_and_update(pos, new_type.block().default_state());
-        level.game_event_at_block(GameEvent::BLOCK_CHANGE, pos, &GameEventContext::of_state(Some(state)));
+        level.game_event_at_block(
+            GameEvent::BLOCK_CHANGE,
+            pos,
+            &GameEventContext::of_state(Some(state)),
+        );
         new_type.spawn_transform_particle(level, pos);
-        let min_pos = pos.offset(-EYEBLOSSOM_XZ_RANGE, -EYEBLOSSOM_Y_RANGE, -EYEBLOSSOM_XZ_RANGE);
+        let min_pos = pos.offset(
+            -EYEBLOSSOM_XZ_RANGE,
+            -EYEBLOSSOM_Y_RANGE,
+            -EYEBLOSSOM_XZ_RANGE,
+        );
         let max_pos = pos.offset(EYEBLOSSOM_XZ_RANGE, EYEBLOSSOM_Y_RANGE, EYEBLOSSOM_XZ_RANGE);
         let mut nearby = Vec::new();
-        blockscan::find_blocks(&*level, min_pos, max_pos, &|nearby_state| nearby_state == state, &mut |nearby_pos, _| {
-            nearby.push(nearby_pos);
-            false
-        });
+        blockscan::find_blocks(
+            &*level,
+            min_pos,
+            max_pos,
+            &|nearby_state| nearby_state == state,
+            &mut |nearby_pos, _| {
+                nearby.push(nearby_pos);
+                false
+            },
+        );
         for nearby_pos in nearby {
             let distance = pos.dist_sqr(&nearby_pos).sqrt();
-            let delay = level.random().next_int_between_inclusive((distance * 5.0) as i32, (distance * 10.0) as i32);
+            let delay = level
+                .random()
+                .next_int_between_inclusive((distance * 5.0) as i32, (distance * 10.0) as i32);
             level.schedule_tick_block(nearby_pos, state.block(), delay);
         }
         true
@@ -99,12 +149,26 @@ impl BlockBehaviour for EyeblossomBlock {
     vegetation_behaviour_methods!();
     fn random_tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         if self.try_changing_state(state, level, pos) {
-            level.play_sound(None, pos, self.ty.transform().long_switch_sound(), SoundSource::Blocks, 1.0, 1.0);
+            level.play_sound(
+                None,
+                pos,
+                self.ty.transform().long_switch_sound(),
+                SoundSource::Blocks,
+                1.0,
+                1.0,
+            );
         }
     }
     fn tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         if self.try_changing_state(state, level, pos) {
-            level.play_sound(None, pos, self.ty.transform().short_switch_sound(), SoundSource::Blocks, 1.0, 1.0);
+            level.play_sound(
+                None,
+                pos,
+                self.ty.transform().short_switch_sound(),
+                SoundSource::Blocks,
+                1.0,
+                1.0,
+            );
         }
     }
     fn entity_inside(
@@ -121,7 +185,11 @@ impl BlockBehaviour for EyeblossomBlock {
             && super::flower_block::attracts_bees(state)
             && !entity.has_effect(MobEffect::POISON)
         {
-            entity.add_effect(level, MobEffectInstance::new(MobEffect::POISON, 25, 0, false, true, true, None), None);
+            entity.add_effect(
+                level,
+                MobEffectInstance::new(MobEffect::POISON, 25, 0, false, true, true, None),
+                None,
+            );
         }
     }
     fn get_suspicious_effects(&self) -> Option<SuspiciousStewEffects> {
@@ -130,9 +198,21 @@ impl BlockBehaviour for EyeblossomBlock {
     }
     /// `getBeeInteractionEffect`: `new MobEffectInstance(MobEffects.POISON, 25)`.
     fn get_bee_interaction_effect(&self) -> Option<MobEffectInstance> {
-        Some(MobEffectInstance::new(MobEffect::POISON, 25, 0, false, true, true, None))
+        Some(MobEffectInstance::new(
+            MobEffect::POISON,
+            25,
+            0,
+            false,
+            true,
+            true,
+            None,
+        ))
     }
 }
 
-register_block!("minecraft:open_eyeblossom", |_| Box::new(EyeblossomBlock { ty: Type::OPEN }));
-register_block!("minecraft:closed_eyeblossom", |_| Box::new(EyeblossomBlock { ty: Type::CLOSED }));
+register_block!("minecraft:open_eyeblossom", |_| Box::new(EyeblossomBlock {
+    ty: Type::OPEN
+}));
+register_block!("minecraft:closed_eyeblossom", |_| Box::new(
+    EyeblossomBlock { ty: Type::CLOSED }
+));

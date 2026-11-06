@@ -51,13 +51,18 @@ impl Coords {
 
     /// `OffsetDoubleList(this, offset)`.
     pub fn offset(&self, offset: f64) -> Coords {
-        Coords::Array((0..self.size()).map(|i| self.get_double(i) + offset).collect())
+        Coords::Array(
+            (0..self.size())
+                .map(|i| self.get_double(i) + offset)
+                .collect(),
+        )
     }
 
     /// `Objects.equals(first, second)` on two `DoubleList`s: sizes equal and elements equal under
     /// primitive `==` (so `0.0 == -0.0`), regardless of list kind.
     pub fn list_equals(&self, other: &Coords) -> bool {
-        self.size() == other.size() && (0..self.size()).all(|i| self.get_double(i) == other.get_double(i))
+        self.size() == other.size()
+            && (0..self.size()).all(|i| self.get_double(i) == other.get_double(i))
     }
 }
 
@@ -79,7 +84,10 @@ impl PartialEq for Coords {
         match (self, other) {
             (Coords::Cube(a), Coords::Cube(b)) => a == b,
             (Coords::Array(a), Coords::Array(b)) => {
-                a.len() == b.len() && a.iter().zip(b.iter()).all(|(x, y)| x.to_bits() == y.to_bits())
+                a.len() == b.len()
+                    && a.iter()
+                        .zip(b.iter())
+                        .all(|(x, y)| x.to_bits() == y.to_bits())
             }
             _ => false,
         }
@@ -102,10 +110,23 @@ pub(crate) fn lcm(first: i32, second: i32) -> i64 {
 
 #[derive(Clone, Debug)]
 pub enum IndexMerger {
-    DiscreteCube { result: i32, first_div: i32, second_div: i32 },
-    NonOverlapping { lower: Coords, upper: Coords, swap: bool },
+    DiscreteCube {
+        result: i32,
+        first_div: i32,
+        second_div: i32,
+    },
+    NonOverlapping {
+        lower: Coords,
+        upper: Coords,
+        swap: bool,
+    },
     Identical(Coords),
-    Indirect { result: Vec<f64>, first_indices: Vec<i32>, second_indices: Vec<i32>, result_length: usize },
+    Indirect {
+        result: Vec<f64>,
+        first_indices: Vec<i32>,
+        second_indices: Vec<i32>,
+        result_length: usize,
+    },
 }
 
 impl IndexMerger {
@@ -120,7 +141,12 @@ impl IndexMerger {
     }
 
     /// `new IndirectMerger(first, second, firstOnlyMatters, secondOnlyMatters)`
-    pub fn indirect(first: &Coords, second: &Coords, first_only_matters: bool, second_only_matters: bool) -> IndexMerger {
+    pub fn indirect(
+        first: &Coords,
+        second: &Coords,
+        first_only_matters: bool,
+        second_only_matters: bool,
+    ) -> IndexMerger {
         let mut last_value = f64::NAN;
         let first_size = first.size();
         let second_size = second.size();
@@ -142,7 +168,8 @@ impl IndexMerger {
             }
 
             let chose_first = !ran_out_of_first
-                && (ran_out_of_second || first.get_double(first_index) < second.get_double(second_index) + 1.0E-7);
+                && (ran_out_of_second
+                    || first.get_double(first_index) < second.get_double(second_index) + 1.0E-7);
             if chose_first {
                 first_index += 1;
                 if can_skip_first && (second_index == 0 || ran_out_of_second) {
@@ -175,7 +202,12 @@ impl IndexMerger {
                 second_indices[result_index - 1] = current_second_index;
             }
         };
-        IndexMerger::Indirect { result, first_indices, second_indices, result_length }
+        IndexMerger::Indirect {
+            result,
+            first_indices,
+            second_indices,
+            result_length,
+        }
     }
 
     /// `IndexMerger.size()`
@@ -192,11 +224,18 @@ impl IndexMerger {
     pub fn get_list(&self) -> Coords {
         match self {
             IndexMerger::DiscreteCube { result, .. } => Coords::Cube(*result),
-            IndexMerger::NonOverlapping { lower, upper, .. } => {
-                Coords::Array((0..lower.size()).map(|i| lower.get_double(i)).chain((0..upper.size()).map(|i| upper.get_double(i))).collect())
-            }
+            IndexMerger::NonOverlapping { lower, upper, .. } => Coords::Array(
+                (0..lower.size())
+                    .map(|i| lower.get_double(i))
+                    .chain((0..upper.size()).map(|i| upper.get_double(i)))
+                    .collect(),
+            ),
             IndexMerger::Identical(coords) => coords.clone(),
-            IndexMerger::Indirect { result, result_length, .. } => {
+            IndexMerger::Indirect {
+                result,
+                result_length,
+                ..
+            } => {
                 if *result_length <= 1 {
                     Coords::array(vec![0.0])
                 } else {
@@ -214,7 +253,11 @@ impl IndexMerger {
     /// returns `false`; returns whether all calls returned `true`.
     pub fn for_merged_indexes(&self, consumer: &mut impl FnMut(i32, i32, i32) -> bool) -> bool {
         match self {
-            IndexMerger::DiscreteCube { result, first_div, second_div } => {
+            IndexMerger::DiscreteCube {
+                result,
+                first_div,
+                second_div,
+            } => {
                 for i in 0..*result {
                     if !consumer(i / second_div, i / first_div, i) {
                         return false;
@@ -238,7 +281,12 @@ impl IndexMerger {
                 }
                 true
             }
-            IndexMerger::Indirect { first_indices, second_indices, result_length, .. } => {
+            IndexMerger::Indirect {
+                first_indices,
+                second_indices,
+                result_length,
+                ..
+            } => {
                 for i in 0..*result_length - 1 {
                     if !consumer(first_indices[i], second_indices[i], i as i32) {
                         return false;
@@ -249,7 +297,11 @@ impl IndexMerger {
         }
     }
 
-    fn for_non_swapped(lower_size: i32, upper_size: i32, consumer: &mut impl FnMut(i32, i32, i32) -> bool) -> bool {
+    fn for_non_swapped(
+        lower_size: i32,
+        upper_size: i32,
+        consumer: &mut impl FnMut(i32, i32, i32) -> bool,
+    ) -> bool {
         for i in 0..lower_size {
             if !consumer(i, -1, i) {
                 return false;

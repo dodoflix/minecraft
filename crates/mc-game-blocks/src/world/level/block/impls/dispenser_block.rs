@@ -1,21 +1,21 @@
 //! `net.minecraft.world.level.block.DispenserBlock` (the dropper extends it, see `dropper_block`).
-use mc_game_core::register_block_class;
-use mc_game_core::world::level::block::impls::prelude::*;
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::block_entity::{BlockEntity, DispenserBlockEntity, changed_log};
-use mc_game_core::world::container::Container;
-use mc_game_core::world::dispenser::{BlockSource, get_dispense_method};
-use mc_game_core::world::item::BlockPlaceContext;
-use mc_game_core::world::level::gameevent::GameEventContext;
-use mc_game_core::world::level::redstone::Orientation;
-use mc_game_core::world::level::signal_getter::has_neighbor_signal;
-use mc_game_core::stats::{Stat, stats::Stats};
 use crate::world::block_entity::container_menu_provider::BlockEntityMenuProvider;
-use mc_game_core::world::entity::ServerPlayer;
-use mc_game_core::world::item::InteractionResult;
 use mc_core::phys::BlockHitResult;
 use mc_data::BlockEntityType;
 use mc_data::GameEvent;
+use mc_game_core::register_block_class;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::stats::{Stat, stats::Stats};
+use mc_game_core::world::block_entity::{BlockEntity, DispenserBlockEntity, changed_log};
+use mc_game_core::world::container::Container;
+use mc_game_core::world::dispenser::{BlockSource, get_dispense_method};
+use mc_game_core::world::entity::ServerPlayer;
+use mc_game_core::world::item::BlockPlaceContext;
+use mc_game_core::world::item::InteractionResult;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::world::level::gameevent::GameEventContext;
+use mc_game_core::world::level::redstone::Orientation;
+use mc_game_core::world::level::signal_getter::has_neighbor_signal;
 
 pub struct DispenserBlock;
 
@@ -35,12 +35,29 @@ impl BlockBehaviour for DispenserBlock {
         helpers::mirror_facing(state, props::FACING, mirror)
     }
 
-    fn get_state_for_placement(&self, block: Block, _level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
-        Some(block.default_state().set(props::FACING, context.get_nearest_looking_direction().get_opposite()))
+    fn get_state_for_placement(
+        &self,
+        block: Block,
+        _level: &mut ServerLevel,
+        context: &BlockPlaceContext,
+    ) -> Option<BlockState> {
+        Some(block.default_state().set(
+            props::FACING,
+            context.get_nearest_looking_direction().get_opposite(),
+        ))
     }
 
-    fn neighbor_changed(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, _block: Block, _orientation: Option<Orientation>, _moved_by_piston: bool) {
-        let should_trigger = has_neighbor_signal(level, pos) || has_neighbor_signal(level, pos.above());
+    fn neighbor_changed(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        _block: Block,
+        _orientation: Option<Orientation>,
+        _moved_by_piston: bool,
+    ) {
+        let should_trigger =
+            has_neighbor_signal(level, pos) || has_neighbor_signal(level, pos.above());
         let is_triggered = state.get(props::TRIGGERED);
         if should_trigger && !is_triggered {
             level.schedule_tick_block(pos, state.block(), TRIGGER_DURATION);
@@ -54,39 +71,92 @@ impl BlockBehaviour for DispenserBlock {
         dispense_from(level, state, pos);
     }
 
-    fn use_without_item(&self, _state: BlockState, level: &mut ServerLevel, pos: BlockPos, player: &mut ServerPlayer, _hit: &BlockHitResult) -> InteractionResult {
-        open_container(level, pos, player, Stats::INSPECT_DISPENSER, Stats::INSPECT_DROPPER)
+    fn use_without_item(
+        &self,
+        _state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        player: &mut ServerPlayer,
+        _hit: &BlockHitResult,
+    ) -> InteractionResult {
+        open_container(
+            level,
+            pos,
+            player,
+            Stats::INSPECT_DISPENSER,
+            Stats::INSPECT_DROPPER,
+        )
     }
 
-    fn affect_neighbors_after_removal(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, _moved_by_piston: bool) {
+    fn affect_neighbors_after_removal(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        _moved_by_piston: bool,
+    ) {
         update_neighbours_after_destroy(state, level, pos);
     }
 
-    fn get_menu_provider(&self, _state: BlockState, level: &ServerLevel, pos: BlockPos) -> Option<Box<dyn mc_game_core::world::inventory::MenuProvider>> {
-        BlockEntityMenuProvider::of(level, pos).map(|p| Box::new(p) as Box<dyn mc_game_core::world::inventory::MenuProvider>)
+    fn get_menu_provider(
+        &self,
+        _state: BlockState,
+        level: &ServerLevel,
+        pos: BlockPos,
+    ) -> Option<Box<dyn mc_game_core::world::inventory::MenuProvider>> {
+        BlockEntityMenuProvider::of(level, pos)
+            .map(|p| Box::new(p) as Box<dyn mc_game_core::world::inventory::MenuProvider>)
     }
 
-    fn get_analog_output_signal(&self, _state: BlockState, level: &ServerLevel, pos: BlockPos, _direction: Direction) -> i32 {
-        mc_game_core::world::container::get_redstone_signal_from_block_entity(level.get_block_entity(pos))
+    fn get_analog_output_signal(
+        &self,
+        _state: BlockState,
+        level: &ServerLevel,
+        pos: BlockPos,
+        _direction: Direction,
+    ) -> i32 {
+        mc_game_core::world::container::get_redstone_signal_from_block_entity(
+            level.get_block_entity(pos),
+        )
     }
 }
 
 /// `useWithoutItem` of the dispenser/dropper (`player.openMenu(dispenser)` + the inspect stat) and, with the hopper's
 /// stat, of the hopper: only when the block entity is a container this module opens.
-pub fn open_container(level: &mut ServerLevel, pos: BlockPos, player: &mut ServerPlayer, dispenser_stat: Stat, dropper_stat: Stat) -> InteractionResult {
+pub fn open_container(
+    level: &mut ServerLevel,
+    pos: BlockPos,
+    player: &mut ServerPlayer,
+    dispenser_stat: Stat,
+    dropper_stat: Stat,
+) -> InteractionResult {
     if let Some(provider) = BlockEntityMenuProvider::of(level, pos) {
-        let is_dropper = level.get_block_entity(pos).is_some_and(|be| be.get_type() == BlockEntityType::DROPPER);
+        let is_dropper = level
+            .get_block_entity(pos)
+            .is_some_and(|be| be.get_type() == BlockEntityType::DROPPER);
         player.open_menu(level, &provider);
-        player.award_stat_once(level, if is_dropper { dropper_stat } else { dispenser_stat });
+        player.award_stat_once(
+            level,
+            if is_dropper {
+                dropper_stat
+            } else {
+                dispenser_stat
+            },
+        );
     }
     InteractionResult::SUCCESS
 }
 
 /// `DispenserBlock.dispenseFrom(level, state, pos)`.
 fn dispense_from(level: &mut ServerLevel, state: BlockState, pos: BlockPos) {
-    let taken = level.take_block_entity(pos).filter(|be| be.get_type() == BlockEntityType::DISPENSER);
+    let taken = level
+        .take_block_entity(pos)
+        .filter(|be| be.get_type() == BlockEntityType::DISPENSER);
     let Some(mut be) = taken else {
-        log::warn!("Ignoring dispensing attempt for Dispenser without matching block entity at {}", pos.to_short_string());
+        log::warn!(
+            "Ignoring dispensing attempt for Dispenser without matching block entity at {}",
+            pos.to_short_string()
+        );
         return;
     };
     be.unpack_loot_table(level, None);
@@ -100,7 +170,12 @@ fn dispense_from(level: &mut ServerLevel, state: BlockState, pos: BlockPos) {
             let slot = slot as usize;
             let item_stack = dispenser.get_item(slot).clone();
             let behavior = get_dispense_method(level, &item_stack);
-            let mut source = BlockSource { level, pos, state, block_entity: dispenser };
+            let mut source = BlockSource {
+                level,
+                pos,
+                state,
+                block_entity: dispenser,
+            };
             let result = behavior.dispense(&mut source, item_stack);
             dispenser.set_item(slot, result);
         }

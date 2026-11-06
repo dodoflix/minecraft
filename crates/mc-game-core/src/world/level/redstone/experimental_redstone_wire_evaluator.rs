@@ -44,7 +44,9 @@ fn is_connected(state: BlockState, direction: Direction) -> bool {
 
 fn get_initial_orientation(level: &mut ServerLevel, incoming: Option<Orientation>) -> Orientation {
     let orientation = incoming.unwrap_or_else(|| Orientation::random(LevelAccessor::random(level)));
-    orientation.with_up(Direction::Up).with_side_bias(SideBias::Left)
+    orientation
+        .with_up(Direction::Up)
+        .with_side_bias(SideBias::Left)
 }
 
 impl ExperimentalRedstoneWireEvaluator {
@@ -60,12 +62,23 @@ impl ExperimentalRedstoneWireEvaluator {
                 if is_connected(state, neighbor_direction) {
                     let neighbor_pos = wire_pos.relative(neighbor_direction);
                     let neighbor_state = BlockGetter::get_block_state(level, neighbor_pos);
-                    let neighbor_orientation = orientation.with_front_preserve_up(neighbor_direction);
-                    level.neighbor_changed_with_state(neighbor_state, neighbor_pos, Block::REDSTONE_WIRE, Some(neighbor_orientation), false);
+                    let neighbor_orientation =
+                        orientation.with_front_preserve_up(neighbor_direction);
+                    level.neighbor_changed_with_state(
+                        neighbor_state,
+                        neighbor_pos,
+                        Block::REDSTONE_WIRE,
+                        Some(neighbor_orientation),
+                        false,
+                    );
                     if neighbor_state.is_redstone_conductor() {
                         for direction in neighbor_orientation.get_directions() {
                             if direction != neighbor_direction.get_opposite() {
-                                level.neighbor_changed(neighbor_pos.relative(direction), Block::REDSTONE_WIRE, Some(neighbor_orientation.with_front_preserve_up(direction)));
+                                level.neighbor_changed(
+                                    neighbor_pos.relative(direction),
+                                    Block::REDSTONE_WIRE,
+                                    Some(neighbor_orientation.with_front_preserve_up(direction)),
+                                );
                             }
                         }
                     }
@@ -74,13 +87,28 @@ impl ExperimentalRedstoneWireEvaluator {
         }
     }
 
-    fn calculate_current_changes(&mut self, level: &mut ServerLevel, initial_position: BlockPos, initial_orientation: Orientation) {
+    fn calculate_current_changes(
+        &mut self,
+        level: &mut ServerLevel,
+        initial_position: BlockPos,
+        initial_orientation: Orientation,
+    ) {
         let initial_state = BlockGetter::get_block_state(level, initial_position);
         if initial_state.is_block(Block::REDSTONE_WIRE) {
-            self.set_power(initial_position, initial_state.get(props::POWER), initial_orientation);
+            self.set_power(
+                initial_position,
+                initial_state.get(props::POWER),
+                initial_orientation,
+            );
             self.wires_to_turn_off.push_back(initial_position);
         } else {
-            self.propagate_change_to_neighbors(level, initial_position, 0, initial_orientation, true);
+            self.propagate_change_to_neighbors(
+                level,
+                initial_position,
+                0,
+                initial_orientation,
+                true,
+            );
         }
 
         while let Some(pos) = self.wires_to_turn_off.pop_front() {
@@ -102,7 +130,13 @@ impl ExperimentalRedstoneWireEvaluator {
             if power_to_set != old_power {
                 self.set_power(pos, power_to_set, orientation);
             }
-            self.propagate_change_to_neighbors(level, pos, power_to_set, orientation, old_power > new_power);
+            self.propagate_change_to_neighbors(
+                level,
+                pos,
+                power_to_set,
+                orientation,
+                old_power > new_power,
+            );
         }
 
         while let Some(pos) = self.wires_to_turn_on.pop_front() {
@@ -129,29 +163,64 @@ impl ExperimentalRedstoneWireEvaluator {
         self.updated_wires.insert(pos, packed);
     }
 
-    fn propagate_change_to_neighbors(&mut self, level: &mut ServerLevel, pos: BlockPos, new_power: i32, orientation: Orientation, allow_turning_off: bool) {
+    fn propagate_change_to_neighbors(
+        &mut self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        new_power: i32,
+        orientation: Orientation,
+        allow_turning_off: bool,
+    ) {
         let horizontal = orientation.get_horizontal_directions();
         for &direction_horizontal in &horizontal {
             let offset_pos = pos.relative(direction_horizontal);
-            self.enqueue_neighbor_wire(level, offset_pos, new_power, orientation.with_front(direction_horizontal), allow_turning_off);
+            self.enqueue_neighbor_wire(
+                level,
+                offset_pos,
+                new_power,
+                orientation.with_front(direction_horizontal),
+                allow_turning_off,
+            );
         }
         for direction_vertical in orientation.get_vertical_directions() {
             let offset_pos = pos.relative(direction_vertical);
-            let solid_block = BlockGetter::get_block_state(level, offset_pos).is_redstone_conductor();
+            let solid_block =
+                BlockGetter::get_block_state(level, offset_pos).is_redstone_conductor();
             for &direction_horizontal in &horizontal {
                 let neighbor = pos.relative(direction_horizontal);
                 if direction_vertical == Direction::Up && !solid_block {
                     let neighbor_wire = offset_pos.relative(direction_horizontal);
-                    self.enqueue_neighbor_wire(level, neighbor_wire, new_power, orientation.with_front(direction_horizontal), allow_turning_off);
-                } else if direction_vertical == Direction::Down && !BlockGetter::get_block_state(level, neighbor).is_redstone_conductor() {
+                    self.enqueue_neighbor_wire(
+                        level,
+                        neighbor_wire,
+                        new_power,
+                        orientation.with_front(direction_horizontal),
+                        allow_turning_off,
+                    );
+                } else if direction_vertical == Direction::Down
+                    && !BlockGetter::get_block_state(level, neighbor).is_redstone_conductor()
+                {
                     let neighbor_wire = offset_pos.relative(direction_horizontal);
-                    self.enqueue_neighbor_wire(level, neighbor_wire, new_power, orientation.with_front(direction_horizontal), allow_turning_off);
+                    self.enqueue_neighbor_wire(
+                        level,
+                        neighbor_wire,
+                        new_power,
+                        orientation.with_front(direction_horizontal),
+                        allow_turning_off,
+                    );
                 }
             }
         }
     }
 
-    fn enqueue_neighbor_wire(&mut self, level: &ServerLevel, pos: BlockPos, new_from_power: i32, orientation: Orientation, allow_turning_off: bool) {
+    fn enqueue_neighbor_wire(
+        &mut self,
+        level: &ServerLevel,
+        pos: BlockPos,
+        new_from_power: i32,
+        orientation: Orientation,
+        allow_turning_off: bool,
+    ) {
         let state = BlockGetter::get_block_state(level, pos);
         if state.is_block(Block::REDSTONE_WIRE) {
             let to_power = self.get_wire_signal(pos, state);
@@ -159,7 +228,10 @@ impl ExperimentalRedstoneWireEvaluator {
                 self.wires_to_turn_on.push_back(pos);
                 self.set_power(pos, to_power, orientation);
             }
-            if allow_turning_off && to_power > new_from_power && !self.wires_to_turn_off.contains(&pos) {
+            if allow_turning_off
+                && to_power > new_from_power
+                && !self.wires_to_turn_off.contains(&pos)
+            {
                 self.wires_to_turn_off.push_back(pos);
                 self.set_power(pos, to_power, orientation);
             }
@@ -168,7 +240,14 @@ impl ExperimentalRedstoneWireEvaluator {
 }
 
 impl RedstoneWireEvaluator for ExperimentalRedstoneWireEvaluator {
-    fn update_power_strength(&mut self, level: &mut ServerLevel, initial_pos: BlockPos, _state: BlockState, orientation: Option<Orientation>, shape_update_wires_around_initial_position: bool) {
+    fn update_power_strength(
+        &mut self,
+        level: &mut ServerLevel,
+        initial_pos: BlockPos,
+        _state: BlockState,
+        orientation: Option<Orientation>,
+        shape_update_wires_around_initial_position: bool,
+    ) {
         let initial_orientation = get_initial_orientation(level, orientation);
         self.calculate_current_changes(level, initial_pos, initial_orientation);
         let mut initial_wire = true;
@@ -194,7 +273,11 @@ impl RedstoneWireEvaluator for ExperimentalRedstoneWireEvaluator {
         match self.updated_wires.get(&pos) {
             Some(&packed) => unpack_power(packed),
             None => {
-                if state.is_block(Block::REDSTONE_WIRE) { state.get(props::POWER) } else { 0 }
+                if state.is_block(Block::REDSTONE_WIRE) {
+                    state.get(props::POWER)
+                } else {
+                    0
+                }
             }
         }
     }

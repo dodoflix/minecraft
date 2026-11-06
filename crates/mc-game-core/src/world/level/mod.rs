@@ -1,8 +1,9 @@
 //! `net.minecraft.world.level`.
 pub mod base_command_block;
+pub mod base_spawner;
 pub mod biome_ext;
-pub mod blockscan;
 pub mod block;
+pub mod blockscan;
 pub mod chunk;
 pub mod collision;
 pub mod entity;
@@ -18,13 +19,12 @@ pub mod pathfinder;
 pub mod portal;
 pub mod precipitation;
 pub mod redstone;
-pub mod server_level_accessor;
 pub mod saveddata;
-pub mod signal_getter;
-pub mod spawner;
+pub mod server_level_accessor;
 pub mod shapes;
-pub mod base_spawner;
+pub mod signal_getter;
 pub mod spawn_data;
+pub mod spawner;
 pub mod spawner_mob_seam;
 pub mod storage;
 pub mod ticket_storage;

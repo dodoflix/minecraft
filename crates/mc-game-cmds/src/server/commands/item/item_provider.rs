@@ -13,12 +13,22 @@ pub struct ItemProvider {
 impl ItemProvider {
     /// `ItemProvider.of(items)`.
     pub fn of(items: Vec<ItemStack>) -> Self {
-        Self { items, position: 0, cycled: false, fallback: None }
+        Self {
+            items,
+            position: 0,
+            cycled: false,
+            fallback: None,
+        }
     }
 
     /// `ItemProvider.cycle(items)`.
     pub fn cycle(items: Vec<ItemStack>) -> Self {
-        Self { items, position: 0, cycled: true, fallback: None }
+        Self {
+            items,
+            position: 0,
+            cycled: true,
+            fallback: None,
+        }
     }
 
     /// `orElseProvide(fallbackItem)` (a provider that already falls back keeps its fallback).
@@ -39,9 +49,17 @@ impl Iterator for ItemProvider {
     type Item = ItemStack;
 
     fn next(&mut self) -> Option<ItemStack> {
-        let has_next = if self.cycled { !self.items.is_empty() } else { self.position < self.items.len() };
+        let has_next = if self.cycled {
+            !self.items.is_empty()
+        } else {
+            self.position < self.items.len()
+        };
         if has_next {
-            let index = if self.cycled { self.position % self.items.len() } else { self.position };
+            let index = if self.cycled {
+                self.position % self.items.len()
+            } else {
+                self.position
+            };
             self.position += 1;
             return Some(self.items[index].copy());
         }

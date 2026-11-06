@@ -48,13 +48,21 @@ pub fn max_f64(a: f64, b: f64) -> f64 {
 /// `Math.floorDiv(int, int)` (wraps on `MIN / -1`; panics on zero divisor like `ArithmeticException`).
 pub fn floor_div_i32(a: i32, b: i32) -> i32 {
     let q = a.wrapping_div(b);
-    if (a ^ b) < 0 && q.wrapping_mul(b) != a { q - 1 } else { q }
+    if (a ^ b) < 0 && q.wrapping_mul(b) != a {
+        q - 1
+    } else {
+        q
+    }
 }
 
 /// `Math.floorDiv(long, long)`.
 pub fn floor_div_i64(a: i64, b: i64) -> i64 {
     let q = a.wrapping_div(b);
-    if (a ^ b) < 0 && q.wrapping_mul(b) != a { q - 1 } else { q }
+    if (a ^ b) < 0 && q.wrapping_mul(b) != a {
+        q - 1
+    } else {
+        q
+    }
 }
 
 /// `Math.floorMod(int, int)`.
@@ -88,7 +96,8 @@ pub fn rint(x: f64) -> f64 {
 
 /// `String.hashCode()` over UTF-16 code units.
 pub fn java_string_hash(s: &str) -> i32 {
-    s.encode_utf16().fold(0i32, |h, c| h.wrapping_mul(31).wrapping_add(c as i32))
+    s.encode_utf16()
+        .fold(0i32, |h, c| h.wrapping_mul(31).wrapping_add(c as i32))
 }
 
 /// `Integer.parseInt(s)` for ASCII digits (`None` where Java throws `NumberFormatException`).

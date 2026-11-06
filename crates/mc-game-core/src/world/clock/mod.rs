@@ -9,7 +9,9 @@ mod server_clock_manager;
 
 pub use clock_state::{ClockNetworkState, ClockState, PackedClockStates};
 pub use clock_time_marker::{ClockTimeMarker, ClockTimeMarkers, time_markers_from_timeline_json};
-pub use server_clock_manager::{ClockHost, ClockTotals, ClockInstance, MoveResult, ServerClockInstance, ServerClockManager};
+pub use server_clock_manager::{
+    ClockHost, ClockInstance, ClockTotals, MoveResult, ServerClockInstance, ServerClockManager,
+};
 
 /// `WorldClocks`.
 pub mod world_clocks {

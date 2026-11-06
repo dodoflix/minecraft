@@ -2,8 +2,8 @@
 
 use super::prelude::*;
 use crate::world::level::BlockGetter;
-use crate::world::level::storage::loot::parameters::LootContextParamSets;
 use crate::world::level::storage::loot::LootParams;
+use crate::world::level::storage::loot::parameters::LootContextParamSets;
 use crate::world::level::storage::loot::validation::validate_holder_opt;
 
 /// `ItemUsedOnLocationTrigger.TriggerInstance`.
@@ -15,13 +15,14 @@ pub struct ItemUsedOnLocationTriggerInstance {
 
 impl TriggerInstance for ItemUsedOnLocationTriggerInstance {
     fn codec() -> Codec<Self> {
-        static C: std::sync::LazyLock<Codec<ItemUsedOnLocationTriggerInstance>> = std::sync::LazyLock::new(|| {
-            mc_dfu::record!(ItemUsedOnLocationTriggerInstance {
-                player: condition_holder_codec().optional_field_of("player"),
-                location: condition_holder_codec().optional_field_of("location"),
-            })
-            .codec()
-        });
+        static C: std::sync::LazyLock<Codec<ItemUsedOnLocationTriggerInstance>> =
+            std::sync::LazyLock::new(|| {
+                mc_dfu::record!(ItemUsedOnLocationTriggerInstance {
+                    player: condition_holder_codec().optional_field_of("player"),
+                    location: condition_holder_codec().optional_field_of("location"),
+                })
+                .codec()
+            });
         C.clone()
     }
 }
@@ -33,7 +34,11 @@ impl SimpleInstance for ItemUsedOnLocationTriggerInstance {
 }
 
 crate::simple_instance!(ItemUsedOnLocationTriggerInstance, |this, validator| {
-    validate_holder_opt(&validator.context(LootContextParamSets::ADVANCEMENT_LOCATION), "location", &this.location);
+    validate_holder_opt(
+        &validator.context(LootContextParamSets::ADVANCEMENT_LOCATION),
+        "location",
+        &this.location,
+    );
 });
 
 crate::register_triggers!(ItemUsedOnLocationTriggerInstance {
@@ -51,13 +56,25 @@ impl ItemUsedOnLocationTriggerInstance {
 
 impl Trigger<ItemUsedOnLocationTriggerInstance> {
     /// `trigger(player, pos, tool)`.
-    pub fn trigger(&self, level: &mut ServerLevel, player: &mut ServerPlayer, pos: BlockPos, tool: &ItemStack) {
+    pub fn trigger(
+        &self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        pos: BlockPos,
+        tool: &ItemStack,
+    ) {
         let matches = self.matches(&*level, &*player, pos, tool);
         matches.award(level, player);
     }
 
     /// The listeners that match; nothing is mutated.
-    pub fn matches(&self, level: &ServerLevel, player: &ServerPlayer, pos: BlockPos, tool: &ItemStack) -> TriggerMatches {
+    pub fn matches(
+        &self,
+        level: &ServerLevel,
+        player: &ServerPlayer,
+        pos: BlockPos,
+        tool: &ItemStack,
+    ) -> TriggerMatches {
         let state = level.get_block_state(pos);
         let params = LootParams::builder(level)
             .origin(Vec3::at_center_of(&pos))

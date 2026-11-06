@@ -14,12 +14,23 @@ pub struct DefaultRedstoneWireEvaluator;
 impl DefaultRedstoneWireEvaluator {
     fn calculate_target_strength(&self, level: &mut ServerLevel, pos: BlockPos) -> i32 {
         let block_signal = self.get_block_signal(level, pos);
-        if block_signal == 15 { block_signal } else { block_signal.max(self.get_incoming_wire_signal(level, pos)) }
+        if block_signal == 15 {
+            block_signal
+        } else {
+            block_signal.max(self.get_incoming_wire_signal(level, pos))
+        }
     }
 }
 
 impl RedstoneWireEvaluator for DefaultRedstoneWireEvaluator {
-    fn update_power_strength(&mut self, level: &mut ServerLevel, pos: BlockPos, state: BlockState, _orientation: Option<Orientation>, _skip_shape_updates: bool) {
+    fn update_power_strength(
+        &mut self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        state: BlockState,
+        _orientation: Option<Orientation>,
+        _skip_shape_updates: bool,
+    ) {
         let target_strength = self.calculate_target_strength(level, pos);
         if state.get(props::POWER) != target_strength {
             if level.get_block_state(pos) == state {

@@ -1,10 +1,12 @@
 //! `OffsetPlacement`: the origin shifted by sampled offsets (sampled in x, y, z order).
 
-use mc_game_core::world::level::levelgen::placement::{PLACEMENT_MODIFIER_TYPES, PlacementContext, PlacementModifier};
-use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry};
-use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry};
+use mc_game_core::world::level::levelgen::placement::{
+    PLACEMENT_MODIFIER_TYPES, PlacementContext, PlacementModifier,
+};
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_worldgen::provider::IntProvider;
 use std::sync::Arc;
 
@@ -26,7 +28,13 @@ impl OffsetPlacement {
 }
 
 impl PlacementModifier for OffsetPlacement {
-    fn modify(&self, _context: &PlacementContext<'_>, random: &mut dyn RandomSource, origin: BlockPos, output: &mut Vec<BlockPos>) {
+    fn modify(
+        &self,
+        _context: &PlacementContext<'_>,
+        random: &mut dyn RandomSource,
+        origin: BlockPos,
+        output: &mut Vec<BlockPos>,
+    ) {
         let x = self.x.sample(random);
         let y = self.y.sample(random);
         let z = self.z.sample(random);
@@ -35,4 +43,7 @@ impl PlacementModifier for OffsetPlacement {
 }
 
 #[linkme::distributed_slice(PLACEMENT_MODIFIER_TYPES)]
-static OFFSET: TypeEntry<dyn PlacementModifier> = TypeEntry { name: "offset", decode: OffsetPlacement::decode };
+static OFFSET: TypeEntry<dyn PlacementModifier> = TypeEntry {
+    name: "offset",
+    decode: OffsetPlacement::decode,
+};

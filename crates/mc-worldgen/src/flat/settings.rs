@@ -37,18 +37,25 @@ pub enum StructureSetHolderSet {
 
 impl StructureSetHolderSet {
     /// `RegistryCodecs.holderSet(Registries.STRUCTURE_SET)`: `#tag`, a single id, or a list of ids.
-    pub fn from_json(value: &Value, registries: &WorldgenRegistries) -> LoadResult<StructureSetHolderSet> {
+    pub fn from_json(
+        value: &Value,
+        registries: &WorldgenRegistries,
+    ) -> LoadResult<StructureSetHolderSet> {
         let element = |v: &Value| -> LoadResult<Identifier> {
             let id = parse_identifier(v)?;
             if registries.raw(STRUCTURE_SET_REGISTRY, &id).is_none() {
-                return Err(LoadError::new(format!("Unknown registry key in minecraft:worldgen/structure_set: {id}")));
+                return Err(LoadError::new(format!(
+                    "Unknown registry key in minecraft:worldgen/structure_set: {id}"
+                )));
             }
             Ok(id)
         };
         if let Some(tag) = value.as_str().and_then(|s| s.strip_prefix('#')) {
             let id = Identifier::read(tag).map_err(LoadError::new)?;
             if registries.raw(STRUCTURE_SET_TAG_REGISTRY, &id).is_none() {
-                return Err(LoadError::new(format!("Missing tag: '{id}' in 'minecraft:worldgen/structure_set'")));
+                return Err(LoadError::new(format!(
+                    "Missing tag: '{id}' in 'minecraft:worldgen/structure_set'"
+                )));
             }
             return Ok(StructureSetHolderSet::Tag(id));
         }
@@ -134,15 +141,17 @@ impl FlatLevelGeneratorSettings {
         let fields = Fields::new(value)?;
         // `lenientOptionalFieldOf`: an invalid value is the same as an absent one.
         let structure_overrides = fields
-            .optional("structure_overrides", |v| StructureSetHolderSet::from_json(v, registries))
+            .optional("structure_overrides", |v| {
+                StructureSetHolderSet::from_json(v, registries)
+            })
             .unwrap_or(None);
         let layers = fields.required("layers", |v| parse_list(v, FlatLayerInfo::from_json))?;
         let lakes = fields.optional("lakes", parse_bool)?.unwrap_or(false);
         let features = fields.optional("features", parse_bool)?.unwrap_or(false);
         let biome = decode_lenient_biome(value, biomes)?;
-        let plains = biomes
-            .id_of(&default_biome_id())
-            .ok_or_else(|| LoadError::new("Missing element minecraft:plains in minecraft:worldgen/biome"))?;
+        let plains = biomes.id_of(&default_biome_id()).ok_or_else(|| {
+            LoadError::new("Missing element minecraft:plains in minecraft:worldgen/biome")
+        })?;
         let biome = match biome {
             Some(biome) => biome,
             None => {
@@ -167,9 +176,14 @@ impl FlatLevelGeneratorSettings {
 
     /// `validateHeight`: the (wrapping, like `IntStream.sum`) layer height sum must fit the dimension.
     fn validate_height(&self) -> LoadResult<()> {
-        let total = self.layers_info.iter().fold(0i32, |sum, l| sum.wrapping_add(l.get_height()));
+        let total = self
+            .layers_info
+            .iter()
+            .fold(0i32, |sum, l| sum.wrapping_add(l.get_height()));
         if total > DIMENSION_Y_SIZE {
-            return Err(LoadError::new(format!("Sum of layer heights is > {DIMENSION_Y_SIZE}")));
+            return Err(LoadError::new(format!(
+                "Sum of layer heights is > {DIMENSION_Y_SIZE}"
+            )));
         }
         Ok(())
     }
@@ -181,7 +195,8 @@ impl FlatLevelGeneratorSettings {
         structure_overrides: Option<StructureSetHolderSet>,
         biome: BiomeId,
     ) -> FlatLevelGeneratorSettings {
-        let mut settings = FlatLevelGeneratorSettings::new(structure_overrides, biome, self.lakes.clone());
+        let mut settings =
+            FlatLevelGeneratorSettings::new(structure_overrides, biome, self.lakes.clone());
         for layer in layers {
             settings.layers_info.push(*layer);
             settings.update_layers();
@@ -237,7 +252,8 @@ impl FlatLevelGeneratorSettings {
             }
         }
 
-        let source_is_void = biomes.key(source_biome) == &Identifier::with_default_namespace("the_void").expect("valid id");
+        let source_is_void = biomes.key(source_biome)
+            == &Identifier::with_default_namespace("the_void").expect("valid id");
         let biome_decoration = (!self.void_gen || source_is_void) && self.decoration;
         if biome_decoration {
             for (step_index, step) in biome_settings.features.iter().enumerate() {
@@ -259,7 +275,10 @@ impl FlatLevelGeneratorSettings {
                 *layer = None;
                 builder.add_feature(
                     decoration::TOP_LAYER_MODIFICATION,
-                    PlacedFeatureRef::InlineFillLayer { height: i as i32, state },
+                    PlacedFeatureRef::InlineFillLayer {
+                        height: i as i32,
+                        state,
+                    },
                 );
             }
         }
@@ -296,16 +315,24 @@ impl FlatLevelGeneratorSettings {
                 self.layers.push(Some(layer.get_block_state()));
             }
         }
-        self.void_gen = self.layers.iter().all(|s| s.is_some_and(|s| s.block() == Block::AIR));
+        self.void_gen = self
+            .layers
+            .iter()
+            .all(|s| s.is_some_and(|s| s.block() == Block::AIR));
     }
 
     /// `getDefault`: stronghold + village structure overrides, plains, bedrock / 2 dirt / grass block.
-    pub fn get_default(registries: &WorldgenRegistries, biomes: &BiomeRegistry) -> LoadResult<FlatLevelGeneratorSettings> {
+    pub fn get_default(
+        registries: &WorldgenRegistries,
+        biomes: &BiomeRegistry,
+    ) -> LoadResult<FlatLevelGeneratorSettings> {
         let mut structure_sets = Vec::new();
         for name in ["strongholds", "villages"] {
             let id = Identifier::with_default_namespace(name).expect("valid id");
             if registries.raw(STRUCTURE_SET_REGISTRY, &id).is_none() {
-                return Err(LoadError::new(format!("Missing element {id} in minecraft:{STRUCTURE_SET_REGISTRY}")));
+                return Err(LoadError::new(format!(
+                    "Missing element {id} in minecraft:{STRUCTURE_SET_REGISTRY}"
+                )));
             }
             structure_sets.push(id);
         }
@@ -328,9 +355,9 @@ fn default_biome_id() -> Identifier {
 
 /// `getDefaultBiome`.
 pub fn get_default_biome(biomes: &BiomeRegistry) -> LoadResult<BiomeId> {
-    biomes
-        .id_of(&default_biome_id())
-        .ok_or_else(|| LoadError::new("Missing element minecraft:plains in minecraft:worldgen/biome"))
+    biomes.id_of(&default_biome_id()).ok_or_else(|| {
+        LoadError::new("Missing element minecraft:plains in minecraft:worldgen/biome")
+    })
 }
 
 /// `createLakesList`: underground then surface lava lake.
@@ -340,7 +367,9 @@ pub fn create_lakes_list(registries: &WorldgenRegistries) -> LoadResult<Vec<Iden
         .map(|name| {
             let id = Identifier::with_default_namespace(name).expect("valid id");
             if registries.raw(PLACED_FEATURE_REGISTRY, &id).is_none() {
-                return Err(LoadError::new(format!("Missing element {id} in minecraft:{PLACED_FEATURE_REGISTRY}")));
+                return Err(LoadError::new(format!(
+                    "Missing element {id} in minecraft:{PLACED_FEATURE_REGISTRY}"
+                )));
             }
             Ok(id)
         })
@@ -350,5 +379,7 @@ pub fn create_lakes_list(registries: &WorldgenRegistries) -> LoadResult<Vec<Iden
 /// `Biome.CODEC.lenientOptionalFieldOf("biome")`: a missing or undecodable biome (unknown id, bad inline definition) is
 /// `None`; an inline definition is a `Holder.Direct`.
 fn decode_lenient_biome(value: &Value, biomes: &BiomeRegistry) -> LoadResult<Option<BiomeId>> {
-    Ok(value.get("biome").and_then(|biome| biomes.holder_from_json(biome).ok()))
+    Ok(value
+        .get("biome")
+        .and_then(|biome| biomes.holder_from_json(biome).ok()))
 }

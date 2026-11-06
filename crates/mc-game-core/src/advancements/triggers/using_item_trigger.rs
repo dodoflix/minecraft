@@ -11,13 +11,14 @@ pub struct UsingItemTriggerInstance {
 
 impl TriggerInstance for UsingItemTriggerInstance {
     fn codec() -> Codec<Self> {
-        static C: std::sync::LazyLock<Codec<UsingItemTriggerInstance>> = std::sync::LazyLock::new(|| {
-            mc_dfu::record!(UsingItemTriggerInstance {
-                player: condition_holder_codec().optional_field_of("player"),
-                item: ItemPredicate::codec().optional_field_of("item"),
-            })
-            .codec()
-        });
+        static C: std::sync::LazyLock<Codec<UsingItemTriggerInstance>> =
+            std::sync::LazyLock::new(|| {
+                mc_dfu::record!(UsingItemTriggerInstance {
+                    player: condition_holder_codec().optional_field_of("player"),
+                    item: ItemPredicate::codec().optional_field_of("item"),
+                })
+                .codec()
+            });
         C.clone()
     }
 }

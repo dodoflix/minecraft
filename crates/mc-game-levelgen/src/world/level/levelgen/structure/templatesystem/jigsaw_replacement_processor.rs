@@ -1,21 +1,24 @@
 //! `JigsawReplacementProcessor` (`jigsaw_replacement`): jigsaw blocks become their `final_state`.
 
-use mc_game_core::world::level::levelgen::structure::templatesystem::structure_place_settings::StructurePlaceSettings;
-use mc_game_core::world::level::levelgen::structure::templatesystem::structure_processor::{STRUCTURE_PROCESSOR_TYPES, StructureProcessor};
-use mc_game_core::world::level::levelgen::structure::templatesystem::structure_template::StructureBlockInfo;
+use mc_brigadier::StringReader;
+use mc_core::pos::BlockPos;
+use mc_data::block::Block;
 use mc_game_core::commands::arguments::blocks::block_state_parser::BlockStateParser;
 use mc_game_core::commands::command_build_context::{HolderLookupProvider, StaticRegistries};
 use mc_game_core::world::level::LevelReader;
 use mc_game_core::world::level::levelgen::codec::TypeEntry;
-use mc_brigadier::StringReader;
-use mc_core::pos::BlockPos;
-use mc_data::block::Block;
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_place_settings::StructurePlaceSettings;
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_processor::{
+    STRUCTURE_PROCESSOR_TYPES, StructureProcessor,
+};
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_template::StructureBlockInfo;
 use std::sync::{Arc, LazyLock};
 
 pub struct JigsawReplacementProcessor;
 
 /// `JigsawReplacementProcessor.INSTANCE`.
-pub static INSTANCE: LazyLock<Arc<dyn StructureProcessor>> = LazyLock::new(|| Arc::new(JigsawReplacementProcessor));
+pub static INSTANCE: LazyLock<Arc<dyn StructureProcessor>> =
+    LazyLock::new(|| Arc::new(JigsawReplacementProcessor));
 
 impl StructureProcessor for JigsawReplacementProcessor {
     fn process_block(
@@ -40,14 +43,22 @@ impl StructureProcessor for JigsawReplacementProcessor {
         let block_state = match parse_final_state(state_string) {
             Ok(state) => state,
             Err(message) => {
-                log::error!("Failed to parse jigsaw replacement state '{state_string}' at {target_position}: {message}");
+                log::error!(
+                    "Failed to parse jigsaw replacement state '{state_string}' at {target_position}: {message}"
+                );
                 return None;
             }
         };
-        if block_state.block() == Block::by_name("minecraft:structure_void").expect("structure_void block") {
+        if block_state.block()
+            == Block::by_name("minecraft:structure_void").expect("structure_void block")
+        {
             None
         } else {
-            Some(StructureBlockInfo::new(processed_block_info.pos, block_state, None))
+            Some(StructureBlockInfo::new(
+                processed_block_info.pos,
+                block_state,
+                None,
+            ))
         }
     }
 }
@@ -56,9 +67,16 @@ impl StructureProcessor for JigsawReplacementProcessor {
 /// error there either).
 fn parse_final_state(text: &str) -> Result<mc_data::block::BlockState, String> {
     let mut reader = StringReader::new(text);
-    let blocks = StaticRegistries.lookup("minecraft:block").ok_or("no block registry")?;
-    BlockStateParser::parse_for_block(&*blocks, &mut reader, true).map(|result| result.block_state).map_err(|e| e.to_string())
+    let blocks = StaticRegistries
+        .lookup("minecraft:block")
+        .ok_or("no block registry")?;
+    BlockStateParser::parse_for_block(&*blocks, &mut reader, true)
+        .map(|result| result.block_state)
+        .map_err(|e| e.to_string())
 }
 
 #[linkme::distributed_slice(STRUCTURE_PROCESSOR_TYPES)]
-static TYPE: TypeEntry<dyn StructureProcessor> = TypeEntry { name: "jigsaw_replacement", decode: |_, _| Ok(INSTANCE.clone()) };
+static TYPE: TypeEntry<dyn StructureProcessor> = TypeEntry {
+    name: "jigsaw_replacement",
+    decode: |_, _| Ok(INSTANCE.clone()),
+};

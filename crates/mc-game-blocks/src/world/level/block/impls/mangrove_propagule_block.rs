@@ -1,13 +1,13 @@
 //! `net.minecraft.world.level.block.MangrovePropaguleBlock` (extends `SaplingBlock`).
-use mc_game_core::{register_block_class, update_shape};
-use mc_game_core::world::level::block::impls::prelude::*;
 use super::sapling_block;
-use mc_game_core::world::level::block::impls::vegetation_block::{self, MayPlaceOn};
+use mc_data::fluid::Fluid;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::item::BlockPlaceContext;
 use mc_game_core::world::level::block::bonemeal::BonemealSource;
 use mc_game_core::world::level::block::grower::TreeGrower;
-use mc_data::fluid::Fluid;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::world::level::block::impls::vegetation_block::{self, MayPlaceOn};
+use mc_game_core::{register_block_class, update_shape};
 
 pub struct MangrovePropaguleBlock;
 
@@ -19,7 +19,10 @@ impl MayPlaceOn for MangrovePropaguleBlock {
 
 /// `MangrovePropaguleBlock.createNewHangingPropagule(age)`.
 pub fn create_new_hanging_propagule(age: i32) -> BlockState {
-    Block::MANGROVE_PROPAGULE.default_state().set(props::HANGING, true).set(props::AGE_4, age)
+    Block::MANGROVE_PROPAGULE
+        .default_state()
+        .set(props::HANGING, true)
+        .set(props::AGE_4, age)
 }
 
 fn is_fully_grown(state: BlockState) -> bool {
@@ -28,9 +31,20 @@ fn is_fully_grown(state: BlockState) -> bool {
 
 impl BlockBehaviour for MangrovePropaguleBlock {
     mc_game_core::simple_waterlogged!();
-    fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
-        let is_water_source = level.get_fluid_state(context.get_clicked_pos()).fluid() == Fluid::WATER;
-        Some(block.default_state().set(props::WATERLOGGED, is_water_source).set(props::AGE_4, 4))
+    fn get_state_for_placement(
+        &self,
+        block: Block,
+        level: &mut ServerLevel,
+        context: &BlockPlaceContext,
+    ) -> Option<BlockState> {
+        let is_water_source =
+            level.get_fluid_state(context.get_clicked_pos()).fluid() == Fluid::WATER;
+        Some(
+            block
+                .default_state()
+                .set(props::WATERLOGGED, is_water_source)
+                .set(props::AGE_4, 4),
+        )
     }
     fn random_tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         if !state.get(props::HANGING) {
@@ -44,13 +58,35 @@ impl BlockBehaviour for MangrovePropaguleBlock {
     fn is_bonemealable(&self) -> bool {
         true
     }
-    fn is_valid_bonemeal_target(&self, _level: &dyn LevelReader, _pos: BlockPos, state: BlockState, _source: BonemealSource) -> bool {
+    fn is_valid_bonemeal_target(
+        &self,
+        _level: &dyn LevelReader,
+        _pos: BlockPos,
+        state: BlockState,
+        _source: BonemealSource,
+    ) -> bool {
         !state.get(props::HANGING) || !is_fully_grown(state)
     }
-    fn is_bonemeal_success(&self, level: &mut ServerLevel, _pos: BlockPos, state: BlockState, _source: BonemealSource) -> bool {
-        if state.get(props::HANGING) { !is_fully_grown(state) } else { level.random().next_float() < 0.45 }
+    fn is_bonemeal_success(
+        &self,
+        level: &mut ServerLevel,
+        _pos: BlockPos,
+        state: BlockState,
+        _source: BonemealSource,
+    ) -> bool {
+        if state.get(props::HANGING) {
+            !is_fully_grown(state)
+        } else {
+            level.random().next_float() < 0.45
+        }
     }
-    fn perform_bonemeal(&self, level: &mut ServerLevel, pos: BlockPos, state: BlockState, _source: BonemealSource) {
+    fn perform_bonemeal(
+        &self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        state: BlockState,
+        _source: BonemealSource,
+    ) {
         if state.get(props::HANGING) && !is_fully_grown(state) {
             level.set_block_flags(pos, state.cycle(props::AGE_4), 2);
         } else {
@@ -59,17 +95,27 @@ impl BlockBehaviour for MangrovePropaguleBlock {
     }
     fn can_survive(&self, state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         if state.get(props::HANGING) {
-            level.get_block_state(pos.above()).is_tag("supports_hanging_mangrove_propagule")
+            level
+                .get_block_state(pos.above())
+                .is_tag("supports_hanging_mangrove_propagule")
         } else {
             vegetation_block::can_survive(self, level, pos)
         }
     }
-    update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
-        if state.get(props::WATERLOGGED) {
-            helpers::schedule_water_tick(level, pos);
+    update_shape!(
+        |self, state, level, pos, direction, neighbour_pos, neighbour_state| {
+            if state.get(props::WATERLOGGED) {
+                helpers::schedule_water_tick(level, pos);
+            }
+            if direction == Direction::Up && !state.can_survive(&*level, pos) {
+                air()
+            } else {
+                vegetation_block::update_shape(state, &*level, pos)
+            }
         }
-        if direction == Direction::Up && !state.can_survive(&*level, pos) { air() } else { vegetation_block::update_shape(state, &*level, pos) }
-    });
+    );
 }
 
-register_block_class!("MangrovePropaguleBlock", |_| Box::new(MangrovePropaguleBlock));
+register_block_class!("MangrovePropaguleBlock", |_| Box::new(
+    MangrovePropaguleBlock
+));

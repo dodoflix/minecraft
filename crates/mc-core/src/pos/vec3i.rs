@@ -14,7 +14,13 @@ pub struct Vec3i {
 }
 
 /// Guava `MoreObjects.toStringHelper(name)` format shared by Vec3i, BlockPos and SectionPos.
-pub(crate) fn fmt_named(f: &mut fmt::Formatter<'_>, name: &str, x: i32, y: i32, z: i32) -> fmt::Result {
+pub(crate) fn fmt_named(
+    f: &mut fmt::Formatter<'_>,
+    name: &str,
+    x: i32,
+    y: i32,
+    z: i32,
+) -> fmt::Result {
     write!(f, "{name}{{x={x}, y={y}, z={z}}}")
 }
 
@@ -39,20 +45,31 @@ impl Vec3i {
 
     /// Java `hashCode()`.
     pub const fn hash_code(&self) -> i32 {
-        self.y.wrapping_add(self.z.wrapping_mul(31)).wrapping_mul(31).wrapping_add(self.x)
+        self.y
+            .wrapping_add(self.z.wrapping_mul(31))
+            .wrapping_mul(31)
+            .wrapping_add(self.x)
     }
 
     /// Java `compareTo` (wrapping subtraction, so only the sign is meaningful).
     pub const fn compare_to(&self, pos: &Vec3i) -> i32 {
         if self.y == pos.y {
-            if self.z == pos.z { self.x.wrapping_sub(pos.x) } else { self.z.wrapping_sub(pos.z) }
+            if self.z == pos.z {
+                self.x.wrapping_sub(pos.x)
+            } else {
+                self.z.wrapping_sub(pos.z)
+            }
         } else {
             self.y.wrapping_sub(pos.y)
         }
     }
 
     pub const fn offset(&self, x: i32, y: i32, z: i32) -> Vec3i {
-        Vec3i::new(self.x.wrapping_add(x), self.y.wrapping_add(y), self.z.wrapping_add(z))
+        Vec3i::new(
+            self.x.wrapping_add(x),
+            self.y.wrapping_add(y),
+            self.z.wrapping_add(z),
+        )
     }
 
     pub const fn offset_vec(&self, vec: &Vec3i) -> Vec3i {
@@ -60,15 +77,27 @@ impl Vec3i {
     }
 
     pub const fn subtract(&self, vec: &Vec3i) -> Vec3i {
-        self.offset(vec.x.wrapping_neg(), vec.y.wrapping_neg(), vec.z.wrapping_neg())
+        self.offset(
+            vec.x.wrapping_neg(),
+            vec.y.wrapping_neg(),
+            vec.z.wrapping_neg(),
+        )
     }
 
     pub const fn multiply(&self, scale: i32) -> Vec3i {
-        Vec3i::new(self.x.wrapping_mul(scale), self.y.wrapping_mul(scale), self.z.wrapping_mul(scale))
+        Vec3i::new(
+            self.x.wrapping_mul(scale),
+            self.y.wrapping_mul(scale),
+            self.z.wrapping_mul(scale),
+        )
     }
 
     pub const fn multiply_xyz(&self, x_scale: i32, y_scale: i32, z_scale: i32) -> Vec3i {
-        Vec3i::new(self.x.wrapping_mul(x_scale), self.y.wrapping_mul(y_scale), self.z.wrapping_mul(z_scale))
+        Vec3i::new(
+            self.x.wrapping_mul(x_scale),
+            self.y.wrapping_mul(y_scale),
+            self.z.wrapping_mul(z_scale),
+        )
     }
 
     pub fn above(&self) -> Vec3i {
@@ -125,9 +154,12 @@ impl Vec3i {
 
     pub fn relative_n(&self, direction: Direction, steps: i32) -> Vec3i {
         Vec3i::new(
-            self.x.wrapping_add(direction.get_step_x().wrapping_mul(steps)),
-            self.y.wrapping_add(direction.get_step_y().wrapping_mul(steps)),
-            self.z.wrapping_add(direction.get_step_z().wrapping_mul(steps)),
+            self.x
+                .wrapping_add(direction.get_step_x().wrapping_mul(steps)),
+            self.y
+                .wrapping_add(direction.get_step_y().wrapping_mul(steps)),
+            self.z
+                .wrapping_add(direction.get_step_z().wrapping_mul(steps)),
         )
     }
 
@@ -140,9 +172,15 @@ impl Vec3i {
 
     pub const fn cross(&self, up_vector: &Vec3i) -> Vec3i {
         Vec3i::new(
-            self.y.wrapping_mul(up_vector.z).wrapping_sub(self.z.wrapping_mul(up_vector.y)),
-            self.z.wrapping_mul(up_vector.x).wrapping_sub(self.x.wrapping_mul(up_vector.z)),
-            self.x.wrapping_mul(up_vector.y).wrapping_sub(self.y.wrapping_mul(up_vector.x)),
+            self.y
+                .wrapping_mul(up_vector.z)
+                .wrapping_sub(self.z.wrapping_mul(up_vector.y)),
+            self.z
+                .wrapping_mul(up_vector.x)
+                .wrapping_sub(self.x.wrapping_mul(up_vector.z)),
+            self.x
+                .wrapping_mul(up_vector.y)
+                .wrapping_sub(self.y.wrapping_mul(up_vector.x)),
         )
     }
 

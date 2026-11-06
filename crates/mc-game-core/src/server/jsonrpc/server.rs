@@ -78,7 +78,12 @@ impl ManagementServer {
         static THREAD_ID: AtomicUsize = AtomicUsize::new(0);
         let runtime = tokio::runtime::Builder::new_multi_thread()
             .enable_all()
-            .thread_name_fn(|| format!("Management server IO #{}", THREAD_ID.fetch_add(1, Ordering::SeqCst)))
+            .thread_name_fn(|| {
+                format!(
+                    "Management server IO #{}",
+                    THREAD_ID.fetch_add(1, Ordering::SeqCst)
+                )
+            })
             .build()?;
         Ok(ManagementServer {
             host: host.to_owned(),
@@ -102,16 +107,33 @@ impl ManagementServer {
     }
 
     /// `start(api, sslContext)`: bind and serve. Logs `Json-RPC Management connection listening on host:port`.
-    pub fn start(&mut self, api: Arc<dyn ManagementApi>, tls: Option<TlsAcceptor>) -> io::Result<()> {
+    pub fn start(
+        &mut self,
+        api: Arc<dyn ManagementApi>,
+        tls: Option<TlsAcceptor>,
+    ) -> io::Result<()> {
         let addr: SocketAddr = (self.host.as_str(), self.port as u16)
             .to_socket_addrs()?
             .next()
-            .ok_or_else(|| io::Error::new(io::ErrorKind::NotFound, "management server host does not resolve"))?;
+            .ok_or_else(|| {
+                io::Error::new(
+                    io::ErrorKind::NotFound,
+                    "management server host does not resolve",
+                )
+            })?;
         let listener = self.runtime.block_on(TcpListener::bind(addr))?;
         self.local_port = Some(listener.local_addr()?.port());
         let (auth, connections) = (self.auth.clone(), self.connections.clone());
-        self.listener_task = Some(self.runtime.spawn(accept_loop(listener, auth, connections, api, tls)));
-        log::info!("Json-RPC Management connection listening on {}:{}", self.host, self.get_port());
+        self.listener_task =
+            Some(
+                self.runtime
+                    .spawn(accept_loop(listener, auth, connections, api, tls)),
+            );
+        log::info!(
+            "Json-RPC Management connection listening on {}:{}",
+            self.host,
+            self.get_port()
+        );
         Ok(())
     }
 
@@ -135,7 +157,8 @@ impl ManagementServer {
         if period > 0 {
             let every = Duration::from_secs(period as u64);
             *slot = Some(self.runtime.spawn(async move {
-                let mut ticker = tokio::time::interval_at(tokio::time::Instant::now() + every, every);
+                let mut ticker =
+                    tokio::time::interval_at(tokio::time::Instant::now() + every, every);
                 loop {
                     ticker.tick().await;
                     let service = service.clone();
@@ -155,13 +178,18 @@ async fn accept_loop(
     tls: Option<TlsAcceptor>,
 ) {
     loop {
-        let Ok((stream, peer)) = listener.accept().await else { continue };
+        let Ok((stream, peer)) = listener.accept().await else {
+            continue;
+        };
         let _ = stream.set_nodelay(true);
-        let (auth, connections, api, tls) = (auth.clone(), connections.clone(), api.clone(), tls.clone());
+        let (auth, connections, api, tls) =
+            (auth.clone(), connections.clone(), api.clone(), tls.clone());
         tokio::spawn(async move {
             match tls {
                 Some(acceptor) => match acceptor.accept(stream).await {
-                    Ok(tls_stream) => serve_connection(tls_stream, peer, auth, connections, api).await,
+                    Ok(tls_stream) => {
+                        serve_connection(tls_stream, peer, auth, connections, api).await
+                    }
                     Err(e) => log::debug!("TLS handshake with {peer} failed: {e}"),
                 },
                 None => serve_connection(stream, peer, auth, connections, api).await,
@@ -178,13 +206,21 @@ fn unauthorized(reason: &'static str) -> ErrorResponse {
     let mut response = ErrorResponse::new(Some(unauthorized_body(reason)));
     *response.status_mut() = StatusCode::UNAUTHORIZED;
     let headers = response.headers_mut();
-    headers.insert(header::CONTENT_TYPE, HeaderValue::from_static("application/json"));
+    headers.insert(
+        header::CONTENT_TYPE,
+        HeaderValue::from_static("application/json"),
+    );
     headers.insert(header::CONNECTION, HeaderValue::from_static("close"));
     response
 }
 
-async fn serve_connection<S>(stream: S, peer: SocketAddr, auth: Arc<AuthenticationHandler>, connections: Arc<Connections>, api: Arc<dyn ManagementApi>)
-where
+async fn serve_connection<S>(
+    stream: S,
+    peer: SocketAddr,
+    auth: Arc<AuthenticationHandler>,
+    connections: Arc<Connections>,
+    api: Arc<dyn ManagementApi>,
+) where
     S: AsyncRead + AsyncWrite + Unpin + Send + 'static,
 {
     let callback = |request: &Request, mut response: Response| -> Result<Response, ErrorResponse> {
@@ -195,23 +231,37 @@ where
         );
         match check {
             SecurityCheckResult::Denied(reason) => {
-                log::debug!("Authentication rejected for connection with ip {}: {reason}", peer.ip());
+                log::debug!(
+                    "Authentication rejected for connection with ip {}: {reason}",
+                    peer.ip()
+                );
                 Err(unauthorized(reason))
             }
-            SecurityCheckResult::Allowed { token_in_ws_protocol } => {
+            SecurityCheckResult::Allowed {
+                token_in_ws_protocol,
+            } => {
                 if token_in_ws_protocol {
-                    response
-                        .headers_mut()
-                        .insert(header::SEC_WEBSOCKET_PROTOCOL, HeaderValue::from_static(AuthenticationHandler::subprotocol_value()));
+                    response.headers_mut().insert(
+                        header::SEC_WEBSOCKET_PROTOCOL,
+                        HeaderValue::from_static(AuthenticationHandler::subprotocol_value()),
+                    );
                 }
                 Ok(response)
             }
         }
     };
-    let config = WebSocketConfig::default().max_message_size(Some(65536)).max_frame_size(Some(65536));
-    let Ok(mut ws) = tokio_tungstenite::accept_hdr_async_with_config(stream, callback, Some(config)).await else { return };
+    let config = WebSocketConfig::default()
+        .max_message_size(Some(65536))
+        .max_frame_size(Some(65536));
+    let Ok(mut ws) =
+        tokio_tungstenite::accept_hdr_async_with_config(stream, callback, Some(config)).await
+    else {
+        return;
+    };
 
-    let client = ClientInfo { connection_id: CONNECTION_ID_COUNTER.fetch_add(1, Ordering::SeqCst) + 1 };
+    let client = ClientInfo {
+        connection_id: CONNECTION_ID_COUNTER.fetch_add(1, Ordering::SeqCst) + 1,
+    };
     rpc_log(client, format!("Management connection opened for /{peer}"));
     let (tx, mut rx) = unbounded_channel::<String>();
     connections.add(client.connection_id, tx);

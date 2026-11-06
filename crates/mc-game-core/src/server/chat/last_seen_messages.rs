@@ -27,12 +27,21 @@ impl LastSeenMessages {
     }
 
     pub fn pack(&self, cache: &MessageSignatureCache) -> LastSeenMessagesPacked {
-        LastSeenMessagesPacked { entries: self.entries.iter().map(|e| message_signature::pack(e, cache)).collect() }
+        LastSeenMessagesPacked {
+            entries: self
+                .entries
+                .iter()
+                .map(|e| message_signature::pack(e, cache))
+                .collect(),
+        }
     }
 
     /// `computeChecksum`: `31 * checksum + entry.checksum()` over the entries, as a byte (0 becomes 1).
     pub fn compute_checksum(&self) -> i8 {
-        let checksum = self.entries.iter().fold(1i32, |c, e| c.wrapping_mul(31).wrapping_add(message_signature::checksum(e)));
+        let checksum = self.entries.iter().fold(1i32, |c, e| {
+            c.wrapping_mul(31)
+                .wrapping_add(message_signature::checksum(e))
+        });
         match checksum as i8 {
             0 => 1,
             b => b,
@@ -41,7 +50,10 @@ impl LastSeenMessages {
 }
 
 /// `LastSeenMessages.Packed.unpack`: `Ok(None)` when an entry is not in the cache.
-pub fn unpack(packed: &LastSeenMessagesPacked, cache: &MessageSignatureCache) -> Result<Option<LastSeenMessages>, IdOutOfRange> {
+pub fn unpack(
+    packed: &LastSeenMessagesPacked,
+    cache: &MessageSignatureCache,
+) -> Result<Option<LastSeenMessages>, IdOutOfRange> {
     let mut entries = Vec::with_capacity(packed.entries.len());
     for entry in &packed.entries {
         match message_signature::unpack(entry, cache)? {
@@ -65,7 +77,14 @@ pub struct LastSeenTrackedEntry {
 
 impl LastSeenTrackedEntry {
     pub fn acknowledge(&self) -> Self {
-        if self.pending { Self { signature: self.signature.clone(), pending: false } } else { self.clone() }
+        if self.pending {
+            Self {
+                signature: self.signature.clone(),
+                pending: false,
+            }
+        } else {
+            self.clone()
+        }
     }
 }
 
@@ -85,7 +104,12 @@ pub struct LastSeenMessagesTracker {
 
 impl LastSeenMessagesTracker {
     pub fn new(last_seen_count: usize) -> Self {
-        Self { tracked_messages: vec![None; last_seen_count], tail: 0, offset: 0, last_tracked_message: None }
+        Self {
+            tracked_messages: vec![None; last_seen_count],
+            tail: 0,
+            offset: 0,
+            last_tracked_message: None,
+        }
     }
 
     pub fn add_pending(&mut self, message: &MessageSignature, was_shown: bool) -> bool {
@@ -93,7 +117,10 @@ impl LastSeenMessagesTracker {
             return false;
         }
         self.last_tracked_message = Some(message.clone());
-        self.add_entry(was_shown.then(|| LastSeenTrackedEntry { signature: message.clone(), pending: true }));
+        self.add_entry(was_shown.then(|| LastSeenTrackedEntry {
+            signature: message.clone(),
+            pending: true,
+        }));
         true
     }
 
@@ -106,7 +133,10 @@ impl LastSeenMessagesTracker {
 
     pub fn ignore_pending(&mut self, pending: &MessageSignature) {
         for slot in &mut self.tracked_messages {
-            if slot.as_ref().is_some_and(|e| e.pending && &e.signature == pending) {
+            if slot
+                .as_ref()
+                .is_some_and(|e| e.pending && &e.signature == pending)
+            {
                 *slot = None;
                 break;
             }
@@ -157,12 +187,19 @@ pub struct LastSeenMessagesValidator {
 
 impl LastSeenMessagesValidator {
     pub fn new(last_seen_count: usize) -> Self {
-        Self { last_seen_count, tracked_messages: vec![None; last_seen_count], last_pending_message: None }
+        Self {
+            last_seen_count,
+            tracked_messages: vec![None; last_seen_count],
+            last_pending_message: None,
+        }
     }
 
     pub fn add_pending(&mut self, message: &MessageSignature) {
         if self.last_pending_message.as_ref() != Some(message) {
-            self.tracked_messages.push(Some(LastSeenTrackedEntry { signature: message.clone(), pending: true }));
+            self.tracked_messages.push(Some(LastSeenTrackedEntry {
+                signature: message.clone(),
+                pending: true,
+            }));
             self.last_pending_message = Some(message.clone());
         }
     }
@@ -177,11 +214,16 @@ impl LastSeenMessagesValidator {
             self.tracked_messages.drain(..offset as usize);
             Ok(())
         } else {
-            Err(ValidationException(format!("Advanced last seen window by {offset} messages, but expected at most {max_offset}")))
+            Err(ValidationException(format!(
+                "Advanced last seen window by {offset} messages, but expected at most {max_offset}"
+            )))
         }
     }
 
-    pub fn apply_update(&mut self, update: &LastSeenMessagesUpdate) -> Result<LastSeenMessages, ValidationException> {
+    pub fn apply_update(
+        &mut self,
+        update: &LastSeenMessagesUpdate,
+    ) -> Result<LastSeenMessages, ValidationException> {
         self.apply_offset(update.offset)?;
         let acknowledged = &update.acknowledged.0;
         let mut entries = Vec::with_capacity(acknowledged.cardinality());
@@ -196,7 +238,9 @@ impl LastSeenMessagesValidator {
             let message = self.tracked_messages[i].clone();
             if acknowledged.get(i) {
                 let Some(message) = message else {
-                    return Err(ValidationException(format!("Last seen update acknowledged unknown or previously ignored message at index {i}")));
+                    return Err(ValidationException(format!(
+                        "Last seen update acknowledged unknown or previously ignored message at index {i}"
+                    )));
                 };
                 self.tracked_messages[i] = Some(message.acknowledge());
                 entries.push(message.signature);
@@ -214,7 +258,10 @@ impl LastSeenMessagesValidator {
         }
         let last_seen = LastSeenMessages { entries };
         if !verify_checksum(update, &last_seen) {
-            return Err(ValidationException("Checksum mismatch on last seen update: the client and server must have desynced".to_owned()));
+            return Err(ValidationException(
+                "Checksum mismatch on last seen update: the client and server must have desynced"
+                    .to_owned(),
+            ));
         }
         Ok(last_seen)
     }

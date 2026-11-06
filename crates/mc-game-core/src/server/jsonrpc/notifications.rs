@@ -39,7 +39,8 @@ impl JsonRpcNotificationService {
         if !self.api.server_attached() && !allow_pre_server_init {
             return;
         }
-        self.connections.broadcast(&create_notification(method, params));
+        self.connections
+            .broadcast(&create_notification(method, params));
     }
 }
 
@@ -48,17 +49,33 @@ fn typed_rule(rule: &str, value: &GameRuleValue) -> JsonElement {
         GameRuleValue::Bool(b) => (GameRuleType::Bool, GameRuleValue::Bool(*b)),
         GameRuleValue::Int(i) => (GameRuleType::Int, GameRuleValue::Int(*i)),
     };
-    let id = if rule.contains(':') { rule.to_owned() } else { format!("minecraft:{rule}") };
-    encode_typed_game_rule(&GameRuleInfo { id, rule_type, value })
+    let id = if rule.contains(':') {
+        rule.to_owned()
+    } else {
+        format!("minecraft:{rule}")
+    };
+    encode_typed_game_rule(&GameRuleInfo {
+        id,
+        rule_type,
+        value,
+    })
 }
 
 impl NotificationService for JsonRpcNotificationService {
     fn player_joined(&self, player: &NameAndId) {
-        self.broadcast("minecraft:notification/players/joined", Some(PlayerDto::from_name_and_id(player).encode()), false);
+        self.broadcast(
+            "minecraft:notification/players/joined",
+            Some(PlayerDto::from_name_and_id(player).encode()),
+            false,
+        );
     }
 
     fn player_left(&self, player: &NameAndId) {
-        self.broadcast("minecraft:notification/players/left", Some(PlayerDto::from_name_and_id(player).encode()), false);
+        self.broadcast(
+            "minecraft:notification/players/left",
+            Some(PlayerDto::from_name_and_id(player).encode()),
+            false,
+        );
     }
 
     fn server_started(&self) {
@@ -86,7 +103,13 @@ impl NotificationService for JsonRpcNotificationService {
     }
 
     fn world_upgrade_progress(&self, progress_percentage: f32) {
-        self.broadcast("minecraft:notification/world/upgrade_progress", Some(JsonElement::Number(java_float_to_string(progress_percentage))), true);
+        self.broadcast(
+            "minecraft:notification/world/upgrade_progress",
+            Some(JsonElement::Number(java_float_to_string(
+                progress_percentage,
+            ))),
+            true,
+        );
     }
 
     fn world_upgrade_finished(&self) {
@@ -94,57 +117,102 @@ impl NotificationService for JsonRpcNotificationService {
     }
 
     fn world_upgrade_failed(&self, reason: &str) {
-        self.broadcast("minecraft:notification/world/upgrade_failed", Some(JsonElement::String(reason.to_owned())), true);
+        self.broadcast(
+            "minecraft:notification/world/upgrade_failed",
+            Some(JsonElement::String(reason.to_owned())),
+            true,
+        );
     }
 
     fn player_oped(&self, operator: &ServerOpListEntry) {
         if let Some(dto) = OperatorDto::from_entry(operator) {
-            self.broadcast("minecraft:notification/operators/added", Some(dto.encode()), false);
+            self.broadcast(
+                "minecraft:notification/operators/added",
+                Some(dto.encode()),
+                false,
+            );
         }
     }
 
     fn player_deoped(&self, operator: &ServerOpListEntry) {
         if let Some(dto) = OperatorDto::from_entry(operator) {
-            self.broadcast("minecraft:notification/operators/removed", Some(dto.encode()), false);
+            self.broadcast(
+                "minecraft:notification/operators/removed",
+                Some(dto.encode()),
+                false,
+            );
         }
     }
 
     fn player_added_to_allowlist(&self, player: &NameAndId) {
-        self.broadcast("minecraft:notification/allowlist/added", Some(PlayerDto::from_name_and_id(player).encode()), false);
+        self.broadcast(
+            "minecraft:notification/allowlist/added",
+            Some(PlayerDto::from_name_and_id(player).encode()),
+            false,
+        );
     }
 
     fn player_removed_from_allowlist(&self, player: &NameAndId) {
-        self.broadcast("minecraft:notification/allowlist/removed", Some(PlayerDto::from_name_and_id(player).encode()), false);
+        self.broadcast(
+            "minecraft:notification/allowlist/removed",
+            Some(PlayerDto::from_name_and_id(player).encode()),
+            false,
+        );
     }
 
     fn ip_banned(&self, ban: &IpBanListEntry) {
         if let Some(dto) = IpBanDto::from_entry(ban) {
-            self.broadcast("minecraft:notification/ip_bans/added", Some(dto.encode()), false);
+            self.broadcast(
+                "minecraft:notification/ip_bans/added",
+                Some(dto.encode()),
+                false,
+            );
         }
     }
 
     fn ip_unbanned(&self, ip: &str) {
-        self.broadcast("minecraft:notification/ip_bans/removed", Some(JsonElement::String(ip.to_owned())), false);
+        self.broadcast(
+            "minecraft:notification/ip_bans/removed",
+            Some(JsonElement::String(ip.to_owned())),
+            false,
+        );
     }
 
     fn player_banned(&self, ban: &UserBanListEntry) {
         if let Some(dto) = UserBanDto::from_entry(ban) {
-            self.broadcast("minecraft:notification/bans/added", Some(dto.encode()), false);
+            self.broadcast(
+                "minecraft:notification/bans/added",
+                Some(dto.encode()),
+                false,
+            );
         }
     }
 
     fn player_unbanned(&self, player: &NameAndId) {
-        self.broadcast("minecraft:notification/bans/removed", Some(PlayerDto::from_name_and_id(player).encode()), false);
+        self.broadcast(
+            "minecraft:notification/bans/removed",
+            Some(PlayerDto::from_name_and_id(player).encode()),
+            false,
+        );
     }
 
     fn on_game_rule_changed(&self, rule: &str, value: &GameRuleValue) {
-        self.broadcast("minecraft:notification/gamerules/updated", Some(typed_rule(rule, value)), false);
+        self.broadcast(
+            "minecraft:notification/gamerules/updated",
+            Some(typed_rule(rule, value)),
+            false,
+        );
     }
 
     fn status_heartbeat(&self) {
         let version = self.api.version();
         let state = if self.api.is_ready() {
-            let players: Vec<PlayerDto> = self.api.players().iter().map(|p| PlayerDto::from_name_and_id(&p.profile)).collect();
+            let players: Vec<PlayerDto> = self
+                .api
+                .players()
+                .iter()
+                .map(|p| PlayerDto::from_name_and_id(&p.profile))
+                .collect();
             encode_server_state(true, &players, &version)
         } else {
             encode_server_state(false, &[], &version)
@@ -159,12 +227,22 @@ mod tests {
 
     #[test]
     fn notification_wire_format() {
-        assert_eq!(create_notification("minecraft:notification/server/started", None), "{\"jsonrpc\":\"2.0\",\"method\":\"minecraft:notification/server/started\"}");
-        let p = PlayerDto { id: None, name: Some("a".into()) }.encode();
+        assert_eq!(
+            create_notification("minecraft:notification/server/started", None),
+            "{\"jsonrpc\":\"2.0\",\"method\":\"minecraft:notification/server/started\"}"
+        );
+        let p = PlayerDto {
+            id: None,
+            name: Some("a".into()),
+        }
+        .encode();
         assert_eq!(
             create_notification("minecraft:notification/players/joined", Some(p)),
             "{\"jsonrpc\":\"2.0\",\"method\":\"minecraft:notification/players/joined\",\"params\":[{\"name\":\"a\"}]}"
         );
-        assert_eq!(typed_rule("advance_time", &GameRuleValue::Bool(true)).to_compact_string(), "{\"key\":\"minecraft:advance_time\",\"type\":\"boolean\",\"value\":true}");
+        assert_eq!(
+            typed_rule("advance_time", &GameRuleValue::Bool(true)).to_compact_string(),
+            "{\"key\":\"minecraft:advance_time\",\"type\":\"boolean\",\"value\":true}"
+        );
     }
 }

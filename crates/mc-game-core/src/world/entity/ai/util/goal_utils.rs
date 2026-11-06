@@ -15,7 +15,11 @@ pub fn has_ground_path_navigation(mob: &dyn Entity, level: &ServerLevel) -> bool
 /// `mobRestricted(mob, horizontalDist)`.
 pub fn mob_restricted(mob: &dyn Entity, horizontal_dist: f64) -> bool {
     mob.mob().is_some_and(|m| {
-        m.has_home() && m.home_position.closer_to_center_than(&mob.position(), f64::from(m.home_radius) + horizontal_dist + 1.0)
+        m.has_home()
+            && m.home_position.closer_to_center_than(
+                &mob.position(),
+                f64::from(m.home_radius) + horizontal_dist + 1.0,
+            )
     })
 }
 
@@ -41,7 +45,8 @@ pub fn is_not_stable(mob: &dyn Entity, level: &ServerLevel, pos: BlockPos) -> bo
 
 /// `isWater(mob, pos)`.
 pub fn is_water(level: &ServerLevel, pos: BlockPos) -> bool {
-    mc_data::tags::get::<mc_data::fluid::Fluid>("water").is_some_and(|t| t.contains(level.get_fluid_state(pos).fluid()))
+    mc_data::tags::get::<mc_data::fluid::Fluid>("water")
+        .is_some_and(|t| t.contains(level.get_fluid_state(pos).fluid()))
 }
 
 /// `hasMalus(mob, pos)`.

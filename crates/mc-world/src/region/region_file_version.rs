@@ -16,14 +16,35 @@ pub struct RegionFileVersion {
     option_name: Option<&'static str>,
 }
 
-pub static VERSION_GZIP: RegionFileVersion = RegionFileVersion { id: 1, option_name: None };
-pub static VERSION_DEFLATE: RegionFileVersion = RegionFileVersion { id: 2, option_name: Some("deflate") };
-pub static VERSION_NONE: RegionFileVersion = RegionFileVersion { id: 3, option_name: Some("none") };
-pub static VERSION_LZ4: RegionFileVersion = RegionFileVersion { id: 4, option_name: Some("lz4") };
-pub static VERSION_CUSTOM: RegionFileVersion = RegionFileVersion { id: 127, option_name: None };
+pub static VERSION_GZIP: RegionFileVersion = RegionFileVersion {
+    id: 1,
+    option_name: None,
+};
+pub static VERSION_DEFLATE: RegionFileVersion = RegionFileVersion {
+    id: 2,
+    option_name: Some("deflate"),
+};
+pub static VERSION_NONE: RegionFileVersion = RegionFileVersion {
+    id: 3,
+    option_name: Some("none"),
+};
+pub static VERSION_LZ4: RegionFileVersion = RegionFileVersion {
+    id: 4,
+    option_name: Some("lz4"),
+};
+pub static VERSION_CUSTOM: RegionFileVersion = RegionFileVersion {
+    id: 127,
+    option_name: None,
+};
 pub static DEFAULT: &RegionFileVersion = &VERSION_DEFLATE;
 
-static VERSIONS: [&RegionFileVersion; 5] = [&VERSION_GZIP, &VERSION_DEFLATE, &VERSION_NONE, &VERSION_LZ4, &VERSION_CUSTOM];
+static VERSIONS: [&RegionFileVersion; 5] = [
+    &VERSION_GZIP,
+    &VERSION_DEFLATE,
+    &VERSION_NONE,
+    &VERSION_LZ4,
+    &VERSION_CUSTOM,
+];
 /// Index into [`VERSIONS`] (`volatile selected`).
 static SELECTED: AtomicUsize = AtomicUsize::new(1);
 
@@ -34,7 +55,10 @@ impl RegionFileVersion {
 
     /// `configure(optionName)`: select by `region-file-compression` name; logs on an invalid name.
     pub fn configure(option_name: &str) {
-        match VERSIONS.iter().position(|v| v.option_name == Some(option_name)) {
+        match VERSIONS
+            .iter()
+            .position(|v| v.option_name == Some(option_name))
+        {
             Some(index) => SELECTED.store(index, Ordering::Relaxed),
             None => {
                 let names: Vec<&str> = VERSIONS.iter().filter_map(|v| v.option_name).collect();
@@ -71,7 +95,10 @@ impl RegionFileVersion {
             2 => Ok(Box::new(ZlibDecoder::new(Cursor::new(data)))),
             3 => Ok(Box::new(Cursor::new(data))),
             4 => Ok(Box::new(lz4::Lz4BlockReader::new(data))),
-            _ => Err(io::Error::new(io::ErrorKind::Unsupported, "custom region file compression")),
+            _ => Err(io::Error::new(
+                io::ErrorKind::Unsupported,
+                "custom region file compression",
+            )),
         }
     }
 
@@ -91,7 +118,10 @@ impl RegionFileVersion {
             }
             3 => Ok(raw.to_vec()),
             4 => Ok(lz4::compress_frame(raw)),
-            _ => Err(io::Error::new(io::ErrorKind::Unsupported, "custom region file compression")),
+            _ => Err(io::Error::new(
+                io::ErrorKind::Unsupported,
+                "custom region file compression",
+            )),
         }
     }
 }
@@ -110,7 +140,9 @@ mod tests {
 
     #[test]
     fn round_trips() {
-        let raw: Vec<u8> = (0..200_000u32).map(|i| (i % 251) as u8 ^ (i / 1000) as u8).collect();
+        let raw: Vec<u8> = (0..200_000u32)
+            .map(|i| (i % 251) as u8 ^ (i / 1000) as u8)
+            .collect();
         for v in [&VERSION_GZIP, &VERSION_DEFLATE, &VERSION_NONE, &VERSION_LZ4] {
             let c = v.compress(&raw).unwrap();
             let mut back = Vec::new();

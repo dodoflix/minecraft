@@ -14,8 +14,11 @@ pub use commands::*;
 pub use player_info::*;
 
 use crate::auth::PublicKey;
-use crate::codec::{BitSet, BitSetBytes, DecodeBounded, DecodeError, DecodeResult, FixedBitSet, Holder, Instant, MessageSignature};
-use crate::codec::{decode_tag_with, encode_tag, read_varint, write_varint, NbtLimit};
+use crate::codec::{
+    BitSet, BitSetBytes, DecodeBounded, DecodeError, DecodeResult, FixedBitSet, Holder, Instant,
+    MessageSignature,
+};
+use crate::codec::{NbtLimit, decode_tag_with, encode_tag, read_varint, write_varint};
 use crate::packets::common::id_enum;
 use crate::{Decode, Encode, Packet};
 
@@ -122,13 +125,17 @@ mod style_nbt {
     use super::*;
 
     pub fn encode(style: &Style, out: &mut Vec<u8>) -> EncodeResult<()> {
-        let tag = style.to_nbt().map_err(|e| crate::codec::EncodeError(format!("Failed to encode: {e} {style:?}")))?;
+        let tag = style
+            .to_nbt()
+            .map_err(|e| crate::codec::EncodeError(format!("Failed to encode: {e} {style:?}")))?;
         encode_tag(&tag, out)
     }
 
     pub fn decode(input: &mut &[u8]) -> DecodeResult<Style> {
-        let tag = decode_tag_with(input, NbtLimit::UNLIMITED)?.ok_or_else(|| DecodeError::msg("Expected non-null compound tag"))?;
-        Style::from_nbt(&tag).map_err(|e| DecodeError::Message(format!("Failed to decode: {e} {tag}")))
+        let tag = decode_tag_with(input, NbtLimit::UNLIMITED)?
+            .ok_or_else(|| DecodeError::msg("Expected non-null compound tag"))?;
+        Style::from_nbt(&tag)
+            .map_err(|e| DecodeError::Message(format!("Failed to decode: {e} {tag}")))
     }
 }
 
@@ -376,6 +383,9 @@ impl ServerboundCommandSuggestionPacket {
     /// `IndexOutOfBoundsException`) and `VarIntTooBig` (a plain `RuntimeException`) still disconnect. Encoding is the
     /// same for both codecs.
     pub fn decode_chat_only(input: &mut &[u8]) -> DecodeResult<Self> {
-        Ok(Self { id: read_varint(input)?, command: String::decode_bounded(input, 256)? })
+        Ok(Self {
+            id: read_varint(input)?,
+            command: String::decode_bounded(input, 256)?,
+        })
     }
 }

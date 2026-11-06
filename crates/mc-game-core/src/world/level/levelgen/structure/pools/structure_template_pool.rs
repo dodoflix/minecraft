@@ -3,12 +3,12 @@
 use super::empty_pool_element::empty_pool_element;
 use super::structure_pool_element::{ElementCodecCtx, StructurePoolElement, decode_element};
 use crate::world::level::levelgen::codec::*;
+use crate::world::level::levelgen::feature::tree::shuffle;
 use crate::world::level::levelgen::holder::Holder;
 use crate::world::level::levelgen::registries::{DecodeCtx, TypedRegistry, load_registry};
 use crate::world::level::levelgen::structure::templatesystem::StructureTemplateManager;
 use crate::world::level::levelgen::structure::templatesystem::gravity_processor::GravityProcessor;
 use crate::world::level::levelgen::structure::templatesystem::structure_processor::StructureProcessor;
-use crate::world::level::levelgen::feature::tree::shuffle;
 use mc_core::ident::Identifier;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
@@ -33,7 +33,12 @@ pub enum Projection {
 }
 
 static TERRAIN_MATCHING_PROCESSORS: LazyLock<Vec<Arc<dyn StructureProcessor>>> =
-    LazyLock::new(|| vec![Arc::new(GravityProcessor { heightmap: HeightmapType::WorldSurfaceWg, offset: -1 })]);
+    LazyLock::new(|| {
+        vec![Arc::new(GravityProcessor {
+            heightmap: HeightmapType::WorldSurfaceWg,
+            offset: -1,
+        })]
+    });
 
 impl Projection {
     pub const fn get_name(self) -> &'static str {
@@ -45,7 +50,9 @@ impl Projection {
 
     /// `byName(name)` (`CODEC.byName`).
     pub fn by_name(name: &str) -> Option<Projection> {
-        [Projection::TerrainMatching, Projection::Rigid].into_iter().find(|p| p.get_name() == name)
+        [Projection::TerrainMatching, Projection::Rigid]
+            .into_iter()
+            .find(|p| p.get_name() == name)
     }
 
     /// `getProcessors()`.
@@ -70,14 +77,22 @@ pub struct StructureTemplatePool {
 
 impl StructureTemplatePool {
     /// `new StructureTemplatePool(fallback, templates)`.
-    pub fn new(fallback: Holder<StructureTemplatePool>, raw_templates: Vec<(Arc<dyn StructurePoolElement>, i32)>) -> StructureTemplatePool {
+    pub fn new(
+        fallback: Holder<StructureTemplatePool>,
+        raw_templates: Vec<(Arc<dyn StructurePoolElement>, i32)>,
+    ) -> StructureTemplatePool {
         let mut templates = Vec::new();
         for (element, weight) in &raw_templates {
             for _ in 0..*weight {
                 templates.push(element.clone());
             }
         }
-        StructureTemplatePool { raw_templates, templates, fallback, max_size: AtomicI32::new(SIZE_UNSET) }
+        StructureTemplatePool {
+            raw_templates,
+            templates,
+            fallback,
+            max_size: AtomicI32::new(SIZE_UNSET),
+        }
     }
 
     /// `getMaxSize(manager)`.
@@ -90,7 +105,10 @@ impl StructureTemplatePool {
             .templates
             .iter()
             .filter(|t| !t.is_empty_element())
-            .map(|t| t.get_bounding_box(manager, BlockPos::ZERO, Rotation::None).get_y_span())
+            .map(|t| {
+                t.get_bounding_box(manager, BlockPos::ZERO, Rotation::None)
+                    .get_y_span()
+            })
             .max()
             .unwrap_or(0);
         self.max_size.store(max, Ordering::Relaxed);
@@ -107,7 +125,10 @@ impl StructureTemplatePool {
     }
 
     /// `getRandomTemplate(random)`.
-    pub fn get_random_template(&self, random: &mut dyn RandomSource) -> Arc<dyn StructurePoolElement> {
+    pub fn get_random_template(
+        &self,
+        random: &mut dyn RandomSource,
+    ) -> Arc<dyn StructurePoolElement> {
         if self.templates.is_empty() {
             empty_pool_element()
         } else {
@@ -116,7 +137,10 @@ impl StructureTemplatePool {
     }
 
     /// `getShuffledTemplates(random)`.
-    pub fn get_shuffled_templates(&self, random: &mut dyn RandomSource) -> Vec<Arc<dyn StructurePoolElement>> {
+    pub fn get_shuffled_templates(
+        &self,
+        random: &mut dyn RandomSource,
+    ) -> Vec<Arc<dyn StructurePoolElement>> {
         let mut copy = self.templates.clone();
         shuffle(&mut copy, random);
         copy
@@ -147,13 +171,20 @@ impl StructureTemplatePool {
 impl DecodeCtx<'_> {
     /// `StructureTemplatePool.CODEC` (`RegistryCodecs.holder(TEMPLATE_POOL, DIRECT_CODEC)`).
     pub fn template_pool(&self, value: &Value) -> LoadResult<Holder<StructureTemplatePool>> {
-        self.holder_or_direct(TEMPLATE_POOL_REGISTRY, value, |v| StructureTemplatePool::decode_direct(v, self).map(Arc::new))
+        self.holder_or_direct(TEMPLATE_POOL_REGISTRY, value, |v| {
+            StructureTemplatePool::decode_direct(v, self).map(Arc::new)
+        })
     }
 }
 
 /// Decodes every `worldgen/template_pool` entry of the data source behind `ctx` and binds the holders.
-pub fn load_template_pools(ctx: &DecodeCtx<'_>) -> LoadResult<TypedRegistry<StructureTemplatePool>> {
-    let registry = load_registry(ctx, TEMPLATE_POOL_REGISTRY, |v, c| StructureTemplatePool::decode_direct(v, c).map(Arc::new))?;
-    ctx.cells.check_all_bound::<StructureTemplatePool>(TEMPLATE_POOL_REGISTRY)?;
+pub fn load_template_pools(
+    ctx: &DecodeCtx<'_>,
+) -> LoadResult<TypedRegistry<StructureTemplatePool>> {
+    let registry = load_registry(ctx, TEMPLATE_POOL_REGISTRY, |v, c| {
+        StructureTemplatePool::decode_direct(v, c).map(Arc::new)
+    })?;
+    ctx.cells
+        .check_all_bound::<StructureTemplatePool>(TEMPLATE_POOL_REGISTRY)?;
     Ok(registry)
 }

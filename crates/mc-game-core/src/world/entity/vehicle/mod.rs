@@ -21,17 +21,29 @@ pub fn no_collision(level: &ServerLevel, entity: &dyn Entity, aabb: &AABB) -> bo
     let context = collision_context(entity);
     level.no_block_collision(Some(&context), aabb)
         && level.entity_collisions(Some(entity), aabb).is_empty()
-        && level.world_border_collision(entity, aabb).is_none_or(|border| !Shapes::join_is_not_empty(&border, &Shapes::create(*aabb), BooleanOp::AND))
+        && level
+            .world_border_collision(entity, aabb)
+            .is_none_or(|border| {
+                !Shapes::join_is_not_empty(&border, &Shapes::create(*aabb), BooleanOp::AND)
+            })
 }
 
 /// `Entity.getCollisionHorizontalEscapeVector(colliderWidth, collidingWidth, directionDegrees)`.
-pub fn get_collision_horizontal_escape_vector(collider_width: f64, colliding_width: f64, direction_degrees: f32) -> Vec3 {
+pub fn get_collision_horizontal_escape_vector(
+    collider_width: f64,
+    colliding_width: f64,
+    direction_degrees: f32,
+) -> Vec3 {
     let distance = (collider_width + colliding_width + f64::from(1.0E-5f32)) / 2.0;
     let radians = direction_degrees * (std::f64::consts::PI / 180.0) as f32;
     let direction_x = -mth::sin(f64::from(radians));
     let direction_z = mth::cos(f64::from(radians));
     let scale = direction_x.abs().max(direction_z.abs());
-    Vec3::new(f64::from(direction_x) * distance / f64::from(scale), 0.0, f64::from(direction_z) * distance / f64::from(scale))
+    Vec3::new(
+        f64::from(direction_x) * distance / f64::from(scale),
+        0.0,
+        f64::from(direction_z) * distance / f64::from(scale),
+    )
 }
 
 /// `instanceof Animal` by entity type: every entity type of a class below `net.minecraft.world.entity.animal.Animal`

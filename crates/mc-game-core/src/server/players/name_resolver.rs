@@ -83,7 +83,10 @@ fn lower(s: &str) -> String {
 impl CachedUserNameToIdResolver {
     pub fn new(profile_repository: Arc<dyn ProfileLookup>, file: impl Into<PathBuf>) -> Self {
         let resolver = CachedUserNameToIdResolver {
-            state: Mutex::new(State { resolve_offline_users: true, ..Default::default() }),
+            state: Mutex::new(State {
+                resolve_offline_users: true,
+                ..Default::default()
+            }),
             profile_repository,
             file: file.into(),
             operation_count: AtomicU64::new(0),
@@ -99,10 +102,13 @@ impl CachedUserNameToIdResolver {
     }
 
     fn safe_add(&self, info: GameProfileInfo) -> Arc<GameProfileInfo> {
-        info.last_access.store(self.next_operation(), Ordering::SeqCst);
+        info.last_access
+            .store(self.next_operation(), Ordering::SeqCst);
         let info = Arc::new(info);
         let mut state = self.state.lock();
-        state.by_name.insert(lower(&info.name_and_id.name), info.clone());
+        state
+            .by_name
+            .insert(lower(&info.name_and_id.name), info.clone());
         state.by_uuid.insert(info.name_and_id.id, info.clone());
         info
     }
@@ -111,16 +117,28 @@ impl CachedUserNameToIdResolver {
         if !is_valid_player_name(name) {
             return self.create_unknown_profile(name);
         }
-        self.profile_repository.find_profile_by_name(name).or_else(|| self.create_unknown_profile(name))
+        self.profile_repository
+            .find_profile_by_name(name)
+            .or_else(|| self.create_unknown_profile(name))
     }
 
     fn create_unknown_profile(&self, name: &str) -> Option<NameAndId> {
-        self.state.lock().resolve_offline_users.then(|| NameAndId::create_offline(name))
+        self.state
+            .lock()
+            .resolve_offline_users
+            .then(|| NameAndId::create_offline(name))
     }
 
     fn add_internal(&self, profile: NameAndId) -> Arc<GameProfileInfo> {
-        let expiration = Local::now().checked_add_months(Months::new(1)).unwrap_or_else(Local::now).to_utc();
-        let info = self.safe_add(GameProfileInfo { name_and_id: profile, expiration_date: expiration, last_access: AtomicU64::new(0) });
+        let expiration = Local::now()
+            .checked_add_months(Months::new(1))
+            .unwrap_or_else(Local::now)
+            .to_utc();
+        let info = self.safe_add(GameProfileInfo {
+            name_and_id: profile,
+            expiration_date: expiration,
+            last_access: AtomicU64::new(0),
+        });
         self.save();
         info
     }
@@ -159,7 +177,11 @@ fn read_game_profile(json: &JsonElement) -> Option<GameProfileInfo> {
     let name_and_id = NameAndId::from_json(object).ok()??;
     let date_string = object.get("expiresOn")?.as_string().ok()?;
     match parse_date(&date_string) {
-        Some(expiration_date) => Some(GameProfileInfo { name_and_id, expiration_date, last_access: AtomicU64::new(0) }),
+        Some(expiration_date) => Some(GameProfileInfo {
+            name_and_id,
+            expiration_date,
+            last_access: AtomicU64::new(0),
+        }),
         None => {
             log::warn!("Failed to parse date {date_string}");
             None
@@ -187,7 +209,8 @@ impl UserNameToIdResolver for CachedUserNameToIdResolver {
         }
         let result = match cached {
             Some(info) => {
-                info.last_access.store(self.next_operation(), Ordering::SeqCst);
+                info.last_access
+                    .store(self.next_operation(), Ordering::SeqCst);
                 Some(info.name_and_id.clone())
             }
             None => match self.lookup_game_profile(&user_name) {
@@ -206,7 +229,8 @@ impl UserNameToIdResolver for CachedUserNameToIdResolver {
 
     fn get_by_id(&self, id: Uuid) -> Option<NameAndId> {
         let info = self.state.lock().by_uuid.get(&id).cloned()?;
-        info.last_access.store(self.next_operation(), Ordering::SeqCst);
+        info.last_access
+            .store(self.next_operation(), Ordering::SeqCst);
         Some(info.name_and_id.clone())
     }
 
@@ -221,7 +245,8 @@ impl UserNameToIdResolver for CachedUserNameToIdResolver {
                 .map(|entry| {
                     let mut object = JsonObject::new();
                     entry.name_and_id.append_to(&mut object);
-                    object.add_property_str("expiresOn", Some(&format_date(&entry.expiration_date)));
+                    object
+                        .add_property_str("expiresOn", Some(&format_date(&entry.expiration_date)));
                     JsonElement::Object(object)
                 })
                 .collect(),
@@ -270,17 +295,32 @@ fn cached_get<K: Clone + Eq + std::hash::Hash, T: Clone>(
     let value = load();
     let mut cache = cache.lock();
     if cache.len() >= PROFILE_CACHE_MAX {
-        if let Some(oldest) = cache.iter().min_by_key(|(_, e)| e.last_access).map(|(k, _)| k.clone()) {
+        if let Some(oldest) = cache
+            .iter()
+            .min_by_key(|(_, e)| e.last_access)
+            .map(|(k, _)| k.clone())
+        {
             cache.remove(&oldest);
         }
     }
-    cache.insert(key.clone(), CacheEntry { value: value.clone(), last_access: now });
+    cache.insert(
+        key.clone(),
+        CacheEntry {
+            value: value.clone(),
+            last_access: now,
+        },
+    );
     value
 }
 
 impl CachedProfileResolver {
     pub fn new(lookup: Arc<dyn ProfileLookup>, name_to_id: Arc<dyn UserNameToIdResolver>) -> Self {
-        CachedProfileResolver { lookup, name_to_id, by_name: Mutex::default(), by_id: Mutex::default() }
+        CachedProfileResolver {
+            lookup,
+            name_to_id,
+            by_name: Mutex::default(),
+            by_id: Mutex::default(),
+        }
     }
 }
 

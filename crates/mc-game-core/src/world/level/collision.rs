@@ -4,8 +4,8 @@
 //! Entity-side collision queries (`getEntityCollisions`, entity part of `noCollision`) are implemented by the entity
 //! storage on top of [`CollisionGetter::get_entity_collisions`].
 
-use super::block::BlockStateExt;
 use super::BlockGetter;
+use super::block::BlockStateExt;
 use super::material::FluidStateExt;
 use crate::world::entity::EntityId;
 use mc_core::direction::{Axis, Direction};
@@ -13,9 +13,9 @@ use mc_core::math::mth;
 use mc_core::phys::shapes::{BooleanOp, Shapes, VoxelShape};
 use mc_core::phys::{AABB, BlockHitResult, Vec3};
 use mc_core::pos::{BlockPos, Cursor3D, Vec3i};
+use mc_data::Item;
 use mc_data::block::{Block, BlockState};
 use mc_data::fluid::{Fluid, FluidState};
-use mc_data::Item;
 use std::collections::HashSet;
 
 /// What the entity side of a [`CollisionContext`] answers (`LivingEntity.canStandOnFluid`).
@@ -77,7 +77,10 @@ impl CollisionContext {
 
     /// `CollisionContext.emptyWithFluidCollisions()`.
     pub fn empty_with_fluid_collisions() -> Self {
-        Self { always_collide_with_fluid: true, ..Self::base(ContextKind::Empty) }
+        Self {
+            always_collide_with_fluid: true,
+            ..Self::base(ContextKind::Empty)
+        }
     }
 
     /// `new EntityCollisionContext(entity, alwaysCollideWithFluid, placement)` from the entity's observable state.
@@ -102,7 +105,10 @@ impl CollisionContext {
 
     /// `CollisionContext.positionContext(y)`.
     pub fn position_context(y: f64) -> Self {
-        Self { entity_bottom: y, ..Self::base(ContextKind::Position) }
+        Self {
+            entity_bottom: y,
+            ..Self::base(ContextKind::Position)
+        }
     }
 
     /// `CollisionContext.placementContext(player)` / `withPosition(entity, y)` for an entity that is present.
@@ -126,11 +132,18 @@ impl CollisionContext {
 
     /// `CollisionContext.placementContext(null)` / `withPosition(null, ..)`.
     pub fn placement_without_entity() -> Self {
-        Self { placement: true, ..Self::base(ContextKind::Entity) }
+        Self {
+            placement: true,
+            ..Self::base(ContextKind::Entity)
+        }
     }
 
     /// Minecart contexts ignore the block below the rail and the upper slope block.
-    pub fn with_ignored_positions(mut self, below: Option<BlockPos>, slope: Option<BlockPos>) -> Self {
+    pub fn with_ignored_positions(
+        mut self,
+        below: Option<BlockPos>,
+        slope: Option<BlockPos>,
+    ) -> Self {
         self.ignored_positions = [below, slope];
         self
     }
@@ -160,7 +173,9 @@ impl CollisionContext {
     /// `canStandOnFluid(fluidStateAbove, fluid)`.
     pub fn can_stand_on_fluid(&self, fluid_state_above: FluidState, fluid: FluidState) -> bool {
         match (self.kind, self.can_stand_on_fluid) {
-            (ContextKind::Entity, Some(f)) => f(fluid.fluid()) && fluid_state_above.fluid() != fluid.fluid(),
+            (ContextKind::Entity, Some(f)) => {
+                f(fluid.fluid()) && fluid_state_above.fluid() != fluid.fluid()
+            }
             _ => false,
         }
     }
@@ -172,7 +187,9 @@ impl CollisionContext {
 
     /// `LivingEntity.getLiquidCollisionShape()` of the context's living entity (`Shapes.empty()` by default).
     pub fn liquid_collision_shape(&self) -> VoxelShape {
-        self.liquid_collision_shape.clone().unwrap_or_else(Shapes::empty)
+        self.liquid_collision_shape
+            .clone()
+            .unwrap_or_else(Shapes::empty)
     }
 
     /// Sets the entity's `getLiquidCollisionShape()` (only `Strider` overrides the empty default).
@@ -206,7 +223,12 @@ impl CollisionContext {
     }
 
     /// Entity state read by block collision shapes: fall distance, falling block, powder snow walker.
-    pub fn with_entity_state(mut self, fall_distance: f64, is_falling_block: bool, can_walk_on_powder_snow: bool) -> Self {
+    pub fn with_entity_state(
+        mut self,
+        fall_distance: f64,
+        is_falling_block: bool,
+        can_walk_on_powder_snow: bool,
+    ) -> Self {
         self.entity_fall_distance = fall_distance;
         self.entity_is_falling_block = is_falling_block;
         self.entity_can_walk_on_powder_snow = can_walk_on_powder_snow;
@@ -214,7 +236,12 @@ impl CollisionContext {
     }
 
     /// `getCollisionShape(state, collisionGetter, pos)`.
-    pub fn get_collision_shape(&self, state: BlockState, level: &dyn BlockGetter, pos: BlockPos) -> VoxelShape {
+    pub fn get_collision_shape(
+        &self,
+        state: BlockState,
+        level: &dyn BlockGetter,
+        pos: BlockPos,
+    ) -> VoxelShape {
         if self.ignored_positions.contains(&Some(pos)) {
             return Shapes::empty();
         }
@@ -232,10 +259,24 @@ pub trait BlockHitResultExt: Sized {
 
 impl BlockHitResultExt for BlockHitResult {
     fn miss(location: Vec3, direction: Direction, block_pos: BlockPos) -> Self {
-        BlockHitResult { location, direction, block_pos, miss: true, inside: false, world_border_hit: false }
+        BlockHitResult {
+            location,
+            direction,
+            block_pos,
+            miss: true,
+            inside: false,
+            world_border_hit: false,
+        }
     }
     fn hit(location: Vec3, direction: Direction, block_pos: BlockPos, inside: bool) -> Self {
-        BlockHitResult { location, direction, block_pos, miss: false, inside, world_border_hit: false }
+        BlockHitResult {
+            location,
+            direction,
+            block_pos,
+            miss: false,
+            inside,
+            world_border_hit: false,
+        }
     }
     fn with_direction(&self, direction: Direction) -> Self {
         BlockHitResult { direction, ..*self }
@@ -284,8 +325,20 @@ pub struct ClipContext {
 }
 
 impl ClipContext {
-    pub fn new(from: Vec3, to: Vec3, block: ClipBlock, fluid: ClipFluid, collision_context: CollisionContext) -> Self {
-        Self { from, to, block, fluid, collision_context }
+    pub fn new(
+        from: Vec3,
+        to: Vec3,
+        block: ClipBlock,
+        fluid: ClipFluid,
+        collision_context: CollisionContext,
+    ) -> Self {
+        Self {
+            from,
+            to,
+            block,
+            fluid,
+            collision_context,
+        }
     }
     pub fn get_to(&self) -> Vec3 {
         self.to
@@ -293,9 +346,16 @@ impl ClipContext {
     pub fn get_from(&self) -> Vec3 {
         self.from
     }
-    pub fn get_block_shape(&self, state: BlockState, level: &dyn BlockGetter, pos: BlockPos) -> VoxelShape {
+    pub fn get_block_shape(
+        &self,
+        state: BlockState,
+        level: &dyn BlockGetter,
+        pos: BlockPos,
+    ) -> VoxelShape {
         match self.block {
-            ClipBlock::Collider => state.get_collision_shape_ctx(level, pos, &self.collision_context),
+            ClipBlock::Collider => {
+                state.get_collision_shape_ctx(level, pos, &self.collision_context)
+            }
             ClipBlock::Outline => state.get_shape_ctx(level, pos, &self.collision_context),
             ClipBlock::Visual => state.get_visual_shape(level, pos, &self.collision_context),
             ClipBlock::FalldamageResetting => {
@@ -309,8 +369,17 @@ impl ClipContext {
             }
         }
     }
-    pub fn get_fluid_shape(&self, state: FluidState, level: &dyn BlockGetter, pos: BlockPos) -> VoxelShape {
-        if self.fluid.can_pick(state) { state.get_shape(level, pos) } else { Shapes::empty() }
+    pub fn get_fluid_shape(
+        &self,
+        state: FluidState,
+        level: &dyn BlockGetter,
+        pos: BlockPos,
+    ) -> VoxelShape {
+        if self.fluid.can_pick(state) {
+            state.get_shape(level, pos)
+        } else {
+            Shapes::empty()
+        }
     }
 }
 
@@ -346,12 +415,39 @@ pub fn traverse_blocks<T, C>(
     }
     let (dx, dy, dz) = (to_x - from_x, to_y - from_y, to_z - from_z);
     let (sx, sy, sz) = (mth::sign(dx), mth::sign(dy), mth::sign(dz));
-    let t_dx = if sx == 0 { f64::MAX } else { f64::from(sx) / dx };
-    let t_dy = if sy == 0 { f64::MAX } else { f64::from(sy) / dy };
-    let t_dz = if sz == 0 { f64::MAX } else { f64::from(sz) / dz };
-    let mut t_x = t_dx * if sx > 0 { 1.0 - mth::frac_f64(from_x) } else { mth::frac_f64(from_x) };
-    let mut t_y = t_dy * if sy > 0 { 1.0 - mth::frac_f64(from_y) } else { mth::frac_f64(from_y) };
-    let mut t_z = t_dz * if sz > 0 { 1.0 - mth::frac_f64(from_z) } else { mth::frac_f64(from_z) };
+    let t_dx = if sx == 0 {
+        f64::MAX
+    } else {
+        f64::from(sx) / dx
+    };
+    let t_dy = if sy == 0 {
+        f64::MAX
+    } else {
+        f64::from(sy) / dy
+    };
+    let t_dz = if sz == 0 {
+        f64::MAX
+    } else {
+        f64::from(sz) / dz
+    };
+    let mut t_x = t_dx
+        * if sx > 0 {
+            1.0 - mth::frac_f64(from_x)
+        } else {
+            mth::frac_f64(from_x)
+        };
+    let mut t_y = t_dy
+        * if sy > 0 {
+            1.0 - mth::frac_f64(from_y)
+        } else {
+            mth::frac_f64(from_y)
+        };
+    let mut t_z = t_dz
+        * if sz > 0 {
+            1.0 - mth::frac_f64(from_z)
+        } else {
+            mth::frac_f64(from_z)
+        };
     while t_x <= 1.0 || t_y <= 1.0 || t_z <= 1.0 {
         if t_x < t_y {
             if t_x < t_z {
@@ -377,7 +473,11 @@ pub fn traverse_blocks<T, C>(
 
 fn miss_for(from: Vec3, to: Vec3) -> BlockHitResult {
     let delta = from.subtract(to);
-    BlockHitResult::miss(to, Direction::get_approximate_nearest(delta.x, delta.y, delta.z), BlockPos::containing_position(&to))
+    BlockHitResult::miss(
+        to,
+        Direction::get_approximate_nearest(delta.x, delta.y, delta.z),
+        BlockPos::containing_position(&to),
+    )
 }
 
 /// Ray queries (`BlockGetter` default methods).
@@ -421,12 +521,17 @@ pub trait BlockGetterExt: BlockGetter {
                 let fluid_state = self.get_fluid_state(pos);
                 let (from, to) = (context.from, context.to);
                 let block_shape = context.get_block_shape(block_state, self, pos);
-                let block_result = self.clip_with_interaction_override(from, to, pos, &block_shape, block_state);
+                let block_result =
+                    self.clip_with_interaction_override(from, to, pos, &block_shape, block_state);
                 let fluid_shape = context.get_fluid_shape(fluid_state, self, pos);
                 let liquid_result = fluid_shape.clip(from, to, pos);
                 let block_d = block_result.map_or(f64::MAX, |r| from.distance_to_sqr(r.location));
                 let liquid_d = liquid_result.map_or(f64::MAX, |r| from.distance_to_sqr(r.location));
-                if block_d <= liquid_d { block_result } else { liquid_result }
+                if block_d <= liquid_d {
+                    block_result
+                } else {
+                    liquid_result
+                }
             },
             |context| miss_for(context.from, context.to),
         )
@@ -445,8 +550,11 @@ pub trait BlockGetterExt: BlockGetter {
         Self: Sized,
     {
         let result = block_shape.clip(from, to, pos)?;
-        if let Some(hit_override) = block_state.get_interaction_shape(self, pos).clip(from, to, pos)
-            && hit_override.location.subtract(from).length_sqr() < result.location.subtract(from).length_sqr()
+        if let Some(hit_override) = block_state
+            .get_interaction_shape(self, pos)
+            .clip(from, to, pos)
+            && hit_override.location.subtract(from).length_sqr()
+                < result.location.subtract(from).length_sqr()
         {
             return Some(result.with_direction(hit_override.direction));
         }
@@ -454,7 +562,10 @@ pub trait BlockGetterExt: BlockGetter {
     }
 
     /// `BlockGetter.getBlockFloorHeight(blockShape, belowBlockShape)`.
-    fn get_block_floor_height_of(block_shape: &VoxelShape, below_block_shape: impl FnOnce() -> VoxelShape) -> f64
+    fn get_block_floor_height_of(
+        block_shape: &VoxelShape,
+        below_block_shape: impl FnOnce() -> VoxelShape,
+    ) -> f64
     where
         Self: Sized,
     {
@@ -462,7 +573,11 @@ pub trait BlockGetterExt: BlockGetter {
             block_shape.max(Axis::Y)
         } else {
             let below_floor = below_block_shape().max(Axis::Y);
-            if below_floor >= 1.0 { below_floor - 1.0 } else { f64::NEG_INFINITY }
+            if below_floor >= 1.0 {
+                below_floor - 1.0
+            } else {
+                f64::NEG_INFINITY
+            }
         }
     }
 
@@ -471,15 +586,20 @@ pub trait BlockGetterExt: BlockGetter {
     where
         Self: Sized,
     {
-        Self::get_block_floor_height_of(&self.get_block_state(pos).get_collision_shape(self, pos), || {
-            let below = pos.below();
-            self.get_block_state(below).get_collision_shape(self, below)
-        })
+        Self::get_block_floor_height_of(
+            &self.get_block_state(pos).get_collision_shape(self, pos),
+            || {
+                let below = pos.below();
+                self.get_block_state(below).get_collision_shape(self, below)
+            },
+        )
     }
 
     /// `BlockGetter.getBlockStates(box)`.
     fn get_block_states(&self, aabb: &AABB) -> Vec<BlockState> {
-        BlockPos::between_closed_aabb(aabb).map(|p| self.get_block_state(p)).collect()
+        BlockPos::between_closed_aabb(aabb)
+            .map(|p| self.get_block_state(p))
+            .collect()
     }
 }
 
@@ -512,7 +632,12 @@ fn get_furthest_corner(direction: Vec3) -> Vec3i {
 }
 
 /// `BlockGetter.forEachBlockIntersectedBetween`: returns `false` when the visitor aborted.
-pub fn for_each_block_intersected_between(from: Vec3, to: Vec3, aabb_at_target: &AABB, visitor: &mut dyn BlockStepVisitor) -> bool {
+pub fn for_each_block_intersected_between(
+    from: Vec3,
+    to: Vec3,
+    aabb_at_target: &AABB,
+    visitor: &mut dyn BlockStepVisitor,
+) -> bool {
     let travel = to.subtract(from);
     if travel.length_sqr() < mth::square_f32(1.0E-5f32) as f64 {
         for pos in BlockPos::between_closed_aabb(aabb_at_target) {
@@ -548,7 +673,11 @@ fn add_collisions_along_travel(
     aabb_at_target: &AABB,
     visitor: &mut dyn BlockStepVisitor,
 ) -> i32 {
-    let (box_x, box_y, box_z) = (aabb_at_target.get_xsize(), aabb_at_target.get_ysize(), aabb_at_target.get_zsize());
+    let (box_x, box_y, box_z) = (
+        aabb_at_target.get_xsize(),
+        aabb_at_target.get_ysize(),
+        aabb_at_target.get_zsize(),
+    );
     let corner_dir = get_furthest_corner(delta_move);
     let to_center = aabb_at_target.get_center();
     let to_corner = Vec3::new(
@@ -560,13 +689,44 @@ fn add_collisions_along_travel(
     let mut cvx = mth::floor_f64(from_corner.x);
     let mut cvy = mth::floor_f64(from_corner.y);
     let mut cvz = mth::floor_f64(from_corner.z);
-    let (sx, sy, sz) = (mth::sign(delta_move.x), mth::sign(delta_move.y), mth::sign(delta_move.z));
-    let t_dx = if sx == 0 { f64::MAX } else { f64::from(sx) / delta_move.x };
-    let t_dy = if sy == 0 { f64::MAX } else { f64::from(sy) / delta_move.y };
-    let t_dz = if sz == 0 { f64::MAX } else { f64::from(sz) / delta_move.z };
-    let mut t_x = t_dx * if sx > 0 { 1.0 - mth::frac_f64(from_corner.x) } else { mth::frac_f64(from_corner.x) };
-    let mut t_y = t_dy * if sy > 0 { 1.0 - mth::frac_f64(from_corner.y) } else { mth::frac_f64(from_corner.y) };
-    let mut t_z = t_dz * if sz > 0 { 1.0 - mth::frac_f64(from_corner.z) } else { mth::frac_f64(from_corner.z) };
+    let (sx, sy, sz) = (
+        mth::sign(delta_move.x),
+        mth::sign(delta_move.y),
+        mth::sign(delta_move.z),
+    );
+    let t_dx = if sx == 0 {
+        f64::MAX
+    } else {
+        f64::from(sx) / delta_move.x
+    };
+    let t_dy = if sy == 0 {
+        f64::MAX
+    } else {
+        f64::from(sy) / delta_move.y
+    };
+    let t_dz = if sz == 0 {
+        f64::MAX
+    } else {
+        f64::from(sz) / delta_move.z
+    };
+    let mut t_x = t_dx
+        * if sx > 0 {
+            1.0 - mth::frac_f64(from_corner.x)
+        } else {
+            mth::frac_f64(from_corner.x)
+        };
+    let mut t_y = t_dy
+        * if sy > 0 {
+            1.0 - mth::frac_f64(from_corner.y)
+        } else {
+            mth::frac_f64(from_corner.y)
+        };
+    let mut t_z = t_dz
+        * if sz > 0 {
+            1.0 - mth::frac_f64(from_corner.z)
+        } else {
+            mth::frac_f64(from_corner.z)
+        };
     let mut iterations = 0;
     let eps = f64::from(1.0E-5f32);
     while t_x <= 1.0 || t_y <= 1.0 || t_z <= 1.0 {
@@ -597,13 +757,27 @@ fn add_collisions_along_travel(
         );
         if let Some(hit_point) = hit {
             iterations += 1;
-            let hx = mth::clamp_f64(hit_point.x, f64::from(cvx) + eps, f64::from(cvx) + 1.0 - eps);
-            let hy = mth::clamp_f64(hit_point.y, f64::from(cvy) + eps, f64::from(cvy) + 1.0 - eps);
-            let hz = mth::clamp_f64(hit_point.z, f64::from(cvz) + eps, f64::from(cvz) + 1.0 - eps);
+            let hx = mth::clamp_f64(
+                hit_point.x,
+                f64::from(cvx) + eps,
+                f64::from(cvx) + 1.0 - eps,
+            );
+            let hy = mth::clamp_f64(
+                hit_point.y,
+                f64::from(cvy) + eps,
+                f64::from(cvy) + 1.0 - eps,
+            );
+            let hz = mth::clamp_f64(
+                hit_point.z,
+                f64::from(cvz) + eps,
+                f64::from(cvz) + 1.0 - eps,
+            );
             let ox = mth::floor_f64(hx - box_x * f64::from(corner_dir.x()));
             let oy = mth::floor_f64(hy - box_y * f64::from(corner_dir.y()));
             let oz = mth::floor_f64(hz - box_z * f64::from(corner_dir.z()));
-            for pos in BlockPos::between_corners_in_direction_xyz(cvx, cvy, cvz, ox, oy, oz, delta_move) {
+            for pos in
+                BlockPos::between_corners_in_direction_xyz(cvx, cvy, cvz, ox, oy, oz, delta_move)
+            {
                 if visited.insert(pos.as_long()) && !visitor.visit(pos, iterations) {
                     return -1;
                 }
@@ -673,7 +847,11 @@ impl Iterator for BlockCollisions<'_> {
 
     fn next(&mut self) -> Option<Self::Item> {
         while self.cursor.advance() {
-            let (x, y, z) = (self.cursor.next_x(), self.cursor.next_y(), self.cursor.next_z());
+            let (x, y, z) = (
+                self.cursor.next_x(),
+                self.cursor.next_y(),
+                self.cursor.next_z(),
+            );
             let face_type = self.cursor.get_next_type();
             if face_type == 3 || !self.chunk_available(x, z) {
                 continue;
@@ -686,12 +864,24 @@ impl Iterator for BlockCollisions<'_> {
             {
                 let block_shape = self.context.get_collision_shape(state, self.getter, pos);
                 if block_shape.ptr_eq(&Shapes::block()) {
-                    if self.aabb.intersects_coords(f64::from(x), f64::from(y), f64::from(z), f64::from(x) + 1.0, f64::from(y) + 1.0, f64::from(z) + 1.0) {
-                        return Some((pos, block_shape.move_(f64::from(x), f64::from(y), f64::from(z))));
+                    if self.aabb.intersects_coords(
+                        f64::from(x),
+                        f64::from(y),
+                        f64::from(z),
+                        f64::from(x) + 1.0,
+                        f64::from(y) + 1.0,
+                        f64::from(z) + 1.0,
+                    ) {
+                        return Some((
+                            pos,
+                            block_shape.move_(f64::from(x), f64::from(y), f64::from(z)),
+                        ));
                     }
                 } else {
                     let shape = block_shape.move_(f64::from(x), f64::from(y), f64::from(z));
-                    if !shape.is_empty() && Shapes::join_is_not_empty(&shape, &self.entity_shape, BooleanOp::AND) {
+                    if !shape.is_empty()
+                        && Shapes::join_is_not_empty(&shape, &self.entity_shape, BooleanOp::AND)
+                    {
                         return Some((pos, shape));
                     }
                 }
@@ -709,7 +899,11 @@ pub trait CollisionGetter: BlockGetter {
     }
 
     /// `getEntityCollisions(source, area)`: collision boxes of entities (the entity storage overrides this).
-    fn get_entity_collisions(&self, _source: Option<EntityId>, _test_area: &AABB) -> Vec<VoxelShape> {
+    fn get_entity_collisions(
+        &self,
+        _source: Option<EntityId>,
+        _test_area: &AABB,
+    ) -> Vec<VoxelShape> {
         Vec::new()
     }
 
@@ -724,7 +918,12 @@ pub trait CollisionGetter: BlockGetter {
     }
 
     /// `isUnobstructed(state, pos, context)`.
-    fn is_unobstructed_state(&self, state: BlockState, pos: BlockPos, context: &CollisionContext) -> bool
+    fn is_unobstructed_state(
+        &self,
+        state: BlockState,
+        pos: BlockPos,
+        context: &CollisionContext,
+    ) -> bool
     where
         Self: Sized,
     {
@@ -733,28 +932,50 @@ pub trait CollisionGetter: BlockGetter {
     }
 
     /// `getBlockCollisionsFromContext(context, box)`.
-    fn get_block_collisions_from_context(&self, context: CollisionContext, aabb: AABB) -> Vec<VoxelShape>
+    fn get_block_collisions_from_context(
+        &self,
+        context: CollisionContext,
+        aabb: AABB,
+    ) -> Vec<VoxelShape>
     where
         Self: Sized,
     {
         let available = |cx, cz| self.chunk_available_for_collisions(cx, cz);
-        BlockCollisions::new(self, &available, context, aabb, false).map(|(_, shape)| shape).collect()
+        BlockCollisions::new(self, &available, context, aabb, false)
+            .map(|(_, shape)| shape)
+            .collect()
     }
 
     /// `getBlockCollisions(source, box)` with the source's context (`None` = `CollisionContext.empty()`).
-    fn get_block_collisions(&self, source: Option<&CollisionContext>, aabb: &AABB) -> Vec<VoxelShape>
+    fn get_block_collisions(
+        &self,
+        source: Option<&CollisionContext>,
+        aabb: &AABB,
+    ) -> Vec<VoxelShape>
     where
         Self: Sized,
     {
-        self.get_block_collisions_from_context(source.cloned().unwrap_or_else(CollisionContext::empty), *aabb)
+        self.get_block_collisions_from_context(
+            source.cloned().unwrap_or_else(CollisionContext::empty),
+            *aabb,
+        )
     }
 
     /// `getBlockAndLiquidCollisions(source, box)`; `source` must be built with `always_collide_with_fluid`.
-    fn get_block_and_liquid_collisions(&self, source: Option<&CollisionContext>, aabb: &AABB) -> Vec<VoxelShape>
+    fn get_block_and_liquid_collisions(
+        &self,
+        source: Option<&CollisionContext>,
+        aabb: &AABB,
+    ) -> Vec<VoxelShape>
     where
         Self: Sized,
     {
-        self.get_block_collisions_from_context(source.cloned().unwrap_or_else(CollisionContext::empty_with_fluid_collisions), *aabb)
+        self.get_block_collisions_from_context(
+            source
+                .cloned()
+                .unwrap_or_else(CollisionContext::empty_with_fluid_collisions),
+            *aabb,
+        )
     }
 
     /// `noBlockCollision(entity, aabb, alwaysCollideWithFluids)`; `context` is the entity's context (for fluids it
@@ -763,7 +984,9 @@ pub trait CollisionGetter: BlockGetter {
     where
         Self: Sized,
     {
-        self.get_block_collisions(context, aabb).iter().all(VoxelShape::is_empty)
+        self.get_block_collisions(context, aabb)
+            .iter()
+            .all(VoxelShape::is_empty)
     }
 
     /// `noEntityCollision(entity, aabb)`.
@@ -777,21 +1000,34 @@ pub trait CollisionGetter: BlockGetter {
             None => true,
             Some(entity) => match self.border_collision(entity, aabb) {
                 None => true,
-                Some(border) => !Shapes::join_is_not_empty(&border, &Shapes::create(*aabb), BooleanOp::AND),
+                Some(border) => {
+                    !Shapes::join_is_not_empty(&border, &Shapes::create(*aabb), BooleanOp::AND)
+                }
             },
         }
     }
 
     /// `noCollision(entity, aabb, alwaysCollideWithFluids)`.
-    fn no_collision(&self, source: Option<EntityId>, context: Option<&CollisionContext>, aabb: &AABB) -> bool
+    fn no_collision(
+        &self,
+        source: Option<EntityId>,
+        context: Option<&CollisionContext>,
+        aabb: &AABB,
+    ) -> bool
     where
         Self: Sized,
     {
-        self.no_block_collision(context, aabb) && self.no_entity_collision(source, aabb) && self.no_border_collision(source, aabb)
+        self.no_block_collision(context, aabb)
+            && self.no_entity_collision(source, aabb)
+            && self.no_border_collision(source, aabb)
     }
 
     /// `collidesWithSuffocatingBlock(source, box)`.
-    fn collides_with_suffocating_block(&self, context: Option<&CollisionContext>, aabb: &AABB) -> bool
+    fn collides_with_suffocating_block(
+        &self,
+        context: Option<&CollisionContext>,
+        aabb: &AABB,
+    ) -> bool
     where
         Self: Sized,
     {
@@ -801,7 +1037,12 @@ pub trait CollisionGetter: BlockGetter {
     }
 
     /// `findSupportingBlock(source, box)`; `source_position` is `source.position()`.
-    fn find_supporting_block(&self, context: &CollisionContext, source_position: Vec3, aabb: &AABB) -> Option<BlockPos>
+    fn find_supporting_block(
+        &self,
+        context: &CollisionContext,
+        source_position: Vec3,
+        aabb: &AABB,
+    ) -> Option<BlockPos>
     where
         Self: Sized,
     {

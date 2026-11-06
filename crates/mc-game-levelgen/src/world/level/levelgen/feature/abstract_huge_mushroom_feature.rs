@@ -1,15 +1,15 @@
 //! `AbstractHugeMushroomFeature`: the interface (with default methods) shared by the huge brown and red mushrooms.
 
+use mc_core::direction::Direction;
+use mc_core::pos::BlockPos;
+use mc_core::random::RandomSource;
+use mc_data::block::BlockState;
+use mc_game_core::world::level::LevelAccessor;
 use mc_game_core::world::level::block::BlockStateExt;
 use mc_game_core::world::level::levelgen::blockpredicates::BlockPredicate;
 use mc_game_core::world::level::levelgen::holder::Holder;
 use mc_game_core::world::level::levelgen::stateproviders::BlockStateProvider;
 use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
-use mc_game_core::world::level::{LevelAccessor};
-use mc_core::direction::Direction;
-use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
-use mc_data::block::BlockState;
 
 pub const MIN_MUSHROOM_HEIGHT: i32 = 4;
 
@@ -19,19 +19,45 @@ pub trait AbstractHugeMushroomFeature {
     fn foliage_radius(&self) -> i32;
     fn can_place_on(&self) -> &dyn BlockPredicate;
 
-    fn get_tree_radius_for_height(&self, trunk_height: i32, tree_height: i32, leaf_radius: i32, yo: i32) -> i32;
+    fn get_tree_radius_for_height(
+        &self,
+        trunk_height: i32,
+        tree_height: i32,
+        leaf_radius: i32,
+        yo: i32,
+    ) -> i32;
 
-    fn make_cap(&self, level: &mut dyn WorldGenLevel, random: &mut dyn RandomSource, origin: BlockPos, tree_height: i32);
+    fn make_cap(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        random: &mut dyn RandomSource,
+        origin: BlockPos,
+        tree_height: i32,
+    );
 
-    fn place_trunk(&self, level: &mut dyn WorldGenLevel, random: &mut dyn RandomSource, origin: BlockPos, tree_height: i32) {
+    fn place_trunk(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        random: &mut dyn RandomSource,
+        origin: BlockPos,
+        tree_height: i32,
+    ) {
         for dy in 0..tree_height {
             let block_pos = origin.relative_n(Direction::Up, dy);
-            let state = self.stem_provider().value().get_state(&*level, random, origin);
+            let state = self
+                .stem_provider()
+                .value()
+                .get_state(&*level, random, origin);
             self.place_mushroom_block(level, block_pos, state);
         }
     }
 
-    fn place_mushroom_block(&self, level: &mut dyn LevelAccessor, block_pos: BlockPos, new_state: BlockState) {
+    fn place_mushroom_block(
+        &self,
+        level: &mut dyn LevelAccessor,
+        block_pos: BlockPos,
+        new_state: BlockState,
+    ) {
         let current_state = level.get_block_state(block_pos);
         if current_state.is_air() || current_state.is_tag("replaceable_by_mushrooms") {
             level.set_block_and_update(block_pos, new_state);
@@ -46,7 +72,12 @@ pub trait AbstractHugeMushroomFeature {
         tree_height
     }
 
-    fn is_valid_position(&self, level: &dyn WorldGenLevel, origin: BlockPos, tree_height: i32) -> bool {
+    fn is_valid_position(
+        &self,
+        level: &dyn WorldGenLevel,
+        origin: BlockPos,
+        tree_height: i32,
+    ) -> bool {
         let y = origin.y();
         if y >= level.get_min_y() + 1 && y + tree_height + 1 <= level.get_max_y() {
             if !self.can_place_on().test(level, origin.below()) {

@@ -5,9 +5,9 @@
 //! of the interface) through the `Entity::start_persistent_anger_timer` hook.
 
 use crate::server::level::ServerLevel;
+use crate::world::entity::Entity;
 use crate::world::entity::mob::ext;
 use crate::world::entity::synched_data::{EntityDataAccessor, serializer};
-use crate::world::entity::Entity;
 use mc_nbt::CompoundTag;
 use mc_world::level_storage::Difficulty;
 use uuid::Uuid;
@@ -26,16 +26,24 @@ pub struct NeutralData {
 
 impl Default for NeutralData {
     fn default() -> Self {
-        Self { persistent_anger_end_time: NO_ANGER_END_TIME, end_time_accessor: None, persistent_anger_target: None }
+        Self {
+            persistent_anger_end_time: NO_ANGER_END_TIME,
+            end_time_accessor: None,
+            persistent_anger_target: None,
+        }
     }
 }
 
 fn nd(e: &dyn Entity) -> &NeutralData {
-    e.mob().and_then(|m| m.neutral.as_ref()).expect("neutral mob")
+    e.mob()
+        .and_then(|m| m.neutral.as_ref())
+        .expect("neutral mob")
 }
 
 fn ndm(e: &mut dyn Entity) -> &mut NeutralData {
-    e.mob_mut().and_then(|m| m.neutral.as_mut()).expect("neutral mob")
+    e.mob_mut()
+        .and_then(|m| m.neutral.as_mut())
+        .expect("neutral mob")
 }
 
 /// `getPersistentAngerEndTime()`.
@@ -75,13 +83,20 @@ pub fn set_persistent_anger_target(e: &mut dyn Entity, target: Option<Uuid>) {
 pub fn add_persistent_anger_save_data(e: &dyn Entity, out: &mut CompoundTag) {
     out.put_long("anger_end_time", get_persistent_anger_end_time(e));
     if let Some(uuid) = get_persistent_anger_target(e) {
-        out.put_int_array("angry_at", mc_core::uuid_util::uuid_to_int_array(&uuid).to_vec());
+        out.put_int_array(
+            "angry_at",
+            mc_core::uuid_util::uuid_to_int_array(&uuid).to_vec(),
+        );
     }
 }
 
 /// `readPersistentAngerSaveData(level, input)`. The `setTarget` of the reference is resolved later by the next
 /// `updatePersistentAnger` (the referenced entity is not loaded yet while chunks load).
-pub fn read_persistent_anger_save_data(e: &mut dyn Entity, level: Option<&ServerLevel>, input: &CompoundTag) {
+pub fn read_persistent_anger_save_data(
+    e: &mut dyn Entity,
+    level: Option<&ServerLevel>,
+    input: &CompoundTag,
+) {
     if let Some(t) = input.get("anger_end_time").and_then(|t| t.as_number()) {
         set_persistent_anger_end_time(e, t.long_value());
     } else if let Some(t) = input.get("AngerTime").and_then(|t| t.as_number()) {
@@ -90,24 +105,39 @@ pub fn read_persistent_anger_save_data(e: &mut dyn Entity, level: Option<&Server
     } else {
         set_persistent_anger_end_time(e, -1);
     }
-    set_persistent_anger_target(e, crate::world::entity::entity::read_uuid(input.get("angry_at")));
+    set_persistent_anger_target(
+        e,
+        crate::world::entity::entity::read_uuid(input.get("angry_at")),
+    );
     if let Some(level) = level {
-        let target = get_persistent_anger_target(e).and_then(|u| level.get_entity_by_uuid(u)).filter(|t| t.living().is_some()).map(|t| t.id());
+        let target = get_persistent_anger_target(e)
+            .and_then(|u| level.get_entity_by_uuid(u))
+            .filter(|t| t.living().is_some())
+            .map(|t| t.id());
         e.set_target(level, target);
     }
 }
 
 fn is_valid_player_target(level: &ServerLevel, target: &dyn Entity) -> bool {
-    target.is_player() && !ext::is_creative_player(target) && !target.is_spectator() && level.difficulty() != Difficulty::Peaceful
+    target.is_player()
+        && !ext::is_creative_player(target)
+        && !target.is_spectator()
+        && level.difficulty() != Difficulty::Peaceful
 }
 
 /// `updatePersistentAnger(level, stayAngryIfTargetPresent)`.
-pub fn update_persistent_anger(e: &mut dyn Entity, level: &mut ServerLevel, stay_angry_if_target_present: bool) {
+pub fn update_persistent_anger(
+    e: &mut dyn Entity,
+    level: &mut ServerLevel,
+    stay_angry_if_target_present: bool,
+) {
     let previous_target = e.get_target();
     let persistent_target = get_persistent_anger_target(e);
     let previous_dead_mob = previous_target
         .and_then(|id| level.get_entity(id))
-        .filter(|t| t.is_dead_or_dying() && persistent_target == Some(t.uuid()) && t.mob().is_some())
+        .filter(|t| {
+            t.is_dead_or_dying() && persistent_target == Some(t.uuid()) && t.mob().is_some()
+        })
         .is_some();
     if previous_dead_mob {
         stop_being_angry(e, level);
@@ -124,14 +154,23 @@ pub fn update_persistent_anger(e: &mut dyn Entity, level: &mut ServerLevel, stay
             e.start_persistent_anger_timer(level);
         }
     }
-    let valid_player_target = target.and_then(|id| level.get_entity(id)).is_some_and(|t| is_valid_player_target(level, t));
-    if persistent_target.is_some() && !is_angry(e, level) && (target.is_none() || !valid_player_target || !stay_angry_if_target_present) {
+    let valid_player_target = target
+        .and_then(|id| level.get_entity(id))
+        .is_some_and(|t| is_valid_player_target(level, t));
+    if persistent_target.is_some()
+        && !is_angry(e, level)
+        && (target.is_none() || !valid_player_target || !stay_angry_if_target_present)
+    {
         stop_being_angry(e, level);
     }
     let persistent_player_invalid = persistent_target
         .and_then(|u| level.get_entity_by_uuid(u))
         .filter(|p| p.is_player())
-        .is_some_and(|p| ext::is_creative_player(p) || p.is_spectator() || level.difficulty() == Difficulty::Peaceful);
+        .is_some_and(|p| {
+            ext::is_creative_player(p)
+                || p.is_spectator()
+                || level.difficulty() == Difficulty::Peaceful
+        });
     if persistent_player_invalid {
         stop_being_angry(e, level);
     }
@@ -167,7 +206,10 @@ pub fn player_died(e: &mut dyn Entity, level: &mut ServerLevel, player: &dyn Ent
 }
 
 /// `forgetCurrentTargetAndRefreshUniversalAnger()`.
-pub fn forget_current_target_and_refresh_universal_anger(e: &mut dyn Entity, level: &mut ServerLevel) {
+pub fn forget_current_target_and_refresh_universal_anger(
+    e: &mut dyn Entity,
+    level: &mut ServerLevel,
+) {
     stop_being_angry(e, level);
     e.start_persistent_anger_timer(level);
 }

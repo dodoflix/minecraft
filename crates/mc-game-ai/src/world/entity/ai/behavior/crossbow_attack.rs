@@ -1,17 +1,17 @@
 //! `CrossbowAttack`: a mob holding a crossbow charges, waits and shoots at its attack target.
 
-use mc_game_core::world::entity::ai::behavior::position_tracker::{EntityTracker, PositionTracker};
-use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase, behavior_utils};
+use mc_core::random::RandomSource;
+use mc_data::Item;
 use mc_game_core::entry_condition;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::entity::EntityId;
+use mc_game_core::world::entity::ai::behavior::position_tracker::{EntityTracker, PositionTracker};
+use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase, behavior_utils};
 use mc_game_core::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, LOOK_TARGET};
 use mc_game_core::world::entity::entity::Entity;
 use mc_game_core::world::entity::living_entity::using_item;
-use mc_game_core::world::item::projectile_weapon_item::get_weapon_holding_hand;
 use mc_game_core::world::item::crossbow_item;
-use mc_core::random::RandomSource;
-use mc_data::Item;
+use mc_game_core::world::item::projectile_weapon_item::get_weapon_holding_hand;
 
 /// `TIMEOUT`.
 const TIMEOUT: i32 = 1200;
@@ -33,7 +33,14 @@ pub struct CrossbowAttack {
 impl CrossbowAttack {
     /// `new CrossbowAttack()`.
     pub fn new() -> BehaviorBase<CrossbowAttack> {
-        BehaviorBase::with_timeout(entry_condition![LOOK_TARGET => Registered, ATTACK_TARGET => ValuePresent], TIMEOUT, CrossbowAttack { attack_delay: 0, crossbow_state: CrossbowState::Uncharged })
+        BehaviorBase::with_timeout(
+            entry_condition![LOOK_TARGET => Registered, ATTACK_TARGET => ValuePresent],
+            TIMEOUT,
+            CrossbowAttack {
+                attack_delay: 0,
+                crossbow_state: CrossbowState::Uncharged,
+            },
+        )
     }
 
     fn crossbow_attack(&mut self, level: &mut ServerLevel, body: &mut dyn Entity) {
@@ -83,24 +90,47 @@ fn get_attack_target(body: &dyn Entity) -> Option<EntityId> {
 }
 
 impl Behavior for CrossbowAttack {
-    fn check_extra_start_conditions(&mut self, level: &mut ServerLevel, body: &mut dyn Entity) -> bool {
-        let Some(attack_target) = get_attack_target(body) else { return false };
-        let holding_crossbow = body.get_item_by_slot(mc_game_core::world::entity::equipment::EquipmentSlot::MainHand).item() == Item::CROSSBOW
-            || body.get_item_by_slot(mc_game_core::world::entity::equipment::EquipmentSlot::OffHand).item() == Item::CROSSBOW;
+    fn check_extra_start_conditions(
+        &mut self,
+        level: &mut ServerLevel,
+        body: &mut dyn Entity,
+    ) -> bool {
+        let Some(attack_target) = get_attack_target(body) else {
+            return false;
+        };
+        let holding_crossbow = body
+            .get_item_by_slot(mc_game_core::world::entity::equipment::EquipmentSlot::MainHand)
+            .item()
+            == Item::CROSSBOW
+            || body
+                .get_item_by_slot(mc_game_core::world::entity::equipment::EquipmentSlot::OffHand)
+                .item()
+                == Item::CROSSBOW;
         holding_crossbow
             && behavior_utils::can_see(level, body, attack_target)
             && behavior_utils::is_within_attack_range(level, body, attack_target, 0)
     }
 
-    fn can_still_use(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, _timestamp: i64) -> bool {
-        body.brain().has_memory_value(ATTACK_TARGET) && self.check_extra_start_conditions(level, body)
+    fn can_still_use(
+        &mut self,
+        level: &mut ServerLevel,
+        body: &mut dyn Entity,
+        _timestamp: i64,
+    ) -> bool {
+        body.brain().has_memory_value(ATTACK_TARGET)
+            && self.check_extra_start_conditions(level, body)
     }
 
     fn tick(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, _timestamp: i64) {
-        let Some(target) = get_attack_target(body) else { return };
+        let Some(target) = get_attack_target(body) else {
+            return;
+        };
         // `lookAtTarget`: `LOOK_TARGET = new EntityTracker(target, true)`
         if let Some(t) = level.get_entity(target) {
-            body.brain_mut().set_memory(&LOOK_TARGET, PositionTracker::Entity(EntityTracker::new(t, true)));
+            body.brain_mut().set_memory(
+                &LOOK_TARGET,
+                PositionTracker::Entity(EntityTracker::new(t, true)),
+            );
         }
         self.crossbow_attack(level, body);
     }
@@ -109,8 +139,14 @@ impl Behavior for CrossbowAttack {
         if using_item::is_using_item(body) {
             using_item::stop_using_item(body, level);
         }
-        if body.get_item_by_slot(mc_game_core::world::entity::equipment::EquipmentSlot::MainHand).item() == Item::CROSSBOW
-            || body.get_item_by_slot(mc_game_core::world::entity::equipment::EquipmentSlot::OffHand).item() == Item::CROSSBOW
+        if body
+            .get_item_by_slot(mc_game_core::world::entity::equipment::EquipmentSlot::MainHand)
+            .item()
+            == Item::CROSSBOW
+            || body
+                .get_item_by_slot(mc_game_core::world::entity::equipment::EquipmentSlot::OffHand)
+                .item()
+                == Item::CROSSBOW
         {
             set_charging_crossbow(body, false);
             // `body.getUseItem().set(CHARGED_PROJECTILES, EMPTY)`: after `stopUsingItem()` the use item is `ItemStack.EMPTY`,

@@ -29,7 +29,8 @@ const DENSITY_BLENDING_RANGE_CHUNKS: i32 = quart_pos::to_section(5);
 
 /// `NoiseData.DEFAULT_SHIFT.create(new XoroshiroRandomSource(42L))`.
 static SHIFT_NOISE: LazyLock<Arc<dyn Noise>> = LazyLock::new(|| {
-    NormalNoise::create_parity(-3, &[1.0, 1.0, 1.0, 0.0]).create(&mut XoroshiroRandomSource::new(42))
+    NormalNoise::create_parity(-3, &[1.0, 1.0, 1.0, 0.0])
+        .create(&mut XoroshiroRandomSource::new(42))
 });
 
 /// `CarvingMask.Filter`, owning.
@@ -104,7 +105,12 @@ impl OffsetOldChunkDistanceGetter {
         }
         let old_chunk_y_radius = area.height as f64 / 2.0;
         let old_chunk_center_y = area.min_y as f64 + old_chunk_y_radius;
-        OffsetOldChunkDistanceGetter { offset_x, offset_z, old_chunk_y_radius, old_chunk_center_y }
+        OffsetOldChunkDistanceGetter {
+            offset_x,
+            offset_z,
+            old_chunk_y_radius,
+            old_chunk_center_y,
+        }
     }
 }
 
@@ -158,12 +164,20 @@ fn distance_to_cube(x: f64, y: f64, z: f64, radius_x: f64, radius_y: f64, radius
     let delta_x = x.abs() - radius_x;
     let delta_y = y.abs() - radius_y;
     let delta_z = z.abs() - radius_z;
-    mth::length_xyz_f64(java_max(0.0, delta_x), java_max(0.0, delta_y), java_max(0.0, delta_z))
+    mth::length_xyz_f64(
+        java_max(0.0, delta_x),
+        java_max(0.0, delta_y),
+        java_max(0.0, delta_z),
+    )
 }
 
 /// `Math.max(double, double)`.
 fn java_max(a: f64, b: f64) -> f64 {
-    if a.is_nan() || b.is_nan() { f64::NAN } else { a.max(b) }
+    if a.is_nan() || b.is_nan() {
+        f64::NAN
+    } else {
+        a.max(b)
+    }
 }
 
 /// `heightToOffset`.
@@ -171,12 +185,17 @@ fn height_to_offset(height: f64) -> f64 {
     let dimension_factor = 1.0;
     let target_y = height + 0.5;
     let target_y_mod = mth::positive_modulo_f64(target_y, 8.0);
-    dimension_factor * (32.0 * (target_y - 128.0) - 3.0 * (target_y - 120.0) * target_y_mod + 3.0 * target_y_mod * target_y_mod)
+    dimension_factor
+        * (32.0 * (target_y - 128.0) - 3.0 * (target_y - 120.0) * target_y_mod
+            + 3.0 * target_y_mod * target_y_mod)
         / (128.0 * (32.0 - 3.0 * target_y_mod))
 }
 
 /// `createAroundOldChunksCarvingMaskFilter(region, chunk)`.
-fn create_around_old_chunks_carving_mask_filter(region: &dyn BlendingRegion, chunk_pos: ChunkPos) -> Option<CarvingFilter> {
+fn create_around_old_chunks_carving_mask_filter(
+    region: &dyn BlendingRegion,
+    chunk_pos: ChunkPos,
+) -> Option<CarvingFilter> {
     let mut old_sides: Vec<(Direction8, LevelHeight)> = Vec::new();
     for direction8 in Direction8::ALL {
         let test_chunk_x = chunk_pos.x + direction8.get_step_x();
@@ -188,7 +207,11 @@ fn create_around_old_chunks_carving_mask_filter(region: &dyn BlendingRegion, chu
         });
     }
     let mut center = None;
-    region.with_chunk(chunk_pos.x, chunk_pos.z, &mut |chunk| center = chunk.blending_data().map(|data| data.get_area_with_old_generation()));
+    region.with_chunk(chunk_pos.x, chunk_pos.z, &mut |chunk| {
+        center = chunk
+            .blending_data()
+            .map(|data| data.get_area_with_old_generation())
+    });
     if center.is_none() && old_sides.is_empty() {
         return None;
     }
@@ -228,13 +251,17 @@ impl Blender {
                 if dx * dx + dz * dz <= max_dist_sq {
                     let chunk_x = center_pos.x + dx;
                     let chunk_z = center_pos.z + dz;
-                    if let Some(blending_data) = get_or_update_blending_data(region, chunk_x, chunk_z) {
+                    if let Some(blending_data) =
+                        get_or_update_blending_data(region, chunk_x, chunk_z)
+                    {
                         let blending_data = Arc::new(blending_data);
                         let key = ChunkPos::pack_xz(chunk_x, chunk_z);
                         height_and_biome_data.insert(key, blending_data.clone());
                         height_and_biome_order.push(key);
-                        if (-DENSITY_BLENDING_RANGE_CHUNKS..=DENSITY_BLENDING_RANGE_CHUNKS).contains(&dx)
-                            && (-DENSITY_BLENDING_RANGE_CHUNKS..=DENSITY_BLENDING_RANGE_CHUNKS).contains(&dz)
+                        if (-DENSITY_BLENDING_RANGE_CHUNKS..=DENSITY_BLENDING_RANGE_CHUNKS)
+                            .contains(&dx)
+                            && (-DENSITY_BLENDING_RANGE_CHUNKS..=DENSITY_BLENDING_RANGE_CHUNKS)
+                                .contains(&dz)
                         {
                             density_data.insert(key, blending_data);
                             density_order.push(key);
@@ -249,8 +276,20 @@ impl Blender {
         if height_and_biome.is_empty() && density.is_empty() && carving_filter.is_none() {
             return Blender::empty();
         }
-        let height_and_biome_by_pos = height_and_biome.entries.iter().enumerate().map(|(i, (key, _))| (*key, i)).collect();
-        Blender { inner: Some(Arc::new(Inner { height_and_biome, height_and_biome_by_pos, density, carving_filter })) }
+        let height_and_biome_by_pos = height_and_biome
+            .entries
+            .iter()
+            .enumerate()
+            .map(|(i, (key, _))| (*key, i))
+            .collect();
+        Blender {
+            inner: Some(Arc::new(Inner {
+                height_and_biome,
+                height_and_biome_by_pos,
+                density,
+                carving_filter,
+            })),
+        }
     }
 
     /// `isEmpty()`.
@@ -277,8 +316,10 @@ impl Blender {
         for cell_z in 0..cell_count_z {
             for cell_x in 0..cell_count_x {
                 let index = (cell_x + cell_z * cell_count_x) as usize;
-                let output =
-                    self.blend_offset_and_factor_at(quart_pos::to_block(min_cell_x + cell_x), quart_pos::to_block(min_cell_z + cell_z));
+                let output = self.blend_offset_and_factor_at(
+                    quart_pos::to_block(min_cell_x + cell_x),
+                    quart_pos::to_block(min_cell_z + cell_z),
+                );
                 alphas[index] = output.alpha;
                 offsets[index] = output.blending_offset;
             }
@@ -298,13 +339,20 @@ impl Blender {
     #[allow(clippy::neg_cmp_op_on_partial_ord)] // `!(d > r)` keeps NaN distances like vanilla
     pub fn blend_offset_and_factor_at(&self, block_x: i32, block_z: i32) -> BlendingOutput {
         let Some(inner) = &self.inner else {
-            return BlendingOutput { alpha: 1.0, blending_offset: 0.0 };
+            return BlendingOutput {
+                alpha: 1.0,
+                blending_offset: 0.0,
+            };
         };
         let cell_x = quart_pos::from_block(block_x);
         let cell_z = quart_pos::from_block(block_z);
-        let fixed_height = inner.get_blending_data_value(cell_x, 0, cell_z, &|data, x, y, z| data.get_height(x, y, z));
+        let fixed_height = inner
+            .get_blending_data_value(cell_x, 0, cell_z, &|data, x, y, z| data.get_height(x, y, z));
         if fixed_height != NO_VALUE {
-            return BlendingOutput { alpha: 0.0, blending_offset: height_to_offset(f64::from(fixed_height)) as f32 };
+            return BlendingOutput {
+                alpha: 0.0,
+                blending_offset: height_to_offset(f64::from(fixed_height)) as f32,
+            };
         }
         let mut total_weight = 0.0f64;
         let mut weighted_heights = 0.0f64;
@@ -314,7 +362,10 @@ impl Blender {
                 quart_pos::from_section(ChunkPos::get_x(*chunk_pos)),
                 quart_pos::from_section(ChunkPos::get_z(*chunk_pos)),
                 &mut |test_cell_x, test_cell_z, height| {
-                    let distance = f64::from(mth::length_f32((cell_x - test_cell_x) as f32, (cell_z - test_cell_z) as f32));
+                    let distance = f64::from(mth::length_f32(
+                        (cell_x - test_cell_x) as f32,
+                        (cell_z - test_cell_z) as f32,
+                    ));
                     if !(distance > f64::from(HEIGHT_BLENDING_RANGE_CELLS)) {
                         if distance < closest_distance {
                             closest_distance = distance;
@@ -327,12 +378,22 @@ impl Blender {
             );
         }
         if closest_distance == f64::INFINITY {
-            BlendingOutput { alpha: 1.0, blending_offset: 0.0 }
+            BlendingOutput {
+                alpha: 1.0,
+                blending_offset: 0.0,
+            }
         } else {
             let average_height = weighted_heights / total_weight;
-            let mut alpha = mth::clamp_f64(closest_distance / f64::from(HEIGHT_BLENDING_RANGE_CELLS + 1), 0.0, 1.0);
+            let mut alpha = mth::clamp_f64(
+                closest_distance / f64::from(HEIGHT_BLENDING_RANGE_CELLS + 1),
+                0.0,
+                1.0,
+            );
             alpha = 3.0 * alpha * alpha - 2.0 * alpha * alpha * alpha;
-            BlendingOutput { alpha: alpha as f32, blending_offset: height_to_offset(average_height) as f32 }
+            BlendingOutput {
+                alpha: alpha as f32,
+                blending_offset: height_to_offset(average_height) as f32,
+            }
         }
     }
 
@@ -345,7 +406,10 @@ impl Blender {
         let cell_x = quart_pos::from_block(block_x);
         let cell_y = block_y / 8;
         let cell_z = quart_pos::from_block(block_z);
-        let fixed_density = inner.get_blending_data_value(cell_x, cell_y, cell_z, &|data, x, y, z| data.get_density(x, y, z));
+        let fixed_density =
+            inner.get_blending_data_value(cell_x, cell_y, cell_z, &|data, x, y, z| {
+                data.get_density(x, y, z)
+            });
         if fixed_density != NO_VALUE {
             return fixed_density;
         }
@@ -393,7 +457,8 @@ impl Blender {
             return biome_resolver;
         }
         Box::new(move |quart_x, quart_y, quart_z| {
-            self.blend_biome(quart_x, quart_y, quart_z).unwrap_or_else(|| biome_resolver(quart_x, quart_y, quart_z))
+            self.blend_biome(quart_x, quart_y, quart_z)
+                .unwrap_or_else(|| biome_resolver(quart_x, quart_y, quart_z))
         })
     }
 
@@ -408,8 +473,12 @@ impl Blender {
                 quart_y,
                 quart_pos::from_section(ChunkPos::get_z(*chunk_pos)),
                 &mut |test_cell_x, test_cell_z, biome| {
-                    let distance = mth::length_f32((quart_x - test_cell_x) as f32, (quart_z - test_cell_z) as f32);
-                    if distance <= HEIGHT_BLENDING_RANGE_CELLS as f32 && distance < closest_distance {
+                    let distance = mth::length_f32(
+                        (quart_x - test_cell_x) as f32,
+                        (quart_z - test_cell_z) as f32,
+                    );
+                    if distance <= HEIGHT_BLENDING_RANGE_CELLS as f32 && distance < closest_distance
+                    {
                         closest_biome = Some(biome);
                         closest_distance = distance;
                     }
@@ -419,8 +488,13 @@ impl Blender {
         if closest_distance == f32::INFINITY {
             None
         } else {
-            let shift_noise = SHIFT_NOISE.get3(f64::from(quart_x), 0.0, f64::from(quart_z)) * 12.0f32;
-            let alpha = mth::clamp_f32((closest_distance + shift_noise) / (HEIGHT_BLENDING_RANGE_CELLS + 1) as f32, 0.0, 1.0);
+            let shift_noise =
+                SHIFT_NOISE.get3(f64::from(quart_x), 0.0, f64::from(quart_z)) * 12.0f32;
+            let alpha = mth::clamp_f32(
+                (closest_distance + shift_noise) / (HEIGHT_BLENDING_RANGE_CELLS + 1) as f32,
+                0.0,
+                1.0,
+            );
             if alpha > 0.5 { None } else { closest_biome }
         }
     }
@@ -428,7 +502,13 @@ impl Blender {
 
 impl Inner {
     /// `getBlendingDataValue(cellX, cellY, cellZ, getter)`.
-    fn get_blending_data_value(&self, cell_x: i32, cell_y: i32, cell_z: i32, getter: &dyn Fn(&BlendingData, i32, i32, i32) -> f32) -> f32 {
+    fn get_blending_data_value(
+        &self,
+        cell_x: i32,
+        cell_y: i32,
+        cell_z: i32,
+        getter: &dyn Fn(&BlendingData, i32, i32, i32) -> f32,
+    ) -> f32 {
         let chunk_x = quart_pos::to_section(cell_x);
         let chunk_z = quart_pos::to_section(cell_z);
         let min_x = (cell_x & 3) == 0;
@@ -436,14 +516,17 @@ impl Inner {
         let mut value = self.value_in_chunk(getter, chunk_x, chunk_z, cell_x, cell_y, cell_z);
         if value == NO_VALUE {
             if min_x && min_z {
-                value = self.value_in_chunk(getter, chunk_x - 1, chunk_z - 1, cell_x, cell_y, cell_z);
+                value =
+                    self.value_in_chunk(getter, chunk_x - 1, chunk_z - 1, cell_x, cell_y, cell_z);
             }
             if value == NO_VALUE {
                 if min_x {
-                    value = self.value_in_chunk(getter, chunk_x - 1, chunk_z, cell_x, cell_y, cell_z);
+                    value =
+                        self.value_in_chunk(getter, chunk_x - 1, chunk_z, cell_x, cell_y, cell_z);
                 }
                 if value == NO_VALUE && min_z {
-                    value = self.value_in_chunk(getter, chunk_x, chunk_z - 1, cell_x, cell_y, cell_z);
+                    value =
+                        self.value_in_chunk(getter, chunk_x, chunk_z - 1, cell_x, cell_y, cell_z);
                 }
             }
         }
@@ -459,7 +542,10 @@ impl Inner {
         cell_y: i32,
         cell_z: i32,
     ) -> f32 {
-        match self.height_and_biome_by_pos.get(&ChunkPos::pack_xz(chunk_x, chunk_z)) {
+        match self
+            .height_and_biome_by_pos
+            .get(&ChunkPos::pack_xz(chunk_x, chunk_z))
+        {
             Some(&index) => getter(
                 &self.height_and_biome.entries[index].1,
                 cell_x - quart_pos::from_section(chunk_x),
@@ -496,19 +582,29 @@ pub struct OutputBuffer {
 impl OutputBuffer {
     /// `createAlphaSampler()` (for `BLENDER_ALPHA_KEY`).
     pub fn create_alpha_sampler(&self) -> SharedSampler {
-        Arc::new(BufferSampler { buffer: self.clone(), offset: false })
+        Arc::new(BufferSampler {
+            buffer: self.clone(),
+            offset: false,
+        })
     }
 
     /// `createOffsetSampler()` (for `BLENDER_OFFSET_KEY`).
     pub fn create_offset_sampler(&self) -> SharedSampler {
-        Arc::new(BufferSampler { buffer: self.clone(), offset: true })
+        Arc::new(BufferSampler {
+            buffer: self.clone(),
+            offset: true,
+        })
     }
 
     /// `getAlpha(blockX, blockZ)`.
     pub fn get_alpha(&self, block_x: i32, block_z: i32) -> f32 {
         match self.get_index(block_x, block_z) {
             Some(index) => self.alphas[index],
-            None => self.blender.blend_offset_and_factor_at(block_x, block_z).alpha,
+            None => {
+                self.blender
+                    .blend_offset_and_factor_at(block_x, block_z)
+                    .alpha
+            }
         }
     }
 
@@ -516,14 +612,21 @@ impl OutputBuffer {
     pub fn get_offset(&self, block_x: i32, block_z: i32) -> f32 {
         match self.get_index(block_x, block_z) {
             Some(index) => self.offsets[index],
-            None => self.blender.blend_offset_and_factor_at(block_x, block_z).blending_offset,
+            None => {
+                self.blender
+                    .blend_offset_and_factor_at(block_x, block_z)
+                    .blending_offset
+            }
         }
     }
 
     fn get_index(&self, block_x: i32, block_z: i32) -> Option<usize> {
         let relative_x = quart_pos::from_block(block_x) - self.min_cell_x;
         let relative_z = quart_pos::from_block(block_z) - self.min_cell_z;
-        (relative_x >= 0 && relative_z >= 0 && relative_x < self.cell_count_x && relative_z < self.cell_count_z)
+        (relative_x >= 0
+            && relative_z >= 0
+            && relative_x < self.cell_count_x
+            && relative_z < self.cell_count_z)
             .then(|| (relative_x + relative_z * self.cell_count_x) as usize)
     }
 }
@@ -535,12 +638,27 @@ struct BufferSampler {
 }
 
 impl DensitySampler for BufferSampler {
-    fn sample_volume(&self, context: &SamplerContext, out: &mut DensityBuffer, volume: &DensityVolume) {
+    fn sample_volume(
+        &self,
+        context: &SamplerContext,
+        out: &mut DensityBuffer,
+        volume: &DensityVolume,
+    ) {
         sampler::sample_volume_naive(context, out, volume, self);
     }
 
-    fn sample_value(&self, _context: &SamplerContext, block_x: i32, _block_y: i32, block_z: i32) -> f32 {
-        if self.offset { self.buffer.get_offset(block_x, block_z) } else { self.buffer.get_alpha(block_x, block_z) }
+    fn sample_value(
+        &self,
+        _context: &SamplerContext,
+        block_x: i32,
+        _block_y: i32,
+        block_z: i32,
+    ) -> f32 {
+        if self.offset {
+            self.buffer.get_offset(block_x, block_z)
+        } else {
+            self.buffer.get_alpha(block_x, block_z)
+        }
     }
 }
 
@@ -548,14 +666,22 @@ impl DensitySampler for BufferSampler {
 pub fn generate_border_ticks(region: &dyn BlendingRegion, chunk_pos: ChunkPos) {
     let mut neighbor_old = [false; 4];
     for (i, direction) in Direction::HORIZONTAL.iter().enumerate() {
-        region.with_chunk(chunk_pos.x + direction.get_step_x(), chunk_pos.z + direction.get_step_z(), &mut |chunk| {
-            neighbor_old[i] = chunk.is_old_noise_generation();
-        });
+        region.with_chunk(
+            chunk_pos.x + direction.get_step_x(),
+            chunk_pos.z + direction.get_step_z(),
+            &mut |chunk| {
+                neighbor_old[i] = chunk.is_old_noise_generation();
+            },
+        );
     }
     region.with_chunk(chunk_pos.x, chunk_pos.z, &mut |chunk| {
         let old_noise_generation = chunk.is_old_noise_generation();
-        let chunk_origin = BlockPos::new(chunk_pos.get_min_block_x(), 0, chunk_pos.get_min_block_z());
-        let Some(area) = chunk.blending_data().map(|data| data.get_area_with_old_generation()) else {
+        let chunk_origin =
+            BlockPos::new(chunk_pos.get_min_block_x(), 0, chunk_pos.get_min_block_z());
+        let Some(area) = chunk
+            .blending_data()
+            .map(|data| data.get_area_with_old_generation())
+        else {
             return;
         };
         let (old_min_y, old_max_y) = (area.min_y, area.max_y());
@@ -573,11 +699,23 @@ pub fn generate_border_ticks(region: &dyn BlendingRegion, chunk_pos: ChunkPos) {
             if neighbor_old[i] != old_noise_generation {
                 let min_x = if *direction == Direction::East { 15 } else { 0 };
                 let max_x = if *direction == Direction::West { 0 } else { 15 };
-                let min_z = if *direction == Direction::South { 15 } else { 0 };
-                let max_z = if *direction == Direction::North { 0 } else { 15 };
+                let min_z = if *direction == Direction::South {
+                    15
+                } else {
+                    0
+                };
+                let max_z = if *direction == Direction::North {
+                    0
+                } else {
+                    15
+                };
                 for x in min_x..=max_x {
                     for z in min_z..=max_z {
-                        let max_y = old_max_y.min(chunk.get_height_primed(HeightmapType::MotionBlocking, x, z)) + 1;
+                        let max_y = old_max_y.min(chunk.get_height_primed(
+                            HeightmapType::MotionBlocking,
+                            x,
+                            z,
+                        )) + 1;
                         for y in old_min_y..max_y {
                             generate_border_tick(chunk, chunk_origin.offset(x, y, z));
                         }

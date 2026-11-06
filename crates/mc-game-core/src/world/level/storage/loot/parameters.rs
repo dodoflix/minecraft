@@ -33,14 +33,21 @@ pub mod LootContextParamSets {
     );
     pub const CHEST: ContextKeySet = ContextKeySet::new(&[Origin], &[ThisEntity]);
     pub const COMMAND: ContextKeySet = ContextKeySet::new(&[Origin], &[ThisEntity]);
-    pub const COMMAND_SLOT_SOURCE: ContextKeySet = ContextKeySet::new(&[Origin, Container], &[ThisEntity]);
+    pub const COMMAND_SLOT_SOURCE: ContextKeySet =
+        ContextKeySet::new(&[Origin, Container], &[ThisEntity]);
     pub const COMMAND_COMPUTE_DEFAULT: ContextKeySet = ContextKeySet::new(&[Origin], &[ThisEntity]);
-    pub const COMMAND_COMPUTE_POSITION: ContextKeySet = ContextKeySet::new(&[Origin, BlockState], &[ThisEntity, BlockEntity]);
-    pub const COMMAND_COMPUTE_ENTITY: ContextKeySet = ContextKeySet::new(&[Origin, TargetEntity], &[ThisEntity]);
+    pub const COMMAND_COMPUTE_POSITION: ContextKeySet =
+        ContextKeySet::new(&[Origin, BlockState], &[ThisEntity, BlockEntity]);
+    pub const COMMAND_COMPUTE_ENTITY: ContextKeySet =
+        ContextKeySet::new(&[Origin, TargetEntity], &[ThisEntity]);
     pub const SELECTOR: ContextKeySet = ContextKeySet::new(&[Origin, ThisEntity], &[]);
-    pub const VILLAGER_TRADE: ContextKeySet = ContextKeySet::new(&[Origin, ThisEntity, AdditionalCostComponentAllowed], &[]);
+    pub const VILLAGER_TRADE: ContextKeySet =
+        ContextKeySet::new(&[Origin, ThisEntity, AdditionalCostComponentAllowed], &[]);
     pub const FISHING: ContextKeySet = ContextKeySet::new(&[Origin, Tool], &[ThisEntity]);
-    pub const ENTITY: ContextKeySet = ContextKeySet::new(&[ThisEntity, Origin, DamageSource], &[AttackingEntity, DirectAttackingEntity, LastDamagePlayer]);
+    pub const ENTITY: ContextKeySet = ContextKeySet::new(
+        &[ThisEntity, Origin, DamageSource],
+        &[AttackingEntity, DirectAttackingEntity, LastDamagePlayer],
+    );
     pub const EQUIPMENT: ContextKeySet = ContextKeySet::new(&[Origin, ThisEntity], &[]);
     pub const ARCHAEOLOGY: ContextKeySet = ContextKeySet::new(&[Origin, ThisEntity, Tool], &[]);
     pub const GIFT: ContextKeySet = ContextKeySet::new(&[Origin, ThisEntity], &[]);
@@ -48,19 +55,35 @@ pub mod LootContextParamSets {
     pub const VAULT: ContextKeySet = ContextKeySet::new(&[Origin], &[ThisEntity, Tool]);
     pub const ADVANCEMENT_REWARD: ContextKeySet = ContextKeySet::new(&[ThisEntity, Origin], &[]);
     pub const ADVANCEMENT_ENTITY: ContextKeySet = ContextKeySet::new(&[ThisEntity, Origin], &[]);
-    pub const ADVANCEMENT_LOCATION: ContextKeySet = ContextKeySet::new(&[ThisEntity, Origin, Tool, BlockState], &[BlockEntity]);
+    pub const ADVANCEMENT_LOCATION: ContextKeySet =
+        ContextKeySet::new(&[ThisEntity, Origin, Tool, BlockState], &[BlockEntity]);
     pub const BLOCK_USE: ContextKeySet = ContextKeySet::new(&[ThisEntity, Origin, BlockState], &[]);
-    pub const BLOCK: ContextKeySet = ContextKeySet::new(&[BlockState, Origin, Tool], &[ThisEntity, BlockEntity, ExplosionRadius]);
+    pub const BLOCK: ContextKeySet = ContextKeySet::new(
+        &[BlockState, Origin, Tool],
+        &[ThisEntity, BlockEntity, ExplosionRadius],
+    );
     pub const SHEARING: ContextKeySet = ContextKeySet::new(&[Origin, ThisEntity, Tool], &[]);
-    pub const ENTITY_INTERACT: ContextKeySet = ContextKeySet::new(&[TargetEntity, Tool], &[InteractingEntity]);
-    pub const BLOCK_INTERACT: ContextKeySet = ContextKeySet::new(&[BlockState, Origin], &[BlockEntity, InteractingEntity, Tool]);
-    pub const CONTAINER_PROCESS: ContextKeySet = ContextKeySet::new(&[BlockEntity, BlockState, Container, Origin], &[]);
-    pub const ENCHANTED_DAMAGE: ContextKeySet =
-        ContextKeySet::new(&[ThisEntity, EnchantmentLevel, Origin, DamageSource], &[DirectAttackingEntity, AttackingEntity]);
+    pub const ENTITY_INTERACT: ContextKeySet =
+        ContextKeySet::new(&[TargetEntity, Tool], &[InteractingEntity]);
+    pub const BLOCK_INTERACT: ContextKeySet = ContextKeySet::new(
+        &[BlockState, Origin],
+        &[BlockEntity, InteractingEntity, Tool],
+    );
+    pub const CONTAINER_PROCESS: ContextKeySet =
+        ContextKeySet::new(&[BlockEntity, BlockState, Container, Origin], &[]);
+    pub const ENCHANTED_DAMAGE: ContextKeySet = ContextKeySet::new(
+        &[ThisEntity, EnchantmentLevel, Origin, DamageSource],
+        &[DirectAttackingEntity, AttackingEntity],
+    );
     pub const ENCHANTED_ITEM: ContextKeySet = ContextKeySet::new(&[Tool, EnchantmentLevel], &[]);
-    pub const ENCHANTED_LOCATION: ContextKeySet = ContextKeySet::new(&[ThisEntity, EnchantmentLevel, Origin, EnchantmentActive], &[]);
-    pub const ENCHANTED_ENTITY: ContextKeySet = ContextKeySet::new(&[ThisEntity, EnchantmentLevel, Origin], &[]);
-    pub const HIT_BLOCK: ContextKeySet = ContextKeySet::new(&[ThisEntity, EnchantmentLevel, Origin, BlockState], &[]);
+    pub const ENCHANTED_LOCATION: ContextKeySet = ContextKeySet::new(
+        &[ThisEntity, EnchantmentLevel, Origin, EnchantmentActive],
+        &[],
+    );
+    pub const ENCHANTED_ENTITY: ContextKeySet =
+        ContextKeySet::new(&[ThisEntity, EnchantmentLevel, Origin], &[]);
+    pub const HIT_BLOCK: ContextKeySet =
+        ContextKeySet::new(&[ThisEntity, EnchantmentLevel, Origin, BlockState], &[]);
 
     /// The registered sets by name (`BuiltInRegistries.CONTEXT_KEY_SET`, registration order).
     pub const ALL: &[(&str, ContextKeySet)] = &[
@@ -125,7 +148,10 @@ pub mod LootContextParamSets {
         for (name, set) in ALL {
             if *name != "generic" {
                 for k in set.allowed() {
-                    assert!(ALL_PARAMS.is_required(k), "Missing parameters from 'all_params': {k}");
+                    assert!(
+                        ALL_PARAMS.is_required(k),
+                        "Missing parameters from 'all_params': {k}"
+                    );
                 }
             }
         }

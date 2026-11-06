@@ -1,8 +1,5 @@
 use super::bit::bit_random_source_methods;
-use super::{
-    BitRandomSource, MarsagliaPolarGaussian, PositionalRandomFactory,
-    RandomSource,
-};
+use super::{BitRandomSource, MarsagliaPolarGaussian, PositionalRandomFactory, RandomSource};
 use std::sync::atomic::{AtomicI64, Ordering};
 
 const MODULUS_BITS: i32 = 48;
@@ -32,7 +29,10 @@ pub struct LegacyRandomSource {
 
 impl LegacyRandomSource {
     pub fn new(seed: i64) -> Self {
-        Self { seed: scramble(seed), gaussian: MarsagliaPolarGaussian::new() }
+        Self {
+            seed: scramble(seed),
+            gaussian: MarsagliaPolarGaussian::new(),
+        }
     }
 }
 
@@ -80,7 +80,10 @@ pub struct ThreadSafeLegacyRandomSource {
 
 impl ThreadSafeLegacyRandomSource {
     pub fn new(seed: i64) -> Self {
-        Self { seed: AtomicI64::new(scramble(seed)), gaussian: MarsagliaPolarGaussian::new() }
+        Self {
+            seed: AtomicI64::new(scramble(seed)),
+            gaussian: MarsagliaPolarGaussian::new(),
+        }
     }
 
     /// Thread-safe `next(bits)`.
@@ -88,7 +91,10 @@ impl ThreadSafeLegacyRandomSource {
         let mut old = self.seed.load(Ordering::SeqCst);
         loop {
             let next = step(old);
-            match self.seed.compare_exchange(old, next, Ordering::SeqCst, Ordering::SeqCst) {
+            match self
+                .seed
+                .compare_exchange(old, next, Ordering::SeqCst, Ordering::SeqCst)
+            {
                 Ok(_) => return out(next, bits),
                 Err(actual) => old = actual,
             }
@@ -134,7 +140,10 @@ pub struct SingleThreadedRandomSource {
 
 impl SingleThreadedRandomSource {
     pub fn new(seed: i64) -> Self {
-        Self { seed: scramble(seed), gaussian: MarsagliaPolarGaussian::new() }
+        Self {
+            seed: scramble(seed),
+            gaussian: MarsagliaPolarGaussian::new(),
+        }
     }
 }
 
@@ -182,11 +191,15 @@ impl LegacyPositionalRandomFactory {
 
 impl PositionalRandomFactory for LegacyPositionalRandomFactory {
     fn at(&self, x: i32, y: i32, z: i32) -> Box<dyn RandomSource> {
-        Box::new(LegacyRandomSource::new(crate::math::mth::get_seed_xyz(x, y, z) ^ self.seed))
+        Box::new(LegacyRandomSource::new(
+            crate::math::mth::get_seed_xyz(x, y, z) ^ self.seed,
+        ))
     }
 
     fn from_hash_of(&self, name: &str) -> Box<dyn RandomSource> {
-        Box::new(LegacyRandomSource::new(crate::math::java::java_string_hash(name) as i64 ^ self.seed))
+        Box::new(LegacyRandomSource::new(
+            crate::math::java::java_string_hash(name) as i64 ^ self.seed,
+        ))
     }
 
     fn from_seed(&self, seed: i64) -> Box<dyn RandomSource> {

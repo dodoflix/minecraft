@@ -41,11 +41,24 @@ impl CommandSyntaxException {
     pub const CONTEXT_AMOUNT: usize = 10;
 
     pub fn new(type_: CommandExceptionType, message: MessageRef) -> Self {
-        Self { type_, message, context: None }
+        Self {
+            type_,
+            message,
+            context: None,
+        }
     }
 
-    pub fn with_context(type_: CommandExceptionType, message: MessageRef, input: String, cursor: usize) -> Self {
-        Self { type_, message, context: Some((input, cursor)) }
+    pub fn with_context(
+        type_: CommandExceptionType,
+        message: MessageRef,
+        input: String,
+        cursor: usize,
+    ) -> Self {
+        Self {
+            type_,
+            message,
+            context: Some((input, cursor)),
+        }
     }
 
     /// `BUILT_IN_EXCEPTIONS`.
@@ -62,7 +75,11 @@ impl CommandSyntaxException {
     pub fn get_message(&self) -> String {
         let mut message = self.message.get_string();
         if let Some(context) = self.get_context() {
-            message.push_str(&format!(" at position {}: {}", self.context.as_ref().map_or(0, |c| c.1), context));
+            message.push_str(&format!(
+                " at position {}: {}",
+                self.context.as_ref().map_or(0, |c| c.1),
+                context
+            ));
         }
         message
     }
@@ -78,7 +95,11 @@ impl CommandSyntaxException {
         if cursor > Self::CONTEXT_AMOUNT {
             out.push_str("...");
         }
-        out.push_str(&substring(input, cursor.saturating_sub(Self::CONTEXT_AMOUNT), cursor));
+        out.push_str(&substring(
+            input,
+            cursor.saturating_sub(Self::CONTEXT_AMOUNT),
+            cursor,
+        ));
         out.push_str("<--[HERE]");
         Some(out)
     }
@@ -109,7 +130,12 @@ fn with_reader(
     message: MessageRef,
     reader: &dyn ImmutableStringReader,
 ) -> CommandSyntaxException {
-    CommandSyntaxException::with_context(type_, message, reader.get_string().to_owned(), reader.get_cursor())
+    CommandSyntaxException::with_context(
+        type_,
+        message,
+        reader.get_string().to_owned(),
+        reader.get_cursor(),
+    )
 }
 
 /// `SimpleCommandExceptionType`.
@@ -120,14 +146,20 @@ pub struct SimpleCommandExceptionType {
 
 impl SimpleCommandExceptionType {
     pub fn new(message: MessageRef) -> Self {
-        Self { id: CommandExceptionType::new(), message }
+        Self {
+            id: CommandExceptionType::new(),
+            message,
+        }
     }
 
     pub fn create(&self) -> CommandSyntaxException {
         CommandSyntaxException::new(self.id, self.message.clone())
     }
 
-    pub fn create_with_context(&self, reader: &dyn ImmutableStringReader) -> CommandSyntaxException {
+    pub fn create_with_context(
+        &self,
+        reader: &dyn ImmutableStringReader,
+    ) -> CommandSyntaxException {
         with_reader(self.id, self.message.clone(), reader)
     }
 }
@@ -177,14 +209,21 @@ pub struct DynamicNCommandExceptionType {
 
 impl DynamicNCommandExceptionType {
     pub fn new(function: impl Fn(&[&dyn Any]) -> MessageRef + Send + Sync + 'static) -> Self {
-        Self { id: CommandExceptionType::new(), function: Box::new(function) }
+        Self {
+            id: CommandExceptionType::new(),
+            function: Box::new(function),
+        }
     }
 
     pub fn create(&self, args: &[&dyn Any]) -> CommandSyntaxException {
         CommandSyntaxException::new(self.id, (self.function)(args))
     }
 
-    pub fn create_with_context(&self, reader: &dyn ImmutableStringReader, args: &[&dyn Any]) -> CommandSyntaxException {
+    pub fn create_with_context(
+        &self,
+        reader: &dyn ImmutableStringReader,
+        args: &[&dyn Any],
+    ) -> CommandSyntaxException {
         with_reader(self.id, (self.function)(args), reader)
     }
 }
@@ -245,7 +284,9 @@ fn simple(s: &str) -> SimpleCommandExceptionType {
     SimpleCommandExceptionType::new(literal(s))
 }
 
-fn dynamic(f: impl Fn(String) -> String + Send + Sync + 'static) -> DynamicCommandExceptionType<String> {
+fn dynamic(
+    f: impl Fn(String) -> String + Send + Sync + 'static,
+) -> DynamicCommandExceptionType<String> {
     DynamicCommandExceptionType::new(move |a| literal(f(a)))
 }
 

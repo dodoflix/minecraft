@@ -66,14 +66,20 @@ impl Identifier {
         Self::create_untrusted(namespace, path)
     }
 
-    pub fn from_namespace_and_path(namespace: &str, path: &str) -> Result<Self, IdentifierException> {
+    pub fn from_namespace_and_path(
+        namespace: &str,
+        path: &str,
+    ) -> Result<Self, IdentifierException> {
         Self::create_untrusted(namespace, path)
     }
 
     fn create_untrusted(namespace: &str, path: &str) -> Result<Self, IdentifierException> {
         assert_valid_namespace(namespace, path)?;
         assert_valid_path(namespace, path)?;
-        Ok(Self { namespace: namespace.to_owned(), path: path.to_owned() })
+        Ok(Self {
+            namespace: namespace.to_owned(),
+            path: path.to_owned(),
+        })
     }
 
     pub fn parse(identifier: &str) -> Result<Self, IdentifierException> {
@@ -82,7 +88,10 @@ impl Identifier {
 
     pub fn with_default_namespace(path: &str) -> Result<Self, IdentifierException> {
         assert_valid_path(DEFAULT_NAMESPACE, path)?;
-        Ok(Self { namespace: DEFAULT_NAMESPACE.to_owned(), path: path.to_owned() })
+        Ok(Self {
+            namespace: DEFAULT_NAMESPACE.to_owned(),
+            path: path.to_owned(),
+        })
     }
 
     pub fn try_parse(identifier: &str) -> Option<Self> {
@@ -90,14 +99,21 @@ impl Identifier {
     }
 
     pub fn try_build(namespace: &str, path: &str) -> Option<Self> {
-        (is_valid_namespace(namespace) && is_valid_path(path)).then(|| Self { namespace: namespace.to_owned(), path: path.to_owned() })
+        (is_valid_namespace(namespace) && is_valid_path(path)).then(|| Self {
+            namespace: namespace.to_owned(),
+            path: path.to_owned(),
+        })
     }
 
     pub fn by_separator(identifier: &str, separator: char) -> Result<Self, IdentifierException> {
         match identifier.find(separator) {
             Some(i) => {
                 let path = &identifier[i + separator.len_utf8()..];
-                if i != 0 { Self::create_untrusted(&identifier[..i], path) } else { Self::with_default_namespace(path) }
+                if i != 0 {
+                    Self::create_untrusted(&identifier[..i], path)
+                } else {
+                    Self::with_default_namespace(path)
+                }
             }
             None => Self::with_default_namespace(identifier),
         }
@@ -111,12 +127,21 @@ impl Identifier {
                     None
                 } else if i != 0 {
                     let namespace = &identifier[..i];
-                    is_valid_namespace(namespace).then(|| Self { namespace: namespace.to_owned(), path: path.to_owned() })
+                    is_valid_namespace(namespace).then(|| Self {
+                        namespace: namespace.to_owned(),
+                        path: path.to_owned(),
+                    })
                 } else {
-                    Some(Self { namespace: DEFAULT_NAMESPACE.to_owned(), path: path.to_owned() })
+                    Some(Self {
+                        namespace: DEFAULT_NAMESPACE.to_owned(),
+                        path: path.to_owned(),
+                    })
                 }
             }
-            None => is_valid_path(identifier).then(|| Self { namespace: DEFAULT_NAMESPACE.to_owned(), path: identifier.to_owned() }),
+            None => is_valid_path(identifier).then(|| Self {
+                namespace: DEFAULT_NAMESPACE.to_owned(),
+                path: identifier.to_owned(),
+            }),
         }
     }
 
@@ -135,7 +160,10 @@ impl Identifier {
 
     pub fn with_path(&self, new_path: &str) -> Result<Self, IdentifierException> {
         assert_valid_path(&self.namespace, new_path)?;
-        Ok(Self { namespace: self.namespace.clone(), path: new_path.to_owned() })
+        Ok(Self {
+            namespace: self.namespace.clone(),
+            path: new_path.to_owned(),
+        })
     }
 
     pub fn with_prefix(&self, prefix: &str) -> Result<Self, IdentifierException> {
@@ -148,7 +176,9 @@ impl Identifier {
 
     /// Java `hashCode()`: `31 * namespace.hashCode() + path.hashCode()`.
     pub fn java_hash_code(&self) -> i32 {
-        31i32.wrapping_mul(java_string_hash(&self.namespace)).wrapping_add(java_string_hash(&self.path))
+        31i32
+            .wrapping_mul(java_string_hash(&self.namespace))
+            .wrapping_add(java_string_hash(&self.path))
     }
 
     pub fn to_debug_file_name(&self) -> String {
@@ -160,11 +190,19 @@ impl Identifier {
     }
 
     pub fn to_short_language_key(&self) -> String {
-        if self.namespace == DEFAULT_NAMESPACE { self.path.clone() } else { self.to_language_key() }
+        if self.namespace == DEFAULT_NAMESPACE {
+            self.path.clone()
+        } else {
+            self.to_language_key()
+        }
     }
 
     pub fn to_short_string(&self) -> String {
-        if self.namespace == DEFAULT_NAMESPACE { self.path.clone() } else { self.to_string() }
+        if self.namespace == DEFAULT_NAMESPACE {
+            self.path.clone()
+        } else {
+            self.to_string()
+        }
     }
 
     pub fn to_language_key_prefixed(&self, prefix: &str) -> String {
@@ -200,7 +238,9 @@ fn assert_valid_namespace(namespace: &str, path: &str) -> Result<(), IdentifierE
     if is_valid_namespace(namespace) {
         Ok(())
     } else {
-        Err(IdentifierException::new(&format!("Non [a-z0-9_.-] character in namespace of identifier: {namespace}:{path}")))
+        Err(IdentifierException::new(&format!(
+            "Non [a-z0-9_.-] character in namespace of identifier: {namespace}:{path}"
+        )))
     }
 }
 
@@ -208,7 +248,9 @@ fn assert_valid_path(namespace: &str, path: &str) -> Result<(), IdentifierExcept
     if is_valid_path(path) {
         Ok(())
     } else {
-        Err(IdentifierException::new(&format!("Non [a-z0-9/._-] character in path of location: {namespace}:{path}")))
+        Err(IdentifierException::new(&format!(
+            "Non [a-z0-9/._-] character in path of location: {namespace}:{path}"
+        )))
     }
 }
 
@@ -227,7 +269,9 @@ impl fmt::Debug for Identifier {
 /// `compareTo`: path first, then namespace (identifier chars are ASCII, so byte order == UTF-16 order).
 impl Ord for Identifier {
     fn cmp(&self, other: &Self) -> Ordering {
-        self.path.cmp(&other.path).then_with(|| self.namespace.cmp(&other.namespace))
+        self.path
+            .cmp(&other.path)
+            .then_with(|| self.namespace.cmp(&other.namespace))
     }
 }
 

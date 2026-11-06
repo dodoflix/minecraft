@@ -1,6 +1,6 @@
 //! `world.level.block.Rotation`. The codecs are not ported here.
 
-use crate::direction::{shuffled_copy, Direction};
+use crate::direction::{Direction, shuffled_copy};
 use crate::math::mth;
 use crate::math::octahedral_group::OctahedralGroup;
 use crate::random::RandomSource;
@@ -14,7 +14,12 @@ pub enum Rotation {
 }
 
 impl Rotation {
-    pub const ALL: [Rotation; 4] = [Rotation::None, Rotation::Clockwise90, Rotation::Clockwise180, Rotation::Counterclockwise90];
+    pub const ALL: [Rotation; 4] = [
+        Rotation::None,
+        Rotation::Clockwise90,
+        Rotation::Clockwise180,
+        Rotation::Counterclockwise90,
+    ];
 
     pub const fn ordinal(self) -> usize {
         self as usize
@@ -41,7 +46,9 @@ impl Rotation {
 
     /// `CODEC` lookup by serialized name.
     pub fn by_name(name: &str) -> Option<Rotation> {
-        Self::ALL.into_iter().find(|r| r.get_serialized_name() == name)
+        Self::ALL
+            .into_iter()
+            .find(|r| r.get_serialized_name() == name)
     }
 
     /// `rotation()`
@@ -77,7 +84,9 @@ impl Rotation {
         match self {
             Rotation::Clockwise90 => rotation.wrapping_add(steps / 4).wrapping_rem(steps),
             Rotation::Clockwise180 => rotation.wrapping_add(steps / 2).wrapping_rem(steps),
-            Rotation::Counterclockwise90 => rotation.wrapping_add(steps.wrapping_mul(3) / 4).wrapping_rem(steps),
+            Rotation::Counterclockwise90 => rotation
+                .wrapping_add(steps.wrapping_mul(3) / 4)
+                .wrapping_rem(steps),
             Rotation::None => rotation,
         }
     }

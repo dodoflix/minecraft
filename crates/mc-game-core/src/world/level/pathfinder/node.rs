@@ -66,7 +66,11 @@ impl Node {
 
     /// `createHash(x, y, z)` (not injective: also the key of the evaluator's node map).
     pub fn create_hash(x: i32, y: i32, z: i32) -> i32 {
-        (y & 0xFF) | ((x & 32767) << 8) | ((z & 32767) << 24) | if x < 0 { i32::MIN } else { 0 } | if z < 0 { 32768 } else { 0 }
+        (y & 0xFF)
+            | ((x & 32767) << 8)
+            | ((z & 32767) << 24)
+            | if x < 0 { i32::MIN } else { 0 }
+            | if z < 0 { 32768 } else { 0 }
     }
 
     /// `hashCode()`.
@@ -160,7 +164,12 @@ impl Target {
     }
 
     pub fn at(x: i32, y: i32, z: i32) -> Target {
-        Target { node: Node::new(x, y, z), best_heuristic: f32::MAX, best_node: None, reached: false }
+        Target {
+            node: Node::new(x, y, z),
+            best_heuristic: f32::MAX,
+            best_node: None,
+            reached: false,
+        }
     }
 
     /// `updateBest(heuristic, node)`.
@@ -200,7 +209,10 @@ mod tests {
     fn hash_matches_vanilla_formula() {
         assert_eq!(Node::create_hash(0, 0, 0), 0);
         assert_eq!(Node::create_hash(1, 2, 3), 2 | (1 << 8) | (3 << 24));
-        assert_eq!(Node::create_hash(-1, 70, -1), 70 | (32767 << 8) | (32767 << 24) | i32::MIN | 32768);
+        assert_eq!(
+            Node::create_hash(-1, 70, -1),
+            70 | (32767 << 8) | (32767 << 24) | i32::MIN | 32768
+        );
     }
 
     #[test]

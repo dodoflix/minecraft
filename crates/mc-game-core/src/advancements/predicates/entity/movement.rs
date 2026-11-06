@@ -24,7 +24,15 @@ pub struct MovementPredicate {
 impl MovementPredicate {
     fn only(f: impl FnOnce(&mut MovementPredicate)) -> MovementPredicate {
         let any = Doubles::any;
-        let mut p = MovementPredicate { x: any(), y: any(), z: any(), speed: any(), horizontal_speed: any(), vertical_speed: any(), fall_distance: any() };
+        let mut p = MovementPredicate {
+            x: any(),
+            y: any(),
+            z: any(),
+            speed: any(),
+            horizontal_speed: any(),
+            vertical_speed: any(),
+            fall_distance: any(),
+        };
         f(&mut p);
         p
     }
@@ -51,7 +59,9 @@ impl MovementPredicate {
             && self.y.matches(y)
             && self.z.matches(z)
             && self.speed.matches_sqr(mth::length_squared_xyz_f64(x, y, z))
-            && self.horizontal_speed.matches_sqr(mth::length_squared_f64(x, z))
+            && self
+                .horizontal_speed
+                .matches_sqr(mth::length_squared_f64(x, z))
             && self.vertical_speed.matches(y.abs())
             && self.fall_distance.matches(fall_distance)
     }
@@ -66,7 +76,8 @@ impl EntitySubPredicateImpl for MovementPredicate {
                 y: Doubles::codec().optional_field_of_default("y", any()),
                 z: Doubles::codec().optional_field_of_default("z", any()),
                 speed: Doubles::codec().optional_field_of_default("speed", any()),
-                horizontal_speed: Doubles::codec().optional_field_of_default("horizontal_speed", any()),
+                horizontal_speed: Doubles::codec()
+                    .optional_field_of_default("horizontal_speed", any()),
                 vertical_speed: Doubles::codec().optional_field_of_default("vertical_speed", any()),
                 fall_distance: Doubles::codec().optional_field_of_default("fall_distance", any()),
             })
@@ -75,9 +86,20 @@ impl EntitySubPredicateImpl for MovementPredicate {
         C.clone()
     }
 
-    fn matches<'a>(&self, entity: &'a dyn Entity, level: &'a ServerLevel, _position: Option<Vec3>, _lent: &[&'a dyn Entity]) -> bool {
+    fn matches<'a>(
+        &self,
+        entity: &'a dyn Entity,
+        level: &'a ServerLevel,
+        _position: Option<Vec3>,
+        _lent: &[&'a dyn Entity],
+    ) -> bool {
         let m = support::get_known_movement(level, entity);
         let velocity = Vec3::new(m.x * 20.0, m.y * 20.0, m.z * 20.0);
-        self.matches_values(velocity.x, velocity.y, velocity.z, entity.base().fall_distance)
+        self.matches_values(
+            velocity.x,
+            velocity.y,
+            velocity.z,
+            entity.base().fall_distance,
+        )
     }
 }

@@ -17,7 +17,10 @@ pub const SWIM_SOUND: SoundEvent = SoundEvent::ENTITY_HOSTILE_SWIM;
 pub const SWIM_SPLASH_SOUND: SoundEvent = SoundEvent::ENTITY_HOSTILE_SPLASH;
 pub const HURT_SOUND: SoundEvent = SoundEvent::ENTITY_HOSTILE_HURT;
 pub const DEATH_SOUND: SoundEvent = SoundEvent::ENTITY_HOSTILE_DEATH;
-pub const FALL_SOUNDS: (SoundEvent, SoundEvent) = (SoundEvent::ENTITY_HOSTILE_SMALL_FALL, SoundEvent::ENTITY_HOSTILE_BIG_FALL);
+pub const FALL_SOUNDS: (SoundEvent, SoundEvent) = (
+    SoundEvent::ENTITY_HOSTILE_SMALL_FALL,
+    SoundEvent::ENTITY_HOSTILE_BIG_FALL,
+);
 
 /// `Monster.shouldDropLoot(level)`.
 pub fn should_drop_loot(level: &ServerLevel) -> bool {

@@ -19,7 +19,7 @@ use mc_world::heightmap::HeightmapType;
 use mc_world::palette::{BiomeId, BiomeRegistry, PalettedContainerFactory};
 use mc_world::status::ChunkStatus;
 use mc_world::upgrade_data::UpgradeData;
-use mc_worldgen::blending::{self, BlendingChunk, BlendingRegion, Blender};
+use mc_worldgen::blending::{self, Blender, BlendingChunk, BlendingRegion};
 use mc_worldgen::densityfunction::{DensityVolume, SamplerContext};
 
 // ---- shared deterministic helpers (mirrors of the oracle) ----
@@ -35,7 +35,10 @@ fn h(seed: i64, a: i64, b: i64, c: i64) -> u64 {
         (seed as u64).wrapping_mul(0x9E3779B97F4A7C15)
             ^ mix64(
                 (a as u64).wrapping_mul(0xD6E8FEB86659FD93)
-                    ^ mix64((b as u64).wrapping_mul(0xCA5A826395121157) ^ mix64((c as u64).wrapping_add(0x1234567))),
+                    ^ mix64(
+                        (b as u64).wrapping_mul(0xCA5A826395121157)
+                            ^ mix64((c as u64).wrapping_add(0x1234567)),
+                    ),
             ),
     )
 }
@@ -51,7 +54,10 @@ struct Digest {
 
 impl Digest {
     fn new() -> Digest {
-        Digest { v: 0xcbf29ce484222325, count: 0 }
+        Digest {
+            v: 0xcbf29ce484222325,
+            count: 0,
+        }
     }
     fn b(&mut self, x: i32) {
         self.v ^= (x & 0xFF) as u64;
@@ -73,7 +79,13 @@ impl Digest {
 }
 
 fn factory() -> PalettedContainerFactory {
-    PalettedContainerFactory::create(BiomeRegistry::new(BIOME_NAMES.iter().map(|n| format!("minecraft:{n}")).collect())).unwrap()
+    PalettedContainerFactory::create(BiomeRegistry::new(
+        BIOME_NAMES
+            .iter()
+            .map(|n| format!("minecraft:{n}"))
+            .collect(),
+    ))
+    .unwrap()
 }
 
 thread_local! {
@@ -82,7 +94,9 @@ thread_local! {
 }
 
 fn biome_fn(seed: i64, qx: i32, qy: i32, qz: i32) -> BiomeId {
-    BiomeId(BIOME_TABLE.with(|t| t.get())[hmod(h(seed, qx as i64, qy as i64, qz as i64), 8) as usize])
+    BiomeId(
+        BIOME_TABLE.with(|t| t.get())[hmod(h(seed, qx as i64, qy as i64, qz as i64), 8) as usize],
+    )
 }
 
 fn surf() -> [Block; 10] {
@@ -105,7 +119,11 @@ fn terrain(seed: i64, wx: i32, y: i32, wz: i32) -> BlockState {
     let top = 50 + hmod(hc >> 3, 40);
     let kind = hmod(hc >> 11, 16);
     let surfaces = surf();
-    let surface = if kind == 1 { Block::DEEPSLATE } else { surfaces[hmod(hc >> 19, surfaces.len() as i32) as usize] };
+    let surface = if kind == 1 {
+        Block::DEEPSLATE
+    } else {
+        surfaces[hmod(hc >> 19, surfaces.len() as i32) as usize]
+    };
     let r = h(seed, wx as i64, y as i64, wz as i64);
     let block = if y < top - 4 {
         if hmod(r, 13) == 0 {
@@ -182,9 +200,19 @@ fn make_chunk(
     fill_blocks: bool,
 ) -> ProtoChunk {
     let blending = old.and_then(|o| {
-        BlendingData::unpack(Some(&BlendingDataPacked { min_section: o.min_sec, max_section: o.max_sec, heights: o.heights.clone() }))
+        BlendingData::unpack(Some(&BlendingDataPacked {
+            min_section: o.min_sec,
+            max_section: o.max_sec,
+            heights: o.heights.clone(),
+        }))
     });
-    let mut chunk = ProtoChunk::new(ChunkPos::new(cx, cz), UpgradeData::empty(), LevelHeight::new(min_y, height), f, blending);
+    let mut chunk = ProtoChunk::new(
+        ChunkPos::new(cx, cz),
+        UpgradeData::empty(),
+        LevelHeight::new(min_y, height),
+        f,
+        blending,
+    );
     if let Some(o) = old {
         for x in 0..16 {
             for z in 0..16 {
@@ -200,9 +228,13 @@ fn make_chunk(
             }
         }
         let accessor = chunk.get_height_accessor_for_generation();
-        chunk.access.fill_biomes_from_noise(accessor, |qx, qy, qz| biome_fn(seed ^ 0xB10, qx, qy, qz));
+        chunk
+            .access
+            .fill_biomes_from_noise(accessor, |qx, qy, qz| biome_fn(seed ^ 0xB10, qx, qy, qz));
         if o.primed {
-            chunk.access.prime_heightmaps(true, &[HeightmapType::WorldSurfaceWg]);
+            chunk
+                .access
+                .prime_heightmaps(true, &[HeightmapType::WorldSurfaceWg]);
         }
         chunk.set_persisted_status(o.status);
     }
@@ -225,7 +257,8 @@ impl BlendingRegion for Region<'_> {
 
     fn is_old_chunk_around(&self, pos: ChunkPos, range: i32) -> bool {
         self.chunks.borrow().values().any(|c| {
-            c.access.blending_data.is_some() && (c.pos().x - pos.x).abs().max((c.pos().z - pos.z).abs()) <= range
+            c.access.blending_data.is_some()
+                && (c.pos().x - pos.x).abs().max((c.pos().z - pos.z).abs()) <= range
         })
     }
 
@@ -233,7 +266,18 @@ impl BlendingRegion for Region<'_> {
         let mut chunks = self.chunks.borrow_mut();
         let chunk = chunks
             .entry(ChunkPos::pack_xz(chunk_x, chunk_z))
-            .or_insert_with(|| make_chunk(self.f, chunk_x, chunk_z, self.seed, self.min_y, self.height, None, true));
+            .or_insert_with(|| {
+                make_chunk(
+                    self.f,
+                    chunk_x,
+                    chunk_z,
+                    self.seed,
+                    self.min_y,
+                    self.height,
+                    None,
+                    true,
+                )
+            });
         f(chunk);
     }
 }
@@ -264,8 +308,11 @@ fn parse(text: &str) -> (Vec<Scenario>, Vec<Retro>, Golden) {
                 status: ChunkStatus::decode_str(t[5]).unwrap(),
                 primed: t[6] == "1",
                 full: t[7] == "1",
-                heights: (t[8] != "-")
-                    .then(|| t[8].split(',').map(|b| f32::from_bits(u32::from_str_radix(b, 16).unwrap())).collect()),
+                heights: (t[8] != "-").then(|| {
+                    t[8].split(',')
+                        .map(|b| f32::from_bits(u32::from_str_radix(b, 16).unwrap()))
+                        .collect()
+                }),
             }),
             "RETRO" => retros.push(Retro {
                 id: t[1].parse().unwrap(),
@@ -274,7 +321,10 @@ fn parse(text: &str) -> (Vec<Scenario>, Vec<Retro>, Golden) {
                 cz: t[4].parse().unwrap(),
                 target: t[5].to_string(),
                 bits: (t[6] != "-").then(|| {
-                    t[6].trim_matches(|c| c == '[' || c == ']').split(',').map(|v| v.parse::<i64>().unwrap()).collect()
+                    t[6].trim_matches(|c| c == '[' || c == ']')
+                        .split(',')
+                        .map(|v| v.parse::<i64>().unwrap())
+                        .collect()
                 }),
             }),
             "S" => {
@@ -296,7 +346,9 @@ struct Retro {
 }
 
 fn check(golden: &Golden, id: i32, what: &str, digest: &Digest) {
-    let expected = golden.get(&(id, what.to_string())).unwrap_or_else(|| panic!("scenario {id}: no golden {what}"));
+    let expected = golden
+        .get(&(id, what.to_string()))
+        .unwrap_or_else(|| panic!("scenario {id}: no golden {what}"));
     assert_eq!(&digest.line(), expected, "scenario {id}: {what}");
 }
 
@@ -320,16 +372,27 @@ fn blending_matches_vanilla() {
         };
         for o in &sc.olds {
             let (ox, oz) = (o.x, o.z);
-            region.chunks.borrow_mut().insert(ChunkPos::pack_xz(ox, oz), make_chunk(&f, ox, oz, seed, sc.min_y, sc.height, Some(o), true));
+            region.chunks.borrow_mut().insert(
+                ChunkPos::pack_xz(ox, oz),
+                make_chunk(&f, ox, oz, seed, sc.min_y, sc.height, Some(o), true),
+            );
         }
         let blender = Blender::of(Some(&region));
-        assert_eq!(golden[&(id, "empty".to_string())], format!("{} 0", blender.is_empty() as i32), "scenario {id}: empty");
+        assert_eq!(
+            golden[&(id, "empty".to_string())],
+            format!("{} 0", blender.is_empty() as i32),
+            "scenario {id}: empty"
+        );
         empties += blender.is_empty() as i32;
 
         let (mut dh, mut dd, mut db) = (Digest::new(), Digest::new(), Digest::new());
         for o in &sc.olds {
             let chunks = region.chunks.borrow();
-            let data = chunks[&ChunkPos::pack_xz(o.x, o.z)].access.blending_data.as_ref().unwrap();
+            let data = chunks[&ChunkPos::pack_xz(o.x, o.z)]
+                .access
+                .blending_data
+                .as_ref()
+                .unwrap();
             let p = data.pack();
             dh.i(p.min_section);
             dh.i(p.max_section);
@@ -366,7 +429,8 @@ fn blending_matches_vanilla() {
         let mut dof = Digest::new();
         for a in 0..48 {
             for b in 0..48 {
-                let out = blender.blend_offset_and_factor_at(cx * 16 - 64 + a * 3, cz * 16 - 64 + b * 3);
+                let out =
+                    blender.blend_offset_and_factor_at(cx * 16 - 64 + a * 3, cz * 16 - 64 + b * 3);
                 dof.f(out.alpha);
                 dof.f(out.blending_offset);
             }
@@ -389,7 +453,8 @@ fn blending_matches_vanilla() {
             dv.i(ob.cell_count_z);
             ob.alphas.iter().for_each(|&x| dv.f(x));
             ob.offsets.iter().for_each(|&x| dv.f(x));
-            let (alpha_sampler, offset_sampler) = (ob.create_alpha_sampler(), ob.create_offset_sampler());
+            let (alpha_sampler, offset_sampler) =
+                (ob.create_alpha_sampler(), ob.create_offset_sampler());
             let mut bx = v.min_block_x - 24;
             while bx <= v.max_block_x() + 24 {
                 let mut bz = v.min_block_z - 24;
@@ -421,7 +486,8 @@ fn blending_matches_vanilla() {
         check(&golden, id, "density", &dbd);
 
         let mut dbr = Digest::new();
-        let resolver = blender.get_biome_resolver(Box::new(move |qx, qy, qz| biome_fn(seed ^ 5, qx, qy, qz)));
+        let resolver =
+            blender.get_biome_resolver(Box::new(move |qx, qy, qz| biome_fn(seed ^ 5, qx, qy, qz)));
         for qx in cx * 4 - 16..cx * 4 + 20 {
             for qz in cz * 4 - 16..cz * 4 + 20 {
                 for qy in -16..80 {
@@ -447,7 +513,11 @@ fn blending_matches_vanilla() {
             }
         }
         check(&golden, id, "carving", &dc);
-        assert_eq!(golden[&(id, "carving_true".to_string())], format!("{trues} 0"), "scenario {id}: carving_true");
+        assert_eq!(
+            golden[&(id, "carving_true".to_string())],
+            format!("{trues} 0"),
+            "scenario {id}: carving_true"
+        );
 
         let mut dbt = Digest::new();
         blending::generate_border_ticks(&region, ChunkPos::new(cx, cz));
@@ -464,7 +534,10 @@ fn blending_matches_vanilla() {
         }
         check(&golden, id, "border", &dbt);
     }
-    assert!(empties > 0 && (empties as usize) < scenarios.len(), "scenarios must cover empty and non-empty blenders");
+    assert!(
+        empties > 0 && (empties as usize) < scenarios.len(),
+        "scenarios must cover empty and non-empty blenders"
+    );
 
     for r in &retros {
         retro(&f, r, &golden);
@@ -485,12 +558,30 @@ fn emit_blocks(chunk: &ProtoChunk) -> Digest {
 
 fn retro(f: &PalettedContainerFactory, r: &Retro, golden: &Golden) {
     let (id, seed, cx, cz) = (r.id, r.seed, r.cx, r.cz);
-    let mut chunk = ProtoChunk::new(ChunkPos::new(cx, cz), UpgradeData::empty(), LevelHeight::new(-64, 384), f, None);
-    let pool = [Block::BEDROCK, Block::BEDROCK, Block::BEDROCK, Block::STONE, Block::DEEPSLATE, Block::AIR, Block::WATER, Block::DIRT];
+    let mut chunk = ProtoChunk::new(
+        ChunkPos::new(cx, cz),
+        UpgradeData::empty(),
+        LevelHeight::new(-64, 384),
+        f,
+        None,
+    );
+    let pool = [
+        Block::BEDROCK,
+        Block::BEDROCK,
+        Block::BEDROCK,
+        Block::STONE,
+        Block::DEEPSLATE,
+        Block::AIR,
+        Block::WATER,
+        Block::DIRT,
+    ];
     for x in 0..16 {
         for z in 0..16 {
             for y in -64..12 {
-                let b = pool[hmod(h(seed, (x + cx * 16) as i64, y as i64, (z + cz * 16) as i64), pool.len() as i32) as usize];
+                let b = pool[hmod(
+                    h(seed, (x + cx * 16) as i64, y as i64, (z + cz * 16) as i64),
+                    pool.len() as i32,
+                ) as usize];
                 if b != Block::AIR {
                     chunk.set_block_state(BlockPos::new(x, y, z), b.default_state(), None);
                 }
@@ -498,8 +589,14 @@ fn retro(f: &PalettedContainerFactory, r: &Retro, golden: &Golden) {
         }
     }
     let accessor = chunk.get_height_accessor_for_generation();
-    chunk.access.fill_biomes_from_noise(accessor, |qx, qy, qz| biome_fn(seed ^ 11, qx, qy, qz));
-    chunk.access.fill_biomes_from_noise(LevelHeight::new(0, 16), |qx, qy, qz| biome_fn(seed ^ 12, qx, qy, qz));
+    chunk
+        .access
+        .fill_biomes_from_noise(accessor, |qx, qy, qz| biome_fn(seed ^ 11, qx, qy, qz));
+    chunk
+        .access
+        .fill_biomes_from_noise(LevelHeight::new(0, 16), |qx, qy, qz| {
+            biome_fn(seed ^ 12, qx, qy, qz)
+        });
     let mut tag = CompoundTag::new();
     tag.put_string("target_status", r.target.clone());
     if let Some(bits) = &r.bits {
@@ -513,7 +610,10 @@ fn retro(f: &PalettedContainerFactory, r: &Retro, golden: &Golden) {
     if retrogen.has_bedrock_holes() {
         blending::apply_bedrock_mask(&retrogen, &mut chunk);
     }
-    assert_eq!(golden[&(id, "retro_holes".to_string())], format!("{} 0", retrogen.has_bedrock_holes() as i32));
+    assert_eq!(
+        golden[&(id, "retro_holes".to_string())],
+        format!("{} 0", retrogen.has_bedrock_holes() as i32)
+    );
     check(golden, id, "retro_mask", &emit_blocks(&chunk));
 
     let retained = |b: BiomeId| (3..=5).contains(&b.0);
@@ -561,7 +661,6 @@ fn level_chunk_shares_the_chunk_view_semantics() {
 // Blended terrain: createBiomes / doFill / buildTerrain with a non-empty Blender (tests/oracle/BlendedTerrainOracle.java)
 // ------------------------------------------------------------------------------------------------------------------
 
-
 use mc_worldgen::biome::BiomeManager;
 use mc_worldgen::generator::{BuildTerrainContext, ChunkGenerator, NoiseBasedChunkGenerator};
 use mc_worldgen::random_state::RandomState;
@@ -606,18 +705,28 @@ fn parse_terrain(text: &str) -> (Vec<TerrainCase>, Lines) {
                 status: ChunkStatus::decode_str(t[5]).unwrap(),
                 primed: t[6] == "1",
                 full: false,
-                heights: (t[7] != "-")
-                    .then(|| t[7].split(',').map(|b| f32::from_bits(u32::from_str_radix(b, 16).unwrap())).collect()),
+                heights: (t[7] != "-").then(|| {
+                    t[7].split(',')
+                        .map(|b| f32::from_bits(u32::from_str_radix(b, 16).unwrap()))
+                        .collect()
+                }),
             }),
             "RETRO" => {
                 let c = cases.last_mut().unwrap();
                 c.target = t[2].to_owned();
-                c.bits = (t[3] != "-")
-                    .then(|| t[3].trim_matches(|ch| ch == '[' || ch == ']').split(',').map(|v| v.parse::<i64>().unwrap()).collect());
+                c.bits = (t[3] != "-").then(|| {
+                    t[3].trim_matches(|ch| ch == '[' || ch == ']')
+                        .split(',')
+                        .map(|v| v.parse::<i64>().unwrap())
+                        .collect()
+                });
             }
             "END" => {}
             tag => {
-                lines.entry((tag.to_owned(), t[1].parse().unwrap())).or_default().push(t[2..].join(" "));
+                lines
+                    .entry((tag.to_owned(), t[1].parse().unwrap()))
+                    .or_default()
+                    .push(t[2..].join(" "));
             }
         }
     }
@@ -625,7 +734,12 @@ fn parse_terrain(text: &str) -> (Vec<TerrainCase>, Lines) {
 }
 
 /// Fresh region with the case's old chunks plus the target chunk (kind 0 new, 1 old, 2 below-zero retrogen).
-fn build_region<'f>(f: &'f PalettedContainerFactory, c: &TerrainCase, height: LevelHeight, target_status: ChunkStatus) -> Region<'f> {
+fn build_region<'f>(
+    f: &'f PalettedContainerFactory,
+    c: &TerrainCase,
+    height: LevelHeight,
+    target_status: ChunkStatus,
+) -> Region<'f> {
     let region = Region {
         f,
         seed: c.seed,
@@ -638,42 +752,95 @@ fn build_region<'f>(f: &'f PalettedContainerFactory, c: &TerrainCase, height: Le
         if (o.x, o.z) == (c.cx, c.cz) {
             continue;
         }
-        region.chunks.borrow_mut().insert(ChunkPos::pack_xz(o.x, o.z), make_chunk(f, o.x, o.z, c.seed, height.min_y, height.height, Some(o), true));
+        region.chunks.borrow_mut().insert(
+            ChunkPos::pack_xz(o.x, o.z),
+            make_chunk(
+                f,
+                o.x,
+                o.z,
+                c.seed,
+                height.min_y,
+                height.height,
+                Some(o),
+                true,
+            ),
+        );
     }
     let target = if c.kind == 1 {
         let o = c.olds.iter().find(|o| (o.x, o.z) == (c.cx, c.cz)).unwrap();
-        let mut chunk = make_chunk(f, c.cx, c.cz, c.seed, height.min_y, height.height, Some(o), false);
+        let mut chunk = make_chunk(
+            f,
+            c.cx,
+            c.cz,
+            c.seed,
+            height.min_y,
+            height.height,
+            Some(o),
+            false,
+        );
         chunk.set_persisted_status(target_status);
         chunk
     } else {
-        let mut chunk = ProtoChunk::new(ChunkPos::new(c.cx, c.cz), UpgradeData::empty(), height, f, None);
+        let mut chunk = ProtoChunk::new(
+            ChunkPos::new(c.cx, c.cz),
+            UpgradeData::empty(),
+            height,
+            f,
+            None,
+        );
         if c.kind == 2 {
             for x in 0..16 {
                 for z in 0..16 {
                     for y in 0..8 {
-                        if hmod(h(c.seed, (c.cx * 16 + x) as i64, y as i64, (c.cz * 16 + z) as i64), 3) != 0 {
-                            chunk.set_block_state(BlockPos::new(x, y, z), Block::BEDROCK.default_state(), None);
+                        if hmod(
+                            h(
+                                c.seed,
+                                (c.cx * 16 + x) as i64,
+                                y as i64,
+                                (c.cz * 16 + z) as i64,
+                            ),
+                            3,
+                        ) != 0
+                        {
+                            chunk.set_block_state(
+                                BlockPos::new(x, y, z),
+                                Block::BEDROCK.default_state(),
+                                None,
+                            );
                         }
                     }
                 }
             }
             let seed = c.seed;
-            chunk.access.fill_biomes_from_noise(LevelHeight::new(0, 16), |qx, qy, qz| biome_fn(seed ^ 12, qx, qy, qz));
+            chunk
+                .access
+                .fill_biomes_from_noise(LevelHeight::new(0, 16), |qx, qy, qz| {
+                    biome_fn(seed ^ 12, qx, qy, qz)
+                });
             let mut tag = CompoundTag::new();
             tag.put_string("target_status", c.target.clone());
             if let Some(bits) = &c.bits {
                 tag.put_long_array("missing_bedrock", bits.clone());
             }
-            chunk.set_below_zero_retrogen(Some(BelowZeroRetrogen::parse(&Tag::Compound(tag)).expect("retrogen")));
+            chunk.set_below_zero_retrogen(Some(
+                BelowZeroRetrogen::parse(&Tag::Compound(tag)).expect("retrogen"),
+            ));
         }
         chunk.set_persisted_status(target_status);
         chunk
     };
-    region.chunks.borrow_mut().insert(ChunkPos::pack_xz(c.cx, c.cz), target);
+    region
+        .chunks
+        .borrow_mut()
+        .insert(ChunkPos::pack_xz(c.cx, c.cz), target);
     region
 }
 
-fn terrain_ctx<'a>(rs: &'a Arc<RandomState>, blender: &'a Blender, manager: &'a BiomeManager<'a>) -> BuildTerrainContext<'a> {
+fn terrain_ctx<'a>(
+    rs: &'a Arc<RandomState>,
+    blender: &'a Blender,
+    manager: &'a BiomeManager<'a>,
+) -> BuildTerrainContext<'a> {
     BuildTerrainContext {
         random_state: rs,
         blender,
@@ -685,24 +852,33 @@ fn terrain_ctx<'a>(rs: &'a Arc<RandomState>, blender: &'a Blender, manager: &'a 
 }
 
 fn check_lines(lines: &Lines, tag: &str, id: i32, got: &[String]) {
-    let expected = lines.get(&(tag.to_owned(), id)).unwrap_or_else(|| panic!("case {id}: no golden {tag}"));
+    let expected = lines
+        .get(&(tag.to_owned(), id))
+        .unwrap_or_else(|| panic!("case {id}: no golden {tag}"));
     assert_eq!(got, expected.as_slice(), "case {id}: {tag}");
 }
 
 #[test]
 fn blended_terrain_matches_vanilla() {
-    use crate::common::{WORLD, biome_hash, generator, heightmap_lines, post_processing_hash, random_state, section_hashes};
+    use crate::common::{
+        WORLD, biome_hash, generator, heightmap_lines, post_processing_hash, random_state,
+        section_hashes,
+    };
 
-    let table: [u32; 8] = std::array::from_fn(|i| WORLD.biomes.id_of_name(BIOME_NAMES[i]).expect("biome").0);
+    let table: [u32; 8] =
+        std::array::from_fn(|i| WORLD.biomes.id_of_name(BIOME_NAMES[i]).expect("biome").0);
     BIOME_TABLE.with(|t| t.set(table));
-    let path = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/blended_terrain_golden.txt");
+    let path =
+        PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/blended_terrain_golden.txt");
     let (cases, lines) = parse_terrain(&std::fs::read_to_string(path).unwrap());
     assert!(cases.len() >= 12);
     let f = &WORLD.factory;
     let mut generators: HashMap<String, NoiseBasedChunkGenerator> = HashMap::new();
     for c in &cases {
         let id = c.id;
-        let generator = generators.entry(c.setting.clone()).or_insert_with(|| generator(&c.setting));
+        let generator = generators
+            .entry(c.setting.clone())
+            .or_insert_with(|| generator(&c.setting));
         let rs = random_state(generator, c.seed);
         let height = common::level_height(&c.setting);
         let resolver = generator.biome_source().create_uncached_resolver(&rs);
@@ -715,7 +891,12 @@ fn blended_terrain_matches_vanilla() {
         let mut chunk = region.chunks.borrow_mut().remove(&target_key).unwrap();
         generator.create_biomes(&rs, &blender, &mut chunk);
         chunk.set_persisted_status(ChunkStatus::Biomes);
-        check_lines(&lines, "BE", id, &[format!("{}", blender.is_empty() as i32)]);
+        check_lines(
+            &lines,
+            "BE",
+            id,
+            &[format!("{}", blender.is_empty() as i32)],
+        );
         check_lines(&lines, "BB", id, &[format!("{:016x}", biome_hash(&chunk))]);
 
         // doFill alone
@@ -724,32 +905,67 @@ fn blended_terrain_matches_vanilla() {
         let mut chunk = region.chunks.borrow_mut().remove(&target_key).unwrap();
         {
             let ctx = terrain_ctx(&rs, &blender, &manager);
-            let ns = generator.settings().noise.clamp_to_height_accessor(chunk.get_height_accessor_for_generation());
+            let ns = generator
+                .settings()
+                .noise
+                .clamp_to_height_accessor(chunk.get_height_accessor_for_generation());
             let mut nc = generator.create_noise_chunk(chunk.pos(), &ctx, ns);
             generator.do_fill(&mut nc, &mut chunk);
         }
-        check_lines(&lines, "BD", id, &[section_hashes(&chunk).trim_start().to_owned()]);
+        check_lines(
+            &lines,
+            "BD",
+            id,
+            &[section_hashes(&chunk).trim_start().to_owned()],
+        );
 
         // buildTerrain
         let region = build_region(f, c, height, ChunkStatus::Biomes);
         let blender = Blender::of(Some(&region));
         let mut chunk = region.chunks.borrow_mut().remove(&target_key).unwrap();
         generator.build_terrain(&mut chunk, &terrain_ctx(&rs, &blender, &manager));
-        check_lines(&lines, "BF", id, &[section_hashes(&chunk).trim_start().to_owned()]);
+        check_lines(
+            &lines,
+            "BF",
+            id,
+            &[section_hashes(&chunk).trim_start().to_owned()],
+        );
         let got: Vec<String> = heightmap_lines(&mut chunk);
         check_lines(&lines, "BFH", id, &got);
-        check_lines(&lines, "BFP", id, &[format!("{:016x}", post_processing_hash(&chunk))]);
+        check_lines(
+            &lines,
+            "BFP",
+            id,
+            &[format!("{:016x}", post_processing_hash(&chunk))],
+        );
         if let Some(retrogen) = chunk.get_below_zero_retrogen().cloned() {
             blending::replace_old_bedrock(&mut chunk);
             if retrogen.has_bedrock_holes() {
                 blending::apply_bedrock_mask(&retrogen, &mut chunk);
             }
-            check_lines(&lines, "BR", id, &[section_hashes(&chunk).trim_start().to_owned()]);
+            check_lines(
+                &lines,
+                "BR",
+                id,
+                &[section_hashes(&chunk).trim_start().to_owned()],
+            );
         } else {
-            assert!(!lines.contains_key(&("BR".to_owned(), id)), "case {id}: vanilla had a retrogen");
+            assert!(
+                !lines.contains_key(&("BR".to_owned(), id)),
+                "case {id}: vanilla had a retrogen"
+            );
         }
     }
     assert!(cases.iter().any(|c| c.kind == 2) && cases.iter().any(|c| c.kind == 1));
 }
 
-const BIOME_NAMES: [&str; 8] = ["plains", "forest", "desert", "lush_caves", "dripstone_caves", "deep_dark", "ocean", "river"];
+const BIOME_NAMES: [&str; 8] = [
+    "plains",
+    "forest",
+    "desert",
+    "lush_caves",
+    "dripstone_caves",
+    "deep_dark",
+    "ocean",
+    "river",
+];

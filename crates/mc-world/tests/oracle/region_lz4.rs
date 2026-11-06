@@ -14,9 +14,17 @@ fn lz4_java_decodes_our_frames() {
     let tmp = tempfile::tempdir().unwrap();
     for n in NAMES {
         let bin = std::fs::read(dir.join(format!("{n}.bin"))).unwrap();
-        std::fs::write(tmp.path().join(format!("{n}.rs.lz4")), VERSION_LZ4.compress(&bin).unwrap()).unwrap();
+        std::fs::write(
+            tmp.path().join(format!("{n}.rs.lz4")),
+            VERSION_LZ4.compress(&bin).unwrap(),
+        )
+        .unwrap();
         std::fs::write(tmp.path().join(format!("{n}.bin")), &bin).unwrap();
     }
     let out = run_java("Lz4Tool.java", &["check", tmp.path().to_str().unwrap()]);
-    assert_eq!(out.lines().filter(|l| l.starts_with("OK ")).count(), NAMES.len(), "{out}");
+    assert_eq!(
+        out.lines().filter(|l| l.starts_with("OK ")).count(),
+        NAMES.len(),
+        "{out}"
+    );
 }

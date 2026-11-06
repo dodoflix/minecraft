@@ -2,10 +2,10 @@
 
 use super::Dialog;
 use crate::components::holder::registry_by_name_codec;
-use crate::components::{component_codec, ItemStackTemplate};
+use crate::components::{ItemStackTemplate, component_codec};
 use mc_data::DialogBodyType;
 use mc_dfu::extra::extra_int_range;
-use mc_dfu::{Codec, MapCodec, BOOL};
+use mc_dfu::{BOOL, Codec, MapCodec};
 use mc_text::Component;
 use std::sync::LazyLock;
 
@@ -29,7 +29,12 @@ impl PlainMessage {
 
     /// `PlainMessage.CODEC`: the map form, or a bare component (default width).
     pub fn codec() -> Codec<PlainMessage> {
-        Self::map_codec().codec().with_alternative_conv(&component_codec(), |contents| PlainMessage { contents, width: Self::DEFAULT_WIDTH })
+        Self::map_codec()
+            .codec()
+            .with_alternative_conv(&component_codec(), |contents| PlainMessage {
+                contents,
+                width: Self::DEFAULT_WIDTH,
+            })
     }
 }
 
@@ -80,14 +85,23 @@ impl DialogBody {
                 DialogBody::Item(i) => i.clone(),
                 _ => unreachable!("dispatched by body type"),
             });
-            let message = PlainMessage::map_codec().xmap(DialogBody::PlainMessage, |b: &DialogBody| match b {
-                DialogBody::PlainMessage(m) => m.clone(),
-                _ => unreachable!("dispatched by body type"),
-            });
+            let message = PlainMessage::map_codec().xmap(
+                DialogBody::PlainMessage,
+                |b: &DialogBody| match b {
+                    DialogBody::PlainMessage(m) => m.clone(),
+                    _ => unreachable!("dispatched by body type"),
+                },
+            );
             registry_by_name_codec::<DialogBodyType>().dispatch(
                 "type",
                 |b: &DialogBody| b.body_type(),
-                move |t| if *t == DialogBodyType::ITEM { item.clone() } else { message.clone() },
+                move |t| {
+                    if *t == DialogBodyType::ITEM {
+                        item.clone()
+                    } else {
+                        message.clone()
+                    }
+                },
             )
         });
         CODEC.clone()

@@ -25,7 +25,13 @@ fn double_list(values: [f64; 3]) -> ListTag {
 
 /// The NBT every `LivingEntity`/`Mob` saves right after `snapTo(x, y, z, 0, 0)` + `finalizeSpawn`, without the
 /// `attributes`, `Health` and mob-specific parts.
-fn living_base(id: &str, pos: [f64; 3], health: f32, left_handed: bool, persistence_required: bool) -> CompoundTag {
+fn living_base(
+    id: &str,
+    pos: [f64; 3],
+    health: f32,
+    left_handed: bool,
+    persistence_required: bool,
+) -> CompoundTag {
     let mut tag = CompoundTag::new();
     tag.put_string("id", id);
     tag.put("Pos", double_list(pos));
@@ -86,7 +92,13 @@ fn mob_finalize_spawn(random: &mut dyn RandomSource) -> (CompoundTag, bool) {
 /// `finalizeSpawn` (guardians keep the base `Mob.finalizeSpawn`).
 pub fn elder_guardian(random: &mut dyn RandomSource, pos: BlockPos) -> CompoundTag {
     let (modifier, left_handed) = mob_finalize_spawn(random);
-    let mut tag = living_base("minecraft:elder_guardian", [pos.x() as f64 + 0.5, pos.y() as f64, pos.z() as f64 + 0.5], 80.0, left_handed, true);
+    let mut tag = living_base(
+        "minecraft:elder_guardian",
+        [pos.x() as f64 + 0.5, pos.y() as f64, pos.z() as f64 + 0.5],
+        80.0,
+        left_handed,
+        true,
+    );
     let mut attributes = ListTag::new();
     attributes.push(attribute("minecraft:follow_range", 16.0, vec![modifier]));
     tag.put("attributes", attributes);
@@ -95,7 +107,13 @@ pub fn elder_guardian(random: &mut dyn RandomSource, pos: BlockPos) -> CompoundT
 
 /// The illager part of the saved NBT (`Raider`/`PatrollingMonster`/`AbstractIllager`): not joined to a raid, no patrol.
 fn illager_base(id: &str, pos: BlockPos, health: f32, left_handed: bool) -> CompoundTag {
-    let mut tag = living_base(id, [pos.x() as f64 + 0.5, pos.y() as f64, pos.z() as f64 + 0.5], health, left_handed, true);
+    let mut tag = living_base(
+        id,
+        [pos.x() as f64 + 0.5, pos.y() as f64, pos.z() as f64 + 0.5],
+        health,
+        left_handed,
+        true,
+    );
     tag.put_boolean("CanJoinRaid", true);
     tag.put_boolean("PatrolLeader", false);
     tag.put_boolean("Patrolling", false);
@@ -122,7 +140,11 @@ pub fn evoker(random: &mut dyn RandomSource, pos: BlockPos) -> CompoundTag {
 /// "Warrior": as [`evoker`] plus `Vindicator.finalizeSpawn`: the iron axe and the (drawn) enchantment roll. The roll
 /// succeeds with `0.25 * difficulty.getSpecialMultiplier()`; the enchantment itself (`EnchantmentHelper.enchantItemFromProvider`
 /// with `mob_spawn_equipment`) is not ported, the axe stays plain.
-pub fn vindicator(random: &mut dyn RandomSource, pos: BlockPos, special_multiplier: f32) -> CompoundTag {
+pub fn vindicator(
+    random: &mut dyn RandomSource,
+    pos: BlockPos,
+    special_multiplier: f32,
+) -> CompoundTag {
     let (modifier, left_handed) = mob_finalize_spawn(random);
     let mut tag = illager_base("minecraft:vindicator", pos, 24.0, left_handed);
     tag.put("attributes", follow_range(12.0, modifier));
@@ -139,7 +161,13 @@ pub fn vindicator(random: &mut dyn RandomSource, pos: BlockPos, special_multipli
 /// "Group of Allays": `ALLAY.create` + `finalizeSpawn` (`Mob`).
 pub fn allay(random: &mut dyn RandomSource, pos: BlockPos) -> CompoundTag {
     let (modifier, left_handed) = mob_finalize_spawn(random);
-    let mut tag = living_base("minecraft:allay", [pos.x() as f64 + 0.5, pos.y() as f64, pos.z() as f64 + 0.5], 20.0, left_handed, true);
+    let mut tag = living_base(
+        "minecraft:allay",
+        [pos.x() as f64 + 0.5, pos.y() as f64, pos.z() as f64 + 0.5],
+        20.0,
+        left_handed,
+        true,
+    );
     tag.put_long("DuplicationCooldown", 0);
     tag.put("Inventory", ListTag::new());
     let mut selector = CompoundTag::new();
@@ -155,7 +183,13 @@ pub fn allay(random: &mut dyn RandomSource, pos: BlockPos) -> CompoundTag {
 /// `EndCityPiece` "Sentry": `SHULKER.create(level, STRUCTURE)` + `setPos(x + 0.5, y, z + 0.5)` (no `finalizeSpawn`, no
 /// `snapTo`: the yaw is `LivingEntity`'s `Math.random()` roll, as in vanilla).
 pub fn shulker(pos: BlockPos) -> CompoundTag {
-    let mut tag = living_base("minecraft:shulker", [pos.x() as f64 + 0.5, pos.y() as f64, pos.z() as f64 + 0.5], 30.0, false, false);
+    let mut tag = living_base(
+        "minecraft:shulker",
+        [pos.x() as f64 + 0.5, pos.y() as f64, pos.z() as f64 + 0.5],
+        30.0,
+        false,
+        false,
+    );
     let mut random = LegacyRandomSource::new(generate_unique_seed());
     let yaw = (random.next_double() * 6.2831854820251465) as f32;
     let mut rotation = ListTag::new();
@@ -178,10 +212,23 @@ pub fn elytra_item_frame(pos: BlockPos, direction: Direction) -> CompoundTag {
         let (min, max) = (middle - size / 2.0, middle + size / 2.0);
         min + (max - min) * 0.5
     };
-    let size = |axis: Axis| if direction.get_axis() == axis { 0.0625 } else { f64::from(0.75f32) };
+    let size = |axis: Axis| {
+        if direction.get_axis() == axis {
+            0.0625
+        } else {
+            f64::from(0.75f32)
+        }
+    };
     let mut tag = CompoundTag::new();
     tag.put_string("id", "minecraft:item_frame");
-    tag.put("Pos", double_list([center(pos.x(), direction.get_step_x(), size(Axis::X)), center(pos.y(), direction.get_step_y(), size(Axis::Y)), center(pos.z(), direction.get_step_z(), size(Axis::Z))]));
+    tag.put(
+        "Pos",
+        double_list([
+            center(pos.x(), direction.get_step_x(), size(Axis::X)),
+            center(pos.y(), direction.get_step_y(), size(Axis::Y)),
+            center(pos.z(), direction.get_step_z(), size(Axis::Z)),
+        ]),
+    );
     tag.put("Motion", double_list([0.0; 3]));
     let mut rotation = ListTag::new();
     rotation.push((direction.get_2d_data_value() * 90) as f32);

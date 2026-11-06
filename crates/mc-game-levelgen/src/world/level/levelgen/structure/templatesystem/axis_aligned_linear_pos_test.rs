@@ -1,12 +1,12 @@
 //! `AxisAlignedLinearPosTest` (`axis_aligned_linear_pos`).
 
 use super::pos_rule_test::{POS_RULE_TEST_TYPES, PosRuleTest};
-use mc_game_core::world::level::levelgen::codec::*;
-use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_core::direction::{Axis, Direction};
 use mc_core::math::mth;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
+use mc_game_core::world::level::levelgen::codec::*;
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use std::sync::Arc;
 
 pub struct AxisAlignedLinearPosTest {
@@ -25,11 +25,25 @@ fn parse_axis(value: &serde_json::Value) -> LoadResult<Axis> {
 
 impl AxisAlignedLinearPosTest {
     /// The constructor's `IllegalArgumentException` for `minDist >= maxDist` is a decode error.
-    pub fn new(min_chance: f32, max_chance: f32, min_dist: i32, max_dist: i32, axis: Axis) -> LoadResult<AxisAlignedLinearPosTest> {
+    pub fn new(
+        min_chance: f32,
+        max_chance: f32,
+        min_dist: i32,
+        max_dist: i32,
+        axis: Axis,
+    ) -> LoadResult<AxisAlignedLinearPosTest> {
         if min_dist >= max_dist {
-            return Err(LoadError::new(format!("Invalid range: [{min_dist},{max_dist}]")));
+            return Err(LoadError::new(format!(
+                "Invalid range: [{min_dist},{max_dist}]"
+            )));
         }
-        Ok(AxisAlignedLinearPosTest { min_chance, max_chance, min_dist, max_dist, axis })
+        Ok(AxisAlignedLinearPosTest {
+            min_chance,
+            max_chance,
+            min_dist,
+            max_dist,
+            axis,
+        })
     }
 
     pub fn decode(f: &Fields<'_>, _ctx: &DecodeCtx<'_>) -> LoadResult<Arc<dyn PosRuleTest>> {
@@ -44,7 +58,13 @@ impl AxisAlignedLinearPosTest {
 }
 
 impl PosRuleTest for AxisAlignedLinearPosTest {
-    fn test(&self, _in_template_pos: BlockPos, world_pos: BlockPos, world_reference: BlockPos, random: &mut dyn RandomSource) -> bool {
+    fn test(
+        &self,
+        _in_template_pos: BlockPos,
+        world_pos: BlockPos,
+        world_reference: BlockPos,
+        random: &mut dyn RandomSource,
+    ) -> bool {
         // `Direction.get(AxisDirection.POSITIVE, axis)`
         let direction = match self.axis {
             Axis::X => Direction::East,
@@ -52,14 +72,33 @@ impl PosRuleTest for AxisAlignedLinearPosTest {
             Axis::Z => Direction::South,
         };
         // `Math.abs(int * int)` then widened to float
-        let xd = (world_pos.x().wrapping_sub(world_reference.x()).wrapping_mul(direction.get_step_x())).wrapping_abs() as f32;
-        let yd = (world_pos.y().wrapping_sub(world_reference.y()).wrapping_mul(direction.get_step_y())).wrapping_abs() as f32;
-        let zd = (world_pos.z().wrapping_sub(world_reference.z()).wrapping_mul(direction.get_step_z())).wrapping_abs() as f32;
+        let xd = (world_pos
+            .x()
+            .wrapping_sub(world_reference.x())
+            .wrapping_mul(direction.get_step_x()))
+        .wrapping_abs() as f32;
+        let yd = (world_pos
+            .y()
+            .wrapping_sub(world_reference.y())
+            .wrapping_mul(direction.get_step_y()))
+        .wrapping_abs() as f32;
+        let zd = (world_pos
+            .z()
+            .wrapping_sub(world_reference.z())
+            .wrapping_mul(direction.get_step_z()))
+        .wrapping_abs() as f32;
         let dist = (xd + yd + zd) as i32;
         let rnd = random.next_float();
-        rnd <= mth::clamped_lerp_f32(mth::inverse_lerp_f32(dist as f32, self.min_dist as f32, self.max_dist as f32), self.min_chance, self.max_chance)
+        rnd <= mth::clamped_lerp_f32(
+            mth::inverse_lerp_f32(dist as f32, self.min_dist as f32, self.max_dist as f32),
+            self.min_chance,
+            self.max_chance,
+        )
     }
 }
 
 #[linkme::distributed_slice(POS_RULE_TEST_TYPES)]
-static TYPE: TypeEntry<dyn PosRuleTest> = TypeEntry { name: "axis_aligned_linear_pos", decode: AxisAlignedLinearPosTest::decode };
+static TYPE: TypeEntry<dyn PosRuleTest> = TypeEntry {
+    name: "axis_aligned_linear_pos",
+    decode: AxisAlignedLinearPosTest::decode,
+};

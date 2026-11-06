@@ -1,8 +1,8 @@
 //! Decoration-like components: books, fireworks, banner patterns, pot decorations, sign text, instruments, jukebox
 //! songs, armor trims, `provides_*`.
 
-use crate::codec::EncodeResult;
 use super::containers::{read_list, read_optional, write_list, write_optional};
+use crate::codec::EncodeResult;
 use crate::codec::{
     Decode, DecodeError, DecodeResult, Encode, MAX_STRING_LENGTH, NbtLimit, decode_tag_with,
     encode_tag, read_utf, read_varint, write_utf, write_varint,
@@ -59,7 +59,9 @@ const DECORATED_POT_PATTERN: &str = "minecraft:decorated_pot_pattern";
 
 /// `ComponentSerialization.STREAM_CODEC` (`fromCodecWithRegistries`: default NBT quota).
 fn encode_component(c: &Component, out: &mut Vec<u8>) -> EncodeResult<()> {
-    let tag = c.to_nbt().map_err(|e| crate::codec::EncodeError(format!("Failed to encode: {e} {c:?}")))?;
+    let tag = c
+        .to_nbt()
+        .map_err(|e| crate::codec::EncodeError(format!("Failed to encode: {e} {c:?}")))?;
     encode_tag(&tag, out)
 }
 fn decode_component(input: &mut &[u8]) -> DecodeResult<Component> {
@@ -68,7 +70,6 @@ fn decode_component(input: &mut &[u8]) -> DecodeResult<Component> {
     Component::from_nbt(&tag)
         .map_err(|e| DecodeError::Message(format!("Failed to decode: {e} {tag}")))
 }
-
 
 /// `ComponentSerialization.flatRestrictedCodec(max)`.
 fn flat_restricted_codec(max: usize) -> Codec<Component> {
@@ -135,7 +136,11 @@ impl<T: Clone + Send + Sync + 'static> Filterable<T> {
 
 impl<T> Filterable<T> {
     /// `Filterable.streamCodec(valueCodec)`.
-    pub fn encode_stream(&self, out: &mut Vec<u8>, f: impl Fn(&T, &mut Vec<u8>) -> EncodeResult<()>) -> EncodeResult<()> {
+    pub fn encode_stream(
+        &self,
+        out: &mut Vec<u8>,
+        f: impl Fn(&T, &mut Vec<u8>) -> EncodeResult<()>,
+    ) -> EncodeResult<()> {
         f(&self.raw, out)?;
         write_optional(out, &self.filtered, |v, o| f(v, o))
     }
@@ -180,7 +185,9 @@ impl WritableBookContent {
 
 impl Encode for WritableBookContent {
     fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
-        write_list(out, 100, &self.pages, |p, o| p.encode_stream(o, |s, o| write_utf(o, s, 1024)))
+        write_list(out, 100, &self.pages, |p, o| {
+            p.encode_stream(o, |s, o| write_utf(o, s, 1024))
+        })
     }
 }
 impl Decode for WritableBookContent {
@@ -242,7 +249,9 @@ impl Encode for WrittenBookContent {
         self.title.encode_stream(out, |s, o| write_utf(o, s, 32))?;
         write_utf(out, &self.author, MAX_STRING_LENGTH)?;
         write_varint(out, self.generation);
-        write_list(out, i32::MAX as usize, &self.pages, |p, o| p.encode_stream(o, encode_component))?;
+        write_list(out, i32::MAX as usize, &self.pages, |p, o| {
+            p.encode_stream(o, encode_component)
+        })?;
         self.resolved.encode(out)?;
         Ok(())
     }
@@ -571,7 +580,10 @@ impl SignText {
 
 fn write_lines(lines: &[Component], out: &mut Vec<u8>) -> EncodeResult<()> {
     if lines.len() != 4 {
-        return Err(crate::codec::EncodeError(format!("Invalid list size, expected 4, but got {}", lines.len())));
+        return Err(crate::codec::EncodeError(format!(
+            "Invalid list size, expected 4, but got {}",
+            lines.len()
+        )));
     }
     for l in lines {
         encode_component(l, out)?;

@@ -83,7 +83,18 @@ pub struct HoldingPlayer {
 
 impl HoldingPlayer {
     fn new(player_id: EntityId) -> Self {
-        HoldingPlayer { player_id, dirty_data: true, min_dirty_x: 0, min_dirty_y: 0, max_dirty_x: 127, max_dirty_y: 127, dirty_decorations: true, tick: 0, step: 0, last_view: None }
+        HoldingPlayer {
+            player_id,
+            dirty_data: true,
+            min_dirty_x: 0,
+            min_dirty_y: 0,
+            max_dirty_x: 127,
+            max_dirty_y: 127,
+            dirty_decorations: true,
+            tick: 0,
+            step: 0,
+            last_view: None,
+        }
     }
 
     fn mark_colors_dirty(&mut self, x: i32, y: i32) {
@@ -142,7 +153,15 @@ fn is_inside_map(xd: f32, yd: f32) -> bool {
 }
 
 impl MapItemSavedData {
-    fn raw(center_x: i32, center_z: i32, scale: i8, tracking_position: bool, unlimited_tracking: bool, locked: bool, dimension: DimensionKey) -> Self {
+    fn raw(
+        center_x: i32,
+        center_z: i32,
+        scale: i8,
+        tracking_position: bool,
+        unlimited_tracking: bool,
+        locked: bool,
+        dimension: DimensionKey,
+    ) -> Self {
         MapItemSavedData {
             dirty: false,
             center_x,
@@ -162,18 +181,41 @@ impl MapItemSavedData {
     }
 
     /// `createFresh(originX, originY, scale, trackingPosition, unlimitedTracking, dimension)`.
-    pub fn create_fresh(origin_x: f64, origin_z: f64, scale: i8, tracking_position: bool, unlimited_tracking: bool, dimension: DimensionKey) -> Self {
+    pub fn create_fresh(
+        origin_x: f64,
+        origin_z: f64,
+        scale: i8,
+        tracking_position: bool,
+        unlimited_tracking: bool,
+        dimension: DimensionKey,
+    ) -> Self {
         let size = 128 * (1i32 << scale);
         let area_x = ((origin_x + 64.0) / f64::from(size)).floor() as i32;
         let area_z = ((origin_z + 64.0) / f64::from(size)).floor() as i32;
         let x = area_x.wrapping_mul(size) + size / 2 - 64;
         let z = area_z.wrapping_mul(size) + size / 2 - 64;
-        Self::raw(x, z, scale, tracking_position, unlimited_tracking, false, dimension)
+        Self::raw(
+            x,
+            z,
+            scale,
+            tracking_position,
+            unlimited_tracking,
+            false,
+            dimension,
+        )
     }
 
     /// `locked()`: a locked copy (the frame markers are not copied).
     pub fn locked(&self) -> MapItemSavedData {
-        let mut result = Self::raw(self.center_x, self.center_z, self.scale, self.tracking_position, self.unlimited_tracking, true, self.dimension.clone());
+        let mut result = Self::raw(
+            self.center_x,
+            self.center_z,
+            self.scale,
+            self.tracking_position,
+            self.unlimited_tracking,
+            true,
+            self.dimension.clone(),
+        );
         for (key, banner) in self.banner_markers.iter() {
             result.banner_markers.insert(key.to_owned(), banner.clone());
         }
@@ -185,13 +227,24 @@ impl MapItemSavedData {
 
     /// `scaled()`.
     pub fn scaled(&self) -> MapItemSavedData {
-        Self::create_fresh(f64::from(self.center_x), f64::from(self.center_z), (i32::from(self.scale) + 1).clamp(0, 4) as i8, self.tracking_position, self.unlimited_tracking, self.dimension.clone())
+        Self::create_fresh(
+            f64::from(self.center_x),
+            f64::from(self.center_z),
+            (i32::from(self.scale) + 1).clamp(0, 4) as i8,
+            self.tracking_position,
+            self.unlimited_tracking,
+            self.dimension.clone(),
+        )
     }
 
     fn map_matcher(map_stack: &ItemStack) -> impl Fn(&ItemStack) -> bool + use<> {
         let map_id = map_stack.get(&mc_protocol::components::MAP_ID).copied();
         let item = map_stack.item();
-        move |stack: &ItemStack| !stack.is_empty() && stack.item() == item && map_id == stack.get(&mc_protocol::components::MAP_ID).copied()
+        move |stack: &ItemStack| {
+            !stack.is_empty()
+                && stack.item() == item
+                && map_id == stack.get(&mc_protocol::components::MAP_ID).copied()
+        }
     }
 
     /// The matcher a caller uses to compute `PlayerView::has_map` for `map_stack`.
@@ -200,7 +253,12 @@ impl MapItemSavedData {
     }
 
     /// `tickCarriedBy(tickingPlayer, itemStack, placedInFrame)`.
-    pub fn tick_carried_by(&mut self, env: &MapTickEnv<'_>, item_stack: &ItemStack, placed_in_frame: Option<FrameInfo>) {
+    pub fn tick_carried_by(
+        &mut self,
+        env: &MapTickEnv<'_>,
+        item_stack: &ItemStack,
+        placed_in_frame: Option<FrameInfo>,
+    ) {
         let ticking = &env.ticking;
         if !self.carried_by.iter().any(|h| h.player_id == ticking.id) {
             self.carried_by.push(HoldingPlayer::new(ticking.id));
@@ -220,19 +278,47 @@ impl MapItemSavedData {
                 Some(live)
             } else {
                 // not in the ticking level: its own level refreshes the snapshot every tick it holds the map
-                self.carried_by[i].last_view.as_ref().filter(|(_, tick)| env.tick_count.wrapping_sub(*tick) <= 1).map(|(v, _)| v.clone())
+                self.carried_by[i]
+                    .last_view
+                    .as_ref()
+                    .filter(|(_, tick)| env.tick_count.wrapping_sub(*tick) <= 1)
+                    .map(|(v, _)| v.clone())
             };
             if let Some(v) = &view {
                 self.carried_by[i].last_view = Some((v.clone(), env.tick_count));
             }
             let (name, removed, has_map, in_dimension, invisible) = match &view {
-                Some(v) => (v.name.clone(), v.removed, v.has_map, v.dimension == self.dimension, v.map_invisibility),
-                None => (self.carried_by[i].last_view.as_ref().map(|(v, _)| v.name.clone()).unwrap_or_default(), true, false, false, false),
+                Some(v) => (
+                    v.name.clone(),
+                    v.removed,
+                    v.has_map,
+                    v.dimension == self.dimension,
+                    v.map_invisibility,
+                ),
+                None => (
+                    self.carried_by[i]
+                        .last_view
+                        .as_ref()
+                        .map(|(v, _)| v.name.clone())
+                        .unwrap_or_default(),
+                    true,
+                    false,
+                    false,
+                    false,
+                ),
             };
             if !removed && (placed_in_frame.is_some() || has_map) {
                 if placed_in_frame.is_none() && in_dimension && self.tracking_position {
                     let v = view.as_ref().expect("a live player here");
-                    self.add_decoration(by_name("player"), Some(env.game_time), &name, v.x, v.z, f64::from(v.y_rot), None);
+                    self.add_decoration(
+                        by_name("player"),
+                        Some(env.game_time),
+                        &name,
+                        v.x,
+                        v.z,
+                        f64::from(v.y_rot),
+                        None,
+                    );
                 }
             } else {
                 self.carried_by.remove(i);
@@ -252,19 +338,48 @@ impl MapItemSavedData {
             {
                 self.remove_decoration(&frame_key(existing.entity_id));
             }
-            let map_frame = MapFrame { pos, rotation: frame.direction_2d * 90, entity_id: frame.entity_id };
-            self.add_decoration(by_name("frame"), Some(env.game_time), &frame_key(frame.entity_id), f64::from(pos.x()), f64::from(pos.z()), f64::from(frame.direction_2d * 90), None);
-            let old = self.frame_markers.insert(map_frame.get_id(), map_frame.clone());
+            let map_frame = MapFrame {
+                pos,
+                rotation: frame.direction_2d * 90,
+                entity_id: frame.entity_id,
+            };
+            self.add_decoration(
+                by_name("frame"),
+                Some(env.game_time),
+                &frame_key(frame.entity_id),
+                f64::from(pos.x()),
+                f64::from(pos.z()),
+                f64::from(frame.direction_2d * 90),
+                None,
+            );
+            let old = self
+                .frame_markers
+                .insert(map_frame.get_id(), map_frame.clone());
             if old.as_ref() != Some(&map_frame) {
                 self.set_dirty();
             }
         }
 
-        let static_decorations = item_stack.get(&mc_protocol::components::MAP_DECORATIONS).cloned().unwrap_or_default();
-        if !static_decorations.decorations.iter().all(|(id, _)| self.decorations.contains_key(id)) {
+        let static_decorations = item_stack
+            .get(&mc_protocol::components::MAP_DECORATIONS)
+            .cloned()
+            .unwrap_or_default();
+        if !static_decorations
+            .decorations
+            .iter()
+            .all(|(id, _)| self.decorations.contains_key(id))
+        {
             for (id, entry) in &static_decorations.decorations {
                 if !self.decorations.contains_key(id) {
-                    self.add_decoration(entry.ty, Some(env.game_time), id, entry.x, entry.z, f64::from(entry.rotation), None);
+                    self.add_decoration(
+                        entry.ty,
+                        Some(env.game_time),
+                        id,
+                        entry.x,
+                        entry.z,
+                        f64::from(entry.rotation),
+                        None,
+                    );
                 }
             }
         }
@@ -280,9 +395,22 @@ impl MapItemSavedData {
     }
 
     /// `addTargetDecoration(itemStack, position, key, decorationType)`.
-    pub fn add_target_decoration(stack: &mut ItemStack, position: BlockPos, key: &str, decoration_type: MapDecorationType) {
-        let entry = mc_protocol::components::MapDecorationEntry { ty: decoration_type, x: f64::from(position.x()), z: f64::from(position.z()), rotation: 180.0 };
-        let mut decorations: MapDecorations = stack.get(&mc_protocol::components::MAP_DECORATIONS).cloned().unwrap_or_default();
+    pub fn add_target_decoration(
+        stack: &mut ItemStack,
+        position: BlockPos,
+        key: &str,
+        decoration_type: MapDecorationType,
+    ) {
+        let entry = mc_protocol::components::MapDecorationEntry {
+            ty: decoration_type,
+            x: f64::from(position.x()),
+            z: f64::from(position.z()),
+            rotation: 180.0,
+        };
+        let mut decorations: MapDecorations = stack
+            .get(&mc_protocol::components::MAP_DECORATIONS)
+            .cloned()
+            .unwrap_or_default();
         // `MapDecorations.withDecoration`: a copy of the LinkedHashMap with the entry put.
         match decorations.decorations.iter_mut().find(|(k, _)| k == key) {
             Some((_, existing)) => *existing = entry,
@@ -292,7 +420,16 @@ impl MapItemSavedData {
     }
 
     #[allow(clippy::too_many_arguments)]
-    fn add_decoration(&mut self, ty: MapDecorationType, game_time: Option<i64>, key: &str, x_pos: f64, z_pos: f64, y_rot: f64, name: Option<Component>) {
+    fn add_decoration(
+        &mut self,
+        ty: MapDecorationType,
+        game_time: Option<i64>,
+        key: &str,
+        x_pos: f64,
+        z_pos: f64,
+        y_rot: f64,
+        name: Option<Component>,
+    ) {
         let scaling = 1i32 << self.scale;
         let x_delta = (x_pos - f64::from(self.center_x)) as f32 / scaling as f32;
         let y_delta = (z_pos - f64::from(self.center_z)) as f32 / scaling as f32;
@@ -300,7 +437,9 @@ impl MapItemSavedData {
             None => self.remove_decoration(key),
             Some((ty, x, y, rot)) => {
                 let new_decoration = MapDecoration::new(ty, x, y, rot, name);
-                let previous = self.decorations.insert(key.to_owned(), new_decoration.clone());
+                let previous = self
+                    .decorations
+                    .insert(key.to_owned(), new_decoration.clone());
                 if previous.as_ref() != Some(&new_decoration) {
                     if let Some(previous) = &previous
                         && track_count(previous.ty)
@@ -316,7 +455,14 @@ impl MapItemSavedData {
         }
     }
 
-    fn calculate_decoration_location_and_type(&self, ty: MapDecorationType, game_time: Option<i64>, y_rot: f64, x_delta: f32, y_delta: f32) -> Option<(MapDecorationType, i8, i8, i8)> {
+    fn calculate_decoration_location_and_type(
+        &self,
+        ty: MapDecorationType,
+        game_time: Option<i64>,
+        y_rot: f64,
+        x_delta: f32,
+        y_delta: f32,
+    ) -> Option<(MapDecorationType, i8, i8, i8)> {
         let clamped_x = clamp_map_coordinate(x_delta);
         let clamped_y = clamp_map_coordinate(y_delta);
         if ty == by_name("player") {
@@ -324,12 +470,18 @@ impl MapItemSavedData {
             if is_inside_map(x_delta, y_delta) {
                 Some((ty, clamped_x, clamped_y, rot))
             } else {
-                self.decoration_type_for_player_outside_map(x_delta, y_delta).map(|t| (t, clamped_x, clamped_y, rot))
+                self.decoration_type_for_player_outside_map(x_delta, y_delta)
+                    .map(|t| (t, clamped_x, clamped_y, rot))
             }
         } else if !is_inside_map(x_delta, y_delta) && !self.unlimited_tracking {
             None
         } else {
-            Some((ty, clamped_x, clamped_y, self.calculate_rotation(game_time, y_rot)))
+            Some((
+                ty,
+                clamped_x,
+                clamped_y,
+                self.calculate_rotation(game_time, y_rot),
+            ))
         }
     }
 
@@ -337,16 +489,28 @@ impl MapItemSavedData {
         match game_time {
             Some(time) if self.dimension.to_string() == "minecraft:the_nether" => {
                 let s = (time / 10) as i32;
-                (s.wrapping_mul(s).wrapping_mul(34187121).wrapping_add(s.wrapping_mul(121)) >> 15 & 15) as i8
+                (s.wrapping_mul(s)
+                    .wrapping_mul(34187121)
+                    .wrapping_add(s.wrapping_mul(121))
+                    >> 15
+                    & 15) as i8
             }
             _ => {
-                let adjusted = if y_rot < 0.0 { y_rot - 8.0 } else { y_rot + 8.0 };
+                let adjusted = if y_rot < 0.0 {
+                    y_rot - 8.0
+                } else {
+                    y_rot + 8.0
+                };
                 ((adjusted * 16.0 / 360.0) as i32) as i8
             }
         }
     }
 
-    fn decoration_type_for_player_outside_map(&self, x_delta: f32, y_delta: f32) -> Option<MapDecorationType> {
+    fn decoration_type_for_player_outside_map(
+        &self,
+        x_delta: f32,
+        y_delta: f32,
+    ) -> Option<MapDecorationType> {
         if x_delta.abs() < 320.0 && y_delta.abs() < 320.0 {
             Some(by_name("player_off_map"))
         } else if self.unlimited_tracking {
@@ -357,12 +521,20 @@ impl MapItemSavedData {
     }
 
     /// `getUpdatePacket(id, player)`.
-    pub fn get_update_packet(&mut self, id: MapId, player: EntityId) -> Option<ClientboundMapItemDataPacket> {
+    pub fn get_update_packet(
+        &mut self,
+        id: MapId,
+        player: EntityId,
+    ) -> Option<ClientboundMapItemDataPacket> {
         let index = self.carried_by.iter().position(|h| h.player_id == player)?;
         self.next_update_packet(index, id)
     }
 
-    fn next_update_packet(&mut self, index: usize, id: MapId) -> Option<ClientboundMapItemDataPacket> {
+    fn next_update_packet(
+        &mut self,
+        index: usize,
+        id: MapId,
+    ) -> Option<ClientboundMapItemDataPacket> {
         let holder = &mut self.carried_by[index];
         let patch = if holder.dirty_data {
             holder.dirty_data = false;
@@ -372,10 +544,17 @@ impl MapItemSavedData {
             let mut map_colors = vec![0u8; (width * height) as usize];
             for x in 0..width {
                 for y in 0..height {
-                    map_colors[(x + y * width) as usize] = self.colors[(start_x + x + (start_y + y) * 128) as usize];
+                    map_colors[(x + y * width) as usize] =
+                        self.colors[(start_x + x + (start_y + y) * 128) as usize];
                 }
             }
-            Some(MapItemSavedDataMapPatch { start_x: start_x as u8, start_y: start_y as u8, width: width as u8, height: height as u8, map_colors })
+            Some(MapItemSavedDataMapPatch {
+                start_x: start_x as u8,
+                start_y: start_y as u8,
+                width: width as u8,
+                height: height as u8,
+                map_colors,
+            })
         } else {
             None
         };
@@ -385,14 +564,25 @@ impl MapItemSavedData {
             t % 5 == 0
         } {
             holder.dirty_decorations = false;
-            Some(self.decorations.values().map(MapDecoration::to_packet).collect::<Vec<_>>())
+            Some(
+                self.decorations
+                    .values()
+                    .map(MapDecoration::to_packet)
+                    .collect::<Vec<_>>(),
+            )
         } else {
             None
         };
         if decorations.is_none() && patch.is_none() {
             None
         } else {
-            Some(ClientboundMapItemDataPacket { map_id: mc_protocol::packets::play::MapId { id: id.0 }, scale: self.scale, locked: self.locked, decorations, color_patch: patch })
+            Some(ClientboundMapItemDataPacket {
+                map_id: mc_protocol::packets::play::MapId { id: id.0 },
+                scale: self.scale,
+                locked: self.locked,
+                decorations,
+                color_patch: patch,
+            })
         }
     }
 
@@ -422,14 +612,21 @@ impl MapItemSavedData {
     }
 
     /// `toggleBanner(level, pos)`.
-    pub fn toggle_banner(&mut self, level: &dyn BlockGetter, game_time: i64, pos: BlockPos) -> bool {
+    pub fn toggle_banner(
+        &mut self,
+        level: &dyn BlockGetter,
+        game_time: i64,
+        pos: BlockPos,
+    ) -> bool {
         let x_pos = f64::from(pos.x()) + 0.5;
         let z_pos = f64::from(pos.z()) + 0.5;
         let scale = f64::from(1i32 << self.scale);
         let xd = (x_pos - f64::from(self.center_x)) / scale;
         let yd = (z_pos - f64::from(self.center_z)) / scale;
         if xd >= -63.0 && yd >= -63.0 && xd <= 63.0 && yd <= 63.0 {
-            let Some(banner) = MapBanner::from_world(level, pos) else { return false };
+            let Some(banner) = MapBanner::from_world(level, pos) else {
+                return false;
+            };
             let id = banner.get_id();
             if self.banner_markers.get(&id) == Some(&banner) {
                 self.banner_markers.remove(&id);
@@ -439,7 +636,15 @@ impl MapItemSavedData {
             }
             if !self.is_tracked_count_over_limit(256) {
                 self.banner_markers.insert(id.clone(), banner.clone());
-                self.add_decoration(banner.get_decoration(), Some(game_time), &id, x_pos, z_pos, 180.0, banner.name.clone());
+                self.add_decoration(
+                    banner.get_decoration(),
+                    Some(game_time),
+                    &id,
+                    x_pos,
+                    z_pos,
+                    180.0,
+                    banner.name.clone(),
+                );
                 self.set_dirty();
                 return true;
             }
@@ -453,7 +658,9 @@ impl MapItemSavedData {
             .banner_markers
             .values()
             .filter(|expected| expected.pos.x() == x && expected.pos.z() == z)
-            .filter(|expected| MapBanner::from_world(level, expected.pos).as_ref() != Some(*expected))
+            .filter(|expected| {
+                MapBanner::from_world(level, expected.pos).as_ref() != Some(*expected)
+            })
             .cloned()
             .collect();
         for expected in gone {
@@ -516,31 +723,66 @@ impl MapItemSavedData {
         let scale = codec::optional(m, "scale", |t| codec::int(t).map(|v| v as i8))?.unwrap_or(0);
         let colors: Vec<u8> = match codec::field(m, "colors")? {
             Tag::ByteArray(v) => v.iter().map(|&b| b as u8).collect(),
-            other => codec::list(other)?.iter().map(|t| codec::int(t).map(|v| v as u8)).collect::<DataResult<_>>()?,
+            other => codec::list(other)?
+                .iter()
+                .map(|t| codec::int(t).map(|v| v as u8))
+                .collect::<DataResult<_>>()?,
         };
-        let tracking_position = codec::optional(m, "trackingPosition", codec::boolean)?.unwrap_or(true);
-        let unlimited_tracking = codec::optional(m, "unlimitedTracking", codec::boolean)?.unwrap_or(false);
+        let tracking_position =
+            codec::optional(m, "trackingPosition", codec::boolean)?.unwrap_or(true);
+        let unlimited_tracking =
+            codec::optional(m, "unlimitedTracking", codec::boolean)?.unwrap_or(false);
         let locked = codec::optional(m, "locked", codec::boolean)?.unwrap_or(false);
         let banners = match m.get("banners") {
-            Some(t) => codec::list(t)?.iter().map(MapBanner::decode).collect::<DataResult<Vec<_>>>()?,
+            Some(t) => codec::list(t)?
+                .iter()
+                .map(MapBanner::decode)
+                .collect::<DataResult<Vec<_>>>()?,
             None => Vec::new(),
         };
         let frames = match m.get("frames") {
-            Some(t) => codec::list(t)?.iter().map(MapFrame::decode).collect::<DataResult<Vec<_>>>()?,
+            Some(t) => codec::list(t)?
+                .iter()
+                .map(MapFrame::decode)
+                .collect::<DataResult<Vec<_>>>()?,
             None => Vec::new(),
         };
 
-        let mut data = Self::raw(center_x, center_z, i32::from(scale).clamp(0, 4) as i8, tracking_position, unlimited_tracking, locked, dimension);
+        let mut data = Self::raw(
+            center_x,
+            center_z,
+            i32::from(scale).clamp(0, 4) as i8,
+            tracking_position,
+            unlimited_tracking,
+            locked,
+            dimension,
+        );
         if colors.len() == MAP_SIZE * MAP_SIZE {
             data.colors = colors;
         }
         for banner in banners {
             data.banner_markers.insert(banner.get_id(), banner.clone());
-            data.add_decoration(banner.get_decoration(), None, &banner.get_id(), f64::from(banner.pos.x()), f64::from(banner.pos.z()), 180.0, banner.name.clone());
+            data.add_decoration(
+                banner.get_decoration(),
+                None,
+                &banner.get_id(),
+                f64::from(banner.pos.x()),
+                f64::from(banner.pos.z()),
+                180.0,
+                banner.name.clone(),
+            );
         }
         for frame in frames {
             data.frame_markers.insert(frame.get_id(), frame.clone());
-            data.add_decoration(by_name("frame"), None, &frame_key(frame.entity_id), f64::from(frame.pos.x()), f64::from(frame.pos.z()), f64::from(frame.rotation), None);
+            data.add_decoration(
+                by_name("frame"),
+                None,
+                &frame_key(frame.entity_id),
+                f64::from(frame.pos.x()),
+                f64::from(frame.pos.z()),
+                f64::from(frame.rotation),
+                None,
+            );
         }
         Ok(data)
     }

@@ -46,7 +46,8 @@ pub fn inscribed_square_spawn_distance_chunk() -> i32 {
 /// [`NoSpawnHooks`] for debug spawns.
 pub trait SpawnHooks {
     /// `SpawnPredicate.test(type, level, pos, chunk)`.
-    fn can_spawn(&mut self, ty: EntityType, level: &dyn ServerLevelAccessor, pos: BlockPos) -> bool;
+    fn can_spawn(&mut self, ty: EntityType, level: &dyn ServerLevelAccessor, pos: BlockPos)
+    -> bool;
     /// `AfterSpawnCallback.run(mob, chunk)` (`ty` and `pos` are the spawned mob's type and block position).
     fn after_spawn(&mut self, level: &mut ServerLevel, ty: EntityType, pos: BlockPos);
 }
@@ -55,7 +56,12 @@ pub trait SpawnHooks {
 pub struct NoSpawnHooks;
 
 impl SpawnHooks for NoSpawnHooks {
-    fn can_spawn(&mut self, _ty: EntityType, _level: &dyn ServerLevelAccessor, _pos: BlockPos) -> bool {
+    fn can_spawn(
+        &mut self,
+        _ty: EntityType,
+        _level: &dyn ServerLevelAccessor,
+        _pos: BlockPos,
+    ) -> bool {
         true
     }
     fn after_spawn(&mut self, _level: &mut ServerLevel, _ty: EntityType, _pos: BlockPos) {}
@@ -85,24 +91,45 @@ impl SpawnState {
 
     /// `canSpawnForCategoryGlobal(category)`.
     pub fn can_spawn_for_category_global(&self, category: MobCategory) -> bool {
-        let max_mob_count = category.get_max_instances_per_chunk().wrapping_mul(self.spawnable_chunk_count) / MAGIC_NUMBER;
+        let max_mob_count = category
+            .get_max_instances_per_chunk()
+            .wrapping_mul(self.spawnable_chunk_count)
+            / MAGIC_NUMBER;
         self.mob_category_counts[category as usize] < max_mob_count
     }
 
     /// `canSpawnForCategoryLocal(category, chunkPos)`.
-    pub fn can_spawn_for_category_local(&mut self, chunk_map: &mut crate::server::level::ChunkMap, category: MobCategory, chunk_pos: ChunkPos) -> bool {
-        self.local_mob_cap_calculator.can_spawn(chunk_map, category, chunk_pos)
+    pub fn can_spawn_for_category_local(
+        &mut self,
+        chunk_map: &mut crate::server::level::ChunkMap,
+        category: MobCategory,
+        chunk_pos: ChunkPos,
+    ) -> bool {
+        self.local_mob_cap_calculator
+            .can_spawn(chunk_map, category, chunk_pos)
     }
 
     /// `getPotentialEnergyChange`-based part of `canSpawn(type, level, testPos, chunk)`.
-    fn charge_of(level: &dyn ServerLevelAccessor, pos: BlockPos, ty: EntityType) -> Option<(f64, f64)> {
-        level.natural_mob_spawns_at(pos).get_mob_spawn_cost(ty).map(|cost| (cost.charge, cost.energy_budget))
+    fn charge_of(
+        level: &dyn ServerLevelAccessor,
+        pos: BlockPos,
+        ty: EntityType,
+    ) -> Option<(f64, f64)> {
+        level
+            .natural_mob_spawns_at(pos)
+            .get_mob_spawn_cost(ty)
+            .map(|cost| (cost.charge, cost.energy_budget))
     }
 }
 
 impl SpawnHooks for SpawnState {
     /// `SpawnState.canSpawn`.
-    fn can_spawn(&mut self, ty: EntityType, level: &dyn ServerLevelAccessor, test_pos: BlockPos) -> bool {
+    fn can_spawn(
+        &mut self,
+        ty: EntityType,
+        level: &dyn ServerLevelAccessor,
+        test_pos: BlockPos,
+    ) -> bool {
         self.last_checked_pos = Some(test_pos);
         self.last_checked_type = Some(ty);
         match Self::charge_of(level, test_pos, ty) {
@@ -112,7 +139,9 @@ impl SpawnHooks for SpawnState {
             }
             Some((charge, energy_budget)) => {
                 self.last_charge = charge;
-                let energy_change = self.spawn_potential.get_potential_energy_change(test_pos, charge);
+                let energy_change = self
+                    .spawn_potential
+                    .get_potential_energy_change(test_pos, charge);
                 energy_change <= energy_budget
             }
         }
@@ -128,7 +157,11 @@ impl SpawnHooks for SpawnState {
         self.spawn_potential.add_charge(pos, charge);
         let category = ty.data().category;
         self.mob_category_counts[category as usize] += 1;
-        self.local_mob_cap_calculator.add_mob(&mut level.chunk_source.chunk_map, ChunkPos::containing(&pos), category);
+        self.local_mob_cap_calculator.add_mob(
+            &mut level.chunk_source.chunk_map,
+            ChunkPos::containing(&pos),
+            category,
+        );
     }
 }
 
@@ -143,34 +176,66 @@ pub fn create_state(spawnable_chunk_count: i32, level: &mut ServerLevel) -> Spaw
     let counted: Vec<Counted> = level
         .entity_manager
         .get_all()
-        .filter(|entity| !(entity.is_mob() && (entity.is_persistence_required() || entity.requires_custom_persistence())))
+        .filter(|entity| {
+            !(entity.is_mob()
+                && (entity.is_persistence_required() || entity.requires_custom_persistence()))
+        })
         .filter(|entity| entity.get_type().data().category != MobCategory::Misc)
-        .map(|entity| Counted { ty: entity.get_type(), pos: entity.block_position(), is_mob: entity.is_mob() })
+        .map(|entity| Counted {
+            ty: entity.get_type(),
+            pos: entity.block_position(),
+            is_mob: entity.is_mob(),
+        })
         .collect();
     let mut spawn_potential = PotentialCalculator::new();
     let mut mob_category_counts = [0i32; 8];
     let mut local_mob_cap_calculator = LocalMobCapCalculator::new();
     for entity in counted {
-        if level.chunk_now(entity.pos.x() >> 4, entity.pos.z() >> 4).is_none() {
+        if level
+            .chunk_now(entity.pos.x() >> 4, entity.pos.z() >> 4)
+            .is_none()
+        {
             continue;
         }
         let category = entity.ty.data().category;
-        if let Some(cost) = level.natural_mob_spawns_at(entity.pos).get_mob_spawn_cost(entity.ty) {
+        if let Some(cost) = level
+            .natural_mob_spawns_at(entity.pos)
+            .get_mob_spawn_cost(entity.ty)
+        {
             spawn_potential.add_charge(entity.pos, cost.charge);
         }
         if entity.is_mob {
-            local_mob_cap_calculator.add_mob(&mut level.chunk_source.chunk_map, ChunkPos::containing(&entity.pos), category);
+            local_mob_cap_calculator.add_mob(
+                &mut level.chunk_source.chunk_map,
+                ChunkPos::containing(&entity.pos),
+                category,
+            );
         }
         mob_category_counts[category as usize] += 1;
     }
-    SpawnState { spawnable_chunk_count, mob_category_counts, spawn_potential, local_mob_cap_calculator, last_checked_pos: None, last_checked_type: None, last_charge: 0.0 }
+    SpawnState {
+        spawnable_chunk_count,
+        mob_category_counts,
+        spawn_potential,
+        local_mob_cap_calculator,
+        last_checked_pos: None,
+        last_checked_type: None,
+        last_charge: 0.0,
+    }
 }
 
 /// `getFilteredSpawningCategories(state, spawnEnemies, spawnPersistent)`.
-pub fn get_filtered_spawning_categories(state: &SpawnState, spawn_enemies: bool, spawn_persistent: bool) -> Vec<MobCategory> {
+pub fn get_filtered_spawning_categories(
+    state: &SpawnState,
+    spawn_enemies: bool,
+    spawn_persistent: bool,
+) -> Vec<MobCategory> {
     let mut categories = Vec::with_capacity(SPAWNING_CATEGORIES.len());
     for category in SPAWNING_CATEGORIES {
-        if (spawn_enemies || category.is_friendly()) && (spawn_persistent || !category.is_persistent()) && state.can_spawn_for_category_global(category) {
+        if (spawn_enemies || category.is_friendly())
+            && (spawn_persistent || !category.is_persistent())
+            && state.can_spawn_for_category_global(category)
+        {
             categories.push(category);
         }
     }
@@ -179,9 +244,15 @@ pub fn get_filtered_spawning_categories(state: &SpawnState, spawn_enemies: bool,
 
 /// `spawnForChunk(level, chunk, state, spawningCategories)` with the state and categories of this tick.
 pub fn spawn_for_chunk(level: &mut ServerLevel, chunk_pos: ChunkPos) {
-    let Some((mut state, categories)) = level.spawning.take_spawn_state() else { return };
+    let Some((mut state, categories)) = level.spawning.take_spawn_state() else {
+        return;
+    };
     for &category in &categories {
-        if state.can_spawn_for_category_local(&mut level.chunk_source.chunk_map, category, chunk_pos) {
+        if state.can_spawn_for_category_local(
+            &mut level.chunk_source.chunk_map,
+            category,
+            chunk_pos,
+        ) {
             spawn_category_for_chunk(category, level, chunk_pos, &mut state);
         }
     }
@@ -189,7 +260,12 @@ pub fn spawn_for_chunk(level: &mut ServerLevel, chunk_pos: ChunkPos) {
 }
 
 /// `spawnCategoryForChunk(category, level, chunk, extraTest, spawnCallback)`.
-pub fn spawn_category_for_chunk(category: MobCategory, level: &mut ServerLevel, chunk_pos: ChunkPos, hooks: &mut dyn SpawnHooks) {
+pub fn spawn_category_for_chunk(
+    category: MobCategory,
+    level: &mut ServerLevel,
+    chunk_pos: ChunkPos,
+    hooks: &mut dyn SpawnHooks,
+) {
     let start = get_random_pos_within(level, chunk_pos);
     if start.y() >= level.get_min_y() + 1 {
         spawn_category_for_position(category, level, chunk_pos, start, hooks);
@@ -197,8 +273,18 @@ pub fn spawn_category_for_chunk(category: MobCategory, level: &mut ServerLevel, 
 }
 
 /// `spawnCategoryForPosition(category, level, start)` (debug: no extra test, no callback).
-pub fn spawn_category_for_position_debug(category: MobCategory, level: &mut ServerLevel, start: BlockPos) {
-    spawn_category_for_position(category, level, ChunkPos::containing(&start), start, &mut NoSpawnHooks);
+pub fn spawn_category_for_position_debug(
+    category: MobCategory,
+    level: &mut ServerLevel,
+    start: BlockPos,
+) {
+    spawn_category_for_position(
+        category,
+        level,
+        ChunkPos::containing(&start),
+        start,
+        &mut NoSpawnHooks,
+    );
 }
 
 /// `(double)` squared despawn distance (`getDespawnDistance() * getDespawnDistance()` is an `int` product).
@@ -208,7 +294,13 @@ fn despawn_distance_sqr(category: MobCategory) -> f64 {
 }
 
 /// `spawnCategoryForPosition(category, level, chunk, start, extraTest, spawnCallback)`.
-pub fn spawn_category_for_position(category: MobCategory, level: &mut ServerLevel, chunk_pos: ChunkPos, start: BlockPos, hooks: &mut dyn SpawnHooks) {
+pub fn spawn_category_for_position(
+    category: MobCategory,
+    level: &mut ServerLevel,
+    chunk_pos: ChunkPos,
+    start: BlockPos,
+    hooks: &mut dyn SpawnHooks,
+) {
     let y_start = start.y();
     let state = BlockGetter::get_block_state(&*level, start);
     if state.is_redstone_conductor() {
@@ -224,14 +316,34 @@ pub fn spawn_category_for_position(category: MobCategory, level: &mut ServerLeve
         let mut group_size = 0;
         let mut ll = 0;
         while ll < max {
-            x = x.wrapping_add(level.tick_state.random.next_int_bounded(6) - level.tick_state.random.next_int_bounded(6));
-            z = z.wrapping_add(level.tick_state.random.next_int_bounded(6) - level.tick_state.random.next_int_bounded(6));
+            x = x.wrapping_add(
+                level.tick_state.random.next_int_bounded(6)
+                    - level.tick_state.random.next_int_bounded(6),
+            );
+            z = z.wrapping_add(
+                level.tick_state.random.next_int_bounded(6)
+                    - level.tick_state.random.next_int_bounded(6),
+            );
             let pos = BlockPos::new(x, y_start, z);
             let xx = f64::from(x) + 0.5;
             let zz = f64::from(z) + 0.5;
-            if let Some(nearest_player) = level.get_nearest_player(xx, f64::from(y_start), zz, -1.0, |player| !player.is_spectator()) {
-                let nearest_player_distance_sqr = level.entity_manager.get_any(nearest_player).map_or(f64::MAX, |p| p.base().distance_to_sqr_xyz(xx, f64::from(y_start), zz));
-                if is_right_distance_to_player_and_spawn_point(level, chunk_pos, pos, nearest_player_distance_sqr) {
+            if let Some(nearest_player) =
+                level.get_nearest_player(xx, f64::from(y_start), zz, -1.0, |player| {
+                    !player.is_spectator()
+                })
+            {
+                let nearest_player_distance_sqr = level
+                    .entity_manager
+                    .get_any(nearest_player)
+                    .map_or(f64::MAX, |p| {
+                        p.base().distance_to_sqr_xyz(xx, f64::from(y_start), zz)
+                    });
+                if is_right_distance_to_player_and_spawn_point(
+                    level,
+                    chunk_pos,
+                    pos,
+                    nearest_player_distance_sqr,
+                ) {
                     if current_spawn_data.is_none() {
                         match get_random_spawn_mob_at(level, category, pos) {
                             None => break,
@@ -243,14 +355,29 @@ pub fn spawn_category_for_position(category: MobCategory, level: &mut ServerLeve
                     }
                     let spawn_data = current_spawn_data.as_ref().expect("set above");
                     let ty = spawn_data.entity_type;
-                    if is_valid_spawn_position_for_type(level, category, spawn_data, pos, nearest_player_distance_sqr) && hooks.can_spawn(ty, level, pos) {
-                        let Some(mut mob) = get_mob_for_spawn(level, ty) else { return };
+                    if is_valid_spawn_position_for_type(
+                        level,
+                        category,
+                        spawn_data,
+                        pos,
+                        nearest_player_distance_sqr,
+                    ) && hooks.can_spawn(ty, level, pos)
+                    {
+                        let Some(mut mob) = get_mob_for_spawn(level, ty) else {
+                            return;
+                        };
                         let y_rot = level.tick_state.random.next_float() * 360.0f32;
                         mob.snap_to(xx, f64::from(y_start), zz, y_rot, 0.0);
                         if is_valid_position_for_mob(level, &*mob, nearest_player_distance_sqr) {
                             let mob_pos = mob.block_position();
-                            let difficulty = ServerLevelAccessor::get_current_difficulty_at(&*level, mob_pos);
-                            group_data = mob.finalize_spawn(level, difficulty, EntitySpawnReason::Natural, group_data);
+                            let difficulty =
+                                ServerLevelAccessor::get_current_difficulty_at(&*level, mob_pos);
+                            group_data = mob.finalize_spawn(
+                                level,
+                                difficulty,
+                                EntitySpawnReason::Natural,
+                                group_data,
+                            );
                             cluster_size += 1;
                             group_size += 1;
                             let mob_pos = mob.block_position();
@@ -274,12 +401,26 @@ pub fn spawn_category_for_position(category: MobCategory, level: &mut ServerLeve
 }
 
 /// `isRightDistanceToPlayerAndSpawnPoint(level, chunk, pos, nearestPlayerDistanceSqr)`.
-fn is_right_distance_to_player_and_spawn_point(level: &ServerLevel, chunk_pos: ChunkPos, pos: BlockPos, nearest_player_distance_sqr: f64) -> bool {
+fn is_right_distance_to_player_and_spawn_point(
+    level: &ServerLevel,
+    chunk_pos: ChunkPos,
+    pos: BlockPos,
+    nearest_player_distance_sqr: f64,
+) -> bool {
     if nearest_player_distance_sqr <= 576.0 {
         return false;
     }
     let respawn_data = level.level_data.get_respawn_data();
-    if respawn_data.dimension == level.dimension && respawn_data.pos.closer_to_center_than(&Vec3::new(f64::from(pos.x()) + 0.5, f64::from(pos.y()), f64::from(pos.z()) + 0.5), 24.0) {
+    if respawn_data.dimension == level.dimension
+        && respawn_data.pos.closer_to_center_than(
+            &Vec3::new(
+                f64::from(pos.x()) + 0.5,
+                f64::from(pos.y()),
+                f64::from(pos.z()) + 0.5,
+            ),
+            24.0,
+        )
+    {
         return false;
     }
     let pos_chunk = ChunkPos::containing(&pos);
@@ -291,17 +432,32 @@ pub fn get_spawn_aabb(ty: EntityType, x: f64, y: f64, z: f64) -> AABB {
     let data = ty.data();
     let half_width = data.spawn_dimensions_scale * data.width / 2.0f32;
     let height = data.spawn_dimensions_scale * data.height;
-    AABB::new(x - f64::from(half_width), y, z - f64::from(half_width), x + f64::from(half_width), y + f64::from(height), z + f64::from(half_width))
+    AABB::new(
+        x - f64::from(half_width),
+        y,
+        z - f64::from(half_width),
+        x + f64::from(half_width),
+        y + f64::from(height),
+        z + f64::from(half_width),
+    )
 }
 
 /// `isValidSpawnPostitionForType(...)`.
-fn is_valid_spawn_position_for_type(level: &mut ServerLevel, category: MobCategory, spawn_data: &SpawnerData, pos: BlockPos, nearest_player_distance_sqr: f64) -> bool {
+fn is_valid_spawn_position_for_type(
+    level: &mut ServerLevel,
+    category: MobCategory,
+    spawn_data: &SpawnerData,
+    pos: BlockPos,
+    nearest_player_distance_sqr: f64,
+) -> bool {
     let ty = spawn_data.entity_type;
     let data = ty.data();
     if data.category == MobCategory::Misc {
         return false;
     }
-    if !data.can_spawn_far_from_player && nearest_player_distance_sqr > despawn_distance_sqr(data.category) {
+    if !data.can_spawn_far_from_player
+        && nearest_player_distance_sqr > despawn_distance_sqr(data.category)
+    {
         return false;
     }
     if !data.summonable || !can_spawn_mob_at(level, category, spawn_data, pos) {
@@ -310,15 +466,38 @@ fn is_valid_spawn_position_for_type(level: &mut ServerLevel, category: MobCatego
     if !spawn_placements::is_spawn_position_ok(ty, level, pos) {
         return false;
     }
-    if !spawn_placements::check_spawn_rules_with_level_random(level, ty, EntitySpawnReason::Natural, pos) {
+    if !spawn_placements::check_spawn_rules_with_level_random(
+        level,
+        ty,
+        EntitySpawnReason::Natural,
+        pos,
+    ) {
         return false;
     }
-    ServerLevelAccessor::no_collision_aabb(level, &get_spawn_aabb(ty, f64::from(pos.x()) + 0.5, f64::from(pos.y()), f64::from(pos.z()) + 0.5))
+    ServerLevelAccessor::no_collision_aabb(
+        level,
+        &get_spawn_aabb(
+            ty,
+            f64::from(pos.x()) + 0.5,
+            f64::from(pos.y()),
+            f64::from(pos.z()) + 0.5,
+        ),
+    )
 }
 
 /// `getMobForSpawn(level, type)`: `None` when the type cannot be created or is not a mob.
-fn get_mob_for_spawn(level: &ServerLevel, ty: EntityType) -> Option<Box<dyn crate::world::entity::Entity>> {
-    match ServerLevelAccessor::create_entity(level, ty, EntitySpawnRequest { reason: EntitySpawnReason::Natural, ignore_checks: false }) {
+fn get_mob_for_spawn(
+    level: &ServerLevel,
+    ty: EntityType,
+) -> Option<Box<dyn crate::world::entity::Entity>> {
+    match ServerLevelAccessor::create_entity(
+        level,
+        ty,
+        EntitySpawnRequest {
+            reason: EntitySpawnReason::Natural,
+            ignore_checks: false,
+        },
+    ) {
         Some(entity) if entity.is_mob() => Some(entity),
         Some(_) => {
             log::warn!("Can't spawn entity of type: {}", ty.name());
@@ -329,8 +508,14 @@ fn get_mob_for_spawn(level: &ServerLevel, ty: EntityType) -> Option<Box<dyn crat
 }
 
 /// `isValidPositionForMob(level, mob, nearestPlayerDistanceSqr)`.
-fn is_valid_position_for_mob(level: &ServerLevel, mob: &dyn crate::world::entity::Entity, nearest_player_distance_sqr: f64) -> bool {
-    if nearest_player_distance_sqr > despawn_distance_sqr(mob.get_type().data().category) && mob.remove_when_far_away(nearest_player_distance_sqr) {
+fn is_valid_position_for_mob(
+    level: &ServerLevel,
+    mob: &dyn crate::world::entity::Entity,
+    nearest_player_distance_sqr: f64,
+) -> bool {
+    if nearest_player_distance_sqr > despawn_distance_sqr(mob.get_type().data().category)
+        && mob.remove_when_far_away(nearest_player_distance_sqr)
+    {
         return false;
     }
     mob.check_spawn_rules(level, EntitySpawnReason::Natural) && mob.check_spawn_obstruction(level)
@@ -338,25 +523,45 @@ fn is_valid_position_for_mob(level: &ServerLevel, mob: &dyn crate::world::entity
 
 /// The tag `REDUCED_WATER_AMBIENT_SPAWNS` of the vanilla data pack, as biome keys.
 fn reduced_water_ambient_biomes() -> &'static std::collections::HashSet<String> {
-    static BIOMES: LazyLock<std::collections::HashSet<String>> =
-        LazyLock::new(|| mc_data::tags::names("worldgen/biome", "minecraft:reduced_water_ambient_spawns").unwrap_or_default().into_iter().collect());
+    static BIOMES: LazyLock<std::collections::HashSet<String>> = LazyLock::new(|| {
+        mc_data::tags::names("worldgen/biome", "minecraft:reduced_water_ambient_spawns")
+            .unwrap_or_default()
+            .into_iter()
+            .collect()
+    });
     &BIOMES
 }
 
 /// `getRandomSpawnMobAt(level, structureManager, generator, category, random, pos)`.
-fn get_random_spawn_mob_at(level: &mut ServerLevel, category: MobCategory, pos: BlockPos) -> Option<SpawnerData> {
+fn get_random_spawn_mob_at(
+    level: &mut ServerLevel,
+    category: MobCategory,
+    pos: BlockPos,
+) -> Option<SpawnerData> {
     if category == MobCategory::WaterAmbient {
-        let reduced = level.get_biome_id(pos).zip(level.tick_state.biomes.as_ref()).is_some_and(|(id, registry)| reduced_water_ambient_biomes().contains(&registry.key(id).to_string()));
+        let reduced = level
+            .get_biome_id(pos)
+            .zip(level.tick_state.biomes.as_ref())
+            .is_some_and(|(id, registry)| {
+                reduced_water_ambient_biomes().contains(&registry.key(id).to_string())
+            });
         if reduced && level.tick_state.random.next_float() < 0.98f32 {
             return None;
         }
     }
     let mobs = mobs_at(level, category, pos);
-    mobs.list().get_random(&mut level.tick_state.random).cloned()
+    mobs.list()
+        .get_random(&mut level.tick_state.random)
+        .cloned()
 }
 
 /// `canSpawnMobAt(...)`.
-fn can_spawn_mob_at(level: &ServerLevel, category: MobCategory, spawner_data: &SpawnerData, pos: BlockPos) -> bool {
+fn can_spawn_mob_at(
+    level: &ServerLevel,
+    category: MobCategory,
+    spawner_data: &SpawnerData,
+    pos: BlockPos,
+) -> bool {
     list_contains(mobs_at(level, category, pos).list(), spawner_data)
 }
 
@@ -385,7 +590,9 @@ pub struct LevelStructureSource<'a>(pub &'a ServerLevel);
 
 impl StructureDataSource for LevelStructureSource<'_> {
     fn structure_data(&self, pos: ChunkPos) -> Option<&mc_world::chunk::StructureData> {
-        self.0.chunk_now(pos.x, pos.z).map(|chunk| &chunk.data.access.structures)
+        self.0
+            .chunk_now(pos.x, pos.z)
+            .map(|chunk| &chunk.data.access.structures)
     }
 }
 
@@ -396,16 +603,28 @@ pub fn mobs_at(level: &ServerLevel, category: MobCategory, pos: BlockPos) -> Mob
     }
     // `ChunkGenerator.getMobsAt`
     let hooks = &level.chunk_source.chunk_map.gen_context.hooks;
-    if let Some(list) = hooks.structure_spawn_override(&LevelStructureSource(level), pos, category) {
+    if let Some(list) = hooks.structure_spawn_override(&LevelStructureSource(level), pos, category)
+    {
         return MobsAt::StructureOverride(list);
     }
     MobsAt::Natural(level.natural_mob_spawns_at(pos), category)
 }
 
 /// `isInNetherFortressBounds(pos, level, category, structureManager)`.
-pub fn is_in_nether_fortress_bounds(pos: BlockPos, level: &ServerLevel, category: MobCategory) -> bool {
-    if category == MobCategory::Monster && BlockGetter::get_block_state(level, pos.below()).block() == Block::NETHER_BRICKS {
-        return level.chunk_source.chunk_map.gen_context.hooks.is_in_nether_fortress(&LevelStructureSource(level), pos);
+pub fn is_in_nether_fortress_bounds(
+    pos: BlockPos,
+    level: &ServerLevel,
+    category: MobCategory,
+) -> bool {
+    if category == MobCategory::Monster
+        && BlockGetter::get_block_state(level, pos.below()).block() == Block::NETHER_BRICKS
+    {
+        return level
+            .chunk_source
+            .chunk_map
+            .gen_context
+            .hooks
+            .is_in_nether_fortress(&LevelStructureSource(level), pos);
     }
     false
 }
@@ -421,7 +640,13 @@ fn get_random_pos_within(level: &mut ServerLevel, chunk_pos: ChunkPos) -> BlockP
 }
 
 /// `isValidEmptySpawnBlock(level, pos, blockState, fluidState, type)`.
-pub fn is_valid_empty_spawn_block(level: &dyn BlockGetter, pos: BlockPos, block_state: mc_data::block::BlockState, fluid_state: FluidState, ty: EntityType) -> bool {
+pub fn is_valid_empty_spawn_block(
+    level: &dyn BlockGetter,
+    pos: BlockPos,
+    block_state: mc_data::block::BlockState,
+    fluid_state: FluidState,
+    ty: EntityType,
+) -> bool {
     if block_state.is_collision_shape_full_block_at(level, pos) {
         false
     } else if block_state.is_signal_source() {
@@ -436,7 +661,12 @@ pub fn is_valid_empty_spawn_block(level: &dyn BlockGetter, pos: BlockPos, block_
 }
 
 /// `spawnMobsForChunkGeneration(level, sourcePos, chunkPos, random)`.
-pub fn spawn_mobs_for_chunk_generation(level: &mut dyn ServerLevelAccessor, source_pos: BlockPos, chunk_pos: ChunkPos, random: &mut dyn RandomSource) {
+pub fn spawn_mobs_for_chunk_generation(
+    level: &mut dyn ServerLevelAccessor,
+    source_pos: BlockPos,
+    chunk_pos: ChunkPos,
+    random: &mut dyn RandomSource,
+) {
     if !level.spawn_mobs_rule() {
         return;
     }
@@ -449,7 +679,9 @@ pub fn spawn_mobs_for_chunk_generation(level: &mut dyn ServerLevelAccessor, sour
     let xo = chunk_pos.get_min_block_x();
     let zo = chunk_pos.get_min_block_z();
     while random.next_float() < creature_probability {
-        let Some(spawner_data) = mobs.get_random(random) else { continue };
+        let Some(spawner_data) = mobs.get_random(random) else {
+            continue;
+        };
         let ty = spawner_data.entity_type;
         let count = spawner_data.count.sample(random);
         let mut group_spawn_data: Option<Box<dyn SpawnGroupData>> = None;
@@ -464,24 +696,51 @@ pub fn spawn_mobs_for_chunk_generation(level: &mut dyn ServerLevelAccessor, sour
                 let pos = get_top_non_colliding_pos(level, ty, x, z);
                 if ty.data().summonable && spawn_placements::is_spawn_position_ok(ty, level, pos) {
                     let width = ty.data().width;
-                    let fx = mth::clamp_f64(f64::from(x), f64::from(xo) + f64::from(width), f64::from(xo) + 16.0 - f64::from(width));
-                    let fz = mth::clamp_f64(f64::from(z), f64::from(zo) + f64::from(width), f64::from(zo) + 16.0 - f64::from(width));
+                    let fx = mth::clamp_f64(
+                        f64::from(x),
+                        f64::from(xo) + f64::from(width),
+                        f64::from(xo) + 16.0 - f64::from(width),
+                    );
+                    let fz = mth::clamp_f64(
+                        f64::from(z),
+                        f64::from(zo) + f64::from(width),
+                        f64::from(zo) + 16.0 - f64::from(width),
+                    );
                     if !level.no_collision_aabb(&get_spawn_aabb(ty, fx, f64::from(pos.y()), fz))
-                        || !spawn_placements::check_spawn_rules_with_level_random(level, ty, EntitySpawnReason::ChunkGeneration, BlockPos::containing(fx, f64::from(pos.y()), fz))
+                        || !spawn_placements::check_spawn_rules_with_level_random(
+                            level,
+                            ty,
+                            EntitySpawnReason::ChunkGeneration,
+                            BlockPos::containing(fx, f64::from(pos.y()), fz),
+                        )
                     {
                         // `continue` of the `for (attempts...; attempts++)` loop skips the position update below
                         attempts += 1;
                         continue;
                     }
-                    let Some(mut entity) = level.create_entity(ty, EntitySpawnRequest { reason: EntitySpawnReason::Natural, ignore_checks: false }) else {
+                    let Some(mut entity) = level.create_entity(
+                        ty,
+                        EntitySpawnRequest {
+                            reason: EntitySpawnReason::Natural,
+                            ignore_checks: false,
+                        },
+                    ) else {
                         attempts += 1;
                         continue;
                     };
                     let y_rot = random.next_float() * 360.0f32;
                     entity.snap_to(fx, f64::from(pos.y()), fz, y_rot, 0.0);
-                    if entity.is_mob() && entity.check_spawn_rules(&*level, EntitySpawnReason::ChunkGeneration) && entity.check_spawn_obstruction(&*level) {
+                    if entity.is_mob()
+                        && entity.check_spawn_rules(&*level, EntitySpawnReason::ChunkGeneration)
+                        && entity.check_spawn_obstruction(&*level)
+                    {
                         let difficulty = level.get_current_difficulty_at(entity.block_position());
-                        group_spawn_data = entity.finalize_spawn(level, difficulty, EntitySpawnReason::ChunkGeneration, group_spawn_data);
+                        group_spawn_data = entity.finalize_spawn(
+                            level,
+                            difficulty,
+                            EntitySpawnReason::ChunkGeneration,
+                            group_spawn_data,
+                        );
                         level.add_fresh_entity_with_passengers(entity);
                         success = true;
                     }
@@ -499,7 +758,12 @@ pub fn spawn_mobs_for_chunk_generation(level: &mut dyn ServerLevelAccessor, sour
 }
 
 /// `getTopNonCollidingPos(level, type, x, z)`.
-fn get_top_non_colliding_pos(level: &dyn ServerLevelAccessor, ty: EntityType, x: i32, z: i32) -> BlockPos {
+fn get_top_non_colliding_pos(
+    level: &dyn ServerLevelAccessor,
+    ty: EntityType,
+    x: i32,
+    z: i32,
+) -> BlockPos {
     let level_height = level.get_height_at(spawn_placements::get_heightmap_type(ty), x, z);
     let mut pos = BlockPos::new(x, level_height, z);
     if level.has_ceiling() {

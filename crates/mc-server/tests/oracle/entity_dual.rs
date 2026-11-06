@@ -11,7 +11,9 @@ use crate::common::*;
 use mc_testbot::harness::repo_root;
 
 fn fixture_path(scenario: &str) -> std::path::PathBuf {
-    std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/entity_dual").join(format!("{scenario}.txt"))
+    std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("tests/fixtures/entity_dual")
+        .join(format!("{scenario}.txt"))
 }
 
 fn only() -> Option<String> {
@@ -21,7 +23,11 @@ fn only() -> Option<String> {
 #[tokio::test(flavor = "multi_thread")]
 #[ignore = "oracle: starts the vanilla server"]
 async fn entity_dual_vanilla() {
-    let server = Arc::new(mc_testbot::harness::vanilla(12345, "survival", PROPS).start().expect("start vanilla"));
+    let server = Arc::new(
+        mc_testbot::harness::vanilla(12345, "survival", PROPS)
+            .start()
+            .expect("start vanilla"),
+    );
     let bot = join("127.0.0.1", server.port, "Bot").await;
     setup(&bot, &*server).await;
     let results = run_all(&bot, server.clone(), only().as_deref()).await;
@@ -35,26 +41,42 @@ async fn entity_dual_vanilla() {
             std::fs::write(&path, lines.join("\n") + "\n").unwrap();
             continue;
         }
-        let expected: Vec<String> = std::fs::read_to_string(&path).unwrap_or_default().lines().map(str::to_string).collect();
+        let expected: Vec<String> = std::fs::read_to_string(&path)
+            .unwrap_or_default()
+            .lines()
+            .map(str::to_string)
+            .collect();
         let diffs = compare(&expected, lines);
         if !diffs.is_empty() {
             failures.push(format!("{name}:\n{}", diffs.join("\n")));
         }
     }
-    assert!(failures.is_empty(), "vanilla observations differ from the committed fixtures:\n{}", failures.join("\n"));
+    assert!(
+        failures.is_empty(),
+        "vanilla observations differ from the committed fixtures:\n{}",
+        failures.join("\n")
+    );
 }
 
 #[tokio::test(flavor = "multi_thread")]
 #[ignore = "oracle: starts the mc-server binary"]
 async fn entity_dual_ours() {
-    let server = Arc::new(ours(12345, "survival", PROPS).start().expect("start our server"));
+    let server = Arc::new(
+        ours(12345, "survival", PROPS)
+            .start()
+            .expect("start our server"),
+    );
     let bot = join("127.0.0.1", server.port, "Bot").await;
     setup(&bot, &*server).await;
     let results = run_all(&bot, server.clone(), only().as_deref()).await;
     bot.disconnect().await;
     let mut report = String::new();
     for (name, lines) in &results {
-        let expected: Vec<String> = std::fs::read_to_string(fixture_path(name)).unwrap_or_default().lines().map(str::to_string).collect();
+        let expected: Vec<String> = std::fs::read_to_string(fixture_path(name))
+            .unwrap_or_default()
+            .lines()
+            .map(str::to_string)
+            .collect();
         let diffs = compare(&expected, lines);
         if diffs.is_empty() {
             report.push_str(&format!("MATCH {name}\n"));
@@ -66,6 +88,9 @@ async fn entity_dual_ours() {
     let _ = std::fs::write(repo_root().join("run/entity-dual-ours.diff"), &report);
     println!("{report}");
     if std::env::var("ENTITY_DUAL_STRICT").is_ok() {
-        assert!(!report.contains("DIFF "), "our server differs from vanilla:\n{report}");
+        assert!(
+            !report.contains("DIFF "),
+            "our server differs from vanilla:\n{report}"
+        );
     }
 }

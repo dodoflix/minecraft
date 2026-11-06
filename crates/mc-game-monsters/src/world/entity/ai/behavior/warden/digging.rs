@@ -1,13 +1,13 @@
 //! `Digging`.
 
+use mc_data::SoundEvent;
+use mc_data::enums::Pose;
 use mc_game_core::entry_condition;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::entity::Entity;
 use mc_game_core::world::entity::RemovalReason;
 use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase};
 use mc_game_core::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, WALK_TARGET};
-use mc_data::SoundEvent;
-use mc_data::enums::Pose;
 
 /// `Digging<E extends Warden>`.
 pub struct Digging;
@@ -15,16 +15,29 @@ pub struct Digging;
 impl Digging {
     /// `new Digging(ticks)`.
     pub fn new(ticks: i32) -> BehaviorBase<Digging> {
-        BehaviorBase::with_timeout(entry_condition![ATTACK_TARGET => ValueAbsent, WALK_TARGET => ValueAbsent], ticks, Digging)
+        BehaviorBase::with_timeout(
+            entry_condition![ATTACK_TARGET => ValueAbsent, WALK_TARGET => ValueAbsent],
+            ticks,
+            Digging,
+        )
     }
 }
 
 impl Behavior for Digging {
-    fn can_still_use(&mut self, _level: &mut ServerLevel, body: &mut dyn Entity, _timestamp: i64) -> bool {
+    fn can_still_use(
+        &mut self,
+        _level: &mut ServerLevel,
+        body: &mut dyn Entity,
+        _timestamp: i64,
+    ) -> bool {
         body.base().removal_reason().is_none()
     }
 
-    fn check_extra_start_conditions(&mut self, _level: &mut ServerLevel, body: &mut dyn Entity) -> bool {
+    fn check_extra_start_conditions(
+        &mut self,
+        _level: &mut ServerLevel,
+        body: &mut dyn Entity,
+    ) -> bool {
         body.base().on_ground() || body.is_in_liquid()
     }
 
@@ -44,4 +57,3 @@ impl Behavior for Digging {
         }
     }
 }
-

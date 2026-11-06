@@ -56,13 +56,18 @@ impl Decoder<'_> {
         decode: impl FnOnce(&Value) -> LoadResult<T>,
     ) -> LoadResult<Arc<T>> {
         let cyclic = LOADING.with(|loading| {
-            loading.borrow().iter().any(|(r, k)| *r == registry && k == key)
+            loading
+                .borrow()
+                .iter()
+                .any(|(r, k)| *r == registry && k == key)
         });
         if cyclic {
             return Err(LoadError::new("reference cycle").in_entry(registry, key));
         }
         LOADING.with(|loading| loading.borrow_mut().push((registry, key.clone())));
-        let result = self.registries.memoized(registry, key, |json, _| decode(json));
+        let result = self
+            .registries
+            .memoized(registry, key, |json, _| decode(json));
         LOADING.with(|loading| loading.borrow_mut().pop());
         result
     }

@@ -12,4 +12,11 @@ macro_rules! golden {
     )+};
 }
 
-golden!(repeater, comparator, observer, copper_bulb, noteblock, daylight);
+golden!(
+    repeater,
+    comparator,
+    observer,
+    copper_bulb,
+    noteblock,
+    daylight
+);

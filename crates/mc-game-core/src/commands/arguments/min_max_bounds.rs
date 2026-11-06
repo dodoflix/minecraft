@@ -2,11 +2,16 @@
 //! matching). Codecs are not ported (only needed by predicates/advancements).
 
 use crate::commands::message::simple_translatable;
-use mc_brigadier::{BuiltInExceptionProvider, CommandSyntaxException, DynamicCommandExceptionType, ImmutableStringReader, SimpleCommandExceptionType, StringReader};
+use mc_brigadier::{
+    BuiltInExceptionProvider, CommandSyntaxException, DynamicCommandExceptionType,
+    ImmutableStringReader, SimpleCommandExceptionType, StringReader,
+};
 use std::sync::LazyLock;
 
-pub static ERROR_EMPTY: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| simple_translatable("argument.range.empty"));
-pub static ERROR_SWAPPED: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| simple_translatable("argument.range.swapped"));
+pub static ERROR_EMPTY: LazyLock<SimpleCommandExceptionType> =
+    LazyLock::new(|| simple_translatable("argument.range.empty"));
+pub static ERROR_SWAPPED: LazyLock<SimpleCommandExceptionType> =
+    LazyLock::new(|| simple_translatable("argument.range.swapped"));
 
 /// `MinMaxBounds.Bounds<T>`.
 #[derive(Clone, Copy, PartialEq, Debug)]
@@ -17,23 +22,38 @@ pub struct Bounds<T> {
 
 impl<T: PartialOrd + Copy> Bounds<T> {
     pub fn any() -> Self {
-        Self { min: None, max: None }
+        Self {
+            min: None,
+            max: None,
+        }
     }
 
     pub fn exactly(v: T) -> Self {
-        Self { min: Some(v), max: Some(v) }
+        Self {
+            min: Some(v),
+            max: Some(v),
+        }
     }
 
     pub fn between(min: T, max: T) -> Self {
-        Self { min: Some(min), max: Some(max) }
+        Self {
+            min: Some(min),
+            max: Some(max),
+        }
     }
 
     pub fn at_least(v: T) -> Self {
-        Self { min: Some(v), max: None }
+        Self {
+            min: Some(v),
+            max: None,
+        }
     }
 
     pub fn at_most(v: T) -> Self {
-        Self { min: None, max: Some(v) }
+        Self {
+            min: None,
+            max: Some(v),
+        }
     }
 
     pub fn is_any(&self) -> bool {
@@ -45,7 +65,10 @@ impl<T: PartialOrd + Copy> Bounds<T> {
     }
 
     pub fn map<U>(&self, f: impl Fn(T) -> U) -> Bounds<U> {
-        Bounds { min: self.min.map(&f), max: self.max.map(&f) }
+        Bounds {
+            min: self.min.map(&f),
+            max: self.max.map(&f),
+        }
     }
 
     /// `Bounds.fromReader`.
@@ -75,7 +98,12 @@ impl<T: PartialOrd + Copy> Bounds<T> {
         })();
         result.map_err(|e| {
             reader.set_cursor(start);
-            CommandSyntaxException::with_context(e.get_type(), e.get_raw_message().clone(), e.get_input().unwrap_or("").to_owned(), start)
+            CommandSyntaxException::with_context(
+                e.get_type(),
+                e.get_raw_message().clone(),
+                e.get_input().unwrap_or("").to_owned(),
+                start,
+            )
         })
     }
 }
@@ -98,7 +126,7 @@ fn read_number<T>(
         None => {
             let provider = CommandSyntaxException::built_in_exceptions();
             Err(parse_exc(&*provider).create_with_context(reader, number))
-        },
+        }
     }
 }
 
@@ -122,7 +150,10 @@ pub struct Doubles {
 
 impl Doubles {
     pub fn new(bounds: Bounds<f64>) -> Self {
-        Self { bounds, bounds_sqr: bounds.map(|d| d * d) }
+        Self {
+            bounds,
+            bounds_sqr: bounds.map(|d| d * d),
+        }
     }
 
     pub fn any() -> Self {
@@ -150,11 +181,19 @@ impl Doubles {
     }
 
     pub fn matches(&self, value: f64) -> bool {
-        if self.bounds.min.is_some_and(|m| m > value) { false } else { self.bounds.max.is_none_or(|m| !(m < value)) }
+        if self.bounds.min.is_some_and(|m| m > value) {
+            false
+        } else {
+            self.bounds.max.is_none_or(|m| !(m < value))
+        }
     }
 
     pub fn matches_sqr(&self, value_sqr: f64) -> bool {
-        if self.bounds_sqr.min.is_some_and(|m| m > value_sqr) { false } else { self.bounds_sqr.max.is_none_or(|m| !(m < value_sqr)) }
+        if self.bounds_sqr.min.is_some_and(|m| m > value_sqr) {
+            false
+        } else {
+            self.bounds_sqr.max.is_none_or(|m| !(m < value_sqr))
+        }
     }
 
     pub fn from_reader(reader: &mut StringReader) -> Result<Doubles, CommandSyntaxException> {
@@ -177,7 +216,9 @@ pub struct FloatDegrees {
 
 impl FloatDegrees {
     pub fn any() -> Self {
-        Self { bounds: Bounds::any() }
+        Self {
+            bounds: Bounds::any(),
+        }
     }
 
     pub fn is_any(&self) -> bool {
@@ -185,7 +226,11 @@ impl FloatDegrees {
     }
 
     pub fn from_reader(reader: &mut StringReader) -> Result<FloatDegrees, CommandSyntaxException> {
-        let bounds = Bounds::from_reader(reader, |s| java_parse_double(s).map(|d| d as f32), |p| p.reader_invalid_float())?;
+        let bounds = Bounds::from_reader(
+            reader,
+            |s| java_parse_double(s).map(|d| d as f32),
+            |p| p.reader_invalid_float(),
+        )?;
         Ok(FloatDegrees { bounds })
     }
 }
@@ -199,7 +244,10 @@ pub struct Ints {
 
 impl Ints {
     pub fn new(bounds: Bounds<i32>) -> Self {
-        Self { bounds, bounds_sqr: bounds.map(|i| i64::from(i).wrapping_mul(i64::from(i))) }
+        Self {
+            bounds,
+            bounds_sqr: bounds.map(|i| i64::from(i).wrapping_mul(i64::from(i))),
+        }
     }
 
     pub fn any() -> Self {
@@ -227,16 +275,28 @@ impl Ints {
     }
 
     pub fn matches(&self, value: i32) -> bool {
-        if self.bounds.min.is_some_and(|m| m > value) { false } else { self.bounds.max.is_none_or(|m| m >= value) }
+        if self.bounds.min.is_some_and(|m| m > value) {
+            false
+        } else {
+            self.bounds.max.is_none_or(|m| m >= value)
+        }
     }
 
     pub fn matches_sqr(&self, value_sqr: i64) -> bool {
-        if self.bounds_sqr.min.is_some_and(|m| m > value_sqr) { false } else { self.bounds_sqr.max.is_none_or(|m| m >= value_sqr) }
+        if self.bounds_sqr.min.is_some_and(|m| m > value_sqr) {
+            false
+        } else {
+            self.bounds_sqr.max.is_none_or(|m| m >= value_sqr)
+        }
     }
 
     pub fn from_reader(reader: &mut StringReader) -> Result<Ints, CommandSyntaxException> {
         let start = reader.get_cursor();
-        let bounds = Bounds::from_reader(reader, |s| s.parse::<i32>().ok(), |p| p.reader_invalid_int())?;
+        let bounds = Bounds::from_reader(
+            reader,
+            |s| s.parse::<i32>().ok(),
+            |p| p.reader_invalid_int(),
+        )?;
         if bounds.are_swapped() {
             reader.set_cursor(start);
             Err(ERROR_SWAPPED.create_with_context(reader))

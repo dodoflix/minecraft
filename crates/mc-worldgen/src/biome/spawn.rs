@@ -19,7 +19,10 @@ pub struct SpawnTargetPoint {
 
 impl SpawnTargetPoint {
     /// `SpawnTargetPoint.CODEC`: an unbounded map `density function reference -> Climate.Parameter`.
-    pub fn from_json(value: &Value, registries: &WorldgenRegistries) -> LoadResult<SpawnTargetPoint> {
+    pub fn from_json(
+        value: &Value,
+        registries: &WorldgenRegistries,
+    ) -> LoadResult<SpawnTargetPoint> {
         let map = value
             .as_object()
             .ok_or_else(|| LoadError::new("expected object"))?;
@@ -37,7 +40,13 @@ impl SpawnTargetPoint {
     }
 
     /// `sampleFitness(samplers, blockX, blockY, blockZ)`.
-    pub fn sample_fitness(&self, samplers: &DensitySamplerSet, block_x: i32, block_y: i32, block_z: i32) -> i64 {
+    pub fn sample_fitness(
+        &self,
+        samplers: &DensitySamplerSet,
+        block_x: i32,
+        block_y: i32,
+        block_z: i32,
+    ) -> i64 {
         let mut fitness = 0i64;
         for (function, parameter) in &self.parameters {
             let value = quantize_coord(samplers.sample_value(function, block_x, block_y, block_z));
@@ -59,7 +68,10 @@ pub struct NoiseSpawnFinder;
 
 impl NoiseSpawnFinder {
     /// `findSpawnPosition(targetPoints, samplers)`.
-    pub fn find_spawn_position(target_points: &[SpawnTargetPoint], samplers: &DensitySamplerSet) -> BlockPos {
+    pub fn find_spawn_position(
+        target_points: &[SpawnTargetPoint],
+        samplers: &DensitySamplerSet,
+    ) -> BlockPos {
         let mut result = Self::get_spawn_position_and_fitness(samplers, target_points, 0, 0);
         Self::radial_search(&mut result, samplers, target_points, 2048.0, 512.0);
         Self::radial_search(&mut result, samplers, target_points, 512.0, 32.0);
@@ -105,7 +117,8 @@ impl NoiseSpawnFinder {
         let quart_block_z = quart_pos::to_block(quart_pos::from_block(block_z));
         let mut min_fitness = i64::MAX;
         for point in target_points {
-            min_fitness = min_fitness.min(point.sample_fitness(samplers, quart_block_x, 0, quart_block_z));
+            min_fitness =
+                min_fitness.min(point.sample_fitness(samplers, quart_block_x, 0, quart_block_z));
         }
         let distance_bias_to_world_origin = i64::from(block_x)
             .wrapping_mul(i64::from(block_x))

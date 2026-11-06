@@ -1,17 +1,19 @@
 //! `SingleBlockPillarFeature`: a column of one block growing in a vertical direction, optionally capped by another feature.
 
-use mc_game_core::world::level::levelgen::feature::Feature;
+use mc_core::direction::Direction;
+use mc_core::pos::BlockPos;
+use mc_core::random::RandomSource;
 use mc_game_core::world::level::LevelAccessor;
 use mc_game_core::world::level::levelgen::blockpredicates::{self, BlockPredicate};
-use mc_game_core::world::level::levelgen::codec::{LoadError, TypeEntry, parse_direction, parse_float_range};
+use mc_game_core::world::level::levelgen::codec::{
+    LoadError, TypeEntry, parse_direction, parse_float_range,
+};
 use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::feature::Feature;
 use mc_game_core::world::level::levelgen::holder::Holder;
 use mc_game_core::world::level::levelgen::placement::PlacedFeature;
 use mc_game_core::world::level::levelgen::stateproviders::BlockStateProvider;
 use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
-use mc_core::direction::Direction;
-use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
 use std::sync::Arc;
 
 pub struct SingleBlockPillarFeature {
@@ -32,9 +34,18 @@ impl BlockPredicate for AlwaysTrue {
 }
 
 impl Feature for SingleBlockPillarFeature {
-    fn place(&self, level: &mut dyn WorldGenLevel, generator: &GenEnv, random: &mut dyn RandomSource, origin: BlockPos) -> bool {
+    fn place(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        generator: &GenEnv,
+        random: &mut dyn RandomSource,
+        origin: BlockPos,
+    ) -> bool {
         let mut pos = origin;
-        while self.can_replace.test(&*level, pos) && random.next_float() < self.chance_to_continue && !level.is_outside_build_height(pos.y()) {
+        while self.can_replace.test(&*level, pos)
+            && random.next_float() < self.chance_to_continue
+            && !level.is_outside_build_height(pos.y())
+        {
             let state = self.block.value().get_state(&*level, random, pos);
             level.set_block_flags(pos, state, 2);
             pos = pos.relative(self.direction);
@@ -58,9 +69,15 @@ static SINGLE_BLOCK_PILLAR: TypeEntry<dyn Feature> = TypeEntry {
                 .unwrap_or_else(|| Arc::new(AlwaysTrue) as Arc<dyn BlockPredicate>),
             direction: fields.required("direction", |v| {
                 let direction = parse_direction(v)?;
-                if direction.get_axis().is_vertical() { Ok(direction) } else { Err(LoadError::new("Expected a vertical direction")) }
+                if direction.get_axis().is_vertical() {
+                    Ok(direction)
+                } else {
+                    Err(LoadError::new("Expected a vertical direction"))
+                }
             })?,
-            chance_to_continue: fields.optional("chance_to_continue", |v| parse_float_range(v, 0.0, 1.0))?.unwrap_or(1.0),
+            chance_to_continue: fields
+                .optional("chance_to_continue", |v| parse_float_range(v, 0.0, 1.0))?
+                .unwrap_or(1.0),
             cap_feature: fields.optional("cap_feature", |v| ctx.placed_feature(v))?,
         }))
     },

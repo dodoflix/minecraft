@@ -5,7 +5,10 @@
 //! the vanilla call sites (`setItem` of a payment slot, `removeItem` that removed something from a payment slot,
 //! `setChanged`) and the menu replays them as `update_sell_item` after each slot operation (`flush_container_events`).
 
-use super::{AbstractContainerMenu, ContainerKey, MenuBase, MenuPlayer, Prediction, Slot, SlotBehavior, SlotEnv, place_item_back_in_inventory};
+use super::{
+    AbstractContainerMenu, ContainerKey, MenuBase, MenuPlayer, Prediction, Slot, SlotBehavior,
+    SlotEnv, place_item_back_in_inventory,
+};
 use crate::stats::Stat;
 use crate::stats::stats::Stats;
 use crate::world::container::{Container, helper};
@@ -37,7 +40,13 @@ pub struct MerchantContainer {
 
 impl MerchantContainer {
     fn new() -> Self {
-        Self { items: [ItemStack::empty(), ItemStack::empty(), ItemStack::empty()], active_offer: None, selection_hint: 0, future_xp: 0, pending_updates: 0 }
+        Self {
+            items: [ItemStack::empty(), ItemStack::empty(), ItemStack::empty()],
+            active_offer: None,
+            selection_hint: 0,
+            future_xp: 0,
+            pending_updates: 0,
+        }
     }
 
     fn is_payment_slot(slot: usize) -> bool {
@@ -69,7 +78,9 @@ impl Container for MerchantContainer {
         self.items.iter().all(ItemStack::is_empty)
     }
     fn get_item(&self, slot: usize) -> &ItemStack {
-        self.items.get(slot).unwrap_or_else(|| crate::world::container::empty_stack())
+        self.items
+            .get(slot)
+            .unwrap_or_else(|| crate::world::container::empty_stack())
     }
     fn get_item_mut(&mut self, slot: usize) -> Option<&mut ItemStack> {
         self.items.get_mut(slot)
@@ -111,13 +122,23 @@ impl Container for MerchantContainer {
 }
 
 fn trade_container<'a>(locals: &'a mut [Box<dyn Container>]) -> &'a mut MerchantContainer {
-    locals[TRADE_LOCAL].as_any_mut().downcast_mut::<MerchantContainer>().expect("merchant container")
+    locals[TRADE_LOCAL]
+        .as_any_mut()
+        .downcast_mut::<MerchantContainer>()
+        .expect("merchant container")
 }
 
 /// `MerchantContainer.getRecipeFor` with the index of the offer.
-fn recipe_index_for(offers: &MerchantOffers, buy_a: &ItemStack, buy_b: &ItemStack, selection_hint: i32) -> Option<usize> {
+fn recipe_index_for(
+    offers: &MerchantOffers,
+    buy_a: &ItemStack,
+    buy_b: &ItemStack,
+    selection_hint: i32,
+) -> Option<usize> {
     if selection_hint > 0 && (selection_hint as usize) < offers.len() {
-        return offers[selection_hint as usize].satisfied_by(buy_a, buy_b).then_some(selection_hint as usize);
+        return offers[selection_hint as usize]
+            .satisfied_by(buy_a, buy_b)
+            .then_some(selection_hint as usize);
     }
     offers.iter().position(|o| o.satisfied_by(buy_a, buy_b))
 }
@@ -133,7 +154,8 @@ impl MerchantResultSlot {
     fn check_take_achievements(&self, env: &mut SlotEnv, carried: &ItemStack) {
         let count = self.remove_count.get();
         let item = carried.item();
-        env.player.with_server_player(&mut |level, p| p.award_stat(&*level, Stat::Crafted(item), count));
+        env.player
+            .with_server_player(&mut |level, p| p.award_stat(&*level, Stat::Crafted(item), count));
         let mut copy = carried.clone();
         behaviour(item).on_crafted_by(&mut copy, &mut *env.player);
         self.remove_count.set(0);
@@ -148,7 +170,8 @@ impl SlotBehavior for MerchantResultSlot {
     fn remove(&self, slot: &Slot, env: &mut SlotEnv, amount: i32) -> ItemStack {
         let current = slot.get_item(env);
         if !current.is_empty() {
-            self.remove_count.set(self.remove_count.get() + amount.min(current.count()));
+            self.remove_count
+                .set(self.remove_count.get() + amount.min(current.count()));
         }
         slot.base_remove(env, amount)
     }
@@ -160,10 +183,14 @@ impl SlotBehavior for MerchantResultSlot {
 
     fn may_pickup(&self, _slot: &Slot, env: &mut SlotEnv) -> bool {
         let container = trade_container(env.locals);
-        let Some(index) = container.active_offer else { return false };
+        let Some(index) = container.active_offer else {
+            return false;
+        };
         let (buy_a, buy_b) = (container.items[0].clone(), container.items[1].clone());
         with_merchant(&mut *env.player, self.merchant, |level, m| {
-            m.get_offers(level).get(index).is_some_and(|o| o.satisfied_by(&buy_a, &buy_b) || o.satisfied_by(&buy_b, &buy_a))
+            m.get_offers(level)
+                .get(index)
+                .is_some_and(|o| o.satisfied_by(&buy_a, &buy_b) || o.satisfied_by(&buy_b, &buy_a))
         })
         .unwrap_or(false)
     }
@@ -171,7 +198,9 @@ impl SlotBehavior for MerchantResultSlot {
     fn on_take(&self, _slot: &Slot, env: &mut SlotEnv, carried: &ItemStack) {
         self.check_take_achievements(env, carried);
         let container = trade_container(env.locals);
-        let Some(index) = container.active_offer else { return };
+        let Some(index) = container.active_offer else {
+            return;
+        };
         let (mut buy_a, mut buy_b) = (container.items[0].clone(), container.items[1].clone());
         let taken = with_merchant(&mut *env.player, self.merchant, |level, m| {
             let offer = m.get_offers(level).get(index)?;
@@ -185,7 +214,9 @@ impl SlotBehavior for MerchantResultSlot {
         .flatten();
         let Some((taken, xp)) = taken else { return };
         if taken {
-            env.player.with_server_player(&mut |level, p| p.award_stat_once(&*level, Stats::TRADED_WITH_VILLAGER));
+            env.player.with_server_player(&mut |level, p| {
+                p.award_stat_once(&*level, Stats::TRADED_WITH_VILLAGER)
+            });
             let container = trade_container(env.locals);
             container.set_item(0, buy_a);
             container.set_item(1, buy_b);
@@ -211,11 +242,36 @@ impl MerchantMenu {
         let mut base = MenuBase::new(Some(MenuType::MERCHANT), container_id);
         let local = base.add_local(Box::new(MerchantContainer::new()));
         debug_assert_eq!(local, TRADE_LOCAL);
-        base.add_slot(Slot::new(ContainerKey::Local(TRADE_LOCAL), PAYMENT1_SLOT, 136, 37));
-        base.add_slot(Slot::new(ContainerKey::Local(TRADE_LOCAL), PAYMENT2_SLOT, 162, 37));
-        base.add_slot(Slot::with_behavior(ContainerKey::Local(TRADE_LOCAL), RESULT_SLOT, 220, 37, Box::new(MerchantResultSlot { merchant, remove_count: Cell::new(0) })));
+        base.add_slot(Slot::new(
+            ContainerKey::Local(TRADE_LOCAL),
+            PAYMENT1_SLOT,
+            136,
+            37,
+        ));
+        base.add_slot(Slot::new(
+            ContainerKey::Local(TRADE_LOCAL),
+            PAYMENT2_SLOT,
+            162,
+            37,
+        ));
+        base.add_slot(Slot::with_behavior(
+            ContainerKey::Local(TRADE_LOCAL),
+            RESULT_SLOT,
+            220,
+            37,
+            Box::new(MerchantResultSlot {
+                merchant,
+                remove_count: Cell::new(0),
+            }),
+        ));
         base.add_standard_inventory_slots(&ContainerKey::PlayerInventory, 108, 84);
-        Self { base, trader: merchant, merchant_level: 0, show_progress_bar: false, can_restock: false }
+        Self {
+            base,
+            trader: merchant,
+            merchant_level: 0,
+            show_progress_bar: false,
+            can_restock: false,
+        }
     }
 
     pub fn get_trader(&self) -> EntityId {
@@ -228,10 +284,18 @@ impl MerchantMenu {
 
     /// `MerchantContainer.updateSellItem()` over offers the caller already holds (the merchant itself is out of the level, so
     /// `with_merchant` cannot reach it); returns the result item the caller passes to `notifyTradeUpdated`.
-    pub fn update_sell_item_with_offers(&mut self, _player: &mut dyn MenuPlayer, offers: &mut super::super::item::trading::MerchantOffers) -> Option<ItemStack> {
+    pub fn update_sell_item_with_offers(
+        &mut self,
+        _player: &mut dyn MenuPlayer,
+        offers: &mut super::super::item::trading::MerchantOffers,
+    ) -> Option<ItemStack> {
         let container = self.container();
         container.active_offer = None;
-        let (buy_a, buy_b) = if container.items[0].is_empty() { (container.items[1].clone(), ItemStack::empty()) } else { (container.items[0].clone(), container.items[1].clone()) };
+        let (buy_a, buy_b) = if container.items[0].is_empty() {
+            (container.items[1].clone(), ItemStack::empty())
+        } else {
+            (container.items[0].clone(), container.items[1].clone())
+        };
         if buy_a.is_empty() {
             container.set_item(RESULT_SLOT, ItemStack::empty());
             container.future_xp = 0;
@@ -308,7 +372,9 @@ impl MerchantMenu {
             }
             (offers.is_empty(), active, result)
         });
-        let Some((offers_empty, active, result)) = outcome else { return };
+        let Some((offers_empty, active, result)) = outcome else {
+            return;
+        };
         let container = self.container();
         if !offers_empty {
             container.active_offer = active;
@@ -324,7 +390,9 @@ impl MerchantMenu {
             }
         }
         let result_item = container.items[RESULT_SLOT].clone();
-        with_merchant(&mut *player, trader, |level, m| m.notify_trade_updated(level, &result_item));
+        with_merchant(&mut *player, trader, |level, m| {
+            m.notify_trade_updated(level, &result_item)
+        });
     }
 
     /// `setSelectionHint(hint)`.
@@ -372,14 +440,21 @@ impl MerchantMenu {
         let trader = self.trader;
         let offer = with_merchant(&mut *player, trader, |level, m| {
             let offers = m.get_offers(level);
-            (new_trade_index >= 0 && offers.len() > new_trade_index as usize).then(|| offers[new_trade_index as usize].clone())
+            (new_trade_index >= 0 && offers.len() > new_trade_index as usize)
+                .then(|| offers[new_trade_index as usize].clone())
         })
         .flatten();
         let Some(offer) = offer else { return };
         for payment in [PAYMENT1_SLOT, PAYMENT2_SLOT] {
             let mut old_cost = self.container().items[payment].clone();
             if !old_cost.is_empty() {
-                if !self.move_item_stack_to(player, &mut old_cost, INV_SLOT_START, USE_ROW_SLOT_END, true) {
+                if !self.move_item_stack_to(
+                    player,
+                    &mut old_cost,
+                    INV_SLOT_START,
+                    USE_ROW_SLOT_END,
+                    true,
+                ) {
                     return;
                 }
                 self.container().set_item(payment, old_cost);
@@ -398,18 +473,27 @@ impl MerchantMenu {
         }
     }
 
-    fn move_from_inventory_to_payment_slot(&mut self, player: &mut dyn MenuPlayer, payment_slot: usize, cost: &ItemCost) {
+    fn move_from_inventory_to_payment_slot(
+        &mut self,
+        player: &mut dyn MenuPlayer,
+        payment_slot: usize,
+        cost: &ItemCost,
+    ) {
         for i in INV_SLOT_START..USE_ROW_SLOT_END {
             let inventory_item = self.base.with_slot(player, i, |s, e| s.get_item(e));
             if inventory_item.is_empty() || !cost.test(&inventory_item) {
                 continue;
             }
             let current = self.container().items[payment_slot].clone();
-            if current.is_empty() || ItemStack::is_same_item_same_components(&inventory_item, &current) {
+            if current.is_empty()
+                || ItemStack::is_same_item_same_components(&inventory_item, &current)
+            {
                 let max_stack_size = inventory_item.get_max_stack_size();
                 let move_count = (max_stack_size - current.count()).min(inventory_item.count());
                 let new_payment = inventory_item.copy_with_count(current.count() + move_count);
-                self.base.with_slot(player, i, |s, e| s.with_item_mut(e, |st| st.shrink(move_count)));
+                self.base.with_slot(player, i, |s, e| {
+                    s.with_item_mut(e, |st| st.shrink(move_count))
+                });
                 let full = new_payment.count() >= max_stack_size;
                 self.container().set_item(payment_slot, new_payment);
                 self.flush_container_events(player);
@@ -447,7 +531,11 @@ impl AbstractContainerMenu for MerchantMenu {
     fn still_valid(&self, player: &dyn MenuPlayer) -> bool {
         use crate::world::entity::Entity;
         let me = player.entity_id();
-        player.level_ref().and_then(|l| l.get_entity(self.trader)).and_then(|e| e.as_merchant()).is_some_and(|m| m.still_valid(me))
+        player
+            .level_ref()
+            .and_then(|l| l.get_entity(self.trader))
+            .and_then(|e| e.as_merchant())
+            .is_some_and(|m| m.still_valid(me))
     }
 
     fn can_take_item_for_pick_all(&self, _carried: &ItemStack, _target: &Slot) -> bool {
@@ -474,21 +562,35 @@ impl AbstractContainerMenu for MerchantMenu {
 
     fn quick_move_stack(&mut self, player: &mut dyn MenuPlayer, slot_index: usize) -> ItemStack {
         let mut clicked = ItemStack::empty();
-        if !self.base.with_slot(player, slot_index, |s, e| s.has_item(e)) {
+        if !self
+            .base
+            .with_slot(player, slot_index, |s, e| s.has_item(e))
+        {
             return clicked;
         }
-        let mut stack = self.base.with_slot(player, slot_index, |s, e| s.get_item(e));
+        let mut stack = self
+            .base
+            .with_slot(player, slot_index, |s, e| s.get_item(e));
         clicked = stack.copy();
         let moved = if slot_index == RESULT_SLOT {
-            let moved = self.move_item_stack_to(player, &mut stack, INV_SLOT_START, USE_ROW_SLOT_END, true);
+            let moved =
+                self.move_item_stack_to(player, &mut stack, INV_SLOT_START, USE_ROW_SLOT_END, true);
             if moved {
-                self.base.with_slot(player, RESULT_SLOT, |s, e| s.on_quick_craft(e, &stack, &clicked));
+                self.base.with_slot(player, RESULT_SLOT, |s, e| {
+                    s.on_quick_craft(e, &stack, &clicked)
+                });
                 // `playTradeSound`: `Level.playLocalSound` is a no-op on the server.
             }
             moved
         } else if slot_index != PAYMENT1_SLOT && slot_index != PAYMENT2_SLOT {
             if (INV_SLOT_START..INV_SLOT_END).contains(&slot_index) {
-                self.move_item_stack_to(player, &mut stack, USE_ROW_SLOT_START, USE_ROW_SLOT_END, false)
+                self.move_item_stack_to(
+                    player,
+                    &mut stack,
+                    USE_ROW_SLOT_START,
+                    USE_ROW_SLOT_END,
+                    false,
+                )
             } else if (USE_ROW_SLOT_START..USE_ROW_SLOT_END).contains(&slot_index) {
                 self.move_item_stack_to(player, &mut stack, INV_SLOT_START, INV_SLOT_END, false)
             } else {
@@ -501,7 +603,9 @@ impl AbstractContainerMenu for MerchantMenu {
             return ItemStack::empty();
         }
         if stack.is_empty() {
-            self.base.with_slot(player, slot_index, |s, e| s.set_by_player_with(e, ItemStack::empty(), &clicked));
+            self.base.with_slot(player, slot_index, |s, e| {
+                s.set_by_player_with(e, ItemStack::empty(), &clicked)
+            });
         } else {
             let rest = stack.clone();
             self.base.with_slot(player, slot_index, |s, e| {
@@ -512,7 +616,8 @@ impl AbstractContainerMenu for MerchantMenu {
         if stack.count() == clicked.count() {
             return ItemStack::empty();
         }
-        self.base.with_slot(player, slot_index, |s, e| s.on_take(e, &stack));
+        self.base
+            .with_slot(player, slot_index, |s, e| s.on_take(e, &stack));
         self.flush_container_events(player);
         clicked
     }

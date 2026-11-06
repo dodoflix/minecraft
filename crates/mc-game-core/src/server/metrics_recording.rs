@@ -30,7 +30,11 @@ impl MinecraftServer {
     }
 
     /// `startRecordingMetrics(onStopped, onFinished)`: the recorder starts with the next tick.
-    pub fn start_recording_metrics(&mut self, on_stopped: impl FnOnce(ProfileResults) + Send + 'static, on_finished: impl FnOnce(&Path) + Send + 'static) {
+    pub fn start_recording_metrics(
+        &mut self,
+        on_stopped: impl FnOnce(ProfileResults) + Send + 'static,
+        on_finished: impl FnOnce(&Path) + Send + 'static,
+    ) {
         self.metrics_recording.on_stopped = Some(Box::new(on_stopped));
         self.metrics_recording.on_finished = Some(Box::new(on_finished));
         self.metrics_recording.will_start = true;
@@ -72,8 +76,12 @@ impl MinecraftServer {
     /// `endMetricsRecordingTick()`: samples; when the recording ended (`/perf stop` or 10 s) reports its results and
     /// persists the report on an IO thread.
     pub(super) fn end_metrics_recording_tick(&mut self) {
-        let Some(recorder) = &mut self.metrics_recording.recorder else { return };
-        let Some((results, job)) = recorder.end_tick() else { return };
+        let Some(recorder) = &mut self.metrics_recording.recorder else {
+            return;
+        };
+        let Some((results, job)) = recorder.end_tick() else {
+            return;
+        };
         // `onProfilingEnd`: `stopRecordingMetrics()` then the command's callback.
         self.metrics_recording.recorder = None;
         if let Some(on_stopped) = self.metrics_recording.on_stopped.take() {
@@ -82,23 +90,25 @@ impl MinecraftServer {
         // `scheduleSaveResults`
         let on_finished = self.metrics_recording.on_finished.take();
         let shared = self.shared.clone();
-        let spawned = std::thread::Builder::new().name("IO-Worker-metrics".into()).spawn(move || {
-            let report_path = match job.save_reports() {
-                Ok(path) => path,
-                Err(e) => {
-                    log::error!("Failed to save the profiling reports\n{e}");
-                    return;
+        let spawned = std::thread::Builder::new()
+            .name("IO-Worker-metrics".into())
+            .spawn(move || {
+                let report_path = match job.save_reports() {
+                    Ok(path) => path,
+                    Err(e) => {
+                        log::error!("Failed to save the profiling reports\n{e}");
+                        return;
+                    }
+                };
+                let output = report_path.join("server");
+                shared.execute_blocking({
+                    let output = output.clone();
+                    move |server| server.save_debug_report(&output)
+                });
+                if let Some(on_finished) = on_finished {
+                    on_finished(&report_path);
                 }
-            };
-            let output = report_path.join("server");
-            shared.execute_blocking({
-                let output = output.clone();
-                move |server| server.save_debug_report(&output)
             });
-            if let Some(on_finished) = on_finished {
-                on_finished(&report_path);
-            }
-        });
         if let Err(e) = spawned {
             log::error!("Failed to start the profiling report thread: {e}");
         }
@@ -130,16 +140,32 @@ impl MinecraftServer {
         rules.visit_game_rule_types(&mut collect);
         let mut out = String::new();
         for rule in collect.0 {
-            let _ = writeln!(out, "{}={}", rule.get_identifier(), rules.get_as_string(rule));
+            let _ = writeln!(
+                out,
+                "{}={}",
+                rule.get_identifier(),
+                rules.get_as_string(rule)
+            );
         }
         std::fs::write(path, out)
     }
 
     fn dump_misc_stats(&mut self, path: &Path) -> io::Result<()> {
-        let tick_times: Vec<String> = self.get_tick_times_nanos().iter().map(i64::to_string).collect();
+        let tick_times: Vec<String> = self
+            .get_tick_times_nanos()
+            .iter()
+            .map(i64::to_string)
+            .collect();
         let mut out = String::new();
         let _ = writeln!(out, "pending_tasks: {}", self.pending_tasks_count());
-        let _ = writeln!(out, "average_tick_time: {}", crate::util::java_format::format_fixed(f64::from(self.get_current_smoothed_tick_time()), 6));
+        let _ = writeln!(
+            out,
+            "average_tick_time: {}",
+            crate::util::java_format::format_fixed(
+                f64::from(self.get_current_smoothed_tick_time()),
+                6
+            )
+        );
         let _ = writeln!(out, "tick_times: [{}]", tick_times.join(", "));
         std::fs::write(path, out)
     }

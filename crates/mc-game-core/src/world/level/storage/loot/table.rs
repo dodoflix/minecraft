@@ -14,8 +14,12 @@ use super::entries::{ItemSink, LootPoolEntry, LootPoolEntryContainer, entry_code
 use super::functions::{FunctionHolder, decorate, function_holder_codec};
 use super::parameters::LootContextParamSets;
 use super::predicates::{ConditionHolder, condition_holder_codec};
-use super::providers::number::{FloatHolder, IntHolder, float_exactly, float_holder_codec, int_holder_codec};
-use super::validation::{ValidatableData, ValidationContext, validate_holder_field, validate_holder_opt};
+use super::providers::number::{
+    FloatHolder, IntHolder, float_exactly, float_holder_codec, int_holder_codec,
+};
+use super::validation::{
+    ValidatableData, ValidationContext, validate_holder_field, validate_holder_opt,
+};
 use crate::registry::keys;
 use crate::server::level::ServerLevel;
 use crate::world::container::Container;
@@ -89,7 +93,10 @@ impl LootPool {
         }
         let mut decorated = decorate(&self.modifier, result);
         let rolls = self.rolls.value(context.get_resolver()).get_int(context);
-        let bonus = self.bonus_rolls.value(context.get_resolver()).get_float(context);
+        let bonus = self
+            .bonus_rolls
+            .value(context.get_resolver())
+            .get_float(context);
         let count = rolls.wrapping_add(mth::floor_f32(bonus * context.get_luck()));
         for _ in 0..count {
             self.add_random_item(&mut decorated, context);
@@ -136,19 +143,29 @@ pub fn loot_table_direct_codec() -> Codec<Arc<LootTable>> {
     Codec::lazy(|| {
         static C: LazyLock<Codec<Arc<LootTable>>> = LazyLock::new(|| {
             record!(TableFields {
-                param_set: LootContextParamSets::codec().lenient_optional_field_of("type").xmap(
-                    |o| o.unwrap_or(LootContextParamSets::ALL_PARAMS),
-                    |s: &ContextKeySet| Some(*s),
-                ),
+                param_set: LootContextParamSets::codec()
+                    .lenient_optional_field_of("type")
+                    .xmap(
+                        |o| o.unwrap_or(LootContextParamSets::ALL_PARAMS),
+                        |s: &ContextKeySet| Some(*s),
+                    ),
                 random_sequence: IDENTIFIER.optional_field_of("random_sequence"),
-                pools: LootPool::codec().list_of().optional_field_of("pools").xmap(|o| o.unwrap_or_default(), |p: &Vec<LootPool>| {
-                    if p.is_empty() { None } else { Some(p.clone()) }
-                }),
+                pools: LootPool::codec().list_of().optional_field_of("pools").xmap(
+                    |o| o.unwrap_or_default(),
+                    |p: &Vec<LootPool>| { if p.is_empty() { None } else { Some(p.clone()) } }
+                ),
                 modifier: function_holder_codec().optional_field_of("modifier"),
             })
             .codec()
             .xmap(
-                |f| Arc::new(LootTable { param_set: f.param_set, random_sequence: f.random_sequence, pools: f.pools, modifier: f.modifier }),
+                |f| {
+                    Arc::new(LootTable {
+                        param_set: f.param_set,
+                        random_sequence: f.random_sequence,
+                        pools: f.pools,
+                        modifier: f.modifier,
+                    })
+                },
                 |t: &Arc<LootTable>| TableFields {
                     param_set: t.param_set,
                     random_sequence: t.random_sequence.clone(),
@@ -161,11 +178,20 @@ pub fn loot_table_direct_codec() -> Codec<Arc<LootTable>> {
     })
 }
 
-static EMPTY: LazyLock<Arc<LootTable>> =
-    LazyLock::new(|| Arc::new(LootTable { param_set: LootContextParamSets::EMPTY, random_sequence: None, pools: Vec::new(), modifier: None }));
+static EMPTY: LazyLock<Arc<LootTable>> = LazyLock::new(|| {
+    Arc::new(LootTable {
+        param_set: LootContextParamSets::EMPTY,
+        random_sequence: None,
+        pools: Vec::new(),
+        modifier: None,
+    })
+});
 
 /// `createStackSplitter(level, output)`: disabled items are dropped, oversized stacks are split.
-pub fn create_stack_splitter<'a>(level: &'a ServerLevel, output: &'a mut dyn FnMut(ItemStack)) -> impl FnMut(ItemStack) + 'a {
+pub fn create_stack_splitter<'a>(
+    level: &'a ServerLevel,
+    output: &'a mut dyn FnMut(ItemStack),
+) -> impl FnMut(ItemStack) + 'a {
     move |result: ItemStack| {
         if is_item_enabled(&result, level.tick_state.enabled_features) {
             if result.count() < result.get_max_stack_size() {
@@ -233,14 +259,26 @@ impl LootTable {
     }
 
     /// `getRandomItems(params, optionalLootTableSeed)`.
-    pub fn get_random_items_with_seed(&self, params: &LootParams, optional_loot_table_seed: i64) -> Vec<ItemStack> {
-        let context = LootContext::builder(params).with_optional_random_seed(optional_loot_table_seed).create(self.random_sequence.as_ref());
+    pub fn get_random_items_with_seed(
+        &self,
+        params: &LootParams,
+        optional_loot_table_seed: i64,
+    ) -> Vec<ItemStack> {
+        let context = LootContext::builder(params)
+            .with_optional_random_seed(optional_loot_table_seed)
+            .create(self.random_sequence.as_ref());
         self.items_into(context, params.level())
     }
 
     /// `getRandomItems(params, randomSource)`.
-    pub fn get_random_items_with_random(&self, params: &LootParams, random: Box<dyn RandomSource>) -> Vec<ItemStack> {
-        let context = LootContext::builder(params).with_optional_random_source(random).create(self.random_sequence.as_ref());
+    pub fn get_random_items_with_random(
+        &self,
+        params: &LootParams,
+        random: Box<dyn RandomSource>,
+    ) -> Vec<ItemStack> {
+        let context = LootContext::builder(params)
+            .with_optional_random_source(random)
+            .create(self.random_sequence.as_ref());
         self.items_into(context, params.level())
     }
 
@@ -251,7 +289,12 @@ impl LootTable {
     }
 
     /// `getRandomItems(params, seed, output)`.
-    pub fn get_random_items_to(&self, params: &LootParams, optional_loot_table_seed: i64, output: &mut dyn FnMut(ItemStack)) {
+    pub fn get_random_items_to(
+        &self,
+        params: &LootParams,
+        optional_loot_table_seed: i64,
+        output: &mut dyn FnMut(ItemStack),
+    ) {
         for s in self.get_random_items_with_seed(params, optional_loot_table_seed) {
             output(s);
         }
@@ -265,8 +308,15 @@ impl LootTable {
     }
 
     /// `fill(container, params, optionalRandomSeed)`: chest-style filling of the empty slots.
-    pub fn fill(&self, container: &mut dyn Container, params: &LootParams, optional_random_seed: i64) {
-        let mut context = LootContext::builder(params).with_optional_random_seed(optional_random_seed).create(self.random_sequence.as_ref());
+    pub fn fill(
+        &self,
+        container: &mut dyn Container,
+        params: &LootParams,
+        optional_random_seed: i64,
+    ) {
+        let mut context = LootContext::builder(params)
+            .with_optional_random_seed(optional_random_seed)
+            .create(self.random_sequence.as_ref());
         let level = params.level();
         let mut item_stacks = Vec::new();
         {
@@ -300,12 +350,18 @@ fn shuffle<T>(list: &mut [T], random: &mut dyn RandomSource) {
 }
 
 fn get_available_slots(container: &dyn Container, random: &mut dyn RandomSource) -> Vec<usize> {
-    let mut slots: Vec<usize> = (0..container.get_container_size()).filter(|i| container.get_item(*i).is_empty()).collect();
+    let mut slots: Vec<usize> = (0..container.get_container_size())
+        .filter(|i| container.get_item(*i).is_empty())
+        .collect();
     shuffle(&mut slots, random);
     slots
 }
 
-fn shuffle_and_split_items(result: &mut Vec<ItemStack>, available_slots: usize, random: &mut dyn RandomSource) {
+fn shuffle_and_split_items(
+    result: &mut Vec<ItemStack>,
+    available_slots: usize,
+    random: &mut dyn RandomSource,
+) {
     let mut splittable_items: Vec<ItemStack> = Vec::new();
     let mut kept = Vec::with_capacity(result.len());
     for item_stack in result.drain(..) {
@@ -318,7 +374,9 @@ fn shuffle_and_split_items(result: &mut Vec<ItemStack>, available_slots: usize, 
         }
     }
     *result = kept;
-    while available_slots as i64 - result.len() as i64 - splittable_items.len() as i64 > 0 && !splittable_items.is_empty() {
+    while available_slots as i64 - result.len() as i64 - splittable_items.len() as i64 > 0
+        && !splittable_items.is_empty()
+    {
         let index = mth::next_int(random, 0, splittable_items.len() as i32 - 1) as usize;
         let mut item_stack = splittable_items.remove(index);
         let remove = mth::next_int(random, 1, item_stack.count() / 2);

@@ -20,7 +20,10 @@ pub struct WeightedList<E> {
 
 impl<E> Default for WeightedList<E> {
     fn default() -> Self {
-        Self { total_weight: 0, items: Vec::new() }
+        Self {
+            total_weight: 0,
+            items: Vec::new(),
+        }
     }
 }
 
@@ -32,13 +35,19 @@ impl<E> WeightedList<E> {
 
     /// `WeightedList.of(value)`: a single entry of weight 1.
     pub fn of_value(value: E) -> Self {
-        Self { total_weight: 1, items: vec![Weighted { value, weight: 1 }] }
+        Self {
+            total_weight: 1,
+            items: vec![Weighted { value, weight: 1 }],
+        }
     }
 
     /// `WeightedList.of(items)`; `None` when `WeightedRandom.getTotalWeight` overflows an int.
     pub fn of(items: Vec<Weighted<E>>) -> Option<Self> {
         let total: i64 = items.iter().map(|i| i64::from(i.weight)).sum();
-        Some(Self { total_weight: i32::try_from(total).ok()?, items })
+        Some(Self {
+            total_weight: i32::try_from(total).ok()?,
+            items,
+        })
     }
 
     pub fn is_empty(&self) -> bool {
@@ -66,7 +75,17 @@ impl<E> WeightedList<E> {
 
     /// `map(mapper)`.
     pub fn map<T>(self, mut mapper: impl FnMut(E) -> T) -> WeightedList<T> {
-        WeightedList { total_weight: self.total_weight, items: self.items.into_iter().map(|w| Weighted { value: mapper(w.value), weight: w.weight }).collect() }
+        WeightedList {
+            total_weight: self.total_weight,
+            items: self
+                .items
+                .into_iter()
+                .map(|w| Weighted {
+                    value: mapper(w.value),
+                    weight: w.weight,
+                })
+                .collect(),
+        }
     }
 }
 

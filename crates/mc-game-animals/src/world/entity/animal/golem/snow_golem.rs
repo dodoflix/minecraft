@@ -1,22 +1,6 @@
 //! `SnowGolem`: snowball thrower that leaves a snow trail, melts in warm biomes, sheared for its pumpkin.
 
 use super::abstract_golem::AMBIENT_SOUND_INTERVAL;
-use mc_game_core::define_accessor;
-use mc_game_core::registry::RegistryAccess;
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::damagesource::DamageSource;
-use mc_game_core::world::entity::ai::goal::target::{NearestAttackableTargetGoal, TargetType};
-use mc_game_core::world::entity::ai::goal::{LookAtPlayerGoal, RandomLookAroundGoal, RangedAttackGoal, WaterAvoidingRandomStrollGoal};
-use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
-use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
-use mc_game_core::world::entity::mob::{self, MobData, MobKind};
-use mc_game_core::world::entity::projectile::spawn::spawn_projectile;
-use mc_game_core::world::entity::projectile::throwableitemprojectile::snowball::Snowball;
-use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
-use mc_game_core::world::item::{hurt_and_break, InteractionHand, InteractionResult, ItemStack};
-use mc_game_core::world::level::gameevent::GameEventContext;
-use mc_game_core::world::level::{BlockGetter as _, LevelAccessor as _};
-use mc_game_core::world::level::block::BlockStateExt as _;
 use linkme::distributed_slice;
 use mc_core::ident::Identifier;
 use mc_core::math::mth;
@@ -24,6 +8,24 @@ use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::{Block, EntityType, GameEvent, Item, SoundEvent};
+use mc_game_core::define_accessor;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::entity::ai::goal::target::{NearestAttackableTargetGoal, TargetType};
+use mc_game_core::world::entity::ai::goal::{
+    LookAtPlayerGoal, RandomLookAroundGoal, RangedAttackGoal, WaterAvoidingRandomStrollGoal,
+};
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::projectile::spawn::spawn_projectile;
+use mc_game_core::world::entity::projectile::throwableitemprojectile::snowball::Snowball;
+use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
+use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack, hurt_and_break};
+use mc_game_core::world::level::block::BlockStateExt as _;
+use mc_game_core::world::level::gameevent::GameEventContext;
+use mc_game_core::world::level::{BlockGetter as _, LevelAccessor as _};
 use mc_nbt::CompoundTag;
 use mc_protocol::packets::play::SoundSource;
 use std::sync::Arc;
@@ -54,7 +56,13 @@ impl SnowGolem {
         let look_at = LookAtPlayerGoal::new_player(self, 6.0);
         let goals = &mut self.mob.goal_selector;
         goals.add_goal(1, Box::new(RangedAttackGoal::new(1.25, 20, 10.0)));
-        goals.add_goal(2, Box::new(WaterAvoidingRandomStrollGoal::with_probability(1.0, 1.0000001E-5f32)));
+        goals.add_goal(
+            2,
+            Box::new(WaterAvoidingRandomStrollGoal::with_probability(
+                1.0,
+                1.0000001E-5f32,
+            )),
+        );
         goals.add_goal(3, Box::new(look_at));
         goals.add_goal(4, Box::new(RandomLookAroundGoal::new()));
         self.mob.target_selector.add_goal(
@@ -77,7 +85,14 @@ impl SnowGolem {
     /// `setPumpkin(pumpkin)`.
     pub fn set_pumpkin(&mut self, pumpkin: bool) {
         let current = self.mob.living.entity.entity_data.get(DATA_PUMPKIN_ID);
-        self.mob.living.entity.entity_data.set(DATA_PUMPKIN_ID, if pumpkin { current | PUMPKIN_FLAG } else { current & -17 });
+        self.mob.living.entity.entity_data.set(
+            DATA_PUMPKIN_ID,
+            if pumpkin {
+                current | PUMPKIN_FLAG
+            } else {
+                current & -17
+            },
+        );
     }
 }
 
@@ -105,7 +120,10 @@ impl Entity for SnowGolem {
     fn ai_step(&mut self, level: &mut ServerLevel) {
         mob::tick::ai_step(self, level);
         let pos = self.position();
-        if level.attribute_bool_vec(mc_game_core::world::attribute::attributes::SNOW_GOLEM_MELTS, &pos) {
+        if level.attribute_bool_vec(
+            mc_game_core::world::attribute::attributes::SNOW_GOLEM_MELTS,
+            &pos,
+        ) {
             let source = level.damage_sources().on_fire();
             self.hurt_server(level, &source, 1.0);
         }
@@ -114,19 +132,30 @@ impl Entity for SnowGolem {
         }
         let snow = Block::SNOW.default_state();
         for i in 0..4 {
-            let xx = mth::floor_f64(self.base().x() + f64::from(((i % 2) * 2 - 1) as f32 * 0.25f32));
+            let xx =
+                mth::floor_f64(self.base().x() + f64::from(((i % 2) * 2 - 1) as f32 * 0.25f32));
             let yy = mth::floor_f64(self.base().y());
-            let zz = mth::floor_f64(self.base().z() + f64::from(((i / 2 % 2) * 2 - 1) as f32 * 0.25f32));
+            let zz =
+                mth::floor_f64(self.base().z() + f64::from(((i / 2 % 2) * 2 - 1) as f32 * 0.25f32));
             let snow_pos = BlockPos::new(xx, yy, zz);
             if level.get_block_state(snow_pos).is_air() && snow.can_survive(level, snow_pos) {
                 level.set_block_and_update(snow_pos, snow);
-                level.game_event_at_block(GameEvent::BLOCK_PLACE, snow_pos, &GameEventContext::of(Some(self.id()), Some(snow)));
+                level.game_event_at_block(
+                    GameEvent::BLOCK_PLACE,
+                    snow_pos,
+                    &GameEventContext::of(Some(self.id()), Some(snow)),
+                );
             }
         }
     }
 
     fn perform_ranged_attack(&mut self, level: &mut ServerLevel, target: EntityId, _power: f32) {
-        let Some((tx, ty_eye, tz)) = level.get_entity(target).map(|t| (t.base().x(), t.base().get_eye_y(), t.base().z())) else { return };
+        let Some((tx, ty_eye, tz)) = level
+            .get_entity(target)
+            .map(|t| (t.base().x(), t.base().get_eye_y(), t.base().z()))
+        else {
+            return;
+        };
         let xd = tx - self.base().x();
         let yd = ty_eye - f64::from(1.1f32);
         let zd = tz - self.base().z();
@@ -146,12 +175,19 @@ impl Entity for SnowGolem {
         12.0
     }
 
-    fn mob_interact(&mut self, level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) -> InteractionResult {
+    fn mob_interact(
+        &mut self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        hand: InteractionHand,
+    ) -> InteractionResult {
         let item_stack = player.get_item_in_hand(hand);
         if item_stack.is(Item::SHEARS) && self.ready_for_shearing() {
             self.shear(level, SoundSource::Players, &item_stack);
             level.game_event_from_entity(Some(player.id()), GameEvent::SHEAR, self.position());
-            mob::interact::with_hand_stack(player, hand, |s, p| hurt_and_break(s, 1, level, p, hand.as_equipment_slot()));
+            mob::interact::with_hand_stack(player, hand, |s, p| {
+                hurt_and_break(s, 1, level, p, hand.as_equipment_slot())
+            });
             InteractionResult::SUCCESS
         } else {
             InteractionResult::PASS
@@ -167,12 +203,25 @@ impl Entity for SnowGolem {
     }
 
     fn shear(&mut self, level: &mut ServerLevel, sound_source: SoundSource, tool: &ItemStack) {
-        mob::ext::play_sound_from_entity(level, None, self.id(), SoundEvent::ENTITY_SNOW_GOLEM_SHEAR, sound_source, 1.0, 1.0);
+        mob::ext::play_sound_from_entity(
+            level,
+            None,
+            self.id(),
+            SoundEvent::ENTITY_SNOW_GOLEM_SHEAR,
+            sound_source,
+            1.0,
+            1.0,
+        );
         self.set_pumpkin(false);
         let table = Identifier::parse("minecraft:shearing/snow_golem").expect("valid id");
         mob::ext::drop_from_shearing_loot_table(level, self, &table, tool, |level, e, drop| {
             let eye_height = e.base().eye_height;
-            mc_game_core::world::entity::item::spawn_at_location(level, e, drop, Vec3::new(0.0, f64::from(eye_height), 0.0));
+            mc_game_core::world::entity::item::spawn_at_location(
+                level,
+                e,
+                drop,
+                Vec3::new(0.0, f64::from(eye_height), 0.0),
+            );
         });
     }
 
@@ -197,9 +246,16 @@ impl Entity for SnowGolem {
     }
 
     fn get_leash_offset(&self) -> Vec3 {
-        Vec3::new(0.0, f64::from(0.75f32 * self.base().eye_height), f64::from(self.base().get_bb_width() * 0.4))
+        Vec3::new(
+            0.0,
+            f64::from(0.75f32 * self.base().eye_height),
+            f64::from(self.base().get_bb_width() * 0.4),
+        )
     }
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static SNOW_GOLEM: EntityRegistration = EntityRegistration { entity_type: EntityType::SNOW_GOLEM, create: |ty, id, registries| Box::new(SnowGolem::new(ty, id, registries)) };
+static SNOW_GOLEM: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::SNOW_GOLEM,
+    create: |ty, id, registries| Box::new(SnowGolem::new(ty, id, registries)),
+};

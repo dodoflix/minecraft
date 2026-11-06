@@ -33,11 +33,16 @@ pub struct WorldGenClock {
 impl ServerLevel {
     /// `getLevel().getChunkSource().getGenerator()` and friends: the generation environment of this level.
     pub fn gen_env(&self) -> &Arc<GenEnv> {
-        self.gen_env.as_ref().expect("this level has no generation environment")
+        self.gen_env
+            .as_ref()
+            .expect("this level has no generation environment")
     }
 
     /// `getStructureTemplateManager()`.
-    pub fn structure_template_manager(&self) -> &Arc<crate::world::level::levelgen::structure::templatesystem::StructureTemplateManager> {
+    pub fn structure_template_manager(
+        &self,
+    ) -> &Arc<crate::world::level::levelgen::structure::templatesystem::StructureTemplateManager>
+    {
         &self.gen_env().structure_template_manager
     }
 
@@ -55,11 +60,21 @@ impl ServerLevel {
 
 /// Runs `f` on the level of `dimension` with the server clock inputs of `getCurrentDifficultyAt` filled in (the level is out
 /// of the server's map meanwhile, like during its tick).
-pub fn with_worldgen_level<R>(server: &mut MinecraftServer, dimension: &DimensionKey, f: impl FnOnce(&mut ServerLevel) -> R) -> Option<R> {
+pub fn with_worldgen_level<R>(
+    server: &mut MinecraftServer,
+    dimension: &DimensionKey,
+    f: impl FnOnce(&mut ServerLevel) -> R,
+) -> Option<R> {
     use crate::server::level::level_tick::LevelTickEnv as _;
     server.with_level(dimension, |server, level| {
-        let env = crate::server::level_tick_env::ServerTickEnv { server, dimension: dimension.clone() };
-        level.worldgen_clock = Some(WorldGenClock { overworld_clock_time: env.overworld_clock_time(), moon_brightness: level.get_moon_brightness(BlockPos::new(0, 0, 0)) });
+        let env = crate::server::level_tick_env::ServerTickEnv {
+            server,
+            dimension: dimension.clone(),
+        };
+        level.worldgen_clock = Some(WorldGenClock {
+            overworld_clock_time: env.overworld_clock_time(),
+            moon_brightness: level.get_moon_brightness(BlockPos::new(0, 0, 0)),
+        });
         let result = f(level);
         level.worldgen_clock = None;
         result
@@ -78,7 +93,12 @@ impl WorldGenLevel for ServerLevel {
             Some(chunk) => (chunk.data.access.inhabited_time(), clock.moon_brightness),
             None => (0, 0.0),
         };
-        DifficultyInstance::new(self.level_data.get_difficulty(), clock.overworld_clock_time, local_time, moon)
+        DifficultyInstance::new(
+            self.level_data.get_difficulty(),
+            clock.overworld_clock_time,
+            local_time,
+            moon,
+        )
     }
 
     fn env(&self) -> &Arc<GenEnv> {
@@ -96,7 +116,11 @@ impl WorldGenLevel for ServerLevel {
     fn set_currently_generating(&mut self, _what: Option<Box<dyn Fn() -> String + Send + Sync>>) {}
 
     fn get_biome(&self, pos: BlockPos) -> BiomeId {
-        BiomeManager::new(&|qx: i32, qy: i32, qz: i32| WorldGenLevel::get_noise_biome(self, qx, qy, qz), self.tick_state.biome_zoom_seed).get_biome(pos)
+        BiomeManager::new(
+            &|qx: i32, qy: i32, qz: i32| WorldGenLevel::get_noise_biome(self, qx, qy, qz),
+            self.tick_state.biome_zoom_seed,
+        )
+        .get_biome(pos)
     }
 
     /// The stored biome of a loaded chunk; the generator's biome source for a chunk that is not loaded (what vanilla's
@@ -110,15 +134,23 @@ impl WorldGenLevel for ServerLevel {
 
     fn get_uncached_noise_biome(&self, quart_x: i32, quart_y: i32, quart_z: i32) -> BiomeId {
         let env = self.gen_env();
-        env.biome_source().create_uncached_resolver(&env.random_state).get_noise_biome(quart_x, quart_y, quart_z)
+        env.biome_source()
+            .create_uncached_resolver(&env.random_state)
+            .get_noise_biome(quart_x, quart_y, quart_z)
     }
 
     fn mark_pos_for_post_processing(&mut self, pos: BlockPos) {
         if let Some(chunk) = self.chunk_now_mut(pos.x() >> 4, pos.z() >> 4)
-            && chunk.data.access.level_height.is_inside_build_height(pos.y())
+            && chunk
+                .data
+                .access
+                .level_height
+                .is_inside_build_height(pos.y())
         {
             let index = chunk.data.access.level_height.section_index(pos.y()) as usize;
-            chunk.data.access.post_processing[index].get_or_insert_with(Vec::new).push(pack_offset_coordinates(pos));
+            chunk.data.access.post_processing[index]
+                .get_or_insert_with(Vec::new)
+                .push(pack_offset_coordinates(pos));
             chunk.data.access.mark_unsaved();
         }
     }
@@ -131,20 +163,26 @@ impl WorldGenLevel for ServerLevel {
         if let Some(tag) = chunk.data.access.get_block_entity_nbt(pos) {
             return Some(tag.clone());
         }
-        BlockGetter::get_block_state(self, pos).has_block_entity().then(|| {
-            let mut tag = CompoundTag::new();
-            tag.put_int("x", pos.x());
-            tag.put_int("y", pos.y());
-            tag.put_int("z", pos.z());
-            tag.put_string("id", "DUMMY");
-            tag
-        })
+        BlockGetter::get_block_state(self, pos)
+            .has_block_entity()
+            .then(|| {
+                let mut tag = CompoundTag::new();
+                tag.put_int("x", pos.x());
+                tag.put_int("y", pos.y());
+                tag.put_int("z", pos.z());
+                tag.put_string("id", "DUMMY");
+                tag
+            })
     }
 
     /// `blockEntity.loadWithComponents(tag)` on the live block entity, or the raw NBT kept for a type without an
     /// implementation.
     fn set_block_entity_nbt(&mut self, tag: CompoundTag) {
-        let pos = BlockPos::new(tag.get_int_or("x", 0), tag.get_int_or("y", 0), tag.get_int_or("z", 0));
+        let pos = BlockPos::new(
+            tag.get_int_or("x", 0),
+            tag.get_int_or("y", 0),
+            tag.get_int_or("z", 0),
+        );
         if let Some(block_entity) = self.get_block_entity_immediate(pos) {
             block_entity.load_with_components(&tag);
             self.block_entity_changed(pos);
@@ -164,7 +202,15 @@ impl WorldGenLevel for ServerLevel {
     /// `addFreshEntityWithPassengers` of the entity `EntityType.create(tag, level, STRUCTURE)` loads.
     fn add_fresh_entity_nbt(&mut self, tag: CompoundTag) -> bool {
         let mut loaded = Vec::new();
-        load_entity_recursive(&tag, self, EntitySpawnRequest { reason: EntitySpawnReason::Structure, ignore_checks: false }, &mut loaded);
+        load_entity_recursive(
+            &tag,
+            self,
+            EntitySpawnRequest {
+                reason: EntitySpawnReason::Structure,
+                ignore_checks: false,
+            },
+            &mut loaded,
+        );
         if loaded.is_empty() {
             return false;
         }
@@ -173,19 +219,35 @@ impl WorldGenLevel for ServerLevel {
     }
 
     fn structure_data(&self, pos: ChunkPos) -> Option<&StructureData> {
-        self.chunk_now(pos.x, pos.z).map(|chunk| &chunk.data.access.structures)
+        self.chunk_now(pos.x, pos.z)
+            .map(|chunk| &chunk.data.access.structures)
     }
 
     /// The chunk shares the start object with the placing piece in vanilla: persist the changed state.
-    fn set_structure_start_tag(&mut self, pos: ChunkPos, structure_id: &str, tag: CompoundTag) -> bool {
-        let Some(chunk) = self.chunk_now_mut(pos.x, pos.z) else { return false };
-        chunk.data.access.structures.starts.insert(structure_id.to_owned(), tag);
+    fn set_structure_start_tag(
+        &mut self,
+        pos: ChunkPos,
+        structure_id: &str,
+        tag: CompoundTag,
+    ) -> bool {
+        let Some(chunk) = self.chunk_now_mut(pos.x, pos.z) else {
+            return false;
+        };
+        chunk
+            .data
+            .access
+            .structures
+            .starts
+            .insert(structure_id.to_owned(), tag);
         chunk.data.access.mark_unsaved();
         true
     }
 
     fn ensure_chunks_loaded_around(&mut self, area: &mc_core::bounding_box::BoundingBox) {
-        self.ensure_chunks_loaded(ChunkPos::new((area.min_x() - 1) >> 4, (area.min_z() - 1) >> 4), ChunkPos::new((area.max_x() + 1) >> 4, (area.max_z() + 1) >> 4));
+        self.ensure_chunks_loaded(
+            ChunkPos::new((area.min_x() - 1) >> 4, (area.min_z() - 1) >> 4),
+            ChunkPos::new((area.max_x() + 1) >> 4, (area.max_z() + 1) >> 4),
+        );
     }
 
     fn get_block_state_in_section(&self, pos: BlockPos) -> BlockState {
@@ -195,7 +257,11 @@ impl WorldGenLevel for ServerLevel {
         match self.chunk_now(pos.x() >> 4, pos.z() >> 4) {
             Some(chunk) => {
                 let index = chunk.data.access.level_height.section_index(pos.y()) as usize;
-                chunk.data.access.get_section(index).get_block_state(pos.x() & 15, pos.y() & 15, pos.z() & 15)
+                chunk.data.access.get_section(index).get_block_state(
+                    pos.x() & 15,
+                    pos.y() & 15,
+                    pos.z() & 15,
+                )
             }
             None => Block::AIR.default_state(),
         }
@@ -204,7 +270,12 @@ impl WorldGenLevel for ServerLevel {
     fn set_block_state_in_section(&mut self, pos: BlockPos, state: BlockState) {
         if let Some(chunk) = self.chunk_now_mut(pos.x() >> 4, pos.z() >> 4) {
             let index = chunk.data.access.level_height.section_index(pos.y()) as usize;
-            chunk.data.access.get_section_mut(index).set_block_state(pos.x() & 15, pos.y() & 15, pos.z() & 15, state);
+            chunk.data.access.get_section_mut(index).set_block_state(
+                pos.x() & 15,
+                pos.y() & 15,
+                pos.z() & 15,
+                state,
+            );
         }
     }
 }

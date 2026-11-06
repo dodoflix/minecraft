@@ -5,9 +5,12 @@
 //! partial with exactly one of name/id and no properties is `Dynamic`), so `contents` + `skin_patch` carry the same
 //! information and the same equality.
 use crate::codec::EncodeResult;
+use crate::codec::{
+    DecodeBounded, DecodeResult, Either, GameProfile, Property, group_properties_by_name,
+    read_property_count,
+};
 use crate::components::common::uuid_codec;
 use crate::components::component::{ComponentDef, ComponentKey};
-use crate::codec::{group_properties_by_name, read_property_count, DecodeBounded, DecodeResult, Either, GameProfile, Property};
 use crate::string_enum;
 use crate::{Decode, Encode};
 use mc_core::ident::Identifier;
@@ -96,7 +99,9 @@ pub fn player_name_codec() -> Codec<String> {
         if name.encode_utf16().all(|c| c > 32 && c < 127) {
             DataResult::success(name)
         } else {
-            DataResult::error(move || format!("Player name contained disallowed characters: '{name}'"))
+            DataResult::error(move || {
+                format!("Player name contained disallowed characters: '{name}'")
+            })
         }
     })
 }
@@ -123,7 +128,11 @@ pub fn property_map_codec() -> Codec<Vec<Property>> {
                 mc_dfu::Either::Left(map) => map
                     .into_iter()
                     .flat_map(|(name, values)| {
-                        values.into_iter().map(move |value| Property { name: name.clone(), value, signature: None })
+                        values.into_iter().map(move |value| Property {
+                            name: name.clone(),
+                            value,
+                            signature: None,
+                        })
                     })
                     .collect(),
                 mc_dfu::Either::Right(list) => list,
@@ -163,7 +172,10 @@ pub struct ResolvableProfile {
 /// `ResolvableProfile.STREAM_CODEC`.
 impl Decode for ResolvableProfile {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
-        Ok(ResolvableProfile { contents: Decode::decode(input)?, skin_patch: PlayerSkinPatch::decode(input)? })
+        Ok(ResolvableProfile {
+            contents: Decode::decode(input)?,
+            skin_patch: PlayerSkinPatch::decode(input)?,
+        })
     }
 }
 
@@ -171,28 +183,43 @@ impl ResolvableProfile {
     /// `ResolvableProfile.createUnresolved(name)`.
     pub fn create_unresolved(name: impl Into<String>) -> ResolvableProfile {
         ResolvableProfile {
-            contents: Either::Right(ResolvableProfilePartial { name: Some(name.into()), id: None, properties: Vec::new() }),
+            contents: Either::Right(ResolvableProfilePartial {
+                name: Some(name.into()),
+                id: None,
+                properties: Vec::new(),
+            }),
             skin_patch: PlayerSkinPatch::default(),
         }
     }
 
     /// `ResolvableProfile.CODEC`.
     pub fn codec() -> Codec<ResolvableProfile> {
-        let contents = stored_game_profile_codec().either(&ResolvableProfilePartial::map_codec()).xmap(
-            |e| match e {
-                mc_dfu::Either::Left(p) => Either::Left(p),
-                mc_dfu::Either::Right(p) => Either::Right(p),
-            },
-            |c: &Either<GameProfile, ResolvableProfilePartial>| match c {
-                Either::Left(p) => mc_dfu::Either::Left(p.clone()),
-                Either::Right(p) => mc_dfu::Either::Right(p.clone()),
-            },
-        );
-        let full = mc_dfu::record!(ResolvableProfile { contents: contents, skin_patch: PlayerSkinPatch::map_codec() }).codec();
+        let contents = stored_game_profile_codec()
+            .either(&ResolvableProfilePartial::map_codec())
+            .xmap(
+                |e| match e {
+                    mc_dfu::Either::Left(p) => Either::Left(p),
+                    mc_dfu::Either::Right(p) => Either::Right(p),
+                },
+                |c: &Either<GameProfile, ResolvableProfilePartial>| match c {
+                    Either::Left(p) => mc_dfu::Either::Left(p.clone()),
+                    Either::Right(p) => mc_dfu::Either::Right(p.clone()),
+                },
+            );
+        let full = mc_dfu::record!(ResolvableProfile {
+            contents: contents,
+            skin_patch: PlayerSkinPatch::map_codec()
+        })
+        .codec();
         full.with_alternative_conv(&player_name_codec(), ResolvableProfile::create_unresolved)
     }
 }
 
 pub(crate) fn defs(out: &mut Vec<ComponentDef>) {
-    out.push(ComponentDef::builder(PROFILE).persistent(ResolvableProfile::codec()).network_synchronized().build());
+    out.push(
+        ComponentDef::builder(PROFILE)
+            .persistent(ResolvableProfile::codec())
+            .network_synchronized()
+            .build(),
+    );
 }

@@ -19,8 +19,16 @@ pub fn requirement_codec() -> Codec<Requirement> {
 }
 
 /// `requirement.value().test(context)` with the context of `kind`.
-pub fn requirement_test(level: &mut ServerLevel, actors: &Actors<'_>, requirement: &Requirement, enchantment_level: i32, kind: &ContextKind<'_>) -> bool {
-    let Some(condition) = requirement.try_value(&level.registries) else { return false };
+pub fn requirement_test(
+    level: &mut ServerLevel,
+    actors: &Actors<'_>,
+    requirement: &Requirement,
+    enchantment_level: i32,
+    kind: &ContextKind<'_>,
+) -> bool {
+    let Some(condition) = requirement.try_value(&level.registries) else {
+        return false;
+    };
     // the context draws from the level's own random (a shared handle: the draws advance the level's sequence)
     let shared = level.tick_state.random.clone();
     let result = {
@@ -43,7 +51,12 @@ pub fn requirement_test(level: &mut ServerLevel, actors: &Actors<'_>, requiremen
                     ),
                 }
             }
-            ContextKind::Item { stack } => Some(LootParams::builder(lvl).tool(stack).enchantment_level(enchantment_level).create(&LootContextParamSets::ENCHANTED_ITEM)),
+            ContextKind::Item { stack } => Some(
+                LootParams::builder(lvl)
+                    .tool(stack)
+                    .enchantment_level(enchantment_level)
+                    .create(&LootContextParamSets::ENCHANTED_ITEM),
+            ),
             ContextKind::Location { entity: id, active } => entity(*id).map(|e| {
                 LootParams::builder(lvl)
                     .this_entity(e)
@@ -52,10 +65,21 @@ pub fn requirement_test(level: &mut ServerLevel, actors: &Actors<'_>, requiremen
                     .enchantment_active(*active)
                     .create(&LootContextParamSets::ENCHANTED_LOCATION)
             }),
-            ContextKind::Entity { entity: id, position } => entity(*id).map(|e| {
-                LootParams::builder(lvl).this_entity(e).enchantment_level(enchantment_level).origin(*position).create(&LootContextParamSets::ENCHANTED_ENTITY)
+            ContextKind::Entity {
+                entity: id,
+                position,
+            } => entity(*id).map(|e| {
+                LootParams::builder(lvl)
+                    .this_entity(e)
+                    .enchantment_level(enchantment_level)
+                    .origin(*position)
+                    .create(&LootContextParamSets::ENCHANTED_ENTITY)
             }),
-            ContextKind::HitBlock { entity: id, position, state } => entity(*id).map(|e| {
+            ContextKind::HitBlock {
+                entity: id,
+                position,
+                state,
+            } => entity(*id).map(|e| {
                 LootParams::builder(lvl)
                     .this_entity(e)
                     .enchantment_level(enchantment_level)
@@ -65,7 +89,9 @@ pub fn requirement_test(level: &mut ServerLevel, actors: &Actors<'_>, requiremen
             }),
         };
         params.is_some_and(|params| {
-            let mut context = LootContext::builder(&params).with_optional_random_source(Box::new(shared.clone())).create(None);
+            let mut context = LootContext::builder(&params)
+                .with_optional_random_source(Box::new(shared.clone()))
+                .create(None);
             condition.test(&mut context)
         })
     };

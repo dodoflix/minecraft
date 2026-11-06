@@ -10,8 +10,8 @@
 //! (`flush_container_events`) — one `slotsChanged` per mutation, in order.
 
 use super::{
-    ClickAction, ContainerInput, ContainerKey, ContainerListener, ContainerSynchronizer, DataSlot, MenuPlayer, Prediction, RemoteSlot, Slot, SlotEnv,
-    place_item_back_in_inventory,
+    ClickAction, ContainerInput, ContainerKey, ContainerListener, ContainerSynchronizer, DataSlot,
+    MenuPlayer, Prediction, RemoteSlot, Slot, SlotEnv, place_item_back_in_inventory,
 };
 use crate::world::container::Container;
 use crate::world::item::{HashedStack, ItemStack};
@@ -63,7 +63,12 @@ pub fn get_quick_craft_place_count(slot_count: usize, ty: i32, stack: &ItemStack
 }
 
 /// `canItemQuickReplace(slot, stack, ignoreSize)`.
-pub fn can_item_quick_replace(slot: Option<&Slot>, env: &mut SlotEnv, stack: &ItemStack, ignore_size: bool) -> bool {
+pub fn can_item_quick_replace(
+    slot: Option<&Slot>,
+    env: &mut SlotEnv,
+    stack: &ItemStack,
+    ignore_size: bool,
+) -> bool {
     let slot_item = slot.map(|s| s.get_item(env));
     let slot_is_empty = slot_item.as_ref().is_none_or(ItemStack::is_empty);
     match slot_item {
@@ -125,7 +130,8 @@ impl MenuBase {
 
     /// `getType()`: panics like vanilla's `UnsupportedOperationException` for typeless menus (only the inventory menu).
     pub fn get_type(&self) -> MenuType {
-        self.menu_type.expect("Unable to construct this menu by type")
+        self.menu_type
+            .expect("Unable to construct this menu by type")
     }
 
     pub fn menu_type(&self) -> Option<MenuType> {
@@ -142,7 +148,10 @@ impl MenuBase {
         slot.index = self.slots.len();
         self.slots.push(slot);
         self.last_slots.push(ItemStack::empty());
-        let remote = self.synchronizer.as_ref().map_or(RemoteSlot::Placeholder, |s| s.create_slot());
+        let remote = self
+            .synchronizer
+            .as_ref()
+            .map_or(RemoteSlot::Placeholder, |s| s.create_slot());
         self.remote_slots.push(remote);
         self.slots.len() - 1
     }
@@ -156,7 +165,12 @@ impl MenuBase {
     pub fn add_inventory_extended_slots(&mut self, inventory: &ContainerKey, left: i32, top: i32) {
         for y in 0..3 {
             for x in 0..9 {
-                self.add_slot(Slot::new(inventory.clone(), (x + (y + 1) * 9) as usize, left + x * 18, top + y * 18));
+                self.add_slot(Slot::new(
+                    inventory.clone(),
+                    (x + (y + 1) * 9) as usize,
+                    left + x * 18,
+                    top + y * 18,
+                ));
             }
         }
     }
@@ -202,15 +216,31 @@ impl MenuBase {
     }
 
     /// Slot `index` and an env over the menu's locals.
-    pub fn with_slot<R>(&mut self, player: &mut dyn MenuPlayer, index: usize, f: impl FnOnce(&Slot, &mut SlotEnv<'_>) -> R) -> R {
+    pub fn with_slot<R>(
+        &mut self,
+        player: &mut dyn MenuPlayer,
+        index: usize,
+        f: impl FnOnce(&Slot, &mut SlotEnv<'_>) -> R,
+    ) -> R {
         let slot = &self.slots[index];
-        let mut env = SlotEnv { player, locals: &mut self.locals, slots_changed_requested: &mut self.slots_changed_requested };
+        let mut env = SlotEnv {
+            player,
+            locals: &mut self.locals,
+            slots_changed_requested: &mut self.slots_changed_requested,
+        };
         f(slot, &mut env)
     }
 
     /// An env over the menu's locals (all slots readable through `self.slots`).
     pub fn env<'a>(&'a mut self, player: &'a mut dyn MenuPlayer) -> (&'a [Slot], SlotEnv<'a>) {
-        (&self.slots, SlotEnv { player, locals: &mut self.locals, slots_changed_requested: &mut self.slots_changed_requested })
+        (
+            &self.slots,
+            SlotEnv {
+                player,
+                locals: &mut self.locals,
+                slots_changed_requested: &mut self.slots_changed_requested,
+            },
+        )
     }
 
     pub fn get_carried(&self) -> &ItemStack {
@@ -244,7 +274,11 @@ impl MenuBase {
         self.container_listeners.push(listener);
     }
 
-    pub fn set_synchronizer(&mut self, synchronizer: Box<dyn ContainerSynchronizer>, player: &mut dyn MenuPlayer) {
+    pub fn set_synchronizer(
+        &mut self,
+        synchronizer: Box<dyn ContainerSynchronizer>,
+        player: &mut dyn MenuPlayer,
+    ) {
         self.remote_carried = synchronizer.create_slot();
         for r in &mut self.remote_slots {
             *r = synchronizer.create_slot();
@@ -284,7 +318,9 @@ impl MenuBase {
     }
 
     pub fn get_items(&mut self, player: &mut dyn MenuPlayer) -> Vec<ItemStack> {
-        (0..self.slots.len()).map(|i| self.with_slot(player, i, |s, e| s.get_item(e))).collect()
+        (0..self.slots.len())
+            .map(|i| self.with_slot(player, i, |s, e| s.get_item(e)))
+            .collect()
     }
 
     /// Step of `broadcastChanges`/`broadcastFullState`: slot `i` as seen now.
@@ -391,7 +427,11 @@ impl MenuBase {
         if slot >= 0 && (slot as usize) < self.remote_slots.len() {
             self.remote_slots[slot as usize].receive(stack);
         } else {
-            log::debug!("Incorrect slot index: {} available slots: {}", slot, self.remote_slots.len());
+            log::debug!(
+                "Incorrect slot index: {} available slots: {}",
+                slot,
+                self.remote_slots.len()
+            );
         }
     }
 
@@ -400,7 +440,13 @@ impl MenuBase {
     }
 
     /// `setItem(slot, stateId, stack)` (client-bound data applied; used by tests / internal resync).
-    pub fn set_item(&mut self, player: &mut dyn MenuPlayer, slot: usize, state_id: i32, stack: ItemStack) {
+    pub fn set_item(
+        &mut self,
+        player: &mut dyn MenuPlayer,
+        slot: usize,
+        state_id: i32,
+        stack: ItemStack,
+    ) {
         self.with_slot(player, slot, |s, e| s.set(e, stack));
         self.state_id = state_id;
     }
@@ -415,7 +461,10 @@ impl MenuBase {
             if matches!(slot.container, ContainerKey::Local(_)) {
                 continue;
             }
-            let found = other.slots.iter().position(|o| o.container.same_container(&slot.container) && o.get_container_slot() == slot.get_container_slot());
+            let found = other.slots.iter().position(|o| {
+                o.container.same_container(&slot.container)
+                    && o.get_container_slot() == slot.get_container_slot()
+            });
             if let Some(other_index) = found {
                 self.last_slots[slot_index] = other.last_slots[other_index].clone();
                 let src = other.remote_slots[other_index].clone();
@@ -426,7 +475,9 @@ impl MenuBase {
 
     /// `findSlot(inventory, slotIndex)`.
     pub fn find_slot(&self, container: &ContainerKey, slot_index: usize) -> Option<usize> {
-        self.slots.iter().position(|s| s.container.same_container(container) && slot_index == s.get_container_slot())
+        self.slots.iter().position(|s| {
+            s.container.same_container(container) && slot_index == s.get_container_slot()
+        })
     }
 
     /// Takes the pending `slotsChanged(inventory)` request raised by item hooks.
@@ -453,17 +504,31 @@ pub trait AbstractContainerMenu: Any {
     // ---- overridable ----
 
     /// `setSelectedBundleItemIndex(slotIndex, selectedItemIndex)`.
-    fn set_selected_bundle_item_index(&mut self, player: &mut dyn MenuPlayer, slot_index: i32, selected_item_index: i32) {
+    fn set_selected_bundle_item_index(
+        &mut self,
+        player: &mut dyn MenuPlayer,
+        slot_index: i32,
+        selected_item_index: i32,
+    ) {
         if slot_index >= 0 && (slot_index as usize) < self.base().slots.len() {
-            self.base_mut().with_slot(player, slot_index as usize, |slot, env| {
-                slot.with_item_mut(env, |stack| crate::world::item::toggle_bundle_selected_item(stack, selected_item_index));
-            });
+            self.base_mut()
+                .with_slot(player, slot_index as usize, |slot, env| {
+                    slot.with_item_mut(env, |stack| {
+                        crate::world::item::toggle_bundle_selected_item(stack, selected_item_index)
+                    });
+                });
         }
     }
 
     /// The menu acting as its own `ContainerListener` (`CrafterMenu.slotChanged`): called in slot order right after
     /// the change was detected, inside `broadcast_changes`/`broadcast_full_state`/`add_slot_listener`.
-    fn slot_changed_listener(&mut self, _player: &mut dyn MenuPlayer, _slot_index: usize, _stack: &ItemStack) {}
+    fn slot_changed_listener(
+        &mut self,
+        _player: &mut dyn MenuPlayer,
+        _slot_index: usize,
+        _stack: &ItemStack,
+    ) {
+    }
 
     /// Hands the recorded slot changes to [`AbstractContainerMenu::slot_changed_listener`].
     fn dispatch_slot_events(&mut self, player: &mut dyn MenuPlayer) {
@@ -471,9 +536,13 @@ pub trait AbstractContainerMenu: Any {
             let events = std::mem::take(&mut self.base_mut().slot_events);
             for (i, stack) in events {
                 // `ServerPlayer.containerListener.slotChanged`: `slot.container == player.getInventory()` -> INVENTORY_CHANGED
-                if matches!(self.base().slots[i].container, ContainerKey::PlayerInventory) {
+                if matches!(
+                    self.base().slots[i].container,
+                    ContainerKey::PlayerInventory
+                ) {
                     player.with_server_player(&mut |level, p| {
-                        crate::advancements::triggers::CriteriaTriggers::INVENTORY_CHANGED.trigger(level, p, &stack);
+                        crate::advancements::triggers::CriteriaTriggers::INVENTORY_CHANGED
+                            .trigger(level, p, &stack);
                     });
                 }
                 self.slot_changed_listener(player, i, &stack);
@@ -482,7 +551,11 @@ pub trait AbstractContainerMenu: Any {
     }
 
     /// `addSlotListener(listener)`: attach and `broadcastChanges()`.
-    fn add_slot_listener(&mut self, listener: Box<dyn ContainerListener>, player: &mut dyn MenuPlayer) {
+    fn add_slot_listener(
+        &mut self,
+        listener: Box<dyn ContainerListener>,
+        player: &mut dyn MenuPlayer,
+    ) {
         self.base_mut().push_slot_listener(listener);
         self.broadcast_changes(player);
     }
@@ -509,7 +582,9 @@ pub trait AbstractContainerMenu: Any {
     }
 
     /// `this instanceof RecipeBookMenu` (crafting/furnace menus override).
-    fn as_recipe_book_menu(&mut self) -> Option<&mut dyn crate::world::item::crafting::RecipeBookMenu> {
+    fn as_recipe_book_menu(
+        &mut self,
+    ) -> Option<&mut dyn crate::world::item::crafting::RecipeBookMenu> {
         None
     }
 
@@ -571,7 +646,13 @@ pub trait AbstractContainerMenu: Any {
     }
 
     /// `initializeContents(stateId, items, carried)`.
-    fn initialize_contents(&mut self, player: &mut dyn MenuPlayer, state_id: i32, items: Vec<ItemStack>, carried: ItemStack) {
+    fn initialize_contents(
+        &mut self,
+        player: &mut dyn MenuPlayer,
+        state_id: i32,
+        items: Vec<ItemStack>,
+        carried: ItemStack,
+    ) {
         for (i, item) in items.into_iter().enumerate() {
             self.base_mut().with_slot(player, i, |s, e| s.set(e, item));
         }
@@ -581,33 +662,59 @@ pub trait AbstractContainerMenu: Any {
     }
 
     /// `moveItemStackTo(stack, startSlot, endSlot, backwards)`: `stack` is the (detached) stack being moved.
-    fn move_item_stack_to(&mut self, player: &mut dyn MenuPlayer, stack: &mut ItemStack, start_slot: usize, end_slot: usize, backwards: bool) -> bool {
+    fn move_item_stack_to(
+        &mut self,
+        player: &mut dyn MenuPlayer,
+        stack: &mut ItemStack,
+        start_slot: usize,
+        end_slot: usize,
+        backwards: bool,
+    ) -> bool {
         let mut anything_changed = false;
-        let mut dest = if backwards { end_slot as i64 - 1 } else { start_slot as i64 };
-        let in_range = |d: i64| if backwards { d >= start_slot as i64 } else { d < end_slot as i64 };
+        let mut dest = if backwards {
+            end_slot as i64 - 1
+        } else {
+            start_slot as i64
+        };
+        let in_range = |d: i64| {
+            if backwards {
+                d >= start_slot as i64
+            } else {
+                d < end_slot as i64
+            }
+        };
 
         if stack.is_stackable() {
             while !stack.is_empty() && in_range(dest) {
-                let (total, max, target_count, same) = self.base_mut().with_slot(player, dest as usize, |slot, env| {
-                    let target = slot.get_item(env);
-                    let same = !target.is_empty() && ItemStack::is_same_item_same_components(stack, &target);
-                    let max = if same { slot.get_max_stack_size_for(env, &target) } else { 0 };
-                    (target.count() + stack.count(), max, target.count(), same)
-                });
+                let (total, max, target_count, same) =
+                    self.base_mut()
+                        .with_slot(player, dest as usize, |slot, env| {
+                            let target = slot.get_item(env);
+                            let same = !target.is_empty()
+                                && ItemStack::is_same_item_same_components(stack, &target);
+                            let max = if same {
+                                slot.get_max_stack_size_for(env, &target)
+                            } else {
+                                0
+                            };
+                            (target.count() + stack.count(), max, target.count(), same)
+                        });
                 if same {
                     if total <= max {
                         stack.set_count(0);
-                        self.base_mut().with_slot(player, dest as usize, |slot, env| {
-                            slot.with_item_mut(env, |t| t.set_count(total));
-                            slot.set_changed(env);
-                        });
+                        self.base_mut()
+                            .with_slot(player, dest as usize, |slot, env| {
+                                slot.with_item_mut(env, |t| t.set_count(total));
+                                slot.set_changed(env);
+                            });
                         anything_changed = true;
                     } else if target_count < max {
                         stack.shrink(max - target_count);
-                        self.base_mut().with_slot(player, dest as usize, |slot, env| {
-                            slot.with_item_mut(env, |t| t.set_count(max));
-                            slot.set_changed(env);
-                        });
+                        self.base_mut()
+                            .with_slot(player, dest as usize, |slot, env| {
+                                slot.with_item_mut(env, |t| t.set_count(max));
+                                slot.set_changed(env);
+                            });
                         anything_changed = true;
                     }
                     self.flush_container_events(player);
@@ -617,20 +724,26 @@ pub trait AbstractContainerMenu: Any {
         }
 
         if !stack.is_empty() {
-            dest = if backwards { end_slot as i64 - 1 } else { start_slot as i64 };
+            dest = if backwards {
+                end_slot as i64 - 1
+            } else {
+                start_slot as i64
+            };
             while in_range(dest) {
-                let placed = self.base_mut().with_slot(player, dest as usize, |slot, env| {
-                    let target = slot.get_item(env);
-                    if target.is_empty() && slot.may_place(env, stack) {
-                        let max = slot.get_max_stack_size_for(env, stack);
-                        let part = stack.split(stack.count().min(max));
-                        slot.set_by_player(env, part);
-                        slot.set_changed(env);
-                        true
-                    } else {
-                        false
-                    }
-                });
+                let placed = self
+                    .base_mut()
+                    .with_slot(player, dest as usize, |slot, env| {
+                        let target = slot.get_item(env);
+                        if target.is_empty() && slot.may_place(env, stack) {
+                            let max = slot.get_max_stack_size_for(env, stack);
+                            let part = stack.split(stack.count().min(max));
+                            slot.set_by_player(env, part);
+                            slot.set_changed(env);
+                            true
+                        } else {
+                            false
+                        }
+                    });
                 if placed {
                     self.flush_container_events(player);
                     anything_changed = true;
@@ -643,14 +756,33 @@ pub trait AbstractContainerMenu: Any {
     }
 
     /// `clicked(slotIndex, buttonNum, containerInput, player)`.
-    fn clicked(&mut self, slot_index: i32, button_num: i32, input: ContainerInput, player: &mut dyn MenuPlayer) -> Result<(), MenuClickError> {
+    fn clicked(
+        &mut self,
+        slot_index: i32,
+        button_num: i32,
+        input: ContainerInput,
+        player: &mut dyn MenuPlayer,
+    ) -> Result<(), MenuClickError> {
         self.do_click(slot_index, button_num, input, player)
     }
 
-    fn do_click(&mut self, slot_index: i32, button_num: i32, input: ContainerInput, player: &mut dyn MenuPlayer) -> Result<(), MenuClickError> {
+    fn do_click(
+        &mut self,
+        slot_index: i32,
+        button_num: i32,
+        input: ContainerInput,
+        player: &mut dyn MenuPlayer,
+    ) -> Result<(), MenuClickError> {
         let slot_count = self.base().slots.len();
         let slot_checked = |i: i32| -> Result<usize, MenuClickError> {
-            if i >= 0 && (i as usize) < slot_count { Ok(i as usize) } else { Err(MenuClickError { slot_index: i, slot_count }) }
+            if i >= 0 && (i as usize) < slot_count {
+                Ok(i as usize)
+            } else {
+                Err(MenuClickError {
+                    slot_index: i,
+                    slot_count,
+                })
+            }
         };
 
         if input == ContainerInput::QuickCraft {
@@ -681,7 +813,9 @@ pub trait AbstractContainerMenu: Any {
                     let may_drag = this.can_drag_to(&this.base().slots[idx]);
                     let base = self.base_mut();
                     base.with_slot(player, idx, |slot, env| {
-                        can_item_quick_replace(Some(slot), env, &carried, true) && slot.may_place(env, &carried) && (ty == 2 || carried.count() > count as i32)
+                        can_item_quick_replace(Some(slot), env, &carried, true)
+                            && slot.may_place(env, &carried)
+                            && (ty == 2 || carried.count() > count as i32)
                     }) && may_drag
                 };
                 if ok && !self.base().quickcraft_slots.contains(&idx) {
@@ -714,9 +848,17 @@ pub trait AbstractContainerMenu: Any {
                                 && (ty == 2 || carried.count() >= n as i32)
                                 && may_drag
                             {
-                                let carry = if slot.has_item(env) { slot.get_item(env).count() } else { 0 };
-                                let max_size = source.get_max_stack_size().min(slot.get_max_stack_size_for(env, &source));
-                                let new_count = (get_quick_craft_place_count(n, ty, &source) + carry).min(max_size);
+                                let carry = if slot.has_item(env) {
+                                    slot.get_item(env).count()
+                                } else {
+                                    0
+                                };
+                                let max_size = source
+                                    .get_max_stack_size()
+                                    .min(slot.get_max_stack_size_for(env, &source));
+                                let new_count = (get_quick_craft_place_count(n, ty, &source)
+                                    + carry)
+                                    .min(max_size);
                                 remaining -= new_count - carry;
                                 slot.set_by_player(env, source.copy_with_count(new_count));
                                 true
@@ -737,8 +879,14 @@ pub trait AbstractContainerMenu: Any {
             }
         } else if self.base().quickcraft_status != 0 {
             self.base_mut().reset_quick_craft();
-        } else if (input == ContainerInput::Pickup || input == ContainerInput::QuickMove) && (button_num == 0 || button_num == 1) {
-            let click_action = if button_num == 0 { ClickAction::Primary } else { ClickAction::Secondary };
+        } else if (input == ContainerInput::Pickup || input == ContainerInput::QuickMove)
+            && (button_num == 0 || button_num == 1)
+        {
+            let click_action = if button_num == 0 {
+                ClickAction::Primary
+            } else {
+                ClickAction::Secondary
+            };
             if slot_index == SLOT_CLICKED_OUTSIDE {
                 if !self.base().carried.is_empty() {
                     if click_action == ClickAction::Primary {
@@ -754,7 +902,10 @@ pub trait AbstractContainerMenu: Any {
                     return Ok(());
                 }
                 let idx = slot_checked(slot_index)?;
-                if !self.base_mut().with_slot(player, idx, |s, e| s.may_pickup(e)) {
+                if !self
+                    .base_mut()
+                    .with_slot(player, idx, |s, e| s.may_pickup(e))
+                {
                     return Ok(());
                 }
                 let mut clicked = self.quick_move_stack(player, idx);
@@ -773,22 +924,41 @@ pub trait AbstractContainerMenu: Any {
                 let idx = slot_checked(slot_index)?;
                 self.click_pickup(idx, click_action, player);
             }
-        } else if input == ContainerInput::Swap && ((0..9).contains(&button_num) || button_num == 40) {
+        } else if input == ContainerInput::Swap
+            && ((0..9).contains(&button_num) || button_num == 40)
+        {
             let idx = slot_checked(slot_index)?;
             self.click_swap(idx, button_num as usize, player);
-        } else if input == ContainerInput::Clone && player.has_infinite_materials() && self.base().carried.is_empty() && slot_index >= 0 {
+        } else if input == ContainerInput::Clone
+            && player.has_infinite_materials()
+            && self.base().carried.is_empty()
+            && slot_index >= 0
+        {
             let idx = slot_checked(slot_index)?;
             if self.base_mut().with_slot(player, idx, |s, e| s.has_item(e)) {
-                let cloned = self.base_mut().with_slot(player, idx, |s, e| s.safe_clone(e));
+                let cloned = self
+                    .base_mut()
+                    .with_slot(player, idx, |s, e| s.safe_clone(e));
                 self.base_mut().set_carried(cloned);
             }
-        } else if input == ContainerInput::Throw && self.base().carried.is_empty() && slot_index >= 0 {
+        } else if input == ContainerInput::Throw
+            && self.base().carried.is_empty()
+            && slot_index >= 0
+        {
             let idx = slot_checked(slot_index)?;
-            let amount = if button_num == 0 { 1 } else { self.base_mut().with_slot(player, idx, |s, e| s.get_item(e)).count() };
+            let amount = if button_num == 0 {
+                1
+            } else {
+                self.base_mut()
+                    .with_slot(player, idx, |s, e| s.get_item(e))
+                    .count()
+            };
             if !player.can_drop_items() {
                 return Ok(());
             }
-            let mut item = self.base_mut().with_slot(player, idx, |s, e| s.safe_take(e, amount, i32::MAX));
+            let mut item = self
+                .base_mut()
+                .with_slot(player, idx, |s, e| s.safe_take(e, amount, i32::MAX));
             self.flush_container_events(player);
             player.drop(item.clone(), true, Prediction::Predicted);
             player.handle_creative_mode_item_drop(&item);
@@ -800,7 +970,9 @@ pub trait AbstractContainerMenu: Any {
                     if !player.can_drop_items() {
                         return Ok(());
                     }
-                    item = self.base_mut().with_slot(player, idx, |s, e| s.safe_take(e, amount, i32::MAX));
+                    item = self
+                        .base_mut()
+                        .with_slot(player, idx, |s, e| s.safe_take(e, amount, i32::MAX));
                     self.flush_container_events(player);
                     player.drop(item.clone(), true, Prediction::Predicted);
                     player.handle_creative_mode_item_drop(&item);
@@ -809,20 +981,37 @@ pub trait AbstractContainerMenu: Any {
         } else if input == ContainerInput::PickupAll && slot_index >= 0 {
             let idx = slot_checked(slot_index)?;
             let mut carried = self.base().carried.clone();
-            let blocked = self.base_mut().with_slot(player, idx, |s, e| !s.has_item(e) || !s.may_pickup(e));
+            let blocked = self
+                .base_mut()
+                .with_slot(player, idx, |s, e| !s.has_item(e) || !s.may_pickup(e));
             if !carried.is_empty() && blocked {
                 let n = self.base().slots.len() as i64;
-                let (start, step) = if button_num == 0 { (0i64, 1i64) } else { (n - 1, -1i64) };
+                let (start, step) = if button_num == 0 {
+                    (0i64, 1i64)
+                } else {
+                    (n - 1, -1i64)
+                };
                 for pass in 0..2 {
                     let mut i = start;
                     while i >= 0 && i < n && carried.count() < carried.get_max_stack_size() {
-                        let may_take = self.can_take_item_for_pick_all(&carried, &self.base().slots[i as usize]);
+                        let may_take = self
+                            .can_take_item_for_pick_all(&carried, &self.base().slots[i as usize]);
                         let base = self.base_mut();
                         let removed = base.with_slot(player, i as usize, |target, env| {
-                            if target.has_item(env) && can_item_quick_replace(Some(target), env, &carried, true) && target.may_pickup(env) && may_take {
+                            if target.has_item(env)
+                                && can_item_quick_replace(Some(target), env, &carried, true)
+                                && target.may_pickup(env)
+                                && may_take
+                            {
                                 let item_stack = target.get_item(env);
-                                if pass != 0 || item_stack.count() != item_stack.get_max_stack_size() {
-                                    return Some(target.safe_take(env, item_stack.count(), carried.get_max_stack_size() - carried.count()));
+                                if pass != 0
+                                    || item_stack.count() != item_stack.get_max_stack_size()
+                                {
+                                    return Some(target.safe_take(
+                                        env,
+                                        item_stack.count(),
+                                        carried.get_max_stack_size() - carried.count(),
+                                    ));
                                 }
                             }
                             None
@@ -844,7 +1033,14 @@ pub trait AbstractContainerMenu: Any {
     fn click_pickup(&mut self, idx: usize, action: ClickAction, player: &mut dyn MenuPlayer) {
         let clicked = self.base_mut().with_slot(player, idx, |s, e| s.get_item(e));
         let mut carried = self.base().carried.clone();
-        let overridden = super::item_click::try_item_click_behaviour_override(self.base_mut(), player, action, idx, &clicked, &mut carried);
+        let overridden = super::item_click::try_item_click_behaviour_override(
+            self.base_mut(),
+            player,
+            action,
+            idx,
+            &clicked,
+            &mut carried,
+        );
         if self.base_mut().take_slots_changed_request() {
             // `player.containerMenu.slotsChanged(player.getInventory())`: the carried stack is part of the state the
             // broadcast must see
@@ -854,42 +1050,76 @@ pub trait AbstractContainerMenu: Any {
         if !overridden {
             if clicked.is_empty() {
                 if !carried.is_empty() {
-                    let amount = if action == ClickAction::Primary { carried.count() } else { 1 };
+                    let amount = if action == ClickAction::Primary {
+                        carried.count()
+                    } else {
+                        1
+                    };
                     let c = std::mem::take(&mut carried);
-                    carried = self.base_mut().with_slot(player, idx, |s, e| s.safe_insert_amount(e, c, amount));
+                    carried = self
+                        .base_mut()
+                        .with_slot(player, idx, |s, e| s.safe_insert_amount(e, c, amount));
                 }
-            } else if self.base_mut().with_slot(player, idx, |s, e| s.may_pickup(e)) {
+            } else if self
+                .base_mut()
+                .with_slot(player, idx, |s, e| s.may_pickup(e))
+            {
                 if carried.is_empty() {
-                    let amount = if action == ClickAction::Primary { clicked.count() } else { (clicked.count() + 1) / 2 };
-                    let taken = self.base_mut().with_slot(player, idx, |s, e| s.try_remove(e, amount, i32::MAX));
+                    let amount = if action == ClickAction::Primary {
+                        clicked.count()
+                    } else {
+                        (clicked.count() + 1) / 2
+                    };
+                    let taken = self
+                        .base_mut()
+                        .with_slot(player, idx, |s, e| s.try_remove(e, amount, i32::MAX));
                     if let Some(taken) = taken {
                         carried = taken;
                         self.base_mut().set_carried(carried.clone());
-                        self.base_mut().with_slot(player, idx, |s, e| s.on_take(e, &carried));
+                        self.base_mut()
+                            .with_slot(player, idx, |s, e| s.on_take(e, &carried));
                     }
-                } else if self.base_mut().with_slot(player, idx, |s, e| s.may_place(e, &carried)) {
+                } else if self
+                    .base_mut()
+                    .with_slot(player, idx, |s, e| s.may_place(e, &carried))
+                {
                     if ItemStack::is_same_item_same_components(&clicked, &carried) {
-                        let amount = if action == ClickAction::Primary { carried.count() } else { 1 };
+                        let amount = if action == ClickAction::Primary {
+                            carried.count()
+                        } else {
+                            1
+                        };
                         let c = std::mem::take(&mut carried);
-                        carried = self.base_mut().with_slot(player, idx, |s, e| s.safe_insert_amount(e, c, amount));
-                    } else if carried.count() <= self.base_mut().with_slot(player, idx, |s, e| s.get_max_stack_size_for(e, &carried)) {
+                        carried = self
+                            .base_mut()
+                            .with_slot(player, idx, |s, e| s.safe_insert_amount(e, c, amount));
+                    } else if carried.count()
+                        <= self
+                            .base_mut()
+                            .with_slot(player, idx, |s, e| s.get_max_stack_size_for(e, &carried))
+                    {
                         let old = std::mem::replace(&mut carried, clicked.clone());
                         self.base_mut().set_carried(carried.clone());
-                        self.base_mut().with_slot(player, idx, |s, e| s.set_by_player(e, old));
+                        self.base_mut()
+                            .with_slot(player, idx, |s, e| s.set_by_player(e, old));
                     }
                 } else if ItemStack::is_same_item_same_components(&clicked, &carried) {
                     let max_amount = carried.get_max_stack_size() - carried.count();
-                    let taken = self.base_mut().with_slot(player, idx, |s, e| s.try_remove(e, clicked.count(), max_amount));
+                    let taken = self.base_mut().with_slot(player, idx, |s, e| {
+                        s.try_remove(e, clicked.count(), max_amount)
+                    });
                     if let Some(taken) = taken {
                         carried.grow(taken.count());
                         self.base_mut().set_carried(carried.clone());
-                        self.base_mut().with_slot(player, idx, |s, e| s.on_take(e, &taken));
+                        self.base_mut()
+                            .with_slot(player, idx, |s, e| s.on_take(e, &taken));
                     }
                 }
             }
         }
         self.base_mut().set_carried(carried);
-        self.base_mut().with_slot(player, idx, |s, e| s.set_changed(e));
+        self.base_mut()
+            .with_slot(player, idx, |s, e| s.set_changed(e));
         self.flush_container_events(player);
     }
 
@@ -899,8 +1129,13 @@ pub trait AbstractContainerMenu: Any {
         let target_stack = self.base_mut().with_slot(player, idx, |s, e| s.get_item(e));
         if !source.is_empty() || !target_stack.is_empty() {
             if source.is_empty() {
-                if self.base_mut().with_slot(player, idx, |s, e| s.may_pickup(e)) {
-                    player.inventory_mut().set_item(button, target_stack.clone());
+                if self
+                    .base_mut()
+                    .with_slot(player, idx, |s, e| s.may_pickup(e))
+                {
+                    player
+                        .inventory_mut()
+                        .set_item(button, target_stack.clone());
                     self.base_mut().with_slot(player, idx, |s, e| {
                         s.on_swap_craft(target_stack.count());
                         s.set_by_player(e, ItemStack::empty());
@@ -908,20 +1143,39 @@ pub trait AbstractContainerMenu: Any {
                     });
                 }
             } else if target_stack.is_empty() {
-                if self.base_mut().with_slot(player, idx, |s, e| s.may_place(e, &source)) {
-                    let max = self.base_mut().with_slot(player, idx, |s, e| s.get_max_stack_size_for(e, &source));
+                if self
+                    .base_mut()
+                    .with_slot(player, idx, |s, e| s.may_place(e, &source))
+                {
+                    let max = self
+                        .base_mut()
+                        .with_slot(player, idx, |s, e| s.get_max_stack_size_for(e, &source));
                     if source.count() > max {
-                        let part = player.inventory_mut().get_item_mut(button).map(|s| s.split(max)).unwrap_or_default();
-                        self.base_mut().with_slot(player, idx, |s, e| s.set_by_player(e, part));
+                        let part = player
+                            .inventory_mut()
+                            .get_item_mut(button)
+                            .map(|s| s.split(max))
+                            .unwrap_or_default();
+                        self.base_mut()
+                            .with_slot(player, idx, |s, e| s.set_by_player(e, part));
                     } else {
                         player.inventory_mut().set_item(button, ItemStack::empty());
-                        self.base_mut().with_slot(player, idx, |s, e| s.set_by_player(e, source));
+                        self.base_mut()
+                            .with_slot(player, idx, |s, e| s.set_by_player(e, source));
                     }
                 }
-            } else if self.base_mut().with_slot(player, idx, |s, e| s.may_pickup(e) && s.may_place(e, &source)) {
-                let max = self.base_mut().with_slot(player, idx, |s, e| s.get_max_stack_size_for(e, &source));
+            } else if self.base_mut().with_slot(player, idx, |s, e| {
+                s.may_pickup(e) && s.may_place(e, &source)
+            }) {
+                let max = self
+                    .base_mut()
+                    .with_slot(player, idx, |s, e| s.get_max_stack_size_for(e, &source));
                 if source.count() > max {
-                    let part = player.inventory_mut().get_item_mut(button).map(|s| s.split(max)).unwrap_or_default();
+                    let part = player
+                        .inventory_mut()
+                        .get_item_mut(button)
+                        .map(|s| s.split(max))
+                        .unwrap_or_default();
                     let mut target_stack = target_stack;
                     self.base_mut().with_slot(player, idx, |s, e| {
                         s.set_by_player(e, part);
@@ -933,7 +1187,9 @@ pub trait AbstractContainerMenu: Any {
                         player.drop(target_stack, true, Prediction::Predicted);
                     }
                 } else {
-                    player.inventory_mut().set_item(button, target_stack.clone());
+                    player
+                        .inventory_mut()
+                        .set_item(button, target_stack.clone());
                     self.base_mut().with_slot(player, idx, |s, e| {
                         s.set_by_player(e, source);
                         s.on_take(e, &target_stack);

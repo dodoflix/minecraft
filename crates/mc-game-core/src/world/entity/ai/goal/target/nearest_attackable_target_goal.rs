@@ -1,10 +1,12 @@
 //! `NearestAttackableTargetGoal`.
 
-use super::target_goal::TargetGoal;
 use super::TargetType;
+use super::target_goal::TargetGoal;
 use crate::server::level::ServerLevel;
 use crate::world::entity::ai::goal::{Flag, Goal, GoalFlags, reduced_tick_delay};
-use crate::world::entity::ai::targeting::{SourceTargetSelector, TargetSelector, TargetingConditions};
+use crate::world::entity::ai::targeting::{
+    SourceTargetSelector, TargetSelector, TargetingConditions,
+};
 use crate::world::entity::mob::ext;
 use crate::world::entity::{Entity, EntityId};
 use mc_core::phys::AABB;
@@ -33,17 +35,39 @@ impl NearestAttackableTargetGoal {
     }
 
     /// `NearestAttackableTargetGoal(mob, targetType, mustSee, selector)`.
-    pub fn with_selector(target_type: TargetType, must_see: bool, selector: TargetSelector) -> Self {
-        Self::build(target_type, DEFAULT_RANDOM_INTERVAL, must_see, false, Some(selector))
+    pub fn with_selector(
+        target_type: TargetType,
+        must_see: bool,
+        selector: TargetSelector,
+    ) -> Self {
+        Self::build(
+            target_type,
+            DEFAULT_RANDOM_INTERVAL,
+            must_see,
+            false,
+            Some(selector),
+        )
     }
 
     /// `NearestAttackableTargetGoal(mob, targetType, mustSee, mustReach)`.
     pub fn with_must_reach(target_type: TargetType, must_see: bool, must_reach: bool) -> Self {
-        Self::build(target_type, DEFAULT_RANDOM_INTERVAL, must_see, must_reach, None)
+        Self::build(
+            target_type,
+            DEFAULT_RANDOM_INTERVAL,
+            must_see,
+            must_reach,
+            None,
+        )
     }
 
     /// `NearestAttackableTargetGoal(mob, targetType, randomInterval, mustSee, mustReach, selector)`.
-    pub fn build(target_type: TargetType, random_interval: i32, must_see: bool, must_reach: bool, selector: Option<TargetSelector>) -> Self {
+    pub fn build(
+        target_type: TargetType,
+        random_interval: i32,
+        must_see: bool,
+        must_reach: bool,
+        selector: Option<TargetSelector>,
+    ) -> Self {
         Self {
             target_goal: TargetGoal::new(must_see, must_reach),
             target_type,
@@ -76,7 +100,11 @@ impl NearestAttackableTargetGoal {
     pub fn get_target_search_area(&self, mob: &dyn Entity, follow_distance: f64) -> AABB {
         match &self.search_area {
             Some(f) => f(mob, follow_distance),
-            None => mob.base().bounding_box().inflate(follow_distance, follow_distance, follow_distance),
+            None => {
+                mob.base()
+                    .bounding_box()
+                    .inflate(follow_distance, follow_distance, follow_distance)
+            }
         }
     }
 
@@ -87,18 +115,35 @@ impl NearestAttackableTargetGoal {
         self.target_conditions = self.target_conditions.clone().range(follow);
         let (x, eye_y, z) = (mob.base().x(), mob.base().get_eye_y(), mob.base().z());
         self.target = match &self.target_type {
-            TargetType::Player => ext::get_nearest_player(level, &self.target_conditions, mob, x, eye_y, z),
+            TargetType::Player => {
+                ext::get_nearest_player(level, &self.target_conditions, mob, x, eye_y, z)
+            }
             TargetType::Class(class) => {
-                let area = self.get_target_search_area(mob, self.target_goal.get_follow_distance(mob));
-                let candidates = level.get_entities_of_class(&area, |e| e.living().is_some() && class(e), |_| true);
-                ext::get_nearest_entity(level, &candidates, &self.target_conditions, mob, x, eye_y, z)
+                let area =
+                    self.get_target_search_area(mob, self.target_goal.get_follow_distance(mob));
+                let candidates = level.get_entities_of_class(
+                    &area,
+                    |e| e.living().is_some() && class(e),
+                    |_| true,
+                );
+                ext::get_nearest_entity(
+                    level,
+                    &candidates,
+                    &self.target_conditions,
+                    mob,
+                    x,
+                    eye_y,
+                    z,
+                )
             }
         };
     }
 
     /// The goal's `canUse` body (subclass-callable `super.canUse()`).
     pub fn can_use_impl(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        if self.random_interval > 0 && mob.base_mut().random.next_int_bounded(self.random_interval) != 0 {
+        if self.random_interval > 0
+            && mob.base_mut().random.next_int_bounded(self.random_interval) != 0
+        {
             false
         } else {
             self.find_target(mob, level);

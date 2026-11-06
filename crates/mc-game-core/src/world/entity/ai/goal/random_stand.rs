@@ -18,7 +18,9 @@ impl RandomStandGoal {
     }
 
     fn reset_stand_interval(&mut self, horse: &dyn Entity) {
-        self.next_stand = -horse.as_abstract_horse().map_or(0, |h| h.get_ambient_stand_interval());
+        self.next_stand = -horse
+            .as_abstract_horse()
+            .map_or(0, |h| h.get_ambient_stand_interval());
     }
 }
 
@@ -41,7 +43,10 @@ impl Goal for RandomStandGoal {
         if let Some(h) = horse.as_abstract_horse_mut() {
             h.stand_if_possible(level);
         }
-        if let Some(sound) = horse.as_abstract_horse().and_then(|h| h.get_ambient_stand_sound()) {
+        if let Some(sound) = horse
+            .as_abstract_horse()
+            .and_then(|h| h.get_ambient_stand_sound())
+        {
             horse.play_sound_default(level, sound);
         }
     }

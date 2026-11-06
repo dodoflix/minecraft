@@ -12,7 +12,9 @@ use mc_world::palette::BiomeId;
 use super::placement::StructurePlacement;
 use crate::biome::BiomeRegistry;
 use crate::data::{LoadError, WorldgenRegistries};
-use crate::densityfunction::codec::{Fields, LoadResult, parse_identifier, parse_list, parse_positive_int};
+use crate::densityfunction::codec::{
+    Fields, LoadResult, parse_identifier, parse_list, parse_positive_int,
+};
 
 pub const STRUCTURE_SET_REGISTRY: &str = "worldgen/structure_set";
 pub const STRUCTURE_REGISTRY: &str = "worldgen/structure";
@@ -27,7 +29,10 @@ pub struct StructureSelectionEntry {
 
 impl StructureSelectionEntry {
     /// `StructureSelectionEntry.CODEC`; `structure_exists` tells whether the id is a registered structure.
-    fn from_json(value: &Value, structure_exists: &dyn Fn(&Identifier) -> bool) -> LoadResult<Self> {
+    fn from_json(
+        value: &Value,
+        structure_exists: &dyn Fn(&Identifier) -> bool,
+    ) -> LoadResult<Self> {
         let fields = Fields::new(value)?;
         Ok(StructureSelectionEntry {
             structure: fields.required("structure", |v| match v {
@@ -41,7 +46,9 @@ impl StructureSelectionEntry {
                         )))
                     }
                 }
-                _ => Err(LoadError::new("Inline structure definitions are not supported here")),
+                _ => Err(LoadError::new(
+                    "Inline structure definitions are not supported here",
+                )),
             })?,
             weight: fields.required("weight", parse_positive_int)?,
         })
@@ -65,9 +72,12 @@ impl StructureSet {
         let fields = Fields::new(value)?;
         Ok(StructureSet {
             structures: fields.required("structures", |v| {
-                parse_list(v, |e| StructureSelectionEntry::from_json(e, structure_exists))
+                parse_list(v, |e| {
+                    StructureSelectionEntry::from_json(e, structure_exists)
+                })
             })?,
-            placement: fields.required("placement", |v| StructurePlacement::from_json(v, biomes))?,
+            placement: fields
+                .required("placement", |v| StructurePlacement::from_json(v, biomes))?,
         })
     }
 }
@@ -81,7 +91,10 @@ pub struct StructureSetHolder {
 
 impl StructureSetHolder {
     pub fn new(id: Identifier, set: StructureSet) -> StructureSetHolder {
-        StructureSetHolder { id, set: Arc::new(set) }
+        StructureSetHolder {
+            id,
+            set: Arc::new(set),
+        }
     }
 
     /// The registry key.
@@ -122,7 +135,10 @@ impl StructureSetRegistry {
     /// Loads every `worldgen/structure_set` entry of the data source. Any entry that fails to decode, names a
     /// missing structure or a missing `exclusion_zone.other_set`, or whose structure has no decodable `biomes`
     /// field fails the whole load (vanilla aborts the registry load on any element error).
-    pub fn load(registries: &WorldgenRegistries, biomes: &BiomeRegistry) -> LoadResult<StructureSetRegistry> {
+    pub fn load(
+        registries: &WorldgenRegistries,
+        biomes: &BiomeRegistry,
+    ) -> LoadResult<StructureSetRegistry> {
         let mut keys = registries.list(STRUCTURE_SET_REGISTRY);
         keys.sort();
         let structure_exists = |id: &Identifier| registries.raw(STRUCTURE_REGISTRY, id).is_some();
@@ -130,7 +146,9 @@ impl StructureSetRegistry {
         for key in keys {
             let json = registries
                 .raw(STRUCTURE_SET_REGISTRY, &key)
-                .ok_or_else(|| LoadError::new("no such registry entry").in_entry(STRUCTURE_SET_REGISTRY, &key))?;
+                .ok_or_else(|| {
+                    LoadError::new("no such registry entry").in_entry(STRUCTURE_SET_REGISTRY, &key)
+                })?;
             let set = StructureSet::from_json(&json, biomes, &structure_exists)
                 .map_err(|e| e.in_entry(STRUCTURE_SET_REGISTRY, &key))?;
             entries.push((key, set));
@@ -140,9 +158,12 @@ impl StructureSetRegistry {
         for holder in &registry.entries {
             for entry in &holder.structures {
                 if seen.insert(&entry.structure) {
-                    let structure_biomes = structure_biomes(registries, biomes, &entry.structure)
-                        .map_err(|e| e.in_entry(STRUCTURE_REGISTRY, &entry.structure))?;
-                    registry.structure_biomes.insert(entry.structure.clone(), structure_biomes);
+                    let structure_biomes =
+                        structure_biomes(registries, biomes, &entry.structure)
+                            .map_err(|e| e.in_entry(STRUCTURE_REGISTRY, &entry.structure))?;
+                    registry
+                        .structure_biomes
+                        .insert(entry.structure.clone(), structure_biomes);
                 }
             }
         }
@@ -151,9 +172,14 @@ impl StructureSetRegistry {
 
     /// A registry of the given entries in the given order. Fails if an `exclusion_zone.other_set` names a set
     /// that is not among them.
-    pub fn from_entries(entries: Vec<(Identifier, StructureSet)>) -> LoadResult<StructureSetRegistry> {
-        let ids: HashMap<Identifier, usize> =
-            entries.iter().enumerate().map(|(i, (id, _))| (id.clone(), i)).collect();
+    pub fn from_entries(
+        entries: Vec<(Identifier, StructureSet)>,
+    ) -> LoadResult<StructureSetRegistry> {
+        let ids: HashMap<Identifier, usize> = entries
+            .iter()
+            .enumerate()
+            .map(|(i, (id, _))| (id.clone(), i))
+            .collect();
         for (id, set) in &entries {
             let zone = match &set.placement {
                 StructurePlacement::RandomSpread(p) => p.spreading.exclusion_zone.as_ref(),
@@ -172,7 +198,10 @@ impl StructureSetRegistry {
             }
         }
         Ok(StructureSetRegistry {
-            entries: entries.into_iter().map(|(id, set)| StructureSetHolder::new(id, set)).collect(),
+            entries: entries
+                .into_iter()
+                .map(|(id, set)| StructureSetHolder::new(id, set))
+                .collect(),
             ids,
             structure_biomes: HashMap::new(),
         })
@@ -200,7 +229,9 @@ impl StructureSetRegistry {
     /// (empty for anything else): the callback to hand to
     /// [`ChunkGeneratorStructureState`](super::ChunkGeneratorStructureState)'s constructors.
     pub fn structure_biomes(&self, structure: &Identifier) -> &[BiomeId] {
-        self.structure_biomes.get(structure).map_or(&[], Vec::as_slice)
+        self.structure_biomes
+            .get(structure)
+            .map_or(&[], Vec::as_slice)
     }
 }
 

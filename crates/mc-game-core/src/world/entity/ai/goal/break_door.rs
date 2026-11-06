@@ -28,11 +28,21 @@ pub struct BreakDoorGoal {
 impl BreakDoorGoal {
     /// `BreakDoorGoal(mob, validDifficulties)`.
     pub fn new(mob: &dyn Entity, valid_difficulties: DifficultyPredicate) -> Self {
-        Self { base: DoorInteractData::new(mob), valid_difficulties, break_time: 0, last_break_progress: -1, door_break_time: -1 }
+        Self {
+            base: DoorInteractData::new(mob),
+            valid_difficulties,
+            break_time: 0,
+            last_break_progress: -1,
+            door_break_time: -1,
+        }
     }
 
     /// `BreakDoorGoal(mob, seconds, validDifficulties)`.
-    pub fn with_seconds(mob: &dyn Entity, seconds: i32, valid_difficulties: DifficultyPredicate) -> Self {
+    pub fn with_seconds(
+        mob: &dyn Entity,
+        seconds: i32,
+        valid_difficulties: DifficultyPredicate,
+    ) -> Self {
         let mut goal = Self::new(mob, valid_difficulties);
         goal.door_break_time = seconds;
         goal
@@ -67,7 +77,10 @@ impl Goal for BreakDoorGoal {
     fn can_continue_to_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         self.break_time <= self.get_door_break_time()
             && !self.base.is_open(level)
-            && self.base.door_pos.closer_to_center_than(&mob.position(), 2.0)
+            && self
+                .base
+                .door_pos
+                .closer_to_center_than(&mob.position(), 2.0)
             && self.is_valid_difficulty(level.difficulty())
     }
 
@@ -85,8 +98,18 @@ impl Goal for BreakDoorGoal {
         if mob.base_mut().random.next_int_bounded(20) == 0 {
             level.level_event(None, 1019, self.base.door_pos, 0);
             if !mob.living().is_some_and(|l| l.swing_state.is_swinging()) {
-                let off_hand = mob.living().is_some_and(|l| l.get_living_entity_flag(LIVING_ENTITY_FLAG_OFF_HAND));
-                combat::swing_for_attack(mob, level, if off_hand { InteractionHand::OffHand } else { InteractionHand::MainHand });
+                let off_hand = mob
+                    .living()
+                    .is_some_and(|l| l.get_living_entity_flag(LIVING_ENTITY_FLAG_OFF_HAND));
+                combat::swing_for_attack(
+                    mob,
+                    level,
+                    if off_hand {
+                        InteractionHand::OffHand
+                    } else {
+                        InteractionHand::MainHand
+                    },
+                );
             }
         }
         self.break_time += 1;
@@ -95,7 +118,9 @@ impl Goal for BreakDoorGoal {
             level.destroy_block_progress(mob.id(), self.base.door_pos, progress);
             self.last_break_progress = progress;
         }
-        if self.break_time == self.get_door_break_time() && self.is_valid_difficulty(level.difficulty()) {
+        if self.break_time == self.get_door_break_time()
+            && self.is_valid_difficulty(level.difficulty())
+        {
             level.remove_block(self.base.door_pos, false);
             level.level_event(None, 1021, self.base.door_pos, 0);
             let state_id = level.get_block_state(self.base.door_pos).id() as i32;

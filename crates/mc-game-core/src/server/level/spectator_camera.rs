@@ -37,7 +37,11 @@ impl ServerPlayer {
             return;
         }
         // `camera.level() instanceof ServerLevel`: an entity in another dimension is not found here
-        let target = if camera == own { Some(self.position()) } else { level.get_entity(camera).map(|e| e.position()) };
+        let target = if camera == own {
+            Some(self.position())
+        } else {
+            level.get_entity(camera).map(|e| e.position())
+        };
         if let Some(pos) = target {
             let (y_rot, x_rot) = (self.base().y_rot(), self.base().x_rot());
             if self.player.living.is_sleeping() {
@@ -63,7 +67,10 @@ impl ServerPlayer {
         if camera == self.base_id() {
             return;
         }
-        let snap = level.get_entity(camera).filter(|e| e.is_alive()).map(|e| (e.position(), e.base().y_rot(), e.base().x_rot()));
+        let snap = level
+            .get_entity(camera)
+            .filter(|e| e.is_alive())
+            .map(|e| (e.position(), e.base().y_rot(), e.base().x_rot()));
         match snap {
             Some((pos, y_rot, x_rot)) => {
                 self.abs_snap_to(pos.x, pos.y, pos.z, y_rot, x_rot);

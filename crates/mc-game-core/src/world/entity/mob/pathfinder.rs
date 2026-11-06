@@ -30,13 +30,18 @@ pub fn is_panicking(e: &dyn Entity) -> bool {
     if let Some(by_brain) = e.is_panicking_by_brain() {
         return by_brain;
     }
-    e.mob().is_some_and(|m| m.goal_selector.is_running_where(|g| g.as_panic_goal().is_some()))
+    e.mob().is_some_and(|m| {
+        m.goal_selector
+            .is_running_where(|g| g.as_panic_goal().is_some())
+    })
 }
 
 /// `PathfinderMob.closeRangeLeashBehaviour(leashHolder)`.
 pub fn close_range_leash_behaviour(e: &mut dyn Entity, level: &mut ServerLevel, holder: EntityId) {
     if e.should_stay_close_to_leash_holder() && !e.is_panicking() {
-        let Some(h) = level.get_entity(holder) else { return };
+        let Some(h) = level.get_entity(holder) else {
+            return;
+        };
         let hp = h.position();
         if let Some(m) = e.mob_mut() {
             m.goal_selector.enable_control_flag(Flag::Move);
@@ -47,7 +52,9 @@ pub fn close_range_leash_behaviour(e: &mut dyn Entity, level: &mut ServerLevel, 
         let dy = hp.y - p.y;
         let dz = hp.z - p.z;
         let distance_to = ((dx * dx + dy * dy + dz * dz).sqrt()) as f32;
-        let delta = Vec3::new(dx, dy, dz).normalize().scale(f64::from((distance_to - wanted_distance).max(0.0)));
+        let delta = Vec3::new(dx, dy, dz)
+            .normalize()
+            .scale(f64::from((distance_to - wanted_distance).max(0.0)));
         let speed = e.follow_leash_speed();
         navigation::move_to(e, level, p.x + delta.x, p.y + delta.y, p.z + delta.z, speed);
     }

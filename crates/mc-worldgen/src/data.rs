@@ -169,10 +169,14 @@ impl WorldgenDataSource for McDataSource {
         let folder = format!("{registry}/");
         let mut out = Vec::new();
         for path in mc_data::datapack::paths() {
-            let Some((namespace, tail)) = path.strip_prefix("data/").and_then(|p| p.split_once('/')) else {
+            let Some((namespace, tail)) =
+                path.strip_prefix("data/").and_then(|p| p.split_once('/'))
+            else {
                 continue;
             };
-            if let Some(stem) = tail.strip_prefix(&folder).and_then(|e| e.strip_suffix(".json"))
+            if let Some(stem) = tail
+                .strip_prefix(&folder)
+                .and_then(|e| e.strip_suffix(".json"))
                 && let Ok(id) = Identifier::new(namespace, stem)
             {
                 out.push(id);

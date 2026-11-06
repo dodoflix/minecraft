@@ -18,10 +18,20 @@ use super::holder::Holder;
 
 pub trait BlockStateProvider: Send + Sync {
     /// `getState(level, random, pos)`.
-    fn get_state(&self, level: &dyn LevelAccessor, random: &mut dyn RandomSource, pos: BlockPos) -> BlockState;
+    fn get_state(
+        &self,
+        level: &dyn LevelAccessor,
+        random: &mut dyn RandomSource,
+        pos: BlockPos,
+    ) -> BlockState;
 
     /// `getOptionalState(level, random, pos)`.
-    fn get_optional_state(&self, level: &dyn LevelAccessor, random: &mut dyn RandomSource, pos: BlockPos) -> Option<BlockState> {
+    fn get_optional_state(
+        &self,
+        level: &dyn LevelAccessor,
+        random: &mut dyn RandomSource,
+        pos: BlockPos,
+    ) -> Option<BlockState> {
         Some(self.get_state(level, random, pos))
     }
 }
@@ -32,7 +42,10 @@ pub static BLOCK_STATE_PROVIDER_TYPES: [TypeEntry<dyn BlockStateProvider>];
 /// `BlockStateProvider.DIRECT_CODEC`: `Codec.xor(BlockState.FULL_CODEC, TYPED_CODEC)` mapped to a provider. `FULL_CODEC`
 /// reads a block state from an object with `id`, `TYPED_CODEC` a provider from an object with `type`; exactly one of
 /// them must succeed (a `SimpleStateProvider` results from the former).
-pub fn decode_direct(value: &Value, ctx: &DecodeCtx<'_>) -> LoadResult<Arc<dyn BlockStateProvider>> {
+pub fn decode_direct(
+    value: &Value,
+    ctx: &DecodeCtx<'_>,
+) -> LoadResult<Arc<dyn BlockStateProvider>> {
     let fields = Fields::new(value)?;
     let full = match fields.get("id") {
         Some(_) => parse_block_state(value),
@@ -43,7 +56,9 @@ pub fn decode_direct(value: &Value, ctx: &DecodeCtx<'_>) -> LoadResult<Arc<dyn B
         None => Err(LoadError::new("No key type in MapLike")),
     };
     match (full, typed) {
-        (Ok(_), Ok(_)) => Err(LoadError::new("Both alternatives read successfully, can not pick the correct one")),
+        (Ok(_), Ok(_)) => Err(LoadError::new(
+            "Both alternatives read successfully, can not pick the correct one",
+        )),
         (Ok(state), Err(_)) => Ok(Arc::new(SimpleStateProvider { state })),
         (Err(_), Ok(provider)) => Ok(provider),
         (Err(first), Err(second)) => Err(LoadError::new(format!("{second}; {first}"))),

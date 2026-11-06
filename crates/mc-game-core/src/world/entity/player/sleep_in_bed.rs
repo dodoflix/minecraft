@@ -25,7 +25,9 @@ pub struct BedSleepingProblem {
 
 impl BedSleepingProblem {
     fn translatable(key: &str) -> BedSleepingProblem {
-        BedSleepingProblem { message: Some(Component::translatable(key, Vec::new())) }
+        BedSleepingProblem {
+            message: Some(Component::translatable(key, Vec::new())),
+        }
     }
     pub fn too_far_away() -> BedSleepingProblem {
         Self::translatable("block.minecraft.bed.too_far_away")
@@ -81,7 +83,13 @@ const MONSTER_TYPES: [EntityType; 34] = [
 
 impl ServerPlayer {
     /// `ServerPlayer.startSleepInBed(bedBlock, bedBlockState, rule, pos)`.
-    pub fn start_sleep_in_bed(&mut self, level: &mut ServerLevel, bed_state: BlockState, rule: &BedRule, pos: BlockPos) -> Result<(), BedSleepingProblem> {
+    pub fn start_sleep_in_bed(
+        &mut self,
+        level: &mut ServerLevel,
+        bed_state: BlockState,
+        rule: &BedRule,
+        pos: BlockPos,
+    ) -> Result<(), BedSleepingProblem> {
         let direction = bed_state.get(props::HORIZONTAL_FACING);
         if self.player.living.is_sleeping() || !Entity::is_alive(self) {
             return Err(BedSleepingProblem::other_problem());
@@ -95,17 +103,41 @@ impl ServerPlayer {
             return Err(BedSleepingProblem::obstructed());
         }
         if can_set_spawn {
-            let data = respawn_data_of(level.dimension.clone(), pos, self.base().y_rot(), self.base().x_rot());
-            self.set_respawn_position(Some(RespawnConfig { respawn_data: data, forced: false }), true);
+            let data = respawn_data_of(
+                level.dimension.clone(),
+                pos,
+                self.base().y_rot(),
+                self.base().x_rot(),
+            );
+            self.set_respawn_position(
+                Some(RespawnConfig {
+                    respawn_data: data,
+                    forced: false,
+                }),
+                true,
+            );
         }
         if !can_sleep {
-            return Err(BedSleepingProblem { message: rule.error_message() });
+            return Err(BedSleepingProblem {
+                message: rule.error_message(),
+            });
         }
         if !self.is_creative() {
             let bed_center = Vec3::at_bottom_center_of(&pos);
-            let bb = AABB::new(bed_center.x - 8.0, bed_center.y - 5.0, bed_center.z - 8.0, bed_center.x + 8.0, bed_center.y + 5.0, bed_center.z + 8.0);
+            let bb = AABB::new(
+                bed_center.x - 8.0,
+                bed_center.y - 5.0,
+                bed_center.z - 8.0,
+                bed_center.x + 8.0,
+                bed_center.y + 5.0,
+                bed_center.z + 8.0,
+            );
             let player: &dyn Entity = &*self;
-            let monsters = level.get_entities_of_class(&bb, |e| MONSTER_TYPES.contains(&e.get_type()), |e| e.is_preventing_player_rest(level, player));
+            let monsters = level.get_entities_of_class(
+                &bb,
+                |e| MONSTER_TYPES.contains(&e.get_type()),
+                |e| e.is_preventing_player_rest(level, player),
+            );
             if !monsters.is_empty() {
                 return Err(BedSleepingProblem::not_safe());
             }
@@ -115,7 +147,10 @@ impl ServerPlayer {
             return Err(BedSleepingProblem::other_problem());
         }
         self.player.sleep_counter = 0;
-        self.award_stat_once(level, abstract_bed_block::get_slept_in_bed_stat_type(bed_state));
+        self.award_stat_once(
+            level,
+            abstract_bed_block::get_slept_in_bed_stat_type(bed_state),
+        );
         if can_set_spawn {
             crate::advancements::triggers::CriteriaTriggers::SLEPT_IN_BED.trigger(level, self);
         }
@@ -130,20 +165,27 @@ impl ServerPlayer {
     pub fn after_start_sleeping(&mut self, level: &mut ServerLevel) {
         self.reset_stat(level, Stats::TIME_SINCE_REST);
         if self.listener.is_some() {
-            let (p, y_rot, x_rot) = (self.base().position(), self.base().y_rot(), self.base().x_rot());
+            let (p, y_rot, x_rot) = (
+                self.base().position(),
+                self.base().y_rot(),
+                self.base().x_rot(),
+            );
             self.connection_teleport(p.x, p.y, p.z, y_rot, x_rot);
         }
     }
 
     /// `bedInRange(pos, direction)`.
     fn bed_in_range(&self, pos: BlockPos, direction: Direction) -> bool {
-        self.is_reachable_bed_block(pos) || self.is_reachable_bed_block(pos.relative(direction.get_opposite()))
+        self.is_reachable_bed_block(pos)
+            || self.is_reachable_bed_block(pos.relative(direction.get_opposite()))
     }
 
     fn is_reachable_bed_block(&self, bed_block_pos: BlockPos) -> bool {
         let center = Vec3::at_bottom_center_of(&bed_block_pos);
         let p = self.base().position();
-        (p.x - center.x).abs() <= 3.0 && (p.y - center.y).abs() <= 2.0 && (p.z - center.z).abs() <= 3.0
+        (p.x - center.x).abs() <= 3.0
+            && (p.y - center.y).abs() <= 2.0
+            && (p.z - center.z).abs() <= 3.0
     }
 
     /// `bedBlocked(pos, direction)`.
@@ -153,10 +195,21 @@ impl ServerPlayer {
     }
 
     /// `ServerPlayer.stopSleepInBed(forcefulWakeUp, updateLevelList)`.
-    pub fn stop_sleep_in_bed_impl(&mut self, level: &mut ServerLevel, forceful_wake_up: bool, update_level_list: bool) {
+    pub fn stop_sleep_in_bed_impl(
+        &mut self,
+        level: &mut ServerLevel,
+        forceful_wake_up: bool,
+        update_level_list: bool,
+    ) {
         if self.player.living.is_sleeping() {
-            let packet = mc_protocol::packets::play::ClientboundAnimatePacket { id: self.base().id, action: 0 };
-            level.entity_tracker.send_to_tracking_players_and_self(self.base().id, &crate::server::level::level_events::encode_packet(&packet));
+            let packet = mc_protocol::packets::play::ClientboundAnimatePacket {
+                id: self.base().id,
+                action: 0,
+            };
+            level.entity_tracker.send_to_tracking_players_and_self(
+                self.base().id,
+                &crate::server::level::level_events::encode_packet(&packet),
+            );
         }
         // `Player.stopSleepInBed`
         sleeping::stop_sleeping(self.as_dyn_mut(), level);
@@ -165,7 +218,11 @@ impl ServerPlayer {
         }
         self.player.sleep_counter = if forceful_wake_up { 0 } else { 100 };
         if self.listener.is_some() {
-            let (p, y_rot, x_rot) = (self.base().position(), self.base().y_rot(), self.base().x_rot());
+            let (p, y_rot, x_rot) = (
+                self.base().position(),
+                self.base().y_rot(),
+                self.base().x_rot(),
+            );
             self.connection_teleport(p.x, p.y, p.z, y_rot, x_rot);
         }
     }

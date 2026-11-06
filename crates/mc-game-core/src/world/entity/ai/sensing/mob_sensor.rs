@@ -16,15 +16,33 @@ pub struct MobSensor {
 
 impl MobSensor {
     /// `new MobSensor(scanRate, mobTest, readyTest, toSet, memoryTimeToLive)`.
-    pub const fn new(scan_rate: i32, mob_test: fn(&dyn Entity, &dyn Entity) -> bool, ready_test: fn(&dyn Entity) -> bool, to_set: MemoryModuleType<bool>, memory_time_to_live: i64) -> Self {
-        Self { mob_test, ready_test, to_set, memory_time_to_live, scan_rate }
+    pub const fn new(
+        scan_rate: i32,
+        mob_test: fn(&dyn Entity, &dyn Entity) -> bool,
+        ready_test: fn(&dyn Entity) -> bool,
+        to_set: MemoryModuleType<bool>,
+        memory_time_to_live: i64,
+    ) -> Self {
+        Self {
+            mob_test,
+            ready_test,
+            to_set,
+            memory_time_to_live,
+            scan_rate,
+        }
     }
 
     /// `checkForMobsNearby(body)`.
     pub fn check_for_mobs_nearby(&self, level: &ServerLevel, body: &mut dyn Entity) {
-        let Some(entities) = body.brain().get_memory(&NEAREST_LIVING_ENTITIES) else { return };
+        let Some(entities) = body.brain().get_memory(&NEAREST_LIVING_ENTITIES) else {
+            return;
+        };
         let body_ref: &dyn Entity = &*body;
-        let present = entities.iter().any(|r| level.get_entity(r.0).is_some_and(|e| (self.mob_test)(body_ref, e)));
+        let present = entities.iter().any(|r| {
+            level
+                .get_entity(r.0)
+                .is_some_and(|e| (self.mob_test)(body_ref, e))
+        });
         if present {
             self.mob_detected(body);
         }
@@ -32,7 +50,8 @@ impl MobSensor {
 
     /// `mobDetected(body)`.
     pub fn mob_detected(&self, body: &mut dyn Entity) {
-        body.brain_mut().set_memory_with_expiry(&self.to_set, true, self.memory_time_to_live);
+        body.brain_mut()
+            .set_memory_with_expiry(&self.to_set, true, self.memory_time_to_live);
     }
 
     /// `clearMemory(body)`.

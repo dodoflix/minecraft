@@ -1,7 +1,9 @@
 //! `net.minecraft.world.level.block.NetherRootsBlock` (extends `VegetationBlock`): the support tag depends on the block.
 use mc_game_core::register_block_class;
 use mc_game_core::world::level::block::impls::prelude::*;
-use mc_game_core::world::level::block::impls::vegetation_block::{MayPlaceOn, vegetation_behaviour};
+use mc_game_core::world::level::block::impls::vegetation_block::{
+    MayPlaceOn, vegetation_behaviour,
+};
 
 pub struct NetherRootsBlock {
     support_blocks: &'static str,
@@ -16,8 +18,8 @@ vegetation_behaviour!(NetherRootsBlock);
 
 register_block_class!("NetherRootsBlock", |block| Box::new(NetherRootsBlock {
     support_blocks: match block.data().name {
-            "minecraft:warped_roots" => "supports_warped_roots",
-            "minecraft:crimson_roots" => "supports_crimson_roots",
-            name => panic!("unexpected NetherRootsBlock {name}"),
-        },
+        "minecraft:warped_roots" => "supports_warped_roots",
+        "minecraft:crimson_roots" => "supports_crimson_roots",
+        name => panic!("unexpected NetherRootsBlock {name}"),
+    },
 }));

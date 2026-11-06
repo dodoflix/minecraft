@@ -2,12 +2,12 @@
 
 use super::config::{self, VaultConfig};
 use super::server_data::VaultServerData;
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::util::java_uuid_hash_set::UuidHashSet;
 use crate::world::block_entity::trialspawner::PlayerDetector;
-use mc_game_core::world::item::ItemStack;
 use mc_core::pos::BlockPos;
 use mc_dfu::{Codec, DOUBLE, MapCodec, record};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::util::java_uuid_hash_set::UuidHashSet;
+use mc_game_core::world::item::ItemStack;
 use mc_protocol::components::uuid_codec;
 use std::sync::LazyLock;
 use uuid::Uuid;
@@ -23,7 +23,12 @@ pub struct VaultSharedData {
 
 impl Default for VaultSharedData {
     fn default() -> Self {
-        Self { display_item: ItemStack::empty(), connected_players: Vec::new(), connected_particles_range: config::DEFAULT.deactivation_range, is_dirty: false }
+        Self {
+            display_item: ItemStack::empty(),
+            connected_players: Vec::new(),
+            connected_particles_range: config::DEFAULT.deactivation_range,
+            is_dirty: false,
+        }
     }
 }
 
@@ -38,12 +43,23 @@ impl VaultSharedData {
     pub fn codec() -> Codec<VaultSharedData> {
         static C: LazyLock<Codec<VaultSharedData>> = LazyLock::new(|| {
             let map: MapCodec<Saved> = record!(Saved {
-                display_item: ItemStack::codec().lenient_optional_field_of("display_item").xmap(
-                    |item: Option<ItemStack>| item.unwrap_or_else(ItemStack::empty),
-                    |item: &ItemStack| if item.is_empty() { None } else { Some(item.clone()) },
+                display_item: ItemStack::codec()
+                    .lenient_optional_field_of("display_item")
+                    .xmap(
+                        |item: Option<ItemStack>| item.unwrap_or_else(ItemStack::empty),
+                        |item: &ItemStack| if item.is_empty() {
+                            None
+                        } else {
+                            Some(item.clone())
+                        },
+                    ),
+                connected_players: uuid_codec()
+                    .list_of()
+                    .lenient_optional_field_of_default("connected_players", Vec::new()),
+                connected_particles_range: DOUBLE.lenient_optional_field_of_default(
+                    "connected_particles_range",
+                    config::DEFAULT.deactivation_range
                 ),
-                connected_players: uuid_codec().list_of().lenient_optional_field_of_default("connected_players", Vec::new()),
-                connected_particles_range: DOUBLE.lenient_optional_field_of_default("connected_particles_range", config::DEFAULT.deactivation_range),
             });
             map.codec().xmap(
                 |s: Saved| {
@@ -53,7 +69,12 @@ impl VaultSharedData {
                             connected_players.push(player);
                         }
                     }
-                    VaultSharedData { display_item: s.display_item, connected_players, connected_particles_range: s.connected_particles_range, is_dirty: false }
+                    VaultSharedData {
+                        display_item: s.display_item,
+                        connected_players,
+                        connected_particles_range: s.connected_particles_range,
+                        is_dirty: false,
+                    }
                 },
                 |d: &VaultSharedData| Saved {
                     display_item: d.display_item.clone(),
@@ -84,14 +105,22 @@ impl VaultSharedData {
     }
 
     /// `updateConnectedPlayersWithinRange(level, pos, serverData, config, limit)`.
-    pub fn update_connected_players_within_range(&mut self, level: &ServerLevel, pos: BlockPos, server_data: &VaultServerData, _config: &VaultConfig, limit: f64) {
+    pub fn update_connected_players_within_range(
+        &mut self,
+        level: &ServerLevel,
+        pos: BlockPos,
+        server_data: &VaultServerData,
+        _config: &VaultConfig,
+        limit: f64,
+    ) {
         let mut current = UuidHashSet::new();
         for uuid in PlayerDetector::IncludingCreativePlayers.detect(level, pos, limit, false) {
             if !server_data.rewarded_players.contains(&uuid) {
                 current.insert(uuid);
             }
         }
-        let same = current.len() == self.connected_players.len() && self.connected_players.iter().all(|u| current.contains(u));
+        let same = current.len() == self.connected_players.len()
+            && self.connected_players.iter().all(|u| current.contains(u));
         if !same {
             self.connected_players = current.iter().copied().collect();
             self.is_dirty = true;

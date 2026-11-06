@@ -15,12 +15,18 @@ fn hex(b: &[u8]) -> String {
 }
 
 fn unhex(s: &str) -> Vec<u8> {
-    (0..s.len() / 2).map(|i| u8::from_str_radix(&s[2 * i..2 * i + 2], 16).unwrap()).collect()
+    (0..s.len() / 2)
+        .map(|i| u8::from_str_radix(&s[2 * i..2 * i + 2], 16).unwrap())
+        .collect()
 }
 
 #[test]
 fn chunk_and_light_packet_data_match_vanilla() {
-    let text = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures/chunk_packet/golden.txt")).unwrap();
+    let text = std::fs::read_to_string(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/tests/fixtures/chunk_packet/golden.txt"
+    ))
+    .unwrap();
     let mut lines = text.lines();
     let mut cases = 0;
     while let Some(head) = lines.next() {
@@ -28,7 +34,8 @@ fn chunk_and_light_packet_data_match_vanilla() {
         let mut sections = Vec::new();
         let mut heightmaps: Vec<(HeightmapType, Vec<i64>)> = Vec::new();
         let mut block_entities = Vec::new();
-        let (mut sky, mut blk): (Vec<Option<DataLayer>>, Vec<Option<DataLayer>>) = (Vec::new(), Vec::new());
+        let (mut sky, mut blk): (Vec<Option<DataLayer>>, Vec<Option<DataLayer>>) =
+            (Vec::new(), Vec::new());
         let (mut x, mut z) = (0, 0);
         let mut want = String::new();
         loop {
@@ -39,8 +46,14 @@ fn chunk_and_light_packet_data_match_vanilla() {
             let (kind, rest) = line.split_once(' ').unwrap_or((line, ""));
             match kind {
                 "SEC" => {
-                    let mut states = PalettedContainer::new(BlockState::from_id(0).unwrap(), Strategy::for_block_states());
-                    let mut biomes = PalettedContainer::new(BiomeId(rest.parse().unwrap()), Strategy::for_biomes(64));
+                    let mut states = PalettedContainer::new(
+                        BlockState::from_id(0).unwrap(),
+                        Strategy::for_block_states(),
+                    );
+                    let mut biomes = PalettedContainer::new(
+                        BiomeId(rest.parse().unwrap()),
+                        Strategy::for_biomes(64),
+                    );
                     loop {
                         let l = lines.next().unwrap();
                         if l == "ENDSEC" {
@@ -49,7 +62,12 @@ fn chunk_and_light_packet_data_match_vanilla() {
                         let (k, r) = l.split_once(' ').unwrap();
                         let v: Vec<i32> = r.split(' ').map(|p| p.parse().unwrap()).collect();
                         match k {
-                            "B" => states.set(v[0], v[1], v[2], BlockState::from_id(v[3] as u32).unwrap()),
+                            "B" => states.set(
+                                v[0],
+                                v[1],
+                                v[2],
+                                BlockState::from_id(v[3] as u32).unwrap(),
+                            ),
                             "M" => biomes.set(v[0], v[1], v[2], BiomeId(v[3] as u32)),
                             _ => panic!("bad line {l}"),
                         }
@@ -60,13 +78,27 @@ fn chunk_and_light_packet_data_match_vanilla() {
                     let (ty, longs) = rest.split_once(' ').unwrap();
                     heightmaps.push((
                         HeightmapType::from_id(ty.parse().unwrap()),
-                        longs.split(',').filter(|p| !p.is_empty()).map(|p| p.parse().unwrap()).collect(),
+                        longs
+                            .split(',')
+                            .filter(|p| !p.is_empty())
+                            .map(|p| p.parse().unwrap())
+                            .collect(),
                     ));
                 }
                 "BE" => {
                     let mut it = rest.splitn(5, ' ');
-                    let (bx, by, bz, ty, tag) = (it.next().unwrap(), it.next().unwrap(), it.next().unwrap(), it.next().unwrap(), it.next().unwrap());
-                    let tag = if tag == "-" { mc_nbt::CompoundTag::new() } else { snbt::parse_compound(tag).unwrap() };
+                    let (bx, by, bz, ty, tag) = (
+                        it.next().unwrap(),
+                        it.next().unwrap(),
+                        it.next().unwrap(),
+                        it.next().unwrap(),
+                        it.next().unwrap(),
+                    );
+                    let tag = if tag == "-" {
+                        mc_nbt::CompoundTag::new()
+                    } else {
+                        snbt::parse_compound(tag).unwrap()
+                    };
                     block_entities.push(BlockEntityInfo::create(
                         bx.parse().unwrap(),
                         by.parse().unwrap(),
@@ -82,7 +114,11 @@ fn chunk_and_light_packet_data_match_vanilla() {
                         "E" => Some(DataLayer::new()),
                         h => Some(DataLayer::from_bytes(unhex(&h[1..])).unwrap()),
                     };
-                    if kind == "SKY" { sky.push(layer) } else { blk.push(layer) }
+                    if kind == "SKY" {
+                        sky.push(layer)
+                    } else {
+                        blk.push(layer)
+                    }
                 }
                 "POS" => {
                     let (a, b) = rest.split_once(' ').unwrap();

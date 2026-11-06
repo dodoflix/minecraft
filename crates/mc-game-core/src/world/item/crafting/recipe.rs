@@ -50,7 +50,11 @@ pub enum CookingBookCategory {
 
 impl CookingBookCategory {
     pub fn codec() -> Codec<CookingBookCategory> {
-        string_enum_codec(&[(CookingBookCategory::Food, "food"), (CookingBookCategory::Blocks, "blocks"), (CookingBookCategory::Misc, "misc")])
+        string_enum_codec(&[
+            (CookingBookCategory::Food, "food"),
+            (CookingBookCategory::Blocks, "blocks"),
+            (CookingBookCategory::Misc, "misc"),
+        ])
     }
 }
 
@@ -63,7 +67,11 @@ pub struct CommonInfo {
 impl CommonInfo {
     /// `CommonInfo.MAP_CODEC`.
     pub fn map_codec() -> MapCodec<CommonInfo> {
-        BOOL.optional_field_of_default("show_notification", true).xmap(|show_notification| CommonInfo { show_notification }, |c: &CommonInfo| c.show_notification)
+        BOOL.optional_field_of_default("show_notification", true)
+            .xmap(
+                |show_notification| CommonInfo { show_notification },
+                |c: &CommonInfo| c.show_notification,
+            )
     }
 }
 
@@ -78,7 +86,8 @@ impl CraftingBookInfo {
     /// `CraftingBookInfo.MAP_CODEC` (`Recipe.BookInfo.mapCodec`).
     pub fn map_codec() -> MapCodec<CraftingBookInfo> {
         mc_dfu::record!(CraftingBookInfo {
-            category: CraftingBookCategory::codec().optional_field_of_default("category", CraftingBookCategory::Misc),
+            category: CraftingBookCategory::codec()
+                .optional_field_of_default("category", CraftingBookCategory::Misc),
             group: STRING.optional_field_of_default("group", String::new()),
         })
     }
@@ -94,7 +103,8 @@ pub struct CookingBookInfo {
 impl CookingBookInfo {
     pub fn map_codec() -> MapCodec<CookingBookInfo> {
         mc_dfu::record!(CookingBookInfo {
-            category: CookingBookCategory::codec().optional_field_of_default("category", CookingBookCategory::Misc),
+            category: CookingBookCategory::codec()
+                .optional_field_of_default("category", CookingBookCategory::Misc),
             group: STRING.optional_field_of_default("group", String::new()),
         })
     }
@@ -145,7 +155,10 @@ impl Recipe {
             RecipeKind::SmithingTrim(r) => r.create_placement_info(),
             RecipeKind::Brewing(_) => PlacementInfo::not_placeable(),
         };
-        Recipe { kind, placement_info }
+        Recipe {
+            kind,
+            placement_info,
+        }
     }
 
     /// Binds every named ingredient to its tag in `registries` and recomputes `placementInfo()`.
@@ -196,7 +209,12 @@ impl Recipe {
     /// `getType()`.
     pub fn recipe_type(&self) -> RecipeType {
         match &self.kind {
-            RecipeKind::Shaped(_) | RecipeKind::Shapeless(_) | RecipeKind::Transmute(_) | RecipeKind::Dye(_) | RecipeKind::Imbue(_) | RecipeKind::Custom(_) => RecipeType::CRAFTING,
+            RecipeKind::Shaped(_)
+            | RecipeKind::Shapeless(_)
+            | RecipeKind::Transmute(_)
+            | RecipeKind::Dye(_)
+            | RecipeKind::Imbue(_)
+            | RecipeKind::Custom(_) => RecipeType::CRAFTING,
             RecipeKind::Cooking(r) => r.kind.recipe_type(),
             RecipeKind::Stonecutting(_) => RecipeType::STONECUTTING,
             RecipeKind::SmithingTransform(_) | RecipeKind::SmithingTrim(_) => RecipeType::SMITHING,
@@ -252,7 +270,11 @@ impl Recipe {
             RecipeKind::Dye(r) => &r.book.group,
             RecipeKind::Imbue(r) => &r.book.group,
             RecipeKind::Cooking(r) => &r.book.group,
-            RecipeKind::Custom(_) | RecipeKind::Stonecutting(_) | RecipeKind::SmithingTransform(_) | RecipeKind::SmithingTrim(_) | RecipeKind::Brewing(_) => "",
+            RecipeKind::Custom(_)
+            | RecipeKind::Stonecutting(_)
+            | RecipeKind::SmithingTransform(_)
+            | RecipeKind::SmithingTrim(_)
+            | RecipeKind::Brewing(_) => "",
         }
     }
 
@@ -289,7 +311,9 @@ impl Recipe {
             RecipeKind::Custom(_) => RecipeBookCategory::CRAFTING_MISC,
             RecipeKind::Cooking(r) => r.recipe_book_category(),
             RecipeKind::Stonecutting(_) => RecipeBookCategory::STONECUTTER,
-            RecipeKind::SmithingTransform(_) | RecipeKind::SmithingTrim(_) => RecipeBookCategory::SMITHING,
+            RecipeKind::SmithingTransform(_) | RecipeKind::SmithingTrim(_) => {
+                RecipeBookCategory::SMITHING
+            }
             RecipeKind::Brewing(_) => RecipeBookCategory::CRAFTING_MISC,
         }
     }
@@ -332,7 +356,9 @@ impl Recipe {
     pub fn matches_smithing(&self, input: &SmithingRecipeInput) -> bool {
         match self.as_smithing() {
             Some(s) => {
-                Ingredient::test_optional(s.template, &input.template) && s.base.test(&input.base) && Ingredient::test_optional(s.addition, &input.addition)
+                Ingredient::test_optional(s.template, &input.template)
+                    && s.base.test(&input.base)
+                    && Ingredient::test_optional(s.addition, &input.addition)
             }
             None => false,
         }
@@ -379,8 +405,16 @@ impl Recipe {
     /// `instanceof SmithingRecipe`: `templateIngredient()/baseIngredient()/additionIngredient()`.
     pub fn as_smithing(&self) -> Option<SmithingIngredients<'_>> {
         match &self.kind {
-            RecipeKind::SmithingTransform(r) => Some(SmithingIngredients { template: r.template.as_ref(), base: &r.base, addition: r.addition.as_ref() }),
-            RecipeKind::SmithingTrim(r) => Some(SmithingIngredients { template: Some(&r.template), base: &r.base, addition: Some(&r.addition) }),
+            RecipeKind::SmithingTransform(r) => Some(SmithingIngredients {
+                template: r.template.as_ref(),
+                base: &r.base,
+                addition: r.addition.as_ref(),
+            }),
+            RecipeKind::SmithingTrim(r) => Some(SmithingIngredients {
+                template: Some(&r.template),
+                base: &r.base,
+                addition: Some(&r.addition),
+            }),
             _ => None,
         }
     }
@@ -475,10 +509,13 @@ fn serializer_codec(serializer: RecipeSerializer) -> MapCodec<RecipeKind> {
             _ => unreachable!("serializer/kind mismatch"),
         })
     } else if serializer == RecipeSerializer::SMITHING_TRANSFORM {
-        SmithingTransformRecipe::map_codec().xmap(RecipeKind::SmithingTransform, |k: &RecipeKind| match k {
-            RecipeKind::SmithingTransform(r) => r.clone(),
-            _ => unreachable!("serializer/kind mismatch"),
-        })
+        SmithingTransformRecipe::map_codec().xmap(
+            RecipeKind::SmithingTransform,
+            |k: &RecipeKind| match k {
+                RecipeKind::SmithingTransform(r) => r.clone(),
+                _ => unreachable!("serializer/kind mismatch"),
+            },
+        )
     } else if serializer == RecipeSerializer::SMITHING_TRIM {
         SmithingTrimRecipe::map_codec().xmap(RecipeKind::SmithingTrim, |k: &RecipeKind| match k {
             RecipeKind::SmithingTrim(r) => r.clone(),

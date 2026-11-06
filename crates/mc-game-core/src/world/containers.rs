@@ -12,11 +12,21 @@ use mc_data::EntityType;
 
 /// `dropContents(level, pos, container)`.
 pub fn drop_contents_at(level: &mut ServerLevel, pos: BlockPos, container: &dyn Container) {
-    drop_contents_xyz(level, f64::from(pos.x()), f64::from(pos.y()), f64::from(pos.z()), container);
+    drop_contents_xyz(
+        level,
+        f64::from(pos.x()),
+        f64::from(pos.y()),
+        f64::from(pos.z()),
+        container,
+    );
 }
 
 /// `dropContents(level, entity, container)`.
-pub fn drop_contents_of_entity(level: &mut ServerLevel, entity: &dyn Entity, container: &dyn Container) {
+pub fn drop_contents_of_entity(
+    level: &mut ServerLevel,
+    entity: &dyn Entity,
+    container: &dyn Container,
+) {
     let p = entity.base().position();
     drop_contents_xyz(level, p.x, p.y, p.z, container);
 }
@@ -30,7 +40,13 @@ fn drop_contents_xyz(level: &mut ServerLevel, x: f64, y: f64, z: f64, container:
 /// `dropContents(level, pos, list)`.
 pub fn drop_contents_list(level: &mut ServerLevel, pos: BlockPos, list: &[ItemStack]) {
     for stack in list {
-        drop_item_stack(level, f64::from(pos.x()), f64::from(pos.y()), f64::from(pos.z()), stack.clone());
+        drop_item_stack(
+            level,
+            f64::from(pos.x()),
+            f64::from(pos.y()),
+            f64::from(pos.z()),
+            stack.clone(),
+        );
     }
 }
 
@@ -47,7 +63,11 @@ pub fn drop_item_stack(level: &mut ServerLevel, x: f64, y: f64, z: f64, mut stac
         let amount = random_amount(level);
         let mut entity = ItemEntity::with_stack(level, xo, yo, zo, stack.split(amount));
         let random = level.random();
-        let (dx, dy, dz) = (random.triangle(0.0, 0.11485000171139836), random.triangle(0.2, 0.11485000171139836), random.triangle(0.0, 0.11485000171139836));
+        let (dx, dy, dz) = (
+            random.triangle(0.0, 0.11485000171139836),
+            random.triangle(0.2, 0.11485000171139836),
+            random.triangle(0.0, 0.11485000171139836),
+        );
         entity.base_mut().set_delta_movement_xyz(dx, dy, dz);
         level.add_fresh_entity(Box::new(entity));
     }

@@ -3,12 +3,12 @@
 use super::FOLIAGE_PLACER_TYPES;
 use super::foliage_placer::{FoliageAttachment, FoliageBase, FoliagePlacer};
 use super::tree_feature::{TreeFeature, TreeSetter};
-use mc_game_core::world::level::levelgen::codec::TypeEntry;
-use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::random::RandomSource;
-use std::sync::Arc;
+use mc_game_core::world::level::levelgen::codec::TypeEntry;
 use mc_game_core::world::level::levelgen::codec::parse_float_range;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_worldgen::provider::IntProvider;
+use std::sync::Arc;
 
 pub struct CherryFoliagePlacer {
     base: FoliageBase,
@@ -40,12 +40,39 @@ impl FoliagePlacer for CherryFoliagePlacer {
         let foliage_pos = foliage_attachment.pos.above_n(offset);
         let current_radius = leaf_radius + foliage_attachment.radius_offset_xz - 1;
         let foliage_height_with_offset = foliage_height + foliage_attachment.foliage_height_offset;
-        self.place_leaves_row(level, foliage_setter, random, tree, foliage_pos, current_radius - 2, foliage_height_with_offset - 3, double_trunk);
-        self.place_leaves_row(level, foliage_setter, random, tree, foliage_pos, current_radius - 1, foliage_height_with_offset - 4, double_trunk);
+        self.place_leaves_row(
+            level,
+            foliage_setter,
+            random,
+            tree,
+            foliage_pos,
+            current_radius - 2,
+            foliage_height_with_offset - 3,
+            double_trunk,
+        );
+        self.place_leaves_row(
+            level,
+            foliage_setter,
+            random,
+            tree,
+            foliage_pos,
+            current_radius - 1,
+            foliage_height_with_offset - 4,
+            double_trunk,
+        );
 
         let mut y = foliage_height_with_offset - 5;
         while y >= 0 {
-            self.place_leaves_row(level, foliage_setter, random, tree, foliage_pos, current_radius, y, double_trunk);
+            self.place_leaves_row(
+                level,
+                foliage_setter,
+                random,
+                tree,
+                foliage_pos,
+                current_radius,
+                y,
+                double_trunk,
+            );
             y -= 1;
         }
 
@@ -75,18 +102,35 @@ impl FoliagePlacer for CherryFoliagePlacer {
         );
     }
 
-    fn foliage_height(&self, random: &mut dyn RandomSource, _tree_height: i32, _tree: &TreeFeature) -> i32 {
+    fn foliage_height(
+        &self,
+        random: &mut dyn RandomSource,
+        _tree_height: i32,
+        _tree: &TreeFeature,
+    ) -> i32 {
         self.height.sample(random)
     }
 
-    fn should_skip_location(&self, random: &mut dyn RandomSource, dx: i32, y: i32, dz: i32, current_radius: i32, _double_trunk: bool) -> bool {
-        if y == -1 && (dx == current_radius || dz == current_radius) && random.next_float() < self.wide_bottom_layer_hole_chance {
+    fn should_skip_location(
+        &self,
+        random: &mut dyn RandomSource,
+        dx: i32,
+        y: i32,
+        dz: i32,
+        current_radius: i32,
+        _double_trunk: bool,
+    ) -> bool {
+        if y == -1
+            && (dx == current_radius || dz == current_radius)
+            && random.next_float() < self.wide_bottom_layer_hole_chance
+        {
             return true;
         }
         let corner = dx == current_radius && dz == current_radius;
         let wide_layer = current_radius > 2;
         if wide_layer {
-            corner || dx + dz > current_radius * 2 - 2 && random.next_float() < self.corner_hole_chance
+            corner
+                || dx + dz > current_radius * 2 - 2 && random.next_float() < self.corner_hole_chance
         } else {
             corner && random.next_float() < self.corner_hole_chance
         }

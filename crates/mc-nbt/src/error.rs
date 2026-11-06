@@ -51,11 +51,20 @@ impl fmt::Display for NbtError {
         match self {
             NbtError::Eof => f.write_str("java.io.EOFException"),
             NbtError::InvalidTagId(id) => write!(f, "Invalid tag id: {id}"),
-            NbtError::Io(m) | NbtError::MalformedUtf(m) | NbtError::Format(m) | NbtError::Accounter(m) | NbtError::IllegalArgument(m) => {
-                f.write_str(m)
-            }
-            NbtError::Reported { tag_name, tag_type, cause } => match tag_name {
-                Some(n) => write!(f, "Loading NBT data (tag {n:?} of type {tag_type}): {cause}"),
+            NbtError::Io(m)
+            | NbtError::MalformedUtf(m)
+            | NbtError::Format(m)
+            | NbtError::Accounter(m)
+            | NbtError::IllegalArgument(m) => f.write_str(m),
+            NbtError::Reported {
+                tag_name,
+                tag_type,
+                cause,
+            } => match tag_name {
+                Some(n) => write!(
+                    f,
+                    "Loading NBT data (tag {n:?} of type {tag_type}): {cause}"
+                ),
                 None => write!(f, "Loading NBT data (tag type {tag_type}): {cause}"),
             },
         }

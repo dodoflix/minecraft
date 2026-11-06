@@ -14,7 +14,15 @@ pub struct Abilities {
 
 impl Default for Abilities {
     fn default() -> Self {
-        Self { invulnerable: false, flying: false, mayfly: false, instabuild: false, may_build: true, flying_speed: 0.05, walking_speed: 0.1 }
+        Self {
+            invulnerable: false,
+            flying: false,
+            mayfly: false,
+            instabuild: false,
+            may_build: true,
+            flying_speed: 0.05,
+            walking_speed: 0.1,
+        }
     }
 }
 
@@ -47,9 +55,23 @@ impl Abilities {
 
     /// `apply(Packed)` from the `abilities` tag; a tag with a wrongly typed field is ignored as a whole (codec error).
     pub fn apply(&mut self, tag: &CompoundTag) {
-        let flag = |key: &str, default: bool| -> Option<bool> { tag.get(key).map_or(Some(default), |t| t.as_number().map(|n| n.int_value() != 0)) };
-        let float = |key: &str, default: f32| -> Option<f32> { tag.get(key).map_or(Some(default), |t| t.as_number().map(|n| n.float_value())) };
-        let (Some(invulnerable), Some(flying), Some(mayfly), Some(instabuild), Some(may_build), Some(fly), Some(walk)) = (
+        let flag = |key: &str, default: bool| -> Option<bool> {
+            tag.get(key)
+                .map_or(Some(default), |t| t.as_number().map(|n| n.int_value() != 0))
+        };
+        let float = |key: &str, default: f32| -> Option<f32> {
+            tag.get(key)
+                .map_or(Some(default), |t| t.as_number().map(|n| n.float_value()))
+        };
+        let (
+            Some(invulnerable),
+            Some(flying),
+            Some(mayfly),
+            Some(instabuild),
+            Some(may_build),
+            Some(fly),
+            Some(walk),
+        ) = (
             flag("invulnerable", false),
             flag("flying", false),
             flag("mayfly", false),
@@ -57,9 +79,18 @@ impl Abilities {
             flag("mayBuild", true),
             float("flySpeed", 0.05),
             float("walkSpeed", 0.1),
-        ) else {
+        )
+        else {
             return;
         };
-        *self = Self { invulnerable, flying, mayfly, instabuild, may_build, flying_speed: fly, walking_speed: walk };
+        *self = Self {
+            invulnerable,
+            flying,
+            mayfly,
+            instabuild,
+            may_build,
+            flying_speed: fly,
+            walking_speed: walk,
+        };
     }
 }

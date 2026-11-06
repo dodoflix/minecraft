@@ -21,7 +21,10 @@ const Y_MIN: i32 = 40;
 const Y_MAX: i32 = 100;
 
 fn mix(x: i32, z: i32, seed: i32) -> i32 {
-    let mut h = x.wrapping_mul(374761393).wrapping_add(z.wrapping_mul(668265263)).wrapping_add(seed.wrapping_mul(1274126177));
+    let mut h = x
+        .wrapping_mul(374761393)
+        .wrapping_add(z.wrapping_mul(668265263))
+        .wrapping_add(seed.wrapping_mul(1274126177));
     h = (h ^ ((h as u32) >> 13) as i32).wrapping_mul(1274126177);
     h ^ ((h as u32) >> 16) as i32
 }
@@ -115,19 +118,36 @@ struct Case {
 }
 
 fn load() -> Vec<Case> {
-    let text = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures/map_golden.txt")).expect("fixture");
+    let text = std::fs::read_to_string(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/tests/fixtures/map_golden.txt"
+    ))
+    .expect("fixture");
     let mut cases: Vec<Case> = Vec::new();
     for line in text.lines() {
         let mut it = line.split_whitespace();
-        let (Some(kind), Some(_)) = (it.next(), it.next()) else { continue };
+        let (Some(kind), Some(_)) = (it.next(), it.next()) else {
+            continue;
+        };
         let rest: Vec<&str> = it.collect();
         match kind {
-            "CASE" => cases.push(Case { params: rest.iter().map(|s| s.parse().unwrap()).collect(), ..Default::default() }),
-            "PLAYER" => cases.last_mut().unwrap().player = rest.iter().map(|s| s.to_string()).collect(),
-            "PKT" => {
-                cases.last_mut().unwrap().packets.insert(rest[0].parse().unwrap(), rest[1].to_string());
+            "CASE" => cases.push(Case {
+                params: rest.iter().map(|s| s.parse().unwrap()).collect(),
+                ..Default::default()
+            }),
+            "PLAYER" => {
+                cases.last_mut().unwrap().player = rest.iter().map(|s| s.to_string()).collect()
             }
-            "CENTER" => cases.last_mut().unwrap().center = rest.iter().map(|s| s.parse().unwrap()).collect(),
+            "PKT" => {
+                cases
+                    .last_mut()
+                    .unwrap()
+                    .packets
+                    .insert(rest[0].parse().unwrap(), rest[1].to_string());
+            }
+            "CENTER" => {
+                cases.last_mut().unwrap().center = rest.iter().map(|s| s.parse().unwrap()).collect()
+            }
             "COLORS" => cases.last_mut().unwrap().colors = rest[0].to_string(),
             "DECO" => cases.last_mut().unwrap().decos.push(rest.join(" ")),
             _ => panic!("bad fixture line {line}"),
@@ -142,13 +162,20 @@ fn map_update_and_packets_match_vanilla() {
     let cases = load();
     assert_eq!(cases.len(), 6);
     for (i, case) in cases.iter().enumerate() {
-        let [scale, px, _py, pz, _yaw, ticks, seed] = case.params[..] else { panic!("params") };
+        let [scale, px, _py, pz, _yaw, ticks, seed] = case.params[..] else {
+            panic!("params")
+        };
         let mut level = ServerLevel::detached(overworld.clone());
         for x in LO..HI {
             for z in LO..HI {
                 for y in Y_MIN..Y_MAX {
                     if let Some(block) = state(x, y, z, seed) {
-                        level.set_block(BlockPos::new(x, y, z), block.default_state(), 18 | 256 | 512, 0);
+                        level.set_block(
+                            BlockPos::new(x, y, z),
+                            block.default_state(),
+                            18 | 256 | 512,
+                            0,
+                        );
                     }
                 }
             }
@@ -159,8 +186,22 @@ fn map_update_and_packets_match_vanilla() {
         }
         let map = map_item::create(&mut level, px, pz, scale as i8, true, false);
         let id = *map.get(&MAP_ID).unwrap();
-        let mut p = ServerPlayer::new(1, overworld.clone(), GameProfile { id: uuid::Uuid::from_u128(1), name: format!("p{i}"), properties: vec![] }, Default::default());
-        let (x, y, z, yaw): (f64, f64, f64, f32) = (case.player[0].parse().unwrap(), case.player[1].parse().unwrap(), case.player[2].parse().unwrap(), case.player[3].parse().unwrap());
+        let mut p = ServerPlayer::new(
+            1,
+            overworld.clone(),
+            GameProfile {
+                id: uuid::Uuid::from_u128(1),
+                name: format!("p{i}"),
+                properties: vec![],
+            },
+            Default::default(),
+        );
+        let (x, y, z, yaw): (f64, f64, f64, f32) = (
+            case.player[0].parse().unwrap(),
+            case.player[1].parse().unwrap(),
+            case.player[2].parse().unwrap(),
+            case.player[3].parse().unwrap(),
+        );
         p.set_pos(x, y, z);
         p.base_mut().set_y_rot(yaw);
         p.player.inventory.set_item(0, map);
@@ -168,23 +209,64 @@ fn map_update_and_packets_match_vanilla() {
         let mut got: BTreeMap<usize, String> = BTreeMap::new();
         for t in 0..ticks as usize {
             p.tick_inventory_items(&mut level);
-            if let Some(Some(packet)) = level.with_map_data(id, |_, data| data.get_update_packet(id, pid)) {
-                got.insert(t, hex(&mc_protocol::packet::encode_packet(&packet).unwrap()));
+            if let Some(Some(packet)) =
+                level.with_map_data(id, |_, data| data.get_update_packet(id, pid))
+            {
+                got.insert(
+                    t,
+                    hex(&mc_protocol::packet::encode_packet(&packet).unwrap()),
+                );
             }
         }
         let (colors, center, decos) = level
-            .with_map_data(id, |_, d| (hex(&d.colors), vec![d.center_x, d.center_z, i32::from(d.scale)], d.get_decorations().map(|d| format!("{} {} {} {}", d.ty.name(), d.x, d.y, d.rot)).collect::<Vec<_>>()))
+            .with_map_data(id, |_, d| {
+                (
+                    hex(&d.colors),
+                    vec![d.center_x, d.center_z, i32::from(d.scale)],
+                    d.get_decorations()
+                        .map(|d| format!("{} {} {} {}", d.ty.name(), d.x, d.y, d.rot))
+                        .collect::<Vec<_>>(),
+                )
+            })
             .unwrap();
         assert_eq!(center, case.center, "case {i}: center/scale");
         if colors != case.colors {
-            let at = colors.as_bytes().chunks(2).zip(case.colors.as_bytes().chunks(2)).position(|(a, b)| a != b).unwrap();
+            let at = colors
+                .as_bytes()
+                .chunks(2)
+                .zip(case.colors.as_bytes().chunks(2))
+                .position(|(a, b)| a != b)
+                .unwrap();
             let (ax, ay) = (at % 128, at / 128);
-            let around = |c: &str| (0..4).map(|k| format!("{}", &c[(ax + (ay + k - 1) * 128) * 2..(ax + (ay + k - 1) * 128) * 2 + 2])).collect::<Vec<_>>().join(",");
-            let n = colors.as_bytes().chunks(2).zip(case.colors.as_bytes().chunks(2)).filter(|(a, b)| a != b).count();
-            panic!("case {i}: {n} color mismatches, first at pixel x={ax} y={ay}; rust column {} java column {}", around(&colors), around(&case.colors));
+            let around = |c: &str| {
+                (0..4)
+                    .map(|k| {
+                        format!(
+                            "{}",
+                            &c[(ax + (ay + k - 1) * 128) * 2..(ax + (ay + k - 1) * 128) * 2 + 2]
+                        )
+                    })
+                    .collect::<Vec<_>>()
+                    .join(",")
+            };
+            let n = colors
+                .as_bytes()
+                .chunks(2)
+                .zip(case.colors.as_bytes().chunks(2))
+                .filter(|(a, b)| a != b)
+                .count();
+            panic!(
+                "case {i}: {n} color mismatches, first at pixel x={ax} y={ay}; rust column {} java column {}",
+                around(&colors),
+                around(&case.colors)
+            );
         }
         assert_eq!(decos, case.decos, "case {i}: decorations");
-        assert_eq!(got.keys().collect::<Vec<_>>(), case.packets.keys().collect::<Vec<_>>(), "case {i}: ticks with a map packet");
+        assert_eq!(
+            got.keys().collect::<Vec<_>>(),
+            case.packets.keys().collect::<Vec<_>>(),
+            "case {i}: ticks with a map packet"
+        );
         for (t, expected) in &case.packets {
             assert_eq!(&got[t], expected, "case {i}: packet of tick {t}");
         }

@@ -22,7 +22,9 @@ struct ServicesKeys(Vec<VerifyingKey<Sha1>>);
 
 impl SignatureValidator for ServicesKeys {
     fn validate(&self, payload: &[u8], signature: &[u8]) -> bool {
-        let Ok(sig) = Signature::try_from(signature) else { return false };
+        let Ok(sig) = Signature::try_from(signature) else {
+            return false;
+        };
         self.0.iter().any(|key| key.verify(payload, &sig).is_ok())
     }
 }
@@ -35,8 +37,17 @@ fn slot() -> &'static Slot {
 }
 
 fn fetch() -> Option<Arc<dyn SignatureValidator>> {
-    let client = reqwest::blocking::Client::builder().connect_timeout(Duration::from_secs(5)).timeout(Duration::from_secs(5)).build().ok()?;
-    let body: Value = match client.get(KEYS_URL).send().and_then(|r| r.error_for_status()).and_then(|r| r.json()) {
+    let client = reqwest::blocking::Client::builder()
+        .connect_timeout(Duration::from_secs(5))
+        .timeout(Duration::from_secs(5))
+        .build()
+        .ok()?;
+    let body: Value = match client
+        .get(KEYS_URL)
+        .send()
+        .and_then(|r| r.error_for_status())
+        .and_then(|r| r.json())
+    {
         Ok(v) => v,
         Err(e) => {
             log::error!("Failed to request Minecraft Services public key: {e}");
@@ -77,6 +88,8 @@ pub fn profile_key_signature_validator() -> Option<Arc<dyn SignatureValidator>> 
     start_fetch();
     let (lock, cv) = slot();
     let guard = lock.lock().unwrap_or_else(|e| e.into_inner());
-    let (guard, _) = cv.wait_timeout_while(guard, Duration::from_secs(12), |r| r.is_none()).unwrap_or_else(|e| e.into_inner());
+    let (guard, _) = cv
+        .wait_timeout_while(guard, Duration::from_secs(12), |r| r.is_none())
+        .unwrap_or_else(|e| e.into_inner());
     guard.clone().flatten()
 }

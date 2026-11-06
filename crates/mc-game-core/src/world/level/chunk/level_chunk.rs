@@ -4,10 +4,10 @@
 //! map, so those operations are level methods addressed by position).
 use crate::server::level::FullChunkStatus;
 use crate::world::block_entity::BlockEntity;
+use crate::world::level::gameevent::EuclideanGameEventListenerRegistry;
 use mc_core::pos::BlockPos;
 use mc_world::chunk::ProtoChunk;
 use mc_world::palette::PalettedContainerFactory;
-use crate::world::level::gameevent::EuclideanGameEventListenerRegistry;
 use std::cell::Cell;
 use std::collections::HashMap;
 use std::rc::Rc;
@@ -31,11 +31,23 @@ impl LevelChunk {
     /// `new LevelChunk(level, protoChunk, postLoad)`: the data part (block entities stay pending raw NBT in
     /// `data.access.block_entities` until registered).
     pub fn from_proto(proto: ProtoChunk, factory: &PalettedContainerFactory) -> Self {
-        Self { data: mc_world::chunk::LevelChunk::from_proto(proto, factory), block_entities: HashMap::new(), full_status: FullChunkStatus::Inaccessible, tickers_in_level: HashMap::new(), game_event_registries: HashMap::new() }
+        Self {
+            data: mc_world::chunk::LevelChunk::from_proto(proto, factory),
+            block_entities: HashMap::new(),
+            full_status: FullChunkStatus::Inaccessible,
+            tickers_in_level: HashMap::new(),
+            game_event_registries: HashMap::new(),
+        }
     }
 
     pub fn from_data(data: mc_world::chunk::LevelChunk) -> Self {
-        Self { data, block_entities: HashMap::new(), full_status: FullChunkStatus::Inaccessible, tickers_in_level: HashMap::new(), game_event_registries: HashMap::new() }
+        Self {
+            data,
+            block_entities: HashMap::new(),
+            full_status: FullChunkStatus::Inaccessible,
+            tickers_in_level: HashMap::new(),
+            game_event_registries: HashMap::new(),
+        }
     }
 
     pub fn pos(&self) -> mc_core::pos::ChunkPos {
@@ -74,8 +86,15 @@ impl LevelChunk {
     pub fn promote_pending_block_entities(&mut self) {
         let positions: Vec<BlockPos> = self.data.access.block_entities.keys().copied().collect();
         for pos in positions {
-            let Some(tag) = self.data.access.block_entities.get(&pos) else { continue };
-            let Some(ty) = tag.get_string("id").and_then(mc_data::BlockEntityType::by_name) else { continue };
+            let Some(tag) = self.data.access.block_entities.get(&pos) else {
+                continue;
+            };
+            let Some(ty) = tag
+                .get_string("id")
+                .and_then(mc_data::BlockEntityType::by_name)
+            else {
+                continue;
+            };
             let state = self.data.get_block_state(pos);
             if !ty.data().valid_blocks.contains(&state.block()) {
                 continue;

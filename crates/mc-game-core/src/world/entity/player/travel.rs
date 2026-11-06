@@ -20,16 +20,26 @@ impl ServerPlayer {
             let look_angle_y = util::look_angle(self).y;
             let multiplier = if look_angle_y < -0.2 { 0.085 } else { 0.06 };
             let pos = self.base().position();
-            if look_angle_y <= 0.0 || self.player.living.jumping || !level.get_fluid_state(BlockPos::containing(pos.x, pos.y + 1.0 - 0.1, pos.z)).is_empty() {
+            if look_angle_y <= 0.0
+                || self.player.living.jumping
+                || !level
+                    .get_fluid_state(BlockPos::containing(pos.x, pos.y + 1.0 - 0.1, pos.z))
+                    .is_empty()
+            {
                 let movement = self.base().delta_movement();
-                self.base_mut().set_delta_movement(movement.add_xyz(0.0, (look_angle_y - movement.y) * multiplier, 0.0));
+                self.base_mut().set_delta_movement(movement.add_xyz(
+                    0.0,
+                    (look_angle_y - movement.y) * multiplier,
+                    0.0,
+                ));
             }
         }
         if self.player.abilities.flying {
             let original_movement_y = self.base().delta_movement().y;
             travel::travel(self, level, input);
             let dm = self.base().delta_movement();
-            self.base_mut().set_delta_movement(dm.with(Axis::Y, original_movement_y * 0.6));
+            self.base_mut()
+                .set_delta_movement(dm.with(Axis::Y, original_movement_y * 0.6));
         } else {
             travel::travel(self, level, input);
         }

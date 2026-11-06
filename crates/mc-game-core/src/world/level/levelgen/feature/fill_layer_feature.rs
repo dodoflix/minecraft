@@ -16,10 +16,20 @@ pub struct FillLayerFeature {
 }
 
 impl Feature for FillLayerFeature {
-    fn place(&self, level: &mut dyn WorldGenLevel, _generator: &GenEnv, _random: &mut dyn RandomSource, origin: BlockPos) -> bool {
+    fn place(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        _generator: &GenEnv,
+        _random: &mut dyn RandomSource,
+        origin: BlockPos,
+    ) -> bool {
         for dx in 0..16 {
             for dz in 0..16 {
-                let pos = BlockPos::new(origin.x().wrapping_add(dx), level.get_min_y().wrapping_add(self.height), origin.z().wrapping_add(dz));
+                let pos = BlockPos::new(
+                    origin.x().wrapping_add(dx),
+                    level.get_min_y().wrapping_add(self.height),
+                    origin.z().wrapping_add(dz),
+                );
                 if level.get_block_state(pos).is_air() {
                     level.set_block_flags(pos, self.state, 2);
                 }

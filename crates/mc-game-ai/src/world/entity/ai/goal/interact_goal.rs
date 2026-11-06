@@ -1,9 +1,9 @@
 //! `InteractGoal` (`LookAtPlayerGoal` that also holds the `MOVE` flag).
 
-use mc_game_core::world::entity::ai::goal::look_at_player::{LookAtPlayerGoal, LookAtType};
-use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags};
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::ai::goal::look_at_player::{LookAtPlayerGoal, LookAtType};
+use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags};
 
 pub struct InteractGoal {
     pub base: LookAtPlayerGoal,
@@ -18,8 +18,14 @@ impl InteractGoal {
     }
 
     /// `InteractGoal(mob, lookAtType, lookDistance, probability)`.
-    pub fn with_probability(mob: &dyn Entity, look_at_type: LookAtType, look_distance: f32, probability: f32) -> Self {
-        let mut base = LookAtPlayerGoal::with_probability(mob, look_at_type, look_distance, probability);
+    pub fn with_probability(
+        mob: &dyn Entity,
+        look_at_type: LookAtType,
+        look_distance: f32,
+        probability: f32,
+    ) -> Self {
+        let mut base =
+            LookAtPlayerGoal::with_probability(mob, look_at_type, look_distance, probability);
         base.set_flags(GoalFlags::of(&[Flag::Look, Flag::Move]));
         Self { base }
     }

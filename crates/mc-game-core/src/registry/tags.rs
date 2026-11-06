@@ -38,7 +38,9 @@ fn compact(v: &Value) -> String {
 
 /// `ExtraCodecs.TAG_OR_ELEMENT_ID`.
 fn tag_or_element_id(v: &Value) -> Result<(Identifier, bool), String> {
-    let s = v.as_str().ok_or_else(|| format!("Not a string: {}", compact(v)))?;
+    let s = v
+        .as_str()
+        .ok_or_else(|| format!("Not a string: {}", compact(v)))?;
     match s.strip_prefix('#') {
         Some(rest) => Ok((Identifier::read(rest)?, true)),
         None => Ok((Identifier::read(s)?, false)),
@@ -51,10 +53,17 @@ impl TagEntry {
         match v {
             Value::String(_) => {
                 let (id, tag) = tag_or_element_id(v)?;
-                Ok(TagEntry { id, tag, required: true })
+                Ok(TagEntry {
+                    id,
+                    tag,
+                    required: true,
+                })
             }
             Value::Object(o) => {
-                let id = o.get("id").ok_or_else(|| format!("No key id in MapLike[{}]", compact(v))).and_then(tag_or_element_id);
+                let id = o
+                    .get("id")
+                    .ok_or_else(|| format!("No key id in MapLike[{}]", compact(v)))
+                    .and_then(tag_or_element_id);
                 let required = match o.get("required") {
                     None => Ok(true),
                     Some(Value::Bool(b)) => Ok(*b),
@@ -74,10 +83,15 @@ impl TagEntry {
 
 /// `TagFile.CODEC`: `{values: [entries], replace?: bool}`.
 pub fn decode_tag_file(v: &Value) -> Result<(Vec<TagEntry>, bool), String> {
-    let o = v.as_object().ok_or_else(|| format!("Not a JSON object: {}", compact(v)))?;
+    let o = v
+        .as_object()
+        .ok_or_else(|| format!("Not a JSON object: {}", compact(v)))?;
     let entries = match o.get("values") {
         None => Err(format!("No key values in MapLike[{}]", compact(v))),
-        Some(Value::Array(list)) => list.iter().map(TagEntry::decode).collect::<Result<Vec<_>, _>>(),
+        Some(Value::Array(list)) => list
+            .iter()
+            .map(TagEntry::decode)
+            .collect::<Result<Vec<_>, _>>(),
         Some(other) => Err(format!("Not a list: {}", compact(other))),
     };
     let replace = match o.get("replace") {
@@ -123,12 +137,21 @@ pub struct TagLoader<'a> {
 }
 
 impl<'a> TagLoader<'a> {
-    pub fn new(element_lookup: &'a mut dyn FnMut(&Identifier, bool) -> ElementRef, directory: &str) -> TagLoader<'a> {
-        TagLoader { element_lookup, directory: directory.to_owned() }
+    pub fn new(
+        element_lookup: &'a mut dyn FnMut(&Identifier, bool) -> ElementRef,
+        directory: &str,
+    ) -> TagLoader<'a> {
+        TagLoader {
+            element_lookup,
+            directory: directory.to_owned(),
+        }
     }
 
     /// `load(resourceManager)`: every tag file of every pack, `replace` clearing what lower packs contributed.
-    pub fn load(&self, manager: &dyn ResourceManager) -> IndexMap<Identifier, Vec<EntryWithSource>> {
+    pub fn load(
+        &self,
+        manager: &dyn ResourceManager,
+    ) -> IndexMap<Identifier, Vec<EntryWithSource>> {
         let mut builders: IndexMap<Identifier, Vec<EntryWithSource>> = IndexMap::new();
         let lister = FileToIdConverter::json(&self.directory);
         for (location, resources) in lister.list_matching_resource_stacks(manager) {
@@ -138,19 +161,29 @@ impl<'a> TagLoader<'a> {
                 let json = resource
                     .read_all_as_string()
                     .map_err(|e| ("java.io.IOException", e.to_string()))
-                    .and_then(|text| serde_json::from_str::<Value>(&text).map_err(|e| ("com.google.gson.JsonSyntaxException", e.to_string())));
+                    .and_then(|text| {
+                        serde_json::from_str::<Value>(&text)
+                            .map_err(|e| ("com.google.gson.JsonSyntaxException", e.to_string()))
+                    });
                 let result = json.and_then(|json| {
                     // `computeIfAbsent` runs before the codec: a tag file that fails to decode still defines an (empty) tag
                     let contents = builders.entry(id.clone()).or_default();
-                    let (entries, replace) = decode_tag_file(&json).map_err(|e| ("java.lang.RuntimeException", e))?;
+                    let (entries, replace) =
+                        decode_tag_file(&json).map_err(|e| ("java.lang.RuntimeException", e))?;
                     if replace {
                         contents.clear();
                     }
-                    contents.extend(entries.into_iter().map(|entry| EntryWithSource { entry, source: source_id.clone() }));
+                    contents.extend(entries.into_iter().map(|entry| EntryWithSource {
+                        entry,
+                        source: source_id.clone(),
+                    }));
                     Ok(())
                 });
                 if let Err((class, message)) = result {
-                    log::error!("Couldn't read tag list {id} from {location} in data pack {source_id}\n{}", crate::server::packs::throwable(class, &message));
+                    log::error!(
+                        "Couldn't read tag list {id} from {location} in data pack {source_id}\n{}",
+                        crate::server::packs::throwable(class, &message)
+                    );
                 }
             }
         }
@@ -158,11 +191,16 @@ impl<'a> TagLoader<'a> {
     }
 
     /// `build(builders)`: resolve the tags in dependency order; tags with unresolvable required references are logged and dropped.
-    pub fn build(&mut self, builders: &IndexMap<Identifier, Vec<EntryWithSource>>) -> IndexMap<Identifier, Vec<u32>> {
+    pub fn build(
+        &mut self,
+        builders: &IndexMap<Identifier, Vec<EntryWithSource>>,
+    ) -> IndexMap<Identifier, Vec<u32>> {
         let mut new_tags: IndexMap<Identifier, Vec<u32>> = IndexMap::new();
         let order = order_by_dependencies(builders);
         for id in order {
-            let Some(entries) = builders.get(&id) else { continue };
+            let Some(entries) = builders.get(&id) else {
+                continue;
+            };
             let mut values: Vec<u32> = Vec::new();
             let mut seen: HashSet<u32> = HashSet::new();
             let mut missing: Vec<&EntryWithSource> = Vec::new();
@@ -200,7 +238,11 @@ impl<'a> TagLoader<'a> {
             } else {
                 log::error!(
                     "Couldn't load tag {id} as it is missing following references: {}",
-                    missing.iter().map(|m| m.to_string()).collect::<Vec<_>>().join(", ")
+                    missing
+                        .iter()
+                        .map(|m| m.to_string())
+                        .collect::<Vec<_>>()
+                        .join(", ")
                 );
             }
         }
@@ -212,20 +254,30 @@ impl<'a> TagLoader<'a> {
 /// close a cycle; the output visits dependencies first.
 fn order_by_dependencies(contents: &IndexMap<Identifier, Vec<EntryWithSource>>) -> Vec<Identifier> {
     let mut direct: HashMap<Identifier, Vec<Identifier>> = HashMap::new();
-    fn is_cyclic(direct: &HashMap<Identifier, Vec<Identifier>>, from: &Identifier, to: &Identifier, depth: usize) -> bool {
+    fn is_cyclic(
+        direct: &HashMap<Identifier, Vec<Identifier>>,
+        from: &Identifier,
+        to: &Identifier,
+        depth: usize,
+    ) -> bool {
         // `to` can only reach `from` through already inserted (acyclic) edges, so the walk terminates; the depth guard is paranoia
         if depth > 10_000 {
             return true;
         }
         match direct.get(to) {
             None => false,
-            Some(deps) => deps.contains(from) || deps.iter().any(|d| is_cyclic(direct, from, d, depth + 1)),
+            Some(deps) => {
+                deps.contains(from) || deps.iter().any(|d| is_cyclic(direct, from, d, depth + 1))
+            }
         }
     }
     for required in [true, false] {
         for (id, entries) in contents {
             for e in entries {
-                if e.entry.tag && e.entry.required == required && !is_cyclic(&direct, id, &e.entry.id, 0) {
+                if e.entry.tag
+                    && e.entry.required == required
+                    && !is_cyclic(&direct, id, &e.entry.id, 0)
+                {
                     let deps = direct.entry(id.clone()).or_default();
                     if !deps.contains(&e.entry.id) {
                         deps.push(e.entry.id.clone());
@@ -234,7 +286,13 @@ fn order_by_dependencies(contents: &IndexMap<Identifier, Vec<EntryWithSource>>) 
             }
         }
     }
-    fn visit(direct: &HashMap<Identifier, Vec<Identifier>>, contents: &IndexMap<Identifier, Vec<EntryWithSource>>, visited: &mut HashSet<Identifier>, id: &Identifier, out: &mut Vec<Identifier>) {
+    fn visit(
+        direct: &HashMap<Identifier, Vec<Identifier>>,
+        contents: &IndexMap<Identifier, Vec<EntryWithSource>>,
+        visited: &mut HashSet<Identifier>,
+        id: &Identifier,
+        out: &mut Vec<Identifier>,
+    ) {
         if visited.insert(id.clone()) {
             if let Some(deps) = direct.get(id) {
                 for d in deps {
@@ -265,14 +323,41 @@ mod tests {
 
     #[test]
     fn entry_codec() {
-        assert_eq!(TagEntry::decode(&json!("#minecraft:a")).unwrap().to_string(), "#minecraft:a");
-        assert_eq!(TagEntry::decode(&json!({"id": "foo:b", "required": false})).unwrap().to_string(), "foo:b?");
-        assert!(TagEntry::decode(&json!("Bad:Id")).unwrap_err().starts_with("Not a valid resource location: Bad:Id"));
-        assert!(decode_tag_file(&json!({"replace": true})).unwrap_err().starts_with("No key values in MapLike["));
+        assert_eq!(
+            TagEntry::decode(&json!("#minecraft:a"))
+                .unwrap()
+                .to_string(),
+            "#minecraft:a"
+        );
+        assert_eq!(
+            TagEntry::decode(&json!({"id": "foo:b", "required": false}))
+                .unwrap()
+                .to_string(),
+            "foo:b?"
+        );
+        assert!(
+            TagEntry::decode(&json!("Bad:Id"))
+                .unwrap_err()
+                .starts_with("Not a valid resource location: Bad:Id")
+        );
+        assert!(
+            decode_tag_file(&json!({"replace": true}))
+                .unwrap_err()
+                .starts_with("No key values in MapLike[")
+        );
     }
 
     fn entries(list: &[(&str, bool, bool)]) -> Vec<EntryWithSource> {
-        list.iter().map(|(i, tag, required)| EntryWithSource { entry: TagEntry { id: id(i), tag: *tag, required: *required }, source: "p".into() }).collect()
+        list.iter()
+            .map(|(i, tag, required)| EntryWithSource {
+                entry: TagEntry {
+                    id: id(i),
+                    tag: *tag,
+                    required: *required,
+                },
+                source: "p".into(),
+            })
+            .collect()
     }
 
     #[test]
@@ -281,7 +366,14 @@ mod tests {
         builders.insert(id("a"), entries(&[("x", false, true), ("b", true, true)]));
         builders.insert(id("b"), entries(&[("y", false, true), ("x", false, true)]));
         builders.insert(id("c"), entries(&[("nope", false, true)]));
-        builders.insert(id("d"), entries(&[("nope", false, false), ("missing_tag", true, false), ("y", false, true)]));
+        builders.insert(
+            id("d"),
+            entries(&[
+                ("nope", false, false),
+                ("missing_tag", true, false),
+                ("y", false, true),
+            ]),
+        );
         let mut lookup = |i: &Identifier, _req: bool| match i.path() {
             "x" => ElementRef::Found(1),
             "y" => ElementRef::Found(2),

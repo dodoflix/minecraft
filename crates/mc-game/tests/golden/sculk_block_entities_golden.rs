@@ -12,7 +12,10 @@ use mc_nbt::{CompoundTag, nbt_io};
 const POS: BlockPos = BlockPos::new(10, 64, -20);
 
 fn hex(tag: &CompoundTag) -> String {
-    nbt_io::to_bytes(tag).iter().map(|b| format!("{b:02x}")).collect()
+    nbt_io::to_bytes(tag)
+        .iter()
+        .map(|b| format!("{b:02x}"))
+        .collect()
 }
 
 #[test]
@@ -21,14 +24,36 @@ fn block_entities_match_vanilla() {
     let mut cases = 0;
     for line in include_str!("../fixtures/sculk_block_entities.txt").lines() {
         let f: Vec<&str> = line.split('\t').collect();
-        let [name, block, props, input, saved_hex, saved_snbt, update_hex, has_packet, packet_hex] = f[..] else { panic!("bad line {line}") };
+        let [
+            name,
+            block,
+            props,
+            input,
+            saved_hex,
+            saved_snbt,
+            update_hex,
+            has_packet,
+            packet_hex,
+        ] = f[..]
+        else {
+            panic!("bad line {line}")
+        };
         let block = Block::by_name(block).unwrap();
-        let props = props.split(',').filter(|p| !p.is_empty()).map(|p| p.split_once('=').unwrap());
-        let state = block.state_from_properties(props).unwrap_or_else(|| panic!("{name}: bad state"));
-        let ty = BlockEntityType::iter().find(|ty| ty.data().valid_blocks.contains(&block)).unwrap();
-        let mut entity = create_block_entity(ty, POS, state).unwrap_or_else(|| panic!("{name}: {} has no implementation", ty.name()));
+        let props = props
+            .split(',')
+            .filter(|p| !p.is_empty())
+            .map(|p| p.split_once('=').unwrap());
+        let state = block
+            .state_from_properties(props)
+            .unwrap_or_else(|| panic!("{name}: bad state"));
+        let ty = BlockEntityType::iter()
+            .find(|ty| ty.data().valid_blocks.contains(&block))
+            .unwrap();
+        let mut entity = create_block_entity(ty, POS, state)
+            .unwrap_or_else(|| panic!("{name}: {} has no implementation", ty.name()));
         if input != "-" {
-            let mut tag = mc_nbt::snbt::parse_compound(input).unwrap_or_else(|e| panic!("{name}: {}", e.message()));
+            let mut tag = mc_nbt::snbt::parse_compound(input)
+                .unwrap_or_else(|e| panic!("{name}: {}", e.message()));
             tag.put_string("id", ty.name());
             tag.put_int("x", POS.x());
             tag.put_int("y", POS.y());
@@ -57,5 +82,10 @@ fn block_entities_match_vanilla() {
         cases += 1;
     }
     assert!(cases > 100, "fixture has {cases} cases");
-    assert!(failures.is_empty(), "{} of {cases} cases differ:\n{}", failures.len(), failures.join("\n"));
+    assert!(
+        failures.is_empty(),
+        "{} of {cases} cases differ:\n{}",
+        failures.len(),
+        failures.join("\n")
+    );
 }

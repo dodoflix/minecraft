@@ -26,19 +26,33 @@ pub struct BlockEntityInfo {
 
 impl BlockEntityInfo {
     /// `BlockEntityInfo.create(blockEntity)` from the position, type and update tag.
-    pub fn create(x: i32, y: i32, z: i32, block_entity_type: BlockEntityType, update_tag: CompoundTag) -> Self {
+    pub fn create(
+        x: i32,
+        y: i32,
+        z: i32,
+        block_entity_type: BlockEntityType,
+        update_tag: CompoundTag,
+    ) -> Self {
         let xz = (x & 15) << 4 | (z & 15);
         BlockEntityInfo {
             packed_xz: xz as u8,
             y: y as i16,
             block_entity_type,
-            tag: if update_tag.is_empty() { None } else { Some(update_tag) },
+            tag: if update_tag.is_empty() {
+                None
+            } else {
+                Some(update_tag)
+            },
         }
     }
 
     /// `forEachBlockEntityTag`: absolute position for chunk `(chunk_x, chunk_z)`.
     pub fn position(&self, chunk_x: i32, chunk_z: i32) -> (i32, i32, i32) {
-        (16 * chunk_x + ((self.packed_xz as i8 as i32 >> 4) & 15), i32::from(self.y), 16 * chunk_z + (self.packed_xz as i32 & 15))
+        (
+            16 * chunk_x + ((self.packed_xz as i8 as i32 >> 4) & 15),
+            i32::from(self.y),
+            16 * chunk_z + (self.packed_xz as i32 & 15),
+        )
     }
 }
 
@@ -59,17 +73,30 @@ impl LevelChunkPacketData {
         heightmaps: impl IntoIterator<Item = (HeightmapType, &'a [i64])>,
         block_entities: Vec<BlockEntityInfo>,
     ) -> Result<Self, PaletteError> {
-        let heightmaps =
-            heightmaps.into_iter().filter(|(ty, _)| ty.send_to_client()).map(|(ty, raw)| (ty, raw.to_vec())).collect();
-        let total: usize = sections.iter().map(|s| s.serialized_size()).sum::<Result<usize, _>>()?;
+        let heightmaps = heightmaps
+            .into_iter()
+            .filter(|(ty, _)| ty.send_to_client())
+            .map(|(ty, raw)| (ty, raw.to_vec()))
+            .collect();
+        let total: usize = sections
+            .iter()
+            .map(|s| s.serialized_size())
+            .sum::<Result<usize, _>>()?;
         let mut buffer = Vec::with_capacity(total);
         for section in sections {
             section.write(&mut buffer)?;
         }
         if buffer.len() != total {
-            return Err(PaletteError(format!("Didn't fill chunk buffer: expected {total} bytes, got {}", buffer.len())));
+            return Err(PaletteError(format!(
+                "Didn't fill chunk buffer: expected {total} bytes, got {}",
+                buffer.len()
+            )));
         }
-        Ok(LevelChunkPacketData { heightmaps, buffer, block_entities })
+        Ok(LevelChunkPacketData {
+            heightmaps,
+            buffer,
+            block_entities,
+        })
     }
 
     /// `STREAM_CODEC.encode`.
@@ -83,7 +110,10 @@ impl LevelChunkPacketData {
             }
         }
         if self.buffer.len() > MAX_CHUNK_BUFFER {
-            return Err(PaletteError(format!("ByteArray with size {} is bigger than allowed {MAX_CHUNK_BUFFER}", self.buffer.len())));
+            return Err(PaletteError(format!(
+                "ByteArray with size {} is bigger than allowed {MAX_CHUNK_BUFFER}",
+                self.buffer.len()
+            )));
         }
         write_varint(out, self.buffer.len() as u32);
         out.extend_from_slice(&self.buffer);
@@ -95,7 +125,8 @@ impl LevelChunkPacketData {
             match &info.tag {
                 // OPTIONAL_COMPOUND_TAG = FriendlyByteBuf.writeNbt(@Nullable): END (0) or the nameless network root
                 None => out.push(0),
-                Some(tag) => nbt_io::write_any_tag(&Tag::Compound(tag.clone()), out).map_err(|e| PaletteError(e.to_string()))?,
+                Some(tag) => nbt_io::write_any_tag(&Tag::Compound(tag.clone()), out)
+                    .map_err(|e| PaletteError(e.to_string()))?,
             }
         }
         Ok(())
@@ -122,7 +153,9 @@ impl LevelChunkPacketData {
         }
         let len = read_varint(input)? as usize;
         if len > MAX_CHUNK_BUFFER {
-            return Err(PaletteError(format!("ByteArray with size {len} is bigger than allowed {MAX_CHUNK_BUFFER}")));
+            return Err(PaletteError(format!(
+                "ByteArray with size {len} is bigger than allowed {MAX_CHUNK_BUFFER}"
+            )));
         }
         if len > input.len() {
             return Err(PaletteError("Not enough bytes in buffer".into()));
@@ -137,18 +170,31 @@ impl LevelChunkPacketData {
             };
             *input = rest;
             let id = read_varint(input)?;
-            let block_entity_type = BlockEntityType::from_id(id)
-                .ok_or_else(|| PaletteError(format!("Received unknown block entity type id {id}")))?;
-            let tag = match nbt_io::read_any_tag(input, &mut NbtAccounter::create(MAX_CHUNK_BUFFER as i64))
-                .map_err(|e| PaletteError(e.to_string()))?
+            let block_entity_type = BlockEntityType::from_id(id).ok_or_else(|| {
+                PaletteError(format!("Received unknown block entity type id {id}"))
+            })?;
+            let tag = match nbt_io::read_any_tag(
+                input,
+                &mut NbtAccounter::create(MAX_CHUNK_BUFFER as i64),
+            )
+            .map_err(|e| PaletteError(e.to_string()))?
             {
                 Tag::End => None,
                 Tag::Compound(c) => Some(c),
                 _ => return Err(PaletteError("Not a compound tag".into())),
             };
-            block_entities.push(BlockEntityInfo { packed_xz, y: i16::from_be_bytes([y_hi, y_lo]), block_entity_type, tag });
+            block_entities.push(BlockEntityInfo {
+                packed_xz,
+                y: i16::from_be_bytes([y_hi, y_lo]),
+                block_entity_type,
+                tag,
+            });
         }
-        Ok(LevelChunkPacketData { heightmaps, buffer: buffer.to_vec(), block_entities })
+        Ok(LevelChunkPacketData {
+            heightmaps,
+            buffer: buffer.to_vec(),
+            block_entities,
+        })
     }
 }
 
@@ -170,7 +216,9 @@ impl BitSet {
     }
 
     pub fn get(&self, index: usize) -> bool {
-        self.0.get(index / 64).is_some_and(|w| w >> (index % 64) & 1 != 0)
+        self.0
+            .get(index / 64)
+            .is_some_and(|w| w >> (index % 64) & 1 != 0)
     }
 
     /// `toByteArray()`.
@@ -237,10 +285,22 @@ impl LightUpdatePacketData {
         let mut data = LightUpdatePacketData::default();
         for section_index in 0..sky_layers.len().max(block_layers.len()) {
             if sky_changed_filter.is_none_or(|f| f.get(section_index)) {
-                prepare_section(sky_layers.get(section_index).copied().flatten(), section_index, &mut data.sky_y_mask, &mut data.empty_sky_y_mask, &mut data.sky_updates);
+                prepare_section(
+                    sky_layers.get(section_index).copied().flatten(),
+                    section_index,
+                    &mut data.sky_y_mask,
+                    &mut data.empty_sky_y_mask,
+                    &mut data.sky_updates,
+                );
             }
             if block_changed_filter.is_none_or(|f| f.get(section_index)) {
-                prepare_section(block_layers.get(section_index).copied().flatten(), section_index, &mut data.block_y_mask, &mut data.empty_block_y_mask, &mut data.block_updates);
+                prepare_section(
+                    block_layers.get(section_index).copied().flatten(),
+                    section_index,
+                    &mut data.block_y_mask,
+                    &mut data.empty_block_y_mask,
+                    &mut data.block_updates,
+                );
             }
         }
         data
@@ -271,7 +331,10 @@ impl LightUpdatePacketData {
             for _ in 0..n {
                 let len = read_varint(input)? as usize;
                 if len > data_layer::SIZE {
-                    return Err(PaletteError(format!("ByteArray with size {len} is bigger than allowed {}", data_layer::SIZE)));
+                    return Err(PaletteError(format!(
+                        "ByteArray with size {len} is bigger than allowed {}",
+                        data_layer::SIZE
+                    )));
                 }
                 if len > input.len() {
                     return Err(PaletteError("Not enough bytes in buffer".into()));
@@ -282,12 +345,25 @@ impl LightUpdatePacketData {
             }
         }
         let [sky_updates, block_updates] = lists;
-        Ok(LightUpdatePacketData { sky_y_mask, block_y_mask, empty_sky_y_mask, empty_block_y_mask, sky_updates, block_updates })
+        Ok(LightUpdatePacketData {
+            sky_y_mask,
+            block_y_mask,
+            empty_sky_y_mask,
+            empty_block_y_mask,
+            sky_updates,
+            block_updates,
+        })
     }
 }
 
 /// `prepareSectionData`.
-fn prepare_section(layer: Option<&DataLayer>, index: usize, mask: &mut BitSet, empty_mask: &mut BitSet, updates: &mut Vec<Vec<u8>>) {
+fn prepare_section(
+    layer: Option<&DataLayer>,
+    index: usize,
+    mask: &mut BitSet,
+    empty_mask: &mut BitSet,
+    updates: &mut Vec<Vec<u8>>,
+) {
     if let Some(data) = layer {
         if data.is_empty() {
             empty_mask.set(index);

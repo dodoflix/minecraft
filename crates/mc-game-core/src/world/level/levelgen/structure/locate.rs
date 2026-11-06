@@ -7,8 +7,10 @@ use super::manager::StructureManager;
 use crate::world::level::levelgen::env::GenEnv;
 use mc_core::ident::Identifier;
 use mc_core::pos::{BlockPos, ChunkPos};
-use mc_worldgen::structure_placement::{LocateResult, StructurePlacement, find_nearest_map_structure as walk};
 use mc_world::chunk::StructureData;
+use mc_worldgen::structure_placement::{
+    LocateResult, StructurePlacement, find_nearest_map_structure as walk,
+};
 
 /// The level side of the locate: chunks at `STRUCTURE_STARTS` (loaded or generated on demand) and persistence of the
 /// reference counter of a start.
@@ -36,10 +38,27 @@ pub fn find_nearest_map_structure(
     }
     let state = env.structure_state.as_deref()?;
     let manager = StructureManager::new(env);
-    let mut generating_at = |structures: &[Identifier], placement: &StructurePlacement, chunk_target: ChunkPos| -> LocateResult {
-        get_structure_generating_at(env, &manager, level, structures, placement, chunk_target, create_reference)
+    let mut generating_at = |structures: &[Identifier],
+                             placement: &StructurePlacement,
+                             chunk_target: ChunkPos|
+     -> LocateResult {
+        get_structure_generating_at(
+            env,
+            &manager,
+            level,
+            structures,
+            placement,
+            chunk_target,
+            create_reference,
+        )
     };
-    walk(state, wanted_structures, pos, max_search_radius, &mut generating_at)
+    walk(
+        state,
+        wanted_structures,
+        pos,
+        max_search_radius,
+        &mut generating_at,
+    )
 }
 
 /// `getStructureGeneratingAt(structures, level, structureManager, createReference, config, chunkTarget)`.
@@ -53,8 +72,12 @@ fn get_structure_generating_at(
     create_reference: bool,
 ) -> LocateResult {
     for id in structures {
-        let Some(structure) = env.structures.get(id) else { continue };
-        let fast_check = env.structure_check.check_start(env, chunk_target, structure, config, create_reference);
+        let Some(structure) = env.structures.get(id) else {
+            continue;
+        };
+        let fast_check =
+            env.structure_check
+                .check_start(env, chunk_target, structure, config, create_reference);
         if fast_check == StructureCheckResult::StartNotPresent {
             continue;
         }
@@ -69,7 +92,8 @@ fn get_structure_generating_at(
                 if start.is_valid() && (!create_reference || start.can_be_referenced()) {
                     if create_reference {
                         start.add_reference();
-                        env.structure_check.increment_reference(start.get_chunk_pos(), id);
+                        env.structure_check
+                            .increment_reference(start.get_chunk_pos(), id);
                     }
                     found = Some((start.get_chunk_pos(), start.get_references()));
                 }

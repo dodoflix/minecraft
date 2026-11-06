@@ -53,7 +53,11 @@ struct FixedPlayerDistance {
 
 impl FixedPlayerDistance {
     fn new(max_distance: i32) -> Self {
-        Self { state: GraphState::new(max_distance + 2), chunks: LongOpenHashMap::new(), max_distance }
+        Self {
+            state: GraphState::new(max_distance + 2),
+            chunks: LongOpenHashMap::new(),
+            max_distance,
+        }
     }
 }
 
@@ -67,7 +71,9 @@ struct FixedBehavior<'a> {
 
 impl ChunkTrackerBehavior for FixedBehavior<'_> {
     fn get_level(&mut self, node: i64) -> i32 {
-        self.chunks.get(node).map_or(self.max_distance + 2, |&l| i32::from(l))
+        self.chunks
+            .get(node)
+            .map_or(self.max_distance + 2, |&l| i32::from(l))
     }
 
     fn set_level(&mut self, node: i64, level: i32) {
@@ -82,7 +88,15 @@ impl ChunkTrackerBehavior for FixedBehavior<'_> {
     }
 
     fn get_level_from_source(&mut self, to: i64) -> i32 {
-        if self.players_per_chunk.get(to).is_some_and(|p| !p.is_empty()) { 0 } else { i32::MAX }
+        if self
+            .players_per_chunk
+            .get(to)
+            .is_some_and(|p| !p.is_empty())
+        {
+            0
+        } else {
+            i32::MAX
+        }
     }
 }
 
@@ -186,12 +200,29 @@ impl DistanceManager {
         let loading: Vec<ChunkUpdate> = std::mem::take(&mut tickets.loading_updates);
         let simulation: Vec<ChunkUpdate> = std::mem::take(&mut tickets.simulation_updates);
         for u in loading {
-            let mut b = LoadingBehavior { host, tickets, chunks_to_update_futures: &mut self.chunks_to_update_futures };
-            self.loading_state.chunk_tracker_update(&mut b, u.node, u.new_level_from, u.only_decreased);
+            let mut b = LoadingBehavior {
+                host,
+                tickets,
+                chunks_to_update_futures: &mut self.chunks_to_update_futures,
+            };
+            self.loading_state.chunk_tracker_update(
+                &mut b,
+                u.node,
+                u.new_level_from,
+                u.only_decreased,
+            );
         }
         for u in simulation {
-            let mut b = SimulationBehavior { chunks: &mut self.simulation_chunks, tickets };
-            self.simulation_state.chunk_tracker_update(&mut b, u.node, u.new_level_from, u.only_decreased);
+            let mut b = SimulationBehavior {
+                chunks: &mut self.simulation_chunks,
+                tickets,
+            };
+            self.simulation_state.chunk_tracker_update(
+                &mut b,
+                u.node,
+                u.new_level_from,
+                u.only_decreased,
+            );
         }
     }
 
@@ -202,7 +233,9 @@ impl DistanceManager {
             players_per_chunk: &self.players_per_chunk,
             to_update: None,
         };
-        self.natural_spawn_chunk_counter.state.run_chunk_tracker_updates(&mut b, i32::MAX);
+        self.natural_spawn_chunk_counter
+            .state
+            .run_chunk_tracker_updates(&mut b, i32::MAX);
     }
 
     fn run_player_ticket_updates(&mut self) {
@@ -212,15 +245,26 @@ impl DistanceManager {
             players_per_chunk: &self.players_per_chunk,
             to_update: Some(&mut self.player_ticket_to_update),
         };
-        self.player_ticket_manager.state.run_chunk_tracker_updates(&mut b, i32::MAX);
+        self.player_ticket_manager
+            .state
+            .run_chunk_tracker_updates(&mut b, i32::MAX);
         if !self.player_ticket_to_update.is_empty() {
             let nodes: Vec<i64> = self.player_ticket_to_update.iter().collect();
             for node in nodes {
                 let old_level = self.ticket_dispatcher.queue_level(node);
-                let level = self.player_ticket_manager.chunks.get(node).map_or(34, |&l| i32::from(l));
+                let level = self
+                    .player_ticket_manager
+                    .chunks
+                    .get(node)
+                    .map_or(34, |&l| i32::from(l));
                 if old_level != level {
                     self.ticket_dispatcher.on_level_change(node, level);
-                    self.player_ticket_on_level_change(node, level, self.have_ticket_for(old_level), self.have_ticket_for(level));
+                    self.player_ticket_on_level_change(
+                        node,
+                        level,
+                        self.have_ticket_for(old_level),
+                        self.have_ticket_for(level),
+                    );
                 }
             }
             self.player_ticket_to_update.clear();
@@ -236,9 +280,17 @@ impl DistanceManager {
         if saw != sees {
             let ticket = Ticket::new(TicketType::PLAYER_LOADING, player_ticket_level());
             if sees {
-                self.ticket_dispatcher.submit(DistanceTask::AddPlayerLoadingTicket { key, ticket }, key, level);
+                self.ticket_dispatcher.submit(
+                    DistanceTask::AddPlayerLoadingTicket { key, ticket },
+                    key,
+                    level,
+                );
             } else {
-                self.ticket_dispatcher.release(key, Some(DistanceTask::RemovePlayerLoadingTicket { key, ticket }), true);
+                self.ticket_dispatcher.release(
+                    key,
+                    Some(DistanceTask::RemovePlayerLoadingTicket { key, ticket }),
+                    true,
+                );
             }
         }
     }
@@ -247,7 +299,8 @@ impl DistanceManager {
     pub fn process_ticket_dispatcher(&mut self) {
         let mut tasks = Vec::new();
         let mut releases = Vec::new();
-        self.ticket_dispatcher.process(|_, t| tasks.push(t), |r| releases.push(r));
+        self.ticket_dispatcher
+            .process(|_, t| tasks.push(t), |r| releases.push(r));
         self.main_tasks.extend(tasks);
         self.main_tasks.extend(releases);
     }
@@ -255,53 +308,94 @@ impl DistanceManager {
     /// The tracker part of `runAllUpdates`: returns `updated` (loading tracker did work). The caller then runs
     /// `updateHighestAllowedStatus` / `updateFutures` on [`Self::chunks_to_update_futures`] (or handles
     /// `tickets_to_release` when that is empty).
-    pub fn run_updates<H: DistanceHost>(&mut self, host: &mut H, tickets: &mut TicketStorage) -> bool {
+    pub fn run_updates<H: DistanceHost>(
+        &mut self,
+        host: &mut H,
+        tickets: &mut TicketStorage,
+    ) -> bool {
         self.drain_ticket_updates(host, tickets);
         self.run_natural_spawn_updates();
         self.run_simulation_updates(tickets);
         self.run_player_ticket_updates();
         self.process_ticket_dispatcher();
-        let mut b = LoadingBehavior { host, tickets, chunks_to_update_futures: &mut self.chunks_to_update_futures };
-        let left = self.loading_state.run_chunk_tracker_updates(&mut b, i32::MAX);
+        let mut b = LoadingBehavior {
+            host,
+            tickets,
+            chunks_to_update_futures: &mut self.chunks_to_update_futures,
+        };
+        let left = self
+            .loading_state
+            .run_chunk_tracker_updates(&mut b, i32::MAX);
         i32::MAX - left != 0
     }
 
     fn run_simulation_updates(&mut self, tickets: &TicketStorage) {
-        let mut b = SimulationBehavior { chunks: &mut self.simulation_chunks, tickets };
-        self.simulation_state.run_chunk_tracker_updates(&mut b, i32::MAX);
+        let mut b = SimulationBehavior {
+            chunks: &mut self.simulation_chunks,
+            tickets,
+        };
+        self.simulation_state
+            .run_chunk_tracker_updates(&mut b, i32::MAX);
     }
 
     /// `addPlayer(pos, player)`.
     pub fn add_player(&mut self, pos: SectionPos, player: EntityId, tickets: &mut TicketStorage) {
         let chunk = pos.chunk();
         let chunk_pos = chunk.pack();
-        let players = self.players_per_chunk.get_or_insert_with(chunk_pos, Vec::new);
+        let players = self
+            .players_per_chunk
+            .get_or_insert_with(chunk_pos, Vec::new);
         if !players.contains(&player) {
             players.push(player);
         }
         self.natural_spawn_update(chunk_pos, 0, true);
         self.player_ticket_update(chunk_pos, 0, true);
-        tickets.add_ticket(Ticket::new(TicketType::PLAYER_SIMULATION, self.get_player_ticket_level()), chunk);
+        tickets.add_ticket(
+            Ticket::new(
+                TicketType::PLAYER_SIMULATION,
+                self.get_player_ticket_level(),
+            ),
+            chunk,
+        );
     }
 
     /// `removePlayer(pos, player)`.
-    pub fn remove_player(&mut self, pos: SectionPos, player: EntityId, tickets: &mut TicketStorage) {
+    pub fn remove_player(
+        &mut self,
+        pos: SectionPos,
+        player: EntityId,
+        tickets: &mut TicketStorage,
+    ) {
         let chunk = pos.chunk();
         let chunk_pos = chunk.pack();
-        let Some(players) = self.players_per_chunk.get_mut(chunk_pos) else { return };
+        let Some(players) = self.players_per_chunk.get_mut(chunk_pos) else {
+            return;
+        };
         players.retain(|p| *p != player);
         if players.is_empty() {
             self.players_per_chunk.remove(chunk_pos);
             self.natural_spawn_update(chunk_pos, i32::MAX, false);
             self.player_ticket_update(chunk_pos, i32::MAX, false);
-            tickets.remove_ticket(&Ticket::new(TicketType::PLAYER_SIMULATION, self.get_player_ticket_level()), chunk);
+            tickets.remove_ticket(
+                &Ticket::new(
+                    TicketType::PLAYER_SIMULATION,
+                    self.get_player_ticket_level(),
+                ),
+                chunk,
+            );
         }
     }
 
     fn natural_spawn_update(&mut self, node: i64, new_level_from: i32, only_decreased: bool) {
         let t = &mut self.natural_spawn_chunk_counter;
-        let mut b = FixedBehavior { chunks: &mut t.chunks, max_distance: t.max_distance, players_per_chunk: &self.players_per_chunk, to_update: None };
-        t.state.chunk_tracker_update(&mut b, node, new_level_from, only_decreased);
+        let mut b = FixedBehavior {
+            chunks: &mut t.chunks,
+            max_distance: t.max_distance,
+            players_per_chunk: &self.players_per_chunk,
+            to_update: None,
+        };
+        t.state
+            .chunk_tracker_update(&mut b, node, new_level_from, only_decreased);
     }
 
     fn player_ticket_update(&mut self, node: i64, new_level_from: i32, only_decreased: bool) {
@@ -312,11 +406,13 @@ impl DistanceManager {
             players_per_chunk: &self.players_per_chunk,
             to_update: Some(&mut self.player_ticket_to_update),
         };
-        t.state.chunk_tracker_update(&mut b, node, new_level_from, only_decreased);
+        t.state
+            .chunk_tracker_update(&mut b, node, new_level_from, only_decreased);
     }
 
     fn get_player_ticket_level(&self) -> i32 {
-        (chunk_level::by_full_status(FullChunkStatus::EntityTicking) - self.simulation_distance).max(0)
+        (chunk_level::by_full_status(FullChunkStatus::EntityTicking) - self.simulation_distance)
+            .max(0)
     }
 
     pub fn in_entity_ticking_range(&self, key: i64) -> bool {
@@ -328,11 +424,18 @@ impl DistanceManager {
     }
 
     fn simulation_level(&self, key: i64) -> i32 {
-        self.simulation_chunks.get(key).map_or(33, |&l| i32::from(l))
+        self.simulation_chunks
+            .get(key)
+            .map_or(33, |&l| i32::from(l))
     }
 
     /// `getChunkLevel(key, simulation)`; the loading level needs the holder lookups, so it takes the host.
-    pub fn get_chunk_level<H: DistanceHost>(&self, host: &mut H, key: i64, simulation: bool) -> i32 {
+    pub fn get_chunk_level<H: DistanceHost>(
+        &self,
+        host: &mut H,
+        key: i64,
+        simulation: bool,
+    ) -> i32 {
         if simulation {
             self.simulation_level(key)
         } else {
@@ -347,9 +450,19 @@ impl DistanceManager {
 
     /// `updatePlayerTickets(viewDistance)`.
     pub fn update_player_tickets(&mut self, view_distance: i32) {
-        let entries: Vec<(i64, i32)> = self.player_ticket_manager.chunks.iter().map(|(k, &l)| (k, i32::from(l))).collect();
+        let entries: Vec<(i64, i32)> = self
+            .player_ticket_manager
+            .chunks
+            .iter()
+            .map(|(k, &l)| (k, i32::from(l)))
+            .collect();
         for (key, level) in entries {
-            self.player_ticket_on_level_change(key, level, self.have_ticket_for(level), level <= view_distance);
+            self.player_ticket_on_level_change(
+                key,
+                level,
+                self.have_ticket_for(level),
+                level <= view_distance,
+            );
         }
         self.player_ticket_view_distance = view_distance;
     }
@@ -358,7 +471,10 @@ impl DistanceManager {
     pub fn update_simulation_distance(&mut self, new_distance: i32, tickets: &mut TicketStorage) {
         if new_distance != self.simulation_distance {
             self.simulation_distance = new_distance;
-            tickets.replace_ticket_level_of_type(self.get_player_ticket_level(), TicketType::PLAYER_SIMULATION);
+            tickets.replace_ticket_level_of_type(
+                self.get_player_ticket_level(),
+                TicketType::PLAYER_SIMULATION,
+            );
         }
     }
 
@@ -370,7 +486,11 @@ impl DistanceManager {
     /// `hasPlayersNearby(pos)`.
     pub fn has_players_nearby(&mut self, pos: i64) -> TriState {
         self.run_natural_spawn_updates();
-        let level = self.natural_spawn_chunk_counter.chunks.get(pos).map_or(10, |&l| i32::from(l));
+        let level = self
+            .natural_spawn_chunk_counter
+            .chunks
+            .get(pos)
+            .map_or(10, |&l| i32::from(l));
         if level <= INSCRIBED_SQUARE_SPAWN_DISTANCE_CHUNK {
             TriState::True
         } else if level > 8 {
@@ -396,7 +516,8 @@ impl DistanceManager {
     }
 
     pub fn get_debug_status(&self) -> String {
-        self.ticket_dispatcher.debug_status("player ticket throttler")
+        self.ticket_dispatcher
+            .debug_status("player ticket throttler")
     }
 
     /// `ticketDispatcher.release(pos, () -> {}, false)`.
@@ -409,7 +530,11 @@ impl DistanceManager {
     pub fn run_main_task(&mut self, task: DistanceTask, tickets: &mut TicketStorage) {
         match task {
             DistanceTask::AddPlayerLoadingTicket { key, ticket } => {
-                let level = self.player_ticket_manager.chunks.get(key).map_or(34, |&l| i32::from(l));
+                let level = self
+                    .player_ticket_manager
+                    .chunks
+                    .get(key)
+                    .map_or(34, |&l| i32::from(l));
                 if self.have_ticket_for(level) {
                     tickets.add_ticket_at(key, ticket);
                     self.tickets_to_release.add(key);

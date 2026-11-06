@@ -18,9 +18,15 @@ pub fn format_fixed(value: f64, precision: usize) -> String {
     }
     // value = 0.D1D2D3... * 10^dec_exp
     let repr = java_double_to_string(value.abs());
-    let (mantissa, exp) = repr.split_once('E').map_or((repr.as_str(), 0i32), |(m, e)| (m, e.parse().unwrap_or(0)));
+    let (mantissa, exp) = repr
+        .split_once('E')
+        .map_or((repr.as_str(), 0i32), |(m, e)| (m, e.parse().unwrap_or(0)));
     let (int_part, frac_part) = mantissa.split_once('.').unwrap_or((mantissa, ""));
-    let mut digits: Vec<u8> = int_part.bytes().chain(frac_part.bytes()).map(|b| b - b'0').collect();
+    let mut digits: Vec<u8> = int_part
+        .bytes()
+        .chain(frac_part.bytes())
+        .map(|b| b - b'0')
+        .collect();
     let mut dec_exp = int_part.len() as i32 + exp;
     let leading = digits.iter().take_while(|d| **d == 0).count();
     digits.drain(..leading);
@@ -80,11 +86,19 @@ pub fn format_fixed(value: f64, precision: usize) -> String {
     while frac_digits.len() < precision {
         frac_digits.push('0');
     }
-    if precision == 0 { format!("{sign}{int_digits}") } else { format!("{sign}{int_digits}.{frac_digits}") }
+    if precision == 0 {
+        format!("{sign}{int_digits}")
+    } else {
+        format!("{sign}{int_digits}.{frac_digits}")
+    }
 }
 
 fn zero(precision: usize) -> String {
-    if precision == 0 { "0".to_string() } else { format!("0.{}", "0".repeat(precision)) }
+    if precision == 0 {
+        "0".to_string()
+    } else {
+        format!("0.{}", "0".repeat(precision))
+    }
 }
 
 #[cfg(test)]

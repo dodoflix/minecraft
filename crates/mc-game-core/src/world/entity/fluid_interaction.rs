@@ -3,9 +3,9 @@
 
 use super::entity::Entity;
 use crate::server::level::ServerLevel;
-use crate::world::level::material::FluidStateExt;
 use crate::world::level::BlockGetter;
 use crate::world::level::block::BlockStateExt;
+use crate::world::level::material::FluidStateExt;
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
@@ -21,8 +21,10 @@ pub const TAG_LAVA: &str = "lava";
 /// `FluidTags.ENTITY_FLOATABLE`.
 pub const TAG_ENTITY_FLOATABLE: &str = "entity_floatable";
 
-static WATER_TAG: LazyLock<&'static TagSet<Fluid>> = LazyLock::new(|| tags::get::<Fluid>(TAG_WATER).expect("fluid tag water"));
-static LAVA_TAG: LazyLock<&'static TagSet<Fluid>> = LazyLock::new(|| tags::get::<Fluid>(TAG_LAVA).expect("fluid tag lava"));
+static WATER_TAG: LazyLock<&'static TagSet<Fluid>> =
+    LazyLock::new(|| tags::get::<Fluid>(TAG_WATER).expect("fluid tag water"));
+static LAVA_TAG: LazyLock<&'static TagSet<Fluid>> =
+    LazyLock::new(|| tags::get::<Fluid>(TAG_LAVA).expect("fluid tag lava"));
 
 fn water_tag() -> &'static TagSet<Fluid> {
     *WATER_TAG
@@ -47,7 +49,11 @@ struct CurrentAccumulator {
 
 impl Default for CurrentAccumulator {
     fn default() -> Self {
-        Self { height: 0.0, accumulated_current: Vec3::ZERO, current_count: 0 }
+        Self {
+            height: 0.0,
+            accumulated_current: Vec3::ZERO,
+            current_count: 0,
+        }
     }
 }
 
@@ -66,9 +72,17 @@ impl CurrentAccumulator {
         if self.current_count == 0 || self.accumulated_current.length_sqr() < f64::from(1.0E-5f32) {
             return None;
         }
-        let mut impulse = if is_player { self.accumulated_current.scale(1.0 / f64::from(self.current_count)) } else { self.accumulated_current.normalize() };
+        let mut impulse = if is_player {
+            self.accumulated_current
+                .scale(1.0 / f64::from(self.current_count))
+        } else {
+            self.accumulated_current.normalize()
+        };
         impulse = impulse.scale(scale);
-        if old_movement.x.abs() < 0.003 && old_movement.z.abs() < 0.003 && impulse.length() < 0.0045000000000000005 {
+        if old_movement.x.abs() < 0.003
+            && old_movement.z.abs() < 0.003
+            && impulse.length() < 0.0045000000000000005
+        {
             impulse = impulse.normalize().scale(0.0045000000000000005);
         }
         Some(impulse)
@@ -97,16 +111,32 @@ fn section_coord(v: i32) -> i32 {
 }
 
 /// `EntityFluidInteraction.hasFluidAndLoaded`.
-fn has_fluid_and_loaded(level: &ServerLevel, x0: i32, y0: i32, z0: i32, x1: i32, y1: i32, z1: i32) -> bool {
-    let (section_x0, section_y0, section_z0) = (section_coord(x0), section_coord(y0), section_coord(z0));
-    let (section_x1, section_y1, section_z1) = (section_coord(x1), section_coord(y1), section_coord(z1));
+fn has_fluid_and_loaded(
+    level: &ServerLevel,
+    x0: i32,
+    y0: i32,
+    z0: i32,
+    x1: i32,
+    y1: i32,
+    z1: i32,
+) -> bool {
+    let (section_x0, section_y0, section_z0) =
+        (section_coord(x0), section_coord(y0), section_coord(z0));
+    let (section_x1, section_y1, section_z1) =
+        (section_coord(x1), section_coord(y1), section_coord(z1));
     let mut has_fluid = false;
     for chunk_z in section_z0..=section_z1 {
         for chunk_x in section_x0..=section_x1 {
-            let Some(chunk) = level.chunk_now(chunk_x, chunk_z) else { return false };
+            let Some(chunk) = level.chunk_now(chunk_x, chunk_z) else {
+                return false;
+            };
             let sections = &chunk.data.access.sections;
             for section_y in section_y0..=section_y1 {
-                let index = chunk.data.access.level_height.section_index_from_section_y(section_y);
+                let index = chunk
+                    .data
+                    .access
+                    .level_height
+                    .section_index_from_section_y(section_y);
                 if index >= 0 && (index as usize) < sections.len() {
                     has_fluid |= sections[index as usize].has_fluid();
                 }
@@ -118,7 +148,12 @@ fn has_fluid_and_loaded(level: &ServerLevel, x0: i32, y0: i32, z0: i32, x1: i32,
 
 impl EntityFluidInteraction {
     /// `update(entity, ignoreCurrent)`: returns whether the box touches any fluid.
-    pub fn update(&mut self, entity: &dyn Entity, level: &ServerLevel, ignore_current: bool) -> bool {
+    pub fn update(
+        &mut self,
+        entity: &dyn Entity,
+        level: &ServerLevel,
+        ignore_current: bool,
+    ) -> bool {
         self.fluid_trackers.retain_mut(|t| {
             if t.height == 0.0 && !t.eyes_inside {
                 false
@@ -130,9 +165,19 @@ impl EntityFluidInteraction {
         });
         self.water.reset();
         self.lava.reset();
-        let Some(bx) = entity.get_fluid_interaction_box(level) else { return false };
-        let (x0, y0, z0) = (mth::floor_f64(bx.min_x), mth::floor_f64(bx.min_y), mth::floor_f64(bx.min_z));
-        let (x1, y1, z1) = (mth::ceil_f64(bx.max_x) - 1, mth::ceil_f64(bx.max_y) - 1, mth::ceil_f64(bx.max_z) - 1);
+        let Some(bx) = entity.get_fluid_interaction_box(level) else {
+            return false;
+        };
+        let (x0, y0, z0) = (
+            mth::floor_f64(bx.min_x),
+            mth::floor_f64(bx.min_y),
+            mth::floor_f64(bx.min_z),
+        );
+        let (x1, y1, z1) = (
+            mth::ceil_f64(bx.max_x) - 1,
+            mth::ceil_f64(bx.max_y) - 1,
+            mth::ceil_f64(bx.max_z) - 1,
+        );
         if !has_fluid_and_loaded(level, x0 - 1, y0, z0 - 1, x1 + 1, y1, z1 + 1) {
             return false;
         }
@@ -160,10 +205,18 @@ impl EntityFluidInteraction {
                     let fluid_type = fluid_state.get_type();
                     if last_fluid_type != Some(fluid_type) {
                         last_fluid_type = Some(fluid_type);
-                        tracker_index = match self.fluid_trackers.iter().position(|t| t.fluid_type == fluid_type) {
+                        tracker_index = match self
+                            .fluid_trackers
+                            .iter()
+                            .position(|t| t.fluid_type == fluid_type)
+                        {
                             Some(i) => i,
                             None => {
-                                self.fluid_trackers.push(Tracker { fluid_type, height: 0.0, eyes_inside: false });
+                                self.fluid_trackers.push(Tracker {
+                                    fluid_type,
+                                    height: 0.0,
+                                    eyes_inside: false,
+                                });
                                 self.fluid_trackers.len() - 1
                             }
                         };
@@ -179,7 +232,8 @@ impl EntityFluidInteraction {
                     }
                     let tracker = &mut self.fluid_trackers[tracker_index];
                     if x == eye_block_x && z == eye_block_z && eye_y >= fluid_bottom {
-                        let fluid_top_for_camera = fluid_bottom + f64::from(get_height_for_camera(fluid_state, level, pos));
+                        let fluid_top_for_camera = fluid_bottom
+                            + f64::from(get_height_for_camera(fluid_state, level, pos));
                         if eye_y <= fluid_top_for_camera {
                             tracker.eyes_inside = true;
                         }
@@ -187,7 +241,11 @@ impl EntityFluidInteraction {
                     tracker.height = tracker.height.max(fluid_top - entity_y);
                     if let Some(is_water) = current {
                         let mut flow = fluid_state.get_flow(level, pos);
-                        let acc = if is_water { &mut self.water } else { &mut self.lava };
+                        let acc = if is_water {
+                            &mut self.water
+                        } else {
+                            &mut self.lava
+                        };
                         acc.height = tracker.height.max(acc.height);
                         if acc.height < 0.4 {
                             flow = flow.scale(acc.height);
@@ -201,13 +259,21 @@ impl EntityFluidInteraction {
     }
 
     /// `applyCurrentTo(fluid, entity, scale)`: the impulse to add to the entity's delta movement, if any.
-    pub fn current_impulse(&self, water: bool, is_player: bool, old_movement: Vec3, scale: f64) -> Option<Vec3> {
+    pub fn current_impulse(
+        &self,
+        water: bool,
+        is_player: bool,
+        old_movement: Vec3,
+        scale: f64,
+    ) -> Option<Vec3> {
         (if water { &self.water } else { &self.lava }).impulse(is_player, old_movement, scale)
     }
 
     /// `getFluidHeight(fluid)`.
     pub fn get_fluid_height(&self, tag: &str) -> f64 {
-        let Some(set) = tags::get::<Fluid>(tag) else { return 0.0 };
+        let Some(set) = tags::get::<Fluid>(tag) else {
+            return 0.0;
+        };
         let mut height = 0.0;
         for tracker in &self.fluid_trackers {
             if tracker.height > height && set.contains(tracker.fluid_type) {
@@ -224,25 +290,42 @@ impl EntityFluidInteraction {
 
     /// `isEyeInFluid(fluid)`.
     pub fn is_eye_in_fluid(&self, tag: &str) -> bool {
-        let Some(set) = tags::get::<Fluid>(tag) else { return false };
-        self.fluid_trackers.iter().any(|t| t.eyes_inside && set.contains(t.fluid_type))
+        let Some(set) = tags::get::<Fluid>(tag) else {
+            return false;
+        };
+        self.fluid_trackers
+            .iter()
+            .any(|t| t.eyes_inside && set.contains(t.fluid_type))
     }
 
     /// Fast path of `getFluidHeight(FluidTags.WATER)` / `LAVA` (the cached `[water, lava]` mirror of `EntityData`).
     pub fn water_lava_heights(&self) -> [f64; 2] {
-        let max_of = |set: &TagSet<Fluid>| self.fluid_trackers.iter().filter(|t| set.contains(t.fluid_type)).fold(0.0f64, |h, t| if t.height > h { t.height } else { h });
+        let max_of = |set: &TagSet<Fluid>| {
+            self.fluid_trackers
+                .iter()
+                .filter(|t| set.contains(t.fluid_type))
+                .fold(0.0f64, |h, t| if t.height > h { t.height } else { h })
+        };
         [max_of(water_tag()), max_of(lava_tag())]
     }
 
     /// Fast path of `isEyeInFluid(FluidTags.WATER)` / `LAVA`.
     pub fn water_lava_eyes(&self) -> [bool; 2] {
-        let any = |set: &TagSet<Fluid>| self.fluid_trackers.iter().any(|t| t.eyes_inside && set.contains(t.fluid_type));
+        let any = |set: &TagSet<Fluid>| {
+            self.fluid_trackers
+                .iter()
+                .any(|t| t.eyes_inside && set.contains(t.fluid_type))
+        };
         [any(water_tag()), any(lava_tag())]
     }
 }
 
 /// `FluidState.getHeightForCamera(level, pos)`.
-fn get_height_for_camera(fluid_state: mc_data::fluid::FluidState, level: &ServerLevel, pos: BlockPos) -> f32 {
+fn get_height_for_camera(
+    fluid_state: mc_data::fluid::FluidState,
+    level: &ServerLevel,
+    pos: BlockPos,
+) -> f32 {
     use crate::world::level::block::BlockStateExt;
     use mc_core::direction::Direction;
     if fluid_state.is_source() {

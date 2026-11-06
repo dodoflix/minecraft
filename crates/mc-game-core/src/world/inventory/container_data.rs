@@ -14,7 +14,9 @@ pub struct SimpleContainerData {
 
 impl SimpleContainerData {
     pub fn new(count: usize) -> Self {
-        Self { ints: vec![0; count] }
+        Self {
+            ints: vec![0; count],
+        }
     }
 }
 
@@ -38,7 +40,11 @@ enum DataSlotKind {
     Standalone(i32),
     /// `dataAccess` int `id` of the block entity at `pos`; `cache` is refreshed by the menu before every read
     /// (`DataSlot::refresh`), since reading needs the player's level.
-    BlockEntity { pos: mc_core::pos::BlockPos, id: usize, cache: i32 },
+    BlockEntity {
+        pos: mc_core::pos::BlockPos,
+        id: usize,
+        cache: i32,
+    },
 }
 
 /// `DataSlot`: one synchronised int of a menu.
@@ -49,26 +55,43 @@ pub struct DataSlot {
 
 impl DataSlot {
     pub fn for_container(container: SharedContainerData, data_id: usize) -> Self {
-        Self { prev_value: 0, kind: DataSlotKind::Container(container, data_id) }
+        Self {
+            prev_value: 0,
+            kind: DataSlotKind::Container(container, data_id),
+        }
     }
     /// `shared(int[] storage, index)`.
     pub fn shared(storage: Rc<RefCell<Vec<i32>>>, index: usize) -> Self {
-        Self { prev_value: 0, kind: DataSlotKind::Shared(storage, index) }
+        Self {
+            prev_value: 0,
+            kind: DataSlotKind::Shared(storage, index),
+        }
     }
     pub fn for_block_entity(pos: mc_core::pos::BlockPos, id: usize) -> Self {
-        Self { prev_value: 0, kind: DataSlotKind::BlockEntity { pos, id, cache: 0 } }
+        Self {
+            prev_value: 0,
+            kind: DataSlotKind::BlockEntity { pos, id, cache: 0 },
+        }
     }
     /// Re-reads a block-entity backed slot through the player's level (no-op for other kinds).
     pub fn refresh(&mut self, player: &dyn super::MenuPlayer) {
         use crate::world::level::BlockGetter;
         if let DataSlotKind::BlockEntity { pos, id, cache } = &mut self.kind {
-            if let Some(v) = player.level_ref().and_then(|l| l.get_block_entity(*pos)).and_then(|be| be.container_data()).map(|d| d.get(*id)) {
+            if let Some(v) = player
+                .level_ref()
+                .and_then(|l| l.get_block_entity(*pos))
+                .and_then(|be| be.container_data())
+                .map(|d| d.get(*id))
+            {
                 *cache = v;
             }
         }
     }
     pub fn standalone() -> Self {
-        Self { prev_value: 0, kind: DataSlotKind::Standalone(0) }
+        Self {
+            prev_value: 0,
+            kind: DataSlotKind::Standalone(0),
+        }
     }
     pub fn get(&self) -> i32 {
         match &self.kind {

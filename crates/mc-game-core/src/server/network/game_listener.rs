@@ -5,17 +5,21 @@
 //! `ARCHITECTURE.md`).
 
 use super::common_listener::{CommonListenerCookie, ServerCommonListener};
+pub use super::game_packets::{
+    PlayCtx, process_queued_packets, send_next_chunks_all, tick_connection,
+};
 use super::player_chunk_sender::PlayerChunkSender;
-pub use super::game_packets::{PlayCtx, process_queued_packets, send_next_chunks_all, tick_connection};
 use super::{ConnectionSender, InboundPacket};
-use crate::util::tick_throttler::TickThrottler;
-use crate::world::entity::EntityId;
-use mc_core::phys::Vec3;
-use crate::world::entity::{Entity, ServerPlayer};
-use mc_protocol::packet::Packet;
-use mc_protocol::packets::play::{ClientboundPlayerPositionPacket, PositionMoveRotation, Relatives};
 use crate::server::chat::signed_message::{Decoder, UnsignedDecoder};
 use crate::server::chat::{OutgoingChatState, RemoteChatSession};
+use crate::util::tick_throttler::TickThrottler;
+use crate::world::entity::EntityId;
+use crate::world::entity::{Entity, ServerPlayer};
+use mc_core::phys::Vec3;
+use mc_protocol::packet::Packet;
+use mc_protocol::packets::play::{
+    ClientboundPlayerPositionPacket, PositionMoveRotation, Relatives,
+};
 use mc_text::Component;
 use parking_lot::Mutex;
 use std::sync::Arc;
@@ -114,7 +118,12 @@ impl ServerGamePacketListenerImpl {
     ) -> Self {
         let profile_id = cookie.profile.id;
         super::game_packets::start_services_keys_fetch();
-        let ListenerSettings { command_spam_threshold_seconds, chat_spam_threshold_seconds, memory_connection, enforce_secure_profile } = settings;
+        let ListenerSettings {
+            command_spam_threshold_seconds,
+            chat_spam_threshold_seconds,
+            memory_connection,
+            enforce_secure_profile,
+        } = settings;
         Self {
             common: ServerCommonListener::new(cookie, now_ms),
             chunk_sender: PlayerChunkSender::new(sender.clone(), memory_connection),
@@ -160,7 +169,10 @@ impl ServerGamePacketListenerImpl {
             pending_respawn: None,
             deferred_tasks: Vec::new(),
             chat_session: None,
-            signed_message_decoder: Box::new(UnsignedDecoder::new(profile_id, enforce_secure_profile)),
+            signed_message_decoder: Box::new(UnsignedDecoder::new(
+                profile_id,
+                enforce_secure_profile,
+            )),
             chat_out,
             suggestion_request: None,
             suggestion_budget: false,
@@ -248,13 +260,28 @@ impl ServerGamePacketListenerImpl {
 impl ServerPlayer {
     /// `player.connection.teleport(x, y, z, yRot, xRot)`.
     pub fn connection_teleport(&mut self, x: f64, y: f64, z: f64, y_rot: f32, x_rot: f32) {
-        self.connection_teleport_pmr(PositionMoveRotation { position: Vec3::new(x, y, z), delta_movement: Vec3::ZERO, y_rot, x_rot }, Relatives::NONE);
+        self.connection_teleport_pmr(
+            PositionMoveRotation {
+                position: Vec3::new(x, y, z),
+                delta_movement: Vec3::ZERO,
+                y_rot,
+                x_rot,
+            },
+            Relatives::NONE,
+        );
     }
 
     /// `player.connection.teleport(destination, relatives)`: bumps the teleport counter, moves the player and asks
     /// the client to confirm (`awaitingPositionFromClient`).
-    pub fn connection_teleport_pmr(&mut self, destination: PositionMoveRotation, relatives: Relatives) {
-        let lis = self.listener.as_mut().expect("teleport of a player without a listener");
+    pub fn connection_teleport_pmr(
+        &mut self,
+        destination: PositionMoveRotation,
+        relatives: Relatives,
+    ) {
+        let lis = self
+            .listener
+            .as_mut()
+            .expect("teleport of a player without a listener");
         lis.awaiting_teleport_time = lis.tick_count;
         lis.awaiting_teleport += 1;
         if lis.awaiting_teleport == i32::MAX {
@@ -265,6 +292,10 @@ impl ServerPlayer {
         let position = self.position();
         let lis = self.listener.as_mut().expect("checked above");
         lis.awaiting_position_from_client = Some(position);
-        lis.send(&ClientboundPlayerPositionPacket { id, change: destination, relatives });
+        lis.send(&ClientboundPlayerPositionPacket {
+            id,
+            change: destination,
+            relatives,
+        });
     }
 }

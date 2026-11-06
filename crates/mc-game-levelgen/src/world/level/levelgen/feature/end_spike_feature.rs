@@ -1,18 +1,20 @@
 //! `EndSpikeFeature` (`end_spike`): the obsidian pillars of the End with their end crystals.
 
-use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature, set_block};
-use mc_game_core::world::level::block::BlockStateExt;
-use mc_game_core::world::level::levelgen::GenEnv;
-use mc_game_core::world::level::levelgen::WorldGenLevel;
-use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry, parse_block_pos, parse_bool, parse_int, parse_list};
-use mc_game_core::world::level::levelgen::registries::DecodeCtx;
-use mc_game_core::world::level::BlockGetter;
 use mc_core::math::mth;
 use mc_core::phys::AABB;
 use mc_core::pos::BlockPos;
 use mc_core::random::{LegacyRandomSource, RandomSource, SingleThreadedRandomSource};
 use mc_data::block::{Block, BlockState};
 use mc_data::props;
+use mc_game_core::world::level::BlockGetter;
+use mc_game_core::world::level::block::BlockStateExt;
+use mc_game_core::world::level::levelgen::GenEnv;
+use mc_game_core::world::level::levelgen::WorldGenLevel;
+use mc_game_core::world::level::levelgen::codec::{
+    Fields, LoadResult, TypeEntry, parse_block_pos, parse_bool, parse_int, parse_list,
+};
+use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature, set_block};
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_nbt::{CompoundTag, ListTag};
 use mc_worldgen::noise_settings::{DIMENSION_MAX_Y, DIMENSION_MIN_Y};
 use serde_json::Value;
@@ -64,7 +66,8 @@ impl EndSpike {
     }
 
     pub fn is_center_within_chunk(&self, chunk_origin: BlockPos) -> bool {
-        (chunk_origin.x() >> 4) == (self.center_x >> 4) && (chunk_origin.z() >> 4) == (self.center_z >> 4)
+        (chunk_origin.x() >> 4) == (self.center_x >> 4)
+            && (chunk_origin.z() >> 4) == (self.center_z >> 4)
     }
 
     pub fn get_center_x(&self) -> i32 {
@@ -136,19 +139,38 @@ impl EndSpikeFeature {
     pub fn decode(fields: &Fields<'_>, _ctx: &DecodeCtx<'_>) -> LoadResult<Arc<dyn Feature>> {
         Ok(Arc::new(EndSpikeFeature {
             spikes: fields.required("spikes", |v| parse_list(v, EndSpike::from_json))?,
-            crystal_invulnerable: fields.optional("crystal_invulnerable", parse_bool)?.unwrap_or(false),
+            crystal_invulnerable: fields
+                .optional("crystal_invulnerable", parse_bool)?
+                .unwrap_or(false),
             crystal_beam_target: fields.optional("crystal_beam_target", parse_block_pos)?,
         }))
     }
 
-    fn place_spike(&self, level: &mut dyn WorldGenLevel, random: &mut dyn RandomSource, spike: &EndSpike) {
+    fn place_spike(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        random: &mut dyn RandomSource,
+        spike: &EndSpike,
+    ) {
         let radius = spike.get_radius();
         let min_y = level.get_min_y();
         for pos in BlockPos::between_closed(
-            &BlockPos::new(spike.get_center_x() - radius, min_y, spike.get_center_z() - radius),
-            &BlockPos::new(spike.get_center_x() + radius, spike.get_height() + 10, spike.get_center_z() + radius),
+            &BlockPos::new(
+                spike.get_center_x() - radius,
+                min_y,
+                spike.get_center_z() - radius,
+            ),
+            &BlockPos::new(
+                spike.get_center_x() + radius,
+                spike.get_height() + 10,
+                spike.get_center_z() + radius,
+            ),
         ) {
-            if pos.dist_to_low_corner_sqr(spike.get_center_x() as f64, pos.y() as f64, spike.get_center_z() as f64) <= (radius * radius + 1) as f64
+            if pos.dist_to_low_corner_sqr(
+                spike.get_center_x() as f64,
+                pos.y() as f64,
+                spike.get_center_z() as f64,
+            ) <= (radius * radius + 1) as f64
                 && pos.y() < spike.get_height()
             {
                 set_block(level, pos, Block::OBSIDIAN.default_state());
@@ -173,7 +195,15 @@ impl EndSpikeFeature {
                                 .set(props::SOUTH, x_edge && dz != 2)
                                 .set(props::WEST, z_edge && dx != -2)
                                 .set(props::EAST, z_edge && dx != 2);
-                            set_block(level, BlockPos::new(spike.get_center_x() + dx, spike.get_height() + dy, spike.get_center_z() + dz), state);
+                            set_block(
+                                level,
+                                BlockPos::new(
+                                    spike.get_center_x() + dx,
+                                    spike.get_height() + dy,
+                                    spike.get_center_z() + dz,
+                                ),
+                                state,
+                            );
                         }
                     }
                 }
@@ -185,16 +215,33 @@ impl EndSpikeFeature {
         let y = (spike.get_height() + 1) as f64;
         let z = spike.get_center_z() as f64 + 0.5;
         let yaw = random.next_float() * 360.0;
-        level.add_fresh_entity_nbt(end_crystal_tag(x, y, z, yaw, self.crystal_beam_target, self.crystal_invulnerable));
+        level.add_fresh_entity_nbt(end_crystal_tag(
+            x,
+            y,
+            z,
+            yaw,
+            self.crystal_beam_target,
+            self.crystal_invulnerable,
+        ));
         let crystal_pos = BlockPos::new(mth::floor_f64(x), mth::floor_f64(y), mth::floor_f64(z));
         set_block(level, crystal_pos.below(), Block::BEDROCK.default_state());
-        let fire = mc_game_core::world::level::block::impls::base_fire_block::get_state(&*level, crystal_pos);
+        let fire = mc_game_core::world::level::block::impls::base_fire_block::get_state(
+            &*level,
+            crystal_pos,
+        );
         set_block(level, crystal_pos, fire);
     }
 }
 
 /// `EndCrystal.save`: the entity NBT as `ProtoChunk.addEntity` stores it (the UUID is random in vanilla too).
-fn end_crystal_tag(x: f64, y: f64, z: f64, yaw: f32, beam_target: Option<BlockPos>, invulnerable: bool) -> CompoundTag {
+fn end_crystal_tag(
+    x: f64,
+    y: f64,
+    z: f64,
+    yaw: f32,
+    beam_target: Option<BlockPos>,
+    invulnerable: bool,
+) -> CompoundTag {
     let mut tag = CompoundTag::new();
     tag.put_string("id", "minecraft:end_crystal");
     let mut pos = ListTag::new();
@@ -217,9 +264,16 @@ fn end_crystal_tag(x: f64, y: f64, z: f64, yaw: f32, beam_target: Option<BlockPo
     tag.put_boolean("OnGround", false);
     tag.put_boolean("Invulnerable", invulnerable);
     tag.put_int("PortalCooldown", 0);
-    let mut random = LegacyRandomSource::new(std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).map_or(0, |d| d.as_nanos() as i64));
+    let mut random = LegacyRandomSource::new(
+        std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .map_or(0, |d| d.as_nanos() as i64),
+    );
     let uuid = mth::create_insecure_uuid(&mut random);
-    tag.put_int_array("UUID", mc_core::uuid_util::uuid_to_int_array(&uuid).to_vec());
+    tag.put_int_array(
+        "UUID",
+        mc_core::uuid_util::uuid_to_int_array(&uuid).to_vec(),
+    );
     if let Some(target) = beam_target {
         tag.put_int_array("beam_target", vec![target.x(), target.y(), target.z()]);
     }
@@ -228,7 +282,13 @@ fn end_crystal_tag(x: f64, y: f64, z: f64, yaw: f32, beam_target: Option<BlockPo
 }
 
 impl Feature for EndSpikeFeature {
-    fn place(&self, level: &mut dyn WorldGenLevel, _generator: &GenEnv, random: &mut dyn RandomSource, origin: BlockPos) -> bool {
+    fn place(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        _generator: &GenEnv,
+        random: &mut dyn RandomSource,
+        origin: BlockPos,
+    ) -> bool {
         let computed;
         let spikes = if self.spikes.is_empty() {
             computed = get_spikes_for_level(level);
@@ -246,5 +306,7 @@ impl Feature for EndSpikeFeature {
 }
 
 #[linkme::distributed_slice(FEATURE_TYPES)]
-static END_SPIKE: TypeEntry<dyn Feature> = TypeEntry { name: "end_spike", decode: EndSpikeFeature::decode };
-
+static END_SPIKE: TypeEntry<dyn Feature> = TypeEntry {
+    name: "end_spike",
+    decode: EndSpikeFeature::decode,
+};

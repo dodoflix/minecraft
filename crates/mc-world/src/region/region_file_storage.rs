@@ -32,15 +32,29 @@ pub struct RegionFileStorage {
 
 impl RegionFileStorage {
     pub fn new(info: RegionStorageInfo, folder: impl Into<PathBuf>, sync: bool) -> Self {
-        Self { region_cache: IndexMap::new(), info, folder: folder.into(), sync }
+        Self {
+            region_cache: IndexMap::new(),
+            info,
+            folder: folder.into(),
+            sync,
+        }
     }
 
     fn region_path(&self, pos: &ChunkPos) -> PathBuf {
-        self.folder.join(format!("r.{}.{}{}", pos.get_region_x(), pos.get_region_z(), ANVIL_EXTENSION))
+        self.folder.join(format!(
+            "r.{}.{}{}",
+            pos.get_region_x(),
+            pos.get_region_z(),
+            ANVIL_EXTENSION
+        ))
     }
 
     /// `getRegionFile(pos, create)`
-    pub fn get_region_file(&mut self, pos: &ChunkPos, create: bool) -> io::Result<Option<&mut RegionFile>> {
+    pub fn get_region_file(
+        &mut self,
+        pos: &ChunkPos,
+        create: bool,
+    ) -> io::Result<Option<&mut RegionFile>> {
         let key = ChunkPos::pack_xz(pos.get_region_x(), pos.get_region_z());
         if let Some(index) = self.region_cache.get_index_of(&key) {
             let last = self.region_cache.len() - 1;
@@ -75,8 +89,12 @@ impl RegionFileStorage {
     /// `read(pos)`: the chunk's NBT (`NbtIo.read` with an unlimited-heap accounter), `None` where
     /// vanilla returns null.
     pub fn read(&mut self, pos: &ChunkPos) -> io::Result<Option<CompoundTag>> {
-        let Some(region) = self.get_region_file(pos, false)? else { return Ok(None) };
-        let Some(mut stream) = region.get_chunk_data_input_stream(pos)? else { return Ok(None) };
+        let Some(region) = self.get_region_file(pos, false)? else {
+            return Ok(None);
+        };
+        let Some(mut stream) = region.get_chunk_data_input_stream(pos)? else {
+            return Ok(None);
+        };
         // Vanilla parses incrementally and never looks past the end of the root compound, so a
         // decoding error after a complete tag is irrelevant: parse whatever was decoded first.
         let mut data = Vec::new();
@@ -89,7 +107,9 @@ impl RegionFileStorage {
 
     /// `write(pos, value)`: `None` clears the chunk.
     pub fn write(&mut self, pos: &ChunkPos, value: Option<&CompoundTag>) -> io::Result<()> {
-        let region = self.get_region_file(pos, true)?.expect("create=true always yields a region file");
+        let region = self
+            .get_region_file(pos, true)?
+            .expect("create=true always yields a region file");
         match value {
             None => region.clear(pos),
             Some(tag) => region.write_chunk_data(pos, &mc_nbt::nbt_io::to_bytes(tag)),

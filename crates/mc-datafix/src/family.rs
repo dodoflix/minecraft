@@ -19,7 +19,8 @@ pub struct RecursiveTypeFamily {
     types: Mutex<HashMap<i32, Type>>,
 }
 
-static FAMILIES: LazyLock<Mutex<HashMap<Template, Arc<RecursiveTypeFamily>>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+static FAMILIES: LazyLock<Mutex<HashMap<Template, Arc<RecursiveTypeFamily>>>> =
+    LazyLock::new(|| Mutex::new(HashMap::new()));
 
 impl PartialEq for RecursiveTypeFamily {
     fn eq(&self, o: &RecursiveTypeFamily) -> bool {
@@ -36,7 +37,12 @@ impl RecursiveTypeFamily {
             return f.clone();
         }
         let size = template.size();
-        let family = Arc::new(RecursiveTypeFamily { name: name.to_string(), template: template.clone(), size, types: Mutex::new(HashMap::new()) });
+        let family = Arc::new(RecursiveTypeFamily {
+            name: name.to_string(),
+            template: template.clone(),
+            size,
+            types: Mutex::new(HashMap::new()),
+        });
         families.insert(template, family.clone());
         family
     }
@@ -62,7 +68,11 @@ impl RecursiveTypeFamily {
     }
 
     /// `family.buildMuType(newType, newFamily)`.
-    pub(crate) fn build_mu_type(self: &Arc<Self>, new_type: &Type, new_family: Option<&Arc<RecursiveTypeFamily>>) -> Type {
+    pub(crate) fn build_mu_type(
+        self: &Arc<Self>,
+        new_type: &Type,
+        new_family: Option<&Arc<RecursiveTypeFamily>>,
+    ) -> Type {
         let new_family = match new_family {
             Some(f) => f.clone(),
             None => {
@@ -84,7 +94,12 @@ impl RecursiveTypeFamily {
     }
 
     /// `family.findType(index, aType, bType, matcher, recurse)`.
-    pub(crate) fn find_type(self: &Arc<Self>, index: i32, matcher: &Matcher, recurse: bool) -> Result<TypedOptic, FindError> {
+    pub(crate) fn find_type(
+        self: &Arc<Self>,
+        index: i32,
+        matcher: &Matcher,
+        recurse: bool,
+    ) -> Result<TypedOptic, FindError> {
         let s_type = self.apply(index);
         let optic = s_type.unfold().find_type(matcher, false)?;
         let new_family = RecursiveTypeFamily::new(&self.name, optic.t_type().template());
@@ -99,17 +114,29 @@ impl RecursiveTypeFamily {
     }
 
     /// `family.everywhere(index, rule, optimizationRule)`.
-    pub(crate) fn everywhere(self: &Arc<Self>, index: i32, rule: &TypeRewriteRule, opt: OptimizationRule) -> Option<RewriteResult> {
+    pub(crate) fn everywhere(
+        self: &Arc<Self>,
+        index: i32,
+        rule: &TypeRewriteRule,
+        opt: OptimizationRule,
+    ) -> Option<RewriteResult> {
         let source_type = self.apply(index).unfold();
-        let source_view = source_type.everywhere(rule, opt, false, false).unwrap_or_else(|| RewriteResult::nop(&source_type));
+        let source_view = source_type
+            .everywhere(rule, opt, false, false)
+            .unwrap_or_else(|| RewriteResult::nop(&source_type));
         let new_type = self.build_mu_type(source_view.view.new_type(), None);
-        let new_family = new_type.family().expect("buildMuType returns a recursion point").clone();
+        let new_family = new_type
+            .family()
+            .expect("buildMuType returns a recursion point")
+            .clone();
         let mut views: Vec<RewriteResult> = Vec::with_capacity(self.size as usize);
         let mut found_any = false;
         for i in 0..self.size {
             let ty = self.apply(i);
             let unfold = ty.unfold();
-            let view = unfold.everywhere(rule, opt, false, true).unwrap_or_else(|| RewriteResult::nop(&unfold));
+            let view = unfold
+                .everywhere(rule, opt, false, true)
+                .unwrap_or_else(|| RewriteResult::nop(&unfold));
             let nop1 = view.view.is_nop();
             let new_mu_type = self.build_mu_type(view.view.new_type(), Some(&new_family));
             let nop = self.cap2(&mut views, rule, nop1, view, &new_mu_type);
@@ -134,7 +161,8 @@ impl RecursiveTypeFamily {
         let mut nop = nop;
         let mut view = view;
         let unfolded = new_type.unfold();
-        let new_view = RewriteResult::create(View::in_(new_type, &unfolded), BitSet::new()).compose(&view);
+        let new_view =
+            RewriteResult::create(View::in_(new_type, &unfolded), BitSet::new()).compose(&view);
         if let Some(rewrite) = rule.rewrite(new_view.view.new_type())
             && !rewrite.view.is_nop()
         {

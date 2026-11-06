@@ -18,7 +18,15 @@ use mc_game::world::item::crafting::*;
 use mc_world::level_storage::WorldDataConfiguration;
 
 fn st(s: &ItemStack) -> String {
-    if s.is_empty() { "-".into() } else { format!("{}x{}", s.item().name().trim_start_matches("minecraft:"), s.count()) }
+    if s.is_empty() {
+        "-".into()
+    } else {
+        format!(
+            "{}x{}",
+            s.item().name().trim_start_matches("minecraft:"),
+            s.count()
+        )
+    }
 }
 
 struct TestPlayer {
@@ -50,11 +58,20 @@ impl MenuPlayer for TestPlayer {
         false
     }
     fn drop(&mut self, stack: ItemStack, thrown: bool, prediction: Prediction) {
-        let p = if prediction == Prediction::Predicted { "PREDICTED" } else { "SERVER_ONLY" };
-        self.events.push(format!("DROP {} {thrown} {p}", st(&stack)));
+        let p = if prediction == Prediction::Predicted {
+            "PREDICTED"
+        } else {
+            "SERVER_ONLY"
+        };
+        self.events
+            .push(format!("DROP {} {thrown} {p}", st(&stack)));
     }
     fn on_equip_item(&mut self, _slot: EquipmentSlot, _old: &ItemStack, _new: &ItemStack) {}
-    fn is_within_block_interaction_range(&self, _pos: mc_core::pos::BlockPos, _buffer: f64) -> bool {
+    fn is_within_block_interaction_range(
+        &self,
+        _pos: mc_core::pos::BlockPos,
+        _buffer: f64,
+    ) -> bool {
         false
     }
     fn send_inventory_slot_update(&mut self, _slot: usize, _stack: ItemStack) {}
@@ -67,14 +84,22 @@ struct GridMenu {
 }
 
 impl PlaceRecipeMenu for GridMenu {
-    fn fill_craft_slots_stacked_contents(&self, _player: &mut dyn MenuPlayer, contents: &mut StackedItemContents) {
-        self.grid.iter().for_each(|s| contents.account_simple_stack(s));
+    fn fill_craft_slots_stacked_contents(
+        &self,
+        _player: &mut dyn MenuPlayer,
+        contents: &mut StackedItemContents,
+    ) {
+        self.grid
+            .iter()
+            .for_each(|s| contents.account_simple_stack(s));
     }
     fn clear_crafting_content(&mut self, _player: &mut dyn MenuPlayer) {
         self.grid.iter_mut().for_each(|s| *s = ItemStack::empty());
     }
     fn recipe_matches(&self, _player: &mut dyn MenuPlayer, recipe: &RecipeHolder) -> bool {
-        recipe.value.matches_crafting(&CraftingInput::of(2, 2, &self.grid), &self.level)
+        recipe
+            .value
+            .matches_crafting(&CraftingInput::of(2, 2, &self.grid), &self.level)
     }
     fn input_grid_len(&self) -> usize {
         4
@@ -82,7 +107,12 @@ impl PlaceRecipeMenu for GridMenu {
     fn input_grid_item(&self, index: usize) -> ItemStack {
         self.grid[index].clone()
     }
-    fn set_input_grid_item(&mut self, _player: &mut dyn MenuPlayer, index: usize, stack: ItemStack) {
+    fn set_input_grid_item(
+        &mut self,
+        _player: &mut dyn MenuPlayer,
+        index: usize,
+        stack: ItemStack,
+    ) {
         self.grid[index] = stack;
     }
     fn grow_input_grid_item(&mut self, index: usize, count: i32) {
@@ -94,35 +124,67 @@ impl PlaceRecipeMenu for GridMenu {
     fn slot_to_clear_item(&self, index: usize) -> ItemStack {
         self.grid[index].clone()
     }
-    fn set_slot_to_clear_item(&mut self, _player: &mut dyn MenuPlayer, index: usize, stack: ItemStack) {
+    fn set_slot_to_clear_item(
+        &mut self,
+        _player: &mut dyn MenuPlayer,
+        index: usize,
+        stack: ItemStack,
+    ) {
         self.grid[index] = stack;
     }
 }
 
 fn mk(name: &str, count: i32) -> ItemStack {
-    ItemStack::with_count(Item::by_name(name).unwrap_or_else(|| panic!("item {name}")), count)
+    ItemStack::with_count(
+        Item::by_name(name).unwrap_or_else(|| panic!("item {name}")),
+        count,
+    )
 }
 
 #[test]
 fn place_recipe_matches_vanilla() {
     let _s = common::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
     let dir = tempfile::tempdir().unwrap();
-    let (_, stem) = common::load_world(&dir.path().join("world"), WorldDataConfiguration::DEFAULT, true).unwrap();
-    let manager = stem.data_pack_resources.listener::<RecipeManager>().expect("recipe manager").clone();
+    let (_, stem) = common::load_world(
+        &dir.path().join("world"),
+        WorldDataConfiguration::DEFAULT,
+        true,
+    )
+    .unwrap();
+    let manager = stem
+        .data_pack_resources
+        .listener::<RecipeManager>()
+        .expect("recipe manager")
+        .clone();
     let mut text = String::new();
-    flate2::read::GzDecoder::new(std::fs::File::open(concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures/place_recipe_golden.txt.gz")).unwrap())
-        .read_to_string(&mut text)
-        .unwrap();
+    flate2::read::GzDecoder::new(
+        std::fs::File::open(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/tests/fixtures/place_recipe_golden.txt.gz"
+        ))
+        .unwrap(),
+    )
+    .read_to_string(&mut text)
+    .unwrap();
 
     let new_level = || ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap());
-    let mut player = TestPlayer { inv: Inventory::new(), creative: false, events: Vec::new() };
-    let mut menu = GridMenu { grid: vec![ItemStack::empty(); 4], level: new_level() };
+    let mut player = TestPlayer {
+        inv: Inventory::new(),
+        creative: false,
+        events: Vec::new(),
+    };
+    let mut menu = GridMenu {
+        grid: vec![ItemStack::empty(); 4],
+        level: new_level(),
+    };
     let mut ours: Vec<String> = Vec::new();
     let (mut places, mut ghosts) = (0, 0);
     let mut lines = text.lines().peekable();
     let mut op_no = 0;
     while let Some(line) = lines.next() {
-        let Some(op) = line.strip_prefix("OP ") else { panic!("unexpected line {line}") };
+        let Some(op) = line.strip_prefix("OP ") else {
+            panic!("unexpected line {line}")
+        };
         let mut expected: Vec<&str> = Vec::new();
         while let Some(next) = lines.peek() {
             if next.starts_with("OP ") {
@@ -135,17 +197,38 @@ fn place_recipe_matches_vanilla() {
         let mut action = "-".to_owned();
         match words[0] {
             "scenario" => {
-                player = TestPlayer { inv: Inventory::new(), creative: words[2] == "creative=true", events: Vec::new() };
+                player = TestPlayer {
+                    inv: Inventory::new(),
+                    creative: words[2] == "creative=true",
+                    events: Vec::new(),
+                };
                 menu.grid = vec![ItemStack::empty(); 4];
                 continue;
             }
-            "inv" => player.inv.set_item(words[1].parse().unwrap(), mk(words[2], words[3].parse().unwrap())),
-            "grid" => menu.grid[words[1].parse::<usize>().unwrap() - 1] = mk(words[2], words[3].parse().unwrap()),
+            "inv" => player.inv.set_item(
+                words[1].parse().unwrap(),
+                mk(words[2], words[3].parse().unwrap()),
+            ),
+            "grid" => {
+                menu.grid[words[1].parse::<usize>().unwrap() - 1] =
+                    mk(words[2], words[3].parse().unwrap())
+            }
             "clearinv" => (0..36).for_each(|i| player.inv.set_item(i, ItemStack::empty())),
             "place" => {
-                let holder = manager.by_key(&Identifier::parse(words[1]).unwrap()).expect("recipe").clone();
+                let holder = manager
+                    .by_key(&Identifier::parse(words[1]).unwrap())
+                    .expect("recipe")
+                    .clone();
                 let creative = player.creative;
-                action = match place_recipe(&mut menu, &mut player, 2, 2, &holder, words[2] == "true", creative) {
+                action = match place_recipe(
+                    &mut menu,
+                    &mut player,
+                    2,
+                    2,
+                    &holder,
+                    words[2] == "true",
+                    creative,
+                ) {
                     PostPlaceAction::Nothing => {
                         places += 1;
                         "NOTHING"
@@ -161,7 +244,10 @@ fn place_recipe_matches_vanilla() {
         }
         ours.clear();
         ours.push(format!("OUT action {action}"));
-        ours.push(format!("OUT grid {}", menu.grid.iter().map(st).collect::<Vec<_>>().join(" ")));
+        ours.push(format!(
+            "OUT grid {}",
+            menu.grid.iter().map(st).collect::<Vec<_>>().join(" ")
+        ));
         let mut inv = String::from("OUT inv");
         for i in 0..player.inv.get_container_size() {
             let it = player.inv.get_item(i);
@@ -170,7 +256,11 @@ fn place_recipe_matches_vanilla() {
             }
         }
         ours.push(inv);
-        ours.extend(std::mem::take(&mut player.events).into_iter().map(|e| format!("OUT {e}")));
+        ours.extend(
+            std::mem::take(&mut player.events)
+                .into_iter()
+                .map(|e| format!("OUT {e}")),
+        );
         assert_eq!(ours, expected, "op #{op_no}: {op}");
     }
     eprintln!("placements: {places}, ghost recipes: {ghosts}");

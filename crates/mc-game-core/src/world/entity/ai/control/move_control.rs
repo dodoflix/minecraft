@@ -38,7 +38,15 @@ pub struct MoveControlBase {
 
 impl Default for MoveControlBase {
     fn default() -> Self {
-        Self { wanted_x: 0.0, wanted_y: 0.0, wanted_z: 0.0, speed_modifier: 0.0, strafe_forwards: 0.0, strafe_right: 0.0, operation: Operation::Wait }
+        Self {
+            wanted_x: 0.0,
+            wanted_y: 0.0,
+            wanted_z: 0.0,
+            speed_modifier: 0.0,
+            strafe_forwards: 0.0,
+            strafe_right: 0.0,
+            operation: Operation::Wait,
+        }
     }
 }
 
@@ -88,7 +96,14 @@ pub trait MoveControl: Any {
 
     /// `setWantedPosition` of a control whose override reads the mob (`Rabbit.RabbitMoveControl` checks `isInWater()`); the
     /// control is taken out of the mob while this runs, see [`mob::set_wanted_position`].
-    fn set_wanted_position_for(&mut self, _mob: &dyn Entity, x: f64, y: f64, z: f64, speed_modifier: f64) {
+    fn set_wanted_position_for(
+        &mut self,
+        _mob: &dyn Entity,
+        x: f64,
+        y: f64,
+        z: f64,
+        speed_modifier: f64,
+    ) {
         self.set_wanted_position(x, y, z, speed_modifier);
     }
 
@@ -124,7 +139,11 @@ pub trait MoveControl: Any {
 
 /// `isWalkable(dx, dz)`.
 fn is_walkable(mob: &mut dyn Entity, level: &mut ServerLevel, dx: f32, dz: f32) -> bool {
-    let pos = BlockPos::containing(mob.base().x() + f64::from(dx), f64::from(mob.block_position().y()), mob.base().z() + f64::from(dz));
+    let pos = BlockPos::containing(
+        mob.base().x() + f64::from(dx),
+        f64::from(mob.block_position().y()),
+        mob.base().z() + f64::from(dz),
+    );
     mob::navigation::is_walkable_at(mob, level, pos)
 }
 
@@ -167,14 +186,19 @@ pub fn base_tick(b: &mut MoveControlBase, mob: &mut dyn Entity, level: &mut Serv
                 mob::set_zza(mob, 0.0);
                 return;
             }
-            let y_rot_d = (mth::atan2(zd, xd) * f64::from(180.0f32) / f64::from(std::f32::consts::PI)) as f32 - 90.0;
+            let y_rot_d = (mth::atan2(zd, xd) * f64::from(180.0f32)
+                / f64::from(std::f32::consts::PI)) as f32
+                - 90.0;
             let new_y_rot = b.rotlerp(mob.base().y_rot(), y_rot_d, 90.0);
             mob.set_y_rot(new_y_rot);
-            mob.set_speed((b.speed_modifier * mob::attribute_value(mob, Attribute::MOVEMENT_SPEED)) as f32);
+            mob.set_speed(
+                (b.speed_modifier * mob::attribute_value(mob, Attribute::MOVEMENT_SPEED)) as f32,
+            );
             let pos = mob.block_position();
             let block_state = level.get_block_state(pos);
             let shape = block_state.get_collision_shape(&*level, pos);
-            if yd > f64::from(mob.max_up_step()) && xd * xd + zd * zd < f64::from(1.0f32.max(mob.base().get_bb_width()))
+            if yd > f64::from(mob.max_up_step())
+                && xd * xd + zd * zd < f64::from(1.0f32.max(mob.base().get_bb_width()))
                 || !shape.is_empty()
                     && mob.base().y() < shape.max(Axis::Y) + f64::from(pos.y())
                     && !block_state.block().is_in_tag("doors")
@@ -185,7 +209,9 @@ pub fn base_tick(b: &mut MoveControlBase, mob: &mut dyn Entity, level: &mut Serv
             }
         }
         Operation::Jumping => {
-            mob.set_speed((b.speed_modifier * mob::attribute_value(mob, Attribute::MOVEMENT_SPEED)) as f32);
+            mob.set_speed(
+                (b.speed_modifier * mob::attribute_value(mob, Attribute::MOVEMENT_SPEED)) as f32,
+            );
             if mob.base().on_ground() || mob.is_in_liquid() && mob.is_affected_by_fluids() {
                 b.operation = Operation::Wait;
             }

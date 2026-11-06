@@ -1,16 +1,19 @@
 //! `net.minecraft.world.level.block.GrassBlock`: spreading snowy block + bone meal (grass / flower patches around).
-use mc_game_core::{register_block_class, update_shape};
-use mc_game_core::world::level::block::impls::prelude::*;
 use super::{snowy_block, spreading_snowy_block};
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::item::BlockPlaceContext;
 use mc_game_core::world::level::block::bonemeal::{BonemealSource, BonemealType};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::{register_block_class, update_shape};
 
 pub struct GrassBlock;
 
 /// `GrassBlock.stopBonemealSpread`.
 fn stop_bonemeal_spread(level: &ServerLevel, this: Block, test_pos: BlockPos) -> bool {
-    !level.get_block_state(test_pos.below()).is_block(this) || level.get_block_state(test_pos).is_collision_shape_full_block_at(level, test_pos)
+    !level.get_block_state(test_pos.below()).is_block(this)
+        || level
+            .get_block_state(test_pos)
+            .is_collision_shape_full_block_at(level, test_pos)
 }
 
 /// `GrassBlock.placeBonemealEffect`.
@@ -37,28 +40,52 @@ fn place_bonemeal_effect(level: &mut ServerLevel, test_pos: BlockPos, source: Bo
 }
 
 impl BlockBehaviour for GrassBlock {
-    update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| { snowy_block::update_shape(state, direction, neighbour_state) });
+    update_shape!(
+        |self, state, level, pos, direction, neighbour_pos, neighbour_state| {
+            snowy_block::update_shape(state, direction, neighbour_state)
+        }
+    );
     fn random_tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         spreading_snowy_block::random_tick(state, level, pos);
     }
-    fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
+    fn get_state_for_placement(
+        &self,
+        block: Block,
+        level: &mut ServerLevel,
+        context: &BlockPlaceContext,
+    ) -> Option<BlockState> {
         snowy_block::get_state_for_placement(block, level, context)
     }
 
     fn is_bonemealable(&self) -> bool {
         true
     }
-    fn is_valid_bonemeal_target(&self, level: &dyn LevelReader, pos: BlockPos, _state: BlockState, _source: BonemealSource) -> bool {
-        level.get_block_state(pos.above()).is_air() && !level.is_outside_build_height(pos.above().y())
+    fn is_valid_bonemeal_target(
+        &self,
+        level: &dyn LevelReader,
+        pos: BlockPos,
+        _state: BlockState,
+        _source: BonemealSource,
+    ) -> bool {
+        level.get_block_state(pos.above()).is_air()
+            && !level.is_outside_build_height(pos.above().y())
     }
-    fn perform_bonemeal(&self, level: &mut ServerLevel, pos: BlockPos, state: BlockState, source: BonemealSource) {
+    fn perform_bonemeal(
+        &self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        state: BlockState,
+        source: BonemealSource,
+    ) {
         let above = pos.above();
         'attempts: for attempt in 0..128 {
             let mut test_pos = above;
             let randomize_count = attempt / 16;
             for _ in 0..randomize_count {
                 let dx = level.random().next_int_between_inclusive(-1, 1);
-                let dy = level.random().next_int_between_inclusive(-1, 1) * level.random().next_int_bounded(3) / 2;
+                let dy = level.random().next_int_between_inclusive(-1, 1)
+                    * level.random().next_int_bounded(3)
+                    / 2;
                 let dz = level.random().next_int_between_inclusive(-1, 1);
                 test_pos = test_pos.offset(dx, dy, dz);
                 if stop_bonemeal_spread(level, state.block(), test_pos) {

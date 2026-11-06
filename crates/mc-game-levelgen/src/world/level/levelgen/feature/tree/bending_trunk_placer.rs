@@ -4,11 +4,11 @@ use super::TRUNK_PLACER_TYPES;
 use super::foliage_placer::FoliageAttachment;
 use super::tree_feature::{TreeFeature, TreeSetter, valid_tree_pos};
 use super::trunk_placer::{TrunkBase, TrunkPlacer, place_below_trunk_block};
-use mc_game_core::world::level::levelgen::codec::{TypeEntry, parse_positive_int};
-use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::direction::{Direction, Plane};
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
+use mc_game_core::world::level::levelgen::codec::{TypeEntry, parse_positive_int};
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_worldgen::provider::IntProvider;
 use std::sync::Arc;
 
@@ -68,8 +68,15 @@ static BENDING_TRUNK_PLACER: TypeEntry<dyn TrunkPlacer> = TypeEntry {
     name: "bending_trunk_placer",
     decode: |fields, _| {
         let base = TrunkBase::decode(fields)?;
-        let min_height_for_leaves = fields.optional("min_height_for_leaves", parse_positive_int)?.unwrap_or(1);
-        let bend_length = fields.required("bend_length", |v| IntProvider::from_json_range(v, 1, 64))?;
-        Ok(Arc::new(BendingTrunkPlacer { base, min_height_for_leaves, bend_length }))
+        let min_height_for_leaves = fields
+            .optional("min_height_for_leaves", parse_positive_int)?
+            .unwrap_or(1);
+        let bend_length =
+            fields.required("bend_length", |v| IntProvider::from_json_range(v, 1, 64))?;
+        Ok(Arc::new(BendingTrunkPlacer {
+            base,
+            min_height_for_leaves,
+            bend_length,
+        }))
     },
 };

@@ -5,7 +5,9 @@
 //! its `impl Entity` (accessors, `tick`, drag, portal use, the `Projectile` entity overrides) and
 //! [`impl_throwable_projectile!`] inside `impl Projectile` (the data accessors).
 
-use super::{HitType, Projectile, ProjectileData, hit_target_or_deflect_self, update_rotation, util};
+use super::{
+    HitType, Projectile, ProjectileData, hit_target_or_deflect_self, update_rotation, util,
+};
 use crate::define_accessor;
 use crate::server::level::ServerLevel;
 use crate::world::entity::inside_block_effects::NoopApplier;
@@ -62,7 +64,9 @@ macro_rules! impl_throwable_projectile {
         fn projectile_data(&self) -> &$crate::world::entity::projectile::ProjectileData {
             &self.projectile
         }
-        fn projectile_data_mut(&mut self) -> &mut $crate::world::entity::projectile::ProjectileData {
+        fn projectile_data_mut(
+            &mut self,
+        ) -> &mut $crate::world::entity::projectile::ProjectileData {
             &mut self.projectile
         }
     };
@@ -75,9 +79,15 @@ pub fn tick(p: &mut dyn Projectile, level: &mut ServerLevel) {
     apply_inertia(p);
     let result = {
         let this: &dyn Projectile = &*p;
-        util::get_hit_result_on_move_vector(level, this.as_dyn(), &|e| this.can_hit_entity(level, e))
+        util::get_hit_result_on_move_vector(level, this.as_dyn(), &|e| {
+            this.can_hit_entity(level, e)
+        })
     };
-    let new_position = if result.get_type() != HitType::Miss { result.get_location() } else { p.position().add(p.base().delta_movement()) };
+    let new_position = if result.get_type() != HitType::Miss {
+        result.get_location()
+    } else {
+        p.position().add(p.base().delta_movement())
+    };
     p.set_pos_vec(new_position);
     update_rotation(p);
     p.apply_effects_from_blocks(level);
@@ -90,8 +100,13 @@ pub fn tick(p: &mut dyn Projectile, level: &mut ServerLevel) {
 /// `applyInertia()`: the bubbles in water are client particles.
 fn apply_inertia(p: &mut dyn Projectile) {
     let movement = p.base().delta_movement();
-    let inertia = if p.is_in_water() { 0.8f32 } else { p.get_air_drag() };
-    p.base_mut().set_delta_movement(movement.scale(f64::from(inertia)));
+    let inertia = if p.is_in_water() {
+        0.8f32
+    } else {
+        p.get_air_drag()
+    };
+    p.base_mut()
+        .set_delta_movement(movement.scale(f64::from(inertia)));
 }
 
 /// `handleFirstTickBubbleColumn()`: bubble columns the projectile spawns in push it right away.
@@ -108,7 +123,14 @@ fn handle_first_tick_bubble_column(p: &mut dyn Projectile, level: &mut ServerLev
                 let pos = mc_core::pos::BlockPos::new(x, y, z);
                 let state = level.get_block_state(pos);
                 if state.block() == Block::BUBBLE_COLUMN {
-                    crate::world::level::block::behaviour(state.block()).entity_inside(state, level, pos, p.as_dyn_mut(), &mut NoopApplier, true);
+                    crate::world::level::block::behaviour(state.block()).entity_inside(
+                        state,
+                        level,
+                        pos,
+                        p.as_dyn_mut(),
+                        &mut NoopApplier,
+                        true,
+                    );
                 }
             }
         }
@@ -118,12 +140,17 @@ fn handle_first_tick_bubble_column(p: &mut dyn Projectile, level: &mut ServerLev
 /// `ThrowableProjectile(type, x, y, z, level)` position + `ThrowableItemProjectile(type, owner, level, item)`:
 /// the owner's `getX()`, `getEyeY() - 0.1F`, `getZ()`.
 pub fn position_at_owner(p: &mut dyn Entity, owner: &dyn Entity) {
-    p.set_pos(owner.base().x(), owner.base().get_eye_y() - f64::from(0.1f32), owner.base().z());
+    p.set_pos(
+        owner.base().x(),
+        owner.base().get_eye_y() - f64::from(0.1f32),
+        owner.base().z(),
+    );
 }
 
 /// `ThrowableItemProjectile.setItem(source)`.
 pub fn set_item(base: &mut EntityData, source: &ItemStack) {
-    base.entity_data.set(DATA_ITEM_STACK, source.copy_with_count(1));
+    base.entity_data
+        .set(DATA_ITEM_STACK, source.copy_with_count(1));
 }
 
 /// `ThrowableItemProjectile.getItem()`.
@@ -140,8 +167,15 @@ pub fn add_additional_save_data(p: &dyn Projectile, out: &mut CompoundTag) {
 }
 
 /// `ThrowableItemProjectile.readAdditionalSaveData`: `default_item` is `getDefaultItem()`.
-pub fn read_additional_save_data(p: &mut dyn Projectile, input: &CompoundTag, default_item: mc_data::Item) {
+pub fn read_additional_save_data(
+    p: &mut dyn Projectile,
+    input: &CompoundTag,
+    default_item: mc_data::Item,
+) {
     super::read_additional_save_data(p, input);
-    let item = input.get_compound("Item").and_then(load_item_stack).unwrap_or_else(|| ItemStack::new(default_item));
+    let item = input
+        .get_compound("Item")
+        .and_then(load_item_stack)
+        .unwrap_or_else(|| ItemStack::new(default_item));
     set_item(p.base_mut(), &item);
 }

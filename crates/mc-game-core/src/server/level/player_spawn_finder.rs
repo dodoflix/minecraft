@@ -8,17 +8,17 @@
 //!                                Fallback(c) => { load_chunk(..); break fixup_spawn_height(level, c) } } } }
 //! ```
 
+use crate::server::spawn_search::SpawnCandidates;
+use crate::world::level::LevelReader;
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::collision::CollisionGetter;
 use crate::world::level::shapes::is_face_full;
-use crate::world::level::LevelReader;
 use mc_core::direction::Direction;
 use mc_core::phys::{AABB, Vec3};
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_data::EntityType;
 use mc_data::block::BlockState;
 use mc_world::heightmap::HeightmapType;
-use crate::server::spawn_search::SpawnCandidates;
 
 /// What the spawn search needs from a `ServerLevel` beyond block access.
 pub trait SpawnSearchLevel: LevelReader + CollisionGetter {
@@ -35,12 +35,20 @@ fn player_box_at(pos: BlockPos) -> AABB {
     let data = EntityType::PLAYER.data();
     let w = f64::from(data.width / 2.0);
     let h = f64::from(data.height);
-    let (x, y, z) = (f64::from(pos.x()) + 0.5, f64::from(pos.y()), f64::from(pos.z()) + 0.5);
+    let (x, y, z) = (
+        f64::from(pos.x()) + 0.5,
+        f64::from(pos.y()),
+        f64::from(pos.z()) + 0.5,
+    );
     AABB::new(x - w, y, z - w, x + w, y + h, z + w)
 }
 
 fn bottom_center_of(pos: BlockPos) -> Vec3 {
-    Vec3::new(f64::from(pos.x()) + 0.5, f64::from(pos.y()), f64::from(pos.z()) + 0.5)
+    Vec3::new(
+        f64::from(pos.x()) + 0.5,
+        f64::from(pos.y()),
+        f64::from(pos.z()) + 0.5,
+    )
 }
 
 /// `noCollisionNoLiquid`.
@@ -66,7 +74,11 @@ pub fn fixup_spawn_height<L: CollisionGetter>(level: &L, spawn_pos: BlockPos) ->
 
 /// `getLevelRespawnPos(level, x, z)`: the standable position above the surface column, if any.
 pub fn get_level_respawn_pos<L: SpawnSearchLevel>(level: &L, x: i32, z: i32) -> Option<BlockPos> {
-    let top_y = if level.has_ceiling() { level.generator_spawn_height() } else { level.chunk_height(HeightmapType::MotionBlocking, x, z) };
+    let top_y = if level.has_ceiling() {
+        level.generator_spawn_height()
+    } else {
+        level.chunk_height(HeightmapType::MotionBlocking, x, z)
+    };
     if top_y < level.get_min_y() {
         return None;
     }
@@ -90,7 +102,10 @@ pub fn get_level_respawn_pos<L: SpawnSearchLevel>(level: &L, x: i32, z: i32) -> 
 }
 
 /// `getSpawnPosInChunk`.
-pub fn get_spawn_pos_in_chunk<L: SpawnSearchLevel>(level: &L, chunk_pos: ChunkPos) -> Option<BlockPos> {
+pub fn get_spawn_pos_in_chunk<L: SpawnSearchLevel>(
+    level: &L,
+    chunk_pos: ChunkPos,
+) -> Option<BlockPos> {
     for x in chunk_pos.get_min_block_x()..=chunk_pos.get_max_block_x() {
         for z in chunk_pos.get_min_block_z()..=chunk_pos.get_max_block_z() {
             if let Some(pos) = get_level_respawn_pos(level, x, z) {
@@ -137,7 +152,12 @@ pub struct PlayerSpawnFinder {
 impl PlayerSpawnFinder {
     /// `findSpawn`: `respawn_radius` is `GameRules.RESPAWN_RADIUS`, `distance_to_border` is
     /// `Mth.floor(worldBorder.getDistanceToBorder(x, z))` at the suggestion.
-    pub fn find_spawn(adventure: bool, respawn_radius: i32, distance_to_border: i32, spawn_suggestion: BlockPos) -> FindSpawn {
+    pub fn find_spawn(
+        adventure: bool,
+        respawn_radius: i32,
+        distance_to_border: i32,
+        spawn_suggestion: BlockPos,
+    ) -> FindSpawn {
         if adventure {
             return FindSpawn::Adventure(spawn_suggestion);
         }
@@ -154,7 +174,11 @@ impl PlayerSpawnFinder {
     }
 
     pub fn with_offset(spawn_suggestion: BlockPos, radius: i32, offset: i32) -> Self {
-        Self { spawn_suggestion, candidates: SpawnCandidates::new(radius, offset), next_candidate_index: 0 }
+        Self {
+            spawn_suggestion,
+            candidates: SpawnCandidates::new(radius, offset),
+            next_candidate_index: 0,
+        }
     }
 
     /// `scheduleNext`.
@@ -163,7 +187,11 @@ impl PlayerSpawnFinder {
         self.next_candidate_index += 1;
         if index < self.candidates.candidate_count {
             let (dx, dz) = self.candidates.delta(index);
-            Step::Candidate(Candidate { x: self.spawn_suggestion.x() + dx, z: self.spawn_suggestion.z() + dz, index })
+            Step::Candidate(Candidate {
+                x: self.spawn_suggestion.x() + dx,
+                z: self.spawn_suggestion.z() + dz,
+                index,
+            })
         } else {
             Step::Fallback(self.spawn_suggestion)
         }
@@ -191,16 +219,24 @@ mod tests {
     #[test]
     fn candidates_cover_the_square_exactly_once_without_repeats() {
         for radius in [0, 1, 2, 5, 10, 16, 20] {
-            let mut finder = PlayerSpawnFinder::with_offset(BlockPos::new(100, 64, -50), radius, 3 % (((2 * radius + 1) * (2 * radius + 1)).min(1024)));
+            let mut finder = PlayerSpawnFinder::with_offset(
+                BlockPos::new(100, 64, -50),
+                radius,
+                3 % (((2 * radius + 1) * (2 * radius + 1)).min(1024)),
+            );
             let mut seen = std::collections::HashSet::new();
             let n = finder.candidate_count();
             for i in 0..n {
-                let Step::Candidate(c) = finder.next_candidate() else { panic!("fallback too early") };
+                let Step::Candidate(c) = finder.next_candidate() else {
+                    panic!("fallback too early")
+                };
                 assert_eq!(c.index, i);
                 assert!((c.x - 100).abs() <= radius && (c.z + 50).abs() <= radius);
                 assert!(seen.insert((c.x, c.z)), "repeat at radius {radius}");
             }
-            assert!(matches!(finder.next_candidate(), Step::Fallback(p) if p == BlockPos::new(100, 64, -50)));
+            assert!(
+                matches!(finder.next_candidate(), Step::Fallback(p) if p == BlockPos::new(100, 64, -50))
+            );
             if n as i64 == (2 * radius as i64 + 1).pow(2) {
                 assert_eq!(seen.len() as i32, n);
             }
@@ -209,7 +245,12 @@ mod tests {
 
     #[test]
     fn radius_clamps_like_vanilla() {
-        let mk = |adv, rule, dist| match PlayerSpawnFinder::find_spawn(adv, rule, dist, BlockPos::ZERO) {
+        let mk = |adv, rule, dist| match PlayerSpawnFinder::find_spawn(
+            adv,
+            rule,
+            dist,
+            BlockPos::ZERO,
+        ) {
             FindSpawn::Search(f) => f.radius(),
             FindSpawn::Adventure(_) => -1,
         };

@@ -1,20 +1,22 @@
 //! `PrepareRamNearestTarget`.
 
-use mc_game_core::world::entity::ai::behavior::behavior_utils;
-use mc_game_core::world::entity::ai::behavior::position_tracker::{EntityTracker, PositionTracker};
-use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase};
-use mc_game_core::entry_condition;
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::entity::EntityId;
-use mc_game_core::world::entity::ai::memory::memory_module_type::{LOOK_TARGET, NEAREST_VISIBLE_LIVING_ENTITIES, RAM_COOLDOWN_TICKS, RAM_TARGET, WALK_TARGET};
-use mc_game_core::world::entity::ai::memory::WalkTarget;
-use mc_game_core::world::entity::ai::targeting::TargetingConditions;
-use mc_game_core::world::entity::entity::Entity;
-use mc_game_core::world::entity::mob::navigation;
 use mc_core::direction::Direction;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_data::SoundEvent;
+use mc_game_core::entry_condition;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::EntityId;
+use mc_game_core::world::entity::ai::behavior::behavior_utils;
+use mc_game_core::world::entity::ai::behavior::position_tracker::{EntityTracker, PositionTracker};
+use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase};
+use mc_game_core::world::entity::ai::memory::WalkTarget;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{
+    LOOK_TARGET, NEAREST_VISIBLE_LIVING_ENTITIES, RAM_COOLDOWN_TICKS, RAM_TARGET, WALK_TARGET,
+};
+use mc_game_core::world::entity::ai::targeting::TargetingConditions;
+use mc_game_core::world::entity::entity::Entity;
+use mc_game_core::world::entity::mob::navigation;
 use mc_protocol::packets::play::SoundSource;
 
 /// `TIME_OUT_DURATION`.
@@ -82,7 +84,12 @@ impl PrepareRamNearestTarget {
         }
     }
 
-    fn calculate_ramming_start_position(&self, level: &mut ServerLevel, body: &mut dyn Entity, ramable_target: EntityId) -> Option<BlockPos> {
+    fn calculate_ramming_start_position(
+        &self,
+        level: &mut ServerLevel,
+        body: &mut dyn Entity,
+        ramable_target: EntityId,
+    ) -> Option<BlockPos> {
         let target_pos = level.get_entity(ramable_target)?.block_position();
         if !Self::is_walkable_block(level, body, target_pos) {
             return None;
@@ -93,25 +100,42 @@ impl PrepareRamNearestTarget {
             for _ in 0..self.max_ram_distance {
                 let next = walkable_pos_furthest_away_from_target.relative(direction);
                 if !Self::is_walkable_block(level, body, next) {
-                    walkable_pos_furthest_away_from_target = walkable_pos_furthest_away_from_target.relative(direction.get_opposite());
+                    walkable_pos_furthest_away_from_target =
+                        walkable_pos_furthest_away_from_target.relative(direction.get_opposite());
                     break;
                 }
                 walkable_pos_furthest_away_from_target = next;
             }
-            if walkable_pos_furthest_away_from_target.dist_manhattan(&target_pos) >= self.min_ram_distance {
+            if walkable_pos_furthest_away_from_target.dist_manhattan(&target_pos)
+                >= self.min_ram_distance
+            {
                 possible_ram_positions.push(walkable_pos_furthest_away_from_target);
             }
         }
         let body_pos = body.block_position();
-        possible_ram_positions.sort_by(|a, b| body_pos.dist_sqr(a).total_cmp(&body_pos.dist_sqr(b)));
-        possible_ram_positions.into_iter().find(|&pos| navigation::create_path_pos(body, level, pos, 0).is_some_and(|p| p.can_reach()))
+        possible_ram_positions
+            .sort_by(|a, b| body_pos.dist_sqr(a).total_cmp(&body_pos.dist_sqr(b)));
+        possible_ram_positions.into_iter().find(|&pos| {
+            navigation::create_path_pos(body, level, pos, 0).is_some_and(|p| p.can_reach())
+        })
     }
 
-    fn choose_ram_position(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, ramable_target: EntityId) {
+    fn choose_ram_position(
+        &mut self,
+        level: &mut ServerLevel,
+        body: &mut dyn Entity,
+        ramable_target: EntityId,
+    ) {
         self.reached_ram_position_timestamp = None;
-        self.ram_candidate = self.calculate_ramming_start_position(level, body, ramable_target).and_then(|pos| {
-            level.get_entity(ramable_target).map(|t| RamCandidate { start_position: pos, target_position: t.block_position(), target: ramable_target })
-        });
+        self.ram_candidate = self
+            .calculate_ramming_start_position(level, body, ramable_target)
+            .and_then(|pos| {
+                level.get_entity(ramable_target).map(|t| RamCandidate {
+                    start_position: pos,
+                    target_position: t.block_position(),
+                    target: ramable_target,
+                })
+            });
     }
 }
 
@@ -120,7 +144,11 @@ impl Behavior for PrepareRamNearestTarget {
         let closest = body
             .brain()
             .get_memory(&NEAREST_VISIBLE_LIVING_ENTITIES)
-            .and_then(|e| e.find_closest(&*level, &*body, |entity| self.ram_targeting.test(&*level, Some(&*body), entity)));
+            .and_then(|e| {
+                e.find_closest(&*level, &*body, |entity| {
+                    self.ram_targeting.test(&*level, Some(&*body), entity)
+                })
+            });
         if let Some(living_entity) = closest {
             self.choose_ram_position(level, body, living_entity.0);
         }
@@ -134,17 +162,32 @@ impl Behavior for PrepareRamNearestTarget {
         }
     }
 
-    fn can_still_use(&mut self, level: &mut ServerLevel, _body: &mut dyn Entity, _timestamp: i64) -> bool {
-        self.ram_candidate.as_ref().is_some_and(|c| level.get_entity(c.target).is_some_and(|t| t.is_alive()))
+    fn can_still_use(
+        &mut self,
+        level: &mut ServerLevel,
+        _body: &mut dyn Entity,
+        _timestamp: i64,
+    ) -> bool {
+        self.ram_candidate
+            .as_ref()
+            .is_some_and(|c| level.get_entity(c.target).is_some_and(|t| t.is_alive()))
     }
 
     fn tick(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, timestamp: i64) {
-        let Some(candidate) = self.ram_candidate.clone() else { return };
-        let Some(target) = level.get_entity(candidate.target) else { return };
+        let Some(candidate) = self.ram_candidate.clone() else {
+            return;
+        };
+        let Some(target) = level.get_entity(candidate.target) else {
+            return;
+        };
         let look = EntityTracker::new(target, true);
         let did_target_move = target.block_position() != candidate.target_position;
-        body.brain_mut().set_memory(&WALK_TARGET, WalkTarget::from_block_pos(candidate.start_position, self.walk_speed, 0));
-        body.brain_mut().set_memory(&LOOK_TARGET, PositionTracker::Entity(look));
+        body.brain_mut().set_memory(
+            &WALK_TARGET,
+            WalkTarget::from_block_pos(candidate.start_position, self.walk_speed, 0),
+        );
+        body.brain_mut()
+            .set_memory(&LOOK_TARGET, PositionTracker::Entity(look));
         if did_target_move {
             level.broadcast_entity_event(body.id(), 59);
             navigation::stop(body, level);
@@ -156,11 +199,23 @@ impl Behavior for PrepareRamNearestTarget {
                 if self.reached_ram_position_timestamp.is_none() {
                     self.reached_ram_position_timestamp = Some(timestamp);
                 }
-                if timestamp - self.reached_ram_position_timestamp.expect("set above") >= i64::from(self.ram_prepare_time) {
-                    body.brain_mut().set_memory(&RAM_TARGET, Self::get_edge_of_block(start_ram_pos, candidate.target_position));
+                if timestamp - self.reached_ram_position_timestamp.expect("set above")
+                    >= i64::from(self.ram_prepare_time)
+                {
+                    body.brain_mut().set_memory(
+                        &RAM_TARGET,
+                        Self::get_edge_of_block(start_ram_pos, candidate.target_position),
+                    );
                     let sound = (self.get_prepare_ram_sound)(&*body);
                     let pitch = body.get_voice_pitch();
-                    behavior_utils::play_sound_from_entity(level, body.id(), sound, SoundSource::Neutral, 1.0, pitch);
+                    behavior_utils::play_sound_from_entity(
+                        level,
+                        body.id(),
+                        sound,
+                        SoundSource::Neutral,
+                        1.0,
+                        pitch,
+                    );
                     self.ram_candidate = None;
                 }
             }

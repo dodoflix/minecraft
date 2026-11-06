@@ -7,16 +7,34 @@ pub struct WallTorchBlock;
 /// `WallTorchBlock.canSurvive(level, pos, facing)`.
 pub fn can_survive(level: &dyn LevelReader, pos: BlockPos, facing: Direction) -> bool {
     let relative_pos = pos.relative(facing.get_opposite());
-    level.get_block_state(relative_pos).is_face_sturdy_at(level, relative_pos, facing)
+    level
+        .get_block_state(relative_pos)
+        .is_face_sturdy_at(level, relative_pos, facing)
 }
 
 /// `updateShape` shared with `RedstoneWallTorchBlock`.
-pub fn update_shape(state: BlockState, level: &dyn LevelReader, pos: BlockPos, direction_to_neighbour: Direction) -> BlockState {
-    if direction_to_neighbour.get_opposite() == state.get(props::HORIZONTAL_FACING) && !state.can_survive(level, pos) { air() } else { state }
+pub fn update_shape(
+    state: BlockState,
+    level: &dyn LevelReader,
+    pos: BlockPos,
+    direction_to_neighbour: Direction,
+) -> BlockState {
+    if direction_to_neighbour.get_opposite() == state.get(props::HORIZONTAL_FACING)
+        && !state.can_survive(level, pos)
+    {
+        air()
+    } else {
+        state
+    }
 }
 
 impl BlockBehaviour for WallTorchBlock {
-    fn get_state_for_placement(&self, block: Block, level: &mut mc_game_core::server::level::ServerLevel, context: &mc_game_core::world::item::BlockPlaceContext) -> Option<BlockState> {
+    fn get_state_for_placement(
+        &self,
+        block: Block,
+        level: &mut mc_game_core::server::level::ServerLevel,
+        context: &mc_game_core::world::item::BlockPlaceContext,
+    ) -> Option<BlockState> {
         let mut state = block.default_state();
         let pos = context.get_clicked_pos();
         for direction in context.get_nearest_looking_directions() {

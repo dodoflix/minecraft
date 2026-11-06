@@ -1,26 +1,30 @@
 //! `ZombieHorse`: eats rotten flesh, spawns with a zombie jockey, mob-controlled when ridden by a mob.
 
-use mc_game_core::world::entity::animal::equine::abstract_horse::{self, AbstractHorse, AbstractHorseData, DATA_ID_FLAGS};
-use mc_game_core::registry::RegistryAccess;
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::damagesource::DamageSource;
-use mc_game_core::world::difficulty_instance::DifficultyInstance;
-use mc_game_core::world::entity::ai::goal::{FloatGoal, TemptGoal};
-use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
-use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
-use mc_game_core::world::entity::equipment::EquipmentSlot;
-use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
-use mc_game_core::world::entity::mob::{self, MobData, MobKind};
-use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
-use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
-use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
-use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::enums::{EntitySpawnReason, Pose};
 use mc_data::{Attribute, EntityType, Item, SoundEvent};
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::goal::{FloatGoal, TemptGoal};
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::animal::equine::abstract_horse::{
+    self, AbstractHorse, AbstractHorseData, DATA_ID_FLAGS,
+};
+use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
+use mc_game_core::world::entity::equipment::EquipmentSlot;
+use mc_game_core::world::entity::factory::{
+    ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest,
+};
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
+use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use std::sync::Arc;
 
 const SPEED_FACTOR: f32 = 42.16;
@@ -29,7 +33,8 @@ const SPEED_FACTOR: f32 = 42.16;
 fn baby_dimensions() -> EntityDimensions {
     let ty = EntityType::ZOMBIE_HORSE;
     let base = EntityDimensions::of_type(ty);
-    let attachments = EntityAttachments::create_default(base.width, base.height).with_passenger(Vec3::new(0.0, f64::from(ty.data().height - 0.25), 0.0));
+    let attachments = EntityAttachments::create_default(base.width, base.height)
+        .with_passenger(Vec3::new(0.0, f64::from(ty.data().height - 0.25), 0.0));
     base.with_attachments(attachments).scale(0.7)
 }
 
@@ -61,14 +66,29 @@ impl ZombieHorse {
         let mob = MobData::new(ty, id, MobKind::Animal, |b| {
             b.define(DATA_ID_FLAGS, 0i8);
         });
-        let mut horse = ZombieHorse { mob, horse: AbstractHorseData::new() };
+        let mut horse = ZombieHorse {
+            mob,
+            horse: AbstractHorseData::new(),
+        };
         let navigation = StandardPathNavigation::ground(&horse);
         horse.mob.set_navigation(Box::new(navigation));
         abstract_horse::register_goals(&mut horse, |horse| {
             let float = FloatGoal::new(horse);
             let goals = &mut horse.mob.goal_selector;
             goals.add_goal(0, Box::new(float));
-            goals.add_goal(3, Box::new(TemptGoal::new(1.25, Arc::new(|stack: &ItemStack| mc_game_core::world::entity::animal::equine::item_in_tag(stack, "zombie_horse_food")), false)));
+            goals.add_goal(
+                3,
+                Box::new(TemptGoal::new(
+                    1.25,
+                    Arc::new(|stack: &ItemStack| {
+                        mc_game_core::world::entity::animal::equine::item_in_tag(
+                            stack,
+                            "zombie_horse_food",
+                        )
+                    }),
+                    false,
+                )),
+            );
         });
         horse.create_inventory();
         horse
@@ -113,10 +133,20 @@ impl Entity for ZombieHorse {
     }
 
     fn get_dimensions(&self, _pose: Pose) -> EntityDimensions {
-        if self.is_baby() { baby_dimensions() } else { EntityDimensions::of_type(self.mob.living.entity.entity_type) }
+        if self.is_baby() {
+            baby_dimensions()
+        } else {
+            EntityDimensions::of_type(self.mob.living.entity.entity_type)
+        }
     }
 
-    fn interact(&mut self, level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand, location: Vec3) -> InteractionResult {
+    fn interact(
+        &mut self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        hand: InteractionHand,
+        location: Vec3,
+    ) -> InteractionResult {
         self.mob.persistence_required = true;
         mob::interact::interact(self, level, player, hand, location)
     }
@@ -141,16 +171,36 @@ impl Entity for ZombieHorse {
         abstract_horse::is_immobile(self)
     }
 
-    fn cause_fall_damage(&mut self, level: &mut ServerLevel, fall_distance: f64, damage_modifier: f32, source: &DamageSource) -> bool {
+    fn cause_fall_damage(
+        &mut self,
+        level: &mut ServerLevel,
+        fall_distance: f64,
+        damage_modifier: f32,
+        source: &DamageSource,
+    ) -> bool {
         abstract_horse::cause_fall_damage(self, level, fall_distance, damage_modifier, source)
     }
 
-    fn play_step_sound(&mut self, level: &mut ServerLevel, pos: BlockPos, state: mc_data::block::BlockState) {
+    fn play_step_sound(
+        &mut self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        state: mc_data::block::BlockState,
+    ) {
         abstract_horse::play_step_sound(self, level, pos, state);
     }
 
-    fn get_passenger_attachment_point(&self, passenger: &dyn Entity, dimensions: &EntityDimensions, scale: f32) -> Vec3 {
-        let base = mc_game_core::world::entity::entity::default_passenger_attachment_point(self.as_dyn(), passenger, &dimensions.attachments);
+    fn get_passenger_attachment_point(
+        &self,
+        passenger: &dyn Entity,
+        dimensions: &EntityDimensions,
+        scale: f32,
+    ) -> Vec3 {
+        let base = mc_game_core::world::entity::entity::default_passenger_attachment_point(
+            self.as_dyn(),
+            passenger,
+            &dimensions.attachments,
+        );
         abstract_horse::get_passenger_attachment_point(self, base, scale)
     }
 
@@ -170,8 +220,14 @@ impl Entity for ZombieHorse {
         Some(SoundEvent::ENTITY_ZOMBIE_HORSE_HURT)
     }
 
-    fn mob_interact(&mut self, level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) -> InteractionResult {
-        let should_open_inventory = !self.is_baby() && abstract_horse::is_tamed(self) && player.is_shift_key_down();
+    fn mob_interact(
+        &mut self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        hand: InteractionHand,
+    ) -> InteractionResult {
+        let should_open_inventory =
+            !self.is_baby() && abstract_horse::is_tamed(self) && player.is_shift_key_down();
         if !self.base().is_vehicle() && !should_open_inventory {
             let item_stack = player.get_item_in_hand(hand);
             if !item_stack.is_empty() {
@@ -213,8 +269,19 @@ impl Entity for ZombieHorse {
         1.4
     }
 
-    fn get_breed_offspring(&mut self, level: &mut ServerLevel, _partner: EntityId) -> Option<Box<dyn Entity>> {
-        mc_game_core::world::entity::factory::create(EntityType::ZOMBIE_HORSE, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })
+    fn get_breed_offspring(
+        &mut self,
+        level: &mut ServerLevel,
+        _partner: EntityId,
+    ) -> Option<Box<dyn Entity>> {
+        mc_game_core::world::entity::factory::create(
+            EntityType::ZOMBIE_HORSE,
+            level,
+            EntitySpawnRequest {
+                reason: EntitySpawnReason::Breeding,
+                ignore_checks: false,
+            },
+        )
     }
 
     fn finalize_spawn(
@@ -225,12 +292,28 @@ impl Entity for ZombieHorse {
         group_data: Option<Box<dyn SpawnGroupData>>,
     ) -> Option<Box<dyn SpawnGroupData>> {
         if reason == EntitySpawnReason::Natural {
-            if let Some(mut zombie) = level.create_entity(EntityType::ZOMBIE, EntitySpawnRequest { reason: EntitySpawnReason::Jockey, ignore_checks: false }) {
+            if let Some(mut zombie) = level.create_entity(
+                EntityType::ZOMBIE,
+                EntitySpawnRequest {
+                    reason: EntitySpawnReason::Jockey,
+                    ignore_checks: false,
+                },
+            ) {
                 let (p, y_rot) = (self.position(), self.base().y_rot());
                 zombie.snap_to(p.x, p.y, p.z, y_rot, 0.0);
                 zombie.finalize_spawn(level, difficulty.clone(), reason, None);
-                mob::equipment::set_item_slot_spawn(zombie.as_mut(), EquipmentSlot::MainHand, ItemStack::new(Item::IRON_SPEAR));
-                mc_game_core::world::entity::monster::zombie::start_riding_fresh_vehicle(zombie.as_mut(), self, false, false, level);
+                mob::equipment::set_item_slot_spawn(
+                    zombie.as_mut(),
+                    EquipmentSlot::MainHand,
+                    ItemStack::new(Item::IRON_SPEAR),
+                );
+                mc_game_core::world::entity::monster::zombie::start_riding_fresh_vehicle(
+                    zombie.as_mut(),
+                    self,
+                    false,
+                    false,
+                    level,
+                );
                 level.add_fresh_entity_with_passengers(zombie);
             }
         }
@@ -240,5 +323,7 @@ impl Entity for ZombieHorse {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static ZOMBIE_HORSE: EntityRegistration =
-    EntityRegistration { entity_type: EntityType::ZOMBIE_HORSE, create: |ty, id, registries| Box::new(ZombieHorse::new(ty, id, registries)) };
+static ZOMBIE_HORSE: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::ZOMBIE_HORSE,
+    create: |ty, id, registries| Box::new(ZombieHorse::new(ty, id, registries)),
+};

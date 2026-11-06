@@ -1,18 +1,23 @@
 //! `ListPoolElement` (`list_pool_element`): several elements placed at the same position; the first one provides the
 //! jigsaw blocks.
 
-use mc_game_core::world::level::levelgen::structure::pools::structure_pool_element::{ElementCodecCtx, STRUCTURE_POOL_ELEMENT_TYPES, StructurePoolElement, StructurePoolElementType, decode_element, encode_element, parse_projection};
-use mc_game_core::world::level::levelgen::structure::pools::structure_template_pool::Projection;
-use mc_game_core::world::level::levelgen::codec::*;
-use mc_game_core::world::level::levelgen::env::GenEnv;
-use mc_game_core::world::level::levelgen::structure::StructureManager;
-use mc_game_core::world::level::levelgen::structure::templatesystem::structure_template::JigsawBlockInfo;
-use mc_game_core::world::level::levelgen::structure::templatesystem::{LiquidSettings, StructureTemplateManager};
-use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::bounding_box::BoundingBox;
 use mc_core::pos::{BlockPos, Vec3i};
 use mc_core::random::RandomSource;
 use mc_core::rotation::Rotation;
+use mc_game_core::world::level::levelgen::codec::*;
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::structure::StructureManager;
+use mc_game_core::world::level::levelgen::structure::pools::structure_pool_element::{
+    ElementCodecCtx, STRUCTURE_POOL_ELEMENT_TYPES, StructurePoolElement, StructurePoolElementType,
+    decode_element, encode_element, parse_projection,
+};
+use mc_game_core::world::level::levelgen::structure::pools::structure_template_pool::Projection;
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_template::JigsawBlockInfo;
+use mc_game_core::world::level::levelgen::structure::templatesystem::{
+    LiquidSettings, StructureTemplateManager,
+};
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_nbt::{CompoundTag, ListTag, Tag};
 use std::fmt;
 use std::sync::Arc;
@@ -25,9 +30,18 @@ pub struct ListPoolElement {
 impl ListPoolElement {
     /// `new ListPoolElement(elements, projection)`: panics on an empty list (`IllegalArgumentException`). The projection is
     /// set on every element.
-    pub fn new(elements: Vec<Arc<dyn StructurePoolElement>>, projection: Projection) -> ListPoolElement {
+    pub fn new(
+        elements: Vec<Arc<dyn StructurePoolElement>>,
+        projection: Projection,
+    ) -> ListPoolElement {
         assert!(!elements.is_empty(), "Elements are empty");
-        ListPoolElement { elements: elements.iter().map(|e| e.with_projection(projection)).collect(), projection }
+        ListPoolElement {
+            elements: elements
+                .iter()
+                .map(|e| e.with_projection(projection))
+                .collect(),
+            projection,
+        }
     }
 
     /// `getElements()`.
@@ -38,7 +52,15 @@ impl ListPoolElement {
 
 impl fmt::Display for ListPoolElement {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "List[{}]", self.elements.iter().map(ToString::to_string).collect::<Vec<_>>().join(", "))
+        write!(
+            f,
+            "List[{}]",
+            self.elements
+                .iter()
+                .map(ToString::to_string)
+                .collect::<Vec<_>>()
+                .join(", ")
+        )
     }
 }
 
@@ -54,13 +76,29 @@ impl StructurePoolElement for ListPoolElement {
         Vec3i::new(size_x, size_y, size_z)
     }
 
-    fn get_shuffled_jigsaw_blocks(&self, manager: &StructureTemplateManager, position: BlockPos, rotation: Rotation, random: &mut dyn RandomSource) -> Vec<JigsawBlockInfo> {
+    fn get_shuffled_jigsaw_blocks(
+        &self,
+        manager: &StructureTemplateManager,
+        position: BlockPos,
+        rotation: Rotation,
+        random: &mut dyn RandomSource,
+    ) -> Vec<JigsawBlockInfo> {
         self.elements[0].get_shuffled_jigsaw_blocks(manager, position, rotation, random)
     }
 
-    fn get_bounding_box(&self, manager: &StructureTemplateManager, position: BlockPos, rotation: Rotation) -> BoundingBox {
-        BoundingBox::encapsulating_boxes(self.elements.iter().filter(|e| !e.is_empty_element()).map(|e| e.get_bounding_box(manager, position, rotation)))
-            .expect("Unable to calculate boundingbox for ListPoolElement")
+    fn get_bounding_box(
+        &self,
+        manager: &StructureTemplateManager,
+        position: BlockPos,
+        rotation: Rotation,
+    ) -> BoundingBox {
+        BoundingBox::encapsulating_boxes(
+            self.elements
+                .iter()
+                .filter(|e| !e.is_empty_element())
+                .map(|e| e.get_bounding_box(manager, position, rotation)),
+        )
+        .expect("Unable to calculate boundingbox for ListPoolElement")
     }
 
     fn place(
@@ -78,7 +116,19 @@ impl StructurePoolElement for ListPoolElement {
         keep_jigsaws: bool,
     ) -> bool {
         self.elements.iter().all(|element| {
-            element.place(manager, level, structure_manager, generator, position, reference_pos, rotation, chunk_bb, random, liquid_settings, keep_jigsaws)
+            element.place(
+                manager,
+                level,
+                structure_manager,
+                generator,
+                position,
+                reference_pos,
+                rotation,
+                chunk_bb,
+                random,
+                liquid_settings,
+                keep_jigsaws,
+            )
         })
     }
 

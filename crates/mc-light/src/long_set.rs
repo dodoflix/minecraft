@@ -9,7 +9,11 @@ fn mix(x: i64) -> usize {
 }
 
 fn next_power_of_two(x: u64) -> u64 {
-    if x == 0 { 1 } else { (x - 1).next_power_of_two().max(1) }
+    if x == 0 {
+        1
+    } else {
+        (x - 1).next_power_of_two().max(1)
+    }
 }
 
 /// `HashCommon.arraySize(expected, f)`.
@@ -45,7 +49,15 @@ impl LongOpenHashSet {
     /// `new LongOpenHashSet(expected, f)`.
     pub fn with_capacity(expected: usize, f: f32) -> Self {
         let n = array_size(expected, f);
-        LongOpenHashSet { key: vec![0; n], mask: n - 1, contains_null: false, n, max_fill: max_fill(n, f), size: 0, f }
+        LongOpenHashSet {
+            key: vec![0; n],
+            mask: n - 1,
+            contains_null: false,
+            n,
+            max_fill: max_fill(n, f),
+            size: 0,
+            f,
+        }
     }
 
     pub fn len(&self) -> usize {
@@ -88,7 +100,11 @@ impl LongOpenHashSet {
         let mask = new_n - 1;
         let mut new_key = vec![0i64; new_n];
         let mut i = self.n;
-        let real = if self.contains_null { self.size - 1 } else { self.size };
+        let real = if self.contains_null {
+            self.size - 1
+        } else {
+            self.size
+        };
         for _ in 0..real {
             loop {
                 i -= 1;
@@ -129,6 +145,9 @@ impl LongOpenHashSet {
 
     /// Iteration order of `iterator()`: the `0` key first, then slots from the top down.
     pub fn iter(&self) -> impl Iterator<Item = i64> + '_ {
-        self.contains_null.then_some(0).into_iter().chain(self.key.iter().rev().copied().filter(|&k| k != 0))
+        self.contains_null
+            .then_some(0)
+            .into_iter()
+            .chain(self.key.iter().rev().copied().filter(|&k| k != 0))
     }
 }

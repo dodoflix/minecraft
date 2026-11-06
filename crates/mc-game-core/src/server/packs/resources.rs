@@ -44,13 +44,20 @@ pub struct ResourceMetadata {
 }
 
 impl ResourceMetadata {
-    pub const EMPTY: ResourceMetadata = ResourceMetadata { sections: None, built_in: None };
+    pub const EMPTY: ResourceMetadata = ResourceMetadata {
+        sections: None,
+        built_in: None,
+    };
 
     /// `ResourceMetadata.fromJsonStream`: the top level must be a JSON object.
     pub fn from_json_bytes(bytes: &[u8]) -> Result<ResourceMetadata, MetadataError> {
-        let text = std::str::from_utf8(bytes).map_err(|e| MetadataError::Json(format!("Malformed input: {e}")))?;
+        let text = std::str::from_utf8(bytes)
+            .map_err(|e| MetadataError::Json(format!("Malformed input: {e}")))?;
         match serde_json::from_str::<Value>(text) {
-            Ok(Value::Object(map)) => Ok(ResourceMetadata { sections: Some(map), built_in: None }),
+            Ok(Value::Object(map)) => Ok(ResourceMetadata {
+                sections: Some(map),
+                built_in: None,
+            }),
             Ok(other) => Err(MetadataError::Json(format!(
                 "Expected a com.google.gson.JsonObject but was {}",
                 match other {
@@ -70,12 +77,21 @@ impl ResourceMetadata {
 
     /// The raw JSON of section `name` (the file's, else the built-in one).
     pub fn section(&self, name: &str) -> Option<&Value> {
-        self.sections.as_ref().and_then(|m| m.get(name)).or_else(|| self.built_in.as_ref().and_then(|m| m.get(name)))
+        self.sections
+            .as_ref()
+            .and_then(|m| m.get(name))
+            .or_else(|| self.built_in.as_ref().and_then(|m| m.get(name)))
     }
 
     /// Parse the section `name` of this metadata with `codec`; a codec failure is a `JsonParseException`.
-    pub fn get<T>(&self, name: &str, codec: impl FnOnce(&Value) -> Result<T, String>) -> Result<Option<T>, MetadataError> {
-        self.section(name).map(|v| codec(v).map_err(MetadataError::Json)).transpose()
+    pub fn get<T>(
+        &self,
+        name: &str,
+        codec: impl FnOnce(&Value) -> Result<T, String>,
+    ) -> Result<Option<T>, MetadataError> {
+        self.section(name)
+            .map(|v| codec(v).map_err(MetadataError::Json))
+            .transpose()
     }
 }
 
@@ -98,7 +114,13 @@ pub trait PackResources: Send + Sync {
     fn get_resource(&self, ty: PackType, location: &Identifier) -> Option<IoSupplier>;
 
     /// `listResources(type, namespace, directory, output)`.
-    fn list_resources(&self, ty: PackType, namespace: &str, directory: &str, output: &mut dyn FnMut(Identifier, IoSupplier));
+    fn list_resources(
+        &self,
+        ty: PackType,
+        namespace: &str,
+        directory: &str,
+        output: &mut dyn FnMut(Identifier, IoSupplier),
+    );
 
     fn get_namespaces(&self, ty: PackType) -> HashSet<String>;
 
@@ -109,7 +131,10 @@ pub trait PackResources: Send + Sync {
 }
 
 /// `AbstractPackMetadataResources.loadMetadata`.
-fn load_metadata(pack: &dyn PackResources, built_in: Option<&Map<String, Value>>) -> Result<ResourceMetadata, MetadataError> {
+fn load_metadata(
+    pack: &dyn PackResources,
+    built_in: Option<&Map<String, Value>>,
+) -> Result<ResourceMetadata, MetadataError> {
     let mut meta = match pack.get_root_resource(&["pack.mcmeta"]) {
         None => ResourceMetadata::EMPTY,
         Some(supplier) => {
@@ -123,7 +148,10 @@ fn load_metadata(pack: &dyn PackResources, built_in: Option<&Map<String, Value>>
     Ok(meta)
 }
 
-fn cached_metadata(cache: &Mutex<Option<Arc<ResourceMetadata>>>, load: impl FnOnce() -> Result<ResourceMetadata, MetadataError>) -> Result<Arc<ResourceMetadata>, MetadataError> {
+fn cached_metadata(
+    cache: &Mutex<Option<Arc<ResourceMetadata>>>,
+    load: impl FnOnce() -> Result<ResourceMetadata, MetadataError>,
+) -> Result<Arc<ResourceMetadata>, MetadataError> {
     let mut guard = cache.lock().unwrap_or_else(|e| e.into_inner());
     if let Some(m) = guard.as_ref() {
         return Ok(m.clone());
@@ -139,7 +167,10 @@ fn file_supplier(path: PathBuf) -> IoSupplier {
 
 /// `FileUtil.STRICT_PATH_SEGMENT_CHECK` (`[-._a-z0-9]+`).
 fn allowed_segment(segment: &str) -> bool {
-    !segment.is_empty() && segment.bytes().all(|b| matches!(b, b'-' | b'.' | b'_' | b'a'..=b'z' | b'0'..=b'9'))
+    !segment.is_empty()
+        && segment
+            .bytes()
+            .all(|b| matches!(b, b'-' | b'.' | b'_' | b'a'..=b'z' | b'0'..=b'9'))
 }
 
 /// `FileUtil.decomposePath`.
@@ -181,7 +212,11 @@ pub struct PathPackResources {
 
 impl PathPackResources {
     pub fn new(location: PackLocationInfo, root: PathBuf) -> PathPackResources {
-        PathPackResources { location, root, meta: Mutex::new(None) }
+        PathPackResources {
+            location,
+            root,
+            meta: Mutex::new(None),
+        }
     }
 
     fn top_pack_dir(&self, ty: PackType) -> PathBuf {
@@ -189,10 +224,20 @@ impl PathPackResources {
     }
 
     /// `PathPackResources.listPath`.
-    fn list_path(namespace: &str, top_dir: &Path, prefix: &[&str], output: &mut dyn FnMut(Identifier, IoSupplier)) {
+    fn list_path(
+        namespace: &str,
+        top_dir: &Path,
+        prefix: &[&str],
+        output: &mut dyn FnMut(Identifier, IoSupplier),
+    ) {
         let mut target = top_dir.to_path_buf();
         target.extend(prefix);
-        fn walk(dir: &Path, base: &Path, namespace: &str, output: &mut dyn FnMut(Identifier, IoSupplier)) -> io::Result<()> {
+        fn walk(
+            dir: &Path,
+            base: &Path,
+            namespace: &str,
+            output: &mut dyn FnMut(Identifier, IoSupplier),
+        ) -> io::Result<()> {
             for entry in fs::read_dir(dir)? {
                 let entry = entry?;
                 let path = entry.path();
@@ -202,10 +247,16 @@ impl PathPackResources {
                     walk(&path, base, namespace, output)?;
                 } else if meta.is_file() {
                     let rel = path.strip_prefix(base).unwrap_or(&path);
-                    let resource_path = rel.iter().map(|s| s.to_string_lossy()).collect::<Vec<_>>().join("/");
+                    let resource_path = rel
+                        .iter()
+                        .map(|s| s.to_string_lossy())
+                        .collect::<Vec<_>>()
+                        .join("/");
                     match Identifier::try_build(namespace, &resource_path) {
                         Some(id) => output(id, file_supplier(path)),
-                        None => log::error!("Invalid path in pack: {namespace}:{resource_path}, ignoring"),
+                        None => log::error!(
+                            "Invalid path in pack: {namespace}:{resource_path}, ignoring"
+                        ),
                     }
                 }
             }
@@ -227,7 +278,14 @@ impl PathPackResources {
         let mut namespaces = HashSet::new();
         let entries = match fs::read_dir(root_dir) {
             Ok(e) => e,
-            Err(e) if matches!(e.kind(), io::ErrorKind::NotFound | io::ErrorKind::NotADirectory) => return namespaces,
+            Err(e)
+                if matches!(
+                    e.kind(),
+                    io::ErrorKind::NotFound | io::ErrorKind::NotADirectory
+                ) =>
+            {
+                return namespaces;
+            }
             Err(e) => {
                 log::error!("Failed to list path {}: {e}", root_dir.display());
                 return namespaces;
@@ -237,11 +295,19 @@ impl PathPackResources {
             let path = entry.path();
             let name = entry.file_name().to_string_lossy().into_owned();
             if !path.is_dir() {
-                log::warn!("Non-directory entry {} found in namespace directory, rejecting", path.display());
+                log::warn!(
+                    "Non-directory entry {} found in namespace directory, rejecting",
+                    path.display()
+                );
             } else if namespace_valid(&name) {
                 namespaces.insert(name);
             } else {
-                log::warn!("Non {} character in namespace {} in pack directory {}, ignoring", "[a-z0-9_.-]", name, root_dir.display());
+                log::warn!(
+                    "Non {} character in namespace {} in pack directory {}, ignoring",
+                    "[a-z0-9_.-]",
+                    name,
+                    root_dir.display()
+                );
             }
         }
         namespaces
@@ -276,9 +342,20 @@ impl PackResources for PathPackResources {
         p.exists().then(|| file_supplier(p))
     }
 
-    fn list_resources(&self, ty: PackType, namespace: &str, directory: &str, output: &mut dyn FnMut(Identifier, IoSupplier)) {
+    fn list_resources(
+        &self,
+        ty: PackType,
+        namespace: &str,
+        directory: &str,
+        output: &mut dyn FnMut(Identifier, IoSupplier),
+    ) {
         match decompose_path(directory) {
-            Ok(segments) => PathPackResources::list_path(namespace, &self.top_pack_dir(ty).join(namespace), &segments, output),
+            Ok(segments) => PathPackResources::list_path(
+                namespace,
+                &self.top_pack_dir(ty).join(namespace),
+                &segments,
+                output,
+            ),
             Err(e) => log::error!("Invalid path {directory}: {e}"),
         }
     }
@@ -299,18 +376,33 @@ pub struct PathResourcesSupplier {
 
 impl ResourcesSupplier for PathResourcesSupplier {
     fn open_metadata(&self, location: &PackLocationInfo) -> Arc<dyn PackResources> {
-        Arc::new(PathPackResources::new(location.clone(), self.content.clone()))
+        Arc::new(PathPackResources::new(
+            location.clone(),
+            self.content.clone(),
+        ))
     }
 
-    fn open_resources(&self, location: &PackLocationInfo, metadata: &PackMetadata) -> Vec<Arc<dyn PackResources>> {
-        let primary: Arc<dyn PackResources> = Arc::new(PathPackResources::new(location.clone(), self.content.clone()));
+    fn open_resources(
+        &self,
+        location: &PackLocationInfo,
+        metadata: &PackMetadata,
+    ) -> Vec<Arc<dyn PackResources>> {
+        let primary: Arc<dyn PackResources> = Arc::new(PathPackResources::new(
+            location.clone(),
+            self.content.clone(),
+        ));
         if metadata.overlays.is_empty() {
             return vec![primary];
         }
         let overlays = metadata
             .overlays
             .iter()
-            .map(|o| Arc::new(PathPackResources::new(location.clone(), self.content.join(o))) as Arc<dyn PackResources>)
+            .map(|o| {
+                Arc::new(PathPackResources::new(
+                    location.clone(),
+                    self.content.join(o),
+                )) as Arc<dyn PackResources>
+            })
             .collect();
         vec![Arc::new(OverlayedPackResources::new(primary, overlays))]
     }
@@ -332,17 +424,27 @@ enum ZipState {
 
 impl SharedZip {
     fn new(file: PathBuf) -> Arc<SharedZip> {
-        Arc::new(SharedZip { file, state: Mutex::new(ZipState::Unopened) })
+        Arc::new(SharedZip {
+            file,
+            state: Mutex::new(ZipState::Unopened),
+        })
     }
 
     /// Run `f` on the opened archive (`getOrCreateZipFile`); `None` when the zip could not be opened.
     fn with<R>(&self, f: impl FnOnce(&mut ZipArchive<File>) -> R) -> Option<R> {
         let mut state = self.state.lock().unwrap_or_else(|e| e.into_inner());
         if matches!(*state, ZipState::Unopened) {
-            *state = match File::open(&self.file).map_err(|e| e.to_string()).and_then(|f| ZipArchive::new(f).map_err(|e| e.to_string())) {
+            *state = match File::open(&self.file)
+                .map_err(|e| e.to_string())
+                .and_then(|f| ZipArchive::new(f).map_err(|e| e.to_string()))
+            {
                 Ok(zip) => ZipState::Open(zip),
                 Err(e) => {
-                    log::error!("Failed to open pack {}\n{}", self.file.display(), super::throwable("java.util.zip.ZipException", &e));
+                    log::error!(
+                        "Failed to open pack {}\n{}",
+                        self.file.display(),
+                        super::throwable("java.util.zip.ZipException", &e)
+                    );
                     ZipState::Failed
                 }
             };
@@ -361,7 +463,9 @@ impl SharedZip {
         let this = self.clone();
         Arc::new(move || {
             this.with(|zip| {
-                let mut entry = zip.by_name(&name).map_err(|e| io::Error::other(e.to_string()))?;
+                let mut entry = zip
+                    .by_name(&name)
+                    .map_err(|e| io::Error::other(e.to_string()))?;
                 let mut out = Vec::with_capacity(entry.size() as usize);
                 entry.read_to_end(&mut out)?;
                 Ok(out)
@@ -381,11 +485,20 @@ pub struct FilePackResources {
 
 impl FilePackResources {
     fn new(location: PackLocationInfo, zip: Arc<SharedZip>, prefix: String) -> FilePackResources {
-        FilePackResources { location, zip, prefix, meta: Mutex::new(None) }
+        FilePackResources {
+            location,
+            zip,
+            prefix,
+            meta: Mutex::new(None),
+        }
     }
 
     fn add_prefix(&self, path: &str) -> String {
-        if self.prefix.is_empty() { path.to_owned() } else { format!("{}/{path}", self.prefix) }
+        if self.prefix.is_empty() {
+            path.to_owned()
+        } else {
+            format!("{}/{path}", self.prefix)
+        }
     }
 
     fn resource(&self, path: &str) -> Option<IoSupplier> {
@@ -424,13 +537,33 @@ impl PackResources for FilePackResources {
     }
 
     fn get_resource(&self, ty: PackType, location: &Identifier) -> Option<IoSupplier> {
-        self.resource(&format!("{}/{}/{}", ty.directory(), location.namespace(), location.path()))
+        self.resource(&format!(
+            "{}/{}/{}",
+            ty.directory(),
+            location.namespace(),
+            location.path()
+        ))
     }
 
-    fn list_resources(&self, ty: PackType, namespace: &str, directory: &str, output: &mut dyn FnMut(Identifier, IoSupplier)) {
+    fn list_resources(
+        &self,
+        ty: PackType,
+        namespace: &str,
+        directory: &str,
+        output: &mut dyn FnMut(Identifier, IoSupplier),
+    ) {
         let root = self.add_prefix(&format!("{}/{namespace}/", ty.directory()));
         let prefix = format!("{root}{directory}/");
-        let names: Vec<String> = self.zip.with(|z| z.file_names().filter_map(Result::ok).filter(|n| !n.ends_with('/') && n.starts_with(&prefix)).map(Cow::into_owned).collect()).unwrap_or_default();
+        let names: Vec<String> = self
+            .zip
+            .with(|z| {
+                z.file_names()
+                    .filter_map(Result::ok)
+                    .filter(|n| !n.ends_with('/') && n.starts_with(&prefix))
+                    .map(Cow::into_owned)
+                    .collect()
+            })
+            .unwrap_or_default();
         for name in names {
             let path = &name[root.len()..];
             match Identifier::try_build(namespace, path) {
@@ -442,7 +575,15 @@ impl PackResources for FilePackResources {
 
     fn get_namespaces(&self, ty: PackType) -> HashSet<String> {
         let type_prefix = self.add_prefix(&format!("{}/", ty.directory()));
-        let names: Vec<String> = self.zip.with(|z| z.file_names().filter_map(Result::ok).map(Cow::into_owned).collect()).unwrap_or_default();
+        let names: Vec<String> = self
+            .zip
+            .with(|z| {
+                z.file_names()
+                    .filter_map(Result::ok)
+                    .map(Cow::into_owned)
+                    .collect()
+            })
+            .unwrap_or_default();
         let mut namespaces = HashSet::new();
         for name in names {
             let ns = FilePackResources::extract_namespace(&type_prefix, &name);
@@ -450,7 +591,12 @@ impl PackResources for FilePackResources {
                 if namespace_valid(&ns) {
                     namespaces.insert(ns);
                 } else {
-                    log::warn!("Non {} character in namespace {} in pack {}, ignoring", "[a-z0-9_.-]", ns, self.zip.file.display());
+                    log::warn!(
+                        "Non {} character in namespace {} in pack {}, ignoring",
+                        "[a-z0-9_.-]",
+                        ns,
+                        self.zip.file.display()
+                    );
                 }
             }
         }
@@ -473,19 +619,37 @@ pub struct FileResourcesSupplier {
 
 impl ResourcesSupplier for FileResourcesSupplier {
     fn open_metadata(&self, location: &PackLocationInfo) -> Arc<dyn PackResources> {
-        Arc::new(FilePackResources::new(location.clone(), SharedZip::new(self.content.clone()), String::new()))
+        Arc::new(FilePackResources::new(
+            location.clone(),
+            SharedZip::new(self.content.clone()),
+            String::new(),
+        ))
     }
 
-    fn open_resources(&self, location: &PackLocationInfo, metadata: &PackMetadata) -> Vec<Arc<dyn PackResources>> {
+    fn open_resources(
+        &self,
+        location: &PackLocationInfo,
+        metadata: &PackMetadata,
+    ) -> Vec<Arc<dyn PackResources>> {
         let access = SharedZip::new(self.content.clone());
-        let primary: Arc<dyn PackResources> = Arc::new(FilePackResources::new(location.clone(), access.clone(), String::new()));
+        let primary: Arc<dyn PackResources> = Arc::new(FilePackResources::new(
+            location.clone(),
+            access.clone(),
+            String::new(),
+        ));
         if metadata.overlays.is_empty() {
             return vec![primary];
         }
         let overlays = metadata
             .overlays
             .iter()
-            .map(|o| Arc::new(FilePackResources::new(location.clone(), access.clone(), o.clone())) as Arc<dyn PackResources>)
+            .map(|o| {
+                Arc::new(FilePackResources::new(
+                    location.clone(),
+                    access.clone(),
+                    o.clone(),
+                )) as Arc<dyn PackResources>
+            })
             .collect();
         vec![Arc::new(OverlayedPackResources::new(primary, overlays))]
     }
@@ -501,7 +665,10 @@ pub struct OverlayedPackResources {
 }
 
 impl OverlayedPackResources {
-    pub fn new(primary: Arc<dyn PackResources>, overlays: Vec<Arc<dyn PackResources>>) -> OverlayedPackResources {
+    pub fn new(
+        primary: Arc<dyn PackResources>,
+        overlays: Vec<Arc<dyn PackResources>>,
+    ) -> OverlayedPackResources {
         let mut stack: Vec<_> = overlays.into_iter().rev().collect();
         stack.push(primary.clone());
         OverlayedPackResources { primary, stack }
@@ -521,7 +688,13 @@ impl PackResources for OverlayedPackResources {
         self.stack.iter().find_map(|p| p.get_resource(ty, location))
     }
 
-    fn list_resources(&self, ty: PackType, namespace: &str, directory: &str, output: &mut dyn FnMut(Identifier, IoSupplier)) {
+    fn list_resources(
+        &self,
+        ty: PackType,
+        namespace: &str,
+        directory: &str,
+        output: &mut dyn FnMut(Identifier, IoSupplier),
+    ) {
         let mut result: HashMap<Identifier, IoSupplier> = HashMap::new();
         for pack in &self.stack {
             pack.list_resources(ty, namespace, directory, &mut |id, s| {
@@ -534,7 +707,10 @@ impl PackResources for OverlayedPackResources {
     }
 
     fn get_namespaces(&self, ty: PackType) -> HashSet<String> {
-        self.stack.iter().flat_map(|p| p.get_namespaces(ty)).collect()
+        self.stack
+            .iter()
+            .flat_map(|p| p.get_namespaces(ty))
+            .collect()
     }
 
     fn metadata(&self) -> Result<Arc<ResourceMetadata>, MetadataError> {
@@ -561,12 +737,27 @@ pub struct EmbeddedPackResources {
 }
 
 impl EmbeddedPackResources {
-    pub fn new(location: PackLocationInfo, root: String, exposed_namespaces: Option<HashSet<String>>, built_in_metadata: Option<Map<String, Value>>) -> Self {
-        EmbeddedPackResources { location, root, exposed_namespaces, built_in_metadata, meta: Mutex::new(None) }
+    pub fn new(
+        location: PackLocationInfo,
+        root: String,
+        exposed_namespaces: Option<HashSet<String>>,
+        built_in_metadata: Option<Map<String, Value>>,
+    ) -> Self {
+        EmbeddedPackResources {
+            location,
+            root,
+            exposed_namespaces,
+            built_in_metadata,
+            meta: Mutex::new(None),
+        }
     }
 
     fn supplier(path: String) -> IoSupplier {
-        Arc::new(move || mc_data::datapack::read(&path).map(|c| c.into_owned()).ok_or_else(|| io::Error::new(io::ErrorKind::NotFound, path.clone())))
+        Arc::new(move || {
+            mc_data::datapack::read(&path)
+                .map(|c| c.into_owned())
+                .ok_or_else(|| io::Error::new(io::ErrorKind::NotFound, path.clone()))
+        })
     }
 }
 
@@ -588,11 +779,23 @@ impl PackResources for EmbeddedPackResources {
             log::error!("Invalid path {location}: {e}");
             return None;
         }
-        let full = format!("{}{}/{}/{}", self.root, ty.directory(), location.namespace(), location.path());
+        let full = format!(
+            "{}{}/{}/{}",
+            self.root,
+            ty.directory(),
+            location.namespace(),
+            location.path()
+        );
         mc_data::datapack::exists(&full).then(|| EmbeddedPackResources::supplier(full))
     }
 
-    fn list_resources(&self, ty: PackType, namespace: &str, directory: &str, output: &mut dyn FnMut(Identifier, IoSupplier)) {
+    fn list_resources(
+        &self,
+        ty: PackType,
+        namespace: &str,
+        directory: &str,
+        output: &mut dyn FnMut(Identifier, IoSupplier),
+    ) {
         if let Err(e) = decompose_path(directory) {
             return log::error!("Invalid path {directory}: {e}");
         }
@@ -621,7 +824,9 @@ impl PackResources for EmbeddedPackResources {
     }
 
     fn metadata(&self) -> Result<Arc<ResourceMetadata>, MetadataError> {
-        cached_metadata(&self.meta, || load_metadata(self, self.built_in_metadata.as_ref()))
+        cached_metadata(&self.meta, || {
+            load_metadata(self, self.built_in_metadata.as_ref())
+        })
     }
 }
 
@@ -634,7 +839,12 @@ pub struct EmbeddedResourcesSupplier {
 
 impl EmbeddedResourcesSupplier {
     fn open(&self, location: &PackLocationInfo) -> Arc<dyn PackResources> {
-        Arc::new(EmbeddedPackResources::new(location.clone(), self.root.clone(), self.exposed_namespaces.clone(), self.built_in_metadata.clone()))
+        Arc::new(EmbeddedPackResources::new(
+            location.clone(),
+            self.root.clone(),
+            self.exposed_namespaces.clone(),
+            self.built_in_metadata.clone(),
+        ))
     }
 }
 
@@ -643,7 +853,11 @@ impl ResourcesSupplier for EmbeddedResourcesSupplier {
         self.open(location)
     }
 
-    fn open_resources(&self, location: &PackLocationInfo, _metadata: &PackMetadata) -> Vec<Arc<dyn PackResources>> {
+    fn open_resources(
+        &self,
+        location: &PackLocationInfo,
+        _metadata: &PackMetadata,
+    ) -> Vec<Arc<dyn PackResources>> {
         vec![self.open(location)]
     }
 }
@@ -656,14 +870,29 @@ mod tests {
     fn decompose() {
         assert_eq!(decompose_path("a/b.json").unwrap(), vec!["a", "b.json"]);
         assert_eq!(decompose_path("..").unwrap_err(), "Invalid path '..'");
-        assert_eq!(decompose_path("a//b").unwrap_err(), "Invalid segment '' in path 'a//b'");
-        assert_eq!(decompose_path("a/B").unwrap_err(), "Invalid segment 'B' in path 'a/B'");
+        assert_eq!(
+            decompose_path("a//b").unwrap_err(),
+            "Invalid segment '' in path 'a//b'"
+        );
+        assert_eq!(
+            decompose_path("a/B").unwrap_err(),
+            "Invalid segment 'B' in path 'a/B'"
+        );
     }
 
     #[test]
     fn zip_namespace_extraction() {
-        assert_eq!(FilePackResources::extract_namespace("data/", "data/foo/x.json"), "foo");
-        assert_eq!(FilePackResources::extract_namespace("data/", "data/foo"), "foo");
-        assert_eq!(FilePackResources::extract_namespace("data/", "assets/foo/x"), "");
+        assert_eq!(
+            FilePackResources::extract_namespace("data/", "data/foo/x.json"),
+            "foo"
+        );
+        assert_eq!(
+            FilePackResources::extract_namespace("data/", "data/foo"),
+            "foo"
+        );
+        assert_eq!(
+            FilePackResources::extract_namespace("data/", "assets/foo/x"),
+            ""
+        );
     }
 }

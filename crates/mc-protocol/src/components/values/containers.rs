@@ -1,9 +1,9 @@
 //! Container-like components: `container`, `bundle_contents`, `charged_projectiles`, `container_loot`, `block_state`,
 //! `sulfur_cube_content`, `debug_stick_state`, `recipes`, `lodestone_tracker`, `map_decorations`.
 
-use crate::codec::EncodeResult;
 use super::entity::TypedEntityData;
 use super::predicates::ItemPredicate;
+use crate::codec::EncodeResult;
 use crate::codec::{
     Decode, DecodeResult, Encode, GlobalPos, MAX_STRING_LENGTH, read_count, read_utf, write_utf,
     write_varint,
@@ -215,7 +215,10 @@ impl Fraction {
             den = -den;
         }
         let g = gcd(num, den)?;
-        Ok(Fraction { num: num / g, den: den / g })
+        Ok(Fraction {
+            num: num / g,
+            den: den / g,
+        })
     }
 
     /// `negate`.
@@ -223,7 +226,10 @@ impl Fraction {
         if self.num == i32::MIN {
             return Err(());
         }
-        Ok(Fraction { num: -self.num, den: self.den })
+        Ok(Fraction {
+            num: -self.num,
+            den: self.den,
+        })
     }
 
     /// `invert`.
@@ -231,7 +237,17 @@ impl Fraction {
         if self.num == 0 || self.num == i32::MIN {
             return Err(());
         }
-        Ok(if self.num < 0 { Fraction { num: -self.den, den: -self.num } } else { Fraction { num: self.den, den: self.num } })
+        Ok(if self.num < 0 {
+            Fraction {
+                num: -self.den,
+                den: -self.num,
+            }
+        } else {
+            Fraction {
+                num: self.den,
+                den: self.num,
+            }
+        })
     }
 
     /// `addSub(other, isAdd)`.
@@ -246,8 +262,15 @@ impl Fraction {
         if d1 == 1 {
             let uvp = mul_and_check(self.num, other.den)?;
             let upv = mul_and_check(other.num, self.den)?;
-            let n = if is_add { add_and_check(uvp, upv)? } else { i32::try_from(i64::from(uvp) - i64::from(upv)).map_err(|_| ())? };
-            return Ok(Fraction { num: n, den: mul_pos_and_check(self.den, other.den)? });
+            let n = if is_add {
+                add_and_check(uvp, upv)?
+            } else {
+                i32::try_from(i64::from(uvp) - i64::from(upv)).map_err(|_| ())?
+            };
+            return Ok(Fraction {
+                num: n,
+                den: mul_pos_and_check(self.den, other.den)?,
+            });
         }
         let uvp = i128::from(self.num) * i128::from(other.den / d1);
         let upv = i128::from(other.num) * i128::from(self.den / d1);
@@ -256,7 +279,10 @@ impl Fraction {
         let d2 = if tmodd1 == 0 { d1 } else { gcd(tmodd1, d1)? };
         let w = t / i128::from(d2);
         let num = i32::try_from(w).map_err(|_| ())?;
-        Ok(Fraction { num, den: mul_pos_and_check(self.den / d1, other.den / d2)? })
+        Ok(Fraction {
+            num,
+            den: mul_pos_and_check(self.den / d1, other.den / d2)?,
+        })
     }
 
     /// `add`.
@@ -276,7 +302,10 @@ impl Fraction {
         }
         let d1 = gcd(self.num, other.den)?;
         let d2 = gcd(other.num, self.den)?;
-        Fraction::reduced(mul_and_check(self.num / d1, other.num / d2)?, mul_pos_and_check(self.den / d2, other.den / d1)?)
+        Fraction::reduced(
+            mul_and_check(self.num / d1, other.num / d2)?,
+            mul_pos_and_check(self.den / d2, other.den / d1)?,
+        )
     }
 
     /// `divideBy`.
@@ -297,7 +326,8 @@ impl Fraction {
         if self == other {
             return std::cmp::Ordering::Equal;
         }
-        (i64::from(self.num) * i64::from(other.den)).cmp(&(i64::from(other.num) * i64::from(self.den)))
+        (i64::from(self.num) * i64::from(other.den))
+            .cmp(&(i64::from(other.num) * i64::from(self.den)))
     }
 }
 
@@ -365,7 +395,13 @@ impl ItemContainerContents {
         };
         let items = item_stacks[..=last]
             .iter()
-            .map(|s| if s.is_empty() { None } else { ItemStackTemplate::from_stack(s).ok() })
+            .map(|s| {
+                if s.is_empty() {
+                    None
+                } else {
+                    ItemStackTemplate::from_stack(s).ok()
+                }
+            })
             .collect();
         ItemContainerContents { items }
     }
@@ -373,7 +409,11 @@ impl ItemContainerContents {
     /// `copyInto(destination)`.
     pub fn copy_into(&self, destination: &mut [ItemStack]) {
         for (i, d) in destination.iter_mut().enumerate() {
-            *d = self.items.get(i).and_then(Option::as_ref).map_or_else(ItemStack::empty, ItemStackTemplate::create);
+            *d = self
+                .items
+                .get(i)
+                .and_then(Option::as_ref)
+                .map_or_else(ItemStack::empty, ItemStackTemplate::create);
         }
     }
 
@@ -417,7 +457,9 @@ impl ItemContainerContents {
 
 impl Encode for ItemContainerContents {
     fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
-        write_list(out, 256, &self.items, |t, o| write_optional(o, t, |t, o| t.encode(o)))
+        write_list(out, 256, &self.items, |t, o| {
+            write_optional(o, t, |t, o| t.encode(o))
+        })
     }
 }
 impl Decode for ItemContainerContents {
@@ -454,11 +496,17 @@ impl BundleContents {
     pub const NO_SELECTED_ITEM_INDEX: i32 = -1;
 
     pub fn new(items: Vec<ItemStackTemplate>) -> BundleContents {
-        BundleContents { items, selected_item: -1 }
+        BundleContents {
+            items,
+            selected_item: -1,
+        }
     }
     /// The private `BundleContents(items, selectedItem)` constructor.
     pub fn with_selected_item(items: Vec<ItemStackTemplate>, selected_item: i32) -> BundleContents {
-        BundleContents { items, selected_item }
+        BundleContents {
+            items,
+            selected_item,
+        }
     }
     /// `getSelectedItemIndex()`.
     pub fn selected_item_index(&self) -> i32 {
@@ -466,7 +514,9 @@ impl BundleContents {
     }
     /// `getSelectedItem()`.
     pub fn selected_item(&self) -> Option<&ItemStackTemplate> {
-        usize::try_from(self.selected_item).ok().and_then(|i| self.items.get(i))
+        usize::try_from(self.selected_item)
+            .ok()
+            .and_then(|i| self.items.get(i))
     }
     /// `weight()` as the `Fraction` (`Err(message)`: nested error or "Excessive total bundle weight").
     pub fn weight_fraction(&self) -> Result<Fraction, String> {
@@ -643,7 +693,10 @@ impl Decode for BlockItemStateProperties {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
         let count = read_count(input, i32::MAX as usize)?;
         // `ByteBufCodecs.map(Object2ObjectOpenHashMap::new, ..)`: the vanilla map iterates in fastutil table order
-        let mut map = mc_core::java_collections::FastOpenHashMap::new(count.min(65536), |k: &String| mc_core::math::java::java_string_hash(k));
+        let mut map =
+            mc_core::java_collections::FastOpenHashMap::new(count.min(65536), |k: &String| {
+                mc_core::math::java::java_string_hash(k)
+            });
         for _ in 0..count {
             let k = read_utf(input, MAX_STRING_LENGTH)?;
             let v = read_utf(input, MAX_STRING_LENGTH)?;

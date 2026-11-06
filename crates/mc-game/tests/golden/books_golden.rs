@@ -14,18 +14,36 @@ use std::cell::Cell;
 
 fn stack_of(snbt: &str) -> ItemStack {
     let tag = Tag::Compound(mc_nbt::snbt::parse_compound(snbt).expect("fixture SNBT"));
-    ItemStack::optional_from_tag(&tag).into_result().expect("fixture stack decodes")
+    ItemStack::optional_from_tag(&tag)
+        .into_result()
+        .expect("fixture stack decodes")
 }
 
 fn tag_of(stack: &ItemStack) -> Tag {
-    stack.optional_to_tag().into_result().expect("stack encodes")
+    stack
+        .optional_to_tag()
+        .into_result()
+        .expect("stack encodes")
 }
 
 #[test]
 fn books_match_vanilla() {
-    let fixture = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures/books_oracle.txt")).unwrap();
-    let profile = GameProfile { id: uuid::Uuid::nil(), name: "Booker".into(), properties: vec![] };
-    let mut player = ServerPlayer::new(1, Identifier::parse("minecraft:overworld").unwrap(), profile, Default::default());
+    let fixture = std::fs::read_to_string(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/tests/fixtures/books_oracle.txt"
+    ))
+    .unwrap();
+    let profile = GameProfile {
+        id: uuid::Uuid::nil(),
+        name: "Booker".into(),
+        properties: vec![],
+    };
+    let mut player = ServerPlayer::new(
+        1,
+        Identifier::parse("minecraft:overworld").unwrap(),
+        profile,
+        Default::default(),
+    );
     let context = ResolutionContext {
         source: None,
         default_scoreboard_entity: None,
@@ -36,7 +54,9 @@ fn books_match_vanilla() {
     };
     let (mut checked, mut slot) = (0, 0usize);
     for line in fixture.lines() {
-        let Some((op, rest)) = line.split_once(' ') else { continue };
+        let Some((op, rest)) = line.split_once(' ') else {
+            continue;
+        };
         match op {
             "SETUP" => {
                 let (s, snbt) = rest.split_once(' ').unwrap();
@@ -51,7 +71,15 @@ fn books_match_vanilla() {
                     json => Some(serde_json::from_str::<String>(json).unwrap()),
                 };
                 let pages: Vec<String> = serde_json::from_str(parts.next().unwrap()).unwrap();
-                edit_book(&mut player, &ServerboundEditBookPacket { slot: slot as i32, pages, title }, |s| FilteredText::pass_through(s));
+                edit_book(
+                    &mut player,
+                    &ServerboundEditBookPacket {
+                        slot: slot as i32,
+                        pages,
+                        title,
+                    },
+                    |s| FilteredText::pass_through(s),
+                );
             }
             "USE" => {
                 slot = rest.parse().unwrap();
@@ -63,7 +91,11 @@ fn books_match_vanilla() {
                 let (s, snbt) = rest.split_once(' ').unwrap();
                 assert_eq!(s.parse::<usize>().unwrap(), slot);
                 let expected = Tag::Compound(mc_nbt::snbt::parse_compound(snbt).unwrap());
-                assert_eq!(tag_of(player.player.inventory.get_item(slot)), expected, "slot {slot} after {snbt}");
+                assert_eq!(
+                    tag_of(player.player.inventory.get_item(slot)),
+                    expected,
+                    "slot {slot} after {snbt}"
+                );
                 checked += 1;
             }
             _ => {}

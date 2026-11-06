@@ -6,8 +6,8 @@
 //!   and printing (compact `StringTagVisitor` and pretty `SnbtPrinterTagVisitor`).
 
 pub mod accounter;
-pub mod compress;
 mod compound;
+pub mod compress;
 pub mod error;
 mod file;
 mod io;
@@ -25,19 +25,19 @@ pub use tag::*;
 
 /// Vanilla's `NbtIo` (same function names, byte-slice based).
 pub mod nbt_io {
+    pub use crate::compress::{read_compressed, write_compressed};
+    pub use crate::file::{read_compressed_file, read_file, write_compressed_file, write_file};
     pub use crate::io::{
         read, read_any_tag, read_unnamed_tag, to_bytes, write, write_any_tag, write_unnamed_tag,
         write_unnamed_tag_with_fallback,
     };
-    pub use crate::compress::{read_compressed, write_compressed};
-    pub use crate::file::{read_compressed_file, read_file, write_compressed_file, write_file};
 }
 
 /// File root: `read_named(&mut bytes, &mut accounter)` (see [`nbt_io::read`]).
 pub use io::read as read_named;
-/// File root: named (empty name) compound.
-pub use io::write as write_named;
 /// Network root: type id + payload (see [`nbt_io::read_any_tag`]).
 pub use io::read_any_tag as read_network;
+/// File root: named (empty name) compound.
+pub use io::write as write_named;
 /// Network root writer (see [`nbt_io::write_any_tag`]).
 pub use io::write_any_tag as write_network;

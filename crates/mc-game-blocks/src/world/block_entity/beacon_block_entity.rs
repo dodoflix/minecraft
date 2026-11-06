@@ -1,20 +1,22 @@
 //! `BeaconBlockEntity`: beam section scan (10 blocks per tick), pyramid level scan (`updateBase` every 80 ticks), the
 //! primary / secondary effects and their `ContainerData` view for `BeaconMenu`.
 
-use mc_game_core::block_entity_base;
-use mc_game_core::world::block_entity::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec};
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::level::LevelAccessor;
-use mc_game_core::world::entity::Entity;
-use mc_game_core::world::entity::effect::MobEffectInstance;
-use mc_game_core::world::inventory::{BEACON_EFFECTS, ContainerData, decode_effect, encode_effect};
-use mc_game_core::world::level::block::BlockStateExt;
-use mc_core::phys::AABB;
-use mc_game_core::world::level::{BlockGetter, LevelReader};
 use linkme::distributed_slice;
+use mc_core::phys::AABB;
 use mc_core::pos::BlockPos;
 use mc_data::block::{Block, BlockState};
 use mc_data::{BlockEntityType, MobEffect, SoundEvent};
+use mc_game_core::block_entity_base;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::block_entity::{
+    BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec,
+};
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::effect::MobEffectInstance;
+use mc_game_core::world::inventory::{BEACON_EFFECTS, ContainerData, decode_effect, encode_effect};
+use mc_game_core::world::level::LevelAccessor;
+use mc_game_core::world::level::block::BlockStateExt;
+use mc_game_core::world::level::{BlockGetter, LevelReader};
 use mc_nbt::CompoundTag;
 use mc_protocol::components::{LockCode, component_codec};
 use mc_protocol::packets::play::SoundSource;
@@ -54,9 +56,13 @@ pub fn beacon_beam_color(block: Block) -> Option<i32> {
     let data = block.data();
     let dye = if data.classes.contains(&"BeaconBlock") {
         mc_protocol::components::DyeColor::White
-    } else if data.classes.contains(&"StainedGlassBlock") || data.classes.contains(&"StainedGlassPaneBlock") {
+    } else if data.classes.contains(&"StainedGlassBlock")
+        || data.classes.contains(&"StainedGlassPaneBlock")
+    {
         let name = data.name.strip_prefix("minecraft:").unwrap_or(data.name);
-        let color = name.strip_suffix("_stained_glass_pane").or_else(|| name.strip_suffix("_stained_glass"))?;
+        let color = name
+            .strip_suffix("_stained_glass_pane")
+            .or_else(|| name.strip_suffix("_stained_glass"))?;
         mc_protocol::components::DyeColor::from_name(color)?
     } else {
         return None;
@@ -87,7 +93,10 @@ fn update_base(level: &dyn BlockGetter, x: i32, y: i32, z: i32) -> i32 {
         let mut lx = x - step;
         while lx <= x + step && is_ok {
             for lz in z - step..=z + step {
-                if !level.get_block_state(BlockPos::new(lx, ly, lz)).is_tag("beacon_base_blocks") {
+                if !level
+                    .get_block_state(BlockPos::new(lx, ly, lz))
+                    .is_tag("beacon_base_blocks")
+                {
                     is_ok = false;
                     break;
                 }
@@ -139,12 +148,18 @@ impl BeaconBlockEntity {
 
     /// `getBeamSections()`.
     pub fn get_beam_sections(&self) -> &[BeamSection] {
-        if self.levels == 0 { &[] } else { &self.beam_sections }
+        if self.levels == 0 {
+            &[]
+        } else {
+            &self.beam_sections
+        }
     }
 
     /// `getName()`.
     pub fn get_name(&self) -> Component {
-        self.name.clone().unwrap_or_else(|| Component::translatable("container.beacon", vec![]))
+        self.name
+            .clone()
+            .unwrap_or_else(|| Component::translatable("container.beacon", vec![]))
     }
 
     /// `dataAccess.get(dataId)`.
@@ -174,7 +189,9 @@ impl BeaconBlockEntity {
 
     /// `applyEffects(level, pos, levels, primary, secondary)`.
     fn apply_effects(&self, level: &mut ServerLevel) {
-        let Some(primary_power) = self.primary_power else { return };
+        let Some(primary_power) = self.primary_power else {
+            return;
+        };
         let levels = self.levels;
         let range = f64::from(levels * 10 + 10);
         let mut base_amp = 0;
@@ -182,11 +199,23 @@ impl BeaconBlockEntity {
             base_amp = 1;
         }
         let duration_ticks = (9 + levels * 2) * 20;
-        let bb = AABB::from_block_pos(&self.get_block_pos()).inflate_scalar(range).expand_towards(0.0, f64::from(level.get_height()), 0.0);
+        let bb = AABB::from_block_pos(&self.get_block_pos())
+            .inflate_scalar(range)
+            .expand_towards(0.0, f64::from(level.get_height()), 0.0);
         let players = level.get_entities_of_class(&bb, |e| e.is_player(), |_| true);
         for &id in &players {
             level.with_entity(id, |level, player| {
-                player.add_effect(level, MobEffectInstance::with_flags(primary_power, duration_ticks, base_amp, true, true), None);
+                player.add_effect(
+                    level,
+                    MobEffectInstance::with_flags(
+                        primary_power,
+                        duration_ticks,
+                        base_amp,
+                        true,
+                        true,
+                    ),
+                    None,
+                );
             });
         }
         if levels >= 4
@@ -195,7 +224,11 @@ impl BeaconBlockEntity {
         {
             for &id in &players {
                 level.with_entity(id, |level, player| {
-                    player.add_effect(level, MobEffectInstance::with_flags(secondary, duration_ticks, 0, true, true), None);
+                    player.add_effect(
+                        level,
+                        MobEffectInstance::with_flags(secondary, duration_ticks, 0, true, true),
+                        None,
+                    );
                 });
             }
         }
@@ -248,7 +281,11 @@ impl BlockEntity for BeaconBlockEntity {
     /// The `BEACON_POWER_SELECT` sound of `dataAccess.set(1, ..)` (the setter has no level).
     fn container_accessed(&mut self, level: &mut ServerLevel) {
         if self.take_power_select_sound() {
-            play_sound(level, self.get_block_pos(), SoundEvent::BLOCK_BEACON_POWER_SELECT);
+            play_sound(
+                level,
+                self.get_block_pos(),
+                SoundEvent::BLOCK_BEACON_POWER_SELECT,
+            );
         }
     }
 
@@ -258,8 +295,16 @@ impl BlockEntity for BeaconBlockEntity {
         tag
     }
 
-    fn get_update_packet(&self) -> Option<mc_protocol::packets::play::level::ClientboundBlockEntityDataPacket> {
-        Some(mc_protocol::packets::play::level::ClientboundBlockEntityDataPacket { pos: self.get_block_pos(), r#type: self.get_type(), tag: self.get_update_tag() })
+    fn get_update_packet(
+        &self,
+    ) -> Option<mc_protocol::packets::play::level::ClientboundBlockEntityDataPacket> {
+        Some(
+            mc_protocol::packets::play::level::ClientboundBlockEntityDataPacket {
+                pos: self.get_block_pos(),
+                r#type: self.get_type(),
+                tag: self.get_update_tag(),
+            },
+        )
     }
 
     fn is_ticking(&self) -> bool {
@@ -267,7 +312,11 @@ impl BlockEntity for BeaconBlockEntity {
     }
 
     fn set_removed_in_level(&mut self, level: &mut ServerLevel) {
-        play_sound(level, self.get_block_pos(), SoundEvent::BLOCK_BEACON_DEACTIVATE);
+        play_sound(
+            level,
+            self.get_block_pos(),
+            SoundEvent::BLOCK_BEACON_DEACTIVATE,
+        );
         self.set_removed();
     }
 
@@ -304,7 +353,11 @@ impl BlockEntity for BeaconBlockEntity {
                 }
             } else {
                 match last_beam_section {
-                    Some(last) if !(state.get_light_block() >= 15 && !state.is_block(Block::BEDROCK)) => self.checking_beam_sections[last].height += 1,
+                    Some(last)
+                        if !(state.get_light_block() >= 15 && !state.is_block(Block::BEDROCK)) =>
+                    {
+                        self.checking_beam_sections[last].height += 1
+                    }
                     _ => {
                         self.checking_beam_sections.clear();
                         self.last_check_y = last_set_block;
@@ -370,5 +423,7 @@ impl ContainerData for BeaconBlockEntity {
 }
 
 #[distributed_slice(BLOCK_ENTITY_TYPES)]
-static BEACON: BlockEntityRegistration =
-    BlockEntityRegistration { ty: BlockEntityType::BEACON, create: |pos, state| Box::new(BeaconBlockEntity::new(pos, state)) };
+static BEACON: BlockEntityRegistration = BlockEntityRegistration {
+    ty: BlockEntityType::BEACON,
+    create: |pos, state| Box::new(BeaconBlockEntity::new(pos, state)),
+};

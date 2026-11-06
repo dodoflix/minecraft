@@ -25,7 +25,14 @@ pub trait LookControl: Any {
     fn base_mut(&mut self) -> &mut LookControlBase;
 
     /// `setLookAt(x, y, z, yMaxRotSpeed, xMaxRotAngle)`.
-    fn set_look_at_full(&mut self, x: f64, y: f64, z: f64, y_max_rot_speed: f32, x_max_rot_angle: f32) {
+    fn set_look_at_full(
+        &mut self,
+        x: f64,
+        y: f64,
+        z: f64,
+        y_max_rot_speed: f32,
+        x_max_rot_angle: f32,
+    ) {
         let b = self.base_mut();
         b.wanted_x = x;
         b.wanted_y = y;
@@ -36,8 +43,19 @@ pub trait LookControl: Any {
     }
 
     /// `setLookAt(target, yMaxRotSpeed, xMaxRotAngle)`.
-    fn set_look_at_entity_full(&mut self, target: &dyn Entity, y_max_rot_speed: f32, x_max_rot_angle: f32) {
-        self.set_look_at_full(target.base().x(), target.base().get_eye_y(), target.base().z(), y_max_rot_speed, x_max_rot_angle);
+    fn set_look_at_entity_full(
+        &mut self,
+        target: &dyn Entity,
+        y_max_rot_speed: f32,
+        x_max_rot_angle: f32,
+    ) {
+        self.set_look_at_full(
+            target.base().x(),
+            target.base().get_eye_y(),
+            target.base().z(),
+            y_max_rot_speed,
+            x_max_rot_angle,
+        );
     }
 
     fn is_looking_at_target(&self) -> bool {
@@ -83,7 +101,11 @@ pub trait LookControl: Any {
 }
 
 /// `LookControl.tick()` (for subclasses that wrap it, like `Bee.BeeLookControl`).
-pub fn default_tick<L: LookControl + ?Sized>(this: &mut L, mob: &mut dyn Entity, level: &mut ServerLevel) {
+pub fn default_tick<L: LookControl + ?Sized>(
+    this: &mut L,
+    mob: &mut dyn Entity,
+    level: &mut ServerLevel,
+) {
     if this.reset_x_rot_on_tick() {
         mob.set_x_rot(0.0);
     }
@@ -125,7 +147,10 @@ pub fn y_rot_d(b: &LookControlBase, mob: &dyn Entity) -> Option<f32> {
     if !(zd.abs() > f64::from(1.0E-5f32)) && !(xd.abs() > f64::from(1.0E-5f32)) {
         None
     } else {
-        Some((mth::atan2(zd, xd) * f64::from(180.0f32) / f64::from(std::f32::consts::PI)) as f32 - 90.0)
+        Some(
+            (mth::atan2(zd, xd) * f64::from(180.0f32) / f64::from(std::f32::consts::PI)) as f32
+                - 90.0,
+        )
     }
 }
 

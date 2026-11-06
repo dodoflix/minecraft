@@ -41,13 +41,26 @@ impl LightningBolt {
     }
 
     /// `LightningBolt(type, level)` with the entity's random source given (reproducible `seed`/`flashes`).
-    pub fn with_random(ty: EntityType, id: EntityId, random: mc_core::random::LegacyRandomSource) -> Self {
+    pub fn with_random(
+        ty: EntityType,
+        id: EntityId,
+        random: mc_core::random::LegacyRandomSource,
+    ) -> Self {
         let mut base = EntityData::new(ty, id, entity::TOTAL_AIR_SUPPLY, |_| {});
         base.random = random;
         base.uuid = mc_core::math::mth::create_insecure_uuid(&mut base.random);
         let seed = base.random.next_long();
         let flashes = base.random.next_int_bounded(3) + 1;
-        Self { base, life: START_LIFE, seed, flashes, visual_only: false, cause: None, hit_entities: HashSet::new(), blocks_set_on_fire: 0 }
+        Self {
+            base,
+            life: START_LIFE,
+            seed,
+            flashes,
+            visual_only: false,
+            cause: None,
+            hit_entities: HashSet::new(),
+            blocks_set_on_fire: 0,
+        }
     }
 
     pub fn set_visual_only(&mut self, visual_only: bool) {
@@ -68,17 +81,38 @@ impl LightningBolt {
         use crate::advancements::triggers::CriteriaTriggers;
         use crate::world::entity::ServerPlayer;
         let p = self.base.position();
-        let area = AABB::new(p.x - DETECTION_RADIUS, p.y - DETECTION_RADIUS, p.z - DETECTION_RADIUS, p.x + DETECTION_RADIUS, p.y + 6.0 + DETECTION_RADIUS, p.z + DETECTION_RADIUS);
-        let viewer_ids = level.get_entities(Some(self.base.id), &area, |e| e.is_alive() && !self.hit_entities.contains(&e.id()));
+        let area = AABB::new(
+            p.x - DETECTION_RADIUS,
+            p.y - DETECTION_RADIUS,
+            p.z - DETECTION_RADIUS,
+            p.x + DETECTION_RADIUS,
+            p.y + 6.0 + DETECTION_RADIUS,
+            p.z + DETECTION_RADIUS,
+        );
+        let viewer_ids = level.get_entities(Some(self.base.id), &area, |e| {
+            e.is_alive() && !self.hit_entities.contains(&e.id())
+        });
         for player_id in level.players().to_vec() {
             let matches = {
-                let Some(player) = level.get_entity(player_id).and_then(|e| e.as_any().downcast_ref::<ServerPlayer>()) else { continue };
+                let Some(player) = level
+                    .get_entity(player_id)
+                    .and_then(|e| e.as_any().downcast_ref::<ServerPlayer>())
+                else {
+                    continue;
+                };
                 // `distanceTo(entity) < 256.0F` (float arithmetic)
-                let (dx, dy, dz) = ((p.x - player.base().x()) as f32, (p.y - player.base().y()) as f32, (p.z - player.base().z()) as f32);
+                let (dx, dy, dz) = (
+                    (p.x - player.base().x()) as f32,
+                    (p.y - player.base().y()) as f32,
+                    (p.z - player.base().z()) as f32,
+                );
                 if (dx * dx + dy * dy + dz * dz).sqrt() >= 256.0 {
                     continue;
                 }
-                let viewers: Vec<&dyn Entity> = viewer_ids.iter().filter_map(|&id| level.get_entity(id)).collect();
+                let viewers: Vec<&dyn Entity> = viewer_ids
+                    .iter()
+                    .filter_map(|&id| level.get_entity(id))
+                    .collect();
                 CriteriaTriggers::LIGHTNING_STRIKE.matches(&*level, player, self, &viewers)
             };
             level.with_player(player_id, |level, player| matches.award(level, player));
@@ -99,7 +133,11 @@ impl LightningBolt {
 
     /// `getHitEntities()` filtered to the living-in-level ones.
     pub fn get_hit_entities(&self, level: &ServerLevel) -> Vec<EntityId> {
-        self.hit_entities.iter().copied().filter(|id| level.get_entity(*id).is_some_and(|e| e.is_alive())).collect()
+        self.hit_entities
+            .iter()
+            .copied()
+            .filter(|id| level.get_entity(*id).is_some_and(|e| e.is_alive()))
+            .collect()
     }
 
     /// `getStrikePosition()`.
@@ -164,7 +202,11 @@ pub fn clear_copper_on_lightning_strike(level: &mut ServerLevel, struck_pos: Blo
 }
 
 /// `randomWalkCleaningCopper(level, originalStrikePos, workPos, stepCount)`.
-fn random_walk_cleaning_copper(level: &mut ServerLevel, original_strike_pos: BlockPos, step_count: i32) {
+fn random_walk_cleaning_copper(
+    level: &mut ServerLevel,
+    original_strike_pos: BlockPos,
+    step_count: i32,
+) {
     let mut work_pos = original_strike_pos;
     for _ in 0..step_count {
         match random_step_cleaning_copper(level, work_pos) {
@@ -198,7 +240,11 @@ impl ServerLevel {
     /// `canSpreadFireAround(pos)`.
     pub fn can_spread_fire_around(&self, pos: BlockPos) -> bool {
         let spread_radius = self.fire_spread_radius_around_player();
-        spread_radius == -1 || self.chunk_source.chunk_map.any_player_close_enough_to(pos, spread_radius)
+        spread_radius == -1
+            || self
+                .chunk_source
+                .chunk_map
+                .any_player_close_enough_to(pos, spread_radius)
     }
 }
 
@@ -248,7 +294,14 @@ impl Entity for LightningBolt {
         }
         if self.life >= 0 && !self.visual_only {
             let p = self.base.position();
-            let area = AABB::new(p.x - DAMAGE_RADIUS, p.y - DAMAGE_RADIUS, p.z - DAMAGE_RADIUS, p.x + DAMAGE_RADIUS, p.y + 6.0 + DAMAGE_RADIUS, p.z + DAMAGE_RADIUS);
+            let area = AABB::new(
+                p.x - DAMAGE_RADIUS,
+                p.y - DAMAGE_RADIUS,
+                p.z - DAMAGE_RADIUS,
+                p.x + DAMAGE_RADIUS,
+                p.y + 6.0 + DAMAGE_RADIUS,
+                p.z + DAMAGE_RADIUS,
+            );
             let entities = level.get_entities(Some(self.base.id), &area, |e| e.is_alive());
             let bolt_id = self.base.id;
             for &id in &entities {
@@ -257,11 +310,20 @@ impl Entity for LightningBolt {
             self.hit_entities.extend(entities.iter().copied());
             if let Some(cause) = self.cause {
                 let matches = {
-                    let victims: Vec<&dyn Entity> = entities.iter().filter_map(|&id| level.get_entity(id)).collect();
+                    let victims: Vec<&dyn Entity> = entities
+                        .iter()
+                        .filter_map(|&id| level.get_entity(id))
+                        .collect();
                     level
                         .get_entity(cause)
-                        .and_then(|e| e.as_any().downcast_ref::<crate::world::entity::ServerPlayer>())
-                        .map(|player| crate::advancements::triggers::CriteriaTriggers::CHANNELED_LIGHTNING.matches(&*level, player, &victims))
+                        .and_then(|e| {
+                            e.as_any()
+                                .downcast_ref::<crate::world::entity::ServerPlayer>()
+                        })
+                        .map(|player| {
+                            crate::advancements::triggers::CriteriaTriggers::CHANNELED_LIGHTNING
+                                .matches(&*level, player, &victims)
+                        })
                 };
                 if let Some(matches) = matches {
                     level.with_player(cause, |level, player| matches.award(level, player));
@@ -270,13 +332,21 @@ impl Entity for LightningBolt {
         }
     }
 
-    fn hurt_server(&mut self, _level: &mut ServerLevel, _source: &crate::world::damagesource::DamageSource, _amount: f32) -> bool {
+    fn hurt_server(
+        &mut self,
+        _level: &mut ServerLevel,
+        _source: &crate::world::damagesource::DamageSource,
+        _amount: f32,
+    ) -> bool {
         false
     }
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static LIGHTNING_BOLT_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::LIGHTNING_BOLT, create: |ty, id, _registries| Box::new(LightningBolt::new(ty, id)) };
+static LIGHTNING_BOLT_FACTORY: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::LIGHTNING_BOLT,
+    create: |ty, id, _registries| Box::new(LightningBolt::new(ty, id)),
+};
 
 /// The spawn half of `ServerLevel.tickThunder` (`LevelTickState::lightning_spawn`).
 pub fn spawn_from_thunder(level: &mut ServerLevel, pos: BlockPos, is_trap: bool) {

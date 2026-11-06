@@ -15,7 +15,11 @@ pub struct FlyingMoveControl {
 
 impl FlyingMoveControl {
     pub fn new(max_turn: i32, hovers_in_place: bool) -> Self {
-        Self { base: MoveControlBase::default(), max_turn, hovers_in_place }
+        Self {
+            base: MoveControlBase::default(),
+            max_turn,
+            hovers_in_place,
+        }
     }
 }
 
@@ -41,7 +45,9 @@ impl MoveControl for FlyingMoveControl {
                 mob::set_zza(mob, 0.0);
                 return;
             }
-            let y_rot_d = (mth::atan2(zd, xd) * f64::from(180.0f32) / f64::from(std::f32::consts::PI)) as f32 - 90.0;
+            let y_rot_d = (mth::atan2(zd, xd) * f64::from(180.0f32)
+                / f64::from(std::f32::consts::PI)) as f32
+                - 90.0;
             let new_y_rot = b.rotlerp(mob.base().y_rot(), y_rot_d, 90.0);
             mob.set_y_rot(new_y_rot);
             let speed = if mob.base().on_ground() {
@@ -52,7 +58,8 @@ impl MoveControl for FlyingMoveControl {
             mob.set_speed(speed);
             let sd = (xd * xd + zd * zd).sqrt();
             if yd.abs() > f64::from(1.0E-5f32) || sd.abs() > f64::from(1.0E-5f32) {
-                let x_rot_d = (-(mth::atan2(yd, sd) * f64::from(180.0f32) / f64::from(std::f32::consts::PI))) as f32;
+                let x_rot_d = (-(mth::atan2(yd, sd) * f64::from(180.0f32)
+                    / f64::from(std::f32::consts::PI))) as f32;
                 let new_x_rot = b.rotlerp(mob.base().x_rot(), x_rot_d, self.max_turn as f32);
                 mob.set_x_rot(new_x_rot);
                 mob::set_yya(mob, if yd > 0.0 { speed } else { -speed });

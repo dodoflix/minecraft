@@ -14,7 +14,8 @@ pub trait RandomSource: Send {
     fn next_int_bounded(&mut self, bound: i32) -> i32;
 
     fn next_int_between_inclusive(&mut self, min: i32, max_inclusive: i32) -> i32 {
-        self.next_int_bounded(max_inclusive.wrapping_sub(min).wrapping_add(1)).wrapping_add(min)
+        self.next_int_bounded(max_inclusive.wrapping_sub(min).wrapping_add(1))
+            .wrapping_add(min)
     }
 
     fn next_long(&mut self) -> i64;
@@ -87,6 +88,8 @@ pub fn create_thread_local_instance(seed: i64) -> SingleThreadedRandomSource {
 /// `createThreadLocalInstance()`: seeded from process entropy (vanilla: `ThreadLocalRandom.nextLong()`).
 pub fn create_thread_local_instance_new() -> SingleThreadedRandomSource {
     use std::hash::{BuildHasher, Hasher};
-    let seed = std::collections::hash_map::RandomState::new().build_hasher().finish() as i64;
+    let seed = std::collections::hash_map::RandomState::new()
+        .build_hasher()
+        .finish() as i64;
     SingleThreadedRandomSource::new(seed)
 }

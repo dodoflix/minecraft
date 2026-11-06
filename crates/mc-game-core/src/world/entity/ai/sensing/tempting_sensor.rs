@@ -6,8 +6,8 @@ use crate::server::level::ServerLevel;
 use crate::world::entity::ai::memory::memory_module_type::TEMPTING_PLAYER;
 use crate::world::entity::ai::memory::{EntityRef, MemoryTypeId};
 use crate::world::entity::ai::targeting::TargetingConditions;
-use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::entity::Entity;
+use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::item::ItemStack;
 use mc_data::{Attribute, Item};
 
@@ -41,7 +41,8 @@ impl TemptingSensor {
     }
 
     fn player_holding_temptation(&self, mob: &dyn Entity, player: &dyn Entity) -> bool {
-        (self.temptations)(mob, &player.get_item_by_slot(EquipmentSlot::MainHand)) || (self.temptations)(mob, &player.get_item_by_slot(EquipmentSlot::OffHand))
+        (self.temptations)(mob, &player.get_item_by_slot(EquipmentSlot::MainHand))
+            || (self.temptations)(mob, &player.get_item_by_slot(EquipmentSlot::OffHand))
     }
 }
 
@@ -51,8 +52,12 @@ impl Sensor for TemptingSensor {
     }
 
     fn do_tick(&mut self, level: &mut ServerLevel, body: &mut dyn Entity) {
-        let range = body.living().map_or(0.0, |l| l.get_attribute_value(Attribute::TEMPT_RANGE));
-        let targeting = TargetingConditions::for_non_combat().ignore_line_of_sight().range(f64::from(range as f32));
+        let range = body
+            .living()
+            .map_or(0.0, |l| l.get_attribute_value(Attribute::TEMPT_RANGE));
+        let targeting = TargetingConditions::for_non_combat()
+            .ignore_line_of_sight()
+            .range(f64::from(range as f32));
         let body_ref: &dyn Entity = &*body;
         let mut players: Vec<i32> = level
             .players()
@@ -60,12 +65,20 @@ impl Sensor for TemptingSensor {
             .copied()
             .filter(|&id| {
                 level.get_entity(id).is_some_and(|p| {
-                    !p.is_spectator() && targeting.test(level, Some(body_ref), p) && self.player_holding_temptation(body_ref, p) && !body_ref.base().passengers.contains(&p.id())
+                    !p.is_spectator()
+                        && targeting.test(level, Some(body_ref), p)
+                        && self.player_holding_temptation(body_ref, p)
+                        && !body_ref.base().passengers.contains(&p.id())
                 })
             })
             .collect();
-        let distance = |id: &i32| level.get_entity(*id).map_or(f64::NAN, |p| distance_to_sqr(body_ref, p));
+        let distance = |id: &i32| {
+            level
+                .get_entity(*id)
+                .map_or(f64::NAN, |p| distance_to_sqr(body_ref, p))
+        };
         players.sort_by(|a, b| distance(a).total_cmp(&distance(b)));
-        body.brain_mut().set_memory_opt(&TEMPTING_PLAYER, players.first().copied().map(EntityRef));
+        body.brain_mut()
+            .set_memory_opt(&TEMPTING_PLAYER, players.first().copied().map(EntityRef));
     }
 }

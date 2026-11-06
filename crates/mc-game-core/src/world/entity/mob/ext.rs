@@ -15,36 +15,68 @@ use mc_protocol::components::common::RegistrySet;
 
 /// `LivingEntity.hasLineOfSight(target)`.
 pub fn has_line_of_sight(level: &ServerLevel, viewer: &dyn Entity, target: &dyn Entity) -> bool {
-    has_line_of_sight_with(level, viewer, target, ClipBlock::Collider, ClipFluid::None, target.base().get_eye_y())
+    has_line_of_sight_with(
+        level,
+        viewer,
+        target,
+        ClipBlock::Collider,
+        ClipFluid::None,
+        target.base().get_eye_y(),
+    )
 }
 
 /// `LivingEntity.hasLineOfSight(target, blockCollidingContext, fluidCollidingContext, eyeHeight)`.
-pub fn has_line_of_sight_with(level: &ServerLevel, viewer: &dyn Entity, target: &dyn Entity, block: ClipBlock, fluid: ClipFluid, eye_height: f64) -> bool {
-    let from = Vec3::new(viewer.base().x(), viewer.base().get_eye_y(), viewer.base().z());
+pub fn has_line_of_sight_with(
+    level: &ServerLevel,
+    viewer: &dyn Entity,
+    target: &dyn Entity,
+    block: ClipBlock,
+    fluid: ClipFluid,
+    eye_height: f64,
+) -> bool {
+    let from = Vec3::new(
+        viewer.base().x(),
+        viewer.base().get_eye_y(),
+        viewer.base().z(),
+    );
     let to = Vec3::new(target.base().x(), eye_height, target.base().z());
     if to.distance_to(from) > 128.0 {
         return false;
     }
-    let context = ClipContext::new(from, to, block, fluid, crate::world::entity::movement::collision_context(viewer));
+    let context = ClipContext::new(
+        from,
+        to,
+        block,
+        fluid,
+        crate::world::entity::movement::collision_context(viewer),
+    );
     level.clip(&context).miss
 }
 
 /// `Entity.isAlliedTo(other)` (`this == other || considersEntityAsAlly(other) || other.considersEntityAsAlly(this)`), with
 /// `TamableAnimal.getTeam()/considersEntityAsAlly` (tamed pets share their root owner's team).
 pub fn is_allied_to(level: &ServerLevel, source: &dyn Entity, other: &dyn Entity) -> bool {
-    source.id() == other.id() || source.considers_entity_as_ally(level, other) || other.considers_entity_as_ally(level, source)
+    source.id() == other.id()
+        || source.considers_entity_as_ally(level, other)
+        || other.considers_entity_as_ally(level, source)
 }
 
 /// The scoreboard name of the team entity `e` plays for (`Entity.getTeam()`, tamed pets: their root owner's).
 pub(super) fn team_member_name(level: &ServerLevel, e: &dyn Entity) -> Option<String> {
     let scoreboard = level.scoreboard();
-    if scoreboard.get_players_team(&e.get_scoreboard_name()).is_some() {
+    if scoreboard
+        .get_players_team(&e.get_scoreboard_name())
+        .is_some()
+    {
         return Some(e.get_scoreboard_name());
     }
     if e.mob().and_then(|m| m.tamable.as_ref()).is_some() && super::tamable::is_tame(e) {
         let owner = super::tamable::get_root_owner(level, e)?;
         let owner = level.get_entity(owner)?;
-        if scoreboard.get_players_team(&owner.get_scoreboard_name()).is_some() {
+        if scoreboard
+            .get_players_team(&owner.get_scoreboard_name())
+            .is_some()
+        {
             return Some(owner.get_scoreboard_name());
         }
     }
@@ -53,7 +85,11 @@ pub(super) fn team_member_name(level: &ServerLevel, e: &dyn Entity) -> Option<St
 
 /// `Entity.considersEntityAsAlly(other)`: `isAlliedTo(other.getTeam())`, tamed pets: the root owner is an ally and
 /// delegates to the owner's own rule.
-pub fn considers_entity_as_ally_default(level: &ServerLevel, e: &dyn Entity, other: &dyn Entity) -> bool {
+pub fn considers_entity_as_ally_default(
+    level: &ServerLevel,
+    e: &dyn Entity,
+    other: &dyn Entity,
+) -> bool {
     if e.mob().and_then(|m| m.tamable.as_ref()).is_some() && super::tamable::is_tame(e) {
         if let Some(owner_id) = super::tamable::get_root_owner(level, e) {
             if owner_id == other.id() {
@@ -65,17 +101,26 @@ pub fn considers_entity_as_ally_default(level: &ServerLevel, e: &dyn Entity, oth
         }
     }
     let scoreboard = level.scoreboard();
-    let (Some(own), other_name) = (team_member_name(level, e), team_member_name(level, other)) else { return false };
-    scoreboard
-        .get_players_team(&own)
-        .is_some_and(|team| team.is_allied_to(other_name.as_deref().and_then(|n| scoreboard.get_players_team(n))))
+    let (Some(own), other_name) = (team_member_name(level, e), team_member_name(level, other))
+    else {
+        return false;
+    };
+    scoreboard.get_players_team(&own).is_some_and(|team| {
+        team.is_allied_to(
+            other_name
+                .as_deref()
+                .and_then(|n| scoreboard.get_players_team(n)),
+        )
+    })
 }
 
 /// `RegistrySet<EntityType>.contains(type)`.
 pub fn entity_set_contains(set: &RegistrySet<EntityType>, ty: EntityType) -> bool {
     match set {
         RegistrySet::Entries(v) => v.contains(&ty),
-        RegistrySet::Tag(id) => mc_data::tags::get::<EntityType>(&id.to_string()).is_some_and(|t| t.contains(ty)),
+        RegistrySet::Tag(id) => {
+            mc_data::tags::get::<EntityType>(&id.to_string()).is_some_and(|t| t.contains(ty))
+        }
     }
 }
 
@@ -99,7 +144,12 @@ pub fn get_visibility_percent(entity: &dyn Entity, targeting_entity: Option<&dyn
             let item = entity.get_item_by_slot(slot);
             if let Some(visibility) = item.get(&MOB_VISIBILITY) {
                 if let Some(equippable) = item.get(&EQUIPPABLE) {
-                    if slot == EquipmentSlot::from_protocol(equippable.slot) && entity_set_contains(&visibility.targeting_entity_types, targeting.get_type()) {
+                    if slot == EquipmentSlot::from_protocol(equippable.slot)
+                        && entity_set_contains(
+                            &visibility.targeting_entity_types,
+                            targeting.get_type(),
+                        )
+                    {
                         visibility_percent *= f64::from(visibility.visibility);
                     }
                 }
@@ -118,15 +168,29 @@ pub fn get_nearby_entities(
     source: &dyn Entity,
     bb: &AABB,
 ) -> Vec<EntityId> {
-    level.get_entities_of_class(bb, |e| class_test(e) && e.living().is_some(), |e| conditions.test(level, Some(source), e))
+    level.get_entities_of_class(
+        bb,
+        |e| class_test(e) && e.living().is_some(),
+        |e| conditions.test(level, Some(source), e),
+    )
 }
 
 /// `LevelReader`/`EntityGetter.getNearestEntity(entities, conditions, source, x, y, z)`.
-pub fn get_nearest_entity(level: &ServerLevel, entities: &[EntityId], conditions: &TargetingConditions, source: &dyn Entity, x: f64, y: f64, z: f64) -> Option<EntityId> {
+pub fn get_nearest_entity(
+    level: &ServerLevel,
+    entities: &[EntityId],
+    conditions: &TargetingConditions,
+    source: &dyn Entity,
+    x: f64,
+    y: f64,
+    z: f64,
+) -> Option<EntityId> {
     let mut best = -1.0;
     let mut result = None;
     for &id in entities {
-        let Some(e) = level.get_entity(id) else { continue };
+        let Some(e) = level.get_entity(id) else {
+            continue;
+        };
         if conditions.test(level, Some(source), e) {
             let dist = e.base().distance_to_sqr_xyz(x, y, z);
             if best == -1.0 || dist < best {
@@ -139,7 +203,14 @@ pub fn get_nearest_entity(level: &ServerLevel, entities: &[EntityId], conditions
 }
 
 /// `getNearestPlayer(conditions, source, x, y, z)`.
-pub fn get_nearest_player(level: &ServerLevel, conditions: &TargetingConditions, source: &dyn Entity, x: f64, y: f64, z: f64) -> Option<EntityId> {
+pub fn get_nearest_player(
+    level: &ServerLevel,
+    conditions: &TargetingConditions,
+    source: &dyn Entity,
+    x: f64,
+    y: f64,
+    z: f64,
+) -> Option<EntityId> {
     let players: Vec<EntityId> = level.players().to_vec();
     get_nearest_entity(level, &players, conditions, source, x, y, z)
 }
@@ -155,7 +226,10 @@ pub fn drop_from_gift_loot_table(
     let loot = loading::get_loot_table(&level.registries, table);
     let items = {
         let this: &dyn Entity = &*entity;
-        let params = LootParams::builder(level).this_entity(this).origin(this.position()).create(&LootContextParamSets::GIFT);
+        let params = LootParams::builder(level)
+            .this_entity(this)
+            .origin(this.position())
+            .create(&LootContextParamSets::GIFT);
         loot.get_random_items(&params)
     };
     if items.is_empty() {
@@ -169,7 +243,9 @@ pub fn drop_from_gift_loot_table(
 
 /// `player.isCreative()` for an entity that may be a player.
 pub fn is_creative_player(e: &dyn Entity) -> bool {
-    e.as_any().downcast_ref::<crate::world::entity::ServerPlayer>().is_some_and(|p| p.is_creative())
+    e.as_any()
+        .downcast_ref::<crate::world::entity::ServerPlayer>()
+        .is_some_and(|p| p.is_creative())
 }
 
 /// `Entity.getLightLevelDependentMagicValue()`.
@@ -177,7 +253,11 @@ pub fn get_light_level_dependent_magic_value_at_entity(level: &ServerLevel, e: &
     use crate::world::level::LevelReader;
     let b = e.base();
     if level.has_chunk(b.block_position().x() >> 4, b.block_position().z() >> 4) {
-        level.get_light_level_dependent_magic_value(mc_core::pos::BlockPos::containing(b.x(), b.get_eye_y(), b.z()))
+        level.get_light_level_dependent_magic_value(mc_core::pos::BlockPos::containing(
+            b.x(),
+            b.get_eye_y(),
+            b.z(),
+        ))
     } else {
         0.0
     }
@@ -190,26 +270,49 @@ pub fn monsters_burn_at(level: &ServerLevel, pos: Vec3) -> bool {
 
 /// `CriteriaTriggers.BRED_ANIMALS.trigger(cause, parent, partner, offspring)` (`cause` is the love-cause player in the level;
 /// `parent` is the running animal).
-pub fn trigger_bred_animals(level: &mut ServerLevel, cause: EntityId, parent: &dyn Entity, partner: EntityId, offspring: Option<&dyn Entity>) {
+pub fn trigger_bred_animals(
+    level: &mut ServerLevel,
+    cause: EntityId,
+    parent: &dyn Entity,
+    partner: EntityId,
+    offspring: Option<&dyn Entity>,
+) {
     let matches = {
-        let Some(player) = level.get_entity(cause).and_then(|e| e.as_any().downcast_ref::<crate::world::entity::ServerPlayer>()) else { return };
-        let Some(partner) = level.get_entity(partner) else { return };
-        crate::advancements::triggers::CriteriaTriggers::BRED_ANIMALS.matches(&*level, player, parent, partner, offspring)
+        let Some(player) = level.get_entity(cause).and_then(|e| {
+            e.as_any()
+                .downcast_ref::<crate::world::entity::ServerPlayer>()
+        }) else {
+            return;
+        };
+        let Some(partner) = level.get_entity(partner) else {
+            return;
+        };
+        crate::advancements::triggers::CriteriaTriggers::BRED_ANIMALS
+            .matches(&*level, player, parent, partner, offspring)
     };
     level.with_player(cause, |level, player| matches.award(level, player));
 }
 
 /// `LeashFenceKnotEntity.getOrCreateKnot(level, pos)`. SEAM(items): the knot entity is not ported yet;
 /// it replaces this body.
-pub fn get_or_create_leash_knot(_level: &mut ServerLevel, _pos: mc_core::pos::BlockPos) -> Option<EntityId> {
+pub fn get_or_create_leash_knot(
+    _level: &mut ServerLevel,
+    _pos: mc_core::pos::BlockPos,
+) -> Option<EntityId> {
     None
 }
 
 /// `CriteriaTriggers.TAME_ANIMAL.trigger(player, animal)`; `animal` is the running entity (the player may be too).
 pub fn trigger_tame_animal(level: &mut ServerLevel, player: EntityId, animal: &dyn Entity) {
-    crate::advancements::triggers::fire_with_entity(level, player, animal, |level, player, animal| {
-        crate::advancements::triggers::CriteriaTriggers::TAME_ANIMAL.matches(level, player, animal)
-    });
+    crate::advancements::triggers::fire_with_entity(
+        level,
+        player,
+        animal,
+        |level, player, animal| {
+            crate::advancements::triggers::CriteriaTriggers::TAME_ANIMAL
+                .matches(level, player, animal)
+        },
+    );
 }
 
 /// `oldBrain` `ANGRY_AT` memory copy of `ConversionType.convertCommon`. SEAM(brain): the brain memories are
@@ -217,22 +320,42 @@ pub fn trigger_tame_animal(level: &mut ServerLevel, player: EntityId, animal: &d
 pub fn copy_angry_at_memory(_from: &dyn Entity, _to: &mut dyn Entity) {}
 
 /// `CriteriaTriggers.PLAYER_SHEARED_EQUIPMENT.trigger(player, itemStackToShear, mob)`; `mob` is the running entity.
-pub fn trigger_player_sheared_equipment(level: &mut ServerLevel, player: EntityId, sheared: &crate::world::item::ItemStack, mob: &dyn Entity) {
+pub fn trigger_player_sheared_equipment(
+    level: &mut ServerLevel,
+    player: EntityId,
+    sheared: &crate::world::item::ItemStack,
+    mob: &dyn Entity,
+) {
     let sheared = sheared.clone();
-    crate::advancements::triggers::fire_with_entity(level, player, mob, move |level, player, mob| {
-        crate::advancements::triggers::CriteriaTriggers::PLAYER_SHEARED_EQUIPMENT.matches(level, player, &sheared, mob)
-    });
+    crate::advancements::triggers::fire_with_entity(
+        level,
+        player,
+        mob,
+        move |level, player, mob| {
+            crate::advancements::triggers::CriteriaTriggers::PLAYER_SHEARED_EQUIPMENT
+                .matches(level, player, &sheared, mob)
+        },
+    );
 }
 
 /// `SpawnEggItem.spawnOffspringFromSpawnEgg(...)` when `stack` is a spawn egg: `None` = not a spawn egg, `Some(None)` = no
 /// offspring was created (`stack` is the hand stack: consumed on success).
-pub fn spawn_offspring_from_spawn_egg(level: &mut ServerLevel, player: &mut crate::world::entity::ServerPlayer, mob: &mut dyn Entity, stack: &mut crate::world::item::ItemStack) -> Option<Option<EntityId>> {
+pub fn spawn_offspring_from_spawn_egg(
+    level: &mut ServerLevel,
+    player: &mut crate::world::entity::ServerPlayer,
+    mob: &mut dyn Entity,
+    stack: &mut crate::world::item::ItemStack,
+) -> Option<Option<EntityId>> {
     if !stack.item().data().classes.contains(&"SpawnEggItem") {
         return None;
     }
     let position = mob.position();
     let ty = mob.get_type();
-    Some(crate::world::item::spawn_egg_item::spawn_offspring_from_spawn_egg(player, mob, ty, level, position, stack))
+    Some(
+        crate::world::item::spawn_egg_item::spawn_offspring_from_spawn_egg(
+            player, mob, ty, level, position, stack,
+        ),
+    )
 }
 /// `EntitySelector.NO_CREATIVE_OR_SPECTATOR`.
 pub fn no_creative_or_spectator(e: &dyn Entity) -> bool {
@@ -249,8 +372,10 @@ pub fn mob_look_at(mob: &mut dyn Entity, entity: &dyn Entity, y_max: f32, x_max:
         (bb.min_y + bb.max_y) / 2.0 - mob.base().get_eye_y()
     };
     let sd = (xd * xd + zd * zd).sqrt();
-    let y_rot_d = (mth::atan2(zd, xd) * f64::from(180.0f32) / f64::from(std::f32::consts::PI)) as f32 - 90.0;
-    let x_rot_d = (-(mth::atan2(yd, sd) * f64::from(180.0f32) / f64::from(std::f32::consts::PI))) as f32;
+    let y_rot_d =
+        (mth::atan2(zd, xd) * f64::from(180.0f32) / f64::from(std::f32::consts::PI)) as f32 - 90.0;
+    let x_rot_d =
+        (-(mth::atan2(yd, sd) * f64::from(180.0f32) / f64::from(std::f32::consts::PI))) as f32;
     let x_rot = mob_rotlerp(mob.base().x_rot(), x_rot_d, x_max);
     mob.set_x_rot(x_rot);
     let y_rot = mob_rotlerp(mob.base().y_rot(), y_rot_d, y_max);
@@ -275,12 +400,23 @@ fn default_attack_reach() -> f64 {
 }
 
 /// `Mob.getAttackBoundingBox(horizontalExpansion)`.
-pub fn get_attack_bounding_box(level: &ServerLevel, mob: &dyn Entity, horizontal_expansion: f64) -> AABB {
+pub fn get_attack_bounding_box(
+    level: &ServerLevel,
+    mob: &dyn Entity,
+    horizontal_expansion: f64,
+) -> AABB {
     let own = mob.base().bounding_box();
     let aabb = match mob.base().vehicle.and_then(|v| level.get_entity(v)) {
         Some(vehicle) => {
             let mount = vehicle.base().bounding_box();
-            AABB::new(own.min_x.min(mount.min_x), own.min_y, own.min_z.min(mount.min_z), own.max_x.max(mount.max_x), own.max_y, own.max_z.max(mount.max_z))
+            AABB::new(
+                own.min_x.min(mount.min_x),
+                own.min_y,
+                own.min_z.min(mount.min_z),
+                own.max_x.max(mount.max_x),
+                own.max_y,
+                own.max_z.max(mount.max_z),
+            )
         }
         None => own,
     };
@@ -288,28 +424,49 @@ pub fn get_attack_bounding_box(level: &ServerLevel, mob: &dyn Entity, horizontal
 }
 
 /// `Mob.isWithinMeleeAttackRange(target)`.
-pub fn is_within_melee_attack_range(level: &ServerLevel, mob: &dyn Entity, target: &dyn Entity) -> bool {
-    let attack_range = mob.living().and_then(|l| l.use_item.get(&mc_protocol::components::ATTACK_RANGE).cloned());
+pub fn is_within_melee_attack_range(
+    level: &ServerLevel,
+    mob: &dyn Entity,
+    target: &dyn Entity,
+) -> bool {
+    let attack_range = mob.living().and_then(|l| {
+        l.use_item
+            .get(&mc_protocol::components::ATTACK_RANGE)
+            .cloned()
+    });
     let (max_range, min_range) = match attack_range {
         None => (default_attack_reach(), 0.0),
-        Some(range) => (f64::from(range.max_reach * range.mob_factor), f64::from(range.min_reach * range.mob_factor)),
+        Some(range) => (
+            f64::from(range.max_reach * range.mob_factor),
+            f64::from(range.min_reach * range.mob_factor),
+        ),
     };
     let hitbox = target.base().bounding_box();
-    get_attack_bounding_box(level, mob, max_range).intersects_aabb(&hitbox) && (min_range <= 0.0 || !get_attack_bounding_box(level, mob, min_range).intersects_aabb(&hitbox))
+    get_attack_bounding_box(level, mob, max_range).intersects_aabb(&hitbox)
+        && (min_range <= 0.0
+            || !get_attack_bounding_box(level, mob, min_range).intersects_aabb(&hitbox))
 }
 
 /// `LivingEntity.getDimensions(pose)` (final): `getDefaultDimensions(pose).scale(getScale())`, fixed dimensions while sleeping.
-pub fn living_dimensions(e: &dyn Entity, pose: mc_data::enums::Pose, default_dimensions: crate::world::entity::EntityDimensions) -> crate::world::entity::EntityDimensions {
+pub fn living_dimensions(
+    e: &dyn Entity,
+    pose: mc_data::enums::Pose,
+    default_dimensions: crate::world::entity::EntityDimensions,
+) -> crate::world::entity::EntityDimensions {
     if pose == mc_data::enums::Pose::Sleeping {
         return crate::world::entity::EntityDimensions::fixed(0.2, 0.2).with_eye_height(0.2);
     }
-    let scale = e.living().map_or(1.0, |l| l.get_attribute_value(mc_data::Attribute::SCALE) as f32);
+    let scale = e.living().map_or(1.0, |l| {
+        l.get_attribute_value(mc_data::Attribute::SCALE) as f32
+    });
     default_dimensions.scale(scale)
 }
 
 /// `LivingEntity.getScale()` (`SCALE` attribute) times `getAgeScale()`.
 pub fn get_scale_times_age_scale(e: &dyn Entity) -> f32 {
-    let scale = e.living().map_or(1.0, |l| l.get_attribute_value(mc_data::Attribute::SCALE) as f32);
+    let scale = e.living().map_or(1.0, |l| {
+        l.get_attribute_value(mc_data::Attribute::SCALE) as f32
+    });
     scale * e.get_age_scale()
 }
 
@@ -326,7 +483,15 @@ pub fn has_moved_horizontally_recently(level: &ServerLevel, e: &dyn Entity) -> b
     e.get_known_speed(level).horizontal_distance().abs() > f64::from(1.0E-5f32)
 }
 /// `Level.playSound(except, entity, sound, source, volume, pitch)`: the entity-bound sound packet with the level's sound seed.
-pub fn play_sound_from_entity(level: &mut ServerLevel, except: Option<EntityId>, entity: EntityId, sound: mc_data::SoundEvent, source: mc_protocol::packets::play::SoundSource, volume: f32, pitch: f32) {
+pub fn play_sound_from_entity(
+    level: &mut ServerLevel,
+    except: Option<EntityId>,
+    entity: EntityId,
+    sound: mc_data::SoundEvent,
+    source: mc_protocol::packets::play::SoundSource,
+    volume: f32,
+    pitch: f32,
+) {
     use mc_core::random::RandomSource;
     let seed = level.tick_state.sound_seed_generator.next_long();
     level.play_seeded_sound_from_entity(except, entity, sound, source, volume, pitch, seed);
@@ -344,7 +509,11 @@ pub fn drop_from_shearing_loot_table(
     let loot = loading::get_loot_table(&level.registries, table);
     let items = {
         let this: &dyn Entity = &*entity;
-        let params = LootParams::builder(level).this_entity(this).origin(this.position()).tool(tool).create(&LootContextParamSets::SHEARING);
+        let params = LootParams::builder(level)
+            .this_entity(this)
+            .origin(this.position())
+            .tool(tool)
+            .create(&LootContextParamSets::SHEARING);
         loot.get_random_items(&params)
     };
     if items.is_empty() {
@@ -357,15 +526,33 @@ pub fn drop_from_shearing_loot_table(
 }
 /// `me.isLookingAtMe(target, coneSize, adjustForDistance, seeThroughTransparentBlocks, gazeHeights...)`: whether `target` (a
 /// living entity, e.g. the player) looks at `me`.
-pub fn is_looking_at_me(level: &ServerLevel, me: &dyn Entity, target: &dyn Entity, cone_size: f64, adjust_for_distance: bool, see_through_transparent_blocks: bool, gaze_heights: &[f64]) -> bool {
+pub fn is_looking_at_me(
+    level: &ServerLevel,
+    me: &dyn Entity,
+    target: &dyn Entity,
+    cone_size: f64,
+    adjust_for_distance: bool,
+    see_through_transparent_blocks: bool,
+    gaze_heights: &[f64],
+) -> bool {
     let look = target.get_view_vector(1.0).normalize();
     for &gaze_height in gaze_heights {
-        let dir = Vec3::new(me.base().x() - target.base().x(), gaze_height - target.base().get_eye_y(), me.base().z() - target.base().z());
+        let dir = Vec3::new(
+            me.base().x() - target.base().x(),
+            gaze_height - target.base().get_eye_y(),
+            me.base().z() - target.base().z(),
+        );
         let dist = dir.length();
         let dir = dir.normalize();
         let dot = look.dot(dir);
-        let block = if see_through_transparent_blocks { ClipBlock::Visual } else { ClipBlock::Collider };
-        if dot > 1.0 - cone_size / (if adjust_for_distance { dist } else { 1.0 }) && has_line_of_sight_with(level, target, me, block, ClipFluid::None, gaze_height) {
+        let block = if see_through_transparent_blocks {
+            ClipBlock::Visual
+        } else {
+            ClipBlock::Collider
+        };
+        if dot > 1.0 - cone_size / (if adjust_for_distance { dist } else { 1.0 })
+            && has_line_of_sight_with(level, target, me, block, ClipFluid::None, gaze_height)
+        {
             return true;
         }
     }
@@ -374,8 +561,14 @@ pub fn is_looking_at_me(level: &ServerLevel, me: &dyn Entity, target: &dyn Entit
 /// Runs `f` with the living entity that caused `source` (`source.getEntity()`): the entity is taken out of the level for
 /// the call when it is in it (so `f` may mutate the level), or is the snapshot the source captured when the attacker
 /// is the running, taken-out entity.
-pub fn with_causing_entity(level: &mut ServerLevel, source: &crate::world::damagesource::DamageSource, f: impl FnOnce(&mut ServerLevel, &dyn Entity)) {
-    let Some(id) = source.get_entity() else { return };
+pub fn with_causing_entity(
+    level: &mut ServerLevel,
+    source: &crate::world::damagesource::DamageSource,
+    f: impl FnOnce(&mut ServerLevel, &dyn Entity),
+) {
+    let Some(id) = source.get_entity() else {
+        return;
+    };
     if level.get_entity(id).is_some() {
         level.with_entity(id, |level, e| f(level, &*e));
     } else if let Some(snapshot) = source.causing_snapshot(level) {
@@ -387,17 +580,40 @@ pub fn with_causing_entity(level: &mut ServerLevel, source: &crate::world::damag
 pub fn take(level: &mut ServerLevel, taker: &dyn Entity, item_id: EntityId, org_count: i32) {
     use mc_protocol::packets::play::ClientboundTakeItemEntityPacket;
     let pickable = level.get_entity(item_id).is_some_and(|e| {
-        !e.is_removed() && matches!(e.get_type(), EntityType::ITEM | EntityType::EXPERIENCE_ORB | EntityType::ARROW | EntityType::SPECTRAL_ARROW | EntityType::TRIDENT)
+        !e.is_removed()
+            && matches!(
+                e.get_type(),
+                EntityType::ITEM
+                    | EntityType::EXPERIENCE_ORB
+                    | EntityType::ARROW
+                    | EntityType::SPECTRAL_ARROW
+                    | EntityType::TRIDENT
+            )
     });
     if pickable {
-        let packet = ClientboundTakeItemEntityPacket { item_id, player_id: taker.id(), amount: org_count };
-        level.entity_tracker.send_to_tracking_players(item_id, &crate::server::level::server_entity::encode_payload(&packet));
+        let packet = ClientboundTakeItemEntityPacket {
+            item_id,
+            player_id: taker.id(),
+            amount: org_count,
+        };
+        level.entity_tracker.send_to_tracking_players(
+            item_id,
+            &crate::server::level::server_entity::encode_payload(&packet),
+        );
     }
 }
 /// `LivingEntity.getLastDamageSource(timeout)`.
-pub fn get_last_damage_source(level: &ServerLevel, e: &dyn Entity, damage_source_timeout: i32) -> Option<crate::world::damagesource::DamageSource> {
+pub fn get_last_damage_source(
+    level: &ServerLevel,
+    e: &dyn Entity,
+    damage_source_timeout: i32,
+) -> Option<crate::world::damagesource::DamageSource> {
     let l = e.living()?;
-    if level.game_time() - l.last_damage_stamp > i64::from(damage_source_timeout) { None } else { l.last_damage_source.clone() }
+    if level.game_time() - l.last_damage_stamp > i64::from(damage_source_timeout) {
+        None
+    } else {
+        l.last_damage_source.clone()
+    }
 }
 
 /// `ChestBlockEntity.getOpenCount(level, pos)`. SEAM(containers): the chest block entity is not ported yet;
@@ -409,7 +625,8 @@ pub fn chest_open_count(_level: &ServerLevel, _pos: mc_core::pos::BlockPos) -> i
 pub fn player_not_wearing_disguise_item(entity: &dyn Entity) -> bool {
     if entity.is_player() {
         let helmet = entity.get_item_by_slot(EquipmentSlot::Head);
-        !mc_data::tags::get::<mc_data::Item>("gaze_disguise_equipment").is_some_and(|t| t.contains(helmet.item()))
+        !mc_data::tags::get::<mc_data::Item>("gaze_disguise_equipment")
+            .is_some_and(|t| t.contains(helmet.item()))
     } else {
         true
     }
@@ -420,7 +637,8 @@ pub fn can_attack_default(e: &dyn Entity, level: &ServerLevel, target: &dyn Enti
     if e.mob().is_some() && target.get_type() == EntityType::GHAST {
         return false;
     }
-    if e.mob().is_some_and(|m| m.tamable.is_some()) && super::tamable::is_owned_by(e, level, target) {
+    if e.mob().is_some_and(|m| m.tamable.is_some()) && super::tamable::is_owned_by(e, level, target)
+    {
         return false;
     }
     if target.is_player() && level.difficulty() == mc_world::level_storage::Difficulty::Peaceful {

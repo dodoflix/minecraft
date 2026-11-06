@@ -109,10 +109,15 @@ pub struct ServerActivityMonitor {
 }
 
 impl ServerActivityMonitor {
-    pub fn new(notifications: Arc<dyn NotificationService>, seconds_between_notifications: u64) -> Self {
+    pub fn new(
+        notifications: Arc<dyn NotificationService>,
+        seconds_between_notifications: u64,
+    ) -> Self {
         ServerActivityMonitor {
             notifications,
-            minimum_between_notifications: std::time::Duration::from_secs(seconds_between_notifications),
+            minimum_between_notifications: std::time::Duration::from_secs(
+                seconds_between_notifications,
+            ),
             start: std::time::Instant::now(),
             last_notification_ms: std::sync::atomic::AtomicI64::new(i64::MIN / 2),
             server_activity: std::sync::atomic::AtomicBool::new(false),
@@ -128,14 +133,18 @@ impl ServerActivityMonitor {
     }
 
     pub fn report_login_activity(&self) {
-        self.server_activity.store(true, std::sync::atomic::Ordering::SeqCst);
+        self.server_activity
+            .store(true, std::sync::atomic::Ordering::SeqCst);
         self.process_with_rate_limit();
     }
 
     fn process_with_rate_limit(&self) {
         use std::sync::atomic::Ordering::SeqCst;
         let now = self.now_ms();
-        if self.server_activity.load(SeqCst) && now - self.last_notification_ms.load(SeqCst) >= self.minimum_between_notifications.as_millis() as i64 {
+        if self.server_activity.load(SeqCst)
+            && now - self.last_notification_ms.load(SeqCst)
+                >= self.minimum_between_notifications.as_millis() as i64
+        {
             self.notifications.server_activity_occured();
             self.last_notification_ms.store(self.now_ms(), SeqCst);
         }

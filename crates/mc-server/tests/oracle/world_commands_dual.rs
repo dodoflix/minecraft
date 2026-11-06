@@ -8,8 +8,8 @@ use std::time::Duration;
 
 use crate::common::dual::PROPS;
 use crate::common::{join, ours};
-use mc_testbot::harness::repo_root;
 use mc_testbot::Bot;
+use mc_testbot::harness::repo_root;
 
 const WATCHED: &[&str] = &[
     "play/initialize_border",
@@ -40,7 +40,9 @@ fn watched_since(bot: &Bot, from: usize) -> (usize, Vec<String>) {
 /// Timing dependent reports: every digit becomes `#`.
 fn mask(line: &str) -> String {
     if line.contains("commands.tick.query") || line.contains("commands.tick.sprint.report") {
-        line.chars().map(|c| if c.is_ascii_digit() { '#' } else { c }).collect()
+        line.chars()
+            .map(|c| if c.is_ascii_digit() { '#' } else { c })
+            .collect()
     } else {
         line.to_string()
     }
@@ -114,7 +116,12 @@ async fn run(bot: &Bot, console: &dyn Fn(&str)) -> Vec<String> {
         bot.wait_ticks(*ticks).await.expect("command");
         if command.starts_with("tick sprint ") && !command.ends_with("stop") {
             for _ in 0..200 {
-                if bot.log_text().lines().skip(from).any(|l| l.contains("commands.tick.sprint.report")) {
+                if bot
+                    .log_text()
+                    .lines()
+                    .skip(from)
+                    .any(|l| l.contains("commands.tick.sprint.report"))
+                {
                     break;
                 }
                 tokio::time::sleep(Duration::from_millis(100)).await;
@@ -131,7 +138,9 @@ async fn run(bot: &Bot, console: &dyn Fn(&str)) -> Vec<String> {
 #[tokio::test(flavor = "multi_thread")]
 #[ignore = "oracle: starts the vanilla server"]
 async fn world_commands_vanilla() {
-    let server = mc_testbot::harness::vanilla(12345, "survival", PROPS).start().expect("start vanilla");
+    let server = mc_testbot::harness::vanilla(12345, "survival", PROPS)
+        .start()
+        .expect("start vanilla");
     let bot = join("127.0.0.1", server.port, "Bot").await;
     let lines = run(&bot, &|c| server.cmd(c)).await;
     bot.disconnect().await;
@@ -141,25 +150,45 @@ async fn world_commands_vanilla() {
         return;
     }
     let expected = std::fs::read_to_string(fixture()).unwrap_or_default();
-    assert_eq!(expected.trim_end(), lines.join("\n"), "vanilla output differs from the committed fixture");
+    assert_eq!(
+        expected.trim_end(),
+        lines.join("\n"),
+        "vanilla output differs from the committed fixture"
+    );
 }
 
 #[tokio::test(flavor = "multi_thread")]
 #[ignore = "oracle: starts the mc-server binary"]
 async fn world_commands_ours() {
-    let server = ours(12345, "survival", PROPS).start().expect("start our server");
+    let server = ours(12345, "survival", PROPS)
+        .start()
+        .expect("start our server");
     let bot = join("127.0.0.1", server.port, "Bot").await;
     let lines = run(&bot, &|c| server.cmd(c)).await;
     bot.disconnect().await;
-    let expected: Vec<String> = std::fs::read_to_string(fixture()).unwrap_or_default().lines().map(str::to_string).collect();
+    let expected: Vec<String> = std::fs::read_to_string(fixture())
+        .unwrap_or_default()
+        .lines()
+        .map(str::to_string)
+        .collect();
     let _ = std::fs::create_dir_all(repo_root().join("run"));
-    let _ = std::fs::write(repo_root().join("run/world-commands-ours.txt"), lines.join("\n") + "\n");
+    let _ = std::fs::write(
+        repo_root().join("run/world-commands-ours.txt"),
+        lines.join("\n") + "\n",
+    );
     let mut diffs = Vec::new();
     for i in 0..expected.len().max(lines.len()) {
-        let (e, o) = (expected.get(i).map(String::as_str).unwrap_or("<none>"), lines.get(i).map(String::as_str).unwrap_or("<none>"));
+        let (e, o) = (
+            expected.get(i).map(String::as_str).unwrap_or("<none>"),
+            lines.get(i).map(String::as_str).unwrap_or("<none>"),
+        );
         if e != o {
             diffs.push(format!("#{i}\n  vanilla: {e}\n  ours:    {o}"));
         }
     }
-    assert!(diffs.is_empty(), "our server differs from vanilla:\n{}", diffs.join("\n"));
+    assert!(
+        diffs.is_empty(),
+        "our server differs from vanilla:\n{}",
+        diffs.join("\n")
+    );
 }

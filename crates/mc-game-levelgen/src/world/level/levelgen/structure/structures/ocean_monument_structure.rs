@@ -1,13 +1,18 @@
 //! `OceanMonumentStructure`.
 
 use super::ocean_monument_pieces::MonumentBuilding;
+use mc_core::pos::ChunkPos;
+use mc_core::random::{LegacyRandomSource, WorldgenRandom, generate_unique_seed};
 use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry};
 use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_game_core::world::level::levelgen::structure::piece::get_random_horizontal_direction;
-use mc_game_core::world::level::levelgen::structure::pieces::{PiecesContainer, StructurePiecesBuilder};
-use mc_game_core::world::level::levelgen::structure::structure::{GenerationContext, GenerationStub, STRUCTURE_TYPES, Structure, StructureSettings, on_top_of_chunk_center};
-use mc_core::pos::ChunkPos;
-use mc_core::random::{LegacyRandomSource, WorldgenRandom, generate_unique_seed};
+use mc_game_core::world::level::levelgen::structure::pieces::{
+    PiecesContainer, StructurePiecesBuilder,
+};
+use mc_game_core::world::level::levelgen::structure::structure::{
+    GenerationContext, GenerationStub, STRUCTURE_TYPES, Structure, StructureSettings,
+    on_top_of_chunk_center,
+};
 use mc_world::heightmap::HeightmapType;
 use mc_world::palette::BiomeId;
 use std::sync::Arc;
@@ -19,13 +24,21 @@ pub struct OceanMonumentStructure {
 }
 
 #[linkme::distributed_slice(STRUCTURE_TYPES)]
-static OCEAN_MONUMENT: TypeEntry<dyn Structure> = TypeEntry { name: "ocean_monument", decode: OceanMonumentStructure::decode };
+static OCEAN_MONUMENT: TypeEntry<dyn Structure> = TypeEntry {
+    name: "ocean_monument",
+    decode: OceanMonumentStructure::decode,
+};
 
 impl OceanMonumentStructure {
     fn decode(fields: &Fields<'_>, ctx: &DecodeCtx<'_>) -> LoadResult<Arc<dyn Structure>> {
         let settings = StructureSettings::decode(fields, ctx)?;
-        let required_surrounding = ctx.biomes.holder_set_from_json(&serde_json::json!("#minecraft:required_ocean_monument_surrounding"))?;
-        Ok(Arc::new(OceanMonumentStructure { settings, required_surrounding }))
+        let required_surrounding = ctx.biomes.holder_set_from_json(&serde_json::json!(
+            "#minecraft:required_ocean_monument_surrounding"
+        ))?;
+        Ok(Arc::new(OceanMonumentStructure {
+            settings,
+            required_surrounding,
+        }))
     }
 }
 
@@ -48,11 +61,17 @@ impl Structure for OceanMonumentStructure {
         &self.settings
     }
 
-    fn find_generation_point<'a>(&'a self, context: &mut GenerationContext<'_>) -> Option<GenerationStub<'a>> {
+    fn find_generation_point<'a>(
+        &'a self,
+        context: &mut GenerationContext<'_>,
+    ) -> Option<GenerationStub<'a>> {
         let offset_x = context.chunk_pos.get_block_x(9);
         let offset_z = context.chunk_pos.get_block_z(9);
         let sea_level = context.env.get_sea_level();
-        for biome in context.biome_resolver.get_biomes_within(offset_x, sea_level, offset_z, 29) {
+        for biome in context
+            .biome_resolver
+            .get_biomes_within(offset_x, sea_level, offset_z, 29)
+        {
             if !self.required_surrounding.contains(&biome) {
                 return None;
             }
@@ -65,18 +84,26 @@ impl Structure for OceanMonumentStructure {
     }
 
     /// `regeneratePiecesAfterLoad(chunkPos, seed, savedPieces)`.
-    fn regenerate_pieces_after_load(&self, chunk_pos: ChunkPos, seed: i64, saved_pieces: PiecesContainer) -> PiecesContainer {
+    fn regenerate_pieces_after_load(
+        &self,
+        chunk_pos: ChunkPos,
+        seed: i64,
+        saved_pieces: PiecesContainer,
+    ) -> PiecesContainer {
         if saved_pieces.is_empty() {
             return saved_pieces;
         }
-        let mut random = WorldgenRandom::new(Box::new(LegacyRandomSource::new(generate_unique_seed())));
+        let mut random =
+            WorldgenRandom::new(Box::new(LegacyRandomSource::new(generate_unique_seed())));
         random.set_large_feature_seed(seed, chunk_pos.x, chunk_pos.z);
         let old_top_piece = &saved_pieces.pieces[0];
         let old_bounding_box = old_top_piece.get_bounding_box();
         let west = old_bounding_box.min_x();
         let north = old_bounding_box.min_z();
         let default_orientation = get_random_horizontal_direction(&mut random);
-        let orientation = old_top_piece.get_orientation().unwrap_or(default_orientation);
+        let orientation = old_top_piece
+            .get_orientation()
+            .unwrap_or(default_orientation);
         let top_piece = MonumentBuilding::new(&mut random, west, north, orientation);
         let mut result = StructurePiecesBuilder::new();
         result.add_piece(Box::new(top_piece));

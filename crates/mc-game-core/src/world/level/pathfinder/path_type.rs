@@ -71,7 +71,10 @@ impl PathType {
 
     /// `BY_ID` (`OutOfBoundsStrategy.ZERO`: unknown ids map to `BLOCKED`).
     pub fn by_id(id: i32) -> PathType {
-        usize::try_from(id).ok().and_then(|i| Self::ALL.get(i).copied()).unwrap_or(PathType::Blocked)
+        usize::try_from(id)
+            .ok()
+            .and_then(|i| Self::ALL.get(i).copied())
+            .unwrap_or(PathType::Blocked)
     }
 }
 

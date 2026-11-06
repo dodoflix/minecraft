@@ -10,8 +10,8 @@ use mc_protocol::auth::digest_server_id;
 use mc_protocol::codec::GameProfile;
 use mc_protocol::net::NetError;
 use mc_protocol::packets::login::{
-    ClientboundHelloPacket, ClientboundLoginCompressionPacket, ClientboundLoginFinishedPacket, ServerboundHelloPacket,
-    ServerboundKeyPacket, ServerboundLoginPacket,
+    ClientboundHelloPacket, ClientboundLoginCompressionPacket, ClientboundLoginFinishedPacket,
+    ServerboundHelloPacket, ServerboundKeyPacket, ServerboundLoginPacket,
 };
 use mc_text::Component;
 use rand::RngCore;
@@ -61,7 +61,11 @@ pub fn is_valid_player_name(name: &str) -> bool {
 
 /// `UUIDUtil.createOfflineProfile`.
 pub fn create_offline_profile(name: &str) -> GameProfile {
-    GameProfile { id: create_offline_player_uuid(name), name: name.to_owned(), properties: Vec::new() }
+    GameProfile {
+        id: create_offline_player_uuid(name),
+        name: name.to_owned(),
+        properties: Vec::new(),
+    }
 }
 
 struct Login {
@@ -131,7 +135,10 @@ pub(super) async fn run(ctx: &mut ConnectionContext) -> Option<GameProfile> {
                 let reason = ctx
                     .handle
                     .disconnection_details()
-                    .map_or_else(|| Component::translatable("multiplayer.disconnect.generic", vec![]), |d| d.reason)
+                    .map_or_else(
+                        || Component::translatable("multiplayer.disconnect.generic", vec![]),
+                        |d| d.reason,
+                    )
                     .get_string();
                 ctx.log_on_server(move || log::info!("{user} lost connection: {reason}"));
                 return None;
@@ -157,39 +164,65 @@ pub(super) async fn run(ctx: &mut ConnectionContext) -> Option<GameProfile> {
 /// `tick()`. `None` = the game thread is gone.
 async fn tick(ctx: &mut ConnectionContext, login: &mut Login, log_ips: bool) -> Option<()> {
     if login.state == State::Verifying {
-        let profile = login.authenticated_profile.clone().expect("verifying without profile");
+        let profile = login
+            .authenticated_profile
+            .clone()
+            .expect("verifying without profile");
         verify_login_and_finish_connection_setup(ctx, login, profile, log_ips).await?;
     }
     if login.state == State::WaitingForDupeDisconnect {
-        let id = login.authenticated_profile.as_ref().expect("waiting without profile").id;
+        let id = login
+            .authenticated_profile
+            .as_ref()
+            .expect("waiting without profile")
+            .id;
         let hooks = ctx.hooks.clone();
-        let in_world = on_server(&*ctx.game, move |server| hooks.is_player_in_world(server, id)).await?;
+        let in_world = on_server(&*ctx.game, move |server| {
+            hooks.is_player_in_world(server, id)
+        })
+        .await?;
         if !in_world {
-            let profile = login.authenticated_profile.clone().expect("waiting without profile");
+            let profile = login
+                .authenticated_profile
+                .clone()
+                .expect("waiting without profile");
             finish_login_and_wait_for_client(ctx, login, profile);
         }
     }
     let previous = login.tick;
     login.tick += 1;
     if previous == MAX_TICKS_BEFORE_LOGIN {
-        login.disconnect(ctx, log_ips, Component::translatable("multiplayer.disconnect.slow_login", vec![]));
+        login.disconnect(
+            ctx,
+            log_ips,
+            Component::translatable("multiplayer.disconnect.slow_login", vec![]),
+        );
     }
     Some(())
 }
 
 /// `handleHello` / `handleKey` / `handleCustomQueryPacket` / `handleLoginAcknowledgement` / `handleCookieResponse`.
 /// `Err(cause)` is the Java exception `toString()` that vanilla's `exceptionCaught` reports.
-fn handle_packet(ctx: &mut ConnectionContext, login: &mut Login, packet: ServerboundLoginPacket, log_ips: bool) -> Result<(), String> {
+fn handle_packet(
+    ctx: &mut ConnectionContext,
+    login: &mut Login,
+    packet: ServerboundLoginPacket,
+    log_ips: bool,
+) -> Result<(), String> {
     match packet {
         ServerboundLoginPacket::Hello(hello) => handle_hello(ctx, login, hello),
         ServerboundLoginPacket::Key(key) => handle_key(ctx, login, key),
-        ServerboundLoginPacket::CustomQueryAnswer(_) | ServerboundLoginPacket::CookieResponse(_) => {
+        ServerboundLoginPacket::CustomQueryAnswer(_)
+        | ServerboundLoginPacket::CookieResponse(_) => {
             login.disconnect(ctx, log_ips, disconnect_unexpected_query());
             Ok(())
         }
         ServerboundLoginPacket::LoginAcknowledged(_) => {
             if login.state != State::ProtocolSwitching {
-                return Err("java.lang.IllegalStateException: Unexpected login acknowledgement packet".to_owned());
+                return Err(
+                    "java.lang.IllegalStateException: Unexpected login acknowledgement packet"
+                        .to_owned(),
+                );
             }
             login.state = State::Accepted;
             Ok(())
@@ -197,7 +230,11 @@ fn handle_packet(ctx: &mut ConnectionContext, login: &mut Login, packet: Serverb
     }
 }
 
-fn handle_hello(ctx: &mut ConnectionContext, login: &mut Login, packet: ServerboundHelloPacket) -> Result<(), String> {
+fn handle_hello(
+    ctx: &mut ConnectionContext,
+    login: &mut Login,
+    packet: ServerboundHelloPacket,
+) -> Result<(), String> {
     if login.state != State::Hello {
         return Err("java.lang.IllegalStateException: Unexpected hello packet".to_owned());
     }
@@ -207,7 +244,9 @@ fn handle_hello(ctx: &mut ConnectionContext, login: &mut Login, packet: Serverbo
     login.requested_username = Some(packet.name.clone());
     let settings = ctx.hooks.settings();
     match settings.singleplayer_profile {
-        Some(profile) if packet.name.eq_ignore_ascii_case(&profile.name) => start_client_verification(login, profile),
+        Some(profile) if packet.name.eq_ignore_ascii_case(&profile.name) => {
+            start_client_verification(login, profile)
+        }
         _ => {
             if settings.uses_authentication {
                 login.state = State::Key;
@@ -230,7 +269,11 @@ fn start_client_verification(login: &mut Login, profile: GameProfile) {
     login.state = State::Verifying;
 }
 
-fn handle_key(ctx: &mut ConnectionContext, login: &mut Login, packet: ServerboundKeyPacket) -> Result<(), String> {
+fn handle_key(
+    ctx: &mut ConnectionContext,
+    login: &mut Login,
+    packet: ServerboundKeyPacket,
+) -> Result<(), String> {
     if login.state != State::Key {
         return Err("java.lang.IllegalStateException: Unexpected key packet".to_owned());
     }
@@ -241,71 +284,115 @@ fn handle_key(ctx: &mut ConnectionContext, login: &mut Login, packet: Serverboun
         Ok(challenge) if challenge == login.challenge => {}
         _ => return Err(protocol_error()),
     }
-    let secret = key_pair.decrypt_secret_key(&packet.keybytes).map_err(|_| protocol_error())?;
+    let secret = key_pair
+        .decrypt_secret_key(&packet.keybytes)
+        .map_err(|_| protocol_error())?;
     let digest = digest_server_id("", &secret, key_pair.public_key_der());
     login.state = State::Authenticating;
     ctx.reader.enable_encryption(secret);
     ctx.sender.enable_encryption(secret);
 
     let settings = ctx.hooks.settings();
-    let name = login.requested_username.clone().expect("player name not initialized");
+    let name = login
+        .requested_username
+        .clone()
+        .expect("player name not initialized");
     let ip = settings
         .prevent_proxy_connections
         .then(|| ctx.handle.remote_address())
         .flatten()
         .map(|addr| java_host_address(&addr.ip(), false));
-    spawn_authenticator(ctx, login, name, digest, ip, settings.singleplayer_profile.is_some(), settings.log_ips);
+    spawn_authenticator(
+        ctx,
+        login,
+        name,
+        digest,
+        ip,
+        settings.singleplayer_profile.is_some(),
+        settings.log_ips,
+    );
     Ok(())
 }
 
 /// The "User Authenticator #n" thread: one blocking `hasJoined` call plus the logging vanilla does from that thread.
-fn spawn_authenticator(ctx: &ConnectionContext, login: &Login, name: String, digest: String, ip: Option<String>, singleplayer: bool, log_ips: bool) {
+fn spawn_authenticator(
+    ctx: &ConnectionContext,
+    login: &Login,
+    name: String,
+    digest: String,
+    ip: Option<String>,
+    singleplayer: bool,
+    log_ips: bool,
+) {
     let session = ctx.hooks.session_client();
     let tx = login.auth_tx.clone();
     let game = ctx.game.clone();
     let hooks = ctx.hooks.clone();
     let runtime = tokio::runtime::Handle::current();
     let user_name = login.user_name(ctx, log_ips);
-    let thread_name = format!("User Authenticator #{}", UNIQUE_THREAD_ID.fetch_add(1, Ordering::Relaxed) + 1);
-    let spawned = std::thread::Builder::new().name(thread_name).spawn(move || {
-        let disconnect = |reason: Component| {
-            log::info!("Disconnecting {user_name}: {}", reason.get_string());
-            let _ = tx.send(AuthResult::Disconnect(reason));
-        };
-        match runtime.block_on(session.has_joined(&name, &digest, ip.as_deref())) {
-            Ok(Some(profile)) => {
-                log::info!("UUID of player {} is {}", profile.name, profile.id);
-                game.execute(Box::new(move |server| hooks.report_login_activity(server)));
-                let _ = tx.send(AuthResult::Verified(profile));
+    let thread_name = format!(
+        "User Authenticator #{}",
+        UNIQUE_THREAD_ID.fetch_add(1, Ordering::Relaxed) + 1
+    );
+    let spawned = std::thread::Builder::new()
+        .name(thread_name)
+        .spawn(move || {
+            let disconnect = |reason: Component| {
+                log::info!("Disconnecting {user_name}: {}", reason.get_string());
+                let _ = tx.send(AuthResult::Disconnect(reason));
+            };
+            match runtime.block_on(session.has_joined(&name, &digest, ip.as_deref())) {
+                Ok(Some(profile)) => {
+                    log::info!("UUID of player {} is {}", profile.name, profile.id);
+                    game.execute(Box::new(move |server| hooks.report_login_activity(server)));
+                    let _ = tx.send(AuthResult::Verified(profile));
+                }
+                Ok(None) if singleplayer => {
+                    log::warn!("Failed to verify username but will let them in anyway!");
+                    let _ = tx.send(AuthResult::Verified(create_offline_profile(&name)));
+                }
+                Ok(None) => {
+                    disconnect(Component::translatable(
+                        "multiplayer.disconnect.unverified_username",
+                        vec![],
+                    ));
+                    log::error!("Username '{name}' tried to join with an invalid session");
+                }
+                Err(_) if singleplayer => {
+                    log::warn!("Authentication servers are down but will let them in anyway!");
+                    let _ = tx.send(AuthResult::Verified(create_offline_profile(&name)));
+                }
+                Err(_) => {
+                    disconnect(Component::translatable(
+                        "multiplayer.disconnect.authservers_down",
+                        vec![],
+                    ));
+                    log::error!("Couldn't verify username because servers are unavailable");
+                }
             }
-            Ok(None) if singleplayer => {
-                log::warn!("Failed to verify username but will let them in anyway!");
-                let _ = tx.send(AuthResult::Verified(create_offline_profile(&name)));
-            }
-            Ok(None) => {
-                disconnect(Component::translatable("multiplayer.disconnect.unverified_username", vec![]));
-                log::error!("Username '{name}' tried to join with an invalid session");
-            }
-            Err(_) if singleplayer => {
-                log::warn!("Authentication servers are down but will let them in anyway!");
-                let _ = tx.send(AuthResult::Verified(create_offline_profile(&name)));
-            }
-            Err(_) => {
-                disconnect(Component::translatable("multiplayer.disconnect.authservers_down", vec![]));
-                log::error!("Couldn't verify username because servers are unavailable");
-            }
-        }
-    });
+        });
     if let Err(e) = spawned {
         log::error!("Couldn't start the user authenticator thread: {e}");
-        ctx.sender.disconnect(Component::translatable("multiplayer.disconnect.authservers_down", vec![]));
+        ctx.sender.disconnect(Component::translatable(
+            "multiplayer.disconnect.authservers_down",
+            vec![],
+        ));
     }
 }
 
 /// `verifyLoginAndFinishConnectionSetup`. `None` = the game thread is gone.
-async fn verify_login_and_finish_connection_setup(ctx: &mut ConnectionContext, login: &mut Login, profile: GameProfile, log_ips: bool) -> Option<()> {
+async fn verify_login_and_finish_connection_setup(
+    ctx: &mut ConnectionContext,
+    login: &mut Login,
+    profile: GameProfile,
+    log_ips: bool,
+) -> Option<()> {
     let Some(addr) = ctx.handle.remote_address() else {
-        login.disconnect(ctx, log_ips, Component::translatable("multiplayer.disconnect.generic", vec![]));
+        login.disconnect(
+            ctx,
+            log_ips,
+            Component::translatable("multiplayer.disconnect.generic", vec![]),
+        );
         return Some(());
     };
     let hooks = ctx.hooks.clone();
@@ -327,7 +414,9 @@ async fn verify_login_and_finish_connection_setup(ctx: &mut ConnectionContext, l
     }
     let threshold = ctx.hooks.settings().compression_threshold;
     if threshold >= 0 {
-        ctx.sender.send(&ClientboundLoginCompressionPacket { compression_threshold: threshold });
+        ctx.sender.send(&ClientboundLoginCompressionPacket {
+            compression_threshold: threshold,
+        });
         ctx.sender.set_compression(threshold);
         ctx.reader.set_compression(threshold, true);
     }
@@ -339,9 +428,16 @@ async fn verify_login_and_finish_connection_setup(ctx: &mut ConnectionContext, l
     Some(())
 }
 
-fn finish_login_and_wait_for_client(ctx: &ConnectionContext, login: &mut Login, profile: GameProfile) {
+fn finish_login_and_wait_for_client(
+    ctx: &ConnectionContext,
+    login: &mut Login,
+    profile: GameProfile,
+) {
     login.state = State::ProtocolSwitching;
-    ctx.sender.send(&ClientboundLoginFinishedPacket { game_profile: profile, session_id: ctx.listener.session_id() });
+    ctx.sender.send(&ClientboundLoginFinishedPacket {
+        game_profile: profile,
+        session_id: ctx.listener.session_id(),
+    });
 }
 
 #[cfg(test)]

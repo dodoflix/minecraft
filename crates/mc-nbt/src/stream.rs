@@ -7,10 +7,13 @@
 
 use crate::accounter::NbtAccounter;
 use crate::error::{NbtError, Result};
-use crate::io::{read_f32, read_f64, read_i16, read_i32, read_i64, read_i8, read_u16, read_u8, read_utf, skip_bytes, take};
+use crate::io::{
+    read_f32, read_f64, read_i8, read_i16, read_i32, read_i64, read_u8, read_u16, read_utf,
+    skip_bytes, take,
+};
 use crate::list::is_wrapper;
 use crate::tag::*;
-use crate::{compress, CompoundTag, ListTag};
+use crate::{CompoundTag, ListTag, compress};
 use std::collections::HashMap;
 
 /// `StreamTagVisitor.EntryResult`.
@@ -76,7 +79,9 @@ fn skip_i32(input: &mut &[u8], count: i32) {
 fn read_list_count(input: &mut &[u8]) -> Result<i32> {
     let count = read_i32(input)?;
     if count < 0 {
-        return Err(NbtError::Format(format!("ListTag length cannot be negative: {count}")));
+        return Err(NbtError::Format(format!(
+            "ListTag length cannot be negative: {count}"
+        )));
     }
     Ok(count)
 }
@@ -90,7 +95,12 @@ fn read_key(input: &mut &[u8], acc: &mut NbtAccounter) -> Result<String> {
 }
 
 /// `TagType.parse`: reads a payload of type `type_id`, feeding `visitor`.
-pub fn parse_type(type_id: u8, input: &mut &[u8], visitor: &mut dyn StreamTagVisitor, acc: &mut NbtAccounter) -> Result<ValueResult> {
+pub fn parse_type(
+    type_id: u8,
+    input: &mut &[u8],
+    visitor: &mut dyn StreamTagVisitor,
+    acc: &mut NbtAccounter,
+) -> Result<ValueResult> {
     Ok(match type_id {
         TAG_END => {
             acc.account_bytes(8)?;
@@ -150,7 +160,10 @@ pub fn parse_type(type_id: u8, input: &mut &[u8], visitor: &mut dyn StreamTagVis
             let len = read_i32(input)?;
             acc.account_bytes_n(4, len as i64)?;
             let bytes = take(input, len as usize * 4)?;
-            let data: Vec<i32> = bytes.chunks_exact(4).map(|c| i32::from_be_bytes(c.try_into().unwrap())).collect();
+            let data: Vec<i32> = bytes
+                .chunks_exact(4)
+                .map(|c| i32::from_be_bytes(c.try_into().unwrap()))
+                .collect();
             visitor.visit_int_array(&data)
         }
         TAG_LONG_ARRAY => {
@@ -158,14 +171,21 @@ pub fn parse_type(type_id: u8, input: &mut &[u8], visitor: &mut dyn StreamTagVis
             let len = read_i32(input)?;
             acc.account_bytes_n(8, len as i64)?;
             let bytes = take(input, len as usize * 8)?;
-            let data: Vec<i64> = bytes.chunks_exact(8).map(|c| i64::from_be_bytes(c.try_into().unwrap())).collect();
+            let data: Vec<i64> = bytes
+                .chunks_exact(8)
+                .map(|c| i64::from_be_bytes(c.try_into().unwrap()))
+                .collect();
             visitor.visit_long_array(&data)
         }
         _ => return Err(invalid_tag_id(type_id)),
     })
 }
 
-fn parse_list(input: &mut &[u8], visitor: &mut dyn StreamTagVisitor, acc: &mut NbtAccounter) -> Result<ValueResult> {
+fn parse_list(
+    input: &mut &[u8],
+    visitor: &mut dyn StreamTagVisitor,
+    acc: &mut NbtAccounter,
+) -> Result<ValueResult> {
     acc.account_bytes(36)?;
     let element_type = read_u8(input)?;
     let count = read_list_count(input)?;
@@ -203,7 +223,11 @@ fn parse_list(input: &mut &[u8], visitor: &mut dyn StreamTagVisitor, acc: &mut N
     Ok(visitor.visit_container_end())
 }
 
-fn parse_compound(input: &mut &[u8], visitor: &mut dyn StreamTagVisitor, acc: &mut NbtAccounter) -> Result<ValueResult> {
+fn parse_compound(
+    input: &mut &[u8],
+    visitor: &mut dyn StreamTagVisitor,
+    acc: &mut NbtAccounter,
+) -> Result<ValueResult> {
     acc.account_bytes(48)?;
     let mut type_id;
     loop {
@@ -307,7 +331,12 @@ pub fn skip_type(type_id: u8, input: &mut &[u8], acc: &mut NbtAccounter) -> Resu
 }
 
 /// `TagType.skip(input, count, accounter)`: skips `count` consecutive payloads.
-pub fn skip_type_n(type_id: u8, input: &mut &[u8], count: i32, acc: &mut NbtAccounter) -> Result<()> {
+pub fn skip_type_n(
+    type_id: u8,
+    input: &mut &[u8],
+    count: i32,
+    acc: &mut NbtAccounter,
+) -> Result<()> {
     match type_id {
         TAG_END => Ok(()),
         // StaticSize: `skipBytes(size * count)` with Java int overflow.
@@ -333,7 +362,12 @@ pub fn skip_type_n(type_id: u8, input: &mut &[u8], count: i32, acc: &mut NbtAcco
 }
 
 /// `TagType.parseRoot`.
-pub fn parse_root(type_id: u8, input: &mut &[u8], visitor: &mut dyn StreamTagVisitor, acc: &mut NbtAccounter) -> Result<()> {
+pub fn parse_root(
+    type_id: u8,
+    input: &mut &[u8],
+    visitor: &mut dyn StreamTagVisitor,
+    acc: &mut NbtAccounter,
+) -> Result<()> {
     match visitor.visit_root_entry(type_id) {
         ValueResult::Continue => {
             parse_type(type_id, input, visitor, acc)?;
@@ -345,7 +379,11 @@ pub fn parse_root(type_id: u8, input: &mut &[u8], visitor: &mut dyn StreamTagVis
 }
 
 /// `NbtIo.parse`: a named root of any type.
-pub fn parse(input: &mut &[u8], visitor: &mut dyn StreamTagVisitor, acc: &mut NbtAccounter) -> Result<()> {
+pub fn parse(
+    input: &mut &[u8],
+    visitor: &mut dyn StreamTagVisitor,
+    acc: &mut NbtAccounter,
+) -> Result<()> {
     let type_id = read_u8(input)?;
     if type_id == TAG_END {
         if visitor.visit_root_entry(TAG_END) == ValueResult::Continue {
@@ -368,7 +406,11 @@ pub fn parse(input: &mut &[u8], visitor: &mut dyn StreamTagVisitor, acc: &mut Nb
 }
 
 /// `NbtIo.parseCompressed`: gzip-wrapped [`parse`].
-pub fn parse_compressed(data: &[u8], visitor: &mut dyn StreamTagVisitor, acc: &mut NbtAccounter) -> Result<()> {
+pub fn parse_compressed(
+    data: &[u8],
+    visitor: &mut dyn StreamTagVisitor,
+    acc: &mut NbtAccounter,
+) -> Result<()> {
     // Same decompression bound as `nbt_io::read_compressed`.
     let limit = (acc.quota() != i64::MAX).then(|| acc.quota().max(0) as u64);
     let raw = compress::gzip_decompress(data, limit)?;
@@ -378,7 +420,10 @@ pub fn parse_compressed(data: &[u8], visitor: &mut dyn StreamTagVisitor, acc: &m
 // ------------------------------------------------------------------- accept
 
 /// Shared body of `CompoundTag.accept(StreamTagVisitor)` over `entries` in iteration order.
-fn accept_entries<'a>(entries: impl Iterator<Item = (&'a str, &'a Tag)>, visitor: &mut dyn StreamTagVisitor) -> ValueResult {
+fn accept_entries<'a>(
+    entries: impl Iterator<Item = (&'a str, &'a Tag)>,
+    visitor: &mut dyn StreamTagVisitor,
+) -> ValueResult {
     for (key, value) in entries {
         let id = value.id();
         match visitor.visit_entry(id) {
@@ -410,7 +455,8 @@ fn accept_list(list: &ListTag, visitor: &mut dyn StreamTagVisitor) -> ValueResul
     for (i, element) in list.iter().enumerate() {
         // `wrapIfNeeded`: in a compound-typed list every non-compound / wrapper-shaped element is
         // presented as `{"": element}`.
-        let wrapped = element_type == TAG_COMPOUND && !matches!(element, Tag::Compound(c) if !is_wrapper(c));
+        let wrapped =
+            element_type == TAG_COMPOUND && !matches!(element, Tag::Compound(c) if !is_wrapper(c));
         let id = if wrapped { TAG_COMPOUND } else { element.id() };
         match visitor.visit_element(id, i as i32) {
             EntryResult::Halt => return ValueResult::Halt,
@@ -418,7 +464,11 @@ fn accept_list(list: &ListTag, visitor: &mut dyn StreamTagVisitor) -> ValueResul
             EntryResult::Skip => continue,
             EntryResult::Enter => {}
         }
-        let result = if wrapped { accept_entries(std::iter::once(("", element)), visitor) } else { element.accept_stream(visitor) };
+        let result = if wrapped {
+            accept_entries(std::iter::once(("", element)), visitor)
+        } else {
+            element.accept_stream(visitor)
+        };
         match result {
             ValueResult::Halt => return ValueResult::Halt,
             ValueResult::Break => return visitor.visit_container_end(),
@@ -442,7 +492,12 @@ impl Tag {
             Tag::ByteArray(v) => visitor.visit_byte_array(v),
             Tag::String(v) => visitor.visit_string(v),
             Tag::List(l) => accept_list(l, visitor),
-            Tag::Compound(c) => accept_entries(c.iter_java_order().into_iter().map(|(k, v)| (k.as_str(), v)), visitor),
+            Tag::Compound(c) => accept_entries(
+                c.iter_java_order()
+                    .into_iter()
+                    .map(|(k, v)| (k.as_str(), v)),
+                visitor,
+            ),
             Tag::IntArray(v) => visitor.visit_int_array(v),
             Tag::LongArray(v) => visitor.visit_long_array(v),
         }
@@ -520,7 +575,10 @@ impl StreamTagVisitor for SkipAll {
 
 enum Builder {
     Root(Option<Tag>),
-    Compound { compound: CompoundTag, last_id: String },
+    Compound {
+        compound: CompoundTag,
+        last_id: String,
+    },
     List(ListTag),
 }
 
@@ -565,7 +623,9 @@ impl Default for CollectToTag {
 
 impl CollectToTag {
     pub fn new() -> Self {
-        Self { stack: vec![Builder::Root(None)] }
+        Self {
+            stack: vec![Builder::Root(None)],
+        }
     }
 
     /// `getResult()`.
@@ -590,13 +650,19 @@ impl CollectToTag {
     }
 
     fn append_entry(&mut self, tag: Tag) {
-        self.stack.last_mut().expect("CollectToTag: no open container").accept_value(tag);
+        self.stack
+            .last_mut()
+            .expect("CollectToTag: no open container")
+            .accept_value(tag);
     }
 
     fn enter_container_if_needed(&mut self, type_id: u8) {
         match type_id {
             TAG_LIST => self.stack.push(Builder::List(ListTag::new())),
-            TAG_COMPOUND => self.stack.push(Builder::Compound { compound: CompoundTag::new(), last_id: String::new() }),
+            TAG_COMPOUND => self.stack.push(Builder::Compound {
+                compound: CompoundTag::new(),
+                last_id: String::new(),
+            }),
             _ => {}
         }
     }
@@ -704,7 +770,10 @@ impl StreamTagVisitor for CollectToTag {
         EntryResult::Enter
     }
     fn visit_entry_named(&mut self, type_id: u8, id: &str) -> EntryResult {
-        self.stack.last_mut().expect("CollectToTag: no open container").accept_key(id);
+        self.stack
+            .last_mut()
+            .expect("CollectToTag: no open container")
+            .accept_key(id);
         self.enter_container_if_needed(type_id);
         EntryResult::Enter
     }
@@ -734,17 +803,34 @@ pub struct FieldSelector {
 impl FieldSelector {
     /// `FieldSelector(type, name)`: a top-level field.
     pub fn new(type_id: u8, name: impl Into<String>) -> Self {
-        Self { path: Vec::new(), type_id, name: name.into() }
+        Self {
+            path: Vec::new(),
+            type_id,
+            name: name.into(),
+        }
     }
 
     /// `FieldSelector(parent, type, name)`.
     pub fn in_parent(parent: impl Into<String>, type_id: u8, name: impl Into<String>) -> Self {
-        Self { path: vec![parent.into()], type_id, name: name.into() }
+        Self {
+            path: vec![parent.into()],
+            type_id,
+            name: name.into(),
+        }
     }
 
     /// `FieldSelector(grandparent, parent, type, name)`.
-    pub fn in_grandparent(grandparent: impl Into<String>, parent: impl Into<String>, type_id: u8, name: impl Into<String>) -> Self {
-        Self { path: vec![grandparent.into(), parent.into()], type_id, name: name.into() }
+    pub fn in_grandparent(
+        grandparent: impl Into<String>,
+        parent: impl Into<String>,
+        type_id: u8,
+        name: impl Into<String>,
+    ) -> Self {
+        Self {
+            path: vec![grandparent.into(), parent.into()],
+            type_id,
+            name: name.into(),
+        }
     }
 }
 
@@ -758,7 +844,11 @@ pub struct FieldTree {
 
 impl FieldTree {
     fn new(depth: i32) -> Self {
-        Self { depth, selected_fields: HashMap::new(), fields_to_recurse: HashMap::new() }
+        Self {
+            depth,
+            selected_fields: HashMap::new(),
+            fields_to_recurse: HashMap::new(),
+        }
     }
 
     pub fn create_root() -> Self {
@@ -773,7 +863,8 @@ impl FieldTree {
                 .or_insert_with(|| FieldTree::new(depth + 1))
                 .add_entry(field);
         } else {
-            self.selected_fields.insert(field.name.clone(), field.type_id);
+            self.selected_fields
+                .insert(field.name.clone(), field.type_id);
         }
     }
 
@@ -799,15 +890,25 @@ impl FrameStack {
         for field in wanted {
             root.add_entry(field);
         }
-        Self { root, path: Vec::new(), popped: false }
+        Self {
+            root,
+            path: Vec::new(),
+            popped: false,
+        }
     }
 
     /// `stack.element()`.
     fn element(&mut self) -> &mut FieldTree {
-        assert!(!self.popped, "NoSuchElementException: field frame stack is empty");
+        assert!(
+            !self.popped,
+            "NoSuchElementException: field frame stack is empty"
+        );
         let mut frame = &mut self.root;
         for key in &self.path {
-            frame = frame.fields_to_recurse.get_mut(key).expect("frame path follows fields_to_recurse");
+            frame = frame
+                .fields_to_recurse
+                .get_mut(key)
+                .expect("frame path follows fields_to_recurse");
         }
         frame
     }
@@ -845,7 +946,12 @@ impl CollectFields {
         if !wanted_types.contains(&TAG_COMPOUND) {
             wanted_types.push(TAG_COMPOUND);
         }
-        Self { inner: CollectToTag::new(), fields_to_get_count: wanted_fields.len() as i32, wanted_types, stack: FrameStack::new(wanted_fields) }
+        Self {
+            inner: CollectToTag::new(),
+            fields_to_get_count: wanted_fields.len() as i32,
+            wanted_types,
+            stack: FrameStack::new(wanted_fields),
+        }
     }
 
     /// `getResult()`.
@@ -924,7 +1030,10 @@ pub struct SkipFields {
 
 impl SkipFields {
     pub fn new(unwanted_fields: &[FieldSelector]) -> Self {
-        Self { inner: CollectToTag::new(), stack: FrameStack::new(unwanted_fields) }
+        Self {
+            inner: CollectToTag::new(),
+            stack: FrameStack::new(unwanted_fields),
+        }
     }
 
     /// `getResult()`.

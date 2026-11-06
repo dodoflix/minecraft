@@ -50,7 +50,9 @@ const SECRET_KEY_CHARS: &[u8] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrst
 /// `SecurityConfig.generateSecretKey`.
 pub fn generate_secret_key() -> String {
     let mut rng = rand::rng();
-    (0..40).map(|_| SECRET_KEY_CHARS[rng.random_range(0..SECRET_KEY_CHARS.len())] as char).collect()
+    (0..40)
+        .map(|_| SECRET_KEY_CHARS[rng.random_range(0..SECRET_KEY_CHARS.len())] as char)
+        .collect()
 }
 
 /// `Mth.clamp(int, int, int)`.
@@ -66,15 +68,30 @@ fn clamp(v: i32, min: i32, max: i32) -> i32 {
 
 /// `Integer.parseInt` escaping as an uncaught `NumberFormatException`.
 fn parse_int_or_throw(s: &str) -> Result<i32, SettingsError> {
-    s.parse::<i32>().map_err(|_| SettingsError(format!("java.lang.NumberFormatException: For input string: \"{s}\"")))
+    s.parse::<i32>().map_err(|_| {
+        SettingsError(format!(
+            "java.lang.NumberFormatException: For input string: \"{s}\""
+        ))
+    })
 }
 
 fn game_type_by_name(name: &str) -> Option<GameType> {
-    [GameType::Survival, GameType::Creative, GameType::Adventure, GameType::Spectator].into_iter().find(|g| g.get_name() == name)
+    [
+        GameType::Survival,
+        GameType::Creative,
+        GameType::Adventure,
+        GameType::Spectator,
+    ]
+    .into_iter()
+    .find(|g| g.get_name() == name)
 }
 
 /// `Settings.dispatchNumberOrString`.
-fn number_or_string<V>(s: &str, by_id: impl FnOnce(i32) -> V, by_name: impl FnOnce(&str) -> Option<V>) -> Option<V> {
+fn number_or_string<V>(
+    s: &str,
+    by_id: impl FnOnce(i32) -> V,
+    by_name: impl FnOnce(&str) -> Option<V>,
+) -> Option<V> {
     match s.parse::<i32>() {
         Ok(id) => Some(by_id(id)),
         Err(_) => by_name(s),
@@ -83,7 +100,10 @@ fn number_or_string<V>(s: &str, by_id: impl FnOnce(i32) -> V, by_name: impl FnOn
 
 /// `DedicatedServerProperties.deserializePermission`.
 pub fn deserialize_permission(value: &str) -> Option<LevelBasedPermissionSet> {
-    value.parse::<i32>().ok().map(|id| LevelBasedPermissionSet::for_level(PermissionLevel::by_id(id)))
+    value
+        .parse::<i32>()
+        .ok()
+        .map(|id| LevelBasedPermissionSet::for_level(PermissionLevel::by_id(id)))
 }
 
 /// `DedicatedServerProperties.serializePermission`.
@@ -196,11 +216,14 @@ impl DedicatedServerProperties {
         let management_server_enabled = s.get_boolean("management-server-enabled", false);
         let management_server_host = s.get_string("management-server-host", "localhost");
         let management_server_port = s.get_int("management-server-port", 0);
-        let management_server_secret = s.get_string("management-server-secret", &generate_secret_key());
+        let management_server_secret =
+            s.get_string("management-server-secret", &generate_secret_key());
         let management_server_tls_enabled = s.get_boolean("management-server-tls-enabled", true);
         let management_server_tls_keystore = s.get_string("management-server-tls-keystore", "");
-        let management_server_tls_keystore_password = s.get_string("management-server-tls-keystore-password", "");
-        let management_server_allowed_origins = s.get_string("management-server-allowed-origins", "");
+        let management_server_tls_keystore_password =
+            s.get_string("management-server-tls-keystore-password", "");
+        let management_server_allowed_origins =
+            s.get_string("management-server-allowed-origins", "");
         let announce_player_achievements = s.get_legacy_boolean("announce-player-achievements");
         let enable_query = s.get_boolean("enable-query", false);
         let query_port = s.get_int("query.port", 25565);
@@ -233,7 +256,8 @@ impl DedicatedServerProperties {
         let network_compression_threshold = s.get_int("network-compression-threshold", 256);
         let broadcast_rcon_to_ops = s.get_boolean("broadcast-rcon-to-ops", true);
         let broadcast_console_to_ops = s.get_boolean("broadcast-console-to-ops", true);
-        let max_world_size = s.get_int_validated("max-world-size", |v| clamp(v, 1, 29_999_984), 29_999_984);
+        let max_world_size =
+            s.get_int_validated("max-world-size", |v| clamp(v, 1, 29_999_984), 29_999_984);
         let sync_chunk_writes = s.get_boolean("sync-chunk-writes", true);
         let region_file_compression = s.get_string("region-file-compression", "deflate");
         let enable_jmx_monitoring = s.get_boolean("enable-jmx-monitoring", false);
@@ -271,8 +295,16 @@ impl DedicatedServerProperties {
             |o| JsonElement::Object(o.clone()).to_compact_string(),
             JsonObject::new(),
         )?;
-        let level_type = s.get_with("level-type", |v| Ok(Some(v.to_lowercase())), String::clone, "minecraft:normal".to_owned())?;
-        let world_dimension_data = WorldDimensionData { generator_settings, level_type };
+        let level_type = s.get_with(
+            "level-type",
+            |v| Ok(Some(v.to_lowercase())),
+            String::clone,
+            "minecraft:normal".to_owned(),
+        )?;
+        let world_dimension_data = WorldDimensionData {
+            generator_settings,
+            level_type,
+        };
         let resource_pack_id = s.get_string("resource-pack-id", "");
         let resource_pack = s.get_string("resource-pack", "");
         let resource_pack_sha1 = s.get_string("resource-pack-sha1", "");
@@ -290,7 +322,10 @@ impl DedicatedServerProperties {
         let default_packs = DataPackConfig::default_config();
         let enabled = s.get_string("initial-enabled-packs", &default_packs.enabled.join(","));
         let disabled = s.get_string("initial-disabled-packs", &default_packs.disabled.join(","));
-        let initial_data_pack_configuration = DataPackConfig { enabled: comma_split(&enabled), disabled: comma_split(&disabled) };
+        let initial_data_pack_configuration = DataPackConfig {
+            enabled: comma_split(&enabled),
+            disabled: comma_split(&disabled),
+        };
 
         Ok(DedicatedServerProperties {
             properties: s.properties,
@@ -420,7 +455,9 @@ fn get_server_pack_info(
     let legacy_hash = legacy_hash.filter(|h| !h.is_empty());
     let hash = if !sha1.is_empty() {
         if legacy_hash.is_some() {
-            log::warn!("resource-pack-hash is deprecated and found along side resource-pack-sha1. resource-pack-hash will be ignored.");
+            log::warn!(
+                "resource-pack-hash is deprecated and found along side resource-pack-sha1. resource-pack-hash will be ignored."
+            );
         }
         sha1
     } else if let Some(legacy) = legacy_hash {
@@ -450,7 +487,13 @@ fn get_server_pack_info(
             }
         }
     };
-    Some(ServerResourcePackInfo { id: parsed_id, url: url.to_owned(), hash: hash.to_owned(), is_required: require_resource_pack, prompt })
+    Some(ServerResourcePackInfo {
+        id: parsed_id,
+        url: url.to_owned(),
+        hash: hash.to_owned(),
+        is_required: require_resource_pack,
+        prompt,
+    })
 }
 
 /// `DedicatedServerSettings`: the properties plus the file they are persisted to.
@@ -475,7 +518,10 @@ impl DedicatedServerSettings {
     }
 
     /// `update`: replace the properties with `mutator(current)` and store them.
-    pub fn update(&mut self, mutator: impl FnOnce(&DedicatedServerProperties) -> DedicatedServerProperties) -> &mut Self {
+    pub fn update(
+        &mut self,
+        mutator: impl FnOnce(&DedicatedServerProperties) -> DedicatedServerProperties,
+    ) -> &mut Self {
         self.properties = mutator(&self.properties);
         self.properties.store(&self.source);
         self

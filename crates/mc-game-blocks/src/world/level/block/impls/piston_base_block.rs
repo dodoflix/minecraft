@@ -1,19 +1,19 @@
 //! `net.minecraft.world.level.block.PistonBaseBlock` (`piston` package; `minecraft:piston` and `minecraft:sticky_piston`).
+use crate::world::block_entity::PistonMovingBlockEntity;
+use crate::world::block_entity::piston_moving_block_entity::MovingPistonLevelExt;
+use mc_core::random::RandomSource;
+use mc_data::GameEvent;
+use mc_data::SoundEvent;
+use mc_data::enums::{PistonType, PushReaction};
 use mc_game_core::register_block_class;
-use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::item::{BlockPlaceContext, ItemStack};
+use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::world::level::block::piston::{PistonStructureResolver, push_reaction};
 use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_game_core::world::level::redstone::Orientation;
 use mc_game_core::world::level::signal_getter::has_signal;
-use mc_data::GameEvent;
-use mc_data::SoundEvent;
-use mc_data::enums::{PistonType, PushReaction};
 use mc_protocol::packets::play::level::SoundSource;
-use crate::world::block_entity::PistonMovingBlockEntity;
-use crate::world::block_entity::piston_moving_block_entity::MovingPistonLevelExt;
-use mc_core::random::RandomSource;
 
 pub use mc_game_core::world::level::block::piston::is_pushable;
 
@@ -52,7 +52,12 @@ impl PistonBaseBlock {
         let extend = get_neighbor_signal(level, pos, direction);
         if extend && !state.get(props::EXTENDED) {
             if PistonStructureResolver::new(level, pos, direction, true).resolve() {
-                level.block_event(pos, state.block(), TRIGGER_EXTEND, direction.get_3d_data_value() as i32);
+                level.block_event(
+                    pos,
+                    state.block(),
+                    TRIGGER_EXTEND,
+                    direction.get_3d_data_value() as i32,
+                );
             }
         } else if !extend && state.get(props::EXTENDED) {
             let pushed_pos = pos.relative_n(direction, 2);
@@ -62,16 +67,29 @@ impl PistonBaseBlock {
                 && pushed_state.get(props::FACING) == direction
                 && let Some(piston) = level.moving_piston_info(pushed_pos)
                 && piston.extending
-                && (piston.progress < 0.5 || level.game_time() == piston.last_ticked || level.tick_state.handling_tick)
+                && (piston.progress < 0.5
+                    || level.game_time() == piston.last_ticked
+                    || level.tick_state.handling_tick)
             {
                 event = TRIGGER_DROP;
             }
-            level.block_event(pos, state.block(), event, direction.get_3d_data_value() as i32);
+            level.block_event(
+                pos,
+                state.block(),
+                event,
+                direction.get_3d_data_value() as i32,
+            );
         }
     }
 
     /// `moveBlocks(level, pistonPos, direction, extending)`.
-    fn move_blocks(&self, level: &mut ServerLevel, piston_pos: BlockPos, direction: Direction, extending: bool) -> bool {
+    fn move_blocks(
+        &self,
+        level: &mut ServerLevel,
+        piston_pos: BlockPos,
+        direction: Direction,
+        extending: bool,
+    ) -> bool {
         let arm_pos = piston_pos.relative(direction);
         if !extending && level.get_block_state(arm_pos).is_block(Block::PISTON_HEAD) {
             level.set_block_flags(arm_pos, Block::AIR.default_state(), 276);
@@ -95,13 +113,21 @@ impl PistonBaseBlock {
         }
 
         let mut to_update: Vec<BlockState> = Vec::with_capacity(to_push.len() + to_destroy.len());
-        let push_direction = if extending { direction } else { direction.get_opposite() };
+        let push_direction = if extending {
+            direction
+        } else {
+            direction.get_opposite()
+        };
 
         for pos in to_destroy.iter().rev() {
             let state = level.get_block_state(*pos);
             helpers::drop_resources(level, state, *pos, None);
             level.set_block_flags(*pos, Block::AIR.default_state(), 18);
-            level.game_event_at_block(GameEvent::BLOCK_DESTROY, *pos, &GameEventContext::of_state(Some(state)));
+            level.game_event_at_block(
+                GameEvent::BLOCK_DESTROY,
+                *pos,
+                &GameEventContext::of_state(Some(state)),
+            );
             to_update.push(state);
         }
 
@@ -109,19 +135,45 @@ impl PistonBaseBlock {
             let block_state = level.get_block_state(*pos);
             let pos = pos.relative(push_direction);
             delete_after_move.remove(pos);
-            let actual_state = Block::MOVING_PISTON.default_state().set(props::FACING, direction);
+            let actual_state = Block::MOVING_PISTON
+                .default_state()
+                .set(props::FACING, direction);
             level.set_block_flags(pos, actual_state, 324);
-            level.add_and_register_block_entity(Box::new(PistonMovingBlockEntity::new_moving(pos, actual_state, to_push_shapes[i], direction, extending, false)));
+            level.add_and_register_block_entity(Box::new(PistonMovingBlockEntity::new_moving(
+                pos,
+                actual_state,
+                to_push_shapes[i],
+                direction,
+                extending,
+                false,
+            )));
             to_update.push(block_state);
         }
 
         if extending {
-            let ty = if self.is_sticky { PistonType::Sticky } else { PistonType::Default };
-            let state = Block::PISTON_HEAD.default_state().set(props::FACING, direction).set(props::PISTON_TYPE, ty);
-            let block_state = Block::MOVING_PISTON.default_state().set(props::FACING, direction).set(props::PISTON_TYPE, ty);
+            let ty = if self.is_sticky {
+                PistonType::Sticky
+            } else {
+                PistonType::Default
+            };
+            let state = Block::PISTON_HEAD
+                .default_state()
+                .set(props::FACING, direction)
+                .set(props::PISTON_TYPE, ty);
+            let block_state = Block::MOVING_PISTON
+                .default_state()
+                .set(props::FACING, direction)
+                .set(props::PISTON_TYPE, ty);
             delete_after_move.remove(arm_pos);
             level.set_block_flags(arm_pos, block_state, 324);
-            level.add_and_register_block_entity(Box::new(PistonMovingBlockEntity::new_moving(arm_pos, block_state, state, direction, true, true)));
+            level.add_and_register_block_entity(Box::new(PistonMovingBlockEntity::new_moving(
+                arm_pos,
+                block_state,
+                state,
+                direction,
+                true,
+                true,
+            )));
         }
 
         let air = Block::AIR.default_state();
@@ -135,7 +187,8 @@ impl PistonBaseBlock {
             air.update_indirect_neighbour_shapes(level, *pos, 2, 512);
         }
 
-        let orientation: Option<Orientation> = level.initial_orientation(Some(resolver_push_direction), None);
+        let orientation: Option<Orientation> =
+            level.initial_orientation(Some(resolver_push_direction), None);
         let mut update_index = 0;
         for pos in to_destroy.iter().rev() {
             let state = to_update[update_index];
@@ -196,25 +249,67 @@ impl JavaPosMap {
 }
 
 impl BlockBehaviour for PistonBaseBlock {
-    fn set_placed_by(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, _placer: Option<&mut mc_game_core::world::entity::ServerPlayer>, _stack: &ItemStack) {
+    fn set_placed_by(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        _placer: Option<&mut mc_game_core::world::entity::ServerPlayer>,
+        _stack: &ItemStack,
+    ) {
         self.check_if_extend(level, pos, state);
     }
 
-    fn neighbor_changed(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, _block: Block, _orientation: Option<Orientation>, _moved_by_piston: bool) {
+    fn neighbor_changed(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        _block: Block,
+        _orientation: Option<Orientation>,
+        _moved_by_piston: bool,
+    ) {
         self.check_if_extend(level, pos, state);
     }
 
-    fn on_place(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, old_state: BlockState, _moved_by_piston: bool) {
+    fn on_place(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        old_state: BlockState,
+        _moved_by_piston: bool,
+    ) {
         if !old_state.is_block(state.block()) && level.get_block_entity_immediate(pos).is_none() {
             self.check_if_extend(level, pos, state);
         }
     }
 
-    fn get_state_for_placement(&self, block: Block, _level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
-        Some(block.default_state().set(props::FACING, context.get_nearest_looking_direction().get_opposite()).set(props::EXTENDED, false))
+    fn get_state_for_placement(
+        &self,
+        block: Block,
+        _level: &mut ServerLevel,
+        context: &BlockPlaceContext,
+    ) -> Option<BlockState> {
+        Some(
+            block
+                .default_state()
+                .set(
+                    props::FACING,
+                    context.get_nearest_looking_direction().get_opposite(),
+                )
+                .set(props::EXTENDED, false),
+        )
     }
 
-    fn trigger_event(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, b0: i32, b1: i32) -> bool {
+    fn trigger_event(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        b0: i32,
+        b1: i32,
+    ) -> bool {
         let direction = state.get(props::FACING);
         let extended_state = state.set(props::EXTENDED, true);
         let extend = get_neighbor_signal(level, pos, direction);
@@ -232,18 +327,39 @@ impl BlockBehaviour for PistonBaseBlock {
             }
             level.set_block_flags(pos, extended_state, 67);
             let pitch = level.tick_state.random.next_float() * 0.25 + 0.6;
-            level.play_sound(None, pos, SoundEvent::BLOCK_PISTON_EXTEND, SoundSource::Blocks, 0.5, pitch);
-            level.game_event_at_block(GameEvent::BLOCK_ACTIVATE, pos, &GameEventContext::of_state(Some(extended_state)));
+            level.play_sound(
+                None,
+                pos,
+                SoundEvent::BLOCK_PISTON_EXTEND,
+                SoundSource::Blocks,
+                0.5,
+                pitch,
+            );
+            level.game_event_at_block(
+                GameEvent::BLOCK_ACTIVATE,
+                pos,
+                &GameEventContext::of_state(Some(extended_state)),
+            );
         } else if b0 == 1 || b0 == 2 {
             level.final_tick_moving_piston(pos.relative(direction));
 
-            let ty = if self.is_sticky { PistonType::Sticky } else { PistonType::Default };
-            let moving_piston_state = Block::MOVING_PISTON.default_state().set(props::FACING, direction).set(props::PISTON_TYPE, ty);
+            let ty = if self.is_sticky {
+                PistonType::Sticky
+            } else {
+                PistonType::Default
+            };
+            let moving_piston_state = Block::MOVING_PISTON
+                .default_state()
+                .set(props::FACING, direction)
+                .set(props::PISTON_TYPE, ty);
             level.set_block_flags(pos, moving_piston_state, 276);
             level.add_and_register_block_entity(Box::new(PistonMovingBlockEntity::new_moving(
                 pos,
                 moving_piston_state,
-                state.block().default_state().set(props::FACING, Direction::from_3d_data_value(b1 & 7)),
+                state
+                    .block()
+                    .default_state()
+                    .set(props::FACING, Direction::from_3d_data_value(b1 & 7)),
                 direction,
                 false,
                 true,
@@ -251,7 +367,11 @@ impl BlockBehaviour for PistonBaseBlock {
             level.update_neighbors_at(pos, moving_piston_state.block());
             moving_piston_state.update_neighbour_shapes(level, pos, 2, 512);
             if self.is_sticky {
-                let two_pos = pos.offset(direction.get_step_x() * 2, direction.get_step_y() * 2, direction.get_step_z() * 2);
+                let two_pos = pos.offset(
+                    direction.get_step_x() * 2,
+                    direction.get_step_y() * 2,
+                    direction.get_step_z() * 2,
+                );
                 let moving_state = level.get_block_state(two_pos);
                 let mut piston_piece = false;
                 if moving_state.is_block(Block::MOVING_PISTON)
@@ -266,8 +386,17 @@ impl BlockBehaviour for PistonBaseBlock {
                 if !piston_piece {
                     if b0 != 1
                         || moving_state.is_air()
-                        || !is_pushable(moving_state, level, two_pos, direction.get_opposite(), false, direction)
-                        || push_reaction(moving_state) != PushReaction::PushPull && !moving_state.is_block(Block::PISTON) && !moving_state.is_block(Block::STICKY_PISTON)
+                        || !is_pushable(
+                            moving_state,
+                            level,
+                            two_pos,
+                            direction.get_opposite(),
+                            false,
+                            direction,
+                        )
+                        || push_reaction(moving_state) != PushReaction::PushPull
+                            && !moving_state.is_block(Block::PISTON)
+                            && !moving_state.is_block(Block::STICKY_PISTON)
                     {
                         level.remove_block(pos.relative(direction), false);
                     } else {
@@ -279,8 +408,19 @@ impl BlockBehaviour for PistonBaseBlock {
             }
 
             let pitch = level.tick_state.random.next_float() * 0.15 + 0.6;
-            level.play_sound(None, pos, SoundEvent::BLOCK_PISTON_CONTRACT, SoundSource::Blocks, 0.5, pitch);
-            level.game_event_at_block(GameEvent::BLOCK_DEACTIVATE, pos, &GameEventContext::of_state(Some(moving_piston_state)));
+            level.play_sound(
+                None,
+                pos,
+                SoundEvent::BLOCK_PISTON_CONTRACT,
+                SoundSource::Blocks,
+                0.5,
+                pitch,
+            );
+            level.game_event_at_block(
+                GameEvent::BLOCK_DEACTIVATE,
+                pos,
+                &GameEventContext::of_state(Some(moving_piston_state)),
+            );
         }
         true
     }
@@ -293,4 +433,6 @@ impl BlockBehaviour for PistonBaseBlock {
     }
 }
 
-register_block_class!("PistonBaseBlock", |block| Box::new(PistonBaseBlock { is_sticky: block == Block::STICKY_PISTON }));
+register_block_class!("PistonBaseBlock", |block| Box::new(PistonBaseBlock {
+    is_sticky: block == Block::STICKY_PISTON
+}));

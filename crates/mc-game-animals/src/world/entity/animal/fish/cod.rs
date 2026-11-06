@@ -2,6 +2,9 @@
 
 use super::abstract_fish::{self, AbstractFish, abstract_fish_bucketable, abstract_fish_entity};
 use super::abstract_schooling_fish::{self, FollowFlockLeaderGoal, SchoolData, SchoolingFish};
+use linkme::distributed_slice;
+use mc_data::enums::EntitySpawnReason;
+use mc_data::{EntityType, Item, SoundEvent};
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::damagesource::DamageSource;
 use mc_game_core::world::difficulty_instance::DifficultyInstance;
@@ -12,9 +15,6 @@ use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
 use mc_game_core::world::entity::{Entity, EntityId};
 use mc_game_core::world::item::ItemStack;
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
-use linkme::distributed_slice;
-use mc_data::enums::EntitySpawnReason;
-use mc_data::{EntityType, Item, SoundEvent};
 use mc_nbt::CompoundTag;
 
 pub struct Cod {
@@ -25,8 +25,16 @@ pub struct Cod {
 impl Cod {
     /// `new Cod(type, level)`.
     pub fn new(ty: EntityType, id: EntityId) -> Self {
-        let mob = MobData::new(ty, id, MobKind::PathfinderMob, abstract_fish::define_synched_data);
-        let mut cod = Cod { mob, school: SchoolData::default() };
+        let mob = MobData::new(
+            ty,
+            id,
+            MobKind::PathfinderMob,
+            abstract_fish::define_synched_data,
+        );
+        let mut cod = Cod {
+            mob,
+            school: SchoolData::default(),
+        };
         let navigation = StandardPathNavigation::water_bound(&cod);
         abstract_fish::init_controls(&mut cod.mob, navigation);
         cod.register_goals();
@@ -108,4 +116,7 @@ impl Entity for Cod {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static COD: EntityRegistration = EntityRegistration { entity_type: EntityType::COD, create: |ty, id, _registries| Box::new(Cod::new(ty, id)) };
+static COD: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::COD,
+    create: |ty, id, _registries| Box::new(Cod::new(ty, id)),
+};

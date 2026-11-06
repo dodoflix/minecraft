@@ -16,15 +16,28 @@ pub fn encodes_longer_than(json: &Value, max: usize) -> bool {
 fn gson_text_len(v: &Value) -> usize {
     match v {
         Value::Null => 4,
-        Value::Bool(b) => if *b { 4 } else { 5 },
+        Value::Bool(b) => {
+            if *b {
+                4
+            } else {
+                5
+            }
+        }
         Value::Number(n) => match (n.as_i64(), n.as_u64()) {
             (Some(i), _) => i.to_string().len(),
             (None, Some(u)) => u.to_string().len(),
             _ => crate::value::java_double_to_string(n.as_f64().unwrap_or(0.0)).len(),
         },
         Value::String(s) => gson_string_len(s),
-        Value::Array(a) => 2 + a.len().saturating_sub(1) + a.iter().map(gson_text_len).sum::<usize>(),
-        Value::Object(o) => 2 + o.len().saturating_sub(1) + o.iter().map(|(k, v)| gson_string_len(k) + 1 + gson_text_len(v)).sum::<usize>(),
+        Value::Array(a) => {
+            2 + a.len().saturating_sub(1) + a.iter().map(gson_text_len).sum::<usize>()
+        }
+        Value::Object(o) => {
+            2 + o.len().saturating_sub(1)
+                + o.iter()
+                    .map(|(k, v)| gson_string_len(k) + 1 + gson_text_len(v))
+                    .sum::<usize>()
+        }
     }
 }
 
@@ -65,12 +78,23 @@ pub fn merge_styles(component: Component, style: &Style) -> Component {
 }
 
 /// `ComponentUtils.formatList(values, separator, formatter)`.
-pub fn format_list<T>(values: impl IntoIterator<Item = T>, separator: &Component, formatter: impl Fn(T) -> Component) -> Component {
+pub fn format_list<T>(
+    values: impl IntoIterator<Item = T>,
+    separator: &Component,
+    formatter: impl Fn(T) -> Component,
+) -> Component {
     let mut it = values.into_iter();
-    let Some(first) = it.next() else { return Component::empty() };
+    let Some(first) = it.next() else {
+        return Component::empty();
+    };
     let first = formatter(first);
-    let Some(second) = it.next() else { return first };
-    let mut result = Component::empty().append(first).append(separator.clone()).append(formatter(second));
+    let Some(second) = it.next() else {
+        return first;
+    };
+    let mut result = Component::empty()
+        .append(first)
+        .append(separator.clone())
+        .append(formatter(second));
     for v in it {
         result.push_sibling(separator.clone());
         result.push_sibling(formatter(v));
@@ -85,13 +109,18 @@ pub fn format_string_list(values: &[String]) -> Component {
     match sorted.len() {
         0 => Component::empty(),
         1 => Component::literal(sorted[0].clone()).with_format(ChatFormatting::Green),
-        _ => format_list(sorted, &default_separator(), |v| Component::literal(v.clone()).with_format(ChatFormatting::Green)),
+        _ => format_list(sorted, &default_separator(), |v| {
+            Component::literal(v.clone()).with_format(ChatFormatting::Green)
+        }),
     }
 }
 
 /// `ComponentUtils.wrapInSquareBrackets`.
 pub fn wrap_in_square_brackets(inner: Component) -> Component {
-    Component::translatable("chat.square_brackets", vec![TranslatableArg::Component(inner)])
+    Component::translatable(
+        "chat.square_brackets",
+        vec![TranslatableArg::Component(inner)],
+    )
 }
 
 /// `ComponentUtils.copyOnClickText`.
@@ -99,7 +128,10 @@ pub fn copy_on_click_text(text: &str) -> Component {
     wrap_in_square_brackets(Component::literal(text).with_style_fn(|s| {
         s.with_color_formatting(Some(ChatFormatting::Green))
             .with_click_event(Some(ClickEvent::CopyToClipboard(text.to_owned())))
-            .with_hover_event(Some(HoverEvent::show_text(Component::translatable("chat.copy.click", vec![]))))
+            .with_hover_event(Some(HoverEvent::show_text(Component::translatable(
+                "chat.copy.click",
+                vec![],
+            ))))
             .with_insertion(Some(text.to_owned()))
     }))
 }

@@ -11,11 +11,15 @@ use crate::server::permissions::LevelBasedPermissionSet;
 use crate::world::entity::entity::Entity;
 use crate::world::entity::{EntityId, RemovalReason, ServerPlayer};
 use mc_core::ident::Identifier;
-use mc_protocol::packets::play::{ClientboundSetChunkCacheRadiusPacket, ClientboundSetSimulationDistancePacket};
+use mc_protocol::packets::play::{
+    ClientboundSetChunkCacheRadiusPacket, ClientboundSetSimulationDistancePacket,
+};
 
 /// `save(player)`: the player data file, then the statistics and advancements files.
 pub fn save_player(server: &mut MinecraftServer, level: &ServerLevel, player: &ServerPlayer) {
-    let Some(handle) = player.handle.clone() else { return };
+    let Some(handle) = player.handle.clone() else {
+        return;
+    };
     let tag = player.save_player_data(&|id| level.get_entity(id));
     server.player_list.save_player_data(&handle, tag);
     server.player_list.save_player_files(&handle);
@@ -48,8 +52,14 @@ fn passengers_and_self(level: &ServerLevel, root: EntityId) -> Vec<EntityId> {
 /// `remove(player)`: `player` is taken out of `level` (it is the player whose connection ended); the caller puts it
 /// back, which applies the removal.
 pub fn remove(server: &mut MinecraftServer, level: &mut ServerLevel, player: &mut ServerPlayer) {
-    let Some(handle) = player.handle.clone() else { return };
-    server.player_list.get_player_stats(&handle).lock().increment(crate::stats::stats::Stats::LEAVE_GAME, 1);
+    let Some(handle) = player.handle.clone() else {
+        return;
+    };
+    server
+        .player_list
+        .get_player_stats(&handle)
+        .lock()
+        .increment(crate::stats::stats::Stats::LEAVE_GAME, 1);
     save_player(server, level, player);
     if let Some(vehicle) = player.base().vehicle {
         // root vehicle with exactly one player passenger (this one): it goes down with the player
@@ -58,7 +68,10 @@ pub fn remove(server: &mut MinecraftServer, level: &mut ServerLevel, player: &mu
             root = next;
         }
         let members = passengers_and_self(level, root);
-        let players = members.iter().filter(|&&id| level.get_entity(id).is_some_and(|e| e.is_player())).count();
+        let players = members
+            .iter()
+            .filter(|&&id| level.get_entity(id).is_some_and(|e| e.is_player()))
+            .count();
         if players == 0 {
             log::debug!("Removing player mount");
             for id in members {
@@ -78,17 +91,32 @@ pub fn remove(server: &mut MinecraftServer, level: &mut ServerLevel, player: &mu
 /// `sendPlayerPermissionLevel(player)` for a player that is in its level.
 pub fn send_permission_level(server: &mut MinecraftServer, player: &PlayerHandle) {
     let dimension = player.dimension();
-    with_host(server, &dimension, |host| send_player_permission_level(host, player));
+    with_host(server, &dimension, |host| {
+        send_player_permission_level(host, player)
+    });
 }
 
-fn with_host<R>(server: &mut MinecraftServer, dimension: &Identifier, f: impl FnOnce(&mut dyn JoinHost) -> R) -> Option<R> {
-    server.with_level(dimension, |server, level| f(&mut ServerJoinHost { server, level }))
+fn with_host<R>(
+    server: &mut MinecraftServer,
+    dimension: &Identifier,
+    f: impl FnOnce(&mut dyn JoinHost) -> R,
+) -> Option<R> {
+    server.with_level(dimension, |server, level| {
+        f(&mut ServerJoinHost { server, level })
+    })
 }
 
 /// `op(nameAndId, permissions, canBypassPlayerLimit)`.
-pub fn op(server: &mut MinecraftServer, name_and_id: NameAndId, permissions: Option<LevelBasedPermissionSet>, can_bypass_player_limit: Option<bool>) {
+pub fn op(
+    server: &mut MinecraftServer,
+    name_and_id: NameAndId,
+    permissions: Option<LevelBasedPermissionSet>,
+    can_bypass_player_limit: Option<bool>,
+) {
     let id = name_and_id.id;
-    server.player_list.op_entry(name_and_id, permissions, can_bypass_player_limit);
+    server
+        .player_list
+        .op_entry(name_and_id, permissions, can_bypass_player_limit);
     if let Some(player) = server.player_list.get_player(&id).cloned() {
         send_permission_level(server, &player);
     }
@@ -104,15 +132,25 @@ pub fn deop(server: &mut MinecraftServer, name_and_id: &NameAndId) {
 }
 
 /// `sendPlayerPermissionLevel(player, permissions)`.
-pub fn send_permission_level_with(server: &mut MinecraftServer, player: &PlayerHandle, permissions: LevelBasedPermissionSet) {
+pub fn send_permission_level_with(
+    server: &mut MinecraftServer,
+    player: &PlayerHandle,
+    permissions: LevelBasedPermissionSet,
+) {
     let dimension = player.dimension();
-    with_host(server, &dimension, |host| send_player_permission_level_with(host, player, permissions));
+    with_host(server, &dimension, |host| {
+        send_player_permission_level_with(host, player, permissions)
+    });
 }
 
 /// `setViewDistance(viewDistance)`.
 pub fn set_view_distance(server: &mut MinecraftServer, view_distance: i32) {
     server.player_list.set_view_distance_value(view_distance);
-    server.player_list.broadcast_all(&ClientboundSetChunkCacheRadiusPacket { radius: view_distance });
+    server
+        .player_list
+        .broadcast_all(&ClientboundSetChunkCacheRadiusPacket {
+            radius: view_distance,
+        });
     for dimension in server.level_keys() {
         if let Some(level) = server.level_mut(&dimension) {
             level.chunk_source.set_view_distance(view_distance);
@@ -122,22 +160,38 @@ pub fn set_view_distance(server: &mut MinecraftServer, view_distance: i32) {
 
 /// `setSimulationDistance(simulationDistance)`.
 pub fn set_simulation_distance(server: &mut MinecraftServer, simulation_distance: i32) {
-    server.player_list.set_simulation_distance_value(simulation_distance);
-    server.player_list.broadcast_all(&ClientboundSetSimulationDistancePacket { simulation_distance });
+    server
+        .player_list
+        .set_simulation_distance_value(simulation_distance);
+    server
+        .player_list
+        .broadcast_all(&ClientboundSetSimulationDistancePacket {
+            simulation_distance,
+        });
     for dimension in server.level_keys() {
         if let Some(level) = server.level_mut(&dimension) {
-            level.chunk_source.set_simulation_distance(simulation_distance);
+            level
+                .chunk_source
+                .set_simulation_distance(simulation_distance);
         }
     }
 }
 
 /// `reloadResources()`: the player advancements, the new tags and the recipe sync.
 pub fn reload_resources(server: &mut MinecraftServer) {
-    if let Some(recipes) = server.resources.managers.listener::<crate::world::item::crafting::RecipeManager>() {
+    if let Some(recipes) = server
+        .resources
+        .managers
+        .listener::<crate::world::item::crafting::RecipeManager>()
+    {
         server.shared.set_recipe_manager(recipes.clone());
     }
     use crate::registry::synchronization as sync;
-    if let Some(manager) = server.resources.managers.listener::<crate::advancements::ServerAdvancementManager>() {
+    if let Some(manager) = server
+        .resources
+        .managers
+        .listener::<crate::advancements::ServerAdvancementManager>()
+    {
         server.player_list.reload_player_advancements(manager);
     }
     use mc_protocol::packets::common::TagNetworkPayload;
@@ -145,18 +199,31 @@ pub fn reload_resources(server: &mut MinecraftServer) {
         .into_iter()
         .map(|(registry, payload)| {
             (
-                Identifier::parse(&registry).unwrap_or_else(|e| panic!("invalid registry key {registry}: {e}")),
-                TagNetworkPayload { tags: payload.tags.into_iter().map(|(id, ids)| (id, ids.into_iter().map(|i| i as i32).collect())).collect() },
+                Identifier::parse(&registry)
+                    .unwrap_or_else(|e| panic!("invalid registry key {registry}: {e}")),
+                TagNetworkPayload {
+                    tags: payload
+                        .tags
+                        .into_iter()
+                        .map(|(id, ids)| (id, ids.into_iter().map(|i| i as i32).collect()))
+                        .collect(),
+                },
             )
         })
         .collect();
-    server.player_list.broadcast_all(&mc_protocol::packets::play::ClientboundUpdateTagsPacket { tags });
+    server
+        .player_list
+        .broadcast_all(&mc_protocol::packets::play::ClientboundUpdateTagsPacket { tags });
     for handle in server.player_list.get_players() {
         let (dimension, id) = (handle.dimension(), handle.id);
         server.with_level(&dimension, |server, level| {
-            handle.connection.send(&ServerJoinHost { server, level }.update_recipes_packet());
+            handle
+                .connection
+                .send(&ServerJoinHost { server, level }.update_recipes_packet());
             let manager = level.recipe_access();
-            level.with_player(id, |_, player| super::join::send_initial_recipe_book(player, &manager));
+            level.with_player(id, |_, player| {
+                super::join::send_initial_recipe_book(player, &manager)
+            });
         });
     }
 }

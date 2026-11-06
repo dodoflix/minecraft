@@ -26,14 +26,18 @@ impl Sensor for SecondaryPoiSensor {
     fn do_tick(&mut self, level: &mut ServerLevel, body: &mut dyn Entity) {
         let dimension = level.dimension.clone();
         let center = body.block_position();
-        let secondary = profession_data::data(villager_mut(body).get_villager_data().profession).secondary_poi;
+        let secondary =
+            profession_data::data(villager_mut(body).get_villager_data().profession).secondary_poi;
         let mut job_sites: Vec<GlobalPos> = Vec::new();
         for x in -4..=4 {
             for y in -2..=2 {
                 for z in -4..=4 {
                     let test_pos = center.offset(x, y, z);
                     if secondary.contains(&level.get_block_state(test_pos).block()) {
-                        job_sites.push(GlobalPos { dimension: dimension.clone(), pos: test_pos });
+                        job_sites.push(GlobalPos {
+                            dimension: dimension.clone(),
+                            pos: test_pos,
+                        });
                     }
                 }
             }

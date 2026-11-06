@@ -26,7 +26,10 @@ impl ThrownExperienceBottle {
         let base = EntityData::new(ty, id, TOTAL_AIR_SUPPLY, |b| {
             b.define(DATA_ITEM_STACK, ItemStack::new(Item::EXPERIENCE_BOTTLE));
         });
-        Self { base, projectile: ProjectileData::default() }
+        Self {
+            base,
+            projectile: ProjectileData::default(),
+        }
     }
 
     /// `ThrownExperienceBottle(level, mob, itemStack)`.
@@ -57,10 +60,21 @@ impl Projectile for ThrownExperienceBottle {
         if !self.base.is_silent() {
             level.level_event(None, 1053, pos, 0);
         }
-        let xp_count = 3 + self.base.random.next_int_bounded(5) + self.base.random.next_int_bounded(5);
+        let xp_count =
+            3 + self.base.random.next_int_bounded(5) + self.base.random.next_int_bounded(5);
         match hit {
-            HitResult::Block(block_hit) => ExperienceOrb::award_with_direction(level, &hit.get_location(), block_hit.direction.get_unit_vec3(), xp_count),
-            HitResult::Entity(_) => ExperienceOrb::award_with_direction(level, &hit.get_location(), self.base.delta_movement().scale(-1.0), xp_count),
+            HitResult::Block(block_hit) => ExperienceOrb::award_with_direction(
+                level,
+                &hit.get_location(),
+                block_hit.direction.get_unit_vec3(),
+                xp_count,
+            ),
+            HitResult::Entity(_) => ExperienceOrb::award_with_direction(
+                level,
+                &hit.get_location(),
+                self.base.delta_movement().scale(-1.0),
+                xp_count,
+            ),
         }
         self.discard();
     }
@@ -79,5 +93,7 @@ impl Entity for ThrownExperienceBottle {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static EXPERIENCE_BOTTLE_FACTORY: EntityRegistration =
-    EntityRegistration { entity_type: EntityType::EXPERIENCE_BOTTLE, create: |ty, id, _| Box::new(ThrownExperienceBottle::new(ty, id)) };
+static EXPERIENCE_BOTTLE_FACTORY: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::EXPERIENCE_BOTTLE,
+    create: |ty, id, _| Box::new(ThrownExperienceBottle::new(ty, id)),
+};

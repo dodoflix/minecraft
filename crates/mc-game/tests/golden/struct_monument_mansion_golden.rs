@@ -9,18 +9,19 @@
 //! Debugging a digest mismatch: generate a `full` fixture with the oracle (last argument; `B`/`K` lines verbatim) and run with
 //! `STRUCT_GOLDEN_FIXTURE=<plain text fixture>`, which compares the undigested lines.
 
-
 use crate::common::feature_harness::*;
 use flate2::read::GzDecoder;
 use mc_core::bounding_box::BoundingBox;
 use mc_core::pos::{BlockPos, ChunkPos};
+use mc_core::random::{WorldgenRandom, XoroshiroRandomSource};
 use mc_game::world::level::levelgen::block_entity_data::get_block_entity_nbt;
 use mc_game::world::level::levelgen::gen_level::GenLevel;
-use mc_core::random::{WorldgenRandom, XoroshiroRandomSource};
 use mc_game::world::level::levelgen::holder::Holder;
 use mc_game::world::level::levelgen::registries::{Cells, DecodeCtx};
 use mc_game::world::level::levelgen::structure::piece::StructurePieceSerializationContext;
-use mc_game::world::level::levelgen::structure::structure::{GenerationContext, Structure, decode_direct};
+use mc_game::world::level::levelgen::structure::structure::{
+    GenerationContext, Structure, decode_direct,
+};
 use mc_game::world::level::levelgen::structure::{StructureManager, StructureStart};
 use mc_nbt::Tag;
 use mc_world::chunk::LevelHeight;
@@ -37,10 +38,18 @@ const SURFACE_STRUCTURES: i32 = 4;
 /// are not ported yet).
 fn structure(name: &str) -> Holder<dyn Structure> {
     let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../ref/src/data");
-    let json: serde_json::Value = serde_json::from_slice(&std::fs::read(root.join(format!("minecraft/worldgen/structure/{name}.json"))).expect("structure json")).unwrap();
+    let json: serde_json::Value = serde_json::from_slice(
+        &std::fs::read(root.join(format!("minecraft/worldgen/structure/{name}.json")))
+            .expect("structure json"),
+    )
+    .unwrap();
     let source: Arc<dyn WorldgenDataSource> = Arc::new(FsDataSource::new(root));
     let cells = Cells::new(source);
-    let ctx = DecodeCtx { worldgen: &WORLD.worldgen, biomes: &WORLD.biomes, cells: &cells };
+    let ctx = DecodeCtx {
+        worldgen: &WORLD.worldgen,
+        biomes: &WORLD.biomes,
+        cells: &cells,
+    };
     Holder::direct(decode_direct(&json, &ctx).unwrap_or_else(|e| panic!("{name}.json: {e:?}")))
 }
 
@@ -86,8 +95,16 @@ fn oracle_lines(dump: Vec<String>, full: bool) -> Vec<String> {
 fn materialize_block_entities(level: &mut GenLevel<'_>, cx: i32, cz: i32) {
     for x in cx - 1..=cx + 1 {
         for z in cz - 1..=cz + 1 {
-            let dummies: Vec<BlockPos> =
-                level.region().get_chunk(x, z).expect("chunk of the region").access.block_entities.iter().filter(|(_, t)| t.get_string("id") == Some("DUMMY")).map(|(p, _)| *p).collect();
+            let dummies: Vec<BlockPos> = level
+                .region()
+                .get_chunk(x, z)
+                .expect("chunk of the region")
+                .access
+                .block_entities
+                .iter()
+                .filter(|(_, t)| t.get_string("id") == Some("DUMMY"))
+                .map(|(p, _)| *p)
+                .collect();
             for pos in dummies {
                 get_block_entity_nbt(level, pos);
             }
@@ -96,7 +113,10 @@ fn materialize_block_entities(level: &mut GenLevel<'_>, cx: i32, cz: i32) {
 }
 
 fn first_diff(got: &[String], want: &[String]) -> usize {
-    got.iter().zip(want).position(|(a, b)| a != b).unwrap_or(got.len().min(want.len()))
+    got.iter()
+        .zip(want)
+        .position(|(a, b)| a != b)
+        .unwrap_or(got.len().min(want.len()))
 }
 
 #[derive(Default)]
@@ -114,9 +134,15 @@ fn run(name: &str, accept_every_biome: bool, fixture: &str) -> Stats {
     match &plain {
         Some(path) => text = std::fs::read_to_string(path).expect("plain fixture"),
         None => {
-            GzDecoder::new(std::fs::File::open(format!("{}/tests/fixtures/{fixture}", env!("CARGO_MANIFEST_DIR"))).expect("fixture present"))
-                .read_to_string(&mut text)
-                .unwrap();
+            GzDecoder::new(
+                std::fs::File::open(format!(
+                    "{}/tests/fixtures/{fixture}",
+                    env!("CARGO_MANIFEST_DIR")
+                ))
+                .expect("fixture present"),
+            )
+            .read_to_string(&mut text)
+            .unwrap();
         }
     }
     let structure = structure(name);
@@ -128,35 +154,61 @@ fn run(name: &str, accept_every_biome: bool, fixture: &str) -> Stats {
     let mut failures: Vec<String> = Vec::new();
     while let Some(header) = lines.next() {
         let h: Vec<&str> = header.split(' ').collect();
-        let (seed, cx, cz) = (h[1].parse::<i64>().unwrap(), h[2].parse::<i32>().unwrap(), h[3].parse::<i32>().unwrap());
+        let (seed, cx, cz) = (
+            h[1].parse::<i64>().unwrap(),
+            h[2].parse::<i32>().unwrap(),
+            h[3].parse::<i32>().unwrap(),
+        );
         let env = gen_env(seed);
         let mut context = GenerationContext::new(&env, seed, ChunkPos::new(cx, cz), height, &valid);
         let stub = structure.value().find_valid_generation_point(&mut context);
         if h[0] == "NONE" {
             stats.nones += 1;
             if stub.is_some() {
-                failures.push(format!("{header}: ours found a generation point, vanilla found none"));
+                failures.push(format!(
+                    "{header}: ours found a generation point, vanilla found none"
+                ));
             }
             continue;
         }
         assert_eq!(h[0], "START", "{header}");
         let count = h[4].parse::<usize>().unwrap();
-        let want_pieces: Vec<String> = (0..count).map(|_| lines.next().and_then(|l| l.strip_prefix("P ")).expect("piece line").to_owned()).collect();
+        let want_pieces: Vec<String> = (0..count)
+            .map(|_| {
+                lines
+                    .next()
+                    .and_then(|l| l.strip_prefix("P "))
+                    .expect("piece line")
+                    .to_owned()
+            })
+            .collect();
         stats.starts += 1;
         stats.pieces += count;
         let Some(stub) = stub else {
             failures.push(format!("{header}: ours found no generation point"));
-            while lines.peek().is_some_and(|l| !l.starts_with("START") && !l.starts_with("NONE")) {
+            while lines
+                .peek()
+                .is_some_and(|l| !l.starts_with("START") && !l.starts_with("NONE"))
+            {
                 lines.next();
             }
             continue;
         };
         let builder = stub.get_pieces_builder(&mut context);
-        let mut start = StructureStart::new(structure.clone(), ChunkPos::new(cx, cz), 0, builder.build());
+        let mut start =
+            StructureStart::new(structure.clone(), ChunkPos::new(cx, cz), 0, builder.build());
         let piece_context = StructurePieceSerializationContext { env: &env };
-        let got_pieces: Vec<String> = start.piece_container.pieces.iter().map(|p| Tag::Compound(p.create_tag(&piece_context)).to_string()).collect();
+        let got_pieces: Vec<String> = start
+            .piece_container
+            .pieces
+            .iter()
+            .map(|p| Tag::Compound(p.create_tag(&piece_context)).to_string())
+            .collect();
         for want in &want_pieces {
-            let kind = want.split("Template:\"").nth(1).map_or_else(|| want.split("id:\"").nth(1).unwrap_or("?"), |t| t.split('"').next().unwrap());
+            let kind = want.split("Template:\"").nth(1).map_or_else(
+                || want.split("id:\"").nth(1).unwrap_or("?"),
+                |t| t.split('"').next().unwrap(),
+            );
             *stats.kinds.entry(kind.to_owned()).or_default() += 1;
         }
         if got_pieces != want_pieces {
@@ -168,14 +220,20 @@ fn run(name: &str, accept_every_biome: bool, fixture: &str) -> Stats {
                 got_pieces.len(),
                 want_pieces.len()
             ));
-            while lines.peek().is_some_and(|l| !l.starts_with("START") && !l.starts_with("NONE")) {
+            while lines
+                .peek()
+                .is_some_and(|l| !l.starts_with("START") && !l.starts_with("NONE"))
+            {
                 lines.next();
             }
             continue;
         }
         while lines.peek().is_some_and(|l| l.starts_with("PLACE")) {
             let place: Vec<&str> = lines.next().unwrap().split(' ').collect();
-            let (px, pz) = (place[1].parse::<i32>().unwrap(), place[2].parse::<i32>().unwrap());
+            let (px, pz) = (
+                place[1].parse::<i32>().unwrap(),
+                place[2].parse::<i32>().unwrap(),
+            );
             let mut expected = Vec::new();
             for line in lines.by_ref() {
                 if line == "END" {
@@ -191,9 +249,23 @@ fn run(name: &str, accept_every_biome: bool, fixture: &str) -> Stats {
             let decoration_seed = random.set_decoration_seed(seed, px * 16, pz * 16);
             random.set_feature_seed(decoration_seed, 0, SURFACE_STRUCTURES);
             let (min_x, min_z) = (px * 16, pz * 16);
-            let writable = BoundingBox::new(min_x, MIN_Y + 1, min_z, min_x + 15, MIN_Y + HEIGHT - 1, min_z + 15);
+            let writable = BoundingBox::new(
+                min_x,
+                MIN_Y + 1,
+                min_z,
+                min_x + 15,
+                MIN_Y + HEIGHT - 1,
+                min_z + 15,
+            );
             let manager = StructureManager::new(&env);
-            start.place_in_chunk(&mut level, &manager, &env, &mut random, &writable, ChunkPos::new(px, pz));
+            start.place_in_chunk(
+                &mut level,
+                &manager,
+                &env,
+                &mut random,
+                &writable,
+                ChunkPos::new(px, pz),
+            );
             materialize_block_entities(&mut level, px, pz);
             let got = oracle_lines(dump(&mut level, &before), plain.is_some());
             stats.placements += 1;
@@ -209,25 +281,41 @@ fn run(name: &str, accept_every_biome: bool, fixture: &str) -> Stats {
             }
         }
     }
-    assert!(failures.is_empty(), "{} starts, {} pieces, {} placements:\n{}", stats.starts, stats.pieces, stats.placements, failures.join("\n"));
+    assert!(
+        failures.is_empty(),
+        "{} starts, {} pieces, {} placements:\n{}",
+        stats.starts,
+        stats.pieces,
+        stats.placements,
+        failures.join("\n")
+    );
     stats
 }
 
 #[test]
 fn ocean_monument_matches_vanilla() {
     let stats = run("monument", false, "struct_monument.txt.gz");
-    assert!(stats.starts >= 3 && stats.placements >= 50 && stats.nones >= 1, "fixture too small");
+    assert!(
+        stats.starts >= 3 && stats.placements >= 50 && stats.nones >= 1,
+        "fixture too small"
+    );
 }
 
 #[test]
 fn woodland_mansion_matches_vanilla() {
     let stats = run("mansion", false, "struct_mansion.txt.gz");
-    assert!(stats.starts >= 8 && stats.placements >= 100, "fixture too small");
+    assert!(
+        stats.starts >= 8 && stats.placements >= 100,
+        "fixture too small"
+    );
 }
 
 #[test]
 fn end_city_matches_vanilla() {
     let stats = run("end_city", true, "struct_end_city.txt.gz");
-    assert!(stats.starts >= 8 && stats.placements >= 100, "fixture too small");
+    assert!(
+        stats.starts >= 8 && stats.placements >= 100,
+        "fixture too small"
+    );
     assert!(stats.kinds.contains_key("ship"), "fixture lacks a ship");
 }

@@ -1,8 +1,9 @@
 //! `net.minecraft.world.level.ServerExplosion`.
 
+use super::java_hash_set::JavaBlockPosHashSet;
 use super::{
-    BlockInteraction, DefaultExplosionDamageCalculator, EntityBasedExplosionDamageCalculator, Explosion, ExplosionDamageCalculator,
-    get_indirect_source_entity,
+    BlockInteraction, DefaultExplosionDamageCalculator, EntityBasedExplosionDamageCalculator,
+    Explosion, ExplosionDamageCalculator, get_indirect_source_entity,
 };
 use crate::server::level::ServerLevel;
 use crate::world::damagesource::DamageSource;
@@ -11,7 +12,6 @@ use crate::world::entity::{Entity, EntityId};
 use crate::world::item::{ItemStack, ItemStackExt};
 use crate::world::level::block::{BlockStateExt, behaviour};
 use crate::world::level::collision::{BlockGetterExt, ClipBlock, ClipContext, ClipFluid};
-use super::java_hash_set::JavaBlockPosHashSet;
 use crate::world::level::material::FluidStateExt as _;
 use crate::world::level::{BlockGetter, LevelAccessor};
 use mc_core::math::mth;
@@ -50,7 +50,11 @@ struct StackCollector {
 impl StackCollector {
     fn try_merge(&mut self, input: &mut ItemStack) {
         if crate::world::entity::item::are_mergable(&self.stack, input) {
-            self.stack = crate::world::entity::item::merge_stacks(&self.stack, input, MAX_DROPS_PER_COMBINED_STACK);
+            self.stack = crate::world::entity::item::merge_stacks(
+                &self.stack,
+                input,
+                MAX_DROPS_PER_COMBINED_STACK,
+            );
         }
     }
 }
@@ -92,9 +96,12 @@ impl<'a> ServerExplosion<'a> {
         let damage_calculator = match (damage_calculator, source) {
             (Some(c), _) => Calculator::Custom(c),
             (None, None) => Calculator::Default(DefaultExplosionDamageCalculator),
-            (None, Some(s)) => Calculator::EntityBased(EntityBasedExplosionDamageCalculator { source: s }),
+            (None, Some(s)) => {
+                Calculator::EntityBased(EntityBasedExplosionDamageCalculator { source: s })
+            }
         };
-        let is_breeze_wind_charge = source.is_some_and(|s| s.get_type() == EntityType::BREEZE_WIND_CHARGE);
+        let is_breeze_wind_charge =
+            source.is_some_and(|s| s.get_type() == EntityType::BREEZE_WIND_CHARGE);
         let is_wind_charge = source.is_some_and(|s| s.get_type() == EntityType::WIND_CHARGE);
         let can_trigger_blocks = if block_interaction != BlockInteraction::TriggerBlock {
             false
@@ -104,8 +111,11 @@ impl<'a> ServerExplosion<'a> {
             true
         };
         let is_not_wind_charge = !is_breeze_wind_charge && !is_wind_charge;
-        let should_affect_blocklike_entities =
-            if level.mob_griefing() { is_not_wind_charge } else { block_interaction.should_affect_blocklike_entities() && is_not_wind_charge };
+        let should_affect_blocklike_entities = if level.mob_griefing() {
+            is_not_wind_charge
+        } else {
+            block_interaction.should_affect_blocklike_entities() && is_not_wind_charge
+        };
         Self {
             fire,
             block_interaction,
@@ -143,7 +153,13 @@ impl<'a> ServerExplosion<'a> {
                         let y = mth::lerp_f64(yy, bb.min_y, bb.max_y);
                         let z = mth::lerp_f64(zz, bb.min_z, bb.max_z);
                         let from = Vec3::new(x + x_offset, y, z + z_offset);
-                        let clip = ClipContext::new(from, center, ClipBlock::Collider, ClipFluid::None, context.clone());
+                        let clip = ClipContext::new(
+                            from,
+                            center,
+                            ClipBlock::Collider,
+                            ClipFluid::None,
+                            context.clone(),
+                        );
                         if level.clip(&clip).miss {
                             hits += 1;
                         }
@@ -175,7 +191,8 @@ impl<'a> ServerExplosion<'a> {
                         xd /= d;
                         yd /= d;
                         zd /= d;
-                        let mut remaining_power = self.radius * (0.7 + LevelAccessor::random(level).next_float() * 0.6);
+                        let mut remaining_power =
+                            self.radius * (0.7 + LevelAccessor::random(level).next_float() * 0.6);
                         let mut xp = self.center.x;
                         let mut yp = self.center.y;
                         let mut zp = self.center.z;
@@ -187,10 +204,20 @@ impl<'a> ServerExplosion<'a> {
                             if !level.is_in_world_bounds(pos) {
                                 break;
                             }
-                            if let Some(resistance) = calculator.get_block_explosion_resistance(self, level, pos, block, fluid) {
+                            if let Some(resistance) = calculator
+                                .get_block_explosion_resistance(self, level, pos, block, fluid)
+                            {
                                 remaining_power -= (resistance + 0.3) * 0.3;
                             }
-                            if remaining_power > 0.0 && calculator.should_block_explode(self, level, pos, block, remaining_power) {
+                            if remaining_power > 0.0
+                                && calculator.should_block_explode(
+                                    self,
+                                    level,
+                                    pos,
+                                    block,
+                                    remaining_power,
+                                )
+                            {
                                 to_blow_set.insert(pos);
                             }
                             xp += xd * f64::from(0.3f32);
@@ -219,27 +246,43 @@ impl<'a> ServerExplosion<'a> {
         let y1 = mth::floor_f64(self.center.y + dr + 1.0);
         let z0 = mth::floor_f64(self.center.z - dr - 1.0);
         let z1 = mth::floor_f64(self.center.z + dr + 1.0);
-        let area = AABB::new(f64::from(x0), f64::from(y0), f64::from(z0), f64::from(x1), f64::from(y1), f64::from(z1));
+        let area = AABB::new(
+            f64::from(x0),
+            f64::from(y0),
+            f64::from(z0),
+            f64::from(x1),
+            f64::from(y1),
+            f64::from(z1),
+        );
         let mut targets: Vec<Target> = level
             .get_entities(self.source.map(|s| s.id()), &area, |e| !e.is_spectator())
             .into_iter()
             .map(Target::Level)
             .collect();
         for (i, p) in participants.iter().enumerate() {
-            if !p.is_spectator() && p.get_bounding_box().intersects_aabb(&area) && self.source.is_none_or(|s| s.id() != p.id()) {
+            if !p.is_spectator()
+                && p.get_bounding_box().intersects_aabb(&area)
+                && self.source.is_none_or(|s| s.id() != p.id())
+            {
                 targets.push(Target::External(i));
             }
         }
         for target in targets {
             match target {
                 Target::Level(id) => {
-                    let Some(entity) = level.get_entity(id) else { continue };
-                    let Some(plan) = self.plan(level, entity, double_radius) else { continue };
+                    let Some(entity) = level.get_entity(id) else {
+                        continue;
+                    };
+                    let Some(plan) = self.plan(level, entity, double_radius) else {
+                        continue;
+                    };
                     level.with_entity(id, |level, entity| self.apply(level, entity, plan));
                 }
                 Target::External(i) => {
                     let entity: &mut dyn Entity = &mut *participants[i];
-                    let Some(plan) = self.plan(level, entity, double_radius) else { continue };
+                    let Some(plan) = self.plan(level, entity, double_radius) else {
+                        continue;
+                    };
                     self.apply(level, entity, plan);
                 }
             }
@@ -247,7 +290,12 @@ impl<'a> ServerExplosion<'a> {
     }
 
     /// The reads of `hurtEntities` before an entity is hurt: `None` when the entity is not affected at all.
-    fn plan(&self, level: &ServerLevel, entity: &dyn Entity, double_radius: f32) -> Option<EntityPlan> {
+    fn plan(
+        &self,
+        level: &ServerLevel,
+        entity: &dyn Entity,
+        double_radius: f32,
+    ) -> Option<EntityPlan> {
         if entity.ignore_explosion(self) || entity.ignore_explosion_in_level(level, self) {
             return None;
         }
@@ -256,27 +304,54 @@ impl<'a> ServerExplosion<'a> {
         if dist > 1.0 {
             return None;
         }
-        let origin = if entity.get_type() == EntityType::TNT { entity.position() } else { entity.base().get_eye_position() };
+        let origin = if entity.get_type() == EntityType::TNT {
+            entity.position()
+        } else {
+            entity.base().get_eye_position()
+        };
         let direction = origin.subtract(self.center).normalize();
         let should_damage_entity = calculator.should_damage_entity(self, entity);
         let knockback_multiplier = calculator.get_knockback_multiplier(entity);
-        let exposure = if !should_damage_entity && knockback_multiplier == 0.0 { 0.0 } else { Self::get_seen_percent(level, self.center, entity) };
-        let damage = (should_damage_entity && self.source.is_none_or(|s| crate::world::entity::team::do_teams_allow_damage(level, s, entity)))
-            .then(|| calculator.get_entity_damage_amount(self, entity, exposure));
-        Some(EntityPlan { dist, direction, knockback_multiplier, exposure, damage })
+        let exposure = if !should_damage_entity && knockback_multiplier == 0.0 {
+            0.0
+        } else {
+            Self::get_seen_percent(level, self.center, entity)
+        };
+        let damage = (should_damage_entity
+            && self.source.is_none_or(|s| {
+                crate::world::entity::team::do_teams_allow_damage(level, s, entity)
+            }))
+        .then(|| calculator.get_entity_damage_amount(self, entity, exposure));
+        Some(EntityPlan {
+            dist,
+            direction,
+            knockback_multiplier,
+            exposure,
+            damage,
+        })
     }
 
     fn apply(&mut self, level: &mut ServerLevel, entity: &mut dyn Entity, plan: EntityPlan) {
         if let Some(amount) = plan.damage {
             entity.hurt_server(level, &self.damage_source, amount);
         }
-        let knockback_resistance = entity.living().map_or(0.0, |l| l.get_attribute_value(mc_data::Attribute::EXPLOSION_KNOCKBACK_RESISTANCE));
-        let knockback_power = (1.0 - plan.dist) * f64::from(plan.exposure) * f64::from(plan.knockback_multiplier) * (1.0 - knockback_resistance);
+        let knockback_resistance = entity.living().map_or(0.0, |l| {
+            l.get_attribute_value(mc_data::Attribute::EXPLOSION_KNOCKBACK_RESISTANCE)
+        });
+        let knockback_power = (1.0 - plan.dist)
+            * f64::from(plan.exposure)
+            * f64::from(plan.knockback_multiplier)
+            * (1.0 - knockback_resistance);
         let knockback = plan.direction.scale(knockback_power);
         entity.push_in_level(level, knockback);
-        let redirectable = mc_data::tags::get::<EntityType>("redirectable_projectile").is_some_and(|t| t.contains(entity.get_type()));
+        let redirectable = mc_data::tags::get::<EntityType>("redirectable_projectile")
+            .is_some_and(|t| t.contains(entity.get_type()));
         if redirectable && entity.as_projectile().is_some() {
-            let owner = self.damage_source.get_entity().and_then(|id| resolve(level, self.source, id)).map(|e| e.uuid());
+            let owner = self
+                .damage_source
+                .get_entity()
+                .and_then(|id| resolve(level, self.source, id))
+                .map(|e| e.uuid());
             if let Some(projectile) = entity.as_projectile_mut() {
                 projectile.set_owner_uuid(owner);
             }
@@ -295,7 +370,13 @@ impl<'a> ServerExplosion<'a> {
         shuffle(target_blocks, LevelAccessor::random(level));
         for &pos in target_blocks.iter() {
             let state = level.get_block_state(pos);
-            behaviour(state.block()).on_explosion_hit(state, level, pos, self, &mut |stack, position| add_or_append_stack(&mut stacks, stack, position));
+            behaviour(state.block()).on_explosion_hit(
+                state,
+                level,
+                pos,
+                self,
+                &mut |stack, position| add_or_append_stack(&mut stacks, stack, position),
+            );
         }
         for stack in stacks {
             crate::world::level::block::helpers::pop_resource(level, stack.pos, stack.stack);
@@ -309,14 +390,19 @@ impl<'a> ServerExplosion<'a> {
                 && level.get_block_state(pos).is_air()
                 && level.get_block_state(pos.below()).is_solid_render()
             {
-                let fire = crate::world::level::block::impls::base_fire_block::get_state(&*level, pos);
+                let fire =
+                    crate::world::level::block::impls::base_fire_block::get_state(&*level, pos);
                 level.set_block_and_update(pos, fire);
             }
         }
     }
 
     /// `explode()`: returns the number of exploded block positions (`blockCount` of the packet).
-    pub fn explode(&mut self, level: &mut ServerLevel, participants: &mut [&mut dyn Entity]) -> usize {
+    pub fn explode(
+        &mut self,
+        level: &mut ServerLevel,
+        participants: &mut [&mut dyn Entity],
+    ) -> usize {
         level.game_event_from_entity(self.source.map(|s| s.id()), GameEvent::EXPLODE, self.center);
         let mut to_blow = self.calculate_exploded_positions(level);
         self.hurt_entities(level, participants);
@@ -335,7 +421,10 @@ impl<'a> ServerExplosion<'a> {
 
     /// `getHitPlayers().get(player)`.
     pub fn get_hit_player(&self, player: EntityId) -> Option<Vec3> {
-        self.hit_players.iter().find(|(id, _)| *id == player).map(|(_, v)| *v)
+        self.hit_players
+            .iter()
+            .find(|(id, _)| *id == player)
+            .map(|(_, v)| *v)
     }
 
     pub fn get_damage_source(&self) -> &DamageSource {
@@ -393,7 +482,11 @@ impl Explosion for ServerExplosion<'_> {
 }
 
 /// The entity `id` as a reference: the explicitly passed `source` (which is outside the level) or the level's entity.
-fn resolve<'l>(level: &'l ServerLevel, source: Option<&'l dyn Entity>, id: EntityId) -> Option<&'l dyn Entity> {
+fn resolve<'l>(
+    level: &'l ServerLevel,
+    source: Option<&'l dyn Entity>,
+    id: EntityId,
+) -> Option<&'l dyn Entity> {
     match source {
         Some(s) if s.id() == id => Some(s),
         _ => level.get_entity(id),

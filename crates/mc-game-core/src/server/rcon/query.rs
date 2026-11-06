@@ -8,8 +8,10 @@ use std::time::{Duration, Instant};
 
 use rand::Rng;
 
-use super::pkt_utils::{MAX_PACKET_SIZE, NetworkDataOutputStream, int_from_network_byte_array, to_hex_string};
 use super::GenericThread;
+use super::pkt_utils::{
+    MAX_PACKET_SIZE, NetworkDataOutputStream, int_from_network_byte_array, to_hex_string,
+};
 
 const GAME_TYPE: &str = "SMP";
 const GAME_ID: &str = "MINECRAFT";
@@ -75,16 +77,23 @@ struct Responder {
 
 impl Responder {
     fn ident_bytes(&self, src: &std::net::SocketAddr) -> [u8; 4] {
-        self.valid_challenges.get(src).map_or([0; 4], |c| c.ident_bytes)
+        self.valid_challenges
+            .get(src)
+            .map_or([0; 4], |c| c.ident_bytes)
     }
 
     fn valid_challenge(&self, src: &std::net::SocketAddr, data: &[u8]) -> bool {
-        self.valid_challenges.get(src).is_some_and(|c| c.challenge == int_from_network_byte_array(data, 7, data.len()))
+        self.valid_challenges
+            .get(src)
+            .is_some_and(|c| c.challenge == int_from_network_byte_array(data, 7, data.len()))
     }
 
     fn build_rule_response(&mut self, src: &std::net::SocketAddr) -> Vec<u8> {
         let now = Instant::now();
-        if self.last_rules_response.is_some_and(|t| now < t + RESPONSE_CACHE_TIME) {
+        if self
+            .last_rules_response
+            .is_some_and(|t| now < t + RESPONSE_CACHE_TIME)
+        {
             let mut data = self.rules_response.to_byte_array();
             data[1..5].copy_from_slice(&self.ident_bytes(src));
             return data;
@@ -186,8 +195,14 @@ impl Responder {
 
 /// `InetAddress.getLocalHost().getHostAddress()` (first address the host name resolves to).
 fn local_host_address() -> Option<String> {
-    let name = std::fs::read_to_string("/proc/sys/kernel/hostname").ok().or_else(|| std::env::var("HOSTNAME").ok())?;
-    (name.trim(), 0).to_socket_addrs().ok()?.next().map(|a| a.ip().to_string())
+    let name = std::fs::read_to_string("/proc/sys/kernel/hostname")
+        .ok()
+        .or_else(|| std::env::var("HOSTNAME").ok())?;
+    (name.trim(), 0)
+        .to_socket_addrs()
+        .ok()?
+        .next()
+        .map(|a| a.ip().to_string())
 }
 
 /// `QueryThreadGs4`.
@@ -197,9 +212,15 @@ pub struct QueryThreadGs4 {
 
 impl QueryThreadGs4 {
     /// `QueryThreadGs4.create`: `None` (after logging) for an invalid port or when the socket cannot be bound.
-    pub fn create(info: Arc<dyn QueryServerInfo>, server_ip: &str, query_port: i32) -> Option<QueryThreadGs4> {
+    pub fn create(
+        info: Arc<dyn QueryServerInfo>,
+        server_ip: &str,
+        query_port: i32,
+    ) -> Option<QueryThreadGs4> {
         if !(0 < query_port && query_port <= 65535) {
-            log::warn!("Invalid query port {query_port} found in server.properties (queries disabled)");
+            log::warn!(
+                "Invalid query port {query_port} found in server.properties (queries disabled)"
+            );
             return None;
         }
         let mut server_ip = server_ip.to_owned();
@@ -210,15 +231,19 @@ impl QueryThreadGs4 {
             server_ip = "0.0.0.0".to_owned();
             match local_host_address() {
                 Some(ip) => host_ip = ip,
-                None => log::warn!("Unable to determine local host IP, please set server-ip in server.properties"),
+                None => log::warn!(
+                    "Unable to determine local host IP, please set server-ip in server.properties"
+                ),
             }
         }
         let socket = match (server_ip.as_str(), query_port as u16)
             .to_socket_addrs()
             .and_then(|mut a| a.next().ok_or_else(|| std::io::Error::other("no address")))
             .and_then(UdpSocket::bind)
-            .and_then(|s| s.set_read_timeout(Some(Duration::from_millis(500))).map(|()| s))
-        {
+            .and_then(|s| {
+                s.set_read_timeout(Some(Duration::from_millis(500)))
+                    .map(|()| s)
+            }) {
             Ok(s) => s,
             Err(e) => {
                 log::warn!("Unable to initialise query system on {server_ip}:{query_port}\n{e}");
@@ -264,7 +289,14 @@ fn run(socket: &UdpSocket, running: &AtomicBool, responder: &mut Responder) {
                     let _ = socket.send_to(&reply, src);
                 }
             }
-            Err(e) if matches!(e.kind(), std::io::ErrorKind::WouldBlock | std::io::ErrorKind::TimedOut) => responder.prune_challenges(),
+            Err(e)
+                if matches!(
+                    e.kind(),
+                    std::io::ErrorKind::WouldBlock | std::io::ErrorKind::TimedOut
+                ) =>
+            {
+                responder.prune_challenges()
+            }
             Err(e) if e.kind() == std::io::ErrorKind::ConnectionRefused => {}
             Err(e) => {
                 if running.load(Ordering::SeqCst) {

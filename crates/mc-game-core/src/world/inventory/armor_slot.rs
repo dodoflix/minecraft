@@ -16,7 +16,13 @@ impl ArmorSlot {
 }
 
 impl SlotBehavior for ArmorSlot {
-    fn set_by_player(&self, slot: &Slot, env: &mut SlotEnv, stack: ItemStack, previous: &ItemStack) {
+    fn set_by_player(
+        &self,
+        slot: &Slot,
+        env: &mut SlotEnv,
+        stack: ItemStack,
+        previous: &ItemStack,
+    ) {
         env.player.on_equip_item(self.slot, previous, &stack);
         slot.set(env, stack);
     }
@@ -36,8 +42,15 @@ impl SlotBehavior for ArmorSlot {
 pub struct OffhandSlot;
 
 impl SlotBehavior for OffhandSlot {
-    fn set_by_player(&self, slot: &Slot, env: &mut SlotEnv, stack: ItemStack, previous: &ItemStack) {
-        env.player.on_equip_item(EquipmentSlot::OffHand, previous, &stack);
+    fn set_by_player(
+        &self,
+        slot: &Slot,
+        env: &mut SlotEnv,
+        stack: ItemStack,
+        previous: &ItemStack,
+    ) {
+        env.player
+            .on_equip_item(EquipmentSlot::OffHand, previous, &stack);
         slot.set(env, stack);
     }
 }

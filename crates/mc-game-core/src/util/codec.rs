@@ -27,7 +27,10 @@ pub type DecodeResult<T> = Result<T, Partial<T>>;
 pub fn map_decoded<T, U>(result: DecodeResult<T>, f: impl FnOnce(T) -> U) -> DecodeResult<U> {
     match result {
         Ok(v) => Ok(f(v)),
-        Err(Partial { value, error }) => Err(Partial { value: value.map(f), error }),
+        Err(Partial { value, error }) => Err(Partial {
+            value: value.map(f),
+            error,
+        }),
     }
 }
 
@@ -91,11 +94,16 @@ pub fn list_tag(tag: &Tag) -> DataResult<&ListTag> {
 
 /// `fieldOf(name)`: the field must exist.
 pub fn field<'a>(map: &'a CompoundTag, name: &str) -> DataResult<&'a Tag> {
-    map.get(name).ok_or_else(|| format!("No key {name} in MapLike[{}]", Tag::Compound(map.clone())))
+    map.get(name)
+        .ok_or_else(|| format!("No key {name} in MapLike[{}]", Tag::Compound(map.clone())))
 }
 
 /// `optionalFieldOf(name)`: absent is `None`, present-but-invalid is an error.
-pub fn optional<'a, T>(map: &'a CompoundTag, name: &str, parse: impl FnOnce(&'a Tag) -> DataResult<T>) -> DataResult<Option<T>> {
+pub fn optional<'a, T>(
+    map: &'a CompoundTag,
+    name: &str,
+    parse: impl FnOnce(&'a Tag) -> DataResult<T>,
+) -> DataResult<Option<T>> {
     map.get(name).map(parse).transpose()
 }
 
@@ -115,5 +123,12 @@ pub fn unbounded_map<K, V>(
             Err(e) => errors.push(format!("{e} missed input: {{{k:?}:{v}}}")),
         }
     }
-    if errors.is_empty() { Ok(ok) } else { Err(Partial { value: Some(ok), error: errors.join("; ") }) }
+    if errors.is_empty() {
+        Ok(ok)
+    } else {
+        Err(Partial {
+            value: Some(ok),
+            error: errors.join("; "),
+        })
+    }
 }

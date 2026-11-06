@@ -155,8 +155,15 @@ fn decompress_block(src: &[u8], dest_len: usize) -> io::Result<Vec<u8>> {
         if literal_len == 15 {
             literal_len = read_len(&mut s, literal_len)?;
         }
-        let literal_end = s.checked_add(literal_len).filter(|&e| e <= src.len()).ok_or_else(corrupted)?;
-        let d_end = out.len().checked_add(literal_len).filter(|&e| e <= dest_len).ok_or_else(corrupted)?;
+        let literal_end = s
+            .checked_add(literal_len)
+            .filter(|&e| e <= src.len())
+            .ok_or_else(corrupted)?;
+        let d_end = out
+            .len()
+            .checked_add(literal_len)
+            .filter(|&e| e <= dest_len)
+            .ok_or_else(corrupted)?;
         out.extend_from_slice(&src[s..literal_end]);
         s = literal_end;
         if d_end == dest_len {
@@ -202,13 +209,20 @@ pub struct Lz4BlockReader {
 
 impl Lz4BlockReader {
     pub fn new(data: Vec<u8>) -> Self {
-        Self { input: io::Cursor::new(data), block: Vec::new(), pos: 0, finished: false }
+        Self {
+            input: io::Cursor::new(data),
+            block: Vec::new(),
+            pos: 0,
+            finished: false,
+        }
     }
 
     fn refill(&mut self) -> io::Result<()> {
         let mut header = [0u8; HEADER_LENGTH];
         // readFully: EOFException on a short header, including a missing terminating block.
-        self.input.read_exact(&mut header).map_err(|_| io::Error::from(io::ErrorKind::UnexpectedEof))?;
+        self.input
+            .read_exact(&mut header)
+            .map_err(|_| io::Error::from(io::ErrorKind::UnexpectedEof))?;
         if &header[..MAGIC_LENGTH] != MAGIC {
             return Err(corrupted());
         }
@@ -218,7 +232,8 @@ impl Lz4BlockReader {
         if method != COMPRESSION_METHOD_RAW && method != COMPRESSION_METHOD_LZ4 {
             return Err(corrupted());
         }
-        let int_at = |o: usize| i32::from_le_bytes([header[o], header[o + 1], header[o + 2], header[o + 3]]);
+        let int_at =
+            |o: usize| i32::from_le_bytes([header[o], header[o + 1], header[o + 2], header[o + 3]]);
         let compressed_len = int_at(MAGIC_LENGTH + 1);
         let original_len = int_at(MAGIC_LENGTH + 5);
         let check = int_at(MAGIC_LENGTH + 9);
@@ -239,8 +254,14 @@ impl Lz4BlockReader {
             return Ok(());
         }
         let mut payload = vec![0u8; compressed_len as usize];
-        self.input.read_exact(&mut payload).map_err(|_| io::Error::from(io::ErrorKind::UnexpectedEof))?;
-        self.block = if method == COMPRESSION_METHOD_RAW { payload } else { decompress_block(&payload, original_len as usize)? };
+        self.input
+            .read_exact(&mut payload)
+            .map_err(|_| io::Error::from(io::ErrorKind::UnexpectedEof))?;
+        self.block = if method == COMPRESSION_METHOD_RAW {
+            payload
+        } else {
+            decompress_block(&payload, original_len as usize)?
+        };
         if checksum(&self.block) != check {
             return Err(corrupted());
         }

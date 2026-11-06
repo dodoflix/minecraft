@@ -16,16 +16,19 @@ use crate::world::entity::effect::MobEffectInstance;
 use crate::world::entity::{EntityId, ServerPlayer};
 use crate::world::level::DimensionKey;
 use mc_core::ident::Identifier;
+use mc_data::enums::GameType;
 use mc_nbt::Tag;
 use mc_protocol::packets::play::{
-    ClientboundChangeDifficultyPacket, ClientboundEntityEventPacket, ClientboundGameEventPacket, ClientboundInitializeBorderPacket,
-    ClientboundLoginPacket, ClientboundPlayerAbilitiesPacket, ClientboundPostEffectsPacket, ClientboundRecipeBookAddEntry,
-    ClientboundRecipeBookAddPacket, ClientboundRecipeBookSettingsPacket, ClientboundServerDataPacket, ClientboundSetDefaultSpawnPositionPacket,
-    ClientboundSetHeldSlotPacket, ClientboundSetTimePacket, ClientboundTickingStatePacket, ClientboundTickingStepPacket,
-    ClientboundUpdateMobEffectPacket, ClientboundUpdateRecipesPacket, CommonPlayerSpawnInfo, Difficulty, GameType as WireGameType,
-    RecipeBookSettings, RecipeBookSettingsTypeSettings, RespawnData,
+    ClientboundChangeDifficultyPacket, ClientboundEntityEventPacket, ClientboundGameEventPacket,
+    ClientboundInitializeBorderPacket, ClientboundLoginPacket, ClientboundPlayerAbilitiesPacket,
+    ClientboundPostEffectsPacket, ClientboundRecipeBookAddEntry, ClientboundRecipeBookAddPacket,
+    ClientboundRecipeBookSettingsPacket, ClientboundServerDataPacket,
+    ClientboundSetDefaultSpawnPositionPacket, ClientboundSetHeldSlotPacket,
+    ClientboundSetTimePacket, ClientboundTickingStatePacket, ClientboundTickingStepPacket,
+    ClientboundUpdateMobEffectPacket, ClientboundUpdateRecipesPacket, CommonPlayerSpawnInfo,
+    Difficulty, GameType as WireGameType, RecipeBookSettings, RecipeBookSettingsTypeSettings,
+    RespawnData,
 };
-use mc_data::enums::GameType;
 use uuid::Uuid;
 
 /// The level facts of `CommonPlayerSpawnInfo` and the login/respawn packets (`ServerLevel` getters).
@@ -76,7 +79,10 @@ pub trait JoinHost {
     /// `server.invalidateStatus()`.
     fn invalidate_status(&mut self);
     /// `playerList.getPlayerAdvancements(player)`: loads `advancements/<uuid>.json` against the advancement manager.
-    fn player_advancements(&mut self, player: &PlayerHandle) -> crate::advancements::SharedAdvancements;
+    fn player_advancements(
+        &mut self,
+        player: &PlayerHandle,
+    ) -> crate::advancements::SharedAdvancements;
     /// `ServerPlayer.sendServerStatus(status)` payload (`None` while there is no status yet).
     fn server_data_packet(&self) -> Option<ClientboundServerDataPacket>;
     /// `nameToIdCache.get(id)` / `.add(nameAndId)`.
@@ -91,11 +97,19 @@ pub trait JoinHost {
     /// `level.addNewPlayer(player)`: the level takes ownership of the entity.
     fn add_new_player(&mut self, player: ServerPlayer);
     /// Runs `f` on the (now level-owned) player with its level.
-    fn with_player(&mut self, id: EntityId, f: &mut dyn FnMut(&mut crate::server::level::ServerLevel, &mut ServerPlayer));
+    fn with_player(
+        &mut self,
+        id: EntityId,
+        f: &mut dyn FnMut(&mut crate::server::level::ServerLevel, &mut ServerPlayer),
+    );
 }
 
 /// `new ClientboundUpdateMobEffectPacket(entityId, effect, blend)`.
-pub fn mob_effect_packet(entity_id: EntityId, effect: &MobEffectInstance, blend: bool) -> ClientboundUpdateMobEffectPacket {
+pub fn mob_effect_packet(
+    entity_id: EntityId,
+    effect: &MobEffectInstance,
+    blend: bool,
+) -> ClientboundUpdateMobEffectPacket {
     let mut flags = 0u8;
     if effect.ambient {
         flags |= ClientboundUpdateMobEffectPacket::FLAG_AMBIENT;
@@ -109,7 +123,13 @@ pub fn mob_effect_packet(entity_id: EntityId, effect: &MobEffectInstance, blend:
     if blend {
         flags |= ClientboundUpdateMobEffectPacket::FLAG_BLEND;
     }
-    ClientboundUpdateMobEffectPacket { entity_id, effect: effect.effect, effect_amplifier: effect.amplifier, effect_duration_ticks: effect.duration, flags }
+    ClientboundUpdateMobEffectPacket {
+        entity_id,
+        effect: effect.effect,
+        effect_amplifier: effect.amplifier,
+        effect_duration_ticks: effect.duration,
+        flags,
+    }
 }
 
 fn wire_game_type(game_type: GameType) -> WireGameType {
@@ -122,13 +142,20 @@ fn wire_game_type(game_type: GameType) -> WireGameType {
 }
 
 /// `ServerPlayer.createCommonSpawnInfo(level)`.
-pub fn create_common_spawn_info(player: &ServerPlayer, level: &LevelJoinInfo, dimension: &DimensionKey) -> CommonPlayerSpawnInfo {
+pub fn create_common_spawn_info(
+    player: &ServerPlayer,
+    level: &LevelJoinInfo,
+    dimension: &DimensionKey,
+) -> CommonPlayerSpawnInfo {
     CommonPlayerSpawnInfo {
         dimension_type: level.dimension_type,
         dimension: dimension.clone(),
         seed: level.seed_hash,
         game_type: wire_game_type(player.game_mode.game_mode_for_player),
-        previous_game_type: player.game_mode.previous_game_mode_for_player.map(wire_game_type),
+        previous_game_type: player
+            .game_mode
+            .previous_game_mode_for_player
+            .map(wire_game_type),
         is_debug: level.is_debug,
         is_flat: level.is_flat,
         last_death_location: player.player.last_death_location.clone(),
@@ -151,7 +178,10 @@ pub fn abilities_packet(player: &ServerPlayer) -> ClientboundPlayerAbilitiesPack
 }
 
 /// `ServerRecipeBook.sendInitialRecipeBook(player)`.
-pub fn send_initial_recipe_book(player: &ServerPlayer, manager: &crate::world::item::crafting::RecipeManager) {
+pub fn send_initial_recipe_book(
+    player: &ServerPlayer,
+    manager: &crate::world::item::crafting::RecipeManager,
+) {
     let (settings, add) = player.recipe_book.initial_packets(manager);
     player.send(&settings);
     player.send(&add);
@@ -160,7 +190,9 @@ pub fn send_initial_recipe_book(player: &ServerPlayer, manager: &crate::world::i
 /// `ServerPlayer.sendPostEffects()`.
 pub fn send_post_effects(player: &mut ServerPlayer) {
     player.post_effects_dirty = false;
-    player.send(&ClientboundPostEffectsPacket { post_effects: player.player.post_effects.clone() });
+    player.send(&ClientboundPostEffectsPacket {
+        post_effects: player.player.post_effects.clone(),
+    });
 }
 
 /// `sendActiveEffects(livingEntity, connection)` (`PlayerList.sendActivePlayerEffects`).
@@ -191,7 +223,9 @@ pub struct ListenerParams {
 pub fn loggable_address(remote: Option<&std::net::SocketAddr>, log_ips: bool) -> String {
     match remote {
         None => "local".to_owned(),
-        Some(addr) if log_ips => crate::server::network::connection::java_socket_address_string(addr),
+        Some(addr) if log_ips => {
+            crate::server::network::connection::java_socket_address_string(addr)
+        }
         Some(_) => "IP hidden".to_owned(),
     }
 }
@@ -201,13 +235,27 @@ pub fn send_level_info(host: &dyn JoinHost, info: &LevelJoinInfo, player: &Playe
     let c = &player.connection;
     c.send(&info.border);
     c.send(&host.clock_sync_packet());
-    c.send(&ClientboundSetDefaultSpawnPositionPacket { respawn_data: info.respawn_data.clone() });
+    c.send(&ClientboundSetDefaultSpawnPositionPacket {
+        respawn_data: info.respawn_data.clone(),
+    });
     if let Some((rain, thunder)) = info.raining {
-        c.send(&ClientboundGameEventPacket { event: ClientboundGameEventPacket::START_RAINING, param: 0.0 });
-        c.send(&ClientboundGameEventPacket { event: ClientboundGameEventPacket::RAIN_LEVEL_CHANGE, param: rain });
-        c.send(&ClientboundGameEventPacket { event: ClientboundGameEventPacket::THUNDER_LEVEL_CHANGE, param: thunder });
+        c.send(&ClientboundGameEventPacket {
+            event: ClientboundGameEventPacket::START_RAINING,
+            param: 0.0,
+        });
+        c.send(&ClientboundGameEventPacket {
+            event: ClientboundGameEventPacket::RAIN_LEVEL_CHANGE,
+            param: rain,
+        });
+        c.send(&ClientboundGameEventPacket {
+            event: ClientboundGameEventPacket::THUNDER_LEVEL_CHANGE,
+            param: thunder,
+        });
     }
-    c.send(&ClientboundGameEventPacket { event: ClientboundGameEventPacket::LEVEL_CHUNKS_LOAD_START, param: 0.0 });
+    c.send(&ClientboundGameEventPacket {
+        event: ClientboundGameEventPacket::LEVEL_CHUNKS_LOAD_START,
+        param: 0.0,
+    });
     let (state, step) = host.ticking_packets();
     c.send(&state);
     c.send(&step);
@@ -223,7 +271,9 @@ pub fn place_new_player(
 ) -> PlayerHandle {
     let profile = player.player.game_profile.clone();
     let name_and_id = NameAndId::new(profile.id, profile.name.clone());
-    let old_name = host.name_cache_get(&name_and_id.id).unwrap_or_else(|| name_and_id.name.clone());
+    let old_name = host
+        .name_cache_get(&name_and_id.id)
+        .unwrap_or_else(|| name_and_id.name.clone());
     host.name_cache_add(&name_and_id);
     let info = host.level_join_info();
     let id = player.base_id();
@@ -238,8 +288,17 @@ pub fn place_new_player(
         java_double(pos.z)
     );
 
-    let ip_address = params.remote_address.map_or_else(|| "<unknown>".to_owned(), |a| a.ip().to_canonical().to_string());
-    let handle = PlayerHandle::new(id, profile.clone(), sender.clone(), ip_address, player.dimension.clone());
+    let ip_address = params.remote_address.map_or_else(
+        || "<unknown>".to_owned(),
+        |a| a.ip().to_canonical().to_string(),
+    );
+    let handle = PlayerHandle::new(
+        id,
+        profile.clone(),
+        sender.clone(),
+        ip_address,
+        player.dimension.clone(),
+    );
     player.connection = Some(sender.clone());
     player.listener = Some(ServerGamePacketListenerImpl::new(
         sender.clone(),
@@ -272,9 +331,14 @@ pub fn place_new_player(
         online_mode: host.list().settings.uses_authentication,
         enforces_secure_chat: host.list().settings.enforce_secure_profile,
     });
-    player.send(&ClientboundChangeDifficultyPacket { difficulty: info.difficulty, locked: info.difficulty_locked });
+    player.send(&ClientboundChangeDifficultyPacket {
+        difficulty: info.difficulty,
+        locked: info.difficulty_locked,
+    });
     player.send(&abilities_packet(&player));
-    player.send(&ClientboundSetHeldSlotPacket { slot: player.player.inventory.get_selected_slot() });
+    player.send(&ClientboundSetHeldSlotPacket {
+        slot: player.player.inventory.get_selected_slot(),
+    });
     player.send(&host.update_recipes_packet());
     send_player_permission_level(host, &handle);
     // `player.getStats().markAllDirty()`: the statistics are loaded (and their file created) with the first access
@@ -286,9 +350,13 @@ pub fn place_new_player(
     host.invalidate_status();
     let display_name = player.get_display_name();
     let renamed = (!profile.name.eq_ignore_ascii_case(&old_name)).then_some(old_name.as_str());
-    host.list().broadcast_system_message(&join_message(display_name, renamed), false);
+    host.list()
+        .broadcast_system_message(&join_message(display_name, renamed), false);
     let position = player.player.living.entity.position();
-    let (y_rot, x_rot) = (player.player.living.entity.y_rot(), player.player.living.entity.x_rot());
+    let (y_rot, x_rot) = (
+        player.player.living.entity.y_rot(),
+        player.player.living.entity.x_rot(),
+    );
     player.connection_teleport(position.x, position.y, position.z, y_rot, x_rot);
     if let Some(status) = host.server_data_packet()
         && !params.cookie.transferred
@@ -297,7 +365,8 @@ pub fn place_new_player(
     }
     player.send(&create_player_initializing(host.list().players()));
     host.list().add_player(handle.clone());
-    host.list().broadcast_all(&create_player_initializing([&handle]));
+    host.list()
+        .broadcast_all(&create_player_initializing([&handle]));
     send_level_info(host, &info, &handle);
     host.add_new_player(player);
     host.custom_boss_events_on_player_connect(&handle);
@@ -316,8 +385,15 @@ pub fn send_player_permission_level(host: &mut dyn JoinHost, player: &PlayerHand
     send_player_permission_level_with(host, player, permissions);
 }
 
-pub fn send_player_permission_level_with(host: &mut dyn JoinHost, player: &PlayerHandle, permissions: LevelBasedPermissionSet) {
-    player.connection.send(&ClientboundEntityEventPacket { entity_id: player.id, event_id: permission_level_event_id(permissions) });
+pub fn send_player_permission_level_with(
+    host: &mut dyn JoinHost,
+    player: &PlayerHandle,
+    permissions: LevelBasedPermissionSet,
+) {
+    player.connection.send(&ClientboundEntityEventPacket {
+        entity_id: player.id,
+        event_id: permission_level_event_id(permissions),
+    });
     host.send_commands(player, permissions);
 }
 
@@ -354,7 +430,10 @@ mod tests {
         fn level_keys(&self) -> Vec<DimensionKey> {
             vec![Identifier::parse("minecraft:overworld").unwrap()]
         }
-        fn player_advancements(&mut self, _player: &PlayerHandle) -> crate::advancements::SharedAdvancements {
+        fn player_advancements(
+            &mut self,
+            _player: &PlayerHandle,
+        ) -> crate::advancements::SharedAdvancements {
             crate::advancements::SharedAdvancements::detached()
         }
         fn level_join_info(&mut self) -> LevelJoinInfo {
@@ -380,15 +459,30 @@ mod tests {
                     warning_blocks: 5,
                     warning_time: 15,
                 },
-                respawn_data: RespawnData { global_pos: GlobalPos { dimension: Identifier::parse("minecraft:overworld").unwrap(), pos: mc_core::pos::BlockPos::ZERO }, yaw: 0.0, pitch: 0.0 },
+                respawn_data: RespawnData {
+                    global_pos: GlobalPos {
+                        dimension: Identifier::parse("minecraft:overworld").unwrap(),
+                        pos: mc_core::pos::BlockPos::ZERO,
+                    },
+                    yaw: 0.0,
+                    pitch: 0.0,
+                },
                 raining: None,
             }
         }
         fn update_recipes_packet(&self) -> ClientboundUpdateRecipesPacket {
-            ClientboundUpdateRecipesPacket { item_sets: Vec::new(), stonecutter_recipes: Default::default() }
+            ClientboundUpdateRecipesPacket {
+                item_sets: Vec::new(),
+                stonecutter_recipes: Default::default(),
+            }
         }
         fn send_commands(&mut self, player: &PlayerHandle, _permissions: LevelBasedPermissionSet) {
-            player.connection.send(&ClientboundCommandsPacket { entries: vec![mc_protocol::packets::play::ClientboundCommandsEntry::root(vec![])], root_index: 0 });
+            player.connection.send(&ClientboundCommandsPacket {
+                entries: vec![mc_protocol::packets::play::ClientboundCommandsEntry::root(
+                    vec![],
+                )],
+                root_index: 0,
+            });
             self.events.push("commands");
         }
         fn update_entire_scoreboard(&mut self, _player: &PlayerHandle) {}
@@ -396,23 +490,39 @@ mod tests {
             self.events.push("invalidate_status");
         }
         fn server_data_packet(&self) -> Option<ClientboundServerDataPacket> {
-            Some(ClientboundServerDataPacket { motd: mc_text::Component::literal("A Minecraft Server"), icon_bytes: None })
+            Some(ClientboundServerDataPacket {
+                motd: mc_text::Component::literal("A Minecraft Server"),
+                icon_bytes: None,
+            })
         }
         fn name_cache_get(&self, _id: &Uuid) -> Option<String> {
             None
         }
         fn name_cache_add(&mut self, _name_and_id: &NameAndId) {}
         fn clock_sync_packet(&self) -> ClientboundSetTimePacket {
-            ClientboundSetTimePacket { game_time: 0, clock_updates: vec![] }
+            ClientboundSetTimePacket {
+                game_time: 0,
+                clock_updates: vec![],
+            }
         }
         fn ticking_packets(&self) -> (ClientboundTickingStatePacket, ClientboundTickingStepPacket) {
-            (ClientboundTickingStatePacket { tick_rate: 20.0, is_frozen: false }, ClientboundTickingStepPacket { tick_steps: 0 })
+            (
+                ClientboundTickingStatePacket {
+                    tick_rate: 20.0,
+                    is_frozen: false,
+                },
+                ClientboundTickingStepPacket { tick_steps: 0 },
+            )
         }
         fn custom_boss_events_on_player_connect(&mut self, _player: &PlayerHandle) {}
         fn add_new_player(&mut self, player: ServerPlayer) {
             self.player = Some(player);
         }
-        fn with_player(&mut self, _id: EntityId, f: &mut dyn FnMut(&mut ServerLevel, &mut ServerPlayer)) {
+        fn with_player(
+            &mut self,
+            _id: EntityId,
+            f: &mut dyn FnMut(&mut ServerLevel, &mut ServerPlayer),
+        ) {
             let mut player = self.player.take().expect("added before");
             f(&mut self.level, &mut player);
             self.player = Some(player);
@@ -420,7 +530,11 @@ mod tests {
     }
 
     fn fixture_names() -> Vec<String> {
-        include_str!("../../../tests/fixtures/vanilla_join_sequence.txt").lines().filter_map(|l| l.split_whitespace().nth(1)).map(str::to_owned).collect()
+        include_str!("../../../tests/fixtures/vanilla_join_sequence.txt")
+            .lines()
+            .filter_map(|l| l.split_whitespace().nth(1))
+            .map(str::to_owned)
+            .collect()
     }
 
     /// The packets `placeNewPlayer` sends itself (vanilla's list minus what the chunk tracking, the entity tracker, the
@@ -435,13 +549,32 @@ mod tests {
             dir.path().join("players/advancements"),
             Arc::new(EmptyNotificationService),
         );
-        let mut host = RecordingHost { list, level: ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap()), player: None, events: vec![] };
-        let profile = GameProfile { id: mc_core::uuid_util::create_offline_player_uuid("Bot"), name: "Bot".into(), properties: vec![] };
-        let player = ServerPlayer::new(5, Identifier::parse("minecraft:overworld").unwrap(), profile.clone(), Default::default());
+        let mut host = RecordingHost {
+            list,
+            level: ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap()),
+            player: None,
+            events: vec![],
+        };
+        let profile = GameProfile {
+            id: mc_core::uuid_util::create_offline_player_uuid("Bot"),
+            name: "Bot".into(),
+            properties: vec![],
+        };
+        let player = ServerPlayer::new(
+            5,
+            Identifier::parse("minecraft:overworld").unwrap(),
+            profile.clone(),
+            Default::default(),
+        );
         let (wire_handle, mut wire) = handle(5, "Bot", "minecraft:overworld");
         let (_tx, inbound) = std::sync::mpsc::channel();
         let params = ListenerParams {
-            cookie: CommonListenerCookie { profile, latency: 0, client_information: Default::default(), transferred: false },
+            cookie: CommonListenerCookie {
+                profile,
+                latency: 0,
+                client_information: Default::default(),
+                transferred: false,
+            },
             now_ms: 0,
             command_spam_threshold_seconds: 10,
             chat_spam_threshold_seconds: 10,
@@ -451,8 +584,17 @@ mod tests {
             enforce_secure_profile: Arc::new(|| false),
         };
         place_new_player(&mut host, player, wire_handle.connection.clone(), params);
-        let sent: Vec<String> =
-            wire.ids().into_iter().flatten().map(|id| packet_name(ConnectionState::Play, PacketFlow::Clientbound, id).unwrap().trim_start_matches("minecraft:").to_owned()).collect();
+        let sent: Vec<String> = wire
+            .ids()
+            .into_iter()
+            .flatten()
+            .map(|id| {
+                packet_name(ConnectionState::Play, PacketFlow::Clientbound, id)
+                    .unwrap()
+                    .trim_start_matches("minecraft:")
+                    .to_owned()
+            })
+            .collect();
 
         // vanilla's first packets up to the inventory, minus the second `recipe_book_add` and what other systems send
         let mut expected = Vec::new();
@@ -465,7 +607,10 @@ mod tests {
                 break;
             }
         }
-        assert_eq!(sent, expected, "our join sequence differs from the recorded real-server sequence");
+        assert_eq!(
+            sent, expected,
+            "our join sequence differs from the recorded real-server sequence"
+        );
         assert_eq!(host.list.get_player_count(), 1);
     }
 }

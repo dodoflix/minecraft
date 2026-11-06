@@ -13,7 +13,13 @@ use mc_text::Component;
 
 /// `TestBlockMode.getDisplayName()`.
 pub fn mode_display_name(mode: TestBlockMode) -> Component {
-    Component::translatable(format!("test_block.mode.{}", mode.serialized_name().expect("serialized")), Vec::new())
+    Component::translatable(
+        format!(
+            "test_block.mode.{}",
+            mode.serialized_name().expect("serialized")
+        ),
+        Vec::new(),
+    )
 }
 
 /// `run(helper)`.
@@ -25,7 +31,10 @@ pub fn run(helper: &mut GameTestHelper<'_>) -> TestResult {
     helper.on_each_tick(|helper| {
         let accept_blocks = find_test_blocks(helper, TestBlockMode::Accept);
         if accept_blocks.is_empty() {
-            return helper.fail(translatable!("test_block.error.missing", mode_display_name(TestBlockMode::Accept)));
+            return helper.fail(translatable!(
+                "test_block.error.missing",
+                mode_display_name(TestBlockMode::Accept)
+            ));
         }
         let mut accept_triggered = false;
         for pos in &accept_blocks {
@@ -38,7 +47,9 @@ pub fn run(helper: &mut GameTestHelper<'_>) -> TestResult {
             helper.succeed();
             return Ok(());
         }
-        for_all_triggered_test_blocks(helper, TestBlockMode::Fail, |helper, message, _| helper.fail(Component::literal(message)))?;
+        for_all_triggered_test_blocks(helper, TestBlockMode::Fail, |helper, message, _| {
+            helper.fail(Component::literal(message))
+        })?;
         for_all_triggered_test_blocks(helper, TestBlockMode::Log, |helper, _, pos| {
             let absolute = helper.absolute_pos(pos);
             test_block_entity::trigger(helper.get_level(), absolute);
@@ -55,7 +66,9 @@ fn for_all_triggered_test_blocks(
     action: impl Fn(&mut GameTestHelper<'_>, String, BlockPos) -> TestResult,
 ) -> TestResult {
     for pos in find_test_blocks(helper, mode) {
-        let (triggered, message) = helper.get_block_entity::<TestBlockEntity, _>(pos, |be| (be.has_triggered(), be.get_message().to_owned()))?;
+        let (triggered, message) = helper.get_block_entity::<TestBlockEntity, _>(pos, |be| {
+            (be.has_triggered(), be.get_message().to_owned())
+        })?;
         if triggered {
             action(helper, message, pos)?;
             let absolute = helper.absolute_pos(pos);
@@ -66,13 +79,21 @@ fn for_all_triggered_test_blocks(
 }
 
 /// `findStartBlock(helper)`.
-fn find_start_block(helper: &mut GameTestHelper<'_>) -> Result<BlockPos, super::game_test_exception::GameTestException> {
+fn find_start_block(
+    helper: &mut GameTestHelper<'_>,
+) -> Result<BlockPos, super::game_test_exception::GameTestException> {
     let test_blocks = find_test_blocks(helper, TestBlockMode::Start);
     if test_blocks.is_empty() {
-        helper.fail(translatable!("test_block.error.missing", mode_display_name(TestBlockMode::Start)))?;
+        helper.fail(translatable!(
+            "test_block.error.missing",
+            mode_display_name(TestBlockMode::Start)
+        ))?;
     }
     if test_blocks.len() != 1 {
-        helper.fail(translatable!("test_block.error.too_many", mode_display_name(TestBlockMode::Start)))?;
+        helper.fail(translatable!(
+            "test_block.error.too_many",
+            mode_display_name(TestBlockMode::Start)
+        ))?;
     }
     Ok(test_blocks[0])
 }

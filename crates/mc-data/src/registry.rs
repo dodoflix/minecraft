@@ -15,7 +15,12 @@ impl Registry {
         entries: &'static [&'static str],
         by_name: &'static [(&'static str, u16)],
     ) -> Self {
-        Registry { name, default, entries, by_name }
+        Registry {
+            name,
+            default,
+            entries,
+            by_name,
+        }
     }
 
     /// Registry key, e.g. `minecraft:block`.
@@ -43,8 +48,17 @@ impl Registry {
 
     /// Protocol id of an entry; a bare name (no namespace) is looked up in `minecraft`.
     pub fn id_of(&self, name: &str) -> Option<u32> {
-        let find = |n: &str| self.by_name.binary_search_by(|(e, _)| (*e).cmp(n)).ok().map(|i| self.by_name[i].1 as u32);
-        if name.contains(':') { find(name) } else { find(&format!("minecraft:{name}")) }
+        let find = |n: &str| {
+            self.by_name
+                .binary_search_by(|(e, _)| (*e).cmp(n))
+                .ok()
+                .map(|i| self.by_name[i].1 as u32)
+        };
+        if name.contains(':') {
+            find(name)
+        } else {
+            find(&format!("minecraft:{name}"))
+        }
     }
 
     pub fn name_of(&self, id: u32) -> Option<&'static str> {
@@ -78,7 +92,11 @@ macro_rules! registry_id {
             }
 
             pub fn from_id(id: u32) -> Option<Self> {
-                if (id as usize) < $crate::registry::registries::$reg.len() { Some($ty(id as u16)) } else { None }
+                if (id as usize) < $crate::registry::registries::$reg.len() {
+                    Some($ty(id as u16))
+                } else {
+                    None
+                }
             }
 
             /// Registry key, e.g. `minecraft:stone`.
@@ -87,12 +105,15 @@ macro_rules! registry_id {
             }
 
             pub fn identifier(self) -> mc_core::ident::Identifier {
-                mc_core::ident::Identifier::parse(self.name()).expect("registry names are valid identifiers")
+                mc_core::ident::Identifier::parse(self.name())
+                    .expect("registry names are valid identifiers")
             }
 
             /// Lookup by full name (`minecraft:stone`) or bare name (`stone`).
             pub fn by_name(name: &str) -> Option<Self> {
-                $crate::registry::registries::$reg.id_of(name).map(|i| $ty(i as u16))
+                $crate::registry::registries::$reg
+                    .id_of(name)
+                    .map(|i| $ty(i as u16))
             }
 
             /// All entries in protocol-id order.
@@ -131,7 +152,9 @@ pub mod registries {
 
     /// Registry by key (`minecraft:block`), `ALL` is sorted by key.
     pub fn by_name(name: &str) -> Option<&'static Registry> {
-        ALL.binary_search_by(|r| r.name().cmp(name)).ok().map(|i| ALL[i])
+        ALL.binary_search_by(|r| r.name().cmp(name))
+            .ok()
+            .map(|i| ALL[i])
     }
 }
 

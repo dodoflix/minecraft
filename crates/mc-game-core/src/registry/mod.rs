@@ -19,14 +19,20 @@ pub mod typed;
 use std::collections::HashMap;
 use std::sync::Arc;
 
-pub use access::{LayeredRegistryAccess, RegistrationInfo, Registry, RegistryAccess, RegistryEntry};
+pub use access::{
+    LayeredRegistryAccess, RegistrationInfo, Registry, RegistryAccess, RegistryEntry,
+};
 use mc_core::ident::Identifier;
 
 use crate::server::packs::ResourceManager;
 
 /// `RegistryLayer.STATIC_ACCESS`: every code-defined registry (`BuiltInRegistries`), without tags.
 pub fn static_registries() -> RegistryAccess {
-    RegistryAccess::from_registries(mc_data::registry::registries::ALL.iter().map(|r| Registry::from_static(r)))
+    RegistryAccess::from_registries(
+        mc_data::registry::registries::ALL
+            .iter()
+            .map(|r| Registry::from_static(r)),
+    )
 }
 
 /// `Registry.PendingTags`: the tags to bind to one registry once loading succeeded.
@@ -38,7 +44,10 @@ pub struct PendingTags {
 
 /// `TagLoader.loadTagsForExistingRegistries(manager, layer)`: tags of the registries of `layer` (the static ones) from every
 /// selected pack. Registries without any tag file produce nothing.
-pub fn load_tags_for_existing_registries(manager: &dyn ResourceManager, layer: &RegistryAccess) -> Vec<PendingTags> {
+pub fn load_tags_for_existing_registries(
+    manager: &dyn ResourceManager,
+    layer: &RegistryAccess,
+) -> Vec<PendingTags> {
     let mut pending = Vec::new();
     for registry in layer.registries() {
         let mut lookup = |id: &Identifier, _required: bool| match registry.id_of(id) {
@@ -49,21 +58,31 @@ pub fn load_tags_for_existing_registries(manager: &dyn ResourceManager, layer: &
         let builders = loader.load(manager);
         let built = loader.build(&builders);
         if !built.is_empty() {
-            pending.push(PendingTags { registry: registry.key().to_owned(), tags: built.into_iter().map(|(k, v)| (k, Arc::from(v))).collect() });
+            pending.push(PendingTags {
+                registry: registry.key().to_owned(),
+                tags: built.into_iter().map(|(k, v)| (k, Arc::from(v))).collect(),
+            });
         }
     }
     pending
 }
 
 /// `TagLoader.buildUpdatedLookups(registries, tags)`: `registries` with the pending tags applied.
-pub fn build_updated_lookups(registries: &RegistryAccess, pending: &[PendingTags]) -> RegistryAccess {
-    RegistryAccess::from_arcs(registries.registries().map(|r| match pending.iter().find(|p| p.registry == r.key()) {
-        Some(p) => Arc::new((**r).clone().with_tags(p.tags.clone())),
-        None => r.clone(),
+pub fn build_updated_lookups(
+    registries: &RegistryAccess,
+    pending: &[PendingTags],
+) -> RegistryAccess {
+    RegistryAccess::from_arcs(registries.registries().map(|r| {
+        match pending.iter().find(|p| p.registry == r.key()) {
+            Some(p) => Arc::new((**r).clone().with_tags(p.tags.clone())),
+            None => r.clone(),
+        }
     }))
 }
 
-use typed::{biome::Biome, chat_type::ChatType, damage_type::DamageType, dimension_type::DimensionType};
+use typed::{
+    biome::Biome, chat_type::ChatType, damage_type::DamageType, dimension_type::DimensionType,
+};
 
 impl RegistryAccess {
     /// Typed `dimension_type` entry (`registryAccess.lookupOrThrow(DIMENSION_TYPE).getValue(id)`).
@@ -98,12 +117,17 @@ impl RegistryAccess {
             context = context.with_registry(registry.key(), registry.names());
         }
         let access = self.clone();
-        let context = context.with_tag_lookup(Box::new(move |registry, tag| access.tag(registry, tag).is_some()));
+        let context = context.with_tag_lookup(Box::new(move |registry, tag| {
+            access.tag(registry, tag).is_some()
+        }));
         let _ = mc_protocol::registry_context::set(context);
     }
 
     /// Typed `dimension` (level stem) entry of a baked `dimension` registry.
-    pub fn level_stem(&self, id: &Identifier) -> Option<&crate::server::world_dimensions::LevelStem> {
+    pub fn level_stem(
+        &self,
+        id: &Identifier,
+    ) -> Option<&crate::server::world_dimensions::LevelStem> {
         self.get::<crate::server::world_dimensions::LevelStem>(keys::LEVEL_STEM, id)
     }
 }

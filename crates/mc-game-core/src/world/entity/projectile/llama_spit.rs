@@ -23,7 +23,10 @@ pub struct LlamaSpit {
 impl LlamaSpit {
     /// `LlamaSpit(type, level)`.
     pub fn new(ty: EntityType, id: EntityId) -> Self {
-        Self { base: EntityData::new(ty, id, entity::TOTAL_AIR_SUPPLY, |_| {}), projectile: ProjectileData::default() }
+        Self {
+            base: EntityData::new(ty, id, entity::TOTAL_AIR_SUPPLY, |_| {}),
+            projectile: ProjectileData::default(),
+        }
     }
 
     /// `LlamaSpit(level, owner)` (`owner` is the `Llama`).
@@ -35,9 +38,15 @@ impl LlamaSpit {
         let deg_to_rad = (std::f64::consts::PI / 180.0) as f32;
         let b = owner.base();
         spit.set_pos(
-            b.x() - f64::from(width + 1.0) * 0.5 * f64::from(mth::sin(f64::from(y_body_rot * deg_to_rad))),
+            b.x()
+                - f64::from(width + 1.0)
+                    * 0.5
+                    * f64::from(mth::sin(f64::from(y_body_rot * deg_to_rad))),
             b.get_eye_y() - f64::from(0.1f32),
-            b.z() + f64::from(width + 1.0) * 0.5 * f64::from(mth::cos(f64::from(y_body_rot * deg_to_rad))),
+            b.z()
+                + f64::from(width + 1.0)
+                    * 0.5
+                    * f64::from(mth::cos(f64::from(y_body_rot * deg_to_rad))),
         );
         spit
     }
@@ -54,11 +63,24 @@ impl Projectile for LlamaSpit {
 
     fn on_hit_entity(&mut self, level: &mut ServerLevel, hit: &EntityHitResult) {
         let victim = hit.entity;
-        let Some(owner_id) = self.get_owner(level).filter(|o| o.living().is_some()).map(|o| o.id()) else { return };
-        let source = level.damage_sources().spit(self.as_dyn(), level.get_entity(owner_id));
+        let Some(owner_id) = self
+            .get_owner(level)
+            .filter(|o| o.living().is_some())
+            .map(|o| o.id())
+        else {
+            return;
+        };
+        let source = level
+            .damage_sources()
+            .spit(self.as_dyn(), level.get_entity(owner_id));
         level.with_entity(victim, |level, target| {
             if target.hurt_server(level, &source, 1.0) {
-                crate::world::item::enchantment_helper::do_post_attack_effects(level, &mut Actors::of(&mut *target), victim, &source);
+                crate::world::item::enchantment_helper::do_post_attack_effects(
+                    level,
+                    &mut Actors::of(&mut *target),
+                    victim,
+                    &source,
+                );
             }
         });
     }
@@ -101,13 +123,16 @@ impl Entity for LlamaSpit {
     fn tick(&mut self, level: &mut ServerLevel) {
         super::tick(self, level);
         let movement = self.base.delta_movement();
-        let hit_result = super::util::get_hit_result_on_move_vector(level, self, &|e| self.can_hit_entity(level, e));
+        let hit_result = super::util::get_hit_result_on_move_vector(level, self, &|e| {
+            self.can_hit_entity(level, e)
+        });
         super::hit_target_or_deflect_self(self, level, &hit_result);
         let x = self.base.x() + movement.x;
         let y = self.base.y() + movement.y;
         let z = self.base.z() + movement.z;
         super::update_rotation(self);
-        let touches_no_air = !BlockPos::between_closed_aabb(&self.get_bounding_box()).any(|p| level.get_block_state(p).is_air());
+        let touches_no_air = !BlockPos::between_closed_aabb(&self.get_bounding_box())
+            .any(|p| level.get_block_state(p).is_air());
         if touches_no_air || self.is_in_water() {
             self.discard();
         } else {
@@ -128,4 +153,7 @@ impl Entity for LlamaSpit {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static LLAMA_SPIT_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::LLAMA_SPIT, create: |ty, id, _registries| Box::new(LlamaSpit::new(ty, id)) };
+static LLAMA_SPIT_FACTORY: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::LLAMA_SPIT,
+    create: |ty, id, _registries| Box::new(LlamaSpit::new(ty, id)),
+};

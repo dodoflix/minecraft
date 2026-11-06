@@ -1,12 +1,15 @@
 //! `OceanRuinStructure`.
 
 use super::ocean_ruin_pieces;
+use mc_core::pos::BlockPos;
+use mc_core::rotation::Rotation;
 use mc_game_core::world::level::levelgen::codec::*;
 use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_game_core::world::level::levelgen::structure::pieces::StructurePiecesBuilder;
-use mc_game_core::world::level::levelgen::structure::structure::{GenerationContext, GenerationStub, STRUCTURE_TYPES, Structure, StructureSettings, on_top_of_chunk_center};
-use mc_core::pos::BlockPos;
-use mc_core::rotation::Rotation;
+use mc_game_core::world::level::levelgen::structure::structure::{
+    GenerationContext, GenerationStub, STRUCTURE_TYPES, Structure, StructureSettings,
+    on_top_of_chunk_center,
+};
 use mc_world::heightmap::HeightmapType;
 use std::sync::Arc;
 
@@ -36,11 +39,15 @@ impl OceanRuinType {
 
     /// `Type.LEGACY_CODEC` decode (`Type.valueOf`).
     pub fn from_legacy_name(name: &str) -> Option<OceanRuinType> {
-        [OceanRuinType::Warm, OceanRuinType::Cold].into_iter().find(|t| t.legacy_name() == name)
+        [OceanRuinType::Warm, OceanRuinType::Cold]
+            .into_iter()
+            .find(|t| t.legacy_name() == name)
     }
 
     fn from_serialized_name(name: &str) -> Option<OceanRuinType> {
-        [OceanRuinType::Warm, OceanRuinType::Cold].into_iter().find(|t| t.get_serialized_name() == name)
+        [OceanRuinType::Warm, OceanRuinType::Cold]
+            .into_iter()
+            .find(|t| t.get_serialized_name() == name)
     }
 }
 
@@ -58,17 +65,35 @@ impl OceanRuinStructure {
             settings: StructureSettings::decode(fields, ctx)?,
             biome_temp: fields.required("biome_temp", |v| {
                 let name = parse_str(v)?;
-                OceanRuinType::from_serialized_name(name).ok_or_else(|| LoadError::new(format!("Unknown element name:{name}")))
+                OceanRuinType::from_serialized_name(name)
+                    .ok_or_else(|| LoadError::new(format!("Unknown element name:{name}")))
             })?,
-            large_probability: fields.required("large_probability", |v| parse_float_range(v, 0.0, 1.0))?,
-            cluster_probability: fields.required("cluster_probability", |v| parse_float_range(v, 0.0, 1.0))?,
+            large_probability: fields
+                .required("large_probability", |v| parse_float_range(v, 0.0, 1.0))?,
+            cluster_probability: fields
+                .required("cluster_probability", |v| parse_float_range(v, 0.0, 1.0))?,
         }))
     }
 
-    fn generate_pieces(&self, builder: &mut StructurePiecesBuilder, context: &mut GenerationContext<'_>) {
-        let offset = BlockPos::new(context.chunk_pos.get_min_block_x(), 90, context.chunk_pos.get_min_block_z());
+    fn generate_pieces(
+        &self,
+        builder: &mut StructurePiecesBuilder,
+        context: &mut GenerationContext<'_>,
+    ) {
+        let offset = BlockPos::new(
+            context.chunk_pos.get_min_block_x(),
+            90,
+            context.chunk_pos.get_min_block_z(),
+        );
         let rotation = Rotation::get_random(&mut context.random);
-        ocean_ruin_pieces::add_pieces(&context.env.structure_template_manager, offset, rotation, builder, &mut context.random, self);
+        ocean_ruin_pieces::add_pieces(
+            &context.env.structure_template_manager,
+            offset,
+            rotation,
+            builder,
+            &mut context.random,
+            self,
+        );
     }
 }
 
@@ -81,10 +106,20 @@ impl Structure for OceanRuinStructure {
         "ocean_ruin"
     }
 
-    fn find_generation_point<'a>(&'a self, context: &mut GenerationContext<'_>) -> Option<GenerationStub<'a>> {
-        on_top_of_chunk_center(context, HeightmapType::OceanFloorWg, move |builder, context| self.generate_pieces(builder, context))
+    fn find_generation_point<'a>(
+        &'a self,
+        context: &mut GenerationContext<'_>,
+    ) -> Option<GenerationStub<'a>> {
+        on_top_of_chunk_center(
+            context,
+            HeightmapType::OceanFloorWg,
+            move |builder, context| self.generate_pieces(builder, context),
+        )
     }
 }
 
 #[linkme::distributed_slice(STRUCTURE_TYPES)]
-static OCEAN_RUIN: TypeEntry<dyn Structure> = TypeEntry { name: "ocean_ruin", decode: OceanRuinStructure::decode };
+static OCEAN_RUIN: TypeEntry<dyn Structure> = TypeEntry {
+    name: "ocean_ruin",
+    decode: OceanRuinStructure::decode,
+};

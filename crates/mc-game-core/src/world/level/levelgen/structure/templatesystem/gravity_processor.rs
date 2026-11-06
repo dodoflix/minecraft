@@ -28,16 +28,23 @@ impl StructureProcessor for GravityProcessor {
         _settings: &StructurePlaceSettings,
     ) -> Option<StructureBlockInfo> {
         let pos = processed_block_info.pos;
-        let height = level.get_height_at(self.heightmap, pos.x(), pos.z()).wrapping_add(self.offset);
+        let height = level
+            .get_height_at(self.heightmap, pos.x(), pos.z())
+            .wrapping_add(self.offset);
         let delta = template_relative_pos.y();
-        Some(StructureBlockInfo::new(BlockPos::new(pos.x(), height.wrapping_add(delta), pos.z()), processed_block_info.state, processed_block_info.nbt))
+        Some(StructureBlockInfo::new(
+            BlockPos::new(pos.x(), height.wrapping_add(delta), pos.z()),
+            processed_block_info.state,
+            processed_block_info.nbt,
+        ))
     }
 }
 
 /// `Heightmap.Types.CODEC`.
 fn parse_heightmap(value: &serde_json::Value) -> LoadResult<HeightmapType> {
     let name = parse_str(value)?;
-    HeightmapType::from_serialization_key(name).ok_or_else(|| LoadError::new(format!("Unknown element name:{name}")))
+    HeightmapType::from_serialization_key(name)
+        .ok_or_else(|| LoadError::new(format!("Unknown element name:{name}")))
 }
 
 #[linkme::distributed_slice(STRUCTURE_PROCESSOR_TYPES)]
@@ -45,7 +52,9 @@ static TYPE: TypeEntry<dyn StructureProcessor> = TypeEntry {
     name: "gravity",
     decode: |f, _| {
         Ok(Arc::new(GravityProcessor {
-            heightmap: f.optional("heightmap", parse_heightmap)?.unwrap_or(HeightmapType::WorldSurfaceWg),
+            heightmap: f
+                .optional("heightmap", parse_heightmap)?
+                .unwrap_or(HeightmapType::WorldSurfaceWg),
             offset: f.optional("offset", parse_int)?.unwrap_or(0),
         }))
     },

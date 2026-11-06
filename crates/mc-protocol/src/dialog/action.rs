@@ -18,7 +18,10 @@ pub enum Action {
     /// `CommandTemplate` (`dynamic/run_command`).
     CommandTemplate(ParsedTemplate),
     /// `CustomAll` (`dynamic/custom`).
-    CustomAll { id: Identifier, additions: Option<CompoundTag> },
+    CustomAll {
+        id: Identifier,
+        additions: Option<CompoundTag>,
+    },
 }
 
 /// `StaticAction.WRAPPED_CODECS` key order (`EnumMap` order of the allowed `ClickEvent.Action`s).
@@ -36,7 +39,9 @@ fn static_type(action: ClickAction) -> Option<DialogActionType> {
 }
 
 fn static_click_action(t: DialogActionType) -> Option<ClickAction> {
-    ClickAction::ALL.into_iter().find(|a| static_type(*a) == Some(t))
+    ClickAction::ALL
+        .into_iter()
+        .find(|a| static_type(*a) == Some(t))
 }
 
 impl Action {
@@ -50,7 +55,9 @@ impl Action {
                     DataResult::error(move || format!("Click event type not allowed: {name}"))
                 }
             },
-            Action::CommandTemplate(_) => DataResult::success(DialogActionType::DYNAMIC_RUN_COMMAND),
+            Action::CommandTemplate(_) => {
+                DataResult::success(DialogActionType::DYNAMIC_RUN_COMMAND)
+            }
             Action::CustomAll { .. } => DataResult::success(DialogActionType::DYNAMIC_CUSTOM),
         }
     }
@@ -63,8 +70,14 @@ impl Action {
             move |ops, input: &Action, b| {
                 let Action::Static(event) = input else { return };
                 let encoded: Result<Dyn, String> = match ops.kind() {
-                    OpsKind::Json => event.to_json().map(|v| serde_to_dyn(&v)).map_err(|e| e.to_string()),
-                    OpsKind::Nbt => event.to_nbt().map(|t| Dyn::from(&t)).map_err(|e| e.to_string()),
+                    OpsKind::Json => event
+                        .to_json()
+                        .map(|v| serde_to_dyn(&v))
+                        .map_err(|e| e.to_string()),
+                    OpsKind::Nbt => event
+                        .to_nbt()
+                        .map(|t| Dyn::from(&t))
+                        .map_err(|e| e.to_string()),
                     OpsKind::Hash => Err("Unsupported operation".into()),
                 };
                 match encoded {
@@ -83,11 +96,20 @@ impl Action {
             },
             move |ops, m| {
                 let mut entries = vec![(Dyn::str("action"), Dyn::str(action.serialized_name()))];
-                entries.extend(m.entries().iter().filter(|(k, _)| k.as_str() != Some("action")).cloned());
+                entries.extend(
+                    m.entries()
+                        .iter()
+                        .filter(|(k, _)| k.as_str() != Some("action"))
+                        .cloned(),
+                );
                 let map = Dyn::Map(entries);
                 let decoded = match ops.kind() {
-                    OpsKind::Json => ClickEvent::from_json(&dyn_to_serde(&map)).map_err(|e| e.to_string()),
-                    OpsKind::Nbt => map.to_tag().and_then(|t| ClickEvent::from_nbt(&t).map_err(|e| e.to_string())),
+                    OpsKind::Json => {
+                        ClickEvent::from_json(&dyn_to_serde(&map)).map_err(|e| e.to_string())
+                    }
+                    OpsKind::Nbt => map
+                        .to_tag()
+                        .and_then(|t| ClickEvent::from_nbt(&t).map_err(|e| e.to_string())),
                     OpsKind::Hash => Err("Unsupported operation".into()),
                 };
                 match decoded {
@@ -100,11 +122,18 @@ impl Action {
     }
 
     fn command_template_codec() -> MapCodec<Action> {
-        mc_dfu::record!(CommandTemplateFields { template: ParsedTemplate::codec().field_of("template") })
-            .xmap(|f| Action::CommandTemplate(f.template), |a: &Action| match a {
-                Action::CommandTemplate(t) => CommandTemplateFields { template: t.clone() },
+        mc_dfu::record!(CommandTemplateFields {
+            template: ParsedTemplate::codec().field_of("template")
+        })
+        .xmap(
+            |f| Action::CommandTemplate(f.template),
+            |a: &Action| match a {
+                Action::CommandTemplate(t) => CommandTemplateFields {
+                    template: t.clone(),
+                },
                 _ => unreachable!("dispatched by action type"),
-            })
+            },
+        )
     }
 
     fn custom_all_codec() -> MapCodec<Action> {
@@ -112,10 +141,19 @@ impl Action {
             id: mc_dfu::extra::IDENTIFIER.field_of("id"),
             additions: compound_tag_codec().optional_field_of("additions"),
         })
-        .xmap(|f| Action::CustomAll { id: f.id, additions: f.additions }, |a: &Action| match a {
-            Action::CustomAll { id, additions } => CustomAllFields { id: id.clone(), additions: additions.clone() },
-            _ => unreachable!("dispatched by action type"),
-        })
+        .xmap(
+            |f| Action::CustomAll {
+                id: f.id,
+                additions: f.additions,
+            },
+            |a: &Action| match a {
+                Action::CustomAll { id, additions } => CustomAllFields {
+                    id: id.clone(),
+                    additions: additions.clone(),
+                },
+                _ => unreachable!("dispatched by action type"),
+            },
+        )
     }
 
     /// `Action.CODEC`: `DIALOG_ACTION_TYPE.byNameCodec().dispatch(Action::codec, c -> c)` (key `type`).

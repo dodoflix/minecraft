@@ -19,7 +19,14 @@ use mc_data::block::BlockState;
 pub trait OpenersHost {
     fn on_open(&self, level: &mut ServerLevel, pos: BlockPos, state: BlockState);
     fn on_close(&self, level: &mut ServerLevel, pos: BlockPos, state: BlockState);
-    fn opener_count_changed(&self, level: &mut ServerLevel, pos: BlockPos, state: BlockState, previous: i32, current: i32);
+    fn opener_count_changed(
+        &self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        state: BlockState,
+        previous: i32,
+        current: i32,
+    );
     /// `isOwnContainer(player)` for a player entity (`ContainerUser.hasContainerOpen(counter, pos)`).
     fn is_own_container(&self, player: &dyn Entity, pos: BlockPos) -> bool;
 }
@@ -33,12 +40,24 @@ pub struct ContainerOpenersCounter {
 
 impl ContainerOpenersCounter {
     /// `incrementOpeners(entity, level, pos, blockState, maxInteractionRange)`.
-    pub fn increment_openers(&mut self, host: &dyn OpenersHost, entity: EntityId, level: &mut ServerLevel, pos: BlockPos, state: BlockState, max_interaction_range: f64) {
+    pub fn increment_openers(
+        &mut self,
+        host: &dyn OpenersHost,
+        entity: EntityId,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        state: BlockState,
+        max_interaction_range: f64,
+    ) {
         let previous = self.open_count;
         self.open_count += 1;
         if previous == 0 {
             host.on_open(level, pos, state);
-            level.game_event_at_block(GameEvent::CONTAINER_OPEN, pos, &GameEventContext::of_entity(Some(entity)));
+            level.game_event_at_block(
+                GameEvent::CONTAINER_OPEN,
+                pos,
+                &GameEventContext::of_entity(Some(entity)),
+            );
             schedule_recheck(level, pos, state);
         }
         host.opener_count_changed(level, pos, state, previous, self.open_count);
@@ -46,12 +65,23 @@ impl ContainerOpenersCounter {
     }
 
     /// `decrementOpeners(entity, level, pos, blockState)`.
-    pub fn decrement_openers(&mut self, host: &dyn OpenersHost, entity: EntityId, level: &mut ServerLevel, pos: BlockPos, state: BlockState) {
+    pub fn decrement_openers(
+        &mut self,
+        host: &dyn OpenersHost,
+        entity: EntityId,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        state: BlockState,
+    ) {
         let previous = self.open_count;
         self.open_count -= 1;
         if self.open_count == 0 {
             host.on_close(level, pos, state);
-            level.game_event_at_block(GameEvent::CONTAINER_CLOSE, pos, &GameEventContext::of_entity(Some(entity)));
+            level.game_event_at_block(
+                GameEvent::CONTAINER_CLOSE,
+                pos,
+                &GameEventContext::of_entity(Some(entity)),
+            );
             self.max_interaction_range = 0.0;
         }
         host.opener_count_changed(level, pos, state, previous, self.open_count);
@@ -59,18 +89,34 @@ impl ContainerOpenersCounter {
 
     /// `getEntitiesWithContainerOpen(level, pos)` (the entities that are `ContainerUser`s, not spectating and own the
     /// container).
-    pub fn get_entities_with_container_open(&self, host: &dyn OpenersHost, level: &ServerLevel, pos: BlockPos) -> Vec<EntityId> {
+    pub fn get_entities_with_container_open(
+        &self,
+        host: &dyn OpenersHost,
+        level: &ServerLevel,
+        pos: BlockPos,
+    ) -> Vec<EntityId> {
         let range = self.max_interaction_range + 4.0;
         let search_box = AABB::from_block_pos(&pos).inflate_scalar(range);
-        level.get_entities(None, &search_box, |entity| entity.is_player() && !entity.is_spectator() && host.is_own_container(entity, pos))
+        level.get_entities(None, &search_box, |entity| {
+            entity.is_player() && !entity.is_spectator() && host.is_own_container(entity, pos)
+        })
     }
 
     /// `recheckOpeners(level, pos, blockState)`: the scheduled `tick` of the blocks.
-    pub fn recheck_openers(&mut self, host: &dyn OpenersHost, level: &mut ServerLevel, pos: BlockPos, state: BlockState) {
+    pub fn recheck_openers(
+        &mut self,
+        host: &dyn OpenersHost,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        state: BlockState,
+    ) {
         let users = self.get_entities_with_container_open(host, level, pos);
         self.max_interaction_range = 0.0;
         for id in &users {
-            if let Some(range) = level.get_entity(*id).and_then(|e| container_interaction_range(e)) {
+            if let Some(range) = level
+                .get_entity(*id)
+                .and_then(|e| container_interaction_range(e))
+            {
                 self.max_interaction_range = range.max(self.max_interaction_range);
             }
         }
@@ -81,10 +127,18 @@ impl ContainerOpenersCounter {
             let was_open = prev_count != 0;
             if is_open && !was_open {
                 host.on_open(level, pos, state);
-                level.game_event_at_block(GameEvent::CONTAINER_OPEN, pos, &GameEventContext::of_entity(None));
+                level.game_event_at_block(
+                    GameEvent::CONTAINER_OPEN,
+                    pos,
+                    &GameEventContext::of_entity(None),
+                );
             } else if !is_open {
                 host.on_close(level, pos, state);
-                level.game_event_at_block(GameEvent::CONTAINER_CLOSE, pos, &GameEventContext::of_entity(None));
+                level.game_event_at_block(
+                    GameEvent::CONTAINER_CLOSE,
+                    pos,
+                    &GameEventContext::of_entity(None),
+                );
             }
             self.open_count = open_count;
         }
@@ -102,7 +156,14 @@ impl ContainerOpenersCounter {
 
 /// `ContainerUser.getContainerInteractionRange()` (`Player.blockInteractionRange()`).
 pub fn container_interaction_range(entity: &dyn Entity) -> Option<f64> {
-    entity.as_any().downcast_ref::<crate::world::entity::ServerPlayer>().map(|p| p.player.living.get_attribute_value(mc_data::Attribute::BLOCK_INTERACTION_RANGE))
+    entity
+        .as_any()
+        .downcast_ref::<crate::world::entity::ServerPlayer>()
+        .map(|p| {
+            p.player
+                .living
+                .get_attribute_value(mc_data::Attribute::BLOCK_INTERACTION_RANGE)
+        })
 }
 
 fn schedule_recheck(level: &mut ServerLevel, pos: BlockPos, state: BlockState) {
@@ -141,15 +202,33 @@ impl ChestLidController {
 pub fn player_has_chest_menu_open_on(entity: &dyn Entity, pos: BlockPos) -> bool {
     use crate::world::inventory::{AbstractContainerMenu, ContainerKey};
     use mc_data::MenuType;
-    let Some(player) = entity.as_any().downcast_ref::<crate::world::entity::ServerPlayer>() else { return false };
+    let Some(player) = entity
+        .as_any()
+        .downcast_ref::<crate::world::entity::ServerPlayer>()
+    else {
+        return false;
+    };
     let base = player.player.menus.current().base();
     matches!(
         base.menu_type(),
-        Some(MenuType::GENERIC_9X1 | MenuType::GENERIC_9X2 | MenuType::GENERIC_9X3 | MenuType::GENERIC_9X4 | MenuType::GENERIC_9X5 | MenuType::GENERIC_9X6)
-    ) && base.slots.iter().any(|s| matches!(&s.container, ContainerKey::BlockEntity(p) if *p == pos))
+        Some(
+            MenuType::GENERIC_9X1
+                | MenuType::GENERIC_9X2
+                | MenuType::GENERIC_9X3
+                | MenuType::GENERIC_9X4
+                | MenuType::GENERIC_9X5
+                | MenuType::GENERIC_9X6
+        )
+    ) && base
+        .slots
+        .iter()
+        .any(|s| matches!(&s.container, ContainerKey::BlockEntity(p) if *p == pos))
 }
 
 /// `player.getEnderChestInventory().isActiveChest(enderChest)`.
 pub fn player_has_ender_chest_active_at(entity: &dyn Entity, pos: BlockPos) -> bool {
-    entity.as_any().downcast_ref::<crate::world::entity::ServerPlayer>().is_some_and(|p| p.player.ender_chest.is_active_chest(pos))
+    entity
+        .as_any()
+        .downcast_ref::<crate::world::entity::ServerPlayer>()
+        .is_some_and(|p| p.player.ender_chest.is_active_chest(pos))
 }

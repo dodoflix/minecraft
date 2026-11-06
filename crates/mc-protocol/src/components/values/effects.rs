@@ -1,30 +1,39 @@
 //! Effect-flavoured components: attribute modifiers, potions, stews, food and consumables, use effects.
 
 use crate::codec::EncodeResult;
-use crate::codec::{read_registry_id, write_varint, DecodeResult};
-use crate::{Decode, Encode};
-use crate::components::common::{read_enum_zero, RegistrySet};
+use crate::codec::{DecodeResult, read_registry_id, write_varint};
+use crate::components::common::{RegistrySet, read_enum_zero};
 use crate::components::component::{ComponentDef, ComponentKey};
-use crate::components::holder::{registry_by_name_codec, Holder};
-use crate::components::{component_codec, ItemStackTemplate, SoundEvent};
+use crate::components::holder::{Holder, registry_by_name_codec};
+use crate::components::{ItemStackTemplate, SoundEvent, component_codec};
 use crate::packets::play::{AttributeModifier, AttributeModifierOperation};
 use crate::string_enum;
+use crate::{Decode, Encode};
 use mc_core::ident::Identifier;
 use mc_data::{Attribute, ConsumeEffectType, DataComponentType, MobEffect, Potion};
 use mc_dfu::extra::{IDENTIFIER, NON_NEGATIVE_FLOAT, NON_NEGATIVE_INT, POSITIVE_FLOAT};
-use mc_dfu::{float_range, java_double_cmp, java_float_cmp, string_enum_codec, Codec, MapCodec, BOOL, DOUBLE, FLOAT, INT, STRING};
+use mc_dfu::{
+    BOOL, Codec, DOUBLE, FLOAT, INT, MapCodec, STRING, float_range, java_double_cmp,
+    java_float_cmp, string_enum_codec,
+};
 use mc_text::Component;
 use std::cmp::Ordering;
 
-pub const ATTRIBUTE_MODIFIERS: ComponentKey<ItemAttributeModifiers> = ComponentKey::new(DataComponentType::ATTRIBUTE_MODIFIERS);
-pub const POTION_CONTENTS: ComponentKey<PotionContents> = ComponentKey::new(DataComponentType::POTION_CONTENTS);
-pub const SUSPICIOUS_STEW_EFFECTS: ComponentKey<SuspiciousStewEffects> = ComponentKey::new(DataComponentType::SUSPICIOUS_STEW_EFFECTS);
+pub const ATTRIBUTE_MODIFIERS: ComponentKey<ItemAttributeModifiers> =
+    ComponentKey::new(DataComponentType::ATTRIBUTE_MODIFIERS);
+pub const POTION_CONTENTS: ComponentKey<PotionContents> =
+    ComponentKey::new(DataComponentType::POTION_CONTENTS);
+pub const SUSPICIOUS_STEW_EFFECTS: ComponentKey<SuspiciousStewEffects> =
+    ComponentKey::new(DataComponentType::SUSPICIOUS_STEW_EFFECTS);
 pub const CONSUMABLE: ComponentKey<Consumable> = ComponentKey::new(DataComponentType::CONSUMABLE);
-pub const DEATH_PROTECTION: ComponentKey<DeathProtection> = ComponentKey::new(DataComponentType::DEATH_PROTECTION);
+pub const DEATH_PROTECTION: ComponentKey<DeathProtection> =
+    ComponentKey::new(DataComponentType::DEATH_PROTECTION);
 pub const FOOD: ComponentKey<FoodProperties> = ComponentKey::new(DataComponentType::FOOD);
 pub const USE_EFFECTS: ComponentKey<UseEffects> = ComponentKey::new(DataComponentType::USE_EFFECTS);
-pub const USE_COOLDOWN: ComponentKey<UseCooldown> = ComponentKey::new(DataComponentType::USE_COOLDOWN);
-pub const USE_REMAINDER: ComponentKey<UseRemainder> = ComponentKey::new(DataComponentType::USE_REMAINDER);
+pub const USE_COOLDOWN: ComponentKey<UseCooldown> =
+    ComponentKey::new(DataComponentType::USE_COOLDOWN);
+pub const USE_REMAINDER: ComponentKey<UseRemainder> =
+    ComponentKey::new(DataComponentType::USE_REMAINDER);
 
 // ---- helpers shared with combat.rs -------------------------------------------------------------------------------
 
@@ -47,14 +56,21 @@ impl PartialEq for JF32 {
 
 /// `codec.optionalFieldOf(name, default)` for floats, comparing with `Float.equals`.
 pub(crate) fn float_field_default(codec: &Codec<f32>, name: &str, default: f32) -> MapCodec<f32> {
-    codec.xmap(JF32, |j: &JF32| j.0).optional_field_of_default(name, JF32(default)).xmap(|j| j.0, |f: &f32| JF32(*f))
+    codec
+        .xmap(JF32, |j: &JF32| j.0)
+        .optional_field_of_default(name, JF32(default))
+        .xmap(|j| j.0, |f: &f32| JF32(*f))
 }
 
 pub(crate) fn ident(s: &str) -> Identifier {
     Identifier::parse(s).expect("valid identifier")
 }
 
-pub(crate) fn enc_opt<T>(out: &mut Vec<u8>, v: &Option<T>, f: impl FnOnce(&T, &mut Vec<u8>) -> EncodeResult<()>) -> EncodeResult<()> {
+pub(crate) fn enc_opt<T>(
+    out: &mut Vec<u8>,
+    v: &Option<T>,
+    f: impl FnOnce(&T, &mut Vec<u8>) -> EncodeResult<()>,
+) -> EncodeResult<()> {
     match v {
         Some(v) => {
             out.push(1);
@@ -64,8 +80,15 @@ pub(crate) fn enc_opt<T>(out: &mut Vec<u8>, v: &Option<T>, f: impl FnOnce(&T, &m
     }
     Ok(())
 }
-pub(crate) fn dec_opt<T>(input: &mut &[u8], f: impl FnOnce(&mut &[u8]) -> DecodeResult<T>) -> DecodeResult<Option<T>> {
-    if bool::decode(input)? { f(input).map(Some) } else { Ok(None) }
+pub(crate) fn dec_opt<T>(
+    input: &mut &[u8],
+    f: impl FnOnce(&mut &[u8]) -> DecodeResult<T>,
+) -> DecodeResult<Option<T>> {
+    if bool::decode(input)? {
+        f(input).map(Some)
+    } else {
+        Ok(None)
+    }
 }
 pub(crate) fn enc_sound_opt(v: &Option<Holder<SoundEvent>>, out: &mut Vec<u8>) -> EncodeResult<()> {
     enc_opt(out, v, |h, o| SoundEvent::encode_holder(h, o))
@@ -101,8 +124,14 @@ impl Decode for EquipmentSlotGroup {
 
 static OPERATIONS: [(AttributeModifierOperation, &str); 3] = [
     (AttributeModifierOperation::AddValue, "add_value"),
-    (AttributeModifierOperation::AddMultipliedBase, "add_multiplied_base"),
-    (AttributeModifierOperation::AddMultipliedTotal, "add_multiplied_total"),
+    (
+        AttributeModifierOperation::AddMultipliedBase,
+        "add_multiplied_base",
+    ),
+    (
+        AttributeModifierOperation::AddMultipliedTotal,
+        "add_multiplied_total",
+    ),
 ];
 
 /// `AttributeModifier.Operation.CODEC`.
@@ -158,10 +187,12 @@ impl ItemAttributeModifiersDisplay {
             |t| match t {
                 ItemAttributeModifiersDisplayType::Default => MapCodec::unit(Self::Default),
                 ItemAttributeModifiersDisplayType::Hidden => MapCodec::unit(Self::Hidden),
-                ItemAttributeModifiersDisplayType::Override => component_codec().field_of("value").xmap(Self::OverrideText, |d: &Self| match d {
-                    Self::OverrideText(c) => c.clone(),
-                    _ => unreachable!("dispatched by type"),
-                }),
+                ItemAttributeModifiersDisplayType::Override => component_codec()
+                    .field_of("value")
+                    .xmap(Self::OverrideText, |d: &Self| match d {
+                        Self::OverrideText(c) => c.clone(),
+                        _ => unreachable!("dispatched by type"),
+                    }),
             },
         )
     }
@@ -177,11 +208,15 @@ impl Encode for ItemAttributeModifiersDisplay {
 }
 impl Decode for ItemAttributeModifiersDisplay {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
-        Ok(match read_enum_zero(input, ItemAttributeModifiersDisplayType::ALL)? {
-            ItemAttributeModifiersDisplayType::Default => Self::Default,
-            ItemAttributeModifiersDisplayType::Hidden => Self::Hidden,
-            ItemAttributeModifiersDisplayType::Override => Self::OverrideText(Component::decode(input)?),
-        })
+        Ok(
+            match read_enum_zero(input, ItemAttributeModifiersDisplayType::ALL)? {
+                ItemAttributeModifiersDisplayType::Default => Self::Default,
+                ItemAttributeModifiersDisplayType::Hidden => Self::Hidden,
+                ItemAttributeModifiersDisplayType::Override => {
+                    Self::OverrideText(Component::decode(input)?)
+                }
+            },
+        )
     }
 }
 
@@ -195,7 +230,10 @@ pub struct ItemAttributeModifiersEntry {
 }
 impl PartialEq for ItemAttributeModifiersEntry {
     fn eq(&self, o: &Self) -> bool {
-        self.attribute == o.attribute && modifier_eq(&self.modifier, &o.modifier) && self.slot == o.slot && self.display == o.display
+        self.attribute == o.attribute
+            && modifier_eq(&self.modifier, &o.modifier)
+            && self.slot == o.slot
+            && self.display == o.display
     }
 }
 impl ItemAttributeModifiersEntry {
@@ -203,8 +241,10 @@ impl ItemAttributeModifiersEntry {
         mc_dfu::record!(ItemAttributeModifiersEntry {
             attribute: registry_by_name_codec::<Attribute>().field_of("type"),
             modifier: attribute_modifier_map_codec(),
-            slot: EquipmentSlotGroup::codec().optional_field_of_default("slot", EquipmentSlotGroup::Any),
-            display: ItemAttributeModifiersDisplay::codec().optional_field_of_default("display", ItemAttributeModifiersDisplay::Default),
+            slot: EquipmentSlotGroup::codec()
+                .optional_field_of_default("slot", EquipmentSlotGroup::Any),
+            display: ItemAttributeModifiersDisplay::codec()
+                .optional_field_of_default("display", ItemAttributeModifiersDisplay::Default),
         })
         .codec()
     }
@@ -236,7 +276,10 @@ pub struct ItemAttributeModifiers {
 }
 impl ItemAttributeModifiers {
     pub fn codec() -> Codec<ItemAttributeModifiers> {
-        ItemAttributeModifiersEntry::codec().list_of().xmap(|modifiers| ItemAttributeModifiers { modifiers }, |v: &ItemAttributeModifiers| v.modifiers.clone())
+        ItemAttributeModifiersEntry::codec().list_of().xmap(
+            |modifiers| ItemAttributeModifiers { modifiers },
+            |v: &ItemAttributeModifiers| v.modifiers.clone(),
+        )
     }
 }
 
@@ -351,7 +394,15 @@ impl PartialEq for MobEffectInstance {
 impl MobEffectInstance {
     /// `new MobEffectInstance(effect, duration, amplifier)`.
     pub fn new(effect: MobEffect, duration: i32, amplifier: i32) -> MobEffectInstance {
-        MobEffectInstance { effect, duration, amplifier: amplifier.clamp(0, 255), ambient: false, visible: true, show_icon: true, hidden_effect: None }
+        MobEffectInstance {
+            effect,
+            duration,
+            amplifier: amplifier.clamp(0, 255),
+            ambient: false,
+            visible: true,
+            show_icon: true,
+            hidden_effect: None,
+        }
     }
     fn from_details(effect: MobEffect, d: Details) -> MobEffectInstance {
         MobEffectInstance {
@@ -361,7 +412,9 @@ impl MobEffectInstance {
             ambient: d.ambient,
             visible: d.show_particles,
             show_icon: d.show_icon,
-            hidden_effect: d.hidden_effect.map(|h| Box::new(MobEffectInstance::from_details(effect, *h))),
+            hidden_effect: d
+                .hidden_effect
+                .map(|h| Box::new(MobEffectInstance::from_details(effect, *h))),
         }
     }
     fn as_details(&self) -> Details {
@@ -371,7 +424,10 @@ impl MobEffectInstance {
             ambient: self.ambient,
             show_particles: self.visible,
             show_icon: self.show_icon,
-            hidden_effect: self.hidden_effect.as_ref().map(|h| Box::new(h.as_details())),
+            hidden_effect: self
+                .hidden_effect
+                .as_ref()
+                .map(|h| Box::new(h.as_details())),
         }
     }
 
@@ -385,7 +441,13 @@ impl MobEffectInstance {
             effect: registry_by_name_codec::<MobEffect>().field_of("id"),
             details: Details::map_codec(),
         })
-        .xmap(|p| MobEffectInstance::from_details(p.effect, p.details), |m: &MobEffectInstance| Parts { effect: m.effect, details: m.as_details() })
+        .xmap(
+            |p| MobEffectInstance::from_details(p.effect, p.details),
+            |m: &MobEffectInstance| Parts {
+                effect: m.effect,
+                details: m.as_details(),
+            },
+        )
         .codec()
     }
 }
@@ -399,7 +461,10 @@ impl Encode for MobEffectInstance {
 impl Decode for MobEffectInstance {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
         let effect = read_registry_id::<MobEffect>(input)?;
-        Ok(MobEffectInstance::from_details(effect, Details::decode(input)?))
+        Ok(MobEffectInstance::from_details(
+            effect,
+            Details::decode(input)?,
+        ))
     }
 }
 
@@ -427,12 +492,22 @@ impl PotionContents {
             custom_name: STRING.optional_field_of("custom_name"),
         })
         .codec();
-        full.with_alternative_conv(&potion, |p| PotionContents { potion: Some(p), custom_color: None, custom_effects: Vec::new(), custom_name: None })
+        full.with_alternative_conv(&potion, |p| PotionContents {
+            potion: Some(p),
+            custom_color: None,
+            custom_effects: Vec::new(),
+            custom_name: None,
+        })
     }
 }
 /// `PotionContents.customEffects()` hands out `new MobEffectInstance(copy)` copies, which drop the hidden effect.
 fn without_hidden(v: &[MobEffectInstance]) -> Vec<MobEffectInstance> {
-    v.iter().map(|e| MobEffectInstance { hidden_effect: None, ..e.clone() }).collect()
+    v.iter()
+        .map(|e| MobEffectInstance {
+            hidden_effect: None,
+            ..e.clone()
+        })
+        .collect()
 }
 
 impl Encode for PotionContents {
@@ -484,7 +559,10 @@ impl Encode for SuspiciousStewEffectsEntry {
 }
 impl Decode for SuspiciousStewEffectsEntry {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
-        Ok(SuspiciousStewEffectsEntry { effect: read_registry_id::<MobEffect>(input)?, duration: crate::codec::read_varint(input)? })
+        Ok(SuspiciousStewEffectsEntry {
+            effect: read_registry_id::<MobEffect>(input)?,
+            duration: crate::codec::read_varint(input)?,
+        })
     }
 }
 
@@ -495,7 +573,10 @@ pub struct SuspiciousStewEffects {
 }
 impl SuspiciousStewEffects {
     pub fn codec() -> Codec<SuspiciousStewEffects> {
-        SuspiciousStewEffectsEntry::codec().list_of().xmap(|effects| SuspiciousStewEffects { effects }, |v: &SuspiciousStewEffects| v.effects.clone())
+        SuspiciousStewEffectsEntry::codec().list_of().xmap(
+            |effects| SuspiciousStewEffects { effects },
+            |v: &SuspiciousStewEffects| v.effects.clone(),
+        )
     }
 }
 
@@ -557,45 +638,54 @@ impl ConsumeEffect {
 
     /// `ConsumeEffect.CODEC`.
     pub fn codec() -> Codec<ConsumeEffect> {
-        registry_by_name_codec::<ConsumeEffectType>().dispatch("type", |e: &ConsumeEffect| e.kind(), |t| {
-            if *t == ConsumeEffectType::APPLY_EFFECTS {
-                mc_dfu::record!(ApplyStatusEffectsConsumeEffect {
-                    effects: MobEffectInstance::codec().list_of().field_of("effects"),
-                    probability: float_field_default(&float_range(0.0, 1.0), "probability", 1.0),
-                })
-                .xmap(Self::ApplyStatusEffects, |e: &Self| match e {
-                    Self::ApplyStatusEffects(x) => x.clone(),
-                    _ => unreachable!("dispatched by type"),
-                })
-            } else if *t == ConsumeEffectType::REMOVE_EFFECTS {
-                mc_dfu::record!(RemoveStatusEffectsConsumeEffect { effects: RegistrySet::<MobEffect>::codec().field_of("effects") }).xmap(
-                    Self::RemoveStatusEffects,
-                    |e: &Self| match e {
+        registry_by_name_codec::<ConsumeEffectType>().dispatch(
+            "type",
+            |e: &ConsumeEffect| e.kind(),
+            |t| {
+                if *t == ConsumeEffectType::APPLY_EFFECTS {
+                    mc_dfu::record!(ApplyStatusEffectsConsumeEffect {
+                        effects: MobEffectInstance::codec().list_of().field_of("effects"),
+                        probability: float_field_default(
+                            &float_range(0.0, 1.0),
+                            "probability",
+                            1.0
+                        ),
+                    })
+                    .xmap(Self::ApplyStatusEffects, |e: &Self| match e {
+                        Self::ApplyStatusEffects(x) => x.clone(),
+                        _ => unreachable!("dispatched by type"),
+                    })
+                } else if *t == ConsumeEffectType::REMOVE_EFFECTS {
+                    mc_dfu::record!(RemoveStatusEffectsConsumeEffect {
+                        effects: RegistrySet::<MobEffect>::codec().field_of("effects")
+                    })
+                    .xmap(Self::RemoveStatusEffects, |e: &Self| match e {
                         Self::RemoveStatusEffects(x) => x.clone(),
                         _ => unreachable!("dispatched by type"),
-                    },
-                )
-            } else if *t == ConsumeEffectType::TELEPORT_RANDOMLY {
-                mc_dfu::record!(TeleportRandomlyConsumeEffect {
-                    diameter: float_field_default(&POSITIVE_FLOAT, "diameter", 16.0),
-                    directional_particles: BOOL.optional_field_of_default("directional_particles", true),
-                })
-                .xmap(Self::TeleportRandomly, |e: &Self| match e {
-                    Self::TeleportRandomly(x) => x.clone(),
-                    _ => unreachable!("dispatched by type"),
-                })
-            } else if *t == ConsumeEffectType::PLAY_SOUND {
-                mc_dfu::record!(PlaySoundConsumeEffect { sound: SoundEvent::holder_codec().field_of("sound") }).xmap(
-                    Self::PlaySound,
-                    |e: &Self| match e {
+                    })
+                } else if *t == ConsumeEffectType::TELEPORT_RANDOMLY {
+                    mc_dfu::record!(TeleportRandomlyConsumeEffect {
+                        diameter: float_field_default(&POSITIVE_FLOAT, "diameter", 16.0),
+                        directional_particles: BOOL
+                            .optional_field_of_default("directional_particles", true),
+                    })
+                    .xmap(Self::TeleportRandomly, |e: &Self| match e {
+                        Self::TeleportRandomly(x) => x.clone(),
+                        _ => unreachable!("dispatched by type"),
+                    })
+                } else if *t == ConsumeEffectType::PLAY_SOUND {
+                    mc_dfu::record!(PlaySoundConsumeEffect {
+                        sound: SoundEvent::holder_codec().field_of("sound")
+                    })
+                    .xmap(Self::PlaySound, |e: &Self| match e {
                         Self::PlaySound(x) => x.clone(),
                         _ => unreachable!("dispatched by type"),
-                    },
-                )
-            } else {
-                MapCodec::unit(Self::ClearAllStatusEffects)
-            }
-        })
+                    })
+                } else {
+                    MapCodec::unit(Self::ClearAllStatusEffects)
+                }
+            },
+        )
     }
 }
 impl Encode for ConsumeEffect {
@@ -621,13 +711,23 @@ impl Decode for ConsumeEffect {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
         let t = read_registry_id::<ConsumeEffectType>(input)?;
         Ok(if t == ConsumeEffectType::APPLY_EFFECTS {
-            Self::ApplyStatusEffects(ApplyStatusEffectsConsumeEffect { effects: Vec::decode(input)?, probability: f32::decode(input)? })
+            Self::ApplyStatusEffects(ApplyStatusEffectsConsumeEffect {
+                effects: Vec::decode(input)?,
+                probability: f32::decode(input)?,
+            })
         } else if t == ConsumeEffectType::REMOVE_EFFECTS {
-            Self::RemoveStatusEffects(RemoveStatusEffectsConsumeEffect { effects: RegistrySet::decode_stream(input)? })
+            Self::RemoveStatusEffects(RemoveStatusEffectsConsumeEffect {
+                effects: RegistrySet::decode_stream(input)?,
+            })
         } else if t == ConsumeEffectType::TELEPORT_RANDOMLY {
-            Self::TeleportRandomly(TeleportRandomlyConsumeEffect { diameter: f32::decode(input)?, directional_particles: bool::decode(input)? })
+            Self::TeleportRandomly(TeleportRandomlyConsumeEffect {
+                diameter: f32::decode(input)?,
+                directional_particles: bool::decode(input)?,
+            })
         } else if t == ConsumeEffectType::PLAY_SOUND {
-            Self::PlaySound(PlaySoundConsumeEffect { sound: SoundEvent::decode_holder(input)? })
+            Self::PlaySound(PlaySoundConsumeEffect {
+                sound: SoundEvent::decode_holder(input)?,
+            })
         } else {
             Self::ClearAllStatusEffects
         })
@@ -677,10 +777,14 @@ impl Consumable {
     pub fn codec() -> Codec<Consumable> {
         mc_dfu::record!(Consumable {
             consume_seconds: float_field_default(&NON_NEGATIVE_FLOAT, "consume_seconds", 1.6),
-            animation: ItemUseAnimation::codec().optional_field_of_default("animation", ItemUseAnimation::Eat),
-            sound: SoundEvent::holder_codec().optional_field_of_default("sound", sound_ref("minecraft:entity.generic.eat")),
+            animation: ItemUseAnimation::codec()
+                .optional_field_of_default("animation", ItemUseAnimation::Eat),
+            sound: SoundEvent::holder_codec()
+                .optional_field_of_default("sound", sound_ref("minecraft:entity.generic.eat")),
             has_consume_particles: BOOL.optional_field_of_default("has_consume_particles", true),
-            on_consume_effects: ConsumeEffect::codec().list_of().optional_field_of_default("on_consume_effects", Vec::new()),
+            on_consume_effects: ConsumeEffect::codec()
+                .list_of()
+                .optional_field_of_default("on_consume_effects", Vec::new()),
         })
         .codec()
     }
@@ -714,7 +818,12 @@ pub struct DeathProtection {
 }
 impl DeathProtection {
     pub fn codec() -> Codec<DeathProtection> {
-        mc_dfu::record!(DeathProtection { death_effects: ConsumeEffect::codec().list_of().optional_field_of_default("death_effects", Vec::new()) }).codec()
+        mc_dfu::record!(DeathProtection {
+            death_effects: ConsumeEffect::codec()
+                .list_of()
+                .optional_field_of_default("death_effects", Vec::new())
+        })
+        .codec()
     }
 }
 
@@ -727,7 +836,9 @@ pub struct FoodProperties {
 }
 impl PartialEq for FoodProperties {
     fn eq(&self, o: &Self) -> bool {
-        self.nutrition == o.nutrition && feq(self.saturation, o.saturation) && self.can_always_eat == o.can_always_eat
+        self.nutrition == o.nutrition
+            && feq(self.saturation, o.saturation)
+            && self.can_always_eat == o.can_always_eat
     }
 }
 impl FoodProperties {
@@ -751,7 +862,11 @@ impl Encode for FoodProperties {
 }
 impl Decode for FoodProperties {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
-        Ok(FoodProperties { nutrition: crate::codec::read_varint(input)?, saturation: f32::decode(input)?, can_always_eat: bool::decode(input)? })
+        Ok(FoodProperties {
+            nutrition: crate::codec::read_varint(input)?,
+            saturation: f32::decode(input)?,
+            can_always_eat: bool::decode(input)?,
+        })
     }
 }
 
@@ -766,7 +881,9 @@ pub struct UseEffects {
 }
 impl PartialEq for UseEffects {
     fn eq(&self, o: &Self) -> bool {
-        self.can_sprint == o.can_sprint && self.interact_vibrations == o.interact_vibrations && feq(self.speed_multiplier, o.speed_multiplier)
+        self.can_sprint == o.can_sprint
+            && self.interact_vibrations == o.interact_vibrations
+            && feq(self.speed_multiplier, o.speed_multiplier)
     }
 }
 impl UseEffects {
@@ -810,19 +927,67 @@ impl UseRemainder {
     pub fn codec() -> Codec<UseRemainder> {
         // lazy: `ItemStackTemplate.CODEC` reaches the component registry, which is still being built when `defs` runs
         Codec::lazy(|| {
-            ItemStackTemplate::codec().xmap(|convert_into| UseRemainder { convert_into }, |r: &UseRemainder| r.convert_into.clone())
+            ItemStackTemplate::codec().xmap(
+                |convert_into| UseRemainder { convert_into },
+                |r: &UseRemainder| r.convert_into.clone(),
+            )
         })
     }
 }
 
 pub(crate) fn defs(out: &mut Vec<ComponentDef>) {
-    out.push(ComponentDef::builder(ATTRIBUTE_MODIFIERS).persistent(ItemAttributeModifiers::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(POTION_CONTENTS).persistent(PotionContents::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(SUSPICIOUS_STEW_EFFECTS).persistent(SuspiciousStewEffects::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(CONSUMABLE).persistent(Consumable::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(DEATH_PROTECTION).persistent(DeathProtection::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(FOOD).persistent(FoodProperties::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(USE_EFFECTS).persistent(UseEffects::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(USE_COOLDOWN).persistent(UseCooldown::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(USE_REMAINDER).persistent(UseRemainder::codec()).network_synchronized().build());
+    out.push(
+        ComponentDef::builder(ATTRIBUTE_MODIFIERS)
+            .persistent(ItemAttributeModifiers::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(POTION_CONTENTS)
+            .persistent(PotionContents::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(SUSPICIOUS_STEW_EFFECTS)
+            .persistent(SuspiciousStewEffects::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(CONSUMABLE)
+            .persistent(Consumable::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(DEATH_PROTECTION)
+            .persistent(DeathProtection::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(FOOD)
+            .persistent(FoodProperties::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(USE_EFFECTS)
+            .persistent(UseEffects::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(USE_COOLDOWN)
+            .persistent(UseCooldown::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(USE_REMAINDER)
+            .persistent(UseRemainder::codec())
+            .network_synchronized()
+            .build(),
+    );
 }

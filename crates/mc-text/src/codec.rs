@@ -9,7 +9,7 @@
 use crate::component::*;
 use crate::events::*;
 use crate::java_util::{java_uuid_from_string, validate_chat_string, validate_untrusted_uri};
-use crate::ops::{map_get, MapView, Ops};
+use crate::ops::{MapView, Ops, map_get};
 use crate::style::{FontDescription, Style};
 use crate::text_color::TextColor;
 use mc_core::ident::Identifier;
@@ -139,7 +139,11 @@ pub(crate) fn req<'a, O: Ops>(map: &MapView<'a, O>, key: &str) -> R<&'a O> {
 }
 
 /// `optionalFieldOf`: absent -> `None`; present but invalid -> error.
-pub(crate) fn opt<'a, O: Ops, T>(map: &MapView<'a, O>, key: &str, f: impl FnOnce(&'a O) -> R<T>) -> R<Option<T>> {
+pub(crate) fn opt<'a, O: Ops, T>(
+    map: &MapView<'a, O>,
+    key: &str,
+    f: impl FnOnce(&'a O) -> R<T>,
+) -> R<Option<T>> {
     match map_get(map, key) {
         None => Ok(None),
         Some(v) => f(v).map(Some),
@@ -147,15 +151,21 @@ pub(crate) fn opt<'a, O: Ops, T>(map: &MapView<'a, O>, key: &str, f: impl FnOnce
 }
 
 /// `lenientOptionalFieldOf`: absent or invalid -> `None`.
-fn lenient<'a, O: Ops, T>(map: &MapView<'a, O>, key: &str, f: impl FnOnce(&'a O) -> R<T>) -> Option<T> {
+fn lenient<'a, O: Ops, T>(
+    map: &MapView<'a, O>,
+    key: &str,
+    f: impl FnOnce(&'a O) -> R<T>,
+) -> Option<T> {
     map_get(map, key).and_then(|v| f(v).ok())
 }
 
 pub(crate) fn string<O: Ops>(v: &O) -> R<String> {
-    v.get_string().ok_or_else(|| CodecError("Not a string".into()))
+    v.get_string()
+        .ok_or_else(|| CodecError("Not a string".into()))
 }
 fn boolean<O: Ops>(v: &O) -> R<bool> {
-    v.get_bool().ok_or_else(|| CodecError("Not a boolean".into()))
+    v.get_bool()
+        .ok_or_else(|| CodecError("Not a boolean".into()))
 }
 fn int<O: Ops>(v: &O) -> R<i32> {
     v.get_int().ok_or_else(|| CodecError("Not a number".into()))
@@ -178,7 +188,10 @@ pub fn decode_component<O: Ops>(v: &O) -> R<Component> {
         return Ok(Component::literal(s));
     }
     if let Some(items) = v.get_list().filter(|items| !items.is_empty())
-        && let Ok(list) = items.iter().map(|i| decode_component(i.as_ref())).collect::<R<Vec<Component>>>()
+        && let Ok(list) = items
+            .iter()
+            .map(|i| decode_component(i.as_ref()))
+            .collect::<R<Vec<Component>>>()
     {
         return Ok(create_from_list(list));
     }
@@ -201,15 +214,24 @@ fn decode_full<O: Ops>(v: &O) -> R<Component> {
     let siblings = match map_get(&map, "extra") {
         None => Vec::new(),
         Some(extra) => {
-            let items = extra.get_list().ok_or_else(|| CodecError("Not a list".into()))?;
+            let items = extra
+                .get_list()
+                .ok_or_else(|| CodecError("Not a list".into()))?;
             if items.is_empty() {
                 return err("List must have contents");
             }
-            items.iter().map(|i| decode_component(i.as_ref())).collect::<R<Vec<_>>>()?
+            items
+                .iter()
+                .map(|i| decode_component(i.as_ref()))
+                .collect::<R<Vec<_>>>()?
         }
     };
     let style = decode_style(&map)?;
-    Ok(Component { contents, siblings, style })
+    Ok(Component {
+        contents,
+        siblings,
+        style,
+    })
 }
 
 /// `ComponentSerialization.CODEC.encodeStart`.
@@ -220,7 +242,11 @@ pub fn encode_component<O: Ops>(c: &Component) -> R<O> {
     let mut fields = Vec::new();
     encode_contents::<O>(&c.contents, &mut fields)?;
     if !c.siblings.is_empty() {
-        let items = c.siblings.iter().map(encode_component::<O>).collect::<R<Vec<_>>>()?;
+        let items = c
+            .siblings
+            .iter()
+            .map(encode_component::<O>)
+            .collect::<R<Vec<_>>>()?;
         fields.push(("extra".to_owned(), O::create_list(items)));
     }
     encode_style_fields::<O>(&c.style, &mut fields)?;
@@ -237,7 +263,15 @@ fn push<O>(fields: &mut Fields<O>, key: &str, v: O) {
 // contents
 // ------------------------------------------------------------------------------------------
 
-const CONTENT_TYPES: [&str; 7] = ["text", "translatable", "keybind", "score", "selector", "nbt", "object"];
+const CONTENT_TYPES: [&str; 7] = [
+    "text",
+    "translatable",
+    "keybind",
+    "score",
+    "selector",
+    "nbt",
+    "object",
+];
 
 fn decode_contents_of_type<O: Ops>(ty: &str, map: &MapView<'_, O>) -> R<ComponentContents> {
     match ty {
@@ -269,11 +303,17 @@ fn decode_translatable<O: Ops>(map: &MapView<'_, O>) -> R<ComponentContents> {
     let key = string(req(map, "translate")?)?;
     let fallback = lenient(map, "fallback", string);
     let args = opt(map, "with", |w| -> R<Vec<TranslatableArg>> {
-        let items = w.get_list().ok_or_else(|| CodecError("Not a list".into()))?;
+        let items = w
+            .get_list()
+            .ok_or_else(|| CodecError("Not a list".into()))?;
         items.iter().map(|i| decode_arg(i.as_ref())).collect()
     })?
     .unwrap_or_default();
-    Ok(ComponentContents::Translatable(TranslatableContents { key, fallback, args }))
+    Ok(ComponentContents::Translatable(TranslatableContents {
+        key,
+        fallback,
+        args,
+    }))
 }
 
 /// `TranslatableContents.ARG_CODEC`.
@@ -308,12 +348,17 @@ fn decode_score<O: Ops>(map: &MapView<'_, O>) -> R<ComponentContents> {
 fn decode_selector<O: Ops>(map: &MapView<'_, O>) -> R<ComponentContents> {
     let selector = decode_selector_string(string(req(map, "selector")?)?)?;
     let separator = opt(map, "separator", |v| decode_component(v))?.map(Box::new);
-    Ok(ComponentContents::Selector(SelectorContents { selector, separator }))
+    Ok(ComponentContents::Selector(SelectorContents {
+        selector,
+        separator,
+    }))
 }
 
 fn decode_data_source_of_type<O: Ops>(ty: &str, map: &MapView<'_, O>) -> R<DataSource> {
     match ty {
-        "entity" => Ok(DataSource::Entity(decode_selector_string(string(req(map, "entity")?)?)?)),
+        "entity" => Ok(DataSource::Entity(decode_selector_string(string(req(
+            map, "entity",
+        )?)?)?)),
         "block" => {
             let s = string(req(map, "block")?)?;
             (validators().block_coordinates)(&s).map_err(CodecError)?;
@@ -346,13 +391,20 @@ fn decode_nbt<O: Ops>(map: &MapView<'_, O>) -> R<ComponentContents> {
     if interpreting && plain {
         return err("'interpret' and 'plain' flags can't be both on");
     }
-    Ok(ComponentContents::Nbt(NbtContents { nbt_path, interpreting, plain, separator, data_source }))
+    Ok(ComponentContents::Nbt(NbtContents {
+        nbt_path,
+        interpreting,
+        plain,
+        separator,
+        data_source,
+    }))
 }
 
 fn decode_object_info_of_type<O: Ops>(ty: &str, map: &MapView<'_, O>) -> R<ObjectInfo> {
     match ty {
         "atlas" => {
-            let atlas = opt(map, "atlas", |v| identifier(v))?.unwrap_or_else(ObjectInfo::default_atlas);
+            let atlas =
+                opt(map, "atlas", |v| identifier(v))?.unwrap_or_else(ObjectInfo::default_atlas);
             let sprite = identifier(req(map, "sprite")?)?;
             Ok(ObjectInfo::AtlasSprite { atlas, sprite })
         }
@@ -379,7 +431,10 @@ fn decode_object<O: Ops>(map: &MapView<'_, O>) -> R<ComponentContents> {
         found.ok_or_else(|| CodecError("No matching codec found".into()))?
     };
     let fallback = opt(map, "fallback", |v| decode_component(v))?.map(Box::new);
-    Ok(ComponentContents::Object(ObjectContents { contents, fallback }))
+    Ok(ComponentContents::Object(ObjectContents {
+        contents,
+        fallback,
+    }))
 }
 
 fn encode_contents<O: Ops>(c: &ComponentContents, f: &mut Fields<O>) -> R<()> {
@@ -403,7 +458,10 @@ fn encode_contents<O: Ops>(c: &ComponentContents, f: &mut Fields<O>) -> R<()> {
             push(
                 f,
                 "score",
-                O::create_map(vec![("name".into(), O::create_string(name)), ("objective".into(), O::create_string(&s.objective))]),
+                O::create_map(vec![
+                    ("name".into(), O::create_string(name)),
+                    ("objective".into(), O::create_string(&s.objective)),
+                ]),
             );
         }
         ComponentContents::Selector(s) => {
@@ -458,7 +516,8 @@ fn encode_contents<O: Ops>(c: &ComponentContents, f: &mut Fields<O>) -> R<()> {
 fn encode_arg<O: Ops>(arg: &TranslatableArg) -> R<O> {
     match arg {
         TranslatableArg::Component(c) => encode_component::<O>(c),
-        other => O::create_primitive_arg(other).ok_or_else(|| CodecError("Unencodable translation argument".into())),
+        other => O::create_primitive_arg(other)
+            .ok_or_else(|| CodecError("Unencodable translation argument".into())),
     }
 }
 
@@ -471,11 +530,19 @@ fn decode_argb<O: Ops>(v: &O) -> R<i32> {
     if let Some(i) = v.get_int() {
         return Ok(i);
     }
-    let items = v.get_list().ok_or_else(|| CodecError("Not a list".into()))?;
+    let items = v
+        .get_list()
+        .ok_or_else(|| CodecError("Not a list".into()))?;
     if items.len() != 4 {
         return err("Input is not a list of 4 elements");
     }
-    let f: Vec<f32> = items.iter().map(|i| i.get_float().ok_or_else(|| CodecError("Not a number".into()))).collect::<R<_>>()?;
+    let f: Vec<f32> = items
+        .iter()
+        .map(|i| {
+            i.get_float()
+                .ok_or_else(|| CodecError("Not a number".into()))
+        })
+        .collect::<R<_>>()?;
     let ch = |v: f32| (mc_floor(v * 255.0f32) & 0xFF) as u32;
     Ok(((ch(f[3]) << 24) | (ch(f[0]) << 16) | (ch(f[1]) << 8) | ch(f[2])) as i32)
 }
@@ -487,7 +554,9 @@ fn mc_floor(v: f32) -> i32 {
 }
 
 pub(crate) fn decode_style<O: Ops>(map: &MapView<'_, O>) -> R<Style> {
-    let color = opt(map, "color", |v| TextColor::parse_color(&string(v)?).map_err(CodecError))?;
+    let color = opt(map, "color", |v| {
+        TextColor::parse_color(&string(v)?).map_err(CodecError)
+    })?;
     let shadow_color = opt(map, "shadow_color", |v| decode_argb(v))?;
     let bold = opt(map, "bold", boolean)?;
     let italic = opt(map, "italic", boolean)?;
@@ -497,8 +566,22 @@ pub(crate) fn decode_style<O: Ops>(map: &MapView<'_, O>) -> R<Style> {
     let click_event = opt(map, "click_event", |v| decode_click_event(v))?;
     let hover_event = opt(map, "hover_event", |v| decode_hover_event(v))?;
     let insertion = opt(map, "insertion", string)?;
-    let font = opt(map, "font", |v| identifier(v).map(FontDescription::Resource))?;
-    Ok(Style::create(color, shadow_color, bold, italic, underlined, strikethrough, obfuscated, click_event, hover_event, insertion, font))
+    let font = opt(map, "font", |v| {
+        identifier(v).map(FontDescription::Resource)
+    })?;
+    Ok(Style::create(
+        color,
+        shadow_color,
+        bold,
+        italic,
+        underlined,
+        strikethrough,
+        obfuscated,
+        click_event,
+        hover_event,
+        insertion,
+        font,
+    ))
 }
 
 /// `Style.Serializer.CODEC` decode (a map of style fields).
@@ -565,7 +648,10 @@ pub(crate) fn decode_click_event<O: Ops>(v: &O) -> R<ClickEvent> {
         .find(|a| a.serialized_name() == name)
         .ok_or_else(|| CodecError(format!("Unknown element name:{name}")))?;
     if !action.is_allowed_from_server() {
-        return err(format!("Click event type not allowed: {}", name.to_ascii_uppercase()));
+        return err(format!(
+            "Click event type not allowed: {}",
+            name.to_ascii_uppercase()
+        ));
     }
     Ok(match action {
         ClickAction::OpenUrl => {
@@ -574,10 +660,18 @@ pub(crate) fn decode_click_event<O: Ops>(v: &O) -> R<ClickEvent> {
             ClickEvent::OpenUrl(url)
         }
         ClickAction::OpenFile => unreachable!("rejected above"),
-        ClickAction::RunCommand => ClickEvent::RunCommand(decode_chat_string(req(&map, "command")?)?),
-        ClickAction::SuggestCommand => ClickEvent::SuggestCommand(decode_chat_string(req(&map, "command")?)?),
+        ClickAction::RunCommand => {
+            ClickEvent::RunCommand(decode_chat_string(req(&map, "command")?)?)
+        }
+        ClickAction::SuggestCommand => {
+            ClickEvent::SuggestCommand(decode_chat_string(req(&map, "command")?)?)
+        }
         // `Dialog.CODEC` (a registry id or an inline dialog): validated and normalised by the installed `PayloadKind::Dialog` hook
-        ClickAction::ShowDialog => ClickEvent::ShowDialog(req(&map, "dialog")?.normalize_payload(PayloadKind::Dialog).map_err(CodecError)?),
+        ClickAction::ShowDialog => ClickEvent::ShowDialog(
+            req(&map, "dialog")?
+                .normalize_payload(PayloadKind::Dialog)
+                .map_err(CodecError)?,
+        ),
         ClickAction::ChangePage => {
             let page = int(req(&map, "page")?)?;
             if page < 1 {
@@ -609,7 +703,11 @@ pub(crate) fn encode_click_event<O: Ops>(c: &ClickEvent) -> R<O> {
             validate_chat_string(s).map_err(CodecError)?;
             push(&mut f, "command", O::create_string(s));
         }
-        ClickEvent::ShowDialog(d) => push(&mut f, "dialog", O::payload_from_tag(PayloadKind::Dialog, d)?),
+        ClickEvent::ShowDialog(d) => push(
+            &mut f,
+            "dialog",
+            O::payload_from_tag(PayloadKind::Dialog, d)?,
+        ),
         ClickEvent::ChangePage(p) => {
             if *p < 1 {
                 return err(format!("Value must be positive: {p}"));
@@ -624,7 +722,11 @@ pub(crate) fn encode_click_event<O: Ops>(c: &ClickEvent) -> R<O> {
             }
         }
     }
-    push(&mut f, "action", O::create_string(c.action().serialized_name()));
+    push(
+        &mut f,
+        "action",
+        O::create_string(c.action().serialized_name()),
+    );
     Ok(O::create_map(f))
 }
 
@@ -641,11 +743,15 @@ fn decode_hover_event<O: Ops>(v: &O) -> R<HoverEvent> {
     let map = map_of(v)?;
     let name = action_name(&map)?;
     match name.as_str() {
-        "show_text" => Ok(HoverEvent::ShowText(Box::new(decode_component(req(&map, "value")?)?))),
+        "show_text" => Ok(HoverEvent::ShowText(Box::new(decode_component(req(
+            &map, "value",
+        )?)?))),
         "show_item" => {
             let id = identifier(req(&map, "id")?)?;
             if !(validators().item_exists)(&id) {
-                return err(format!("Unknown registry key in ResourceKey[minecraft:root / minecraft:item]: {id}"));
+                return err(format!(
+                    "Unknown registry key in ResourceKey[minecraft:root / minecraft:item]: {id}"
+                ));
             }
             let count = match opt(&map, "count", int)? {
                 None => 1,
@@ -656,19 +762,30 @@ fn decode_hover_event<O: Ops>(v: &O) -> R<HoverEvent> {
                 if c.get_map().is_none() {
                     return err("Not a map");
                 }
-                c.normalize_payload(PayloadKind::ItemComponents).map_err(CodecError)
+                c.normalize_payload(PayloadKind::ItemComponents)
+                    .map_err(CodecError)
             })?
             .filter(|t| !matches!(t, Tag::Compound(c) if c.is_empty()));
-            Ok(HoverEvent::ShowItem(ItemStackTemplate { id, count, components }))
+            Ok(HoverEvent::ShowItem(ItemStackTemplate {
+                id,
+                count,
+                components,
+            }))
         }
         "show_entity" => {
             let entity_type = identifier(req(&map, "id")?)?;
             if !(validators().entity_type_exists)(&entity_type) {
-                return err(format!("Unknown registry key in ResourceKey[minecraft:root / minecraft:entity_type]: {entity_type}"));
+                return err(format!(
+                    "Unknown registry key in ResourceKey[minecraft:root / minecraft:entity_type]: {entity_type}"
+                ));
             }
             let uuid = decode_uuid(req(&map, "uuid")?)?;
             let name = opt(&map, "name", |n| decode_component(n))?.map(Box::new);
-            Ok(HoverEvent::ShowEntity(EntityTooltipInfo { entity_type, uuid, name }))
+            Ok(HoverEvent::ShowEntity(EntityTooltipInfo {
+                entity_type,
+                uuid,
+                name,
+            }))
         }
         _ => err(format!("Unknown element name:{name}")),
     }
@@ -687,17 +804,29 @@ fn encode_hover_event<O: Ops>(h: &HoverEvent) -> R<O> {
                 push(&mut f, "count", O::create_int(i.count));
             }
             if let Some(c) = &i.components {
-                push(&mut f, "components", O::payload_from_tag(PayloadKind::ItemComponents, c)?);
+                push(
+                    &mut f,
+                    "components",
+                    O::payload_from_tag(PayloadKind::ItemComponents, c)?,
+                );
             }
         }
         HoverEvent::ShowEntity(e) => {
             push(&mut f, "id", O::create_string(&e.entity_type.to_string()));
-            push(&mut f, "uuid", O::create_int_list(&crate::profile::uuid_to_ints(e.uuid)));
+            push(
+                &mut f,
+                "uuid",
+                O::create_int_list(&crate::profile::uuid_to_ints(e.uuid)),
+            );
             if let Some(n) = &e.name {
                 push(&mut f, "name", encode_component::<O>(n)?);
             }
         }
     }
-    push(&mut f, "action", O::create_string(h.action().serialized_name()));
+    push(
+        &mut f,
+        "action",
+        O::create_string(h.action().serialized_name()),
+    );
     Ok(O::create_map(f))
 }

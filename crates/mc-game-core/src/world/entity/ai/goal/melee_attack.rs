@@ -24,7 +24,8 @@ pub struct MeleeAttackGoal {
 }
 
 /// A replacement for `checkAndPerformAttack(target)` (subclass override); gets the goal back for its protected methods.
-pub type AttackFn<'a> = &'a mut dyn FnMut(&mut MeleeAttackGoal, &mut dyn Entity, &mut ServerLevel, EntityId);
+pub type AttackFn<'a> =
+    &'a mut dyn FnMut(&mut MeleeAttackGoal, &mut dyn Entity, &mut ServerLevel, EntityId);
 
 impl MeleeAttackGoal {
     /// `MeleeAttackGoal(mob, speedModifier, followingTargetEvenIfNotSeen)`.
@@ -49,8 +50,12 @@ impl MeleeAttackGoal {
             return false;
         }
         self.last_can_use_check = time;
-        let Some(target_id) = tick::get_target_checked(mob, level) else { return false };
-        let Some(target) = level.get_entity(target_id) else { return false };
+        let Some(target_id) = tick::get_target_checked(mob, level) else {
+            return false;
+        };
+        let Some(target) = level.get_entity(target_id) else {
+            return false;
+        };
         if !target.is_alive() {
             return false;
         }
@@ -66,16 +71,28 @@ impl MeleeAttackGoal {
     }
 
     /// `canContinueToUse()`.
-    pub fn can_continue_to_use_impl(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        let Some(target_id) = tick::get_target_checked(mob, level) else { return false };
-        let Some(target) = level.get_entity(target_id) else { return false };
+    pub fn can_continue_to_use_impl(
+        &mut self,
+        mob: &mut dyn Entity,
+        level: &mut ServerLevel,
+    ) -> bool {
+        let Some(target_id) = tick::get_target_checked(mob, level) else {
+            return false;
+        };
+        let Some(target) = level.get_entity(target_id) else {
+            return false;
+        };
         if !target.is_alive() {
             return false;
         }
         if !self.following_target_even_if_not_seen {
             return !navigation::is_done(mob, level);
         }
-        if !mob.mob().expect("mob").is_within_home_pos(target.block_position()) {
+        if !mob
+            .mob()
+            .expect("mob")
+            .is_within_home_pos(target.block_position())
+        {
             return false;
         }
         !(target.is_player() && (target.is_spectator() || ext::is_creative_player(target)))
@@ -92,7 +109,8 @@ impl MeleeAttackGoal {
     /// `stop()`.
     pub fn stop_impl(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         // `!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(target)` on `getTarget()` (already filtered by `asValidTarget`)
-        if let Some(target) = tick::get_target_checked(mob, level).and_then(|t| level.get_entity(t)) {
+        if let Some(target) = tick::get_target_checked(mob, level).and_then(|t| level.get_entity(t))
+        {
             if target.is_player() && (target.is_spectator() || ext::is_creative_player(target)) {
                 mob.set_target(level, None);
             }
@@ -103,22 +121,47 @@ impl MeleeAttackGoal {
 
     /// `tick()` with the vanilla `checkAndPerformAttack`.
     pub fn tick_impl(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
-        self.tick_with(mob, level, &mut |goal, mob, level, target| goal.check_and_perform_attack(mob, level, target));
+        self.tick_with(mob, level, &mut |goal, mob, level, target| {
+            goal.check_and_perform_attack(mob, level, target)
+        });
     }
 
     /// `tick()` with an overridden `checkAndPerformAttack`.
-    pub fn tick_with(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel, attack: AttackFn<'_>) {
-        let Some(target_id) = tick::get_target_checked(mob, level) else { return };
+    pub fn tick_with(
+        &mut self,
+        mob: &mut dyn Entity,
+        level: &mut ServerLevel,
+        attack: AttackFn<'_>,
+    ) {
+        let Some(target_id) = tick::get_target_checked(mob, level) else {
+            return;
+        };
         {
-            let Some(target) = level.get_entity(target_id) else { return };
+            let Some(target) = level.get_entity(target_id) else {
+                return;
+            };
             mob::look_at_entity_full(mob, target, 30.0, 30.0);
         }
-        self.ticks_until_next_path_recalculation = (self.ticks_until_next_path_recalculation - 1).max(0);
-        let Some(target) = level.get_entity(target_id) else { return };
-        if (self.following_target_even_if_not_seen || mob.mob().expect("mob").sensing.has_line_of_sight(level, mob, target))
+        self.ticks_until_next_path_recalculation =
+            (self.ticks_until_next_path_recalculation - 1).max(0);
+        let Some(target) = level.get_entity(target_id) else {
+            return;
+        };
+        if (self.following_target_even_if_not_seen
+            || mob
+                .mob()
+                .expect("mob")
+                .sensing
+                .has_line_of_sight(level, mob, target))
             && self.ticks_until_next_path_recalculation <= 0
-            && (self.pathed_target_x == 0.0 && self.pathed_target_y == 0.0 && self.pathed_target_z == 0.0
-                || target.base().distance_to_sqr_xyz(self.pathed_target_x, self.pathed_target_y, self.pathed_target_z) >= 1.0
+            && (self.pathed_target_x == 0.0
+                && self.pathed_target_y == 0.0
+                && self.pathed_target_z == 0.0
+                || target.base().distance_to_sqr_xyz(
+                    self.pathed_target_x,
+                    self.pathed_target_y,
+                    self.pathed_target_z,
+                ) >= 1.0
                 || mob.base_mut().random.next_float() < 0.05)
         {
             let (tx, ty, tz) = (target.base().x(), target.base().y(), target.base().z());
@@ -126,7 +169,8 @@ impl MeleeAttackGoal {
             self.pathed_target_x = tx;
             self.pathed_target_y = ty;
             self.pathed_target_z = tz;
-            self.ticks_until_next_path_recalculation = 4 + mob.base_mut().random.next_int_bounded(7);
+            self.ticks_until_next_path_recalculation =
+                4 + mob.base_mut().random.next_int_bounded(7);
             let target_distance_sqr = mob.base().distance_to_sqr_xyz(tx, ty, tz);
             if target_distance_sqr > 1024.0 {
                 self.ticks_until_next_path_recalculation += 10;
@@ -136,14 +180,20 @@ impl MeleeAttackGoal {
             if !navigation::move_to_entity_reach(mob, level, target_pos, 0, self.speed_modifier) {
                 self.ticks_until_next_path_recalculation += 15;
             }
-            self.ticks_until_next_path_recalculation = self.adjusted_tick_delay(self.ticks_until_next_path_recalculation);
+            self.ticks_until_next_path_recalculation =
+                self.adjusted_tick_delay(self.ticks_until_next_path_recalculation);
         }
         self.ticks_until_next_attack = (self.ticks_until_next_attack - 1).max(0);
         attack(self, mob, level, target_id);
     }
 
     /// `checkAndPerformAttack(target)`.
-    pub fn check_and_perform_attack(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel, target: EntityId) {
+    pub fn check_and_perform_attack(
+        &mut self,
+        mob: &mut dyn Entity,
+        level: &mut ServerLevel,
+        target: EntityId,
+    ) {
         if self.can_perform_attack(mob, level, target) {
             self.reset_attack_cooldown();
             combat::swing_for_attack(mob, level, InteractionHand::MainHand);
@@ -162,9 +212,22 @@ impl MeleeAttackGoal {
     }
 
     /// `canPerformAttack(target)`.
-    pub fn can_perform_attack(&self, mob: &dyn Entity, level: &ServerLevel, target: EntityId) -> bool {
-        let Some(target) = level.get_entity(target) else { return false };
-        self.is_time_to_attack() && combat::is_within_melee_attack_range(mob, level, target) && mob.mob().expect("mob").sensing.has_line_of_sight(level, mob, target)
+    pub fn can_perform_attack(
+        &self,
+        mob: &dyn Entity,
+        level: &ServerLevel,
+        target: EntityId,
+    ) -> bool {
+        let Some(target) = level.get_entity(target) else {
+            return false;
+        };
+        self.is_time_to_attack()
+            && combat::is_within_melee_attack_range(mob, level, target)
+            && mob
+                .mob()
+                .expect("mob")
+                .sensing
+                .has_line_of_sight(level, mob, target)
     }
 
     /// `getTicksUntilNextAttack()`.

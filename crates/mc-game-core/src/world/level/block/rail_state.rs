@@ -1,8 +1,8 @@
 //! `net.minecraft.world.level.block.RailState`: connection logic of rails. Unlike vanilla the level is a parameter of
 //! the methods that need it instead of a field (the struct is only a value: position, state and connections).
 
-use super::impls::base_rail_block::{is_rail, is_rail_state, is_straight, shape_property};
 use super::BlockStateExt;
+use super::impls::base_rail_block::{is_rail, is_rail_state, is_straight, shape_property};
 use crate::server::level::ServerLevel;
 use crate::world::level::{BlockGetter, LevelAccessor};
 use mc_core::direction::Plane;
@@ -22,7 +22,13 @@ pub struct RailState {
 impl RailState {
     pub fn new(pos: BlockPos, state: BlockState) -> Self {
         let shape_property = shape_property(state);
-        let mut rail = Self { pos, state, is_straight: is_straight(state.block()), shape_property, connections: Vec::with_capacity(2) };
+        let mut rail = Self {
+            pos,
+            state,
+            is_straight: is_straight(state.block()),
+            shape_property,
+            connections: Vec::with_capacity(2),
+        };
         rail.update_connections(state.get(shape_property));
         rail
     }
@@ -88,11 +94,17 @@ impl RailState {
     }
 
     fn has_connection(&self, rail_pos: BlockPos) -> bool {
-        self.connections.iter().any(|pos| pos.x() == rail_pos.x() && pos.z() == rail_pos.z())
+        self.connections
+            .iter()
+            .any(|pos| pos.x() == rail_pos.x() && pos.z() == rail_pos.z())
     }
 
     pub fn count_potential_connections(&self, level: &dyn BlockGetter) -> i32 {
-        Plane::Horizontal.faces().iter().filter(|d| Self::has_rail(level, self.pos.relative(**d))).count() as i32
+        Plane::Horizontal
+            .faces()
+            .iter()
+            .filter(|d| Self::has_rail(level, self.pos.relative(**d)))
+            .count() as i32
     }
 
     fn can_connect_to(&self, rail: &RailState) -> bool {
@@ -100,7 +112,14 @@ impl RailState {
     }
 
     /// The ascending upgrade shared by `connectTo` and `place`.
-    fn ascend(level: &dyn BlockGetter, shape: Option<RailShape>, north: BlockPos, south: BlockPos, east: BlockPos, west: BlockPos) -> Option<RailShape> {
+    fn ascend(
+        level: &dyn BlockGetter,
+        shape: Option<RailShape>,
+        north: BlockPos,
+        south: BlockPos,
+        east: BlockPos,
+        west: BlockPos,
+    ) -> Option<RailShape> {
         let mut shape = shape;
         if shape == Some(RailShape::NorthSouth) {
             if is_rail(level, north.above()) {
@@ -123,7 +142,12 @@ impl RailState {
 
     fn connect_to(&mut self, level: &mut ServerLevel, rail: &RailState) {
         self.connections.push(rail.pos);
-        let (north, south, west, east) = (self.pos.north(), self.pos.south(), self.pos.west(), self.pos.east());
+        let (north, south, west, east) = (
+            self.pos.north(),
+            self.pos.south(),
+            self.pos.west(),
+            self.pos.east(),
+        );
         let n = self.has_connection(north);
         let s = self.has_connection(south);
         let w = self.has_connection(west);
@@ -149,7 +173,8 @@ impl RailState {
                 shape = Some(RailShape::NorthEast);
             }
         }
-        let shape = Self::ascend(&*level, shape, north, south, east, west).unwrap_or(RailShape::NorthSouth);
+        let shape =
+            Self::ascend(&*level, shape, north, south, east, west).unwrap_or(RailShape::NorthSouth);
         self.state = self.state.set(self.shape_property, shape);
         level.set_block_and_update(self.pos, self.state);
     }
@@ -164,8 +189,19 @@ impl RailState {
         }
     }
 
-    pub fn place(&mut self, level: &mut ServerLevel, has_signal: bool, first: bool, default_shape: RailShape) -> &RailState {
-        let (north, south, west, east) = (self.pos.north(), self.pos.south(), self.pos.west(), self.pos.east());
+    pub fn place(
+        &mut self,
+        level: &mut ServerLevel,
+        has_signal: bool,
+        first: bool,
+        default_shape: RailShape,
+    ) -> &RailState {
+        let (north, south, west, east) = (
+            self.pos.north(),
+            self.pos.south(),
+            self.pos.west(),
+            self.pos.east(),
+        );
         let n = self.has_neighbor_rail(&*level, north);
         let s = self.has_neighbor_rail(&*level, south);
         let w = self.has_neighbor_rail(&*level, west);

@@ -61,7 +61,12 @@ impl TestBlockEntity {
     /// `log()`.
     pub fn log(&self) {
         if !self.message.trim().is_empty() {
-            log::info!("Test {} (at {}): {}", self.mode.serialized_name().unwrap_or_default(), self.get_block_pos(), self.message);
+            log::info!(
+                "Test {} (at {}): {}",
+                self.mode.serialized_name().unwrap_or_default(),
+                self.get_block_pos(),
+                self.message
+            );
         }
     }
 }
@@ -76,7 +81,10 @@ impl BlockEntity for TestBlockEntity {
     }
 
     fn load_additional(&mut self, tag: &CompoundTag) {
-        self.mode = tag.get_string("mode").and_then(TestBlockMode::by_serialized_name).unwrap_or(TestBlockMode::Fail);
+        self.mode = tag
+            .get_string("mode")
+            .and_then(TestBlockMode::by_serialized_name)
+            .unwrap_or(TestBlockMode::Fail);
         self.message = tag.get_string_or("message", "").to_owned();
         self.powered = tag.get_boolean_or("powered", false);
     }
@@ -88,17 +96,26 @@ impl BlockEntity for TestBlockEntity {
     }
 
     fn get_update_packet(&self) -> Option<ClientboundBlockEntityDataPacket> {
-        Some(ClientboundBlockEntityDataPacket { pos: self.get_block_pos(), r#type: self.get_type(), tag: self.get_update_tag() })
+        Some(ClientboundBlockEntityDataPacket {
+            pos: self.get_block_pos(),
+            r#type: self.get_type(),
+            tag: self.get_update_tag(),
+        })
     }
 }
 
 #[distributed_slice(BLOCK_ENTITY_TYPES)]
-static TEST_BLOCK: BlockEntityRegistration =
-    BlockEntityRegistration { ty: BlockEntityType::TEST_BLOCK, create: |pos, state| Box::new(TestBlockEntity::new(pos, state)) };
+static TEST_BLOCK: BlockEntityRegistration = BlockEntityRegistration {
+    ty: BlockEntityType::TEST_BLOCK,
+    create: |pos, state| Box::new(TestBlockEntity::new(pos, state)),
+};
 
 /// The test block entity at `pos`.
 pub fn get(level: &mut ServerLevel, pos: BlockPos) -> Option<&mut TestBlockEntity> {
-    level.get_block_entity_immediate(pos)?.as_any_mut().downcast_mut::<TestBlockEntity>()
+    level
+        .get_block_entity_immediate(pos)?
+        .as_any_mut()
+        .downcast_mut::<TestBlockEntity>()
 }
 
 /// `reset()`.

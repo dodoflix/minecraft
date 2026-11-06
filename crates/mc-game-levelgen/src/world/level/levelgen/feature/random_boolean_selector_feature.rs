@@ -1,13 +1,13 @@
 //! `RandomBooleanSelectorFeature`: a coin flip between two placed features.
 
-use mc_game_core::world::level::levelgen::feature::Feature;
+use mc_core::pos::BlockPos;
+use mc_core::random::RandomSource;
 use mc_game_core::world::level::levelgen::codec::TypeEntry;
 use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::feature::Feature;
 use mc_game_core::world::level::levelgen::holder::Holder;
 use mc_game_core::world::level::levelgen::placement::PlacedFeature;
 use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
-use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
 use std::sync::Arc;
 
 pub struct RandomBooleanSelectorFeature {
@@ -22,9 +22,21 @@ impl Feature for RandomBooleanSelectorFeature {
         out
     }
 
-    fn place(&self, level: &mut dyn WorldGenLevel, generator: &GenEnv, random: &mut dyn RandomSource, origin: BlockPos) -> bool {
+    fn place(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        generator: &GenEnv,
+        random: &mut dyn RandomSource,
+        origin: BlockPos,
+    ) -> bool {
         let result = random.next_boolean();
-        (if result { &self.feature_true } else { &self.feature_false }).value().place(level, generator, random, origin)
+        (if result {
+            &self.feature_true
+        } else {
+            &self.feature_false
+        })
+        .value()
+        .place(level, generator, random, origin)
     }
 }
 

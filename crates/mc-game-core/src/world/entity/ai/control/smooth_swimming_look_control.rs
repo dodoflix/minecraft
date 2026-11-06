@@ -17,7 +17,10 @@ pub struct SmoothSwimmingLookControl {
 
 impl SmoothSwimmingLookControl {
     pub fn new(max_y_rot_from_center: i32) -> Self {
-        Self { base: LookControlBase::default(), max_y_rot_from_center }
+        Self {
+            base: LookControlBase::default(),
+            max_y_rot_from_center,
+        }
     }
 }
 
@@ -38,7 +41,11 @@ impl LookControl for SmoothSwimmingLookControl {
                 l.y_head_rot = rotate_towards(l.y_head_rot, y_rot_d + HEAD_TILT_Y, speed);
             }
             if let Some(x_rot_d) = self.get_x_rot_d(mob) {
-                let rot = rotate_towards(mob.base().x_rot(), x_rot_d + HEAD_TILT_X, self.base.x_max_rot_angle);
+                let rot = rotate_towards(
+                    mob.base().x_rot(),
+                    x_rot_d + HEAD_TILT_X,
+                    self.base.x_max_rot_angle,
+                );
                 mob.set_x_rot(rot);
             }
         } else {

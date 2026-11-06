@@ -5,11 +5,11 @@
 //! together with the level (`ServerLevel::with_raid`); a raider that is itself taken out of the level (it is ticking) is
 //! passed in explicitly where vanilla would read it through the object reference.
 
+use super::raid_boss_bar::RaidBossBar as ServerBossEvent;
+use super::raid_world;
 use super::raider;
 use crate::server::bossevents::{BossBarColor, BossBarOverlay};
 use crate::server::level::ServerLevel;
-use super::raid_boss_bar::RaidBossBar as ServerBossEvent;
-use super::raid_world;
 use crate::server::players::PlayerHandle;
 use crate::stats::stats::Stats;
 use crate::util::codec::{self, DataResult, DecodeResult};
@@ -20,9 +20,9 @@ use crate::world::entity::factory::{self, EntitySpawnRequest};
 use crate::world::entity::spawn_placements;
 use crate::world::entity::{Entity, EntityId, ServerPlayer};
 use crate::world::item::ItemStack;
+use crate::world::level::block::BlockStateExt as _;
 use crate::world::level::server_level_accessor::ServerLevelAccessor as _;
 use crate::world::level::{BlockGetter as _, LevelReader as _};
-use crate::world::level::block::BlockStateExt as _;
 use mc_core::ident::Identifier;
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
@@ -33,7 +33,10 @@ use mc_data::block::Block;
 use mc_data::enums::EntitySpawnReason;
 use mc_data::{DataComponentType, EntityType, Item, SoundEvent};
 use mc_nbt::{CompoundTag, ListTag, Tag};
-use mc_protocol::components::{BANNER_PATTERNS, BannerPatternLayer, BannerPatternLayers, DataComponentPatch, DyeColor, Holder, ITEM_NAME, RARITY, Rarity, TOOLTIP_DISPLAY, TooltipDisplay};
+use mc_protocol::components::{
+    BANNER_PATTERNS, BannerPatternLayer, BannerPatternLayers, DataComponentPatch, DyeColor, Holder,
+    ITEM_NAME, RARITY, Rarity, TOOLTIP_DISPLAY, TooltipDisplay,
+};
 use mc_protocol::packets::play::{ClientboundSoundPacket, SoundEventHolder, SoundSource};
 use mc_text::Component;
 use mc_world::heightmap::HeightmapType;
@@ -86,7 +89,14 @@ impl RaidStatus {
     }
 
     fn by_name(name: &str) -> Option<RaidStatus> {
-        [RaidStatus::Ongoing, RaidStatus::Victory, RaidStatus::Loss, RaidStatus::Stopped].into_iter().find(|s| s.get_serialized_name() == name)
+        [
+            RaidStatus::Ongoing,
+            RaidStatus::Victory,
+            RaidStatus::Loss,
+            RaidStatus::Stopped,
+        ]
+        .into_iter()
+        .find(|s| s.get_serialized_name() == name)
     }
 }
 
@@ -101,7 +111,13 @@ enum RaiderType {
 }
 
 impl RaiderType {
-    const VALUES: [RaiderType; 5] = [RaiderType::Vindicator, RaiderType::Evoker, RaiderType::Pillager, RaiderType::Witch, RaiderType::Ravager];
+    const VALUES: [RaiderType; 5] = [
+        RaiderType::Vindicator,
+        RaiderType::Evoker,
+        RaiderType::Pillager,
+        RaiderType::Witch,
+        RaiderType::Ravager,
+    ];
 
     fn entity_type(self) -> EntityType {
         match self {
@@ -172,7 +188,8 @@ impl RaiderSet {
 
     /// Iteration order of the Java set.
     fn ordered(&self) -> Vec<RaiderRef> {
-        self.capacity.iteration_order(self.members.iter().copied(), |r| r.id)
+        self.capacity
+            .iteration_order(self.members.iter().copied(), |r| r.id)
     }
 }
 
@@ -217,7 +234,11 @@ impl Raid {
 
     /// `new Raid(center, difficulty)` with the raid's `random` given (the field is `RandomSource.create()` in vanilla; the
     /// boss bar id is drawn from it first).
-    pub fn with_random(center: BlockPos, difficulty: Difficulty, mut random: LegacyRandomSource) -> Raid {
+    pub fn with_random(
+        center: BlockPos,
+        difficulty: Difficulty,
+        mut random: LegacyRandomSource,
+    ) -> Raid {
         let event_id = mth::create_insecure_uuid(&mut random);
         let mut raid = Raid::blank(center, event_id, random);
         raid.active = true;
@@ -245,7 +266,12 @@ impl Raid {
             post_raid_ticks: 0,
             raid_cooldown_ticks: 0,
             random,
-            raid_event: ServerBossEvent::new(event_id, raid_name(), BossBarColor::Red, BossBarOverlay::Notched10),
+            raid_event: ServerBossEvent::new(
+                event_id,
+                raid_name(),
+                BossBarColor::Red,
+                BossBarOverlay::Notched10,
+            ),
             num_groups: 0,
             status: RaidStatus::Ongoing,
             celebration_ticks: 0,
@@ -266,7 +292,9 @@ impl Raid {
     }
 
     pub fn is_between_waves(&self) -> bool {
-        self.has_first_wave_spawned() && self.get_total_raiders_alive() == 0 && self.raid_cooldown_ticks > 0
+        self.has_first_wave_spawned()
+            && self.get_total_raiders_alive() == 0
+            && self.raid_cooldown_ticks > 0
     }
 
     pub fn has_first_wave_spawned(&self) -> bool {
@@ -291,7 +319,11 @@ impl Raid {
 
     /// `getAllRaiders()` (ids).
     pub fn get_all_raiders(&self) -> Vec<EntityId> {
-        self.group_raider_map.values().flat_map(|s| s.ordered()).map(|r| r.id).collect()
+        self.group_raider_map
+            .values()
+            .flat_map(|s| s.ordered())
+            .map(|r| r.id)
+            .collect()
     }
 
     pub fn is_started(&self) -> bool {
@@ -327,14 +359,24 @@ impl Raid {
     }
 
     pub fn meta(&self) -> RaidMeta {
-        RaidMeta { id: self.id, center: self.center, active: self.active }
+        RaidMeta {
+            id: self.id,
+            center: self.center,
+            active: self.active,
+        }
     }
 
     /// `validPlayer()`: alive and `player.level().getRaidAt(pos) == this` (`getNearbyRaid(pos, 9216)` over `view`, which
     /// holds every raid of the level in map order; this raid's own entry is read live).
     fn valid_player(&self, view: &[RaidMeta], player: &dyn Entity) -> bool {
         let pos = player.block_position();
-        player.is_alive() && super::raids::nearby_raid_id(view.iter().map(|m| if m.id == self.id { self.meta() } else { *m }), pos, VALID_RAID_RADIUS_SQR) == Some(self.id)
+        player.is_alive()
+            && super::raids::nearby_raid_id(
+                view.iter()
+                    .map(|m| if m.id == self.id { self.meta() } else { *m }),
+                pos,
+                VALID_RAID_RADIUS_SQR,
+            ) == Some(self.id)
     }
 
     /// `updatePlayers(level)`.
@@ -342,9 +384,14 @@ impl Raid {
         let current: Vec<PlayerHandle> = self.raid_event.get_players().to_vec();
         let mut new_players: Vec<PlayerHandle> = Vec::new();
         for &pid in level.players() {
-            let Some(player) = level.get_entity(pid) else { continue };
+            let Some(player) = level.get_entity(pid) else {
+                continue;
+            };
             if self.valid_player(view, player)
-                && let Some(handle) = player.as_any().downcast_ref::<ServerPlayer>().and_then(|p| p.handle.clone())
+                && let Some(handle) = player
+                    .as_any()
+                    .downcast_ref::<ServerPlayer>()
+                    .and_then(|p| p.handle.clone())
             {
                 new_players.push(handle);
             }
@@ -363,11 +410,15 @@ impl Raid {
 
     /// `absorbRaidOmen(player)`.
     pub fn absorb_raid_omen(&mut self, level: &mut ServerLevel, player: &mut ServerPlayer) -> bool {
-        let Some(amplifier) = player.get_effect(mc_data::MobEffect::RAID_OMEN).map(|e| e.amplifier) else {
+        let Some(amplifier) = player
+            .get_effect(mc_data::MobEffect::RAID_OMEN)
+            .map(|e| e.amplifier)
+        else {
             return false;
         };
         self.raid_omen_level = self.raid_omen_level.wrapping_add(amplifier).wrapping_add(1);
-        self.raid_omen_level = mth::clamp_i32(self.raid_omen_level, 0, self.get_max_raid_omen_level());
+        self.raid_omen_level =
+            mth::clamp_i32(self.raid_omen_level, 0, self.get_max_raid_omen_level());
         if !self.has_first_wave_spawned() {
             player.award_stat_once(level, Stats::RAID_TRIGGER);
             // CriteriaTriggers::RAID_OMEN.trigger(level, player);
@@ -425,20 +476,29 @@ impl Raid {
                     }
                 } else {
                     let has_cached_wave_spawn_pos = self.wave_spawn_pos.is_some();
-                    let mut should_try_to_find_spawn_pos = !has_cached_wave_spawn_pos && self.raid_cooldown_ticks % 5 == 0;
+                    let mut should_try_to_find_spawn_pos =
+                        !has_cached_wave_spawn_pos && self.raid_cooldown_ticks % 5 == 0;
                     if let Some(pos) = self.wave_spawn_pos
-                        && !crate::world::entity::living_entity::util::is_position_entity_ticking(level, pos)
+                        && !crate::world::entity::living_entity::util::is_position_entity_ticking(
+                            level, pos,
+                        )
                     {
                         should_try_to_find_spawn_pos = true;
                     }
                     if should_try_to_find_spawn_pos {
                         self.wave_spawn_pos = self.get_valid_spawn_pos(level);
                     }
-                    if self.raid_cooldown_ticks == DEFAULT_PRE_RAID_TICKS || self.raid_cooldown_ticks % 20 == 0 {
+                    if self.raid_cooldown_ticks == DEFAULT_PRE_RAID_TICKS
+                        || self.raid_cooldown_ticks % 20 == 0
+                    {
                         self.update_players(level, view);
                     }
                     self.raid_cooldown_ticks -= 1;
-                    self.raid_event.set_progress(mth::clamp_f32((DEFAULT_PRE_RAID_TICKS - self.raid_cooldown_ticks) as f32 / 300.0, 0.0, 1.0));
+                    self.raid_event.set_progress(mth::clamp_f32(
+                        (DEFAULT_PRE_RAID_TICKS - self.raid_cooldown_ticks) as f32 / 300.0,
+                        0.0,
+                        1.0,
+                    ));
                 }
             }
             if self.ticks_active % 20 == 0 {
@@ -446,7 +506,13 @@ impl Raid {
                 self.update_raiders(level);
                 if raiders_alive > 0 {
                     if raiders_alive <= 2 {
-                        self.raid_event.set_name(raid_name().append_str(" - ").append(Component::translatable(RAIDERS_REMAINING, vec![raiders_alive.into()])));
+                        self.raid_event
+                            .set_name(raid_name().append_str(" - ").append(
+                                Component::translatable(
+                                    RAIDERS_REMAINING,
+                                    vec![raiders_alive.into()],
+                                ),
+                            ));
                     } else {
                         self.raid_event.set_name(raid_name());
                     }
@@ -483,12 +549,28 @@ impl Raid {
                     self.status = RaidStatus::Victory;
                     let heroes = self.ordered_heroes();
                     for hero_uuid in heroes {
-                        let Some(hero_id) = level.get_entity_by_uuid(hero_uuid).filter(|e| e.living().is_some() && !e.is_spectator()).map(|e| e.id()) else {
+                        let Some(hero_id) = level
+                            .get_entity_by_uuid(hero_uuid)
+                            .filter(|e| e.living().is_some() && !e.is_spectator())
+                            .map(|e| e.id())
+                        else {
                             continue;
                         };
                         let omen_level = self.raid_omen_level;
                         level.with_entity(hero_id, |level, hero| {
-                            hero.add_effect(level, MobEffectInstance::new(mc_data::MobEffect::HERO_OF_THE_VILLAGE, HERO_OF_THE_VILLAGE_DURATION, omen_level.wrapping_sub(1), false, false, true, None), None);
+                            hero.add_effect(
+                                level,
+                                MobEffectInstance::new(
+                                    mc_data::MobEffect::HERO_OF_THE_VILLAGE,
+                                    HERO_OF_THE_VILLAGE_DURATION,
+                                    omen_level.wrapping_sub(1),
+                                    false,
+                                    false,
+                                    true,
+                                    None,
+                                ),
+                                None,
+                            );
                             if let Some(player) = hero.as_any_mut().downcast_mut::<ServerPlayer>() {
                                 player.award_stat_once(level, Stats::RAID_WIN);
                                 // CriteriaTriggers::RAID_WIN.trigger(level, player);
@@ -542,7 +624,11 @@ impl Raid {
     }
 
     fn has_more_waves(&self) -> bool {
-        if self.has_bonus_wave() { !self.has_spawned_bonus_wave() } else { !self.is_final_wave() }
+        if self.has_bonus_wave() {
+            !self.has_spawned_bonus_wave()
+        } else {
+            !self.is_final_wave()
+        }
     }
 
     fn is_final_wave(&self) -> bool {
@@ -582,20 +668,36 @@ impl Raid {
                         to_remove.push((member, wave));
                     }
                     let no_action_time = raider.living().map_or(0, |l| l.no_action_time);
-                    if !raid_world::is_village(level, raider_pos) && no_action_time > MAX_NO_ACTION_TIME {
+                    if !raid_world::is_village(level, raider_pos)
+                        && no_action_time > MAX_NO_ACTION_TIME
+                    {
                         let ticks = raider::ticks_outside_raid(raider);
-                        level.with_entity(member.id, |_, r| raider::set_ticks_outside_raid(r, ticks + 1));
+                        level.with_entity(member.id, |_, r| {
+                            raider::set_ticks_outside_raid(r, ticks + 1)
+                        });
                     }
-                    let outside = level.get_entity(member.id).map_or(0, raider::ticks_outside_raid);
-                    if outside >= OUTSIDE_RAID_BOUNDS_TIMEOUT && !to_remove.iter().any(|(r, _)| r.id == member.id) {
+                    let outside = level
+                        .get_entity(member.id)
+                        .map_or(0, raider::ticks_outside_raid);
+                    if outside >= OUTSIDE_RAID_BOUNDS_TIMEOUT
+                        && !to_remove.iter().any(|(r, _)| r.id == member.id)
+                    {
                         to_remove.push((member, wave));
                     }
                 }
             }
         }
         for (member, wave) in to_remove {
-            let was_leader = level.get_entity(member.id).is_some_and(raider::is_patrol_leader);
-            let token = RaiderToken { id: member.id, wave, health: level.get_entity(member.id).map_or(member.health, |e| e.get_health()) };
+            let was_leader = level
+                .get_entity(member.id)
+                .is_some_and(raider::is_patrol_leader);
+            let token = RaiderToken {
+                id: member.id,
+                wave,
+                health: level
+                    .get_entity(member.id)
+                    .map_or(member.health, |e| e.get_health()),
+            };
             self.remove_from_raid(level, token, true, None);
             if was_leader {
                 self.remove_leader(wave);
@@ -610,16 +712,37 @@ impl Raid {
         let players_in_raid: Vec<PlayerHandle> = self.raid_event.get_players().to_vec();
         let seed = self.random.next_long();
         for &pid in level.players() {
-            let Some(player) = level.get_entity(pid) else { continue };
+            let Some(player) = level.get_entity(pid) else {
+                continue;
+            };
             let player_loc = player.position();
             let raid_loc = Vec3::at_center_of(&sound_origin);
-            let dist_btwn = ((raid_loc.x - player_loc.x) * (raid_loc.x - player_loc.x) + (raid_loc.z - player_loc.z) * (raid_loc.z - player_loc.z)).sqrt();
+            let dist_btwn = ((raid_loc.x - player_loc.x) * (raid_loc.x - player_loc.x)
+                + (raid_loc.z - player_loc.z) * (raid_loc.z - player_loc.z))
+                .sqrt();
             let x3 = player_loc.x + f64::from(dist_away) / dist_btwn * (raid_loc.x - player_loc.x);
             let z3 = player_loc.z + f64::from(dist_away) / dist_btwn * (raid_loc.z - player_loc.z);
-            let in_raid = player.as_any().downcast_ref::<ServerPlayer>().and_then(|p| p.handle.as_ref()).is_some_and(|h| players_in_raid.iter().any(|p| p.same_player(h)));
+            let in_raid = player
+                .as_any()
+                .downcast_ref::<ServerPlayer>()
+                .and_then(|p| p.handle.as_ref())
+                .is_some_and(|h| players_in_raid.iter().any(|p| p.same_player(h)));
             if dist_btwn <= f64::from(range) || in_raid {
-                if let Some(connection) = player.as_any().downcast_ref::<ServerPlayer>().and_then(|p| p.connection.as_ref()) {
-                    connection.send(&ClientboundSoundPacket::new(SoundEventHolder::Reference(SoundEvent::EVENT_RAID_HORN), SoundSource::Neutral, x3, player.base().y(), z3, 64.0, 1.0, seed));
+                if let Some(connection) = player
+                    .as_any()
+                    .downcast_ref::<ServerPlayer>()
+                    .and_then(|p| p.connection.as_ref())
+                {
+                    connection.send(&ClientboundSoundPacket::new(
+                        SoundEventHolder::Reference(SoundEvent::EVENT_RAID_HORN),
+                        SoundSource::Neutral,
+                        x3,
+                        player.base().y(),
+                        z3,
+                        64.0,
+                        1.0,
+                        seed,
+                    ));
                 }
             }
         }
@@ -634,11 +757,24 @@ impl Raid {
         let is_bonus_group = self.should_spawn_bonus_group();
 
         for raider_type in RaiderType::VALUES {
-            let num_spawns = self.get_default_num_spawns(raider_type, group_number, is_bonus_group) + self.get_potential_bonus_spawns(raider_type, group_number, difficulty.get_difficulty(), is_bonus_group);
+            let num_spawns = self.get_default_num_spawns(raider_type, group_number, is_bonus_group)
+                + self.get_potential_bonus_spawns(
+                    raider_type,
+                    group_number,
+                    difficulty.get_difficulty(),
+                    is_bonus_group,
+                );
             let mut ravagers_spawned = 0;
 
             for _ in 0..num_spawns {
-                let Some(mut raider) = factory::create(raider_type.entity_type(), level, EntitySpawnRequest { reason: EntitySpawnReason::Event, ignore_checks: false }) else {
+                let Some(mut raider) = factory::create(
+                    raider_type.entity_type(),
+                    level,
+                    EntitySpawnRequest {
+                        reason: EntitySpawnReason::Event,
+                        ignore_checks: false,
+                    },
+                ) else {
                     break;
                 };
                 if !leader_set && raider::can_be_leader(&*raider) {
@@ -651,7 +787,10 @@ impl Raid {
                 };
                 if raider_type.entity_type() == EntityType::RAVAGER {
                     let mut riding_raider: Option<Box<dyn Entity>> = None;
-                    let request = EntitySpawnRequest { reason: EntitySpawnReason::Event, ignore_checks: false };
+                    let request = EntitySpawnRequest {
+                        reason: EntitySpawnReason::Event,
+                        ignore_checks: false,
+                    };
                     if group_number == Raid::get_num_groups_for(Difficulty::Normal) {
                         riding_raider = factory::create(EntityType::PILLAGER, level, request);
                     } else if group_number >= Raid::get_num_groups_for(Difficulty::Hard) {
@@ -663,10 +802,17 @@ impl Raid {
                     }
                     ravagers_spawned += 1;
                     if let Some(riding_raider) = riding_raider
-                        && let Some(rider_id) = self.join_raid_fresh(level, group_number, riding_raider, pos)
+                        && let Some(rider_id) =
+                            self.join_raid_fresh(level, group_number, riding_raider, pos)
                     {
                         level.with_entity(rider_id, |level, rider| {
-                            rider.snap_to(f64::from(pos.x()), f64::from(pos.y()), f64::from(pos.z()), 0.0, 0.0);
+                            rider.snap_to(
+                                f64::from(pos.x()),
+                                f64::from(pos.y()),
+                                f64::from(pos.z()),
+                                0.0,
+                                0.0,
+                            );
                             level.start_riding(rider, raider_id, false, false);
                         });
                     }
@@ -682,13 +828,23 @@ impl Raid {
 
     /// `joinRaid(level, groupNumber, raider, pos, false)` for a raider that is not in the level yet: sets it up, adds it
     /// (with passengers) and returns its id.
-    pub fn join_raid_fresh(&mut self, level: &mut ServerLevel, group_number: i32, mut raider: Box<dyn Entity>, pos: BlockPos) -> Option<EntityId> {
+    pub fn join_raid_fresh(
+        &mut self,
+        level: &mut ServerLevel,
+        group_number: i32,
+        mut raider: Box<dyn Entity>,
+        pos: BlockPos,
+    ) -> Option<EntityId> {
         self.add_wave_mob(level, group_number, &*raider, true);
         raider::set_current_raid(&mut *raider, Some(self.id));
         raider::set_wave(&mut *raider, group_number);
         raider::set_can_join_raid(&mut *raider, true);
         raider::set_ticks_outside_raid(&mut *raider, 0);
-        raider.set_pos(f64::from(pos.x()) + 0.5, f64::from(pos.y()) + 1.0, f64::from(pos.z()) + 0.5);
+        raider.set_pos(
+            f64::from(pos.x()) + 0.5,
+            f64::from(pos.y()) + 1.0,
+            f64::from(pos.z()) + 0.5,
+        );
         let difficulty = crate::world::level::server_level_accessor::ServerLevelAccessor::get_current_difficulty_at(&*level, pos);
         raider.finalize_spawn(level, difficulty, EntitySpawnReason::Event, None);
         raider.apply_raid_buffs(level, group_number, false, self);
@@ -699,7 +855,12 @@ impl Raid {
     }
 
     /// `joinRaid(level, groupNumber, raider, null, true)`: an existing, ticking raider (taken out of the level) joins.
-    pub fn join_raid_existing(&mut self, level: &mut ServerLevel, group_number: i32, raider: &mut dyn Entity) {
+    pub fn join_raid_existing(
+        &mut self,
+        level: &mut ServerLevel,
+        group_number: i32,
+        raider: &mut dyn Entity,
+    ) {
         self.add_wave_mob(level, group_number, raider, true);
         raider::set_current_raid(raider, Some(self.id));
         raider::set_wave(raider, group_number);
@@ -710,11 +871,16 @@ impl Raid {
     /// `updateBossbar()`; `current` is a raider that is taken out of the level right now.
     pub fn update_bossbar(&mut self, level: &ServerLevel, current: Option<&dyn Entity>) {
         let health = self.get_health_of_living_raiders(level, current);
-        self.raid_event.set_progress(mth::clamp_f32(health / self.total_health, 0.0, 1.0));
+        self.raid_event
+            .set_progress(mth::clamp_f32(health / self.total_health, 0.0, 1.0));
     }
 
     /// `getHealthOfLivingRaiders()`.
-    pub fn get_health_of_living_raiders(&mut self, level: &ServerLevel, current: Option<&dyn Entity>) -> f32 {
+    pub fn get_health_of_living_raiders(
+        &mut self,
+        level: &ServerLevel,
+        current: Option<&dyn Entity>,
+    ) -> f32 {
         let mut health = 0.0f32;
         for set in self.group_raider_map.values_mut() {
             for member in set.ordered() {
@@ -739,7 +905,9 @@ impl Raid {
     }
 
     fn should_spawn_group(&self) -> bool {
-        self.raid_cooldown_ticks == 0 && (self.groups_spawned < self.num_groups || self.should_spawn_bonus_group()) && self.get_total_raiders_alive() == 0
+        self.raid_cooldown_ticks == 0
+            && (self.groups_spawned < self.num_groups || self.should_spawn_bonus_group())
+            && self.get_total_raiders_alive() == 0
     }
 
     /// `getTotalRaidersAlive()`.
@@ -748,7 +916,13 @@ impl Raid {
     }
 
     /// `removeFromRaid(level, raider, removeFromTotalHealth)`; `current` is the raider if it is taken out of the level.
-    pub fn remove_from_raid(&mut self, level: &mut ServerLevel, raider: RaiderToken, remove_from_total_health: bool, current: Option<&dyn Entity>) {
+    pub fn remove_from_raid(
+        &mut self,
+        level: &mut ServerLevel,
+        raider: RaiderToken,
+        remove_from_total_health: bool,
+        current: Option<&dyn Entity>,
+    ) {
         let Some(raiders) = self.group_raider_map.get_mut(&raider.wave) else {
             return;
         };
@@ -769,12 +943,22 @@ impl Raid {
 
     /// `getOminousBannerInstance(registries)`.
     pub fn get_ominous_banner_instance(registries: &crate::registry::RegistryAccess) -> ItemStack {
-        ItemStack::with_patch(Item::WHITE_BANNER, 1, &Raid::get_banner_component_patch(registries))
+        ItemStack::with_patch(
+            Item::WHITE_BANNER,
+            1,
+            &Raid::get_banner_component_patch(registries),
+        )
     }
 
     /// `getBannerComponentPatch(patternGetter)`.
-    pub fn get_banner_component_patch(registries: &crate::registry::RegistryAccess) -> DataComponentPatch {
-        let registered = |name: &str| registries.registry(crate::registry::keys::BANNER_PATTERN).is_some_and(|r| Identifier::parse(name).is_ok_and(|id| r.id_of(&id).is_some()));
+    pub fn get_banner_component_patch(
+        registries: &crate::registry::RegistryAccess,
+    ) -> DataComponentPatch {
+        let registered = |name: &str| {
+            registries
+                .registry(crate::registry::keys::BANNER_PATTERN)
+                .is_some_and(|r| Identifier::parse(name).is_ok_and(|id| r.id_of(&id).is_some()))
+        };
         let mut layers: Vec<BannerPatternLayer> = Vec::new();
         for (name, color) in [
             ("rhombus", DyeColor::Cyan),
@@ -787,13 +971,22 @@ impl Raid {
             ("border", DyeColor::Black),
         ] {
             if registered(&format!("minecraft:{name}")) {
-                layers.push(BannerPatternLayer { pattern: Holder::reference(name), color });
+                layers.push(BannerPatternLayer {
+                    pattern: Holder::reference(name),
+                    color,
+                });
             }
         }
         DataComponentPatch::builder()
             .set(BANNER_PATTERNS, BannerPatternLayers { layers })
-            .set(TOOLTIP_DISPLAY, TooltipDisplay::DEFAULT.with_hidden(DataComponentType::BANNER_PATTERNS, true))
-            .set(ITEM_NAME, Component::translatable("block.minecraft.ominous_banner", vec![]))
+            .set(
+                TOOLTIP_DISPLAY,
+                TooltipDisplay::DEFAULT.with_hidden(DataComponentType::BANNER_PATTERNS, true),
+            )
+            .set(
+                ITEM_NAME,
+                Component::translatable("block.minecraft.ominous_banner", vec![]),
+            )
             .set(RARITY, Rarity::Uncommon)
             .build()
     }
@@ -811,17 +1004,45 @@ impl Raid {
 
         for i in 0..max_tries {
             let angle = start_angle + std::f32::consts::PI * i as f32 / 8.0;
-            let spawn_x = self.center.x().wrapping_add(mth::floor_f32(mth::cos(f64::from(angle)) * 32.0 * how_far)).wrapping_add(self.random.next_int_bounded(3).wrapping_mul(mth::floor_f32(how_far)));
-            let spawn_z = self.center.z().wrapping_add(mth::floor_f32(mth::sin(f64::from(angle)) * 32.0 * how_far)).wrapping_add(self.random.next_int_bounded(3).wrapping_mul(mth::floor_f32(how_far)));
+            let spawn_x = self
+                .center
+                .x()
+                .wrapping_add(mth::floor_f32(mth::cos(f64::from(angle)) * 32.0 * how_far))
+                .wrapping_add(
+                    self.random
+                        .next_int_bounded(3)
+                        .wrapping_mul(mth::floor_f32(how_far)),
+                );
+            let spawn_z = self
+                .center
+                .z()
+                .wrapping_add(mth::floor_f32(mth::sin(f64::from(angle)) * 32.0 * how_far))
+                .wrapping_add(
+                    self.random
+                        .next_int_bounded(3)
+                        .wrapping_mul(mth::floor_f32(how_far)),
+                );
             let spawn_y = level.get_height_at(HeightmapType::WorldSurface, spawn_x, spawn_z);
             if mth::abs_i32(spawn_y.wrapping_sub(self.center.y())) <= 96 {
                 let spawn_pos = BlockPos::new(spawn_x, spawn_y, spawn_z);
                 if !raid_world::is_village(level, spawn_pos) || seconds_remaining <= 7 {
                     let delta = 10;
-                    if movement_has_chunks_at(level, spawn_pos.x() - delta, spawn_pos.z() - delta, spawn_pos.x() + delta, spawn_pos.z() + delta)
-                        && crate::world::entity::living_entity::util::is_position_entity_ticking(level, spawn_pos)
-                        && (spawn_placements::is_spawn_position_ok(EntityType::RAVAGER, level, spawn_pos)
-                            || (level.get_block_state(spawn_pos.below()).is_block(Block::SNOW) && level.get_block_state(spawn_pos).is_air()))
+                    if movement_has_chunks_at(
+                        level,
+                        spawn_pos.x() - delta,
+                        spawn_pos.z() - delta,
+                        spawn_pos.x() + delta,
+                        spawn_pos.z() + delta,
+                    ) && crate::world::entity::living_entity::util::is_position_entity_ticking(
+                        level, spawn_pos,
+                    ) && (spawn_placements::is_spawn_position_ok(
+                        EntityType::RAVAGER,
+                        level,
+                        spawn_pos,
+                    ) || (level
+                        .get_block_state(spawn_pos.below())
+                        .is_block(Block::SNOW)
+                        && level.get_block_state(spawn_pos).is_air()))
                     {
                         return Some(spawn_pos);
                     }
@@ -832,14 +1053,29 @@ impl Raid {
     }
 
     /// `addWaveMob(level, wave, raider, updateHealth)`.
-    pub fn add_wave_mob(&mut self, level: &mut ServerLevel, wave: i32, raider: &dyn Entity, update_health: bool) -> bool {
+    pub fn add_wave_mob(
+        &mut self,
+        level: &mut ServerLevel,
+        wave: i32,
+        raider: &dyn Entity,
+        update_health: bool,
+    ) -> bool {
         let set = self.group_raider_map.entry(wave).or_default();
         let uuid = raider.uuid();
         // an older copy of the same raider (reloaded from a chunk) is replaced
-        if let Some(existing) = set.members.iter().find(|r| r.uuid == uuid && r.id != raider.id()).map(|r| r.id) {
+        if let Some(existing) = set
+            .members
+            .iter()
+            .find(|r| r.uuid == uuid && r.id != raider.id())
+            .map(|r| r.id)
+        {
             set.remove(existing);
         }
-        set.add(RaiderRef { id: raider.id(), uuid, health: raider.get_health() });
+        set.add(RaiderRef {
+            id: raider.id(),
+            uuid,
+            health: raider.get_health(),
+        });
         if update_health {
             self.total_health += raider.get_health();
         }
@@ -850,9 +1086,21 @@ impl Raid {
 
     /// `setLeader(wave, raider)`.
     pub fn set_leader(&mut self, level: &mut ServerLevel, wave: i32, raider: &mut dyn Entity) {
-        self.group_to_leader_map.insert(wave, RaiderRef { id: raider.id(), uuid: raider.uuid(), health: raider.get_health() });
+        self.group_to_leader_map.insert(
+            wave,
+            RaiderRef {
+                id: raider.id(),
+                uuid: raider.uuid(),
+                health: raider.get_health(),
+            },
+        );
         let banner = Raid::get_ominous_banner_instance(&level.registries);
-        crate::world::entity::mob::equipment::set_item_slot(raider, level, EquipmentSlot::Head, banner);
+        crate::world::entity::mob::equipment::set_item_slot(
+            raider,
+            level,
+            EquipmentSlot::Head,
+            banner,
+        );
         raider.set_drop_chance(EquipmentSlot::Head, 2.0);
     }
 
@@ -863,11 +1111,21 @@ impl Raid {
 
     fn get_default_num_spawns(&self, ty: RaiderType, wav: i32, is_bonus_wave: bool) -> i32 {
         let table = ty.spawns_per_wave_before_bonus();
-        if is_bonus_wave { table[self.num_groups as usize] } else { table[wav as usize] }
+        if is_bonus_wave {
+            table[self.num_groups as usize]
+        } else {
+            table[wav as usize]
+        }
     }
 
     /// `getPotentialBonusSpawns(type, random, wav, difficultyInstance, isBonusWave)`.
-    fn get_potential_bonus_spawns(&mut self, ty: RaiderType, wav: i32, difficulty: Difficulty, is_bonus_wave: bool) -> i32 {
+    fn get_potential_bonus_spawns(
+        &mut self,
+        ty: RaiderType,
+        wav: i32,
+        difficulty: Difficulty,
+        is_bonus_wave: bool,
+    ) -> i32 {
         let is_easy = difficulty == Difficulty::Easy;
         let is_normal = difficulty == Difficulty::Normal;
         let bonus_spawns = match ty {
@@ -889,7 +1147,11 @@ impl Raid {
             }
             RaiderType::Ravager => i32::from(!is_easy && is_bonus_wave),
         };
-        if bonus_spawns > 0 { self.random.next_int_bounded(bonus_spawns + 1) } else { 0 }
+        if bonus_spawns > 0 {
+            self.random.next_int_bounded(bonus_spawns + 1)
+        } else {
+            0
+        }
     }
 
     /// `getNumGroups(difficulty)`.
@@ -925,12 +1187,14 @@ impl Raid {
     pub fn add_hero_of_the_village(&mut self, uuid: Uuid) {
         if !self.heroes_of_the_village.contains(&uuid) {
             self.heroes_of_the_village.push(uuid);
-            self.heroes_capacity.grow_to_fit(self.heroes_of_the_village.len());
+            self.heroes_capacity
+                .grow_to_fit(self.heroes_of_the_village.len());
         }
     }
 
     fn ordered_heroes(&self) -> Vec<Uuid> {
-        self.heroes_capacity.iteration_order(self.heroes_of_the_village.iter().copied(), java_hash_code)
+        self.heroes_capacity
+            .iteration_order(self.heroes_of_the_village.iter().copied(), java_hash_code)
     }
 
     // ---- saved data (`Raid.MAP_CODEC`) -------------------------------------------------------------------------
@@ -947,7 +1211,8 @@ impl Raid {
         let total_health = codec::float(codec::field(map, "total_health")?)?;
         let num_groups = codec::int(codec::field(map, "group_count")?)?;
         let status_name = codec::string(codec::field(map, "status")?)?;
-        let status = RaidStatus::by_name(status_name).ok_or_else(|| format!("Unknown element name:{status_name}"))?;
+        let status = RaidStatus::by_name(status_name)
+            .ok_or_else(|| format!("Unknown element name:{status_name}"))?;
         let center = decode_block_pos(codec::field(map, "center")?)?;
         let mut heroes: Vec<Uuid> = Vec::new();
         for tag in codec::list(codec::field(map, "heroes_of_the_village")?)? {
@@ -975,7 +1240,8 @@ impl Raid {
     fn add_hero_of_the_village_uuid(&mut self, uuid: Uuid) {
         if !self.heroes_of_the_village.contains(&uuid) {
             self.heroes_of_the_village.push(uuid);
-            self.heroes_capacity.grow_to_fit(self.heroes_of_the_village.len());
+            self.heroes_capacity
+                .grow_to_fit(self.heroes_of_the_village.len());
         }
     }
 
@@ -991,7 +1257,10 @@ impl Raid {
         out.put_float("total_health", self.total_health);
         out.put_int("group_count", self.num_groups);
         out.put_string("status", self.status.get_serialized_name());
-        out.put_int_array("center", vec![self.center.x(), self.center.y(), self.center.z()]);
+        out.put_int_array(
+            "center",
+            vec![self.center.x(), self.center.y(), self.center.z()],
+        );
         let mut heroes = ListTag::new();
         for h in self.ordered_heroes() {
             heroes.push(Tag::IntArray(uuid_to_int_array(&h).to_vec()));

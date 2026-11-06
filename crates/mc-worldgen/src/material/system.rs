@@ -85,11 +85,9 @@ impl MaterialSystem {
     ) -> Result<MaterialSystem, LoadError> {
         let noise = |name: &str| random_state.get_or_create_noise(&noises::key(name));
         let clay_bands_offset_noise = noise(names::CLAY_BANDS_OFFSET)?;
-        let clay_bands = generate_bands(
-            &mut *noise_random.from_hash_of_identifier(
-                &Identifier::with_default_namespace("clay_bands").expect("valid identifier"),
-            ),
-        );
+        let clay_bands = generate_bands(&mut *noise_random.from_hash_of_identifier(
+            &Identifier::with_default_namespace("clay_bands").expect("valid identifier"),
+        ));
         Ok(MaterialSystem {
             default_block,
             sea_level,
@@ -165,14 +163,30 @@ impl MaterialSystem {
             for z in 0..16 {
                 let block_x = min_block_x + x;
                 let block_z = min_block_z + z;
-                let starting_height = proto_chunk.access.get_height(true, HeightmapType::WorldSurfaceWg, x, z) + 1;
-                let surface_biome = biome_manager.get_biome(BlockPos::new(block_x, starting_height, block_z));
-                let mut column = ChunkBlockColumn { chunk: &mut *proto_chunk, x: block_x, z: block_z, min_y, max_y };
+                let starting_height =
+                    proto_chunk
+                        .access
+                        .get_height(true, HeightmapType::WorldSurfaceWg, x, z)
+                        + 1;
+                let surface_biome =
+                    biome_manager.get_biome(BlockPos::new(block_x, starting_height, block_z));
+                let mut column = ChunkBlockColumn {
+                    chunk: &mut *proto_chunk,
+                    x: block_x,
+                    z: block_z,
+                    min_y,
+                    max_y,
+                };
                 if Some(surface_biome) == eroded_badlands {
                     self.eroded_badlands_extension(&mut column, block_x, block_z, starting_height);
                 }
 
-                let height = column.chunk.access.get_height(true, HeightmapType::WorldSurfaceWg, x, z) + 1;
+                let height =
+                    column
+                        .chunk
+                        .access
+                        .get_height(true, HeightmapType::WorldSurfaceWg, x, z)
+                        + 1;
                 let gradient_x = get_surface_gradient_x(column.chunk, x, z);
                 let gradient_z = get_surface_gradient_z(column.chunk, x, z);
                 context.update_xz(block_x, block_z, gradient_x, gradient_z);
@@ -235,13 +249,21 @@ impl MaterialSystem {
 
     /// `getSurfaceDepth(blockX, blockZ)`.
     pub fn get_surface_depth(&self, block_x: i32, block_z: i32) -> i32 {
-        let noise_value = f64::from(self.surface_noise.get3(f64::from(block_x), 0.0, f64::from(block_z)));
-        (noise_value * 2.75 + 3.0 + self.noise_random.at(block_x, 0, block_z).next_double() * 0.25) as i32
+        let noise_value = f64::from(self.surface_noise.get3(
+            f64::from(block_x),
+            0.0,
+            f64::from(block_z),
+        ));
+        (noise_value * 2.75 + 3.0 + self.noise_random.at(block_x, 0, block_z).next_double() * 0.25)
+            as i32
     }
 
     /// `getSurfaceSecondary(blockX, blockZ)`.
     pub fn get_surface_secondary(&self, block_x: i32, block_z: i32) -> f64 {
-        f64::from(self.surface_secondary_noise.get3(f64::from(block_x), 0.0, f64::from(block_z)))
+        f64::from(
+            self.surface_secondary_noise
+                .get3(f64::from(block_x), 0.0, f64::from(block_z)),
+        )
     }
 
     /// `getSeaLevel()`.
@@ -279,7 +301,12 @@ impl MaterialSystem {
         let gradient_x = get_surface_gradient_x(chunk, block_x & 15, block_z & 15);
         let gradient_z = get_surface_gradient_z(chunk, block_x & 15, block_z & 15);
         context.update_xz(block_x, block_z, gradient_x, gradient_z);
-        context.update_y(1, 1, if under_fluid { block_y + 1 } else { i32::MIN }, block_y);
+        context.update_y(
+            1,
+            1,
+            if under_fluid { block_y + 1 } else { i32::MIN },
+            block_y,
+        );
         rule.try_apply(&mut context, block_x, block_y, block_z)
     }
 
@@ -298,10 +325,17 @@ impl MaterialSystem {
         // NaN-aware like Java: only a NaN or positive value gets here.
         #[allow(clippy::neg_cmp_op_on_partial_ord)]
         if !(pillar_buffer <= 0.0) {
-            let pillar_floor =
-                (f64::from(self.badlands_pillar_roof_noise.get3(x * 0.75, 0.0, z * 0.75)) * 1.5).abs();
-            let extension_top =
-                64.0 + min_f64(pillar_buffer * pillar_buffer * 2.5, (pillar_floor * 50.0).ceil() + 24.0);
+            let pillar_floor = (f64::from(self.badlands_pillar_roof_noise.get3(
+                x * 0.75,
+                0.0,
+                z * 0.75,
+            )) * 1.5)
+                .abs();
+            let extension_top = 64.0
+                + min_f64(
+                    pillar_buffer * pillar_buffer * 2.5,
+                    (pillar_floor * 50.0).ceil() + 24.0,
+                );
             let start_y = mth::floor_f64(extension_top);
             if height <= start_y {
                 let min_y = column.chunk.access.min_y();
@@ -345,12 +379,16 @@ impl MaterialSystem {
         #[allow(clippy::neg_cmp_op_on_partial_ord)]
         if !(iceberg <= 1.8) {
             let iceberg_roof =
-                (f64::from(self.iceberg_pillar_roof_noise.get3(x * 1.17, 0.0, z * 1.17)) * 1.5).abs();
+                (f64::from(self.iceberg_pillar_roof_noise.get3(x * 1.17, 0.0, z * 1.17)) * 1.5)
+                    .abs();
             let mut top = min_f64(iceberg * iceberg * 1.2, (iceberg_roof * 40.0).ceil() + 14.0);
-            if biomes.get(surface_biome).should_melt_frozen_ocean_iceberg_slightly(
-                BlockPos::new(block_x, self.sea_level, block_z),
-                self.sea_level,
-            ) {
+            if biomes
+                .get(surface_biome)
+                .should_melt_frozen_ocean_iceberg_slightly(
+                    BlockPos::new(block_x, self.sea_level, block_z),
+                    self.sea_level,
+                )
+            {
                 top -= 2.0;
             }
 
@@ -391,7 +429,9 @@ impl MaterialSystem {
     /// `getBand(worldX, y, worldZ)`.
     pub fn get_band(&self, world_x: i32, y: i32, world_z: i32) -> BlockState {
         let offset = round_f32(
-            self.clay_bands_offset_noise.get3(f64::from(world_x), 0.0, f64::from(world_z)) * 4.0f32,
+            self.clay_bands_offset_noise
+                .get3(f64::from(world_x), 0.0, f64::from(world_z))
+                * 4.0f32,
         );
         let length = self.clay_bands.len() as i32;
         self.clay_bands[((y.wrapping_add(offset).wrapping_add(length)) % length) as usize]
@@ -419,14 +459,22 @@ fn is_stone(state: BlockState) -> bool {
 
 /// `getSurfaceGradientX(protoChunk, x, z)`.
 fn get_surface_gradient_x(chunk: &mut ProtoChunk, x: i32, z: i32) -> i32 {
-    chunk.access.get_height(true, HeightmapType::WorldSurfaceWg, (x + 1).min(15), z)
-        - chunk.access.get_height(true, HeightmapType::WorldSurfaceWg, (x - 1).max(0), z)
+    chunk
+        .access
+        .get_height(true, HeightmapType::WorldSurfaceWg, (x + 1).min(15), z)
+        - chunk
+            .access
+            .get_height(true, HeightmapType::WorldSurfaceWg, (x - 1).max(0), z)
 }
 
 /// `getSurfaceGradientZ(protoChunk, x, z)`.
 fn get_surface_gradient_z(chunk: &mut ProtoChunk, x: i32, z: i32) -> i32 {
-    chunk.access.get_height(true, HeightmapType::WorldSurfaceWg, x, (z + 1).min(15))
-        - chunk.access.get_height(true, HeightmapType::WorldSurfaceWg, x, (z - 1).max(0))
+    chunk
+        .access
+        .get_height(true, HeightmapType::WorldSurfaceWg, x, (z + 1).min(15))
+        - chunk
+            .access
+            .get_height(true, HeightmapType::WorldSurfaceWg, x, (z - 1).max(0))
 }
 
 /// `generateBands(random)`.
@@ -463,7 +511,12 @@ fn generate_bands(random: &mut dyn RandomSource) -> Vec<BlockState> {
 }
 
 /// `makeBands(random, clayBands, baseWidth, state)`.
-fn make_bands(random: &mut dyn RandomSource, clay_bands: &mut [BlockState], base_width: i32, state: BlockState) {
+fn make_bands(
+    random: &mut dyn RandomSource,
+    clay_bands: &mut [BlockState],
+    base_width: i32,
+    state: BlockState,
+) {
     let band_count = random.next_int_between_inclusive(6, 15);
     for _ in 0..band_count {
         let width = (base_width + random.next_int_bounded(3)) as usize;

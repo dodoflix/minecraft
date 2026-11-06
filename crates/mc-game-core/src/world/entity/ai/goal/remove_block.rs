@@ -24,7 +24,13 @@ pub trait RemoveBlockHooks: Send + Sync {
         1.0
     }
     /// `playDestroyProgressSound(level, pos)`.
-    fn play_destroy_progress_sound(&self, _mob: &mut dyn Entity, _level: &mut ServerLevel, _pos: BlockPos) {}
+    fn play_destroy_progress_sound(
+        &self,
+        _mob: &mut dyn Entity,
+        _level: &mut ServerLevel,
+        _pos: BlockPos,
+    ) {
+    }
     /// `playBreakSound(level, pos)`.
     fn play_break_sound(&self, _level: &mut ServerLevel, _pos: BlockPos) {}
 }
@@ -43,11 +49,26 @@ pub struct RemoveBlockGoal {
 impl RemoveBlockGoal {
     /// `RemoveBlockGoal(blockToRemove, mob, speedModifier, verticalSearchRange)`.
     pub fn new(block_to_remove: Block, speed_modifier: f64, vertical_search_range: i32) -> Self {
-        Self::with_hooks(block_to_remove, speed_modifier, vertical_search_range, Box::new(NoRemoveBlockHooks))
+        Self::with_hooks(
+            block_to_remove,
+            speed_modifier,
+            vertical_search_range,
+            Box::new(NoRemoveBlockHooks),
+        )
     }
 
-    pub fn with_hooks(block_to_remove: Block, speed_modifier: f64, vertical_search_range: i32, hooks: Box<dyn RemoveBlockHooks>) -> Self {
-        Self { mtb: MoveToBlockData::with_vertical(speed_modifier, 24, vertical_search_range), block_to_remove, ticks_since_reached_goal: 0, hooks }
+    pub fn with_hooks(
+        block_to_remove: Block,
+        speed_modifier: f64,
+        vertical_search_range: i32,
+        hooks: Box<dyn RemoveBlockHooks>,
+    ) -> Self {
+        Self {
+            mtb: MoveToBlockData::with_vertical(speed_modifier, 24, vertical_search_range),
+            block_to_remove,
+            ticks_since_reached_goal: 0,
+            hooks,
+        }
     }
 
     /// `getPosWithBlock(pos, level)`.
@@ -55,8 +76,17 @@ impl RemoveBlockGoal {
         if level.get_block_state(pos).block() == self.block_to_remove {
             return Some(pos);
         }
-        let neighbours = [pos.below(), pos.west(), pos.east(), pos.north(), pos.south(), pos.below().below()];
-        neighbours.into_iter().find(|n| level.get_block_state(*n).block() == self.block_to_remove)
+        let neighbours = [
+            pos.below(),
+            pos.west(),
+            pos.east(),
+            pos.north(),
+            pos.south(),
+            pos.below().below(),
+        ];
+        neighbours
+            .into_iter()
+            .find(|n| level.get_block_state(*n).block() == self.block_to_remove)
     }
 }
 
@@ -75,10 +105,16 @@ impl MoveToBlock for RemoveBlockGoal {
 
     fn is_valid_target(&self, _mob: &dyn Entity, level: &ServerLevel, pos: BlockPos) -> bool {
         // `level.getChunk(x >> 4, z >> 4, FULL, false)` is null for unloaded chunks
-        if level.chunk_source.get_chunk_now(pos.x() >> 4, pos.z() >> 4).is_none() {
+        if level
+            .chunk_source
+            .get_chunk_now(pos.x() >> 4, pos.z() >> 4)
+            .is_none()
+        {
             return false;
         }
-        level.get_block_state(pos).block() == self.block_to_remove && level.get_block_state(pos.above()).is_air() && level.get_block_state(pos.above_n(2)).is_air()
+        level.get_block_state(pos).block() == self.block_to_remove
+            && level.get_block_state(pos.above()).is_air()
+            && level.get_block_state(pos.above_n(2)).is_air()
     }
 }
 
@@ -123,25 +159,60 @@ impl Goal for RemoveBlockGoal {
         if let (true, Some(eat_pos)) = (self.is_reached_target(), eat_pos) {
             if self.ticks_since_reached_goal > 0 {
                 let movement = mob.base().delta_movement();
-                mob.base_mut().set_delta_movement(Vec3::new(movement.x, 0.3, movement.z));
+                mob.base_mut()
+                    .set_delta_movement(Vec3::new(movement.x, 0.3, movement.z));
                 let random = &mut mob.base_mut().random;
-                let (xd, yd, zd) = ((f64::from(random.next_float()) - 0.5) * 0.08, (f64::from(random.next_float()) - 0.5) * 0.08, (f64::from(random.next_float()) - 0.5) * 0.08);
-                let egg = ParticleOptions::Item(ItemStackTemplate { item: Item::EGG, count: 1, components: DataComponentPatch::default() });
-                level.send_particles(egg, f64::from(eat_pos.x()) + 0.5, f64::from(eat_pos.y()) + 0.7, f64::from(eat_pos.z()) + 0.5, 3, xd, yd, zd, f64::from(0.15f32));
+                let (xd, yd, zd) = (
+                    (f64::from(random.next_float()) - 0.5) * 0.08,
+                    (f64::from(random.next_float()) - 0.5) * 0.08,
+                    (f64::from(random.next_float()) - 0.5) * 0.08,
+                );
+                let egg = ParticleOptions::Item(ItemStackTemplate {
+                    item: Item::EGG,
+                    count: 1,
+                    components: DataComponentPatch::default(),
+                });
+                level.send_particles(
+                    egg,
+                    f64::from(eat_pos.x()) + 0.5,
+                    f64::from(eat_pos.y()) + 0.7,
+                    f64::from(eat_pos.z()) + 0.5,
+                    3,
+                    xd,
+                    yd,
+                    zd,
+                    f64::from(0.15f32),
+                );
             }
             if self.ticks_since_reached_goal % 2 == 0 {
                 let movement = mob.base().delta_movement();
-                mob.base_mut().set_delta_movement(Vec3::new(movement.x, -0.3, movement.z));
+                mob.base_mut()
+                    .set_delta_movement(Vec3::new(movement.x, -0.3, movement.z));
                 if self.ticks_since_reached_goal % 6 == 0 {
-                    self.hooks.play_destroy_progress_sound(mob, level, self.mtb.block_pos);
+                    self.hooks
+                        .play_destroy_progress_sound(mob, level, self.mtb.block_pos);
                 }
             }
             if self.ticks_since_reached_goal > 60 {
                 level.remove_block(eat_pos, false);
                 for _ in 0..20 {
                     let random = &mut mob.base_mut().random;
-                    let (xa, ya, za) = (random.next_gaussian() * 0.02, random.next_gaussian() * 0.02, random.next_gaussian() * 0.02);
-                    level.send_particles(ParticleOptions::Simple(ParticleType::POOF), f64::from(eat_pos.x()) + 0.5, f64::from(eat_pos.y()), f64::from(eat_pos.z()) + 0.5, 1, xa, ya, za, f64::from(0.15f32));
+                    let (xa, ya, za) = (
+                        random.next_gaussian() * 0.02,
+                        random.next_gaussian() * 0.02,
+                        random.next_gaussian() * 0.02,
+                    );
+                    level.send_particles(
+                        ParticleOptions::Simple(ParticleType::POOF),
+                        f64::from(eat_pos.x()) + 0.5,
+                        f64::from(eat_pos.y()),
+                        f64::from(eat_pos.z()) + 0.5,
+                        1,
+                        xa,
+                        ya,
+                        za,
+                        f64::from(0.15f32),
+                    );
                 }
                 self.hooks.play_break_sound(level, eat_pos);
             }

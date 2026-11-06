@@ -1,7 +1,11 @@
+use crate::server::network::configuration_task::{
+    ConfigurationTask, PacketSink, TaskError, TaskType,
+};
 use crate::server::network::hooks::ServerHandle;
-use crate::server::network::configuration_task::{ConfigurationTask, PacketSink, TaskError, TaskType};
 use crate::server::network::hooks::ServerResourcePackInfo;
-use mc_protocol::packets::configuration::{ClientboundConfigurationPacket, ClientboundResourcePackPushPacket};
+use mc_protocol::packets::configuration::{
+    ClientboundConfigurationPacket, ClientboundResourcePackPushPacket,
+};
 
 /// `ServerResourcePackConfigurationTask`: pushes the server resource pack; ends when the client reports a final
 /// state (`ServerboundResourcePackPacket` with a terminal action).
@@ -18,14 +22,20 @@ impl ServerResourcePackConfigurationTask {
 }
 
 impl ConfigurationTask for ServerResourcePackConfigurationTask {
-    fn start(&mut self, _server: &mut dyn ServerHandle, connection: PacketSink) -> Result<(), TaskError> {
-        connection(ClientboundConfigurationPacket::ResourcePackPush(ClientboundResourcePackPushPacket {
-            id: self.info.id,
-            url: self.info.url.clone(),
-            hash: self.info.hash.clone(),
-            required: self.info.is_required,
-            prompt: self.info.prompt.clone(),
-        }));
+    fn start(
+        &mut self,
+        _server: &mut dyn ServerHandle,
+        connection: PacketSink,
+    ) -> Result<(), TaskError> {
+        connection(ClientboundConfigurationPacket::ResourcePackPush(
+            ClientboundResourcePackPushPacket {
+                id: self.info.id,
+                url: self.info.url.clone(),
+                hash: self.info.hash.clone(),
+                required: self.info.is_required,
+                prompt: self.info.prompt.clone(),
+            },
+        ));
         Ok(())
     }
 

@@ -18,7 +18,10 @@ use std::sync::Arc;
 /// (`FEATURE_TYPES`, `PLACEMENT_MODIFIER_TYPES`, ...); a type registers itself from its own file.
 pub struct TypeEntry<T: ?Sized + 'static> {
     pub name: &'static str,
-    pub decode: fn(&Fields<'_>, &crate::world::level::levelgen::registries::DecodeCtx<'_>) -> LoadResult<Arc<T>>,
+    pub decode: fn(
+        &Fields<'_>,
+        &crate::world::level::levelgen::registries::DecodeCtx<'_>,
+    ) -> LoadResult<Arc<T>>,
 }
 
 /// `BuiltInRegistries.X.byNameCodec().dispatch(...)`: reads `type`, looks the type up in `table` and decodes.
@@ -39,7 +42,9 @@ pub fn decode_dispatch_on<T: ?Sized + 'static>(
 ) -> LoadResult<Arc<T>> {
     let fields = Fields::new(value)?;
     let ty = fields.required(type_key, parse_identifier)?;
-    let entry = (ty.namespace() == "minecraft").then(|| table.iter().find(|e| e.name == ty.path())).flatten();
+    let entry = (ty.namespace() == "minecraft")
+        .then(|| table.iter().find(|e| e.name == ty.path()))
+        .flatten();
     match entry {
         Some(entry) => (entry.decode)(&fields, ctx),
         None => Err(LoadError::new(format!("Unknown registry key in dispatch: {ty}")).at(type_key)),
@@ -54,13 +59,21 @@ pub fn parse_block_state(value: &Value) -> LoadResult<BlockState> {
 /// `BuiltInRegistries.BLOCK.byNameCodec()`.
 pub fn parse_block(value: &Value) -> LoadResult<Block> {
     let id = parse_identifier(value)?;
-    Block::by_name(&id.to_string()).ok_or_else(|| LoadError::new(format!("Unknown registry key in ResourceKey[minecraft:root / minecraft:block]: {id}")))
+    Block::by_name(&id.to_string()).ok_or_else(|| {
+        LoadError::new(format!(
+            "Unknown registry key in ResourceKey[minecraft:root / minecraft:block]: {id}"
+        ))
+    })
 }
 
 /// `BuiltInRegistries.FLUID.byNameCodec()`.
 pub fn parse_fluid(value: &Value) -> LoadResult<Fluid> {
     let id = parse_identifier(value)?;
-    Fluid::by_name(&id.to_string()).ok_or_else(|| LoadError::new(format!("Unknown registry key in ResourceKey[minecraft:root / minecraft:fluid]: {id}")))
+    Fluid::by_name(&id.to_string()).ok_or_else(|| {
+        LoadError::new(format!(
+            "Unknown registry key in ResourceKey[minecraft:root / minecraft:fluid]: {id}"
+        ))
+    })
 }
 
 /// `Vec3i.CODEC` / `BlockPos.CODEC`: a list of exactly three ints.
@@ -92,8 +105,9 @@ impl BlockSet {
             Value::String(s) if s.starts_with('#') => {
                 let tag = Identifier::read(&s[1..]).map_err(LoadError::new)?;
                 // a tag of an already built registry must exist (`HolderSetCodec`: "Missing tag")
-                let set = mc_data::tags::get::<Block>(&tag.to_string())
-                    .ok_or_else(|| LoadError::new(format!("Missing tag: '{tag}' in 'minecraft:block'")))?;
+                let set = mc_data::tags::get::<Block>(&tag.to_string()).ok_or_else(|| {
+                    LoadError::new(format!("Missing tag: '{tag}' in 'minecraft:block'"))
+                })?;
                 Ok(BlockSet::Tag(tag, Some(set)))
             }
             Value::String(_) => Ok(BlockSet::Blocks(vec![parse_block(value)?])),
@@ -133,8 +147,9 @@ impl FluidSet {
         match value {
             Value::String(s) if s.starts_with('#') => {
                 let tag = Identifier::read(&s[1..]).map_err(LoadError::new)?;
-                let set = mc_data::tags::get::<Fluid>(&tag.to_string())
-                    .ok_or_else(|| LoadError::new(format!("Missing tag: '{tag}' in 'minecraft:fluid'")))?;
+                let set = mc_data::tags::get::<Fluid>(&tag.to_string()).ok_or_else(|| {
+                    LoadError::new(format!("Missing tag: '{tag}' in 'minecraft:fluid'"))
+                })?;
                 Ok(FluidSet::Tag(tag, Some(set)))
             }
             Value::String(_) => Ok(FluidSet::Fluids(vec![parse_fluid(value)?])),
@@ -159,7 +174,13 @@ pub fn parse_long(value: &Value) -> LoadResult<i64> {
             .or_else(|| n.as_u64().map(|v| v as i64))
             .or_else(|| {
                 // beyond 2^116 an f64 integer is a multiple of 2^64 (BigDecimal.longValue keeps the low 64 bits: 0); `as i128` saturates at 2^127
-                n.as_f64().map(|v| if v.abs() >= 2f64.powi(116) { 0 } else { v.trunc() as i128 as i64 })
+                n.as_f64().map(|v| {
+                    if v.abs() >= 2f64.powi(116) {
+                        0
+                    } else {
+                        v.trunc() as i128 as i64
+                    }
+                })
             })
             .ok_or_else(|| LoadError::new("number out of range")),
         _ => Err(LoadError::new("expected number")),
@@ -187,7 +208,10 @@ pub fn parse_positive_float(value: &Value) -> LoadResult<f32> {
     if v.total_cmp(&0.0).is_gt() && v.total_cmp(&f32::MAX).is_le() {
         Ok(v)
     } else {
-        Err(LoadError::new(format!("Value must be positive: {}", mc_core::math::java::java_float_to_string(v))))
+        Err(LoadError::new(format!(
+            "Value must be positive: {}",
+            mc_core::math::java::java_float_to_string(v)
+        )))
     }
 }
 
@@ -200,9 +224,15 @@ pub fn parse_vec3i(value: &Value) -> LoadResult<Vec3i> {
 pub fn parse_vec3i_offset(value: &Value, max_offset_per_axis: i32) -> LoadResult<Vec3i> {
     let v = parse_vec3i(value)?;
     // `Math.abs(Integer.MIN_VALUE)` stays negative in Java and therefore passes the check.
-    if v.x.wrapping_abs() <= max_offset_per_axis && v.y.wrapping_abs() <= max_offset_per_axis && v.z.wrapping_abs() <= max_offset_per_axis {
+    if v.x.wrapping_abs() <= max_offset_per_axis
+        && v.y.wrapping_abs() <= max_offset_per_axis
+        && v.z.wrapping_abs() <= max_offset_per_axis
+    {
         Ok(v)
     } else {
-        Err(LoadError::new(format!("Position out of range, expected at most {max_offset_per_axis}: Vec3i{{x={}, y={}, z={}}}", v.x, v.y, v.z)))
+        Err(LoadError::new(format!(
+            "Position out of range, expected at most {max_offset_per_axis}: Vec3i{{x={}, y={}, z={}}}",
+            v.x, v.y, v.z
+        )))
     }
 }

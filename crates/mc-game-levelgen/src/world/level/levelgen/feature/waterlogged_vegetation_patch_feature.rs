@@ -1,19 +1,19 @@
 //! `WaterloggedVegetationPatchFeature`.
 
 use super::vegetation_patch_feature::{self, VegetationPatch, VegetationPatchFeature};
-use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature};
-use mc_game_core::world::level::block::BlockStateExt;
-use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry};
-use mc_game_core::world::level::levelgen::env::GenEnv;
-use mc_game_core::world::level::levelgen::feature::tree::java_hash_set::BlockPosHashSet;
-use mc_game_core::world::level::levelgen::registries::DecodeCtx;
-use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
-use mc_game_core::world::level::{BlockGetter};
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::Block;
 use mc_data::props;
+use mc_game_core::world::level::BlockGetter;
+use mc_game_core::world::level::block::BlockStateExt;
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry};
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::feature::tree::java_hash_set::BlockPosHashSet;
+use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature};
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use std::sync::Arc;
 
 pub struct WaterloggedVegetationPatchFeature {
@@ -22,17 +22,23 @@ pub struct WaterloggedVegetationPatchFeature {
 
 impl WaterloggedVegetationPatchFeature {
     fn decode(fields: &Fields<'_>, ctx: &DecodeCtx<'_>) -> LoadResult<Arc<dyn Feature>> {
-        Ok(Arc::new(WaterloggedVegetationPatchFeature { base: VegetationPatchFeature::decode_config(fields, ctx)? }))
+        Ok(Arc::new(WaterloggedVegetationPatchFeature {
+            base: VegetationPatchFeature::decode_config(fields, ctx)?,
+        }))
     }
 }
 
 #[linkme::distributed_slice(FEATURE_TYPES)]
-static WATERLOGGED_VEGETATION_PATCH: TypeEntry<dyn Feature> =
-    TypeEntry { name: "waterlogged_vegetation_patch", decode: WaterloggedVegetationPatchFeature::decode };
+static WATERLOGGED_VEGETATION_PATCH: TypeEntry<dyn Feature> = TypeEntry {
+    name: "waterlogged_vegetation_patch",
+    decode: WaterloggedVegetationPatchFeature::decode,
+};
 
 fn is_exposed_direction(level: &dyn BlockGetter, pos: BlockPos, direction: Direction) -> bool {
     let test_pos = pos.relative(direction);
-    !level.get_block_state(test_pos).is_face_sturdy_at(level, test_pos, direction.get_opposite())
+    !level
+        .get_block_state(test_pos)
+        .is_face_sturdy_at(level, test_pos, direction.get_opposite())
 }
 
 fn is_exposed(level: &dyn BlockGetter, pos: BlockPos) -> bool {
@@ -48,8 +54,17 @@ impl VegetationPatch for WaterloggedVegetationPatchFeature {
         &self.base
     }
 
-    fn place_ground_patch(&self, level: &mut dyn WorldGenLevel, random: &mut dyn RandomSource, origin: BlockPos, x_radius: i32, z_radius: i32) -> BlockPosHashSet {
-        let surface = self.base.place_ground_patch(level, random, origin, x_radius, z_radius);
+    fn place_ground_patch(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        random: &mut dyn RandomSource,
+        origin: BlockPos,
+        x_radius: i32,
+        z_radius: i32,
+    ) -> BlockPosHashSet {
+        let surface = self
+            .base
+            .place_ground_patch(level, random, origin, x_radius, z_radius);
         let mut water_surface = BlockPosHashSet::new();
         for surface_pos in surface.iter() {
             if !is_exposed(&*level, surface_pos) {
@@ -62,8 +77,20 @@ impl VegetationPatch for WaterloggedVegetationPatchFeature {
         water_surface
     }
 
-    fn place_vegetation(&self, level: &mut dyn WorldGenLevel, generator: &GenEnv, random: &mut dyn RandomSource, placement_pos: BlockPos) -> bool {
-        if VegetationPatch::place_vegetation(&self.base, level, generator, random, placement_pos.below()) {
+    fn place_vegetation(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        generator: &GenEnv,
+        random: &mut dyn RandomSource,
+        placement_pos: BlockPos,
+    ) -> bool {
+        if VegetationPatch::place_vegetation(
+            &self.base,
+            level,
+            generator,
+            random,
+            placement_pos.below(),
+        ) {
             let placed = level.get_block_state(placement_pos);
             if placed.has_property(props::WATERLOGGED) && !placed.get(props::WATERLOGGED) {
                 level.set_block_flags(placement_pos, placed.set(props::WATERLOGGED, true), 2);
@@ -76,7 +103,13 @@ impl VegetationPatch for WaterloggedVegetationPatchFeature {
 }
 
 impl Feature for WaterloggedVegetationPatchFeature {
-    fn place(&self, level: &mut dyn WorldGenLevel, generator: &GenEnv, random: &mut dyn RandomSource, origin: BlockPos) -> bool {
+    fn place(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        generator: &GenEnv,
+        random: &mut dyn RandomSource,
+        origin: BlockPos,
+    ) -> bool {
         vegetation_patch_feature::place(self, level, generator, random, origin)
     }
 }

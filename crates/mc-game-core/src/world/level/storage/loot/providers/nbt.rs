@@ -35,7 +35,10 @@ pub trait NbtProvider: Send + Sync {
     fn referenced_params(&self) -> Vec<ContextKey> {
         Vec::new()
     }
-    fn validate(&self, context: &crate::world::level::storage::loot::validation::ValidationContext) {
+    fn validate(
+        &self,
+        context: &crate::world::level::storage::loot::validation::ValidationContext,
+    ) {
         context.validate_context_usage(&self.referenced_params());
     }
 }
@@ -54,7 +57,10 @@ impl NbtProvider for StorageNbtProvider {
         self
     }
     fn get(&self, context: &LootContext) -> Option<Tag> {
-        Some(Tag::Compound(server_access::command_storage(context.get_level(), &self.id)))
+        Some(Tag::Compound(server_access::command_storage(
+            context.get_level(),
+            &self.id,
+        )))
     }
 }
 
@@ -75,7 +81,10 @@ impl NbtSource {
 
     fn codec() -> Codec<NbtSource> {
         static ALL: LazyLock<Vec<(NbtSource, &'static str)>> = LazyLock::new(|| {
-            let mut all: Vec<(NbtSource, &'static str)> = EntityTarget::ALL.iter().map(|t| (NbtSource::Entity(*t), t.name())).collect();
+            let mut all: Vec<(NbtSource, &'static str)> = EntityTarget::ALL
+                .iter()
+                .map(|t| (NbtSource::Entity(*t), t.name()))
+                .collect();
             all.push((NbtSource::BlockEntity, "block_entity"));
             all
         });
@@ -105,8 +114,18 @@ impl NbtProvider for ContextNbtProvider {
     }
     fn get(&self, context: &LootContext) -> Option<Tag> {
         match self.source {
-            NbtSource::BlockEntity => context.params().block_entity.map(|be| Tag::Compound(be.save_with_full_metadata())),
-            NbtSource::Entity(target) => target.get(context).map(|e| Tag::Compound(crate::advancements::predicates::nbt_predicate::get_entity_tag_to_compare(context.get_level(), e))),
+            NbtSource::BlockEntity => context
+                .params()
+                .block_entity
+                .map(|be| Tag::Compound(be.save_with_full_metadata())),
+            NbtSource::Entity(target) => target.get(context).map(|e| {
+                Tag::Compound(
+                    crate::advancements::predicates::nbt_predicate::get_entity_tag_to_compare(
+                        context.get_level(),
+                        e,
+                    ),
+                )
+            }),
         }
     }
     fn referenced_params(&self) -> Vec<ContextKey> {
@@ -121,7 +140,9 @@ static TYPES: LazyLock<Arc<TypeTable<dyn NbtProvider>>> = LazyLock::new(|| {
             (
                 "storage",
                 lift(
-                    record!(StorageNbtProvider { id: IDENTIFIER.field_of("source") }),
+                    record!(StorageNbtProvider {
+                        id: IDENTIFIER.field_of("source")
+                    }),
                     |v| Arc::new(v) as Arc<dyn NbtProvider>,
                     |t| t.as_any().downcast_ref::<StorageNbtProvider>(),
                 ),
@@ -129,7 +150,9 @@ static TYPES: LazyLock<Arc<TypeTable<dyn NbtProvider>>> = LazyLock::new(|| {
             (
                 "context",
                 lift(
-                    record!(ContextNbtProvider { source: NbtSource::codec().field_of("target") }),
+                    record!(ContextNbtProvider {
+                        source: NbtSource::codec().field_of("target")
+                    }),
                     |v| Arc::new(v) as Arc<dyn NbtProvider>,
                     |t| t.as_any().downcast_ref::<ContextNbtProvider>(),
                 ),
@@ -143,7 +166,10 @@ pub fn nbt_provider_codec() -> Codec<Arc<dyn NbtProvider>> {
     Codec::lazy(|| {
         static C: LazyLock<Codec<Arc<dyn NbtProvider>>> = LazyLock::new(|| {
             let typed = TYPES.codec(|e| e.type_name());
-            let inline = NbtSource::codec().xmap(|source| ContextNbtProvider { source }, |c: &ContextNbtProvider| c.source);
+            let inline = NbtSource::codec().xmap(
+                |source| ContextNbtProvider { source },
+                |c: &ContextNbtProvider| c.source,
+            );
             inline.either(&typed).xmap(
                 |e| match e {
                     Either::Left(c) => Arc::new(c) as Arc<dyn NbtProvider>,

@@ -456,7 +456,15 @@ fn movement(g: &Golden) {
                 g,
                 &format!("move_vehicle_{i}_{og}"),
                 &ServerboundMoveVehiclePacket {
-                    moving_to: PositionAndRotation { position: Vec3::new(DOUBLES[i], DOUBLES[(i + 5) % 13], DOUBLES[(i + 8) % 13]), y_rot: FLOATS[i % 12], x_rot: FLOATS[(i + 7) % 12] },
+                    moving_to: PositionAndRotation {
+                        position: Vec3::new(
+                            DOUBLES[i],
+                            DOUBLES[(i + 5) % 13],
+                            DOUBLES[(i + 8) % 13],
+                        ),
+                        y_rot: FLOATS[i % 12],
+                        x_rot: FLOATS[(i + 7) % 12],
+                    },
                     on_ground: og,
                 },
             );

@@ -912,7 +912,9 @@ fn subscription_request_limit() {
     };
     // a `ReferenceOpenHashSet`: the 32 equal elements collapse to one on decode
     assert_eq!(
-        from_bytes::<ServerboundDebugSubscriptionRequestPacket>(&body(&ok)).unwrap().subscriptions,
+        from_bytes::<ServerboundDebugSubscriptionRequestPacket>(&body(&ok))
+            .unwrap()
+            .subscriptions,
         vec![sub]
     );
     let too_many = ServerboundDebugSubscriptionRequestPacket {

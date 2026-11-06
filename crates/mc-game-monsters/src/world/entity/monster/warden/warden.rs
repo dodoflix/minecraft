@@ -6,6 +6,12 @@
 use super::anger_level::AngerLevel;
 use super::anger_management::AngerManagement;
 use super::warden_ai;
+use crate::world::entity::ai::behavior::warden::sonic_boom::SonicBoom;
+use linkme::distributed_slice;
+use mc_core::phys::Vec3;
+use mc_core::pos::BlockPos;
+use mc_data::enums::{EntitySpawnReason, Pose};
+use mc_data::{EntityType, GameEvent, SoundEvent};
 use mc_game_core::define_accessor;
 use mc_game_core::registry::RegistryAccess;
 use mc_game_core::server::level::ServerLevel;
@@ -13,13 +19,14 @@ use mc_game_core::world::damagesource::DamageSource;
 use mc_game_core::world::difficulty_instance::DifficultyInstance;
 use mc_game_core::world::entity::ai::brain::{Brain, Provider};
 use mc_game_core::world::entity::ai::memory::memory_module_type::{
-    ATTACK_TARGET, CANT_REACH_WALK_TARGET_SINCE, DIG_COOLDOWN, IS_EMERGING, NEAREST_VISIBLE_NEMESIS, RECENT_PROJECTILE, ROAR_TARGET, TOUCH_COOLDOWN,
-    VIBRATION_COOLDOWN,
+    ATTACK_TARGET, CANT_REACH_WALK_TARGET_SINCE, DIG_COOLDOWN, IS_EMERGING,
+    NEAREST_VISIBLE_NEMESIS, RECENT_PROJECTILE, ROAR_TARGET, TOUCH_COOLDOWN, VIBRATION_COOLDOWN,
 };
 use mc_game_core::world::entity::ai::memory::{BrainPacked, EntityRef, Unit};
 use mc_game_core::world::entity::ai::navigation::{NavClass, NavigationData, PathNavigation};
-use mc_game_core::world::entity::ai::sensing::sensor_type::{NEAREST_PLAYERS, WARDEN_ENTITY_SENSOR};
-use crate::world::entity::ai::behavior::warden::sonic_boom::SonicBoom;
+use mc_game_core::world::entity::ai::sensing::sensor_type::{
+    NEAREST_PLAYERS, WARDEN_ENTITY_SENSOR,
+};
 use mc_game_core::world::entity::dimensions::EntityDimensions;
 use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
 use mc_game_core::world::entity::living_entity::damage;
@@ -27,16 +34,14 @@ use mc_game_core::world::entity::mob::{self, MobData, MobKind};
 use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
 use mc_game_core::world::entity::{Entity, EntityId};
 use mc_game_core::world::level::gameevent::vibrations::{self, VibrationData, VibrationSystem};
-use mc_game_core::world::level::gameevent::{DeliveryMode, DynamicGameEventListener, DynamicListenerAction, GameEventContext, GameEventListener, ListenerOwner, PositionSource, SourceEntityInfo};
+use mc_game_core::world::level::gameevent::{
+    DeliveryMode, DynamicGameEventListener, DynamicListenerAction, GameEventContext,
+    GameEventListener, ListenerOwner, PositionSource, SourceEntityInfo,
+};
+use mc_game_core::world::level::pathfinder::PathFinder;
 use mc_game_core::world::level::pathfinder::PathType;
 use mc_game_core::world::level::pathfinder::node_evaluator::{EvaluatorState, NodeEvaluator};
-use mc_game_core::world::level::pathfinder::PathFinder;
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
-use linkme::distributed_slice;
-use mc_core::phys::Vec3;
-use mc_core::pos::BlockPos;
-use mc_data::enums::{EntitySpawnReason, Pose};
-use mc_data::{EntityType, GameEvent, SoundEvent};
 use mc_nbt::{CompoundTag, Tag};
 
 define_accessor!(pub CLIENT_ANGER_LEVEL: Int = Warden);
@@ -56,7 +61,12 @@ const GAME_EVENT_LISTENER_RANGE: i32 = 16;
 
 /// `BRAIN_PROVIDER`.
 static BRAIN_PROVIDER: Provider = Provider::with_memories(
-    &[NEAREST_VISIBLE_NEMESIS.id(), RECENT_PROJECTILE.id(), TOUCH_COOLDOWN.id(), VIBRATION_COOLDOWN.id()],
+    &[
+        NEAREST_VISIBLE_NEMESIS.id(),
+        RECENT_PROJECTILE.id(),
+        TOUCH_COOLDOWN.id(),
+        VIBRATION_COOLDOWN.id(),
+    ],
     &[&NEAREST_PLAYERS, &WARDEN_ENTITY_SENSOR],
     warden_ai::get_activities,
 );
@@ -143,23 +153,39 @@ impl Warden {
     /// `canTargetEntity(entity)` (`@Contract("null->false")`).
     pub fn can_target_entity_ref(&self, level: &ServerLevel, entity: &dyn Entity) -> bool {
         entity.living().is_some()
-            && mc_game_core::world::entity::ai::sensing::mob_sensors::no_creative_or_spectator(entity)
+            && mc_game_core::world::entity::ai::sensing::mob_sensors::no_creative_or_spectator(
+                entity,
+            )
             && !mob::ext::is_allied_to(level, self, entity)
             && entity.get_type() != EntityType::ARMOR_STAND
             && entity.get_type() != EntityType::WARDEN
             && !entity.is_invulnerable()
             && !entity.is_dead_or_dying()
-            && level.world_border().is_within_bounds_aabb(&entity.get_bounding_box())
+            && level
+                .world_border()
+                .is_within_bounds_aabb(&entity.get_bounding_box())
     }
 
     /// `canTargetEntity(entity)` for an id.
     pub fn can_target_id(&self, level: &ServerLevel, entity: Option<EntityId>) -> bool {
-        entity.and_then(|id| level.get_entity(id)).is_some_and(|e| self.can_target_entity_ref(level, e))
+        entity
+            .and_then(|id| level.get_entity(id))
+            .is_some_and(|e| self.can_target_entity_ref(level, e))
     }
 
     /// `applyDarknessAround(level, position, source, darknessRadius)`.
-    pub fn apply_darkness_around(level: &mut ServerLevel, position: Vec3, source: Option<&dyn Entity>, darkness_radius: i32) {
-        mc_game_core::world::block_entity::apply_darkness_around(level, position, source, darkness_radius);
+    pub fn apply_darkness_around(
+        level: &mut ServerLevel,
+        position: Vec3,
+        source: Option<&dyn Entity>,
+        darkness_radius: i32,
+    ) {
+        mc_game_core::world::block_entity::apply_darkness_around(
+            level,
+            position,
+            source,
+            darkness_radius,
+        );
     }
 
     /// `playListeningSound()`.
@@ -178,12 +204,16 @@ impl Warden {
 
     /// `getAngerLevel()` where `getTarget()` is the unchecked brain target (callers without a level: sounds).
     fn get_anger_level_unchecked(&self) -> AngerLevel {
-        AngerLevel::by_anger(self.anger_management.get_active_anger(self.attack_target_raw()))
+        AngerLevel::by_anger(
+            self.anger_management
+                .get_active_anger(self.attack_target_raw()),
+        )
     }
 
     /// `getActiveAnger()`.
     fn get_active_anger(&self, level: &ServerLevel) -> i32 {
-        self.anger_management.get_active_anger(self.get_target_valid(level))
+        self.anger_management
+            .get_active_anger(self.get_target_valid(level))
     }
 
     /// `clearAnger(entity)`.
@@ -197,14 +227,28 @@ impl Warden {
     }
 
     /// `increaseAngerAt(entity, amount, playSound)`.
-    pub fn increase_anger_at(&mut self, level: &mut ServerLevel, entity: Option<EntityId>, amount: i32, play_sound: bool) {
+    pub fn increase_anger_at(
+        &mut self,
+        level: &mut ServerLevel,
+        entity: Option<EntityId>,
+        amount: i32,
+        play_sound: bool,
+    ) {
         if !self.mob.is_no_ai() && self.can_target_id(level, entity) {
             let Some(entity_id) = entity else { return };
             warden_ai::set_dig_cooldown(self);
-            let maybe_switch_target = !self.get_target_valid(level).and_then(|t| level.get_entity(t)).is_some_and(|t| t.is_player());
+            let maybe_switch_target = !self
+                .get_target_valid(level)
+                .and_then(|t| level.get_entity(t))
+                .is_some_and(|t| t.is_player());
             let (new_anger, is_player) = {
-                let target = level.get_entity(entity_id).expect("checked by can_target_id");
-                (self.anger_management.increase_anger(target, amount), target.is_player())
+                let target = level
+                    .get_entity(entity_id)
+                    .expect("checked by can_target_id");
+                (
+                    self.anger_management.increase_anger(target, amount),
+                    target.is_player(),
+                )
             };
             if is_player && maybe_switch_target && AngerLevel::by_anger(new_anger).is_angry() {
                 self.brain_mut().erase_memory(&ATTACK_TARGET);
@@ -217,13 +261,19 @@ impl Warden {
 
     /// `getEntityAngryAt()`.
     pub fn get_entity_angry_at(&self, level: &ServerLevel) -> Option<EntityId> {
-        if self.get_anger_level(level).is_angry() { self.anger_management.get_active_entity(level, &|e| self.can_target_entity_ref(level, e)) } else { None }
+        if self.get_anger_level(level).is_angry() {
+            self.anger_management
+                .get_active_entity(level, &|e| self.can_target_entity_ref(level, e))
+        } else {
+            None
+        }
     }
 
     /// `setAttackTarget(target)`.
     pub fn set_attack_target(&mut self, target: EntityId) {
         self.brain_mut().erase_memory(&ROAR_TARGET);
-        self.brain_mut().set_memory(&ATTACK_TARGET, EntityRef(target));
+        self.brain_mut()
+            .set_memory(&ATTACK_TARGET, EntityRef(target));
         self.brain_mut().erase_memory(&CANT_REACH_WALK_TARGET_SINCE);
         SonicBoom::set_cooldown(self, 200);
     }
@@ -239,12 +289,16 @@ impl Warden {
     }
 
     fn vibration_position_source(&self) -> PositionSource {
-        PositionSource::Entity { uuid: self.uuid(), y_offset: self.position_source_y_offset }
+        PositionSource::Entity {
+            uuid: self.uuid(),
+            y_offset: self.position_source_y_offset,
+        }
     }
 
     /// `Warden.VibrationUser.getPositionSource()`'s current position (`source.getPosition(level)`).
     fn listener_position(&self) -> Vec3 {
-        self.position().add_xyz(0.0, f64::from(self.position_source_y_offset), 0.0)
+        self.position()
+            .add_xyz(0.0, f64::from(self.position_source_y_offset), 0.0)
     }
 }
 
@@ -268,9 +322,14 @@ pub struct WardenNavigation {
 
 impl WardenNavigation {
     fn new(warden: &Warden) -> Self {
-        let data = NavigationData::with_path_finder(warden, NavClass::Ground, |max_visited_nodes| {
-            PathFinder::new(Box::new(WardenEvaluator(EvaluatorState::walk())), max_visited_nodes).with_distance(|from, to| from.distance_to_xz(to))
-        });
+        let data =
+            NavigationData::with_path_finder(warden, NavClass::Ground, |max_visited_nodes| {
+                PathFinder::new(
+                    Box::new(WardenEvaluator(EvaluatorState::walk())),
+                    max_visited_nodes,
+                )
+                .with_distance(|from, to| from.distance_to_xz(to))
+            });
         WardenNavigation { data }
     }
 }
@@ -295,20 +354,44 @@ impl Entity for Warden {
         BRAIN_PROVIDER.make_brain(self, packed)
     }
 
-    fn get_add_entity_packet(&self, server_entity: &mc_game_core::server::level::ServerEntity) -> mc_protocol::packets::play::ClientboundAddEntityPacket {
-        server_entity.add_entity_packet(self.id(), self.uuid(), self.get_type(), i32::from(self.has_pose(Pose::Emerging)))
+    fn get_add_entity_packet(
+        &self,
+        server_entity: &mc_game_core::server::level::ServerEntity,
+    ) -> mc_protocol::packets::play::ClientboundAddEntityPacket {
+        server_entity.add_entity_packet(
+            self.id(),
+            self.uuid(),
+            self.get_type(),
+            i32::from(self.has_pose(Pose::Emerging)),
+        )
     }
 
     fn check_spawn_obstruction(&self, level: &dyn ServerLevelAccessor) -> bool {
-        mob::spawn::check_spawn_obstruction(self, level) && level.no_collision_aabb(&EntityDimensions::of_type(self.get_type()).make_bounding_box_vec(self.position()))
+        mob::spawn::check_spawn_obstruction(self, level)
+            && level.no_collision_aabb(
+                &EntityDimensions::of_type(self.get_type()).make_bounding_box_vec(self.position()),
+            )
     }
 
-    fn get_walk_target_value(&self, _pos: BlockPos, _level: &dyn mc_game_core::world::level::LevelReader) -> f32 {
+    fn get_walk_target_value(
+        &self,
+        _pos: BlockPos,
+        _level: &dyn mc_game_core::world::level::LevelReader,
+    ) -> f32 {
         0.0
     }
 
     fn is_invulnerable_to(&mut self, level: &mut ServerLevel, source: &DamageSource) -> bool {
-        if self.is_digging_or_emerging() && !source.is_tag(level, mc_game_core::world::damagesource::DamageTypeTags::BYPASSES_INVULNERABILITY) { true } else { damage::is_invulnerable_to(self, level, source) }
+        if self.is_digging_or_emerging()
+            && !source.is_tag(
+                level,
+                mc_game_core::world::damagesource::DamageTypeTags::BYPASSES_INVULNERABILITY,
+            )
+        {
+            true
+        } else {
+            damage::is_invulnerable_to(self, level, source)
+        }
     }
 
     fn can_ride(&self, _vehicle: &dyn Entity) -> bool {
@@ -348,7 +431,11 @@ impl Entity for Warden {
     }
 
     fn get_ambient_sound(&self) -> Option<SoundEvent> {
-        if !self.has_pose(Pose::Roaring) && !self.is_digging_or_emerging() { Some(self.get_anger_level_unchecked().get_ambient_sound()) } else { None }
+        if !self.has_pose(Pose::Roaring) && !self.is_digging_or_emerging() {
+            Some(self.get_anger_level_unchecked().get_ambient_sound())
+        } else {
+            None
+        }
     }
 
     fn get_hurt_sound(&self, _source: &DamageSource) -> Option<SoundEvent> {
@@ -359,7 +446,12 @@ impl Entity for Warden {
         Some(SoundEvent::ENTITY_WARDEN_DEATH)
     }
 
-    fn play_step_sound(&mut self, level: &mut ServerLevel, _pos: BlockPos, _state: mc_data::block::BlockState) {
+    fn play_step_sound(
+        &mut self,
+        level: &mut ServerLevel,
+        _pos: BlockPos,
+        _state: mc_data::block::BlockState,
+    ) {
         self.play_sound(level, SoundEvent::ENTITY_WARDEN_STEP, 10.0, 1.0);
     }
 
@@ -395,15 +487,30 @@ impl Entity for Warden {
         warden_ai::update_activity(self.brain_mut());
     }
 
-    fn ignore_explosion(&self, _explosion: &dyn mc_game_core::world::level::explosion::Explosion) -> bool {
+    fn ignore_explosion(
+        &self,
+        _explosion: &dyn mc_game_core::world::level::explosion::Explosion,
+    ) -> bool {
         self.is_digging_or_emerging()
     }
 
-    fn update_dynamic_game_event_listener(&mut self, level: &mut ServerLevel, action: DynamicListenerAction) {
+    fn update_dynamic_game_event_listener(
+        &mut self,
+        level: &mut ServerLevel,
+        action: DynamicListenerAction,
+    ) {
         let owner = ListenerOwner::Entity(self.id());
         let source = self.vibration_position_source();
         let position = self.listener_position();
-        self.dynamic_game_event_listener.apply(action, level, owner, source, GAME_EVENT_LISTENER_RANGE, DeliveryMode::Unspecified, position);
+        self.dynamic_game_event_listener.apply(
+            action,
+            level,
+            owner,
+            source,
+            GAME_EVENT_LISTENER_RANGE,
+            DeliveryMode::Unspecified,
+            position,
+        );
     }
 
     fn game_event_listener(&mut self) -> Option<&mut dyn GameEventListener> {
@@ -421,18 +528,28 @@ impl Entity for Warden {
     fn add_additional_save_data(&self, out: &mut CompoundTag) {
         mob::nbt::add_additional_save_data(self, out);
         out.put("anger", Tag::Compound(self.anger_management.to_nbt()));
-        if let Ok(listener) = mc_dfu::encode_nbt(VibrationData::codec(), &self.vibration_data).into_result() {
+        if let Ok(listener) =
+            mc_dfu::encode_nbt(VibrationData::codec(), &self.vibration_data).into_result()
+        {
             out.put("listener", listener);
         }
     }
 
     fn read_additional_save_data(&mut self, input: &CompoundTag) {
         mob::nbt::read_additional_save_data(self, input);
-        self.anger_management = input.get_compound("anger").map(AngerManagement::from_nbt).unwrap_or_default();
+        self.anger_management = input
+            .get_compound("anger")
+            .map(AngerManagement::from_nbt)
+            .unwrap_or_default();
         // `syncClientAngerLevel()`: no target is known yet (the brain's attack target is not persisted) -> highest anger
         let anger = self.anger_management.get_active_anger(None);
         self.base_mut().entity_data.set(CLIENT_ANGER_LEVEL, anger);
-        self.vibration_data = mc_game_core::world::block_entity::read_codec(input, "listener", VibrationData::codec()).unwrap_or_default();
+        self.vibration_data = mc_game_core::world::block_entity::read_codec(
+            input,
+            "listener",
+            VibrationData::codec(),
+        )
+        .unwrap_or_default();
     }
 
     fn get_target(&self) -> Option<EntityId> {
@@ -450,10 +567,18 @@ impl Entity for Warden {
         reason: EntitySpawnReason,
         group_data: Option<Box<dyn SpawnGroupData>>,
     ) -> Option<Box<dyn SpawnGroupData>> {
-        self.brain_mut().set_memory_with_expiry(&DIG_COOLDOWN, Unit, i64::from(warden_ai::DIGGING_COOLDOWN));
+        self.brain_mut().set_memory_with_expiry(
+            &DIG_COOLDOWN,
+            Unit,
+            i64::from(warden_ai::DIGGING_COOLDOWN),
+        );
         if reason == EntitySpawnReason::Triggered {
             self.set_pose(Pose::Emerging);
-            self.brain_mut().set_memory_with_expiry(&IS_EMERGING, Unit, i64::from(warden_ai::EMERGE_DURATION));
+            self.brain_mut().set_memory_with_expiry(
+                &IS_EMERGING,
+                Unit,
+                i64::from(warden_ai::EMERGE_DURATION),
+            );
             if let Some(server_level) = level.as_server_level_mut() {
                 self.play_sound(server_level, SoundEvent::ENTITY_WARDEN_AGITATED, 5.0, 1.0);
             }
@@ -461,15 +586,32 @@ impl Entity for Warden {
         mob::spawn::finalize_spawn(self, level, difficulty, reason, group_data)
     }
 
-    fn hurt_server(&mut self, level: &mut ServerLevel, source: &DamageSource, damage_amount: f32) -> bool {
+    fn hurt_server(
+        &mut self,
+        level: &mut ServerLevel,
+        source: &DamageSource,
+        damage_amount: f32,
+    ) -> bool {
         let was_hurt = damage::hurt_server(self, level, source, damage_amount);
         if !self.mob.is_no_ai() && !self.is_digging_or_emerging() {
             let attacker = source.get_entity();
-            self.increase_anger_at(level, attacker, AngerLevel::Angry.get_minimum_anger() + ON_HURT_ANGER_BOOST, false);
+            self.increase_anger_at(
+                level,
+                attacker,
+                AngerLevel::Angry.get_minimum_anger() + ON_HURT_ANGER_BOOST,
+                false,
+            );
             if self.brain().get_memory(&ATTACK_TARGET).is_none()
                 && let Some(attacker_id) = attacker
-                && let Some(living_attacker) = level.get_entity(attacker_id).filter(|e| e.living().is_some())
-                && (source.is_direct() || mc_game_core::world::entity::ai::sensing::closer_than(self, living_attacker, 5.0))
+                && let Some(living_attacker) = level
+                    .get_entity(attacker_id)
+                    .filter(|e| e.living().is_some())
+                && (source.is_direct()
+                    || mc_game_core::world::entity::ai::sensing::closer_than(
+                        self,
+                        living_attacker,
+                        5.0,
+                    ))
             {
                 self.set_attack_target(attacker_id);
             }
@@ -479,16 +621,22 @@ impl Entity for Warden {
 
     fn get_dimensions(&self, _pose: Pose) -> EntityDimensions {
         let dimensions = EntityDimensions::of_type(self.get_type());
-        if self.is_digging_or_emerging() { EntityDimensions::fixed(dimensions.width, 1.0) } else { dimensions }
+        if self.is_digging_or_emerging() {
+            EntityDimensions::fixed(dimensions.width, 1.0)
+        } else {
+            dimensions
+        }
     }
 
     fn is_pushable(&self, level: &ServerLevel) -> bool {
-        !self.is_digging_or_emerging() && mc_game_core::world::entity::living_entity::push::living_is_pushable(self, level)
+        !self.is_digging_or_emerging()
+            && mc_game_core::world::entity::living_entity::push::living_is_pushable(self, level)
     }
 
     fn do_push(&mut self, level: &mut ServerLevel, other: &mut dyn Entity) {
         if !self.mob.is_no_ai() && !self.brain().has_memory_value(TOUCH_COOLDOWN) {
-            self.brain_mut().set_memory_with_expiry(&TOUCH_COOLDOWN, Unit, TOUCH_COOLDOWN_TICKS);
+            self.brain_mut()
+                .set_memory_with_expiry(&TOUCH_COOLDOWN, Unit, TOUCH_COOLDOWN_TICKS);
             self.increase_anger_at_default(level, Some(other.id()));
             warden_ai::set_disturbance_location(level, self, other.block_position());
         }
@@ -505,13 +653,23 @@ impl GameEventListener for Warden {
         GAME_EVENT_LISTENER_RANGE
     }
 
-    fn handle_game_event(&mut self, level: &mut ServerLevel, event: GameEvent, context: &GameEventContext, source_position: Vec3) -> bool {
+    fn handle_game_event(
+        &mut self,
+        level: &mut ServerLevel,
+        event: GameEvent,
+        context: &GameEventContext,
+        source_position: Vec3,
+    ) -> bool {
         vibrations::handle_game_event(level, self, event, context, source_position)
     }
 }
 
 impl VibrationSystem for Warden {
-    fn with_vibration_data<R>(&mut self, _level: &mut ServerLevel, f: impl FnOnce(&mut VibrationData) -> R) -> R {
+    fn with_vibration_data<R>(
+        &mut self,
+        _level: &mut ServerLevel,
+        f: impl FnOnce(&mut VibrationData) -> R,
+    ) -> R {
         f(&mut self.vibration_data)
     }
 
@@ -531,14 +689,23 @@ impl VibrationSystem for Warden {
         true
     }
 
-    fn can_receive_vibration(&mut self, level: &mut ServerLevel, pos: BlockPos, _event: GameEvent, context: &GameEventContext) -> bool {
+    fn can_receive_vibration(
+        &mut self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        _event: GameEvent,
+        context: &GameEventContext,
+    ) -> bool {
         if !self.mob.is_no_ai()
             && !self.is_dead_or_dying()
             && !self.brain().has_memory_value(VIBRATION_COOLDOWN)
             && !self.is_digging_or_emerging()
             && level.world_border().is_within_bounds_block(&pos)
         {
-            let living_source = context.source_entity.and_then(|id| level.get_entity(id)).filter(|e| e.living().is_some());
+            let living_source = context
+                .source_entity
+                .and_then(|id| level.get_entity(id))
+                .filter(|e| e.living().is_some());
             !living_source.is_some_and(|e| !self.can_target_entity_ref(level, e))
         } else {
             false
@@ -557,30 +724,52 @@ impl VibrationSystem for Warden {
         if self.is_dead_or_dying() {
             return;
         }
-        self.brain_mut().set_memory_with_expiry(&VIBRATION_COOLDOWN, Unit, VIBRATION_COOLDOWN_TICKS);
+        self.brain_mut().set_memory_with_expiry(
+            &VIBRATION_COOLDOWN,
+            Unit,
+            VIBRATION_COOLDOWN_TICKS,
+        );
         level.broadcast_entity_event(self.id(), 61);
         let pitch = self.get_voice_pitch();
         self.play_sound(level, SoundEvent::ENTITY_WARDEN_TENDRIL_CLICKS, 5.0, pitch);
         let mut suspicious_pos = pos;
         let projectile_owner_id = projectile_owner.map(|o| o.id);
         if let Some(owner) = projectile_owner_id {
-            if level.get_entity(owner).is_some_and(|e| mc_game_core::world::entity::ai::sensing::closer_than(self, e, PROJECTILE_ANGER_DISTANCE)) {
+            if level.get_entity(owner).is_some_and(|e| {
+                mc_game_core::world::entity::ai::sensing::closer_than(
+                    self,
+                    e,
+                    PROJECTILE_ANGER_DISTANCE,
+                )
+            }) {
                 if self.brain().has_memory_value(RECENT_PROJECTILE) {
                     if self.can_target_id(level, Some(owner)) {
-                        suspicious_pos = level.get_entity(owner).expect("checked by can_target_id").block_position();
+                        suspicious_pos = level
+                            .get_entity(owner)
+                            .expect("checked by can_target_id")
+                            .block_position();
                     }
                     self.increase_anger_at_default(level, Some(owner));
                 } else {
                     self.increase_anger_at(level, Some(owner), PROJECTILE_ANGER, true);
                 }
             }
-            self.brain_mut().set_memory_with_expiry(&RECENT_PROJECTILE, Unit, RECENT_PROJECTILE_TICK_THRESHOLD);
+            self.brain_mut().set_memory_with_expiry(
+                &RECENT_PROJECTILE,
+                Unit,
+                RECENT_PROJECTILE_TICK_THRESHOLD,
+            );
         } else {
             self.increase_anger_at_default(level, source_entity.map(|s| s.id));
         }
         if !self.get_anger_level(level).is_angry() {
-            let active_entity = self.anger_management.get_active_entity(level, &|e| self.can_target_entity_ref(level, e));
-            if projectile_owner_id.is_some() || active_entity.is_none() || active_entity == source_entity.map(|s| s.id) {
+            let active_entity = self
+                .anger_management
+                .get_active_entity(level, &|e| self.can_target_entity_ref(level, e));
+            if projectile_owner_id.is_some()
+                || active_entity.is_none()
+                || active_entity == source_entity.map(|s| s.id)
+            {
                 warden_ai::set_disturbance_location(level, self, suspicious_pos);
             }
         }
@@ -588,4 +777,7 @@ impl VibrationSystem for Warden {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static WARDEN: EntityRegistration = EntityRegistration { entity_type: EntityType::WARDEN, create: |ty, id, registries| Box::new(Warden::new(ty, id, registries)) };
+static WARDEN: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::WARDEN,
+    create: |ty, id, registries| Box::new(Warden::new(ty, id, registries)),
+};

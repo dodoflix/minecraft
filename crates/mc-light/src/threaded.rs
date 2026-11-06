@@ -43,7 +43,10 @@ enum Task {
 
 impl Task {
     fn is_post_update(&self) -> bool {
-        matches!(self, Task::FinishInitializeLight(..) | Task::FinishLightChunk(_) | Task::Barrier(_))
+        matches!(
+            self,
+            Task::FinishInitializeLight(..) | Task::FinishLightChunk(_) | Task::Barrier(_)
+        )
     }
 }
 
@@ -130,7 +133,11 @@ impl ThreadedLevelLightEngine {
     }
 
     pub fn check_block(&mut self, pos: BlockPos) {
-        self.submit(ChunkPos::new(pos.x() >> 4, pos.z() >> 4), SubmitLevel::Chunk, Task::CheckBlock(pos));
+        self.submit(
+            ChunkPos::new(pos.x() >> 4, pos.z() >> 4),
+            SubmitLevel::Chunk,
+            Task::CheckBlock(pos),
+        );
     }
 
     /// `updateChunkStatus(pos)`.
@@ -139,7 +146,11 @@ impl ThreadedLevelLightEngine {
     }
 
     pub fn update_section_status(&mut self, pos: SectionPos, section_empty: bool) {
-        self.submit(ChunkPos::new(pos.x(), pos.z()), SubmitLevel::Zero, Task::UpdateSectionStatus(pos, section_empty));
+        self.submit(
+            ChunkPos::new(pos.x(), pos.z()),
+            SubmitLevel::Zero,
+            Task::UpdateSectionStatus(pos, section_empty),
+        );
     }
 
     pub fn propagate_light_sources(&mut self, pos: ChunkPos) {
@@ -150,8 +161,17 @@ impl ThreadedLevelLightEngine {
         self.submit(pos, SubmitLevel::Chunk, Task::SetLightEnabled(pos, enable));
     }
 
-    pub fn queue_section_data(&mut self, layer: LightLayer, pos: SectionPos, data: Option<DataLayer>) {
-        self.submit(ChunkPos::new(pos.x(), pos.z()), SubmitLevel::Zero, Task::QueueSectionData(layer, pos, data));
+    pub fn queue_section_data(
+        &mut self,
+        layer: LightLayer,
+        pos: SectionPos,
+        data: Option<DataLayer>,
+    ) {
+        self.submit(
+            ChunkPos::new(pos.x(), pos.z()),
+            SubmitLevel::Zero,
+            Task::QueueSectionData(layer, pos, data),
+        );
     }
 
     pub fn retain_data(&mut self, pos: ChunkPos, retain: bool) {
@@ -159,7 +179,11 @@ impl ThreadedLevelLightEngine {
     }
 
     /// The load side of `SerializableChunkData.read` (`retainData` + `queueSectionData` per layer), as queued tasks.
-    pub fn load_chunk_light(&mut self, pos: ChunkPos, light: Vec<(i32, Option<DataLayer>, Option<DataLayer>)>) {
+    pub fn load_chunk_light(
+        &mut self,
+        pos: ChunkPos,
+        light: Vec<(i32, Option<DataLayer>, Option<DataLayer>)>,
+    ) {
         let mut loaded_any_light = false;
         for (section_y, block_light, sky_light) in light {
             if block_light.is_none() && sky_light.is_none() {
@@ -187,10 +211,22 @@ impl ThreadedLevelLightEngine {
             .iter()
             .enumerate()
             .filter(|(_, section)| !section.has_only_air())
-            .map(|(index, _)| chunk.level_height.section_y_from_section_index(index as i32))
+            .map(|(index, _)| {
+                chunk
+                    .level_height
+                    .section_y_from_section_index(index as i32)
+            })
             .collect();
-        self.submit(chunk.pos, SubmitLevel::Chunk, Task::InitializeLight(chunk.pos, non_empty));
-        self.submit(chunk.pos, SubmitLevel::Chunk, Task::FinishInitializeLight(chunk.pos, lighted));
+        self.submit(
+            chunk.pos,
+            SubmitLevel::Chunk,
+            Task::InitializeLight(chunk.pos, non_empty),
+        );
+        self.submit(
+            chunk.pos,
+            SubmitLevel::Chunk,
+            Task::FinishInitializeLight(chunk.pos, lighted),
+        );
     }
 
     /// `lightChunk(chunk, lighted)`: the caller marks the chunk `setLightCorrect(false)` first and sets it to true
@@ -216,8 +252,16 @@ impl ThreadedLevelLightEngine {
                 engine.retain_data(*pos, false);
                 engine.set_light_enabled(chunks, *pos, false);
                 for section_y in engine.get_min_light_section()..engine.get_max_light_section() {
-                    engine.queue_section_data(LightLayer::Block, SectionPos::of_chunk(pos, section_y), None);
-                    engine.queue_section_data(LightLayer::Sky, SectionPos::of_chunk(pos, section_y), None);
+                    engine.queue_section_data(
+                        LightLayer::Block,
+                        SectionPos::of_chunk(pos, section_y),
+                        None,
+                    );
+                    engine.queue_section_data(
+                        LightLayer::Sky,
+                        SectionPos::of_chunk(pos, section_y),
+                        None,
+                    );
                 }
                 for section_y in level.min_section_y()..=level.max_section_y() {
                     engine.update_section_status(SectionPos::of_chunk(pos, section_y), true);
@@ -226,7 +270,9 @@ impl ThreadedLevelLightEngine {
             Task::UpdateSectionStatus(pos, empty) => engine.update_section_status(*pos, *empty),
             Task::PropagateLightSources(pos) => engine.propagate_light_sources(chunks, *pos),
             Task::SetLightEnabled(pos, enable) => engine.set_light_enabled(chunks, *pos, *enable),
-            Task::QueueSectionData(layer, pos, data) => engine.queue_section_data(*layer, *pos, data.take()),
+            Task::QueueSectionData(layer, pos, data) => {
+                engine.queue_section_data(*layer, *pos, data.take())
+            }
             Task::RetainData(pos, retain) => engine.retain_data(*pos, *retain),
             Task::InitializeLight(pos, section_ys) => {
                 for &section_y in section_ys.iter() {
@@ -244,7 +290,11 @@ impl ThreadedLevelLightEngine {
 
     /// The light thread runs: every submission goes through the dispatcher into `lightTasks`, then `runUpdate`.
     /// `queue_level` is `ChunkMap.getChunkQueueLevel(pos)`.
-    pub fn run_update(&mut self, chunks: &dyn LightChunkGetter, queue_level: &dyn Fn(i64) -> i32) -> UpdateResult {
+    pub fn run_update(
+        &mut self,
+        chunks: &dyn LightChunkGetter,
+        queue_level: &dyn Fn(i64) -> i32,
+    ) -> UpdateResult {
         let mut result = UpdateResult::default();
         for (pos, level, task) in std::mem::take(&mut self.submitted) {
             let level = match level {
@@ -293,7 +343,11 @@ impl ThreadedLevelLightEngine {
 /// Same hook, but queued like `ThreadedLevelLightEngine.checkBlock`/`updateSectionStatus`.
 impl mc_world::chunk::LightEngineHook for ThreadedLevelLightEngine {
     fn update_section_status(&mut self, pos: BlockPos, section_empty: bool) {
-        ThreadedLevelLightEngine::update_section_status(self, SectionPos::of_block_pos(&pos), section_empty);
+        ThreadedLevelLightEngine::update_section_status(
+            self,
+            SectionPos::of_block_pos(&pos),
+            section_empty,
+        );
     }
 
     fn check_block(&mut self, pos: BlockPos) {

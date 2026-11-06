@@ -14,10 +14,13 @@ use mc_core::uuid_util::{uuid_from_int_array, uuid_to_int_array};
 use mc_nbt::{CompoundTag, ListTag, Tag};
 use uuid::Uuid;
 
-use super::dynamic::{self, as_boolean, as_int, as_long, as_string, get, java_string_set_order, without_keys};
+use super::dynamic::{
+    self, as_boolean, as_int, as_long, as_string, get, java_string_set_order, without_keys,
+};
 use super::feature_flags::FeatureFlagSet;
 use super::version::{
-    ANVIL_VERSION_ID, DataVersion, MAIN_SERIES, WORLD_VERSION, WORLD_VERSION_NAME, WORLD_VERSION_STABLE, add_current_data_version,
+    ANVIL_VERSION_ID, DataVersion, MAIN_SERIES, WORLD_VERSION, WORLD_VERSION_NAME,
+    WORLD_VERSION_STABLE, add_current_data_version,
 };
 
 /// `net.minecraft.world.level.GameType`.
@@ -91,7 +94,14 @@ impl Difficulty {
 
     /// `Difficulty.byName` (serialized names only).
     pub fn by_name(name: &str) -> Option<Difficulty> {
-        [Difficulty::Peaceful, Difficulty::Easy, Difficulty::Normal, Difficulty::Hard].into_iter().find(|d| d.get_serialized_name() == name)
+        [
+            Difficulty::Peaceful,
+            Difficulty::Easy,
+            Difficulty::Normal,
+            Difficulty::Hard,
+        ]
+        .into_iter()
+        .find(|d| d.get_serialized_name() == name)
     }
 }
 
@@ -104,7 +114,11 @@ pub struct DifficultySettings {
 }
 
 impl DifficultySettings {
-    pub const DEFAULT: DifficultySettings = DifficultySettings { difficulty: Difficulty::Normal, hardcore: false, locked: false };
+    pub const DEFAULT: DifficultySettings = DifficultySettings {
+        difficulty: Difficulty::Normal,
+        hardcore: false,
+        locked: false,
+    };
 
     /// `DifficultySettings.CODEC` decode (all three fields required).
     pub fn decode(tag: &Tag) -> Result<DifficultySettings, String> {
@@ -115,9 +129,23 @@ impl DifficultySettings {
             .as_string()
             .and_then(Difficulty::by_name)
             .ok_or("Unknown difficulty")?;
-        let hardcore = c.get("hardcore").and_then(Tag::as_number).ok_or("hardcore")?.double_value() != 0.0;
-        let locked = c.get("locked").and_then(Tag::as_number).ok_or("locked")?.double_value() != 0.0;
-        Ok(DifficultySettings { difficulty, hardcore, locked })
+        let hardcore = c
+            .get("hardcore")
+            .and_then(Tag::as_number)
+            .ok_or("hardcore")?
+            .double_value()
+            != 0.0;
+        let locked = c
+            .get("locked")
+            .and_then(Tag::as_number)
+            .ok_or("locked")?
+            .double_value()
+            != 0.0;
+        Ok(DifficultySettings {
+            difficulty,
+            hardcore,
+            locked,
+        })
     }
 
     pub fn encode(&self) -> Tag {
@@ -139,22 +167,38 @@ pub struct DataPackConfig {
 impl DataPackConfig {
     /// `DataPackConfig.DEFAULT`.
     pub fn default_config() -> DataPackConfig {
-        DataPackConfig { enabled: vec!["vanilla".to_owned()], disabled: Vec::new() }
+        DataPackConfig {
+            enabled: vec!["vanilla".to_owned()],
+            disabled: Vec::new(),
+        }
     }
 
     /// `DataPackConfig.CODEC` decode.
     pub fn decode(tag: &Tag) -> Result<DataPackConfig, String> {
         let c = tag.as_compound().ok_or("Not a map")?;
         let list = |key: &str| {
-            c.get(key).ok_or_else(|| format!("No key {key}")).and_then(|t| dynamic::string_list(t).ok_or_else(|| format!("{key}: not a list of strings")))
+            c.get(key)
+                .ok_or_else(|| format!("No key {key}"))
+                .and_then(|t| {
+                    dynamic::string_list(t).ok_or_else(|| format!("{key}: not a list of strings"))
+                })
         };
-        Ok(DataPackConfig { enabled: list("Enabled")?, disabled: list("Disabled")? })
+        Ok(DataPackConfig {
+            enabled: list("Enabled")?,
+            disabled: list("Disabled")?,
+        })
     }
 
     pub fn encode(&self) -> Tag {
         let mut c = CompoundTag::new();
-        c.put("Enabled", Tag::List(dynamic::string_list_tag(&self.enabled)));
-        c.put("Disabled", Tag::List(dynamic::string_list_tag(&self.disabled)));
+        c.put(
+            "Enabled",
+            Tag::List(dynamic::string_list_tag(&self.enabled)),
+        );
+        c.put(
+            "Disabled",
+            Tag::List(dynamic::string_list_tag(&self.disabled)),
+        );
         Tag::Compound(c)
     }
 }
@@ -172,18 +216,25 @@ pub struct WorldDataConfiguration {
 
 impl WorldDataConfiguration {
     /// `WorldDataConfiguration.DEFAULT`.
-    pub const DEFAULT: WorldDataConfiguration = WorldDataConfiguration { data_packs: None, enabled_features: FeatureFlagSet::DEFAULT_FLAGS };
+    pub const DEFAULT: WorldDataConfiguration = WorldDataConfiguration {
+        data_packs: None,
+        enabled_features: FeatureFlagSet::DEFAULT_FLAGS,
+    };
 
     /// The effective pack config (`dataPacks()`).
     pub fn data_packs(&self) -> DataPackConfig {
-        self.data_packs.clone().unwrap_or_else(DataPackConfig::default_config)
+        self.data_packs
+            .clone()
+            .unwrap_or_else(DataPackConfig::default_config)
     }
 
     /// `WorldDataConfiguration.CODEC` decode of the level data compound: both fields are *lenient* optionals, a
     /// field that is absent or fails to decode silently falls back to its default.
     pub fn decode(level_data: &CompoundTag) -> WorldDataConfiguration {
         WorldDataConfiguration {
-            data_packs: level_data.get("DataPacks").and_then(|t| DataPackConfig::decode(t).ok()),
+            data_packs: level_data
+                .get("DataPacks")
+                .and_then(|t| DataPackConfig::decode(t).ok()),
             enabled_features: level_data
                 .get("enabled_features")
                 .and_then(|t| FeatureFlagSet::decode(t).ok())
@@ -203,7 +254,10 @@ impl WorldDataConfiguration {
 
     /// `expandFeatures`.
     pub fn expand_features(&self, new_enabled_features: FeatureFlagSet) -> WorldDataConfiguration {
-        WorldDataConfiguration { data_packs: self.data_packs.clone(), enabled_features: self.enabled_features.join(new_enabled_features) }
+        WorldDataConfiguration {
+            data_packs: self.data_packs.clone(),
+            enabled_features: self.enabled_features.join(new_enabled_features),
+        }
     }
 }
 
@@ -246,21 +300,44 @@ pub struct RespawnData {
 impl RespawnData {
     /// `RespawnData.DEFAULT`.
     pub fn default_data() -> RespawnData {
-        RespawnData { dimension: Identifier::with_default_namespace("overworld").expect("valid"), pos: BlockPos::ZERO, yaw: 0.0, pitch: 0.0 }
+        RespawnData {
+            dimension: Identifier::with_default_namespace("overworld").expect("valid"),
+            pos: BlockPos::ZERO,
+            yaw: 0.0,
+            pitch: 0.0,
+        }
     }
 
     /// `RespawnData.CODEC` decode.
     pub fn decode(tag: &Tag) -> Result<RespawnData, String> {
         let c = tag.as_compound().ok_or("Not a map")?;
-        let dimension = Identifier::read(c.get("dimension").ok_or("No key dimension")?.as_string().ok_or("Not a string")?)?;
+        let dimension = Identifier::read(
+            c.get("dimension")
+                .ok_or("No key dimension")?
+                .as_string()
+                .ok_or("Not a string")?,
+        )?;
         let p = dynamic::fixed_int_stream(c.get("pos").ok_or("No key pos")?, 3)?;
         let ranged = |key: &str, min: f32, max: f32| {
-            let v = c.get(key).ok_or_else(|| format!("No key {key}"))?.as_float().ok_or("Not a number")?;
-            if min <= v && v <= max { Ok(v) } else { Err(format!("Value {v} outside of range [{min}:{max}]")) }
+            let v = c
+                .get(key)
+                .ok_or_else(|| format!("No key {key}"))?
+                .as_float()
+                .ok_or("Not a number")?;
+            if min <= v && v <= max {
+                Ok(v)
+            } else {
+                Err(format!("Value {v} outside of range [{min}:{max}]"))
+            }
         };
         let yaw = ranged("yaw", -180.0, 180.0)?;
         let pitch = ranged("pitch", -90.0, 90.0)?;
-        Ok(RespawnData { dimension, pos: BlockPos::new(p[0], p[1], p[2]), yaw, pitch })
+        Ok(RespawnData {
+            dimension,
+            pos: BlockPos::new(p[0], p[1], p[2]),
+            yaw,
+            pitch,
+        })
     }
 
     pub fn encode(&self) -> Tag {
@@ -295,7 +372,10 @@ impl LevelVersion {
                     level_data_version,
                     last_played,
                     minecraft_version_name: as_string(get(version, "Name"), WORLD_VERSION_NAME),
-                    minecraft_version: DataVersion::new(as_int(get(version, "Id"), WORLD_VERSION), as_string(get(version, "Series"), MAIN_SERIES)),
+                    minecraft_version: DataVersion::new(
+                        as_int(get(version, "Id"), WORLD_VERSION),
+                        as_string(get(version, "Series"), MAIN_SERIES),
+                    ),
                     snapshot: as_boolean(get(version, "Snapshot"), !WORLD_VERSION_STABLE),
                 }
             }
@@ -361,7 +441,10 @@ pub struct PrimaryLevelData {
 
 impl PrimaryLevelData {
     /// `new PrimaryLevelData(LevelSettings, SpecialWorldProperty, Lifecycle)` (a brand-new world).
-    pub fn new(settings: LevelSettings, special_world_property: SpecialWorldProperty) -> PrimaryLevelData {
+    pub fn new(
+        settings: LevelSettings,
+        special_world_property: SpecialWorldProperty,
+    ) -> PrimaryLevelData {
         PrimaryLevelData {
             settings,
             special_world_property,
@@ -379,18 +462,28 @@ impl PrimaryLevelData {
     }
 
     /// `LevelStorageSource.readDataConfig` + `LevelSettings.parse` + `PrimaryLevelData.parse` over the `Data` compound.
-    pub fn parse(data: &CompoundTag, special_world_property: SpecialWorldProperty) -> PrimaryLevelData {
+    pub fn parse(
+        data: &CompoundTag,
+        special_world_property: SpecialWorldProperty,
+    ) -> PrimaryLevelData {
         let settings = LevelSettings::parse(data, WorldDataConfiguration::decode(data));
         PrimaryLevelData::parse_with(data, settings, special_world_property)
     }
 
     /// `PrimaryLevelData.parse(Dynamic, LevelSettings, SpecialWorldProperty, Lifecycle)`.
-    pub fn parse_with(input: &CompoundTag, settings: LevelSettings, special_world_property: SpecialWorldProperty) -> PrimaryLevelData {
+    pub fn parse_with(
+        input: &CompoundTag,
+        settings: LevelSettings,
+        special_world_property: SpecialWorldProperty,
+    ) -> PrimaryLevelData {
         let level_version = LevelVersion::parse(input);
         PrimaryLevelData {
             settings,
             special_world_property,
-            respawn_data: input.get("spawn").and_then(|t| RespawnData::decode(t).ok()).unwrap_or_else(RespawnData::default_data),
+            respawn_data: input
+                .get("spawn")
+                .and_then(|t| RespawnData::decode(t).ok())
+                .unwrap_or_else(RespawnData::default_data),
             game_time: as_long(input.get("Time"), 0),
             single_player_uuid: input
                 .get("singleplayer_uuid")
@@ -398,12 +491,19 @@ impl PrimaryLevelData {
                 .map(|v| uuid_from_int_array([v[0], v[1], v[2], v[3]])),
             version: level_version.level_data_version,
             initialized: as_boolean(input.get("initialized"), true),
-            known_server_brands: dynamic::lenient_strings(input.get("ServerBrands")).into_iter().collect(),
+            known_server_brands: dynamic::lenient_strings(input.get("ServerBrands"))
+                .into_iter()
+                .collect(),
             was_modded: as_boolean(input.get("WasModded"), false),
-            removed_feature_flags: dynamic::lenient_strings(input.get("removed_features")).into_iter().collect(),
-            version_history: input.get("version_history").and_then(dynamic::stream).map_or_else(Vec::new, |v| {
-                v.iter().map(|t| as_int(Some(t), -1)).collect()
-            }),
+            removed_feature_flags: dynamic::lenient_strings(input.get("removed_features"))
+                .into_iter()
+                .collect(),
+            version_history: input
+                .get("version_history")
+                .and_then(dynamic::stream)
+                .map_or_else(Vec::new, |v| {
+                    v.iter().map(|t| as_int(Some(t), -1)).collect()
+                }),
             extra: without_keys(input, &KNOWN_KEYS),
         }
     }
@@ -422,11 +522,23 @@ impl PrimaryLevelData {
     pub fn to_tag_at(&self, single_player_uuid: Option<Uuid>, last_played: i64) -> CompoundTag {
         let single_player_uuid = single_player_uuid.or(self.single_player_uuid);
         let mut tag = self.extra.clone();
-        tag.put("ServerBrands", Tag::List(dynamic::string_list_tag(&self.known_server_brands)));
+        tag.put(
+            "ServerBrands",
+            Tag::List(dynamic::string_list_tag(&self.known_server_brands)),
+        );
         tag.put_boolean("WasModded", self.was_modded);
         if !self.removed_feature_flags.is_empty() {
-            let ordered = java_string_set_order(&self.removed_feature_flags.iter().cloned().collect::<Vec<_>>());
-            tag.put("removed_features", Tag::List(dynamic::string_list_tag(&ordered)));
+            let ordered = java_string_set_order(
+                &self
+                    .removed_feature_flags
+                    .iter()
+                    .cloned()
+                    .collect::<Vec<_>>(),
+            );
+            tag.put(
+                "removed_features",
+                Tag::List(dynamic::string_list_tag(&ordered)),
+            );
         }
         write_version_tag(&mut tag);
         self.write_version_history(&mut tag);
@@ -439,7 +551,10 @@ impl PrimaryLevelData {
         tag.put_int("version", ANVIL_VERSION_ID);
         tag.put_boolean("allowCommands", self.settings.allow_commands);
         tag.put_boolean("initialized", self.initialized);
-        tag.put("difficulty_settings", self.settings.difficulty_settings.encode());
+        tag.put(
+            "difficulty_settings",
+            self.settings.difficulty_settings.encode(),
+        );
         if let Some(uuid) = single_player_uuid {
             tag.put_int_array("singleplayer_uuid", uuid_to_int_array(&uuid).to_vec());
         }
@@ -489,7 +604,10 @@ impl PrimaryLevelData {
 
 /// `Util.getEpochMillis()`.
 pub fn epoch_millis() -> i64 {
-    std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).map(|d| d.as_millis() as i64).unwrap_or(0)
+    std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map(|d| d.as_millis() as i64)
+        .unwrap_or(0)
 }
 
 /// `PrimaryLevelData.writeVersionTag`: the `Version` compound of the running game.

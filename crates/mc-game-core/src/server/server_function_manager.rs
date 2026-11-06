@@ -2,8 +2,8 @@
 //! functions as the server (`execute`). The state lives in [`ServerFunctionManager`]; everything that runs commands needs
 //! the server and is a method of [`MinecraftServer`] (`tick_functions`, `execute_function`, ...).
 
-use super::server_function_library::FunctionLibraryData;
 use super::MinecraftServer;
+use super::server_function_library::FunctionLibraryData;
 use crate::commands::execution::ExecutionContext;
 use crate::commands::functions::CommandFunction;
 use crate::commands::{CommandResultCallback, CommandSourceStack, Commands, server_access};
@@ -30,7 +30,11 @@ pub struct ServerFunctionManager {
 impl ServerFunctionManager {
     /// `new ServerFunctionManager(server, library)`.
     pub fn new(library: Arc<FunctionLibraryData>) -> ServerFunctionManager {
-        let mut manager = ServerFunctionManager { ticking: Vec::new(), post_reload: false, library: library.clone() };
+        let mut manager = ServerFunctionManager {
+            ticking: Vec::new(),
+            post_reload: false,
+            library: library.clone(),
+        };
         manager.post_reload(library);
         manager
     }
@@ -99,7 +103,11 @@ impl MinecraftServer {
     }
 
     /// `ServerFunctionManager.execute(function, sender)`.
-    pub fn execute_function(&mut self, function: &Arc<dyn CommandFunction>, sender: CommandSourceStack) {
+    pub fn execute_function(
+        &mut self,
+        function: &Arc<dyn CommandFunction>,
+        sender: CommandSourceStack,
+    ) {
         let commands = self.commands.clone();
         let result = catch_unwind(AssertUnwindSafe(|| {
             let Ok(instantiated) = function.instantiate(None, commands.get_dispatcher()) else {
@@ -108,7 +116,11 @@ impl MinecraftServer {
             };
             server_access::enter_server(self, || {
                 Commands::execute_command_in_context(&sender, |context: &mut ExecutionContext| {
-                    context.queue_initial_function_call(instantiated, sender.clone(), CommandResultCallback::EMPTY);
+                    context.queue_initial_function_call(
+                        instantiated,
+                        sender.clone(),
+                        CommandResultCallback::EMPTY,
+                    );
                 });
             });
         }));
@@ -124,18 +136,25 @@ impl MinecraftServer {
 
     /// `getGameLoopSender()`.
     pub fn get_game_loop_sender(&self) -> CommandSourceStack {
-        self.create_command_source_stack().with_permission(LevelBasedPermissionSet::GAMEMASTER.into()).with_suppressed_output()
+        self.create_command_source_stack()
+            .with_permission(LevelBasedPermissionSet::GAMEMASTER.into())
+            .with_suppressed_output()
     }
 
     /// `getScheduledEvents()`.
     pub fn scheduled_events(&mut self) -> &mut TimerQueue<MinecraftServer> {
-        self.saved_data.compute_if_absent(&self.saved_types.scheduled_events)
+        self.saved_data
+            .compute_if_absent(&self.saved_types.scheduled_events)
     }
 
     /// `getScheduledEvents().tick(this, gameTime)` as `ServerLevel.tickTime` calls it: the events run functions that act on the
     /// ticking level itself, so it is lent back to the server meanwhile. The queue cannot be lent to `handle` (it lives in the
     /// server), and the built-in callbacks never touch it; the queue reachable by commands is the real one.
-    pub(super) fn tick_scheduled_events(&mut self, game_time: i64, level: &mut crate::server::level::ServerLevel) {
+    pub(super) fn tick_scheduled_events(
+        &mut self,
+        game_time: i64,
+        level: &mut crate::server::level::ServerLevel,
+    ) {
         self.with_lent_level(level, |server| {
             while let Some(callback) = server.scheduled_events().pop_due(game_time) {
                 callback.handle(server, &mut TimerQueue::new(), game_time);

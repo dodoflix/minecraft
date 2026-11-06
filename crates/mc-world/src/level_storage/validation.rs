@@ -31,14 +31,21 @@ impl ContentValidationException {
         format!(
             "Failed to validate '{}'. Found forbidden symlinks: {}",
             directory.display(),
-            entries.iter().map(|e| format!("{}->{}", e.link.display(), e.target.display())).collect::<Vec<_>>().join(", ")
+            entries
+                .iter()
+                .map(|e| format!("{}->{}", e.link.display(), e.target.display()))
+                .collect::<Vec<_>>()
+                .join(", ")
         )
     }
 }
 
 impl fmt::Display for ContentValidationException {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        f.write_str(&ContentValidationException::message(&self.directory, &self.entries))
+        f.write_str(&ContentValidationException::message(
+            &self.directory,
+            &self.entries,
+        ))
     }
 }
 
@@ -66,14 +73,28 @@ impl ConfigEntry {
             return Ok(None);
         }
         if !definition.starts_with('[') {
-            return Ok(Some(ConfigEntry { entry_type: EntryType::Prefix, pattern: definition.to_owned() }));
+            return Ok(Some(ConfigEntry {
+                entry_type: EntryType::Prefix,
+                pattern: definition.to_owned(),
+            }));
         }
-        let split = definition[1..].find(']').map(|i| i + 1).ok_or_else(|| format!("Unterminated type in line '{definition}'"))?;
+        let split = definition[1..]
+            .find(']')
+            .map(|i| i + 1)
+            .ok_or_else(|| format!("Unterminated type in line '{definition}'"))?;
         let (kind, contents) = (&definition[1..split], &definition[split + 1..]);
         match kind {
-            "glob" | "regex" => Ok(Some(ConfigEntry { entry_type: EntryType::Filesystem, pattern: format!("{kind}:{contents}") })),
-            "prefix" => Ok(Some(ConfigEntry { entry_type: EntryType::Prefix, pattern: contents.to_owned() })),
-            _ => Err(format!("Unsupported definition type in line '{definition}'")),
+            "glob" | "regex" => Ok(Some(ConfigEntry {
+                entry_type: EntryType::Filesystem,
+                pattern: format!("{kind}:{contents}"),
+            })),
+            "prefix" => Ok(Some(ConfigEntry {
+                entry_type: EntryType::Prefix,
+                pattern: contents.to_owned(),
+            })),
+            _ => Err(format!(
+                "Unsupported definition type in line '{definition}'"
+            )),
         }
     }
 
@@ -82,7 +103,9 @@ impl ConfigEntry {
         match self.entry_type {
             EntryType::Prefix => {
                 let prefix = self.pattern.clone();
-                Ok(Arc::new(move |p: &Path| p.to_string_lossy().starts_with(&prefix)))
+                Ok(Arc::new(move |p: &Path| {
+                    p.to_string_lossy().starts_with(&prefix)
+                }))
             }
             EntryType::Filesystem => {
                 let (syntax, input) = self.pattern.split_once(':').ok_or("No syntax specified")?;
@@ -250,7 +273,8 @@ impl PathAllowList {
 
     /// `getForFileSystem`: a pattern that fails to compile makes the whole list match nothing (logged).
     pub fn matcher(&self) -> PathMatcher {
-        let compiled: Result<Vec<PathMatcher>, String> = self.entries.iter().map(ConfigEntry::compile).collect();
+        let compiled: Result<Vec<PathMatcher>, String> =
+            self.entries.iter().map(ConfigEntry::compile).collect();
         match compiled {
             Ok(matchers) => Arc::new(move |p: &Path| matchers.iter().any(|m| m(p))),
             Err(e) => {
@@ -269,7 +293,9 @@ pub struct DirectoryValidator {
 
 impl DirectoryValidator {
     pub fn new(symlink_target_allow_list: PathMatcher) -> DirectoryValidator {
-        DirectoryValidator { symlink_target_allow_list }
+        DirectoryValidator {
+            symlink_target_allow_list,
+        }
     }
 
     /// `LevelStorageSource.NO_SYMLINKS_ALLOWED`.
@@ -277,10 +303,17 @@ impl DirectoryValidator {
         DirectoryValidator::new(Arc::new(|_: &Path| false))
     }
 
-    pub fn validate_symlink_into(&self, path: &Path, issues: &mut Vec<ForbiddenSymlinkInfo>) -> io::Result<()> {
+    pub fn validate_symlink_into(
+        &self,
+        path: &Path,
+        issues: &mut Vec<ForbiddenSymlinkInfo>,
+    ) -> io::Result<()> {
         let target = fs::read_link(path)?;
         if !(self.symlink_target_allow_list)(&target) {
-            issues.push(ForbiddenSymlinkInfo { link: path.to_path_buf(), target });
+            issues.push(ForbiddenSymlinkInfo {
+                link: path.to_path_buf(),
+                target,
+            });
         }
         Ok(())
     }
@@ -291,7 +324,11 @@ impl DirectoryValidator {
         Ok(result)
     }
 
-    pub fn validate_directory(&self, directory: &Path, allow_top_symlink: bool) -> io::Result<Vec<ForbiddenSymlinkInfo>> {
+    pub fn validate_directory(
+        &self,
+        directory: &Path,
+        allow_top_symlink: bool,
+    ) -> io::Result<Vec<ForbiddenSymlinkInfo>> {
         let mut issues = Vec::new();
         let attrs = match fs::symlink_metadata(directory) {
             Ok(a) => a,
@@ -299,7 +336,10 @@ impl DirectoryValidator {
             Err(e) => return Err(e),
         };
         if attrs.is_file() {
-            return Err(io::Error::other(format!("Path {} is not a directory", directory.display())));
+            return Err(io::Error::other(format!(
+                "Path {} is not a directory",
+                directory.display()
+            )));
         }
         let mut directory = directory.to_path_buf();
         if attrs.file_type().is_symlink() {
@@ -314,7 +354,11 @@ impl DirectoryValidator {
     }
 
     /// `validateKnownDirectory`: `Files.walkFileTree` without following links.
-    pub fn validate_known_directory(&self, directory: &Path, issues: &mut Vec<ForbiddenSymlinkInfo>) -> io::Result<()> {
+    pub fn validate_known_directory(
+        &self,
+        directory: &Path,
+        issues: &mut Vec<ForbiddenSymlinkInfo>,
+    ) -> io::Result<()> {
         let attrs = fs::symlink_metadata(directory)?;
         if attrs.file_type().is_symlink() {
             self.validate_symlink_into(directory, issues)
@@ -334,7 +378,10 @@ mod tests {
     use super::*;
 
     fn glob_matches(glob: &str, path: &str) -> bool {
-        let entry = ConfigEntry { entry_type: EntryType::Filesystem, pattern: format!("glob:{glob}") };
+        let entry = ConfigEntry {
+            entry_type: EntryType::Filesystem,
+            pattern: format!("glob:{glob}"),
+        };
         entry.compile().unwrap()(Path::new(path))
     }
 
@@ -352,8 +399,14 @@ mod tests {
     fn config_parse() {
         assert_eq!(ConfigEntry::parse("# c").unwrap(), None);
         assert_eq!(ConfigEntry::parse("   ").unwrap(), None);
-        assert_eq!(ConfigEntry::parse("/x").unwrap().unwrap().entry_type, EntryType::Prefix);
-        assert_eq!(ConfigEntry::parse("[glob]/x/*").unwrap().unwrap().pattern, "glob:/x/*");
+        assert_eq!(
+            ConfigEntry::parse("/x").unwrap().unwrap().entry_type,
+            EntryType::Prefix
+        );
+        assert_eq!(
+            ConfigEntry::parse("[glob]/x/*").unwrap().unwrap().pattern,
+            "glob:/x/*"
+        );
         assert!(ConfigEntry::parse("[bad]x").is_err());
         assert!(ConfigEntry::parse("[glob").is_err());
     }
@@ -367,9 +420,24 @@ mod tests {
         std::os::unix::fs::symlink("/etc", world.join("sub/link")).unwrap();
         let v = DirectoryValidator::no_symlinks_allowed();
         let issues = v.validate_directory(&world, true).unwrap();
-        assert_eq!(issues, vec![ForbiddenSymlinkInfo { link: world.join("sub/link"), target: "/etc".into() }]);
+        assert_eq!(
+            issues,
+            vec![ForbiddenSymlinkInfo {
+                link: world.join("sub/link"),
+                target: "/etc".into()
+            }]
+        );
         let allow = PathAllowList::read_plain("/etc\n").unwrap();
-        assert!(DirectoryValidator::new(allow.matcher()).validate_directory(&world, true).unwrap().is_empty());
-        assert!(v.validate_directory(&dir.path().join("missing"), true).unwrap().is_empty());
+        assert!(
+            DirectoryValidator::new(allow.matcher())
+                .validate_directory(&world, true)
+                .unwrap()
+                .is_empty()
+        );
+        assert!(
+            v.validate_directory(&dir.path().join("missing"), true)
+                .unwrap()
+                .is_empty()
+        );
     }
 }

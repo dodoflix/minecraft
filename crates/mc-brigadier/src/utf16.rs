@@ -6,7 +6,11 @@ use std::cmp::Ordering;
 
 /// `String.length()`.
 pub fn len16(s: &str) -> usize {
-    if s.is_ascii() { s.len() } else { s.encode_utf16().count() }
+    if s.is_ascii() {
+        s.len()
+    } else {
+        s.encode_utf16().count()
+    }
 }
 
 /// `String.substring(start, end)`; panics like `StringIndexOutOfBoundsException` when out of range.
@@ -30,7 +34,8 @@ pub(crate) fn substring_from_clamped(s: &str, start: usize) -> String {
 
 /// `String.hashCode()`.
 pub fn java_hash(s: &str) -> i32 {
-    s.encode_utf16().fold(0i32, |h, u| h.wrapping_mul(31).wrapping_add(i32::from(u)))
+    s.encode_utf16()
+        .fold(0i32, |h, u| h.wrapping_mul(31).wrapping_add(i32::from(u)))
 }
 
 /// `String.compareTo` (lexicographic over UTF-16 units).

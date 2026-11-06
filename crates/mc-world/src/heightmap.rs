@@ -43,7 +43,8 @@ pub enum HeightmapType {
 }
 
 fn block_table(tag: &str) -> Box<[bool]> {
-    let set = tags::get::<Block>(tag).unwrap_or_else(|| panic!("vanilla block tag {tag} missing from mc-data"));
+    let set = tags::get::<Block>(tag)
+        .unwrap_or_else(|| panic!("vanilla block tag {tag} missing from mc-data"));
     let mut table = vec![false; BLOCK_COUNT];
     for block in set.iter() {
         table[block.id() as usize] = true;
@@ -53,13 +54,15 @@ fn block_table(tag: &str) -> Box<[bool]> {
 
 /// `state.is(BlockTags.BLOCKS_MOTION_IN_HEIGHTMAP)`.
 fn blocks_motion(state: BlockState) -> bool {
-    static TABLE: LazyLock<Box<[bool]>> = LazyLock::new(|| block_table("blocks_motion_in_heightmap"));
+    static TABLE: LazyLock<Box<[bool]>> =
+        LazyLock::new(|| block_table("blocks_motion_in_heightmap"));
     TABLE[state.block().id() as usize]
 }
 
 /// `state.is(BlockTags.BLOCKS_MOTION_IN_HEIGHTMAP_NO_LEAVES)`.
 fn blocks_motion_no_leaves(state: BlockState) -> bool {
-    static TABLE: LazyLock<Box<[bool]>> = LazyLock::new(|| block_table("blocks_motion_in_heightmap_no_leaves"));
+    static TABLE: LazyLock<Box<[bool]>> =
+        LazyLock::new(|| block_table("blocks_motion_in_heightmap_no_leaves"));
     TABLE[state.block().id() as usize]
 }
 
@@ -80,7 +83,10 @@ impl HeightmapType {
 
     /// `ByIdMap.continuous(.., ZERO)`: out-of-range ids (including negative) map to `WORLD_SURFACE_WG`.
     pub fn from_id(id: i32) -> HeightmapType {
-        usize::try_from(id).ok().and_then(|i| Self::ALL.get(i).copied()).unwrap_or(HeightmapType::WorldSurfaceWg)
+        usize::try_from(id)
+            .ok()
+            .and_then(|i| Self::ALL.get(i).copied())
+            .unwrap_or(HeightmapType::WorldSurfaceWg)
     }
 
     pub const fn serialization_key(self) -> &'static str {
@@ -103,9 +109,9 @@ impl HeightmapType {
         match self {
             HeightmapType::WorldSurfaceWg | HeightmapType::OceanFloorWg => Usage::Worldgen,
             HeightmapType::OceanFloor => Usage::LiveWorld,
-            HeightmapType::WorldSurface | HeightmapType::MotionBlocking | HeightmapType::MotionBlockingNoLeaves => {
-                Usage::Client
-            }
+            HeightmapType::WorldSurface
+            | HeightmapType::MotionBlocking
+            | HeightmapType::MotionBlockingNoLeaves => Usage::Client,
         }
     }
 
@@ -122,7 +128,9 @@ impl HeightmapType {
         match self {
             HeightmapType::WorldSurfaceWg | HeightmapType::WorldSurface => !state.is_air(),
             HeightmapType::OceanFloorWg | HeightmapType::OceanFloor => blocks_motion(state),
-            HeightmapType::MotionBlocking => blocks_motion(state) || !state.get_fluid_state().is_empty(),
+            HeightmapType::MotionBlocking => {
+                blocks_motion(state) || !state.get_fluid_state().is_empty()
+            }
             HeightmapType::MotionBlockingNoLeaves => {
                 blocks_motion_no_leaves(state) || !state.get_fluid_state().is_empty()
             }
@@ -157,7 +165,11 @@ pub struct Heightmap {
 impl Heightmap {
     /// `new Heightmap(chunk, type)` for a chunk with the given `getMinY()` / `getHeight()`.
     pub fn new(min_y: i32, height: i32, ty: HeightmapType) -> Heightmap {
-        Heightmap { data: SimpleBitStorage::new(mth::ceillog2(height + 1), 256), min_y, ty }
+        Heightmap {
+            data: SimpleBitStorage::new(mth::ceillog2(height + 1), 256),
+            min_y,
+            ty,
+        }
     }
 
     pub fn heightmap_type(&self) -> HeightmapType {
@@ -165,14 +177,22 @@ impl Heightmap {
     }
 
     /// `Heightmap.primeHeightmaps(chunk, types)`; `types` must be distinct (vanilla: an `EnumSet`, visited in ordinal order).
-    pub fn prime_heightmaps(chunk: &impl HeightmapChunk, heightmaps: &mut HeightmapMap, types: &[HeightmapType]) {
+    pub fn prime_heightmaps(
+        chunk: &impl HeightmapChunk,
+        heightmaps: &mut HeightmapMap,
+        types: &[HeightmapType],
+    ) {
         if types.is_empty() {
             return;
         }
         // getOrCreateHeightmapUnprimed for each type; heightmaps are taken out so the chunk can be read meanwhile.
         let mut all: Vec<Heightmap> = types
             .iter()
-            .map(|&ty| heightmaps.remove(&ty).unwrap_or_else(|| Heightmap::new(chunk.min_y(), chunk.height(), ty)))
+            .map(|&ty| {
+                heightmaps
+                    .remove(&ty)
+                    .unwrap_or_else(|| Heightmap::new(chunk.min_y(), chunk.height(), ty))
+            })
             .collect();
 
         let mut remaining: Vec<usize> = Vec::with_capacity(all.len());
@@ -207,7 +227,14 @@ impl Heightmap {
     }
 
     /// `Heightmap.update(x, y, z, state)`; `local_y` is an absolute Y despite the name.
-    pub fn update(&mut self, local_x: i32, local_y: i32, local_z: i32, state: BlockState, chunk: &impl HeightmapChunk) -> bool {
+    pub fn update(
+        &mut self,
+        local_x: i32,
+        local_y: i32,
+        local_z: i32,
+        state: BlockState,
+        chunk: &impl HeightmapChunk,
+    ) -> bool {
         let first_available = self.get_first_available(local_x, local_z);
         if local_y <= first_available - 2 {
             return false;
@@ -219,7 +246,10 @@ impl Heightmap {
             }
         } else if first_available - 1 == local_y {
             for y in (self.min_y..local_y).rev() {
-                if self.ty.is_opaque(chunk.get_block_state(local_x, y, local_z)) {
+                if self
+                    .ty
+                    .is_opaque(chunk.get_block_state(local_x, y, local_z))
+                {
                     self.set_height(local_x, local_z, y + 1);
                     return true;
                 }
@@ -251,9 +281,13 @@ impl Heightmap {
     pub fn set_raw_data(&mut self, data: &[i64]) -> Result<(), SizeMismatch> {
         let expected = self.data.get_raw().len();
         if expected != data.len() {
-            return Err(SizeMismatch { expected, got: data.len() });
+            return Err(SizeMismatch {
+                expected,
+                got: data.len(),
+            });
         }
-        self.data = SimpleBitStorage::with_data(self.data.get_bits(), 256, data.to_vec()).expect("length checked");
+        self.data = SimpleBitStorage::with_data(self.data.get_bits(), 256, data.to_vec())
+            .expect("length checked");
         Ok(())
     }
 

@@ -4,13 +4,13 @@
 //! grammar-driven suggestions (`parseForSuggestions`, [`snbt::suggest`]) match.
 
 use super::util::{reader_byte_cursor, set_reader_byte_cursor, snbt_exception};
+use crate::commands::CommandSourceStack;
 use crate::commands::message::dynamic_translatable;
 use crate::commands::shared_suggestion_provider::suggest;
-use crate::commands::CommandSourceStack;
 use mc_brigadier::arguments::value;
 use mc_brigadier::{
-    ArgumentType, CommandContext, CommandSyntaxException, DynamicCommandExceptionType, ImmutableStringReader, ParsedValue, StringReader,
-    Suggestions, SuggestionsBuilder,
+    ArgumentType, CommandContext, CommandSyntaxException, DynamicCommandExceptionType,
+    ImmutableStringReader, ParsedValue, StringReader, Suggestions, SuggestionsBuilder,
 };
 use mc_nbt::{CompoundTag, Tag, snbt};
 use mc_text::{Component, Style};
@@ -28,15 +28,19 @@ fn grammar_suggestions(builder: SuggestionsBuilder) -> Suggestions {
 /// `TagParser.parseAsArgument(reader)`.
 pub fn parse_tag_as_argument(reader: &mut StringReader) -> Result<Tag, CommandSyntaxException> {
     let input = reader.get_string().to_owned();
-    let (tag, end) = snbt::parse_as_argument(&input, reader_byte_cursor(reader)).map_err(|e| snbt_exception(&e, &input))?;
+    let (tag, end) = snbt::parse_as_argument(&input, reader_byte_cursor(reader))
+        .map_err(|e| snbt_exception(&e, &input))?;
     set_reader_byte_cursor(reader, end);
     Ok(tag)
 }
 
 /// `TagParser.parseCompoundAsArgument(reader)`.
-pub fn parse_compound_as_argument(reader: &mut StringReader) -> Result<CompoundTag, CommandSyntaxException> {
+pub fn parse_compound_as_argument(
+    reader: &mut StringReader,
+) -> Result<CompoundTag, CommandSyntaxException> {
     let input = reader.get_string().to_owned();
-    let (tag, end) = snbt::parse_compound_as_argument(&input, reader_byte_cursor(reader)).map_err(|e| snbt_exception(&e, &input))?;
+    let (tag, end) = snbt::parse_compound_as_argument(&input, reader_byte_cursor(reader))
+        .map_err(|e| snbt_exception(&e, &input))?;
     set_reader_byte_cursor(reader, end);
     Ok(tag)
 }
@@ -49,7 +53,10 @@ impl CompoundTagArgument {
         Self
     }
 
-    pub fn get_compound_tag(context: &CommandContext<CommandSourceStack>, name: &str) -> CompoundTag {
+    pub fn get_compound_tag(
+        context: &CommandContext<CommandSourceStack>,
+        name: &str,
+    ) -> CompoundTag {
         context.get_argument::<CompoundTag>(name).clone()
     }
 }
@@ -86,12 +93,18 @@ impl ArgumentType<CommandSourceStack> for NbtTagArgument {
         parse_tag_as_argument(reader).map(value)
     }
 
-    fn list_suggestions(&self, _context: &CommandContext<CommandSourceStack>, builder: SuggestionsBuilder) -> Suggestions {
+    fn list_suggestions(
+        &self,
+        _context: &CommandContext<CommandSourceStack>,
+        builder: SuggestionsBuilder,
+    ) -> Suggestions {
         grammar_suggestions(builder)
     }
 
     fn get_examples(&self) -> Vec<String> {
-        ["0", "0b", "0l", "0.0", "\"foo\"", "{foo=bar}", "[0]"].map(String::from).to_vec()
+        ["0", "0b", "0l", "0.0", "\"foo\"", "{foo=bar}", "[0]"]
+            .map(String::from)
+            .to_vec()
     }
 
     fn describe(&self) -> String {
@@ -99,8 +112,10 @@ impl ArgumentType<CommandSourceStack> for NbtTagArgument {
     }
 }
 
-pub static ERROR_INVALID_COMPONENT: LazyLock<DynamicCommandExceptionType<String>> = LazyLock::new(|| dynamic_translatable("argument.component.invalid"));
-pub static ERROR_INVALID_STYLE: LazyLock<DynamicCommandExceptionType<String>> = LazyLock::new(|| dynamic_translatable("argument.style.invalid"));
+pub static ERROR_INVALID_COMPONENT: LazyLock<DynamicCommandExceptionType<String>> =
+    LazyLock::new(|| dynamic_translatable("argument.component.invalid"));
+pub static ERROR_INVALID_STYLE: LazyLock<DynamicCommandExceptionType<String>> =
+    LazyLock::new(|| dynamic_translatable("argument.style.invalid"));
 
 /// `CommandArgumentParser.withCodec`: parse an SNBT tag, then decode it, failing with `exception` at the start cursor.
 fn parse_with_codec<T>(
@@ -124,7 +139,10 @@ impl ComponentArgument {
         Self
     }
 
-    pub fn get_raw_component(context: &CommandContext<CommandSourceStack>, name: &str) -> Component {
+    pub fn get_raw_component(
+        context: &CommandContext<CommandSourceStack>,
+        name: &str,
+    ) -> Component {
         context.get_argument::<Component>(name).clone()
     }
 
@@ -134,14 +152,27 @@ impl ComponentArgument {
         name: &str,
         player: super::selector::EntityRef,
     ) -> Result<Component, CommandSyntaxException> {
-        let resolution = crate::commands::component_utils::ResolutionContext::with_entity_override(context.get_source(), player);
-        crate::commands::component_utils::resolve(&resolution, context.get_argument::<Component>(name))
+        let resolution = crate::commands::component_utils::ResolutionContext::with_entity_override(
+            context.get_source(),
+            player,
+        );
+        crate::commands::component_utils::resolve(
+            &resolution,
+            context.get_argument::<Component>(name),
+        )
     }
 
     /// `getResolvedComponent(context, name)`: `ComponentUtils.resolve(ResolutionContext.create(source), raw)`.
-    pub fn get_resolved_component_for_source(context: &CommandContext<CommandSourceStack>, name: &str) -> Result<Component, CommandSyntaxException> {
-        let resolution = crate::commands::component_utils::ResolutionContext::create(context.get_source());
-        crate::commands::component_utils::resolve(&resolution, context.get_argument::<Component>(name))
+    pub fn get_resolved_component_for_source(
+        context: &CommandContext<CommandSourceStack>,
+        name: &str,
+    ) -> Result<Component, CommandSyntaxException> {
+        let resolution =
+            crate::commands::component_utils::ResolutionContext::create(context.get_source());
+        crate::commands::component_utils::resolve(
+            &resolution,
+            context.get_argument::<Component>(name),
+        )
     }
 }
 
@@ -150,12 +181,24 @@ impl ArgumentType<CommandSourceStack> for ComponentArgument {
         parse_with_codec(reader, Component::from_nbt, &ERROR_INVALID_COMPONENT).map(value)
     }
 
-    fn list_suggestions(&self, _context: &CommandContext<CommandSourceStack>, builder: SuggestionsBuilder) -> Suggestions {
+    fn list_suggestions(
+        &self,
+        _context: &CommandContext<CommandSourceStack>,
+        builder: SuggestionsBuilder,
+    ) -> Suggestions {
         grammar_suggestions(builder)
     }
 
     fn get_examples(&self) -> Vec<String> {
-        ["\"hello world\"", "'hello world'", "\"\"", "{text:\"hello world\"}", "[\"\"]"].map(String::from).to_vec()
+        [
+            "\"hello world\"",
+            "'hello world'",
+            "\"\"",
+            "{text:\"hello world\"}",
+            "[\"\"]",
+        ]
+        .map(String::from)
+        .to_vec()
     }
 
     fn describe(&self) -> String {
@@ -181,12 +224,18 @@ impl ArgumentType<CommandSourceStack> for StyleArgument {
         parse_with_codec(reader, Style::from_nbt, &ERROR_INVALID_STYLE).map(value)
     }
 
-    fn list_suggestions(&self, _context: &CommandContext<CommandSourceStack>, builder: SuggestionsBuilder) -> Suggestions {
+    fn list_suggestions(
+        &self,
+        _context: &CommandContext<CommandSourceStack>,
+        builder: SuggestionsBuilder,
+    ) -> Suggestions {
         grammar_suggestions(builder)
     }
 
     fn get_examples(&self) -> Vec<String> {
-        ["{bold: true}", "{color: 'red'}", "{}"].map(String::from).to_vec()
+        ["{bold: true}", "{color: 'red'}", "{}"]
+            .map(String::from)
+            .to_vec()
     }
 
     fn describe(&self) -> String {
@@ -194,7 +243,15 @@ impl ArgumentType<CommandSourceStack> for StyleArgument {
     }
 }
 
-crate::register_argument_type!(CompoundTagArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::NbtCompoundTag);
-crate::register_argument_type!(NbtTagArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::NbtTag);
-crate::register_argument_type!(ComponentArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::Component);
-crate::register_argument_type!(StyleArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::Style);
+crate::register_argument_type!(CompoundTagArgument, |_a| {
+    mc_protocol::packets::play::ArgumentTypeTemplate::NbtCompoundTag
+});
+crate::register_argument_type!(NbtTagArgument, |_a| {
+    mc_protocol::packets::play::ArgumentTypeTemplate::NbtTag
+});
+crate::register_argument_type!(ComponentArgument, |_a| {
+    mc_protocol::packets::play::ArgumentTypeTemplate::Component
+});
+crate::register_argument_type!(StyleArgument, |_a| {
+    mc_protocol::packets::play::ArgumentTypeTemplate::Style
+});

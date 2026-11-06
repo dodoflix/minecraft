@@ -16,7 +16,9 @@ fn mix(x: i64) -> i32 {
 
 /// `HashCommon.arraySize(expected, 0.75f)`.
 fn array_size(expected: usize) -> usize {
-    (((expected as f64) / 0.75).ceil() as u64).next_power_of_two().max(2) as usize
+    (((expected as f64) / 0.75).ceil() as u64)
+        .next_power_of_two()
+        .max(2) as usize
 }
 
 /// `HashCommon.maxFill(n, 0.75f)`.

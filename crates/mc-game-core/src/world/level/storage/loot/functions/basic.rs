@@ -10,30 +10,45 @@ use mc_data::block::Block;
 use mc_dfu::extra::IDENTIFIER;
 use mc_dfu::{BOOL, Codec, DataResult, FLOAT, INT, LONG, MapCodec, STRING, record};
 use mc_nbt::{CompoundTag, Tag};
-use mc_protocol::components::values::basic::{CUSTOM_DATA, CUSTOM_NAME, ITEM_NAME, LORE, TOOLTIP_DISPLAY};
-use mc_protocol::components::values::containers::{BLOCK_STATE, CONTAINER_LOOT, SeededContainerLoot};
+use mc_protocol::components::values::basic::{
+    CUSTOM_DATA, CUSTOM_NAME, ITEM_NAME, LORE, TOOLTIP_DISPLAY,
+};
+use mc_protocol::components::values::containers::{
+    BLOCK_STATE, CONTAINER_LOOT, SeededContainerLoot,
+};
 use mc_protocol::components::values::predicates::ItemPredicate;
 use mc_protocol::components::{CustomData, DataComponentMap, DataComponentPatch, ItemStack};
 use mc_text::Component;
 
 use super::list_operation::ListOperation;
 use super::{
-    ConditionalFunction, FunctionHolder, FunctionHolderSet, LootItemFunctionRef, condition_field, function_holder_codec, function_list_codec_typed,
+    ConditionalFunction, FunctionHolder, FunctionHolderSet, LootItemFunctionRef, condition_field,
+    function_holder_codec, function_list_codec_typed,
 };
+use crate::registry::keys;
 use crate::world::level::storage::loot::codec_ext::dispatch_optional_value;
 use crate::world::level::storage::loot::context::{ContextKey, EntityTarget, LootContext};
 use crate::world::level::storage::loot::holder::{lift, registry_ref_codec};
 use crate::world::level::storage::loot::predicates::ConditionHolder;
-use crate::world::level::storage::loot::providers::nbt::{NbtProvider, nbt_path_codec, nbt_provider_codec};
-use crate::world::level::storage::loot::providers::number::{FloatHolder, IntHolder, float_holder_codec, int_holder_codec};
+use crate::world::level::storage::loot::providers::nbt::{
+    NbtProvider, nbt_path_codec, nbt_provider_codec,
+};
+use crate::world::level::storage::loot::providers::number::{
+    FloatHolder, IntHolder, float_holder_codec, int_holder_codec,
+};
 use crate::world::level::storage::loot::range::IntLimit;
-use crate::world::level::storage::loot::validation::{ValidationContext, validate_holder_field, validate_holder_opt};
-use crate::registry::keys;
+use crate::world::level::storage::loot::validation::{
+    ValidationContext, validate_holder_field, validate_holder_opt,
+};
 
 type Entries = Vec<(&'static str, MapCodec<LootItemFunctionRef>)>;
 
 fn entry<F: ConditionalFunction + Clone>(codec: MapCodec<F>) -> MapCodec<LootItemFunctionRef> {
-    lift(codec, |f| Arc::new(f) as LootItemFunctionRef, |t| t.as_any().downcast_ref::<F>())
+    lift(
+        codec,
+        |f| Arc::new(f) as LootItemFunctionRef,
+        |t| t.as_any().downcast_ref::<F>(),
+    )
 }
 
 macro_rules! conditional {
@@ -79,7 +94,11 @@ impl ConditionalFunction for SetItemFunction {
     conditional!(SetItemFunction, "set_item");
     fn run(&self, stack: ItemStack, _context: &mut LootContext) -> ItemStack {
         // `ItemStack.transmuteCopy(item)`: same count and component patch on the new item
-        if stack.is_empty() { stack } else { ItemStack::with_patch(self.item, stack.count(), &stack.get_components_patch()) }
+        if stack.is_empty() {
+            stack
+        } else {
+            ItemStack::with_patch(self.item, stack.count(), &stack.get_components_patch())
+        }
     }
 }
 
@@ -95,7 +114,11 @@ impl ConditionalFunction for SetItemDamageFunction {
     fn run(&self, mut stack: ItemStack, context: &mut LootContext) -> ItemStack {
         if stack.is_damageable_item() {
             let max_damage = stack.get_max_damage();
-            let base = if self.add { 1.0f32 - stack.get_damage_value() as f32 / max_damage as f32 } else { 0.0 };
+            let base = if self.add {
+                1.0f32 - stack.get_damage_value() as f32 / max_damage as f32
+            } else {
+                0.0
+            };
             let damage = self.damage.value(context.get_resolver()).get_float(context);
             let pct = 1.0f32 - mth::clamp_f32(damage + base, 0.0, 1.0);
             stack.set_damage_value(mth::floor_f32(pct * max_damage as f32));
@@ -146,9 +169,17 @@ impl BonusFormula {
         }
     }
 
-    fn calculate_new_count(&self, random: &mut dyn mc_core::random::RandomSource, mut count: i32, level: i32) -> i32 {
+    fn calculate_new_count(
+        &self,
+        random: &mut dyn mc_core::random::RandomSource,
+        mut count: i32,
+        level: i32,
+    ) -> i32 {
         match self {
-            BonusFormula::BinomialWithBonusCount { extra_rounds, probability } => {
+            BonusFormula::BinomialWithBonusCount {
+                extra_rounds,
+                probability,
+            } => {
                 let rounds = level.wrapping_add(*extra_rounds);
                 for _ in 0..rounds {
                     if random.next_float() < *probability {
@@ -165,9 +196,9 @@ impl BonusFormula {
                     count
                 }
             }
-            BonusFormula::UniformBonusCount { bonus_multiplier } => {
-                count.wrapping_add(random.next_int_bounded(bonus_multiplier.wrapping_mul(level).wrapping_add(1)))
-            }
+            BonusFormula::UniformBonusCount { bonus_multiplier } => count.wrapping_add(
+                random.next_int_bounded(bonus_multiplier.wrapping_mul(level).wrapping_add(1)),
+            ),
         }
     }
 
@@ -175,14 +206,24 @@ impl BonusFormula {
         let id_codec: Codec<&'static str> = IDENTIFIER.flat_xmap(
             |id: Identifier| {
                 let name = (id.namespace() == "minecraft")
-                    .then(|| ["binomial_with_bonus_count", "ore_drops", "uniform_bonus_count"].into_iter().find(|n| *n == id.path()))
+                    .then(|| {
+                        [
+                            "binomial_with_bonus_count",
+                            "ore_drops",
+                            "uniform_bonus_count",
+                        ]
+                        .into_iter()
+                        .find(|n| *n == id.path())
+                    })
                     .flatten();
                 match name {
                     Some(n) => DataResult::success(n),
                     None => DataResult::error(move || format!("No formula type with id: '{id}'")),
                 }
             },
-            |name: &&'static str| DataResult::success(Identifier::new("minecraft", name).expect("valid")),
+            |name: &&'static str| {
+                DataResult::success(Identifier::new("minecraft", name).expect("valid"))
+            },
         );
         dispatch_optional_value(
             "formula",
@@ -191,25 +232,48 @@ impl BonusFormula {
             |f: &BonusFormula| f.id(),
             |id: &&'static str| {
                 DataResult::success(match *id {
-                    "binomial_with_bonus_count" => record!(Binomial { extra: INT.field_of("extra"), probability: FLOAT.field_of("probability") })
-                        .xmap(
-                            |b| BonusFormula::BinomialWithBonusCount { extra_rounds: b.extra, probability: b.probability },
-                            |f: &BonusFormula| match f {
-                                BonusFormula::BinomialWithBonusCount { extra_rounds, probability } => Binomial { extra: *extra_rounds, probability: *probability },
-                                _ => Binomial { extra: 0, probability: 0.0 },
+                    "binomial_with_bonus_count" => record!(Binomial {
+                        extra: INT.field_of("extra"),
+                        probability: FLOAT.field_of("probability")
+                    })
+                    .xmap(
+                        |b| BonusFormula::BinomialWithBonusCount {
+                            extra_rounds: b.extra,
+                            probability: b.probability,
+                        },
+                        |f: &BonusFormula| match f {
+                            BonusFormula::BinomialWithBonusCount {
+                                extra_rounds,
+                                probability,
+                            } => Binomial {
+                                extra: *extra_rounds,
+                                probability: *probability,
                             },
-                        )
-                        .codec(),
+                            _ => Binomial {
+                                extra: 0,
+                                probability: 0.0,
+                            },
+                        },
+                    )
+                    .codec(),
                     "ore_drops" => Codec::unit(BonusFormula::OreDrops),
-                    _ => record!(Uniform { bonus_multiplier: INT.field_of("bonusMultiplier") })
-                        .xmap(
-                            |u| BonusFormula::UniformBonusCount { bonus_multiplier: u.bonus_multiplier },
-                            |f: &BonusFormula| match f {
-                                BonusFormula::UniformBonusCount { bonus_multiplier } => Uniform { bonus_multiplier: *bonus_multiplier },
-                                _ => Uniform { bonus_multiplier: 0 },
+                    _ => record!(Uniform {
+                        bonus_multiplier: INT.field_of("bonusMultiplier")
+                    })
+                    .xmap(
+                        |u| BonusFormula::UniformBonusCount {
+                            bonus_multiplier: u.bonus_multiplier,
+                        },
+                        |f: &BonusFormula| match f {
+                            BonusFormula::UniformBonusCount { bonus_multiplier } => Uniform {
+                                bonus_multiplier: *bonus_multiplier,
                             },
-                        )
-                        .codec(),
+                            _ => Uniform {
+                                bonus_multiplier: 0,
+                            },
+                        },
+                    )
+                    .codec(),
                 })
             },
         )
@@ -240,8 +304,13 @@ impl ConditionalFunction for ApplyBonusCount {
     }
     fn run(&self, mut stack: ItemStack, context: &mut LootContext) -> ItemStack {
         if let Some(tool) = context.params().tool.clone() {
-            let level = crate::world::item::enchantment_helper::get_item_enchantment_level(&self.enchantment, &tool);
-            let new_count = self.formula.calculate_new_count(context.get_random(), stack.count(), level);
+            let level = crate::world::item::enchantment_helper::get_item_enchantment_level(
+                &self.enchantment,
+                &tool,
+            );
+            let new_count =
+                self.formula
+                    .calculate_new_count(context.get_random(), stack.count(), level);
             stack.set_count(new_count);
         }
         stack
@@ -288,11 +357,16 @@ impl ConditionalFunction for EnchantedCountIncreaseFunction {
     fn run(&self, mut stack: ItemStack, context: &mut LootContext) -> ItemStack {
         if let Some(killer) = context.params().attacking_entity {
             if killer.living().is_some() {
-                let level = crate::world::item::enchantment_helper::get_enchantment_level(context.get_resolver(), &self.enchantment, killer);
+                let level = crate::world::item::enchantment_helper::get_enchantment_level(
+                    context.get_resolver(),
+                    &self.enchantment,
+                    killer,
+                );
                 if level == 0 {
                     return stack;
                 }
-                let addition = level as f32 * self.count.value(context.get_resolver()).get_float(context);
+                let addition =
+                    level as f32 * self.count.value(context.get_resolver()).get_float(context);
                 stack.grow(round_f32(addition));
                 if self.limit > 0 {
                     stack.limit_size(self.limit);
@@ -320,9 +394,17 @@ impl ConditionalFunction for SmeltItemFunction {
         if stack.is_empty() {
             return stack;
         }
-        match crate::world::level::storage::loot::recipe_api::smelting_result(context.get_level(), &stack) {
+        match crate::world::level::storage::loot::recipe_api::smelting_result(
+            context.get_level(),
+            &stack,
+        ) {
             Some(result) if !result.is_empty() => {
-                let new_count = (if self.use_input_count { stack.count() } else { 1 }).wrapping_mul(result.count());
+                let new_count = (if self.use_input_count {
+                    stack.count()
+                } else {
+                    1
+                })
+                .wrapping_mul(result.count());
                 result.copy_with_count(new_count.min(result.get_max_stack_size()))
             }
             _ => {
@@ -364,7 +446,9 @@ pub struct SetCustomDataFunction {
 impl ConditionalFunction for SetCustomDataFunction {
     conditional!(SetCustomDataFunction, "set_custom_data");
     fn run(&self, mut stack: ItemStack, _context: &mut LootContext) -> ItemStack {
-        let mut tag = stack.get(&CUSTOM_DATA).map_or_else(CompoundTag::new, CustomData::copy_tag);
+        let mut tag = stack
+            .get(&CUSTOM_DATA)
+            .map_or_else(CompoundTag::new, CustomData::copy_tag);
         tag.merge(&self.tag);
         stack.set(CUSTOM_DATA, CustomData::of(&tag));
         stack
@@ -387,7 +471,10 @@ pub enum NameSource {
 impl NameSource {
     pub fn codec() -> Codec<NameSource> {
         static ALL: LazyLock<Vec<(NameSource, &'static str)>> = LazyLock::new(|| {
-            let mut all: Vec<(NameSource, &'static str)> = EntityTarget::ALL.iter().map(|t| (NameSource::Entity(*t), t.name())).collect();
+            let mut all: Vec<(NameSource, &'static str)> = EntityTarget::ALL
+                .iter()
+                .map(|t| (NameSource::Entity(*t), t.name()))
+                .collect();
             all.push((NameSource::BlockEntity, "block_entity"));
             all
         });
@@ -472,7 +559,10 @@ pub enum NameTarget {
     ItemName,
 }
 
-const NAME_TARGETS: &[(NameTarget, &str)] = &[(NameTarget::CustomName, "custom_name"), (NameTarget::ItemName, "item_name")];
+const NAME_TARGETS: &[(NameTarget, &str)] = &[
+    (NameTarget::CustomName, "custom_name"),
+    (NameTarget::ItemName, "item_name"),
+];
 
 #[derive(Clone)]
 pub struct SetNameFunction {
@@ -483,9 +573,17 @@ pub struct SetNameFunction {
 }
 
 /// `SetNameFunction.createResolver(context, entityTarget)`.
-pub fn resolve_component(context: &LootContext, entity_target: Option<EntityTarget>, line: &Component) -> Component {
+pub fn resolve_component(
+    context: &LootContext,
+    entity_target: Option<EntityTarget>,
+    line: &Component,
+) -> Component {
     if let Some(entity) = entity_target.and_then(|t| t.get(context)) {
-        match crate::world::level::storage::loot::text_api::resolve_component(context.get_level(), entity, line) {
+        match crate::world::level::storage::loot::text_api::resolve_component(
+            context.get_level(),
+            entity,
+            line,
+        ) {
             Ok(c) => return c,
             Err(e) => log::warn!("Failed to resolve text component: {e}"),
         }
@@ -496,7 +594,9 @@ pub fn resolve_component(context: &LootContext, entity_target: Option<EntityTarg
 impl ConditionalFunction for SetNameFunction {
     conditional!(SetNameFunction, "set_name");
     fn referenced_params(&self) -> Vec<ContextKey> {
-        self.resolution_context.map(|t| vec![t.context_param()]).unwrap_or_default()
+        self.resolution_context
+            .map(|t| vec![t.context_param()])
+            .unwrap_or_default()
     }
     fn run(&self, mut stack: ItemStack, context: &mut LootContext) -> ItemStack {
         if let Some(name) = &self.name {
@@ -521,17 +621,26 @@ pub struct SetLoreFunction {
 impl ConditionalFunction for SetLoreFunction {
     conditional!(SetLoreFunction, "set_lore");
     fn referenced_params(&self) -> Vec<ContextKey> {
-        self.resolution_context.map(|t| vec![t.context_param()]).unwrap_or_default()
+        self.resolution_context
+            .map(|t| vec![t.context_param()])
+            .unwrap_or_default()
     }
     fn run(&self, mut stack: ItemStack, context: &mut LootContext) -> ItemStack {
         let old = stack.get(&LORE).cloned().unwrap_or_default();
         let lines = if old.lines().is_empty() && self.lore.is_empty() {
             Vec::new()
         } else {
-            let resolved: Vec<Component> = self.lore.iter().map(|l| resolve_component(context, self.resolution_context, l)).collect();
+            let resolved: Vec<Component> = self
+                .lore
+                .iter()
+                .map(|l| resolve_component(context, self.resolution_context, l))
+                .collect();
             self.mode.apply(old.lines(), &resolved, 256)
         };
-        stack.set(LORE, mc_protocol::components::values::basic::ItemLore::new(lines));
+        stack.set(
+            LORE,
+            mc_protocol::components::values::basic::ItemLore::new(lines),
+        );
         stack
     }
 }
@@ -545,8 +654,14 @@ pub struct SequenceFunction {
 }
 
 impl SequenceFunction {
-    pub fn new(condition: Option<ConditionHolder>, functions: FunctionHolderSet) -> SequenceFunction {
-        SequenceFunction { condition, functions }
+    pub fn new(
+        condition: Option<ConditionHolder>,
+        functions: FunctionHolderSet,
+    ) -> SequenceFunction {
+        SequenceFunction {
+            condition,
+            functions,
+        }
     }
     pub fn functions(&self) -> &FunctionHolderSet {
         &self.functions
@@ -565,7 +680,11 @@ impl ConditionalFunction for SequenceFunction {
         stack
     }
     fn validate_fields(&self, context: &ValidationContext) {
-        crate::world::level::storage::loot::validation::validate_holder_set(context, "functions", &self.functions);
+        crate::world::level::storage::loot::validation::validate_holder_set(
+            context,
+            "functions",
+            &self.functions,
+        );
     }
 }
 
@@ -580,7 +699,11 @@ pub struct FilteredFunction {
 impl ConditionalFunction for FilteredFunction {
     conditional!(FilteredFunction, "filtered");
     fn run(&self, stack: ItemStack, context: &mut LootContext) -> ItemStack {
-        let function = if self.filter.test(&stack) { &self.on_pass } else { &self.on_fail };
+        let function = if self.filter.test(&stack) {
+            &self.on_pass
+        } else {
+            &self.on_fail
+        };
         match function {
             Some(f) => f.value(context.get_resolver()).apply(stack, context),
             None => stack,
@@ -613,7 +736,11 @@ impl ConditionalFunction for CopyBlockState {
             for (def, index) in state.values() {
                 if self.properties.iter().any(|p| p == def.name) {
                     let value = def.values[index].to_owned();
-                    match item_state.properties.iter_mut().find(|(k, _)| k == def.name) {
+                    match item_state
+                        .properties
+                        .iter_mut()
+                        .find(|(k, _)| k == def.name)
+                    {
                         Some(e) => e.1 = value,
                         None => item_state.properties.push((def.name.to_owned(), value)),
                     }
@@ -650,7 +777,8 @@ impl ConditionalFunction for CopyComponentsFunction {
     }
     fn run(&self, mut stack: ItemStack, context: &mut LootContext) -> ItemStack {
         let allowed = |t: mc_data::DataComponentType| {
-            self.exclude.as_ref().is_none_or(|e| !e.contains(&t)) && self.include.as_ref().is_none_or(|i| i.contains(&t))
+            self.exclude.as_ref().is_none_or(|e| !e.contains(&t))
+                && self.include.as_ref().is_none_or(|i| i.contains(&t))
         };
         match self.source {
             ComponentSource::BlockEntity => {
@@ -692,8 +820,11 @@ pub enum MergeStrategy {
     Merge,
 }
 
-const MERGE_STRATEGIES: &[(MergeStrategy, &str)] =
-    &[(MergeStrategy::Replace, "replace"), (MergeStrategy::Append, "append"), (MergeStrategy::Merge, "merge")];
+const MERGE_STRATEGIES: &[(MergeStrategy, &str)] = &[
+    (MergeStrategy::Replace, "replace"),
+    (MergeStrategy::Append, "append"),
+    (MergeStrategy::Merge, "merge"),
+];
 
 #[derive(Clone)]
 pub struct CopyOperation {
@@ -714,26 +845,34 @@ impl MergeStrategy {
                 path.set(target, sources.last().expect("non-empty"))?;
             }
             MergeStrategy::Append => {
-                path.get_or_create_mut(target, &|| Tag::List(mc_nbt::ListTag::new()), &mut |tag| {
-                    if let Tag::List(list) = tag {
-                        for s in sources {
-                            list.push(s.clone());
-                        }
-                    }
-                    Ok(())
-                })?;
-            }
-            MergeStrategy::Merge => {
-                path.get_or_create_mut(target, &|| Tag::Compound(CompoundTag::new()), &mut |tag| {
-                    if let Tag::Compound(compound) = tag {
-                        for s in sources {
-                            if let Tag::Compound(src) = s {
-                                compound.merge(src);
+                path.get_or_create_mut(
+                    target,
+                    &|| Tag::List(mc_nbt::ListTag::new()),
+                    &mut |tag| {
+                        if let Tag::List(list) = tag {
+                            for s in sources {
+                                list.push(s.clone());
                             }
                         }
-                    }
-                    Ok(())
-                })?;
+                        Ok(())
+                    },
+                )?;
+            }
+            MergeStrategy::Merge => {
+                path.get_or_create_mut(
+                    target,
+                    &|| Tag::Compound(CompoundTag::new()),
+                    &mut |tag| {
+                        if let Tag::Compound(compound) = tag {
+                            for s in sources {
+                                if let Tag::Compound(src) = s {
+                                    compound.merge(src);
+                                }
+                            }
+                        }
+                        Ok(())
+                    },
+                )?;
             }
         }
         Ok(())
@@ -753,13 +892,20 @@ impl ConditionalFunction for CopyCustomDataFunction {
         self.source.validate(&context.for_field("source"));
     }
     fn run(&self, mut stack: ItemStack, context: &mut LootContext) -> ItemStack {
-        let Some(source_tag) = self.source.get(context) else { return stack };
+        let Some(source_tag) = self.source.get(context) else {
+            return stack;
+        };
         let mut result: Option<Tag> = None;
         for op in &self.operations {
             if let Ok(source_tags) = op.source_path.get(&source_tag) {
                 if !source_tags.is_empty() {
-                    let target = result
-                        .get_or_insert_with(|| Tag::Compound(stack.get(&CUSTOM_DATA).map_or_else(CompoundTag::new, CustomData::copy_tag)));
+                    let target = result.get_or_insert_with(|| {
+                        Tag::Compound(
+                            stack
+                                .get(&CUSTOM_DATA)
+                                .map_or_else(CompoundTag::new, CustomData::copy_tag),
+                        )
+                    });
                     let _ = op.op.merge(target, &op.target_path, &source_tags);
                 }
             }
@@ -787,7 +933,9 @@ impl ConditionalFunction for FillPlayerHead {
     fn run(&self, mut stack: ItemStack, context: &mut LootContext) -> ItemStack {
         if stack.is(mc_data::Item::PLAYER_HEAD) {
             if let Some(donor) = self.entity_target.get(context).filter(|e| e.is_player()) {
-                if let Some(profile) = crate::world::level::storage::loot::text_api::player_profile(donor) {
+                if let Some(profile) =
+                    crate::world::level::storage::loot::text_api::player_profile(donor)
+                {
                     stack.set(mc_protocol::components::values::profile::PROFILE, profile);
                 }
             }
@@ -809,7 +957,13 @@ impl ConditionalFunction for SetContainerLootTable {
         if stack.is_empty() {
             return stack;
         }
-        stack.set(CONTAINER_LOOT, SeededContainerLoot { loot_table: self.loot_table_id.clone(), seed: self.seed });
+        stack.set(
+            CONTAINER_LOOT,
+            SeededContainerLoot {
+                loot_table: self.loot_table_id.clone(),
+                seed: self.seed,
+            },
+        );
         stack
     }
 }
@@ -834,7 +988,8 @@ pub(super) fn register(entries: &mut Entries) {
         "set_item",
         entry(record!(SetItemFunction {
             condition: cond(),
-            item: mc_protocol::components::holder::registry_by_name_codec::<mc_data::Item>().field_of("item"),
+            item: mc_protocol::components::holder::registry_by_name_codec::<mc_data::Item>()
+                .field_of("item"),
         })),
     ));
     entries.push((
@@ -845,7 +1000,13 @@ pub(super) fn register(entries: &mut Entries) {
             add: BOOL.optional_field_of_default("add", false),
         })),
     ));
-    entries.push(("limit_count", entry(record!(LimitCount { condition: cond(), limit: IntLimit::codec().field_of("limit") }))));
+    entries.push((
+        "limit_count",
+        entry(record!(LimitCount {
+            condition: cond(),
+            limit: IntLimit::codec().field_of("limit")
+        })),
+    ));
     entries.push((
         "apply_bonus",
         entry(record!(ApplyBonusCount {
@@ -854,7 +1015,10 @@ pub(super) fn register(entries: &mut Entries) {
             formula: BonusFormula::codec(),
         })),
     ));
-    entries.push(("explosion_decay", entry(record!(ApplyExplosionDecay { condition: cond() }))));
+    entries.push((
+        "explosion_decay",
+        entry(record!(ApplyExplosionDecay { condition: cond() })),
+    ));
     entries.push((
         "enchanted_count_increase",
         entry(record!(EnchantedCountIncreaseFunction {
@@ -866,28 +1030,47 @@ pub(super) fn register(entries: &mut Entries) {
     ));
     entries.push((
         "furnace_smelt",
-        entry(record!(SmeltItemFunction { condition: cond(), use_input_count: BOOL.optional_field_of_default("use_input_count", true) })),
+        entry(record!(SmeltItemFunction {
+            condition: cond(),
+            use_input_count: BOOL.optional_field_of_default("use_input_count", true)
+        })),
     ));
     entries.push((
         "set_components",
-        entry(record!(SetComponentsFunction { condition: cond(), components: DataComponentPatch::codec().field_of("components") })),
+        entry(record!(SetComponentsFunction {
+            condition: cond(),
+            components: DataComponentPatch::codec().field_of("components")
+        })),
     ));
     entries.push((
         "set_custom_data",
         entry(record!(SetCustomDataFunction {
             condition: cond(),
             tag: mc_protocol::components::values::predicates::NbtPredicate::codec()
-                .xmap(|p| p.tag, |t: &CompoundTag| mc_protocol::components::values::predicates::NbtPredicate { tag: t.clone() })
+                .xmap(
+                    |p| p.tag,
+                    |t: &CompoundTag| mc_protocol::components::values::predicates::NbtPredicate {
+                        tag: t.clone()
+                    }
+                )
                 .field_of("tag"),
         })),
     ));
-    entries.push(("copy_name", entry(record!(CopyNameFunction { condition: cond(), source: NameSource::codec().field_of("source") }))));
+    entries.push((
+        "copy_name",
+        entry(record!(CopyNameFunction {
+            condition: cond(),
+            source: NameSource::codec().field_of("source")
+        })),
+    ));
     entries.push(("discard", entry(record!(DiscardItem { condition: cond() }))));
     entries.push((
         "toggle_tooltips",
         entry(record!(ToggleTooltips {
             condition: cond(),
-            values: mc_protocol::components::map::type_codec().unbounded_map(&BOOL).field_of("toggles"),
+            values: mc_protocol::components::map::type_codec()
+                .unbounded_map(&BOOL)
+                .field_of("toggles"),
         })),
     ));
     entries.push((
@@ -903,14 +1086,19 @@ pub(super) fn register(entries: &mut Entries) {
         "set_lore",
         entry(record!(SetLoreFunction {
             condition: cond(),
-            lore: mc_protocol::components::component_codec().size_limited_list_of(256).field_of("lore"),
+            lore: mc_protocol::components::component_codec()
+                .size_limited_list_of(256)
+                .field_of("lore"),
             mode: ListOperation::codec(256),
             resolution_context: EntityTarget::codec().optional_field_of("entity"),
         })),
     ));
     entries.push((
         "sequence",
-        entry(record!(SequenceFunction { condition: cond(), functions: function_list_codec_typed().field_of("functions") })),
+        entry(record!(SequenceFunction {
+            condition: cond(),
+            functions: function_list_codec_typed().field_of("functions")
+        })),
     ));
     entries.push((
         "filtered",
@@ -923,31 +1111,51 @@ pub(super) fn register(entries: &mut Entries) {
     ));
     entries.push((
         "copy_state",
-        entry(record!(CopyBlockStateRaw {
-            condition: cond(),
-            block: mc_protocol::components::holder::registry_by_name_codec::<Block>().field_of("block"),
-            properties: STRING.list_of().field_of("properties"),
-        })
-        .xmap(
-            |raw| {
-                let names: Vec<String> = raw.block.default_state().values().map(|(d, _)| d.name.to_owned()).collect();
-                // `Collectors.toSet()` of the properties that exist on the block
-                CopyBlockState {
-                    condition: raw.condition,
-                    block: raw.block,
-                    properties: raw.properties.into_iter().filter(|p| names.contains(p)).collect(),
-                }
-            },
-            |f: &CopyBlockState| CopyBlockStateRaw { condition: f.condition.clone(), block: f.block, properties: f.properties.clone() },
-        )),
+        entry(
+            record!(CopyBlockStateRaw {
+                condition: cond(),
+                block: mc_protocol::components::holder::registry_by_name_codec::<Block>()
+                    .field_of("block"),
+                properties: STRING.list_of().field_of("properties"),
+            })
+            .xmap(
+                |raw| {
+                    let names: Vec<String> = raw
+                        .block
+                        .default_state()
+                        .values()
+                        .map(|(d, _)| d.name.to_owned())
+                        .collect();
+                    // `Collectors.toSet()` of the properties that exist on the block
+                    CopyBlockState {
+                        condition: raw.condition,
+                        block: raw.block,
+                        properties: raw
+                            .properties
+                            .into_iter()
+                            .filter(|p| names.contains(p))
+                            .collect(),
+                    }
+                },
+                |f: &CopyBlockState| CopyBlockStateRaw {
+                    condition: f.condition.clone(),
+                    block: f.block,
+                    properties: f.properties.clone(),
+                },
+            ),
+        ),
     ));
     entries.push((
         "copy_components",
         entry(record!(CopyComponentsFunction {
             condition: cond(),
             source: ComponentSourceCodec::codec().field_of("source"),
-            include: mc_protocol::components::map::type_codec().list_of().optional_field_of("include"),
-            exclude: mc_protocol::components::map::type_codec().list_of().optional_field_of("exclude"),
+            include: mc_protocol::components::map::type_codec()
+                .list_of()
+                .optional_field_of("include"),
+            exclude: mc_protocol::components::map::type_codec()
+                .list_of()
+                .optional_field_of("exclude"),
         })),
     ));
     entries.push((
@@ -960,7 +1168,10 @@ pub(super) fn register(entries: &mut Entries) {
     ));
     entries.push((
         "fill_player_head",
-        entry(record!(FillPlayerHead { condition: cond(), entity_target: EntityTarget::codec().field_of("entity") })),
+        entry(record!(FillPlayerHead {
+            condition: cond(),
+            entity_target: EntityTarget::codec().field_of("entity")
+        })),
     ));
     entries.push((
         "set_loot_table",
@@ -984,7 +1195,10 @@ struct ComponentSourceCodec;
 
 impl ComponentSourceCodec {
     fn codec() -> Codec<ComponentSource> {
-        static NAMES: [(ComponentSource, &str); 2] = [(ComponentSource::BlockEntity, "block_entity"), (ComponentSource::Tool, "tool")];
+        static NAMES: [(ComponentSource, &str); 2] = [
+            (ComponentSource::BlockEntity, "block_entity"),
+            (ComponentSource::Tool, "tool"),
+        ];
         // `LootContextArg` names: every `EntityTarget`/`ItemStackTarget`/`BlockEntityTarget`; only the item/block ones read components
         mc_dfu::string_enum_codec(&NAMES)
     }

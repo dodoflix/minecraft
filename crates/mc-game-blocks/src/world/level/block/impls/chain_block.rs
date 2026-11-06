@@ -7,11 +7,21 @@ pub struct ChainBlock;
 
 impl BlockBehaviour for ChainBlock {
     mc_game_core::simple_waterlogged!();
-    fn get_state_for_placement(&self, block: Block, level: &mut mc_game_core::server::level::ServerLevel, context: &mc_game_core::world::item::BlockPlaceContext) -> Option<BlockState> {
-        let is_water_source = level.get_fluid_state(context.get_clicked_pos()).get_type() == mc_data::fluid::Fluid::WATER;
+    fn get_state_for_placement(
+        &self,
+        block: Block,
+        level: &mut mc_game_core::server::level::ServerLevel,
+        context: &mc_game_core::world::item::BlockPlaceContext,
+    ) -> Option<BlockState> {
+        let is_water_source = level.get_fluid_state(context.get_clicked_pos()).get_type()
+            == mc_data::fluid::Fluid::WATER;
         Some(mc_game_core::world::level::block::impls::rotated_pillar_block::get_state_for_placement(block, context).set(props::WATERLOGGED, is_water_source))
     }
-    fn is_pathfindable(&self, _state: BlockState, _ty: mc_data::block::PathComputationType) -> bool {
+    fn is_pathfindable(
+        &self,
+        _state: BlockState,
+        _ty: mc_data::block::PathComputationType,
+    ) -> bool {
         false
     }
     fn update_shape(

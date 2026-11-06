@@ -2,8 +2,8 @@
 
 use mc_data::Item;
 use mc_dfu::MapCodec;
-use mc_protocol::components::values::{DataComponentPredicate, PotionsPredicate};
 use mc_protocol::components::ItemStackTemplate;
+use mc_protocol::components::values::{DataComponentPredicate, PotionsPredicate};
 
 use super::ingredient::Ingredient;
 use super::inputs::BrewingInput;
@@ -27,13 +27,22 @@ impl PotionIngredient {
 
     /// `PotionIngredient.of(item)`.
     pub fn of(item: Item) -> PotionIngredient {
-        PotionIngredient { ingredient: Ingredient::of(item), potions: None }
+        PotionIngredient {
+            ingredient: Ingredient::of(item),
+            potions: None,
+        }
     }
 
     /// `isPotionInput(stack, recipeAccess)`.
     pub fn is_potion_input(stack: &ItemStack, recipes: &super::RecipeManager) -> bool {
-        recipes.property_set(super::RecipePropertySet::BREWING_INPUTS).test(stack)
-            || recipes.item_is_in_tag(stack, &mc_core::ident::Identifier::parse("minecraft:brewing_potion_inputs").expect("valid tag"))
+        recipes
+            .property_set(super::RecipePropertySet::BREWING_INPUTS)
+            .test(stack)
+            || recipes.item_is_in_tag(
+                stack,
+                &mc_core::ident::Identifier::parse("minecraft:brewing_potion_inputs")
+                    .expect("valid tag"),
+            )
     }
 
     /// `test(stack)`.

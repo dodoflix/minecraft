@@ -11,7 +11,8 @@ use crate::translatable;
 use linkme::distributed_slice;
 use mc_brigadier::utf16::{len16, substring, substring_from};
 use mc_brigadier::{
-    CommandDispatcher, CommandSyntaxException, ContextChain, LiteralArgumentBuilder, ParseResults, StringReader,
+    CommandDispatcher, CommandSyntaxException, ContextChain, LiteralArgumentBuilder, ParseResults,
+    StringReader,
 };
 use mc_text::events::{ClickEvent, HoverEvent};
 use mc_text::util::ellipsis;
@@ -24,13 +25,17 @@ pub const COMMAND_PREFIX: &str = "/";
 
 /// `Commands.LEVEL_*` permission checks (`requires(Commands.hasPermission(..))`).
 pub const LEVEL_ALL: PermissionCheck = PermissionCheck::AlwaysPass;
-pub const LEVEL_MODERATORS: PermissionCheck = PermissionCheck::Require(permissions::COMMANDS_MODERATOR);
-pub const LEVEL_GAMEMASTERS: PermissionCheck = PermissionCheck::Require(permissions::COMMANDS_GAMEMASTER);
+pub const LEVEL_MODERATORS: PermissionCheck =
+    PermissionCheck::Require(permissions::COMMANDS_MODERATOR);
+pub const LEVEL_GAMEMASTERS: PermissionCheck =
+    PermissionCheck::Require(permissions::COMMANDS_GAMEMASTER);
 pub const LEVEL_ADMINS: PermissionCheck = PermissionCheck::Require(permissions::COMMANDS_ADMIN);
 pub const LEVEL_OWNERS: PermissionCheck = PermissionCheck::Require(permissions::COMMANDS_OWNER);
 
 /// `Commands.hasPermission(check)`: a node requirement.
-pub fn has_permission(check: PermissionCheck) -> impl Fn(&CommandSourceStack) -> bool + Send + Sync + 'static {
+pub fn has_permission(
+    check: PermissionCheck,
+) -> impl Fn(&CommandSourceStack) -> bool + Send + Sync + 'static {
     move |source| check.check(source.permissions())
 }
 
@@ -90,7 +95,10 @@ macro_rules! register_command {
         const _: () = {
             #[::linkme::distributed_slice($crate::commands::COMMANDS)]
             static COMMAND: $crate::commands::CommandRegistration =
-                $crate::commands::CommandRegistration { name: $name, register: $register };
+                $crate::commands::CommandRegistration {
+                    name: $name,
+                    register: $register,
+                };
         };
     };
 }
@@ -227,10 +235,18 @@ impl Commands {
         let ctx_dispatcher_ptr: *const CommandDispatcher<CommandSourceStack> = &dispatcher;
         // SAFETY: `register` only needs a shared reference for the duration of the calls below; `dispatcher` is not
         // moved or otherwise borrowed until they return.
-        let context = CommandRegistrationContext { dispatcher: unsafe { &*ctx_dispatcher_ptr }, build_context, selection };
+        let context = CommandRegistrationContext {
+            dispatcher: unsafe { &*ctx_dispatcher_ptr },
+            build_context,
+            selection,
+        };
         let mut registrations: Vec<&CommandRegistration> = COMMANDS.iter().collect();
         for registration in &registrations {
-            assert!(REGISTRATION_ORDER.contains(&registration.name), "command module {} is not in REGISTRATION_ORDER", registration.name);
+            assert!(
+                REGISTRATION_ORDER.contains(&registration.name),
+                "command module {} is not in REGISTRATION_ORDER",
+                registration.name
+            );
         }
         registrations.sort_by_key(|r| REGISTRATION_ORDER.iter().position(|n| *n == r.name));
         for registration in registrations {
@@ -245,14 +261,18 @@ impl Commands {
                 (registration.register)(&context);
             }
         }
-        dispatcher.set_consumer(|context, success, result| context.get_source().callback().on_result(success, result));
+        dispatcher.set_consumer(|context, success, result| {
+            context.get_source().callback().on_result(success, result)
+        });
         Commands { dispatcher }
     }
 
     /// A `Commands` over an already built dispatcher (tests, function compilation).
     pub fn from_dispatcher(dispatcher: CommandDispatcher<CommandSourceStack>) -> Commands {
         let mut dispatcher = dispatcher;
-        dispatcher.set_consumer(|context, success, result| context.get_source().callback().on_result(success, result));
+        dispatcher.set_consumer(|context, success, result| {
+            context.get_source().callback().on_result(success, result)
+        });
         Commands { dispatcher }
     }
 
@@ -268,7 +288,11 @@ impl Commands {
         let mut context = parse.get_context().clone();
         let new_source = source_operator(context.get_source());
         context.with_source(new_source);
-        ParseResults::new(context, parse.get_reader().clone(), parse.get_exceptions().to_vec())
+        ParseResults::new(
+            context,
+            parse.get_reader().clone(),
+            parse.get_exceptions().to_vec(),
+        )
     }
 
     pub fn trim_optional_prefix(command: &str) -> &str {
@@ -276,7 +300,12 @@ impl Commands {
     }
 
     /// `performPrefixedCommand(sender, command)`.
-    pub fn perform_prefixed_command(&self, server: &mut MinecraftServer, sender: CommandSourceStack, command: &str) {
+    pub fn perform_prefixed_command(
+        &self,
+        server: &mut MinecraftServer,
+        sender: CommandSourceStack,
+        command: &str,
+    ) {
         let command = Self::trim_optional_prefix(command);
         super::server_access::enter_server(server, || {
             let parse = self.dispatcher.parse(command, sender);
@@ -285,11 +314,22 @@ impl Commands {
     }
 
     /// `performCommand(parse, commandString)`.
-    pub fn perform_command(&self, server: &mut MinecraftServer, parse: ParseResults<CommandSourceStack>, command_string: &str) {
-        super::server_access::enter_server(server, || self.perform_command_in_server(parse, command_string));
+    pub fn perform_command(
+        &self,
+        server: &mut MinecraftServer,
+        parse: ParseResults<CommandSourceStack>,
+        command_string: &str,
+    ) {
+        super::server_access::enter_server(server, || {
+            self.perform_command_in_server(parse, command_string)
+        });
     }
 
-    fn perform_command_in_server(&self, parse: ParseResults<CommandSourceStack>, command_string: &str) {
+    fn perform_command_in_server(
+        &self,
+        parse: ParseResults<CommandSourceStack>,
+        command_string: &str,
+    ) {
         let sender = parse.get_context().get_source().clone();
         let command_chain = Self::finish_parsing(&parse, command_string, &sender);
         let Some(command_chain) = command_chain else {
@@ -314,8 +354,9 @@ impl Commands {
             log::error!("'/{}' threw an exception: {}", command_string, message);
             let hover = Component::literal(message);
             sender.send_failure(
-                translatable!("command.failed")
-                    .with_style_fn(|s| s.with_hover_event(Some(HoverEvent::show_text(hover.clone())))),
+                translatable!("command.failed").with_style_fn(|s| {
+                    s.with_hover_event(Some(HoverEvent::show_text(hover.clone())))
+                }),
             );
         }
     }
@@ -327,9 +368,13 @@ impl Commands {
     ) -> Option<ContextChain<CommandSourceStack>> {
         let result = (|| {
             Self::validate_parse_results(command)?;
-            ContextChain::try_flatten(&command.get_context().build(command_string)).ok_or_else(|| {
-                CommandSyntaxException::built_in_exceptions().dispatcher_unknown_command().create_with_context(command.get_reader())
-            })
+            ContextChain::try_flatten(&command.get_context().build(command_string)).ok_or_else(
+                || {
+                    CommandSyntaxException::built_in_exceptions()
+                        .dispatcher_unknown_command()
+                        .create_with_context(command.get_reader())
+                },
+            )
         })();
         match result {
             Ok(chain) => Some(chain),
@@ -340,18 +385,25 @@ impl Commands {
                     let command_text = format!("/{command_string}");
                     let mut context = Component::empty()
                         .with_format(ChatFormatting::Gray)
-                        .with_style_fn(|s| s.with_click_event(Some(ClickEvent::SuggestCommand(command_text.clone()))));
+                        .with_style_fn(|s| {
+                            s.with_click_event(Some(ClickEvent::SuggestCommand(
+                                command_text.clone(),
+                            )))
+                        });
                     if cursor > 10 {
                         context = context.append(ellipsis());
                     }
-                    context = context.append_str(&substring(input, cursor.saturating_sub(10), cursor));
+                    context =
+                        context.append_str(&substring(input, cursor.saturating_sub(10), cursor));
                     if cursor < len16(input) {
                         let remaining = Component::literal(substring_from(input, cursor))
                             .with_formats(&[ChatFormatting::Red, ChatFormatting::Underline]);
                         context = context.append(remaining);
                     }
-                    context = context
-                        .append(translatable!("command.context.here").with_formats(&[ChatFormatting::Red, ChatFormatting::Italic]));
+                    context = context.append(
+                        translatable!("command.context.here")
+                            .with_formats(&[ChatFormatting::Red, ChatFormatting::Italic]),
+                    );
                     sender.send_failure(context);
                 }
                 None
@@ -361,7 +413,10 @@ impl Commands {
 
     /// `executeCommandInContext`: runs `config` (which queues work) in the current execution context, creating and
     /// running one when this is the outermost call.
-    pub fn execute_command_in_context(context: &CommandSourceStack, config: impl FnOnce(&mut ExecutionContext)) {
+    pub fn execute_command_in_context(
+        context: &CommandSourceStack,
+        config: impl FnOnce(&mut ExecutionContext),
+    ) {
         let current = CURRENT_EXECUTION_CONTEXT.with(|c| c.get());
         if current.is_null() {
             let (chain_limit, fork_limit) = context.with_server(host::command_limits);
@@ -373,7 +428,8 @@ impl Commands {
                 }
             }
             let _reset = Reset;
-            CURRENT_EXECUTION_CONTEXT.with(|c| c.set(&mut execution_context as *mut ExecutionContext));
+            CURRENT_EXECUTION_CONTEXT
+                .with(|c| c.set(&mut execution_context as *mut ExecutionContext));
             config(&mut execution_context);
             execution_context.run_command_queue();
             execution_context.close();
@@ -386,7 +442,9 @@ impl Commands {
     }
 
     /// `validateParseResults`.
-    pub fn validate_parse_results<S: Clone + 'static>(command: &ParseResults<S>) -> Result<(), CommandSyntaxException> {
+    pub fn validate_parse_results<S: Clone + 'static>(
+        command: &ParseResults<S>,
+    ) -> Result<(), CommandSyntaxException> {
         match Self::get_parse_exception(command) {
             Some(e) => Err(e),
             None => Ok(()),
@@ -394,16 +452,26 @@ impl Commands {
     }
 
     /// `getParseException`.
-    pub fn get_parse_exception<S: Clone + 'static>(parse: &ParseResults<S>) -> Option<CommandSyntaxException> {
+    pub fn get_parse_exception<S: Clone + 'static>(
+        parse: &ParseResults<S>,
+    ) -> Option<CommandSyntaxException> {
         use mc_brigadier::ImmutableStringReader;
         if !parse.get_reader().can_read() {
             None
         } else if parse.get_exceptions().len() == 1 {
             Some(parse.get_exceptions()[0].1.clone())
         } else if parse.get_context().get_range().is_empty() {
-            Some(CommandSyntaxException::built_in_exceptions().dispatcher_unknown_command().create_with_context(parse.get_reader()))
+            Some(
+                CommandSyntaxException::built_in_exceptions()
+                    .dispatcher_unknown_command()
+                    .create_with_context(parse.get_reader()),
+            )
         } else {
-            Some(CommandSyntaxException::built_in_exceptions().dispatcher_unknown_argument().create_with_context(parse.get_reader()))
+            Some(
+                CommandSyntaxException::built_in_exceptions()
+                    .dispatcher_unknown_argument()
+                    .create_with_context(parse.get_reader()),
+            )
         }
     }
 
@@ -415,8 +483,9 @@ impl Commands {
     }
 
     /// `Commands.createCompilationContext`.
-    pub fn create_compilation_context(compilation_permissions: PermissionSet) -> CommandSourceStack {
+    pub fn create_compilation_context(
+        compilation_permissions: PermissionSet,
+    ) -> CommandSourceStack {
         CommandSourceStack::compilation_context(compilation_permissions)
     }
 }
-

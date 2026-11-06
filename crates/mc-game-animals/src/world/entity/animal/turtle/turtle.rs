@@ -1,33 +1,5 @@
 //! `Turtle`: egg-laying amphibious animal with a home beach.
 
-use mc_game_core::define_accessor;
-use mc_game_core::registry::RegistryAccess;
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::stats::stats::Stats;
-use mc_game_core::world::damagesource::DamageSource;
-use mc_game_core::world::difficulty_instance::DifficultyInstance;
-use mc_game_core::world::entity::ai::control::{MoveControl, MoveControlBase, Operation};
-use mc_game_core::world::entity::ai::goal::move_to_block;
-use mc_game_core::world::entity::ai::goal::{BreedGoal, Flag, Goal, GoalFlags, LookAtPlayerGoal, MoveToBlock, MoveToBlockData, PanicGoal, RandomStrollGoal, TemptGoal};
-use mc_game_core::world::entity::ai::navigation::{NavClass, NavigationData, PathNavigation};
-use mc_game_core::world::entity::ai::util::default_random_pos;
-use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
-use mc_game_core::world::entity::experience_orb::ExperienceOrb;
-use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
-use mc_game_core::world::entity::mob::{self, MobData, MobKind, ageable, animal, ext, navigation};
-use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
-use mc_game_core::world::entity::spawn_predicates;
-use mc_game_core::world::entity::{Entity, EntityId, MoverType};
-use mc_game_core::world::item::ItemStack;
-use mc_game_core::world::entity::movement::MovementLevel as _;
-use mc_game_core::world::level::LevelReader;
-use mc_game_core::world::level::level_access::LevelAccessor as _;
-use mc_game_core::world::level::block::BlockStateExt as _;
-use mc_game_core::world::level::block::impls::turtle_egg_block;
-use mc_game_core::world::level::gameevent::GameEventContext;
-use mc_game_core::world::level::material::FluidStateExt as _;
-use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
-use mc_game_core::world::level::{BlockGetter as _, LevelReader as _};
 use linkme::distributed_slice;
 use mc_core::ident::Identifier;
 use mc_core::math::mth;
@@ -38,6 +10,39 @@ use mc_data::block::Block;
 use mc_data::enums::{EntitySpawnReason, Pose};
 use mc_data::props;
 use mc_data::{Attribute, EntityType, GameEvent, Item, SoundEvent};
+use mc_game_core::define_accessor;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::stats::stats::Stats;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::control::{MoveControl, MoveControlBase, Operation};
+use mc_game_core::world::entity::ai::goal::move_to_block;
+use mc_game_core::world::entity::ai::goal::{
+    BreedGoal, Flag, Goal, GoalFlags, LookAtPlayerGoal, MoveToBlock, MoveToBlockData, PanicGoal,
+    RandomStrollGoal, TemptGoal,
+};
+use mc_game_core::world::entity::ai::navigation::{NavClass, NavigationData, PathNavigation};
+use mc_game_core::world::entity::ai::util::default_random_pos;
+use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
+use mc_game_core::world::entity::experience_orb::ExperienceOrb;
+use mc_game_core::world::entity::factory::{
+    ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest,
+};
+use mc_game_core::world::entity::mob::{self, MobData, MobKind, ageable, animal, ext, navigation};
+use mc_game_core::world::entity::movement::MovementLevel as _;
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::spawn_predicates;
+use mc_game_core::world::entity::{Entity, EntityId, MoverType};
+use mc_game_core::world::item::ItemStack;
+use mc_game_core::world::level::LevelReader;
+use mc_game_core::world::level::block::BlockStateExt as _;
+use mc_game_core::world::level::block::impls::turtle_egg_block;
+use mc_game_core::world::level::gameevent::GameEventContext;
+use mc_game_core::world::level::level_access::LevelAccessor as _;
+use mc_game_core::world::level::material::FluidStateExt as _;
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::world::level::{BlockGetter as _, LevelReader as _};
 use mc_nbt::CompoundTag;
 use mc_protocol::packets::play::level::SoundSource;
 use std::sync::Arc;
@@ -50,7 +55,8 @@ pub const BABY_SCALE: f32 = 0.3;
 /// `BABY_DIMENSIONS`.
 fn baby_dimensions() -> EntityDimensions {
     let base = EntityDimensions::of_type(EntityType::TURTLE);
-    let attachments = EntityAttachments::create_default(base.width, base.height).with_passenger(Vec3::new(0.0, f64::from(base.height), -0.25));
+    let attachments = EntityAttachments::create_default(base.width, base.height)
+        .with_passenger(Vec3::new(0.0, f64::from(base.height), -0.25));
     base.with_attachments(attachments).scale(BABY_SCALE)
 }
 
@@ -81,8 +87,16 @@ impl Turtle {
             b.define(HAS_EGG, false);
             b.define(LAYING_EGG, false);
         });
-        let mut t = Turtle { mob, lay_egg_counter: 0, home_pos: BlockPos::ZERO, travel_pos: None, going_home: false };
-        t.mob.set_navigation(Box::new(TurtleNavigation { data: NavigationData::new(&t, NavClass::Amphibious) }));
+        let mut t = Turtle {
+            mob,
+            lay_egg_counter: 0,
+            home_pos: BlockPos::ZERO,
+            travel_pos: None,
+            going_home: false,
+        };
+        t.mob.set_navigation(Box::new(TurtleNavigation {
+            data: NavigationData::new(&t, NavClass::Amphibious),
+        }));
         t.register_goals();
         use mc_game_core::world::level::pathfinder::PathType;
         t.mob.set_pathfinding_malus(PathType::Water, 0.0);
@@ -100,7 +114,14 @@ impl Turtle {
         goals.add_goal(0, Box::new(TurtlePanicGoal::new(1.2)));
         goals.add_goal(1, Box::new(TurtleBreedGoal { breed }));
         goals.add_goal(1, Box::new(TurtleLayEggGoal::new(1.0)));
-        goals.add_goal(2, Box::new(TemptGoal::new(1.1, Arc::new(|s: &ItemStack| is_turtle_food(s)), false)));
+        goals.add_goal(
+            2,
+            Box::new(TemptGoal::new(
+                1.1,
+                Arc::new(|s: &ItemStack| is_turtle_food(s)),
+                false,
+            )),
+        );
         goals.add_goal(3, Box::new(TurtleGoToWaterGoal::new(1.0)));
         goals.add_goal(4, Box::new(TurtleGoHomeGoal::new(1.0)));
         goals.add_goal(7, Box::new(TurtleTravelGoal::new(1.0)));
@@ -147,7 +168,11 @@ impl PathNavigation for TurtleNavigation {
         &mut self.data
     }
     fn is_stable_destination(&self, mob: &dyn Entity, level: &ServerLevel, pos: BlockPos) -> bool {
-        if mob.as_any().downcast_ref::<Turtle>().is_some_and(|t| t.travel_pos.is_some()) {
+        if mob
+            .as_any()
+            .downcast_ref::<Turtle>()
+            .is_some_and(|t| t.travel_pos.is_some())
+        {
             level.get_block_state(pos).block() == Block::WATER
         } else {
             !level.get_block_state(pos.below()).is_air()
@@ -166,7 +191,10 @@ impl TurtleMoveControl {
         if mob.is_in_water() {
             let dm = mob.base().delta_movement().add(Vec3::new(0.0, 0.005, 0.0));
             mob.base_mut().set_delta_movement(dm);
-            if !turtle(mob).get_home_pos().closer_to_center_than(&mob.position(), 16.0) {
+            if !turtle(mob)
+                .get_home_pos()
+                .closer_to_center_than(&mob.position(), 16.0)
+            {
                 let s = (mob.get_speed() / 2.0).max(0.08);
                 mob.set_speed(s);
             }
@@ -200,14 +228,22 @@ impl MoveControl for TurtleMoveControl {
                 mob.set_speed(0.0);
             } else {
                 yd /= dd;
-                let y_rot_d = (mth::atan2(zd, xd) * f64::from(180.0f32) / f64::from(std::f32::consts::PI)) as f32 - 90.0;
+                let y_rot_d = (mth::atan2(zd, xd) * f64::from(180.0f32)
+                    / f64::from(std::f32::consts::PI)) as f32
+                    - 90.0;
                 let new_y_rot = self.base.rotlerp(mob.base().y_rot(), y_rot_d, 90.0);
                 mob.set_y_rot(new_y_rot);
                 l_mut(mob).y_body_rot = new_y_rot;
-                let target_speed = (self.base.speed_modifier * mob::attribute_value(mob, Attribute::MOVEMENT_SPEED)) as f32;
+                let target_speed = (self.base.speed_modifier
+                    * mob::attribute_value(mob, Attribute::MOVEMENT_SPEED))
+                    as f32;
                 let speed = mth::lerp_f32(0.125, mob.get_speed(), target_speed);
                 mob.set_speed(speed);
-                let dm = mob.base().delta_movement().add(Vec3::new(0.0, f64::from(mob.get_speed()) * yd * 0.1, 0.0));
+                let dm = mob.base().delta_movement().add(Vec3::new(
+                    0.0,
+                    f64::from(mob.get_speed()) * yd * 0.1,
+                    0.0,
+                ));
                 mob.base_mut().set_delta_movement(dm);
             }
         } else {
@@ -227,7 +263,9 @@ pub struct TurtlePanicGoal {
 
 impl TurtlePanicGoal {
     pub fn new(speed_modifier: f64) -> Self {
-        Self { panic: PanicGoal::new(speed_modifier) }
+        Self {
+            panic: PanicGoal::new(speed_modifier),
+        }
     }
 }
 
@@ -267,15 +305,21 @@ impl Goal for TurtlePanicGoal {
 fn turtle_breed(animal_e: &mut dyn Entity, level: &mut ServerLevel, partner: EntityId) {
     let mut love_cause = animal::get_love_cause(animal_e, level);
     if love_cause.is_none() {
-        love_cause = level.get_entity(partner).and_then(|p| animal::get_love_cause(p, level));
+        love_cause = level
+            .get_entity(partner)
+            .and_then(|p| animal::get_love_cause(p, level));
     }
     if let Some(cause) = love_cause {
-        level.with_player(cause, |level, p| p.award_stat(level, Stats::ANIMALS_BRED, 1));
+        level.with_player(cause, |level, p| {
+            p.award_stat(level, Stats::ANIMALS_BRED, 1)
+        });
         ext::trigger_bred_animals(level, cause, animal_e, partner, None);
     }
     turtle_mut(animal_e).set_has_egg(true);
     ageable::set_age_in_level(animal_e, level, 6000);
-    level.with_entity(partner, |level, p| ageable::set_age_in_level(p, level, 6000));
+    level.with_entity(partner, |level, p| {
+        ageable::set_age_in_level(p, level, 6000)
+    });
     animal::reset_love(animal_e);
     level.with_entity(partner, |_, p| animal::reset_love(p));
     if level.mob_drops() {
@@ -302,7 +346,8 @@ impl Goal for TurtleBreedGoal {
         self.breed.stop(mob, level);
     }
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
-        self.breed.tick_with(mob, level, &mut |a, l, partner| turtle_breed(a, l, partner));
+        self.breed
+            .tick_with(mob, level, &mut |a, l, partner| turtle_breed(a, l, partner));
     }
     fn flags(&self) -> GoalFlags {
         self.breed.flags()
@@ -318,7 +363,11 @@ pub struct TurtleGoHomeGoal {
 
 impl TurtleGoHomeGoal {
     pub fn new(speed_modifier: f64) -> Self {
-        Self { speed_modifier, stuck: false, close_to_home_try_ticks: 0 }
+        Self {
+            speed_modifier,
+            stuck: false,
+            close_to_home_try_ticks: 0,
+        }
     }
 }
 
@@ -330,10 +379,15 @@ impl Goal for TurtleGoHomeGoal {
         if turtle(mob).has_egg() {
             return true;
         }
-        if mob.base_mut().random.next_int_bounded(mc_game_core::world::entity::ai::goal::reduced_tick_delay(700)) != 0 {
+        if mob.base_mut().random.next_int_bounded(
+            mc_game_core::world::entity::ai::goal::reduced_tick_delay(700),
+        ) != 0
+        {
             return false;
         }
-        !turtle(mob).home_pos.closer_to_center_than(&mob.position(), 64.0)
+        !turtle(mob)
+            .home_pos
+            .closer_to_center_than(&mob.position(), 64.0)
     }
 
     fn start(&mut self, mob: &mut dyn Entity, _level: &mut ServerLevel) {
@@ -347,7 +401,11 @@ impl Goal for TurtleGoHomeGoal {
     }
 
     fn can_continue_to_use(&mut self, mob: &mut dyn Entity, _level: &mut ServerLevel) -> bool {
-        !turtle(mob).home_pos.closer_to_center_than(&mob.position(), 7.0) && !self.stuck && self.close_to_home_try_ticks <= self.adjusted_tick_delay(600)
+        !turtle(mob)
+            .home_pos
+            .closer_to_center_than(&mob.position(), 7.0)
+            && !self.stuck
+            && self.close_to_home_try_ticks <= self.adjusted_tick_delay(600)
     }
 
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
@@ -360,13 +418,20 @@ impl Goal for TurtleGoHomeGoal {
             let home_vec = Vec3::at_bottom_center_of(&home_pos);
             let pi10 = f64::from((std::f64::consts::PI / 10.0) as f32);
             let pi2 = f64::from((std::f64::consts::PI / 2.0) as f32);
-            let mut next_pos = default_random_pos::get_pos_towards(mob, level, 16, 3, home_vec, pi10);
+            let mut next_pos =
+                default_random_pos::get_pos_towards(mob, level, 16, 3, home_vec, pi10);
             if next_pos.is_none() {
                 next_pos = default_random_pos::get_pos_towards(mob, level, 8, 7, home_vec, pi2);
             }
             if let Some(p) = next_pos {
-                if !close_to_home && level.get_block_state(BlockPos::containing(p.x, p.y, p.z)).block() != Block::WATER {
-                    next_pos = default_random_pos::get_pos_towards(mob, level, 16, 5, home_vec, pi2);
+                if !close_to_home
+                    && level
+                        .get_block_state(BlockPos::containing(p.x, p.y, p.z))
+                        .block()
+                        != Block::WATER
+                {
+                    next_pos =
+                        default_random_pos::get_pos_towards(mob, level, 16, 5, home_vec, pi2);
                 }
             }
             match next_pos {
@@ -423,7 +488,9 @@ impl Goal for TurtleGoToWaterGoal {
         }
     }
     fn can_continue_to_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        !mob.is_in_water() && self.mtb.try_ticks <= 1200 && self.is_valid_target(mob, level, self.mtb.block_pos)
+        !mob.is_in_water()
+            && self.mtb.try_ticks <= 1200
+            && self.is_valid_target(mob, level, self.mtb.block_pos)
     }
     fn start(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         // `super(turtle, turtle.isBaby() ? 2.0 : speedModifier, 24)` is fixed at construction
@@ -447,7 +514,9 @@ pub struct TurtleLayEggGoal {
 
 impl TurtleLayEggGoal {
     pub fn new(speed_modifier: f64) -> Self {
-        Self { mtb: MoveToBlockData::new(speed_modifier, 16) }
+        Self {
+            mtb: MoveToBlockData::new(speed_modifier, 16),
+        }
     }
 }
 
@@ -459,16 +528,32 @@ impl MoveToBlock for TurtleLayEggGoal {
         &mut self.mtb
     }
     fn is_valid_target(&self, _mob: &dyn Entity, level: &ServerLevel, pos: BlockPos) -> bool {
-        if !level.is_empty_block(pos.above()) { false } else { turtle_egg_block::is_sand(level, pos) }
+        if !level.is_empty_block(pos.above()) {
+            false
+        } else {
+            turtle_egg_block::is_sand(level, pos)
+        }
     }
 }
 
 impl Goal for TurtleLayEggGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        if turtle(mob).has_egg() && turtle(mob).home_pos.closer_to_center_than(&mob.position(), 9.0) { move_to_block::can_use(self, mob, level) } else { false }
+        if turtle(mob).has_egg()
+            && turtle(mob)
+                .home_pos
+                .closer_to_center_than(&mob.position(), 9.0)
+        {
+            move_to_block::can_use(self, mob, level)
+        } else {
+            false
+        }
     }
     fn can_continue_to_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        move_to_block::can_continue_to_use(self, mob, level) && turtle(mob).has_egg() && turtle(mob).home_pos.closer_to_center_than(&mob.position(), 9.0)
+        move_to_block::can_continue_to_use(self, mob, level)
+            && turtle(mob).has_egg()
+            && turtle(mob)
+                .home_pos
+                .closer_to_center_than(&mob.position(), 9.0)
     }
     fn start(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         move_to_block::start(self, mob, level);
@@ -484,12 +569,23 @@ impl Goal for TurtleLayEggGoal {
                 turtle_mut(mob).set_laying_egg(true);
             } else if turtle(mob).lay_egg_counter > self.adjusted_tick_delay(200) {
                 let pitch = 0.9 + level.random().next_float() * 0.2;
-                level.play_sound(None, turtle_pos, SoundEvent::ENTITY_TURTLE_LAY_EGG, SoundSource::Blocks, 0.3, pitch);
+                level.play_sound(
+                    None,
+                    turtle_pos,
+                    SoundEvent::ENTITY_TURTLE_LAY_EGG,
+                    SoundSource::Blocks,
+                    0.3,
+                    pitch,
+                );
                 let egg_pos = self.mtb.block_pos.above();
                 let eggs = mob.base_mut().random.next_int_bounded(4) + 1;
                 let egg_state = Block::TURTLE_EGG.default_state().set(props::EGGS, eggs);
                 level.set_block_and_update(egg_pos, egg_state);
-                level.game_event_at_block(GameEvent::BLOCK_PLACE, egg_pos, &GameEventContext::of(Some(mob.id()), Some(egg_state)));
+                level.game_event_at_block(
+                    GameEvent::BLOCK_PLACE,
+                    egg_pos,
+                    &GameEventContext::of(Some(mob.id()), Some(egg_state)),
+                );
                 let t = turtle_mut(mob);
                 t.set_has_egg(false);
                 t.set_laying_egg(false);
@@ -512,7 +608,9 @@ pub struct TurtleRandomStrollGoal {
 
 impl TurtleRandomStrollGoal {
     pub fn new(speed_modifier: f64, interval: i32) -> Self {
-        Self { stroll: RandomStrollGoal::with_interval(speed_modifier, interval) }
+        Self {
+            stroll: RandomStrollGoal::with_interval(speed_modifier, interval),
+        }
     }
 }
 
@@ -546,7 +644,10 @@ pub struct TurtleTravelGoal {
 
 impl TurtleTravelGoal {
     pub fn new(speed_modifier: f64) -> Self {
-        Self { speed_modifier, stuck: false }
+        Self {
+            speed_modifier,
+            stuck: false,
+        }
     }
 }
 
@@ -564,7 +665,11 @@ impl Goal for TurtleTravelGoal {
             yt = 0;
         }
         let p = mob.position();
-        turtle_mut(mob).travel_pos = Some(BlockPos::containing(f64::from(xt) + p.x, f64::from(yt) + p.y, f64::from(zt) + p.z));
+        turtle_mut(mob).travel_pos = Some(BlockPos::containing(
+            f64::from(xt) + p.x,
+            f64::from(yt) + p.y,
+            f64::from(zt) + p.z,
+        ));
         self.stuck = false;
     }
 
@@ -577,7 +682,8 @@ impl Goal for TurtleTravelGoal {
             let target_pos = Vec3::at_bottom_center_of(&travel_pos);
             let pi10 = f64::from((std::f64::consts::PI / 10.0) as f32);
             let pi2 = f64::from((std::f64::consts::PI / 2.0) as f32);
-            let mut next_pos = default_random_pos::get_pos_towards(mob, level, 16, 3, target_pos, pi10);
+            let mut next_pos =
+                default_random_pos::get_pos_towards(mob, level, 16, 3, target_pos, pi10);
             if next_pos.is_none() {
                 next_pos = default_random_pos::get_pos_towards(mob, level, 8, 7, target_pos, pi2);
             }
@@ -598,7 +704,11 @@ impl Goal for TurtleTravelGoal {
     }
 
     fn can_continue_to_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        !navigation::is_done(mob, level) && !self.stuck && !turtle(mob).going_home && !animal::is_in_love(mob) && !turtle(mob).has_egg()
+        !navigation::is_done(mob, level)
+            && !self.stuck
+            && !turtle(mob).going_home
+            && !animal::is_in_love(mob)
+            && !turtle(mob).has_egg()
     }
 
     fn stop(&mut self, mob: &mut dyn Entity, _level: &mut ServerLevel) {
@@ -618,17 +728,28 @@ impl Entity for Turtle {
     }
 
     fn get_dimensions(&self, _pose: Pose) -> EntityDimensions {
-        if self.is_baby() { baby_dimensions() } else { EntityDimensions::of_type(self.mob.living.entity.entity_type) }
+        if self.is_baby() {
+            baby_dimensions()
+        } else {
+            EntityDimensions::of_type(self.mob.living.entity.entity_type)
+        }
     }
 
     fn add_additional_save_data(&self, out: &mut CompoundTag) {
         mob::nbt::add_additional_save_data(self, out);
-        out.put_int_array("home_pos", vec![self.home_pos.x(), self.home_pos.y(), self.home_pos.z()]);
+        out.put_int_array(
+            "home_pos",
+            vec![self.home_pos.x(), self.home_pos.y(), self.home_pos.z()],
+        );
         out.put_boolean("has_egg", self.has_egg());
     }
 
     fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        let home = input.get_int_array("home_pos").filter(|a| a.len() == 3).map(|a| BlockPos::new(a[0], a[1], a[2])).unwrap_or_else(|| self.block_position());
+        let home = input
+            .get_int_array("home_pos")
+            .filter(|a| a.len() == 3)
+            .map(|a| BlockPos::new(a[0], a[1], a[2]))
+            .unwrap_or_else(|| self.block_position());
         self.set_home_pos(home);
         mob::nbt::read_additional_save_data(self, input);
         self.set_has_egg(input.get_boolean_or("has_egg", false));
@@ -655,7 +776,11 @@ impl Entity for Turtle {
     }
 
     fn get_ambient_sound(&self) -> Option<SoundEvent> {
-        if !self.is_in_water() && self.base().on_ground() && !self.is_baby() { Some(SoundEvent::ENTITY_TURTLE_AMBIENT_LAND) } else { None }
+        if !self.is_in_water() && self.base().on_ground() && !self.is_baby() {
+            Some(SoundEvent::ENTITY_TURTLE_AMBIENT_LAND)
+        } else {
+            None
+        }
     }
 
     fn play_swim_sound(&mut self, level: &mut ServerLevel, volume: f32) {
@@ -670,15 +795,32 @@ impl Entity for Turtle {
     }
 
     fn get_hurt_sound(&self, _source: &DamageSource) -> Option<SoundEvent> {
-        Some(if self.is_baby() { SoundEvent::ENTITY_TURTLE_HURT_BABY } else { SoundEvent::ENTITY_TURTLE_HURT })
+        Some(if self.is_baby() {
+            SoundEvent::ENTITY_TURTLE_HURT_BABY
+        } else {
+            SoundEvent::ENTITY_TURTLE_HURT
+        })
     }
 
     fn get_death_sound(&self) -> Option<SoundEvent> {
-        Some(if self.is_baby() { SoundEvent::ENTITY_TURTLE_DEATH_BABY } else { SoundEvent::ENTITY_TURTLE_DEATH })
+        Some(if self.is_baby() {
+            SoundEvent::ENTITY_TURTLE_DEATH_BABY
+        } else {
+            SoundEvent::ENTITY_TURTLE_DEATH
+        })
     }
 
-    fn play_step_sound(&mut self, level: &mut ServerLevel, _pos: BlockPos, _state: mc_data::block::BlockState) {
-        let sound = if self.is_baby() { SoundEvent::ENTITY_TURTLE_SHAMBLE_BABY } else { SoundEvent::ENTITY_TURTLE_SHAMBLE };
+    fn play_step_sound(
+        &mut self,
+        level: &mut ServerLevel,
+        _pos: BlockPos,
+        _state: mc_data::block::BlockState,
+    ) {
+        let sound = if self.is_baby() {
+            SoundEvent::ENTITY_TURTLE_SHAMBLE_BABY
+        } else {
+            SoundEvent::ENTITY_TURTLE_SHAMBLE
+        };
         self.play_sound(level, sound, 0.15, 1.0);
     }
 
@@ -694,8 +836,19 @@ impl Entity for Turtle {
         if self.is_baby() { BABY_SCALE } else { 1.0 }
     }
 
-    fn get_breed_offspring(&mut self, level: &mut ServerLevel, _partner: EntityId) -> Option<Box<dyn Entity>> {
-        mc_game_core::world::entity::factory::create(EntityType::TURTLE, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })
+    fn get_breed_offspring(
+        &mut self,
+        level: &mut ServerLevel,
+        _partner: EntityId,
+    ) -> Option<Box<dyn Entity>> {
+        mc_game_core::world::entity::factory::create(
+            EntityType::TURTLE,
+            level,
+            EntitySpawnRequest {
+                reason: EntitySpawnReason::Breeding,
+                ignore_checks: false,
+            },
+        )
     }
 
     fn is_food(&self, stack: &ItemStack) -> bool {
@@ -714,7 +867,11 @@ impl Entity for Turtle {
 
     fn ai_step(&mut self, level: &mut ServerLevel) {
         mob::tick::ai_step(self, level);
-        if self.is_alive() && self.is_laying_egg() && self.lay_egg_counter >= 1 && self.lay_egg_counter % 5 == 0 {
+        if self.is_alive()
+            && self.is_laying_egg()
+            && self.lay_egg_counter >= 1
+            && self.lay_egg_counter % 5 == 0
+        {
             let pos = self.block_position();
             if turtle_egg_block::on_sand(&*level, pos) {
                 let below = level.get_block_state(pos.below());
@@ -727,20 +884,42 @@ impl Entity for Turtle {
     fn age_boundary_reached(&mut self, level: &mut ServerLevel) {
         ageable::age_boundary_reached(self, level);
         if !self.is_baby() && level.mob_drops() {
-            ext::drop_from_gift_loot_table(level, self, &Identifier::parse("minecraft:gameplay/turtle_grow").expect("valid id"), |level, e, stack| {
-                mc_game_core::world::entity::item::spawn_at_location(level, e, stack, Vec3::ZERO);
-            });
+            ext::drop_from_gift_loot_table(
+                level,
+                self,
+                &Identifier::parse("minecraft:gameplay/turtle_grow").expect("valid id"),
+                |level, e, stack| {
+                    mc_game_core::world::entity::item::spawn_at_location(
+                        level,
+                        e,
+                        stack,
+                        Vec3::ZERO,
+                    );
+                },
+            );
         }
     }
 
-    fn travel_in_water(&mut self, level: &mut ServerLevel, input: Vec3, _base_gravity: f64, _is_falling: bool, _old_y: f64) {
+    fn travel_in_water(
+        &mut self,
+        level: &mut ServerLevel,
+        input: Vec3,
+        _base_gravity: f64,
+        _is_falling: bool,
+        _old_y: f64,
+    ) {
         self.move_relative(0.1, input);
         let delta = self.base().delta_movement();
         self.r#move(level, MoverType::SelfMover, delta);
         let scaled = self.base().delta_movement().scale(0.9);
         self.base_mut().set_delta_movement(scaled);
-        if self.get_target().is_none() && (!self.going_home || !self.home_pos.closer_to_center_than(&self.position(), 20.0)) {
-            let dm = self.base().delta_movement().add(Vec3::new(0.0, -0.005, 0.0));
+        if self.get_target().is_none()
+            && (!self.going_home || !self.home_pos.closer_to_center_than(&self.position(), 20.0))
+        {
+            let dm = self
+                .base()
+                .delta_movement()
+                .add(Vec3::new(0.0, -0.005, 0.0));
             self.base_mut().set_delta_movement(dm);
         }
     }
@@ -756,11 +935,22 @@ impl Entity for Turtle {
 }
 
 /// `Turtle.checkTurtleSpawnRules`.
-fn check_turtle_spawn_rules(_ty: EntityType, level: &dyn ServerLevelAccessor, _reason: EntitySpawnReason, pos: BlockPos, _random: &mut dyn RandomSource) -> bool {
-    pos.y() < level.get_sea_level() + 4 && turtle_egg_block::on_sand(level, pos) && spawn_predicates::is_bright_enough_to_spawn(level, pos)
+fn check_turtle_spawn_rules(
+    _ty: EntityType,
+    level: &dyn ServerLevelAccessor,
+    _reason: EntitySpawnReason,
+    pos: BlockPos,
+    _random: &mut dyn RandomSource,
+) -> bool {
+    pos.y() < level.get_sea_level() + 4
+        && turtle_egg_block::on_sand(level, pos)
+        && spawn_predicates::is_bright_enough_to_spawn(level, pos)
 }
 
 mc_game_core::register_spawn_placement!(EntityType::TURTLE, check_turtle_spawn_rules);
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static TURTLE: EntityRegistration = EntityRegistration { entity_type: EntityType::TURTLE, create: |ty, id, registries| Box::new(Turtle::new(ty, id, registries)) };
+static TURTLE: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::TURTLE,
+    create: |ty, id, registries| Box::new(Turtle::new(ty, id, registries)),
+};

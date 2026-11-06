@@ -19,7 +19,8 @@ impl ServerLevel {
 
     /// `isCloseToVillage(pos, sectionDistance)`.
     pub fn is_close_to_village(&self, pos: BlockPos, section_distance: i32) -> bool {
-        section_distance <= 6 && self.sections_to_village(SectionPos::of_block_pos(&pos)) <= section_distance
+        section_distance <= 6
+            && self.sections_to_village(SectionPos::of_block_pos(&pos)) <= section_distance
     }
 
     /// Binds `PoiTypeTags.VILLAGE` of the level's registries (data packs may change the tag) for the village distances.
@@ -27,7 +28,12 @@ impl ServerLevel {
         let village = mc_core::ident::Identifier::parse("minecraft:village").expect("valid tag");
         let mask = (0..mc_data::misc::POI_TYPES.len())
             .filter_map(PoiTypeHolder::from_index)
-            .filter(|t| mc_core::ident::Identifier::parse(t.registered_name()).is_ok_and(|id| self.registries.is_in_tag("minecraft:point_of_interest_type", &id, &village)))
+            .filter(|t| {
+                mc_core::ident::Identifier::parse(t.registered_name()).is_ok_and(|id| {
+                    self.registries
+                        .is_in_tag("minecraft:point_of_interest_type", &id, &village)
+                })
+            })
             .fold(0u32, |mask, t| mask | 1 << t.index());
         self.poi_manager().set_village_types(mask);
     }
@@ -56,6 +62,9 @@ impl ServerLevel {
     /// `holder.is(PoiTypeTags.VILLAGE)`.
     pub fn poi_type_is_village(&self, t: PoiTypeHolder) -> bool {
         let village = mc_core::ident::Identifier::parse("minecraft:village").expect("valid tag");
-        mc_core::ident::Identifier::parse(t.registered_name()).is_ok_and(|id| self.registries.is_in_tag("minecraft:point_of_interest_type", &id, &village))
+        mc_core::ident::Identifier::parse(t.registered_name()).is_ok_and(|id| {
+            self.registries
+                .is_in_tag("minecraft:point_of_interest_type", &id, &village)
+        })
     }
 }

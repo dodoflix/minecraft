@@ -171,7 +171,13 @@ pub(crate) fn f32_eq(a: f32, b: f32) -> bool {
 }
 
 pub(crate) fn f64_eq(a: f64, b: f64) -> bool {
-    let canon = |v: f64| if v.is_nan() { 0x7ff8_0000_0000_0000 } else { v.to_bits() };
+    let canon = |v: f64| {
+        if v.is_nan() {
+            0x7ff8_0000_0000_0000
+        } else {
+            v.to_bits()
+        }
+    };
     canon(a) == canon(b)
 }
 

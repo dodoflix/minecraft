@@ -76,7 +76,9 @@ pub fn is_eye_in_fluid(entity: &dyn Entity, fluid: FluidKind) -> bool {
 
 /// `isSprinting()`.
 pub fn is_sprinting(entity: &dyn Entity) -> bool {
-    entity.base().get_shared_flag(crate::world::entity::entity::FLAG_SPRINTING)
+    entity
+        .base()
+        .get_shared_flag(crate::world::entity::entity::FLAG_SPRINTING)
 }
 
 /// `getLookAngle()`.
@@ -87,19 +89,34 @@ pub fn look_angle(entity: &dyn Entity) -> Vec3 {
 /// `isFree(xa, ya, za)`: the box moved by the offset has no collision.
 pub fn is_free(level: &ServerLevel, entity: &dyn Entity, xa: f64, ya: f64, za: f64) -> bool {
     let area = entity.base().bounding_box().move_(xa, ya, za);
-    crate::world::level::collision::CollisionGetter::no_collision(level, Some(entity.id()), Some(&movement::collision_context(entity)), &area)
+    crate::world::level::collision::CollisionGetter::no_collision(
+        level,
+        Some(entity.id()),
+        Some(&movement::collision_context(entity)),
+        &area,
+    )
 }
 
 /// `Level.isPositionEntityTicking(pos)`.
 pub fn is_position_entity_ticking(level: &ServerLevel, pos: BlockPos) -> bool {
     level.entity_manager.can_position_tick(pos)
-        && level.chunk_source.chunk_map.distance_manager.in_entity_ticking_range(ChunkPos::pack_block_pos(&pos))
+        && level
+            .chunk_source
+            .chunk_map
+            .distance_manager
+            .in_entity_ticking_range(ChunkPos::pack_block_pos(&pos))
 }
 
 /// `Level.broadcastEntityEvent(entity, event)`: to the tracking players and the entity itself.
 pub fn broadcast_entity_event(level: &mut ServerLevel, id: EntityId, event_id: i8) {
-    let packet = ClientboundEntityEventPacket { entity_id: id, event_id };
-    level.entity_tracker.send_to_tracking_players_and_self(id, &crate::server::level::level_events::encode_packet(&packet));
+    let packet = ClientboundEntityEventPacket {
+        entity_id: id,
+        event_id,
+    };
+    level.entity_tracker.send_to_tracking_players_and_self(
+        id,
+        &crate::server::level::level_events::encode_packet(&packet),
+    );
 }
 
 /// `Entity.gameEvent(event)`.
@@ -108,7 +125,12 @@ pub fn game_event(level: &mut ServerLevel, entity: &dyn Entity, event: GameEvent
 }
 
 /// `move(MoverType.SELF-style, delta)`: runs `Entity.move`.
-pub fn do_move(entity: &mut dyn Entity, level: &mut ServerLevel, mover: crate::world::entity::MoverType, delta: Vec3) {
+pub fn do_move(
+    entity: &mut dyn Entity,
+    level: &mut ServerLevel,
+    mover: crate::world::entity::MoverType,
+    delta: Vec3,
+) {
     let _ = entity.r#move(level, mover, delta);
 }
 
@@ -118,7 +140,12 @@ pub fn move_relative(entity: &mut dyn Entity, speed: f32, input: Vec3) {
     if length < 1.0E-7 {
         return;
     }
-    let movement = (if length > 1.0 { input.normalize() } else { input }).scale(f64::from(speed));
+    let movement = (if length > 1.0 {
+        input.normalize()
+    } else {
+        input
+    })
+    .scale(f64::from(speed));
     let y_rot = entity.base().y_rot() * (std::f64::consts::PI / 180.0) as f32;
     let sin = mc_core::math::mth::sin(f64::from(y_rot));
     let cos = mc_core::math::mth::cos(f64::from(y_rot));
@@ -132,10 +159,20 @@ pub fn move_relative(entity: &mut dyn Entity, speed: f32, input: Vec3) {
 }
 
 /// `Entity.playSound(sound, volume, pitch)` of a living entity (players do not hear their own sounds).
-pub fn play_sound(level: &mut ServerLevel, entity: &dyn Entity, sound: mc_data::SoundEvent, volume: f32, pitch: f32) {
+pub fn play_sound(
+    level: &mut ServerLevel,
+    entity: &dyn Entity,
+    sound: mc_data::SoundEvent,
+    volume: f32,
+    pitch: f32,
+) {
     use mc_protocol::packets::play::SoundSource;
     let p = entity.base().position();
-    let (except, source) = if entity.is_player() { (Some(entity.id()), SoundSource::Players) } else { (None, SoundSource::Neutral) };
+    let (except, source) = if entity.is_player() {
+        (Some(entity.id()), SoundSource::Players)
+    } else {
+        (None, SoundSource::Neutral)
+    };
     if !entity.base().is_silent() {
         level.play_sound_at(except, p.x, p.y, p.z, sound, source, volume, pitch);
     }
@@ -171,16 +208,35 @@ pub fn is_in_wall(entity: &dyn Entity, level: &ServerLevel) -> bool {
         return false;
     }
     let check_width = f64::from(entity.base().dimensions.width * 0.8);
-    let eye_bb = AABB::of_size(entity.base().get_eye_position(), check_width, 1.0E-6, check_width);
+    let eye_bb = AABB::of_size(
+        entity.base().get_eye_position(),
+        check_width,
+        1.0E-6,
+        check_width,
+    );
     let eye_shape = Shapes::create(eye_bb);
-    for x in mc_core::math::mth::floor_f64(eye_bb.min_x)..=mc_core::math::mth::floor_f64(eye_bb.max_x) {
-        for y in mc_core::math::mth::floor_f64(eye_bb.min_y)..=mc_core::math::mth::floor_f64(eye_bb.max_y) {
-            for z in mc_core::math::mth::floor_f64(eye_bb.min_z)..=mc_core::math::mth::floor_f64(eye_bb.max_z) {
+    for x in
+        mc_core::math::mth::floor_f64(eye_bb.min_x)..=mc_core::math::mth::floor_f64(eye_bb.max_x)
+    {
+        for y in mc_core::math::mth::floor_f64(eye_bb.min_y)
+            ..=mc_core::math::mth::floor_f64(eye_bb.max_y)
+        {
+            for z in mc_core::math::mth::floor_f64(eye_bb.min_z)
+                ..=mc_core::math::mth::floor_f64(eye_bb.max_z)
+            {
                 let pos = BlockPos::new(x, y, z);
                 let state = crate::world::level::BlockGetter::get_block_state(level, pos);
                 if !state.is_air()
                     && state.is_suffocating_at(level, pos)
-                    && Shapes::join_is_not_empty(&state.get_collision_shape(level, pos).move_(f64::from(x), f64::from(y), f64::from(z)), &eye_shape, BooleanOp::AND)
+                    && Shapes::join_is_not_empty(
+                        &state.get_collision_shape(level, pos).move_(
+                            f64::from(x),
+                            f64::from(y),
+                            f64::from(z),
+                        ),
+                        &eye_shape,
+                        BooleanOp::AND,
+                    )
                 {
                     return true;
                 }
@@ -196,11 +252,23 @@ pub fn is_in_water_or_rain(entity: &dyn Entity, level: &ServerLevel) -> bool {
         return true;
     }
     let pos = entity.base().block_position();
-    level.is_raining_at(pos) || level.is_raining_at(BlockPos::containing(f64::from(pos.x()), entity.base().bounding_box().max_y, f64::from(pos.z())))
+    level.is_raining_at(pos)
+        || level.is_raining_at(BlockPos::containing(
+            f64::from(pos.x()),
+            entity.base().bounding_box().max_y,
+            f64::from(pos.z()),
+        ))
 }
 
 /// `entity.hurtServer(level, level.damageSources().<kind>(), amount)`.
-pub fn hurt(level: &mut ServerLevel, entity: &mut dyn Entity, kind: impl FnOnce(&crate::world::damagesource::DamageSources<'_>) -> crate::world::damagesource::DamageSource, amount: f32) {
+pub fn hurt(
+    level: &mut ServerLevel,
+    entity: &mut dyn Entity,
+    kind: impl FnOnce(
+        &crate::world::damagesource::DamageSources<'_>,
+    ) -> crate::world::damagesource::DamageSource,
+    amount: f32,
+) {
     let source = kind(&level.damage_sources());
     entity.hurt_server(level, &source, amount);
 }

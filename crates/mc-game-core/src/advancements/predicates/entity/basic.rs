@@ -12,7 +12,9 @@ use crate::world::entity::Entity;
 use mc_core::phys::Vec3;
 use mc_dfu::extra::POSITIVE_INT;
 use mc_dfu::{Codec, STRING};
-use mc_protocol::components::{DataComponentExactPredicate, MobEffectsPredicate, NbtPredicate, PredicateMap, RegistrySet};
+use mc_protocol::components::{
+    DataComponentExactPredicate, MobEffectsPredicate, NbtPredicate, PredicateMap, RegistrySet,
+};
 use std::sync::LazyLock;
 
 /// `EntityTypePredicate`.
@@ -23,10 +25,19 @@ pub struct EntityTypePredicate {
 
 impl EntitySubPredicateImpl for EntityTypePredicate {
     fn codec() -> Codec<Self> {
-        RegistrySet::<mc_data::EntityType>::codec().xmap(|types| EntityTypePredicate { types }, |p: &EntityTypePredicate| p.types.clone())
+        RegistrySet::<mc_data::EntityType>::codec().xmap(
+            |types| EntityTypePredicate { types },
+            |p: &EntityTypePredicate| p.types.clone(),
+        )
     }
 
-    fn matches<'a>(&self, entity: &'a dyn Entity, _level: &'a ServerLevel, _position: Option<Vec3>, _lent: &[&'a dyn Entity]) -> bool {
+    fn matches<'a>(
+        &self,
+        entity: &'a dyn Entity,
+        _level: &'a ServerLevel,
+        _position: Option<Vec3>,
+        _lent: &[&'a dyn Entity],
+    ) -> bool {
         self.types.contains(entity.get_type())
     }
 }
@@ -39,10 +50,19 @@ pub struct EntityLocationPredicate {
 
 impl EntitySubPredicateImpl for EntityLocationPredicate {
     fn codec() -> Codec<Self> {
-        LocationPredicate::codec().xmap(|predicate| EntityLocationPredicate { predicate }, |p: &EntityLocationPredicate| p.predicate.clone())
+        LocationPredicate::codec().xmap(
+            |predicate| EntityLocationPredicate { predicate },
+            |p: &EntityLocationPredicate| p.predicate.clone(),
+        )
     }
 
-    fn matches<'a>(&self, entity: &'a dyn Entity, level: &'a ServerLevel, _position: Option<Vec3>, _lent: &[&'a dyn Entity]) -> bool {
+    fn matches<'a>(
+        &self,
+        entity: &'a dyn Entity,
+        level: &'a ServerLevel,
+        _position: Option<Vec3>,
+        _lent: &[&'a dyn Entity],
+    ) -> bool {
         let b = entity.base();
         self.predicate.matches(level, b.x(), b.y(), b.z())
     }
@@ -50,7 +70,11 @@ impl EntitySubPredicateImpl for EntityLocationPredicate {
 
 /// `Vec3.atCenterOf(pos)`.
 fn center_of(pos: mc_core::pos::BlockPos) -> Vec3 {
-    Vec3::new(f64::from(pos.x()) + 0.5, f64::from(pos.y()) + 0.5, f64::from(pos.z()) + 0.5)
+    Vec3::new(
+        f64::from(pos.x()) + 0.5,
+        f64::from(pos.y()) + 0.5,
+        f64::from(pos.z()) + 0.5,
+    )
 }
 
 /// `SteppingOnPredicate`.
@@ -61,10 +85,19 @@ pub struct SteppingOnPredicate {
 
 impl EntitySubPredicateImpl for SteppingOnPredicate {
     fn codec() -> Codec<Self> {
-        LocationPredicate::codec().xmap(|predicate| SteppingOnPredicate { predicate }, |p: &SteppingOnPredicate| p.predicate.clone())
+        LocationPredicate::codec().xmap(
+            |predicate| SteppingOnPredicate { predicate },
+            |p: &SteppingOnPredicate| p.predicate.clone(),
+        )
     }
 
-    fn matches<'a>(&self, entity: &'a dyn Entity, level: &'a ServerLevel, _position: Option<Vec3>, _lent: &[&'a dyn Entity]) -> bool {
+    fn matches<'a>(
+        &self,
+        entity: &'a dyn Entity,
+        level: &'a ServerLevel,
+        _position: Option<Vec3>,
+        _lent: &[&'a dyn Entity],
+    ) -> bool {
         if !entity.base().on_ground() {
             return false;
         }
@@ -81,11 +114,22 @@ pub struct MovementAffectedByPredicate {
 
 impl EntitySubPredicateImpl for MovementAffectedByPredicate {
     fn codec() -> Codec<Self> {
-        LocationPredicate::codec().xmap(|predicate| MovementAffectedByPredicate { predicate }, |p: &MovementAffectedByPredicate| p.predicate.clone())
+        LocationPredicate::codec().xmap(
+            |predicate| MovementAffectedByPredicate { predicate },
+            |p: &MovementAffectedByPredicate| p.predicate.clone(),
+        )
     }
 
-    fn matches<'a>(&self, entity: &'a dyn Entity, level: &'a ServerLevel, _position: Option<Vec3>, _lent: &[&'a dyn Entity]) -> bool {
-        let on_pos = center_of(support::get_block_pos_below_that_affects_my_movement(level, entity));
+    fn matches<'a>(
+        &self,
+        entity: &'a dyn Entity,
+        level: &'a ServerLevel,
+        _position: Option<Vec3>,
+        _lent: &[&'a dyn Entity],
+    ) -> bool {
+        let on_pos = center_of(support::get_block_pos_below_that_affects_my_movement(
+            level, entity,
+        ));
         self.predicate.matches(level, on_pos.x, on_pos.y, on_pos.z)
     }
 }
@@ -98,10 +142,19 @@ pub struct DistanceToPlayerPredicate {
 
 impl EntitySubPredicateImpl for DistanceToPlayerPredicate {
     fn codec() -> Codec<Self> {
-        DistancePredicate::codec().xmap(|distance| DistanceToPlayerPredicate { distance }, |p: &DistanceToPlayerPredicate| p.distance.clone())
+        DistancePredicate::codec().xmap(
+            |distance| DistanceToPlayerPredicate { distance },
+            |p: &DistanceToPlayerPredicate| p.distance.clone(),
+        )
     }
 
-    fn matches<'a>(&self, entity: &'a dyn Entity, _level: &'a ServerLevel, position: Option<Vec3>, _lent: &[&'a dyn Entity]) -> bool {
+    fn matches<'a>(
+        &self,
+        entity: &'a dyn Entity,
+        _level: &'a ServerLevel,
+        position: Option<Vec3>,
+        _lent: &[&'a dyn Entity],
+    ) -> bool {
         let b = entity.base();
         position.is_some_and(|p| self.distance.matches(p.x, p.y, p.z, b.x(), b.y(), b.z()))
     }
@@ -115,10 +168,19 @@ pub struct EntityEffectsPredicate {
 
 impl EntitySubPredicateImpl for EntityEffectsPredicate {
     fn codec() -> Codec<Self> {
-        MobEffectsPredicate::codec().xmap(|effects| EntityEffectsPredicate { effects }, |p: &EntityEffectsPredicate| p.effects.clone())
+        MobEffectsPredicate::codec().xmap(
+            |effects| EntityEffectsPredicate { effects },
+            |p: &EntityEffectsPredicate| p.effects.clone(),
+        )
     }
 
-    fn matches<'a>(&self, entity: &'a dyn Entity, _level: &'a ServerLevel, _position: Option<Vec3>, _lent: &[&'a dyn Entity]) -> bool {
+    fn matches<'a>(
+        &self,
+        entity: &'a dyn Entity,
+        _level: &'a ServerLevel,
+        _position: Option<Vec3>,
+        _lent: &[&'a dyn Entity],
+    ) -> bool {
         self.effects.matches_entity(entity)
     }
 }
@@ -131,10 +193,19 @@ pub struct EntityNbtPredicate {
 
 impl EntitySubPredicateImpl for EntityNbtPredicate {
     fn codec() -> Codec<Self> {
-        NbtPredicate::codec().xmap(|nbt| EntityNbtPredicate { nbt }, |p: &EntityNbtPredicate| p.nbt.clone())
+        NbtPredicate::codec().xmap(
+            |nbt| EntityNbtPredicate { nbt },
+            |p: &EntityNbtPredicate| p.nbt.clone(),
+        )
     }
 
-    fn matches<'a>(&self, entity: &'a dyn Entity, level: &'a ServerLevel, _position: Option<Vec3>, _lent: &[&'a dyn Entity]) -> bool {
+    fn matches<'a>(
+        &self,
+        entity: &'a dyn Entity,
+        level: &'a ServerLevel,
+        _position: Option<Vec3>,
+        _lent: &[&'a dyn Entity],
+    ) -> bool {
         self.nbt.matches_entity(level, entity)
     }
 }
@@ -147,10 +218,19 @@ pub struct PeriodicEntityTickPredicate {
 
 impl EntitySubPredicateImpl for PeriodicEntityTickPredicate {
     fn codec() -> Codec<Self> {
-        POSITIVE_INT.xmap(|periodic_tick| PeriodicEntityTickPredicate { periodic_tick }, |p: &PeriodicEntityTickPredicate| p.periodic_tick)
+        POSITIVE_INT.xmap(
+            |periodic_tick| PeriodicEntityTickPredicate { periodic_tick },
+            |p: &PeriodicEntityTickPredicate| p.periodic_tick,
+        )
     }
 
-    fn matches<'a>(&self, entity: &'a dyn Entity, _level: &'a ServerLevel, _position: Option<Vec3>, _lent: &[&'a dyn Entity]) -> bool {
+    fn matches<'a>(
+        &self,
+        entity: &'a dyn Entity,
+        _level: &'a ServerLevel,
+        _position: Option<Vec3>,
+        _lent: &[&'a dyn Entity],
+    ) -> bool {
         entity.base().tick_count % self.periodic_tick == 0
     }
 }
@@ -163,10 +243,19 @@ pub struct TeamPredicate {
 
 impl EntitySubPredicateImpl for TeamPredicate {
     fn codec() -> Codec<Self> {
-        STRING.xmap(|team| TeamPredicate { team }, |p: &TeamPredicate| p.team.clone())
+        STRING.xmap(
+            |team| TeamPredicate { team },
+            |p: &TeamPredicate| p.team.clone(),
+        )
     }
 
-    fn matches<'a>(&self, entity: &'a dyn Entity, level: &'a ServerLevel, _position: Option<Vec3>, _lent: &[&'a dyn Entity]) -> bool {
+    fn matches<'a>(
+        &self,
+        entity: &'a dyn Entity,
+        level: &'a ServerLevel,
+        _position: Option<Vec3>,
+        _lent: &[&'a dyn Entity],
+    ) -> bool {
         support::get_team_name(level, entity).is_some_and(|name| name == self.team)
     }
 }
@@ -179,10 +268,19 @@ pub struct EntitySlotsPredicate {
 
 impl EntitySubPredicateImpl for EntitySlotsPredicate {
     fn codec() -> Codec<Self> {
-        SlotsPredicate::codec().xmap(|slots| EntitySlotsPredicate { slots }, |p: &EntitySlotsPredicate| p.slots.clone())
+        SlotsPredicate::codec().xmap(
+            |slots| EntitySlotsPredicate { slots },
+            |p: &EntitySlotsPredicate| p.slots.clone(),
+        )
     }
 
-    fn matches<'a>(&self, entity: &'a dyn Entity, _level: &'a ServerLevel, _position: Option<Vec3>, _lent: &[&'a dyn Entity]) -> bool {
+    fn matches<'a>(
+        &self,
+        entity: &'a dyn Entity,
+        _level: &'a ServerLevel,
+        _position: Option<Vec3>,
+        _lent: &[&'a dyn Entity],
+    ) -> bool {
         self.slots.matches(entity)
     }
 }
@@ -195,11 +293,19 @@ pub struct EntityExactDataComponentsPredicate {
 
 impl EntitySubPredicateImpl for EntityExactDataComponentsPredicate {
     fn codec() -> Codec<Self> {
-        DataComponentExactPredicate::codec()
-            .xmap(|predicate| EntityExactDataComponentsPredicate { predicate }, |p: &EntityExactDataComponentsPredicate| p.predicate.clone())
+        DataComponentExactPredicate::codec().xmap(
+            |predicate| EntityExactDataComponentsPredicate { predicate },
+            |p: &EntityExactDataComponentsPredicate| p.predicate.clone(),
+        )
     }
 
-    fn matches<'a>(&self, entity: &'a dyn Entity, _level: &'a ServerLevel, _position: Option<Vec3>, _lent: &[&'a dyn Entity]) -> bool {
+    fn matches<'a>(
+        &self,
+        entity: &'a dyn Entity,
+        _level: &'a ServerLevel,
+        _position: Option<Vec3>,
+        _lent: &[&'a dyn Entity],
+    ) -> bool {
         self.predicate.test(&entity.entity_components())
     }
 }
@@ -212,10 +318,19 @@ pub struct EntityPartialComponentsPredicate {
 
 impl EntitySubPredicateImpl for EntityPartialComponentsPredicate {
     fn codec() -> Codec<Self> {
-        PredicateMap::codec().xmap(|predicates| EntityPartialComponentsPredicate { predicates }, |p: &EntityPartialComponentsPredicate| p.predicates.clone())
+        PredicateMap::codec().xmap(
+            |predicates| EntityPartialComponentsPredicate { predicates },
+            |p: &EntityPartialComponentsPredicate| p.predicates.clone(),
+        )
     }
 
-    fn matches<'a>(&self, entity: &'a dyn Entity, _level: &'a ServerLevel, _position: Option<Vec3>, _lent: &[&'a dyn Entity]) -> bool {
+    fn matches<'a>(
+        &self,
+        entity: &'a dyn Entity,
+        _level: &'a ServerLevel,
+        _position: Option<Vec3>,
+        _lent: &[&'a dyn Entity],
+    ) -> bool {
         let components = entity.entity_components();
         self.predicates.0.iter().all(|p| p.matches(&components))
     }
@@ -233,13 +348,23 @@ impl EntityTagPredicate {
     /// `matches(Set<String> tags)`.
     pub fn matches_tags(&self, tags: &crate::world::entity::tag_set::JavaStringSet) -> bool {
         let contains_at_least_one = |wanted: &[String]| wanted.iter().any(|t| tags.contains(t));
-        if self.any_of.as_ref().is_some_and(|a| !contains_at_least_one(a)) {
+        if self
+            .any_of
+            .as_ref()
+            .is_some_and(|a| !contains_at_least_one(a))
+        {
             return false;
         }
-        if self.none_of.as_ref().is_some_and(|n| contains_at_least_one(n)) {
+        if self
+            .none_of
+            .as_ref()
+            .is_some_and(|n| contains_at_least_one(n))
+        {
             return false;
         }
-        self.all_of.as_ref().is_none_or(|a| a.iter().all(|t| tags.contains(t)))
+        self.all_of
+            .as_ref()
+            .is_none_or(|a| a.iter().all(|t| tags.contains(t)))
     }
 }
 
@@ -256,7 +381,13 @@ impl EntitySubPredicateImpl for EntityTagPredicate {
         C.clone()
     }
 
-    fn matches<'a>(&self, entity: &'a dyn Entity, _level: &'a ServerLevel, _position: Option<Vec3>, _lent: &[&'a dyn Entity]) -> bool {
+    fn matches<'a>(
+        &self,
+        entity: &'a dyn Entity,
+        _level: &'a ServerLevel,
+        _position: Option<Vec3>,
+        _lent: &[&'a dyn Entity],
+    ) -> bool {
         self.matches_tags(&entity.base().tags)
     }
 }

@@ -53,10 +53,13 @@ pub fn as_schooling_fish_mut(e: &mut dyn Entity) -> Option<&mut dyn SchoolingFis
     let is_salmon = e.as_any().is::<Salmon>();
     let any = e.as_any_mut();
     if is_cod {
-        any.downcast_mut::<Cod>().map(|f| f as &mut dyn SchoolingFish)
+        any.downcast_mut::<Cod>()
+            .map(|f| f as &mut dyn SchoolingFish)
     } else if is_salmon {
-        any.downcast_mut::<Salmon>().map(|f| f as &mut dyn SchoolingFish)
+        any.downcast_mut::<Salmon>()
+            .map(|f| f as &mut dyn SchoolingFish)
     } else {
-        any.downcast_mut::<TropicalFish>().map(|f| f as &mut dyn SchoolingFish)
+        any.downcast_mut::<TropicalFish>()
+            .map(|f| f as &mut dyn SchoolingFish)
     }
 }

@@ -10,11 +10,13 @@
 
 use crate::server::level::ServerLevel;
 use crate::world::container::{Container, empty_stack, helper};
+use crate::world::containers::drop_item_stack;
 use crate::world::damagesource::DamageSource;
 use crate::world::damagesource::display_name::entity_display_name;
-use crate::world::containers::drop_item_stack;
 use crate::world::entity::{Entity, EntityId, ServerPlayer};
-use crate::world::inventory::{AbstractContainerMenu, ChestMenu, ContainerRef, MenuPlayer, MenuProvider};
+use crate::world::inventory::{
+    AbstractContainerMenu, ChestMenu, ContainerRef, MenuPlayer, MenuProvider,
+};
 use crate::world::item::{InteractionResult, ItemStack};
 use crate::world::level::storage::loot::{LootContextParamSets, LootParams, loading};
 use mc_core::ident::Identifier;
@@ -34,7 +36,12 @@ pub struct ChestVehicleData {
 impl ChestVehicleData {
     /// `NonNullList.withSize(size, ItemStack.EMPTY)`; `entity_id` identifies the owner for `stillValid`.
     pub fn new(entity_id: EntityId, size: usize) -> Self {
-        Self { entity_id, item_stacks: vec![ItemStack::empty(); size], loot_table: None, loot_table_seed: 0 }
+        Self {
+            entity_id,
+            item_stacks: vec![ItemStack::empty(); size],
+            loot_table: None,
+            loot_table_seed: 0,
+        }
     }
 
     pub fn get_container_loot_table(&self) -> Option<&Identifier> {
@@ -78,7 +85,9 @@ impl ChestVehicleData {
     /// `readChestVehicleSaveData(input)`.
     pub fn read_chest_vehicle_save_data(&mut self, input: &CompoundTag) {
         self.clear_item_stacks();
-        self.loot_table = input.get_string("LootTable").and_then(|s| Identifier::read(s).ok());
+        self.loot_table = input
+            .get_string("LootTable")
+            .and_then(|s| Identifier::read(s).ok());
         self.loot_table_seed = input.get_long_or("LootTableSeed", 0);
         if self.loot_table.is_none() {
             helper::load_all_items(input, &mut self.item_stacks);
@@ -86,14 +95,23 @@ impl ChestVehicleData {
     }
 
     /// `unpackChestVehicleLootTable(player)` at `origin` (the entity's position).
-    pub fn unpack_chest_vehicle_loot_table(&mut self, level: &ServerLevel, origin: Vec3, player: Option<&dyn Entity>) {
-        let Some(table_id) = self.loot_table.take() else { return };
+    pub fn unpack_chest_vehicle_loot_table(
+        &mut self,
+        level: &ServerLevel,
+        origin: Vec3,
+        player: Option<&dyn Entity>,
+    ) {
+        let Some(table_id) = self.loot_table.take() else {
+            return;
+        };
         let table = loading::get_loot_table(&level.registries, &table_id);
         // SEAM(advancements): `CriteriaTriggers.GENERATE_LOOT.trigger(player, lootTable)` when a player opened it
         let seed = self.loot_table_seed;
         let mut builder = LootParams::builder(level).origin(origin);
         if let Some(p) = player {
-            let luck = p.living().map_or(0.0, |l| l.get_attribute_value(mc_data::Attribute::LUCK) as f32);
+            let luck = p.living().map_or(0.0, |l| {
+                l.get_attribute_value(mc_data::Attribute::LUCK) as f32
+            });
             builder = builder.luck(luck).this_entity(p);
         }
         let params = builder.create(&LootContextParamSets::CHEST);
@@ -105,7 +123,13 @@ impl ChestVehicleData {
     pub fn drop_contents(&mut self, level: &mut ServerLevel, position: Vec3) {
         self.unpack_chest_vehicle_loot_table(level, position, None);
         for stack in &mut self.item_stacks {
-            drop_item_stack(level, position.x, position.y, position.z, std::mem::take(stack));
+            drop_item_stack(
+                level,
+                position.x,
+                position.y,
+                position.z,
+                std::mem::take(stack),
+            );
         }
     }
 }
@@ -145,7 +169,9 @@ impl Container for ChestVehicleData {
     /// `clearChestVehicleContent()`.
     fn clear_content(&mut self) {
         self.loot_table = None;
-        self.item_stacks.iter_mut().for_each(|s| *s = ItemStack::empty());
+        self.item_stacks
+            .iter_mut()
+            .for_each(|s| *s = ItemStack::empty());
     }
     fn set_changed(&mut self) {}
     /// `isChestVehicleStillValid(player)`: the vehicle is alive and within interaction range (buffer 4).
@@ -153,7 +179,10 @@ impl Container for ChestVehicleData {
         player
             .level_ref()
             .and_then(|l| l.get_entity(self.entity_id))
-            .is_some_and(|e| !e.is_removed() && player.is_within_entity_interaction_range(&e.get_bounding_box(), 4.0))
+            .is_some_and(|e| {
+                !e.is_removed()
+                    && player.is_within_entity_interaction_range(&e.get_bounding_box(), 4.0)
+            })
     }
 }
 
@@ -174,9 +203,17 @@ impl MenuProvider for ChestVehicleMenuProvider {
         self.title.clone()
     }
 
-    fn create_menu(&self, container_id: i32, player: &mut dyn MenuPlayer) -> Option<Box<dyn AbstractContainerMenu>> {
+    fn create_menu(
+        &self,
+        container_id: i32,
+        player: &mut dyn MenuPlayer,
+    ) -> Option<Box<dyn AbstractContainerMenu>> {
         let id = self.entity_id;
-        let loot_pending = player.level_ref().and_then(|l| l.get_entity(id)).and_then(|e| e.chest_vehicle()).is_some_and(|c| c.loot_table.is_some());
+        let loot_pending = player
+            .level_ref()
+            .and_then(|l| l.get_entity(id))
+            .and_then(|e| e.chest_vehicle())
+            .is_some_and(|c| c.loot_table.is_some());
         if loot_pending && player.is_spectator() {
             return None;
         }
@@ -188,8 +225,16 @@ impl MenuProvider for ChestVehicleMenuProvider {
                 }
             });
         });
-        let size = player.level_ref().and_then(|l| l.get_entity(id)).and_then(|e| e.chest_vehicle()).map_or(0, |c| c.get_container_size());
-        Some(Box::new(ChestMenu::three_rows(container_id, player, ContainerRef::entity(id, size))))
+        let size = player
+            .level_ref()
+            .and_then(|l| l.get_entity(id))
+            .and_then(|e| e.chest_vehicle())
+            .map_or(0, |c| c.get_container_size());
+        Some(Box::new(ChestMenu::three_rows(
+            container_id,
+            player,
+            ContainerRef::entity(id, size),
+        )))
     }
 }
 
@@ -216,7 +261,11 @@ pub trait ContainerEntity: Entity {
 
     /// `interactWithContainerVehicle(player)`: `player.openMenu(this)`. The vehicle is out of the level while it is being
     /// interacted with, so the menu (which addresses it through the level) opens when the player is put back.
-    fn interact_with_container_vehicle(&mut self, level: &mut ServerLevel, player: &ServerPlayer) -> InteractionResult {
+    fn interact_with_container_vehicle(
+        &mut self,
+        level: &mut ServerLevel,
+        player: &ServerPlayer,
+    ) -> InteractionResult {
         open_chest_vehicle_menu(level, player.id(), self.id());
         InteractionResult::SUCCESS
     }
@@ -225,7 +274,12 @@ pub trait ContainerEntity: Entity {
 /// `player.openMenu(vehicle)`: queued for `player_id` (runs at once when the player is in the level).
 pub fn open_chest_vehicle_menu(level: &mut ServerLevel, player_id: EntityId, vehicle_id: EntityId) {
     level.with_entity_or_defer(player_id, move |level, player| {
-        let Some(title) = level.get_entity(vehicle_id).map(|v| entity_display_name(level, v)) else { return };
+        let Some(title) = level
+            .get_entity(vehicle_id)
+            .map(|v| entity_display_name(level, v))
+        else {
+            return;
+        };
         if let Some(player) = player.as_any_mut().downcast_mut::<ServerPlayer>() {
             player.open_menu(level, &ChestVehicleMenuProvider::new(vehicle_id, title));
         }

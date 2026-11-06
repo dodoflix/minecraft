@@ -10,18 +10,6 @@
 //! `Container::set_changed` of block entity containers is recorded in [`changed_log`] and replayed right after each
 //! public operation (the comparator updates of vanilla's `setChanged`, in their original order).
 
-use mc_game_core::block_entity_base;
-use mc_game_core::world::block_entity::base_container::BaseContainer;
-use mc_game_core::world::block_entity::randomizable_container::{RandomizableContainerData, unpack_loot_table};
-use mc_game_core::world::block_entity::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, changed_log};
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::container::{BlockEntityContainer, CompoundContainer, Container, empty_stack, helper};
-use mc_game_core::world::entity::{Entity, EntityId};
-use mc_game_core::world::entity::item::ItemEntity;
-use mc_game_core::world::inventory::MenuPlayer;
-use mc_game_core::world::item::ItemStack;
-use mc_game_core::world::level::block::{BlockStateExt, behaviour};
-use mc_game_core::world::level::{BlockGetter, LevelAccessor};
 use mc_core::direction::Direction;
 use mc_core::phys::AABB;
 use mc_core::pos::BlockPos;
@@ -29,6 +17,24 @@ use mc_core::random::RandomSource;
 use mc_data::BlockEntityType;
 use mc_data::block::BlockState;
 use mc_data::props;
+use mc_game_core::block_entity_base;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::block_entity::base_container::BaseContainer;
+use mc_game_core::world::block_entity::randomizable_container::{
+    RandomizableContainerData, unpack_loot_table,
+};
+use mc_game_core::world::block_entity::{
+    BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, changed_log,
+};
+use mc_game_core::world::container::{
+    BlockEntityContainer, CompoundContainer, Container, empty_stack, helper,
+};
+use mc_game_core::world::entity::item::ItemEntity;
+use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::inventory::MenuPlayer;
+use mc_game_core::world::item::ItemStack;
+use mc_game_core::world::level::block::{BlockStateExt, behaviour};
+use mc_game_core::world::level::{BlockGetter, LevelAccessor};
 use mc_nbt::CompoundTag;
 use std::any::Any;
 
@@ -99,7 +105,9 @@ impl HopperBlockEntity {
 
     /// `inventoryFull()`.
     fn inventory_full(&self) -> bool {
-        self.items.iter().all(|s| !s.is_empty() && s.count() == s.get_max_stack_size())
+        self.items
+            .iter()
+            .all(|s| !s.is_empty() && s.count() == s.get_max_stack_size())
     }
 }
 
@@ -151,7 +159,8 @@ impl BlockEntity for HopperBlockEntity {
     }
 
     fn apply_components_from_item_stack(&mut self, stack: &ItemStack) {
-        self.container.apply_implicit_components(stack, &mut self.items);
+        self.container
+            .apply_implicit_components(stack, &mut self.items);
         self.loot.apply_implicit_components(stack);
     }
 
@@ -234,12 +243,19 @@ impl Hopper for HopperBlockEntity {
 // ------------------------------------------------------------------------------------------------ ticking / moving
 
 /// `HopperBlockEntity.pushItemsTick(level, pos, state, entity)`.
-pub fn push_items_tick(level: &mut ServerLevel, pos: BlockPos, state: BlockState, entity: &mut HopperBlockEntity) {
+pub fn push_items_tick(
+    level: &mut ServerLevel,
+    pos: BlockPos,
+    state: BlockState,
+    entity: &mut HopperBlockEntity,
+) {
     entity.cooldown_time = entity.cooldown_time.wrapping_sub(1);
     entity.ticked_game_time = level.game_time();
     if !entity.is_on_cooldown() {
         entity.set_cooldown(0);
-        try_move_items(level, pos, state, entity, |level, entity| suck_in_items(level, entity));
+        try_move_items(level, pos, state, entity, |level, entity| {
+            suck_in_items(level, entity)
+        });
     }
 }
 
@@ -271,7 +287,9 @@ fn try_move_items(
 
 /// `ejectItems(level, pos, self)`.
 fn eject_items(level: &mut ServerLevel, pos: BlockPos, this: &mut HopperBlockEntity) -> bool {
-    let Some(target) = get_container_at(level, pos.relative(this.facing)) else { return false };
+    let Some(target) = get_container_at(level, pos.relative(this.facing)) else {
+        return false;
+    };
     let direction = this.facing.get_opposite();
     let moved = with_container(level, &target, |level, container| {
         if is_full_container(container, direction) {
@@ -340,9 +358,20 @@ fn is_full_container(container: &dyn Container, direction: Direction) -> bool {
 
 /// `suckInItems(level, hopper)`.
 pub fn suck_in_items(level: &mut ServerLevel, hopper: &mut dyn Hopper) -> bool {
-    let block_pos = BlockPos::containing(hopper.get_level_x(), hopper.get_level_y() + 1.0, hopper.get_level_z());
+    let block_pos = BlockPos::containing(
+        hopper.get_level_x(),
+        hopper.get_level_y() + 1.0,
+        hopper.get_level_z(),
+    );
     let state = BlockGetter::get_block_state(level, block_pos);
-    let source = get_container_at_xyz(level, block_pos, state, hopper.get_level_x(), hopper.get_level_y() + 1.0, hopper.get_level_z());
+    let source = get_container_at_xyz(
+        level,
+        block_pos,
+        state,
+        hopper.get_level_x(),
+        hopper.get_level_y() + 1.0,
+        hopper.get_level_z(),
+    );
     let result = if let Some(target) = source {
         with_container(level, &target, |level, container| {
             let direction = Direction::Down;
@@ -356,14 +385,18 @@ pub fn suck_in_items(level: &mut ServerLevel, hopper: &mut dyn Hopper) -> bool {
         })
         .unwrap_or(false)
     } else {
-        let is_blocked = hopper.is_grid_aligned() && state.is_collision_shape_full_block_at(level, block_pos) && !state.is_tag("does_not_block_hoppers");
+        let is_blocked = hopper.is_grid_aligned()
+            && state.is_collision_shape_full_block_at(level, block_pos)
+            && !state.is_tag("does_not_block_hoppers");
         let mut moved = false;
         if !is_blocked {
             for id in get_items_at_and_above(level, &*hopper) {
                 let absorbed = level
-                    .with_entity(id, |level, entity| match entity.as_any_mut().downcast_mut::<ItemEntity>() {
-                        Some(item) => add_item_entity(level, hopper, item),
-                        None => false,
+                    .with_entity(id, |level, entity| {
+                        match entity.as_any_mut().downcast_mut::<ItemEntity>() {
+                            Some(item) => add_item_entity(level, hopper, item),
+                            None => false,
+                        }
                     })
                     .unwrap_or(false);
                 if absorbed {
@@ -379,9 +412,16 @@ pub fn suck_in_items(level: &mut ServerLevel, hopper: &mut dyn Hopper) -> bool {
 }
 
 /// `tryTakeInItemFromSlot(hopper, container, slot, direction)`.
-fn try_take_in_item_from_slot(level: &ServerLevel, hopper: &mut dyn Hopper, container: &mut dyn Container, slot: usize, direction: Direction) -> bool {
+fn try_take_in_item_from_slot(
+    level: &ServerLevel,
+    hopper: &mut dyn Hopper,
+    container: &mut dyn Container,
+    slot: usize,
+    direction: Direction,
+) -> bool {
     let stack = container.get_item(slot);
-    if !stack.is_empty() && can_take_item_from_container(hopper, container, stack, slot, direction) {
+    if !stack.is_empty() && can_take_item_from_container(hopper, container, stack, slot, direction)
+    {
         let original_count = stack.count();
         let one = container.remove_item(slot, 1);
         let result = add_item(level, Some(&*container), hopper, one, None);
@@ -401,7 +441,11 @@ fn try_take_in_item_from_slot(level: &ServerLevel, hopper: &mut dyn Hopper, cont
 }
 
 /// `addItem(container, itemEntity)`: absorbs what fits, discards the entity when everything moved.
-pub fn add_item_entity(level: &ServerLevel, container: &mut dyn Container, entity: &mut ItemEntity) -> bool {
+pub fn add_item_entity(
+    level: &ServerLevel,
+    container: &mut dyn Container,
+    entity: &mut ItemEntity,
+) -> bool {
     let copy = entity.get_item().copy();
     let result = add_item(level, None, container, copy, None);
     if result.is_empty() {
@@ -415,7 +459,13 @@ pub fn add_item_entity(level: &ServerLevel, container: &mut dyn Container, entit
 }
 
 /// `addItem(from, container, itemStack, direction)`: the remainder that did not fit.
-pub fn add_item(level: &ServerLevel, from: Option<&dyn Container>, container: &mut dyn Container, mut stack: ItemStack, direction: Option<Direction>) -> ItemStack {
+pub fn add_item(
+    level: &ServerLevel,
+    from: Option<&dyn Container>,
+    container: &mut dyn Container,
+    mut stack: ItemStack,
+    direction: Option<Direction>,
+) -> ItemStack {
     let worldly_slots = match (container.as_worldly(), direction) {
         (Some(worldly), Some(direction)) => Some(worldly.get_slots_for_face(direction)),
         _ => None,
@@ -438,7 +488,13 @@ pub fn add_item(level: &ServerLevel, from: Option<&dyn Container>, container: &m
 }
 
 /// `canPlaceItemInContainer(container, itemStack, slot, direction)`.
-fn can_place_item_in_container(level: &ServerLevel, container: &dyn Container, stack: &ItemStack, slot: usize, direction: Option<Direction>) -> bool {
+fn can_place_item_in_container(
+    level: &ServerLevel,
+    container: &dyn Container,
+    stack: &ItemStack,
+    slot: usize,
+    direction: Option<Direction>,
+) -> bool {
     if !container.can_place_item(slot, stack) {
         return false;
     }
@@ -449,7 +505,13 @@ fn can_place_item_in_container(level: &ServerLevel, container: &dyn Container, s
 }
 
 /// `canTakeItemFromContainer(into, from, itemStack, slot, direction)`.
-fn can_take_item_from_container(into: &dyn Container, from: &dyn Container, stack: &ItemStack, slot: usize, direction: Direction) -> bool {
+fn can_take_item_from_container(
+    into: &dyn Container,
+    from: &dyn Container,
+    stack: &ItemStack,
+    slot: usize,
+    direction: Direction,
+) -> bool {
     if !from.can_take_item(into, slot, stack) {
         return false;
     }
@@ -465,7 +527,14 @@ fn can_merge_items(a: &ItemStack, b: &ItemStack) -> bool {
 }
 
 /// `tryMoveInItem(from, container, itemStack, slot, direction)`.
-fn try_move_in_item(level: &ServerLevel, from: Option<&dyn Container>, container: &mut dyn Container, mut stack: ItemStack, slot: usize, direction: Option<Direction>) -> ItemStack {
+fn try_move_in_item(
+    level: &ServerLevel,
+    from: Option<&dyn Container>,
+    container: &mut dyn Container,
+    mut stack: ItemStack,
+    slot: usize,
+    direction: Option<Direction>,
+) -> ItemStack {
     if can_place_item_in_container(level, container, &stack, slot, direction) {
         let mut success = false;
         let was_empty = container.is_empty();
@@ -484,7 +553,9 @@ fn try_move_in_item(level: &ServerLevel, from: Option<&dyn Container>, container
             success = count > 0;
         }
         if success {
-            let from_ticked = from.and_then(|f| f.as_any().downcast_ref::<HopperBlockEntity>()).map(|h| h.ticked_game_time);
+            let from_ticked = from
+                .and_then(|f| f.as_any().downcast_ref::<HopperBlockEntity>())
+                .map(|h| h.ticked_game_time);
             if was_empty
                 && let Some(hopper) = container.as_any_mut().downcast_mut::<HopperBlockEntity>()
                 && !hopper.is_on_custom_cooldown()
@@ -521,20 +592,42 @@ pub enum ContainerTarget {
 /// `getContainerAt(level, pos)`.
 pub fn get_container_at(level: &mut ServerLevel, pos: BlockPos) -> Option<ContainerTarget> {
     let state = BlockGetter::get_block_state(level, pos);
-    get_container_at_xyz(level, pos, state, f64::from(pos.x()) + 0.5, f64::from(pos.y()) + 0.5, f64::from(pos.z()) + 0.5)
+    get_container_at_xyz(
+        level,
+        pos,
+        state,
+        f64::from(pos.x()) + 0.5,
+        f64::from(pos.y()) + 0.5,
+        f64::from(pos.z()) + 0.5,
+    )
 }
 
-fn get_container_at_xyz(level: &mut ServerLevel, pos: BlockPos, state: BlockState, x: f64, y: f64, z: f64) -> Option<ContainerTarget> {
+fn get_container_at_xyz(
+    level: &mut ServerLevel,
+    pos: BlockPos,
+    state: BlockState,
+    x: f64,
+    y: f64,
+    z: f64,
+) -> Option<ContainerTarget> {
     get_block_container(level, pos, state).or_else(|| get_entity_container(level, x, y, z))
 }
 
 /// `getBlockContainer(level, pos, state)`.
-fn get_block_container(level: &mut ServerLevel, pos: BlockPos, state: BlockState) -> Option<ContainerTarget> {
+fn get_block_container(
+    level: &mut ServerLevel,
+    pos: BlockPos,
+    state: BlockState,
+) -> Option<ContainerTarget> {
     let behaviour = behaviour(state.block());
     if behaviour.is_worldly_container_holder() {
         return Some(ContainerTarget::Holder(pos, state));
     }
-    if !state.has_block_entity() || !level.get_block_entity_immediate(pos).is_some_and(|be| be.as_container().is_some()) {
+    if !state.has_block_entity()
+        || !level
+            .get_block_entity_immediate(pos)
+            .is_some_and(|be| be.as_container().is_some())
+    {
         return None;
     }
     if state.block().data().classes.contains(&"ChestBlock") {
@@ -545,8 +638,8 @@ fn get_block_container(level: &mut ServerLevel, pos: BlockPos, state: BlockState
 
 /// `ChestBlock.getContainer(block, state, level, pos, true)` for a chest whose block entity is a container.
 fn combine_chest(level: &mut ServerLevel, pos: BlockPos, state: BlockState) -> ContainerTarget {
-    use mc_game_core::world::level::block::impls::chest_block::get_connected_direction;
     use mc_data::enums::ChestType;
+    use mc_game_core::world::level::block::impls::chest_block::get_connected_direction;
     let ty = state.get(props::CHEST_TYPE);
     if ty == ChestType::Single {
         return ContainerTarget::BlockEntity(pos);
@@ -555,11 +648,19 @@ fn combine_chest(level: &mut ServerLevel, pos: BlockPos, state: BlockState) -> C
     let neighbour_state = BlockGetter::get_block_state(level, neighbour_pos);
     if neighbour_state.is_block(state.block()) {
         let neighbour_type = neighbour_state.get(props::CHEST_TYPE);
-        if neighbour_type != ChestType::Single && ty != neighbour_type && neighbour_state.get(props::HORIZONTAL_FACING) == state.get(props::HORIZONTAL_FACING)
-            && level.get_block_entity_immediate(neighbour_pos).is_some_and(|be| be.as_container().is_some())
+        if neighbour_type != ChestType::Single
+            && ty != neighbour_type
+            && neighbour_state.get(props::HORIZONTAL_FACING) == state.get(props::HORIZONTAL_FACING)
+            && level
+                .get_block_entity_immediate(neighbour_pos)
+                .is_some_and(|be| be.as_container().is_some())
         {
             // `ChestType.RIGHT` is `DoubleBlockCombiner.BlockType.FIRST`
-            return if ty == ChestType::Right { ContainerTarget::DoubleChest(pos, neighbour_pos) } else { ContainerTarget::DoubleChest(neighbour_pos, pos) };
+            return if ty == ChestType::Right {
+                ContainerTarget::DoubleChest(pos, neighbour_pos)
+            } else {
+                ContainerTarget::DoubleChest(neighbour_pos, pos)
+            };
         }
     }
     ContainerTarget::BlockEntity(pos)
@@ -572,11 +673,19 @@ fn is_container_entity(entity: &dyn Entity) -> bool {
         return false;
     }
     let name = entity.get_type().name();
-    name == "minecraft:chest_minecart" || name == "minecraft:hopper_minecart" || name.ends_with("_chest_boat") || name.ends_with("_chest_raft")
+    name == "minecraft:chest_minecart"
+        || name == "minecraft:hopper_minecart"
+        || name.ends_with("_chest_boat")
+        || name.ends_with("_chest_raft")
 }
 
 /// `getEntityContainer(level, x, y, z)`: one of the container entities in the 1x1x1 box, picked with the level random.
-fn get_entity_container(level: &mut ServerLevel, x: f64, y: f64, z: f64) -> Option<ContainerTarget> {
+fn get_entity_container(
+    level: &mut ServerLevel,
+    x: f64,
+    y: f64,
+    z: f64,
+) -> Option<ContainerTarget> {
     let aabb = AABB::new(x - 0.5, y - 0.5, z - 0.5, x + 0.5, y + 0.5, z + 0.5);
     let entities = level.get_entities(None, &aabb, |e| is_container_entity(e) && e.is_alive());
     if entities.is_empty() {
@@ -588,7 +697,11 @@ fn get_entity_container(level: &mut ServerLevel, x: f64, y: f64, z: f64) -> Opti
 
 /// Runs `f` with the container of `target` (its owner is out of the level meanwhile). Block entity containers unpack
 /// their loot table first (vanilla unpacks inside every accessor). `None` when the owner disappeared.
-pub fn with_container<R>(level: &mut ServerLevel, target: &ContainerTarget, f: impl FnOnce(&mut ServerLevel, &mut dyn Container) -> R) -> Option<R> {
+pub fn with_container<R>(
+    level: &mut ServerLevel,
+    target: &ContainerTarget,
+    f: impl FnOnce(&mut ServerLevel, &mut dyn Container) -> R,
+) -> Option<R> {
     match target {
         ContainerTarget::BlockEntity(pos) => level.with_block_entity(*pos, |level, be| {
             be.unpack_loot_table(level, None);
@@ -608,7 +721,8 @@ pub fn with_container<R>(level: &mut ServerLevel, target: &ContainerTarget, f: i
                 level.put_back_block_entity(*second, b);
                 return None;
             }
-            let mut compound = CompoundContainer::new(BlockEntityContainer(a), BlockEntityContainer(b));
+            let mut compound =
+                CompoundContainer::new(BlockEntityContainer(a), BlockEntityContainer(b));
             let result = f(level, &mut compound);
             level.put_back_block_entity(*first, compound.container1.0);
             level.put_back_block_entity(*second, compound.container2.0);
@@ -623,7 +737,9 @@ pub fn with_container<R>(level: &mut ServerLevel, target: &ContainerTarget, f: i
         }
         ContainerTarget::Entity(id) => {
             let mut entity = level.take_entity(*id)?;
-            let result = entity.as_container_mut().map(|container| f(level, container));
+            let result = entity
+                .as_container_mut()
+                .map(|container| f(level, container));
             level.put_back_entity(*id, entity);
             result
         }
@@ -632,29 +748,47 @@ pub fn with_container<R>(level: &mut ServerLevel, target: &ContainerTarget, f: i
 
 /// `getItemsAtAndAbove(level, hopper)`: the living item entities in the suck box.
 pub fn get_items_at_and_above(level: &ServerLevel, hopper: &dyn Hopper) -> Vec<EntityId> {
-    let aabb = hopper.get_suck_aabb().move_(hopper.get_level_x() - 0.5, hopper.get_level_y() - 0.5, hopper.get_level_z() - 0.5);
+    let aabb = hopper.get_suck_aabb().move_(
+        hopper.get_level_x() - 0.5,
+        hopper.get_level_y() - 0.5,
+        hopper.get_level_z() - 0.5,
+    );
     level.get_entities_of_class(&aabb, |e| e.as_any().is::<ItemEntity>(), |e| e.is_alive())
 }
 
 /// `HopperBlockEntity.entityInside(level, pos, state, entity, hopper)`: an item entity touching the suck box is moved in
 /// right away (subject to the cooldown / enabled checks of `tryMoveItems`).
-pub fn entity_inside(level: &mut ServerLevel, pos: BlockPos, state: BlockState, entity: &mut ItemEntity) {
+pub fn entity_inside(
+    level: &mut ServerLevel,
+    pos: BlockPos,
+    state: BlockState,
+    entity: &mut ItemEntity,
+) {
     use mc_game_core::world::entity::Entity;
     if entity.get_item().is_empty() {
         return;
     }
     let suck = suck_aabb();
-    let bb = entity.get_bounding_box().move_(-f64::from(pos.x()), -f64::from(pos.y()), -f64::from(pos.z()));
+    let bb = entity.get_bounding_box().move_(
+        -f64::from(pos.x()),
+        -f64::from(pos.y()),
+        -f64::from(pos.z()),
+    );
     if !bb.intersects_aabb(&suck) {
         return;
     }
     level.with_block_entity(pos, |level, be| {
         if let Some(hopper) = be.as_any_mut().downcast_mut::<HopperBlockEntity>() {
-            try_move_items(level, pos, state, hopper, |level, hopper| add_item_entity(level, hopper, entity));
+            try_move_items(level, pos, state, hopper, |level, hopper| {
+                add_item_entity(level, hopper, entity)
+            });
             changed_log::flush(level);
         }
     });
 }
 
 #[linkme::distributed_slice(BLOCK_ENTITY_TYPES)]
-static HOPPER: BlockEntityRegistration = BlockEntityRegistration { ty: BlockEntityType::HOPPER, create: |pos, state| Box::new(HopperBlockEntity::new(pos, state)) };
+static HOPPER: BlockEntityRegistration = BlockEntityRegistration {
+    ty: BlockEntityType::HOPPER,
+    create: |pos, state| Box::new(HopperBlockEntity::new(pos, state)),
+};

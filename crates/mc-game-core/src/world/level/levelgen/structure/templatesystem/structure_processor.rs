@@ -49,24 +49,35 @@ pub trait StructureProcessor: Send + Sync {
 pub static STRUCTURE_PROCESSOR_TYPES: [TypeEntry<dyn StructureProcessor>];
 
 /// `StructureProcessorType.SINGLE_CODEC`.
-pub fn decode_single(value: &Value, ctx: &DecodeCtx<'_>) -> LoadResult<Arc<dyn StructureProcessor>> {
+pub fn decode_single(
+    value: &Value,
+    ctx: &DecodeCtx<'_>,
+) -> LoadResult<Arc<dyn StructureProcessor>> {
     decode_dispatch_on("processor_type", value, ctx, &STRUCTURE_PROCESSOR_TYPES)
 }
 
 /// `StructureProcessorType.LIST_OBJECT_CODEC`: a JSON list of processors.
 fn decode_list_object(value: &Value, ctx: &DecodeCtx<'_>) -> LoadResult<StructureProcessorList> {
-    Ok(StructureProcessorList::new(parse_list(value, |v| decode_single(v, ctx))?))
+    Ok(StructureProcessorList::new(parse_list(value, |v| {
+        decode_single(v, ctx)
+    })?))
 }
 
 /// `StructureProcessorType.DIRECT_CODEC`: `Codec.withAlternative({"processors": [...]}, [...])`.
-pub fn decode_direct_list(value: &Value, ctx: &DecodeCtx<'_>) -> LoadResult<StructureProcessorList> {
-    let first = Fields::new(value).and_then(|f| f.required("processors", |v| decode_list_object(v, ctx)));
+pub fn decode_direct_list(
+    value: &Value,
+    ctx: &DecodeCtx<'_>,
+) -> LoadResult<StructureProcessorList> {
+    let first =
+        Fields::new(value).and_then(|f| f.required("processors", |v| decode_list_object(v, ctx)));
     let first_error = match first {
         Ok(list) => return Ok(list),
         Err(e) => e,
     };
     match decode_list_object(value, ctx) {
         Ok(list) => Ok(list),
-        Err(second_error) => Err(LoadError::new(format!("Failed to parse either. First: {first_error}; Second: {second_error}"))),
+        Err(second_error) => Err(LoadError::new(format!(
+            "Failed to parse either. First: {first_error}; Second: {second_error}"
+        ))),
     }
 }

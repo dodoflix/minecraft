@@ -22,18 +22,36 @@ use mc_world::palette::BiomeId;
 #[derive(Clone, Debug)]
 pub enum MaterialCondition {
     /// `MaterialCondition.HolderHolder`: a reference into `worldgen/material_condition`.
-    Reference { key: Identifier, condition: Arc<MaterialCondition> },
+    Reference {
+        key: Identifier,
+        condition: Arc<MaterialCondition>,
+    },
     /// `BiomeCondition`: `biome_is` flattened to the member biomes.
-    Biome { biomes: Vec<BiomeId> },
-    NoiseThreshold { noise: Identifier, min_threshold: f64, max_threshold: f64, is_3d: bool },
+    Biome {
+        biomes: Vec<BiomeId>,
+    },
+    NoiseThreshold {
+        noise: Identifier,
+        min_threshold: f64,
+        max_threshold: f64,
+        is_3d: bool,
+    },
     VerticalGradient {
         random_name: Identifier,
         true_at_and_below: VerticalAnchor,
         false_at_and_above: VerticalAnchor,
     },
     /// `YCondition` (`y_above`).
-    Y { anchor: VerticalAnchor, surface_depth_multiplier: i32, add_stone_depth: bool },
-    Water { offset: i32, surface_depth_multiplier: i32, add_stone_depth: bool },
+    Y {
+        anchor: VerticalAnchor,
+        surface_depth_multiplier: i32,
+        add_stone_depth: bool,
+    },
+    Water {
+        offset: i32,
+        surface_depth_multiplier: i32,
+        add_stone_depth: bool,
+    },
     Temperature,
     Steep,
     Not(Box<MaterialCondition>),
@@ -95,7 +113,8 @@ impl MaterialCondition {
             }),
             "vertical_gradient" => Ok(MaterialCondition::VerticalGradient {
                 random_name: fields.required("random_name", parse_identifier)?,
-                true_at_and_below: fields.required("true_at_and_below", VerticalAnchor::from_json)?,
+                true_at_and_below: fields
+                    .required("true_at_and_below", VerticalAnchor::from_json)?,
                 false_at_and_above: fields
                     .required("false_at_and_above", VerticalAnchor::from_json)?,
             }),
@@ -124,7 +143,9 @@ impl MaterialCondition {
                 secondary_depth_range: fields.required("secondary_depth_range", parse_int)?,
                 surface_type: fields.required("surface_type", CaveSurface::from_json)?,
             }),
-            other => Err(LoadError::new(format!("Unknown registry key: minecraft:{other}")).at("type")),
+            other => {
+                Err(LoadError::new(format!("Unknown registry key: minecraft:{other}")).at("type"))
+            }
         }
     }
 
@@ -143,46 +164,64 @@ impl MaterialCondition {
                         return ConditionEvaluator::Const(true);
                     }
                 }
-                ConditionEvaluator::Biome { biomes: biomes.clone(), cache: Lazy::y(ctx) }
-            }
-            MaterialCondition::NoiseThreshold { noise, min_threshold, max_threshold, is_3d } => {
-                ConditionEvaluator::NoiseThreshold {
-                    sampler: ctx.get_noise_sampler(noise, *is_3d),
-                    min_threshold: *min_threshold,
-                    max_threshold: *max_threshold,
-                }
-            }
-            MaterialCondition::VerticalGradient { random_name, true_at_and_below, false_at_and_above } => {
-                ConditionEvaluator::VerticalGradient {
-                    true_at_and_below: ctx.resolve_anchor_y(true_at_and_below),
-                    false_at_and_above: ctx.resolve_anchor_y(false_at_and_above),
-                    random_factory: ctx.get_or_create_random_factory(random_name),
+                ConditionEvaluator::Biome {
+                    biomes: biomes.clone(),
                     cache: Lazy::y(ctx),
                 }
             }
-            MaterialCondition::Y { anchor, surface_depth_multiplier, add_stone_depth } => {
-                ConditionEvaluator::Y {
-                    anchor: *anchor,
-                    surface_depth_multiplier: *surface_depth_multiplier,
-                    add_stone_depth: *add_stone_depth,
-                    cache: Lazy::y(ctx),
-                }
-            }
-            MaterialCondition::Water { offset, surface_depth_multiplier, add_stone_depth } => {
-                ConditionEvaluator::Water {
-                    offset: *offset,
-                    surface_depth_multiplier: *surface_depth_multiplier,
-                    add_stone_depth: *add_stone_depth,
-                    cache: Lazy::y(ctx),
-                }
-            }
+            MaterialCondition::NoiseThreshold {
+                noise,
+                min_threshold,
+                max_threshold,
+                is_3d,
+            } => ConditionEvaluator::NoiseThreshold {
+                sampler: ctx.get_noise_sampler(noise, *is_3d),
+                min_threshold: *min_threshold,
+                max_threshold: *max_threshold,
+            },
+            MaterialCondition::VerticalGradient {
+                random_name,
+                true_at_and_below,
+                false_at_and_above,
+            } => ConditionEvaluator::VerticalGradient {
+                true_at_and_below: ctx.resolve_anchor_y(true_at_and_below),
+                false_at_and_above: ctx.resolve_anchor_y(false_at_and_above),
+                random_factory: ctx.get_or_create_random_factory(random_name),
+                cache: Lazy::y(ctx),
+            },
+            MaterialCondition::Y {
+                anchor,
+                surface_depth_multiplier,
+                add_stone_depth,
+            } => ConditionEvaluator::Y {
+                anchor: *anchor,
+                surface_depth_multiplier: *surface_depth_multiplier,
+                add_stone_depth: *add_stone_depth,
+                cache: Lazy::y(ctx),
+            },
+            MaterialCondition::Water {
+                offset,
+                surface_depth_multiplier,
+                add_stone_depth,
+            } => ConditionEvaluator::Water {
+                offset: *offset,
+                surface_depth_multiplier: *surface_depth_multiplier,
+                add_stone_depth: *add_stone_depth,
+                cache: Lazy::y(ctx),
+            },
             MaterialCondition::Temperature => ConditionEvaluator::Temperature,
-            MaterialCondition::Steep => ConditionEvaluator::Steep { cache: Lazy::xz(ctx) },
+            MaterialCondition::Steep => ConditionEvaluator::Steep {
+                cache: Lazy::xz(ctx),
+            },
             MaterialCondition::Not(target) => {
                 ConditionEvaluator::Not(Box::new(target.compile(ctx)))
             }
-            MaterialCondition::Hole => ConditionEvaluator::Hole { cache: Lazy::xz(ctx) },
-            MaterialCondition::AbovePreliminarySurface => ConditionEvaluator::AbovePreliminarySurface,
+            MaterialCondition::Hole => ConditionEvaluator::Hole {
+                cache: Lazy::xz(ctx),
+            },
+            MaterialCondition::AbovePreliminarySurface => {
+                ConditionEvaluator::AbovePreliminarySurface
+            }
             MaterialCondition::StoneDepth {
                 offset,
                 add_surface_depth,
@@ -209,12 +248,18 @@ pub(crate) struct Lazy {
 impl Lazy {
     /// `LazyXZCondition(context)`.
     fn xz(ctx: &MaterialRuleContext) -> Lazy {
-        Lazy { last_update: ctx.last_update_xz().wrapping_sub(1), result: false }
+        Lazy {
+            last_update: ctx.last_update_xz().wrapping_sub(1),
+            result: false,
+        }
     }
 
     /// `LazyYCondition(context)`.
     fn y(ctx: &MaterialRuleContext) -> Lazy {
-        Lazy { last_update: ctx.last_update_y().wrapping_sub(1), result: false }
+        Lazy {
+            last_update: ctx.last_update_y().wrapping_sub(1),
+            result: false,
+        }
     }
 
     fn get(
@@ -235,20 +280,41 @@ impl Lazy {
 pub(crate) enum ConditionEvaluator {
     /// `() -> true` / `() -> false`.
     Const(bool),
-    Biome { biomes: Vec<BiomeId>, cache: Lazy },
-    NoiseThreshold { sampler: usize, min_threshold: f64, max_threshold: f64 },
+    Biome {
+        biomes: Vec<BiomeId>,
+        cache: Lazy,
+    },
+    NoiseThreshold {
+        sampler: usize,
+        min_threshold: f64,
+        max_threshold: f64,
+    },
     VerticalGradient {
         true_at_and_below: i32,
         false_at_and_above: i32,
         random_factory: Arc<dyn PositionalRandomFactory>,
         cache: Lazy,
     },
-    Y { anchor: VerticalAnchor, surface_depth_multiplier: i32, add_stone_depth: bool, cache: Lazy },
-    Water { offset: i32, surface_depth_multiplier: i32, add_stone_depth: bool, cache: Lazy },
+    Y {
+        anchor: VerticalAnchor,
+        surface_depth_multiplier: i32,
+        add_stone_depth: bool,
+        cache: Lazy,
+    },
+    Water {
+        offset: i32,
+        surface_depth_multiplier: i32,
+        add_stone_depth: bool,
+        cache: Lazy,
+    },
     Temperature,
-    Steep { cache: Lazy },
+    Steep {
+        cache: Lazy,
+    },
     Not(Box<ConditionEvaluator>),
-    Hole { cache: Lazy },
+    Hole {
+        cache: Lazy,
+    },
     AbovePreliminarySurface,
     StoneDepth {
         offset: i32,
@@ -268,7 +334,11 @@ impl ConditionEvaluator {
                 let counter = ctx.last_update_y();
                 cache.get(counter, ctx, |ctx| biomes.contains(&ctx.get_biome()))
             }
-            ConditionEvaluator::NoiseThreshold { sampler, min_threshold, max_threshold } => {
+            ConditionEvaluator::NoiseThreshold {
+                sampler,
+                min_threshold,
+                max_threshold,
+            } => {
                 let value = ctx.noise_sampler_value(*sampler);
                 value >= *min_threshold && value <= *max_threshold
             }
@@ -298,28 +368,45 @@ impl ConditionEvaluator {
                     }
                 })
             }
-            ConditionEvaluator::Y { anchor, surface_depth_multiplier, add_stone_depth, cache } => {
+            ConditionEvaluator::Y {
+                anchor,
+                surface_depth_multiplier,
+                add_stone_depth,
+                cache,
+            } => {
                 let counter = ctx.last_update_y();
                 cache.get(counter, ctx, |ctx| {
-                    let stone_depth = if *add_stone_depth { ctx.stone_depth_above() } else { 0 };
+                    let stone_depth = if *add_stone_depth {
+                        ctx.stone_depth_above()
+                    } else {
+                        0
+                    };
                     ctx.block_y().wrapping_add(stone_depth)
-                        >= ctx
-                            .resolve_anchor_y(anchor)
-                            .wrapping_add(ctx.surface_depth().wrapping_mul(*surface_depth_multiplier))
+                        >= ctx.resolve_anchor_y(anchor).wrapping_add(
+                            ctx.surface_depth().wrapping_mul(*surface_depth_multiplier),
+                        )
                 })
             }
-            ConditionEvaluator::Water { offset, surface_depth_multiplier, add_stone_depth, cache } => {
+            ConditionEvaluator::Water {
+                offset,
+                surface_depth_multiplier,
+                add_stone_depth,
+                cache,
+            } => {
                 let counter = ctx.last_update_y();
                 cache.get(counter, ctx, |ctx| {
                     if ctx.water_height() == i32::MIN {
                         return true;
                     }
-                    let stone_depth = if *add_stone_depth { ctx.stone_depth_above() } else { 0 };
+                    let stone_depth = if *add_stone_depth {
+                        ctx.stone_depth_above()
+                    } else {
+                        0
+                    };
                     ctx.block_y().wrapping_add(stone_depth)
-                        >= ctx
-                            .water_height()
-                            .wrapping_add(*offset)
-                            .wrapping_add(ctx.surface_depth().wrapping_mul(*surface_depth_multiplier))
+                        >= ctx.water_height().wrapping_add(*offset).wrapping_add(
+                            ctx.surface_depth().wrapping_mul(*surface_depth_multiplier),
+                        )
                 })
             }
             ConditionEvaluator::Temperature => {
@@ -351,14 +438,26 @@ impl ConditionEvaluator {
             } => {
                 let counter = ctx.last_update_y();
                 cache.get(counter, ctx, |ctx| {
-                    let stone_depth =
-                        if *ceiling { ctx.stone_depth_below() } else { ctx.stone_depth_above() };
-                    let surface_depth = if *add_surface_depth { ctx.surface_depth() } else { 0 };
+                    let stone_depth = if *ceiling {
+                        ctx.stone_depth_below()
+                    } else {
+                        ctx.stone_depth_above()
+                    };
+                    let surface_depth = if *add_surface_depth {
+                        ctx.surface_depth()
+                    } else {
+                        0
+                    };
                     let secondary_surface_depth = if *secondary_depth_range == 0 {
                         0
                     } else {
-                        map(ctx.get_surface_secondary(), -1.0, 1.0, 0.0, f64::from(*secondary_depth_range))
-                            as i32
+                        map(
+                            ctx.get_surface_secondary(),
+                            -1.0,
+                            1.0,
+                            0.0,
+                            f64::from(*secondary_depth_range),
+                        ) as i32
                     };
                     stone_depth
                         <= 1i32
@@ -373,5 +472,9 @@ impl ConditionEvaluator {
 
 /// `Mth.map(double, double, double, double, double)`.
 fn map(value: f64, from_min: f64, from_max: f64, to_min: f64, to_max: f64) -> f64 {
-    mth::lerp_f64(mth::inverse_lerp_f64(value, from_min, from_max), to_min, to_max)
+    mth::lerp_f64(
+        mth::inverse_lerp_f64(value, from_min, from_max),
+        to_min,
+        to_max,
+    )
 }

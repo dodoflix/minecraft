@@ -24,10 +24,22 @@ pub enum PositionFunction {
 impl PositionFunction {
     /// `getDispensePosition(source, direction)` with `center = source.center()`.
     pub fn get_dispense_position(&self, center: Vec3, direction: Direction) -> Vec3 {
-        let (sx, sy, sz) = (f64::from(direction.get_step_x()), f64::from(direction.get_step_y()), f64::from(direction.get_step_z()));
+        let (sx, sy, sz) = (
+            f64::from(direction.get_step_x()),
+            f64::from(direction.get_step_y()),
+            f64::from(direction.get_step_z()),
+        );
         match *self {
-            PositionFunction::Dispenser { scale, offset } => Vec3::new(center.x + (scale * sx + offset.x), center.y + (scale * sy + offset.y), center.z + (scale * sz + offset.z)),
-            PositionFunction::JustOutsideOfBlock => center.add_xyz(sx * 0.5000099999997474, sy * 0.5000099999997474, sz * 0.5000099999997474),
+            PositionFunction::Dispenser { scale, offset } => Vec3::new(
+                center.x + (scale * sx + offset.x),
+                center.y + (scale * sy + offset.y),
+                center.z + (scale * sz + offset.z),
+            ),
+            PositionFunction::JustOutsideOfBlock => center.add_xyz(
+                sx * 0.5000099999997474,
+                sy * 0.5000099999997474,
+                sz * 0.5000099999997474,
+            ),
         }
     }
 }
@@ -44,7 +56,14 @@ pub struct DispenseConfig {
 impl DispenseConfig {
     /// `DispenseConfig.DEFAULT` (`Builder` defaults).
     pub const DEFAULT: DispenseConfig = DispenseConfig {
-        position_function: PositionFunction::Dispenser { scale: 0.7, offset: Vec3 { x: 0.0, y: 0.1, z: 0.0 } },
+        position_function: PositionFunction::Dispenser {
+            scale: 0.7,
+            offset: Vec3 {
+                x: 0.0,
+                y: 0.1,
+                z: 0.0,
+            },
+        },
         uncertainty: 6.0,
         power: 1.1,
         override_dispense_event: None,
@@ -54,7 +73,13 @@ impl DispenseConfig {
 /// `ProjectileItem`.
 pub trait ProjectileItem: Send + Sync {
     /// `asProjectile(level, position, itemStack, direction)`.
-    fn as_projectile(&self, level: &mut ServerLevel, position: Vec3, item_stack: &ItemStack, direction: Direction) -> Box<dyn Entity>;
+    fn as_projectile(
+        &self,
+        level: &mut ServerLevel,
+        position: Vec3,
+        item_stack: &ItemStack,
+        direction: Direction,
+    ) -> Box<dyn Entity>;
 
     /// `createDispenseConfig()`.
     fn create_dispense_config(&self) -> DispenseConfig {
@@ -62,7 +87,15 @@ pub trait ProjectileItem: Send + Sync {
     }
 
     /// `shoot(projectile, xd, yd, zd, pow, uncertainty)`.
-    fn shoot(&self, projectile: &mut dyn Projectile, xd: f64, yd: f64, zd: f64, pow: f32, uncertainty: f32) {
+    fn shoot(
+        &self,
+        projectile: &mut dyn Projectile,
+        xd: f64,
+        yd: f64,
+        zd: f64,
+        pow: f32,
+        uncertainty: f32,
+    ) {
         projectile.shoot(xd, yd, zd, pow, uncertainty);
     }
 }

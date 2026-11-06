@@ -18,13 +18,32 @@ use mc_data::fluid::{Fluid, FluidState};
 pub struct WaterFluid;
 
 impl FluidBehaviour for WaterFluid {
-    fn tick(&self, level: &mut ServerLevel, pos: BlockPos, block_state: BlockState, fluid_state: FluidState) {
+    fn tick(
+        &self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        block_state: BlockState,
+        fluid_state: FluidState,
+    ) {
         flowing_fluid::tick(self, level, pos, block_state, fluid_state);
     }
-    fn entity_inside(&self, _level: &mut ServerLevel, _pos: BlockPos, _entity: &mut dyn Entity, effect_applier: &mut dyn InsideBlockEffectApplier) {
+    fn entity_inside(
+        &self,
+        _level: &mut ServerLevel,
+        _pos: BlockPos,
+        _entity: &mut dyn Entity,
+        effect_applier: &mut dyn InsideBlockEffectApplier,
+    ) {
         effect_applier.apply(InsideBlockEffectType::Extinguish);
     }
-    fn can_be_replaced_with(&self, _state: FluidState, _level: &dyn BlockGetter, _pos: BlockPos, other: Fluid, direction: Direction) -> bool {
+    fn can_be_replaced_with(
+        &self,
+        _state: FluidState,
+        _level: &dyn BlockGetter,
+        _pos: BlockPos,
+        other: Fluid,
+        direction: Direction,
+    ) -> bool {
         direction == Direction::Down && !fluid_is_tag(other, "water")
     }
     fn get_flow(&self, level: &dyn BlockGetter, pos: BlockPos, state: FluidState) -> Vec3 {

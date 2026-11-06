@@ -22,9 +22,9 @@ pub mod particle_argument;
 pub mod range_argument;
 pub mod resource_arguments;
 pub mod scores;
-pub mod slot_arguments;
 pub mod selector;
 mod simple_arguments;
+pub mod slot_arguments;
 mod string_representable_argument;
 pub mod util;
 
@@ -36,8 +36,12 @@ pub use nbt_path_argument::{NbtPath, NbtPathArgument};
 pub use operation_argument::{Operation, OperationArgument};
 pub use particle_argument::ParticleArgument;
 pub use range_argument::{FloatRangeArgument, IntRangeArgument};
-pub use scores::{ObjectiveArgument, ObjectiveCriteriaArgument, ScoreHolderArgument, ScoreboardSlotArgument, TeamArgument};
+pub use scores::{
+    ObjectiveArgument, ObjectiveCriteriaArgument, ScoreHolderArgument, ScoreboardSlotArgument,
+    TeamArgument,
+};
 pub use simple_arguments::*;
 
 /// `StringRepresentableArgument.ERROR_INVALID_VALUE`.
-pub static ERROR_ENUM_INVALID: LazyLock<DynamicCommandExceptionType<String>> = LazyLock::new(|| dynamic_translatable("argument.enum.invalid"));
+pub static ERROR_ENUM_INVALID: LazyLock<DynamicCommandExceptionType<String>> =
+    LazyLock::new(|| dynamic_translatable("argument.enum.invalid"));

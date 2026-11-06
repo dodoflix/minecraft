@@ -9,7 +9,9 @@ pub struct FaceAttachedHorizontalDirectionalBlock;
 /// `FaceAttachedHorizontalDirectionalBlock.canAttach`.
 pub fn can_attach(level: &dyn LevelReader, pos: BlockPos, direction: Direction) -> bool {
     let relative = pos.relative(direction);
-    level.get_block_state(relative).is_face_sturdy_at(level, relative, direction.get_opposite())
+    level
+        .get_block_state(relative)
+        .is_face_sturdy_at(level, relative, direction.get_opposite())
 }
 
 /// `FaceAttachedHorizontalDirectionalBlock.getConnectedDirection`.
@@ -27,15 +29,29 @@ pub fn can_survive(state: BlockState, level: &dyn LevelReader, pos: BlockPos) ->
 }
 
 /// `getStateForPlacement`.
-pub fn get_state_for_placement(block: Block, level: &dyn LevelReader, context: &BlockPlaceContext) -> Option<BlockState> {
+pub fn get_state_for_placement(
+    block: Block,
+    level: &dyn LevelReader,
+    context: &BlockPlaceContext,
+) -> Option<BlockState> {
     for direction in context.get_nearest_looking_directions() {
         let state = if direction.get_axis() == Axis::Y {
             block
                 .default_state()
-                .set(props::ATTACH_FACE, if direction == Direction::Up { AttachFace::Ceiling } else { AttachFace::Floor })
+                .set(
+                    props::ATTACH_FACE,
+                    if direction == Direction::Up {
+                        AttachFace::Ceiling
+                    } else {
+                        AttachFace::Floor
+                    },
+                )
                 .set(props::HORIZONTAL_FACING, context.get_horizontal_direction())
         } else {
-            block.default_state().set(props::ATTACH_FACE, AttachFace::Wall).set(props::HORIZONTAL_FACING, direction.get_opposite())
+            block
+                .default_state()
+                .set(props::ATTACH_FACE, AttachFace::Wall)
+                .set(props::HORIZONTAL_FACING, direction.get_opposite())
         };
         if state.can_survive(level, context.get_clicked_pos()) {
             return Some(state);
@@ -45,8 +61,15 @@ pub fn get_state_for_placement(block: Block, level: &dyn LevelReader, context: &
 }
 
 /// `updateShape`.
-pub fn update_shape(state: BlockState, level: &dyn LevelReader, pos: BlockPos, direction_to_neighbour: Direction) -> BlockState {
-    if get_connected_direction(state).get_opposite() == direction_to_neighbour && !state.can_survive(level, pos) {
+pub fn update_shape(
+    state: BlockState,
+    level: &dyn LevelReader,
+    pos: BlockPos,
+    direction_to_neighbour: Direction,
+) -> BlockState {
+    if get_connected_direction(state).get_opposite() == direction_to_neighbour
+        && !state.can_survive(level, pos)
+    {
         air()
     } else {
         state
@@ -57,7 +80,12 @@ impl BlockBehaviour for FaceAttachedHorizontalDirectionalBlock {
     fn can_survive(&self, state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         can_survive(state, level, pos)
     }
-    fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
+    fn get_state_for_placement(
+        &self,
+        block: Block,
+        level: &mut ServerLevel,
+        context: &BlockPlaceContext,
+    ) -> Option<BlockState> {
         get_state_for_placement(block, &*level, context)
     }
     fn update_shape(
@@ -79,4 +107,6 @@ impl BlockBehaviour for FaceAttachedHorizontalDirectionalBlock {
     }
 }
 
-register_block_class!("FaceAttachedHorizontalDirectionalBlock", |_| Box::new(FaceAttachedHorizontalDirectionalBlock));
+register_block_class!("FaceAttachedHorizontalDirectionalBlock", |_| Box::new(
+    FaceAttachedHorizontalDirectionalBlock
+));

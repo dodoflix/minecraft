@@ -4,10 +4,14 @@ use crate::define_accessor;
 use crate::server::level::ServerLevel;
 use crate::server::level::level_explode::Explode;
 use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
-use crate::world::entity::{Entity, EntityData, EntityId, MoveSimulationType, MovementEmission, MoverType, entity};
+use crate::world::entity::{
+    Entity, EntityData, EntityId, MoveSimulationType, MovementEmission, MoverType, entity,
+};
 use crate::world::level::BlockGetter;
 use crate::world::level::LevelAccessor;
-use crate::world::level::explosion::{Explosion, ExplosionDamageCalculator, ExplosionInteraction, default_block_explosion_resistance};
+use crate::world::level::explosion::{
+    Explosion, ExplosionDamageCalculator, ExplosionInteraction, default_block_explosion_resistance,
+};
 use linkme::distributed_slice;
 use mc_core::math::mth;
 use mc_core::pos::BlockPos;
@@ -30,12 +34,30 @@ define_accessor!(pub DATA_BLOCK_STATE_ID: BlockState = PrimedTnt);
 pub struct UsedPortalDamageCalculator;
 
 impl ExplosionDamageCalculator for UsedPortalDamageCalculator {
-    fn should_block_explode(&self, _explosion: &dyn Explosion, _level: &dyn BlockGetter, _pos: BlockPos, state: BlockState, _power: f32) -> bool {
+    fn should_block_explode(
+        &self,
+        _explosion: &dyn Explosion,
+        _level: &dyn BlockGetter,
+        _pos: BlockPos,
+        state: BlockState,
+        _power: f32,
+    ) -> bool {
         state.block() != Block::NETHER_PORTAL
     }
 
-    fn get_block_explosion_resistance(&self, _explosion: &dyn Explosion, _level: &dyn BlockGetter, _pos: BlockPos, block: BlockState, fluid: FluidState) -> Option<f32> {
-        if block.block() == Block::NETHER_PORTAL { None } else { default_block_explosion_resistance(block, fluid) }
+    fn get_block_explosion_resistance(
+        &self,
+        _explosion: &dyn Explosion,
+        _level: &dyn BlockGetter,
+        _pos: BlockPos,
+        block: BlockState,
+        fluid: FluidState,
+    ) -> Option<f32> {
+        if block.block() == Block::NETHER_PORTAL {
+            None
+        } else {
+            default_block_explosion_resistance(block, fluid)
+        }
     }
 }
 
@@ -57,7 +79,12 @@ impl PrimedTnt {
             b.define(DATA_BLOCK_STATE_ID, Block::TNT.default_state());
         });
         base.blocks_building = true;
-        Self { base, owner: None, used_portal: false, explosion_power: DEFAULT_EXPLOSION_POWER }
+        Self {
+            base,
+            owner: None,
+            used_portal: false,
+            explosion_power: DEFAULT_EXPLOSION_POWER,
+        }
     }
 
     /// `PrimedTnt(level, x, y, z, owner)`: the sideways kick uses the level's random.
@@ -66,11 +93,19 @@ impl PrimedTnt {
     }
 
     /// [`PrimedTnt::at`] with the owner given by uuid (for callers that cannot borrow the owner while the level is borrowed).
-    pub fn at_owner_uuid(level: &mut ServerLevel, x: f64, y: f64, z: f64, owner: Option<Uuid>) -> Self {
+    pub fn at_owner_uuid(
+        level: &mut ServerLevel,
+        x: f64,
+        y: f64,
+        z: f64,
+        owner: Option<Uuid>,
+    ) -> Self {
         let mut tnt = Self::new(EntityType::TNT, level.next_entity_id());
         tnt.set_pos(x, y, z);
-        let rot = LevelAccessor::random(level).next_double() * f64::from((std::f64::consts::PI * 2.0) as f32);
-        tnt.base.set_delta_movement_xyz(-rot.sin() * 0.02, f64::from(0.2f32), -rot.cos() * 0.02);
+        let rot = LevelAccessor::random(level).next_double()
+            * f64::from((std::f64::consts::PI * 2.0) as f32);
+        tnt.base
+            .set_delta_movement_xyz(-rot.sin() * 0.02, f64::from(0.2f32), -rot.cos() * 0.02);
         tnt.set_fuse(80);
         tnt.base.xo = x;
         tnt.base.yo = y;
@@ -81,7 +116,9 @@ impl PrimedTnt {
 
     /// `getOwner()`: the owner if it is a living entity in the level.
     pub fn get_owner<'l>(&self, level: &'l ServerLevel) -> Option<&'l dyn Entity> {
-        level.get_entity_by_uuid(self.owner?).filter(|e| e.living().is_some())
+        level
+            .get_entity_by_uuid(self.owner?)
+            .filter(|e| e.living().is_some())
     }
 
     pub fn set_fuse(&mut self, time: i32) {
@@ -113,9 +150,19 @@ impl PrimedTnt {
     /// `explode()`.
     fn explode(&self, level: &mut ServerLevel) {
         if level.tnt_explodes() {
-            let calculator: Option<&dyn ExplosionDamageCalculator> = self.used_portal.then_some(&USED_PORTAL_DAMAGE_CALCULATOR as &dyn ExplosionDamageCalculator);
+            let calculator: Option<&dyn ExplosionDamageCalculator> = self
+                .used_portal
+                .then_some(&USED_PORTAL_DAMAGE_CALCULATOR as &dyn ExplosionDamageCalculator);
             let y = self.base.get_y_progress(0.0625);
-            let params = Explode::new(Some(self), self.base.x(), y, self.base.z(), self.explosion_power, ExplosionInteraction::Tnt).with_damage_source(None, calculator);
+            let params = Explode::new(
+                Some(self),
+                self.base.x(),
+                y,
+                self.base.z(),
+                self.explosion_power,
+                ExplosionInteraction::Tnt,
+            )
+            .with_damage_source(None, calculator);
             level.explode(params, &mut []);
         }
     }
@@ -168,9 +215,11 @@ impl Entity for PrimedTnt {
         let _ = self.r#move(level, MoverType::SelfMover, movement);
         self.apply_effects_from_blocks(level);
         let drag = f64::from(self.get_air_drag());
-        self.base.set_delta_movement(self.base.delta_movement().scale(drag));
+        self.base
+            .set_delta_movement(self.base.delta_movement().scale(drag));
         if self.base.on_ground() {
-            self.base.set_delta_movement(self.base.delta_movement().multiply_xyz(0.7, -0.5, 0.7));
+            self.base
+                .set_delta_movement(self.base.delta_movement().multiply_xyz(0.7, -0.5, 0.7));
         }
         let fuse = self.get_fuse() - 1;
         self.set_fuse(fuse);
@@ -184,7 +233,12 @@ impl Entity for PrimedTnt {
         self.set_requires_precise_position(precise);
     }
 
-    fn hurt_server(&mut self, _level: &mut ServerLevel, _source: &crate::world::damagesource::DamageSource, _amount: f32) -> bool {
+    fn hurt_server(
+        &mut self,
+        _level: &mut ServerLevel,
+        _source: &crate::world::damagesource::DamageSource,
+        _amount: f32,
+    ) -> bool {
         false
     }
 
@@ -195,7 +249,10 @@ impl Entity for PrimedTnt {
             out.put_float("explosion_power", self.explosion_power);
         }
         if let Some(owner) = self.owner {
-            out.put_int_array("owner", mc_core::uuid_util::uuid_to_int_array(&owner).to_vec());
+            out.put_int_array(
+                "owner",
+                mc_core::uuid_util::uuid_to_int_array(&owner).to_vec(),
+            );
         }
     }
 
@@ -207,10 +264,17 @@ impl Entity for PrimedTnt {
             .map(crate::world::level::levelgen::structure::templatesystem::structure_template::read_block_state)
             .unwrap_or_else(|| Block::TNT.default_state());
         self.set_block_state(state);
-        self.explosion_power = mth::clamp_f32(input.get_float_or("explosion_power", DEFAULT_EXPLOSION_POWER), 0.0, 128.0);
+        self.explosion_power = mth::clamp_f32(
+            input.get_float_or("explosion_power", DEFAULT_EXPLOSION_POWER),
+            0.0,
+            128.0,
+        );
         self.owner = entity::read_uuid(input.get("owner"));
     }
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static PRIMED_TNT_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::TNT, create: |ty, id, _registries| Box::new(PrimedTnt::new(ty, id)) };
+static PRIMED_TNT_FACTORY: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::TNT,
+    create: |ty, id, _registries| Box::new(PrimedTnt::new(ty, id)),
+};

@@ -13,10 +13,11 @@ use mc_core::math::mth;
 use mc_core::phys::{AABB, Vec3};
 use mc_core::pos::BlockPos;
 use mc_protocol::packets::play::{
-    ClientboundBlockUpdatePacket, InteractionHand, ServerboundAttackPacket, ServerboundInteractPacket, ServerboundPaddleBoatPacket,
-    ServerboundPlayerActionAction, ServerboundPlayerActionPacket, ServerboundPlayerCommandAction, ServerboundPlayerCommandPacket,
-    ServerboundPunchPacket, ServerboundSetCarriedItemPacket, ServerboundSpectatorActionPacket, ServerboundTeleportToEntityPacket,
-    ServerboundUseItemOnPacket, ServerboundUseItemPacket,
+    ClientboundBlockUpdatePacket, InteractionHand, ServerboundAttackPacket,
+    ServerboundInteractPacket, ServerboundPaddleBoatPacket, ServerboundPlayerActionAction,
+    ServerboundPlayerActionPacket, ServerboundPlayerCommandAction, ServerboundPlayerCommandPacket,
+    ServerboundPunchPacket, ServerboundSetCarriedItemPacket, ServerboundSpectatorActionPacket,
+    ServerboundTeleportToEntityPacket, ServerboundUseItemOnPacket, ServerboundUseItemPacket,
 };
 use mc_text::Component;
 
@@ -99,10 +100,21 @@ impl PlayCtx<'_> {
                 }
             }
             A::ReleaseUseItem => self.item_sys().release_using_item(self),
-            A::StartDestroyBlock | A::ChangeDestroyDirection | A::AbortDestroyBlock | A::StopDestroyBlock => {
+            A::StartDestroyBlock
+            | A::ChangeDestroyDirection
+            | A::AbortDestroyBlock
+            | A::StopDestroyBlock => {
                 let max_y = self.max_y();
-                let under_spawn_protection = A::StartDestroyBlock == packet.action && self.is_under_spawn_protection(packet.pos);
-                self.player.handle_block_break_action(self.level, packet.pos, packet.action, packet.direction, max_y, under_spawn_protection);
+                let under_spawn_protection = A::StartDestroyBlock == packet.action
+                    && self.is_under_spawn_protection(packet.pos);
+                self.player.handle_block_break_action(
+                    self.level,
+                    packet.pos,
+                    packet.action,
+                    packet.direction,
+                    max_y,
+                    under_spawn_protection,
+                );
                 self.lis().ack_block_changes_up_to(packet.sequence);
             }
         }
@@ -155,38 +167,65 @@ impl PlayCtx<'_> {
                 // The decompiled vanilla code swings in both of these branches; the second swing is a no-op for the
                 // player but is kept to preserve the packet sequence.
                 let success_swing = match &result {
-                    super::hooks::InteractionResult::Success(s) if s.should_swing() => Some(s.swing_source != crate::world::item::SwingSource::Predicted),
+                    super::hooks::InteractionResult::Success(s) if s.should_swing() => {
+                        Some(s.swing_source != crate::world::item::SwingSource::Predicted)
+                    }
                     _ => None,
                 };
-                if direction == Direction::Up && !result.consumes_action() && pos.y() >= max_y && self.item_sys().was_block_placement_attempt(self, hand) {
+                if direction == Direction::Up
+                    && !result.consumes_action()
+                    && pos.y() >= max_y
+                    && self.item_sys().was_block_placement_attempt(self, hand)
+                {
                     self.sys().send_build_limit_message(self, true, max_y);
                 } else if let Some(send) = success_swing {
-                    self.item_sys().swing_and_reset_attack_strength(self, hand, swing_animation, send);
+                    self.item_sys().swing_and_reset_attack_strength(
+                        self,
+                        hand,
+                        swing_animation,
+                        send,
+                    );
                 }
-                if !result.consumes_action() && self.item_sys().was_block_placement_attempt(self, hand) {
+                if !result.consumes_action()
+                    && self.item_sys().was_block_placement_attempt(self, hand)
+                {
                     if direction == Direction::Up && pos.y() >= max_y {
                         self.sys().send_build_limit_message(self, true, max_y);
                     } else if direction == Direction::Down && pos.y() <= min_y {
                         self.sys().send_build_limit_message(self, false, min_y);
                     }
                 } else if let Some(send) = success_swing {
-                    self.item_sys().swing_and_reset_attack_strength(self, hand, swing_animation, send);
+                    self.item_sys().swing_and_reset_attack_strength(
+                        self,
+                        hand,
+                        swing_animation,
+                        send,
+                    );
                 }
             } else {
                 self.sys().send_build_limit_message(self, true, max_y);
             }
             let state = self.block_state_at(pos);
-            self.send(&ClientboundBlockUpdatePacket { pos, block_state: state });
+            self.send(&ClientboundBlockUpdatePacket {
+                pos,
+                block_state: state,
+            });
             let relative = pos.relative(direction);
             let state = self.block_state_at(relative);
-            self.send(&ClientboundBlockUpdatePacket { pos: relative, block_state: state });
+            self.send(&ClientboundBlockUpdatePacket {
+                pos: relative,
+                block_state: state,
+            });
         }
     }
 
     /// `DedicatedServer.isUnderSpawnProtection(level, pos, player)`.
     fn is_under_spawn_protection(&mut self, pos: BlockPos) -> bool {
         let respawn = self.server.get_respawn_data();
-        if self.level.dimension != respawn.dimension || self.server.player_list.ops.is_empty() || self.player_is_op() {
+        if self.level.dimension != respawn.dimension
+            || self.server.player_list.ops.is_empty()
+            || self.player_is_op()
+        {
             return false;
         }
         let radius = self.server.spawn_protection_radius();
@@ -211,7 +250,9 @@ impl PlayCtx<'_> {
         self.lis().ack_block_changes_up_to(packet.sequence);
         let hand = hand_of(packet.hand);
         self.player.reset_last_action_time();
-        if self.item_sys().item_in_hand_is_empty(self, hand) || !self.item_sys().item_in_hand_enabled(self, hand) {
+        if self.item_sys().item_in_hand_is_empty(self, hand)
+            || !self.item_sys().item_in_hand_enabled(self, hand)
+        {
             return;
         }
         let swing_animation = self.item_sys().swing_animation(self, hand, false);
@@ -224,7 +265,8 @@ impl PlayCtx<'_> {
             && s.should_swing()
         {
             let send = s.swing_source != crate::world::item::SwingSource::Predicted;
-            self.item_sys().swing_and_reset_attack_strength(self, hand, swing_animation, send);
+            self.item_sys()
+                .swing_and_reset_attack_strength(self, hand, swing_animation, send);
         }
     }
 
@@ -232,7 +274,8 @@ impl PlayCtx<'_> {
     pub fn handle_punch(&mut self, _packet: &ServerboundPunchPacket) {
         self.player.reset_last_action_time();
         let animation = self.item_sys().swing_animation(self, Hand::MainHand, true);
-        self.item_sys().swing(self, Hand::MainHand, animation, false);
+        self.item_sys()
+            .swing(self, Hand::MainHand, animation, false);
         self.sys().reset_attack_strength_ticker(self);
     }
 
@@ -247,15 +290,31 @@ impl PlayCtx<'_> {
         if !self.within_world_border(target.block_position) {
             return;
         }
-        if !self.sys().is_within_attack_range(self, &target.bounding_box, 3.0) || self.sys().main_hand_has_piercing_weapon(self) {
+        if !self
+            .sys()
+            .is_within_attack_range(self, &target.bounding_box, 3.0)
+            || self.sys().main_hand_has_piercing_weapon(self)
+        {
             return;
         }
         // `AbstractArrow && !isAttackable()`: arrows are not ported yet
         let unattackable_arrow = false;
-        if target.is_item_entity || target.is_experience_orb || target.id == self.player.id() || unattackable_arrow {
-            self.disconnect(Component::translatable("multiplayer.disconnect.invalid_entity_attacked", vec![]));
-            log::warn!("Player {} tried to attack an invalid entity", self.player.get_plain_text_name());
-        } else if self.item_sys().item_in_hand_enabled(self, Hand::MainHand) && !self.sys().cannot_attack_with_main_hand(self, 5) {
+        if target.is_item_entity
+            || target.is_experience_orb
+            || target.id == self.player.id()
+            || unattackable_arrow
+        {
+            self.disconnect(Component::translatable(
+                "multiplayer.disconnect.invalid_entity_attacked",
+                vec![],
+            ));
+            log::warn!(
+                "Player {} tried to attack an invalid entity",
+                self.player.get_plain_text_name()
+            );
+        } else if self.item_sys().item_in_hand_enabled(self, Hand::MainHand)
+            && !self.sys().cannot_attack_with_main_hand(self, 5)
+        {
             self.sys().attack(self, target.id);
         }
     }
@@ -267,9 +326,14 @@ impl PlayCtx<'_> {
         }
         let target = self.target_info(packet.entity_id);
         self.player.reset_last_action_time();
-        self.player.set_shift_key_down(packet.using_secondary_action);
+        self.player
+            .set_shift_key_down(packet.using_secondary_action);
         let Some(target) = target else { return };
-        if !self.within_world_border(target.block_position) || !self.player.is_within_entity_interaction_range(&target.bounding_box, 3.0) {
+        if !self.within_world_border(target.block_position)
+            || !self
+                .player
+                .is_within_entity_interaction_range(&target.bounding_box, 3.0)
+        {
             return;
         }
         let hand = hand_of(packet.hand);
@@ -278,12 +342,21 @@ impl PlayCtx<'_> {
         }
         let swing_animation = self.item_sys().swing_animation(self, hand, false);
         let used_item_stack = self.player.get_item_in_hand(hand);
-        if let super::hooks::InteractionResult::Success(s) = self.sys().interact_on(self, target.id, hand, packet.location) {
-            let awarded_for_stack = if s.was_item_interaction() { used_item_stack } else { crate::world::item::ItemStack::empty() };
-            self.sys().trigger_player_interacted_with_entity(self, awarded_for_stack, target.id);
+        if let super::hooks::InteractionResult::Success(s) =
+            self.sys()
+                .interact_on(self, target.id, hand, packet.location)
+        {
+            let awarded_for_stack = if s.was_item_interaction() {
+                used_item_stack
+            } else {
+                crate::world::item::ItemStack::empty()
+            };
+            self.sys()
+                .trigger_player_interacted_with_entity(self, awarded_for_stack, target.id);
             if s.should_swing() {
                 let send = s.swing_source != crate::world::item::SwingSource::Predicted;
-                self.item_sys().swing_and_reset_attack_strength(self, hand, swing_animation, send);
+                self.item_sys()
+                    .swing_and_reset_attack_strength(self, hand, swing_animation, send);
             }
         }
     }
@@ -298,7 +371,9 @@ impl PlayCtx<'_> {
             let target = self.target_info(entity_id);
             if let Some(target) = target
                 && self.within_world_border(target.block_position)
-                && self.player.is_within_entity_interaction_range(&target.bounding_box, 3.0)
+                && self
+                    .player
+                    .is_within_entity_interaction_range(&target.bounding_box, 3.0)
                 && target.is_pickable
             {
                 self.sys().set_camera(self, target.id);
@@ -314,12 +389,18 @@ impl PlayCtx<'_> {
         // `for (ServerLevel level : server.getAllLevels()) { entity = packet.getEntity(level); ... }`
         for dimension in self.server.level_keys() {
             let found = if dimension == self.level.dimension {
-                self.level.get_entity_by_uuid(packet.uuid).map(|e| (e.position(), e.base().y_rot(), e.base().x_rot()))
+                self.level
+                    .get_entity_by_uuid(packet.uuid)
+                    .map(|e| (e.position(), e.base().y_rot(), e.base().x_rot()))
             } else {
-                self.server.level(&dimension).and_then(|l| l.get_entity_by_uuid(packet.uuid).map(|e| (e.position(), e.base().y_rot(), e.base().x_rot())))
+                self.server.level(&dimension).and_then(|l| {
+                    l.get_entity_by_uuid(packet.uuid)
+                        .map(|e| (e.position(), e.base().y_rot(), e.base().x_rot()))
+                })
             };
             if let Some((pos, y_rot, x_rot)) = found {
-                self.sys().teleport_to(self, &dimension, pos.x, pos.y, pos.z, y_rot, x_rot, true);
+                self.sys()
+                    .teleport_to(self, &dimension, pos.x, pos.y, pos.z, y_rot, x_rot, true);
                 return;
             }
         }
@@ -327,20 +408,26 @@ impl PlayCtx<'_> {
 
     /// `handlePaddleBoat`.
     pub fn handle_paddle_boat(&mut self, packet: &ServerboundPaddleBoatPacket) {
-        self.sys().set_controlled_boat_paddle_state(self, packet.left, packet.right);
+        self.sys()
+            .set_controlled_boat_paddle_state(self, packet.left, packet.right);
     }
 
     /// `handleSetCarriedItem`.
     pub fn handle_set_carried_item(&mut self, packet: &ServerboundSetCarriedItemPacket) {
         let slot = i32::from(packet.slot);
         if (0..SELECTION_SIZE).contains(&slot) {
-            if self.player.player.inventory.get_selected_slot() != slot && self.item_sys().get_used_item_hand(self) == Some(Hand::MainHand) {
+            if self.player.player.inventory.get_selected_slot() != slot
+                && self.item_sys().get_used_item_hand(self) == Some(Hand::MainHand)
+            {
                 self.item_sys().stop_using_item(self);
             }
             self.player.player.inventory.set_selected_slot(slot);
             self.player.reset_last_action_time();
         } else {
-            log::warn!("{} tried to set an invalid carried item", self.player.get_plain_text_name());
+            log::warn!(
+                "{} tried to set an invalid carried item",
+                self.player.get_plain_text_name()
+            );
         }
     }
 

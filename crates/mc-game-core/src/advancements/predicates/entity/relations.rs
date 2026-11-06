@@ -15,11 +15,25 @@ pub struct VehiclePredicate {
 
 impl EntitySubPredicateImpl for VehiclePredicate {
     fn codec() -> Codec<Self> {
-        EntityPredicate::lazy_codec().xmap(|vehicle| VehiclePredicate { vehicle }, |p: &VehiclePredicate| p.vehicle.clone())
+        EntityPredicate::lazy_codec().xmap(
+            |vehicle| VehiclePredicate { vehicle },
+            |p: &VehiclePredicate| p.vehicle.clone(),
+        )
     }
 
-    fn matches<'a>(&self, entity: &'a dyn Entity, level: &'a ServerLevel, position: Option<Vec3>, lent: &[&'a dyn Entity]) -> bool {
-        self.vehicle.matches_nullable_lent(level, position, support::get_vehicle(level, lent, entity), lent)
+    fn matches<'a>(
+        &self,
+        entity: &'a dyn Entity,
+        level: &'a ServerLevel,
+        position: Option<Vec3>,
+        lent: &[&'a dyn Entity],
+    ) -> bool {
+        self.vehicle.matches_nullable_lent(
+            level,
+            position,
+            support::get_vehicle(level, lent, entity),
+            lent,
+        )
     }
 }
 
@@ -31,11 +45,27 @@ pub struct PassengerPredicate {
 
 impl EntitySubPredicateImpl for PassengerPredicate {
     fn codec() -> Codec<Self> {
-        EntityPredicate::lazy_codec().xmap(|passenger| PassengerPredicate { passenger }, |p: &PassengerPredicate| p.passenger.clone())
+        EntityPredicate::lazy_codec().xmap(
+            |passenger| PassengerPredicate { passenger },
+            |p: &PassengerPredicate| p.passenger.clone(),
+        )
     }
 
-    fn matches<'a>(&self, entity: &'a dyn Entity, level: &'a ServerLevel, position: Option<Vec3>, lent: &[&'a dyn Entity]) -> bool {
-        entity.base().passengers.iter().any(|&id| self.passenger.matches_nullable_lent(level, position, support::resolve(level, lent, id), lent))
+    fn matches<'a>(
+        &self,
+        entity: &'a dyn Entity,
+        level: &'a ServerLevel,
+        position: Option<Vec3>,
+        lent: &[&'a dyn Entity],
+    ) -> bool {
+        entity.base().passengers.iter().any(|&id| {
+            self.passenger.matches_nullable_lent(
+                level,
+                position,
+                support::resolve(level, lent, id),
+                lent,
+            )
+        })
     }
 }
 
@@ -47,10 +77,26 @@ pub struct TargetedEntityPredicate {
 
 impl EntitySubPredicateImpl for TargetedEntityPredicate {
     fn codec() -> Codec<Self> {
-        EntityPredicate::lazy_codec().xmap(|targeted_entity| TargetedEntityPredicate { targeted_entity }, |p: &TargetedEntityPredicate| p.targeted_entity.clone())
+        EntityPredicate::lazy_codec().xmap(
+            |targeted_entity| TargetedEntityPredicate { targeted_entity },
+            |p: &TargetedEntityPredicate| p.targeted_entity.clone(),
+        )
     }
 
-    fn matches<'a>(&self, entity: &'a dyn Entity, level: &'a ServerLevel, position: Option<Vec3>, lent: &[&'a dyn Entity]) -> bool {
-        self.targeted_entity.matches_nullable_lent(level, position, entity.get_target().and_then(|id| support::resolve(level, lent, id)), lent)
+    fn matches<'a>(
+        &self,
+        entity: &'a dyn Entity,
+        level: &'a ServerLevel,
+        position: Option<Vec3>,
+        lent: &[&'a dyn Entity],
+    ) -> bool {
+        self.targeted_entity.matches_nullable_lent(
+            level,
+            position,
+            entity
+                .get_target()
+                .and_then(|id| support::resolve(level, lent, id)),
+            lent,
+        )
     }
 }

@@ -6,8 +6,8 @@
 //! module. Registered for the five entity types in [`register`].
 
 mod base;
-mod goals;
 pub mod drowned;
+mod goals;
 pub mod husk;
 pub mod zombie_villager;
 pub mod zombified_piglin;
@@ -85,8 +85,12 @@ impl Zombie {
         let kind = match ty {
             EntityType::HUSK => ZombieKind::Husk,
             EntityType::DROWNED => ZombieKind::Drowned(drowned::DrownedData::default()),
-            EntityType::ZOMBIE_VILLAGER => ZombieKind::ZombieVillager(zombie_villager::ZombieVillagerData::default()),
-            EntityType::ZOMBIFIED_PIGLIN => ZombieKind::ZombifiedPiglin(zombified_piglin::ZombifiedPiglinData::default()),
+            EntityType::ZOMBIE_VILLAGER => {
+                ZombieKind::ZombieVillager(zombie_villager::ZombieVillagerData::default())
+            }
+            EntityType::ZOMBIFIED_PIGLIN => {
+                ZombieKind::ZombifiedPiglin(zombified_piglin::ZombifiedPiglinData::default())
+            }
             _ => ZombieKind::Zombie,
         };
         let mob = MobData::new(ty, id, MobKind::Monster, |b| {
@@ -97,9 +101,18 @@ impl Zombie {
                 zombie_villager::define_synched_data(b, registries);
             }
         });
-        let mut zombie = Zombie { mob, kind, can_break_doors: false, parked_break_door_goal: None, goals_to_stop: Vec::new(), drowning_tracker: ConversionTracker::new(DROWNING_TRACKER) };
+        let mut zombie = Zombie {
+            mob,
+            kind,
+            can_break_doors: false,
+            parked_break_door_goal: None,
+            goals_to_stop: Vec::new(),
+            drowning_tracker: ConversionTracker::new(DROWNING_TRACKER),
+        };
         let navigation = match zombie.kind {
-            ZombieKind::Drowned(_) => crate::world::entity::ai::navigation::StandardPathNavigation::amphibious(&zombie),
+            ZombieKind::Drowned(_) => {
+                crate::world::entity::ai::navigation::StandardPathNavigation::amphibious(&zombie)
+            }
             _ => crate::world::entity::ai::navigation::StandardPathNavigation::ground(&zombie),
         };
         zombie.mob.set_navigation(Box::new(navigation));
@@ -125,7 +138,8 @@ impl Zombie {
 
     /// `isUnderWaterConverting()`.
     pub fn is_under_water_converting(&self) -> bool {
-        self.drowning_tracker.is_converting(&self.mob.living.entity.entity_data)
+        self.drowning_tracker
+            .is_converting(&self.mob.living.entity.entity_data)
     }
 
     /// `convertsInWater()`.
@@ -172,7 +186,12 @@ impl Zombie {
             ZombieKind::ZombifiedPiglin(_) => (0.78, 0.1875),
             _ => (0.775, 0.1875),
         };
-        EntityDimensions::scalable(0.49, 0.98).with_eye_height(eye_height).with_attachments(EntityAttachments::create_default(0.49, 0.98).with_vehicle(Vec3::new(0.0, vehicle_y, 0.0)))
+        EntityDimensions::scalable(0.49, 0.98)
+            .with_eye_height(eye_height)
+            .with_attachments(
+                EntityAttachments::create_default(0.49, 0.98)
+                    .with_vehicle(Vec3::new(0.0, vehicle_y, 0.0)),
+            )
     }
 
     /// `setCanBreakDoors(canBreakDoors)`.
@@ -196,7 +215,11 @@ impl Zombie {
     }
 
     /// `convertVillagerToZombieVillager(level, villager)`.
-    pub fn convert_villager_to_zombie_villager(&mut self, level: &mut ServerLevel, villager: &mut dyn Entity) -> bool {
+    pub fn convert_villager_to_zombie_villager(
+        &mut self,
+        level: &mut ServerLevel,
+        villager: &mut dyn Entity,
+    ) -> bool {
         zombie_villager::convert_villager_to_zombie_villager(self, level, villager)
     }
 }
@@ -213,7 +236,11 @@ impl Entity for Zombie {
     }
 
     fn get_dimensions(&self, _pose: Pose) -> EntityDimensions {
-        if self.is_baby() { self.baby_dimensions() } else { EntityDimensions::of_type(self.mob.living.entity.entity_type) }
+        if self.is_baby() {
+            self.baby_dimensions()
+        } else {
+            EntityDimensions::of_type(self.mob.living.entity.entity_type)
+        }
     }
 
     fn is_baby(&self) -> bool {
@@ -249,7 +276,12 @@ impl Entity for Zombie {
         base::do_hurt_target(self, level, target)
     }
 
-    fn killed_entity(&mut self, level: &mut ServerLevel, victim: &DamageEntity, source: &DamageSource) -> bool {
+    fn killed_entity(
+        &mut self,
+        level: &mut ServerLevel,
+        victim: &DamageEntity,
+        source: &DamageSource,
+    ) -> bool {
         base::killed_entity(self, level, victim, source)
     }
 
@@ -258,7 +290,11 @@ impl Entity for Zombie {
             ZombieKind::Zombie => SoundEvent::ENTITY_ZOMBIE_AMBIENT,
             ZombieKind::Husk => SoundEvent::ENTITY_HUSK_AMBIENT,
             ZombieKind::Drowned(_) => {
-                if self.is_in_water() { SoundEvent::ENTITY_DROWNED_AMBIENT_WATER } else { SoundEvent::ENTITY_DROWNED_AMBIENT }
+                if self.is_in_water() {
+                    SoundEvent::ENTITY_DROWNED_AMBIENT_WATER
+                } else {
+                    SoundEvent::ENTITY_DROWNED_AMBIENT
+                }
             }
             ZombieKind::ZombieVillager(_) => SoundEvent::ENTITY_ZOMBIE_VILLAGER_AMBIENT,
             // the angry variant is chosen by `play_ambient_sound` (`isAngry()` needs the game time)
@@ -268,7 +304,9 @@ impl Entity for Zombie {
 
     fn play_ambient_sound(&mut self, level: &mut ServerLevel) {
         let sound = match self.kind {
-            ZombieKind::ZombifiedPiglin(_) if mob::neutral::is_angry(self, level) => Some(SoundEvent::ENTITY_ZOMBIFIED_PIGLIN_ANGRY),
+            ZombieKind::ZombifiedPiglin(_) if mob::neutral::is_angry(self, level) => {
+                Some(SoundEvent::ENTITY_ZOMBIFIED_PIGLIN_ANGRY)
+            }
             _ => self.get_ambient_sound(),
         };
         if let Some(sound) = sound {
@@ -281,7 +319,11 @@ impl Entity for Zombie {
             ZombieKind::Zombie => SoundEvent::ENTITY_ZOMBIE_HURT,
             ZombieKind::Husk => SoundEvent::ENTITY_HUSK_HURT,
             ZombieKind::Drowned(_) => {
-                if self.is_in_water() { SoundEvent::ENTITY_DROWNED_HURT_WATER } else { SoundEvent::ENTITY_DROWNED_HURT }
+                if self.is_in_water() {
+                    SoundEvent::ENTITY_DROWNED_HURT_WATER
+                } else {
+                    SoundEvent::ENTITY_DROWNED_HURT
+                }
             }
             ZombieKind::ZombieVillager(_) => SoundEvent::ENTITY_ZOMBIE_VILLAGER_HURT,
             ZombieKind::ZombifiedPiglin(_) => SoundEvent::ENTITY_ZOMBIFIED_PIGLIN_HURT,
@@ -293,7 +335,11 @@ impl Entity for Zombie {
             ZombieKind::Zombie => SoundEvent::ENTITY_ZOMBIE_DEATH,
             ZombieKind::Husk => SoundEvent::ENTITY_HUSK_DEATH,
             ZombieKind::Drowned(_) => {
-                if self.is_in_water() { SoundEvent::ENTITY_DROWNED_DEATH_WATER } else { SoundEvent::ENTITY_DROWNED_DEATH }
+                if self.is_in_water() {
+                    SoundEvent::ENTITY_DROWNED_DEATH_WATER
+                } else {
+                    SoundEvent::ENTITY_DROWNED_DEATH
+                }
             }
             ZombieKind::ZombieVillager(_) => SoundEvent::ENTITY_ZOMBIE_VILLAGER_DEATH,
             ZombieKind::ZombifiedPiglin(_) => SoundEvent::ENTITY_ZOMBIFIED_PIGLIN_DEATH,
@@ -307,7 +353,12 @@ impl Entity for Zombie {
         }
     }
 
-    fn play_step_sound(&mut self, level: &mut ServerLevel, _pos: BlockPos, _state: mc_data::block::BlockState) {
+    fn play_step_sound(
+        &mut self,
+        level: &mut ServerLevel,
+        _pos: BlockPos,
+        _state: mc_data::block::BlockState,
+    ) {
         let sound = self.get_step_sound();
         self.play_sound(level, sound, 0.15, 1.0);
     }
@@ -319,10 +370,18 @@ impl Entity for Zombie {
         }
     }
 
-    fn populate_default_equipment_slots(&mut self, random: &mut dyn RandomSource, difficulty: &DifficultyInstance) {
+    fn populate_default_equipment_slots(
+        &mut self,
+        random: &mut dyn RandomSource,
+        difficulty: &DifficultyInstance,
+    ) {
         match self.kind {
-            ZombieKind::Drowned(_) => drowned::populate_default_equipment_slots(self, random, difficulty),
-            ZombieKind::ZombifiedPiglin(_) => zombified_piglin::populate_default_equipment_slots(self, random, difficulty),
+            ZombieKind::Drowned(_) => {
+                drowned::populate_default_equipment_slots(self, random, difficulty)
+            }
+            ZombieKind::ZombifiedPiglin(_) => {
+                zombified_piglin::populate_default_equipment_slots(self, random, difficulty)
+            }
             _ => base::populate_default_equipment_slots(self, random, difficulty),
         }
     }
@@ -335,7 +394,11 @@ impl Entity for Zombie {
         match self.kind {
             ZombieKind::ZombifiedPiglin(_) => self.can_hold_item(stack),
             ZombieKind::Drowned(_) => {
-                if base::item_is_in_tag(stack, "spears") { false } else { base::wants_to_pick_up(self, level, stack) }
+                if base::item_is_in_tag(stack, "spears") {
+                    false
+                } else {
+                    base::wants_to_pick_up(self, level, stack)
+                }
             }
             _ => base::wants_to_pick_up(self, level, stack),
         }
@@ -348,7 +411,13 @@ impl Entity for Zombie {
         }
     }
 
-    fn can_replace_current_item(&self, level: &ServerLevel, new: &ItemStack, current: &ItemStack, slot: crate::world::entity::equipment::EquipmentSlot) -> bool {
+    fn can_replace_current_item(
+        &self,
+        level: &ServerLevel,
+        new: &ItemStack,
+        current: &ItemStack,
+        slot: crate::world::entity::equipment::EquipmentSlot,
+    ) -> bool {
         match self.kind {
             ZombieKind::Drowned(_) if current.is(mc_data::Item::NAUTILUS_SHELL) => false,
             _ => mob::equipment::can_replace_current_item(self, level, new, current, slot),
@@ -364,20 +433,32 @@ impl Entity for Zombie {
     ) -> Option<Box<dyn SpawnGroupData>> {
         match self.kind {
             ZombieKind::Husk => husk::finalize_spawn(self, level, difficulty, reason, group_data),
-            ZombieKind::Drowned(_) => drowned::finalize_spawn(self, level, difficulty, reason, group_data),
-            ZombieKind::ZombieVillager(_) => zombie_villager::finalize_spawn(self, level, difficulty, reason, group_data),
+            ZombieKind::Drowned(_) => {
+                drowned::finalize_spawn(self, level, difficulty, reason, group_data)
+            }
+            ZombieKind::ZombieVillager(_) => {
+                zombie_villager::finalize_spawn(self, level, difficulty, reason, group_data)
+            }
             _ => base::finalize_spawn(self, level, difficulty, reason, group_data),
         }
     }
 
-    fn on_offspring_spawned_from_egg(&mut self, level: &mut ServerLevel, _spawner: &mut crate::world::entity::ServerPlayer, offspring: EntityId) {
+    fn on_offspring_spawned_from_egg(
+        &mut self,
+        level: &mut ServerLevel,
+        _spawner: &mut crate::world::entity::ServerPlayer,
+        offspring: EntityId,
+    ) {
         base::on_offspring_spawned_from_egg(self, level, offspring);
     }
 
     fn check_spawn_obstruction(&self, level: &dyn ServerLevelAccessor) -> bool {
         match self.kind {
             ZombieKind::Drowned(_) => level.is_unobstructed_entity(self),
-            ZombieKind::ZombifiedPiglin(_) => level.is_unobstructed_entity(self) && !level.contains_any_liquid(&self.base().bounding_box()),
+            ZombieKind::ZombifiedPiglin(_) => {
+                level.is_unobstructed_entity(self)
+                    && !level.contains_any_liquid(&self.base().bounding_box())
+            }
             _ => mob::spawn::check_spawn_obstruction(self, level),
         }
     }
@@ -385,9 +466,7 @@ impl Entity for Zombie {
     fn remove_when_far_away(&self, _distance_to_closest_player: f64) -> bool {
         match self.kind {
             ZombieKind::ZombieVillager(_) => zombie_villager::remove_when_far_away(self),
-            _ => {
-                true
-            }
+            _ => true,
         }
     }
 
@@ -406,7 +485,9 @@ impl Entity for Zombie {
 
     fn after_ride_tick(&mut self, level: &ServerLevel) {
         if let ZombieKind::Drowned(_) = self.kind {
-            if let Some(vehicle) = mob::navigation::controlled_vehicle(self, level).and_then(|v| level.get_entity(v)) {
+            if let Some(vehicle) =
+                mob::navigation::controlled_vehicle(self, level).and_then(|v| level.get_entity(v))
+            {
                 if vehicle.mob().is_some_and(|m| m.kind.is_pathfinder()) {
                     let body = vehicle.living().map(|l| l.y_body_rot);
                     if let (Some(body), Some(l)) = (body, self.living_mut()) {
@@ -444,9 +525,16 @@ impl Entity for Zombie {
         }
     }
 
-    fn mob_interact(&mut self, level: &mut ServerLevel, player: &mut crate::world::entity::ServerPlayer, hand: crate::world::item::InteractionHand) -> crate::world::item::InteractionResult {
+    fn mob_interact(
+        &mut self,
+        level: &mut ServerLevel,
+        player: &mut crate::world::entity::ServerPlayer,
+        hand: crate::world::item::InteractionHand,
+    ) -> crate::world::item::InteractionResult {
         match self.kind {
-            ZombieKind::ZombieVillager(_) => zombie_villager::mob_interact(self, level, player, hand),
+            ZombieKind::ZombieVillager(_) => {
+                zombie_villager::mob_interact(self, level, player, hand)
+            }
             _ => mob::interact::mob_interact(self, level, player, hand),
         }
     }
@@ -458,10 +546,26 @@ impl Entity for Zombie {
         }
     }
 
-    fn travel_in_water(&mut self, level: &mut ServerLevel, input: Vec3, base_gravity: f64, is_falling: bool, old_y: f64) {
+    fn travel_in_water(
+        &mut self,
+        level: &mut ServerLevel,
+        input: Vec3,
+        base_gravity: f64,
+        is_falling: bool,
+        old_y: f64,
+    ) {
         match self.kind {
-            ZombieKind::Drowned(_) => drowned::travel_in_water(self, level, input, base_gravity, is_falling, old_y),
-            _ => crate::world::entity::living_entity::travel::travel_in_water(self, level, input, base_gravity, is_falling, old_y),
+            ZombieKind::Drowned(_) => {
+                drowned::travel_in_water(self, level, input, base_gravity, is_falling, old_y)
+            }
+            _ => crate::world::entity::living_entity::travel::travel_in_water(
+                self,
+                level,
+                input,
+                base_gravity,
+                is_falling,
+                old_y,
+            ),
         }
     }
 
@@ -502,7 +606,10 @@ pub fn register() {}
 macro_rules! register_zombie {
     ($name:ident, $ty:ident) => {
         #[distributed_slice(ENTITY_FACTORIES)]
-        static $name: EntityRegistration = EntityRegistration { entity_type: EntityType::$ty, create: |ty, id, registries| Box::new(Zombie::new(ty, id, registries)) };
+        static $name: EntityRegistration = EntityRegistration {
+            entity_type: EntityType::$ty,
+            create: |ty, id, registries| Box::new(Zombie::new(ty, id, registries)),
+        };
     };
 }
 

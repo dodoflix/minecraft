@@ -29,7 +29,13 @@ fn redstone_block_dust_lamp_15_ticks() {
 #[test]
 fn player_item_entity_dig_and_events() {
     // `fire`: a fresh Rust entity starts at 0, vanilla's player at -20 (the other entity replays ignore it too)
-    common::block_scenario::check_with("blk_harness_actors", &common::entity_oracle::Options { ignore_fields: vec!["fire"], ..Default::default() });
+    common::block_scenario::check_with(
+        "blk_harness_actors",
+        &common::entity_oracle::Options {
+            ignore_fields: vec!["fire"],
+            ..Default::default()
+        },
+    );
 }
 
 #[test]

@@ -16,9 +16,13 @@ pub struct PlayerTriggerInstance {
 
 impl TriggerInstance for PlayerTriggerInstance {
     fn codec() -> Codec<Self> {
-        static C: std::sync::LazyLock<Codec<PlayerTriggerInstance>> = std::sync::LazyLock::new(|| {
-            mc_dfu::record!(PlayerTriggerInstance { player: condition_holder_codec().optional_field_of("player") }).codec()
-        });
+        static C: std::sync::LazyLock<Codec<PlayerTriggerInstance>> =
+            std::sync::LazyLock::new(|| {
+                mc_dfu::record!(PlayerTriggerInstance {
+                    player: condition_holder_codec().optional_field_of("player")
+                })
+                .codec()
+            });
         C.clone()
     }
 }

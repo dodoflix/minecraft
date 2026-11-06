@@ -48,12 +48,19 @@ pub fn combine_with_neighbour(
     let neighbour_state = level.get_block_state(neighbor_pos);
     if neighbour_state.block() == state.block() {
         let neighbour_type = type_resolver(neighbour_state);
-        if neighbour_type != BlockType::Single && ty != neighbour_type && neighbour_state.get(facing_property) == state.get(facing_property) {
+        if neighbour_type != BlockType::Single
+            && ty != neighbour_type
+            && neighbour_state.get(facing_property) == state.get(facing_property)
+        {
             if blocked_checker(level, neighbor_pos) {
                 return NeighborCombineResult::None;
             }
             if has_entity(level, neighbor_pos) {
-                let (first, second) = if is_first { (pos, neighbor_pos) } else { (neighbor_pos, pos) };
+                let (first, second) = if is_first {
+                    (pos, neighbor_pos)
+                } else {
+                    (neighbor_pos, pos)
+                };
                 return NeighborCombineResult::Double { first, second };
             }
         }

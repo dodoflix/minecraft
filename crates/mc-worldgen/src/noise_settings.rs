@@ -54,10 +54,16 @@ impl NoiseSettings {
 
 impl NoiseSettings {
     /// `clampToHeightAccessor(heightAccessor)`.
-    pub fn clamp_to_height_accessor(&self, height_accessor: mc_world::chunk::LevelHeight) -> NoiseSettings {
+    pub fn clamp_to_height_accessor(
+        &self,
+        height_accessor: mc_world::chunk::LevelHeight,
+    ) -> NoiseSettings {
         let new_min_y = self.min_y.max(height_accessor.min_y);
         let new_height = (self.min_y + self.height).min(height_accessor.max_y() + 1) - new_min_y;
-        NoiseSettings { min_y: new_min_y, height: new_height }
+        NoiseSettings {
+            min_y: new_min_y,
+            height: new_height,
+        }
     }
 }
 

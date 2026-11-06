@@ -1,12 +1,12 @@
 //! `LongJumpUtil`.
 
-use mc_game_core::world::entity::entity::Entity;
-use mc_game_core::world::entity::movement::collision_context;
-use mc_game_core::world::entity::EntityDimensions;
-use mc_game_core::world::level::collision::CollisionGetter;
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
 use mc_data::enums::Pose;
+use mc_game_core::world::entity::EntityDimensions;
+use mc_game_core::world::entity::entity::Entity;
+use mc_game_core::world::entity::movement::collision_context;
+use mc_game_core::world::level::collision::CollisionGetter;
 
 /// `calculateJumpVectorForAngle(body, targetPos, maxJumpVelocity, angle, checkCollision)`.
 pub fn calculate_jump_vector_for_angle(
@@ -18,12 +18,16 @@ pub fn calculate_jump_vector_for_angle(
     check_collision: bool,
 ) -> Option<Vec3> {
     let mob_pos = body.position();
-    let direction_vector_plane = Vec3::new(target_pos.x - mob_pos.x, 0.0, target_pos.z - mob_pos.z).normalize().scale(0.5);
+    let direction_vector_plane = Vec3::new(target_pos.x - mob_pos.x, 0.0, target_pos.z - mob_pos.z)
+        .normalize()
+        .scale(0.5);
     let target_position = target_pos.subtract(direction_vector_plane);
     let direction_vector = target_position.subtract(mob_pos);
     let angrad = angle as f32 * std::f32::consts::PI / 180.0_f32;
     let xz_ang = direction_vector.z.atan2(direction_vector.x);
-    let r2 = direction_vector.subtract_xyz(0.0, direction_vector.y, 0.0).length_sqr();
+    let r2 = direction_vector
+        .subtract_xyz(0.0, direction_vector.y, 0.0)
+        .length_sqr();
     let r = r2.sqrt();
     let y = direction_vector.y;
     let g = body.get_gravity();
@@ -53,7 +57,8 @@ pub fn calculate_jump_vector_for_angle(
         let mob_dimensions = body.get_dimensions(Pose::LongJumping);
         for _ in 0..samples - 1 {
             ri += r / f64::from(samples);
-            let yi = sinangrad / cosangrad * ri - (ri * ri) * g / (2.0 * v0sqr * (cosangrad * cosangrad));
+            let yi = sinangrad / cosangrad * ri
+                - (ri * ri) * g / (2.0 * v0sqr * (cosangrad * cosangrad));
             let xi = ri * cosxz_ang;
             let zi = ri * sinxz_ang;
             let sample_pos = Vec3::new(mob_pos.x + xi, mob_pos.y + yi, mob_pos.z + zi);
@@ -68,15 +73,29 @@ pub fn calculate_jump_vector_for_angle(
     Some(Vec3::new(v0r * cosxz_ang, v0y, v0r * sinxz_ang).scale(f64::from(0.95_f32)))
 }
 
-fn is_clear_transition(level: &mc_game_core::server::level::ServerLevel, body: &dyn Entity, entity_dimensions: &EntityDimensions, position1: Vec3, position2: Vec3) -> bool {
+fn is_clear_transition(
+    level: &mc_game_core::server::level::ServerLevel,
+    body: &dyn Entity,
+    entity_dimensions: &EntityDimensions,
+    position1: Vec3,
+    position2: Vec3,
+) -> bool {
     let direction = position2.subtract(position1);
     let min_dimension = f64::from(entity_dimensions.width.min(entity_dimensions.height));
     let checks = mth::ceil_f64(direction.length() / min_dimension);
     let normalized_direction = direction.normalize();
     let mut next_point_to_check = position1;
     for i in 0..checks {
-        next_point_to_check = if i == checks - 1 { position2 } else { next_point_to_check.add(normalized_direction.scale(min_dimension * f64::from(0.9_f32))) };
-        if !level.no_collision(Some(body.id()), Some(&collision_context(body)), &entity_dimensions.make_bounding_box_vec(next_point_to_check)) {
+        next_point_to_check = if i == checks - 1 {
+            position2
+        } else {
+            next_point_to_check.add(normalized_direction.scale(min_dimension * f64::from(0.9_f32)))
+        };
+        if !level.no_collision(
+            Some(body.id()),
+            Some(&collision_context(body)),
+            &entity_dimensions.make_bounding_box_vec(next_point_to_check),
+        ) {
             return false;
         }
     }

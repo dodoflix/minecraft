@@ -5,8 +5,10 @@ use indexmap::IndexSet;
 use mc_core::ident::Identifier;
 use mc_nbt::{CompoundTag, ListTag, Tag};
 use mc_protocol::packets::play::inventory::{
-    ClientboundRecipeBookAddEntry, ClientboundRecipeBookAddPacket, ClientboundRecipeBookRemovePacket, ClientboundRecipeBookSettingsPacket, RecipeBookSettings as WireSettings,
-    RecipeBookSettingsTypeSettings, RecipeBookType, RecipeDisplayId,
+    ClientboundRecipeBookAddEntry, ClientboundRecipeBookAddPacket,
+    ClientboundRecipeBookRemovePacket, ClientboundRecipeBookSettingsPacket,
+    RecipeBookSettings as WireSettings, RecipeBookSettingsTypeSettings, RecipeBookType,
+    RecipeDisplayId,
 };
 
 use super::recipe_manager::{RecipeHolder, RecipeManager};
@@ -16,17 +18,28 @@ fn setting_keys(ty: RecipeBookType) -> (&'static str, &'static str) {
     match ty {
         RecipeBookType::Crafting => ("isGuiOpen", "isFilteringCraftable"),
         RecipeBookType::Furnace => ("isFurnaceGuiOpen", "isFurnaceFilteringCraftable"),
-        RecipeBookType::BlastFurnace => ("isBlastingFurnaceGuiOpen", "isBlastingFurnaceFilteringCraftable"),
+        RecipeBookType::BlastFurnace => (
+            "isBlastingFurnaceGuiOpen",
+            "isBlastingFurnaceFilteringCraftable",
+        ),
         RecipeBookType::Smoker => ("isSmokerGuiOpen", "isSmokerFilteringCraftable"),
     }
 }
 
-const BOOK_TYPES: [RecipeBookType; 4] = [RecipeBookType::Crafting, RecipeBookType::Furnace, RecipeBookType::BlastFurnace, RecipeBookType::Smoker];
+const BOOK_TYPES: [RecipeBookType; 4] = [
+    RecipeBookType::Crafting,
+    RecipeBookType::Furnace,
+    RecipeBookType::BlastFurnace,
+    RecipeBookType::Smoker,
+];
 
 /// `RecipeBookSettings` (the wire type doubles as the value: four `TypeSettings`).
 pub type RecipeBookSettings = WireSettings;
 
-fn settings_of(settings: &RecipeBookSettings, ty: RecipeBookType) -> RecipeBookSettingsTypeSettings {
+fn settings_of(
+    settings: &RecipeBookSettings,
+    ty: RecipeBookType,
+) -> RecipeBookSettingsTypeSettings {
     match ty {
         RecipeBookType::Crafting => settings.crafting,
         RecipeBookType::Furnace => settings.furnace,
@@ -35,7 +48,10 @@ fn settings_of(settings: &RecipeBookSettings, ty: RecipeBookType) -> RecipeBookS
     }
 }
 
-fn settings_mut(settings: &mut RecipeBookSettings, ty: RecipeBookType) -> &mut RecipeBookSettingsTypeSettings {
+fn settings_mut(
+    settings: &mut RecipeBookSettings,
+    ty: RecipeBookType,
+) -> &mut RecipeBookSettingsTypeSettings {
     match ty {
         RecipeBookType::Crafting => &mut settings.crafting,
         RecipeBookType::Furnace => &mut settings.furnace,
@@ -115,24 +131,44 @@ impl ServerRecipeBook {
 
     /// The learning step of `addRecipes` for one recipe: `true` (and the display entries appended) when it was newly added; the
     /// caller then fires `RECIPE_UNLOCKED` and, after the loop, sends the packet ([`ServerRecipeBook::add_packet`]).
-    pub fn try_add_recipe(&mut self, recipe: &RecipeHolder, manager: &RecipeManager, entries: &mut Vec<ClientboundRecipeBookAddEntry>) -> bool {
+    pub fn try_add_recipe(
+        &mut self,
+        recipe: &RecipeHolder,
+        manager: &RecipeManager,
+        entries: &mut Vec<ClientboundRecipeBookAddEntry>,
+    ) -> bool {
         if self.known.contains(&recipe.id) || recipe.value.is_special() {
             return false;
         }
         self.known.insert(recipe.id.clone());
         self.highlight.insert(recipe.id.clone());
         let notification = recipe.value.show_notification();
-        manager.list_displays_for_recipe(&recipe.id, |display| entries.push(ClientboundRecipeBookAddEntry::new(display.clone(), notification, true)));
+        manager.list_displays_for_recipe(&recipe.id, |display| {
+            entries.push(ClientboundRecipeBookAddEntry::new(
+                display.clone(),
+                notification,
+                true,
+            ))
+        });
         true
     }
 
     /// The packet `addRecipes` sends when at least one display was added.
-    pub fn add_packet(entries: Vec<ClientboundRecipeBookAddEntry>) -> Option<ClientboundRecipeBookAddPacket> {
-        (!entries.is_empty()).then_some(ClientboundRecipeBookAddPacket { entries, replace: false })
+    pub fn add_packet(
+        entries: Vec<ClientboundRecipeBookAddEntry>,
+    ) -> Option<ClientboundRecipeBookAddPacket> {
+        (!entries.is_empty()).then_some(ClientboundRecipeBookAddPacket {
+            entries,
+            replace: false,
+        })
     }
 
     /// `removeRecipes(recipes, player)`: the removal packet (none when nothing was removed) and the removed display count.
-    pub fn remove_recipes(&mut self, recipes: &[RecipeHolder], manager: &RecipeManager) -> (Option<ClientboundRecipeBookRemovePacket>, i32) {
+    pub fn remove_recipes(
+        &mut self,
+        recipes: &[RecipeHolder],
+        manager: &RecipeManager,
+    ) -> (Option<ClientboundRecipeBookRemovePacket>, i32) {
         let mut to_remove: Vec<RecipeDisplayId> = Vec::new();
         for recipe in recipes {
             if self.known.contains(&recipe.id) {
@@ -141,17 +177,41 @@ impl ServerRecipeBook {
             }
         }
         let count = to_remove.len() as i32;
-        ((!to_remove.is_empty()).then_some(ClientboundRecipeBookRemovePacket { recipes: to_remove }), count)
+        (
+            (!to_remove.is_empty())
+                .then_some(ClientboundRecipeBookRemovePacket { recipes: to_remove }),
+            count,
+        )
     }
 
     /// `sendInitialRecipeBook(player)`: the settings packet then the full add packet (`replace = true`).
-    pub fn initial_packets(&self, manager: &RecipeManager) -> (ClientboundRecipeBookSettingsPacket, ClientboundRecipeBookAddPacket) {
+    pub fn initial_packets(
+        &self,
+        manager: &RecipeManager,
+    ) -> (
+        ClientboundRecipeBookSettingsPacket,
+        ClientboundRecipeBookAddPacket,
+    ) {
         let mut entries = Vec::with_capacity(self.known.len());
         for id in &self.known {
             let highlighted = self.highlight.contains(id);
-            manager.list_displays_for_recipe(id, |display| entries.push(ClientboundRecipeBookAddEntry::new(display.clone(), false, highlighted)));
+            manager.list_displays_for_recipe(id, |display| {
+                entries.push(ClientboundRecipeBookAddEntry::new(
+                    display.clone(),
+                    false,
+                    highlighted,
+                ))
+            });
         }
-        (ClientboundRecipeBookSettingsPacket { book_settings: self.book_settings }, ClientboundRecipeBookAddPacket { entries, replace: true })
+        (
+            ClientboundRecipeBookSettingsPacket {
+                book_settings: self.book_settings,
+            },
+            ClientboundRecipeBookAddPacket {
+                entries,
+                replace: true,
+            },
+        )
     }
 
     /// `pack()` as the `recipeBook` compound of the player file (`Packed.CODEC`).
@@ -169,7 +229,8 @@ impl ServerRecipeBook {
         }
         let list = |ids: &IndexSet<Identifier>| {
             let mut l = ListTag::new();
-            ids.iter().for_each(|id| l.push(Tag::String(id.to_string())));
+            ids.iter()
+                .for_each(|id| l.push(Tag::String(id.to_string())));
             Tag::List(l)
         };
         tag.put("recipes", list(&self.known));
@@ -180,16 +241,30 @@ impl ServerRecipeBook {
     /// `loadUntrusted(packed, validator)` of a stored `recipeBook` tag; a malformed tag (a missing/invalid list) loads nothing,
     /// unknown recipes are dropped with vanilla's error log.
     pub fn load_untrusted(&mut self, tag: &Tag, is_valid: impl Fn(&Identifier) -> bool) {
-        let Some(compound) = tag.as_compound() else { return };
+        let Some(compound) = tag.as_compound() else {
+            return;
+        };
         let read_ids = |key: &str| -> Option<Vec<Identifier>> {
             let list = compound.get(key)?.as_list()?;
-            (0..list.len()).map(|i| list.get(i).and_then(Tag::as_string).and_then(Identifier::try_parse)).collect()
+            (0..list.len())
+                .map(|i| {
+                    list.get(i)
+                        .and_then(Tag::as_string)
+                        .and_then(Identifier::try_parse)
+                })
+                .collect()
         };
-        let (Some(known), Some(highlight)) = (read_ids("recipes"), read_ids("toBeDisplayed")) else { return };
+        let (Some(known), Some(highlight)) = (read_ids("recipes"), read_ids("toBeDisplayed"))
+        else {
+            return;
+        };
         for ty in BOOK_TYPES {
             let (open_key, filtering_key) = setting_keys(ty);
             let flag = |key: &str| compound.get(key).and_then(Tag::as_boolean).unwrap_or(false);
-            *settings_mut(&mut self.book_settings, ty) = RecipeBookSettingsTypeSettings { open: flag(open_key), filtering: flag(filtering_key) };
+            *settings_mut(&mut self.book_settings, ty) = RecipeBookSettingsTypeSettings {
+                open: flag(open_key),
+                filtering: flag(filtering_key),
+            };
         }
         for (ids, target) in [(known, &mut self.known), (highlight, &mut self.highlight)] {
             for id in ids {

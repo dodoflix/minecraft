@@ -3,8 +3,30 @@ use mc_core::random::*;
 
 const GOLDEN: &str = include_str!("../fixtures/random/random.txt");
 
-const SEEDS: [i64; 9] = [0, 1, -1, 42, 12345, -987654321, 0x123456789ABCDEF, i64::MAX, i64::MIN];
-const BOUNDS: [i32; 11] = [1, 2, 3, 7, 16, 100, 1000, 65536, 1 << 30, i32::MAX, 12345678];
+const SEEDS: [i64; 9] = [
+    0,
+    1,
+    -1,
+    42,
+    12345,
+    -987654321,
+    0x123456789ABCDEF,
+    i64::MAX,
+    i64::MIN,
+];
+const BOUNDS: [i32; 11] = [
+    1,
+    2,
+    3,
+    7,
+    16,
+    100,
+    1000,
+    65536,
+    1 << 30,
+    i32::MAX,
+    12345678,
+];
 
 fn f(v: f32) -> String {
     format!("{:x}", v.to_bits())
@@ -21,7 +43,9 @@ impl Out {
 }
 
 fn make_wg(kind: &str, seed: i64) -> WorldgenRandom {
-    let wg = |inner: Box<dyn RandomSource>| Box::new(WorldgenRandom::new(inner)) as Box<dyn RandomSource>;
+    let wg = |inner: Box<dyn RandomSource>| {
+        Box::new(WorldgenRandom::new(inner)) as Box<dyn RandomSource>
+    };
     WorldgenRandom::new(match kind {
         "wg_legacy" => Box::new(LegacyRandomSource::new(seed)),
         "wg_xoroshiro" => Box::new(XoroshiroRandomSource::new(seed)),
@@ -43,8 +67,14 @@ fn make(kind: &str, seed: i64) -> Box<dyn RandomSource> {
 }
 
 fn child(o: &mut Out, tag: &str, r: &mut dyn RandomSource) {
-    o.p(&format!("{tag}.l"), format!("{} {} {}", r.next_long(), r.next_long(), r.next_long()));
-    o.p(&format!("{tag}.i"), format!("{} {}", r.next_int(), r.next_int_bounded(100)));
+    o.p(
+        &format!("{tag}.l"),
+        format!("{} {} {}", r.next_long(), r.next_long(), r.next_long()),
+    );
+    o.p(
+        &format!("{tag}.i"),
+        format!("{} {}", r.next_int(), r.next_int_bounded(100)),
+    );
     o.p(&format!("{tag}.d"), d(r.next_double()));
 }
 
@@ -61,11 +91,25 @@ fn run(o: &mut Out, kind: &str, seed: i64) {
 
 fn script(o: &mut Out, kind: &str, seed: i64, r: &mut dyn RandomSource) {
     let t = format!("{kind} {seed} ");
-    o.p(&format!("{t}int"), format!("{} {} {} {}", r.next_int(), r.next_int(), r.next_int(), r.next_int()));
+    o.p(
+        &format!("{t}int"),
+        format!(
+            "{} {} {} {}",
+            r.next_int(),
+            r.next_int(),
+            r.next_int(),
+            r.next_int()
+        ),
+    );
     for b in BOUNDS {
         o.p(
             &format!("{t}bound{b}"),
-            format!("{} {} {}", r.next_int_bounded(b), r.next_int_bounded(b), r.next_int_bounded(b)),
+            format!(
+                "{} {} {}",
+                r.next_int_bounded(b),
+                r.next_int_bounded(b),
+                r.next_int_bounded(b)
+            ),
         );
     }
     o.p(
@@ -79,29 +123,72 @@ fn script(o: &mut Out, kind: &str, seed: i64, r: &mut dyn RandomSource) {
     );
     o.p(
         &format!("{t}between"),
-        format!("{} {} {}", r.next_int_between(-100, 100), r.next_int_between(0, 1), r.next_int_between(5, 99999)),
+        format!(
+            "{} {} {}",
+            r.next_int_between(-100, 100),
+            r.next_int_between(0, 1),
+            r.next_int_between(5, 99999)
+        ),
     );
-    o.p(&format!("{t}long"), format!("{} {} {}", r.next_long(), r.next_long(), r.next_long()));
+    o.p(
+        &format!("{t}long"),
+        format!("{} {} {}", r.next_long(), r.next_long(), r.next_long()),
+    );
     o.p(
         &format!("{t}bool"),
-        format!("{} {} {} {}", r.next_boolean(), r.next_boolean(), r.next_boolean(), r.next_boolean()),
+        format!(
+            "{} {} {} {}",
+            r.next_boolean(),
+            r.next_boolean(),
+            r.next_boolean(),
+            r.next_boolean()
+        ),
     );
-    o.p(&format!("{t}float"), format!("{} {} {}", f(r.next_float()), f(r.next_float()), f(r.next_float())));
-    o.p(&format!("{t}double"), format!("{} {} {}", d(r.next_double()), d(r.next_double()), d(r.next_double())));
+    o.p(
+        &format!("{t}float"),
+        format!(
+            "{} {} {}",
+            f(r.next_float()),
+            f(r.next_float()),
+            f(r.next_float())
+        ),
+    );
+    o.p(
+        &format!("{t}double"),
+        format!(
+            "{} {} {}",
+            d(r.next_double()),
+            d(r.next_double()),
+            d(r.next_double())
+        ),
+    );
     for i in 0..5 {
         o.p(&format!("{t}gauss{i}"), d(r.next_gaussian()));
     }
     r.set_seed(seed.wrapping_add(1));
-    o.p(&format!("{t}gauss_after_reseed"), format!("{} {}", d(r.next_gaussian()), d(r.next_double())));
+    o.p(
+        &format!("{t}gauss_after_reseed"),
+        format!("{} {}", d(r.next_gaussian()), d(r.next_double())),
+    );
     r.next_gaussian();
     r.set_seed(seed);
     o.p(&format!("{t}gauss_after_reseed2"), d(r.next_gaussian()));
-    o.p(&format!("{t}triangle"), format!("{} {}", d(r.triangle(1.5, 2.5)), f(r.triangle_f32(1.0, 3.0))));
+    o.p(
+        &format!("{t}triangle"),
+        format!(
+            "{} {}",
+            d(r.triangle(1.5, 2.5)),
+            f(r.triangle_f32(1.0, 3.0))
+        ),
+    );
     r.consume_count(7);
     o.p(&format!("{t}after_consume"), r.next_int());
     let mut fk = r.fork();
     child(o, &format!("{t}fork"), &mut *fk);
-    o.p(&format!("{t}parent_after_fork"), format!("{} {}", r.next_long(), r.next_long()));
+    o.p(
+        &format!("{t}parent_after_fork"),
+        format!("{} {}", r.next_long(), r.next_long()),
+    );
     let pf = r.fork_positional();
     let mut cfg = String::new();
     pf.parity_config_string(&mut cfg);
@@ -109,21 +196,44 @@ fn script(o: &mut Out, kind: &str, seed: i64, r: &mut dyn RandomSource) {
     child(o, &format!("{t}at000"), &mut *pf.at(0, 0, 0));
     child(o, &format!("{t}at123"), &mut *pf.at(1, 2, 3));
     child(o, &format!("{t}atneg"), &mut *pf.at(-5, 100, -30000000));
-    child(o, &format!("{t}atmax"), &mut *pf.at(i32::MAX, i32::MIN, 29999999));
-    child(o, &format!("{t}hash_overworld"), &mut *pf.from_hash_of("minecraft:overworld"));
-    child(o, &format!("{t}hash_utf"), &mut *pf.from_hash_of("h\u{e9}llo \u{1F600}"));
+    child(
+        o,
+        &format!("{t}atmax"),
+        &mut *pf.at(i32::MAX, i32::MIN, 29999999),
+    );
+    child(
+        o,
+        &format!("{t}hash_overworld"),
+        &mut *pf.from_hash_of("minecraft:overworld"),
+    );
+    child(
+        o,
+        &format!("{t}hash_utf"),
+        &mut *pf.from_hash_of("h\u{e9}llo \u{1F600}"),
+    );
     child(o, &format!("{t}hash_empty"), &mut *pf.from_hash_of(""));
     child(o, &format!("{t}fromseed"), &mut *pf.from_seed(42));
     o.p(&format!("{t}end"), r.next_int());
 }
 
 fn java_hash(s: &str) -> i32 {
-    s.encode_utf16().fold(0i32, |h, c| h.wrapping_mul(31).wrapping_add(c as i32))
+    s.encode_utf16()
+        .fold(0i32, |h, c| h.wrapping_mul(31).wrapping_add(c as i32))
 }
 
 fn expected() -> Vec<String> {
     let mut o = Out(Vec::new());
-    for kind in ["legacy", "threadsafe", "single", "xoroshiro", "wg_legacy", "wg_xoroshiro", "wg_single", "wg_threadsafe", "wg_wg"] {
+    for kind in [
+        "legacy",
+        "threadsafe",
+        "single",
+        "xoroshiro",
+        "wg_legacy",
+        "wg_xoroshiro",
+        "wg_single",
+        "wg_threadsafe",
+        "wg_wg",
+    ] {
         for s in SEEDS {
             run(&mut o, kind, s);
         }
@@ -133,24 +243,50 @@ fn expected() -> Vec<String> {
         let um = upgrade_seed_to_128bit_unmixed(s);
         o.p(
             &format!("upgrade {s}"),
-            format!("{} {} {} {} {}", u.seed_lo, u.seed_hi, um.seed_lo, um.seed_hi, mix_stafford13(s)),
+            format!(
+                "{} {} {} {} {}",
+                u.seed_lo,
+                u.seed_hi,
+                um.seed_lo,
+                um.seed_hi,
+                mix_stafford13(s)
+            ),
         );
-        o.p("xoro_zero", XoroshiroRandomSource::from_seeds(0, 0).next_long());
+        o.p(
+            "xoro_zero",
+            XoroshiroRandomSource::from_seeds(0, 0).next_long(),
+        );
     }
-    for s in ["", "a", "minecraft:overworld", "h\u{e9}llo \u{1F600}", "minecraft:ore_iron"] {
+    for s in [
+        "",
+        "a",
+        "minecraft:overworld",
+        "h\u{e9}llo \u{1F600}",
+        "minecraft:ore_iron",
+    ] {
         let h = seed_from_hash_of(s);
-        o.p(&format!("hash {} {}", s.encode_utf16().count(), java_hash(s)), format!("{} {}", h.seed_lo, h.seed_hi));
+        o.p(
+            &format!("hash {} {}", s.encode_utf16().count(), java_hash(s)),
+            format!("{} {}", h.seed_lo, h.seed_hi),
+        );
     }
     let coords = [0, 1, -3, 5, 1000, -30000000, 29999999, i32::MAX, i32::MIN];
     for alg in [Algorithm::Legacy, Algorithm::Xoroshiro] {
-        let name = if alg == Algorithm::Legacy { "LEGACY" } else { "XOROSHIRO" };
+        let name = if alg == Algorithm::Legacy {
+            "LEGACY"
+        } else {
+            "XOROSHIRO"
+        };
         for s in SEEDS {
             for x in coords {
                 for z in coords {
                     let t = format!("wg {name} {s} {x} {z} ");
                     let mut w = WorldgenRandom::new(alg.new_instance(0));
                     let dec = w.set_decoration_seed(s, x, z);
-                    o.p(&format!("{t}decoration"), format!("{dec} {} {}", w.next_long(), w.count()));
+                    o.p(
+                        &format!("{t}decoration"),
+                        format!("{dec} {} {}", w.next_long(), w.count()),
+                    );
                     w.set_feature_seed(s, x, z);
                     o.p(&format!("{t}feature"), w.next_long());
                     w.set_large_feature_seed(s, x, z);
@@ -158,7 +294,10 @@ fn expected() -> Vec<String> {
                     w.set_large_feature_with_salt(s, x, z, 10387312);
                     o.p(&format!("{t}large_salt"), w.next_long());
                     let mut sl = WorldgenRandom::seed_slime_chunk(x, z, s, 987234911);
-                    o.p(&format!("{t}slime"), format!("{} {}", sl.next_int_bounded(10), sl.next_long()));
+                    o.p(
+                        &format!("{t}slime"),
+                        format!("{} {}", sl.next_int_bounded(10), sl.next_long()),
+                    );
                 }
             }
         }
@@ -186,8 +325,12 @@ fn xoroshiro_codec_longs_roundtrip_and_zero_seed() {
 #[test]
 fn bounds_panic_like_vanilla() {
     assert!(std::panic::catch_unwind(|| LegacyRandomSource::new(0).next_int_bounded(0)).is_err());
-    assert!(std::panic::catch_unwind(|| XoroshiroRandomSource::new(0).next_int_bounded(-1)).is_err());
-    assert!(std::panic::catch_unwind(|| XoroshiroRandomSource::new(0).next_int_between(3, 3)).is_err());
+    assert!(
+        std::panic::catch_unwind(|| XoroshiroRandomSource::new(0).next_int_bounded(-1)).is_err()
+    );
+    assert!(
+        std::panic::catch_unwind(|| XoroshiroRandomSource::new(0).next_int_between(3, 3)).is_err()
+    );
 }
 
 #[test]

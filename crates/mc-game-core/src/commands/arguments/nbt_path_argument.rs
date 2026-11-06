@@ -6,25 +6,34 @@
 //! agree. Elements of `byte[]`/`int[]`/`long[]` have no tag identity (they are values); like in vanilla nothing below
 //! them can match, they are kept as dead entries so the emptiness checks behave identically.
 
-use crate::commands::message::{dynamic_translatable, message, simple_translatable};
 use crate::commands::CommandSourceStack;
+use crate::commands::message::{dynamic_translatable, message, simple_translatable};
 use mc_brigadier::arguments::value;
 use mc_brigadier::utf16::substring;
 use mc_brigadier::{
-    ArgumentType, CommandContext, CommandSyntaxException, DynamicCommandExceptionType, ImmutableStringReader, ParsedValue,
-    SimpleCommandExceptionType, StringReader,
+    ArgumentType, CommandContext, CommandSyntaxException, DynamicCommandExceptionType,
+    ImmutableStringReader, ParsedValue, SimpleCommandExceptionType, StringReader,
 };
 use mc_nbt::nbt_utils::compare_nbt;
 use mc_nbt::{CompoundTag, ListTag, Tag};
 use std::borrow::Cow;
 use std::sync::LazyLock;
 
-pub static ERROR_INVALID_NODE: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| simple_translatable("arguments.nbtpath.node.invalid"));
-pub static ERROR_DATA_TOO_DEEP: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| simple_translatable("arguments.nbtpath.too_deep"));
-pub static ERROR_NOTHING_FOUND: LazyLock<DynamicCommandExceptionType<String>> = LazyLock::new(|| dynamic_translatable("arguments.nbtpath.nothing_found"));
-static ERROR_EXPECTED_LIST: LazyLock<DynamicCommandExceptionType<String>> = LazyLock::new(|| dynamic_translatable("commands.data.modify.expected_list"));
+pub static ERROR_INVALID_NODE: LazyLock<SimpleCommandExceptionType> =
+    LazyLock::new(|| simple_translatable("arguments.nbtpath.node.invalid"));
+pub static ERROR_DATA_TOO_DEEP: LazyLock<SimpleCommandExceptionType> =
+    LazyLock::new(|| simple_translatable("arguments.nbtpath.too_deep"));
+pub static ERROR_NOTHING_FOUND: LazyLock<DynamicCommandExceptionType<String>> =
+    LazyLock::new(|| dynamic_translatable("arguments.nbtpath.nothing_found"));
+static ERROR_EXPECTED_LIST: LazyLock<DynamicCommandExceptionType<String>> =
+    LazyLock::new(|| dynamic_translatable("commands.data.modify.expected_list"));
 static ERROR_INVALID_INDEX: LazyLock<DynamicCommandExceptionType<i32>> = LazyLock::new(|| {
-    DynamicCommandExceptionType::new(|node: i32| message(crate::translatable!("commands.data.modify.invalid_index", node)))
+    DynamicCommandExceptionType::new(|node: i32| {
+        message(crate::translatable!(
+            "commands.data.modify.invalid_index",
+            node
+        ))
+    })
 });
 
 #[derive(Clone, Debug, PartialEq)]
@@ -170,7 +179,11 @@ fn matches_pattern(pattern: &CompoundTag, tag: Option<&Tag>) -> bool {
 
 fn actual_index(index: i32, size: usize) -> Option<usize> {
     let size = size as i32;
-    let actual = if index < 0 { size.wrapping_add(index) } else { index };
+    let actual = if index < 0 {
+        size.wrapping_add(index)
+    } else {
+        index
+    };
     (0 <= actual && actual < size).then_some(actual as usize)
 }
 
@@ -178,8 +191,12 @@ impl Node {
     /// `createPreferredParentTag`.
     fn create_preferred_parent_tag(&self) -> Tag {
         match self {
-            Node::AllElements | Node::IndexedElement(_) | Node::MatchElement(_) => Tag::List(ListTag::new()),
-            Node::CompoundChild(_) | Node::MatchObject(..) | Node::MatchRootObject(_) => Tag::Compound(CompoundTag::new()),
+            Node::AllElements | Node::IndexedElement(_) | Node::MatchElement(_) => {
+                Tag::List(ListTag::new())
+            }
+            Node::CompoundChild(_) | Node::MatchObject(..) | Node::MatchRootObject(_) => {
+                Tag::Compound(CompoundTag::new())
+            }
         }
     }
 
@@ -213,7 +230,11 @@ impl Node {
             }
             Node::MatchElement(pattern) => {
                 if let Tag::List(l) = parent {
-                    out.extend(l.iter().filter(|t| matches_pattern(pattern, Some(t))).map(Cow::Borrowed));
+                    out.extend(
+                        l.iter()
+                            .filter(|t| matches_pattern(pattern, Some(t)))
+                            .map(Cow::Borrowed),
+                    );
                 }
             }
             Node::MatchObject(name, pattern) => {
@@ -244,7 +265,10 @@ impl Node {
         match self {
             Node::AllElements => match parent {
                 Tag::List(l) => out.extend((0..l.len()).map(|i| child(Step::Index(i)))),
-                _ => out.extend((0..collection_size(parent).unwrap_or(0)).map(|i| Entry::Dead(collection_get(parent, i)))),
+                _ => out.extend(
+                    (0..collection_size(parent).unwrap_or(0))
+                        .map(|i| Entry::Dead(collection_get(parent, i))),
+                ),
             },
             Node::CompoundChild(name) => {
                 if let Tag::Compound(c) = parent
@@ -257,12 +281,21 @@ impl Node {
                 if let Some(size) = collection_size(parent)
                     && let Some(i) = actual_index(*index, size)
                 {
-                    out.push(if matches!(parent, Tag::List(_)) { child(Step::Index(i)) } else { Entry::Dead(collection_get(parent, i)) });
+                    out.push(if matches!(parent, Tag::List(_)) {
+                        child(Step::Index(i))
+                    } else {
+                        Entry::Dead(collection_get(parent, i))
+                    });
                 }
             }
             Node::MatchElement(pattern) => {
                 if let Tag::List(l) = parent {
-                    out.extend(l.iter().enumerate().filter(|(_, t)| matches_pattern(pattern, Some(t))).map(|(i, _)| child(Step::Index(i))));
+                    out.extend(
+                        l.iter()
+                            .enumerate()
+                            .filter(|(_, t)| matches_pattern(pattern, Some(t)))
+                            .map(|(i, _)| child(Step::Index(i))),
+                    );
                 }
             }
             Node::MatchObject(name, pattern) => {
@@ -282,7 +315,13 @@ impl Node {
     }
 
     /// `getOrCreateTag` over paths.
-    fn get_or_create_paths(&self, parent: &mut Tag, parent_path: &Path, child_supplier: &dyn Fn() -> Tag, out: &mut Vec<Entry>) {
+    fn get_or_create_paths(
+        &self,
+        parent: &mut Tag,
+        parent_path: &Path,
+        child_supplier: &dyn Fn() -> Tag,
+        out: &mut Vec<Entry>,
+    ) {
         let child = |step: Step| {
             let mut p = parent_path.clone();
             p.push(step);
@@ -306,7 +345,10 @@ impl Node {
                             out.push(Entry::Dead(collection_get(parent, 0)));
                         }
                     } else {
-                        out.extend((0..collection_size(parent).unwrap_or(0)).map(|i| Entry::Dead(collection_get(parent, i))));
+                        out.extend(
+                            (0..collection_size(parent).unwrap_or(0))
+                                .map(|i| Entry::Dead(collection_get(parent, i))),
+                        );
                     }
                 }
                 _ => {}
@@ -323,7 +365,12 @@ impl Node {
             Node::MatchElement(pattern) => {
                 if let Tag::List(l) = parent {
                     let before = out.len();
-                    out.extend(l.iter().enumerate().filter(|(_, t)| matches_pattern(pattern, Some(t))).map(|(i, _)| child(Step::Index(i))));
+                    out.extend(
+                        l.iter()
+                            .enumerate()
+                            .filter(|(_, t)| matches_pattern(pattern, Some(t)))
+                            .map(|(i, _)| child(Step::Index(i))),
+                    );
                     if out.len() == before {
                         l.push(Tag::Compound(pattern.copy()));
                         out.push(child(Step::Index(l.len() - 1)));
@@ -337,7 +384,9 @@ impl Node {
                             c.put(name.clone(), Tag::Compound(pattern.copy()));
                             out.push(child(Step::Key(name.clone())));
                         }
-                        Some(result) if matches_pattern(pattern, Some(result)) => out.push(child(Step::Key(name.clone()))),
+                        Some(result) if matches_pattern(pattern, Some(result)) => {
+                            out.push(child(Step::Key(name.clone())))
+                        }
                         Some(_) => {}
                     }
                 }
@@ -350,13 +399,18 @@ impl Node {
     fn set_tag(&self, parent: &mut Tag, to_add: &mut dyn FnMut() -> Tag) -> i32 {
         match self {
             Node::AllElements => {
-                let Some(size) = collection_size(parent) else { return 0 };
+                let Some(size) = collection_size(parent) else {
+                    return 0;
+                };
                 if size == 0 {
                     let _ = collection_add(parent, 0, to_add());
                     return 1;
                 }
                 let new_value = to_add();
-                let changed_count = size as i32 - (0..size).filter(|&i| collection_get(parent, i) == new_value).count() as i32;
+                let changed_count = size as i32
+                    - (0..size)
+                        .filter(|&i| collection_get(parent, i) == new_value)
+                        .count() as i32;
                 if changed_count == 0 {
                     return 0;
                 }
@@ -513,7 +567,13 @@ impl NbtPath {
         let mut index = self.node_positions[node_index];
         if self.nodes[node_index] == Node::AllElements {
             // `AllElementsNode.INSTANCE` is one key in the map: the last `[]` position wins.
-            index = self.nodes.iter().zip(&self.node_positions).rev().find(|(n, _)| **n == Node::AllElements).map_or(index, |(_, p)| *p);
+            index = self
+                .nodes
+                .iter()
+                .zip(&self.node_positions)
+                .rev()
+                .find(|(n, _)| **n == Node::AllElements)
+                .map_or(index, |(_, p)| *p);
         }
         ERROR_NOTHING_FOUND.create(substring(&self.original, 0, index))
     }
@@ -580,7 +640,12 @@ impl NbtPath {
         Ok(result)
     }
 
-    fn get_or_create_level(node: &Node, root: &mut Tag, entries: &[Entry], child: &dyn Fn() -> Tag) -> Vec<Entry> {
+    fn get_or_create_level(
+        node: &Node,
+        root: &mut Tag,
+        entries: &[Entry],
+        child: &dyn Fn() -> Tag,
+    ) -> Vec<Entry> {
         let mut next = Vec::new();
         for entry in entries {
             if let Entry::At(path) = entry
@@ -593,12 +658,19 @@ impl NbtPath {
     }
 
     /// `getOrCreate(tag, newTagValue)`: the tags matched by the whole path, creating missing ones (as values).
-    pub fn get_or_create(&self, tag: &mut Tag, new_tag_value: &dyn Fn() -> Tag) -> Result<Vec<Tag>, CommandSyntaxException> {
+    pub fn get_or_create(
+        &self,
+        tag: &mut Tag,
+        new_tag_value: &dyn Fn() -> Tag,
+    ) -> Result<Vec<Tag>, CommandSyntaxException> {
         let entries = self.get_or_create_last_level(tag, new_tag_value)?;
-        Ok(entries.into_iter().filter_map(|e| match e {
-            Entry::At(path) => resolve_mut(tag, &path).map(|t| t.clone()),
-            Entry::Dead(value) => Some(value),
-        }).collect())
+        Ok(entries
+            .into_iter()
+            .filter_map(|e| match e {
+                Entry::At(path) => resolve_mut(tag, &path).map(|t| t.clone()),
+                Entry::Dead(value) => Some(value),
+            })
+            .collect())
     }
 
     /// `getOrCreate(tag, newTagValue)` for callers that mutate the matched tags in place: runs `f` on each of them
@@ -622,10 +694,19 @@ impl NbtPath {
         Ok(())
     }
 
-    fn get_or_create_last_level(&self, tag: &mut Tag, new_tag_value: &dyn Fn() -> Tag) -> Result<Vec<Entry>, CommandSyntaxException> {
+    fn get_or_create_last_level(
+        &self,
+        tag: &mut Tag,
+        new_tag_value: &dyn Fn() -> Tag,
+    ) -> Result<Vec<Entry>, CommandSyntaxException> {
         let parents = self.get_or_create_parents(tag)?;
         let last = self.nodes.last().expect("path has nodes");
-        Ok(Self::get_or_create_level(last, tag, &parents, new_tag_value))
+        Ok(Self::get_or_create_level(
+            last,
+            tag,
+            &parents,
+            new_tag_value,
+        ))
     }
 
     /// `isTooDeep(tag, depth)`.
@@ -634,7 +715,9 @@ impl NbtPath {
             return true;
         }
         match tag {
-            Tag::Compound(c) => c.iter().any(|(_, child)| Self::is_too_deep(child, depth + 1)),
+            Tag::Compound(c) => c
+                .iter()
+                .any(|(_, child)| Self::is_too_deep(child, depth + 1)),
             Tag::List(l) => l.iter().any(|e| Self::is_too_deep(e, depth + 1)),
             _ => false,
         }
@@ -666,7 +749,12 @@ impl NbtPath {
     }
 
     /// `insert(index, target, toInsert)`: the number of modified targets.
-    pub fn insert(&self, index: i32, target: &mut CompoundTag, to_insert: &[Tag]) -> Result<i32, CommandSyntaxException> {
+    pub fn insert(
+        &self,
+        index: i32,
+        target: &mut CompoundTag,
+        to_insert: &[Tag],
+    ) -> Result<i32, CommandSyntaxException> {
         let mut to_insert_copy = Vec::with_capacity(to_insert.len());
         for tag in to_insert {
             let copy = tag.copy();
@@ -683,7 +771,12 @@ impl NbtPath {
         result
     }
 
-    fn insert_into(&self, index: i32, root: &mut Tag, to_insert_copy: Vec<Tag>) -> Result<i32, CommandSyntaxException> {
+    fn insert_into(
+        &self,
+        index: i32,
+        root: &mut Tag,
+        to_insert_copy: Vec<Tag>,
+    ) -> Result<i32, CommandSyntaxException> {
         let entries = self.get_or_create_last_level(root, &|| Tag::List(ListTag::new()))?;
         let mut modified_count = 0;
         let mut used_first = false;
@@ -692,15 +785,29 @@ impl NbtPath {
                 Entry::At(path) => path,
                 Entry::Dead(value) => return Err(ERROR_EXPECTED_LIST.create(value.to_string())),
             };
-            let Some(target_tag) = resolve_mut(root, &path) else { continue };
+            let Some(target_tag) = resolve_mut(root, &path) else {
+                continue;
+            };
             let Some(size) = collection_size(target_tag) else {
                 return Err(ERROR_EXPECTED_LIST.create(target_tag.to_string()));
             };
             let mut modified = false;
-            let mut actual = if index < 0 { (size as i32).wrapping_add(index).wrapping_add(1) } else { index };
+            let mut actual = if index < 0 {
+                (size as i32).wrapping_add(index).wrapping_add(1)
+            } else {
+                index
+            };
             for source in &to_insert_copy {
-                let value = if used_first { source.copy() } else { source.clone() };
-                let added = if actual < 0 { Err(()) } else { collection_add(target_tag, actual as usize, value) };
+                let value = if used_first {
+                    source.copy()
+                } else {
+                    source.clone()
+                };
+                let added = if actual < 0 {
+                    Err(())
+                } else {
+                    collection_add(target_tag, actual as usize, value)
+                };
                 match added {
                     Ok(true) => {
                         actual += 1;
@@ -779,10 +886,17 @@ impl NbtPathArgument {
                 }
             }
         }
-        Ok(NbtPath { original: substring(reader.get_string(), start, reader.get_cursor()), nodes, node_positions: positions })
+        Ok(NbtPath {
+            original: substring(reader.get_string(), start, reader.get_cursor()),
+            nodes,
+            node_positions: positions,
+        })
     }
 
-    fn parse_node(reader: &mut StringReader, first_node: bool) -> Result<Node, CommandSyntaxException> {
+    fn parse_node(
+        reader: &mut StringReader,
+        first_node: bool,
+    ) -> Result<Node, CommandSyntaxException> {
         match reader.peek() {
             '"' | '\'' => {
                 let name = reader.read_string()?;
@@ -818,7 +932,10 @@ impl NbtPathArgument {
         }
     }
 
-    fn read_object_node(reader: &mut StringReader, name: String) -> Result<Node, CommandSyntaxException> {
+    fn read_object_node(
+        reader: &mut StringReader,
+        name: String,
+    ) -> Result<Node, CommandSyntaxException> {
         if name.is_empty() {
             Err(ERROR_INVALID_NODE.create_with_context(reader))
         } else if reader.can_read() && reader.peek() == '{' {
@@ -852,7 +969,9 @@ impl ArgumentType<CommandSourceStack> for NbtPathArgument {
     }
 
     fn get_examples(&self) -> Vec<String> {
-        ["foo", "foo.bar", "foo[0]", "[0]", "[]", "{foo=bar}"].map(String::from).to_vec()
+        ["foo", "foo.bar", "foo[0]", "[0]", "[]", "{foo=bar}"]
+            .map(String::from)
+            .to_vec()
     }
 
     fn describe(&self) -> String {
@@ -860,5 +979,6 @@ impl ArgumentType<CommandSourceStack> for NbtPathArgument {
     }
 }
 
-
-crate::register_argument_type!(NbtPathArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::NbtPath);
+crate::register_argument_type!(NbtPathArgument, |_a| {
+    mc_protocol::packets::play::ArgumentTypeTemplate::NbtPath
+});

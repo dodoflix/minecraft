@@ -40,7 +40,10 @@ mod section_state {
     }
 
     pub fn neighbor_count_set(state: u8, count: i32) -> u8 {
-        assert!((0..=26).contains(&count), "Neighbor count was not within range [0; 26]");
+        assert!(
+            (0..=26).contains(&count),
+            "Neighbor count was not within range [0; 26]"
+        );
         state & !31 | (count as u8 & 31)
     }
 
@@ -66,7 +69,11 @@ pub struct DataLayerStorageMap {
 
 impl DataLayerStorageMap {
     fn new() -> Self {
-        DataLayerStorageMap { map: HashMap::new(), current_lowest_y: i32::MAX, top_sections: HashMap::new() }
+        DataLayerStorageMap {
+            map: HashMap::new(),
+            current_lowest_y: i32::MAX,
+            top_sections: HashMap::new(),
+        }
     }
 
     pub fn get_layer(&self, section_node: i64) -> Option<&Arc<DataLayer>> {
@@ -78,7 +85,10 @@ impl DataLayerStorageMap {
     }
 
     fn top_section(&self, zero_node: i64) -> i32 {
-        self.top_sections.get(&zero_node).copied().unwrap_or(self.current_lowest_y)
+        self.top_sections
+            .get(&zero_node)
+            .copied()
+            .unwrap_or(self.current_lowest_y)
     }
 }
 
@@ -95,10 +105,19 @@ impl LayerReader {
     /// `getDataLayerData(sectionNode)`: the queued layer if any, else the published one.
     pub fn get_data_layer_data(&self, section: SectionPos) -> Option<Arc<DataLayer>> {
         let node = section.as_long();
-        if let Some(layer) = self.queued.lock().expect("queued light sections").get(&node) {
+        if let Some(layer) = self
+            .queued
+            .lock()
+            .expect("queued light sections")
+            .get(&node)
+        {
             return Some(layer.clone());
         }
-        self.visible.read().expect("visible light map").get_layer(node).cloned()
+        self.visible
+            .read()
+            .expect("visible light map")
+            .get_layer(node)
+            .cloned()
     }
 
     /// `getLightValue(pos)` on the published data.
@@ -120,7 +139,13 @@ fn layer_at(map: &DataLayerStorageMap, block_node: i64) -> i32 {
 
 /// `BlockLightSectionStorage.getLightValue` / `SkyLightSectionStorage.getLightValue(blockNode, updating)`.
 /// `light_on_in_section` is only consulted for sky light with `updating`.
-fn light_value(layer: LightLayer, sections: &DataLayerStorageMap, block_node: i64, updating: bool, light_on_in_section: impl Fn(i64) -> bool) -> i32 {
+fn light_value(
+    layer: LightLayer,
+    sections: &DataLayerStorageMap,
+    block_node: i64,
+    updating: bool,
+    light_on_in_section: impl Fn(i64) -> bool,
+) -> i32 {
     let mut section_node = SectionPos::block_to_section(block_node);
     match layer {
         LightLayer::Block => sections.map.get(&section_node).map_or(0, |l| {
@@ -143,7 +168,8 @@ fn light_value(layer: LightLayer, sections: &DataLayerStorageMap, block_node: i6
                         if section_y >= top_section {
                             return 15;
                         }
-                        section_node = SectionPos::offset_long_direction(section_node, Direction::Up);
+                        section_node =
+                            SectionPos::offset_long_direction(section_node, Direction::Up);
                         layer = sections.map.get(&section_node);
                     }
                 }
@@ -194,7 +220,11 @@ impl LayerLightSectionStorage {
     }
 
     pub fn reader(&self) -> LayerReader {
-        LayerReader { layer: self.layer, visible: self.visible.clone(), queued: self.queued_sections.clone() }
+        LayerReader {
+            layer: self.layer,
+            visible: self.visible.clone(),
+            queued: self.queued_sections.clone(),
+        }
     }
 
     pub fn storing_light_for_section(&self, section_node: i64) -> bool {
@@ -211,10 +241,19 @@ impl LayerLightSectionStorage {
     }
 
     pub fn get_data_layer_data(&self, section_node: i64) -> Option<Arc<DataLayer>> {
-        if let Some(layer) = self.queued_sections.lock().expect("queued light sections").get(&section_node) {
+        if let Some(layer) = self
+            .queued_sections
+            .lock()
+            .expect("queued light sections")
+            .get(&section_node)
+        {
             return Some(layer.clone());
         }
-        self.visible.read().expect("visible light map").get_layer(section_node).cloned()
+        self.visible
+            .read()
+            .expect("visible light map")
+            .get_layer(section_node)
+            .cloned()
     }
 
     /// `getLightValue(blockNode)` on the published data.
@@ -225,7 +264,9 @@ impl LayerLightSectionStorage {
 
     /// `SkyLightSectionStorage.getLightValue(blockNode, updating = true)`; only used by tests/debugging.
     pub fn get_updating_light_value(&self, block_node: i64) -> i32 {
-        light_value(self.layer, &self.updating, block_node, true, |s| self.light_on_in_section(s))
+        light_value(self.layer, &self.updating, block_node, true, |s| {
+            self.light_on_in_section(s)
+        })
     }
 
     pub fn get_stored_level(&self, block_node: i64) -> i32 {
@@ -235,7 +276,10 @@ impl LayerLightSectionStorage {
     pub fn set_stored_level(&mut self, block_node: i64, level: i32) {
         let section_node = SectionPos::block_to_section(block_node);
         self.changed_sections.insert(section_node);
-        let layer = self.updating.get_layer_mut(section_node).expect("storing light for section");
+        let layer = self
+            .updating
+            .get_layer_mut(section_node)
+            .expect("storing light for section");
         layer.set(
             SectionPos::section_relative(BlockPos::get_x(block_node)),
             SectionPos::section_relative(BlockPos::get_y(block_node)),
@@ -249,11 +293,20 @@ impl LayerLightSectionStorage {
     }
 
     fn mark_section_and_neighbors_as_affected(&mut self, section_node: i64) {
-        let (x, y, z) = (SectionPos::x_from_long(section_node), SectionPos::y_from_long(section_node), SectionPos::z_from_long(section_node));
+        let (x, y, z) = (
+            SectionPos::x_from_long(section_node),
+            SectionPos::y_from_long(section_node),
+            SectionPos::z_from_long(section_node),
+        );
         for offset_z in -1..=1 {
             for offset_x in -1..=1 {
                 for offset_y in -1..=1 {
-                    self.sections_affected_by_light_updates.add(SectionPos::as_long_xyz(x + offset_x, y + offset_y, z + offset_z));
+                    self.sections_affected_by_light_updates
+                        .add(SectionPos::as_long_xyz(
+                            x + offset_x,
+                            y + offset_y,
+                            z + offset_z,
+                        ));
                 }
             }
         }
@@ -261,20 +314,31 @@ impl LayerLightSectionStorage {
 
     /// `createDataLayer(sectionNode)`.
     fn create_data_layer(&self, section_node: i64) -> Arc<DataLayer> {
-        if let Some(queued) = self.queued_sections.lock().expect("queued light sections").get(&section_node) {
+        if let Some(queued) = self
+            .queued_sections
+            .lock()
+            .expect("queued light sections")
+            .get(&section_node)
+        {
             return queued.clone();
         }
         match self.layer {
             LightLayer::Block => Arc::new(DataLayer::new()),
             LightLayer::Sky => {
-                let top_section = self.updating.top_section(SectionPos::get_zero_node(section_node));
-                if top_section != self.updating.current_lowest_y && SectionPos::y_from_long(section_node) < top_section {
-                    let mut above_section = SectionPos::offset_long_direction(section_node, Direction::Up);
+                let top_section = self
+                    .updating
+                    .top_section(SectionPos::get_zero_node(section_node));
+                if top_section != self.updating.current_lowest_y
+                    && SectionPos::y_from_long(section_node) < top_section
+                {
+                    let mut above_section =
+                        SectionPos::offset_long_direction(section_node, Direction::Up);
                     let above_data = loop {
                         if let Some(data) = self.updating.map.get(&above_section) {
                             break data;
                         }
-                        above_section = SectionPos::offset_long_direction(above_section, Direction::Up);
+                        above_section =
+                            SectionPos::offset_long_direction(above_section, Direction::Up);
                     };
                     Arc::new(repeat_first_layer(above_data))
                 } else if self.light_on_in_section(section_node) {
@@ -302,7 +366,10 @@ impl LayerLightSectionStorage {
             for &node in &to_remove {
                 let queued = queued_sections.remove(&node);
                 let stored = self.updating.map.remove(&node);
-                if self.columns_to_retain_queued_data_for.contains(&SectionPos::get_zero_node(node)) {
+                if self
+                    .columns_to_retain_queued_data_for
+                    .contains(&SectionPos::get_zero_node(node))
+                {
                     if let Some(queued) = queued {
                         queued_sections.insert(node, queued);
                     } else if let Some(stored) = stored {
@@ -321,7 +388,11 @@ impl LayerLightSectionStorage {
         for section_node in nodes {
             if self.updating.map.contains_key(&section_node) {
                 let data = queued_sections.remove(&section_node).expect("queued");
-                let same = self.updating.map.get(&section_node).is_some_and(|l| Arc::ptr_eq(l, &data));
+                let same = self
+                    .updating
+                    .map
+                    .get(&section_node)
+                    .is_some_and(|l| Arc::ptr_eq(l, &data));
                 if !same {
                     self.updating.map.insert(section_node, data);
                     self.changed_sections.insert(section_node);
@@ -353,9 +424,12 @@ impl LayerLightSectionStorage {
         let mut y = SectionPos::y_from_long(section_node);
         if self.updating.top_section(zero) == y + 1 {
             let mut new_top_section = section_node;
-            while !self.storing_light_for_section(new_top_section) && self.has_light_data_at_or_below(y) {
+            while !self.storing_light_for_section(new_top_section)
+                && self.has_light_data_at_or_below(y)
+            {
                 y -= 1;
-                new_top_section = SectionPos::offset_long_direction(new_top_section, Direction::Down);
+                new_top_section =
+                    SectionPos::offset_long_direction(new_top_section, Direction::Down);
             }
             if self.storing_light_for_section(new_top_section) {
                 self.updating.top_sections.insert(zero, y + 1);
@@ -374,7 +448,8 @@ impl LayerLightSectionStorage {
     }
 
     pub fn light_on_in_section(&self, section_node: i64) -> bool {
-        self.columns_with_sources.contains(&SectionPos::get_zero_node(section_node))
+        self.columns_with_sources
+            .contains(&SectionPos::get_zero_node(section_node))
     }
 
     pub fn light_on_in_column(&self, section_zero_node: i64) -> bool {
@@ -413,10 +488,19 @@ impl LayerLightSectionStorage {
                 for offset_y in -1..=1 {
                     for offset_z in -1..=1 {
                         if offset_x != 0 || offset_y != 0 || offset_z != 0 {
-                            let neighbor_node = SectionPos::offset_long(section_node, offset_x, offset_y, offset_z);
-                            let neighbor_state = self.section_states.get(&neighbor_node).copied().unwrap_or(0);
-                            let count = section_state::neighbor_count(neighbor_state) + neighbor_increment;
-                            self.put_section_state(neighbor_node, section_state::neighbor_count_set(neighbor_state, count));
+                            let neighbor_node =
+                                SectionPos::offset_long(section_node, offset_x, offset_y, offset_z);
+                            let neighbor_state = self
+                                .section_states
+                                .get(&neighbor_node)
+                                .copied()
+                                .unwrap_or(0);
+                            let count =
+                                section_state::neighbor_count(neighbor_state) + neighbor_increment;
+                            self.put_section_state(
+                                neighbor_node,
+                                section_state::neighbor_count_set(neighbor_state, count),
+                            );
                         }
                     }
                 }
@@ -478,8 +562,11 @@ impl LayerLightSectionStorage {
     }
 
     pub fn is_above_data(&self, section_node: i64) -> bool {
-        let top_section = self.updating.top_section(SectionPos::get_zero_node(section_node));
-        top_section == self.updating.current_lowest_y || SectionPos::y_from_long(section_node) >= top_section
+        let top_section = self
+            .updating
+            .top_section(SectionPos::get_zero_node(section_node));
+        top_section == self.updating.current_lowest_y
+            || SectionPos::y_from_long(section_node) >= top_section
     }
 
     pub fn get_top_section_y(&self, zero_node: i64) -> i32 {

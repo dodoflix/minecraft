@@ -21,9 +21,22 @@ pub struct GameTestBatch {
 
 impl GameTestBatch {
     /// `new GameTestBatch(index, infos, environment, dimension)`: a batch needs at least one test.
-    pub fn new(index: i32, game_test_infos: Vec<Rc<GameTestInfo>>, environment: EnvironmentRef, dimension: DimensionKey) -> Self {
-        assert!(!game_test_infos.is_empty(), "A GameTestBatch must include at least one GameTestInfo!");
-        Self { index, game_test_infos, environment, dimension }
+    pub fn new(
+        index: i32,
+        game_test_infos: Vec<Rc<GameTestInfo>>,
+        environment: EnvironmentRef,
+        dimension: DimensionKey,
+    ) -> Self {
+        assert!(
+            !game_test_infos.is_empty(),
+            "A GameTestBatch must include at least one GameTestInfo!"
+        );
+        Self {
+            index,
+            game_test_infos,
+            environment,
+            dimension,
+        }
     }
 }
 
@@ -49,7 +62,10 @@ pub fn from_game_test_info_with(max_tests_per_batch: usize) -> GameTestBatcher {
         for info in infos {
             let test = info.get_test();
             let (environment, dimension) = (test.batch().clone(), test.info().dimension.clone());
-            match groups.iter_mut().find(|(e, d, _)| *e == environment && *d == dimension) {
+            match groups
+                .iter_mut()
+                .find(|(e, d, _)| *e == environment && *d == dimension)
+            {
                 Some((_, _, members)) => members.push(info.clone()),
                 None => groups.push((environment, dimension, vec![info.clone()])),
             }
@@ -57,7 +73,12 @@ pub fn from_game_test_info_with(max_tests_per_batch: usize) -> GameTestBatcher {
         let mut batches = Vec::new();
         for (environment, dimension, members) in groups {
             for (index, tests) in members.chunks(max_tests_per_batch).enumerate() {
-                batches.push(to_game_test_batch(tests.to_vec(), environment.clone(), index as i32, dimension.clone()));
+                batches.push(to_game_test_batch(
+                    tests.to_vec(),
+                    environment.clone(),
+                    index as i32,
+                    dimension.clone(),
+                ));
             }
         }
         batches
@@ -65,7 +86,12 @@ pub fn from_game_test_info_with(max_tests_per_batch: usize) -> GameTestBatcher {
 }
 
 /// `GameTestBatchFactory.toGameTestBatch(tests, batch, counter, dimension)`.
-pub fn to_game_test_batch(tests: Vec<Rc<GameTestInfo>>, environment: EnvironmentRef, counter: i32, dimension: DimensionKey) -> GameTestBatch {
+pub fn to_game_test_batch(
+    tests: Vec<Rc<GameTestInfo>>,
+    environment: EnvironmentRef,
+    counter: i32,
+    dimension: DimensionKey,
+) -> GameTestBatch {
     GameTestBatch::new(counter, tests, environment, dimension)
 }
 

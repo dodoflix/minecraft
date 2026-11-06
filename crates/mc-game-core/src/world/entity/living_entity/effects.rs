@@ -11,7 +11,9 @@ use crate::server::level::ServerLevel;
 use crate::world::effect::MobEffectExt;
 use crate::world::entity::effect::MobEffectInstance;
 use crate::world::entity::entity::{FLAG_GLOWING, FLAG_INVISIBLE};
-use crate::world::entity::living::{DATA_EFFECT_AMBIENCE_ID, DATA_EFFECT_PARTICLES, LivingEntityData};
+use crate::world::entity::living::{
+    DATA_EFFECT_AMBIENCE_ID, DATA_EFFECT_PARTICLES, LivingEntityData,
+};
 use crate::world::entity::{Entity, EntityId, RemovalReason, ServerPlayer};
 use mc_data::{Attribute, EntityType, MobEffect};
 use mc_protocol::packets::play::{ClientboundRemoveMobEffectPacket, ParticleOptions};
@@ -19,7 +21,11 @@ use mc_protocol::packets::play::{ClientboundRemoveMobEffectPacket, ParticleOptio
 /// `entity.is(EntityTypeTags.<tag>)`.
 fn entity_type_in_tag(level: &ServerLevel, entity_type: EntityType, tag: &str) -> bool {
     let tag = mc_core::ident::Identifier::new("minecraft", tag).expect("valid tag");
-    level.registries.is_in_tag(crate::registry::keys::ENTITY_TYPE, &entity_type.identifier(), &tag)
+    level.registries.is_in_tag(
+        crate::registry::keys::ENTITY_TYPE,
+        &entity_type.identifier(),
+        &tag,
+    )
 }
 
 /// `LivingEntity.isInvertedHealAndHarm()`.
@@ -28,7 +34,11 @@ pub fn is_inverted_heal_and_harm(entity: &dyn Entity, level: &ServerLevel) -> bo
 }
 
 /// `LivingEntity.canBeAffected(newEffect)`.
-pub fn can_be_affected(entity: &dyn Entity, level: &ServerLevel, new_effect: &MobEffectInstance) -> bool {
+pub fn can_be_affected(
+    entity: &dyn Entity,
+    level: &ServerLevel,
+    new_effect: &MobEffectInstance,
+) -> bool {
     let ty = entity.get_type();
     if entity_type_in_tag(level, ty, "immune_to_infested") {
         new_effect.effect != MobEffect::INFESTED
@@ -42,7 +52,10 @@ pub fn can_be_affected(entity: &dyn Entity, level: &ServerLevel, new_effect: &Mo
 }
 
 /// `activeEffects.put` (a structural modification only for a new key).
-fn put_effect(living: &mut LivingEntityData, effect: MobEffectInstance) -> Option<MobEffectInstance> {
+fn put_effect(
+    living: &mut LivingEntityData,
+    effect: MobEffectInstance,
+) -> Option<MobEffectInstance> {
     let previous = living.active_effects.insert(effect.effect, effect);
     if previous.is_none() {
         living.effects_mod_count = living.effects_mod_count.wrapping_add(1);
@@ -51,7 +64,10 @@ fn put_effect(living: &mut LivingEntityData, effect: MobEffectInstance) -> Optio
 }
 
 /// `removeEffectNoUpdate(effect)`.
-pub fn remove_effect_no_update(living: &mut LivingEntityData, effect: MobEffect) -> Option<MobEffectInstance> {
+pub fn remove_effect_no_update(
+    living: &mut LivingEntityData,
+    effect: MobEffect,
+) -> Option<MobEffectInstance> {
     let removed = living.active_effects.shift_remove(&effect);
     if removed.is_some() {
         living.effects_mod_count = living.effects_mod_count.wrapping_add(1);
@@ -60,7 +76,12 @@ pub fn remove_effect_no_update(living: &mut LivingEntityData, effect: MobEffect)
 }
 
 /// `addEffect(newEffect, source)`.
-pub fn add_effect(entity: &mut dyn Entity, level: &mut ServerLevel, new_effect: MobEffectInstance, source: Option<EntityId>) -> bool {
+pub fn add_effect(
+    entity: &mut dyn Entity,
+    level: &mut ServerLevel,
+    new_effect: MobEffectInstance,
+    source: Option<EntityId>,
+) -> bool {
     if entity.living().is_none() || !entity.can_be_affected(level, &new_effect) {
         return false;
     }
@@ -76,17 +97,26 @@ pub fn add_effect(entity: &mut dyn Entity, level: &mut ServerLevel, new_effect: 
     if added {
         entity.on_effect_added(level, &new_effect, source);
         changed = true;
-        new_effect.effect.on_effect_added(level, entity, new_effect.amplifier);
+        new_effect
+            .effect
+            .on_effect_added(level, entity, new_effect.amplifier);
     } else if let Some(effect) = updated {
         entity.on_effect_updated(level, &effect, true, source);
         changed = true;
     }
-    new_effect.effect.on_effect_started(entity, new_effect.amplifier);
+    new_effect
+        .effect
+        .on_effect_started(entity, new_effect.amplifier);
     changed
 }
 
 /// `forceAddEffect(newEffect, source)`.
-pub fn force_add_effect(entity: &mut dyn Entity, level: &mut ServerLevel, new_effect: MobEffectInstance, source: Option<EntityId>) {
+pub fn force_add_effect(
+    entity: &mut dyn Entity,
+    level: &mut ServerLevel,
+    new_effect: MobEffectInstance,
+    source: Option<EntityId>,
+) {
     if entity.living().is_none() || !entity.can_be_affected(level, &new_effect) {
         return;
     }
@@ -99,7 +129,9 @@ pub fn force_add_effect(entity: &mut dyn Entity, level: &mut ServerLevel, new_ef
 
 /// `removeEffect(effect)`.
 pub fn remove_effect(entity: &mut dyn Entity, level: &mut ServerLevel, effect: MobEffect) -> bool {
-    let Some(living) = entity.living_mut() else { return false };
+    let Some(living) = entity.living_mut() else {
+        return false;
+    };
     match remove_effect_no_update(living, effect) {
         Some(instance) => {
             entity.on_effects_removed(level, &[instance]);
@@ -111,22 +143,34 @@ pub fn remove_effect(entity: &mut dyn Entity, level: &mut ServerLevel, effect: M
 
 /// `removeAllEffects()`.
 pub fn remove_all_effects(entity: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-    let Some(living) = entity.living_mut() else { return false };
+    let Some(living) = entity.living_mut() else {
+        return false;
+    };
     if living.active_effects.is_empty() {
         return false;
     }
-    let removed: Vec<MobEffectInstance> = std::mem::take(&mut living.active_effects).into_values().collect();
+    let removed: Vec<MobEffectInstance> = std::mem::take(&mut living.active_effects)
+        .into_values()
+        .collect();
     living.effects_mod_count = living.effects_mod_count.wrapping_add(1);
     entity.on_effects_removed(level, &removed);
     true
 }
 
 /// `triggerOnDeathMobEffects(level, reason)` (`LivingEntity.remove` with KILLED / DISCARDED).
-pub fn trigger_on_death_mob_effects(entity: &mut dyn Entity, level: &mut ServerLevel, reason: RemovalReason) {
-    let Some(living) = entity.living() else { return };
+pub fn trigger_on_death_mob_effects(
+    entity: &mut dyn Entity,
+    level: &mut ServerLevel,
+    reason: RemovalReason,
+) {
+    let Some(living) = entity.living() else {
+        return;
+    };
     let effects: Vec<MobEffectInstance> = living.active_effects.values().cloned().collect();
     for effect in &effects {
-        effect.effect.on_mob_removed(level, entity, effect.amplifier, reason);
+        effect
+            .effect
+            .on_mob_removed(level, entity, effect.amplifier, reason);
     }
     if let Some(living) = entity.living_mut() {
         if !living.active_effects.is_empty() {
@@ -138,7 +182,9 @@ pub fn trigger_on_death_mob_effects(entity: &mut dyn Entity, level: &mut ServerL
 
 /// `effect.onMobHurt(level, this, source, damage)` for every active effect (`LivingEntity.hurtServer`).
 pub fn on_mob_hurt(entity: &mut dyn Entity, level: &mut ServerLevel) {
-    let Some(living) = entity.living() else { return };
+    let Some(living) = entity.living() else {
+        return;
+    };
     let effects: Vec<MobEffectInstance> = living.active_effects.values().cloned().collect();
     for effect in &effects {
         effect.effect.on_mob_hurt(level, entity, effect.amplifier);
@@ -149,7 +195,9 @@ pub fn on_mob_hurt(entity: &mut dyn Entity, level: &mut ServerLevel) {
 /// while its iterator is live, e.g. a totem clearing the effects from inside a poison tick) ends the loop silently,
 /// like the `catch` in vanilla.
 pub fn tick_effects(entity: &mut dyn Entity, level: &mut ServerLevel) {
-    let Some(living) = entity.living() else { return };
+    let Some(living) = entity.living() else {
+        return;
+    };
     let mut expected_mod_count = living.effects_mod_count;
     let mut index = 0;
     loop {
@@ -163,11 +211,21 @@ pub fn tick_effects(entity: &mut dyn Entity, level: &mut ServerLevel) {
         // `MobEffectInstance.tickServer`
         let mut remaining = false;
         if instance.has_remaining_duration() {
-            let tick = if instance.is_infinite_duration() { tick_count } else { instance.duration };
-            let removed_by_tick = key.should_apply_effect_tick_this_tick(tick, instance.amplifier) && !key.apply_effect_tick(level, entity, instance.amplifier);
+            let tick = if instance.is_infinite_duration() {
+                tick_count
+            } else {
+                instance.duration
+            };
+            let removed_by_tick = key.should_apply_effect_tick_this_tick(tick, instance.amplifier)
+                && !key.apply_effect_tick(level, entity, instance.amplifier);
             if !removed_by_tick {
                 // the effect tick may have replaced/removed the stored instance; vanilla keeps ticking the object it holds
-                let target = match entity.living_mut().expect("living").active_effects.get_mut(&key) {
+                let target = match entity
+                    .living_mut()
+                    .expect("living")
+                    .active_effects
+                    .get_mut(&key)
+                {
                     Some(stored) => stored,
                     None => &mut instance,
                 };
@@ -200,47 +258,90 @@ pub fn tick_effects(entity: &mut dyn Entity, level: &mut ServerLevel) {
 }
 
 /// `sendEffectToPassengers(effect)`: the `ClientboundUpdateMobEffectPacket` to every player passenger.
-pub fn send_effect_to_passengers(entity: &dyn Entity, level: &ServerLevel, effect: &MobEffectInstance) {
+pub fn send_effect_to_passengers(
+    entity: &dyn Entity,
+    level: &ServerLevel,
+    effect: &MobEffectInstance,
+) {
     let packet = crate::server::players::join::mob_effect_packet(entity.id(), effect, false);
     for_each_player_passenger(entity, level, |player| player.send(&packet));
 }
 
-fn for_each_player_passenger(entity: &dyn Entity, level: &ServerLevel, mut f: impl FnMut(&ServerPlayer)) {
+fn for_each_player_passenger(
+    entity: &dyn Entity,
+    level: &ServerLevel,
+    mut f: impl FnMut(&ServerPlayer),
+) {
     for passenger in &entity.base().passengers {
-        if let Some(player) = level.get_entity(*passenger).and_then(|p| p.as_any().downcast_ref::<ServerPlayer>()) {
+        if let Some(player) = level
+            .get_entity(*passenger)
+            .and_then(|p| p.as_any().downcast_ref::<ServerPlayer>())
+        {
             f(player);
         }
     }
 }
 
 /// `LivingEntity.onEffectAdded(effect, source)`.
-pub fn on_effect_added(entity: &mut dyn Entity, level: &mut ServerLevel, effect: &MobEffectInstance, _source: Option<EntityId>) {
-    let Some(living) = entity.living_mut() else { return };
+pub fn on_effect_added(
+    entity: &mut dyn Entity,
+    level: &mut ServerLevel,
+    effect: &MobEffectInstance,
+    _source: Option<EntityId>,
+) {
+    let Some(living) = entity.living_mut() else {
+        return;
+    };
     living.effects_dirty = true;
-    effect.effect.add_attribute_modifiers(&mut living.attributes, effect.amplifier);
+    effect
+        .effect
+        .add_attribute_modifiers(&mut living.attributes, effect.amplifier);
     send_effect_to_passengers(entity, level, effect);
 }
 
 /// `LivingEntity.onEffectUpdated(effect, doRefreshAttributes, source)`.
-pub fn on_effect_updated(entity: &mut dyn Entity, level: &mut ServerLevel, effect: &MobEffectInstance, do_refresh_attributes: bool, _source: Option<EntityId>) {
-    let Some(living) = entity.living_mut() else { return };
+pub fn on_effect_updated(
+    entity: &mut dyn Entity,
+    level: &mut ServerLevel,
+    effect: &MobEffectInstance,
+    do_refresh_attributes: bool,
+    _source: Option<EntityId>,
+) {
+    let Some(living) = entity.living_mut() else {
+        return;
+    };
     living.effects_dirty = true;
     if do_refresh_attributes {
-        effect.effect.remove_attribute_modifiers(&mut living.attributes);
-        effect.effect.add_attribute_modifiers(&mut living.attributes, effect.amplifier);
+        effect
+            .effect
+            .remove_attribute_modifiers(&mut living.attributes);
+        effect
+            .effect
+            .add_attribute_modifiers(&mut living.attributes, effect.amplifier);
         refresh_dirty_attributes(entity, level);
     }
     send_effect_to_passengers(entity, level, effect);
 }
 
 /// `LivingEntity.onEffectsRemoved(effects)`.
-pub fn on_effects_removed(entity: &mut dyn Entity, level: &mut ServerLevel, effects: &[MobEffectInstance]) {
+pub fn on_effects_removed(
+    entity: &mut dyn Entity,
+    level: &mut ServerLevel,
+    effects: &[MobEffectInstance],
+) {
     let id = entity.id();
-    let Some(living) = entity.living_mut() else { return };
+    let Some(living) = entity.living_mut() else {
+        return;
+    };
     living.effects_dirty = true;
     for effect in effects {
-        effect.effect.remove_attribute_modifiers(&mut entity.living_mut().expect("living").attributes);
-        let packet = ClientboundRemoveMobEffectPacket { entity_id: id, effect: effect.effect };
+        effect
+            .effect
+            .remove_attribute_modifiers(&mut entity.living_mut().expect("living").attributes);
+        let packet = ClientboundRemoveMobEffectPacket {
+            entity_id: id,
+            effect: effect.effect,
+        };
         for_each_player_passenger(entity, level, |player| player.send(&packet));
     }
     refresh_dirty_attributes(entity, level);
@@ -248,7 +349,9 @@ pub fn on_effects_removed(entity: &mut dyn Entity, level: &mut ServerLevel, effe
 
 /// `refreshDirtyAttributes()`.
 pub fn refresh_dirty_attributes(entity: &mut dyn Entity, level: &mut ServerLevel) {
-    let Some(living) = entity.living_mut() else { return };
+    let Some(living) = entity.living_mut() else {
+        return;
+    };
     for attribute in living.attributes.take_attributes_to_update() {
         entity.on_attribute_updated(level, attribute);
     }
@@ -256,9 +359,15 @@ pub fn refresh_dirty_attributes(entity: &mut dyn Entity, level: &mut ServerLevel
 
 /// `LivingEntity.onAttributeUpdated(attribute)`. shortcut: the waypoint tracking of `WAYPOINT_TRANSMIT_RANGE`
 /// (locator bar) is not modelled.
-pub fn on_attribute_updated(entity: &mut dyn Entity, _level: &mut ServerLevel, attribute: Attribute) {
+pub fn on_attribute_updated(
+    entity: &mut dyn Entity,
+    _level: &mut ServerLevel,
+    attribute: Attribute,
+) {
     if attribute == Attribute::MAX_HEALTH {
-        let Some(living) = entity.living_mut() else { return };
+        let Some(living) = entity.living_mut() else {
+            return;
+        };
         let max = living.get_max_health();
         if living.get_health() > max {
             living.set_health(max);
@@ -268,7 +377,9 @@ pub fn on_attribute_updated(entity: &mut dyn Entity, _level: &mut ServerLevel, a
         if entity.get_absorption_amount() > max {
             entity.set_absorption_amount(max);
         }
-    } else if attribute == Attribute::WAYPOINT_TRANSMIT_RANGE || attribute == Attribute::WAYPOINT_RECEIVE_RANGE {
+    } else if attribute == Attribute::WAYPOINT_TRANSMIT_RANGE
+        || attribute == Attribute::WAYPOINT_RECEIVE_RANGE
+    {
         entity.base_mut().waypoint_attribute_dirty = true;
     } else if attribute == Attribute::SCALE {
         entity.refresh_dimensions();
@@ -276,13 +387,17 @@ pub fn on_attribute_updated(entity: &mut dyn Entity, _level: &mut ServerLevel, a
 }
 
 /// `areAllEffectsAmbient(effects)`.
-pub fn are_all_effects_ambient<'a>(effects: impl IntoIterator<Item = &'a MobEffectInstance>) -> bool {
+pub fn are_all_effects_ambient<'a>(
+    effects: impl IntoIterator<Item = &'a MobEffectInstance>,
+) -> bool {
     effects.into_iter().all(|e| !(e.visible && !e.ambient))
 }
 
 /// `updateDirtyEffects()` (`updateDataBeforeSync`).
 pub fn update_dirty_effects(entity: &mut dyn Entity) {
-    let Some(living) = entity.living() else { return };
+    let Some(living) = entity.living() else {
+        return;
+    };
     if living.effects_dirty {
         entity.update_invisibility_status();
         update_glowing_status(entity);
@@ -299,22 +414,39 @@ pub fn update_invisibility_status(entity: &mut dyn Entity) {
     } else {
         let invisible = living.active_effects.contains_key(&MobEffect::INVISIBILITY);
         // `updateSynchronizedMobEffectParticles`
-        let particles: Vec<ParticleOptions> = living.active_effects.values().filter(|e| e.visible).map(|e| e.effect.create_particle_options(e)).collect();
+        let particles: Vec<ParticleOptions> = living
+            .active_effects
+            .values()
+            .filter(|e| e.visible)
+            .map(|e| e.effect.create_particle_options(e))
+            .collect();
         let ambient = are_all_effects_ambient(living.active_effects.values());
-        living.entity.entity_data.set(DATA_EFFECT_PARTICLES, particles);
-        living.entity.entity_data.set(DATA_EFFECT_AMBIENCE_ID, ambient);
+        living
+            .entity
+            .entity_data
+            .set(DATA_EFFECT_PARTICLES, particles);
+        living
+            .entity
+            .entity_data
+            .set(DATA_EFFECT_AMBIENCE_ID, ambient);
         entity.base_mut().set_shared_flag(FLAG_INVISIBLE, invisible);
     }
 }
 
 /// `removeEffectParticles()`.
 pub fn remove_effect_particles(living: &mut LivingEntityData) {
-    living.entity.entity_data.set(DATA_EFFECT_PARTICLES, Vec::new());
+    living
+        .entity
+        .entity_data
+        .set(DATA_EFFECT_PARTICLES, Vec::new());
 }
 
 /// `updateGlowingStatus()` with `LivingEntity.isCurrentlyGlowing()` (server side).
 fn update_glowing_status(entity: &mut dyn Entity) {
-    let glowing = entity.living().is_some_and(|l| l.active_effects.contains_key(&MobEffect::GLOWING)) || entity.base().has_glowing_tag;
+    let glowing = entity
+        .living()
+        .is_some_and(|l| l.active_effects.contains_key(&MobEffect::GLOWING))
+        || entity.base().has_glowing_tag;
     if entity.base().get_shared_flag(FLAG_GLOWING) != glowing {
         entity.base_mut().set_shared_flag(FLAG_GLOWING, glowing);
     }

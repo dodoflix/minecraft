@@ -6,19 +6,19 @@ use mc_core::direction::Direction;
 use mc_core::phys::Vec3;
 use mc_core::pos::block_pos::BlockPos;
 use mc_data::block::BlockState;
-use mc_protocol::packets::play::*;
 use mc_protocol::net::NetError;
-use tokio::sync::{mpsc, watch, Notify};
+use mc_protocol::packets::play::*;
+use tokio::sync::{Notify, mpsc, watch};
 use tokio::task::JoinHandle;
-use tokio::time::{interval, Instant, MissedTickBehavior};
+use tokio::time::{Instant, MissedTickBehavior, interval};
 
-use crate::conn::{log_packet, log_undecodable, Conn, SharedLog, WirePacket};
+use crate::conn::{Conn, SharedLog, WirePacket, log_packet, log_undecodable};
 use crate::error::{BotError, Result};
 use crate::join::{self, BotOptions};
 use crate::log::{Dir, PacketLog};
-use mc_protocol::packets::play::{ClientboundPlayPacket, ServerboundPlayPacket};
 use crate::state::{Out, Phase, State, WalkGoal};
 use mc_protocol::components::ItemStack;
+use mc_protocol::packets::play::{ClientboundPlayPacket, ServerboundPlayPacket};
 
 /// State shared between the connection task and the API.
 pub struct Shared {
@@ -43,7 +43,14 @@ impl Shared {
             }
             Err(e) => {
                 if let Ok(mut l) = self.log.lock() {
-                    l.record(Dir::Out, "play", packet.id(), crate::conn::short_name(packet.name()), format!("<encode error: {e}>"), &[]);
+                    l.record(
+                        Dir::Out,
+                        "play",
+                        packet.id(),
+                        crate::conn::short_name(packet.name()),
+                        format!("<encode error: {e}>"),
+                        &[],
+                    );
                 }
             }
         }
@@ -65,18 +72,32 @@ impl Bot {
     /// Handshake, login and configuration like the real client, then start the play loop.
     pub async fn connect(options: BotOptions) -> Result<Bot> {
         let log: SharedLog = Arc::new(Mutex::new(PacketLog::new()));
-        log.lock().map_err(|_| BotError::Protocol("log poisoned".into()))?.record_raw = options.record_raw;
+        log.lock()
+            .map_err(|_| BotError::Protocol("log poisoned".into()))?
+            .record_raw = options.record_raw;
         let mut conn = join::open(&options, log.clone()).await?;
         let configured = join::login_and_configure(&mut conn, &options).await?;
         install_registry_context(&configured);
         if let Some((host, port)) = &configured.transfer {
-            return Err(BotError::Protocol(format!("server requested a transfer to {host}:{port} during configuration")));
+            return Err(BotError::Protocol(format!(
+                "server requested a transfer to {host}:{port} during configuration"
+            )));
         }
         let (out_tx, out_rx) = mpsc::unbounded_channel();
-        let shared = Arc::new(Shared { state: Mutex::new(State::new(configured)), log, notify: Notify::new(), out: out_tx });
+        let shared = Arc::new(Shared {
+            state: Mutex::new(State::new(configured)),
+            log,
+            notify: Notify::new(),
+            out: out_tx,
+        });
         let (stop_tx, stop_rx) = watch::channel(false);
         let task = tokio::spawn(run(shared.clone(), conn, out_rx, stop_rx, options.clone()));
-        Ok(Bot { shared, options, stop: stop_tx, task: Mutex::new(Some(task)) })
+        Ok(Bot {
+            shared,
+            options,
+            stop: stop_tx,
+            task: Mutex::new(Some(task)),
+        })
     }
 
     // ---- inspection ---------------------------------------------------------------------------
@@ -94,22 +115,39 @@ impl Bot {
     }
 
     pub fn log_text(&self) -> String {
-        self.shared.log.lock().map(|l| l.to_text()).unwrap_or_default()
+        self.shared
+            .log
+            .lock()
+            .map(|l| l.to_text())
+            .unwrap_or_default()
     }
 
     /// The last `n` packets of the log (for failure messages).
     pub fn log_tail(&self, n: usize) -> String {
-        let Ok(l) = self.shared.log.lock() else { return String::new() };
+        let Ok(l) = self.shared.log.lock() else {
+            return String::new();
+        };
         let e = l.entries();
-        e[e.len().saturating_sub(n)..].iter().map(|x| x.line().chars().take(240).collect::<String>() + "\n").collect()
+        e[e.len().saturating_sub(n)..]
+            .iter()
+            .map(|x| x.line().chars().take(240).collect::<String>() + "\n")
+            .collect()
     }
 
     pub fn write_log(&self, path: impl AsRef<std::path::Path>) -> std::io::Result<()> {
-        self.shared.log.lock().map_err(|_| std::io::Error::other("log poisoned"))?.write_jsonl(path)
+        self.shared
+            .log
+            .lock()
+            .map_err(|_| std::io::Error::other("log poisoned"))?
+            .write_jsonl(path)
     }
 
     /// Wait until `f` returns `Some`, the connection ends (`Err(Disconnected)`) or `timeout` passes.
-    pub async fn wait_for<T>(&self, timeout: Duration, mut f: impl FnMut(&State) -> Option<T>) -> Result<T> {
+    pub async fn wait_for<T>(
+        &self,
+        timeout: Duration,
+        mut f: impl FnMut(&State) -> Option<T>,
+    ) -> Result<T> {
         let deadline = Instant::now() + timeout;
         loop {
             let notified = self.shared.notify.notified();
@@ -139,12 +177,16 @@ impl Bot {
     /// Wait until the chunk under the player is loaded, the server confirmed the position and `player_loaded`
     /// was sent (the real client's loading screen is gone).
     pub async fn wait_ready(&self, timeout: Duration) -> Result<()> {
-        self.wait_for(timeout, |s| s.level_load.player_loaded_sent.then_some(())).await
+        self.wait_for(timeout, |s| s.level_load.player_loaded_sent.then_some(()))
+            .await
     }
 
     pub async fn wait_ticks(&self, ticks: u64) -> Result<()> {
         let target = self.with_state(|s| s.tick) + ticks;
-        self.wait_for(Duration::from_millis(ticks * 200 + 5000), |s| (s.tick >= target).then_some(())).await
+        self.wait_for(Duration::from_millis(ticks * 200 + 5000), |s| {
+            (s.tick >= target).then_some(())
+        })
+        .await
     }
 
     /// Why the connection ended, if it did.
@@ -187,21 +229,47 @@ impl Bot {
         self.with_state_mut(|s| {
             let eye = s.body.eye_position();
             let (dx, dy, dz) = (target.x - eye.x, target.y - eye.y, target.z - eye.z);
-            s.body.yaw = mc_core::math::mth::wrap_degrees_f32((dz.atan2(dx) * 57.29577951308232) as f32 - 90.0);
-            s.body.pitch = mc_core::math::mth::wrap_degrees_f32((-(dy.atan2(dx.hypot(dz))) * 57.29577951308232) as f32);
+            s.body.yaw = mc_core::math::mth::wrap_degrees_f32(
+                (dz.atan2(dx) * 57.29577951308232) as f32 - 90.0,
+            );
+            s.body.pitch = mc_core::math::mth::wrap_degrees_f32(
+                (-(dy.atan2(dx.hypot(dz))) * 57.29577951308232) as f32,
+            );
         });
     }
 
     /// Walk (auto-jumping over obstacles) to within `radius` of `(x, z)`; fails with `Timeout` when stuck/slow.
-    pub async fn walk_to(&self, x: f64, z: f64, radius: f64, sprint: bool, timeout: Duration) -> Result<()> {
+    pub async fn walk_to(
+        &self,
+        x: f64,
+        z: f64,
+        radius: f64,
+        sprint: bool,
+        timeout: Duration,
+    ) -> Result<()> {
         let ticks = (timeout.as_millis() / 50) as u32;
         self.with_state_mut(|s| {
             s.control.goal_failed = false;
-            s.control.goal = Some(WalkGoal { x, z, radius, sprint, ticks_left: ticks });
+            s.control.goal = Some(WalkGoal {
+                x,
+                z,
+                radius,
+                sprint,
+                ticks_left: ticks,
+            });
         });
-        self.wait_for(timeout + Duration::from_secs(5), |s| s.control.goal.is_none().then_some(())).await?;
+        self.wait_for(timeout + Duration::from_secs(5), |s| {
+            s.control.goal.is_none().then_some(())
+        })
+        .await?;
         let failed = self.with_state_mut(|s| std::mem::take(&mut s.control.goal_failed));
-        if failed { Err(BotError::Timeout(format!("walk_to({x}, {z}) did not arrive"))) } else { Ok(()) }
+        if failed {
+            Err(BotError::Timeout(format!(
+                "walk_to({x}, {z}) did not arrive"
+            )))
+        } else {
+            Ok(())
+        }
     }
 
     /// Release all movement keys and drop the walk goal.
@@ -243,7 +311,9 @@ impl Bot {
             ok
         });
         if ok {
-            self.send(ServerboundPlayPacket::PlayerAbilities(ServerboundPlayerAbilitiesPacket { is_flying: flying }));
+            self.send(ServerboundPlayPacket::PlayerAbilities(
+                ServerboundPlayerAbilitiesPacket { is_flying: flying },
+            ));
         }
     }
 
@@ -254,8 +324,20 @@ impl Bot {
     }
 
     /// Wait for a server `block_update`/`section_blocks_update` of `pos` after `since_tick` (use [`Self::tick`]).
-    pub async fn wait_block_update(&self, pos: BlockPos, since_tick: u64, timeout: Duration) -> Result<BlockState> {
-        self.wait_for(timeout, |s| s.block_updates.iter().rev().find(|u| u.pos == pos && u.tick >= since_tick).map(|u| u.state)).await
+    pub async fn wait_block_update(
+        &self,
+        pos: BlockPos,
+        since_tick: u64,
+        timeout: Duration,
+    ) -> Result<BlockState> {
+        self.wait_for(timeout, |s| {
+            s.block_updates
+                .iter()
+                .rev()
+                .find(|u| u.pos == pos && u.tick >= since_tick)
+                .map(|u| u.state)
+        })
+        .await
     }
 
     pub fn tick(&self) -> u64 {
@@ -265,9 +347,7 @@ impl Bot {
     /// Start (and for creative: finish) breaking a block; use [`Self::dig_block`] to wait for the result.
     pub fn start_digging(&self, pos: BlockPos, face: Direction) {
         let mut out = Out::new();
-        self.with_state_mut(|s| {
-            s.start_dig(pos, face, &mut out)
-        });
+        self.with_state_mut(|s| s.start_dig(pos, face, &mut out));
         for p in &out {
             self.shared.send(p);
         }
@@ -286,63 +366,102 @@ impl Bot {
     /// confirmed the block is gone (`block_update` to air).
     pub async fn dig_block(&self, pos: BlockPos, face: Direction, timeout: Duration) -> Result<()> {
         let since = self.tick();
-        self.look_at(Vec3::new(pos.x() as f64 + 0.5, pos.y() as f64 + 0.5, pos.z() as f64 + 0.5));
+        self.look_at(Vec3::new(
+            pos.x() as f64 + 0.5,
+            pos.y() as f64 + 0.5,
+            pos.z() as f64 + 0.5,
+        ));
         self.start_digging(pos, face);
         self.wait_for(timeout, |s| {
-            s.block_updates.iter().rev().find(|u| u.pos == pos && u.tick >= since && u.state.block().is_air()).map(|_| ())
+            s.block_updates
+                .iter()
+                .rev()
+                .find(|u| u.pos == pos && u.tick >= since && u.state.block().is_air())
+                .map(|_| ())
         })
         .await
     }
 
     /// `use_item_on` with an exact cursor (`click` is the offset inside the clicked block, 0..1).
-    pub fn use_item_on(&self, hand: InteractionHand, support: BlockPos, face: Direction, click: (f32, f32, f32), inside: bool) -> i32 {
+    pub fn use_item_on(
+        &self,
+        hand: InteractionHand,
+        support: BlockPos,
+        face: Direction,
+        click: (f32, f32, f32),
+        inside: bool,
+    ) -> i32 {
         let sequence = self.with_state_mut(|s| s.next_sequence());
-        self.send(ServerboundPlayPacket::UseItemOn(ServerboundUseItemOnPacket {
-            hand,
-            hit_result: BlockHitResult {
-                block_pos: support,
-                direction: face,
-                click_x: click.0,
-                click_y: click.1,
-                click_z: click.2,
-                inside,
-                world_border_hit: false,
+        self.send(ServerboundPlayPacket::UseItemOn(
+            ServerboundUseItemOnPacket {
+                hand,
+                hit_result: BlockHitResult {
+                    block_pos: support,
+                    direction: face,
+                    click_x: click.0,
+                    click_y: click.1,
+                    click_z: click.2,
+                    inside,
+                    world_border_hit: false,
+                },
+                sequence,
             },
-            sequence,
-        }));
+        ));
         sequence
     }
 
     /// Place the held block so that it ends up at `target`: clicks the centre of the face of a solid neighbour.
-    pub async fn place_block(&self, target: BlockPos, hand: InteractionHand, timeout: Duration) -> Result<BlockState> {
+    pub async fn place_block(
+        &self,
+        target: BlockPos,
+        hand: InteractionHand,
+        timeout: Duration,
+    ) -> Result<BlockState> {
         let (support, face) = self
             .with_state(|s| {
                 Direction::VALUES.iter().find_map(|&d| {
                     let n = target.relative(d);
                     let st = s.world.block_state_at(n)?;
-                    (!st.block().is_air() && !st.can_be_replaced() && !st.collision_shape().is_empty() && st.get_fluid_state().data().is_empty)
+                    (!st.block().is_air()
+                        && !st.can_be_replaced()
+                        && !st.collision_shape().is_empty()
+                        && st.get_fluid_state().data().is_empty)
                         .then_some((n, d.get_opposite()))
                 })
             })
-            .ok_or_else(|| BotError::Protocol(format!("no solid neighbour to place against at {target:?}")))?;
+            .ok_or_else(|| {
+                BotError::Protocol(format!("no solid neighbour to place against at {target:?}"))
+            })?;
         let cursor = (
             0.5 + 0.5 * face.get_step_x() as f32,
             0.5 + 0.5 * face.get_step_y() as f32,
             0.5 + 0.5 * face.get_step_z() as f32,
         );
-        self.look_at(Vec3::new(support.x() as f64 + cursor.0 as f64, support.y() as f64 + cursor.1 as f64, support.z() as f64 + cursor.2 as f64));
+        self.look_at(Vec3::new(
+            support.x() as f64 + cursor.0 as f64,
+            support.y() as f64 + cursor.1 as f64,
+            support.z() as f64 + cursor.2 as f64,
+        ));
         let since = self.tick();
         self.use_item_on(hand, support, face, cursor, false);
         self.wait_block_update(target, since, timeout).await
     }
 
     pub fn use_item(&self, hand: InteractionHand) {
-        let (sequence, yaw, pitch) = self.with_state_mut(|s| (s.next_sequence(), s.body.yaw, s.body.pitch));
-        self.send(ServerboundPlayPacket::UseItem(ServerboundUseItemPacket { hand, sequence, y_rot: yaw, x_rot: pitch }));
+        let (sequence, yaw, pitch) =
+            self.with_state_mut(|s| (s.next_sequence(), s.body.yaw, s.body.pitch));
+        self.send(ServerboundPlayPacket::UseItem(ServerboundUseItemPacket {
+            hand,
+            sequence,
+            y_rot: yaw,
+            x_rot: pitch,
+        }));
     }
 
     pub fn attack(&self, entity_id: i32) {
-        self.send(ServerboundPlayPacket::Attack(ServerboundAttackPacket { entity_id }));
+        self.send(ServerboundPlayPacket::Attack(ServerboundAttackPacket {
+            entity_id,
+        }));
     }
 
     /// `interact` with an entity (`location` relative to the entity).
@@ -358,22 +477,39 @@ impl Bot {
 
     /// `ServerboundSelectTradePacket` (the merchant menu must be open: interact with the villager first).
     pub fn select_trade(&self, index: i32) {
-        self.send(ServerboundPlayPacket::SelectTrade(ServerboundSelectTradePacket { item: index }));
+        self.send(ServerboundPlayPacket::SelectTrade(
+            ServerboundSelectTradePacket { item: index },
+        ));
     }
 
     /// Ids of the tracked entities of `entity_type` (ascending id = spawn order on both servers).
     pub fn entities_of(&self, entity_type: mc_data::EntityType) -> Vec<i32> {
         self.with_state(|s| {
-            let mut ids: Vec<i32> = s.entities.values().filter(|e| e.entity_type == entity_type).map(|e| e.id).collect();
+            let mut ids: Vec<i32> = s
+                .entities
+                .values()
+                .filter(|e| e.entity_type == entity_type)
+                .map(|e| e.id)
+                .collect();
             ids.sort_unstable();
             ids
         })
     }
 
     /// Wait for an entity of `entity_type` whose id is not in `known` (an `add_entity` packet after the action that should spawn it).
-    pub async fn wait_entity(&self, entity_type: mc_data::EntityType, known: &[i32], timeout: Duration) -> Result<i32> {
+    pub async fn wait_entity(
+        &self,
+        entity_type: mc_data::EntityType,
+        known: &[i32],
+        timeout: Duration,
+    ) -> Result<i32> {
         self.wait_for(timeout, |s| {
-            let mut ids: Vec<i32> = s.entities.values().filter(|e| e.entity_type == entity_type && !known.contains(&e.id)).map(|e| e.id).collect();
+            let mut ids: Vec<i32> = s
+                .entities
+                .values()
+                .filter(|e| e.entity_type == entity_type && !known.contains(&e.id))
+                .map(|e| e.id)
+                .collect();
             ids.sort_unstable();
             ids.first().copied()
         })
@@ -429,12 +565,18 @@ impl Bot {
     // ---- chat / commands ----------------------------------------------------------------------
 
     fn epoch_millis() -> i64 {
-        std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).map_or(0, |d| d.as_millis() as i64)
+        std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .map_or(0, |d| d.as_millis() as i64)
     }
 
     fn last_seen_update(&self) -> LastSeenMessagesUpdate {
         let offset = self.with_state_mut(|s| std::mem::take(&mut s.pending_chat_acks));
-        LastSeenMessagesUpdate { offset, acknowledged: Default::default(), checksum: 0 }
+        LastSeenMessagesUpdate {
+            offset,
+            acknowledged: Default::default(),
+            checksum: 0,
+        }
     }
 
     /// Unsigned chat message (the server must run with `enforce-secure-profile=false`).
@@ -451,26 +593,39 @@ impl Bot {
 
     /// `chat_command` (no leading slash).
     pub fn command(&self, command: &str) {
-        self.send(ServerboundPlayPacket::ChatCommand(ServerboundChatCommandPacket {
-            command: command.trim_start_matches('/').to_string(),
-        }));
+        self.send(ServerboundPlayPacket::ChatCommand(
+            ServerboundChatCommandPacket {
+                command: command.trim_start_matches('/').to_string(),
+            },
+        ));
     }
 
     /// `chat_command_signed` without argument signatures (what a client without a chat session sends).
     pub fn command_signed(&self, command: &str) {
         let last_seen = self.last_seen_update();
-        self.send(ServerboundPlayPacket::ChatCommandSigned(ServerboundChatCommandSignedPacket {
-            command: command.trim_start_matches('/').to_string(),
-            time_stamp: mc_protocol::codec::Instant(Self::epoch_millis()),
-            salt: 0,
-            argument_signatures: ArgumentSignatures { entries: Vec::new() },
-            last_seen_messages: last_seen,
-        }));
+        self.send(ServerboundPlayPacket::ChatCommandSigned(
+            ServerboundChatCommandSignedPacket {
+                command: command.trim_start_matches('/').to_string(),
+                time_stamp: mc_protocol::codec::Instant(Self::epoch_millis()),
+                salt: 0,
+                argument_signatures: ArgumentSignatures {
+                    entries: Vec::new(),
+                },
+                last_seen_messages: last_seen,
+            },
+        ));
     }
 
     /// Wait for a chat/system message whose text contains `needle`, sent after `since` (index into `chat`).
     pub async fn wait_chat(&self, needle: &str, since: usize, timeout: Duration) -> Result<String> {
-        self.wait_for(timeout, |s| s.chat.iter().skip(since).find(|l| l.text.contains(needle)).map(|l| l.text.clone())).await
+        self.wait_for(timeout, |s| {
+            s.chat
+                .iter()
+                .skip(since)
+                .find(|l| l.text.contains(needle))
+                .map(|l| l.text.clone())
+        })
+        .await
     }
 
     pub fn chat_len(&self) -> usize {
@@ -478,7 +633,12 @@ impl Bot {
     }
 
     /// Send a command and wait for feedback containing `needle`.
-    pub async fn command_expect(&self, command: &str, needle: &str, timeout: Duration) -> Result<String> {
+    pub async fn command_expect(
+        &self,
+        command: &str,
+        needle: &str,
+        timeout: Duration,
+    ) -> Result<String> {
         let since = self.chat_len();
         self.command(command);
         self.wait_chat(needle, since, timeout).await
@@ -496,17 +656,29 @@ impl Bot {
         self.with_state_mut(|s| {
             s.selected_slot = slot as usize;
         });
-        self.send(ServerboundPlayPacket::SetCarriedItem(ServerboundSetCarriedItemPacket { slot: slot as i16 }));
+        self.send(ServerboundPlayPacket::SetCarriedItem(
+            ServerboundSetCarriedItemPacket { slot: slot as i16 },
+        ));
     }
 
     /// Creative inventory: put `stack` into menu slot `slot` of the player inventory menu (36..=44 = hotbar).
     pub fn creative_set_slot(&self, slot: i16, stack: ItemStack) {
         self.with_state_mut(|s| {
-            if let Some(x) = s.inventory.slots.get_mut(slot as usize).filter(|_| slot >= 0) {
+            if let Some(x) = s
+                .inventory
+                .slots
+                .get_mut(slot as usize)
+                .filter(|_| slot >= 0)
+            {
                 *x = stack.clone();
             }
         });
-        self.send(ServerboundPlayPacket::SetCreativeModeSlot(ServerboundSetCreativeModeSlotPacket { slot_num: slot, item_stack: stack }));
+        self.send(ServerboundPlayPacket::SetCreativeModeSlot(
+            ServerboundSetCreativeModeSlotPacket {
+                slot_num: slot,
+                item_stack: stack,
+            },
+        ));
     }
 
     /// Container click with client-side prediction and hashed stacks (acts on the open menu, else the inventory).
@@ -535,12 +707,21 @@ impl Bot {
             // a carried stack is dropped back into the inventory by the server; mirror nothing locally
             id
         });
-        self.send(ServerboundPlayPacket::ContainerClose(ServerboundContainerClosePacket { container_id: id }));
+        self.send(ServerboundPlayPacket::ContainerClose(
+            ServerboundContainerClosePacket { container_id: id },
+        ));
     }
 
     /// Contents of a menu slot (open menu if any, else the player inventory menu).
     pub fn slot(&self, slot: usize) -> Option<ItemStack> {
-        self.with_state(|s| s.open_menu.as_ref().unwrap_or(&s.inventory).slots.get(slot).cloned())
+        self.with_state(|s| {
+            s.open_menu
+                .as_ref()
+                .unwrap_or(&s.inventory)
+                .slots
+                .get(slot)
+                .cloned()
+        })
     }
 
     pub fn held_item(&self) -> ItemStack {
@@ -572,30 +753,48 @@ impl Bot {
     }
 
     /// Wait for the first event after `mark` accepted by `f`.
-    pub async fn wait_event<T>(&self, mark: usize, timeout: Duration, mut f: impl FnMut(&crate::state::Observed) -> Option<T>) -> Result<T> {
-        self.wait_for(timeout, |s| s.events[mark.min(s.events.len())..].iter().find_map(&mut f)).await
+    pub async fn wait_event<T>(
+        &self,
+        mark: usize,
+        timeout: Duration,
+        mut f: impl FnMut(&crate::state::Observed) -> Option<T>,
+    ) -> Result<T> {
+        self.wait_for(timeout, |s| {
+            s.events[mark.min(s.events.len())..].iter().find_map(&mut f)
+        })
+        .await
     }
 
     pub fn respawn(&self) {
-        self.send(ServerboundPlayPacket::ClientCommand(ServerboundClientCommandPacket {
-            action: ServerboundClientCommandAction::PerformRespawn,
-        }));
+        self.send(ServerboundPlayPacket::ClientCommand(
+            ServerboundClientCommandPacket {
+                action: ServerboundClientCommandAction::PerformRespawn,
+            },
+        ));
     }
 
     pub fn request_stats(&self) {
-        self.send(ServerboundPlayPacket::ClientCommand(ServerboundClientCommandPacket {
-            action: ServerboundClientCommandAction::RequestStats,
-        }));
+        self.send(ServerboundPlayPacket::ClientCommand(
+            ServerboundClientCommandPacket {
+                action: ServerboundClientCommandAction::RequestStats,
+            },
+        ));
     }
 
     /// Drop the held item (`all` = whole stack, like Ctrl+Q).
     pub fn drop_held(&self, all: bool) {
-        self.send(ServerboundPlayPacket::PlayerAction(ServerboundPlayerActionPacket {
-            action: if all { ServerboundPlayerActionAction::DropAllItems } else { ServerboundPlayerActionAction::DropItem },
-            pos: BlockPos::new(0, 0, 0),
-            direction: Direction::Down,
-            sequence: 0,
-        }));
+        self.send(ServerboundPlayPacket::PlayerAction(
+            ServerboundPlayerActionPacket {
+                action: if all {
+                    ServerboundPlayerActionAction::DropAllItems
+                } else {
+                    ServerboundPlayerActionAction::DropItem
+                },
+                pos: BlockPos::new(0, 0, 0),
+                direction: Direction::Down,
+                sequence: 0,
+            },
+        ));
     }
 }
 
@@ -610,7 +809,10 @@ impl Drop for Bot {
 fn install_registry_context(configured: &join::Configured) {
     let mut ctx = mc_protocol::registry_context::RegistryContext::new();
     for r in &configured.registries {
-        ctx = ctx.with_registry(&r.id.to_string(), r.entries.iter().map(|(n, _)| n.clone()).collect());
+        ctx = ctx.with_registry(
+            &r.id.to_string(),
+            r.entries.iter().map(|(n, _)| n.clone()).collect(),
+        );
     }
     let _ = mc_protocol::registry_context::set(ctx);
 }
@@ -712,7 +914,9 @@ async fn reconfigure_phase(
     while let Ok(payload) = out_rx.try_recv() {
         write_payload(conn, &payload).await?;
     }
-    shared.send(&ServerboundPlayPacket::ConfigurationAcknowledged(ServerboundConfigurationAcknowledgedPacket));
+    shared.send(&ServerboundPlayPacket::ConfigurationAcknowledged(
+        ServerboundConfigurationAcknowledgedPacket,
+    ));
     if let Ok(payload) = out_rx.try_recv() {
         write_payload(conn, &payload).await?;
     }

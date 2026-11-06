@@ -1,6 +1,5 @@
 //! `TemptGoal` (+ `TemptGoal.ForNonPathfinders`).
 
-use mc_core::random::RandomSource;
 use super::{Flag, Goal, GoalFlags, reduced_tick_delay};
 use crate::server::level::ServerLevel;
 use crate::world::entity::ai::targeting::TargetingConditions;
@@ -9,6 +8,7 @@ use crate::world::entity::living_entity::util::l;
 use crate::world::entity::mob::{self, ext, navigation};
 use crate::world::entity::{Entity, EntityId};
 use crate::world::item::ItemStack;
+use mc_core::random::RandomSource;
 use mc_data::Attribute;
 use std::sync::Arc;
 
@@ -41,20 +41,41 @@ impl TemptGoal {
     }
 
     /// `TemptGoal(mob, speedModifier, items, canScare, stopDistance)`.
-    pub fn with_stop_distance(speed_modifier: f64, items: ItemPredicate, can_scare: bool, stop_distance: f64) -> Self {
+    pub fn with_stop_distance(
+        speed_modifier: f64,
+        items: ItemPredicate,
+        can_scare: bool,
+        stop_distance: f64,
+    ) -> Self {
         Self::build(speed_modifier, items, can_scare, stop_distance, false)
     }
 
     /// `TemptGoal.ForNonPathfinders(mob, speedModifier, items, canScare, stopDistance)`.
-    pub fn for_non_pathfinders(speed_modifier: f64, items: ItemPredicate, can_scare: bool, stop_distance: f64) -> Self {
+    pub fn for_non_pathfinders(
+        speed_modifier: f64,
+        items: ItemPredicate,
+        can_scare: bool,
+        stop_distance: f64,
+    ) -> Self {
         Self::build(speed_modifier, items, can_scare, stop_distance, true)
     }
 
-    fn build(speed_modifier: f64, items: ItemPredicate, can_scare: bool, stop_distance: f64, non_pathfinder: bool) -> Self {
+    fn build(
+        speed_modifier: f64,
+        items: ItemPredicate,
+        can_scare: bool,
+        stop_distance: f64,
+        non_pathfinder: bool,
+    ) -> Self {
         // `shouldFollow(player)`: main hand or offhand matches
-        let selector = Arc::new(move |target: &dyn Entity, _level: &ServerLevel| items(&target.get_item_by_slot(EquipmentSlot::MainHand)) || items(&target.get_item_by_slot(EquipmentSlot::OffHand)));
+        let selector = Arc::new(move |target: &dyn Entity, _level: &ServerLevel| {
+            items(&target.get_item_by_slot(EquipmentSlot::MainHand))
+                || items(&target.get_item_by_slot(EquipmentSlot::OffHand))
+        });
         Self {
-            targeting_conditions: TargetingConditions::for_non_combat().ignore_line_of_sight().selector(Some(selector)),
+            targeting_conditions: TargetingConditions::for_non_combat()
+                .ignore_line_of_sight()
+                .selector(Some(selector)),
             speed_modifier,
             px: 0.0,
             py: 0.0,
@@ -82,14 +103,25 @@ impl TemptGoal {
 
     /// `canContinueToUse()` up to the final `return this.canUse()` (subclasses override `canScare()`/`canUse()`):
     /// `false` when the scare conditions end the goal.
-    pub fn scare_check(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel, can_scare: bool) -> bool {
+    pub fn scare_check(
+        &mut self,
+        mob: &mut dyn Entity,
+        level: &mut ServerLevel,
+        can_scare: bool,
+    ) -> bool {
         if can_scare {
-            let Some(player) = self.player.and_then(|p| level.get_entity(p)) else { return false };
+            let Some(player) = self.player.and_then(|p| level.get_entity(p)) else {
+                return false;
+            };
             if mob.base().distance_to_sqr_vec(player.position()) < 36.0 {
-                if player.base().distance_to_sqr_xyz(self.px, self.py, self.pz) > 0.010000000000000002 {
+                if player.base().distance_to_sqr_xyz(self.px, self.py, self.pz)
+                    > 0.010000000000000002
+                {
                     return false;
                 }
-                if (f64::from(player.base().x_rot()) - self.p_rot_x).abs() > 5.0 || (f64::from(player.base().y_rot()) - self.p_rot_y).abs() > 5.0 {
+                if (f64::from(player.base().x_rot()) - self.p_rot_x).abs() > 5.0
+                    || (f64::from(player.base().y_rot()) - self.p_rot_y).abs() > 5.0
+                {
                     return false;
                 }
             } else {
@@ -119,7 +151,9 @@ impl TemptGoal {
     }
 
     fn navigate_towards(&self, mob: &mut dyn Entity, level: &mut ServerLevel, player: EntityId) {
-        let Some(p) = level.get_entity(player) else { return };
+        let Some(p) = level.get_entity(player) else {
+            return;
+        };
         if self.non_pathfinder {
             let eye = p.base().get_eye_position();
             let pos = mob.position();
@@ -140,10 +174,21 @@ impl Goal for TemptGoal {
             return false;
         }
         // `targetingConditions.range(...)` mutates the shared conditions
-        self.targeting_conditions = self.targeting_conditions.clone().range(l(mob).get_attribute_value(Attribute::TEMPT_RANGE));
+        self.targeting_conditions = self
+            .targeting_conditions
+            .clone()
+            .range(l(mob).get_attribute_value(Attribute::TEMPT_RANGE));
         let pos = mob.position();
         let players: Vec<EntityId> = level.players().to_vec();
-        self.player = ext::get_nearest_entity(level, &players, &self.targeting_conditions, mob, pos.x, pos.y, pos.z);
+        self.player = ext::get_nearest_entity(
+            level,
+            &players,
+            &self.targeting_conditions,
+            mob,
+            pos.x,
+            pos.y,
+            pos.z,
+        );
         self.player.is_some()
     }
 
@@ -170,9 +215,13 @@ impl Goal for TemptGoal {
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         let Some(player_id) = self.player else { return };
         let (y_max, x_max) = (mob.get_max_head_y_rot() + 20, mob.get_max_head_x_rot());
-        let Some(player) = level.get_entity(player_id) else { return };
+        let Some(player) = level.get_entity(player_id) else {
+            return;
+        };
         mob::look_at_entity_full(mob, player, y_max as f32, x_max as f32);
-        if mob.base().distance_to_sqr_vec(player.position()) < self.stop_distance * self.stop_distance {
+        if mob.base().distance_to_sqr_vec(player.position())
+            < self.stop_distance * self.stop_distance
+        {
             self.stop_navigation(mob, level);
         } else {
             self.navigate_towards(mob, level, player_id);

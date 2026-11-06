@@ -8,7 +8,7 @@
 //!   array tags (`[B;]`, `[I;]`, `[L;]`) are also lists.
 
 use crate::component::TranslatableArg;
-use crate::value::{big_decimal_low_bits, Num};
+use crate::value::{Num, big_decimal_low_bits};
 use mc_nbt::{CompoundTag, ListTag, Tag};
 use serde_json::{Map, Number, Value};
 use std::borrow::Cow;
@@ -97,12 +97,18 @@ impl Ops for Value {
     }
 
     fn get_list(&self) -> Option<Vec<Cow<'_, Self>>> {
-        self.as_array().map(|a| a.iter().map(Cow::Borrowed).collect())
+        self.as_array()
+            .map(|a| a.iter().map(Cow::Borrowed).collect())
     }
 
     fn get_map(&self) -> Option<MapView<'_, Self>> {
         // JsonOps' MapLike hides JsonNull values.
-        self.as_object().map(|o| o.iter().filter(|(_, v)| !v.is_null()).map(|(k, v)| (k.as_str(), v)).collect())
+        self.as_object().map(|o| {
+            o.iter()
+                .filter(|(_, v)| !v.is_null())
+                .map(|(k, v)| (k.as_str(), v))
+                .collect()
+        })
     }
 
     fn get_primitive_arg(&self) -> Option<TranslatableArg> {
@@ -155,7 +161,9 @@ impl Ops for Value {
                 Num::Double(v) => Tag::Double(v),
             },
             Value::String(s) => Tag::String(s.clone()),
-            Value::Array(a) => Tag::List(ListTag::from(a.iter().map(Value::to_tag).collect::<Vec<_>>())),
+            Value::Array(a) => Tag::List(ListTag::from(
+                a.iter().map(Value::to_tag).collect::<Vec<_>>(),
+            )),
             Value::Object(o) => {
                 let mut c = CompoundTag::new();
                 for (k, v) in o {
@@ -182,7 +190,12 @@ impl Ops for Value {
             Tag::String(s) => Value::String(s.clone()),
             Tag::List(l) => Value::Array(l.iter().map(Value::from_tag).collect()),
             // CompoundTag is a HashMap in vanilla: JsonOps.convertMap emits keys in Java hash order.
-            Tag::Compound(c) => Value::Object(c.iter_java_order().into_iter().map(|(k, v)| (k.clone(), Value::from_tag(v))).collect()),
+            Tag::Compound(c) => Value::Object(
+                c.iter_java_order()
+                    .into_iter()
+                    .map(|(k, v)| (k.clone(), Value::from_tag(v)))
+                    .collect(),
+            ),
         }
     }
 }
@@ -258,7 +271,8 @@ impl Ops for Tag {
     }
 
     fn get_map(&self) -> Option<MapView<'_, Self>> {
-        self.as_compound().map(|c| c.iter().map(|(k, v)| (k.as_str(), v)).collect())
+        self.as_compound()
+            .map(|c| c.iter().map(|(k, v)| (k.as_str(), v)).collect())
     }
 
     fn get_primitive_arg(&self) -> Option<TranslatableArg> {

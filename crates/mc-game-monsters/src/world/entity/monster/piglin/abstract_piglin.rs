@@ -4,20 +4,20 @@
 use super::piglin::Piglin;
 use super::piglin_ai;
 use super::piglin_arm_pose::PiglinArmPose;
+use mc_data::enums::EntitySpawnReason;
+use mc_data::{EntityType, MobEffect};
 use mc_game_core::define_accessor;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::attribute::attributes::PIGLINS_ZOMBIFY;
+use mc_game_core::world::entity::Entity;
 use mc_game_core::world::entity::effect::MobEffectInstance;
 use mc_game_core::world::entity::equipment::EquipmentSlot;
-use mc_game_core::world::entity::mob::convert::{self, ConversionParams};
 use mc_game_core::world::entity::mob::MobData;
-use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::mob::convert::{self, ConversionParams};
 use mc_game_core::world::level::pathfinder::PathType;
-use mc_data::enums::EntitySpawnReason;
-use mc_world::level_storage::Difficulty;
-use mc_data::{EntityType, MobEffect};
 use mc_nbt::CompoundTag;
 use mc_protocol::components::TOOL;
+use mc_world::level_storage::Difficulty;
 
 define_accessor!(pub DATA_IMMUNE_TO_ZOMBIFICATION: Boolean = AbstractPiglin);
 
@@ -48,7 +48,9 @@ pub fn init(mob: &mut MobData) {
 }
 
 /// `applyOpenDoorsAbility()` for a freshly created ground navigation (`GoalUtils.hasGroundPathNavigation(this)`).
-pub fn apply_open_doors_ability(navigation: &mut dyn mc_game_core::world::entity::ai::navigation::PathNavigation) {
+pub fn apply_open_doors_ability(
+    navigation: &mut dyn mc_game_core::world::entity::ai::navigation::PathNavigation,
+) {
     if navigation.can_navigate_ground() {
         navigation.set_can_open_doors(true);
     }
@@ -61,7 +63,9 @@ pub fn is_immune_to_zombification(e: &dyn Entity) -> bool {
 
 /// `setImmuneToZombification(isImmuneToZombification)`.
 pub fn set_immune_to_zombification(e: &mut dyn Entity, immune: bool) {
-    e.base_mut().entity_data.set(DATA_IMMUNE_TO_ZOMBIFICATION, immune);
+    e.base_mut()
+        .entity_data
+        .set(DATA_IMMUNE_TO_ZOMBIFICATION, immune);
 }
 
 /// `addAdditionalSaveData(output)` (after `Monster`'s).
@@ -81,7 +85,9 @@ pub fn read_additional_save_data(e: &mut dyn Entity, input: &CompoundTag) -> i32
 
 /// `isConverting()`: `!isImmuneToZombification() && !isNoAi() && environmentAttributes.getValue(PIGLINS_ZOMBIFY, position())`.
 pub fn is_converting(e: &dyn Entity, level: &ServerLevel) -> bool {
-    !is_immune_to_zombification(e) && !e.mob().is_some_and(MobData::is_no_ai) && level.attribute_bool_vec(PIGLINS_ZOMBIFY, &e.position())
+    !is_immune_to_zombification(e)
+        && !e.mob().is_some_and(MobData::is_no_ai)
+        && level.attribute_bool_vec(PIGLINS_ZOMBIFY, &e.position())
 }
 
 /// `customServerAiStep(level)`.
@@ -104,9 +110,20 @@ pub fn custom_server_ai_step<T: AbstractPiglin>(this: &mut T, level: &mut Server
 /// `finishConversion(level)` of `AbstractPiglin`: becomes a zombified piglin with nausea.
 pub fn finish_conversion(this: &mut dyn Entity, level: &mut ServerLevel) {
     let params = ConversionParams::single(&*this, level, true, true);
-    convert::convert_to(this, level, EntityType::ZOMBIFIED_PIGLIN, &params, EntitySpawnReason::Conversion, |zombified, level| {
-        zombified.add_effect(level, MobEffectInstance::of(MobEffect::NAUSEA, 200, 0), None);
-    });
+    convert::convert_to(
+        this,
+        level,
+        EntityType::ZOMBIFIED_PIGLIN,
+        &params,
+        EntitySpawnReason::Conversion,
+        |zombified, level| {
+            zombified.add_effect(
+                level,
+                MobEffectInstance::of(MobEffect::NAUSEA, 200, 0),
+                None,
+            );
+        },
+    );
 }
 
 /// `isAdult()`.
@@ -116,12 +133,16 @@ pub fn is_adult(e: &dyn Entity) -> bool {
 
 /// `isHoldingMeleeWeapon()`: the main hand item has the `tool` component.
 pub fn is_holding_melee_weapon(e: &dyn Entity) -> bool {
-    e.get_item_by_slot(EquipmentSlot::MainHand).get(&TOOL).is_some()
+    e.get_item_by_slot(EquipmentSlot::MainHand)
+        .get(&TOOL)
+        .is_some()
 }
 
 /// `canHunt()` of any `AbstractPiglin` (`PiglinBrute` never hunts).
 pub fn can_hunt_entity(e: &dyn Entity) -> bool {
-    e.as_any().downcast_ref::<Piglin>().is_some_and(Piglin::can_hunt_piglin)
+    e.as_any()
+        .downcast_ref::<Piglin>()
+        .is_some_and(Piglin::can_hunt_piglin)
 }
 
 /// `AbstractPiglin.playAmbientSound()`.

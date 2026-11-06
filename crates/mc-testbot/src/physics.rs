@@ -7,10 +7,12 @@ use std::sync::{LazyLock, OnceLock};
 
 use mc_core::direction::{Axis, Direction};
 use mc_core::math::mth;
-use mc_core::phys::shapes::{BitSetDiscreteVoxelShape, Coords, DiscreteVoxelShape, Shapes, VoxelShape};
-use mc_core::phys::{Vec3, AABB};
-use mc_data::shape::{ShapeId, ShapeKind};
+use mc_core::phys::shapes::{
+    BitSetDiscreteVoxelShape, Coords, DiscreteVoxelShape, Shapes, VoxelShape,
+};
+use mc_core::phys::{AABB, Vec3};
 use mc_data::block::{BlockState, OffsetType};
+use mc_data::shape::{ShapeId, ShapeKind};
 use mc_data::{Block, Fluid};
 
 use crate::world::ClientWorld;
@@ -33,25 +35,38 @@ impl BlockView for ClientWorld {
 // ---------------------------------------------------------------------------------------------
 // Shapes
 
-static SHAPE_CACHE: LazyLock<Vec<OnceLock<VoxelShape>>> =
-    LazyLock::new(|| (0..mc_data::shape::shape_count()).map(|_| OnceLock::new()).collect());
+static SHAPE_CACHE: LazyLock<Vec<OnceLock<VoxelShape>>> = LazyLock::new(|| {
+    (0..mc_data::shape::shape_count())
+        .map(|_| OnceLock::new())
+        .collect()
+});
 
 /// Build the vanilla `VoxelShape` for an interned mc-data shape.
 pub fn voxel_shape(id: ShapeId) -> &'static VoxelShape {
     SHAPE_CACHE[id.id() as usize].get_or_init(|| {
         let d = id.data();
-        let bits: Vec<u64> = d.bits.chunks(8).map(|c| {
-            let mut w = [0u8; 8];
-            w[..c.len()].copy_from_slice(c);
-            u64::from_le_bytes(w)
-        }).collect();
+        let bits: Vec<u64> = d
+            .bits
+            .chunks(8)
+            .map(|c| {
+                let mut w = [0u8; 8];
+                w[..c.len()].copy_from_slice(c);
+                u64::from_le_bytes(w)
+            })
+            .collect();
         let [sx, sy, sz] = d.size.map(i32::from);
         let [fx, fy, fz] = d.first.map(i32::from);
         let [lx, ly, lz] = d.last.map(i32::from);
-        let discrete: DiscreteVoxelShape = BitSetDiscreteVoxelShape::from_raw(sx, sy, sz, &bits, fx, fy, fz, lx, ly, lz).into();
+        let discrete: DiscreteVoxelShape =
+            BitSetDiscreteVoxelShape::from_raw(sx, sy, sz, &bits, fx, fy, fz, lx, ly, lz).into();
         match d.kind {
             ShapeKind::Cube => VoxelShape::cube(discrete),
-            _ => VoxelShape::array(discrete, Coords::from(d.coords[0]), Coords::from(d.coords[1]), Coords::from(d.coords[2])),
+            _ => VoxelShape::array(
+                discrete,
+                Coords::from(d.coords[0]),
+                Coords::from(d.coords[1]),
+                Coords::from(d.coords[2]),
+            ),
         }
     })
 }
@@ -68,7 +83,8 @@ fn block_offset(state: BlockState, x: i32, z: i32) -> Vec3 {
         OffsetType::None => Vec3::ZERO,
         OffsetType::Xz => Vec3::new(ox, 0.0, oz),
         OffsetType::Xyz => {
-            let oy = (((seed >> 4) & 15) as f32 / 15.0f32 - 1.0) as f64 * data.max_vertical_offset as f64;
+            let oy = (((seed >> 4) & 15) as f32 / 15.0f32 - 1.0) as f64
+                * data.max_vertical_offset as f64;
             Vec3::new(ox, oy, oz)
         }
     }
@@ -87,16 +103,32 @@ fn collision_at(state: BlockState, x: i32, y: i32, z: i32, area: &AABB) -> Optio
     };
     let (dx, dy, dz) = (x as f64 + off.x, y as f64 + off.y, z as f64 + off.z);
     let overlaps = sid.data().aabbs.iter().any(|b| {
-        area.intersects_coords(b[0] + dx, b[1] + dy, b[2] + dz, b[3] + dx, b[4] + dy, b[5] + dz)
+        area.intersects_coords(
+            b[0] + dx,
+            b[1] + dy,
+            b[2] + dz,
+            b[3] + dx,
+            b[4] + dy,
+            b[5] + dz,
+        )
     });
     overlaps.then(|| voxel_shape(sid).move_(dx, dy, dz))
 }
 
 /// `Level.getBlockCollisions(entity, box)` (unloaded chunks collide with nothing).
 pub fn block_collisions<W: BlockView>(world: &W, area: &AABB) -> Vec<VoxelShape> {
-    let (x0, x1) = (mth::floor_f64(area.min_x - 1.0E-7) - 1, mth::floor_f64(area.max_x + 1.0E-7) + 1);
-    let (y0, y1) = (mth::floor_f64(area.min_y - 1.0E-7) - 1, mth::floor_f64(area.max_y + 1.0E-7) + 1);
-    let (z0, z1) = (mth::floor_f64(area.min_z - 1.0E-7) - 1, mth::floor_f64(area.max_z + 1.0E-7) + 1);
+    let (x0, x1) = (
+        mth::floor_f64(area.min_x - 1.0E-7) - 1,
+        mth::floor_f64(area.max_x + 1.0E-7) + 1,
+    );
+    let (y0, y1) = (
+        mth::floor_f64(area.min_y - 1.0E-7) - 1,
+        mth::floor_f64(area.max_y + 1.0E-7) + 1,
+    );
+    let (z0, z1) = (
+        mth::floor_f64(area.min_z - 1.0E-7) - 1,
+        mth::floor_f64(area.max_z + 1.0E-7) + 1,
+    );
     let mut out = Vec::new();
     for x in x0..=x1 {
         for y in y0..=y1 {
@@ -142,7 +174,11 @@ fn collide_with_shapes(movement: Vec3, bb: &AABB, shapes: &[VoxelShape]) -> Vec3
         let m = axis_get(movement, axis);
         if m != 0.0 {
             let moved = bb.move_(resolved.x, resolved.y, resolved.z);
-            resolved = axis_with(resolved, axis, Shapes::collide(axis, &moved, shapes.iter(), m));
+            resolved = axis_with(
+                resolved,
+                axis,
+                Shapes::collide(axis, &moved, shapes.iter(), m),
+            );
         }
     }
     resolved
@@ -153,18 +189,35 @@ fn horizontal_distance_sqr(v: Vec3) -> f64 {
 }
 
 /// `Entity.collide` with step-up (`max_up_step` = attribute `step_height`).
-pub fn collide<W: BlockView>(world: &W, bb: &AABB, movement: Vec3, on_ground: bool, max_up_step: f32) -> Vec3 {
-    let swept = bb.expand_towards(movement.x, movement.y, movement.z).expand_towards(0.0, max_up_step as f64, 0.0);
+pub fn collide<W: BlockView>(
+    world: &W,
+    bb: &AABB,
+    movement: Vec3,
+    on_ground: bool,
+    max_up_step: f32,
+) -> Vec3 {
+    let swept = bb
+        .expand_towards(movement.x, movement.y, movement.z)
+        .expand_towards(0.0, max_up_step as f64, 0.0);
     let colliders = block_collisions(world, &swept);
-    let step = if movement.x * movement.x + movement.y * movement.y + movement.z * movement.z == 0.0 {
+    let step = if movement.x * movement.x + movement.y * movement.y + movement.z * movement.z == 0.0
+    {
         movement
     } else {
         collide_with_shapes(movement, bb, &colliders)
     };
-    let (x_col, y_col, z_col) = (movement.x != step.x, movement.y != step.y, movement.z != step.z);
+    let (x_col, y_col, z_col) = (
+        movement.x != step.x,
+        movement.y != step.y,
+        movement.z != step.z,
+    );
     let on_ground_after = y_col && movement.y < 0.0;
     if max_up_step > 0.0 && (on_ground_after || on_ground) && (x_col || z_col) {
-        let grounded = if on_ground_after { bb.move_(0.0, step.y, 0.0) } else { *bb };
+        let grounded = if on_ground_after {
+            bb.move_(0.0, step.y, 0.0)
+        } else {
+            *bb
+        };
         let mut step_area = grounded.expand_towards(movement.x, max_up_step as f64, movement.z);
         if !on_ground_after {
             step_area = step_area.expand_towards(0.0, -(1.0E-5f32 as f64), 0.0);
@@ -188,7 +241,11 @@ pub fn collide<W: BlockView>(world: &W, bb: &AABB, movement: Vec3, on_ground: bo
         }
         candidates.sort_by(f32::total_cmp);
         for h in candidates {
-            let from_ground = collide_with_shapes(Vec3::new(movement.x, h as f64, movement.z), &grounded, &colliders);
+            let from_ground = collide_with_shapes(
+                Vec3::new(movement.x, h as f64, movement.z),
+                &grounded,
+                &colliders,
+            );
             if horizontal_distance_sqr(from_ground) > horizontal_distance_sqr(step) {
                 let dist = bb.min_y - grounded.min_y;
                 return Vec3::new(from_ground.x, from_ground.y - dist, from_ground.z);
@@ -220,9 +277,20 @@ fn fluid_kind(state: BlockState) -> Option<FluidKind> {
 }
 
 /// `FluidState.getHeight`: full height when the same fluid is above.
-fn fluid_height_at<W: BlockView>(world: &W, x: i32, y: i32, z: i32, state: BlockState, kind: FluidKind) -> f64 {
+fn fluid_height_at<W: BlockView>(
+    world: &W,
+    x: i32,
+    y: i32,
+    z: i32,
+    state: BlockState,
+    kind: FluidKind,
+) -> f64 {
     let above = world.block_state(x, y + 1, z).and_then(fluid_kind);
-    if above == Some(kind) { 1.0 } else { state.get_fluid_state().data().own_height as f64 }
+    if above == Some(kind) {
+        1.0
+    } else {
+        state.get_fluid_state().data().own_height as f64
+    }
 }
 
 /// `updateFluidHeightAndDoFluidPushing` without the flow push: `(touching, height above feet)`.
@@ -235,7 +303,9 @@ pub fn fluid_height<W: BlockView>(world: &W, bb: &AABB, kind: FluidKind) -> (boo
     for x in x0..x1 {
         for y in y0..y1 {
             for z in z0..z1 {
-                let Some(state) = world.block_state(x, y, z) else { continue };
+                let Some(state) = world.block_state(x, y, z) else {
+                    continue;
+                };
                 if fluid_kind(state) != Some(kind) {
                     continue;
                 }
@@ -255,7 +325,13 @@ pub fn contains_any_liquid<W: BlockView>(world: &W, bb: &AABB) -> bool {
     let (y0, y1) = (mth::floor_f64(bb.min_y), mth::ceil_f64(bb.max_y));
     let (z0, z1) = (mth::floor_f64(bb.min_z), mth::ceil_f64(bb.max_z));
     (x0..x1).any(|x| {
-        (y0..y1).any(|y| (z0..z1).any(|z| world.block_state(x, y, z).is_some_and(|s| !s.get_fluid_state().data().is_empty)))
+        (y0..y1).any(|y| {
+            (z0..z1).any(|z| {
+                world
+                    .block_state(x, y, z)
+                    .is_some_and(|s| !s.get_fluid_state().data().is_empty)
+            })
+        })
     })
 }
 
@@ -277,7 +353,15 @@ pub struct Abilities {
 
 impl Default for Abilities {
     fn default() -> Self {
-        Self { invulnerable: false, flying: false, may_fly: false, instabuild: false, may_build: true, flying_speed: 0.05, walking_speed: 0.1 }
+        Self {
+            invulnerable: false,
+            flying: false,
+            may_fly: false,
+            instabuild: false,
+            may_build: true,
+            flying_speed: 0.05,
+            walking_speed: 0.1,
+        }
     }
 }
 
@@ -295,10 +379,32 @@ const SNEAK_SPEED: f64 = 0.3;
 /// The movement packet the tick decided on (`LocalPlayer.sendPosition`).
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub enum MoveOut {
-    PosRot { x: f64, y: f64, z: f64, yaw: f32, pitch: f32, on_ground: bool, h_collision: bool },
-    Pos { x: f64, y: f64, z: f64, on_ground: bool, h_collision: bool },
-    Rot { yaw: f32, pitch: f32, on_ground: bool, h_collision: bool },
-    Status { on_ground: bool, h_collision: bool },
+    PosRot {
+        x: f64,
+        y: f64,
+        z: f64,
+        yaw: f32,
+        pitch: f32,
+        on_ground: bool,
+        h_collision: bool,
+    },
+    Pos {
+        x: f64,
+        y: f64,
+        z: f64,
+        on_ground: bool,
+        h_collision: bool,
+    },
+    Rot {
+        yaw: f32,
+        pitch: f32,
+        on_ground: bool,
+        h_collision: bool,
+    },
+    Status {
+        on_ground: bool,
+        h_collision: bool,
+    },
 }
 
 #[derive(Debug, Clone)]
@@ -361,11 +467,19 @@ impl PlayerBody {
     }
 
     pub fn height(&self) -> f64 {
-        if self.crouching { HEIGHT_CROUCHING } else { HEIGHT_STANDING }
+        if self.crouching {
+            HEIGHT_CROUCHING
+        } else {
+            HEIGHT_STANDING
+        }
     }
 
     pub fn eye_height(&self) -> f64 {
-        if self.crouching { EYE_CROUCHING } else { EYE_STANDING }
+        if self.crouching {
+            EYE_CROUCHING
+        } else {
+            EYE_STANDING
+        }
     }
 
     pub fn bounding_box(&self) -> AABB {
@@ -373,7 +487,14 @@ impl PlayerBody {
     }
 
     fn bounding_box_at(&self, p: Vec3, h: f64) -> AABB {
-        AABB::new(p.x - WIDTH / 2.0, p.y, p.z - WIDTH / 2.0, p.x + WIDTH / 2.0, p.y + h, p.z + WIDTH / 2.0)
+        AABB::new(
+            p.x - WIDTH / 2.0,
+            p.y,
+            p.z - WIDTH / 2.0,
+            p.x + WIDTH / 2.0,
+            p.y + h,
+            p.z + WIDTH / 2.0,
+        )
     }
 
     pub fn eye_position(&self) -> Vec3 {
@@ -382,8 +503,14 @@ impl PlayerBody {
 
     /// `Entity.getLookAngle`
     pub fn look_vector(&self) -> Vec3 {
-        let (yr, xr) = (self.yaw * (std::f32::consts::PI / 180.0), self.pitch * (std::f32::consts::PI / 180.0));
-        let (ycos, ysin) = (mth::cos(-yr as f64 - std::f32::consts::PI as f64), mth::sin(-yr as f64 - std::f32::consts::PI as f64));
+        let (yr, xr) = (
+            self.yaw * (std::f32::consts::PI / 180.0),
+            self.pitch * (std::f32::consts::PI / 180.0),
+        );
+        let (ycos, ysin) = (
+            mth::cos(-yr as f64 - std::f32::consts::PI as f64),
+            mth::sin(-yr as f64 - std::f32::consts::PI as f64),
+        );
         let (xcos, xsin) = (-mth::cos(-xr as f64), mth::sin(-xr as f64));
         Vec3::new((ysin * xcos) as f64, xsin as f64, (ycos * xcos) as f64)
     }
@@ -399,7 +526,11 @@ impl PlayerBody {
     }
 
     fn block_pos_below_affecting_movement(&self) -> (i32, i32, i32) {
-        (mth::floor_f64(self.pos.x), mth::floor_f64(self.pos.y - 0.500001f32 as f64), mth::floor_f64(self.pos.z))
+        (
+            mth::floor_f64(self.pos.x),
+            mth::floor_f64(self.pos.y - 0.500001f32 as f64),
+            mth::floor_f64(self.pos.z),
+        )
     }
 
     fn block_speed_factor<W: BlockView>(&self, world: &W) -> f32 {
@@ -413,17 +544,23 @@ impl PlayerBody {
         }
         if f_here == 1.0 {
             let (x, y, z) = self.block_pos_below_affecting_movement();
-            world.block_state(x, y, z).map_or(1.0, |s| s.block().data().speed_factor)
+            world
+                .block_state(x, y, z)
+                .map_or(1.0, |s| s.block().data().speed_factor)
         } else {
             f_here
         }
     }
 
     fn block_jump_factor<W: BlockView>(&self, world: &W) -> f32 {
-        let here = world.block_state(self.block_x(), self.block_y(), self.block_z()).map_or(1.0, |s| s.block().data().jump_factor);
+        let here = world
+            .block_state(self.block_x(), self.block_y(), self.block_z())
+            .map_or(1.0, |s| s.block().data().jump_factor);
         if here == 1.0 {
             let (x, y, z) = self.block_pos_below_affecting_movement();
-            world.block_state(x, y, z).map_or(1.0, |s| s.block().data().jump_factor)
+            world
+                .block_state(x, y, z)
+                .map_or(1.0, |s| s.block().data().jump_factor)
         } else {
             here
         }
@@ -444,7 +581,9 @@ impl PlayerBody {
         if self.abilities.flying {
             return false;
         }
-        world.block_state(self.block_x(), self.block_y(), self.block_z()).is_some_and(|s| s.block().is_in_tag("climbable"))
+        world
+            .block_state(self.block_x(), self.block_y(), self.block_z())
+            .is_some_and(|s| s.block().is_in_tag("climbable"))
     }
 
     fn movement_speed(&self) -> f32 {
@@ -467,7 +606,11 @@ impl PlayerBody {
 
     fn flying_speed(&self) -> f32 {
         if self.abilities.flying {
-            if self.sprinting { self.abilities.flying_speed * 2.0 } else { self.abilities.flying_speed }
+            if self.sprinting {
+                self.abilities.flying_speed * 2.0
+            } else {
+                self.abilities.flying_speed
+            }
         } else if self.sprinting {
             0.025999999
         } else {
@@ -476,7 +619,11 @@ impl PlayerBody {
     }
 
     fn jump_power<W: BlockView>(&self, world: &W) -> f32 {
-        let boost = if self.jump_boost > 0 { 0.1f32 * self.jump_boost as f32 } else { 0.0 };
+        let boost = if self.jump_boost > 0 {
+            0.1f32 * self.jump_boost as f32
+        } else {
+            0.0
+        };
         JUMP_POWER * 1.0 * self.block_jump_factor(world) + boost
     }
 
@@ -486,7 +633,11 @@ impl PlayerBody {
             self.vel.y = (power as f64).max(self.vel.y);
             if self.sprinting {
                 let a = self.yaw * (std::f32::consts::PI / 180.0);
-                self.vel = Vec3::new(self.vel.x - mth::sin(a as f64) as f64 * 0.2, self.vel.y, self.vel.z + mth::cos(a as f64) as f64 * 0.2);
+                self.vel = Vec3::new(
+                    self.vel.x - mth::sin(a as f64) as f64 * 0.2,
+                    self.vel.y,
+                    self.vel.z + mth::cos(a as f64) as f64 * 0.2,
+                );
             }
         }
     }
@@ -503,7 +654,10 @@ impl PlayerBody {
             input
         };
         let m = Vec3::new(m.x * speed as f64, m.y * speed as f64, m.z * speed as f64);
-        let (sin, cos) = (mth::sin((self.yaw * (std::f32::consts::PI / 180.0)) as f64), mth::cos((self.yaw * (std::f32::consts::PI / 180.0)) as f64));
+        let (sin, cos) = (
+            mth::sin((self.yaw * (std::f32::consts::PI / 180.0)) as f64),
+            mth::cos((self.yaw * (std::f32::consts::PI / 180.0)) as f64),
+        );
         self.vel = Vec3::new(
             self.vel.x + m.x * cos as f64 - m.z * sin as f64,
             self.vel.y + m.y,
@@ -520,9 +674,21 @@ impl PlayerBody {
         }
         let can_fall = |dx: f64, dz: f64, min_h: f64| {
             let b = self.bounding_box();
-            no_collision(world, &AABB::new(b.min_x + 1.0E-7 + dx, b.min_y - min_h - 1.0E-7, b.min_z + 1.0E-7 + dz, b.max_x - 1.0E-7 + dx, b.min_y, b.max_z - 1.0E-7 + dz))
+            no_collision(
+                world,
+                &AABB::new(
+                    b.min_x + 1.0E-7 + dx,
+                    b.min_y - min_h - 1.0E-7,
+                    b.min_z + 1.0E-7 + dz,
+                    b.max_x - 1.0E-7 + dx,
+                    b.min_y,
+                    b.max_z - 1.0E-7 + dz,
+                ),
+            )
         };
-        let above_ground = self.on_ground || (self.fall_distance < max_down && !can_fall(0.0, 0.0, max_down - self.fall_distance));
+        let above_ground = self.on_ground
+            || (self.fall_distance < max_down
+                && !can_fall(0.0, 0.0, max_down - self.fall_distance));
         if !above_ground {
             return delta;
         }
@@ -554,10 +720,15 @@ impl PlayerBody {
         let delta = self.back_off_from_edge(world, delta);
         let bb = self.bounding_box();
         let movement = collide(world, &bb, delta, self.on_ground, STEP_HEIGHT);
-        let movement_sqr = movement.x * movement.x + movement.y * movement.y + movement.z * movement.z;
+        let movement_sqr =
+            movement.x * movement.x + movement.y * movement.y + movement.z * movement.z;
         let delta_sqr = delta.x * delta.x + delta.y * delta.y + delta.z * delta.z;
         if movement_sqr > 1.0E-7 || delta_sqr - movement_sqr < 1.0E-7 {
-            self.pos = Vec3::new(self.pos.x + movement.x, self.pos.y + movement.y, self.pos.z + movement.z);
+            self.pos = Vec3::new(
+                self.pos.x + movement.x,
+                self.pos.y + movement.y,
+                self.pos.z + movement.z,
+            );
         }
         let x_col = !mth::equal_f64(delta.x, movement.x);
         let z_col = !mth::equal_f64(delta.z, movement.z);
@@ -587,9 +758,17 @@ impl PlayerBody {
         // restitution only from block bounciness (slime) when not sneaking
         let mut v = self.vel;
         if self.vertical_collision && self.vertical_collision_below && !self.crouching {
-            let (x, y, z) = (self.block_x(), mth::floor_f64(self.pos.y - 0.2f32 as f64), self.block_z());
-            let restitution = world.block_state(x, y, z).map_or(0.0, |s| s.block().data().bounce_restitution as f64);
-            let suppress = world.block_state(x, y, z).is_some_and(|s| s.block().is_in_tag("suppresses_bounce"));
+            let (x, y, z) = (
+                self.block_x(),
+                mth::floor_f64(self.pos.y - 0.2f32 as f64),
+                self.block_z(),
+            );
+            let restitution = world
+                .block_state(x, y, z)
+                .map_or(0.0, |s| s.block().data().bounce_restitution as f64);
+            let suppress = world
+                .block_state(x, y, z)
+                .is_some_and(|s| s.block().is_in_tag("suppresses_bounce"));
             if restitution > 0.0 && !(-self.vel.y <= GRAVITY) && !suppress {
                 let portion = movement.y / self.vel.y;
                 let gravity_comp = portion * GRAVITY;
@@ -623,7 +802,10 @@ impl PlayerBody {
             }
         }
         // 0.98 `applyInput`
-        let (xxa, zza) = ((left as f32 * 0.98f32) as f64, (forward as f32 * 0.98f32) as f64);
+        let (xxa, zza) = (
+            (left as f32 * 0.98f32) as f64,
+            (forward as f32 * 0.98f32) as f64,
+        );
 
         // LivingEntity.aiStep
         if self.no_jump_delay > 0 {
@@ -650,11 +832,17 @@ impl PlayerBody {
         self.in_lava = touch_l && !touch_w || (touch_l && fh_l > 0.0);
         let fluid_jump_threshold = if self.eye_height() < 0.4 { 0.0 } else { 0.4 };
         if self.jumping && affected_by_fluids {
-            let fluid_h = if self.in_lava { fluid_height(world, &bb, FluidKind::Lava).1 } else { fh_w };
+            let fluid_h = if self.in_lava {
+                fluid_height(world, &bb, FluidKind::Lava).1
+            } else {
+                fh_w
+            };
             let in_water_and_h = self.in_water && fluid_h > 0.0;
             if !in_water_and_h || self.on_ground && !(fluid_h > fluid_jump_threshold) {
                 if !self.in_lava || self.on_ground && fluid_h <= fluid_jump_threshold {
-                    if (self.on_ground || in_water_and_h && fluid_h <= fluid_jump_threshold) && self.no_jump_delay == 0 {
+                    if (self.on_ground || in_water_and_h && fluid_h <= fluid_jump_threshold)
+                        && self.no_jump_delay == 0
+                    {
                         self.jump_from_ground(world);
                         self.no_jump_delay = 10;
                     }
@@ -688,7 +876,11 @@ impl PlayerBody {
         let has_forward = forward_impulse > 1.0E-5;
         let can_sprint = (self.food_level as f32 > 6.0 || self.abilities.may_fly) && !input.shift;
         if self.sprinting {
-            if !has_forward || self.horizontal_collision || !can_sprint || self.in_water && !self.abilities.flying {
+            if !has_forward
+                || self.horizontal_collision
+                || !can_sprint
+                || self.in_water && !self.abilities.flying
+            {
                 self.sprinting = false;
             }
         } else if input.sprint && has_forward && can_sprint && !self.in_water {
@@ -706,17 +898,31 @@ impl PlayerBody {
 
     fn travel_in_air<W: BlockView>(&mut self, world: &W, input: Vec3) {
         let (bx, by, bz) = self.block_pos_below_affecting_movement();
-        let block_friction: f32 = if self.on_ground { world.block_state(bx, by, bz).map_or(0.6, |s| s.block().data().friction) } else { 1.0 };
+        let block_friction: f32 = if self.on_ground {
+            world
+                .block_state(bx, by, bz)
+                .map_or(0.6, |s| s.block().data().friction)
+        } else {
+            1.0
+        };
         // handleRelativeFrictionAndCalculateMovement
         let speed = if self.on_ground {
-            if block_friction > 0.6 { self.movement_speed() * (0.21600002f32 / (block_friction * block_friction * block_friction)) } else { self.movement_speed() }
+            if block_friction > 0.6 {
+                self.movement_speed()
+                    * (0.21600002f32 / (block_friction * block_friction * block_friction))
+            } else {
+                self.movement_speed()
+            }
         } else {
             self.flying_speed()
         };
         self.move_relative(speed, input);
         if self.on_climbable(world) {
             self.fall_distance = 0.0;
-            let (xd, zd) = (self.vel.x.clamp(-0.15f32 as f64, 0.15f32 as f64), self.vel.z.clamp(-0.15f32 as f64, 0.15f32 as f64));
+            let (xd, zd) = (
+                self.vel.x.clamp(-0.15f32 as f64, 0.15f32 as f64),
+                self.vel.z.clamp(-0.15f32 as f64, 0.15f32 as f64),
+            );
             let mut yd = self.vel.y.max(-0.15f32 as f64);
             if yd < 0.0 && self.crouching {
                 yd = 0.0;
@@ -738,7 +944,11 @@ impl PlayerBody {
             movement_y = 0.0;
         }
         let friction = block_friction * 0.91f32;
-        self.vel = Vec3::new(movement.x * friction as f64, movement_y * 0.98f32 as f64, movement.z * friction as f64);
+        self.vel = Vec3::new(
+            movement.x * friction as f64,
+            movement_y * 0.98f32 as f64,
+            movement.z * friction as f64,
+        );
     }
 
     fn travel_in_fluid<W: BlockView>(&mut self, world: &W, input: Vec3, _fh: f64) {
@@ -752,14 +962,23 @@ impl PlayerBody {
             if self.horizontal_collision && self.on_climbable(world) {
                 movement.y = 0.2;
             }
-            movement = Vec3::new(movement.x * slow_down as f64, movement.y * 0.8f32 as f64, movement.z * slow_down as f64);
+            movement = Vec3::new(
+                movement.x * slow_down as f64,
+                movement.y * 0.8f32 as f64,
+                movement.z * slow_down as f64,
+            );
             self.vel = self.fluid_falling_adjusted(GRAVITY, is_falling, movement);
         } else {
             self.move_relative(0.02, input);
             self.move_entity(world, self.vel);
-            let shallow = fluid_height(world, &self.bounding_box(), FluidKind::Lava).1 <= if self.eye_height() < 0.4 { 0.0 } else { 0.4 };
+            let shallow = fluid_height(world, &self.bounding_box(), FluidKind::Lava).1
+                <= if self.eye_height() < 0.4 { 0.0 } else { 0.4 };
             if shallow {
-                self.vel = Vec3::new(self.vel.x * 0.5, self.vel.y * 0.8f32 as f64, self.vel.z * 0.5);
+                self.vel = Vec3::new(
+                    self.vel.x * 0.5,
+                    self.vel.y * 0.8f32 as f64,
+                    self.vel.z * 0.5,
+                );
                 self.vel = self.fluid_falling_adjusted(GRAVITY, is_falling, self.vel);
             } else {
                 self.vel = Vec3::new(self.vel.x * 0.5, self.vel.y * 0.5, self.vel.z * 0.5);
@@ -768,7 +987,11 @@ impl PlayerBody {
         }
         // jumpOutOfFluid
         if self.horizontal_collision {
-            let b = self.bounding_box().move_(self.vel.x, self.vel.y + 0.6f32 as f64 - self.pos.y + old_y, self.vel.z);
+            let b = self.bounding_box().move_(
+                self.vel.x,
+                self.vel.y + 0.6f32 as f64 - self.pos.y + old_y,
+                self.vel.z,
+            );
             if no_collision(world, &b) && !contains_any_liquid(world, &b) {
                 self.vel.y = 0.3f32 as f64;
             }
@@ -777,7 +1000,10 @@ impl PlayerBody {
 
     fn fluid_falling_adjusted(&self, base_gravity: f64, is_falling: bool, movement: Vec3) -> Vec3 {
         if base_gravity != 0.0 && !self.sprinting {
-            let yd = if is_falling && (movement.y - 0.005).abs() >= 0.003 && (movement.y - base_gravity / 16.0).abs() < 0.003 {
+            let yd = if is_falling
+                && (movement.y - 0.005).abs() >= 0.003
+                && (movement.y - base_gravity / 16.0).abs() < 0.003
+            {
                 -0.003
             } else {
                 movement.y - base_gravity / 16.0
@@ -791,20 +1017,45 @@ impl PlayerBody {
     /// `LocalPlayer.sendPosition`: the movement packet to send after this tick (None = nothing changed and
     /// the on-ground/collision flags are unchanged).
     pub fn position_packet(&mut self) -> Option<MoveOut> {
-        let (lx, ly, lz, lyaw, lpitch) = self.last.unwrap_or((self.pos.x, self.pos.y, self.pos.z, self.yaw, self.pitch));
+        let (lx, ly, lz, lyaw, lpitch) = self
+            .last
+            .unwrap_or((self.pos.x, self.pos.y, self.pos.z, self.yaw, self.pitch));
         let (dx, dy, dz) = (self.pos.x - lx, self.pos.y - ly, self.pos.z - lz);
         self.position_reminder += 1;
-        let moved = dx * dx + dy * dy + dz * dz > (2.0E-4f64) * (2.0E-4f64) || self.position_reminder >= 20;
+        let moved =
+            dx * dx + dy * dy + dz * dz > (2.0E-4f64) * (2.0E-4f64) || self.position_reminder >= 20;
         let rotated = self.yaw != lyaw || self.pitch != lpitch;
         let (g, h) = (self.on_ground, self.horizontal_collision);
         let out = if moved && rotated {
-            Some(MoveOut::PosRot { x: self.pos.x, y: self.pos.y, z: self.pos.z, yaw: self.yaw, pitch: self.pitch, on_ground: g, h_collision: h })
+            Some(MoveOut::PosRot {
+                x: self.pos.x,
+                y: self.pos.y,
+                z: self.pos.z,
+                yaw: self.yaw,
+                pitch: self.pitch,
+                on_ground: g,
+                h_collision: h,
+            })
         } else if moved {
-            Some(MoveOut::Pos { x: self.pos.x, y: self.pos.y, z: self.pos.z, on_ground: g, h_collision: h })
+            Some(MoveOut::Pos {
+                x: self.pos.x,
+                y: self.pos.y,
+                z: self.pos.z,
+                on_ground: g,
+                h_collision: h,
+            })
         } else if rotated {
-            Some(MoveOut::Rot { yaw: self.yaw, pitch: self.pitch, on_ground: g, h_collision: h })
+            Some(MoveOut::Rot {
+                yaw: self.yaw,
+                pitch: self.pitch,
+                on_ground: g,
+                h_collision: h,
+            })
         } else if self.last_on_ground != g || self.last_h_collision != h {
-            Some(MoveOut::Status { on_ground: g, h_collision: h })
+            Some(MoveOut::Status {
+                on_ground: g,
+                h_collision: h,
+            })
         } else {
             None
         };
@@ -877,7 +1128,13 @@ mod tests {
         settle(&mut b, &w, 5);
         let mut peak = 0.0f64;
         for i in 0..40 {
-            b.tick(&w, Input { jump: i == 0, ..Default::default() });
+            b.tick(
+                &w,
+                Input {
+                    jump: i == 0,
+                    ..Default::default()
+                },
+            );
             peak = peak.max(b.pos.y - 64.0);
         }
         assert!((peak - 1.2522).abs() < 1.0E-3, "peak {peak}");
@@ -892,11 +1149,21 @@ mod tests {
             settle(&mut b, &w, 3);
             let start = b.pos.x;
             for _ in 0..40 {
-                b.tick(&w, Input { forward: true, sprint, ..Default::default() });
+                b.tick(
+                    &w,
+                    Input {
+                        forward: true,
+                        sprint,
+                        ..Default::default()
+                    },
+                );
             }
             let speed = (b.pos.x - start) / 40.0 * 20.0;
             // acceleration phase lowers the average slightly; terminal speed is within 6%
-            assert!(speed > expected * 0.9 && speed < expected * 1.01, "sprint={sprint} speed {speed}");
+            assert!(
+                speed > expected * 0.9 && speed < expected * 1.01,
+                "sprint={sprint} speed {speed}"
+            );
         }
     }
 
@@ -911,12 +1178,22 @@ mod tests {
         let mut b = PlayerBody::new(Vec3::new(8.5, 64.0, 8.5), -90.0, 0.0);
         settle(&mut b, &w, 3);
         for _ in 0..60 {
-            b.tick(&w, Input { forward: true, ..Default::default() });
+            b.tick(
+                &w,
+                Input {
+                    forward: true,
+                    ..Default::default()
+                },
+            );
         }
         assert!((b.pos.x - (12.0 - 0.3)).abs() < 1.0E-6, "x {}", b.pos.x);
         assert!(b.horizontal_collision);
         // a one block step is not walkable without jumping; a slab (0.5) is
-        let slab = Block::STONE_SLAB.default_state().with_property_str("type", "bottom").unwrap().id() as u16;
+        let slab = Block::STONE_SLAB
+            .default_state()
+            .with_property_str("type", "bottom")
+            .unwrap()
+            .id() as u16;
         let mut w2 = flat_world();
         for z in 0..16 {
             for x in 12..16 {
@@ -926,7 +1203,13 @@ mod tests {
         let mut b = PlayerBody::new(Vec3::new(8.5, 64.0, 8.5), -90.0, 0.0);
         settle(&mut b, &w2, 3);
         for _ in 0..24 {
-            b.tick(&w2, Input { forward: true, ..Default::default() });
+            b.tick(
+                &w2,
+                Input {
+                    forward: true,
+                    ..Default::default()
+                },
+            );
         }
         assert!(b.pos.x > 12.5 && b.pos.y == 64.5, "pos {:?}", b.pos);
     }
@@ -942,9 +1225,20 @@ mod tests {
         let mut b = PlayerBody::new(Vec3::new(8.5, 64.0, 8.5), -90.0, 0.0);
         settle(&mut b, &w, 3);
         for _ in 0..100 {
-            b.tick(&w, Input { forward: true, shift: true, ..Default::default() });
+            b.tick(
+                &w,
+                Input {
+                    forward: true,
+                    shift: true,
+                    ..Default::default()
+                },
+            );
         }
-        assert!(b.pos.x < 10.4 + 1.0E-9 && b.pos.x > 10.0, "sneak x {}", b.pos.x);
+        assert!(
+            b.pos.x < 10.4 + 1.0E-9 && b.pos.x > 10.0,
+            "sneak x {}",
+            b.pos.x
+        );
         assert!(b.on_ground);
 
         let mut f = PlayerBody::new(Vec3::new(8.5, 80.0, 8.5), 0.0, 0.0);
@@ -952,7 +1246,13 @@ mod tests {
         settle(&mut f, &w, 40);
         assert!((f.pos.y - 80.0).abs() < 0.01, "flying y {}", f.pos.y);
         for _ in 0..10 {
-            f.tick(&w, Input { jump: true, ..Default::default() });
+            f.tick(
+                &w,
+                Input {
+                    jump: true,
+                    ..Default::default()
+                },
+            );
         }
         assert!(f.pos.y > 81.0);
     }
@@ -973,7 +1273,16 @@ mod tests {
         }
         // standing still: only the 20-tick reminder is sent
         assert_eq!(sent.iter().filter(|p| p.is_some()).count(), 1, "{sent:?}");
-        assert!(matches!(sent[16], Some(MoveOut::Pos { on_ground: true, .. })), "{sent:?}");
+        assert!(
+            matches!(
+                sent[16],
+                Some(MoveOut::Pos {
+                    on_ground: true,
+                    ..
+                })
+            ),
+            "{sent:?}"
+        );
         b.yaw = 45.0;
         b.tick(&w, Input::default());
         assert!(matches!(b.position_packet(), Some(MoveOut::Rot { yaw, .. }) if yaw == 45.0));

@@ -13,13 +13,25 @@ pub struct LookAtTargetSink;
 impl LookAtTargetSink {
     /// `new LookAtTargetSink(minDuration, maxDuration)`: `super(ImmutableMap.of(LOOK_TARGET, VALUE_PRESENT), min, max)`.
     pub fn new(min_duration: i32, max_duration: i32) -> BehaviorBase<LookAtTargetSink> {
-        BehaviorBase::with_duration(entry_condition![LOOK_TARGET => ValuePresent], min_duration, max_duration, LookAtTargetSink)
+        BehaviorBase::with_duration(
+            entry_condition![LOOK_TARGET => ValuePresent],
+            min_duration,
+            max_duration,
+            LookAtTargetSink,
+        )
     }
 }
 
 impl Behavior for LookAtTargetSink {
-    fn can_still_use(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, _timestamp: i64) -> bool {
-        body.brain().get_memory(&LOOK_TARGET).is_some_and(|pos| pos.is_visible_by(level, &*body))
+    fn can_still_use(
+        &mut self,
+        level: &mut ServerLevel,
+        body: &mut dyn Entity,
+        _timestamp: i64,
+    ) -> bool {
+        body.brain()
+            .get_memory(&LOOK_TARGET)
+            .is_some_and(|pos| pos.is_visible_by(level, &*body))
     }
 
     fn stop(&mut self, _level: &mut ServerLevel, body: &mut dyn Entity, _timestamp: i64) {

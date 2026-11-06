@@ -12,7 +12,9 @@ use mc_world::region::RegionFileVersion;
 
 fn main() -> ExitCode {
     // vanilla runs `Main.main` on a thread called `ServerMain`; the log lines carry that name
-    let main_thread = std::thread::Builder::new().name("ServerMain".to_owned()).spawn(run);
+    let main_thread = std::thread::Builder::new()
+        .name("ServerMain".to_owned())
+        .spawn(run);
     match main_thread.map(|t| t.join()) {
         Ok(Ok(code)) => code,
         _ => ExitCode::FAILURE,
@@ -56,11 +58,17 @@ fn run() -> ExitCode {
     let eula_file = Path::new("eula.txt");
     let eula = Eula::new(eula_file);
     if options.init_settings {
-        log::info!("Initialized '{}' and '{}'", absolute(settings_file), absolute(eula_file));
+        log::info!(
+            "Initialized '{}' and '{}'",
+            absolute(settings_file),
+            absolute(eula_file)
+        );
         return ExitCode::SUCCESS;
     }
     if !eula.has_agreed_to_eula() {
-        log::info!("You need to agree to the EULA in order to run the server. Go to eula.txt for more info.");
+        log::info!(
+            "You need to agree to the EULA in order to run the server. Go to eula.txt for more info."
+        );
         return ExitCode::SUCCESS;
     }
     if let Some(e) = &options.late_error {
@@ -76,7 +84,11 @@ fn report(error: impl std::fmt::Display) -> ExitCode {
 
 /// `Path.toAbsolutePath()`: the working directory joined with the relative path, not normalized.
 fn absolute(path: &Path) -> String {
-    std::env::current_dir().map(|d| d.join(path)).unwrap_or_else(|_| path.to_path_buf()).display().to_string()
+    std::env::current_dir()
+        .map(|d| d.join(path))
+        .unwrap_or_else(|_| path.to_path_buf())
+        .display()
+        .to_string()
 }
 
 /// The hand-over to the real server (`MinecraftServer.spin`): `mc_game::server::dedicated::launch`.

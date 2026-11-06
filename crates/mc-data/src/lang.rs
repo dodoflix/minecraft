@@ -7,7 +7,8 @@ use std::sync::OnceLock;
 pub fn en_us() -> &'static HashMap<String, String> {
     static LANG: OnceLock<HashMap<String, String>> = OnceLock::new();
     LANG.get_or_init(|| {
-        let text = crate::datapack::read_string("assets/minecraft/lang/en_us.json").expect("en_us.json is embedded");
+        let text = crate::datapack::read_string("assets/minecraft/lang/en_us.json")
+            .expect("en_us.json is embedded");
         serde_json::from_str(&text).expect("en_us.json is a flat string map")
     })
 }

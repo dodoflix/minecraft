@@ -12,7 +12,10 @@ pub struct Holder<T: ?Sized> {
 
 impl<T: ?Sized> Clone for Holder<T> {
     fn clone(&self) -> Self {
-        Holder { id: self.id.clone(), cell: self.cell.clone() }
+        Holder {
+            id: self.id.clone(),
+            cell: self.cell.clone(),
+        }
     }
 }
 
@@ -21,7 +24,10 @@ impl<T: ?Sized> Holder<T> {
     pub fn direct(value: Arc<T>) -> Holder<T> {
         let cell = OnceLock::new();
         let _ = cell.set(value);
-        Holder { id: None, cell: Arc::new(cell) }
+        Holder {
+            id: None,
+            cell: Arc::new(cell),
+        }
     }
 
     /// A reference holder whose cell is shared with the registry entry `id` (bound by [`Holder::bind`]).
@@ -44,7 +50,14 @@ impl<T: ?Sized> Holder<T> {
 
     /// `value()`; panics for an unbound holder (a registry that was not fully loaded).
     pub fn value(&self) -> &Arc<T> {
-        self.cell.get().unwrap_or_else(|| panic!("Trying to access unbound value '{}' from registry", self.id.as_ref().map_or_else(|| "<direct>".to_owned(), ToString::to_string)))
+        self.cell.get().unwrap_or_else(|| {
+            panic!(
+                "Trying to access unbound value '{}' from registry",
+                self.id
+                    .as_ref()
+                    .map_or_else(|| "<direct>".to_owned(), ToString::to_string)
+            )
+        })
     }
 
     /// Whether two holders point at the same registry entry/value (`Holder.equals`).

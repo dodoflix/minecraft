@@ -3,7 +3,9 @@
 
 use super::manager::{LevelSource, StructureDataSource, StructureManager};
 use super::piece::StructurePieceSerializationContext;
-use super::structure::{GenerationContext, Structure, StructureSpawnOverride, BoundingBoxType, SpawnerData};
+use super::structure::{
+    BoundingBoxType, GenerationContext, SpawnerData, Structure, StructureSpawnOverride,
+};
 use super::structure_start::{StartHandle, StructureStart};
 use crate::server::level::world_gen::WorldGenRegion;
 use crate::world::level::levelgen::env::GenEnv;
@@ -14,9 +16,9 @@ use mc_core::pos::{BlockPos, ChunkPos};
 use mc_core::random::{LegacyRandomSource, RandomSource, WorldgenRandom};
 use mc_data::enums::MobCategory;
 use mc_world::chunk::{ProtoChunk, StructureData};
+use mc_world::palette::BiomeId;
 use mc_worldgen::provider::WeightedList;
 use mc_worldgen::structure_placement::{ChunkGeneratorStructureState, StructureSelectionEntry};
-use mc_world::palette::BiomeId;
 
 impl StructureDataSource for WorldGenRegion {
     fn structure_data(&self, pos: ChunkPos) -> Option<&StructureData> {
@@ -37,10 +39,16 @@ pub fn generate_structure(
     valid_biome: &dyn Fn(BiomeId) -> bool,
 ) -> StructureStart {
     let structure = selected.value();
-    let mut context = GenerationContext::new(env, seed, source_chunk_pos, height_accessor, valid_biome);
+    let mut context =
+        GenerationContext::new(env, seed, source_chunk_pos, height_accessor, valid_biome);
     if let Some(stub) = structure.find_valid_generation_point(&mut context) {
         let builder = stub.get_pieces_builder(&mut context);
-        let test_start = StructureStart::new(selected.clone(), source_chunk_pos, references, builder.build());
+        let test_start = StructureStart::new(
+            selected.clone(),
+            source_chunk_pos,
+            references,
+            builder.build(),
+        );
         if test_start.is_valid() {
             return test_start;
         }
@@ -49,7 +57,11 @@ pub fn generate_structure(
 }
 
 /// `fetchReferences(structureManager, centerChunk, structure)`.
-fn fetch_references(manager: &StructureManager<'_>, chunk: &ProtoChunk, structure: &Holder<dyn Structure>) -> i32 {
+fn fetch_references(
+    manager: &StructureManager<'_>,
+    chunk: &ProtoChunk,
+    structure: &Holder<dyn Structure>,
+) -> i32 {
     manager
         .get_start_for_structure(chunk.access.pos, &chunk.access.structures, structure)
         .map_or(0, |start| start.lock().get_references())
@@ -63,13 +75,23 @@ fn try_generate_structure(
     selected: &StructureSelectionEntry,
     center_chunk: &mut ProtoChunk,
 ) -> bool {
-    let Some(holder) = env.structures.get(&selected.structure) else { return false };
+    let Some(holder) = env.structures.get(&selected.structure) else {
+        return false;
+    };
     let structure = holder.value();
     let source_chunk_pos = center_chunk.access.pos;
     let references = fetch_references(manager, center_chunk, holder);
     let biome_allowed = structure.biomes();
     let height_accessor = center_chunk.get_height_accessor_for_generation();
-    let mut start = generate_structure(env, holder, state.level_seed(), source_chunk_pos, references, height_accessor, &|b| biome_allowed.contains(&b));
+    let mut start = generate_structure(
+        env,
+        holder,
+        state.level_seed(),
+        source_chunk_pos,
+        references,
+        height_accessor,
+        &|b| biome_allowed.contains(&b),
+    );
     if !start.is_valid() {
         return false;
     }
@@ -78,14 +100,17 @@ fn try_generate_structure(
     let bb = start.get_bounding_box();
     let id = selected.structure.to_string();
     let handle = StartHandle::new(start);
-    env.start_cache.put(source_chunk_pos, &id, tag.clone(), handle);
+    env.start_cache
+        .put(source_chunk_pos, &id, tag.clone(), handle);
     center_chunk.set_start_for_structure(id, tag, Some((bb.min_y(), bb.max_y())));
     true
 }
 
 /// `ChunkGenerator.createStructures(registryAccess, state, structureManager, centerChunk, structureTemplateManager, level)`.
 pub fn create_structures(env: &GenEnv, center_chunk: &mut ProtoChunk) {
-    let Some(state) = env.structure_state.as_deref() else { return };
+    let Some(state) = env.structure_state.as_deref() else {
+        return;
+    };
     let manager = StructureManager::new(env);
     let source_chunk_pos = center_chunk.access.pos;
     for set in state.possible_structure_sets() {
@@ -94,7 +119,11 @@ pub fn create_structures(env: &GenEnv, center_chunk: &mut ProtoChunk) {
         let mut has_existing = false;
         for entry in structures {
             if let Some(holder) = env.structures.get(&entry.structure)
-                && let Some(existing) = manager.get_start_for_structure(source_chunk_pos, &center_chunk.access.structures, holder)
+                && let Some(existing) = manager.get_start_for_structure(
+                    source_chunk_pos,
+                    &center_chunk.access.structures,
+                    holder,
+                )
                 && existing.lock().is_valid()
             {
                 has_existing = true;
@@ -112,8 +141,15 @@ pub fn create_structures(env: &GenEnv, center_chunk: &mut ProtoChunk) {
         } else {
             let mut options: Vec<&StructureSelectionEntry> = structures.iter().collect();
             let mut random = WorldgenRandom::new(Box::new(LegacyRandomSource::new(0)));
-            random.set_large_feature_seed(state.level_seed(), source_chunk_pos.x, source_chunk_pos.z);
-            let mut total: i32 = options.iter().map(|o| o.weight).fold(0i32, i32::wrapping_add);
+            random.set_large_feature_seed(
+                state.level_seed(),
+                source_chunk_pos.x,
+                source_chunk_pos.z,
+            );
+            let mut total: i32 = options
+                .iter()
+                .map(|o| o.weight)
+                .fold(0i32, i32::wrapping_add);
             while !options.is_empty() {
                 let mut choice = random.next_int_bounded(total);
                 let mut index = 0;
@@ -148,13 +184,30 @@ pub fn create_references(env: &GenEnv, region: &mut WorldGenRegion) {
         for source_z in target_z - 8..=target_z + 8 {
             let source_chunk_pos = ChunkPos::new(source_x, source_z);
             let source_chunk_key = source_chunk_pos.pack();
-            let Some(data) = region.structure_data(source_chunk_pos) else { continue };
+            let Some(data) = region.structure_data(source_chunk_pos) else {
+                continue;
+            };
             for key in data.starts.keys() {
-                let Some(id) = mc_core::ident::Identifier::try_parse(key) else { continue };
-                let Some(structure) = env.structures.get(&id) else { continue };
-                let Some(start) = manager.get_start_for_structure(source_chunk_pos, data, structure) else { continue };
+                let Some(id) = mc_core::ident::Identifier::try_parse(key) else {
+                    continue;
+                };
+                let Some(structure) = env.structures.get(&id) else {
+                    continue;
+                };
+                let Some(start) =
+                    manager.get_start_for_structure(source_chunk_pos, data, structure)
+                else {
+                    continue;
+                };
                 let mut start = start.lock();
-                if start.is_valid() && start.get_bounding_box().intersects_xz(target_block_x, target_block_z, target_block_x + 15, target_block_z + 15) {
+                if start.is_valid()
+                    && start.get_bounding_box().intersects_xz(
+                        target_block_x,
+                        target_block_z,
+                        target_block_x + 15,
+                        target_block_z + 15,
+                    )
+                {
                     to_add.push((key.clone(), source_chunk_key));
                 }
             }
@@ -177,7 +230,9 @@ pub fn place_structure(
     center: ChunkPos,
 ) {
     let manager = StructureManager::new(env);
-    let Some(id) = structure.id().map(ToString::to_string) else { return };
+    let Some(id) = structure.id().map(ToString::to_string) else {
+        return;
+    };
     let starts = manager.starts_for_structure(&LevelSource(&*level), center.x, center.z, structure);
     for handle in starts {
         let (origin, tag) = {
@@ -185,9 +240,15 @@ pub fn place_structure(
             start.place_in_chunk(level, &manager, env, random, writable_area, center);
             // Pieces mutate themselves while placing (vanilla's chunk shares the start object): persist the new state.
             let origin = start.get_chunk_pos();
-            (origin, start.create_tag(&StructurePieceSerializationContext { env }, origin))
+            (
+                origin,
+                start.create_tag(&StructurePieceSerializationContext { env }, origin),
+            )
         };
-        let changed = level.structure_data(origin).and_then(|d| d.starts.get(&id)).is_some_and(|raw| *raw != tag);
+        let changed = level
+            .structure_data(origin)
+            .and_then(|d| d.starts.get(&id))
+            .is_some_and(|raw| *raw != tag);
         if changed && level.set_structure_start_tag(origin, &id, tag.clone()) {
             // the live handle stays the cached one, keyed by the chunk's new raw tag
             env.start_cache.put(origin, &id, tag, handle);
@@ -197,13 +258,28 @@ pub fn place_structure(
 
 /// The structure part of `ChunkGenerator.getMobsAt(level, structureManager, category, pos)`: the spawn list of the first
 /// structure override that contains `pos`, `None` when the caller has to use the natural spawns of the biome.
-pub fn get_structure_spawn_override(env: &GenEnv, source: &dyn StructureDataSource, category: MobCategory, pos: BlockPos) -> Option<WeightedList<SpawnerData>> {
+pub fn get_structure_spawn_override(
+    env: &GenEnv,
+    source: &dyn StructureDataSource,
+    category: MobCategory,
+    pos: BlockPos,
+) -> Option<WeightedList<SpawnerData>> {
     let manager = StructureManager::new(env);
     let structures = manager.get_all_structures_at(source, pos)?;
     for (key, references) in structures {
-        let Some(id) = mc_core::ident::Identifier::try_parse(key) else { continue };
-        let Some(holder) = env.structures.get(&id) else { continue };
-        let Some(StructureSpawnOverride { bounding_box, spawns }) = holder.value().settings().spawn_override(category) else { continue };
+        let Some(id) = mc_core::ident::Identifier::try_parse(key) else {
+            continue;
+        };
+        let Some(holder) = env.structures.get(&id) else {
+            continue;
+        };
+        let Some(StructureSpawnOverride {
+            bounding_box,
+            spawns,
+        }) = holder.value().settings().spawn_override(category)
+        else {
+            continue;
+        };
         let mut in_override_box = false;
         manager.fill_starts_for_structure(source, holder, references, &mut |start| {
             if !in_override_box {
@@ -223,15 +299,32 @@ pub fn get_structure_spawn_override(env: &GenEnv, source: &dyn StructureDataSour
 
 /// Expands a flat generator's `structure_overrides` (`HolderSet<StructureSet>`) to registry ids; a tag is resolved
 /// through `tags/worldgen/structure_set` (nested `#tag` entries followed, optional entries that do not exist skipped).
-fn expand_structure_set_holder_set(set: &mc_worldgen::flat::settings::StructureSetHolderSet, worldgen: &mc_worldgen::data::WorldgenRegistries) -> Vec<mc_core::ident::Identifier> {
+fn expand_structure_set_holder_set(
+    set: &mc_worldgen::flat::settings::StructureSetHolderSet,
+    worldgen: &mc_worldgen::data::WorldgenRegistries,
+) -> Vec<mc_core::ident::Identifier> {
     use mc_worldgen::flat::settings::StructureSetHolderSet;
-    fn expand_tag(id: &mc_core::ident::Identifier, worldgen: &mc_worldgen::data::WorldgenRegistries, out: &mut Vec<mc_core::ident::Identifier>, depth: u32) {
+    fn expand_tag(
+        id: &mc_core::ident::Identifier,
+        worldgen: &mc_worldgen::data::WorldgenRegistries,
+        out: &mut Vec<mc_core::ident::Identifier>,
+        depth: u32,
+    ) {
         if depth > 16 {
             return;
         }
-        let Some(json) = worldgen.raw("tags/worldgen/structure_set", id) else { return };
-        for entry in json.get("values").and_then(|v| v.as_array()).into_iter().flatten() {
-            let text = entry.as_str().or_else(|| entry.get("id").and_then(|v| v.as_str()));
+        let Some(json) = worldgen.raw("tags/worldgen/structure_set", id) else {
+            return;
+        };
+        for entry in json
+            .get("values")
+            .and_then(|v| v.as_array())
+            .into_iter()
+            .flatten()
+        {
+            let text = entry
+                .as_str()
+                .or_else(|| entry.get("id").and_then(|v| v.as_str()));
             let Some(text) = text else { continue };
             if let Some(tag) = text.strip_prefix('#') {
                 if let Ok(tag) = mc_core::ident::Identifier::read(tag) {
@@ -265,19 +358,38 @@ pub fn create_structure_state(
     seed: i64,
     worldgen: &mc_worldgen::data::WorldgenRegistries,
     biomes: &mc_worldgen::biome::BiomeRegistry,
-) -> crate::world::level::levelgen::codec::LoadResult<std::sync::Arc<ChunkGeneratorStructureState>> {
+) -> crate::world::level::levelgen::codec::LoadResult<std::sync::Arc<ChunkGeneratorStructureState>>
+{
     use mc_worldgen::structure_placement::StructureSetRegistry;
     let registry = std::sync::Arc::new(StructureSetRegistry::load(worldgen, biomes)?);
     let origin = generator.get_origin(&random_state);
     let structure_biomes = |id: &mc_core::ident::Identifier| registry.structure_biomes(id).to_vec();
     let state = match flat {
-        None => ChunkGeneratorStructureState::create_for_normal(random_state, seed, origin, biome_source, registry.clone(), &structure_biomes),
+        None => ChunkGeneratorStructureState::create_for_normal(
+            random_state,
+            seed,
+            origin,
+            biome_source,
+            registry.clone(),
+            &structure_biomes,
+        ),
         Some(overrides) => {
             let holders: Vec<_> = match overrides {
-                Some(set) => expand_structure_set_holder_set(set, worldgen).iter().filter_map(|id| registry.get(id).cloned()).collect(),
+                Some(set) => expand_structure_set_holder_set(set, worldgen)
+                    .iter()
+                    .filter_map(|id| registry.get(id).cloned())
+                    .collect(),
                 None => registry.iter().cloned().collect(),
             };
-            ChunkGeneratorStructureState::create_for_flat(random_state, seed, origin, biome_source, registry.clone(), holders, &structure_biomes)
+            ChunkGeneratorStructureState::create_for_flat(
+                random_state,
+                seed,
+                origin,
+                biome_source,
+                registry.clone(),
+                holders,
+                &structure_biomes,
+            )
         }
     };
     Ok(std::sync::Arc::new(state))

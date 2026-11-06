@@ -7,7 +7,8 @@ use mc_core::{
 };
 
 use super::{
-    read_utf, read_varint, take, write_varint, Decode, DecodeError, DecodeResult, Encode, MAX_STRING_LENGTH,
+    Decode, DecodeError, DecodeResult, Encode, MAX_STRING_LENGTH, read_utf, read_varint, take,
+    write_varint,
 };
 
 /// `Identifier.STREAM_CODEC`: the `namespace:path` string.
@@ -35,7 +36,11 @@ impl Encode for Vec3 {
 }
 impl Decode for Vec3 {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
-        Ok(Vec3::new(f64::decode(input)?, f64::decode(input)?, f64::decode(input)?))
+        Ok(Vec3::new(
+            f64::decode(input)?,
+            f64::decode(input)?,
+            f64::decode(input)?,
+        ))
     }
 }
 
@@ -48,7 +53,11 @@ impl LpVec3 {
     pub const ABS_MIN_VALUE: f64 = 3.051944088384301E-5;
 
     fn sanitize(v: f64) -> f64 {
-        if v.is_nan() { 0.0 } else { v.clamp(-Self::ABS_MAX_VALUE, Self::ABS_MAX_VALUE) }
+        if v.is_nan() {
+            0.0
+        } else {
+            v.clamp(-Self::ABS_MAX_VALUE, Self::ABS_MAX_VALUE)
+        }
     }
     /// Java `Math.round` on the non-negative values used here.
     fn pack(v: f64) -> i64 {
@@ -61,7 +70,11 @@ impl LpVec3 {
 
 impl Encode for LpVec3 {
     fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
-        let (x, y, z) = (Self::sanitize(self.0.x), Self::sanitize(self.0.y), Self::sanitize(self.0.z));
+        let (x, y, z) = (
+            Self::sanitize(self.0.x),
+            Self::sanitize(self.0.y),
+            Self::sanitize(self.0.z),
+        );
         let chessboard = x.abs().max(y.abs().max(z.abs()));
         if chessboard < Self::ABS_MIN_VALUE {
             out.push(0);
@@ -101,7 +114,11 @@ impl Decode for LpVec3 {
             scale |= i64::from(read_varint(input)? as u32) << 2;
         }
         let s = scale as f64;
-        Ok(Self(Vec3::new(Self::unpack(buffer >> 3) * s, Self::unpack(buffer >> 18) * s, Self::unpack(buffer >> 33) * s)))
+        Ok(Self(Vec3::new(
+            Self::unpack(buffer >> 3) * s,
+            Self::unpack(buffer >> 18) * s,
+            Self::unpack(buffer >> 33) * s,
+        )))
     }
 }
 
@@ -155,7 +172,11 @@ impl Encode for Vec3i {
 }
 impl Decode for Vec3i {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
-        Ok(Vec3i { x: read_varint(input)?, y: read_varint(input)?, z: read_varint(input)? })
+        Ok(Vec3i {
+            x: read_varint(input)?,
+            y: read_varint(input)?,
+            z: read_varint(input)?,
+        })
     }
 }
 

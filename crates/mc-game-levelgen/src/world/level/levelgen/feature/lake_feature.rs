@@ -1,17 +1,17 @@
 //! `LakeFeature` (deprecated in vanilla, still used by `lake_lava`): a blobby pool in the 16x16x8 box below the origin.
 
-use mc_game_core::world::level::levelgen::feature::{Feature, mark_above_for_post_processing};
+use mc_core::pos::BlockPos;
+use mc_core::random::RandomSource;
+use mc_data::block::{Block, BlockState};
 use mc_game_core::world::level::biome_ext::should_freeze_checked;
 use mc_game_core::world::level::levelgen::blockpredicates::{self, BlockPredicate};
-use mc_game_core::world::level::levelgen::env::GenEnv;
 use mc_game_core::world::level::levelgen::codec::TypeEntry;
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::feature::{Feature, mark_above_for_post_processing};
 use mc_game_core::world::level::levelgen::holder::Holder;
 use mc_game_core::world::level::levelgen::stateproviders::BlockStateProvider;
 use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_game_core::world::level::material::FluidStateExt;
-use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
-use mc_data::block::{Block, BlockState};
 use mc_world::ticks::TickPriority;
 use std::sync::Arc;
 
@@ -40,7 +40,13 @@ fn is_edge(grid: &[bool; 2048], xx: i32, zz: i32, yy: i32) -> bool {
 }
 
 impl Feature for LakeFeature {
-    fn place(&self, level: &mut dyn WorldGenLevel, generator: &GenEnv, random: &mut dyn RandomSource, origin: BlockPos) -> bool {
+    fn place(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        generator: &GenEnv,
+        random: &mut dyn RandomSource,
+        origin: BlockPos,
+    ) -> bool {
         if origin.y() <= level.get_min_y() + 4 {
             return false;
         }
@@ -101,9 +107,18 @@ impl Feature for LakeFeature {
                         let place_pos = origin.offset(xx, yy, zz);
                         if self.can_replace_with_air_or_fluid.test(&*level, place_pos) {
                             let place_air = yy >= 4;
-                            level.set_block_flags(place_pos, if place_air { air } else { fluid }, 2);
+                            level.set_block_flags(
+                                place_pos,
+                                if place_air { air } else { fluid },
+                                2,
+                            );
                             if place_air {
-                                level.schedule_block_tick(place_pos, air.block(), 0, TickPriority::Normal);
+                                level.schedule_block_tick(
+                                    place_pos,
+                                    air.block(),
+                                    0,
+                                    TickPriority::Normal,
+                                );
                                 mark_above_for_post_processing(level, place_pos);
                             }
                         }
@@ -117,10 +132,13 @@ impl Feature for LakeFeature {
             for xx in 0..16 {
                 for zz in 0..16 {
                     for yy in 0..8 {
-                        if is_edge(&grid, xx, zz, yy) && (yy < 4 || random.next_int_bounded(2) != 0) {
+                        if is_edge(&grid, xx, zz, yy) && (yy < 4 || random.next_int_bounded(2) != 0)
+                        {
                             let offset = origin.offset(xx, yy, zz);
                             let block_state = level.get_block_state(offset);
-                            if block_state.is_solid() && self.can_replace_with_barrier.test(&*level, offset) {
+                            if block_state.is_solid()
+                                && self.can_replace_with_barrier.test(&*level, offset)
+                            {
                                 level.set_block_flags(offset, barrier, 2);
                                 mark_above_for_post_processing(level, offset);
                             }
@@ -135,7 +153,9 @@ impl Feature for LakeFeature {
                 for zz in 0..16 {
                     let offset = origin.offset(xx, 4, zz);
                     let biome = generator.biomes.get(level.get_biome(offset));
-                    if should_freeze_checked(biome, &*level, offset, false) && self.can_replace_with_air_or_fluid.test(&*level, offset) {
+                    if should_freeze_checked(biome, &*level, offset, false)
+                        && self.can_replace_with_air_or_fluid.test(&*level, offset)
+                    {
                         level.set_block_flags(offset, Block::ICE.default_state(), 2);
                     }
                 }
@@ -152,9 +172,15 @@ static LAKE: TypeEntry<dyn Feature> = TypeEntry {
         Ok(Arc::new(LakeFeature {
             fluid: fields.required("fluid", |v| ctx.block_state_provider(v))?,
             barrier: fields.required("barrier", |v| ctx.block_state_provider(v))?,
-            can_place_feature: fields.required("can_place_feature", |v| blockpredicates::decode(v, ctx))?,
-            can_replace_with_air_or_fluid: fields.required("can_replace_with_air_or_fluid", |v| blockpredicates::decode(v, ctx))?,
-            can_replace_with_barrier: fields.required("can_replace_with_barrier", |v| blockpredicates::decode(v, ctx))?,
+            can_place_feature: fields
+                .required("can_place_feature", |v| blockpredicates::decode(v, ctx))?,
+            can_replace_with_air_or_fluid: fields
+                .required("can_replace_with_air_or_fluid", |v| {
+                    blockpredicates::decode(v, ctx)
+                })?,
+            can_replace_with_barrier: fields.required("can_replace_with_barrier", |v| {
+                blockpredicates::decode(v, ctx)
+            })?,
         }))
     },
 };

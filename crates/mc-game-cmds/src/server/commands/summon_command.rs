@@ -1,45 +1,84 @@
 //! `SummonCommand` (also used by `/execute summon`).
-use mc_game_core::commands::arguments::coordinates::block_pos_argument::is_in_spawnable_bounds;
-use mc_game_core::commands::arguments::coordinates::Vec3Argument;
-use mc_game_core::commands::arguments::selector::EntityRef;
-use mc_game_core::commands::arguments::CompoundTagArgument;
-use mc_game_core::commands::arguments::resource_arguments::ResourceArgument;
-use mc_game_core::commands::message::simple_translatable;
-use mc_game_core::commands::synchronization::suggestion_providers;
-use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
-use mc_game_core::world::entity::factory::{self, EntitySpawnRequest};
-use mc_game_core::{register_command, translatable};
-use mc_brigadier::{ArgumentBuilder, CommandContext, CommandSyntaxException, SimpleCommandExceptionType};
+use mc_brigadier::{
+    ArgumentBuilder, CommandContext, CommandSyntaxException, SimpleCommandExceptionType,
+};
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_data::EntityType;
 use mc_data::enums::EntitySpawnReason;
+use mc_game_core::commands::arguments::CompoundTagArgument;
+use mc_game_core::commands::arguments::coordinates::Vec3Argument;
+use mc_game_core::commands::arguments::coordinates::block_pos_argument::is_in_spawnable_bounds;
+use mc_game_core::commands::arguments::resource_arguments::ResourceArgument;
+use mc_game_core::commands::arguments::selector::EntityRef;
+use mc_game_core::commands::message::simple_translatable;
+use mc_game_core::commands::synchronization::suggestion_providers;
+use mc_game_core::commands::{
+    CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal,
+};
+use mc_game_core::world::entity::factory::{self, EntitySpawnRequest};
+use mc_game_core::{register_command, translatable};
 use mc_nbt::CompoundTag;
 use mc_world::level_storage::Difficulty;
 use std::sync::LazyLock;
 
-static ERROR_FAILED: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| simple_translatable("commands.summon.failed"));
-static ERROR_FAILED_PEACEFUL: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| simple_translatable("commands.summon.failed.peaceful"));
-static ERROR_DUPLICATE_UUID: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| simple_translatable("commands.summon.failed.uuid"));
-static INVALID_POSITION: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| simple_translatable("commands.summon.invalidPosition"));
+static ERROR_FAILED: LazyLock<SimpleCommandExceptionType> =
+    LazyLock::new(|| simple_translatable("commands.summon.failed"));
+static ERROR_FAILED_PEACEFUL: LazyLock<SimpleCommandExceptionType> =
+    LazyLock::new(|| simple_translatable("commands.summon.failed.peaceful"));
+static ERROR_DUPLICATE_UUID: LazyLock<SimpleCommandExceptionType> =
+    LazyLock::new(|| simple_translatable("commands.summon.failed.uuid"));
+static INVALID_POSITION: LazyLock<SimpleCommandExceptionType> =
+    LazyLock::new(|| simple_translatable("commands.summon.invalidPosition"));
 
 register_command!("SummonCommand", |ctx| {
-    fn entity(c: &CommandContext<CommandSourceStack>) -> Result<EntityType, CommandSyntaxException> {
+    fn entity(
+        c: &CommandContext<CommandSourceStack>,
+    ) -> Result<EntityType, CommandSyntaxException> {
         ResourceArgument::get_summonable_entity_type(c, "entity")
     }
     ctx.dispatcher.register(
-        literal("summon").requires(has_permission(LEVEL_GAMEMASTERS)).then(
-            argument("entity", ResourceArgument::resource(ctx.build_context, "entity_type"))
+        literal("summon")
+            .requires(has_permission(LEVEL_GAMEMASTERS))
+            .then(
+                argument(
+                    "entity",
+                    ResourceArgument::resource(ctx.build_context, "entity_type"),
+                )
                 .suggests_provider(Some(suggestion_providers::summonable_entities()))
-                .executes(|c| spawn_entity(c.get_source(), entity(c)?, c.get_source().get_position(), &CompoundTag::new(), true))
+                .executes(|c| {
+                    spawn_entity(
+                        c.get_source(),
+                        entity(c)?,
+                        c.get_source().get_position(),
+                        &CompoundTag::new(),
+                        true,
+                    )
+                })
                 .then(
                     argument("pos", Vec3Argument::vec3())
-                        .executes(|c| spawn_entity(c.get_source(), entity(c)?, Vec3Argument::get_vec3(c, "pos"), &CompoundTag::new(), true))
-                        .then(argument("nbt", CompoundTagArgument::compound_tag()).executes(|c| {
-                            spawn_entity(c.get_source(), entity(c)?, Vec3Argument::get_vec3(c, "pos"), &CompoundTagArgument::get_compound_tag(c, "nbt"), false)
-                        })),
+                        .executes(|c| {
+                            spawn_entity(
+                                c.get_source(),
+                                entity(c)?,
+                                Vec3Argument::get_vec3(c, "pos"),
+                                &CompoundTag::new(),
+                                true,
+                            )
+                        })
+                        .then(
+                            argument("nbt", CompoundTagArgument::compound_tag()).executes(|c| {
+                                spawn_entity(
+                                    c.get_source(),
+                                    entity(c)?,
+                                    Vec3Argument::get_vec3(c, "pos"),
+                                    &CompoundTagArgument::get_compound_tag(c, "nbt"),
+                                    false,
+                                )
+                            }),
+                        ),
                 ),
-        ),
+            ),
     );
 });
 
@@ -57,14 +96,24 @@ pub fn create_entity(
     }
     let dimension = source.get_level().clone();
     source.with_server(|server| {
-        let Some(level) = server.level_mut(&dimension) else { return Err(ERROR_FAILED.create()) };
+        let Some(level) = server.level_mut(&dimension) else {
+            return Err(ERROR_FAILED.create());
+        };
         if level.difficulty() == Difficulty::Peaceful && !entity_type.data().allowed_in_peaceful {
             return Err(ERROR_FAILED_PEACEFUL.create());
         }
         let mut entity_tag = nbt.clone();
         entity_tag.put_string("id", entity_type.name());
         let mut loaded = Vec::new();
-        factory::load_entity_recursive(&entity_tag, level, EntitySpawnRequest { reason: EntitySpawnReason::Command, ignore_checks: false }, &mut loaded);
+        factory::load_entity_recursive(
+            &entity_tag,
+            level,
+            EntitySpawnRequest {
+                reason: EntitySpawnReason::Command,
+                ignore_checks: false,
+            },
+            &mut loaded,
+        );
         if loaded.is_empty() {
             return Err(ERROR_FAILED.create());
         }
@@ -84,8 +133,22 @@ pub fn create_entity(
     })
 }
 
-fn spawn_entity(source: &CommandSourceStack, entity_type: EntityType, pos: Vec3, nbt: &CompoundTag, finalize: bool) -> Result<i32, CommandSyntaxException> {
+fn spawn_entity(
+    source: &CommandSourceStack,
+    entity_type: EntityType,
+    pos: Vec3,
+    nbt: &CompoundTag,
+    finalize: bool,
+) -> Result<i32, CommandSyntaxException> {
     let entity = create_entity(source, entity_type, pos, nbt, finalize)?;
-    source.send_success(|| translatable!("commands.summon.success", host::display_name_of(source, &entity)), true);
+    source.send_success(
+        || {
+            translatable!(
+                "commands.summon.success",
+                host::display_name_of(source, &entity)
+            )
+        },
+        true,
+    );
     Ok(1)
 }

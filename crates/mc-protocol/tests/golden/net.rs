@@ -1,7 +1,7 @@
 use cfb8::cipher::KeyIvInit;
+use flate2::Compression;
 use flate2::read::ZlibDecoder;
 use flate2::write::ZlibEncoder;
-use flate2::Compression;
 use mc_protocol::codec::write_varint;
 use mc_protocol::net::{Connection, FrameDecoder, FrameEncoder, NetError, PacketReader};
 use std::io::{Read, Write};
@@ -9,7 +9,10 @@ use std::io::{Read, Write};
 const FIXTURE: &str = include_str!("../fixtures/net_framing.txt");
 
 fn unhex(s: &str) -> Vec<u8> {
-    (0..s.len()).step_by(2).map(|i| u8::from_str_radix(&s[i..i + 2], 16).unwrap()).collect()
+    (0..s.len())
+        .step_by(2)
+        .map(|i| u8::from_str_radix(&s[i..i + 2], 16).unwrap())
+        .collect()
 }
 
 /// Mirror of `payload(n)` in `fixtures/NetFraming.java`.
@@ -157,7 +160,12 @@ fn golden_decoder_accepts_vanilla_bytes() {
         }
         let d = &mut cur.as_mut().unwrap().1;
         d.push(&c.wire);
-        assert_eq!(d.next_frame().unwrap().as_deref(), Some(&c.payload[..]), "{}", c.scenario);
+        assert_eq!(
+            d.next_frame().unwrap().as_deref(),
+            Some(&c.payload[..]),
+            "{}",
+            c.scenario
+        );
         assert_eq!(d.next_frame().unwrap(), None);
     }
 }
@@ -177,7 +185,13 @@ fn golden_decoder_byte_by_byte() {
             got = d.next_frame().unwrap();
             assert!(got.is_some() || i + 1 < c.wire.len());
         }
-        assert_eq!(got.as_deref(), Some(&c.payload[..]), "{} len {}", c.scenario, c.payload.len());
+        assert_eq!(
+            got.as_deref(),
+            Some(&c.payload[..]),
+            "{} len {}",
+            c.scenario,
+            c.payload.len()
+        );
     }
 }
 
@@ -204,7 +218,10 @@ fn several_frames_in_one_push() {
 #[test]
 fn frame_length_wider_than_21_bit() {
     let mut d = FrameDecoder::new();
-    assert_eq!(decode_err(&mut d, &[0x80, 0x80, 0x80, 0x01]), "length wider than 21-bit");
+    assert_eq!(
+        decode_err(&mut d, &[0x80, 0x80, 0x80, 0x01]),
+        "length wider than 21-bit"
+    );
     // Two continuation bytes alone are just incomplete.
     let mut d = FrameDecoder::new();
     d.push(&[0x80, 0x80]);
@@ -333,7 +350,10 @@ fn encoder_packet_too_big() {
     enc.set_compression(256);
     let mut out = vec![1, 2, 3];
     let err = enc.encode(&vec![0; 8_388_609], &mut out).unwrap_err();
-    assert_eq!(err.to_string(), "java.lang.IllegalArgumentException: Packet too big (is 8388609, should be less than 8388608)");
+    assert_eq!(
+        err.to_string(),
+        "java.lang.IllegalArgumentException: Packet too big (is 8388609, should be less than 8388608)"
+    );
     assert_eq!(out, [1, 2, 3]);
 }
 
@@ -342,7 +362,9 @@ fn encoder_frame_too_large() {
     let mut enc = FrameEncoder::new();
     let mut out = Vec::new();
     assert!(enc.encode(&vec![0; 2_097_151], &mut out).is_ok());
-    let err = enc.encode(&vec![0; 2_097_152], &mut Vec::new()).unwrap_err();
+    let err = enc
+        .encode(&vec![0; 2_097_152], &mut Vec::new())
+        .unwrap_err();
     assert_eq!(err.to_string(), "Packet too large: size 2097152 is over 8");
 }
 
@@ -433,7 +455,9 @@ async fn async_wire_matches_encoder_and_split_halves_work() {
 
     let mut got = Vec::new();
     let mut b = b;
-    tokio::io::AsyncReadExt::read_to_end(&mut b, &mut got).await.unwrap();
+    tokio::io::AsyncReadExt::read_to_end(&mut b, &mut got)
+        .await
+        .unwrap();
     assert_eq!(got, expected);
 }
 
@@ -445,5 +469,8 @@ async fn async_eof_mid_frame_and_clean() {
     assert!(matches!(r.read_payload().await, Err(NetError::Eof)));
     let mut r = PacketReader::new(&[2u8, 7, 8, 0][..]);
     assert_eq!(r.read_payload().await.unwrap(), [7, 8]);
-    assert!(matches!(r.read_payload().await, Err(NetError::CorruptedFrame("Frame length cannot be zero"))));
+    assert!(matches!(
+        r.read_payload().await,
+        Err(NetError::CorruptedFrame("Frame length cannot be zero"))
+    ));
 }

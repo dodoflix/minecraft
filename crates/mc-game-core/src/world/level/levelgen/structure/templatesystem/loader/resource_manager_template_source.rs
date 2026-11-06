@@ -12,17 +12,29 @@ pub struct ResourceManagerTemplateSource {
 }
 
 impl ResourceManagerTemplateSource {
-    pub fn new(resource_manager: Arc<dyn ResourceManager>, file_to_id_converter: FileToIdConverter) -> Self {
-        ResourceManagerTemplateSource { resource_manager: RwLock::new(resource_manager), file_to_id_converter }
+    pub fn new(
+        resource_manager: Arc<dyn ResourceManager>,
+        file_to_id_converter: FileToIdConverter,
+    ) -> Self {
+        ResourceManagerTemplateSource {
+            resource_manager: RwLock::new(resource_manager),
+            file_to_id_converter,
+        }
     }
 
     /// `setResourceManager(resourceManager)`.
     pub fn set_resource_manager(&self, resource_manager: Arc<dyn ResourceManager>) {
-        *self.resource_manager.write().unwrap_or_else(|e| e.into_inner()) = resource_manager;
+        *self
+            .resource_manager
+            .write()
+            .unwrap_or_else(|e| e.into_inner()) = resource_manager;
     }
 
     fn manager(&self) -> Arc<dyn ResourceManager> {
-        self.resource_manager.read().unwrap_or_else(|e| e.into_inner()).clone()
+        self.resource_manager
+            .read()
+            .unwrap_or_else(|e| e.into_inner())
+            .clone()
     }
 }
 
@@ -42,6 +54,10 @@ impl TemplateSource for ResourceManagerTemplateSource {
     }
 
     fn list(&self) -> Vec<Identifier> {
-        self.file_to_id_converter.list_matching_resources(&*self.manager()).keys().map(|file| self.file_to_id_converter.file_to_id(file)).collect()
+        self.file_to_id_converter
+            .list_matching_resources(&*self.manager())
+            .keys()
+            .map(|file| self.file_to_id_converter.file_to_id(file))
+            .collect()
     }
 }

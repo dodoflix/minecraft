@@ -15,8 +15,13 @@ pub enum PermissionLevel {
 }
 
 impl PermissionLevel {
-    pub const VALUES: [PermissionLevel; 5] =
-        [PermissionLevel::All, PermissionLevel::Moderators, PermissionLevel::Gamemasters, PermissionLevel::Admins, PermissionLevel::Owners];
+    pub const VALUES: [PermissionLevel; 5] = [
+        PermissionLevel::All,
+        PermissionLevel::Moderators,
+        PermissionLevel::Gamemasters,
+        PermissionLevel::Admins,
+        PermissionLevel::Owners,
+    ];
 
     pub fn is_equal_or_higher_than(self, other: PermissionLevel) -> bool {
         self.id() >= other.id()
@@ -54,7 +59,9 @@ impl PermissionLevel {
     }
 
     pub fn by_serialized_name(name: &str) -> Option<PermissionLevel> {
-        Self::VALUES.into_iter().find(|l| l.get_serialized_name() == name)
+        Self::VALUES
+            .into_iter()
+            .find(|l| l.get_serialized_name() == name)
     }
 }
 
@@ -76,19 +83,31 @@ impl Permission {
 pub mod permissions {
     use super::*;
 
-    pub const COMMANDS_MODERATOR: Permission = Permission::HasCommandLevel(PermissionLevel::Moderators);
-    pub const COMMANDS_GAMEMASTER: Permission = Permission::HasCommandLevel(PermissionLevel::Gamemasters);
+    pub const COMMANDS_MODERATOR: Permission =
+        Permission::HasCommandLevel(PermissionLevel::Moderators);
+    pub const COMMANDS_GAMEMASTER: Permission =
+        Permission::HasCommandLevel(PermissionLevel::Gamemasters);
     pub const COMMANDS_ADMIN: Permission = Permission::HasCommandLevel(PermissionLevel::Admins);
     pub const COMMANDS_OWNER: Permission = Permission::HasCommandLevel(PermissionLevel::Owners);
-    pub static COMMANDS_ENTITY_SELECTORS: LazyLock<Permission> = LazyLock::new(|| Permission::atom("commands/entity_selectors"));
-    pub static CHAT_SEND_MESSAGES: LazyLock<Permission> = LazyLock::new(|| Permission::atom("chat/send_messages"));
-    pub static CHAT_SEND_COMMANDS: LazyLock<Permission> = LazyLock::new(|| Permission::atom("chat/send_commands"));
-    pub static CHAT_RECEIVE_PLAYER_MESSAGES: LazyLock<Permission> = LazyLock::new(|| Permission::atom("chat/receive_player_messages"));
-    pub static CHAT_RECEIVE_SYSTEM_MESSAGES: LazyLock<Permission> = LazyLock::new(|| Permission::atom("chat/receive_system_messages"));
+    pub static COMMANDS_ENTITY_SELECTORS: LazyLock<Permission> =
+        LazyLock::new(|| Permission::atom("commands/entity_selectors"));
+    pub static CHAT_SEND_MESSAGES: LazyLock<Permission> =
+        LazyLock::new(|| Permission::atom("chat/send_messages"));
+    pub static CHAT_SEND_COMMANDS: LazyLock<Permission> =
+        LazyLock::new(|| Permission::atom("chat/send_commands"));
+    pub static CHAT_RECEIVE_PLAYER_MESSAGES: LazyLock<Permission> =
+        LazyLock::new(|| Permission::atom("chat/receive_player_messages"));
+    pub static CHAT_RECEIVE_SYSTEM_MESSAGES: LazyLock<Permission> =
+        LazyLock::new(|| Permission::atom("chat/receive_system_messages"));
 
     /// `Permissions.CHAT_PERMISSIONS`.
     pub fn chat_permissions() -> [&'static Permission; 4] {
-        [&CHAT_SEND_MESSAGES, &CHAT_SEND_COMMANDS, &CHAT_RECEIVE_PLAYER_MESSAGES, &CHAT_RECEIVE_SYSTEM_MESSAGES]
+        [
+            &CHAT_SEND_MESSAGES,
+            &CHAT_SEND_COMMANDS,
+            &CHAT_RECEIVE_PLAYER_MESSAGES,
+            &CHAT_RECEIVE_SYSTEM_MESSAGES,
+        ]
     }
 }
 
@@ -98,8 +117,10 @@ pub struct LevelBasedPermissionSet(PermissionLevel);
 
 impl LevelBasedPermissionSet {
     pub const ALL: LevelBasedPermissionSet = LevelBasedPermissionSet(PermissionLevel::All);
-    pub const MODERATOR: LevelBasedPermissionSet = LevelBasedPermissionSet(PermissionLevel::Moderators);
-    pub const GAMEMASTER: LevelBasedPermissionSet = LevelBasedPermissionSet(PermissionLevel::Gamemasters);
+    pub const MODERATOR: LevelBasedPermissionSet =
+        LevelBasedPermissionSet(PermissionLevel::Moderators);
+    pub const GAMEMASTER: LevelBasedPermissionSet =
+        LevelBasedPermissionSet(PermissionLevel::Gamemasters);
     pub const ADMIN: LevelBasedPermissionSet = LevelBasedPermissionSet(PermissionLevel::Admins);
     pub const OWNER: LevelBasedPermissionSet = LevelBasedPermissionSet(PermissionLevel::Owners);
 
@@ -114,7 +135,10 @@ impl LevelBasedPermissionSet {
     pub fn has_permission(self, permission: &Permission) -> bool {
         match permission {
             Permission::HasCommandLevel(level) => self.0.is_equal_or_higher_than(*level),
-            other => *other == *permissions::COMMANDS_ENTITY_SELECTORS && self.0.is_equal_or_higher_than(PermissionLevel::Gamemasters),
+            other => {
+                *other == *permissions::COMMANDS_ENTITY_SELECTORS
+                    && self.0.is_equal_or_higher_than(PermissionLevel::Gamemasters)
+            }
         }
     }
 }
@@ -152,12 +176,25 @@ impl PermissionSet {
     pub fn union(&self, other: &PermissionSet) -> PermissionSet {
         match (self, other) {
             (PermissionSet::LevelBased(a), PermissionSet::LevelBased(b)) => {
-                PermissionSet::LevelBased(if a.level().is_equal_or_higher_than(b.level()) { *b } else { *a })
+                PermissionSet::LevelBased(if a.level().is_equal_or_higher_than(b.level()) {
+                    *b
+                } else {
+                    *a
+                })
             }
-            (PermissionSet::Union(a), PermissionSet::Union(b)) => PermissionSet::Union(Self::merge(a, b)),
-            (PermissionSet::Union(a), b) => PermissionSet::Union(Self::merge(a, std::slice::from_ref(b))),
-            (a, PermissionSet::Union(b)) => PermissionSet::Union(Self::merge(std::slice::from_ref(a), b)),
-            (a, b) => PermissionSet::Union(Self::merge(std::slice::from_ref(a), std::slice::from_ref(b))),
+            (PermissionSet::Union(a), PermissionSet::Union(b)) => {
+                PermissionSet::Union(Self::merge(a, b))
+            }
+            (PermissionSet::Union(a), b) => {
+                PermissionSet::Union(Self::merge(a, std::slice::from_ref(b)))
+            }
+            (a, PermissionSet::Union(b)) => {
+                PermissionSet::Union(Self::merge(std::slice::from_ref(a), b))
+            }
+            (a, b) => PermissionSet::Union(Self::merge(
+                std::slice::from_ref(a),
+                std::slice::from_ref(b),
+            )),
         }
     }
 
@@ -222,9 +259,15 @@ mod tests {
         assert!(gm.has_permission(&permissions::COMMANDS_GAMEMASTER));
         assert!(!gm.has_permission(&permissions::COMMANDS_ADMIN));
         assert!(gm.has_permission(&permissions::COMMANDS_ENTITY_SELECTORS));
-        assert!(!LevelBasedPermissionSet::MODERATOR.has_permission(&permissions::COMMANDS_ENTITY_SELECTORS));
+        assert!(
+            !LevelBasedPermissionSet::MODERATOR
+                .has_permission(&permissions::COMMANDS_ENTITY_SELECTORS)
+        );
         assert!(!gm.has_permission(&permissions::CHAT_SEND_MESSAGES));
-        assert_eq!(LevelBasedPermissionSet::OWNER.to_string(), "permission level: OWNERS");
+        assert_eq!(
+            LevelBasedPermissionSet::OWNER.to_string(),
+            "permission level: OWNERS"
+        );
     }
 
     #[test]

@@ -1,16 +1,20 @@
 //! The `mc_text::Validators` that need the command parsers (`CompilableString.CommandParserHelper`).
 
+use super::arguments::NbtPathArgument;
 use super::arguments::coordinates::BlockPosArgument;
 use super::arguments::selector::EntitySelectorParser;
-use super::arguments::NbtPathArgument;
 use super::message::message;
 use crate::translatable;
-use mc_brigadier::{ArgumentType, CommandSyntaxException, DynamicCommandExceptionType, ImmutableStringReader, StringReader};
+use mc_brigadier::{
+    ArgumentType, CommandSyntaxException, DynamicCommandExceptionType, ImmutableStringReader,
+    StringReader,
+};
 use mc_core::ident::Identifier;
 use std::sync::LazyLock;
 
-static TRAILING_DATA: LazyLock<DynamicCommandExceptionType<String>> =
-    LazyLock::new(|| DynamicCommandExceptionType::new(|s: String| message(translatable!("command.trailing_data", s))));
+static TRAILING_DATA: LazyLock<DynamicCommandExceptionType<String>> = LazyLock::new(|| {
+    DynamicCommandExceptionType::new(|s: String| message(translatable!("command.trailing_data", s)))
+});
 
 /// `CommandParserHelper.apply(contents)`: parse everything or fail with the vanilla error text.
 fn compile(
@@ -35,12 +39,21 @@ fn entity_selector(s: &str) -> Result<(), String> {
     compile(
         s,
         |r| EntitySelectorParser::new(r, true).parse().map(|_| ()),
-        |original, e| format!("Invalid selector component: {original}: {}", e.get_message()),
+        |original, e| {
+            format!(
+                "Invalid selector component: {original}: {}",
+                e.get_message()
+            )
+        },
     )
 }
 
 fn nbt_path(s: &str) -> Result<(), String> {
-    compile(s, |r| NbtPathArgument.parse(r).map(|_| ()), |original, e| format!("Invalid NBT path: {original}: {}", e.get_message()))
+    compile(
+        s,
+        |r| NbtPathArgument.parse(r).map(|_| ()),
+        |original, e| format!("Invalid NBT path: {original}: {}", e.get_message()),
+    )
 }
 
 fn block_coordinates(s: &str) -> Result<(), String> {
@@ -61,5 +74,11 @@ fn item_exists(id: &Identifier) -> bool {
 
 /// Installs the validators `mc_text` needs (call once at server start, after `BrigadierExceptions::install`).
 pub fn install_text_validators() {
-    mc_text::set_validators(mc_text::Validators { entity_selector, nbt_path, block_coordinates, entity_type_exists, item_exists });
+    mc_text::set_validators(mc_text::Validators {
+        entity_selector,
+        nbt_path,
+        block_coordinates,
+        entity_type_exists,
+        item_exists,
+    });
 }

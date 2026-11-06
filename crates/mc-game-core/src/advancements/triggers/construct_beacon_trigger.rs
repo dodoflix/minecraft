@@ -11,13 +11,14 @@ pub struct ConstructBeaconTriggerInstance {
 
 impl TriggerInstance for ConstructBeaconTriggerInstance {
     fn codec() -> Codec<Self> {
-        static C: std::sync::LazyLock<Codec<ConstructBeaconTriggerInstance>> = std::sync::LazyLock::new(|| {
-            mc_dfu::record!(ConstructBeaconTriggerInstance {
-                player: condition_holder_codec().optional_field_of("player"),
-                level: Ints::codec().optional_field_of_default("level", Ints::any()),
-            })
-            .codec()
-        });
+        static C: std::sync::LazyLock<Codec<ConstructBeaconTriggerInstance>> =
+            std::sync::LazyLock::new(|| {
+                mc_dfu::record!(ConstructBeaconTriggerInstance {
+                    player: condition_holder_codec().optional_field_of("player"),
+                    level: Ints::codec().optional_field_of_default("level", Ints::any()),
+                })
+                .codec()
+            });
         C.clone()
     }
 }

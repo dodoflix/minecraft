@@ -23,17 +23,27 @@ impl<U> Default for ShufflingList<U> {
 impl<U> ShufflingList<U> {
     /// `new ShufflingList<>()` (its random is `RandomSource.create()`).
     pub fn new() -> Self {
-        Self { entries: Vec::new(), random: create_new() }
+        Self {
+            entries: Vec::new(),
+            random: create_new(),
+        }
     }
 
     /// Same with an explicit random source (tests).
     pub fn with_random(random: LegacyRandomSource) -> Self {
-        Self { entries: Vec::new(), random }
+        Self {
+            entries: Vec::new(),
+            random,
+        }
     }
 
     /// `add(data, weight)`.
     pub fn add(&mut self, data: U, weight: i32) -> &mut Self {
-        self.entries.push(WeightedEntry { data, weight, rand_weight: 0.0 });
+        self.entries.push(WeightedEntry {
+            data,
+            weight,
+            rand_weight: 0.0,
+        });
         self
     }
 
@@ -43,7 +53,8 @@ impl<U> ShufflingList<U> {
             let random = self.random.next_float();
             e.rand_weight = -f64::from(random).powf(f64::from(1.0f32 / e.weight as f32));
         }
-        self.entries.sort_by(|a, b| a.rand_weight.total_cmp(&b.rand_weight));
+        self.entries
+            .sort_by(|a, b| a.rand_weight.total_cmp(&b.rand_weight));
         self
     }
 

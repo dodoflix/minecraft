@@ -1,14 +1,14 @@
 //! The value kinds a memory can hold ([`MemoryValue`]) and the typed view of them ([`MemoryData`]).
 
-use super::walk_target::WalkTarget;
 use super::NearestVisibleLivingEntities;
+use super::walk_target::WalkTarget;
 use crate::world::damagesource::DamageSource;
 use crate::world::entity::EntityId;
 use crate::world::entity::ai::behavior::position_tracker::PositionTracker;
+use crate::world::level::pathfinder::Path as NavPath;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_protocol::codec::GlobalPos;
-use crate::world::level::pathfinder::Path as NavPath;
 use std::sync::Arc;
 use uuid::Uuid;
 

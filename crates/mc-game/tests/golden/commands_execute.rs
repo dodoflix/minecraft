@@ -2,19 +2,20 @@
 //! `CommandTreeGolden.java ... execute`), and the store / condition / fork semantics through the real registration over
 //! a test dispatcher (`ret <n>` returns n, `fail` fails, `fan` forks the source three times).
 
-
 use crate::command_common;
 
 use mc_brigadier::arguments::integer;
-use mc_brigadier::{ArgumentBuilder, CommandDispatcher, SimpleCommandExceptionType, literal as lit};
+use mc_brigadier::{
+    ArgumentBuilder, CommandDispatcher, SimpleCommandExceptionType, literal as lit,
+};
+use mc_core::phys::{Vec2, Vec3};
 use mc_game::commands::{
-    BrigadierExceptions, CommandRegistrationContext, CommandSelection, CommandSource, CommandSourceStack, Commands, argument,
-    literal,
+    BrigadierExceptions, CommandRegistrationContext, CommandSelection, CommandSource,
+    CommandSourceStack, Commands, argument, literal,
 };
 use mc_game::server::MinecraftServer;
 use mc_game::server::permissions::{LevelBasedPermissionSet, PermissionLevel, PermissionSet};
 use mc_game::world::scores::{ObjectiveCriteria, RenderType};
-use mc_core::phys::{Vec2, Vec3};
 use mc_nbt::Tag;
 use mc_text::Component;
 use std::sync::{Arc, Mutex};
@@ -37,14 +38,29 @@ fn execute_tree_matches_vanilla() {
     let mut checked = 0;
     for line in include_str!("../fixtures/commands/execute_tree_golden.txt").lines() {
         let mut it = line.split(' ');
-        let (_, level, _, hex) = (it.next().unwrap(), it.next().unwrap(), it.next().unwrap(), it.next().unwrap());
-        let bytes: Vec<u8> = (0..hex.len()).step_by(2).map(|i| u8::from_str_radix(&hex[i..i + 2], 16).unwrap()).collect();
-        let permissions = PermissionSet::from(LevelBasedPermissionSet::for_level(PermissionLevel::by_id(level.parse().unwrap())));
+        let (_, level, _, hex) = (
+            it.next().unwrap(),
+            it.next().unwrap(),
+            it.next().unwrap(),
+            it.next().unwrap(),
+        );
+        let bytes: Vec<u8> = (0..hex.len())
+            .step_by(2)
+            .map(|i| u8::from_str_radix(&hex[i..i + 2], 16).unwrap())
+            .collect();
+        let permissions = PermissionSet::from(LevelBasedPermissionSet::for_level(
+            PermissionLevel::by_id(level.parse().unwrap()),
+        ));
         // `run` redirects to the dispatcher root: map it to the pruned root like `Commands.sendCommands` does
         let root = mc_brigadier::CommandNode::<CommandSourceStack>::new_root();
         let mut converted = std::collections::HashMap::new();
         converted.insert(Arc::as_ptr(&real_root) as usize, root.clone());
-        command_tree::fill_usable_commands(&only_execute, &root, &CommandSourceStack::compilation_context(permissions), &mut converted);
+        command_tree::fill_usable_commands(
+            &only_execute,
+            &root,
+            &CommandSourceStack::compilation_context(permissions),
+            &mut converted,
+        );
         let mut out = Vec::new();
         command_tree::commands_packet(&root).encode(&mut out);
         let ours = ClientboundCommandsPacket::decode(&mut out.as_slice()).unwrap();
@@ -60,12 +76,32 @@ fn execute_tree_matches_vanilla() {
             .collect();
         if !mismatches.is_empty() {
             let (ours_paths, theirs_paths) = (node_paths(&ours), node_paths(&theirs));
-            let only_ours: Vec<&String> = ours_paths.iter().filter(|p| !theirs_paths.contains(p)).take(20).collect();
-            let only_theirs: Vec<&String> = theirs_paths.iter().filter(|p| !ours_paths.contains(p)).take(20).collect();
-            eprintln!("paths only in ours: {only_ours:#?}\npaths only in vanilla: {only_theirs:#?}");
+            let only_ours: Vec<&String> = ours_paths
+                .iter()
+                .filter(|p| !theirs_paths.contains(p))
+                .take(20)
+                .collect();
+            let only_theirs: Vec<&String> = theirs_paths
+                .iter()
+                .filter(|p| !ours_paths.contains(p))
+                .take(20)
+                .collect();
+            eprintln!(
+                "paths only in ours: {only_ours:#?}\npaths only in vanilla: {only_theirs:#?}"
+            );
         }
-        assert!(mismatches.is_empty(), "permission level {level}: {} nodes (ours) vs {} (vanilla)\n{}", ours.entries.len(), theirs.entries.len(), mismatches.join("\n"));
-        assert_eq!(ours.entries.len(), theirs.entries.len(), "permission level {level}: node count");
+        assert!(
+            mismatches.is_empty(),
+            "permission level {level}: {} nodes (ours) vs {} (vanilla)\n{}",
+            ours.entries.len(),
+            theirs.entries.len(),
+            mismatches.join("\n")
+        );
+        assert_eq!(
+            ours.entries.len(),
+            theirs.entries.len(),
+            "permission level {level}: node count"
+        );
         assert_eq!(out, bytes, "permission level {level}");
         checked += 1;
     }
@@ -96,39 +132,79 @@ fn test_commands(log: Arc<Mutex<Vec<String>>>) -> Commands {
     BrigadierExceptions::install();
     let dispatcher: CommandDispatcher<CommandSourceStack> = CommandDispatcher::new();
     let build_context = command_common::vanilla_build_context();
-    let context = CommandRegistrationContext { dispatcher: &dispatcher, build_context: &build_context, selection: CommandSelection::Dedicated };
-    let registration = COMMANDS.iter().find(|r| r.name == "ExecuteCommand").expect("ExecuteCommand registered");
+    let context = CommandRegistrationContext {
+        dispatcher: &dispatcher,
+        build_context: &build_context,
+        selection: CommandSelection::Dedicated,
+    };
+    let registration = COMMANDS
+        .iter()
+        .find(|r| r.name == "ExecuteCommand")
+        .expect("ExecuteCommand registered");
     (registration.register)(&context);
     let logged = log.clone();
-    dispatcher.register(literal("ret").then(argument("n", integer()).executes(move |c| {
-        let n = *c.get_argument::<i32>("n");
-        logged.lock().unwrap().push(format!("ret {n}"));
-        Ok(n)
-    })));
-    dispatcher.register(lit("fail").executes(|_| Err(SimpleCommandExceptionType::new(mc_game::commands::message::message(Component::literal("nope"))).create())));
+    dispatcher.register(
+        literal("ret").then(argument("n", integer()).executes(move |c| {
+            let n = *c.get_argument::<i32>("n");
+            logged.lock().unwrap().push(format!("ret {n}"));
+            Ok(n)
+        })),
+    );
+    dispatcher.register(lit("fail").executes(|_| {
+        Err(
+            SimpleCommandExceptionType::new(mc_game::commands::message::message(
+                Component::literal("nope"),
+            ))
+            .create(),
+        )
+    }));
     let root = dispatcher.get_root().clone();
     let logged = log;
     dispatcher.register(literal("fan").fork(root, move |c| {
         logged.lock().unwrap().push("fan".into());
-        Ok(vec![c.get_source().clone(), c.get_source().clone(), c.get_source().clone()])
+        Ok(vec![
+            c.get_source().clone(),
+            c.get_source().clone(),
+            c.get_source().clone(),
+        ])
     }));
     Commands::from_dispatcher(dispatcher)
 }
 
 fn run(server: &mut MinecraftServer, commands: &Commands, command: &str) -> Vec<String> {
     let capture = Arc::new(Capture::default());
-    let source: CommandSourceStack = server.create_command_source_stack().with_source(capture.clone());
+    let source: CommandSourceStack = server
+        .create_command_source_stack()
+        .with_source(capture.clone());
     commands.perform_prefixed_command(server, source, command);
     let lines = capture.0.lock().unwrap().clone();
     lines
 }
 
 fn score(server: &MinecraftServer, holder: &str, objective: &str) -> Option<i32> {
-    server.scoreboard.read().get_player_score_info(&mc_game::world::scores::score::for_name_only(holder), objective).map(|s| s.value())
+    server
+        .scoreboard
+        .read()
+        .get_player_score_info(
+            &mc_game::world::scores::score::for_name_only(holder),
+            objective,
+        )
+        .map(|s| s.value())
 }
 
 fn with_objective(server: &mut MinecraftServer, name: &str) {
-    server.scoreboard.write().add_objective(name, ObjectiveCriteria::DUMMY, Component::literal(name), RenderType::Integer, false, None).expect("new objective");
+    server
+        .scoreboard
+        .write()
+        .add_objective(
+            name,
+            ObjectiveCriteria::DUMMY,
+            Component::literal(name),
+            RenderType::Integer,
+            false,
+            None,
+        )
+        .expect("new objective");
 }
 
 #[test]
@@ -137,13 +213,37 @@ fn store_result_and_success_into_scores() {
     let log = Arc::new(Mutex::new(Vec::new()));
     let commands = test_commands(log);
     with_objective(&mut server, "o");
-    assert_eq!(run(&mut server, &commands, "execute store result score #r o store success score #s o run ret 7"), Vec::<String>::new());
-    assert_eq!((score(&server, "#r", "o"), score(&server, "#s", "o")), (Some(7), Some(1)));
+    assert_eq!(
+        run(
+            &mut server,
+            &commands,
+            "execute store result score #r o store success score #s o run ret 7"
+        ),
+        Vec::<String>::new()
+    );
+    assert_eq!(
+        (score(&server, "#r", "o"), score(&server, "#s", "o")),
+        (Some(7), Some(1))
+    );
     // a failing command stores `0` for both and nothing is sent twice
-    assert_eq!(run(&mut server, &commands, "execute store result score #r o store success score #s o run fail"), vec!["nope"]);
-    assert_eq!((score(&server, "#r", "o"), score(&server, "#s", "o")), (Some(0), Some(0)));
+    assert_eq!(
+        run(
+            &mut server,
+            &commands,
+            "execute store result score #r o store success score #s o run fail"
+        ),
+        vec!["nope"]
+    );
+    assert_eq!(
+        (score(&server, "#r", "o"), score(&server, "#s", "o")),
+        (Some(0), Some(0))
+    );
     // `success` is 1 for any successful result, including 0
-    run(&mut server, &commands, "execute store success score #s o run ret 0");
+    run(
+        &mut server,
+        &commands,
+        "execute store success score #s o run ret 0",
+    );
     assert_eq!(score(&server, "#s", "o"), Some(1));
 }
 
@@ -153,8 +253,15 @@ fn forked_store_runs_once_per_source_and_keeps_last_value() {
     let log = Arc::new(Mutex::new(Vec::new()));
     let commands = test_commands(log.clone());
     with_objective(&mut server, "o");
-    run(&mut server, &commands, "execute store result score #r o run fan ret 3");
-    assert_eq!(log.lock().unwrap().iter().filter(|l| *l == "ret 3").count(), 3);
+    run(
+        &mut server,
+        &commands,
+        "execute store result score #r o run fan ret 3",
+    );
+    assert_eq!(
+        log.lock().unwrap().iter().filter(|l| *l == "ret 3").count(),
+        3
+    );
     // forked mode reports success `1` to the stores, not the result: vanilla `ContextChain.runExecutable(.., forkedMode)`
     // returns 1 to the dispatcher but the result consumer saw the real value
     assert_eq!(score(&server, "#r", "o"), Some(3));
@@ -174,13 +281,24 @@ fn store_into_storage_with_every_numeric_type() {
         ("byte", "1", Tag::Byte(300_i32 as i8)),
     ];
     for (ty, scale, expected) in cases {
-        run(&mut server, &commands, &format!("execute store result storage test:s v {ty} {scale} run ret 300"));
+        run(
+            &mut server,
+            &commands,
+            &format!("execute store result storage test:s v {ty} {scale} run ret 300"),
+        );
         let data = mc_game::commands::host::command_storage_get(&mut server, &id);
         assert_eq!(data.get("v"), Some(&expected), "{ty}");
     }
     // `success` stores 1 or 0
-    run(&mut server, &commands, "execute store success storage test:s ok byte 1 run fail");
-    assert_eq!(mc_game::commands::host::command_storage_get(&mut server, &id).get("ok"), Some(&Tag::Byte(0)));
+    run(
+        &mut server,
+        &commands,
+        "execute store success storage test:s ok byte 1 run fail",
+    );
+    assert_eq!(
+        mc_game::commands::host::command_storage_get(&mut server, &id).get("ok"),
+        Some(&Tag::Byte(0))
+    );
 }
 
 #[test]
@@ -188,25 +306,72 @@ fn conditions_report_like_vanilla() {
     let (mut server, _world) = command_common::test_server();
     let commands = test_commands(Arc::default());
     with_objective(&mut server, "o");
-    run(&mut server, &commands, "execute store result score #a o run ret 5");
-    run(&mut server, &commands, "execute store result score #b o run ret 9");
-    assert_eq!(run(&mut server, &commands, "execute if score #a o < #b o"), vec!["Test passed"]);
-    assert_eq!(run(&mut server, &commands, "execute if score #a o > #b o"), vec!["Test failed"]);
-    assert_eq!(run(&mut server, &commands, "execute unless score #a o > #b o"), vec!["Test passed"]);
-    assert_eq!(run(&mut server, &commands, "execute if score #a o matches 1..5"), vec!["Test passed"]);
-    assert_eq!(run(&mut server, &commands, "execute if score #a o matches 6.."), vec!["Test failed"]);
+    run(
+        &mut server,
+        &commands,
+        "execute store result score #a o run ret 5",
+    );
+    run(
+        &mut server,
+        &commands,
+        "execute store result score #b o run ret 9",
+    );
+    assert_eq!(
+        run(&mut server, &commands, "execute if score #a o < #b o"),
+        vec!["Test passed"]
+    );
+    assert_eq!(
+        run(&mut server, &commands, "execute if score #a o > #b o"),
+        vec!["Test failed"]
+    );
+    assert_eq!(
+        run(&mut server, &commands, "execute unless score #a o > #b o"),
+        vec!["Test passed"]
+    );
+    assert_eq!(
+        run(&mut server, &commands, "execute if score #a o matches 1..5"),
+        vec!["Test passed"]
+    );
+    assert_eq!(
+        run(&mut server, &commands, "execute if score #a o matches 6.."),
+        vec!["Test failed"]
+    );
     // a missing score never matches either way round
-    assert_eq!(run(&mut server, &commands, "execute if score #none o = #a o"), vec!["Test failed"]);
-    assert_eq!(run(&mut server, &commands, "execute unless score #none o = #a o"), vec!["Test passed"]);
+    assert_eq!(
+        run(&mut server, &commands, "execute if score #none o = #a o"),
+        vec!["Test failed"]
+    );
+    assert_eq!(
+        run(
+            &mut server,
+            &commands,
+            "execute unless score #none o = #a o"
+        ),
+        vec!["Test passed"]
+    );
     // `if` filters the chain
     let log = Arc::new(Mutex::new(Vec::new()));
     let commands = test_commands(log.clone());
-    run(&mut server, &commands, "execute if score #a o matches 5 run ret 1");
-    run(&mut server, &commands, "execute unless score #a o matches 5 run ret 2");
+    run(
+        &mut server,
+        &commands,
+        "execute if score #a o matches 5 run ret 1",
+    );
+    run(
+        &mut server,
+        &commands,
+        "execute unless score #a o matches 5 run ret 2",
+    );
     assert_eq!(*log.lock().unwrap(), vec!["ret 1"]);
     // numeric `if entity`/`unless entity` with nothing selected
-    assert_eq!(run(&mut server, &commands, "execute if entity @e[type=pig]"), vec!["Test failed"]);
-    assert_eq!(run(&mut server, &commands, "execute unless entity @e[type=pig]"), vec!["Test passed"]);
+    assert_eq!(
+        run(&mut server, &commands, "execute if entity @e[type=pig]"),
+        vec!["Test failed"]
+    );
+    assert_eq!(
+        run(&mut server, &commands, "execute unless entity @e[type=pig]"),
+        vec!["Test passed"]
+    );
 }
 
 #[test]
@@ -214,7 +379,14 @@ fn if_blocks_area_limit() {
     let (mut server, _world) = command_common::test_server();
     let commands = test_commands(Arc::default());
     // the positions have to be loaded first (`getLoadedBlockPos`), which no level in this server is
-    assert_eq!(run(&mut server, &commands, "execute if blocks 0 0 0 31 31 31 0 0 0 all"), vec!["That position is not loaded"]);
+    assert_eq!(
+        run(
+            &mut server,
+            &commands,
+            "execute if blocks 0 0 0 31 31 31 0 0 0 all"
+        ),
+        vec!["That position is not loaded"]
+    );
 }
 
 #[test]
@@ -224,7 +396,8 @@ fn chain_length_limit_stops_the_chain() {
     let log = Arc::new(Mutex::new(Vec::new()));
     let commands = test_commands(log.clone());
     with_objective(&mut server, "o");
-    let chain = "execute store result score #a o store result score #b o store result score #c o run ret 1";
+    let chain =
+        "execute store result score #a o store result score #b o store result score #c o run ret 1";
     // three `store` modifiers cost 3; the executable needs the quota to still be positive
     server.set_game_rule(GameRules::MAX_COMMAND_SEQUENCE_LENGTH, 3);
     run(&mut server, &commands, chain);
@@ -243,11 +416,17 @@ fn fork_limit_reports_the_limit() {
     server.set_game_rule(GameRules::MAX_COMMAND_FORKS, 3);
     // `nextSources.size() + newSources.size() >= forkLimit`: 3 sources are one too many for a limit of 3. The error is
     // raised in forked mode, which `handleError` does not report to the sender (only to a tracer).
-    assert_eq!(run(&mut server, &commands, "fan ret 1"), Vec::<String>::new());
+    assert_eq!(
+        run(&mut server, &commands, "fan ret 1"),
+        Vec::<String>::new()
+    );
     assert!(log.lock().unwrap().iter().all(|l| l != "ret 1"));
     server.set_game_rule(GameRules::MAX_COMMAND_FORKS, 4);
     run(&mut server, &commands, "fan ret 1");
-    assert_eq!(log.lock().unwrap().iter().filter(|l| *l == "ret 1").count(), 3);
+    assert_eq!(
+        log.lock().unwrap().iter().filter(|l| *l == "ret 1").count(),
+        3
+    );
     let _ = (Vec2::ZERO, Vec3::ZERO);
 }
 

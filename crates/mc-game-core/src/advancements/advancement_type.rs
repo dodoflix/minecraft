@@ -13,8 +13,11 @@ pub enum AdvancementType {
 }
 
 impl AdvancementType {
-    const VALUES: &'static [(AdvancementType, &'static str)] =
-        &[(AdvancementType::Task, "task"), (AdvancementType::Challenge, "challenge"), (AdvancementType::Goal, "goal")];
+    const VALUES: &'static [(AdvancementType, &'static str)] = &[
+        (AdvancementType::Task, "task"),
+        (AdvancementType::Challenge, "challenge"),
+        (AdvancementType::Goal, "goal"),
+    ];
 
     /// `getSerializedName()`.
     pub fn name(self) -> &'static str {
@@ -44,10 +47,17 @@ impl AdvancementType {
     }
 
     /// `createAnnouncement(holder, player)`: `player_name` is `player.getDisplayName()`.
-    pub fn create_announcement(self, holder: &AdvancementHolder, player_name: Component) -> Component {
+    pub fn create_announcement(
+        self,
+        holder: &AdvancementHolder,
+        player_name: Component,
+    ) -> Component {
         Component::translatable(
             format!("chat.type.advancement.{}", self.name()),
-            vec![TranslatableArg::Component(player_name), TranslatableArg::Component(super::advancement::name(holder))],
+            vec![
+                TranslatableArg::Component(player_name),
+                TranslatableArg::Component(super::advancement::name(holder)),
+            ],
         )
     }
 }

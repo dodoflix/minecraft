@@ -1,10 +1,9 @@
 //! Heightmap vs. the real vanilla `Heightmap` on a real `ProtoChunk` (`tests/fixtures/heightmap/HeightmapGolden.java`),
 //! plus unit checks of `HeightmapType`.
 
-
 use crate::height_status_common::TestChunk;
-use mc_data::block::BlockState;
 use mc_data::Block;
+use mc_data::block::BlockState;
 use mc_world::heightmap::{Heightmap, HeightmapChunk, HeightmapMap, HeightmapType, SizeMismatch};
 use mc_world::status::ChunkStatus;
 
@@ -13,7 +12,15 @@ fn parse_longs(s: &str) -> Vec<i64> {
 }
 
 /// `ProtoChunk.setBlockState` heightmap part.
-fn set_block_state(chunk: &mut TestChunk, maps: &mut HeightmapMap, status: ChunkStatus, x: i32, y: i32, z: i32, state: BlockState) {
+fn set_block_state(
+    chunk: &mut TestChunk,
+    maps: &mut HeightmapMap,
+    status: ChunkStatus,
+    x: i32,
+    y: i32,
+    z: i32,
+    state: BlockState,
+) {
     let section = (y - chunk.min_y) / 16;
     let was_empty = chunk.section_has_only_air(section);
     if was_empty && state.block() == Block::AIR {
@@ -56,24 +63,51 @@ fn matches_vanilla_heightmap_on_proto_chunk() {
             }
             "OP" => {
                 ops += 1;
-                let (x, y, z, id) = (f[1].parse().unwrap(), f[2].parse().unwrap(), f[3].parse().unwrap(), f[4].parse().unwrap());
-                set_block_state(&mut chunk, &mut maps, status, x, y, z, BlockState::from_id(id).unwrap());
+                let (x, y, z, id) = (
+                    f[1].parse().unwrap(),
+                    f[2].parse().unwrap(),
+                    f[3].parse().unwrap(),
+                    f[4].parse().unwrap(),
+                );
+                set_block_state(
+                    &mut chunk,
+                    &mut maps,
+                    status,
+                    x,
+                    y,
+                    z,
+                    BlockState::from_id(id).unwrap(),
+                );
             }
             "SNAP" => {
                 snaps += 1;
                 let ty = HeightmapType::from_serialization_key(f[1]).unwrap();
                 snapshot.push(ty);
-                assert_eq!(chunk.highest_section_position(), f[2].parse::<i32>().unwrap());
+                assert_eq!(
+                    chunk.highest_section_position(),
+                    f[2].parse::<i32>().unwrap()
+                );
                 let hm = maps.get(&ty).unwrap_or_else(|| panic!("{ty:?} not primed"));
-                assert_eq!(hm.get_raw_data(), parse_longs(f[3]).as_slice(), "SNAP {ty:?} after {ops} ops (cfg {cfgs})");
+                assert_eq!(
+                    hm.get_raw_data(),
+                    parse_longs(f[3]).as_slice(),
+                    "SNAP {ty:?} after {ops} ops (cfg {cfgs})"
+                );
             }
             "PRIME" => {
                 primes += 1;
                 let ty = HeightmapType::from_serialization_key(f[1]).unwrap();
-                assert_eq!(chunk.highest_section_position(), f[2].parse::<i32>().unwrap());
+                assert_eq!(
+                    chunk.highest_section_position(),
+                    f[2].parse::<i32>().unwrap()
+                );
                 let mut fresh = HeightmapMap::new();
                 Heightmap::prime_heightmaps(&chunk, &mut fresh, &HeightmapType::ALL);
-                assert_eq!(fresh[&ty].get_raw_data(), parse_longs(f[3]).as_slice(), "PRIME {ty:?} (cfg {cfgs})");
+                assert_eq!(
+                    fresh[&ty].get_raw_data(),
+                    parse_longs(f[3]).as_slice(),
+                    "PRIME {ty:?} (cfg {cfgs})"
+                );
             }
             "END" => ended = true,
             _ => panic!("bad line {line}"),
@@ -86,7 +120,14 @@ fn matches_vanilla_heightmap_on_proto_chunk() {
 #[test]
 fn types_ids_keys_flags() {
     use HeightmapType::*;
-    let keys = ["WORLD_SURFACE_WG", "WORLD_SURFACE", "OCEAN_FLOOR_WG", "OCEAN_FLOOR", "MOTION_BLOCKING", "MOTION_BLOCKING_NO_LEAVES"];
+    let keys = [
+        "WORLD_SURFACE_WG",
+        "WORLD_SURFACE",
+        "OCEAN_FLOOR_WG",
+        "OCEAN_FLOOR",
+        "MOTION_BLOCKING",
+        "MOTION_BLOCKING_NO_LEAVES",
+    ];
     for (i, t) in HeightmapType::ALL.into_iter().enumerate() {
         assert_eq!(t.id() as usize, i);
         assert_eq!(HeightmapType::from_id(i as i32), t);
@@ -98,10 +139,27 @@ fn types_ids_keys_flags() {
     assert_eq!(HeightmapType::from_id(-1), WorldSurfaceWg);
     assert_eq!(HeightmapType::from_serialization_key("world_surface"), None);
     // Usage: WORLD_SURFACE_WG/OCEAN_FLOOR_WG worldgen, OCEAN_FLOOR live world, rest client
-    let client: Vec<_> = HeightmapType::ALL.into_iter().filter(|t| t.send_to_client()).collect();
-    assert_eq!(client, [WorldSurface, MotionBlocking, MotionBlockingNoLeaves]);
-    let keep: Vec<_> = HeightmapType::ALL.into_iter().filter(|t| t.keep_after_worldgen()).collect();
-    assert_eq!(keep, [WorldSurface, OceanFloor, MotionBlocking, MotionBlockingNoLeaves]);
+    let client: Vec<_> = HeightmapType::ALL
+        .into_iter()
+        .filter(|t| t.send_to_client())
+        .collect();
+    assert_eq!(
+        client,
+        [WorldSurface, MotionBlocking, MotionBlockingNoLeaves]
+    );
+    let keep: Vec<_> = HeightmapType::ALL
+        .into_iter()
+        .filter(|t| t.keep_after_worldgen())
+        .collect();
+    assert_eq!(
+        keep,
+        [
+            WorldSurface,
+            OceanFloor,
+            MotionBlocking,
+            MotionBlockingNoLeaves
+        ]
+    );
 }
 
 #[test]
@@ -114,15 +172,27 @@ fn predicates_match_vanilla_definitions() {
     let cave_air = Block::CAVE_AIR.default_state();
     let grass = Block::SHORT_GRASS.default_state();
     // WORLD_SURFACE: !isAir (cave air is air too)
-    assert!(WorldSurface.is_opaque(stone) && WorldSurface.is_opaque(water) && WorldSurface.is_opaque(grass));
+    assert!(
+        WorldSurface.is_opaque(stone)
+            && WorldSurface.is_opaque(water)
+            && WorldSurface.is_opaque(grass)
+    );
     assert!(!WorldSurface.is_opaque(air) && !WorldSurface.is_opaque(cave_air));
     // OCEAN_FLOOR: BLOCKS_MOTION_IN_HEIGHTMAP only (water/grass not)
     assert!(OceanFloor.is_opaque(stone) && OceanFloor.is_opaque(leaves));
     assert!(!OceanFloor.is_opaque(water) && !OceanFloor.is_opaque(grass));
     // MOTION_BLOCKING: tag or fluid
-    assert!(MotionBlocking.is_opaque(water) && MotionBlocking.is_opaque(leaves) && !MotionBlocking.is_opaque(grass));
+    assert!(
+        MotionBlocking.is_opaque(water)
+            && MotionBlocking.is_opaque(leaves)
+            && !MotionBlocking.is_opaque(grass)
+    );
     // NO_LEAVES: leaves are not in BLOCKS_MOTION_IN_HEIGHTMAP_NO_LEAVES
-    assert!(!MotionBlockingNoLeaves.is_opaque(leaves) && MotionBlockingNoLeaves.is_opaque(stone) && MotionBlockingNoLeaves.is_opaque(water));
+    assert!(
+        !MotionBlockingNoLeaves.is_opaque(leaves)
+            && MotionBlockingNoLeaves.is_opaque(stone)
+            && MotionBlockingNoLeaves.is_opaque(water)
+    );
 }
 
 #[test]
@@ -130,8 +200,18 @@ fn storage_shape_and_raw_data() {
     let mut hm = Heightmap::new(-64, 384, HeightmapType::MotionBlocking);
     // ceillog2(385) = 9 bits -> 7 values per long -> 37 longs
     assert_eq!(hm.get_raw_data().len(), 37);
-    assert_eq!(Heightmap::new(0, 256, HeightmapType::OceanFloor).get_raw_data().len(), 37); // ceillog2(257) = 9
-    assert_eq!(Heightmap::new(0, 255, HeightmapType::OceanFloor).get_raw_data().len(), 32); // ceillog2(256) = 8 bits
+    assert_eq!(
+        Heightmap::new(0, 256, HeightmapType::OceanFloor)
+            .get_raw_data()
+            .len(),
+        37
+    ); // ceillog2(257) = 9
+    assert_eq!(
+        Heightmap::new(0, 255, HeightmapType::OceanFloor)
+            .get_raw_data()
+            .len(),
+        32
+    ); // ceillog2(256) = 8 bits
     assert_eq!(hm.get_first_available(3, 4), -64);
     hm.set_height(3, 4, 70);
     assert_eq!(hm.get_first_available(3, 4), 70);
@@ -143,8 +223,17 @@ fn storage_shape_and_raw_data() {
     assert_eq!(other.get_first_available(3, 4), 70);
     let before = other.get_raw_data().to_vec();
     let err = other.set_raw_data(&raw[1..]).unwrap_err();
-    assert_eq!(err, SizeMismatch { expected: 37, got: 36 });
-    assert_eq!(err.message(mc_core::pos::ChunkPos::new(2, -3)), "Ignoring heightmap data for chunk [2, -3], size does not match; expected: 37, got: 36");
+    assert_eq!(
+        err,
+        SizeMismatch {
+            expected: 37,
+            got: 36
+        }
+    );
+    assert_eq!(
+        err.message(mc_core::pos::ChunkPos::new(2, -3)),
+        "Ignoring heightmap data for chunk [2, -3], size does not match; expected: 37, got: 36"
+    );
     assert_eq!(other.get_raw_data(), before.as_slice()); // untouched on mismatch
 }
 

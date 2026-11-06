@@ -7,7 +7,7 @@ use crate::server::level::ServerLevel;
 use crate::world::damagesource::DamageSource;
 use crate::world::entity::Entity;
 use mc_core::ident::Identifier;
-use mc_dfu::{Codec, BOOL};
+use mc_dfu::{BOOL, Codec};
 use mc_protocol::components::Doubles;
 use std::sync::LazyLock;
 
@@ -49,23 +49,58 @@ impl DamagePredicate {
         actual_damage: f32,
         blocked: bool,
     ) -> bool {
-        if !self.dealt_damage.matches(f64::from(original_damage)) || !self.taken_damage.matches(f64::from(actual_damage)) {
+        if !self.dealt_damage.matches(f64::from(original_damage))
+            || !self.taken_damage.matches(f64::from(actual_damage))
+        {
             return false;
         }
-        if self.source_entity.as_ref().is_some_and(|p| !p.matches_from_player(level, player, entity)) {
+        if self
+            .source_entity
+            .as_ref()
+            .is_some_and(|p| !p.matches_from_player(level, player, entity))
+        {
             return false;
         }
         if self.blocked.is_some_and(|want| want != blocked) {
             return false;
         }
-        self.type_.as_ref().is_none_or(|t| t.matches_parts(level, player.position(), damage_type, direct_entity, entity, is_direct))
+        self.type_.as_ref().is_none_or(|t| {
+            t.matches_parts(
+                level,
+                player.position(),
+                damage_type,
+                direct_entity,
+                entity,
+                is_direct,
+            )
+        })
     }
 
     /// `matches(player, source, originalDamage, actualDamage, blocked)`; the entities of the source are looked up in
     /// the level and distances are measured from `player`.
-    pub fn matches<'a>(&self, level: &'a ServerLevel, player: &'a dyn Entity, source: &DamageSource, original_damage: f32, actual_damage: f32, blocked: bool) -> bool {
-        let direct = source.get_direct_entity().and_then(|id| level.get_entity(id));
+    pub fn matches<'a>(
+        &self,
+        level: &'a ServerLevel,
+        player: &'a dyn Entity,
+        source: &DamageSource,
+        original_damage: f32,
+        actual_damage: f32,
+        blocked: bool,
+    ) -> bool {
+        let direct = source
+            .get_direct_entity()
+            .and_then(|id| level.get_entity(id));
         let causing = source.get_entity().and_then(|id| level.get_entity(id));
-        self.matches_parts(level, player, &source.damage_type, direct, causing, source.is_direct(), original_damage, actual_damage, blocked)
+        self.matches_parts(
+            level,
+            player,
+            &source.damage_type,
+            direct,
+            causing,
+            source.is_direct(),
+            original_damage,
+            actual_damage,
+            blocked,
+        )
     }
 }

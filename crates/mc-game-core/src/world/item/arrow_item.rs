@@ -17,10 +17,17 @@ pub struct ArrowItem {
 pub static ARROW_PROJECTILE: ArrowItem = ArrowItem { spectral: false };
 
 impl ProjectileItem for ArrowItem {
-    fn as_projectile(&self, level: &mut ServerLevel, position: Vec3, item_stack: &ItemStack, _direction: Direction) -> Box<dyn Entity> {
+    fn as_projectile(
+        &self,
+        level: &mut ServerLevel,
+        position: Vec3,
+        item_stack: &ItemStack,
+        _direction: Direction,
+    ) -> Box<dyn Entity> {
         let stack = item_stack.copy_with_count(1);
         if self.spectral {
-            let mut arrow = SpectralArrow::at(level, position.x, position.y, position.z, stack, None);
+            let mut arrow =
+                SpectralArrow::at(level, position.x, position.y, position.z, stack, None);
             arrow.arrow_data_mut().pickup = Pickup::Allowed;
             Box::new(arrow)
         } else {
@@ -38,4 +45,6 @@ impl ItemBehaviour for ArrowItem {
 }
 
 register_item_class!("ArrowItem", |_| Box::new(ArrowItem { spectral: false }));
-register_item_class!("SpectralArrowItem", |_| Box::new(ArrowItem { spectral: true }));
+register_item_class!("SpectralArrowItem", |_| Box::new(ArrowItem {
+    spectral: true
+}));

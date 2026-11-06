@@ -5,7 +5,8 @@
 pub struct ReputationEventType(&'static str);
 
 impl ReputationEventType {
-    pub const ZOMBIE_VILLAGER_CURED: ReputationEventType = ReputationEventType("zombie_villager_cured");
+    pub const ZOMBIE_VILLAGER_CURED: ReputationEventType =
+        ReputationEventType("zombie_villager_cured");
     pub const GOLEM_KILLED: ReputationEventType = ReputationEventType("golem_killed");
     pub const VILLAGER_HURT: ReputationEventType = ReputationEventType("villager_hurt");
     pub const VILLAGER_KILLED: ReputationEventType = ReputationEventType("villager_killed");

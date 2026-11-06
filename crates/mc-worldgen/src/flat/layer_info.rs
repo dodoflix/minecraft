@@ -7,9 +7,7 @@ use mc_data::block::BlockState;
 use serde_json::Value;
 
 use crate::data::LoadError;
-use crate::densityfunction::codec::{
-    Fields, LoadResult, parse_identifier, parse_int_range,
-};
+use crate::densityfunction::codec::{Fields, LoadResult, parse_identifier, parse_int_range};
 use crate::noise_settings::DIMENSION_Y_SIZE;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]

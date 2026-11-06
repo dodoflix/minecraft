@@ -3,12 +3,14 @@
 //! light engine) and completing the per-status futures.
 
 use super::chunk_holder::{ChunkHolder, ChunkSlot, FutureState, Waiter};
-use mc_light::LightCompletion;
 use super::chunk_map::{ChunkMap, MainTask};
 use super::chunk_status_tasks::{BatchResult, GenBatch, GenJob, runs_on_worldgen_thread};
 use super::world_gen::GenChunk;
-use crate::world::level::chunk::status::{ChunkStatusTask, ChunkStep, GENERATION_PYRAMID, LOADING_PYRAMID};
+use crate::world::level::chunk::status::{
+    ChunkStatusTask, ChunkStep, GENERATION_PYRAMID, LOADING_PYRAMID,
+};
 use mc_core::pos::ChunkPos;
+use mc_light::LightCompletion;
 use mc_world::chunk::{ProtoChunk, StructureData};
 use mc_world::status::ChunkStatus;
 use std::collections::HashMap;
@@ -44,8 +46,14 @@ impl ChunkMap {
     // ------------------------------------------------------------------ scheduling
 
     /// `GenerationChunkHolder.scheduleChunkGenerationTask(status, scheduler)`.
-    pub(crate) fn schedule_chunk_generation_task(&mut self, key: i64, status: ChunkStatus) -> FutureState {
-        let Some(holder) = self.holders.holder_mut(key) else { return FutureState::Unloaded };
+    pub(crate) fn schedule_chunk_generation_task(
+        &mut self,
+        key: i64,
+        status: ChunkStatus,
+    ) -> FutureState {
+        let Some(holder) = self.holders.holder_mut(key) else {
+            return FutureState::Unloaded;
+        };
         if holder.is_status_disallowed(status) {
             return FutureState::Unloaded;
         }
@@ -56,7 +64,10 @@ impl ChunkMap {
         let task_id = holder.task;
         let needs_reschedule = match task_id {
             None => true,
-            Some(id) => self.tasks.get(&id).is_none_or(|t| status.is_after(t.target_status)),
+            Some(id) => self
+                .tasks
+                .get(&id)
+                .is_none_or(|t| status.is_after(t.target_status)),
         };
         if needs_reschedule {
             self.reschedule_chunk_task(key, Some(status));
@@ -80,11 +91,17 @@ impl ChunkMap {
 
     /// `ChunkMap.scheduleGenerationTask` + `ChunkGenerationTask.create`.
     pub(crate) fn schedule_generation_task(&mut self, target: ChunkStatus, pos: ChunkPos) -> u64 {
-        let range = GENERATION_PYRAMID.get_step_to(target).get_accumulated_radius_of(ChunkStatus::Empty);
+        let range = GENERATION_PYRAMID
+            .get_step_to(target)
+            .get_accumulated_radius_of(ChunkStatus::Empty);
         for x in pos.x - range..=pos.x + range {
             for z in pos.z - range..=pos.z + range {
                 // `acquireGeneration`
-                self.holders.updating.get_mut(&ChunkPos::pack_xz(x, z)).expect("holder in the generation range").increase_generation_ref_count();
+                self.holders
+                    .updating
+                    .get_mut(&ChunkPos::pack_xz(x, z))
+                    .expect("holder in the generation range")
+                    .increase_generation_ref_count();
             }
         }
         let id = self.next_task_id;
@@ -119,7 +136,9 @@ impl ChunkMap {
     /// Hand the next queued task slice to the "executor" while the worldgen thread is idle.
     pub(crate) fn pump_worldgen(&mut self) {
         while !self.worldgen_busy {
-            let Some((_, tasks)) = self.worldgen_queue.pop() else { return };
+            let Some((_, tasks)) = self.worldgen_queue.pop() else {
+                return;
+            };
             for id in tasks {
                 self.run_generation_task_slice(id);
             }
@@ -161,7 +180,11 @@ impl ChunkMap {
         };
         let status_to_schedule = match scheduled {
             None => ChunkStatus::Empty,
-            Some(s) if !needs_generation && s == ChunkStatus::Empty && !self.can_load_without_generation(id) => {
+            Some(s)
+                if !needs_generation
+                    && s == ChunkStatus::Empty
+                    && !self.can_load_without_generation(id) =>
+            {
                 self.tasks.get_mut(&id).expect("task").needs_generation = true;
                 ChunkStatus::Empty
             }
@@ -173,7 +196,9 @@ impl ChunkMap {
     }
 
     fn release_claim(&mut self, id: u64) {
-        let Some(mut task) = self.tasks.remove(&id) else { return };
+        let Some(mut task) = self.tasks.remove(&id) else {
+            return;
+        };
         if task.released {
             return;
         }
@@ -201,18 +226,27 @@ impl ChunkMap {
         if task.target_status == ChunkStatus::Empty {
             return true;
         }
-        let Some(center) = self.holders.holder(task.center_key()) else { return false };
-        let Some(highest_generated) = center.get_persisted_status() else { return false };
+        let Some(center) = self.holders.holder(task.center_key()) else {
+            return false;
+        };
+        let Some(highest_generated) = center.get_persisted_status() else {
+            return false;
+        };
         if highest_generated.is_before(task.target_status) {
             return false;
         }
-        let deps = &LOADING_PYRAMID.get_step_to(task.target_status).accumulated_dependencies;
+        let deps = &LOADING_PYRAMID
+            .get_step_to(task.target_status)
+            .accumulated_dependencies;
         let range = deps.get_radius();
         for x in task.pos.x - range..=task.pos.x + range {
             for z in task.pos.z - range..=task.pos.z + range {
                 let distance = task.pos.get_chessboard_distance_xz(x, z);
                 let required = deps.get(distance);
-                let persisted = self.holders.holder(ChunkPos::pack_xz(x, z)).and_then(ChunkHolder::get_persisted_status);
+                let persisted = self
+                    .holders
+                    .holder(ChunkPos::pack_xz(x, z))
+                    .and_then(ChunkHolder::get_persisted_status);
                 if persisted.is_none_or(|p| p.is_before(required)) {
                     return false;
                 }
@@ -226,32 +260,68 @@ impl ChunkMap {
             let t = &self.tasks[&id];
             (t.pos, t.target_status)
         };
-        let pyramid = if needs_generation { &*GENERATION_PYRAMID } else { &*LOADING_PYRAMID };
-        let radius = pyramid.get_step_to(target).get_accumulated_radius_of(status);
+        let pyramid = if needs_generation {
+            &*GENERATION_PYRAMID
+        } else {
+            &*LOADING_PYRAMID
+        };
+        let radius = pyramid
+            .get_step_to(target)
+            .get_accumulated_radius_of(status);
         for x in pos.x - radius..=pos.x + radius {
             for z in pos.z - radius..=pos.z + radius {
                 let marked = self.tasks[&id].marked_for_cancellation;
-                if marked || !self.schedule_chunk_in_layer(id, status, needs_generation, ChunkPos::pack_xz(x, z)) {
+                if marked
+                    || !self.schedule_chunk_in_layer(
+                        id,
+                        status,
+                        needs_generation,
+                        ChunkPos::pack_xz(x, z),
+                    )
+                {
                     return;
                 }
             }
         }
     }
 
-    fn schedule_chunk_in_layer(&mut self, id: u64, status: ChunkStatus, needs_generation: bool, key: i64) -> bool {
-        let persisted = self.holders.holder(key).and_then(ChunkHolder::get_persisted_status);
+    fn schedule_chunk_in_layer(
+        &mut self,
+        id: u64,
+        status: ChunkStatus,
+        needs_generation: bool,
+        key: i64,
+    ) -> bool {
+        let persisted = self
+            .holders
+            .holder(key)
+            .and_then(ChunkHolder::get_persisted_status);
         let generate = persisted.is_some_and(|p| status.is_after(p));
-        let pyramid = if generate { &*GENERATION_PYRAMID } else { &*LOADING_PYRAMID };
-        assert!(!(generate && !needs_generation), "Can't load chunk, but didn't expect to need to generate");
+        let pyramid = if generate {
+            &*GENERATION_PYRAMID
+        } else {
+            &*LOADING_PYRAMID
+        };
+        assert!(
+            !(generate && !needs_generation),
+            "Can't load chunk, but didn't expect to need to generate"
+        );
         let step = pyramid.get_step_to(status).clone();
         match self.apply_step(id, key, &step) {
             FutureState::Pending | FutureState::Absent => {
-                self.tasks.get_mut(&id).expect("task").scheduled_layer.push((key, status));
+                self.tasks
+                    .get_mut(&id)
+                    .expect("task")
+                    .scheduled_layer
+                    .push((key, status));
                 true
             }
             FutureState::Done => true,
             FutureState::Unloaded => {
-                self.tasks.get_mut(&id).expect("task").mark_for_cancellation();
+                self.tasks
+                    .get_mut(&id)
+                    .expect("task")
+                    .mark_for_cancellation();
                 false
             }
         }
@@ -274,7 +344,11 @@ impl ChunkMap {
             if state == FutureState::Pending {
                 return Some(last);
             }
-            let state = if state == FutureState::Absent { FutureState::Unloaded } else { state };
+            let state = if state == FutureState::Absent {
+                FutureState::Unloaded
+            } else {
+                state
+            };
             let t = self.tasks.get_mut(&id)?;
             t.scheduled_layer.pop();
             if state == FutureState::Unloaded {
@@ -288,7 +362,9 @@ impl ChunkMap {
     /// `GenerationChunkHolder.applyStep(step, chunkMap, cache)`.
     fn apply_step(&mut self, id: u64, key: i64, step: &ChunkStep) -> FutureState {
         let target = step.target_status;
-        let Some(holder) = self.holders.holder_mut(key) else { return FutureState::Unloaded };
+        let Some(holder) = self.holders.holder_mut(key) else {
+            return FutureState::Unloaded;
+        };
         if holder.is_status_disallowed(target) {
             return FutureState::Unloaded;
         }
@@ -310,7 +386,10 @@ impl ChunkMap {
             return;
         }
         let holder = self.holders.holder(key).expect("holder");
-        assert!(holder.has_chunk_unchecked(target.parent()), "Parent chunk missing");
+        assert!(
+            holder.has_chunk_unchecked(target.parent()),
+            "Parent chunk missing"
+        );
         match step.task {
             ChunkStatusTask::PassThrough => self.complete_step(key, target),
             ChunkStatusTask::LoadStructureStarts => {
@@ -320,7 +399,14 @@ impl ChunkMap {
                 self.complete_step(key, target);
             }
             task if runs_on_worldgen_thread(task) => {
-                self.tasks.get_mut(&id).expect("task").batch_jobs.push(GenJob { pos: ChunkPos::unpack(key), step: step.clone() });
+                self.tasks
+                    .get_mut(&id)
+                    .expect("task")
+                    .batch_jobs
+                    .push(GenJob {
+                        pos: ChunkPos::unpack(key),
+                        step: step.clone(),
+                    });
             }
             ChunkStatusTask::InitializeLight => {
                 let holder = self.holders.holder_mut(key).expect("holder");
@@ -329,7 +415,8 @@ impl ChunkMap {
                     ChunkSlot::Proto(p) => {
                         p.access.initialize_light_sources();
                         p.set_light_engine_attached(true);
-                        let lighted = status.is_or_after(ChunkStatus::Light) && p.access.is_light_correct();
+                        let lighted =
+                            status.is_or_after(ChunkStatus::Light) && p.access.is_light_correct();
                         self.light.initialize_light(&p.access, lighted);
                     }
                     ChunkSlot::Level(l) => {
@@ -345,7 +432,8 @@ impl ChunkMap {
                 let status = holder.get_persisted_status().unwrap_or(ChunkStatus::Empty);
                 let (lighted, pos) = match &mut holder.slot {
                     ChunkSlot::Proto(p) => {
-                        let lighted = status.is_or_after(ChunkStatus::Light) && p.access.is_light_correct();
+                        let lighted =
+                            status.is_or_after(ChunkStatus::Light) && p.access.is_light_correct();
                         p.access.set_light_correct(false);
                         (lighted, p.pos())
                     }
@@ -365,7 +453,9 @@ impl ChunkMap {
 
     /// `completeFuture(status, chunk)` (+ `completeChunkGeneration`'s status bump).
     pub(crate) fn complete_step(&mut self, key: i64, status: ChunkStatus) {
-        let Some(holder) = self.holders.holder_mut(key) else { return };
+        let Some(holder) = self.holders.holder_mut(key) else {
+            return;
+        };
         if let ChunkSlot::Proto(p) = &mut holder.slot {
             if p.get_persisted_status().is_before(status) {
                 p.set_persisted_status(status);
@@ -384,7 +474,9 @@ impl ChunkMap {
 
     pub(crate) fn on_light_event(&mut self, event: LightCompletion) {
         match event {
-            LightCompletion::Initialized(pos) => self.complete_step(pos.pack(), ChunkStatus::InitializeLight),
+            LightCompletion::Initialized(pos) => {
+                self.complete_step(pos.pack(), ChunkStatus::InitializeLight)
+            }
             LightCompletion::Lit(pos) => {
                 if let Some(h) = self.holders.holder_mut(pos.pack()) {
                     match &mut h.slot {
@@ -405,7 +497,9 @@ impl ChunkMap {
 
     /// Send the collected worldgen steps of a task's layer to the worldgen thread.
     fn flush_batch(&mut self, id: u64) {
-        let Some(task) = self.tasks.get_mut(&id) else { return };
+        let Some(task) = self.tasks.get_mut(&id) else {
+            return;
+        };
         if task.batch_jobs.is_empty() {
             return;
         }
@@ -414,7 +508,9 @@ impl ChunkMap {
         let mut structure_views: HashMap<i64, Arc<StructureData>> = HashMap::new();
         for job in &jobs {
             let read_radius = job.step.direct_dependencies.get_radius();
-            let lend_radius = read_radius.min(1).max(job.step.block_state_write_radius.max(0));
+            let lend_radius = read_radius
+                .min(1)
+                .max(job.step.block_state_write_radius.max(0));
             for x in job.pos.x - read_radius..=job.pos.x + read_radius {
                 for z in job.pos.z - read_radius..=job.pos.z + read_radius {
                     let key = ChunkPos::pack_xz(x, z);
@@ -423,14 +519,22 @@ impl ChunkMap {
                         if chunks.contains_key(&key) {
                             continue;
                         }
-                        let Some(holder) = self.holders.holder_mut(key) else { continue };
+                        let Some(holder) = self.holders.holder_mut(key) else {
+                            continue;
+                        };
                         match std::mem::take(&mut holder.slot) {
                             ChunkSlot::Proto(p) => {
                                 chunks.insert(key, GenChunk::Loaned(p));
                                 holder.slot = ChunkSlot::Loaned;
                             }
                             ChunkSlot::Level(l) => {
-                                let mut snapshot = ProtoChunk::new(l.pos(), mc_world::upgrade_data::UpgradeData::empty(), self.level_height, &self.factory, None);
+                                let mut snapshot = ProtoChunk::new(
+                                    l.pos(),
+                                    mc_world::upgrade_data::UpgradeData::empty(),
+                                    self.level_height,
+                                    &self.factory,
+                                    None,
+                                );
                                 snapshot.access = l.data.access.clone();
                                 snapshot.set_persisted_status(ChunkStatus::Full);
                                 holder.slot = ChunkSlot::Level(l);
@@ -442,10 +546,12 @@ impl ChunkMap {
                         if let Some(holder) = self.holders.holder(key) {
                             match &holder.slot {
                                 ChunkSlot::Proto(p) => {
-                                    structure_views.insert(key, Arc::new(p.access.structures.clone()));
+                                    structure_views
+                                        .insert(key, Arc::new(p.access.structures.clone()));
                                 }
                                 ChunkSlot::Level(l) => {
-                                    structure_views.insert(key, Arc::new(l.data.access.structures.clone()));
+                                    structure_views
+                                        .insert(key, Arc::new(l.data.access.structures.clone()));
                                 }
                                 _ => {}
                             }
@@ -458,7 +564,15 @@ impl ChunkMap {
         self.next_batch_id += 1;
         self.in_flight_batch = Some(batch_id);
         self.worldgen_busy = true;
-        self.worldgen.submit(self.gen_context.clone(), GenBatch { id: batch_id, jobs, chunks, structure_views });
+        self.worldgen.submit(
+            self.gen_context.clone(),
+            GenBatch {
+                id: batch_id,
+                jobs,
+                chunks,
+                structure_views,
+            },
+        );
     }
 
     /// A worldgen batch finished: take the chunks back and complete the futures of its steps.
@@ -467,7 +581,8 @@ impl ChunkMap {
         self.in_flight_batch = None;
         // the `getServer().execute(...)` tasks of `updatePOIOnBlockStateChange`, in call order
         for (pos, old_type, new_type) in result.poi_changes {
-            self.poi_manager.apply_block_state_change(pos, old_type, new_type);
+            self.poi_manager
+                .apply_block_state_change(pos, old_type, new_type);
         }
         for (key, chunk) in result.chunks {
             if let Some(holder) = self.holders.holder_mut(key) {

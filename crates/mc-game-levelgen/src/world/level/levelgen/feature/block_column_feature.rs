@@ -1,16 +1,18 @@
 //! `BlockColumnFeature`.
 
-use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature};
+use mc_core::direction::Direction;
+use mc_core::pos::BlockPos;
+use mc_core::random::RandomSource;
 use mc_game_core::world::level::levelgen::blockpredicates::{self, BlockPredicate};
-use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry, parse_bool, parse_direction, parse_list};
+use mc_game_core::world::level::levelgen::codec::{
+    Fields, LoadResult, TypeEntry, parse_bool, parse_direction, parse_list,
+};
 use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature};
 use mc_game_core::world::level::levelgen::holder::Holder;
 use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_game_core::world::level::levelgen::stateproviders::BlockStateProvider;
 use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
-use mc_core::direction::Direction;
-use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
 use mc_worldgen::provider::IntProvider;
 use std::sync::Arc;
 
@@ -32,7 +34,8 @@ impl BlockColumnFeature {
         Ok(Arc::new(BlockColumnFeature {
             layers: fields.required("layers", |v| parse_list(v, |l| decode_layer(l, ctx)))?,
             direction: fields.required("direction", parse_direction)?,
-            allowed_placement: fields.required("allowed_placement", |v| blockpredicates::decode(v, ctx))?,
+            allowed_placement: fields
+                .required("allowed_placement", |v| blockpredicates::decode(v, ctx))?,
             prioritize_tip: fields.required("prioritize_tip", parse_bool)?,
         }))
     }
@@ -47,10 +50,19 @@ fn decode_layer(value: &serde_json::Value, ctx: &DecodeCtx<'_>) -> LoadResult<La
 }
 
 #[linkme::distributed_slice(FEATURE_TYPES)]
-static BLOCK_COLUMN: TypeEntry<dyn Feature> = TypeEntry { name: "block_column", decode: BlockColumnFeature::decode };
+static BLOCK_COLUMN: TypeEntry<dyn Feature> = TypeEntry {
+    name: "block_column",
+    decode: BlockColumnFeature::decode,
+};
 
 impl Feature for BlockColumnFeature {
-    fn place(&self, level: &mut dyn WorldGenLevel, _generator: &GenEnv, random: &mut dyn RandomSource, origin: BlockPos) -> bool {
+    fn place(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        _generator: &GenEnv,
+        random: &mut dyn RandomSource,
+        origin: BlockPos,
+    ) -> bool {
         let layer_count = self.layers.len();
         let mut layer_heights = vec![0i32; layer_count];
         let mut total_height = 0i32;
@@ -90,8 +102,16 @@ impl Feature for BlockColumnFeature {
 fn truncate(layer_heights: &mut [i32], total_height: i32, new_height: i32, prioritize_tip: bool) {
     let mut amount_to_remove = total_height - new_height;
     let direction: i32 = if prioritize_tip { 1 } else { -1 };
-    let start: i32 = if prioritize_tip { 0 } else { layer_heights.len() as i32 - 1 };
-    let end: i32 = if prioritize_tip { layer_heights.len() as i32 } else { -1 };
+    let start: i32 = if prioritize_tip {
+        0
+    } else {
+        layer_heights.len() as i32 - 1
+    };
+    let end: i32 = if prioritize_tip {
+        layer_heights.len() as i32
+    } else {
+        -1
+    };
     let mut i = start;
     while i != end && amount_to_remove > 0 {
         let this_layer = layer_heights[i as usize];

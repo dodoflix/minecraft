@@ -16,7 +16,11 @@ pub fn controlled_vehicle(mob: &dyn Entity, level: &ServerLevel) -> Option<Entit
 
 /// The mob's OWN navigation taken out (no controlled-vehicle redirect): goals that cache `mob.getNavigation()` in their
 /// constructor (`AvoidEntityGoal.pathNav`, `PathfinderMob.getNavigation()` stored as a field).
-pub fn with_own_navigation<R>(mob: &mut dyn Entity, level: &mut ServerLevel, f: impl FnOnce(&mut dyn PathNavigation, &mut dyn Entity, &mut ServerLevel) -> R) -> Option<R> {
+pub fn with_own_navigation<R>(
+    mob: &mut dyn Entity,
+    level: &mut ServerLevel,
+    f: impl FnOnce(&mut dyn PathNavigation, &mut dyn Entity, &mut ServerLevel) -> R,
+) -> Option<R> {
     let mut nav = mob.mob_mut()?.navigation.take()?;
     let result = f(&mut *nav, mob, level);
     if let Some(m) = mob.mob_mut() {
@@ -27,17 +31,27 @@ pub fn with_own_navigation<R>(mob: &mut dyn Entity, level: &mut ServerLevel, f: 
 
 /// Runs `f` with `getNavigation()` of `mob` (the controlled vehicle's navigation when that is a `Mob`) taken out of its
 /// owner; `f` receives the entity the navigation belongs to. `None` when there is no navigation (or it is already running).
-pub fn with_navigation<R>(mob: &mut dyn Entity, level: &mut ServerLevel, f: impl FnOnce(&mut dyn PathNavigation, &mut dyn Entity, &mut ServerLevel) -> R) -> Option<R> {
+pub fn with_navigation<R>(
+    mob: &mut dyn Entity,
+    level: &mut ServerLevel,
+    f: impl FnOnce(&mut dyn PathNavigation, &mut dyn Entity, &mut ServerLevel) -> R,
+) -> Option<R> {
     if let Some(vehicle) = controlled_vehicle(mob, level) {
         if level.get_entity(vehicle).is_some_and(|v| v.mob().is_some()) {
-            return level.with_entity(vehicle, |level, v| with_own_navigation(v, level, f)).flatten();
+            return level
+                .with_entity(vehicle, |level, v| with_own_navigation(v, level, f))
+                .flatten();
         }
     }
     with_own_navigation(mob, level, f)
 }
 
 /// Read-only `getNavigation()` (no mutation: used by `isDone`, `canFloat`, ...).
-pub fn with_navigation_ref<R>(mob: &dyn Entity, level: &ServerLevel, f: impl FnOnce(&dyn PathNavigation) -> R) -> Option<R> {
+pub fn with_navigation_ref<R>(
+    mob: &dyn Entity,
+    level: &ServerLevel,
+    f: impl FnOnce(&dyn PathNavigation) -> R,
+) -> Option<R> {
     if let Some(vehicle) = controlled_vehicle(mob, level).and_then(|id| level.get_entity(id)) {
         if let Some(m) = vehicle.mob() {
             return m.navigation.as_deref().map(f);
@@ -62,33 +76,85 @@ pub fn stop(mob: &mut dyn Entity, level: &mut ServerLevel) {
 }
 
 /// `getNavigation().moveTo(x, y, z, speedModifier)`.
-pub fn move_to(mob: &mut dyn Entity, level: &mut ServerLevel, x: f64, y: f64, z: f64, speed_modifier: f64) -> bool {
-    with_navigation(mob, level, |n, m, l| n.move_to_xyz(m, &*l, x, y, z, speed_modifier)).unwrap_or(false)
+pub fn move_to(
+    mob: &mut dyn Entity,
+    level: &mut ServerLevel,
+    x: f64,
+    y: f64,
+    z: f64,
+    speed_modifier: f64,
+) -> bool {
+    with_navigation(mob, level, |n, m, l| {
+        n.move_to_xyz(m, &*l, x, y, z, speed_modifier)
+    })
+    .unwrap_or(false)
 }
 
 /// `getNavigation().moveTo(target, speedModifier)` (the target's `blockPosition()`).
-pub fn move_to_entity(mob: &mut dyn Entity, level: &mut ServerLevel, target_pos: BlockPos, speed_modifier: f64) -> bool {
-    with_navigation(mob, level, |n, m, l| n.move_to_entity(m, &*l, target_pos, speed_modifier)).unwrap_or(false)
+pub fn move_to_entity(
+    mob: &mut dyn Entity,
+    level: &mut ServerLevel,
+    target_pos: BlockPos,
+    speed_modifier: f64,
+) -> bool {
+    with_navigation(mob, level, |n, m, l| {
+        n.move_to_entity(m, &*l, target_pos, speed_modifier)
+    })
+    .unwrap_or(false)
 }
 
 /// `getNavigation().moveTo(path, speedModifier)`.
-pub fn move_to_path(mob: &mut dyn Entity, level: &mut ServerLevel, path: Option<Path>, speed_modifier: f64) -> bool {
-    with_navigation(mob, level, |n, m, l| n.move_to_path(m, &*l, path, speed_modifier)).unwrap_or(false)
+pub fn move_to_path(
+    mob: &mut dyn Entity,
+    level: &mut ServerLevel,
+    path: Option<Path>,
+    speed_modifier: f64,
+) -> bool {
+    with_navigation(mob, level, |n, m, l| {
+        n.move_to_path(m, &*l, path, speed_modifier)
+    })
+    .unwrap_or(false)
 }
 
 /// `getNavigation().createPath(x, y, z, reachRange)`.
-pub fn create_path_xyz(mob: &mut dyn Entity, level: &mut ServerLevel, x: f64, y: f64, z: f64, reach_range: i32) -> Option<Path> {
-    with_navigation(mob, level, |n, m, l| n.create_path_xyz(m, &*l, x, y, z, reach_range)).flatten()
+pub fn create_path_xyz(
+    mob: &mut dyn Entity,
+    level: &mut ServerLevel,
+    x: f64,
+    y: f64,
+    z: f64,
+    reach_range: i32,
+) -> Option<Path> {
+    with_navigation(mob, level, |n, m, l| {
+        n.create_path_xyz(m, &*l, x, y, z, reach_range)
+    })
+    .flatten()
 }
 
 /// `getNavigation().createPath(pos, reachRange)`.
-pub fn create_path_pos(mob: &mut dyn Entity, level: &mut ServerLevel, pos: BlockPos, reach_range: i32) -> Option<Path> {
-    with_navigation(mob, level, |n, m, l| n.create_path_pos(m, &*l, pos, reach_range)).flatten()
+pub fn create_path_pos(
+    mob: &mut dyn Entity,
+    level: &mut ServerLevel,
+    pos: BlockPos,
+    reach_range: i32,
+) -> Option<Path> {
+    with_navigation(mob, level, |n, m, l| {
+        n.create_path_pos(m, &*l, pos, reach_range)
+    })
+    .flatten()
 }
 
 /// `getNavigation().createPath(target, reachRange)` (the target's `blockPosition()`).
-pub fn create_path_entity(mob: &mut dyn Entity, level: &mut ServerLevel, target_pos: BlockPos, reach_range: i32) -> Option<Path> {
-    with_navigation(mob, level, |n, m, l| n.create_path_entity(m, &*l, target_pos, reach_range)).flatten()
+pub fn create_path_entity(
+    mob: &mut dyn Entity,
+    level: &mut ServerLevel,
+    target_pos: BlockPos,
+    reach_range: i32,
+) -> Option<Path> {
+    with_navigation(mob, level, |n, m, l| {
+        n.create_path_entity(m, &*l, target_pos, reach_range)
+    })
+    .flatten()
 }
 
 /// `getNavigation().setSpeedModifier(speed)`.
@@ -125,7 +191,10 @@ pub fn path_type_static(mob: &mut dyn Entity, level: &ServerLevel, pos: BlockPos
 
 /// `MoveControl.isWalkable` core: `nodeEvaluator.getPathType(mob, pos) == WALKABLE` (true without a navigation).
 pub fn is_walkable_at(mob: &mut dyn Entity, level: &mut ServerLevel, pos: BlockPos) -> bool {
-    with_navigation(mob, level, |n, m, l| n.get_node_evaluator_path_type(m, &*l, pos)).is_none_or(|t| t == PathType::Walkable)
+    with_navigation(mob, level, |n, m, l| {
+        n.get_node_evaluator_path_type(m, &*l, pos)
+    })
+    .is_none_or(|t| t == PathType::Walkable)
 }
 
 /// `this.navigation.stop()` on the mob's own navigation (no vehicle redirect: `TamableAnimal.maybeTeleportTo`).
@@ -137,9 +206,20 @@ pub fn with_own_navigation_stop(mob: &mut dyn Entity) {
 
 /// `isDone()` of the mob's OWN navigation (see [`with_own_navigation`]).
 pub fn own_is_done(mob: &dyn Entity) -> bool {
-    mob.mob().and_then(|m| m.navigation.as_deref()).is_none_or(|n| n.is_done())
+    mob.mob()
+        .and_then(|m| m.navigation.as_deref())
+        .is_none_or(|n| n.is_done())
 }
 /// `getNavigation().moveTo(target, reachRange, speedModifier)` (the target's `blockPosition()`).
-pub fn move_to_entity_reach(mob: &mut dyn Entity, level: &mut ServerLevel, target_pos: BlockPos, reach_range: i32, speed_modifier: f64) -> bool {
-    with_navigation(mob, level, |n, m, l| n.move_to_entity_reach(m, &*l, target_pos, reach_range, speed_modifier)).unwrap_or(false)
+pub fn move_to_entity_reach(
+    mob: &mut dyn Entity,
+    level: &mut ServerLevel,
+    target_pos: BlockPos,
+    reach_range: i32,
+    speed_modifier: f64,
+) -> bool {
+    with_navigation(mob, level, |n, m, l| {
+        n.move_to_entity_reach(m, &*l, target_pos, reach_range, speed_modifier)
+    })
+    .unwrap_or(false)
 }

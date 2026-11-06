@@ -8,7 +8,9 @@
 use super::ServerLevel;
 use crate::server::waypoints::ServerWaypointManager;
 use crate::world::entity::{EntityId, ServerPlayer};
-use crate::world::waypoints::{ReceiverView, TEAM_BLACK_ICON_COLOR, TransmitterView, WaypointContext};
+use crate::world::waypoints::{
+    ReceiverView, TEAM_BLACK_ICON_COLOR, TransmitterView, WaypointContext,
+};
 use mc_core::pos::ChunkPos;
 use mc_data::Attribute;
 use mc_protocol::packets::play::ClientboundTrackedWaypointPacket;
@@ -33,7 +35,11 @@ impl WaypointContext for LevelContext<'_> {
     }
 
     fn is_chunk_visible(&self, receiver: i32, chunk: ChunkPos) -> bool {
-        self.0.chunk_source.chunk_map.player_chunk_tracking_view(receiver).is_in_view_distance(chunk.x, chunk.z)
+        self.0
+            .chunk_source
+            .chunk_map
+            .player_chunk_tracking_view(receiver)
+            .is_in_view_distance(chunk.x, chunk.z)
     }
 
     fn has_indirect_passenger(&self, source: i32, receiver: i32) -> bool {
@@ -44,7 +50,11 @@ impl WaypointContext for LevelContext<'_> {
     }
 
     fn send(&self, receiver: i32, packet: ClientboundTrackedWaypointPacket) {
-        if let Some(player) = self.0.get_entity(receiver).and_then(|e| e.as_any().downcast_ref::<ServerPlayer>()) {
+        if let Some(player) = self
+            .0
+            .get_entity(receiver)
+            .and_then(|e| e.as_any().downcast_ref::<ServerPlayer>())
+        {
             player.send(&packet);
         }
     }
@@ -56,7 +66,10 @@ impl WaypointContext for LevelContext<'_> {
 
 impl ServerLevel {
     /// `getWaypointManager()`: runs `f` on the manager with the level as its context.
-    pub fn with_waypoint_manager<R>(&mut self, f: impl FnOnce(&mut ServerWaypointManager, &dyn WaypointContext) -> R) -> R {
+    pub fn with_waypoint_manager<R>(
+        &mut self,
+        f: impl FnOnce(&mut ServerWaypointManager, &dyn WaypointContext) -> R,
+    ) -> R {
         let mut manager = std::mem::take(&mut self.waypoint_manager);
         let result = f(&mut manager, &LevelContext(self));
         self.waypoint_manager = manager;
@@ -71,7 +84,13 @@ impl ServerLevel {
             .scoreboard()
             .get_players_team(&e.get_scoreboard_name())
             .and_then(|team| team.get_color())
-            .map(|color| if color == crate::world::scores::TeamColor::Black { TEAM_BLACK_ICON_COLOR } else { color.rgb() });
+            .map(|color| {
+                if color == crate::world::scores::TeamColor::Black {
+                    TEAM_BLACK_ICON_COLOR
+                } else {
+                    color.rgb()
+                }
+            });
         Some(TransmitterView {
             id,
             uuid: e.uuid(),
@@ -88,10 +107,15 @@ impl ServerLevel {
 
     /// `isTransmittingWaypoint()` / `isReceivingWaypoints()` of the entity `id`: `(transmitting, receiving player)`.
     fn waypoint_roles(&self, id: EntityId) -> (bool, bool) {
-        let Some(e) = self.get_entity(id) else { return (false, false) };
-        let Some(living) = e.living() else { return (false, false) };
+        let Some(e) = self.get_entity(id) else {
+            return (false, false);
+        };
+        let Some(living) = e.living() else {
+            return (false, false);
+        };
         let transmitting = living.get_attribute_value(Attribute::WAYPOINT_TRANSMIT_RANGE) > 0.0;
-        let receiving = e.is_player() && living.get_attribute_value(Attribute::WAYPOINT_RECEIVE_RANGE) > 0.0;
+        let receiving =
+            e.is_player() && living.get_attribute_value(Attribute::WAYPOINT_RECEIVE_RANGE) > 0.0;
         (transmitting, receiving)
     }
 
@@ -126,7 +150,10 @@ impl ServerLevel {
         }
         let dirty = e.base().waypoint_dirty;
         let attribute_dirty = e.base().waypoint_attribute_dirty;
-        let has_connection = e.as_any().downcast_ref::<ServerPlayer>().is_some_and(|p| p.connection.is_some());
+        let has_connection = e
+            .as_any()
+            .downcast_ref::<ServerPlayer>()
+            .is_some_and(|p| p.connection.is_some());
         let (transmitting, receiving) = self.waypoint_roles(id);
         if dirty || attribute_dirty {
             if let Some(e) = self.get_entity_mut(id) {

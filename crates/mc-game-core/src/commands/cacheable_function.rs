@@ -14,7 +14,11 @@ pub struct CacheableFunction {
 
 impl CacheableFunction {
     pub fn new(id: Identifier) -> CacheableFunction {
-        CacheableFunction { id, resolved: false, function: None }
+        CacheableFunction {
+            id,
+            resolved: false,
+            function: None,
+        }
     }
 
     /// `get(manager)`: the lookup result (also a miss) is kept for later calls.

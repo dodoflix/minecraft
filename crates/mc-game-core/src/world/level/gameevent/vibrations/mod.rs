@@ -17,7 +17,10 @@ use crate::world::level::gameevent::SourceEntityInfo;
 /// Capture what the vibration system reads from `entity` (see [`SourceEntityInfo`]).
 pub fn capture_source_entity(level: &ServerLevel, entity: &dyn Entity) -> SourceEntityInfo {
     let is_server_player = entity.as_any().is::<ServerPlayer>();
-    let projectile_owner = entity.as_projectile().and_then(|projectile| projectile.get_owner(level)).map(|owner| owner.uuid());
+    let projectile_owner = entity
+        .as_projectile()
+        .and_then(|projectile| projectile.get_owner(level))
+        .map(|owner| owner.uuid());
     SourceEntityInfo {
         id: entity.id(),
         uuid: entity.uuid(),
@@ -32,18 +35,37 @@ pub fn capture_source_entity(level: &ServerLevel, entity: &dyn Entity) -> Source
 
 /// `SculkShriekerBlockEntity.tryGetPlayer(sourceEntity)`: the player itself, the player controlling the entity, the
 /// owning player of a projectile, the player that threw an item.
-fn try_get_player(level: &ServerLevel, entity: &dyn Entity, is_server_player: bool) -> Option<EntityId> {
-    let is_player = |id: EntityId| level.get_entity(id).is_some_and(|e| e.as_any().is::<ServerPlayer>());
+fn try_get_player(
+    level: &ServerLevel,
+    entity: &dyn Entity,
+    is_server_player: bool,
+) -> Option<EntityId> {
+    let is_player = |id: EntityId| {
+        level
+            .get_entity(id)
+            .is_some_and(|e| e.as_any().is::<ServerPlayer>())
+    };
     if is_server_player {
         return Some(entity.id());
     }
-    if let Some(passenger) = entity.get_controlling_passenger().filter(|id| is_player(*id)) {
+    if let Some(passenger) = entity
+        .get_controlling_passenger()
+        .filter(|id| is_player(*id))
+    {
         return Some(passenger);
     }
-    if let Some(owner) = entity.as_projectile().and_then(|projectile| projectile.get_owner(level)).filter(|owner| owner.as_any().is::<ServerPlayer>()) {
+    if let Some(owner) = entity
+        .as_projectile()
+        .and_then(|projectile| projectile.get_owner(level))
+        .filter(|owner| owner.as_any().is::<ServerPlayer>())
+    {
         return Some(owner.id());
     }
-    entity.as_any().downcast_ref::<ItemEntity>().and_then(|item| item.get_owner(level)).filter(|id| is_player(*id))
+    entity
+        .as_any()
+        .downcast_ref::<ItemEntity>()
+        .and_then(|item| item.get_owner(level))
+        .filter(|id| is_player(*id))
 }
 
 /// `CriteriaTriggers.AVOID_VIBRATION.trigger(player)`.

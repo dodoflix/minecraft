@@ -1,10 +1,10 @@
 //! `net.minecraft.world.level.block.MushroomBlock` (extends `VegetationBlock`): brown and red mushrooms.
-use mc_game_core::{register_block_class, update_shape};
-use mc_game_core::world::level::block::impls::prelude::*;
-use mc_game_core::world::level::block::impls::vegetation_block::MayPlaceOn;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::level::block::bonemeal::BonemealSource;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::world::level::block::impls::vegetation_block::MayPlaceOn;
 use mc_game_core::world::level::blockscan;
+use mc_game_core::{register_block_class, update_shape};
 
 const SEARCH_RADIUS: i32 = 4;
 const MAX_NEIGHBORS_TO_GROW: i32 = 4;
@@ -25,7 +25,13 @@ impl MushroomBlock {
     fn can_spread(&self, level: &ServerLevel, block: Block, pos: BlockPos) -> bool {
         let min_pos = pos.offset(-SEARCH_RADIUS, -1, -SEARCH_RADIUS);
         let max_pos = pos.offset(SEARCH_RADIUS, 1, SEARCH_RADIUS);
-        blockscan::at_most_matched(level, min_pos, max_pos, &|state| state.is_block(block), MAX_NEIGHBORS_TO_GROW)
+        blockscan::at_most_matched(
+            level,
+            min_pos,
+            max_pos,
+            &|state| state.is_block(block),
+            MAX_NEIGHBORS_TO_GROW,
+        )
     }
 
     /// `growMushroom(level, pos, state, random)`.
@@ -53,9 +59,13 @@ impl BlockBehaviour for MushroomBlock {
             level.get_raw_brightness(pos, 0) < 13 && self.may_place_on(below, level, below_pos)
         }
     }
-    update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
-        mc_game_core::world::level::block::impls::vegetation_block::update_shape(state, &*level, pos)
-    });
+    update_shape!(
+        |self, state, level, pos, direction, neighbour_pos, neighbour_state| {
+            mc_game_core::world::level::block::impls::vegetation_block::update_shape(
+                state, &*level, pos,
+            )
+        }
+    );
     fn random_tick(&self, state: BlockState, level: &mut ServerLevel, mut pos: BlockPos) {
         if level.random().next_int_bounded(25) == 0 {
             if !self.can_spread(level, state.block(), pos) {
@@ -76,19 +86,48 @@ impl BlockBehaviour for MushroomBlock {
     fn is_bonemealable(&self) -> bool {
         true
     }
-    fn is_valid_bonemeal_target(&self, _level: &dyn LevelReader, _pos: BlockPos, _state: BlockState, _source: BonemealSource) -> bool {
+    fn is_valid_bonemeal_target(
+        &self,
+        _level: &dyn LevelReader,
+        _pos: BlockPos,
+        _state: BlockState,
+        _source: BonemealSource,
+    ) -> bool {
         false
     }
-    fn is_valid_bonemeal_target_server(&self, level: &mut ServerLevel, pos: BlockPos, _state: BlockState, _source: BonemealSource) -> bool {
-        match level.lookup_feature(self.feature).and_then(|feature| feature.huge_mushroom_foliage_radius()) {
-            Some(foliage_radius) => !level.is_outside_build_height(pos.above_n(4 + foliage_radius).y()),
+    fn is_valid_bonemeal_target_server(
+        &self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        _state: BlockState,
+        _source: BonemealSource,
+    ) -> bool {
+        match level
+            .lookup_feature(self.feature)
+            .and_then(|feature| feature.huge_mushroom_foliage_radius())
+        {
+            Some(foliage_radius) => {
+                !level.is_outside_build_height(pos.above_n(4 + foliage_radius).y())
+            }
             None => false,
         }
     }
-    fn is_bonemeal_success(&self, level: &mut ServerLevel, _pos: BlockPos, _state: BlockState, _source: BonemealSource) -> bool {
+    fn is_bonemeal_success(
+        &self,
+        level: &mut ServerLevel,
+        _pos: BlockPos,
+        _state: BlockState,
+        _source: BonemealSource,
+    ) -> bool {
         level.random().next_float() < 0.4
     }
-    fn perform_bonemeal(&self, level: &mut ServerLevel, pos: BlockPos, state: BlockState, _source: BonemealSource) {
+    fn perform_bonemeal(
+        &self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        state: BlockState,
+        _source: BonemealSource,
+    ) {
         self.grow_mushroom(level, pos, state);
     }
 }
@@ -96,7 +135,11 @@ impl BlockBehaviour for MushroomBlock {
 /// `pos.offset(random.nextInt(3) - 1, random.nextInt(2) - random.nextInt(2), random.nextInt(3) - 1)`.
 fn random_offset(level: &mut ServerLevel, pos: BlockPos) -> BlockPos {
     let random = level.random();
-    pos.offset(random.next_int_bounded(3) - 1, random.next_int_bounded(2) - random.next_int_bounded(2), random.next_int_bounded(3) - 1)
+    pos.offset(
+        random.next_int_bounded(3) - 1,
+        random.next_int_bounded(2) - random.next_int_bounded(2),
+        random.next_int_bounded(3) - 1,
+    )
 }
 
 register_block_class!("MushroomBlock", |block| Box::new(MushroomBlock {

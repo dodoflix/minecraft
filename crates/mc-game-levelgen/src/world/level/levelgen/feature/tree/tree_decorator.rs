@@ -1,12 +1,12 @@
 //! `treedecorators.TreeDecorator` and its `Context`.
 
-use mc_game_core::world::level::levelgen::feature::tree::java_hash_set::BlockPosHashSet;
 use super::tree_feature::TreeSetter;
-use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::{Block, BlockState};
 use mc_data::props::BooleanProperty;
+use mc_game_core::world::level::levelgen::feature::tree::java_hash_set::BlockPosHashSet;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 
 pub trait TreeDecorator: Send + Sync {
     /// `place(context)`.
@@ -38,7 +38,14 @@ impl<'a> Context<'a> {
         logs.sort_by_key(|pos| pos.y());
         leaves.sort_by_key(|pos| pos.y());
         roots.sort_by_key(|pos| pos.y());
-        Context { level, decoration_setter, random, logs, leaves, roots }
+        Context {
+            level,
+            decoration_setter,
+            random,
+            logs,
+            leaves,
+            roots,
+        }
     }
 
     /// `placeVine(pos, direction)`.
@@ -69,6 +76,10 @@ impl<'a> Context<'a> {
     /// `isWaterOrWaterNearby(pos)`.
     pub fn is_water_or_water_nearby(&self, pos: BlockPos) -> bool {
         let water = |p: BlockPos| self.check_block(p, |state| state.block() == Block::WATER);
-        water(pos) || water(pos.east()) || water(pos.west()) || water(pos.north()) || water(pos.south())
+        water(pos)
+            || water(pos.east())
+            || water(pos.west())
+            || water(pos.north())
+            || water(pos.south())
     }
 }

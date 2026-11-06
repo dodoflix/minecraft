@@ -1,6 +1,9 @@
 //! `net.minecraft.world.item.FireworkRocketItem`.
 
-use super::{DispenseConfig, InteractionHand, InteractionResult, ItemBehaviour, ItemStack, ItemStackExt, PositionFunction, ProjectileItem, UseOnContext};
+use super::{
+    DispenseConfig, InteractionHand, InteractionResult, ItemBehaviour, ItemStack, ItemStackExt,
+    PositionFunction, ProjectileItem, UseOnContext,
+};
 use crate::register_item_class;
 use crate::server::level::ServerLevel;
 use crate::world::entity::projectile::firework_rocket::FireworkRocketEntity;
@@ -17,7 +20,12 @@ const ROCKET_PLACEMENT_OFFSET: f64 = 0.15;
 struct FireworkRocketItem;
 
 impl ItemBehaviour for FireworkRocketItem {
-    fn use_on(&self, context: &mut UseOnContext, level: &mut ServerLevel, player: &mut ServerPlayer) -> InteractionResult {
+    fn use_on(
+        &self,
+        context: &mut UseOnContext,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+    ) -> InteractionResult {
         if player.living().is_some_and(|l| l.is_fall_flying()) {
             return InteractionResult::PASS;
         }
@@ -37,7 +45,12 @@ impl ItemBehaviour for FireworkRocketItem {
         InteractionResult::SUCCESS
     }
 
-    fn use_item(&self, level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) -> InteractionResult {
+    fn use_item(
+        &self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        hand: InteractionHand,
+    ) -> InteractionResult {
         if !player.living().is_some_and(|l| l.is_fall_flying()) {
             return InteractionResult::PASS;
         }
@@ -45,7 +58,15 @@ impl ItemBehaviour for FireworkRocketItem {
         let player_id = player.base_id();
         if player.drop_all_leash_connections(level, None) {
             let p = player.base().position();
-            level.play_sound_from_entity_at(None, player_id, p, SoundEvent::ITEM_LEAD_BREAK, SoundSource::Neutral, 1.0, 1.0);
+            level.play_sound_from_entity_at(
+                None,
+                player_id,
+                p,
+                SoundEvent::ITEM_LEAD_BREAK,
+                SoundSource::Neutral,
+                1.0,
+                1.0,
+            );
         }
         let rocket = FireworkRocketEntity::stuck_to(level, &item_stack, &*player);
         spawn_projectile_plain(level, Box::new(rocket), &item_stack);
@@ -62,12 +83,30 @@ impl ItemBehaviour for FireworkRocketItem {
 }
 
 impl ProjectileItem for FireworkRocketItem {
-    fn as_projectile(&self, level: &mut ServerLevel, position: Vec3, item_stack: &ItemStack, _direction: Direction) -> Box<dyn Entity> {
-        Box::new(FireworkRocketEntity::shot_at_angle(level, &item_stack.copy_with_count(1), position.x, position.y, position.z, true))
+    fn as_projectile(
+        &self,
+        level: &mut ServerLevel,
+        position: Vec3,
+        item_stack: &ItemStack,
+        _direction: Direction,
+    ) -> Box<dyn Entity> {
+        Box::new(FireworkRocketEntity::shot_at_angle(
+            level,
+            &item_stack.copy_with_count(1),
+            position.x,
+            position.y,
+            position.z,
+            true,
+        ))
     }
 
     fn create_dispense_config(&self) -> DispenseConfig {
-        DispenseConfig { position_function: PositionFunction::JustOutsideOfBlock, uncertainty: 1.0, power: 0.5, override_dispense_event: Some(1004) }
+        DispenseConfig {
+            position_function: PositionFunction::JustOutsideOfBlock,
+            uncertainty: 1.0,
+            power: 0.5,
+            override_dispense_event: Some(1004),
+        }
     }
 }
 

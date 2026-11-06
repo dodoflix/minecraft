@@ -26,18 +26,28 @@ impl EntityGossips {
     }
 
     fn weighted_value(&self, types: &impl Fn(GossipType) -> bool) -> i32 {
-        GossipType::ALL.iter().filter(|&&t| types(t)).filter_map(|&t| self.entries[t.ordinal()].map(|v| v.wrapping_mul(t.weight()))).fold(0i32, i32::wrapping_add)
+        GossipType::ALL
+            .iter()
+            .filter(|&&t| types(t))
+            .filter_map(|&t| self.entries[t.ordinal()].map(|v| v.wrapping_mul(t.weight())))
+            .fold(0i32, i32::wrapping_add)
     }
 
     fn unpack(&self) -> impl Iterator<Item = (GossipType, i32)> + '_ {
-        GossipType::ALL.into_iter().filter_map(|t| self.entries[t.ordinal()].map(|v| (t, v)))
+        GossipType::ALL
+            .into_iter()
+            .filter_map(|t| self.entries[t.ordinal()].map(|v| (t, v)))
     }
 
     fn decay(&mut self) {
         for t in GossipType::ALL {
             if let Some(v) = self.entries[t.ordinal()] {
                 let new_value = v.wrapping_sub(t.decay_per_day());
-                self.entries[t.ordinal()] = if new_value < DISCARD_THRESHOLD { None } else { Some(new_value) };
+                self.entries[t.ordinal()] = if new_value < DISCARD_THRESHOLD {
+                    None
+                } else {
+                    Some(new_value)
+                };
             }
         }
     }
@@ -82,7 +92,11 @@ pub struct GossipContainer {
 
 impl PartialEq for GossipContainer {
     fn eq(&self, other: &Self) -> bool {
-        self.gossips.len() == other.gossips.len() && self.gossips.iter().all(|(k, v)| other.gossips.iter().any(|(k2, v2)| k == k2 && v == v2))
+        self.gossips.len() == other.gossips.len()
+            && self
+                .gossips
+                .iter()
+                .all(|(k, v)| other.gossips.iter().any(|(k2, v2)| k == k2 && v == v2))
     }
 }
 
@@ -123,7 +137,10 @@ impl GossipContainer {
 
     /// `getGossipEntries()` (debug): per target the type values, in `HashMap` order.
     pub fn get_gossip_entries(&self) -> Vec<(Uuid, Vec<(GossipType, i32)>)> {
-        self.order().into_iter().map(|i| (self.gossips[i].0, self.gossips[i].1.unpack().collect())).collect()
+        self.order()
+            .into_iter()
+            .map(|i| (self.gossips[i].0, self.gossips[i].1.unpack().collect()))
+            .collect()
     }
 
     /// `decay()`.
@@ -136,11 +153,24 @@ impl GossipContainer {
 
     /// `unpack()`: all entries, targets in `HashMap` order.
     pub fn unpack(&self) -> Vec<GossipEntry> {
-        self.order().into_iter().flat_map(|i| self.gossips[i].1.unpack().map(move |(t, v)| GossipEntry { target: self.gossips[i].0, gossip_type: t, value: v })).collect()
+        self.order()
+            .into_iter()
+            .flat_map(|i| {
+                self.gossips[i].1.unpack().map(move |(t, v)| GossipEntry {
+                    target: self.gossips[i].0,
+                    gossip_type: t,
+                    value: v,
+                })
+            })
+            .collect()
     }
 
     /// `selectGossipsForTransfer(random, maxCount)`: the distinct selected entries (in first-selection order).
-    fn select_gossips_for_transfer(&self, random: &mut dyn RandomSource, max_count: i32) -> Vec<GossipEntry> {
+    fn select_gossips_for_transfer(
+        &self,
+        random: &mut dyn RandomSource,
+        max_count: i32,
+    ) -> Vec<GossipEntry> {
         let entries = self.unpack();
         if entries.is_empty() {
             return Vec::new();
@@ -167,7 +197,12 @@ impl GossipContainer {
     }
 
     /// `transferFrom(source, random, maxCount)`: returns the number of gossips selected.
-    pub fn transfer_from(&mut self, source: &GossipContainer, random: &mut dyn RandomSource, max_count: i32) -> usize {
+    pub fn transfer_from(
+        &mut self,
+        source: &GossipContainer,
+        random: &mut dyn RandomSource,
+        max_count: i32,
+    ) -> usize {
         let new_gossips = source.select_gossips_for_transfer(random, max_count);
         for g in &new_gossips {
             let decayed = g.value.wrapping_sub(g.gossip_type.decay_per_transfer());
@@ -185,12 +220,16 @@ impl GossipContainer {
 
     /// `getReputation(entity, types)`.
     pub fn get_reputation(&self, entity: &Uuid, types: impl Fn(GossipType) -> bool) -> i32 {
-        self.position(entity).map_or(0, |i| self.gossips[i].1.weighted_value(&types))
+        self.position(entity)
+            .map_or(0, |i| self.gossips[i].1.weighted_value(&types))
     }
 
     /// `getCountForType(type, valueTest)`.
     pub fn get_count_for_type(&self, t: GossipType, value_test: impl Fn(f64) -> bool) -> i64 {
-        self.gossips.iter().filter(|(_, g)| value_test(f64::from(g.get_int(t).wrapping_mul(t.weight())))).count() as i64
+        self.gossips
+            .iter()
+            .filter(|(_, g)| value_test(f64::from(g.get_int(t).wrapping_mul(t.weight()))))
+            .count() as i64
     }
 
     /// `add(target, type, amountToAdd)`.
@@ -272,7 +311,10 @@ impl GossipContainer {
         let mut list = ListTag::new();
         for e in self.unpack() {
             let mut c = CompoundTag::new();
-            c.put("Target", Tag::IntArray(uuid_to_int_array(&e.target).to_vec()));
+            c.put(
+                "Target",
+                Tag::IntArray(uuid_to_int_array(&e.target).to_vec()),
+            );
             c.put_string("Type", e.gossip_type.id());
             c.put_int("Value", e.value);
             list.push(Tag::Compound(c));
@@ -287,14 +329,30 @@ impl GossipContainer {
         for tag in list.iter() {
             let Some(c) = tag.as_compound() else { continue };
             let Some(target) = c.get("Target").and_then(|t| match t {
-                Tag::IntArray(a) => <[i32; 4]>::try_from(a.clone()).ok().map(uuid_from_int_array),
-                Tag::List(l) => l.iter().map(|t| t.as_number().map(|n| n.int_value())).collect::<Option<Vec<i32>>>().and_then(|v| <[i32; 4]>::try_from(v).ok()).map(uuid_from_int_array),
+                Tag::IntArray(a) => <[i32; 4]>::try_from(a.clone())
+                    .ok()
+                    .map(uuid_from_int_array),
+                Tag::List(l) => l
+                    .iter()
+                    .map(|t| t.as_number().map(|n| n.int_value()))
+                    .collect::<Option<Vec<i32>>>()
+                    .and_then(|v| <[i32; 4]>::try_from(v).ok())
+                    .map(uuid_from_int_array),
                 _ => None,
             }) else {
                 continue;
             };
-            let Some(gossip_type) = c.get_string("Type").and_then(GossipType::by_id) else { continue };
-            let Some(value) = c.get("Value").and_then(Tag::as_number).map(|n| n.int_value()).filter(|&v| v > 0) else { continue };
+            let Some(gossip_type) = c.get_string("Type").and_then(GossipType::by_id) else {
+                continue;
+            };
+            let Some(value) = c
+                .get("Value")
+                .and_then(Tag::as_number)
+                .map(|n| n.int_value())
+                .filter(|&v| v > 0)
+            else {
+                continue;
+            };
             container.get_or_create(target).entries[gossip_type.ordinal()] = Some(value);
         }
         container

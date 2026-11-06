@@ -3,10 +3,10 @@
 
 use crate::chat_formatting::ChatFormatting;
 use crate::language::Language;
+use crate::profile::ResolvableProfile;
 use crate::style::{FontDescription, Style};
 use crate::value::Num;
 use mc_core::ident::Identifier;
-use crate::profile::ResolvableProfile;
 use std::fmt;
 
 /// U+FFFC, what `ObjectContents` emits for styled visiting.
@@ -112,8 +112,16 @@ enum Part<'a> {
 }
 
 impl TranslatableContents {
-    pub fn new(key: impl Into<String>, fallback: Option<String>, args: Vec<TranslatableArg>) -> Self {
-        TranslatableContents { key: key.into(), fallback, args }
+    pub fn new(
+        key: impl Into<String>,
+        fallback: Option<String>,
+        args: Vec<TranslatableArg>,
+    ) -> Self {
+        TranslatableContents {
+            key: key.into(),
+            fallback,
+            args,
+        }
     }
 
     /// `decompose()`: the template with `%s`/`%n$s`/`%%` substituted. Any malformed template makes
@@ -123,7 +131,8 @@ impl TranslatableContents {
             Some(fallback) => language.get_or_default(&self.key, fallback),
             None => language.get_or_default(&self.key, &self.key),
         };
-        self.decompose_template(format).unwrap_or_else(|()| vec![Part::Text(format.to_owned())])
+        self.decompose_template(format)
+            .unwrap_or_else(|()| vec![Part::Text(format.to_owned())])
     }
 
     /// `decomposeTemplate`; `Err` stands for `TranslatableFormatException`/`IllegalArgumentException`.
@@ -143,7 +152,11 @@ impl TranslatableContents {
             while j < b.len() && b[j].is_ascii_digit() {
                 j += 1;
             }
-            let (group, m) = if j > start + 1 && j < b.len() && b[j] == b'$' { (Some(&template[start + 1..j]), j + 1) } else { (None, start + 1) };
+            let (group, m) = if j > start + 1 && j < b.len() && b[j] == b'$' {
+                (Some(&template[start + 1..j]), j + 1)
+            } else {
+                (None, start + 1)
+            };
             let format_type = match b.get(m) {
                 Some(&c) if c.is_ascii_alphabetic() || c == b'%' => c,
                 _ => return Err(()),
@@ -162,7 +175,10 @@ impl TranslatableContents {
                         replacement_index as i64 - 1
                     }
                 };
-                let arg = usize::try_from(index).ok().and_then(|i| self.args.get(i)).ok_or(())?;
+                let arg = usize::try_from(index)
+                    .ok()
+                    .and_then(|i| self.args.get(i))
+                    .ok_or(())?;
                 parts.push(match arg {
                     TranslatableArg::Component(c) => Part::Component(c),
                     other => Part::Text(other.primitive_string().unwrap_or_default()),
@@ -219,8 +235,14 @@ pub struct NbtContents {
 /// `ObjectInfo` (`atlas` / `player` sprites).
 #[derive(Clone, Debug, PartialEq)]
 pub enum ObjectInfo {
-    AtlasSprite { atlas: Identifier, sprite: Identifier },
-    PlayerSprite { player: Box<ResolvableProfile>, hat: bool },
+    AtlasSprite {
+        atlas: Identifier,
+        sprite: Identifier,
+    },
+    PlayerSprite {
+        player: Box<ResolvableProfile>,
+        hat: bool,
+    },
 }
 
 impl ObjectInfo {
@@ -231,14 +253,24 @@ impl ObjectInfo {
 
     pub fn font_description(&self) -> FontDescription {
         match self {
-            ObjectInfo::AtlasSprite { atlas, sprite } => FontDescription::AtlasSprite { atlas_id: atlas.clone(), sprite_id: sprite.clone() },
-            ObjectInfo::PlayerSprite { player, hat } => FontDescription::PlayerSprite { profile: player.clone(), hat: *hat },
+            ObjectInfo::AtlasSprite { atlas, sprite } => FontDescription::AtlasSprite {
+                atlas_id: atlas.clone(),
+                sprite_id: sprite.clone(),
+            },
+            ObjectInfo::PlayerSprite { player, hat } => FontDescription::PlayerSprite {
+                profile: player.clone(),
+                hat: *hat,
+            },
         }
     }
 
     pub fn default_fallback(&self) -> String {
         fn short(id: &Identifier) -> String {
-            if id.namespace() == "minecraft" { id.path().to_owned() } else { id.to_string() }
+            if id.namespace() == "minecraft" {
+                id.path().to_owned()
+            } else {
+                id.to_string()
+            }
         }
         match self {
             ObjectInfo::AtlasSprite { atlas, sprite } => {
@@ -270,7 +302,11 @@ impl Default for Component {
 
 impl Component {
     pub fn new(contents: ComponentContents) -> Component {
-        Component { contents, siblings: Vec::new(), style: Style::EMPTY }
+        Component {
+            contents,
+            siblings: Vec::new(),
+            style: Style::EMPTY,
+        }
     }
 
     /// `Component.literal` (`PlainTextContents.create`).
@@ -289,11 +325,19 @@ impl Component {
     }
 
     pub fn translatable(key: impl Into<String>, args: Vec<TranslatableArg>) -> Component {
-        Component::new(ComponentContents::Translatable(TranslatableContents::new(key, None, args)))
+        Component::new(ComponentContents::Translatable(TranslatableContents::new(
+            key, None, args,
+        )))
     }
 
-    pub fn translatable_with_fallback(key: impl Into<String>, fallback: Option<String>, args: Vec<TranslatableArg>) -> Component {
-        Component::new(ComponentContents::Translatable(TranslatableContents::new(key, fallback, args)))
+    pub fn translatable_with_fallback(
+        key: impl Into<String>,
+        fallback: Option<String>,
+        args: Vec<TranslatableArg>,
+    ) -> Component {
+        Component::new(ComponentContents::Translatable(TranslatableContents::new(
+            key, fallback, args,
+        )))
     }
 
     pub fn keybind(name: impl Into<String>) -> Component {
@@ -301,18 +345,33 @@ impl Component {
     }
 
     pub fn score_selector(pattern: impl Into<String>, objective: impl Into<String>) -> Component {
-        Component::new(ComponentContents::Score(ScoreContents { name: ScoreName::Selector(pattern.into()), objective: objective.into() }))
+        Component::new(ComponentContents::Score(ScoreContents {
+            name: ScoreName::Selector(pattern.into()),
+            objective: objective.into(),
+        }))
     }
 
     pub fn score(name: impl Into<String>, objective: impl Into<String>) -> Component {
-        Component::new(ComponentContents::Score(ScoreContents { name: ScoreName::Name(name.into()), objective: objective.into() }))
+        Component::new(ComponentContents::Score(ScoreContents {
+            name: ScoreName::Name(name.into()),
+            objective: objective.into(),
+        }))
     }
 
     pub fn selector(pattern: impl Into<String>, separator: Option<Component>) -> Component {
-        Component::new(ComponentContents::Selector(SelectorContents { selector: pattern.into(), separator: separator.map(Box::new) }))
+        Component::new(ComponentContents::Selector(SelectorContents {
+            selector: pattern.into(),
+            separator: separator.map(Box::new),
+        }))
     }
 
-    pub fn nbt(nbt_path: impl Into<String>, interpreting: bool, plain: bool, separator: Option<Component>, data_source: DataSource) -> Component {
+    pub fn nbt(
+        nbt_path: impl Into<String>,
+        interpreting: bool,
+        plain: bool,
+        separator: Option<Component>,
+        data_source: DataSource,
+    ) -> Component {
         Component::new(ComponentContents::Nbt(NbtContents {
             nbt_path: nbt_path.into(),
             interpreting,
@@ -323,7 +382,10 @@ impl Component {
     }
 
     pub fn object(info: ObjectInfo, fallback: Option<Component>) -> Component {
-        Component::new(ComponentContents::Object(ObjectContents { contents: info, fallback: fallback.map(Box::new) }))
+        Component::new(ComponentContents::Object(ObjectContents {
+            contents: info,
+            fallback: fallback.map(Box::new),
+        }))
     }
 
     pub fn contents(&self) -> &ComponentContents {
@@ -352,7 +414,11 @@ impl Component {
 
     /// `append(String)`: empty text is ignored.
     pub fn append_str(self, text: &str) -> Component {
-        if text.is_empty() { self } else { self.append(Component::literal(text)) }
+        if text.is_empty() {
+            self
+        } else {
+            self.append(Component::literal(text))
+        }
     }
 
     /// In-place `append` for accumulation loops.
@@ -397,7 +463,11 @@ impl Component {
     /// `tryCollapseToString`: the text when this is plain, unstyled and childless.
     pub fn try_collapse_to_string(&self) -> Option<&str> {
         match &self.contents {
-            ComponentContents::Literal(text) if self.siblings.is_empty() && self.style.is_empty() => Some(text),
+            ComponentContents::Literal(text)
+                if self.siblings.is_empty() && self.style.is_empty() =>
+            {
+                Some(text)
+            }
             _ => None,
         }
     }
@@ -423,12 +493,18 @@ impl Component {
     }
 
     /// `visit(StyledContentConsumer, parentStyle)`.
-    pub fn visit_styled<T>(&self, output: &mut dyn FnMut(&Style, &str) -> Option<T>, parent_style: &Style) -> Option<T> {
+    pub fn visit_styled<T>(
+        &self,
+        output: &mut dyn FnMut(&Style, &str) -> Option<T>,
+        parent_style: &Style,
+    ) -> Option<T> {
         let self_style = self.style.apply_to(parent_style);
         if let Some(r) = self.contents.visit_styled(output, &self_style) {
             return Some(r);
         }
-        self.siblings.iter().find_map(|s| s.visit_styled(output, &self_style))
+        self.siblings
+            .iter()
+            .find_map(|s| s.visit_styled(output, &self_style))
     }
 
     /// `getString()`: the plain text (translations resolved with the current `Language`).
@@ -494,7 +570,8 @@ impl Component {
         if other_flat.is_empty() {
             return true;
         }
-        flat.windows(other_flat.len()).any(|w| w == other_flat.as_slice())
+        flat.windows(other_flat.len())
+            .any(|w| w == other_flat.as_slice())
     }
 }
 
@@ -525,7 +602,11 @@ impl ComponentContents {
         }
     }
 
-    fn visit_styled<T>(&self, output: &mut dyn FnMut(&Style, &str) -> Option<T>, current_style: &Style) -> Option<T> {
+    fn visit_styled<T>(
+        &self,
+        output: &mut dyn FnMut(&Style, &str) -> Option<T>,
+        current_style: &Style,
+    ) -> Option<T> {
         match self {
             ComponentContents::Literal(text) => output(current_style, text),
             ComponentContents::Translatable(t) => {
@@ -544,7 +625,10 @@ impl ComponentContents {
             // KeybindResolver default: `Component.literal(name)`, which inherits the current style.
             ComponentContents::Keybind(name) => output(current_style, name),
             ComponentContents::Selector(s) => output(current_style, &s.selector),
-            ComponentContents::Object(o) => output(&current_style.with_font(Some(o.contents.font_description())), OBJECT_PLACEHOLDER),
+            ComponentContents::Object(o) => output(
+                &current_style.with_font(Some(o.contents.font_description())),
+                OBJECT_PLACEHOLDER,
+            ),
             ComponentContents::Score(_) | ComponentContents::Nbt(_) => None,
         }
     }
@@ -564,7 +648,11 @@ impl fmt::Display for ComponentContents {
                 write!(f, ", args={:?}}}", t.args)
             }
             ComponentContents::Keybind(k) => write!(f, "keybind{{{k}}}"),
-            ComponentContents::Score(s) => write!(f, "score{{name='{:?}', objective='{}'}}", s.name, s.objective),
+            ComponentContents::Score(s) => write!(
+                f,
+                "score{{name='{:?}', objective='{}'}}",
+                s.name, s.objective
+            ),
             ComponentContents::Selector(s) => write!(f, "pattern{{{}}}", s.selector),
             ComponentContents::Nbt(n) => write!(f, "{n:?}"),
             ComponentContents::Object(o) => write!(f, "{o:?}"),

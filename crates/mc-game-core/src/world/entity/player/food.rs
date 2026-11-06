@@ -29,7 +29,12 @@ impl ServerPlayer {
         let difficulty = level.difficulty();
         let health = self.player.living.get_health();
         let max_health = self.player.living.get_max_health();
-        let result = self.player.food_data.tick(difficulty, level.natural_health_regeneration(), health, max_health);
+        let result = self.player.food_data.tick(
+            difficulty,
+            level.natural_health_regeneration(),
+            health,
+            max_health,
+        );
         if let Some(amount) = result.heal {
             self.heal(level, amount);
         }

@@ -50,7 +50,10 @@ pub struct StoredUserList<E: StoredUserEntry> {
 
 impl<E: StoredUserEntry> StoredUserList<E> {
     pub fn new(file: impl Into<PathBuf>) -> Self {
-        StoredUserList { file: file.into(), map: JavaHashMap::new() }
+        StoredUserList {
+            file: file.into(),
+            map: JavaHashMap::new(),
+        }
     }
 
     pub fn get_file(&self) -> &Path {
@@ -59,9 +62,15 @@ impl<E: StoredUserEntry> StoredUserList<E> {
 
     /// `add`: `false` when an equal entry is already present; saves on change (a failed save is only logged).
     pub fn add(&mut self, infos: E) -> bool {
-        let Some(user) = infos.user() else { return false };
+        let Some(user) = infos.user() else {
+            return false;
+        };
         let key = E::key_for_user(user);
-        if self.map.get(&key).is_some_and(|previous| infos.equals(previous)) {
+        if self
+            .map
+            .get(&key)
+            .is_some_and(|previous| infos.equals(previous))
+        {
             return false;
         }
         self.map.insert(key, infos);
@@ -139,7 +148,9 @@ impl<E: StoredUserEntry> StoredUserList<E> {
         }
         let text = String::from_utf8_lossy(&fs::read(&self.file)?).into_owned();
         self.map.clear();
-        let Some(contents) = gson::parse(&text, true)? else { return Ok(()) };
+        let Some(contents) = gson::parse(&text, true)? else {
+            return Ok(());
+        };
         let JsonElement::Array(elements) = contents else {
             return Err(JsonError("Expected a com.google.gson.JsonArray".into()).into());
         };

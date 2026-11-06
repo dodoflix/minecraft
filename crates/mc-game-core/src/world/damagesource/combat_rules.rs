@@ -14,7 +14,14 @@ pub const BASE_ARMOR_TOUGHNESS: f32 = 2.0;
 pub const MIN_ARMOR_RATIO: f32 = 0.2;
 
 /// `getDamageAfterAbsorb(victim, damage, source, totalArmor, armorToughness)`.
-pub fn get_damage_after_absorb(level: &mut ServerLevel, victim: &mut dyn Entity, damage: f32, source: &DamageSource, total_armor: f32, armor_toughness: f32) -> f32 {
+pub fn get_damage_after_absorb(
+    level: &mut ServerLevel,
+    victim: &mut dyn Entity,
+    damage: f32,
+    source: &DamageSource,
+    total_armor: f32,
+    armor_toughness: f32,
+) -> f32 {
     let toughness = 2.0 + armor_toughness / 4.0;
     let real_armor = mth::clamp_f32(total_armor - damage / toughness, total_armor * 0.2, 20.0);
     let armor_fraction = real_armor / 25.0;
@@ -26,7 +33,18 @@ pub fn get_damage_after_absorb(level: &mut ServerLevel, victim: &mut dyn Entity,
             if let Some(c) = causing.as_mut() {
                 actors.push(&mut ***c);
             }
-            mth::clamp_f32(enchantment_helper::modify_armor_effectiveness(level, &mut actors, weapon, victim_id, source, armor_fraction), 0.0, 1.0)
+            mth::clamp_f32(
+                enchantment_helper::modify_armor_effectiveness(
+                    level,
+                    &mut actors,
+                    weapon,
+                    victim_id,
+                    source,
+                    armor_fraction,
+                ),
+                0.0,
+                1.0,
+            )
         }
         None => armor_fraction,
     };
@@ -47,7 +65,13 @@ mod tests {
     #[test]
     fn magic_absorb_is_linear_and_clamped() {
         assert_eq!(get_damage_after_magic_absorb(10.0, 0.0), 10.0);
-        assert_eq!(get_damage_after_magic_absorb(10.0, 20.0), 10.0 * (1.0 - 20.0f32 / 25.0));
-        assert_eq!(get_damage_after_magic_absorb(10.0, 99.0), 10.0 * (1.0 - 20.0f32 / 25.0));
+        assert_eq!(
+            get_damage_after_magic_absorb(10.0, 20.0),
+            10.0 * (1.0 - 20.0f32 / 25.0)
+        );
+        assert_eq!(
+            get_damage_after_magic_absorb(10.0, 99.0),
+            10.0 * (1.0 - 20.0f32 / 25.0)
+        );
     }
 }

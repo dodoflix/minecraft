@@ -133,7 +133,10 @@ impl CheckerboardColumnBiomeSource {
     /// `new CheckerboardColumnBiomeSource(allowedBiomes, size)`. Panics on an empty set (vanilla would divide
     /// by zero on the first lookup).
     pub fn new(allowed_biomes: Vec<BiomeId>, size: i32) -> CheckerboardColumnBiomeSource {
-        assert!(!allowed_biomes.is_empty(), "checkerboard needs at least one biome");
+        assert!(
+            !allowed_biomes.is_empty(),
+            "checkerboard needs at least one biome"
+        );
         CheckerboardColumnBiomeSource {
             possible: distinct_biomes(allowed_biomes.iter().copied()),
             allowed_biomes,
@@ -167,7 +170,8 @@ impl CheckerboardColumnBiomeSource {
 impl BiomeResolver for CheckerboardColumnBiomeSource {
     fn get_noise_biome(&self, quart_x: i32, _quart_y: i32, quart_z: i32) -> BiomeId {
         let index = floor_mod_i32(
-            (quart_x.wrapping_shr(self.bit_shift as u32)).wrapping_add(quart_z.wrapping_shr(self.bit_shift as u32)),
+            (quart_x.wrapping_shr(self.bit_shift as u32))
+                .wrapping_add(quart_z.wrapping_shr(self.bit_shift as u32)),
             self.allowed_biomes.len() as i32,
         );
         self.allowed_biomes[index as usize]
@@ -229,19 +233,29 @@ impl TheEndBiomeSource {
         ))
     }
 
-    fn get_noise_biome(&self, quart_x: i32, quart_y: i32, quart_z: i32, sampler: &Sampler) -> BiomeId {
+    fn get_noise_biome(
+        &self,
+        quart_x: i32,
+        quart_y: i32,
+        quart_z: i32,
+        sampler: &Sampler,
+    ) -> BiomeId {
         let block_x = quart_pos::to_block(quart_x);
         let block_y = quart_pos::to_block(quart_y);
         let block_z = quart_pos::to_block(quart_z);
         let chunk_x = block_x >> 4;
         let chunk_z = block_z >> 4;
-        if i64::from(chunk_x) * i64::from(chunk_x) + i64::from(chunk_z) * i64::from(chunk_z) <= 4096 {
+        if i64::from(chunk_x) * i64::from(chunk_x) + i64::from(chunk_z) * i64::from(chunk_z) <= 4096
+        {
             self.end
         } else {
             let weird_block_x = (chunk_x.wrapping_mul(2).wrapping_add(1)).wrapping_mul(8);
             let weird_block_z = (chunk_z.wrapping_mul(2).wrapping_add(1)).wrapping_mul(8);
-            let height_value =
-                f64::from(sampler.erosion().sample_value(weird_block_x, block_y, weird_block_z));
+            let height_value = f64::from(sampler.erosion().sample_value(
+                weird_block_x,
+                block_y,
+                weird_block_z,
+            ));
             if height_value > 0.25 {
                 self.highlands
             } else if height_value >= -0.0625 {

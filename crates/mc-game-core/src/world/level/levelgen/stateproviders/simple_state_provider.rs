@@ -13,11 +13,22 @@ pub struct SimpleStateProvider {
 }
 
 impl BlockStateProvider for SimpleStateProvider {
-    fn get_state(&self, _level: &dyn LevelAccessor, _random: &mut dyn RandomSource, _pos: BlockPos) -> BlockState {
+    fn get_state(
+        &self,
+        _level: &dyn LevelAccessor,
+        _random: &mut dyn RandomSource,
+        _pos: BlockPos,
+    ) -> BlockState {
         self.state
     }
 }
 
 #[linkme::distributed_slice(BLOCK_STATE_PROVIDER_TYPES)]
-static SIMPLE: TypeEntry<dyn BlockStateProvider> =
-    TypeEntry { name: "simple", decode: |fields, _| Ok(Arc::new(SimpleStateProvider { state: fields.required("state", parse_block_state)? })) };
+static SIMPLE: TypeEntry<dyn BlockStateProvider> = TypeEntry {
+    name: "simple",
+    decode: |fields, _| {
+        Ok(Arc::new(SimpleStateProvider {
+            state: fields.required("state", parse_block_state)?,
+        }))
+    },
+};

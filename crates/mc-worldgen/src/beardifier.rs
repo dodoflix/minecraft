@@ -58,7 +58,11 @@ pub enum StructurePieceKind {
     Plain,
     /// `PoolElementStructurePiece`: `rigid` is `getElement().getProjection() == RIGID`; a rigid piece contributes
     /// its box with `getGroundLevelDelta()`; every piece contributes its junctions.
-    PoolElement { rigid: bool, ground_level_delta: i32, junctions: Vec<JigsawJunction> },
+    PoolElement {
+        rigid: bool,
+        ground_level_delta: i32,
+        junctions: Vec<JigsawJunction>,
+    },
 }
 
 /// A `StructurePiece` as the beardifier sees it.
@@ -93,11 +97,13 @@ pub struct Beardifier {
 
 /// `BEARD_KERNEL`, indexed `zi * 24 * 24 + xi * 24 + yi`.
 static BEARD_KERNEL: LazyLock<Box<[f32]>> = LazyLock::new(|| {
-    let mut kernel = vec![0.0f32; (BEARD_KERNEL_SIZE * BEARD_KERNEL_SIZE * BEARD_KERNEL_SIZE) as usize];
+    let mut kernel =
+        vec![0.0f32; (BEARD_KERNEL_SIZE * BEARD_KERNEL_SIZE * BEARD_KERNEL_SIZE) as usize];
     for zi in 0..BEARD_KERNEL_SIZE {
         for xi in 0..BEARD_KERNEL_SIZE {
             for yi in 0..BEARD_KERNEL_SIZE {
-                kernel[(zi * 24 * 24 + xi * 24 + yi) as usize] = compute_beard_contribution(xi - 12, yi - 12, zi - 12) as f32;
+                kernel[(zi * 24 * 24 + xi * 24 + yi) as usize] =
+                    compute_beard_contribution(xi - 12, yi - 12, zi - 12) as f32;
             }
         }
     }
@@ -111,7 +117,10 @@ fn compute_beard_contribution(dx: i32, dy: i32, dz: i32) -> f64 {
     java_pow(std::f64::consts::E, -distance_sqr / 16.0)
 }
 
-fn include_bounding_box(encompassing_box: Option<BoundingBox>, new_box: BoundingBox) -> Option<BoundingBox> {
+fn include_bounding_box(
+    encompassing_box: Option<BoundingBox>,
+    new_box: BoundingBox,
+) -> Option<BoundingBox> {
     Some(match encompassing_box {
         None => new_box,
         Some(existing) => BoundingBox::encapsulating(&existing, &new_box),
@@ -121,23 +130,45 @@ fn include_bounding_box(encompassing_box: Option<BoundingBox>, new_box: Bounding
 fn is_close_to_chunk(bounding_box: &BoundingBox, chunk_pos: ChunkPos, distance: i32) -> bool {
     let cx = chunk_pos.get_min_block_x();
     let cz = chunk_pos.get_min_block_z();
-    bounding_box.intersects_xz(cx - distance, cz - distance, cx + 15 + distance, cz + 15 + distance)
+    bounding_box.intersects_xz(
+        cx - distance,
+        cz - distance,
+        cx + 15 + distance,
+        cz + 15 + distance,
+    )
 }
 
 impl Beardifier {
     /// `Beardifier.EMPTY`.
-    pub const EMPTY: Beardifier = Beardifier { pieces: Vec::new(), junctions: Vec::new(), affected_box: None };
+    pub const EMPTY: Beardifier = Beardifier {
+        pieces: Vec::new(),
+        junctions: Vec::new(),
+        affected_box: None,
+    };
 
     /// `Beardifier(pieces, junctions, affectedBox)`.
-    pub fn new(pieces: Vec<Rigid>, junctions: Vec<JigsawJunction>, affected_box: Option<BoundingBox>) -> Beardifier {
-        Beardifier { pieces, junctions, affected_box }
+    pub fn new(
+        pieces: Vec<Rigid>,
+        junctions: Vec<JigsawJunction>,
+        affected_box: Option<BoundingBox>,
+    ) -> Beardifier {
+        Beardifier {
+            pieces,
+            junctions,
+            affected_box,
+        }
     }
 
     /// `Beardifier.forStructuresInChunk(structureManager, chunkPos)`: `starts` are the structure starts reaching the
     /// chunk (`StructureManager.startsForStructure(x, z, ...)`); those with `terrainAdaptation() == NONE` are skipped.
-    pub fn for_structures_in_chunk(chunk_pos: ChunkPos, starts: &[StructureStartInfo]) -> Beardifier {
-        let structure_starts: Vec<&StructureStartInfo> =
-            starts.iter().filter(|s| s.terrain_adaptation != TerrainAdjustment::None).collect();
+    pub fn for_structures_in_chunk(
+        chunk_pos: ChunkPos,
+        starts: &[StructureStartInfo],
+    ) -> Beardifier {
+        let structure_starts: Vec<&StructureStartInfo> = starts
+            .iter()
+            .filter(|s| s.terrain_adaptation != TerrainAdjustment::None)
+            .collect();
         if structure_starts.is_empty() {
             return Beardifier::EMPTY;
         }
@@ -154,14 +185,19 @@ impl Beardifier {
                     continue;
                 }
                 match &piece.kind {
-                    StructurePieceKind::PoolElement { rigid, ground_level_delta, junctions: piece_junctions } => {
+                    StructurePieceKind::PoolElement {
+                        rigid,
+                        ground_level_delta,
+                        junctions: piece_junctions,
+                    } => {
                         if *rigid {
                             rigids.push(Rigid {
                                 bounding_box: piece.bounding_box,
                                 terrain_adjustment,
                                 ground_level_delta: *ground_level_delta,
                             });
-                            any_piece_bounding_box = include_bounding_box(any_piece_bounding_box, piece.bounding_box);
+                            any_piece_bounding_box =
+                                include_bounding_box(any_piece_bounding_box, piece.bounding_box);
                         }
                         for junction in piece_junctions {
                             let junction_x = junction.source_x;
@@ -177,13 +213,19 @@ impl Beardifier {
                                     junction.source_ground_y,
                                     junction_z,
                                 ));
-                                any_piece_bounding_box = include_bounding_box(any_piece_bounding_box, junction_box);
+                                any_piece_bounding_box =
+                                    include_bounding_box(any_piece_bounding_box, junction_box);
                             }
                         }
                     }
                     StructurePieceKind::Plain => {
-                        rigids.push(Rigid { bounding_box: piece.bounding_box, terrain_adjustment, ground_level_delta: 0 });
-                        any_piece_bounding_box = include_bounding_box(any_piece_bounding_box, piece.bounding_box);
+                        rigids.push(Rigid {
+                            bounding_box: piece.bounding_box,
+                            terrain_adjustment,
+                            ground_level_delta: 0,
+                        });
+                        any_piece_bounding_box =
+                            include_bounding_box(any_piece_bounding_box, piece.bounding_box);
                     }
                 }
             }
@@ -214,13 +256,19 @@ impl Beardifier {
             let dy = match rigid.terrain_adjustment {
                 TerrainAdjustment::None => 0,
                 TerrainAdjustment::Bury | TerrainAdjustment::BeardThin => dy_to_ground,
-                TerrainAdjustment::BeardBox => 0.max((ground_y - block_y).max(block_y - bx.max_y())),
-                TerrainAdjustment::Encapsulate => 0.max((bx.min_y() - block_y).max(block_y - bx.max_y())),
+                TerrainAdjustment::BeardBox => {
+                    0.max((ground_y - block_y).max(block_y - bx.max_y()))
+                }
+                TerrainAdjustment::Encapsulate => {
+                    0.max((bx.min_y() - block_y).max(block_y - bx.max_y()))
+                }
             };
 
             noise_value += match rigid.terrain_adjustment {
                 TerrainAdjustment::None => 0.0f32,
-                TerrainAdjustment::Bury => get_bury_contribution(dx as f32, dy as f32 / 2.0, dz as f32),
+                TerrainAdjustment::Bury => {
+                    get_bury_contribution(dx as f32, dy as f32 / 2.0, dz as f32)
+                }
                 TerrainAdjustment::BeardThin | TerrainAdjustment::BeardBox => {
                     get_beard_contribution(dx, dy, dz, dy_to_ground) * 0.8
                 }
@@ -243,7 +291,11 @@ impl Beardifier {
 
 fn get_bury_contribution(dx: f32, dy: f32, dz: f32) -> f32 {
     let distance_sq = mth::length_squared_xyz_f32(dx, dy, dz);
-    if distance_sq >= 36.0 { 0.0 } else { 1.0 - mth::sqrt(distance_sq) / 6.0 }
+    if distance_sq >= 36.0 {
+        0.0
+    } else {
+        1.0 - mth::sqrt(distance_sq) / 6.0
+    }
 }
 
 fn is_in_kernel_range(xi: i32) -> bool {
@@ -257,7 +309,8 @@ fn get_beard_contribution(dx: i32, dy: i32, dz: i32, y_to_ground: i32) -> f32 {
     if is_in_kernel_range(xi) && is_in_kernel_range(yi) && is_in_kernel_range(zi) {
         let dy_with_offset = y_to_ground as f32 + 0.5;
         let distance_sqr = mth::length_squared_xyz_f32(dx as f32, dy_with_offset, dz as f32);
-        let value = -dy_with_offset * mth::fast_inv_sqrt(f64::from(distance_sqr / 2.0)) as f32 / 2.0;
+        let value =
+            -dy_with_offset * mth::fast_inv_sqrt(f64::from(distance_sqr / 2.0)) as f32 / 2.0;
         value * BEARD_KERNEL[(zi * 24 * 24 + xi * 24 + yi) as usize]
     } else {
         0.0
@@ -265,9 +318,16 @@ fn get_beard_contribution(dx: i32, dy: i32, dz: i32, y_to_ground: i32) -> f32 {
 }
 
 impl DensitySampler for Beardifier {
-    fn sample_volume(&self, _context: &SamplerContext, output_buffer: &mut DensityBuffer, volume: &DensityVolume) {
+    fn sample_volume(
+        &self,
+        _context: &SamplerContext,
+        output_buffer: &mut DensityBuffer,
+        volume: &DensityVolume,
+    ) {
         output_buffer.fill(0.0);
-        let Some(affected) = &self.affected_box else { return };
+        let Some(affected) = &self.affected_box else {
+            return;
+        };
         if !affected.intersects_xyz(
             volume.min_block_x,
             volume.min_block_y,
@@ -278,12 +338,30 @@ impl DensitySampler for Beardifier {
         ) {
             return;
         }
-        let min_x = mth::floor_div(0.max(affected.min_x() - volume.min_block_x), volume.step_block_x);
-        let min_y = mth::floor_div(0.max(affected.min_y() - volume.min_block_y), volume.step_block_y);
-        let min_z = mth::floor_div(0.max(affected.min_z() - volume.min_block_z), volume.step_block_z);
-        let max_x = (volume.size_x - 1).min(mth::floor_div(affected.max_x() - volume.min_block_x, volume.step_block_x));
-        let max_y = (volume.size_y - 1).min(mth::floor_div(affected.max_y() - volume.min_block_y, volume.step_block_y));
-        let max_z = (volume.size_z - 1).min(mth::floor_div(affected.max_z() - volume.min_block_z, volume.step_block_z));
+        let min_x = mth::floor_div(
+            0.max(affected.min_x() - volume.min_block_x),
+            volume.step_block_x,
+        );
+        let min_y = mth::floor_div(
+            0.max(affected.min_y() - volume.min_block_y),
+            volume.step_block_y,
+        );
+        let min_z = mth::floor_div(
+            0.max(affected.min_z() - volume.min_block_z),
+            volume.step_block_z,
+        );
+        let max_x = (volume.size_x - 1).min(mth::floor_div(
+            affected.max_x() - volume.min_block_x,
+            volume.step_block_x,
+        ));
+        let max_y = (volume.size_y - 1).min(mth::floor_div(
+            affected.max_y() - volume.min_block_y,
+            volume.step_block_y,
+        ));
+        let max_z = (volume.size_z - 1).min(mth::floor_div(
+            affected.max_z() - volume.min_block_z,
+            volume.step_block_z,
+        ));
 
         for z in min_z..=max_z {
             let block_z = volume.block_z(z);
@@ -292,13 +370,22 @@ impl DensitySampler for Beardifier {
                 for y in min_y..=max_y {
                     let index = volume.index_unchecked(x, y, z);
                     let block_y = volume.block_y(y);
-                    output_buffer.set(index, self.sample_value_unchecked(block_x, block_y, block_z));
+                    output_buffer.set(
+                        index,
+                        self.sample_value_unchecked(block_x, block_y, block_z),
+                    );
                 }
             }
         }
     }
 
-    fn sample_value(&self, _context: &SamplerContext, block_x: i32, block_y: i32, block_z: i32) -> f32 {
+    fn sample_value(
+        &self,
+        _context: &SamplerContext,
+        block_x: i32,
+        block_y: i32,
+        block_z: i32,
+    ) -> f32 {
         match &self.affected_box {
             Some(affected) if affected.is_inside_xyz(block_x, block_y, block_z) => {
                 self.sample_value_unchecked(block_x, block_y, block_z)

@@ -1,15 +1,18 @@
 //! `Mob.tick/baseTick/aiStep/serverAiStep` and the additions of `AgeableMob`, `Animal`, `Monster` to them.
 
-use mc_core::random::RandomSource;
 use super::{MobData, ext, navigation};
 use crate::server::level::ServerLevel;
 use crate::world::entity::ai::goal::Flag;
 use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::item::ItemEntity;
-use crate::world::entity::living_entity::{self, util::{is_in_water_or_rain, l, lm}};
+use crate::world::entity::living_entity::{
+    self,
+    util::{is_in_water_or_rain, l, lm},
+};
 use crate::world::entity::{Entity, EntityId};
 use mc_core::math::mth;
 use mc_core::pos::BlockPos;
+use mc_core::random::RandomSource;
 use mc_data::{EntityType, SoundEvent};
 
 fn m(e: &dyn Entity) -> &MobData {
@@ -35,8 +38,15 @@ fn is_abstract_boat(ty: EntityType) -> bool {
 
 /// `updateControlFlags()`.
 pub fn update_control_flags(e: &mut dyn Entity, level: &mut ServerLevel) {
-    let controller_is_mob = e.get_controlling_passenger().and_then(|id| level.get_entity(id)).is_some_and(|p| p.mob().is_some());
-    let in_boat = e.base().vehicle.and_then(|v| level.get_entity(v)).is_some_and(|v| is_abstract_boat(v.get_type()));
+    let controller_is_mob = e
+        .get_controlling_passenger()
+        .and_then(|id| level.get_entity(id))
+        .is_some_and(|p| p.mob().is_some());
+    let in_boat = e
+        .base()
+        .vehicle
+        .and_then(|v| level.get_entity(v))
+        .is_some_and(|v| is_abstract_boat(v.get_type()));
     let no_controller = !controller_is_mob;
     let not_in_boat = !in_boat;
     let sel = &mut mm(e).goal_selector;
@@ -93,7 +103,10 @@ pub fn server_ai_step(e: &mut dyn Entity, level: &mut ServerLevel) {
     let id_based_tick_count = e.base().tick_count.wrapping_add(e.id());
     let (mut target_selector, mut goal_selector) = {
         let mob = mm(e);
-        (std::mem::take(&mut mob.target_selector), std::mem::take(&mut mob.goal_selector))
+        (
+            std::mem::take(&mut mob.target_selector),
+            std::mem::take(&mut mob.goal_selector),
+        )
     };
     if id_based_tick_count % 2 != 0 && e.base().tick_count > 1 {
         target_selector.tick_running_goals(e, level, false);
@@ -134,7 +147,11 @@ pub fn clamp_head_rotation_to_body(e: &mut dyn Entity) {
     let living = lm(e);
     let head_y_rot = living.y_head_rot;
     let delta = mth::wrap_degrees_f32(living.y_body_rot - head_y_rot);
-    let target_delta = mth::clamp_f32(mth::wrap_degrees_f32(living.y_body_rot - head_y_rot), -limit, limit);
+    let target_delta = mth::clamp_f32(
+        mth::wrap_degrees_f32(living.y_body_rot - head_y_rot),
+        -limit,
+        limit,
+    );
     let new_head_y_rot = head_y_rot + delta - target_delta;
     e.set_y_head_rot(new_head_y_rot);
 }
@@ -157,19 +174,31 @@ pub fn ai_step(e: &mut dyn Entity, level: &mut ServerLevel) {
 /// `Mob.aiStep()` alone.
 pub fn mob_ai_step(e: &mut dyn Entity, level: &mut ServerLevel) {
     living_entity::ai_step::ai_step(e, level);
-    if mc_data::tags::get::<EntityType>("burn_in_daylight").is_some_and(|t| t.contains(e.get_type())) {
+    if mc_data::tags::get::<EntityType>("burn_in_daylight")
+        .is_some_and(|t| t.contains(e.get_type()))
+    {
         burn_undead(e, level);
     }
     // looting
     if e.can_pick_up_loot() && e.is_alive() && !l(e).dead && level.mob_griefing() {
         let (rx, ry, rz) = e.get_pickup_reach();
-        let bb = e.base().bounding_box().inflate(f64::from(rx), f64::from(ry), f64::from(rz));
-        let items = level.get_entities_of_class(&bb, |x| x.get_type() == EntityType::ITEM, |_| true);
+        let bb = e
+            .base()
+            .bounding_box()
+            .inflate(f64::from(rx), f64::from(ry), f64::from(rz));
+        let items =
+            level.get_entities_of_class(&bb, |x| x.get_type() == EntityType::ITEM, |_| true);
         for id in items {
-            let wants = level.get_entity(id).and_then(|x| x.as_any().downcast_ref::<ItemEntity>()).is_some_and(|item| {
-                let stack = item.get_item();
-                !item.is_removed() && !stack.is_empty() && !item.has_pick_up_delay() && e.wants_to_pick_up(level, &stack)
-            });
+            let wants = level
+                .get_entity(id)
+                .and_then(|x| x.as_any().downcast_ref::<ItemEntity>())
+                .is_some_and(|item| {
+                    let stack = item.get_item();
+                    !item.is_removed()
+                        && !stack.is_empty()
+                        && !item.has_pick_up_delay()
+                        && e.wants_to_pick_up(level, &stack)
+                });
             if wants {
                 e.pick_up_item(level, id);
             }
@@ -203,8 +232,14 @@ pub fn is_sun_burn_tick(e: &mut dyn Entity, level: &ServerLevel) -> bool {
     if ext::monsters_burn_at(level, e.position()) {
         let br = e.get_light_level_dependent_magic_value(level);
         let rounded_pos = BlockPos::containing(e.base().x(), e.base().get_eye_y(), e.base().z());
-        let in_non_burnable_block = is_in_water_or_rain(e, level) || e.base().is_in_powder_snow || e.base().was_in_powder_snow;
-        if br > 0.5 && e.base_mut().random.next_float() * 30.0 < (br - 0.4) * 2.0 && !in_non_burnable_block && level_can_see_sky(level, rounded_pos) {
+        let in_non_burnable_block = is_in_water_or_rain(e, level)
+            || e.base().is_in_powder_snow
+            || e.base().was_in_powder_snow;
+        if br > 0.5
+            && e.base_mut().random.next_float() * 30.0 < (br - 0.4) * 2.0
+            && !in_non_burnable_block
+            && level_can_see_sky(level, rounded_pos)
+        {
             return true;
         }
     }
@@ -262,7 +297,11 @@ pub fn get_target_checked(e: &dyn Entity, level: &ServerLevel) -> Option<EntityI
 }
 
 /// `asValidTarget(target)`.
-pub fn as_valid_target(e: &dyn Entity, level: &ServerLevel, target: Option<EntityId>) -> Option<EntityId> {
+pub fn as_valid_target(
+    e: &dyn Entity,
+    level: &ServerLevel,
+    target: Option<EntityId>,
+) -> Option<EntityId> {
     let id = target?;
     let t = level.get_entity(id)?;
     if t.is_player() && (ext::is_creative_player(t) || t.is_spectator()) {
@@ -285,6 +324,12 @@ pub fn set_target(e: &mut dyn Entity, level: &ServerLevel, target: Option<Entity
 }
 
 /// `playSound` helper for the generic mob sounds.
-pub fn play(e: &mut dyn Entity, level: &mut ServerLevel, sound: SoundEvent, volume: f32, pitch: f32) {
+pub fn play(
+    e: &mut dyn Entity,
+    level: &mut ServerLevel,
+    sound: SoundEvent,
+    volume: f32,
+    pitch: f32,
+) {
     e.play_sound(level, sound, volume, pitch);
 }

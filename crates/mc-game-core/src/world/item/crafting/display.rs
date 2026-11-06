@@ -15,16 +15,22 @@ pub fn item_display(item: Item) -> SlotDisplay {
 
 /// `SlotDisplay.ItemStackSlotDisplay(template)`.
 pub fn stack_display(template: &ItemStackTemplate) -> SlotDisplay {
-    SlotDisplay::ItemStack { stack: template.clone() }
+    SlotDisplay::ItemStack {
+        stack: template.clone(),
+    }
 }
 
 /// `SlotDisplay.isEnabled(enabledFeatures)`.
 pub fn slot_display_enabled(display: &SlotDisplay, flags: FeatureFlagSet) -> bool {
     match display {
-        SlotDisplay::Composite { contents } => contents.iter().all(|c| slot_display_enabled(c, flags)),
+        SlotDisplay::Composite { contents } => {
+            contents.iter().all(|c| slot_display_enabled(c, flags))
+        }
         SlotDisplay::Item { item } => item_is_enabled(*item, flags),
         SlotDisplay::ItemStack { stack } => item_is_enabled(stack.item, flags),
-        SlotDisplay::WithRemainder { input, remainder } => slot_display_enabled(input, flags) && slot_display_enabled(remainder, flags),
+        SlotDisplay::WithRemainder { input, remainder } => {
+            slot_display_enabled(input, flags) && slot_display_enabled(remainder, flags)
+        }
         _ => true,
     }
 }
@@ -45,7 +51,8 @@ pub fn recipe_display_enabled(display: &RecipeDisplay, flags: FeatureFlagSet) ->
             (&d.result, &d.crafting_station)
         }
         RecipeDisplay::Furnace(d) => {
-            if !(slot_display_enabled(&d.ingredient, flags) && slot_display_enabled(&d.fuel, flags)) {
+            if !(slot_display_enabled(&d.ingredient, flags) && slot_display_enabled(&d.fuel, flags))
+            {
                 return false;
             }
             (&d.result, &d.crafting_station)

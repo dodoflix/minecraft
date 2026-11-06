@@ -11,6 +11,7 @@ use mc_core::ident::Identifier;
 use mc_core::phys::{BlockHitResult, Vec3};
 use mc_core::pos::BlockPos;
 use mc_core::random::LegacyRandomSource;
+use mc_data::enums::GameType;
 use mc_data::{EntityType, Item};
 use mc_game::server::level::ServerLevel;
 use mc_game::server::level::level_explode::Explode;
@@ -22,7 +23,6 @@ use mc_game::world::item::{InteractionHand, ItemStack};
 use mc_game::world::level::BlockGetter;
 use mc_game::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_protocol::codec::{GameProfile, read_varint};
-use mc_data::enums::GameType;
 use std::collections::{HashMap, HashSet};
 use tokio::sync::mpsc::{UnboundedReceiver, unbounded_channel};
 
@@ -38,12 +38,20 @@ pub struct Actors {
     pub registries_loaded: bool,
 }
 
-static ACCESS: std::sync::LazyLock<mc_game::registry::RegistryAccess> = std::sync::LazyLock::new(|| {
-    let _serial = super::super::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
-    let dir = tempfile::tempdir().unwrap();
-    let (_, stem) = super::super::load_world(dir.path(), mc_world::level_storage::WorldDataConfiguration::DEFAULT, true).expect("default world loads");
-    stem.registries.composite_access().clone()
-});
+static ACCESS: std::sync::LazyLock<mc_game::registry::RegistryAccess> =
+    std::sync::LazyLock::new(|| {
+        let _serial = super::super::SERIAL
+            .lock()
+            .unwrap_or_else(|e| e.into_inner());
+        let dir = tempfile::tempdir().unwrap();
+        let (_, stem) = super::super::load_world(
+            dir.path(),
+            mc_world::level_storage::WorldDataConfiguration::DEFAULT,
+            true,
+        )
+        .expect("default world loads");
+        stem.registries.composite_access().clone()
+    });
 
 fn dbl(v: f64) -> String {
     mc_core::math::java::java_double_to_string(v)
@@ -61,7 +69,11 @@ fn item_name(stack: &ItemStack) -> String {
     if stack.is_empty() {
         return "empty".into();
     }
-    let dmg = if stack.is_damageable_item() && stack.get_damage_value() != 0 { format!("/dmg={}", stack.get_damage_value()) } else { String::new() };
+    let dmg = if stack.is_damageable_item() && stack.get_damage_value() != 0 {
+        format!("/dmg={}", stack.get_damage_value())
+    } else {
+        String::new()
+    };
     format!("{}*{}{dmg}", stack.item().name(), stack.count())
 }
 
@@ -85,25 +97,50 @@ impl Scenario {
     }
 
     pub(super) fn entity_id(&self, name: &str) -> EntityId {
-        self.actors.refs.iter().find(|(n, _)| n == name).unwrap_or_else(|| panic!("unknown ref {name}")).1
+        self.actors
+            .refs
+            .iter()
+            .find(|(n, _)| n == name)
+            .unwrap_or_else(|| panic!("unknown ref {name}"))
+            .1
     }
 
     fn item_stack(&self, spec: &str, count: i32) -> ItemStack {
-        assert!(!spec.contains('['), "item components are not supported by the Rust replay: {spec}");
+        assert!(
+            !spec.contains('['),
+            "item components are not supported by the Rust replay: {spec}"
+        );
         let item = Item::by_name(spec).unwrap_or_else(|| panic!("unknown item {spec}"));
         ItemStack::with_count(item, count)
     }
 
     /// Entities created by game logic get stable names `type_path#n` in creation (id) order (twin of `nameNewEntities`).
     pub(super) fn name_new_entities(&mut self) {
-        let Some(level) = self.level.as_ref() else { return };
+        let Some(level) = self.level.as_ref() else {
+            return;
+        };
         let r = (self.opts.preload + 1) * 16;
-        let bb = mc_core::phys::AABB::new(f64::from(-r), -64.0, f64::from(-r), f64::from(r), 320.0, f64::from(r));
+        let bb = mc_core::phys::AABB::new(
+            f64::from(-r),
+            -64.0,
+            f64::from(-r),
+            f64::from(r),
+            320.0,
+            f64::from(r),
+        );
         let mut ids = level.get_entities(None, &bb, |_| true);
         ids.sort_unstable();
         for id in ids {
             if self.actors.known.insert(id) && !self.actors.refs.iter().any(|(_, i)| *i == id) {
-                let path = level.get_entity(id).map(|e| e.get_type().name().trim_start_matches("minecraft:").to_string()).unwrap_or_default();
+                let path = level
+                    .get_entity(id)
+                    .map(|e| {
+                        e.get_type()
+                            .name()
+                            .trim_start_matches("minecraft:")
+                            .to_string()
+                    })
+                    .unwrap_or_default();
                 let n = self.actors.auto.entry(path.clone()).or_insert(0);
                 *n += 1;
                 let name = format!("{path}#{n}");
@@ -122,11 +159,31 @@ impl Scenario {
             "spawn_item" => {
                 self.world();
                 self.load_registries();
-                let rot = a.iter().skip(3).find_map(|t| t.strip_prefix("rot=")).map(|v| v.parse::<f32>().expect("rot=YAW"));
-                let a: &[String] = &a.iter().filter(|t| !t.starts_with("rot=")).cloned().collect::<Vec<_>>();
+                let rot = a
+                    .iter()
+                    .skip(3)
+                    .find_map(|t| t.strip_prefix("rot="))
+                    .map(|v| v.parse::<f32>().expect("rot=YAW"));
+                let a: &[String] = &a
+                    .iter()
+                    .filter(|t| !t.starts_with("rot="))
+                    .cloned()
+                    .collect::<Vec<_>>();
                 let stack = self.item_stack(&a[2], a.get(9).map_or(1, |c| c.parse().unwrap()));
-                assert!(a.len() >= 9, "spawn_item without a velocity draws random motion from the entity random: give `vx vy vz`");
-                let e = mc_game::world::entity::item::ItemEntity::with_stack_and_motion(self.level(), num(&a[3]), num(&a[4]), num(&a[5]), stack, num(&a[6]), num(&a[7]), num(&a[8]));
+                assert!(
+                    a.len() >= 9,
+                    "spawn_item without a velocity draws random motion from the entity random: give `vx vy vz`"
+                );
+                let e = mc_game::world::entity::item::ItemEntity::with_stack_and_motion(
+                    self.level(),
+                    num(&a[3]),
+                    num(&a[4]),
+                    num(&a[5]),
+                    stack,
+                    num(&a[6]),
+                    num(&a[7]),
+                    num(&a[8]),
+                );
                 let mut e = e;
                 if let Some(rot) = rot {
                     let x_rot = e.base().x_rot();
@@ -141,7 +198,9 @@ impl Scenario {
                 self.world();
                 let id = self.entity_id(&a[1]);
                 let seed: i64 = a[2].parse().unwrap();
-                self.level().with_entity(id, |_, e| e.base_mut().random = LegacyRandomSource::new(seed));
+                self.level().with_entity(id, |_, e| {
+                    e.base_mut().random = LegacyRandomSource::new(seed)
+                });
             }
             "kill" => {
                 self.world();
@@ -153,7 +212,13 @@ impl Scenario {
                 let id = self.entity_id(&a[1]);
                 self.level().with_entity(id, |_, e| {
                     let (yr, xr) = (e.base().y_rot(), e.base().x_rot());
-                    e.snap_to(num(&a[2]), num(&a[3]), num(&a[4]), a.get(5).map_or(yr, |v| num(v) as f32), a.get(6).map_or(xr, |v| num(v) as f32));
+                    e.snap_to(
+                        num(&a[2]),
+                        num(&a[3]),
+                        num(&a[4]),
+                        a.get(5).map_or(yr, |v| num(v) as f32),
+                        a.get(6).map_or(xr, |v| num(v) as f32),
+                    );
                 });
             }
             "tp" => {
@@ -163,14 +228,20 @@ impl Scenario {
                     let (yr, xr) = (e.base().y_rot(), e.base().x_rot());
                     e.teleport_to(level, num(&a[2]), num(&a[3]), num(&a[4]));
                     if a.len() > 5 {
-                        e.set_rot(a.get(5).map_or(yr, |v| num(v) as f32), a.get(6).map_or(xr, |v| num(v) as f32));
+                        e.set_rot(
+                            a.get(5).map_or(yr, |v| num(v) as f32),
+                            a.get(6).map_or(xr, |v| num(v) as f32),
+                        );
                     }
                 });
             }
             "velocity" => {
                 self.world();
                 let id = self.entity_id(&a[1]);
-                self.level().with_entity(id, |_, e| e.base_mut().set_delta_movement_xyz(num(&a[2]), num(&a[3]), num(&a[4])));
+                self.level().with_entity(id, |_, e| {
+                    e.base_mut()
+                        .set_delta_movement_xyz(num(&a[2]), num(&a[3]), num(&a[4]))
+                });
             }
             "set" => {
                 self.world();
@@ -197,8 +268,12 @@ impl Scenario {
                 let stack = self.item_stack(&a[3], count);
                 self.with_player_named(&a[1], |_, p| {
                     let slot = a[2].as_str();
-                    if let Some(n) = slot.strip_prefix("hotbar").or_else(|| slot.strip_prefix("inv")) {
-                        p.player.inventory.get_non_equipment_items_mut()[n.parse::<usize>().unwrap()] = stack;
+                    if let Some(n) = slot
+                        .strip_prefix("hotbar")
+                        .or_else(|| slot.strip_prefix("inv"))
+                    {
+                        p.player.inventory.get_non_equipment_items_mut()
+                            [n.parse::<usize>().unwrap()] = stack;
                     } else {
                         let es = match slot {
                             "mainhand" => EquipmentSlot::MainHand,
@@ -216,7 +291,10 @@ impl Scenario {
             "select" => {
                 self.world();
                 self.with_player_named(&a[1], |_, p| {
-                    p.player.inventory.set_selected_slot(a[2].parse().unwrap()).expect("hotbar slot");
+                    p.player
+                        .inventory
+                        .set_selected_slot(a[2].parse().unwrap())
+                        .expect("hotbar slot");
                 });
             }
             "use" => {
@@ -244,28 +322,53 @@ impl Scenario {
         true
     }
 
-    fn with_player_named<R>(&mut self, name: &str, f: impl FnOnce(&mut ServerLevel, &mut ServerPlayer) -> R) -> R {
+    fn with_player_named<R>(
+        &mut self,
+        name: &str,
+        f: impl FnOnce(&mut ServerLevel, &mut ServerPlayer) -> R,
+    ) -> R {
         let id = self.entity_id(name);
-        self.level().with_player(id, f).unwrap_or_else(|| panic!("no player {name}"))
+        self.level()
+            .with_player(id, f)
+            .unwrap_or_else(|| panic!("no player {name}"))
     }
 
     fn spawn(&mut self, a: &[String]) {
-        let ty = EntityType::by_name(&if a[2].contains(':') { a[2].clone() } else { format!("minecraft:{}", a[2]) }).unwrap_or_else(|| panic!("entity type {}", a[2]));
-        let request = EntitySpawnRequest { reason: mc_data::enums::EntitySpawnReason::Command, ignore_checks: true };
+        let ty = EntityType::by_name(&if a[2].contains(':') {
+            a[2].clone()
+        } else {
+            format!("minecraft:{}", a[2])
+        })
+        .unwrap_or_else(|| panic!("entity type {}", a[2]));
+        let request = EntitySpawnRequest {
+            reason: mc_data::enums::EntitySpawnReason::Command,
+            ignore_checks: true,
+        };
         let level = self.level();
-        let mut e = factory::create(ty, level, request).unwrap_or_else(|| panic!("cannot create {}", a[2]));
+        let mut e =
+            factory::create(ty, level, request).unwrap_or_else(|| panic!("cannot create {}", a[2]));
         let mut n = a.len();
         let snbt = (n > 6 && a[n - 1].starts_with('{')).then(|| {
             n -= 1;
             a[n].clone()
         });
-        e.snap_to(num(&a[3]), num(&a[4]), num(&a[5]), if n > 7 { num(&a[6]) as f32 } else { 0.0 }, if n > 7 { num(&a[7]) as f32 } else { 0.0 });
+        e.snap_to(
+            num(&a[3]),
+            num(&a[4]),
+            num(&a[5]),
+            if n > 7 { num(&a[6]) as f32 } else { 0.0 },
+            if n > 7 { num(&a[7]) as f32 } else { 0.0 },
+        );
         if let Some(snbt) = snbt {
             let lookup = |_: EntityId| None;
             let mut tag = mc_nbt::CompoundTag::new();
             mc_game::world::entity::entity::save_without_id(&*e, &mut tag, &lookup);
-            tag.merge(&mc_nbt::snbt::parse_compound(&snbt).unwrap_or_else(|er| panic!("bad SNBT {snbt}: {er}")));
-            e.load(&tag).unwrap_or_else(|er| panic!("entity load: {er}"));
+            tag.merge(
+                &mc_nbt::snbt::parse_compound(&snbt)
+                    .unwrap_or_else(|er| panic!("bad SNBT {snbt}: {er}")),
+            );
+            e.load(&tag)
+                .unwrap_or_else(|er| panic!("entity load: {er}"));
         }
         let id = e.id();
         level.add_fresh_entity_with_passengers(vec![e]);
@@ -276,11 +379,23 @@ impl Scenario {
     fn spawn_player(&mut self, a: &[String]) {
         let name = a[1].clone();
         let sim = a.last().map(String::as_str) == Some("sim");
-        assert!(!sim, "simulated players (`sim`) are not supported by the block replay");
+        assert!(
+            !sim,
+            "simulated players (`sim`) are not supported by the block replay"
+        );
         let level = self.level();
         let id = level.next_entity_id();
-        let profile = GameProfile { id: uuid::Uuid::from_u128(id as u128), name: name.clone(), properties: vec![] };
-        let mut p = ServerPlayer::new(id, Identifier::parse("minecraft:overworld").unwrap(), profile, Default::default());
+        let profile = GameProfile {
+            id: uuid::Uuid::from_u128(id as u128),
+            name: name.clone(),
+            properties: vec![],
+        };
+        let mut p = ServerPlayer::new(
+            id,
+            Identifier::parse("minecraft:overworld").unwrap(),
+            profile,
+            Default::default(),
+        );
         let mode = match a[2].as_str() {
             "creative" => GameType::Creative,
             "spectator" => GameType::Spectator,
@@ -289,7 +404,11 @@ impl Scenario {
             other => panic!("game mode {other}"),
         };
         p.set_game_mode_for_player(mode, None);
-        let (yaw, pitch) = if a.len() > 7 { (num(&a[6]) as f32, num(&a[7]) as f32) } else { (0.0, 0.0) };
+        let (yaw, pitch) = if a.len() > 7 {
+            (num(&a[6]) as f32, num(&a[7]) as f32)
+        } else {
+            (0.0, 0.0)
+        };
         p.snap_to(num(&a[3]), num(&a[4]), num(&a[5]), yaw, pitch);
         p.base_mut().first_tick = true;
         let (tx, rx) = unbounded_channel();
@@ -309,19 +428,42 @@ impl Scenario {
 
     /// `ServerboundUseItemOnPacket` minus the packet listener: reach and hit-location checks, then `ServerPlayerGameMode.useItemOn`.
     fn use_on(&mut self, a: &[String]) {
-        let pos = BlockPos::new(a[2].parse().unwrap(), a[3].parse().unwrap(), a[4].parse().unwrap());
+        let pos = BlockPos::new(
+            a[2].parse().unwrap(),
+            a[3].parse().unwrap(),
+            a[4].parse().unwrap(),
+        );
         let face = Direction::by_name(&a[5]).unwrap_or_else(|| panic!("face {}", a[5]));
         let cursor = a.len() > 9;
         let hit = if cursor {
             let n = a.len();
-            Vec3::new(f64::from(pos.x()) + num(&a[n - 3]), f64::from(pos.y()) + num(&a[n - 2]), f64::from(pos.z()) + num(&a[n - 1]))
+            Vec3::new(
+                f64::from(pos.x()) + num(&a[n - 3]),
+                f64::from(pos.y()) + num(&a[n - 2]),
+                f64::from(pos.z()) + num(&a[n - 1]),
+            )
         } else {
             let c = Vec3::at_center_of(&pos);
-            Vec3::new(c.x + f64::from(face.get_step_x()) * 0.5, c.y + f64::from(face.get_step_y()) * 0.5, c.z + f64::from(face.get_step_z()) * 0.5)
+            Vec3::new(
+                c.x + f64::from(face.get_step_x()) * 0.5,
+                c.y + f64::from(face.get_step_y()) * 0.5,
+                c.z + f64::from(face.get_step_z()) * 0.5,
+            )
         };
         let hand_idx = a.len() > 6 && (a[6] == "main" || a[6] == "off");
-        let hand = if hand_idx { hand(a, 6) } else { InteractionHand::MainHand };
-        let result = BlockHitResult { location: hit, direction: face, block_pos: pos, miss: false, inside: false, world_border_hit: false };
+        let hand = if hand_idx {
+            hand(a, 6)
+        } else {
+            InteractionHand::MainHand
+        };
+        let result = BlockHitResult {
+            location: hit,
+            direction: face,
+            block_pos: pos,
+            miss: false,
+            inside: false,
+            world_border_hit: false,
+        };
         self.with_player_named(&a[1], |level, p| {
             if !p.is_within_block_interaction_range(pos, 1.0) {
                 return;
@@ -337,13 +479,24 @@ impl Scenario {
     /// Twin of the driver's `dig`: client-like progress accumulation, STOP_DESTROY_BLOCK when the client would send it.
     fn dig(&mut self, a: &[String]) {
         use mc_protocol::packets::play::ServerboundPlayerActionAction as Action;
-        let pos = BlockPos::new(a[2].parse().unwrap(), a[3].parse().unwrap(), a[4].parse().unwrap());
+        let pos = BlockPos::new(
+            a[2].parse().unwrap(),
+            a[3].parse().unwrap(),
+            a[4].parse().unwrap(),
+        );
         let limit: i32 = a.get(5).map_or(-1, |l| l.parse().unwrap());
         let max_y = self.level().get_max_y();
         let name = a[1].clone();
         let st = self.level().get_block_state(pos);
         let (creative, instant) = self.with_player_named(&name, |level, p| {
-            p.handle_block_break_action(level, pos, Action::StartDestroyBlock, Direction::Up, max_y, false);
+            p.handle_block_break_action(
+                level,
+                pos,
+                Action::StartDestroyBlock,
+                Direction::Up,
+                max_y,
+                false,
+            );
             (p.is_creative(), p.get_destroy_progress(st) >= 1.0)
         });
         let (mut progress, mut ticks, mut stopped) = (0f32, 0, creative);
@@ -355,8 +508,21 @@ impl Scenario {
             let st = self.level().get_block_state(pos);
             let step = self.with_player_named(&name, |_, p| p.get_destroy_progress(st));
             progress += step;
-            if if limit >= 0 { ticks >= limit } else { progress >= 1.0 } {
-                self.with_player_named(&name, |level, p| p.handle_block_break_action(level, pos, Action::StopDestroyBlock, Direction::Up, max_y, false));
+            if if limit >= 0 {
+                ticks >= limit
+            } else {
+                progress >= 1.0
+            } {
+                self.with_player_named(&name, |level, p| {
+                    p.handle_block_break_action(
+                        level,
+                        pos,
+                        Action::StopDestroyBlock,
+                        Direction::Up,
+                        max_y,
+                        false,
+                    )
+                });
                 stopped = true;
                 self.tick_once();
                 break;
@@ -365,7 +531,8 @@ impl Scenario {
             assert!(ticks < 100_000, "dig never finishes");
         }
         let broken = self.level().get_block_state(pos).is_air();
-        self.out.push(format!("DIG {name} ticks={ticks} broken={broken}"));
+        self.out
+            .push(format!("DIG {name} ticks={ticks} broken={broken}"));
     }
 
     fn explode(&mut self, a: &[String]) {
@@ -383,7 +550,15 @@ impl Scenario {
                 other => panic!("explode option {other} is not supported by the Rust replay"),
             }
         }
-        let params = Explode::new(None, num(&a[1]), num(&a[2]), num(&a[3]), num(&a[4]) as f32, inter).with_fire(fire);
+        let params = Explode::new(
+            None,
+            num(&a[1]),
+            num(&a[2]),
+            num(&a[3]),
+            num(&a[4]) as f32,
+            inter,
+        )
+        .with_fire(fire);
         self.level().explode(params, &mut []);
     }
 
@@ -401,7 +576,10 @@ impl Scenario {
             "entities" => {
                 self.name_new_entities();
                 let mut all: Vec<(String, EntityId)> = self.actors.refs.clone();
-                all.retain(|(n, id)| !self.actors.players.contains(n) && self.level().get_entity(*id).is_some_and(|e| e.is_alive()));
+                all.retain(|(n, id)| {
+                    !self.actors.players.contains(n)
+                        && self.level().get_entity(*id).is_some_and(|e| e.is_alive())
+                });
                 all.sort_by_key(|(_, id)| *id);
                 for (name, id) in all {
                     let line = self.describe(&name, id);
@@ -424,20 +602,51 @@ impl Scenario {
             "inventory" => {
                 let name = arg.expect("inventory:NAME");
                 let id = self.entity_id(name);
-                let items: Vec<String> = self.level().get_entity(id).and_then(|e| e.as_any().downcast_ref::<ServerPlayer>().map(|p| p.player.inventory.get_non_equipment_items().iter().enumerate().filter(|(_, s)| !s.is_empty()).map(|(i, s)| format!("I {name} {i} {}", item_name(s))).collect())).unwrap_or_default();
+                let items: Vec<String> = self
+                    .level()
+                    .get_entity(id)
+                    .and_then(|e| {
+                        e.as_any().downcast_ref::<ServerPlayer>().map(|p| {
+                            p.player
+                                .inventory
+                                .get_non_equipment_items()
+                                .iter()
+                                .enumerate()
+                                .filter(|(_, s)| !s.is_empty())
+                                .map(|(i, s)| format!("I {name} {i} {}", item_name(s)))
+                                .collect()
+                        })
+                    })
+                    .unwrap_or_default();
                 self.out.extend(items);
             }
             "packets" => {
                 let arg = arg.expect("packets:NAME[:type,..]");
-                let (name, only) = arg.split_once(':').map_or((arg, None), |(n, f)| (n, Some(f)));
+                let (name, only) = arg
+                    .split_once(':')
+                    .map_or((arg, None), |(n, f)| (n, Some(f)));
                 let only: Option<Vec<&str>> = only.map(|f| f.split(',').collect());
-                let rx = self.actors.rx.get_mut(name).unwrap_or_else(|| panic!("no player {name}"));
+                let rx = self
+                    .actors
+                    .rx
+                    .get_mut(name)
+                    .unwrap_or_else(|| panic!("no player {name}"));
                 while let Ok(msg) = rx.try_recv() {
-                    let (Outbound::Payload(p) | Outbound::Write(p)) = msg else { continue };
+                    let (Outbound::Payload(p) | Outbound::Write(p)) = msg else {
+                        continue;
+                    };
                     let mut body: &[u8] = &p;
                     let id = read_varint(&mut body).expect("packet id");
-                    let ty = mc_protocol::packet::packet_name(mc_protocol::packet::ConnectionState::Play, mc_protocol::packet::PacketFlow::Clientbound, id).unwrap_or("?");
-                    if only.as_ref().is_none_or(|o| o.contains(&ty.trim_start_matches("minecraft:"))) {
+                    let ty = mc_protocol::packet::packet_name(
+                        mc_protocol::packet::ConnectionState::Play,
+                        mc_protocol::packet::PacketFlow::Clientbound,
+                        id,
+                    )
+                    .unwrap_or("?");
+                    if only
+                        .as_ref()
+                        .is_none_or(|o| o.contains(&ty.trim_start_matches("minecraft:")))
+                    {
                         let hex: String = p.iter().map(|b| format!("{b:02x}")).collect();
                         self.out.push(format!("PKT {name} {ty} {hex}"));
                     }
@@ -452,22 +661,81 @@ impl Scenario {
     fn describe(&mut self, name: &str, id: EntityId) -> String {
         let players = self.actors.players.clone();
         let level = self.level();
-        let e = level.get_entity(id).unwrap_or_else(|| panic!("entity {name} is gone"));
+        let e = level
+            .get_entity(id)
+            .unwrap_or_else(|| panic!("entity {name} is gone"));
         let b = e.base();
         let is_player = players.iter().any(|n| n == name);
-        let mut s = format!("{} {name} {}", if is_player { "P" } else { "E" }, e.get_type().name());
+        let mut s = format!(
+            "{} {name} {}",
+            if is_player { "P" } else { "E" },
+            e.get_type().name()
+        );
         let (p, d) = (b.position(), b.delta_movement());
-        s += &format!(" pos={} delta={} rot={},{} og={} fall={} fire={} air={} alive={} pose={}", vec3(p.x, p.y, p.z), vec3(d.x, d.y, d.z), flt(b.y_rot()), flt(b.x_rot()), i32::from(b.on_ground()), dbl(b.fall_distance), b.remaining_fire_ticks, b.get_air_supply(), i32::from(e.is_alive()), pose_name(b.get_pose()));
+        s += &format!(
+            " pos={} delta={} rot={},{} og={} fall={} fire={} air={} alive={} pose={}",
+            vec3(p.x, p.y, p.z),
+            vec3(d.x, d.y, d.z),
+            flt(b.y_rot()),
+            flt(b.x_rot()),
+            i32::from(b.on_ground()),
+            dbl(b.fall_distance),
+            b.remaining_fire_ticks,
+            b.get_air_supply(),
+            i32::from(e.is_alive()),
+            pose_name(b.get_pose())
+        );
         if let Some(l) = e.living() {
-            let mut fx: Vec<String> = l.active_effects.iter().map(|(k, v)| format!("{}/{}/{}", k.name(), v.amplifier, v.duration)).collect();
+            let mut fx: Vec<String> = l
+                .active_effects
+                .iter()
+                .map(|(k, v)| format!("{}/{}/{}", k.name(), v.amplifier, v.duration))
+                .collect();
             fx.sort();
-            s += &format!(" hp={} abs={} hurt={}/{} death={} fx={}", flt(l.get_health()), flt(e.get_absorption_amount()), l.hurt_time, l.damage_cooldown_time, l.death_time, if fx.is_empty() { "-".into() } else { fx.join(";") });
+            s += &format!(
+                " hp={} abs={} hurt={}/{} death={} fx={}",
+                flt(l.get_health()),
+                flt(e.get_absorption_amount()),
+                l.hurt_time,
+                l.damage_cooldown_time,
+                l.death_time,
+                if fx.is_empty() {
+                    "-".into()
+                } else {
+                    fx.join(";")
+                }
+            );
         }
         if let Some(pl) = e.as_any().downcast_ref::<ServerPlayer>() {
-            s += &format!(" gm={} food={} sat={} exh={} xp={}/{}/{} sel={} main={}", pl.game_mode.game_mode_for_player.name().to_lowercase(), pl.player.food_data.get_food_level(), flt(pl.player.food_data.get_saturation_level()), flt(pl.player.food_data.exhaustion_level), pl.player.experience_level, pl.player.total_experience, flt(pl.player.experience_progress), pl.player.inventory.get_selected_slot(), item_name(pl.player.inventory.get_selected_item()));
-        } else if let Some(item) = e.as_any().downcast_ref::<mc_game::world::entity::item::ItemEntity>() {
-            s += &format!(" item={} age={} pickup={} health={} owner={} thrower={}", item_name(&item.get_item()), item.age, item.pickup_delay, item.health, item.target.map_or("-".into(), |u| u.to_string()), item.thrower.map_or("-".into(), |u| u.to_string()));
-        } else if let Some(t) = e.as_any().downcast_ref::<mc_game::world::entity::item::primed_tnt::PrimedTnt>() {
+            s += &format!(
+                " gm={} food={} sat={} exh={} xp={}/{}/{} sel={} main={}",
+                pl.game_mode.game_mode_for_player.name().to_lowercase(),
+                pl.player.food_data.get_food_level(),
+                flt(pl.player.food_data.get_saturation_level()),
+                flt(pl.player.food_data.exhaustion_level),
+                pl.player.experience_level,
+                pl.player.total_experience,
+                flt(pl.player.experience_progress),
+                pl.player.inventory.get_selected_slot(),
+                item_name(pl.player.inventory.get_selected_item())
+            );
+        } else if let Some(item) = e
+            .as_any()
+            .downcast_ref::<mc_game::world::entity::item::ItemEntity>()
+        {
+            s += &format!(
+                " item={} age={} pickup={} health={} owner={} thrower={}",
+                item_name(&item.get_item()),
+                item.age,
+                item.pickup_delay,
+                item.health,
+                item.target.map_or("-".into(), |u| u.to_string()),
+                item.thrower.map_or("-".into(), |u| u.to_string())
+            );
+        } else if let Some(t) = e
+            .as_any()
+            .downcast_ref::<mc_game::world::entity::item::primed_tnt::PrimedTnt>()
+        {
             s += &format!(" fuse={}", t.get_fuse());
         }
         s
@@ -475,5 +743,9 @@ impl Scenario {
 }
 
 fn hand(a: &[String], i: usize) -> InteractionHand {
-    if a.get(i).map(String::as_str) == Some("off") { InteractionHand::OffHand } else { InteractionHand::MainHand }
+    if a.get(i).map(String::as_str) == Some("off") {
+        InteractionHand::OffHand
+    } else {
+        InteractionHand::MainHand
+    }
 }

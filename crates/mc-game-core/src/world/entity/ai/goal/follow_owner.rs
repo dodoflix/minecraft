@@ -18,18 +18,31 @@ pub struct FollowOwnerGoal {
 impl FollowOwnerGoal {
     /// `FollowOwnerGoal(tamable, speedModifier, startDistance, stopDistance)` (the navigation must be a ground or flying one).
     pub fn new(speed_modifier: f64, start_distance: f32, stop_distance: f32) -> Self {
-        Self { owner: None, speed_modifier, time_to_recalc_path: 0, stop_distance, start_distance, old_water_cost: 0.0 }
+        Self {
+            owner: None,
+            speed_modifier,
+            time_to_recalc_path: 0,
+            stop_distance,
+            start_distance,
+            old_water_cost: 0.0,
+        }
     }
 }
 
 impl Goal for FollowOwnerGoal {
     fn can_use(&mut self, tamable: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        let Some(owner) = tamable::get_owner(tamable, level) else { return false };
+        let Some(owner) = tamable::get_owner(tamable, level) else {
+            return false;
+        };
         if tamable::unable_to_move_to_owner(tamable, level) {
             return false;
         }
-        let Some(owner_entity) = level.get_entity(owner) else { return false };
-        if tamable.base().distance_to_sqr_vec(owner_entity.position()) < f64::from(self.start_distance * self.start_distance) {
+        let Some(owner_entity) = level.get_entity(owner) else {
+            return false;
+        };
+        if tamable.base().distance_to_sqr_vec(owner_entity.position())
+            < f64::from(self.start_distance * self.start_distance)
+        {
             return false;
         }
         self.owner = Some(owner);
@@ -43,8 +56,11 @@ impl Goal for FollowOwnerGoal {
         if tamable::unable_to_move_to_owner(tamable, level) {
             return false;
         }
-        let Some(owner) = self.owner.and_then(|o| level.get_entity(o)) else { return false };
-        !(tamable.base().distance_to_sqr_vec(owner.position()) <= f64::from(self.stop_distance * self.stop_distance))
+        let Some(owner) = self.owner.and_then(|o| level.get_entity(o)) else {
+            return false;
+        };
+        !(tamable.base().distance_to_sqr_vec(owner.position())
+            <= f64::from(self.stop_distance * self.stop_distance))
     }
 
     fn start(&mut self, tamable: &mut dyn Entity, level: &mut ServerLevel) {
@@ -72,7 +88,11 @@ impl Goal for FollowOwnerGoal {
             self.time_to_recalc_path = self.adjusted_tick_delay(10);
             if is_owner_far_away {
                 tamable::try_to_teleport_to_owner(tamable, level);
-            } else if let Some(pos) = self.owner.and_then(|o| level.get_entity(o)).map(|o| o.block_position()) {
+            } else if let Some(pos) = self
+                .owner
+                .and_then(|o| level.get_entity(o))
+                .map(|o| o.block_position())
+            {
                 navigation::move_to_entity(tamable, level, pos, self.speed_modifier);
             }
         }

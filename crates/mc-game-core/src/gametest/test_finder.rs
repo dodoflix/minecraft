@@ -64,12 +64,23 @@ fn repeat<Q: Clone>(source: Vec<Q>, amount: i32) -> Vec<Q> {
 impl Builder {
     /// `createMultipleCopies(amount)`.
     pub fn create_multiple_copies(self, amount: i32) -> Builder {
-        Builder { copies: Some(amount) }
+        Builder {
+            copies: Some(amount),
+        }
     }
 
-    fn build(&self, source: &CommandSourceStack, tests: Vec<TestHolder>, test_pos_finder: PosFinder) -> TestFinder {
+    fn build(
+        &self,
+        source: &CommandSourceStack,
+        tests: Vec<TestHolder>,
+        test_pos_finder: PosFinder,
+    ) -> TestFinder {
         match self.copies {
-            None => TestFinder { source: source.clone(), tests, test_pos_finder },
+            None => TestFinder {
+                source: source.clone(),
+                tests,
+                test_pos_finder,
+            },
             Some(amount) => TestFinder {
                 source: source.clone(),
                 tests: repeat(tests, amount),
@@ -86,7 +97,13 @@ impl Builder {
             source,
             Vec::new(),
             Box::new(move |server| {
-                structure_utils::find_test_blocks(server, &dimension, pos, radius).into_iter().map(|p| GlobalPos { dimension: dimension.clone(), pos: p }).collect()
+                structure_utils::find_test_blocks(server, &dimension, pos, radius)
+                    .into_iter()
+                    .map(|p| GlobalPos {
+                        dimension: dimension.clone(),
+                        pos: p,
+                    })
+                    .collect()
             }),
         )
     }
@@ -99,7 +116,13 @@ impl Builder {
             source,
             Vec::new(),
             Box::new(move |server| {
-                structure_utils::find_nearest_test(server, &dimension, pos, 15).map(|p| GlobalPos { dimension: dimension.clone(), pos: p }).into_iter().collect()
+                structure_utils::find_nearest_test(server, &dimension, pos, 15)
+                    .map(|p| GlobalPos {
+                        dimension: dimension.clone(),
+                        pos: p,
+                    })
+                    .into_iter()
+                    .collect()
             }),
         )
     }
@@ -118,26 +141,43 @@ impl Builder {
             source,
             Vec::new(),
             Box::new(move |server| {
-                let view = PlayerView::of(server, &source_for_view).expect("the source of /test runthat is a player");
+                let view = PlayerView::of(server, &source_for_view)
+                    .expect("the source of /test runthat is a player");
                 structure_utils::looked_at_test_pos(server, &dimension, pos, view.eye, view.look)
                     .into_iter()
-                    .map(|p| GlobalPos { dimension: dimension.clone(), pos: p })
+                    .map(|p| GlobalPos {
+                        dimension: dimension.clone(),
+                        pos: p,
+                    })
                     .collect()
             }),
         )
     }
 
     /// `failedTests(sourceStack, onlyRequiredTests)`.
-    pub fn failed_tests(&self, source: &CommandSourceStack, only_required_tests: bool) -> TestFinder {
-        let tests = failed_test_tracker::get_last_failed_tests().into_iter().filter(|test| !only_required_tests || test.value.required()).collect();
+    pub fn failed_tests(
+        &self,
+        source: &CommandSourceStack,
+        only_required_tests: bool,
+    ) -> TestFinder {
+        let tests = failed_test_tracker::get_last_failed_tests()
+            .into_iter()
+            .filter(|test| !only_required_tests || test.value.required())
+            .collect();
         self.build(source, tests, Box::new(|_| Vec::new()))
     }
 
     /// `byResourceSelection(sourceStack, holders)`: the selected `test_instance` registry keys.
-    pub fn by_resource_selection(&self, source: &CommandSourceStack, keys: &[ResourceKey]) -> TestFinder {
+    pub fn by_resource_selection(
+        &self,
+        source: &CommandSourceStack,
+        keys: &[ResourceKey],
+    ) -> TestFinder {
         let tests = source.with_server(|server| {
             let registries = server.registries.composite_access();
-            keys.iter().filter_map(|key| lookup_test(registries, &key.id)).collect()
+            keys.iter()
+                .filter_map(|key| lookup_test(registries, &key.id))
+                .collect()
         });
         self.build(source, tests, Box::new(|_| Vec::new()))
     }

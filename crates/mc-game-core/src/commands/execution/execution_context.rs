@@ -2,10 +2,10 @@
 //! UnboundEntryAction}`. Vanilla's `ExecutionContext<T>` is generic over the source type; the only instantiation is
 //! `CommandSourceStack`, so it is concrete here.
 
+use super::TraceCallbacks;
 use super::frame::{Frame, FrameControl};
 use super::tasks::build_contexts::BuildContexts;
 use super::tasks::call_function::CallFunction;
-use super::TraceCallbacks;
 use crate::commands::functions::InstantiatedFunction;
 use crate::commands::{CommandResultCallback, CommandSourceStack};
 use mc_brigadier::ContextChain;
@@ -72,7 +72,11 @@ impl ExecutionContext {
             Frame::new(0, frame_result, FrameControl::ClearQueue)
         } else {
             let reentrant_frame_depth = self.current_frame_depth + 1;
-            Frame::new(reentrant_frame_depth, frame_result, Self::frame_control_for_depth(reentrant_frame_depth))
+            Frame::new(
+                reentrant_frame_depth,
+                frame_result,
+                Self::frame_control_for_depth(reentrant_frame_depth),
+            )
         }
     }
 
@@ -84,7 +88,10 @@ impl ExecutionContext {
     ) {
         let frame = self.create_top_frame(function_return);
         let callback = sender.callback().clone();
-        let action = bind(Arc::new(CallFunction::new(function, callback, false)), sender);
+        let action = bind(
+            Arc::new(CallFunction::new(function, callback, false)),
+            sender,
+        );
         self.queue_next(CommandQueueEntry::new(frame, action));
     }
 
@@ -116,7 +123,11 @@ impl ExecutionContext {
     }
 
     pub fn discard_at_depth_or_higher(&mut self, depth_to_discard: i32) {
-        while self.command_queue.front().is_some_and(|e| e.frame.depth() >= depth_to_discard) {
+        while self
+            .command_queue
+            .front()
+            .is_some_and(|e| e.frame.depth() >= depth_to_discard)
+        {
             self.command_queue.pop_front();
         }
     }
@@ -136,7 +147,10 @@ impl ExecutionContext {
         self.push_new_commands();
         loop {
             if self.command_quota <= 0 {
-                log::info!("Command execution stopped due to limit (executed {} commands)", self.command_limit);
+                log::info!(
+                    "Command execution stopped due to limit (executed {} commands)",
+                    self.command_limit
+                );
                 break;
             }
             let Some(command) = self.command_queue.pop_front() else {
@@ -145,7 +159,10 @@ impl ExecutionContext {
             self.current_frame_depth = command.frame.depth();
             command.execute(self);
             if self.queue_overflow {
-                log::error!("Command execution stopped due to command queue overflow (max {})", MAX_QUEUE_DEPTH);
+                log::error!(
+                    "Command execution stopped due to command queue overflow (max {})",
+                    MAX_QUEUE_DEPTH
+                );
                 break;
             }
             self.push_new_commands();
@@ -198,7 +215,8 @@ impl<'a> ExecutionControl<'a> {
     }
 
     pub fn queue_next(&mut self, action: EntryAction) {
-        self.context.queue_next(CommandQueueEntry::new(self.frame.clone(), action));
+        self.context
+            .queue_next(CommandQueueEntry::new(self.frame.clone(), action));
     }
 
     pub fn set_tracer(&mut self, tracer: Option<Box<dyn TraceCallbacks>>) {

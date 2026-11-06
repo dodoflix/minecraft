@@ -1,9 +1,9 @@
 //! `DataComponentMap`, `DataComponentPatch`, `PatchedDataComponentMap`, `TypedDataComponent`.
 
-use crate::codec::EncodeResult;
 use super::component::{ComponentKey, Value};
 use super::registry::{def, try_def};
-use crate::codec::{read_varint, write_varint, Decode, DecodeError, DecodeResult, Encode};
+use crate::codec::EncodeResult;
+use crate::codec::{Decode, DecodeError, DecodeResult, Encode, read_varint, write_varint};
 use mc_core::ident::Identifier;
 use mc_data::DataComponentType;
 use mc_dfu::{Codec, DataResult};
@@ -21,7 +21,10 @@ pub trait DataComponentGetter {
     fn get_value(&self, id: DataComponentType) -> Option<&Value>;
 
     fn get<T: 'static>(&self, key: &ComponentKey<T>) -> Option<&T> {
-        self.get_value(key.id()).map(|v| v.downcast_ref::<T>().unwrap_or_else(|| panic!("wrong value type for {}", key.id().name())))
+        self.get_value(key.id()).map(|v| {
+            v.downcast_ref::<T>()
+                .unwrap_or_else(|| panic!("wrong value type for {}", key.id().name()))
+        })
     }
     fn get_or_default<'a, T: 'static>(&'a self, key: &ComponentKey<T>, default: &'a T) -> &'a T {
         self.get(key).unwrap_or(default)
@@ -41,7 +44,9 @@ pub struct DataComponentMap {
 
 impl Default for DataComponentMap {
     fn default() -> Self {
-        static EMPTY: LazyLock<DataComponentMap> = LazyLock::new(|| DataComponentMap { entries: Arc::new(Vec::new()) });
+        static EMPTY: LazyLock<DataComponentMap> = LazyLock::new(|| DataComponentMap {
+            entries: Arc::new(Vec::new()),
+        });
         EMPTY.clone()
     }
 }
@@ -49,7 +54,10 @@ impl Default for DataComponentMap {
 impl PartialEq for DataComponentMap {
     fn eq(&self, other: &Self) -> bool {
         self.entries.len() == other.entries.len()
-            && self.entries.iter().all(|(k, v)| other.get_value(*k).is_some_and(|o| o == v))
+            && self
+                .entries
+                .iter()
+                .all(|(k, v)| other.get_value(*k).is_some_and(|o| o == v))
     }
 }
 
@@ -81,10 +89,21 @@ impl DataComponentMap {
     /// `DataComponentMap.CODEC`: persistent components only, as `{"minecraft:x": value}`.
     pub fn codec() -> Codec<DataComponentMap> {
         static C: LazyLock<Codec<DataComponentMap>> = LazyLock::new(|| {
-            mc_dfu::extra::dispatched_map(&persistent_type_codec(), |t| DataResult::success(def(*t).codec_or_throw().clone())).flat_comap_map(
-                |entries| DataComponentMap { entries: Arc::new(entries) },
+            mc_dfu::extra::dispatched_map(&persistent_type_codec(), |t| {
+                DataResult::success(def(*t).codec_or_throw().clone())
+            })
+            .flat_comap_map(
+                |entries| DataComponentMap {
+                    entries: Arc::new(entries),
+                },
                 |m: &DataComponentMap| {
-                    DataResult::success(m.entries.iter().filter(|(k, _)| !def(*k).is_transient()).cloned().collect())
+                    DataResult::success(
+                        m.entries
+                            .iter()
+                            .filter(|(k, _)| !def(*k).is_transient())
+                            .cloned()
+                            .collect(),
+                    )
                 },
             )
         });
@@ -122,7 +141,9 @@ impl DataComponentMapBuilder {
         self
     }
     pub fn build(self) -> DataComponentMap {
-        DataComponentMap { entries: Arc::new(self.entries) }
+        DataComponentMap {
+            entries: Arc::new(self.entries),
+        }
     }
 }
 
@@ -154,7 +175,9 @@ pub struct DataComponentPatch {
 
 impl Default for DataComponentPatch {
     fn default() -> Self {
-        static EMPTY: LazyLock<DataComponentPatch> = LazyLock::new(|| DataComponentPatch { entries: Arc::new(Vec::new()) });
+        static EMPTY: LazyLock<DataComponentPatch> = LazyLock::new(|| DataComponentPatch {
+            entries: Arc::new(Vec::new()),
+        });
         EMPTY.clone()
     }
 }
@@ -162,11 +185,18 @@ impl Default for DataComponentPatch {
 impl PartialEq for DataComponentPatch {
     fn eq(&self, other: &Self) -> bool {
         self.entries.len() == other.entries.len()
-            && self.entries.iter().all(|(k, v)| other.entries.iter().any(|(k2, v2)| k == k2 && v == v2))
+            && self
+                .entries
+                .iter()
+                .all(|(k, v)| other.entries.iter().any(|(k2, v2)| k == k2 && v == v2))
     }
 }
 
-fn put(entries: &mut Vec<(DataComponentType, Option<Value>)>, id: DataComponentType, v: Option<Value>) {
+fn put(
+    entries: &mut Vec<(DataComponentType, Option<Value>)>,
+    id: DataComponentType,
+    v: Option<Value>,
+) {
     match entries.iter_mut().find(|(k, _)| *k == id) {
         Some(e) => e.1 = v,
         None => entries.push((id, v)),
@@ -194,19 +224,35 @@ impl DataComponentPatch {
         &self.entries
     }
     /// `get(prototype, type)`: patch value, else prototype; a removal reads as absent.
-    pub fn get_value<'a>(&'a self, prototype: &'a impl DataComponentGetter, id: DataComponentType) -> Option<&'a Value> {
+    pub fn get_value<'a>(
+        &'a self,
+        prototype: &'a impl DataComponentGetter,
+        id: DataComponentType,
+    ) -> Option<&'a Value> {
         match self.entries.iter().find(|(k, _)| *k == id) {
             Some((_, v)) => v.as_ref(),
             None => prototype.get_value(id),
         }
     }
-    pub fn get<'a, T: 'static>(&'a self, prototype: &'a impl DataComponentGetter, key: &ComponentKey<T>) -> Option<&'a T> {
-        self.get_value(prototype, key.id()).map(|v| v.downcast_ref::<T>().expect("component value type"))
+    pub fn get<'a, T: 'static>(
+        &'a self,
+        prototype: &'a impl DataComponentGetter,
+        key: &ComponentKey<T>,
+    ) -> Option<&'a T> {
+        self.get_value(prototype, key.id())
+            .map(|v| v.downcast_ref::<T>().expect("component value type"))
     }
     /// `forget(test)`: drop entries whose type matches.
     pub fn forget(&self, test: impl Fn(DataComponentType) -> bool) -> DataComponentPatch {
-        let v: Vec<_> = self.entries.iter().filter(|(k, _)| !test(*k)).cloned().collect();
-        DataComponentPatch { entries: Arc::new(v) }
+        let v: Vec<_> = self
+            .entries
+            .iter()
+            .filter(|(k, _)| !test(*k))
+            .cloned()
+            .collect();
+        DataComponentPatch {
+            entries: Arc::new(v),
+        }
     }
     /// `split()`: (added components, removed types).
     pub fn split(&self) -> (DataComponentMap, Vec<DataComponentType>) {
@@ -235,7 +281,9 @@ impl DataComponentPatch {
                         Some(c) => DataResult::success(c),
                         None => {
                             let name = k.ty.name();
-                            DataResult::error(move || format!("data component {name} is not implemented"))
+                            DataResult::error(move || {
+                                format!("data component {name} is not implemented")
+                            })
                         }
                     }
                 }
@@ -246,15 +294,24 @@ impl DataComponentPatch {
                     for (k, v) in data {
                         put(&mut map, k.ty, v);
                     }
-                    DataComponentPatch { entries: Arc::new(map) }
+                    DataComponentPatch {
+                        entries: Arc::new(map),
+                    }
                 },
                 |patch: &DataComponentPatch| {
                     patch
                         .entries
                         .iter()
-                        
                         .filter(|(k, _)| !try_def(*k).is_some_and(|d| d.is_transient()))
-                        .map(|(k, v)| (PatchKey { ty: *k, removed: v.is_none() }, v.clone()))
+                        .map(|(k, v)| {
+                            (
+                                PatchKey {
+                                    ty: *k,
+                                    removed: v.is_none(),
+                                },
+                                v.clone(),
+                            )
+                        })
                         .collect()
                 },
             )
@@ -288,9 +345,9 @@ impl DataComponentPatch {
             if v.is_none() {
                 k.encode(out)?;
             }
-        };
+        }
         Ok(())
-}
+    }
 
     fn read_stream(input: &mut &[u8], delimited: bool) -> DecodeResult<DataComponentPatch> {
         let positive = read_varint(input)?;
@@ -302,11 +359,14 @@ impl DataComponentPatch {
         let mut map: Vec<(DataComponentType, Option<Value>)> = Vec::with_capacity(expected);
         for _ in 0..positive {
             let ty = DataComponentType::decode(input)?;
-            let d = try_def(ty).ok_or_else(|| DecodeError::Message(format!("data component {} is not implemented", ty.name())))?;
+            let d = try_def(ty).ok_or_else(|| {
+                DecodeError::Message(format!("data component {} is not implemented", ty.name()))
+            })?;
             let value = if delimited {
                 let size = read_varint(input)?;
                 // `ByteBufCodecs.lengthPrefixed(Integer.MAX_VALUE)`
-                let size_u = usize::try_from(size).map_err(|_| DecodeError::Message(format!("Illegal Capacity: {size}")))?;
+                let size_u = usize::try_from(size)
+                    .map_err(|_| DecodeError::Message(format!("Illegal Capacity: {size}")))?;
                 let mut slice = crate::codec::take(input, size_u)?;
                 d.decode_network(&mut slice)?
             } else {
@@ -318,7 +378,9 @@ impl DataComponentPatch {
             let ty = DataComponentType::decode(input)?;
             put(&mut map, ty, None);
         }
-        Ok(DataComponentPatch { entries: Arc::new(map) })
+        Ok(DataComponentPatch {
+            entries: Arc::new(map),
+        })
     }
 
     /// `DataComponentPatch.DELIMITED_STREAM_CODEC` encode: every value is length-prefixed.
@@ -359,19 +421,29 @@ fn patch_key_codec() -> Codec<PatchKey> {
                 None => (false, string),
             };
             let id = Identifier::try_parse(&name);
-            let ty = id.as_ref().and_then(|id| DataComponentType::by_name(&id.to_string()));
+            let ty = id
+                .as_ref()
+                .and_then(|id| DataComponentType::by_name(&id.to_string()));
             match ty {
                 None => {
                     let shown = id.map(|i| i.to_string()).unwrap_or_else(|| "null".into());
                     DataResult::error(move || format!("No component with type: '{shown}'"))
                 }
                 Some(t) if try_def(t).is_some_and(|d| d.is_transient()) => {
-                    DataResult::error(move || format!("'{}' is not a persistent component", t.name()))
+                    DataResult::error(move || {
+                        format!("'{}' is not a persistent component", t.name())
+                    })
                 }
                 Some(t) => DataResult::success(PatchKey { ty: t, removed }),
             }
         },
-        |k: &PatchKey| DataResult::success(if k.removed { format!("!{}", k.ty.name()) } else { k.ty.name().to_string() }),
+        |k: &PatchKey| {
+            DataResult::success(if k.removed {
+                format!("!{}", k.ty.name())
+            } else {
+                k.ty.name().to_string()
+            })
+        },
     )
 }
 
@@ -400,7 +472,9 @@ impl DataComponentPatchBuilder {
         self
     }
     pub fn build(self) -> DataComponentPatch {
-        DataComponentPatch { entries: Arc::new(self.entries) }
+        DataComponentPatch {
+            entries: Arc::new(self.entries),
+        }
     }
 }
 
@@ -417,7 +491,10 @@ impl PartialEq for PatchedDataComponentMap {
     fn eq(&self, other: &Self) -> bool {
         self.prototype == other.prototype
             && self.patch.len() == other.patch.len()
-            && self.patch.iter().all(|(k, v)| other.patch.iter().any(|(k2, v2)| k == k2 && v == v2))
+            && self
+                .patch
+                .iter()
+                .all(|(k, v)| other.patch.iter().any(|(k2, v2)| k == k2 && v == v2))
     }
 }
 
@@ -432,7 +509,10 @@ impl DataComponentGetter for PatchedDataComponentMap {
 
 impl PatchedDataComponentMap {
     pub fn new(prototype: DataComponentMap) -> Self {
-        PatchedDataComponentMap { prototype, patch: Vec::new() }
+        PatchedDataComponentMap {
+            prototype,
+            patch: Vec::new(),
+        }
     }
 
     /// `fromPatch(prototype, patch)`: entries equal to the prototype (or removing a missing component) are dropped.
@@ -473,7 +553,11 @@ impl PatchedDataComponentMap {
         }
     }
 
-    pub fn set<T: super::ComponentValue>(&mut self, key: ComponentKey<T>, value: T) -> Option<Value> {
+    pub fn set<T: super::ComponentValue>(
+        &mut self,
+        key: ComponentKey<T>,
+        value: T,
+    ) -> Option<Value> {
         self.set_value(key.id(), Some(Value::new(value)))
     }
 
@@ -552,8 +636,14 @@ impl PatchedDataComponentMap {
 
     /// Iteration like vanilla: patched (non-removed) entries first, then untouched prototype entries.
     pub fn iter(&self) -> impl Iterator<Item = (DataComponentType, &Value)> {
-        let patched = self.patch.iter().filter_map(|(k, v)| v.as_ref().map(|v| (*k, v)));
-        let proto = self.prototype.iter().filter(|(k, _)| !self.patch.iter().any(|(p, _)| p == k));
+        let patched = self
+            .patch
+            .iter()
+            .filter_map(|(k, v)| v.as_ref().map(|v| (*k, v)));
+        let proto = self
+            .prototype
+            .iter()
+            .filter(|(k, _)| !self.patch.iter().any(|(p, _)| p == k));
         patched.chain(proto)
     }
 
@@ -566,7 +656,9 @@ impl PatchedDataComponentMap {
 
     /// `asPatch()`.
     pub fn as_patch(&self) -> DataComponentPatch {
-        DataComponentPatch { entries: Arc::new(self.patch.clone()) }
+        DataComponentPatch {
+            entries: Arc::new(self.patch.clone()),
+        }
     }
 
     /// `toImmutableMap()`.
@@ -593,8 +685,13 @@ impl Encode for TypedDataComponent {
 impl Decode for TypedDataComponent {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
         let id = DataComponentType::decode(input)?;
-        let d = try_def(id).ok_or_else(|| DecodeError::Message(format!("data component {} is not implemented", id.name())))?;
-        Ok(TypedDataComponent { id, value: d.decode_network(input)? })
+        let d = try_def(id).ok_or_else(|| {
+            DecodeError::Message(format!("data component {} is not implemented", id.name()))
+        })?;
+        Ok(TypedDataComponent {
+            id,
+            value: d.decode_network(input)?,
+        })
     }
 }
 
@@ -611,7 +708,12 @@ impl DataComponentExactPredicate {
         Self::default()
     }
     pub fn expect<T: super::ComponentValue>(key: ComponentKey<T>, value: T) -> Self {
-        DataComponentExactPredicate { expected: vec![TypedDataComponent { id: key.id(), value: Value::new(value) }] }
+        DataComponentExactPredicate {
+            expected: vec![TypedDataComponent {
+                id: key.id(),
+                value: Value::new(value),
+            }],
+        }
     }
     pub fn from_components(expected: Vec<TypedDataComponent>) -> Self {
         DataComponentExactPredicate { expected }
@@ -619,7 +721,13 @@ impl DataComponentExactPredicate {
     /// `allOf(components)`.
     pub fn all_of(components: &DataComponentMap) -> Self {
         DataComponentExactPredicate {
-            expected: components.iter().map(|(id, v)| TypedDataComponent { id, value: v.clone() }).collect(),
+            expected: components
+                .iter()
+                .map(|(id, v)| TypedDataComponent {
+                    id,
+                    value: v.clone(),
+                })
+                .collect(),
         }
     }
     /// `someOf(components, types...)`.
@@ -627,7 +735,12 @@ impl DataComponentExactPredicate {
         DataComponentExactPredicate {
             expected: types
                 .iter()
-                .filter_map(|t| components.get_value(*t).map(|v| TypedDataComponent { id: *t, value: v.clone() }))
+                .filter_map(|t| {
+                    components.get_value(*t).map(|v| TypedDataComponent {
+                        id: *t,
+                        value: v.clone(),
+                    })
+                })
                 .collect(),
         }
     }
@@ -646,21 +759,37 @@ impl DataComponentExactPredicate {
         builder.build()
     }
     pub fn test(&self, actual: &impl DataComponentGetter) -> bool {
-        self.expected.iter().all(|e| actual.get_value(e.id) == Some(&e.value))
+        self.expected
+            .iter()
+            .all(|e| actual.get_value(e.id) == Some(&e.value))
     }
 
     /// `DataComponentExactPredicate.CODEC`: `{"minecraft:x": value}` (persistent components only).
     pub fn codec() -> Codec<DataComponentExactPredicate> {
         static C: LazyLock<Codec<DataComponentExactPredicate>> = LazyLock::new(|| {
-            mc_dfu::extra::dispatched_map(&persistent_type_codec(), |t| DataResult::success(def(*t).codec_or_throw().clone())).flat_comap_map(
+            mc_dfu::extra::dispatched_map(&persistent_type_codec(), |t| {
+                DataResult::success(def(*t).codec_or_throw().clone())
+            })
+            .flat_comap_map(
                 |entries: Vec<(DataComponentType, Value)>| DataComponentExactPredicate {
-                    expected: entries.into_iter().map(|(id, value)| TypedDataComponent { id, value }).collect(),
+                    expected: entries
+                        .into_iter()
+                        .map(|(id, value)| TypedDataComponent { id, value })
+                        .collect(),
                 },
                 |p: &DataComponentExactPredicate| {
                     // `Collectors.toMap` throws on a repeated component type (a list decoded from the wire may repeat one)
-                    let entries: Vec<(DataComponentType, Value)> =
-                        p.expected.iter().filter(|e| !def(e.id).is_transient()).map(|e| (e.id, e.value.clone())).collect();
-                    match entries.iter().enumerate().find(|(i, (k, _))| entries[..*i].iter().any(|(k2, _)| k2 == k)) {
+                    let entries: Vec<(DataComponentType, Value)> = p
+                        .expected
+                        .iter()
+                        .filter(|e| !def(e.id).is_transient())
+                        .map(|e| (e.id, e.value.clone()))
+                        .collect();
+                    match entries
+                        .iter()
+                        .enumerate()
+                        .find(|(i, (k, _))| entries[..*i].iter().any(|(k2, _)| k2 == k))
+                    {
                         Some((_, (k, _))) => {
                             let m = format!("Duplicate key {}", k.name());
                             DataResult::error(move || m.clone())
@@ -680,12 +809,14 @@ impl Encode for DataComponentExactPredicate {
         write_varint(out, self.expected.len() as i32);
         for e in &self.expected {
             e.encode(out)?;
-        };
+        }
         Ok(())
     }
 }
 impl Decode for DataComponentExactPredicate {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
-        Ok(DataComponentExactPredicate { expected: <TypedDataComponent as Decode>::decode_vec(input, i32::MAX as usize)? })
+        Ok(DataComponentExactPredicate {
+            expected: <TypedDataComponent as Decode>::decode_vec(input, i32::MAX as usize)?,
+        })
     }
 }

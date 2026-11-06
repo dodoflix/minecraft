@@ -20,7 +20,8 @@ impl DistancePredicate {
                 x: Doubles::codec().optional_field_of_default("x", Doubles::any()),
                 y: Doubles::codec().optional_field_of_default("y", Doubles::any()),
                 z: Doubles::codec().optional_field_of_default("z", Doubles::any()),
-                horizontal: Doubles::codec().optional_field_of_default("horizontal", Doubles::any()),
+                horizontal: Doubles::codec()
+                    .optional_field_of_default("horizontal", Doubles::any()),
                 absolute: Doubles::codec().optional_field_of_default("absolute", Doubles::any()),
             })
             .codec()
@@ -29,7 +30,13 @@ impl DistancePredicate {
     }
 
     fn only(f: impl FnOnce(&mut DistancePredicate)) -> DistancePredicate {
-        let mut p = DistancePredicate { x: Doubles::any(), y: Doubles::any(), z: Doubles::any(), horizontal: Doubles::any(), absolute: Doubles::any() };
+        let mut p = DistancePredicate {
+            x: Doubles::any(),
+            y: Doubles::any(),
+            z: Doubles::any(),
+            horizontal: Doubles::any(),
+            absolute: Doubles::any(),
+        };
         f(&mut p);
         p
     }
@@ -51,10 +58,16 @@ impl DistancePredicate {
         let xd = (x0 - x1) as f32;
         let yd = (y0 - y1) as f32;
         let zd = (z0 - z1) as f32;
-        if !self.x.matches(f64::from(xd.abs())) || !self.y.matches(f64::from(yd.abs())) || !self.z.matches(f64::from(zd.abs())) {
+        if !self.x.matches(f64::from(xd.abs()))
+            || !self.y.matches(f64::from(yd.abs()))
+            || !self.z.matches(f64::from(zd.abs()))
+        {
             false
         } else {
-            self.horizontal.matches_sqr(f64::from(xd * xd + zd * zd)) && self.absolute.matches_sqr(f64::from(xd * xd + yd * yd + zd * zd))
+            self.horizontal.matches_sqr(f64::from(xd * xd + zd * zd))
+                && self
+                    .absolute
+                    .matches_sqr(f64::from(xd * xd + yd * yd + zd * zd))
         }
     }
 }

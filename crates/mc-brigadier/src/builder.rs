@@ -49,7 +49,10 @@ pub trait ArgumentBuilder<S: Clone + 'static>: Sized {
 
     fn then_node(mut self, argument: Arc<CommandNode<S>>) -> Self {
         let data = self.data_mut();
-        assert!(data.target.is_none(), "Cannot add children to a redirected node");
+        assert!(
+            data.target.is_none(),
+            "Cannot add children to a redirected node"
+        );
         data.arguments.add_child(argument);
         self
     }
@@ -58,7 +61,13 @@ pub trait ArgumentBuilder<S: Clone + 'static>: Sized {
         self.data().arguments.get_children()
     }
 
-    fn executes(self, command: impl Fn(&CommandContext<S>) -> Result<i32, CommandSyntaxException> + Send + Sync + 'static) -> Self {
+    fn executes(
+        self,
+        command: impl Fn(&CommandContext<S>) -> Result<i32, CommandSyntaxException>
+        + Send
+        + Sync
+        + 'static,
+    ) -> Self {
         self.executes_command(Arc::new(command))
     }
 
@@ -92,34 +101,58 @@ pub trait ArgumentBuilder<S: Clone + 'static>: Sized {
     fn redirect_with(
         self,
         target: Arc<CommandNode<S>>,
-        modifier: impl Fn(&CommandContext<S>) -> Result<S, CommandSyntaxException> + Send + Sync + 'static,
+        modifier: impl Fn(&CommandContext<S>) -> Result<S, CommandSyntaxException>
+        + Send
+        + Sync
+        + 'static,
     ) -> Self {
         self.redirect_single(target, Some(Arc::new(modifier)))
     }
 
-    fn redirect_single(self, target: Arc<CommandNode<S>>, modifier: Option<SingleRedirectModifier<S>>) -> Self {
-        let modifier: Option<RedirectModifier<S>> =
-            modifier.map(|m| Arc::new(move |c: &CommandContext<S>| m(c).map(|s| vec![s])) as RedirectModifier<S>);
+    fn redirect_single(
+        self,
+        target: Arc<CommandNode<S>>,
+        modifier: Option<SingleRedirectModifier<S>>,
+    ) -> Self {
+        let modifier: Option<RedirectModifier<S>> = modifier.map(|m| {
+            Arc::new(move |c: &CommandContext<S>| m(c).map(|s| vec![s])) as RedirectModifier<S>
+        });
         self.forward_shared(Some(target), modifier, false)
     }
 
     fn fork(
         self,
         target: Arc<CommandNode<S>>,
-        modifier: impl Fn(&CommandContext<S>) -> Result<Vec<S>, CommandSyntaxException> + Send + Sync + 'static,
+        modifier: impl Fn(&CommandContext<S>) -> Result<Vec<S>, CommandSyntaxException>
+        + Send
+        + Sync
+        + 'static,
     ) -> Self {
         self.forward_shared(Some(target), Some(Arc::new(modifier)), true)
     }
 
     /// `forward(target, modifier, fork)`. Panics if children were already added.
-    fn forward(self, target: Arc<CommandNode<S>>, modifier: Option<RedirectModifier<S>>, fork: bool) -> Self {
+    fn forward(
+        self,
+        target: Arc<CommandNode<S>>,
+        modifier: Option<RedirectModifier<S>>,
+        fork: bool,
+    ) -> Self {
         self.forward_shared(Some(target), modifier, fork)
     }
 
     /// Like [`forward`](Self::forward) but accepts "no target" (used when copying a node).
-    fn forward_shared(mut self, target: Option<Arc<CommandNode<S>>>, modifier: Option<RedirectModifier<S>>, fork: bool) -> Self {
+    fn forward_shared(
+        mut self,
+        target: Option<Arc<CommandNode<S>>>,
+        modifier: Option<RedirectModifier<S>>,
+        fork: bool,
+    ) -> Self {
         let data = self.data_mut();
-        assert!(!data.arguments.has_children(), "Cannot forward a node with children");
+        assert!(
+            !data.arguments.has_children(),
+            "Cannot forward a node with children"
+        );
         data.target = target;
         data.modifier = modifier;
         data.forks = fork;
@@ -147,7 +180,10 @@ pub struct LiteralArgumentBuilder<S> {
 
 impl<S: Clone + 'static> LiteralArgumentBuilder<S> {
     pub fn literal(name: impl Into<String>) -> Self {
-        Self { data: BuilderData::new(), literal: name.into() }
+        Self {
+            data: BuilderData::new(),
+            literal: name.into(),
+        }
     }
 
     pub fn get_literal(&self) -> &str {
@@ -195,15 +231,23 @@ impl<S: Clone + 'static> RequiredArgumentBuilder<S> {
     }
 
     pub fn argument_shared(name: impl Into<String>, type_: Arc<dyn ArgumentType<S>>) -> Self {
-        Self { data: BuilderData::new(), name: name.into(), type_, suggestions_provider: None }
+        Self {
+            data: BuilderData::new(),
+            name: name.into(),
+            type_,
+            suggestions_provider: None,
+        }
     }
 
     pub fn suggests(
         self,
-        provider: impl Fn(&CommandContext<S>, SuggestionsBuilder) -> Result<Suggestions, CommandSyntaxException>
-            + Send
-            + Sync
-            + 'static,
+        provider: impl Fn(
+            &CommandContext<S>,
+            SuggestionsBuilder,
+        ) -> Result<Suggestions, CommandSyntaxException>
+        + Send
+        + Sync
+        + 'static,
     ) -> Self {
         self.suggests_provider(Some(Arc::new(provider)))
     }
@@ -289,6 +333,9 @@ pub fn literal<S: Clone + 'static>(name: impl Into<String>) -> LiteralArgumentBu
 }
 
 /// `RequiredArgumentBuilder.argument(name, type)`.
-pub fn argument<S: Clone + 'static>(name: impl Into<String>, type_: impl ArgumentType<S>) -> RequiredArgumentBuilder<S> {
+pub fn argument<S: Clone + 'static>(
+    name: impl Into<String>,
+    type_: impl ArgumentType<S>,
+) -> RequiredArgumentBuilder<S> {
     RequiredArgumentBuilder::argument(name, type_)
 }

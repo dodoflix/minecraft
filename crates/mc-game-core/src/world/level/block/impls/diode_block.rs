@@ -12,7 +12,11 @@ pub fn is_diode(state: BlockState) -> bool {
 }
 
 /// `DiodeBlock.canSurviveOn`.
-pub fn can_survive_on(level: &dyn BlockGetter, neighbour_pos: BlockPos, neighbour_state: BlockState) -> bool {
+pub fn can_survive_on(
+    level: &dyn BlockGetter,
+    neighbour_pos: BlockPos,
+    neighbour_state: BlockState,
+) -> bool {
     neighbour_state.is_face_sturdy_support(level, neighbour_pos, Direction::Up, SupportType::Rigid)
 }
 
@@ -37,7 +41,12 @@ pub trait Diode {
         false
     }
     /// `getOutputSignal`.
-    fn get_output_signal(&self, _level: &dyn BlockGetter, _pos: BlockPos, _state: BlockState) -> i32 {
+    fn get_output_signal(
+        &self,
+        _level: &dyn BlockGetter,
+        _pos: BlockPos,
+        _state: BlockState,
+    ) -> i32 {
         15
     }
     /// `tick`.
@@ -59,18 +68,32 @@ pub fn base_input_signal(level: &dyn BlockGetter, pos: BlockPos, state: BlockSta
         input
     } else {
         let target_state = level.get_block_state(target_pos);
-        input.max(if target_state.is_block(Block::REDSTONE_WIRE) { target_state.get(props::POWER) } else { 0 })
+        input.max(if target_state.is_block(Block::REDSTONE_WIRE) {
+            target_state.get(props::POWER)
+        } else {
+            0
+        })
     }
 }
 
 /// `DiodeBlock.getAlternateSignal`.
-pub fn get_alternate_signal(diode: &(impl Diode + ?Sized), level: &dyn BlockGetter, pos: BlockPos, state: BlockState) -> i32 {
+pub fn get_alternate_signal(
+    diode: &(impl Diode + ?Sized),
+    level: &dyn BlockGetter,
+    pos: BlockPos,
+    state: BlockState,
+) -> i32 {
     let direction = state.get(props::HORIZONTAL_FACING);
     let clockwise = direction.get_clockwise();
     let counter_clockwise = direction.get_counter_clockwise();
     let only_diodes = diode.side_input_diodes_only();
     signal_getter::get_control_input_signal(level, pos.relative(clockwise), clockwise, only_diodes)
-        .max(signal_getter::get_control_input_signal(level, pos.relative(counter_clockwise), counter_clockwise, only_diodes))
+        .max(signal_getter::get_control_input_signal(
+            level,
+            pos.relative(counter_clockwise),
+            counter_clockwise,
+            only_diodes,
+        ))
 }
 
 /// `DiodeBlock.shouldPrioritize`.
@@ -81,7 +104,12 @@ pub fn should_prioritize(level: &dyn BlockGetter, pos: BlockPos, state: BlockSta
 }
 
 /// `DiodeBlock.checkTickOnNeighbor`.
-pub fn base_check_tick_on_neighbor(diode: &(impl Diode + ?Sized), level: &mut ServerLevel, pos: BlockPos, state: BlockState) {
+pub fn base_check_tick_on_neighbor(
+    diode: &(impl Diode + ?Sized),
+    level: &mut ServerLevel,
+    pos: BlockPos,
+    state: BlockState,
+) {
     if !diode.is_locked(&*level, pos, state) {
         let on = state.get(props::POWERED);
         let should_turn_on = diode.should_turn_on(level, pos, state);
@@ -99,7 +127,12 @@ pub fn base_check_tick_on_neighbor(diode: &(impl Diode + ?Sized), level: &mut Se
 }
 
 /// `DiodeBlock.tick`.
-pub fn base_tick(diode: &(impl Diode + ?Sized), state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
+pub fn base_tick(
+    diode: &(impl Diode + ?Sized),
+    state: BlockState,
+    level: &mut ServerLevel,
+    pos: BlockPos,
+) {
     if !diode.is_locked(&*level, pos, state) {
         let on = state.get(props::POWERED);
         let should_turn_on = diode.should_turn_on(level, pos, state);
@@ -108,14 +141,24 @@ pub fn base_tick(diode: &(impl Diode + ?Sized), state: BlockState, level: &mut S
         } else if !on {
             level.set_block_flags(pos, state.set(props::POWERED, true), 2);
             if !should_turn_on {
-                level.schedule_block_tick(pos, state.block(), diode.get_delay(state), TickPriority::VeryHigh);
+                level.schedule_block_tick(
+                    pos,
+                    state.block(),
+                    diode.get_delay(state),
+                    TickPriority::VeryHigh,
+                );
             }
         }
     }
 }
 
 /// `DiodeBlock.neighborChanged`.
-pub fn neighbor_changed(diode: &(impl Diode + ?Sized), state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
+pub fn neighbor_changed(
+    diode: &(impl Diode + ?Sized),
+    state: BlockState,
+    level: &mut ServerLevel,
+    pos: BlockPos,
+) {
     if level.get_block_state(pos).is_block(state.block()) {
         if state.can_survive(&*level, pos) {
             diode.check_tick_on_neighbor(level, pos, state);
@@ -130,7 +173,12 @@ pub fn neighbor_changed(diode: &(impl Diode + ?Sized), state: BlockState, level:
 }
 
 /// `DiodeBlock.setPlacedBy`.
-pub fn set_placed_by(diode: &(impl Diode + ?Sized), state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
+pub fn set_placed_by(
+    diode: &(impl Diode + ?Sized),
+    state: BlockState,
+    level: &mut ServerLevel,
+    pos: BlockPos,
+) {
     if diode.should_turn_on(level, pos, state) {
         level.schedule_tick_block(pos, state.block(), 1);
     }
@@ -140,14 +188,26 @@ pub fn set_placed_by(diode: &(impl Diode + ?Sized), state: BlockState, level: &m
 pub fn update_neighbors_in_front(level: &mut ServerLevel, pos: BlockPos, state: BlockState) {
     let direction = state.get(props::HORIZONTAL_FACING);
     let opposite_pos = pos.relative(direction.get_opposite());
-    let orientation = level.initial_orientation(Some(direction.get_opposite()), Some(Direction::Up));
+    let orientation =
+        level.initial_orientation(Some(direction.get_opposite()), Some(Direction::Up));
     level.neighbor_changed(opposite_pos, state.block(), orientation);
-    level.update_neighbors_at_except_from_facing(opposite_pos, state.block(), direction, orientation);
+    level.update_neighbors_at_except_from_facing(
+        opposite_pos,
+        state.block(),
+        direction,
+        orientation,
+    );
 }
 
 /// `DiodeBlock.getStateForPlacement`.
-pub fn get_state_for_placement(block: Block, context: &crate::world::item::BlockPlaceContext) -> BlockState {
-    block.default_state().set(props::HORIZONTAL_FACING, context.get_horizontal_direction().get_opposite())
+pub fn get_state_for_placement(
+    block: Block,
+    context: &crate::world::item::BlockPlaceContext,
+) -> BlockState {
+    block.default_state().set(
+        props::HORIZONTAL_FACING,
+        context.get_horizontal_direction().get_opposite(),
+    )
 }
 
 /// The `BlockBehaviour` methods defined by `DiodeBlock` itself and inherited unchanged (`canSurvive`, `tick`,
@@ -157,10 +217,21 @@ macro_rules! diode_behaviour {
     () => {
         fn can_survive(&self, _state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
             let below_pos = pos.below();
-            $crate::world::level::block::impls::diode_block::can_survive_on(level, below_pos, level.get_block_state(below_pos))
+            $crate::world::level::block::impls::diode_block::can_survive_on(
+                level,
+                below_pos,
+                level.get_block_state(below_pos),
+            )
         }
-        fn tick(&self, state: BlockState, level: &mut $crate::server::level::ServerLevel, pos: BlockPos) {
-            $crate::world::level::block::impls::diode_block::Diode::diode_tick(self, state, level, pos);
+        fn tick(
+            &self,
+            state: BlockState,
+            level: &mut $crate::server::level::ServerLevel,
+            pos: BlockPos,
+        ) {
+            $crate::world::level::block::impls::diode_block::Diode::diode_tick(
+                self, state, level, pos,
+            );
         }
         fn neighbor_changed(
             &self,
@@ -171,7 +242,9 @@ macro_rules! diode_behaviour {
             _orientation: Option<$crate::world::level::redstone::Orientation>,
             _moved_by_piston: bool,
         ) {
-            $crate::world::level::block::impls::diode_block::neighbor_changed(self, state, level, pos);
+            $crate::world::level::block::impls::diode_block::neighbor_changed(
+                self, state, level, pos,
+            );
         }
         fn set_placed_by(
             &self,
@@ -183,12 +256,29 @@ macro_rules! diode_behaviour {
         ) {
             $crate::world::level::block::impls::diode_block::set_placed_by(self, state, level, pos);
         }
-        fn on_place(&self, state: BlockState, level: &mut $crate::server::level::ServerLevel, pos: BlockPos, _old_state: BlockState, _moved_by_piston: bool) {
-            $crate::world::level::block::impls::diode_block::update_neighbors_in_front(level, pos, state);
+        fn on_place(
+            &self,
+            state: BlockState,
+            level: &mut $crate::server::level::ServerLevel,
+            pos: BlockPos,
+            _old_state: BlockState,
+            _moved_by_piston: bool,
+        ) {
+            $crate::world::level::block::impls::diode_block::update_neighbors_in_front(
+                level, pos, state,
+            );
         }
-        fn affect_neighbors_after_removal(&self, state: BlockState, level: &mut $crate::server::level::ServerLevel, pos: BlockPos, moved_by_piston: bool) {
+        fn affect_neighbors_after_removal(
+            &self,
+            state: BlockState,
+            level: &mut $crate::server::level::ServerLevel,
+            pos: BlockPos,
+            moved_by_piston: bool,
+        ) {
             if !moved_by_piston {
-                $crate::world::level::block::impls::diode_block::update_neighbors_in_front(level, pos, state);
+                $crate::world::level::block::impls::diode_block::update_neighbors_in_front(
+                    level, pos, state,
+                );
             }
         }
         fn rotate(&self, state: BlockState, rotation: Rotation) -> BlockState {
@@ -197,14 +287,36 @@ macro_rules! diode_behaviour {
         fn mirror(&self, state: BlockState, mirror: Mirror) -> BlockState {
             helpers::mirror_facing(state, props::HORIZONTAL_FACING, mirror)
         }
-        fn get_direct_signal(&self, state: BlockState, level: &dyn BlockGetter, pos: BlockPos, direction: Direction) -> i32 {
+        fn get_direct_signal(
+            &self,
+            state: BlockState,
+            level: &dyn BlockGetter,
+            pos: BlockPos,
+            direction: Direction,
+        ) -> i32 {
             state.get_signal(level, pos, direction)
         }
-        fn get_signal(&self, state: BlockState, level: &dyn BlockGetter, pos: BlockPos, direction: Direction) -> i32 {
-            if state.get(props::HORIZONTAL_FACING) == direction { self.own_signal(state, level, pos) } else { 0 }
+        fn get_signal(
+            &self,
+            state: BlockState,
+            level: &dyn BlockGetter,
+            pos: BlockPos,
+            direction: Direction,
+        ) -> i32 {
+            if state.get(props::HORIZONTAL_FACING) == direction {
+                self.own_signal(state, level, pos)
+            } else {
+                0
+            }
         }
         fn own_signal(&self, state: BlockState, level: &dyn BlockGetter, pos: BlockPos) -> i32 {
-            if state.get(props::POWERED) { $crate::world::level::block::impls::diode_block::Diode::get_output_signal(self, level, pos, state) } else { 0 }
+            if state.get(props::POWERED) {
+                $crate::world::level::block::impls::diode_block::Diode::get_output_signal(
+                    self, level, pos, state,
+                )
+            } else {
+                0
+            }
         }
     };
 }

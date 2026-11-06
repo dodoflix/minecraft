@@ -14,12 +14,16 @@ pub struct BitSet {
 
 impl BitSet {
     pub fn with_capacity(nbits: usize) -> BitSet {
-        BitSet { words: Vec::with_capacity(nbits.div_ceil(64)) }
+        BitSet {
+            words: Vec::with_capacity(nbits.div_ceil(64)),
+        }
     }
 
     /// Builds from `BitSet.valueOf(long[])`-style words.
     pub fn from_words(words: &[u64]) -> BitSet {
-        BitSet { words: words.to_vec() }
+        BitSet {
+            words: words.to_vec(),
+        }
     }
 
     /// `BitSet.toLongArray()`: words without trailing zero words.
@@ -33,7 +37,9 @@ impl BitSet {
 
     #[inline]
     pub fn get(&self, index: usize) -> bool {
-        self.words.get(index >> 6).is_some_and(|w| w >> (index & 63) & 1 != 0)
+        self.words
+            .get(index >> 6)
+            .is_some_and(|w| w >> (index & 63) & 1 != 0)
     }
 
     pub fn set(&mut self, index: usize) {
@@ -95,7 +101,10 @@ impl PartialEq for BitSet {
 impl Eq for BitSet {}
 
 fn check_sizes(x: i32, y: i32, z: i32) {
-    assert!(x >= 0 && y >= 0 && z >= 0, "Need all positive sizes: x: {x}, y: {y}, z: {z}");
+    assert!(
+        x >= 0 && y >= 0 && z >= 0,
+        "Need all positive sizes: x: {x}, y: {y}, z: {z}"
+    );
 }
 
 #[derive(Clone, PartialEq, Eq, Debug)]
@@ -119,7 +128,9 @@ impl BitSetDiscreteVoxelShape {
             x_size,
             y_size,
             z_size,
-            storage: BitSet::with_capacity((x_size as usize) * (y_size as usize) * (z_size as usize)),
+            storage: BitSet::with_capacity(
+                (x_size as usize) * (y_size as usize) * (z_size as usize),
+            ),
             x_min: x_size,
             y_min: y_size,
             z_min: z_size,
@@ -189,7 +200,11 @@ impl BitSetDiscreteVoxelShape {
 
     /// `new BitSetDiscreteVoxelShape(DiscreteVoxelShape)`.
     pub fn from_discrete(voxel_shape: &DiscreteVoxelShape) -> Self {
-        let (xs, ys, zs) = (voxel_shape.get_x_size(), voxel_shape.get_y_size(), voxel_shape.get_z_size());
+        let (xs, ys, zs) = (
+            voxel_shape.get_x_size(),
+            voxel_shape.get_y_size(),
+            voxel_shape.get_z_size(),
+        );
         let storage = if let DiscreteVoxelShape::BitSet(b) = voxel_shape {
             b.storage.clone()
         } else {
@@ -221,7 +236,10 @@ impl BitSetDiscreteVoxelShape {
 
     #[inline]
     fn index(y_size: i32, z_size: i32, x: i32, y: i32, z: i32) -> usize {
-        x.wrapping_mul(y_size).wrapping_add(y).wrapping_mul(z_size).wrapping_add(z) as usize
+        x.wrapping_mul(y_size)
+            .wrapping_add(y)
+            .wrapping_mul(z_size)
+            .wrapping_add(z) as usize
     }
 
     #[inline]
@@ -313,7 +331,10 @@ impl BitSetDiscreteVoxelShape {
             y_merger.for_merged_indexes(&mut |y1, y2, yr| {
                 let mut updated_column = false;
                 z_merger.for_merged_indexes(&mut |z1, z2, zr| {
-                    if op.apply(first.is_full_wide(x1, y1, z1), second.is_full_wide(x2, y2, z2)) {
+                    if op.apply(
+                        first.is_full_wide(x1, y1, z1),
+                        second.is_full_wide(x2, y2, z2),
+                    ) {
                         let i = shape.get_index(xr, yr, zr);
                         shape.storage.set(i);
                         bounds[2] = bounds[2].min(zr);
@@ -344,7 +365,11 @@ impl BitSetDiscreteVoxelShape {
         shape
     }
 
-    fn for_all_boxes(voxel_shape: &DiscreteVoxelShape, consumer: &mut impl FnMut(i32, i32, i32, i32, i32, i32), merge_neighbors: bool) {
+    fn for_all_boxes(
+        voxel_shape: &DiscreteVoxelShape,
+        consumer: &mut impl FnMut(i32, i32, i32, i32, i32, i32),
+        merge_neighbors: bool,
+    ) {
         let mut shape = BitSetDiscreteVoxelShape::from_discrete(voxel_shape);
         for y in 0..shape.y_size {
             for x in 0..shape.x_size {
@@ -390,10 +415,18 @@ impl BitSetDiscreteVoxelShape {
     fn is_z_strip_full(&self, start_z: i32, end_z: i32, x: i32, y: i32) -> bool {
         x < self.x_size
             && y < self.y_size
-            && self.storage.next_clear_bit(self.get_index(x, y, start_z)) >= self.get_index(x, y, end_z)
+            && self.storage.next_clear_bit(self.get_index(x, y, start_z))
+                >= self.get_index(x, y, end_z)
     }
 
-    fn is_xz_rectangle_full(&self, start_x: i32, end_x: i32, start_z: i32, end_z: i32, y: i32) -> bool {
+    fn is_xz_rectangle_full(
+        &self,
+        start_x: i32,
+        end_x: i32,
+        start_z: i32,
+        end_z: i32,
+        y: i32,
+    ) -> bool {
         (start_x..end_x).all(|x| self.is_z_strip_full(start_z, end_z, x, y))
     }
 
@@ -403,8 +436,12 @@ impl BitSetDiscreteVoxelShape {
     }
 
     pub fn is_interior(&self, x: i32, y: i32, z: i32) -> bool {
-        let is_interior =
-            x > 0 && x < self.x_size - 1 && y > 0 && y < self.y_size - 1 && z > 0 && z < self.z_size - 1;
+        let is_interior = x > 0
+            && x < self.x_size - 1
+            && y > 0
+            && y < self.y_size - 1
+            && z > 0
+            && z < self.z_size - 1;
         is_interior
             && self.is_full(x, y, z)
             && self.is_full(x - 1, y, z)
@@ -426,16 +463,32 @@ pub struct SubShape {
 }
 
 impl SubShape {
-    pub fn new(parent: Arc<DiscreteVoxelShape>, start_x: i32, start_y: i32, start_z: i32, end_x: i32, end_y: i32, end_z: i32) -> Self {
+    pub fn new(
+        parent: Arc<DiscreteVoxelShape>,
+        start_x: i32,
+        start_y: i32,
+        start_z: i32,
+        end_x: i32,
+        end_y: i32,
+        end_z: i32,
+    ) -> Self {
         check_sizes(end_x - start_x, end_y - start_y, end_z - start_z);
-        SubShape { parent, start: [start_x, start_y, start_z], end: [end_x, end_y, end_z] }
+        SubShape {
+            parent,
+            start: [start_x, start_y, start_z],
+            end: [end_x, end_y, end_z],
+        }
     }
 
     fn clamp_to_shape(&self, axis: Axis, parent_result: i32) -> i32 {
         let i = axis as usize;
         let (start, end) = (self.start[i], self.end[i]);
         // Mth.clamp(int, min, max)
-        (if parent_result < start { start } else { parent_result.min(end) }) - start
+        (if parent_result < start {
+            start
+        } else {
+            parent_result.min(end)
+        }) - start
     }
 }
 
@@ -458,7 +511,8 @@ impl DiscreteVoxelShape {
         if rotation == OctahedralGroup::Identity {
             return self.clone();
         }
-        let mut v = rotation.rotate_vec3i([self.get_x_size(), self.get_y_size(), self.get_z_size()]);
+        let mut v =
+            rotation.rotate_vec3i([self.get_x_size(), self.get_y_size(), self.get_z_size()]);
         let shift = [0, 1, 2].map(|i| Self::fixup_coordinate(&mut v, i));
         let mut new_shape = BitSetDiscreteVoxelShape::new(v[0], v[1], v[2]);
         for x in 0..self.get_x_size() {
@@ -466,7 +520,11 @@ impl DiscreteVoxelShape {
                 for z in 0..self.get_z_size() {
                     if self.is_full(x, y, z) {
                         let new_pos = rotation.rotate_vec3i([x, y, z]);
-                        new_shape.fill(shift[0] + new_pos[0], shift[1] + new_pos[1], shift[2] + new_pos[2]);
+                        new_shape.fill(
+                            shift[0] + new_pos[0],
+                            shift[1] + new_pos[1],
+                            shift[2] + new_pos[2],
+                        );
                     }
                 }
             }
@@ -496,7 +554,10 @@ impl DiscreteVoxelShape {
         if x < 0 || y < 0 || z < 0 {
             return false;
         }
-        x < self.get_x_size() && y < self.get_y_size() && z < self.get_z_size() && self.is_full(x, y, z)
+        x < self.get_x_size()
+            && y < self.get_y_size()
+            && z < self.get_z_size()
+            && self.is_full(x, y, z)
     }
 
     pub fn is_full_cycled(&self, transform: AxisCycle, x: i32, y: i32, z: i32) -> bool {
@@ -510,14 +571,19 @@ impl DiscreteVoxelShape {
     pub fn is_full(&self, x: i32, y: i32, z: i32) -> bool {
         match self {
             DiscreteVoxelShape::BitSet(b) => b.is_full(x, y, z),
-            DiscreteVoxelShape::Sub(s) => s.parent.is_full(s.start[0] + x, s.start[1] + y, s.start[2] + z),
+            DiscreteVoxelShape::Sub(s) => {
+                s.parent
+                    .is_full(s.start[0] + x, s.start[1] + y, s.start[2] + z)
+            }
         }
     }
 
     pub fn is_empty(&self) -> bool {
         match self {
             DiscreteVoxelShape::BitSet(b) => b.is_empty(),
-            DiscreteVoxelShape::Sub(_) => Axis::VALUES.iter().any(|&axis| self.first_full(axis) >= self.last_full(axis)),
+            DiscreteVoxelShape::Sub(_) => Axis::VALUES
+                .iter()
+                .any(|&axis| self.first_full(axis) >= self.last_full(axis)),
         }
     }
 
@@ -594,13 +660,22 @@ impl DiscreteVoxelShape {
         }
     }
 
-    pub fn for_all_edges(&self, consumer: &mut impl FnMut(i32, i32, i32, i32, i32, i32), merge_neighbors: bool) {
+    pub fn for_all_edges(
+        &self,
+        consumer: &mut impl FnMut(i32, i32, i32, i32, i32, i32),
+        merge_neighbors: bool,
+    ) {
         self.for_all_axis_edges(consumer, AxisCycle::None, merge_neighbors);
         self.for_all_axis_edges(consumer, AxisCycle::Forward, merge_neighbors);
         self.for_all_axis_edges(consumer, AxisCycle::Backward, merge_neighbors);
     }
 
-    fn for_all_axis_edges(&self, consumer: &mut impl FnMut(i32, i32, i32, i32, i32, i32), transform: AxisCycle, merge_neighbors: bool) {
+    fn for_all_axis_edges(
+        &self,
+        consumer: &mut impl FnMut(i32, i32, i32, i32, i32, i32),
+        transform: AxisCycle,
+        merge_neighbors: bool,
+    ) {
         let inverse = transform.inverse();
         let a_size = self.get_size(inverse.cycle_axis(Axis::X));
         let b_size = self.get_size(inverse.cycle_axis(Axis::Y));
@@ -628,7 +703,10 @@ impl DiscreteVoxelShape {
                         }
                     }
 
-                    if full_sectors == 1 || full_sectors == 3 || full_sectors == 2 && (odd_sectors & 1) == 0 {
+                    if full_sectors == 1
+                        || full_sectors == 3
+                        || full_sectors == 2 && (odd_sectors & 1) == 0
+                    {
                         if merge_neighbors {
                             if last_start == -1 {
                                 last_start = c;
@@ -649,7 +727,11 @@ impl DiscreteVoxelShape {
         }
     }
 
-    pub fn for_all_boxes(&self, consumer: &mut impl FnMut(i32, i32, i32, i32, i32, i32), merge_neighbors: bool) {
+    pub fn for_all_boxes(
+        &self,
+        consumer: &mut impl FnMut(i32, i32, i32, i32, i32, i32),
+        merge_neighbors: bool,
+    ) {
         BitSetDiscreteVoxelShape::for_all_boxes(self, consumer, merge_neighbors);
     }
 
@@ -659,7 +741,11 @@ impl DiscreteVoxelShape {
         self.for_all_axis_faces(consumer, AxisCycle::Backward);
     }
 
-    fn for_all_axis_faces(&self, consumer: &mut impl FnMut(Direction, i32, i32, i32), transform: AxisCycle) {
+    fn for_all_axis_faces(
+        &self,
+        consumer: &mut impl FnMut(Direction, i32, i32, i32),
+        transform: AxisCycle,
+    ) {
         let inverse = transform.inverse();
         let c_axis = inverse.cycle_axis(Axis::Z);
         let a_size = self.get_size(inverse.cycle_axis(Axis::X));

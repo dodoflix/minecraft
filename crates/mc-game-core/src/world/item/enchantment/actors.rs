@@ -18,12 +18,16 @@ pub struct Actors<'a> {
 impl<'a> Actors<'a> {
     /// No explicit entities: everything is resolved through the level.
     pub fn none() -> Actors<'a> {
-        Actors { explicit: Vec::new() }
+        Actors {
+            explicit: Vec::new(),
+        }
     }
 
     /// `entity` is the running entity.
     pub fn of(entity: &'a mut dyn Entity) -> Actors<'a> {
-        Actors { explicit: vec![entity] }
+        Actors {
+            explicit: vec![entity],
+        }
     }
 
     /// Adds another entity that is out of the level.
@@ -46,7 +50,12 @@ impl<'a> Actors<'a> {
     }
 
     /// Runs `f` with `id` mutably borrowed (taken out of the level unless explicit).
-    pub fn with<R>(&mut self, level: &mut ServerLevel, id: EntityId, f: impl FnOnce(&mut ServerLevel, &mut dyn Entity) -> R) -> Option<R> {
+    pub fn with<R>(
+        &mut self,
+        level: &mut ServerLevel,
+        id: EntityId,
+        f: impl FnOnce(&mut ServerLevel, &mut dyn Entity) -> R,
+    ) -> Option<R> {
         match self.explicit.iter_mut().find(|e| e.id() == id) {
             Some(e) => Some(f(level, &mut **e)),
             None => level.with_entity(id, f),
@@ -54,9 +63,16 @@ impl<'a> Actors<'a> {
     }
 
     /// `entity.getRandom()` (falls back to the level random when the entity is gone).
-    pub fn with_random<R>(&mut self, level: &mut ServerLevel, id: EntityId, f: impl FnOnce(&mut dyn RandomSource) -> R) -> R {
+    pub fn with_random<R>(
+        &mut self,
+        level: &mut ServerLevel,
+        id: EntityId,
+        f: impl FnOnce(&mut dyn RandomSource) -> R,
+    ) -> R {
         let mut f = Some(f);
-        if let Some(r) = self.with(level, id, |_, e| (f.take().expect("called once"))(&mut e.base_mut().random)) {
+        if let Some(r) = self.with(level, id, |_, e| {
+            (f.take().expect("called once"))(&mut e.base_mut().random)
+        }) {
             return r;
         }
         use crate::world::level::LevelAccessor;

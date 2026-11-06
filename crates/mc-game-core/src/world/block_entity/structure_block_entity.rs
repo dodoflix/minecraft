@@ -9,7 +9,9 @@ use crate::server::level::ServerLevel;
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::levelgen::structure::templatesystem::block_rot_processor::BlockRotProcessor;
 use crate::world::level::levelgen::structure::templatesystem::structure_place_settings::SharedRandom;
-use crate::world::level::levelgen::structure::templatesystem::{StructurePlaceSettings, StructureTemplate};
+use crate::world::level::levelgen::structure::templatesystem::{
+    StructurePlaceSettings, StructureTemplate,
+};
 use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
 use linkme::distributed_slice;
 use mc_core::bounding_box::BoundingBox;
@@ -64,7 +66,9 @@ fn rotation_name(rotation: Rotation) -> &'static str {
 }
 
 fn rotation_by_name(name: &str) -> Option<Rotation> {
-    Rotation::ALL.into_iter().find(|r| rotation_name(*r) == name)
+    Rotation::ALL
+        .into_iter()
+        .find(|r| rotation_name(*r) == name)
 }
 
 fn mirror_name(mirror: Mirror) -> &'static str {
@@ -76,7 +80,9 @@ fn mirror_name(mirror: Mirror) -> &'static str {
 }
 
 fn mirror_by_name(name: &str) -> Option<Mirror> {
-    [Mirror::None, Mirror::LeftRight, Mirror::FrontBack].into_iter().find(|m| mirror_name(*m) == name)
+    [Mirror::None, Mirror::LeftRight, Mirror::FrontBack]
+        .into_iter()
+        .find(|m| mirror_name(*m) == name)
 }
 
 fn mode_name(mode: StructureMode) -> &'static str {
@@ -89,14 +95,21 @@ fn mode_name(mode: StructureMode) -> &'static str {
 }
 
 fn mode_by_name(name: &str) -> Option<StructureMode> {
-    StructureMode::ALL.iter().copied().find(|m| mode_name(*m) == name)
+    StructureMode::ALL
+        .iter()
+        .copied()
+        .find(|m| mode_name(*m) == name)
 }
 
 /// `createRandom(seed)`.
 pub fn create_random(seed: i64) -> Box<dyn RandomSource> {
     if seed == 0 {
         // `Util.getMillis()`
-        Box::new(random::create(std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).map_or(0, |d| d.as_millis() as i64)))
+        Box::new(random::create(
+            std::time::SystemTime::now()
+                .duration_since(std::time::UNIX_EPOCH)
+                .map_or(0, |d| d.as_millis() as i64),
+        ))
     } else {
         Box::new(random::create(seed))
     }
@@ -126,7 +139,9 @@ impl StructureBlockEntity {
 
     /// `getStructureName()`.
     pub fn get_structure_name(&self) -> String {
-        self.structure_name.as_ref().map_or_else(String::new, ToString::to_string)
+        self.structure_name
+            .as_ref()
+            .map_or_else(String::new, ToString::to_string)
     }
 
     /// `hasStructureName()`.
@@ -136,7 +151,11 @@ impl StructureBlockEntity {
 
     /// `setStructureName(String)`: empty or unparsable names clear the name.
     pub fn set_structure_name(&mut self, name: &str) {
-        self.structure_name = if name.is_empty() { None } else { Identifier::try_parse(name) };
+        self.structure_name = if name.is_empty() {
+            None
+        } else {
+            Identifier::try_parse(name)
+        };
     }
 
     pub fn set_structure_identifier(&mut self, name: Option<Identifier>) {
@@ -251,12 +270,16 @@ impl StructureBlockEntity {
     /// `updateBlockState()` for an entity attached to `level`: the state to set (flags 2) once the entity is in its chunk.
     fn block_state_for_mode(&self, level: &ServerLevel) -> Option<BlockState> {
         let state = level.get_block_state(self.get_block_pos());
-        (state.block() == Block::STRUCTURE_BLOCK).then(|| state.set(props::STRUCTUREBLOCK_MODE, self.mode))
+        (state.block() == Block::STRUCTURE_BLOCK)
+            .then(|| state.set(props::STRUCTUREBLOCK_MODE, self.mode))
     }
 
     /// `setMode(mode)`: the entity's mode, then the block state follows (`setBlock(pos, state, 2)`).
     pub fn set_mode(level: &mut ServerLevel, pos: BlockPos, mode: StructureMode) {
-        if level.with_typed_block_entity::<StructureBlockEntity, _>(pos, |_, be| be.mode = mode).is_none() {
+        if level
+            .with_typed_block_entity::<StructureBlockEntity, _>(pos, |_, be| be.mode = mode)
+            .is_none()
+        {
             return;
         }
         let state = level.get_block_state(pos);
@@ -272,20 +295,30 @@ impl StructureBlockEntity {
 
     /// `detectSize()`.
     pub fn detect_size(level: &mut ServerLevel, pos: BlockPos) -> bool {
-        let Some((mode, structure_name)) = level.with_typed_block_entity::<StructureBlockEntity, _>(pos, |_, be| (be.mode, be.structure_name.clone())) else {
+        let Some((mode, structure_name)) = level
+            .with_typed_block_entity::<StructureBlockEntity, _>(pos, |_, be| {
+                (be.mode, be.structure_name.clone())
+            })
+        else {
             return false;
         };
         if mode != StructureMode::Save {
             return false;
         }
-        let Some(bb) = Self::get_enclosing_bounding_box(level, pos, &structure_name) else { return false };
+        let Some(bb) = Self::get_enclosing_bounding_box(level, pos, &structure_name) else {
+            return false;
+        };
         let delta_x = bb.max_x() - bb.min_x();
         let delta_y = bb.max_y() - bb.min_y();
         let delta_z = bb.max_z() - bb.min_z();
         if delta_x > 1 && delta_y > 1 && delta_z > 1 {
             let state = level.get_block_state(pos);
             level.with_typed_block_entity::<StructureBlockEntity, _>(pos, |level, be| {
-                be.structure_pos = BlockPos::new(bb.min_x() - pos.x() + 1, bb.min_y() - pos.y() + 1, bb.min_z() - pos.z() + 1);
+                be.structure_pos = BlockPos::new(
+                    bb.min_x() - pos.x() + 1,
+                    bb.min_y() - pos.y() + 1,
+                    bb.min_z() - pos.z() + 1,
+                );
                 be.structure_size = Vec3i::new(delta_x - 1, delta_y - 1, delta_z - 1);
                 level.block_entity_set_changed(pos, be.get_block_state());
             });
@@ -297,20 +330,36 @@ impl StructureBlockEntity {
     }
 
     /// `getEnclosingBoundingBox(level, selfPos, structureName)`.
-    fn get_enclosing_bounding_box(level: &mut ServerLevel, self_pos: BlockPos, structure_name: &Option<Identifier>) -> Option<BoundingBox> {
+    fn get_enclosing_bounding_box(
+        level: &mut ServerLevel,
+        self_pos: BlockPos,
+        structure_name: &Option<Identifier>,
+    ) -> Option<BoundingBox> {
         let mut corner_count = 0;
         let mut result: Option<BoundingBox> = None;
-        let (min_x, max_x) = (self_pos.x() - SCAN_CORNER_BLOCKS_RANGE, self_pos.x() + SCAN_CORNER_BLOCKS_RANGE);
-        let (min_z, max_z) = (self_pos.z() - SCAN_CORNER_BLOCKS_RANGE, self_pos.z() + SCAN_CORNER_BLOCKS_RANGE);
+        let (min_x, max_x) = (
+            self_pos.x() - SCAN_CORNER_BLOCKS_RANGE,
+            self_pos.x() + SCAN_CORNER_BLOCKS_RANGE,
+        );
+        let (min_z, max_z) = (
+            self_pos.z() - SCAN_CORNER_BLOCKS_RANGE,
+            self_pos.z() + SCAN_CORNER_BLOCKS_RANGE,
+        );
         let (min_y, max_y) = (level.get_min_y(), level.get_max_y());
         let min_section_y = level.get_min_y() >> 4;
         // `BlockScanUtils.sectionBasedScan`: chunks (loaded on demand) x, z, then sections by y
         for chunk_x in (min_x >> 4)..=(max_x >> 4) {
             for chunk_z in (min_z >> 4)..=(max_z >> 4) {
                 level.chunk_blocking_mut(chunk_x, chunk_z);
-                for section_y in (min_y >> 4).max(min_section_y)..=(max_y >> 4).min((level.get_max_y() >> 4)) {
+                for section_y in
+                    (min_y >> 4).max(min_section_y)..=(max_y >> 4).min((level.get_max_y() >> 4))
+                {
                     let has = level.chunk_now(chunk_x, chunk_z).is_some_and(|chunk| {
-                        chunk.data.access.get_section((section_y - min_section_y) as usize).maybe_has(|state| state.block() == Block::STRUCTURE_BLOCK)
+                        chunk
+                            .data
+                            .access
+                            .get_section((section_y - min_section_y) as usize)
+                            .maybe_has(|state| state.block() == Block::STRUCTURE_BLOCK)
                     });
                     if !has {
                         continue;
@@ -322,9 +371,16 @@ impl StructureBlockEntity {
                                 if level.get_block_state(pos).block() != Block::STRUCTURE_BLOCK {
                                     continue;
                                 }
-                                let Some(be) = level.get_block_entity_immediate(pos) else { continue };
-                                let Some(be) = be.as_any().downcast_ref::<StructureBlockEntity>() else { continue };
-                                if be.mode == StructureMode::Corner && be.structure_name == *structure_name {
+                                let Some(be) = level.get_block_entity_immediate(pos) else {
+                                    continue;
+                                };
+                                let Some(be) = be.as_any().downcast_ref::<StructureBlockEntity>()
+                                else {
+                                    continue;
+                                };
+                                if be.mode == StructureMode::Corner
+                                    && be.structure_name == *structure_name
+                                {
                                     corner_count += 1;
                                     match &mut result {
                                         None => result = Some(BoundingBox::from_block_pos(&pos)),
@@ -359,13 +415,34 @@ impl StructureBlockEntity {
 
     /// `saveStructure(saveToDisk)` of the structure block at `pos`.
     pub fn save_structure_at(level: &mut ServerLevel, pos: BlockPos, save_to_disk: bool) -> bool {
-        let Some((name, structure_pos, size, ignore_entities, author)) = level.with_typed_block_entity::<StructureBlockEntity, _>(pos, |_, be| {
-            (be.structure_name.clone(), be.get_block_pos().offset_vec(&Vec3i::new(be.structure_pos.x(), be.structure_pos.y(), be.structure_pos.z())), be.structure_size, be.ignore_entities, be.author.clone())
-        }) else {
+        let Some((name, structure_pos, size, ignore_entities, author)) = level
+            .with_typed_block_entity::<StructureBlockEntity, _>(pos, |_, be| {
+                (
+                    be.structure_name.clone(),
+                    be.get_block_pos().offset_vec(&Vec3i::new(
+                        be.structure_pos.x(),
+                        be.structure_pos.y(),
+                        be.structure_pos.z(),
+                    )),
+                    be.structure_size,
+                    be.ignore_entities,
+                    be.author.clone(),
+                )
+            })
+        else {
             return false;
         };
         match name {
-            Some(name) => Self::save_structure(level, &name, structure_pos, size, ignore_entities, &author, save_to_disk, &[]),
+            Some(name) => Self::save_structure(
+                level,
+                &name,
+                structure_pos,
+                size,
+                ignore_entities,
+                &author,
+                save_to_disk,
+                &[],
+            ),
             None => false,
         }
     }
@@ -390,29 +467,50 @@ impl StructureBlockEntity {
         ignored.push(Block::STRUCTURE_VOID);
         if structure_size.x >= 1 && structure_size.y >= 1 && structure_size.z >= 1 {
             let corner2 = pos.offset_vec(&structure_size).offset(-1, -1, -1);
-            let min_corner = BlockPos::new(pos.x().min(corner2.x()), pos.y().min(corner2.y()), pos.z().min(corner2.z()));
-            let max_corner = BlockPos::new(pos.x().max(corner2.x()), pos.y().max(corner2.y()), pos.z().max(corner2.z()));
+            let min_corner = BlockPos::new(
+                pos.x().min(corner2.x()),
+                pos.y().min(corner2.y()),
+                pos.z().min(corner2.z()),
+            );
+            let max_corner = BlockPos::new(
+                pos.x().max(corner2.x()),
+                pos.y().max(corner2.y()),
+                pos.z().max(corner2.z()),
+            );
             // `Level.getBlockEntity` promotes pending chunk NBT; the read-only template scan below does not
             for p in BlockPos::between_closed(&min_corner, &max_corner) {
                 if level.get_block_state(p).has_block_entity() {
                     level.get_block_entity_immediate(p);
                 }
             }
-            let entities = (!ignore_entities).then(|| collect_template_entities(level, &min_corner, &max_corner));
+            let entities = (!ignore_entities)
+                .then(|| collect_template_entities(level, &min_corner, &max_corner));
             template.fill_from_world(&*level, pos, structure_size, entities, &ignored);
         }
         template.set_author(author);
         manager.put(structure_name, Arc::new(template));
-        if save_to_disk { manager.save(structure_name) } else { true }
+        if save_to_disk {
+            manager.save(structure_name)
+        } else {
+            true
+        }
     }
 
     /// `placeStructureIfSameSize(level)` of the structure block at `pos`.
     pub fn place_structure_if_same_size(level: &mut ServerLevel, pos: BlockPos) -> bool {
-        let Some((mode, name, size)) = level.with_typed_block_entity::<StructureBlockEntity, _>(pos, |_, be| (be.mode, be.structure_name.clone(), be.structure_size)) else {
+        let Some((mode, name, size)) = level
+            .with_typed_block_entity::<StructureBlockEntity, _>(pos, |_, be| {
+                (be.mode, be.structure_name.clone(), be.structure_size)
+            })
+        else {
             return false;
         };
-        let (StructureMode::Load, Some(name)) = (mode, name) else { return false };
-        let Some(template) = level.structure_template_manager().get(&name) else { return false };
+        let (StructureMode::Load, Some(name)) = (mode, name) else {
+            return false;
+        };
+        let Some(template) = level.structure_template_manager().get(&name) else {
+            return false;
+        };
         if template.get_size() == size {
             Self::place_structure_template(level, pos, &template);
             true
@@ -434,9 +532,17 @@ impl StructureBlockEntity {
     }
 
     /// `loadStructureInfo(template)`.
-    fn load_structure_info_from(level: &mut ServerLevel, pos: BlockPos, template: &StructureTemplate) {
+    fn load_structure_info_from(
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        template: &StructureTemplate,
+    ) {
         level.with_typed_block_entity::<StructureBlockEntity, _>(pos, |level, be| {
-            be.author = if template.get_author().is_empty() { String::new() } else { template.get_author().to_owned() };
+            be.author = if template.get_author().is_empty() {
+                String::new()
+            } else {
+                template.get_author().to_owned()
+            };
             be.structure_size = template.get_size();
             level.block_entity_set_changed(pos, be.get_block_state());
         });
@@ -450,58 +556,112 @@ impl StructureBlockEntity {
     }
 
     /// `getStructureTemplate(level)`.
-    fn get_structure_template(level: &mut ServerLevel, pos: BlockPos) -> Option<Arc<StructureTemplate>> {
-        let name = level.with_typed_block_entity::<StructureBlockEntity, _>(pos, |_, be| be.structure_name.clone())??;
+    fn get_structure_template(
+        level: &mut ServerLevel,
+        pos: BlockPos,
+    ) -> Option<Arc<StructureTemplate>> {
+        let name = level.with_typed_block_entity::<StructureBlockEntity, _>(pos, |_, be| {
+            be.structure_name.clone()
+        })??;
         level.structure_template_manager().get(&name)
     }
 
     /// `placeStructure(level, template)`.
-    fn place_structure_template(level: &mut ServerLevel, pos: BlockPos, template: &StructureTemplate) {
+    fn place_structure_template(
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        template: &StructureTemplate,
+    ) {
         Self::load_structure_info_from(level, pos, template);
-        let Some((mirror, rotation, ignore_entities, strict, integrity, seed, offset)) = level.with_typed_block_entity::<StructureBlockEntity, _>(pos, |_, be| {
-            (be.mirror, be.rotation, be.ignore_entities, be.strict, be.integrity, be.seed, be.structure_pos)
-        }) else {
+        let Some((mirror, rotation, ignore_entities, strict, integrity, seed, offset)) =
+            level.with_typed_block_entity::<StructureBlockEntity, _>(pos, |_, be| {
+                (
+                    be.mirror,
+                    be.rotation,
+                    be.ignore_entities,
+                    be.strict,
+                    be.integrity,
+                    be.seed,
+                    be.structure_pos,
+                )
+            })
+        else {
             return;
         };
         let mut settings = StructurePlaceSettings::new();
-        settings.set_mirror(mirror).set_rotation(rotation).set_ignore_entities(ignore_entities).set_known_shape(strict);
+        settings
+            .set_mirror(mirror)
+            .set_rotation(rotation)
+            .set_ignore_entities(ignore_entities)
+            .set_known_shape(strict);
         if integrity < 1.0 {
-            settings.clear_processors().add_processor(Arc::new(BlockRotProcessor::new(None, mth::clamp_f32(integrity, 0.0, 1.0)))).set_random(Some(SharedRandom::new(create_random(seed))));
+            settings
+                .clear_processors()
+                .add_processor(Arc::new(BlockRotProcessor::new(
+                    None,
+                    mth::clamp_f32(integrity, 0.0, 1.0),
+                )))
+                .set_random(Some(SharedRandom::new(create_random(seed))));
         }
         let place_pos = pos.offset_vec(&Vec3i::new(offset.x(), offset.y(), offset.z()));
         let mut random = create_random(seed);
-        template.place_in_world(level, place_pos, place_pos, &settings, &mut *random, 2 | if strict { 816 } else { 0 });
+        template.place_in_world(
+            level,
+            place_pos,
+            place_pos,
+            &settings,
+            &mut *random,
+            2 | if strict { 816 } else { 0 },
+        );
     }
 
     /// `unloadStructure()`.
     pub fn unload_structure(level: &mut ServerLevel, pos: BlockPos) {
-        if let Some(Some(name)) = level.with_typed_block_entity::<StructureBlockEntity, _>(pos, |_, be| be.structure_name.clone()) {
+        if let Some(Some(name)) = level
+            .with_typed_block_entity::<StructureBlockEntity, _>(pos, |_, be| {
+                be.structure_name.clone()
+            })
+        {
             level.structure_template_manager().remove(&name);
         }
     }
 
     /// `isStructureLoadable()`.
     pub fn is_structure_loadable(level: &mut ServerLevel, pos: BlockPos) -> bool {
-        match level.with_typed_block_entity::<StructureBlockEntity, _>(pos, |_, be| (be.mode, be.structure_name.clone())) {
-            Some((StructureMode::Load, Some(name))) => level.structure_template_manager().get(&name).is_some(),
+        match level.with_typed_block_entity::<StructureBlockEntity, _>(pos, |_, be| {
+            (be.mode, be.structure_name.clone())
+        }) {
+            Some((StructureMode::Load, Some(name))) => {
+                level.structure_template_manager().get(&name).is_some()
+            }
             _ => false,
         }
     }
 }
 
 /// `fillEntityList`: the non-player entities in the box as `(position, painting block position, saved NBT)`.
-fn collect_template_entities(level: &ServerLevel, min_corner: &BlockPos, max_corner: &BlockPos) -> Vec<(Vec3, Option<BlockPos>, CompoundTag)> {
+fn collect_template_entities(
+    level: &ServerLevel,
+    min_corner: &BlockPos,
+    max_corner: &BlockPos,
+) -> Vec<(Vec3, Option<BlockPos>, CompoundTag)> {
     let bb = AABB::encapsulating_full_blocks(min_corner, max_corner);
     let ids = level.get_entities_of_class(&bb, |_| true, |e| !e.is_player());
     let lookup = |id| level.entity_manager.get_any(id);
     let mut result = Vec::new();
     for id in ids {
-        let Some(entity) = level.entity_manager.get_any(id) else { continue };
+        let Some(entity) = level.entity_manager.get_any(id) else {
+            continue;
+        };
         // `Entity.save(output)` leaves the output empty for entities that are not saved on their own
         let nbt = crate::world::entity::entity::save(entity, &lookup).unwrap_or_default();
         let position = entity.base().position();
         let painting_pos = (entity.get_type() == mc_data::EntityType::PAINTING)
-            .then(|| nbt.get_int_array("block_pos").filter(|p| p.len() == 3).map(|p| BlockPos::new(p[0], p[1], p[2])))
+            .then(|| {
+                nbt.get_int_array("block_pos")
+                    .filter(|p| p.len() == 3)
+                    .map(|p| BlockPos::new(p[0], p[1], p[2]))
+            })
             .flatten();
         result.push((position, painting_pos, nbt));
     }
@@ -515,17 +675,41 @@ impl BlockEntity for StructureBlockEntity {
         self.set_structure_name(tag.get_string_or("name", ""));
         self.author = tag.get_string_or("author", "").to_owned();
         self.meta_data = tag.get_string_or("metadata", "").to_owned();
-        let x_offset = mth::clamp_i32(tag.get_int_or("posX", 0), -MAX_OFFSET_PER_AXIS, MAX_OFFSET_PER_AXIS);
-        let y_offset = mth::clamp_i32(tag.get_int_or("posY", 1), -MAX_OFFSET_PER_AXIS, MAX_OFFSET_PER_AXIS);
-        let z_offset = mth::clamp_i32(tag.get_int_or("posZ", 0), -MAX_OFFSET_PER_AXIS, MAX_OFFSET_PER_AXIS);
+        let x_offset = mth::clamp_i32(
+            tag.get_int_or("posX", 0),
+            -MAX_OFFSET_PER_AXIS,
+            MAX_OFFSET_PER_AXIS,
+        );
+        let y_offset = mth::clamp_i32(
+            tag.get_int_or("posY", 1),
+            -MAX_OFFSET_PER_AXIS,
+            MAX_OFFSET_PER_AXIS,
+        );
+        let z_offset = mth::clamp_i32(
+            tag.get_int_or("posZ", 0),
+            -MAX_OFFSET_PER_AXIS,
+            MAX_OFFSET_PER_AXIS,
+        );
         self.structure_pos = BlockPos::new(x_offset, y_offset, z_offset);
         let width = mth::clamp_i32(tag.get_int_or("sizeX", 0), 0, MAX_SIZE_PER_AXIS);
         let height = mth::clamp_i32(tag.get_int_or("sizeY", 0), 0, MAX_SIZE_PER_AXIS);
         let depth = mth::clamp_i32(tag.get_int_or("sizeZ", 0), 0, MAX_SIZE_PER_AXIS);
         self.structure_size = Vec3i::new(width, height, depth);
-        self.rotation = tag.get("rotation").and_then(|t| t.as_string()).and_then(rotation_by_name).unwrap_or(Rotation::None);
-        self.mirror = tag.get("mirror").and_then(|t| t.as_string()).and_then(mirror_by_name).unwrap_or(Mirror::None);
-        self.mode = tag.get("mode").and_then(|t| t.as_string()).and_then(mode_by_name).unwrap_or(StructureMode::Data);
+        self.rotation = tag
+            .get("rotation")
+            .and_then(|t| t.as_string())
+            .and_then(rotation_by_name)
+            .unwrap_or(Rotation::None);
+        self.mirror = tag
+            .get("mirror")
+            .and_then(|t| t.as_string())
+            .and_then(mirror_by_name)
+            .unwrap_or(Mirror::None);
+        self.mode = tag
+            .get("mode")
+            .and_then(|t| t.as_string())
+            .and_then(mode_by_name)
+            .unwrap_or(StructureMode::Data);
         self.ignore_entities = tag.get_boolean_or("ignoreEntities", true);
         self.strict = tag.get_boolean_or("strict", false);
         self.powered = tag.get_boolean_or("powered", false);
@@ -536,7 +720,11 @@ impl BlockEntity for StructureBlockEntity {
     }
 
     /// `loadAdditional` with `updateBlockState()`: the block state follows the loaded mode.
-    fn load_additional_in_level(&mut self, level: &mut ServerLevel, tag: &CompoundTag) -> Option<BlockState> {
+    fn load_additional_in_level(
+        &mut self,
+        level: &mut ServerLevel,
+        tag: &CompoundTag,
+    ) -> Option<BlockState> {
         self.load_additional(tag);
         self.block_state_for_mode(level)
     }
@@ -571,10 +759,16 @@ impl BlockEntity for StructureBlockEntity {
     }
 
     fn get_update_packet(&self) -> Option<ClientboundBlockEntityDataPacket> {
-        Some(ClientboundBlockEntityDataPacket { pos: self.get_block_pos(), r#type: self.get_type(), tag: self.get_update_tag() })
+        Some(ClientboundBlockEntityDataPacket {
+            pos: self.get_block_pos(),
+            r#type: self.get_type(),
+            tag: self.get_update_tag(),
+        })
     }
 }
 
 #[distributed_slice(BLOCK_ENTITY_TYPES)]
-static STRUCTURE_BLOCK: BlockEntityRegistration =
-    BlockEntityRegistration { ty: BlockEntityType::STRUCTURE_BLOCK, create: |pos, state| Box::new(StructureBlockEntity::new(pos, state)) };
+static STRUCTURE_BLOCK: BlockEntityRegistration = BlockEntityRegistration {
+    ty: BlockEntityType::STRUCTURE_BLOCK,
+    create: |pos, state| Box::new(StructureBlockEntity::new(pos, state)),
+};

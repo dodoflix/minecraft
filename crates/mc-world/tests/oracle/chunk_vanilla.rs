@@ -52,7 +52,9 @@ fn strip_light(t: &mut mc_nbt::CompoundTag) {
 fn freeze_rules(world: &Path) {
     let path = world.join("data/minecraft/game_rules.dat");
     let bytes = std::fs::read(&path).unwrap();
-    let mut tag = mc_nbt::compress::read_compressed(&bytes, &mut mc_nbt::NbtAccounter::unlimited_heap()).unwrap();
+    let mut tag =
+        mc_nbt::compress::read_compressed(&bytes, &mut mc_nbt::NbtAccounter::unlimited_heap())
+            .unwrap();
     let data = tag.get_compound_mut("data").unwrap();
     data.put_int("minecraft:random_tick_speed", 0);
     data.put_boolean("minecraft:advance_time", false);
@@ -78,7 +80,11 @@ fn run_vanilla(dir: &Path) -> String {
         .start()
         .expect("start vanilla");
     server.cmd("save-all flush");
-    assert!(server.wait_log("Saved the game", 60).is_some(), "vanilla did not finish saving: {}", server.log());
+    assert!(
+        server.wait_log("Saved the game", 60).is_some(),
+        "vanilla did not finish saving: {}",
+        server.log()
+    );
     server.stop();
     std::fs::read_to_string(server.log_path()).unwrap()
 }
@@ -117,27 +123,43 @@ fn vanilla_accepts_rewritten_world() {
             stripped.put("block_ticks", mc_nbt::ListTag::new());
             stripped.put("fluid_ticks", mc_nbt::ListTag::new());
             orig_storage.write(&pos, Some(&stripped)).unwrap();
-            let data = SerializableChunkData::parse(height, &factory, &stripped).unwrap().unwrap();
+            let data = SerializableChunkData::parse(height, &factory, &stripped)
+                .unwrap()
+                .unwrap();
             let game_time = data.last_update_time;
-            let ctx = ReadContext { level_height: height, has_sky_light: has_sky, factory: &factory, is_known_structure: &all_known };
+            let ctx = ReadContext {
+                level_height: height,
+                has_sky_light: has_sky,
+                factory: &factory,
+                is_known_structure: &all_known,
+            };
             let loaded = data.read(&ctx, pos);
-            let light: HashMap<i32, (Option<DataLayer>, Option<DataLayer>)> =
-                loaded.light.iter().map(|(y, b, s)| (*y, (b.clone(), s.clone()))).collect();
+            let light: HashMap<i32, (Option<DataLayer>, Option<DataLayer>)> = loaded
+                .light
+                .iter()
+                .map(|(y, b, s)| (*y, (b.clone(), s.clone())))
+                .collect();
             let light_fn = |y: i32| light.get(&y).cloned().unwrap_or((None, None));
             let rewritten = match &loaded.chunk {
                 LoadedChunk::Proto(p) => {
                     let be: Vec<_> = p.access.block_entities.values().cloned().collect();
                     SerializableChunkData::from_proto_chunk(p, game_time, &light_fn, be)
                 }
-                LoadedChunk::Level(l) => {
-                    SerializableChunkData::from_level_chunk(l, game_time, &light_fn, loaded.post_load_block_entities.clone())
-                }
+                LoadedChunk::Level(l) => SerializableChunkData::from_level_chunk(
+                    l,
+                    game_time,
+                    &light_fn,
+                    loaded.post_load_block_entities.clone(),
+                ),
             };
             let mut out = rewritten.write(&factory).unwrap();
             // keep the file comparable to untouched vanilla files: drop heightmaps priming added on load
             let hm = out.get_compound_mut("Heightmaps").unwrap();
             for ty in mc_world::heightmap::HeightmapType::ALL {
-                if tag.get_compound("Heightmaps").is_none_or(|h| !h.contains(ty.serialization_key())) {
+                if tag
+                    .get_compound("Heightmaps")
+                    .is_none_or(|h| !h.contains(ty.serialization_key()))
+                {
                     hm.remove(ty.serialization_key());
                 }
             }
@@ -151,7 +173,10 @@ fn vanilla_accepts_rewritten_world() {
     let log_b = run_vanilla(dir_b.path());
     for line in log_b.lines() {
         assert!(
-            !(line.contains("ERROR") || line.contains("Failed to read chunk") || line.contains("Recoverable errors") || line.contains("Exception")),
+            !(line.contains("ERROR")
+                || line.contains("Failed to read chunk")
+                || line.contains("Recoverable errors")
+                || line.contains("Exception")),
             "vanilla complained about the rewritten world: {line}"
         );
     }
@@ -160,12 +185,18 @@ fn vanilla_accepts_rewritten_world() {
     for (dim, _, _) in DIMENSIONS {
         let dir = format!("dimensions/minecraft/{dim}/region");
         let chunks_a = read_all(&world_a.join(&dir), "chunk");
-        let chunks_b: HashMap<_, _> =
-            read_all(&world_b.join(&dir), "chunk").into_iter().map(|(p, t)| ((p.x, p.z), t)).collect();
+        let chunks_b: HashMap<_, _> = read_all(&world_b.join(&dir), "chunk")
+            .into_iter()
+            .map(|(p, t)| ((p.x, p.z), t))
+            .collect();
         assert_eq!(chunks_a.len(), chunks_b.len(), "{dim}: chunk count");
         for (pos, tag_a) in chunks_a {
             let mut a = normalize(&tag_a);
-            let mut b = normalize(chunks_b.get(&(pos.x, pos.z)).unwrap_or_else(|| panic!("{dim} {pos} missing")));
+            let mut b = normalize(
+                chunks_b
+                    .get(&(pos.x, pos.z))
+                    .unwrap_or_else(|| panic!("{dim} {pos} missing")),
+            );
             // vanilla stamps the save time and counts inhabited time while the chunk is loaded
             for t in [&mut a, &mut b] {
                 t.remove("LastUpdate");
@@ -173,7 +204,9 @@ fn vanilla_accepts_rewritten_world() {
                 strip_light(t);
             }
             if let Some(d) = diff(&Tag::Compound(a), &Tag::Compound(b), "") {
-                panic!("{dim} chunk {pos}: vanilla's save after loading our file differs from its save after loading the original: {d}");
+                panic!(
+                    "{dim} chunk {pos}: vanilla's save after loading our file differs from its save after loading the original: {d}"
+                );
             }
             compared += 1;
         }

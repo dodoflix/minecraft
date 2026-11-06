@@ -9,7 +9,8 @@ use crate::world::item::{ItemStack, ItemStackExt};
 use mc_core::random::RandomSource;
 use mc_data::MobEffect;
 use mc_protocol::components::{
-    ApplyStatusEffectsConsumeEffect, OMINOUS_BOTTLE_AMPLIFIER, POTION_CONTENTS, POTION_DURATION_SCALE, RegistrySet, RemoveStatusEffectsConsumeEffect, SUSPICIOUS_STEW_EFFECTS,
+    ApplyStatusEffectsConsumeEffect, OMINOUS_BOTTLE_AMPLIFIER, POTION_CONTENTS,
+    POTION_DURATION_SCALE, RegistrySet, RemoveStatusEffectsConsumeEffect, SUSPICIOUS_STEW_EFFECTS,
 };
 
 /// `stack.getAllOfType(ConsumableListener.class).forEach(listener -> listener.onConsume(level, user, stack, consumable))`
@@ -23,17 +24,37 @@ pub fn on_consume_listeners(level: &mut ServerLevel, user: &mut dyn Entity, stac
     if let Some(stew) = stack.get(&SUSPICIOUS_STEW_EFFECTS) {
         // `SuspiciousStewEffects.onConsume`: `new MobEffectInstance(effect, duration)`
         for entry in &stew.effects {
-            user.add_effect(level, MobEffectInstance::of(entry.effect, entry.duration, 0), None);
+            user.add_effect(
+                level,
+                MobEffectInstance::of(entry.effect, entry.duration, 0),
+                None,
+            );
         }
     }
     if let Some(amplifier) = stack.get(&OMINOUS_BOTTLE_AMPLIFIER) {
         // `OminousBottleAmplifier.onConsume`
-        user.add_effect(level, MobEffectInstance::new(MobEffect::BAD_OMEN, 120000, amplifier.value, false, false, true, None), None);
+        user.add_effect(
+            level,
+            MobEffectInstance::new(
+                MobEffect::BAD_OMEN,
+                120000,
+                amplifier.value,
+                false,
+                false,
+                true,
+                None,
+            ),
+            None,
+        );
     }
 }
 
 /// `ApplyStatusEffectsConsumeEffect.apply`.
-pub fn apply_status_effects(effect: &ApplyStatusEffectsConsumeEffect, level: &mut ServerLevel, user: &mut dyn Entity) -> bool {
+pub fn apply_status_effects(
+    effect: &ApplyStatusEffectsConsumeEffect,
+    level: &mut ServerLevel,
+    user: &mut dyn Entity,
+) -> bool {
     if user.base_mut().random.next_float() >= effect.probability {
         return false;
     }
@@ -47,11 +68,17 @@ pub fn apply_status_effects(effect: &ApplyStatusEffectsConsumeEffect, level: &mu
 }
 
 /// `RemoveStatusEffectsConsumeEffect.apply`.
-pub fn remove_status_effects(effect: &RemoveStatusEffectsConsumeEffect, level: &mut ServerLevel, user: &mut dyn Entity) -> bool {
+pub fn remove_status_effects(
+    effect: &RemoveStatusEffectsConsumeEffect,
+    level: &mut ServerLevel,
+    user: &mut dyn Entity,
+) -> bool {
     // `for (Holder<MobEffect> effect : this.effects)`: list order, or the tag's order
     let effects: Vec<MobEffect> = match &effect.effects {
         RegistrySet::Entries(v) => v.clone(),
-        RegistrySet::Tag(t) => mc_data::tags::get::<MobEffect>(&t.to_string()).map(|s| s.iter().collect()).unwrap_or_default(),
+        RegistrySet::Tag(t) => mc_data::tags::get::<MobEffect>(&t.to_string())
+            .map(|s| s.iter().collect())
+            .unwrap_or_default(),
     };
     let mut has_removed_any = false;
     for e in effects {

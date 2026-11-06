@@ -14,7 +14,10 @@ pub use arrow::Arrow;
 pub use spectral_arrow::SpectralArrow;
 pub use thrown_trident::ThrownTrident;
 
-use super::{EntityHitResult, HitResult, HitType, Projectile, ProjectileDeflection, check_left_owner, lerp_rotation};
+use super::{
+    EntityHitResult, HitResult, HitType, Projectile, ProjectileDeflection, check_left_owner,
+    lerp_rotation,
+};
 use crate::define_accessor;
 use crate::server::level::ServerLevel;
 use crate::world::entity::movement::collision_context;
@@ -119,7 +122,11 @@ pub fn define_synched_data(b: &mut crate::world::entity::synched_data::SynchedEn
 
 /// `Math.signum(double)`.
 fn java_signum(v: f64) -> f64 {
-    if v == 0.0 || v.is_nan() { v } else { v.signum() }
+    if v == 0.0 || v.is_nan() {
+        v
+    } else {
+        v.signum()
+    }
 }
 
 /// `AbstractArrow` and its overridable hooks.
@@ -166,7 +173,12 @@ pub trait AbstractArrow: Projectile {
     }
 
     /// `hitBlockEnchantmentEffects(level, hitResult, weapon)`.
-    fn hit_block_enchantment_effects(&mut self, level: &mut ServerLevel, hit: &BlockHitResult, weapon: ItemStack) {
+    fn hit_block_enchantment_effects(
+        &mut self,
+        level: &mut ServerLevel,
+        hit: &BlockHitResult,
+        weapon: ItemStack,
+    ) {
         hit_block_enchantment_effects_base(self.as_abstract_arrow_mut(), level, hit, weapon);
     }
 
@@ -192,7 +204,11 @@ pub trait AbstractArrow: Projectile {
 
     fn set_flag(&mut self, flag: i32, value: bool) {
         let flags = self.base().entity_data.get(ID_FLAGS);
-        let flags = if value { flags | flag as i8 } else { flags & !(flag as i8) };
+        let flags = if value {
+            flags | flag as i8
+        } else {
+            flags & !(flag as i8)
+        };
         self.base_mut().entity_data.set(ID_FLAGS, flags);
     }
 
@@ -251,10 +267,21 @@ pub fn apply_components_from_item_stack(entity: &mut dyn Entity, stack: &ItemSta
 }
 
 /// The constructors' shared tail: `AbstractArrow(type, x, y, z, level, pickupItemStack, firedFromWeapon)`.
-pub fn init_at(arrow: &mut dyn AbstractArrow, level: &mut ServerLevel, x: f64, y: f64, z: f64, mut pickup_item_stack: ItemStack, fired_from_weapon: Option<&ItemStack>) {
+pub fn init_at(
+    arrow: &mut dyn AbstractArrow,
+    level: &mut ServerLevel,
+    x: f64,
+    y: f64,
+    z: f64,
+    mut pickup_item_stack: ItemStack,
+    fired_from_weapon: Option<&ItemStack>,
+) {
     arrow.arrow_data_mut().pickup_item_stack = pickup_item_stack.copy();
     apply_components_from_item_stack(arrow, &pickup_item_stack);
-    if pickup_item_stack.remove(mc_data::DataComponentType::INTANGIBLE_PROJECTILE).is_some() {
+    if pickup_item_stack
+        .remove(mc_data::DataComponentType::INTANGIBLE_PROJECTILE)
+        .is_some()
+    {
         arrow.arrow_data_mut().pickup = Pickup::CreativeOnly;
     }
     arrow.set_pos(x, y, z);
@@ -262,7 +289,8 @@ pub fn init_at(arrow: &mut dyn AbstractArrow, level: &mut ServerLevel, x: f64, y
         assert!(!weapon.is_empty(), "Invalid weapon firing an arrow");
         arrow.arrow_data_mut().fired_from_weapon = Some(weapon.copy());
         let ammo = arrow.arrow_data().pickup_item_stack.clone();
-        let pierce_level = crate::world::item::enchantment_helper::get_piercing_count(level, weapon, &ammo);
+        let pierce_level =
+            crate::world::item::enchantment_helper::get_piercing_count(level, weapon, &ammo);
         if pierce_level > 0 {
             arrow.set_pierce_level(pierce_level as i8);
         }
@@ -270,8 +298,22 @@ pub fn init_at(arrow: &mut dyn AbstractArrow, level: &mut ServerLevel, x: f64, y
 }
 
 /// `AbstractArrow(type, mob, level, pickupItemStack, firedFromWeapon)`: at the mob's eyes, owned by it.
-pub fn init_from_owner(arrow: &mut dyn AbstractArrow, level: &mut ServerLevel, mob: &dyn Entity, pickup_item_stack: ItemStack, fired_from_weapon: Option<&ItemStack>) {
-    init_at(arrow, level, mob.base().x(), mob.base().get_eye_y() - f64::from(0.1f32), mob.base().z(), pickup_item_stack, fired_from_weapon);
+pub fn init_from_owner(
+    arrow: &mut dyn AbstractArrow,
+    level: &mut ServerLevel,
+    mob: &dyn Entity,
+    pickup_item_stack: ItemStack,
+    fired_from_weapon: Option<&ItemStack>,
+) {
+    init_at(
+        arrow,
+        level,
+        mob.base().x(),
+        mob.base().get_eye_y() - f64::from(0.1f32),
+        mob.base().z(),
+        pickup_item_stack,
+        fired_from_weapon,
+    );
     arrow.set_owner(Some(mob));
 }
 
@@ -298,7 +340,11 @@ pub fn shoot(arrow: &mut dyn AbstractArrow, xd: f64, yd: f64, zd: f64, pow: f32,
 }
 
 pub fn set_pickup_item_stack_base(arrow: &mut dyn AbstractArrow, stack: ItemStack) {
-    arrow.arrow_data_mut().pickup_item_stack = if stack.is_empty() { arrow.get_default_pickup_item() } else { stack };
+    arrow.arrow_data_mut().pickup_item_stack = if stack.is_empty() {
+        arrow.get_default_pickup_item()
+    } else {
+        stack
+    };
 }
 
 /// `AbstractArrow.tick()`.
@@ -308,7 +354,11 @@ pub fn tick(arrow: &mut dyn AbstractArrow, level: &mut ServerLevel) {
     let block_pos = arrow.block_position();
     let block_state = level.get_block_state(block_pos);
     if !block_state.is_air() && physics_enabled {
-        let shape = crate::world::level::block::state::BlockStateExt::get_collision_shape(block_state, &*level, block_pos);
+        let shape = crate::world::level::block::state::BlockStateExt::get_collision_shape(
+            block_state,
+            &*level,
+            block_pos,
+        );
         if !shape.is_empty() {
             let position = arrow.position();
             for aabb in shape.to_aabbs() {
@@ -350,14 +400,21 @@ pub fn tick(arrow: &mut dyn AbstractArrow, level: &mut ServerLevel) {
         } else {
             (mth::atan2(movement.x, movement.z) * super::RAD_TO_DEG) as f32
         };
-        let x_rot = (mth::atan2(movement.y, movement.horizontal_distance()) * super::RAD_TO_DEG) as f32;
+        let x_rot =
+            (mth::atan2(movement.y, movement.horizontal_distance()) * super::RAD_TO_DEG) as f32;
         let new_x = lerp_rotation(arrow.base().x_rot(), x_rot);
         let new_y = lerp_rotation(arrow.base().y_rot(), y_rot);
         arrow.base_mut().set_x_rot(new_x);
         arrow.base_mut().set_y_rot(new_y);
         check_left_owner(arrow, level);
         if physics_enabled {
-            let context = ClipContext::new(original_position, original_position.add(movement), ClipBlock::Collider, ClipFluid::None, collision_context(arrow.as_dyn()));
+            let context = ClipContext::new(
+                original_position,
+                original_position.add(movement),
+                ClipBlock::Collider,
+                ClipFluid::None,
+                collision_context(arrow.as_dyn()),
+            );
             let block_hit = super::util::clip_including_border(level, &context);
             step_move_and_hit(arrow, level, block_hit);
         } else {
@@ -377,13 +434,16 @@ pub fn tick(arrow: &mut dyn AbstractArrow, level: &mut ServerLevel) {
 
 fn apply_inertia(arrow: &mut dyn AbstractArrow, inertia: f32) {
     let m = arrow.base().delta_movement();
-    arrow.base_mut().set_delta_movement(m.scale(f64::from(inertia)));
+    arrow
+        .base_mut()
+        .set_delta_movement(m.scale(f64::from(inertia)));
 }
 
 /// `shouldFall()`.
 fn should_fall(arrow: &dyn AbstractArrow, level: &ServerLevel) -> bool {
     let p = arrow.position();
-    arrow.is_in_ground() && level.no_collision(None, None, &AABB::from_corners(p, p).inflate_scalar(0.06))
+    arrow.is_in_ground()
+        && level.no_collision(None, None, &AABB::from_corners(p, p).inflate_scalar(0.06))
 }
 
 /// `startFalling()`.
@@ -392,8 +452,14 @@ fn start_falling(arrow: &mut dyn AbstractArrow) {
     arrow.set_in_ground(false);
     let m = arrow.base().delta_movement();
     let random = &mut arrow.base_mut().random;
-    let (x, y, z) = (random.next_float() * 0.2, random.next_float() * 0.2, random.next_float() * 0.2);
-    arrow.base_mut().set_delta_movement(m.multiply_xyz(f64::from(x), f64::from(y), f64::from(z)));
+    let (x, y, z) = (
+        random.next_float() * 0.2,
+        random.next_float() * 0.2,
+        random.next_float() * 0.2,
+    );
+    arrow
+        .base_mut()
+        .set_delta_movement(m.multiply_xyz(f64::from(x), f64::from(y), f64::from(z)));
     arrow.arrow_data_mut().life = 0;
 }
 
@@ -416,16 +482,31 @@ fn reset_pierced_entities(arrow: &mut dyn AbstractArrow) {
 }
 
 /// `stepMoveAndHit(blockHitResult)`.
-fn step_move_and_hit(arrow: &mut dyn AbstractArrow, level: &mut ServerLevel, block_hit: BlockHitResult) {
+fn step_move_and_hit(
+    arrow: &mut dyn AbstractArrow,
+    level: &mut ServerLevel,
+    block_hit: BlockHitResult,
+) {
     while arrow.is_alive() {
         let initial_position = arrow.position();
         let mut entities_hit = arrow.find_hit_entities(level, initial_position, block_hit.location);
-        let key = |level: &ServerLevel, id: EntityId| level.get_entity(id).map_or(f64::MAX, |e| initial_position.distance_to_sqr(e.position()));
+        let key = |level: &ServerLevel, id: EntityId| {
+            level
+                .get_entity(id)
+                .map_or(f64::MAX, |e| initial_position.distance_to_sqr(e.position()))
+        };
         entities_hit.sort_by(|a, b| key(level, a.entity).total_cmp(&key(level, b.entity)));
-        let next_location = entities_hit.first().map_or(block_hit.location, |e| e.location);
+        let next_location = entities_hit
+            .first()
+            .map_or(block_hit.location, |e| e.location);
         arrow.set_pos_vec(next_location);
         arrow.apply_effects_from_blocks_between(level, initial_position, next_location);
-        if arrow.base().portal_process.as_ref().is_some_and(|p| p.is_inside_portal_this_tick()) {
+        if arrow
+            .base()
+            .portal_process
+            .as_ref()
+            .is_some_and(|p| p.is_inside_portal_this_tick())
+        {
             arrow.handle_portal(level);
         }
         if entities_hit.is_empty() {
@@ -446,7 +527,11 @@ fn step_move_and_hit(arrow: &mut dyn AbstractArrow, level: &mut ServerLevel, blo
 }
 
 /// `hitTargetsOrDeflectSelf(entityHitResults)`.
-fn hit_targets_or_deflect_self(arrow: &mut dyn AbstractArrow, level: &mut ServerLevel, hits: &[EntityHitResult]) -> ProjectileDeflection {
+fn hit_targets_or_deflect_self(
+    arrow: &mut dyn AbstractArrow,
+    level: &mut ServerLevel,
+    hits: &[EntityHitResult],
+) -> ProjectileDeflection {
     for e in hits {
         let deflection = super::hit_target_or_deflect_self(arrow, level, &HitResult::Entity(*e));
         if !arrow.is_alive() || deflection != ProjectileDeflection::None {
@@ -457,15 +542,42 @@ fn hit_targets_or_deflect_self(arrow: &mut dyn AbstractArrow, level: &mut Server
 }
 
 /// `findHitEntities(from, to)`: every entity along the way, `canHitEntity` filtered.
-pub fn find_hit_entities_base(arrow: &dyn AbstractArrow, level: &ServerLevel, from: Vec3, to: Vec3) -> Vec<EntityHitResult> {
-    let area = arrow.get_bounding_box().expand_towards_vec3(arrow.base().delta_movement()).inflate_scalar(1.0);
-    super::util::get_many_entity_hit_result(level, arrow.as_dyn(), from, to, &area, &|e| arrow.can_hit_entity(level, e), false, false)
+pub fn find_hit_entities_base(
+    arrow: &dyn AbstractArrow,
+    level: &ServerLevel,
+    from: Vec3,
+    to: Vec3,
+) -> Vec<EntityHitResult> {
+    let area = arrow
+        .get_bounding_box()
+        .expand_towards_vec3(arrow.base().delta_movement())
+        .inflate_scalar(1.0);
+    super::util::get_many_entity_hit_result(
+        level,
+        arrow.as_dyn(),
+        from,
+        to,
+        &area,
+        &|e| arrow.can_hit_entity(level, e),
+        false,
+        false,
+    )
 }
 
 /// `findHitEntity(from, to)`.
-pub fn find_hit_entity(arrow: &dyn AbstractArrow, level: &ServerLevel, from: Vec3, to: Vec3) -> Option<EntityHitResult> {
-    let area = arrow.get_bounding_box().expand_towards_vec3(arrow.base().delta_movement()).inflate_scalar(1.0);
-    super::util::get_entity_hit_result(level, arrow.as_dyn(), from, to, &area, &|e| arrow.can_hit_entity(level, e))
+pub fn find_hit_entity(
+    arrow: &dyn AbstractArrow,
+    level: &ServerLevel,
+    from: Vec3,
+    to: Vec3,
+) -> Option<EntityHitResult> {
+    let area = arrow
+        .get_bounding_box()
+        .expand_towards_vec3(arrow.base().delta_movement())
+        .inflate_scalar(1.0);
+    super::util::get_entity_hit_result(level, arrow.as_dyn(), from, to, &area, &|e| {
+        arrow.can_hit_entity(level, e)
+    })
 }
 
 /// `AbstractArrow.canHitEntity(entity)`.
@@ -477,25 +589,44 @@ pub fn can_hit_entity(arrow: &dyn AbstractArrow, level: &ServerLevel, target: &d
     {
         return false;
     }
-    default_can_hit_entity(arrow, level, target) && arrow.arrow_data().piercing_ignore_entity_ids.as_ref().is_none_or(|s| !s.contains(&target.id()))
+    default_can_hit_entity(arrow, level, target)
+        && arrow
+            .arrow_data()
+            .piercing_ignore_entity_ids
+            .as_ref()
+            .is_none_or(|s| !s.contains(&target.id()))
 }
 
 /// `Projectile.canHitEntity(entity)`.
-fn default_can_hit_entity(arrow: &dyn AbstractArrow, level: &ServerLevel, entity: &dyn Entity) -> bool {
+fn default_can_hit_entity(
+    arrow: &dyn AbstractArrow,
+    level: &ServerLevel,
+    entity: &dyn Entity,
+) -> bool {
     if !entity.can_be_hit_by_projectile() {
         return false;
     }
     let owner = arrow.get_owner(level);
-    owner.is_none_or(|o| arrow.projectile_data().left_owner || !level.is_passenger_of_same_vehicle(o, entity))
+    owner.is_none_or(|o| {
+        arrow.projectile_data().left_owner || !level.is_passenger_of_same_vehicle(o, entity)
+    })
 }
 
 /// `Math.ceil` clamp of the arrow damage: `Mth.ceil(Mth.clamp(pow * arrowDamage, 0.0, 2.147483647E9))`.
 fn damage_from(pow: f32, arrow_damage: f64) -> i32 {
-    mth::ceil_f64(mth::clamp_f64(f64::from(pow) * arrow_damage, 0.0, 2.147483647E9))
+    mth::ceil_f64(mth::clamp_f64(
+        f64::from(pow) * arrow_damage,
+        0.0,
+        2.147483647E9,
+    ))
 }
 
 /// `AbstractArrow.onHitEntity(hitResult)`.
-pub fn on_hit_entity(arrow: &mut dyn AbstractArrow, level: &mut ServerLevel, hit: &EntityHitResult) {
+pub fn on_hit_entity(
+    arrow: &mut dyn AbstractArrow,
+    level: &mut ServerLevel,
+    hit: &EntityHitResult,
+) {
     use crate::world::item::enchantment_helper as helper;
     use mc_core::random::RandomSource as _;
     let victim = hit.entity;
@@ -505,18 +636,30 @@ pub fn on_hit_entity(arrow: &mut dyn AbstractArrow, level: &mut ServerLevel, hit
     let owner_is_living = arrow.get_owner(level).is_some_and(|o| o.living().is_some());
     let source = {
         let owner = arrow.get_owner(level);
-        level.damage_sources().arrow(arrow.as_dyn(), Some(owner.unwrap_or(arrow.as_dyn())))
+        level
+            .damage_sources()
+            .arrow(arrow.as_dyn(), Some(owner.unwrap_or(arrow.as_dyn())))
     };
     let weapon = arrow.get_weapon_item();
     if let Some(weapon) = &weapon {
-        arrow_damage = f64::from(helper::modify_damage(level, &mut Actors::of(arrow.as_dyn_mut()), weapon, victim, &source, arrow_damage as f32));
+        arrow_damage = f64::from(helper::modify_damage(
+            level,
+            &mut Actors::of(arrow.as_dyn_mut()),
+            weapon,
+            victim,
+            &source,
+            arrow_damage as f32,
+        ));
     }
     let mut damage = damage_from(pow, arrow_damage);
     let pierce_level = arrow.pierce_level();
     if pierce_level > 0 {
         let d = arrow.arrow_data_mut();
-        let ignore = d.piercing_ignore_entity_ids.get_or_insert_with(|| Vec::with_capacity(5));
-        d.pierced_and_killed_entities.get_or_insert_with(|| Vec::with_capacity(5));
+        let ignore = d
+            .piercing_ignore_entity_ids
+            .get_or_insert_with(|| Vec::with_capacity(5));
+        d.pierced_and_killed_entities
+            .get_or_insert_with(|| Vec::with_capacity(5));
         if ignore.len() as i32 >= i32::from(pierce_level) + 1 {
             arrow.discard();
             return;
@@ -547,11 +690,23 @@ pub fn on_hit_entity(arrow: &mut dyn AbstractArrow, level: &mut ServerLevel, hit
         if target.hurt_server(level, &source, damage as f32) {
             if target.living().is_some() {
                 if pierce_level <= 0 {
-                    let count = target.base().entity_data.get(crate::world::entity::living::DATA_ARROW_COUNT_ID);
-                    target.base_mut().entity_data.set(crate::world::entity::living::DATA_ARROW_COUNT_ID, count + 1);
+                    let count = target
+                        .base()
+                        .entity_data
+                        .get(crate::world::entity::living::DATA_ARROW_COUNT_ID);
+                    target
+                        .base_mut()
+                        .entity_data
+                        .set(crate::world::entity::living::DATA_ARROW_COUNT_ID, count + 1);
                 }
                 do_knockback(arrow, level, target, &source);
-                helper::do_post_attack_effects_with_item_source(level, &mut Actors::of(target).and(arrow.as_dyn_mut()), victim, &source, weapon.as_ref());
+                helper::do_post_attack_effects_with_item_source(
+                    level,
+                    &mut Actors::of(target).and(arrow.as_dyn_mut()),
+                    victim,
+                    &source,
+                    weapon.as_ref(),
+                );
                 arrow.do_post_hurt_effects(level, target);
                 if target.is_player()
                     && let Some(owner) = owner_id
@@ -559,7 +714,10 @@ pub fn on_hit_entity(arrow: &mut dyn AbstractArrow, level: &mut ServerLevel, hit
                     && owner != victim
                 {
                     level.with_player(owner, |_, player| {
-                        player.send(&ClientboundGameEventPacket { event: ClientboundGameEventPacket::PLAY_ARROW_HIT_SOUND, param: 0.0 });
+                        player.send(&ClientboundGameEventPacket {
+                            event: ClientboundGameEventPacket::PLAY_ARROW_HIT_SOUND,
+                            param: 0.0,
+                        });
                     });
                 }
                 if !target.is_alive()
@@ -569,14 +727,30 @@ pub fn on_hit_entity(arrow: &mut dyn AbstractArrow, level: &mut ServerLevel, hit
                 }
                 // `CriteriaTriggers.KILLED_BY_ARROW` when the owner is a ServerPlayer: the pierced list, or the victim if dead
                 if let Some(owner) = owner_id {
-                    let killed: Option<Vec<EntityId>> = match &arrow.arrow_data().pierced_and_killed_entities {
-                        Some(list) => Some(list.clone()),
-                        None => (!target.is_alive()).then(|| vec![victim]),
-                    };
+                    let killed: Option<Vec<EntityId>> =
+                        match &arrow.arrow_data().pierced_and_killed_entities {
+                            Some(list) => Some(list.clone()),
+                            None => (!target.is_alive()).then(|| vec![victim]),
+                        };
                     let matches = killed.and_then(|ids| {
-                        let player = level.get_entity(owner).and_then(|e| e.as_any().downcast_ref::<crate::world::entity::ServerPlayer>())?;
-                        let victims: Vec<&dyn Entity> = ids.iter().filter_map(|&id| if id == victim { Some(&*target) } else { level.get_entity(id) }).collect();
-                        Some(crate::advancements::triggers::CriteriaTriggers::KILLED_BY_ARROW.matches(&*level, player, &victims, weapon.as_ref()))
+                        let player = level.get_entity(owner).and_then(|e| {
+                            e.as_any()
+                                .downcast_ref::<crate::world::entity::ServerPlayer>()
+                        })?;
+                        let victims: Vec<&dyn Entity> = ids
+                            .iter()
+                            .filter_map(|&id| {
+                                if id == victim {
+                                    Some(&*target)
+                                } else {
+                                    level.get_entity(id)
+                                }
+                            })
+                            .collect();
+                        Some(
+                            crate::advancements::triggers::CriteriaTriggers::KILLED_BY_ARROW
+                                .matches(&*level, player, &victims, weapon.as_ref()),
+                        )
                     });
                     if let Some(matches) = matches {
                         level.with_player(owner, |level, player| matches.award(level, player));
@@ -602,10 +776,22 @@ pub fn on_hit_entity(arrow: &mut dyn AbstractArrow, level: &mut ServerLevel, hit
         }
         HitOutcome::Bounced => {
             let owner = arrow.projectile_data().owner;
-            arrow.deflect(level, ProjectileDeflection::Reverse, Some(victim), owner, false, Vec3::new(0.2, 0.2, 0.2));
+            arrow.deflect(
+                level,
+                ProjectileDeflection::Reverse,
+                Some(victim),
+                owner,
+                false,
+                Vec3::new(0.2, 0.2, 0.2),
+            );
             if arrow.base().delta_movement().length_sqr() < 1.0E-7 {
                 if arrow.arrow_data().pickup == Pickup::Allowed {
-                    crate::world::entity::item::spawn_at_location(level, arrow.as_dyn(), arrow.get_pickup_item(), Vec3::new(0.0, 0.1f32.into(), 0.0));
+                    crate::world::entity::item::spawn_at_location(
+                        level,
+                        arrow.as_dyn(),
+                        arrow.get_pickup_item(),
+                        Vec3::new(0.0, 0.1f32.into(), 0.0),
+                    );
                 }
                 arrow.discard();
             }
@@ -622,17 +808,38 @@ enum HitOutcome {
 }
 
 /// `doKnockback(mob, damageSource)`: `mob` is out of the level.
-pub fn do_knockback(arrow: &dyn AbstractArrow, level: &mut ServerLevel, mob: &mut dyn Entity, source: &crate::world::damagesource::DamageSource) {
+pub fn do_knockback(
+    arrow: &dyn AbstractArrow,
+    level: &mut ServerLevel,
+    mob: &mut dyn Entity,
+    source: &crate::world::damagesource::DamageSource,
+) {
     let knockback = match arrow.arrow_data().fired_from_weapon.clone() {
         Some(weapon) => {
             let id = mob.id();
-            f64::from(crate::world::item::enchantment_helper::modify_knockback(level, &mut Actors::of(&mut *mob), &weapon, id, source, 0.0))
+            f64::from(crate::world::item::enchantment_helper::modify_knockback(
+                level,
+                &mut Actors::of(&mut *mob),
+                &weapon,
+                id,
+                source,
+                0.0,
+            ))
         }
         None => 0.0,
     };
     if knockback > 0.0 {
-        let resistance = (1.0 - mob.living().map_or(0.0, |l| l.get_attribute_value(mc_data::Attribute::KNOCKBACK_RESISTANCE))).max(0.0);
-        let movement = arrow.base().delta_movement().multiply_xyz(1.0, 0.0, 1.0).normalize().scale(knockback * 0.6 * resistance);
+        let resistance = (1.0
+            - mob.living().map_or(0.0, |l| {
+                l.get_attribute_value(mc_data::Attribute::KNOCKBACK_RESISTANCE)
+            }))
+        .max(0.0);
+        let movement = arrow
+            .base()
+            .delta_movement()
+            .multiply_xyz(1.0, 0.0, 1.0)
+            .normalize()
+            .scale(knockback * 0.6 * resistance);
         if movement.length_sqr() > 0.0 {
             mob.push_xyz(movement.x, 0.1, movement.z);
         }
@@ -648,7 +855,11 @@ pub fn on_hit_block(arrow: &mut dyn AbstractArrow, level: &mut ServerLevel, hit:
         arrow.hit_block_enchantment_effects(level, hit, weapon);
     }
     let movement = arrow.base().delta_movement();
-    let offset_direction = Vec3::new(java_signum(movement.x), java_signum(movement.y), java_signum(movement.z));
+    let offset_direction = Vec3::new(
+        java_signum(movement.x),
+        java_signum(movement.y),
+        java_signum(movement.z),
+    );
     let scaled_movement = offset_direction.scale(f64::from(0.05f32));
     let position = arrow.position().subtract(scaled_movement);
     arrow.set_pos_vec(position);
@@ -666,7 +877,12 @@ pub fn on_hit_block(arrow: &mut dyn AbstractArrow, level: &mut ServerLevel, hit:
 
 /// `AbstractArrow.hitBlockEnchantmentEffects`: `EnchantmentHelper.onHitBlock` with the arrow's weapon; when the weapon
 /// breaks, `firedFromWeapon` is dropped.
-pub fn hit_block_enchantment_effects_base(arrow: &mut dyn AbstractArrow, level: &mut ServerLevel, hit: &BlockHitResult, weapon: ItemStack) {
+pub fn hit_block_enchantment_effects_base(
+    arrow: &mut dyn AbstractArrow,
+    level: &mut ServerLevel,
+    hit: &BlockHitResult,
+    weapon: ItemStack,
+) {
     let (weapon, broke) = run_on_hit_block(arrow, level, hit, weapon);
     // the (possibly modified) weapon is the live `firedFromWeapon` object in vanilla
     arrow.arrow_data_mut().fired_from_weapon = if broke { None } else { Some(weapon) };
@@ -674,12 +890,20 @@ pub fn hit_block_enchantment_effects_base(arrow: &mut dyn AbstractArrow, level: 
 
 /// `EnchantmentHelper.onHitBlock(level, weapon, owner, this, null, clamped hit position, block state, onBreak)`:
 /// returns the weapon after the effects and whether one of them broke it (the `onBreak` callback ran).
-pub fn run_on_hit_block(arrow: &mut dyn AbstractArrow, level: &mut ServerLevel, hit: &BlockHitResult, mut weapon: ItemStack) -> (ItemStack, bool) {
+pub fn run_on_hit_block(
+    arrow: &mut dyn AbstractArrow,
+    level: &mut ServerLevel,
+    hit: &BlockHitResult,
+    mut weapon: ItemStack,
+) -> (ItemStack, bool) {
     use std::sync::Arc;
     use std::sync::atomic::{AtomicBool, Ordering};
     let compensated = hit.block_pos.clamp_location_within(&hit.location);
     let state = level.get_block_state(hit.block_pos);
-    let owner = arrow.get_owner(level).filter(|o| o.living().is_some()).map(|o| o.id());
+    let owner = arrow
+        .get_owner(level)
+        .filter(|o| o.living().is_some())
+        .map(|o| o.id());
     let broke = Arc::new(AtomicBool::new(false));
     let flag = broke.clone();
     let id = arrow.id();
@@ -699,8 +923,15 @@ pub fn run_on_hit_block(arrow: &mut dyn AbstractArrow, level: &mut ServerLevel, 
 }
 
 /// `AbstractArrow.playerTouch(player)`.
-pub fn player_touch(arrow: &mut dyn AbstractArrow, level: &mut ServerLevel, player: &mut ServerPlayer) {
-    if (arrow.is_in_ground() || arrow.is_no_physics()) && arrow.arrow_data().shake_time <= 0 && arrow.try_pickup(player) {
+pub fn player_touch(
+    arrow: &mut dyn AbstractArrow,
+    level: &mut ServerLevel,
+    player: &mut ServerPlayer,
+) {
+    if (arrow.is_in_ground() || arrow.is_no_physics())
+        && arrow.arrow_data().shake_time <= 0
+        && arrow.try_pickup(player)
+    {
         player.take(level, arrow.as_dyn(), 1);
         arrow.discard();
     }
@@ -720,7 +951,12 @@ pub fn try_pickup_base(arrow: &mut dyn AbstractArrow, player: &mut ServerPlayer)
 }
 
 /// `AbstractArrow.move(moverType, delta)`.
-pub fn move_arrow(arrow: &mut dyn AbstractArrow, level: &mut ServerLevel, mover: MoverType, delta: Vec3) {
+pub fn move_arrow(
+    arrow: &mut dyn AbstractArrow,
+    level: &mut ServerLevel,
+    mover: MoverType,
+    delta: Vec3,
+) {
     crate::world::entity::movement::move_entity(arrow.as_dyn_mut(), level, mover, delta);
     if mover != MoverType::SelfMover && should_fall(arrow, level) {
         start_falling(arrow);
@@ -733,7 +969,11 @@ pub fn add_additional_save_data(arrow: &dyn AbstractArrow, out: &mut CompoundTag
     let d = arrow.arrow_data();
     out.put_short("life", d.life as i16);
     if let Some(state) = d.last_state
-        && let Ok(tag) = mc_dfu::encode_nbt(&crate::world::item::enchantment::value_codecs::block_state_codec(), &state).into_result()
+        && let Ok(tag) = mc_dfu::encode_nbt(
+            &crate::world::item::enchantment::value_codecs::block_state_codec(),
+            &state,
+        )
+        .into_result()
     {
         out.put("inBlockState", tag);
     }
@@ -761,7 +1001,14 @@ pub fn read_additional_save_data(arrow: &mut dyn AbstractArrow, input: &Compound
     use crate::world::item::load_item_stack;
     super::read_additional_save_data(arrow, input);
     arrow.arrow_data_mut().life = i32::from(input.get_short_or("life", 0));
-    arrow.arrow_data_mut().last_state = input.get("inBlockState").and_then(|t| mc_dfu::parse_nbt(&crate::world::item::enchantment::value_codecs::block_state_codec(), t).into_result().ok());
+    arrow.arrow_data_mut().last_state = input.get("inBlockState").and_then(|t| {
+        mc_dfu::parse_nbt(
+            &crate::world::item::enchantment::value_codecs::block_state_codec(),
+            t,
+        )
+        .into_result()
+        .ok()
+    });
     arrow.arrow_data_mut().shake_time = i32::from(input.get_byte_or("shake", 0)) & 255;
     arrow.set_in_ground(input.get_boolean_or("inGround", false));
     arrow.arrow_data_mut().base_damage = input.get_double_or("damage", 2.0);
@@ -769,10 +1016,17 @@ pub fn read_additional_save_data(arrow: &mut dyn AbstractArrow, input: &Compound
     arrow.set_crit_arrow(input.get_boolean_or("crit", false));
     arrow.set_pierce_level(input.get_byte_or("PierceLevel", 0));
     let default_sound = arrow.get_default_hit_ground_sound_event();
-    arrow.arrow_data_mut().sound_event = input.get_string("SoundEvent").and_then(SoundEvent::by_name).unwrap_or(default_sound);
-    let pickup = input.get_compound("item").and_then(load_item_stack).unwrap_or_else(ItemStack::empty);
+    arrow.arrow_data_mut().sound_event = input
+        .get_string("SoundEvent")
+        .and_then(SoundEvent::by_name)
+        .unwrap_or(default_sound);
+    let pickup = input
+        .get_compound("item")
+        .and_then(load_item_stack)
+        .unwrap_or_else(ItemStack::empty);
     arrow.set_pickup_item_stack(pickup);
-    arrow.arrow_data_mut().fired_from_weapon = input.get_compound("weapon").and_then(load_item_stack);
+    arrow.arrow_data_mut().fired_from_weapon =
+        input.get_compound("weapon").and_then(load_item_stack);
 }
 
 /// `Entity`/`Projectile` overrides every arrow shares. `impl_abstract_arrow!(Type)` goes at module level; it
@@ -787,7 +1041,11 @@ macro_rules! impl_abstract_arrow_projectile {
         fn shoot(&mut self, xd: f64, yd: f64, zd: f64, pow: f32, uncertainty: f32) {
             $crate::world::entity::projectile::arrow::shoot(self, xd, yd, zd, pow, uncertainty);
         }
-        fn can_hit_entity(&self, level: &$crate::server::level::ServerLevel, entity: &dyn $crate::world::entity::Entity) -> bool {
+        fn can_hit_entity(
+            &self,
+            level: &$crate::server::level::ServerLevel,
+            entity: &dyn $crate::world::entity::Entity,
+        ) -> bool {
             $crate::world::entity::projectile::arrow::can_hit_entity(self, level, entity)
         }
         fn should_bounce_on_world_border(&self) -> bool {
@@ -796,10 +1054,20 @@ macro_rules! impl_abstract_arrow_projectile {
         fn on_item_break(&mut self, _item: &$crate::world::item::ItemStack) {
             self.arrow_data_mut().fired_from_weapon = None;
         }
-        fn on_hit_entity(&mut self, level: &mut $crate::server::level::ServerLevel, hit: &$crate::world::entity::projectile::EntityHitResult) {
-            $crate::world::entity::projectile::arrow::AbstractArrow::arrow_on_hit_entity(self, level, hit);
+        fn on_hit_entity(
+            &mut self,
+            level: &mut $crate::server::level::ServerLevel,
+            hit: &$crate::world::entity::projectile::EntityHitResult,
+        ) {
+            $crate::world::entity::projectile::arrow::AbstractArrow::arrow_on_hit_entity(
+                self, level, hit,
+            );
         }
-        fn on_hit_block(&mut self, level: &mut $crate::server::level::ServerLevel, hit: &mc_core::phys::BlockHitResult) {
+        fn on_hit_block(
+            &mut self,
+            level: &mut $crate::server::level::ServerLevel,
+            hit: &mc_core::phys::BlockHitResult,
+        ) {
             $crate::world::entity::projectile::arrow::on_hit_block(self, level, hit);
         }
     };
@@ -811,7 +1079,8 @@ macro_rules! impl_abstract_arrow_entity {
     () => {
         $crate::impl_projectile_entity!(arrow);
         fn is_pickable(&self) -> bool {
-            $crate::world::entity::projectile::is_pickable(self.get_type()) && !$crate::world::entity::projectile::arrow::AbstractArrow::is_in_ground(self)
+            $crate::world::entity::projectile::is_pickable(self.get_type())
+                && !$crate::world::entity::projectile::arrow::AbstractArrow::is_in_ground(self)
         }
         fn is_attackable(&self) -> bool {
             $crate::world::entity::projectile::is_pickable(self.get_type())
@@ -828,7 +1097,12 @@ macro_rules! impl_abstract_arrow_entity {
         fn is_pushed_by_fluid(&self) -> bool {
             !$crate::world::entity::projectile::arrow::AbstractArrow::is_in_ground(self)
         }
-        fn r#move(&mut self, level: &mut $crate::server::level::ServerLevel, mover: $crate::world::entity::MoverType, delta: mc_core::phys::Vec3) {
+        fn r#move(
+            &mut self,
+            level: &mut $crate::server::level::ServerLevel,
+            mover: $crate::world::entity::MoverType,
+            delta: mc_core::phys::Vec3,
+        ) {
             $crate::world::entity::projectile::arrow::move_arrow(self, level, mover, delta);
         }
         fn push_xyz(&mut self, xa: f64, ya: f64, za: f64) {
@@ -836,12 +1110,23 @@ macro_rules! impl_abstract_arrow_entity {
                 $crate::world::entity::projectile::arrow::push_default(self, xa, ya, za);
             }
         }
-        fn on_above_bubble_column(&mut self, level: &mut $crate::server::level::ServerLevel, drag_down: bool, pos: mc_core::pos::BlockPos) {
+        fn on_above_bubble_column(
+            &mut self,
+            level: &mut $crate::server::level::ServerLevel,
+            drag_down: bool,
+            pos: mc_core::pos::BlockPos,
+        ) {
             if !$crate::world::entity::projectile::arrow::AbstractArrow::is_in_ground(self) {
-                $crate::world::entity::projectile::on_above_bubble_column(self, level, drag_down, pos);
+                $crate::world::entity::projectile::on_above_bubble_column(
+                    self, level, drag_down, pos,
+                );
             }
         }
-        fn on_inside_bubble_column(&mut self, _level: &mut $crate::server::level::ServerLevel, drag_down: bool) {
+        fn on_inside_bubble_column(
+            &mut self,
+            _level: &mut $crate::server::level::ServerLevel,
+            drag_down: bool,
+        ) {
             if !$crate::world::entity::projectile::arrow::AbstractArrow::is_in_ground(self) {
                 $crate::world::entity::projectile::on_inside_bubble_column(self, drag_down);
             }

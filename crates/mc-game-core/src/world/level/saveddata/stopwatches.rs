@@ -18,11 +18,15 @@ pub struct Stopwatch {
 
 impl Stopwatch {
     pub fn new(creation_time: i64) -> Self {
-        Stopwatch { creation_time, accumulated_elapsed_time: 0 }
+        Stopwatch {
+            creation_time,
+            accumulated_elapsed_time: 0,
+        }
     }
 
     pub fn elapsed_milliseconds(&self, current_time: i64) -> i64 {
-        self.accumulated_elapsed_time.wrapping_add(current_time.wrapping_sub(self.creation_time))
+        self.accumulated_elapsed_time
+            .wrapping_add(current_time.wrapping_sub(self.creation_time))
     }
 
     pub fn elapsed_seconds(&self, current_time: i64) -> f64 {
@@ -92,19 +96,39 @@ impl Stopwatches {
     fn unpack(stopwatches: Vec<(Identifier, i64)>, current_time: i64) -> Stopwatches {
         Stopwatches {
             dirty: false,
-            stopwatches: stopwatches.into_iter().map(|(id, acc)| (id, Stopwatch { creation_time: current_time, accumulated_elapsed_time: acc })).collect(),
+            stopwatches: stopwatches
+                .into_iter()
+                .map(|(id, acc)| {
+                    (
+                        id,
+                        Stopwatch {
+                            creation_time: current_time,
+                            accumulated_elapsed_time: acc,
+                        },
+                    )
+                })
+                .collect(),
         }
     }
 
     /// `pack`: a `TreeMap` (sorted ids) of elapsed milliseconds.
     fn pack(&self, current_time: i64) -> BTreeMap<Identifier, i64> {
-        self.stopwatches.iter().map(|(id, s)| (id.clone(), s.elapsed_milliseconds(current_time))).collect()
+        self.stopwatches
+            .iter()
+            .map(|(id, s)| (id.clone(), s.elapsed_milliseconds(current_time)))
+            .collect()
     }
 
     fn decode(tag: &Tag) -> DecodeResult<Stopwatches> {
         let m = codec::compound(tag)?;
-        let map = codec::unbounded_map(codec::field(m, "stopwatches")?, Identifier::read, codec::long);
-        map_decoded(map, |map| Stopwatches::unpack(map, Stopwatches::current_time()))
+        let map = codec::unbounded_map(
+            codec::field(m, "stopwatches")?,
+            Identifier::read,
+            codec::long,
+        );
+        map_decoded(map, |map| {
+            Stopwatches::unpack(map, Stopwatches::current_time())
+        })
     }
 
     fn encode(&self) -> DataResult<Tag> {
@@ -116,7 +140,12 @@ impl Stopwatches {
     }
 
     pub fn type_() -> SavedDataType<Stopwatches> {
-        SavedDataType::new(Identifier::parse("minecraft:stopwatches").expect("static id"), Stopwatches::default, Stopwatches::decode, Stopwatches::encode)
+        SavedDataType::new(
+            Identifier::parse("minecraft:stopwatches").expect("static id"),
+            Stopwatches::default,
+            Stopwatches::decode,
+            Stopwatches::encode,
+        )
     }
 }
 
@@ -130,7 +159,10 @@ mod tests {
 
     #[test]
     fn stopwatch_math_and_dirty_rules() {
-        let s = Stopwatch { creation_time: 100, accumulated_elapsed_time: 50 };
+        let s = Stopwatch {
+            creation_time: 100,
+            accumulated_elapsed_time: 50,
+        };
         assert_eq!(s.elapsed_milliseconds(160), 110);
         assert_eq!(s.elapsed_seconds(1100), 1.05);
         let mut sw = Stopwatches::default();
@@ -139,7 +171,10 @@ mod tests {
         assert!(!sw.add(id("a:b"), Stopwatch::new(1)), "putIfAbsent");
         sw.set_dirty_to(false);
         assert!(sw.is_dirty(), "non-empty stopwatches are always dirty");
-        assert!(sw.update(&id("a:b"), |s| Stopwatch { accumulated_elapsed_time: 5, ..s }));
+        assert!(sw.update(&id("a:b"), |s| Stopwatch {
+            accumulated_elapsed_time: 5,
+            ..s
+        }));
         assert!(!sw.update(&id("x:y"), |s| s));
         assert_eq!(sw.get(&id("a:b")).unwrap().accumulated_elapsed_time, 5);
         assert!(sw.remove(&id("a:b")));
@@ -150,9 +185,17 @@ mod tests {
     #[test]
     fn codec_unpacks_relative_to_now() {
         let ty = Stopwatches::type_();
-        let sw = (ty.decode)(&mc_nbt::snbt::parse("{stopwatches:{\"a:b\":1500L}}").unwrap()).map_err(|e| e.error).unwrap();
-        let Tag::Compound(c) = (ty.encode)(&sw).unwrap() else { panic!() };
-        let elapsed = c.get_compound("stopwatches").unwrap().get_long("a:b").unwrap();
+        let sw = (ty.decode)(&mc_nbt::snbt::parse("{stopwatches:{\"a:b\":1500L}}").unwrap())
+            .map_err(|e| e.error)
+            .unwrap();
+        let Tag::Compound(c) = (ty.encode)(&sw).unwrap() else {
+            panic!()
+        };
+        let elapsed = c
+            .get_compound("stopwatches")
+            .unwrap()
+            .get_long("a:b")
+            .unwrap();
         assert!((1500..2500).contains(&elapsed), "{elapsed}");
     }
 }

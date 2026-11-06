@@ -17,7 +17,10 @@ pub trait ComponentValue: Any + Send + Sync + fmt::Debug {
 
 impl<T: Any + Send + Sync + fmt::Debug + PartialEq> ComponentValue for T {
     fn eq_value(&self, other: &dyn ComponentValue) -> bool {
-        other.as_any().downcast_ref::<T>().is_some_and(|o| self == o)
+        other
+            .as_any()
+            .downcast_ref::<T>()
+            .is_some_and(|o| self == o)
     }
     fn as_any(&self) -> &dyn Any {
         self
@@ -37,7 +40,15 @@ impl Value {
     }
     /// Typed clone of the value; panics if the type is wrong (a bug in a `ComponentDef`).
     pub fn cloned<T: Clone + 'static>(&self) -> T {
-        self.downcast_ref::<T>().unwrap_or_else(|| panic!("component value is not a {}: {:?}", std::any::type_name::<T>(), self.0)).clone()
+        self.downcast_ref::<T>()
+            .unwrap_or_else(|| {
+                panic!(
+                    "component value is not a {}: {:?}",
+                    std::any::type_name::<T>(),
+                    self.0
+                )
+            })
+            .clone()
     }
 }
 
@@ -68,7 +79,10 @@ impl<T> Copy for ComponentKey<T> {}
 
 impl<T> ComponentKey<T> {
     pub const fn new(id: DataComponentType) -> Self {
-        ComponentKey { id, _marker: PhantomData }
+        ComponentKey {
+            id,
+            _marker: PhantomData,
+        }
     }
     pub const fn id(&self) -> DataComponentType {
         self.id
@@ -101,7 +115,9 @@ impl ComponentDef {
     }
     /// `codecOrThrow()`.
     pub fn codec_or_throw(&self) -> &Codec<Value> {
-        self.codec.as_ref().unwrap_or_else(|| panic!("{} is not a persistent component", self.name()))
+        self.codec
+            .as_ref()
+            .unwrap_or_else(|| panic!("{} is not a persistent component", self.name()))
     }
     pub fn encode_network(&self, value: &Value, out: &mut Vec<u8>) -> EncodeResult<()> {
         (self.net_encode)(value, out)
@@ -120,7 +136,11 @@ pub struct ComponentDefBuilder<T: 'static> {
 
 impl ComponentDef {
     pub fn builder<T: ComponentValue + Clone>(key: ComponentKey<T>) -> ComponentDefBuilder<T> {
-        ComponentDefBuilder { id: key.id, codec: None, net: None }
+        ComponentDefBuilder {
+            id: key.id,
+            codec: None,
+            net: None,
+        }
     }
 }
 
@@ -150,7 +170,9 @@ impl<T: ComponentValue + Clone> ComponentDefBuilder<T> {
         decode: impl Fn(&mut &[u8]) -> DecodeResult<T> + Send + Sync + 'static,
     ) -> Self {
         self.net = Some((
-            Box::new(move |v, out| encode(v.downcast_ref::<T>().expect("component value type"), out)),
+            Box::new(move |v, out| {
+                encode(v.downcast_ref::<T>().expect("component value type"), out)
+            }),
             Box::new(move |input| decode(input).map(Value::new)),
         ));
         self
@@ -159,9 +181,9 @@ impl<T: ComponentValue + Clone> ComponentDefBuilder<T> {
     pub fn build(self) -> ComponentDef {
         let id = self.id;
         let codec_t = self.codec;
-        let codec = codec_t.as_ref().map(|c| {
-            c.xmap(Value::new, |v: &Value| v.cloned::<T>())
-        });
+        let codec = codec_t
+            .as_ref()
+            .map(|c| c.xmap(Value::new, |v: &Value| v.cloned::<T>()));
         let (net_encode, net_decode) = match self.net {
             Some(n) => n,
             None => {
@@ -173,12 +195,16 @@ impl<T: ComponentValue + Clone> ComponentDefBuilder<T> {
                         let tag = mc_dfu::encode_nbt(&c, &v.cloned::<T>());
                         match tag.into_result() {
                             Ok(t) => crate::codec::encode_tag(&t, out),
-                            Err(e) => Err(crate::codec::EncodeError(format!("Failed to encode: {e}"))),
+                            Err(e) => {
+                                Err(crate::codec::EncodeError(format!("Failed to encode: {e}")))
+                            }
                         }
                     }) as NetEncode,
                     Box::new(move |input: &mut &[u8]| {
                         let tag = crate::codec::decode_tag_with(input, NbtLimit::DEFAULT)?
-                            .ok_or_else(|| crate::codec::DecodeError::msg("Expected non-null compound tag"))?;
+                            .ok_or_else(|| {
+                                crate::codec::DecodeError::msg("Expected non-null compound tag")
+                            })?;
                         match mc_dfu::parse_nbt(&c2, &tag) {
                             DataResult::Success(v) => Ok(Value::new(v)),
                             e => Err(crate::codec::DecodeError::Message(format!(
@@ -190,7 +216,17 @@ impl<T: ComponentValue + Clone> ComponentDefBuilder<T> {
                 )
             }
         };
-        let opt_codec = codec.as_ref().map(|c| c.xmap(Some, |v: &Option<Value>| v.clone().expect("removed entries use the removed codec")));
-        ComponentDef { id, codec, opt_codec, net_encode, net_decode }
+        let opt_codec = codec.as_ref().map(|c| {
+            c.xmap(Some, |v: &Option<Value>| {
+                v.clone().expect("removed entries use the removed codec")
+            })
+        });
+        ComponentDef {
+            id,
+            codec,
+            opt_codec,
+            net_encode,
+            net_decode,
+        }
     }
 }

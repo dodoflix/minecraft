@@ -2,11 +2,13 @@
 //! of the vanilla oracle (`describeMob` of `tests/oracle/EntityOracleDriver.java`) and the `finalizeSpawn` hook of `mobspawn`.
 //! Order 10 = `Mob`, 11 = `AgeableMob`, 12 = `Animal`, 13 = `TamableAnimal`.
 
-use super::{animal, ageable, leashable, tamable, tick};
+use super::{ageable, animal, leashable, tamable, tick};
 use crate::server::level::ServerLevel;
-use crate::world::entity::equipment::EquipmentSlot;
-use crate::world::entity::scenario_dump::{SCENARIO_DUMP_EXTRA, SCENARIO_FINALIZE_SPAWN, ScenarioDumpCtx, ScenarioDumpExtra};
 use crate::world::entity::Entity;
+use crate::world::entity::equipment::EquipmentSlot;
+use crate::world::entity::scenario_dump::{
+    SCENARIO_DUMP_EXTRA, SCENARIO_FINALIZE_SPAWN, ScenarioDumpCtx, ScenarioDumpExtra,
+};
 use crate::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
 use mc_core::math::java::java_float_to_string as jf;
@@ -21,7 +23,11 @@ fn pos(p: BlockPos) -> String {
 }
 
 fn join_or_dash(l: Vec<String>, sep: &str) -> String {
-    if l.is_empty() { "-".to_string() } else { l.join(sep) }
+    if l.is_empty() {
+        "-".to_string()
+    } else {
+        l.join(sep)
+    }
 }
 
 /// `runningGoals(selector)`.
@@ -30,12 +36,23 @@ fn running_goals(sel: &crate::world::entity::ai::goal::GoalSelector) -> String {
         .get_available_goals()
         .iter()
         .filter(|g| g.is_running())
-        .map(|g| format!("{}:{}:{}", g.priority(), g.goal().name(), crate::world::entity::scenario_dump::goal_flags_text(g.goal().flags())))
+        .map(|g| {
+            format!(
+                "{}:{}:{}",
+                g.priority(),
+                g.goal().name(),
+                crate::world::entity::scenario_dump::goal_flags_text(g.goal().flags())
+            )
+        })
         .collect();
     join_or_dash(l, ";")
 }
 
-fn mob_fields(e: &dyn Entity, level: &ServerLevel, ctx: &ScenarioDumpCtx<'_>) -> Vec<(String, String)> {
+fn mob_fields(
+    e: &dyn Entity,
+    level: &ServerLevel,
+    ctx: &ScenarioDumpCtx<'_>,
+) -> Vec<(String, String)> {
     let m = e.mob().expect("mob");
     let l = e.living().expect("living");
     let f = |k: &str, v: String| (k.to_string(), v);
@@ -47,7 +64,14 @@ fn mob_fields(e: &dyn Entity, level: &ServerLevel, ctx: &ScenarioDumpCtx<'_>) ->
         f("left", b(m.is_left_handed())),
         f("persist", b(e.is_persistence_required())),
         f("canpickup", b(e.can_pick_up_loot())),
-        f("home", if m.has_home() { format!("{}/{}", pos(m.home_position), m.home_radius) } else { "-".to_string() }),
+        f(
+            "home",
+            if m.has_home() {
+                format!("{}/{}", pos(m.home_position), m.home_radius)
+            } else {
+                "-".to_string()
+            },
+        ),
         f("leash", ctx.name_opt(leashable::get_leash_holder(e))),
         f("speed", jf(e.get_speed())),
         f("zza", jf(l.zza)),
@@ -71,14 +95,35 @@ fn mob_fields(e: &dyn Entity, level: &ServerLevel, ctx: &ScenarioDumpCtx<'_>) ->
     let (done, stuck, speed, ntarget, path) = nav.unwrap_or((true, false, 0.0, None, None));
     out.push(f("nav", if done { "done" } else { "moving" }.to_string()));
     out.push(f("stuck", b(stuck)));
-    out.push(f("navspeed", mc_core::math::java::java_double_to_string(speed)));
+    out.push(f(
+        "navspeed",
+        mc_core::math::java::java_double_to_string(speed),
+    ));
     out.push(f("ntarget", ntarget.map_or("-".to_string(), pos)));
-    out.push(f("path", path.as_ref().map_or("-".to_string(), |p| format!("{}/{}/{}/{}", p.get_next_node_index(), p.get_node_count(), b(p.can_reach()), pos(p.get_target())))));
+    out.push(f(
+        "path",
+        path.as_ref().map_or("-".to_string(), |p| {
+            format!(
+                "{}/{}/{}/{}",
+                p.get_next_node_index(),
+                p.get_node_count(),
+                b(p.can_reach()),
+                pos(p.get_target())
+            )
+        }),
+    ));
     let nodes = match &path {
         Some(p) if p.get_node_count() > 0 => (0..p.get_node_count())
             .map(|i| {
                 let n = p.get_node(i);
-                format!("{},{},{}:{}:{}", n.x, n.y, n.z, n.ty.name(), jf(n.cost_malus))
+                format!(
+                    "{},{},{}:{}:{}",
+                    n.x,
+                    n.y,
+                    n.z,
+                    n.ty.name(),
+                    jf(n.cost_malus)
+                )
             })
             .collect::<Vec<_>>()
             .join(";"),
@@ -88,10 +133,21 @@ fn mob_fields(e: &dyn Entity, level: &ServerLevel, ctx: &ScenarioDumpCtx<'_>) ->
     out.push(f("goals", running_goals(&m.goal_selector)));
     out.push(f("tgoals", running_goals(&m.target_selector)));
     // brain activities (sorted); memories are `-` (brain-less mobs; brain mobs extend this field when their goldens need it)
-    let mut acts: Vec<&str> = e.brain().get_active_activities().iter().map(|a| a.get_name()).collect();
+    let mut acts: Vec<&str> = e
+        .brain()
+        .get_active_activities()
+        .iter()
+        .map(|a| a.get_name())
+        .collect();
     acts.sort_unstable();
-    out.push(f("acts", join_or_dash(acts.into_iter().map(String::from).collect(), ";")));
-    let mem: Vec<String> = crate::world::entity::scenario_dump::memory_entries(e, level, ctx).iter().map(|m| format!("{}:{}:{}", m[0], m[1], m[2])).collect();
+    out.push(f(
+        "acts",
+        join_or_dash(acts.into_iter().map(String::from).collect(), ";"),
+    ));
+    let mem: Vec<String> = crate::world::entity::scenario_dump::memory_entries(e, level, ctx)
+        .iter()
+        .map(|m| format!("{}:{}:{}", m[0], m[1], m[2]))
+        .collect();
     out.push(f("mem", join_or_dash(mem, ";")));
     let equip: Vec<String> = EquipmentSlot::VALUES
         .iter()
@@ -115,7 +171,13 @@ fn mob_fields(e: &dyn Entity, level: &ServerLevel, ctx: &ScenarioDumpCtx<'_>) ->
         .iter()
         .filter_map(|(a, _)| {
             let value = l.attributes.get_value(*a);
-            (value != a.data().default_value).then(|| format!("{}:{}", a.name(), mc_core::math::java::java_double_to_string(value)))
+            (value != a.data().default_value).then(|| {
+                format!(
+                    "{}:{}",
+                    a.name(),
+                    mc_core::math::java::java_double_to_string(value)
+                )
+            })
         })
         .collect();
     attrs.sort();
@@ -124,7 +186,11 @@ fn mob_fields(e: &dyn Entity, level: &ServerLevel, ctx: &ScenarioDumpCtx<'_>) ->
 }
 
 #[distributed_slice(SCENARIO_DUMP_EXTRA)]
-static MOB_DUMP: ScenarioDumpExtra = ScenarioDumpExtra { order: 10, applies: |e| e.mob().is_some(), fields: mob_fields };
+static MOB_DUMP: ScenarioDumpExtra = ScenarioDumpExtra {
+    order: 10,
+    applies: |e| e.mob().is_some(),
+    fields: mob_fields,
+};
 
 #[distributed_slice(SCENARIO_DUMP_EXTRA)]
 static AGEABLE_DUMP: ScenarioDumpExtra = ScenarioDumpExtra {
@@ -132,7 +198,11 @@ static AGEABLE_DUMP: ScenarioDumpExtra = ScenarioDumpExtra {
     applies: |e| e.mob().is_some_and(|m| m.ageable.is_some()),
     fields: |e, _level, _ctx| {
         let a = e.mob().and_then(|m| m.ageable.as_ref()).expect("ageable");
-        vec![("age".into(), a.age.to_string()), ("baby".into(), b(e.is_baby())), ("forcedage".into(), a.forced_age.to_string())]
+        vec![
+            ("age".into(), a.age.to_string()),
+            ("baby".into(), b(e.is_baby())),
+            ("forcedage".into(), a.forced_age.to_string()),
+        ]
     },
 };
 
@@ -141,7 +211,13 @@ static ANIMAL_DUMP: ScenarioDumpExtra = ScenarioDumpExtra {
     order: 12,
     applies: |e| e.mob().is_some_and(|m| m.animal.is_some()),
     fields: |e, level, ctx| {
-        vec![("love".into(), animal::get_in_love_time(e).to_string()), ("lovecause".into(), ctx.name_opt(animal::get_love_cause(e, level)))]
+        vec![
+            ("love".into(), animal::get_in_love_time(e).to_string()),
+            (
+                "lovecause".into(),
+                ctx.name_opt(animal::get_love_cause(e, level)),
+            ),
+        ]
     },
 };
 
@@ -152,7 +228,10 @@ static TAMABLE_DUMP: ScenarioDumpExtra = ScenarioDumpExtra {
     fields: |e, _level, ctx| {
         vec![
             ("tame".into(), b(tamable::is_tame(e))),
-            ("owner".into(), ctx.name_uuid(tamable::get_owner_reference(e))),
+            (
+                "owner".into(),
+                ctx.name_uuid(tamable::get_owner_reference(e)),
+            ),
             ("sitting".into(), b(tamable::is_in_sitting_pose(e))),
             ("ordered".into(), b(tamable::is_ordered_to_sit(e))),
         ]
@@ -161,9 +240,11 @@ static TAMABLE_DUMP: ScenarioDumpExtra = ScenarioDumpExtra {
 
 /// `Mob.finalizeSpawn(level, level.getCurrentDifficultyAt(pos), reason, null)` of the `mobspawn` command.
 #[distributed_slice(SCENARIO_FINALIZE_SPAWN)]
-static FINALIZE: fn(&mut ServerLevel, &mut dyn Entity, mc_data::enums::EntitySpawnReason) = |level, e, reason| {
-    if e.mob().is_some() {
-        let difficulty = ServerLevelAccessor::get_current_difficulty_at(&*level, e.block_position());
-        e.finalize_spawn(level, difficulty, reason, None);
-    }
-};
+static FINALIZE: fn(&mut ServerLevel, &mut dyn Entity, mc_data::enums::EntitySpawnReason) =
+    |level, e, reason| {
+        if e.mob().is_some() {
+            let difficulty =
+                ServerLevelAccessor::get_current_difficulty_at(&*level, e.block_position());
+            e.finalize_spawn(level, difficulty, reason, None);
+        }
+    };

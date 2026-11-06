@@ -14,14 +14,20 @@ use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
 use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
-use mc_dfu::extra::{dispatched_map, IDENTIFIER};
+use mc_dfu::extra::{IDENTIFIER, dispatched_map};
 use mc_dfu::{Codec, DataResult};
 use std::sync::LazyLock;
 
 /// A sub predicate class: its codec and `EntitySubPredicate.matches(entity, level, position)`.
 pub trait EntitySubPredicateImpl: Sized {
     fn codec() -> Codec<Self>;
-    fn matches<'a>(&self, entity: &'a dyn Entity, level: &'a ServerLevel, position: Option<Vec3>, lent: &[&'a dyn Entity]) -> bool;
+    fn matches<'a>(
+        &self,
+        entity: &'a dyn Entity,
+        level: &'a ServerLevel,
+        position: Option<Vec3>,
+        lent: &[&'a dyn Entity],
+    ) -> bool;
 }
 
 macro_rules! entity_sub_predicates {
@@ -95,7 +101,11 @@ impl EntitySubPredicate {
     fn sort_rank(&self) -> i32 {
         match self {
             Self::EntityType(_) => -1,
-            Self::Vehicle(_) | Self::Passenger(_) | Self::TargetedEntity(_) | Self::Lightning(_) | Self::Player(_) => 1,
+            Self::Vehicle(_)
+            | Self::Passenger(_)
+            | Self::TargetedEntity(_)
+            | Self::Lightning(_)
+            | Self::Player(_) => 1,
             Self::Nbt(_) => 2,
             _ => 0,
         }
@@ -137,17 +147,46 @@ impl EntityPredicate {
     pub fn new(parts: Vec<EntitySubPredicate>) -> EntityPredicate {
         let mut order: Vec<usize> = (0..parts.len()).collect();
         order.sort_by_key(|&i| parts[i].sort_rank());
-        let recurses = parts.iter().any(|p| matches!(p, EntitySubPredicate::Vehicle(_) | EntitySubPredicate::Passenger(_) | EntitySubPredicate::TargetedEntity(_) | EntitySubPredicate::Lightning(_) | EntitySubPredicate::Player(_)));
-        EntityPredicate { parts, recurses, order }
+        let recurses = parts.iter().any(|p| {
+            matches!(
+                p,
+                EntitySubPredicate::Vehicle(_)
+                    | EntitySubPredicate::Passenger(_)
+                    | EntitySubPredicate::TargetedEntity(_)
+                    | EntitySubPredicate::Lightning(_)
+                    | EntitySubPredicate::Player(_)
+            )
+        });
+        EntityPredicate {
+            parts,
+            recurses,
+            order,
+        }
     }
 
     /// `EntityPredicate.CODEC`.
     pub fn codec() -> Codec<EntityPredicate> {
         static C: LazyLock<Codec<EntityPredicate>> = LazyLock::new(|| {
-            dispatched_map(&type_key_codec(), |i: &usize| DataResult::success(VALUE_CODECS[*i].1.clone())).xmap(
-                |entries: Vec<(usize, EntitySubPredicate)>| EntityPredicate::new(entries.into_iter().map(|(_, p)| p).collect()),
+            dispatched_map(&type_key_codec(), |i: &usize| {
+                DataResult::success(VALUE_CODECS[*i].1.clone())
+            })
+            .xmap(
+                |entries: Vec<(usize, EntitySubPredicate)>| {
+                    EntityPredicate::new(entries.into_iter().map(|(_, p)| p).collect())
+                },
                 |p: &EntityPredicate| {
-                    p.parts.iter().map(|part| (VALUE_CODECS.iter().position(|(n, _)| *n == part.type_name()).expect("registered"), part.clone())).collect()
+                    p.parts
+                        .iter()
+                        .map(|part| {
+                            (
+                                VALUE_CODECS
+                                    .iter()
+                                    .position(|(n, _)| *n == part.type_name())
+                                    .expect("registered"),
+                                part.clone(),
+                            )
+                        })
+                        .collect()
                 },
             )
         });
@@ -165,34 +204,65 @@ impl EntityPredicate {
 
     /// `matches(level, position, entity)` for a present entity; `position` is the origin of the distance checks
     /// (`null` outside a player context).
-    pub fn matches<'a>(&self, level: &'a ServerLevel, position: Option<Vec3>, entity: &'a dyn Entity) -> bool {
+    pub fn matches<'a>(
+        &self,
+        level: &'a ServerLevel,
+        position: Option<Vec3>,
+        entity: &'a dyn Entity,
+    ) -> bool {
         self.matches_lent(level, position, entity, &[])
     }
 
     /// `matches` with entities that are not in the level's storage because they are being ticked (`lent`); `entity`
     /// itself is lent to the nested predicates automatically, so a vehicle/passenger/target lookup that leads back to
     /// it finds it.
-    pub fn matches_lent<'a>(&self, level: &'a ServerLevel, position: Option<Vec3>, entity: &'a dyn Entity, lent: &[&'a dyn Entity]) -> bool {
+    pub fn matches_lent<'a>(
+        &self,
+        level: &'a ServerLevel,
+        position: Option<Vec3>,
+        entity: &'a dyn Entity,
+        lent: &[&'a dyn Entity],
+    ) -> bool {
         if self.recurses {
             let mut all: Vec<&'a dyn Entity> = lent.to_vec();
             all.push(entity);
-            self.order.iter().all(|&i| self.parts[i].matches(entity, level, position, &all))
+            self.order
+                .iter()
+                .all(|&i| self.parts[i].matches(entity, level, position, &all))
         } else {
-            self.order.iter().all(|&i| self.parts[i].matches(entity, level, position, lent))
+            self.order
+                .iter()
+                .all(|&i| self.parts[i].matches(entity, level, position, lent))
         }
     }
 
     /// `matches(level, position, @Nullable entity)`.
-    pub fn matches_nullable<'a>(&self, level: &'a ServerLevel, position: Option<Vec3>, entity: Option<&'a dyn Entity>) -> bool {
+    pub fn matches_nullable<'a>(
+        &self,
+        level: &'a ServerLevel,
+        position: Option<Vec3>,
+        entity: Option<&'a dyn Entity>,
+    ) -> bool {
         self.matches_nullable_lent(level, position, entity, &[])
     }
 
-    pub fn matches_nullable_lent<'a>(&self, level: &'a ServerLevel, position: Option<Vec3>, entity: Option<&'a dyn Entity>, lent: &[&'a dyn Entity]) -> bool {
+    pub fn matches_nullable_lent<'a>(
+        &self,
+        level: &'a ServerLevel,
+        position: Option<Vec3>,
+        entity: Option<&'a dyn Entity>,
+        lent: &[&'a dyn Entity],
+    ) -> bool {
         entity.is_some_and(|e| self.matches_lent(level, position, e, lent))
     }
 
     /// `matches(ServerPlayer player, @Nullable Entity entity)`: distances are measured from the player.
-    pub fn matches_from_player<'a>(&self, level: &'a ServerLevel, player: &'a dyn Entity, entity: Option<&'a dyn Entity>) -> bool {
+    pub fn matches_from_player<'a>(
+        &self,
+        level: &'a ServerLevel,
+        player: &'a dyn Entity,
+        entity: Option<&'a dyn Entity>,
+    ) -> bool {
         self.matches_nullable_lent(level, Some(player.position()), entity, &[player])
     }
 }

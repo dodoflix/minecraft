@@ -1,18 +1,18 @@
 //! `BlockPileFeature`.
 
-use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature};
-use mc_game_core::world::level::block::BlockStateExt;
-use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry};
-use mc_game_core::world::level::levelgen::env::GenEnv;
-use mc_game_core::world::level::levelgen::holder::Holder;
-use mc_game_core::world::level::levelgen::registries::DecodeCtx;
-use mc_game_core::world::level::levelgen::stateproviders::BlockStateProvider;
-use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
-use mc_game_core::world::level::{LevelAccessor};
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::Block;
+use mc_game_core::world::level::LevelAccessor;
+use mc_game_core::world::level::block::BlockStateExt;
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry};
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature};
+use mc_game_core::world::level::levelgen::holder::Holder;
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::stateproviders::BlockStateProvider;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use std::sync::Arc;
 
 pub struct BlockPileFeature {
@@ -21,35 +21,64 @@ pub struct BlockPileFeature {
 
 impl BlockPileFeature {
     fn decode(fields: &Fields<'_>, ctx: &DecodeCtx<'_>) -> LoadResult<Arc<dyn Feature>> {
-        Ok(Arc::new(BlockPileFeature { state_provider: fields.required("state_provider", |v| ctx.block_state_provider(v))? }))
+        Ok(Arc::new(BlockPileFeature {
+            state_provider: fields.required("state_provider", |v| ctx.block_state_provider(v))?,
+        }))
     }
 
-    fn may_place_on(level: &dyn LevelAccessor, block_pos: BlockPos, random: &mut dyn RandomSource) -> bool {
+    fn may_place_on(
+        level: &dyn LevelAccessor,
+        block_pos: BlockPos,
+        random: &mut dyn RandomSource,
+    ) -> bool {
         let below = block_pos.below();
         let below_state = level.get_block_state(below);
-        if below_state.is_block(Block::DIRT_PATH) { random.next_boolean() } else { below_state.is_face_sturdy_at(level, below, Direction::Up) }
+        if below_state.is_block(Block::DIRT_PATH) {
+            random.next_boolean()
+        } else {
+            below_state.is_face_sturdy_at(level, below, Direction::Up)
+        }
     }
 
-    fn try_place_block(&self, level: &mut dyn WorldGenLevel, block_pos: BlockPos, random: &mut dyn RandomSource) {
+    fn try_place_block(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        block_pos: BlockPos,
+        random: &mut dyn RandomSource,
+    ) {
         if level.is_empty_block(block_pos) && Self::may_place_on(&*level, block_pos, random) {
-            let state = self.state_provider.value().get_state(&*level, random, block_pos);
+            let state = self
+                .state_provider
+                .value()
+                .get_state(&*level, random, block_pos);
             level.set_block_flags(block_pos, state, 260);
         }
     }
 }
 
 #[linkme::distributed_slice(FEATURE_TYPES)]
-static BLOCK_PILE: TypeEntry<dyn Feature> = TypeEntry { name: "block_pile", decode: BlockPileFeature::decode };
+static BLOCK_PILE: TypeEntry<dyn Feature> = TypeEntry {
+    name: "block_pile",
+    decode: BlockPileFeature::decode,
+};
 
 impl Feature for BlockPileFeature {
-    fn place(&self, level: &mut dyn WorldGenLevel, _generator: &GenEnv, random: &mut dyn RandomSource, origin: BlockPos) -> bool {
+    fn place(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        _generator: &GenEnv,
+        random: &mut dyn RandomSource,
+        origin: BlockPos,
+    ) -> bool {
         if origin.y() < level.get_min_y() + 5 {
             return false;
         }
         let xr = 2 + random.next_int_bounded(2);
         let zr = 2 + random.next_int_bounded(2);
 
-        for block_pos in BlockPos::between_closed(&origin.offset(-xr, 0, -zr), &origin.offset(xr, 1, zr)) {
+        for block_pos in
+            BlockPos::between_closed(&origin.offset(-xr, 0, -zr), &origin.offset(xr, 1, zr))
+        {
             let xd = origin.x() - block_pos.x();
             let zd = origin.z() - block_pos.z();
             let a = random.next_float();

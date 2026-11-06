@@ -37,7 +37,10 @@ impl BackupStatus {
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub enum LevelSummaryKind {
-    Normal { settings: LevelSettings, level_version: LevelVersion },
+    Normal {
+        settings: LevelSettings,
+        level_version: LevelVersion,
+    },
     /// `CorruptedLevelSummary`: unreadable level.dat (`last_played` = file modification time or -1).
     Corrupted { last_played: i64 },
     /// `SymlinkLevelSummary`: level.dat is a forbidden symlink.
@@ -104,11 +107,14 @@ impl LevelSummary {
 
     /// `getWorldVersionName` (empty = `selectWorld.versionUnknown`).
     pub fn world_version_name(&self) -> Option<&str> {
-        self.level_version().map(|v| v.minecraft_version_name.as_str())
+        self.level_version()
+            .map(|v| v.minecraft_version_name.as_str())
     }
 
     pub fn backup_status(&self) -> BackupStatus {
-        let Some(level_version) = self.level_version() else { return BackupStatus::None };
+        let Some(level_version) = self.level_version() else {
+            return BackupStatus::None;
+        };
         let level_version_number = level_version.minecraft_version.version;
         if requires_file_fixing(level_version_number) {
             BackupStatus::FileFixingRequired
@@ -140,7 +146,9 @@ impl LevelSummary {
     /// `isDisabled` (the corrupted / symlink summaries are never disabled).
     pub fn is_disabled(&self) -> bool {
         match self.kind {
-            LevelSummaryKind::Normal { .. } => self.locked || self.requires_manual_conversion || !self.is_compatible(),
+            LevelSummaryKind::Normal { .. } => {
+                self.locked || self.requires_manual_conversion || !self.is_compatible()
+            }
             _ => false,
         }
     }
@@ -153,11 +161,15 @@ impl LevelSummary {
     }
 
     pub fn can_upload(&self) -> bool {
-        matches!(self.kind, LevelSummaryKind::Normal { .. }) && !self.requires_manual_conversion && !self.locked
+        matches!(self.kind, LevelSummaryKind::Normal { .. })
+            && !self.requires_manual_conversion
+            && !self.locked
     }
 
     pub fn can_edit(&self) -> bool {
-        matches!(self.kind, LevelSummaryKind::Normal { .. }) && !self.is_disabled() && !self.requires_file_fixing
+        matches!(self.kind, LevelSummaryKind::Normal { .. })
+            && !self.is_disabled()
+            && !self.requires_file_fixing
     }
 
     pub fn can_recreate(&self) -> bool {
@@ -170,8 +182,10 @@ impl LevelSummary {
 
     /// `compareTo`: most recently played first, then by level id (`String.compareTo`, UTF-16 order).
     pub fn compare_to(&self, rhs: &LevelSummary) -> Ordering {
-        rhs.last_played()
-            .cmp(&self.last_played())
-            .then_with(|| self.level_id.encode_utf16().cmp(rhs.level_id.encode_utf16()))
+        rhs.last_played().cmp(&self.last_played()).then_with(|| {
+            self.level_id
+                .encode_utf16()
+                .cmp(rhs.level_id.encode_utf16())
+        })
     }
 }

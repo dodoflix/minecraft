@@ -40,17 +40,33 @@ pub struct GameEventContext {
 
 impl GameEventContext {
     pub fn of_entity(source_entity: Option<EntityId>) -> Self {
-        Self { source_entity, affected_state: None, source_info: None }
+        Self {
+            source_entity,
+            affected_state: None,
+            source_info: None,
+        }
     }
     pub fn of_state(state: Option<BlockState>) -> Self {
-        Self { source_entity: None, affected_state: state, source_info: None }
+        Self {
+            source_entity: None,
+            affected_state: state,
+            source_info: None,
+        }
     }
     pub fn of(source_entity: Option<EntityId>, state: Option<BlockState>) -> Self {
-        Self { source_entity, affected_state: state, source_info: None }
+        Self {
+            source_entity,
+            affected_state: state,
+            source_info: None,
+        }
     }
     /// `Context.of(entity)` with the entity's facts captured.
     pub fn of_captured(info: SourceEntityInfo) -> Self {
-        Self { source_entity: Some(info.id), affected_state: None, source_info: Some(info) }
+        Self {
+            source_entity: Some(info.id),
+            affected_state: None,
+            source_info: Some(info),
+        }
     }
 }
 
@@ -74,7 +90,9 @@ impl PositionSource {
     pub fn get_position(&self, entity_position: &dyn Fn(Uuid) -> Option<Vec3>) -> Option<Vec3> {
         match self {
             PositionSource::Block(pos) => Some(Vec3::at_center_of(pos)),
-            PositionSource::Entity { uuid, y_offset } => entity_position(*uuid).map(|p| p.add_xyz(0.0, f64::from(*y_offset), 0.0)),
+            PositionSource::Entity { uuid, y_offset } => {
+                entity_position(*uuid).map(|p| p.add_xyz(0.0, f64::from(*y_offset), 0.0))
+            }
         }
     }
 }
@@ -91,7 +109,13 @@ pub trait GameEventListener {
     fn get_listener_source(&self) -> PositionSource;
     fn get_listener_radius(&self) -> i32;
     /// `handleGameEvent(level, event, context, sourcePosition)`.
-    fn handle_game_event(&mut self, level: &mut ServerLevel, event: GameEvent, context: &GameEventContext, source_position: Vec3) -> bool;
+    fn handle_game_event(
+        &mut self,
+        level: &mut ServerLevel,
+        event: GameEvent,
+        context: &GameEventContext,
+        source_position: Vec3,
+    ) -> bool;
     fn get_delivery_mode(&self) -> DeliveryMode {
         DeliveryMode::Unspecified
     }
@@ -101,7 +125,14 @@ pub trait GameEventListener {
 /// changes the block, whose neighbours read the block entity again, e.g. comparators reading a sculk sensor), so the
 /// handler is a function of the level and the block entity position instead of a method of the taken-out entity. The
 /// last argument is the source entity itself when it is at hand (`ENTITY_DIE`).
-pub type BlockEntityGameEventHandler = fn(&mut ServerLevel, BlockPos, GameEvent, &GameEventContext, Vec3, Option<&mut dyn crate::world::entity::Entity>) -> bool;
+pub type BlockEntityGameEventHandler = fn(
+    &mut ServerLevel,
+    BlockPos,
+    GameEvent,
+    &GameEventContext,
+    Vec3,
+    Option<&mut dyn crate::world::entity::Entity>,
+) -> bool;
 
 /// `EntityBlock.getListener(level, blockEntity)`: the `GameEventListener` of a block entity.
 #[derive(Clone, Copy)]

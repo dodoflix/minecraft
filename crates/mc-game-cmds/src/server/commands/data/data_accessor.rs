@@ -2,14 +2,18 @@
 //!
 //! Vanilla's accessors hold the live object; here they hold a handle (entity ref / dimension + position / storage id)
 //! and reach the server through the command source stack, so every method takes the stack.
+use mc_brigadier::CommandSyntaxException;
 use mc_game_core::commands::CommandSourceStack;
 use mc_game_core::commands::arguments::NbtPath;
-use mc_brigadier::CommandSyntaxException;
 use mc_nbt::{CompoundTag, Tag};
 use mc_text::Component;
 
 pub trait DataAccessor: Send + Sync {
-    fn set_data(&self, source: &CommandSourceStack, tag: CompoundTag) -> Result<(), CommandSyntaxException>;
+    fn set_data(
+        &self,
+        source: &CommandSourceStack,
+        tag: CompoundTag,
+    ) -> Result<(), CommandSyntaxException>;
 
     fn get_data(&self, source: &CommandSourceStack) -> Result<CompoundTag, CommandSyntaxException>;
 
@@ -17,7 +21,13 @@ pub trait DataAccessor: Send + Sync {
 
     fn get_print_success(&self, source: &CommandSourceStack, data: &Tag) -> Component;
 
-    fn get_print_success_for_path(&self, source: &CommandSourceStack, path: &NbtPath, scale: f64, value: i32) -> Component;
+    fn get_print_success_for_path(
+        &self,
+        source: &CommandSourceStack,
+        path: &NbtPath,
+        scale: f64,
+        value: i32,
+    ) -> Component;
 }
 
 /// `String.format(Locale.ROOT, "%.2f", scale)`.

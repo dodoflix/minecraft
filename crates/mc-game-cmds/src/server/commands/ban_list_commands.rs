@@ -1,6 +1,6 @@
 //! `BanListCommands`.
-use mc_game_core::commands::{CommandSourceStack, LEVEL_ADMINS, has_permission, literal};
 use mc_brigadier::ArgumentBuilder;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_ADMINS, has_permission, literal};
 use mc_game_core::{register_command, translatable};
 use mc_text::Component;
 
@@ -17,19 +17,44 @@ register_command!("BanListCommands", |ctx| {
                 Ok(show_list(s.get_source(), list))
             })
             .then(literal("ips").executes(|s| Ok(show_list(s.get_source(), ips(s.get_source())))))
-            .then(literal("players").executes(|s| Ok(show_list(s.get_source(), users(s.get_source()))))),
+            .then(
+                literal("players")
+                    .executes(|s| Ok(show_list(s.get_source(), users(s.get_source())))),
+            ),
     );
 });
 
 fn users(source: &CommandSourceStack) -> Vec<Entry> {
     source.with_server(|server| {
-        server.player_list.bans.get_entries().map(|e| (e.get_display_name(), e.source.clone(), e.get_reason_message())).collect()
+        server
+            .player_list
+            .bans
+            .get_entries()
+            .map(|e| {
+                (
+                    e.get_display_name(),
+                    e.source.clone(),
+                    e.get_reason_message(),
+                )
+            })
+            .collect()
     })
 }
 
 fn ips(source: &CommandSourceStack) -> Vec<Entry> {
     source.with_server(|server| {
-        server.player_list.ip_bans.get_entries().map(|e| (e.get_display_name(), e.source.clone(), e.get_reason_message())).collect()
+        server
+            .player_list
+            .ip_bans
+            .get_entries()
+            .map(|e| {
+                (
+                    e.get_display_name(),
+                    e.source.clone(),
+                    e.get_reason_message(),
+                )
+            })
+            .collect()
     })
 }
 
@@ -40,7 +65,10 @@ fn show_list(source: &CommandSourceStack, list: Vec<Entry>) -> i32 {
         let size = list.len() as i32;
         source.send_success(|| translatable!("commands.banlist.list", size), false);
         for (display_name, entry_source, reason) in list.iter().cloned() {
-            source.send_success(|| translatable!("commands.banlist.entry", display_name, entry_source, reason), false);
+            source.send_success(
+                || translatable!("commands.banlist.entry", display_name, entry_source, reason),
+                false,
+            );
         }
     }
     list.len() as i32

@@ -24,7 +24,9 @@ impl PlayerSystems for ServerPlayerSystems {
         use crate::world::entity::Entity;
         use crate::world::entity::vehicle::boat::abstract_boat::AbstractBoat;
         let player_id = ctx.player.base_id();
-        let Some(vehicle) = ctx.player.base().vehicle else { return };
+        let Some(vehicle) = ctx.player.base().vehicle else {
+            return;
+        };
         ctx.level.with_entity(vehicle, |_, e| {
             if e.get_controlling_passenger() == Some(player_id)
                 && let Some(boat) = e.as_any_mut().downcast_mut::<AbstractBoat>()
@@ -35,35 +37,69 @@ impl PlayerSystems for ServerPlayerSystems {
     }
     /// `CriteriaTriggers.ANY_BLOCK_USE.trigger(player, pos, itemStack)`: the stack is read after the use (vanilla holds the
     /// in-hand object, which the use mutates in place).
-    fn trigger_any_block_use(&self, ctx: &mut PlayCtx, pos: mc_core::pos::BlockPos, hand: crate::world::item::InteractionHand) {
+    fn trigger_any_block_use(
+        &self,
+        ctx: &mut PlayCtx,
+        pos: mc_core::pos::BlockPos,
+        hand: crate::world::item::InteractionHand,
+    ) {
         let stack = ctx.player.get_item_in_hand(hand);
-        crate::advancements::triggers::CriteriaTriggers::ANY_BLOCK_USE.trigger(ctx.level, ctx.player, pos, &stack);
+        crate::advancements::triggers::CriteriaTriggers::ANY_BLOCK_USE
+            .trigger(ctx.level, ctx.player, pos, &stack);
     }
 
     /// `CriteriaTriggers.PLAYER_INTERACTED_WITH_ENTITY.trigger(player, awardedForStack, target)`.
-    fn trigger_player_interacted_with_entity(&self, ctx: &mut PlayCtx, awarded_for_stack: crate::world::item::ItemStack, target: crate::world::entity::EntityId) {
-        let Some(entity) = ctx.level.get_entity(target) else { return };
-        let matches = crate::advancements::triggers::CriteriaTriggers::PLAYER_INTERACTED_WITH_ENTITY.matches(&*ctx.level, &*ctx.player, &awarded_for_stack, entity);
+    fn trigger_player_interacted_with_entity(
+        &self,
+        ctx: &mut PlayCtx,
+        awarded_for_stack: crate::world::item::ItemStack,
+        target: crate::world::entity::EntityId,
+    ) {
+        let Some(entity) = ctx.level.get_entity(target) else {
+            return;
+        };
+        let matches =
+            crate::advancements::triggers::CriteriaTriggers::PLAYER_INTERACTED_WITH_ENTITY.matches(
+                &*ctx.level,
+                &*ctx.player,
+                &awarded_for_stack,
+                entity,
+            );
         matches.award(ctx.level, ctx.player);
     }
-
 
     /// `OPEN_INVENTORY`: `player.getVehicle() instanceof HasCustomInventoryScreen` (chest boats) -> `openCustomInventoryScreen(player)`.
     fn open_vehicle_inventory(&self, ctx: &mut PlayCtx) {
         use crate::world::entity::Entity;
         use crate::world::entity::vehicle::boat::abstract_boat::AbstractBoat;
         use crate::world::entity::vehicle::container_entity::ChestVehicleMenuProvider;
-        let Some(vehicle) = ctx.player.base().vehicle else { return };
+        let Some(vehicle) = ctx.player.base().vehicle else {
+            return;
+        };
         let Some((title, position)) = ctx
             .level
             .get_entity(vehicle)
-            .filter(|e| e.as_any().downcast_ref::<AbstractBoat>().is_some_and(AbstractBoat::is_chest_boat))
-            .map(|e| (crate::world::damagesource::display_name::entity_display_name(&*ctx.level, e), e.position()))
+            .filter(|e| {
+                e.as_any()
+                    .downcast_ref::<AbstractBoat>()
+                    .is_some_and(AbstractBoat::is_chest_boat)
+            })
+            .map(|e| {
+                (
+                    crate::world::damagesource::display_name::entity_display_name(&*ctx.level, e),
+                    e.position(),
+                )
+            })
         else {
             return;
         };
-        ctx.player.open_menu(ctx.level, &ChestVehicleMenuProvider::new(vehicle, title));
-        ctx.level.game_event_from_entity(Some(ctx.player.base_id()), mc_data::GameEvent::CONTAINER_OPEN, position);
+        ctx.player
+            .open_menu(ctx.level, &ChestVehicleMenuProvider::new(vehicle, title));
+        ctx.level.game_event_from_entity(
+            Some(ctx.player.base_id()),
+            mc_data::GameEvent::CONTAINER_OPEN,
+            position,
+        );
         // SEAM(mobs): `PiglinAi.angerNearbyPiglins(level, player, true)`
     }
 
@@ -73,7 +109,9 @@ impl PlayerSystems for ServerPlayerSystems {
         let player = &mut *ctx.player;
         if !player.player.living.is_fall_flying() && player.can_glide() && !player.is_in_liquid() {
             // `startFallFlying()`
-            player.base_mut().set_shared_flag(crate::world::entity::entity::FLAG_FALL_FLYING, true);
+            player
+                .base_mut()
+                .set_shared_flag(crate::world::entity::entity::FLAG_FALL_FLYING, true);
             true
         } else {
             false
@@ -103,15 +141,41 @@ impl PlayerSystems for ServerPlayerSystems {
     /// `ServerPlayer.teleportTo(level, x, y, z, Set.of(), yRot, xRot, resetCamera)` (spectator
     /// `ServerboundTeleportToEntityPacket`). Another dimension is a `teleport(TeleportTransition)`, which needs the
     /// player in its level: it runs as a deferred server task once the player is put back.
-    fn teleport_to(&self, ctx: &mut PlayCtx, dimension: &crate::world::level::DimensionKey, x: f64, y: f64, z: f64, y_rot: f32, x_rot: f32, set_camera: bool) {
+    fn teleport_to(
+        &self,
+        ctx: &mut PlayCtx,
+        dimension: &crate::world::level::DimensionKey,
+        x: f64,
+        y: f64,
+        z: f64,
+        y_rot: f32,
+        x_rot: f32,
+        set_camera: bool,
+    ) {
         if set_camera {
             ctx.player.set_camera(ctx.level, None);
         }
         if *dimension != ctx.level.dimension {
-            let (old, id, target) = (ctx.level.dimension.clone(), ctx.player.base_id(), dimension.clone());
+            let (old, id, target) = (
+                ctx.level.dimension.clone(),
+                ctx.player.base_id(),
+                dimension.clone(),
+            );
             ctx.lis().deferred_tasks.push(Box::new(move |server| {
-                let transition = crate::server::players::dimension_change::TeleportTransition::new(target, mc_core::phys::Vec3::new(x, y, z), mc_core::phys::Vec3::ZERO, y_rot, x_rot, crate::server::players::dimension_change::PostTeleportTransition::DO_NOTHING);
-                crate::server::players::dimension_change::teleport_player(server, &old, id, &transition);
+                let transition = crate::server::players::dimension_change::TeleportTransition::new(
+                    target,
+                    mc_core::phys::Vec3::new(x, y, z),
+                    mc_core::phys::Vec3::ZERO,
+                    y_rot,
+                    x_rot,
+                    crate::server::players::dimension_change::PostTeleportTransition::DO_NOTHING,
+                );
+                crate::server::players::dimension_change::teleport_player(
+                    server,
+                    &old,
+                    id,
+                    &transition,
+                );
             }));
             return;
         }
@@ -134,8 +198,14 @@ impl PlayerSystems for ServerPlayerSystems {
     }
 
     /// `ServerPlayer.stopSleepInBed(forcefulWakeUp, updateLevelList)`.
-    fn stop_sleep_in_bed(&self, ctx: &mut PlayCtx, forceful_wake_up: bool, update_level_list: bool) {
-        ctx.player.stop_sleep_in_bed_impl(ctx.level, forceful_wake_up, update_level_list);
+    fn stop_sleep_in_bed(
+        &self,
+        ctx: &mut PlayCtx,
+        forceful_wake_up: bool,
+        update_level_list: bool,
+    ) {
+        ctx.player
+            .stop_sleep_in_bed_impl(ctx.level, forceful_wake_up, update_level_list);
     }
 
     /// `getStats().sendStats(player)`.
@@ -151,8 +221,11 @@ impl PlayerSystems for ServerPlayerSystems {
 
     /// `Player.cannotAttackWithItem(mainHandItem, tolerance)`.
     fn cannot_attack_with_main_hand(&self, ctx: &mut PlayCtx, tolerance_ticks: i32) -> bool {
-        let main_hand = ctx.player.get_item_in_hand(crate::world::item::InteractionHand::MainHand);
-        ctx.player.cannot_attack_with_item(&main_hand, tolerance_ticks)
+        let main_hand = ctx
+            .player
+            .get_item_in_hand(crate::world::item::InteractionHand::MainHand);
+        ctx.player
+            .cannot_attack_with_item(&main_hand, tolerance_ticks)
     }
 
     /// `Player.resetAttackStrengthTicker()`.
@@ -161,9 +234,17 @@ impl PlayerSystems for ServerPlayerSystems {
     }
 
     /// `Player.isWithinAttackRange(mainHandItem, bounds, buffer)`.
-    fn is_within_attack_range(&self, ctx: &mut PlayCtx, target: &mc_core::phys::AABB, buffer: f64) -> bool {
-        let main_hand = ctx.player.get_item_in_hand(crate::world::item::InteractionHand::MainHand);
-        ctx.player.is_within_attack_range(&main_hand, target, buffer)
+    fn is_within_attack_range(
+        &self,
+        ctx: &mut PlayCtx,
+        target: &mc_core::phys::AABB,
+        buffer: f64,
+    ) -> bool {
+        let main_hand = ctx
+            .player
+            .get_item_in_hand(crate::world::item::InteractionHand::MainHand);
+        ctx.player
+            .is_within_attack_range(&main_hand, target, buffer)
     }
 
     /// `mainHandItem.has(DataComponents.PIERCING_WEAPON)`.

@@ -18,7 +18,9 @@ use mc_game::world::entity::animal::frog::FrogVariant;
 use mc_game::world::entity::animal::nautilus::ZombieNautilusVariant;
 use mc_game::world::entity::animal::pig::{PigSoundVariant, PigVariant};
 use mc_game::world::entity::animal::wolf::{WolfSoundVariant, WolfVariant};
-use mc_game::world::entity::variant::{SpawnContext, SpawnContextLevel, pick_random_entry, select_variant_to_spawn};
+use mc_game::world::entity::variant::{
+    SpawnContext, SpawnContextLevel, pick_random_entry, select_variant_to_spawn,
+};
 use mc_nbt::Tag;
 use mc_world::level_storage::WorldDataConfiguration;
 use sha1::{Digest, Sha1};
@@ -65,7 +67,10 @@ fn canon(tag: &Tag, out: &mut String) {
 fn digest(tag: &Tag) -> String {
     let mut s = String::new();
     canon(tag, &mut s);
-    Sha1::digest(s.as_bytes()).iter().map(|b| format!("{b:02x}")).collect()
+    Sha1::digest(s.as_bytes())
+        .iter()
+        .map(|b| format!("{b:02x}"))
+        .collect()
 }
 
 /// The level side of a spawn context: registries, a moon phase and the structures with a piece at the position.
@@ -85,7 +90,11 @@ impl SpawnContextLevel for StubLevel<'_> {
     fn moon_brightness_at(&self, _pos: BlockPos) -> f32 {
         MOON_BRIGHTNESS_PER_PHASE[self.moon_phase]
     }
-    fn has_structure_piece_at(&self, _pos: BlockPos, matcher: &dyn Fn(&Identifier) -> bool) -> bool {
+    fn has_structure_piece_at(
+        &self,
+        _pos: BlockPos,
+        matcher: &dyn Fn(&Identifier) -> bool,
+    ) -> bool {
         self.structures.iter().any(|s| matcher(s))
     }
 }
@@ -103,7 +112,11 @@ macro_rules! reg {
         Reg {
             key: $key,
             name: $name,
-            direct: |r, id| mc_dfu::encode_nbt(&$codec, r.get::<$ty>($key, id).expect("typed entry")).into_result().expect("encodes"),
+            direct: |r, id| {
+                mc_dfu::encode_nbt(&$codec, r.get::<$ty>($key, id).expect("typed entry"))
+                    .into_result()
+                    .expect("encodes")
+            },
             select: Some(|c, rng| select_variant_to_spawn::<$ty>(c, $key, rng)),
         }
     };
@@ -111,7 +124,11 @@ macro_rules! reg {
         Reg {
             key: $key,
             name: $name,
-            direct: |r, id| mc_dfu::encode_nbt(&$codec, r.get::<$ty>($key, id).expect("typed entry")).into_result().expect("encodes"),
+            direct: |r, id| {
+                mc_dfu::encode_nbt(&$codec, r.get::<$ty>($key, id).expect("typed entry"))
+                    .into_result()
+                    .expect("encodes")
+            },
             select: None,
         }
     };
@@ -119,18 +136,85 @@ macro_rules! reg {
 
 fn regs() -> Vec<Reg> {
     vec![
-        reg!(keys::WOLF_VARIANT, "wolf_variant", WolfVariant, WolfVariant::direct_codec(), select),
-        reg!(keys::WOLF_SOUND_VARIANT, "wolf_sound_variant", WolfSoundVariant, WolfSoundVariant::codec()),
-        reg!(keys::CAT_VARIANT, "cat_variant", CatVariant, CatVariant::direct_codec(), select),
-        reg!(keys::CAT_SOUND_VARIANT, "cat_sound_variant", CatSoundVariant, CatSoundVariant::codec()),
-        reg!(keys::FROG_VARIANT, "frog_variant", FrogVariant, FrogVariant::direct_codec(), select),
-        reg!(keys::PIG_VARIANT, "pig_variant", PigVariant, PigVariant::direct_codec(), select),
-        reg!(keys::PIG_SOUND_VARIANT, "pig_sound_variant", PigSoundVariant, PigSoundVariant::codec()),
-        reg!(keys::COW_VARIANT, "cow_variant", CowVariant, CowVariant::direct_codec(), select),
-        reg!(keys::COW_SOUND_VARIANT, "cow_sound_variant", CowSoundVariant, CowSoundVariant::codec()),
-        reg!(keys::CHICKEN_VARIANT, "chicken_variant", ChickenVariant, ChickenVariant::direct_codec(), select),
-        reg!(keys::CHICKEN_SOUND_VARIANT, "chicken_sound_variant", ChickenSoundVariant, ChickenSoundVariant::codec()),
-        reg!(keys::ZOMBIE_NAUTILUS_VARIANT, "zombie_nautilus_variant", ZombieNautilusVariant, ZombieNautilusVariant::direct_codec(), select),
+        reg!(
+            keys::WOLF_VARIANT,
+            "wolf_variant",
+            WolfVariant,
+            WolfVariant::direct_codec(),
+            select
+        ),
+        reg!(
+            keys::WOLF_SOUND_VARIANT,
+            "wolf_sound_variant",
+            WolfSoundVariant,
+            WolfSoundVariant::codec()
+        ),
+        reg!(
+            keys::CAT_VARIANT,
+            "cat_variant",
+            CatVariant,
+            CatVariant::direct_codec(),
+            select
+        ),
+        reg!(
+            keys::CAT_SOUND_VARIANT,
+            "cat_sound_variant",
+            CatSoundVariant,
+            CatSoundVariant::codec()
+        ),
+        reg!(
+            keys::FROG_VARIANT,
+            "frog_variant",
+            FrogVariant,
+            FrogVariant::direct_codec(),
+            select
+        ),
+        reg!(
+            keys::PIG_VARIANT,
+            "pig_variant",
+            PigVariant,
+            PigVariant::direct_codec(),
+            select
+        ),
+        reg!(
+            keys::PIG_SOUND_VARIANT,
+            "pig_sound_variant",
+            PigSoundVariant,
+            PigSoundVariant::codec()
+        ),
+        reg!(
+            keys::COW_VARIANT,
+            "cow_variant",
+            CowVariant,
+            CowVariant::direct_codec(),
+            select
+        ),
+        reg!(
+            keys::COW_SOUND_VARIANT,
+            "cow_sound_variant",
+            CowSoundVariant,
+            CowSoundVariant::codec()
+        ),
+        reg!(
+            keys::CHICKEN_VARIANT,
+            "chicken_variant",
+            ChickenVariant,
+            ChickenVariant::direct_codec(),
+            select
+        ),
+        reg!(
+            keys::CHICKEN_SOUND_VARIANT,
+            "chicken_sound_variant",
+            ChickenSoundVariant,
+            ChickenSoundVariant::codec()
+        ),
+        reg!(
+            keys::ZOMBIE_NAUTILUS_VARIANT,
+            "zombie_nautilus_variant",
+            ZombieNautilusVariant,
+            ZombieNautilusVariant::direct_codec(),
+            select
+        ),
     ]
 }
 
@@ -138,19 +222,30 @@ fn regs() -> Vec<Reg> {
 fn variants_equal_vanilla() {
     let _serial = common::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
     let dir = tempfile::tempdir().unwrap();
-    let (_config, stem) = common::load_world(dir.path(), WorldDataConfiguration::DEFAULT, true).expect("default world loads");
+    let (_config, stem) = common::load_world(dir.path(), WorldDataConfiguration::DEFAULT, true)
+        .expect("default world loads");
     let mut level = ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap());
     level.registries = stem.registries.composite_access().clone();
     let registries = &level.registries;
     let regs = regs();
 
-    let text = std::fs::read_to_string(std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/variants_golden.txt")).unwrap();
+    let text = std::fs::read_to_string(
+        std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/variants_golden.txt"),
+    )
+    .unwrap();
     let mut failures: Vec<String> = Vec::new();
     let mut digests: HashMap<(char, String, String), String> = HashMap::new();
     for line in text.lines() {
         let f: Vec<&str> = line.split(' ').collect();
         if matches!(f[0], "E" | "N") {
-            digests.insert((f[0].chars().next().unwrap(), f[1].to_owned(), f[2].to_owned()), f[3].to_owned());
+            digests.insert(
+                (
+                    f[0].chars().next().unwrap(),
+                    f[1].to_owned(),
+                    f[2].to_owned(),
+                ),
+                f[3].to_owned(),
+            );
         }
     }
 
@@ -180,7 +275,12 @@ fn variants_equal_vanilla() {
         match f[0] {
             "P" => {
                 let r = regs.iter().find(|r| r.name == f[1]).unwrap();
-                let got = pick_random_entry(registries, r.key, &mut LegacyRandomSource::new(f[2].parse().unwrap())).map_or("-".to_owned(), |i| i.to_string());
+                let got = pick_random_entry(
+                    registries,
+                    r.key,
+                    &mut LegacyRandomSource::new(f[2].parse().unwrap()),
+                )
+                .map_or("-".to_owned(), |i| i.to_string());
                 if got != f[3] {
                     failures.push(format!("P {} {}: vanilla {} ours {got}", f[1], f[2], f[3]));
                 }
@@ -188,23 +288,57 @@ fn variants_equal_vanilla() {
             }
             "C" => {
                 let xyz: Vec<i32> = f[3].split(',').map(|v| v.parse().unwrap()).collect();
-                let structures = if f[4] == "-" { Vec::new() } else { f[4].split(',').map(|s| Identifier::parse(s).unwrap()).collect() };
-                context = Some((f[1].to_owned(), f[2].parse().unwrap(), structures, BlockPos::new(xyz[0], xyz[1], xyz[2])));
+                let structures = if f[4] == "-" {
+                    Vec::new()
+                } else {
+                    f[4].split(',')
+                        .map(|s| Identifier::parse(s).unwrap())
+                        .collect()
+                };
+                context = Some((
+                    f[1].to_owned(),
+                    f[2].parse().unwrap(),
+                    structures,
+                    BlockPos::new(xyz[0], xyz[1], xyz[2]),
+                ));
             }
             "S" => {
-                let (biome, phase, structures, pos) = context.clone().expect("context before selection");
-                let stub = StubLevel { registries, moon_phase: phase, structures };
+                let (biome, phase, structures, pos) =
+                    context.clone().expect("context before selection");
+                let stub = StubLevel {
+                    registries,
+                    moon_phase: phase,
+                    structures,
+                };
                 let ctx = SpawnContext::new(pos, &stub, Some(Identifier::parse(&biome).unwrap()));
                 let r = regs.iter().find(|r| r.name == f[1]).unwrap();
-                let got = (r.select.unwrap())(&ctx, &mut LegacyRandomSource::new(f[2].parse().unwrap())).map_or("-".to_owned(), |i| i.to_string());
+                let got =
+                    (r.select.unwrap())(&ctx, &mut LegacyRandomSource::new(f[2].parse().unwrap()))
+                        .map_or("-".to_owned(), |i| i.to_string());
                 if got != f[3] {
-                    failures.push(format!("S {} seed {} in {biome} moon {phase} at {pos:?}: vanilla {} ours {got}", f[1], f[2], f[3]));
+                    failures.push(format!(
+                        "S {} seed {} in {biome} moon {phase} at {pos:?}: vanilla {} ours {got}",
+                        f[1], f[2], f[3]
+                    ));
                 }
                 selections += 1;
             }
             _ => {}
         }
     }
-    assert!(selections > 20000 && randoms == 72, "{selections} selections, {randoms} random picks");
-    assert!(failures.is_empty(), "{} differ:\n{}", failures.len(), failures.iter().take(15).cloned().collect::<Vec<_>>().join("\n"));
+    assert!(
+        selections > 20000 && randoms == 72,
+        "{selections} selections, {randoms} random picks"
+    );
+    assert!(
+        failures.is_empty(),
+        "{} differ:\n{}",
+        failures.len(),
+        failures
+            .iter()
+            .take(15)
+            .cloned()
+            .collect::<Vec<_>>()
+            .join("\n")
+    );
 }

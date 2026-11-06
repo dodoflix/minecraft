@@ -46,7 +46,8 @@ impl ProfilePublicKeyDataExt for ProfilePublicKeyData {
     }
 
     fn create_signature_validator(&self) -> Option<Arc<dyn SignatureValidator>> {
-        RsaSha256Validator::from_der(self.key.der()).map(|v| Arc::new(v) as Arc<dyn SignatureValidator>)
+        RsaSha256Validator::from_der(self.key.der())
+            .map(|v| Arc::new(v) as Arc<dyn SignatureValidator>)
     }
 }
 
@@ -59,7 +60,10 @@ pub fn create_validated(
     if validator.validate(&data.signed_payload(profile_id), &data.key_signature) {
         Ok(data.clone())
     } else {
-        Err(ThrowingComponent::new(Component::translatable("multiplayer.disconnect.invalid_public_key_signature", vec![])))
+        Err(ThrowingComponent::new(Component::translatable(
+            "multiplayer.disconnect.invalid_public_key_signature",
+            vec![],
+        )))
     }
 }
 
@@ -78,26 +82,49 @@ impl RemoteChatSession {
         profile_id: Uuid,
         service_signature_validator: &dyn SignatureValidator,
     ) -> Result<RemoteChatSession, ThrowingComponent> {
-        let key = create_validated(service_signature_validator, profile_id, &data.profile_public_key)?;
-        Self::new(data.session_id, key).ok_or_else(|| ThrowingComponent::new(Component::translatable("multiplayer.disconnect.invalid_public_key_signature", vec![])))
+        let key = create_validated(
+            service_signature_validator,
+            profile_id,
+            &data.profile_public_key,
+        )?;
+        Self::new(data.session_id, key).ok_or_else(|| {
+            ThrowingComponent::new(Component::translatable(
+                "multiplayer.disconnect.invalid_public_key_signature",
+                vec![],
+            ))
+        })
     }
 
-    pub fn new(session_id: Uuid, profile_public_key: ProfilePublicKeyData) -> Option<RemoteChatSession> {
+    pub fn new(
+        session_id: Uuid,
+        profile_public_key: ProfilePublicKeyData,
+    ) -> Option<RemoteChatSession> {
         let validator = profile_public_key.create_signature_validator()?;
-        Some(RemoteChatSession { session_id, profile_public_key, validator })
+        Some(RemoteChatSession {
+            session_id,
+            profile_public_key,
+            validator,
+        })
     }
 
     pub fn create_message_validator(&self, grace_period_ms: i64) -> KeyBased {
         let data = self.profile_public_key.clone();
-        KeyBased::new(self.validator.clone(), Box::new(move || data.has_expired_with_grace(grace_period_ms)))
+        KeyBased::new(
+            self.validator.clone(),
+            Box::new(move || data.has_expired_with_grace(grace_period_ms)),
+        )
     }
 
     pub fn create_message_decoder(&self, profile_id: Uuid) -> KeyBasedDecoder {
-        SignedMessageChain::new(profile_id, self.session_id).decoder(self.validator.clone(), self.profile_public_key.expires_at)
+        SignedMessageChain::new(profile_id, self.session_id)
+            .decoder(self.validator.clone(), self.profile_public_key.expires_at)
     }
 
     pub fn as_data(&self) -> RemoteChatSessionData {
-        RemoteChatSessionData { session_id: self.session_id, profile_public_key: self.profile_public_key.clone() }
+        RemoteChatSessionData {
+            session_id: self.session_id,
+            profile_public_key: self.profile_public_key.clone(),
+        }
     }
 
     pub fn has_expired(&self) -> bool {

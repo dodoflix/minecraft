@@ -5,13 +5,13 @@ use std::time::{Duration, Instant};
 
 use mc_core::ident::Identifier;
 use mc_nbt::Tag;
+use mc_protocol::PROTOCOL_VERSION;
 use mc_protocol::auth::{encrypt_with_public_key, generate_secret};
 use mc_protocol::packets::common::{ClientInformation, CustomPayload, ResourcePackAction};
 use mc_protocol::packets::configuration::{self as cfg, *};
 use mc_protocol::packets::handshake::*;
 use mc_protocol::packets::login::{self as lg, *};
 use mc_protocol::packets::status::*;
-use mc_protocol::PROTOCOL_VERSION;
 use sha1::{Digest, Sha1};
 use uuid::Uuid;
 
@@ -58,7 +58,10 @@ impl BotOptions {
             username: username.into(),
             uuid: None,
             brand: "vanilla".into(),
-            client_information: ClientInformation { view_distance: 6, ..ClientInformation::default() },
+            client_information: ClientInformation {
+                view_distance: 6,
+                ..ClientInformation::default()
+            },
             resource_packs: ResourcePackPolicy::Download,
             accept_code_of_conduct: true,
             timeout: Duration::from_secs(60),
@@ -68,7 +71,8 @@ impl BotOptions {
     }
 
     pub fn profile_uuid(&self) -> Uuid {
-        self.uuid.unwrap_or_else(|| mc_core::uuid_util::create_offline_player_uuid(&self.username))
+        self.uuid
+            .unwrap_or_else(|| mc_core::uuid_util::create_offline_player_uuid(&self.username))
     }
 }
 
@@ -84,12 +88,14 @@ pub async fn open(opts: &BotOptions, log: SharedLog) -> Result<Conn> {
 }
 
 async fn handshake(conn: &mut Conn, opts: &BotOptions, intention: ClientIntent) -> Result<()> {
-    conn.send(&ServerboundHandshakePacket::ClientIntention(ClientIntentionPacket {
-        protocol_version: PROTOCOL_VERSION,
-        host_name: opts.host.clone(),
-        port: opts.port,
-        intention,
-    }))
+    conn.send(&ServerboundHandshakePacket::ClientIntention(
+        ClientIntentionPacket {
+            protocol_version: PROTOCOL_VERSION,
+            host_name: opts.host.clone(),
+            port: opts.port,
+            intention,
+        },
+    ))
     .await
 }
 
@@ -97,19 +103,35 @@ async fn handshake(conn: &mut Conn, opts: &BotOptions, intention: ClientIntent) 
 pub async fn status_ping(opts: &BotOptions, log: SharedLog) -> Result<PingResult> {
     let mut conn = open(opts, log).await?;
     handshake(&mut conn, opts, ClientIntent::Status).await?;
-    conn.send(&ServerboundStatusPacket::StatusRequest(ServerboundStatusRequestPacket)).await?;
-    let ClientboundStatusPacket::StatusResponse(resp) = conn.recv::<ClientboundStatusPacket>().await? else {
+    conn.send(&ServerboundStatusPacket::StatusRequest(
+        ServerboundStatusRequestPacket,
+    ))
+    .await?;
+    let ClientboundStatusPacket::StatusResponse(resp) =
+        conn.recv::<ClientboundStatusPacket>().await?
+    else {
         return Err(BotError::Protocol("expected status response".into()));
     };
     let sent = Instant::now();
-    conn.send(&ServerboundStatusPacket::PingRequest(ServerboundPingRequestPacket { time: 0x1234_5678 })).await?;
-    let ClientboundStatusPacket::PongResponse(pong) = conn.recv::<ClientboundStatusPacket>().await? else {
+    conn.send(&ServerboundStatusPacket::PingRequest(
+        ServerboundPingRequestPacket { time: 0x1234_5678 },
+    ))
+    .await?;
+    let ClientboundStatusPacket::PongResponse(pong) =
+        conn.recv::<ClientboundStatusPacket>().await?
+    else {
         return Err(BotError::Protocol("expected pong".into()));
     };
     if pong.time != 0x1234_5678 {
-        return Err(BotError::Protocol(format!("pong time mismatch: {}", pong.time)));
+        return Err(BotError::Protocol(format!(
+            "pong time mismatch: {}",
+            pong.time
+        )));
     }
-    Ok(PingResult { status: resp.status, latency: sent.elapsed() })
+    Ok(PingResult {
+        status: resp.status,
+        latency: sent.elapsed(),
+    })
 }
 
 /// One synced registry (`ClientboundRegistryDataPacket`).
@@ -157,7 +179,10 @@ pub async fn login(conn: &mut Conn, opts: &BotOptions) -> Result<Configured> {
     }))
     .await?;
 
-    let mut out = Configured { compression_threshold: -1, ..Default::default() };
+    let mut out = Configured {
+        compression_threshold: -1,
+        ..Default::default()
+    };
     loop {
         match conn.recv::<ClientboundLoginPacket>().await? {
             ClientboundLoginPacket::LoginCompression(p) => {
@@ -186,7 +211,10 @@ pub async fn login(conn: &mut Conn, opts: &BotOptions) -> Result<Configured> {
             ClientboundLoginPacket::LoginFinished(f) => {
                 out.profile_name = f.game_profile.name;
                 out.profile_id = f.game_profile.id;
-                conn.send(&ServerboundLoginPacket::LoginAcknowledged(ServerboundLoginAcknowledgedPacket)).await?;
+                conn.send(&ServerboundLoginPacket::LoginAcknowledged(
+                    ServerboundLoginAcknowledgedPacket,
+                ))
+                .await?;
                 break;
             }
             ClientboundLoginPacket::LoginDisconnect(d) => {
@@ -194,29 +222,37 @@ pub async fn login(conn: &mut Conn, opts: &BotOptions) -> Result<Configured> {
             }
             ClientboundLoginPacket::CustomQuery(q) => {
                 // Like vanilla: no payload understood -> empty answer.
-                conn.send(&ServerboundLoginPacket::CustomQueryAnswer(ServerboundCustomQueryAnswerPacket {
-                    transaction_id: q.transaction_id,
-                    payload: None,
-                }))
+                conn.send(&ServerboundLoginPacket::CustomQueryAnswer(
+                    ServerboundCustomQueryAnswerPacket {
+                        transaction_id: q.transaction_id,
+                        payload: None,
+                    },
+                ))
                 .await?;
             }
             ClientboundLoginPacket::CookieRequest(r) => {
-                conn.send(&ServerboundLoginPacket::CookieResponse(lg::ServerboundCookieResponsePacket {
-                    payload: out.cookies.get(&r.key).cloned(),
-                    key: r.key,
-                }))
+                conn.send(&ServerboundLoginPacket::CookieResponse(
+                    lg::ServerboundCookieResponsePacket {
+                        payload: out.cookies.get(&r.key).cloned(),
+                        key: r.key,
+                    },
+                ))
                 .await?;
             }
         }
     }
 
-    conn.send(&ServerboundConfigurationPacket::CustomPayload(ServerboundCustomPayloadPacket {
-        payload: CustomPayload::brand(&opts.brand)?,
-    }))
+    conn.send(&ServerboundConfigurationPacket::CustomPayload(
+        ServerboundCustomPayloadPacket {
+            payload: CustomPayload::brand(&opts.brand)?,
+        },
+    ))
     .await?;
-    conn.send(&ServerboundConfigurationPacket::ClientInformation(ServerboundClientInformationPacket {
-        information: opts.client_information.clone(),
-    }))
+    conn.send(&ServerboundConfigurationPacket::ClientInformation(
+        ServerboundClientInformationPacket {
+            information: opts.client_information.clone(),
+        },
+    ))
     .await?;
     Ok(out)
 }
@@ -253,14 +289,19 @@ pub async fn configure(conn: &mut Conn, opts: &BotOptions, out: &mut Configured)
             }
             C::Disconnect(d) => return Err(BotError::Disconnected(d.reason.get_string())),
             C::FinishConfiguration(_) => {
-                conn.send(&S::FinishConfiguration(ServerboundFinishConfigurationPacket)).await?;
+                conn.send(&S::FinishConfiguration(
+                    ServerboundFinishConfigurationPacket,
+                ))
+                .await?;
                 return Ok(());
             }
             C::KeepAlive(k) => {
-                conn.send(&S::KeepAlive(ServerboundKeepAlivePacket { id: k.id })).await?;
+                conn.send(&S::KeepAlive(ServerboundKeepAlivePacket { id: k.id }))
+                    .await?;
             }
             C::Ping(p) => {
-                conn.send(&S::Pong(ServerboundPongPacket { id: p.id })).await?;
+                conn.send(&S::Pong(ServerboundPongPacket { id: p.id }))
+                    .await?;
             }
             C::ResetChat(_) | C::PostEffects(_) => {}
             C::RegistryData(r) => {
@@ -279,15 +320,23 @@ pub async fn configure(conn: &mut Conn, opts: &BotOptions, out: &mut Configured)
                         && e.1 != ResourcePackAction::Declined
                     {
                         e.1 = ResourcePackAction::Discarded;
-                        conn.send(&S::ResourcePack(ServerboundResourcePackPacket { id, action: ResourcePackAction::Discarded }))
-                            .await?;
+                        conn.send(&S::ResourcePack(ServerboundResourcePackPacket {
+                            id,
+                            action: ResourcePackAction::Discarded,
+                        }))
+                        .await?;
                     }
                 }
             }
             C::ResourcePackPush(p) => {
-                let answers = resource_pack_answers(&http, opts.resource_packs, &p.url, &p.hash).await;
+                let answers =
+                    resource_pack_answers(&http, opts.resource_packs, &p.url, &p.hash).await;
                 for action in answers {
-                    conn.send(&S::ResourcePack(ServerboundResourcePackPacket { id: p.id, action })).await?;
+                    conn.send(&S::ResourcePack(ServerboundResourcePackPacket {
+                        id: p.id,
+                        action,
+                    }))
+                    .await?;
                     match out.resource_packs.iter_mut().find(|(i, _)| *i == p.id) {
                         Some(e) => e.1 = action,
                         None => out.resource_packs.push((p.id, action)),
@@ -306,12 +355,19 @@ pub async fn configure(conn: &mut Conn, opts: &BotOptions, out: &mut Configured)
                 // The real client lists the built-in packs it has that the server offered (vanilla core at its version).
                 let own_version = own_version();
                 let known: Vec<KnownPack> = if opts.known_packs {
-                    k.known_packs.iter().filter(|p| p.namespace == "minecraft" && p.version == own_version).cloned().collect()
+                    k.known_packs
+                        .iter()
+                        .filter(|p| p.namespace == "minecraft" && p.version == own_version)
+                        .cloned()
+                        .collect()
                 } else {
                     Vec::new()
                 };
                 out.offered_known_packs = k.known_packs;
-                conn.send(&S::SelectKnownPacks(ServerboundSelectKnownPacks { known_packs: known })).await?;
+                conn.send(&S::SelectKnownPacks(ServerboundSelectKnownPacks {
+                    known_packs: known,
+                }))
+                .await?;
             }
             C::CustomReportDetails(d) => out.report_details = d.details.0,
             C::ServerLinks(l) => out.server_links = l.links.len(),
@@ -320,7 +376,10 @@ pub async fn configure(conn: &mut Conn, opts: &BotOptions, out: &mut Configured)
             C::CodeOfConduct(c) => {
                 out.code_of_conduct = Some(c.code_of_conduct);
                 if opts.accept_code_of_conduct {
-                    conn.send(&S::AcceptCodeOfConduct(ServerboundAcceptCodeOfConductPacket)).await?;
+                    conn.send(&S::AcceptCodeOfConduct(
+                        ServerboundAcceptCodeOfConductPacket,
+                    ))
+                    .await?;
                 }
             }
         }
@@ -350,7 +409,15 @@ async fn resource_pack_answers(
             if reqwest::Url::parse(url).is_err() {
                 return vec![InvalidUrl];
             }
-            let fetched = async { http.get(url).send().await?.error_for_status()?.bytes().await }.await;
+            let fetched = async {
+                http.get(url)
+                    .send()
+                    .await?
+                    .error_for_status()?
+                    .bytes()
+                    .await
+            }
+            .await;
             match fetched {
                 Err(_) => vec![Accepted, FailedDownload],
                 Ok(bytes) => {

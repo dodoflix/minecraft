@@ -23,7 +23,8 @@ impl LevelLightEngine {
     pub fn new(level_height: LevelHeight, has_block_light: bool, has_sky_light: bool) -> Self {
         LevelLightEngine {
             level_height,
-            block_engine: has_block_light.then(|| LightEngine::new(LightLayer::Block, level_height)),
+            block_engine: has_block_light
+                .then(|| LightEngine::new(LightLayer::Block, level_height)),
             sky_engine: has_sky_light.then(|| LightEngine::new(LightLayer::Sky, level_height)),
         }
     }
@@ -41,19 +42,31 @@ impl LevelLightEngine {
 
     /// `checkBlock(pos)`.
     pub fn check_block(&mut self, pos: BlockPos) {
-        for engine in [&mut self.block_engine, &mut self.sky_engine].into_iter().flatten() {
+        for engine in [&mut self.block_engine, &mut self.sky_engine]
+            .into_iter()
+            .flatten()
+        {
             engine.check_block(pos);
         }
     }
 
     pub fn has_light_work(&self) -> bool {
-        self.sky_engine.as_ref().is_some_and(LightEngine::has_light_work) || self.block_engine.as_ref().is_some_and(LightEngine::has_light_work)
+        self.sky_engine
+            .as_ref()
+            .is_some_and(LightEngine::has_light_work)
+            || self
+                .block_engine
+                .as_ref()
+                .is_some_and(LightEngine::has_light_work)
     }
 
     /// `runLightUpdates()` (block layer first, then sky).
     pub fn run_light_updates(&mut self, chunks: &dyn LightChunkGetter) -> i32 {
         let mut count = 0;
-        for engine in [&mut self.block_engine, &mut self.sky_engine].into_iter().flatten() {
+        for engine in [&mut self.block_engine, &mut self.sky_engine]
+            .into_iter()
+            .flatten()
+        {
             count += engine.run_light_updates(chunks);
         }
         count
@@ -61,7 +74,10 @@ impl LevelLightEngine {
 
     /// `updateSectionStatus(pos, sectionEmpty)`.
     pub fn update_section_status(&mut self, pos: SectionPos, section_empty: bool) {
-        for engine in [&mut self.block_engine, &mut self.sky_engine].into_iter().flatten() {
+        for engine in [&mut self.block_engine, &mut self.sky_engine]
+            .into_iter()
+            .flatten()
+        {
             engine.update_section_status(pos, section_empty);
         }
     }
@@ -72,21 +88,37 @@ impl LevelLightEngine {
     }
 
     /// `setLightEnabled(pos, enable)`.
-    pub fn set_light_enabled(&mut self, chunks: &dyn LightChunkGetter, pos: ChunkPos, enable: bool) {
-        for engine in [&mut self.block_engine, &mut self.sky_engine].into_iter().flatten() {
+    pub fn set_light_enabled(
+        &mut self,
+        chunks: &dyn LightChunkGetter,
+        pos: ChunkPos,
+        enable: bool,
+    ) {
+        for engine in [&mut self.block_engine, &mut self.sky_engine]
+            .into_iter()
+            .flatten()
+        {
             engine.set_light_enabled(chunks, pos, enable);
         }
     }
 
     /// `propagateLightSources(pos)`.
     pub fn propagate_light_sources(&mut self, chunks: &dyn LightChunkGetter, pos: ChunkPos) {
-        for engine in [&mut self.block_engine, &mut self.sky_engine].into_iter().flatten() {
+        for engine in [&mut self.block_engine, &mut self.sky_engine]
+            .into_iter()
+            .flatten()
+        {
             engine.propagate_light_sources(chunks, pos);
         }
     }
 
     /// `queueSectionData(layer, pos, data)`.
-    pub fn queue_section_data(&mut self, layer: LightLayer, pos: SectionPos, data: Option<DataLayer>) {
+    pub fn queue_section_data(
+        &mut self,
+        layer: LightLayer,
+        pos: SectionPos,
+        data: Option<DataLayer>,
+    ) {
         let engine = match layer {
             LightLayer::Block => self.block_engine.as_mut(),
             LightLayer::Sky => self.sky_engine.as_mut(),
@@ -98,13 +130,20 @@ impl LevelLightEngine {
 
     /// `retainData(pos, retain)`.
     pub fn retain_data(&mut self, pos: ChunkPos, retain: bool) {
-        for engine in [&mut self.block_engine, &mut self.sky_engine].into_iter().flatten() {
+        for engine in [&mut self.block_engine, &mut self.sky_engine]
+            .into_iter()
+            .flatten()
+        {
             engine.retain_data(pos, retain);
         }
     }
 
     /// `getLayerListener(layer).getDataLayerData(pos)`: `None` for a missing layer engine (the dummy listener).
-    pub fn get_data_layer_data(&self, layer: LightLayer, pos: SectionPos) -> Option<Arc<DataLayer>> {
+    pub fn get_data_layer_data(
+        &self,
+        layer: LightLayer,
+        pos: SectionPos,
+    ) -> Option<Arc<DataLayer>> {
         self.engine(layer)?.get_data_layer_data(pos)
     }
 
@@ -115,8 +154,14 @@ impl LevelLightEngine {
 
     /// `getRawBrightness(pos, skyDampen)`.
     pub fn get_raw_brightness(&self, pos: BlockPos, sky_dampen: i32) -> i32 {
-        let sky_light = self.sky_engine.as_ref().map_or(0, |e| e.get_light_value(pos) - sky_dampen);
-        let block_light = self.block_engine.as_ref().map_or(0, |e| e.get_light_value(pos));
+        let sky_light = self
+            .sky_engine
+            .as_ref()
+            .map_or(0, |e| e.get_light_value(pos) - sky_dampen);
+        let block_light = self
+            .block_engine
+            .as_ref()
+            .map_or(0, |e| e.get_light_value(pos));
         block_light.max(sky_light)
     }
 
@@ -124,12 +169,19 @@ impl LevelLightEngine {
     pub fn light_on_in_column(&self, section_zero_node: i64) -> bool {
         match &self.block_engine {
             None => true,
-            Some(block) => block.storage.light_on_in_column(section_zero_node) && self.sky_engine.as_ref().is_none_or(|sky| sky.storage.light_on_in_column(section_zero_node)),
+            Some(block) => {
+                block.storage.light_on_in_column(section_zero_node)
+                    && self
+                        .sky_engine
+                        .as_ref()
+                        .is_none_or(|sky| sky.storage.light_on_in_column(section_zero_node))
+            }
         }
     }
 
     pub fn get_debug_section_type(&self, layer: LightLayer, pos: SectionPos) -> SectionType {
-        self.engine(layer).map_or(SectionType::Empty, |e| e.get_debug_section_type(pos))
+        self.engine(layer)
+            .map_or(SectionType::Empty, |e| e.get_debug_section_type(pos))
     }
 
     /// `getDebugData(layer, pos)`.
@@ -155,7 +207,10 @@ impl LevelLightEngine {
     /// Sections whose light changed since the last call, per layer (vanilla `onLightUpdate(layer, pos)` callbacks).
     pub fn take_light_updates(&mut self) -> Vec<(LightLayer, SectionPos)> {
         let mut out = Vec::new();
-        for engine in [&mut self.block_engine, &mut self.sky_engine].into_iter().flatten() {
+        for engine in [&mut self.block_engine, &mut self.sky_engine]
+            .into_iter()
+            .flatten()
+        {
             let layer = engine.layer();
             out.extend(engine.take_light_updates().into_iter().map(|s| (layer, s)));
         }
@@ -173,22 +228,38 @@ impl LevelLightEngine {
     }
 
     /// `new ClientboundLightUpdatePacketData(chunkPos, lightEngine, skyFilter, blockFilter)`.
-    pub fn light_update_packet_data(&self, chunk_pos: ChunkPos, sky_changed_filter: Option<&BitSet>, block_changed_filter: Option<&BitSet>) -> LightUpdatePacketData {
-        self.reader().light_update_packet_data(chunk_pos, sky_changed_filter, block_changed_filter)
+    pub fn light_update_packet_data(
+        &self,
+        chunk_pos: ChunkPos,
+        sky_changed_filter: Option<&BitSet>,
+        block_changed_filter: Option<&BitSet>,
+    ) -> LightUpdatePacketData {
+        self.reader()
+            .light_update_packet_data(chunk_pos, sky_changed_filter, block_changed_filter)
     }
 
     /// The `light(sectionY) -> (blockLight, skyLight)` accessor `SerializableChunkData::copy_of` expects.
-    pub fn chunk_light(&self, pos: ChunkPos) -> impl Fn(i32) -> (Option<DataLayer>, Option<DataLayer>) + '_ {
+    pub fn chunk_light(
+        &self,
+        pos: ChunkPos,
+    ) -> impl Fn(i32) -> (Option<DataLayer>, Option<DataLayer>) + '_ {
         move |section_y| {
             let section = SectionPos::of_chunk(&pos, section_y);
-            let get = |layer| self.get_data_layer_data(layer, section).map(|l| (*l).clone());
+            let get = |layer| {
+                self.get_data_layer_data(layer, section)
+                    .map(|l| (*l).clone())
+            };
             (get(LightLayer::Block), get(LightLayer::Sky))
         }
     }
 
     /// The load side of `SerializableChunkData.read`: queues the saved layers of a chunk (`light` as returned in
     /// `LoadedChunkData::light`, sky layers already dropped for dimensions without sky light).
-    pub fn load_chunk_light(&mut self, pos: ChunkPos, light: Vec<(i32, Option<DataLayer>, Option<DataLayer>)>) {
+    pub fn load_chunk_light(
+        &mut self,
+        pos: ChunkPos,
+        light: Vec<(i32, Option<DataLayer>, Option<DataLayer>)>,
+    ) {
         let mut loaded_any_light = false;
         for (section_y, block_light, sky_light) in light {
             if block_light.is_none() && sky_light.is_none() {
@@ -225,7 +296,11 @@ impl LightReader {
         }
     }
 
-    pub fn get_data_layer_data(&self, layer: LightLayer, pos: SectionPos) -> Option<Arc<DataLayer>> {
+    pub fn get_data_layer_data(
+        &self,
+        layer: LightLayer,
+        pos: SectionPos,
+    ) -> Option<Arc<DataLayer>> {
         self.layer(layer)?.get_data_layer_data(pos)
     }
 
@@ -234,7 +309,10 @@ impl LightReader {
     }
 
     pub fn get_raw_brightness(&self, pos: BlockPos, sky_dampen: i32) -> i32 {
-        let sky_light = self.sky.as_ref().map_or(0, |r| r.get_light_value(pos) - sky_dampen);
+        let sky_light = self
+            .sky
+            .as_ref()
+            .map_or(0, |r| r.get_light_value(pos) - sky_dampen);
         let block_light = self.block.as_ref().map_or(0, |r| r.get_light_value(pos));
         block_light.max(sky_light)
     }
@@ -248,10 +326,22 @@ impl LightReader {
     }
 
     /// `new ClientboundLightUpdatePacketData(chunkPos, lightEngine, skyFilter, blockFilter)`.
-    pub fn light_update_packet_data(&self, chunk_pos: ChunkPos, sky_changed_filter: Option<&BitSet>, block_changed_filter: Option<&BitSet>) -> LightUpdatePacketData {
+    pub fn light_update_packet_data(
+        &self,
+        chunk_pos: ChunkPos,
+        sky_changed_filter: Option<&BitSet>,
+        block_changed_filter: Option<&BitSet>,
+    ) -> LightUpdatePacketData {
         let min_light_section = self.get_min_light_section();
         let layers = |layer| -> Vec<Option<Arc<DataLayer>>> {
-            (0..self.get_light_section_count()).map(|i| self.get_data_layer_data(layer, SectionPos::of_chunk(&chunk_pos, min_light_section + i))).collect()
+            (0..self.get_light_section_count())
+                .map(|i| {
+                    self.get_data_layer_data(
+                        layer,
+                        SectionPos::of_chunk(&chunk_pos, min_light_section + i),
+                    )
+                })
+                .collect()
         };
         let (sky, block) = (layers(LightLayer::Sky), layers(LightLayer::Block));
         let sky: Vec<Option<&DataLayer>> = sky.iter().map(|l| l.as_deref()).collect();

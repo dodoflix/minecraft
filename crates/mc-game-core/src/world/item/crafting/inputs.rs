@@ -43,7 +43,11 @@ impl PartialEq for CraftingInput {
             && self.height == other.height
             && self.ingredient_count == other.ingredient_count
             && self.items.len() == other.items.len()
-            && self.items.iter().zip(&other.items).all(|(a, b)| ItemStack::matches(a, b))
+            && self
+                .items
+                .iter()
+                .zip(&other.items)
+                .all(|(a, b)| ItemStack::matches(a, b))
     }
 }
 
@@ -57,7 +61,13 @@ impl CraftingInput {
                 stacked_contents.account_stack_max(item, 1);
             }
         }
-        CraftingInput { width, height, items, stacked_contents, ingredient_count }
+        CraftingInput {
+            width,
+            height,
+            items,
+            stacked_contents,
+            ingredient_count,
+        }
     }
 
     /// `CraftingInput.of(width, height, items)`.
@@ -66,7 +76,11 @@ impl CraftingInput {
     }
 
     /// `CraftingInput.ofPositioned(width, height, items)`.
-    pub fn of_positioned(width: usize, height: usize, items: &[ItemStack]) -> PositionedCraftingInput {
+    pub fn of_positioned(
+        width: usize,
+        height: usize,
+        items: &[ItemStack],
+    ) -> PositionedCraftingInput {
         if width == 0 || height == 0 {
             return PositionedCraftingInput::default();
         }
@@ -90,10 +104,21 @@ impl CraftingInput {
         }
         let (new_width, new_height) = (right - left + 1, bottom - top + 1);
         if new_width == width && new_height == height {
-            return PositionedCraftingInput { input: CraftingInput::new(width, height, items.to_vec()), left, top };
+            return PositionedCraftingInput {
+                input: CraftingInput::new(width, height, items.to_vec()),
+                left,
+                top,
+            };
         }
-        let new_items = (0..new_height).flat_map(|y| (0..new_width).map(move |x| (x, y))).map(|(x, y)| items[x + left + (y + top) * width].clone()).collect();
-        PositionedCraftingInput { input: CraftingInput::new(new_width, new_height, new_items), left, top }
+        let new_items = (0..new_height)
+            .flat_map(|y| (0..new_width).map(move |x| (x, y)))
+            .map(|(x, y)| items[x + left + (y + top) * width].clone())
+            .collect();
+        PositionedCraftingInput {
+            input: CraftingInput::new(new_width, new_height, new_items),
+            left,
+            top,
+        }
     }
 
     /// `getItem(x, y)`.

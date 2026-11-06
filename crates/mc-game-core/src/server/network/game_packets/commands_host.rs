@@ -38,10 +38,16 @@ impl PlayCtx<'_> {
     /// `player.createCommandSourceStack()`.
     pub(crate) fn create_command_source_stack(&mut self) -> Option<CommandSourceStack> {
         let handle = self.player.handle.clone()?;
-        let accepts_success = self.server.game_rule(crate::world::level::gamerules::GameRules::SEND_COMMAND_FEEDBACK);
+        let accepts_success = self
+            .server
+            .game_rule(crate::world::level::gamerules::GameRules::SEND_COMMAND_FEEDBACK);
         let id = self.player.name_and_id();
-        let permissions: PermissionSet = self.server.player_list.get_profile_permissions(&id).into();
-        let source = Arc::new(PlayerCommandSource { handle: handle.clone(), accepts_success });
+        let permissions: PermissionSet =
+            self.server.player_list.get_profile_permissions(&id).into();
+        let source = Arc::new(PlayerCommandSource {
+            handle: handle.clone(),
+            accepts_success,
+        });
         let entity = CommandEntity {
             id: self.player.id(),
             uuid: self.player.uuid(),

@@ -15,14 +15,16 @@ use mc_core::random::{LegacyRandomSource, RandomSource};
 use mc_data::block::{Block, BlockState};
 use mc_data::fluid::FluidState;
 use mc_game::server::level::ServerLevel;
-use mc_game::world::entity::ai::navigation::{NavClass, NavigationData, create_path_with_finder, find_surface_position};
 use mc_game::world::entity::EntityId;
+use mc_game::world::entity::ai::navigation::{
+    NavClass, NavigationData, create_path_with_finder, find_surface_position,
+};
+use mc_game::world::level::BlockGetter;
 use mc_game::world::level::collision::CollisionContext;
+use mc_game::world::level::pathfinder::NodeEvaluator;
 use mc_game::world::level::pathfinder::pathfinding_context::PathfindingContext;
 use mc_game::world::level::pathfinder::walk_node_evaluator::get_path_type_static;
 use mc_game::world::level::pathfinder::{Path, PathEnv, PathType, PathfindingMob};
-use mc_game::world::level::pathfinder::NodeEvaluator;
-use mc_game::world::level::BlockGetter;
 
 /// A vanilla mob as the fixture's `MOB` line describes it.
 struct TestMob {
@@ -95,7 +97,8 @@ impl PathfindingMob for TestMob {
         &mut self.random
     }
     fn collision_context(&self) -> CollisionContext {
-        CollisionContext::of_entity(self.id, false, self.pos.y, None, None, false).with_entity_state(0.0, false, self.powder)
+        CollisionContext::of_entity(self.id, false, self.pos.y, None, None, false)
+            .with_entity_state(0.0, false, self.powder)
     }
 }
 
@@ -111,7 +114,11 @@ fn mob_from_line(line: &str) -> Mob {
     let l = Line::parse(line);
     let pos = l.vec("pos");
     let bb = l.vec("bb");
-    let malus: Vec<f32> = l.str("malus").split(',').map(|v| v.parse().unwrap()).collect();
+    let malus: Vec<f32> = l
+        .str("malus")
+        .split(',')
+        .map(|v| v.parse().unwrap())
+        .collect();
     assert_eq!(malus.len(), PathType::COUNT);
     let class = match l.str("nav") {
         "GroundPathNavigation" => NavClass::Ground,
@@ -146,7 +153,12 @@ fn mob_from_line(line: &str) -> Mob {
         random: LegacyRandomSource::new(l.str("seed").parse().unwrap()),
     };
     nav.set_required_path_length(l.f64("followv"), l.str("reqlen").parse().unwrap());
-    Mob { mob, nav, class, follow_value: l.f64("followv") }
+    Mob {
+        mob,
+        nav,
+        class,
+        follow_value: l.f64("followv"),
+    }
 }
 
 fn parse_state(text: &str) -> BlockState {
@@ -155,7 +167,14 @@ fn parse_state(text: &str) -> BlockState {
         None => (text, ""),
     };
     let block = Block::by_name(name).unwrap_or_else(|| panic!("unknown block {name}"));
-    block.state_from_properties(props.split(',').filter(|p| !p.is_empty()).map(|p| p.split_once('=').expect("prop=value"))).unwrap_or_else(|| panic!("bad state {text}"))
+    block
+        .state_from_properties(
+            props
+                .split(',')
+                .filter(|p| !p.is_empty())
+                .map(|p| p.split_once('=').expect("prop=value")),
+        )
+        .unwrap_or_else(|| panic!("bad state {text}"))
 }
 
 struct Replay {
@@ -173,20 +192,46 @@ impl Replay {
     fn new(fixture: &Fixture) -> Self {
         let _serial = common::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
         let dir = tempfile::tempdir().unwrap();
-        let (_, stem) = common::load_world(dir.path(), mc_world::level_storage::WorldDataConfiguration::DEFAULT, true).expect("default world loads");
+        let (_, stem) = common::load_world(
+            dir.path(),
+            mc_world::level_storage::WorldDataConfiguration::DEFAULT,
+            true,
+        )
+        .expect("default world loads");
         let mut level = ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap());
         level.registries = stem.registries.composite_access().clone();
-        let mob_lines = fixture.lines.iter().filter(|l| l.starts_with("MOB ")).cloned().collect();
-        Replay { level, mobs: Vec::new(), mob_lines, out: Vec::new() }
+        let mob_lines = fixture
+            .lines
+            .iter()
+            .filter(|l| l.starts_with("MOB "))
+            .cloned()
+            .collect();
+        Replay {
+            level,
+            mobs: Vec::new(),
+            mob_lines,
+            out: Vec::new(),
+        }
     }
 
     fn set(&mut self, x: i32, y: i32, z: i32, state: BlockState) {
         use mc_game::world::level::LevelAccessor;
-        self.level.set_block(BlockPos::new(x, y, z), state, mc_game::world::level::flags::UPDATE_CLIENTS | mc_game::world::level::flags::UPDATE_KNOWN_SHAPE, 512);
+        self.level.set_block(
+            BlockPos::new(x, y, z),
+            state,
+            mc_game::world::level::flags::UPDATE_CLIENTS
+                | mc_game::world::level::flags::UPDATE_KNOWN_SHAPE,
+            512,
+        );
     }
 
     fn mob(&mut self, name: &str) -> &mut Mob {
-        &mut self.mobs.iter_mut().find(|(n, _)| n == name).unwrap_or_else(|| panic!("no mob {name}")).1
+        &mut self
+            .mobs
+            .iter_mut()
+            .find(|(n, _)| n == name)
+            .unwrap_or_else(|| panic!("no mob {name}"))
+            .1
     }
 
     fn run_line(&mut self, line: &str) {
@@ -195,12 +240,21 @@ impl Replay {
             return;
         }
         let t: Vec<&str> = line.split_whitespace().collect();
-        let int = |s: &str| s.parse::<i32>().unwrap_or_else(|_| panic!("int {s} in `{line}`"));
-        let num = |s: &str| s.parse::<f64>().unwrap_or_else(|_| panic!("number {s} in `{line}`"));
+        let int = |s: &str| {
+            s.parse::<i32>()
+                .unwrap_or_else(|_| panic!("int {s} in `{line}`"))
+        };
+        let num = |s: &str| {
+            s.parse::<f64>()
+                .unwrap_or_else(|_| panic!("number {s} in `{line}`"))
+        };
         match t[0] {
             "fill" => {
                 let state = parse_state(t[7]);
-                let (a, b) = ([int(t[1]), int(t[2]), int(t[3])], [int(t[4]), int(t[5]), int(t[6])]);
+                let (a, b) = (
+                    [int(t[1]), int(t[2]), int(t[3])],
+                    [int(t[4]), int(t[5]), int(t[6])],
+                );
                 for x in a[0].min(b[0])..=a[0].max(b[0]) {
                     for y in a[1].min(b[1])..=a[1].max(b[1]) {
                         for z in a[2].min(b[2])..=a[2].max(b[2]) {
@@ -212,39 +266,89 @@ impl Replay {
             "block" => self.set(int(t[1]), int(t[2]), int(t[3]), parse_state(t[4])),
             "mob" => {
                 let prefix = format!("MOB {} ", t[1]);
-                let fixture_line = self.mob_lines.iter().find(|l| l.starts_with(&prefix)).unwrap_or_else(|| panic!("fixture has no `{prefix}` line")).clone();
-                self.mobs.push((t[1].to_string(), mob_from_line(&fixture_line)));
+                let fixture_line = self
+                    .mob_lines
+                    .iter()
+                    .find(|l| l.starts_with(&prefix))
+                    .unwrap_or_else(|| panic!("fixture has no `{prefix}` line"))
+                    .clone();
+                self.mobs
+                    .push((t[1].to_string(), mob_from_line(&fixture_line)));
             }
             "path" => {
                 let (x, y, z, reach) = (num(t[2]), num(t[3]), num(t[4]), int(t[5]));
                 let level = &self.level;
-                let m = self.mobs.iter_mut().find(|(n, _)| n == t[1]).map(|(_, m)| m).expect("mob");
+                let m = self
+                    .mobs
+                    .iter_mut()
+                    .find(|(n, _)| n == t[1])
+                    .map(|(_, m)| m)
+                    .expect("mob");
                 let path = create_path(level, m, x, y, z, reach);
                 dump_path(&mut self.out, t[1], path, m);
             }
             "pathset" => {
                 let reach = int(t[2]);
-                let targets: Vec<BlockPos> = t[3..].chunks(3).map(|c| BlockPos::new(int(c[0]), int(c[1]), int(c[2]))).collect();
+                let targets: Vec<BlockPos> = t[3..]
+                    .chunks(3)
+                    .map(|c| BlockPos::new(int(c[0]), int(c[1]), int(c[2])))
+                    .collect();
                 let level = &self.level;
-                let m = self.mobs.iter_mut().find(|(n, _)| n == t[1]).map(|(_, m)| m).expect("mob");
+                let m = self
+                    .mobs
+                    .iter_mut()
+                    .find(|(n, _)| n == t[1])
+                    .map(|(_, m)| m)
+                    .expect("mob");
                 let path = create_path_targets(level, m, &targets, reach);
                 dump_path(&mut self.out, t[1], path, m);
             }
             "malus" => {
-                let line = format!("MALUS {} {}", t[1], self.mob(t[1]).mob.malus.iter().map(|v| f32s(*v)).collect::<Vec<_>>().join(","));
+                let line = format!(
+                    "MALUS {} {}",
+                    t[1],
+                    self.mob(t[1])
+                        .mob
+                        .malus
+                        .iter()
+                        .map(|v| f32s(*v))
+                        .collect::<Vec<_>>()
+                        .join(",")
+                );
                 self.out.push(line);
             }
             "pathtype" => {
                 let pos = BlockPos::new(int(t[2]), int(t[3]), int(t[4]));
                 let level = &self.level;
-                let m = self.mobs.iter_mut().find(|(n, _)| n == t[1]).map(|(_, m)| m).expect("mob");
+                let m = self
+                    .mobs
+                    .iter_mut()
+                    .find(|(n, _)| n == t[1])
+                    .map(|(_, m)| m)
+                    .expect("mob");
                 let context = PathfindingContext::new(level, Some(level.path_type_cache()), &m.mob);
                 let s = get_path_type_static(&context, pos);
                 let c = level.path_type_cache().lock().get_or_compute(level, pos);
                 let c2 = level.path_type_cache().lock().get_or_compute(level, pos);
-                let mut env = PathEnv { context, mob: &mut m.mob };
-                let ev = m.nav.node_evaluator_mut().get_path_type(&mut env, pos.x(), pos.y(), pos.z());
-                self.out.push(format!("PT {} {},{},{} static={} cache={} cache2={} evaluator={}", t[1], pos.x(), pos.y(), pos.z(), s.name(), c.name(), c2.name(), ev.name()));
+                let mut env = PathEnv {
+                    context,
+                    mob: &mut m.mob,
+                };
+                let ev =
+                    m.nav
+                        .node_evaluator_mut()
+                        .get_path_type(&mut env, pos.x(), pos.y(), pos.z());
+                self.out.push(format!(
+                    "PT {} {},{},{} static={} cache={} cache2={} evaluator={}",
+                    t[1],
+                    pos.x(),
+                    pos.y(),
+                    pos.z(),
+                    s.name(),
+                    c.name(),
+                    c2.name(),
+                    ev.name()
+                ));
             }
             other => panic!("unknown scenario command {other}"),
         }
@@ -253,7 +357,14 @@ impl Replay {
 
 /// `nav.createPath(x, y, z, reach)` of the standard navigation classes (the guards of `PathNavigation.createPath` + the
 /// ground navigation's surface search), driving the real `PathFinder`.
-fn create_path(level: &ServerLevel, m: &mut Mob, x: f64, y: f64, z: f64, reach: i32) -> Option<Path> {
+fn create_path(
+    level: &ServerLevel,
+    m: &mut Mob,
+    x: f64,
+    y: f64,
+    z: f64,
+    reach: i32,
+) -> Option<Path> {
     let mut pos = BlockPos::containing(x, y, z);
     if m.class.is_ground() {
         level.chunk_now(pos.x() >> 4, pos.z() >> 4)?;
@@ -265,7 +376,12 @@ fn create_path(level: &ServerLevel, m: &mut Mob, x: f64, y: f64, z: f64, reach: 
 }
 
 /// `PathNavigation.createPath(targets, 8, false, reachRange)`.
-fn create_path_targets(level: &ServerLevel, m: &mut Mob, targets: &[BlockPos], reach: i32) -> Option<Path> {
+fn create_path_targets(
+    level: &ServerLevel,
+    m: &mut Mob,
+    targets: &[BlockPos],
+    reach: i32,
+) -> Option<Path> {
     if targets.is_empty() || m.mob.pos.y < f64::from(level.get_min_y()) {
         return None;
     }
@@ -286,7 +402,17 @@ fn create_path_targets(level: &ServerLevel, m: &mut Mob, targets: &[BlockPos], r
     }
     // `getMaxPathLength()`
     let max_path_length = m.nav.max_path_length(m.follow_value);
-    create_path_with_finder(&mut m.nav, &mut m.mob, level, targets, 8, false, reach, max_path_length, 1.0)
+    create_path_with_finder(
+        &mut m.nav,
+        &mut m.mob,
+        level,
+        targets,
+        8,
+        false,
+        reach,
+        max_path_length,
+        1.0,
+    )
 }
 
 fn dump_path(out: &mut Vec<String>, name: &str, path: Option<Path>, m: &Mob) {
@@ -295,7 +421,9 @@ fn dump_path(out: &mut Vec<String>, name: &str, path: Option<Path>, m: &Mob) {
         return;
     };
     let t = p.get_target();
-    let nt = m.nav.target_pos().map_or("null".to_string(), |t| format!("{},{},{}", t.x(), t.y(), t.z()));
+    let nt = m.nav.target_pos().map_or("null".to_string(), |t| {
+        format!("{},{},{}", t.x(), t.y(), t.z())
+    });
     out.push(format!(
         "PATH {name} reached={} count={} dist={} target={},{},{} next={} navtarget={nt}",
         p.can_reach(),
@@ -324,14 +452,26 @@ fn dump_path(out: &mut Vec<String>, name: &str, path: Option<Path>, m: &Mob) {
 }
 
 fn check(name: &str) {
-    let fixture_path = std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR")).join(format!("tests/fixtures/pathfinder/{name}.txt"));
-    let fixture = Fixture::from_text(name, &std::fs::read_to_string(&fixture_path).unwrap_or_else(|e| panic!("fixture {}: {e}", fixture_path.display())));
-    let text = std::fs::read_to_string(std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR")).join(format!("tests/oracle/pathfinder/{name}.txt"))).unwrap();
+    let fixture_path = std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+        .join(format!("tests/fixtures/pathfinder/{name}.txt"));
+    let fixture = Fixture::from_text(
+        name,
+        &std::fs::read_to_string(&fixture_path)
+            .unwrap_or_else(|e| panic!("fixture {}: {e}", fixture_path.display())),
+    );
+    let text = std::fs::read_to_string(
+        std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+            .join(format!("tests/oracle/pathfinder/{name}.txt")),
+    )
+    .unwrap();
     let mut r = Replay::new(&fixture);
     for line in text.lines() {
         r.run_line(line);
     }
-    let opts = Options { ignore_kinds: vec!["MOB", "#!"], ..Default::default() };
+    let opts = Options {
+        ignore_kinds: vec!["MOB", "#!"],
+        ..Default::default()
+    };
     fixture.assert_matches(&r.out, &opts);
 }
 

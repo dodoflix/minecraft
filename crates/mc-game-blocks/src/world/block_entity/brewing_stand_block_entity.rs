@@ -1,26 +1,36 @@
 //! `BrewingStandBlockEntity`: 5 slots (3 potion bottles, ingredient, fuel), brew time / fuel counters, the 400 tick
 //! (scaled by the fuel's `speed_multiplier`) brewing cycle driven by the `minecraft:brewing` recipes.
 
-use mc_game_core::block_entity_base;
-use mc_game_core::world::block_entity::base_container::{BaseContainer, send_chest_locked_notifications};
-use mc_game_core::world::block_entity::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, changed_log};
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::container::{Container, WorldlyContainer, empty_stack, helper};
-use mc_game_core::world::containers::drop_item_stack;
-use mc_game_core::world::inventory::{AbstractContainerMenu, BrewingStandMenu, ContainerData, MenuPlayer, MenuProvider};
-use mc_game_core::world::item::crafting::{BrewingInput, PotionIngredient, RecipeCheck, RecipePropertySet};
-use mc_game_core::world::level::storage::loot::providers::number::{ResolvableFloat, ResolvableInt};
-use mc_protocol::components::{ResolvableFloat as ProtocolFloat, ResolvableInt as ProtocolInt};
-use mc_game_core::world::item::{ItemStack, ItemStackExt};
-use mc_game_core::world::level::storage::loot::{LootContext, LootContextParamSets, LootParams};
-use mc_game_core::world::level::{BlockGetter, LevelAccessor};
 use linkme::distributed_slice;
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;
 use mc_data::block::{Block, BlockState};
 use mc_data::{BlockEntityType, Item, RecipeType, props};
+use mc_game_core::block_entity_base;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::block_entity::base_container::{
+    BaseContainer, send_chest_locked_notifications,
+};
+use mc_game_core::world::block_entity::{
+    BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, changed_log,
+};
+use mc_game_core::world::container::{Container, WorldlyContainer, empty_stack, helper};
+use mc_game_core::world::containers::drop_item_stack;
+use mc_game_core::world::inventory::{
+    AbstractContainerMenu, BrewingStandMenu, ContainerData, MenuPlayer, MenuProvider,
+};
+use mc_game_core::world::item::crafting::{
+    BrewingInput, PotionIngredient, RecipeCheck, RecipePropertySet,
+};
+use mc_game_core::world::item::{ItemStack, ItemStackExt};
+use mc_game_core::world::level::storage::loot::providers::number::{
+    ResolvableFloat, ResolvableInt,
+};
+use mc_game_core::world::level::storage::loot::{LootContext, LootContextParamSets, LootParams};
+use mc_game_core::world::level::{BlockGetter, LevelAccessor};
 use mc_nbt::CompoundTag;
 use mc_protocol::components::BREWING_FUEL;
+use mc_protocol::components::{ResolvableFloat as ProtocolFloat, ResolvableInt as ProtocolInt};
 use mc_text::Component;
 use std::any::Any;
 
@@ -35,7 +45,11 @@ pub const DATA_TOTAL_BREW_TIME: usize = 2;
 pub const DATA_TOTAL_FUEL_USES: usize = 3;
 pub const NUM_DATA_VALUES: usize = 4;
 /// `BrewingStandBlock.HAS_BOTTLE`.
-const HAS_BOTTLE: [mc_data::props::BooleanProperty; 3] = [props::HAS_BOTTLE_0, props::HAS_BOTTLE_1, props::HAS_BOTTLE_2];
+const HAS_BOTTLE: [mc_data::props::BooleanProperty; 3] = [
+    props::HAS_BOTTLE_0,
+    props::HAS_BOTTLE_1,
+    props::HAS_BOTTLE_2,
+];
 
 pub struct BrewingStandBlockEntity {
     base: BlockEntityData,
@@ -84,7 +98,11 @@ impl BrewingStandBlockEntity {
     }
 
     /// `getLootContext(level)` (`CONTAINER_PROCESS`: block state, block entity, origin, container) handed to `f`.
-    fn with_loot_context<R>(&self, level: &ServerLevel, f: impl FnOnce(&mut LootContext) -> R) -> R {
+    fn with_loot_context<R>(
+        &self,
+        level: &ServerLevel,
+        f: impl FnOnce(&mut LootContext) -> R,
+    ) -> R {
         let slots = mc_game_core::server::commands::item::slots::ContainerSlots::new(self);
         let params = LootParams::builder(level)
             .block_state(self.base.block_state)
@@ -98,20 +116,28 @@ impl BrewingStandBlockEntity {
 
     /// `getUses(level, brewingFuel)`.
     fn get_uses(&self, level: &ServerLevel, fuel: &mc_protocol::components::BrewingFuel) -> i32 {
-        self.with_loot_context(level, |context| match &fuel.uses {
-            ProtocolInt::Constant(v) => ResolvableInt::Constant(*v),
-            ProtocolInt::Reference(k) => ResolvableInt::Reference(k.clone()),
-        }
-        .get(context, 0))
+        self.with_loot_context(level, |context| {
+            match &fuel.uses {
+                ProtocolInt::Constant(v) => ResolvableInt::Constant(*v),
+                ProtocolInt::Reference(k) => ResolvableInt::Reference(k.clone()),
+            }
+            .get(context, 0)
+        })
     }
 
     /// `getSpeedMultiplier(level, brewingFuel)`.
-    fn get_speed_multiplier(&self, level: &ServerLevel, fuel: &mc_protocol::components::BrewingFuel) -> f32 {
-        self.with_loot_context(level, |context| match &fuel.speed_multiplier {
-            ProtocolFloat::Constant(v) => ResolvableFloat::Constant(*v),
-            ProtocolFloat::Reference(k) => ResolvableFloat::Reference(k.clone()),
-        }
-        .get(context, 1.0))
+    fn get_speed_multiplier(
+        &self,
+        level: &ServerLevel,
+        fuel: &mc_protocol::components::BrewingFuel,
+    ) -> f32 {
+        self.with_loot_context(level, |context| {
+            match &fuel.speed_multiplier {
+                ProtocolFloat::Constant(v) => ResolvableFloat::Constant(*v),
+                ProtocolFloat::Reference(k) => ResolvableFloat::Reference(k.clone()),
+            }
+            .get(context, 1.0)
+        })
     }
 
     /// `BlockEntity.setChanged(level, pos, state)`.
@@ -120,14 +146,27 @@ impl BrewingStandBlockEntity {
     }
 
     /// `MenuProvider` of the brewing stand at `pos` (`BaseContainerBlockEntity.createMenu`: lock check, then the menu).
-    pub fn menu_provider(level: &dyn BlockGetter, pos: BlockPos) -> Option<BrewingStandMenuProvider> {
-        let be = level.get_block_entity(pos)?.as_any().downcast_ref::<BrewingStandBlockEntity>()?;
-        Some(BrewingStandMenuProvider { pos, title: be.container.get_name(Self::default_name()) })
+    pub fn menu_provider(
+        level: &dyn BlockGetter,
+        pos: BlockPos,
+    ) -> Option<BrewingStandMenuProvider> {
+        let be = level
+            .get_block_entity(pos)?
+            .as_any()
+            .downcast_ref::<BrewingStandBlockEntity>()?;
+        Some(BrewingStandMenuProvider {
+            pos,
+            title: be.container.get_name(Self::default_name()),
+        })
     }
 
     /// `getPotionBits()`.
     fn potion_bits(&self) -> [bool; 3] {
-        [!self.items[0].is_empty(), !self.items[1].is_empty(), !self.items[2].is_empty()]
+        [
+            !self.items[0].is_empty(),
+            !self.items[1].is_empty(),
+            !self.items[2].is_empty(),
+        ]
     }
 
     /// `isBrewable(level, entity)`.
@@ -137,12 +176,26 @@ impl BrewingStandBlockEntity {
             return false;
         }
         let recipes = level.recipe_access();
-        if !recipes.property_set(RecipePropertySet::BREWING_REAGENTS).test(ingredient) {
+        if !recipes
+            .property_set(RecipePropertySet::BREWING_REAGENTS)
+            .test(ingredient)
+        {
             return false;
         }
         for dest in 0..3 {
             let stack = &self.items[dest];
-            if !stack.is_empty() && self.quick_check.get_recipe_for(&BrewingInput { input: stack.clone(), reagent: ingredient.clone() }, level).is_some() {
+            if !stack.is_empty()
+                && self
+                    .quick_check
+                    .get_recipe_for(
+                        &BrewingInput {
+                            input: stack.clone(),
+                            reagent: ingredient.clone(),
+                        },
+                        level,
+                    )
+                    .is_some()
+            {
                 return true;
             }
         }
@@ -154,9 +207,15 @@ impl BrewingStandBlockEntity {
         let mut ingredient = self.items[INGREDIENT_SLOT].clone();
         for dest in 0..3 {
             let container = self.items[dest].clone();
-            let input = BrewingInput { input: container.clone(), reagent: ingredient.clone() };
+            let input = BrewingInput {
+                input: container.clone(),
+                reagent: ingredient.clone(),
+            };
             self.items[dest] = match self.quick_check.get_recipe_for(&input, level) {
-                Some(recipe) => recipe.value.as_brewing().map_or_else(ItemStack::empty, |r| r.output().create()),
+                Some(recipe) => recipe
+                    .value
+                    .as_brewing()
+                    .map_or_else(ItemStack::empty, |r| r.output().create()),
                 None => container,
             };
         }
@@ -166,7 +225,13 @@ impl BrewingStandBlockEntity {
             if ingredient.is_empty() {
                 ingredient = ItemStack::new(remainder);
             } else {
-                drop_item_stack(level, f64::from(pos.x()), f64::from(pos.y()), f64::from(pos.z()), ItemStack::new(remainder));
+                drop_item_stack(
+                    level,
+                    f64::from(pos.x()),
+                    f64::from(pos.y()),
+                    f64::from(pos.z()),
+                    ItemStack::new(remainder),
+                );
             }
         }
         self.items[INGREDIENT_SLOT] = ingredient;
@@ -180,7 +245,9 @@ impl BrewingStandBlockEntity {
         } else {
             let recipes = level.recipe_access();
             if slot == INGREDIENT_SLOT {
-                recipes.property_set(RecipePropertySet::BREWING_REAGENTS).test(stack)
+                recipes
+                    .property_set(RecipePropertySet::BREWING_REAGENTS)
+                    .test(stack)
             } else {
                 PotionIngredient::is_potion_input(stack, &recipes) && self.items[slot].is_empty()
             }
@@ -238,7 +305,13 @@ impl BlockEntity for BrewingStandBlockEntity {
                 if self.items[FUEL_SLOT].is_empty() {
                     self.items[FUEL_SLOT] = ItemStack::new(remainder);
                 } else {
-                    drop_item_stack(level, f64::from(pos.x()), f64::from(pos.y()), f64::from(pos.z()), ItemStack::new(remainder));
+                    drop_item_stack(
+                        level,
+                        f64::from(pos.x()),
+                        f64::from(pos.y()),
+                        f64::from(pos.z()),
+                        ItemStack::new(remainder),
+                    );
                 }
             }
             Self::set_changed_in(level, pos, self_state);
@@ -256,7 +329,11 @@ impl BlockEntity for BrewingStandBlockEntity {
             }
             Self::set_changed_in(level, pos, self_state);
         } else if brewable && self.fuel > 0 {
-            let speed_multiplier = if self.speed_multiplier > 0.0 { self.speed_multiplier } else { 1.0 };
+            let speed_multiplier = if self.speed_multiplier > 0.0 {
+                self.speed_multiplier
+            } else {
+                1.0
+            };
             self.fuel -= 1;
             self.brew_time = (400.0f32 / speed_multiplier).ceil() as i32;
             self.total_brew_time = self.brew_time;
@@ -279,12 +356,18 @@ impl BlockEntity for BrewingStandBlockEntity {
     }
 
     /// `preRemoveSideEffects`: `Containers.dropContents(level, pos, this)` (a `BaseContainerBlockEntity`).
-    fn pre_remove_side_effects(&mut self, level: &mut ServerLevel, pos: BlockPos, _state: BlockState) {
+    fn pre_remove_side_effects(
+        &mut self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        _state: BlockState,
+    ) {
         mc_game_core::world::containers::drop_contents_list(level, pos, &self.items);
     }
 
     fn apply_components_from_item_stack(&mut self, stack: &ItemStack) {
-        self.container.apply_implicit_components(stack, &mut self.items);
+        self.container
+            .apply_implicit_components(stack, &mut self.items);
     }
 
     /// Menu operations replay the recorded `setChanged()` calls right after the operation.
@@ -406,18 +489,35 @@ impl WorldlyContainer for BrewingStandBlockEntity {
         }
     }
 
-    fn can_place_item_through_face(&self, level: &ServerLevel, slot: usize, stack: &ItemStack, _direction: Option<Direction>) -> bool {
+    fn can_place_item_through_face(
+        &self,
+        level: &ServerLevel,
+        slot: usize,
+        stack: &ItemStack,
+        _direction: Option<Direction>,
+    ) -> bool {
         self.can_place_item_in(level, slot, stack)
     }
 
-    fn can_take_item_through_face(&self, slot: usize, stack: &ItemStack, _direction: Direction) -> bool {
-        if slot == INGREDIENT_SLOT { stack.is(Item::GLASS_BOTTLE) } else { true }
+    fn can_take_item_through_face(
+        &self,
+        slot: usize,
+        stack: &ItemStack,
+        _direction: Direction,
+    ) -> bool {
+        if slot == INGREDIENT_SLOT {
+            stack.is(Item::GLASS_BOTTLE)
+        } else {
+            true
+        }
     }
 }
 
 #[distributed_slice(BLOCK_ENTITY_TYPES)]
-static BREWING_STAND: BlockEntityRegistration =
-    BlockEntityRegistration { ty: BlockEntityType::BREWING_STAND, create: |pos, state| Box::new(BrewingStandBlockEntity::new(pos, state)) };
+static BREWING_STAND: BlockEntityRegistration = BlockEntityRegistration {
+    ty: BlockEntityType::BREWING_STAND,
+    create: |pos, state| Box::new(BrewingStandBlockEntity::new(pos, state)),
+};
 
 /// `BaseContainerBlockEntity` as `MenuProvider` (`getDisplayName()` = `getName()`).
 pub struct BrewingStandMenuProvider {
@@ -430,10 +530,18 @@ impl MenuProvider for BrewingStandMenuProvider {
         self.title.clone()
     }
 
-    fn create_menu(&self, container_id: i32, player: &mut dyn MenuPlayer) -> Option<Box<dyn AbstractContainerMenu>> {
+    fn create_menu(
+        &self,
+        container_id: i32,
+        player: &mut dyn MenuPlayer,
+    ) -> Option<Box<dyn AbstractContainerMenu>> {
         let pos = self.pos;
         let can_open = {
-            let be = player.level_ref()?.get_block_entity(pos)?.as_any().downcast_ref::<BrewingStandBlockEntity>()?;
+            let be = player
+                .level_ref()?
+                .get_block_entity(pos)?
+                .as_any()
+                .downcast_ref::<BrewingStandBlockEntity>()?;
             be.container.can_open(&*player)
         };
         if can_open {
@@ -441,7 +549,12 @@ impl MenuProvider for BrewingStandMenuProvider {
         } else {
             let title = self.title.clone();
             player.with_server_player(&mut |level, server_player| {
-                send_chest_locked_notifications(level, mc_core::phys::Vec3::at_center_of(&pos), server_player, &title);
+                send_chest_locked_notifications(
+                    level,
+                    mc_core::phys::Vec3::at_center_of(&pos),
+                    server_player,
+                    &title,
+                );
             });
             None
         }

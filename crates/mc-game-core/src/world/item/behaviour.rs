@@ -16,7 +16,10 @@
 //! Mutable stacks: vanilla mutates the `ItemStack` object held by the player. Behaviour methods that act on "the held
 //! stack" take it as `&mut ItemStack` (a copy the caller writes back) or re-read it from the player's hand.
 
-use super::{ClickAction, ConsumableExt, InteractionHand, InteractionResult, ItemStack, ItemStackExt, UseOnContext, consumable, tool};
+use super::{
+    ClickAction, ConsumableExt, InteractionHand, InteractionResult, ItemStack, ItemStackExt,
+    UseOnContext, consumable, tool,
+};
 use crate::server::level::ServerLevel;
 use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::{Entity, ServerPlayer};
@@ -35,62 +38,147 @@ pub const APPROXIMATELY_INFINITE_USE_DURATION: i32 = 72000;
 pub trait ItemBehaviour: Send + Sync + 'static {
     /// `Item.useOn(context)`: the `block_transformer` component, else `PASS`. The player's held stack in
     /// `context.item_stack` may be mutated (the caller stores it back).
-    fn use_on(&self, context: &mut UseOnContext, level: &mut ServerLevel, player: &mut ServerPlayer) -> InteractionResult {
+    fn use_on(
+        &self,
+        context: &mut UseOnContext,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+    ) -> InteractionResult {
         super::block_transformer::use_on(context, level, player)
     }
 
     /// `Item.use(level, player, hand)`: consumable / swappable equippable / blocks_attacks / kinetic_weapon.
-    fn use_item(&self, level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) -> InteractionResult {
+    fn use_item(
+        &self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        hand: InteractionHand,
+    ) -> InteractionResult {
         consumable::base_use(level, player, hand)
     }
 
     /// `item instanceof DispensibleContainerItem` (buckets).
-    fn as_dispensible_container(&self) -> Option<&dyn super::bucket_item::DispensibleContainerItem> {
+    fn as_dispensible_container(
+        &self,
+    ) -> Option<&dyn super::bucket_item::DispensibleContainerItem> {
         None
     }
 
     /// `Item.finishUsingItem(stack, level, entity)`.
-    fn finish_using_item(&self, stack: &mut ItemStack, level: &mut ServerLevel, entity: &mut dyn Entity) -> ItemStack {
+    fn finish_using_item(
+        &self,
+        stack: &mut ItemStack,
+        level: &mut ServerLevel,
+        entity: &mut dyn Entity,
+    ) -> ItemStack {
         consumable::base_finish_using_item(stack, level, entity)
     }
 
     /// `Item.releaseUsing(stack, level, entity, remainingTime)`: whether the release counts as a use.
-    fn release_using(&self, _stack: &mut ItemStack, _level: &mut ServerLevel, _entity: &mut dyn Entity, _remaining_time: i32) -> bool {
+    fn release_using(
+        &self,
+        _stack: &mut ItemStack,
+        _level: &mut ServerLevel,
+        _entity: &mut dyn Entity,
+        _remaining_time: i32,
+    ) -> bool {
         false
     }
 
     /// `Item.onUseTick(level, entity, stack, ticksRemaining)`.
-    fn on_use_tick(&self, _level: &mut ServerLevel, _user: &mut dyn Entity, _stack: &mut ItemStack, _ticks_remaining: i32) {}
+    fn on_use_tick(
+        &self,
+        _level: &mut ServerLevel,
+        _user: &mut dyn Entity,
+        _stack: &mut ItemStack,
+        _ticks_remaining: i32,
+    ) {
+    }
 
     /// `Item.inventoryTick(stack, level, owner, slot)`: `slot` is `None` for non-equipment inventory slots.
-    fn inventory_tick(&self, _stack: &mut ItemStack, _level: &mut ServerLevel, _owner: &mut dyn Entity, _slot: Option<EquipmentSlot>) {}
+    fn inventory_tick(
+        &self,
+        _stack: &mut ItemStack,
+        _level: &mut ServerLevel,
+        _owner: &mut dyn Entity,
+        _slot: Option<EquipmentSlot>,
+    ) {
+    }
 
     /// `Item.mineBlock(stack, level, state, pos, owner)`: tool durability.
-    fn mine_block(&self, stack: &mut ItemStack, level: &mut ServerLevel, state: BlockState, _pos: BlockPos, owner: &mut ServerPlayer) -> bool {
-        let Some(tool) = stack.get(&TOOL).cloned() else { return false };
+    fn mine_block(
+        &self,
+        stack: &mut ItemStack,
+        level: &mut ServerLevel,
+        state: BlockState,
+        _pos: BlockPos,
+        owner: &mut ServerPlayer,
+    ) -> bool {
+        let Some(tool) = stack.get(&TOOL).cloned() else {
+            return false;
+        };
         if state.get_destroy_speed() != 0.0 && tool.damage_per_block > 0 {
-            super::hurt_and_break(stack, tool.damage_per_block, level, owner, EquipmentSlot::MainHand);
+            super::hurt_and_break(
+                stack,
+                tool.damage_per_block,
+                level,
+                owner,
+                EquipmentSlot::MainHand,
+            );
         }
         true
     }
 
     /// `Item.hurtEnemy(stack, mob, attacker)` (`attacker.level()` is `level`; both entities are out of the level).
-    fn hurt_enemy(&self, _level: &mut ServerLevel, _stack: &mut ItemStack, _mob: &mut dyn Entity, _attacker: &mut dyn Entity) {}
+    fn hurt_enemy(
+        &self,
+        _level: &mut ServerLevel,
+        _stack: &mut ItemStack,
+        _mob: &mut dyn Entity,
+        _attacker: &mut dyn Entity,
+    ) {
+    }
 
     /// `Item.postHurtEnemy(stack, mob, attacker)`.
-    fn post_hurt_enemy(&self, _level: &mut ServerLevel, _stack: &mut ItemStack, _mob: &mut dyn Entity, _attacker: &mut dyn Entity) {}
+    fn post_hurt_enemy(
+        &self,
+        _level: &mut ServerLevel,
+        _stack: &mut ItemStack,
+        _mob: &mut dyn Entity,
+        _attacker: &mut dyn Entity,
+    ) {
+    }
 
     /// `Item.interactLivingEntity(stack, player, target, hand)`.
-    fn interact_living_entity(&self, _stack: &mut ItemStack, _player: &mut ServerPlayer, _target: &mut dyn Entity, _hand: InteractionHand) -> InteractionResult {
+    fn interact_living_entity(
+        &self,
+        _stack: &mut ItemStack,
+        _player: &mut ServerPlayer,
+        _target: &mut dyn Entity,
+        _hand: InteractionHand,
+    ) -> InteractionResult {
         InteractionResult::PASS
     }
 
     /// `Item.onDestroyed(itemEntity)`: the item entity holding `stack` was destroyed at `pos` (shulker boxes and
     /// bundles drop their contents). The caller (ItemEntity damage) writes the changed stack back.
-    fn on_destroyed(&self, _level: &mut ServerLevel, _stack: &mut ItemStack, _pos: mc_core::phys::Vec3) {}
+    fn on_destroyed(
+        &self,
+        _level: &mut ServerLevel,
+        _stack: &mut ItemStack,
+        _pos: mc_core::phys::Vec3,
+    ) {
+    }
 
     /// `Item.canDestroyBlock(stack, state, level, pos, user)`; `stack` is the held stack (the caller stores it back).
-    fn can_destroy_block(&self, stack: &mut ItemStack, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, user: &mut ServerPlayer) -> bool {
+    fn can_destroy_block(
+        &self,
+        stack: &mut ItemStack,
+        _state: BlockState,
+        _level: &mut ServerLevel,
+        _pos: BlockPos,
+        user: &mut ServerPlayer,
+    ) -> bool {
         super::tool_can_destroy_block(stack, user.player.abilities.instabuild)
     }
 
@@ -121,7 +209,9 @@ pub trait ItemBehaviour: Send + Sync + 'static {
     fn get_use_duration(&self, stack: &ItemStack) -> i32 {
         if let Some(consumable) = stack.get(&CONSUMABLE) {
             consumable.consume_ticks()
-        } else if !stack.has(DataComponentType::BLOCKS_ATTACKS) && !stack.has(DataComponentType::KINETIC_WEAPON) {
+        } else if !stack.has(DataComponentType::BLOCKS_ATTACKS)
+            && !stack.has(DataComponentType::KINETIC_WEAPON)
+        {
             0
         } else {
             APPROXIMATELY_INFINITE_USE_DURATION
@@ -129,13 +219,26 @@ pub trait ItemBehaviour: Send + Sync + 'static {
     }
 
     /// `overrideStackedOnOther(self, slot, clickAction, player)`: `me` is the carried stack stacked onto `slot`.
-    fn override_stacked_on_other(&self, _me: &mut ItemStack, _slot: &Slot, _env: &mut SlotEnv, _action: ClickAction) -> bool {
+    fn override_stacked_on_other(
+        &self,
+        _me: &mut ItemStack,
+        _slot: &Slot,
+        _env: &mut SlotEnv,
+        _action: ClickAction,
+    ) -> bool {
         false
     }
 
     /// `overrideOtherStackedOnMe(self, other, slot, clickAction, player, carriedItem)`: `me` is the stack in `slot`
     /// (written back by the caller), `carried` is `other` and doubles as the `SlotAccess` for the cursor.
-    fn override_other_stacked_on_me(&self, _me: &mut ItemStack, _carried: &mut ItemStack, _slot: &Slot, _env: &mut SlotEnv, _action: ClickAction) -> bool {
+    fn override_other_stacked_on_me(
+        &self,
+        _me: &mut ItemStack,
+        _carried: &mut ItemStack,
+        _slot: &Slot,
+        _env: &mut SlotEnv,
+        _action: ClickAction,
+    ) -> bool {
         false
     }
 
@@ -151,7 +254,10 @@ pub trait ItemBehaviour: Send + Sync + 'static {
 
     /// `getName(stack)`: the `item_name` component.
     fn get_name(&self, stack: &ItemStack) -> Component {
-        stack.get(&ITEM_NAME).cloned().unwrap_or_else(|| Component::literal(""))
+        stack
+            .get(&ITEM_NAME)
+            .cloned()
+            .unwrap_or_else(|| Component::literal(""))
     }
 
     /// `isFoil(stack)`.
@@ -185,7 +291,11 @@ pub trait ItemBehaviour: Send + Sync + 'static {
     }
 
     /// `getItemDamageSource(attacker)` (`MaceItem`: `mace_smash` while smashing); `None` = `attacker.createDamageSource()`.
-    fn get_item_damage_source(&self, _level: &ServerLevel, _attacker: &dyn Entity) -> Option<crate::world::damagesource::DamageSource> {
+    fn get_item_damage_source(
+        &self,
+        _level: &ServerLevel,
+        _attacker: &dyn Entity,
+    ) -> Option<crate::world::damagesource::DamageSource> {
         None
     }
 
@@ -226,7 +336,11 @@ macro_rules! register_item_class {
     ($class:literal, $create:expr) => {
         const _: () = {
             #[::linkme::distributed_slice($crate::world::item::ITEM_CLASSES)]
-            static REG: $crate::world::item::ItemClassRegistration = $crate::world::item::ItemClassRegistration { class: $class, create: $create };
+            static REG: $crate::world::item::ItemClassRegistration =
+                $crate::world::item::ItemClassRegistration {
+                    class: $class,
+                    create: $create,
+                };
         };
     };
 }
@@ -236,7 +350,11 @@ macro_rules! register_item {
     ($name:literal, $create:expr) => {
         const _: () = {
             #[::linkme::distributed_slice($crate::world::item::ITEMS)]
-            static REG: $crate::world::item::ItemRegistration = $crate::world::item::ItemRegistration { item: $name, create: $create };
+            static REG: $crate::world::item::ItemRegistration =
+                $crate::world::item::ItemRegistration {
+                    item: $name,
+                    create: $create,
+                };
         };
     };
 }

@@ -52,18 +52,37 @@ struct Replay {
 impl Replay {
     fn new() -> Self {
         let overworld = ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap());
-        let mut nether = ServerLevel::detached_with_height(Identifier::parse("minecraft:the_nether").unwrap(), LevelHeight { min_y: 0, height: 256 }, 32);
+        let mut nether = ServerLevel::detached_with_height(
+            Identifier::parse("minecraft:the_nether").unwrap(),
+            LevelHeight {
+                min_y: 0,
+                height: 256,
+            },
+            32,
+        );
         nether.dimension_type = Some(Arc::new(nether_type()));
-        Replay { overworld, nether, in_nether: false }
+        Replay {
+            overworld,
+            nether,
+            in_nether: false,
+        }
     }
 
     fn level(&mut self) -> &mut ServerLevel {
-        if self.in_nether { &mut self.nether } else { &mut self.overworld }
+        if self.in_nether {
+            &mut self.nether
+        } else {
+            &mut self.overworld
+        }
     }
 }
 
 fn pos(t: &[&str], i: usize) -> BlockPos {
-    BlockPos::new(t[i].parse().unwrap(), t[i + 1].parse().unwrap(), t[i + 2].parse().unwrap())
+    BlockPos::new(
+        t[i].parse().unwrap(),
+        t[i + 1].parse().unwrap(),
+        t[i + 2].parse().unwrap(),
+    )
 }
 
 fn axis(s: &str) -> Axis {
@@ -75,7 +94,16 @@ fn axis(s: &str) -> Axis {
 }
 
 fn shape_line(s: &PortalShape) -> String {
-    format!("axis={} num={} w={} h={} bl={},{},{}", s.axis.get_name(), s.num_portal_blocks, s.width, s.height, s.bottom_left.x(), s.bottom_left.y(), s.bottom_left.z())
+    format!(
+        "axis={} num={} w={} h={} bl={},{},{}",
+        s.axis.get_name(),
+        s.num_portal_blocks,
+        s.width,
+        s.height,
+        s.bottom_left.x(),
+        s.bottom_left.y(),
+        s.bottom_left.z()
+    )
 }
 
 fn f64_text(v: f64) -> String {
@@ -111,19 +139,29 @@ fn exec(r: &mut Replay, line: &str) -> Vec<String> {
             }
         }
         "set2" => {
-            r.level().set_block(pos(&t, 1), parse_state(t[4]), QUIET, 512);
+            r.level()
+                .set_block(pos(&t, 1), parse_state(t[4]), QUIET, 512);
         }
         "set" => {
-            r.level().set_block_and_update(pos(&t, 1), parse_state(t[4]));
+            r.level()
+                .set_block_and_update(pos(&t, 1), parse_state(t[4]));
         }
         "any" => {
             let s = PortalShape::find_any_shape(&*r.level(), pos(&t, 1), axis(t[4]));
-            out.push(format!("A {} valid={} complete={}", shape_line(&s), s.is_valid(), s.is_complete()));
+            out.push(format!(
+                "A {} valid={} complete={}",
+                shape_line(&s),
+                s.is_valid(),
+                s.is_complete()
+            ));
         }
         "empty" | "emptyplace" => {
             let level = r.level();
             let s = PortalShape::find_empty_portal_shape(&*level, pos(&t, 1), axis(t[4]));
-            out.push(format!("E {}", s.as_ref().map_or("none".to_owned(), shape_line)));
+            out.push(format!(
+                "E {}",
+                s.as_ref().map_or("none".to_owned(), shape_line)
+            ));
             if t[0] == "emptyplace" {
                 if let Some(s) = s {
                     s.create_portal_blocks(level);
@@ -150,7 +188,10 @@ fn exec(r: &mut Replay, line: &str) -> Vec<String> {
                             hash = hash.wrapping_mul(0x100000001b3);
                         }
                         let name = st.block().data().name.trim_start_matches("minecraft:");
-                        if matches!(name, "obsidian" | "nether_portal" | "fire" | "soul_fire" | "crying_obsidian") {
+                        if matches!(
+                            name,
+                            "obsidian" | "nether_portal" | "fire" | "soul_fire" | "crying_obsidian"
+                        ) {
                             special.push(format!("O {s}"));
                         }
                     }
@@ -160,16 +201,29 @@ fn exec(r: &mut Replay, line: &str) -> Vec<String> {
             out.extend(special);
         }
         "find" => {
-            let found = r.level().get_portal_forcer().find_closest_portal_position(pos(&t, 1), t[4] == "true");
+            let found = r
+                .level()
+                .get_portal_forcer()
+                .find_closest_portal_position(pos(&t, 1), t[4] == "true");
             out.push(match found {
                 Some(p) => format!("F {} {} {}", p.x(), p.y(), p.z()),
                 None => "F none".to_owned(),
             });
         }
         "create" => {
-            let created = r.level().get_portal_forcer().create_portal(pos(&t, 1), axis(t[4]));
+            let created = r
+                .level()
+                .get_portal_forcer()
+                .create_portal(pos(&t, 1), axis(t[4]));
             out.push(match created {
-                Some(f) => format!("C {} {} {} {} {}", f.min_corner.x(), f.min_corner.y(), f.min_corner.z(), f.axis1_size, f.axis2_size),
+                Some(f) => format!(
+                    "C {} {} {} {} {}",
+                    f.min_corner.x(),
+                    f.min_corner.y(),
+                    f.min_corner.z(),
+                    f.axis1_size,
+                    f.axis2_size
+                ),
                 None => "C none".to_owned(),
             });
         }
@@ -177,8 +231,22 @@ fn exec(r: &mut Replay, line: &str) -> Vec<String> {
             let level = r.level();
             let p = pos(&t, 1);
             let st = level.get_block_state(p);
-            let f = block_util::get_largest_rectangle_around(p, axis(t[4]), 21, Axis::Y, 21, &mut |q| level.get_block_state(q) == st);
-            out.push(format!("R {} {} {} {} {}", f.min_corner.x(), f.min_corner.y(), f.min_corner.z(), f.axis1_size, f.axis2_size));
+            let f = block_util::get_largest_rectangle_around(
+                p,
+                axis(t[4]),
+                21,
+                Axis::Y,
+                21,
+                &mut |q| level.get_block_state(q) == st,
+            );
+            out.push(format!(
+                "R {} {} {} {} {}",
+                f.min_corner.x(),
+                f.min_corner.y(),
+                f.min_corner.z(),
+                f.axis1_size,
+                f.axis2_size
+            ));
         }
         "maxrect" => {
             let cols: Vec<i32> = t[1..].iter().map(|s| s.parse().unwrap()).collect();
@@ -187,11 +255,25 @@ fn exec(r: &mut Replay, line: &str) -> Vec<String> {
         }
         "relpos" => {
             let i = |k: usize| t[k].parse::<i32>().unwrap();
-            let f = block_util::FoundRectangle { min_corner: BlockPos::new(i(1), i(2), i(3)), axis1_size: i(4), axis2_size: i(5) };
+            let f = block_util::FoundRectangle {
+                min_corner: BlockPos::new(i(1), i(2), i(3)),
+                axis1_size: i(4),
+                axis2_size: i(5),
+            };
             let d = |k: usize| t[k].parse::<f64>().unwrap();
             let dims = EntityDimensions::scalable(t[10].parse().unwrap(), t[11].parse().unwrap());
-            let v = PortalShape::get_relative_position(&f, axis(t[6]), Vec3::new(d(7), d(8), d(9)), &dims);
-            out.push(format!("V {} {} {}", f64_text(v.x), f64_text(v.y), f64_text(v.z)));
+            let v = PortalShape::get_relative_position(
+                &f,
+                axis(t[6]),
+                Vec3::new(d(7), d(8), d(9)),
+                &dims,
+            );
+            out.push(format!(
+                "V {} {} {}",
+                f64_text(v.x),
+                f64_text(v.y),
+                f64_text(v.z)
+            ));
         }
         other => panic!("unknown command {other}"),
     }
@@ -206,7 +288,11 @@ fn same(a: &str, b: &str) -> bool {
 }
 
 fn replay(fixture: &str) {
-    let text = std::fs::read_to_string(format!("{}/tests/fixtures/portal/{fixture}", env!("CARGO_MANIFEST_DIR"))).unwrap_or_else(|e| panic!("{fixture}: {e}"));
+    let text = std::fs::read_to_string(format!(
+        "{}/tests/fixtures/portal/{fixture}",
+        env!("CARGO_MANIFEST_DIR")
+    ))
+    .unwrap_or_else(|e| panic!("{fixture}: {e}"));
     let lines: Vec<&str> = text.lines().collect();
     let mut r = Replay::new();
     let mut failures = Vec::new();
@@ -223,16 +309,25 @@ fn replay(fixture: &str) {
             }
             let actual = exec(&mut r, cmd);
             commands += 1;
-            let ok = actual.len() == expected.len() && actual.iter().zip(&expected).all(|(a, e)| same(a, e));
+            let ok = actual.len() == expected.len()
+                && actual.iter().zip(&expected).all(|(a, e)| same(a, e));
             if !ok {
-                failures.push(format!("line {}: `{cmd}`\n  vanilla: {expected:?}\n  ours:    {actual:?}", i));
+                failures.push(format!(
+                    "line {}: `{cmd}`\n  vanilla: {expected:?}\n  ours:    {actual:?}",
+                    i
+                ));
                 if failures.len() >= 8 {
                     break;
                 }
             }
         }
     }
-    assert!(failures.is_empty(), "{fixture}: {} mismatching commands (of {commands} run so far):\n{}", failures.len(), failures.join("\n"));
+    assert!(
+        failures.is_empty(),
+        "{fixture}: {} mismatching commands (of {commands} run so far):\n{}",
+        failures.len(),
+        failures.join("\n")
+    );
     assert!(commands > 0);
     let _ = (Block::AIR, Direction::Up);
 }

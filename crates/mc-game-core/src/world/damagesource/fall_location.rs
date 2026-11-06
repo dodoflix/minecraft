@@ -38,9 +38,14 @@ impl FallLocation {
     }
 
     /// `getCurrentFallLocation(mob)`.
-    pub fn get_current_fall_location(level: &ServerLevel, mob: &dyn Entity) -> Option<FallLocation> {
+    pub fn get_current_fall_location(
+        level: &ServerLevel,
+        mob: &dyn Entity,
+    ) -> Option<FallLocation> {
         match mob.living().and_then(|l| l.last_climbable_pos) {
-            Some(pos) => Some(FallLocation::block_to_fall_location(level.get_block_state(pos).block())),
+            Some(pos) => Some(FallLocation::block_to_fall_location(
+                level.get_block_state(pos).block(),
+            )),
             None => mob.base().was_touching_water.then_some(FallLocation::WATER),
         }
     }

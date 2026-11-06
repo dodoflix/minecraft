@@ -21,9 +21,13 @@ pub fn prepare<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>) {
 }
 
 pub fn done<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>) {
-    let (walkable, water_border) = (this.state().old_walkable_cost, this.state().old_water_border_cost);
+    let (walkable, water_border) = (
+        this.state().old_walkable_cost,
+        this.state().old_water_border_cost,
+    );
     env.mob.set_pathfinding_malus(PathType::Walkable, walkable);
-    env.mob.set_pathfinding_malus(PathType::WaterBorder, water_border);
+    env.mob
+        .set_pathfinding_malus(PathType::WaterBorder, water_border);
     walk::done(this, env);
 }
 
@@ -32,7 +36,14 @@ pub fn get_start<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>)
         walk::get_start(this, env)
     } else {
         let bb = env.mob.bounding_box();
-        this.get_start_node(env, BlockPos::new(mth::floor_f64(bb.min_x), mth::floor_f64(bb.min_y + 0.5), mth::floor_f64(bb.min_z)))
+        this.get_start_node(
+            env,
+            BlockPos::new(
+                mth::floor_f64(bb.min_x),
+                mth::floor_f64(bb.min_y + 0.5),
+                mth::floor_f64(bb.min_z),
+            ),
+        )
     }
 }
 
@@ -40,7 +51,12 @@ pub fn get_target<N: NodeEvaluator + ?Sized>(this: &mut N, x: f64, y: f64, z: f6
     this.state_mut().base.get_target_node_at(x, y + 0.5, z)
 }
 
-pub fn get_neighbors<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>, neighbors: &mut [NodeId; 32], pos: NodeId) -> usize {
+pub fn get_neighbors<N: NodeEvaluator + ?Sized>(
+    this: &mut N,
+    env: &mut PathEnv<'_>,
+    neighbors: &mut [NodeId; 32],
+    pos: NodeId,
+) -> usize {
     let mut num_valid = walk::get_neighbors(this, env, neighbors, pos);
     let (px, py, pz) = {
         let n = this.node(pos);
@@ -48,14 +64,33 @@ pub fn get_neighbors<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<
     };
     let above = this.get_cached_path_type(env, px, py + 1, pz);
     let current = this.get_cached_path_type(env, px, py, pz);
-    let jump_size = if env.mob.get_pathfinding_malus(above) >= 0.0 && current != PathType::StickyHoney {
-        mth::floor_f32(1.0f32.max(env.mob.max_up_step()))
-    } else {
-        0
-    };
+    let jump_size =
+        if env.mob.get_pathfinding_malus(above) >= 0.0 && current != PathType::StickyHoney {
+            mth::floor_f32(1.0f32.max(env.mob.max_up_step()))
+        } else {
+            0
+        };
     let pos_height = this.get_floor_level(env, BlockPos::new(px, py, pz));
-    let up = this.find_accepted_node(env, px, py + 1, pz, 0.max(jump_size - 1), pos_height, Direction::Up, current);
-    let down = this.find_accepted_node(env, px, py - 1, pz, jump_size, pos_height, Direction::Down, current);
+    let up = this.find_accepted_node(
+        env,
+        px,
+        py + 1,
+        pz,
+        0.max(jump_size - 1),
+        pos_height,
+        Direction::Up,
+        current,
+    );
+    let down = this.find_accepted_node(
+        env,
+        px,
+        py - 1,
+        pz,
+        jump_size,
+        pos_height,
+        Direction::Down,
+        current,
+    );
     if is_vertical_neighbor_valid(this, env, up, pos) {
         neighbors[num_valid] = up.expect("valid neighbor");
         num_valid += 1;
@@ -75,11 +110,23 @@ pub fn get_neighbors<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<
     num_valid
 }
 
-fn is_vertical_neighbor_valid<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>, vertical: Option<NodeId>, pos: NodeId) -> bool {
-    this.is_neighbor_valid(env, vertical, pos) && vertical.is_some_and(|v| this.node(v).ty == PathType::Water)
+fn is_vertical_neighbor_valid<N: NodeEvaluator + ?Sized>(
+    this: &mut N,
+    env: &mut PathEnv<'_>,
+    vertical: Option<NodeId>,
+    pos: NodeId,
+) -> bool {
+    this.is_neighbor_valid(env, vertical, pos)
+        && vertical.is_some_and(|v| this.node(v).ty == PathType::Water)
 }
 
-pub fn get_path_type<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>, x: i32, y: i32, z: i32) -> PathType {
+pub fn get_path_type<N: NodeEvaluator + ?Sized>(
+    this: &mut N,
+    env: &mut PathEnv<'_>,
+    x: i32,
+    y: i32,
+    z: i32,
+) -> PathType {
     let block_path_type = env.context.get_path_type_from_state(x, y, z);
     if block_path_type == PathType::Water {
         for direction in Direction::ALL {
@@ -95,6 +142,12 @@ pub fn get_path_type<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<
 }
 
 /// `super.getPathType(context, x, y, z)` (walk).
-fn walk_get_path_type<N: NodeEvaluator + ?Sized>(_this: &mut N, env: &mut PathEnv<'_>, x: i32, y: i32, z: i32) -> PathType {
+fn walk_get_path_type<N: NodeEvaluator + ?Sized>(
+    _this: &mut N,
+    env: &mut PathEnv<'_>,
+    x: i32,
+    y: i32,
+    z: i32,
+) -> PathType {
     walk::get_path_type(env, x, y, z)
 }

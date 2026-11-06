@@ -29,7 +29,10 @@ pub use block_predicate::BlockPredicateLevelExt;
 pub use damage_predicate::DamagePredicate;
 pub use damage_source_predicate::DamageSourcePredicate;
 pub use distance_predicate::DistancePredicate;
-pub use entity::{EntityEquipmentPredicate, EntityPredicate, EntitySubPredicate, MovementPredicate, PlayerPredicate};
+pub use entity::{
+    EntityEquipmentPredicate, EntityPredicate, EntitySubPredicate, MovementPredicate,
+    PlayerPredicate,
+};
 pub use fluid_predicate::{FluidPredicate, StatePropertiesPredicateFluidExt};
 pub use food_predicate::FoodPredicate;
 pub use game_type_predicate::GameTypePredicate;
@@ -37,8 +40,8 @@ pub use input_predicate::InputPredicate;
 pub use light_predicate::LightPredicate;
 pub use location_predicate::{LocationPredicate, PositionPredicate};
 pub use mc_protocol::components::{
-    BlockPredicate, CollectionPredicate, DataComponentMatchers, Doubles, EnchantmentPredicate, FloatDegrees, Ints, ItemPredicate, MobEffectsPredicate,
-    NbtPredicate, StatePropertiesPredicate,
+    BlockPredicate, CollectionPredicate, DataComponentMatchers, Doubles, EnchantmentPredicate,
+    FloatDegrees, Ints, ItemPredicate, MobEffectsPredicate, NbtPredicate, StatePropertiesPredicate,
 };
 pub use mob_effects_predicate::MobEffectsPredicateEntityExt;
 pub use nbt_predicate::NbtPredicateEntityExt;

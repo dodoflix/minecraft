@@ -10,12 +10,12 @@
 //! when it is a player (vanilla: removal reason `CHANGED_DIMENSION`/`UNLOADED_*`, the reason is not observable here once the
 //! entity is gone); upgrade when the level keeps removal reasons.
 
-use mc_game_core::server::level::ServerLevel;
 use crate::world::entity::monster::warden::anger_level::AngerLevel;
-use mc_game_core::world::entity::{Entity, EntityId};
 use mc_core::math::mth;
 use mc_core::random;
 use mc_core::uuid_util::{uuid_from_int_array, uuid_to_int_array};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::{Entity, EntityId};
 use mc_nbt::{CompoundTag, ListTag, Tag};
 use uuid::Uuid;
 
@@ -36,7 +36,11 @@ pub struct Suspect {
 
 impl Suspect {
     pub fn of(entity: &dyn Entity) -> Suspect {
-        Suspect { id: entity.id(), uuid: entity.uuid(), is_player: entity.is_player() }
+        Suspect {
+            id: entity.id(),
+            uuid: entity.uuid(),
+            is_player: entity.is_player(),
+        }
     }
 }
 
@@ -79,11 +83,20 @@ impl AngerManagement {
                 None => by_uuid.push((uuid, anger)),
             }
         }
-        AngerManagement { conversion_delay, highest_anger: 0, suspects: Vec::new(), anger_by_suspect: Vec::new(), anger_by_uuid: by_uuid }
+        AngerManagement {
+            conversion_delay,
+            highest_anger: 0,
+            suspects: Vec::new(),
+            anger_by_suspect: Vec::new(),
+            anger_by_uuid: by_uuid,
+        }
     }
 
     fn anger_of(&self, id: EntityId) -> Option<i32> {
-        self.anger_by_suspect.iter().find(|(s, _)| s.id == id).map(|(_, a)| *a)
+        self.anger_by_suspect
+            .iter()
+            .find(|(s, _)| s.id == id)
+            .map(|(_, a)| *a)
     }
 
     /// `createUuidAngerPairs()`.
@@ -116,7 +129,9 @@ impl AngerManagement {
                 .map(|t| {
                     let pair = t.as_compound()?;
                     let uuid = match pair.get("uuid")? {
-                        Tag::IntArray(a) => <[i32; 4]>::try_from(a.clone()).ok().map(uuid_from_int_array)?,
+                        Tag::IntArray(a) => <[i32; 4]>::try_from(a.clone())
+                            .ok()
+                            .map(uuid_from_int_array)?,
                         _ => return None,
                     };
                     let anger = pair.get_int("anger").filter(|a| *a >= 0)?;
@@ -166,7 +181,9 @@ impl AngerManagement {
     /// descending (stable); `highestAnger` becomes the highest anger of the suspects (every suspect takes part in a
     /// comparison when there are two or more, and a single one is read directly).
     fn sort_and_update_highest_anger(&mut self) {
-        let anger_of = |id: EntityId, map: &[(Suspect, i32)]| map.iter().find(|(s, _)| s.id == id).map_or(0, |(_, a)| *a);
+        let anger_of = |id: EntityId, map: &[(Suspect, i32)]| {
+            map.iter().find(|(s, _)| s.id == id).map_or(0, |(_, a)| *a)
+        };
         let map = std::mem::take(&mut self.anger_by_suspect);
         self.suspects.sort_by(|e1, e2| {
             if e1.id == e2.id {
@@ -177,14 +194,27 @@ impl AngerManagement {
             let angry_at1 = AngerLevel::by_anger(anger1).is_angry();
             let angry_at2 = AngerLevel::by_anger(anger2).is_angry();
             if angry_at1 != angry_at2 {
-                if angry_at1 { std::cmp::Ordering::Less } else { std::cmp::Ordering::Greater }
+                if angry_at1 {
+                    std::cmp::Ordering::Less
+                } else {
+                    std::cmp::Ordering::Greater
+                }
             } else if e1.is_player != e2.is_player {
-                if e1.is_player { std::cmp::Ordering::Less } else { std::cmp::Ordering::Greater }
+                if e1.is_player {
+                    std::cmp::Ordering::Less
+                } else {
+                    std::cmp::Ordering::Greater
+                }
             } else {
                 anger2.cmp(&anger1)
             }
         });
-        self.highest_anger = self.suspects.iter().map(|s| anger_of(s.id, &map)).max().unwrap_or(0);
+        self.highest_anger = self
+            .suspects
+            .iter()
+            .map(|s| anger_of(s.id, &map))
+            .max()
+            .unwrap_or(0);
         self.anger_by_suspect = map;
     }
 
@@ -196,7 +226,11 @@ impl AngerManagement {
             match level.get_entity_by_uuid(uuid) {
                 Some(entity) => {
                     let suspect = Suspect::of(entity);
-                    match self.anger_by_suspect.iter_mut().find(|(s, _)| s.id == suspect.id) {
+                    match self
+                        .anger_by_suspect
+                        .iter_mut()
+                        .find(|(s, _)| s.id == suspect.id)
+                    {
                         Some(e) => e.1 = anger,
                         None => self.anger_by_suspect.push((suspect, anger)),
                     }
@@ -212,7 +246,11 @@ impl AngerManagement {
     pub fn increase_anger(&mut self, entity: &dyn Entity, increment: i32) -> i32 {
         let suspect = Suspect::of(entity);
         let new_suspect = self.anger_of(suspect.id).is_none();
-        let mut current_anger = match self.anger_by_suspect.iter_mut().find(|(s, _)| s.id == suspect.id) {
+        let mut current_anger = match self
+            .anger_by_suspect
+            .iter_mut()
+            .find(|(s, _)| s.id == suspect.id)
+        {
             Some(e) => {
                 e.1 = MAX_ANGER.min(e.1.wrapping_add(increment));
                 e.1
@@ -224,12 +262,20 @@ impl AngerManagement {
             }
         };
         if new_suspect {
-            let serialized_anger = match self.anger_by_uuid.iter().position(|(u, _)| *u == suspect.uuid) {
+            let serialized_anger = match self
+                .anger_by_uuid
+                .iter()
+                .position(|(u, _)| *u == suspect.uuid)
+            {
                 Some(i) => self.anger_by_uuid.remove(i).1,
                 None => 0,
             };
             current_anger = current_anger.wrapping_add(serialized_anger);
-            if let Some(e) = self.anger_by_suspect.iter_mut().find(|(s, _)| s.id == suspect.id) {
+            if let Some(e) = self
+                .anger_by_suspect
+                .iter_mut()
+                .find(|(s, _)| s.id == suspect.id)
+            {
                 e.1 = current_anger;
             }
             self.suspects.push(suspect);
@@ -246,8 +292,15 @@ impl AngerManagement {
     }
 
     /// `getTopSuspect()`: the first suspect the filter accepts.
-    fn get_top_suspect(&self, level: &ServerLevel, filter: &dyn Fn(&dyn Entity) -> bool) -> Option<EntityId> {
-        self.suspects.iter().find(|s| level.get_entity(s.id).is_some_and(filter)).map(|s| s.id)
+    fn get_top_suspect(
+        &self,
+        level: &ServerLevel,
+        filter: &dyn Fn(&dyn Entity) -> bool,
+    ) -> Option<EntityId> {
+        self.suspects
+            .iter()
+            .find(|s| level.get_entity(s.id).is_some_and(filter))
+            .map(|s| s.id)
     }
 
     /// `getActiveAnger(currentTarget)`.
@@ -259,8 +312,13 @@ impl AngerManagement {
     }
 
     /// `getActiveEntity()`: the top suspect when it is a living entity.
-    pub fn get_active_entity(&self, level: &ServerLevel, filter: &dyn Fn(&dyn Entity) -> bool) -> Option<EntityId> {
-        self.get_top_suspect(level, filter).filter(|id| level.get_entity(*id).is_some_and(|e| e.living().is_some()))
+    pub fn get_active_entity(
+        &self,
+        level: &ServerLevel,
+        filter: &dyn Fn(&dyn Entity) -> bool,
+    ) -> Option<EntityId> {
+        self.get_top_suspect(level, filter)
+            .filter(|id| level.get_entity(*id).is_some_and(|e| e.living().is_some()))
     }
 }
 

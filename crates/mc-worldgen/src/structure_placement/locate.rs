@@ -9,7 +9,9 @@ use mc_core::pos::block_pos::BlockPos;
 use mc_core::pos::chunk_pos::ChunkPos;
 use mc_core::pos::section_pos::SectionPos;
 
-use super::placement::{ConcentricRingsStructurePlacement, RandomSpreadStructurePlacement, StructurePlacement};
+use super::placement::{
+    ConcentricRingsStructurePlacement, RandomSpreadStructurePlacement, StructurePlacement,
+};
 use super::state::ChunkGeneratorStructureState;
 use super::structure_set::StructureSetHolder;
 
@@ -19,7 +21,8 @@ pub type LocateResult = Option<(BlockPos, Identifier)>;
 /// `getStructureGeneratingAt(structures, level, structureManager, createReference, config, chunkTarget)`: the
 /// structure of the (ordered) set that generates at `chunk_target`, with its locate position (use
 /// [`StructurePlacement::get_locate_pos`]).
-pub type StructureGeneratingAt<'a> = dyn FnMut(&[Identifier], &StructurePlacement, ChunkPos) -> LocateResult + 'a;
+pub type StructureGeneratingAt<'a> =
+    dyn FnMut(&[Identifier], &StructurePlacement, ChunkPos) -> LocateResult + 'a;
 
 /// The candidate chunks of one search ring of the random spread walk
 /// (`getNearestGeneratedStructure(..., chunkOriginX, chunkOriginZ, radius, ..., config)`): the
@@ -131,9 +134,14 @@ pub fn find_nearest_map_structure(
     for (set, structures) in &placement_scans {
         match &set.placement {
             StructurePlacement::ConcentricRings(rings) => {
-                if let Some(generating) =
-                    get_nearest_generated_structure_rings(state, structures, set, rings, pos, generating_at)
-                {
+                if let Some(generating) = get_nearest_generated_structure_rings(
+                    state,
+                    structures,
+                    set,
+                    rings,
+                    pos,
+                    generating_at,
+                ) {
                     let new_distance_sqr = pos.dist_sqr(&generating.0);
                     if new_distance_sqr < distance_sqr {
                         distance_sqr = new_distance_sqr;

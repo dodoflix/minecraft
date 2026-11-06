@@ -1,9 +1,11 @@
 //! `fixtures/model_golden.tsv` (from `ModelOracle.java`): numeric narrowing, `sizeInBytes`, `compareNbt`.
 
-use mc_nbt::{nbt_io, nbt_utils, snbt, NbtAccounter, Tag};
+use mc_nbt::{NbtAccounter, Tag, nbt_io, nbt_utils, snbt};
 
 fn unhex(h: &str) -> Vec<u8> {
-    (0..h.len() / 2).map(|i| u8::from_str_radix(&h[2 * i..2 * i + 2], 16).unwrap()).collect()
+    (0..h.len() / 2)
+        .map(|i| u8::from_str_radix(&h[2 * i..2 * i + 2], 16).unwrap())
+        .collect()
 }
 
 fn unesc(s: &str) -> String {
@@ -34,12 +36,20 @@ fn fbits(v: f32) -> u32 {
 }
 
 fn dbits(v: f64) -> u64 {
-    if v.is_nan() { 0x7ff8_0000_0000_0000 } else { v.to_bits() }
+    if v.is_nan() {
+        0x7ff8_0000_0000_0000
+    } else {
+        v.to_bits()
+    }
 }
 
 #[test]
 fn model_matches_vanilla() {
-    let data = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures/model_golden.tsv")).unwrap();
+    let data = std::fs::read_to_string(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/tests/fixtures/model_golden.tsv"
+    ))
+    .unwrap();
     let (mut n, mut z, mut c) = (0, 0, 0);
     for line in data.lines() {
         let f: Vec<&str> = line.split('\t').collect();
@@ -71,14 +81,28 @@ fn model_matches_vanilla() {
             "Z" => {
                 z += 1;
                 let bytes = unhex(f[1]);
-                let tag = nbt_io::read_any_tag(&mut &bytes[..], &mut NbtAccounter::unlimited_heap()).unwrap();
-                assert_eq!(tag.size_in_bytes().to_string(), f[2], "sizeInBytes of {tag}");
+                let tag =
+                    nbt_io::read_any_tag(&mut &bytes[..], &mut NbtAccounter::unlimited_heap())
+                        .unwrap();
+                assert_eq!(
+                    tag.size_in_bytes().to_string(),
+                    f[2],
+                    "sizeInBytes of {tag}"
+                );
             }
             "C" => {
                 c += 1;
-                let (e, a) = (snbt::parse(&unesc(f[1])).unwrap(), snbt::parse(&unesc(f[2])).unwrap());
+                let (e, a) = (
+                    snbt::parse(&unesc(f[1])).unwrap(),
+                    snbt::parse(&unesc(f[2])).unwrap(),
+                );
                 let got = nbt_utils::compare_nbt(Some(&e), Some(&a), f[3] == "1");
-                assert_eq!(got.to_string(), f[4], "compareNbt({e}, {a}, partial={})", f[3]);
+                assert_eq!(
+                    got.to_string(),
+                    f[4],
+                    "compareNbt({e}, {a}, partial={})",
+                    f[3]
+                );
             }
             k => panic!("row {k}"),
         }

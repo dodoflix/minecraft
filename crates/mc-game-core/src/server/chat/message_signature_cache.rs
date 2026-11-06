@@ -17,7 +17,9 @@ pub struct MessageSignatureCache {
 
 impl MessageSignatureCache {
     pub fn new(capacity: usize) -> Self {
-        Self { entries: vec![None; capacity] }
+        Self {
+            entries: vec![None; capacity],
+        }
     }
 
     pub fn create_default() -> Self {
@@ -25,15 +27,23 @@ impl MessageSignatureCache {
     }
 
     pub fn pack(&self, signature: &MessageSignature) -> i32 {
-        self.entries.iter().position(|e| e.as_ref() == Some(signature)).map_or(NOT_FOUND, |i| i as i32)
+        self.entries
+            .iter()
+            .position(|e| e.as_ref() == Some(signature))
+            .map_or(NOT_FOUND, |i| i as i32)
     }
 
     pub fn unpack(&self, id: i32) -> Result<Option<MessageSignature>, IdOutOfRange> {
-        usize::try_from(id).ok().and_then(|i| self.entries.get(i)).cloned().ok_or(IdOutOfRange(id))
+        usize::try_from(id)
+            .ok()
+            .and_then(|i| self.entries.get(i))
+            .cloned()
+            .ok_or(IdOutOfRange(id))
     }
 
     pub fn push_body(&mut self, body: &SignedMessageBody, signature: Option<&MessageSignature>) {
-        let mut queue: VecDeque<MessageSignature> = body.last_seen.entries.iter().cloned().collect();
+        let mut queue: VecDeque<MessageSignature> =
+            body.last_seen.entries.iter().cloned().collect();
         if let Some(signature) = signature {
             queue.push_back(signature.clone());
         }

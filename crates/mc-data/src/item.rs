@@ -1,7 +1,7 @@
 //! Items (`Item` ids, class, block form, default data components).
 
-pub use crate::ids::Item;
 use crate::ids::Block;
+pub use crate::ids::Item;
 
 #[derive(Debug)]
 pub struct ItemData {

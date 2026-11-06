@@ -62,7 +62,11 @@ impl WardenSpawnTracker {
 
     /// `WardenSpawnTracker.tryWarn(level, pos, triggerPlayer)`: the new warning level, `None` when a warden is near or
     /// a player is on cooldown.
-    pub fn try_warn(level: &mut ServerLevel, pos: BlockPos, trigger_player: EntityId) -> Option<i32> {
+    pub fn try_warn(
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        trigger_player: EntityId,
+    ) -> Option<i32> {
         if has_nearby_warden(level, pos) {
             return None;
         }
@@ -70,7 +74,10 @@ impl WardenSpawnTracker {
         if !players.contains(&trigger_player) {
             players.push(trigger_player);
         }
-        let trackers: Vec<WardenSpawnTracker> = players.iter().map(|id| tracker_of(level, *id)).collect::<Option<_>>()?;
+        let trackers: Vec<WardenSpawnTracker> = players
+            .iter()
+            .map(|id| tracker_of(level, *id))
+            .collect::<Option<_>>()?;
         if trackers.iter().any(WardenSpawnTracker::on_cooldown) {
             return None;
         }
@@ -94,13 +101,28 @@ impl WardenSpawnTracker {
 }
 
 fn tracker_of(level: &ServerLevel, id: EntityId) -> Option<WardenSpawnTracker> {
-    level.get_entity(id)?.as_any().downcast_ref::<ServerPlayer>().map(|p| p.warden_spawn_tracker)
+    level
+        .get_entity(id)?
+        .as_any()
+        .downcast_ref::<ServerPlayer>()
+        .map(|p| p.warden_spawn_tracker)
 }
 
 /// `hasNearbyWarden(level, pos)`.
 fn has_nearby_warden(level: &ServerLevel, pos: BlockPos) -> bool {
-    let area_to_check = AABB::of_size(Vec3::at_center_of(&pos), WARNING_CHECK_DIAMETER, WARNING_CHECK_DIAMETER, WARNING_CHECK_DIAMETER);
-    !level.get_entities_of_class(&area_to_check, |e| e.get_type() == EntityType::WARDEN, |_| true).is_empty()
+    let area_to_check = AABB::of_size(
+        Vec3::at_center_of(&pos),
+        WARNING_CHECK_DIAMETER,
+        WARNING_CHECK_DIAMETER,
+        WARNING_CHECK_DIAMETER,
+    );
+    !level
+        .get_entities_of_class(
+            &area_to_check,
+            |e| e.get_type() == EntityType::WARDEN,
+            |_| true,
+        )
+        .is_empty()
 }
 
 /// `getNearbyPlayers(level, pos)`.
@@ -110,6 +132,12 @@ fn get_nearby_players(level: &ServerLevel, pos: BlockPos) -> Vec<EntityId> {
         .players()
         .iter()
         .copied()
-        .filter(|id| level.get_entity(*id).is_some_and(|p| !p.is_spectator() && p.position().closer_than(origin, PLAYER_SEARCH_RADIUS) && p.is_alive()))
+        .filter(|id| {
+            level.get_entity(*id).is_some_and(|p| {
+                !p.is_spectator()
+                    && p.position().closer_than(origin, PLAYER_SEARCH_RADIUS)
+                    && p.is_alive()
+            })
+        })
         .collect()
 }

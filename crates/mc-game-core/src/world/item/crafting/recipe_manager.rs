@@ -20,7 +20,10 @@ use super::inputs::{CraftingInput, RecipeInput};
 use super::recipe::{Recipe, RecipeKind};
 use crate::registry::{RegistryAccess, keys};
 use crate::server::level::ServerLevel;
-use crate::server::reloadable_resources::{ORDER_RECIPE_MANAGER, RELOAD_LISTENERS, ReloadContext, ReloadListener, ReloadListenerRegistration};
+use crate::server::reloadable_resources::{
+    ORDER_RECIPE_MANAGER, RELOAD_LISTENERS, ReloadContext, ReloadListener,
+    ReloadListenerRegistration,
+};
 use crate::world::item::{ItemStack, item_is_enabled};
 
 /// `RecipeHolder<T>`: a recipe with its registry key.
@@ -59,7 +62,10 @@ impl RecipePropertySet {
     /// `RecipePropertySet.create(ingredients)`.
     pub fn create<'a>(ingredients: impl IntoIterator<Item = &'a Ingredient>) -> RecipePropertySet {
         let mut set = RecipePropertySet::default();
-        for item in ingredients.into_iter().flat_map(|i| i.items().iter().copied()) {
+        for item in ingredients
+            .into_iter()
+            .flat_map(|i| i.items().iter().copied())
+        {
             if set.lookup.insert(item) {
                 set.items.push(item);
             }
@@ -105,7 +111,14 @@ impl SingleInputSet {
 
     /// `selectByInput(stack)`.
     pub fn select_by_input(&self, input: &ItemStack) -> SingleInputSet {
-        SingleInputSet { entries: self.entries.iter().filter(|e| e.input.test(input)).cloned().collect() }
+        SingleInputSet {
+            entries: self
+                .entries
+                .iter()
+                .filter(|e| e.input.test(input))
+                .cloned()
+                .collect(),
+        }
     }
 
     pub fn is_empty(&self) -> bool {
@@ -155,22 +168,50 @@ impl RecipeManager {
         let registry = registries.registry_or_throw(keys::RECIPE);
         let mut recipes = Vec::with_capacity(registry.len());
         for entry in registry.entries() {
-            let Some(recipe) = entry.value.as_ref().and_then(|v| v.downcast_ref::<Recipe>()) else { continue };
-            recipes.push(RecipeHolder { id: entry.id.clone(), value: Arc::new(recipe.clone().resolve(registries)) });
+            let Some(recipe) = entry
+                .value
+                .as_ref()
+                .and_then(|v| v.downcast_ref::<Recipe>())
+            else {
+                continue;
+            };
+            recipes.push(RecipeHolder {
+                id: entry.id.clone(),
+                value: Arc::new(recipe.clone().resolve(registries)),
+            });
         }
-        let mut data = RecipeData { registries: registries.clone(), enabled_features: Some(enabled_features), ..RecipeData::default() };
+        let mut data = RecipeData {
+            registries: registries.clone(),
+            enabled_features: Some(enabled_features),
+            ..RecipeData::default()
+        };
         for (index, holder) in recipes.iter().enumerate() {
             data.by_key.insert(holder.id.clone(), index);
-            data.by_type.entry(holder.value.recipe_type()).or_default().push(index);
+            data.by_type
+                .entry(holder.value.recipe_type())
+                .or_default()
+                .push(index);
         }
-        data.learnable_recipes = recipes.iter().filter(|r| !r.value.is_special()).cloned().collect();
+        data.learnable_recipes = recipes
+            .iter()
+            .filter(|r| !r.value.is_special())
+            .cloned()
+            .collect();
         data.recipes = recipes;
         data.finalize_recipe_loading(enabled_features);
-        RecipeManager { data: Arc::new(data) }
+        RecipeManager {
+            data: Arc::new(data),
+        }
     }
 
     /// `getRecipeFor(type, input, level, recipeHint)`: the hint if it is of `ty` and still matches, else the first match.
-    pub fn get_recipe_for<I: RecipeInput>(&self, ty: RecipeType, input: &I, level: &ServerLevel, hint: Option<&Identifier>) -> Option<RecipeHolder> {
+    pub fn get_recipe_for<I: RecipeInput>(
+        &self,
+        ty: RecipeType,
+        input: &I,
+        level: &ServerLevel,
+        hint: Option<&Identifier>,
+    ) -> Option<RecipeHolder> {
         if let Some(hinted) = hint.and_then(|id| self.by_key_typed(ty, id)) {
             if input.matches(&hinted.value, level) {
                 return Some(hinted.clone());
@@ -180,14 +221,25 @@ impl RecipeManager {
     }
 
     /// `RecipeMap.getRecipesFor(type, input, level)`.
-    pub fn recipes_for<'a, I: RecipeInput>(&'a self, ty: RecipeType, input: &'a I, level: &'a ServerLevel) -> impl Iterator<Item = &'a RecipeHolder> {
+    pub fn recipes_for<'a, I: RecipeInput>(
+        &'a self,
+        ty: RecipeType,
+        input: &'a I,
+        level: &'a ServerLevel,
+    ) -> impl Iterator<Item = &'a RecipeHolder> {
         let empty = input.is_empty();
-        self.by_type(ty).filter(move |r| !empty && input.matches(&r.value, level))
+        self.by_type(ty)
+            .filter(move |r| !empty && input.matches(&r.value, level))
     }
 
     /// `byType(type)`: every recipe of `ty` in registry order.
     pub fn by_type(&self, ty: RecipeType) -> impl Iterator<Item = &RecipeHolder> {
-        self.data.by_type.get(&ty).into_iter().flatten().map(|i| &self.data.recipes[*i])
+        self.data
+            .by_type
+            .get(&ty)
+            .into_iter()
+            .flatten()
+            .map(|i| &self.data.recipes[*i])
     }
 
     /// `byKey(recipeId)`.
@@ -211,8 +263,14 @@ impl RecipeManager {
 
     /// `propertySet(id)` (`RecipePropertySet.EMPTY` for an unknown key).
     pub fn property_set(&self, id: &str) -> &RecipePropertySet {
-        static EMPTY: std::sync::LazyLock<RecipePropertySet> = std::sync::LazyLock::new(RecipePropertySet::default);
-        self.data.property_sets.iter().find(|(k, _)| k.to_string() == id).map(|(_, s)| s).unwrap_or(&EMPTY)
+        static EMPTY: std::sync::LazyLock<RecipePropertySet> =
+            std::sync::LazyLock::new(RecipePropertySet::default);
+        self.data
+            .property_sets
+            .iter()
+            .find(|(k, _)| k.to_string() == id)
+            .map(|(_, s)| s)
+            .unwrap_or(&EMPTY)
     }
 
     /// `getSynchronizedItemProperties()`.
@@ -227,11 +285,17 @@ impl RecipeManager {
 
     /// `getRecipeFromDisplay(id)`.
     pub fn get_recipe_from_display(&self, id: RecipeDisplayId) -> Option<&ServerDisplayInfo> {
-        usize::try_from(id.index).ok().and_then(|i| self.data.all_displays.get(i))
+        usize::try_from(id.index)
+            .ok()
+            .and_then(|i| self.data.all_displays.get(i))
     }
 
     /// `listDisplaysForRecipe(id, output)`.
-    pub fn list_displays_for_recipe(&self, id: &Identifier, mut output: impl FnMut(&RecipeDisplayEntry)) {
+    pub fn list_displays_for_recipe(
+        &self,
+        id: &Identifier,
+        mut output: impl FnMut(&RecipeDisplayEntry),
+    ) {
         for index in self.data.recipe_to_display.get(id).into_iter().flatten() {
             output(&self.data.all_displays[*index].display);
         }
@@ -244,37 +308,59 @@ impl RecipeManager {
 
     /// `ItemStack.is(ItemTags.X)` against the tags this manager was built with.
     pub fn item_is_in_tag(&self, stack: &ItemStack, tag: &Identifier) -> bool {
-        self.data.registries.is_in_tag(keys::ITEM, &item_name(stack.item()), tag)
+        self.data
+            .registries
+            .is_in_tag(keys::ITEM, &item_name(stack.item()), tag)
     }
 
     /// `RecipeManager.createCheck(type)`.
     pub fn create_check(ty: RecipeType) -> RecipeCheck {
-        RecipeCheck { ty, last_recipe: None }
+        RecipeCheck {
+            ty,
+            last_recipe: None,
+        }
     }
 }
 
 fn item_name(item: Item) -> Identifier {
-    Identifier::parse(mc_data::registry::by_name("minecraft:item").and_then(|r| r.name_of(item.id())).unwrap_or("minecraft:air")).expect("valid item name")
+    Identifier::parse(
+        mc_data::registry::by_name("minecraft:item")
+            .and_then(|r| r.name_of(item.id()))
+            .unwrap_or("minecraft:air"),
+    )
+    .expect("valid item name")
 }
 
 impl RecipeData {
     fn finalize_recipe_loading(&mut self, enabled: FeatureFlagSet) {
-        let mut collectors: Vec<(&'static str, Vec<&Ingredient>)> = PROPERTY_SETS.iter().map(|k| (*k, Vec::new())).collect();
+        let mut collectors: Vec<(&'static str, Vec<&Ingredient>)> =
+            PROPERTY_SETS.iter().map(|k| (*k, Vec::new())).collect();
         let mut stonecutter = Vec::new();
         for holder in &self.recipes {
             let recipe = &*holder.value;
             if !recipe.is_special() && recipe.placement_info().is_impossible_to_place() {
-                log::warn!("Recipe {} can't be placed due to empty ingredients and will be ignored", holder.id);
+                log::warn!(
+                    "Recipe {} can't be placed due to empty ingredients and will be ignored",
+                    holder.id
+                );
                 continue;
             }
             for (key, ingredients) in &mut collectors {
                 collect_property_ingredients(key, recipe, ingredients);
             }
             if let Some(s) = recipe.as_stonecutter() {
-                if is_ingredient_enabled(enabled, s.input()) && crate::world::item::crafting::display::slot_display_enabled(&s.result_display(), enabled) {
+                if is_ingredient_enabled(enabled, s.input())
+                    && crate::world::item::crafting::display::slot_display_enabled(
+                        &s.result_display(),
+                        enabled,
+                    )
+                {
                     stonecutter.push(SingleInputEntry {
                         input: s.input().clone(),
-                        recipe: SelectableRecipe { option_display: s.result_display(), recipe: Some(holder.clone()) },
+                        recipe: SelectableRecipe {
+                            option_display: s.result_display(),
+                            recipe: Some(holder.clone()),
+                        },
                     });
                 }
             }
@@ -282,14 +368,25 @@ impl RecipeData {
         self.property_sets = collectors
             .into_iter()
             .map(|(key, ingredients)| {
-                let enabled_ingredients: Vec<&Ingredient> = ingredients.into_iter().filter(|i| is_ingredient_enabled(enabled, i)).collect();
-                (Identifier::parse(key).expect("valid property set key"), RecipePropertySet::create(enabled_ingredients))
+                let enabled_ingredients: Vec<&Ingredient> = ingredients
+                    .into_iter()
+                    .filter(|i| is_ingredient_enabled(enabled, i))
+                    .collect();
+                (
+                    Identifier::parse(key).expect("valid property set key"),
+                    RecipePropertySet::create(enabled_ingredients),
+                )
             })
             .collect();
-        self.stonecutter_recipes = SingleInputSet { entries: stonecutter };
+        self.stonecutter_recipes = SingleInputSet {
+            entries: stonecutter,
+        };
         self.all_displays = unpack_recipe_info(&self.recipes, enabled);
         for (index, info) in self.all_displays.iter().enumerate() {
-            self.recipe_to_display.entry(info.parent.id.clone()).or_default().push(index);
+            self.recipe_to_display
+                .entry(info.parent.id.clone())
+                .or_default()
+                .push(index);
         }
     }
 }
@@ -331,7 +428,10 @@ fn collect_property_ingredients<'a>(key: &str, recipe: &'a Recipe, out: &mut Vec
 
 /// `isIngredientEnabled(enabledFlags, ingredient)`.
 fn is_ingredient_enabled(enabled: FeatureFlagSet, ingredient: &Ingredient) -> bool {
-    ingredient.items().iter().all(|i| item_is_enabled(*i, enabled))
+    ingredient
+        .items()
+        .iter()
+        .all(|i| item_is_enabled(*i, enabled))
 }
 
 /// `unpackRecipeInfo(recipes, enabledFeatures)`.
@@ -349,13 +449,33 @@ fn unpack_recipe_info(recipes: &[RecipeHolder], enabled: FeatureFlagSet) -> Vec<
         let placement_check = if recipe.is_special() {
             None
         } else {
-            Some(recipe.placement_info().ingredients().iter().map(|i| mc_protocol::packets::play::inventory::Ingredient { values: i.wire_set() }).collect())
+            Some(
+                recipe
+                    .placement_info()
+                    .ingredients()
+                    .iter()
+                    .map(|i| mc_protocol::packets::play::inventory::Ingredient {
+                        values: i.wire_set(),
+                    })
+                    .collect(),
+            )
         };
         for display in recipe.display() {
             if recipe_display_enabled(&display, enabled) {
-                let id = RecipeDisplayId { index: result.len() as i32 };
-                let entry = RecipeDisplayEntry { id, display, group: group_id, category: recipe.recipe_book_category(), crafting_requirements: placement_check.clone() };
-                result.push(ServerDisplayInfo { display: entry, parent: holder.clone() });
+                let id = RecipeDisplayId {
+                    index: result.len() as i32,
+                };
+                let entry = RecipeDisplayEntry {
+                    id,
+                    display,
+                    group: group_id,
+                    category: recipe.recipe_book_category(),
+                    crafting_requirements: placement_check.clone(),
+                };
+                result.push(ServerDisplayInfo {
+                    display: entry,
+                    parent: holder.clone(),
+                });
             }
         }
     }
@@ -375,7 +495,11 @@ impl RecipeCheck {
     }
 
     /// `getRecipeFor(input, level)`.
-    pub fn get_recipe_for<I: RecipeInput>(&mut self, input: &I, level: &ServerLevel) -> Option<RecipeHolder> {
+    pub fn get_recipe_for<I: RecipeInput>(
+        &mut self,
+        input: &I,
+        level: &ServerLevel,
+    ) -> Option<RecipeHolder> {
         let manager = level.recipe_access();
         let result = manager.get_recipe_for(self.ty, input, level, self.last_recipe.as_ref());
         if let Some(r) = &result {
@@ -402,13 +526,20 @@ impl RecipeCacheEntry {
     fn matches(&self, input: &CraftingInput) -> bool {
         self.width == input.width()
             && self.height == input.height()
-            && self.key.iter().zip(input.items()).all(|(k, i)| ItemStack::is_same_item_same_components(k, i))
+            && self
+                .key
+                .iter()
+                .zip(input.items())
+                .all(|(k, i)| ItemStack::is_same_item_same_components(k, i))
     }
 }
 
 impl RecipeCache {
     pub fn new(capacity: usize) -> RecipeCache {
-        RecipeCache { entries: (0..capacity).map(|_| None).collect(), cached_manager: None }
+        RecipeCache {
+            entries: (0..capacity).map(|_| None).collect(),
+            cached_manager: None,
+        }
     }
 
     /// `get(level, input)`.
@@ -428,14 +559,20 @@ impl RecipeCache {
 
     fn validate_recipe_manager(&mut self, level: &ServerLevel) {
         let manager = level.recipe_access();
-        if !self.cached_manager.as_ref().is_some_and(|m| Arc::ptr_eq(&m.data, &manager.data)) {
+        if !self
+            .cached_manager
+            .as_ref()
+            .is_some_and(|m| Arc::ptr_eq(&m.data, &manager.data))
+        {
             self.cached_manager = Some(manager);
             self.entries.iter_mut().for_each(|e| *e = None);
         }
     }
 
     fn compute(&mut self, input: &CraftingInput, level: &ServerLevel) -> Option<RecipeHolder> {
-        let recipe = level.recipe_access().get_recipe_for(RecipeType::CRAFTING, input, level, None);
+        let recipe = level
+            .recipe_access()
+            .get_recipe_for(RecipeType::CRAFTING, input, level, None);
         self.insert(input, recipe.clone());
         recipe
     }
@@ -452,7 +589,12 @@ impl RecipeCache {
         }
         let key = input.items().iter().map(|i| i.copy_with_count(1)).collect();
         self.entries.rotate_right(1);
-        self.entries[0] = Some(RecipeCacheEntry { key, width: input.width(), height: input.height(), value: recipe });
+        self.entries[0] = Some(RecipeCacheEntry {
+            key,
+            width: input.width(),
+            height: input.height(),
+            value: recipe,
+        });
     }
 }
 
@@ -476,16 +618,29 @@ impl ReloadListener for RecipeManager {
 }
 
 #[linkme::distributed_slice(RELOAD_LISTENERS)]
-static RECIPE_MANAGER: ReloadListenerRegistration = ReloadListenerRegistration { name: "recipe_manager", order: ORDER_RECIPE_MANAGER, create: || Box::new(RecipeManager::empty()) };
+static RECIPE_MANAGER: ReloadListenerRegistration = ReloadListenerRegistration {
+    name: "recipe_manager",
+    order: ORDER_RECIPE_MANAGER,
+    create: || Box::new(RecipeManager::empty()),
+};
 
 /// `new ClientboundUpdateRecipesPacket(manager.getSynchronizedItemProperties(), manager.getSynchronizedStonecutterRecipes())`.
-pub fn update_recipes_packet(manager: &RecipeManager) -> mc_protocol::packets::play::inventory::ClientboundUpdateRecipesPacket {
+pub fn update_recipes_packet(
+    manager: &RecipeManager,
+) -> mc_protocol::packets::play::inventory::ClientboundUpdateRecipesPacket {
     use mc_protocol::packets::play::inventory as wire;
     wire::ClientboundUpdateRecipesPacket {
         item_sets: manager
             .synchronized_item_properties()
             .iter()
-            .map(|(key, set)| (key.clone(), wire::RecipePropertySet { items: set.items().to_vec() }))
+            .map(|(key, set)| {
+                (
+                    key.clone(),
+                    wire::RecipePropertySet {
+                        items: set.items().to_vec(),
+                    },
+                )
+            })
             .collect(),
         stonecutter_recipes: wire::SelectableRecipeSingleInputSet {
             entries: manager
@@ -493,8 +648,12 @@ pub fn update_recipes_packet(manager: &RecipeManager) -> mc_protocol::packets::p
                 .entries
                 .iter()
                 .map(|e| wire::SelectableRecipeSingleInputEntry {
-                    input: wire::Ingredient { values: e.input.wire_set() },
-                    recipe: wire::SelectableRecipe { option_display: e.recipe.option_display.clone() },
+                    input: wire::Ingredient {
+                        values: e.input.wire_set(),
+                    },
+                    recipe: wire::SelectableRecipe {
+                        option_display: e.recipe.option_display.clone(),
+                    },
                 })
                 .collect(),
         },

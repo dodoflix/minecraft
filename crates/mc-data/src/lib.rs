@@ -19,7 +19,7 @@ pub mod misc;
 pub mod props;
 pub mod registry_data;
 pub mod shape;
-pub mod voxel;
 pub mod tags;
+pub mod voxel;
 
 pub use ids::*;

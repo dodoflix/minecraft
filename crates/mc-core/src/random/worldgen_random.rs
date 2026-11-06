@@ -1,7 +1,7 @@
 use super::bit::bit_random_source_methods;
 use super::{
-    create_thread_local_instance, BitRandomSource, LegacyRandomSource, MarsagliaPolarGaussian,
-    PositionalRandomFactory, RandomSource, SingleThreadedRandomSource, XoroshiroRandomSource,
+    BitRandomSource, LegacyRandomSource, MarsagliaPolarGaussian, PositionalRandomFactory,
+    RandomSource, SingleThreadedRandomSource, XoroshiroRandomSource, create_thread_local_instance,
 };
 
 /// `WorldgenRandom` (extends `LegacyRandomSource`: all derived methods go through `next(bits)`,
@@ -14,7 +14,11 @@ pub struct WorldgenRandom {
 
 impl WorldgenRandom {
     pub fn new(random_source: Box<dyn RandomSource>) -> Self {
-        Self { random_source, count: 0, gaussian: MarsagliaPolarGaussian::new() }
+        Self {
+            random_source,
+            count: 0,
+            gaussian: MarsagliaPolarGaussian::new(),
+        }
     }
 
     pub fn count(&self) -> i32 {
@@ -25,13 +29,18 @@ impl WorldgenRandom {
         self.set_seed(seed);
         let x_scale = self.next_long() | 1;
         let z_scale = self.next_long() | 1;
-        let result = (chunk_x as i64).wrapping_mul(x_scale).wrapping_add((chunk_z as i64).wrapping_mul(z_scale)) ^ seed;
+        let result = (chunk_x as i64)
+            .wrapping_mul(x_scale)
+            .wrapping_add((chunk_z as i64).wrapping_mul(z_scale))
+            ^ seed;
         self.set_seed(result);
         result
     }
 
     pub fn set_feature_seed(&mut self, seed: i64, index: i32, step: i32) {
-        let result = seed.wrapping_add(index as i64).wrapping_add(10000i32.wrapping_mul(step) as i64);
+        let result = seed
+            .wrapping_add(index as i64)
+            .wrapping_add(10000i32.wrapping_mul(step) as i64);
         self.set_seed(result);
     }
 
@@ -39,7 +48,8 @@ impl WorldgenRandom {
         self.set_seed(seed);
         let x_scale = self.next_long();
         let z_scale = self.next_long();
-        let result = (chunk_x as i64).wrapping_mul(x_scale) ^ (chunk_z as i64).wrapping_mul(z_scale) ^ seed;
+        let result =
+            (chunk_x as i64).wrapping_mul(x_scale) ^ (chunk_z as i64).wrapping_mul(z_scale) ^ seed;
         self.set_seed(result);
     }
 

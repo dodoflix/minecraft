@@ -18,10 +18,10 @@ use crate::world::entity::spawn_group_data::SpawnGroupData;
 use crate::world::entity::synched_data::SynchedEntityDataBuilder;
 use crate::world::entity::{Entity, EntityId, equipment::EquipmentSlot};
 use crate::world::item::ItemStack;
+use crate::world::level::pathfinder::Path;
 use crate::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
-use crate::world::level::pathfinder::Path;
 use mc_core::random::RandomSource;
 use mc_data::enums::EntitySpawnReason;
 use mc_data::{Attribute, EntityType};
@@ -145,7 +145,10 @@ pub fn can_be_leader(e: &dyn Entity) -> bool {
     e.can_be_leader()
 }
 
-pub use patrolling_monster::{find_patrol_target, get_patrol_target, has_patrol_target, is_patrol_leader, is_patrolling, set_patrol_leader, set_patrol_target, set_patrolling};
+pub use patrolling_monster::{
+    find_patrol_target, get_patrol_target, has_patrol_target, is_patrol_leader, is_patrolling,
+    set_patrol_leader, set_patrol_target, set_patrolling,
+};
 
 pub fn can_join_raid(e: &dyn Entity) -> bool {
     data(e).can_join_raid
@@ -192,7 +195,8 @@ pub fn set_celebrating(e: &mut dyn Entity, celebrating: bool) {
 /// `isCaptain()`.
 pub fn is_captain(e: &dyn Entity, registries: &crate::registry::RegistryAccess) -> bool {
     let banner = e.get_item_by_slot(EquipmentSlot::Head);
-    let has_captain_banner = !banner.is_empty() && ItemStack::matches(&banner, &Raid::get_ominous_banner_instance(registries));
+    let has_captain_banner = !banner.is_empty()
+        && ItemStack::matches(&banner, &Raid::get_ominous_banner_instance(registries));
     has_captain_banner && is_patrol_leader(e)
 }
 
@@ -203,7 +207,9 @@ pub fn has_raid(e: &dyn Entity, level: &ServerLevel) -> bool {
 
 /// `hasActiveRaid()`.
 pub fn has_active_raid(e: &dyn Entity, level: &ServerLevel) -> bool {
-    get_current_raid(e).and_then(|id| level.get_raid(id)).is_some_and(|r| r.is_active())
+    get_current_raid(e)
+        .and_then(|id| level.get_raid(id))
+        .is_some_and(|r| r.is_active())
 }
 
 /// `RaiderPredicate`: `(hasRaid(), isCaptain())` of a raider, `None` for other entities.
@@ -222,7 +228,9 @@ pub fn ai_step(e: &mut dyn Entity, level: &mut ServerLevel) {
         if can_join_raid(e) {
             if current_raid.is_none() {
                 if level.game_time() % 20 == 0 {
-                    let nearby = level.get_raids().and_then(|r| r.get_nearby_raid(e.block_position(), super::raid::VALID_RAID_RADIUS_SQR));
+                    let nearby = level.get_raids().and_then(|r| {
+                        r.get_nearby_raid(e.block_position(), super::raid::VALID_RAID_RADIUS_SQR)
+                    });
                     if let Some(raid_id) = nearby
                         && raids::can_join_raid(e)
                     {
@@ -234,7 +242,9 @@ pub fn ai_step(e: &mut dyn Entity, level: &mut ServerLevel) {
                 }
             } else {
                 let target = mob::tick::get_target_checked(e, level);
-                if target.and_then(|t| level.get_entity(t)).is_some_and(|t| t.get_type() == EntityType::PLAYER || t.get_type() == EntityType::IRON_GOLEM) {
+                if target.and_then(|t| level.get_entity(t)).is_some_and(|t| {
+                    t.get_type() == EntityType::PLAYER || t.get_type() == EntityType::IRON_GOLEM
+                }) {
                     e.living_mut().expect("living").no_action_time = 0;
                 }
             }
@@ -254,8 +264,15 @@ pub fn die(e: &mut dyn Entity, level: &mut ServerLevel, source: &DamageSource) {
     if let Some(raid_id) = get_current_raid(e) {
         let wave = get_wave(e);
         let leader = is_patrol_leader(e);
-        let killer_player = source.causing_info().filter(|k| k.is_player).map(|k| k.uuid);
-        let token = RaiderToken { id: e.id(), wave, health: e.get_health() };
+        let killer_player = source
+            .causing_info()
+            .filter(|k| k.is_player)
+            .map(|k| k.uuid);
+        let token = RaiderToken {
+            id: e.id(),
+            wave,
+            health: e.get_health(),
+        };
         level.with_raid(raid_id, |level, raid| {
             if leader {
                 raid.remove_leader(wave);
@@ -270,7 +287,12 @@ pub fn die(e: &mut dyn Entity, level: &mut ServerLevel, source: &DamageSource) {
 }
 
 /// `Raider.hurtServer(level, source, damage)`.
-pub fn hurt_server(e: &mut dyn Entity, level: &mut ServerLevel, source: &DamageSource, damage: f32) -> bool {
+pub fn hurt_server(
+    e: &mut dyn Entity,
+    level: &mut ServerLevel,
+    source: &DamageSource,
+    damage: f32,
+) -> bool {
     if has_active_raid(e, level) {
         let raid_id = get_current_raid(e).expect("active raid");
         level.with_raid(raid_id, |level, raid| raid.update_bossbar(level, Some(&*e)));
@@ -280,7 +302,11 @@ pub fn hurt_server(e: &mut dyn Entity, level: &mut ServerLevel, source: &DamageS
 
 /// `Raider.removeWhenFarAway(distSqr)`.
 pub fn remove_when_far_away(e: &dyn Entity, dist_sqr: f64) -> bool {
-    if get_current_raid(e).is_none() { patrolling_monster::remove_when_far_away(e, dist_sqr) } else { false }
+    if get_current_raid(e).is_none() {
+        patrolling_monster::remove_when_far_away(e, dist_sqr)
+    } else {
+        false
+    }
 }
 
 /// `Raider.requiresCustomPersistence()`.
@@ -289,7 +315,13 @@ pub fn requires_custom_persistence(e: &dyn Entity) -> bool {
 }
 
 /// `Raider.finalizeSpawn(level, difficulty, reason, groupData)`.
-pub fn finalize_spawn(e: &mut dyn Entity, level: &mut dyn ServerLevelAccessor, difficulty: DifficultyInstance, reason: EntitySpawnReason, group_data: Option<Box<dyn SpawnGroupData>>) -> Option<Box<dyn SpawnGroupData>> {
+pub fn finalize_spawn(
+    e: &mut dyn Entity,
+    level: &mut dyn ServerLevelAccessor,
+    difficulty: DifficultyInstance,
+    reason: EntitySpawnReason,
+    group_data: Option<Box<dyn SpawnGroupData>>,
+) -> Option<Box<dyn SpawnGroupData>> {
     let can_join = e.get_type() != EntityType::WITCH || reason != EntitySpawnReason::Natural;
     set_can_join_raid(e, can_join);
     patrolling_monster::finalize_spawn(e, level, difficulty, reason, group_data)
@@ -320,7 +352,9 @@ pub fn read_additional_save_data(e: &mut dyn Entity, input: &CompoundTag) {
 /// The level-dependent half of `readAdditionalSaveData`: `raid = level.getRaids().get(raidId); if (raid != null) {
 /// raid.addWaveMob(level, wave, this, false); if (isPatrolLeader()) raid.setLeader(wave, this); }`.
 pub fn resolve_pending_raid(e: &mut dyn Entity, level: &mut ServerLevel) {
-    let Some(raid_id) = data_mut(e).pending_raid_id.take() else { return };
+    let Some(raid_id) = data_mut(e).pending_raid_id.take() else {
+        return;
+    };
     if !level.get_raids_mut().contains(raid_id) {
         return;
     }
@@ -337,12 +371,27 @@ pub fn resolve_pending_raid(e: &mut dyn Entity, level: &mut ServerLevel) {
 
 /// `Raider.pickUpItem(level, entity)`.
 pub fn pick_up_item(e: &mut dyn Entity, level: &mut ServerLevel, item_id: EntityId) {
-    let Some(item_stack) = level.get_entity(item_id).and_then(|x| x.as_any().downcast_ref::<ItemEntity>()).map(|x| x.get_item()) else { return };
+    let Some(item_stack) = level
+        .get_entity(item_id)
+        .and_then(|x| x.as_any().downcast_ref::<ItemEntity>())
+        .map(|x| x.get_item())
+    else {
+        return;
+    };
     let raid_id = get_current_raid(e);
     let has_active = has_active_raid(e, level);
     let wave = get_wave(e);
-    let has_raid_leader = has_active && raid_id.and_then(|id| level.get_raid(id)).is_some_and(|r| r.get_leader(wave).is_some());
-    if has_active && !has_raid_leader && ItemStack::matches(&item_stack, &Raid::get_ominous_banner_instance(&level.registries)) {
+    let has_raid_leader = has_active
+        && raid_id
+            .and_then(|id| level.get_raid(id))
+            .is_some_and(|r| r.get_leader(wave).is_some());
+    if has_active
+        && !has_raid_leader
+        && ItemStack::matches(
+            &item_stack,
+            &Raid::get_ominous_banner_instance(&level.registries),
+        )
+    {
         let slot = EquipmentSlot::Head;
         let current = e.get_item_by_slot(slot);
         let drop_chance = e.mob().expect("mob").drop_chances.by_equipment(slot);
@@ -351,12 +400,21 @@ pub fn pick_up_item(e: &mut dyn Entity, level: &mut ServerLevel, item_id: Entity
         }
         // `onItemPickup(entity)` is empty for mobs; `take(entity, count)`
         if !level.get_entity(item_id).is_some_and(|x| x.is_removed()) {
-            let packet = ClientboundTakeItemEntityPacket { item_id, player_id: e.id(), amount: item_stack.count() };
-            level.entity_tracker.send_to_tracking_players(item_id, &crate::server::level::server_entity::encode_payload(&packet));
+            let packet = ClientboundTakeItemEntityPacket {
+                item_id,
+                player_id: e.id(),
+                amount: item_stack.count(),
+            };
+            level.entity_tracker.send_to_tracking_players(
+                item_id,
+                &crate::server::level::server_entity::encode_payload(&packet),
+            );
         }
         mob::equipment::set_item_slot(e, level, slot, item_stack.clone());
         level.with_entity(item_id, |_, item| item.discard());
-        level.with_raid(raid_id.expect("active raid"), |level, raid| raid.set_leader(level, wave, e));
+        level.with_raid(raid_id.expect("active raid"), |level, raid| {
+            raid.set_leader(level, wave, e)
+        });
         set_patrol_leader(e, true);
     } else {
         mob::equipment::pick_up_item(e, level, item_id);
@@ -367,11 +425,18 @@ pub fn pick_up_item(e: &mut dyn Entity, level: &mut ServerLevel, item_id: Entity
 ///
 /// `Raider.registerGoals()` (after `PatrollingMonster.registerGoals()`): the goals every raider has, in vanilla's order.
 pub fn register_goals(mob: &mut MobData) {
-    mob.goal_selector.add_goal(4, Box::new(LongDistancePatrolGoal::new(0.7, 0.595)));
-    mob.goal_selector.add_goal(1, Box::new(ObtainRaidLeaderBannerGoal::new()));
-    mob.goal_selector.add_goal(3, Box::new(crate::world::entity::ai::goal::PathfindToRaidGoal::new()));
-    mob.goal_selector.add_goal(4, Box::new(RaiderMoveThroughVillageGoal::new(1.05, 1)));
-    mob.goal_selector.add_goal(5, Box::new(RaiderCelebration::new()));
+    mob.goal_selector
+        .add_goal(4, Box::new(LongDistancePatrolGoal::new(0.7, 0.595)));
+    mob.goal_selector
+        .add_goal(1, Box::new(ObtainRaidLeaderBannerGoal::new()));
+    mob.goal_selector.add_goal(
+        3,
+        Box::new(crate::world::entity::ai::goal::PathfindToRaidGoal::new()),
+    );
+    mob.goal_selector
+        .add_goal(4, Box::new(RaiderMoveThroughVillageGoal::new(1.05, 1)));
+    mob.goal_selector
+        .add_goal(5, Box::new(RaiderCelebration::new()));
 }
 
 fn banner_matches(registries: &crate::registry::RegistryAccess, stack: &ItemStack) -> bool {
@@ -388,20 +453,37 @@ impl HoldGroundAttackGoal {
     pub fn new(hostile_radius: f32) -> Self {
         HoldGroundAttackGoal {
             hostile_radius_sqr: hostile_radius * hostile_radius,
-            shout_targeting: TargetingConditions::for_non_combat().range(8.0).ignore_line_of_sight().ignore_invisibility_testing(),
+            shout_targeting: TargetingConditions::for_non_combat()
+                .range(8.0)
+                .ignore_line_of_sight()
+                .ignore_invisibility_testing(),
         }
     }
 
     fn nearby_raiders(&self, mob: &dyn Entity, level: &ServerLevel) -> Vec<EntityId> {
         let bb = mob.get_bounding_box().inflate(8.0, 8.0, 8.0);
-        mob::ext::get_nearby_entities(level, |e| e.raider().is_some(), &self.shout_targeting, mob, &bb)
+        mob::ext::get_nearby_entities(
+            level,
+            |e| e.raider().is_some(),
+            &self.shout_targeting,
+            mob,
+            &bb,
+        )
     }
 }
 
 impl Goal for HoldGroundAttackGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        let last_hurt_by_mob_is_player = mob.living().and_then(|l| l.last_hurt_by_mob).and_then(|u| level.get_entity_by_uuid(u)).is_some_and(|e| e.get_type() == EntityType::PLAYER);
-        get_current_raid(mob).is_none() && is_patrolling(mob) && mob::tick::get_target_checked(mob, level).is_some() && !mob.mob().expect("mob").is_aggressive() && !last_hurt_by_mob_is_player
+        let last_hurt_by_mob_is_player = mob
+            .living()
+            .and_then(|l| l.last_hurt_by_mob)
+            .and_then(|u| level.get_entity_by_uuid(u))
+            .is_some_and(|e| e.get_type() == EntityType::PLAYER);
+        get_current_raid(mob).is_none()
+            && is_patrolling(mob)
+            && mob::tick::get_target_checked(mob, level).is_some()
+            && !mob.mob().expect("mob").is_aggressive()
+            && !last_hurt_by_mob_is_player
     }
 
     fn start(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
@@ -431,7 +513,9 @@ impl Goal for HoldGroundAttackGoal {
 
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         if let Some(target) = mob::tick::get_target_checked(mob, level) {
-            let dist_sqr = level.get_entity(target).map(|t| mob.base().distance_to_sqr_vec(t.position()));
+            let dist_sqr = level
+                .get_entity(target)
+                .map(|t| mob.base().distance_to_sqr_vec(t.position()));
             if let Some(dist_sqr) = dist_sqr
                 && dist_sqr > f64::from(self.hostile_radius_sqr)
             {
@@ -461,22 +545,33 @@ pub struct ObtainRaidLeaderBannerGoal {
 
 impl ObtainRaidLeaderBannerGoal {
     pub fn new() -> Self {
-        ObtainRaidLeaderBannerGoal { unreachable_banner_cache: HashMap::new(), path_to_banner: None, pursued_banner_item_entity: None }
+        ObtainRaidLeaderBannerGoal {
+            unreachable_banner_cache: HashMap::new(),
+            path_to_banner: None,
+            pursued_banner_item_entity: None,
+        }
     }
 
     fn cannot_pick_up_banner(&self, mob: &dyn Entity, level: &ServerLevel) -> bool {
         if !has_active_raid(mob, level) {
             return true;
         }
-        let raid = get_current_raid(mob).and_then(|id| level.get_raid(id)).expect("active raid");
+        let raid = get_current_raid(mob)
+            .and_then(|id| level.get_raid(id))
+            .expect("active raid");
         if raid.is_over() {
             true
         } else if !mob.can_be_leader() {
             true
-        } else if banner_matches(&level.registries, &mob.get_item_by_slot(EquipmentSlot::Head)) {
+        } else if banner_matches(
+            &level.registries,
+            &mob.get_item_by_slot(EquipmentSlot::Head),
+        ) {
             true
         } else {
-            let leader = raid.get_leader(get_wave(mob)).and_then(|id| level.get_entity(id));
+            let leader = raid
+                .get_leader(get_wave(mob))
+                .and_then(|id| level.get_entity(id));
             leader.is_some_and(|l| l.is_alive())
         }
     }
@@ -495,20 +590,33 @@ impl Goal for ObtainRaidLeaderBannerGoal {
         }
         let mut temp_cache: HashMap<EntityId, i64> = HashMap::new();
         let follow_range = mob::attribute_value(mob, Attribute::FOLLOW_RANGE);
-        let bb = mob.get_bounding_box().inflate(follow_range, 8.0, follow_range);
+        let bb = mob
+            .get_bounding_box()
+            .inflate(follow_range, 8.0, follow_range);
         let banner = Raid::get_ominous_banner_instance(&level.registries);
         let banners = level.get_entities_of_class(
             &bb,
             |e| e.get_type() == EntityType::ITEM,
-            |e| e.as_any().downcast_ref::<ItemEntity>().is_some_and(|i| !i.has_pick_up_delay() && e.is_alive() && ItemStack::matches(&i.get_item(), &banner)),
+            |e| {
+                e.as_any().downcast_ref::<ItemEntity>().is_some_and(|i| {
+                    !i.has_pick_up_delay()
+                        && e.is_alive()
+                        && ItemStack::matches(&i.get_item(), &banner)
+                })
+            },
         );
         for banner_id in banners {
-            let unreachable_until_time = self.unreachable_banner_cache.get(&banner_id).copied().unwrap_or(i64::MIN);
+            let unreachable_until_time = self
+                .unreachable_banner_cache
+                .get(&banner_id)
+                .copied()
+                .unwrap_or(i64::MIN);
             if level.game_time() < unreachable_until_time {
                 temp_cache.insert(banner_id, unreachable_until_time);
             } else {
                 let target_pos = level.get_entity(banner_id).map(|b| b.block_position());
-                let path = target_pos.and_then(|p| navigation::create_path_entity(mob, level, p, 1));
+                let path =
+                    target_pos.and_then(|p| navigation::create_path_entity(mob, level, p, 1));
                 if let Some(path) = path.filter(|p| p.can_reach()) {
                     self.path_to_banner = Some(path);
                     self.pursued_banner_item_entity = Some(banner_id);
@@ -522,7 +630,9 @@ impl Goal for ObtainRaidLeaderBannerGoal {
     }
 
     fn can_continue_to_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        let Some(pursued) = self.pursued_banner_item_entity else { return false };
+        let Some(pursued) = self.pursued_banner_item_entity else {
+            return false;
+        };
         if self.path_to_banner.as_ref().is_none_or(|p| p.is_done()) {
             false
         } else if level.get_entity(pursued).is_none_or(|b| b.is_removed()) {
@@ -543,7 +653,9 @@ impl Goal for ObtainRaidLeaderBannerGoal {
 
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         if let Some(pursued) = self.pursued_banner_item_entity
-            && level.get_entity(pursued).is_some_and(|b| b.base().distance_to_sqr_vec(mob.position()) < 1.414 * 1.414)
+            && level
+                .get_entity(pursued)
+                .is_some_and(|b| b.base().distance_to_sqr_vec(mob.position()) < 1.414 * 1.414)
         {
             mob.pick_up_item(level, pursued);
         }
@@ -572,7 +684,9 @@ impl Default for RaiderCelebration {
 impl Goal for RaiderCelebration {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         let current_raid = get_current_raid(mob).and_then(|id| level.get_raid(id));
-        mob.is_alive() && mob::tick::get_target_checked(mob, level).is_none() && current_raid.is_some_and(|r| r.is_loss())
+        mob.is_alive()
+            && mob::tick::get_target_checked(mob, level).is_none()
+            && current_raid.is_some_and(|r| r.is_loss())
     }
 
     fn start(&mut self, mob: &mut dyn Entity, _level: &mut ServerLevel) {
@@ -612,18 +726,33 @@ pub struct RaiderMoveThroughVillageGoal {
 
 impl RaiderMoveThroughVillageGoal {
     pub fn new(speed_modifier: f64, distance_to_poi: i32) -> Self {
-        RaiderMoveThroughVillageGoal { speed_modifier, poi_pos: None, visited: Vec::new(), distance_to_poi, stuck: false }
+        RaiderMoveThroughVillageGoal {
+            speed_modifier,
+            poi_pos: None,
+            visited: Vec::new(),
+            distance_to_poi,
+            stuck: false,
+        }
     }
 
     fn is_valid_raid(mob: &dyn Entity, level: &ServerLevel) -> bool {
-        has_active_raid(mob, level) && !get_current_raid(mob).and_then(|id| level.get_raid(id)).is_some_and(|r| r.is_over())
+        has_active_raid(mob, level)
+            && !get_current_raid(mob)
+                .and_then(|id| level.get_raid(id))
+                .is_some_and(|r| r.is_over())
     }
 
     fn has_suitable_poi(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         let pos = mob.block_position();
         let visited = self.visited.clone();
         let has_not_visited = move |p: BlockPos| !visited.contains(&p);
-        let home_pos = super::raid_world::random_home_poi(level, &has_not_visited, pos, 48, &mut mob.base_mut().random);
+        let home_pos = super::raid_world::random_home_poi(
+            level,
+            &has_not_visited,
+            pos,
+            48,
+            &mut mob.base_mut().random,
+        );
         match home_pos {
             None => false,
             Some(p) => {
@@ -643,7 +772,9 @@ impl RaiderMoveThroughVillageGoal {
 impl Goal for RaiderMoveThroughVillageGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         self.update_visited();
-        Self::is_valid_raid(mob, level) && self.has_suitable_poi(mob, level) && mob::tick::get_target_checked(mob, level).is_none()
+        Self::is_valid_raid(mob, level)
+            && self.has_suitable_poi(mob, level)
+            && mob::tick::get_target_checked(mob, level).is_none()
     }
 
     fn can_continue_to_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
@@ -651,7 +782,12 @@ impl Goal for RaiderMoveThroughVillageGoal {
             false
         } else {
             let poi = self.poi_pos.expect("started with a poi");
-            mob::tick::get_target_checked(mob, level).is_none() && !poi.closer_to_center_than(&mob.position(), f64::from(mob.base().get_bb_width()) + f64::from(self.distance_to_poi)) && !self.stuck
+            mob::tick::get_target_checked(mob, level).is_none()
+                && !poi.closer_to_center_than(
+                    &mob.position(),
+                    f64::from(mob.base().get_bb_width()) + f64::from(self.distance_to_poi),
+                )
+                && !self.stuck
         }
     }
 
@@ -665,7 +801,14 @@ impl Goal for RaiderMoveThroughVillageGoal {
     fn start(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         mob.living_mut().expect("living").no_action_time = 0;
         let poi = self.poi_pos.expect("started with a poi");
-        navigation::move_to(mob, level, f64::from(poi.x()), f64::from(poi.y()), f64::from(poi.z()), self.speed_modifier);
+        navigation::move_to(
+            mob,
+            level,
+            f64::from(poi.x()),
+            f64::from(poi.y()),
+            f64::from(poi.z()),
+            self.speed_modifier,
+        );
         self.stuck = false;
     }
 
@@ -673,15 +816,36 @@ impl Goal for RaiderMoveThroughVillageGoal {
         if navigation::is_done(mob, level) {
             let poi = self.poi_pos.expect("started with a poi");
             let poi_vec = Vec3::at_bottom_center_of(&poi);
-            let mut next_pos = default_random_pos::get_pos_towards(mob, level, 16, 7, poi_vec, f64::from(std::f32::consts::PI / 10.0));
+            let mut next_pos = default_random_pos::get_pos_towards(
+                mob,
+                level,
+                16,
+                7,
+                poi_vec,
+                f64::from(std::f32::consts::PI / 10.0),
+            );
             if next_pos.is_none() {
-                next_pos = default_random_pos::get_pos_towards(mob, level, 8, 7, poi_vec, f64::from(std::f32::consts::PI / 2.0));
+                next_pos = default_random_pos::get_pos_towards(
+                    mob,
+                    level,
+                    8,
+                    7,
+                    poi_vec,
+                    f64::from(std::f32::consts::PI / 2.0),
+                );
             }
             let Some(next_pos) = next_pos else {
                 self.stuck = true;
                 return;
             };
-            navigation::move_to(mob, level, next_pos.x, next_pos.y, next_pos.z, self.speed_modifier);
+            navigation::move_to(
+                mob,
+                level,
+                next_pos.x,
+                next_pos.y,
+                next_pos.z,
+                self.speed_modifier,
+            );
         }
     }
 

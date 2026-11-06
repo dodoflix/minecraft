@@ -2,8 +2,8 @@
 //! (`fixtures/dynamic/DynamicGolden.java`, regenerate with `fixtures/dynamic/gen.sh`). Results include compound iteration order.
 
 use mc_core::math::java::{java_double_to_string, java_float_to_string};
-use mc_dfu::{DataResult, Dyn, Dynamic, JNum, Ops, JSON, NBT};
-use std::panic::{catch_unwind, AssertUnwindSafe};
+use mc_dfu::{DataResult, Dyn, Dynamic, JNum, JSON, NBT, Ops};
+use std::panic::{AssertUnwindSafe, catch_unwind};
 
 const GOLDEN: &str = include_str!("../fixtures/dynamic/golden.txt");
 
@@ -19,7 +19,12 @@ fn dump(d: &Dyn) -> String {
         Dyn::Double(v) => format!("{}d", java_double_to_string(*v)),
         Dyn::Str(s) => format!("\"{}\"", s.replace('\\', "\\\\").replace('"', "\\\"")),
         Dyn::List(l) => format!("[{}]", arr(&mut l.iter().map(dump))),
-        Dyn::Map(m) => format!("{{{}}}", arr(&mut m.iter().map(|(k, v)| format!("{}:{}", k.as_str().unwrap(), dump(v))))),
+        Dyn::Map(m) => format!(
+            "{{{}}}",
+            arr(&mut m
+                .iter()
+                .map(|(k, v)| format!("{}:{}", k.as_str().unwrap(), dump(v))))
+        ),
         Dyn::Bytes(v) => format!("[B;{}]", arr(&mut v.iter().map(|x| x.to_string()))),
         Dyn::Ints(v) => format!("[I;{}]", arr(&mut v.iter().map(|x| x.to_string()))),
         Dyn::Longs(v) => format!("[L;{}]", arr(&mut v.iter().map(|x| x.to_string()))),
@@ -28,7 +33,11 @@ fn dump(d: &Dyn) -> String {
 }
 
 fn dump_val(ops: &Ops, d: &Dyn) -> String {
-    if ops.is_nbt() { dump(d) } else { d.to_json_string() }
+    if ops.is_nbt() {
+        dump(d)
+    } else {
+        d.to_json_string()
+    }
 }
 
 fn dyn_(d: &Dynamic) -> String {
@@ -59,15 +68,31 @@ fn list(c: &[Dynamic]) -> String {
 }
 
 fn pairs(c: &[(Dynamic, Dynamic)]) -> String {
-    format!("{{{}}}", c.iter().map(|(k, v)| format!("{}={}", dyn_(k), dyn_(v))).collect::<Vec<_>>().join(";"))
+    format!(
+        "{{{}}}",
+        c.iter()
+            .map(|(k, v)| format!("{}={}", dyn_(k), dyn_(v)))
+            .collect::<Vec<_>>()
+            .join(";")
+    )
 }
 
 fn arr<T: ToString>(v: &[T]) -> String {
-    format!("[{}]", v.iter().map(|x| x.to_string()).collect::<Vec<_>>().join(", "))
+    format!(
+        "[{}]",
+        v.iter()
+            .map(|x| x.to_string())
+            .collect::<Vec<_>>()
+            .join(", ")
+    )
 }
 
 fn parse(ops: &Ops, s: &str) -> Dyn {
-    if ops.is_nbt() { Dyn::from(&mc_nbt::snbt::parse(s).unwrap()) } else { Dyn::from_json_str(s).unwrap() }
+    if ops.is_nbt() {
+        Dyn::from(&mc_nbt::snbt::parse(s).unwrap())
+    } else {
+        Dyn::from_json_str(s).unwrap()
+    }
 }
 
 fn mk(ops: &Ops, s: &str) -> Dynamic {
@@ -98,19 +123,40 @@ fn exec(op: &str, d: &Dynamic, a: &[&str]) -> String {
         "as_int_stream_plain" => format!("OK:{}", arr(&d.as_int_stream())),
         "as_long_stream_plain" => format!("OK:{}", arr(&d.as_long_stream())),
         "as_list_dump" => format!("OK:[{}]", d.as_list(|x| dyn_(&x)).join(", ")),
-        "as_map_dump" => format!("OK:{{{}}}", d.as_map(|x| dyn_(&x), |x| dyn_(&x)).iter().map(|(k, v)| format!("{k}={v}")).collect::<Vec<_>>().join(", ")),
-        "as_number_or" => format!("OK:{}", num(&d.as_number_or(JNum::Int(a[0].parse().unwrap())))),
+        "as_map_dump" => format!(
+            "OK:{{{}}}",
+            d.as_map(|x| dyn_(&x), |x| dyn_(&x))
+                .iter()
+                .map(|(k, v)| format!("{k}={v}"))
+                .collect::<Vec<_>>()
+                .join(", ")
+        ),
+        "as_number_or" => format!(
+            "OK:{}",
+            num(&d.as_number_or(JNum::Int(a[0].parse().unwrap())))
+        ),
         "as_int_or" => format!("OK:{}", d.as_int_or(a[0].parse().unwrap())),
         "as_long_or" => format!("OK:{}", d.as_long_or(a[0].parse().unwrap())),
-        "as_float_or" => format!("OK:{}", java_float_to_string(d.as_float_or(a[0].parse().unwrap()))),
-        "as_double_or" => format!("OK:{}", java_double_to_string(d.as_double_or(a[0].parse().unwrap()))),
+        "as_float_or" => format!(
+            "OK:{}",
+            java_float_to_string(d.as_float_or(a[0].parse().unwrap()))
+        ),
+        "as_double_or" => format!(
+            "OK:{}",
+            java_double_to_string(d.as_double_or(a[0].parse().unwrap()))
+        ),
         "as_byte_or" => format!("OK:{}", d.as_byte_or(a[0].parse().unwrap())),
         "as_short_or" => format!("OK:{}", d.as_short_or(a[0].parse().unwrap())),
         "as_boolean_or" => format!("OK:{}", d.as_boolean_or(a[0].parse().unwrap())),
         "as_string_or" => format!("OK:{}", d.as_string_or(a[0])),
         "get_element" => res(d.get_element(a[0]), |v| dump_val(&ops, v)),
-        "get_generic" => res(d.get_generic(&ops.create_string(a[0])), |v| dump_val(&ops, v)),
-        "get_element_or" => format!("OK:{}", dump_val(&ops, &d.get_element_or(a[0], ops.create_int(-1)))),
+        "get_generic" => res(d.get_generic(&ops.create_string(a[0])), |v| {
+            dump_val(&ops, v)
+        }),
+        "get_element_or" => format!(
+            "OK:{}",
+            dump_val(&ops, &d.get_element_or(a[0], ops.create_int(-1)))
+        ),
         "opt_as_string" => res(d.get(a[0]).as_string(), |s| s.clone()),
         "opt_as_string_or" => format!("OK:{}", d.get(a[0]).as_string_or(a[1])),
         "opt_as_int_or" => format!("OK:{}", d.get(a[0]).as_int_or(a[1].parse().unwrap())),
@@ -125,13 +171,23 @@ fn exec(op: &str, d: &Dynamic, a: &[&str]) -> String {
         "rename" => format!("OK:{}", dyn_(&d.rename_field(a[0], a[1]))),
         "rename_fix" => format!("OK:{}", dyn_(&d.rename_and_fix_field(a[0], a[1], plus_one))),
         "update" => format!("OK:{}", dyn_(&d.update(a[0], plus_one))),
-        "update_generic" => format!("OK:{}", dyn_(&d.update_generic(&ops.create_string(a[0]), |_| ops.create_string("g")))),
+        "update_generic" => format!(
+            "OK:{}",
+            dyn_(&d.update_generic(&ops.create_string(a[0]), |_| ops.create_string("g")))
+        ),
         "replace" => format!("OK:{}", dyn_(&d.replace_field(a[0], a[1], opt_arg(a[2])))),
         "set_if_present" => format!("OK:{}", dyn_(&d.set_field_if_present(a[0], opt_arg(a[1])))),
         "copy_field" => format!("OK:{}", dyn_(&Dynamic::copy_field(d, a[0], d, a[1]))),
-        "copy_fix_field" => format!("OK:{}", dyn_(&Dynamic::copy_and_fix_field(d, a[0], d, a[1], |x| x.create_string("c")))),
+        "copy_fix_field" => format!(
+            "OK:{}",
+            dyn_(&Dynamic::copy_and_fix_field(d, a[0], d, a[1], |x| x.create_string("c")))
+        ),
         "merge" => res(d.merge(&mk(&ops, a[0])).into_data_result(), dyn_),
-        "merge_entry" => res(d.merge_entry(&d.create_string(a[0]), &mk(&ops, a[1])).into_data_result(), dyn_),
+        "merge_entry" => res(
+            d.merge_entry(&d.create_string(a[0]), &mk(&ops, a[1]))
+                .into_data_result(),
+            dyn_,
+        ),
         "get_map_values" => res(d.get_map_values(), |m| pairs(m)),
         "update_map_values" => {
             let mode: i32 = a[0].parse().unwrap();
@@ -160,7 +216,10 @@ fn exec(op: &str, d: &Dynamic, a: &[&str]) -> String {
             }
             e => format!("ERR:{}", e.error_message().unwrap()),
         },
-        "create_list" => format!("OK:{}", dyn_(&d.create_list([d.create_int(1), d.create_string("x"), d.empty_map()]))),
+        "create_list" => format!(
+            "OK:{}",
+            dyn_(&d.create_list([d.create_int(1), d.create_string("x"), d.empty_map()]))
+        ),
         "create_misc" => {
             let parts = [
                 d.create_byte(1),
@@ -178,14 +237,25 @@ fn exec(op: &str, d: &Dynamic, a: &[&str]) -> String {
                 d.create_int_list([3, 4]),
                 d.create_long_list([5, 6]),
             ];
-            format!("OK:{}", parts.iter().map(dyn_).collect::<Vec<_>>().join("|"))
+            format!(
+                "OK:{}",
+                parts.iter().map(dyn_).collect::<Vec<_>>().join("|")
+            )
         }
-        "convert" => format!("OK:{}", dyn_(&d.convert(&if a[0] == "nbt" { NBT } else { JSON }))),
+        "convert" => format!(
+            "OK:{}",
+            dyn_(&d.convert(&if a[0] == "nbt" { NBT } else { JSON }))
+        ),
         "to_string" => format!("OK:{}", d.to_string().replace('\n', "\\n")),
         "hash" => format!("OK:{}", d.hash_code().wrapping_sub(1)),
         "eq" => format!("OK:{}", *d == mk(&ops, a[0])),
         "chain" => {
-            let r = d.set(a[0], d.create_int(1)).remove(a[1]).set(a[2], d.create_int(2)).remove(a[3]).rename_field(a[4], a[5]);
+            let r = d
+                .set(a[0], d.create_int(1))
+                .remove(a[1])
+                .set(a[2], d.create_int(2))
+                .remove(a[3])
+                .rename_field(a[4], a[5]);
             format!("OK:{}", dyn_(&r))
         }
         _ => panic!("unknown op {op}"),
@@ -209,11 +279,18 @@ fn dynamic_api_matches_java() {
             Err(_) => "THROW".to_string(),
         };
         if got != want {
-            bad.push(format!("{op} {kind} {input} {args:?}\n   java: {want}\n   rust: {got}"));
+            bad.push(format!(
+                "{op} {kind} {input} {args:?}\n   java: {want}\n   rust: {got}"
+            ));
         }
         n += 1;
     }
     let _ = std::panic::take_hook();
     assert!(n > 10000, "{n} cases");
-    assert!(bad.is_empty(), "{} of {n} cases differ; first:\n{}", bad.len(), bad.iter().take(25).cloned().collect::<Vec<_>>().join("\n"));
+    assert!(
+        bad.is_empty(),
+        "{} of {n} cases differ; first:\n{}",
+        bad.len(),
+        bad.iter().take(25).cloned().collect::<Vec<_>>().join("\n")
+    );
 }

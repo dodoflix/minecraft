@@ -43,20 +43,27 @@ fn evaluate(
     output: &mut dyn FnMut(NodeId, bool),
 ) -> bool {
     let is_self_done = is_done(node);
-    let descendant_visibility = evaluate_visibility_rule(tree.node(node).advancement(), is_self_done);
+    let descendant_visibility =
+        evaluate_visibility_rule(tree.node(node).advancement(), is_self_done);
     let mut is_self_or_descendant_done = is_self_done;
     ascendants.push(descendant_visibility);
     for child in tree.node(node).children.clone() {
         is_self_or_descendant_done |= evaluate(tree, child, ascendants, is_done, output);
     }
-    let visibility = is_self_or_descendant_done || evaluate_visibility_for_unfinished_node(ascendants);
+    let visibility =
+        is_self_or_descendant_done || evaluate_visibility_for_unfinished_node(ascendants);
     ascendants.pop();
     output(node, visibility);
     is_self_or_descendant_done
 }
 
 /// `evaluateVisibility(node, isDone, output)`: the whole tab of `node`, children before their parent.
-pub fn evaluate_visibility(tree: &AdvancementTree, node: NodeId, is_done: &mut dyn FnMut(NodeId) -> bool, output: &mut dyn FnMut(NodeId, bool)) {
+pub fn evaluate_visibility(
+    tree: &AdvancementTree,
+    node: NodeId,
+    is_done: &mut dyn FnMut(NodeId) -> bool,
+    output: &mut dyn FnMut(NodeId, bool),
+) {
     let root = tree.root_of(node);
     let mut stack = vec![VisibilityRule::NoChange; 3];
     evaluate(tree, root, &mut stack, is_done, output);

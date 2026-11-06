@@ -117,7 +117,9 @@ impl ServerShared {
     }
 
     pub fn is_game_thread(&self) -> bool {
-        self.game_thread.get().is_some_and(|t| t.id() == thread::current().id())
+        self.game_thread
+            .get()
+            .is_some_and(|t| t.id() == thread::current().id())
     }
 
     pub fn game_thread_id(&self) -> Option<ThreadId> {
@@ -174,7 +176,8 @@ impl ServerShared {
         self.next_tick_time_nanos.store(nanos, Ordering::Relaxed);
     }
     pub(crate) fn set_have_time_deadline(&self, nanos: i64) {
-        self.have_time_deadline_nanos.store(nanos, Ordering::Relaxed);
+        self.have_time_deadline_nanos
+            .store(nanos, Ordering::Relaxed);
     }
     /// `BlockableEventLoop.scheduleExecutables()` of the server for the calling thread: tasks submitted with `execute` are
     /// queued unless the game thread submits them while no task runs (or the server is stopped): those run inline.
@@ -189,7 +192,8 @@ impl ServerShared {
     /// `MinecraftServer.haveTime()`: whether the current tick still has time budget (handed to level ticking and
     /// chunk-source ticking as `BooleanSupplier`).
     pub fn have_time(&self) -> bool {
-        self.running_task.load(Ordering::Relaxed) || get_nanos() < self.have_time_deadline_nanos.load(Ordering::Relaxed)
+        self.running_task.load(Ordering::Relaxed)
+            || get_nanos() < self.have_time_deadline_nanos.load(Ordering::Relaxed)
     }
 
     /// `getStatus`: the status JSON model served to server-list pings (`None` until the first one is built).
@@ -225,15 +229,24 @@ impl ServerShared {
     /// `Arc<ServerShared>`): queue `task` for the game thread's next task drain.
     pub fn execute(&self, task: impl FnOnce(&mut MinecraftServer) + Send + 'static) {
         // A send error means the game thread is gone (server stopped): dropping the task matches vanilla.
-        let _ = self.task_tx.send(TickTask { tick: self.tick_count(), run: Box::new(task) });
+        let _ = self.task_tx.send(TickTask {
+            tick: self.tick_count(),
+            run: Box::new(task),
+        });
         self.unpark_game_thread();
     }
 
     /// `executeBlocking` from another thread: run `task` on the game thread and wait for its result. `None` when
     /// the game thread exited without running it. Panics when called on the game thread (it would deadlock;
     /// vanilla runs the task inline there, use `MinecraftServer::execute_blocking`).
-    pub fn execute_blocking<R: Send + 'static>(&self, task: impl FnOnce(&mut MinecraftServer) -> R + Send + 'static) -> Option<R> {
-        assert!(!self.is_game_thread(), "execute_blocking called on the game thread");
+    pub fn execute_blocking<R: Send + 'static>(
+        &self,
+        task: impl FnOnce(&mut MinecraftServer) -> R + Send + 'static,
+    ) -> Option<R> {
+        assert!(
+            !self.is_game_thread(),
+            "execute_blocking called on the game thread"
+        );
         let (tx, rx) = channel();
         self.execute(move |server| {
             let _ = tx.send(task(server));

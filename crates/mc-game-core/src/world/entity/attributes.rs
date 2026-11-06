@@ -8,8 +8,8 @@ use mc_core::ident::Identifier;
 use mc_data::Attribute;
 use mc_data::EntityType;
 use mc_nbt::{CompoundTag, ListTag, Tag};
-use std::cell::Cell;
 pub use mc_protocol::packets::play::{AttributeModifier, AttributeModifierOperation};
+use std::cell::Cell;
 
 /// `Attribute.sanitizeValue` (`RangedAttribute` clamps, NaN -> minimum).
 pub fn sanitize_value(attribute: Attribute, value: f64) -> f64 {
@@ -86,7 +86,10 @@ impl AttributeInstance {
     }
 
     /// `getModifiers(operation)` (`@VisibleForTesting`): the per-operation map in its iteration order.
-    pub fn get_modifiers_for_operation(&self, operation: AttributeModifierOperation) -> impl Iterator<Item = &AttributeModifier> {
+    pub fn get_modifiers_for_operation(
+        &self,
+        operation: AttributeModifierOperation,
+    ) -> impl Iterator<Item = &AttributeModifier> {
         self.modifiers_by_operation[operation_index(operation)].values()
     }
 
@@ -103,18 +106,26 @@ impl AttributeInstance {
     }
 
     fn add_modifier(&mut self, modifier: AttributeModifier) {
-        assert!(!self.modifier_by_id.contains_key(&modifier.id), "Modifier is already applied on this attribute!");
-        self.modifier_by_id.insert(modifier.id.clone(), modifier.clone());
-        self.modifiers_by_operation[operation_index(modifier.operation)].insert(modifier.id.clone(), modifier);
+        assert!(
+            !self.modifier_by_id.contains_key(&modifier.id),
+            "Modifier is already applied on this attribute!"
+        );
+        self.modifier_by_id
+            .insert(modifier.id.clone(), modifier.clone());
+        self.modifiers_by_operation[operation_index(modifier.operation)]
+            .insert(modifier.id.clone(), modifier);
         self.set_dirty();
     }
 
     /// `addOrUpdateTransientModifier`. shortcut: vanilla compares by object identity (`modifier != oldModifier`),
     /// here an equal value counts as the same object; all vanilla callers pass shared constants.
     pub fn add_or_update_transient_modifier(&mut self, modifier: AttributeModifier) {
-        let old = self.modifier_by_id.insert(modifier.id.clone(), modifier.clone());
+        let old = self
+            .modifier_by_id
+            .insert(modifier.id.clone(), modifier.clone());
         if old.as_ref() != Some(&modifier) {
-            self.modifiers_by_operation[operation_index(modifier.operation)].insert(modifier.id.clone(), modifier);
+            self.modifiers_by_operation[operation_index(modifier.operation)]
+                .insert(modifier.id.clone(), modifier);
             self.set_dirty();
         }
     }
@@ -130,11 +141,15 @@ impl AttributeInstance {
 
     pub fn add_permanent_modifier(&mut self, modifier: AttributeModifier) {
         self.add_modifier(modifier.clone());
-        self.permanent_modifiers.insert(modifier.id.clone(), modifier);
+        self.permanent_modifiers
+            .insert(modifier.id.clone(), modifier);
     }
 
     /// `addPermanentModifiers`.
-    pub fn add_permanent_modifiers<'a>(&mut self, modifiers: impl IntoIterator<Item = &'a AttributeModifier>) {
+    pub fn add_permanent_modifiers<'a>(
+        &mut self,
+        modifiers: impl IntoIterator<Item = &'a AttributeModifier>,
+    ) {
         for m in modifiers {
             self.add_permanent_modifier(m.clone());
         }
@@ -147,7 +162,9 @@ impl AttributeInstance {
     }
 
     pub fn remove_modifier(&mut self, id: &Identifier) -> bool {
-        let Some(modifier) = self.modifier_by_id.shift_remove(id) else { return false };
+        let Some(modifier) = self.modifier_by_id.shift_remove(id) else {
+            return false;
+        };
         self.modifiers_by_operation[operation_index(modifier.operation)].remove(id);
         self.permanent_modifiers.shift_remove(id);
         self.set_dirty();
@@ -203,7 +220,8 @@ impl AttributeInstance {
         self.base_value = base_value;
         for m in modifiers {
             self.modifier_by_id.insert(m.id.clone(), m.clone());
-            self.modifiers_by_operation[operation_index(m.operation)].insert(m.id.clone(), m.clone());
+            self.modifiers_by_operation[operation_index(m.operation)]
+                .insert(m.id.clone(), m.clone());
             self.permanent_modifiers.insert(m.id.clone(), m);
         }
         self.set_dirty();
@@ -247,7 +265,11 @@ fn parse_modifier(tag: &Tag) -> Option<AttributeModifier> {
         "add_multiplied_total" => AttributeModifierOperation::AddMultipliedTotal,
         _ => return None,
     };
-    Some(AttributeModifier { id, amount, operation })
+    Some(AttributeModifier {
+        id,
+        amount,
+        operation,
+    })
 }
 
 /// `AttributeMap`: instances are created lazily from the entity type's default supplier.
@@ -260,11 +282,19 @@ pub struct AttributeMap {
 impl AttributeMap {
     /// `new AttributeMap(DefaultAttributes.getSupplier(type))`.
     pub fn new(supplier: EntityType) -> Self {
-        Self { supplier, attributes: IndexMap::new() }
+        Self {
+            supplier,
+            attributes: IndexMap::new(),
+        }
     }
 
     fn supplier_base(&self, attribute: Attribute) -> Option<f64> {
-        self.supplier.data().default_attributes.iter().find(|(a, _)| *a == attribute).map(|(_, v)| *v)
+        self.supplier
+            .data()
+            .default_attributes
+            .iter()
+            .find(|(a, _)| *a == attribute)
+            .map(|(_, v)| *v)
     }
 
     pub fn supplier_has_attribute(&self, attribute: Attribute) -> bool {
@@ -290,7 +320,9 @@ impl AttributeMap {
     }
 
     pub fn has_modifier(&self, attribute: Attribute, id: &Identifier) -> bool {
-        self.attributes.get(&attribute).is_some_and(|i| i.has_modifier(id))
+        self.attributes
+            .get(&attribute)
+            .is_some_and(|i| i.has_modifier(id))
     }
 
     /// `getValue(attribute)`; panics like vanilla when the type doesn't have the attribute.
@@ -308,7 +340,9 @@ impl AttributeMap {
     pub fn get_base_value(&self, attribute: Attribute) -> f64 {
         match self.attributes.get(&attribute) {
             Some(i) => i.get_base_value(),
-            None => self.supplier_base(attribute).unwrap_or_else(|| panic!("Can't find attribute {}", attribute.identifier())),
+            None => self
+                .supplier_base(attribute)
+                .unwrap_or_else(|| panic!("Can't find attribute {}", attribute.identifier())),
         }
     }
 
@@ -336,14 +370,20 @@ impl AttributeMap {
 
     /// `getSyncableAttributes()`.
     pub fn get_syncable_attributes(&self) -> Vec<&AttributeInstance> {
-        self.attributes.values().filter(|i| i.attribute.data().syncable).collect()
+        self.attributes
+            .values()
+            .filter(|i| i.attribute.data().syncable)
+            .collect()
     }
 
     pub fn instances(&self) -> impl Iterator<Item = &AttributeInstance> {
         self.attributes.values()
     }
 
-    pub fn add_transient_attribute_modifiers(&mut self, modifiers: &[(Attribute, AttributeModifier)]) {
+    pub fn add_transient_attribute_modifiers(
+        &mut self,
+        modifiers: &[(Attribute, AttributeModifier)],
+    ) {
         for (attribute, modifier) in modifiers {
             if let Some(instance) = self.get_instance(*attribute) {
                 instance.remove_modifier(&modifier.id);
@@ -387,7 +427,9 @@ impl AttributeMap {
     }
 
     pub fn reset_base_value(&mut self, attribute: Attribute) -> bool {
-        let Some(base) = self.supplier_base(attribute) else { return false };
+        let Some(base) = self.supplier_base(attribute) else {
+            return false;
+        };
         if let Some(i) = self.attributes.get_mut(&attribute) {
             i.set_base_value(base);
         }
@@ -407,9 +449,21 @@ impl AttributeMap {
     pub fn apply(&mut self, packed: &ListTag) {
         for tag in packed.iter() {
             let Some(c) = tag.as_compound() else { continue };
-            let Some(attribute) = c.get_string("id").and_then(|n| Identifier::parse(n).ok()).and_then(|id| Attribute::by_name(&id.to_string())) else { continue };
-            let base = c.get("base").and_then(|t| t.as_number()).map_or(0.0, |n| n.double_value());
-            let modifiers: Vec<AttributeModifier> = c.get_list("modifiers").map(|l| l.iter().filter_map(parse_modifier).collect()).unwrap_or_default();
+            let Some(attribute) = c
+                .get_string("id")
+                .and_then(|n| Identifier::parse(n).ok())
+                .and_then(|id| Attribute::by_name(&id.to_string()))
+            else {
+                continue;
+            };
+            let base = c
+                .get("base")
+                .and_then(|t| t.as_number())
+                .map_or(0.0, |n| n.double_value());
+            let modifiers: Vec<AttributeModifier> = c
+                .get_list("modifiers")
+                .map(|l| l.iter().filter_map(parse_modifier).collect())
+                .unwrap_or_default();
             if let Some(instance) = self.get_instance(attribute) {
                 instance.apply(base, modifiers);
             }

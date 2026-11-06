@@ -16,10 +16,18 @@ use mc_world::level_storage::WorldDataConfiguration;
 
 fn fixture() -> Vec<Vec<String>> {
     let mut text = String::new();
-    flate2::read::GzDecoder::new(std::fs::File::open(concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures/recipe_golden.txt.gz")).expect("fixture present"))
-        .read_to_string(&mut text)
-        .unwrap();
-    text.lines().map(|l| l.split('\t').map(str::to_owned).collect()).collect()
+    flate2::read::GzDecoder::new(
+        std::fs::File::open(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/tests/fixtures/recipe_golden.txt.gz"
+        ))
+        .expect("fixture present"),
+    )
+    .read_to_string(&mut text)
+    .unwrap();
+    text.lines()
+        .map(|l| l.split('\t').map(str::to_owned).collect())
+        .collect()
 }
 
 fn hex(bytes: &[u8]) -> String {
@@ -27,28 +35,51 @@ fn hex(bytes: &[u8]) -> String {
 }
 
 fn registry_name(registry: &str, id: u32) -> String {
-    mc_data::registry::by_name(registry).and_then(|r| r.name_of(id)).unwrap().to_owned()
+    mc_data::registry::by_name(registry)
+        .and_then(|r| r.name_of(id))
+        .unwrap()
+        .to_owned()
 }
 
 fn item_names(ingredient: &Ingredient) -> String {
-    ingredient.items().iter().map(|i| registry_name("minecraft:item", i.id())).collect::<Vec<_>>().join(",")
+    ingredient
+        .items()
+        .iter()
+        .map(|i| registry_name("minecraft:item", i.id()))
+        .collect::<Vec<_>>()
+        .join(",")
 }
 
 fn stack_from_snbt(snbt: &str) -> ItemStack {
     let tag = mc_nbt::snbt::parse(snbt).unwrap_or_else(|e| panic!("bad snbt {snbt}: {e:?}"));
-    ItemStack::optional_from_tag(&tag).into_result().unwrap_or_else(|e| panic!("bad stack {snbt}: {e}"))
+    ItemStack::optional_from_tag(&tag)
+        .into_result()
+        .unwrap_or_else(|e| panic!("bad stack {snbt}: {e}"))
 }
 
 fn stack_to_snbt(stack: &ItemStack) -> String {
-    if stack.is_empty() { "{}".to_owned() } else { stack.optional_to_tag().into_result().unwrap().to_string() }
+    if stack.is_empty() {
+        "{}".to_owned()
+    } else {
+        stack.optional_to_tag().into_result().unwrap().to_string()
+    }
 }
 
 #[test]
 fn recipes_match_vanilla() {
     let _s = common::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
     let dir = tempfile::tempdir().unwrap();
-    let (_, stem) = common::load_world(&dir.path().join("world"), WorldDataConfiguration::DEFAULT, true).unwrap();
-    let manager = stem.data_pack_resources.listener::<RecipeManager>().expect("recipe manager").clone();
+    let (_, stem) = common::load_world(
+        &dir.path().join("world"),
+        WorldDataConfiguration::DEFAULT,
+        true,
+    )
+    .unwrap();
+    let manager = stem
+        .data_pack_resources
+        .listener::<RecipeManager>()
+        .expect("recipe manager")
+        .clone();
     let level = ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap());
     let rows = fixture();
 
@@ -59,7 +90,14 @@ fn recipes_match_vanilla() {
     for (holder, row) in manager.recipes().iter().zip(&recipe_rows) {
         let recipe = &holder.value;
         let slots = recipe.placement_info().slots_to_ingredient_index();
-        let mut placement = format!("[{}];", slots.iter().map(i32::to_string).collect::<Vec<_>>().join(", "));
+        let mut placement = format!(
+            "[{}];",
+            slots
+                .iter()
+                .map(i32::to_string)
+                .collect::<Vec<_>>()
+                .join(", ")
+        );
         for i in recipe.placement_info().ingredients() {
             placement.push_str(&item_names(i));
             placement.push('|');
@@ -70,15 +108,30 @@ fn recipes_match_vanilla() {
             registry_name("minecraft:recipe_type", recipe.recipe_type().id()),
             recipe.is_special().to_string(),
             recipe.group().to_owned(),
-            registry_name("minecraft:recipe_book_category", recipe.recipe_book_category().id()),
+            registry_name(
+                "minecraft:recipe_book_category",
+                recipe.recipe_book_category().id(),
+            ),
             recipe.show_notification().to_string(),
             placement,
         ];
         if &ours != *row {
-            errors.push(format!("recipe differs\n  ours:    {ours:?}\n  vanilla: {row:?}"));
+            errors.push(format!(
+                "recipe differs\n  ours:    {ours:?}\n  vanilla: {row:?}"
+            ));
         }
     }
-    assert!(errors.is_empty(), "{} recipe metadata mismatches, first:\n{}", errors.len(), errors.iter().take(3).cloned().collect::<Vec<_>>().join("\n"));
+    assert!(
+        errors.is_empty(),
+        "{} recipe metadata mismatches, first:\n{}",
+        errors.len(),
+        errors
+            .iter()
+            .take(3)
+            .cloned()
+            .collect::<Vec<_>>()
+            .join("\n")
+    );
 
     // ---- DISPLAY: byte-exact recipe book entries
     let display_rows: Vec<&Vec<String>> = rows.iter().filter(|r| r[0] == "DISPLAY").collect();
@@ -92,13 +145,22 @@ fn recipes_match_vanilla() {
     }
     assert_eq!(ours.len(), display_rows.len(), "display count");
     for (o, r) in ours.iter().zip(&display_rows) {
-        assert_eq!((&o.0, &o.1, &o.2), (&r[1], &r[2], &r[3]), "display of {}", r[2]);
+        assert_eq!(
+            (&o.0, &o.1, &o.2),
+            (&r[1], &r[2], &r[3]),
+            "display of {}",
+            r[2]
+        );
     }
 
     // ---- PROPSET
     for row in rows.iter().filter(|r| r[0] == "PROPSET") {
         let set = manager.property_set(&row[1]);
-        let mut names: Vec<String> = set.items().iter().map(|i| registry_name("minecraft:item", i.id())).collect();
+        let mut names: Vec<String> = set
+            .items()
+            .iter()
+            .map(|i| registry_name("minecraft:item", i.id()))
+            .collect();
         names.sort();
         assert_eq!(names.join(" "), row[2], "property set {}", row[1]);
     }
@@ -108,9 +170,16 @@ fn recipes_match_vanilla() {
     assert_eq!(manager.stonecutter_recipes().entries.len(), stonecut.len());
     for (entry, row) in manager.stonecutter_recipes().entries.iter().zip(&stonecut) {
         let (mut input, mut display) = (Vec::new(), Vec::new());
-        mc_protocol::packets::play::inventory::Ingredient { values: entry.input.wire_set() }.encode(&mut input).unwrap();
+        mc_protocol::packets::play::inventory::Ingredient {
+            values: entry.input.wire_set(),
+        }
+        .encode(&mut input)
+        .unwrap();
         entry.recipe.option_display.encode(&mut display).unwrap();
-        assert_eq!((hex(&input), hex(&display)), (row[1].clone(), row[2].clone()));
+        assert_eq!(
+            (hex(&input), hex(&display)),
+            (row[1].clone(), row[2].clone())
+        );
     }
 
     // ---- MATCH
@@ -123,7 +192,10 @@ fn recipes_match_vanilla() {
             ("minecraft:smelting", mc_data::RecipeType::SMELTING),
             ("minecraft:blasting", mc_data::RecipeType::BLASTING),
             ("minecraft:smoking", mc_data::RecipeType::SMOKING),
-            ("minecraft:campfire_cooking", mc_data::RecipeType::CAMPFIRE_COOKING),
+            (
+                "minecraft:campfire_cooking",
+                mc_data::RecipeType::CAMPFIRE_COOKING,
+            ),
             ("minecraft:stonecutting", mc_data::RecipeType::STONECUTTING),
             ("minecraft:smithing", mc_data::RecipeType::SMITHING),
             ("minecraft:brewing", mc_data::RecipeType::BREWING),
@@ -137,31 +209,90 @@ fn recipes_match_vanilla() {
         let (ids, result, remaining) = match row[1].as_str() {
             "minecraft:crafting" => {
                 let (w, h) = row[2].split_once('x').unwrap();
-                run_match(&manager, ty, &CraftingInput::of(w.parse().unwrap(), h.parse().unwrap(), &stacks), &level)
+                run_match(
+                    &manager,
+                    ty,
+                    &CraftingInput::of(w.parse().unwrap(), h.parse().unwrap(), &stacks),
+                    &level,
+                )
             }
-            "minecraft:smithing" => run_match(&manager, ty, &SmithingRecipeInput { template: stacks[0].clone(), base: stacks[1].clone(), addition: stacks[2].clone() }, &level),
-            "minecraft:brewing" => run_match(&manager, ty, &BrewingInput { input: stacks[0].clone(), reagent: stacks[1].clone() }, &level),
+            "minecraft:smithing" => run_match(
+                &manager,
+                ty,
+                &SmithingRecipeInput {
+                    template: stacks[0].clone(),
+                    base: stacks[1].clone(),
+                    addition: stacks[2].clone(),
+                },
+                &level,
+            ),
+            "minecraft:brewing" => run_match(
+                &manager,
+                ty,
+                &BrewingInput {
+                    input: stacks[0].clone(),
+                    reagent: stacks[1].clone(),
+                },
+                &level,
+            ),
             _ => run_match(&manager, ty, &SingleRecipeInput(stacks[0].clone()), &level),
         };
         let expected_result = mc_nbt::snbt::parse(&row[5]).unwrap();
         let ours_result = mc_nbt::snbt::parse(&result).unwrap();
         if ids != row[4] || ours_result != expected_result || remaining != row[6] {
-            failures.push(format!("{} {:?}\n  ours:    {ids} {result} {remaining}\n  vanilla: {} {} {}", row[1], row[3], row[4], row[5], row[6]));
+            failures.push(format!(
+                "{} {:?}\n  ours:    {ids} {result} {remaining}\n  vanilla: {} {} {}",
+                row[1], row[3], row[4], row[5], row[6]
+            ));
         }
     }
     eprintln!("match cases per type: {by_type:?}");
-    assert!(failures.is_empty(), "{} match mismatches, first:\n{}", failures.len(), failures.iter().take(5).cloned().collect::<Vec<_>>().join("\n"));
+    assert!(
+        failures.is_empty(),
+        "{} match mismatches, first:\n{}",
+        failures.len(),
+        failures
+            .iter()
+            .take(5)
+            .cloned()
+            .collect::<Vec<_>>()
+            .join("\n")
+    );
     stem.close();
 }
 
 /// All matching recipes of `ty` (registry order, comma separated), the SNBT of the first one's assembled result and (for
 /// crafting) its remaining items joined by `@@`.
-fn run_match<I: RecipeInput + 'static>(manager: &RecipeManager, ty: mc_data::RecipeType, input: &I, level: &ServerLevel) -> (String, String, String) {
-    let matching: Vec<&RecipeHolder> = manager.by_type(ty).filter(|r| input.matches(&r.value, level)).collect();
-    let ids = matching.iter().map(|r| r.id.to_string()).collect::<Vec<_>>().join(",");
-    let result = matching.first().map_or_else(|| "{}".to_owned(), |r| stack_to_snbt(&input.assemble(&r.value)));
-    let remaining = match (matching.first(), (input as &dyn std::any::Any).downcast_ref::<CraftingInput>()) {
-        (Some(r), Some(crafting)) => r.value.get_remaining_items(crafting).iter().map(stack_to_snbt).collect::<Vec<_>>().join("@@"),
+fn run_match<I: RecipeInput + 'static>(
+    manager: &RecipeManager,
+    ty: mc_data::RecipeType,
+    input: &I,
+    level: &ServerLevel,
+) -> (String, String, String) {
+    let matching: Vec<&RecipeHolder> = manager
+        .by_type(ty)
+        .filter(|r| input.matches(&r.value, level))
+        .collect();
+    let ids = matching
+        .iter()
+        .map(|r| r.id.to_string())
+        .collect::<Vec<_>>()
+        .join(",");
+    let result = matching.first().map_or_else(
+        || "{}".to_owned(),
+        |r| stack_to_snbt(&input.assemble(&r.value)),
+    );
+    let remaining = match (
+        matching.first(),
+        (input as &dyn std::any::Any).downcast_ref::<CraftingInput>(),
+    ) {
+        (Some(r), Some(crafting)) => r
+            .value
+            .get_remaining_items(crafting)
+            .iter()
+            .map(stack_to_snbt)
+            .collect::<Vec<_>>()
+            .join("@@"),
         _ => String::new(),
     };
     (ids, result, remaining)

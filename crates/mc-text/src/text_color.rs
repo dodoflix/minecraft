@@ -39,7 +39,10 @@ impl TextColor {
     }
 
     pub const fn from_rgb(rgb: i32) -> TextColor {
-        TextColor { value: rgb & 0xFFFFFF, name: None }
+        TextColor {
+            value: rgb & 0xFFFFFF,
+            name: None,
+        }
     }
 
     pub const fn value(&self) -> i32 {

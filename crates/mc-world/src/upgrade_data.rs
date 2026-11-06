@@ -12,7 +12,7 @@ use mc_core::direction::{Direction, Direction8};
 use mc_core::pos::block_pos::BlockPos;
 use mc_core::pos::chunk_pos::ChunkPos;
 use mc_core::pos::section_pos::SectionPos;
-use mc_data::block::{Block, BlockState, BLOCK_COUNT};
+use mc_data::block::{BLOCK_COUNT, Block, BlockState};
 use mc_data::enums::ChestType;
 use mc_data::fluid::Fluid;
 use mc_data::props;
@@ -50,22 +50,53 @@ pub trait UpgradeChunk {
     /// `level.getFluidState(pos).getType()`.
     fn get_fluid_type(&self, pos: &BlockPos) -> Fluid;
     /// `level.setBlock(pos, state, flags, update_limit)` (the 3-argument overload passes 512).
-    fn set_block(&mut self, pos: &BlockPos, state: BlockState, flags: i32, update_limit: i32) -> bool;
+    fn set_block(
+        &mut self,
+        pos: &BlockPos,
+        state: BlockState,
+        flags: i32,
+        update_limit: i32,
+    ) -> bool;
     /// `level.destroyBlock(pos, drop_resources, null, update_limit)`.
     fn destroy_block(&mut self, pos: &BlockPos, drop_resources: bool, update_limit: i32) -> bool;
     /// `state.updateShape(level, level, pos, direction, neighbour_pos, neighbour_state, level.getRandom())`, i.e. the
     /// block's own shape update (this is the `DEFAULT` fixer; it may schedule ticks and consume level randomness).
-    fn update_shape(&mut self, state: BlockState, direction: Direction, pos: &BlockPos, neighbour_pos: &BlockPos, neighbour_state: BlockState) -> BlockState;
+    fn update_shape(
+        &mut self,
+        state: BlockState,
+        direction: Direction,
+        pos: &BlockPos,
+        neighbour_pos: &BlockPos,
+        neighbour_state: BlockState,
+    ) -> BlockState;
     /// `ChestBlockEntity.swapContents(a, b)` when the block entities at both positions are chests (else nothing).
     fn swap_chest_contents(&mut self, a: &BlockPos, b: &BlockPos);
     /// `level.scheduleTick(pos, block, delay, priority)`.
-    fn schedule_block_tick(&mut self, pos: &BlockPos, block: Block, delay: i32, priority: TickPriority);
+    fn schedule_block_tick(
+        &mut self,
+        pos: &BlockPos,
+        block: Block,
+        delay: i32,
+        priority: TickPriority,
+    );
     /// `level.scheduleTick(pos, fluid, delay, priority)`.
-    fn schedule_fluid_tick(&mut self, pos: &BlockPos, fluid: Fluid, delay: i32, priority: TickPriority);
+    fn schedule_fluid_tick(
+        &mut self,
+        pos: &BlockPos,
+        fluid: Fluid,
+        delay: i32,
+        priority: TickPriority,
+    );
 }
 
 /// `Block.updateOrDestroy(state, new_state, level, pos, flags)` on a server level.
-pub fn update_or_destroy(state: BlockState, new_state: BlockState, level: &mut impl UpgradeChunk, pos: &BlockPos, flags: i32) {
+pub fn update_or_destroy(
+    state: BlockState,
+    new_state: BlockState,
+    level: &mut impl UpgradeChunk,
+    pos: &BlockPos,
+    flags: i32,
+) {
     const UPDATE_LIMIT: i32 = 512;
     if new_state != state {
         if new_state.is_air() {
@@ -95,94 +126,97 @@ pub enum BlockFixer {
 
 /// `UpgradeData.MAP` (indexed by block id; unlisted blocks use `DEFAULT`).
 static FIXER_MAP: LazyLock<Vec<BlockFixer>> = LazyLock::new(|| {
-        let mut map = vec![BlockFixer::Default; BLOCK_COUNT];
-        let mut put = |fixer: BlockFixer, blocks: &[Block]| {
-            for b in blocks {
-                map[b.id() as usize] = fixer;
-            }
-        };
-        put(
-            BlockFixer::Blacklist,
-            &[
-                Block::OBSERVER,
-                Block::NETHER_PORTAL,
-                Block::WHITE_CONCRETE_POWDER,
-                Block::ORANGE_CONCRETE_POWDER,
-                Block::MAGENTA_CONCRETE_POWDER,
-                Block::LIGHT_BLUE_CONCRETE_POWDER,
-                Block::YELLOW_CONCRETE_POWDER,
-                Block::LIME_CONCRETE_POWDER,
-                Block::PINK_CONCRETE_POWDER,
-                Block::GRAY_CONCRETE_POWDER,
-                Block::LIGHT_GRAY_CONCRETE_POWDER,
-                Block::CYAN_CONCRETE_POWDER,
-                Block::PURPLE_CONCRETE_POWDER,
-                Block::BLUE_CONCRETE_POWDER,
-                Block::BROWN_CONCRETE_POWDER,
-                Block::GREEN_CONCRETE_POWDER,
-                Block::RED_CONCRETE_POWDER,
-                Block::BLACK_CONCRETE_POWDER,
-                Block::ANVIL,
-                Block::CHIPPED_ANVIL,
-                Block::DAMAGED_ANVIL,
-                Block::DRAGON_EGG,
-                Block::GRAVEL,
-                Block::SAND,
-                Block::RED_SAND,
-                Block::OAK_SIGN,
-                Block::SPRUCE_SIGN,
-                Block::BIRCH_SIGN,
-                Block::ACACIA_SIGN,
-                Block::CHERRY_SIGN,
-                Block::JUNGLE_SIGN,
-                Block::DARK_OAK_SIGN,
-                Block::PALE_OAK_SIGN,
-                Block::POPLAR_SIGN,
-                Block::OAK_WALL_SIGN,
-                Block::SPRUCE_WALL_SIGN,
-                Block::BIRCH_WALL_SIGN,
-                Block::ACACIA_WALL_SIGN,
-                Block::JUNGLE_WALL_SIGN,
-                Block::DARK_OAK_WALL_SIGN,
-                Block::PALE_OAK_WALL_SIGN,
-                Block::POPLAR_WALL_SIGN,
-                Block::OAK_HANGING_SIGN,
-                Block::SPRUCE_HANGING_SIGN,
-                Block::BIRCH_HANGING_SIGN,
-                Block::ACACIA_HANGING_SIGN,
-                Block::JUNGLE_HANGING_SIGN,
-                Block::DARK_OAK_HANGING_SIGN,
-                Block::PALE_OAK_HANGING_SIGN,
-                Block::POPLAR_HANGING_SIGN,
-                Block::OAK_WALL_HANGING_SIGN,
-                Block::SPRUCE_WALL_HANGING_SIGN,
-                Block::BIRCH_WALL_HANGING_SIGN,
-                Block::ACACIA_WALL_HANGING_SIGN,
-                Block::JUNGLE_WALL_HANGING_SIGN,
-                Block::DARK_OAK_WALL_HANGING_SIGN,
-                Block::PALE_OAK_WALL_HANGING_SIGN,
-                Block::POPLAR_WALL_HANGING_SIGN,
-            ],
-        );
-        put(BlockFixer::Chest, &[Block::CHEST, Block::TRAPPED_CHEST]);
-        put(
-            BlockFixer::Leaves,
-            &[
-                Block::ACACIA_LEAVES,
-                Block::CHERRY_LEAVES,
-                Block::BIRCH_LEAVES,
-                Block::PALE_OAK_LEAVES,
-                Block::RED_POPLAR_LEAVES,
-                Block::ORANGE_POPLAR_LEAVES,
-                Block::YELLOW_POPLAR_LEAVES,
-                Block::DARK_OAK_LEAVES,
-                Block::JUNGLE_LEAVES,
-                Block::OAK_LEAVES,
-                Block::SPRUCE_LEAVES,
-            ],
-        );
-        put(BlockFixer::StemBlock, &[Block::MELON_STEM, Block::PUMPKIN_STEM]);
-        map
+    let mut map = vec![BlockFixer::Default; BLOCK_COUNT];
+    let mut put = |fixer: BlockFixer, blocks: &[Block]| {
+        for b in blocks {
+            map[b.id() as usize] = fixer;
+        }
+    };
+    put(
+        BlockFixer::Blacklist,
+        &[
+            Block::OBSERVER,
+            Block::NETHER_PORTAL,
+            Block::WHITE_CONCRETE_POWDER,
+            Block::ORANGE_CONCRETE_POWDER,
+            Block::MAGENTA_CONCRETE_POWDER,
+            Block::LIGHT_BLUE_CONCRETE_POWDER,
+            Block::YELLOW_CONCRETE_POWDER,
+            Block::LIME_CONCRETE_POWDER,
+            Block::PINK_CONCRETE_POWDER,
+            Block::GRAY_CONCRETE_POWDER,
+            Block::LIGHT_GRAY_CONCRETE_POWDER,
+            Block::CYAN_CONCRETE_POWDER,
+            Block::PURPLE_CONCRETE_POWDER,
+            Block::BLUE_CONCRETE_POWDER,
+            Block::BROWN_CONCRETE_POWDER,
+            Block::GREEN_CONCRETE_POWDER,
+            Block::RED_CONCRETE_POWDER,
+            Block::BLACK_CONCRETE_POWDER,
+            Block::ANVIL,
+            Block::CHIPPED_ANVIL,
+            Block::DAMAGED_ANVIL,
+            Block::DRAGON_EGG,
+            Block::GRAVEL,
+            Block::SAND,
+            Block::RED_SAND,
+            Block::OAK_SIGN,
+            Block::SPRUCE_SIGN,
+            Block::BIRCH_SIGN,
+            Block::ACACIA_SIGN,
+            Block::CHERRY_SIGN,
+            Block::JUNGLE_SIGN,
+            Block::DARK_OAK_SIGN,
+            Block::PALE_OAK_SIGN,
+            Block::POPLAR_SIGN,
+            Block::OAK_WALL_SIGN,
+            Block::SPRUCE_WALL_SIGN,
+            Block::BIRCH_WALL_SIGN,
+            Block::ACACIA_WALL_SIGN,
+            Block::JUNGLE_WALL_SIGN,
+            Block::DARK_OAK_WALL_SIGN,
+            Block::PALE_OAK_WALL_SIGN,
+            Block::POPLAR_WALL_SIGN,
+            Block::OAK_HANGING_SIGN,
+            Block::SPRUCE_HANGING_SIGN,
+            Block::BIRCH_HANGING_SIGN,
+            Block::ACACIA_HANGING_SIGN,
+            Block::JUNGLE_HANGING_SIGN,
+            Block::DARK_OAK_HANGING_SIGN,
+            Block::PALE_OAK_HANGING_SIGN,
+            Block::POPLAR_HANGING_SIGN,
+            Block::OAK_WALL_HANGING_SIGN,
+            Block::SPRUCE_WALL_HANGING_SIGN,
+            Block::BIRCH_WALL_HANGING_SIGN,
+            Block::ACACIA_WALL_HANGING_SIGN,
+            Block::JUNGLE_WALL_HANGING_SIGN,
+            Block::DARK_OAK_WALL_HANGING_SIGN,
+            Block::PALE_OAK_WALL_HANGING_SIGN,
+            Block::POPLAR_WALL_HANGING_SIGN,
+        ],
+    );
+    put(BlockFixer::Chest, &[Block::CHEST, Block::TRAPPED_CHEST]);
+    put(
+        BlockFixer::Leaves,
+        &[
+            Block::ACACIA_LEAVES,
+            Block::CHERRY_LEAVES,
+            Block::BIRCH_LEAVES,
+            Block::PALE_OAK_LEAVES,
+            Block::RED_POPLAR_LEAVES,
+            Block::ORANGE_POPLAR_LEAVES,
+            Block::YELLOW_POPLAR_LEAVES,
+            Block::DARK_OAK_LEAVES,
+            Block::JUNGLE_LEAVES,
+            Block::OAK_LEAVES,
+            Block::SPRUCE_LEAVES,
+        ],
+    );
+    put(
+        BlockFixer::StemBlock,
+        &[Block::MELON_STEM, Block::PUMPKIN_STEM],
+    );
+    map
 });
 
 fn chest_type_opposite(t: ChestType) -> ChestType {
@@ -194,7 +228,9 @@ fn chest_type_opposite(t: ChestType) -> ChestType {
 }
 
 fn no_property(what: &str, state: BlockState) -> UpgradeError {
-    UpgradeError(format!("java.lang.IllegalArgumentException: {what} on {state}"))
+    UpgradeError(format!(
+        "java.lang.IllegalArgumentException: {what} on {state}"
+    ))
 }
 
 impl BlockFixer {
@@ -216,7 +252,13 @@ impl BlockFixer {
     ) -> Result<BlockState, UpgradeError> {
         match self {
             BlockFixer::Blacklist => Ok(state),
-            BlockFixer::Default => Ok(level.update_shape(state, direction, pos, neighbour_pos, level.get_block_state(neighbour_pos))),
+            BlockFixer::Default => Ok(level.update_shape(
+                state,
+                direction,
+                pos,
+                neighbour_pos,
+                level.get_block_state(neighbour_pos),
+            )),
             BlockFixer::Chest => {
                 if neighbour.block() == state.block()
                     && direction.get_axis().is_horizontal()
@@ -224,9 +266,20 @@ impl BlockFixer {
                     && neighbour.get(props::CHEST_TYPE) == ChestType::Single
                 {
                     let facing = state.get(props::HORIZONTAL_FACING);
-                    if direction.get_axis() != facing.get_axis() && facing == neighbour.get(props::HORIZONTAL_FACING) {
-                        let new_type = if direction == facing.get_clockwise() { ChestType::Left } else { ChestType::Right };
-                        level.set_block(neighbour_pos, neighbour.set(props::CHEST_TYPE, chest_type_opposite(new_type)), 18, 512);
+                    if direction.get_axis() != facing.get_axis()
+                        && facing == neighbour.get(props::HORIZONTAL_FACING)
+                    {
+                        let new_type = if direction == facing.get_clockwise() {
+                            ChestType::Left
+                        } else {
+                            ChestType::Right
+                        };
+                        level.set_block(
+                            neighbour_pos,
+                            neighbour.set(props::CHEST_TYPE, chest_type_opposite(new_type)),
+                            18,
+                            512,
+                        );
                         if facing == Direction::North || facing == Direction::East {
                             level.swap_chest_contents(pos, neighbour_pos);
                         }
@@ -236,9 +289,17 @@ impl BlockFixer {
                 Ok(state)
             }
             BlockFixer::Leaves => {
-                let new_state = level.update_shape(state, direction, pos, neighbour_pos, level.get_block_state(neighbour_pos));
+                let new_state = level.update_shape(
+                    state,
+                    direction,
+                    pos,
+                    neighbour_pos,
+                    level.get_block_state(neighbour_pos),
+                );
                 if state != new_state {
-                    let distance = new_state.try_get(props::DISTANCE).ok_or_else(|| no_property("Cannot get property distance", new_state))?;
+                    let distance = new_state
+                        .try_get(props::DISTANCE)
+                        .ok_or_else(|| no_property("Cannot get property distance", new_state))?;
                     if leaves.queue.is_empty() {
                         leaves.queue = (0..7).map(|_| HashSet::new()).collect();
                     }
@@ -253,13 +314,24 @@ impl BlockFixer {
             BlockFixer::StemBlock => {
                 if state.get(props::AGE_7) == 7 {
                     let pumpkin = state.block() == Block::PUMPKIN_STEM;
-                    let fruit = if pumpkin { Block::PUMPKIN } else { Block::MELON };
+                    let fruit = if pumpkin {
+                        Block::PUMPKIN
+                    } else {
+                        Block::MELON
+                    };
                     if neighbour.block() == fruit {
-                        let attached = if pumpkin { Block::ATTACHED_PUMPKIN_STEM } else { Block::ATTACHED_MELON_STEM };
+                        let attached = if pumpkin {
+                            Block::ATTACHED_PUMPKIN_STEM
+                        } else {
+                            Block::ATTACHED_MELON_STEM
+                        };
                         let default = attached.default_state();
                         // `setValue` throws for UP/DOWN (HORIZONTAL_FACING cannot hold them)
                         if !props::HORIZONTAL_FACING.values().contains(&direction) {
-                            return Err(no_property(&format!("Cannot set property facing to {}", direction.get_name()), default));
+                            return Err(no_property(
+                                &format!("Cannot set property facing to {}", direction.get_name()),
+                                default,
+                            ));
                         }
                         return Ok(default.set(props::HORIZONTAL_FACING, direction));
                     }
@@ -270,7 +342,11 @@ impl BlockFixer {
     }
 
     /// `processChunk(level)` (only the `LEAVES` fixer does anything; it is vanilla's one `CHUNKY_FIXERS` entry).
-    fn process_chunk(self, level: &mut impl UpgradeChunk, leaves: &mut LeavesQueue) -> Result<(), UpgradeError> {
+    fn process_chunk(
+        self,
+        level: &mut impl UpgradeChunk,
+        leaves: &mut LeavesQueue,
+    ) -> Result<(), UpgradeError> {
         if self != BlockFixer::Leaves {
             return Ok(());
         }
@@ -292,7 +368,9 @@ impl BlockFixer {
                         for direction in Direction::ALL {
                             let neighbor_pos = pos.relative(direction);
                             let neighbor = level.get_block_state(&neighbor_pos);
-                            if neighbor.has_property(props::DISTANCE) && distance > neighbor_distance as i32 {
+                            if neighbor.has_property(props::DISTANCE)
+                                && distance > neighbor_distance as i32
+                            {
                                 leaves.queue[neighbor_distance].insert(neighbor_pos);
                             }
                         }
@@ -315,7 +393,15 @@ fn update_state(
     leaves: &mut LeavesQueue,
 ) -> Result<BlockState, UpgradeError> {
     let neighbour = level.get_block_state(neighbour_pos);
-    BlockFixer::for_block(state.block()).update_shape(state, direction, neighbour, level, pos, neighbour_pos, leaves)
+    BlockFixer::for_block(state.block()).update_shape(
+        state,
+        direction,
+        neighbour,
+        level,
+        pos,
+        neighbour_pos,
+        leaves,
+    )
 }
 
 /// `UpgradeData`.
@@ -331,7 +417,12 @@ pub struct UpgradeData {
 
 impl UpgradeData {
     /// `UpgradeData.EMPTY` (`EmptyBlockGetter`: no sections).
-    pub const EMPTY: UpgradeData = UpgradeData { sides: 0, neighbor_block_ticks: Vec::new(), neighbor_fluid_ticks: Vec::new(), index: Vec::new() };
+    pub const EMPTY: UpgradeData = UpgradeData {
+        sides: 0,
+        neighbor_block_ticks: Vec::new(),
+        neighbor_fluid_ticks: Vec::new(),
+        index: Vec::new(),
+    };
 
     pub fn empty() -> UpgradeData {
         Self::EMPTY
@@ -347,12 +438,18 @@ impl UpgradeData {
             }
         }
         let side_int = tag.get_int_or("Sides", 0);
-        let sides = (0..Direction8::ALL.len()).filter(|d| side_int & (1 << d) != 0).fold(0u8, |acc, d| acc | (1 << d));
+        let sides = (0..Direction8::ALL.len())
+            .filter(|d| side_int & (1 << d) != 0)
+            .fold(0u8, |acc, d| acc | (1 << d));
         UpgradeData {
             sides,
             // `byNameCodec().orElse(Blocks.AIR / Fluids.EMPTY)`: unknown types decode to air/empty
             neighbor_block_ticks: SavedTick::read_list_or(tag, "neighbor_block_ticks", Block::AIR),
-            neighbor_fluid_ticks: SavedTick::read_list_or(tag, "neighbor_fluid_ticks", Fluid::EMPTY),
+            neighbor_fluid_ticks: SavedTick::read_list_or(
+                tag,
+                "neighbor_fluid_ticks",
+                Fluid::EMPTY,
+            ),
             index,
         }
     }
@@ -376,10 +473,16 @@ impl UpgradeData {
         }
         tag.put_byte("Sides", self.sides as i8);
         if !self.neighbor_block_ticks.is_empty() {
-            tag.put("neighbor_block_ticks", SavedTick::write_list(&self.neighbor_block_ticks));
+            tag.put(
+                "neighbor_block_ticks",
+                SavedTick::write_list(&self.neighbor_block_ticks),
+            );
         }
         if !self.neighbor_fluid_ticks.is_empty() {
-            tag.put("neighbor_fluid_ticks", SavedTick::write_list(&self.neighbor_fluid_ticks));
+            tag.put(
+                "neighbor_fluid_ticks",
+                SavedTick::write_list(&self.neighbor_fluid_ticks),
+            );
         }
         tag
     }
@@ -391,7 +494,10 @@ impl UpgradeData {
 
     /// Pending sides as `Direction8`s (`sides`).
     pub fn sides(&self) -> Vec<Direction8> {
-        Direction8::ALL.into_iter().filter(|d| self.sides & (1 << *d as u8) != 0).collect()
+        Direction8::ALL
+            .into_iter()
+            .filter(|d| self.sides & (1 << *d as u8) != 0)
+            .collect()
     }
 
     pub fn neighbor_block_ticks(&self) -> &[SavedTick<Block>] {
@@ -411,17 +517,30 @@ impl UpgradeData {
             self.upgrade_sides(chunk, direction8, &mut leaves)?;
         }
         for tick in &self.neighbor_block_ticks {
-            let block = if tick.ty == Block::AIR { chunk.get_block_state(&tick.pos).block() } else { tick.ty };
+            let block = if tick.ty == Block::AIR {
+                chunk.get_block_state(&tick.pos).block()
+            } else {
+                tick.ty
+            };
             chunk.schedule_block_tick(&tick.pos, block, tick.delay, tick.priority);
         }
         for tick in &self.neighbor_fluid_ticks {
-            let fluid = if tick.ty == Fluid::EMPTY { chunk.get_fluid_type(&tick.pos) } else { tick.ty };
+            let fluid = if tick.ty == Fluid::EMPTY {
+                chunk.get_fluid_type(&tick.pos)
+            } else {
+                tick.ty
+            };
             chunk.schedule_fluid_tick(&tick.pos, fluid, tick.delay, tick.priority);
         }
         BlockFixer::Leaves.process_chunk(chunk, &mut leaves)
     }
 
-    fn upgrade_sides(&mut self, chunk: &mut impl UpgradeChunk, direction8: Direction8, leaves: &mut LeavesQueue) -> Result<(), UpgradeError> {
+    fn upgrade_sides(
+        &mut self,
+        chunk: &mut impl UpgradeChunk,
+        direction8: Direction8,
+        leaves: &mut LeavesQueue,
+    ) -> Result<(), UpgradeError> {
         let bit = 1u8 << direction8 as u8;
         if self.sides & bit == 0 {
             return Ok(());
@@ -443,38 +562,65 @@ impl UpgradeData {
         let max_x = base_x + if x_whole { x_edge } else { 14 };
         let min_z = base_z + if z_whole { z_edge } else { 1 };
         let max_z = base_z + if z_whole { z_edge } else { 14 };
-        for pos in BlockPos::between_closed_xyz(min_x, chunk.get_min_y(), min_z, max_x, chunk.get_max_y(), max_z) {
+        for pos in BlockPos::between_closed_xyz(
+            min_x,
+            chunk.get_min_y(),
+            min_z,
+            max_x,
+            chunk.get_max_y(),
+            max_z,
+        ) {
             let state = chunk.get_block_state(&pos);
             let mut new_state = state;
             for direction in Direction::ALL {
                 let neighbour_pos = pos.relative(direction);
-                new_state = update_state(new_state, direction, chunk, &pos, &neighbour_pos, leaves)?;
+                new_state =
+                    update_state(new_state, direction, chunk, &pos, &neighbour_pos, leaves)?;
             }
             update_or_destroy(state, new_state, chunk, &pos, 18);
         }
         Ok(())
     }
 
-    fn upgrade_inside(&mut self, chunk: &mut impl UpgradeChunk, leaves: &mut LeavesQueue) -> Result<(), UpgradeError> {
+    fn upgrade_inside(
+        &mut self,
+        chunk: &mut impl UpgradeChunk,
+        leaves: &mut LeavesQueue,
+    ) -> Result<(), UpgradeError> {
         let chunk_pos = chunk.get_pos();
         let min_section_y = SectionPos::block_to_section_coord_i32(chunk.get_min_y());
         for section_index in 0..self.index.len() {
             let upgrade_index = self.index[section_index].take();
-            let Some(upgrade_index) = upgrade_index.filter(|v| !v.is_empty()) else { continue };
+            let Some(upgrade_index) = upgrade_index.filter(|v| !v.is_empty()) else {
+                continue;
+            };
             let bottom_y_in_section = (min_section_y + section_index as i32) << 4;
             for coordinate in upgrade_index {
                 let x = coordinate & 15;
                 let y = coordinate >> 8 & 15;
                 let z = coordinate >> 4 & 15;
-                let pos = BlockPos::new(chunk_pos.get_min_block_x() + x, bottom_y_in_section + y, chunk_pos.get_min_block_z() + z);
+                let pos = BlockPos::new(
+                    chunk_pos.get_min_block_x() + x,
+                    bottom_y_in_section + y,
+                    chunk_pos.get_min_block_z() + z,
+                );
                 let state = chunk
                     .get_section_state(section_index, coordinate)
                     .ok_or_else(|| UpgradeError(format!("java.lang.IllegalArgumentException: The value {coordinate} is not in the specified inclusive range of 0 to 4095")))?;
                 let mut new_state = state;
                 for direction in Direction::ALL {
                     let neighbour_pos = pos.relative(direction);
-                    if SectionPos::block_to_section_coord_i32(pos.x()) == chunk_pos.x && SectionPos::block_to_section_coord_i32(pos.z()) == chunk_pos.z {
-                        new_state = update_state(new_state, direction, chunk, &pos, &neighbour_pos, leaves)?;
+                    if SectionPos::block_to_section_coord_i32(pos.x()) == chunk_pos.x
+                        && SectionPos::block_to_section_coord_i32(pos.z()) == chunk_pos.z
+                    {
+                        new_state = update_state(
+                            new_state,
+                            direction,
+                            chunk,
+                            &pos,
+                            &neighbour_pos,
+                            leaves,
+                        )?;
                     }
                 }
                 update_or_destroy(state, new_state, chunk, &pos, 18);

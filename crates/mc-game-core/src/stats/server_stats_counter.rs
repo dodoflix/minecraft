@@ -4,7 +4,9 @@
 //! current format (`{"stats": {<type>: {<stat>: <int>}}, "DataVersion": N}`) is read and written exactly. The key
 //! order of a written file follows vanilla's `HashMap` iteration order, except that the stat types are written in
 //! registry order (vanilla's order there is the identity hash of the `StatType` objects, i.e. random per JVM run).
-use super::hash_order::{DEFAULT_TABLE, JavaHashMapSim, java_hash_map_order, object_open_hash_order, presized_table};
+use super::hash_order::{
+    DEFAULT_TABLE, JavaHashMapSim, java_hash_map_order, object_open_hash_order, presized_table,
+};
 use super::stat::{Stat, build_name, by_names, stat_type, stat_type_name, value_name};
 use super::stats_counter::StatsCounter;
 use indexmap::IndexSet;
@@ -25,7 +27,11 @@ pub struct ServerStatsCounter {
 /// `Codec.INT` on a `JsonOps` element: numbers only (`Number.intValue`); strings and booleans are errors.
 fn json_int(value: &Value) -> Result<i32, String> {
     match value {
-        Value::Number(n) => Ok(n.as_i64().map(|v| v as i32).or_else(|| n.as_u64().map(|v| v as i32)).unwrap_or_else(|| n.as_f64().map_or(0, |f| f as i64 as i32))),
+        Value::Number(n) => Ok(n
+            .as_i64()
+            .map(|v| v as i32)
+            .or_else(|| n.as_u64().map(|v| v as i32))
+            .unwrap_or_else(|| n.as_f64().map_or(0, |f| f as i64 as i32))),
         other => Err(format!("Not a number: {other}")),
     }
 }
@@ -33,13 +39,21 @@ fn json_int(value: &Value) -> Result<i32, String> {
 impl ServerStatsCounter {
     /// A counter that is never written to disk (players created without a player list).
     pub fn detached() -> Self {
-        Self { counter: StatsCounter::default(), file: None, dirty: IndexSet::new() }
+        Self {
+            counter: StatsCounter::default(),
+            file: None,
+            dirty: IndexSet::new(),
+        }
     }
 
     /// `new ServerStatsCounter(server, file)`: reads `file` when it is a regular file; unreadable or unparsable files
     /// are logged and ignored (the stats stay empty).
     pub fn new(file: PathBuf) -> Self {
-        let mut this = Self { counter: StatsCounter::default(), file: Some(file), dirty: IndexSet::new() };
+        let mut this = Self {
+            counter: StatsCounter::default(),
+            file: Some(file),
+            dirty: IndexSet::new(),
+        };
         let file = this.file.clone().expect("just set");
         if file.is_file() {
             match std::fs::read_to_string(&file) {
@@ -66,7 +80,8 @@ impl ServerStatsCounter {
     }
 
     pub fn increment(&mut self, stat: Stat, count: i32) {
-        let value = (i64::from(self.counter.get_value(&stat)) + i64::from(count)).min(i64::from(i32::MAX)) as i32;
+        let value = (i64::from(self.counter.get_value(&stat)) + i64::from(count))
+            .min(i64::from(i32::MAX)) as i32;
         self.set_value(stat, value);
     }
 
@@ -84,9 +99,18 @@ impl ServerStatsCounter {
     /// with `resultOrPartial`: malformed entries are skipped (and logged), the rest is loaded.
     pub fn parse(&mut self, element: &Value) {
         let empty = Value::Object(Map::new());
-        let stats = element.as_object().and_then(|o| o.get("stats")).unwrap_or(&empty);
+        let stats = element
+            .as_object()
+            .and_then(|o| o.get("stats"))
+            .unwrap_or(&empty);
         let Some(types) = stats.as_object() else {
-            log::error!("Failed to parse statistics for {}: Not a map: {stats}", self.file.as_deref().map(|f| f.display().to_string()).unwrap_or_default());
+            log::error!(
+                "Failed to parse statistics for {}: Not a map: {stats}",
+                self.file
+                    .as_deref()
+                    .map(|f| f.display().to_string())
+                    .unwrap_or_default()
+            );
             return;
         };
         let mut errors = Vec::new();
@@ -130,14 +154,18 @@ impl ServerStatsCounter {
             }
         }
         // `this.stats.putAll(map)`: presizes the fastutil table, then puts in the HashMap's iteration order
-        self.counter.table = presized_table(self.counter.table, self.counter.stats.len() + flat.len());
+        self.counter.table =
+            presized_table(self.counter.table, self.counter.stats.len() + flat.len());
         for i in hash_map.order() {
             self.counter.set_value(flat[i].0, flat[i].1);
         }
         if !errors.is_empty() {
             log::error!(
                 "Failed to parse statistics for {}: {}",
-                self.file.as_deref().map(|f| f.display().to_string()).unwrap_or_default(),
+                self.file
+                    .as_deref()
+                    .map(|f| f.display().to_string())
+                    .unwrap_or_default(),
                 errors.join("; ")
             );
         }
@@ -148,7 +176,8 @@ impl ServerStatsCounter {
         let ordered = self.counter.iter_fast_order();
         let mut stats = Map::new();
         for ty in StatType::iter() {
-            let of_type: Vec<&(Stat, i32)> = ordered.iter().filter(|(s, _)| stat_type(s) == ty).collect();
+            let of_type: Vec<&(Stat, i32)> =
+                ordered.iter().filter(|(s, _)| stat_type(s) == ty).collect();
             if of_type.is_empty() {
                 continue;
             }
@@ -159,11 +188,17 @@ impl ServerStatsCounter {
                 let (stat, count) = of_type[i];
                 values.insert(value_name(stat).to_owned(), Value::from(*count));
             }
-            stats.insert(stat_type_name(&of_type[0].0).to_owned(), Value::Object(values));
+            stats.insert(
+                stat_type_name(&of_type[0].0).to_owned(),
+                Value::Object(values),
+            );
         }
         let mut root = Map::new();
         root.insert("stats".into(), Value::Object(stats));
-        root.insert("DataVersion".into(), Value::from(mc_world::level_storage::WORLD_VERSION));
+        root.insert(
+            "DataVersion".into(),
+            Value::from(mc_world::level_storage::WORLD_VERSION),
+        );
         Value::Object(root)
     }
 
@@ -177,19 +212,36 @@ impl ServerStatsCounter {
     /// `getDirty()`: copies the set into a new `HashSet`, clears the old one; returns the copy in Java iteration order.
     fn take_dirty(&mut self) -> Vec<Stat> {
         let names: Vec<String> = self.dirty.iter().map(build_name).collect();
-        let source: Vec<Stat> = java_hash_map_order(&names, 16).into_iter().map(|i| self.dirty[i]).collect();
+        let source: Vec<Stat> = java_hash_map_order(&names, 16)
+            .into_iter()
+            .map(|i| self.dirty[i])
+            .collect();
         self.dirty.clear();
         // `new HashSet<>(collection)`: initial capacity `max((int)(size / .75f) + 1, 16)`
         let capacity = ((source.len() as f32 / 0.75) as usize + 1).max(16);
         let names: Vec<String> = source.iter().map(build_name).collect();
-        java_hash_map_order(&names, capacity).into_iter().map(|i| source[i]).collect()
+        java_hash_map_order(&names, capacity)
+            .into_iter()
+            .map(|i| source[i])
+            .collect()
     }
 
     /// `sendStats(player)`: the `ClientboundAwardStatsPacket` for the dirty stats (a fastutil `Object2IntOpenHashMap`).
     pub fn stats_packet(&mut self) -> ClientboundAwardStatsPacket {
         let dirty = self.take_dirty();
-        let hashes: Vec<i32> = dirty.iter().map(|s| java_string_hash(&build_name(s))).collect();
-        let stats = object_open_hash_order(&hashes, DEFAULT_TABLE).into_iter().map(|i| (dirty[i], mc_protocol::codec::VarInt(self.counter.get_value(&dirty[i])))).collect();
+        let hashes: Vec<i32> = dirty
+            .iter()
+            .map(|s| java_string_hash(&build_name(s)))
+            .collect();
+        let stats = object_open_hash_order(&hashes, DEFAULT_TABLE)
+            .into_iter()
+            .map(|i| {
+                (
+                    dirty[i],
+                    mc_protocol::codec::VarInt(self.counter.get_value(&dirty[i])),
+                )
+            })
+            .collect();
         ClientboundAwardStatsPacket { stats }
     }
 }

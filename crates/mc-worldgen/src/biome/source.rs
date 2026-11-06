@@ -187,9 +187,12 @@ pub trait BiomeSource: Send + Sync {
             level.max_y() + 1,
             sample_resolution_vertical,
         );
-        for sample_column in
-            BlockPos::spiral_around(&BlockPos::ZERO, sample_radius, Direction::East, Direction::South)
-        {
+        for sample_column in BlockPos::spiral_around(
+            &BlockPos::ZERO,
+            sample_radius,
+            Direction::East,
+            Direction::South,
+        ) {
             let block_x = origin
                 .x()
                 .wrapping_add(sample_column.x().wrapping_mul(sample_resolution_horizontal));
@@ -225,7 +228,9 @@ pub fn biome_source_from_json(
     let fields = Fields::new(value)?;
     let kind = fields.required("type", parse_identifier)?;
     if kind.namespace() != "minecraft" {
-        return Err(LoadError::new(format!("Unknown registry key in biome_source: {kind}")).at("type"));
+        return Err(
+            LoadError::new(format!("Unknown registry key in biome_source: {kind}")).at("type"),
+        );
     }
     Ok(match kind.path() {
         "fixed" => Arc::new(FixedBiomeSource::from_json(value, biomes)?),
@@ -234,7 +239,7 @@ pub fn biome_source_from_json(
         "the_end" => Arc::new(TheEndBiomeSource::create(biomes)?),
         _ => {
             return Err(
-                LoadError::new(format!("Unknown registry key in biome_source: {kind}")).at("type")
+                LoadError::new(format!("Unknown registry key in biome_source: {kind}")).at("type"),
             );
         }
     })

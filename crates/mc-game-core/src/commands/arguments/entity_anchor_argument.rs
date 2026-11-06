@@ -1,17 +1,18 @@
 //! `EntityAnchorArgument`.
 
+use crate::commands::CommandSourceStack;
 use crate::commands::message::dynamic_translatable;
 use crate::commands::shared_suggestion_provider::suggest;
-use crate::commands::CommandSourceStack;
 use mc_brigadier::arguments::value;
 use mc_brigadier::{
-    ArgumentType, CommandContext, CommandSyntaxException, DynamicCommandExceptionType, ImmutableStringReader, ParsedValue,
-    StringReader, Suggestions, SuggestionsBuilder,
+    ArgumentType, CommandContext, CommandSyntaxException, DynamicCommandExceptionType,
+    ImmutableStringReader, ParsedValue, StringReader, Suggestions, SuggestionsBuilder,
 };
 use mc_core::phys::Vec3;
 use std::sync::LazyLock;
 
-static ERROR_INVALID: LazyLock<DynamicCommandExceptionType<String>> = LazyLock::new(|| dynamic_translatable("argument.anchor.invalid"));
+static ERROR_INVALID: LazyLock<DynamicCommandExceptionType<String>> =
+    LazyLock::new(|| dynamic_translatable("argument.anchor.invalid"));
 
 /// `EntityAnchorArgument.Anchor`.
 #[derive(Clone, Copy, PartialEq, Eq, Hash, Debug)]
@@ -78,7 +79,11 @@ impl ArgumentType<CommandSourceStack> for EntityAnchorArgument {
         }
     }
 
-    fn list_suggestions(&self, _context: &CommandContext<CommandSourceStack>, builder: SuggestionsBuilder) -> Suggestions {
+    fn list_suggestions(
+        &self,
+        _context: &CommandContext<CommandSourceStack>,
+        builder: SuggestionsBuilder,
+    ) -> Suggestions {
         suggest(Anchor::VALUES.map(Anchor::name), builder)
     }
 
@@ -91,4 +96,6 @@ impl ArgumentType<CommandSourceStack> for EntityAnchorArgument {
     }
 }
 
-crate::register_argument_type!(EntityAnchorArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::EntityAnchor);
+crate::register_argument_type!(EntityAnchorArgument, |_a| {
+    mc_protocol::packets::play::ArgumentTypeTemplate::EntityAnchor
+});

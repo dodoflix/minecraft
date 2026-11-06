@@ -5,9 +5,11 @@ use mc_text::Component;
 use serde_json::{Map, Number, Value};
 use uuid::Uuid;
 
-use crate::codec::{read_utf, write_utf, DecodeError, DecodeResult, EncodeError, EncodeResult, MAX_STRING_LENGTH};
+use crate::codec::{
+    DecodeError, DecodeResult, EncodeError, EncodeResult, MAX_STRING_LENGTH, read_utf, write_utf,
+};
 use crate::gson::{self, JsonElement, JsonObject};
-use crate::{packet_enum, Decode, Encode, Packet};
+use crate::{Decode, Encode, Packet, packet_enum};
 
 const FAVICON_PREFIX: &str = "data:image/png;base64,";
 
@@ -73,7 +75,9 @@ fn element_to_value(e: &JsonElement) -> Option<Value> {
             _ => Number::from_f64(t.parse::<f64>().ok()?)?,
         }),
         JsonElement::String(s) => Value::String(s.clone()),
-        JsonElement::Array(a) => Value::Array(a.iter().map(element_to_value).collect::<Option<_>>()?),
+        JsonElement::Array(a) => {
+            Value::Array(a.iter().map(element_to_value).collect::<Option<_>>()?)
+        }
         JsonElement::Object(o) => {
             let mut m = Map::new();
             for (k, v) in o.iter() {
@@ -111,7 +115,10 @@ impl ServerStatus {
     pub fn to_json(&self) -> EncodeResult<JsonElement> {
         let mut o = JsonObject::new();
         if self.description != Component::empty() {
-            let d = self.description.to_json().map_err(|e| EncodeError(format!("Failed to encode: {e}")))?;
+            let d = self
+                .description
+                .to_json()
+                .map_err(|e| EncodeError(format!("Failed to encode: {e}")))?;
             o.add("description", value_to_element(&d));
         }
         if let Some(p) = &self.players {
@@ -140,7 +147,10 @@ impl ServerStatus {
             o.add("version", JsonElement::Object(vo));
         }
         if let Some(png) = &self.favicon {
-            o.add("favicon", string(&format!("{FAVICON_PREFIX}{}", base64_encode(png))));
+            o.add(
+                "favicon",
+                string(&format!("{FAVICON_PREFIX}{}", base64_encode(png))),
+            );
         }
         if self.enforces_secure_chat {
             o.add_property_bool("enforcesSecureChat", true);
@@ -160,7 +170,9 @@ impl ServerStatus {
     pub fn from_json(json: &JsonElement) -> Result<Self, String> {
         let JsonElement::Object(o) = json else {
             let payload = json.to_compact_string();
-            return Err(format!("Failed to decode: Not a JSON object: {payload} {payload}"));
+            return Err(format!(
+                "Failed to decode: Not a JSON object: {payload} {payload}"
+            ));
         };
         let description = field(o, "description")
             .and_then(element_to_value)
@@ -177,7 +189,10 @@ impl ServerStatus {
                     Some(p) => codec_int(p)?,
                     None => None,
                 };
-                name.zip(protocol).map(|(name, protocol)| Version { name: name.to_owned(), protocol })
+                name.zip(protocol).map(|(name, protocol)| Version {
+                    name: name.to_owned(),
+                    protocol,
+                })
             }
             _ => None,
         };
@@ -185,13 +200,24 @@ impl ServerStatus {
             .and_then(codec_string)
             .and_then(|s| s.strip_prefix(FAVICON_PREFIX))
             .and_then(|b| base64_decode(&b.replace('\n', "")));
-        let enforces_secure_chat = matches!(field(o, "enforcesSecureChat"), Some(JsonElement::Bool(true)));
-        Ok(Self { description, players, version, favicon, enforces_secure_chat })
+        let enforces_secure_chat = matches!(
+            field(o, "enforcesSecureChat"),
+            Some(JsonElement::Bool(true))
+        );
+        Ok(Self {
+            description,
+            players,
+            version,
+            favicon,
+            enforces_secure_chat,
+        })
     }
 
     /// `ServerStatus.Players.CODEC`.
     fn decode_players(p: &JsonElement) -> Result<Option<Players>, String> {
-        let JsonElement::Object(p) = p else { return Ok(None) };
+        let JsonElement::Object(p) = p else {
+            return Ok(None);
+        };
         let max = match field(p, "max") {
             Some(e) => codec_int(e)?,
             None => None,
@@ -201,15 +227,25 @@ impl ServerStatus {
             None => None,
         };
         let sample = match field(p, "sample") {
-            Some(JsonElement::Array(a)) => a.iter().map(Self::decode_name_and_id).collect::<Option<Vec<_>>>().unwrap_or_default(),
+            Some(JsonElement::Array(a)) => a
+                .iter()
+                .map(Self::decode_name_and_id)
+                .collect::<Option<Vec<_>>>()
+                .unwrap_or_default(),
             _ => Vec::new(),
         };
-        Ok(max.zip(online).map(|(max, online)| Players { max, online, sample }))
+        Ok(max.zip(online).map(|(max, online)| Players {
+            max,
+            online,
+            sample,
+        }))
     }
 
     /// `NameAndId.CODEC` (`UUIDUtil.STRING_CODEC` id).
     fn decode_name_and_id(e: &JsonElement) -> Option<(Uuid, String)> {
-        let JsonElement::Object(o) = e else { return None };
+        let JsonElement::Object(o) = e else {
+            return None;
+        };
         let id = uuid_from_string(field(o, "id").and_then(codec_string)?).ok()?;
         Some((id, codec_string(field(o, "name")?)?.to_owned()))
     }
@@ -220,9 +256,16 @@ const B64: &[u8; 64] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz012
 fn base64_encode(data: &[u8]) -> String {
     let mut s = String::with_capacity(data.len().div_ceil(3) * 4);
     for c in data.chunks(3) {
-        let n = c.iter().enumerate().fold(0u32, |a, (i, &b)| a | u32::from(b) << (16 - 8 * i));
+        let n = c
+            .iter()
+            .enumerate()
+            .fold(0u32, |a, (i, &b)| a | u32::from(b) << (16 - 8 * i));
         for i in 0..4 {
-            if i <= c.len() { s.push(B64[(n >> (18 - 6 * i) & 63) as usize] as char) } else { s.push('=') }
+            if i <= c.len() {
+                s.push(B64[(n >> (18 - 6 * i) & 63) as usize] as char)
+            } else {
+                s.push('=')
+            }
         }
     }
     s
@@ -312,7 +355,8 @@ impl Encode for ClientboundStatusResponsePacket {
 }
 impl Decode for ClientboundStatusResponsePacket {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
-        let json = gson::parse_lenient_json_parser(&read_utf(input, 32767)?).map_err(|_| DecodeError::msg("Failed to parse JSON"))?;
+        let json = gson::parse_lenient_json_parser(&read_utf(input, 32767)?)
+            .map_err(|_| DecodeError::msg("Failed to parse JSON"))?;
         let status = ServerStatus::from_json(&json).map_err(DecodeError::Message)?;
         Ok(Self { status })
     }

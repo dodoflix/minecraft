@@ -22,6 +22,8 @@ impl SpawnContextLevel for ServerLevel {
     }
 
     fn has_structure_piece_at(&self, pos: BlockPos, matcher: &dyn Fn(&Identifier) -> bool) -> bool {
-        crate::advancements::predicates::location_predicate::has_structure_piece_at(self, pos, matcher)
+        crate::advancements::predicates::location_predicate::has_structure_piece_at(
+            self, pos, matcher,
+        )
     }
 }

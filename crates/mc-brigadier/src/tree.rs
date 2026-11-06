@@ -12,7 +12,9 @@ use std::fmt;
 use std::sync::{Arc, RwLock};
 
 use crate::arguments::ArgumentType;
-use crate::builder::{ArgumentBuilder, LiteralArgumentBuilder, NodeBuilder, RequiredArgumentBuilder};
+use crate::builder::{
+    ArgumentBuilder, LiteralArgumentBuilder, NodeBuilder, RequiredArgumentBuilder,
+};
 use crate::command::{AmbiguityConsumer, Command, Predicate, RedirectModifier};
 use crate::context::{CommandContext, CommandContextBuilder, StringRange};
 use crate::exceptions::{CommandSyntaxException, built_in_exceptions};
@@ -22,8 +24,15 @@ use crate::utf16::{compare_to, len16, substring};
 
 pub enum NodeKind<S> {
     Root,
-    Literal { literal: String, literal_lower_case: String },
-    Argument { name: String, type_: Arc<dyn ArgumentType<S>>, custom_suggestions: Option<SuggestionProvider<S>> },
+    Literal {
+        literal: String,
+        literal_lower_case: String,
+    },
+    Argument {
+        name: String,
+        type_: Arc<dyn ArgumentType<S>>,
+        custom_suggestions: Option<SuggestionProvider<S>>,
+    },
 }
 
 struct State<S> {
@@ -51,7 +60,9 @@ impl<S: Clone + 'static> CommandNode<S> {
             None,
             Arc::new(|_| true),
             None,
-            Some(Arc::new(|c: &CommandContext<S>| Ok(vec![c.get_source().clone()]))),
+            Some(Arc::new(|c: &CommandContext<S>| {
+                Ok(vec![c.get_source().clone()])
+            })),
             false,
         )
     }
@@ -93,7 +104,17 @@ impl<S: 'static> CommandNode<S> {
     ) -> Arc<Self> {
         let literal = literal.into();
         let literal_lower_case = literal.to_lowercase();
-        Self::make(NodeKind::Literal { literal, literal_lower_case }, command, requirement, redirect, modifier, forks)
+        Self::make(
+            NodeKind::Literal {
+                literal,
+                literal_lower_case,
+            },
+            command,
+            requirement,
+            redirect,
+            modifier,
+            forks,
+        )
     }
 
     /// `new ArgumentCommandNode<>(...)`.
@@ -109,7 +130,11 @@ impl<S: 'static> CommandNode<S> {
         custom_suggestions: Option<SuggestionProvider<S>>,
     ) -> Arc<Self> {
         Self::make(
-            NodeKind::Argument { name: name.into(), type_, custom_suggestions },
+            NodeKind::Argument {
+                name: name.into(),
+                type_,
+                custom_suggestions,
+            },
             command,
             requirement,
             redirect,
@@ -151,7 +176,9 @@ impl<S: 'static> CommandNode<S> {
     /// `ArgumentCommandNode.getCustomSuggestions()`.
     pub fn get_custom_suggestions(&self) -> Option<&SuggestionProvider<S>> {
         match &self.kind {
-            NodeKind::Argument { custom_suggestions, .. } => custom_suggestions.as_ref(),
+            NodeKind::Argument {
+                custom_suggestions, ..
+            } => custom_suggestions.as_ref(),
             _ => None,
         }
     }
@@ -254,7 +281,9 @@ impl<S: 'static> CommandNode<S> {
     pub fn is_valid_input(&self, input: &str) -> bool {
         match &self.kind {
             NodeKind::Root => false,
-            NodeKind::Literal { literal, .. } => Self::parse_literal(literal, &mut StringReader::new(input)).is_some(),
+            NodeKind::Literal { literal, .. } => {
+                Self::parse_literal(literal, &mut StringReader::new(input)).is_some()
+            }
             NodeKind::Argument { type_, .. } => {
                 let mut reader = StringReader::new(input);
                 type_.parse(&mut reader).is_ok() && (!reader.can_read() || reader.peek() == ' ')
@@ -286,14 +315,21 @@ impl<S: 'static> CommandNode<S> {
     ) -> Result<Suggestions, CommandSyntaxException> {
         match &self.kind {
             NodeKind::Root => Ok(Suggestions::empty()),
-            NodeKind::Literal { literal, literal_lower_case } => {
+            NodeKind::Literal {
+                literal,
+                literal_lower_case,
+            } => {
                 if literal_lower_case.starts_with(builder.get_remaining_lower_case()) {
                     Ok(builder.suggest(literal.as_str()).build())
                 } else {
                     Ok(Suggestions::empty())
                 }
             }
-            NodeKind::Argument { type_, custom_suggestions, .. } => match custom_suggestions {
+            NodeKind::Argument {
+                type_,
+                custom_suggestions,
+                ..
+            } => match custom_suggestions {
                 None => Ok(type_.list_suggestions(context, builder)),
                 Some(provider) => provider(context, builder),
             },
@@ -305,10 +341,17 @@ impl<S: Clone + 'static> CommandNode<S> {
     /// `addChild`: merges into an existing child of the same name. Panics when adding a root node
     /// (vanilla `UnsupportedOperationException`).
     pub fn add_child(&self, node: Arc<CommandNode<S>>) {
-        assert!(!node.is_root(), "Cannot add a RootCommandNode as a child to any other CommandNode");
+        assert!(
+            !node.is_root(),
+            "Cannot add a RootCommandNode as a child to any other CommandNode"
+        );
         let existing = {
             let mut state = self.state.write().unwrap_or_else(|e| e.into_inner());
-            match state.by_name.get(node.get_name()).map(|&i| state.children[i].clone()) {
+            match state
+                .by_name
+                .get(node.get_name())
+                .map(|&i| state.children[i].clone())
+            {
                 Some(child) => child,
                 None => {
                     let index = state.children.len();
@@ -326,7 +369,11 @@ impl<S: Clone + 'static> CommandNode<S> {
             }
         };
         if let Some(command) = node.get_command() {
-            existing.state.write().unwrap_or_else(|e| e.into_inner()).command = Some(command);
+            existing
+                .state
+                .write()
+                .unwrap_or_else(|e| e.into_inner())
+                .command = Some(command);
         }
         for grandchild in node.get_children() {
             existing.add_child(grandchild);
@@ -348,13 +395,16 @@ impl<S: Clone + 'static> CommandNode<S> {
                         context_builder.with_node(self.clone(), StringRange::between(start, end));
                         Ok(())
                     }
-                    None => Err(built_in_exceptions().literal_incorrect().create_with_context(reader, literal.clone())),
+                    None => Err(built_in_exceptions()
+                        .literal_incorrect()
+                        .create_with_context(reader, literal.clone())),
                 }
             }
             NodeKind::Argument { name, type_, .. } => {
                 let start = reader.get_cursor();
                 let result = type_.parse_with_source(reader, context_builder.get_source())?;
-                let parsed = crate::context::ParsedArgument::new(start, reader.get_cursor(), result);
+                let parsed =
+                    crate::context::ParsedArgument::new(start, reader.get_cursor(), result);
                 let range = parsed.get_range();
                 context_builder.with_argument(name.clone(), parsed);
                 context_builder.with_node(self.clone(), range);
@@ -370,14 +420,19 @@ impl<S: Clone + 'static> CommandNode<S> {
         match &self.kind {
             NodeKind::Root => panic!("Cannot convert root into a builder"),
             NodeKind::Literal { literal, .. } => {
-                let mut b = LiteralArgumentBuilder::literal(literal.clone()).requires_predicate(self.requirement.clone());
+                let mut b = LiteralArgumentBuilder::literal(literal.clone())
+                    .requires_predicate(self.requirement.clone());
                 b = b.forward_shared(self.redirect.clone(), self.modifier.clone(), self.forks);
                 if let Some(c) = command {
                     b = b.executes_command(c);
                 }
                 NodeBuilder::Literal(b)
             }
-            NodeKind::Argument { name, type_, custom_suggestions } => {
+            NodeKind::Argument {
+                name,
+                type_,
+                custom_suggestions,
+            } => {
                 let mut b = RequiredArgumentBuilder::argument_shared(name.clone(), type_.clone())
                     .requires_predicate(self.requirement.clone());
                 b = b.forward_shared(self.redirect.clone(), self.modifier.clone(), self.forks);
@@ -422,9 +477,14 @@ impl<S: 'static> PartialEq for CommandNode<S> {
         let kind_eq = match (&self.kind, &other.kind) {
             (NodeKind::Root, NodeKind::Root) => true,
             (NodeKind::Literal { literal: a, .. }, NodeKind::Literal { literal: b, .. }) => a == b,
-            (NodeKind::Argument { name: a, type_: ta, .. }, NodeKind::Argument { name: b, type_: tb, .. }) => {
-                a == b && ta.equals(&**tb)
-            }
+            (
+                NodeKind::Argument {
+                    name: a, type_: ta, ..
+                },
+                NodeKind::Argument {
+                    name: b, type_: tb, ..
+                },
+            ) => a == b && ta.equals(&**tb),
             _ => false,
         };
         if !kind_eq {
@@ -438,7 +498,11 @@ impl<S: 'static> PartialEq for CommandNode<S> {
         };
         command_eq
             && a.children.len() == b.children.len()
-            && a.children.iter().all(|c| b.by_name.get(c.get_name()).is_some_and(|&i| **c == *b.children[i]))
+            && a.children.iter().all(|c| {
+                b.by_name
+                    .get(c.get_name())
+                    .is_some_and(|&i| **c == *b.children[i])
+            })
     }
 }
 
@@ -447,7 +511,9 @@ impl<S: 'static> fmt::Display for CommandNode<S> {
         match &self.kind {
             NodeKind::Root => f.write_str("<root>"),
             NodeKind::Literal { literal, .. } => write!(f, "<literal {literal}>"),
-            NodeKind::Argument { name, type_, .. } => write!(f, "<argument {name}:{}>", type_.describe()),
+            NodeKind::Argument { name, type_, .. } => {
+                write!(f, "<argument {name}:{}>", type_.describe())
+            }
         }
     }
 }

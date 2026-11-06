@@ -29,7 +29,15 @@ impl DynamicGameEventListener {
     }
 
     /// `add(level)`.
-    pub fn add(&mut self, level: &mut ServerLevel, owner: ListenerOwner, source: PositionSource, radius: i32, delivery: DeliveryMode, position: Vec3) {
+    pub fn add(
+        &mut self,
+        level: &mut ServerLevel,
+        owner: ListenerOwner,
+        source: PositionSource,
+        radius: i32,
+        delivery: DeliveryMode,
+        position: Vec3,
+    ) {
         self.move_to(level, owner, source, radius, delivery, position);
     }
 
@@ -41,16 +49,37 @@ impl DynamicGameEventListener {
     }
 
     /// Apply the action the level asked the owning entity for (`owner`'s position is `source.getPosition(level)`).
-    pub fn apply(&mut self, action: DynamicListenerAction, level: &mut ServerLevel, owner: ListenerOwner, source: PositionSource, radius: i32, delivery: DeliveryMode, position: Vec3) {
+    pub fn apply(
+        &mut self,
+        action: DynamicListenerAction,
+        level: &mut ServerLevel,
+        owner: ListenerOwner,
+        source: PositionSource,
+        radius: i32,
+        delivery: DeliveryMode,
+        position: Vec3,
+    ) {
         match action {
-            DynamicListenerAction::Add => self.add(level, owner, source, radius, delivery, position),
+            DynamicListenerAction::Add => {
+                self.add(level, owner, source, radius, delivery, position)
+            }
             DynamicListenerAction::Remove => self.remove(level, owner),
-            DynamicListenerAction::Move => self.move_to(level, owner, source, radius, delivery, position),
+            DynamicListenerAction::Move => {
+                self.move_to(level, owner, source, radius, delivery, position)
+            }
         }
     }
 
     /// `move(level)`: re-register when the position is in another section than the last one.
-    pub fn move_to(&mut self, level: &mut ServerLevel, owner: ListenerOwner, source: PositionSource, radius: i32, delivery: DeliveryMode, position: Vec3) {
+    pub fn move_to(
+        &mut self,
+        level: &mut ServerLevel,
+        owner: ListenerOwner,
+        source: PositionSource,
+        radius: i32,
+        delivery: DeliveryMode,
+        position: Vec3,
+    ) {
         let current_section = SectionPos::of_block_pos(&BlockPos::containing_position(&position));
         if self.last_section != Some(current_section) {
             if let Some(last) = self.last_section {
@@ -58,7 +87,16 @@ impl DynamicGameEventListener {
             }
             self.last_section = Some(current_section);
             if let Some(chunk) = level.chunk_now_mut(current_section.x(), current_section.z()) {
-                chunk.game_event_registries.entry(current_section.y()).or_default().register(RegisteredListener { owner, source, radius, delivery });
+                chunk
+                    .game_event_registries
+                    .entry(current_section.y())
+                    .or_default()
+                    .register(RegisteredListener {
+                        owner,
+                        source,
+                        radius,
+                        delivery,
+                    });
             }
         }
     }

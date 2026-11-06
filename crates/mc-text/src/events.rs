@@ -62,7 +62,10 @@ pub enum ClickEvent {
     ShowDialog(Tag),
     ChangePage(i32),
     CopyToClipboard(String),
-    Custom { id: Identifier, payload: Option<Tag> },
+    Custom {
+        id: Identifier,
+        payload: Option<Tag>,
+    },
 }
 
 impl ClickEvent {

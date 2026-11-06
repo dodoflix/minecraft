@@ -17,11 +17,17 @@ pub struct OptionException {
 
 impl OptionException {
     fn unrecognized(name: &str) -> Self {
-        OptionException { class: "joptsimple.UnrecognizedOptionException", message: format!("{name} is not a recognized option") }
+        OptionException {
+            class: "joptsimple.UnrecognizedOptionException",
+            message: format!("{name} is not a recognized option"),
+        }
     }
 
     fn missing_argument(option: &str) -> Self {
-        OptionException { class: "joptsimple.OptionMissingRequiredArgumentException", message: format!("Option {option} requires an argument") }
+        OptionException {
+            class: "joptsimple.OptionMissingRequiredArgumentException",
+            message: format!("Option {option} requires an argument"),
+        }
     }
 }
 
@@ -197,7 +203,9 @@ fn take_value(
     let value = match inline {
         Some(v) => v,
         None => {
-            let v = args.get(*i).ok_or_else(|| OptionException::missing_argument(spec.0))?;
+            let v = args
+                .get(*i)
+                .ok_or_else(|| OptionException::missing_argument(spec.0))?;
             *i += 1;
             v.clone()
         }
@@ -206,7 +214,12 @@ fn take_value(
     Ok(())
 }
 
-fn handle_long(body: &str, args: &[String], i: &mut usize, out: &mut Collected) -> Result<(), OptionException> {
+fn handle_long(
+    body: &str,
+    args: &[String],
+    i: &mut usize,
+    out: &mut Collected,
+) -> Result<(), OptionException> {
     let (name, value) = split_eq(body);
     let spec = lookup(name).ok_or_else(|| OptionException::unrecognized(name))?;
     if spec.2 {
@@ -217,7 +230,12 @@ fn handle_long(body: &str, args: &[String], i: &mut usize, out: &mut Collected) 
     }
 }
 
-fn handle_short(body: &str, args: &[String], i: &mut usize, out: &mut Collected) -> Result<(), OptionException> {
+fn handle_short(
+    body: &str,
+    args: &[String],
+    i: &mut usize,
+    out: &mut Collected,
+) -> Result<(), OptionException> {
     let (name, value) = split_eq(body);
     if lookup(name).is_some() {
         return handle_long(body, args, i, out);
@@ -225,10 +243,15 @@ fn handle_short(body: &str, args: &[String], i: &mut usize, out: &mut Collected)
     // a cluster of single-character options (each may itself be an abbreviation)
     let chars: Vec<char> = name.chars().collect();
     for (idx, c) in chars.iter().enumerate() {
-        let spec = lookup(&c.to_string()).ok_or_else(|| OptionException::unrecognized(&c.to_string()))?;
+        let spec =
+            lookup(&c.to_string()).ok_or_else(|| OptionException::unrecognized(&c.to_string()))?;
         if spec.2 {
             let rest: String = chars[idx + 1..].iter().collect();
-            let inline = if !rest.is_empty() { Some(rest) } else { value.map(str::to_owned) };
+            let inline = if !rest.is_empty() {
+                Some(rest)
+            } else {
+                value.map(str::to_owned)
+            };
             return take_value(spec, inline, args, i, out);
         }
         out.flags.push(spec.1);
@@ -261,7 +284,9 @@ impl Collected {
                 (None, _) => Ok(None),
                 (Some((_, name, _)), Some(_)) => Err(OptionException {
                     class: "joptsimple.MultipleArgumentsForOptionException",
-                    message: format!("Found multiple arguments for option {name}, but you asked for only one"),
+                    message: format!(
+                        "Found multiple arguments for option {name}, but you asked for only one"
+                    ),
                 }),
             }
         };
@@ -323,13 +348,36 @@ mod tests {
 
     #[test]
     fn flags_values_and_forms() {
-        let o = parse(&["--nogui", "-demo", "--port", "25570", "--world=w", "--universe", "u", "-serverId=x", "--pidFile", "p.pid", "extra"]);
+        let o = parse(&[
+            "--nogui",
+            "-demo",
+            "--port",
+            "25570",
+            "--world=w",
+            "--universe",
+            "u",
+            "-serverId=x",
+            "--pidFile",
+            "p.pid",
+            "extra",
+        ]);
         assert!(o.nogui && o.demo);
-        assert_eq!((o.port, o.world_name.as_deref(), o.universe.as_str(), o.server_id.as_deref()), (25570, Some("w"), "u", Some("x")));
+        assert_eq!(
+            (
+                o.port,
+                o.world_name.as_deref(),
+                o.universe.as_str(),
+                o.server_id.as_deref()
+            ),
+            (25570, Some("w"), "u", Some("x"))
+        );
         assert_eq!(o.pid_file, Some(PathBuf::from("p.pid")));
         assert_eq!(o.non_options, ["extra"]);
         assert!(!o.wants_gui());
-        assert!(parse(&["nogui"]).non_options.contains(&"nogui".to_owned()) && !parse(&["nogui"]).wants_gui());
+        assert!(
+            parse(&["nogui"]).non_options.contains(&"nogui".to_owned())
+                && !parse(&["nogui"]).wants_gui()
+        );
     }
 
     #[test]
@@ -341,29 +389,65 @@ mod tests {
         assert_eq!(parse(&["--", "--bogus", "x"]).non_options, ["--bogus", "x"]);
         assert_eq!(parse(&["-"]).non_options, ["-"]);
         // `--p` is ambiguous (pidFile, port)
-        assert_eq!(ServerOptions::parse(["--p"]).unwrap_err().to_string(), "joptsimple.UnrecognizedOptionException: p is not a recognized option");
+        assert_eq!(
+            ServerOptions::parse(["--p"]).unwrap_err().to_string(),
+            "joptsimple.UnrecognizedOptionException: p is not a recognized option"
+        );
     }
 
     #[test]
     fn errors_match_vanilla() {
         let e = |args: &[&str]| ServerOptions::parse(args).unwrap_err().to_string();
-        assert_eq!(e(&["--bogus"]), "joptsimple.UnrecognizedOptionException: bogus is not a recognized option");
-        assert_eq!(e(&["-x"]), "joptsimple.UnrecognizedOptionException: x is not a recognized option");
-        assert_eq!(e(&["--port"]), "joptsimple.OptionMissingRequiredArgumentException: Option port requires an argument");
-        assert_eq!(e(&["-w"]), "joptsimple.OptionMissingRequiredArgumentException: Option world requires an argument");
+        assert_eq!(
+            e(&["--bogus"]),
+            "joptsimple.UnrecognizedOptionException: bogus is not a recognized option"
+        );
+        assert_eq!(
+            e(&["-x"]),
+            "joptsimple.UnrecognizedOptionException: x is not a recognized option"
+        );
+        assert_eq!(
+            e(&["--port"]),
+            "joptsimple.OptionMissingRequiredArgumentException: Option port requires an argument"
+        );
+        assert_eq!(
+            e(&["-w"]),
+            "joptsimple.OptionMissingRequiredArgumentException: Option world requires an argument"
+        );
         // conversion problems surface lazily, after the EULA check
         let o = parse(&["--port", "abc"]);
-        assert_eq!(o.late_error.unwrap().to_string(), "joptsimple.OptionArgumentConversionException: Cannot parse argument 'abc' of option port");
+        assert_eq!(
+            o.late_error.unwrap().to_string(),
+            "joptsimple.OptionArgumentConversionException: Cannot parse argument 'abc' of option port"
+        );
         let o = parse(&["--world", "a", "--world", "b"]);
-        assert!(o.late_error.unwrap().to_string().contains("Found multiple arguments for option world"));
+        assert!(
+            o.late_error
+                .unwrap()
+                .to_string()
+                .contains("Found multiple arguments for option world")
+        );
     }
 
     #[test]
     fn usage_lists_every_option() {
         for (name, _, takes_arg) in OPTIONS {
-            let line = USAGE.lines().find(|l| l.starts_with(&format!("--{name}"))).unwrap_or_else(|| panic!("{name} missing from usage"));
-            assert_eq!(line[2 + name.len()..].trim_start().starts_with('<'), takes_arg, "{name}");
+            let line = USAGE
+                .lines()
+                .find(|l| l.starts_with(&format!("--{name}")))
+                .unwrap_or_else(|| panic!("{name} missing from usage"));
+            assert_eq!(
+                line[2 + name.len()..].trim_start().starts_with('<'),
+                takes_arg,
+                "{name}"
+            );
         }
-        assert_eq!(USAGE.lines().filter(|l| l.starts_with("--") && !l.starts_with("---")).count(), OPTIONS.len());
+        assert_eq!(
+            USAGE
+                .lines()
+                .filter(|l| l.starts_with("--") && !l.starts_with("---"))
+                .count(),
+            OPTIONS.len()
+        );
     }
 }

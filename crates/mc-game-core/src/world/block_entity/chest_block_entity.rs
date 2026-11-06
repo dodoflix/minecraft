@@ -1,15 +1,19 @@
 //! `ChestBlockEntity` (chests, trapped chests, copper chests) and `TrappedChestBlockEntity`.
 
 use super::base_container::BaseContainer;
-use super::container_openers::{ChestLidController, ContainerOpenersCounter, OpenersHost, player_has_chest_menu_open_on};
+use super::container_openers::{
+    ChestLidController, ContainerOpenersCounter, OpenersHost, player_has_chest_menu_open_on,
+};
 use super::randomizable_container::{self, RandomizableContainerData};
-use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, ContainerUser};
+use super::{
+    BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, ContainerUser,
+};
 use crate::server::level::ServerLevel;
 use crate::world::container::{Container, helper};
 use crate::world::entity::{Entity, EntityId};
 use crate::world::item::ItemStack;
-use crate::world::level::block::impls::chest_block;
 use crate::world::level::block::BlockStateExt;
+use crate::world::level::block::impls::chest_block;
 use crate::world::level::{BlockGetter, LevelAccessor};
 use linkme::distributed_slice;
 use mc_core::direction::Direction;
@@ -48,13 +52,27 @@ impl OpenersHost for ChestHost {
             play_sound(level, pos, state, close);
         }
     }
-    fn opener_count_changed(&self, level: &mut ServerLevel, pos: BlockPos, state: BlockState, previous: i32, current: i32) {
+    fn opener_count_changed(
+        &self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        state: BlockState,
+        previous: i32,
+        current: i32,
+    ) {
         // `ChestBlockEntity.signalOpenCount`
         level.block_event(pos, state.block(), 1, current);
         if self.trapped && previous != current {
-            let orientation = level.initial_orientation(Some(state.get(props::HORIZONTAL_FACING).get_opposite()), Some(Direction::Up));
+            let orientation = level.initial_orientation(
+                Some(state.get(props::HORIZONTAL_FACING).get_opposite()),
+                Some(Direction::Up),
+            );
             level.update_neighbors_at_with_orientation_impl(pos, state.block(), orientation);
-            level.update_neighbors_at_with_orientation_impl(pos.below(), state.block(), orientation);
+            level.update_neighbors_at_with_orientation_impl(
+                pos.below(),
+                state.block(),
+                orientation,
+            );
         }
     }
     fn is_own_container(&self, player: &dyn Entity, pos: BlockPos) -> bool {
@@ -63,7 +81,12 @@ impl OpenersHost for ChestHost {
 }
 
 /// `ChestBlockEntity.playSound`.
-fn play_sound(level: &mut ServerLevel, pos: BlockPos, state: BlockState, sound: mc_data::SoundEvent) {
+fn play_sound(
+    level: &mut ServerLevel,
+    pos: BlockPos,
+    state: BlockState,
+    sound: mc_data::SoundEvent,
+) {
     let ty = state.get(props::CHEST_TYPE);
     if ty != ChestType::Left {
         let mut x = f64::from(pos.x()) + 0.5;
@@ -94,7 +117,9 @@ impl ChestBlockEntity {
     }
 
     fn host(&self) -> ChestHost {
-        ChestHost { trapped: self.base.ty == BlockEntityType::TRAPPED_CHEST }
+        ChestHost {
+            trapped: self.base.ty == BlockEntityType::TRAPPED_CHEST,
+        }
     }
 
     /// `getDefaultName()`.
@@ -107,7 +132,8 @@ impl ChestBlockEntity {
     }
 
     pub fn can_open(&self, player: &dyn crate::world::inventory::MenuPlayer) -> bool {
-        (self.loot.loot_table.is_none() || !player.is_spectator()) && self.container.can_open(player)
+        (self.loot.loot_table.is_none() || !player.is_spectator())
+            && self.container.can_open(player)
     }
 
     pub fn items(&self) -> &[ItemStack] {
@@ -119,7 +145,10 @@ impl ChestBlockEntity {
         if !level.get_block_state(pos).has_block_entity() {
             return 0;
         }
-        level.get_block_entity(pos).and_then(|be| be.as_any().downcast_ref::<ChestBlockEntity>()).map_or(0, |c| c.openers.get_opener_count())
+        level
+            .get_block_entity(pos)
+            .and_then(|be| be.as_any().downcast_ref::<ChestBlockEntity>())
+            .map_or(0, |c| c.openers.get_opener_count())
     }
 
     /// `ChestBlockEntity.swapContents(one, two)`.
@@ -133,7 +162,11 @@ impl ChestBlockEntity {
     }
 
     /// `RandomizableContainer.unpackLootTable(player)`.
-    pub fn unpack(&mut self, level: &ServerLevel, player: Option<&dyn crate::world::entity::Entity>) {
+    pub fn unpack(
+        &mut self,
+        level: &ServerLevel,
+        player: Option<&dyn crate::world::entity::Entity>,
+    ) {
         let mut loot = std::mem::take(&mut self.loot);
         let pos = self.base.pos;
         randomizable_container::unpack_loot_table(level, pos, &mut loot, self, player);
@@ -151,7 +184,8 @@ impl ChestBlockEntity {
 
     /// `getEntitiesWithContainerOpen()`.
     pub fn entities_with_container_open(&self, level: &ServerLevel) -> Vec<EntityId> {
-        self.openers.get_entities_with_container_open(&self.host(), level, self.base.pos)
+        self.openers
+            .get_entities_with_container_open(&self.host(), level, self.base.pos)
     }
 }
 
@@ -181,18 +215,24 @@ impl BlockEntity for ChestBlockEntity {
     }
 
     fn apply_components_from_item_stack(&mut self, stack: &ItemStack) {
-        self.container.apply_implicit_components(stack, &mut self.items);
+        self.container
+            .apply_implicit_components(stack, &mut self.items);
         if let Some(loot) = stack.get(&mc_protocol::components::CONTAINER_LOOT) {
             self.loot.set_loot_table(loot.loot_table.clone(), loot.seed);
         }
     }
 
     fn collect_implicit_components(&self, builder: &mut DataComponentMapBuilder) {
-        *builder = self.container.collect_implicit_components(std::mem::take(builder), &self.items);
+        *builder = self
+            .container
+            .collect_implicit_components(std::mem::take(builder), &self.items);
         if let Some(table) = &self.loot.loot_table {
             *builder = std::mem::take(builder).set(
                 mc_protocol::components::CONTAINER_LOOT,
-                mc_protocol::components::SeededContainerLoot { loot_table: table.clone(), seed: self.loot.loot_table_seed },
+                mc_protocol::components::SeededContainerLoot {
+                    loot_table: table.clone(),
+                    seed: self.loot.loot_table_seed,
+                },
             );
         }
     }
@@ -210,7 +250,12 @@ impl BlockEntity for ChestBlockEntity {
         }
     }
 
-    fn pre_remove_side_effects(&mut self, level: &mut ServerLevel, pos: BlockPos, _state: BlockState) {
+    fn pre_remove_side_effects(
+        &mut self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        _state: BlockState,
+    ) {
         self.unpack(level, None);
         crate::world::containers::drop_contents_list(level, pos, &self.items);
     }
@@ -236,7 +281,14 @@ impl BlockEntity for ChestBlockEntity {
         if !self.base.removed && !user.spectator {
             let (pos, state) = (self.base.pos, self.base.block_state);
             let host = self.host();
-            self.openers.increment_openers(&host, user.id, level, pos, state, user.interaction_range);
+            self.openers.increment_openers(
+                &host,
+                user.id,
+                level,
+                pos,
+                state,
+                user.interaction_range,
+            );
         }
     }
 
@@ -244,11 +296,16 @@ impl BlockEntity for ChestBlockEntity {
         if !self.base.removed && !user.spectator {
             let (pos, state) = (self.base.pos, self.base.block_state);
             let host = self.host();
-            self.openers.decrement_openers(&host, user.id, level, pos, state);
+            self.openers
+                .decrement_openers(&host, user.id, level, pos, state);
         }
     }
 
-    fn unpack_loot_table(&mut self, level: &ServerLevel, player: Option<&dyn crate::world::entity::Entity>) {
+    fn unpack_loot_table(
+        &mut self,
+        level: &ServerLevel,
+        player: Option<&dyn crate::world::entity::Entity>,
+    ) {
         self.unpack(level, player);
     }
 
@@ -258,8 +315,19 @@ impl BlockEntity for ChestBlockEntity {
 }
 
 #[distributed_slice(BLOCK_ENTITY_TYPES)]
-static CHEST: BlockEntityRegistration = BlockEntityRegistration { ty: BlockEntityType::CHEST, create: |pos, state| Box::new(ChestBlockEntity::new(BlockEntityType::CHEST, pos, state)) };
+static CHEST: BlockEntityRegistration = BlockEntityRegistration {
+    ty: BlockEntityType::CHEST,
+    create: |pos, state| Box::new(ChestBlockEntity::new(BlockEntityType::CHEST, pos, state)),
+};
 
 #[distributed_slice(BLOCK_ENTITY_TYPES)]
-static TRAPPED_CHEST: BlockEntityRegistration =
-    BlockEntityRegistration { ty: BlockEntityType::TRAPPED_CHEST, create: |pos, state| Box::new(ChestBlockEntity::new(BlockEntityType::TRAPPED_CHEST, pos, state)) };
+static TRAPPED_CHEST: BlockEntityRegistration = BlockEntityRegistration {
+    ty: BlockEntityType::TRAPPED_CHEST,
+    create: |pos, state| {
+        Box::new(ChestBlockEntity::new(
+            BlockEntityType::TRAPPED_CHEST,
+            pos,
+            state,
+        ))
+    },
+};

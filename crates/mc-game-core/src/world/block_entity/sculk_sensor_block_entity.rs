@@ -3,7 +3,9 @@
 //! user is [`BlockEntityVibration`](super::vibration::BlockEntityVibration).
 
 use super::vibration::{self, BlockEntityVibration, Kind};
-use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec};
+use super::{
+    BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec,
+};
 use crate::server::level::ServerLevel;
 use crate::world::level::gameevent::BlockEntityListener;
 use crate::world::level::gameevent::vibrations::VibrationData;
@@ -26,11 +28,19 @@ impl SculkSensorBlockEntity {
 
     /// The protected constructor taking the type (`CalibratedSculkSensorBlockEntity`).
     pub fn with_type(ty: BlockEntityType, pos: BlockPos, state: BlockState) -> Self {
-        Self { base: BlockEntityData::new(ty, pos, state), vibration_data: VibrationData::default(), last_vibration_frequency: 0 }
+        Self {
+            base: BlockEntityData::new(ty, pos, state),
+            vibration_data: VibrationData::default(),
+            last_vibration_frequency: 0,
+        }
     }
 
     fn kind(&self) -> Kind {
-        if self.get_type() == BlockEntityType::CALIBRATED_SCULK_SENSOR { Kind::CalibratedSculkSensor } else { Kind::SculkSensor }
+        if self.get_type() == BlockEntityType::CALIBRATED_SCULK_SENSOR {
+            Kind::CalibratedSculkSensor
+        } else {
+            Kind::SculkSensor
+        }
     }
 }
 
@@ -39,12 +49,15 @@ impl BlockEntity for SculkSensorBlockEntity {
 
     fn load_additional(&mut self, tag: &CompoundTag) {
         self.last_vibration_frequency = tag.get_int_or("last_vibration_frequency", 0);
-        self.vibration_data = read_codec(tag, "listener", VibrationData::codec()).unwrap_or_default();
+        self.vibration_data =
+            read_codec(tag, "listener", VibrationData::codec()).unwrap_or_default();
     }
 
     fn save_additional(&self, tag: &mut CompoundTag) {
         tag.put_int("last_vibration_frequency", self.last_vibration_frequency);
-        if let Ok(listener) = mc_dfu::encode_nbt(VibrationData::codec(), &self.vibration_data).into_result() {
+        if let Ok(listener) =
+            mc_dfu::encode_nbt(VibrationData::codec(), &self.vibration_data).into_result()
+        {
             tag.put("listener", listener);
         }
     }
@@ -63,10 +76,15 @@ impl BlockEntity for SculkSensorBlockEntity {
     }
 
     fn game_event_listener(&self) -> Option<BlockEntityListener> {
-        Some(BlockEntityVibration::listener(self.get_block_pos(), self.kind()))
+        Some(BlockEntityVibration::listener(
+            self.get_block_pos(),
+            self.kind(),
+        ))
     }
 }
 
 #[distributed_slice(BLOCK_ENTITY_TYPES)]
-static SCULK_SENSOR: BlockEntityRegistration =
-    BlockEntityRegistration { ty: BlockEntityType::SCULK_SENSOR, create: |pos, state| Box::new(SculkSensorBlockEntity::new(pos, state)) };
+static SCULK_SENSOR: BlockEntityRegistration = BlockEntityRegistration {
+    ty: BlockEntityType::SCULK_SENSOR,
+    create: |pos, state| Box::new(SculkSensorBlockEntity::new(pos, state)),
+};

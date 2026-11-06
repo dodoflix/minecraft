@@ -5,7 +5,10 @@ use super::{Behavior, BehaviorBase, DEFAULT_DURATION};
 use crate::entry_condition;
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
-use crate::world::entity::ai::memory::memory_module_type::{CANT_REACH_WALK_TARGET_SINCE, DOORS_TO_CLOSE, HOME, LAST_SLEPT, LAST_WOKEN, NEAREST_LIVING_ENTITIES, WALK_TARGET};
+use crate::world::entity::ai::memory::memory_module_type::{
+    CANT_REACH_WALK_TARGET_SINCE, DOORS_TO_CLOSE, HOME, LAST_SLEPT, LAST_WOKEN,
+    NEAREST_LIVING_ENTITIES, WALK_TARGET,
+};
 use crate::world::entity::schedule::Activity;
 use crate::world::level::BlockGetter;
 use crate::world::level::block::BlockStateExt;
@@ -23,18 +26,26 @@ impl SleepInBed {
             entry_condition![HOME => ValuePresent, LAST_WOKEN => Registered, LAST_SLEPT => Registered, WALK_TARGET => Registered, CANT_REACH_WALK_TARGET_SINCE => Registered],
             DEFAULT_DURATION,
             DEFAULT_DURATION,
-            SleepInBed { next_ok_start_time: 0 },
+            SleepInBed {
+                next_ok_start_time: 0,
+            },
         )
     }
 }
 
 impl Behavior for SleepInBed {
-    fn check_extra_start_conditions(&mut self, level: &mut ServerLevel, body: &mut dyn Entity) -> bool {
+    fn check_extra_start_conditions(
+        &mut self,
+        level: &mut ServerLevel,
+        body: &mut dyn Entity,
+    ) -> bool {
         if body.base().is_passenger() {
             return false;
         }
         let brain = body.brain();
-        let Some(target) = brain.get_memory(&HOME).cloned() else { return false };
+        let Some(target) = brain.get_memory(&HOME).cloned() else {
+            return false;
+        };
         if level.dimension != target.dimension {
             return false;
         }
@@ -45,19 +56,35 @@ impl Behavior for SleepInBed {
             }
         }
         let state = level.get_block_state(target.pos);
-        target.pos.closer_to_center_than(&body.position(), 2.0) && state.is_tag("villagers_can_sleep_on_bed") && !state.get(props::OCCUPIED)
+        target.pos.closer_to_center_than(&body.position(), 2.0)
+            && state.is_tag("villagers_can_sleep_on_bed")
+            && !state.get(props::OCCUPIED)
     }
 
-    fn can_still_use(&mut self, _level: &mut ServerLevel, body: &mut dyn Entity, _timestamp: i64) -> bool {
-        let Some(memory) = body.brain().get_memory(&HOME) else { return false };
+    fn can_still_use(
+        &mut self,
+        _level: &mut ServerLevel,
+        body: &mut dyn Entity,
+        _timestamp: i64,
+    ) -> bool {
+        let Some(memory) = body.brain().get_memory(&HOME) else {
+            return false;
+        };
         let bed_pos = memory.pos;
-        body.brain().is_active(Activity::REST) && body.base().y() > f64::from(bed_pos.y()) + 0.4 && bed_pos.closer_to_center_than(&body.position(), 1.14)
+        body.brain().is_active(Activity::REST)
+            && body.base().y() > f64::from(bed_pos.y()) + 0.4
+            && bed_pos.closer_to_center_than(&body.position(), 1.14)
     }
 
     fn start(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, timestamp: i64) {
         if timestamp > self.next_ok_start_time {
             if body.brain().has_memory_value(DOORS_TO_CLOSE.id()) {
-                let nearest_entities = if body.brain().has_memory_value(NEAREST_LIVING_ENTITIES.id()) { body.brain().get_memory(&NEAREST_LIVING_ENTITIES).cloned() } else { None };
+                let nearest_entities =
+                    if body.brain().has_memory_value(NEAREST_LIVING_ENTITIES.id()) {
+                        body.brain().get_memory(&NEAREST_LIVING_ENTITIES).cloned()
+                    } else {
+                        None
+                    };
                 interact_with_door::close_doors_in_memory(level, body, nearest_entities.as_deref());
             }
             let home = body.brain().get_memory(&HOME).map(|h| h.pos);

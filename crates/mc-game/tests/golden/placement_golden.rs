@@ -6,14 +6,15 @@
 //!   without the biome check: the ordered final positions and the random's next long afterwards,
 //! * the same for the chains of `placement_synthetic.json` (modifier types and parameters the data pack never uses).
 
-
 use crate::common::feature_harness::*;
 use mc_core::ident::Identifier;
 use mc_core::math::java::java_string_hash;
 use mc_core::pos::BlockPos;
 use mc_core::random::{LegacyRandomSource, RandomSource, XoroshiroRandomSource};
 use mc_game::world::level::levelgen::codec::LoadResult;
-use mc_game::world::level::levelgen::placement::{PlacementContext, PlacementModifier, decode_modifier};
+use mc_game::world::level::levelgen::placement::{
+    PlacementContext, PlacementModifier, decode_modifier,
+};
 use mc_game::world::level::levelgen::registries::{Cells, DecodeCtx};
 use mc_world::status::ChunkStatus;
 use mc_worldgen::biome::PlacedFeatureRef;
@@ -28,14 +29,20 @@ fn data_root() -> PathBuf {
 }
 
 fn fixture(name: &str) -> String {
-    let path = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures").join(name);
+    let path = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+        .join("tests/fixtures")
+        .join(name);
     std::fs::read_to_string(&path).unwrap_or_else(|e| panic!("{}: {e}", path.display()))
 }
 
 fn decode(json: &Value) -> LoadResult<Arc<dyn PlacementModifier>> {
     let source: Arc<dyn WorldgenDataSource> = Arc::new(FsDataSource::new(data_root()));
     let cells = Cells::new(source);
-    let ctx = DecodeCtx { worldgen: &WORLD.worldgen, biomes: &WORLD.biomes, cells: &cells };
+    let ctx = DecodeCtx {
+        worldgen: &WORLD.worldgen,
+        biomes: &WORLD.biomes,
+        cells: &cells,
+    };
     decode_modifier(json, &ctx)
 }
 
@@ -49,16 +56,29 @@ fn placement_modifier_codec_matches_vanilla() {
         let result = decode(&value);
         let ours = if result.is_ok() { "OK" } else { "ERR" };
         if ours != verdict {
-            failures.push(format!("vanilla {verdict}, ours {ours} ({}): {json}", result.err().map(|e| e.to_string()).unwrap_or_default()));
+            failures.push(format!(
+                "vanilla {verdict}, ours {ours} ({}): {json}",
+                result.err().map(|e| e.to_string()).unwrap_or_default()
+            ));
         }
         cases += 1;
     }
-    assert!(failures.is_empty(), "{} of {cases} codec cases differ:\n{}", failures.len(), failures.join("\n"));
+    assert!(
+        failures.is_empty(),
+        "{} of {cases} codec cases differ:\n{}",
+        failures.len(),
+        failures.join("\n")
+    );
     assert!(cases >= 150);
 }
 
 /// `FeaturePlacer.place` minus the feature: the positions that would reach `feature.place`, in order.
-fn chain(modifiers: &[Arc<dyn PlacementModifier>], context: &PlacementContext<'_>, random: &mut dyn RandomSource, origin: BlockPos) -> Vec<BlockPos> {
+fn chain(
+    modifiers: &[Arc<dyn PlacementModifier>],
+    context: &PlacementContext<'_>,
+    random: &mut dyn RandomSource,
+    origin: BlockPos,
+) -> Vec<BlockPos> {
     if modifiers.is_empty() {
         return vec![origin];
     }
@@ -97,8 +117,13 @@ fn load_placed_features() -> HashMap<String, Feature> {
     let mut out = HashMap::new();
     for entry in std::fs::read_dir(&dir).expect("placed_feature dir") {
         let path = entry.expect("dir entry").path();
-        let name = path.file_stem().expect("stem").to_string_lossy().to_string();
-        let json: Value = serde_json::from_str(&std::fs::read_to_string(&path).expect("read")).expect("json");
+        let name = path
+            .file_stem()
+            .expect("stem")
+            .to_string_lossy()
+            .to_string();
+        let json: Value =
+            serde_json::from_str(&std::fs::read_to_string(&path).expect("read")).expect("json");
         let placement = json["placement"].as_array().expect("placement list");
         let decode_all = |keep_biome: bool| -> Vec<Arc<dyn PlacementModifier>> {
             placement
@@ -109,15 +134,36 @@ fn load_placed_features() -> HashMap<String, Feature> {
         };
         let id = Identifier::with_default_namespace(&name).expect("id");
         let needs_can_survive = json["placement"].to_string().contains("would_survive");
-        out.insert(format!("minecraft:{name}"), Feature { id, needs_can_survive, with_biome: decode_all(true), without_biome: decode_all(false) });
+        out.insert(
+            format!("minecraft:{name}"),
+            Feature {
+                id,
+                needs_can_survive,
+                with_biome: decode_all(true),
+                without_biome: decode_all(false),
+            },
+        );
     }
-    let synthetic: Value = serde_json::from_str(&fixture("placement_synthetic.json")).expect("synthetic json");
+    let synthetic: Value =
+        serde_json::from_str(&fixture("placement_synthetic.json")).expect("synthetic json");
     for entry in synthetic.as_array().expect("array") {
         let name = format!("synthetic:{}", entry["name"].as_str().expect("name"));
-        let modifiers: Vec<Arc<dyn PlacementModifier>> =
-            entry["placement"].as_array().expect("placement").iter().map(|m| decode(m).unwrap_or_else(|e| panic!("{name}: {e}"))).collect();
+        let modifiers: Vec<Arc<dyn PlacementModifier>> = entry["placement"]
+            .as_array()
+            .expect("placement")
+            .iter()
+            .map(|m| decode(m).unwrap_or_else(|e| panic!("{name}: {e}")))
+            .collect();
         let id = Identifier::with_default_namespace("synthetic").expect("id");
-        out.insert(name, Feature { id, needs_can_survive: false, with_biome: modifiers.clone(), without_biome: modifiers });
+        out.insert(
+            name,
+            Feature {
+                id,
+                needs_can_survive: false,
+                with_biome: modifiers.clone(),
+                without_biome: modifiers,
+            },
+        );
     }
     out
 }
@@ -146,10 +192,17 @@ fn run_chains(can_survive: bool) {
     while let Some(header) = lines.next() {
         let h: Vec<&str> = header.split(' ').collect();
         assert_eq!(h[0], "R", "{header}");
-        let (seed, cx, cz): (i64, i32, i32) = (h[1].parse().unwrap(), h[2].parse().unwrap(), h[3].parse().unwrap());
+        let (seed, cx, cz): (i64, i32, i32) = (
+            h[1].parse().unwrap(),
+            h[2].parse().unwrap(),
+            h[3].parse().unwrap(),
+        );
         let mut origins = Vec::new();
         while lines.peek().is_some_and(|l| l.starts_with("O ")) {
-            let o: Vec<i32> = lines.next().unwrap()[2..].split(' ').map(|v| v.parse().unwrap()).collect();
+            let o: Vec<i32> = lines.next().unwrap()[2..]
+                .split(' ')
+                .map(|v| v.parse().unwrap())
+                .collect();
             origins.push(BlockPos::new(o[0], o[1], o[2]));
         }
         let mut synth = SynthRegion::new(seed, cx, cz, ChunkStatus::Features, 2);
@@ -169,12 +222,19 @@ fn run_chains(can_survive: bool) {
             }
             let origin = origins[oi];
             let rs = h_seed(seed, cx, cz, oi, name);
-            let mut random: Box<dyn RandomSource> =
-                if oi % 2 == 1 { Box::new(LegacyRandomSource::new(rs)) } else { Box::new(XoroshiroRandomSource::new(rs)) };
+            let mut random: Box<dyn RandomSource> = if oi % 2 == 1 {
+                Box::new(LegacyRandomSource::new(rs))
+            } else {
+                Box::new(XoroshiroRandomSource::new(rs))
+            };
             let key = PlacedFeatureRef::Named(feature.id.clone());
             let biome_check = mode == "b";
             let context = PlacementContext::new(&level, &env, biome_check.then_some(&key));
-            let modifiers = if biome_check { &feature.with_biome } else { &feature.without_biome };
+            let modifiers = if biome_check {
+                &feature.with_biome
+            } else {
+                &feature.without_biome
+            };
             let result = chain(modifiers, &context, &mut *random, origin);
             let mut acc = 0i64;
             for p in &result {
@@ -194,7 +254,10 @@ fn run_chains(can_survive: bool) {
     if let Some(path) = std::env::var_os("PLACEMENT_GOLDEN_DUMP") {
         std::fs::write(path, failures.join("\n")).expect("dump failures");
     }
-    let mut names: Vec<&str> = failures.iter().map(|f| f.split(' ').next().unwrap()).collect();
+    let mut names: Vec<&str> = failures
+        .iter()
+        .map(|f| f.split(' ').next().unwrap())
+        .collect();
     names.dedup();
     assert!(
         failures.is_empty(),
@@ -202,18 +265,35 @@ fn run_chains(can_survive: bool) {
         failures.len(),
         names.len(),
         names.join(" "),
-        failures.iter().take(20).cloned().collect::<Vec<_>>().join("\n")
+        failures
+            .iter()
+            .take(20)
+            .cloned()
+            .collect::<Vec<_>>()
+            .join("\n")
     );
     if !can_survive {
         assert_eq!(compared + skipped, 6 * 6 * (210 * 2 + 50));
-        assert!(nonempty > 3000, "only {nonempty} chains produced positions: the test does not exercise the modifiers");
+        assert!(
+            nonempty > 3000,
+            "only {nonempty} chains produced positions: the test does not exercise the modifiers"
+        );
     } else {
         assert_eq!(compared + skipped, 6 * 6 * 63 * 2);
     }
-    eprintln!("{compared} chains compared ({nonempty} with positions), {skipped} skipped (vanilla threw)");
+    eprintln!(
+        "{compared} chains compared ({nonempty} with positions), {skipped} skipped (vanilla threw)"
+    );
 }
 
 /// `FeatureOracleBase.h(seed, cx, cz, oi * 1000003L + id.hashCode())`.
 fn h_seed(seed: i64, cx: i32, cz: i32, oi: usize, id: &str) -> i64 {
-    h(seed, i64::from(cx), i64::from(cz), (oi as i64).wrapping_mul(1000003).wrapping_add(i64::from(java_string_hash(id))))
+    h(
+        seed,
+        i64::from(cx),
+        i64::from(cz),
+        (oi as i64)
+            .wrapping_mul(1000003)
+            .wrapping_add(i64::from(java_string_hash(id))),
+    )
 }

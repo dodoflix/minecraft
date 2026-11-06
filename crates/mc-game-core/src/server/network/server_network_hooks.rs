@@ -3,10 +3,12 @@
 
 use super::config::PrepareSpawn;
 use super::configuration_task::TaskError;
+use super::hooks::{
+    ConfigurationData, GameThread, LegacyServerInfo, NetworkHooks, NetworkSettings, ServerHandle,
+};
 use super::pending_player::PendingPlayer;
 use crate::server::notifications::ServerActivityMonitor;
 use crate::server::players::NameAndId;
-use super::hooks::{ConfigurationData, GameThread, LegacyServerInfo, NetworkHooks, NetworkSettings, ServerHandle};
 use crate::server::{MinecraftServer, ServerShared};
 use mc_protocol::auth::{ServerKeyPair, SessionClient};
 use mc_protocol::codec::GameProfile;
@@ -18,7 +20,8 @@ use std::sync::{Arc, OnceLock};
 use uuid::Uuid;
 
 /// Creates the world side of a `PrepareSpawnTask` (player data, spawn finder, chunk ticket, `placeNewPlayer`).
-pub type PrepareSpawnFactory = Box<dyn Fn(&mut MinecraftServer, &GameProfile) -> Box<dyn PrepareSpawn> + Send + Sync>;
+pub type PrepareSpawnFactory =
+    Box<dyn Fn(&mut MinecraftServer, &GameProfile) -> Box<dyn PrepareSpawn> + Send + Sync>;
 
 /// The game-thread half of the hooks: forwards to the `PlayerList` and the spawn preparation.
 #[derive(Default)]
@@ -39,8 +42,15 @@ impl PlayerListHooks {
         let _ = self.prepare_spawn.set(factory);
     }
 
-    fn can_player_login(&self, server: &mut MinecraftServer, addr: SocketAddr, profile: &GameProfile) -> Option<Component> {
-        server.player_list.can_player_login(&addr, &NameAndId::new(profile.id, profile.name.clone()))
+    fn can_player_login(
+        &self,
+        server: &mut MinecraftServer,
+        addr: SocketAddr,
+        profile: &GameProfile,
+    ) -> Option<Component> {
+        server
+            .player_list
+            .can_player_login(&addr, &NameAndId::new(profile.id, profile.name.clone()))
     }
 
     fn disconnect_all_players_with_profile(&self, server: &mut MinecraftServer, id: Uuid) -> bool {
@@ -57,7 +67,11 @@ impl PlayerListHooks {
         }
     }
 
-    fn prepare_spawn(&self, server: &mut MinecraftServer, profile: &GameProfile) -> Box<dyn PrepareSpawn> {
+    fn prepare_spawn(
+        &self,
+        server: &mut MinecraftServer,
+        profile: &GameProfile,
+    ) -> Box<dyn PrepareSpawn> {
         match self.prepare_spawn.get() {
             Some(factory) => factory(server, profile),
             None => Box::new(UnavailableSpawn),
@@ -77,7 +91,11 @@ impl PrepareSpawn for UnavailableSpawn {
     }
     fn keep_alive(&mut self, _server: &mut dyn ServerHandle) {}
     fn close(&mut self, _server: &mut dyn ServerHandle) {}
-    fn spawn_player(&mut self, _server: &mut dyn ServerHandle, _pending: PendingPlayer) -> Result<(), TaskError> {
+    fn spawn_player(
+        &mut self,
+        _server: &mut dyn ServerHandle,
+        _pending: PendingPlayer,
+    ) -> Result<(), TaskError> {
         Err("spawning players is not available in this server build".into())
     }
 }
@@ -99,7 +117,14 @@ impl ServerNetworkHooks {
         session: SessionClient,
         configuration: Arc<ConfigurationData>,
     ) -> Self {
-        Self { shared, settings: RwLock::new(settings), key_pair, session, configuration: RwLock::new(configuration), players: PlayerListHooks::default() }
+        Self {
+            shared,
+            settings: RwLock::new(settings),
+            key_pair,
+            session,
+            configuration: RwLock::new(configuration),
+            players: PlayerListHooks::default(),
+        }
     }
 
     /// The world side (`PlayerList`, spawn preparation): install the activity monitor and the spawn task here.
@@ -127,7 +152,12 @@ impl NetworkHooks for ServerNetworkHooks {
     }
     fn legacy_info(&self) -> LegacyServerInfo {
         let info = self.shared.info();
-        LegacyServerInfo { motd: info.motd, player_count: info.player_count, max_players: info.max_players, server_version: info.server_version }
+        LegacyServerInfo {
+            motd: info.motd,
+            player_count: info.player_count,
+            max_players: info.max_players,
+            server_version: info.server_version,
+        }
     }
     fn key_pair(&self) -> Arc<ServerKeyPair> {
         self.key_pair.clone()
@@ -141,11 +171,17 @@ impl NetworkHooks for ServerNetworkHooks {
     fn game_thread(&self) -> Arc<dyn GameThread> {
         self.shared.clone()
     }
-    fn can_player_login(&self, server: &mut dyn ServerHandle, addr: SocketAddr, profile: &GameProfile) -> Option<Component> {
+    fn can_player_login(
+        &self,
+        server: &mut dyn ServerHandle,
+        addr: SocketAddr,
+        profile: &GameProfile,
+    ) -> Option<Component> {
         self.players.can_player_login(real(server), addr, profile)
     }
     fn disconnect_all_players_with_profile(&self, server: &mut dyn ServerHandle, id: Uuid) -> bool {
-        self.players.disconnect_all_players_with_profile(real(server), id)
+        self.players
+            .disconnect_all_players_with_profile(real(server), id)
     }
     fn is_player_in_world(&self, server: &mut dyn ServerHandle, id: Uuid) -> bool {
         self.players.is_player_in_world(real(server), id)
@@ -153,11 +189,17 @@ impl NetworkHooks for ServerNetworkHooks {
     fn report_login_activity(&self, _server: &mut dyn ServerHandle) {
         self.players.report_login_activity();
     }
-    fn prepare_spawn(&self, server: &mut dyn ServerHandle, profile: &GameProfile) -> Box<dyn PrepareSpawn> {
+    fn prepare_spawn(
+        &self,
+        server: &mut dyn ServerHandle,
+        profile: &GameProfile,
+    ) -> Box<dyn PrepareSpawn> {
         self.players.prepare_spawn(real(server), profile)
     }
 }
 
 fn real(server: &mut dyn ServerHandle) -> &mut MinecraftServer {
-    server.minecraft_server().expect("the real network hooks run against the real server")
+    server
+        .minecraft_server()
+        .expect("the real network hooks run against the real server")
 }

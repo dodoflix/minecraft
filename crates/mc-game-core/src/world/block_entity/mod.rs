@@ -79,41 +79,41 @@ macro_rules! impl_items_container {
     };
 }
 
+pub mod barrel_block_entity;
 pub mod base_container;
-pub mod changed_log;
-pub mod deferred;
-pub mod container_openers;
 mod beehive_block_entity;
 mod bell_block_entity;
-pub mod barrel_block_entity;
+pub mod changed_log;
 pub mod chest_block_entity;
-pub mod container_menus;
-pub mod shulker_box_block_entity;
 pub mod command_block_entity;
-pub mod jigsaw_block_entity;
+pub mod container_menus;
+pub mod container_openers;
+pub mod deferred;
 pub mod dispenser_block_entity;
+pub mod jigsaw_block_entity;
 pub mod randomizable_container;
 pub mod sculk_sensor_block_entity;
 mod sculk_shrieker_block_entity;
+pub mod shulker_box_block_entity;
 pub mod sign_block_entity;
+pub mod structure_block_entity;
 pub mod test_block_entity;
 pub mod test_instance_block_entity;
 mod the_end_gateway_block_entity;
-pub mod structure_block_entity;
 pub mod vibration;
 
 pub use beehive_block_entity::{BeeAccess, BeeReleaseStatus, BeehiveBlockEntity};
 pub use bell_block_entity::BellBlockEntity;
 pub use command_block_entity::CommandBlockEntity;
-pub use jigsaw_block_entity::JigsawBlockEntity;
 pub use dispenser_block_entity::DispenserBlockEntity;
+pub use jigsaw_block_entity::JigsawBlockEntity;
 pub use sculk_sensor_block_entity::SculkSensorBlockEntity;
 pub use sculk_shrieker_block_entity::{SculkShriekerBlockEntity, apply_darkness_around};
 pub use sign_block_entity::SignBlockEntity;
+pub use structure_block_entity::StructureBlockEntity;
 pub use test_block_entity::TestBlockEntity;
 pub use test_instance_block_entity::TestInstanceBlockEntity;
 pub use the_end_gateway_block_entity::TheEndGatewayBlockEntity;
-pub use structure_block_entity::StructureBlockEntity;
 
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
@@ -125,9 +125,18 @@ use std::any::Any;
 /// `net.minecraft.world.level.Spawner`: block entities / entities whose spawned entity a spawn egg or `/data` can set.
 pub trait Spawner {
     /// `setEntityId(type, random)` (the random is the level's).
-    fn set_entity_id(&mut self, level: &mut crate::server::level::ServerLevel, ty: mc_data::EntityType);
+    fn set_entity_id(
+        &mut self,
+        level: &mut crate::server::level::ServerLevel,
+        ty: mc_data::EntityType,
+    );
     /// `setEntityData(data, random)`: `data.tag` is the compound without `id`.
-    fn set_entity_data(&mut self, level: &mut crate::server::level::ServerLevel, ty: mc_data::EntityType, data: &CompoundTag);
+    fn set_entity_data(
+        &mut self,
+        level: &mut crate::server::level::ServerLevel,
+        ty: mc_data::EntityType,
+        data: &CompoundTag,
+    );
 }
 
 /// Fields every block entity has (vanilla `BlockEntity`).
@@ -151,7 +160,15 @@ static NEXT_INSTANCE_ID: std::sync::atomic::AtomicU64 = std::sync::atomic::Atomi
 
 impl BlockEntityData {
     pub fn new(ty: BlockEntityType, pos: BlockPos, block_state: BlockState) -> Self {
-        Self { ty, pos, block_state, removed: false, components: Default::default(), changed: false, instance_id: NEXT_INSTANCE_ID.fetch_add(1, std::sync::atomic::Ordering::Relaxed) }
+        Self {
+            ty,
+            pos,
+            block_state,
+            removed: false,
+            components: Default::default(),
+            changed: false,
+            instance_id: NEXT_INSTANCE_ID.fetch_add(1, std::sync::atomic::Ordering::Relaxed),
+        }
     }
 }
 
@@ -194,7 +211,12 @@ pub trait BlockEntity: Any {
     /// `saveWithoutMetadata(output)`: `saveAdditional` and the `components` map.
     fn save_without_metadata(&self, tag: &mut CompoundTag) {
         self.save_additional(tag);
-        if let Ok(components) = mc_dfu::encode_nbt(&mc_protocol::components::DataComponentMap::codec(), &self.base().components).into_result() {
+        if let Ok(components) = mc_dfu::encode_nbt(
+            &mc_protocol::components::DataComponentMap::codec(),
+            &self.base().components,
+        )
+        .into_result()
+        {
             tag.put("components", components);
         }
     }
@@ -212,14 +234,24 @@ pub trait BlockEntity: Any {
     /// `loadWithComponents(input)`: `loadAdditional`, then `components` (empty when absent or malformed).
     fn load_with_components(&mut self, tag: &CompoundTag) {
         self.load_additional(tag);
-        self.base_mut().components = read_codec(tag, "components", &mc_protocol::components::DataComponentMap::codec()).unwrap_or_default();
+        self.base_mut().components = read_codec(
+            tag,
+            "components",
+            &mc_protocol::components::DataComponentMap::codec(),
+        )
+        .unwrap_or_default();
     }
     /// `collectImplicitComponents(builder)`: the components a block entity derives from its own state (container contents,
     /// custom name, banner patterns, ...), written on top of `components` by `collectComponents`.
-    fn collect_implicit_components(&self, _builder: &mut mc_protocol::components::map::DataComponentMapBuilder) {}
+    fn collect_implicit_components(
+        &self,
+        _builder: &mut mc_protocol::components::map::DataComponentMapBuilder,
+    ) {
+    }
     /// `collectComponents()`: the stored `components` plus the implicit ones.
     fn collect_components(&self) -> mc_protocol::components::DataComponentMap {
-        let mut builder = mc_protocol::components::DataComponentMap::builder().add_all(&self.base().components);
+        let mut builder =
+            mc_protocol::components::DataComponentMap::builder().add_all(&self.base().components);
         self.collect_implicit_components(&mut builder);
         builder.build()
     }
@@ -239,7 +271,9 @@ pub trait BlockEntity: Any {
         CompoundTag::new()
     }
     /// `getUpdatePacket()`: the `ClientboundBlockEntityDataPacket` for clients (`null` by default).
-    fn get_update_packet(&self) -> Option<mc_protocol::packets::play::level::ClientboundBlockEntityDataPacket> {
+    fn get_update_packet(
+        &self,
+    ) -> Option<mc_protocol::packets::play::level::ClientboundBlockEntityDataPacket> {
         None
     }
     /// Whether this type has a server ticker (`getTicker`); the level calls [`BlockEntity::server_tick`] each tick if so.
@@ -254,7 +288,9 @@ pub trait BlockEntity: Any {
         None
     }
     /// The `VibrationSystem.Data` of block entities that implement `VibrationSystem` (sculk sensors, shriekers).
-    fn vibration_data_mut(&mut self) -> Option<&mut crate::world::level::gameevent::vibrations::VibrationData> {
+    fn vibration_data_mut(
+        &mut self,
+    ) -> Option<&mut crate::world::level::gameevent::vibrations::VibrationData> {
         None
     }
     /// `setBlockState(state)`.
@@ -271,7 +307,13 @@ pub trait BlockEntity: Any {
     }
     /// `preRemoveSideEffects(pos, state)`: called (server side) before the block entity is removed because its block
     /// was replaced (containers drop their contents here). The entity is out of the chunk while this runs.
-    fn pre_remove_side_effects(&mut self, _level: &mut crate::server::level::ServerLevel, _pos: BlockPos, _state: BlockState) {}
+    fn pre_remove_side_effects(
+        &mut self,
+        _level: &mut crate::server::level::ServerLevel,
+        _pos: BlockPos,
+        _state: BlockState,
+    ) {
+    }
     /// `EntityBlock.getListener(level, blockEntity)`: the game event listener of this block entity, if it has one.
     fn game_event_listener(&self) -> Option<crate::world::level::gameevent::BlockEntityListener> {
         None
@@ -279,7 +321,12 @@ pub trait BlockEntity: Any {
     // ==== [Blocks:TechnicalA] hooks ====
     /// `BlockEntity.triggerEvent(b0, b1)` (reached through `BaseEntityBlock.triggerEvent`, see
     /// `helpers::base_entity_trigger_event`); the entity is out of the chunk while this runs.
-    fn trigger_event(&mut self, _level: &mut crate::server::level::ServerLevel, _b0: i32, _b1: i32) -> bool {
+    fn trigger_event(
+        &mut self,
+        _level: &mut crate::server::level::ServerLevel,
+        _b0: i32,
+        _b1: i32,
+    ) -> bool {
         false
     }
     /// `setRemoved()` for types whose override uses the level (beacon deactivate sound): called by the level when the
@@ -297,7 +344,12 @@ pub trait BlockEntity: Any {
     // ==== [Blocks:Dispensers] RandomizableContainer hooks ====
     /// `RandomizableContainer.unpackLootTable(player)` (no-op for block entities without a loot table); the block entity is
     /// out of its chunk while this runs. See `randomizable_container`.
-    fn unpack_loot_table(&mut self, _level: &crate::server::level::ServerLevel, _player: Option<&dyn crate::world::entity::Entity>) {}
+    fn unpack_loot_table(
+        &mut self,
+        _level: &crate::server::level::ServerLevel,
+        _player: Option<&dyn crate::world::entity::Entity>,
+    ) {
+    }
     /// `RandomizableContainer.setLootTable(table, seed)` (no-op for other block entities).
     fn set_loot_table(&mut self, _table: mc_core::ident::Identifier, _seed: i64) {}
 
@@ -332,19 +384,28 @@ pub trait BlockEntity: Any {
     }
     /// Does the level-dependent part of the container operation that just ran (see `container_pending`); clears the flag.
     fn container_accessed(&mut self, _level: &mut crate::server::level::ServerLevel) {}
-    fn start_open(&mut self, _level: &mut crate::server::level::ServerLevel, _user: &ContainerUser) {}
-    fn stop_open(&mut self, _level: &mut crate::server::level::ServerLevel, _user: &ContainerUser) {}
+    fn start_open(
+        &mut self,
+        _level: &mut crate::server::level::ServerLevel,
+        _user: &ContainerUser,
+    ) {
+    }
+    fn stop_open(&mut self, _level: &mut crate::server::level::ServerLevel, _user: &ContainerUser) {
+    }
     // ==== [Blocks:TechnicalB] ====
     /// `loadAdditional(input)` of a block entity that is attached to a level (vanilla's `this.level != null`): command blocks
     /// schedule their tick when `auto` turns on, structure blocks update their block state. The entity is out of the chunk
     /// while this runs (use [`crate::server::level::ServerLevel::load_block_entity_in_level`]), so a block state change must
     /// not be made here: return it and the caller sets it (flags 2) once the entity is back. The default is `loadAdditional`,
     /// which is all the types that ignore their level need.
-    fn load_additional_in_level(&mut self, _level: &mut crate::server::level::ServerLevel, tag: &CompoundTag) -> Option<BlockState> {
+    fn load_additional_in_level(
+        &mut self,
+        _level: &mut crate::server::level::ServerLevel,
+        tag: &CompoundTag,
+    ) -> Option<BlockState> {
         self.load_additional(tag);
         None
     }
-
 
     // ==== [Blocks:Spawners] hooks ====
     /// This entity as a `Spawner` (`SpawnerBlockEntity`, `TrialSpawnerBlockEntity`) for spawn eggs / `/data`.
@@ -369,8 +430,15 @@ pub struct BlockEntityRegistration {
 pub static BLOCK_ENTITY_TYPES: [BlockEntityRegistration];
 
 /// `BlockEntityType.create(pos, state)`: `None` when no implementation is registered yet.
-pub fn create_block_entity(ty: BlockEntityType, pos: BlockPos, state: BlockState) -> Option<Box<dyn BlockEntity>> {
-    BLOCK_ENTITY_TYPES.iter().find(|r| r.ty == ty).map(|r| (r.create)(pos, state))
+pub fn create_block_entity(
+    ty: BlockEntityType,
+    pos: BlockPos,
+    state: BlockState,
+) -> Option<Box<dyn BlockEntity>> {
+    BLOCK_ENTITY_TYPES
+        .iter()
+        .find(|r| r.ty == ty)
+        .map(|r| (r.create)(pos, state))
 }
 
 /// `EntityBlock.newBlockEntity(pos, state)` for a block entity block: the registered implementation of the block entity
@@ -380,7 +448,9 @@ pub fn new_block_entity(pos: BlockPos, state: BlockState) -> Option<Box<dyn Bloc
     if state.block() == mc_data::Block::MOVING_PISTON {
         return None;
     }
-    static BY_BLOCK: std::sync::OnceLock<std::collections::HashMap<mc_data::Block, BlockEntityType>> = std::sync::OnceLock::new();
+    static BY_BLOCK: std::sync::OnceLock<
+        std::collections::HashMap<mc_data::Block, BlockEntityType>,
+    > = std::sync::OnceLock::new();
     let map = BY_BLOCK.get_or_init(|| {
         let mut map = std::collections::HashMap::new();
         for ty in BlockEntityType::iter() {
@@ -395,7 +465,11 @@ pub fn new_block_entity(pos: BlockPos, state: BlockState) -> Option<Box<dyn Bloc
 
 /// `BlockEntity.setChanged(level, pos, state)` (the static form the `BlockEntity.setChanged()` instance method delegates
 /// to): marks the chunk unsaved and notifies comparators when the state is not air.
-pub fn set_changed(level: &mut crate::server::level::ServerLevel, pos: BlockPos, state: BlockState) {
+pub fn set_changed(
+    level: &mut crate::server::level::ServerLevel,
+    pos: BlockPos,
+    state: BlockState,
+) {
     level.block_entity_changed(pos);
     if !state.is_air() {
         level.update_neighbour_for_output_signal(pos, state.block());

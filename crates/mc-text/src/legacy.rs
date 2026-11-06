@@ -9,7 +9,12 @@ use crate::text_color::TextColor;
 /// `StringDecomposer.iterateFormatted(string, 0, current, reset, sink)`: feeds every visible char with
 /// the style in effect after applying `§` codes. `sink(position, style, char)` returns `false` to stop.
 /// Positions are in UTF-16 code units, like vanilla. Returns `false` if the sink stopped iteration.
-pub fn iterate_formatted(string: &str, current_style: &Style, reset_style: &Style, sink: &mut dyn FnMut(usize, &Style, char) -> bool) -> bool {
+pub fn iterate_formatted(
+    string: &str,
+    current_style: &Style,
+    reset_style: &Style,
+    sink: &mut dyn FnMut(usize, &Style, char) -> bool,
+) -> bool {
     let units: Vec<char> = string.chars().collect();
     let mut style = current_style.clone();
     let mut pos = 0usize;
@@ -22,7 +27,11 @@ pub fn iterate_formatted(string: &str, current_style: &Style, reset_style: &Styl
             }
             let code = units[i + 1];
             if let Some(f) = ChatFormatting::get_by_code(code) {
-                style = if f == ChatFormatting::Reset { reset_style.clone() } else { style.apply_legacy_format(f) };
+                style = if f == ChatFormatting::Reset {
+                    reset_style.clone()
+                } else {
+                    style.apply_legacy_format(f)
+                };
             }
             pos += ch.len_utf16() + code.len_utf16();
             i += 2;
@@ -61,7 +70,9 @@ pub fn from_legacy_string(text: &str) -> Component {
     let mut run_style = Style::EMPTY;
     iterate_formatted(text, &Style::EMPTY, &Style::EMPTY, &mut |_, style, c| {
         if *style != run_style && !run.is_empty() {
-            root.push_sibling(Component::literal(std::mem::take(&mut run)).set_style(run_style.clone()));
+            root.push_sibling(
+                Component::literal(std::mem::take(&mut run)).set_style(run_style.clone()),
+            );
         }
         run_style = style.clone();
         run.push(c);
@@ -74,7 +85,10 @@ pub fn from_legacy_string(text: &str) -> Component {
 }
 
 fn named_color_formatting(c: TextColor) -> Option<ChatFormatting> {
-    ChatFormatting::ALL.into_iter().take(16).find(|f| TextColor::from_legacy_format(*f) == Some(c))
+    ChatFormatting::ALL
+        .into_iter()
+        .take(16)
+        .find(|f| TextColor::from_legacy_format(*f) == Some(c))
 }
 
 /// Renders a component with `§` codes (colour, then `§l §o §n §m §k`), resetting with `§r` whenever a
@@ -115,10 +129,26 @@ pub fn to_legacy_string(component: &Component) -> String {
             }
             for (on, was, f) in [
                 (style.is_bold(), emitted.is_bold(), ChatFormatting::Bold),
-                (style.is_italic(), emitted.is_italic(), ChatFormatting::Italic),
-                (style.is_underlined(), emitted.is_underlined(), ChatFormatting::Underline),
-                (style.is_strikethrough(), emitted.is_strikethrough(), ChatFormatting::Strikethrough),
-                (style.is_obfuscated(), emitted.is_obfuscated(), ChatFormatting::Obfuscated),
+                (
+                    style.is_italic(),
+                    emitted.is_italic(),
+                    ChatFormatting::Italic,
+                ),
+                (
+                    style.is_underlined(),
+                    emitted.is_underlined(),
+                    ChatFormatting::Underline,
+                ),
+                (
+                    style.is_strikethrough(),
+                    emitted.is_strikethrough(),
+                    ChatFormatting::Strikethrough,
+                ),
+                (
+                    style.is_obfuscated(),
+                    emitted.is_obfuscated(),
+                    ChatFormatting::Obfuscated,
+                ),
             ] {
                 if on && !was {
                     out.push_str(&f.to_string());
@@ -139,7 +169,10 @@ mod tests {
 
     #[test]
     fn legacy_roundtrip() {
-        let c = Component::literal("a").with_format(ChatFormatting::Red).with_format(ChatFormatting::Bold).append(Component::literal("b"));
+        let c = Component::literal("a")
+            .with_format(ChatFormatting::Red)
+            .with_format(ChatFormatting::Bold)
+            .append(Component::literal("b"));
         assert_eq!(to_legacy_string(&c), "\u{a7}c\u{a7}lab");
         let back = from_legacy_string("\u{a7}cx\u{a7}ly");
         assert_eq!(back.get_string(), "xy");

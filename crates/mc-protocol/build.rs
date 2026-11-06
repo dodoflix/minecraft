@@ -2,7 +2,8 @@
 use std::{collections::BTreeMap, env, fmt::Write, fs, path::PathBuf};
 
 fn main() {
-    let path = PathBuf::from(env::var("CARGO_MANIFEST_DIR").unwrap()).join("../../ref/generated/reports/packets.json");
+    let path = PathBuf::from(env::var("CARGO_MANIFEST_DIR").unwrap())
+        .join("../../ref/generated/reports/packets.json");
     println!("cargo:rerun-if-changed={}", path.display());
     let text = fs::read_to_string(&path).unwrap_or_else(|_| {
         panic!("{} is missing: run scripts/setup-ref.sh (builds the gitignored ref/ reference material)", path.display())
@@ -30,5 +31,9 @@ fn main() {
         }
         writeln!(out, "}}").unwrap();
     }
-    fs::write(PathBuf::from(env::var("OUT_DIR").unwrap()).join("ids.rs"), out).unwrap();
+    fs::write(
+        PathBuf::from(env::var("OUT_DIR").unwrap()).join("ids.rs"),
+        out,
+    )
+    .unwrap();
 }

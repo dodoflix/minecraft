@@ -4,11 +4,11 @@
 use super::abstract_illager::IllagerArmPose;
 use crate::define_accessor;
 use crate::server::level::ServerLevel;
+use crate::world::entity::Entity;
 use crate::world::entity::ai::goal::{Flag, Goal, GoalFlags};
 use crate::world::entity::mob::{self, navigation};
 use crate::world::entity::raid::raider;
 use crate::world::entity::synched_data::SynchedEntityDataBuilder;
-use crate::world::entity::Entity;
 use mc_data::SoundEvent;
 use mc_nbt::CompoundTag;
 
@@ -32,7 +32,17 @@ impl IllagerSpell {
 
     /// `IllagerSpell.byId(id)` (`ByIdMap.continuous` with `OutOfBoundsStrategy.ZERO`).
     pub fn by_id(id: i32) -> IllagerSpell {
-        [IllagerSpell::None, IllagerSpell::SummonVex, IllagerSpell::Fangs, IllagerSpell::Wololo, IllagerSpell::Disappear, IllagerSpell::Blindness].get(id as usize).copied().unwrap_or(IllagerSpell::None)
+        [
+            IllagerSpell::None,
+            IllagerSpell::SummonVex,
+            IllagerSpell::Fangs,
+            IllagerSpell::Wololo,
+            IllagerSpell::Disappear,
+            IllagerSpell::Blindness,
+        ]
+        .get(id as usize)
+        .copied()
+        .unwrap_or(IllagerSpell::None)
     }
 
     /// `spellColor` (client particles).
@@ -60,7 +70,12 @@ pub struct SpellcasterData {
 
 impl SpellcasterData {
     pub fn new(casting_sound: SoundEvent) -> Self {
-        SpellcasterData { spell_casting_tick_count: 0, current_spell: IllagerSpell::None, casting_sound, wololo_target: None }
+        SpellcasterData {
+            spell_casting_tick_count: 0,
+            current_spell: IllagerSpell::None,
+            casting_sound,
+            wololo_target: None,
+        }
     }
 }
 
@@ -108,7 +123,9 @@ pub fn is_casting_spell(e: &dyn Entity) -> bool {
 /// `setIsCastingSpell(spell)`.
 pub fn set_is_casting_spell(e: &mut dyn Entity, spell: IllagerSpell) {
     data_mut(e).current_spell = spell;
-    e.base_mut().entity_data.set(DATA_SPELL_CASTING_ID, spell.id() as i8);
+    e.base_mut()
+        .entity_data
+        .set(DATA_SPELL_CASTING_ID, spell.id() as i8);
 }
 
 /// `customServerAiStep(level)` (after `Mob`'s).
@@ -126,12 +143,16 @@ pub struct SpellcasterCastingSpellGoal {
 
 impl SpellcasterCastingSpellGoal {
     pub fn new() -> Self {
-        SpellcasterCastingSpellGoal { look_at_wololo_target: false }
+        SpellcasterCastingSpellGoal {
+            look_at_wololo_target: false,
+        }
     }
 
     /// `Evoker.EvokerCastingSpellGoal`.
     pub fn evoker() -> Self {
-        SpellcasterCastingSpellGoal { look_at_wololo_target: true }
+        SpellcasterCastingSpellGoal {
+            look_at_wololo_target: true,
+        }
     }
 }
 
@@ -155,7 +176,10 @@ impl Goal for SpellcasterCastingSpellGoal {
     }
 
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
-        let (max_y, max_x) = (mob.get_max_head_y_rot() as f32, mob.get_max_head_x_rot() as f32);
+        let (max_y, max_x) = (
+            mob.get_max_head_y_rot() as f32,
+            mob.get_max_head_x_rot() as f32,
+        );
         let target = mob::tick::get_target_checked(mob, level);
         if let Some(t) = target {
             if let Some(t) = level.get_entity(t) {
@@ -198,7 +222,11 @@ pub trait UseSpellGoal: Goal {
 }
 
 /// `SpellcasterUseSpellGoal.canUse()`.
-pub fn use_spell_can_use<G: UseSpellGoal + ?Sized>(goal: &G, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
+pub fn use_spell_can_use<G: UseSpellGoal + ?Sized>(
+    goal: &G,
+    mob: &mut dyn Entity,
+    level: &mut ServerLevel,
+) -> bool {
     let target = mob::tick::get_target_checked(mob, level).and_then(|t| level.get_entity(t));
     match target {
         Some(t) if t.is_alive() => {
@@ -213,17 +241,28 @@ pub fn use_spell_can_use<G: UseSpellGoal + ?Sized>(goal: &G, mob: &mut dyn Entit
 }
 
 /// `SpellcasterUseSpellGoal.canContinueToUse()`.
-pub fn use_spell_can_continue<G: UseSpellGoal + ?Sized>(goal: &G, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
+pub fn use_spell_can_continue<G: UseSpellGoal + ?Sized>(
+    goal: &G,
+    mob: &mut dyn Entity,
+    level: &mut ServerLevel,
+) -> bool {
     let target = mob::tick::get_target_checked(mob, level).and_then(|t| level.get_entity(t));
     target.is_some_and(|t| t.is_alive()) && goal.state().attack_warmup_delay > 0
 }
 
 /// `SpellcasterUseSpellGoal.start()`.
-pub fn use_spell_start<G: UseSpellGoal + ?Sized>(goal: &mut G, mob: &mut dyn Entity, level: &mut ServerLevel) {
+pub fn use_spell_start<G: UseSpellGoal + ?Sized>(
+    goal: &mut G,
+    mob: &mut dyn Entity,
+    level: &mut ServerLevel,
+) {
     let warmup = goal.adjusted_tick_delay(goal.get_cast_warmup_time());
     goal.state_mut().attack_warmup_delay = warmup;
     data_mut(mob).spell_casting_tick_count = goal.get_casting_time();
-    goal.state_mut().next_attack_tick_count = mob.base().tick_count.wrapping_add(goal.get_casting_interval());
+    goal.state_mut().next_attack_tick_count = mob
+        .base()
+        .tick_count
+        .wrapping_add(goal.get_casting_interval());
     if let Some(sound) = goal.get_spell_prepare_sound() {
         mob.play_sound(level, sound, 1.0, 1.0);
     }
@@ -231,7 +270,11 @@ pub fn use_spell_start<G: UseSpellGoal + ?Sized>(goal: &mut G, mob: &mut dyn Ent
 }
 
 /// `SpellcasterUseSpellGoal.tick()`.
-pub fn use_spell_tick<G: UseSpellGoal + ?Sized>(goal: &mut G, mob: &mut dyn Entity, level: &mut ServerLevel) {
+pub fn use_spell_tick<G: UseSpellGoal + ?Sized>(
+    goal: &mut G,
+    mob: &mut dyn Entity,
+    level: &mut ServerLevel,
+) {
     goal.state_mut().attack_warmup_delay -= 1;
     if goal.state().attack_warmup_delay == 0 {
         goal.perform_spell_casting(mob, level);

@@ -1,14 +1,16 @@
 //! `RotatedBlockProvider` (`rotated`).
 
-use mc_game_core::world::level::levelgen::stateproviders::{BLOCK_STATE_PROVIDER_TYPES, BlockStateProvider};
-use mc_game_core::world::level::LevelAccessor;
-use mc_game_core::world::level::levelgen::Holder;
-use mc_game_core::world::level::levelgen::codec::{TypeEntry, parse_direction};
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::BlockState;
 use mc_data::props;
+use mc_game_core::world::level::LevelAccessor;
+use mc_game_core::world::level::levelgen::Holder;
+use mc_game_core::world::level::levelgen::codec::{TypeEntry, parse_direction};
+use mc_game_core::world::level::levelgen::stateproviders::{
+    BLOCK_STATE_PROVIDER_TYPES, BlockStateProvider,
+};
 use std::sync::Arc;
 
 pub struct RotatedBlockProvider {
@@ -17,14 +19,27 @@ pub struct RotatedBlockProvider {
 }
 
 impl BlockStateProvider for RotatedBlockProvider {
-    fn get_state(&self, level: &dyn LevelAccessor, random: &mut dyn RandomSource, pos: BlockPos) -> BlockState {
+    fn get_state(
+        &self,
+        level: &dyn LevelAccessor,
+        random: &mut dyn RandomSource,
+        pos: BlockPos,
+    ) -> BlockState {
         // the random direction is drawn before the wrapped provider runs
-        let direction = self.direction.unwrap_or_else(|| Direction::get_random(random));
+        let direction = self
+            .direction
+            .unwrap_or_else(|| Direction::get_random(random));
         let mut new_state = self.state.value().get_state(level, random, pos);
-        new_state = new_state.try_set(props::AXIS, direction.get_axis()).unwrap_or(new_state);
-        new_state = new_state.try_set(props::FACING, direction).unwrap_or(new_state);
+        new_state = new_state
+            .try_set(props::AXIS, direction.get_axis())
+            .unwrap_or(new_state);
+        new_state = new_state
+            .try_set(props::FACING, direction)
+            .unwrap_or(new_state);
         if direction.get_axis().is_horizontal() {
-            new_state = new_state.try_set(props::HORIZONTAL_FACING, direction).unwrap_or(new_state);
+            new_state = new_state
+                .try_set(props::HORIZONTAL_FACING, direction)
+                .unwrap_or(new_state);
         }
         new_state
     }

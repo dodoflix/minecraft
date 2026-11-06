@@ -1,7 +1,9 @@
 //! `JigsawBlockEntity`: name / target / pool / joint / final state / priorities of a jigsaw block and its `generate`.
 
 use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration};
-use crate::world::level::levelgen::structure::templatesystem::structure_template::{JointType, get_default_joint_type};
+use crate::world::level::levelgen::structure::templatesystem::structure_template::{
+    JointType, get_default_joint_type,
+};
 use linkme::distributed_slice;
 use mc_core::ident::Identifier;
 use mc_core::pos::BlockPos;
@@ -111,7 +113,11 @@ impl BlockEntity for JigsawBlockEntity {
         self.target = read_identifier(tag, "target").unwrap_or_else(empty_id);
         self.pool = read_identifier(tag, "pool").unwrap_or_else(empty_id);
         self.final_state = tag.get_string_or("final_state", "minecraft:air").to_owned();
-        self.joint = tag.get("joint").and_then(|t| t.as_string()).and_then(JointType::by_name).unwrap_or_else(|| get_default_joint_type(self.get_block_state()));
+        self.joint = tag
+            .get("joint")
+            .and_then(|t| t.as_string())
+            .and_then(JointType::by_name)
+            .unwrap_or_else(|| get_default_joint_type(self.get_block_state()));
         self.placement_priority = tag.get_int_or("placement_priority", 0);
         self.selection_priority = tag.get_int_or("selection_priority", 0);
     }
@@ -134,10 +140,16 @@ impl BlockEntity for JigsawBlockEntity {
     }
 
     fn get_update_packet(&self) -> Option<ClientboundBlockEntityDataPacket> {
-        Some(ClientboundBlockEntityDataPacket { pos: self.get_block_pos(), r#type: self.get_type(), tag: self.get_update_tag() })
+        Some(ClientboundBlockEntityDataPacket {
+            pos: self.get_block_pos(),
+            r#type: self.get_type(),
+            tag: self.get_update_tag(),
+        })
     }
 }
 
 #[distributed_slice(BLOCK_ENTITY_TYPES)]
-static JIGSAW: BlockEntityRegistration =
-    BlockEntityRegistration { ty: BlockEntityType::JIGSAW, create: |pos, state| Box::new(JigsawBlockEntity::new(pos, state)) };
+static JIGSAW: BlockEntityRegistration = BlockEntityRegistration {
+    ty: BlockEntityType::JIGSAW,
+    create: |pos, state| Box::new(JigsawBlockEntity::new(pos, state)),
+};

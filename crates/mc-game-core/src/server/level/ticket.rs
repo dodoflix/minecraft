@@ -18,15 +18,51 @@ impl TicketType {
     pub const FLAG_KEEP_DIMENSION_ACTIVE: u8 = 8;
     pub const FLAG_CAN_EXPIRE_IF_UNLOADED: u8 = 16;
 
-    pub const PLAYER_SPAWN: TicketType = TicketType { name: "player_spawn", timeout: 20, flags: 2 };
-    pub const SPAWN_SEARCH: TicketType = TicketType { name: "spawn_search", timeout: 1, flags: 2 };
-    pub const DRAGON: TicketType = TicketType { name: "dragon", timeout: 0, flags: 6 };
-    pub const PLAYER_LOADING: TicketType = TicketType { name: "player_loading", timeout: 0, flags: 2 };
-    pub const PLAYER_SIMULATION: TicketType = TicketType { name: "player_simulation", timeout: 0, flags: 12 };
-    pub const FORCED: TicketType = TicketType { name: "forced", timeout: 0, flags: 15 };
-    pub const PORTAL: TicketType = TicketType { name: "portal", timeout: 300, flags: 15 };
-    pub const ENDER_PEARL: TicketType = TicketType { name: "ender_pearl", timeout: 40, flags: 14 };
-    pub const UNKNOWN: TicketType = TicketType { name: "unknown", timeout: 1, flags: 18 };
+    pub const PLAYER_SPAWN: TicketType = TicketType {
+        name: "player_spawn",
+        timeout: 20,
+        flags: 2,
+    };
+    pub const SPAWN_SEARCH: TicketType = TicketType {
+        name: "spawn_search",
+        timeout: 1,
+        flags: 2,
+    };
+    pub const DRAGON: TicketType = TicketType {
+        name: "dragon",
+        timeout: 0,
+        flags: 6,
+    };
+    pub const PLAYER_LOADING: TicketType = TicketType {
+        name: "player_loading",
+        timeout: 0,
+        flags: 2,
+    };
+    pub const PLAYER_SIMULATION: TicketType = TicketType {
+        name: "player_simulation",
+        timeout: 0,
+        flags: 12,
+    };
+    pub const FORCED: TicketType = TicketType {
+        name: "forced",
+        timeout: 0,
+        flags: 15,
+    };
+    pub const PORTAL: TicketType = TicketType {
+        name: "portal",
+        timeout: 300,
+        flags: 15,
+    };
+    pub const ENDER_PEARL: TicketType = TicketType {
+        name: "ender_pearl",
+        timeout: 40,
+        flags: 14,
+    };
+    pub const UNKNOWN: TicketType = TicketType {
+        name: "unknown",
+        timeout: 1,
+        flags: 18,
+    };
 
     /// `BuiltInRegistries.TICKET_TYPE` in registration order.
     pub const ALL: [TicketType; 9] = [
@@ -77,7 +113,11 @@ pub struct Ticket {
 
 impl Ticket {
     pub fn new(ty: TicketType, ticket_level: i32) -> Self {
-        Self { ty, ticket_level, ticks_left: ty.timeout }
+        Self {
+            ty,
+            ticket_level,
+            ticks_left: ty.timeout,
+        }
     }
 
     pub fn get_type(&self) -> TicketType {
@@ -118,10 +158,14 @@ impl Ticket {
 
     /// Decode the ticket fields; `Err` carries the codec error text.
     pub fn read_fields(tag: &CompoundTag) -> Result<Ticket, String> {
-        let ty_name = tag.get_string("type").ok_or_else(|| "No key type in MapLike[...]".to_string())?;
+        let ty_name = tag
+            .get_string("type")
+            .ok_or_else(|| "No key type in MapLike[...]".to_string())?;
         let ty = Identifier::try_parse(ty_name)
             .and_then(|id| TicketType::by_name(&id))
-            .ok_or_else(|| format!("Unknown registry key in ResourceKey[minecraft:ticket_type]: {ty_name}"))?;
+            .ok_or_else(|| {
+                format!("Unknown registry key in ResourceKey[minecraft:ticket_type]: {ty_name}")
+            })?;
         let level = match tag.get("level") {
             Some(t) => match t.as_number() {
                 Some(n) => {
@@ -136,10 +180,17 @@ impl Ticket {
             None => return Err("No key level in MapLike[...]".to_string()),
         };
         let ticks_left = match tag.get("ticks_left") {
-            Some(t) => t.as_number().ok_or_else(|| "Not a number".to_string())?.boxed_long_value(),
+            Some(t) => t
+                .as_number()
+                .ok_or_else(|| "Not a number".to_string())?
+                .boxed_long_value(),
             None => 0,
         };
-        Ok(Ticket { ty, ticket_level: level, ticks_left })
+        Ok(Ticket {
+            ty,
+            ticket_level: level,
+            ticks_left,
+        })
     }
 }
 
@@ -147,9 +198,17 @@ impl std::fmt::Display for Ticket {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         if self.ty.has_timeout() {
             // Vanilla's text really has "( out of" without a space after "of".
-            write!(f, "Ticket[{} {}] with {} ticks left ( out of{})", self.ty.name, self.ticket_level, self.ticks_left, self.ty.timeout)
+            write!(
+                f,
+                "Ticket[{} {}] with {} ticks left ( out of{})",
+                self.ty.name, self.ticket_level, self.ticks_left, self.ty.timeout
+            )
         } else {
-            write!(f, "Ticket[{} {}] with no timeout", self.ty.name, self.ticket_level)
+            write!(
+                f,
+                "Ticket[{} {}] with no timeout",
+                self.ty.name, self.ticket_level
+            )
         }
     }
 }

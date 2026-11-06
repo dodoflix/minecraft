@@ -1,11 +1,11 @@
 //! `net.minecraft.world.level.block.CaveVinesBlock` (extends `GrowingPlantHeadBlock`).
-use mc_game_core::register_block_class;
 use super::growing_plant_block::GrowingPlant;
 use super::growing_plant_head_block::{GrowingPlantHead, growing_plant_head_behaviour};
-use mc_game_core::world::level::block::impls::prelude::*;
+use mc_core::random::RandomSource;
+use mc_game_core::register_block_class;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::level::block::bonemeal::BonemealSource;
-use mc_core::random::RandomSource;
+use mc_game_core::world::level::block::impls::prelude::*;
 
 pub struct CaveVinesBlock;
 
@@ -36,26 +36,62 @@ impl GrowingPlantHead for CaveVinesBlock {
     fn can_grow_into(&self, state: BlockState) -> bool {
         state.is_air()
     }
-    fn update_body_after_converted_from_head(&self, head_state: BlockState, body_state: BlockState) -> BlockState {
+    fn update_body_after_converted_from_head(
+        &self,
+        head_state: BlockState,
+        body_state: BlockState,
+    ) -> BlockState {
         body_state.set(props::BERRIES, head_state.get(props::BERRIES))
     }
-    fn get_grow_into_state(&self, grow_from_state: BlockState, random: &mut dyn RandomSource) -> BlockState {
-        grow_from_state.cycle(props::AGE_25).set(props::BERRIES, random.next_float() < CHANCE_OF_BERRIES_ON_GROWTH)
+    fn get_grow_into_state(
+        &self,
+        grow_from_state: BlockState,
+        random: &mut dyn RandomSource,
+    ) -> BlockState {
+        grow_from_state.cycle(props::AGE_25).set(
+            props::BERRIES,
+            random.next_float() < CHANCE_OF_BERRIES_ON_GROWTH,
+        )
     }
 }
 
 impl BlockBehaviour for CaveVinesBlock {
     growing_plant_head_behaviour!(custom_bonemeal);
-    fn get_clone_item_stack(&self, _state: BlockState, _level: &ServerLevel, _pos: BlockPos, _include_data: bool) -> mc_game_core::world::item::ItemStack {
+    fn get_clone_item_stack(
+        &self,
+        _state: BlockState,
+        _level: &ServerLevel,
+        _pos: BlockPos,
+        _include_data: bool,
+    ) -> mc_game_core::world::item::ItemStack {
         mc_game_core::world::level::block::impls::cave_vines::glow_berries()
     }
-    fn use_without_item(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, player: &mut mc_game_core::world::entity::ServerPlayer, _hit: &mc_core::phys::BlockHitResult) -> mc_game_core::world::item::InteractionResult {
+    fn use_without_item(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        player: &mut mc_game_core::world::entity::ServerPlayer,
+        _hit: &mc_core::phys::BlockHitResult,
+    ) -> mc_game_core::world::item::InteractionResult {
         mc_game_core::world::level::block::impls::cave_vines::use_(&*player, state, level, pos)
     }
-    fn is_valid_bonemeal_target(&self, _level: &dyn LevelReader, _pos: BlockPos, state: BlockState, _source: BonemealSource) -> bool {
+    fn is_valid_bonemeal_target(
+        &self,
+        _level: &dyn LevelReader,
+        _pos: BlockPos,
+        state: BlockState,
+        _source: BonemealSource,
+    ) -> bool {
         !state.get(props::BERRIES)
     }
-    fn perform_bonemeal(&self, level: &mut ServerLevel, pos: BlockPos, state: BlockState, _source: BonemealSource) {
+    fn perform_bonemeal(
+        &self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        state: BlockState,
+        _source: BonemealSource,
+    ) {
         level.set_block_flags(pos, state.set(props::BERRIES, true), 2);
     }
 }

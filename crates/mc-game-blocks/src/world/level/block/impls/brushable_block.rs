@@ -1,14 +1,16 @@
 //! `net.minecraft.world.level.block.BrushableBlock` (suspicious sand / gravel; extends `BaseEntityBlock`).
-use mc_game_core::{register_block_class, update_shape};
 use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::{register_block_class, update_shape};
 
 pub struct BrushableBlock;
 
 impl BlockBehaviour for BrushableBlock {
-    update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
-        helpers::schedule_block_tick(level, pos, state.block(), 2);
-        state
-    });
+    update_shape!(
+        |self, state, level, pos, direction, neighbour_pos, neighbour_state| {
+            helpers::schedule_block_tick(level, pos, state.block(), 2);
+            state
+        }
+    );
 }
 
 register_block_class!("BrushableBlock", |_| Box::new(BrushableBlock));

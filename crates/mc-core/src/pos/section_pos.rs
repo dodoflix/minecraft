@@ -80,12 +80,21 @@ impl SectionPos {
 
     /// `of(long sectionNode)`
     pub const fn of_long(section_node: i64) -> SectionPos {
-        Self::of(Self::x_from_long(section_node), Self::y_from_long(section_node), Self::z_from_long(section_node))
+        Self::of(
+            Self::x_from_long(section_node),
+            Self::y_from_long(section_node),
+            Self::z_from_long(section_node),
+        )
     }
 
     /// `SectionPos.offset(long, Direction)`
     pub fn offset_long_direction(section_node: i64, offset: Direction) -> i64 {
-        Self::offset_long(section_node, offset.get_step_x(), offset.get_step_y(), offset.get_step_z())
+        Self::offset_long(
+            section_node,
+            offset.get_step_x(),
+            offset.get_step_y(),
+            offset.get_step_z(),
+        )
     }
 
     /// `SectionPos.offset(long, int, int, int)`
@@ -136,19 +145,26 @@ impl SectionPos {
     }
 
     pub const fn relative_to_block_x(&self, relative: i16) -> i32 {
-        self.min_block_x().wrapping_add(Self::section_relative_x(relative))
+        self.min_block_x()
+            .wrapping_add(Self::section_relative_x(relative))
     }
 
     pub const fn relative_to_block_y(&self, relative: i16) -> i32 {
-        self.min_block_y().wrapping_add(Self::section_relative_y(relative))
+        self.min_block_y()
+            .wrapping_add(Self::section_relative_y(relative))
     }
 
     pub const fn relative_to_block_z(&self, relative: i16) -> i32 {
-        self.min_block_z().wrapping_add(Self::section_relative_z(relative))
+        self.min_block_z()
+            .wrapping_add(Self::section_relative_z(relative))
     }
 
     pub const fn relative_to_block_pos(&self, relative: i16) -> BlockPos {
-        BlockPos::new(self.relative_to_block_x(relative), self.relative_to_block_y(relative), self.relative_to_block_z(relative))
+        BlockPos::new(
+            self.relative_to_block_x(relative),
+            self.relative_to_block_y(relative),
+            self.relative_to_block_z(relative),
+        )
     }
 
     pub const fn section_to_block_coord(section_coord: i32) -> i32 {
@@ -217,11 +233,18 @@ impl SectionPos {
     }
 
     pub const fn section_to_chunk(section_node: i64) -> i64 {
-        ChunkPos::pack_xz(Self::x_from_long(section_node), Self::z_from_long(section_node))
+        ChunkPos::pack_xz(
+            Self::x_from_long(section_node),
+            Self::z_from_long(section_node),
+        )
     }
 
     pub const fn origin(&self) -> BlockPos {
-        BlockPos::new(Self::section_to_block_coord(self.0.x), Self::section_to_block_coord(self.0.y), Self::section_to_block_coord(self.0.z))
+        BlockPos::new(
+            Self::section_to_block_coord(self.0.x),
+            Self::section_to_block_coord(self.0.y),
+            Self::section_to_block_coord(self.0.z),
+        )
     }
 
     pub const fn center(&self) -> BlockPos {
@@ -258,7 +281,14 @@ impl SectionPos {
     }
 
     pub fn blocks_inside(&self) -> impl Iterator<Item = BlockPos> + use<> {
-        BlockPos::between_closed_xyz(self.min_block_x(), self.min_block_y(), self.min_block_z(), self.max_block_x(), self.max_block_y(), self.max_block_z())
+        BlockPos::between_closed_xyz(
+            self.min_block_x(),
+            self.min_block_y(),
+            self.min_block_z(),
+            self.max_block_x(),
+            self.max_block_y(),
+            self.max_block_z(),
+        )
     }
 
     pub fn cube(center: &SectionPos, radius: i32) -> impl Iterator<Item = SectionPos> + use<> {
@@ -273,7 +303,12 @@ impl SectionPos {
         )
     }
 
-    pub fn around_chunk(center: &ChunkPos, radius: i32, min_section: i32, max_section: i32) -> impl Iterator<Item = SectionPos> + use<> {
+    pub fn around_chunk(
+        center: &ChunkPos,
+        radius: i32,
+        min_section: i32,
+        max_section: i32,
+    ) -> impl Iterator<Item = SectionPos> + use<> {
         Self::between_closed_stream(
             center.x.wrapping_sub(radius),
             min_section,
@@ -284,23 +319,49 @@ impl SectionPos {
         )
     }
 
-    pub fn between_closed_stream(min_x: i32, min_y: i32, min_z: i32, max_x: i32, max_y: i32, max_z: i32) -> impl Iterator<Item = SectionPos> + use<> {
+    pub fn between_closed_stream(
+        min_x: i32,
+        min_y: i32,
+        min_z: i32,
+        max_x: i32,
+        max_y: i32,
+        max_z: i32,
+    ) -> impl Iterator<Item = SectionPos> + use<> {
         let mut cursor = Cursor3D::new(min_x, min_y, min_z, max_x, max_y, max_z);
-        std::iter::from_fn(move || cursor.advance().then(|| SectionPos::of(cursor.next_x(), cursor.next_y(), cursor.next_z())))
+        std::iter::from_fn(move || {
+            cursor
+                .advance()
+                .then(|| SectionPos::of(cursor.next_x(), cursor.next_y(), cursor.next_z()))
+        })
     }
 
     /// `aroundAndAtBlockPos(BlockPos, LongConsumer)`
     pub fn around_and_at_block_pos(block_pos: &BlockPos, section_consumer: impl FnMut(i64)) {
-        Self::around_and_at_block_pos_xyz(block_pos.x(), block_pos.y(), block_pos.z(), section_consumer);
+        Self::around_and_at_block_pos_xyz(
+            block_pos.x(),
+            block_pos.y(),
+            block_pos.z(),
+            section_consumer,
+        );
     }
 
     /// `aroundAndAtBlockPos(long, LongConsumer)`
     pub fn around_and_at_block_pos_long(block_pos: i64, section_consumer: impl FnMut(i64)) {
-        Self::around_and_at_block_pos_xyz(BlockPos::get_x(block_pos), BlockPos::get_y(block_pos), BlockPos::get_z(block_pos), section_consumer);
+        Self::around_and_at_block_pos_xyz(
+            BlockPos::get_x(block_pos),
+            BlockPos::get_y(block_pos),
+            BlockPos::get_z(block_pos),
+            section_consumer,
+        );
     }
 
     /// `aroundAndAtBlockPos(int, int, int, LongConsumer)`
-    pub fn around_and_at_block_pos_xyz(block_x: i32, block_y: i32, block_z: i32, mut section_consumer: impl FnMut(i64)) {
+    pub fn around_and_at_block_pos_xyz(
+        block_x: i32,
+        block_y: i32,
+        block_z: i32,
+        mut section_consumer: impl FnMut(i64),
+    ) {
         let min_x = Self::block_to_section_coord_i32(block_x.wrapping_sub(1));
         let max_x = Self::block_to_section_coord_i32(block_x.wrapping_add(1));
         let min_y = Self::block_to_section_coord_i32(block_y.wrapping_sub(1));

@@ -1,12 +1,12 @@
 //! `RegionFileStorage` (region cache, NBT IO), `SimpleRegionStorage` (pending writes) and the
 //! `EntityStorage` IO layer.
 
+use crate::region_common::*;
 use mc_core::pos::chunk_pos::ChunkPos;
 use mc_nbt::{CompoundTag, ListTag};
 use mc_world::region::entity_storage::{ChunkEntities, PositionProblem};
 use mc_world::region::region_file_version::VERSION_NONE;
 use mc_world::region::{EntityStorage, RegionFile, RegionFileStorage, SimpleRegionStorage};
-use crate::region_common::*;
 
 fn sample(n: i32) -> CompoundTag {
     let mut t = CompoundTag::new();
@@ -40,7 +40,12 @@ fn storage_read_write_clear() {
     // external dir files (.mcc) are placed in the storage folder
     let big = {
         let mut t = sample(4);
-        t.put_byte_array("blob", (0..1_200_000u32).map(|i| (i.wrapping_mul(2654435761) >> 13) as i8).collect());
+        t.put_byte_array(
+            "blob",
+            (0..1_200_000u32)
+                .map(|i| (i.wrapping_mul(2654435761) >> 13) as i8)
+                .collect(),
+        );
         t
     };
     s.write(&ChunkPos::new(5, 33), Some(&big)).unwrap();
@@ -53,16 +58,23 @@ fn region_cache_is_lru_with_256_entries() {
     let dir = tempfile::tempdir().unwrap();
     let mut s = RegionFileStorage::new(info(), dir.path(), false);
     for rx in 0..300 {
-        s.write(&ChunkPos::new(rx * 32, 0), Some(&sample(rx))).unwrap();
+        s.write(&ChunkPos::new(rx * 32, 0), Some(&sample(rx)))
+            .unwrap();
     }
     let keys = s.cached_region_keys();
     assert_eq!(keys.len(), 256);
     assert_eq!(keys[0], ChunkPos::pack_xz(299, 0)); // most recently used first
     assert_eq!(*keys.last().unwrap(), ChunkPos::pack_xz(44, 0)); // regions 0..43 were evicted
     // touching moves to the front; negative lookups are cached too
-    assert_eq!(s.read(&ChunkPos::new(44 * 32, 0)).unwrap(), Some(sample(44)));
+    assert_eq!(
+        s.read(&ChunkPos::new(44 * 32, 0)).unwrap(),
+        Some(sample(44))
+    );
     assert_eq!(s.cached_region_keys()[0], ChunkPos::pack_xz(44, 0));
-    assert_eq!(s.cached_region_keys().last(), Some(&ChunkPos::pack_xz(45, 0)));
+    assert_eq!(
+        s.cached_region_keys().last(),
+        Some(&ChunkPos::pack_xz(45, 0))
+    );
     assert_eq!(s.read(&ChunkPos::new(0, 5000)).unwrap(), None);
     assert_eq!(s.cached_region_keys()[0], ChunkPos::pack_xz(0, 156));
     assert_eq!(s.cached_region_keys().len(), 256);
@@ -75,9 +87,18 @@ fn region_cache_is_lru_with_256_entries() {
 #[test]
 fn corrupt_chunk_nbt_is_an_error_not_a_panic() {
     let dir = tempfile::tempdir().unwrap();
-    let mut f = RegionFile::with_version(info(), &dir.path().join("r.0.0.mca"), dir.path(), &VERSION_NONE, false).unwrap();
-    f.write_chunk_data(&ChunkPos::new(0, 0), &[10, 0, 0, 1, 0, 1]).unwrap(); // truncated compound
-    f.write_chunk_data(&ChunkPos::new(1, 0), &[9, 0, 0, 0]).unwrap(); // root is not a compound
+    let mut f = RegionFile::with_version(
+        info(),
+        &dir.path().join("r.0.0.mca"),
+        dir.path(),
+        &VERSION_NONE,
+        false,
+    )
+    .unwrap();
+    f.write_chunk_data(&ChunkPos::new(0, 0), &[10, 0, 0, 1, 0, 1])
+        .unwrap(); // truncated compound
+    f.write_chunk_data(&ChunkPos::new(1, 0), &[9, 0, 0, 0])
+        .unwrap(); // root is not a compound
     f.write_chunk_data(&ChunkPos::new(2, 0), &[]).unwrap(); // empty payload
     f.close().unwrap();
     let mut s = RegionFileStorage::new(info(), dir.path(), false);
@@ -95,7 +116,10 @@ fn simple_region_storage_pending_semantics() {
     s.write(&b, Some(sample(2)));
     s.write(&a, Some(sample(3))); // replaces the value, keeps the queue slot
     assert_eq!(s.read(&a).unwrap(), Some(sample(3)));
-    assert!(!dir.path().join("r.0.0.mca").exists(), "nothing persisted before a drain");
+    assert!(
+        !dir.path().join("r.0.0.mca").exists(),
+        "nothing persisted before a drain"
+    );
     assert!(s.store_pending_chunk().unwrap()); // oldest first: `a`
     assert_eq!(s.region_file_storage().read(&a).unwrap(), Some(sample(3)));
     assert_eq!(s.region_file_storage().read(&b).unwrap(), None);
@@ -131,10 +155,18 @@ fn entity_storage_layout_and_empty_chunks() {
     let absent = es.load_entities(&p).unwrap();
     assert!(absent.chunk.is_empty() && absent.position_problem.is_none());
 
-    let chunk = ChunkEntities::new(p, vec![entity("minecraft:cow", 1.5), entity("minecraft:pig", 2.5)]);
+    let chunk = ChunkEntities::new(
+        p,
+        vec![entity("minecraft:cow", 1.5), entity("minecraft:pig", 2.5)],
+    );
     es.store_entities(&chunk);
     es.flush(true).unwrap();
-    let raw = es.simple_region_storage().region_file_storage().read(&p).unwrap().unwrap();
+    let raw = es
+        .simple_region_storage()
+        .region_file_storage()
+        .read(&p)
+        .unwrap()
+        .unwrap();
     let mut keys: Vec<&str> = raw.keys().map(String::as_str).collect();
     keys.sort();
     assert_eq!(keys, ["DataVersion", "Entities", "Position"]);
@@ -148,7 +180,13 @@ fn entity_storage_layout_and_empty_chunks() {
     // storing an empty chunk removes the record; a second empty store is a no-op
     es.store_entities(&ChunkEntities::new(p, vec![]));
     es.flush(false).unwrap();
-    assert_eq!(es.simple_region_storage().region_file_storage().read(&p).unwrap(), None);
+    assert_eq!(
+        es.simple_region_storage()
+            .region_file_storage()
+            .read(&p)
+            .unwrap(),
+        None
+    );
     es.store_entities(&ChunkEntities::new(p, vec![]));
     assert!(es.load_entities(&p).unwrap().chunk.is_empty());
 
@@ -163,12 +201,20 @@ fn entity_storage_layout_and_empty_chunks() {
     let q = ChunkPos::new(2, 2);
     es.simple_region_storage().write(&q, Some(tag.clone()));
     let l = es.load_entities(&q).unwrap();
-    assert_eq!(l.position_problem, Some(PositionProblem::Misplaced { stored: ChunkPos::new(1, 1) }));
+    assert_eq!(
+        l.position_problem,
+        Some(PositionProblem::Misplaced {
+            stored: ChunkPos::new(1, 1)
+        })
+    );
     assert_eq!(l.chunk.get_entities().len(), 2);
     let r = ChunkPos::new(4, 4);
     tag.put_string("Position", "x");
     es.simple_region_storage().write(&r, Some(tag.clone()));
-    assert_eq!(es.load_entities(&r).unwrap().position_problem, Some(PositionProblem::Unparseable));
+    assert_eq!(
+        es.load_entities(&r).unwrap().position_problem,
+        Some(PositionProblem::Unparseable)
+    );
     let t = ChunkPos::new(5, 5);
     tag.remove("Position");
     tag.put("Entities", 7i32);

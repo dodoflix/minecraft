@@ -10,7 +10,10 @@ pub struct BinaryHeap {
 
 impl Default for BinaryHeap {
     fn default() -> Self {
-        BinaryHeap { heap: vec![None; 128], size: 0 }
+        BinaryHeap {
+            heap: vec![None; 128],
+            size: 0,
+        }
     }
 }
 
@@ -146,7 +149,10 @@ impl BinaryHeap {
 
     /// `getHeap()`.
     pub fn get_heap(&self) -> Vec<NodeId> {
-        self.heap[..self.size].iter().map(|n| n.expect("heap slot")).collect()
+        self.heap[..self.size]
+            .iter()
+            .map(|n| n.expect("heap slot"))
+            .collect()
     }
 }
 
@@ -164,7 +170,8 @@ mod tests {
             heap.insert(&mut nodes, i);
         }
         heap.change_cost(&mut nodes, 0, 0.1);
-        let order: Vec<_> = std::iter::from_fn(|| (!heap.is_empty()).then(|| heap.pop(&mut nodes))).collect();
+        let order: Vec<_> =
+            std::iter::from_fn(|| (!heap.is_empty()).then(|| heap.pop(&mut nodes))).collect();
         assert_eq!(order, vec![0, 5, 1, 3, 4, 2]);
     }
 }

@@ -1,11 +1,13 @@
 //! `RandomBlockProvider` (`random_block`).
 
-use mc_game_core::world::level::levelgen::stateproviders::{BLOCK_STATE_PROVIDER_TYPES, BlockStateProvider};
-use mc_game_core::world::level::levelgen::codec::{BlockSet, TypeEntry};
-use mc_game_core::world::level::LevelAccessor;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::{Block, BlockState};
+use mc_game_core::world::level::LevelAccessor;
+use mc_game_core::world::level::levelgen::codec::{BlockSet, TypeEntry};
+use mc_game_core::world::level::levelgen::stateproviders::{
+    BLOCK_STATE_PROVIDER_TYPES, BlockStateProvider,
+};
 use std::sync::Arc;
 
 pub struct RandomBlockProvider {
@@ -19,16 +21,29 @@ impl RandomBlockProvider {
         if self.blocks.is_empty() {
             return None;
         }
-        Some(self.blocks[random.next_int_bounded(self.blocks.len() as i32) as usize].default_state())
+        Some(
+            self.blocks[random.next_int_bounded(self.blocks.len() as i32) as usize].default_state(),
+        )
     }
 }
 
 impl BlockStateProvider for RandomBlockProvider {
-    fn get_state(&self, level: &dyn LevelAccessor, random: &mut dyn RandomSource, pos: BlockPos) -> BlockState {
-        self.get_state_random(random).unwrap_or_else(|| level.get_block_state(pos))
+    fn get_state(
+        &self,
+        level: &dyn LevelAccessor,
+        random: &mut dyn RandomSource,
+        pos: BlockPos,
+    ) -> BlockState {
+        self.get_state_random(random)
+            .unwrap_or_else(|| level.get_block_state(pos))
     }
 
-    fn get_optional_state(&self, _level: &dyn LevelAccessor, random: &mut dyn RandomSource, _pos: BlockPos) -> Option<BlockState> {
+    fn get_optional_state(
+        &self,
+        _level: &dyn LevelAccessor,
+        random: &mut dyn RandomSource,
+        _pos: BlockPos,
+    ) -> Option<BlockState> {
         self.get_state_random(random)
     }
 }
@@ -38,6 +53,8 @@ static RANDOM_BLOCK: TypeEntry<dyn BlockStateProvider> = TypeEntry {
     name: "random_block",
     decode: |fields, _| {
         let blocks = fields.required("blocks", BlockSet::from_json)?;
-        Ok(Arc::new(RandomBlockProvider { blocks: blocks.ordered_blocks() }))
+        Ok(Arc::new(RandomBlockProvider {
+            blocks: blocks.ordered_blocks(),
+        }))
     },
 };

@@ -5,15 +5,18 @@
 
 use super::{InteractionResult, ItemStack, ItemStackExt, UseOnContext, hurt_and_break};
 use crate::server::level::ServerLevel;
-use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
 use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::{Entity, ServerPlayer};
 use crate::world::level::block::impls::chest_block;
 use crate::world::level::block::{BlockStateExt, helpers};
 use crate::world::level::gameevent::GameEventContext;
-use crate::world::level::levelgen::codec::{Fields, LoadError, LoadResult, parse_bool, parse_direction, parse_identifier, parse_int, parse_list, parse_str};
+use crate::world::level::levelgen::codec::{
+    Fields, LoadError, LoadResult, parse_bool, parse_direction, parse_identifier, parse_int,
+    parse_list, parse_str,
+};
 use crate::world::level::levelgen::registries::DecodeCtx;
 use crate::world::level::levelgen::stateproviders::BlockStateProvider;
+use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
 use mc_core::direction::Direction;
 use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
@@ -108,13 +111,18 @@ fn parse_sound(value: &Value) -> LoadResult<SoundEvent> {
     match value {
         Value::String(_) => {
             let id = parse_identifier(value)?;
-            SoundEvent::by_name(&id.to_string()).ok_or_else(|| LoadError::new(format!("Failed to get element ResourceKey[minecraft:sound_event / {id}]")))
+            SoundEvent::by_name(&id.to_string()).ok_or_else(|| {
+                LoadError::new(format!(
+                    "Failed to get element ResourceKey[minecraft:sound_event / {id}]"
+                ))
+            })
         }
         // `SoundEvent.DIRECT_CODEC` (`sound_id` + optional `range`): the id selects the registered sound
         other => {
             let fields = Fields::new(other)?;
             let id = fields.required("sound_id", parse_identifier)?;
-            SoundEvent::by_name(&id.to_string()).ok_or_else(|| LoadError::new(format!("Unknown sound event {id}")))
+            SoundEvent::by_name(&id.to_string())
+                .ok_or_else(|| LoadError::new(format!("Unknown sound event {id}")))
         }
     }
 }
@@ -124,9 +132,15 @@ impl BlockTransformData {
     fn decode(value: &Value, ctx: &DecodeCtx<'_>) -> LoadResult<BlockTransformData> {
         let fields = Fields::new(value)?;
         let provider = fields.required("block_state_provider", |v| ctx.block_state_provider(v))?;
-        let sound = fields.optional("sound", parse_sound)?.unwrap_or_else(|| SoundEvent::by_name("minecraft:intentionally_empty").expect("intentionally_empty sound"));
-        let particle = fields.optional("particle", |v| parse_enum(v, TransformParticle::by_name))?.unwrap_or(TransformParticle::None);
-        let disallowed_faces = fields.optional("disallowed_faces", |v| parse_list(v, parse_direction))?.unwrap_or_default();
+        let sound = fields.optional("sound", parse_sound)?.unwrap_or_else(|| {
+            SoundEvent::by_name("minecraft:intentionally_empty").expect("intentionally_empty sound")
+        });
+        let particle = fields
+            .optional("particle", |v| parse_enum(v, TransformParticle::by_name))?
+            .unwrap_or(TransformParticle::None);
+        let disallowed_faces = fields
+            .optional("disallowed_faces", |v| parse_list(v, parse_direction))?
+            .unwrap_or_default();
         let loot = fields.optional("loot", parse_identifier)?;
         let drop_strategy = fields
             .optional("drop_strategy", |v| {
@@ -137,7 +151,9 @@ impl BlockTransformData {
                 })
             })?
             .unwrap_or(DropStrategy::FromMiddle);
-        let update_from_neighbors = fields.optional("update_from_neighbors", parse_bool)?.unwrap_or(true);
+        let update_from_neighbors = fields
+            .optional("update_from_neighbors", parse_bool)?
+            .unwrap_or(true);
         let transform_type = fields
             .optional("transform_type", |v| {
                 parse_enum(v, |n| match n {
@@ -147,11 +163,19 @@ impl BlockTransformData {
                 })
             })?
             .unwrap_or(TransformType::SingleBlock);
-        let consume_on_use = fields.optional("consume_on_use", parse_bool)?.unwrap_or(true);
+        let consume_on_use = fields
+            .optional("consume_on_use", parse_bool)?
+            .unwrap_or(true);
         let item_damage_per_use = fields
             .optional("item_damage_per_use", |v| {
                 let n = parse_int(v)?;
-                if n < 0 { Err(LoadError::new(format!("Value {n} outside of range [0:2147483647]"))) } else { Ok(n) }
+                if n < 0 {
+                    Err(LoadError::new(format!(
+                        "Value {n} outside of range [0:2147483647]"
+                    )))
+                } else {
+                    Ok(n)
+                }
             })?
             .unwrap_or(0);
         Ok(BlockTransformData {
@@ -174,17 +198,33 @@ impl BlockTransformer {
     pub fn decode(value: &Value, ctx: &DecodeCtx<'_>) -> LoadResult<Arc<BlockTransformer>> {
         let transforms = parse_list(value, |v| BlockTransformData::decode(v, ctx))?;
         if !(1..=200).contains(&transforms.len()) {
-            return Err(LoadError::new(format!("List length ({}) not in range [1, 200]", transforms.len())));
+            return Err(LoadError::new(format!(
+                "List length ({}) not in range [1, 200]",
+                transforms.len()
+            )));
         }
         Ok(Arc::new(BlockTransformer { transforms }))
     }
 }
 
 /// `Item.useOn(context)` of an item with the `block_transformer` component (`PASS` without it).
-pub fn use_on(context: &mut UseOnContext, level: &mut ServerLevel, player: &mut ServerPlayer) -> InteractionResult {
-    let Some(holder) = context.item_stack.get(&BLOCK_TRANSFORMER) else { return InteractionResult::PASS };
-    let Some(name) = holder.name() else { return InteractionResult::PASS };
-    let Some(transformer) = level.gen_env.as_ref().and_then(|env| env.registries.block_transformers.get(name)).map(|h| h.value().clone()) else {
+pub fn use_on(
+    context: &mut UseOnContext,
+    level: &mut ServerLevel,
+    player: &mut ServerPlayer,
+) -> InteractionResult {
+    let Some(holder) = context.item_stack.get(&BLOCK_TRANSFORMER) else {
+        return InteractionResult::PASS;
+    };
+    let Some(name) = holder.name() else {
+        return InteractionResult::PASS;
+    };
+    let Some(transformer) = level
+        .gen_env
+        .as_ref()
+        .and_then(|env| env.registries.block_transformers.get(name))
+        .map(|h| h.value().clone())
+    else {
         return InteractionResult::PASS;
     };
     transform_block(&transformer, context, level, player)
@@ -193,12 +233,21 @@ pub fn use_on(context: &mut UseOnContext, level: &mut ServerLevel, player: &mut 
 /// `BlockTransformer.playerHasBlockingItemUseIntent(context)`.
 fn player_has_blocking_item_use_intent(context: &UseOnContext, player: &ServerPlayer) -> bool {
     context.hand == super::InteractionHand::MainHand
-        && player.player.inventory.equipment_get(EquipmentSlot::OffHand).has(DataComponentType::BLOCKS_ATTACKS)
+        && player
+            .player
+            .inventory
+            .equipment_get(EquipmentSlot::OffHand)
+            .has(DataComponentType::BLOCKS_ATTACKS)
         && !context.is_secondary_use_active()
 }
 
 /// `BlockTransformer.transformBlock(context)`.
-pub fn transform_block(transformer: &BlockTransformer, context: &mut UseOnContext, level: &mut ServerLevel, player: &mut ServerPlayer) -> InteractionResult {
+pub fn transform_block(
+    transformer: &BlockTransformer,
+    context: &mut UseOnContext,
+    level: &mut ServerLevel,
+    player: &mut ServerPlayer,
+) -> InteractionResult {
     if player_has_blocking_item_use_intent(context, player) {
         return InteractionResult::PASS;
     }
@@ -210,39 +259,88 @@ pub fn transform_block(transformer: &BlockTransformer, context: &mut UseOnContex
         }
         // `getOptionalState(level, level.getRandom(), pos)`: the provider reads the level while drawing from its RNG
         let mut random = level.tick_state.random.clone();
-        let new_state = data.block_state_provider.get_optional_state(&*level as &dyn LevelAccessor, &mut random as &mut dyn RandomSource, pos);
+        let new_state = data.block_state_provider.get_optional_state(
+            &*level as &dyn LevelAccessor,
+            &mut random as &mut dyn RandomSource,
+            pos,
+        );
         level.tick_state.random = random;
         let Some(new_state) = new_state else { continue };
-        let updated_shape = if data.update_from_neighbors { helpers::update_from_neighbour_shapes(new_state, level, pos) } else { new_state };
+        let updated_shape = if data.update_from_neighbors {
+            helpers::update_from_neighbour_shapes(new_state, level, pos)
+        } else {
+            new_state
+        };
         let player_id = player.base_id();
-        crate::advancements::triggers::CriteriaTriggers::ITEM_USED_ON_BLOCK.trigger(level, player, pos, &context.item_stack);
+        crate::advancements::triggers::CriteriaTriggers::ITEM_USED_ON_BLOCK.trigger(
+            level,
+            player,
+            pos,
+            &context.item_stack,
+        );
         let old_state = level.get_block_state(pos);
         if let Some(loot) = &data.loot {
-            let drops = drop_from_block_interact_loot_table(level, loot, pos, old_state, &context.item_stack, player);
+            let drops = drop_from_block_interact_loot_table(
+                level,
+                loot,
+                pos,
+                old_state,
+                &context.item_stack,
+                player,
+            );
             for stack in drops {
                 match data.drop_strategy {
-                    DropStrategy::ClickedFace => helpers::pop_resource_from_face(level, pos, clicked_face, stack),
+                    DropStrategy::ClickedFace => {
+                        helpers::pop_resource_from_face(level, pos, clicked_face, stack)
+                    }
                     DropStrategy::FromMiddle => helpers::pop_resource(level, pos, stack),
                 }
             }
         }
         let infinite = player.player.abilities.instabuild;
         if context.item_stack.is_stackable() {
-            context.item_stack.consume(if data.consume_on_use { 1 } else { 0 }, infinite);
+            context
+                .item_stack
+                .consume(if data.consume_on_use { 1 } else { 0 }, infinite);
         } else {
-            hurt_and_break(&mut context.item_stack, data.item_damage_per_use, level, player, context.hand.as_equipment_slot());
+            hurt_and_break(
+                &mut context.item_stack,
+                data.item_damage_per_use,
+                level,
+                player,
+                context.hand.as_equipment_slot(),
+            );
         }
         level.set_block_flags(pos, updated_shape, 11);
-        level.play_sound(Some(player_id), pos, data.sound, SoundSource::Blocks, 1.0, 1.0);
+        level.play_sound(
+            Some(player_id),
+            pos,
+            data.sound,
+            SoundSource::Blocks,
+            1.0,
+            1.0,
+        );
         data.particle.send(level, Some(player_id), pos);
-        level.game_event(GameEvent::BLOCK_CHANGE, Vec3::at_center_of(&pos), &GameEventContext::of(Some(player_id), Some(updated_shape)));
+        level.game_event(
+            GameEvent::BLOCK_CHANGE,
+            Vec3::at_center_of(&pos),
+            &GameEventContext::of(Some(player_id), Some(updated_shape)),
+        );
         if data.transform_type == TransformType::CopperChest
-            && old_state.block().data().classes.contains(&"CopperChestBlock")
+            && old_state
+                .block()
+                .data()
+                .classes
+                .contains(&"CopperChestBlock")
             && old_state.get(props::CHEST_TYPE) != ChestType::Single
         {
             let neighbor_pos = pos.relative(chest_block::get_connected_direction(old_state));
             let neighbor_state = level.get_block_state(neighbor_pos);
-            level.game_event(GameEvent::BLOCK_CHANGE, Vec3::at_center_of(&neighbor_pos), &GameEventContext::of(Some(player_id), Some(neighbor_state)));
+            level.game_event(
+                GameEvent::BLOCK_CHANGE,
+                Vec3::at_center_of(&neighbor_pos),
+                &GameEventContext::of(Some(player_id), Some(neighbor_state)),
+            );
             data.particle.send(level, Some(player_id), neighbor_pos);
         }
         return InteractionResult::SUCCESS;
@@ -252,7 +350,14 @@ pub fn transform_block(transformer: &BlockTransformer, context: &mut UseOnContex
 
 /// `Block.dropFromBlockInteractLootTable(level, key, pos, state, blockEntity, tool, interactingEntity, consumer)`: the
 /// rolled drops (the consumer pops them once the level is mutable again).
-fn drop_from_block_interact_loot_table(level: &ServerLevel, key: &Identifier, pos: mc_core::pos::BlockPos, state: mc_data::block::BlockState, tool: &ItemStack, player: &ServerPlayer) -> Vec<ItemStack> {
+fn drop_from_block_interact_loot_table(
+    level: &ServerLevel,
+    key: &Identifier,
+    pos: mc_core::pos::BlockPos,
+    state: mc_data::block::BlockState,
+    tool: &ItemStack,
+    player: &ServerPlayer,
+) -> Vec<ItemStack> {
     let mut drops = Vec::new();
     crate::world::level::storage::loot::block_drops::drop_from_loot_table(
         level,

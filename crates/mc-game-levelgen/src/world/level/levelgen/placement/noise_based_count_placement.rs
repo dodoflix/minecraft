@@ -1,11 +1,15 @@
 //! `NoiseBasedCountPlacement`: `ceil((noise(x / factor, z / factor) + offset) * ratio)` repetitions.
 
 use super::repeating_placement::{RepeatingPlacement, repeating_modify};
-use mc_game_core::world::level::levelgen::placement::{PLACEMENT_MODIFIER_TYPES, PlacementContext, PlacementModifier};
-use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry, parse_f64, parse_int};
-use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
+use mc_game_core::world::level::levelgen::codec::{
+    Fields, LoadResult, TypeEntry, parse_f64, parse_int,
+};
+use mc_game_core::world::level::levelgen::placement::{
+    PLACEMENT_MODIFIER_TYPES, PlacementContext, PlacementModifier,
+};
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_worldgen::biome::BIOME_INFO_NOISE;
 use mc_worldgen::synth::Noise;
 use std::sync::Arc;
@@ -28,17 +32,28 @@ impl NoiseBasedCountPlacement {
 
 impl RepeatingPlacement for NoiseBasedCountPlacement {
     fn count(&self, _random: &mut dyn RandomSource, origin: BlockPos) -> i32 {
-        let flower_noise = f64::from(BIOME_INFO_NOISE.get2(f64::from(origin.x()) / self.noise_factor, f64::from(origin.z()) / self.noise_factor));
+        let flower_noise = f64::from(BIOME_INFO_NOISE.get2(
+            f64::from(origin.x()) / self.noise_factor,
+            f64::from(origin.z()) / self.noise_factor,
+        ));
         ((flower_noise + self.noise_offset) * f64::from(self.noise_to_count_ratio)).ceil() as i32
     }
 }
 
 impl PlacementModifier for NoiseBasedCountPlacement {
-    fn modify(&self, context: &PlacementContext<'_>, random: &mut dyn RandomSource, origin: BlockPos, output: &mut Vec<BlockPos>) {
+    fn modify(
+        &self,
+        context: &PlacementContext<'_>,
+        random: &mut dyn RandomSource,
+        origin: BlockPos,
+        output: &mut Vec<BlockPos>,
+    ) {
         repeating_modify(self, context, random, origin, output);
     }
 }
 
 #[linkme::distributed_slice(PLACEMENT_MODIFIER_TYPES)]
-static NOISE_BASED_COUNT: TypeEntry<dyn PlacementModifier> =
-    TypeEntry { name: "noise_based_count", decode: NoiseBasedCountPlacement::decode };
+static NOISE_BASED_COUNT: TypeEntry<dyn PlacementModifier> = TypeEntry {
+    name: "noise_based_count",
+    decode: NoiseBasedCountPlacement::decode,
+};

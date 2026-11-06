@@ -5,10 +5,20 @@ use mc_game::world::entity::mob::{ageable, animal, leashable, tamable};
 use mc_game::world::item::InteractionHand;
 
 /// Run `f` on entity `a` with entity `b` taken out of the level next to it (so `f` may read `b` while the level is mutably borrowed).
-fn with_other<R>(h: &mut Harness, a: &str, b: &str, f: impl FnOnce(&mut ServerLevel, &mut dyn Entity, &mut dyn Entity) -> R) -> R {
+fn with_other<R>(
+    h: &mut Harness,
+    a: &str,
+    b: &str,
+    f: impl FnOnce(&mut ServerLevel, &mut dyn Entity, &mut dyn Entity) -> R,
+) -> R {
     let (ida, idb) = (h.entity_ref(a), h.entity_ref(b));
-    let mut other = h.level.take_entity(idb).unwrap_or_else(|| h.fail(&format!("entity {b} is not in the level")));
-    let r = h.level.with_entity(ida, |level, e| f(level, e, other.as_mut()));
+    let mut other = h
+        .level
+        .take_entity(idb)
+        .unwrap_or_else(|| h.fail(&format!("entity {b} is not in the level")));
+    let r = h
+        .level
+        .with_entity(ida, |level, e| f(level, e, other.as_mut()));
     h.level.put_back_entity(idb, other);
     r.unwrap_or_else(|| h.fail(&format!("entity {a} is not in the level")))
 }
@@ -25,7 +35,9 @@ pub(super) fn run(h: &mut Harness, a: &[String]) -> bool {
         "love" => {
             h.world();
             if let Some(p) = a.get(2) {
-                with_other(h, &a[1], p, |level, e, player| animal::set_in_love(e, level, Some(&*player)));
+                with_other(h, &a[1], p, |level, e, player| {
+                    animal::set_in_love(e, level, Some(&*player))
+                });
             } else {
                 h.with_entity(&a[1], |level, e| animal::set_in_love(e, level, None));
             }
@@ -40,13 +52,18 @@ pub(super) fn run(h: &mut Harness, a: &[String]) -> bool {
         "breed" => {
             h.world();
             let partner = h.entity_ref(&a[2]);
-            h.with_entity(&a[1], |level, e| e.spawn_child_from_breeding(level, partner));
+            h.with_entity(&a[1], |level, e| {
+                e.spawn_child_from_breeding(level, partner)
+            });
         }
         // tame REF PLAYER              TamableAnimal.tame(player)
         "tame" => {
             h.world();
             with_other(h, &a[1], &a[2], |level, e, player| {
-                let player = player.as_any().downcast_ref::<ServerPlayer>().expect("tame needs a player");
+                let player = player
+                    .as_any()
+                    .downcast_ref::<ServerPlayer>()
+                    .expect("tame needs a player");
                 tamable::tame(e, level, player);
             });
         }
@@ -56,31 +73,52 @@ pub(super) fn run(h: &mut Harness, a: &[String]) -> bool {
             if a[2] == "-" {
                 h.with_entity(&a[1], |level, e| leashable::remove_leash(e, level));
             } else {
-                with_other(h, &a[1], &a[2], |level, e, holder| leashable::set_leashed_to(e, level, leashable::LeashHolder::of(&*holder), true));
+                with_other(h, &a[1], &a[2], |level, e, holder| {
+                    leashable::set_leashed_to(e, level, leashable::LeashHolder::of(&*holder), true)
+                });
             }
         }
         // interact PLAYER REF [main|off] [sneak]   ServerboundInteractPacket (location = entity origin; `center` = bounding box centre relative to the entity)
         "interact" => {
             h.world();
             let target = h.entity_ref(&a[2]);
-            let hand = if a.get(3).is_some_and(|t| t == "off") { InteractionHand::OffHand } else { InteractionHand::MainHand };
+            let hand = if a.get(3).is_some_and(|t| t == "off") {
+                InteractionHand::OffHand
+            } else {
+                InteractionHand::MainHand
+            };
             let sneak = a.iter().any(|t| t == "sneak");
             let center = a.iter().any(|t| t == "center");
             let (loc, bb) = {
-                let t = h.level.get_entity(target).unwrap_or_else(|| h.fail("interact target is not in the level"));
-                let loc = if center { t.get_bounding_box().get_center().subtract(t.position()) } else { mc_core::phys::Vec3::ZERO };
+                let t = h
+                    .level
+                    .get_entity(target)
+                    .unwrap_or_else(|| h.fail("interact target is not in the level"));
+                let loc = if center {
+                    t.get_bounding_box().get_center().subtract(t.position())
+                } else {
+                    mc_core::phys::Vec3::ZERO
+                };
                 (loc, t.get_bounding_box())
             };
             h.with_player(&a[1], |level, p| {
                 // handleInteract: setShiftKeyDown(usingSecondaryAction), range check, interactOn, swing
-                p.base_mut().set_shared_flag(mc_game::world::entity::entity::FLAG_SHIFT_KEY_DOWN, sneak);
+                p.base_mut()
+                    .set_shared_flag(mc_game::world::entity::entity::FLAG_SHIFT_KEY_DOWN, sneak);
                 if !p.is_within_entity_interaction_range(&bb, 3.0) {
                     return;
                 }
-                if let mc_game::world::item::InteractionResult::Success(s) = p.interact_on(level, target, hand, loc) {
+                if let mc_game::world::item::InteractionResult::Success(s) =
+                    p.interact_on(level, target, hand, loc)
+                {
                     if s.should_swing() {
                         let send = s.swing_source != mc_game::world::item::SwingSource::Predicted;
-                        if p.swing(level, hand, mc_game::world::entity::player::item_use::SWING_ANIMATION_DEFAULT, send) {
+                        if p.swing(
+                            level,
+                            hand,
+                            mc_game::world::entity::player::item_use::SWING_ANIMATION_DEFAULT,
+                            send,
+                        ) {
                             p.reset_attack_strength_ticker();
                         }
                     }

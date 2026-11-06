@@ -1,11 +1,13 @@
 //! `BoatDispenseItemBehavior`: boats, chest boats and rafts (one instance per entity type).
 
-use crate::world::dispenser::{BlockSource, DispenseItemBehavior, DispenseTemplate, Templated, default_behavior};
+use crate::world::dispenser::{
+    BlockSource, DispenseItemBehavior, DispenseTemplate, Templated, default_behavior,
+};
 use crate::world::entity::factory::{self, EntitySpawnRequest};
 use crate::world::entity::spawn_config::apply_default_stack_config;
 use crate::world::item::ItemStack;
-use crate::world::level::{BlockGetter, LevelAccessor};
 use crate::world::level::material::FluidStateExt;
+use crate::world::level::{BlockGetter, LevelAccessor};
 use mc_data::EntityType;
 use mc_data::enums::EntitySpawnReason;
 
@@ -26,12 +28,24 @@ impl DispenseTemplate for BoatDispense {
         if source.level.get_fluid_state(front_pos).is_tag("water") {
             y_offset = 1.0;
         } else {
-            if !source.level.get_block_state(front_pos).is_air() || !source.level.get_fluid_state(front_pos.below()).is_tag("water") {
+            if !source.level.get_block_state(front_pos).is_air()
+                || !source
+                    .level
+                    .get_fluid_state(front_pos.below())
+                    .is_tag("water")
+            {
                 return default_behavior().dispense(source, dispensed);
             }
             y_offset = 0.0;
         }
-        if let Some(mut boat) = factory::create(self.ty, source.level, EntitySpawnRequest { reason: EntitySpawnReason::Dispenser, ignore_checks: false }) {
+        if let Some(mut boat) = factory::create(
+            self.ty,
+            source.level,
+            EntitySpawnRequest {
+                reason: EntitySpawnReason::Dispenser,
+                ignore_checks: false,
+            },
+        ) {
             // `AbstractBoat.setInitialPos(x, y, z)`
             boat.set_pos(spawn_x, spawn_y + y_offset, spawn_z);
             let at = boat.position();
@@ -73,5 +87,7 @@ crate::register_dispense_behavior_per_item!(
         "minecraft:pale_oak_chest_boat",
         "minecraft:bamboo_chest_raft",
     ],
-    |name| Box::new(Templated(BoatDispense { ty: EntityType::by_name(name).expect("boat entity type named like its item") }))
+    |name| Box::new(Templated(BoatDispense {
+        ty: EntityType::by_name(name).expect("boat entity type named like its item")
+    }))
 );

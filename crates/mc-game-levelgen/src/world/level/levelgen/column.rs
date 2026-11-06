@@ -1,8 +1,8 @@
 //! `net.minecraft.world.level.levelgen.Column`: a vertical run of "inside" blocks bounded by a floor and/or ceiling.
 
-use mc_game_core::world::level::BlockGetter;
 use mc_core::pos::BlockPos;
 use mc_data::block::BlockState;
+use mc_game_core::world::level::BlockGetter;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Column {
@@ -52,19 +52,31 @@ impl Column {
     }
 
     pub fn below(ceiling: i32) -> Column {
-        Column::Ray { edge: ceiling, pointing_up: false }
+        Column::Ray {
+            edge: ceiling,
+            pointing_up: false,
+        }
     }
 
     pub fn from_highest(highest: i32) -> Column {
-        Column::Ray { edge: highest + 1, pointing_up: false }
+        Column::Ray {
+            edge: highest + 1,
+            pointing_up: false,
+        }
     }
 
     pub fn above(floor: i32) -> Column {
-        Column::Ray { edge: floor, pointing_up: true }
+        Column::Ray {
+            edge: floor,
+            pointing_up: true,
+        }
     }
 
     pub fn from_lowest(lowest: i32) -> Column {
-        Column::Ray { edge: lowest - 1, pointing_up: true }
+        Column::Ray {
+            edge: lowest - 1,
+            pointing_up: true,
+        }
     }
 
     pub fn line() -> Column {
@@ -127,7 +139,9 @@ impl Column {
         let scan_direction = |step: i32| {
             let mut y = nearest_empty_y;
             let mut i = 1;
-            while i < search_range && inside_column(level.get_block_state(BlockPos::new(pos.x(), y, pos.z()))) {
+            while i < search_range
+                && inside_column(level.get_block_state(BlockPos::new(pos.x(), y, pos.z())))
+            {
                 y += step;
                 i += 1;
             }

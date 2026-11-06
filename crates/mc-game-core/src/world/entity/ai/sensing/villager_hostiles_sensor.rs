@@ -29,7 +29,12 @@ fn acceptable_distance_from_hostiles(entity_type: EntityType) -> Option<f32> {
 pub struct VillagerHostilesSensor;
 
 impl NearestVisibleLivingEntityMatcher for VillagerHostilesSensor {
-    fn is_matching_entity(&self, _level: &ServerLevel, body: &dyn Entity, mob: &dyn Entity) -> bool {
+    fn is_matching_entity(
+        &self,
+        _level: &ServerLevel,
+        body: &dyn Entity,
+        mob: &dyn Entity,
+    ) -> bool {
         // `isHostile(mob) && isClose(body, mob)`
         match acceptable_distance_from_hostiles(mob.get_type()) {
             Some(threshold) => distance_to_sqr(mob, body) <= f64::from(threshold * threshold),

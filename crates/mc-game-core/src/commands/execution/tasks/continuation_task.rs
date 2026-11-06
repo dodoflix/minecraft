@@ -11,7 +11,10 @@ struct ContinuationTask<P> {
 
 impl<P: 'static> ContinuationTask<P> {
     fn into_entry(self, frame: Frame) -> CommandQueueEntry {
-        CommandQueueEntry::new(frame, Box::new(move |context, frame| self.execute(context, frame)))
+        CommandQueueEntry::new(
+            frame,
+            Box::new(move |context, frame| self.execute(context, frame)),
+        )
     }
 
     fn execute(mut self, context: &mut ExecutionContext, frame: &Frame) {
@@ -38,6 +41,13 @@ pub fn schedule<P: 'static>(
                 context.queue_next(task_factory(frame, argument));
             }
         }
-        _ => context.queue_next(ContinuationTask { task_factory: Box::new(task_factory), arguments, index: 0 }.into_entry(frame.clone())),
+        _ => context.queue_next(
+            ContinuationTask {
+                task_factory: Box::new(task_factory),
+                arguments,
+                index: 0,
+            }
+            .into_entry(frame.clone()),
+        ),
     }
 }

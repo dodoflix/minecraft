@@ -2,8 +2,8 @@
 
 use super::string_template::StringTemplate;
 use super::{CommandFunction, FunctionInstantiationException, InstantiatedFunction, parse_command};
-use crate::commands::execution::UnboundEntryAction;
 use crate::commands::CommandSourceStack;
+use crate::commands::execution::UnboundEntryAction;
 use mc_brigadier::{CommandDispatcher, StringReader};
 use mc_core::ident::Identifier;
 use mc_nbt::{CompoundTag, Tag};
@@ -15,7 +15,11 @@ const MAX_CACHE_ENTRIES: usize = 8;
 /// `MacroFunction.Entry`.
 pub enum MacroEntry {
     PlainText(Arc<dyn UnboundEntryAction>),
-    Macro { template: StringTemplate, parameters: Vec<usize>, compilation_context: CommandSourceStack },
+    Macro {
+        template: StringTemplate,
+        parameters: Vec<usize>,
+        compilation_context: CommandSourceStack,
+    },
 }
 
 impl MacroEntry {
@@ -34,12 +38,21 @@ impl MacroEntry {
     ) -> Result<Arc<dyn UnboundEntryAction>, FunctionInstantiationException> {
         match self {
             MacroEntry::PlainText(action) => Ok(action.clone()),
-            MacroEntry::Macro { template, compilation_context, .. } => {
+            MacroEntry::Macro {
+                template,
+                compilation_context,
+                ..
+            } => {
                 let command = template.substitute(substitutions).map_err(|e| {
                     // `IllegalStateException` (command too long) escapes in vanilla; reported as a failed instantiation here.
                     FunctionInstantiationException::new(Component::literal(e))
                 })?;
-                parse_command(dispatcher, compilation_context, StringReader::new(command.clone())).map_err(|e| {
+                parse_command(
+                    dispatcher,
+                    compilation_context,
+                    StringReader::new(command.clone()),
+                )
+                .map_err(|e| {
                     FunctionInstantiationException::new(crate::translatable!(
                         "commands.function.error.parse",
                         Component::literal(function_id.to_string()),
@@ -61,7 +74,12 @@ pub struct MacroFunction {
 
 impl MacroFunction {
     pub fn new(id: Identifier, entries: Vec<MacroEntry>, parameters: Vec<String>) -> Self {
-        Self { parameters, cache: Mutex::new(Vec::new()), id, entries }
+        Self {
+            parameters,
+            cache: Mutex::new(Vec::new()),
+            id,
+            entries,
+        }
     }
 }
 
@@ -71,7 +89,11 @@ fn format_decimal(value: f64) -> String {
         return "NaN".to_owned();
     }
     if value.is_infinite() {
-        return if value < 0.0 { "-∞".to_owned() } else { "∞".to_owned() };
+        return if value < 0.0 {
+            "-∞".to_owned()
+        } else {
+            "∞".to_owned()
+        };
     }
     let negative = value.is_sign_negative();
     let shortest = format!("{}", value.abs());
@@ -82,10 +104,17 @@ fn format_decimal(value: f64) -> String {
         let round_digit = frac_digits[15];
         let rest_nonzero = frac_digits[16..].iter().any(|d| *d != 0);
         frac_digits.truncate(15);
-        let last_odd = frac_digits.last().or(int_digits.last()).is_some_and(|d| d % 2 == 1);
+        let last_odd = frac_digits
+            .last()
+            .or(int_digits.last())
+            .is_some_and(|d| d % 2 == 1);
         if round_digit > 5 || (round_digit == 5 && (rest_nonzero || last_odd)) {
             let mut carry = true;
-            for d in frac_digits.iter_mut().rev().chain(int_digits.iter_mut().rev()) {
+            for d in frac_digits
+                .iter_mut()
+                .rev()
+                .chain(int_digits.iter_mut().rev())
+            {
                 if !carry {
                     break;
                 }
@@ -112,7 +141,13 @@ fn format_decimal(value: f64) -> String {
     let body = if frac_digits.is_empty() {
         int_s
     } else {
-        format!("{int_s}.{}", frac_digits.iter().map(|d| (b'0' + d) as char).collect::<String>())
+        format!(
+            "{int_s}.{}",
+            frac_digits
+                .iter()
+                .map(|d| (b'0' + d) as char)
+                .collect::<String>()
+        )
     };
     if negative { format!("-{body}") } else { body }
 }
@@ -174,7 +209,10 @@ impl CommandFunction for MacroFunction {
             }
         }
         let function = self.substitute_and_parse(&parameter_values, dispatcher)?;
-        self.cache.lock().unwrap_or_else(|e| e.into_inner()).push((parameter_values, function.clone()));
+        self.cache
+            .lock()
+            .unwrap_or_else(|e| e.into_inner())
+            .push((parameter_values, function.clone()));
         Ok(function)
     }
 }
@@ -187,16 +225,28 @@ impl MacroFunction {
     ) -> Result<Arc<InstantiatedFunction>, FunctionInstantiationException> {
         let mut new_entries = Vec::with_capacity(self.entries.len());
         for entry in &self.entries {
-            let entry_arguments: Vec<String> = entry.parameters().iter().map(|&i| values[i].clone()).collect();
+            let entry_arguments: Vec<String> = entry
+                .parameters()
+                .iter()
+                .map(|&i| values[i].clone())
+                .collect();
             new_entries.push(entry.instantiate(&entry_arguments, dispatcher, &self.id)?);
         }
         // `id.withPath(id -> id + "/" + keys.hashCode())` where `keys` is the `List<String>` of parameter names.
         let mut hash: i32 = 1;
         for key in &self.parameters {
-            hash = hash.wrapping_mul(31).wrapping_add(mc_brigadier::utf16::java_hash(key));
+            hash = hash
+                .wrapping_mul(31)
+                .wrapping_add(mc_brigadier::utf16::java_hash(key));
         }
-        let id = self.id.with_path(&format!("{}/{}", self.id.path(), hash)).unwrap_or_else(|_| self.id.clone());
-        Ok(Arc::new(InstantiatedFunction { id, entries: new_entries }))
+        let id = self
+            .id
+            .with_path(&format!("{}/{}", self.id.path(), hash))
+            .unwrap_or_else(|_| self.id.clone());
+        Ok(Arc::new(InstantiatedFunction {
+            id,
+            entries: new_entries,
+        }))
     }
 }
 

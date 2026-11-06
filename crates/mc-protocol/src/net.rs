@@ -8,13 +8,11 @@
 //! As in vanilla's netty pipeline, `set_compression`/`enable_encryption` only affect data processed
 //! afterwards: on the read side, bytes already pushed into the decoder are not decrypted retroactively.
 
-use crate::codec::{read_varint, varint_size, write_varint, DecodeError};
+use crate::codec::{DecodeError, read_varint, varint_size, write_varint};
 use aes::Aes128;
 use cfb8::cipher::KeyIvInit;
 use flate2::{Compress, Compression, Decompress, FlushCompress, FlushDecompress, Status};
-use tokio::io::{
-    split, AsyncRead, AsyncReadExt, AsyncWrite, AsyncWriteExt, ReadHalf, WriteHalf,
-};
+use tokio::io::{AsyncRead, AsyncReadExt, AsyncWrite, AsyncWriteExt, ReadHalf, WriteHalf, split};
 
 /// `CompressionDecoder.MAXIMUM_UNCOMPRESSED_LENGTH`.
 pub const MAXIMUM_UNCOMPRESSED_LENGTH: usize = 8_388_608;
@@ -128,7 +126,9 @@ impl FrameEncoder {
 fn put_frame(out: &mut Vec<u8>, body: &[u8]) -> Result<(), NetError> {
     let len = body.len();
     if varint_size(len as i32) > 3 {
-        return Err(NetError::Encoder(format!("Packet too large: size {len} is over 8")));
+        return Err(NetError::Encoder(format!(
+            "Packet too large: size {len} is over 8"
+        )));
     }
     out.reserve(len + 3);
     write_varint(out, len as i32);
@@ -163,7 +163,9 @@ impl Inflate {
             )));
         }
         if declared < 0 {
-            return Err(NetError::Decoder(format!("capacity: {declared} (expected: 0+)")));
+            return Err(NetError::Decoder(format!(
+                "capacity: {declared} (expected: 0+)"
+            )));
         }
         let declared = declared as usize;
         let mut out = vec![0u8; declared];
@@ -174,11 +176,17 @@ impl Inflate {
             let consumed = self.inflater.total_in() as usize;
             let status = self
                 .inflater
-                .decompress(&frame[consumed..], &mut out[produced..], FlushDecompress::None)
+                .decompress(
+                    &frame[consumed..],
+                    &mut out[produced..],
+                    FlushDecompress::None,
+                )
                 .map_err(|e| NetError::Decoder(e.to_string()))?;
             let progressed = self.inflater.total_out() as usize - produced;
             produced += progressed;
-            if status == Status::StreamEnd || (progressed == 0 && self.inflater.total_in() as usize == consumed) {
+            if status == Status::StreamEnd
+                || (progressed == 0 && self.inflater.total_in() as usize == consumed)
+            {
                 break;
             }
         }
@@ -208,7 +216,12 @@ impl Default for FrameDecoder {
 
 impl FrameDecoder {
     pub fn new() -> Self {
-        Self { buf: Vec::new(), pos: 0, inflate: None, cipher: None }
+        Self {
+            buf: Vec::new(),
+            pos: 0,
+            inflate: None,
+            cipher: None,
+        }
     }
 
     /// `Connection.setupCompression`: a threshold `>= 0` enables decompression, negative disables it.
@@ -246,7 +259,9 @@ impl FrameDecoder {
         let mut length = 0usize;
         let mut header = 0;
         for i in 0..3 {
-            let Some(&b) = avail.get(i) else { return Ok(None) };
+            let Some(&b) = avail.get(i) else {
+                return Ok(None);
+            };
             length |= usize::from(b & 0x7F) << (7 * i);
             if b & 0x80 == 0 {
                 header = i + 1;
@@ -259,7 +274,9 @@ impl FrameDecoder {
         if length == 0 {
             return Err(NetError::CorruptedFrame("Frame length cannot be zero"));
         }
-        let Some(frame) = avail[header..].get(..length) else { return Ok(None) };
+        let Some(frame) = avail[header..].get(..length) else {
+            return Ok(None);
+        };
         let payload = match &mut self.inflate {
             Some(inflate) => inflate.decode(frame)?,
             None => frame.to_vec(),
@@ -279,7 +296,11 @@ pub struct PacketReader<R> {
 
 impl<R: AsyncRead + Unpin> PacketReader<R> {
     pub fn new(inner: R) -> Self {
-        Self { inner, decoder: FrameDecoder::new(), chunk: Box::new([0; READ_CHUNK]) }
+        Self {
+            inner,
+            decoder: FrameDecoder::new(),
+            chunk: Box::new([0; READ_CHUNK]),
+        }
     }
 
     pub fn set_compression(&mut self, threshold: i32, validate: bool) {
@@ -317,7 +338,11 @@ pub struct PacketWriter<W> {
 
 impl<W: AsyncWrite + Unpin> PacketWriter<W> {
     pub fn new(inner: W) -> Self {
-        Self { inner, encoder: FrameEncoder::new(), buf: Vec::new() }
+        Self {
+            inner,
+            encoder: FrameEncoder::new(),
+            buf: Vec::new(),
+        }
     }
 
     pub fn set_compression(&mut self, threshold: i32) {
@@ -354,7 +379,10 @@ pub struct Connection<S> {
 impl<S: AsyncRead + AsyncWrite> Connection<S> {
     pub fn new(stream: S) -> Self {
         let (r, w) = split(stream);
-        Self { reader: PacketReader::new(r), writer: PacketWriter::new(w) }
+        Self {
+            reader: PacketReader::new(r),
+            writer: PacketWriter::new(w),
+        }
     }
 
     /// Both directions, like `Connection.setupCompression`.

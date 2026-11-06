@@ -76,7 +76,10 @@ pub struct ParsedArgument {
 
 impl ParsedArgument {
     pub fn new(start: usize, end: usize, result: ParsedValue) -> Self {
-        Self { range: StringRange::between(start, end), result }
+        Self {
+            range: StringRange::between(start, end),
+            result,
+        }
     }
 
     pub fn get_range(&self) -> StringRange {
@@ -96,7 +99,10 @@ pub struct ParsedCommandNode<S> {
 
 impl<S: 'static> Clone for ParsedCommandNode<S> {
     fn clone(&self) -> Self {
-        Self { node: self.node.clone(), range: self.range }
+        Self {
+            node: self.node.clone(),
+            range: self.range,
+        }
     }
 }
 
@@ -166,7 +172,18 @@ impl<S: 'static> CommandContext<S> {
         modifier: Option<RedirectModifier<S>>,
         forks: bool,
     ) -> Self {
-        Self { source, input, arguments, command, root_node, nodes, range, child, modifier, forks }
+        Self {
+            source,
+            input,
+            arguments,
+            command,
+            root_node,
+            nodes,
+            range,
+            child,
+            modifier,
+            forks,
+        }
     }
 
     pub fn copy_for(&self, source: S) -> CommandContext<S> {
@@ -215,16 +232,17 @@ impl<S: 'static> CommandContext<S> {
 
     /// `getArgument(name, Class)`.
     pub fn try_get_argument<T: Any>(&self, name: &str) -> Result<&T, IllegalArgumentException> {
-        let argument = self
-            .arguments
-            .get(name)
-            .ok_or_else(|| IllegalArgumentException(format!("No such argument '{name}' exists on this command")))?;
-        (&*argument.result as &dyn Any).downcast_ref::<T>().ok_or_else(|| {
-            IllegalArgumentException(format!(
-                "Argument '{name}' is not of the requested type {}",
-                std::any::type_name::<T>()
-            ))
-        })
+        let argument = self.arguments.get(name).ok_or_else(|| {
+            IllegalArgumentException(format!("No such argument '{name}' exists on this command"))
+        })?;
+        (&*argument.result as &dyn Any)
+            .downcast_ref::<T>()
+            .ok_or_else(|| {
+                IllegalArgumentException(format!(
+                    "Argument '{name}' is not of the requested type {}",
+                    std::any::type_name::<T>()
+                ))
+            })
     }
 
     /// Like [`try_get_argument`](Self::try_get_argument) but panics, as vanilla's unchecked
@@ -329,7 +347,11 @@ impl<S: 'static> CommandContextBuilder<S> {
         &self.root_node
     }
 
-    pub fn with_argument(&mut self, name: impl Into<String>, argument: ParsedArgument) -> &mut Self {
+    pub fn with_argument(
+        &mut self,
+        name: impl Into<String>,
+        argument: ParsedArgument,
+    ) -> &mut Self {
         self.arguments.insert(name.into(), argument);
         self
     }
@@ -382,25 +404,44 @@ impl<S: 'static> CommandContextBuilder<S> {
 
     /// `findSuggestionContext`; panics where vanilla throws `IllegalStateException`.
     pub fn find_suggestion_context(&self, cursor: usize) -> SuggestionContext<'_, S> {
-        assert!(self.range.get_start() <= cursor, "Can't find node before cursor");
+        assert!(
+            self.range.get_start() <= cursor,
+            "Can't find node before cursor"
+        );
         if self.range.get_end() < cursor {
             if let Some(child) = &self.child {
                 child.find_suggestion_context(cursor)
             } else if let Some(last) = self.nodes.last() {
-                SuggestionContext { context: self, parent: last.node.clone(), start_pos: last.range.get_end() + 1 }
+                SuggestionContext {
+                    context: self,
+                    parent: last.node.clone(),
+                    start_pos: last.range.get_end() + 1,
+                }
             } else {
-                SuggestionContext { context: self, parent: self.root_node.clone(), start_pos: self.range.get_start() }
+                SuggestionContext {
+                    context: self,
+                    parent: self.root_node.clone(),
+                    start_pos: self.range.get_start(),
+                }
             }
         } else {
             let mut prev = self.root_node.clone();
             for node in &self.nodes {
                 let range = node.range;
                 if range.get_start() <= cursor && cursor <= range.get_end() {
-                    return SuggestionContext { context: self, parent: prev, start_pos: range.get_start() };
+                    return SuggestionContext {
+                        context: self,
+                        parent: prev,
+                        start_pos: range.get_start(),
+                    };
                 }
                 prev = node.node.clone();
             }
-            SuggestionContext { context: self, parent: prev, start_pos: self.range.get_start() }
+            SuggestionContext {
+                context: self,
+                parent: prev,
+                start_pos: self.range.get_start(),
+            }
         }
     }
 }
@@ -456,15 +497,24 @@ pub struct ContextChain<S> {
 
 impl<S: 'static> Clone for ContextChain<S> {
     fn clone(&self) -> Self {
-        Self { modifiers: self.modifiers.clone(), executable: self.executable.clone() }
+        Self {
+            modifiers: self.modifiers.clone(),
+            executable: self.executable.clone(),
+        }
     }
 }
 
 impl<S: Clone + 'static> ContextChain<S> {
     /// Panics if `executable` has no command (vanilla `IllegalArgumentException`).
     pub fn new(modifiers: Vec<Arc<CommandContext<S>>>, executable: Arc<CommandContext<S>>) -> Self {
-        assert!(executable.get_command().is_some(), "Last command in chain must be executable");
-        Self { modifiers, executable }
+        assert!(
+            executable.get_command().is_some(),
+            "Last command in chain must be executable"
+        );
+        Self {
+            modifiers,
+            executable,
+        }
     }
 
     pub fn try_flatten(root_context: &CommandContext<S>) -> Option<ContextChain<S>> {
@@ -473,7 +523,10 @@ impl<S: Clone + 'static> ContextChain<S> {
         loop {
             match current.get_child().cloned() {
                 None => {
-                    return current.get_command().is_some().then(|| ContextChain { modifiers, executable: current });
+                    return current.get_command().is_some().then(|| ContextChain {
+                        modifiers,
+                        executable: current,
+                    });
                 }
                 Some(child) => {
                     modifiers.push(current);
@@ -509,7 +562,9 @@ impl<S: Clone + 'static> ContextChain<S> {
         forked_mode: bool,
     ) -> Result<i32, CommandSyntaxException> {
         let context_to_use = executable.copy_for(source);
-        let command = executable.get_command().expect("executable context has a command");
+        let command = executable
+            .get_command()
+            .expect("executable context has a command");
         match command(&context_to_use) {
             Ok(result) => {
                 result_consumer(&context_to_use, true, result);
@@ -522,7 +577,11 @@ impl<S: Clone + 'static> ContextChain<S> {
         }
     }
 
-    pub fn execute_all(&self, source: S, result_consumer: &ResultConsumer<S>) -> Result<i32, CommandSyntaxException> {
+    pub fn execute_all(
+        &self,
+        source: S,
+        result_consumer: &ResultConsumer<S>,
+    ) -> Result<i32, CommandSyntaxException> {
         if self.modifiers.is_empty() {
             return Self::run_executable(&self.executable, source, result_consumer, false);
         }
@@ -532,7 +591,12 @@ impl<S: Clone + 'static> ContextChain<S> {
             forked_mode |= modifier.is_forked();
             let mut next_sources = Vec::new();
             for source_to_run in current_sources {
-                next_sources.extend(Self::run_modifier(modifier, source_to_run, result_consumer, forked_mode)?);
+                next_sources.extend(Self::run_modifier(
+                    modifier,
+                    source_to_run,
+                    result_consumer,
+                    forked_mode,
+                )?);
             }
             if next_sources.is_empty() {
                 return Ok(0);
@@ -541,13 +605,22 @@ impl<S: Clone + 'static> ContextChain<S> {
         }
         let mut result = 0i32;
         for execution_source in current_sources {
-            result = result.wrapping_add(Self::run_executable(&self.executable, execution_source, result_consumer, forked_mode)?);
+            result = result.wrapping_add(Self::run_executable(
+                &self.executable,
+                execution_source,
+                result_consumer,
+                forked_mode,
+            )?);
         }
         Ok(result)
     }
 
     pub fn get_stage(&self) -> Stage {
-        if self.modifiers.is_empty() { Stage::Execute } else { Stage::Modify }
+        if self.modifiers.is_empty() {
+            Stage::Execute
+        } else {
+            Stage::Modify
+        }
     }
 
     pub fn get_top_context(&self) -> &CommandContext<S> {
@@ -558,7 +631,10 @@ impl<S: Clone + 'static> ContextChain<S> {
         if self.modifiers.is_empty() {
             None
         } else {
-            Some(ContextChain { modifiers: self.modifiers[1..].to_vec(), executable: self.executable.clone() })
+            Some(ContextChain {
+                modifiers: self.modifiers[1..].to_vec(),
+                executable: self.executable.clone(),
+            })
         }
     }
 }

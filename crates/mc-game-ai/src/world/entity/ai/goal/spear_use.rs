@@ -1,14 +1,14 @@
 //! `SpearUseGoal` (monsters wielding a kinetic weapon charge, then retreat).
 
-use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags, reduced_tick_delay};
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::entity::ai::util::land_random_pos;
-use mc_game_core::world::entity::living_entity::using_item;
-use mc_game_core::world::entity::equipment::EquipmentSlot;
-use mc_game_core::world::entity::mob::{self, combat, navigation, tick};
-use mc_game_core::world::entity::Entity;
-use mc_game_core::world::item::InteractionHand;
 use mc_core::phys::Vec3;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags, reduced_tick_delay};
+use mc_game_core::world::entity::ai::util::land_random_pos;
+use mc_game_core::world::entity::equipment::EquipmentSlot;
+use mc_game_core::world::entity::living_entity::using_item;
+use mc_game_core::world::entity::mob::{self, combat, navigation, tick};
+use mc_game_core::world::item::InteractionHand;
 use mc_protocol::components::KINETIC_WEAPON;
 
 /// `MAX_FLEEING_TIME = reducedTickDelay(100)` (a `double`).
@@ -26,7 +26,12 @@ struct SpearUseState {
 
 impl SpearUseState {
     fn new() -> Self {
-        Self { engage_time: -1, fleeing_time: -1, away_pos: None, done: false }
+        Self {
+            engage_time: -1,
+            fleeing_time: -1,
+            away_pos: None,
+            done: false,
+        }
     }
 
     fn not_engaged_yet(&self) -> bool {
@@ -69,7 +74,12 @@ pub struct SpearUseGoal {
 
 impl SpearUseGoal {
     /// `SpearUseGoal(mob, speedModifierWhenCharging, speedModifierWhenRepositioning, approachDistance, targetInRangeRadius)`.
-    pub fn new(speed_modifier_when_charging: f64, speed_modifier_when_repositioning: f64, approach_distance: f32, target_in_range_radius: f32) -> Self {
+    pub fn new(
+        speed_modifier_when_charging: f64,
+        speed_modifier_when_repositioning: f64,
+        approach_distance: f32,
+        target_in_range_radius: f32,
+    ) -> Self {
         Self {
             state: None,
             speed_modifier_when_charging,
@@ -80,7 +90,11 @@ impl SpearUseGoal {
     }
 
     fn able_to_attack(mob: &dyn Entity, level: &ServerLevel) -> bool {
-        tick::get_target_checked(mob, level).is_some() && mob.get_item_by_slot(EquipmentSlot::MainHand).get(&KINETIC_WEAPON).is_some()
+        tick::get_target_checked(mob, level).is_some()
+            && mob
+                .get_item_by_slot(EquipmentSlot::MainHand)
+                .get(&KINETIC_WEAPON)
+                .is_some()
     }
 
     /// `getKineticWeaponUseDuration()`.
@@ -88,7 +102,13 @@ impl SpearUseGoal {
         let duration_ticks = mob
             .get_item_by_slot(EquipmentSlot::MainHand)
             .get(&KINETIC_WEAPON)
-            .map_or(0, |k| k.delay_ticks.wrapping_add(k.damage_conditions.as_ref().map_or(0, |c| c.max_duration_ticks)));
+            .map_or(0, |k| {
+                k.delay_ticks.wrapping_add(
+                    k.damage_conditions
+                        .as_ref()
+                        .map_or(0, |c| c.max_duration_ticks),
+                )
+            });
         reduced_tick_delay(duration_ticks)
     }
 }
@@ -115,18 +135,31 @@ impl Goal for SpearUseGoal {
     }
 
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
-        let Some(state) = self.state.as_mut() else { return };
-        let Some(target_id) = tick::get_target_checked(mob, level) else { return };
-        let Some(target) = level.get_entity(target_id) else { return };
+        let Some(state) = self.state.as_mut() else {
+            return;
+        };
+        let Some(target_id) = tick::get_target_checked(mob, level) else {
+            return;
+        };
+        let Some(target) = level.get_entity(target_id) else {
+            return;
+        };
         let (target_pos_vec, target_block_pos) = (target.position(), target.block_position());
-        let target_dist_sqr = mob.base().distance_to_sqr_xyz(target.base().x(), target.base().y(), target.base().z());
+        let target_dist_sqr =
+            mob.base()
+                .distance_to_sqr_xyz(target.base().x(), target.base().y(), target.base().z());
         let speed_modifier = combat::root_charge_speed_modifier(mob, level);
         let mount_distance = if mob.base().is_passenger() { 2 } else { 0 };
         combat::look_at(mob, target, 30.0, 30.0);
         mob::look_at_entity_full(mob, target, 30.0, 30.0);
         if state.not_engaged_yet() {
             if target_dist_sqr > f64::from(self.approach_distance_sq) {
-                navigation::move_to_entity(mob, level, target_block_pos, f64::from(speed_modifier) * self.speed_modifier_when_repositioning);
+                navigation::move_to_entity(
+                    mob,
+                    level,
+                    target_block_pos,
+                    f64::from(speed_modifier) * self.speed_modifier_when_repositioning,
+                );
                 return;
             }
             state.start_engagement(Self::get_kinetic_weapon_use_duration(mob));
@@ -147,7 +180,14 @@ impl Goal for SpearUseGoal {
         }
         if !state.tick_and_check_fleeing() {
             if let Some(away) = state.away_pos {
-                navigation::move_to(mob, level, away.x, away.y, away.z, f64::from(speed_modifier) * self.speed_modifier_when_repositioning);
+                navigation::move_to(
+                    mob,
+                    level,
+                    away.x,
+                    away.y,
+                    away.z,
+                    f64::from(speed_modifier) * self.speed_modifier_when_repositioning,
+                );
                 if navigation::is_done(mob, level) {
                     if state.fleeing_time > 0 {
                         state.done = true;
@@ -156,8 +196,15 @@ impl Goal for SpearUseGoal {
                     state.away_pos = None;
                 }
             } else {
-                navigation::move_to_entity(mob, level, target_block_pos, f64::from(speed_modifier) * self.speed_modifier_when_charging);
-                if target_dist_sqr < f64::from(self.target_in_range_radius_sq) || navigation::is_done(mob, level) {
+                navigation::move_to_entity(
+                    mob,
+                    level,
+                    target_block_pos,
+                    f64::from(speed_modifier) * self.speed_modifier_when_charging,
+                );
+                if target_dist_sqr < f64::from(self.target_in_range_radius_sq)
+                    || navigation::is_done(mob, level)
+                {
                     let distance = target_dist_sqr.sqrt();
                     state.away_pos = land_random_pos::get_pos_away_range(
                         mob,

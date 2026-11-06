@@ -14,9 +14,13 @@ use mc_data::EntityType;
 use mc_game::registry::keys;
 use mc_game::server::level::ServerLevel;
 use mc_game::world::entity::entity::{Entity, EntityData};
-use mc_game::world::item::trading::trade_sets::{WANDERING_TRADER_BUYING, WANDERING_TRADER_COMMON, WANDERING_TRADER_UNCOMMON, profession_trade_set, trade_set_key};
+use mc_game::world::item::trading::trade_sets::{
+    WANDERING_TRADER_BUYING, WANDERING_TRADER_COMMON, WANDERING_TRADER_UNCOMMON,
+    profession_trade_set, trade_set_key,
+};
 use mc_game::world::item::trading::{
-    MerchantOffers, TradeSet, VillagerTrade, add_offers_from_trade_set, add_offers_from_trade_set_in, get_trade_set,
+    MerchantOffers, TradeSet, VillagerTrade, add_offers_from_trade_set,
+    add_offers_from_trade_set_in, get_trade_set,
 };
 use mc_game::world::level::saveddata::random_sequences::RandomSequences;
 use mc_game::world::level::storage::loot::server_access::LootServices;
@@ -29,8 +33,21 @@ use mc_protocol::packets::play::ClientboundMerchantOffersPacket;
 use mc_world::level_storage::WorldDataConfiguration;
 use sha1::{Digest, Sha1};
 
-const PROFESSIONS: [&str; 13] =
-    ["armorer", "butcher", "cartographer", "cleric", "farmer", "fisherman", "fletcher", "leatherworker", "librarian", "mason", "shepherd", "toolsmith", "weaponsmith"];
+const PROFESSIONS: [&str; 13] = [
+    "armorer",
+    "butcher",
+    "cartographer",
+    "cleric",
+    "farmer",
+    "fisherman",
+    "fletcher",
+    "leatherworker",
+    "librarian",
+    "mason",
+    "shepherd",
+    "toolsmith",
+    "weaponsmith",
+];
 
 /// A merchant for the merchant predicates: position and the villager type component (`Villager.get(VILLAGER_VARIANT)`).
 struct TestMerchant {
@@ -42,7 +59,10 @@ impl TestMerchant {
     fn new(ty: EntityType, variant: Option<&str>, pos: (f64, f64, f64)) -> TestMerchant {
         let mut base = EntityData::new(ty, 1, 300, |_| {});
         base.set_pos_raw_and_box(pos.0, pos.1, pos.2);
-        TestMerchant { base, variant: variant.map(|v| Identifier::parse(&format!("minecraft:{v}")).unwrap()) }
+        TestMerchant {
+            base,
+            variant: variant.map(|v| Identifier::parse(&format!("minecraft:{v}")).unwrap()),
+        }
     }
     fn villager(variant: &str) -> TestMerchant {
         TestMerchant::new(EntityType::VILLAGER, Some(variant), (100.5, 64.0, -20.5))
@@ -86,16 +106,31 @@ struct Fixture {
 
 impl Fixture {
     fn load() -> Fixture {
-        let text = std::fs::read_to_string(std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/trades_golden.txt")).unwrap();
-        Fixture { lines: text.lines().filter_map(|l| l.split_once(' ')).map(|(t, r)| (t.chars().next().unwrap(), r.to_owned())).collect() }
+        let text = std::fs::read_to_string(
+            std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+                .join("tests/fixtures/trades_golden.txt"),
+        )
+        .unwrap();
+        Fixture {
+            lines: text
+                .lines()
+                .filter_map(|l| l.split_once(' '))
+                .map(|(t, r)| (t.chars().next().unwrap(), r.to_owned()))
+                .collect(),
+        }
     }
     fn of(&self, tag: char) -> Vec<Vec<&str>> {
-        self.lines.iter().filter(|(t, _)| *t == tag).map(|(_, r)| r.split(' ').collect()).collect()
+        self.lines
+            .iter()
+            .filter(|(t, _)| *t == tag)
+            .map(|(_, r)| r.split(' ').collect())
+            .collect()
     }
 }
 
 fn level_with_registries(dir: &std::path::Path) -> ServerLevel {
-    let (_config, stem) = common::load_world(dir, WorldDataConfiguration::DEFAULT, true).expect("default world loads");
+    let (_config, stem) = common::load_world(dir, WorldDataConfiguration::DEFAULT, true)
+        .expect("default world loads");
     let mut level = ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap());
     level.registries = stem.registries.composite_access().clone();
     reset_sequences(&mut level);
@@ -104,7 +139,11 @@ fn level_with_registries(dir: &std::path::Path) -> ServerLevel {
 
 /// A fresh server random-sequence state with the oracle world's seed (`VanillaLevel.Options.seed`).
 fn reset_sequences(level: &mut ServerLevel) {
-    level.server_state.loot = LootServices { random_sequences: Arc::new(parking_lot::Mutex::new(RandomSequences::default())), world_seed: 4242, ..LootServices::default() };
+    level.server_state.loot = LootServices {
+        random_sequences: Arc::new(parking_lot::Mutex::new(RandomSequences::default())),
+        world_seed: 4242,
+        ..LootServices::default()
+    };
 }
 
 fn canon(tag: &Tag, out: &mut String) {
@@ -140,9 +179,33 @@ fn canon(tag: &Tag, out: &mut String) {
         Tag::Float(v) => write!(out, "{:x}f", v.to_bits()).unwrap(),
         Tag::Double(v) => write!(out, "{:x}d", v.to_bits()).unwrap(),
         Tag::String(s) => write!(out, "\"{s}\"").unwrap(),
-        Tag::ByteArray(a) => write!(out, "B[{}]", a.iter().map(|v| v.to_string()).collect::<Vec<_>>().join(", ")).unwrap(),
-        Tag::IntArray(a) => write!(out, "I[{}]", a.iter().map(|v| v.to_string()).collect::<Vec<_>>().join(", ")).unwrap(),
-        Tag::LongArray(a) => write!(out, "L[{}]", a.iter().map(|v| v.to_string()).collect::<Vec<_>>().join(", ")).unwrap(),
+        Tag::ByteArray(a) => write!(
+            out,
+            "B[{}]",
+            a.iter()
+                .map(|v| v.to_string())
+                .collect::<Vec<_>>()
+                .join(", ")
+        )
+        .unwrap(),
+        Tag::IntArray(a) => write!(
+            out,
+            "I[{}]",
+            a.iter()
+                .map(|v| v.to_string())
+                .collect::<Vec<_>>()
+                .join(", ")
+        )
+        .unwrap(),
+        Tag::LongArray(a) => write!(
+            out,
+            "L[{}]",
+            a.iter()
+                .map(|v| v.to_string())
+                .collect::<Vec<_>>()
+                .join(", ")
+        )
+        .unwrap(),
         Tag::End => panic!("end tag"),
     }
 }
@@ -154,11 +217,16 @@ fn canon_text(tag: &Tag) -> String {
 }
 
 fn sha1(s: &str) -> String {
-    Sha1::digest(s.as_bytes()).iter().map(|b| format!("{b:02x}")).collect()
+    Sha1::digest(s.as_bytes())
+        .iter()
+        .map(|b| format!("{b:02x}"))
+        .collect()
 }
 
 fn offers_canon(offers: &MerchantOffers) -> String {
-    let tag = mc_dfu::encode_nbt(&MerchantOffers::codec(), offers).into_result().expect("offers encode");
+    let tag = mc_dfu::encode_nbt(&MerchantOffers::codec(), offers)
+        .into_result()
+        .expect("offers encode");
     canon_text(&tag)
 }
 
@@ -168,14 +236,22 @@ fn wire_hex(offers: &MerchantOffers) -> String {
     out.iter().map(|b| format!("{b:02x}")).collect()
 }
 
-fn seeded(level: &ServerLevel, merchant: &TestMerchant, key: &Identifier, offers: &mut MerchantOffers, seed: i64) {
+fn seeded(
+    level: &ServerLevel,
+    merchant: &TestMerchant,
+    key: &Identifier,
+    offers: &mut MerchantOffers,
+    seed: i64,
+) {
     let set = get_trade_set(&level.registries, key).expect("trade set");
     let params = LootParams::builder(level)
         .origin(merchant.position())
         .this_entity(merchant)
         .additional_cost_component_allowed()
         .create(&LootContextParamSets::VILLAGER_TRADE);
-    let mut context = LootContext::builder(&params).with_optional_random_seed(seed).create(None);
+    let mut context = LootContext::builder(&params)
+        .with_optional_random_seed(seed)
+        .create(None);
     add_offers_from_trade_set_in(&mut context, offers, &set);
 }
 
@@ -188,11 +264,28 @@ fn real(level: &ServerLevel, merchant: &TestMerchant, keys: &[Identifier]) -> Me
 }
 
 fn wandering_keys() -> Vec<Identifier> {
-    [WANDERING_TRADER_BUYING, WANDERING_TRADER_UNCOMMON, WANDERING_TRADER_COMMON].iter().map(|p| trade_set_key(p)).collect()
+    [
+        WANDERING_TRADER_BUYING,
+        WANDERING_TRADER_UNCOMMON,
+        WANDERING_TRADER_COMMON,
+    ]
+    .iter()
+    .map(|p| trade_set_key(p))
+    .collect()
 }
 
 fn report(failures: Vec<String>, total: usize) {
-    assert!(failures.is_empty(), "{} of {total} differ:\n{}", failures.len(), failures.iter().take(12).cloned().collect::<Vec<_>>().join("\n"));
+    assert!(
+        failures.is_empty(),
+        "{} of {total} differ:\n{}",
+        failures.len(),
+        failures
+            .iter()
+            .take(12)
+            .cloned()
+            .collect::<Vec<_>>()
+            .join("\n")
+    );
 }
 
 #[test]
@@ -204,21 +297,47 @@ fn trades_equal_vanilla() {
     let mut failures = Vec::new();
 
     // data-pack registries
-    let digests: HashMap<(String, String), String> = fx.of('E').iter().map(|r| ((r[0].to_owned(), r[1].to_owned()), r[2].to_owned())).collect();
+    let digests: HashMap<(String, String), String> = fx
+        .of('E')
+        .iter()
+        .map(|r| ((r[0].to_owned(), r[1].to_owned()), r[2].to_owned()))
+        .collect();
     let mut checked = 0;
-    for (registry, name) in [(keys::VILLAGER_TRADE, "villager_trade"), (keys::TRADE_SET, "trade_set")] {
-        for entry in level.registries.registry(registry).expect("registry").entries() {
+    for (registry, name) in [
+        (keys::VILLAGER_TRADE, "villager_trade"),
+        (keys::TRADE_SET, "trade_set"),
+    ] {
+        for entry in level
+            .registries
+            .registry(registry)
+            .expect("registry")
+            .entries()
+        {
             let tag = if name == "trade_set" {
-                let set = level.registries.get::<Arc<TradeSet>>(registry, &entry.id).expect("typed trade set");
-                mc_dfu::encode_nbt(&TradeSet::codec(), set.as_ref()).into_result().unwrap()
+                let set = level
+                    .registries
+                    .get::<Arc<TradeSet>>(registry, &entry.id)
+                    .expect("typed trade set");
+                mc_dfu::encode_nbt(&TradeSet::codec(), set.as_ref())
+                    .into_result()
+                    .unwrap()
             } else {
-                let trade = level.registries.get::<Arc<VillagerTrade>>(registry, &entry.id).expect("typed trade");
-                mc_dfu::encode_nbt(&VillagerTrade::codec(), trade.as_ref()).into_result().unwrap()
+                let trade = level
+                    .registries
+                    .get::<Arc<VillagerTrade>>(registry, &entry.id)
+                    .expect("typed trade");
+                mc_dfu::encode_nbt(&VillagerTrade::codec(), trade.as_ref())
+                    .into_result()
+                    .unwrap()
             };
             let got = sha1(&canon_text(&tag));
             match digests.get(&(name.to_owned(), entry.id.to_string())) {
                 Some(expected) if *expected == got => {}
-                other => failures.push(format!("registry {name} {}: vanilla {other:?} ours {got} {}", entry.id, canon_text(&tag))),
+                other => failures.push(format!(
+                    "registry {name} {}: vanilla {other:?} ours {got} {}",
+                    entry.id,
+                    canon_text(&tag)
+                )),
             }
             checked += 1;
         }
@@ -230,14 +349,24 @@ fn trades_equal_vanilla() {
     let cases = fx.of('S');
     let dumps: HashMap<&str, &str> = fx.of('D').into_iter().map(|r| (r[0], r[1])).collect();
     for r in &cases {
-        let (prof, lvl, ty, seed, expected) = (r[0], r[1].parse::<i32>().unwrap(), r[2], r[3].parse::<i64>().unwrap(), r[4]);
+        let (prof, lvl, ty, seed, expected) = (
+            r[0],
+            r[1].parse::<i32>().unwrap(),
+            r[2],
+            r[3].parse::<i64>().unwrap(),
+            r[4],
+        );
         let key = profession_trade_set(&Identifier::parse(prof).unwrap(), lvl).unwrap();
         let mut offers = MerchantOffers::new();
         seeded(&level, &TestMerchant::villager(ty), &key, &mut offers, seed);
         let text = offers_canon(&offers);
         if sha1(&text) != expected {
-            let vanilla = dumps.get(format!("{prof}/{lvl}/{ty}").as_str()).map_or("-", |d| *d);
-            failures.push(format!("S {prof} {lvl} {ty} {seed}\n  vanilla {vanilla}\n  ours    {text}"));
+            let vanilla = dumps
+                .get(format!("{prof}/{lvl}/{ty}").as_str())
+                .map_or("-", |d| *d);
+            failures.push(format!(
+                "S {prof} {lvl} {ty} {seed}\n  vanilla {vanilla}\n  ours    {text}"
+            ));
         }
     }
     report(std::mem::take(&mut failures), cases.len());
@@ -259,7 +388,11 @@ fn trades_equal_vanilla() {
     // the real path: level random sequences, in the oracle's order
     reset_sequences(&mut level);
     let rows = fx.of('R');
-    let mutated: HashMap<(String, String, String), Vec<&str>> = fx.of('M').into_iter().map(|r| ((r[0].to_owned(), r[1].to_owned(), r[2].to_owned()), r)).collect();
+    let mutated: HashMap<(String, String, String), Vec<&str>> = fx
+        .of('M')
+        .into_iter()
+        .map(|r| ((r[0].to_owned(), r[1].to_owned(), r[2].to_owned()), r))
+        .collect();
     let mut first = None;
     for r in &rows {
         let (prof, lvl, ty) = (r[0], r[1].parse::<i32>().unwrap(), r[2]);
@@ -267,16 +400,28 @@ fn trades_equal_vanilla() {
         let offers = real(&level, &TestMerchant::villager(ty), &[key]);
         let (text, wire) = (offers_canon(&offers), wire_hex(&offers));
         if sha1(&text) != r[3] || !wire_equal(&wire, r[4]) {
-            failures.push(format!("R {prof} {lvl} {ty}: nbt equal {} wire equal {}\n  ours {text}", sha1(&text) == r[3], wire_equal(&wire, r[4])));
+            failures.push(format!(
+                "R {prof} {lvl} {ty}: nbt equal {} wire equal {}\n  ours {text}",
+                sha1(&text) == r[3],
+                wire_equal(&wire, r[4])
+            ));
             continue;
         }
         // saved + wire round trips
-        let tag = mc_dfu::encode_nbt(&MerchantOffers::codec(), &offers).into_result().unwrap();
-        let back = mc_dfu::parse_nbt(&MerchantOffers::codec(), &tag).into_result().expect("offers decode");
+        let tag = mc_dfu::encode_nbt(&MerchantOffers::codec(), &offers)
+            .into_result()
+            .unwrap();
+        let back = mc_dfu::parse_nbt(&MerchantOffers::codec(), &tag)
+            .into_result()
+            .expect("offers decode");
         let bytes = hex(&wire);
         let decoded = MerchantOffers::decode_stream(&mut &bytes[..]).expect("wire decode");
         if back != offers || decoded != offers {
-            failures.push(format!("R {prof} {lvl} {ty}: round trip differs (saved {}, wire {})", back == offers, decoded == offers));
+            failures.push(format!(
+                "R {prof} {lvl} {ty}: round trip differs (saved {}, wire {})",
+                back == offers,
+                decoded == offers
+            ));
         }
         if first.is_none() && !offers.is_empty() {
             first = Some(offers.clone());
@@ -297,15 +442,29 @@ fn trades_equal_vanilla() {
                 o.add_to_special_price_diff(if i % 2 == 0 { -3 } else { 5 });
                 let (a, b) = (o.get_cost_a(), o.get_cost_b());
                 let ok = o.satisfied_by(&a.copy(), &b.copy());
-                let short_ok = o.satisfied_by(&a.copy_with_count((a.count() - 1).max(0)), &b.copy());
+                let short_ok =
+                    o.satisfied_by(&a.copy_with_count((a.count() - 1).max(0)), &b.copy());
                 let mut ta = a.copy_with_count(a.count() + 2);
                 let mut tb = b.copy_with_count(if b.is_empty() { 0 } else { b.count() + 1 });
                 let took = o.take(&mut ta, &mut tb);
-                info.push_str(&format!("{}/{}/{ok}/{short_ok}/{took}/{}/{}/{}/{};", a.count(), b.count(), ta.count(), tb.count(), o.is_out_of_stock(), o.get_demand()));
+                info.push_str(&format!(
+                    "{}/{}/{ok}/{short_ok}/{took}/{}/{}/{}/{};",
+                    a.count(),
+                    b.count(),
+                    ta.count(),
+                    tb.count(),
+                    o.is_out_of_stock(),
+                    o.get_demand()
+                ));
             }
             let (text, wire) = (offers_canon(&offers), wire_hex(&offers));
             if sha1(&text) != m[3] || !wire_equal(&wire, m[4]) || info != m[5] {
-                failures.push(format!("M {prof} {lvl} {ty}: nbt {} wire {}\n  vanilla {}\n  ours    {info}", sha1(&text) == m[3], wire_equal(&wire, m[4]), m[5]));
+                failures.push(format!(
+                    "M {prof} {lvl} {ty}: nbt {} wire {}\n  vanilla {}\n  ours    {info}",
+                    sha1(&text) == m[3],
+                    wire_equal(&wire, m[4]),
+                    m[5]
+                ));
             }
         }
     }
@@ -319,7 +478,14 @@ fn trades_equal_vanilla() {
     report(std::mem::take(&mut failures), 6);
 
     // the offers packet
-    let packet = ClientboundMerchantOffersPacket { container_id: 7, offers: first.expect("an offer").to_wire(), villager_level: 3, villager_xp: 150, show_progress: true, can_restock: false };
+    let packet = ClientboundMerchantOffersPacket {
+        container_id: 7,
+        offers: first.expect("an offer").to_wire(),
+        villager_level: 3,
+        villager_xp: 150,
+        show_progress: true,
+        can_restock: false,
+    };
     let mut out = Vec::new();
     packet.encode(&mut out).unwrap();
     let got: String = out.iter().map(|b| format!("{b:02x}")).collect();
@@ -334,9 +500,14 @@ fn wire_equal(ours: &str, vanilla: &str) -> bool {
         return true;
     }
     let (a, b) = (hex(ours), hex(vanilla));
-    a.len() == b.len() && MerchantOffers::decode_stream(&mut &a[..]).ok() == MerchantOffers::decode_stream(&mut &b[..]).ok()
+    a.len() == b.len()
+        && MerchantOffers::decode_stream(&mut &a[..]).ok()
+            == MerchantOffers::decode_stream(&mut &b[..]).ok()
 }
 
 fn hex(s: &str) -> Vec<u8> {
-    (0..s.len()).step_by(2).map(|i| u8::from_str_radix(&s[i..i + 2], 16).unwrap()).collect()
+    (0..s.len())
+        .step_by(2)
+        .map(|i| u8::from_str_radix(&s[i..i + 2], 16).unwrap())
+        .collect()
 }

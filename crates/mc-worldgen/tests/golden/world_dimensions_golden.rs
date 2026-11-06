@@ -38,9 +38,12 @@ impl DimensionTypes for RawTypes {
 }
 
 fn fixture() -> String {
-    let path = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/flat/world_dimensions.txt.gz");
+    let path = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+        .join("tests/fixtures/flat/world_dimensions.txt.gz");
     let mut text = String::new();
-    GzDecoder::new(std::fs::File::open(path).unwrap()).read_to_string(&mut text).unwrap();
+    GzDecoder::new(std::fs::File::open(path).unwrap())
+        .read_to_string(&mut text)
+        .unwrap();
     text
 }
 
@@ -64,7 +67,8 @@ fn bake_line(
     };
     let mut base_stems = Vec::new();
     for (key, stem) in base.and_then(Value::as_object).into_iter().flatten() {
-        let stem = LevelStem::from_json(stem, registries, biomes, &types).expect("base stems are valid");
+        let stem =
+            LevelStem::from_json(stem, registries, biomes, &types).expect("base stems are valid");
         base_stems.push((Identifier::read(key).unwrap(), Arc::new(stem)));
     }
     let complete = world.bake(&base_stems);
@@ -84,8 +88,16 @@ fn bake_line(
             Holder::Reference(id, _) => id.to_string(),
             Holder::Direct(_) => "<inline>".to_string(),
         };
-        let possible = entry.stem.generator.as_chunk_generator().biome_source().possible_biomes();
-        let inline = possible.iter().filter(|b| BiomeRegistry::is_inline(**b)).count();
+        let possible = entry
+            .stem
+            .generator
+            .as_chunk_generator()
+            .biome_source()
+            .possible_biomes();
+        let inline = possible
+            .iter()
+            .filter(|b| BiomeRegistry::is_inline(**b))
+            .count();
         // a baked registration never carries a known pack
         line.push_str(&format!(
             "{}/{}/false/{ty}/{}/{}/{inline};",
@@ -106,13 +118,23 @@ fn world_dimensions_bake_matches_vanilla() {
     let mut lines = text.lines();
     let mut cases = 0;
     while let Some(line) = lines.next() {
-        let Some(rest) = line.strip_prefix("WD_INPUT ") else { continue };
+        let Some(rest) = line.strip_prefix("WD_INPUT ") else {
+            continue;
+        };
         let (name, input) = rest.split_once(' ').unwrap();
-        let base = lines.next().unwrap().strip_prefix(&format!("WD_BASE {name} ")).unwrap();
+        let base = lines
+            .next()
+            .unwrap()
+            .strip_prefix(&format!("WD_BASE {name} "))
+            .unwrap();
         let base: Option<Value> = (base != "none").then(|| serde_json::from_str(base).unwrap());
         let want = lines.next().unwrap();
         let input: Value = serde_json::from_str(input).unwrap();
-        assert_eq!(bake_line(name, &input, base.as_ref(), &registries, &biomes), want, "{name}");
+        assert_eq!(
+            bake_line(name, &input, base.as_ref(), &registries, &biomes),
+            want,
+            "{name}"
+        );
         cases += 1;
     }
     assert_eq!(cases, 49);

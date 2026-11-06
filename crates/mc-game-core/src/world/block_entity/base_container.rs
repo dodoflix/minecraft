@@ -11,7 +11,10 @@ use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_data::block::BlockState;
 use mc_nbt::CompoundTag;
-use mc_protocol::components::{CONTAINER, CUSTOM_NAME, DataComponentMapBuilder, ItemContainerContents, LOCK, LockCode, component_codec};
+use mc_protocol::components::{
+    CONTAINER, CUSTOM_NAME, DataComponentMapBuilder, ItemContainerContents, LOCK, LockCode,
+    component_codec,
+};
 use mc_protocol::packets::play::{ClientboundSystemChatPacket, SoundSource};
 use mc_text::Component;
 
@@ -25,7 +28,12 @@ pub struct BaseContainer {
 
 /// `LockCode.NO_LOCK.predicate()`: the empty `ItemPredicate` (matches every stack).
 fn no_lock_predicate() -> mc_protocol::components::ItemPredicate {
-    mc_dfu::parse_nbt(&mc_protocol::components::ItemPredicate::codec(), &mc_nbt::Tag::Compound(CompoundTag::new())).result().expect("empty item predicate")
+    mc_dfu::parse_nbt(
+        &mc_protocol::components::ItemPredicate::codec(),
+        &mc_nbt::Tag::Compound(CompoundTag::new()),
+    )
+    .result()
+    .expect("empty item predicate")
 }
 
 impl BaseContainer {
@@ -61,14 +69,18 @@ impl BaseContainer {
 
     /// `isLocked()`: `!lockKey.equals(NO_LOCK)`.
     pub fn is_locked(&self) -> bool {
-        self.lock_key.as_ref().is_some_and(|l| l.predicate != no_lock_predicate())
+        self.lock_key
+            .as_ref()
+            .is_some_and(|l| l.predicate != no_lock_predicate())
     }
 
     /// `canOpen(player)`: `lockKey.canUnlock(player)` = `player.isSpectator() || unlocksWith(mainHandItem)`.
     pub fn can_open(&self, player: &dyn MenuPlayer) -> bool {
         match &self.lock_key {
             None => true,
-            Some(lock) => player.is_spectator() || lock.predicate.test(player.inventory().get_selected_item()),
+            Some(lock) => {
+                player.is_spectator() || lock.predicate.test(player.inventory().get_selected_item())
+            }
         }
     }
 
@@ -83,7 +95,11 @@ impl BaseContainer {
     }
 
     /// `collectImplicitComponents(components)`.
-    pub fn collect_implicit_components(&self, mut components: DataComponentMapBuilder, items: &[ItemStack]) -> DataComponentMapBuilder {
+    pub fn collect_implicit_components(
+        &self,
+        mut components: DataComponentMapBuilder,
+        items: &[ItemStack],
+    ) -> DataComponentMapBuilder {
         if let Some(name) = &self.name {
             components = components.set(CUSTOM_NAME, name.clone());
         }
@@ -97,9 +113,31 @@ impl BaseContainer {
 }
 
 /// `BaseContainerBlockEntity.sendChestLockedNotifications(pos, player, displayName)`.
-pub fn send_chest_locked_notifications(level: &mut ServerLevel, pos: Vec3, player: &mut ServerPlayer, display_name: &Component) {
-    player.send(&ClientboundSystemChatPacket { content: Component::translatable("container.isLocked", vec![mc_text::component::TranslatableArg::Component(display_name.clone())]), overlay: true });
-    level.play_sound_at(None, pos.x, pos.y, pos.z, mc_data::SoundEvent::BLOCK_CHEST_LOCKED, SoundSource::Blocks, 1.0, 1.0);
+pub fn send_chest_locked_notifications(
+    level: &mut ServerLevel,
+    pos: Vec3,
+    player: &mut ServerPlayer,
+    display_name: &Component,
+) {
+    player.send(&ClientboundSystemChatPacket {
+        content: Component::translatable(
+            "container.isLocked",
+            vec![mc_text::component::TranslatableArg::Component(
+                display_name.clone(),
+            )],
+        ),
+        overlay: true,
+    });
+    level.play_sound_at(
+        None,
+        pos.x,
+        pos.y,
+        pos.z,
+        mc_data::SoundEvent::BLOCK_CHEST_LOCKED,
+        SoundSource::Blocks,
+        1.0,
+        1.0,
+    );
 }
 
 /// `BlockEntity.setChanged(level, pos, state)`: `level.blockEntityChanged(pos)` and, for a non-air state,

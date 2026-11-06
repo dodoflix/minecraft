@@ -13,8 +13,8 @@ use crate::world::entity::{Entity, EntityId};
 use crate::world::item::ItemStack;
 use crate::world::level::BlockGetter;
 use crate::world::level::block::state::BlockStateExt;
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
 use crate::world::level::pathfinder::PathType;
+use crate::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_core::ident::Identifier;
 use mc_core::phys::AABB;
 use mc_core::pos::BlockPos;
@@ -26,7 +26,8 @@ use mc_world::level_storage::Difficulty;
 use std::sync::LazyLock;
 
 /// `SPEED_MODIFIER_ATTACKING_ID`.
-static SPEED_MODIFIER_ATTACKING_ID: LazyLock<Identifier> = LazyLock::new(|| Identifier::new("minecraft", "attacking").expect("valid id"));
+static SPEED_MODIFIER_ATTACKING_ID: LazyLock<Identifier> =
+    LazyLock::new(|| Identifier::new("minecraft", "attacking").expect("valid id"));
 
 /// `FIRST_ANGER_SOUND_DELAY` (`TimeUtil.rangeOfSeconds(0, 1)`).
 const FIRST_ANGER_SOUND_DELAY: (i32, i32) = (0, 20);
@@ -67,10 +68,17 @@ pub fn init(zombie: &mut Zombie) {
 pub fn custom_server_ai_step(zombie: &mut Zombie, level: &mut ServerLevel) {
     let angry = mob::neutral::is_angry(zombie, level);
     let is_baby = zombie.is_baby();
-    if let Some(speed) = lm(zombie).attributes.get_instance(Attribute::MOVEMENT_SPEED) {
+    if let Some(speed) = lm(zombie)
+        .attributes
+        .get_instance(Attribute::MOVEMENT_SPEED)
+    {
         if angry {
             if !is_baby && !speed.has_modifier(&SPEED_MODIFIER_ATTACKING_ID) {
-                speed.add_transient_modifier(AttributeModifier { id: SPEED_MODIFIER_ATTACKING_ID.clone(), amount: 0.05, operation: AttributeModifierOperation::AddValue });
+                speed.add_transient_modifier(AttributeModifier {
+                    id: SPEED_MODIFIER_ATTACKING_ID.clone(),
+                    amount: 0.05,
+                    operation: AttributeModifierOperation::AddValue,
+                });
             }
         } else if speed.has_modifier(&SPEED_MODIFIER_ATTACKING_ID) {
             speed.remove_modifier(&SPEED_MODIFIER_ATTACKING_ID);
@@ -99,7 +107,9 @@ fn maybe_alert_others(zombie: &mut Zombie, level: &mut ServerLevel, target: Enti
     if data_mut(zombie).ticks_until_next_alert > 0 {
         data_mut(zombie).ticks_until_next_alert -= 1;
     } else {
-        let sees = level.get_entity(target).is_some_and(|t| zombie.mob.sensing.has_line_of_sight(level, &*zombie, t));
+        let sees = level
+            .get_entity(target)
+            .is_some_and(|t| zombie.mob.sensing.has_line_of_sight(level, &*zombie, t));
         if sees {
             alert_others(zombie, level, target);
         }
@@ -110,13 +120,23 @@ fn maybe_alert_others(zombie: &mut Zombie, level: &mut ServerLevel, target: Enti
 
 fn alert_others(zombie: &mut Zombie, level: &mut ServerLevel, target: EntityId) {
     let within = mob::attribute_value(zombie, Attribute::FOLLOW_RANGE);
-    let search_aabb = AABB::unit_cube_from_lower_corner(zombie.position()).inflate(within, 10.0, within);
-    let others = level.get_entities_of_class(&search_aabb, |e| e.get_type() == EntityType::ZOMBIFIED_PIGLIN, |e| !e.is_spectator());
+    let search_aabb =
+        AABB::unit_cube_from_lower_corner(zombie.position()).inflate(within, 10.0, within);
+    let others = level.get_entities_of_class(
+        &search_aabb,
+        |e| e.get_type() == EntityType::ZOMBIFIED_PIGLIN,
+        |e| !e.is_spectator(),
+    );
     for other in others {
         let eligible = {
-            let Some(other_entity) = level.get_entity(other) else { continue };
-            let Some(target_entity) = level.get_entity(target) else { continue };
-            mob::tick::get_target_checked(other_entity, level).is_none() && !ext::is_allied_to(level, other_entity, target_entity)
+            let Some(other_entity) = level.get_entity(other) else {
+                continue;
+            };
+            let Some(target_entity) = level.get_entity(target) else {
+                continue;
+            };
+            mob::tick::get_target_checked(other_entity, level).is_none()
+                && !ext::is_allied_to(level, other_entity, target_entity)
         };
         if eligible {
             level.with_entity(other, |level, o| o.set_target(&*level, Some(target)));
@@ -127,7 +147,12 @@ fn alert_others(zombie: &mut Zombie, level: &mut ServerLevel, target: EntityId) 
 fn play_anger_sound(zombie: &mut Zombie, level: &mut ServerLevel) {
     let volume = zombie.get_sound_volume() * 2.0;
     let pitch = zombie.get_voice_pitch() * 1.8;
-    zombie.play_sound(level, mc_data::SoundEvent::ENTITY_ZOMBIFIED_PIGLIN_ANGRY, volume, pitch);
+    zombie.play_sound(
+        level,
+        mc_data::SoundEvent::ENTITY_ZOMBIFIED_PIGLIN_ANGRY,
+        volume,
+        pitch,
+    );
 }
 
 /// `setTarget(target)`.
@@ -148,14 +173,34 @@ pub fn start_persistent_anger_timer(zombie: &mut Zombie, level: &mut ServerLevel
 }
 
 /// `populateDefaultEquipmentSlots(random, difficulty)`.
-pub fn populate_default_equipment_slots(zombie: &mut Zombie, random: &mut dyn RandomSource, _difficulty: &DifficultyInstance) {
-    let item = if random.next_int_bounded(20) == 0 { Item::GOLDEN_SPEAR } else { Item::GOLDEN_SWORD };
+pub fn populate_default_equipment_slots(
+    zombie: &mut Zombie,
+    random: &mut dyn RandomSource,
+    _difficulty: &DifficultyInstance,
+) {
+    let item = if random.next_int_bounded(20) == 0 {
+        Item::GOLDEN_SPEAR
+    } else {
+        Item::GOLDEN_SWORD
+    };
     mob::equipment::set_item_slot_spawn(zombie, EquipmentSlot::MainHand, ItemStack::new(item));
 }
 
 /// `ZombifiedPiglin.checkZombifiedPiglinSpawnRules(type, level, spawnReason, pos, random)`.
-pub fn check_zombified_piglin_spawn_rules(_ty: EntityType, level: &dyn ServerLevelAccessor, _reason: EntitySpawnReason, pos: BlockPos, _random: &mut dyn RandomSource) -> bool {
-    level.get_difficulty() != Difficulty::Peaceful && !level.get_block_state(pos.below()).is_block(Block::NETHER_WART_BLOCK)
+pub fn check_zombified_piglin_spawn_rules(
+    _ty: EntityType,
+    level: &dyn ServerLevelAccessor,
+    _reason: EntitySpawnReason,
+    pos: BlockPos,
+    _random: &mut dyn RandomSource,
+) -> bool {
+    level.get_difficulty() != Difficulty::Peaceful
+        && !level
+            .get_block_state(pos.below())
+            .is_block(Block::NETHER_WART_BLOCK)
 }
 
-register_spawn_placement!(EntityType::ZOMBIFIED_PIGLIN, check_zombified_piglin_spawn_rules);
+register_spawn_placement!(
+    EntityType::ZOMBIFIED_PIGLIN,
+    check_zombified_piglin_spawn_rules
+);

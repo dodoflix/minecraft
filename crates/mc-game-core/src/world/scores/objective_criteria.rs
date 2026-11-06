@@ -25,7 +25,9 @@ impl RenderType {
 
     /// `CODEC.byName(key)`.
     pub fn by_name(name: &str) -> Option<RenderType> {
-        [RenderType::Integer, RenderType::Hearts].into_iter().find(|r| r.get_id() == name)
+        [RenderType::Integer, RenderType::Hearts]
+            .into_iter()
+            .find(|r| r.get_id() == name)
     }
 
     /// `byId(key)`: unknown keys give `INTEGER`.
@@ -66,15 +68,26 @@ pub fn stat_type_registry(stat_type: &str) -> Option<&'static str> {
 }
 
 impl ObjectiveCriteria {
-    const fn custom(name: &'static str, read_only: bool, render_type: RenderType) -> ObjectiveCriteria {
-        ObjectiveCriteria { name: Cow::Borrowed(name), read_only, render_type }
+    const fn custom(
+        name: &'static str,
+        read_only: bool,
+        render_type: RenderType,
+    ) -> ObjectiveCriteria {
+        ObjectiveCriteria {
+            name: Cow::Borrowed(name),
+            read_only,
+            render_type,
+        }
     }
 
     pub const DUMMY: ObjectiveCriteria = Self::custom("dummy", false, RenderType::Integer);
     pub const TRIGGER: ObjectiveCriteria = Self::custom("trigger", false, RenderType::Integer);
-    pub const DEATH_COUNT: ObjectiveCriteria = Self::custom("deathCount", false, RenderType::Integer);
-    pub const KILL_COUNT_PLAYERS: ObjectiveCriteria = Self::custom("playerKillCount", false, RenderType::Integer);
-    pub const KILL_COUNT_ALL: ObjectiveCriteria = Self::custom("totalKillCount", false, RenderType::Integer);
+    pub const DEATH_COUNT: ObjectiveCriteria =
+        Self::custom("deathCount", false, RenderType::Integer);
+    pub const KILL_COUNT_PLAYERS: ObjectiveCriteria =
+        Self::custom("playerKillCount", false, RenderType::Integer);
+    pub const KILL_COUNT_ALL: ObjectiveCriteria =
+        Self::custom("totalKillCount", false, RenderType::Integer);
     pub const HEALTH: ObjectiveCriteria = Self::custom("health", true, RenderType::Hearts);
     pub const FOOD: ObjectiveCriteria = Self::custom("food", true, RenderType::Integer);
     pub const AIR: ObjectiveCriteria = Self::custom("air", true, RenderType::Integer);
@@ -84,17 +97,29 @@ impl ObjectiveCriteria {
 
     /// `TEAM_KILL.get(color)`.
     pub fn team_kill(color: TeamColor) -> ObjectiveCriteria {
-        ObjectiveCriteria { name: Cow::Owned(format!("teamkill.{}", color.get_serialized_name())), read_only: false, render_type: RenderType::Integer }
+        ObjectiveCriteria {
+            name: Cow::Owned(format!("teamkill.{}", color.get_serialized_name())),
+            read_only: false,
+            render_type: RenderType::Integer,
+        }
     }
 
     /// `KILLED_BY_TEAM.get(color)`.
     pub fn killed_by_team(color: TeamColor) -> ObjectiveCriteria {
-        ObjectiveCriteria { name: Cow::Owned(format!("killedByTeam.{}", color.get_serialized_name())), read_only: false, render_type: RenderType::Integer }
+        ObjectiveCriteria {
+            name: Cow::Owned(format!("killedByTeam.{}", color.get_serialized_name())),
+            read_only: false,
+            render_type: RenderType::Integer,
+        }
     }
 
     /// A stat criterion (`Stat` extends `ObjectiveCriteria`): `<type>:<value>` with `.` for `:`.
     pub fn stat(name: String) -> ObjectiveCriteria {
-        ObjectiveCriteria { name: Cow::Owned(name), read_only: false, render_type: RenderType::Integer }
+        ObjectiveCriteria {
+            name: Cow::Owned(name),
+            read_only: false,
+            render_type: RenderType::Integer,
+        }
     }
 
     /// `getName`.
@@ -129,7 +154,10 @@ impl ObjectiveCriteria {
                 m.insert(c.name.to_string(), c);
             }
             for color in TeamColor::VALUES {
-                for c in [ObjectiveCriteria::team_kill(color), ObjectiveCriteria::killed_by_team(color)] {
+                for c in [
+                    ObjectiveCriteria::team_kill(color),
+                    ObjectiveCriteria::killed_by_team(color),
+                ] {
                     m.insert(c.name.to_string(), c);
                 }
             }
@@ -152,7 +180,9 @@ impl ObjectiveCriteria {
         let stat_type = Identifier::try_by_separator(&name[..colon], '.')?;
         let value = Identifier::try_by_separator(&name[colon + 1..], '.')?;
         let stat = crate::stats::stat::by_names(&stat_type, &value).ok()?;
-        Some(ObjectiveCriteria::stat(crate::stats::stat::build_name(&stat)))
+        Some(ObjectiveCriteria::stat(crate::stats::stat::build_name(
+            &stat,
+        )))
     }
 }
 
@@ -162,16 +192,49 @@ mod tests {
 
     #[test]
     fn lookup() {
-        assert_eq!(ObjectiveCriteria::by_name("dummy"), Some(ObjectiveCriteria::DUMMY));
+        assert_eq!(
+            ObjectiveCriteria::by_name("dummy"),
+            Some(ObjectiveCriteria::DUMMY)
+        );
         assert!(ObjectiveCriteria::by_name("health").unwrap().is_read_only());
-        assert_eq!(ObjectiveCriteria::by_name("health").unwrap().get_default_render_type(), RenderType::Hearts);
-        assert_eq!(ObjectiveCriteria::by_name("teamkill.red"), Some(ObjectiveCriteria::team_kill(TeamColor::Red)));
-        assert_eq!(ObjectiveCriteria::by_name("killedByTeam.dark_blue").unwrap().get_name(), "killedByTeam.dark_blue");
+        assert_eq!(
+            ObjectiveCriteria::by_name("health")
+                .unwrap()
+                .get_default_render_type(),
+            RenderType::Hearts
+        );
+        assert_eq!(
+            ObjectiveCriteria::by_name("teamkill.red"),
+            Some(ObjectiveCriteria::team_kill(TeamColor::Red))
+        );
+        assert_eq!(
+            ObjectiveCriteria::by_name("killedByTeam.dark_blue")
+                .unwrap()
+                .get_name(),
+            "killedByTeam.dark_blue"
+        );
         assert_eq!(ObjectiveCriteria::by_name("nope"), None);
-        assert_eq!(ObjectiveCriteria::by_name("minecraft.mined:minecraft.stone").unwrap().get_name(), "minecraft.mined:minecraft.stone");
-        assert_eq!(ObjectiveCriteria::by_name("mined:stone").unwrap().get_name(), "minecraft.mined:minecraft.stone", "named by `Stat.buildName`");
-        assert_eq!(ObjectiveCriteria::by_name("minecraft.mined:minecraft.nothing"), None);
-        assert_eq!(ObjectiveCriteria::get_custom_criteria_names().len(), 11 + 32);
+        assert_eq!(
+            ObjectiveCriteria::by_name("minecraft.mined:minecraft.stone")
+                .unwrap()
+                .get_name(),
+            "minecraft.mined:minecraft.stone"
+        );
+        assert_eq!(
+            ObjectiveCriteria::by_name("mined:stone")
+                .unwrap()
+                .get_name(),
+            "minecraft.mined:minecraft.stone",
+            "named by `Stat.buildName`"
+        );
+        assert_eq!(
+            ObjectiveCriteria::by_name("minecraft.mined:minecraft.nothing"),
+            None
+        );
+        assert_eq!(
+            ObjectiveCriteria::get_custom_criteria_names().len(),
+            11 + 32
+        );
         assert_eq!(RenderType::by_id("bogus"), RenderType::Integer);
     }
 }

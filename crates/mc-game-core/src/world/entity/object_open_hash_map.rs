@@ -11,7 +11,9 @@ const DEFAULT_INITIAL_SIZE: usize = 16;
 
 /// `Identifier.hashCode()`.
 fn identifier_hash(id: &Identifier) -> i32 {
-    java_string_hash(id.namespace()).wrapping_mul(31).wrapping_add(java_string_hash(id.path()))
+    java_string_hash(id.namespace())
+        .wrapping_mul(31)
+        .wrapping_add(java_string_hash(id.path()))
 }
 
 /// `HashCommon.mix(int)`.
@@ -31,7 +33,12 @@ fn max_fill(n: usize) -> usize {
 /// `HashCommon.arraySize(expected, 0.75f)`.
 fn array_size(expected: usize) -> usize {
     let wanted = ((expected as f64) / 0.75).ceil() as u64;
-    (if wanted <= 1 { 1 } else { wanted.next_power_of_two() }).max(2) as usize
+    (if wanted <= 1 {
+        1
+    } else {
+        wanted.next_power_of_two()
+    })
+    .max(2) as usize
 }
 
 #[derive(Clone, Debug)]
@@ -55,7 +62,15 @@ impl<V> IdentifierOpenHashMap<V> {
     /// `new Object2ObjectOpenHashMap<>()`.
     pub fn new() -> Self {
         let n = array_size(DEFAULT_INITIAL_SIZE);
-        Self { key: vec![None; n], value: (0..n).map(|_| None).collect(), mask: n - 1, n, max_fill: max_fill(n), size: 0, min_n: n }
+        Self {
+            key: vec![None; n],
+            value: (0..n).map(|_| None).collect(),
+            mask: n - 1,
+            n,
+            max_fill: max_fill(n),
+            size: 0,
+            min_n: n,
+        }
     }
 
     pub fn len(&self) -> usize {
@@ -118,7 +133,11 @@ impl<V> IdentifierOpenHashMap<V> {
                     return;
                 };
                 let s = slot(c, self.mask);
-                let stays = if last <= pos { last >= s || s > pos } else { last >= s && s > pos };
+                let stays = if last <= pos {
+                    last >= s || s > pos
+                } else {
+                    last >= s && s > pos
+                };
                 if stays {
                     break;
                 }

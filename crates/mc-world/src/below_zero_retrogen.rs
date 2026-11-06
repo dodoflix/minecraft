@@ -12,7 +12,11 @@ pub const UPGRADE_MIN_Y: i32 = -64;
 /// `BelowZeroRetrogen.UPGRADE_HEIGHT_ACCESSOR`: `getHeight()`.
 pub const UPGRADE_HEIGHT: i32 = 64;
 /// `BelowZeroRetrogen.RETAINED_RETROGEN_BIOMES` (biome resource keys).
-pub const RETAINED_RETROGEN_BIOMES: [&str; 3] = ["minecraft:lush_caves", "minecraft:dripstone_caves", "minecraft:deep_dark"];
+pub const RETAINED_RETROGEN_BIOMES: [&str; 3] = [
+    "minecraft:lush_caves",
+    "minecraft:dripstone_caves",
+    "minecraft:deep_dark",
+];
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct BelowZeroRetrogen {
@@ -27,16 +31,25 @@ impl BelowZeroRetrogen {
     /// list or array is ignored (`lenientOptionalFieldOf`); numeric elements are narrowed like `Number.longValue`.
     pub fn parse(tag: &Tag) -> Option<BelowZeroRetrogen> {
         let c = tag.as_compound()?;
-        let target_status = ChunkStatus::decode(c.get("target_status")?).filter(|&s| s != ChunkStatus::Empty)?;
+        let target_status =
+            ChunkStatus::decode(c.get("target_status")?).filter(|&s| s != ChunkStatus::Empty)?;
         let mut missing_bedrock: Vec<u64> = c
             .get("missing_bedrock")
             .and_then(collection_numbers)
-            .map(|numbers| numbers.into_iter().map(|n| n.boxed_long_value() as u64).collect())
+            .map(|numbers| {
+                numbers
+                    .into_iter()
+                    .map(|n| n.boxed_long_value() as u64)
+                    .collect()
+            })
             .unwrap_or_default();
         while missing_bedrock.last() == Some(&0) {
             missing_bedrock.pop();
         }
-        Some(BelowZeroRetrogen { target_status, missing_bedrock })
+        Some(BelowZeroRetrogen {
+            target_status,
+            missing_bedrock,
+        })
     }
 
     /// `BelowZeroRetrogen.CODEC.encodeStart(NbtOps, this)`: `target_status` string, plus `missing_bedrock` long array when any bit is set.
@@ -44,7 +57,10 @@ impl BelowZeroRetrogen {
         let mut tag = CompoundTag::new();
         tag.put_string("target_status", self.target_status.name());
         if !self.missing_bedrock.is_empty() {
-            tag.put_long_array("missing_bedrock", self.missing_bedrock.iter().map(|&w| w as i64).collect());
+            tag.put_long_array(
+                "missing_bedrock",
+                self.missing_bedrock.iter().map(|&w| w as i64).collect(),
+            );
         }
         Tag::Compound(tag)
     }
@@ -60,6 +76,8 @@ impl BelowZeroRetrogen {
     /// `hasBedrockHole(x, z)`: bit `(z & 15) * 16 + (x & 15)`.
     pub fn has_bedrock_hole(&self, x: i32, z: i32) -> bool {
         let index = ((z & 15) * 16 + (x & 15)) as usize;
-        self.missing_bedrock.get(index / 64).is_some_and(|w| w >> (index % 64) & 1 != 0)
+        self.missing_bedrock
+            .get(index / 64)
+            .is_some_and(|w| w >> (index % 64) & 1 != 0)
     }
 }

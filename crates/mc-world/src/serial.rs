@@ -113,17 +113,31 @@ impl SerializableChunkData {
         if chunk_data.get_string("Status").is_none() {
             return Ok(None);
         }
-        let chunk_pos = ChunkPos::new(chunk_data.get_int_or("xPos", 0), chunk_data.get_int_or("zPos", 0));
+        let chunk_pos = ChunkPos::new(
+            chunk_data.get_int_or("xPos", 0),
+            chunk_data.get_int_or("zPos", 0),
+        );
         let last_update_time = chunk_data.get_long_or("LastUpdate", 0);
         let inhabited_time = chunk_data.get_long_or("InhabitedTime", 0);
-        let chunk_status = chunk_data.get("Status").and_then(ChunkStatus::decode).unwrap_or(ChunkStatus::Empty);
+        let chunk_status = chunk_data
+            .get("Status")
+            .and_then(ChunkStatus::decode)
+            .unwrap_or(ChunkStatus::Empty);
         let upgrade_data = match chunk_data.get_compound("UpgradeData") {
-            Some(tag) => UpgradeData::parse(tag, level_height.min_section_y(), level_height.max_section_y()),
+            Some(tag) => UpgradeData::parse(
+                tag,
+                level_height.min_section_y(),
+                level_height.max_section_y(),
+            ),
             None => UpgradeData::empty(),
         };
         let light_correct = chunk_data.get_boolean_or("isLightOn", false);
-        let blending_data = chunk_data.get("blending_data").and_then(BlendingDataPacked::parse);
-        let below_zero_retrogen = chunk_data.get("below_zero_retrogen").and_then(BelowZeroRetrogen::parse);
+        let blending_data = chunk_data
+            .get("blending_data")
+            .and_then(BlendingDataPacked::parse);
+        let below_zero_retrogen = chunk_data
+            .get("below_zero_retrogen")
+            .and_then(BelowZeroRetrogen::parse);
         let mut heightmaps = BTreeMap::new();
         if let Some(tag) = chunk_data.get_compound("Heightmaps") {
             for ty in HeightmapType::ALL {
@@ -140,21 +154,29 @@ impl SerializableChunkData {
             &SavedTick::<Fluid>::read_list(chunk_data, "fluid_ticks"),
             chunk_pos,
         );
-        let packed_ticks = PackedTicks { blocks: block_ticks, fluids: fluid_ticks };
+        let packed_ticks = PackedTicks {
+            blocks: block_ticks,
+            fluids: fluid_ticks,
+        };
 
         let post_process_tags = chunk_data.get_list_or_empty("PostProcessing");
         let post_processing_sections = post_process_tags
             .iter()
             .map(|tag| match tag.as_list() {
-                Some(offsets) if !offsets.is_empty() => {
-                    Some((0..offsets.len()).map(|i| offsets.get_short_or(i, 0)).collect::<Vec<i16>>())
-                }
+                Some(offsets) if !offsets.is_empty() => Some(
+                    (0..offsets.len())
+                        .map(|i| offsets.get_short_or(i, 0))
+                        .collect::<Vec<i16>>(),
+                ),
                 _ => None,
             })
             .collect();
 
         let compounds = |key: &str| -> Vec<CompoundTag> {
-            chunk_data.get_list(key).map(|l| l.compounds().cloned().collect()).unwrap_or_default()
+            chunk_data
+                .get_list(key)
+                .map(|l| l.compounds().cloned().collect())
+                .unwrap_or_default()
         };
         let entities = compounds("entities");
         let block_entities = compounds("block_entities");
@@ -162,49 +184,63 @@ impl SerializableChunkData {
 
         let mut section_data = Vec::new();
         for section_tag in chunk_data.get_list_or_empty("sections") {
-            let Some(section_tag) = section_tag.as_compound() else { continue };
-            let y = i32::from(section_tag.get_byte_or("Y", 0));
-            let chunk_section = if y >= level_height.min_section_y() && y <= level_height.max_section_y() {
-                let log_problems = |problems: &[String]| {
-                    for p in problems {
-                        log::error!(
-                            "Recoverable errors when loading section [{}, {}, {}]: {}",
-                            chunk_pos.x,
-                            y,
-                            chunk_pos.z,
-                            p
-                        );
-                    }
-                };
-                let blocks = match section_tag.get_compound("block_states") {
-                    Some(tag) => {
-                        let unpacked = factory.block_states_from_nbt(&Tag::Compound(tag.clone()))?;
-                        log_problems(&unpacked.problems);
-                        unpacked.container
-                    }
-                    None => factory.create_for_block_states(),
-                };
-                let biomes = match section_tag.get_compound("biomes") {
-                    Some(tag) => {
-                        let unpacked = factory.biomes_from_nbt(&Tag::Compound(tag.clone()))?;
-                        log_problems(&unpacked.problems);
-                        unpacked.container
-                    }
-                    None => factory.create_for_biomes(),
-                };
-                Some(LevelChunkSection::new(blocks, biomes))
-            } else {
-                None
+            let Some(section_tag) = section_tag.as_compound() else {
+                continue;
             };
+            let y = i32::from(section_tag.get_byte_or("Y", 0));
+            let chunk_section =
+                if y >= level_height.min_section_y() && y <= level_height.max_section_y() {
+                    let log_problems = |problems: &[String]| {
+                        for p in problems {
+                            log::error!(
+                                "Recoverable errors when loading section [{}, {}, {}]: {}",
+                                chunk_pos.x,
+                                y,
+                                chunk_pos.z,
+                                p
+                            );
+                        }
+                    };
+                    let blocks = match section_tag.get_compound("block_states") {
+                        Some(tag) => {
+                            let unpacked =
+                                factory.block_states_from_nbt(&Tag::Compound(tag.clone()))?;
+                            log_problems(&unpacked.problems);
+                            unpacked.container
+                        }
+                        None => factory.create_for_block_states(),
+                    };
+                    let biomes = match section_tag.get_compound("biomes") {
+                        Some(tag) => {
+                            let unpacked = factory.biomes_from_nbt(&Tag::Compound(tag.clone()))?;
+                            log_problems(&unpacked.problems);
+                            unpacked.container
+                        }
+                        None => factory.create_for_biomes(),
+                    };
+                    Some(LevelChunkSection::new(blocks, biomes))
+                } else {
+                    None
+                };
             let layer = |key: &str| -> Result<Option<DataLayer>, ChunkReadException> {
                 match section_tag.get_byte_array(key) {
                     Some(bytes) => DataLayer::from_bytes(bytes.iter().map(|&b| b as u8).collect())
                         .map(Some)
-                        .map_err(|e| ChunkReadException(format!("DataLayer should be 2048 bytes not: {}", e.0))),
+                        .map_err(|e| {
+                            ChunkReadException(format!(
+                                "DataLayer should be 2048 bytes not: {}",
+                                e.0
+                            ))
+                        }),
                     None => Ok(None),
                 }
             };
-            section_data.push(SectionData { y, chunk_section, block_light: layer("BlockLight")?, sky_light: layer("SkyLight")? });
+            section_data.push(SectionData {
+                y,
+                chunk_section,
+                block_light: layer("BlockLight")?,
+                sky_light: layer("SkyLight")?,
+            });
         }
 
         Ok(Some(SerializableChunkData {
@@ -228,7 +264,10 @@ impl SerializableChunkData {
     }
 
     /// `write()`: the chunk NBT (`DataVersion` = current).
-    pub fn write(&self, factory: &PalettedContainerFactory) -> Result<CompoundTag, ChunkReadException> {
+    pub fn write(
+        &self,
+        factory: &PalettedContainerFactory,
+    ) -> Result<CompoundTag, ChunkReadException> {
         let mut tag = CompoundTag::new();
         tag.put_int(DATA_VERSION_TAG, WORLD_VERSION);
         tag.put_int("xPos", self.chunk_pos.x);
@@ -238,7 +277,10 @@ impl SerializableChunkData {
         tag.put_long("InhabitedTime", self.inhabited_time);
         tag.put_string("Status", self.chunk_status.name());
         if let Some(blending) = &self.blending_data {
-            tag.put("blending_data", blending.to_tag().map_err(ChunkReadException)?);
+            tag.put(
+                "blending_data",
+                blending.to_tag().map_err(ChunkReadException)?,
+            );
         }
         if let Some(retrogen) = &self.below_zero_retrogen {
             tag.put("below_zero_retrogen", retrogen.to_tag());
@@ -251,14 +293,23 @@ impl SerializableChunkData {
         for section in &self.section_data {
             let mut section_tag = CompoundTag::new();
             if let Some(chunk_section) = &section.chunk_section {
-                section_tag.put("block_states", chunk_section.states().to_nbt(&crate::palette::BlockStateCodec)?);
+                section_tag.put(
+                    "block_states",
+                    chunk_section
+                        .states()
+                        .to_nbt(&crate::palette::BlockStateCodec)?,
+                );
                 section_tag.put("biomes", chunk_section.biomes().to_nbt(&factory.biomes)?);
             }
             if let Some(light) = &section.block_light {
-                section_tag.put_byte_array("BlockLight", light.data().iter().map(|&b| b as i8).collect());
+                section_tag.put_byte_array(
+                    "BlockLight",
+                    light.data().iter().map(|&b| b as i8).collect(),
+                );
             }
             if let Some(light) = &section.sky_light {
-                section_tag.put_byte_array("SkyLight", light.data().iter().map(|&b| b as i8).collect());
+                section_tag
+                    .put_byte_array("SkyLight", light.data().iter().map(|&b| b as i8).collect());
             }
             if !section_tag.is_empty() {
                 section_tag.put_byte("Y", section.y as i8);
@@ -270,13 +321,36 @@ impl SerializableChunkData {
             tag.put_boolean("isLightOn", true);
         }
 
-        tag.put("block_entities", self.block_entities.iter().cloned().map(Tag::Compound).collect::<ListTag>());
+        tag.put(
+            "block_entities",
+            self.block_entities
+                .iter()
+                .cloned()
+                .map(Tag::Compound)
+                .collect::<ListTag>(),
+        );
         if self.chunk_status.chunk_type() == ChunkType::ProtoChunk {
-            tag.put("entities", self.entities.iter().cloned().map(Tag::Compound).collect::<ListTag>());
+            tag.put(
+                "entities",
+                self.entities
+                    .iter()
+                    .cloned()
+                    .map(Tag::Compound)
+                    .collect::<ListTag>(),
+            );
         }
-        tag.put("block_ticks", SavedTick::<Block>::write_list(&self.packed_ticks.blocks));
-        tag.put("fluid_ticks", SavedTick::<Fluid>::write_list(&self.packed_ticks.fluids));
-        tag.put("PostProcessing", pack_offsets(&self.post_processing_sections));
+        tag.put(
+            "block_ticks",
+            SavedTick::<Block>::write_list(&self.packed_ticks.blocks),
+        );
+        tag.put(
+            "fluid_ticks",
+            SavedTick::<Fluid>::write_list(&self.packed_ticks.fluids),
+        );
+        tag.put(
+            "PostProcessing",
+            pack_offsets(&self.post_processing_sections),
+        );
         let mut heightmaps_tag = CompoundTag::new();
         for (ty, data) in &self.heightmaps {
             heightmaps_tag.put_long_array(ty.serialization_key(), data.clone());
@@ -288,7 +362,9 @@ impl SerializableChunkData {
 
     /// `getChunkStatusFromTag`.
     pub fn get_chunk_status_from_tag(tag: Option<&CompoundTag>) -> ChunkStatus {
-        tag.and_then(|t| t.get("Status")).and_then(ChunkStatus::decode).unwrap_or(ChunkStatus::Empty)
+        tag.and_then(|t| t.get("Status"))
+            .and_then(ChunkStatus::decode)
+            .unwrap_or(ChunkStatus::Empty)
     }
 
     /// `copyOf(level, chunk)` for the shared state. `light(section_y)` yields the sky/block layers of the light
@@ -322,7 +398,11 @@ impl SerializableChunkData {
                 });
             }
         }
-        let heightmaps = access.heightmaps.iter().map(|(ty, h)| (*ty, h.get_raw_data().to_vec())).collect();
+        let heightmaps = access
+            .heightmaps
+            .iter()
+            .map(|(ty, h)| (*ty, h.get_raw_data().to_vec()))
+            .collect();
         SerializableChunkData {
             chunk_pos: access.pos,
             min_section_y: h.min_section_y(),
@@ -334,7 +414,11 @@ impl SerializableChunkData {
             upgrade_data: access.upgrade_data.clone(),
             heightmaps,
             packed_ticks,
-            post_processing_sections: access.post_processing.iter().map(|p| p.clone().filter(|v| !v.is_empty())).collect(),
+            post_processing_sections: access
+                .post_processing
+                .iter()
+                .map(|p| p.clone().filter(|v| !v.is_empty()))
+                .collect(),
             light_correct: access.is_light_correct(),
             section_data,
             entities,
@@ -358,7 +442,11 @@ impl SerializableChunkData {
             game_time,
             light,
             block_entities,
-            if chunk.get_persisted_status().chunk_type() == ChunkType::ProtoChunk { chunk.entities.clone() } else { Vec::new() },
+            if chunk.get_persisted_status().chunk_type() == ChunkType::ProtoChunk {
+                chunk.entities.clone()
+            } else {
+                Vec::new()
+            },
             chunk.get_ticks_for_serialization(game_time),
         )
     }
@@ -385,7 +473,10 @@ impl SerializableChunkData {
     /// `read(level, poiManager, regionInfo, pos)` minus the live-level parts (see [`LoadedChunkData`]).
     pub fn read(self, ctx: &ReadContext<'_>, pos: ChunkPos) -> LoadedChunkData {
         if pos != self.chunk_pos {
-            log::error!("Chunk file at {pos} is in the wrong location; relocating. (Expected {pos}, got {})", self.chunk_pos);
+            log::error!(
+                "Chunk file at {pos} is in the wrong location; relocating. (Expected {pos}, got {})",
+                self.chunk_pos
+            );
         }
         let h = ctx.level_height;
         let mut sections: Vec<Option<LevelChunkSection>> = vec![None; h.sections_count()];
@@ -397,7 +488,11 @@ impl SerializableChunkData {
                     sections[index as usize] = Some(chunk_section);
                 }
             }
-            let sky = if ctx.has_sky_light { section.sky_light } else { None };
+            let sky = if ctx.has_sky_light {
+                section.sky_light
+            } else {
+                None
+            };
             if section.block_light.is_some() || sky.is_some() {
                 light.push((section.y, section.block_light, sky));
             }
@@ -474,7 +569,12 @@ impl SerializableChunkData {
             post_load_entities = Vec::new();
             post_load_block_entities = Vec::new();
         }
-        LoadedChunkData { chunk: loaded, light, post_load_entities, post_load_block_entities }
+        LoadedChunkData {
+            chunk: loaded,
+            light,
+            post_load_entities,
+            post_load_block_entities,
+        }
     }
 
     /// Heightmaps, structures and post-processing (`read` after the chunk object exists).
@@ -495,8 +595,15 @@ impl SerializableChunkData {
             to_prime.retain(|t| t != ty);
         }
         access.prime_heightmaps(void_air, &to_prime);
-        access.set_all_starts(unpack_structure_starts(structure_data, ctx.is_known_structure));
-        access.set_all_references(unpack_structure_references(structure_data, pos, ctx.is_known_structure));
+        access.set_all_starts(unpack_structure_starts(
+            structure_data,
+            ctx.is_known_structure,
+        ));
+        access.set_all_references(unpack_structure_references(
+            structure_data,
+            pos,
+            ctx.is_known_structure,
+        ));
         for (index, offsets) in post_processing.iter().enumerate() {
             if let Some(offsets) = offsets
                 && index < access.post_processing.len()
@@ -512,7 +619,13 @@ fn pack_offsets(sections: &[Option<Vec<i16>>]) -> ListTag {
     sections
         .iter()
         .map(|offsets| {
-            Tag::List(offsets.iter().flatten().map(|&o| Tag::Short(o)).collect::<ListTag>())
+            Tag::List(
+                offsets
+                    .iter()
+                    .flatten()
+                    .map(|&o| Tag::Short(o))
+                    .collect::<ListTag>(),
+            )
         })
         .collect()
 }
@@ -537,7 +650,10 @@ pub fn pack_structure_data(data: &StructureData) -> CompoundTag {
 
 /// `unpackStructureStart`: unknown structures are logged and dropped, as are starts whose `id` is `INVALID`
 /// (`StructureStart.loadStaticStart`). The start NBT itself stays raw.
-pub fn unpack_structure_starts(tag: &CompoundTag, is_known: &dyn Fn(&str) -> bool) -> IndexMap<String, CompoundTag> {
+pub fn unpack_structure_starts(
+    tag: &CompoundTag,
+    is_known: &dyn Fn(&str) -> bool,
+) -> IndexMap<String, CompoundTag> {
     let mut out = IndexMap::new();
     let starts = tag.get_compound_or_empty("starts");
     for (key, value) in starts {
@@ -566,14 +682,18 @@ pub fn unpack_structure_references(
             log::warn!("Found reference to unknown structure '{key}' in chunk {pos}, discarding");
             continue;
         }
-        let Some(longs) = entry.as_long_array() else { continue };
+        let Some(longs) = entry.as_long_array() else {
+            continue;
+        };
         let set = longs
             .iter()
             .copied()
             .filter(|&packed| {
                 let ref_pos = ChunkPos::unpack(packed);
                 if ref_pos.get_chessboard_distance(&pos) > 8 {
-                    log::warn!("Found invalid structure reference [ {key} @ {ref_pos} ] for chunk {pos}.");
+                    log::warn!(
+                        "Found invalid structure reference [ {key} @ {ref_pos} ] for chunk {pos}."
+                    );
                     false
                 } else {
                     true

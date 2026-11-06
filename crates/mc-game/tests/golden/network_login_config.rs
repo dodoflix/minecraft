@@ -33,7 +33,14 @@ fn config_payload(p: ServerboundConfigurationPacket) -> Vec<u8> {
 }
 
 async fn hello(c: &mut Connection<TcpStream>, name: &str) {
-    write_payload(c, &login_payload(ServerboundLoginPacket::Hello(ServerboundHelloPacket { name: name.into(), profile_id: Uuid::nil() }))).await;
+    write_payload(
+        c,
+        &login_payload(ServerboundLoginPacket::Hello(ServerboundHelloPacket {
+            name: name.into(),
+            profile_id: Uuid::nil(),
+        })),
+    )
+    .await;
 }
 
 async fn read_login(c: &mut Connection<TcpStream>) -> ClientboundLoginPacket {
@@ -45,13 +52,20 @@ async fn read_config(c: &mut Connection<TcpStream>) -> ClientboundConfigurationP
 }
 
 /// Offline handshake + hello; returns the connection in the login state after `LoginFinished` (compression active).
-async fn offline_login(server: &TestServer, name: &str) -> (Connection<TcpStream>, ClientboundLoginFinishedPacket) {
+async fn offline_login(
+    server: &TestServer,
+    name: &str,
+) -> (Connection<TcpStream>, ClientboundLoginFinishedPacket) {
     let mut c = connect(server.addr).await;
     handshake(&mut c, PROTOCOL_VERSION, ClientIntent::Login).await;
     hello(&mut c, name).await;
-    let ClientboundLoginPacket::LoginCompression(comp) = read_login(&mut c).await else { panic!("expected login compression") };
+    let ClientboundLoginPacket::LoginCompression(comp) = read_login(&mut c).await else {
+        panic!("expected login compression")
+    };
     c.set_compression(comp.compression_threshold, true);
-    let ClientboundLoginPacket::LoginFinished(finished) = read_login(&mut c).await else { panic!("expected login finished") };
+    let ClientboundLoginPacket::LoginFinished(finished) = read_login(&mut c).await else {
+        panic!("expected login finished")
+    };
     (c, finished)
 }
 
@@ -61,16 +75,32 @@ async fn offline_login_uses_the_offline_uuid_and_the_compression_threshold() {
     let mut c = connect(server.addr).await;
     handshake(&mut c, PROTOCOL_VERSION, ClientIntent::Login).await;
     hello(&mut c, "Steve").await;
-    let ClientboundLoginPacket::LoginCompression(comp) = read_login(&mut c).await else { panic!() };
+    let ClientboundLoginPacket::LoginCompression(comp) = read_login(&mut c).await else {
+        panic!()
+    };
     assert_eq!(comp.compression_threshold, 256);
     c.set_compression(256, true);
-    let ClientboundLoginPacket::LoginFinished(finished) = read_login(&mut c).await else { panic!() };
+    let ClientboundLoginPacket::LoginFinished(finished) = read_login(&mut c).await else {
+        panic!()
+    };
     // UUID.nameUUIDFromBytes("OfflinePlayer:Steve"), the same value vanilla logs for an offline Steve.
-    assert_eq!(finished.game_profile.id, mc_core::uuid_util::create_offline_player_uuid("Steve"));
-    assert_eq!(finished.game_profile.id.to_string(), "5627dd98-e6be-3c21-b8a8-e92344183641");
+    assert_eq!(
+        finished.game_profile.id,
+        mc_core::uuid_util::create_offline_player_uuid("Steve")
+    );
+    assert_eq!(
+        finished.game_profile.id.to_string(),
+        "5627dd98-e6be-3c21-b8a8-e92344183641"
+    );
     assert_eq!(finished.game_profile.name, "Steve");
     assert!(finished.game_profile.properties.is_empty());
-    assert!(server.hooks.log.lock().contains(&"can_player_login Steve".to_owned()));
+    assert!(
+        server
+            .hooks
+            .log
+            .lock()
+            .contains(&"can_player_login Steve".to_owned())
+    );
 }
 
 #[tokio::test(flavor = "multi_thread")]
@@ -81,7 +111,10 @@ async fn compression_off_sends_no_compression_packet() {
     let mut c = connect(server.addr).await;
     handshake(&mut c, PROTOCOL_VERSION, ClientIntent::Login).await;
     hello(&mut c, "Steve").await;
-    assert!(matches!(read_login(&mut c).await, ClientboundLoginPacket::LoginFinished(_)));
+    assert!(matches!(
+        read_login(&mut c).await,
+        ClientboundLoginPacket::LoginFinished(_)
+    ));
 }
 
 #[tokio::test(flavor = "multi_thread")]
@@ -92,12 +125,17 @@ async fn invalid_usernames_and_protocol_errors_disconnect_with_vanilla_text() {
         handshake(&mut c, PROTOCOL_VERSION, ClientIntent::Login).await;
         // `ServerboundHelloPacket` reads the name with a 16-char limit: longer names fail at decode.
         hello(&mut c, name).await;
-        let ClientboundLoginPacket::LoginDisconnect(d) = read_login(&mut c).await else { panic!("expected disconnect for {name:?}") };
+        let ClientboundLoginPacket::LoginDisconnect(d) = read_login(&mut c).await else {
+            panic!("expected disconnect for {name:?}")
+        };
         let text = d.reason.0.get_string();
         if name.chars().count() > 16 {
             assert!(text.starts_with("Internal Exception: io.netty.handler.codec.DecoderException: Failed to decode packet 'serverbound/minecraft:hello'"), "{text}");
         } else {
-            assert_eq!(text, "Internal Exception: java.lang.IllegalStateException: Invalid characters in username");
+            assert_eq!(
+                text,
+                "Internal Exception: java.lang.IllegalStateException: Invalid characters in username"
+            );
         }
         expect_closed(&mut c).await;
     }
@@ -112,7 +150,10 @@ async fn invalid_usernames_and_protocol_errors_disconnect_with_vanilla_text() {
     loop {
         match read_login(&mut c).await {
             ClientboundLoginPacket::LoginDisconnect(d) => {
-                assert_eq!(d.reason.0.get_string(), "Internal Exception: java.lang.IllegalStateException: Unexpected hello packet");
+                assert_eq!(
+                    d.reason.0.get_string(),
+                    "Internal Exception: java.lang.IllegalStateException: Unexpected hello packet"
+                );
                 break;
             }
             _ => continue,
@@ -121,22 +162,40 @@ async fn invalid_usernames_and_protocol_errors_disconnect_with_vanilla_text() {
     // Acknowledgement before login finished.
     let mut c = connect(server.addr).await;
     handshake(&mut c, PROTOCOL_VERSION, ClientIntent::Login).await;
-    write_payload(&mut c, &login_payload(ServerboundLoginPacket::LoginAcknowledged(ServerboundLoginAcknowledgedPacket))).await;
-    let ClientboundLoginPacket::LoginDisconnect(d) = read_login(&mut c).await else { panic!() };
-    assert_eq!(d.reason.0.get_string(), "Internal Exception: java.lang.IllegalStateException: Unexpected login acknowledgement packet");
+    write_payload(
+        &mut c,
+        &login_payload(ServerboundLoginPacket::LoginAcknowledged(
+            ServerboundLoginAcknowledgedPacket,
+        )),
+    )
+    .await;
+    let ClientboundLoginPacket::LoginDisconnect(d) = read_login(&mut c).await else {
+        panic!()
+    };
+    assert_eq!(
+        d.reason.0.get_string(),
+        "Internal Exception: java.lang.IllegalStateException: Unexpected login acknowledgement packet"
+    );
     // A cookie response in the login phase.
     let mut c = connect(server.addr).await;
     handshake(&mut c, PROTOCOL_VERSION, ClientIntent::Login).await;
     write_payload(
         &mut c,
-        &login_payload(ServerboundLoginPacket::CookieResponse(mc_protocol::packets::login::ServerboundCookieResponsePacket {
-            key: mc_core::ident::Identifier::with_default_namespace("x").unwrap(),
-            payload: None,
-        })),
+        &login_payload(ServerboundLoginPacket::CookieResponse(
+            mc_protocol::packets::login::ServerboundCookieResponsePacket {
+                key: mc_core::ident::Identifier::with_default_namespace("x").unwrap(),
+                payload: None,
+            },
+        )),
     )
     .await;
-    let ClientboundLoginPacket::LoginDisconnect(d) = read_login(&mut c).await else { panic!() };
-    assert_eq!(d.reason.0.get_string(), "Unexpected custom data from client");
+    let ClientboundLoginPacket::LoginDisconnect(d) = read_login(&mut c).await else {
+        panic!()
+    };
+    assert_eq!(
+        d.reason.0.get_string(),
+        "Unexpected custom data from client"
+    );
 }
 
 #[tokio::test(flavor = "multi_thread")]
@@ -147,7 +206,9 @@ async fn player_list_refusal_disconnects() {
     let mut c = connect(server.addr).await;
     handshake(&mut c, PROTOCOL_VERSION, ClientIntent::Login).await;
     hello(&mut c, "Steve").await;
-    let ClientboundLoginPacket::LoginDisconnect(d) = read_login(&mut c).await else { panic!() };
+    let ClientboundLoginPacket::LoginDisconnect(d) = read_login(&mut c).await else {
+        panic!()
+    };
     assert_eq!(d.reason.0.get_string(), "You are banned");
     expect_closed(&mut c).await;
 }
@@ -161,12 +222,21 @@ async fn duplicate_login_waits_until_the_old_player_is_gone() {
     let mut c = connect(server.addr).await;
     handshake(&mut c, PROTOCOL_VERSION, ClientIntent::Login).await;
     hello(&mut c, "Steve").await;
-    let ClientboundLoginPacket::LoginCompression(_) = read_login(&mut c).await else { panic!() };
+    let ClientboundLoginPacket::LoginCompression(_) = read_login(&mut c).await else {
+        panic!()
+    };
     c.set_compression(256, true);
     // WAITING_FOR_DUPE_DISCONNECT: nothing until the player is removed.
-    assert!(tokio::time::timeout(std::time::Duration::from_millis(400), c.read_payload()).await.is_err());
+    assert!(
+        tokio::time::timeout(std::time::Duration::from_millis(400), c.read_payload())
+            .await
+            .is_err()
+    );
     hooks.online.lock().remove(&id);
-    assert!(matches!(read_login(&mut c).await, ClientboundLoginPacket::LoginFinished(_)));
+    assert!(matches!(
+        read_login(&mut c).await,
+        ClientboundLoginPacket::LoginFinished(_)
+    ));
 }
 
 #[tokio::test(flavor = "multi_thread")]
@@ -174,27 +244,66 @@ async fn configuration_sequence_and_hand_off() {
     let hooks = MockHooks::new();
     let server = TestServer::start(hooks.clone());
     let (mut c, finished) = offline_login(&server, "Steve").await;
-    write_payload(&mut c, &login_payload(ServerboundLoginPacket::LoginAcknowledged(ServerboundLoginAcknowledgedPacket))).await;
+    write_payload(
+        &mut c,
+        &login_payload(ServerboundLoginPacket::LoginAcknowledged(
+            ServerboundLoginAcknowledgedPacket,
+        )),
+    )
+    .await;
 
     // vanilla 26.3 order: brand, enabled features, known packs (then, after the answer, registries, tags, finish)
-    let ClientboundConfigurationPacket::CustomPayload(brand) = read_config(&mut c).await else { panic!("brand") };
+    let ClientboundConfigurationPacket::CustomPayload(brand) = read_config(&mut c).await else {
+        panic!("brand")
+    };
     assert_eq!(brand.payload.as_brand().as_deref(), Some("vanilla"));
-    assert!(matches!(read_config(&mut c).await, ClientboundConfigurationPacket::UpdateEnabledFeatures(_)));
-    let ClientboundConfigurationPacket::SelectKnownPacks(packs) = read_config(&mut c).await else { panic!("known packs") };
+    assert!(matches!(
+        read_config(&mut c).await,
+        ClientboundConfigurationPacket::UpdateEnabledFeatures(_)
+    ));
+    let ClientboundConfigurationPacket::SelectKnownPacks(packs) = read_config(&mut c).await else {
+        panic!("known packs")
+    };
     assert_eq!(packs.known_packs, hooks.configuration.lock().known_packs);
 
     write_payload(
         &mut c,
-        &config_payload(ServerboundConfigurationPacket::ClientInformation(ServerboundClientInformationPacket {
-            information: ClientInformation { language: "de_de".into(), view_distance: 7, ..ClientInformation::default() },
-        })),
+        &config_payload(ServerboundConfigurationPacket::ClientInformation(
+            ServerboundClientInformationPacket {
+                information: ClientInformation {
+                    language: "de_de".into(),
+                    view_distance: 7,
+                    ..ClientInformation::default()
+                },
+            },
+        )),
     )
     .await;
-    write_payload(&mut c, &config_payload(ServerboundConfigurationPacket::SelectKnownPacks(ServerboundSelectKnownPacks { known_packs: packs.known_packs.clone() }))).await;
-    assert!(matches!(read_config(&mut c).await, ClientboundConfigurationPacket::UpdateTags(_)));
-    assert!(matches!(read_config(&mut c).await, ClientboundConfigurationPacket::FinishConfiguration(_)));
+    write_payload(
+        &mut c,
+        &config_payload(ServerboundConfigurationPacket::SelectKnownPacks(
+            ServerboundSelectKnownPacks {
+                known_packs: packs.known_packs.clone(),
+            },
+        )),
+    )
+    .await;
+    assert!(matches!(
+        read_config(&mut c).await,
+        ClientboundConfigurationPacket::UpdateTags(_)
+    ));
+    assert!(matches!(
+        read_config(&mut c).await,
+        ClientboundConfigurationPacket::FinishConfiguration(_)
+    ));
     assert!(hooks.spawned.lock().is_empty());
-    write_payload(&mut c, &config_payload(ServerboundConfigurationPacket::FinishConfiguration(ServerboundFinishConfigurationPacket))).await;
+    write_payload(
+        &mut c,
+        &config_payload(ServerboundConfigurationPacket::FinishConfiguration(
+            ServerboundFinishConfigurationPacket,
+        )),
+    )
+    .await;
 
     let pending = loop {
         if let Some(p) = hooks.spawned.lock().pop() {
@@ -208,9 +317,18 @@ async fn configuration_sequence_and_hand_off() {
     assert!(!pending.cookie.transferred);
     // Closing the client ends the inbound channel with the disconnect event.
     drop(c);
-    let event = tokio::task::spawn_blocking(move || pending.inbound.recv_timeout(std::time::Duration::from_secs(10))).await.unwrap().unwrap();
+    let event = tokio::task::spawn_blocking(move || {
+        pending
+            .inbound
+            .recv_timeout(std::time::Duration::from_secs(10))
+    })
+    .await
+    .unwrap()
+    .unwrap();
     match event {
-        mc_game::server::network::InboundPacket::Disconnected(d) => assert_eq!(d.reason.get_string(), "End of stream"),
+        mc_game::server::network::InboundPacket::Disconnected(d) => {
+            assert_eq!(d.reason.get_string(), "End of stream")
+        }
         _ => panic!("expected the disconnect event"),
     }
 }
@@ -219,13 +337,27 @@ async fn configuration_sequence_and_hand_off() {
 async fn wrong_answers_in_configuration_are_rejected() {
     let server = TestServer::start(MockHooks::new());
     let (mut c, _) = offline_login(&server, "Steve").await;
-    write_payload(&mut c, &login_payload(ServerboundLoginPacket::LoginAcknowledged(ServerboundLoginAcknowledgedPacket))).await;
+    write_payload(
+        &mut c,
+        &login_payload(ServerboundLoginPacket::LoginAcknowledged(
+            ServerboundLoginAcknowledgedPacket,
+        )),
+    )
+    .await;
     for _ in 0..3 {
         read_config(&mut c).await;
     }
     // Finish before the registry negotiation completed: "Unexpected request for task finish".
-    write_payload(&mut c, &config_payload(ServerboundConfigurationPacket::FinishConfiguration(ServerboundFinishConfigurationPacket))).await;
-    let ClientboundConfigurationPacket::Disconnect(d) = read_config(&mut c).await else { panic!("expected disconnect") };
+    write_payload(
+        &mut c,
+        &config_payload(ServerboundConfigurationPacket::FinishConfiguration(
+            ServerboundFinishConfigurationPacket,
+        )),
+    )
+    .await;
+    let ClientboundConfigurationPacket::Disconnect(d) = read_config(&mut c).await else {
+        panic!("expected disconnect")
+    };
     assert_eq!(
         d.reason.get_string(),
         "Internal Exception: java.lang.IllegalStateException: Unexpected request for task finish, current task: synchronize_registries, requested: join_world"
@@ -238,8 +370,10 @@ async fn resource_pack_and_code_of_conduct_tasks() {
     let hooks = MockHooks::new();
     {
         let mut cfg = default_configuration();
-        cfg.code_of_conducts.insert("en_us".into(), "be nice".into());
-        cfg.code_of_conducts.insert("de_de".into(), "sei nett".into());
+        cfg.code_of_conducts
+            .insert("en_us".into(), "be nice".into());
+        cfg.code_of_conducts
+            .insert("de_de".into(), "sei nett".into());
         cfg.resource_pack = Some(ServerResourcePackInfo {
             id: Uuid::from_u128(7),
             url: "http://example.invalid/pack.zip".into(),
@@ -251,44 +385,88 @@ async fn resource_pack_and_code_of_conduct_tasks() {
     }
     let server = TestServer::start(hooks.clone());
     let (mut c, _) = offline_login(&server, "Steve").await;
-    write_payload(&mut c, &login_payload(ServerboundLoginPacket::LoginAcknowledged(ServerboundLoginAcknowledgedPacket))).await;
+    write_payload(
+        &mut c,
+        &login_payload(ServerboundLoginPacket::LoginAcknowledged(
+            ServerboundLoginAcknowledgedPacket,
+        )),
+    )
+    .await;
     for _ in 0..2 {
         read_config(&mut c).await;
     }
-    let ClientboundConfigurationPacket::SelectKnownPacks(packs) = read_config(&mut c).await else { panic!() };
+    let ClientboundConfigurationPacket::SelectKnownPacks(packs) = read_config(&mut c).await else {
+        panic!()
+    };
     write_payload(
         &mut c,
-        &config_payload(ServerboundConfigurationPacket::ClientInformation(ServerboundClientInformationPacket {
-            information: ClientInformation { language: "DE_DE".into(), ..ClientInformation::default() },
-        })),
+        &config_payload(ServerboundConfigurationPacket::ClientInformation(
+            ServerboundClientInformationPacket {
+                information: ClientInformation {
+                    language: "DE_DE".into(),
+                    ..ClientInformation::default()
+                },
+            },
+        )),
     )
     .await;
     // Information arrives before the pack answer, so the code of conduct picks the client's language (lower-cased).
-    write_payload(&mut c, &config_payload(ServerboundConfigurationPacket::SelectKnownPacks(ServerboundSelectKnownPacks { known_packs: packs.known_packs }))).await;
-    assert!(matches!(read_config(&mut c).await, ClientboundConfigurationPacket::UpdateTags(_)));
-    let ClientboundConfigurationPacket::CodeOfConduct(coc) = read_config(&mut c).await else { panic!("code of conduct") };
+    write_payload(
+        &mut c,
+        &config_payload(ServerboundConfigurationPacket::SelectKnownPacks(
+            ServerboundSelectKnownPacks {
+                known_packs: packs.known_packs,
+            },
+        )),
+    )
+    .await;
+    assert!(matches!(
+        read_config(&mut c).await,
+        ClientboundConfigurationPacket::UpdateTags(_)
+    ));
+    let ClientboundConfigurationPacket::CodeOfConduct(coc) = read_config(&mut c).await else {
+        panic!("code of conduct")
+    };
     assert_eq!(coc.code_of_conduct, "sei nett");
-    write_payload(&mut c, &config_payload(ServerboundConfigurationPacket::AcceptCodeOfConduct(ServerboundAcceptCodeOfConductPacket))).await;
-    let ClientboundConfigurationPacket::ResourcePackPush(push) = read_config(&mut c).await else { panic!("resource pack") };
+    write_payload(
+        &mut c,
+        &config_payload(ServerboundConfigurationPacket::AcceptCodeOfConduct(
+            ServerboundAcceptCodeOfConductPacket,
+        )),
+    )
+    .await;
+    let ClientboundConfigurationPacket::ResourcePackPush(push) = read_config(&mut c).await else {
+        panic!("resource pack")
+    };
     assert_eq!(push.id, Uuid::from_u128(7));
     assert!(push.required);
     // Declining a required pack kicks.
     write_payload(
         &mut c,
-        &config_payload(ServerboundConfigurationPacket::ResourcePack(ServerboundResourcePackPacket {
-            id: push.id,
-            action: mc_protocol::packets::common::ResourcePackAction::Declined,
-        })),
+        &config_payload(ServerboundConfigurationPacket::ResourcePack(
+            ServerboundResourcePackPacket {
+                id: push.id,
+                action: mc_protocol::packets::common::ResourcePackAction::Declined,
+            },
+        )),
     )
     .await;
-    let ClientboundConfigurationPacket::Disconnect(d) = read_config(&mut c).await else { panic!("expected disconnect") };
-    assert_eq!(d.reason.get_string(), "This server requires a custom resource pack");
+    let ClientboundConfigurationPacket::Disconnect(d) = read_config(&mut c).await else {
+        panic!("expected disconnect")
+    };
+    assert_eq!(
+        d.reason.get_string(),
+        "This server requires a custom resource pack"
+    );
 }
 
 // ---- online mode -------------------------------------------------------------------------------------------------
 
 /// One-shot HTTP responder: returns the request line it saw.
-async fn mock_session_server(body: &'static str, status_line: &'static str) -> (String, tokio::task::JoinHandle<String>) {
+async fn mock_session_server(
+    body: &'static str,
+    status_line: &'static str,
+) -> (String, tokio::task::JoinHandle<String>) {
     let listener = TcpListener::bind("127.0.0.1:0").await.unwrap();
     let base = format!("http://{}", listener.local_addr().unwrap());
     let task = tokio::spawn(async move {
@@ -296,7 +474,10 @@ async fn mock_session_server(body: &'static str, status_line: &'static str) -> (
         let mut buf = vec![0u8; 4096];
         let n = s.read(&mut buf).await.unwrap();
         let request = String::from_utf8_lossy(&buf[..n]).to_string();
-        let response = format!("HTTP/1.1 {status_line}\r\nContent-Type: application/json\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{body}", body.len());
+        let response = format!(
+            "HTTP/1.1 {status_line}\r\nContent-Type: application/json\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{body}",
+            body.len()
+        );
         s.write_all(response.as_bytes()).await.unwrap();
         request.lines().next().unwrap_or_default().to_owned()
     });
@@ -306,7 +487,9 @@ async fn mock_session_server(body: &'static str, status_line: &'static str) -> (
 async fn online_key_exchange(c: &mut Connection<TcpStream>, name: &str) -> [u8; 16] {
     handshake(c, PROTOCOL_VERSION, ClientIntent::Login).await;
     hello(c, name).await;
-    let ClientboundLoginPacket::Hello(h) = read_login(c).await else { panic!("expected hello") };
+    let ClientboundLoginPacket::Hello(h) = read_login(c).await else {
+        panic!("expected hello")
+    };
     assert_eq!(h.server_id, "");
     assert!(h.should_authenticate);
     assert_eq!(h.challenge.len(), 4);
@@ -342,7 +525,9 @@ async fn online_mode_verifies_with_the_session_server() {
     let mut c = connect(server.addr).await;
     handshake(&mut c, PROTOCOL_VERSION, ClientIntent::Login).await;
     hello(&mut c, "Steve").await;
-    let ClientboundLoginPacket::Hello(h) = read_login(&mut c).await else { panic!() };
+    let ClientboundLoginPacket::Hello(h) = read_login(&mut c).await else {
+        panic!()
+    };
     let secret = generate_secret();
     write_payload(
         &mut c,
@@ -354,14 +539,26 @@ async fn online_mode_verifies_with_the_session_server() {
     .await;
     c.enable_encryption(secret);
     let digest = digest_server_id("", &secret, &h.public_key);
-    let ClientboundLoginPacket::LoginCompression(_) = read_login(&mut c).await else { panic!("expected compression") };
+    let ClientboundLoginPacket::LoginCompression(_) = read_login(&mut c).await else {
+        panic!("expected compression")
+    };
     c.set_compression(256, true);
-    let ClientboundLoginPacket::LoginFinished(f) = read_login(&mut c).await else { panic!("expected finished") };
-    assert_eq!(f.game_profile.id.to_string(), "069a79f4-44e9-4726-a5be-fca90e38aaf5");
+    let ClientboundLoginPacket::LoginFinished(f) = read_login(&mut c).await else {
+        panic!("expected finished")
+    };
+    assert_eq!(
+        f.game_profile.id.to_string(),
+        "069a79f4-44e9-4726-a5be-fca90e38aaf5"
+    );
     assert_eq!(f.game_profile.name, "Steve"); // the requested name, like authlib's
     assert_eq!(f.game_profile.properties.len(), 1);
     let line = request.await.unwrap();
-    assert!(line.contains(&format!("serverId={digest}")) && line.contains("username=Steve") && line.contains("ip=127.0.0.1"), "{line}");
+    assert!(
+        line.contains(&format!("serverId={digest}"))
+            && line.contains("username=Steve")
+            && line.contains("ip=127.0.0.1"),
+        "{line}"
+    );
     assert!(hooks.log.lock().contains(&"login_activity".to_owned()));
 }
 
@@ -374,21 +571,30 @@ async fn online_mode_rejects_unverified_sessions_and_bad_keys() {
     let server = TestServer::start(hooks.clone());
     let mut c = connect(server.addr).await;
     online_key_exchange(&mut c, "Steve").await;
-    let ClientboundLoginPacket::LoginDisconnect(d) = read_login(&mut c).await else { panic!("expected disconnect") };
+    let ClientboundLoginPacket::LoginDisconnect(d) = read_login(&mut c).await else {
+        panic!("expected disconnect")
+    };
     assert_eq!(d.reason.0.get_string(), "Failed to verify username!");
 
     // Session server unreachable: authservers_down.
     *hooks.session.lock() = mc_protocol::auth::SessionClient::new("http://127.0.0.1:1");
     let mut c = connect(server.addr).await;
     online_key_exchange(&mut c, "Steve").await;
-    let ClientboundLoginPacket::LoginDisconnect(d) = read_login(&mut c).await else { panic!() };
-    assert_eq!(d.reason.0.get_string(), "Authentication servers are down. Please try again later. Sorry!");
+    let ClientboundLoginPacket::LoginDisconnect(d) = read_login(&mut c).await else {
+        panic!()
+    };
+    assert_eq!(
+        d.reason.0.get_string(),
+        "Authentication servers are down. Please try again later. Sorry!"
+    );
 
     // Wrong challenge: Protocol error.
     let mut c = connect(server.addr).await;
     handshake(&mut c, PROTOCOL_VERSION, ClientIntent::Login).await;
     hello(&mut c, "Steve").await;
-    let ClientboundLoginPacket::Hello(h) = read_login(&mut c).await else { panic!() };
+    let ClientboundLoginPacket::Hello(h) = read_login(&mut c).await else {
+        panic!()
+    };
     write_payload(
         &mut c,
         &login_payload(ServerboundLoginPacket::Key(ServerboundKeyPacket {
@@ -397,8 +603,13 @@ async fn online_mode_rejects_unverified_sessions_and_bad_keys() {
         })),
     )
     .await;
-    let ClientboundLoginPacket::LoginDisconnect(d) = read_login(&mut c).await else { panic!() };
-    assert_eq!(d.reason.0.get_string(), "Internal Exception: java.lang.IllegalStateException: Protocol error");
+    let ClientboundLoginPacket::LoginDisconnect(d) = read_login(&mut c).await else {
+        panic!()
+    };
+    assert_eq!(
+        d.reason.0.get_string(),
+        "Internal Exception: java.lang.IllegalStateException: Protocol error"
+    );
 }
 
 // ---- failure isolation ---------------------------------------------------------------------------------------------
@@ -407,7 +618,9 @@ async fn online_mode_rejects_unverified_sessions_and_bad_keys() {
 struct Unencodable<const SKIPPABLE: bool>;
 impl<const SKIPPABLE: bool> Encode for Unencodable<SKIPPABLE> {
     fn encode(&self, _out: &mut Vec<u8>) -> EncodeResult<()> {
-        Err(EncodeError::msg("String too big (was 32768 characters, max 32767)"))
+        Err(EncodeError::msg(
+            "String too big (was 32768 characters, max 32767)",
+        ))
     }
 }
 impl<const SKIPPABLE: bool> Decode for Unencodable<SKIPPABLE> {
@@ -459,7 +672,10 @@ fn a_skippable_packet_that_fails_to_encode_is_dropped() {
     let (tx, mut rx) = tokio::sync::mpsc::unbounded_channel();
     let conn = ConnectionSender::new(tx);
     conn.send(&Unencodable::<true>);
-    assert!(rx.try_recv().is_err(), "nothing is queued and nobody is kicked");
+    assert!(
+        rx.try_recv().is_err(),
+        "nothing is queued and nobody is kicked"
+    );
     assert!(!conn.handle().is_read_only());
     conn.send(&ClientboundFinishConfigurationPacket);
     assert!(matches!(rx.try_recv(), Ok(Outbound::Payload(_))));
@@ -471,10 +687,18 @@ async fn packet_rate_limit_kicks_spammers() {
     hooks.settings.lock().rate_limit_packets_per_second = 5;
     let server = TestServer::start(hooks);
     let (mut c, _) = offline_login(&server, "Spammer").await;
-    write_payload(&mut c, &login_payload(ServerboundLoginPacket::LoginAcknowledged(ServerboundLoginAcknowledgedPacket))).await;
-    let info = config_payload(ServerboundConfigurationPacket::ClientInformation(ServerboundClientInformationPacket {
-        information: ClientInformation::default(),
-    }));
+    write_payload(
+        &mut c,
+        &login_payload(ServerboundLoginPacket::LoginAcknowledged(
+            ServerboundLoginAcknowledgedPacket,
+        )),
+    )
+    .await;
+    let info = config_payload(ServerboundConfigurationPacket::ClientInformation(
+        ServerboundClientInformationPacket {
+            information: ClientInformation::default(),
+        },
+    ));
     // 400 packets within the first second: the smoothed average (0.25 * 400) is far above 5 at the next once-a-second tick.
     for _ in 0..400 {
         c.write_payload(&info).await.unwrap();
@@ -482,7 +706,10 @@ async fn packet_rate_limit_kicks_spammers() {
     c.flush().await.unwrap();
     loop {
         if let ClientboundConfigurationPacket::Disconnect(d) = read_config(&mut c).await {
-            assert_eq!(d.reason.get_string(), "Kicked for exceeding packet rate limit");
+            assert_eq!(
+                d.reason.get_string(),
+                "Kicked for exceeding packet rate limit"
+            );
             break;
         }
     }

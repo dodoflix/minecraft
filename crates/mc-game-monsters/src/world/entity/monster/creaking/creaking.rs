@@ -4,33 +4,39 @@
 //! ported; the server only broadcasts the entity events (4, 66).
 
 use super::creaking_ai;
-use mc_game_core::define_accessor;
-use mc_game_core::registry::RegistryAccess;
-use mc_game_core::server::level::ServerLevel;
 use crate::world::block_entity::CreakingHeartBlockEntity;
-use mc_game_core::world::damagesource::{DamageSource, DamageTypeTags};
-use mc_game_core::world::entity::ai::brain::{Brain, Provider};
-use mc_game_core::world::entity::ai::control::body_rotation_control::{BodyRotationControlBase, base_client_tick};
-use mc_game_core::world::entity::ai::control::jump_control::{self, JumpControl, JumpControlBase};
-use mc_game_core::world::entity::ai::control::look_control::{self, LookControl, LookControlBase};
-use mc_game_core::world::entity::ai::control::move_control::{self, MoveControl, MoveControlBase};
-use mc_game_core::world::entity::ai::control::BodyRotationControl;
-use mc_game_core::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, NEAREST_PLAYERS};
-use mc_game_core::world::entity::ai::memory::{BrainPacked, EntityRef};
-use mc_game_core::world::entity::ai::navigation::{NavClass, NavigationData, PathNavigation};
-use mc_game_core::world::entity::ai::sensing::sensor_type::{NEAREST_LIVING_ENTITIES, NEAREST_PLAYERS as NEAREST_PLAYERS_SENSOR};
-use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
-use mc_game_core::world::entity::living_entity::damage;
-use mc_game_core::world::entity::mob::{self, MobData, MobKind};
-use mc_game_core::world::entity::{Entity, EntityId, RemovalReason};
-use mc_game_core::world::level::pathfinder::node_evaluator::{EvaluatorState, NodeEvaluator, PathEnv, default_get_path_type};
-use mc_game_core::world::level::pathfinder::{PathFinder, PathType};
 use linkme::distributed_slice;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_data::block::Block;
 use mc_data::enums::CreakingHeartState;
 use mc_data::{Attribute, EntityType, GameEvent, ParticleType, SoundEvent};
+use mc_game_core::define_accessor;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::{DamageSource, DamageTypeTags};
+use mc_game_core::world::entity::ai::brain::{Brain, Provider};
+use mc_game_core::world::entity::ai::control::BodyRotationControl;
+use mc_game_core::world::entity::ai::control::body_rotation_control::{
+    BodyRotationControlBase, base_client_tick,
+};
+use mc_game_core::world::entity::ai::control::jump_control::{self, JumpControl, JumpControlBase};
+use mc_game_core::world::entity::ai::control::look_control::{self, LookControl, LookControlBase};
+use mc_game_core::world::entity::ai::control::move_control::{self, MoveControl, MoveControlBase};
+use mc_game_core::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, NEAREST_PLAYERS};
+use mc_game_core::world::entity::ai::memory::{BrainPacked, EntityRef};
+use mc_game_core::world::entity::ai::navigation::{NavClass, NavigationData, PathNavigation};
+use mc_game_core::world::entity::ai::sensing::sensor_type::{
+    NEAREST_LIVING_ENTITIES, NEAREST_PLAYERS as NEAREST_PLAYERS_SENSOR,
+};
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
+use mc_game_core::world::entity::living_entity::damage;
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::{Entity, EntityId, RemovalReason};
+use mc_game_core::world::level::pathfinder::node_evaluator::{
+    EvaluatorState, NodeEvaluator, PathEnv, default_get_path_type,
+};
+use mc_game_core::world::level::pathfinder::{PathFinder, PathType};
 use mc_nbt::{CompoundTag, Tag};
 use mc_protocol::packets::play::ParticleOptions;
 
@@ -54,7 +60,10 @@ const MAX_PLAYER_STUCK_COUNTER: i32 = 4;
 const MAX_DISTANCE_TO_HOME_SQ: f64 = 1024.0;
 
 /// `BRAIN_PROVIDER`.
-static BRAIN_PROVIDER: Provider = Provider::with_activities(&[&NEAREST_LIVING_ENTITIES, &NEAREST_PLAYERS_SENSOR], creaking_ai::get_activities);
+static BRAIN_PROVIDER: Provider = Provider::with_activities(
+    &[&NEAREST_LIVING_ENTITIES, &NEAREST_PLAYERS_SENSOR],
+    creaking_ai::get_activities,
+);
 
 /// `Creaking`.
 pub struct Creaking {
@@ -78,7 +87,12 @@ impl Creaking {
             b.define(IS_TEARING_DOWN, false);
             b.define(HOME_POS, None);
         });
-        let mut creaking = Creaking { mob, attack_animation_remaining_ticks: 0, invulnerability_animation_remaining_ticks: 0, player_stuck_counter: 0 };
+        let mut creaking = Creaking {
+            mob,
+            attack_animation_remaining_ticks: 0,
+            invulnerability_animation_remaining_ticks: 0,
+            player_stuck_counter: 0,
+        };
         // `LivingEntity.<init>`: `this.brain = this.makeBrain(Brain.Packed.EMPTY)`
         let brain = creaking.make_brain(&BrainPacked::EMPTY);
         creaking.mob.living.brain = brain;
@@ -147,18 +161,33 @@ impl Creaking {
     }
 
     /// `blameSourceForDamage(source)`: the player responsible for the damage (`lastHurtByPlayer`).
-    pub fn blame_source_for_damage(&mut self, level: &ServerLevel, source: &DamageSource) -> Option<EntityId> {
+    pub fn blame_source_for_damage(
+        &mut self,
+        level: &ServerLevel,
+        source: &DamageSource,
+    ) -> Option<EntityId> {
         damage::resolve_mob_responsible_for_damage(self, level, source);
         damage::resolve_player_responsible_for_damage(self, source);
         let uuid = self.mob.living.last_hurt_by_player?;
-        level.get_entity_by_uuid(uuid).filter(|e| e.is_player()).map(|e| e.id())
+        level
+            .get_entity_by_uuid(uuid)
+            .filter(|e| e.is_player())
+            .map(|e| e.id())
     }
 
     /// `this.level().getBlockEntity(homePos) instanceof CreakingHeartBlockEntity heart && heart.isProtector(this)`.
-    fn has_protection_from_creaking_heart(&self, level: &mut ServerLevel, home_pos: BlockPos) -> bool {
+    fn has_protection_from_creaking_heart(
+        &self,
+        level: &mut ServerLevel,
+        home_pos: BlockPos,
+    ) -> bool {
         let id = self.id();
         level
-            .with_block_entity(home_pos, |level, be| be.as_any_mut().downcast_mut::<CreakingHeartBlockEntity>().is_some_and(|heart| heart.is_protector(level, id)))
+            .with_block_entity(home_pos, |level, be| {
+                be.as_any_mut()
+                    .downcast_mut::<CreakingHeartBlockEntity>()
+                    .is_some_and(|heart| heart.is_protector(level, id))
+            })
             .unwrap_or(false)
     }
 
@@ -170,7 +199,10 @@ impl Creaking {
         let y_spread = bounding_box.get_ysize() * 0.3;
         let z_spread = bounding_box.get_zsize() * 0.3;
         level.send_particles(
-            ParticleOptions::Block { particle_type: ParticleType::BLOCK_CRUMBLE, state: Block::PALE_OAK_WOOD.default_state() },
+            ParticleOptions::Block {
+                particle_type: ParticleType::BLOCK_CRUMBLE,
+                state: Block::PALE_OAK_WOOD.default_state(),
+            },
             center.x,
             center.y,
             center.z,
@@ -183,7 +215,10 @@ impl Creaking {
         level.send_particles(
             ParticleOptions::Block {
                 particle_type: ParticleType::BLOCK_CRUMBLE,
-                state: Block::CREAKING_HEART.default_state().set(mc_data::props::CREAKING_HEART_STATE, CreakingHeartState::Awake),
+                state: Block::CREAKING_HEART.default_state().set(
+                    mc_data::props::CREAKING_HEART_STATE,
+                    CreakingHeartState::Awake,
+                ),
             },
             center.x,
             center.y,
@@ -209,14 +244,21 @@ impl Creaking {
 
     /// `playerIsStuckInYou()`.
     pub fn player_is_stuck_in_you(&mut self, level: &ServerLevel) -> bool {
-        let players: Vec<EntityRef> = self.brain().get_memory(&NEAREST_PLAYERS).cloned().unwrap_or_default();
+        let players: Vec<EntityRef> = self
+            .brain()
+            .get_memory(&NEAREST_PLAYERS)
+            .cloned()
+            .unwrap_or_default();
         if players.is_empty() {
             self.player_stuck_counter = 0;
             return false;
         }
         let own_box = self.get_bounding_box();
         for player in players {
-            if level.get_entity(player.0).is_some_and(|p| own_box.contains_vec3(p.base().get_eye_position())) {
+            if level
+                .get_entity(player.0)
+                .is_some_and(|p| own_box.contains_vec3(p.base().get_eye_position()))
+            {
                 self.player_stuck_counter += 1;
                 return self.player_stuck_counter > MAX_PLAYER_STUCK_COUNTER;
             }
@@ -227,7 +269,11 @@ impl Creaking {
 
     /// `checkCanMove()`.
     pub fn check_can_move(&mut self, level: &mut ServerLevel) -> bool {
-        let players: Vec<EntityRef> = self.brain().get_memory(&NEAREST_PLAYERS).cloned().unwrap_or_default();
+        let players: Vec<EntityRef> = self
+            .brain()
+            .get_memory(&NEAREST_PLAYERS)
+            .cloned()
+            .unwrap_or_default();
         let active = self.is_active();
         if players.is_empty() {
             if active {
@@ -239,14 +285,24 @@ impl Creaking {
         let mut to_activate = None;
         let mut frozen = false;
         for player_ref in &players {
-            let Some(player) = level.get_entity(player_ref.0) else { continue };
+            let Some(player) = level.get_entity(player_ref.0) else {
+                continue;
+            };
             if self.can_attack(level, player) && !mob::ext::is_allied_to(level, self, player) {
                 has_potential_target = true;
                 let eye_y = self.base().get_eye_y();
                 let y = self.base().y();
                 let scale = self.mob.living.get_attribute_value(Attribute::SCALE);
                 if (!active || mob::ext::player_not_wearing_disguise_item(player))
-                    && mob::ext::is_looking_at_me(level, self, player, 0.5, false, true, &[eye_y, y + 0.5 * scale, (eye_y + y) / 2.0])
+                    && mob::ext::is_looking_at_me(
+                        level,
+                        self,
+                        player,
+                        0.5,
+                        false,
+                        true,
+                        &[eye_y, y + 0.5 * scale, (eye_y + y) / 2.0],
+                    )
                 {
                     if active {
                         frozen = true;
@@ -274,7 +330,8 @@ impl Creaking {
 
     /// `activate(player)`.
     pub fn activate(&mut self, level: &mut ServerLevel, player: EntityId) {
-        self.brain_mut().set_memory(&ATTACK_TARGET, EntityRef(player));
+        self.brain_mut()
+            .set_memory(&ATTACK_TARGET, EntityRef(player));
         self.game_event(level, GameEvent::ENTITY_ACTION);
         damage::make_sound(self, level, SoundEvent::ENTITY_CREAKING_ACTIVATE);
         self.set_is_active(true);
@@ -388,12 +445,18 @@ impl NodeEvaluator for HomeNodeEvaluator {
     }
 
     fn get_path_type(&mut self, env: &mut PathEnv<'_>, x: i32, y: i32, z: i32) -> PathType {
-        let home_pos = env.mob.entity().and_then(|e| e.as_any().downcast_ref::<Creaking>().and_then(Creaking::get_home_pos));
+        let home_pos = env.mob.entity().and_then(|e| {
+            e.as_any()
+                .downcast_ref::<Creaking>()
+                .and_then(Creaking::get_home_pos)
+        });
         match home_pos {
             None => default_get_path_type(self, env, x, y, z),
             Some(home_pos) => {
                 let home_distance = home_pos.dist_sqr(&BlockPos::new(x, y, z));
-                if home_distance > MAX_DISTANCE_TO_HOME_SQ && home_distance >= home_pos.dist_sqr(&env.context.mob_position()) {
+                if home_distance > MAX_DISTANCE_TO_HOME_SQ
+                    && home_distance >= home_pos.dist_sqr(&env.context.mob_position())
+                {
                     PathType::Blocked
                 } else {
                     default_get_path_type(self, env, x, y, z)
@@ -410,11 +473,12 @@ pub struct CreakingNavigation {
 
 impl CreakingNavigation {
     fn new(creaking: &Creaking) -> Self {
-        let data = NavigationData::with_path_finder(creaking, NavClass::Ground, |max_visited_nodes| {
-            let mut evaluator = HomeNodeEvaluator(EvaluatorState::walk());
-            evaluator.set_can_pass_doors(true);
-            PathFinder::new(Box::new(evaluator), max_visited_nodes)
-        });
+        let data =
+            NavigationData::with_path_finder(creaking, NavClass::Ground, |max_visited_nodes| {
+                let mut evaluator = HomeNodeEvaluator(EvaluatorState::walk());
+                evaluator.set_can_pass_doors(true);
+                PathFinder::new(Box::new(evaluator), max_visited_nodes)
+            });
         CreakingNavigation { data }
     }
 }
@@ -453,14 +517,28 @@ impl Entity for Creaking {
         mc_game_core::world::entity::living_entity::combat::mob_do_hurt_target(self, level, target)
     }
 
-    fn hurt_server(&mut self, level: &mut ServerLevel, source: &DamageSource, damage_amount: f32) -> bool {
-        let Some(home_pos) = self.get_home_pos().filter(|_| !source.is_tag(level, DamageTypeTags::BYPASSES_INVULNERABILITY)) else {
+    fn hurt_server(
+        &mut self,
+        level: &mut ServerLevel,
+        source: &DamageSource,
+        damage_amount: f32,
+    ) -> bool {
+        let Some(home_pos) = self
+            .get_home_pos()
+            .filter(|_| !source.is_tag(level, DamageTypeTags::BYPASSES_INVULNERABILITY))
+        else {
             return damage::hurt_server(self, level, source, damage_amount);
         };
-        if !self.is_invulnerable_to(level, source) && self.invulnerability_animation_remaining_ticks <= 0 && !self.is_dead_or_dying() {
+        if !self.is_invulnerable_to(level, source)
+            && self.invulnerability_animation_remaining_ticks <= 0
+            && !self.is_dead_or_dying()
+        {
             let responsible_player = self.blame_source_for_damage(level, source);
             let direct_is_living_or_projectile = source.get_direct_entity().is_some_and(|id| {
-                level.get_entity(id).map_or_else(|| source.direct_info().is_some_and(|d| d.is_living), |e| e.living().is_some() || e.as_projectile().is_some())
+                level.get_entity(id).map_or_else(
+                    || source.direct_info().is_some_and(|d| d.is_living),
+                    |e| e.living().is_some() || e.as_projectile().is_some(),
+                )
             });
             if !direct_is_living_or_projectile && responsible_player.is_none() {
                 false
@@ -471,7 +549,9 @@ impl Entity for Creaking {
                 if self.has_protection_from_creaking_heart(level, home_pos) {
                     if responsible_player.is_some() {
                         level.with_block_entity(home_pos, |level, be| {
-                            if let Some(heart) = be.as_any_mut().downcast_mut::<CreakingHeartBlockEntity>() {
+                            if let Some(heart) =
+                                be.as_any_mut().downcast_mut::<CreakingHeartBlockEntity>()
+                            {
                                 heart.creaking_hurt(level, &*self);
                             }
                         });
@@ -489,13 +569,15 @@ impl Entity for Creaking {
     }
 
     fn is_pushable(&self, level: &ServerLevel) -> bool {
-        mc_game_core::world::entity::living_entity::push::living_is_pushable(self, level) && self.can_move()
+        mc_game_core::world::entity::living_entity::push::living_is_pushable(self, level)
+            && self.can_move()
     }
 
     fn push_xyz(&mut self, xa: f64, ya: f64, za: f64) {
         if self.can_move() && xa.is_finite() && ya.is_finite() && za.is_finite() {
             let m = self.base().delta_movement();
-            self.base_mut().set_delta_movement(m.add(Vec3::new(xa, ya, za)));
+            self.base_mut()
+                .set_delta_movement(m.add(Vec3::new(xa, ya, za)));
             self.base_mut().needs_sync = true;
         }
     }
@@ -529,7 +611,8 @@ impl Entity for Creaking {
 
     fn tick(&mut self, level: &mut ServerLevel) {
         if let Some(home_pos) = self.get_home_pos() {
-            let has_protection_from_creaking_heart = self.has_protection_from_creaking_heart(level, home_pos);
+            let has_protection_from_creaking_heart =
+                self.has_protection_from_creaking_heart(level, home_pos);
             if !has_protection_from_creaking_heart {
                 self.mob.living.set_health(0.0);
             }
@@ -553,7 +636,9 @@ impl Entity for Creaking {
     }
 
     fn can_use_portal(&self, ignore_passenger: bool) -> bool {
-        !self.is_heart_bound() && (ignore_passenger || !self.base().is_passenger()) && self.is_alive()
+        !self.is_heart_bound()
+            && (ignore_passenger || !self.base().is_passenger())
+            && self.is_alive()
     }
 
     fn read_additional_save_data(&mut self, input: &CompoundTag) {
@@ -575,18 +660,31 @@ impl Entity for Creaking {
     }
 
     fn get_ambient_sound(&self) -> Option<SoundEvent> {
-        if self.is_active() { None } else { Some(SoundEvent::ENTITY_CREAKING_AMBIENT) }
+        if self.is_active() {
+            None
+        } else {
+            Some(SoundEvent::ENTITY_CREAKING_AMBIENT)
+        }
     }
 
     fn get_hurt_sound(&self, _source: &DamageSource) -> Option<SoundEvent> {
-        Some(if self.is_heart_bound() { SoundEvent::ENTITY_CREAKING_SWAY } else { mob::monster::HURT_SOUND })
+        Some(if self.is_heart_bound() {
+            SoundEvent::ENTITY_CREAKING_SWAY
+        } else {
+            mob::monster::HURT_SOUND
+        })
     }
 
     fn get_death_sound(&self) -> Option<SoundEvent> {
         Some(SoundEvent::ENTITY_CREAKING_DEATH)
     }
 
-    fn play_step_sound(&mut self, level: &mut ServerLevel, _pos: BlockPos, _state: mc_data::block::BlockState) {
+    fn play_step_sound(
+        &mut self,
+        level: &mut ServerLevel,
+        _pos: BlockPos,
+        _state: mc_data::block::BlockState,
+    ) {
         self.play_sound(level, SoundEvent::ENTITY_CREAKING_STEP, 0.15, 1.0);
     }
 
@@ -594,13 +692,33 @@ impl Entity for Creaking {
         self.brain().get_memory(&ATTACK_TARGET).map(|r| r.0)
     }
 
-    fn knockback(&mut self, power: f64, xd: f64, zd: f64, source: &DamageSource, damage_amount: f32, comes_from_effect: bool) {
+    fn knockback(
+        &mut self,
+        power: f64,
+        xd: f64,
+        zd: f64,
+        source: &DamageSource,
+        damage_amount: f32,
+        comes_from_effect: bool,
+    ) {
         if self.can_move() {
-            damage::knockback(self, power, xd, zd, source, damage_amount, comes_from_effect);
+            damage::knockback(
+                self,
+                power,
+                xd,
+                zd,
+                source,
+                damage_amount,
+                comes_from_effect,
+            );
         }
     }
 
-    fn get_walk_target_value(&self, _pos: BlockPos, _level: &dyn mc_game_core::world::level::LevelReader) -> f32 {
+    fn get_walk_target_value(
+        &self,
+        _pos: BlockPos,
+        _level: &dyn mc_game_core::world::level::LevelReader,
+    ) -> f32 {
         0.0
     }
 
@@ -622,4 +740,7 @@ impl Entity for Creaking {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static CREAKING: EntityRegistration = EntityRegistration { entity_type: EntityType::CREAKING, create: |ty, id, registries| Box::new(Creaking::new(ty, id, registries)) };
+static CREAKING: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::CREAKING,
+    create: |ty, id, registries| Box::new(Creaking::new(ty, id, registries)),
+};

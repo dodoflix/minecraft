@@ -57,7 +57,11 @@ pub fn read_additional_save_data(e: &mut dyn Entity, input: &CompoundTag) {
 }
 
 /// `PatrollingMonster.finalizeSpawn` up to the `super` call (`Mob.finalizeSpawn`, which the caller runs).
-pub fn finalize_spawn_before_super(e: &mut dyn Entity, level: &mut dyn ServerLevelAccessor, reason: EntitySpawnReason) {
+pub fn finalize_spawn_before_super(
+    e: &mut dyn Entity,
+    level: &mut dyn ServerLevelAccessor,
+    reason: EntitySpawnReason,
+) {
     if reason != EntitySpawnReason::Patrol
         && reason != EntitySpawnReason::Event
         && reason != EntitySpawnReason::Structure
@@ -77,17 +81,31 @@ pub fn finalize_spawn_before_super(e: &mut dyn Entity, level: &mut dyn ServerLev
 }
 
 /// `PatrollingMonster.finalizeSpawn(level, difficulty, reason, groupData)`.
-pub fn finalize_spawn(e: &mut dyn Entity, level: &mut dyn ServerLevelAccessor, difficulty: DifficultyInstance, reason: EntitySpawnReason, group_data: Option<Box<dyn SpawnGroupData>>) -> Option<Box<dyn SpawnGroupData>> {
+pub fn finalize_spawn(
+    e: &mut dyn Entity,
+    level: &mut dyn ServerLevelAccessor,
+    difficulty: DifficultyInstance,
+    reason: EntitySpawnReason,
+    group_data: Option<Box<dyn SpawnGroupData>>,
+) -> Option<Box<dyn SpawnGroupData>> {
     finalize_spawn_before_super(e, level, reason);
     crate::world::entity::mob::spawn::finalize_spawn(e, level, difficulty, reason, group_data)
 }
 
 /// `checkPatrollingMonsterSpawnRules(type, level, reason, pos, random)`.
-pub fn check_patrolling_monster_spawn_rules(ty: EntityType, level: &dyn ServerLevelAccessor, reason: EntitySpawnReason, pos: BlockPos, random: &mut dyn RandomSource) -> bool {
+pub fn check_patrolling_monster_spawn_rules(
+    ty: EntityType,
+    level: &dyn ServerLevelAccessor,
+    reason: EntitySpawnReason,
+    pos: BlockPos,
+    random: &mut dyn RandomSource,
+) -> bool {
     if level.get_brightness(crate::world::level::LightLayer::Block, pos) > 8 {
         false
     } else {
-        crate::world::entity::spawn_predicates::check_any_light_monster_spawn_rules(ty, level, reason, pos, random)
+        crate::world::entity::spawn_predicates::check_any_light_monster_spawn_rules(
+            ty, level, reason, pos, random,
+        )
     }
 }
 
@@ -129,7 +147,11 @@ pub fn find_patrol_target(e: &mut dyn Entity) {
     let dx = -500 + random.next_int_bounded(1000);
     let dz = -500 + random.next_int_bounded(1000);
     let p = &mut data_mut(e).patrol;
-    p.patrol_target = Some(BlockPos::new(pos.x().wrapping_add(dx), pos.y(), pos.z().wrapping_add(dz)));
+    p.patrol_target = Some(BlockPos::new(
+        pos.x().wrapping_add(dx),
+        pos.y(),
+        pos.z().wrapping_add(dz),
+    ));
     p.patrolling = true;
 }
 
@@ -150,12 +172,20 @@ pub struct LongDistancePatrolGoal {
 
 impl LongDistancePatrolGoal {
     pub fn new(speed_modifier: f64, leader_speed_modifier: f64) -> Self {
-        LongDistancePatrolGoal { speed_modifier, leader_speed_modifier, cooldown_until: -1 }
+        LongDistancePatrolGoal {
+            speed_modifier,
+            leader_speed_modifier,
+            cooldown_until: -1,
+        }
     }
 
     fn find_patrol_companions(mob: &dyn Entity, level: &ServerLevel) -> Vec<i32> {
         let bb = mob.get_bounding_box().inflate_scalar(16.0);
-        level.get_entities_of_class(&bb, |e| e.raider().is_some(), |e| e.can_join_patrol(level) && e.id() != mob.id())
+        level.get_entities_of_class(
+            &bb,
+            |e| e.raider().is_some(),
+            |e| e.can_join_patrol(level) && e.id() != mob.id(),
+        )
     }
 
     fn move_randomly(&self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
@@ -163,15 +193,29 @@ impl LongDistancePatrolGoal {
         let random = &mut mob.base_mut().random;
         let dx = -8 + random.next_int_bounded(16);
         let dz = -8 + random.next_int_bounded(16);
-        let path_target = level.get_heightmap_pos(HeightmapType::MotionBlockingNoLeaves, BlockPos::new(pos.x().wrapping_add(dx), pos.y(), pos.z().wrapping_add(dz)));
-        navigation::move_to(mob, level, f64::from(path_target.x()), f64::from(path_target.y()), f64::from(path_target.z()), self.speed_modifier)
+        let path_target = level.get_heightmap_pos(
+            HeightmapType::MotionBlockingNoLeaves,
+            BlockPos::new(pos.x().wrapping_add(dx), pos.y(), pos.z().wrapping_add(dz)),
+        );
+        navigation::move_to(
+            mob,
+            level,
+            f64::from(path_target.x()),
+            f64::from(path_target.y()),
+            f64::from(path_target.z()),
+            self.speed_modifier,
+        )
     }
 }
 
 impl Goal for LongDistancePatrolGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         let is_on_cooldown = level.game_time() < self.cooldown_until;
-        is_patrolling(mob) && mob.get_target().is_none() && !mob.has_controlling_passenger() && has_patrol_target(mob) && !is_on_cooldown
+        is_patrolling(mob)
+            && mob.get_target().is_none()
+            && !mob.has_controlling_passenger()
+            && has_patrol_target(mob)
+            && !is_on_cooldown
     }
 
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
@@ -189,11 +233,27 @@ impl Goal for LongDistancePatrolGoal {
                 let distance = self_vector.subtract(long_distance_target);
                 // `Vec3.yRot(90.0F)`: the angle is radians, 90 of them
                 long_distance_target = distance.y_rot(90.0).scale(0.4).add(long_distance_target);
-                let move_target = long_distance_target.subtract(self_vector).normalize().scale(10.0).add(self_vector);
+                let move_target = long_distance_target
+                    .subtract(self_vector)
+                    .normalize()
+                    .scale(10.0)
+                    .add(self_vector);
                 let mut path_target = BlockPos::containing_position(&move_target);
-                path_target = level.get_heightmap_pos(HeightmapType::MotionBlockingNoLeaves, path_target);
-                let speed = if patrol_leader { self.leader_speed_modifier } else { self.speed_modifier };
-                if !navigation::move_to(mob, level, f64::from(path_target.x()), f64::from(path_target.y()), f64::from(path_target.z()), speed) {
+                path_target =
+                    level.get_heightmap_pos(HeightmapType::MotionBlockingNoLeaves, path_target);
+                let speed = if patrol_leader {
+                    self.leader_speed_modifier
+                } else {
+                    self.speed_modifier
+                };
+                if !navigation::move_to(
+                    mob,
+                    level,
+                    f64::from(path_target.x()),
+                    f64::from(path_target.y()),
+                    f64::from(path_target.z()),
+                    speed,
+                ) {
                     self.move_randomly(mob, level);
                     self.cooldown_until = level.game_time() + 200;
                 } else if patrol_leader {

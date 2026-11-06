@@ -19,8 +19,12 @@ use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
 use crate::world::entity::living_entity::push::pushable_entities_in;
 use crate::world::entity::vehicle::container_entity::{ChestVehicleData, ContainerEntity};
 use crate::world::entity::vehicle::vehicle_entity::{self, VehicleEntity};
-use crate::world::entity::vehicle::{get_collision_horizontal_escape_vector, is_animal, no_collision};
-use crate::world::entity::{Entity, EntityData, EntityId, MovementEmission, MoverType, RemovalReason, ServerPlayer, entity};
+use crate::world::entity::vehicle::{
+    get_collision_horizontal_escape_vector, is_animal, no_collision,
+};
+use crate::world::entity::{
+    Entity, EntityData, EntityId, MovementEmission, MoverType, RemovalReason, ServerPlayer, entity,
+};
 use crate::world::item::{InteractionHand, InteractionResult, ItemStack};
 use crate::world::level::BlockGetter;
 use crate::world::level::block::BlockStateExt;
@@ -166,7 +170,10 @@ impl AbstractBoat {
 
     /// `getFirstPassenger() instanceof Player`.
     fn first_passenger_is_player(&self) -> bool {
-        self.base.passengers.first().is_some_and(|p| self.player_passengers.contains(p))
+        self.base
+            .passengers
+            .first()
+            .is_some_and(|p| self.player_passengers.contains(p))
     }
 
     // ---- synched data --------------------------------------------------------------------------------------------
@@ -178,7 +185,11 @@ impl AbstractBoat {
 
     /// `getPaddleState(side)`.
     pub fn get_paddle_state(&self, side: usize) -> bool {
-        self.base.entity_data.get(if side == 0 { DATA_ID_PADDLE_LEFT } else { DATA_ID_PADDLE_RIGHT }) && self.first_passenger_is_player()
+        self.base.entity_data.get(if side == 0 {
+            DATA_ID_PADDLE_LEFT
+        } else {
+            DATA_ID_PADDLE_RIGHT
+        }) && self.first_passenger_is_player()
     }
 
     fn set_bubble_time(&mut self, value: i32) {
@@ -255,7 +266,14 @@ impl AbstractBoat {
     /// `getGroundFriction()`.
     pub fn get_ground_friction(&self, level: &ServerLevel) -> f32 {
         let bb = self.base.bounding_box();
-        let aabb = AABB::new(bb.min_x, bb.min_y - 0.001, bb.min_z, bb.max_x, bb.min_y, bb.max_z);
+        let aabb = AABB::new(
+            bb.min_x,
+            bb.min_y - 0.001,
+            bb.min_z,
+            bb.max_x,
+            bb.min_y,
+            bb.max_z,
+        );
         let x0 = mth::floor_f64(aabb.min_x) - 1;
         let x1 = mth::ceil_f64(aabb.max_x) + 1;
         let y0 = mth::floor_f64(aabb.min_y) - 1;
@@ -267,7 +285,8 @@ impl AbstractBoat {
         let mut count = 0i32;
         for x in x0..x1 {
             for z in z0..z1 {
-                let edges = (if x != x0 && x != x1 - 1 { 0 } else { 1 }) + (if z != z0 && z != z1 - 1 { 0 } else { 1 });
+                let edges = (if x != x0 && x != x1 - 1 { 0 } else { 1 })
+                    + (if z != z0 && z != z1 - 1 { 0 } else { 1 });
                 if edges == 2 {
                     continue;
                 }
@@ -276,7 +295,15 @@ impl AbstractBoat {
                         let pos = BlockPos::new(x, y, z);
                         let state = level.get_block_state(pos);
                         if state.block() != Block::LILY_PAD
-                            && Shapes::join_is_not_empty(&state.get_collision_shape(level, pos).move_(f64::from(x), f64::from(y), f64::from(z)), &boat_shape, BooleanOp::AND)
+                            && Shapes::join_is_not_empty(
+                                &state.get_collision_shape(level, pos).move_(
+                                    f64::from(x),
+                                    f64::from(y),
+                                    f64::from(z),
+                                ),
+                                &boat_shape,
+                                BooleanOp::AND,
+                            )
                         {
                             friction += state.block().data().friction;
                             count += 1;
@@ -331,7 +358,9 @@ impl AbstractBoat {
                 for z in z0..z1 {
                     let pos = BlockPos::new(x, y, z);
                     let fluid_state = level.get_fluid_state(pos);
-                    if fluid_state.is_tag("water") && max_y < f64::from(y as f32 + fluid_state.get_height(level, pos)) {
+                    if fluid_state.is_tag("water")
+                        && max_y < f64::from(y as f32 + fluid_state.get_height(level, pos))
+                    {
                         if !fluid_state.is_source() {
                             return Some(Status::UnderFlowingWater);
                         }
@@ -350,10 +379,17 @@ impl AbstractBoat {
         let mut vspeed = -self.get_gravity();
         let mut buoyancy = 0.0f64;
         let mut inv_friction = 0.05f32;
-        if self.old_status == Some(Status::InAir) && self.status != Some(Status::InAir) && self.status != Some(Status::OnLand) {
+        if self.old_status == Some(Status::InAir)
+            && self.status != Some(Status::InAir)
+            && self.status != Some(Status::OnLand)
+        {
             self.water_level = self.base.get_y_progress(1.0);
-            let target_y = f64::from(self.get_water_level_above(level) - self.base.get_bb_height()) + 0.101;
-            let moved = self.base.bounding_box().move_vec(Vec3::new(0.0, target_y - self.base.y(), 0.0));
+            let target_y =
+                f64::from(self.get_water_level_above(level) - self.base.get_bb_height()) + 0.101;
+            let moved =
+                self.base
+                    .bounding_box()
+                    .move_vec(Vec3::new(0.0, target_y - self.base.y(), 0.0));
             if no_collision(level, self.as_dyn(), &moved) {
                 self.set_pos(self.base.x(), target_y, self.base.z());
                 let m = self.base.delta_movement();
@@ -364,7 +400,8 @@ impl AbstractBoat {
         } else {
             match self.status {
                 Some(Status::InWater) => {
-                    buoyancy = (self.water_level - self.base.y()) / f64::from(self.base.get_bb_height());
+                    buoyancy =
+                        (self.water_level - self.base.y()) / f64::from(self.base.get_bb_height());
                     inv_friction = 0.9;
                 }
                 Some(Status::UnderFlowingWater) => {
@@ -386,11 +423,16 @@ impl AbstractBoat {
             }
             let movement = self.base.delta_movement();
             let f = f64::from(inv_friction);
-            self.base.set_delta_movement_xyz(movement.x * f, movement.y + vspeed, movement.z * f);
+            self.base
+                .set_delta_movement_xyz(movement.x * f, movement.y + vspeed, movement.z * f);
             self.delta_rotation *= inv_friction;
             if buoyancy > 0.0 {
                 let dm = self.base.delta_movement();
-                self.base.set_delta_movement_xyz(dm.x, (dm.y + buoyancy * (self.get_default_gravity() / 0.65)) * 0.75, dm.z);
+                self.base.set_delta_movement_xyz(
+                    dm.x,
+                    (dm.y + buoyancy * (self.get_default_gravity() / 0.65)) * 0.75,
+                    dm.z,
+                );
             }
         }
     }
@@ -424,7 +466,10 @@ impl AbstractBoat {
                 0.0,
                 f64::from(mth::cos(f64::from(y_rot * rad)) * acceleration),
             )));
-            self.set_paddle_state(self.input_right && !self.input_left || self.input_up, self.input_left && !self.input_right || self.input_up);
+            self.set_paddle_state(
+                self.input_right && !self.input_left || self.input_up,
+                self.input_left && !self.input_right || self.input_up,
+            );
         }
     }
 
@@ -433,9 +478,11 @@ impl AbstractBoat {
         if self.can_simulate_movement() {
             let movement = self.base.delta_movement();
             if drag_down {
-                self.base.set_delta_movement(movement.add(Vec3::new(0.0, -0.7, 0.0)));
+                self.base
+                    .set_delta_movement(movement.add(Vec3::new(0.0, -0.7, 0.0)));
             } else {
-                self.base.set_delta_movement_xyz(movement.x, 0.6, movement.z);
+                self.base
+                    .set_delta_movement_xyz(movement.x, 0.6, movement.z);
             }
         }
     }
@@ -467,7 +514,9 @@ impl AbstractBoat {
     /// `getPaddleSound()`.
     fn get_paddle_sound(&mut self, level: &ServerLevel) -> Option<SoundEvent> {
         match self.get_status(level) {
-            Status::InWater | Status::UnderWater | Status::UnderFlowingWater => Some(SoundEvent::ENTITY_BOAT_PADDLE_WATER),
+            Status::InWater | Status::UnderWater | Status::UnderFlowingWater => {
+                Some(SoundEvent::ENTITY_BOAT_PADDLE_WATER)
+            }
             Status::OnLand => Some(SoundEvent::ENTITY_BOAT_PADDLE_LAND),
             Status::InAir => None,
         }
@@ -482,7 +531,9 @@ impl AbstractBoat {
 
     /// `calculatePassengerBodyYRot(passenger)`.
     fn calculate_passenger_body_y_rot(&self, passenger: &dyn Entity) -> f32 {
-        if is_animal(passenger.get_type()) && self.base.passengers.len() == self.get_max_passengers() {
+        if is_animal(passenger.get_type())
+            && self.base.passengers.len() == self.get_max_passengers()
+        {
             self.base.y_rot() + if passenger.id() % 2 == 0 { 90.0 } else { 270.0 }
         } else {
             self.base.y_rot()
@@ -593,16 +644,26 @@ impl Entity for AbstractBoat {
     }
 
     /// `AbstractBoat.getPassengerAttachmentPoint(passenger, dimensions, scale)`.
-    fn get_passenger_attachment_point(&self, passenger: &dyn Entity, dimensions: &EntityDimensions, _scale: f32) -> Vec3 {
+    fn get_passenger_attachment_point(
+        &self,
+        passenger: &dyn Entity,
+        dimensions: &EntityDimensions,
+        _scale: f32,
+    ) -> Vec3 {
         let mut offset = self.get_single_passenger_x_offset();
         if self.base.passengers.len() > 1 {
-            let index = self.base.passengers.iter().position(|&p| p == passenger.id());
+            let index = self
+                .base
+                .passengers
+                .iter()
+                .position(|&p| p == passenger.id());
             offset = if index == Some(0) { 0.2 } else { -0.6 };
             if is_animal(passenger.get_type()) {
                 offset += 0.2;
             }
         }
-        Vec3::new(0.0, self.ride_height(dimensions), f64::from(offset)).y_rot(-self.base.y_rot() * (std::f64::consts::PI / 180.0) as f32)
+        Vec3::new(0.0, self.ride_height(dimensions), f64::from(offset))
+            .y_rot(-self.base.y_rot() * (std::f64::consts::PI / 180.0) as f32)
     }
 
     /// `AbstractBoat.onAboveBubbleColumn(dragDown, pos)`: the client-only splash sound/particles still draw from the entity random.
@@ -683,7 +744,16 @@ impl Entity for AbstractBoat {
                         let dz = if i == 1 { view.x } else { -view.x };
                         let pitch = 0.8 + 0.4 * self.base.random.next_float();
                         let p = self.base.position();
-                        level.play_sound_at(None, p.x + dx, p.y, p.z + dz, sound, self.get_sound_source(), 1.0, pitch);
+                        level.play_sound_at(
+                            None,
+                            p.x + dx,
+                            p.y,
+                            p.z + dz,
+                            sound,
+                            self.get_sound_source(),
+                            1.0,
+                            pitch,
+                        );
                     }
                 }
                 self.paddle_positions[i] += PADDLE_SPEED;
@@ -692,7 +762,11 @@ impl Entity for AbstractBoat {
             }
         }
 
-        let area = self.base.bounding_box().inflate(f64::from(0.2f32), -f64::from(0.01f32), f64::from(0.2f32));
+        let area = self.base.bounding_box().inflate(
+            f64::from(0.2f32),
+            -f64::from(0.01f32),
+            f64::from(0.2f32),
+        );
         let entities = pushable_entities_in(level, self.as_dyn(), &area);
         if !entities.is_empty() {
             let add_new_passengers = !self.first_passenger_is_player();
@@ -707,7 +781,8 @@ impl Entity for AbstractBoat {
                         && !other.base().is_passenger()
                         && self.has_enough_space_for(other.as_dyn())
                         && other.living().is_some()
-                        && !mc_data::tags::get::<EntityType>("cannot_be_pushed_onto_boats").is_some_and(|t| t.contains(other.get_type()))
+                        && !mc_data::tags::get::<EntityType>("cannot_be_pushed_onto_boats")
+                            .is_some_and(|t| t.contains(other.get_type()))
                     {
                         level.start_riding_held(other, self, false, true);
                     } else {
@@ -719,19 +794,33 @@ impl Entity for AbstractBoat {
     }
 
     /// `AbstractBoat.checkFallDamage(ya, onGround, onState, pos)`.
-    fn check_fall_damage(&mut self, level: &mut ServerLevel, ya: f64, on_ground: bool, _on_state: mc_data::block::BlockState, _pos: BlockPos) {
+    fn check_fall_damage(
+        &mut self,
+        level: &mut ServerLevel,
+        ya: f64,
+        on_ground: bool,
+        _on_state: mc_data::block::BlockState,
+        _pos: BlockPos,
+    ) {
         self.last_yd = self.base.delta_movement().y;
         if !self.base.is_passenger() {
             if on_ground {
                 self.reset_fall_distance();
-            } else if !level.get_fluid_state(self.base.block_position().below()).is_tag("water") && ya < 0.0 {
+            } else if !level
+                .get_fluid_state(self.base.block_position().below())
+                .is_tag("water")
+                && ya < 0.0
+            {
                 self.base.fall_distance -= f64::from(ya as f32);
             }
         }
     }
 
     fn is_under_water(&self) -> bool {
-        matches!(self.status, Some(Status::UnderWater | Status::UnderFlowingWater))
+        matches!(
+            self.status,
+            Some(Status::UnderWater | Status::UnderFlowingWater)
+        )
     }
 
     fn can_add_passenger(&self, _passenger: &dyn Entity) -> bool {
@@ -739,7 +828,11 @@ impl Entity for AbstractBoat {
     }
 
     fn get_controlling_passenger(&self) -> Option<EntityId> {
-        self.base.passengers.first().copied().filter(|p| self.player_passengers.contains(p))
+        self.base
+            .passengers
+            .first()
+            .copied()
+            .filter(|p| self.player_passengers.contains(p))
     }
 
     /// `isClientAuthoritative()`: the controlling passenger is a player.
@@ -770,8 +863,15 @@ impl Entity for AbstractBoat {
     fn position_rider_with(&self, passenger: &mut dyn Entity, move_function: MoveFunction) {
         let position = self.get_passenger_riding_position(passenger.as_dyn());
         let offset = passenger.get_vehicle_attachment_point(self.as_dyn());
-        move_function.apply(passenger, position.x - offset.x, position.y - offset.y, position.z - offset.z);
-        if !mc_data::tags::get::<EntityType>("can_turn_in_boats").is_some_and(|t| t.contains(passenger.get_type())) {
+        move_function.apply(
+            passenger,
+            position.x - offset.x,
+            position.y - offset.y,
+            position.z - offset.z,
+        );
+        if !mc_data::tags::get::<EntityType>("can_turn_in_boats")
+            .is_some_and(|t| t.contains(passenger.get_type()))
+        {
             if passenger.is_local_instance_authoritative() {
                 let y_rot = passenger.base().y_rot() + self.delta_rotation;
                 passenger.set_y_rot(y_rot);
@@ -789,7 +889,11 @@ impl Entity for AbstractBoat {
 
     /// `AbstractBoat.getDismountLocationForPassenger(passenger)`: the free spot on the escape side (sets the dismount pose), else
     /// the spot above the boat.
-    fn get_dismount_location_for_passenger_setting_pose(&self, level: &ServerLevel, passenger: &mut dyn Entity) -> Vec3 {
+    fn get_dismount_location_for_passenger_setting_pose(
+        &self,
+        level: &ServerLevel,
+        passenger: &mut dyn Entity,
+    ) -> Vec3 {
         let direction = get_collision_horizontal_escape_vector(
             f64::from(self.base.get_bb_width() * mth::SQRT_OF_TWO),
             f64::from(passenger.base().get_bb_width()),
@@ -797,21 +901,35 @@ impl Entity for AbstractBoat {
         );
         let target_x = self.base.x() + direction.x;
         let target_z = self.base.z() + direction.z;
-        let target_block_pos = BlockPos::containing(target_x, self.base.bounding_box().max_y, target_z);
+        let target_block_pos =
+            BlockPos::containing(target_x, self.base.bounding_box().max_y, target_z);
         let below_block_pos = target_block_pos.below();
         if !level.get_fluid_state(below_block_pos).is_tag("water") {
             let mut targets = Vec::new();
             let target_floor = level.get_block_floor_height(target_block_pos);
             if crate::world::entity::dismount_helper::is_block_floor_valid(target_floor) {
-                targets.push(Vec3::new(target_x, f64::from(target_block_pos.y()) + target_floor, target_z));
+                targets.push(Vec3::new(
+                    target_x,
+                    f64::from(target_block_pos.y()) + target_floor,
+                    target_z,
+                ));
             }
             let below_floor = level.get_block_floor_height(below_block_pos);
             if crate::world::entity::dismount_helper::is_block_floor_valid(below_floor) {
-                targets.push(Vec3::new(target_x, f64::from(below_block_pos.y()) + below_floor, target_z));
+                targets.push(Vec3::new(
+                    target_x,
+                    f64::from(below_block_pos.y()) + below_floor,
+                    target_z,
+                ));
             }
             for &dismount_pose in passenger.get_dismount_poses() {
                 for &target in &targets {
-                    if crate::world::entity::dismount_helper::can_dismount_to_pose(level, target, passenger.as_dyn(), dismount_pose) {
+                    if crate::world::entity::dismount_helper::can_dismount_to_pose(
+                        level,
+                        target,
+                        passenger.as_dyn(),
+                        dismount_pose,
+                    ) {
                         passenger.set_pose(dismount_pose);
                         return target;
                     }
@@ -831,7 +949,14 @@ impl Entity for AbstractBoat {
             None
         } else {
             let min_y = passenger_box.min_y.max(boat_box.max_y);
-            Some(AABB::new(passenger_box.min_x, min_y, passenger_box.min_z, passenger_box.max_x, passenger_box.max_y, passenger_box.max_z))
+            Some(AABB::new(
+                passenger_box.min_x,
+                min_y,
+                passenger_box.min_z,
+                passenger_box.max_x,
+                passenger_box.max_y,
+                passenger_box.max_z,
+            ))
         }
     }
 
@@ -839,7 +964,11 @@ impl Entity for AbstractBoat {
         vehicle_entity::hurt_server(self, level, source, amount)
     }
 
-    fn ignore_explosion_in_level(&self, level: &ServerLevel, explosion: &dyn crate::world::level::explosion::Explosion) -> bool {
+    fn ignore_explosion_in_level(
+        &self,
+        level: &ServerLevel,
+        explosion: &dyn crate::world::level::explosion::Explosion,
+    ) -> bool {
         vehicle_entity::ignore_explosion(level, explosion)
     }
 
@@ -848,10 +977,20 @@ impl Entity for AbstractBoat {
     }
 
     /// `AbstractBoat.interact` (+ `AbstractChestBoat.interact`).
-    fn interact(&mut self, level: &mut ServerLevel, player: &mut ServerPlayer, _hand: InteractionHand, _location: Vec3) -> InteractionResult {
+    fn interact(
+        &mut self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        _hand: InteractionHand,
+        _location: Vec3,
+    ) -> InteractionResult {
         // SEAM(mobs): `Entity.interact` leash handling (lead item, shears, `Leashable`)
         let secondary = player.is_shift_key_down();
-        let boarded = if secondary || !(self.out_of_control_ticks < TIME_TO_EJECT) { false } else { level.start_riding_held(player, self, false, true) };
+        let boarded = if secondary || !(self.out_of_control_ticks < TIME_TO_EJECT) {
+            false
+        } else {
+            level.start_riding_held(player, self, false, true)
+        };
         if boarded {
             return InteractionResult::SUCCESS;
         }
@@ -863,7 +1002,11 @@ impl Entity for AbstractBoat {
         }
         let result = self.interact_with_container_vehicle(level, player);
         if result.consumes_action() {
-            level.game_event_from_entity(Some(player.id()), GameEvent::CONTAINER_OPEN, self.base.position());
+            level.game_event_from_entity(
+                Some(player.id()),
+                GameEvent::CONTAINER_OPEN,
+                self.base.position(),
+            );
             // SEAM(mobs): `PiglinAi.angerNearbyPiglins(level, player, true)`
         }
         result
@@ -915,7 +1058,11 @@ impl Entity for AbstractBoat {
                 c.start_open(user);
             } else {
                 c.stop_open(user);
-                level.game_event_from_entity(Some(user), GameEvent::CONTAINER_CLOSE, self.base.position());
+                level.game_event_from_entity(
+                    Some(user),
+                    GameEvent::CONTAINER_CLOSE,
+                    self.base.position(),
+                );
             }
         }
     }
@@ -923,7 +1070,8 @@ impl Entity for AbstractBoat {
 
 /// `AbstractBoat.canVehicleCollide(vehicle, entity)`.
 pub fn can_vehicle_collide(vehicle: &dyn Entity, level: &ServerLevel, other: &dyn Entity) -> bool {
-    (other.can_be_collided_with(Some(vehicle)) || other.is_pushable(level)) && !vehicle.is_passenger_of_same_vehicle(level, other)
+    (other.can_be_collided_with(Some(vehicle)) || other.is_pushable(level))
+        && !vehicle.is_passenger_of_same_vehicle(level, other)
 }
 
 /// The `EntityType` -> (drop item, raft, chest) table of `EntityTypes` (`boatFactory/chestBoatFactory/raftFactory/chestRaftFactory`).
@@ -954,7 +1102,11 @@ pub fn boat_spec(ty: EntityType) -> Option<(Item, BoatKind, bool)> {
     })
 }
 
-fn create_boat(ty: EntityType, id: EntityId, _registries: &crate::registry::RegistryAccess) -> Box<dyn Entity> {
+fn create_boat(
+    ty: EntityType,
+    id: EntityId,
+    _registries: &crate::registry::RegistryAccess,
+) -> Box<dyn Entity> {
     let (item, kind, chest) = boat_spec(ty).expect("boat entity type");
     Box::new(AbstractBoat::new(ty, id, item, kind, chest))
 }

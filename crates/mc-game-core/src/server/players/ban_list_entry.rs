@@ -18,7 +18,9 @@ pub fn now() -> Date {
 
 /// `BanListEntry.DATE_FORMAT.format` (`yyyy-MM-dd HH:mm:ss Z`, default time zone).
 pub fn format_date(date: &Date) -> String {
-    date.with_timezone(&Local).format("%Y-%m-%d %H:%M:%S %z").to_string()
+    date.with_timezone(&Local)
+        .format("%Y-%m-%d %H:%M:%S %z")
+        .to_string()
 }
 
 /// `BanListEntry.DATE_FORMAT.parse`: `yyyy-MM-dd HH:mm:ss` plus a zone (`+hhmm`, `+hh:mm`, `GMT+hh:mm`, `GMT`, `UTC`).
@@ -33,8 +35,12 @@ pub fn parse_date(s: &str) -> Option<Date> {
     let (y, m, day) = (d.next()??, d.next()??, d.next()??);
     let mut t = time.splitn(3, ':').map(|p| p.parse::<u32>().ok());
     let (h, mi, sec) = (t.next()??, t.next()??, t.next()??);
-    let naive: NaiveDateTime = NaiveDate::from_ymd_opt(y as i32, m, day)?.and_hms_opt(h, mi, sec)?;
-    let zone = zone.strip_prefix("GMT").or_else(|| zone.strip_prefix("UTC")).unwrap_or(zone);
+    let naive: NaiveDateTime =
+        NaiveDate::from_ymd_opt(y as i32, m, day)?.and_hms_opt(h, mi, sec)?;
+    let zone = zone
+        .strip_prefix("GMT")
+        .or_else(|| zone.strip_prefix("UTC"))
+        .unwrap_or(zone);
     let offset_secs = if zone.is_empty() {
         0
     } else {
@@ -48,10 +54,17 @@ pub fn parse_date(s: &str) -> Option<Date> {
             return None;
         }
         let n: i32 = digits.parse().ok()?;
-        let (hh, mm) = if digits.len() <= 2 { (n, 0) } else { (n / 100, n % 100) };
+        let (hh, mm) = if digits.len() <= 2 {
+            (n, 0)
+        } else {
+            (n / 100, n % 100)
+        };
         sign * (hh * 3600 + mm * 60)
     };
-    Some(DateTime::from_naive_utc_and_offset(naive - chrono::Duration::seconds(offset_secs as i64), Utc))
+    Some(DateTime::from_naive_utc_and_offset(
+        naive - chrono::Duration::seconds(offset_secs as i64),
+        Utc,
+    ))
 }
 
 /// The user type of a ban list (`NameAndId` or an ip `String`).
@@ -105,7 +118,13 @@ pub type IpBanListEntry = BanListEntry<String>;
 
 impl<T: BanUser> BanListEntry<T> {
     /// Full constructor (`created`/`source` default like vanilla when `None`).
-    pub fn new(user: Option<T>, created: Option<Date>, source: Option<&str>, expires: Option<Date>, reason: Option<&str>) -> Self {
+    pub fn new(
+        user: Option<T>,
+        created: Option<Date>,
+        source: Option<&str>,
+        expires: Option<Date>,
+        reason: Option<&str>,
+    ) -> Self {
         BanListEntry {
             user,
             created: created.unwrap_or_else(now),
@@ -134,7 +153,13 @@ impl<T: BanUser> BanListEntry<T> {
             None => None,
         };
         let reason = object.get("reason").map(|r| r.as_string()).transpose()?;
-        Ok(BanListEntry { user, created, source, expires, reason })
+        Ok(BanListEntry {
+            user,
+            created,
+            source,
+            expires,
+            reason,
+        })
     }
 }
 
@@ -158,7 +183,15 @@ impl<T: BanUser> StoredUserEntry for BanListEntry<T> {
         user.append_to(object);
         object.add_property_str("created", Some(&format_date(&self.created)));
         object.add_property_str("source", Some(&self.source));
-        object.add_property_str("expires", Some(&self.expires.as_ref().map_or(EXPIRES_NEVER.to_owned(), format_date)));
+        object.add_property_str(
+            "expires",
+            Some(
+                &self
+                    .expires
+                    .as_ref()
+                    .map_or(EXPIRES_NEVER.to_owned(), format_date),
+            ),
+        );
         object.add_property_str("reason", self.reason.as_deref());
     }
 
@@ -167,7 +200,10 @@ impl<T: BanUser> StoredUserEntry for BanListEntry<T> {
     }
 
     fn equals(&self, other: &Self) -> bool {
-        self.source == other.source && self.expires == other.expires && self.reason == other.reason && self.user == other.user
+        self.source == other.source
+            && self.expires == other.expires
+            && self.reason == other.reason
+            && self.user == other.user
     }
 }
 

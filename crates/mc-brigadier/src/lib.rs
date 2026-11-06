@@ -22,15 +22,21 @@ pub mod tree;
 pub mod utf16;
 
 pub use arguments::{ArgumentType, ParsedValue};
-pub use builder::{ArgumentBuilder, LiteralArgumentBuilder, NodeBuilder, RequiredArgumentBuilder, argument, literal};
+pub use builder::{
+    ArgumentBuilder, LiteralArgumentBuilder, NodeBuilder, RequiredArgumentBuilder, argument,
+    literal,
+};
 pub use command::{
-    AmbiguityConsumer, Command, Predicate, RedirectModifier, ResultConsumer, SINGLE_SUCCESS, SingleRedirectModifier,
+    AmbiguityConsumer, Command, Predicate, RedirectModifier, ResultConsumer, SINGLE_SUCCESS,
+    SingleRedirectModifier,
 };
 pub use context::{
-    CommandContext, CommandContextBuilder, ContextChain, IllegalArgumentException, ParsedArgument, ParsedCommandNode,
-    Stage, StringRange, SuggestionContext,
+    CommandContext, CommandContextBuilder, ContextChain, IllegalArgumentException, ParsedArgument,
+    ParsedCommandNode, Stage, StringRange, SuggestionContext,
 };
-pub use dispatcher::{ARGUMENT_SEPARATOR, ARGUMENT_SEPARATOR_CHAR, CommandDispatcher, ParseResults};
+pub use dispatcher::{
+    ARGUMENT_SEPARATOR, ARGUMENT_SEPARATOR_CHAR, CommandDispatcher, ParseResults,
+};
 pub use exceptions::{
     BuiltInExceptionProvider, BuiltInExceptions, CommandExceptionType, CommandSyntaxException,
     Dynamic2CommandExceptionType, Dynamic3CommandExceptionType, Dynamic4CommandExceptionType,

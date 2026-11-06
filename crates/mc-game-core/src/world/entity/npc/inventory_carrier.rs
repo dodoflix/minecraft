@@ -22,7 +22,13 @@ pub trait InventoryCarrier: Entity + Sized {
 
 /// `InventoryCarrier.pickUpItem(level, mob, inventoryCarrier, itemEntity)`.
 pub fn pick_up_item<M: InventoryCarrier>(level: &mut ServerLevel, mob: &mut M, item_id: EntityId) {
-    let Some(item_stack) = level.get_entity(item_id).and_then(|e| e.as_any().downcast_ref::<ItemEntity>()).map(|e| e.get_item()) else { return };
+    let Some(item_stack) = level
+        .get_entity(item_id)
+        .and_then(|e| e.as_any().downcast_ref::<ItemEntity>())
+        .map(|e| e.get_item())
+    else {
+        return;
+    };
     if mob.wants_to_pick_up(level, &item_stack) {
         let has_space = mob.get_inventory().can_add_item(&item_stack);
         if !has_space {
@@ -50,7 +56,10 @@ pub fn pick_up_item<M: InventoryCarrier>(level: &mut ServerLevel, mob: &mut M, i
 /// `readInventoryFromTag(input)`: `input.list("Inventory", ItemStack.CODEC)` into `fromItemList`.
 pub fn read_inventory_from_tag(inventory: &mut SimpleContainer, input: &CompoundTag) {
     if let Some(list) = input.get_list(TAG_INVENTORY) {
-        let stacks: Vec<ItemStack> = list.compounds().filter_map(crate::world::item::load_item_stack).collect();
+        let stacks: Vec<ItemStack> = list
+            .compounds()
+            .filter_map(crate::world::item::load_item_stack)
+            .collect();
         inventory.from_item_list(&stacks);
     }
 }

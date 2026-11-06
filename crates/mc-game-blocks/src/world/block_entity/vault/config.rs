@@ -1,11 +1,11 @@
 //! `VaultConfig`.
 
-use mc_game_core::world::item::ItemStack;
 use mc_core::ident::Identifier;
 use mc_core::math::java::java_double_to_string;
 use mc_data::Item;
 use mc_dfu::extra::IDENTIFIER;
 use mc_dfu::{Codec, DOUBLE, DataResult, record};
+use mc_game_core::world::item::ItemStack;
 use std::sync::LazyLock;
 
 #[derive(Clone, Debug)]
@@ -19,7 +19,8 @@ pub struct VaultConfig {
 
 /// `VaultConfig.DEFAULT`.
 pub static DEFAULT: LazyLock<VaultConfig> = LazyLock::new(|| VaultConfig {
-    loot_table: Identifier::parse("minecraft:chests/trial_chambers/reward").expect("constant identifier"),
+    loot_table: Identifier::parse("minecraft:chests/trial_chambers/reward")
+        .expect("constant identifier"),
     activation_range: 4.0,
     deactivation_range: 4.5,
     key_item: ItemStack::new(Item::TRIAL_KEY),

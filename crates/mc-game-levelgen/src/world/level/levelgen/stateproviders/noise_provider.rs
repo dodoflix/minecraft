@@ -1,13 +1,17 @@
 //! `NoiseProvider` (`noise`).
 
 use super::noise_based_state_provider::NoiseBasedStateProvider;
-use mc_game_core::world::level::levelgen::stateproviders::{BLOCK_STATE_PROVIDER_TYPES, BlockStateProvider};
-use mc_game_core::world::level::LevelAccessor;
-use mc_game_core::world::level::levelgen::codec::{LoadError, LoadResult, Fields, TypeEntry, parse_block_state, parse_list};
 use mc_core::math::mth;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::BlockState;
+use mc_game_core::world::level::LevelAccessor;
+use mc_game_core::world::level::levelgen::codec::{
+    Fields, LoadError, LoadResult, TypeEntry, parse_block_state, parse_list,
+};
+use mc_game_core::world::level::levelgen::stateproviders::{
+    BLOCK_STATE_PROVIDER_TYPES, BlockStateProvider,
+};
 use mc_worldgen::synth::NormalNoise;
 use std::sync::Arc;
 
@@ -17,12 +21,25 @@ pub struct NoiseProvider {
 }
 
 impl NoiseProvider {
-    pub fn new(seed: i64, parameters: &NormalNoise, scale: f32, states: Vec<BlockState>) -> NoiseProvider {
-        NoiseProvider { base: NoiseBasedStateProvider::new(seed, parameters, scale), states }
+    pub fn new(
+        seed: i64,
+        parameters: &NormalNoise,
+        scale: f32,
+        states: Vec<BlockState>,
+    ) -> NoiseProvider {
+        NoiseProvider {
+            base: NoiseBasedStateProvider::new(seed, parameters, scale),
+            states,
+        }
     }
 
     /// `getRandomState(states, pos, scale)`.
-    pub fn get_random_state_at(&self, states: &[BlockState], pos: BlockPos, scale: f64) -> BlockState {
+    pub fn get_random_state_at(
+        &self,
+        states: &[BlockState],
+        pos: BlockPos,
+        scale: f64,
+    ) -> BlockState {
         let noise_value = self.base.get_noise_value(pos, scale);
         get_random_state(states, noise_value)
     }
@@ -44,14 +61,21 @@ pub fn non_empty_states(value: &serde_json::Value) -> LoadResult<Vec<BlockState>
 }
 
 /// `noiseProviderCodec`: `noiseCodec` + `states`.
-pub fn noise_provider_codec(fields: &Fields<'_>) -> LoadResult<(i64, NormalNoise, f32, Vec<BlockState>)> {
+pub fn noise_provider_codec(
+    fields: &Fields<'_>,
+) -> LoadResult<(i64, NormalNoise, f32, Vec<BlockState>)> {
     let (seed, parameters, scale) = NoiseBasedStateProvider::codec(fields)?;
     let states = fields.required("states", non_empty_states)?;
     Ok((seed, parameters, scale, states))
 }
 
 impl BlockStateProvider for NoiseProvider {
-    fn get_state(&self, _level: &dyn LevelAccessor, _random: &mut dyn RandomSource, pos: BlockPos) -> BlockState {
+    fn get_state(
+        &self,
+        _level: &dyn LevelAccessor,
+        _random: &mut dyn RandomSource,
+        pos: BlockPos,
+    ) -> BlockState {
         self.get_random_state_at(&self.states, pos, f64::from(self.base.scale))
     }
 }
@@ -61,6 +85,11 @@ static NOISE: TypeEntry<dyn BlockStateProvider> = TypeEntry {
     name: "noise",
     decode: |fields, _| {
         let (seed, parameters, scale, states) = noise_provider_codec(fields)?;
-        Ok(Arc::new(NoiseProvider::new(seed, &parameters, scale, states)))
+        Ok(Arc::new(NoiseProvider::new(
+            seed,
+            &parameters,
+            scale,
+            states,
+        )))
     },
 };

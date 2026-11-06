@@ -4,8 +4,8 @@ use std::time::Duration;
 
 use mc_protocol::net::{NetError, PacketReader, PacketWriter};
 use mc_protocol::packet::{ConnectionState, PacketFlow};
-use tokio::net::tcp::{OwnedReadHalf, OwnedWriteHalf};
 use tokio::net::TcpStream;
+use tokio::net::tcp::{OwnedReadHalf, OwnedWriteHalf};
 
 use crate::error::BotError;
 use crate::log::{Dir, PacketLog};
@@ -27,8 +27,10 @@ pub trait WirePacket: std::fmt::Debug + Sized {
 macro_rules! wire_packet {
     ($ty:ty, $state:ident, $flow:ident) => {
         impl $crate::conn::WirePacket for $ty {
-            const STATE: ::mc_protocol::packet::ConnectionState = ::mc_protocol::packet::ConnectionState::$state;
-            const FLOW: ::mc_protocol::packet::PacketFlow = ::mc_protocol::packet::PacketFlow::$flow;
+            const STATE: ::mc_protocol::packet::ConnectionState =
+                ::mc_protocol::packet::ConnectionState::$state;
+            const FLOW: ::mc_protocol::packet::PacketFlow =
+                ::mc_protocol::packet::PacketFlow::$flow;
             fn decode_payload(payload: &[u8]) -> Result<Self, ::mc_protocol::codec::DecodeError> {
                 <$ty>::decode_payload(payload)
             }
@@ -62,17 +64,44 @@ pub fn short_name(name: &str) -> &str {
 /// Record one packet (either direction) into the shared log.
 pub fn log_packet<P: WirePacket>(log: &SharedLog, dir: Dir, p: &P, payload: &[u8]) {
     if let Ok(mut l) = log.lock() {
-        l.record(dir, P::STATE.id(), p.packet_id(), short_name(p.packet_name()), format!("{p:?}"), payload);
+        l.record(
+            dir,
+            P::STATE.id(),
+            p.packet_id(),
+            short_name(p.packet_name()),
+            format!("{p:?}"),
+            payload,
+        );
     }
 }
 
 /// Record a payload that failed to decode (name from `packets.json`, debug = the error).
-pub fn log_undecodable(log: &SharedLog, state: ConnectionState, flow: PacketFlow, payload: &[u8], err: &str) {
+pub fn log_undecodable(
+    log: &SharedLog,
+    state: ConnectionState,
+    flow: PacketFlow,
+    payload: &[u8],
+    err: &str,
+) {
     let id = mc_protocol::codec::read_varint(&mut &payload[..]).unwrap_or(-1);
-    let name = mc_protocol::packet::packet_name(state, flow, id).map(short_name).map(str::to_string).unwrap_or(format!("?{id}"));
+    let name = mc_protocol::packet::packet_name(state, flow, id)
+        .map(short_name)
+        .map(str::to_string)
+        .unwrap_or(format!("?{id}"));
     if let Ok(mut l) = log.lock() {
-        let dir = if flow == PacketFlow::Clientbound { Dir::In } else { Dir::Out };
-        l.record(dir, state.id(), id, &name, format!("<decode error: {err}>"), payload);
+        let dir = if flow == PacketFlow::Clientbound {
+            Dir::In
+        } else {
+            Dir::Out
+        };
+        l.record(
+            dir,
+            state.id(),
+            id,
+            &name,
+            format!("<decode error: {err}>"),
+            payload,
+        );
     }
 }
 
@@ -91,13 +120,23 @@ pub struct Conn {
 }
 
 impl Conn {
-    pub async fn connect(host: &str, port: u16, timeout: Duration, log: SharedLog) -> Result<Conn, BotError> {
+    pub async fn connect(
+        host: &str,
+        port: u16,
+        timeout: Duration,
+        log: SharedLog,
+    ) -> Result<Conn, BotError> {
         let stream = tokio::time::timeout(timeout, TcpStream::connect((host, port)))
             .await
             .map_err(|_| BotError::Timeout(format!("connecting to {host}:{port}")))??;
         stream.set_nodelay(true)?;
         let (r, w) = stream.into_split();
-        Ok(Conn { reader: PacketReader::new(r), writer: PacketWriter::new(w), log, timeout })
+        Ok(Conn {
+            reader: PacketReader::new(r),
+            writer: PacketWriter::new(w),
+            log,
+            timeout,
+        })
     }
 
     pub async fn send<P: WirePacket>(&mut self, p: &P) -> Result<(), BotError> {

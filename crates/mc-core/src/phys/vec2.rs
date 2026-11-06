@@ -42,7 +42,11 @@ impl Vec2 {
 
     pub fn normalized(&self) -> Vec2 {
         let dist = mth::sqrt(self.x * self.x + self.y * self.y);
-        if dist < 1.0E-4 { Vec2::ZERO } else { Vec2::new(self.x / dist, self.y / dist) }
+        if dist < 1.0E-4 {
+            Vec2::ZERO
+        } else {
+            Vec2::new(self.x / dist, self.y / dist)
+        }
     }
 
     pub fn length(&self) -> f32 {
@@ -66,6 +70,9 @@ impl Vec2 {
     pub fn rotate(&self, angle_radians: f64) -> Vec2 {
         let cosine = mth::cos(angle_radians);
         let sine = mth::sin(angle_radians);
-        Vec2::new(self.x * cosine - self.y * sine, self.y * cosine + self.x * sine)
+        Vec2::new(
+            self.x * cosine - self.y * sine,
+            self.y * cosine + self.x * sine,
+        )
     }
 }

@@ -3,7 +3,6 @@
 //! operation is replayed and its result compared with the `=` line, then the dump of all chunks (blocks, block entity NBT,
 //! heightmaps, post-processing, ticks, entities, region random) is compared line by line.
 
-
 use crate::common::feature_harness::*;
 use mc_core::pos::BlockPos;
 use mc_data::block::Block;
@@ -27,7 +26,9 @@ fn exec(level: &mut mc_game::world::level::levelgen::gen_level::GenLevel<'_>, op
     let t: Vec<&str> = op.split(' ').collect();
     let biome_name = |id| WORLD.biomes.key(id).path().to_string();
     match t[0] {
-        "set" => level.set_block(bp(&t), parse_state(t[4]), int(t[5]) as u32, 512).to_string(),
+        "set" => level
+            .set_block(bp(&t), parse_state(t[4]), int(t[5]) as u32, 512)
+            .to_string(),
         "remove" => level.remove_block(bp(&t), false).to_string(),
         "destroy" => level.destroy_block(bp(&t), true, None, 512).to_string(),
         "get" => state_string(level.get_block_state(bp(&t))),
@@ -35,7 +36,9 @@ fn exec(level: &mut mc_game::world::level::levelgen::gen_level::GenLevel<'_>, op
             let f = level.get_fluid_state(bp(&t));
             format!("{} {}", f.amount(), f.is_source())
         }
-        "height" => level.get_height_at(heightmap_by_name(t[1]), int(t[2]), int(t[3])).to_string(),
+        "height" => level
+            .get_height_at(heightmap_by_name(t[1]), int(t[2]), int(t[3]))
+            .to_string(),
         "biome" => biome_name(level.get_biome(bp(&t))),
         "noisebiome" => biome_name(level.get_noise_biome(int(t[1]), int(t[2]), int(t[3]))),
         "uncached" => biome_name(level.get_uncached_noise_biome(int(t[1]), int(t[2]), int(t[3]))),
@@ -50,7 +53,11 @@ fn exec(level: &mut mc_game::world::level::levelgen::gen_level::GenLevel<'_>, op
             level.set_block_entity_nbt(mc_nbt::snbt::parse_compound(&op[6..]).expect("snbt"));
             "ok".into()
         }
-        "getbe" => level.get_block_entity_nbt(bp(&t)).map_or("-".to_string(), |tag| Tag::Compound(tag.clone()).to_string()),
+        "getbe" => level
+            .get_block_entity_nbt(bp(&t))
+            .map_or("-".to_string(), |tag| {
+                Tag::Compound(tag.clone()).to_string()
+            }),
         "rmbe" => {
             level.remove_block_entity_nbt(bp(&t));
             "ok".into()
@@ -60,15 +67,29 @@ fn exec(level: &mut mc_game::world::level::levelgen::gen_level::GenLevel<'_>, op
             "ok".into()
         }
         "tickb" => {
-            level.schedule_block_tick(bp(&t), Block::by_name(t[4]).expect("block"), int(t[5]), TickPriority::by_value(int(t[6])));
+            level.schedule_block_tick(
+                bp(&t),
+                Block::by_name(t[4]).expect("block"),
+                int(t[5]),
+                TickPriority::by_value(int(t[6])),
+            );
             "ok".into()
         }
         "tickf" => {
-            level.schedule_fluid_tick(bp(&t), Fluid::by_name(t[4]).expect("fluid"), int(t[5]), TickPriority::by_value(int(t[6])));
+            level.schedule_fluid_tick(
+                bp(&t),
+                Fluid::by_name(t[4]).expect("fluid"),
+                int(t[5]),
+                TickPriority::by_value(int(t[6])),
+            );
             "ok".into()
         }
-        "hastickb" => level.has_scheduled_block_tick(bp(&t), Block::by_name(t[4]).expect("block")).to_string(),
-        "hastickf" => level.has_scheduled_fluid_tick(bp(&t), Fluid::by_name(t[4]).expect("fluid")).to_string(),
+        "hastickb" => level
+            .has_scheduled_block_tick(bp(&t), Block::by_name(t[4]).expect("block"))
+            .to_string(),
+        "hastickf" => level
+            .has_scheduled_fluid_tick(bp(&t), Fluid::by_name(t[4]).expect("fluid"))
+            .to_string(),
         "rand" => level.random().next_int_bounded(int(t[1])).to_string(),
         "subtick" => level.next_sub_tick_count().to_string(),
         other => panic!("unknown op {other}"),
@@ -77,14 +98,23 @@ fn exec(level: &mut mc_game::world::level::levelgen::gen_level::GenLevel<'_>, op
 
 #[test]
 fn gen_level_matches_vanilla_region() {
-    let fixture = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/../mc-game/tests/fixtures/gen_level.txt")).expect("fixture present");
+    let fixture = std::fs::read_to_string(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/../mc-game/tests/fixtures/gen_level.txt"
+    ))
+    .expect("fixture present");
     let mut lines = fixture.lines().peekable();
     let (mut scenarios, mut ops, mut dump_lines) = (0, 0, 0);
     let mut failures: Vec<String> = Vec::new();
     while let Some(header) = lines.next() {
         let h: Vec<&str> = header.split(' ').collect();
         assert_eq!(h[0], "SCENARIO", "{header}");
-        let (seed, cx, cz, radius) = (h[2].parse::<i64>().unwrap(), int(h[3]), int(h[4]), int(h[6]));
+        let (seed, cx, cz, radius) = (
+            h[2].parse::<i64>().unwrap(),
+            int(h[3]),
+            int(h[4]),
+            int(h[6]),
+        );
         let prime_wg = int(h[7]) == 1;
         let step = ChunkStatus::decode_str(h[5]).expect("step status");
         let mut synth = SynthRegion::with_wg_heightmaps(seed, cx, cz, step, radius, prime_wg);
@@ -96,11 +126,17 @@ fn gen_level_matches_vanilla_region() {
                 break;
             }
             if let Some(op) = line.strip_prefix("> ") {
-                let want = lines.next().and_then(|l| l.strip_prefix("= ")).expect("result line");
+                let want = lines
+                    .next()
+                    .and_then(|l| l.strip_prefix("= "))
+                    .expect("result line");
                 let got = exec(&mut level, op);
                 ops += 1;
                 if got != want && failures.len() < 20 {
-                    failures.push(format!("scenario {} op `{op}`: got `{got}`, vanilla `{want}`", h[1]));
+                    failures.push(format!(
+                        "scenario {} op `{op}`: got `{got}`, vanilla `{want}`",
+                        h[1]
+                    ));
                 }
             } else if let Some(d) = line.strip_prefix("D ") {
                 expected_dump.push(d.to_string());
@@ -111,7 +147,11 @@ fn gen_level_matches_vanilla_region() {
         let got_dump = dump(&mut level, &before);
         dump_lines += expected_dump.len();
         if got_dump != expected_dump {
-            let first = got_dump.iter().zip(&expected_dump).position(|(a, b)| a != b).unwrap_or(got_dump.len().min(expected_dump.len()));
+            let first = got_dump
+                .iter()
+                .zip(&expected_dump)
+                .position(|(a, b)| a != b)
+                .unwrap_or(got_dump.len().min(expected_dump.len()));
             failures.push(format!(
                 "scenario {} dump differs at line {first}: ours `{}`, vanilla `{}` ({} vs {} lines)",
                 h[1],
@@ -123,6 +163,14 @@ fn gen_level_matches_vanilla_region() {
         }
         scenarios += 1;
     }
-    assert!(failures.is_empty(), "{} scenarios, {ops} ops, {dump_lines} dump lines:\n{}", scenarios, failures.join("\n"));
-    assert!(ops > 4000 && dump_lines > 1000, "fixture too small: {ops} ops, {dump_lines} dump lines");
+    assert!(
+        failures.is_empty(),
+        "{} scenarios, {ops} ops, {dump_lines} dump lines:\n{}",
+        scenarios,
+        failures.join("\n")
+    );
+    assert!(
+        ops > 4000 && dump_lines > 1000,
+        "fixture too small: {ops} ops, {dump_lines} dump lines"
+    );
 }

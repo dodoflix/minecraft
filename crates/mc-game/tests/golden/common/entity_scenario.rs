@@ -37,7 +37,10 @@
 //! * Output: `T n`, `P`/`E` lines for `dump`/`watch` (`player:`, `entity:`, `mob:`, `entities`, `mobs`, `all_players`), `HURT`, `EFFECT`,
 //!   `# note`. Base/living/player/item fields are written by this module, extra fields of the rich mob dumps by the
 //!   `SCENARIO_DUMP_EXTRA` registry.
-#![allow(dead_code, reason = "each test target uses a subset of the shared helpers")]
+#![allow(
+    dead_code,
+    reason = "each test target uses a subset of the shared helpers"
+)]
 
 use super::entity_oracle::{Fixture, Options, scenario_dir};
 
@@ -52,14 +55,16 @@ use mc_data::block::{Block, BlockState};
 use mc_data::enums::{GameType, Pose};
 use mc_data::{Attribute, EntityType, Item, MobEffect};
 use mc_game::server::level::ServerLevel;
+use mc_game::world::container::Container as _;
 use mc_game::world::damagesource::DamageSource;
 use mc_game::world::entity::effect::MobEffectInstance;
 use mc_game::world::entity::equipment::EquipmentSlot;
 use mc_game::world::entity::factory::{self, EntitySpawnRequest};
 use mc_game::world::entity::item::ItemEntity;
-use mc_game::world::entity::scenario_dump::{SCENARIO_DUMP_EXTRA, SCENARIO_FINALIZE_SPAWN, ScenarioDumpCtx};
+use mc_game::world::entity::scenario_dump::{
+    SCENARIO_DUMP_EXTRA, SCENARIO_FINALIZE_SPAWN, ScenarioDumpCtx,
+};
 use mc_game::world::entity::{Entity, EntityId, ServerPlayer};
-use mc_game::world::container::Container as _;
 use mc_game::world::item::ItemStack;
 use mc_game::world::item::trading::Merchant as _;
 use mc_game::world::level::LevelAccessor;
@@ -84,7 +89,8 @@ pub fn run_scenario_test_with(name: &str, opts: &Options) {
 /// Replay a scenario and return the lines the Java driver would have printed.
 pub fn run_scenario(name: &str) -> Vec<String> {
     let path = scenario_dir().join(format!("{name}.txt"));
-    let text = std::fs::read_to_string(&path).unwrap_or_else(|e| panic!("scenario {}: {e}", path.display()));
+    let text = std::fs::read_to_string(&path)
+        .unwrap_or_else(|e| panic!("scenario {}: {e}", path.display()));
     run_scenario_text(name, &text)
 }
 
@@ -171,7 +177,14 @@ pub fn parse_state(text: &str) -> BlockState {
         None => (text, ""),
     };
     let block = Block::by_name(name).unwrap_or_else(|| panic!("unknown block {name}"));
-    block.state_from_properties(props.split(',').filter(|p| !p.is_empty()).map(|p| p.split_once('=').expect("prop=value"))).unwrap_or_else(|| panic!("bad state {text}"))
+    block
+        .state_from_properties(
+            props
+                .split(',')
+                .filter(|p| !p.is_empty())
+                .map(|p| p.split_once('=').expect("prop=value")),
+        )
+        .unwrap_or_else(|| panic!("bad state {text}"))
 }
 
 /// The driver's `item()`: `id*count[/dmg=N]`.
@@ -194,7 +207,12 @@ pub fn item_full(s: &ItemStack) -> String {
     if s.is_empty() || patch.is_empty() {
         return base;
     }
-    let tag = mc_dfu::encode_nbt(&mc_protocol::components::DataComponentPatch::codec(), &patch).into_result().expect("patch encodes");
+    let tag = mc_dfu::encode_nbt(
+        &mc_protocol::components::DataComponentPatch::codec(),
+        &patch,
+    )
+    .into_result()
+    .expect("patch encodes");
     format!("{base}{}", canon(&tag))
 }
 
@@ -204,7 +222,10 @@ pub fn canon(tag: &Tag) -> String {
         Tag::Compound(c) => {
             let mut keys: Vec<&String> = c.keys().collect();
             keys.sort();
-            let parts: Vec<String> = keys.iter().map(|k| format!("{k}:{}", canon(c.get(k).expect("key exists")))).collect();
+            let parts: Vec<String> = keys
+                .iter()
+                .map(|k| format!("{k}:{}", canon(c.get(k).expect("key exists"))))
+                .collect();
             format!("{{{}}}", parts.join(","))
         }
         Tag::List(l) => format!("[{}]", l.iter().map(canon).collect::<Vec<_>>().join(",")),
@@ -214,12 +235,18 @@ pub fn canon(tag: &Tag) -> String {
 
 // ------------------------------------------------------------------------------------------------ the harness
 
-static REGISTRIES: std::sync::LazyLock<mc_game::registry::RegistryAccess> = std::sync::LazyLock::new(|| {
-    let _serial = super::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
-    let dir = tempfile::tempdir().unwrap();
-    let (_, stem) = super::load_world(dir.path(), mc_world::level_storage::WorldDataConfiguration::DEFAULT, true).expect("default world loads");
-    stem.registries.composite_access().clone()
-});
+static REGISTRIES: std::sync::LazyLock<mc_game::registry::RegistryAccess> =
+    std::sync::LazyLock::new(|| {
+        let _serial = super::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
+        let dir = tempfile::tempdir().unwrap();
+        let (_, stem) = super::load_world(
+            dir.path(),
+            mc_world::level_storage::WorldDataConfiguration::DEFAULT,
+            true,
+        )
+        .expect("default world loads");
+        stem.registries.composite_access().clone()
+    });
 
 fn registries() -> mc_game::registry::RegistryAccess {
     REGISTRIES.clone()
@@ -253,7 +280,9 @@ impl Harness {
         let mut level = ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap());
         level.registries = registries();
         let world = mc_game::server::level::level_data::default_world_data();
-        level.level_data = Box::new(mc_game::server::level::level_data::PrimaryServerLevelData(world.clone()));
+        level.level_data = Box::new(mc_game::server::level::level_data::PrimaryServerLevelData(
+            world.clone(),
+        ));
         mc_core::random::reseed_uniquifier(8682522807148012);
         level.entity_id_counter = Some(std::sync::atomic::AtomicI32::new(0));
         // `Level.random` is seeded at boot like the oracle (`o.seed ^ 0x5DEECE66DL`, default world seed 4242)
@@ -284,15 +313,20 @@ impl Harness {
     }
 
     fn fail(&self, msg: &str) -> ! {
-        panic!("scenario {}:{}: `{}`: {msg}", self.label, self.line_no, self.line)
+        panic!(
+            "scenario {}:{}: `{}`: {msg}",
+            self.label, self.line_no, self.line
+        )
     }
 
     fn num(&self, s: &str) -> f64 {
-        s.parse::<f64>().unwrap_or_else(|_| self.fail(&format!("not a number: {s}")))
+        s.parse::<f64>()
+            .unwrap_or_else(|_| self.fail(&format!("not a number: {s}")))
     }
 
     fn int(&self, s: &str) -> i32 {
-        s.parse::<i32>().unwrap_or_else(|_| self.fail(&format!("not an integer: {s}")))
+        s.parse::<i32>()
+            .unwrap_or_else(|_| self.fail(&format!("not an integer: {s}")))
     }
 
     // ---- world --------------------------------------------------------------------------------------------
@@ -304,7 +338,11 @@ impl Harness {
         }
         self.booted = true;
         if self.flat {
-            let (bedrock, dirt, grass) = (Block::BEDROCK.default_state(), Block::DIRT.default_state(), Block::GRASS_BLOCK.default_state());
+            let (bedrock, dirt, grass) = (
+                Block::BEDROCK.default_state(),
+                Block::DIRT.default_state(),
+                Block::GRASS_BLOCK.default_state(),
+            );
             self.fill([-64, -64, -64], [64, -64, 64], bedrock);
             self.fill([-64, -63, -64], [64, -62, 64], dirt);
             self.fill([-64, -61, -64], [64, -61, 64], grass);
@@ -313,7 +351,8 @@ impl Harness {
     }
 
     fn set_block(&mut self, x: i32, y: i32, z: i32, state: BlockState) {
-        self.level.set_block_and_update(BlockPos::new(x, y, z), state);
+        self.level
+            .set_block_and_update(BlockPos::new(x, y, z), state);
     }
 
     fn fill(&mut self, a: [i32; 3], b: [i32; 3], state: BlockState) {
@@ -329,7 +368,10 @@ impl Harness {
     // ---- entities -------------------------------------------------------------------------------------------
 
     fn entity_ref(&self, name: &str) -> EntityId {
-        *self.refs.get(name).unwrap_or_else(|| self.fail(&format!("unknown ref {name}")))
+        *self
+            .refs
+            .get(name)
+            .unwrap_or_else(|| self.fail(&format!("unknown ref {name}")))
     }
 
     /// Register a created entity (its id came from the level's private counter = the oracle's `Entity.ENTITY_COUNTER`), name it, add it to the level and the tick order.
@@ -354,8 +396,14 @@ impl Harness {
         ids.sort_unstable();
         for id in ids {
             if self.known.insert(id) {
-                let Some(e) = self.level.get_entity(id) else { continue };
-                let path = e.get_type().name().trim_start_matches("minecraft:").to_string();
+                let Some(e) = self.level.get_entity(id) else {
+                    continue;
+                };
+                let path = e
+                    .get_type()
+                    .name()
+                    .trim_start_matches("minecraft:")
+                    .to_string();
                 let n = self.auto.entry(path.clone()).or_insert(0);
                 *n += 1;
                 let name = format!("{path}#{n}");
@@ -369,9 +417,25 @@ impl Harness {
     }
 
     /// `EntityType.create` + `snapTo` (+ merged SNBT) for `spawn`/`mobspawn`; the entity is not added yet.
-    pub fn create_entity(&mut self, type_name: &str, reason: mc_data::enums::EntitySpawnReason, pos: (f64, f64, f64), rot: (f32, f32), snbt: Option<&str>) -> Box<dyn Entity> {
-        let ty = EntityType::by_name(type_name).unwrap_or_else(|| self.fail(&format!("unknown entity type {type_name}")));
-        let mut e = factory::create(ty, &self.level, EntitySpawnRequest { reason, ignore_checks: false }).unwrap_or_else(|| self.fail(&format!("cannot create {type_name}")));
+    pub fn create_entity(
+        &mut self,
+        type_name: &str,
+        reason: mc_data::enums::EntitySpawnReason,
+        pos: (f64, f64, f64),
+        rot: (f32, f32),
+        snbt: Option<&str>,
+    ) -> Box<dyn Entity> {
+        let ty = EntityType::by_name(type_name)
+            .unwrap_or_else(|| self.fail(&format!("unknown entity type {type_name}")));
+        let mut e = factory::create(
+            ty,
+            &self.level,
+            EntitySpawnRequest {
+                reason,
+                ignore_checks: false,
+            },
+        )
+        .unwrap_or_else(|| self.fail(&format!("cannot create {type_name}")));
         e.snap_to(pos.0, pos.1, pos.2, rot.0, rot.1);
         if let Some(s) = snbt {
             self.merge_snbt(e.as_mut(), s);
@@ -380,31 +444,52 @@ impl Harness {
     }
 
     fn merge_snbt(&self, e: &mut dyn Entity, snbt: &str) {
-        let extra = mc_nbt::snbt::parse_compound(snbt).unwrap_or_else(|err| self.fail(&format!("bad SNBT: {}", err.message())));
+        let extra = mc_nbt::snbt::parse_compound(snbt)
+            .unwrap_or_else(|err| self.fail(&format!("bad SNBT: {}", err.message())));
         let mut tag = CompoundTag::new();
         e.save_without_id(&mut tag, &|_| None);
         tag.merge(&extra);
-        e.load(&tag).unwrap_or_else(|err| self.fail(&format!("load: {err}")));
+        e.load(&tag)
+            .unwrap_or_else(|err| self.fail(&format!("load: {err}")));
     }
 
     fn item_stack(&self, spec: &str, count: i32) -> ItemStack {
         if spec.contains('[') || spec.contains('{') {
             self.fail("item components/NBT are not replayed (plain item ids only)");
         }
-        let item = Item::by_name(spec).unwrap_or_else(|| self.fail(&format!("unknown item {spec}")));
+        let item =
+            Item::by_name(spec).unwrap_or_else(|| self.fail(&format!("unknown item {spec}")));
         ItemStack::with_count(item, count)
     }
 
-    fn with_entity<R>(&mut self, name: &str, f: impl FnOnce(&mut ServerLevel, &mut dyn Entity) -> R) -> R {
+    fn with_entity<R>(
+        &mut self,
+        name: &str,
+        f: impl FnOnce(&mut ServerLevel, &mut dyn Entity) -> R,
+    ) -> R {
         let id = self.entity_ref(name);
         let line = self.line.clone();
-        self.level.with_entity(id, f).unwrap_or_else(|| panic!("scenario {}:{}: `{line}`: entity {name} is not in the level", self.label, self.line_no))
+        self.level.with_entity(id, f).unwrap_or_else(|| {
+            panic!(
+                "scenario {}:{}: `{line}`: entity {name} is not in the level",
+                self.label, self.line_no
+            )
+        })
     }
 
-    fn with_player<R>(&mut self, name: &str, f: impl FnOnce(&mut ServerLevel, &mut ServerPlayer) -> R) -> R {
+    fn with_player<R>(
+        &mut self,
+        name: &str,
+        f: impl FnOnce(&mut ServerLevel, &mut ServerPlayer) -> R,
+    ) -> R {
         let id = self.entity_ref(name);
         let line = self.line.clone();
-        self.level.with_player(id, f).unwrap_or_else(|| panic!("scenario {}:{}: `{line}`: {name} is not a player", self.label, self.line_no))
+        self.level.with_player(id, f).unwrap_or_else(|| {
+            panic!(
+                "scenario {}:{}: `{line}`: {name} is not a player",
+                self.label, self.line_no
+            )
+        })
     }
 
     // ---- commands -------------------------------------------------------------------------------------------
@@ -426,7 +511,9 @@ impl Harness {
                 match a[1].as_str() {
                     "flat" => self.flat = true,
                     "void" => self.flat = false,
-                    other => self.fail(&format!("level type {other} is not supported by the replay")),
+                    other => self.fail(&format!(
+                        "level type {other} is not supported by the replay"
+                    )),
                 }
             }
             "seed" => {
@@ -436,7 +523,9 @@ impl Harness {
             }
             "level_seed" => {
                 use mc_core::random::RandomSource as _;
-                let n = a[1].parse::<i64>().unwrap_or_else(|_| self.fail("level_seed"));
+                let n = a[1]
+                    .parse::<i64>()
+                    .unwrap_or_else(|_| self.fail("level_seed"));
                 self.level.tick_state.random.set_seed(n);
             }
             "preload" => {}
@@ -455,22 +544,43 @@ impl Harness {
                 self.world();
                 let v = a[2] == "true";
                 let name = a[1].clone();
-                let modelled = ["keep_inventory", "fall_damage", "fire_damage", "drowning_damage", "freeze_damage", "show_death_messages", "forgive_dead_players"];
+                let modelled = [
+                    "keep_inventory",
+                    "fall_damage",
+                    "fire_damage",
+                    "drowning_damage",
+                    "freeze_damage",
+                    "show_death_messages",
+                    "forgive_dead_players",
+                ];
                 // quiet-world defaults of the oracle that the replay never contradicts
                 let quiet = [
-                    "advance_time", "advance_weather", "spawn_mobs", "spawn_monsters", "spawn_patrols", "spawn_phantoms", "spawn_wandering_traders", "spawn_wardens", "raids",
-                    "log_admin_commands", "send_command_feedback", "random_tick_speed",
+                    "advance_time",
+                    "advance_weather",
+                    "spawn_mobs",
+                    "spawn_monsters",
+                    "spawn_patrols",
+                    "spawn_phantoms",
+                    "spawn_wandering_traders",
+                    "spawn_wardens",
+                    "raids",
+                    "log_admin_commands",
+                    "send_command_feedback",
+                    "random_tick_speed",
                 ];
                 if modelled.contains(&name.as_str()) {
-                    self.level.server_state.rules.update(|r| match name.as_str() {
-                        "keep_inventory" => r.keep_inventory = v,
-                        "fall_damage" => r.fall_damage = v,
-                        "fire_damage" => r.fire_damage = v,
-                        "drowning_damage" => r.drowning_damage = v,
-                        "freeze_damage" => r.freeze_damage = v,
-                        "show_death_messages" => r.show_death_messages = v,
-                        _ => r.forgive_dead_players = v,
-                    });
+                    self.level
+                        .server_state
+                        .rules
+                        .update(|r| match name.as_str() {
+                            "keep_inventory" => r.keep_inventory = v,
+                            "fall_damage" => r.fall_damage = v,
+                            "fire_damage" => r.fire_damage = v,
+                            "drowning_damage" => r.drowning_damage = v,
+                            "freeze_damage" => r.freeze_damage = v,
+                            "show_death_messages" => r.show_death_messages = v,
+                            _ => r.forgive_dead_players = v,
+                        });
                 } else if !quiet.contains(&name.as_str()) {
                     self.fail(&format!("gamerule {name} is not modelled by the replay"));
                 }
@@ -530,7 +640,16 @@ impl Harness {
                 let stack = self.item_stack(&a[2], count);
                 let (x, y, z) = (self.num(&a[3]), self.num(&a[4]), self.num(&a[5]));
                 let ie = if a.len() >= 9 {
-                    ItemEntity::with_stack_and_motion(&self.level, x, y, z, stack, self.num(&a[6]), self.num(&a[7]), self.num(&a[8]))
+                    ItemEntity::with_stack_and_motion(
+                        &self.level,
+                        x,
+                        y,
+                        z,
+                        stack,
+                        self.num(&a[6]),
+                        self.num(&a[7]),
+                        self.num(&a[8]),
+                    )
                 } else {
                     ItemEntity::with_stack(&self.level, x, y, z, stack)
                 };
@@ -539,7 +658,9 @@ impl Harness {
             "entity_seed" => {
                 self.world();
                 let seed = self.num(&a[2]) as i64;
-                self.with_entity(&a[1], |_, e| e.base_mut().random = mc_core::random::LegacyRandomSource::new(seed));
+                self.with_entity(&a[1], |_, e| {
+                    e.base_mut().random = mc_core::random::LegacyRandomSource::new(seed)
+                });
             }
             "spawn_player" => {
                 self.world();
@@ -551,19 +672,33 @@ impl Harness {
             }
             "effect" => {
                 self.world();
-                let effect = MobEffect::by_name(&a[2]).unwrap_or_else(|| self.fail(&format!("effect {}", a[2])));
+                let effect = MobEffect::by_name(&a[2])
+                    .unwrap_or_else(|| self.fail(&format!("effect {}", a[2])));
                 let (amp, dur) = (self.int(&a[3]), self.int(&a[4]));
                 let hidden = a.iter().any(|t| t == "hidden");
-                let added = self.with_entity(&a[1], |level, e| e.add_effect(level, MobEffectInstance::new(effect, dur, amp, false, !hidden, !hidden, None), None));
-                self.out.push(format!("EFFECT {} {} added={added}", a[1], a[2]));
+                let added = self.with_entity(&a[1], |level, e| {
+                    e.add_effect(
+                        level,
+                        MobEffectInstance::new(effect, dur, amp, false, !hidden, !hidden, None),
+                        None,
+                    )
+                });
+                self.out
+                    .push(format!("EFFECT {} {} added={added}", a[1], a[2]));
             }
             "attribute" => {
                 self.world();
-                let attribute = Attribute::by_name(&a[2]).unwrap_or_else(|| self.fail(&format!("attribute {}", a[2])));
+                let attribute = Attribute::by_name(&a[2])
+                    .unwrap_or_else(|| self.fail(&format!("attribute {}", a[2])));
                 let value = self.num(&a[3]);
                 self.with_entity(&a[1], |_, e| {
-                    let l = e.living_mut().unwrap_or_else(|| panic!("attribute on a non-living entity"));
-                    l.attributes.get_instance(attribute).unwrap_or_else(|| panic!("entity has no attribute {attribute:?}")).set_base_value(value);
+                    let l = e
+                        .living_mut()
+                        .unwrap_or_else(|| panic!("attribute on a non-living entity"));
+                    l.attributes
+                        .get_instance(attribute)
+                        .unwrap_or_else(|| panic!("entity has no attribute {attribute:?}"))
+                        .set_base_value(value);
                 });
             }
             "set" => {
@@ -576,19 +711,31 @@ impl Harness {
                 let line = self.line.clone();
                 let (label, no) = (self.label.clone(), self.line_no);
                 self.with_entity(&a[1], |_, e| {
-                    let extra = mc_nbt::snbt::parse_compound(&rest).unwrap_or_else(|err| panic!("scenario {label}:{no}: `{line}`: bad SNBT: {}", err.message()));
+                    let extra = mc_nbt::snbt::parse_compound(&rest).unwrap_or_else(|err| {
+                        panic!(
+                            "scenario {label}:{no}: `{line}`: bad SNBT: {}",
+                            err.message()
+                        )
+                    });
                     let mut tag = CompoundTag::new();
                     e.save_without_id(&mut tag, &|_| None);
                     tag.merge(&extra);
-                    e.load(&tag).unwrap_or_else(|err| panic!("scenario {label}:{no}: load: {err}"));
+                    e.load(&tag)
+                        .unwrap_or_else(|err| panic!("scenario {label}:{no}: load: {err}"));
                 });
             }
             "snap" => {
                 self.world();
                 let (x, y, z) = (self.num(&a[2]), self.num(&a[3]), self.num(&a[4]));
-                let rot = (a.get(5).map(|s| self.num(s) as f32), a.get(6).map(|s| self.num(s) as f32));
+                let rot = (
+                    a.get(5).map(|s| self.num(s) as f32),
+                    a.get(6).map(|s| self.num(s) as f32),
+                );
                 self.with_entity(&a[1], |_, e| {
-                    let (yr, xr) = (rot.0.unwrap_or_else(|| e.base().y_rot()), rot.1.unwrap_or_else(|| e.base().x_rot()));
+                    let (yr, xr) = (
+                        rot.0.unwrap_or_else(|| e.base().y_rot()),
+                        rot.1.unwrap_or_else(|| e.base().x_rot()),
+                    );
                     e.snap_to(x, y, z, yr, xr);
                 });
             }
@@ -613,11 +760,22 @@ impl Harness {
                 self.world();
                 let flags: Vec<&str> = a[2].split(',').collect();
                 let has = |f: &str| flags.contains(&f);
-                let input = Input { forward: has("forward"), backward: has("back"), left: has("left"), right: has("right"), jump: has("jump"), shift: has("sneak"), sprint: has("sprint") };
+                let input = Input {
+                    forward: has("forward"),
+                    backward: has("back"),
+                    left: has("left"),
+                    right: has("right"),
+                    jump: has("jump"),
+                    shift: has("sneak"),
+                    sprint: has("sprint"),
+                };
                 self.with_player(&a[1], |_, p| {
                     p.last_client_input = input;
                     // `handlePlayerInput`
-                    p.base_mut().set_shared_flag(mc_game::world::entity::entity::FLAG_SHIFT_KEY_DOWN, input.shift);
+                    p.base_mut().set_shared_flag(
+                        mc_game::world::entity::entity::FLAG_SHIFT_KEY_DOWN,
+                        input.shift,
+                    );
                 });
             }
             "hurt" => {
@@ -640,7 +798,11 @@ impl Harness {
             }
             "dump" => {
                 self.world();
-                let what: Vec<String> = if a.len() > 1 { a[1..].to_vec() } else { vec!["entities".into(), "all_players".into()] };
+                let what: Vec<String> = if a.len() > 1 {
+                    a[1..].to_vec()
+                } else {
+                    vec!["entities".into(), "all_players".into()]
+                };
                 self.dump(&what);
             }
             other => {
@@ -662,8 +824,18 @@ impl Harness {
         } else {
             None
         };
-        let rot = if n > 7 { (self.num(&a[6]) as f32, self.num(&a[7]) as f32) } else { (0.0, 0.0) };
-        let e = self.create_entity(&a[2], mc_data::enums::EntitySpawnReason::Command, (self.num(&a[3]), self.num(&a[4]), self.num(&a[5])), rot, snbt.as_deref());
+        let rot = if n > 7 {
+            (self.num(&a[6]) as f32, self.num(&a[7]) as f32)
+        } else {
+            (0.0, 0.0)
+        };
+        let e = self.create_entity(
+            &a[2],
+            mc_data::enums::EntitySpawnReason::Command,
+            (self.num(&a[3]), self.num(&a[4]), self.num(&a[5])),
+            rot,
+            snbt.as_deref(),
+        );
         self.add_entity(&name, e);
     }
 
@@ -685,8 +857,18 @@ impl Harness {
                 rot.push(self.num(t) as f32);
             }
         }
-        let rot = if rot.len() > 1 { (rot[0], rot[1]) } else { (0.0, 0.0) };
-        let mut e = self.create_entity(&a[2], reason, (self.num(&a[3]), self.num(&a[4]), self.num(&a[5])), rot, snbt);
+        let rot = if rot.len() > 1 {
+            (rot[0], rot[1])
+        } else {
+            (0.0, 0.0)
+        };
+        let mut e = self.create_entity(
+            &a[2],
+            reason,
+            (self.num(&a[3]), self.num(&a[4]), self.num(&a[5])),
+            rot,
+            snbt,
+        );
         if finalize {
             for hook in SCENARIO_FINALIZE_SPAWN.iter() {
                 hook(&mut self.level, e.as_mut(), reason);
@@ -698,12 +880,26 @@ impl Harness {
     /// `trades REF PROFESSION LEVEL SEED [type=..]`: a villager with that data, its entity random seeded, offers generated by `getOffers()`.
     fn trades(&mut self, a: &[String]) {
         let name = a[1].clone();
-        let ty = a[5..].iter().find_map(|t| t.strip_prefix("type=")).unwrap_or("minecraft:plains");
+        let ty = a[5..]
+            .iter()
+            .find_map(|t| t.strip_prefix("type="))
+            .unwrap_or("minecraft:plains");
         mc_core::random::reseed_uniquifier(java_hash(&name));
-        let snbt = format!("{{VillagerData:{{type:\"{ty}\",profession:\"{}\",level:{}}}}}", a[2], a[3]);
-        let e = self.create_entity("minecraft:villager", mc_data::enums::EntitySpawnReason::Command, (0.5, -60.0, 0.5), (0.0, 0.0), Some(&snbt));
+        let snbt = format!(
+            "{{VillagerData:{{type:\"{ty}\",profession:\"{}\",level:{}}}}}",
+            a[2], a[3]
+        );
+        let e = self.create_entity(
+            "minecraft:villager",
+            mc_data::enums::EntitySpawnReason::Command,
+            (0.5, -60.0, 0.5),
+            (0.0, 0.0),
+            Some(&snbt),
+        );
         self.add_entity(&name, e);
-        let seed = a[4].parse::<i64>().unwrap_or_else(|_| self.fail("trades seed"));
+        let seed = a[4]
+            .parse::<i64>()
+            .unwrap_or_else(|_| self.fail("trades seed"));
         self.with_entity(&name, |level, e| {
             e.base_mut().random = mc_core::random::LegacyRandomSource::new(seed);
             e.as_merchant_mut().expect("merchant").get_offers(level);
@@ -712,8 +908,14 @@ impl Harness {
     }
 
     fn offers_dump(&mut self, name: &str) {
-        let offers = self.with_entity(name, |level, e| e.as_merchant_mut().expect("merchant").get_offers(level).clone());
-        self.out.push(format!("OFFERS {name} count={}", offers.0.len()));
+        let offers = self.with_entity(name, |level, e| {
+            e.as_merchant_mut()
+                .expect("merchant")
+                .get_offers(level)
+                .clone()
+        });
+        self.out
+            .push(format!("OFFERS {name} count={}", offers.0.len()));
         for (i, o) in offers.0.iter().enumerate() {
             let cost_b = o.get_cost_b();
             self.out.push(format!(
@@ -734,8 +936,20 @@ impl Harness {
     fn spawn_player(&mut self, a: &[String]) {
         mc_core::random::reseed_uniquifier(java_hash(&a[1]));
         let id = self.level.next_entity_id();
-        let profile = GameProfile { id: uuid::Uuid::new_v3(&uuid::Uuid::NAMESPACE_OID, format!("OfflinePlayer:{}", a[1]).as_bytes()), name: a[1].clone(), properties: vec![] };
-        let mut p = ServerPlayer::new(id, Identifier::parse("minecraft:overworld").unwrap(), profile, Default::default());
+        let profile = GameProfile {
+            id: uuid::Uuid::new_v3(
+                &uuid::Uuid::NAMESPACE_OID,
+                format!("OfflinePlayer:{}", a[1]).as_bytes(),
+            ),
+            name: a[1].clone(),
+            properties: vec![],
+        };
+        let mut p = ServerPlayer::new(
+            id,
+            Identifier::parse("minecraft:overworld").unwrap(),
+            profile,
+            Default::default(),
+        );
         let mode = match a[2].as_str() {
             "creative" => GameType::Creative,
             "spectator" => GameType::Spectator,
@@ -745,8 +959,18 @@ impl Harness {
         p.set_game_mode_for_player(mode, None);
         let sim = a.last().is_some_and(|s| s == "sim");
         let n = a.len() - usize::from(sim);
-        let (yaw, pitch) = if n > 7 { (self.num(&a[6]) as f32, self.num(&a[7]) as f32) } else { (0.0, 0.0) };
-        p.snap_to(self.num(&a[3]), self.num(&a[4]), self.num(&a[5]), yaw, pitch);
+        let (yaw, pitch) = if n > 7 {
+            (self.num(&a[6]) as f32, self.num(&a[7]) as f32)
+        } else {
+            (0.0, 0.0)
+        };
+        p.snap_to(
+            self.num(&a[3]),
+            self.num(&a[4]),
+            self.num(&a[5]),
+            yaw,
+            pitch,
+        );
         p.base_mut().first_tick = true;
         p.simulate_local_player = sim;
         let uuid = p.uuid();
@@ -766,8 +990,13 @@ impl Harness {
         let line = self.line.clone();
         self.with_entity(&a[1], |_, e| {
             if let Some(p) = e.as_any_mut().downcast_mut::<ServerPlayer>() {
-                if let Some(i) = slot.strip_prefix("hotbar").or_else(|| slot.strip_prefix("inv")) {
-                    p.player.inventory.set_item(i.parse().expect("slot index"), stack);
+                if let Some(i) = slot
+                    .strip_prefix("hotbar")
+                    .or_else(|| slot.strip_prefix("inv"))
+                {
+                    p.player
+                        .inventory
+                        .set_item(i.parse().expect("slot index"), stack);
                     return;
                 }
             }
@@ -783,7 +1012,10 @@ impl Harness {
             if let Some(p) = e.as_any_mut().downcast_mut::<ServerPlayer>() {
                 p.player.inventory.equipment_set(es, stack);
             } else {
-                e.living_mut().unwrap_or_else(|| panic!("`{line}`: give on a non-living entity")).equipment.set(es, stack);
+                e.living_mut()
+                    .unwrap_or_else(|| panic!("`{line}`: give on a non-living entity"))
+                    .equipment
+                    .set(es, stack);
             }
         });
     }
@@ -793,7 +1025,10 @@ impl Harness {
         let v: f64 = value.parse().unwrap_or(f64::NAN);
         let line = self.line.clone();
         self.with_entity(&a[1], |_, e| match what.as_str() {
-            "health" => e.living_mut().unwrap_or_else(|| panic!("`{line}`: not living")).set_health(v as f32),
+            "health" => e
+                .living_mut()
+                .unwrap_or_else(|| panic!("`{line}`: not living"))
+                .set_health(v as f32),
             "air" => e.base_mut().set_air_supply(v as i32),
             "fire" => e.base_mut().remaining_fire_ticks = v as i32,
             "fall_distance" => e.base_mut().fall_distance = v,
@@ -805,7 +1040,10 @@ impl Harness {
                 e.base_mut().add_tag(&value);
             }
             "food" | "saturation" | "exhaustion" | "xp_level" => {
-                let p = e.as_any_mut().downcast_mut::<ServerPlayer>().unwrap_or_else(|| panic!("`{line}`: not a player"));
+                let p = e
+                    .as_any_mut()
+                    .downcast_mut::<ServerPlayer>()
+                    .unwrap_or_else(|| panic!("`{line}`: not a player"));
                 match what.as_str() {
                     "food" => p.player.food_data.set_food_level(v as i32),
                     "saturation" => p.player.food_data.saturation_level = v as f32,
@@ -827,11 +1065,18 @@ impl Harness {
                     let c: Vec<f64> = r.split(',').map(|v| self.num(v)).collect();
                     at = Some(mc_core::phys::Vec3::new(c[0], c[1], c[2]));
                 }
-                _ => self.fail(&format!("hurt option {t} is not replayed (by= direct= at=)")),
+                _ => self.fail(&format!(
+                    "hurt option {t} is not replayed (by= direct= at=)"
+                )),
             }
         }
         let direct = direct.or(by);
-        let key = Identifier::parse(&if a[2].contains(':') { a[2].clone() } else { format!("minecraft:{}", a[2]) }).unwrap();
+        let key = Identifier::parse(&if a[2].contains(':') {
+            a[2].clone()
+        } else {
+            format!("minecraft:{}", a[2])
+        })
+        .unwrap();
         let data = self
             .level
             .registries
@@ -847,7 +1092,8 @@ impl Harness {
             at,
         );
         let r = self.with_entity(&a[1], |level, e| e.hurt_server(level, &source, amount));
-        self.out.push(format!("HURT {} {} {} -> {r}", a[1], a[2], a[3]));
+        self.out
+            .push(format!("HURT {} {} {} -> {r}", a[1], a[2], a[3]));
     }
 
     // ---- time ----------------------------------------------------------------------------------------------
@@ -855,7 +1101,10 @@ impl Harness {
     /// The entity part of `MinecraftServer.tickServer`: `SimPlayer.applyInput`, the entity tick list in creation order (snapshot at the
     /// start, passengers after their vehicle), then the players' connection tick (`tickPlayer` -> `doTick`).
     pub fn tick_once(&mut self) {
-        mc_core::random::reseed_uniquifier(8682522807148012i64 ^ ((self.ticks as i64 + 1).wrapping_mul(0x9E3779B97F4A7C15u64 as i64)));
+        mc_core::random::reseed_uniquifier(
+            8682522807148012i64
+                ^ ((self.ticks as i64 + 1).wrapping_mul(0x9E3779B97F4A7C15u64 as i64)),
+        );
         for (_, id) in self.players.clone() {
             self.level.with_player(id, |_, p| {
                 if p.simulate_local_player {
@@ -886,13 +1135,20 @@ impl Harness {
 
     /// `ServerLevel.tickNonPassenger` without the entity-ticking-range check (the detached level has no chunk tickets).
     fn tick_entity(&mut self, id: EntityId) {
-        let Some(mut entity) = self.level.take_entity(id) else { return };
+        let Some(mut entity) = self.level.take_entity(id) else {
+            return;
+        };
         if entity.is_removed() {
             self.level.put_back_entity(id, entity);
             return;
         }
         entity.check_despawn(&mut self.level);
-        let riding = entity.base().vehicle.is_some_and(|v| self.level.entity_manager.get_any(v).is_some_and(|v| !v.is_removed() && v.base().passengers.contains(&id)));
+        let riding = entity.base().vehicle.is_some_and(|v| {
+            self.level
+                .entity_manager
+                .get_any(v)
+                .is_some_and(|v| !v.is_removed() && v.base().passengers.contains(&id))
+        });
         let mut passengers = Vec::new();
         if !riding {
             mc_game::world::entity::entity::common_tick(entity.as_mut());
@@ -924,10 +1180,17 @@ impl Harness {
                 ("entities", None) | ("mobs", None) => {
                     self.name_new_entities();
                     let rich = kind == "mobs";
-                    let mut all: Vec<(EntityId, String)> = self.names.iter().filter(|(id, _)| !self.players.iter().any(|(_, p)| p == *id)).map(|(i, n)| (*i, n.clone())).collect();
+                    let mut all: Vec<(EntityId, String)> = self
+                        .names
+                        .iter()
+                        .filter(|(id, _)| !self.players.iter().any(|(_, p)| p == *id))
+                        .map(|(i, n)| (*i, n.clone()))
+                        .collect();
                     all.sort();
                     for (id, n) in all {
-                        let Some(e) = self.level.get_entity(id) else { continue };
+                        let Some(e) = self.level.get_entity(id) else {
+                            continue;
+                        };
                         if !e.is_alive() || (rich && !is_mob(e)) {
                             continue;
                         }
@@ -973,14 +1236,27 @@ impl Harness {
             snake(&format!("{:?}", b.get_pose())),
         );
         if let Some(l) = e.living() {
-            s.push_str(&format!(" hp={} abs={} hurt={}/{} death={} fx=", jf32(e.get_health()), jf32(e.get_absorption_amount()), l.hurt_time, l.damage_cooldown_time, l.death_time));
+            s.push_str(&format!(
+                " hp={} abs={} hurt={}/{} death={} fx=",
+                jf32(e.get_health()),
+                jf32(e.get_absorption_amount()),
+                l.hurt_time,
+                l.damage_cooldown_time,
+                l.death_time
+            ));
             let mut fx: Vec<&MobEffectInstance> = l.active_effects.values().collect();
             fx.sort_by_key(|i| i.effect.name());
             if fx.is_empty() {
                 s.push('-');
             }
             for (i, m) in fx.iter().enumerate() {
-                s.push_str(&format!("{}{}/{}/{}", if i > 0 { ";" } else { "" }, m.effect.name(), m.amplifier, m.duration));
+                s.push_str(&format!(
+                    "{}{}/{}/{}",
+                    if i > 0 { ";" } else { "" },
+                    m.effect.name(),
+                    m.amplifier,
+                    m.duration
+                ));
             }
         }
         if let Some(sp) = e.as_any().downcast_ref::<ServerPlayer>() {
@@ -998,10 +1274,20 @@ impl Harness {
                 item_text(pd.inventory.get_selected_item()),
             ));
         } else if let Some(ie) = e.as_any().downcast_ref::<ItemEntity>() {
-            s.push_str(&format!(" item={} age={}", item_text(&ie.get_item()), ie.age));
-        } else if let Some(o) = e.as_any().downcast_ref::<mc_game::world::entity::experience_orb::ExperienceOrb>() {
+            s.push_str(&format!(
+                " item={} age={}",
+                item_text(&ie.get_item()),
+                ie.age
+            ));
+        } else if let Some(o) = e
+            .as_any()
+            .downcast_ref::<mc_game::world::entity::experience_orb::ExperienceOrb>()
+        {
             s.push_str(&format!(" value={}", o.get_value()));
-        } else if let Some(t) = e.as_any().downcast_ref::<mc_game::world::entity::item::primed_tnt::PrimedTnt>() {
+        } else if let Some(t) = e
+            .as_any()
+            .downcast_ref::<mc_game::world::entity::item::primed_tnt::PrimedTnt>()
+        {
             s.push_str(&format!(" fuse={}", t.get_fuse()));
         } else if let Some(a) = abstract_arrow(e) {
             let d = a.arrow_data();
@@ -1016,14 +1302,32 @@ impl Harness {
                 jf64(d.base_damage)
             ));
         }
-        let ctx = ScenarioDumpCtx { names: &self.names, uuids: &self.uuids };
+        let ctx = ScenarioDumpCtx {
+            names: &self.names,
+            uuids: &self.uuids,
+        };
         if let Some(ie) = e.as_any().downcast_ref::<ItemEntity>() {
-            s.push_str(&format!(" pickup={} health={} owner={} thrower={}", ie.pickup_delay, ie.health, ctx.name_uuid(ie.target), ctx.name_uuid(ie.thrower)));
-        } else if let Some(o) = e.as_any().downcast_ref::<mc_game::world::entity::experience_orb::ExperienceOrb>() {
-            s.push_str(&format!(" count={} age={} health={}", o.count, o.age, o.health));
+            s.push_str(&format!(
+                " pickup={} health={} owner={} thrower={}",
+                ie.pickup_delay,
+                ie.health,
+                ctx.name_uuid(ie.target),
+                ctx.name_uuid(ie.thrower)
+            ));
+        } else if let Some(o) = e
+            .as_any()
+            .downcast_ref::<mc_game::world::entity::experience_orb::ExperienceOrb>()
+        {
+            s.push_str(&format!(
+                " count={} age={} health={}",
+                o.count, o.age, o.health
+            ));
         }
         if rich && !is_player {
-            let mut extras: Vec<_> = SCENARIO_DUMP_EXTRA.iter().filter(|x| (x.applies)(e)).collect();
+            let mut extras: Vec<_> = SCENARIO_DUMP_EXTRA
+                .iter()
+                .filter(|x| (x.applies)(e))
+                .collect();
             extras.sort_by_key(|x| x.order);
             for x in extras {
                 for (k, v) in (x.fields)(e, &self.level, &ctx) {
@@ -1036,7 +1340,9 @@ impl Harness {
 }
 
 /// `instanceof AbstractArrow`.
-fn abstract_arrow(e: &dyn Entity) -> Option<&dyn mc_game::world::entity::projectile::arrow::AbstractArrow> {
+fn abstract_arrow(
+    e: &dyn Entity,
+) -> Option<&dyn mc_game::world::entity::projectile::arrow::AbstractArrow> {
     use mc_game::world::entity::projectile::arrow::{Arrow, SpectralArrow, ThrownTrident};
     let any = e.as_any();
     any.downcast_ref::<Arrow>()
@@ -1047,7 +1353,9 @@ fn abstract_arrow(e: &dyn Entity) -> Option<&dyn mc_game::world::entity::project
 
 /// Is the entity a `Mob`? Defined by the generic mob dump registration (`order 10`, see `scenario_dump`).
 fn is_mob(e: &dyn Entity) -> bool {
-    SCENARIO_DUMP_EXTRA.iter().any(|x| x.order == 10 && (x.applies)(e))
+    SCENARIO_DUMP_EXTRA
+        .iter()
+        .any(|x| x.order == 10 && (x.applies)(e))
 }
 
 fn spawn_reason(name: &str) -> Option<mc_data::enums::EntitySpawnReason> {

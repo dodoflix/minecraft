@@ -24,14 +24,21 @@ pub fn load_from_file(file: &Path) -> Result<Properties, SettingsError> {
     let bytes = match fs::read(file) {
         Ok(b) => b,
         Err(e) => {
-            log::error!("Failed to load properties from file: {}\n{}", file.display(), java_io_error(&e, file));
+            log::error!(
+                "Failed to load properties from file: {}\n{}",
+                file.display(),
+                java_io_error(&e, file)
+            );
             return Ok(Properties::new());
         }
     };
     let text = match String::from_utf8(bytes) {
         Ok(text) => text,
         Err(e) => {
-            log::info!("Failed to load properties as UTF-8 from file {}, trying ISO_8859_1", file.display());
+            log::info!(
+                "Failed to load properties as UTF-8 from file {}, trying ISO_8859_1",
+                file.display()
+            );
             return Ok(Properties::load_latin1(e.as_bytes())?);
         }
     };
@@ -40,14 +47,21 @@ pub fn load_from_file(file: &Path) -> Result<Properties, SettingsError> {
 
 fn java_io_error(e: &std::io::Error, file: &Path) -> String {
     match e.kind() {
-        std::io::ErrorKind::NotFound => format!("java.nio.file.NoSuchFileException: {}", file.display()),
+        std::io::ErrorKind::NotFound => {
+            format!("java.nio.file.NoSuchFileException: {}", file.display())
+        }
         _ => format!("java.io.IOException: {e}"),
     }
 }
 
 /// `Settings.store`: UTF-8, header comment `Minecraft server properties`.
 pub fn store(properties: &Properties, output: &Path) {
-    if fs::write(output, properties.store(Some("Minecraft server properties"))).is_err() {
+    if fs::write(
+        output,
+        properties.store(Some("Minecraft server properties")),
+    )
+    .is_err()
+    {
         log::error!("Failed to store properties to file: {}", output.display());
     }
 }
@@ -132,7 +146,11 @@ impl Settings {
         default: V,
     ) -> Result<MutableValue<V>, SettingsError> {
         let value = self.get_with(key, deserializer, serializer, default)?;
-        Ok(MutableValue { key, value, serializer })
+        Ok(MutableValue {
+            key,
+            value,
+            serializer,
+        })
     }
 
     pub fn get_string(&mut self, key: &str, default: &str) -> String {
@@ -143,7 +161,11 @@ impl Settings {
 
     pub fn get_mutable_string(&mut self, key: &'static str, default: &str) -> MutableValue<String> {
         let value = self.get_string(key, default);
-        MutableValue { key, value, serializer: String::clone }
+        MutableValue {
+            key,
+            value,
+            serializer: String::clone,
+        }
     }
 
     /// `get(key, int)`: `Integer.parseInt`, a `NumberFormatException` falls back to the default.
@@ -151,8 +173,17 @@ impl Settings {
         self.get_int_validated(key, |v| v, default)
     }
 
-    pub fn get_int_validated(&mut self, key: &str, validator: impl FnOnce(i32) -> i32, default: i32) -> i32 {
-        let parsed = self.properties.get(key).and_then(|s| s.parse::<i32>().ok()).map(validator);
+    pub fn get_int_validated(
+        &mut self,
+        key: &str,
+        validator: impl FnOnce(i32) -> i32,
+        default: i32,
+    ) -> i32 {
+        let parsed = self
+            .properties
+            .get(key)
+            .and_then(|s| s.parse::<i32>().ok())
+            .map(validator);
         let result = parsed.unwrap_or(default);
         self.properties.put(key, result.to_string());
         result
@@ -160,11 +191,19 @@ impl Settings {
 
     pub fn get_mutable_int(&mut self, key: &'static str, default: i32) -> MutableValue<i32> {
         let value = self.get_int(key, default);
-        MutableValue { key, value, serializer: |v| v.to_string() }
+        MutableValue {
+            key,
+            value,
+            serializer: |v| v.to_string(),
+        }
     }
 
     pub fn get_long(&mut self, key: &str, default: i64) -> i64 {
-        let result = self.properties.get(key).and_then(|s| s.parse::<i64>().ok()).unwrap_or(default);
+        let result = self
+            .properties
+            .get(key)
+            .and_then(|s| s.parse::<i64>().ok())
+            .unwrap_or(default);
         self.properties.put(key, result.to_string());
         result
     }
@@ -177,7 +216,11 @@ impl Settings {
 
     pub fn get_mutable_boolean(&mut self, key: &'static str, default: bool) -> MutableValue<bool> {
         let value = self.get_boolean(key, default);
-        MutableValue { key, value, serializer: |v| v.to_string() }
+        MutableValue {
+            key,
+            value,
+            serializer: |v| v.to_string(),
+        }
     }
 }
 

@@ -40,7 +40,11 @@ struct Case {
 }
 
 fn parse_fixture() -> Vec<Case> {
-    let text = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures/entity_oracle/dig.txt")).expect("dig fixture");
+    let text = std::fs::read_to_string(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/tests/fixtures/entity_oracle/dig.txt"
+    ))
+    .expect("dig fixture");
     let mut cases: Vec<Case> = Vec::new();
     let mut tick = 0;
     for line in text.lines() {
@@ -72,7 +76,8 @@ fn parse_fixture() -> Vec<Case> {
             } else if let Some(p) = line.strip_prefix("PKT Obs ") {
                 let (kind, hex) = p.split_once(' ').unwrap();
                 if kind == BLOCK_DESTRUCTION || kind == LEVEL_EVENT {
-                    c.packets.push((tick, kind.to_owned(), normalize(kind, hex)));
+                    c.packets
+                        .push((tick, kind.to_owned(), normalize(kind, hex)));
                 }
             }
         }
@@ -102,7 +107,9 @@ fn normalize(kind: &str, hex_text: &str) -> String {
     if kind != BLOCK_DESTRUCTION {
         return hex_text.to_owned();
     }
-    let bytes: Vec<u8> = (0..hex_text.len() / 2).map(|i| u8::from_str_radix(&hex_text[2 * i..2 * i + 2], 16).unwrap()).collect();
+    let bytes: Vec<u8> = (0..hex_text.len() / 2)
+        .map(|i| u8::from_str_radix(&hex_text[2 * i..2 * i + 2], 16).unwrap())
+        .collect();
     let (_, n) = read_varint(&bytes);
     let (_, m) = read_varint(&bytes[n..]);
     format!("{}|{}", hex(&bytes[..n]), hex(&bytes[n + m..]))
@@ -120,13 +127,33 @@ fn overworld() -> Identifier {
 
 fn replay_setup() -> Replay {
     let mut level = ServerLevel::detached(overworld());
-    level.entity_manager.update_chunk_status(ChunkPos::new(0, 0), Visibility::Ticking);
+    level
+        .entity_manager
+        .update_chunk_status(ChunkPos::new(0, 0), Visibility::Ticking);
     let (tx, rx) = unbounded_channel();
-    let mut obs = ServerPlayer::new(2, overworld(), GameProfile { id: uuid::Uuid::from_u128(2), name: "Obs".into(), properties: vec![] }, Default::default());
+    let mut obs = ServerPlayer::new(
+        2,
+        overworld(),
+        GameProfile {
+            id: uuid::Uuid::from_u128(2),
+            name: "Obs".into(),
+            properties: vec![],
+        },
+        Default::default(),
+    );
     obs.connection = Some(ConnectionSender::new(tx));
     obs.set_pos(6.5, -60.0, 0.5);
     level.add_player(Box::new(obs));
-    let mut steve = ServerPlayer::new(1, overworld(), GameProfile { id: uuid::Uuid::from_u128(1), name: "Steve".into(), properties: vec![] }, Default::default());
+    let mut steve = ServerPlayer::new(
+        1,
+        overworld(),
+        GameProfile {
+            id: uuid::Uuid::from_u128(1),
+            name: "Steve".into(),
+            properties: vec![],
+        },
+        Default::default(),
+    );
     steve.set_pos(0.5, -60.0, 0.5);
     steve.base_mut().set_on_ground_raw(true);
     steve.player.abilities.may_build = true;
@@ -139,7 +166,9 @@ fn drain(rx: &mut UnboundedReceiver<Outbound>) -> Vec<(String, String)> {
     while let Ok(msg) = rx.try_recv() {
         let Outbound::Payload(p) = msg else { continue };
         let (id, _) = read_varint(&p);
-        let kind = if id == <mc_protocol::packets::play::ClientboundBlockDestructionPacket as Packet>::ID {
+        let kind = if id
+            == <mc_protocol::packets::play::ClientboundBlockDestructionPacket as Packet>::ID
+        {
             BLOCK_DESTRUCTION
         } else if id == <mc_protocol::packets::play::ClientboundLevelEventPacket as Packet>::ID {
             LEVEL_EVENT
@@ -162,20 +191,35 @@ fn tick_once(r: &mut Replay, case_tick: &mut i32, got: &mut Vec<(i32, String, St
 
 fn run_case(r: &mut Replay, c: &Case) -> (i32, bool, Vec<(i32, String, String)>) {
     let pos = BlockPos::new(2, -60, 0);
-    let block = Block::by_name(&format!("minecraft:{}", c.block)).unwrap_or_else(|| panic!("block {}", c.block));
+    let block = Block::by_name(&format!("minecraft:{}", c.block))
+        .unwrap_or_else(|| panic!("block {}", c.block));
     r.level.set_block(pos, block.default_state(), 3, 512);
-    let stack = if c.tool == "none" { ItemStack::empty() } else { ItemStack::new(Item::by_name(&c.tool).unwrap_or_else(|| panic!("item {}", c.tool))) };
+    let stack = if c.tool == "none" {
+        ItemStack::empty()
+    } else {
+        ItemStack::new(Item::by_name(&c.tool).unwrap_or_else(|| panic!("item {}", c.tool)))
+    };
     r.steve.set_item_in_hand(InteractionHand::MainHand, stack);
     r.steve.player.living.active_effects.clear();
     if let Some((name, amplifier)) = &c.effect {
         let effect = MobEffect::by_name(&format!("minecraft:{name}")).unwrap();
-        r.steve.player.living.active_effects.insert(effect, MobEffectInstance::new(effect, 1_000_000, *amplifier, false, true, true, None));
+        r.steve.player.living.active_effects.insert(
+            effect,
+            MobEffectInstance::new(effect, 1_000_000, *amplifier, false, true, true, None),
+        );
     }
     let mut got = Vec::new();
     let mut case_tick = 0;
     // the observer's packets from before this case (the previous case's trailing tick) are not part of it
     drain(&mut r.rx);
-    r.steve.handle_block_break_action(&mut r.level, pos, Action::StartDestroyBlock, Direction::Up, 319, false);
+    r.steve.handle_block_break_action(
+        &mut r.level,
+        pos,
+        Action::StartDestroyBlock,
+        Direction::Up,
+        319,
+        false,
+    );
     // `MultiPlayerGameMode.startDestroyBlock`: a survival client breaks at once when one tick of progress is >= 1
     let state = r.level.get_block_state(pos);
     let mut stopped = !state.is_air() && r.steve.get_destroy_progress(state) >= 1.0;
@@ -185,8 +229,19 @@ fn run_case(r: &mut Replay, c: &Case) -> (i32, bool, Vec<(i32, String, String)>)
     while !stopped {
         ticks += 1;
         progress += r.steve.get_destroy_progress(r.level.get_block_state(pos));
-        if if unbreakable { ticks >= 40 } else { progress >= 1.0 } {
-            r.steve.handle_block_break_action(&mut r.level, pos, Action::StopDestroyBlock, Direction::Up, 319, false);
+        if if unbreakable {
+            ticks >= 40
+        } else {
+            progress >= 1.0
+        } {
+            r.steve.handle_block_break_action(
+                &mut r.level,
+                pos,
+                Action::StopDestroyBlock,
+                Direction::Up,
+                319,
+                false,
+            );
             stopped = true;
             tick_once(r, &mut case_tick, &mut got);
             break;
@@ -211,15 +266,39 @@ fn dig_timeline_matches_vanilla() {
         let mut problems = Vec::new();
         // ice leaves water in vanilla (`IceBlock.playerDestroy`, a concrete block class that is not ported): only its `broken` flag differs
         if ticks != c.dig_ticks || (broken != c.broken && c.block != "ice") {
-            problems.push(format!("dig ticks={ticks} broken={broken}, vanilla ticks={} broken={}", c.dig_ticks, c.broken));
+            problems.push(format!(
+                "dig ticks={ticks} broken={broken}, vanilla ticks={} broken={}",
+                c.dig_ticks, c.broken
+            ));
         }
         if got.iter().collect::<Vec<_>>() != expected {
-            let first = got.iter().zip(&expected).position(|(a, b)| a != *b).unwrap_or(got.len().min(expected.len()));
-            problems.push(format!("packets differ at #{first} (ours {} vs vanilla {}): ours {:?} vanilla {:?}", got.len(), expected.len(), got.get(first), expected.get(first)));
+            let first = got
+                .iter()
+                .zip(&expected)
+                .position(|(a, b)| a != *b)
+                .unwrap_or(got.len().min(expected.len()));
+            problems.push(format!(
+                "packets differ at #{first} (ours {} vs vanilla {}): ours {:?} vanilla {:?}",
+                got.len(),
+                expected.len(),
+                got.get(first),
+                expected.get(first)
+            ));
         }
         if !problems.is_empty() {
             failures.push(format!("case {}: {}", c.name, problems.join("; ")));
         }
     }
-    assert!(failures.is_empty(), "{} of {} cases differ:\n{}", failures.len(), cases.len(), failures.iter().take(25).cloned().collect::<Vec<_>>().join("\n"));
+    assert!(
+        failures.is_empty(),
+        "{} of {} cases differ:\n{}",
+        failures.len(),
+        cases.len(),
+        failures
+            .iter()
+            .take(25)
+            .cloned()
+            .collect::<Vec<_>>()
+            .join("\n")
+    );
 }

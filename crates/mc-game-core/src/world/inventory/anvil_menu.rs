@@ -1,19 +1,22 @@
 //! `AnvilMenu` (`extends ItemCombinerMenu`): repair, combine, enchant-merge and rename with vanilla's cost rules.
 
 use super::{
-    AbstractContainerMenu, ContainerKey, ContainerLevelAccess, DataSlot, ItemCombinerMenu, ItemCombinerMenuCore, ItemCombinerMenuSlotDefinition, MenuBase,
-    MenuPlayer, Slot, SlotBehavior, SlotEnv,
+    AbstractContainerMenu, ContainerKey, ContainerLevelAccess, DataSlot, ItemCombinerMenu,
+    ItemCombinerMenuCore, ItemCombinerMenuSlotDefinition, MenuBase, MenuPlayer, Slot, SlotBehavior,
+    SlotEnv,
 };
 use crate::world::item::ItemStack;
+use crate::world::item::ItemStackExt;
 use crate::world::item::enchantment::enchantment::Enchantment;
 use crate::world::item::enchantment::item_enchantments::{ItemEnchantmentsMutable, holder};
-use crate::world::item::enchantment_helper::{can_store_enchantments, definition, get_enchantments_for_crafting, set_enchantments};
-use crate::world::item::ItemStackExt;
+use crate::world::item::enchantment_helper::{
+    can_store_enchantments, definition, get_enchantments_for_crafting, set_enchantments,
+};
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::{BlockGetter, LevelAccessor};
+use mc_data::DataComponentType;
 use mc_data::block::BlockState;
 use mc_data::{Item, MenuType};
-use mc_data::DataComponentType;
 use mc_protocol::components::{CUSTOM_NAME, REPAIR_COST, REPAIRABLE};
 use mc_text::Component;
 use std::any::Any;
@@ -28,12 +31,16 @@ pub const MAX_NAME_LENGTH: usize = 50;
 /// `StringUtil.isBlank`: `Character.isWhitespace || Character.isSpaceChar` over UTF-16 code units (Rust's `White_Space`
 /// differs at U+0085 and U+001C..U+001F).
 pub fn is_blank(s: &str) -> bool {
-    s.chars().all(|c| (c.is_whitespace() && c != '\u{85}') || ('\u{1c}'..='\u{1f}').contains(&c))
+    s.chars()
+        .all(|c| (c.is_whitespace() && c != '\u{85}') || ('\u{1c}'..='\u{1f}').contains(&c))
 }
 
 /// `StringUtil.filterText(input)`: drops `isAllowedChatCharacter`-violating UTF-16 code units.
 pub fn filter_text(input: &str) -> String {
-    let units: Vec<u16> = input.encode_utf16().filter(|c| *c != 167 && *c >= 32 && *c != 127).collect();
+    let units: Vec<u16> = input
+        .encode_utf16()
+        .filter(|c| *c != 167 && *c >= 32 && *c != 127)
+        .collect();
     String::from_utf16_lossy(&units)
 }
 
@@ -43,8 +50,18 @@ pub fn calculate_increased_repair_cost(base_cost: i32) -> i32 {
 }
 
 /// `ItemStack.isValidRepairItem(repairItem)`.
-pub fn is_valid_repair_item(stack: &ItemStack, repair_item: &ItemStack, registries: &crate::registry::RegistryAccess) -> bool {
-    stack.get(&REPAIRABLE).is_some_and(|r| crate::world::item::enchantment::enchantment::item_set_contains(registries, &r.items, repair_item.item()) && !repair_item.is_empty())
+pub fn is_valid_repair_item(
+    stack: &ItemStack,
+    repair_item: &ItemStack,
+    registries: &crate::registry::RegistryAccess,
+) -> bool {
+    stack.get(&REPAIRABLE).is_some_and(|r| {
+        crate::world::item::enchantment::enchantment::item_set_contains(
+            registries,
+            &r.items,
+            repair_item.item(),
+        ) && !repair_item.is_empty()
+    })
 }
 
 /// The menu state the result slot's `mayPickup`/`onTake` read and write (`cost`, `repairItemCountCost`, `itemName`,
@@ -90,7 +107,8 @@ impl SlotBehavior for AnvilResultSlot {
     fn on_take(&self, _slot: &Slot, env: &mut SlotEnv, _carried: &ItemStack) {
         let infinite = env.player.has_infinite_materials();
         if !infinite {
-            env.player.give_experience_levels(self.state.cost().wrapping_neg());
+            env.player
+                .give_experience_levels(self.state.cost().wrapping_neg());
         }
         let repair_count = self.state.repair_item_count_cost.get();
         let input = env.locals[self.input_local].as_mut();
@@ -108,7 +126,13 @@ impl SlotBehavior for AnvilResultSlot {
         self.state.set_cost(0);
         let item_name = self.state.item_name.borrow().clone();
         if let Some(name) = item_name {
-            if !is_blank(&name) && env.locals[self.input_local].get_item(INPUT_SLOT).get_hover_name().get_string() != name {
+            if !is_blank(&name)
+                && env.locals[self.input_local]
+                    .get_item(INPUT_SLOT)
+                    .get_hover_name()
+                    .get_string()
+                    != name
+            {
                 env.player.process_stream_message(&name);
             }
         }
@@ -116,7 +140,10 @@ impl SlotBehavior for AnvilResultSlot {
         if let Some(pos) = self.access.pos() {
             let random_roll = if !infinite {
                 // `!hasInfiniteMaterials() && state.is(ANVIL) && random < 0.12F`: the random is drawn only when the block is an anvil
-                let is_anvil = env.player.level_ref().is_some_and(|l| l.get_block_state(pos).is_tag("minecraft:anvil"));
+                let is_anvil = env
+                    .player
+                    .level_ref()
+                    .is_some_and(|l| l.get_block_state(pos).is_tag("minecraft:anvil"));
                 is_anvil && env.player.player_random_next_float() < 0.12
             } else {
                 false
@@ -144,17 +171,36 @@ impl SlotBehavior for AnvilResultSlot {
 
 impl AnvilMenu {
     /// `AnvilMenu(containerId, inventory, access)`.
-    pub fn new(container_id: i32, _player: &mut dyn MenuPlayer, access: ContainerLevelAccess) -> Self {
+    pub fn new(
+        container_id: i32,
+        _player: &mut dyn MenuPlayer,
+        access: ContainerLevelAccess,
+    ) -> Self {
         let cost = Rc::new(RefCell::new(vec![0]));
-        let state = Rc::new(AnvilState { cost: cost.clone(), repair_item_count_cost: Cell::new(0), item_name: RefCell::new(None), only_renaming: Cell::new(false) });
+        let state = Rc::new(AnvilState {
+            cost: cost.clone(),
+            repair_item_count_cost: Cell::new(0),
+            item_name: RefCell::new(None),
+            only_renaming: Cell::new(false),
+        });
         let definition = ItemCombinerMenuSlotDefinition::create()
             .with_slot(0, 27, 47, |_| true)
             .with_slot(1, 76, 47, |_| true)
             .with_result_slot(2, 134, 47)
             .build();
         // the result container is local 1 of the core (inputs local 0)
-        let result = AnvilResultSlot { state: state.clone(), access, input_local: 0 };
-        let mut core = ItemCombinerMenuCore::new(Some(MenuType::ANVIL), container_id, access, definition, Box::new(result));
+        let result = AnvilResultSlot {
+            state: state.clone(),
+            access,
+            input_local: 0,
+        };
+        let mut core = ItemCombinerMenuCore::new(
+            Some(MenuType::ANVIL),
+            container_id,
+            access,
+            definition,
+            Box::new(result),
+        );
         debug_assert_eq!(core.input_local, 0);
         core.base.add_data_slot(DataSlot::shared(cost, 0));
         Self { core, state }
@@ -166,7 +212,9 @@ impl AnvilMenu {
     }
 
     fn input_stack(&self, slot: usize) -> ItemStack {
-        self.core.base.locals[self.core.input_local].get_item(slot).clone()
+        self.core.base.locals[self.core.input_local]
+            .get_item(slot)
+            .clone()
     }
 
     fn set_result(&mut self, stack: ItemStack) {
@@ -182,7 +230,9 @@ impl AnvilMenu {
 
     /// `setItemName(name)`.
     pub fn set_item_name(&mut self, player: &mut dyn MenuPlayer, name: &str) -> bool {
-        let Some(validated) = Self::validate_name(name) else { return false };
+        let Some(validated) = Self::validate_name(name) else {
+            return false;
+        };
         if self.state.item_name.borrow().as_deref() == Some(validated.as_str()) {
             return false;
         }
@@ -226,13 +276,18 @@ impl ItemCombinerMenu for AnvilMenu {
         if !input.is_empty() && can_store_enchantments(&input) {
             let mut result = input.copy();
             let addition = self.input_stack(ADDITIONAL_SLOT);
-            let mut enchantments = ItemEnchantmentsMutable::new(&get_enchantments_for_crafting(&result));
-            tax += i64::from(input.get(&REPAIR_COST).copied().unwrap_or(0)) + i64::from(addition.get(&REPAIR_COST).copied().unwrap_or(0));
+            let mut enchantments =
+                ItemEnchantmentsMutable::new(&get_enchantments_for_crafting(&result));
+            tax += i64::from(input.get(&REPAIR_COST).copied().unwrap_or(0))
+                + i64::from(addition.get(&REPAIR_COST).copied().unwrap_or(0));
             self.state.repair_item_count_cost.set(0);
             if !addition.is_empty() {
                 let using_book = addition.has(DataComponentType::STORED_ENCHANTMENTS);
-                if result.is_damageable_item() && is_valid_repair_item(&input, &addition, &registries) {
-                    let mut repair_amount = result.get_damage_value().min(result.get_max_damage() / 4);
+                if result.is_damageable_item()
+                    && is_valid_repair_item(&input, &addition, &registries)
+                {
+                    let mut repair_amount =
+                        result.get_damage_value().min(result.get_max_damage() / 4);
                     if repair_amount <= 0 {
                         self.set_result(ItemStack::empty());
                         self.state.set_cost(0);
@@ -248,7 +303,8 @@ impl ItemCombinerMenu for AnvilMenu {
                     }
                     self.state.repair_item_count_cost.set(count);
                 } else {
-                    if !using_book && (!result.is(addition.item()) || !result.is_damageable_item()) {
+                    if !using_book && (!result.is(addition.item()) || !result.is_damageable_item())
+                    {
                         self.set_result(ItemStack::empty());
                         self.state.set_cost(0);
                         return;
@@ -256,7 +312,8 @@ impl ItemCombinerMenu for AnvilMenu {
                     if result.is_damageable_item() && !using_book {
                         let remaining1 = input.get_max_damage() - input.get_damage_value();
                         let remaining2 = addition.get_max_damage() - addition.get_damage_value();
-                        let additional = remaining2 + result.get_max_damage().wrapping_mul(12) / 100;
+                        let additional =
+                            remaining2 + result.get_max_damage().wrapping_mul(12) / 100;
                         let remaining = remaining1 + additional;
                         let mut result_damage = result.get_max_damage() - remaining;
                         if result_damage < 0 {
@@ -271,19 +328,31 @@ impl ItemCombinerMenu for AnvilMenu {
                     let mut any_compatible = false;
                     let mut any_not_compatible = false;
                     for (enchantment_holder, entry_level) in additional_enchantments.entries() {
-                        let Some(key) = enchantment_holder.name() else { continue };
-                        let Some(enchantment) = definition(&registries, key) else { continue };
+                        let Some(key) = enchantment_holder.name() else {
+                            continue;
+                        };
+                        let Some(enchantment) = definition(&registries, key) else {
+                            continue;
+                        };
                         let current = enchantments.get_level(enchantment_holder);
                         let mut level = *entry_level;
-                        level = if current == level { level + 1 } else { level.max(current) };
+                        level = if current == level {
+                            level + 1
+                        } else {
+                            level.max(current)
+                        };
                         let mut compatible = enchantment.can_enchant(&registries, &input);
                         if infinite || input.is(Item::ENCHANTED_BOOK) {
                             compatible = true;
                         }
                         let others: Vec<_> = enchantments.key_set().cloned().collect();
                         for other in &others {
-                            let Some(other_key) = other.name() else { continue };
-                            if other != enchantment_holder && !Enchantment::are_compatible(&registries, key, other_key) {
+                            let Some(other_key) = other.name() else {
+                                continue;
+                            };
+                            if other != enchantment_holder
+                                && !Enchantment::are_compatible(&registries, key, other_key)
+                            {
                                 compatible = false;
                                 price += 1;
                             }
@@ -331,7 +400,11 @@ impl ItemCombinerMenu for AnvilMenu {
                 None => {}
             }
 
-            let final_price = if price <= 0 { 0 } else { (tax + i64::from(price)).clamp(0, i64::from(i32::MAX)) as i32 };
+            let final_price = if price <= 0 {
+                0
+            } else {
+                (tax + i64::from(price)).clamp(0, i64::from(i32::MAX)) as i32
+            };
             self.state.set_cost(final_price);
             if price <= 0 {
                 result = ItemStack::empty();
@@ -397,9 +470,16 @@ impl AbstractContainerMenu for AnvilMenu {
 struct AnvilHandlers;
 
 impl crate::server::network::game_packets::hooks::PlayHandlers for AnvilHandlers {
-    fn handle_rename_item(&self, ctx: &mut crate::server::network::game_packets::PlayCtx, packet: &mc_protocol::packets::play::ServerboundRenameItemPacket) {
+    fn handle_rename_item(
+        &self,
+        ctx: &mut crate::server::network::game_packets::PlayCtx,
+        packet: &mc_protocol::packets::play::ServerboundRenameItemPacket,
+    ) {
         use crate::world::entity::player::menu_ctx::PlayerCtx;
-        let mut pctx = PlayerCtx { player: &mut *ctx.player, level: &mut *ctx.level };
+        let mut pctx = PlayerCtx {
+            player: &mut *ctx.player,
+            level: &mut *ctx.level,
+        };
         super::PlayerMenus::with_current(
             &mut pctx,
             |c| &mut c.player.player.menus,
@@ -417,4 +497,5 @@ impl crate::server::network::game_packets::hooks::PlayHandlers for AnvilHandlers
 }
 
 #[linkme::distributed_slice(crate::server::network::game_packets::hooks::PLAY_HANDLERS)]
-static ANVIL_HANDLERS: &dyn crate::server::network::game_packets::hooks::PlayHandlers = &AnvilHandlers;
+static ANVIL_HANDLERS: &dyn crate::server::network::game_packets::hooks::PlayHandlers =
+    &AnvilHandlers;

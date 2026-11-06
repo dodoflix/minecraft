@@ -21,6 +21,9 @@ pub mod table;
 pub mod text_api;
 pub mod validation;
 
-pub use context::{ContextKey, ContextKeySet, EntityTarget, LootContext, LootContextBuilder, LootParams, LootParamsBuilder};
+pub use context::{
+    ContextKey, ContextKeySet, EntityTarget, LootContext, LootContextBuilder, LootParams,
+    LootParamsBuilder,
+};
 pub use parameters::LootContextParamSets;
 pub use table::{LootPool, LootTable};

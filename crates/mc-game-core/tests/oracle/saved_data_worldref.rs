@@ -18,8 +18,14 @@ fn round_trip<T: SavedData>(data_dir: &std::path::Path, ty: &SavedDataType<T>) {
 }
 
 /// `prepare` runs between decode and encode (the server initializes the instance at level start).
-fn round_trip_with<T: SavedData>(data_dir: &std::path::Path, ty: &SavedDataType<T>, prepare: impl FnOnce(&mut T)) {
-    let raw = SavedDataStorage::new(data_dir).get(&ty.id).unwrap_or_else(|| panic!("{} missing", ty.id));
+fn round_trip_with<T: SavedData>(
+    data_dir: &std::path::Path,
+    ty: &SavedDataType<T>,
+    prepare: impl FnOnce(&mut T),
+) {
+    let raw = SavedDataStorage::new(data_dir)
+        .get(&ty.id)
+        .unwrap_or_else(|| panic!("{} missing", ty.id));
     let mut decoded = (ty.decode)(&raw).unwrap_or_else(|e| panic!("{}: {}", ty.id, e.error));
     prepare(&mut decoded);
     assert_eq!((ty.encode)(&decoded).unwrap(), raw, "{}", ty.id);
@@ -32,8 +38,11 @@ fn server_wide_saved_data_round_trips() {
     let dir = world.join("data");
     round_trip(&dir, &GameRules::type_(FeatureFlagSet::DEFAULT_FLAGS));
     round_trip(&dir, &WeatherData::type_());
-    let clocks = ["minecraft:overworld", "minecraft:the_end"].map(|c| Identifier::parse(c).unwrap());
-    round_trip_with(&dir, &ServerClockManager::type_(), |m| m.init(&clocks, vec![]));
+    let clocks =
+        ["minecraft:overworld", "minecraft:the_end"].map(|c| Identifier::parse(c).unwrap());
+    round_trip_with(&dir, &ServerClockManager::type_(), |m| {
+        m.init(&clocks, vec![])
+    });
     round_trip(&dir, &RandomSequences::type_());
     round_trip(&dir, &Stopwatches::type_());
     round_trip(&dir, &ScoreboardSaveData::type_());
@@ -45,7 +54,11 @@ fn dimension_saved_data_round_trips() {
     let world = mc_testkit::worldref().expect("reference world");
     for d in ["overworld", "the_nether", "the_end"] {
         // level start: `applyInitialSettings` pushes the stored settings through the setters
-        round_trip_with(&world.join(format!("dimensions/minecraft/{d}/data")), &WorldBorder::type_(), |b| b.apply_initial_settings(0));
+        round_trip_with(
+            &world.join(format!("dimensions/minecraft/{d}/data")),
+            &WorldBorder::type_(),
+            |b| b.apply_initial_settings(0),
+        );
     }
 }
 
@@ -56,23 +69,40 @@ fn manager_loads_and_saves_like_vanilla() {
     let tmp = tempfile::tempdir().unwrap();
     let data = tmp.path().join("data");
     std::fs::create_dir_all(data.join("minecraft")).unwrap();
-    std::fs::copy(world.join("data/minecraft/weather.dat"), data.join("minecraft/weather.dat")).unwrap();
+    std::fs::copy(
+        world.join("data/minecraft/weather.dat"),
+        data.join("minecraft/weather.dat"),
+    )
+    .unwrap();
     let mut m = SavedDataManager::new(SavedDataStorage::new(&data));
     let ty = WeatherData::type_();
     let before = SavedDataStorage::new(&data).get(&ty.id).unwrap();
     {
         let w = m.compute_if_absent(&ty);
         assert!(!w.is_dirty(), "freshly read data is clean");
-        assert_eq!(w.get_rain_time(), before.as_compound().unwrap().get_int("rain_time").unwrap());
+        assert_eq!(
+            w.get_rain_time(),
+            before.as_compound().unwrap().get_int("rain_time").unwrap()
+        );
         w.set_raining(true);
         w.set_rain_time(1234);
     }
     m.save_and_join();
     let after = SavedDataStorage::new(&data).get(&ty.id).unwrap();
     let c = after.as_compound().unwrap();
-    assert_eq!((c.get_boolean("raining"), c.get_int("rain_time")), (Some(true), Some(1234)));
+    assert_eq!(
+        (c.get_boolean("raining"), c.get_int("rain_time")),
+        (Some(true), Some(1234))
+    );
     // the whole file carries the DataVersion stamp
-    assert_eq!(SavedDataStorage::new(&data).read_file(&ty.id).unwrap().unwrap().get_int("DataVersion"), Some(5023));
+    assert_eq!(
+        SavedDataStorage::new(&data)
+            .read_file(&ty.id)
+            .unwrap()
+            .unwrap()
+            .get_int("DataVersion"),
+        Some(5023)
+    );
     // a clean instance is not rewritten
     std::fs::remove_file(data.join("minecraft/weather.dat")).unwrap();
     m.save_and_join();

@@ -6,7 +6,7 @@ use std::cell::Cell;
 use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
 use mc_core::pos::Vec3i;
-use mc_dfu::{Codec, DataResult, DOUBLE, INT_STREAM};
+use mc_dfu::{Codec, DOUBLE, DataResult, INT_STREAM};
 use mc_protocol::components::holder::{Holder, HolderSet};
 use mc_protocol::registry_context as global;
 
@@ -42,7 +42,10 @@ fn scoped<R>(f: impl FnOnce(&RegistryDecodeContext<'_>) -> R) -> Option<R> {
 }
 
 /// `scoped(ctx)` when a decode scope is active, else `fallback()`.
-pub fn with_scoped_ctx<R>(scoped_f: impl FnOnce(&RegistryDecodeContext<'_>) -> R, fallback: impl FnOnce() -> R) -> R {
+pub fn with_scoped_ctx<R>(
+    scoped_f: impl FnOnce(&RegistryDecodeContext<'_>) -> R,
+    fallback: impl FnOnce() -> R,
+) -> R {
     match scoped(scoped_f) {
         Some(r) => r,
         None => fallback(),
@@ -55,14 +58,20 @@ pub fn check_holder(registry: &str, id: &Identifier) -> Result<(), String> {
         if global::registry_contains(registry, id) {
             Ok(())
         } else {
-            Err(format!("Failed to get element {id} from registry {registry}"))
+            Err(format!(
+                "Failed to get element {id} from registry {registry}"
+            ))
         }
     })
 }
 
 fn check_tag(registry: &str, tag: &Identifier) -> Result<(), String> {
     scoped(|c| c.check_tag(registry, tag)).unwrap_or_else(|| {
-        if global::get().tag_exists(registry, tag) { Ok(()) } else { Err(format!("Missing tag: '{tag}' in '{registry}'")) }
+        if global::get().tag_exists(registry, tag) {
+            Ok(())
+        } else {
+            Err(format!("Missing tag: '{tag}' in '{registry}'"))
+        }
     })
 }
 
@@ -75,12 +84,16 @@ pub fn type_codec(registry: &'static str) -> Codec<&'static str> {
             match table.id_of(&id.to_string()).and_then(|i| table.name_of(i)) {
                 Some(name) => DataResult::success(name),
                 None => {
-                    let m = format!("Unknown registry key in ResourceKey[minecraft:root / {registry}]: {id}");
+                    let m = format!(
+                        "Unknown registry key in ResourceKey[minecraft:root / {registry}]: {id}"
+                    );
                     DataResult::error(move || m.clone())
                 }
             }
         },
-        |name: &&'static str| DataResult::success(Identifier::parse(name).expect("registered name")),
+        |name: &&'static str| {
+            DataResult::success(Identifier::parse(name).expect("registered name"))
+        },
     )
 }
 
@@ -89,19 +102,27 @@ pub fn holder_fixed_codec<T: 'static>(registry: &'static str) -> Codec<Holder<T>
     Codec::from_fns(
         move |ops, input: &Holder<T>, prefix| match input {
             Holder::Reference(id) => mc_dfu::extra::IDENTIFIER.encode(ops, id, prefix),
-            Holder::Direct(_) => DataResult::error(move || format!("Elements from registry {registry} can't be serialized to a value")),
+            Holder::Direct(_) => DataResult::error(move || {
+                format!("Elements from registry {registry} can't be serialized to a value")
+            }),
         },
         move |ops, input| {
-            mc_dfu::extra::IDENTIFIER.decode(ops, input).flat_map(|(id, rest)| match check_holder(registry, &id) {
-                Ok(()) => DataResult::success((Holder::Reference(id), rest)),
-                Err(m) => DataResult::error(move || m.clone()),
-            })
+            mc_dfu::extra::IDENTIFIER
+                .decode(ops, input)
+                .flat_map(|(id, rest)| match check_holder(registry, &id) {
+                    Ok(()) => DataResult::success((Holder::Reference(id), rest)),
+                    Err(m) => DataResult::error(move || m.clone()),
+                })
         },
     )
 }
 
 /// `RegistryFileCodec.create(key, elementCodec, allowInline)`.
-pub fn holder_file_codec<T: Clone + 'static>(registry: &'static str, element: &Codec<T>, allow_inline: bool) -> Codec<Holder<T>> {
+pub fn holder_file_codec<T: Clone + 'static>(
+    registry: &'static str,
+    element: &Codec<T>,
+    allow_inline: bool,
+) -> Codec<Holder<T>> {
     let (e, d) = (element.clone(), element.clone());
     Codec::from_fns(
         move |ops, input: &Holder<T>, prefix| match input {
@@ -126,7 +147,9 @@ pub fn holder_file_codec<T: Clone + 'static>(registry: &'static str, element: &C
 
 /// `RegistryCodecs.holderSet(key)` (`HolderSetCodec.create(key, RegistryFixedCodec.create(key), false)`) over a data-driven
 /// registry: `"#tag"`, a single id or a list of ids.
-pub fn holder_set_codec<T: Clone + Send + Sync + 'static>(registry: &'static str) -> Codec<HolderSet<T>> {
+pub fn holder_set_codec<T: Clone + Send + Sync + 'static>(
+    registry: &'static str,
+) -> Codec<HolderSet<T>> {
     let element = holder_fixed_codec::<T>(registry);
     let direct = mc_dfu::extra::compact_list_codec_with(&element, &element.list_of());
     let tag = mc_dfu::STRING.comap_flat_map(
@@ -147,20 +170,22 @@ pub fn holder_set_codec<T: Clone + Send + Sync + 'static>(registry: &'static str
             HolderSet::Direct(v) => e1.encode(ops, &mc_dfu::Either::Right(v.clone()), prefix),
         },
         move |ops, input| {
-            e2.decode(ops, input).flat_map(|(either, rest)| match either {
-                mc_dfu::Either::Left(t) => match check_tag(registry, &t) {
-                    Ok(()) => DataResult::success((HolderSet::Named(t), rest)),
-                    Err(m) => DataResult::error(move || m.clone()),
-                },
-                mc_dfu::Either::Right(v) => DataResult::success((HolderSet::Direct(v), rest)),
-            })
+            e2.decode(ops, input)
+                .flat_map(|(either, rest)| match either {
+                    mc_dfu::Either::Left(t) => match check_tag(registry, &t) {
+                        Ok(()) => DataResult::success((HolderSet::Named(t), rest)),
+                        Err(m) => DataResult::error(move || m.clone()),
+                    },
+                    mc_dfu::Either::Right(v) => DataResult::success((HolderSet::Direct(v), rest)),
+                })
         },
     )
 }
 
 /// `RegistryCodecs.homogeneousList(key)` for a built-in registry with typed ids, tag existence checked like
 /// [`holder_set_codec`].
-pub fn registry_set_codec<T: mc_data::registry::RegistryId>() -> Codec<mc_protocol::components::RegistrySet<T>> {
+pub fn registry_set_codec<T: mc_data::registry::RegistryId>()
+-> Codec<mc_protocol::components::RegistrySet<T>> {
     mc_protocol::components::RegistrySet::<T>::codec()
 }
 

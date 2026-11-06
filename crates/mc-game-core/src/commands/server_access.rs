@@ -37,7 +37,10 @@ pub fn has_server() -> bool {
 /// Borrows the installed server. Panics when called outside a command entry point or re-entrantly.
 pub fn with_server<R>(f: impl FnOnce(&mut MinecraftServer) -> R) -> R {
     let ptr = SERVER.with(|s| s.replace(null_mut()));
-    assert!(!ptr.is_null(), "with_server: no server installed (or already borrowed by an enclosing with_server)");
+    assert!(
+        !ptr.is_null(),
+        "with_server: no server installed (or already borrowed by an enclosing with_server)"
+    );
     let _restore = Restore(ptr);
     // SAFETY: `ptr` comes from the `&mut MinecraftServer` handed to `enter_server`, which is borrowed for the whole
     // call of `enter_server` and unused by it; the pointer was taken out of the cell, so no other `&mut` derived from it

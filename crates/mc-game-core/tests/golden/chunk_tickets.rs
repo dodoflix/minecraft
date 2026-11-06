@@ -19,7 +19,13 @@ impl ChunkGeneratorBackend for VoidGenerator {
     }
     fn create_biomes(&self, _chunk: &mut ProtoChunk, _region: &WorldGenRegion) {}
     fn build_terrain(&self, _chunk: &mut ProtoChunk, _region: &WorldGenRegion) {}
-    fn get_base_height(&self, _x: i32, _z: i32, _ty: mc_world::heightmap::HeightmapType, height: LevelHeight) -> i32 {
+    fn get_base_height(
+        &self,
+        _x: i32,
+        _z: i32,
+        _ty: mc_world::heightmap::HeightmapType,
+        height: LevelHeight,
+    ) -> i32 {
         height.min_y
     }
 }
@@ -32,7 +38,10 @@ fn open(dir: &Path) -> ServerLevel {
         dimension: Identifier::parse("minecraft:overworld").unwrap(),
         level_id: "tickets".into(),
         dimension_dir: dir.to_path_buf(),
-        level_height: LevelHeight { min_y: -64, height: 384 },
+        level_height: LevelHeight {
+            min_y: -64,
+            height: 384,
+        },
         sea_level: 63,
         has_sky_light: true,
         factory: Arc::new(PalettedContainerFactory::create(biomes).unwrap()),
@@ -45,7 +54,9 @@ fn open(dir: &Path) -> ServerLevel {
         simulation_distance: 4,
         sync_writes: false,
         is_debug: false,
-        level_data: Box::new(mc_game::server::level::level_data::PrimaryServerLevelData(mc_game::server::level::level_data::default_world_data())),
+        level_data: Box::new(mc_game::server::level::level_data::PrimaryServerLevelData(
+            mc_game::server::level::level_data::default_world_data(),
+        )),
     })
 }
 
@@ -67,8 +78,16 @@ fn forced_chunks_survive_a_restart() {
     {
         let mut level = open(&dir);
         assert!(level.chunk_source.update_chunk_forced(pos, true));
-        assert!(!level.chunk_source.update_chunk_forced(pos, true), "second add is not a change");
-        assert!(level.chunk_source.get_force_loaded_chunks().contains(pos.pack()));
+        assert!(
+            !level.chunk_source.update_chunk_forced(pos, true),
+            "second add is not a change"
+        );
+        assert!(
+            level
+                .chunk_source
+                .get_force_loaded_chunks()
+                .contains(pos.pack())
+        );
         run_until(&mut level, |l| l.chunk_now(3, 4).is_some());
         level.chunk_source.deactivate_tickets_on_closing();
         level.close();
@@ -78,7 +97,12 @@ fn forced_chunks_survive_a_restart() {
         let mut level = open(&dir);
         assert!(level.chunk_now(3, 4).is_none());
         level.chunk_source.activate_all_deactivated_tickets();
-        assert!(level.chunk_source.get_force_loaded_chunks().contains(pos.pack()));
+        assert!(
+            level
+                .chunk_source
+                .get_force_loaded_chunks()
+                .contains(pos.pack())
+        );
         run_until(&mut level, |l| l.chunk_now(3, 4).is_some());
         assert!(level.chunk_source.update_chunk_forced(pos, false));
         run_until(&mut level, |l| {

@@ -12,7 +12,8 @@ use std::sync::Arc;
 
 use mc_core::ident::Identifier;
 use mc_worldgen::data::{
-    DENSITY_FUNCTION_REGISTRY, NOISE_REGISTRY, NOISE_SETTINGS_REGISTRY, WorldgenDataSource, WorldgenRegistries,
+    DENSITY_FUNCTION_REGISTRY, NOISE_REGISTRY, NOISE_SETTINGS_REGISTRY, WorldgenDataSource,
+    WorldgenRegistries,
 };
 use serde_json::Value;
 
@@ -32,7 +33,12 @@ pub struct LoadingError {
 }
 
 impl LoadingError {
-    fn failed_to_parse(id: &Identifier, pack: &str, cause_class: &'static str, cause: String) -> LoadingError {
+    fn failed_to_parse(
+        id: &Identifier,
+        pack: &str,
+        cause_class: &'static str,
+        cause: String,
+    ) -> LoadingError {
         LoadingError {
             class: "java.lang.IllegalStateException",
             message: format!("Failed to parse {id} from pack {pack}"),
@@ -41,7 +47,11 @@ impl LoadingError {
     }
 
     fn state(message: String) -> LoadingError {
-        LoadingError { class: "java.lang.IllegalStateException", message, cause: None }
+        LoadingError {
+            class: "java.lang.IllegalStateException",
+            message,
+            cause: None,
+        }
     }
 
     /// `printStackTrace` without the frames.
@@ -87,7 +97,9 @@ impl RegistryLoadFailure {
         let mut keys: Vec<&ErrorKey> = self.errors.keys().collect();
         // `Comparator.comparing(ResourceKey::registry).thenComparing(ResourceKey::identifier)`
         keys.sort_by(|a, b| a.0.cmp(&b.0).then_with(|| a.1.cmp(&b.1)));
-        keys.iter().map(|k| format!("\n\t\t{}/{}: {}", k.0, k.1, self.errors[*k].message)).collect()
+        keys.iter()
+            .map(|k| format!("\n\t\t{}/{}: {}", k.0, k.1, self.errors[*k].message))
+            .collect()
     }
 
     /// Log like `RegistryDataLoader.logErrors`.
@@ -159,7 +171,13 @@ struct StageJsonSource {
 
 impl WorldgenDataSource for StageJsonSource {
     fn get(&self, registry: &str, id: &Identifier) -> Option<Value> {
-        let key = [NOISE_REGISTRY, DENSITY_FUNCTION_REGISTRY, NOISE_SETTINGS_REGISTRY].into_iter().find(|r| *r == registry)?;
+        let key = [
+            NOISE_REGISTRY,
+            DENSITY_FUNCTION_REGISTRY,
+            NOISE_SETTINGS_REGISTRY,
+        ]
+        .into_iter()
+        .find(|r| *r == registry)?;
         self.entries.get(&(key, id.clone())).map(|v| (**v).clone())
     }
 }
@@ -174,7 +192,9 @@ impl WorldgenDataSource for RegistryWorldgenSource {
     }
 
     fn list(&self, registry: &str) -> Vec<Identifier> {
-        let Some(reg) = self.0.registry(&format!("minecraft:{registry}")) else { return Vec::new() };
+        let Some(reg) = self.0.registry(&format!("minecraft:{registry}")) else {
+            return Vec::new();
+        };
         let mut ids = reg.names();
         ids.sort_by_key(|id| id.to_string());
         ids
@@ -190,7 +210,11 @@ impl RegistryAccess {
 
 /// `RegistryDataLoader.load(resourceManager, contextRegistries, registriesToLoad)`: the new registries of this stage.
 /// `context` holds every registry of earlier stages (static registries with their tags applied).
-pub fn load(manager: &dyn ResourceManager, context: &RegistryAccess, registries_to_load: &[RegistryData]) -> Result<RegistryAccess, RegistryLoadFailure> {
+pub fn load(
+    manager: &dyn ResourceManager,
+    context: &RegistryAccess,
+    registries_to_load: &[RegistryData],
+) -> Result<RegistryAccess, RegistryLoadFailure> {
     let mut errors: BTreeMap<ErrorKey, LoadingError> = BTreeMap::new();
     let stage: HashSet<&'static str> = registries_to_load.iter().map(|r| r.key).collect();
     let lookup = StageLookup { context, stage };
@@ -204,15 +228,29 @@ pub fn load(manager: &dyn ResourceManager, context: &RegistryAccess, registries_
             let id = lister.file_to_id(&file_id);
             let pack = resource.source_pack_id().to_owned();
             let known_pack = resource.known_pack_info().cloned();
-            let info = RegistrationInfo { stable: known_pack.as_ref().is_some_and(|k| k.is_vanilla()), known_pack };
+            let info = RegistrationInfo {
+                stable: known_pack.as_ref().is_some_and(|k| k.is_vanilla()),
+                known_pack,
+            };
             let json = resource
                 .read_all_as_string()
                 .map_err(|e| ("java.io.IOException", e.to_string()))
-                .and_then(|text| serde_json::from_str::<Value>(&text).map_err(|e| ("com.google.gson.JsonSyntaxException", e.to_string())));
+                .and_then(|text| {
+                    serde_json::from_str::<Value>(&text)
+                        .map_err(|e| ("com.google.gson.JsonSyntaxException", e.to_string()))
+                });
             match json {
-                Ok(json) => elements.push(ParsedElement { id, json: Arc::new(json), source_pack: pack, info }),
+                Ok(json) => elements.push(ParsedElement {
+                    id,
+                    json: Arc::new(json),
+                    source_pack: pack,
+                    info,
+                }),
                 Err((class, message)) => {
-                    errors.insert((data.key.to_owned(), id.clone()), LoadingError::failed_to_parse(&id, &pack, class, message));
+                    errors.insert(
+                        (data.key.to_owned(), id.clone()),
+                        LoadingError::failed_to_parse(&id, &pack, class, message),
+                    );
                 }
             }
         }
@@ -225,8 +263,18 @@ pub fn load(manager: &dyn ResourceManager, context: &RegistryAccess, registries_
             .iter()
             .zip(&parsed)
             .filter_map(|(d, elements)| {
-                let key = [NOISE_REGISTRY, DENSITY_FUNCTION_REGISTRY, NOISE_SETTINGS_REGISTRY].into_iter().find(|r| keys::dir_path(d.key) == *r)?;
-                Some(elements.iter().map(move |e| ((key, e.id.clone()), e.json.clone())))
+                let key = [
+                    NOISE_REGISTRY,
+                    DENSITY_FUNCTION_REGISTRY,
+                    NOISE_SETTINGS_REGISTRY,
+                ]
+                .into_iter()
+                .find(|r| keys::dir_path(d.key) == *r)?;
+                Some(
+                    elements
+                        .iter()
+                        .map(move |e| ((key, e.id.clone()), e.json.clone())),
+                )
             })
             .flatten()
             .collect(),
@@ -246,10 +294,17 @@ pub fn load(manager: &dyn ResourceManager, context: &RegistryAccess, registries_
             ctx.entry = Some(element.id.clone());
             let decoded: Result<Option<DecodedEntry>, String> = match decoder {
                 Some(d) => (d.decode)(&element.json, &ctx).map(Some),
-                None => generic_validate(data.key, &element.json).and_then(|()| match super::typed::network::network_schema(data.key) {
-                    // no typed value, but the network codec is modelled: validate and keep its NBT
-                    Some(schema) => schema.convert(&element.json, &ctx).map(|tag| Some(DecodedEntry { value: Arc::new(()), network: Some(tag) })),
-                    None => Ok(None),
+                None => generic_validate(data.key, &element.json).and_then(|()| {
+                    match super::typed::network::network_schema(data.key) {
+                        // no typed value, but the network codec is modelled: validate and keep its NBT
+                        Some(schema) => schema.convert(&element.json, &ctx).map(|tag| {
+                            Some(DecodedEntry {
+                                value: Arc::new(()),
+                                network: Some(tag),
+                            })
+                        }),
+                        None => Ok(None),
+                    }
                 }),
             };
             unbound_values.extend(ctx.unbound_values.take());
@@ -261,10 +316,25 @@ pub fn load(manager: &dyn ResourceManager, context: &RegistryAccess, registries_
                         Some(d) => (Some(d.value), d.network),
                         None => (None, None),
                     };
-                    entries.push(RegistryEntry { id: element.id, json: element.json, value, network, source_pack: element.source_pack, info: element.info });
+                    entries.push(RegistryEntry {
+                        id: element.id,
+                        json: element.json,
+                        value,
+                        network,
+                        source_pack: element.source_pack,
+                        info: element.info,
+                    });
                 }
                 Err(message) => {
-                    errors.insert((data.key.to_owned(), element.id.clone()), LoadingError::failed_to_parse(&element.id, &element.source_pack, "java.lang.IllegalStateException", message));
+                    errors.insert(
+                        (data.key.to_owned(), element.id.clone()),
+                        LoadingError::failed_to_parse(
+                            &element.id,
+                            &element.source_pack,
+                            "java.lang.IllegalStateException",
+                            message,
+                        ),
+                    );
                 }
             }
         }
@@ -275,7 +345,11 @@ pub fn load(manager: &dyn ResourceManager, context: &RegistryAccess, registries_
     let mut registries: Vec<Registry> = Vec::with_capacity(stage_entries.len());
     let mut validators: Vec<(RegistryData, usize)> = Vec::new();
     for (data, entries) in stage_entries {
-        let by_id: HashMap<Identifier, u32> = entries.iter().enumerate().map(|(i, e)| (e.id.clone(), i as u32)).collect();
+        let by_id: HashMap<Identifier, u32> = entries
+            .iter()
+            .enumerate()
+            .map(|(i, e)| (e.id.clone(), i as u32))
+            .collect();
         let key = data.key;
         let mut tag_unbound: Vec<(String, Identifier)> = Vec::new();
         let tags = {
@@ -293,23 +367,43 @@ pub fn load(manager: &dyn ResourceManager, context: &RegistryAccess, registries_
             loader.build(&builders)
         };
         unbound_values.extend(tag_unbound);
-        let tags: HashMap<Identifier, Arc<[u32]>> = tags.into_iter().map(|(k, v)| (k, Arc::from(v))).collect();
+        let tags: HashMap<Identifier, Arc<[u32]>> =
+            tags.into_iter().map(|(k, v)| (k, Arc::from(v))).collect();
         validators.push((data, entries.len()));
         registries.push(Registry::dynamic(key, entries).with_tags(tags));
     }
 
     // freezeRegistry: unbound values / tags
     for registry in &registries {
-        let unbound: std::collections::BTreeSet<&Identifier> = unbound_values.iter().filter(|(r, id)| r == registry.key() && !registry.contains(id)).map(|(_, id)| id).collect();
-        let unbound_t: std::collections::BTreeSet<&Identifier> = unbound_tags.iter().filter(|(r, t)| r == registry.key() && registry.tag(t).is_none()).map(|(_, t)| t).collect();
-        let registry_error_key = || ("minecraft:root".to_owned(), Identifier::parse(registry.key()).unwrap_or_else(|_| Identifier::with_default_namespace("unknown").expect("valid")));
+        let unbound: std::collections::BTreeSet<&Identifier> = unbound_values
+            .iter()
+            .filter(|(r, id)| r == registry.key() && !registry.contains(id))
+            .map(|(_, id)| id)
+            .collect();
+        let unbound_t: std::collections::BTreeSet<&Identifier> = unbound_tags
+            .iter()
+            .filter(|(r, t)| r == registry.key() && registry.tag(t).is_none())
+            .map(|(_, t)| t)
+            .collect();
+        let registry_error_key = || {
+            (
+                "minecraft:root".to_owned(),
+                Identifier::parse(registry.key()).unwrap_or_else(|_| {
+                    Identifier::with_default_namespace("unknown").expect("valid")
+                }),
+            )
+        };
         if !unbound.is_empty() {
             errors.insert(
                 registry_error_key(),
                 LoadingError::state(format!(
                     "Unbound values in registry ResourceKey[minecraft:root / {}]: [{}]",
                     registry.key(),
-                    unbound.iter().map(|i| i.to_string()).collect::<Vec<_>>().join(", ")
+                    unbound
+                        .iter()
+                        .map(|i| i.to_string())
+                        .collect::<Vec<_>>()
+                        .join(", ")
                 )),
             );
         } else if !unbound_t.is_empty() {
@@ -318,7 +412,11 @@ pub fn load(manager: &dyn ResourceManager, context: &RegistryAccess, registries_
                 LoadingError::state(format!(
                     "Unbound tags in registry ResourceKey[minecraft:root / {}]: [{}]",
                     registry.key(),
-                    unbound_t.iter().map(|i| i.to_string()).collect::<Vec<_>>().join(", ")
+                    unbound_t
+                        .iter()
+                        .map(|i| i.to_string())
+                        .collect::<Vec<_>>()
+                        .join(", ")
                 )),
             );
         }
@@ -332,8 +430,16 @@ pub fn load(manager: &dyn ResourceManager, context: &RegistryAccess, registries_
     // validateRegistry
     for (data, len) in validators {
         if data.validator == RegistryValidator::NonEmpty && len == 0 {
-            let key = ("minecraft:root".to_owned(), Identifier::parse(data.key).unwrap_or_else(|_| Identifier::with_default_namespace("unknown").expect("valid")));
-            errors.insert(key, LoadingError::state(format!("Registry must be non-empty: {}", data.key)));
+            let key = (
+                "minecraft:root".to_owned(),
+                Identifier::parse(data.key).unwrap_or_else(|_| {
+                    Identifier::with_default_namespace("unknown").expect("valid")
+                }),
+            );
+            errors.insert(
+                key,
+                LoadingError::state(format!("Registry must be non-empty: {}", data.key)),
+            );
         }
     }
     if !errors.is_empty() {
@@ -371,16 +477,39 @@ fn validate_feature_layer(stage: &RegistryAccess) -> Result<(), RegistryLoadFail
     let entry = text.strip_prefix("worldgen/").and_then(|rest| {
         let (registry, rest) = rest.split_once('/')?;
         let (id, message) = rest.split_once(": ")?;
-        Some((format!("minecraft:worldgen/{registry}"), Identifier::try_parse(id)?, message.to_owned()))
+        Some((
+            format!("minecraft:worldgen/{registry}"),
+            Identifier::try_parse(id)?,
+            message.to_owned(),
+        ))
     });
     let (key, failure) = match entry {
         Some((registry, id, message)) => {
-            let pack = stage.registry(&registry).and_then(|r| r.entry_by_key(&id).map(|e| e.source_pack.clone())).unwrap_or_default();
-            ((registry, id.clone()), LoadingError::failed_to_parse(&id, &pack, "java.lang.IllegalStateException", message))
+            let pack = stage
+                .registry(&registry)
+                .and_then(|r| r.entry_by_key(&id).map(|e| e.source_pack.clone()))
+                .unwrap_or_default();
+            (
+                (registry, id.clone()),
+                LoadingError::failed_to_parse(
+                    &id,
+                    &pack,
+                    "java.lang.IllegalStateException",
+                    message,
+                ),
+            )
         }
-        None => (("minecraft:root".to_owned(), Identifier::with_default_namespace("worldgen").expect("valid")), LoadingError::state(text)),
+        None => (
+            (
+                "minecraft:root".to_owned(),
+                Identifier::with_default_namespace("worldgen").expect("valid"),
+            ),
+            LoadingError::state(text),
+        ),
     };
-    let failure = RegistryLoadFailure { errors: BTreeMap::from([(key, failure)]) };
+    let failure = RegistryLoadFailure {
+        errors: BTreeMap::from([(key, failure)]),
+    };
     failure.log();
     Err(failure)
 }
@@ -391,12 +520,25 @@ fn validate_feature_layer(stage: &RegistryAccess) -> Result<(), RegistryLoadFail
 fn generic_validate(registry: &str, json: &Value) -> Result<(), String> {
     let allowed = match json {
         Value::Object(_) => true,
-        Value::Number(_) => matches!(registry, keys::DENSITY_FUNCTION | keys::CONTEXT_FLOAT_PROVIDER | keys::CONTEXT_INT_PROVIDER),
+        Value::Number(_) => matches!(
+            registry,
+            keys::DENSITY_FUNCTION | keys::CONTEXT_FLOAT_PROVIDER | keys::CONTEXT_INT_PROVIDER
+        ),
         Value::String(_) => registry == keys::DENSITY_FUNCTION,
-        Value::Array(_) => matches!(registry, keys::BLOCK_TRANSFORMER | keys::ITEM_MODIFIER | keys::PREDICATE),
+        Value::Array(_) => matches!(
+            registry,
+            keys::BLOCK_TRANSFORMER | keys::ITEM_MODIFIER | keys::PREDICATE
+        ),
         _ => false,
     };
-    if allowed { Ok(()) } else { Err(format!("Not a JSON object: {}", serde_json::to_string(json).unwrap_or_default())) }
+    if allowed {
+        Ok(())
+    } else {
+        Err(format!(
+            "Not a JSON object: {}",
+            serde_json::to_string(json).unwrap_or_default()
+        ))
+    }
 }
 
 #[cfg(test)]
@@ -419,12 +561,26 @@ mod feature_layer_tests {
     /// the registry, the entry and the pack.
     #[test]
     fn an_undecodable_placed_feature_fails_the_load() {
-        let access = access_with("minecraft:worldgen/placed_feature", "test:broken", serde_json::json!({"feature": "test:missing", "placement": []}), "file/test_pack");
+        let access = access_with(
+            "minecraft:worldgen/placed_feature",
+            "test:broken",
+            serde_json::json!({"feature": "test:missing", "placement": []}),
+            "file/test_pack",
+        );
         let failure = validate_feature_layer(&access).expect_err("the entry is invalid");
         let ((registry, id), error) = failure.errors.iter().next().unwrap();
-        assert_eq!((registry.as_str(), id.to_string().as_str()), ("minecraft:worldgen/placed_feature", "test:broken"));
-        assert_eq!(error.message, "Failed to parse test:broken from pack file/test_pack");
-        assert!(error.cause.as_ref().unwrap().1.contains("test:missing"), "{error:?}");
+        assert_eq!(
+            (registry.as_str(), id.to_string().as_str()),
+            ("minecraft:worldgen/placed_feature", "test:broken")
+        );
+        assert_eq!(
+            error.message,
+            "Failed to parse test:broken from pack file/test_pack"
+        );
+        assert!(
+            error.cause.as_ref().unwrap().1.contains("test:missing"),
+            "{error:?}"
+        );
         assert_eq!(failure.errors.len(), 1);
     }
 }

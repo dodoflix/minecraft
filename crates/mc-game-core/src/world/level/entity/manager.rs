@@ -44,7 +44,11 @@ struct EntitySlot {
 }
 
 fn effective_status(always_ticking: bool, status: Visibility) -> Visibility {
-    if always_ticking { Visibility::Ticking } else { status }
+    if always_ticking {
+        Visibility::Ticking
+    } else {
+        status
+    }
 }
 
 pub struct PersistentEntitySectionManager {
@@ -140,13 +144,27 @@ impl PersistentEntitySectionManager {
         }
         let section_key = SectionPos::as_long_block_pos(&entity.block_position());
         let chunk_visibility = &self.chunk_visibility;
-        let section = self.section_storage.get_or_create_section(section_key, |chunk_key| chunk_visibility.get(&chunk_key).copied().unwrap_or_default());
+        let section = self
+            .section_storage
+            .get_or_create_section(section_key, |chunk_key| {
+                chunk_visibility
+                    .get(&chunk_key)
+                    .copied()
+                    .unwrap_or_default()
+            });
         section.add(id);
         let section_status = section.status();
         let always_ticking = entity.is_always_ticking();
         let mut entity = entity;
         entity.base_mut().moved_since_sync = false;
-        self.entities.insert(id, EntitySlot { entity: Some(entity), section_key, always_ticking });
+        self.entities.insert(
+            id,
+            EntitySlot {
+                entity: Some(entity),
+                section_key,
+                always_ticking,
+            },
+        );
         if !loaded {
             self.events.push(EntityLevelEvent::Created(id));
         }
@@ -185,7 +203,12 @@ impl PersistentEntitySectionManager {
     }
 
     fn start_tracking(&mut self, id: EntityId) {
-        let Some(uuid) = self.entities.get(&id).and_then(|s| s.entity.as_ref().map(|e| e.uuid())).or_else(|| self.limbo.get(&id).map(|e| e.uuid())) else {
+        let Some(uuid) = self
+            .entities
+            .get(&id)
+            .and_then(|s| s.entity.as_ref().map(|e| e.uuid()))
+            .or_else(|| self.limbo.get(&id).map(|e| e.uuid()))
+        else {
             return;
         };
         if self.visible_by_uuid.contains_key(&uuid) {
@@ -206,11 +229,19 @@ impl PersistentEntitySectionManager {
     // ---- chunk status ------------------------------------------------------------------------------------------
 
     pub fn is_ticking(&self, pos: ChunkPos) -> bool {
-        self.chunk_visibility.get(&pos.pack()).copied().unwrap_or_default().is_ticking()
+        self.chunk_visibility
+            .get(&pos.pack())
+            .copied()
+            .unwrap_or_default()
+            .is_ticking()
     }
 
     pub fn can_position_tick(&self, pos: BlockPos) -> bool {
-        self.chunk_visibility.get(&ChunkPos::pack_block_pos(&pos)).copied().unwrap_or_default().is_ticking()
+        self.chunk_visibility
+            .get(&ChunkPos::pack_block_pos(&pos))
+            .copied()
+            .unwrap_or_default()
+            .is_ticking()
     }
 
     pub fn are_entities_loaded(&self, chunk_key: i64) -> bool {
@@ -218,7 +249,10 @@ impl PersistentEntitySectionManager {
     }
 
     fn chunk_load_status(&self, chunk_key: i64) -> ChunkLoadStatus {
-        self.chunk_load_statuses.get(&chunk_key).copied().unwrap_or(ChunkLoadStatus::Fresh)
+        self.chunk_load_statuses
+            .get(&chunk_key)
+            .copied()
+            .unwrap_or(ChunkLoadStatus::Fresh)
     }
 
     /// `updateChunkStatus(pos, Visibility)` (callers map `FullChunkStatus` with `Visibility::from_full_chunk_status`).
@@ -232,12 +266,21 @@ impl PersistentEntitySectionManager {
             self.chunks_to_unload.shift_remove(&chunk_key);
             self.ensure_chunk_queued_for_load(chunk_key);
         }
-        for section_key in self.section_storage.existing_section_positions_in_chunk(chunk_key) {
-            let Some(section) = self.section_storage.get_section_mut(section_key) else { continue };
+        for section_key in self
+            .section_storage
+            .existing_section_positions_in_chunk(chunk_key)
+        {
+            let Some(section) = self.section_storage.get_section_mut(section_key) else {
+                continue;
+            };
             let previous = section.update_chunk_status(chunk_status);
             let ids: Vec<EntityId> = section.entities().to_vec();
-            let ids: Vec<EntityId> = ids.into_iter().filter(|id| !self.is_always_ticking(*id)).collect();
-            let (was_accessible, is_accessible) = (previous.is_accessible(), chunk_status.is_accessible());
+            let ids: Vec<EntityId> = ids
+                .into_iter()
+                .filter(|id| !self.is_always_ticking(*id))
+                .collect();
+            let (was_accessible, is_accessible) =
+                (previous.is_accessible(), chunk_status.is_accessible());
             let (was_ticking, is_ticking) = (previous.is_ticking(), chunk_status.is_ticking());
             if was_ticking && !is_ticking {
                 ids.iter().for_each(|&id| self.stop_ticking(id));
@@ -266,10 +309,12 @@ impl PersistentEntitySectionManager {
     }
 
     fn request_chunk_load(&mut self, chunk_key: i64) {
-        self.chunk_load_statuses.insert(chunk_key, ChunkLoadStatus::Pending);
+        self.chunk_load_statuses
+            .insert(chunk_key, ChunkLoadStatus::Pending);
         let pos = ChunkPos::unpack(chunk_key);
         let Some(storage) = self.permanent_storage.as_mut() else {
-            self.loading_inbox.push_back(ChunkEntities::new(pos, Vec::new()));
+            self.loading_inbox
+                .push_back(ChunkEntities::new(pos, Vec::new()));
             return;
         };
         match storage.load_entities(&pos) {
@@ -286,13 +331,17 @@ impl PersistentEntitySectionManager {
     }
 
     pub fn mark_chunk_entities_loaded(&mut self, pos: ChunkPos) {
-        self.chunk_load_statuses.insert(pos.pack(), ChunkLoadStatus::Loaded);
+        self.chunk_load_statuses
+            .insert(pos.pack(), ChunkLoadStatus::Loaded);
     }
 
     /// Root entities of a chunk that `shouldBeSaved`, in section order.
     fn root_entities_to_save(&self, chunk_key: i64) -> Vec<EntityId> {
         let mut result = Vec::new();
-        for section_key in self.section_storage.existing_section_positions_in_chunk(chunk_key) {
+        for section_key in self
+            .section_storage
+            .existing_section_positions_in_chunk(chunk_key)
+        {
             if let Some(section) = self.section_storage.get_section(section_key) {
                 for &id in section.entities() {
                     if self.should_be_saved(id) {
@@ -306,7 +355,9 @@ impl PersistentEntitySectionManager {
 
     /// `Entity.shouldBeSaved()`.
     fn should_be_saved(&self, id: EntityId) -> bool {
-        let Some(e) = self.get_any(id) else { return false };
+        let Some(e) = self.get_any(id) else {
+            return false;
+        };
         if !e.should_be_saved_ignoring_riding() {
             return false;
         }
@@ -324,7 +375,13 @@ impl PersistentEntitySectionManager {
 
     /// `countPlayerPassengers()` of an entity whose slot is taken out: its indirect passengers that are players.
     pub(crate) fn count_players_among(&self, passengers: &[EntityId]) -> usize {
-        passengers.iter().map(|&p| usize::from(self.get_any(p).is_some_and(|p| p.is_player())) + self.count_player_passengers(p)).sum()
+        passengers
+            .iter()
+            .map(|&p| {
+                usize::from(self.get_any(p).is_some_and(|p| p.is_player()))
+                    + self.count_player_passengers(p)
+            })
+            .sum()
     }
 
     /// `getPassengersAndSelf()` ids (post-order).
@@ -363,7 +420,10 @@ impl PersistentEntitySectionManager {
         }
         let tags: Vec<CompoundTag> = {
             let lookup = self.lookup();
-            roots.iter().filter_map(|&id| self.get_any(id).and_then(|e| entity_mod::save(e, &lookup))).collect()
+            roots
+                .iter()
+                .filter_map(|&id| self.get_any(id).and_then(|e| entity_mod::save(e, &lookup)))
+                .collect()
         };
         if let Some(storage) = self.permanent_storage.as_mut() {
             storage.store_entities(&ChunkEntities::new(pos, tags));
@@ -383,7 +443,8 @@ impl PersistentEntitySectionManager {
     /// `unloadEntity`: `setRemoved(UNLOADED_TO_CHUNK)` + callback removal.
     fn unload_entity(&mut self, id: EntityId) {
         if let Some(e) = self.entities.get_mut(&id).and_then(|s| s.entity.as_mut()) {
-            e.base_mut().set_removal_reason(RemovalReason::UnloadedToChunk);
+            e.base_mut()
+                .set_removal_reason(RemovalReason::UnloadedToChunk);
         }
         self.finish_removal(id, RemovalReason::UnloadedToChunk);
     }
@@ -400,7 +461,13 @@ impl PersistentEntitySectionManager {
     pub fn process_unloads(&mut self) {
         let keys: Vec<i64> = self.chunks_to_unload.iter().copied().collect();
         for key in keys {
-            let remove = if self.chunk_visibility.get(&key).copied().unwrap_or_default() != Visibility::Hidden { true } else { self.process_chunk_unload(key) };
+            let remove = if self.chunk_visibility.get(&key).copied().unwrap_or_default()
+                != Visibility::Hidden
+            {
+                true
+            } else {
+                self.process_chunk_unload(key)
+            };
             if remove {
                 self.chunks_to_unload.shift_remove(&key);
             }
@@ -408,7 +475,11 @@ impl PersistentEntitySectionManager {
     }
 
     fn all_chunks_to_save(&self) -> IndexSet<i64> {
-        let mut result: IndexSet<i64> = self.section_storage.get_all_chunks_with_existing_sections().into_iter().collect();
+        let mut result: IndexSet<i64> = self
+            .section_storage
+            .get_all_chunks_with_existing_sections()
+            .into_iter()
+            .collect();
         for (&k, &s) in &self.chunk_load_statuses {
             if s == ChunkLoadStatus::Loaded {
                 result.insert(k);
@@ -420,7 +491,12 @@ impl PersistentEntitySectionManager {
     /// `autoSave()`.
     pub fn auto_save(&mut self) {
         for chunk_key in self.all_chunks_to_save() {
-            let should_unload = self.chunk_visibility.get(&chunk_key).copied().unwrap_or_default() == Visibility::Hidden;
+            let should_unload = self
+                .chunk_visibility
+                .get(&chunk_key)
+                .copied()
+                .unwrap_or_default()
+                == Visibility::Hidden;
             if should_unload {
                 self.process_chunk_unload(chunk_key);
             } else {
@@ -442,8 +518,17 @@ impl PersistentEntitySectionManager {
             load_pending(self);
             let keys: Vec<i64> = chunks_to_save.iter().copied().collect();
             for chunk_key in keys {
-                let should_unload = self.chunk_visibility.get(&chunk_key).copied().unwrap_or_default() == Visibility::Hidden;
-                let done = if should_unload { self.process_chunk_unload(chunk_key) } else { self.store_chunk_sections(chunk_key, false) };
+                let should_unload = self
+                    .chunk_visibility
+                    .get(&chunk_key)
+                    .copied()
+                    .unwrap_or_default()
+                    == Visibility::Hidden;
+                let done = if should_unload {
+                    self.process_chunk_unload(chunk_key)
+                } else {
+                    self.store_chunk_sections(chunk_key, false)
+                };
                 if done {
                     chunks_to_save.shift_remove(&chunk_key);
                 }
@@ -469,8 +554,12 @@ impl PersistentEntitySectionManager {
     /// Apply pending removal / section changes of `id` (what `Entity.setRemoved`/`setPosRaw` do through the level
     /// callback in vanilla). Call after any mutation of an entity that lives in storage, and on `put_back`.
     pub fn sync_entity(&mut self, id: EntityId) {
-        let Some(slot) = self.entities.get_mut(&id) else { return };
-        let Some(entity) = slot.entity.as_mut() else { return };
+        let Some(slot) = self.entities.get_mut(&id) else {
+            return;
+        };
+        let Some(entity) = slot.entity.as_mut() else {
+            return;
+        };
         if let Some(reason) = entity.base().removal_reason() {
             self.finish_removal(id, reason);
             return;
@@ -487,14 +576,28 @@ impl PersistentEntitySectionManager {
     /// `Callback.onMove`.
     fn on_move(&mut self, id: EntityId, new_section_pos: i64) {
         let old_key = self.entities[&id].section_key;
-        let previous_status = self.section_storage.get_section(old_key).map(|s| s.status()).unwrap_or_default();
-        let found = self.section_storage.get_section_mut(old_key).is_some_and(|s| s.remove(id));
+        let previous_status = self
+            .section_storage
+            .get_section(old_key)
+            .map(|s| s.status())
+            .unwrap_or_default();
+        let found = self
+            .section_storage
+            .get_section_mut(old_key)
+            .is_some_and(|s| s.remove(id));
         if !found {
-            log::warn!("Entity {id} wasn't found in section {:?} (moving to {new_section_pos})", SectionPos::of_long(old_key));
+            log::warn!(
+                "Entity {id} wasn't found in section {:?} (moving to {new_section_pos})",
+                SectionPos::of_long(old_key)
+            );
         }
         self.remove_section_if_empty(old_key);
         let chunk_visibility = &self.chunk_visibility;
-        let new_section = self.section_storage.get_or_create_section(new_section_pos, |k| chunk_visibility.get(&k).copied().unwrap_or_default());
+        let new_section = self
+            .section_storage
+            .get_or_create_section(new_section_pos, |k| {
+                chunk_visibility.get(&k).copied().unwrap_or_default()
+            });
         new_section.add(id);
         let new_status = new_section.status();
         if let Some(slot) = self.entities.get_mut(&id) {
@@ -512,7 +615,8 @@ impl PersistentEntitySectionManager {
                 self.events.push(EntityLevelEvent::SectionChange(id));
             }
         } else {
-            let (was_accessible, is_accessible) = (eff_prev.is_accessible(), eff_new.is_accessible());
+            let (was_accessible, is_accessible) =
+                (eff_prev.is_accessible(), eff_new.is_accessible());
             if was_accessible && !is_accessible {
                 self.stop_tracking(id);
             } else if !was_accessible && is_accessible {
@@ -531,7 +635,11 @@ impl PersistentEntitySectionManager {
     }
 
     fn remove_section_if_empty(&mut self, section_key: i64) {
-        if self.section_storage.get_section(section_key).is_some_and(|s| s.is_empty()) {
+        if self
+            .section_storage
+            .get_section(section_key)
+            .is_some_and(|s| s.is_empty())
+        {
             self.section_storage.remove(section_key);
         }
     }
@@ -539,7 +647,9 @@ impl PersistentEntitySectionManager {
     /// `Callback.onRemove(reason)`: leaves the section, stops ticking/tracking, forgets the UUID; the entity
     /// moves to `limbo` until the events are processed.
     fn finish_removal(&mut self, id: EntityId, reason: RemovalReason) {
-        let Some(mut slot) = self.entities.remove(&id) else { return };
+        let Some(mut slot) = self.entities.remove(&id) else {
+            return;
+        };
         let Some(mut entity) = slot.entity.take() else {
             self.entities.insert(id, slot);
             return;
@@ -547,12 +657,18 @@ impl PersistentEntitySectionManager {
         let section_status = match self.section_storage.get_section_mut(slot.section_key) {
             Some(s) => {
                 if !s.remove(id) {
-                    log::warn!("Entity {id} wasn't found in section {:?} (destroying due to {reason:?})", SectionPos::of_long(slot.section_key));
+                    log::warn!(
+                        "Entity {id} wasn't found in section {:?} (destroying due to {reason:?})",
+                        SectionPos::of_long(slot.section_key)
+                    );
                 }
                 s.status()
             }
             None => {
-                log::warn!("Entity {id} wasn't found in section {:?} (destroying due to {reason:?})", SectionPos::of_long(slot.section_key));
+                log::warn!(
+                    "Entity {id} wasn't found in section {:?} (destroying due to {reason:?})",
+                    SectionPos::of_long(slot.section_key)
+                );
                 Visibility::Hidden
             }
         };
@@ -585,7 +701,11 @@ impl PersistentEntitySectionManager {
 
     /// `LevelEntityGetter.get(int id)`: tracked (visible) entities only; `None` while taken out.
     pub fn get(&self, id: EntityId) -> Option<&dyn Entity> {
-        if self.visible_by_id.contains_key(&id) { self.get_any(id) } else { None }
+        if self.visible_by_id.contains_key(&id) {
+            self.get_any(id)
+        } else {
+            None
+        }
     }
 
     /// Mutable access; callers must `sync_entity(id)` afterwards (or use `Level::with_entity`).
@@ -593,12 +713,16 @@ impl PersistentEntitySectionManager {
         if !self.visible_by_id.contains_key(&id) {
             return None;
         }
-        self.entities.get_mut(&id).and_then(|s| s.entity.as_deref_mut())
+        self.entities
+            .get_mut(&id)
+            .and_then(|s| s.entity.as_deref_mut())
     }
 
     /// Mutable access ignoring visibility (hidden entities included); `None` while taken out.
     pub fn get_any_mut(&mut self, id: EntityId) -> Option<&mut dyn Entity> {
-        self.entities.get_mut(&id).and_then(|s| s.entity.as_deref_mut())
+        self.entities
+            .get_mut(&id)
+            .and_then(|s| s.entity.as_deref_mut())
     }
 
     /// Mutable access to a live entity, or to one that was just removed and waits in limbo for its callbacks.
@@ -610,7 +734,9 @@ impl PersistentEntitySectionManager {
     }
 
     pub fn get_by_uuid(&self, uuid: Uuid) -> Option<&dyn Entity> {
-        self.visible_by_uuid.get(&uuid).and_then(|&id| self.get_any(id))
+        self.visible_by_uuid
+            .get(&uuid)
+            .and_then(|&id| self.get_any(id))
     }
 
     /// Entity id registered under `uuid` (also while the entity is taken out).
@@ -679,33 +805,48 @@ impl PersistentEntitySectionManager {
     }
 
     /// `getEntities(AABB, consumer)`: visits `(id, entity)` of accessible sections' entities whose box intersects.
-    pub fn for_each_in_aabb(&self, bb: &AABB, mut consumer: impl FnMut(EntityId, &dyn Entity) -> ControlFlow<()>) {
-        self.section_storage.for_each_accessible_non_empty_section(bb, |_, section| {
-            for &id in section.entities() {
-                if let Some(e) = self.get_any(id) {
-                    if e.get_bounding_box().intersects_aabb(bb) && consumer(id, e).is_break() {
-                        return ControlFlow::Break(());
+    pub fn for_each_in_aabb(
+        &self,
+        bb: &AABB,
+        mut consumer: impl FnMut(EntityId, &dyn Entity) -> ControlFlow<()>,
+    ) {
+        self.section_storage
+            .for_each_accessible_non_empty_section(bb, |_, section| {
+                for &id in section.entities() {
+                    if let Some(e) = self.get_any(id) {
+                        if e.get_bounding_box().intersects_aabb(bb) && consumer(id, e).is_break() {
+                            return ControlFlow::Break(());
+                        }
                     }
                 }
-            }
-            ControlFlow::Continue(())
-        });
+                ControlFlow::Continue(())
+            });
     }
     /// `for_each_in_aabb` for a class query issued BY the ticking entity (taken out of its slot): vanilla's
     /// `getEntitiesOfClass` also returns the querying entity itself, so `stand_in` is visited at its slot position.
-    pub fn for_each_in_aabb_with_stand_in(&self, bb: &AABB, stand_in: &dyn Entity, mut consumer: impl FnMut(EntityId, &dyn Entity) -> ControlFlow<()>) {
+    pub fn for_each_in_aabb_with_stand_in(
+        &self,
+        bb: &AABB,
+        stand_in: &dyn Entity,
+        mut consumer: impl FnMut(EntityId, &dyn Entity) -> ControlFlow<()>,
+    ) {
         let stand_in_id = stand_in.id();
-        self.section_storage.for_each_accessible_non_empty_section(bb, |_, section| {
-            for &id in section.entities() {
-                let e = if id == stand_in_id { Some(stand_in) } else { self.get_any(id) };
-                if let Some(e) = e {
-                    if e.get_bounding_box().intersects_aabb(bb) && consumer(id, e).is_break() {
-                        return ControlFlow::Break(());
+        self.section_storage
+            .for_each_accessible_non_empty_section(bb, |_, section| {
+                for &id in section.entities() {
+                    let e = if id == stand_in_id {
+                        Some(stand_in)
+                    } else {
+                        self.get_any(id)
+                    };
+                    if let Some(e) = e {
+                        if e.get_bounding_box().intersects_aabb(bb) && consumer(id, e).is_break() {
+                            return ControlFlow::Break(());
+                        }
                     }
                 }
-            }
-            ControlFlow::Continue(())
-        });
+                ControlFlow::Continue(())
+            });
     }
 
     pub fn gather_stats(&self) -> String {
@@ -723,7 +864,15 @@ impl PersistentEntitySectionManager {
 }
 
 fn describe(e: &dyn Entity) -> String {
-    format!("{}['{}'/{}, x={:.2}, y={:.2}, z={:.2}]", e.get_type().data().name, e.get_type().data().name, e.id(), e.position().x, e.position().y, e.position().z)
+    format!(
+        "{}['{}'/{}, x={:.2}, y={:.2}, z={:.2}]",
+        e.get_type().data().name,
+        e.get_type().data().name,
+        e.id(),
+        e.position().x,
+        e.position().y,
+        e.position().z
+    )
 }
 
 #[cfg(test)]
@@ -763,7 +912,10 @@ mod tests {
         assert!(m.get(2).is_some());
         assert!(m.tick_list.contains(1));
         let events = m.take_events();
-        assert!(events.contains(&EntityLevelEvent::TrackingStart(1)) && events.contains(&EntityLevelEvent::TickingStart(2)));
+        assert!(
+            events.contains(&EntityLevelEvent::TrackingStart(1))
+                && events.contains(&EntityLevelEvent::TickingStart(2))
+        );
         m.update_chunk_status(ChunkPos::new(0, 0), Visibility::Tracked);
         assert!(!m.tick_list.contains(1) && m.get(1).is_some());
     }
@@ -776,13 +928,22 @@ mod tests {
         m.add_new_entity(pig(1, 1.0, 64.0, 1.0)).ok().unwrap();
         m.take_events();
         let mut e = m.take(1).unwrap();
-        assert!(m.get(1).is_none(), "own lookup excludes the taken-out entity");
+        assert!(
+            m.get(1).is_none(),
+            "own lookup excludes the taken-out entity"
+        );
         e.set_pos(17.5, 64.0, 1.0);
         m.put_back(1, e);
         assert!(!m.tick_list.contains(1), "moved into a tracked-only chunk");
         let ev = m.take_events();
-        assert!(ev.contains(&EntityLevelEvent::TickingEnd(1)) && ev.contains(&EntityLevelEvent::SectionChange(1)));
-        assert_eq!(collect(&m, &AABB::new(16.0, 60.0, 0.0, 20.0, 70.0, 4.0)), vec![1]);
+        assert!(
+            ev.contains(&EntityLevelEvent::TickingEnd(1))
+                && ev.contains(&EntityLevelEvent::SectionChange(1))
+        );
+        assert_eq!(
+            collect(&m, &AABB::new(16.0, 60.0, 0.0, 20.0, 70.0, 4.0)),
+            vec![1]
+        );
     }
 
     #[test]
@@ -796,7 +957,10 @@ mod tests {
         m.put_back(1, e);
         assert!(!m.is_loaded(uuid) && m.get_any(1).is_none() && m.count() == 0);
         let ev = m.take_events();
-        assert!(ev.contains(&EntityLevelEvent::Destroyed(1)) && ev.contains(&EntityLevelEvent::TrackingEnd(1)));
+        assert!(
+            ev.contains(&EntityLevelEvent::Destroyed(1))
+                && ev.contains(&EntityLevelEvent::TrackingEnd(1))
+        );
         assert!(m.get_removed(1).is_some());
     }
 

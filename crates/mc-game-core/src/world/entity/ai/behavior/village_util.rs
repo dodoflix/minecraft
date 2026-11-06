@@ -20,7 +20,10 @@ pub fn poi_is(key: &'static str) -> PoiPredicate {
 
 /// `BlockPos.hashCode()` (`Vec3i.hashCode`).
 pub fn block_pos_hash(pos: BlockPos) -> i32 {
-    pos.y().wrapping_add(pos.z().wrapping_mul(31)).wrapping_mul(31).wrapping_add(pos.x())
+    pos.y()
+        .wrapping_add(pos.z().wrapping_mul(31))
+        .wrapping_mul(31)
+        .wrapping_add(pos.x())
 }
 
 /// The iteration order of a `HashSet<BlockPos>` filled with `positions` (insertion order resolves bucket collisions).
@@ -32,7 +35,10 @@ pub fn java_block_pos_set_order(positions: &[BlockPos]) -> Vec<BlockPos> {
         }
     }
     let hashes: Vec<i32> = unique.iter().map(|&p| block_pos_hash(p)).collect();
-    java_hash_map_order(&hashes).into_iter().map(|i| unique[i]).collect()
+    java_hash_map_order(&hashes)
+        .into_iter()
+        .map(|i| unique[i])
+        .collect()
 }
 
 /// `level.getServer().getLevel(pos.dimension())` restricted to the level the behavior runs in: the POI manager of

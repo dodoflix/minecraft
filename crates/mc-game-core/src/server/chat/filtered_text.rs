@@ -15,11 +15,17 @@ impl FilteredText {
     }
 
     pub fn pass_through(message: impl Into<String>) -> Self {
-        Self { raw: message.into(), mask: FilterMask::PassThrough }
+        Self {
+            raw: message.into(),
+            mask: FilterMask::PassThrough,
+        }
     }
 
     pub fn fully_filtered(message: impl Into<String>) -> Self {
-        Self { raw: message.into(), mask: FilterMask::FullyFiltered }
+        Self {
+            raw: message.into(),
+            mask: FilterMask::FullyFiltered,
+        }
     }
 
     pub fn filtered(&self) -> Option<String> {

@@ -44,7 +44,10 @@ impl StringReader {
     pub fn new(string: impl Into<String>) -> Self {
         let string = string.into();
         let units = string.encode_utf16().collect();
-        Self { data: Arc::new(Data { string, units }), cursor: 0 }
+        Self {
+            data: Arc::new(Data { string, units }),
+            cursor: 0,
+        }
     }
 
     pub fn set_cursor(&mut self, cursor: usize) {
@@ -53,7 +56,12 @@ impl StringReader {
 
     fn unit(&self, index: usize) -> u16 {
         // `String.charAt`'s `StringIndexOutOfBoundsException` text (shown by `Could not parse command: ...`)
-        *self.data.units.get(index).unwrap_or_else(|| panic!("Index {index} out of bounds for length {}", self.data.units.len()))
+        *self.data.units.get(index).unwrap_or_else(|| {
+            panic!(
+                "Index {index} out of bounds for length {}",
+                self.data.units.len()
+            )
+        })
     }
 
     fn slice(&self, start: usize, end: usize) -> String {
@@ -104,44 +112,60 @@ impl StringReader {
     pub fn read_int(&mut self) -> Result<i32, CommandSyntaxException> {
         let (start, number) = self.read_number_text();
         if number.is_empty() {
-            return Err(built_in_exceptions().reader_expected_int().create_with_context(self));
+            return Err(built_in_exceptions()
+                .reader_expected_int()
+                .create_with_context(self));
         }
         number.parse().map_err(|_| {
             self.cursor = start;
-            built_in_exceptions().reader_invalid_int().create_with_context(self, number)
+            built_in_exceptions()
+                .reader_invalid_int()
+                .create_with_context(self, number)
         })
     }
 
     pub fn read_long(&mut self) -> Result<i64, CommandSyntaxException> {
         let (start, number) = self.read_number_text();
         if number.is_empty() {
-            return Err(built_in_exceptions().reader_expected_long().create_with_context(self));
+            return Err(built_in_exceptions()
+                .reader_expected_long()
+                .create_with_context(self));
         }
         number.parse().map_err(|_| {
             self.cursor = start;
-            built_in_exceptions().reader_invalid_long().create_with_context(self, number)
+            built_in_exceptions()
+                .reader_invalid_long()
+                .create_with_context(self, number)
         })
     }
 
     pub fn read_double(&mut self) -> Result<f64, CommandSyntaxException> {
         let (start, number) = self.read_number_text();
         if number.is_empty() {
-            return Err(built_in_exceptions().reader_expected_double().create_with_context(self));
+            return Err(built_in_exceptions()
+                .reader_expected_double()
+                .create_with_context(self));
         }
         number.parse().map_err(|_| {
             self.cursor = start;
-            built_in_exceptions().reader_invalid_double().create_with_context(self, number)
+            built_in_exceptions()
+                .reader_invalid_double()
+                .create_with_context(self, number)
         })
     }
 
     pub fn read_float(&mut self) -> Result<f32, CommandSyntaxException> {
         let (start, number) = self.read_number_text();
         if number.is_empty() {
-            return Err(built_in_exceptions().reader_expected_float().create_with_context(self));
+            return Err(built_in_exceptions()
+                .reader_expected_float()
+                .create_with_context(self));
         }
         number.parse().map_err(|_| {
             self.cursor = start;
-            built_in_exceptions().reader_invalid_float().create_with_context(self, number)
+            built_in_exceptions()
+                .reader_invalid_float()
+                .create_with_context(self, number)
         })
     }
 
@@ -159,13 +183,18 @@ impl StringReader {
         }
         let next = self.peek();
         if !Self::is_quoted_string_start(next) {
-            return Err(built_in_exceptions().reader_expected_start_of_quote().create_with_context(self));
+            return Err(built_in_exceptions()
+                .reader_expected_start_of_quote()
+                .create_with_context(self));
         }
         self.skip();
         self.read_string_until(next)
     }
 
-    pub fn read_string_until(&mut self, terminator: char) -> Result<String, CommandSyntaxException> {
+    pub fn read_string_until(
+        &mut self,
+        terminator: char,
+    ) -> Result<String, CommandSyntaxException> {
         let terminator = u16::try_from(terminator as u32).ok();
         let mut result: Vec<u16> = Vec::new();
         let mut escaped = false;
@@ -190,7 +219,9 @@ impl StringReader {
                 result.push(c);
             }
         }
-        Err(built_in_exceptions().reader_expected_end_of_quote().create_with_context(self))
+        Err(built_in_exceptions()
+            .reader_expected_end_of_quote()
+            .create_with_context(self))
     }
 
     pub fn read_string(&mut self) -> Result<String, CommandSyntaxException> {
@@ -210,12 +241,16 @@ impl StringReader {
         let start = self.cursor;
         let value = self.read_string()?;
         match value.as_str() {
-            "" => Err(built_in_exceptions().reader_expected_bool().create_with_context(self)),
+            "" => Err(built_in_exceptions()
+                .reader_expected_bool()
+                .create_with_context(self)),
             "true" => Ok(true),
             "false" => Ok(false),
             _ => {
                 self.cursor = start;
-                Err(built_in_exceptions().reader_invalid_bool().create_with_context(self, value))
+                Err(built_in_exceptions()
+                    .reader_invalid_bool()
+                    .create_with_context(self, value))
             }
         }
     }
@@ -225,7 +260,9 @@ impl StringReader {
             self.skip();
             Ok(())
         } else {
-            Err(built_in_exceptions().reader_expected_symbol().create_with_context(self, c.to_string()))
+            Err(built_in_exceptions()
+                .reader_expected_symbol()
+                .create_with_context(self, c.to_string()))
         }
     }
 }

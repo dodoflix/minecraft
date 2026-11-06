@@ -6,6 +6,6 @@ pub mod cow_variant;
 pub mod mushroom_cow;
 
 pub use cow::Cow;
-pub use mushroom_cow::MushroomCow;
 pub use cow_sound_variant::CowSoundVariant;
 pub use cow_variant::CowVariant;
+pub use mushroom_cow::MushroomCow;

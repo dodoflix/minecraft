@@ -21,7 +21,14 @@ pub const SPACE_BETWEEN_WALL_POSTS: f64 = 0.5;
 const DEFAULT_MOB_JUMP_HEIGHT: f64 = 1.125;
 
 fn aabb_key(bb: &AABB) -> [u64; 6] {
-    [bb.min_x.to_bits(), bb.min_y.to_bits(), bb.min_z.to_bits(), bb.max_x.to_bits(), bb.max_y.to_bits(), bb.max_z.to_bits()]
+    [
+        bb.min_x.to_bits(),
+        bb.min_y.to_bits(),
+        bb.min_z.to_bits(),
+        bb.max_x.to_bits(),
+        bb.max_y.to_bits(),
+        bb.max_z.to_bits(),
+    ]
 }
 
 pub fn prepare<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>) {
@@ -39,12 +46,16 @@ pub fn done<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>) {
 pub fn get_start<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>) -> NodeId {
     let (mx, mz) = (env.mob.x(), env.mob.z());
     let mut start_y = env.mob.get_block_y();
-    let mut block_state = env.context.get_block_state(BlockPos::containing(mx, f64::from(start_y), mz));
+    let mut block_state =
+        env.context
+            .get_block_state(BlockPos::containing(mx, f64::from(start_y), mz));
     if !env.mob.can_stand_on_fluid(block_state.get_fluid_state()) {
         if this.can_float() && env.mob.is_in_floatable_fluid() {
             while block_state.get_fluid_state().is_tag("entity_floatable") {
                 start_y += 1;
-                block_state = env.context.get_block_state(BlockPos::containing(mx, f64::from(start_y), mz));
+                block_state =
+                    env.context
+                        .get_block_state(BlockPos::containing(mx, f64::from(start_y), mz));
             }
             start_y -= 1;
         } else if env.mob.on_ground() {
@@ -63,7 +74,9 @@ pub fn get_start<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>)
     } else {
         while env.mob.can_stand_on_fluid(block_state.get_fluid_state()) {
             start_y += 1;
-            block_state = env.context.get_block_state(BlockPos::containing(mx, f64::from(start_y), mz));
+            block_state =
+                env.context
+                    .get_block_state(BlockPos::containing(mx, f64::from(start_y), mz));
         }
         start_y -= 1;
     }
@@ -71,7 +84,12 @@ pub fn get_start<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>)
     if !this.can_start_at(env, BlockPos::new(start_pos.x(), start_y, start_pos.z())) {
         let bb = env.mob.bounding_box();
         let y = f64::from(start_y);
-        for (x, z) in [(bb.min_x, bb.min_z), (bb.min_x, bb.max_z), (bb.max_x, bb.min_z), (bb.max_x, bb.max_z)] {
+        for (x, z) in [
+            (bb.min_x, bb.min_z),
+            (bb.min_x, bb.max_z),
+            (bb.max_x, bb.min_z),
+            (bb.max_x, bb.max_z),
+        ] {
             let candidate = BlockPos::containing(x, y, z);
             if this.can_start_at(env, candidate) {
                 return this.get_start_node(env, candidate);
@@ -81,7 +99,11 @@ pub fn get_start<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>)
     this.get_start_node(env, BlockPos::new(start_pos.x(), start_y, start_pos.z()))
 }
 
-pub fn get_start_node<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>, pos: BlockPos) -> NodeId {
+pub fn get_start_node<N: NodeEvaluator + ?Sized>(
+    this: &mut N,
+    env: &mut PathEnv<'_>,
+    pos: BlockPos,
+) -> NodeId {
     let id = this.get_node(pos.x(), pos.y(), pos.z());
     let (x, y, z) = {
         let n = this.node(id);
@@ -95,12 +117,21 @@ pub fn get_start_node<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv
     id
 }
 
-pub fn can_start_at<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>, pos: BlockPos) -> bool {
+pub fn can_start_at<N: NodeEvaluator + ?Sized>(
+    this: &mut N,
+    env: &mut PathEnv<'_>,
+    pos: BlockPos,
+) -> bool {
     let ty = this.get_cached_path_type(env, pos.x(), pos.y(), pos.z());
     ty != PathType::Open && env.mob.get_pathfinding_malus(ty) >= 0.0
 }
 
-pub fn get_neighbors<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>, neighbors: &mut [NodeId; 32], pos: NodeId) -> usize {
+pub fn get_neighbors<N: NodeEvaluator + ?Sized>(
+    this: &mut N,
+    env: &mut PathEnv<'_>,
+    neighbors: &mut [NodeId; 32],
+    pos: NodeId,
+) -> usize {
     let mut p = 0;
     let mut jump_size = 0;
     let (px, py, pz) = {
@@ -114,7 +145,16 @@ pub fn get_neighbors<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<
     }
     let pos_height = this.get_floor_level(env, BlockPos::new(px, py, pz));
     for direction in Direction::HORIZONTAL {
-        let node = this.find_accepted_node(env, px + direction.get_step_x(), py, pz + direction.get_step_z(), jump_size, pos_height, direction, current);
+        let node = this.find_accepted_node(
+            env,
+            px + direction.get_step_x(),
+            py,
+            pz + direction.get_step_z(),
+            jump_size,
+            pos_height,
+            direction,
+            current,
+        );
         this.state_mut().reusable_neighbors[direction.get_2d_data_value() as usize] = node;
         if this.is_neighbor_valid(env, node, pos) {
             neighbors[p] = node.expect("valid neighbor");
@@ -125,7 +165,10 @@ pub fn get_neighbors<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<
         let second = direction.get_clockwise();
         let (ew, ns) = {
             let rn = &this.state().reusable_neighbors;
-            (rn[direction.get_2d_data_value() as usize], rn[second.get_2d_data_value() as usize])
+            (
+                rn[direction.get_2d_data_value() as usize],
+                rn[second.get_2d_data_value() as usize],
+            )
         };
         if this.is_diagonal_valid_between(env, pos, ew, ns) {
             let diagonal = this.find_accepted_node(
@@ -147,7 +190,12 @@ pub fn get_neighbors<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<
     p
 }
 
-pub fn is_neighbor_valid<N: NodeEvaluator + ?Sized>(this: &mut N, _env: &mut PathEnv<'_>, neighbor: Option<NodeId>, current: NodeId) -> bool {
+pub fn is_neighbor_valid<N: NodeEvaluator + ?Sized>(
+    this: &mut N,
+    _env: &mut PathEnv<'_>,
+    neighbor: Option<NodeId>,
+    current: NodeId,
+) -> bool {
     match neighbor {
         None => false,
         Some(n) => {
@@ -157,8 +205,16 @@ pub fn is_neighbor_valid<N: NodeEvaluator + ?Sized>(this: &mut N, _env: &mut Pat
     }
 }
 
-pub fn is_diagonal_valid_between<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>, pos: NodeId, ew: Option<NodeId>, ns: Option<NodeId>) -> bool {
-    let (Some(ew), Some(ns)) = (ew, ns) else { return false };
+pub fn is_diagonal_valid_between<N: NodeEvaluator + ?Sized>(
+    this: &mut N,
+    env: &mut PathEnv<'_>,
+    pos: NodeId,
+    ew: Option<NodeId>,
+    ns: Option<NodeId>,
+) -> bool {
+    let (Some(ew), Some(ns)) = (ew, ns) else {
+        return false;
+    };
     let (pos, ew, ns) = (this.node(pos), this.node(ew), this.node(ns));
     if ns.y > pos.y || ew.y > pos.y {
         return false;
@@ -169,16 +225,27 @@ pub fn is_diagonal_valid_between<N: NodeEvaluator + ?Sized>(this: &mut N, env: &
     if env.mob.bb_width() > 1.0 && (ew.cost_malus > 0.0 || ns.cost_malus > 0.0) {
         return false;
     }
-    let can_pass_between_posts = ns.ty == PathType::Fence && ew.ty == PathType::Fence && f64::from(env.mob.bb_width()) < 0.5;
-    (ns.y < pos.y || ns.cost_malus >= 0.0 || can_pass_between_posts) && (ew.y < pos.y || ew.cost_malus >= 0.0 || can_pass_between_posts)
+    let can_pass_between_posts =
+        ns.ty == PathType::Fence && ew.ty == PathType::Fence && f64::from(env.mob.bb_width()) < 0.5;
+    (ns.y < pos.y || ns.cost_malus >= 0.0 || can_pass_between_posts)
+        && (ew.y < pos.y || ew.cost_malus >= 0.0 || can_pass_between_posts)
 }
 
-pub fn is_diagonal_valid<N: NodeEvaluator + ?Sized>(this: &mut N, diagonal: Option<NodeId>) -> bool {
+pub fn is_diagonal_valid<N: NodeEvaluator + ?Sized>(
+    this: &mut N,
+    diagonal: Option<NodeId>,
+) -> bool {
     match diagonal {
         None => false,
         Some(d) => {
             let d = this.node(d);
-            if d.closed { false } else if d.ty == PathType::WalkableDoor { false } else { d.cost_malus >= 0.0 }
+            if d.closed {
+                false
+            } else if d.ty == PathType::WalkableDoor {
+                false
+            } else {
+                d.cost_malus >= 0.0
+            }
         }
     }
 }
@@ -187,7 +254,11 @@ fn does_block_have_partial_collision(ty: PathType) -> bool {
     ty == PathType::Fence || ty == PathType::DoorWoodClosed || ty == PathType::DoorIronClosed
 }
 
-fn can_reach_without_collision<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>, pos_to: NodeId) -> bool {
+fn can_reach_without_collision<N: NodeEvaluator + ?Sized>(
+    this: &mut N,
+    env: &mut PathEnv<'_>,
+    pos_to: NodeId,
+) -> bool {
     let mut bb = env.mob.bounding_box();
     let to = this.node(pos_to);
     let mut delta = Vec3::new(
@@ -206,9 +277,15 @@ fn can_reach_without_collision<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mu
     true
 }
 
-pub fn get_floor_level<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>, pos: BlockPos) -> f64 {
+pub fn get_floor_level<N: NodeEvaluator + ?Sized>(
+    this: &mut N,
+    env: &mut PathEnv<'_>,
+    pos: BlockPos,
+) -> f64 {
     let level = env.context.level();
-    if (this.can_float() || this.is_amphibious()) && level.get_fluid_state(pos).is_tag("entity_floatable") {
+    if (this.can_float() || this.is_amphibious())
+        && level.get_fluid_state(pos).is_tag("entity_floatable")
+    {
         f64::from(pos.y()) + 0.5
     } else {
         get_floor_level_static(level, pos)
@@ -218,8 +295,15 @@ pub fn get_floor_level<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEn
 /// `getFloorLevel(level, pos)`: the top of the collision shape below `pos`.
 pub fn get_floor_level_static(level: &dyn BlockGetter, pos: BlockPos) -> f64 {
     let target = pos.below();
-    let shape = level.get_block_state(target).get_collision_shape(level, target);
-    f64::from(target.y()) + if shape.is_empty() { 0.0 } else { shape.max(mc_core::direction::Axis::Y) }
+    let shape = level
+        .get_block_state(target)
+        .get_collision_shape(level, target);
+    f64::from(target.y())
+        + if shape.is_empty() {
+            0.0
+        } else {
+            shape.max(mc_core::direction::Axis::Y)
+        }
 }
 
 #[allow(clippy::too_many_arguments)]
@@ -242,7 +326,9 @@ pub fn find_accepted_node<N: NodeEvaluator + ?Sized>(
     let path_type = this.get_cached_path_type(env, x, y, z);
     let path_cost = env.mob.get_pathfinding_malus(path_type);
     if path_cost >= 0.0 {
-        best = Some(get_node_and_update_cost_to_max(this, x, y, z, path_type, path_cost));
+        best = Some(get_node_and_update_cost_to_max(
+            this, x, y, z, path_type, path_cost,
+        ));
     }
     if does_block_have_partial_collision(block_path_type_current)
         && let Some(b) = best
@@ -259,7 +345,17 @@ pub fn find_accepted_node<N: NodeEvaluator + ?Sized>(
             && path_type != PathType::Trapdoor
             && path_type != PathType::PowderSnow
         {
-            best = try_jump_on(this, env, x, y, z, jump_size, node_height, travel_direction, block_path_type_current);
+            best = try_jump_on(
+                this,
+                env,
+                x,
+                y,
+                z,
+                jump_size,
+                node_height,
+                travel_direction,
+                block_path_type_current,
+            );
         } else if !this.is_amphibious() && path_type == PathType::Water && !this.can_float() {
             best = try_find_first_non_water_below(this, env, x, y, z, best);
         } else if path_type == PathType::Open {
@@ -275,7 +371,14 @@ fn get_mob_jump_height(env: &PathEnv<'_>) -> f64 {
     DEFAULT_MOB_JUMP_HEIGHT.max(f64::from(env.mob.max_up_step()))
 }
 
-fn get_node_and_update_cost_to_max<N: NodeEvaluator + ?Sized>(this: &mut N, x: i32, y: i32, z: i32, path_type: PathType, cost: f32) -> NodeId {
+fn get_node_and_update_cost_to_max<N: NodeEvaluator + ?Sized>(
+    this: &mut N,
+    x: i32,
+    y: i32,
+    z: i32,
+    path_type: PathType,
+    cost: f32,
+) -> NodeId {
     let id = this.get_node(x, y, z);
     let node = this.node_mut(id);
     node.ty = path_type;
@@ -291,7 +394,13 @@ fn get_blocked_node<N: NodeEvaluator + ?Sized>(this: &mut N, x: i32, y: i32, z: 
     id
 }
 
-fn get_closed_node<N: NodeEvaluator + ?Sized>(this: &mut N, x: i32, y: i32, z: i32, path_type: PathType) -> NodeId {
+fn get_closed_node<N: NodeEvaluator + ?Sized>(
+    this: &mut N,
+    x: i32,
+    y: i32,
+    z: i32,
+    path_type: PathType,
+) -> NodeId {
     let id = this.get_node(x, y, z);
     let node = this.node_mut(id);
     node.closed = true;
@@ -312,7 +421,16 @@ fn try_jump_on<N: NodeEvaluator + ?Sized>(
     travel_direction: Direction,
     block_path_type_current: PathType,
 ) -> Option<NodeId> {
-    let node_above = this.find_accepted_node(env, x, y + 1, z, jump_size - 1, node_height, travel_direction, block_path_type_current)?;
+    let node_above = this.find_accepted_node(
+        env,
+        x,
+        y + 1,
+        z,
+        jump_size - 1,
+        node_height,
+        travel_direction,
+        block_path_type_current,
+    )?;
     if env.mob.bb_width() >= 1.0 {
         return Some(node_above);
     }
@@ -323,13 +441,36 @@ fn try_jump_on<N: NodeEvaluator + ?Sized>(
     let center_x = f64::from(x - travel_direction.get_step_x()) + 0.5;
     let center_z = f64::from(z - travel_direction.get_step_z()) + 0.5;
     let half_width = f64::from(env.mob.bb_width()) / 2.0;
-    let min_y = this.get_floor_level(env, BlockPos::containing(center_x, f64::from(y + 1), center_z)) + 0.001;
-    let max_y = f64::from(env.mob.bb_height()) + this.get_floor_level(env, BlockPos::new(above.x, above.y, above.z)) - 0.002;
-    let grow = AABB::new(center_x - half_width, min_y, center_z - half_width, center_x + half_width, max_y, center_z + half_width);
-    if has_collisions(this, env, &grow) { None } else { Some(node_above) }
+    let min_y = this.get_floor_level(
+        env,
+        BlockPos::containing(center_x, f64::from(y + 1), center_z),
+    ) + 0.001;
+    let max_y = f64::from(env.mob.bb_height())
+        + this.get_floor_level(env, BlockPos::new(above.x, above.y, above.z))
+        - 0.002;
+    let grow = AABB::new(
+        center_x - half_width,
+        min_y,
+        center_z - half_width,
+        center_x + half_width,
+        max_y,
+        center_z + half_width,
+    );
+    if has_collisions(this, env, &grow) {
+        None
+    } else {
+        Some(node_above)
+    }
 }
 
-fn try_find_first_non_water_below<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>, x: i32, mut y: i32, z: i32, mut best: Option<NodeId>) -> Option<NodeId> {
+fn try_find_first_non_water_below<N: NodeEvaluator + ?Sized>(
+    this: &mut N,
+    env: &mut PathEnv<'_>,
+    x: i32,
+    mut y: i32,
+    z: i32,
+    mut best: Option<NodeId>,
+) -> Option<NodeId> {
     y -= 1;
     while y > env.context.level().get_min_y() {
         let local = this.get_cached_path_type(env, x, y, z);
@@ -343,7 +484,13 @@ fn try_find_first_non_water_below<N: NodeEvaluator + ?Sized>(this: &mut N, env: 
     best
 }
 
-fn try_find_first_ground_node_below<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>, x: i32, y: i32, z: i32) -> NodeId {
+fn try_find_first_ground_node_below<N: NodeEvaluator + ?Sized>(
+    this: &mut N,
+    env: &mut PathEnv<'_>,
+    x: i32,
+    y: i32,
+    z: i32,
+) -> NodeId {
     let min_y = env.context.level().get_min_y();
     let mut current_y = y - 1;
     while current_y >= min_y {
@@ -354,7 +501,9 @@ fn try_find_first_ground_node_below<N: NodeEvaluator + ?Sized>(this: &mut N, env
         let path_cost = env.mob.get_pathfinding_malus(path_type);
         if path_type != PathType::Open {
             if path_cost >= 0.0 {
-                return get_node_and_update_cost_to_max(this, x, current_y, z, path_type, path_cost);
+                return get_node_and_update_cost_to_max(
+                    this, x, current_y, z, path_type, path_cost,
+                );
             }
             return get_blocked_node(this, x, current_y, z);
         }
@@ -363,7 +512,11 @@ fn try_find_first_ground_node_below<N: NodeEvaluator + ?Sized>(this: &mut N, env
     get_blocked_node(this, x, y, z)
 }
 
-fn has_collisions<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>, aabb: &AABB) -> bool {
+fn has_collisions<N: NodeEvaluator + ?Sized>(
+    this: &mut N,
+    env: &mut PathEnv<'_>,
+    aabb: &AABB,
+) -> bool {
     let key = aabb_key(aabb);
     if let Some(&cached) = this.state().collision_cache.get(&key) {
         return cached;
@@ -373,7 +526,13 @@ fn has_collisions<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>
     collides
 }
 
-pub fn get_cached_path_type<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>, x: i32, y: i32, z: i32) -> PathType {
+pub fn get_cached_path_type<N: NodeEvaluator + ?Sized>(
+    this: &mut N,
+    env: &mut PathEnv<'_>,
+    x: i32,
+    y: i32,
+    z: i32,
+) -> PathType {
     let key = BlockPos::as_long_xyz(x, y, z);
     if let Some(&ty) = this.state().path_types_by_pos.get(&key) {
         return ty;
@@ -383,7 +542,13 @@ pub fn get_cached_path_type<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut P
     ty
 }
 
-pub fn get_path_type_of_mob<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>, x: i32, y: i32, z: i32) -> PathType {
+pub fn get_path_type_of_mob<N: NodeEvaluator + ?Sized>(
+    this: &mut N,
+    env: &mut PathEnv<'_>,
+    x: i32,
+    y: i32,
+    z: i32,
+) -> PathType {
     let block_types = get_path_type_within_mob_bb(this, env, x, y, z);
     let count = block_types.iter().filter(|&&b| b).count();
     let contains = |ty: PathType| block_types[ty.ordinal()];
@@ -415,9 +580,20 @@ pub fn get_path_type_of_mob<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut P
     let is_large_mob = this.state().base.entity_width > 1;
     if is_large_mob {
         let is_current_cheaper = env.mob.get_pathfinding_malus(current_node_type) < highest_malus;
-        let cap = is_current_cheaper && env.mob.get_pathfinding_malus(PathType::BigMobsCloseToDanger) < highest_malus;
-        if cap { PathType::BigMobsCloseToDanger } else { highest_malus_type }
-    } else if current_node_type == PathType::Open && highest_malus_type != PathType::Open && highest_malus == 0.0 {
+        let cap = is_current_cheaper
+            && env
+                .mob
+                .get_pathfinding_malus(PathType::BigMobsCloseToDanger)
+                < highest_malus;
+        if cap {
+            PathType::BigMobsCloseToDanger
+        } else {
+            highest_malus_type
+        }
+    } else if current_node_type == PathType::Open
+        && highest_malus_type != PathType::Open
+        && highest_malus == 0.0
+    {
         PathType::Open
     } else {
         highest_malus_type
@@ -425,7 +601,13 @@ pub fn get_path_type_of_mob<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut P
 }
 
 /// `getPathTypeWithinMobBB(context, x, y, z)` as a set (indexed by `PathType::ordinal`).
-pub fn get_path_type_within_mob_bb<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>, x: i32, y: i32, z: i32) -> [bool; PathType::COUNT] {
+pub fn get_path_type_within_mob_bb<N: NodeEvaluator + ?Sized>(
+    this: &mut N,
+    env: &mut PathEnv<'_>,
+    x: i32,
+    y: i32,
+    z: i32,
+) -> [bool; PathType::COUNT] {
     let mut block_types = [false; PathType::COUNT];
     let (width, height, depth) = {
         let b = &this.state().base;
@@ -438,15 +620,22 @@ pub fn get_path_type_within_mob_bb<N: NodeEvaluator + ?Sized>(this: &mut N, env:
                 let mut block_type = this.get_path_type(env, xx, yy, zz);
                 let mob_position = env.mob.block_position();
                 let can_pass_doors = this.can_pass_doors();
-                if block_type == PathType::DoorWoodClosed && this.can_open_doors() && can_pass_doors {
+                if block_type == PathType::DoorWoodClosed && this.can_open_doors() && can_pass_doors
+                {
                     block_type = PathType::WalkableDoor;
                 }
                 if block_type == PathType::DoorOpen && !can_pass_doors {
                     block_type = PathType::Blocked;
                 }
                 if block_type == PathType::Rail
-                    && this.get_path_type(env, mob_position.x(), mob_position.y(), mob_position.z()) != PathType::Rail
-                    && this.get_path_type(env, mob_position.x(), mob_position.y() - 1, mob_position.z()) != PathType::Rail
+                    && this.get_path_type(env, mob_position.x(), mob_position.y(), mob_position.z())
+                        != PathType::Rail
+                    && this.get_path_type(
+                        env,
+                        mob_position.x(),
+                        mob_position.y() - 1,
+                        mob_position.z(),
+                    ) != PathType::Rail
                 {
                     block_type = PathType::UnpassableRail;
                 }
@@ -468,7 +657,9 @@ pub fn get_path_type_static(context: &PathfindingContext<'_>, pos: BlockPos) -> 
     let block_path_type = context.get_path_type_from_state(x, y, z);
     if block_path_type == PathType::Open && y >= context.level().get_min_y() + 1 {
         match context.get_path_type_from_state(x, y - 1, z) {
-            PathType::Open | PathType::Water | PathType::Lava | PathType::Walkable => PathType::Open,
+            PathType::Open | PathType::Water | PathType::Lava | PathType::Walkable => {
+                PathType::Open
+            }
             PathType::Fire => PathType::Fire,
             PathType::Damaging => PathType::Damaging,
             PathType::StickyHoney => PathType::StickyHoney,
@@ -483,7 +674,13 @@ pub fn get_path_type_static(context: &PathfindingContext<'_>, pos: BlockPos) -> 
 }
 
 /// `checkNeighbourBlocks(context, x, y, z, blockPathType)`.
-pub fn check_neighbour_blocks(context: &PathfindingContext<'_>, x: i32, y: i32, z: i32, block_path_type: PathType) -> PathType {
+pub fn check_neighbour_blocks(
+    context: &PathfindingContext<'_>,
+    x: i32,
+    y: i32,
+    z: i32,
+    block_path_type: PathType,
+) -> PathType {
     for dx in -1..=1 {
         for dy in -1..=1 {
             for dz in -1..=1 {
@@ -514,7 +711,10 @@ pub fn get_path_type_from_state<L: BlockGetter + ?Sized>(level: &L, pos: BlockPo
     let block = block_state.block();
     if block_state.is_air() {
         PathType::Open
-    } else if block_state.is_tag("trapdoors") || block == Block::LILY_PAD || block == Block::BIG_DRIPLEAF {
+    } else if block_state.is_tag("trapdoors")
+        || block == Block::LILY_PAD
+        || block == Block::BIG_DRIPLEAF
+    {
         PathType::Trapdoor
     } else if block == Block::POWDER_SNOW {
         PathType::PowderSnow

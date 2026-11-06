@@ -13,7 +13,10 @@ pub struct EntitySectionStorage {
 }
 
 fn chunk_key_from_section_key(section_pos: i64) -> i64 {
-    ChunkPos::pack_xz(SectionPos::x_from_long(section_pos), SectionPos::z_from_long(section_pos))
+    ChunkPos::pack_xz(
+        SectionPos::x_from_long(section_pos),
+        SectionPos::z_from_long(section_pos),
+    )
 }
 
 impl EntitySectionStorage {
@@ -21,11 +24,18 @@ impl EntitySectionStorage {
     pub const MAX_NON_CHONKY_ENTITY_SIZE: i32 = 4;
 
     pub fn new() -> Self {
-        Self { sections: HashMap::new(), section_ids: BTreeSet::new() }
+        Self {
+            sections: HashMap::new(),
+            section_ids: BTreeSet::new(),
+        }
     }
 
     /// `forEachAccessibleNonEmptySection`: calls `output(section_key, section)` in vanilla order until it breaks.
-    pub fn for_each_accessible_non_empty_section(&self, bb: &AABB, mut output: impl FnMut(i64, &EntitySection) -> ControlFlow<()>) {
+    pub fn for_each_accessible_non_empty_section(
+        &self,
+        bb: &AABB,
+        mut output: impl FnMut(i64, &EntitySection) -> ControlFlow<()>,
+    ) {
         let x_min = SectionPos::pos_to_section_coord(bb.min_x - 2.0);
         let y_min = SectionPos::pos_to_section_coord(bb.min_y - 4.0);
         let z_min = SectionPos::pos_to_section_coord(bb.min_z - 2.0);
@@ -40,7 +50,10 @@ impl EntitySectionStorage {
                 let z = SectionPos::z_from_long(section_key);
                 if y >= y_min && y <= y_max && z >= z_min && z <= z_max {
                     if let Some(section) = self.sections.get(&section_key) {
-                        if !section.is_empty() && section.status().is_accessible() && output(section_key, section).is_break() {
+                        if !section.is_empty()
+                            && section.status().is_accessible()
+                            && output(section_key, section).is_break()
+                        {
                             return;
                         }
                     }
@@ -58,13 +71,19 @@ impl EntitySectionStorage {
         self.section_ids.range(lowest..=highest).copied().collect()
     }
 
-    pub fn get_or_create_section(&mut self, key: i64, initial_visibility: impl FnOnce(i64) -> Visibility) -> &mut EntitySection {
+    pub fn get_or_create_section(
+        &mut self,
+        key: i64,
+        initial_visibility: impl FnOnce(i64) -> Visibility,
+    ) -> &mut EntitySection {
         if !self.sections.contains_key(&key) {
             let status = initial_visibility(chunk_key_from_section_key(key));
             self.section_ids.insert(key);
             self.sections.insert(key, EntitySection::new(status));
         }
-        self.sections.get_mut(&key).expect("section was just inserted")
+        self.sections
+            .get_mut(&key)
+            .expect("section was just inserted")
     }
 
     pub fn get_section(&self, key: i64) -> Option<&EntitySection> {
@@ -76,7 +95,10 @@ impl EntitySectionStorage {
     }
 
     pub fn get_all_chunks_with_existing_sections(&self) -> HashSet<i64> {
-        self.sections.keys().map(|&k| chunk_key_from_section_key(k)).collect()
+        self.sections
+            .keys()
+            .map(|&k| chunk_key_from_section_key(k))
+            .collect()
     }
 
     pub fn remove(&mut self, section_key: i64) {

@@ -15,17 +15,40 @@ use mc_data::block::BlockState;
 /// `Block.playerWillDestroy(level, pos, state, player)`: destroy particles (level event 2001 for everyone but the
 /// player), the `BLOCK_DESTROY` game event; returns `state`. (`PiglinAi.angerNearbyPiglins` for blocks guarded by
 /// piglins belongs to the piglin AI, which is not ported.)
-pub fn player_will_destroy(level: &mut ServerLevel, pos: BlockPos, state: BlockState, player: &ServerPlayer) -> BlockState {
+pub fn player_will_destroy(
+    level: &mut ServerLevel,
+    pos: BlockPos,
+    state: BlockState,
+    player: &ServerPlayer,
+) -> BlockState {
     level.level_event(Some(player.id()), 2001, pos, state.id() as i32);
-    level.game_event_at_block(GameEvent::BLOCK_DESTROY, pos, &GameEventContext::of(Some(player.id()), Some(state)));
+    level.game_event_at_block(
+        GameEvent::BLOCK_DESTROY,
+        pos,
+        &GameEventContext::of(Some(player.id()), Some(state)),
+    );
     state
 }
 
 /// `Block.playerDestroy(level, player, pos, state, blockEntity, destroyedWith)`.
-pub fn player_destroy(level: &mut ServerLevel, player: &mut ServerPlayer, pos: BlockPos, state: BlockState, block_entity: Option<&dyn BlockEntity>, destroyed_with: &ItemStack) {
+pub fn player_destroy(
+    level: &mut ServerLevel,
+    player: &mut ServerPlayer,
+    pos: BlockPos,
+    state: BlockState,
+    block_entity: Option<&dyn BlockEntity>,
+    destroyed_with: &ItemStack,
+) {
     player.award_stat_once(level, crate::stats::Stat::Mined(state.block()));
     player.cause_food_exhaustion(0.005);
-    crate::world::level::storage::loot::block_drops::drop_resources_with_tool(level, state, pos, block_entity, Some(&*player), destroyed_with);
+    crate::world::level::storage::loot::block_drops::drop_resources_with_tool(
+        level,
+        state,
+        pos,
+        block_entity,
+        Some(&*player),
+        destroyed_with,
+    );
 }
 
 /// A detached copy of the block entity at `pos` (`ServerPlayerGameMode.destroyBlock` keeps the object alive across

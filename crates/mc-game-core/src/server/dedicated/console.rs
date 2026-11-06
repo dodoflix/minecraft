@@ -33,7 +33,11 @@ fn read_java_line(reader: &mut impl BufRead) -> std::io::Result<Option<String>> 
     loop {
         let buf = reader.fill_buf()?;
         if buf.is_empty() {
-            return Ok(if bytes.is_empty() { None } else { Some(String::from_utf8_lossy(&bytes).into_owned()) });
+            return Ok(if bytes.is_empty() {
+                None
+            } else {
+                Some(String::from_utf8_lossy(&bytes).into_owned())
+            });
         }
         match buf.iter().position(|&b| b == b'\n' || b == b'\r') {
             Some(i) => {
@@ -71,8 +75,13 @@ pub fn run_console_reader(input: impl Read, queue: &ConsoleInputQueue, stop: &Se
 }
 
 /// Start the `Server console handler` thread reading stdin.
-pub fn spawn_console_thread(queue: ConsoleInputQueue, stop: ServerStopSignal) -> std::io::Result<std::thread::JoinHandle<()>> {
-    std::thread::Builder::new().name("Server console handler".to_owned()).spawn(move || run_console_reader(std::io::stdin(), &queue, &stop))
+pub fn spawn_console_thread(
+    queue: ConsoleInputQueue,
+    stop: ServerStopSignal,
+) -> std::io::Result<std::thread::JoinHandle<()>> {
+    std::thread::Builder::new()
+        .name("Server console handler".to_owned())
+        .spawn(move || run_console_reader(std::io::stdin(), &queue, &stop))
 }
 
 #[cfg(test)]

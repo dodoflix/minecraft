@@ -1,11 +1,13 @@
 //! `ComparatorBlockEntity`: the remembered output signal (`OutputSignal`).
 
-use mc_game_core::block_entity_base;
-use mc_game_core::world::block_entity::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration};
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
 use mc_data::BlockEntityType;
 use mc_data::block::BlockState;
+use mc_game_core::block_entity_base;
+use mc_game_core::world::block_entity::{
+    BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration,
+};
 use mc_nbt::CompoundTag;
 
 pub struct ComparatorBlockEntity {
@@ -15,7 +17,10 @@ pub struct ComparatorBlockEntity {
 
 impl ComparatorBlockEntity {
     pub fn new(pos: BlockPos, state: BlockState) -> Self {
-        Self { base: BlockEntityData::new(BlockEntityType::COMPARATOR, pos, state), output: 0 }
+        Self {
+            base: BlockEntityData::new(BlockEntityType::COMPARATOR, pos, state),
+            output: 0,
+        }
     }
 
     /// `getOutputSignal`.
@@ -42,5 +47,7 @@ impl BlockEntity for ComparatorBlockEntity {
 }
 
 #[distributed_slice(BLOCK_ENTITY_TYPES)]
-static COMPARATOR: BlockEntityRegistration =
-    BlockEntityRegistration { ty: BlockEntityType::COMPARATOR, create: |pos, state| Box::new(ComparatorBlockEntity::new(pos, state)) };
+static COMPARATOR: BlockEntityRegistration = BlockEntityRegistration {
+    ty: BlockEntityType::COMPARATOR,
+    create: |pos, state| Box::new(ComparatorBlockEntity::new(pos, state)),
+};

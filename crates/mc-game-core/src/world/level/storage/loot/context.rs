@@ -82,7 +82,10 @@ pub struct ContextKeySet {
 }
 
 impl ContextKeySet {
-    pub const fn new(required: &'static [ContextKey], optional: &'static [ContextKey]) -> ContextKeySet {
+    pub const fn new(
+        required: &'static [ContextKey],
+        optional: &'static [ContextKey],
+    ) -> ContextKeySet {
         ContextKeySet { required, optional }
     }
 
@@ -111,7 +114,16 @@ impl PartialEq for ContextKeySet {
 impl std::fmt::Display for ContextKeySet {
     /// `ContextKeySet.toString`.
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let parts: Vec<String> = self.allowed().map(|k| format!("{}minecraft:{}", if self.is_required(k) { "!" } else { "" }, k.name())).collect();
+        let parts: Vec<String> = self
+            .allowed()
+            .map(|k| {
+                format!(
+                    "{}minecraft:{}",
+                    if self.is_required(k) { "!" } else { "" },
+                    k.name()
+                )
+            })
+            .collect();
         write!(f, "[{}]", parts.join(", "))
     }
 }
@@ -148,7 +160,9 @@ pub struct LootParams<'a> {
 impl<'a> LootParams<'a> {
     /// `new LootParams.Builder(level)`.
     pub fn builder(level: &'a ServerLevel) -> LootParamsBuilder<'a> {
-        LootParamsBuilder { params: LootParams::empty(level) }
+        LootParamsBuilder {
+            params: LootParams::empty(level),
+        }
     }
 
     fn empty(level: &'a ServerLevel) -> LootParams<'a> {
@@ -344,11 +358,24 @@ impl<'a> LootParamsBuilder<'a> {
 
     /// `create(contextKeySet)`: `ContextMap.Builder.buildAndValidate` (panics like the `IllegalArgumentException`).
     pub fn create(self, set: &ContextKeySet) -> LootParams<'a> {
-        let not_allowed: Vec<String> = self.params.keys().filter(|k| !set.allows(*k)).map(|k| k.to_string()).collect();
+        let not_allowed: Vec<String> = self
+            .params
+            .keys()
+            .filter(|k| !set.allows(*k))
+            .map(|k| k.to_string())
+            .collect();
         if !not_allowed.is_empty() {
-            panic!("Parameters not allowed in this parameter set: [{}]", not_allowed.join(", "));
+            panic!(
+                "Parameters not allowed in this parameter set: [{}]",
+                not_allowed.join(", ")
+            );
         }
-        let missing: Vec<String> = set.required.iter().filter(|k| !self.params.has(**k)).map(|k| k.to_string()).collect();
+        let missing: Vec<String> = set
+            .required
+            .iter()
+            .filter(|k| !self.params.has(**k))
+            .map(|k| k.to_string())
+            .collect();
         if !missing.is_empty() {
             panic!("Missing required parameters: [{}]", missing.join(", "));
         }
@@ -395,7 +422,10 @@ pub struct LootContext<'a> {
 impl<'a> LootContext<'a> {
     /// `new LootContext.Builder(params)`.
     pub fn builder(params: &'a LootParams<'a>) -> LootContextBuilder<'a> {
-        LootContextBuilder { params, random: None }
+        LootContextBuilder {
+            params,
+            random: None,
+        }
     }
 
     pub fn params(&self) -> &'a LootParams<'a> {
@@ -492,7 +522,12 @@ impl<'a> LootContextBuilder<'a> {
                 None => super::server_access::level_random(level),
             },
         };
-        LootContext { params: self.params, random, resolver: &level.registries, visited: Vec::new() }
+        LootContext {
+            params: self.params,
+            random,
+            resolver: &level.registries,
+            visited: Vec::new(),
+        }
     }
 }
 

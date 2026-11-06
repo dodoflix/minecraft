@@ -2,8 +2,8 @@
 
 use super::entity_predicate::EntitySubPredicateImpl;
 use crate::server::level::ServerLevel;
-use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::Entity;
+use crate::world::entity::equipment::EquipmentSlot;
 use mc_core::phys::Vec3;
 use mc_dfu::Codec;
 use mc_protocol::components::ItemPredicate;
@@ -36,7 +36,11 @@ impl EntityEquipmentPredicate {
             (&self.offhand, EquipmentSlot::OffHand),
         ]
         .into_iter()
-        .all(|(predicate, slot)| predicate.as_ref().is_none_or(|p| p.test(&entity.get_item_by_slot(slot))))
+        .all(|(predicate, slot)| {
+            predicate
+                .as_ref()
+                .is_none_or(|p| p.test(&entity.get_item_by_slot(slot)))
+        })
     }
 }
 
@@ -57,7 +61,13 @@ impl EntitySubPredicateImpl for EntityEquipmentPredicate {
         C.clone()
     }
 
-    fn matches<'a>(&self, entity: &'a dyn Entity, _level: &'a ServerLevel, _position: Option<Vec3>, _lent: &[&'a dyn Entity]) -> bool {
+    fn matches<'a>(
+        &self,
+        entity: &'a dyn Entity,
+        _level: &'a ServerLevel,
+        _position: Option<Vec3>,
+        _lent: &[&'a dyn Entity],
+    ) -> bool {
         self.matches_entity(entity)
     }
 }

@@ -1,13 +1,13 @@
 //! `treedecorators.PaleMossDecorator`.
 
 use super::TREE_DECORATOR_TYPES;
-use mc_game_core::world::level::levelgen::feature::tree::shuffle;
 use super::tree_decorator::{Context, TreeDecorator};
-use mc_game_core::world::level::levelgen::codec::{TypeEntry, parse_float_range};
 use mc_core::ident::Identifier;
 use mc_core::pos::BlockPos;
 use mc_data::block::Block;
 use mc_data::props;
+use mc_game_core::world::level::levelgen::codec::{TypeEntry, parse_float_range};
+use mc_game_core::world::level::levelgen::feature::tree::shuffle;
 use std::sync::Arc;
 
 /// `VegetationFeatures.PALE_MOSS_PATCH`.
@@ -21,10 +21,20 @@ pub struct PaleMossDecorator {
 
 fn add_moss_hanger(mut pos: BlockPos, context: &mut Context<'_>) {
     while context.is_air(pos.below()) && !(context.random.next_float() < 0.5f32) {
-        context.set_block(pos, Block::PALE_HANGING_MOSS.default_state().set(props::TIP, false));
+        context.set_block(
+            pos,
+            Block::PALE_HANGING_MOSS
+                .default_state()
+                .set(props::TIP, false),
+        );
         pos = pos.below();
     }
-    context.set_block(pos, Block::PALE_HANGING_MOSS.default_state().set(props::TIP, true));
+    context.set_block(
+        pos,
+        Block::PALE_HANGING_MOSS
+            .default_state()
+            .set(props::TIP, true),
+    );
 }
 
 impl TreeDecorator for PaleMossDecorator {
@@ -35,12 +45,18 @@ impl TreeDecorator for PaleMossDecorator {
             return;
         }
         // Collections.min: the first of the minimal elements
-        let origin = logs.iter().copied().reduce(|min, pos| if pos.y() < min.y() { pos } else { min }).unwrap();
+        let origin = logs
+            .iter()
+            .copied()
+            .reduce(|min, pos| if pos.y() < min.y() { pos } else { min })
+            .unwrap();
         if context.random.next_float() < self.ground_probability {
             let env = context.level.env().clone();
             let id = Identifier::parse(PALE_MOSS_PATCH).expect("valid id");
             if let Some(moss_patch) = env.registries.feature(&id) {
-                moss_patch.value().place(context.level, &env, context.random, origin.above());
+                moss_patch
+                    .value()
+                    .place(context.level, &env, context.random, origin.above());
             }
         }
 

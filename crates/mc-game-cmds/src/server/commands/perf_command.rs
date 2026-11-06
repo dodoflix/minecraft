@@ -1,4 +1,5 @@
 //! `PerfCommand`.
+use mc_brigadier::{ArgumentBuilder, CommandSyntaxException, SimpleCommandExceptionType};
 use mc_game_core::commands::message::simple_translatable;
 use mc_game_core::commands::server_access::enter_server;
 use mc_game_core::commands::{CommandSourceStack, LEVEL_OWNERS, has_permission, literal};
@@ -8,13 +9,14 @@ use mc_game_core::util::java_format::format_fixed;
 use mc_game_core::util::profiling::ProfileResults;
 use mc_game_core::util::profiling::metrics::PROFILING_RESULTS_DIR;
 use mc_game_core::{register_command, translatable};
-use mc_brigadier::{ArgumentBuilder, CommandSyntaxException, SimpleCommandExceptionType};
 use std::io::Write as _;
 use std::path::Path;
 use std::sync::LazyLock;
 
-static ERROR_NOT_RUNNING: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| simple_translatable("commands.perf.notRunning"));
-static ERROR_ALREADY_RUNNING: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| simple_translatable("commands.perf.alreadyRunning"));
+static ERROR_NOT_RUNNING: LazyLock<SimpleCommandExceptionType> =
+    LazyLock::new(|| simple_translatable("commands.perf.notRunning"));
+static ERROR_ALREADY_RUNNING: LazyLock<SimpleCommandExceptionType> =
+    LazyLock::new(|| simple_translatable("commands.perf.alreadyRunning"));
 
 register_command!("PerfCommand", |ctx| {
     ctx.dispatcher.register(
@@ -25,7 +27,9 @@ register_command!("PerfCommand", |ctx| {
     );
 });
 
-fn start_profiling_dedicated_server(source: &CommandSourceStack) -> Result<i32, CommandSyntaxException> {
+fn start_profiling_dedicated_server(
+    source: &CommandSourceStack,
+) -> Result<i32, CommandSyntaxException> {
     if source.with_server(|server| server.is_recording_metrics()) {
         return Err(ERROR_ALREADY_RUNNING.create());
     }
@@ -42,7 +46,9 @@ fn start_profiling_dedicated_server(source: &CommandSourceStack) -> Result<i32, 
     Ok(0)
 }
 
-fn stop_profiling_dedicated_server(source: &CommandSourceStack) -> Result<i32, CommandSyntaxException> {
+fn stop_profiling_dedicated_server(
+    source: &CommandSourceStack,
+) -> Result<i32, CommandSyntaxException> {
     if !source.with_server(|server| server.is_recording_metrics()) {
         return Err(ERROR_NOT_RUNNING.create());
     }
@@ -52,17 +58,29 @@ fn stop_profiling_dedicated_server(source: &CommandSourceStack) -> Result<i32, C
 
 /// `saveResults(source, report, server)` on the IO thread: `<date>-<level>-<version>.zip` in `debug/profiling` holding
 /// `system.txt` and the report directory; feedback goes back to the game thread.
-fn save_results(source: CommandSourceStack, report: &Path, shared: &std::sync::Arc<mc_game_core::server::shared::ServerShared>, level_name: &str) {
+fn save_results(
+    source: CommandSourceStack,
+    report: &Path,
+    shared: &std::sync::Arc<mc_game_core::server::shared::ServerShared>,
+    level_name: &str,
+) {
     let feedback = |run: Box<dyn FnOnce(&CommandSourceStack) + Send>| {
         shared.execute(move |server| enter_server(server, || run(&source)));
     };
-    let profiling_name = format!("{}-{}-{}", mc_game_core::crash_report::filename_formatted_date_time(), level_name, mc_game_core::server::packs::GAME_VERSION);
+    let profiling_name = format!(
+        "{}-{}-{}",
+        mc_game_core::crash_report::filename_formatted_date_time(),
+        level_name,
+        mc_game_core::server::packs::GAME_VERSION
+    );
     let results_dir = Path::new(PROFILING_RESULTS_DIR);
     let zip_file = match find_available_name(results_dir, &profiling_name, ".zip") {
         Ok(name) => name,
         Err(e) => {
             log::error!("Failed to create report name\n{e}");
-            feedback(Box::new(|source| source.send_failure(translatable!("commands.perf.reportFailed"))));
+            feedback(Box::new(|source| {
+                source.send_failure(translatable!("commands.perf.reportFailed"))
+            }));
             return;
         }
     };
@@ -78,9 +96,17 @@ fn save_results(source: CommandSourceStack, report: &Path, shared: &std::sync::A
         return;
     }
     if let Err(e) = std::fs::remove_dir_all(report) {
-        log::warn!("Failed to delete temporary profiling file {}\n{e}", report.display());
+        log::warn!(
+            "Failed to delete temporary profiling file {}\n{e}",
+            report.display()
+        );
     }
-    feedback(Box::new(move |source| source.send_success(|| translatable!("commands.perf.reportSaved", zip_file.clone()), false)));
+    feedback(Box::new(move |source| {
+        source.send_success(
+            || translatable!("commands.perf.reportSaved", zip_file.clone()),
+            false,
+        )
+    }));
 }
 
 /// `FileZipper`: writes `output + "_tmp"`, then moves it to `output`.
@@ -89,7 +115,8 @@ fn zip_report(output: &Path, system_report: &str, report: &Path) -> std::io::Res
     temp_name.push("_tmp");
     let temp_file = output.with_file_name(temp_name);
     let mut zip = zip::ZipWriter::new(std::fs::File::create(&temp_file)?);
-    let options = zip::write::SimpleFileOptions::default().compression_method(zip::CompressionMethod::Deflated);
+    let options = zip::write::SimpleFileOptions::default()
+        .compression_method(zip::CompressionMethod::Deflated);
     let to_io = |e: zip::result::ZipError| std::io::Error::other(e);
     zip.start_file("system.txt", options).map_err(to_io)?;
     zip.write_all(system_report.as_bytes())?;
@@ -100,7 +127,11 @@ fn zip_report(output: &Path, system_report: &str, report: &Path) -> std::io::Res
             if path.is_dir() {
                 stack.push(path);
             } else {
-                let relative = path.strip_prefix(report).map_err(std::io::Error::other)?.to_string_lossy().replace(std::path::MAIN_SEPARATOR, "/");
+                let relative = path
+                    .strip_prefix(report)
+                    .map_err(std::io::Error::other)?
+                    .to_string_lossy()
+                    .replace(std::path::MAIN_SEPARATOR, "/");
                 zip.start_file(relative, options).map_err(to_io)?;
                 zip.write_all(&std::fs::read(&path)?)?;
             }
@@ -120,7 +151,14 @@ fn when_stopped(source: &CommandSourceStack, results: &ProfileResults) {
     let ticks = results.get_tick_duration();
     let duration_in_seconds = results.get_nano_duration() as f64 / 1_000_000_000.0;
     source.send_success(
-        || translatable!("commands.perf.stopped", format_fixed(duration_in_seconds, 2), ticks, format_fixed(f64::from(ticks) / duration_in_seconds, 2)),
+        || {
+            translatable!(
+                "commands.perf.stopped",
+                format_fixed(duration_in_seconds, 2),
+                ticks,
+                format_fixed(f64::from(ticks) / duration_in_seconds, 2)
+            )
+        },
         false,
     );
 }

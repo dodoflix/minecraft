@@ -10,22 +10,50 @@ fn core_orientation(state: BlockState) -> mc_core::direction::FrontAndTop {
 }
 
 fn with_orientation(state: BlockState, orientation: mc_core::direction::FrontAndTop) -> BlockState {
-    state.set(props::ORIENTATION, mc_data::enums::FrontAndTop::ALL[orientation.ordinal()])
+    state.set(
+        props::ORIENTATION,
+        mc_data::enums::FrontAndTop::ALL[orientation.ordinal()],
+    )
 }
 
 impl BlockBehaviour for JigsawBlock {
     fn rotate(&self, state: BlockState, rotation: Rotation) -> BlockState {
-        with_orientation(state, rotation.rotation().rotate_front_and_top(core_orientation(state)).expect("rotated jigsaw orientation"))
+        with_orientation(
+            state,
+            rotation
+                .rotation()
+                .rotate_front_and_top(core_orientation(state))
+                .expect("rotated jigsaw orientation"),
+        )
     }
     fn mirror(&self, state: BlockState, mirror: Mirror) -> BlockState {
-        with_orientation(state, mirror.rotation().rotate_front_and_top(core_orientation(state)).expect("mirrored jigsaw orientation"))
+        with_orientation(
+            state,
+            mirror
+                .rotation()
+                .rotate_front_and_top(core_orientation(state))
+                .expect("mirrored jigsaw orientation"),
+        )
     }
 
     /// `getStateForPlacement`: the clicked face is the front; the top is up, or away from the player on a vertical face.
-    fn get_state_for_placement(&self, block: Block, _level: &mut mc_game_core::server::level::ServerLevel, context: &mc_game_core::world::item::BlockPlaceContext) -> Option<BlockState> {
+    fn get_state_for_placement(
+        &self,
+        block: Block,
+        _level: &mut mc_game_core::server::level::ServerLevel,
+        context: &mc_game_core::world::item::BlockPlaceContext,
+    ) -> Option<BlockState> {
         let front = context.get_clicked_face();
-        let top = if front.get_axis() == Axis::Y { context.get_horizontal_direction().get_opposite() } else { Direction::Up };
-        Some(with_orientation(block.default_state(), mc_core::direction::FrontAndTop::from_front_and_top(front, top).expect("valid jigsaw orientation")))
+        let top = if front.get_axis() == Axis::Y {
+            context.get_horizontal_direction().get_opposite()
+        } else {
+            Direction::Up
+        };
+        Some(with_orientation(
+            block.default_state(),
+            mc_core::direction::FrontAndTop::from_front_and_top(front, top)
+                .expect("valid jigsaw orientation"),
+        ))
     }
 
     /// `useWithoutItem`: `player.openJigsawBlock(be)` is client-side only.
@@ -37,8 +65,15 @@ impl BlockBehaviour for JigsawBlock {
         player: &mut mc_game_core::world::entity::ServerPlayer,
         _hit: &mc_core::phys::BlockHitResult,
     ) -> mc_game_core::world::item::InteractionResult {
-        let is_jigsaw = level.get_block_entity_immediate(pos).is_some_and(|be| be.as_any().is::<mc_game_core::world::block_entity::JigsawBlockEntity>());
-        if is_jigsaw && player.can_use_game_master_blocks() { mc_game_core::world::item::InteractionResult::SUCCESS } else { mc_game_core::world::item::InteractionResult::PASS }
+        let is_jigsaw = level.get_block_entity_immediate(pos).is_some_and(|be| {
+            be.as_any()
+                .is::<mc_game_core::world::block_entity::JigsawBlockEntity>()
+        });
+        if is_jigsaw && player.can_use_game_master_blocks() {
+            mc_game_core::world::item::InteractionResult::SUCCESS
+        } else {
+            mc_game_core::world::item::InteractionResult::PASS
+        }
     }
 }
 

@@ -48,6 +48,7 @@ pub const BEES_STAY_IN_HIVE: &str = "gameplay/bees_stay_in_hive";
 pub const MONSTERS_BURN: &str = "gameplay/monsters_burn";
 pub const CAN_PILLAGER_PATROL_SPAWN: &str = "gameplay/can_pillager_patrol_spawn";
 pub const NATURAL_MOB_SPAWNS: &str = "gameplay/natural_mob_spawns";
-pub const CREATURE_WORLD_GEN_SPAWN_PROBABILITY: &str = "gameplay/creature_world_gen_spawn_probability";
+pub const CREATURE_WORLD_GEN_SPAWN_PROBABILITY: &str =
+    "gameplay/creature_world_gen_spawn_probability";
 pub const VILLAGER_ACTIVITY: &str = "gameplay/villager_activity";
 pub const BABY_VILLAGER_ACTIVITY: &str = "gameplay/baby_villager_activity";

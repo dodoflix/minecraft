@@ -20,12 +20,17 @@ pub struct BlockCache {
 impl BlockCache {
     /// `createLevelCache(level, loadChunks)`.
     pub fn new(load_chunks: bool) -> Self {
-        BlockCache { load_chunks, blocks: HashMap::new() }
+        BlockCache {
+            load_chunks,
+            blocks: HashMap::new(),
+        }
     }
 
     fn get_unchecked(&mut self, pos: BlockPos) -> &mut BlockInWorld {
         let load_chunks = self.load_chunks;
-        self.blocks.entry(pos).or_insert_with(|| BlockInWorld::new(pos, load_chunks))
+        self.blocks
+            .entry(pos)
+            .or_insert_with(|| BlockInWorld::new(pos, load_chunks))
     }
 }
 
@@ -42,11 +47,23 @@ impl BlockPattern {
         let depth = pattern.len() as i32;
         let (height, width) = if depth > 0 {
             let height = pattern[0].len() as i32;
-            (height, if height > 0 { pattern[0][0].len() as i32 } else { 0 })
+            (
+                height,
+                if height > 0 {
+                    pattern[0][0].len() as i32
+                } else {
+                    0
+                },
+            )
         } else {
             (0, 0)
         };
-        BlockPattern { pattern, depth, height, width }
+        BlockPattern {
+            pattern,
+            depth,
+            height,
+            width,
+        }
     }
 
     pub fn get_depth(&self) -> i32 {
@@ -62,16 +79,30 @@ impl BlockPattern {
     }
 
     /// `matches(level, origin, forwards, up)`.
-    pub fn matches(&self, level: &dyn LevelReader, origin: BlockPos, forwards: Direction, up: Direction) -> Option<BlockPatternMatch> {
+    pub fn matches(
+        &self,
+        level: &dyn LevelReader,
+        origin: BlockPos,
+        forwards: Direction,
+        up: Direction,
+    ) -> Option<BlockPatternMatch> {
         let mut cache = BlockCache::new(false);
         self.matches_cached(level, origin, forwards, up, &mut cache)
     }
 
-    fn matches_cached(&self, level: &dyn LevelReader, origin: BlockPos, forwards: Direction, up: Direction, cache: &mut BlockCache) -> Option<BlockPatternMatch> {
+    fn matches_cached(
+        &self,
+        level: &dyn LevelReader,
+        origin: BlockPos,
+        forwards: Direction,
+        up: Direction,
+        cache: &mut BlockCache,
+    ) -> Option<BlockPatternMatch> {
         for x in 0..self.width {
             for y in 0..self.height {
                 for z in 0..self.depth {
-                    let block = cache.get_unchecked(translate_and_rotate(origin, forwards, up, x, y, z));
+                    let block =
+                        cache.get_unchecked(translate_and_rotate(origin, forwards, up, x, y, z));
                     if !(self.pattern[z as usize][y as usize][x as usize])(block, level) {
                         return None;
                     }
@@ -79,18 +110,30 @@ impl BlockPattern {
             }
         }
         // the cache moves into the match; the caller's cache is reused for the next candidate only on failure
-        Some(BlockPatternMatch { front_top_left: origin, forwards, up, cache: std::mem::take(cache), width: self.width, height: self.height, depth: self.depth })
+        Some(BlockPatternMatch {
+            front_top_left: origin,
+            forwards,
+            up,
+            cache: std::mem::take(cache),
+            width: self.width,
+            height: self.height,
+            depth: self.depth,
+        })
     }
 
     /// `find(level, origin)`.
     pub fn find(&self, level: &dyn LevelReader, origin: BlockPos) -> Option<BlockPatternMatch> {
         let mut cache = BlockCache::new(false);
         let dist = self.width.max(self.height).max(self.depth);
-        for test_pos in BlockPos::between_closed(&origin, &origin.offset(dist - 1, dist - 1, dist - 1)) {
+        for test_pos in
+            BlockPos::between_closed(&origin, &origin.offset(dist - 1, dist - 1, dist - 1))
+        {
             for forwards in Direction::VALUES {
                 for up in Direction::VALUES {
                     if up != forwards && up != forwards.get_opposite() {
-                        if let Some(found) = self.matches_cached(level, test_pos, forwards, up, &mut cache) {
+                        if let Some(found) =
+                            self.matches_cached(level, test_pos, forwards, up, &mut cache)
+                        {
                             return Some(found);
                         }
                     }
@@ -102,13 +145,39 @@ impl BlockPattern {
 }
 
 /// `translateAndRotate(origin, forwards, up, right, down, forwards)`.
-pub fn translate_and_rotate(origin: BlockPos, forwards_direction: Direction, up_direction: Direction, right: i32, down: i32, forwards: i32) -> BlockPos {
-    assert!(forwards_direction != up_direction && forwards_direction != up_direction.get_opposite(), "Invalid forwards & up combination");
-    let f = [forwards_direction.get_step_x(), forwards_direction.get_step_y(), forwards_direction.get_step_z()];
-    let u = [up_direction.get_step_x(), up_direction.get_step_y(), up_direction.get_step_z()];
+pub fn translate_and_rotate(
+    origin: BlockPos,
+    forwards_direction: Direction,
+    up_direction: Direction,
+    right: i32,
+    down: i32,
+    forwards: i32,
+) -> BlockPos {
+    assert!(
+        forwards_direction != up_direction && forwards_direction != up_direction.get_opposite(),
+        "Invalid forwards & up combination"
+    );
+    let f = [
+        forwards_direction.get_step_x(),
+        forwards_direction.get_step_y(),
+        forwards_direction.get_step_z(),
+    ];
+    let u = [
+        up_direction.get_step_x(),
+        up_direction.get_step_y(),
+        up_direction.get_step_z(),
+    ];
     // `Vec3i.cross`
-    let r = [f[1] * u[2] - f[2] * u[1], f[2] * u[0] - f[0] * u[2], f[0] * u[1] - f[1] * u[0]];
-    origin.offset(u[0] * -down + r[0] * right + f[0] * forwards, u[1] * -down + r[1] * right + f[1] * forwards, u[2] * -down + r[2] * right + f[2] * forwards)
+    let r = [
+        f[1] * u[2] - f[2] * u[1],
+        f[2] * u[0] - f[0] * u[2],
+        f[0] * u[1] - f[1] * u[0],
+    ];
+    origin.offset(
+        u[0] * -down + r[0] * right + f[0] * forwards,
+        u[1] * -down + r[1] * right + f[1] * forwards,
+        u[2] * -down + r[2] * right + f[2] * forwards,
+    )
 }
 
 pub struct BlockPatternMatch {
@@ -148,6 +217,13 @@ impl BlockPatternMatch {
 
     /// `getBlock(right, down, forwards)`.
     pub fn get_block(&mut self, right: i32, down: i32, forwards: i32) -> &mut BlockInWorld {
-        self.cache.get_unchecked(translate_and_rotate(self.front_top_left, self.forwards, self.up, right, down, forwards))
+        self.cache.get_unchecked(translate_and_rotate(
+            self.front_top_left,
+            self.forwards,
+            self.up,
+            right,
+            down,
+            forwards,
+        ))
     }
 }

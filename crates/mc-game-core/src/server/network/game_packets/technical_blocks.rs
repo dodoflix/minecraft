@@ -7,16 +7,17 @@ use super::hooks::{PLAY_HANDLERS, PlayHandlers};
 use crate::translatable;
 use crate::world::block_entity::command_block_entity::CommandBlockEntity;
 use crate::world::block_entity::{BlockEntity, JigsawBlockEntity, StructureBlockEntity};
-use crate::world::level::{BlockGetter, LevelAccessor};
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::gamerules::GameRules;
+use crate::world::level::{BlockGetter, LevelAccessor};
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
 use mc_data::block::Block;
 use mc_data::props;
 use mc_protocol::packets::play::{
-    CommandBlockEntityMode, ServerboundSetCommandBlockPacket, ServerboundSetJigsawBlockPacket, ServerboundSetStructureBlockPacket,
-    StructureBlockEntityUpdateType, StructureMode as PacketStructureMode,
+    CommandBlockEntityMode, ServerboundSetCommandBlockPacket, ServerboundSetJigsawBlockPacket,
+    ServerboundSetStructureBlockPacket, StructureBlockEntityUpdateType,
+    StructureMode as PacketStructureMode,
 };
 
 struct TechnicalBlockHandlers;
@@ -47,21 +48,37 @@ fn structure_mode(mode: PacketStructureMode) -> mc_data::enums::StructureMode {
 }
 
 impl PlayHandlers for TechnicalBlockHandlers {
-    fn handle_set_command_block(&self, ctx: &mut PlayCtx, packet: &ServerboundSetCommandBlockPacket) {
+    fn handle_set_command_block(
+        &self,
+        ctx: &mut PlayCtx,
+        packet: &ServerboundSetCommandBlockPacket,
+    ) {
         if !ctx.can_use_game_master_blocks() {
-            ctx.player.send_system_message(translatable!("advMode.notAllowed"));
+            ctx.player
+                .send_system_message(translatable!("advMode.notAllowed"));
             return;
         }
         let pos: BlockPos = packet.pos;
-        let Some(old_mode) = ctx.level.with_typed_block_entity::<CommandBlockEntity, _>(pos, |_, be| be.get_mode()) else { return };
+        let Some(old_mode) = ctx
+            .level
+            .with_typed_block_entity::<CommandBlockEntity, _>(pos, |_, be| be.get_mode())
+        else {
+            return;
+        };
         let command = packet.command.as_str();
         let track_output = packet.track_output;
         let current_state = ctx.level.get_block_state(pos);
         let direction = current_state.get(props::FACING);
-        let state = command_block_state(packet.mode).set(props::FACING, direction).set(props::CONDITIONAL, packet.conditional);
+        let state = command_block_state(packet.mode)
+            .set(props::FACING, direction)
+            .set(props::CONDITIONAL, packet.conditional);
         if state != current_state {
             // vanilla keeps the very entity object across the block change (`setBlockState` + `chunk.setBlockEntity`)
-            let old = if state.block() != current_state.block() { ctx.level.take_block_entity(pos) } else { None };
+            let old = if state.block() != current_state.block() {
+                ctx.level.take_block_entity(pos)
+            } else {
+                None
+            };
             ctx.level.set_block(pos, state, 2, 512);
             if let Some(mut block_entity) = old {
                 block_entity.set_block_state(state);
@@ -71,33 +88,52 @@ impl PlayHandlers for TechnicalBlockHandlers {
         CommandBlockEntity::set_command(ctx.level, pos, command);
         let automatic = packet.automatic;
         let new_mode = packet.mode;
-        ctx.level.with_typed_block_entity::<CommandBlockEntity, _>(pos, |level, be| {
-            let base = be.get_command_block_mut();
-            base.set_track_output(track_output);
-            if !track_output {
-                base.set_last_output(None);
-            }
-            be.set_automatic(Some(&mut *level), automatic);
-            if old_mode != new_mode {
-                be.on_mode_switch(level);
-            }
-        });
-        let enabled = ctx.server.game_rules_ref().get(GameRules::COMMAND_BLOCKS_WORK);
+        ctx.level
+            .with_typed_block_entity::<CommandBlockEntity, _>(pos, |level, be| {
+                let base = be.get_command_block_mut();
+                base.set_track_output(track_output);
+                if !track_output {
+                    base.set_last_output(None);
+                }
+                be.set_automatic(Some(&mut *level), automatic);
+                if old_mode != new_mode {
+                    be.on_mode_switch(level);
+                }
+            });
+        let enabled = ctx
+            .server
+            .game_rules_ref()
+            .get(GameRules::COMMAND_BLOCKS_WORK);
         if enabled {
             CommandBlockEntity::on_updated(ctx.level, pos);
         }
         if !command.is_empty() {
-            ctx.player.send_system_message(translatable!(if enabled { "advMode.setCommand.success" } else { "advMode.setCommand.disabled" }, command));
+            ctx.player.send_system_message(translatable!(
+                if enabled {
+                    "advMode.setCommand.success"
+                } else {
+                    "advMode.setCommand.disabled"
+                },
+                command
+            ));
         }
     }
 
-    fn handle_set_structure_block(&self, ctx: &mut PlayCtx, packet: &ServerboundSetStructureBlockPacket) {
+    fn handle_set_structure_block(
+        &self,
+        ctx: &mut PlayCtx,
+        packet: &ServerboundSetStructureBlockPacket,
+    ) {
         if !ctx.can_use_game_master_blocks() {
             return;
         }
         let pos = packet.pos;
         let state = ctx.level.get_block_state(pos);
-        if !ctx.level.get_block_entity_immediate(pos).is_some_and(|be| be.as_any().is::<StructureBlockEntity>()) {
+        if !ctx
+            .level
+            .get_block_entity_immediate(pos)
+            .is_some_and(|be| be.as_any().is::<StructureBlockEntity>())
+        {
             return;
         }
         StructureBlockEntity::set_mode(ctx.level, pos, structure_mode(packet.mode));
@@ -116,37 +152,66 @@ impl PlayHandlers for TechnicalBlockHandlers {
                 structure.set_show_bounding_box(packet.show_bounding_box);
                 structure.set_integrity(packet.integrity);
                 structure.set_seed(packet.seed);
-                (structure.has_structure_name(), structure.get_structure_name())
+                (
+                    structure.has_structure_name(),
+                    structure.get_structure_name(),
+                )
             })
             .expect("structure block entity checked above");
         if has_name {
             match packet.update_type {
                 StructureBlockEntityUpdateType::SaveArea => {
                     let saved = StructureBlockEntity::save_structure_in_save_mode(ctx.level, pos);
-                    ctx.player.send_system_message(translatable!(if saved { "structure_block.save_success" } else { "structure_block.save_failure" }, actual_name));
+                    ctx.player.send_system_message(translatable!(
+                        if saved {
+                            "structure_block.save_success"
+                        } else {
+                            "structure_block.save_failure"
+                        },
+                        actual_name
+                    ));
                 }
                 StructureBlockEntityUpdateType::LoadArea => {
                     if !StructureBlockEntity::is_structure_loadable(ctx.level, pos) {
-                        ctx.player.send_system_message(translatable!("structure_block.load_not_found", actual_name));
+                        ctx.player.send_system_message(translatable!(
+                            "structure_block.load_not_found",
+                            actual_name
+                        ));
                     } else if StructureBlockEntity::place_structure_if_same_size(ctx.level, pos) {
-                        ctx.player.send_system_message(translatable!("structure_block.load_success", actual_name));
+                        ctx.player.send_system_message(translatable!(
+                            "structure_block.load_success",
+                            actual_name
+                        ));
                     } else {
-                        ctx.player.send_system_message(translatable!("structure_block.load_prepare", actual_name));
+                        ctx.player.send_system_message(translatable!(
+                            "structure_block.load_prepare",
+                            actual_name
+                        ));
                     }
                 }
                 StructureBlockEntityUpdateType::ScanArea => {
                     if StructureBlockEntity::detect_size(ctx.level, pos) {
-                        ctx.player.send_system_message(translatable!("structure_block.size_success", actual_name));
+                        ctx.player.send_system_message(translatable!(
+                            "structure_block.size_success",
+                            actual_name
+                        ));
                     } else {
-                        ctx.player.send_system_message(translatable!("structure_block.size_failure"));
+                        ctx.player
+                            .send_system_message(translatable!("structure_block.size_failure"));
                     }
                 }
                 StructureBlockEntityUpdateType::UpdateData => {}
             }
         } else {
-            ctx.player.send_system_message(translatable!("structure_block.invalid_structure_name", packet.name.clone()));
+            ctx.player.send_system_message(translatable!(
+                "structure_block.invalid_structure_name",
+                packet.name.clone()
+            ));
         }
-        ctx.level.with_typed_block_entity::<StructureBlockEntity, _>(pos, |level, structure| level.block_entity_set_changed(pos, structure.get_block_state()));
+        ctx.level
+            .with_typed_block_entity::<StructureBlockEntity, _>(pos, |level, structure| {
+                level.block_entity_set_changed(pos, structure.get_block_state())
+            });
         ctx.level.send_block_updated(pos, state, state, 3);
     }
 

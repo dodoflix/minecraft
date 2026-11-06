@@ -1,8 +1,8 @@
 //! `EffectsChangedTrigger`: `effects_changed`.
 
 use super::prelude::*;
-use mc_protocol::components::MobEffectsPredicate;
 use crate::advancements::predicates::MobEffectsPredicateEntityExt;
+use mc_protocol::components::MobEffectsPredicate;
 
 /// `EffectsChangedTrigger.TriggerInstance`.
 #[derive(Clone)]
@@ -14,14 +14,15 @@ pub struct EffectsChangedTriggerInstance {
 
 impl TriggerInstance for EffectsChangedTriggerInstance {
     fn codec() -> Codec<Self> {
-        static C: std::sync::LazyLock<Codec<EffectsChangedTriggerInstance>> = std::sync::LazyLock::new(|| {
-            mc_dfu::record!(EffectsChangedTriggerInstance {
-                player: condition_holder_codec().optional_field_of("player"),
-                effects: MobEffectsPredicate::codec().optional_field_of("effects"),
-                source: condition_holder_codec().optional_field_of("source"),
-            })
-            .codec()
-        });
+        static C: std::sync::LazyLock<Codec<EffectsChangedTriggerInstance>> =
+            std::sync::LazyLock::new(|| {
+                mc_dfu::record!(EffectsChangedTriggerInstance {
+                    player: condition_holder_codec().optional_field_of("player"),
+                    effects: MobEffectsPredicate::codec().optional_field_of("effects"),
+                    source: condition_holder_codec().optional_field_of("source"),
+                })
+                .codec()
+            });
         C.clone()
     }
 }
@@ -33,7 +34,11 @@ impl SimpleInstance for EffectsChangedTriggerInstance {
 }
 
 crate::simple_instance!(EffectsChangedTriggerInstance, |this, validator| {
-    crate::world::level::storage::loot::validation::validate_holder_opt(&validator.entity_context(), "source", &this.source);
+    crate::world::level::storage::loot::validation::validate_holder_opt(
+        &validator.entity_context(),
+        "source",
+        &this.source,
+    );
 });
 
 crate::register_triggers!(EffectsChangedTriggerInstance {
@@ -43,7 +48,11 @@ crate::register_triggers!(EffectsChangedTriggerInstance {
 impl EffectsChangedTriggerInstance {
     /// `matches(player, source)`.
     pub fn matches(&self, player: &ServerPlayer, source: Option<&mut LootContext>) -> bool {
-        if self.effects.as_ref().is_some_and(|e| !e.matches_entity(player)) {
+        if self
+            .effects
+            .as_ref()
+            .is_some_and(|e| !e.matches_entity(player))
+        {
             return false;
         }
         match &self.source {
@@ -55,13 +64,23 @@ impl EffectsChangedTriggerInstance {
 
 impl Trigger<EffectsChangedTriggerInstance> {
     /// `trigger(player, source)`.
-    pub fn trigger(&self, level: &mut ServerLevel, player: &mut ServerPlayer, source: Option<&dyn Entity>) {
+    pub fn trigger(
+        &self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        source: Option<&dyn Entity>,
+    ) {
         let matches = self.matches(&*level, &*player, source);
         matches.award(level, player);
     }
 
     /// The listeners that match; nothing is mutated.
-    pub fn matches(&self, level: &ServerLevel, player: &ServerPlayer, source: Option<&dyn Entity>) -> TriggerMatches {
+    pub fn matches(
+        &self,
+        level: &ServerLevel,
+        player: &ServerPlayer,
+        source: Option<&dyn Entity>,
+    ) -> TriggerMatches {
         let params = source.map(|s| entity_params(level, player.position(), s));
         let mut context = params.as_ref().map(new_context);
         self.collect(level, player, |t| t.matches(player, context.as_mut()))

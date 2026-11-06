@@ -26,7 +26,11 @@ impl ContainerLevelAccess {
     }
 
     /// `evaluate(action)`: `None` for `NULL`.
-    pub fn evaluate<T>(&self, level: &ServerLevel, action: impl FnOnce(&ServerLevel, BlockPos) -> T) -> Option<T> {
+    pub fn evaluate<T>(
+        &self,
+        level: &ServerLevel,
+        action: impl FnOnce(&ServerLevel, BlockPos) -> T,
+    ) -> Option<T> {
         match self {
             Self::Null => None,
             Self::At { pos } => Some(action(level, *pos)),
@@ -34,7 +38,12 @@ impl ContainerLevelAccess {
     }
 
     /// `evaluate(action, defaultValue)`.
-    pub fn evaluate_or<T>(&self, level: &ServerLevel, action: impl FnOnce(&ServerLevel, BlockPos) -> T, default: T) -> T {
+    pub fn evaluate_or<T>(
+        &self,
+        level: &ServerLevel,
+        action: impl FnOnce(&ServerLevel, BlockPos) -> T,
+        default: T,
+    ) -> T {
         self.evaluate(level, action).unwrap_or(default)
     }
 }
@@ -43,7 +52,10 @@ impl ContainerLevelAccess {
 /// (test player) cannot evaluate the action and is treated as `NULL`.
 pub fn still_valid(access: &ContainerLevelAccess, player: &dyn MenuPlayer, block: Block) -> bool {
     match (access.pos(), player.level_ref()) {
-        (Some(pos), Some(level)) => level.get_block_state(pos).block() == block && player.is_within_block_interaction_range(pos, 4.0),
+        (Some(pos), Some(level)) => {
+            level.get_block_state(pos).block() == block
+                && player.is_within_block_interaction_range(pos, 4.0)
+        }
         _ => true,
     }
 }

@@ -1,11 +1,11 @@
 //! `net.minecraft.world.level.block.SpreadingSnowyBlock` (grass block, mycelium): dies under cover, spreads to dirt.
 //! `MyceliumBlock` adds only client particles; `GrassBlock` (bone meal) lives in `grass_block.rs` and reuses
 //! [`random_tick`] / [`can_stay_alive`].
-use mc_game_core::{register_block_class, update_shape};
-use mc_game_core::world::level::block::impls::prelude::*;
 use super::snowy_block;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::item::BlockPlaceContext;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::{register_block_class, update_shape};
 
 pub struct SpreadingSnowyBlock;
 
@@ -17,7 +17,12 @@ pub fn can_stay_alive(state: BlockState, level: &dyn LevelReader, pos: BlockPos)
     } else if above_state.get_fluid_state().amount() == 8 {
         false
     } else {
-        let light_dampening_top_face = mc_light::get_light_dampening_into(state, above_state, Direction::Up, i32::from(above_state.get_light_block()));
+        let light_dampening_top_face = mc_light::get_light_dampening_into(
+            state,
+            above_state,
+            Direction::Up,
+            i32::from(above_state.get_light_block()),
+        );
         light_dampening_top_face < 15
     }
 }
@@ -39,7 +44,9 @@ pub fn random_tick(state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
             let dy = level.random().next_int_bounded(5) - 3;
             let dz = level.random().next_int_bounded(3) - 1;
             let test_pos = pos.offset(dx, dy, dz);
-            if level.get_block_state(test_pos).is_block(base_block) && can_propagate(default_block_state, &*level, test_pos) {
+            if level.get_block_state(test_pos).is_block(base_block)
+                && can_propagate(default_block_state, &*level, test_pos)
+            {
                 let snowy = snowy_block::is_snowy_setting(level.get_block_state(test_pos.above()));
                 level.set_block_and_update(test_pos, default_block_state.set(props::SNOWY, snowy));
             }
@@ -48,11 +55,20 @@ pub fn random_tick(state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
 }
 
 impl BlockBehaviour for SpreadingSnowyBlock {
-    update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| { snowy_block::update_shape(state, direction, neighbour_state) });
+    update_shape!(
+        |self, state, level, pos, direction, neighbour_pos, neighbour_state| {
+            snowy_block::update_shape(state, direction, neighbour_state)
+        }
+    );
     fn random_tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         random_tick(state, level, pos);
     }
-    fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
+    fn get_state_for_placement(
+        &self,
+        block: Block,
+        level: &mut ServerLevel,
+        context: &BlockPlaceContext,
+    ) -> Option<BlockState> {
         snowy_block::get_state_for_placement(block, level, context)
     }
 }

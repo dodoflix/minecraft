@@ -42,7 +42,12 @@ fn assert_level_dat_round_trips(path: &Path) {
     let data = root.get_compound("Data").expect("Data");
     let parsed = PrimaryLevelData::parse(data, SpecialWorldProperty::None);
     let last_played = data.get_long("LastPlayed").unwrap();
-    assert_eq!(&parsed.to_tag_at(None, last_played), data, "{}", path.display());
+    assert_eq!(
+        &parsed.to_tag_at(None, last_played),
+        data,
+        "{}",
+        path.display()
+    );
     // the root has only `Data`
     assert_eq!(root.len(), 1);
 }
@@ -68,7 +73,9 @@ fn collect_dat(dir: &Path, out: &mut Vec<PathBuf>) {
         let p = e.unwrap().path();
         if p.is_dir() {
             collect_dat(&p, out);
-        } else if p.extension().is_some_and(|x| x == "dat") && p.parent().unwrap().ends_with("minecraft") {
+        } else if p.extension().is_some_and(|x| x == "dat")
+            && p.parent().unwrap().ends_with("minecraft")
+        {
             out.push(p);
         }
     }
@@ -104,13 +111,22 @@ fn world_gen_settings_decode_encode() {
     let settings = WorldGenSettings::read_existing(&fixture_world()).unwrap();
     assert_eq!(settings.options, WorldOptions::new(12345, true, false));
     assert_eq!(settings.dimensions.len(), 3);
-    assert_eq!(settings.special_world_property(), SpecialWorldProperty::None);
-    let raw = SavedDataStorage::read_tag_from_disk(&fixture_world().join("data/minecraft/world_gen_settings.dat")).unwrap();
+    assert_eq!(
+        settings.special_world_property(),
+        SpecialWorldProperty::None
+    );
+    let raw = SavedDataStorage::read_tag_from_disk(
+        &fixture_world().join("data/minecraft/world_gen_settings.dat"),
+    )
+    .unwrap();
     assert_eq!(settings.encode(), *raw.get("data").unwrap());
 
     let tmp = tempfile::tempdir().unwrap();
     settings.write(tmp.path()).unwrap();
-    assert_eq!(WorldGenSettings::read_existing(tmp.path()).unwrap(), settings);
+    assert_eq!(
+        WorldGenSettings::read_existing(tmp.path()).unwrap(),
+        settings
+    );
     assert!(WorldGenSettings::read_existing(&tmp.path().join("nope")).is_err());
 }
 
@@ -124,22 +140,56 @@ fn summary_candidates_and_layout() {
     assert_eq!((s.level_id(), s.level_name()), ("world", "world"));
     assert_eq!(s.game_mode(), Some(GameType::Creative));
     assert_eq!(s.world_version_name(), Some("26.3"));
-    assert!(!s.locked && !s.requires_manual_conversion && !s.requires_file_fixing && !s.experimental);
+    assert!(
+        !s.locked && !s.requires_manual_conversion && !s.requires_file_fixing && !s.experimental
+    );
     assert!(s.is_compatible() && !s.is_disabled() && s.backup_status() == BackupStatus::None);
-    assert_eq!(s.last_played(), read(&fixture_world().join("level.dat")).get_compound("Data").unwrap().get_long("LastPlayed").unwrap());
+    assert_eq!(
+        s.last_played(),
+        read(&fixture_world().join("level.dat"))
+            .get_compound("Data")
+            .unwrap()
+            .get_long("LastPlayed")
+            .unwrap()
+    );
 
     let access = source.create_access("world").unwrap();
     // while the access holds session.lock the world list reports it as locked
     let locked = source.load_level_summaries(&source.find_level_candidates().unwrap());
     assert!(locked[0].locked && locked[0].is_disabled());
     let world = source.get_level_path("world");
-    assert_eq!(access.get_level_path(LevelResource::PLAYER_DATA_DIR), world.join("players/data"));
-    assert_eq!(access.get_dimension_path(&Identifier::parse("minecraft:overworld").unwrap()).unwrap(), world.join("dimensions/minecraft/overworld"));
-    assert_eq!(access.get_dimension_path(&Identifier::parse("minecraft:the_nether").unwrap()).unwrap(), world.join("dimensions/minecraft/the_nether"));
-    assert_eq!(access.get_dimension_path(&Identifier::parse("mymod:foo/bar").unwrap()).unwrap(), world.join("dimensions/mymod/foo/bar"));
-    assert!(access.get_dimension_path(&Identifier::parse("a:../../../x").unwrap()).is_err());
+    assert_eq!(
+        access.get_level_path(LevelResource::PLAYER_DATA_DIR),
+        world.join("players/data")
+    );
+    assert_eq!(
+        access
+            .get_dimension_path(&Identifier::parse("minecraft:overworld").unwrap())
+            .unwrap(),
+        world.join("dimensions/minecraft/overworld")
+    );
+    assert_eq!(
+        access
+            .get_dimension_path(&Identifier::parse("minecraft:the_nether").unwrap())
+            .unwrap(),
+        world.join("dimensions/minecraft/the_nether")
+    );
+    assert_eq!(
+        access
+            .get_dimension_path(&Identifier::parse("mymod:foo/bar").unwrap())
+            .unwrap(),
+        world.join("dimensions/mymod/foo/bar")
+    );
+    assert!(
+        access
+            .get_dimension_path(&Identifier::parse("a:../../../x").unwrap())
+            .is_err()
+    );
     assert_eq!(access.get_icon_file(), Some(world.join("icon.png")));
-    assert!(source.create_access("world").is_err(), "second access must fail on session.lock");
+    assert!(
+        source.create_access("world").is_err(),
+        "second access must fail on session.lock"
+    );
 
     let storage = access.create_player_storage().unwrap();
     assert!(storage.player_dir().is_dir());
@@ -159,16 +209,27 @@ fn save_dance_rotates_level_dat_old() {
     let uuid = uuid::Uuid::from_u128(0x0123_4567_89ab_cdef_fedc_ba98_7654_3210);
     access.save_data_tag(&level, Some(uuid)).unwrap();
 
-    assert_eq!(fs::read(world.join("level.dat_old")).unwrap(), before, "previous level.dat becomes level.dat_old");
+    assert_eq!(
+        fs::read(world.join("level.dat_old")).unwrap(),
+        before,
+        "previous level.dat becomes level.dat_old"
+    );
     let saved = access.get_unfixed_data_tag(false).unwrap();
     assert_eq!(saved.get_long("Time"), Some(4242));
-    assert_eq!(saved.get_int_array("singleplayer_uuid").map(|a| a.len()), Some(4));
+    assert_eq!(
+        saved.get_int_array("singleplayer_uuid").map(|a| a.len()),
+        Some(4)
+    );
     let reparsed = PrimaryLevelData::parse(&saved, SpecialWorldProperty::None);
     assert_eq!(reparsed.single_player_uuid, Some(uuid));
     assert!(reparsed.known_server_brands.contains("rust"));
     assert_eq!(reparsed.version_history, vec![5023]);
     // no stray temp files
-    let strays: Vec<_> = fs::read_dir(&world).unwrap().map(|e| e.unwrap().file_name().to_string_lossy().into_owned()).filter(|n| n.starts_with("level") && !["level.dat", "level.dat_old"].contains(&n.as_str())).collect();
+    let strays: Vec<_> = fs::read_dir(&world)
+        .unwrap()
+        .map(|e| e.unwrap().file_name().to_string_lossy().into_owned())
+        .filter(|n| n.starts_with("level") && !["level.dat", "level.dat_old"].contains(&n.as_str()))
+        .collect();
     assert!(strays.is_empty(), "{strays:?}");
 
     access.rename_level("  New Name ").unwrap();
@@ -177,7 +238,13 @@ fn save_dance_rotates_level_dat_old() {
     assert!(renamed.contains("singleplayer_uuid"));
     access.rename_and_drop_player("Other").unwrap();
     let dropped = access.get_unfixed_data_tag(false).unwrap();
-    assert_eq!((dropped.get_string("LevelName"), dropped.contains("singleplayer_uuid")), (Some("Other"), false));
+    assert_eq!(
+        (
+            dropped.get_string("LevelName"),
+            dropped.contains("singleplayer_uuid")
+        ),
+        (Some("Other"), false)
+    );
 }
 
 #[test]
@@ -194,7 +261,11 @@ fn corrupted_level_dat_falls_back_to_old() {
     // level.dat restored from level.dat_old; the bad file kept as level.dat_corrupted_<time>
     assert_eq!(fs::read(world.join("level.dat")).unwrap(), old_bytes);
     assert!(!world.join("level.dat_old").exists());
-    let corrupted: Vec<_> = fs::read_dir(&world).unwrap().map(|e| e.unwrap().file_name().to_string_lossy().into_owned()).filter(|n| n.starts_with("level.dat_corrupted_")).collect();
+    let corrupted: Vec<_> = fs::read_dir(&world)
+        .unwrap()
+        .map(|e| e.unwrap().file_name().to_string_lossy().into_owned())
+        .filter(|n| n.starts_with("level.dat_corrupted_"))
+        .collect();
     assert_eq!(corrupted.len(), 1, "{corrupted:?}");
     assert_eq!(fs::read(world.join(&corrupted[0])).unwrap(), b"not gzip");
 
@@ -217,9 +288,15 @@ fn summary_outcomes_for_odd_worlds() {
     let (_dir, source) = temp_saves();
     write_level(&source, "newer", |d| {
         d.get_compound_mut("Version").unwrap().put_int("Id", 9000);
-        d.get_compound_mut("Version").unwrap().put_string("Name", "99.9");
+        d.get_compound_mut("Version")
+            .unwrap()
+            .put_string("Name", "99.9");
     });
-    write_level(&source, "other_series", |d| d.get_compound_mut("Version").unwrap().put_string("Series", "snapshot_x"));
+    write_level(&source, "other_series", |d| {
+        d.get_compound_mut("Version")
+            .unwrap()
+            .put_string("Series", "snapshot_x")
+    });
     write_level(&source, "mcregion", |d| d.put_int("version", 19132));
     write_level(&source, "unknown_version", |d| d.put_int("version", 4));
     write_level(&source, "old_data", |d| {
@@ -227,7 +304,17 @@ fn summary_outcomes_for_odd_worlds() {
         d.put_int("DataVersion", 4000);
     });
     write_level(&source, "experimental", |d| {
-        d.put("enabled_features", Tag::List([Tag::String("minecraft:vanilla".into()), Tag::String("minecraft:trade_rebalance".into())].into_iter().collect()));
+        d.put(
+            "enabled_features",
+            Tag::List(
+                [
+                    Tag::String("minecraft:vanilla".into()),
+                    Tag::String("minecraft:trade_rebalance".into()),
+                ]
+                .into_iter()
+                .collect(),
+            ),
+        );
     });
     let garbage = source.get_level_path("garbage");
     fs::create_dir_all(&garbage).unwrap();
@@ -236,24 +323,51 @@ fn summary_outcomes_for_odd_worlds() {
     fs::create_dir_all(source.get_level_path("empty")).unwrap();
 
     let summaries = source.load_level_summaries(&source.find_level_candidates().unwrap());
-    let by_id = |id: &str| summaries.iter().find(|s| s.level_id() == id).unwrap_or_else(|| panic!("{id}"));
+    let by_id = |id: &str| {
+        summaries
+            .iter()
+            .find(|s| s.level_id() == id)
+            .unwrap_or_else(|| panic!("{id}"))
+    };
     assert_eq!(summaries.len(), 8); // world + 7 odd ones
     assert!(summaries.iter().all(|s| s.level_id() != "empty"));
 
     let newer = by_id("newer");
-    assert!(newer.is_compatible() && newer.is_downgrade() && newer.should_backup() && !newer.is_disabled());
+    assert!(
+        newer.is_compatible()
+            && newer.is_downgrade()
+            && newer.should_backup()
+            && !newer.is_disabled()
+    );
     assert_eq!(newer.backup_status().translation_key(), "downgrade");
     let other = by_id("other_series");
     assert!(!other.is_compatible() && other.is_disabled());
     assert!(by_id("mcregion").requires_manual_conversion && by_id("mcregion").is_disabled());
-    assert!(matches!(by_id("unknown_version").kind, LevelSummaryKind::Corrupted { .. }));
-    assert!(matches!(by_id("garbage").kind, LevelSummaryKind::Corrupted { .. }));
-    assert!(by_id("garbage").last_played() > 0 && !by_id("garbage").is_disabled() && !by_id("garbage").can_edit());
+    assert!(matches!(
+        by_id("unknown_version").kind,
+        LevelSummaryKind::Corrupted { .. }
+    ));
+    assert!(matches!(
+        by_id("garbage").kind,
+        LevelSummaryKind::Corrupted { .. }
+    ));
+    assert!(
+        by_id("garbage").last_played() > 0
+            && !by_id("garbage").is_disabled()
+            && !by_id("garbage").can_edit()
+    );
     let old = by_id("old_data");
-    assert!(old.requires_file_fixing && old.backup_status() == BackupStatus::FileFixingRequired && !old.can_edit());
+    assert!(
+        old.requires_file_fixing
+            && old.backup_status() == BackupStatus::FileFixingRequired
+            && !old.can_edit()
+    );
     assert!(by_id("experimental").experimental);
     // sorted: last played desc, then id
-    let keys: Vec<(i64, &str)> = summaries.iter().map(|s| (s.last_played(), s.level_id())).collect();
+    let keys: Vec<(i64, &str)> = summaries
+        .iter()
+        .map(|s| (s.last_played(), s.level_id()))
+        .collect();
     let mut sorted = keys.clone();
     sorted.sort_by(|a, b| b.0.cmp(&a.0).then(a.1.cmp(b.1)));
     assert_eq!(keys, sorted);
@@ -274,7 +388,11 @@ fn symlinks_are_refused() {
         other => panic!("expected validation failure, got {:?}", other.map(|_| ())),
     }
     // allowed through allowed_symlinks.txt
-    fs::write(dir.path().join("saves/allowed_symlinks.txt"), "# comment\n/etc\n").unwrap();
+    fs::write(
+        dir.path().join("saves/allowed_symlinks.txt"),
+        "# comment\n/etc\n",
+    )
+    .unwrap();
     let permissive = LevelStorageSource::create_default(dir.path().join("saves")).unwrap();
     assert!(permissive.validate_and_create_access("world").is_ok());
 
@@ -285,7 +403,14 @@ fn symlinks_are_refused() {
     fs::create_dir_all(&linked).unwrap();
     std::os::unix::fs::symlink(&real, linked.join("level.dat")).unwrap();
     let summaries = source.load_level_summaries(&source.find_level_candidates().unwrap());
-    assert!(matches!(summaries.iter().find(|s| s.level_id() == "linked").unwrap().kind, LevelSummaryKind::Symlink));
+    assert!(matches!(
+        summaries
+            .iter()
+            .find(|s| s.level_id() == "linked")
+            .unwrap()
+            .kind,
+        LevelSummaryKind::Symlink
+    ));
 }
 
 #[test]
@@ -318,5 +443,12 @@ fn level_data_and_dimensions_reads_world_gen_settings() {
 
     let mut old = data.clone();
     old.put_int("DataVersion", 4000);
-    assert!(LevelStorageSource::get_level_data_and_dimensions(&access, &old, WorldDataConfiguration::DEFAULT).is_err());
+    assert!(
+        LevelStorageSource::get_level_data_and_dimensions(
+            &access,
+            &old,
+            WorldDataConfiguration::DEFAULT
+        )
+        .is_err()
+    );
 }

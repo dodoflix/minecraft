@@ -30,7 +30,8 @@ impl DisplayInfo {
                 title: component_codec().field_of("title"),
                 description: component_codec().field_of("description"),
                 background: IDENTIFIER.optional_field_of("background"),
-                type_: AdvancementType::codec().optional_field_of_default("frame", AdvancementType::Task),
+                type_: AdvancementType::codec()
+                    .optional_field_of_default("frame", AdvancementType::Task),
                 show_toast: BOOL.optional_field_of_default("show_toast", true),
                 announce_to_chat: BOOL.optional_field_of_default("announce_to_chat", true),
                 hidden: BOOL.optional_field_of_default("hidden", false),

@@ -36,7 +36,11 @@ pub struct DisconnectionDetails {
 
 impl DisconnectionDetails {
     pub fn new(reason: Component) -> Self {
-        Self { reason, report: None, bug_report_link: None }
+        Self {
+            reason,
+            report: None,
+            bug_report_link: None,
+        }
     }
 }
 
@@ -116,28 +120,55 @@ impl ConnectionHandle {
     }
 
     fn protocol_state(&self) -> ConnectionState {
-        [ConnectionState::Handshake, ConnectionState::Status, ConnectionState::Login, ConnectionState::Configuration, ConnectionState::Play]
-            [usize::from(self.protocol_state.load(Ordering::Relaxed)).min(4)]
+        [
+            ConnectionState::Handshake,
+            ConnectionState::Status,
+            ConnectionState::Login,
+            ConnectionState::Configuration,
+            ConnectionState::Play,
+        ][usize::from(self.protocol_state.load(Ordering::Relaxed)).min(4)]
     }
 
     /// `JvmProfiler.onPacketSent/onPacketReceived` for a payload (`varint id` + body) of this connection.
-    pub(crate) fn record_packet(&self, flow: mc_protocol::packet::PacketFlow, state: ConnectionState, payload: &[u8]) {
+    pub(crate) fn record_packet(
+        &self,
+        flow: mc_protocol::packet::PacketFlow,
+        state: ConnectionState,
+        payload: &[u8],
+    ) {
         let jfr = crate::util::profiling::jfr::instance();
         if !jfr.is_running() {
             return;
         }
-        let Some(id) = mc_protocol::codec::read_varint(&mut &payload[..]).ok() else { return };
-        let name = mc_protocol::packet::packet_name(state, flow, id).map_or_else(|| format!("minecraft:unknown_{id}"), |n| format!("minecraft:{n}"));
-        let remote = self.remote.as_ref().map(java_socket_address_string).unwrap_or_default();
+        let Some(id) = mc_protocol::codec::read_varint(&mut &payload[..]).ok() else {
+            return;
+        };
+        let name = mc_protocol::packet::packet_name(state, flow, id).map_or_else(
+            || format!("minecraft:unknown_{id}"),
+            |n| format!("minecraft:{n}"),
+        );
+        let remote = self
+            .remote
+            .as_ref()
+            .map(java_socket_address_string)
+            .unwrap_or_default();
         match flow {
-            mc_protocol::packet::PacketFlow::Clientbound => jfr.on_packet_sent(state.id(), &name, &remote, payload.len() as i32),
-            mc_protocol::packet::PacketFlow::Serverbound => jfr.on_packet_received(state.id(), &name, &remote, payload.len() as i32),
+            mc_protocol::packet::PacketFlow::Clientbound => {
+                jfr.on_packet_sent(state.id(), &name, &remote, payload.len() as i32)
+            }
+            mc_protocol::packet::PacketFlow::Serverbound => {
+                jfr.on_packet_received(state.id(), &name, &remote, payload.len() as i32)
+            }
         }
     }
 
     /// Inbound packets are labelled with the protocol the writer currently uses.
     pub(crate) fn record_received_packet(&self, payload: &[u8]) {
-        self.record_packet(mc_protocol::packet::PacketFlow::Serverbound, self.protocol_state(), payload);
+        self.record_packet(
+            mc_protocol::packet::PacketFlow::Serverbound,
+            self.protocol_state(),
+            payload,
+        );
     }
 
     pub fn new(id: u64, remote: Option<SocketAddr>) -> Arc<Self> {
@@ -248,7 +279,11 @@ pub fn java_host_address(ip: &IpAddr, bracket: bool) -> String {
         IpAddr::V4(v4) => v4.to_string(),
         IpAddr::V6(v6) => {
             let groups = v6.segments().map(|g| format!("{g:x}")).join(":");
-            if bracket { format!("[{groups}]") } else { groups }
+            if bracket {
+                format!("[{groups}]")
+            } else {
+                groups
+            }
         }
     }
 }
@@ -264,7 +299,10 @@ pub struct ConnectionSender {
 impl ConnectionSender {
     /// A sender without a socket behind it (the receiver side is whoever drains `tx`; tests).
     pub fn new(tx: UnboundedSender<Outbound>) -> Self {
-        Self { tx, handle: ConnectionHandle::new(0, None) }
+        Self {
+            tx,
+            handle: ConnectionHandle::new(0, None),
+        }
     }
 
     pub fn with_handle(tx: UnboundedSender<Outbound>, handle: Arc<ConnectionHandle>) -> Self {
@@ -296,7 +334,11 @@ impl ConnectionSender {
     pub fn send_flush<P: Packet>(&self, packet: &P, flush: bool) {
         match Payload::encode(packet) {
             Payload::Encoded(payload) => {
-                let _ = self.tx.send(if flush { Outbound::Payload(payload) } else { Outbound::Write(payload) });
+                let _ = self.tx.send(if flush {
+                    Outbound::Payload(payload)
+                } else {
+                    Outbound::Write(payload)
+                });
             }
             Payload::Failed(e) => self.encode_failed(&e),
         }
@@ -316,11 +358,18 @@ impl ConnectionSender {
     /// (`SkipPacketEncoderException`) is just dropped, any other kicks this connection with
     /// `Internal Exception: io.netty.handler.codec.EncoderException: Failed to encode packet '<type>'`.
     pub fn encode_failed(&self, error: &PacketEncodeError) {
-        log::error!("Error sending packet {}: {}", error.packet_type, error.cause);
+        log::error!(
+            "Error sending packet {}: {}",
+            error.packet_type,
+            error.cause
+        );
         if error.skippable {
             log::debug!("Skipping packet due to errors: {error}");
         } else {
-            self.disconnect(generic_reason(format!("Internal Exception: {}", error.exception_text())));
+            self.disconnect(generic_reason(format!(
+                "Internal Exception: {}",
+                error.exception_text()
+            )));
         }
     }
 
@@ -360,7 +409,8 @@ impl ConnectionSender {
 
     /// `Connection.disconnect(reason)`: flush what is queued, close without a disconnect packet.
     pub fn close_with(&self, reason: Component) {
-        self.handle.set_disconnection_details(DisconnectionDetails::new(reason));
+        self.handle
+            .set_disconnection_details(DisconnectionDetails::new(reason));
         self.handle.set_read_only();
         let _ = self.tx.send(Outbound::Close);
     }
@@ -373,7 +423,9 @@ impl ConnectionSender {
     /// `configuration`, and the reader (paused after `ServerboundConfigurationAcknowledgedPacket`) starts a new
     /// configuration listener with `cookie`. `false` if the connection is not in the play protocol.
     pub fn switch_to_configuration(&self, cookie: CommonListenerCookie) -> bool {
-        let Some(tx) = self.handle.reconfigure.lock().take() else { return false };
+        let Some(tx) = self.handle.reconfigure.lock().take() else {
+            return false;
+        };
         self.set_outbound_state(ConnectionState::Configuration);
         tx.send(cookie).is_ok()
     }
@@ -395,16 +447,29 @@ fn disconnect_payload(state: ConnectionState, reason: &Component) -> Option<Vec<
     // A reason that cannot be encoded is vanilla's double fault: the connection closes without a disconnect packet.
     match state {
         ConnectionState::Handshake | ConnectionState::Status => None,
-        ConnectionState::Login => {
-            encode_packet(&login::ClientboundLoginDisconnectPacket { reason: mc_protocol::codec::JsonComponent(reason.clone()) }).ok()
+        ConnectionState::Login => encode_packet(&login::ClientboundLoginDisconnectPacket {
+            reason: mc_protocol::codec::JsonComponent(reason.clone()),
+        })
+        .ok(),
+        ConnectionState::Configuration => {
+            encode_packet(&configuration::ClientboundDisconnectPacket {
+                reason: reason.clone(),
+            })
+            .ok()
         }
-        ConnectionState::Configuration => encode_packet(&configuration::ClientboundDisconnectPacket { reason: reason.clone() }).ok(),
-        ConnectionState::Play => encode_packet(&play::ClientboundDisconnectPacket { reason: reason.clone() }).ok(),
+        ConnectionState::Play => encode_packet(&play::ClientboundDisconnectPacket {
+            reason: reason.clone(),
+        })
+        .ok(),
     }
 }
 
 /// The writer task: owns the write half, frames/compresses/encrypts queued payloads in batches.
-pub(crate) async fn run_writer(mut socket: OwnedWriteHalf, mut rx: UnboundedReceiver<Outbound>, handle: Arc<ConnectionHandle>) {
+pub(crate) async fn run_writer(
+    mut socket: OwnedWriteHalf,
+    mut rx: UnboundedReceiver<Outbound>,
+    handle: Arc<ConnectionHandle>,
+) {
     let mut encoder = FrameEncoder::new();
     let mut state = ConnectionState::Handshake;
     let mut buf: Vec<u8> = Vec::new();
@@ -475,7 +540,9 @@ pub(crate) async fn run_writer(mut socket: OwnedWriteHalf, mut rx: UnboundedRece
         }
         if flush || closing {
             deadline = None;
-            if (!buf.is_empty() && socket.write_all(&buf).await.is_err()) || socket.flush().await.is_err() {
+            if (!buf.is_empty() && socket.write_all(&buf).await.is_err())
+                || socket.flush().await.is_err()
+            {
                 break;
             }
             buf.clear();
@@ -506,7 +573,12 @@ pub struct FrameReader {
 
 impl FrameReader {
     pub fn new(socket: OwnedReadHalf) -> Self {
-        Self { socket, decoder: FrameDecoder::new(), chunk: Box::new([0; 8192]), last_read: Instant::now() }
+        Self {
+            socket,
+            decoder: FrameDecoder::new(),
+            chunk: Box::new([0; 8192]),
+            last_read: Instant::now(),
+        }
     }
 
     /// Inbound half of `Connection.setupCompression`.
@@ -532,7 +604,12 @@ impl FrameReader {
     }
 
     async fn read_socket(&mut self) -> Result<usize, ReadError> {
-        match tokio::time::timeout_at(self.last_read + READ_TIMEOUT, self.socket.read(&mut self.chunk[..])).await {
+        match tokio::time::timeout_at(
+            self.last_read + READ_TIMEOUT,
+            self.socket.read(&mut self.chunk[..]),
+        )
+        .await
+        {
             Err(_) => Err(ReadError::Timeout),
             Ok(Err(e)) => Err(ReadError::Net(NetError::Io(e))),
             Ok(Ok(0)) => Err(ReadError::Eof),
@@ -560,7 +637,9 @@ pub fn internal_exception_text(error: &NetError) -> String {
     let cause = match error {
         NetError::Io(e) => format!("java.io.IOException: {}", io_error_text(e)),
         NetError::Eof => "java.io.IOException: end of stream".to_owned(),
-        NetError::CorruptedFrame(m) => format!("io.netty.handler.codec.CorruptedFrameException: {m}"),
+        NetError::CorruptedFrame(m) => {
+            format!("io.netty.handler.codec.CorruptedFrameException: {m}")
+        }
         NetError::Decoder(m) => format!("io.netty.handler.codec.DecoderException: {m}"),
         NetError::Encoder(m) => format!("io.netty.handler.codec.EncoderException: {m}"),
         NetError::Decode(e) => {
@@ -568,7 +647,10 @@ pub fn internal_exception_text(error: &NetError) -> String {
             const PREFIX: &str = "Failed to decode packet '";
             if let Some(end) = m.strip_prefix(PREFIX).and_then(|r| r.find('\'')) {
                 // DecoderException(message, cause).toString() has the message only.
-                format!("io.netty.handler.codec.DecoderException: {}", &m[..PREFIX.len() + end + 1])
+                format!(
+                    "io.netty.handler.codec.DecoderException: {}",
+                    &m[..PREFIX.len() + end + 1]
+                )
             } else if m.starts_with("Packet ") && m.contains("was larger than I expected") {
                 format!("io.netty.handler.codec.DecoderException: java.io.IOException: {m}")
             } else {
@@ -581,7 +663,10 @@ pub fn internal_exception_text(error: &NetError) -> String {
 
 /// `Component.translatable("disconnect.genericReason", "Internal Exception: " + cause)`.
 pub fn generic_reason(text: String) -> Component {
-    Component::translatable("disconnect.genericReason", vec![mc_text::TranslatableArg::String(text)])
+    Component::translatable(
+        "disconnect.genericReason",
+        vec![mc_text::TranslatableArg::String(text)],
+    )
 }
 
 /// The JDK's message for an I/O error (`strerror` without Rust's ` (os error N)` suffix).
@@ -602,7 +687,9 @@ mod tests {
     #[tokio::test(start_paused = true)]
     async fn read_timeout_is_30_seconds_since_the_last_read() {
         let listener = TcpListener::bind("127.0.0.1:0").await.unwrap();
-        let mut client = TcpStream::connect(listener.local_addr().unwrap()).await.unwrap();
+        let mut client = TcpStream::connect(listener.local_addr().unwrap())
+            .await
+            .unwrap();
         let (server_side, _) = listener.accept().await.unwrap();
         let (read, _write) = server_side.into_split();
         let mut reader = FrameReader::new(read);
@@ -614,17 +701,32 @@ mod tests {
             client.write_all(&[0x05]).await.unwrap();
             client
         });
-        assert!(matches!(reader.next_payload().await, Err(ReadError::Timeout)));
+        assert!(matches!(
+            reader.next_payload().await,
+            Err(ReadError::Timeout)
+        ));
         assert_eq!(started.elapsed(), Duration::from_secs(50));
         let _client = writer.await.unwrap();
     }
 
     #[test]
     fn java_socket_address_forms() {
-        assert_eq!(java_socket_address_string(&"127.0.0.1:25565".parse().unwrap()), "/127.0.0.1:25565");
-        assert_eq!(java_socket_address_string(&"[::1]:25565".parse().unwrap()), "/[0:0:0:0:0:0:0:1]:25565");
-        assert_eq!(java_socket_address_string(&"[::ffff:1.2.3.4]:1".parse().unwrap()), "/1.2.3.4:1");
-        assert_eq!(java_host_address(&"2001:db8::ff00:42:8329".parse().unwrap(), false), "2001:db8:0:0:0:ff00:42:8329");
+        assert_eq!(
+            java_socket_address_string(&"127.0.0.1:25565".parse().unwrap()),
+            "/127.0.0.1:25565"
+        );
+        assert_eq!(
+            java_socket_address_string(&"[::1]:25565".parse().unwrap()),
+            "/[0:0:0:0:0:0:0:1]:25565"
+        );
+        assert_eq!(
+            java_socket_address_string(&"[::ffff:1.2.3.4]:1".parse().unwrap()),
+            "/1.2.3.4:1"
+        );
+        assert_eq!(
+            java_host_address(&"2001:db8::ff00:42:8329".parse().unwrap(), false),
+            "2001:db8:0:0:0:ff00:42:8329"
+        );
     }
 
     #[test]

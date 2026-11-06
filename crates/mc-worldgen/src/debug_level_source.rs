@@ -22,13 +22,16 @@ pub const HEIGHT: i32 = 70;
 pub const BARRIER_HEIGHT: i32 = 60;
 
 /// `ALL_BLOCKS`: every state of every block in registry order (`getPossibleStates` is state-id order).
-static ALL_BLOCKS: LazyLock<Vec<BlockState>> = LazyLock::new(|| Block::iter().flat_map(|b| b.states()).collect());
+static ALL_BLOCKS: LazyLock<Vec<BlockState>> =
+    LazyLock::new(|| Block::iter().flat_map(|b| b.states()).collect());
 
 /// `GRID_WIDTH = Mth.ceil(Mth.sqrt(ALL_BLOCKS.size()))`.
-static GRID_WIDTH: LazyLock<i32> = LazyLock::new(|| mth::ceil_f32(mth::sqrt(ALL_BLOCKS.len() as f32)));
+static GRID_WIDTH: LazyLock<i32> =
+    LazyLock::new(|| mth::ceil_f32(mth::sqrt(ALL_BLOCKS.len() as f32)));
 
 /// `GRID_HEIGHT = Mth.ceil((float) ALL_BLOCKS.size() / GRID_WIDTH)`.
-static GRID_HEIGHT: LazyLock<i32> = LazyLock::new(|| mth::ceil_f32(ALL_BLOCKS.len() as f32 / *GRID_WIDTH as f32));
+static GRID_HEIGHT: LazyLock<i32> =
+    LazyLock::new(|| mth::ceil_f32(ALL_BLOCKS.len() as f32 / *GRID_WIDTH as f32));
 
 /// `ALL_BLOCKS`.
 pub fn all_blocks() -> &'static [BlockState] {
@@ -69,7 +72,10 @@ pub struct DebugLevelSource {
 impl DebugLevelSource {
     /// `new DebugLevelSource(plains)`.
     pub fn new(plains: BiomeId, biomes: Arc<BiomeRegistry>) -> DebugLevelSource {
-        DebugLevelSource { biome_source: FixedBiomeSource::new(plains), biomes }
+        DebugLevelSource {
+            biome_source: FixedBiomeSource::new(plains),
+            biomes,
+        }
     }
 
     /// `applyBiomeDecoration`: the `level.setBlock(pos, state, 2)` calls for `chunk_pos`, in vanilla order
@@ -82,7 +88,10 @@ impl DebugLevelSource {
                 let world_x = SectionPos::section_to_block_coord_offset(chunk_pos.x, x);
                 let world_z = SectionPos::section_to_block_coord_offset(chunk_pos.z, z);
                 writes.push((BlockPos::new(world_x, BARRIER_HEIGHT, world_z), barrier));
-                writes.push((BlockPos::new(world_x, HEIGHT, world_z), get_block_state_for(world_x, world_z)));
+                writes.push((
+                    BlockPos::new(world_x, HEIGHT, world_z),
+                    get_block_state_for(world_x, world_z),
+                ));
             }
         }
         writes
@@ -100,11 +109,24 @@ impl ChunkGenerator for DebugLevelSource {
 
     fn build_terrain(&self, _chunk: &mut ProtoChunk, _ctx: &BuildTerrainContext) {}
 
-    fn get_base_height(&self, _x: i32, _z: i32, _ty: HeightmapType, _height: LevelHeight, _random_state: &Arc<RandomState>) -> i32 {
+    fn get_base_height(
+        &self,
+        _x: i32,
+        _z: i32,
+        _ty: HeightmapType,
+        _height: LevelHeight,
+        _random_state: &Arc<RandomState>,
+    ) -> i32 {
         0
     }
 
-    fn get_base_column(&self, _x: i32, _z: i32, _height: LevelHeight, _random_state: &Arc<RandomState>) -> NoiseColumn {
+    fn get_base_column(
+        &self,
+        _x: i32,
+        _z: i32,
+        _height: LevelHeight,
+        _random_state: &Arc<RandomState>,
+    ) -> NoiseColumn {
         NoiseColumn::new(0, Vec::new())
     }
 

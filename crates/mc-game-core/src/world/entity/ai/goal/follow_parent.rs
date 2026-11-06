@@ -27,12 +27,25 @@ enum ParentClass {
 impl FollowParentGoal {
     /// `FollowParentGoal(animal, speedModifier)`: parents are animals of `animal`'s own class.
     pub fn new(animal: &dyn Entity, speed_modifier: f64) -> Self {
-        Self { parent: None, speed_modifier, time_to_recalc_path: 0, class: ParentClass::Exact(animal.as_any().type_id()) }
+        Self {
+            parent: None,
+            speed_modifier,
+            time_to_recalc_path: 0,
+            class: ParentClass::Exact(animal.as_any().type_id()),
+        }
     }
 
     /// `FollowParentGoal(animal, speedModifier)` for a class that spans several Rust types or entity types (`Llama`/`TraderLlama`).
-    pub fn with_class_test(speed_modifier: f64, class: Arc<dyn Fn(&dyn Entity) -> bool + Send + Sync>) -> Self {
-        Self { parent: None, speed_modifier, time_to_recalc_path: 0, class: ParentClass::Test(class) }
+    pub fn with_class_test(
+        speed_modifier: f64,
+        class: Arc<dyn Fn(&dyn Entity) -> bool + Send + Sync>,
+    ) -> Self {
+        Self {
+            parent: None,
+            speed_modifier,
+            time_to_recalc_path: 0,
+            class: ParentClass::Test(class),
+        }
     }
 }
 
@@ -54,7 +67,9 @@ impl Goal for FollowParentGoal {
         let mut closest: Option<EntityId> = None;
         let mut closest_dist_sqr = f64::MAX;
         for id in parents {
-            let Some(parent) = level.get_entity(id) else { continue };
+            let Some(parent) = level.get_entity(id) else {
+                continue;
+            };
             if ageable::get_age(parent) >= 0 {
                 let dist_sqr = animal.base().distance_to_sqr_vec(parent.position());
                 if !(dist_sqr > closest_dist_sqr) {
@@ -77,7 +92,9 @@ impl Goal for FollowParentGoal {
         if ageable::get_age(animal) >= 0 {
             return false;
         }
-        let Some(parent) = self.parent.and_then(|p| level.get_entity(p)) else { return false };
+        let Some(parent) = self.parent.and_then(|p| level.get_entity(p)) else {
+            return false;
+        };
         if !parent.is_alive() {
             return false;
         }
@@ -97,7 +114,11 @@ impl Goal for FollowParentGoal {
         self.time_to_recalc_path -= 1;
         if self.time_to_recalc_path <= 0 {
             self.time_to_recalc_path = self.adjusted_tick_delay(10);
-            if let Some(pos) = self.parent.and_then(|p| level.get_entity(p)).map(|p| p.block_position()) {
+            if let Some(pos) = self
+                .parent
+                .and_then(|p| level.get_entity(p))
+                .map(|p| p.block_position())
+            {
                 navigation::move_to_entity(animal, level, pos, self.speed_modifier);
             }
         }

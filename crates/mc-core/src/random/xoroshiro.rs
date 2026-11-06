@@ -1,6 +1,6 @@
 use super::{
-    seed_from_hash_of, upgrade_seed_to_128bit, MarsagliaPolarGaussian,
-    PositionalRandomFactory, RandomSource, Seed128bit, GOLDEN_RATIO_64, SILVER_RATIO_64,
+    GOLDEN_RATIO_64, MarsagliaPolarGaussian, PositionalRandomFactory, RandomSource,
+    SILVER_RATIO_64, Seed128bit, seed_from_hash_of, upgrade_seed_to_128bit,
 };
 
 const FLOAT_UNIT: f32 = 5.9604645E-8;
@@ -16,7 +16,10 @@ pub struct Xoroshiro128PlusPlus {
 impl Xoroshiro128PlusPlus {
     pub fn new(seed_lo: i64, seed_hi: i64) -> Self {
         if seed_lo | seed_hi == 0 {
-            Self { seed_lo: GOLDEN_RATIO_64, seed_hi: SILVER_RATIO_64 }
+            Self {
+                seed_lo: GOLDEN_RATIO_64,
+                seed_hi: SILVER_RATIO_64,
+            }
         } else {
             Self { seed_lo, seed_hi }
         }
@@ -53,7 +56,9 @@ pub struct XoroshiroRandomSource {
 
 impl XoroshiroRandomSource {
     pub fn new(seed: i64) -> Self {
-        Self::from_generator(Xoroshiro128PlusPlus::from_seed(upgrade_seed_to_128bit(seed)))
+        Self::from_generator(Xoroshiro128PlusPlus::from_seed(upgrade_seed_to_128bit(
+            seed,
+        )))
     }
 
     pub fn from_seed128(seed: Seed128bit) -> Self {
@@ -65,7 +70,10 @@ impl XoroshiroRandomSource {
     }
 
     pub fn from_generator(random_number_generator: Xoroshiro128PlusPlus) -> Self {
-        Self { random_number_generator, gaussian: MarsagliaPolarGaussian::new() }
+        Self {
+            random_number_generator,
+            gaussian: MarsagliaPolarGaussian::new(),
+        }
     }
 
     pub fn generator(&self) -> Xoroshiro128PlusPlus {
@@ -91,7 +99,8 @@ impl RandomSource for XoroshiroRandomSource {
     }
 
     fn set_seed(&mut self, seed: i64) {
-        self.random_number_generator = Xoroshiro128PlusPlus::from_seed(upgrade_seed_to_128bit(seed));
+        self.random_number_generator =
+            Xoroshiro128PlusPlus::from_seed(upgrade_seed_to_128bit(seed));
         self.gaussian.reset();
     }
 
@@ -160,7 +169,10 @@ impl XoroshiroPositionalRandomFactory {
 
 impl PositionalRandomFactory for XoroshiroPositionalRandomFactory {
     fn at(&self, x: i32, y: i32, z: i32) -> Box<dyn RandomSource> {
-        Box::new(XoroshiroRandomSource::from_seeds(crate::math::mth::get_seed_xyz(x, y, z) ^ self.seed_lo, self.seed_hi))
+        Box::new(XoroshiroRandomSource::from_seeds(
+            crate::math::mth::get_seed_xyz(x, y, z) ^ self.seed_lo,
+            self.seed_hi,
+        ))
     }
 
     fn from_hash_of(&self, name: &str) -> Box<dyn RandomSource> {
@@ -170,10 +182,16 @@ impl PositionalRandomFactory for XoroshiroPositionalRandomFactory {
     }
 
     fn from_seed(&self, seed: i64) -> Box<dyn RandomSource> {
-        Box::new(XoroshiroRandomSource::from_seeds(seed ^ self.seed_lo, seed ^ self.seed_hi))
+        Box::new(XoroshiroRandomSource::from_seeds(
+            seed ^ self.seed_lo,
+            seed ^ self.seed_hi,
+        ))
     }
 
     fn parity_config_string(&self, sb: &mut String) {
-        sb.push_str(&format!("seedLo: {}, seedHi: {}", self.seed_lo, self.seed_hi));
+        sb.push_str(&format!(
+            "seedLo: {}, seedHi: {}",
+            self.seed_lo, self.seed_hi
+        ));
     }
 }

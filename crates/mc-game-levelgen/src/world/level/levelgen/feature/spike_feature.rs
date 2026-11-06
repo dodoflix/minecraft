@@ -1,15 +1,17 @@
 //! `SpikeFeature` (`spike`): ice spikes.
 
-use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature, set_block};
-use mc_game_core::world::level::levelgen::GenEnv;
-use mc_game_core::world::level::levelgen::WorldGenLevel;
-use mc_game_core::world::level::levelgen::blockpredicates::{self, BlockPredicate};
-use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry, parse_block_state};
-use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_core::math::mth;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::BlockState;
+use mc_game_core::world::level::levelgen::GenEnv;
+use mc_game_core::world::level::levelgen::WorldGenLevel;
+use mc_game_core::world::level::levelgen::blockpredicates::{self, BlockPredicate};
+use mc_game_core::world::level::levelgen::codec::{
+    Fields, LoadResult, TypeEntry, parse_block_state,
+};
+use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature, set_block};
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use std::sync::Arc;
 
 pub struct SpikeFeature {
@@ -29,7 +31,13 @@ impl SpikeFeature {
 }
 
 impl Feature for SpikeFeature {
-    fn place(&self, level: &mut dyn WorldGenLevel, _generator: &GenEnv, random: &mut dyn RandomSource, mut origin: BlockPos) -> bool {
+    fn place(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        _generator: &GenEnv,
+        random: &mut dyn RandomSource,
+        mut origin: BlockPos,
+    ) -> bool {
         while level.is_empty_block(origin) && origin.y() > level.get_min_y() + 2 {
             origin = origin.below();
         }
@@ -51,7 +59,11 @@ impl Feature for SpikeFeature {
                 for zo in -new_width..=new_width {
                     let dz = zo.abs() as f32 - 0.25;
                     if ((xo == 0 && zo == 0) || !(dx * dx + dz * dz > scale * scale))
-                        && ((xo != -new_width && xo != new_width && zo != -new_width && zo != new_width) || !(random.next_float() > 0.75))
+                        && ((xo != -new_width
+                            && xo != new_width
+                            && zo != -new_width
+                            && zo != new_width)
+                            || !(random.next_float() > 0.75))
                     {
                         let positive_offset = origin.offset(xo, y_off, zo);
                         let state = level.get_block_state(positive_offset);
@@ -80,7 +92,10 @@ impl Feature for SpikeFeature {
                 }
                 while cursor.y() > 50 {
                     let state = level.get_block_state(cursor);
-                    if !state.is_air() && !self.can_replace.test(level, cursor) && state != self.state {
+                    if !state.is_air()
+                        && !self.can_replace.test(level, cursor)
+                        && state != self.state
+                    {
                         break;
                     }
                     set_block(level, cursor, self.state);
@@ -98,4 +113,7 @@ impl Feature for SpikeFeature {
 }
 
 #[linkme::distributed_slice(FEATURE_TYPES)]
-static SPIKE: TypeEntry<dyn Feature> = TypeEntry { name: "spike", decode: SpikeFeature::decode };
+static SPIKE: TypeEntry<dyn Feature> = TypeEntry {
+    name: "spike",
+    decode: SpikeFeature::decode,
+};

@@ -23,7 +23,10 @@ pub struct RejectAll;
 
 impl SignedMessageValidator for RejectAll {
     fn update_and_validate(&mut self, message: PlayerChatMessage) -> Option<PlayerChatMessage> {
-        log::error!("Received chat message from {}, but they have no chat session initialized and secure chat is enforced", message.sender());
+        log::error!(
+            "Received chat message from {}, but they have no chat session initialized and secure chat is enforced",
+            message.sender()
+        );
         None
     }
 }
@@ -36,8 +39,16 @@ pub struct KeyBased {
 }
 
 impl KeyBased {
-    pub fn new(validator: Arc<dyn SignatureValidator>, expired: Box<dyn Fn() -> bool + Send>) -> Self {
-        Self { validator, expired, last_message: None, is_chain_valid: true }
+    pub fn new(
+        validator: Arc<dyn SignatureValidator>,
+        expired: Box<dyn Fn() -> bool + Send>,
+    ) -> Self {
+        Self {
+            validator,
+            expired,
+            last_message: None,
+            is_chain_valid: true,
+        }
     }
 
     fn validate_chain(&self, message: &PlayerChatMessage) -> bool {
@@ -62,7 +73,11 @@ impl KeyBased {
 
     fn validate(&self, message: &PlayerChatMessage) -> bool {
         if (self.expired)() {
-            log::error!("Received message with expired profile public key from {} with session {}", message.sender(), message.link.session_id);
+            log::error!(
+                "Received message with expired profile public key from {} with session {}",
+                message.sender(),
+                message.link.session_id
+            );
             false
         } else if !message.verify(self.validator.as_ref()) {
             log::error!(

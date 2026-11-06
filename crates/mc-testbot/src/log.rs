@@ -52,7 +52,14 @@ impl LogEntry {
     }
 
     pub fn line(&self) -> String {
-        format!("{:>7}ms {} {}/{} {}", self.t_ms, self.dir.arrow(), self.state, self.name, self.debug)
+        format!(
+            "{:>7}ms {} {}/{} {}",
+            self.t_ms,
+            self.dir.arrow(),
+            self.state,
+            self.name,
+            self.debug
+        )
     }
 }
 
@@ -85,11 +92,23 @@ impl Default for PacketLog {
 
 impl PacketLog {
     pub fn new() -> Self {
-        Self { start: Instant::now(), entries: Vec::new(), record_raw: false }
+        Self {
+            start: Instant::now(),
+            entries: Vec::new(),
+            record_raw: false,
+        }
     }
 
     #[allow(clippy::too_many_arguments)]
-    pub fn record(&mut self, dir: Dir, state: &str, id: i32, name: &str, debug: String, payload: &[u8]) {
+    pub fn record(
+        &mut self,
+        dir: Dir,
+        state: &str,
+        id: i32,
+        name: &str,
+        debug: String,
+        payload: &[u8],
+    ) {
         let raw = self.record_raw.then(|| hex(payload));
         self.entries.push(LogEntry {
             seq: self.entries.len() as u64,
@@ -110,7 +129,9 @@ impl PacketLog {
 
     /// Entries of one direction/name (`name` without namespace).
     pub fn find<'a>(&'a self, dir: Dir, name: &'a str) -> impl Iterator<Item = &'a LogEntry> {
-        self.entries.iter().filter(move |e| e.dir == dir && e.name == name)
+        self.entries
+            .iter()
+            .filter(move |e| e.dir == dir && e.name == name)
     }
 
     /// One JSON object per line.
@@ -156,7 +177,8 @@ pub fn extract_field<'a>(debug: &'a str, field: &str) -> Option<&'a str> {
     let mut from = 0;
     let start = loop {
         let i = debug[from..].find(&needle)? + from;
-        let boundary = i == 0 || !debug.as_bytes()[i - 1].is_ascii_alphanumeric() && debug.as_bytes()[i - 1] != b'_';
+        let boundary = i == 0
+            || !debug.as_bytes()[i - 1].is_ascii_alphanumeric() && debug.as_bytes()[i - 1] != b'_';
         if boundary {
             break i + needle.len();
         }
@@ -259,8 +281,17 @@ pub fn diff_logs(a: &[LogEntry], b: &[LogEntry], opts: &DiffOptions) -> LogDiff 
     let a: Vec<LogEntry> = a.iter().filter(keep).cloned().collect();
     let b: Vec<LogEntry> = b.iter().filter(keep).cloned().collect();
 
-    let pre = a.iter().zip(&b).take_while(|(x, y)| x.key() == y.key()).count();
-    let suf = a[pre..].iter().rev().zip(b[pre..].iter().rev()).take_while(|(x, y)| x.key() == y.key()).count();
+    let pre = a
+        .iter()
+        .zip(&b)
+        .take_while(|(x, y)| x.key() == y.key())
+        .count();
+    let suf = a[pre..]
+        .iter()
+        .rev()
+        .zip(b[pre..].iter().rev())
+        .take_while(|(x, y)| x.key() == y.key())
+        .count();
     let (am, bm) = (&a[pre..a.len() - suf], &b[pre..b.len() - suf]);
 
     // LCS table over the differing middle.
@@ -275,7 +306,8 @@ pub fn diff_logs(a: &[LogEntry], b: &[LogEntry], opts: &DiffOptions) -> LogDiff 
             };
         }
     }
-    let mut pairs: Vec<(Option<usize>, Option<usize>)> = (0..pre).map(|i| (Some(i), Some(i))).collect();
+    let mut pairs: Vec<(Option<usize>, Option<usize>)> =
+        (0..pre).map(|i| (Some(i), Some(i))).collect();
     let (mut i, mut j) = (0, 0);
     while i < am.len() || j < bm.len() {
         if i < am.len() && j < bm.len() && am[i].key() == bm[j].key() {
@@ -309,20 +341,38 @@ fn compare(x: &LogEntry, y: &LogEntry, i: usize, j: usize, opts: &DiffOptions) -
         return if x.debug == y.debug {
             vec![DiffOp::Same(i, j)]
         } else {
-            vec![DiffOp::Changed(i, j, "*".into(), x.debug.clone(), y.debug.clone())]
+            vec![DiffOp::Changed(
+                i,
+                j,
+                "*".into(),
+                x.debug.clone(),
+                y.debug.clone(),
+            )]
         };
     }
-    let Some(fields) = opts.fields.get(&x.name) else { return vec![DiffOp::Same(i, j)] };
+    let Some(fields) = opts.fields.get(&x.name) else {
+        return vec![DiffOp::Same(i, j)];
+    };
     let diffs: Vec<DiffOp> = fields
         .iter()
         .filter_map(|f| {
             let (fx, fy) = (extract_field(&x.debug, f), extract_field(&y.debug, f));
             (fx != fy).then(|| {
-                DiffOp::Changed(i, j, f.clone(), fx.unwrap_or("<absent>").into(), fy.unwrap_or("<absent>").into())
+                DiffOp::Changed(
+                    i,
+                    j,
+                    f.clone(),
+                    fx.unwrap_or("<absent>").into(),
+                    fy.unwrap_or("<absent>").into(),
+                )
             })
         })
         .collect();
-    if diffs.is_empty() { vec![DiffOp::Same(i, j)] } else { diffs }
+    if diffs.is_empty() {
+        vec![DiffOp::Same(i, j)]
+    } else {
+        diffs
+    }
 }
 
 #[cfg(test)]
@@ -330,7 +380,17 @@ mod tests {
     use super::*;
 
     fn e(dir: Dir, name: &str, debug: &str) -> LogEntry {
-        LogEntry { seq: 0, t_ms: 0, dir, state: "play".into(), id: 0, name: name.into(), debug: debug.into(), len: 0, raw: None }
+        LogEntry {
+            seq: 0,
+            t_ms: 0,
+            dir,
+            state: "play".into(),
+            id: 0,
+            name: name.into(),
+            debug: debug.into(),
+            len: 0,
+            raw: None,
+        }
     }
 
     #[test]
@@ -347,9 +407,22 @@ mod tests {
     #[test]
     fn diff_aligns_order_and_fields() {
         use Dir::*;
-        let a = vec![e(In, "login", "L { id: 1 }"), e(In, "keep_alive", "K"), e(In, "set_time", "T { t: 1 }"), e(Out, "pong", "P")];
-        let b = vec![e(In, "login", "L { id: 2 }"), e(In, "set_time", "T { t: 1 }"), e(In, "extra", "X"), e(Out, "pong", "P")];
-        let mut opts = DiffOptions { ignore: vec!["keep_alive".into()], ..Default::default() };
+        let a = vec![
+            e(In, "login", "L { id: 1 }"),
+            e(In, "keep_alive", "K"),
+            e(In, "set_time", "T { t: 1 }"),
+            e(Out, "pong", "P"),
+        ];
+        let b = vec![
+            e(In, "login", "L { id: 2 }"),
+            e(In, "set_time", "T { t: 1 }"),
+            e(In, "extra", "X"),
+            e(Out, "pong", "P"),
+        ];
+        let mut opts = DiffOptions {
+            ignore: vec!["keep_alive".into()],
+            ..Default::default()
+        };
         opts.fields.insert("login".into(), vec!["id".into()]);
         let d = diff_logs(&a, &b, &opts);
         assert_eq!(

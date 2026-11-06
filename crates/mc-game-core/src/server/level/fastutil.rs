@@ -20,7 +20,11 @@ fn mix_int(x: i64) -> i32 {
 }
 
 fn next_power_of_two(x: u64) -> u64 {
-    if x == 0 { 1 } else { (x - 1).next_power_of_two().max(1) }
+    if x == 0 {
+        1
+    } else {
+        (x - 1).next_power_of_two().max(1)
+    }
 }
 
 /// `HashCommon.arraySize(expected, 0.75f)`.
@@ -65,12 +69,25 @@ impl<V> LongOpenHashMap<V> {
         let n = array_size(expected);
         let mut value = Vec::new();
         value.resize_with(n + 1, || None);
-        Self { key: vec![0; n + 1], value, mask: n - 1, contains_null_key: false, int_keys: false, n, min_n: n, max_fill: max_fill(n), size: 0 }
+        Self {
+            key: vec![0; n + 1],
+            value,
+            mask: n - 1,
+            contains_null_key: false,
+            int_keys: false,
+            n,
+            min_n: n,
+            max_fill: max_fill(n),
+            size: 0,
+        }
     }
 
     /// `new Int2ObjectOpenHashMap<>()`: same table, int keys.
     pub fn new_int() -> Self {
-        Self { int_keys: true, ..Self::new() }
+        Self {
+            int_keys: true,
+            ..Self::new()
+        }
     }
 
     fn hash(&self, k: i64) -> usize {
@@ -87,7 +104,11 @@ impl<V> LongOpenHashMap<V> {
 
     fn find(&self, k: i64) -> Result<usize, usize> {
         if k == 0 {
-            return if self.contains_null_key { Ok(self.n) } else { Err(self.n) };
+            return if self.contains_null_key {
+                Ok(self.n)
+            } else {
+                Err(self.n)
+            };
         }
         let mut pos = self.hash(k) & self.mask;
         loop {
@@ -192,7 +213,11 @@ impl<V> LongOpenHashMap<V> {
                     return;
                 }
                 let slot = self.hash(c) & self.mask;
-                let stays = if last <= pos { last >= slot || slot > pos } else { last >= slot && slot > pos };
+                let stays = if last <= pos {
+                    last >= slot || slot > pos
+                } else {
+                    last >= slot && slot > pos
+                };
                 if stays {
                     curr = c;
                     break;
@@ -215,7 +240,11 @@ impl<V> LongOpenHashMap<V> {
         let mut new_value: Vec<Option<V>> = Vec::new();
         new_value.resize_with(new_n + 1, || None);
         let mut i = self.n;
-        let mut j = if self.contains_null_key { self.size - 1 } else { self.size };
+        let mut j = if self.contains_null_key {
+            self.size - 1
+        } else {
+            self.size
+        };
         while j > 0 {
             j -= 1;
             loop {
@@ -256,8 +285,15 @@ impl<V> LongOpenHashMap<V> {
 
     /// Entries in fastutil iteration order.
     pub fn iter(&self) -> impl Iterator<Item = (i64, &V)> {
-        let null = self.contains_null_key.then(|| (0i64, self.value[self.n].as_ref().expect("null key value")));
-        null.into_iter().chain((0..self.n).rev().filter(|&p| self.key[p] != 0).map(|p| (self.key[p], self.value[p].as_ref().expect("value"))))
+        let null = self
+            .contains_null_key
+            .then(|| (0i64, self.value[self.n].as_ref().expect("null key value")));
+        null.into_iter().chain(
+            (0..self.n)
+                .rev()
+                .filter(|&p| self.key[p] != 0)
+                .map(|p| (self.key[p], self.value[p].as_ref().expect("value"))),
+        )
     }
 
     /// Entries in the order of `values().stream()` / the map spliterator: the `0` key first, then the table from the
@@ -408,7 +444,14 @@ impl Default for ShortOpenHashSet {
 impl ShortOpenHashSet {
     pub fn new() -> Self {
         let n = array_size(16);
-        Self { key: vec![0; n + 1], mask: n - 1, n, max_fill: max_fill(n), contains_null: false, size: 0 }
+        Self {
+            key: vec![0; n + 1],
+            mask: n - 1,
+            n,
+            max_fill: max_fill(n),
+            contains_null: false,
+            size: 0,
+        }
     }
 
     pub fn len(&self) -> usize {
@@ -465,7 +508,11 @@ impl ShortOpenHashSet {
         let mask = new_n - 1;
         let mut new_key = vec![0i16; new_n + 1];
         let mut i = self.n;
-        let mut j = if self.contains_null { self.size - 1 } else { self.size };
+        let mut j = if self.contains_null {
+            self.size - 1
+        } else {
+            self.size
+        };
         while j > 0 {
             j -= 1;
             loop {
@@ -488,7 +535,10 @@ impl ShortOpenHashSet {
 
     /// Iteration order of the fastutil iterator.
     pub fn iter(&self) -> impl Iterator<Item = i16> + '_ {
-        self.contains_null.then_some(0i16).into_iter().chain((0..self.n).rev().map(|p| self.key[p]).filter(|k| *k != 0))
+        self.contains_null
+            .then_some(0i16)
+            .into_iter()
+            .chain((0..self.n).rev().map(|p| self.key[p]).filter(|k| *k != 0))
     }
 }
 
@@ -534,7 +584,11 @@ pub struct ConstHashReferenceSet {
 impl Default for ConstHashReferenceSet {
     fn default() -> Self {
         let n = array_size(DEFAULT_INITIAL_SIZE);
-        Self { table: vec![None; n], size: 0, max_fill: max_fill(n) }
+        Self {
+            table: vec![None; n],
+            size: 0,
+            max_fill: max_fill(n),
+        }
     }
 }
 
@@ -664,7 +718,15 @@ impl<K: Eq> Object2IntOpenHashMap<K> {
         let n = array_size(DEFAULT_INITIAL_SIZE);
         let mut key = Vec::new();
         key.resize_with(n + 1, || None);
-        Self { key, value: vec![0; n + 1], hash, mask: n - 1, n, max_fill: max_fill(n), size: 0 }
+        Self {
+            key,
+            value: vec![0; n + 1],
+            hash,
+            mask: n - 1,
+            n,
+            max_fill: max_fill(n),
+            size: 0,
+        }
     }
 
     /// `computeInt(k, (k, old) -> (old == null ? 0 : old) + delta)`.
@@ -720,7 +782,13 @@ impl<K: Eq> Object2IntOpenHashMap<K> {
     /// The entries in iteration order (table slots from the end).
     pub fn into_entries(self) -> impl Iterator<Item = (K, i32)> {
         let Self { key, value, n, .. } = self;
-        key.into_iter().zip(value).take(n).collect::<Vec<_>>().into_iter().rev().filter_map(|(k, v)| k.map(|k| (k, v)))
+        key.into_iter()
+            .zip(value)
+            .take(n)
+            .collect::<Vec<_>>()
+            .into_iter()
+            .rev()
+            .filter_map(|(k, v)| k.map(|k| (k, v)))
     }
 }
 

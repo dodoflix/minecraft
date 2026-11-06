@@ -1,5 +1,8 @@
 //! Helpers of the `region_*` oracle tests: the vanilla-java runner and the vanilla dump of a region folder.
-#![allow(dead_code, reason = "each test target uses a subset of the shared helpers")]
+#![allow(
+    dead_code,
+    reason = "each test target uses a subset of the shared helpers"
+)]
 
 use crate::region_common::{fixtures, repo_root};
 use std::path::Path;
@@ -9,16 +12,34 @@ use std::process::Command;
 pub fn run_java(program: &str, args: &[&str]) -> String {
     let root = repo_root();
     let script = root.join("scripts/vanilla-java.sh");
-    assert!(script.exists() && root.join("ref/bundle").exists(), "scripts/vanilla-java.sh or ref/bundle is missing: run scripts/setup-ref.sh");
-    assert!(Command::new("java").arg("-version").output().is_ok(), "java not found on PATH: install JDK 25");
-    let out = Command::new(script).arg(fixtures().join(program)).args(args).output().expect("spawn vanilla-java.sh");
-    assert!(out.status.success(), "{program} {args:?} failed:\n{}", String::from_utf8_lossy(&out.stderr));
+    assert!(
+        script.exists() && root.join("ref/bundle").exists(),
+        "scripts/vanilla-java.sh or ref/bundle is missing: run scripts/setup-ref.sh"
+    );
+    assert!(
+        Command::new("java").arg("-version").output().is_ok(),
+        "java not found on PATH: install JDK 25"
+    );
+    let out = Command::new(script)
+        .arg(fixtures().join(program))
+        .args(args)
+        .output()
+        .expect("spawn vanilla-java.sh");
+    assert!(
+        out.status.success(),
+        "{program} {args:?} failed:\n{}",
+        String::from_utf8_lossy(&out.stderr)
+    );
     String::from_utf8(out.stdout).unwrap()
 }
 
 /// Vanilla `dump` output restricted to `has=true` slots.
 pub fn java_dump(dir: &Path) -> Vec<String> {
-    run_java("RegionTool.java", &["dump", dir.to_str().unwrap()]).lines().filter(|l| l.contains(" has=true ")).map(str::to_owned).collect()
+    run_java("RegionTool.java", &["dump", dir.to_str().unwrap()])
+        .lines()
+        .filter(|l| l.contains(" has=true "))
+        .map(str::to_owned)
+        .collect()
 }
 
 /// Copies the `.mca`/`.mcc` files of `src` into a fresh directory.

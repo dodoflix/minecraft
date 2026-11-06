@@ -4,19 +4,48 @@
 //! synthetic terrain for the chunks of every piece kind (blocks as a per-chunk digest, the silverfish spawner and end portal
 //! frames, chests and library loot, scheduled ticks, heightmaps, region random). Driver: `common/structure_golden.rs`.
 
-
 use crate::common::structure_golden::{run_fixture, structure};
 
 #[test]
 fn stronghold_matches_vanilla() {
     let stronghold = structure("stronghold");
     let stats = run_fixture("stronghold.txt", &|_| &stronghold);
-    assert!(stats.starts >= 40 && stats.pieces > 2000 && stats.placements >= 400, "fixture too small: {} starts, {} pieces, {} placements", stats.starts, stats.pieces, stats.placements);
-    for id in ["shcc", "shfc", "sh5c", "shlt", "shli", "shpr", "shph", "shrt", "shrc", "shsd", "shs", "shssd", "shstart"] {
-        assert!(stats.piece_ids.contains_key(&format!("minecraft:{id}")), "fixture lacks piece {id}: {:?}", stats.piece_ids);
+    assert!(
+        stats.starts >= 40 && stats.pieces > 2000 && stats.placements >= 400,
+        "fixture too small: {} starts, {} pieces, {} placements",
+        stats.starts,
+        stats.pieces,
+        stats.placements
+    );
+    for id in [
+        "shcc", "shfc", "sh5c", "shlt", "shli", "shpr", "shph", "shrt", "shrc", "shsd", "shs",
+        "shssd", "shstart",
+    ] {
+        assert!(
+            stats.piece_ids.contains_key(&format!("minecraft:{id}")),
+            "fixture lacks piece {id}: {:?}",
+            stats.piece_ids
+        );
     }
-    assert!(stats.block_entity_ids.get("minecraft:mob_spawner").copied().unwrap_or(0) >= 10, "no silverfish spawners: {:?}", stats.block_entity_ids);
-    for table in ["minecraft:chests/stronghold_corridor", "minecraft:chests/stronghold_crossing", "minecraft:chests/stronghold_library"] {
-        assert!(stats.loot_tables.contains_key(table), "fixture lacks {table}: {:?}", stats.loot_tables);
+    assert!(
+        stats
+            .block_entity_ids
+            .get("minecraft:mob_spawner")
+            .copied()
+            .unwrap_or(0)
+            >= 10,
+        "no silverfish spawners: {:?}",
+        stats.block_entity_ids
+    );
+    for table in [
+        "minecraft:chests/stronghold_corridor",
+        "minecraft:chests/stronghold_crossing",
+        "minecraft:chests/stronghold_library",
+    ] {
+        assert!(
+            stats.loot_tables.contains_key(table),
+            "fixture lacks {table}: {:?}",
+            stats.loot_tables
+        );
     }
 }

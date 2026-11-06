@@ -42,7 +42,10 @@ pub struct Orientation {
 
 /// `Orientation.generateIndex`; panics when up and front share an axis (vanilla throws `IllegalStateException`).
 fn generate_index(up: Direction, front: Direction, side_bias: SideBias) -> usize {
-    assert!(up.get_axis() != front.get_axis(), "Up-vector and front-vector can not be on the same axis");
+    assert!(
+        up.get_axis() != front.get_axis(),
+        "Up-vector and front-vector can not be on the same axis"
+    );
     let front_axis_key = if up.get_axis() == Axis::Y {
         usize::from(front.get_axis() == Axis::X)
     } else {
@@ -57,10 +60,25 @@ impl Orientation {
         let index = generate_index(up, front, side_bias);
         // front x up
         let (f, u) = (front.get_unit_vec3i(), up.get_unit_vec3i());
-        let right = (f.y() * u.z() - f.z() * u.y(), f.z() * u.x() - f.x() * u.z(), f.x() * u.y() - f.y() * u.x());
-        let side = Direction::get_nearest(right.0, right.1, right.2, None).expect("front and up are perpendicular");
-        let side = if side_bias == SideBias::Right { side } else { side.get_opposite() };
-        Orientation { up, front, side, side_bias, index }
+        let right = (
+            f.y() * u.z() - f.z() * u.y(),
+            f.z() * u.x() - f.x() * u.z(),
+            f.x() * u.y() - f.y() * u.x(),
+        );
+        let side = Direction::get_nearest(right.0, right.1, right.2, None)
+            .expect("front and up are perpendicular");
+        let side = if side_bias == SideBias::Right {
+            side
+        } else {
+            side.get_opposite()
+        };
+        Orientation {
+            up,
+            front,
+            side,
+            side_bias,
+            index,
+        }
     }
 
     pub fn of(up: Direction, front: Direction, side_bias: SideBias) -> Orientation {
@@ -90,12 +108,20 @@ impl Orientation {
     }
 
     pub fn with_front_preserve_up(&self, front: Direction) -> Orientation {
-        if front.get_axis() == self.up.get_axis() { *self } else { self.with_front(front) }
+        if front.get_axis() == self.up.get_axis() {
+            *self
+        } else {
+            self.with_front(front)
+        }
     }
 
     pub fn with_front_adjust_side_bias(&self, front: Direction) -> Orientation {
         let with_front = self.with_front(front);
-        if self.front == with_front.side { with_front.with_mirror() } else { with_front }
+        if self.front == with_front.side {
+            with_front.with_mirror()
+        } else {
+            with_front
+        }
     }
 
     pub fn with_side_bias(&self, side_bias: SideBias) -> Orientation {
@@ -132,11 +158,17 @@ impl Orientation {
     }
 
     pub fn get_horizontal_directions(&self) -> Vec<Direction> {
-        self.get_directions().into_iter().filter(|d| d.get_axis() != self.up.get_axis()).collect()
+        self.get_directions()
+            .into_iter()
+            .filter(|d| d.get_axis() != self.up.get_axis())
+            .collect()
     }
 
     pub fn get_vertical_directions(&self) -> Vec<Direction> {
-        self.get_directions().into_iter().filter(|d| d.get_axis() == self.up.get_axis()).collect()
+        self.get_directions()
+            .into_iter()
+            .filter(|d| d.get_axis() == self.up.get_axis())
+            .collect()
     }
 
     pub fn get_index(&self) -> usize {
@@ -155,7 +187,13 @@ impl Orientation {
 
 impl std::fmt::Display for Orientation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "[up={},front={},sideBias={}]", self.up.get_name(), self.front.get_name(), self.side_bias.name())
+        write!(
+            f,
+            "[up={},front={},sideBias={}]",
+            self.up.get_name(),
+            self.front.get_name(),
+            self.side_bias.name()
+        )
     }
 }
 

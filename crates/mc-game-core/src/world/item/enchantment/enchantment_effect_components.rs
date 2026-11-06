@@ -6,7 +6,10 @@ use mc_protocol::components::{Holder, SoundEvent};
 
 use super::codecs::type_codec;
 use super::conditional_effect::{ConditionalEffect, TargetedConditionalEffect};
-use super::effects::{EnchantmentAttributeEffect, EnchantmentEntityEffect, EnchantmentLocationBasedEffect, EnchantmentValueEffect};
+use super::effects::{
+    EnchantmentAttributeEffect, EnchantmentEntityEffect, EnchantmentLocationBasedEffect,
+    EnchantmentValueEffect,
+};
 
 const REGISTRY: &str = "minecraft:enchantment_effect_component_type";
 
@@ -159,7 +162,10 @@ components! {
 impl EnchantmentEffects {
     /// `EnchantmentEffectComponents.CODEC` (`DataComponentMap.makeCodec`).
     pub fn codec() -> Codec<EnchantmentEffects> {
-        mc_dfu::extra::dispatched_map(&type_codec(REGISTRY), |name: &&'static str| DataResult::success(value_codec(name))).xmap(
+        mc_dfu::extra::dispatched_map(&type_codec(REGISTRY), |name: &&'static str| {
+            DataResult::success(value_codec(name))
+        })
+        .xmap(
             EnchantmentEffects::from_entries,
             |e: &EnchantmentEffects| e.to_entries(),
         )

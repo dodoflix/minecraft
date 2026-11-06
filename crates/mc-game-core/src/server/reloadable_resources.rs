@@ -7,13 +7,16 @@ use std::sync::Arc;
 
 use mc_world::level_storage::FeatureFlagSet;
 
-use super::registry_layer::RegistryLayer;
 use super::permissions::PermissionSet;
+use super::registry_layer::RegistryLayer;
 use crate::commands::command_build_context::AccessRegistries;
 use crate::commands::{CommandBuildContext, CommandSelection, Commands};
 use crate::registry::data_loader::{self, RegistryLoadFailure};
 use crate::registry::keys::RELOADABLE_REGISTRIES;
-use crate::registry::{LayeredRegistryAccess, PendingTags, RegistryAccess, build_updated_lookups, load_tags_for_existing_registries};
+use crate::registry::{
+    LayeredRegistryAccess, PendingTags, RegistryAccess, build_updated_lookups,
+    load_tags_for_existing_registries,
+};
 use crate::server::packs::{MultiPackResourceManager, PackRepository, PackType, ResourceManager};
 
 /// What a [`ReloadListener`] sees while reloading (`PreparableReloadListener.reload` context).
@@ -73,7 +76,9 @@ impl std::fmt::Display for ReloadError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
             ReloadError::Registries(e) => e.fmt(f),
-            ReloadError::Listener { name, message } => write!(f, "Failed to reload {name}: {message}"),
+            ReloadError::Listener { name, message } => {
+                write!(f, "Failed to reload {name}: {message}")
+            }
         }
     }
 }
@@ -106,15 +111,26 @@ impl ReloadableServerResources {
         function_compilation_permissions: &PermissionSet,
     ) -> Result<ReloadableServerResources, ReloadError> {
         // ReloadableServerRegistries.reload
-        let context = build_updated_lookups(&context_layers.get_access_for_loading(RegistryLayer::Reloadable), &updated_context_tags);
+        let context = build_updated_lookups(
+            &context_layers.get_access_for_loading(RegistryLayer::Reloadable),
+            &updated_context_tags,
+        );
         let reloadable = data_loader::load(manager, &context, RELOADABLE_REGISTRIES)?;
         let layers = context_layers.replace_from(RegistryLayer::Reloadable, vec![reloadable]);
 
-        let full_with_tags = build_updated_lookups(layers.composite_access(), &updated_context_tags);
-        crate::world::level::storage::loot::loading::validate_loot_registries(&full_with_tags).map_err(|message| ReloadError::Listener { name: "loot tables", message })?;
+        let full_with_tags =
+            build_updated_lookups(layers.composite_access(), &updated_context_tags);
+        crate::world::level::storage::loot::loading::validate_loot_registries(&full_with_tags)
+            .map_err(|message| ReloadError::Listener {
+                name: "loot tables",
+                message,
+            })?;
         let commands = Arc::new(Commands::new(
             CommandSelection::Dedicated,
-            &CommandBuildContext::simple(Arc::new(AccessRegistries(full_with_tags.clone())), enabled_features),
+            &CommandBuildContext::simple(
+                Arc::new(AccessRegistries(full_with_tags.clone())),
+                enabled_features,
+            ),
         ));
         let mut registrations: Vec<&ReloadListenerRegistration> = RELOAD_LISTENERS.iter().collect();
         registrations.sort_by_key(|r| r.order);
@@ -128,10 +144,21 @@ impl ReloadableServerResources {
         };
         for registration in registrations {
             let mut listener = (registration.create)();
-            listener.reload(&ctx).map_err(|message| ReloadError::Listener { name: registration.name, message })?;
+            listener
+                .reload(&ctx)
+                .map_err(|message| ReloadError::Listener {
+                    name: registration.name,
+                    message,
+                })?;
             listeners.push(listener);
         }
-        Ok(ReloadableServerResources { commands, layers, postponed_tags: updated_context_tags, enabled_features, listeners })
+        Ok(ReloadableServerResources {
+            commands,
+            layers,
+            postponed_tags: updated_context_tags,
+            enabled_features,
+            listeners,
+        })
     }
 
     /// `getCommands()`.
@@ -161,11 +188,15 @@ impl ReloadableServerResources {
 
     /// The listener of type `T` (`getFunctionLibrary()`, `getRecipeManager()`, ... of vanilla).
     pub fn listener<T: ReloadListener>(&self) -> Option<&T> {
-        self.listeners.iter().find_map(|l| l.as_any().downcast_ref::<T>())
+        self.listeners
+            .iter()
+            .find_map(|l| l.as_any().downcast_ref::<T>())
     }
 
     pub fn listener_mut<T: ReloadListener>(&mut self) -> Option<&mut T> {
-        self.listeners.iter_mut().find_map(|l| l.as_any_mut().downcast_mut::<T>())
+        self.listeners
+            .iter_mut()
+            .find_map(|l| l.as_any_mut().downcast_mut::<T>())
     }
 
     /// `updateComponentsAndStaticRegistryTags()`: bind the tags loaded for the already existing registries (static ones, and
@@ -175,8 +206,12 @@ impl ReloadableServerResources {
         if pending.is_empty() {
             return;
         }
-        let values: Vec<RegistryAccess> = RegistryLayer::VALUES.iter().map(|l| build_updated_lookups(self.layers.get_layer(*l), &pending)).collect();
-        let layers = LayeredRegistryAccess::new(RegistryLayer::VALUES.to_vec()).replace_from(RegistryLayer::Static, values);
+        let values: Vec<RegistryAccess> = RegistryLayer::VALUES
+            .iter()
+            .map(|l| build_updated_lookups(self.layers.get_layer(*l), &pending))
+            .collect();
+        let layers = LayeredRegistryAccess::new(RegistryLayer::VALUES.to_vec())
+            .replace_from(RegistryLayer::Static, values);
         self.layers = layers;
     }
 }
@@ -201,13 +236,27 @@ pub fn reload_resources(
     enabled_features: FeatureFlagSet,
     function_compilation_permissions: &PermissionSet,
 ) -> Result<ReloadedResources, ReloadError> {
-    let packs: Vec<_> = packs_to_enable.iter().filter_map(|id| pack_repository.get_pack(id)).flat_map(|p| p.open()).collect();
+    let packs: Vec<_> = packs_to_enable
+        .iter()
+        .filter_map(|id| pack_repository.get_pack(id))
+        .flat_map(|p| p.open())
+        .collect();
     let resource_manager = MultiPackResourceManager::new(PackType::ServerData, packs);
-    let postponed_tags = load_tags_for_existing_registries(&resource_manager, registries.composite_access());
-    match ReloadableServerResources::load_resources(&resource_manager, registries, postponed_tags, enabled_features, function_compilation_permissions) {
+    let postponed_tags =
+        load_tags_for_existing_registries(&resource_manager, registries.composite_access());
+    match ReloadableServerResources::load_resources(
+        &resource_manager,
+        registries,
+        postponed_tags,
+        enabled_features,
+        function_compilation_permissions,
+    ) {
         Ok(mut managers) => {
             managers.update_components_and_static_registry_tags();
-            Ok(ReloadedResources { resource_manager, managers })
+            Ok(ReloadedResources {
+                resource_manager,
+                managers,
+            })
         }
         Err(e) => {
             resource_manager.close();

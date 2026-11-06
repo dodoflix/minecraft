@@ -7,5 +7,5 @@ pub mod common;
 pub mod configuration;
 pub mod handshake;
 pub mod login;
-pub mod status;
 pub mod play;
+pub mod status;

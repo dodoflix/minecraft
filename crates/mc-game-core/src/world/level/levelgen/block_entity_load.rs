@@ -14,7 +14,11 @@ use mc_data::block::BlockState;
 use mc_nbt::{CompoundTag, ListTag, Tag};
 
 /// The `loadWithComponents` + `saveWithFullMetadata` result for the block entity of `state` at `pos` loaded from `nbt`.
-pub fn load_with_components(state: BlockState, pos: BlockPos, nbt: &CompoundTag) -> Option<CompoundTag> {
+pub fn load_with_components(
+    state: BlockState,
+    pos: BlockPos,
+    nbt: &CompoundTag,
+) -> Option<CompoundTag> {
     let ty = block_entity_type_of(state.block())?;
     if let Some(mut block_entity) = create_block_entity(ty, pos, state) {
         block_entity.load_with_components(nbt);
@@ -26,18 +30,32 @@ pub fn load_with_components(state: BlockState, pos: BlockPos, nbt: &CompoundTag)
         out.put("components", components.clone());
     }
     match id {
-        "minecraft:chest" | "minecraft:trapped_chest" | "minecraft:barrel" => randomizable_container(nbt, &mut out, 27),
+        "minecraft:chest" | "minecraft:trapped_chest" | "minecraft:barrel" => {
+            randomizable_container(nbt, &mut out, 27)
+        }
         "minecraft:dispenser" | "minecraft:dropper" => randomizable_container(nbt, &mut out, 9),
         "minecraft:hopper" => {
             randomizable_container(nbt, &mut out, 5);
             out.put_int("TransferCooldown", nbt.get_int_or("TransferCooldown", -1));
         }
         "minecraft:furnace" | "minecraft:blast_furnace" | "minecraft:smoker" => {
-            out.put_int("cooking_time_spent", nbt.get_int_or("cooking_time_spent", 0));
-            out.put_int("cooking_total_time", nbt.get_int_or("cooking_total_time", 0));
-            out.put_int("lit_time_remaining", nbt.get_int_or("lit_time_remaining", 0));
+            out.put_int(
+                "cooking_time_spent",
+                nbt.get_int_or("cooking_time_spent", 0),
+            );
+            out.put_int(
+                "cooking_total_time",
+                nbt.get_int_or("cooking_total_time", 0),
+            );
+            out.put_int(
+                "lit_time_remaining",
+                nbt.get_int_or("lit_time_remaining", 0),
+            );
             out.put_int("lit_total_time", nbt.get_int_or("lit_total_time", 0));
-            out.put_float("speed_multiplier", nbt.get_float_or("speed_multiplier", 1.0));
+            out.put_float(
+                "speed_multiplier",
+                nbt.get_float_or("speed_multiplier", 1.0),
+            );
             out.put("Items", save_items(&load_items(nbt, 3)));
             let mut recipes = CompoundTag::new();
             for (key, value) in nbt.get_compound_or_empty("RecipesUsed").iter() {
@@ -53,7 +71,10 @@ pub fn load_with_components(state: BlockState, pos: BlockPos, nbt: &CompoundTag)
             out.put("Items", save_items(&load_items(nbt, 5)));
             out.put_int("Fuel", nbt.get_int_or("Fuel", 0));
             out.put_int("total_fuel", nbt.get_int_or("total_fuel", 20));
-            out.put_float("speed_multiplier", nbt.get_float_or("speed_multiplier", 1.0));
+            out.put_float(
+                "speed_multiplier",
+                nbt.get_float_or("speed_multiplier", 1.0),
+            );
         }
         "minecraft:campfire" | "minecraft:soul_campfire" => {
             out.put("Items", save_items(&load_items(nbt, 4)));
@@ -121,10 +142,18 @@ fn randomizable_container(nbt: &CompoundTag, out: &mut CompoundTag, size: usize)
 
 /// `RandomizableContainer.tryLoadLootTable` + `trySaveLootTable`: whether a loot table was saved.
 fn try_save_loot_table(nbt: &CompoundTag, out: &mut CompoundTag) -> bool {
-    let Some(table) = nbt.get_string("LootTable").filter(|t| mc_core::ident::Identifier::parse(t).is_ok()) else {
+    let Some(table) = nbt
+        .get_string("LootTable")
+        .filter(|t| mc_core::ident::Identifier::parse(t).is_ok())
+    else {
         return false;
     };
-    out.put_string("LootTable", mc_core::ident::Identifier::parse(table).map(|i| i.to_string()).unwrap_or_default());
+    out.put_string(
+        "LootTable",
+        mc_core::ident::Identifier::parse(table)
+            .map(|i| i.to_string())
+            .unwrap_or_default(),
+    );
     let seed = nbt.get_long_or("LootTableSeed", 0);
     if seed != 0 {
         out.put_long("LootTableSeed", seed);
@@ -133,7 +162,10 @@ fn try_save_loot_table(nbt: &CompoundTag, out: &mut CompoundTag) -> bool {
 }
 
 fn keep_item(nbt: &CompoundTag, out: &mut CompoundTag) {
-    if let Some(item) = nbt.get_compound("item").filter(|i| i.get_string("id").is_some_and(|id| id != "minecraft:air")) {
+    if let Some(item) = nbt
+        .get_compound("item")
+        .filter(|i| i.get_string("id").is_some_and(|id| id != "minecraft:air"))
+    {
         out.put("item", normalize_stack(item));
     }
 }
@@ -153,7 +185,9 @@ fn normalize_stack(stack: &CompoundTag) -> CompoundTag {
 fn load_items(nbt: &CompoundTag, size: usize) -> Vec<Option<CompoundTag>> {
     let mut items: Vec<Option<CompoundTag>> = vec![None; size];
     for entry in nbt.get_list_or_empty("Items").compounds() {
-        let Some(id) = entry.get_string("id") else { continue };
+        let Some(id) = entry.get_string("id") else {
+            continue;
+        };
         let slot = entry.get_byte_or("Slot", 0) as u8 as usize;
         if slot < size && id != "minecraft:air" {
             items[slot] = Some(entry.clone());
@@ -179,13 +213,21 @@ fn save_items(items: &[Option<CompoundTag>]) -> ListTag {
 fn vault(nbt: &CompoundTag, out: &mut CompoundTag) {
     let config = nbt.get_compound_or_empty("config");
     let mut saved = CompoundTag::new();
-    if let Some(table) = config.get_string("loot_table").filter(|t| mc_core::ident::Identifier::parse(t).is_ok()) {
-        let table = mc_core::ident::Identifier::parse(table).map(|i| i.to_string()).unwrap_or_default();
+    if let Some(table) = config
+        .get_string("loot_table")
+        .filter(|t| mc_core::ident::Identifier::parse(t).is_ok())
+    {
+        let table = mc_core::ident::Identifier::parse(table)
+            .map(|i| i.to_string())
+            .unwrap_or_default();
         if table != "minecraft:chests/trial_chambers/reward" {
             saved.put_string("loot_table", table);
         }
     }
-    let (activation, deactivation) = (config.get_double_or("activation_range", 4.0), config.get_double_or("deactivation_range", 4.5));
+    let (activation, deactivation) = (
+        config.get_double_or("activation_range", 4.0),
+        config.get_double_or("deactivation_range", 4.5),
+    );
     if activation != 4.0 {
         saved.put_double("activation_range", activation);
     }
@@ -207,8 +249,14 @@ fn vault(nbt: &CompoundTag, out: &mut CompoundTag) {
         saved.put_string("override_loot_table_to_display", table);
     }
     out.put("config", saved);
-    out.put("shared_data", nbt.get_compound("shared_data").cloned().unwrap_or_default());
-    out.put("server_data", nbt.get_compound("server_data").cloned().unwrap_or_default());
+    out.put(
+        "shared_data",
+        nbt.get_compound("shared_data").cloned().unwrap_or_default(),
+    );
+    out.put(
+        "server_data",
+        nbt.get_compound("server_data").cloned().unwrap_or_default(),
+    );
 }
 
 /// `TrialSpawnerBlockEntity.saveAdditional` (`TrialSpawner.store`): the configs and the non-default settings.
@@ -219,10 +267,16 @@ fn trial_spawner(nbt: &CompoundTag, out: &mut CompoundTag) {
         }
     }
     if nbt.get_int_or("target_cooldown_length", 36000) != 36000 {
-        out.put_int("target_cooldown_length", nbt.get_int_or("target_cooldown_length", 36000));
+        out.put_int(
+            "target_cooldown_length",
+            nbt.get_int_or("target_cooldown_length", 36000),
+        );
     }
     if nbt.get_int_or("required_player_range", 14) != 14 {
-        out.put_int("required_player_range", nbt.get_int_or("required_player_range", 14));
+        out.put_int(
+            "required_player_range",
+            nbt.get_int_or("required_player_range", 14),
+        );
     }
 }
 
@@ -253,7 +307,10 @@ fn sign_text(text: Option<&CompoundTag>) -> Option<CompoundTag> {
     let mut out = CompoundTag::new();
     out.put("messages", messages);
     out.put_string("color", text.get_string_or("color", "black"));
-    out.put_boolean("has_glowing_text", text.get_boolean_or("has_glowing_text", false));
+    out.put_boolean(
+        "has_glowing_text",
+        text.get_boolean_or("has_glowing_text", false),
+    );
     Some(out)
 }
 
@@ -270,16 +327,41 @@ fn structure_block(nbt: &CompoundTag, out: &mut CompoundTag) {
     }
     let name_of = |key: &str, valid: &[&str], default: &str| {
         let value = nbt.get_string_or(key, default);
-        valid.iter().find(|v| **v == value).map_or(default, |v| *v).to_owned()
+        valid
+            .iter()
+            .find(|v| **v == value)
+            .map_or(default, |v| *v)
+            .to_owned()
     };
-    out.put_string("rotation", name_of("rotation", &["NONE", "CLOCKWISE_90", "CLOCKWISE_180", "COUNTERCLOCKWISE_90"], "NONE"));
-    out.put_string("mirror", name_of("mirror", &["NONE", "LEFT_RIGHT", "FRONT_BACK"], "NONE"));
-    out.put_string("mode", name_of("mode", &["SAVE", "LOAD", "CORNER", "DATA"], "DATA"));
+    out.put_string(
+        "rotation",
+        name_of(
+            "rotation",
+            &[
+                "NONE",
+                "CLOCKWISE_90",
+                "CLOCKWISE_180",
+                "COUNTERCLOCKWISE_90",
+            ],
+            "NONE",
+        ),
+    );
+    out.put_string(
+        "mirror",
+        name_of("mirror", &["NONE", "LEFT_RIGHT", "FRONT_BACK"], "NONE"),
+    );
+    out.put_string(
+        "mode",
+        name_of("mode", &["SAVE", "LOAD", "CORNER", "DATA"], "DATA"),
+    );
     out.put_boolean("ignoreEntities", nbt.get_boolean_or("ignoreEntities", true));
     out.put_boolean("strict", nbt.get_boolean_or("strict", false));
     out.put_boolean("powered", nbt.get_boolean_or("powered", false));
     out.put_boolean("showair", nbt.get_boolean_or("showair", false));
-    out.put_boolean("showboundingbox", nbt.get_boolean_or("showboundingbox", true));
+    out.put_boolean(
+        "showboundingbox",
+        nbt.get_boolean_or("showboundingbox", true),
+    );
     out.put_float("integrity", nbt.get_float_or("integrity", 1.0));
     out.put_long("seed", nbt.get_long_or("seed", 0));
 }
@@ -287,7 +369,14 @@ fn structure_block(nbt: &CompoundTag, out: &mut CompoundTag) {
 /// `SpawnerBlockEntity.saveAdditional` (`BaseSpawner.save`) of a loaded spawner.
 fn spawner(nbt: &CompoundTag, out: &mut CompoundTag) {
     out.put_short("Delay", nbt.get_short_or("Delay", 20));
-    for (key, default) in [("MinSpawnDelay", 200), ("MaxSpawnDelay", 800), ("SpawnCount", 4), ("MaxNearbyEntities", 6), ("RequiredPlayerRange", 16), ("SpawnRange", 4)] {
+    for (key, default) in [
+        ("MinSpawnDelay", 200),
+        ("MaxSpawnDelay", 800),
+        ("SpawnCount", 4),
+        ("MaxNearbyEntities", 6),
+        ("RequiredPlayerRange", 16),
+        ("SpawnRange", 4),
+    ] {
         out.put_short(key, nbt.get_int_or(key, default) as i16);
     }
     if let Some(data) = nbt.get_compound("SpawnData") {

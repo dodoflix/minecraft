@@ -28,7 +28,13 @@ pub mod fill_layer_feature;
 /// `Feature`.
 pub trait Feature: Send + Sync {
     /// `place(level, chunkGenerator, random, origin)`.
-    fn place(&self, level: &mut dyn WorldGenLevel, generator: &GenEnv, random: &mut dyn RandomSource, origin: BlockPos) -> bool;
+    fn place(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        generator: &GenEnv,
+        random: &mut dyn RandomSource,
+        origin: BlockPos,
+    ) -> bool;
 
     /// `feature instanceof AbstractHugeMushroomFeature`: its `foliageRadius()` (`MushroomBlock.isValidBonemealTarget`).
     fn huge_mushroom_foliage_radius(&self) -> Option<i32> {
@@ -60,7 +66,12 @@ pub fn set_block(level: &mut dyn WorldGenLevel, pos: BlockPos, state: BlockState
 }
 
 /// `Feature.safeSetBlock(level, pos, state, canReplace)`.
-pub fn safe_set_block(level: &mut dyn WorldGenLevel, pos: BlockPos, state: BlockState, can_replace: impl Fn(BlockState) -> bool) {
+pub fn safe_set_block(
+    level: &mut dyn WorldGenLevel,
+    pos: BlockPos,
+    state: BlockState,
+    can_replace: impl Fn(BlockState) -> bool,
+) {
     if can_replace(level.get_block_state(pos)) {
         level.set_block(pos, state, 2, 512);
     }
@@ -82,12 +93,21 @@ pub fn mark_above_for_post_processing(level: &mut dyn WorldGenLevel, place_pos: 
 pub struct NoOpFeature;
 
 impl Feature for NoOpFeature {
-    fn place(&self, _level: &mut dyn WorldGenLevel, _generator: &GenEnv, _random: &mut dyn RandomSource, _origin: BlockPos) -> bool {
+    fn place(
+        &self,
+        _level: &mut dyn WorldGenLevel,
+        _generator: &GenEnv,
+        _random: &mut dyn RandomSource,
+        _origin: BlockPos,
+    ) -> bool {
         true
     }
 }
 
 #[linkme::distributed_slice(FEATURE_TYPES)]
-static NO_OP: TypeEntry<dyn Feature> = TypeEntry { name: "no_op", decode: |_, _| Ok(Arc::new(NoOpFeature)) };
+static NO_OP: TypeEntry<dyn Feature> = TypeEntry {
+    name: "no_op",
+    decode: |_, _| Ok(Arc::new(NoOpFeature)),
+};
 
 pub mod tree;

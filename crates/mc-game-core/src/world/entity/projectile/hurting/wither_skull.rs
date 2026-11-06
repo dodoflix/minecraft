@@ -10,9 +10,9 @@ use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
 use crate::world::entity::projectile::{EntityHitResult, HitResult, Projectile, ProjectileData};
 use crate::world::entity::{Entity, EntityData, EntityId, entity};
 use crate::world::item::enchantment::actors::Actors;
+use crate::world::level::BlockGetter;
 use crate::world::level::block::BlockStateExt as _;
 use crate::world::level::explosion::{Explosion, ExplosionInteraction};
-use crate::world::level::BlockGetter;
 use linkme::distributed_slice;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
@@ -39,8 +39,14 @@ pub struct WitherSkull {
 impl WitherSkull {
     /// `WitherSkull(type, level)`.
     pub fn new(ty: EntityType, id: EntityId) -> Self {
-        let base = EntityData::new(ty, id, entity::TOTAL_AIR_SUPPLY, |b| { b.define(DATA_DANGEROUS, false); });
-        Self { base, projectile: ProjectileData::default(), hurting: HurtingProjectileData::default() }
+        let base = EntityData::new(ty, id, entity::TOTAL_AIR_SUPPLY, |b| {
+            b.define(DATA_DANGEROUS, false);
+        });
+        Self {
+            base,
+            projectile: ProjectileData::default(),
+            hurting: HurtingProjectileData::default(),
+        }
     }
 
     /// `WitherSkull(level, mob, direction)`.
@@ -70,13 +76,19 @@ impl Projectile for WitherSkull {
     fn on_hit(&mut self, level: &mut ServerLevel, hit: &HitResult) {
         crate::world::entity::projectile::on_hit_base(self, level, hit);
         let p = self.position();
-        level.explode(Explode::new(Some(&*self), p.x, p.y, p.z, 1.0, ExplosionInteraction::Mob), &mut []);
+        level.explode(
+            Explode::new(Some(&*self), p.x, p.y, p.z, 1.0, ExplosionInteraction::Mob),
+            &mut [],
+        );
         self.discard();
     }
 
     fn on_hit_entity(&mut self, level: &mut ServerLevel, hit: &EntityHitResult) {
         let victim = hit.entity;
-        let owner_id = self.get_owner(level).filter(|o| o.living().is_some()).map(|o| o.id());
+        let owner_id = self
+            .get_owner(level)
+            .filter(|o| o.living().is_some())
+            .map(|o| o.id());
         let effect_source = self.get_effect_source(level);
         let source = match owner_id.and_then(|id| level.get_entity(id)) {
             Some(owner) => level.damage_sources().wither_skull(self.as_dyn(), owner),
@@ -84,11 +96,17 @@ impl Projectile for WitherSkull {
         };
         let was_hurt = level
             .with_entity(victim, |level, target| {
-                let was_hurt = target.hurt_server(level, &source, if owner_id.is_some() { 8.0 } else { 5.0 });
+                let was_hurt =
+                    target.hurt_server(level, &source, if owner_id.is_some() { 8.0 } else { 5.0 });
                 let mut owner_heal = false;
                 if was_hurt && owner_id.is_some() {
                     if target.is_alive() {
-                        crate::world::item::enchantment_helper::do_post_attack_effects(level, &mut Actors::of(&mut *target), victim, &source);
+                        crate::world::item::enchantment_helper::do_post_attack_effects(
+                            level,
+                            &mut Actors::of(&mut *target),
+                            victim,
+                            &source,
+                        );
                     } else {
                         owner_heal = true;
                     }
@@ -109,7 +127,11 @@ impl Projectile for WitherSkull {
             };
             if wither_seconds > 0 {
                 level.with_entity(victim, |level, target| {
-                    target.add_effect(level, MobEffectInstance::of(MobEffect::WITHER, 20 * wither_seconds, 1), Some(effect_source));
+                    target.add_effect(
+                        level,
+                        MobEffectInstance::of(MobEffect::WITHER, 20 * wither_seconds, 1),
+                        Some(effect_source),
+                    );
                 });
             }
         }
@@ -139,8 +161,20 @@ impl Entity for WitherSkull {
         false
     }
 
-    fn get_block_explosion_resistance(&self, _explosion: &dyn Explosion, _level: &dyn BlockGetter, _pos: BlockPos, block: BlockState, _fluid: FluidState, resistance: f32) -> f32 {
-        if self.is_dangerous() && can_destroy(block) { resistance.min(0.8) } else { resistance }
+    fn get_block_explosion_resistance(
+        &self,
+        _explosion: &dyn Explosion,
+        _level: &dyn BlockGetter,
+        _pos: BlockPos,
+        block: BlockState,
+        _fluid: FluidState,
+        resistance: f32,
+    ) -> f32 {
+        if self.is_dangerous() && can_destroy(block) {
+            resistance.min(0.8)
+        } else {
+            resistance
+        }
     }
 
     fn add_additional_save_data(&self, out: &mut CompoundTag) {
@@ -155,4 +189,7 @@ impl Entity for WitherSkull {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static WITHER_SKULL_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::WITHER_SKULL, create: |ty, id, _registries| Box::new(WitherSkull::new(ty, id)) };
+static WITHER_SKULL_FACTORY: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::WITHER_SKULL,
+    create: |ty, id, _registries| Box::new(WitherSkull::new(ty, id)),
+};

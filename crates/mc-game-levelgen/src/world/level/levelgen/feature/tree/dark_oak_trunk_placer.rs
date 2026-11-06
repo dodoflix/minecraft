@@ -4,11 +4,11 @@ use super::TRUNK_PLACER_TYPES;
 use super::foliage_placer::FoliageAttachment;
 use super::tree_feature::{TreeFeature, TreeSetter, is_air_or_leaves};
 use super::trunk_placer::{TrunkBase, TrunkPlacer, place_below_trunk_block};
-use mc_game_core::world::level::levelgen::codec::TypeEntry;
-use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::direction::Plane;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
+use mc_game_core::world::level::levelgen::codec::TypeEntry;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use std::sync::Arc;
 
 pub struct DarkOakTrunkPlacer {
@@ -65,12 +65,24 @@ impl TrunkPlacer for DarkOakTrunkPlacer {
 
         for ox in -1..=2 {
             for oz in -1..=2 {
-                if (!(0..=1).contains(&ox) || !(0..=1).contains(&oz)) && random.next_int_bounded(3) <= 0 {
+                if (!(0..=1).contains(&ox) || !(0..=1).contains(&oz))
+                    && random.next_int_bounded(3) <= 0
+                {
                     let length = random.next_int_bounded(3) + 2;
                     for branch_y in 0..length {
-                        self.place_log(level, trunk_setter, random, BlockPos::new(x + ox, ey - branch_y - 1, z + oz), tree);
+                        self.place_log(
+                            level,
+                            trunk_setter,
+                            random,
+                            BlockPos::new(x + ox, ey - branch_y - 1, z + oz),
+                            tree,
+                        );
                     }
-                    attachments.push(FoliageAttachment::new(BlockPos::new(x + ox, ey, z + oz), 0, false));
+                    attachments.push(FoliageAttachment::new(
+                        BlockPos::new(x + ox, ey, z + oz),
+                        0,
+                        false,
+                    ));
                 }
             }
         }
@@ -79,5 +91,11 @@ impl TrunkPlacer for DarkOakTrunkPlacer {
 }
 
 #[linkme::distributed_slice(TRUNK_PLACER_TYPES)]
-static DARK_OAK_TRUNK_PLACER: TypeEntry<dyn TrunkPlacer> =
-    TypeEntry { name: "dark_oak_trunk_placer", decode: |fields, _| Ok(Arc::new(DarkOakTrunkPlacer { base: TrunkBase::decode(fields)? })) };
+static DARK_OAK_TRUNK_PLACER: TypeEntry<dyn TrunkPlacer> = TypeEntry {
+    name: "dark_oak_trunk_placer",
+    decode: |fields, _| {
+        Ok(Arc::new(DarkOakTrunkPlacer {
+            base: TrunkBase::decode(fields)?,
+        }))
+    },
+};

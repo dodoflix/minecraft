@@ -8,11 +8,11 @@ use std::sync::{Arc, OnceLock};
 
 use super::coords::Coords;
 use super::discrete::{DiscreteVoxelShape, SubShape};
-use super::{fuzzy_equals, BooleanOp, Shapes};
+use super::{BooleanOp, Shapes, fuzzy_equals};
 use crate::direction::{Axis, AxisCycle, AxisDirection, Direction};
 use crate::math::java::{max_f64, min_f64};
 use crate::math::mth;
-use crate::phys::{BlockHitResult, Vec3, AABB};
+use crate::phys::{AABB, BlockHitResult, Vec3};
 use crate::pos::{BlockPos, Vec3i};
 
 struct Inner {
@@ -29,7 +29,12 @@ pub struct VoxelShape(Arc<Inner>);
 
 impl VoxelShape {
     fn make(shape: Arc<DiscreteVoxelShape>, coords: [Coords; 3], cube: bool) -> VoxelShape {
-        VoxelShape(Arc::new(Inner { shape, coords, cube, faces: Default::default() }))
+        VoxelShape(Arc::new(Inner {
+            shape,
+            coords,
+            cube,
+            faces: Default::default(),
+        }))
     }
 
     /// `new CubeVoxelShape(shape)`
@@ -70,8 +75,13 @@ impl VoxelShape {
             axis.choose(ys, point + 1, ys),
             axis.choose(zs, zs, point + 1),
         );
-        let coords = [Axis::X, Axis::Y, Axis::Z]
-            .map(|a| if a == axis { Coords::Cube(1) } else { self.0.coords[a as usize].clone() });
+        let coords = [Axis::X, Axis::Y, Axis::Z].map(|a| {
+            if a == axis {
+                Coords::Cube(1)
+            } else {
+                self.0.coords[a as usize].clone()
+            }
+        });
         Self::make(Arc::new(DiscreteVoxelShape::Sub(sub)), coords, false)
     }
 
@@ -163,7 +173,11 @@ impl VoxelShape {
         } else {
             Self::make(
                 self.0.shape.clone(),
-                [self.0.coords[0].offset(dx), self.0.coords[1].offset(dy), self.0.coords[2].offset(dz)],
+                [
+                    self.0.coords[0].offset(dx),
+                    self.0.coords[1].offset(dy),
+                    self.0.coords[2].offset(dz),
+                ],
                 false,
             )
         }
@@ -172,7 +186,11 @@ impl VoxelShape {
     pub fn optimize(&self) -> VoxelShape {
         let mut result = Shapes::empty();
         self.for_all_boxes(|x1, y1, z1, x2, y2, z2| {
-            result = Shapes::join_unoptimized(&result, &Shapes::box_(x1, y1, z1, x2, y2, z2), BooleanOp::OR);
+            result = Shapes::join_unoptimized(
+                &result,
+                &Shapes::box_(x1, y1, z1, x2, y2, z2),
+                BooleanOp::OR,
+            );
         });
         result
     }
@@ -249,7 +267,9 @@ impl VoxelShape {
             let size = self.0.shape.get_size(axis);
             mth::floor_f64(mth::clamp_f64(coord * size as f64, -1.0, size as f64))
         } else {
-            mth::binary_search(0, self.0.shape.get_size(axis) + 1, |index| coord < self.get(axis, index)) - 1
+            mth::binary_search(0, self.0.shape.get_size(axis) + 1, |index| {
+                coord < self.get(axis, index)
+            }) - 1
         }
     }
 
@@ -261,7 +281,11 @@ impl VoxelShape {
         if diff.x * diff.x + diff.y * diff.y + diff.z * diff.z < 1.0E-7 {
             return None;
         }
-        let test_point = Vec3::new(from.x + diff.x * 0.001, from.y + diff.y * 0.001, from.z + diff.z * 0.001);
+        let test_point = Vec3::new(
+            from.x + diff.x * 0.001,
+            from.y + diff.y * 0.001,
+            from.z + diff.z * 0.001,
+        );
         if self.0.shape.is_full_wide(
             self.find_index(Axis::X, test_point.x - pos.x() as f64),
             self.find_index(Axis::Y, test_point.y - pos.y() as f64),
@@ -269,7 +293,8 @@ impl VoxelShape {
         ) {
             Some(BlockHitResult {
                 location: test_point,
-                direction: Direction::get_approximate_nearest(diff.x, diff.y, diff.z).get_opposite(),
+                direction: Direction::get_approximate_nearest(diff.x, diff.y, diff.z)
+                    .get_opposite(),
                 block_pos: pos,
                 miss: false,
                 inside: true,
@@ -317,7 +342,14 @@ impl VoxelShape {
             return None;
         }
         let sign = direction.get_axis_direction();
-        let index = self.find_index(axis, if sign == AxisDirection::Positive { 0.9999999 } else { 1.0E-7 });
+        let index = self.find_index(
+            axis,
+            if sign == AxisDirection::Positive {
+                0.9999999
+            } else {
+                1.0E-7
+            },
+        );
         let slice = self.slice(axis, index);
         Some(if slice.is_empty() {
             Shapes::empty()
@@ -329,12 +361,16 @@ impl VoxelShape {
     }
 
     pub fn is_cube_like(&self) -> bool {
-        Axis::VALUES.iter().all(|&axis| self.is_cube_like_along(axis))
+        Axis::VALUES
+            .iter()
+            .all(|&axis| self.is_cube_like_along(axis))
     }
 
     fn is_cube_like_along(&self, axis: Axis) -> bool {
         let coords = self.get_coords(axis);
-        coords.size() == 2 && fuzzy_equals(coords.get_double(0), 0.0, 1.0E-7) && fuzzy_equals(coords.get_double(1), 1.0, 1.0E-7)
+        coords.size() == 2
+            && fuzzy_equals(coords.get_double(0), 0.0, 1.0E-7)
+            && fuzzy_equals(coords.get_double(1), 1.0, 1.0E-7)
     }
 
     pub fn collide(&self, axis: Axis, moving: &AABB, distance: f64) -> f64 {
@@ -358,9 +394,13 @@ impl VoxelShape {
         let a_min = self.find_index(a_axis, min_a + 1.0E-7);
         let a_max = self.find_index(a_axis, max_a - 1.0E-7);
         let b_min = 0.max(self.find_index(b_axis, moving.min(b_axis) + 1.0E-7));
-        let b_max = shape.get_size(b_axis).min(self.find_index(b_axis, moving.max(b_axis) - 1.0E-7) + 1);
+        let b_max = shape
+            .get_size(b_axis)
+            .min(self.find_index(b_axis, moving.max(b_axis) - 1.0E-7) + 1);
         let c_min = 0.max(self.find_index(c_axis, moving.min(c_axis) + 1.0E-7));
-        let c_max = shape.get_size(c_axis).min(self.find_index(c_axis, moving.max(c_axis) - 1.0E-7) + 1);
+        let c_max = shape
+            .get_size(c_axis)
+            .min(self.find_index(c_axis, moving.max(c_axis) - 1.0E-7) + 1);
         let a_size = shape.get_size(a_axis);
         if distance > 0.0 {
             for a in (a_max + 1)..a_size {
@@ -399,7 +439,9 @@ impl VoxelShape {
 impl PartialEq for VoxelShape {
     fn eq(&self, other: &VoxelShape) -> bool {
         self.ptr_eq(other)
-            || (self.0.cube == other.0.cube && self.0.coords == other.0.coords && self.0.shape == other.0.shape)
+            || (self.0.cube == other.0.cube
+                && self.0.coords == other.0.coords
+                && self.0.shape == other.0.shape)
     }
 }
 impl Eq for VoxelShape {}

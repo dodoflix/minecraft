@@ -3,7 +3,7 @@
 use mc_core::ident::Identifier;
 use mc_dfu::JSON;
 use mc_protocol::dialog::Dialog;
-use mc_protocol::registry_context::{with_scoped_lookup, ScopedLookup};
+use mc_protocol::registry_context::{ScopedLookup, with_scoped_lookup};
 use serde_json::Value;
 
 use crate::registry::codec::{Lookup, RegistryDecodeContext};
@@ -31,10 +31,16 @@ impl ScopedLookup for StageLookup<'_, '_> {
 
 fn decode(json: &Value, ctx: &RegistryDecodeContext) -> Result<DecodedEntry, String> {
     let input = mc_protocol::components::common::serde_to_dyn(json);
-    let dialog = with_scoped_lookup(&StageLookup(ctx), || Dialog::direct_codec().parse(&JSON, &input)).into_result()?;
+    let dialog = with_scoped_lookup(&StageLookup(ctx), || {
+        Dialog::direct_codec().parse(&JSON, &input)
+    })
+    .into_result()?;
     let network = dialog.to_tag()?;
     Ok(DecodedEntry::with_network(dialog, network))
 }
 
 #[linkme::distributed_slice(DYNAMIC_REGISTRY_DECODERS)]
-static DECODER: DynamicRegistryDecoder = DynamicRegistryDecoder { registry: keys::DIALOG, decode };
+static DECODER: DynamicRegistryDecoder = DynamicRegistryDecoder {
+    registry: keys::DIALOG,
+    decode,
+};

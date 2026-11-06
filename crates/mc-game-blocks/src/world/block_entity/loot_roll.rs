@@ -3,29 +3,43 @@
 //! `LootTable.getRandomItems(params)` draws from the table's `random_sequence`, or from `level.getRandom()` when it has
 //! none; `getRandomItems(params, random)` draws from the given random.
 
+use mc_core::direction::Direction;
+use mc_core::phys::Vec3;
+use mc_core::pos::BlockPos;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::entity::Entity;
 use mc_game_core::world::item::ItemStack;
 use mc_game_core::world::level::LevelAccessor;
 use mc_game_core::world::level::storage::loot::{LootParams, LootTable};
-use mc_core::direction::Direction;
-use mc_core::phys::Vec3;
-use mc_core::pos::BlockPos;
 
 /// Rolls `table` with `params`: `explicit_level_random` is `getRandomItems(params, level.getRandom())`, otherwise the
 /// table's own random sequence / the level random decide (`LevelRandom` is a shared handle, so the level's stream advances).
 pub fn roll(params: &LootParams, table: &LootTable, explicit_level_random: bool) -> Vec<ItemStack> {
     if explicit_level_random {
-        table.get_random_items_with_random(params, Box::new(params.level().tick_state.random.clone()))
+        table.get_random_items_with_random(
+            params,
+            Box::new(params.level().tick_state.random.clone()),
+        )
     } else {
         table.get_random_items(params)
     }
 }
 
 /// `DefaultDispenseItemBehavior.spawnItem(level, stack, accuracy, direction, position)`.
-pub fn spawn_item(level: &mut ServerLevel, stack: ItemStack, accuracy: i32, direction: Direction, position: Vec3) {
+pub fn spawn_item(
+    level: &mut ServerLevel,
+    stack: ItemStack,
+    accuracy: i32,
+    direction: Direction,
+    position: Vec3,
+) {
     use mc_game_core::world::entity::item::ItemEntity;
-    let spawn_y = position.y - if direction.get_axis() == mc_core::direction::Axis::Y { 0.125 } else { 0.15625 };
+    let spawn_y = position.y
+        - if direction.get_axis() == mc_core::direction::Axis::Y {
+            0.125
+        } else {
+            0.15625
+        };
     let mut item = ItemEntity::with_stack(level, position.x, spawn_y, position.z, stack);
     let random = level.random();
     let pow = random.next_double() * 0.1 + 0.2;

@@ -19,15 +19,24 @@ pub fn cast_value(ty: &Type, value: Value, ops: Ops) -> Typed {
 /// `ExtraDataFixUtils.patchSubType(type, find, replace)`: `ty` with every occurrence of `find` replaced by `replace`.
 pub fn patch_sub_type(ty: &Type, find: &Type, replace: &Type) -> Type {
     let view = RewriteResult::create(
-        View::create("Patcher", find, replace, |_, _| panic!("UnsupportedOperationException: patched types are never evaluated")),
+        View::create("Patcher", find, replace, |_, _| {
+            panic!("UnsupportedOperationException: patched types are never evaluated")
+        }),
         BitSet::new(),
     );
-    let rule = TypeRewriteRule::everywhere(TypeRewriteRule::if_same(find, view), OptimizationRule::Nop, true, true);
+    let rule = TypeRewriteRule::everywhere(
+        TypeRewriteRule::if_same(find, view),
+        OptimizationRule::Nop,
+        true,
+        true,
+    );
     ty.all(&rule, true, false).view.new_type().clone()
 }
 
 /// `ExtraDataFixUtils.chainAllFilters(fixers...)`.
-pub fn chain_all_filters(fixers: Vec<Box<dyn Fn(Typed) -> Typed + Send + Sync>>) -> impl Fn(Typed) -> Typed + Send + Sync {
+pub fn chain_all_filters(
+    fixers: Vec<Box<dyn Fn(Typed) -> Typed + Send + Sync>>,
+) -> impl Fn(Typed) -> Typed + Send + Sync {
     move |mut typed| {
         for fixer in &fixers {
             typed = fixer(typed);

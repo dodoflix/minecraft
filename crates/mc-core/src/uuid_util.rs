@@ -29,7 +29,10 @@ pub fn java_hash_code(uuid: &Uuid) -> i32 {
 
 pub fn uuid_from_int_array(int_array: [i32; 4]) -> Uuid {
     let [a, b, c, d] = int_array;
-    uuid_from_msb_lsb(i64::from(a) << 32 | i64::from(b as u32), i64::from(c) << 32 | i64::from(d as u32))
+    uuid_from_msb_lsb(
+        i64::from(a) << 32 | i64::from(b as u32),
+        i64::from(c) << 32 | i64::from(d as u32),
+    )
 }
 
 pub fn uuid_to_int_array(uuid: &Uuid) -> [i32; 4] {
@@ -37,7 +40,12 @@ pub fn uuid_to_int_array(uuid: &Uuid) -> [i32; 4] {
 }
 
 pub fn least_most_to_int_array(most: i64, least: i64) -> [i32; 4] {
-    [(most >> 32) as i32, most as i32, (least >> 32) as i32, least as i32]
+    [
+        (most >> 32) as i32,
+        most as i32,
+        (least >> 32) as i32,
+        least as i32,
+    ]
 }
 
 /// Big-endian most then least significant bits.
@@ -84,8 +92,12 @@ fn parse_long_hex(s: &[u16], begin: usize, end: usize) -> Result<i64, String> {
     let multmin = limit / 16;
     let mut result = 0i64;
     while i < end {
-        let digit = char::from_u32(s[i].into()).and_then(|c| c.to_digit(16)).map(i64::from);
-        let Some(digit) = digit else { return Err(err_at(i)) };
+        let digit = char::from_u32(s[i].into())
+            .and_then(|c| c.to_digit(16))
+            .map(i64::from);
+        let Some(digit) = digit else {
+            return Err(err_at(i));
+        };
         if result < multmin {
             return Err(err_at(i));
         }
@@ -107,7 +119,11 @@ pub fn uuid_from_string(name: &str) -> Result<Uuid, String> {
         return Err("UUID string too large".to_owned());
     }
     let dash = b'-' as u16;
-    let index_of = |from: usize| s.get(from..).and_then(|t| t.iter().position(|&c| c == dash)).map(|p| p + from);
+    let index_of = |from: usize| {
+        s.get(from..)
+            .and_then(|t| t.iter().position(|&c| c == dash))
+            .map(|p| p + from)
+    };
     let dash1 = index_of(0);
     let dash2 = dash1.and_then(|d| index_of(d + 1));
     let dash3 = dash2.and_then(|d| index_of(d + 1));
@@ -153,7 +169,9 @@ pub fn undashed_from_string_lenient(s: &str) -> Result<Uuid, String> {
             break;
         }
     }
-    let Some(start) = start else { return uuid_from_string(s) };
+    let Some(start) = start else {
+        return uuid_from_string(s);
+    };
     let mut out = String::with_capacity(s.len() + 4);
     for (i, c) in chars.iter().enumerate() {
         if matches!(i.wrapping_sub(start), 8 | 12 | 16 | 20) {

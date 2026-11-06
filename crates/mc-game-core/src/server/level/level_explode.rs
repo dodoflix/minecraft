@@ -3,18 +3,37 @@
 
 use super::ServerLevel;
 use crate::world::damagesource::DamageSource;
-use crate::world::entity::player::ServerPlayer;
 use crate::world::entity::Entity;
-use crate::world::level::explosion::{BlockInteraction, ExplosionDamageCalculator, ExplosionInteraction, ServerExplosion};
+use crate::world::entity::player::ServerPlayer;
+use crate::world::level::explosion::{
+    BlockInteraction, ExplosionDamageCalculator, ExplosionInteraction, ServerExplosion,
+};
 use mc_core::phys::Vec3;
 use mc_data::{ParticleType, SoundEvent};
-use mc_protocol::packets::play::{ClientboundExplodePacket, ExplosionParticleInfo, ParticleOptions, SoundEventHolder, Weighted, WeightedList};
+use mc_protocol::packets::play::{
+    ClientboundExplodePacket, ExplosionParticleInfo, ParticleOptions, SoundEventHolder, Weighted,
+    WeightedList,
+};
 
 /// `Level.DEFAULT_EXPLOSION_BLOCK_PARTICLES`.
 pub fn default_explosion_block_particles() -> WeightedList<ExplosionParticleInfo> {
     WeightedList(vec![
-        Weighted { value: ExplosionParticleInfo { particle: ParticleOptions::Simple(ParticleType::POOF), scaling: 0.5, speed: 1.0 }, weight: 1 },
-        Weighted { value: ExplosionParticleInfo { particle: ParticleOptions::Simple(ParticleType::SMOKE), scaling: 1.0, speed: 1.0 }, weight: 1 },
+        Weighted {
+            value: ExplosionParticleInfo {
+                particle: ParticleOptions::Simple(ParticleType::POOF),
+                scaling: 0.5,
+                speed: 1.0,
+            },
+            weight: 1,
+        },
+        Weighted {
+            value: ExplosionParticleInfo {
+                particle: ParticleOptions::Simple(ParticleType::SMOKE),
+                scaling: 1.0,
+                speed: 1.0,
+            },
+            weight: 1,
+        },
     ])
 }
 
@@ -37,7 +56,14 @@ pub struct Explode<'a> {
 }
 
 impl<'a> Explode<'a> {
-    pub fn new(source: Option<&'a dyn Entity>, x: f64, y: f64, z: f64, radius: f32, interaction: ExplosionInteraction) -> Self {
+    pub fn new(
+        source: Option<&'a dyn Entity>,
+        x: f64,
+        y: f64,
+        z: f64,
+        radius: f32,
+        interaction: ExplosionInteraction,
+    ) -> Self {
         Self {
             source,
             damage_source: None,
@@ -60,7 +86,11 @@ impl<'a> Explode<'a> {
         self
     }
 
-    pub fn with_damage_source(mut self, damage_source: Option<DamageSource>, calculator: Option<&'a dyn ExplosionDamageCalculator>) -> Self {
+    pub fn with_damage_source(
+        mut self,
+        damage_source: Option<DamageSource>,
+        calculator: Option<&'a dyn ExplosionDamageCalculator>,
+    ) -> Self {
         self.damage_source = damage_source;
         self.calculator = calculator;
         self
@@ -76,15 +106,32 @@ impl ServerLevel {
             ExplosionInteraction::None => BlockInteraction::Keep,
             ExplosionInteraction::Block => self.get_destroy_type(self.block_explosion_drop_decay()),
             ExplosionInteraction::Mob => {
-                if self.mob_griefing() { self.get_destroy_type(self.mob_explosion_drop_decay()) } else { BlockInteraction::Keep }
+                if self.mob_griefing() {
+                    self.get_destroy_type(self.mob_explosion_drop_decay())
+                } else {
+                    BlockInteraction::Keep
+                }
             }
             ExplosionInteraction::Tnt => self.get_destroy_type(self.tnt_explosion_drop_decay()),
             ExplosionInteraction::Trigger => BlockInteraction::TriggerBlock,
         };
         let center = Vec3::new(params.x, params.y, params.z);
-        let mut explosion = ServerExplosion::new(self, params.source, params.damage_source, params.calculator, center, params.radius, params.fire, block_interaction);
+        let mut explosion = ServerExplosion::new(
+            self,
+            params.source,
+            params.damage_source,
+            params.calculator,
+            center,
+            params.radius,
+            params.fire,
+            block_interaction,
+        );
         let block_count = explosion.explode(self, participants);
-        let explosion_particle = if explosion.is_small() { params.small_explosion_particles } else { params.large_explosion_particles };
+        let explosion_particle = if explosion.is_small() {
+            params.small_explosion_particles
+        } else {
+            params.large_explosion_particles
+        };
         let play_sound = params.source.is_none_or(|s| !s.base().is_silent());
         let packet = |player_id, position: Vec3| {
             (position.distance_to_sqr(center) < 4096.0).then(|| ClientboundExplodePacket {
@@ -99,15 +146,23 @@ impl ServerLevel {
             })
         };
         for &id in &self.players {
-            let Some(entity) = self.get_entity(id) else { continue };
-            let Some(player) = entity.as_any().downcast_ref::<ServerPlayer>() else { continue };
-            if let (Some(connection), Some(p)) = (&player.connection, packet(id, entity.position())) {
+            let Some(entity) = self.get_entity(id) else {
+                continue;
+            };
+            let Some(player) = entity.as_any().downcast_ref::<ServerPlayer>() else {
+                continue;
+            };
+            if let (Some(connection), Some(p)) = (&player.connection, packet(id, entity.position()))
+            {
                 connection.send(&p);
             }
         }
         for participant in participants.iter() {
             if let Some(player) = participant.as_any().downcast_ref::<ServerPlayer>()
-                && let (Some(connection), Some(p)) = (&player.connection, packet(participant.id(), participant.position()))
+                && let (Some(connection), Some(p)) = (
+                    &player.connection,
+                    packet(participant.id(), participant.position()),
+                )
             {
                 connection.send(&p);
             }
@@ -116,6 +171,10 @@ impl ServerLevel {
 
     /// `getDestroyType(gameRule)`.
     fn get_destroy_type(&self, drop_decay: bool) -> BlockInteraction {
-        if drop_decay { BlockInteraction::DestroyWithDecay } else { BlockInteraction::Destroy }
+        if drop_decay {
+            BlockInteraction::DestroyWithDecay
+        } else {
+            BlockInteraction::Destroy
+        }
     }
 }

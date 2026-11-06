@@ -45,7 +45,9 @@ impl StoredUserEntry for UserWhiteListEntry {
     }
 
     fn from_json(object: &JsonObject) -> Result<Self, JsonError> {
-        Ok(UserWhiteListEntry { user: NameAndId::from_json(object)? })
+        Ok(UserWhiteListEntry {
+            user: NameAndId::from_json(object)?,
+        })
     }
 }
 
@@ -58,8 +60,16 @@ pub struct ServerOpListEntry {
 }
 
 impl ServerOpListEntry {
-    pub fn new(user: NameAndId, permissions: LevelBasedPermissionSet, bypasses_player_limit: bool) -> Self {
-        ServerOpListEntry { user: Some(user), permissions, bypasses_player_limit }
+    pub fn new(
+        user: NameAndId,
+        permissions: LevelBasedPermissionSet,
+        bypasses_player_limit: bool,
+    ) -> Self {
+        ServerOpListEntry {
+            user: Some(user),
+            permissions,
+            bypasses_player_limit,
+        }
     }
 
     pub fn permissions(&self) -> LevelBasedPermissionSet {
@@ -100,12 +110,19 @@ impl StoredUserEntry for ServerOpListEntry {
             Some(b) => b.as_bool()?,
             None => false,
         };
-        Ok(ServerOpListEntry { user, permissions: LevelBasedPermissionSet::for_level(level), bypasses_player_limit })
+        Ok(ServerOpListEntry {
+            user,
+            permissions: LevelBasedPermissionSet::for_level(level),
+            bypasses_player_limit,
+        })
     }
 }
 
 fn names<E: StoredUserEntry<User = NameAndId>>(list: &StoredUserList<E>) -> Vec<String> {
-    list.get_entries().filter_map(|e| e.user()).map(|u| u.name.clone()).collect()
+    list.get_entries()
+        .filter_map(|e| e.user())
+        .map(|u| u.name.clone())
+        .collect()
 }
 
 /// `UserWhiteList`.
@@ -116,7 +133,10 @@ pub struct UserWhiteList {
 
 impl UserWhiteList {
     pub fn new(file: impl Into<PathBuf>, notifications: Arc<dyn NotificationService>) -> Self {
-        UserWhiteList { list: StoredUserList::new(file), notifications }
+        UserWhiteList {
+            list: StoredUserList::new(file),
+            notifications,
+        }
     }
 
     pub fn is_white_listed(&self, user: &NameAndId) -> bool {
@@ -186,7 +206,10 @@ pub struct ServerOpList {
 
 impl ServerOpList {
     pub fn new(file: impl Into<PathBuf>, notifications: Arc<dyn NotificationService>) -> Self {
-        ServerOpList { list: StoredUserList::new(file), notifications }
+        ServerOpList {
+            list: StoredUserList::new(file),
+            notifications,
+        }
     }
 
     pub fn add(&mut self, infos: ServerOpListEntry) -> bool {
@@ -220,7 +243,9 @@ impl ServerOpList {
     }
 
     pub fn can_bypass_player_limit(&mut self, user: &NameAndId) -> bool {
-        self.list.get(user).is_some_and(ServerOpListEntry::get_bypasses_player_limit)
+        self.list
+            .get(user)
+            .is_some_and(ServerOpListEntry::get_bypasses_player_limit)
     }
 
     pub fn get_user_list(&self) -> Vec<String> {
@@ -264,7 +289,10 @@ pub struct UserBanList {
 
 impl UserBanList {
     pub fn new(file: impl Into<PathBuf>, notifications: Arc<dyn NotificationService>) -> Self {
-        UserBanList { list: StoredUserList::new(file), notifications }
+        UserBanList {
+            list: StoredUserList::new(file),
+            notifications,
+        }
     }
 
     pub fn is_banned(&self, user: &NameAndId) -> bool {
@@ -333,7 +361,10 @@ pub struct IpBanList {
 
 impl IpBanList {
     pub fn new(file: impl Into<PathBuf>, notifications: Arc<dyn NotificationService>) -> Self {
-        IpBanList { list: StoredUserList::new(file), notifications }
+        IpBanList {
+            list: StoredUserList::new(file),
+            notifications,
+        }
     }
 
     /// `getIpFromAddress` for a `SocketAddress.toString()` (`host/ip:port` or `/ip:port`): the text between the
@@ -352,7 +383,9 @@ impl IpBanList {
     /// The `isBanned(SocketAddress)` key for a connected peer (Java's `InetSocketAddress.toString()` is `/ip:port`;
     /// for IPv6 the part before the first `:` is empty, exactly like vanilla).
     pub fn get_ip_from_socket_addr(address: &SocketAddr) -> String {
-        Self::get_ip_from_address(&crate::server::network::connection::java_socket_address_string(address))
+        Self::get_ip_from_address(
+            &crate::server::network::connection::java_socket_address_string(address),
+        )
     }
 
     pub fn is_banned(&self, ip: &str) -> bool {

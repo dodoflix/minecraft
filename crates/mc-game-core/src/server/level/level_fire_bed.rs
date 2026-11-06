@@ -11,7 +11,9 @@ impl ServerLevel {
         use crate::registry::typed::HolderSetRef;
         match &self.tick_state.infiniburn {
             HolderSetRef::Tag(tag) => state.is_tag(tag.path()),
-            HolderSetRef::Elements(ids) => ids.iter().any(|id| id.to_string() == state.block().data().name),
+            HolderSetRef::Elements(ids) => ids
+                .iter()
+                .any(|id| id.to_string() == state.block().data().name),
         }
     }
 
@@ -23,6 +25,13 @@ impl ServerLevel {
     /// `getBedRule(level, pos)` of a bed block (`straw` selects `STRAW_BED_RULE`).
     pub fn bed_rule_at(&self, straw: bool, pos: mc_core::pos::BlockPos) -> Arc<BedRule> {
         use crate::world::attribute::attributes;
-        self.attribute_bed_rule(if straw { attributes::STRAW_BED_RULE } else { attributes::BED_RULE }, pos)
+        self.attribute_bed_rule(
+            if straw {
+                attributes::STRAW_BED_RULE
+            } else {
+                attributes::BED_RULE
+            },
+            pos,
+        )
     }
 }

@@ -1,12 +1,12 @@
 //! Small generic behaviors of `ai/behavior` that every brain-using mob shares.
 
-use mc_game_core::world::entity::ai::behavior::declarative::BehaviorBuilder;
-use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase, BehaviorControl, OneShot};
+use mc_core::random::RandomSource;
 use mc_game_core::entry_condition;
 use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ai::behavior::declarative::BehaviorBuilder;
+use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase, BehaviorControl, OneShot};
 use mc_game_core::world::entity::ai::memory::{MemoryData, MemoryModuleType, MemoryTypeId};
 use mc_game_core::world::entity::entity::Entity;
-use mc_core::random::RandomSource;
 
 /// `CountDownCooldownTicks`: counts an `Integer` memory down to 0 and erases it.
 pub struct CountDownCooldownTicks {
@@ -16,7 +16,10 @@ pub struct CountDownCooldownTicks {
 impl CountDownCooldownTicks {
     /// `new CountDownCooldownTicks(cooldownTicks)`.
     pub fn new(cooldown_ticks: MemoryModuleType<i32>) -> BehaviorBase<CountDownCooldownTicks> {
-        BehaviorBase::new(entry_condition![cooldown_ticks => ValuePresent], CountDownCooldownTicks { cooldown_ticks })
+        BehaviorBase::new(
+            entry_condition![cooldown_ticks => ValuePresent],
+            CountDownCooldownTicks { cooldown_ticks },
+        )
     }
 }
 
@@ -25,13 +28,25 @@ impl Behavior for CountDownCooldownTicks {
         false
     }
 
-    fn can_still_use(&mut self, _level: &mut ServerLevel, body: &mut dyn Entity, _timestamp: i64) -> bool {
-        body.brain().get_memory(&self.cooldown_ticks).is_some_and(|&t| t > 0)
+    fn can_still_use(
+        &mut self,
+        _level: &mut ServerLevel,
+        body: &mut dyn Entity,
+        _timestamp: i64,
+    ) -> bool {
+        body.brain()
+            .get_memory(&self.cooldown_ticks)
+            .is_some_and(|&t| t > 0)
     }
 
     fn tick(&mut self, _level: &mut ServerLevel, body: &mut dyn Entity, _timestamp: i64) {
-        let ticks = body.brain().get_memory(&self.cooldown_ticks).copied().expect("memory present while ticking");
-        body.brain_mut().set_memory(&self.cooldown_ticks, ticks.wrapping_sub(1));
+        let ticks = body
+            .brain()
+            .get_memory(&self.cooldown_ticks)
+            .copied()
+            .expect("memory present while ticking");
+        body.brain_mut()
+            .set_memory(&self.cooldown_ticks, ticks.wrapping_sub(1));
     }
 
     fn stop(&mut self, _level: &mut ServerLevel, body: &mut dyn Entity, _timestamp: i64) {
@@ -40,7 +55,10 @@ impl Behavior for CountDownCooldownTicks {
 }
 
 /// `EraseMemoryIf.create(predicate, memoryType)`.
-pub fn erase_memory_if(mut predicate: impl FnMut(&dyn Entity) -> bool + 'static, memory_type: MemoryTypeId) -> OneShot {
+pub fn erase_memory_if(
+    mut predicate: impl FnMut(&dyn Entity) -> bool + 'static,
+    memory_type: MemoryTypeId,
+) -> OneShot {
     let mut i = BehaviorBuilder::instance();
     let memory = i.present_untyped(memory_type);
     i.create(move |c| {
@@ -70,14 +88,21 @@ pub fn copy_memory_with_expiry<U: MemoryData>(
             return false;
         }
         let value = c.get(&source).clone();
-        let duration = c.level.tick_state.random.next_int_between_inclusive(duration_min_inclusive, duration_max_inclusive);
+        let duration = c
+            .level
+            .tick_state
+            .random
+            .next_int_between_inclusive(duration_min_inclusive, duration_max_inclusive);
         c.set_with_expiry(&target, value, i64::from(duration));
         true
     })
 }
 
 /// `BecomePassiveIfMemoryPresent.create(pacifyingMemory, pacifyDuration)`.
-pub fn become_passive_if_memory_present(pacifying_memory: MemoryTypeId, pacify_duration: i32) -> OneShot {
+pub fn become_passive_if_memory_present(
+    pacifying_memory: MemoryTypeId,
+    pacify_duration: i32,
+) -> OneShot {
     use mc_game_core::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, PACIFIED};
     let mut i = BehaviorBuilder::instance();
     let attack_target = i.registered(&ATTACK_TARGET);

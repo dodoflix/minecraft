@@ -1,9 +1,11 @@
 //! `MatchingBiomesPredicate` (`matching_biomes`).
 
-use mc_game_core::world::level::levelgen::blockpredicates::{BLOCK_PREDICATE_TYPES, BlockPredicate};
-use mc_game_core::world::level::LevelAccessor;
-use mc_game_core::world::level::levelgen::codec::TypeEntry;
 use mc_core::pos::BlockPos;
+use mc_game_core::world::level::LevelAccessor;
+use mc_game_core::world::level::levelgen::blockpredicates::{
+    BLOCK_PREDICATE_TYPES, BlockPredicate,
+};
+use mc_game_core::world::level::levelgen::codec::TypeEntry;
 use mc_world::palette::BiomeId;
 use std::sync::Arc;
 
@@ -14,7 +16,9 @@ pub struct MatchingBiomesPredicate {
 
 impl BlockPredicate for MatchingBiomesPredicate {
     fn test(&self, level: &dyn LevelAccessor, pos: BlockPos) -> bool {
-        let level = level.as_world_gen_level().expect("matching_biomes needs a level with generation biome access (WorldGenLevel)");
+        let level = level
+            .as_world_gen_level()
+            .expect("matching_biomes needs a level with generation biome access (WorldGenLevel)");
         self.biomes.contains(&level.get_biome(pos))
     }
 }
@@ -22,5 +26,9 @@ impl BlockPredicate for MatchingBiomesPredicate {
 #[linkme::distributed_slice(BLOCK_PREDICATE_TYPES)]
 static MATCHING_BIOMES: TypeEntry<dyn BlockPredicate> = TypeEntry {
     name: "matching_biomes",
-    decode: |fields, ctx| Ok(Arc::new(MatchingBiomesPredicate { biomes: fields.required("biomes", |v| ctx.biomes.holder_set_from_json(v))? })),
+    decode: |fields, ctx| {
+        Ok(Arc::new(MatchingBiomesPredicate {
+            biomes: fields.required("biomes", |v| ctx.biomes.holder_set_from_json(v))?,
+        }))
+    },
 };

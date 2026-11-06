@@ -15,7 +15,11 @@ pub const fn get_max_segment_index() -> i32 {
 
 /// `convertToSegment(Direction)`.
 pub fn convert_direction_to_segment(direction: Direction) -> i32 {
-    if direction.get_axis().is_vertical() { 0 } else { direction.get_2d_data_value() << (PRECISION - 2) }
+    if direction.get_axis().is_vertical() {
+        0
+    } else {
+        direction.get_2d_data_value() << (PRECISION - 2)
+    }
 }
 
 /// `convertToSegment(float rotDegrees)`.
@@ -37,5 +41,9 @@ pub fn convert_to_direction(segment: i32) -> Option<Direction> {
 /// `convertToDegrees(segment)`.
 pub fn convert_to_degrees(segment: i32) -> f32 {
     let degrees = (segment & MASK) as f32 * ANGLE_TO_DEGREE;
-    if degrees >= 180.0 { degrees - 360.0 } else { degrees }
+    if degrees >= 180.0 {
+        degrees - 360.0
+    } else {
+        degrees
+    }
 }

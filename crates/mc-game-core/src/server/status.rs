@@ -32,27 +32,54 @@ fn shuffle<T>(list: &mut [T], random: &mut dyn RandomSource) {
 }
 
 /// `MinecraftServer.buildPlayerStatus`.
-pub fn build_player_status(players: &[StatusPlayer], max_players: i32, hides_online_players: bool, random: &mut dyn RandomSource) -> Players {
+pub fn build_player_status(
+    players: &[StatusPlayer],
+    max_players: i32,
+    hides_online_players: bool,
+    random: &mut dyn RandomSource,
+) -> Players {
     let online = players.len() as i32;
     if hides_online_players {
-        return Players { max: max_players, online, sample: Vec::new() };
+        return Players {
+            max: max_players,
+            online,
+            sample: Vec::new(),
+        };
     }
     let sample_size = players.len().min(MAX_STATUS_PLAYER_SAMPLE);
     let offset = mth::next_int(random, 0, (players.len() - sample_size) as i32) as usize;
     let mut sample: Vec<(Uuid, String)> = players[offset..offset + sample_size]
         .iter()
-        .map(|p| if p.allows_listing { p.name_and_id.clone() } else { anonymous_player_profile() })
+        .map(|p| {
+            if p.allows_listing {
+                p.name_and_id.clone()
+            } else {
+                anonymous_player_profile()
+            }
+        })
         .collect();
     shuffle(&mut sample, random);
-    Players { max: max_players, online, sample }
+    Players {
+        max: max_players,
+        online,
+        sample,
+    }
 }
 
 /// `MinecraftServer.buildServerStatus`.
-pub fn build_server_status(motd: &str, players: Players, favicon: Option<&[u8]>, enforces_secure_chat: bool) -> ServerStatus {
+pub fn build_server_status(
+    motd: &str,
+    players: Players,
+    favicon: Option<&[u8]>,
+    enforces_secure_chat: bool,
+) -> ServerStatus {
     ServerStatus {
         description: Component::literal(motd),
         players: Some(players),
-        version: Some(Version { name: WORLD_VERSION_NAME.to_owned(), protocol: mc_protocol::PROTOCOL_VERSION }),
+        version: Some(Version {
+            name: WORLD_VERSION_NAME.to_owned(),
+            protocol: mc_protocol::PROTOCOL_VERSION,
+        }),
         favicon: favicon.map(<[u8]>::to_vec),
         enforces_secure_chat,
     }
@@ -84,7 +111,10 @@ impl PngInfo {
         }
         let header_type = be_i32(12)?;
         if header_type != 0x4948_4452 {
-            return Err(format!("Bad type for IHDR chunk: 0x{:08X}", header_type as u32));
+            return Err(format!(
+                "Bad type for IHDR chunk: 0x{:08X}",
+                header_type as u32
+            ));
         }
         let width = be_i32(16)?;
         let height = be_i32(20)?;
@@ -97,19 +127,33 @@ impl PngInfo {
             return Err(format!("Invalid color type: {color_type}"));
         }
         if bit_depth == 16 {
-            let buffer_estimate = 4i64.wrapping_mul(width as i64).wrapping_mul(height as i64).wrapping_mul(2);
+            let buffer_estimate = 4i64
+                .wrapping_mul(width as i64)
+                .wrapping_mul(height as i64)
+                .wrapping_mul(2);
             if buffer_estimate != buffer_estimate as i32 as i64 {
-                return Err(format!("Bounds check failed, {width}x{height}@{bit_depth}, type: {color_type}"));
+                return Err(format!(
+                    "Bounds check failed, {width}x{height}@{bit_depth}, type: {color_type}"
+                ));
             }
         }
-        Ok(PngInfo { width, height, bit_depth, color_type })
+        Ok(PngInfo {
+            width,
+            height,
+            bit_depth,
+            color_type,
+        })
     }
 }
 
 /// `MinecraftServer.loadStatusIcon`: `server-icon.png` in the server directory, else the world's `icon.png`; must be a
 /// 64x64 PNG. Failures are logged like vanilla and yield `None`.
 pub fn load_status_icon(server_icon: &Path, world_icon: Option<PathBuf>) -> Option<Vec<u8>> {
-    let path = if server_icon.is_file() { server_icon.to_path_buf() } else { world_icon.filter(|p| p.is_file())? };
+    let path = if server_icon.is_file() {
+        server_icon.to_path_buf()
+    } else {
+        world_icon.filter(|p| p.is_file())?
+    };
     let result = std::fs::read(&path).map_err(|e| format!("java.nio.file.NoSuchFileException: {e}")).and_then(|contents| {
         let info = PngInfo::from_bytes(&contents).map_err(|e| format!("java.io.IOException: {e}"))?;
         if info.width == 64 && info.height == 64 {
@@ -133,7 +177,9 @@ mod tests {
     use mc_core::random::RandomSource;
 
     fn png_header(w: i32, h: i32, depth: u8, color: u8) -> Vec<u8> {
-        let mut b = vec![0x89, b'P', b'N', b'G', 0x0D, 0x0A, 0x1A, 0x0A, 0, 0, 0, 13, b'I', b'H', b'D', b'R'];
+        let mut b = vec![
+            0x89, b'P', b'N', b'G', 0x0D, 0x0A, 0x1A, 0x0A, 0, 0, 0, 13, b'I', b'H', b'D', b'R',
+        ];
         b.extend(w.to_be_bytes());
         b.extend(h.to_be_bytes());
         b.extend([depth, color]);
@@ -142,12 +188,35 @@ mod tests {
 
     #[test]
     fn png_info() {
-        assert_eq!(PngInfo::from_bytes(&png_header(64, 64, 8, 6)), Ok(PngInfo { width: 64, height: 64, bit_depth: 8, color_type: 6 }));
-        assert_eq!(PngInfo::from_bytes(&png_header(64, 64, 3, 6)), Err("Invalid bit depth: 3".into()));
-        assert_eq!(PngInfo::from_bytes(&png_header(64, 64, 8, 5)), Err("Invalid color type: 5".into()));
-        assert_eq!(PngInfo::from_bytes(&png_header(40000, 40000, 16, 6)), Err("Bounds check failed, 40000x40000@16, type: 6".into()));
-        assert_eq!(PngInfo::from_bytes(b"GIF89a\0\0"), Err("Bad PNG Signature: 0x4749463839610000".into()));
-        assert_eq!(PngInfo::from_bytes(&png_header(1, 1, 8, 2)[..20]), Err("java.io.EOFException".into()));
+        assert_eq!(
+            PngInfo::from_bytes(&png_header(64, 64, 8, 6)),
+            Ok(PngInfo {
+                width: 64,
+                height: 64,
+                bit_depth: 8,
+                color_type: 6
+            })
+        );
+        assert_eq!(
+            PngInfo::from_bytes(&png_header(64, 64, 3, 6)),
+            Err("Invalid bit depth: 3".into())
+        );
+        assert_eq!(
+            PngInfo::from_bytes(&png_header(64, 64, 8, 5)),
+            Err("Invalid color type: 5".into())
+        );
+        assert_eq!(
+            PngInfo::from_bytes(&png_header(40000, 40000, 16, 6)),
+            Err("Bounds check failed, 40000x40000@16, type: 6".into())
+        );
+        assert_eq!(
+            PngInfo::from_bytes(b"GIF89a\0\0"),
+            Err("Bad PNG Signature: 0x4749463839610000".into())
+        );
+        assert_eq!(
+            PngInfo::from_bytes(&png_header(1, 1, 8, 2)[..20]),
+            Err("java.io.EOFException".into())
+        );
     }
 
     #[test]
@@ -158,11 +227,17 @@ mod tests {
         std::fs::write(&icon, png_header(32, 64, 8, 6)).unwrap();
         assert_eq!(load_status_icon(&icon, None), None);
         std::fs::write(&icon, png_header(64, 64, 8, 6)).unwrap();
-        assert_eq!(load_status_icon(&icon, None), Some(png_header(64, 64, 8, 6)));
+        assert_eq!(
+            load_status_icon(&icon, None),
+            Some(png_header(64, 64, 8, 6))
+        );
         // world icon is the fallback
         let world_icon = dir.path().join("icon.png");
         std::fs::write(&world_icon, png_header(64, 64, 8, 2)).unwrap();
-        assert_eq!(load_status_icon(&dir.path().join("none.png"), Some(world_icon)), Some(png_header(64, 64, 8, 2)));
+        assert_eq!(
+            load_status_icon(&dir.path().join("none.png"), Some(world_icon)),
+            Some(png_header(64, 64, 8, 2))
+        );
     }
 
     /// `tests/fixtures/lifecycle/StatusGolden.java`: sample selection + shuffle with the real `Mth`/`Util`/`RandomSource`.
@@ -181,10 +256,17 @@ mod tests {
                 random = mc_core::random::create(seed);
             }
             let players: Vec<_> = (0..n)
-                .map(|i| StatusPlayer { name_and_id: (Uuid::from_u128(i as u128 + 1), format!("p{i}")), allows_listing: i % 4 != 3 })
+                .map(|i| StatusPlayer {
+                    name_and_id: (Uuid::from_u128(i as u128 + 1), format!("p{i}")),
+                    allows_listing: i % 4 != 3,
+                })
                 .collect();
             let status = build_player_status(&players, 20, false, &mut random);
-            let names: Vec<_> = status.sample.iter().map(|(_, name)| name.as_str()).collect();
+            let names: Vec<_> = status
+                .sample
+                .iter()
+                .map(|(_, name)| name.as_str())
+                .collect();
             assert_eq!(names.join(","), expected, "seed {seed} players {n}");
             assert_eq!((status.max, status.online), (20, n as i32));
             lines += 1;
@@ -195,7 +277,12 @@ mod tests {
     #[test]
     fn hidden_players_have_no_sample_and_consume_no_randomness() {
         let mut random = mc_core::random::create(1);
-        let players: Vec<_> = (0..3).map(|i| StatusPlayer { name_and_id: (Uuid::from_u128(i + 1), format!("p{i}")), allows_listing: true }).collect();
+        let players: Vec<_> = (0..3)
+            .map(|i| StatusPlayer {
+                name_and_id: (Uuid::from_u128(i + 1), format!("p{i}")),
+                allows_listing: true,
+            })
+            .collect();
         let hidden = build_player_status(&players, 20, true, &mut random);
         assert_eq!((hidden.max, hidden.online, hidden.sample.len()), (20, 3, 0));
         assert_eq!(random.next_int(), mc_core::random::create(1).next_int());

@@ -1124,7 +1124,8 @@ fn decode_limits() {
     let full = to_bytes(&ClientboundSectionBlocksUpdatePacket {
         section_pos: SectionPos::of(1, 2, 3),
         changes: vec![(1, state(2)), (3, state(4))],
-    }).unwrap();
+    })
+    .unwrap();
     for n in 0..full.len() {
         assert!(from_bytes::<ClientboundSectionBlocksUpdatePacket>(&full[..n]).is_err());
     }
@@ -1137,7 +1138,10 @@ fn bad_ids() {
     b.extend_from_slice(&[0, 0]);
     b.extend(to_bytes(&mc_protocol::codec::VarInt(BLOCK_COUNT as i32)).unwrap());
     // `ByteBufCodecs.registry(BLOCK)` on the defaulted block registry: unknown ids read as air
-    assert_eq!(from_bytes::<ClientboundBlockEventPacket>(&b).unwrap().block, mc_data::Block::AIR);
+    assert_eq!(
+        from_bytes::<ClientboundBlockEventPacket>(&b).unwrap().block,
+        mc_data::Block::AIR
+    );
     let mut b = to_bytes(&BlockPos::ZERO).unwrap();
     b.extend(to_bytes(&mc_protocol::codec::VarInt(STATE_COUNT as i32)).unwrap());
     assert_eq!(
@@ -1177,7 +1181,8 @@ fn bad_ids() {
     // unknown sound registry id (`id - 1`)
     let mut b = to_bytes(&mc_protocol::codec::VarInt(
         SoundEvent::registry().len() as i32 + 1,
-    )).unwrap();
+    ))
+    .unwrap();
     b.push(0);
     assert_eq!(
         from_bytes::<ClientboundSoundEntityPacket>(&b).map(|_| ()),

@@ -40,11 +40,20 @@ pub struct GameRuleCategory {
 
 impl GameRuleCategory {
     /// Registration order (`SORT_ORDER`): player, mobs, spawning, drops, updates, chat, misc.
-    pub const SORT_ORDER: [&'static str; 7] =
-        ["minecraft:player", "minecraft:mobs", "minecraft:spawning", "minecraft:drops", "minecraft:updates", "minecraft:chat", "minecraft:misc"];
+    pub const SORT_ORDER: [&'static str; 7] = [
+        "minecraft:player",
+        "minecraft:mobs",
+        "minecraft:spawning",
+        "minecraft:drops",
+        "minecraft:updates",
+        "minecraft:chat",
+        "minecraft:misc",
+    ];
 
     pub fn of(id: &str) -> GameRuleCategory {
-        GameRuleCategory { id: Identifier::parse(id).expect("category ids are static") }
+        GameRuleCategory {
+            id: Identifier::parse(id).expect("category ids are static"),
+        }
     }
 
     pub fn player() -> GameRuleCategory {
@@ -80,12 +89,18 @@ impl GameRuleCategory {
 
     /// `label()`: `gamerule.category.<namespace>.<path>` translatable.
     pub fn label(&self) -> Component {
-        Component::translatable(&self.id.to_language_key_prefixed("gamerule.category"), vec![])
+        Component::translatable(
+            &self.id.to_language_key_prefixed("gamerule.category"),
+            vec![],
+        )
     }
 
     /// Position in `SORT_ORDER` (the order `/gamerule` listings and the UI use).
     pub fn sort_index(&self) -> usize {
-        Self::SORT_ORDER.iter().position(|c| *c == self.id.to_string()).unwrap_or(usize::MAX)
+        Self::SORT_ORDER
+            .iter()
+            .position(|c| *c == self.id.to_string())
+            .unwrap_or(usize::MAX)
     }
 }
 
@@ -169,7 +184,8 @@ impl AnyGameRule {
 
     /// Every rule in registry order.
     pub fn all() -> impl Iterator<Item = AnyGameRule> {
-        (0..GAME_RULE_DATA.len() as u32).map(|i| AnyGameRule(mc_data::GameRule::from_id(i).expect("in registry range")))
+        (0..GAME_RULE_DATA.len() as u32)
+            .map(|i| AnyGameRule(mc_data::GameRule::from_id(i).expect("in registry range")))
     }
 
     pub fn by_identifier(id: &Identifier) -> Option<AnyGameRule> {
@@ -216,7 +232,11 @@ impl AnyGameRule {
 
     /// `requiredFeatures()`.
     pub fn required_features(self) -> FeatureFlagSet {
-        if self.0 == mc_data::GameRule::MAX_MINECART_SPEED { FeatureFlagSet::MINECART_IMPROVEMENTS } else { FeatureFlagSet::EMPTY }
+        if self.0 == mc_data::GameRule::MAX_MINECART_SPEED {
+            FeatureFlagSet::MINECART_IMPROVEMENTS
+        } else {
+            FeatureFlagSet::EMPTY
+        }
     }
 
     /// `isEnabled(enabledFeatures)` (`FeatureElement`).
@@ -226,7 +246,10 @@ impl AnyGameRule {
 
     /// `IntegerArgumentType` bounds (`i32::MIN/MAX` for unbounded sides).
     pub fn int_range(self) -> (i32, i32) {
-        (self.data().min.unwrap_or(i32::MIN), self.data().max.unwrap_or(i32::MAX))
+        (
+            self.data().min.unwrap_or(i32::MIN),
+            self.data().max.unwrap_or(i32::MAX),
+        )
     }
 
     /// `argument()`: the command argument type (`bool()` / `integer(min, max)`).
@@ -259,8 +282,14 @@ impl AnyGameRule {
                 GameRuleType::Int => v.downcast_ref::<i32>().copied().map(GameRuleValue::Int),
             });
         match parsed {
-            None => Err(Partial { value: None, error: "Failed to deserialize".to_string() }),
-            Some(v) if reader.can_read() => Err(Partial { value: Some(v), error: "Failed to deserialize; trailing characters".to_string() }),
+            None => Err(Partial {
+                value: None,
+                error: "Failed to deserialize".to_string(),
+            }),
+            Some(v) if reader.can_read() => Err(Partial {
+                value: Some(v),
+                error: "Failed to deserialize; trailing characters".to_string(),
+            }),
             Some(v) => Ok(v),
         }
     }
@@ -328,7 +357,10 @@ impl<T> std::fmt::Debug for GameRule<T> {
 
 impl<T> GameRule<T> {
     pub const fn new(rule: mc_data::GameRule) -> GameRule<T> {
-        GameRule { rule, _value: PhantomData }
+        GameRule {
+            rule,
+            _value: PhantomData,
+        }
     }
 
     pub const fn erase(self) -> AnyGameRule {
@@ -339,7 +371,8 @@ impl<T> GameRule<T> {
 impl<T: GameRuleValueType> GameRule<T> {
     /// `defaultValue()`.
     pub fn default_value(self) -> T {
-        T::from_value(self.erase().default_value()).expect("typed handle matches the registered rule type")
+        T::from_value(self.erase().default_value())
+            .expect("typed handle matches the registered rule type")
     }
 
     pub fn id(self) -> String {
@@ -367,8 +400,16 @@ impl<T: GameRuleValueType> GameRule<T> {
     }
 
     pub fn deserialize(self, value: &str) -> Result<T, Partial<T>> {
-        let conv = |v: GameRuleValue| T::from_value(v).expect("typed handle matches the registered rule type");
-        self.erase().deserialize(value).map(conv).map_err(|p| Partial { value: p.value.map(conv), error: p.error })
+        let conv = |v: GameRuleValue| {
+            T::from_value(v).expect("typed handle matches the registered rule type")
+        };
+        self.erase()
+            .deserialize(value)
+            .map(conv)
+            .map_err(|p| Partial {
+                value: p.value.map(conv),
+                error: p.error,
+            })
     }
 
     pub fn get_command_result(self, value: T) -> i32 {

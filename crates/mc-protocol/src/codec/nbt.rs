@@ -12,9 +12,15 @@ pub struct NbtLimit {
 
 impl NbtLimit {
     /// `NbtAccounter.defaultQuota()`: 2 MiB, depth 512.
-    pub const DEFAULT: Self = Self { quota: 2_097_152, depth: 512 };
+    pub const DEFAULT: Self = Self {
+        quota: 2_097_152,
+        depth: 512,
+    };
     /// `NbtAccounter.unlimitedHeap()`: used for trusted (server -> client) data.
-    pub const UNLIMITED: Self = Self { quota: i64::MAX, depth: 512 };
+    pub const UNLIMITED: Self = Self {
+        quota: i64::MAX,
+        depth: 512,
+    };
 
     pub const fn new(quota: i64, depth: i32) -> Self {
         Self { quota, depth }
@@ -46,7 +52,8 @@ pub fn decode_tag_with(input: &mut &[u8], limit: NbtLimit) -> DecodeResult<Optio
 
 /// `ByteBufCodecs.TAG` decoding: `End` is rejected.
 pub fn decode_tag(input: &mut &[u8]) -> DecodeResult<Tag> {
-    decode_tag_with(input, NbtLimit::DEFAULT)?.ok_or_else(|| DecodeError::msg("Expected non-null compound tag"))
+    decode_tag_with(input, NbtLimit::DEFAULT)?
+        .ok_or_else(|| DecodeError::msg("Expected non-null compound tag"))
 }
 
 /// `ByteBufCodecs.TAG` encode: `End` is rejected.
@@ -92,7 +99,13 @@ mod tests {
         // TAG_Compound(10), TAG_Int(3) "a" 0 0 0 1, TAG_End
         assert_eq!(b, [10, 3, 0, 1, b'a', 0, 0, 0, 1, 0]);
         assert_eq!(from_bytes::<CompoundTag>(&b).unwrap(), c);
-        assert_eq!(decode_tag_with(&mut &[0u8][..], NbtLimit::DEFAULT), Ok(None));
-        assert_eq!(from_bytes::<Tag>(&[0]), Err(DecodeError::msg("Expected non-null compound tag")));
+        assert_eq!(
+            decode_tag_with(&mut &[0u8][..], NbtLimit::DEFAULT),
+            Ok(None)
+        );
+        assert_eq!(
+            from_bytes::<Tag>(&[0]),
+            Err(DecodeError::msg("Expected non-null compound tag"))
+        );
     }
 }

@@ -33,15 +33,24 @@ impl Mirror {
 
     /// `CODEC` lookup by serialized name.
     pub fn by_name(name: &str) -> Option<Mirror> {
-        Self::ALL.into_iter().find(|m| m.get_serialized_name() == name)
+        Self::ALL
+            .into_iter()
+            .find(|m| m.get_serialized_name() == name)
     }
 
     /// `mirror(int rotation, int steps)`
     pub fn mirror_steps(self, rotation: i32, steps: i32) -> i32 {
         let half_steps = steps / 2;
-        let corrected_rotation = if rotation > half_steps { rotation.wrapping_sub(steps) } else { rotation };
+        let corrected_rotation = if rotation > half_steps {
+            rotation.wrapping_sub(steps)
+        } else {
+            rotation
+        };
         match self {
-            Mirror::LeftRight => half_steps.wrapping_sub(corrected_rotation).wrapping_add(steps).wrapping_rem(steps),
+            Mirror::LeftRight => half_steps
+                .wrapping_sub(corrected_rotation)
+                .wrapping_add(steps)
+                .wrapping_rem(steps),
             Mirror::FrontBack => steps.wrapping_sub(corrected_rotation).wrapping_rem(steps),
             Mirror::None => rotation,
         }
@@ -50,7 +59,9 @@ impl Mirror {
     /// `getRotation(Direction)`
     pub fn get_rotation(self, value: Direction) -> Rotation {
         let axis = value.get_axis();
-        if (self != Mirror::LeftRight || axis != Axis::Z) && (self != Mirror::FrontBack || axis != Axis::X) {
+        if (self != Mirror::LeftRight || axis != Axis::Z)
+            && (self != Mirror::FrontBack || axis != Axis::X)
+        {
             Rotation::None
         } else {
             Rotation::Clockwise180
@@ -60,7 +71,9 @@ impl Mirror {
     /// `mirror(Direction)`
     pub fn mirror(self, direction: Direction) -> Direction {
         let axis = direction.get_axis();
-        if (self == Mirror::FrontBack && axis == Axis::X) || (self == Mirror::LeftRight && axis == Axis::Z) {
+        if (self == Mirror::FrontBack && axis == Axis::X)
+            || (self == Mirror::LeftRight && axis == Axis::Z)
+        {
             direction.get_opposite()
         } else {
             direction

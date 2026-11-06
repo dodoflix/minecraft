@@ -10,7 +10,10 @@ use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
 use std::thread::JoinHandle;
 
-pub use pkt_utils::{NetworkDataOutputStream, MAX_PACKET_SIZE, int_from_byte_array, int_from_network_byte_array, string_from_byte_array, to_hex_string};
+pub use pkt_utils::{
+    MAX_PACKET_SIZE, NetworkDataOutputStream, int_from_byte_array, int_from_network_byte_array,
+    string_from_byte_array, to_hex_string,
+};
 pub use query::{QueryServerInfo, QueryThreadGs4};
 pub use rcon_thread::{RconClient, RconThread};
 
@@ -30,7 +33,11 @@ static UNIQUE_THREAD_ID: AtomicUsize = AtomicUsize::new(0);
 
 impl GenericThread {
     pub(crate) fn new(name: impl Into<String>) -> GenericThread {
-        GenericThread { name: name.into(), running: Arc::new(AtomicBool::new(false)), thread: None }
+        GenericThread {
+            name: name.into(),
+            running: Arc::new(AtomicBool::new(false)),
+            thread: None,
+        }
     }
 
     pub(crate) fn running_flag(&self) -> Arc<AtomicBool> {
@@ -48,8 +55,15 @@ impl GenericThread {
         }
         self.running.store(true, Ordering::SeqCst);
         let flag = self.running.clone();
-        let thread_name = format!("{} #{}", self.name, UNIQUE_THREAD_ID.fetch_add(1, Ordering::SeqCst) + 1);
-        match std::thread::Builder::new().name(thread_name).spawn(move || body(flag)) {
+        let thread_name = format!(
+            "{} #{}",
+            self.name,
+            UNIQUE_THREAD_ID.fetch_add(1, Ordering::SeqCst) + 1
+        );
+        match std::thread::Builder::new()
+            .name(thread_name)
+            .spawn(move || body(flag))
+        {
             Ok(handle) => {
                 self.thread = Some(handle);
                 log::info!("Thread {} started", self.name);

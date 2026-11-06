@@ -30,7 +30,9 @@ pub struct HurtingProjectileData {
 
 impl Default for HurtingProjectileData {
     fn default() -> Self {
-        Self { acceleration_power: INITIAL_ACCELERATION_POWER }
+        Self {
+            acceleration_power: INITIAL_ACCELERATION_POWER,
+        }
     }
 }
 
@@ -63,7 +65,13 @@ pub trait AbstractHurtingProjectile: Projectile {
 
 /// `AbstractHurtingProjectile(type, x, y, z, direction, level)` after the `this(type, level)` part: the position and
 /// the initial motion `direction.normalize() * accelerationPower`.
-pub fn init_with_direction(projectile: &mut dyn AbstractHurtingProjectile, x: f64, y: f64, z: f64, direction: Vec3) {
+pub fn init_with_direction(
+    projectile: &mut dyn AbstractHurtingProjectile,
+    x: f64,
+    y: f64,
+    z: f64,
+    direction: Vec3,
+) {
     let (y_rot, x_rot) = (projectile.base().y_rot(), projectile.base().x_rot());
     projectile.snap_to(x, y, z, y_rot, x_rot);
     projectile.reapply_position();
@@ -72,7 +80,11 @@ pub fn init_with_direction(projectile: &mut dyn AbstractHurtingProjectile, x: f6
 }
 
 /// `assignDirectionalMovement(direction, speed)`.
-pub fn assign_directional_movement(projectile: &mut dyn AbstractHurtingProjectile, direction: Vec3, speed: f64) {
+pub fn assign_directional_movement(
+    projectile: &mut dyn AbstractHurtingProjectile,
+    direction: Vec3,
+    speed: f64,
+) {
     let b = projectile.base_mut();
     b.set_delta_movement(direction.normalize().scale(speed));
     b.needs_sync = true;
@@ -81,9 +93,17 @@ pub fn assign_directional_movement(projectile: &mut dyn AbstractHurtingProjectil
 /// `applyInertia()`.
 fn apply_inertia(projectile: &mut dyn AbstractHurtingProjectile) {
     let movement = projectile.base().delta_movement();
-    let inertia = if projectile.is_in_water() { projectile.get_liquid_inertia() } else { projectile.get_inertia() };
+    let inertia = if projectile.is_in_water() {
+        projectile.get_liquid_inertia()
+    } else {
+        projectile.get_inertia()
+    };
     let power = projectile.hurting_data().acceleration_power;
-    projectile.base_mut().set_delta_movement(movement.add(movement.normalize().scale(power)).scale(f64::from(inertia)));
+    projectile.base_mut().set_delta_movement(
+        movement
+            .add(movement.normalize().scale(power))
+            .scale(f64::from(inertia)),
+    );
 }
 
 /// `AbstractHurtingProjectile.tick()`.
@@ -94,9 +114,20 @@ pub fn tick(projectile: &mut dyn AbstractHurtingProjectile, level: &mut ServerLe
     if !owner_removed && level.has_chunk(pos.x() >> 4, pos.z() >> 4) {
         let hit_result = {
             let p: &dyn AbstractHurtingProjectile = projectile;
-            get_hit_result_on_move_vector_clip(level, p.as_dyn(), &|e| p.can_hit_entity(level, e), p.get_clip_type())
+            get_hit_result_on_move_vector_clip(
+                level,
+                p.as_dyn(),
+                &|e| p.can_hit_entity(level, e),
+                p.get_clip_type(),
+            )
         };
-        let new_position = if hit_result.get_type() != HitType::Miss { hit_result.get_location() } else { projectile.position().add(projectile.base().delta_movement()) };
+        let new_position = if hit_result.get_type() != HitType::Miss {
+            hit_result.get_location()
+        } else {
+            projectile
+                .position()
+                .add(projectile.base().delta_movement())
+        };
         rotate_towards_movement(projectile, 0.2);
         projectile.set_pos_vec(new_position);
         projectile.apply_effects_from_blocks(level);
@@ -113,17 +144,27 @@ pub fn tick(projectile: &mut dyn AbstractHurtingProjectile, level: &mut ServerLe
 }
 
 /// `AbstractHurtingProjectile.canHitEntity(entity)`.
-pub fn can_hit_entity(projectile: &dyn AbstractHurtingProjectile, level: &ServerLevel, entity: &dyn Entity) -> bool {
+pub fn can_hit_entity(
+    projectile: &dyn AbstractHurtingProjectile,
+    level: &ServerLevel,
+    entity: &dyn Entity,
+) -> bool {
     default_can_hit_entity(projectile, level, entity) && !entity.base().no_physics
 }
 
 /// `Projectile.canHitEntity(entity)`.
-pub fn default_can_hit_entity(projectile: &dyn Projectile, level: &ServerLevel, entity: &dyn Entity) -> bool {
+pub fn default_can_hit_entity(
+    projectile: &dyn Projectile,
+    level: &ServerLevel,
+    entity: &dyn Entity,
+) -> bool {
     if !entity.can_be_hit_by_projectile() {
         return false;
     }
     let owner = projectile.get_owner(level);
-    owner.is_none_or(|o| projectile.projectile_data().left_owner || !level.is_passenger_of_same_vehicle(o, entity))
+    owner.is_none_or(|o| {
+        projectile.projectile_data().left_owner || !level.is_passenger_of_same_vehicle(o, entity)
+    })
 }
 
 /// `AbstractHurtingProjectile.onDeflection(byAttack)`.
@@ -139,13 +180,20 @@ pub fn on_deflection(projectile: &mut dyn AbstractHurtingProjectile, by_attack: 
 /// `AbstractHurtingProjectile.addAdditionalSaveData`.
 pub fn add_additional_save_data(projectile: &dyn AbstractHurtingProjectile, out: &mut CompoundTag) {
     super::add_additional_save_data(projectile, out);
-    out.put_double("acceleration_power", projectile.hurting_data().acceleration_power);
+    out.put_double(
+        "acceleration_power",
+        projectile.hurting_data().acceleration_power,
+    );
 }
 
 /// `AbstractHurtingProjectile.readAdditionalSaveData`.
-pub fn read_additional_save_data(projectile: &mut dyn AbstractHurtingProjectile, input: &CompoundTag) {
+pub fn read_additional_save_data(
+    projectile: &mut dyn AbstractHurtingProjectile,
+    input: &CompoundTag,
+) {
     super::read_additional_save_data(projectile, input);
-    projectile.hurting_data_mut().acceleration_power = input.get_double_or("acceleration_power", INITIAL_ACCELERATION_POWER);
+    projectile.hurting_data_mut().acceleration_power =
+        input.get_double_or("acceleration_power", INITIAL_ACCELERATION_POWER);
 }
 
 /// `ProjectileUtil.getHitResultOnMoveVector` result type re-export for subclasses.

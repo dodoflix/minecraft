@@ -1,9 +1,9 @@
 //! The level side of `/locate`: `ServerLevel.findClosestBiome3d`, `ChunkGenerator.findNearestMapStructure` over this
 //! level's chunks (`LocateLevel`), and `ChunkMap.resendBiomesForChunks` for `/fillbiome`.
 
+use super::ServerLevel;
 use super::chunk_holder::ChunkSlot;
 use super::server_chunk_cache::ChunkFuture;
-use super::ServerLevel;
 use crate::world::level::levelgen::structure::locate::{LocateLevel, find_nearest_map_structure};
 use mc_core::ident::Identifier;
 use mc_core::pos::{BlockPos, ChunkPos};
@@ -36,14 +36,32 @@ impl ServerLevel {
     }
 
     /// `serverLevel.getChunkSource().getGenerator().findNearestMapStructure(level, wanted, pos, radius, createReference)`.
-    pub fn find_nearest_map_structure(&mut self, wanted: &[Identifier], pos: BlockPos, max_search_radius: i32, create_reference: bool) -> LocateResult {
+    pub fn find_nearest_map_structure(
+        &mut self,
+        wanted: &[Identifier],
+        pos: BlockPos,
+        max_search_radius: i32,
+        create_reference: bool,
+    ) -> LocateResult {
         let env = self.gen_env.clone()?;
-        find_nearest_map_structure(&env, &mut LevelLocate(self), wanted, pos, max_search_radius, create_reference)
+        find_nearest_map_structure(
+            &env,
+            &mut LevelLocate(self),
+            wanted,
+            pos,
+            max_search_radius,
+            create_reference,
+        )
     }
 
     /// `level.getChunk(x, z, ChunkStatus.STRUCTURE_STARTS)` handed to `f` as its structure data.
     fn with_structure_starts(&mut self, x: i32, z: i32, f: &mut dyn FnMut(&StructureData)) -> bool {
-        let future = self.chunk_source.get_chunk_future_main_thread(x, z, ChunkStatus::StructureStarts, true);
+        let future = self.chunk_source.get_chunk_future_main_thread(
+            x,
+            z,
+            ChunkStatus::StructureStarts,
+            true,
+        );
         self.apply_chunk_events();
         if future == ChunkFuture::Unloaded {
             return false;
@@ -52,7 +70,13 @@ impl ServerLevel {
         if self.chunk_source.future_result(future) != Some(true) {
             return false;
         }
-        match self.chunk_source.chunk_map.holders.holder(ChunkPos::pack_xz(x, z)).map(|h| &h.slot) {
+        match self
+            .chunk_source
+            .chunk_map
+            .holders
+            .holder(ChunkPos::pack_xz(x, z))
+            .map(|h| &h.slot)
+        {
             Some(ChunkSlot::Proto(chunk)) => f(&chunk.access.structures),
             Some(ChunkSlot::Level(chunk)) => f(&chunk.data.access.structures),
             _ => return false,
@@ -67,13 +91,22 @@ impl ServerLevel {
         let map = &self.chunk_source.chunk_map;
         let mut per_player: Vec<(crate::world::entity::EntityId, Vec<ChunkBiomeData>)> = Vec::new();
         for pos in chunks {
-            let Some(ChunkSlot::Level(chunk)) = map.holders.holder(pos.pack()).map(|h| &h.slot) else { continue };
+            let Some(ChunkSlot::Level(chunk)) = map.holders.holder(pos.pack()).map(|h| &h.slot)
+            else {
+                continue;
+            };
             let mut buffer = Vec::new();
             for section in &chunk.data.access.sections {
-                section.biomes().write(&mut buffer).expect("biome containers serialize");
+                section
+                    .biomes()
+                    .write(&mut buffer)
+                    .expect("biome containers serialize");
             }
             for player in map.get_players(*pos, false) {
-                let data = ChunkBiomeData { pos: *pos, buffer: buffer.clone() };
+                let data = ChunkBiomeData {
+                    pos: *pos,
+                    buffer: buffer.clone(),
+                };
                 match per_player.iter_mut().find(|(id, _)| *id == player) {
                     Some((_, list)) => list.push(data),
                     None => per_player.push((player, vec![data])),
@@ -82,7 +115,9 @@ impl ServerLevel {
         }
         for (player, chunk_biome_data) in per_player {
             if let Some(p) = map.players.get(&player) {
-                p.info.connection.send(&ClientboundChunksBiomesPacket { chunk_biome_data });
+                p.info
+                    .connection
+                    .send(&ClientboundChunksBiomesPacket { chunk_biome_data });
             }
         }
     }
@@ -97,7 +132,9 @@ impl LocateLevel for LevelLocate<'_> {
     }
 
     fn set_start_references(&mut self, pos: ChunkPos, structure_id: &str, references: i32) {
-        let Some(holder) = self.0.chunk_source.chunk_map.holders.holder_mut(pos.pack()) else { return };
+        let Some(holder) = self.0.chunk_source.chunk_map.holders.holder_mut(pos.pack()) else {
+            return;
+        };
         match &mut holder.slot {
             ChunkSlot::Proto(chunk) => {
                 if let Some(start) = chunk.access.structures.starts.get_mut(structure_id) {

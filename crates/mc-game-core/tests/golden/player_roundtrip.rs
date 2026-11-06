@@ -26,10 +26,25 @@ fn diff(a: &CompoundTag, b: &CompoundTag) -> String {
 
 #[test]
 fn vanilla_player_file_round_trips() {
-    let bytes = std::fs::read(concat!(env!("CARGO_MANIFEST_DIR"), "/../mc-game/tests/fixtures/playerdata/vanilla_steve.dat")).unwrap();
-    let original = mc_nbt::compress::read_compressed(&bytes, &mut mc_nbt::NbtAccounter::unlimited_heap()).unwrap();
+    let bytes = std::fs::read(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/../mc-game/tests/fixtures/playerdata/vanilla_steve.dat"
+    ))
+    .unwrap();
+    let original =
+        mc_nbt::compress::read_compressed(&bytes, &mut mc_nbt::NbtAccounter::unlimited_heap())
+            .unwrap();
     let uuid = entity::read_uuid(original.get("UUID")).expect("uuid");
-    let mut player = ServerPlayer::new(1, Identifier::parse("minecraft:overworld").unwrap(), GameProfile { id: uuid, name: "Steve".into(), properties: vec![] }, Default::default());
+    let mut player = ServerPlayer::new(
+        1,
+        Identifier::parse("minecraft:overworld").unwrap(),
+        GameProfile {
+            id: uuid,
+            name: "Steve".into(),
+            properties: vec![],
+        },
+        Default::default(),
+    );
     player.load(&original).unwrap();
     let none = |_| None;
     let saved = player.save_player_data(&none);
@@ -40,7 +55,12 @@ fn vanilla_player_file_round_trips() {
     let sort_attributes = |c: &mut CompoundTag| {
         if let Some(list) = c.get_list("attributes") {
             let mut v: Vec<_> = list.iter().cloned().collect();
-            v.sort_by_key(|t| t.as_compound().and_then(|c| c.get_string("id")).unwrap_or("").to_string());
+            v.sort_by_key(|t| {
+                t.as_compound()
+                    .and_then(|c| c.get_string("id"))
+                    .unwrap_or("")
+                    .to_string()
+            });
             let mut l = mc_nbt::ListTag::new();
             for t in v {
                 l.push(t);

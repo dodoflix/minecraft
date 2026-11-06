@@ -1,7 +1,10 @@
 //! `BeaconMenu`: one payment slot over the player's inventory, the beacon block entity's `ContainerData`
 //! (levels, primary, secondary effect) as data slots, and `ServerboundSetBeaconPacket` handling.
 
-use super::{AbstractContainerMenu, ContainerKey, ContainerLevelAccess, MenuBase, MenuPlayer, Prediction, Slot, SlotBehavior, SlotEnv, still_valid};
+use super::{
+    AbstractContainerMenu, ContainerKey, ContainerLevelAccess, MenuBase, MenuPlayer, Prediction,
+    Slot, SlotBehavior, SlotEnv, still_valid,
+};
 use crate::world::container::{Container, SimpleContainer};
 use crate::world::item::ItemStack;
 use mc_core::ident::Identifier;
@@ -12,19 +15,31 @@ const PAYMENT_SLOT: usize = 0;
 const PAYMENT_LOCAL: usize = 0;
 
 /// `BeaconBlockEntity.BEACON_EFFECTS`: the effects offered per pyramid level.
-pub const BEACON_EFFECTS: [&[MobEffect]; 4] = [&[MobEffect::SPEED, MobEffect::HASTE], &[MobEffect::RESISTANCE, MobEffect::JUMP_BOOST], &[MobEffect::STRENGTH], &[MobEffect::REGENERATION]];
+pub const BEACON_EFFECTS: [&[MobEffect]; 4] = [
+    &[MobEffect::SPEED, MobEffect::HASTE],
+    &[MobEffect::RESISTANCE, MobEffect::JUMP_BOOST],
+    &[MobEffect::STRENGTH],
+    &[MobEffect::REGENERATION],
+];
 
 /// `BeaconBlockEntity.getRequiredLevelsFor(effect)`.
 fn get_required_levels_for(effect: Option<MobEffect>) -> i32 {
     match effect {
         None => 0,
-        Some(e) => BEACON_EFFECTS.iter().position(|level| level.contains(&e)).map_or(i32::MAX, |i| i as i32 + 1),
+        Some(e) => BEACON_EFFECTS
+            .iter()
+            .position(|level| level.contains(&e))
+            .map_or(i32::MAX, |i| i as i32 + 1),
     }
 }
 
 /// `BeaconBlockEntity.validateEffects(primary, secondary, levels)`. (Vanilla throws a `NullPointerException` for a
 /// secondary effect without a primary one; that is rejected here like any other invalid selection.)
-pub fn validate_effects(primary: Option<MobEffect>, secondary: Option<MobEffect>, levels: i32) -> bool {
+pub fn validate_effects(
+    primary: Option<MobEffect>,
+    secondary: Option<MobEffect>,
+    levels: i32,
+) -> bool {
     if secondary.is_some() && levels < 4 {
         return false;
     }
@@ -33,7 +48,10 @@ pub fn validate_effects(primary: Option<MobEffect>, secondary: Option<MobEffect>
     if primary_level > levels || secondary_level > levels {
         return false;
     }
-    primary_level < 4 && (secondary_level == 0 || secondary_level >= 4 || (primary.is_some() && primary == secondary))
+    primary_level < 4
+        && (secondary_level == 0
+            || secondary_level >= 4
+            || (primary.is_some() && primary == secondary))
 }
 
 /// `BeaconMenu.encodeEffect`.
@@ -43,13 +61,22 @@ pub fn encode_effect(effect: Option<MobEffect>) -> i32 {
 
 /// `BeaconMenu.decodeEffect`.
 pub fn decode_effect(id: i32) -> Option<MobEffect> {
-    if id <= 0 { None } else { MobEffect::from_id(id as u32 - 1) }
+    if id <= 0 {
+        None
+    } else {
+        MobEffect::from_id(id as u32 - 1)
+    }
 }
 
 /// `item.is(ItemTags.BEACON_PAYMENT_ITEMS)` against the level's tags.
 fn is_beacon_payment(player: &dyn MenuPlayer, stack: &ItemStack) -> bool {
-    let Some(tag) = Identifier::try_parse("minecraft:beacon_payment_items") else { return false };
-    player.level_ref().and_then(|l| l.registries.registry("minecraft:item")).is_some_and(|r| r.is_in_tag(stack.item().id(), &tag))
+    let Some(tag) = Identifier::try_parse("minecraft:beacon_payment_items") else {
+        return false;
+    };
+    player
+        .level_ref()
+        .and_then(|l| l.registries.registry("minecraft:item"))
+        .is_some_and(|r| r.is_in_tag(stack.item().id(), &tag))
 }
 
 /// The anonymous `SimpleContainer(1)` of the menu: `getMaxStackSize() == 1`.
@@ -124,8 +151,16 @@ impl BeaconMenu {
         let mut base = MenuBase::new(Some(MenuType::BEACON), container_id);
         let local = base.add_local(Box::new(BeaconPaymentContainer(SimpleContainer::new(1))));
         debug_assert_eq!(local, PAYMENT_LOCAL);
-        base.add_slot(Slot::with_behavior(ContainerKey::Local(PAYMENT_LOCAL), 0, 136, 110, Box::new(PaymentSlot)));
-        let pos = access.pos().expect("a beacon menu needs the beacon position");
+        base.add_slot(Slot::with_behavior(
+            ContainerKey::Local(PAYMENT_LOCAL),
+            0,
+            136,
+            110,
+            Box::new(PaymentSlot),
+        ));
+        let pos = access
+            .pos()
+            .expect("a beacon menu needs the beacon position");
         base.add_block_entity_data_slots(pos, 3);
         base.add_standard_inventory_slots(&ContainerKey::PlayerInventory, 36, 137);
         Self { base, access }
@@ -134,12 +169,22 @@ impl BeaconMenu {
     fn data(&self, player: &dyn MenuPlayer, id: usize) -> i32 {
         use crate::world::level::BlockGetter;
         let pos = self.access.pos();
-        pos.and_then(|p| player.level_ref()?.get_block_entity(p)?.container_data().map(|d| d.get(id))).unwrap_or(0)
+        pos.and_then(|p| {
+            player
+                .level_ref()?
+                .get_block_entity(p)?
+                .container_data()
+                .map(|d| d.get(id))
+        })
+        .unwrap_or(0)
     }
 
     fn set_data_value(&self, player: &mut dyn MenuPlayer, id: usize, value: i32) {
         if let (Some(pos), Some(level)) = (self.access.pos(), player.level()) {
-            if let Some(d) = level.get_block_entity_immediate(pos).and_then(|be| be.container_data_mut()) {
+            if let Some(d) = level
+                .get_block_entity_immediate(pos)
+                .and_then(|be| be.container_data_mut())
+            {
                 d.set(id, value);
             }
         }
@@ -164,7 +209,12 @@ impl BeaconMenu {
     }
 
     /// `updateEffects(primary, secondary)`: `false` = invalid selection (the listener disconnects the player).
-    pub fn update_effects(&mut self, player: &mut dyn MenuPlayer, primary: Option<MobEffect>, secondary: Option<MobEffect>) -> bool {
+    pub fn update_effects(
+        &mut self,
+        player: &mut dyn MenuPlayer,
+        primary: Option<MobEffect>,
+        secondary: Option<MobEffect>,
+    ) -> bool {
         if !self.has_payment() {
             return false;
         }
@@ -212,17 +262,27 @@ impl AbstractContainerMenu for BeaconMenu {
 
     fn quick_move_stack(&mut self, player: &mut dyn MenuPlayer, slot_index: usize) -> ItemStack {
         let mut clicked = ItemStack::empty();
-        if !self.base.with_slot(player, slot_index, |s, e| s.has_item(e)) {
+        if !self
+            .base
+            .with_slot(player, slot_index, |s, e| s.has_item(e))
+        {
             return clicked;
         }
-        let mut stack = self.base.with_slot(player, slot_index, |s, e| s.get_item(e));
+        let mut stack = self
+            .base
+            .with_slot(player, slot_index, |s, e| s.get_item(e));
         clicked = stack.copy();
-        let payment_empty = !self.base.with_slot(player, PAYMENT_SLOT, |s, e| s.has_item(e));
-        let may_place = self.base.with_slot(player, PAYMENT_SLOT, |s, e| s.may_place(e, &stack));
+        let payment_empty = !self
+            .base
+            .with_slot(player, PAYMENT_SLOT, |s, e| s.has_item(e));
+        let may_place = self
+            .base
+            .with_slot(player, PAYMENT_SLOT, |s, e| s.may_place(e, &stack));
         let moved = if slot_index == 0 {
             let moved = self.move_item_stack_to(player, &mut stack, 1, 37, true);
             if moved {
-                self.base.with_slot(player, 0, |s, e| s.on_quick_craft(e, &stack, &clicked));
+                self.base
+                    .with_slot(player, 0, |s, e| s.on_quick_craft(e, &stack, &clicked));
             }
             moved
         } else if payment_empty && may_place && stack.count() == 1 {
@@ -238,7 +298,9 @@ impl AbstractContainerMenu for BeaconMenu {
             return ItemStack::empty();
         }
         if stack.is_empty() {
-            self.base.with_slot(player, slot_index, |s, e| s.set_by_player_with(e, ItemStack::empty(), &clicked));
+            self.base.with_slot(player, slot_index, |s, e| {
+                s.set_by_player_with(e, ItemStack::empty(), &clicked)
+            });
         } else {
             let rest = stack.clone();
             self.base.with_slot(player, slot_index, |s, e| {
@@ -249,7 +311,8 @@ impl AbstractContainerMenu for BeaconMenu {
         if stack.count() == clicked.count() {
             return ItemStack::empty();
         }
-        self.base.with_slot(player, slot_index, |s, e| s.on_take(e, &stack));
+        self.base
+            .with_slot(player, slot_index, |s, e| s.on_take(e, &stack));
         self.flush_container_events(player);
         clicked
     }

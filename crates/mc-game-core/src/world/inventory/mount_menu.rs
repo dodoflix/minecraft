@@ -2,7 +2,9 @@
 //! rideable mobs. The mob supplies its rules through [`MountInventory`] (`Entity::as_mount_inventory`) and its chest
 //! container through `Entity::as_container`; open it with `ServerPlayer::open_mount_inventory`.
 
-use super::{AbstractContainerMenu, ContainerKey, MenuBase, MenuPlayer, Slot, SlotBehavior, SlotEnv};
+use super::{
+    AbstractContainerMenu, ContainerKey, MenuBase, MenuPlayer, Slot, SlotBehavior, SlotEnv,
+};
 use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::{Entity, EntityId};
 use crate::world::item::ItemStack;
@@ -40,10 +42,18 @@ struct MountArmorSlot {
 }
 
 impl SlotBehavior for MountArmorSlot {
-    fn set_by_player(&self, slot: &Slot, env: &mut SlotEnv, stack: ItemStack, previous: &ItemStack) {
+    fn set_by_player(
+        &self,
+        slot: &Slot,
+        env: &mut SlotEnv,
+        stack: ItemStack,
+        previous: &ItemStack,
+    ) {
         let (mount, equipment) = (self.mount, self.slot);
         if let Some(level) = env.player.level() {
-            level.with_entity(mount, |level, e| e.on_equip_item(level, equipment, previous, &stack));
+            level.with_entity(mount, |level, e| {
+                e.on_equip_item(level, equipment, previous, &stack)
+            });
         }
         slot.set(env, stack);
     }
@@ -52,7 +62,11 @@ impl SlotBehavior for MountArmorSlot {
     }
     fn may_place(&self, _slot: &Slot, env: &mut SlotEnv, stack: &ItemStack) -> bool {
         let (mount, equipment) = (self.mount, self.slot);
-        env.player.level_ref().and_then(|l| l.get_entity(mount)).and_then(|e| e.as_mount_inventory()).is_some_and(|m| m.is_equippable_in_slot(stack, equipment))
+        env.player
+            .level_ref()
+            .and_then(|l| l.get_entity(mount))
+            .and_then(|e| e.as_mount_inventory())
+            .is_some_and(|m| m.is_equippable_in_slot(stack, equipment))
     }
     fn may_pickup(&self, slot: &Slot, env: &mut SlotEnv) -> bool {
         let item = slot.get_item(env);
@@ -71,40 +85,98 @@ struct MountMenuCore {
 }
 
 impl MountMenuCore {
-    fn new(container_id: i32, player: &mut dyn MenuPlayer, mount: EntityId, layout: impl FnOnce(&mut MenuBase, &super::ContainerRef, i32)) -> Self {
+    fn new(
+        container_id: i32,
+        player: &mut dyn MenuPlayer,
+        mount: EntityId,
+        layout: impl FnOnce(&mut MenuBase, &super::ContainerRef, i32),
+    ) -> Self {
         let mut base = MenuBase::new(None, container_id);
         let (size, epoch, columns) = player
             .level_ref()
             .and_then(|l| l.get_entity(mount))
-            .map(|e| (e.as_container().map_or(0, |c| c.get_container_size()), e.as_mount_inventory().map_or(0, |m| m.inventory_epoch()), e.as_mount_inventory().map_or(0, |m| m.get_inventory_columns())))
+            .map(|e| {
+                (
+                    e.as_container().map_or(0, |c| c.get_container_size()),
+                    e.as_mount_inventory().map_or(0, |m| m.inventory_epoch()),
+                    e.as_mount_inventory()
+                        .map_or(0, |m| m.get_inventory_columns()),
+                )
+            })
             .unwrap_or((0, 0, 0));
         let container = super::ContainerRef::entity(mount, size);
         container.start_open(player);
-        base.add_slot(Slot::with_behavior(ContainerKey::EntityEquipment(mount, EquipmentSlot::Saddle), 0, 8, 18, Box::new(MountArmorSlot { mount, slot: EquipmentSlot::Saddle })));
-        base.add_slot(Slot::with_behavior(ContainerKey::EntityEquipment(mount, EquipmentSlot::Body), 0, 8, 36, Box::new(MountArmorSlot { mount, slot: EquipmentSlot::Body })));
+        base.add_slot(Slot::with_behavior(
+            ContainerKey::EntityEquipment(mount, EquipmentSlot::Saddle),
+            0,
+            8,
+            18,
+            Box::new(MountArmorSlot {
+                mount,
+                slot: EquipmentSlot::Saddle,
+            }),
+        ));
+        base.add_slot(Slot::with_behavior(
+            ContainerKey::EntityEquipment(mount, EquipmentSlot::Body),
+            0,
+            8,
+            36,
+            Box::new(MountArmorSlot {
+                mount,
+                slot: EquipmentSlot::Body,
+            }),
+        ));
         layout(&mut base, &container, columns);
         base.add_standard_inventory_slots(&ContainerKey::PlayerInventory, 8, 84);
-        Self { base, mount, container, epoch }
+        Self {
+            base,
+            mount,
+            container,
+            epoch,
+        }
     }
 
     fn still_valid(&self, player: &dyn MenuPlayer) -> bool {
-        let Some(level) = player.level_ref() else { return false };
-        let Some(entity) = level.get_entity(self.mount) else { return false };
-        let unchanged = entity.as_mount_inventory().is_some_and(|m| m.inventory_epoch() == self.epoch);
-        unchanged && self.container.still_valid(player) && entity.is_alive() && player.is_within_entity_interaction_range(&entity.base().bounding_box(), 4.0)
+        let Some(level) = player.level_ref() else {
+            return false;
+        };
+        let Some(entity) = level.get_entity(self.mount) else {
+            return false;
+        };
+        let unchanged = entity
+            .as_mount_inventory()
+            .is_some_and(|m| m.inventory_epoch() == self.epoch);
+        unchanged
+            && self.container.still_valid(player)
+            && entity.is_alive()
+            && player.is_within_entity_interaction_range(&entity.base().bounding_box(), 4.0)
     }
 
-    fn quick_move_stack(menu: &mut dyn AbstractContainerMenu, player: &mut dyn MenuPlayer, slot_index: usize, container_size: usize) -> ItemStack {
+    fn quick_move_stack(
+        menu: &mut dyn AbstractContainerMenu,
+        player: &mut dyn MenuPlayer,
+        slot_index: usize,
+        container_size: usize,
+    ) -> ItemStack {
         let mut clicked = ItemStack::empty();
-        if !menu.base_mut().with_slot(player, slot_index, |s, e| s.has_item(e)) {
+        if !menu
+            .base_mut()
+            .with_slot(player, slot_index, |s, e| s.has_item(e))
+        {
             return clicked;
         }
-        let mut stack = menu.base_mut().with_slot(player, slot_index, |s, e| s.get_item(e));
+        let mut stack = menu
+            .base_mut()
+            .with_slot(player, slot_index, |s, e| s.get_item(e));
         clicked = stack.copy();
         let player_container_start = 2 + container_size;
         let total = menu.base().slots.len();
-        let slot1_free = menu.base_mut().with_slot(player, 1, |s, e| s.may_place(e, &stack) && !s.has_item(e));
-        let slot0_free = menu.base_mut().with_slot(player, 0, |s, e| s.may_place(e, &stack) && !s.has_item(e));
+        let slot1_free = menu
+            .base_mut()
+            .with_slot(player, 1, |s, e| s.may_place(e, &stack) && !s.has_item(e));
+        let slot0_free = menu
+            .base_mut()
+            .with_slot(player, 0, |s, e| s.may_place(e, &stack) && !s.has_item(e));
         // Java mutates the slot's own stack: a branch that bails out with `EMPTY` after a partial move still leaves the
         // moved-from slot reduced, so the remainder is written back (without `setChanged`) on that path.
         let mut write_back_only = false;
@@ -114,15 +186,35 @@ impl MountMenuCore {
             menu.move_item_stack_to(player, &mut stack, 1, 2, false)
         } else if slot0_free {
             menu.move_item_stack_to(player, &mut stack, 0, 1, false)
-        } else if container_size == 0 || !menu.move_item_stack_to(player, &mut stack, 2, player_container_start, false) {
+        } else if container_size == 0
+            || !menu.move_item_stack_to(player, &mut stack, 2, player_container_start, false)
+        {
             let player_container_end = player_container_start + 27;
             let player_hotbar_end = player_container_end + 9;
             if (player_container_end..player_hotbar_end).contains(&slot_index) {
-                menu.move_item_stack_to(player, &mut stack, player_container_start, player_container_end, false);
+                menu.move_item_stack_to(
+                    player,
+                    &mut stack,
+                    player_container_start,
+                    player_container_end,
+                    false,
+                );
             } else if (player_container_start..player_container_end).contains(&slot_index) {
-                menu.move_item_stack_to(player, &mut stack, player_container_end, player_hotbar_end, false);
+                menu.move_item_stack_to(
+                    player,
+                    &mut stack,
+                    player_container_end,
+                    player_hotbar_end,
+                    false,
+                );
             } else {
-                menu.move_item_stack_to(player, &mut stack, player_container_end, player_container_end, false);
+                menu.move_item_stack_to(
+                    player,
+                    &mut stack,
+                    player_container_end,
+                    player_container_end,
+                    false,
+                );
             }
             write_back_only = true;
             true
@@ -134,12 +226,15 @@ impl MountMenuCore {
         }
         if write_back_only {
             let rest = stack;
-            menu.base_mut().with_slot(player, slot_index, |s, e| s.with_item_mut(e, |t| *t = rest));
+            menu.base_mut()
+                .with_slot(player, slot_index, |s, e| s.with_item_mut(e, |t| *t = rest));
             menu.flush_container_events(player);
             return ItemStack::empty();
         }
         if stack.is_empty() {
-            menu.base_mut().with_slot(player, slot_index, |s, e| s.set_by_player_with(e, ItemStack::empty(), &clicked));
+            menu.base_mut().with_slot(player, slot_index, |s, e| {
+                s.set_by_player_with(e, ItemStack::empty(), &clicked)
+            });
         } else {
             let rest = stack;
             menu.base_mut().with_slot(player, slot_index, |s, e| {
@@ -179,7 +274,11 @@ macro_rules! mount_menu {
                 self.base_removed(player);
                 self.core.container.stop_open(player);
             }
-            fn quick_move_stack(&mut self, player: &mut dyn MenuPlayer, slot_index: usize) -> ItemStack {
+            fn quick_move_stack(
+                &mut self,
+                player: &mut dyn MenuPlayer,
+                slot_index: usize,
+            ) -> ItemStack {
                 let size = self.core.container.size();
                 MountMenuCore::quick_move_stack(self, player, slot_index, size)
             }
@@ -187,8 +286,14 @@ macro_rules! mount_menu {
     };
 }
 
-mount_menu!(HorseInventoryMenu, "`HorseInventoryMenu(containerId, inventory, horseInventory, horse, inventoryColumns)`.");
-mount_menu!(NautilusInventoryMenu, "`NautilusInventoryMenu(containerId, inventory, nautilusInventory, nautilus, inventoryColumns)`.");
+mount_menu!(
+    HorseInventoryMenu,
+    "`HorseInventoryMenu(containerId, inventory, horseInventory, horse, inventoryColumns)`."
+);
+mount_menu!(
+    NautilusInventoryMenu,
+    "`NautilusInventoryMenu(containerId, inventory, nautilusInventory, nautilus, inventoryColumns)`."
+);
 
 impl HorseInventoryMenu {
     pub fn new(container_id: i32, player: &mut dyn MenuPlayer, horse: EntityId) -> Self {
@@ -208,7 +313,9 @@ impl HorseInventoryMenu {
 
 impl NautilusInventoryMenu {
     pub fn new(container_id: i32, player: &mut dyn MenuPlayer, nautilus: EntityId) -> Self {
-        Self { core: MountMenuCore::new(container_id, player, nautilus, |_, _, _| {}) }
+        Self {
+            core: MountMenuCore::new(container_id, player, nautilus, |_, _, _| {}),
+        }
     }
 }
 
@@ -233,7 +340,11 @@ impl crate::world::container::Container for EquipmentSlotContainer {
         self.stack.is_empty()
     }
     fn get_item(&self, slot: usize) -> &ItemStack {
-        if slot == 0 { &self.stack } else { crate::world::container::empty_stack() }
+        if slot == 0 {
+            &self.stack
+        } else {
+            crate::world::container::empty_stack()
+        }
     }
     fn get_item_mut(&mut self, slot: usize) -> Option<&mut ItemStack> {
         if slot == 0 {

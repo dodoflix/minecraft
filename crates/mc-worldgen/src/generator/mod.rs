@@ -67,13 +67,24 @@ pub trait ChunkGenerator: Send + Sync {
     }
 
     /// `decorateBiomeResolver(blender, protoChunk, biomeResolver)`.
-    fn decorate_biome_resolver<'a>(&'a self, _blender: &'a Blender, _chunk: &ProtoChunk, biome_resolver: BiomeFn<'a>) -> BiomeFn<'a> {
+    fn decorate_biome_resolver<'a>(
+        &'a self,
+        _blender: &'a Blender,
+        _chunk: &ProtoChunk,
+        biome_resolver: BiomeFn<'a>,
+    ) -> BiomeFn<'a> {
         biome_resolver
     }
 
     /// `createBiomes(randomState, blender, structureManager, protoChunk)` / `doCreateBiomes`.
-    fn create_biomes(&self, random_state: &Arc<RandomState>, blender: &Blender, chunk: &mut ProtoChunk) {
-        let climate_sampler = random_state.create_climate_sampler(SamplerContext::builder().enable_caches().build());
+    fn create_biomes(
+        &self,
+        random_state: &Arc<RandomState>,
+        blender: &Blender,
+        chunk: &mut ProtoChunk,
+    ) {
+        let climate_sampler =
+            random_state.create_climate_sampler(SamplerContext::builder().enable_caches().build());
         let pos = chunk.pos();
         let biome_resolver = self.biome_source().create_resolver_for_chunk(
             climate_sampler,
@@ -84,14 +95,24 @@ pub trait ChunkGenerator: Send + Sync {
             quart_pos::from_block(chunk.access.height()),
             quart_pos::from_block(16),
         );
-        let resolver: BiomeFn<'_> = Box::new(move |x, y, z| biome_resolver.get_noise_biome(x, y, z));
+        let resolver: BiomeFn<'_> =
+            Box::new(move |x, y, z| biome_resolver.get_noise_biome(x, y, z));
         let decorated = self.decorate_biome_resolver(blender, chunk, resolver);
         let height_for_generation = chunk.get_height_accessor_for_generation();
-        chunk.access.fill_biomes_from_noise(height_for_generation, decorated);
+        chunk
+            .access
+            .fill_biomes_from_noise(height_for_generation, decorated);
     }
 
     /// `addDebugScreenInfo(result, randomState, feetPos, samplerContext)` (F3 screen lines).
-    fn add_debug_screen_info(&self, _result: &mut Vec<String>, _random_state: &Arc<RandomState>, _feet_pos: BlockPos, _sampler_context: SamplerContext) {}
+    fn add_debug_screen_info(
+        &self,
+        _result: &mut Vec<String>,
+        _random_state: &Arc<RandomState>,
+        _feet_pos: BlockPos,
+        _sampler_context: SamplerContext,
+    ) {
+    }
 
     /// `buildTerrain(chunk, blender, randomState, structureManager, biomeManager, carverBiomeRegion, possibleBiomes)`:
     /// fills the terrain, builds the surface and carves.
@@ -122,7 +143,13 @@ pub trait ChunkGenerator: Send + Sync {
     ) -> i32;
 
     /// `getBaseColumn(x, z, heightAccessor, randomState)`.
-    fn get_base_column(&self, x: i32, z: i32, height_accessor: LevelHeight, random_state: &Arc<RandomState>) -> NoiseColumn;
+    fn get_base_column(
+        &self,
+        x: i32,
+        z: i32,
+        height_accessor: LevelHeight,
+        random_state: &Arc<RandomState>,
+    ) -> NoiseColumn;
 
     /// `getFirstFreeHeight(x, z, type, heightAccessor, randomState)`.
     fn get_first_free_height(

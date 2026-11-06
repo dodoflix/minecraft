@@ -2,11 +2,11 @@
 //! Not ported: `move(Vector3f)`; `BoundingBox` conversion takes the six integer bounds instead.
 
 use crate::direction::{Axis, Direction};
-use crate::math::mth;
-use crate::phys::vec3::{double_hash, double_to_long_bits};
-use crate::phys::Vec3;
-use crate::pos::{BlockPos, Vec3i};
 use crate::math::java::java_double_to_string;
+use crate::math::mth;
+use crate::phys::Vec3;
+use crate::phys::vec3::{double_hash, double_to_long_bits};
+use crate::pos::{BlockPos, Vec3i};
 use std::fmt;
 use std::hash::{Hash, Hasher};
 
@@ -62,17 +62,28 @@ pub struct AABB {
 /// `Double.compare(..) == 0` per component: `-0.0 != 0.0`, `NaN == NaN`.
 impl PartialEq for AABB {
     fn eq(&self, other: &Self) -> bool {
-        [self.min_x, self.min_y, self.min_z, self.max_x, self.max_y, self.max_z]
-            .into_iter()
-            .zip([other.min_x, other.min_y, other.min_z, other.max_x, other.max_y, other.max_z])
-            .all(|(a, b)| double_to_long_bits(a) == double_to_long_bits(b))
+        [
+            self.min_x, self.min_y, self.min_z, self.max_x, self.max_y, self.max_z,
+        ]
+        .into_iter()
+        .zip([
+            other.min_x,
+            other.min_y,
+            other.min_z,
+            other.max_x,
+            other.max_y,
+            other.max_z,
+        ])
+        .all(|(a, b)| double_to_long_bits(a) == double_to_long_bits(b))
     }
 }
 impl Eq for AABB {}
 
 impl Hash for AABB {
     fn hash<H: Hasher>(&self, state: &mut H) {
-        for v in [self.min_x, self.min_y, self.min_z, self.max_x, self.max_y, self.max_z] {
+        for v in [
+            self.min_x, self.min_y, self.min_z, self.max_x, self.max_y, self.max_z,
+        ] {
             double_to_long_bits(v).hash(state);
         }
     }
@@ -136,22 +147,34 @@ impl AABB {
     }
 
     pub fn set_min_x(&self, min_x: f64) -> AABB {
-        AABB::new(min_x, self.min_y, self.min_z, self.max_x, self.max_y, self.max_z)
+        AABB::new(
+            min_x, self.min_y, self.min_z, self.max_x, self.max_y, self.max_z,
+        )
     }
     pub fn set_min_y(&self, min_y: f64) -> AABB {
-        AABB::new(self.min_x, min_y, self.min_z, self.max_x, self.max_y, self.max_z)
+        AABB::new(
+            self.min_x, min_y, self.min_z, self.max_x, self.max_y, self.max_z,
+        )
     }
     pub fn set_min_z(&self, min_z: f64) -> AABB {
-        AABB::new(self.min_x, self.min_y, min_z, self.max_x, self.max_y, self.max_z)
+        AABB::new(
+            self.min_x, self.min_y, min_z, self.max_x, self.max_y, self.max_z,
+        )
     }
     pub fn set_max_x(&self, max_x: f64) -> AABB {
-        AABB::new(self.min_x, self.min_y, self.min_z, max_x, self.max_y, self.max_z)
+        AABB::new(
+            self.min_x, self.min_y, self.min_z, max_x, self.max_y, self.max_z,
+        )
     }
     pub fn set_max_y(&self, max_y: f64) -> AABB {
-        AABB::new(self.min_x, self.min_y, self.min_z, self.max_x, max_y, self.max_z)
+        AABB::new(
+            self.min_x, self.min_y, self.min_z, self.max_x, max_y, self.max_z,
+        )
     }
     pub fn set_max_z(&self, max_z: f64) -> AABB {
-        AABB::new(self.min_x, self.min_y, self.min_z, self.max_x, self.max_y, max_z)
+        AABB::new(
+            self.min_x, self.min_y, self.min_z, self.max_x, self.max_y, max_z,
+        )
     }
 
     pub fn min(&self, axis: Axis) -> f64 {
@@ -231,7 +254,11 @@ impl AABB {
 
     /// `inflate(double)`
     pub fn inflate_scalar(&self, amount_to_add_in_all_directions: f64) -> AABB {
-        self.inflate(amount_to_add_in_all_directions, amount_to_add_in_all_directions, amount_to_add_in_all_directions)
+        self.inflate(
+            amount_to_add_in_all_directions,
+            amount_to_add_in_all_directions,
+            amount_to_add_in_all_directions,
+        )
     }
 
     pub fn intersect(&self, other: &AABB) -> AABB {
@@ -258,13 +285,27 @@ impl AABB {
 
     /// `move(double, double, double)`
     pub fn move_(&self, xa: f64, ya: f64, za: f64) -> AABB {
-        AABB::new(self.min_x + xa, self.min_y + ya, self.min_z + za, self.max_x + xa, self.max_y + ya, self.max_z + za)
+        AABB::new(
+            self.min_x + xa,
+            self.min_y + ya,
+            self.min_z + za,
+            self.max_x + xa,
+            self.max_y + ya,
+            self.max_z + za,
+        )
     }
 
     /// `move(BlockPos)`
     pub fn move_block_pos(&self, pos: &Vec3i) -> AABB {
         let (x, y, z) = (pos.x() as f64, pos.y() as f64, pos.z() as f64);
-        AABB::new(self.min_x + x, self.min_y + y, self.min_z + z, self.max_x + x, self.max_y + y, self.max_z + z)
+        AABB::new(
+            self.min_x + x,
+            self.min_y + y,
+            self.min_z + z,
+            self.max_x + x,
+            self.max_y + y,
+            self.max_z + z,
+        )
     }
 
     /// `move(Vec3)`
@@ -274,12 +315,27 @@ impl AABB {
 
     /// `intersects(AABB)`
     pub fn intersects_aabb(&self, aabb: &AABB) -> bool {
-        self.intersects_coords(aabb.min_x, aabb.min_y, aabb.min_z, aabb.max_x, aabb.max_y, aabb.max_z)
+        self.intersects_coords(
+            aabb.min_x, aabb.min_y, aabb.min_z, aabb.max_x, aabb.max_y, aabb.max_z,
+        )
     }
 
     /// `intersects(double x6)`
-    pub fn intersects_coords(&self, min_x: f64, min_y: f64, min_z: f64, max_x: f64, max_y: f64, max_z: f64) -> bool {
-        self.min_x < max_x && self.max_x > min_x && self.min_y < max_y && self.max_y > min_y && self.min_z < max_z && self.max_z > min_z
+    pub fn intersects_coords(
+        &self,
+        min_x: f64,
+        min_y: f64,
+        min_z: f64,
+        max_x: f64,
+        max_y: f64,
+        max_z: f64,
+    ) -> bool {
+        self.min_x < max_x
+            && self.max_x > min_x
+            && self.min_y < max_y
+            && self.max_y > min_y
+            && self.min_z < max_z
+            && self.max_z > min_z
     }
 
     /// `intersects(Vec3, Vec3)`
@@ -312,7 +368,12 @@ impl AABB {
     }
 
     pub fn contains(&self, x: f64, y: f64, z: f64) -> bool {
-        x >= self.min_x && x < self.max_x && y >= self.min_y && y < self.max_y && z >= self.min_z && z < self.max_z
+        x >= self.min_x
+            && x < self.max_x
+            && y >= self.min_y
+            && y < self.max_y
+            && z >= self.min_z
+            && z < self.max_z
     }
 
     pub fn get_size(&self) -> f64 {
@@ -343,7 +404,9 @@ impl AABB {
 
     /// Instance `clip(Vec3 from, Vec3 to)`.
     pub fn clip(&self, from: Vec3, to: Vec3) -> Option<Vec3> {
-        Self::clip_box_coords(self.min_x, self.min_y, self.min_z, self.max_x, self.max_y, self.max_z, from, to)
+        Self::clip_box_coords(
+            self.min_x, self.min_y, self.min_z, self.max_x, self.max_y, self.max_z, from, to,
+        )
     }
 
     /// Static `clip(double x6, Vec3 from, Vec3 to)`.
@@ -362,22 +425,47 @@ impl AABB {
         let dx = to.x - from.x;
         let dy = to.y - from.y;
         let dz = to.z - from.z;
-        let direction =
-            Self::get_direction_coords(min_x, min_y, min_z, max_x, max_y, max_z, from, &mut scale_reference, None, dx, dy, dz);
+        let direction = Self::get_direction_coords(
+            min_x,
+            min_y,
+            min_z,
+            max_x,
+            max_y,
+            max_z,
+            from,
+            &mut scale_reference,
+            None,
+            dx,
+            dy,
+            dz,
+        );
         direction?;
         let scale = scale_reference;
         Some(from.add_xyz(scale * dx, scale * dy, scale * dz))
     }
 
     /// Static `clip(Iterable<AABB>, from, to, pos)`; `None` is vanilla's `null`.
-    pub fn clip_boxes(boxes: &[AABB], from: Vec3, to: Vec3, pos: BlockPos) -> Option<BlockHitResult> {
+    pub fn clip_boxes(
+        boxes: &[AABB],
+        from: Vec3,
+        to: Vec3,
+        pos: BlockPos,
+    ) -> Option<BlockHitResult> {
         let mut scale_reference = 1.0;
         let mut direction = None;
         let dx = to.x - from.x;
         let dy = to.y - from.y;
         let dz = to.z - from.z;
         for aabb in boxes {
-            direction = Self::get_direction(&aabb.move_block_pos(&pos), from, &mut scale_reference, direction, dx, dy, dz);
+            direction = Self::get_direction(
+                &aabb.move_block_pos(&pos),
+                from,
+                &mut scale_reference,
+                direction,
+                dx,
+                dy,
+                dz,
+            );
         }
         let direction = direction?;
         let scale = scale_reference;
@@ -434,21 +522,111 @@ impl AABB {
         dz: f64,
     ) -> Option<Direction> {
         if dx > EPSILON {
-            direction = Self::clip_point(scale_reference, direction, dx, dy, dz, min_x, min_y, max_y, min_z, max_z, Direction::West, from.x, from.y, from.z);
+            direction = Self::clip_point(
+                scale_reference,
+                direction,
+                dx,
+                dy,
+                dz,
+                min_x,
+                min_y,
+                max_y,
+                min_z,
+                max_z,
+                Direction::West,
+                from.x,
+                from.y,
+                from.z,
+            );
         } else if dx < -EPSILON {
-            direction = Self::clip_point(scale_reference, direction, dx, dy, dz, max_x, min_y, max_y, min_z, max_z, Direction::East, from.x, from.y, from.z);
+            direction = Self::clip_point(
+                scale_reference,
+                direction,
+                dx,
+                dy,
+                dz,
+                max_x,
+                min_y,
+                max_y,
+                min_z,
+                max_z,
+                Direction::East,
+                from.x,
+                from.y,
+                from.z,
+            );
         }
 
         if dy > EPSILON {
-            direction = Self::clip_point(scale_reference, direction, dy, dz, dx, min_y, min_z, max_z, min_x, max_x, Direction::Down, from.y, from.z, from.x);
+            direction = Self::clip_point(
+                scale_reference,
+                direction,
+                dy,
+                dz,
+                dx,
+                min_y,
+                min_z,
+                max_z,
+                min_x,
+                max_x,
+                Direction::Down,
+                from.y,
+                from.z,
+                from.x,
+            );
         } else if dy < -EPSILON {
-            direction = Self::clip_point(scale_reference, direction, dy, dz, dx, max_y, min_z, max_z, min_x, max_x, Direction::Up, from.y, from.z, from.x);
+            direction = Self::clip_point(
+                scale_reference,
+                direction,
+                dy,
+                dz,
+                dx,
+                max_y,
+                min_z,
+                max_z,
+                min_x,
+                max_x,
+                Direction::Up,
+                from.y,
+                from.z,
+                from.x,
+            );
         }
 
         if dz > EPSILON {
-            direction = Self::clip_point(scale_reference, direction, dz, dx, dy, min_z, min_x, max_x, min_y, max_y, Direction::North, from.z, from.x, from.y);
+            direction = Self::clip_point(
+                scale_reference,
+                direction,
+                dz,
+                dx,
+                dy,
+                min_z,
+                min_x,
+                max_x,
+                min_y,
+                max_y,
+                Direction::North,
+                from.z,
+                from.x,
+                from.y,
+            );
         } else if dz < -EPSILON {
-            direction = Self::clip_point(scale_reference, direction, dz, dx, dy, max_z, min_x, max_x, min_y, max_y, Direction::South, from.z, from.x, from.y);
+            direction = Self::clip_point(
+                scale_reference,
+                direction,
+                dz,
+                dx,
+                dy,
+                max_z,
+                min_x,
+                max_x,
+                min_y,
+                max_y,
+                Direction::South,
+                from.z,
+                from.x,
+                from.y,
+            );
         }
 
         direction
@@ -475,7 +653,13 @@ impl AABB {
         let s = (point - from_a) / da;
         let pb = from_b + s * db;
         let pc = from_c + s * dc;
-        if 0.0 < s && s < *scale_reference && min_b - EPSILON < pb && pb < max_b + EPSILON && min_c - EPSILON < pc && pc < max_c + EPSILON {
+        if 0.0 < s
+            && s < *scale_reference
+            && min_b - EPSILON < pb
+            && pb < max_b + EPSILON
+            && min_c - EPSILON < pc
+            && pc < max_c + EPSILON
+        {
             *scale_reference = s;
             Some(new_direction)
         } else {
@@ -519,7 +703,12 @@ impl AABB {
     }
 
     pub fn has_nan(&self) -> bool {
-        self.min_x.is_nan() || self.min_y.is_nan() || self.min_z.is_nan() || self.max_x.is_nan() || self.max_y.is_nan() || self.max_z.is_nan()
+        self.min_x.is_nan()
+            || self.min_y.is_nan()
+            || self.min_z.is_nan()
+            || self.max_x.is_nan()
+            || self.max_y.is_nan()
+            || self.max_z.is_nan()
     }
 
     pub fn get_center(&self) -> Vec3 {
@@ -531,7 +720,11 @@ impl AABB {
     }
 
     pub fn get_bottom_center(&self) -> Vec3 {
-        Vec3::new(mth::lerp_f64(0.5, self.min_x, self.max_x), self.min_y, mth::lerp_f64(0.5, self.min_z, self.max_z))
+        Vec3::new(
+            mth::lerp_f64(0.5, self.min_x, self.max_x),
+            self.min_y,
+            mth::lerp_f64(0.5, self.min_z, self.max_z),
+        )
     }
 
     pub fn get_min_position(&self) -> Vec3 {
@@ -568,8 +761,10 @@ impl AABB {
 /// Vanilla `AABB.toString` with Java `Double.toString` number formatting.
 impl fmt::Display for AABB {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        let [a, b, c, d, e, g] =
-            [self.min_x, self.min_y, self.min_z, self.max_x, self.max_y, self.max_z].map(java_double_to_string);
+        let [a, b, c, d, e, g] = [
+            self.min_x, self.min_y, self.min_z, self.max_x, self.max_y, self.max_z,
+        ]
+        .map(java_double_to_string);
         write!(f, "AABB[{a}, {b}, {c}] -> [{d}, {e}, {g}]")
     }
 }
@@ -643,7 +838,17 @@ impl Builder {
 
     /// Panics if no point was included (vanilla: `IllegalStateException`).
     pub fn build(&self) -> AABB {
-        assert!(self.defined, "Cannot build an undefined AABB. Include at least one point.");
-        AABB::new(self.min_x as f64, self.min_y as f64, self.min_z as f64, self.max_x as f64, self.max_y as f64, self.max_z as f64)
+        assert!(
+            self.defined,
+            "Cannot build an undefined AABB. Include at least one point."
+        );
+        AABB::new(
+            self.min_x as f64,
+            self.min_y as f64,
+            self.min_z as f64,
+            self.max_x as f64,
+            self.max_y as f64,
+            self.max_z as f64,
+        )
     }
 }

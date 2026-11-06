@@ -10,7 +10,10 @@ use super::ConnectionSender;
 use super::connection::Payload;
 use crate::util::long_open_hash_set::LongOpenHashSet;
 use mc_core::pos::ChunkPos;
-use mc_protocol::packets::play::{ClientboundChunkBatchFinishedPacket, ClientboundLevelChunkWithLightPacket, ClientboundChunkBatchStartPacket, ClientboundForgetLevelChunkPacket};
+use mc_protocol::packets::play::{
+    ClientboundChunkBatchFinishedPacket, ClientboundChunkBatchStartPacket,
+    ClientboundForgetLevelChunkPacket, ClientboundLevelChunkWithLightPacket,
+};
 use parking_lot::Mutex;
 use std::sync::Arc;
 
@@ -65,7 +68,8 @@ impl PlayerChunkSender {
     /// `dropChunk(player, pos)`: `player_alive` = `player.isAlive()`.
     pub fn drop_chunk(&self, pos: ChunkPos, player_alive: bool) {
         if !self.inner.lock().pending_chunks.remove(pos.pack()) && player_alive {
-            self.connection.send(&ClientboundForgetLevelChunkPacket { pos });
+            self.connection
+                .send(&ClientboundForgetLevelChunkPacket { pos });
         }
     }
 
@@ -94,7 +98,9 @@ impl PlayerChunkSender {
             self.connection.send_payload(payload.clone());
             source.start_tracking_chunk(*pos);
         }
-        self.connection.send(&ClientboundChunkBatchFinishedPacket { batch_size: chunks_to_send.len() as i32 });
+        self.connection.send(&ClientboundChunkBatchFinishedPacket {
+            batch_size: chunks_to_send.len() as i32,
+        });
         inner.batch_quota -= chunks_to_send.len() as f32;
     }
 
@@ -105,8 +111,15 @@ impl PlayerChunkSender {
         if inner.unacknowledged_batches < 0 {
             inner.unacknowledged_batches = 0;
         }
-        inner.desired_chunks_per_tick =
-            if desired_chunks_per_tick.is_nan() { MIN_CHUNKS_PER_TICK } else { mc_core::math::mth::clamp_f32(desired_chunks_per_tick, MIN_CHUNKS_PER_TICK, MAX_CHUNKS_PER_TICK) };
+        inner.desired_chunks_per_tick = if desired_chunks_per_tick.is_nan() {
+            MIN_CHUNKS_PER_TICK
+        } else {
+            mc_core::math::mth::clamp_f32(
+                desired_chunks_per_tick,
+                MIN_CHUNKS_PER_TICK,
+                MAX_CHUNKS_PER_TICK,
+            )
+        };
         if inner.unacknowledged_batches == 0 {
             inner.batch_quota = 1.0;
         }
@@ -133,7 +146,11 @@ pub struct LevelChunkSource<'a> {
 
 impl ChunkPacketSource for LevelChunkSource<'_> {
     fn chunk_packet(&mut self, pos: ChunkPos) -> Option<Payload> {
-        let chunk = self.level.chunk_source.chunk_map.get_chunk_to_send(pos.pack())?;
+        let chunk = self
+            .level
+            .chunk_source
+            .chunk_map
+            .get_chunk_to_send(pos.pack())?;
         let packet = level_chunk_with_light_packet(self.level, chunk);
         Some(Payload::encode(&packet))
     }
@@ -142,30 +159,64 @@ impl ChunkPacketSource for LevelChunkSource<'_> {
 /// `new ClientboundLevelChunkWithLightPacket(chunk, lightEngine, null, null)`: all sections, all light.
 /// Block entities are the chunk's live instances (`getBlockEntities()`); the light is whatever the level's light engine
 /// holds.
-pub fn level_chunk_with_light_packet(level: &crate::server::level::ServerLevel, chunk: &crate::world::level::chunk::LevelChunk) -> ClientboundLevelChunkWithLightPacket {
-    use mc_protocol::packets::play::level::{BlockEntityInfo, ClientboundLevelChunkPacketData, ClientboundLightUpdatePacketData, HeightmapTypes};
+pub fn level_chunk_with_light_packet(
+    level: &crate::server::level::ServerLevel,
+    chunk: &crate::world::level::chunk::LevelChunk,
+) -> ClientboundLevelChunkWithLightPacket {
+    use mc_protocol::packets::play::level::{
+        BlockEntityInfo, ClientboundLevelChunkPacketData, ClientboundLightUpdatePacketData,
+        HeightmapTypes,
+    };
     let pos = chunk.pos();
     let access = &chunk.data.access;
     let block_entities: Vec<mc_world::chunk_packet::BlockEntityInfo> = chunk
         .block_entities
         .iter()
-        .map(|(p, be)| mc_world::chunk_packet::BlockEntityInfo::create(p.x(), p.y(), p.z(), be.get_type(), be.get_update_tag()))
+        .map(|(p, be)| {
+            mc_world::chunk_packet::BlockEntityInfo::create(
+                p.x(),
+                p.y(),
+                p.z(),
+                be.get_type(),
+                be.get_update_tag(),
+            )
+        })
         .collect();
-    let heightmaps = access.heightmaps.iter().map(|(ty, h)| (*ty, h.get_raw_data()));
-    let data = mc_world::chunk_packet::LevelChunkPacketData::new(&access.sections, heightmaps, block_entities)
-        .expect("chunk sections serialize into their computed size");
+    let heightmaps = access
+        .heightmaps
+        .iter()
+        .map(|(ty, h)| (*ty, h.get_raw_data()));
+    let data = mc_world::chunk_packet::LevelChunkPacketData::new(
+        &access.sections,
+        heightmaps,
+        block_entities,
+    )
+    .expect("chunk sections serialize into their computed size");
     let chunk_data = ClientboundLevelChunkPacketData {
-        heightmaps: data.heightmaps.into_iter().map(|(ty, longs)| (HeightmapTypes::by_id(i32::from(ty.id())), longs)).collect(),
+        heightmaps: data
+            .heightmaps
+            .into_iter()
+            .map(|(ty, longs)| (HeightmapTypes::by_id(i32::from(ty.id())), longs))
+            .collect(),
         buffer: data.buffer,
         block_entities_data: data
             .block_entities
             .into_iter()
-            .map(|b| BlockEntityInfo { packed_xz: b.packed_xz as i8, y: b.y, r#type: b.block_entity_type, tag: b.tag })
+            .map(|b| BlockEntityInfo {
+                packed_xz: b.packed_xz as i8,
+                y: b.y,
+                r#type: b.block_entity_type,
+                tag: b.tag,
+            })
             .collect(),
     };
     // `ClientboundLightUpdatePacketData(pos, lightEngine, null, null)`: every section
-    let data = level.light_engine().engine().light_update_packet_data(pos, None, None);
-    let to_protocol = |b: &mc_world::chunk_packet::BitSet| mc_protocol::codec::BitSet::from_bytes(&b.to_bytes());
+    let data = level
+        .light_engine()
+        .engine()
+        .light_update_packet_data(pos, None, None);
+    let to_protocol =
+        |b: &mc_world::chunk_packet::BitSet| mc_protocol::codec::BitSet::from_bytes(&b.to_bytes());
     let light_data = ClientboundLightUpdatePacketData {
         sky_y_mask: to_protocol(&data.sky_y_mask),
         block_y_mask: to_protocol(&data.block_y_mask),
@@ -174,16 +225,31 @@ pub fn level_chunk_with_light_packet(level: &crate::server::level::ServerLevel, 
         sky_updates: data.sky_updates,
         block_updates: data.block_updates,
     };
-    ClientboundLevelChunkWithLightPacket { x: pos.x, z: pos.z, chunk_data, light_data }
+    ClientboundLevelChunkWithLightPacket {
+        x: pos.x,
+        z: pos.z,
+        chunk_data,
+        light_data,
+    }
 }
 
 impl Inner {
     /// `collectChunksToSend(chunkMap, playerPos)`.
-    fn collect_chunks_to_send(&mut self, player_pos: ChunkPos, source: &mut impl ChunkPacketSource) -> Vec<(ChunkPos, Payload)> {
+    fn collect_chunks_to_send(
+        &mut self,
+        player_pos: ChunkPos,
+        source: &mut impl ChunkPacketSource,
+    ) -> Vec<(ChunkPos, Payload)> {
         let max_batch_size = mc_core::math::mth::floor_f32(self.batch_quota);
         let dist = |packed: i64| player_pos.distance_squared_long(packed);
-        let chunks: Vec<(ChunkPos, Payload)> = if !self.memory_connection && self.pending_chunks.len() as i64 > i64::from(max_batch_size) {
-            let selected = least(max_batch_size.max(0) as usize, self.pending_chunks.iter(), |a, b| dist(*a).cmp(&dist(*b)));
+        let chunks: Vec<(ChunkPos, Payload)> = if !self.memory_connection
+            && self.pending_chunks.len() as i64 > i64::from(max_batch_size)
+        {
+            let selected = least(
+                max_batch_size.max(0) as usize,
+                self.pending_chunks.iter(),
+                |a, b| dist(*a).cmp(&dist(*b)),
+            );
             selected
                 .into_iter()
                 .filter_map(|packed| {
@@ -213,7 +279,11 @@ impl Inner {
 /// Guava `Comparators.least(k, comparator)` collected sequentially (`TopKSelector`): the `k` least elements in
 /// ascending order. The partition/trim steps are reproduced because the order of elements that compare equal
 /// (here: chunks at the same distance) depends on them.
-pub fn least<T: Copy>(k: usize, items: impl Iterator<Item = T>, cmp: impl Fn(&T, &T) -> std::cmp::Ordering) -> Vec<T> {
+pub fn least<T: Copy>(
+    k: usize,
+    items: impl Iterator<Item = T>,
+    cmp: impl Fn(&T, &T) -> std::cmp::Ordering,
+) -> Vec<T> {
     if k == 0 {
         return Vec::new();
     }
@@ -266,7 +336,8 @@ pub fn least<T: Copy>(k: usize, items: impl Iterator<Item = T>, cmp: impl Fn(&T,
                     }
                     iterations += 1;
                     if iterations >= max_iterations {
-                        buffer[left..=right].sort_by(|a, b| cmp(&a.expect("filled"), &b.expect("filled")));
+                        buffer[left..=right]
+                            .sort_by(|a, b| cmp(&a.expect("filled"), &b.expect("filled")));
                         break;
                     }
                 }
@@ -282,7 +353,10 @@ pub fn least<T: Copy>(k: usize, items: impl Iterator<Item = T>, cmp: impl Fn(&T,
         }
     }
     // topK()
-    let mut out: Vec<T> = buffer[..buffer_size].iter().map(|e| e.expect("filled")).collect();
+    let mut out: Vec<T> = buffer[..buffer_size]
+        .iter()
+        .map(|e| e.expect("filled"))
+        .collect();
     out.sort_by(|a, b| cmp(a, b));
     out.truncate(k);
     out
@@ -290,7 +364,11 @@ pub fn least<T: Copy>(k: usize, items: impl Iterator<Item = T>, cmp: impl Fn(&T,
 
 /// `IntMath.log2(x, RoundingMode.CEILING)` for `x > 0`.
 fn ceil_log2(x: usize) -> i32 {
-    if x <= 1 { 0 } else { (usize::BITS - (x - 1).leading_zeros()) as i32 }
+    if x <= 1 {
+        0
+    } else {
+        (usize::BITS - (x - 1).leading_zeros()) as i32
+    }
 }
 
 #[cfg(test)]
@@ -305,12 +383,17 @@ mod tests {
         }
     }
 
-    fn sender() -> (PlayerChunkSender, tokio::sync::mpsc::UnboundedReceiver<super::super::Outbound>) {
+    fn sender() -> (
+        PlayerChunkSender,
+        tokio::sync::mpsc::UnboundedReceiver<super::super::Outbound>,
+    ) {
         let (tx, rx) = unbounded_channel();
         (PlayerChunkSender::new(ConnectionSender::new(tx), false), rx)
     }
 
-    fn drain(rx: &mut tokio::sync::mpsc::UnboundedReceiver<super::super::Outbound>) -> Vec<Vec<u8>> {
+    fn drain(
+        rx: &mut tokio::sync::mpsc::UnboundedReceiver<super::super::Outbound>,
+    ) -> Vec<Vec<u8>> {
         let mut out = vec![];
         while let Ok(super::super::Outbound::Payload(p)) = rx.try_recv() {
             out.push(p.to_vec());
@@ -330,7 +413,12 @@ mod tests {
         let sent = drain(&mut rx);
         assert_eq!(sent.len(), 9 + 2, "batch start + 9 chunks + batch finished");
         let xs: Vec<u8> = sent[1..10].iter().map(|p| p[1]).collect();
-        assert_eq!(xs.iter().copied().collect::<std::collections::BTreeSet<_>>(), (0..9).collect());
+        assert_eq!(
+            xs.iter()
+                .copied()
+                .collect::<std::collections::BTreeSet<_>>(),
+            (0..9).collect()
+        );
         // unacknowledged batch limit is 1 until the client answers
         s.send_next_chunks(center, &mut Src);
         assert!(drain(&mut rx).is_empty());

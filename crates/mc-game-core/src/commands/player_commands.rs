@@ -7,8 +7,15 @@ use crate::server::permissions::PermissionSet;
 use crate::server::players::PlayerHandle;
 
 /// `Commands.sendCommands(player)`: sends the command tree `permissions` may use.
-pub fn send_commands(server: &mut MinecraftServer, player: &PlayerHandle, permissions: &PermissionSet) {
+pub fn send_commands(
+    server: &mut MinecraftServer,
+    player: &PlayerHandle,
+    permissions: &PermissionSet,
+) {
     let source = CommandSourceStack::compilation_context(permissions.clone());
-    let root = super::command_tree::usable_root(server.commands.get_dispatcher().get_root(), &source);
-    player.connection.send(&super::command_tree::commands_packet(&root));
+    let root =
+        super::command_tree::usable_root(server.commands.get_dispatcher().get_root(), &source);
+    player
+        .connection
+        .send(&super::command_tree::commands_packet(&root));
 }

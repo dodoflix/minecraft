@@ -24,7 +24,11 @@ impl Default for WanderingTraderData {
 
 impl WanderingTraderData {
     pub fn new(spawn_delay: i32, spawn_chance: i32) -> Self {
-        WanderingTraderData { dirty: false, spawn_delay, spawn_chance }
+        WanderingTraderData {
+            dirty: false,
+            spawn_delay,
+            spawn_chance,
+        }
     }
 
     pub fn spawn_delay(&self) -> i32 {
@@ -67,6 +71,11 @@ impl WanderingTraderData {
     }
 
     pub fn type_() -> SavedDataType<WanderingTraderData> {
-        SavedDataType::new(Identifier::parse("minecraft:wandering_trader").expect("static id"), WanderingTraderData::default, WanderingTraderData::decode, WanderingTraderData::encode)
+        SavedDataType::new(
+            Identifier::parse("minecraft:wandering_trader").expect("static id"),
+            WanderingTraderData::default,
+            WanderingTraderData::decode,
+            WanderingTraderData::encode,
+        )
     }
 }

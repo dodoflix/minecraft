@@ -20,7 +20,10 @@ pub struct SimpleRegionStorage {
 
 impl SimpleRegionStorage {
     pub fn new(info: RegionStorageInfo, folder: impl Into<PathBuf>, sync_writes: bool) -> Self {
-        Self { storage: RegionFileStorage::new(info, folder, sync_writes), pending_writes: IndexMap::new() }
+        Self {
+            storage: RegionFileStorage::new(info, folder, sync_writes),
+            pending_writes: IndexMap::new(),
+        }
     }
 
     /// `read(pos)`: pending write first (a copy), else the stored chunk.
@@ -28,7 +31,9 @@ impl SimpleRegionStorage {
         if let Some(pending) = self.pending_writes.get(&pos.pack()) {
             return Ok(pending.clone());
         }
-        self.storage.read(pos).inspect_err(|e| log::warn!("Failed to read chunk {}: {}", pos, e))
+        self.storage
+            .read(pos)
+            .inspect_err(|e| log::warn!("Failed to read chunk {}: {}", pos, e))
     }
 
     /// `write(pos, value)`: queues the write (`None` = remove the chunk). An already queued chunk
@@ -39,9 +44,13 @@ impl SimpleRegionStorage {
 
     /// `storePendingChunk`: persists the oldest queued chunk; returns whether there was one.
     pub fn store_pending_chunk(&mut self) -> io::Result<bool> {
-        let Some((key, data)) = self.pending_writes.shift_remove_index(0) else { return Ok(false) };
+        let Some((key, data)) = self.pending_writes.shift_remove_index(0) else {
+            return Ok(false);
+        };
         let pos = ChunkPos::unpack(key);
-        self.storage.write(&pos, data.as_ref()).inspect_err(|e| log::error!("Failed to store chunk {}: {}", pos, e))?;
+        self.storage
+            .write(&pos, data.as_ref())
+            .inspect_err(|e| log::error!("Failed to store chunk {}: {}", pos, e))?;
         Ok(true)
     }
 
@@ -58,7 +67,9 @@ impl SimpleRegionStorage {
             return Err(e);
         }
         if flush {
-            self.storage.flush().inspect_err(|e| log::warn!("Failed to synchronize chunks: {}", e))?;
+            self.storage
+                .flush()
+                .inspect_err(|e| log::warn!("Failed to synchronize chunks: {}", e))?;
         }
         Ok(())
     }
@@ -68,7 +79,9 @@ impl SimpleRegionStorage {
         while !self.pending_writes.is_empty() {
             let _ = self.store_pending_chunk();
         }
-        self.storage.close().inspect_err(|e| log::error!("Failed to close storage: {}", e))
+        self.storage
+            .close()
+            .inspect_err(|e| log::error!("Failed to close storage: {}", e))
     }
 
     pub fn storage_info(&self) -> &RegionStorageInfo {

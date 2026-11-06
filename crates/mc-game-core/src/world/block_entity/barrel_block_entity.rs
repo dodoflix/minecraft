@@ -1,9 +1,13 @@
 //! `BarrelBlockEntity`.
 
 use super::base_container::BaseContainer;
-use super::container_openers::{ContainerOpenersCounter, OpenersHost, player_has_chest_menu_open_on};
+use super::container_openers::{
+    ContainerOpenersCounter, OpenersHost, player_has_chest_menu_open_on,
+};
 use super::randomizable_container::{self, RandomizableContainerData};
-use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, ContainerUser};
+use super::{
+    BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, ContainerUser,
+};
 use crate::server::level::ServerLevel;
 use crate::world::container::{Container, helper};
 use crate::world::entity::{Entity, EntityId};
@@ -57,7 +61,15 @@ impl OpenersHost for BarrelHost {
         Self::play_sound(level, pos, state, SoundEvent::BLOCK_BARREL_CLOSE);
         Self::update_block_state(pos, state, false);
     }
-    fn opener_count_changed(&self, _level: &mut ServerLevel, _pos: BlockPos, _state: BlockState, _previous: i32, _current: i32) {}
+    fn opener_count_changed(
+        &self,
+        _level: &mut ServerLevel,
+        _pos: BlockPos,
+        _state: BlockState,
+        _previous: i32,
+        _current: i32,
+    ) {
+    }
     fn is_own_container(&self, player: &dyn Entity, pos: BlockPos) -> bool {
         player_has_chest_menu_open_on(player, pos)
     }
@@ -85,10 +97,15 @@ impl BarrelBlockEntity {
     }
 
     pub fn can_open(&self, player: &dyn crate::world::inventory::MenuPlayer) -> bool {
-        (self.loot.loot_table.is_none() || !player.is_spectator()) && self.container.can_open(player)
+        (self.loot.loot_table.is_none() || !player.is_spectator())
+            && self.container.can_open(player)
     }
 
-    pub fn unpack(&mut self, level: &ServerLevel, player: Option<&dyn crate::world::entity::Entity>) {
+    pub fn unpack(
+        &mut self,
+        level: &ServerLevel,
+        player: Option<&dyn crate::world::entity::Entity>,
+    ) {
         let mut loot = std::mem::take(&mut self.loot);
         let pos = self.base.pos;
         randomizable_container::unpack_loot_table(level, pos, &mut loot, self, player);
@@ -126,18 +143,24 @@ impl BlockEntity for BarrelBlockEntity {
     }
 
     fn apply_components_from_item_stack(&mut self, stack: &ItemStack) {
-        self.container.apply_implicit_components(stack, &mut self.items);
+        self.container
+            .apply_implicit_components(stack, &mut self.items);
         if let Some(loot) = stack.get(&mc_protocol::components::CONTAINER_LOOT) {
             self.loot.set_loot_table(loot.loot_table.clone(), loot.seed);
         }
     }
 
     fn collect_implicit_components(&self, builder: &mut DataComponentMapBuilder) {
-        *builder = self.container.collect_implicit_components(std::mem::take(builder), &self.items);
+        *builder = self
+            .container
+            .collect_implicit_components(std::mem::take(builder), &self.items);
         if let Some(table) = &self.loot.loot_table {
             *builder = std::mem::take(builder).set(
                 mc_protocol::components::CONTAINER_LOOT,
-                mc_protocol::components::SeededContainerLoot { loot_table: table.clone(), seed: self.loot.loot_table_seed },
+                mc_protocol::components::SeededContainerLoot {
+                    loot_table: table.clone(),
+                    seed: self.loot.loot_table_seed,
+                },
             );
         }
     }
@@ -146,7 +169,12 @@ impl BlockEntity for BarrelBlockEntity {
         self.container.get_custom_name().cloned()
     }
 
-    fn pre_remove_side_effects(&mut self, level: &mut ServerLevel, pos: BlockPos, _state: BlockState) {
+    fn pre_remove_side_effects(
+        &mut self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        _state: BlockState,
+    ) {
         self.unpack(level, None);
         crate::world::containers::drop_contents_list(level, pos, &self.items);
     }
@@ -171,18 +199,30 @@ impl BlockEntity for BarrelBlockEntity {
     fn start_open(&mut self, level: &mut ServerLevel, user: &ContainerUser) {
         if !self.base.removed && !user.spectator {
             let (pos, state) = (self.base.pos, self.base.block_state);
-            self.openers.increment_openers(&BarrelHost, user.id, level, pos, state, user.interaction_range);
+            self.openers.increment_openers(
+                &BarrelHost,
+                user.id,
+                level,
+                pos,
+                state,
+                user.interaction_range,
+            );
         }
     }
 
     fn stop_open(&mut self, level: &mut ServerLevel, user: &ContainerUser) {
         if !self.base.removed && !user.spectator {
             let (pos, state) = (self.base.pos, self.base.block_state);
-            self.openers.decrement_openers(&BarrelHost, user.id, level, pos, state);
+            self.openers
+                .decrement_openers(&BarrelHost, user.id, level, pos, state);
         }
     }
 
-    fn unpack_loot_table(&mut self, level: &ServerLevel, player: Option<&dyn crate::world::entity::Entity>) {
+    fn unpack_loot_table(
+        &mut self,
+        level: &ServerLevel,
+        player: Option<&dyn crate::world::entity::Entity>,
+    ) {
         self.unpack(level, player);
     }
 
@@ -192,4 +232,7 @@ impl BlockEntity for BarrelBlockEntity {
 }
 
 #[distributed_slice(BLOCK_ENTITY_TYPES)]
-static BARREL: BlockEntityRegistration = BlockEntityRegistration { ty: BlockEntityType::BARREL, create: |pos, state| Box::new(BarrelBlockEntity::new(pos, state)) };
+static BARREL: BlockEntityRegistration = BlockEntityRegistration {
+    ty: BlockEntityType::BARREL,
+    create: |pos, state| Box::new(BarrelBlockEntity::new(pos, state)),
+};

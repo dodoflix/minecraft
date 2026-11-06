@@ -11,4 +11,14 @@ macro_rules! scenario {
     )*};
 }
 
-scenario!(wire_line, wire_terrain, lamp, torch_clock, torch_misc, ore, exp_line, exp_terrain, exp_clock);
+scenario!(
+    wire_line,
+    wire_terrain,
+    lamp,
+    torch_clock,
+    torch_misc,
+    ore,
+    exp_line,
+    exp_terrain,
+    exp_clock
+);

@@ -1,6 +1,6 @@
 //! `net.minecraft.world.level.block.HugeMushroomBlock`.
-use mc_game_core::{register_block_class, update_shape};
 use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::{register_block_class, update_shape};
 
 pub struct HugeMushroomBlock;
 
@@ -16,9 +16,15 @@ fn map_faces(state: BlockState, map: impl Fn(Direction) -> Direction) -> BlockSt
 }
 
 impl BlockBehaviour for HugeMushroomBlock {
-    update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
-        if neighbour_state.is_block(state.block()) { state.set(helpers::pipe_property(direction), false) } else { state }
-    });
+    update_shape!(
+        |self, state, level, pos, direction, neighbour_pos, neighbour_state| {
+            if neighbour_state.is_block(state.block()) {
+                state.set(helpers::pipe_property(direction), false)
+            } else {
+                state
+            }
+        }
+    );
     fn rotate(&self, state: BlockState, rotation: Rotation) -> BlockState {
         map_faces(state, |d| rotation.rotate(d))
     }

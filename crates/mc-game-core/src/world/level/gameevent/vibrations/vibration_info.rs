@@ -24,13 +24,29 @@ pub struct VibrationInfo {
 
 impl VibrationInfo {
     /// `VibrationInfo(gameEvent, distance, pos, entity)`.
-    pub fn new(game_event: GameEvent, distance: f32, pos: Vec3, entity: Option<SourceEntityInfo>) -> Self {
-        Self { game_event, distance, pos, source: entity.map(|e| e.uuid), projectile_owner: entity.and_then(|e| e.projectile_owner), entity }
+    pub fn new(
+        game_event: GameEvent,
+        distance: f32,
+        pos: Vec3,
+        entity: Option<SourceEntityInfo>,
+    ) -> Self {
+        Self {
+            game_event,
+            distance,
+            pos,
+            source: entity.map(|e| e.uuid),
+            projectile_owner: entity.and_then(|e| e.projectile_owner),
+            entity,
+        }
     }
 
     /// `getEntity(level)`: the captured entity, else the entity with the saved UUID.
     pub fn get_entity(&self, level: &ServerLevel) -> Option<SourceEntityInfo> {
-        self.entity.or_else(|| self.source.and_then(|uuid| level.get_entity_by_uuid(uuid)).map(|e| super::capture_source_entity(level, e)))
+        self.entity.or_else(|| {
+            self.source
+                .and_then(|uuid| level.get_entity_by_uuid(uuid))
+                .map(|e| super::capture_source_entity(level, e))
+        })
     }
 
     /// `getProjectileOwner(level)`: the owner of the source projectile, else the entity with the saved owner UUID.
@@ -48,7 +64,9 @@ fn game_event_codec() -> Codec<GameEvent> {
     IDENTIFIER.flat_xmap(
         |id| match GameEvent::by_name(&id.to_string()) {
             Some(event) => DataResult::success(event),
-            None => DataResult::error(move || format!("Unknown registry key in ResourceKey[minecraft:game_event / {id}]")),
+            None => DataResult::error(move || {
+                format!("Unknown registry key in ResourceKey[minecraft:game_event / {id}]")
+            }),
         },
         |event: &GameEvent| DataResult::success(event.identifier()),
     )
@@ -76,8 +94,21 @@ pub static CODEC: LazyLock<Codec<VibrationInfo>> = LazyLock::new(|| {
     })
     .codec()
     .xmap(
-        |w: Wire| VibrationInfo { game_event: w.game_event, distance: w.distance, pos: w.pos, source: w.source, projectile_owner: w.projectile_owner, entity: None },
-        |i: &VibrationInfo| Wire { game_event: i.game_event, distance: i.distance, pos: i.pos, source: i.source, projectile_owner: i.projectile_owner },
+        |w: Wire| VibrationInfo {
+            game_event: w.game_event,
+            distance: w.distance,
+            pos: w.pos,
+            source: w.source,
+            projectile_owner: w.projectile_owner,
+            entity: None,
+        },
+        |i: &VibrationInfo| Wire {
+            game_event: i.game_event,
+            distance: i.distance,
+            pos: i.pos,
+            source: i.source,
+            projectile_owner: i.projectile_owner,
+        },
     )
 });
 

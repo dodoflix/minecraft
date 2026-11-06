@@ -43,8 +43,12 @@ impl SharedRandom {
     /// `SharedRandom` (or a clone of it) advances `random`. Clones that outlive `f` panic when used.
     pub fn scoped<R>(random: &mut dyn RandomSource, f: impl FnOnce(&SharedRandom) -> R) -> R {
         // SAFETY: only the lifetime is erased; the pointer is invalidated by `Guard` before `random`'s borrow ends.
-        let erased: &'static mut dyn RandomSource = unsafe { std::mem::transmute::<&mut dyn RandomSource, &'static mut dyn RandomSource>(random) };
-        let shared = Arc::new(BorrowedRandom { ptr: Mutex::new(Some(NonNull::from(erased))) });
+        let erased: &'static mut dyn RandomSource = unsafe {
+            std::mem::transmute::<&mut dyn RandomSource, &'static mut dyn RandomSource>(random)
+        };
+        let shared = Arc::new(BorrowedRandom {
+            ptr: Mutex::new(Some(NonNull::from(erased))),
+        });
         struct Guard(Arc<BorrowedRandom>);
         impl Drop for Guard {
             fn drop(&mut self) {
@@ -193,7 +197,11 @@ impl StructurePlaceSettings {
 
     /// `popProcessor(processor)`: removes the first occurrence of that very processor.
     pub fn pop_processor(&mut self, processor: &Arc<dyn StructureProcessor>) -> &mut Self {
-        if let Some(i) = self.processors.iter().position(|p| Arc::ptr_eq(p, processor)) {
+        if let Some(i) = self
+            .processors
+            .iter()
+            .position(|p| Arc::ptr_eq(p, processor))
+        {
             self.processors.remove(i);
         }
         self
@@ -222,7 +230,9 @@ impl StructurePlaceSettings {
             (Some(random), _) => Box::new(random.clone()),
             (None, Some(pos)) => Box::new(random::create(mth::get_seed(&pos))),
             (None, None) => Box::new(random::create(
-                std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).map_or(0, |d| d.as_millis() as i64),
+                std::time::SystemTime::now()
+                    .duration_since(std::time::UNIX_EPOCH)
+                    .map_or(0, |d| d.as_millis() as i64),
             )),
         }
     }
@@ -248,7 +258,11 @@ impl StructurePlaceSettings {
     }
 
     /// `getRandomPalette(palettes, pos)`; panics on an empty list (`IllegalStateException("No palettes")`).
-    pub fn get_random_palette<'a>(&self, palettes: &'a [Palette], pos: Option<BlockPos>) -> &'a Palette {
+    pub fn get_random_palette<'a>(
+        &self,
+        palettes: &'a [Palette],
+        pos: Option<BlockPos>,
+    ) -> &'a Palette {
         assert!(!palettes.is_empty(), "No palettes");
         &palettes[self.get_random(pos).next_int_bounded(palettes.len() as i32) as usize]
     }

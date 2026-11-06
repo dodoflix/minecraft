@@ -42,12 +42,23 @@ pub struct ItemFrame {
 impl ItemFrame {
     /// `ItemFrame(type, level)`.
     pub fn new(ty: EntityType, id: EntityId) -> Self {
-        let base = EntityData::new(ty, id, crate::world::entity::entity::TOTAL_AIR_SUPPLY, |b| {
-            b.define(DATA_DIRECTION, hanging::DEFAULT_DIRECTION);
-            b.define(DATA_ITEM, ItemStack::empty());
-            b.define(DATA_ROTATION, 0);
-        });
-        let mut frame = Self { base, attached: Attached::default(), drop_chance: 1.0, fixed: false, pending_load_sound: false };
+        let base = EntityData::new(
+            ty,
+            id,
+            crate::world::entity::entity::TOTAL_AIR_SUPPLY,
+            |b| {
+                b.define(DATA_DIRECTION, hanging::DEFAULT_DIRECTION);
+                b.define(DATA_ITEM, ItemStack::empty());
+                b.define(DATA_ROTATION, 0);
+            },
+        );
+        let mut frame = Self {
+            base,
+            attached: Attached::default(),
+            drop_chance: 1.0,
+            fixed: false,
+            pending_load_sound: false,
+        };
         frame.set_pos(0.0, 0.0, 0.0); // `Entity(type, level)`: `setPos(0, 0, 0)`
         frame.base.set_shared_flag(FLAG_INVISIBLE, false);
         frame
@@ -88,7 +99,11 @@ impl ItemFrame {
 
     /// `getAnalogOutput()`.
     pub fn get_analog_output(&self) -> i32 {
-        if self.get_item().is_empty() { 0 } else { self.get_rotation() % 8 + 1 }
+        if self.get_item().is_empty() {
+            0
+        } else {
+            self.get_rotation() % 8 + 1
+        }
     }
 
     pub fn is_invisible_frame(&self) -> bool {
@@ -96,28 +111,52 @@ impl ItemFrame {
     }
 
     fn get_remove_item_sound(&self) -> SoundEvent {
-        if self.is_glow() { SoundEvent::ENTITY_GLOW_ITEM_FRAME_REMOVE_ITEM } else { SoundEvent::ENTITY_ITEM_FRAME_REMOVE_ITEM }
+        if self.is_glow() {
+            SoundEvent::ENTITY_GLOW_ITEM_FRAME_REMOVE_ITEM
+        } else {
+            SoundEvent::ENTITY_ITEM_FRAME_REMOVE_ITEM
+        }
     }
 
     fn get_break_sound(&self) -> SoundEvent {
-        if self.is_glow() { SoundEvent::ENTITY_GLOW_ITEM_FRAME_BREAK } else { SoundEvent::ENTITY_ITEM_FRAME_BREAK }
+        if self.is_glow() {
+            SoundEvent::ENTITY_GLOW_ITEM_FRAME_BREAK
+        } else {
+            SoundEvent::ENTITY_ITEM_FRAME_BREAK
+        }
     }
 
     fn get_place_sound(&self) -> SoundEvent {
-        if self.is_glow() { SoundEvent::ENTITY_GLOW_ITEM_FRAME_PLACE } else { SoundEvent::ENTITY_ITEM_FRAME_PLACE }
+        if self.is_glow() {
+            SoundEvent::ENTITY_GLOW_ITEM_FRAME_PLACE
+        } else {
+            SoundEvent::ENTITY_ITEM_FRAME_PLACE
+        }
     }
 
     fn get_add_item_sound(&self) -> SoundEvent {
-        if self.is_glow() { SoundEvent::ENTITY_GLOW_ITEM_FRAME_ADD_ITEM } else { SoundEvent::ENTITY_ITEM_FRAME_ADD_ITEM }
+        if self.is_glow() {
+            SoundEvent::ENTITY_GLOW_ITEM_FRAME_ADD_ITEM
+        } else {
+            SoundEvent::ENTITY_ITEM_FRAME_ADD_ITEM
+        }
     }
 
     fn get_rotate_item_sound(&self) -> SoundEvent {
-        if self.is_glow() { SoundEvent::ENTITY_GLOW_ITEM_FRAME_ROTATE_ITEM } else { SoundEvent::ENTITY_ITEM_FRAME_ROTATE_ITEM }
+        if self.is_glow() {
+            SoundEvent::ENTITY_GLOW_ITEM_FRAME_ROTATE_ITEM
+        } else {
+            SoundEvent::ENTITY_ITEM_FRAME_ROTATE_ITEM
+        }
     }
 
     /// `getFrameItemStack()`.
     fn get_frame_item_stack(&self) -> ItemStack {
-        ItemStack::new(if self.is_glow() { Item::GLOW_ITEM_FRAME } else { Item::ITEM_FRAME })
+        ItemStack::new(if self.is_glow() {
+            Item::GLOW_ITEM_FRAME
+        } else {
+            Item::ITEM_FRAME
+        })
     }
 
     /// `getFrameItemStackWithData()`.
@@ -132,7 +171,11 @@ impl ItemFrame {
     /// `getPickResult()`.
     pub fn get_pick_result_stack(&self) -> ItemStack {
         let framed = self.get_item();
-        if framed.is_empty() { self.get_frame_item_stack_with_data() } else { framed.copy() }
+        if framed.is_empty() {
+            self.get_frame_item_stack_with_data()
+        } else {
+            framed.copy()
+        }
     }
 
     fn set_invisible(&mut self, invisible: bool) {
@@ -145,16 +188,32 @@ impl ItemFrame {
         let width = if has_framed_map { 1.0f32 } else { 0.75f32 };
         let height = if has_framed_map { 1.0f32 } else { 0.75f32 };
         let axis = direction.get_axis();
-        let x_size = if axis == Axis::X { 0.0625 } else { f64::from(width) };
-        let y_size = if axis == Axis::Y { 0.0625 } else { f64::from(height) };
-        let z_size = if axis == Axis::Z { 0.0625 } else { f64::from(width) };
+        let x_size = if axis == Axis::X {
+            0.0625
+        } else {
+            f64::from(width)
+        };
+        let y_size = if axis == Axis::Y {
+            0.0625
+        } else {
+            f64::from(height)
+        };
+        let z_size = if axis == Axis::Z {
+            0.0625
+        } else {
+            f64::from(width)
+        };
         AABB::of_size(position, x_size, y_size, z_size)
     }
 
     /// `setItem(itemStack, updateNeighbours)` without the add-item sound and the neighbour update, which need the
     /// level (callers run [`ItemFrame::after_set_item`]). Returns the stack that was stored.
     fn set_item_data(&mut self, stack: &ItemStack) -> ItemStack {
-        let stored = if stack.is_empty() { stack.clone() } else { stack.copy_with_count(1) };
+        let stored = if stack.is_empty() {
+            stack.clone()
+        } else {
+            stack.copy_with_count(1)
+        };
         self.recalculate_bounding_box(); // `onItemChanged(itemStack)`
         if self.base.entity_data.set(DATA_ITEM, stored.clone()) {
             self.on_synced_data_updated(DATA_ITEM.id());
@@ -163,7 +222,12 @@ impl ItemFrame {
     }
 
     /// `setItem(itemStack, updateNeighbours)`.
-    pub fn set_item(&mut self, level: &mut ServerLevel, stack: &ItemStack, update_neighbours: bool) {
+    pub fn set_item(
+        &mut self,
+        level: &mut ServerLevel,
+        stack: &ItemStack,
+        update_neighbours: bool,
+    ) {
         let stored = self.set_item_data(stack);
         if !stored.is_empty() {
             let sound = self.get_add_item_sound();
@@ -190,7 +254,12 @@ impl ItemFrame {
     }
 
     /// `dropItem(level, causedBy, withFrame)`.
-    fn drop_item_with_frame(&mut self, level: &mut ServerLevel, caused_by: Option<&Cause>, with_frame: bool) {
+    fn drop_item_with_frame(
+        &mut self,
+        level: &mut ServerLevel,
+        caused_by: Option<&Cause>,
+        with_frame: bool,
+    ) {
         if self.fixed {
             return;
         }
@@ -218,7 +287,8 @@ impl ItemFrame {
     }
 
     fn can_hurt_when_fixed(level: &ServerLevel, source: &DamageSource) -> bool {
-        source.is_tag(level, DamageTypeTags::BYPASSES_INVULNERABILITY) || source.is_creative_player()
+        source.is_tag(level, DamageTypeTags::BYPASSES_INVULNERABILITY)
+            || source.is_creative_player()
     }
 }
 
@@ -245,14 +315,22 @@ impl BlockAttached for ItemFrame {
         }
         let direction = self.get_hanging_direction();
         let state = level.get_block_state(self.attached.pos.relative(direction.get_opposite()));
-        if state.is_solid() || (direction.get_axis().is_horizontal() && is_diode(state)) { hanging::can_coexist(self, level, true) } else { false }
+        if state.is_solid() || (direction.get_axis().is_horizontal() && is_diode(state)) {
+            hanging::can_coexist(self, level, true)
+        } else {
+            false
+        }
     }
     /// `dropItem(level, causedBy)`.
     fn drop_item(&mut self, level: &mut ServerLevel, caused_by: Option<&Cause>) {
         let sound = self.get_break_sound();
         self.play_sound(level, sound, 1.0, 1.0);
         self.drop_item_with_frame(level, caused_by, true);
-        level.game_event_from_entity(caused_by.map(|c| c.id), GameEvent::BLOCK_CHANGE, self.base.position());
+        level.game_event_from_entity(
+            caused_by.map(|c| c.id),
+            GameEvent::BLOCK_CHANGE,
+            self.base.position(),
+        );
     }
     /// `onKilled()`.
     fn on_killed(&mut self, level: &mut ServerLevel) {
@@ -376,8 +454,16 @@ impl Entity for ItemFrame {
                 return false;
             }
             if !source.is_tag(level, DamageTypeTags::IS_EXPLOSION) && !self.get_item().is_empty() {
-                self.drop_item_with_frame(level, source.causing_info().map(Cause::of).as_ref(), false);
-                level.game_event_from_entity(source.get_entity(), GameEvent::BLOCK_CHANGE, self.base.position());
+                self.drop_item_with_frame(
+                    level,
+                    source.causing_info().map(Cause::of).as_ref(),
+                    false,
+                );
+                level.game_event_from_entity(
+                    source.get_entity(),
+                    GameEvent::BLOCK_CHANGE,
+                    self.base.position(),
+                );
                 let sound = self.get_remove_item_sound();
                 self.play_sound(level, sound, 1.0, 1.0);
                 true
@@ -385,11 +471,20 @@ impl Entity for ItemFrame {
                 block_attached::hurt_server(self, level, source, damage)
             }
         } else {
-            Self::can_hurt_when_fixed(level, source) && block_attached::hurt_server(self, level, source, damage)
+            Self::can_hurt_when_fixed(level, source)
+                && block_attached::hurt_server(self, level, source, damage)
         }
     }
-    fn get_add_entity_packet(&self, server_entity: &ServerEntity) -> mc_protocol::packets::play::ClientboundAddEntityPacket {
-        hanging::add_entity_packet(server_entity, self, i32::try_from(self.get_hanging_direction().get_3d_data_value()).unwrap_or(0), self.attached.pos)
+    fn get_add_entity_packet(
+        &self,
+        server_entity: &ServerEntity,
+    ) -> mc_protocol::packets::play::ClientboundAddEntityPacket {
+        hanging::add_entity_packet(
+            server_entity,
+            self,
+            i32::try_from(self.get_hanging_direction().get_3d_data_value()).unwrap_or(0),
+            self.attached.pos,
+        )
     }
     fn add_additional_save_data(&self, out: &mut CompoundTag) {
         block_attached::add_additional_save_data(self, out);
@@ -401,13 +496,19 @@ impl Entity for ItemFrame {
         }
         out.put_byte("ItemRotation", self.get_rotation() as i8);
         out.put_float("ItemDropChance", self.drop_chance);
-        out.put_byte("Facing", self.get_hanging_direction().get_3d_data_value() as i8);
+        out.put_byte(
+            "Facing",
+            self.get_hanging_direction().get_3d_data_value() as i8,
+        );
         out.put_boolean("Invisible", self.is_invisible_frame());
         out.put_boolean("Fixed", self.fixed);
     }
     fn read_additional_save_data(&mut self, input: &CompoundTag) {
         block_attached::read_additional_save_data(self, input);
-        let stack = input.get("Item").and_then(|t| ItemStack::from_tag(t).into_result().ok()).unwrap_or_else(ItemStack::empty);
+        let stack = input
+            .get("Item")
+            .and_then(|t| ItemStack::from_tag(t).into_result().ok())
+            .unwrap_or_else(ItemStack::empty);
         // `removeFramedMap(currentItem)` of a replaced item needs the level: loading happens before the frame knows one, and
         // a frame that is freshly created has no item, so nothing is registered with a map yet.
         let stored = self.set_item_data(&stack);
@@ -415,7 +516,10 @@ impl Entity for ItemFrame {
         let rotation = i32::from(input.get_byte_or("ItemRotation", 0));
         self.set_rotation(None, rotation);
         self.drop_chance = input.get_float_or("ItemDropChance", 1.0);
-        let facing = input.get("Facing").and_then(facing_from_tag).unwrap_or(Direction::Down);
+        let facing = input
+            .get("Facing")
+            .and_then(facing_from_tag)
+            .unwrap_or(Direction::Down);
         self.set_direction(facing);
         let invisible = input.get_boolean_or("Invisible", false);
         self.set_invisible(invisible);
@@ -423,20 +527,31 @@ impl Entity for ItemFrame {
     }
 
     /// `interact(player, hand, location)`.
-    fn interact(&mut self, level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand, _location: Vec3) -> InteractionResult {
+    fn interact(
+        &mut self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        hand: InteractionHand,
+        _location: Vec3,
+    ) -> InteractionResult {
         let mut held = player.get_item_in_hand(hand);
         if self.fixed {
             return InteractionResult::PASS;
         }
         if self.get_item().is_empty() {
             if !held.is_empty() && !self.is_removed() {
-                if let Some(over_limit) = super::map_seam::tracked_count_over_limit(level, &held, 256)
+                if let Some(over_limit) =
+                    super::map_seam::tracked_count_over_limit(level, &held, 256)
                     && over_limit
                 {
                     return InteractionResult::FAIL;
                 }
                 self.set_item(level, &held, true);
-                level.game_event_from_entity(Some(player.id()), GameEvent::BLOCK_CHANGE, self.base.position());
+                level.game_event_from_entity(
+                    Some(player.id()),
+                    GameEvent::BLOCK_CHANGE,
+                    self.base.position(),
+                );
                 held.consume(1, player.has_infinite_materials());
                 player.set_item_in_hand(hand, held);
                 InteractionResult::SUCCESS
@@ -448,7 +563,11 @@ impl Entity for ItemFrame {
             self.play_sound(level, sound, 1.0, 1.0);
             let rotation = self.get_rotation() + 1;
             self.set_rotation(Some(level), rotation);
-            level.game_event_from_entity(Some(player.id()), GameEvent::BLOCK_CHANGE, self.base.position());
+            level.game_event_from_entity(
+                Some(player.id()),
+                GameEvent::BLOCK_CHANGE,
+                self.base.position(),
+            );
             InteractionResult::SUCCESS
         }
     }
@@ -461,16 +580,25 @@ impl Entity for ItemFrame {
 
 /// `Direction.LEGACY_ID_CODEC`: a byte holding the 3D data value.
 fn facing_from_tag(tag: &mc_nbt::Tag) -> Option<Direction> {
-    tag.as_number().map(|n| Direction::from_3d_data_value(i32::from(n.byte_value())))
+    tag.as_number()
+        .map(|n| Direction::from_3d_data_value(i32::from(n.byte_value())))
 }
 
 /// `entity instanceof ItemFrame`: its facing and `getAnalogOutput()` (ComparatorBlock.getItemFrame).
 pub fn analog_output_of(entity: &dyn Entity) -> Option<(Direction, i32)> {
-    entity.as_any().downcast_ref::<ItemFrame>().map(|frame| (frame.get_hanging_direction(), frame.get_analog_output()))
+    entity
+        .as_any()
+        .downcast_ref::<ItemFrame>()
+        .map(|frame| (frame.get_hanging_direction(), frame.get_analog_output()))
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static ITEM_FRAME_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::ITEM_FRAME, create: |ty, id, _registries| Box::new(ItemFrame::new(ty, id)) };
+static ITEM_FRAME_FACTORY: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::ITEM_FRAME,
+    create: |ty, id, _registries| Box::new(ItemFrame::new(ty, id)),
+};
 #[distributed_slice(ENTITY_FACTORIES)]
-static GLOW_ITEM_FRAME_FACTORY: EntityRegistration =
-    EntityRegistration { entity_type: EntityType::GLOW_ITEM_FRAME, create: |ty, id, _registries| Box::new(ItemFrame::new(ty, id)) };
+static GLOW_ITEM_FRAME_FACTORY: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::GLOW_ITEM_FRAME,
+    create: |ty, id, _registries| Box::new(ItemFrame::new(ty, id)),
+};

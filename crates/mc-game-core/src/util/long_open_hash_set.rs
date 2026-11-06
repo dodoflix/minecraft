@@ -16,7 +16,12 @@ fn mix(x: i64) -> i32 {
 /// `HashCommon.arraySize(expected, 0.75f)`.
 fn array_size(expected: usize) -> usize {
     let n = ((expected as f64) / 0.75).ceil() as u64;
-    (if n <= 1 { 1 } else { (n - 1).next_power_of_two() }).max(2) as usize
+    (if n <= 1 {
+        1
+    } else {
+        (n - 1).next_power_of_two()
+    })
+    .max(2) as usize
 }
 
 /// `HashCommon.maxFill(n, 0.75f)`.
@@ -37,7 +42,15 @@ pub struct LongOpenHashSet {
 impl Default for LongOpenHashSet {
     fn default() -> Self {
         let n = array_size(DEFAULT_INITIAL_SIZE);
-        Self { key: vec![0; n + 1], mask: n - 1, contains_null_key: false, n, min_n: n, max_fill: max_fill(n), size: 0 }
+        Self {
+            key: vec![0; n + 1],
+            mask: n - 1,
+            contains_null_key: false,
+            n,
+            min_n: n,
+            max_fill: max_fill(n),
+            size: 0,
+        }
     }
 }
 
@@ -52,7 +65,11 @@ impl LongOpenHashSet {
 
     fn find(&self, k: i64) -> Result<usize, usize> {
         if k == 0 {
-            return if self.contains_null_key { Ok(self.n) } else { Err(self.n) };
+            return if self.contains_null_key {
+                Ok(self.n)
+            } else {
+                Err(self.n)
+            };
         }
         let mut pos = mix(k) as usize & self.mask;
         loop {
@@ -101,7 +118,10 @@ impl LongOpenHashSet {
                     self.shift_keys(pos);
                 }
                 self.size -= 1;
-                if self.n > self.min_n && self.size < self.max_fill / 4 && self.n > DEFAULT_INITIAL_SIZE {
+                if self.n > self.min_n
+                    && self.size < self.max_fill / 4
+                    && self.n > DEFAULT_INITIAL_SIZE
+                {
                     self.rehash(self.n / 2);
                 }
                 true
@@ -121,7 +141,11 @@ impl LongOpenHashSet {
                     return;
                 }
                 let slot = mix(c) as usize & self.mask;
-                let stays = if last <= pos { last >= slot || slot > pos } else { last >= slot && slot > pos };
+                let stays = if last <= pos {
+                    last >= slot || slot > pos
+                } else {
+                    last >= slot && slot > pos
+                };
                 if stays {
                     curr = c;
                     break;
@@ -136,7 +160,11 @@ impl LongOpenHashSet {
         let mask = new_n - 1;
         let mut new_key = vec![0i64; new_n + 1];
         let mut i = self.n;
-        let mut j = if self.contains_null_key { self.size - 1 } else { self.size };
+        let mut j = if self.contains_null_key {
+            self.size - 1
+        } else {
+            self.size
+        };
         while j > 0 {
             j -= 1;
             loop {
@@ -159,6 +187,9 @@ impl LongOpenHashSet {
 
     /// Stream order of `LongOpenHashSet.spliterator()`.
     pub fn iter(&self) -> impl Iterator<Item = i64> + '_ {
-        self.contains_null_key.then_some(0i64).into_iter().chain(self.key[..self.n].iter().copied().filter(|&k| k != 0))
+        self.contains_null_key
+            .then_some(0i64)
+            .into_iter()
+            .chain(self.key[..self.n].iter().copied().filter(|&k| k != 0))
     }
 }

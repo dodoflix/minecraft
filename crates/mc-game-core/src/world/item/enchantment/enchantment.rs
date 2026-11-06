@@ -3,7 +3,9 @@
 use mc_core::ident::Identifier;
 use mc_data::Item;
 use mc_dfu::{Codec, INT, record};
-use mc_protocol::components::{EquipmentSlotGroup, HolderSet, NoDirect, RegistrySet, component_codec};
+use mc_protocol::components::{
+    EquipmentSlotGroup, HolderSet, NoDirect, RegistrySet, component_codec,
+};
 use mc_text::Component;
 
 use super::codecs::holder_set_codec;
@@ -26,21 +28,34 @@ pub struct Cost {
 impl Cost {
     /// `Enchantment.constantCost(base)`.
     pub fn constant(base: i32) -> Cost {
-        Cost { base, per_level_above_first: 0 }
+        Cost {
+            base,
+            per_level_above_first: 0,
+        }
     }
 
     /// `Enchantment.dynamicCost(base, perLevel)`.
     pub fn dynamic(base: i32, per_level_above_first: i32) -> Cost {
-        Cost { base, per_level_above_first }
+        Cost {
+            base,
+            per_level_above_first,
+        }
     }
 
     /// `calculate(level)`.
     pub fn calculate(&self, level: i32) -> i32 {
-        self.base.wrapping_add(self.per_level_above_first.wrapping_mul(level.wrapping_sub(1)))
+        self.base.wrapping_add(
+            self.per_level_above_first
+                .wrapping_mul(level.wrapping_sub(1)),
+        )
     }
 
     pub fn codec() -> Codec<Cost> {
-        record!(Cost { base: INT.field_of("base"), per_level_above_first: INT.field_of("per_level_above_first") }).codec()
+        record!(Cost {
+            base: INT.field_of("base"),
+            per_level_above_first: INT.field_of("per_level_above_first")
+        })
+        .codec()
     }
 }
 
@@ -90,11 +105,14 @@ impl Enchantment {
             record!(Enchantment {
                 description: component_codec().field_of("description"),
                 definition: EnchantmentDefinition::map_codec(),
-                exclusive_set: holder_set_codec::<NoDirect>(ENCHANTMENT_REGISTRY).optional_field_of_default("exclusive_set", HolderSet::Direct(Vec::new())),
-                effects: EnchantmentEffects::codec().optional_field_of("effects").xmap(
-                    |e: Option<EnchantmentEffects>| e.unwrap_or_default(),
-                    |e: &EnchantmentEffects| if e.is_empty() { None } else { Some(e.clone()) },
-                ),
+                exclusive_set: holder_set_codec::<NoDirect>(ENCHANTMENT_REGISTRY)
+                    .optional_field_of_default("exclusive_set", HolderSet::Direct(Vec::new())),
+                effects: EnchantmentEffects::codec()
+                    .optional_field_of("effects")
+                    .xmap(
+                        |e: Option<EnchantmentEffects>| e.unwrap_or_default(),
+                        |e: &EnchantmentEffects| if e.is_empty() { None } else { Some(e.clone()) },
+                    ),
             })
             .codec()
         });
@@ -103,7 +121,10 @@ impl Enchantment {
 
     /// `matchingSlot(slot)`.
     pub fn matching_slot(&self, slot: EquipmentSlot) -> bool {
-        self.definition.slots.iter().any(|group| slot_group_test(*group, slot))
+        self.definition
+            .slots
+            .iter()
+            .any(|group| slot_group_test(*group, slot))
     }
 
     /// `getWeight()`.
@@ -144,7 +165,11 @@ impl Enchantment {
     /// `isPrimaryItem(item)`.
     pub fn is_primary_item(&self, registries: &RegistryAccess, item: &ItemStack) -> bool {
         self.is_supported_item(registries, item)
-            && self.definition.primary_items.as_ref().is_none_or(|primary| item_set_contains(registries, primary, item.item()))
+            && self
+                .definition
+                .primary_items
+                .as_ref()
+                .is_none_or(|primary| item_set_contains(registries, primary, item.item()))
     }
 
     /// `canEnchant(itemStack)`: `supportedItems().contains(itemStack.typeHolder())`.
@@ -170,7 +195,11 @@ impl Enchantment {
         if a == b {
             return false;
         }
-        let exclusive = |x: &Identifier, y: &Identifier| registries.get::<Enchantment>(ENCHANTMENT_REGISTRY, x).is_some_and(|e| e.exclusive_with(registries, y));
+        let exclusive = |x: &Identifier, y: &Identifier| {
+            registries
+                .get::<Enchantment>(ENCHANTMENT_REGISTRY, x)
+                .is_some_and(|e| e.exclusive_with(registries, y))
+        };
         !exclusive(a, b) && !exclusive(b, a)
     }
 }

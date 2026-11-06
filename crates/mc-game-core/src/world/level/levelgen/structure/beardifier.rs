@@ -2,10 +2,10 @@
 //! whose structure adapts the terrain, as [`StructureStartInfo`]s.
 
 use super::manager::{StructureDataSource, StructureManager};
+use super::structure_start::StructureStart;
 use crate::world::level::levelgen::env::GenEnv;
 use mc_core::pos::ChunkPos;
 use mc_world::chunk::{ProtoChunk, StructureData};
-use super::structure_start::StructureStart;
 use mc_worldgen::beardifier::{StructurePieceInfo, StructureStartInfo, TerrainAdjustment};
 
 /// The chunk being generated (lent separately) plus the surrounding region's chunks.
@@ -16,7 +16,11 @@ pub struct CenterAndRegion<'a> {
 
 impl StructureDataSource for CenterAndRegion<'_> {
     fn structure_data(&self, pos: ChunkPos) -> Option<&StructureData> {
-        if pos == self.center.access.pos { Some(&self.center.access.structures) } else { self.region.structure_data(pos) }
+        if pos == self.center.access.pos {
+            Some(&self.center.access.structures)
+        } else {
+            self.region.structure_data(pos)
+        }
     }
 }
 
@@ -24,13 +28,33 @@ impl StructureDataSource for CenterAndRegion<'_> {
 pub fn start_info(start: &StructureStart) -> StructureStartInfo {
     StructureStartInfo {
         terrain_adaptation: start.get_structure().value().terrain_adaptation(),
-        pieces: start.piece_container.pieces.iter().map(|p| StructurePieceInfo { bounding_box: p.base().bounding_box, kind: p.beardifier_kind() }).collect(),
+        pieces: start
+            .piece_container
+            .pieces
+            .iter()
+            .map(|p| StructurePieceInfo {
+                bounding_box: p.base().bounding_box,
+                kind: p.beardifier_kind(),
+            })
+            .collect(),
     }
 }
 
 /// `structureManager.startsForStructure(chunkX, chunkZ, s -> s.terrainAdaptation() != NONE)` converted for the beardifier.
-pub fn structure_start_infos(env: &GenEnv, source: &dyn StructureDataSource, chunk_pos: ChunkPos) -> Vec<StructureStartInfo> {
+pub fn structure_start_infos(
+    env: &GenEnv,
+    source: &dyn StructureDataSource,
+    chunk_pos: ChunkPos,
+) -> Vec<StructureStartInfo> {
     let manager = StructureManager::new(env);
-    let adapts = |id: &mc_core::ident::Identifier| env.structures.get(id).is_some_and(|s| s.value().terrain_adaptation() != TerrainAdjustment::None);
-    manager.starts_for_structure_matching(source, chunk_pos.x, chunk_pos.z, &adapts).into_iter().map(|start| start_info(&start.lock())).collect()
+    let adapts = |id: &mc_core::ident::Identifier| {
+        env.structures
+            .get(id)
+            .is_some_and(|s| s.value().terrain_adaptation() != TerrainAdjustment::None)
+    };
+    manager
+        .starts_for_structure_matching(source, chunk_pos.x, chunk_pos.z, &adapts)
+        .into_iter()
+        .map(|start| start_info(&start.lock()))
+        .collect()
 }

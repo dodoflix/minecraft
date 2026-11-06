@@ -20,7 +20,9 @@ impl ServerLevel {
     /// Drains the queue entry of `id` (`true` when the entity was waiting for its portal teleport).
     pub fn take_portal_teleport(&mut self, id: EntityId) -> bool {
         let before = self.tick_state.pending_portal_teleports.len();
-        self.tick_state.pending_portal_teleports.retain(|&e| e != id);
+        self.tick_state
+            .pending_portal_teleports
+            .retain(|&e| e != id);
         self.tick_state.pending_portal_teleports.len() != before
     }
 }

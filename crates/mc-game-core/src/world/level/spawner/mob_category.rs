@@ -63,7 +63,17 @@ mod tests {
             (MobCategory::Misc, -1, true, true, 128),
         ];
         for (c, max, friendly, persistent, despawn) in expected {
-            assert_eq!((c.get_max_instances_per_chunk(), c.is_friendly(), c.is_persistent(), c.get_despawn_distance(), c.get_no_despawn_distance()), (max, friendly, persistent, despawn, 32), "{c:?}");
+            assert_eq!(
+                (
+                    c.get_max_instances_per_chunk(),
+                    c.is_friendly(),
+                    c.is_persistent(),
+                    c.get_despawn_distance(),
+                    c.get_no_despawn_distance()
+                ),
+                (max, friendly, persistent, despawn, 32),
+                "{c:?}"
+            );
         }
         assert_eq!(SPAWNING_CATEGORIES.len(), MobCategory::ALL.len() - 1);
     }

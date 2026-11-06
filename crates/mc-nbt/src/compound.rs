@@ -8,8 +8,8 @@
 //! shortcut: bins with 9+ colliding keys are treeified by Java and iterate differently; that is
 //! not modelled (needs >8 keys with the same bucket, upgrade if byte-identical files demand it).
 
-use crate::tag::{Number, Tag};
 use crate::ListTag;
+use crate::tag::{Number, Tag};
 use indexmap::IndexMap;
 use std::sync::LazyLock;
 
@@ -95,7 +95,10 @@ impl CompoundTag {
             Vec::new()
         } else {
             let mask = self.cap - 1;
-            self.tags.iter().map(|(k, t)| (java_hash(k) & mask, (k, t))).collect()
+            self.tags
+                .iter()
+                .map(|(k, t)| (java_hash(k) & mask, (k, t)))
+                .collect()
         };
         v.sort_by_key(|(bucket, _)| *bucket); // stable: insertion order within a bucket
         v.into_iter().map(|(_, e)| e).collect()
@@ -278,7 +281,9 @@ impl CompoundTag {
     /// `merge(other)`: recursively merges compounds, otherwise `other`'s values win.
     pub fn merge(&mut self, other: &CompoundTag) -> &mut Self {
         for (name, other_tag) in other.iter_java_order() {
-            if let (Tag::Compound(o), Some(Tag::Compound(s))) = (other_tag, self.tags.get_mut(name.as_str())) {
+            if let (Tag::Compound(o), Some(Tag::Compound(s))) =
+                (other_tag, self.tags.get_mut(name.as_str()))
+            {
                 s.merge(o);
             } else {
                 self.put(name.clone(), other_tag.clone());
@@ -294,7 +299,10 @@ impl Clone for CompoundTag {
         let cap = organic_cap(self.tags.len());
         if cap == self.cap {
             // Same table size: Java's re-insertion keeps every bucket's relative order.
-            return CompoundTag { tags: self.tags.clone(), cap };
+            return CompoundTag {
+                tags: self.tags.clone(),
+                cap,
+            };
         }
         let mut out = CompoundTag::new();
         for (k, v) in self.iter_java_order() {

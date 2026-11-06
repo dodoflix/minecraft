@@ -4,7 +4,10 @@ use crate::dsl::TypeReference;
 
 pub struct References;
 
-#[allow(dead_code, reason = "complete table of the vanilla References constants")]
+#[allow(
+    dead_code,
+    reason = "complete table of the vanilla References constants"
+)]
 impl References {
     pub const LEVEL: TypeReference = TypeReference("level");
     pub const LIGHTWEIGHT_LEVEL: TypeReference = TypeReference("lightweight_level");
@@ -14,24 +17,32 @@ impl References {
     pub const OPTIONS: TypeReference = TypeReference("options");
     pub const STRUCTURE: TypeReference = TypeReference("structure");
     pub const STATS: TypeReference = TypeReference("stats");
-    pub const SAVED_DATA_COMMAND_STORAGE: TypeReference = TypeReference("saved_data/command_storage");
-    pub const SAVED_DATA_CUSTOM_BOSS_EVENTS: TypeReference = TypeReference("saved_data/custom_boss_events");
-    pub const SAVED_DATA_ENDER_DRAGON_FIGHT: TypeReference = TypeReference("saved_data/ender_dragon_fight");
+    pub const SAVED_DATA_COMMAND_STORAGE: TypeReference =
+        TypeReference("saved_data/command_storage");
+    pub const SAVED_DATA_CUSTOM_BOSS_EVENTS: TypeReference =
+        TypeReference("saved_data/custom_boss_events");
+    pub const SAVED_DATA_ENDER_DRAGON_FIGHT: TypeReference =
+        TypeReference("saved_data/ender_dragon_fight");
     pub const SAVED_DATA_GAME_RULES: TypeReference = TypeReference("saved_data/game_rules");
     pub const SAVED_DATA_TICKETS: TypeReference = TypeReference("saved_data/tickets");
     pub const SAVED_DATA_MAP_DATA: TypeReference = TypeReference("saved_data/map_data");
     pub const SAVED_DATA_MAP_INDEX: TypeReference = TypeReference("saved_data/idcounts");
     pub const SAVED_DATA_RAIDS: TypeReference = TypeReference("saved_data/raids");
-    pub const SAVED_DATA_RANDOM_SEQUENCES: TypeReference = TypeReference("saved_data/random_sequences");
-    pub const SAVED_DATA_SCHEDULED_EVENTS: TypeReference = TypeReference("saved_data/scheduled_events");
+    pub const SAVED_DATA_RANDOM_SEQUENCES: TypeReference =
+        TypeReference("saved_data/random_sequences");
+    pub const SAVED_DATA_SCHEDULED_EVENTS: TypeReference =
+        TypeReference("saved_data/scheduled_events");
     pub const SAVED_DATA_SCOREBOARD: TypeReference = TypeReference("saved_data/scoreboard");
     pub const SAVED_DATA_STOPWATCHES: TypeReference = TypeReference("saved_data/stopwatches");
-    pub const SAVED_DATA_STRUCTURE_FEATURE_INDICES: TypeReference = TypeReference("saved_data/structure_feature_indices");
-    pub const SAVED_DATA_WANDERING_TRADER: TypeReference = TypeReference("saved_data/wandering_trader");
+    pub const SAVED_DATA_STRUCTURE_FEATURE_INDICES: TypeReference =
+        TypeReference("saved_data/structure_feature_indices");
+    pub const SAVED_DATA_WANDERING_TRADER: TypeReference =
+        TypeReference("saved_data/wandering_trader");
     pub const SAVED_DATA_WEATHER: TypeReference = TypeReference("saved_data/weather");
     pub const SAVED_DATA_WORLD_BORDER: TypeReference = TypeReference("saved_data/world_border");
     pub const SAVED_DATA_WORLD_CLOCKS: TypeReference = TypeReference("saved_data/world_clocks");
-    pub const SAVED_DATA_WORLD_GEN_SETTINGS: TypeReference = TypeReference("saved_data/world_gen_settings");
+    pub const SAVED_DATA_WORLD_GEN_SETTINGS: TypeReference =
+        TypeReference("saved_data/world_gen_settings");
     pub const ADVANCEMENTS: TypeReference = TypeReference("advancements");
     pub const POI_CHUNK: TypeReference = TypeReference("poi_chunk");
     pub const ENTITY_CHUNK: TypeReference = TypeReference("entity_chunk");
@@ -57,7 +68,8 @@ impl References {
     pub const TEAM: TypeReference = TypeReference("team");
     pub const RECIPE: TypeReference = TypeReference("recipe");
     pub const BIOME: TypeReference = TypeReference("biome");
-    pub const MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST: TypeReference = TypeReference("multi_noise_biome_source_parameter_list");
+    pub const MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST: TypeReference =
+        TypeReference("multi_noise_biome_source_parameter_list");
     pub const WORLD_GEN_SETTINGS: TypeReference = TypeReference("world_gen_settings");
 
     /// Every reference, in declaration order.
@@ -119,6 +131,9 @@ impl References {
 
     /// `TypeReference` by its type name (`"item_stack"`, `"saved_data/map_data"`, ...).
     pub fn by_name(name: &str) -> Option<TypeReference> {
-        References::ALL.iter().copied().find(|r| r.type_name() == name)
+        References::ALL
+            .iter()
+            .copied()
+            .find(|r| r.type_name() == name)
     }
 }

@@ -1,16 +1,18 @@
 //! `TrialSpawnerBlockEntity`: owns a [`TrialSpawner`] and mirrors its block state into it.
 
-use mc_game_core::block_entity_base;
 use super::spawner_block_entity::Spawner;
 use super::trialspawner::TrialSpawner;
-use mc_game_core::world::block_entity::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, set_changed};
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::level::BlockGetter;
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
 use mc_data::block::BlockState;
 use mc_data::enums::TrialSpawnerState;
 use mc_data::{BlockEntityType, EntityType, props};
+use mc_game_core::block_entity_base;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::block_entity::{
+    BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, set_changed,
+};
+use mc_game_core::world::level::BlockGetter;
 use mc_nbt::CompoundTag;
 use mc_protocol::packets::play::level::ClientboundBlockEntityDataPacket;
 
@@ -21,7 +23,10 @@ pub struct TrialSpawnerBlockEntity {
 
 impl TrialSpawnerBlockEntity {
     pub fn new(pos: BlockPos, state: BlockState) -> Self {
-        Self { base: BlockEntityData::new(BlockEntityType::TRIAL_SPAWNER, pos, state), trial_spawner: TrialSpawner::new(pos, state) }
+        Self {
+            base: BlockEntityData::new(BlockEntityType::TRIAL_SPAWNER, pos, state),
+            trial_spawner: TrialSpawner::new(pos, state),
+        }
     }
 
     fn changed(&self, level: &mut ServerLevel) {
@@ -69,12 +74,19 @@ impl BlockEntity for TrialSpawnerBlockEntity {
     }
 
     fn get_update_packet(&self) -> Option<ClientboundBlockEntityDataPacket> {
-        Some(ClientboundBlockEntityDataPacket { pos: self.get_block_pos(), r#type: self.get_type(), tag: self.get_update_tag() })
+        Some(ClientboundBlockEntityDataPacket {
+            pos: self.get_block_pos(),
+            r#type: self.get_type(),
+            tag: self.get_update_tag(),
+        })
     }
 
     fn get_update_tag(&self) -> CompoundTag {
         let state = self.get_block_state();
-        self.trial_spawner.data.get_update_tag(state.has_property(props::TRIAL_SPAWNER_STATE) && state.get(props::TRIAL_SPAWNER_STATE) == TrialSpawnerState::Active)
+        self.trial_spawner.data.get_update_tag(
+            state.has_property(props::TRIAL_SPAWNER_STATE)
+                && state.get(props::TRIAL_SPAWNER_STATE) == TrialSpawnerState::Active,
+        )
     }
 
     fn as_spawner_mut(&mut self) -> Option<&mut dyn Spawner> {
@@ -83,5 +95,7 @@ impl BlockEntity for TrialSpawnerBlockEntity {
 }
 
 #[distributed_slice(BLOCK_ENTITY_TYPES)]
-static TRIAL_SPAWNER: BlockEntityRegistration =
-    BlockEntityRegistration { ty: BlockEntityType::TRIAL_SPAWNER, create: |pos, state| Box::new(TrialSpawnerBlockEntity::new(pos, state)) };
+static TRIAL_SPAWNER: BlockEntityRegistration = BlockEntityRegistration {
+    ty: BlockEntityType::TRIAL_SPAWNER,
+    create: |pos, state| Box::new(TrialSpawnerBlockEntity::new(pos, state)),
+};

@@ -6,7 +6,9 @@ use crate::define_accessor;
 use crate::server::level::ServerLevel;
 use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
 use crate::world::entity::player::ServerPlayer;
-use crate::world::entity::projectile::{EntityHitResult, Projectile, ProjectileData, ProjectileDeflection};
+use crate::world::entity::projectile::{
+    EntityHitResult, Projectile, ProjectileData, ProjectileDeflection,
+};
 use crate::world::entity::{Entity, EntityData, EntityId, entity};
 use crate::world::item::enchantment::actors::Actors;
 use crate::world::item::{ItemStack, ItemStackExt as _};
@@ -42,7 +44,10 @@ impl ThrownTrident {
         Self {
             base,
             projectile: ProjectileData::default(),
-            arrow: AbstractArrowData::new(SoundEvent::ITEM_TRIDENT_HIT_GROUND, ItemStack::new(Item::TRIDENT)),
+            arrow: AbstractArrowData::new(
+                SoundEvent::ITEM_TRIDENT_HIT_GROUND,
+                ItemStack::new(Item::TRIDENT),
+            ),
             dealt_damage: false,
             client_side_return_trident_tick_count: 0,
             loyalty_pending: false,
@@ -50,7 +55,11 @@ impl ThrownTrident {
     }
 
     /// `ThrownTrident(level, owner, tridentItem)`.
-    pub fn from_owner(level: &mut ServerLevel, owner: &dyn Entity, trident_item: ItemStack) -> Self {
+    pub fn from_owner(
+        level: &mut ServerLevel,
+        owner: &dyn Entity,
+        trident_item: ItemStack,
+    ) -> Self {
         let mut trident = Self::new(EntityType::TRIDENT, level.next_entity_id());
         super::init_from_owner(&mut trident, level, owner, trident_item.clone(), None);
         trident.init_loyalty_and_foil(level, &trident_item);
@@ -60,7 +69,15 @@ impl ThrownTrident {
     /// `ThrownTrident(level, x, y, z, tridentItem)`: the trident is also the weapon.
     pub fn at(level: &mut ServerLevel, x: f64, y: f64, z: f64, trident_item: ItemStack) -> Self {
         let mut trident = Self::new(EntityType::TRIDENT, level.next_entity_id());
-        super::init_at(&mut trident, level, x, y, z, trident_item.clone(), Some(&trident_item));
+        super::init_at(
+            &mut trident,
+            level,
+            x,
+            y,
+            z,
+            trident_item.clone(),
+            Some(&trident_item),
+        );
         trident.init_loyalty_and_foil(level, &trident_item);
         trident
     }
@@ -68,13 +85,22 @@ impl ThrownTrident {
     fn init_loyalty_and_foil(&mut self, level: &mut ServerLevel, trident_item: &ItemStack) {
         let loyalty = self.get_loyalty_from_item(level, trident_item);
         self.base.entity_data.set(ID_LOYALTY, loyalty);
-        self.base.entity_data.set(ID_FOIL, crate::world::item::behaviour(trident_item.item()).is_foil(trident_item));
+        self.base.entity_data.set(
+            ID_FOIL,
+            crate::world::item::behaviour(trident_item.item()).is_foil(trident_item),
+        );
     }
 
     /// `getLoyaltyFromItem(tridentItem)`.
     fn get_loyalty_from_item(&mut self, level: &mut ServerLevel, trident_item: &ItemStack) -> i8 {
         let id = self.base.id;
-        let acceleration = crate::world::item::enchantment_helper::get_trident_return_to_owner_acceleration(level, &mut Actors::of(self.as_dyn_mut()), trident_item, id);
+        let acceleration =
+            crate::world::item::enchantment_helper::get_trident_return_to_owner_acceleration(
+                level,
+                &mut Actors::of(self.as_dyn_mut()),
+                trident_item,
+                id,
+            );
         mth::clamp_i32(acceleration, 0, 127) as i8
     }
 
@@ -94,7 +120,11 @@ impl ThrownTrident {
     /// `isAcceptibleReturnOwner()`.
     fn is_acceptible_return_owner(&self, level: &ServerLevel) -> bool {
         match self.get_owner(level) {
-            Some(owner) => owner.is_alive() && (owner.as_any().downcast_ref::<ServerPlayer>().is_none() || !owner.is_spectator()),
+            Some(owner) => {
+                owner.is_alive()
+                    && (owner.as_any().downcast_ref::<ServerPlayer>().is_none()
+                        || !owner.is_spectator())
+            }
             None => false,
         }
     }
@@ -140,7 +170,11 @@ impl AbstractArrow for ThrownTrident {
     }
 
     fn find_hit_entities(&self, level: &ServerLevel, from: Vec3, to: Vec3) -> Vec<EntityHitResult> {
-        let hit = if self.dealt_damage { None } else { super::find_hit_entity(self, level, from, to) };
+        let hit = if self.dealt_damage {
+            None
+        } else {
+            super::find_hit_entity(self, level, from, to)
+        };
         hit.into_iter().collect()
     }
 
@@ -150,11 +184,20 @@ impl AbstractArrow for ThrownTrident {
         let mut dmg = 8.0f32;
         let source = {
             let owner = self.get_owner(level);
-            level.damage_sources().trident(self.as_dyn(), Some(owner.unwrap_or(self.as_dyn())))
+            level
+                .damage_sources()
+                .trident(self.as_dyn(), Some(owner.unwrap_or(self.as_dyn())))
         };
         let weapon = self.get_weapon_item();
         if let Some(weapon) = &weapon {
-            dmg = helper::modify_damage(level, &mut Actors::of(self.as_dyn_mut()), weapon, victim, &source, dmg);
+            dmg = helper::modify_damage(
+                level,
+                &mut Actors::of(self.as_dyn_mut()),
+                weapon,
+                victim,
+                &source,
+                dmg,
+            );
         }
         self.dealt_damage = true;
         let mut outcome = OnHitEntityOutcome::default();
@@ -169,7 +212,9 @@ impl AbstractArrow for ThrownTrident {
                     victim,
                     &source,
                     weapon.as_ref(),
-                    Some(Box::new(move |_, _| flag.store(true, std::sync::atomic::Ordering::Relaxed))),
+                    Some(Box::new(move |_, _| {
+                        flag.store(true, std::sync::atomic::Ordering::Relaxed)
+                    })),
                 );
                 if broke.load(std::sync::atomic::Ordering::Relaxed) {
                     self.kill();
@@ -179,16 +224,29 @@ impl AbstractArrow for ThrownTrident {
                     self.do_post_hurt_effects(level, target);
                 }
             }
-            outcome.receives_side_effects = target.projectile_receives_side_effects_on_hit(outcome.was_hurt);
+            outcome.receives_side_effects =
+                target.projectile_receives_side_effects_on_hit(outcome.was_hurt);
         });
         if outcome.receives_side_effects {
             self.play_sound(level, SoundEvent::ITEM_TRIDENT_HIT, 1.0, 1.0);
             let owner = self.projectile.owner;
-            self.deflect(level, ProjectileDeflection::Reverse, Some(victim), owner, false, Vec3::new(0.02, 0.2, 0.02));
+            self.deflect(
+                level,
+                ProjectileDeflection::Reverse,
+                Some(victim),
+                owner,
+                false,
+                Vec3::new(0.02, 0.2, 0.02),
+            );
         }
     }
 
-    fn hit_block_enchantment_effects(&mut self, level: &mut ServerLevel, hit: &BlockHitResult, weapon: ItemStack) {
+    fn hit_block_enchantment_effects(
+        &mut self,
+        level: &mut ServerLevel,
+        hit: &BlockHitResult,
+        weapon: ItemStack,
+    ) {
         let (weapon, broke) = super::run_on_hit_block(self, level, hit, weapon);
         // `getWeaponItem()` is the pickup stack: the live object the effects modify
         self.arrow.pickup_item_stack = weapon;
@@ -250,24 +308,40 @@ impl Entity for ThrownTrident {
         if loyalty > 0 && (self.dealt_damage || self.is_no_physics()) && owner_id.is_some() {
             if !self.is_acceptible_return_owner(level) {
                 if self.arrow.pickup == Pickup::Allowed {
-                    crate::world::entity::item::spawn_at_location(level, self.as_dyn(), self.get_pickup_item(), Vec3::new(0.0, f64::from(0.1f32), 0.0));
+                    crate::world::entity::item::spawn_at_location(
+                        level,
+                        self.as_dyn(),
+                        self.get_pickup_item(),
+                        Vec3::new(0.0, f64::from(0.1f32), 0.0),
+                    );
                 }
                 self.discard();
             } else {
                 let (owner_eye, owner_is_player, owner_width) = {
                     let owner = self.get_owner(level).expect("owner checked above");
-                    (owner.base().get_eye_position(), owner.is_player(), owner.base().get_bb_width())
+                    (
+                        owner.base().get_eye_position(),
+                        owner.is_player(),
+                        owner.base().get_bb_width(),
+                    )
                 };
-                if !owner_is_player && self.position().distance_to(owner_eye) < f64::from(owner_width) + 1.0 {
+                if !owner_is_player
+                    && self.position().distance_to(owner_eye) < f64::from(owner_width) + 1.0
+                {
                     self.discard();
                     return;
                 }
                 self.set_no_physics(true);
                 let vec = owner_eye.subtract(self.position());
                 let p = self.position();
-                self.base.set_pos_raw(p.x, p.y + vec.y * 0.015 * f64::from(loyalty), p.z);
+                self.base
+                    .set_pos_raw(p.x, p.y + vec.y * 0.015 * f64::from(loyalty), p.z);
                 let accel = 0.05 * f64::from(loyalty);
-                let delta = self.base.delta_movement().scale(0.95).add(vec.normalize().scale(accel));
+                let delta = self
+                    .base
+                    .delta_movement()
+                    .scale(0.95)
+                    .add(vec.normalize().scale(accel));
                 self.base.set_delta_movement(delta);
                 if self.client_side_return_trident_tick_count == 0 {
                     self.play_sound(level, SoundEvent::ITEM_TRIDENT_RETURN, 10.0, 1.0);
@@ -297,4 +371,7 @@ impl Entity for ThrownTrident {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static TRIDENT_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::TRIDENT, create: |ty, id, _registries| Box::new(ThrownTrident::new(ty, id)) };
+static TRIDENT_FACTORY: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::TRIDENT,
+    create: |ty, id, _registries| Box::new(ThrownTrident::new(ty, id)),
+};

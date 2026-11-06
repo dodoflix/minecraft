@@ -32,7 +32,11 @@ pub struct TextCoordinates {
 
 impl TextCoordinates {
     pub fn new(x: impl Into<String>, y: impl Into<String>, z: impl Into<String>) -> Self {
-        Self { x: x.into(), y: y.into(), z: z.into() }
+        Self {
+            x: x.into(),
+            y: y.into(),
+            z: z.into(),
+        }
     }
 
     pub fn default_local() -> Self {
@@ -65,7 +69,12 @@ pub fn matches_sub_str(pattern: &str, input: &str) -> bool {
 }
 
 /// `filterResources(values, contents, converter, consumer)`.
-pub fn filter_resources<T>(values: impl IntoIterator<Item = T>, contents: &str, converter: impl Fn(&T) -> Identifier, mut consumer: impl FnMut(T)) {
+pub fn filter_resources<T>(
+    values: impl IntoIterator<Item = T>,
+    contents: &str,
+    converter: impl Fn(&T) -> Identifier,
+    mut consumer: impl FnMut(T),
+) {
     let has_namespace = contents.contains(':');
     for value in values {
         let id = converter(&value);
@@ -73,7 +82,8 @@ pub fn filter_resources<T>(values: impl IntoIterator<Item = T>, contents: &str, 
             if matches_sub_str(contents, &id.to_string()) {
                 consumer(value);
             }
-        } else if matches_sub_str(contents, id.namespace()) || matches_sub_str(contents, id.path()) {
+        } else if matches_sub_str(contents, id.namespace()) || matches_sub_str(contents, id.path())
+        {
             consumer(value);
         }
     }
@@ -81,7 +91,11 @@ pub fn filter_resources<T>(values: impl IntoIterator<Item = T>, contents: &str, 
 
 /// Guava `Strings.commonPrefix`.
 fn common_prefix<'a>(a: &'a str, b: &str) -> &'a str {
-    let end = a.char_indices().zip(b.chars()).find(|((_, x), y)| x != y).map_or_else(|| a.len().min(b.len()), |((i, _), _)| i);
+    let end = a
+        .char_indices()
+        .zip(b.chars())
+        .find(|((_, x), y)| x != y)
+        .map_or_else(|| a.len().min(b.len()), |((i, _), _)| i);
     // `end` is a char boundary of `a` by construction (or the length of the shorter string, which is one of a's boundaries when a is shorter)
     let mut end = end.min(a.len());
     while !a.is_char_boundary(end) {
@@ -109,36 +123,72 @@ pub fn filter_resources_prefixed<T>(
 }
 
 /// `suggestResource(values, builder, prefix)` adding to a builder the caller keeps using.
-pub fn suggest_resource_prefixed_into(values: impl IntoIterator<Item = Identifier>, builder: &mut SuggestionsBuilder, prefix: &str) {
+pub fn suggest_resource_prefixed_into(
+    values: impl IntoIterator<Item = Identifier>,
+    builder: &mut SuggestionsBuilder,
+    prefix: &str,
+) {
     let contents = builder.get_remaining().to_lowercase();
-    filter_resources_prefixed(values, &contents, prefix, |t| t.clone(), |v| {
-        builder.suggest(format!("{prefix}{v}"));
-    });
+    filter_resources_prefixed(
+        values,
+        &contents,
+        prefix,
+        |t| t.clone(),
+        |v| {
+            builder.suggest(format!("{prefix}{v}"));
+        },
+    );
 }
 
 /// `suggestResource(values, builder)` adding to a builder the caller keeps using.
-pub fn suggest_resource_into(values: impl IntoIterator<Item = Identifier>, builder: &mut SuggestionsBuilder) {
+pub fn suggest_resource_into(
+    values: impl IntoIterator<Item = Identifier>,
+    builder: &mut SuggestionsBuilder,
+) {
     let contents = builder.get_remaining().to_lowercase();
-    filter_resources(values, &contents, |t| t.clone(), |v| {
-        builder.suggest(v.to_string());
-    });
+    filter_resources(
+        values,
+        &contents,
+        |t| t.clone(),
+        |v| {
+            builder.suggest(v.to_string());
+        },
+    );
 }
 
 /// `suggestResource(values, builder, prefix)`.
-pub fn suggest_resource_prefixed(values: impl IntoIterator<Item = Identifier>, mut builder: SuggestionsBuilder, prefix: &str) -> Suggestions {
+pub fn suggest_resource_prefixed(
+    values: impl IntoIterator<Item = Identifier>,
+    mut builder: SuggestionsBuilder,
+    prefix: &str,
+) -> Suggestions {
     let contents = builder.get_remaining().to_lowercase();
-    filter_resources_prefixed(values, &contents, prefix, |t| t.clone(), |v| {
-        builder.suggest(format!("{prefix}{v}"));
-    });
+    filter_resources_prefixed(
+        values,
+        &contents,
+        prefix,
+        |t| t.clone(),
+        |v| {
+            builder.suggest(format!("{prefix}{v}"));
+        },
+    );
     builder.build()
 }
 
 /// `suggestResource(values, builder)`.
-pub fn suggest_resource(values: impl IntoIterator<Item = Identifier>, mut builder: SuggestionsBuilder) -> Suggestions {
+pub fn suggest_resource(
+    values: impl IntoIterator<Item = Identifier>,
+    mut builder: SuggestionsBuilder,
+) -> Suggestions {
     let contents = builder.get_remaining().to_lowercase();
-    filter_resources(values, &contents, |t| t.clone(), |v| {
-        builder.suggest(v.to_string());
-    });
+    filter_resources(
+        values,
+        &contents,
+        |t| t.clone(),
+        |v| {
+            builder.suggest(v.to_string());
+        },
+    );
     builder.build()
 }
 
@@ -159,7 +209,10 @@ pub fn suggest_resource_with_tooltip<T>(
 }
 
 /// `suggest(values, builder)`.
-pub fn suggest<S: AsRef<str>>(values: impl IntoIterator<Item = S>, mut builder: SuggestionsBuilder) -> Suggestions {
+pub fn suggest<S: AsRef<str>>(
+    values: impl IntoIterator<Item = S>,
+    mut builder: SuggestionsBuilder,
+) -> Suggestions {
     let lower_prefix = builder.get_remaining().to_lowercase();
     for name in values {
         if matches_sub_str(&lower_prefix, &name.as_ref().to_lowercase()) {
@@ -274,7 +327,14 @@ mod tests {
     #[test]
     fn matches_sub_str_splits_on_separators() {
         assert!(matches_sub_str("st", "stone"));
-        assert!(matches_sub_str("br", "minecraft:stone_bricks".split(':').nth(1).map(|_| "stone_bricks").unwrap()));
+        assert!(matches_sub_str(
+            "br",
+            "minecraft:stone_bricks"
+                .split(':')
+                .nth(1)
+                .map(|_| "stone_bricks")
+                .unwrap()
+        ));
         assert!(matches_sub_str("br", "stone_bricks"));
         assert!(!matches_sub_str("one", "stone"));
         assert!(matches_sub_str("", "x"));

@@ -1,26 +1,30 @@
 //! `Mule`.
 
 use super::abstract_chested_horse::{self, AbstractChestedHorse, DATA_ID_CHEST};
-use mc_game_core::world::entity::animal::equine::abstract_horse::{self, AbstractHorse, AbstractHorseData, DATA_ID_FLAGS};
-use mc_game_core::registry::RegistryAccess;
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::damagesource::DamageSource;
-use mc_game_core::world::difficulty_instance::DifficultyInstance;
-use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
-use mc_game_core::world::entity::dimensions::EntityDimensions;
-use mc_game_core::world::entity::equipment::EquipmentSlot;
-use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
-use mc_game_core::world::entity::mob::{self, MobData, MobKind};
-use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
-use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
-use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
-use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::enums::{EntitySpawnReason, Pose};
 use mc_data::{EntityType, SoundEvent};
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::animal::equine::abstract_horse::{
+    self, AbstractHorse, AbstractHorseData, DATA_ID_FLAGS,
+};
+use mc_game_core::world::entity::dimensions::EntityDimensions;
+use mc_game_core::world::entity::equipment::EquipmentSlot;
+use mc_game_core::world::entity::factory::{
+    ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest,
+};
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
+use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_nbt::CompoundTag;
 
 /// `Mule`.
@@ -37,7 +41,11 @@ impl Mule {
             b.define(DATA_ID_FLAGS, 0i8);
             b.define(DATA_ID_CHEST, false);
         });
-        let mut mule = Mule { mob, horse: AbstractHorseData::new(), baby_dimensions: abstract_chested_horse::baby_dimensions(ty) };
+        let mut mule = Mule {
+            mob,
+            horse: AbstractHorseData::new(),
+            baby_dimensions: abstract_chested_horse::baby_dimensions(ty),
+        };
         let navigation = StandardPathNavigation::ground(&mule);
         mule.mob.set_navigation(Box::new(navigation));
         abstract_horse::register_goals(&mut mule, abstract_horse::add_behaviour_goals);
@@ -73,7 +81,8 @@ impl AbstractHorse for Mule {
 
 impl AbstractChestedHorse for Mule {
     fn play_chest_equips_sound(&mut self, level: &mut ServerLevel) {
-        let pitch = (self.base_mut().random.next_float() - self.base_mut().random.next_float()) * 0.2 + 1.0;
+        let pitch =
+            (self.base_mut().random.next_float() - self.base_mut().random.next_float()) * 0.2 + 1.0;
         self.play_sound(level, SoundEvent::ENTITY_MULE_CHEST, 1.0, pitch);
     }
 }
@@ -87,7 +96,11 @@ impl Entity for Mule {
     }
 
     fn get_dimensions(&self, _pose: Pose) -> EntityDimensions {
-        if self.is_baby() { self.baby_dimensions.clone() } else { EntityDimensions::of_type(self.mob.living.entity.entity_type) }
+        if self.is_baby() {
+            self.baby_dimensions.clone()
+        } else {
+            EntityDimensions::of_type(self.mob.living.entity.entity_type)
+        }
     }
 
     fn ai_step(&mut self, level: &mut ServerLevel) {
@@ -106,16 +119,36 @@ impl Entity for Mule {
         abstract_horse::is_immobile(self)
     }
 
-    fn cause_fall_damage(&mut self, level: &mut ServerLevel, fall_distance: f64, damage_modifier: f32, source: &DamageSource) -> bool {
+    fn cause_fall_damage(
+        &mut self,
+        level: &mut ServerLevel,
+        fall_distance: f64,
+        damage_modifier: f32,
+        source: &DamageSource,
+    ) -> bool {
         abstract_horse::cause_fall_damage(self, level, fall_distance, damage_modifier, source)
     }
 
-    fn play_step_sound(&mut self, level: &mut ServerLevel, pos: BlockPos, state: mc_data::block::BlockState) {
+    fn play_step_sound(
+        &mut self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        state: mc_data::block::BlockState,
+    ) {
         abstract_horse::play_step_sound(self, level, pos, state);
     }
 
-    fn get_passenger_attachment_point(&self, passenger: &dyn Entity, dimensions: &EntityDimensions, scale: f32) -> Vec3 {
-        let base = mc_game_core::world::entity::entity::default_passenger_attachment_point(self.as_dyn(), passenger, &dimensions.attachments);
+    fn get_passenger_attachment_point(
+        &self,
+        passenger: &dyn Entity,
+        dimensions: &EntityDimensions,
+        scale: f32,
+    ) -> Vec3 {
+        let base = mc_game_core::world::entity::entity::default_passenger_attachment_point(
+            self.as_dyn(),
+            passenger,
+            &dimensions.attachments,
+        );
         abstract_horse::get_passenger_attachment_point(self, base, scale)
     }
 
@@ -135,7 +168,12 @@ impl Entity for Mule {
         Some(SoundEvent::ENTITY_MULE_HURT)
     }
 
-    fn mob_interact(&mut self, level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) -> InteractionResult {
+    fn mob_interact(
+        &mut self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        hand: InteractionHand,
+    ) -> InteractionResult {
         abstract_chested_horse::mob_interact(self, level, player, hand)
     }
 
@@ -143,8 +181,19 @@ impl Entity for Mule {
         false
     }
 
-    fn get_breed_offspring(&mut self, level: &mut ServerLevel, _partner: EntityId) -> Option<Box<dyn Entity>> {
-        mc_game_core::world::entity::factory::create(EntityType::MULE, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })
+    fn get_breed_offspring(
+        &mut self,
+        level: &mut ServerLevel,
+        _partner: EntityId,
+    ) -> Option<Box<dyn Entity>> {
+        mc_game_core::world::entity::factory::create(
+            EntityType::MULE,
+            level,
+            EntitySpawnRequest {
+                reason: EntitySpawnReason::Breeding,
+                ignore_checks: false,
+            },
+        )
     }
 
     fn finalize_spawn(
@@ -168,4 +217,7 @@ impl Entity for Mule {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static MULE: EntityRegistration = EntityRegistration { entity_type: EntityType::MULE, create: |ty, id, registries| Box::new(Mule::new(ty, id, registries)) };
+static MULE: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::MULE,
+    create: |ty, id, registries| Box::new(Mule::new(ty, id, registries)),
+};

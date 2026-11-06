@@ -10,15 +10,17 @@ pub mod input;
 mod java_letter_or_digit;
 pub mod template;
 
-use crate::codec::{decode_tag_with, encode_tag, Decode, DecodeError, DecodeResult, Encode, NbtLimit};
-use crate::components::holder::{self, registry_by_name_codec, Holder, HolderSet};
+use crate::codec::{
+    Decode, DecodeError, DecodeResult, Encode, NbtLimit, decode_tag_with, encode_tag,
+};
 use crate::components::component_codec;
+use crate::components::holder::{self, Holder, HolderSet, registry_by_name_codec};
 pub use action::Action;
 pub use body::{DialogBody, ItemBody, PlainMessage};
 pub use input::{Input, InputControl};
 use mc_data::DialogType;
-use mc_dfu::extra::{extra_int_range, POSITIVE_INT};
-use mc_dfu::{Codec, DataResult, MapCodec, BOOL};
+use mc_dfu::extra::{POSITIVE_INT, extra_int_range};
+use mc_dfu::{BOOL, Codec, DataResult, MapCodec};
 use mc_text::Component;
 use std::sync::LazyLock;
 
@@ -87,7 +89,11 @@ impl CommonButtonData {
     pub const DEFAULT_WIDTH: i32 = 150;
 
     pub fn new(label: Component, width: i32) -> CommonButtonData {
-        CommonButtonData { label, tooltip: None, width }
+        CommonButtonData {
+            label,
+            tooltip: None,
+            width,
+        }
     }
 
     pub fn map_codec() -> MapCodec<CommonButtonData> {
@@ -126,7 +132,10 @@ pub struct NoticeDialog {
 impl NoticeDialog {
     /// `DEFAULT_ACTION`: an "OK" button.
     pub fn default_action() -> ActionButton {
-        ActionButton { button: CommonButtonData::new(Component::translatable("gui.ok", vec![]), 150), action: None }
+        ActionButton {
+            button: CommonButtonData::new(Component::translatable("gui.ok", vec![]), 150),
+            action: None,
+        }
     }
 }
 
@@ -227,7 +236,8 @@ impl Dialog {
             Notice,
             mc_dfu::record!(NoticeDialog {
                 common: CommonDialogData::map_codec(),
-                action: ActionButton::codec().optional_field_of_default("action", NoticeDialog::default_action()),
+                action: ActionButton::codec()
+                    .optional_field_of_default("action", NoticeDialog::default_action()),
             })
         )
     }
@@ -262,7 +272,8 @@ impl Dialog {
             MultiAction,
             mc_dfu::record!(MultiActionDialog {
                 common: CommonDialogData::map_codec(),
-                actions: mc_dfu::extra::non_empty_list(&ActionButton::codec().list_of()).field_of("actions"),
+                actions: mc_dfu::extra::non_empty_list(&ActionButton::codec().list_of())
+                    .field_of("actions"),
                 exit_action: ActionButton::codec().optional_field_of("exit_action"),
                 columns: POSITIVE_INT.optional_field_of_default("columns", 2),
             })
@@ -283,21 +294,26 @@ impl Dialog {
     /// `Dialog.DIRECT_CODEC`: `DIALOG_TYPE.byNameCodec().dispatch(Dialog::codec, c -> c)` (key `type`).
     pub fn direct_codec() -> Codec<Dialog> {
         static CODEC: LazyLock<Codec<Dialog>> = LazyLock::new(|| {
-            registry_by_name_codec::<DialogType>().dispatch("type", |d: &Dialog| d.dialog_type(), |t| match *t {
-                DialogType::NOTICE => Dialog::notice_codec(),
-                DialogType::SERVER_LINKS => Dialog::server_links_codec(),
-                DialogType::DIALOG_LIST => Dialog::dialog_list_codec(),
-                DialogType::MULTI_ACTION => Dialog::multi_action_codec(),
-                _ => Dialog::confirmation_codec(),
-            })
+            registry_by_name_codec::<DialogType>().dispatch(
+                "type",
+                |d: &Dialog| d.dialog_type(),
+                |t| match *t {
+                    DialogType::NOTICE => Dialog::notice_codec(),
+                    DialogType::SERVER_LINKS => Dialog::server_links_codec(),
+                    DialogType::DIALOG_LIST => Dialog::dialog_list_codec(),
+                    DialogType::MULTI_ACTION => Dialog::multi_action_codec(),
+                    _ => Dialog::confirmation_codec(),
+                },
+            )
         });
         CODEC.clone()
     }
 
     /// `Dialog.CODEC`: `RegistryCodecs.holder(DIALOG, DIRECT_CODEC)` (a registry id or an inline dialog).
     pub fn codec() -> Codec<Holder<Dialog>> {
-        static CODEC: LazyLock<Codec<Holder<Dialog>>> =
-            LazyLock::new(|| holder::holder_file_codec(REGISTRY, &Codec::lazy(Dialog::direct_codec), true));
+        static CODEC: LazyLock<Codec<Holder<Dialog>>> = LazyLock::new(|| {
+            holder::holder_file_codec(REGISTRY, &Codec::lazy(Dialog::direct_codec), true)
+        });
         CODEC.clone()
     }
 
@@ -324,7 +340,8 @@ impl Dialog {
     /// installed `dialog` registry (`None` if it is not registered), an inline dialog stays inline.
     pub fn wire_holder(holder: &Holder<Dialog>) -> Option<crate::codec::Holder<Dialog>> {
         match holder {
-            Holder::Reference(name) => crate::registry_context::registry_id(REGISTRY, name).map(crate::codec::Holder::Reference),
+            Holder::Reference(name) => crate::registry_context::registry_id(REGISTRY, name)
+                .map(crate::codec::Holder::Reference),
             Holder::Direct(d) => Some(crate::codec::Holder::Direct(d.clone())),
         }
     }
@@ -338,17 +355,24 @@ impl Encode for Dialog {
     fn encode(&self, out: &mut Vec<u8>) -> crate::codec::EncodeResult<()> {
         match mc_dfu::encode_nbt(&Self::direct_codec(), self) {
             DataResult::Success(tag) => encode_tag(&tag, out),
-            e => Err(crate::codec::EncodeError(format!("Failed to encode: {} {self:?}", e.error_message().unwrap_or_default()))),
+            e => Err(crate::codec::EncodeError(format!(
+                "Failed to encode: {} {self:?}",
+                e.error_message().unwrap_or_default()
+            ))),
         }
     }
 }
 
 impl Decode for Dialog {
     fn decode(input: &mut &[u8]) -> DecodeResult<Dialog> {
-        let tag = decode_tag_with(input, NbtLimit::UNLIMITED)?.ok_or_else(|| DecodeError::msg("Expected non-null compound tag"))?;
+        let tag = decode_tag_with(input, NbtLimit::UNLIMITED)?
+            .ok_or_else(|| DecodeError::msg("Expected non-null compound tag"))?;
         match mc_dfu::parse_nbt(&Self::direct_codec(), &tag) {
             DataResult::Success(d) => Ok(d),
-            e => Err(DecodeError::Message(format!("Failed to decode: {} {tag}", e.error_message().unwrap_or_default()))),
+            e => Err(DecodeError::Message(format!(
+                "Failed to decode: {} {tag}",
+                e.error_message().unwrap_or_default()
+            ))),
         }
     }
 }

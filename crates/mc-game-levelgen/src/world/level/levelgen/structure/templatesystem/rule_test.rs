@@ -1,18 +1,23 @@
 //! `RuleTest`: a predicate over a block state (and the world position / random) used by processor rules and ore targets.
 //! Each type lives in its own file and registers itself in [`RULE_TEST_TYPES`] (dispatched on `predicate_type`).
 
-use mc_game_core::world::level::LevelReader;
-use mc_game_core::world::level::levelgen::codec::{LoadResult, TypeEntry, decode_dispatch_on};
-use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::BlockState;
+use mc_game_core::world::level::LevelReader;
+use mc_game_core::world::level::levelgen::codec::{LoadResult, TypeEntry, decode_dispatch_on};
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use serde_json::Value;
 use std::sync::Arc;
 
 pub trait RuleTest: Send + Sync {
     /// `testAgainstWorldState(level, pos, random)`.
-    fn test_against_world_state(&self, level: &dyn LevelReader, pos: BlockPos, random: &mut dyn RandomSource) -> bool {
+    fn test_against_world_state(
+        &self,
+        level: &dyn LevelReader,
+        pos: BlockPos,
+        random: &mut dyn RandomSource,
+    ) -> bool {
         self.test(level.get_block_state(pos), pos, random)
     }
 

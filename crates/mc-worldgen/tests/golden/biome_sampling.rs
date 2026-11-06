@@ -11,13 +11,16 @@ use mc_core::pos::block_pos::BlockPos;
 use mc_core::random::LegacyRandomSource;
 use mc_world::chunk::LevelHeight;
 use mc_world::palette::BiomeId;
-use mc_worldgen::biome::{BiomeManager, BiomeRegistry, BiomeSource, NoiseSpawnFinder, biome_source_from_json};
+use mc_worldgen::biome::{
+    BiomeManager, BiomeRegistry, BiomeSource, NoiseSpawnFinder, biome_source_from_json,
+};
 use mc_worldgen::data::{McDataSource, WorldgenRegistries};
 use mc_worldgen::densityfunction::SamplerContext;
 use mc_worldgen::random_state::RandomState;
 
 fn fixture() -> Vec<String> {
-    let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/biome_sampling.txt.gz");
+    let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("tests/fixtures/biome_sampling.txt.gz");
     let mut text = String::new();
     flate2::read::GzDecoder::new(std::fs::File::open(path).expect("fixture"))
         .read_to_string(&mut text)
@@ -49,9 +52,25 @@ fn cases(registries: &WorldgenRegistries, biomes: &BiomeRegistry) -> BTreeMap<&'
         ("overworld", mk(overworld, "overworld", -16, 96)),
         ("large_biomes", mk(overworld, "large_biomes", -16, 96)),
         ("amplified", mk(overworld, "amplified", -16, 96)),
-        ("nether", mk(r#"{"type":"minecraft:multi_noise","preset":"minecraft:nether"}"#, "nether", 0, 32)),
+        (
+            "nether",
+            mk(
+                r#"{"type":"minecraft:multi_noise","preset":"minecraft:nether"}"#,
+                "nether",
+                0,
+                32,
+            ),
+        ),
         ("end", mk(r#"{"type":"minecraft:the_end"}"#, "end", 0, 32)),
-        ("fixed", mk(r#"{"type":"minecraft:fixed","biome":"minecraft:plains"}"#, "overworld", -16, 96)),
+        (
+            "fixed",
+            mk(
+                r#"{"type":"minecraft:fixed","biome":"minecraft:plains"}"#,
+                "overworld",
+                -16,
+                96,
+            ),
+        ),
         (
             "checker",
             mk(
@@ -99,7 +118,10 @@ fn biome_sampling_matches_vanilla() {
                 assert_eq!(got, want, "possible biomes of {}", f[1]);
             }
             "S" => spawns.push(f),
-            _ => groups.entry((f[1].to_owned(), num(f[2]))).or_default().push(f),
+            _ => groups
+                .entry((f[1].to_owned(), num(f[2])))
+                .or_default()
+                .push(f),
         }
     }
 
@@ -123,17 +145,36 @@ fn biome_sampling_matches_vanilla() {
                 "T" => {
                     let (qx, qy, qz) = (num(f[3]) as i32, num(f[4]) as i32, num(f[5]) as i32);
                     let t = sampler.sample(qx, qy, qz);
-                    let got = [t.temperature, t.humidity, t.continentalness, t.erosion, t.depth, t.weirdness];
+                    let got = [
+                        t.temperature,
+                        t.humidity,
+                        t.continentalness,
+                        t.erosion,
+                        t.depth,
+                        t.weirdness,
+                    ];
                     let want: Vec<i64> = f[6..12].iter().map(|v| num(v)).collect();
                     assert_eq!(got.as_slice(), want.as_slice(), "{ctx}");
-                    assert_eq!(i64::from(resolver.get_noise_biome(qx, qy, qz).0), num(f[12]), "{ctx}");
+                    assert_eq!(
+                        i64::from(resolver.get_noise_biome(qx, qy, qz).0),
+                        num(f[12]),
+                        "{ctx}"
+                    );
                 }
                 "K" => {
-                    let b = resolver.get_noise_biome(num(f[3]) as i32, num(f[4]) as i32, num(f[5]) as i32);
+                    let b = resolver.get_noise_biome(
+                        num(f[3]) as i32,
+                        num(f[4]) as i32,
+                        num(f[5]) as i32,
+                    );
                     assert_eq!(i64::from(b.0), num(f[6]), "{ctx}");
                 }
                 "M" => {
-                    let b = manager.get_biome(BlockPos::new(num(f[3]) as i32, num(f[4]) as i32, num(f[5]) as i32));
+                    let b = manager.get_biome(BlockPos::new(
+                        num(f[3]) as i32,
+                        num(f[4]) as i32,
+                        num(f[5]) as i32,
+                    ));
                     assert_eq!(i64::from(b.0), num(f[6]), "{ctx}");
                 }
                 "V" => {
@@ -142,12 +183,18 @@ fn biome_sampling_matches_vanilla() {
                     let context = SamplerContext::builder().enable_caches().build();
                     let cs = rs.create_climate_sampler(context);
                     let (min_qx, min_qz) = ((cx * 16) >> 2, (cz * 16) >> 2);
-                    let cr = case.source.create_resolver_for_chunk(cs, min_qx, min_qy, min_qz, 4, size_y, 4);
+                    let cr = case
+                        .source
+                        .create_resolver_for_chunk(cs, min_qx, min_qy, min_qz, 4, size_y, 4);
                     let mut got = String::new();
                     for x in 0..4 {
                         for z in 0..4 {
                             for y in 0..size_y {
-                                got.push((b'0' + cr.get_noise_biome(min_qx + x, min_qy + y, min_qz + z).0 as u8) as char);
+                                got.push(
+                                    (b'0'
+                                        + cr.get_noise_biome(min_qx + x, min_qy + y, min_qz + z).0
+                                            as u8) as char,
+                                );
                             }
                         }
                     }
@@ -157,22 +204,61 @@ fn biome_sampling_matches_vanilla() {
                     let (x, y, z) = (num(f[4]) as i32, num(f[5]) as i32, num(f[6]) as i32);
                     let source = &case.source;
                     let got = match f[3] {
-                        "r400" => source.find_biome_horizontal(x, y, z, 400, &allowed, &mut LegacyRandomSource::new(*seed), &rs),
-                        "r400any" => source.find_biome_horizontal(x, y, z, 400, &any, &mut LegacyRandomSource::new(*seed), &rs),
+                        "r400" => source.find_biome_horizontal(
+                            x,
+                            y,
+                            z,
+                            400,
+                            &allowed,
+                            &mut LegacyRandomSource::new(*seed),
+                            &rs,
+                        ),
+                        "r400any" => source.find_biome_horizontal(
+                            x,
+                            y,
+                            z,
+                            400,
+                            &any,
+                            &mut LegacyRandomSource::new(*seed),
+                            &rs,
+                        ),
                         "closest" => source.find_biome_horizontal_stepped(
-                            x, y, z, 2000, 8, &allowed, &mut LegacyRandomSource::new(*seed), true, &rs,
+                            x,
+                            y,
+                            z,
+                            2000,
+                            8,
+                            &allowed,
+                            &mut LegacyRandomSource::new(*seed),
+                            true,
+                            &rs,
                         ),
                         "skip" => source.find_biome_horizontal_stepped(
-                            x, y, z, 1200, 4, &allowed, &mut LegacyRandomSource::new(seed.wrapping_add(1)), false, &rs,
+                            x,
+                            y,
+                            z,
+                            1200,
+                            4,
+                            &allowed,
+                            &mut LegacyRandomSource::new(seed.wrapping_add(1)),
+                            false,
+                            &rs,
                         ),
                         other => panic!("variant {other}"),
                     };
                     assert_eq!(result(got), f[7..].join(" "), "{ctx}");
                 }
                 "D" | "D2" => {
-                    let origin = BlockPos::new(num(f[3]) as i32, num(f[4]) as i32, num(f[5]) as i32);
-                    let (radius, hres, vres) = if f[0] == "D" { (1600, 32, 64) } else { (600, 16, 24) };
-                    let got = case.source.find_closest_biome_3d(origin, radius, hres, vres, &allowed, &rs, level);
+                    let origin =
+                        BlockPos::new(num(f[3]) as i32, num(f[4]) as i32, num(f[5]) as i32);
+                    let (radius, hres, vres) = if f[0] == "D" {
+                        (1600, 32, 64)
+                    } else {
+                        (600, 16, 24)
+                    };
+                    let got = case
+                        .source
+                        .find_closest_biome_3d(origin, radius, hres, vres, &allowed, &rs, level);
                     assert_eq!(result(got), f[6..].join(" "), "{ctx}");
                 }
                 other => panic!("unknown line kind {other}"),
@@ -191,6 +277,11 @@ fn biome_sampling_matches_vanilla() {
         let rs = Arc::new(RandomState::create(registries.clone(), seed, &settings));
         let samplers = rs.samplers_with_context(SamplerContext::builder().enable_caches().build());
         let pos = NoiseSpawnFinder::find_spawn_position(&settings.spawn_target, &samplers);
-        assert_eq!((i64::from(pos.x()), i64::from(pos.z())), (num(f[3]), num(f[4])), "spawn {}", f.join(" "));
+        assert_eq!(
+            (i64::from(pos.x()), i64::from(pos.z())),
+            (num(f[3]), num(f[4])),
+            "spawn {}",
+            f.join(" ")
+        );
     }
 }

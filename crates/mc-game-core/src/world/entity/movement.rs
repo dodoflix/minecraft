@@ -4,12 +4,14 @@
 //! The server needs this for `MoverType.PLAYER` movement validation and for every ticking entity. Sounds, game events
 //! and block `entityInside` effects of movement are not part of this module.
 
-use super::entity::{Entity, Movement, MovementEmission, MAX_MOVEMENTS_HANDLED_PER_TICK};
 use super::MoverType;
+use super::entity::{Entity, MAX_MOVEMENTS_HANDLED_PER_TICK, Movement, MovementEmission};
 use crate::server::level::ServerLevel;
 use crate::world::level::BlockGetter;
 use crate::world::level::block::BlockStateExt;
-use crate::world::level::collision::{BlockGetterExt, ClipBlock, ClipContext, ClipFluid, CollisionContext, CollisionGetter};
+use crate::world::level::collision::{
+    BlockGetterExt, ClipBlock, ClipContext, ClipFluid, CollisionContext, CollisionGetter,
+};
 use crate::world::level::gameevent::GameEventContext;
 use crate::world::level::material::FluidStateExt;
 use mc_core::direction::Axis;
@@ -40,7 +42,15 @@ pub trait MovementLevel: CollisionGetter + EntityCollisionQuery {
 
 /// `CollisionContext.of(entity)` (`EntityCollisionContext(entity, false, false)`).
 pub fn collision_context(entity: &dyn Entity) -> CollisionContext {
-    CollisionContext::of_entity(entity.id(), entity.is_descending(), entity.base().y(), entity.held_item_for_collision(), entity.can_stand_on_fluid_fn(), false).with_entity_state(
+    CollisionContext::of_entity(
+        entity.id(),
+        entity.is_descending(),
+        entity.base().y(),
+        entity.held_item_for_collision(),
+        entity.can_stand_on_fluid_fn(),
+        false,
+    )
+    .with_entity_state(
         entity.base().fall_distance,
         entity.get_type() == mc_data::EntityType::FALLING_BLOCK,
         can_entity_walk_on_powder_snow(entity),
@@ -49,7 +59,9 @@ pub fn collision_context(entity: &dyn Entity) -> CollisionContext {
 
 /// `PowderSnowBlock.canEntityWalkOnPowderSnow(entity)`.
 pub fn can_entity_walk_on_powder_snow(entity: &dyn Entity) -> bool {
-    if mc_data::tags::get::<mc_data::EntityType>("powder_snow_walkable_mobs").is_some_and(|t| t.contains(entity.get_type())) {
+    if mc_data::tags::get::<mc_data::EntityType>("powder_snow_walkable_mobs")
+        .is_some_and(|t| t.contains(entity.get_type()))
+    {
         return true;
     }
     entity.living().is_some() && {
@@ -74,14 +86,29 @@ fn collect_colliders_ignoring_world_border<L: MovementLevel>(
 }
 
 /// `Entity.collectAllColliders(source, level, box)`.
-pub fn collect_all_colliders<L: MovementLevel>(source: &dyn Entity, level: &L, bounding_box: &AABB) -> Vec<VoxelShape> {
+pub fn collect_all_colliders<L: MovementLevel>(
+    source: &dyn Entity,
+    level: &L,
+    bounding_box: &AABB,
+) -> Vec<VoxelShape> {
     let entity_colliders = level.entity_collisions(Some(source), bounding_box);
     collect_colliders_ignoring_world_border(source, level, &entity_colliders, bounding_box)
 }
 
 /// `Entity.collideBoundingBox(source, movement, box, level, entityColliders)`.
-pub fn collide_bounding_box<L: MovementLevel>(source: &dyn Entity, movement: Vec3, bounding_box: &AABB, level: &L, entity_colliders: &[VoxelShape]) -> Vec3 {
-    let colliders = collect_colliders_ignoring_world_border(source, level, entity_colliders, &bounding_box.expand_towards_vec3(movement));
+pub fn collide_bounding_box<L: MovementLevel>(
+    source: &dyn Entity,
+    movement: Vec3,
+    bounding_box: &AABB,
+    level: &L,
+    entity_colliders: &[VoxelShape],
+) -> Vec3 {
+    let colliders = collect_colliders_ignoring_world_border(
+        source,
+        level,
+        entity_colliders,
+        &bounding_box.expand_towards_vec3(movement),
+    );
     collide_with_shapes(movement, bounding_box, &colliders)
 }
 
@@ -103,7 +130,12 @@ pub fn collide_with_shapes(movement: Vec3, bounding_box: &AABB, shapes: &[VoxelS
     for axis in axis_step_order(movement) {
         let axis_movement = movement.get(axis);
         if axis_movement != 0.0 {
-            let collision = Shapes::collide(axis, &bounding_box.move_vec(resolved), shapes, axis_movement);
+            let collision = Shapes::collide(
+                axis,
+                &bounding_box.move_vec(resolved),
+                shapes,
+                axis_movement,
+            );
             resolved = resolved.with(axis, collision);
         }
     }
@@ -111,7 +143,12 @@ pub fn collide_with_shapes(movement: Vec3, bounding_box: &AABB, shapes: &[VoxelS
 }
 
 /// `Entity.collectCandidateStepUpHeights`.
-fn collect_candidate_step_up_heights(bounding_box: &AABB, colliders: &[VoxelShape], max_step_height: f32, step_height_to_skip: f32) -> Vec<f32> {
+fn collect_candidate_step_up_heights(
+    bounding_box: &AABB,
+    colliders: &[VoxelShape],
+    max_step_height: f32,
+    step_height_to_skip: f32,
+) -> Vec<f32> {
     let mut candidates: Vec<f32> = Vec::with_capacity(4);
     for collider in colliders {
         for coord in collider.get_coords(Axis::Y).to_vec() {
@@ -135,23 +172,50 @@ fn collect_candidate_step_up_heights(bounding_box: &AABB, colliders: &[VoxelShap
 pub fn collide<L: MovementLevel>(entity: &dyn Entity, level: &L, movement: Vec3) -> Vec3 {
     let aabb = entity.base().bounding_box();
     let max_up_step = entity.max_up_step();
-    let entity_colliders = level.entity_collisions(Some(entity), &aabb.expand_towards_vec3(movement).expand_towards(0.0, f64::from(max_up_step), 0.0));
-    let movement_step = if movement.length_sqr() == 0.0 { movement } else { collide_bounding_box(entity, movement, &aabb, level, &entity_colliders) };
+    let entity_colliders = level.entity_collisions(
+        Some(entity),
+        &aabb
+            .expand_towards_vec3(movement)
+            .expand_towards(0.0, f64::from(max_up_step), 0.0),
+    );
+    let movement_step = if movement.length_sqr() == 0.0 {
+        movement
+    } else {
+        collide_bounding_box(entity, movement, &aabb, level, &entity_colliders)
+    };
     let x_collision = movement.x != movement_step.x;
     let y_collision = movement.y != movement_step.y;
     let z_collision = movement.z != movement_step.z;
     let on_ground_after_collision = y_collision && movement.y < 0.0;
-    if max_up_step > 0.0 && (on_ground_after_collision || entity.base().on_ground()) && (x_collision || z_collision) {
-        let grounded = if on_ground_after_collision { aabb.move_(0.0, movement_step.y, 0.0) } else { aabb };
+    if max_up_step > 0.0
+        && (on_ground_after_collision || entity.base().on_ground())
+        && (x_collision || z_collision)
+    {
+        let grounded = if on_ground_after_collision {
+            aabb.move_(0.0, movement_step.y, 0.0)
+        } else {
+            aabb
+        };
         let mut step_up = grounded.expand_towards(movement.x, f64::from(max_up_step), movement.z);
         if !on_ground_after_collision {
             step_up = step_up.expand_towards(0.0, -f64::from(1.0E-5f32), 0.0);
         }
-        let colliders = collect_colliders_ignoring_world_border(entity, level, &entity_colliders, &step_up);
+        let colliders =
+            collect_colliders_ignoring_world_border(entity, level, &entity_colliders, &step_up);
         let step_height_to_skip = movement_step.y as f32;
-        for candidate in collect_candidate_step_up_heights(&grounded, &colliders, max_up_step, step_height_to_skip) {
-            let step_from_ground = collide_with_shapes(Vec3::new(movement.x, f64::from(candidate), movement.z), &grounded, &colliders);
-            if step_from_ground.horizontal_distance_sqr() > movement_step.horizontal_distance_sqr() {
+        for candidate in collect_candidate_step_up_heights(
+            &grounded,
+            &colliders,
+            max_up_step,
+            step_height_to_skip,
+        ) {
+            let step_from_ground = collide_with_shapes(
+                Vec3::new(movement.x, f64::from(candidate), movement.z),
+                &grounded,
+                &colliders,
+            );
+            if step_from_ground.horizontal_distance_sqr() > movement_step.horizontal_distance_sqr()
+            {
                 let distance_to_ground = aabb.min_y - grounded.min_y;
                 return step_from_ground.subtract(Vec3::new(0.0, distance_to_ground, 0.0));
             }
@@ -161,18 +225,40 @@ pub fn collide<L: MovementLevel>(entity: &dyn Entity, level: &L, movement: Vec3)
 }
 
 /// `Entity.getAvailableSpaceBelow(maxDistance)`.
-pub fn get_available_space_below<L: MovementLevel>(entity: &dyn Entity, level: &L, max_distance: f64) -> f64 {
+pub fn get_available_space_below<L: MovementLevel>(
+    entity: &dyn Entity,
+    level: &L,
+    max_distance: f64,
+) -> f64 {
     let aabb = entity.base().bounding_box();
-    let below = aabb.set_min_y(aabb.min_y - max_distance).set_max_y(aabb.min_y);
+    let below = aabb
+        .set_min_y(aabb.min_y - max_distance)
+        .set_max_y(aabb.min_y);
     let colliders = collect_all_colliders(entity, level, &below);
-    if colliders.is_empty() { max_distance } else { -Shapes::collide(Axis::Y, &aabb, &colliders, -max_distance) }
+    if colliders.is_empty() {
+        max_distance
+    } else {
+        -Shapes::collide(Axis::Y, &aabb, &colliders, -max_distance)
+    }
 }
 
 /// `Entity.checkSupportingBlock(onGround, movement)`.
-pub fn check_supporting_block<L: MovementLevel>(entity: &mut dyn Entity, level: &L, on_ground: bool, movement: Option<Vec3>) {
+pub fn check_supporting_block<L: MovementLevel>(
+    entity: &mut dyn Entity,
+    level: &L,
+    on_ground: bool,
+    movement: Option<Vec3>,
+) {
     if on_ground {
         let bb = entity.base().bounding_box();
-        let test_area = AABB::new(bb.min_x, bb.min_y - 1.0E-6, bb.min_z, bb.max_x, bb.min_y, bb.max_z);
+        let test_area = AABB::new(
+            bb.min_x,
+            bb.min_y - 1.0E-6,
+            bb.min_z,
+            bb.max_x,
+            bb.min_y,
+            bb.max_z,
+        );
         let ctx = collision_context(entity);
         let position = entity.base().position();
         let mut supporting = level.find_supporting_block(&ctx, position, &test_area);
@@ -199,7 +285,13 @@ pub fn set_on_ground<L: MovementLevel>(entity: &mut dyn Entity, level: &L, on_gr
 }
 
 /// `setOnGroundWithMovement(onGround, horizontalCollision, movement)`.
-pub fn set_on_ground_with_movement<L: MovementLevel>(entity: &mut dyn Entity, level: &L, on_ground: bool, horizontal_collision: bool, movement: Vec3) {
+pub fn set_on_ground_with_movement<L: MovementLevel>(
+    entity: &mut dyn Entity,
+    level: &L,
+    on_ground: bool,
+    horizontal_collision: bool,
+    movement: Vec3,
+) {
     let b = entity.base_mut();
     b.set_on_ground_raw(on_ground);
     b.horizontal_collision = horizontal_collision;
@@ -217,13 +309,24 @@ pub fn get_on_pos<L: MovementLevel>(entity: &dyn Entity, level: &L, offset: f32)
         let below = level.get_block_state(support);
         let block = below.block();
         let is_fence = block.is_in_tag("fences");
-        if (offset <= 0.5 && is_fence) || block.is_in_tag("walls") || block.data().classes.iter().any(|c| *c == "FenceGateBlock") {
+        if (offset <= 0.5 && is_fence)
+            || block.is_in_tag("walls")
+            || block.data().classes.iter().any(|c| *c == "FenceGateBlock")
+        {
             support
         } else {
-            BlockPos::new(support.x(), mth::floor_f64(pos.y - f64::from(offset)), support.z())
+            BlockPos::new(
+                support.x(),
+                mth::floor_f64(pos.y - f64::from(offset)),
+                support.z(),
+            )
         }
     } else {
-        BlockPos::new(mth::floor_f64(pos.x), mth::floor_f64(pos.y - f64::from(offset)), mth::floor_f64(pos.z))
+        BlockPos::new(
+            mth::floor_f64(pos.x),
+            mth::floor_f64(pos.y - f64::from(offset)),
+            mth::floor_f64(pos.z),
+        )
     }
 }
 
@@ -233,7 +336,10 @@ pub fn get_on_pos_legacy<L: MovementLevel>(entity: &dyn Entity, level: &L) -> Bl
 }
 
 /// `getBlockPosBelowThatAffectsMyMovement()`.
-pub fn get_block_pos_below_that_affects_my_movement<L: MovementLevel>(entity: &dyn Entity, level: &L) -> BlockPos {
+pub fn get_block_pos_below_that_affects_my_movement<L: MovementLevel>(
+    entity: &dyn Entity,
+    level: &L,
+) -> BlockPos {
     get_on_pos(entity, level, entity.block_pos_below_offset())
 }
 
@@ -242,7 +348,15 @@ pub fn get_block_speed_factor<L: MovementLevel>(entity: &dyn Entity, level: &L) 
     let state = level.get_block_state(entity.base().block_position());
     let here = state.block().data().speed_factor;
     if state.block() != Block::WATER && state.block() != Block::BUBBLE_COLUMN {
-        if here == 1.0 { level.get_block_state(get_block_pos_below_that_affects_my_movement(entity, level)).block().data().speed_factor } else { here }
+        if here == 1.0 {
+            level
+                .get_block_state(get_block_pos_below_that_affects_my_movement(entity, level))
+                .block()
+                .data()
+                .speed_factor
+        } else {
+            here
+        }
     } else {
         here
     }
@@ -250,8 +364,16 @@ pub fn get_block_speed_factor<L: MovementLevel>(entity: &dyn Entity, level: &L) 
 
 /// `getBlockJumpFactor()`.
 pub fn get_block_jump_factor<L: MovementLevel>(entity: &dyn Entity, level: &L) -> f32 {
-    let here = level.get_block_state(entity.base().block_position()).block().data().jump_factor;
-    let below = level.get_block_state(get_block_pos_below_that_affects_my_movement(entity, level)).block().data().jump_factor;
+    let here = level
+        .get_block_state(entity.base().block_position())
+        .block()
+        .data()
+        .jump_factor;
+    let below = level
+        .get_block_state(get_block_pos_below_that_affects_my_movement(entity, level))
+        .block()
+        .data()
+        .jump_factor;
     if here == 1.0 { below } else { here }
 }
 
@@ -276,13 +398,25 @@ fn limit_piston_movement<L: MovementLevel>(entity: &mut dyn Entity, level: &L, v
     let eps = f64::from(1.0E-5f32);
     if vec.x != 0.0 {
         let xa = restrict(Axis::X, vec.x);
-        if xa.abs() <= eps { Vec3::ZERO } else { Vec3::new(xa, 0.0, 0.0) }
+        if xa.abs() <= eps {
+            Vec3::ZERO
+        } else {
+            Vec3::new(xa, 0.0, 0.0)
+        }
     } else if vec.y != 0.0 {
         let ya = restrict(Axis::Y, vec.y);
-        if ya.abs() <= eps { Vec3::ZERO } else { Vec3::new(0.0, ya, 0.0) }
+        if ya.abs() <= eps {
+            Vec3::ZERO
+        } else {
+            Vec3::new(0.0, ya, 0.0)
+        }
     } else if vec.z != 0.0 {
         let za = restrict(Axis::Z, vec.z);
-        if za.abs() <= eps { Vec3::ZERO } else { Vec3::new(0.0, 0.0, za) }
+        if za.abs() <= eps {
+            Vec3::ZERO
+        } else {
+            Vec3::new(0.0, 0.0, za)
+        }
     } else {
         Vec3::ZERO
     }
@@ -294,15 +428,23 @@ fn add_movement_this_tick(entity: &mut dyn Entity, movement: Movement) {
     if q.len() >= MAX_MOVEMENTS_HANDLED_PER_TICK {
         let first = q.pop_front().expect("len >= 100");
         let second = q.pop_front().expect("len >= 100");
-        q.push_front(Movement { from: first.from, to: second.to, axis_dependent_original_movement: None });
+        q.push_front(Movement {
+            from: first.from,
+            to: second.to,
+            axis_dependent_original_movement: None,
+        });
     }
     q.push_back(movement);
 }
 
 /// `recordMovement(moverType, movement)`.
 fn record_movement(entity: &mut dyn Entity, mover: MoverType, movement: Vec3) {
-    if mover.is_server_and_client_simulated() || entity.move_simulation_type_is_server_and_client() {
-        entity.base_mut().interpolation_tracker.apply_predicted_movement(movement);
+    if mover.is_server_and_client_simulated() || entity.move_simulation_type_is_server_and_client()
+    {
+        entity
+            .base_mut()
+            .interpolation_tracker
+            .apply_predicted_movement(movement);
     }
 }
 
@@ -317,7 +459,12 @@ pub fn touching_unloaded_chunk<L: MovementLevel>(entity: &dyn Entity, level: &L)
 }
 
 /// `Entity.move(moverType, delta)`.
-pub fn move_entity(entity: &mut dyn Entity, level: &mut ServerLevel, mover: MoverType, mut delta: Vec3) {
+pub fn move_entity(
+    entity: &mut dyn Entity,
+    level: &mut ServerLevel,
+    mover: MoverType,
+    mut delta: Vec3,
+) {
     if mover == MoverType::ShulkerBox && entity.on_moved_by_shulker_box(level) {
         return;
     }
@@ -353,14 +500,27 @@ pub fn move_entity(entity: &mut dyn Entity, level: &mut ServerLevel, mover: Move
             let check_distance = movement.length().min(8.0);
             let from = entity.base().position();
             let check_to = from.add(movement.normalize().scale(check_distance));
-            let hit = level.clip(&ClipContext::new(from, check_to, ClipBlock::FalldamageResetting, ClipFluid::Water, collision_context(entity)));
+            let hit = level.clip(&ClipContext::new(
+                from,
+                check_to,
+                ClipBlock::FalldamageResetting,
+                ClipFluid::Water,
+                collision_context(entity),
+            ));
             if !hit.miss {
                 entity.reset_fall_distance();
             }
         }
         let pos = entity.base().position();
         let new_position = pos.add(movement);
-        add_movement_this_tick(entity, Movement { from: pos, to: new_position, axis_dependent_original_movement: Some(delta) });
+        add_movement_this_tick(
+            entity,
+            Movement {
+                from: pos,
+                to: new_position,
+                axis_dependent_original_movement: Some(delta),
+            },
+        );
         entity.set_pos_vec(new_position);
         record_movement(entity, mover, movement);
     }
@@ -388,22 +548,52 @@ pub fn move_entity(entity: &mut dyn Entity, level: &mut ServerLevel, mover: Move
     if entity.is_removed() {
         return;
     }
-    if entity.can_simulate_movement() && ((moved_vertically && entity.base().vertical_collision) || horizontal_collision) {
-        restitute_movement_after_collisions(entity, level, effect_state, x_collision, z_collision, movement);
+    if entity.can_simulate_movement()
+        && ((moved_vertically && entity.base().vertical_collision) || horizontal_collision)
+    {
+        restitute_movement_after_collisions(
+            entity,
+            level,
+            effect_state,
+            x_collision,
+            z_collision,
+            movement,
+        );
     }
     let emission = entity.get_movement_emission();
     if emission.emits_anything() && !entity.base().is_passenger() {
-        apply_movement_emission_and_play_sound(entity, level, emission, movement, effect_pos, effect_state);
+        apply_movement_emission_and_play_sound(
+            entity,
+            level,
+            emission,
+            movement,
+            effect_pos,
+            effect_state,
+        );
     }
-    let factor = f64::from(entity.modify_block_speed_factor(get_block_speed_factor(entity, &*level)));
+    let factor =
+        f64::from(entity.modify_block_speed_factor(get_block_speed_factor(entity, &*level)));
     let dm = entity.base().delta_movement();
-    entity.base_mut().set_delta_movement(dm.multiply_xyz(factor, 1.0, factor));
+    entity
+        .base_mut()
+        .set_delta_movement(dm.multiply_xyz(factor, 1.0, factor));
 }
 
 /// `restituteMovementAfterCollisions`.
-fn restitute_movement_after_collisions(entity: &mut dyn Entity, level: &mut ServerLevel, effect_state: BlockState, x_collision: bool, z_collision: bool, movement: Vec3) {
+fn restitute_movement_after_collisions(
+    entity: &mut dyn Entity,
+    level: &mut ServerLevel,
+    effect_state: BlockState,
+    x_collision: bool,
+    z_collision: bool,
+    movement: Vec3,
+) {
     let suppressing = entity.is_suppressing_bounce();
-    let mut restitution = if suppressing { 0.0 } else { entity.get_entity_bounciness() };
+    let mut restitution = if suppressing {
+        0.0
+    } else {
+        entity.get_entity_bounciness()
+    };
     let current = entity.base().delta_movement();
     let mut after = current;
     if x_collision {
@@ -416,7 +606,10 @@ fn restitute_movement_after_collisions(entity: &mut dyn Entity, level: &mut Serv
     if entity.base().vertical_collision {
         if entity.base().vertical_collision_below {
             let gravity = entity.get_effective_gravity();
-            restitution = if !(-current.y <= gravity) && !suppressing && !effect_state.block().is_in_tag("suppresses_bounce") {
+            restitution = if !(-current.y <= gravity)
+                && !suppressing
+                && !effect_state.block().is_in_tag("suppresses_bounce")
+            {
                 restitution.max(block_bounciness(entity, effect_state.block()))
             } else {
                 0.0
@@ -432,7 +625,10 @@ fn restitute_movement_after_collisions(entity: &mut dyn Entity, level: &mut Serv
             gravity_compensation = 0.0;
             effective_drag = 1.0;
         }
-        after = after.with(Axis::Y, (gravity_compensation - current.y) * effective_drag * restitution);
+        after = after.with(
+            Axis::Y,
+            (gravity_compensation - current.y) * effective_drag * restitution,
+        );
     }
     if bounced {
         let below = get_block_pos_below_that_affects_my_movement(entity, &*level);
@@ -445,22 +641,50 @@ fn restitute_movement_after_collisions(entity: &mut dyn Entity, level: &mut Serv
 }
 
 /// `Entity.applyMovementEmissionAndPlaySound(emission, clippedMovement, effectPos, effectState)`.
-fn apply_movement_emission_and_play_sound(entity: &mut dyn Entity, level: &mut ServerLevel, emission: MovementEmission, clipped_movement: Vec3, effect_pos: BlockPos, effect_state: BlockState) {
+fn apply_movement_emission_and_play_sound(
+    entity: &mut dyn Entity,
+    level: &mut ServerLevel,
+    emission: MovementEmission,
+    clipped_movement: Vec3,
+    effect_pos: BlockPos,
+    effect_state: BlockState,
+) {
     let moved_distance = (clipped_movement.length() * f64::from(0.6f32)) as f32;
-    let horizontal_moved_distance = (clipped_movement.horizontal_distance() * f64::from(0.6f32)) as f32;
+    let horizontal_moved_distance =
+        (clipped_movement.horizontal_distance() * f64::from(0.6f32)) as f32;
     let supporting_pos = get_on_pos(entity, &*level, 1.0E-5);
     let supporting_state = level.get_block_state(supporting_pos);
     let climbing = entity.is_state_climbable(supporting_state);
     {
         let b = entity.base_mut();
-        b.move_dist += if climbing { moved_distance } else { horizontal_moved_distance };
+        b.move_dist += if climbing {
+            moved_distance
+        } else {
+            horizontal_moved_distance
+        };
         b.fly_dist += moved_distance;
     }
     if entity.base().move_dist > entity.base().next_step && !supporting_state.is_air() {
         let only_effect_state_emissions = supporting_pos == effect_pos;
-        let mut produced_side_effects = vibration_and_sound_effects_from_block(entity, level, effect_pos, effect_state, emission.emits_sounds(), only_effect_state_emissions, clipped_movement);
+        let mut produced_side_effects = vibration_and_sound_effects_from_block(
+            entity,
+            level,
+            effect_pos,
+            effect_state,
+            emission.emits_sounds(),
+            only_effect_state_emissions,
+            clipped_movement,
+        );
         if !only_effect_state_emissions {
-            produced_side_effects |= vibration_and_sound_effects_from_block(entity, level, supporting_pos, supporting_state, false, emission.emits_events(), clipped_movement);
+            produced_side_effects |= vibration_and_sound_effects_from_block(
+                entity,
+                level,
+                supporting_pos,
+                supporting_state,
+                false,
+                emission.emits_events(),
+                clipped_movement,
+            );
         }
         if produced_side_effects {
             entity.base_mut().next_step = entity.next_step();
@@ -479,18 +703,35 @@ fn apply_movement_emission_and_play_sound(entity: &mut dyn Entity, level: &mut S
 }
 
 /// `Entity.vibrationAndSoundEffectsFromBlock(pos, blockState, shouldSound, shouldVibrate, clippedMovement)`.
-fn vibration_and_sound_effects_from_block(entity: &mut dyn Entity, level: &mut ServerLevel, pos: BlockPos, block_state: BlockState, should_sound: bool, should_vibrate: bool, clipped_movement: Vec3) -> bool {
+fn vibration_and_sound_effects_from_block(
+    entity: &mut dyn Entity,
+    level: &mut ServerLevel,
+    pos: BlockPos,
+    block_state: BlockState,
+    should_sound: bool,
+    should_vibrate: bool,
+    clipped_movement: Vec3,
+) -> bool {
     if block_state.is_air() {
         return false;
     }
     let is_climbable = entity.is_state_climbable(block_state);
-    if (entity.base().on_ground() || is_climbable || (entity.is_crouching() && clipped_movement.y == 0.0) || entity.is_on_rails()) && !entity.is_swimming() {
+    if (entity.base().on_ground()
+        || is_climbable
+        || (entity.is_crouching() && clipped_movement.y == 0.0)
+        || entity.is_on_rails())
+        && !entity.is_swimming()
+    {
         if should_sound {
             walking_step_sound(entity, level, pos, block_state);
         }
         if should_vibrate {
             let position = entity.base().position();
-            level.post_game_event(mc_data::GameEvent::STEP, position, &GameEventContext::of(Some(entity.id()), Some(block_state)));
+            level.post_game_event(
+                mc_data::GameEvent::STEP,
+                position,
+                &GameEventContext::of(Some(entity.id()), Some(block_state)),
+            );
         }
         true
     } else {
@@ -499,10 +740,17 @@ fn vibration_and_sound_effects_from_block(entity: &mut dyn Entity, level: &mut S
 }
 
 /// `Entity.walkingStepSound(onPos, onState)`.
-fn walking_step_sound(entity: &mut dyn Entity, level: &mut ServerLevel, on_pos: BlockPos, on_state: BlockState) {
+fn walking_step_sound(
+    entity: &mut dyn Entity,
+    level: &mut ServerLevel,
+    on_pos: BlockPos,
+    on_state: BlockState,
+) {
     entity.play_step_sound(level, on_pos, on_state);
     let tick_count = entity.base().tick_count;
-    if on_state.block().is_in_tag("crystal_sound_blocks") && tick_count >= entity.base().last_crystal_sound_play_tick.wrapping_add(20) {
+    if on_state.block().is_in_tag("crystal_sound_blocks")
+        && tick_count >= entity.base().last_crystal_sound_play_tick.wrapping_add(20)
+    {
         play_amethyst_step_sound(entity, level);
     }
 }
@@ -517,14 +765,34 @@ fn play_amethyst_step_sound(entity: &mut dyn Entity, level: &mut ServerLevel) {
     entity.base_mut().crystal_sound_intensity = intensity;
     let pitch = 0.5 + intensity * entity.base_mut().random.next_float() * 1.2;
     let volume = 0.1 + intensity * 1.2;
-    entity.play_sound(level, mc_data::SoundEvent::BLOCK_AMETHYST_BLOCK_CHIME, volume, pitch);
+    entity.play_sound(
+        level,
+        mc_data::SoundEvent::BLOCK_AMETHYST_BLOCK_CHIME,
+        volume,
+        pitch,
+    );
     entity.base_mut().last_crystal_sound_play_tick = tick_count;
 }
 
 /// `getRenderShape() == RenderShape.INVISIBLE`.
 pub fn is_render_shape_invisible(state: BlockState) -> bool {
-    const INVISIBLE: [&str; 9] = ["AirBlock", "BarrierBlock", "BubbleColumnBlock", "EndGatewayBlock", "EndPortalBlock", "LightBlock", "LiquidBlock", "StructureVoidBlock", "MovingPistonBlock"];
-    state.block().data().classes.iter().any(|c| INVISIBLE.contains(c))
+    const INVISIBLE: [&str; 9] = [
+        "AirBlock",
+        "BarrierBlock",
+        "BubbleColumnBlock",
+        "EndGatewayBlock",
+        "EndPortalBlock",
+        "LightBlock",
+        "LiquidBlock",
+        "StructureVoidBlock",
+        "MovingPistonBlock",
+    ];
+    state
+        .block()
+        .data()
+        .classes
+        .iter()
+        .any(|c| INVISIBLE.contains(c))
 }
 
 /// `Level.containsAnyLiquid(box)`.
@@ -535,7 +803,11 @@ pub fn contains_any_liquid<L: BlockGetter + ?Sized>(level: &L, bx: &AABB) -> boo
     for x in x0..x1 {
         for y in y0..y1 {
             for z in z0..z1 {
-                if !level.get_block_state(BlockPos::new(x, y, z)).get_fluid_state().is_empty() {
+                if !level
+                    .get_block_state(BlockPos::new(x, y, z))
+                    .get_fluid_state()
+                    .is_empty()
+                {
                     return true;
                 }
             }
@@ -550,12 +822,25 @@ pub fn is_in_wall(entity: &dyn Entity, level: &dyn BlockGetter) -> bool {
         return false;
     }
     let check_width = entity.base().dimensions.width * 0.8;
-    let eye_bb = AABB::of_size(entity.base().get_eye_position(), f64::from(check_width), 1.0E-6, f64::from(check_width));
+    let eye_bb = AABB::of_size(
+        entity.base().get_eye_position(),
+        f64::from(check_width),
+        1.0E-6,
+        f64::from(check_width),
+    );
     BlockPos::between_closed_aabb(&eye_bb).any(|pos| {
         let state = level.get_block_state(pos);
         !state.is_air()
             && state.is_suffocating_at(level, pos)
-            && Shapes::join_is_not_empty(&state.get_collision_shape(level, pos).move_vec(Vec3::new(f64::from(pos.x()), f64::from(pos.y()), f64::from(pos.z()))), &Shapes::create(eye_bb), BooleanOp::AND)
+            && Shapes::join_is_not_empty(
+                &state.get_collision_shape(level, pos).move_vec(Vec3::new(
+                    f64::from(pos.x()),
+                    f64::from(pos.y()),
+                    f64::from(pos.z()),
+                )),
+                &Shapes::create(eye_bb),
+                BooleanOp::AND,
+            )
     })
 }
 
@@ -568,7 +853,12 @@ fn block_bounciness(entity: &dyn Entity, block: Block) -> f64 {
 }
 
 /// `Player.maybeBackOffFromEdge` (entities without edge protection return `delta` unchanged).
-fn maybe_back_off_from_edge<L: MovementLevel>(entity: &dyn Entity, level: &L, delta: Vec3, mover: MoverType) -> Vec3 {
+fn maybe_back_off_from_edge<L: MovementLevel>(
+    entity: &dyn Entity,
+    level: &L,
+    delta: Vec3,
+    mover: MoverType,
+) -> Vec3 {
     let max_down_step = entity.max_up_step();
     if !(entity.stays_on_ground_surface_at_edges()
         && !(delta.y > 0.0)
@@ -580,21 +870,26 @@ fn maybe_back_off_from_edge<L: MovementLevel>(entity: &dyn Entity, level: &L, de
     let (mut delta_x, mut delta_z) = (delta.x, delta.z);
     let step_x = delta_x.signum_java() * 0.05;
     let step_z = delta_z.signum_java() * 0.05;
-    while delta_x != 0.0 && can_fall_at_least(entity, level, delta_x, 0.0, f64::from(max_down_step)) {
+    while delta_x != 0.0 && can_fall_at_least(entity, level, delta_x, 0.0, f64::from(max_down_step))
+    {
         if delta_x.abs() <= 0.05 {
             delta_x = 0.0;
             break;
         }
         delta_x -= step_x;
     }
-    while delta_z != 0.0 && can_fall_at_least(entity, level, 0.0, delta_z, f64::from(max_down_step)) {
+    while delta_z != 0.0 && can_fall_at_least(entity, level, 0.0, delta_z, f64::from(max_down_step))
+    {
         if delta_z.abs() <= 0.05 {
             delta_z = 0.0;
             break;
         }
         delta_z -= step_z;
     }
-    while delta_x != 0.0 && delta_z != 0.0 && can_fall_at_least(entity, level, delta_x, delta_z, f64::from(max_down_step)) {
+    while delta_x != 0.0
+        && delta_z != 0.0
+        && can_fall_at_least(entity, level, delta_x, delta_z, f64::from(max_down_step))
+    {
         if delta_x.abs() <= 0.05 {
             delta_x = 0.0;
         } else {
@@ -611,12 +906,33 @@ fn maybe_back_off_from_edge<L: MovementLevel>(entity: &dyn Entity, level: &L, de
 
 fn is_above_ground<L: MovementLevel>(entity: &dyn Entity, level: &L, max_down_step: f32) -> bool {
     let b = entity.base();
-    b.on_ground() || (b.fall_distance < f64::from(max_down_step) && !can_fall_at_least(entity, level, 0.0, 0.0, f64::from(max_down_step) - b.fall_distance))
+    b.on_ground()
+        || (b.fall_distance < f64::from(max_down_step)
+            && !can_fall_at_least(
+                entity,
+                level,
+                0.0,
+                0.0,
+                f64::from(max_down_step) - b.fall_distance,
+            ))
 }
 
-fn can_fall_at_least<L: MovementLevel>(entity: &dyn Entity, level: &L, delta_x: f64, delta_z: f64, min_height: f64) -> bool {
+fn can_fall_at_least<L: MovementLevel>(
+    entity: &dyn Entity,
+    level: &L,
+    delta_x: f64,
+    delta_z: f64,
+    min_height: f64,
+) -> bool {
     let bb = entity.base().bounding_box();
-    let area = AABB::new(bb.min_x + 1.0E-7 + delta_x, bb.min_y - min_height - 1.0E-7, bb.min_z + 1.0E-7 + delta_z, bb.max_x - 1.0E-7 + delta_x, bb.min_y, bb.max_z - 1.0E-7 + delta_z);
+    let area = AABB::new(
+        bb.min_x + 1.0E-7 + delta_x,
+        bb.min_y - min_height - 1.0E-7,
+        bb.min_z + 1.0E-7 + delta_z,
+        bb.max_x - 1.0E-7 + delta_x,
+        bb.min_y,
+        bb.max_z - 1.0E-7 + delta_z,
+    );
     level.no_collision(Some(entity.id()), Some(&collision_context(entity)), &area)
 }
 
@@ -627,7 +943,11 @@ trait SignumJava {
 impl SignumJava for f64 {
     /// `Math.signum(double)`: 0.0/-0.0/NaN unchanged.
     fn signum_java(self) -> f64 {
-        if self == 0.0 || self.is_nan() { self } else { self.signum() }
+        if self == 0.0 || self.is_nan() {
+            self
+        } else {
+            self.signum()
+        }
     }
 }
 #[cfg(test)]
@@ -653,7 +973,13 @@ mod tests {
 
     #[test]
     fn piston_axis_step_order() {
-        assert_eq!(axis_step_order(Vec3::new(1.0, 0.1, 5.0)), [Axis::Y, Axis::Z, Axis::X]);
-        assert_eq!(axis_step_order(Vec3::new(1.0, 5.0, 0.1)), [Axis::Y, Axis::X, Axis::Z]);
+        assert_eq!(
+            axis_step_order(Vec3::new(1.0, 0.1, 5.0)),
+            [Axis::Y, Axis::Z, Axis::X]
+        );
+        assert_eq!(
+            axis_step_order(Vec3::new(1.0, 5.0, 0.1)),
+            [Axis::Y, Axis::X, Axis::Z]
+        );
     }
 }

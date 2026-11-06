@@ -44,7 +44,14 @@ impl BorderStatus {
 /// `BorderChangeListener`.
 pub trait BorderChangeListener {
     fn on_set_size(&mut self, border: &WorldBorder, new_size: f64);
-    fn on_lerp_size(&mut self, border: &WorldBorder, from_size: f64, target_size: f64, ticks: i64, game_time: i64);
+    fn on_lerp_size(
+        &mut self,
+        border: &WorldBorder,
+        from_size: f64,
+        target_size: f64,
+        ticks: i64,
+        game_time: i64,
+    );
     fn on_set_center(&mut self, border: &WorldBorder, x: f64, z: f64);
     fn on_set_warning_time(&mut self, border: &WorldBorder, time: i32);
     fn on_set_warning_blocks(&mut self, border: &WorldBorder, blocks: i32);
@@ -56,8 +63,16 @@ pub trait BorderChangeListener {
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub enum BorderEvent {
     SetSize(f64),
-    LerpSize { from: f64, to: f64, ticks: i64, game_time: i64 },
-    SetCenter { x: f64, z: f64 },
+    LerpSize {
+        from: f64,
+        to: f64,
+        ticks: i64,
+        game_time: i64,
+    },
+    SetCenter {
+        x: f64,
+        z: f64,
+    },
     SetWarningTime(i32),
     SetWarningBlocks(i32),
     SetDamagePerBlock(f64),
@@ -68,7 +83,12 @@ impl BorderEvent {
     pub fn dispatch(self, border: &WorldBorder, listener: &mut dyn BorderChangeListener) {
         match self {
             BorderEvent::SetSize(s) => listener.on_set_size(border, s),
-            BorderEvent::LerpSize { from, to, ticks, game_time } => listener.on_lerp_size(border, from, to, ticks, game_time),
+            BorderEvent::LerpSize {
+                from,
+                to,
+                ticks,
+                game_time,
+            } => listener.on_lerp_size(border, from, to, ticks, game_time),
             BorderEvent::SetCenter { x, z } => listener.on_set_center(border, x, z),
             BorderEvent::SetWarningTime(t) => listener.on_set_warning_time(border, t),
             BorderEvent::SetWarningBlocks(b) => listener.on_set_warning_blocks(border, b),
@@ -113,7 +133,9 @@ impl Settings {
             if (-MAX_CENTER_COORDINATE..=MAX_CENTER_COORDINATE).contains(&v) {
                 Ok(v)
             } else {
-                Err(format!("Value {v} outside of range [-2.9999984E7:2.9999984E7]"))
+                Err(format!(
+                    "Value {v} outside of range [-2.9999984E7:2.9999984E7]"
+                ))
             }
         };
         Ok(Settings {
@@ -146,14 +168,37 @@ impl Settings {
 
 #[derive(Debug, Clone)]
 enum BorderExtent {
-    Static { size: f64, min_x: f64, min_z: f64, max_x: f64, max_z: f64, shape: VoxelShape },
-    Moving { from: f64, to: f64, lerp_end: i64, lerp_begin: i64, lerp_duration: f64, lerp_progress: i64, size: f64, previous_size: f64 },
+    Static {
+        size: f64,
+        min_x: f64,
+        min_z: f64,
+        max_x: f64,
+        max_z: f64,
+        shape: VoxelShape,
+    },
+    Moving {
+        from: f64,
+        to: f64,
+        lerp_end: i64,
+        lerp_begin: i64,
+        lerp_duration: f64,
+        lerp_progress: i64,
+        size: f64,
+        previous_size: f64,
+    },
 }
 
 fn border_shape(min_x: f64, min_z: f64, max_x: f64, max_z: f64) -> VoxelShape {
     Shapes::join(
         &Shapes::infinity(),
-        &Shapes::box_(min_x.floor(), f64::NEG_INFINITY, min_z.floor(), max_x.ceil(), f64::INFINITY, max_z.ceil()),
+        &Shapes::box_(
+            min_x.floor(),
+            f64::NEG_INFINITY,
+            min_z.floor(),
+            max_x.ceil(),
+            f64::INFINITY,
+            max_z.ceil(),
+        ),
         BooleanOp::ONLY_FIRST,
     )
 }
@@ -203,7 +248,16 @@ impl WorldBorder {
             center_x: 0.0,
             center_z: 0.0,
             absolute_max_size: 29999984,
-            extent: BorderExtent::Moving { from: 0.0, to: 0.0, lerp_end: 0, lerp_begin: 0, lerp_duration: 0.0, lerp_progress: 0, size: 0.0, previous_size: 0.0 },
+            extent: BorderExtent::Moving {
+                from: 0.0,
+                to: 0.0,
+                lerp_end: 0,
+                lerp_begin: 0,
+                lerp_duration: 0.0,
+                lerp_progress: 0,
+                size: 0.0,
+                previous_size: 0.0,
+            },
             events: Vec::new(),
         };
         border.extent = border.static_extent(MAX_SIZE);
@@ -217,7 +271,14 @@ impl WorldBorder {
         let min_z = clamp_f64(self.center_z - size / 2.0, -max, max);
         let max_x = clamp_f64(self.center_x + size / 2.0, -max, max);
         let max_z = clamp_f64(self.center_z + size / 2.0, -max, max);
-        BorderExtent::Static { size, min_x, min_z, max_x, max_z, shape: border_shape(min_x, min_z, max_x, max_z) }
+        BorderExtent::Static {
+            size,
+            min_x,
+            min_z,
+            max_x,
+            max_z,
+            shape: border_shape(min_x, min_z, max_x, max_z),
+        }
     }
 
     fn moving_extent(from: f64, to: f64, duration: i64, game_time: i64) -> BorderExtent {
@@ -231,7 +292,12 @@ impl WorldBorder {
             size: 0.0,
             previous_size: 0.0,
         };
-        if let BorderExtent::Moving { size, previous_size, .. } = &mut e {
+        if let BorderExtent::Moving {
+            size,
+            previous_size,
+            ..
+        } = &mut e
+        {
             let s = Self::moving_size(from, to, duration as f64, duration);
             *size = s;
             *previous_size = s;
@@ -241,7 +307,11 @@ impl WorldBorder {
 
     fn moving_size(from: f64, to: f64, lerp_duration: f64, lerp_progress: i64) -> f64 {
         let progress = (lerp_duration - lerp_progress as f64) / lerp_duration;
-        if progress < 1.0 { lerp_f64(progress, from, to) } else { to }
+        if progress < 1.0 {
+            lerp_f64(progress, from, to)
+        } else {
+            to
+        }
     }
 
     /// `take_events`: the `BorderChangeListener` calls since the last drain, in order.
@@ -260,12 +330,22 @@ impl WorldBorder {
     }
 
     pub fn is_within_bounds_chunk(&self, pos: &ChunkPos) -> bool {
-        self.is_within_bounds(f64::from(pos.get_min_block_x()), f64::from(pos.get_min_block_z()))
-            && self.is_within_bounds(f64::from(pos.get_max_block_x()), f64::from(pos.get_max_block_z()))
+        self.is_within_bounds(
+            f64::from(pos.get_min_block_x()),
+            f64::from(pos.get_min_block_z()),
+        ) && self.is_within_bounds(
+            f64::from(pos.get_max_block_x()),
+            f64::from(pos.get_max_block_z()),
+        )
     }
 
     pub fn is_within_bounds_aabb(&self, aabb: &AABB) -> bool {
-        self.is_within_bounds_box(aabb.min_x, aabb.min_z, aabb.max_x - EPSILON, aabb.max_z - EPSILON)
+        self.is_within_bounds_box(
+            aabb.min_x,
+            aabb.min_z,
+            aabb.max_x - EPSILON,
+            aabb.max_z - EPSILON,
+        )
     }
 
     fn is_within_bounds_box(&self, min_x: f64, min_z: f64, max_x: f64, max_z: f64) -> bool {
@@ -277,11 +357,18 @@ impl WorldBorder {
     }
 
     pub fn is_within_bounds_margin(&self, x: f64, z: f64, margin: f64) -> bool {
-        x >= self.get_min_x() - margin && x < self.get_max_x() + margin && z >= self.get_min_z() - margin && z < self.get_max_z() + margin
+        x >= self.get_min_x() - margin
+            && x < self.get_max_x() + margin
+            && z >= self.get_min_z() - margin
+            && z < self.get_max_z() + margin
     }
 
     pub fn clamp_to_bounds_block(&self, position: &BlockPos) -> BlockPos {
-        self.clamp_to_bounds(f64::from(position.x()), f64::from(position.y()), f64::from(position.z()))
+        self.clamp_to_bounds(
+            f64::from(position.x()),
+            f64::from(position.y()),
+            f64::from(position.z()),
+        )
     }
 
     pub fn clamp_to_bounds_vec3(&self, position: &Vec3) -> BlockPos {
@@ -294,7 +381,11 @@ impl WorldBorder {
     }
 
     pub fn clamp_vec3_to_bound(&self, x: f64, y: f64, z: f64) -> Vec3 {
-        Vec3 { x: clamp_f64(x, self.get_min_x(), self.get_max_x() - EPSILON), y, z: clamp_f64(z, self.get_min_z(), self.get_max_z() - EPSILON) }
+        Vec3 {
+            x: clamp_f64(x, self.get_min_x(), self.get_max_x() - EPSILON),
+            y,
+            z: clamp_f64(z, self.get_min_z(), self.get_max_z() - EPSILON),
+        }
     }
 
     /// `getDistanceToBorder(entity)` for an entity at `(x, z)`.
@@ -309,15 +400,29 @@ impl WorldBorder {
     }
 
     /// `isInsideCloseToBorder(source, boundingBox)` for a source at `(source_x, source_z)`.
-    pub fn is_inside_close_to_border(&self, source_x: f64, source_z: f64, bounding_box: &AABB) -> bool {
-        let bb_max = mc_core::math::java::max_f64(abs_max_f64(bounding_box.get_xsize(), bounding_box.get_zsize()), 1.0);
-        self.get_distance_to_border(source_x, source_z) < bb_max * 2.0 && self.is_within_bounds_margin(source_x, source_z, bb_max)
+    pub fn is_inside_close_to_border(
+        &self,
+        source_x: f64,
+        source_z: f64,
+        bounding_box: &AABB,
+    ) -> bool {
+        let bb_max = mc_core::math::java::max_f64(
+            abs_max_f64(bounding_box.get_xsize(), bounding_box.get_zsize()),
+            1.0,
+        );
+        self.get_distance_to_border(source_x, source_z) < bb_max * 2.0
+            && self.is_within_bounds_margin(source_x, source_z, bb_max)
     }
 
     pub fn get_collision_shape(&self) -> VoxelShape {
         match &self.extent {
             BorderExtent::Static { shape, .. } => shape.clone(),
-            BorderExtent::Moving { .. } => border_shape(self.get_min_x_at(0.0), self.get_min_z_at(0.0), self.get_max_x_at(0.0), self.get_max_z_at(0.0)),
+            BorderExtent::Moving { .. } => border_shape(
+                self.get_min_x_at(0.0),
+                self.get_min_z_at(0.0),
+                self.get_max_x_at(0.0),
+                self.get_max_z_at(0.0),
+            ),
         }
     }
 
@@ -325,41 +430,96 @@ impl WorldBorder {
         match &self.extent {
             BorderExtent::Static { .. } => BorderStatus::Stationary,
             BorderExtent::Moving { from, to, .. } => {
-                if to < from { BorderStatus::Shrinking } else { BorderStatus::Growing }
+                if to < from {
+                    BorderStatus::Shrinking
+                } else {
+                    BorderStatus::Growing
+                }
             }
         }
     }
 
-    fn moving_edge(&self, delta_partial_tick: f32, sign: f64, center: f64, previous_size: f64, size: f64) -> f64 {
+    fn moving_edge(
+        &self,
+        delta_partial_tick: f32,
+        sign: f64,
+        center: f64,
+        previous_size: f64,
+        size: f64,
+    ) -> f64 {
         let max = f64::from(self.absolute_max_size);
-        clamp_f64(center + sign * lerp_f64(f64::from(delta_partial_tick), previous_size, size) / 2.0, -max, max)
+        clamp_f64(
+            center + sign * lerp_f64(f64::from(delta_partial_tick), previous_size, size) / 2.0,
+            -max,
+            max,
+        )
     }
 
     pub fn get_min_x_at(&self, delta_partial_tick: f32) -> f64 {
         match &self.extent {
             BorderExtent::Static { min_x, .. } => *min_x,
-            BorderExtent::Moving { previous_size, size, .. } => self.moving_edge(delta_partial_tick, -1.0, self.center_x, *previous_size, *size),
+            BorderExtent::Moving {
+                previous_size,
+                size,
+                ..
+            } => self.moving_edge(
+                delta_partial_tick,
+                -1.0,
+                self.center_x,
+                *previous_size,
+                *size,
+            ),
         }
     }
 
     pub fn get_min_z_at(&self, delta_partial_tick: f32) -> f64 {
         match &self.extent {
             BorderExtent::Static { min_z, .. } => *min_z,
-            BorderExtent::Moving { previous_size, size, .. } => self.moving_edge(delta_partial_tick, -1.0, self.center_z, *previous_size, *size),
+            BorderExtent::Moving {
+                previous_size,
+                size,
+                ..
+            } => self.moving_edge(
+                delta_partial_tick,
+                -1.0,
+                self.center_z,
+                *previous_size,
+                *size,
+            ),
         }
     }
 
     pub fn get_max_x_at(&self, delta_partial_tick: f32) -> f64 {
         match &self.extent {
             BorderExtent::Static { max_x, .. } => *max_x,
-            BorderExtent::Moving { previous_size, size, .. } => self.moving_edge(delta_partial_tick, 1.0, self.center_x, *previous_size, *size),
+            BorderExtent::Moving {
+                previous_size,
+                size,
+                ..
+            } => self.moving_edge(
+                delta_partial_tick,
+                1.0,
+                self.center_x,
+                *previous_size,
+                *size,
+            ),
         }
     }
 
     pub fn get_max_z_at(&self, delta_partial_tick: f32) -> f64 {
         match &self.extent {
             BorderExtent::Static { max_z, .. } => *max_z,
-            BorderExtent::Moving { previous_size, size, .. } => self.moving_edge(delta_partial_tick, 1.0, self.center_z, *previous_size, *size),
+            BorderExtent::Moving {
+                previous_size,
+                size,
+                ..
+            } => self.moving_edge(
+                delta_partial_tick,
+                1.0,
+                self.center_z,
+                *previous_size,
+                *size,
+            ),
         }
     }
 
@@ -417,7 +577,13 @@ impl WorldBorder {
     pub fn get_lerp_speed(&self) -> f64 {
         match &self.extent {
             BorderExtent::Static { .. } => 0.0,
-            BorderExtent::Moving { from, to, lerp_end, lerp_begin, .. } => (from - to).abs() / (lerp_end.wrapping_sub(*lerp_begin)) as f64,
+            BorderExtent::Moving {
+                from,
+                to,
+                lerp_end,
+                lerp_begin,
+                ..
+            } => (from - to).abs() / (lerp_end.wrapping_sub(*lerp_begin)) as f64,
         }
     }
 
@@ -428,9 +594,18 @@ impl WorldBorder {
     }
 
     pub fn lerp_size_between(&mut self, from: f64, to: f64, ticks: i64, game_time: i64) {
-        self.extent = if from == to { self.static_extent(to) } else { Self::moving_extent(from, to, ticks, game_time) };
+        self.extent = if from == to {
+            self.static_extent(to)
+        } else {
+            Self::moving_extent(from, to, ticks, game_time)
+        };
         self.set_dirty();
-        self.events.push(BorderEvent::LerpSize { from, to, ticks, game_time });
+        self.events.push(BorderEvent::LerpSize {
+            from,
+            to,
+            ticks,
+            game_time,
+        });
     }
 
     pub fn set_absolute_max_size(&mut self, absolute_max_size: i32) {
@@ -461,7 +636,8 @@ impl WorldBorder {
     pub fn set_damage_per_block(&mut self, damage_per_block: f64) {
         self.damage_per_block = damage_per_block;
         self.set_dirty();
-        self.events.push(BorderEvent::SetDamagePerBlock(damage_per_block));
+        self.events
+            .push(BorderEvent::SetDamagePerBlock(damage_per_block));
     }
 
     pub fn get_warning_time(&self) -> i32 {
@@ -481,12 +657,22 @@ impl WorldBorder {
     pub fn set_warning_blocks(&mut self, warning_blocks: i32) {
         self.warning_blocks = warning_blocks;
         self.set_dirty();
-        self.events.push(BorderEvent::SetWarningBlocks(warning_blocks));
+        self.events
+            .push(BorderEvent::SetWarningBlocks(warning_blocks));
     }
 
     /// `tick()`: advances a lerping border by one tick (marks the data dirty while it moves).
     pub fn tick(&mut self) {
-        if let BorderExtent::Moving { from, to, lerp_duration, lerp_progress, size, previous_size, .. } = &mut self.extent {
+        if let BorderExtent::Moving {
+            from,
+            to,
+            lerp_duration,
+            lerp_progress,
+            size,
+            previous_size,
+            ..
+        } = &mut self.extent
+        {
             *lerp_progress -= 1;
             *previous_size = *size;
             *size = Self::moving_size(*from, *to, *lerp_duration, *lerp_progress);
@@ -553,7 +739,10 @@ mod tests {
         assert_eq!((b.get_min_x(), b.get_max_x()), (-29999984.0, 29999984.0));
         assert_eq!(b.get_status(), BorderStatus::Stationary);
         assert!(b.is_within_bounds(0.0, 0.0));
-        assert!(!b.is_within_bounds(29999984.0, 0.0), "max edge is exclusive");
+        assert!(
+            !b.is_within_bounds(29999984.0, 0.0),
+            "max edge is exclusive"
+        );
     }
 
     #[test]

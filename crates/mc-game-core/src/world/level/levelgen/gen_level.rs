@@ -77,7 +77,10 @@ impl<'a> GenLevel<'a> {
     pub fn new(region: &'a mut WorldGenRegion, env: Arc<GenEnv>) -> GenLevel<'a> {
         let random = env
             .random_state
-            .get_or_create_random_factory(&Identifier::with_default_namespace("worldgen_region_random").expect("valid identifier"))
+            .get_or_create_random_factory(
+                &Identifier::with_default_namespace("worldgen_region_random")
+                    .expect("valid identifier"),
+            )
             .at_pos(region.center.get_world_position());
         let biome_zoom_seed = BiomeManager::obfuscate_seed(env.seed);
         GenLevel {
@@ -111,14 +114,26 @@ impl<'a> GenLevel<'a> {
 
     /// The server difficulty, the overworld clock time and the moon brightness `getCurrentDifficultyAt` reports (default:
     /// normal difficulty, clock 0, moon 0).
-    pub fn with_difficulty(mut self, difficulty: Difficulty, overworld_clock_time: i64, moon_brightness: f32) -> GenLevel<'a> {
+    pub fn with_difficulty(
+        mut self,
+        difficulty: Difficulty,
+        overworld_clock_time: i64,
+        moon_brightness: f32,
+    ) -> GenLevel<'a> {
         self.difficulty = (difficulty, overworld_clock_time, moon_brightness);
         self
     }
 
     /// Binds the region to the live level values (`getLevel()` reads of mob spawning); also sets the difficulty inputs.
-    pub fn with_live_state(mut self, live: Arc<crate::server::level::gen_live_state::GenLiveState>) -> GenLevel<'a> {
-        self.difficulty = (live.difficulty(), live.overworld_clock_time(), live.moon_brightness());
+    pub fn with_live_state(
+        mut self,
+        live: Arc<crate::server::level::gen_live_state::GenLiveState>,
+    ) -> GenLevel<'a> {
+        self.difficulty = (
+            live.difficulty(),
+            live.overworld_clock_time(),
+            live.moon_brightness(),
+        );
         self.live = Some(live);
         self
     }
@@ -132,8 +147,14 @@ impl<'a> GenLevel<'a> {
     /// Primes the heightmaps `get_height_at` found missing (`ChunkAccess.getHeight` keeps what it primes).
     fn flush_heightmaps(&mut self) {
         for (chunk_x, chunk_z, ty) in self.pending_heightmaps.get_mut().drain(..) {
-            if self.region.gen_chunk(chunk_x, chunk_z).is_some_and(GenChunk::is_writable) {
-                let chunk = self.region.get_chunk_mut_unchecked(ChunkPos::new(chunk_x, chunk_z));
+            if self
+                .region
+                .gen_chunk(chunk_x, chunk_z)
+                .is_some_and(GenChunk::is_writable)
+            {
+                let chunk = self
+                    .region
+                    .get_chunk_mut_unchecked(ChunkPos::new(chunk_x, chunk_z));
                 if !chunk.access.has_primed_heightmap(ty) {
                     chunk.access.prime_heightmaps(true, &[ty]);
                 }
@@ -143,16 +164,31 @@ impl<'a> GenLevel<'a> {
 
     fn max_allowed_status(&self, distance: i32) -> Option<ChunkStatus> {
         match &self.max_allowed {
-            Some(list) => usize::try_from(distance).ok().and_then(|d| list.get(d)).copied(),
+            Some(list) => usize::try_from(distance)
+                .ok()
+                .and_then(|d| list.get(d))
+                .copied(),
             None => (distance <= self.region.read_radius).then_some(ChunkStatus::Full),
         }
     }
 
     /// `getChunk(chunkX, chunkZ, targetStatus)`: the crash report of vanilla (a panic) when the step may not see the chunk.
-    fn chunk_with_status(&self, chunk_x: i32, chunk_z: i32, target_status: ChunkStatus) -> &ProtoChunk {
-        let distance = self.region.center.get_chessboard_distance_xz(chunk_x, chunk_z);
+    fn chunk_with_status(
+        &self,
+        chunk_x: i32,
+        chunk_z: i32,
+        target_status: ChunkStatus,
+    ) -> &ProtoChunk {
+        let distance = self
+            .region
+            .center
+            .get_chessboard_distance_xz(chunk_x, chunk_z);
         let max_allowed = self.max_allowed_status(distance);
-        let chunk = if max_allowed.is_some() { self.region.get_chunk(chunk_x, chunk_z) } else { None };
+        let chunk = if max_allowed.is_some() {
+            self.region.get_chunk(chunk_x, chunk_z)
+        } else {
+            None
+        };
         if let (Some(chunk), Some(max)) = (chunk, max_allowed)
             && target_status <= max
         {
@@ -170,7 +206,10 @@ impl<'a> GenLevel<'a> {
              \tGenerating chunk: {}",
             self.target_status.name(),
             target_status.name(),
-            chunk.map_or_else(|| "[out of cache bounds]".to_string(), |c| c.get_persisted_status().name()),
+            chunk.map_or_else(
+                || "[out of cache bounds]".to_string(),
+                |c| c.get_persisted_status().name()
+            ),
             max_allowed.map_or_else(|| "null".to_string(), |s| s.name()),
             self.region.center,
         );
@@ -185,8 +224,15 @@ impl<'a> GenLevel<'a> {
     fn chunk_for_write(&mut self, pos: BlockPos) -> Option<&mut ProtoChunk> {
         let (chunk_x, chunk_z) = (pos.x() >> 4, pos.z() >> 4);
         self.chunk(chunk_x, chunk_z);
-        if self.region.gen_chunk(chunk_x, chunk_z).is_some_and(GenChunk::is_writable) {
-            Some(self.region.get_chunk_mut_unchecked(ChunkPos::new(chunk_x, chunk_z)))
+        if self
+            .region
+            .gen_chunk(chunk_x, chunk_z)
+            .is_some_and(GenChunk::is_writable)
+        {
+            Some(
+                self.region
+                    .get_chunk_mut_unchecked(ChunkPos::new(chunk_x, chunk_z)),
+            )
         } else {
             None
         }
@@ -194,7 +240,8 @@ impl<'a> GenLevel<'a> {
 
     fn is_within_write_zone_chunk(&self, chunk_x: i32, chunk_z: i32) -> bool {
         let center = self.region.center;
-        (center.x - chunk_x).abs() <= self.region.write_radius && (center.z - chunk_z).abs() <= self.region.write_radius
+        (center.x - chunk_x).abs() <= self.region.write_radius
+            && (center.z - chunk_z).abs() <= self.region.write_radius
     }
 
     fn currently_generating_suffix(&self) -> String {
@@ -207,7 +254,9 @@ impl<'a> GenLevel<'a> {
     /// `warnIfReadOutsideWriteZone(chunkX, chunkZ)`.
     fn warn_if_read_outside_write_zone(&self, chunk_x: i32, chunk_z: i32) {
         let center = self.region.center;
-        if (center.x != chunk_x || center.z != chunk_z) && !self.is_within_write_zone_chunk(chunk_x, chunk_z) {
+        if (center.x != chunk_x || center.z != chunk_z)
+            && !self.is_within_write_zone_chunk(chunk_x, chunk_z)
+        {
             let read_distance = (center.x - chunk_x).abs().max((center.z - chunk_z).abs());
             log::error!(
                 "Detected unsafe terrain read during worldgen: reading from chunk [{}, {}] while generating chunk [{}, {}] (distance: {}, write radius: {}), step: {}{}",
@@ -251,7 +300,13 @@ impl<'a> GenLevel<'a> {
         container: impl FnOnce(&mut ProtoChunk) -> &mut dyn TickAccess<T>,
     ) {
         let sub_tick_order = self.next_sub_tick_count();
-        let tick = ScheduledTick { ty, pos, trigger_tick: self.game_time.wrapping_add(i64::from(delay)), priority, sub_tick_order };
+        let tick = ScheduledTick {
+            ty,
+            pos,
+            trigger_tick: self.game_time.wrapping_add(i64::from(delay)),
+            priority,
+            sub_tick_order,
+        };
         if let Some(chunk) = self.chunk_for_write(pos) {
             container(chunk).schedule(tick);
         }
@@ -304,7 +359,12 @@ impl LevelReader for GenLevel<'_> {
 
     /// `hasChunk`: `distance < directDependencies.size()`.
     fn has_chunk(&self, chunk_x: i32, chunk_z: i32) -> bool {
-        self.max_allowed_status(self.region.center.get_chessboard_distance_xz(chunk_x, chunk_z)).is_some()
+        self.max_allowed_status(
+            self.region
+                .center
+                .get_chessboard_distance_xz(chunk_x, chunk_z),
+        )
+        .is_some()
     }
 
     /// `getHeight(type, x, z)`: the chunk's heightmap value `+ 1`.
@@ -312,11 +372,23 @@ impl LevelReader for GenLevel<'_> {
         let (chunk_x, chunk_z) = (x >> 4, z >> 4);
         self.warn_if_read_outside_write_zone(chunk_x, chunk_z);
         let chunk = self.chunk(chunk_x, chunk_z);
-        let ty = if self.region.gen_chunk(chunk_x, chunk_z).is_some_and(GenChunk::is_writable) { ty } else { Self::fix_type(ty) };
+        let ty = if self
+            .region
+            .gen_chunk(chunk_x, chunk_z)
+            .is_some_and(GenChunk::is_writable)
+        {
+            ty
+        } else {
+            Self::fix_type(ty)
+        };
         match chunk.access.heightmaps.get(&ty) {
             Some(heightmap) => heightmap.get_first_available(x & 15, z & 15),
             None => {
-                if self.region.gen_chunk(chunk_x, chunk_z).is_some_and(GenChunk::is_writable) {
+                if self
+                    .region
+                    .gen_chunk(chunk_x, chunk_z)
+                    .is_some_and(GenChunk::is_writable)
+                {
                     let mut pending = self.pending_heightmaps.borrow_mut();
                     if !pending.contains(&(chunk_x, chunk_z, ty)) {
                         pending.push((chunk_x, chunk_z, ty));
@@ -355,7 +427,13 @@ impl LevelAccessor for GenLevel<'_> {
     fn mark_for_post_processing(&mut self, pos: BlockPos) {
         WorldGenLevel::mark_pos_for_post_processing(self, pos);
     }
-    fn set_block(&mut self, pos: BlockPos, state: BlockState, flags: u32, _update_limit: i32) -> bool {
+    fn set_block(
+        &mut self,
+        pos: BlockPos,
+        state: BlockState,
+        flags: u32,
+        _update_limit: i32,
+    ) -> bool {
         if !self.ensure_can_write(pos) {
             return false;
         }
@@ -368,7 +446,10 @@ impl LevelAccessor for GenLevel<'_> {
                 // A ProtoChunk never has the LEVELCHUNK type: the placeholder the real block entity NBT replaces. A live
                 // block entity (anything but the placeholder: vanilla keeps the instance in `ProtoChunk.blockEntities`, the
                 // placeholder only goes to the pending NBT) survives the block being set again.
-                let live = chunk.access.get_block_entity_nbt(pos).is_some_and(|tag| tag.get_string("id") != Some("DUMMY"));
+                let live = chunk
+                    .access
+                    .get_block_entity_nbt(pos)
+                    .is_some_and(|tag| tag.get_string("id") != Some("DUMMY"));
                 if !live {
                     let mut tag = CompoundTag::new();
                     tag.put_int("x", pos.x());
@@ -404,8 +485,18 @@ impl LevelAccessor for GenLevel<'_> {
         self.set_block_and_update(pos, Block::AIR.default_state())
     }
 
-    fn destroy_block(&mut self, pos: BlockPos, _drop_block: bool, _breaker: Option<i32>, update_limit: i32) -> bool {
-        if self.get_block_state(pos).is_air() { false } else { self.set_block(pos, Block::AIR.default_state(), 3, update_limit) }
+    fn destroy_block(
+        &mut self,
+        pos: BlockPos,
+        _drop_block: bool,
+        _breaker: Option<i32>,
+        update_limit: i32,
+    ) -> bool {
+        if self.get_block_state(pos).is_air() {
+            false
+        } else {
+            self.set_block(pos, Block::AIR.default_state(), 3, update_limit)
+        }
     }
 
     fn get_game_time(&self) -> i64 {
@@ -422,20 +513,36 @@ impl LevelAccessor for GenLevel<'_> {
         &mut *self.random
     }
 
-    fn schedule_block_tick(&mut self, pos: BlockPos, block: Block, delay: i32, priority: TickPriority) {
+    fn schedule_block_tick(
+        &mut self,
+        pos: BlockPos,
+        block: Block,
+        delay: i32,
+        priority: TickPriority,
+    ) {
         self.schedule_tick(pos, block, delay, priority, |chunk| &mut chunk.block_ticks);
     }
 
-    fn schedule_fluid_tick(&mut self, pos: BlockPos, fluid: Fluid, delay: i32, priority: TickPriority) {
+    fn schedule_fluid_tick(
+        &mut self,
+        pos: BlockPos,
+        fluid: Fluid,
+        delay: i32,
+        priority: TickPriority,
+    ) {
         self.schedule_tick(pos, fluid, delay, priority, |chunk| &mut chunk.fluid_ticks);
     }
 
     fn has_scheduled_block_tick(&self, pos: BlockPos, block: Block) -> bool {
-        self.region_chunk_ticks(pos, |chunk| chunk.block_ticks.has_scheduled_tick(&pos, block))
+        self.region_chunk_ticks(pos, |chunk| {
+            chunk.block_ticks.has_scheduled_tick(&pos, block)
+        })
     }
 
     fn has_scheduled_fluid_tick(&self, pos: BlockPos, fluid: Fluid) -> bool {
-        self.region_chunk_ticks(pos, |chunk| chunk.fluid_ticks.has_scheduled_tick(&pos, fluid))
+        self.region_chunk_ticks(pos, |chunk| {
+            chunk.fluid_ticks.has_scheduled_tick(&pos, fluid)
+        })
     }
 
     /// No neighbor updates during generation.
@@ -447,7 +554,10 @@ impl GenLevel<'_> {
     fn region_chunk_ticks(&self, pos: BlockPos, f: impl FnOnce(&ProtoChunk) -> bool) -> bool {
         let (chunk_x, chunk_z) = (pos.x() >> 4, pos.z() >> 4);
         let chunk = self.chunk(chunk_x, chunk_z);
-        self.region.gen_chunk(chunk_x, chunk_z).is_some_and(GenChunk::is_writable) && f(chunk)
+        self.region
+            .gen_chunk(chunk_x, chunk_z)
+            .is_some_and(GenChunk::is_writable)
+            && f(chunk)
     }
 }
 
@@ -457,7 +567,10 @@ impl WorldGenLevel for GenLevel<'_> {
     }
 
     fn get_current_difficulty_at(&self, pos: BlockPos) -> DifficultyInstance {
-        assert!(self.has_chunk(pos.x() >> 4, pos.z() >> 4), "We are asking a region for a chunk out of bound");
+        assert!(
+            self.has_chunk(pos.x() >> 4, pos.z() >> 4),
+            "We are asking a region for a chunk out of bound"
+        );
         let (difficulty, clock_time, moon_brightness) = self.difficulty;
         DifficultyInstance::new(difficulty, clock_time, 0, moon_brightness)
     }
@@ -480,7 +593,9 @@ impl WorldGenLevel for GenLevel<'_> {
         }
         let center = self.chunk(self.region.center.x, self.region.center.z);
         if center.is_upgrading() {
-            return !center.get_height_accessor_for_generation().is_outside_build_height(pos.y());
+            return !center
+                .get_height_accessor_for_generation()
+                .is_outside_build_height(pos.y());
         }
         true
     }
@@ -501,12 +616,17 @@ impl WorldGenLevel for GenLevel<'_> {
     /// `LevelReader.getNoiseBiome`: the biome stored in the chunk (`getChunk(.., BIOMES, false)`).
     fn get_noise_biome(&self, quart_x: i32, quart_y: i32, quart_z: i32) -> BiomeId {
         let (chunk_x, chunk_z) = (quart_x >> 2, quart_z >> 2);
-        self.chunk_with_status(chunk_x, chunk_z, ChunkStatus::Biomes).access.get_noise_biome(quart_x, quart_y, quart_z)
+        self.chunk_with_status(chunk_x, chunk_z, ChunkStatus::Biomes)
+            .access
+            .get_noise_biome(quart_x, quart_y, quart_z)
     }
 
     /// `level.uncachedBiomeResolver()`: the generator's biome source with an uncached climate sampler.
     fn get_uncached_noise_biome(&self, quart_x: i32, quart_y: i32, quart_z: i32) -> BiomeId {
-        self.env.biome_source().create_uncached_resolver(&self.env.random_state).get_noise_biome(quart_x, quart_y, quart_z)
+        self.env
+            .biome_source()
+            .create_uncached_resolver(&self.env.random_state)
+            .get_noise_biome(quart_x, quart_y, quart_z)
     }
 
     fn mark_pos_for_post_processing(&mut self, pos: BlockPos) {
@@ -516,11 +636,18 @@ impl WorldGenLevel for GenLevel<'_> {
     }
 
     fn get_block_entity_nbt(&self, pos: BlockPos) -> Option<CompoundTag> {
-        self.chunk(pos.x() >> 4, pos.z() >> 4).access.get_block_entity_nbt(pos).cloned()
+        self.chunk(pos.x() >> 4, pos.z() >> 4)
+            .access
+            .get_block_entity_nbt(pos)
+            .cloned()
     }
 
     fn set_block_entity_nbt(&mut self, tag: CompoundTag) {
-        let pos = BlockPos::new(tag.get_int_or("x", 0), tag.get_int_or("y", 0), tag.get_int_or("z", 0));
+        let pos = BlockPos::new(
+            tag.get_int_or("x", 0),
+            tag.get_int_or("y", 0),
+            tag.get_int_or("z", 0),
+        );
         if let Some(chunk) = self.chunk_for_write(pos) {
             chunk.access.set_block_entity_nbt(tag);
         }
@@ -533,7 +660,9 @@ impl WorldGenLevel for GenLevel<'_> {
     }
 
     fn add_fresh_entity_nbt(&mut self, tag: CompoundTag) -> bool {
-        let (x, z) = tag.get_list("Pos").map_or((0.0, 0.0), |pos| (pos.get_double_or(0, 0.0), pos.get_double_or(2, 0.0)));
+        let (x, z) = tag.get_list("Pos").map_or((0.0, 0.0), |pos| {
+            (pos.get_double_or(0, 0.0), pos.get_double_or(2, 0.0))
+        });
         let pos = BlockPos::new(mth::floor_f64(x), 0, mth::floor_f64(z));
         if let Some(chunk) = self.chunk_for_write(pos) {
             chunk.add_entity(tag);
@@ -548,14 +677,22 @@ impl WorldGenLevel for GenLevel<'_> {
         }
         let chunk = self.chunk(pos.x() >> 4, pos.z() >> 4);
         let index = self.region.level_height.section_index(pos.y()) as usize;
-        chunk.access.get_section(index).get_block_state(pos.x() & 15, pos.y() & 15, pos.z() & 15)
+        chunk
+            .access
+            .get_section(index)
+            .get_block_state(pos.x() & 15, pos.y() & 15, pos.z() & 15)
     }
 
     /// `section.setBlockState(x, y, z, state, false)`: raw palette write (read-only snapshots drop it).
     fn set_block_state_in_section(&mut self, pos: BlockPos, state: BlockState) {
         let index = self.region.level_height.section_index(pos.y()) as usize;
         if let Some(chunk) = self.chunk_for_write(pos) {
-            chunk.access.get_section_mut(index).set_block_state(pos.x() & 15, pos.y() & 15, pos.z() & 15, state);
+            chunk.access.get_section_mut(index).set_block_state(
+                pos.x() & 15,
+                pos.y() & 15,
+                pos.z() & 15,
+                state,
+            );
         }
     }
 
@@ -563,12 +700,19 @@ impl WorldGenLevel for GenLevel<'_> {
         self.region.structure_data(pos)
     }
 
-    fn set_structure_start_tag(&mut self, pos: ChunkPos, structure_id: &str, tag: CompoundTag) -> bool {
+    fn set_structure_start_tag(
+        &mut self,
+        pos: ChunkPos,
+        structure_id: &str,
+        tag: CompoundTag,
+    ) -> bool {
         self.region.update_structure_start(pos, structure_id, tag)
     }
 
     fn is_upgrading(&self) -> bool {
-        self.region.get_chunk(self.region.center.x, self.region.center.z).is_some_and(ProtoChunk::is_upgrading)
+        self.region
+            .get_chunk(self.region.center.x, self.region.center.z)
+            .is_some_and(ProtoChunk::is_upgrading)
     }
 }
 
@@ -582,7 +726,12 @@ impl crate::world::entity::variant::SpawnContextLevel for GenLevel<'_> {
     }
 
     fn biome_at(&self, pos: BlockPos) -> Option<Identifier> {
-        Some(self.env.biomes.key(WorldGenLevel::get_biome(self, pos)).clone())
+        Some(
+            self.env
+                .biomes
+                .key(WorldGenLevel::get_biome(self, pos))
+                .clone(),
+        )
     }
 
     /// The moon brightness the live level published for generation (`with_difficulty`).
@@ -592,7 +741,11 @@ impl crate::world::entity::variant::SpawnContextLevel for GenLevel<'_> {
 
     /// Vanilla reads the real level's chunks at `STRUCTURE_REFERENCES` without loading them (`getChunk(.., false)`); the
     /// chunks of a generation region are not published to the level yet, so nothing is found.
-    fn has_structure_piece_at(&self, _pos: BlockPos, _matcher: &dyn Fn(&Identifier) -> bool) -> bool {
+    fn has_structure_piece_at(
+        &self,
+        _pos: BlockPos,
+        _matcher: &dyn Fn(&Identifier) -> bool,
+    ) -> bool {
         false
     }
 }
@@ -617,24 +770,45 @@ impl crate::world::level::server_level_accessor::ServerLevelAccessor for GenLeve
     }
 
     fn has_ceiling(&self) -> bool {
-        self.live.as_ref().and_then(|l| l.dimension_type()).is_some_and(|d| d.has_ceiling)
+        self.live
+            .as_ref()
+            .and_then(|l| l.dimension_type())
+            .is_some_and(|d| d.has_ceiling)
     }
 
     fn monster_spawn_light_test(&self, random: &mut dyn RandomSource) -> i32 {
         match self.live.as_ref().and_then(|l| l.dimension_type()) {
-            Some(dimension_type) => crate::world::level::server_level_accessor::sample_int_provider(dimension_type.monster_spawn_light_test(), random),
-            None => mc_worldgen::provider::IntProvider::Uniform { min_inclusive: 0, max_inclusive: 7 }.sample(random),
+            Some(dimension_type) => {
+                crate::world::level::server_level_accessor::sample_int_provider(
+                    dimension_type.monster_spawn_light_test(),
+                    random,
+                )
+            }
+            None => mc_worldgen::provider::IntProvider::Uniform {
+                min_inclusive: 0,
+                max_inclusive: 7,
+            }
+            .sample(random),
         }
     }
 
     fn monster_spawn_block_light_limit(&self) -> i32 {
-        self.live.as_ref().and_then(|l| l.dimension_type()).map_or(0, |d| d.monster_spawn_block_light_limit())
+        self.live
+            .as_ref()
+            .and_then(|l| l.dimension_type())
+            .map_or(0, |d| d.monster_spawn_block_light_limit())
     }
 
     /// `WorldGenRegion.addFreshEntity`: the entity is saved into the chunk's entity list (vanilla `ProtoChunk.addEntity`).
-    fn add_fresh_entity_with_passengers(&mut self, entity: Box<dyn crate::world::entity::Entity>) -> bool {
+    fn add_fresh_entity_with_passengers(
+        &mut self,
+        entity: Box<dyn crate::world::entity::Entity>,
+    ) -> bool {
         let mut entity = entity;
-        let pending = entity.mob_mut().map(|m| std::mem::take(&mut m.pending_passengers)).unwrap_or_default();
+        let pending = entity
+            .mob_mut()
+            .map(|m| std::mem::take(&mut m.pending_passengers))
+            .unwrap_or_default();
         let lookup = |id| pending.iter().find(|p| p.id() == id).map(|p| &**p);
         match crate::world::entity::entity::save(&*entity, &lookup) {
             Some(tag) => self.add_fresh_entity_nbt(tag),
@@ -660,7 +834,8 @@ impl crate::world::level::server_level_accessor::ServerLevelAccessor for GenLeve
     }
 
     fn registry_access(&self) -> &crate::registry::RegistryAccess {
-        static EMPTY: std::sync::LazyLock<crate::registry::RegistryAccess> = std::sync::LazyLock::new(Default::default);
+        static EMPTY: std::sync::LazyLock<crate::registry::RegistryAccess> =
+            std::sync::LazyLock::new(Default::default);
         self.live.as_ref().map_or(&EMPTY, |l| l.registries())
     }
 
@@ -672,36 +847,65 @@ impl crate::world::level::server_level_accessor::ServerLevelAccessor for GenLeve
         self.live.as_ref().is_none_or(|l| l.spawn_mobs())
     }
 
-    fn create_entity(&self, ty: mc_data::EntityType, request: crate::world::entity::factory::EntitySpawnRequest) -> Option<Box<dyn crate::world::entity::Entity>> {
+    fn create_entity(
+        &self,
+        ty: mc_data::EntityType,
+        request: crate::world::entity::factory::EntitySpawnRequest,
+    ) -> Option<Box<dyn crate::world::entity::Entity>> {
         let data = ty.data();
         if !request.ignore_checks {
-            let required: Vec<Identifier> = data.required_features.iter().filter_map(|n| Identifier::try_parse(n)).collect();
-            let enabled = mc_world::level_storage::FeatureFlagSet::from_names(required.iter(), |_| {}).is_subset_of(LevelReader::enabled_features(self));
-            if !enabled || (!data.allowed_in_peaceful && self.difficulty.0 == Difficulty::Peaceful) {
+            let required: Vec<Identifier> = data
+                .required_features
+                .iter()
+                .filter_map(|n| Identifier::try_parse(n))
+                .collect();
+            let enabled =
+                mc_world::level_storage::FeatureFlagSet::from_names(required.iter(), |_| {})
+                    .is_subset_of(LevelReader::enabled_features(self));
+            if !enabled || (!data.allowed_in_peaceful && self.difficulty.0 == Difficulty::Peaceful)
+            {
                 return None;
             }
         }
         if ty == mc_data::EntityType::PLAYER {
             return None;
         }
-        Some(crate::world::entity::factory::instantiate(ty, crate::server::level::next_detached_entity_id(), self.registry_access()))
+        Some(crate::world::entity::factory::instantiate(
+            ty,
+            crate::server::level::next_detached_entity_id(),
+            self.registry_access(),
+        ))
     }
 
-    fn with_random_taken(&mut self, f: &mut dyn FnMut(&dyn crate::world::level::server_level_accessor::ServerLevelAccessor, &mut dyn RandomSource) -> bool) -> bool {
-        let mut random = std::mem::replace(&mut self.random, Box::new(mc_core::random::LegacyRandomSource::new(0)));
+    fn with_random_taken(
+        &mut self,
+        f: &mut dyn FnMut(
+            &dyn crate::world::level::server_level_accessor::ServerLevelAccessor,
+            &mut dyn RandomSource,
+        ) -> bool,
+    ) -> bool {
+        let mut random = std::mem::replace(
+            &mut self.random,
+            Box::new(mc_core::random::LegacyRandomSource::new(0)),
+        );
         let result = f(&*self, &mut *random);
         self.random = random;
         result
     }
 
-    fn natural_mob_spawns_at(&self, pos: BlockPos) -> Arc<crate::world::level::spawner::mob_spawn_settings::MobSpawnSettings> {
+    fn natural_mob_spawns_at(
+        &self,
+        pos: BlockPos,
+    ) -> Arc<crate::world::level::spawner::mob_spawn_settings::MobSpawnSettings> {
         let base = self.spawn_base();
-        crate::world::level::spawner::biome_spawns::BiomeSpawnTable::for_registry(&self.env.biomes).natural_mob_spawns(&base, Some(WorldGenLevel::get_biome(self, pos)))
+        crate::world::level::spawner::biome_spawns::BiomeSpawnTable::for_registry(&self.env.biomes)
+            .natural_mob_spawns(&base, Some(WorldGenLevel::get_biome(self, pos)))
     }
 
     fn creature_world_gen_spawn_probability_at(&self, pos: BlockPos) -> f32 {
         let base = self.spawn_base();
-        crate::world::level::spawner::biome_spawns::BiomeSpawnTable::for_registry(&self.env.biomes).creature_world_gen_spawn_probability(&base, Some(WorldGenLevel::get_biome(self, pos)))
+        crate::world::level::spawner::biome_spawns::BiomeSpawnTable::for_registry(&self.env.biomes)
+            .creature_world_gen_spawn_probability(&base, Some(WorldGenLevel::get_biome(self, pos)))
     }
 }
 
@@ -709,7 +913,11 @@ impl GenLevel<'_> {
     /// The dimension type's constant layer of the spawning attributes.
     fn spawn_base(&self) -> crate::world::level::spawner::biome_spawns::DimensionSpawnBase {
         match self.live.as_ref().and_then(|l| l.dimension_type()) {
-            Some(dimension_type) => crate::world::level::spawner::biome_spawns::DimensionSpawnBase::from_attributes(&dimension_type.attributes),
+            Some(dimension_type) => {
+                crate::world::level::spawner::biome_spawns::DimensionSpawnBase::from_attributes(
+                    &dimension_type.attributes,
+                )
+            }
             None => Default::default(),
         }
     }

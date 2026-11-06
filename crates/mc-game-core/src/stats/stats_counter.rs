@@ -13,14 +13,18 @@ pub struct StatsCounter {
 
 impl Default for StatsCounter {
     fn default() -> Self {
-        Self { stats: IndexMap::new(), table: DEFAULT_TABLE }
+        Self {
+            stats: IndexMap::new(),
+            table: DEFAULT_TABLE,
+        }
     }
 }
 
 impl StatsCounter {
     /// `increment(player, stat, count)`: saturates at `Integer.MAX_VALUE`.
     pub fn increment(&mut self, stat: Stat, count: i32) {
-        let result = (i64::from(self.get_value(&stat)) + i64::from(count)).min(i64::from(i32::MAX)) as i32;
+        let result =
+            (i64::from(self.get_value(&stat)) + i64::from(count)).min(i64::from(i32::MAX)) as i32;
         self.set_value(stat, result);
     }
 
@@ -35,7 +39,13 @@ impl StatsCounter {
     /// Entries in the iteration order of vanilla's `Object2IntOpenHashMap` (keys hash as `Stat.hashCode()`).
     pub fn iter_fast_order(&self) -> Vec<(Stat, i32)> {
         let entries: Vec<(&Stat, &i32)> = self.stats.iter().collect();
-        let hashes: Vec<i32> = entries.iter().map(|(s, _)| java_string_hash(&build_name(s))).collect();
-        object_open_hash_order(&hashes, self.table).into_iter().map(|i| (*entries[i].0, *entries[i].1)).collect()
+        let hashes: Vec<i32> = entries
+            .iter()
+            .map(|(s, _)| java_string_hash(&build_name(s)))
+            .collect();
+        object_open_hash_order(&hashes, self.table)
+            .into_iter()
+            .map(|i| (*entries[i].0, *entries[i].1))
+            .collect()
     }
 }

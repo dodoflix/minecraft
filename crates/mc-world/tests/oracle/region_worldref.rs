@@ -4,16 +4,17 @@
 //! compression version must read back identically through vanilla, and vanilla-written lz4 files must
 //! read back through us. Runs the vanilla classes through `scripts/vanilla-java.sh`.
 
+use crate::region_common::*;
+use crate::region_oracle::*;
 use mc_core::pos::chunk_pos::ChunkPos;
 use mc_world::region::region_file_version::{self as v, RegionFileVersion};
 use mc_world::region::{RegionFile, RegionFileStorage};
-use crate::region_common::*;
-use crate::region_oracle::*;
 use std::path::{Path, PathBuf};
 
 fn region_dirs(world: &Path) -> Vec<PathBuf> {
     let mut dirs = Vec::new();
-    let dims = std::fs::read_dir(world.join("dimensions/minecraft")).expect("the reference world has no dimensions folder");
+    let dims = std::fs::read_dir(world.join("dimensions/minecraft"))
+        .expect("the reference world has no dimensions folder");
     for dim in dims {
         for kind in ["region", "entities", "poi"] {
             let d = dim.as_ref().unwrap().path().join(kind);
@@ -38,7 +39,8 @@ fn rewrite(src: &Path, dst: &Path, version: &'static RegionFileVersion) {
         let parts: Vec<&str> = name.split('.').collect();
         let (rx, rz): (i32, i32) = (parts[1].parse().unwrap(), parts[2].parse().unwrap());
         let input = RegionFile::new(info(), &p, src, false).unwrap();
-        let mut out = RegionFile::with_version(info(), &dst.join(&name), dst, version, false).unwrap();
+        let mut out =
+            RegionFile::with_version(info(), &dst.join(&name), dst, version, false).unwrap();
         for z in 0..32 {
             for x in 0..32 {
                 let pos = ChunkPos::new(rx * 32 + x, rz * 32 + z);
@@ -58,7 +60,10 @@ fn rewrite(src: &Path, dst: &Path, version: &'static RegionFileVersion) {
 fn worldref_matches_vanilla_region_file() {
     let world = mc_testkit::worldref().expect("reference world");
     let dirs = region_dirs(&world);
-    assert!(!dirs.is_empty(), "the reference world has no region folders");
+    assert!(
+        !dirs.is_empty(),
+        "the reference world has no region folders"
+    );
     let work = tempfile::tempdir().unwrap();
     let (mut total_chunks, mut total_files) = (0, 0);
     for (n, dir) in dirs.iter().enumerate() {
@@ -69,7 +74,12 @@ fn worldref_matches_vanilla_region_file() {
         // (1) every chunk of every file: ours == vanilla
         let ours = dump_dir(&copy);
         assert!(!ours.is_empty(), "{label}: no chunks");
-        assert!(ours.iter().all(|l| l.contains(" exists=true ") && !l.contains("len=null") && !l.contains("ioerror")), "{label}: unreadable chunk");
+        assert!(
+            ours.iter().all(|l| l.contains(" exists=true ")
+                && !l.contains("len=null")
+                && !l.contains("ioerror")),
+            "{label}: unreadable chunk"
+        );
         let java = java_dump(&copy);
         assert_eq!(java.len(), ours.len(), "{label}: chunk count");
         assert_eq!(java, ours, "{label}: payload hashes");
@@ -81,22 +91,45 @@ fn worldref_matches_vanilla_region_file() {
         for l in &ours {
             let f: Vec<&str> = l.split(' ').collect();
             let pos = ChunkPos::new(f[1].parse().unwrap(), f[2].parse().unwrap());
-            let tag = storage.read(&pos).unwrap().unwrap_or_else(|| panic!("{label} {pos}: read returned none"));
+            let tag = storage
+                .read(&pos)
+                .unwrap()
+                .unwrap_or_else(|| panic!("{label} {pos}: read returned none"));
             assert_eq!(tag.get_int("DataVersion"), Some(5023), "{label} {pos}");
         }
         storage.close().unwrap();
 
         // (2) our rewrite with every compression version is read identically by vanilla
-        for ver in [&v::VERSION_DEFLATE, &v::VERSION_GZIP, &v::VERSION_NONE, &v::VERSION_LZ4] {
+        for ver in [
+            &v::VERSION_DEFLATE,
+            &v::VERSION_GZIP,
+            &v::VERSION_NONE,
+            &v::VERSION_LZ4,
+        ] {
             let dst = work.path().join(format!("dst{n}_{}", ver.get_id()));
             rewrite(&copy, &dst, ver);
-            assert_eq!(java_dump(&dst), java, "{label}: vanilla reading our version {} rewrite", ver.get_id());
+            assert_eq!(
+                java_dump(&dst),
+                java,
+                "{label}: vanilla reading our version {} rewrite",
+                ver.get_id()
+            );
         }
 
         // vanilla writes lz4 files, we read them
         let jdst = work.path().join(format!("jlz4_{n}"));
-        run_java("RegionTool.java", &["write", copy.to_str().unwrap(), jdst.to_str().unwrap(), "4"]);
-        assert_eq!(dump_dir(&jdst), ours, "{label}: our reading of vanilla lz4 rewrite");
+        run_java(
+            "RegionTool.java",
+            &["write", copy.to_str().unwrap(), jdst.to_str().unwrap(), "4"],
+        );
+        assert_eq!(
+            dump_dir(&jdst),
+            ours,
+            "{label}: our reading of vanilla lz4 rewrite"
+        );
     }
-    eprintln!("verified {total_chunks} chunks in {total_files} region files across {} folders", dirs.len());
+    eprintln!(
+        "verified {total_chunks} chunks in {total_files} region files across {} folders",
+        dirs.len()
+    );
 }

@@ -1,6 +1,6 @@
 //! `VarInt` / `VarLong` (vanilla `net.minecraft.network.VarInt` / `VarLong`).
+use super::{Decode, DecodeError, DecodeResult, Encode, VarEncode, take};
 use crate::codec::EncodeResult;
-use super::{take, Decode, DecodeError, DecodeResult, Encode, VarEncode};
 
 pub fn write_varint(out: &mut Vec<u8>, value: i32) {
     let mut v = value as u32;
@@ -59,7 +59,9 @@ pub fn read_varlong(input: &mut &[u8]) -> DecodeResult<i64> {
 
 pub fn varlong_size(value: i64) -> usize {
     let v = value as u64;
-    (1..10).find(|i| v & (u64::MAX << (i * 7)) == 0).unwrap_or(10)
+    (1..10)
+        .find(|i| v & (u64::MAX << (i * 7)) == 0)
+        .unwrap_or(10)
 }
 
 /// A VarInt on the wire (`ByteBufCodecs.VAR_INT`).
@@ -120,7 +122,11 @@ impl<T: VarEncode> VarEncode for Option<T> {
         }
     }
     fn decode_var(input: &mut &[u8]) -> DecodeResult<Self> {
-        if bool::decode(input)? { T::decode_var(input).map(Some) } else { Ok(None) }
+        if bool::decode(input)? {
+            T::decode_var(input).map(Some)
+        } else {
+            Ok(None)
+        }
     }
 }
 impl<T: VarEncode> VarEncode for Vec<T> {
@@ -155,8 +161,14 @@ mod tests {
         let mut b = Vec::new();
         write_varint(&mut b, -1);
         assert_eq!(b, [0xff, 0xff, 0xff, 0xff, 0x0f]);
-        assert_eq!(read_varint(&mut &[0x80u8, 0x80, 0x80, 0x80, 0x80, 0x01][..]), Err(DecodeError::VarIntTooBig));
-        assert!(matches!(read_varint(&mut &[0x80u8][..]), Err(DecodeError::Eof { .. })));
+        assert_eq!(
+            read_varint(&mut &[0x80u8, 0x80, 0x80, 0x80, 0x80, 0x01][..]),
+            Err(DecodeError::VarIntTooBig)
+        );
+        assert!(matches!(
+            read_varint(&mut &[0x80u8][..]),
+            Err(DecodeError::Eof { .. })
+        ));
     }
 
     #[test]
@@ -167,6 +179,9 @@ mod tests {
             assert_eq!(b.len(), varlong_size(v));
             assert_eq!(read_varlong(&mut &b[..]).unwrap(), v);
         }
-        assert_eq!(read_varlong(&mut &[0xffu8; 11][..]), Err(DecodeError::VarLongTooBig));
+        assert_eq!(
+            read_varlong(&mut &[0xffu8; 11][..]),
+            Err(DecodeError::VarLongTooBig)
+        );
     }
 }

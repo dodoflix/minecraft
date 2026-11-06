@@ -10,7 +10,12 @@ use mc_protocol::packets::play::Stat;
 pub struct KnowledgeBookItem;
 
 impl ItemBehaviour for KnowledgeBookItem {
-    fn use_item(&self, level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) -> InteractionResult {
+    fn use_item(
+        &self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        hand: InteractionHand,
+    ) -> InteractionResult {
         let mut stack = player.get_item_in_hand(hand);
         let recipe_ids = stack.get(&RECIPES).cloned().unwrap_or_default();
         stack.consume(1, player.player.abilities.instabuild);

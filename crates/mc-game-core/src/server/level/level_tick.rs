@@ -60,7 +60,12 @@ pub trait LevelTickEnv {
     fn tick_scheduled_events(&mut self, game_time: i64, level: &mut ServerLevel);
     /// `server.getCommands().performPrefixedCommand(source, command)` for a source located in `level` (the ticking level, lent
     /// back to the server while the command runs).
-    fn perform_prefixed_command(&mut self, level: &mut ServerLevel, source: crate::commands::CommandSourceStack, command: &str);
+    fn perform_prefixed_command(
+        &mut self,
+        level: &mut ServerLevel,
+        source: crate::commands::CommandSourceStack,
+        command: &str,
+    );
     /// The command block game rules, read live (`level.getGameRules()` inside command block code).
     fn command_rules(&self) -> super::level_commands::CommandRules;
     /// `PlayerList.broadcastAll(packet)`: every player of every dimension.
@@ -90,7 +95,11 @@ impl ServerLevel {
         let st = &mut self.tick_state;
         st.rand_value = st.rand_value.wrapping_mul(3).wrapping_add(1013904223);
         let val = st.rand_value >> 2;
-        BlockPos::new(xo.wrapping_add(val & 15), yo.wrapping_add(val >> 16 & y_mask), zo.wrapping_add(val >> 8 & 15))
+        BlockPos::new(
+            xo.wrapping_add(val & 15),
+            yo.wrapping_add(val >> 16 & y_mask),
+            zo.wrapping_add(val >> 8 & 15),
+        )
     }
 
     /// `getHeightmapPos(type, pos)`.
@@ -100,7 +109,10 @@ impl ServerLevel {
 
     /// `shouldTickBlocksAt(chunkPos)`.
     pub fn should_tick_blocks_at(&self, chunk_key: i64) -> bool {
-        self.chunk_source.chunk_map.distance_manager.in_block_ticking_range(chunk_key)
+        self.chunk_source
+            .chunk_map
+            .distance_manager
+            .in_block_ticking_range(chunk_key)
     }
 
     /// `shouldTickBlocksAt(pos)`.
@@ -120,7 +132,10 @@ impl ServerLevel {
 
     /// `isPositionTickingWithEntitiesLoaded(key)`.
     pub fn is_position_ticking_with_entities_loaded(&self, key: i64) -> bool {
-        self.are_entities_loaded(key) && self.chunk_source.is_position_ticking(key, self.should_tick_blocks_at(key))
+        self.are_entities_loaded(key)
+            && self
+                .chunk_source
+                .is_position_ticking(key, self.should_tick_blocks_at(key))
     }
 
     /// `areEntitiesActuallyLoadedAndTicking(pos)`.
@@ -142,7 +157,11 @@ impl ServerLevel {
 
     /// `getThunderLevel(a)`.
     pub fn get_thunder_level(&self, a: f32) -> f32 {
-        mth::lerp_f32(a, self.tick_state.o_thunder_level, self.tick_state.thunder_level) * self.get_rain_level(a)
+        mth::lerp_f32(
+            a,
+            self.tick_state.o_thunder_level,
+            self.tick_state.thunder_level,
+        ) * self.get_rain_level(a)
     }
 
     /// `setRainLevel(level)`.
@@ -186,7 +205,13 @@ impl ServerLevel {
 
     /// `precipitationAt(pos)`.
     pub fn precipitation_at(&self, pos: BlockPos) -> Precipitation {
-        if !self.is_raining() || !self.can_see_sky(pos) || self.get_heightmap_pos(HeightmapType::MotionBlocking, pos).y() > pos.y() {
+        if !self.is_raining()
+            || !self.can_see_sky(pos)
+            || self
+                .get_heightmap_pos(HeightmapType::MotionBlocking, pos)
+                .y()
+                > pos.y()
+        {
             return Precipitation::None;
         }
         match self.get_biome(pos) {
@@ -201,7 +226,11 @@ impl ServerLevel {
         if self.can_have_weather() {
             let mut weather = env.weather();
             if self.advance_weather() {
-                let (mut clear_weather_time, mut thunder_time, mut rain_time) = (weather.clear_weather_time, weather.thunder_time, weather.rain_time);
+                let (mut clear_weather_time, mut thunder_time, mut rain_time) = (
+                    weather.clear_weather_time,
+                    weather.thunder_time,
+                    weather.rain_time,
+                );
                 let (mut thundering, mut raining) = (weather.thundering, weather.raining);
                 if clear_weather_time > 0 {
                     clear_weather_time -= 1;
@@ -232,7 +261,13 @@ impl ServerLevel {
                         rain_time = sample(random, RAIN_DELAY);
                     }
                 }
-                weather = WeatherState { clear_weather_time, thunder_time, rain_time, thundering, raining };
+                weather = WeatherState {
+                    clear_weather_time,
+                    thunder_time,
+                    rain_time,
+                    thundering,
+                    raining,
+                };
                 env.set_weather(weather);
             }
             let st = &mut self.tick_state;
@@ -253,19 +288,43 @@ impl ServerLevel {
         }
         let (o_rain, rain, o_thunder, thunder) = {
             let st = &self.tick_state;
-            (st.o_rain_level, st.rain_level, st.o_thunder_level, st.thunder_level)
+            (
+                st.o_rain_level,
+                st.rain_level,
+                st.o_thunder_level,
+                st.thunder_level,
+            )
         };
         if o_rain != rain {
-            self.broadcast_to_level_players(&ClientboundGameEventPacket { event: ClientboundGameEventPacket::RAIN_LEVEL_CHANGE, param: rain });
+            self.broadcast_to_level_players(&ClientboundGameEventPacket {
+                event: ClientboundGameEventPacket::RAIN_LEVEL_CHANGE,
+                param: rain,
+            });
         }
         if o_thunder != thunder {
-            self.broadcast_to_level_players(&ClientboundGameEventPacket { event: ClientboundGameEventPacket::THUNDER_LEVEL_CHANGE, param: thunder });
+            self.broadcast_to_level_players(&ClientboundGameEventPacket {
+                event: ClientboundGameEventPacket::THUNDER_LEVEL_CHANGE,
+                param: thunder,
+            });
         }
         if was_raining != self.is_raining() {
-            let toggle = if was_raining { ClientboundGameEventPacket::STOP_RAINING } else { ClientboundGameEventPacket::START_RAINING };
-            env.broadcast_game_event_to_all(&ClientboundGameEventPacket { event: toggle, param: 0.0 });
-            env.broadcast_game_event_to_all(&ClientboundGameEventPacket { event: ClientboundGameEventPacket::RAIN_LEVEL_CHANGE, param: rain });
-            env.broadcast_game_event_to_all(&ClientboundGameEventPacket { event: ClientboundGameEventPacket::THUNDER_LEVEL_CHANGE, param: thunder });
+            let toggle = if was_raining {
+                ClientboundGameEventPacket::STOP_RAINING
+            } else {
+                ClientboundGameEventPacket::START_RAINING
+            };
+            env.broadcast_game_event_to_all(&ClientboundGameEventPacket {
+                event: toggle,
+                param: 0.0,
+            });
+            env.broadcast_game_event_to_all(&ClientboundGameEventPacket {
+                event: ClientboundGameEventPacket::RAIN_LEVEL_CHANGE,
+                param: rain,
+            });
+            env.broadcast_game_event_to_all(&ClientboundGameEventPacket {
+                event: ClientboundGameEventPacket::THUNDER_LEVEL_CHANGE,
+                param: thunder,
+            });
         }
     }
 
@@ -284,7 +343,9 @@ impl ServerLevel {
         let payload = super::level_events::encode_packet(packet);
         for &id in &self.players {
             if let Some(entity) = self.get_entity(id)
-                && let Some(player) = entity.as_any().downcast_ref::<crate::world::entity::player::ServerPlayer>()
+                && let Some(player) = entity
+                    .as_any()
+                    .downcast_ref::<crate::world::entity::player::ServerPlayer>()
                 && let Some(connection) = &player.connection
             {
                 connection.send_payload(payload.clone());
@@ -310,7 +371,8 @@ impl ServerLevel {
     pub fn get_biome_id(&self, pos: BlockPos) -> Option<mc_world::palette::BiomeId> {
         self.tick_state.biomes.as_ref()?;
         let resolver = |qx: i32, qy: i32, qz: i32| {
-            self.chunk_now(qx >> 2, qz >> 2).map(|c| c.data.access.get_noise_biome(qx, qy, qz))
+            self.chunk_now(qx >> 2, qz >> 2)
+                .map(|c| c.data.access.get_noise_biome(qx, qy, qz))
         };
         // The manager needs a total resolver; a missing chunk aborts the lookup (vanilla would load it).
         let missing = std::cell::Cell::new(false);
@@ -321,7 +383,8 @@ impl ServerLevel {
                 mc_world::palette::BiomeId(0)
             }
         };
-        let id = mc_worldgen::biome::BiomeManager::new(&total, self.tick_state.biome_zoom_seed).get_biome(pos);
+        let id = mc_worldgen::biome::BiomeManager::new(&total, self.tick_state.biome_zoom_seed)
+            .get_biome(pos);
         if missing.get() { None } else { Some(id) }
     }
 
@@ -344,7 +407,10 @@ impl ServerLevel {
             };
             for section_index in 0..section_count {
                 let (randomly_ticking, section_y) = match self.chunk_now(chunk_pos.x, chunk_pos.z) {
-                    Some(chunk) => (chunk.data.access.sections[section_index].is_randomly_ticking(), chunk.data.access.level_height.min_section_y() + section_index as i32),
+                    Some(chunk) => (
+                        chunk.data.access.sections[section_index].is_randomly_ticking(),
+                        chunk.data.access.level_height.min_section_y() + section_index as i32,
+                    ),
                     None => return,
                 };
                 if !randomly_ticking {
@@ -353,8 +419,14 @@ impl ServerLevel {
                 let min_y_in_section = SectionPos::section_to_block_coord(section_y);
                 for _ in 0..tick_speed {
                     let pos = self.get_block_random_pos(min_x, min_y_in_section, min_z, 15);
-                    let Some(chunk) = self.chunk_now(chunk_pos.x, chunk_pos.z) else { return };
-                    let block_state = chunk.data.access.sections[section_index].get_block_state(pos.x() - min_x, pos.y() - min_y_in_section, pos.z() - min_z);
+                    let Some(chunk) = self.chunk_now(chunk_pos.x, chunk_pos.z) else {
+                        return;
+                    };
+                    let block_state = chunk.data.access.sections[section_index].get_block_state(
+                        pos.x() - min_x,
+                        pos.y() - min_y_in_section,
+                        pos.z() - min_z,
+                    );
                     if block_state.is_randomly_ticking() {
                         block_state.random_tick(self, pos);
                     }
@@ -371,10 +443,17 @@ impl ServerLevel {
     pub fn tick_precipitation(&mut self, pos: BlockPos) {
         let top_pos = self.get_heightmap_pos(HeightmapType::MotionBlocking, pos);
         let below_pos = top_pos.below();
-        let Some(biome_id) = self.biome_id_at(top_pos) else { return };
+        let Some(biome_id) = self.biome_id_at(top_pos) else {
+            return;
+        };
         let sea_level = self.get_sea_level();
         let freeze = {
-            let biome = self.tick_state.biomes.as_ref().expect("biome registry present").get(biome_id);
+            let biome = self
+                .tick_state
+                .biomes
+                .as_ref()
+                .expect("biome registry present")
+                .get(biome_id);
             should_freeze(biome, self, below_pos)
         };
         if freeze {
@@ -383,7 +462,12 @@ impl ServerLevel {
         if self.is_raining() {
             let max_height = self.max_snow_accumulation_height();
             let snow = {
-                let biome = self.tick_state.biomes.as_ref().expect("biome registry present").get(biome_id);
+                let biome = self
+                    .tick_state
+                    .biomes
+                    .as_ref()
+                    .expect("biome registry present")
+                    .get(biome_id);
                 max_height > 0 && should_snow(biome, self, top_pos)
             };
             if snow {
@@ -392,17 +476,30 @@ impl ServerLevel {
                     let current_layers = state.get(props::LAYERS);
                     if current_layers < max_height.min(8) {
                         let new_state = state.set(props::LAYERS, current_layers + 1);
-                        crate::world::level::block::helpers::push_entities_up(self, state, new_state, top_pos);
+                        crate::world::level::block::helpers::push_entities_up(
+                            self, state, new_state, top_pos,
+                        );
                         self.set_block_and_update(top_pos, new_state);
                     }
                 } else {
                     self.set_block_and_update(top_pos, Block::SNOW.default_state());
                 }
             }
-            let precipitation = self.tick_state.biomes.as_ref().expect("biome registry present").get(biome_id).get_precipitation_at(below_pos, sea_level);
+            let precipitation = self
+                .tick_state
+                .biomes
+                .as_ref()
+                .expect("biome registry present")
+                .get(biome_id)
+                .get_precipitation_at(below_pos, sea_level);
             if precipitation != Precipitation::None {
                 let below_state = BlockGetter::get_block_state(self, below_pos);
-                crate::world::level::block::behaviour(below_state.block()).handle_precipitation(below_state, self, below_pos, precipitation);
+                crate::world::level::block::behaviour(below_state.block()).handle_precipitation(
+                    below_state,
+                    self,
+                    below_pos,
+                    precipitation,
+                );
             }
         }
     }
@@ -417,7 +514,8 @@ impl ServerLevel {
                 mc_world::palette::BiomeId(0)
             }
         };
-        let id = mc_worldgen::biome::BiomeManager::new(&total, self.tick_state.biome_zoom_seed).get_biome_at(pos.x(), pos.y(), pos.z());
+        let id = mc_worldgen::biome::BiomeManager::new(&total, self.tick_state.biome_zoom_seed)
+            .get_biome_at(pos.x(), pos.y(), pos.z());
         if missing.get() { None } else { Some(id) }
     }
 
@@ -432,7 +530,8 @@ impl ServerLevel {
             if self.is_raining_at(pos) {
                 let difficulty = self.get_current_difficulty_at(pos, env);
                 let is_trap = self.spawn_mobs()
-                    && self.tick_state.random.next_double() < f64::from(difficulty.get_effective_difficulty()) * 0.01
+                    && self.tick_state.random.next_double()
+                        < f64::from(difficulty.get_effective_difficulty()) * 0.01
                     && !BlockGetter::get_block_state(self, pos.below()).is_tag("lightning_rods");
                 if let Some(spawn) = self.tick_state.lightning_spawn {
                     spawn(self, pos, is_trap);
@@ -442,30 +541,50 @@ impl ServerLevel {
     }
 
     /// `getCurrentDifficultyAt(pos)`.
-    pub fn get_current_difficulty_at(&self, pos: BlockPos, env: &dyn LevelTickEnv) -> DifficultyInstance {
+    pub fn get_current_difficulty_at(
+        &self,
+        pos: BlockPos,
+        env: &dyn LevelTickEnv,
+    ) -> DifficultyInstance {
         let (mut local_time, mut moon_brightness) = (0i64, 0.0f32);
         if let Some(chunk) = self.chunk_now(pos.x() >> 4, pos.z() >> 4) {
             local_time = chunk.data.access.inhabited_time();
             moon_brightness = self.get_moon_brightness(pos);
         }
-        DifficultyInstance::new(env.difficulty(), env.overworld_clock_time(), local_time, moon_brightness)
+        DifficultyInstance::new(
+            env.difficulty(),
+            env.overworld_clock_time(),
+            local_time,
+            moon_brightness,
+        )
     }
 
     /// `findLightningTargetAround(pos)`: lightning rods (point of interest lookup) are the POI slice's; entities in the
     /// column are the fallback.
     fn find_lightning_target_around(&mut self, pos: BlockPos) -> BlockPos {
         let mut center = self.get_heightmap_pos(HeightmapType::MotionBlocking, pos);
-        if let Some(rod) = self.tick_state.find_lightning_rod.and_then(|find| find(self, center)) {
+        if let Some(rod) = self
+            .tick_state
+            .find_lightning_rod
+            .and_then(|find| find(self, center))
+        {
             return rod.above();
         }
-        let search = mc_core::phys::AABB::encapsulating_full_blocks(&center, &BlockPos::new(center.x(), self.get_max_y() + 1, center.z())).inflate_scalar(3.0);
+        let search = mc_core::phys::AABB::encapsulating_full_blocks(
+            &center,
+            &BlockPos::new(center.x(), self.get_max_y() + 1, center.z()),
+        )
+        .inflate_scalar(3.0);
         let candidates = self.get_entities_of_class(
             &search,
             |e| e.living().is_some(),
             |e| e.is_alive() && self.can_see_sky(e.block_position()),
         );
         if !candidates.is_empty() {
-            let index = self.tick_state.random.next_int_bounded(candidates.len() as i32) as usize;
+            let index = self
+                .tick_state
+                .random
+                .next_int_bounded(candidates.len() as i32) as usize;
             if let Some(entity) = self.get_entity(candidates[index]) {
                 return entity.block_position();
             }
@@ -496,7 +615,12 @@ impl ServerLevel {
     /// `blockTicks.tick(tick, 65536, this::tickBlock)`.
     fn run_block_ticks(&mut self, game_time: i64) {
         let ticks = self.tick_state.ticks.clone();
-        ticks.lock().block.collect_ticks(game_time, MAX_SCHEDULED_TICKS_PER_TICK, |key| self.is_position_ticking_with_entities_loaded(key));
+        ticks
+            .lock()
+            .block
+            .collect_ticks(game_time, MAX_SCHEDULED_TICKS_PER_TICK, |key| {
+                self.is_position_ticking_with_entities_loaded(key)
+            });
         loop {
             let next = ticks.lock().block.poll_collected_tick();
             let Some((pos, block)) = next else { break };
@@ -508,7 +632,12 @@ impl ServerLevel {
     /// `fluidTicks.tick(tick, 65536, this::tickFluid)`.
     fn run_fluid_ticks(&mut self, game_time: i64) {
         let ticks = self.tick_state.ticks.clone();
-        ticks.lock().fluid.collect_ticks(game_time, MAX_SCHEDULED_TICKS_PER_TICK, |key| self.is_position_ticking_with_entities_loaded(key));
+        ticks
+            .lock()
+            .fluid
+            .collect_ticks(game_time, MAX_SCHEDULED_TICKS_PER_TICK, |key| {
+                self.is_position_ticking_with_entities_loaded(key)
+            });
         loop {
             let next = ticks.lock().fluid.poll_collected_tick();
             let Some((pos, fluid)) = next else { break };
@@ -521,7 +650,12 @@ impl ServerLevel {
 
     /// `blockEvent(pos, block, b0, b1)`.
     pub fn block_event(&mut self, pos: BlockPos, block: Block, b0: i32, b1: i32) {
-        self.tick_state.block_events.add(BlockEventData { pos, block, param_a: b0, param_b: b1 });
+        self.tick_state.block_events.add(BlockEventData {
+            pos,
+            block,
+            param_a: b0,
+            param_b: b1,
+        });
     }
 
     /// `runBlockEvents()`.
@@ -541,12 +675,15 @@ impl ServerLevel {
 
     fn do_block_event(&mut self, event: &BlockEventData) -> bool {
         let state = BlockGetter::get_block_state(self, event.pos);
-        state.block() == event.block && state.trigger_event(self, event.pos, event.param_a, event.param_b)
+        state.block() == event.block
+            && state.trigger_event(self, event.pos, event.param_a, event.param_b)
     }
 
     /// `clearBlockEvents(bb)`.
     pub fn clear_block_events(&mut self, bounding_box: &mc_core::bounding_box::BoundingBox) {
-        self.tick_state.block_events.remove_if(|e| bounding_box.is_inside(&e.pos));
+        self.tick_state
+            .block_events
+            .remove_if(|e| bounding_box.is_inside(&e.pos));
     }
 
     // ------------------------------------------------------------------------------------------ block entities
@@ -563,7 +700,10 @@ impl ServerLevel {
         let mut kept = Vec::with_capacity(tickers.len());
         for ticker in tickers {
             let Some(pos) = ticker.0.get() else { continue };
-            let removed = self.chunk_now(pos.x() >> 4, pos.z() >> 4).and_then(|c| c.block_entities.get(&pos)).is_none_or(|be| be.is_removed());
+            let removed = self
+                .chunk_now(pos.x() >> 4, pos.z() >> 4)
+                .and_then(|c| c.block_entities.get(&pos))
+                .is_none_or(|be| be.is_removed());
             if removed {
                 continue;
             }
@@ -585,21 +725,36 @@ impl ServerLevel {
         if !self.is_within_world_border(pos) {
             return;
         }
-        let ticking = self.full_chunk_status(cx, cz).is_or_after(super::FullChunkStatus::BlockTicking) && self.are_entities_loaded(ChunkPos::pack_xz(cx, cz));
+        let ticking = self
+            .full_chunk_status(cx, cz)
+            .is_or_after(super::FullChunkStatus::BlockTicking)
+            && self.are_entities_loaded(ChunkPos::pack_xz(cx, cz));
         if !ticking {
             return;
         }
         let state = BlockGetter::get_block_state(self, pos);
-        let valid = self.chunk_now(cx, cz).and_then(|c| c.block_entities.get(&pos)).is_some_and(|be| be.is_valid_block_state(state));
+        let valid = self
+            .chunk_now(cx, cz)
+            .and_then(|c| c.block_entities.get(&pos))
+            .is_some_and(|be| be.is_valid_block_state(state));
         if valid {
-            match self.chunk_now(cx, cz).and_then(|c| c.block_entities.get(&pos)).and_then(|be| be.level_ticker()) {
+            match self
+                .chunk_now(cx, cz)
+                .and_then(|c| c.block_entities.get(&pos))
+                .and_then(|be| be.level_ticker())
+            {
                 Some(ticker) => ticker(self, pos),
                 None => {
                     self.with_block_entity(pos, |level, be| be.server_tick(level));
                 }
             }
         } else if let Some(be) = self.get_block_entity(pos) {
-            log::warn!("Block entity {} @ {} state {} invalid for ticking:", be.get_type().name(), pos.to_short_string(), state);
+            log::warn!(
+                "Block entity {} @ {} state {} invalid for ticking:",
+                be.get_type().name(),
+                pos.to_short_string(),
+                state
+            );
         }
     }
 
@@ -607,7 +762,9 @@ impl ServerLevel {
 
     /// `updateSkyBrightness()`.
     pub fn update_sky_brightness(&mut self) {
-        self.sky_darken = (15.0f32 - self.dimension_float(crate::world::attribute::attributes::SKY_LIGHT_LEVEL)) as i32;
+        self.sky_darken = (15.0f32
+            - self.dimension_float(crate::world::attribute::attributes::SKY_LIGHT_LEVEL))
+            as i32;
     }
 
     /// `environmentAttributes().getValue(MOON_PHASE, pos)` (ordinal).
@@ -620,7 +777,8 @@ impl ServerLevel {
 
     /// `getMoonBrightness(pos)`: `DimensionType.MOON_BRIGHTNESS_PER_PHASE[moonPhase]`.
     pub fn get_moon_brightness(&self, pos: BlockPos) -> f32 {
-        crate::registry::typed::dimension_type::MOON_BRIGHTNESS_PER_PHASE[usize::from(self.environment_moon_phase(pos))]
+        crate::registry::typed::dimension_type::MOON_BRIGHTNESS_PER_PHASE
+            [usize::from(self.environment_moon_phase(pos))]
     }
 
     /// `SleepStatus.update`'s view of the level's players: `current` is a player that is out of the level's storage while
@@ -629,7 +787,8 @@ impl ServerLevel {
         let info = |p: &dyn Entity| SleepInfo {
             spectator: p.is_spectator(),
             sleeping: is_sleeping(p),
-            sleeping_long_enough: is_sleeping(p) && p.player().is_some_and(|d| d.sleep_counter >= 100),
+            sleeping_long_enough: is_sleeping(p)
+                && p.player().is_some_and(|d| d.sleep_counter >= 100),
         };
         self.players
             .iter()
@@ -650,13 +809,22 @@ impl ServerLevel {
         let message = if status.are_enough_sleeping(percentage) {
             mc_text::Component::translatable("sleep.skipping_night", Vec::new())
         } else {
-            mc_text::Component::translatable("sleep.players_sleeping", vec![status.amount_sleeping().into(), status.sleepers_needed(percentage).into()])
+            mc_text::Component::translatable(
+                "sleep.players_sleeping",
+                vec![
+                    status.amount_sleeping().into(),
+                    status.sleepers_needed(percentage).into(),
+                ],
+            )
         };
         for &id in &self.players {
             match current {
                 Some(c) if c.base_id() == id => c.send_overlay_message(message.clone()),
                 _ => {
-                    if let Some(player) = self.get_entity(id).and_then(|e| e.as_any().downcast_ref::<crate::world::entity::ServerPlayer>()) {
+                    if let Some(player) = self.get_entity(id).and_then(|e| {
+                        e.as_any()
+                            .downcast_ref::<crate::world::entity::ServerPlayer>()
+                    }) {
                         player.send_overlay_message(message.clone());
                     }
                 }
@@ -670,7 +838,10 @@ impl ServerLevel {
     }
 
     /// `updateSleepingPlayerList()` called while `current` is out of the level's storage (its own packet or tick).
-    pub fn update_sleeping_player_list_with(&mut self, current: Option<&crate::world::entity::ServerPlayer>) {
+    pub fn update_sleeping_player_list_with(
+        &mut self,
+        current: Option<&crate::world::entity::ServerPlayer>,
+    ) {
         if self.players.is_empty() {
             return;
         }
@@ -694,7 +865,12 @@ impl ServerLevel {
 
         let percentage = self.players_sleeping_percentage();
         let infos = self.sleep_infos(None);
-        if self.tick_state.sleep_status.are_enough_sleeping(percentage) && self.tick_state.sleep_status.are_enough_deep_sleeping(percentage, &infos) {
+        if self.tick_state.sleep_status.are_enough_sleeping(percentage)
+            && self
+                .tick_state
+                .sleep_status
+                .are_enough_deep_sleeping(percentage, &infos)
+        {
             if self.advance_time() {
                 env.wake_up_from_sleep();
             }

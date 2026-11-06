@@ -46,7 +46,11 @@ impl Menu {
 
     /// First slot of the hotbar inside this menu (the player inventory is always the tail of a menu).
     pub fn hotbar_start(&self) -> usize {
-        if self.container_id == PLAYER_MENU { 36 } else { self.slots.len() - 9 }
+        if self.container_id == PLAYER_MENU {
+            36
+        } else {
+            self.slots.len() - 9
+        }
     }
 
     /// First slot of the 27 main inventory slots inside this menu.
@@ -71,7 +75,12 @@ impl Menu {
     }
 
     /// Prediction of one click; returns the packet the real client would send (state id of this menu).
-    pub fn click(&mut self, slot: i16, button: i8, input: ContainerInput) -> ServerboundContainerClickPacket {
+    pub fn click(
+        &mut self,
+        slot: i16,
+        button: i8,
+        input: ContainerInput,
+    ) -> ServerboundContainerClickPacket {
         let before = self.slots.clone();
         match input {
             ContainerInput::Pickup => self.click_pickup(slot, button),
@@ -114,7 +123,9 @@ impl Menu {
             }
             return;
         }
-        let Some(idx) = usize::try_from(slot).ok().filter(|i| *i < self.slots.len()) else { return };
+        let Some(idx) = usize::try_from(slot).ok().filter(|i| *i < self.slots.len()) else {
+            return;
+        };
         if self.is_result_slot(idx) {
             return;
         }
@@ -129,7 +140,11 @@ impl Menu {
                 self.cursor.shrink(n);
             }
         } else if cursor.is_empty() {
-            let amount = if button == 0 { slot_stack.count() } else { (slot_stack.count() + 1) / 2 };
+            let amount = if button == 0 {
+                slot_stack.count()
+            } else {
+                (slot_stack.count() + 1) / 2
+            };
             let mut taken = slot_stack.clone();
             let part = taken.split(amount);
             self.slots[idx] = taken;
@@ -147,7 +162,9 @@ impl Menu {
     }
 
     fn click_swap(&mut self, slot: i16, button: i8) {
-        let Some(idx) = usize::try_from(slot).ok().filter(|i| *i < self.slots.len()) else { return };
+        let Some(idx) = usize::try_from(slot).ok().filter(|i| *i < self.slots.len()) else {
+            return;
+        };
         if self.is_result_slot(idx) {
             return;
         }
@@ -162,7 +179,9 @@ impl Menu {
     }
 
     fn click_throw(&mut self, slot: i16, button: i8) {
-        let Some(idx) = usize::try_from(slot).ok().filter(|i| *i < self.slots.len()) else { return };
+        let Some(idx) = usize::try_from(slot).ok().filter(|i| *i < self.slots.len()) else {
+            return;
+        };
         if self.is_result_slot(idx) || !self.cursor.is_empty() {
             return;
         }
@@ -190,7 +209,10 @@ mod tests {
         // left click picks the whole stack, the packet reports slot 9 emptied and the carried stack
         let p = m.click(9, 0, ContainerInput::Pickup);
         assert_eq!(p.changed_slots, vec![(9, HashedStack::Empty)]);
-        assert!(matches!(p.carried_item, HashedStack::ActualItem { count: 40, .. }));
+        assert!(matches!(
+            p.carried_item,
+            HashedStack::ActualItem { count: 40, .. }
+        ));
         // right click on an empty slot puts one down
         m.click(10, 1, ContainerInput::Pickup);
         assert_eq!((m.slots[10].count(), m.cursor.count()), (1, 39));
@@ -201,7 +223,9 @@ mod tests {
         // different item swaps with the cursor
         m.slots[12] = stack(Item::DIRT, 3);
         m.click(12, 0, ContainerInput::Pickup);
-        assert!(m.slots[12].is(Item::STONE) && m.slots[12].count() == 35 && m.cursor.is(Item::DIRT));
+        assert!(
+            m.slots[12].is(Item::STONE) && m.slots[12].count() == 35 && m.cursor.is(Item::DIRT)
+        );
         // right click on a stack takes half (rounded up) only with an empty cursor
         m.cursor = ItemStack::empty();
         m.click(11, 1, ContainerInput::Pickup);
@@ -231,9 +255,24 @@ mod tests {
     #[test]
     fn inventory_index_mapping() {
         let m = Menu::player_inventory();
-        assert_eq!([m.slot_of_inventory(0), m.slot_of_inventory(9), m.slot_of_inventory(36), m.slot_of_inventory(39), m.slot_of_inventory(40)],
-            [Some(36), Some(9), Some(8), Some(5), Some(45)]);
+        assert_eq!(
+            [
+                m.slot_of_inventory(0),
+                m.slot_of_inventory(9),
+                m.slot_of_inventory(36),
+                m.slot_of_inventory(39),
+                m.slot_of_inventory(40)
+            ],
+            [Some(36), Some(9), Some(8), Some(5), Some(45)]
+        );
         let chest = Menu::new(3, 27 + 36);
-        assert_eq!([chest.slot_of_inventory(0), chest.slot_of_inventory(9), chest.slot_of_inventory(40)], [Some(54), Some(27), None]);
+        assert_eq!(
+            [
+                chest.slot_of_inventory(0),
+                chest.slot_of_inventory(9),
+                chest.slot_of_inventory(40)
+            ],
+            [Some(54), Some(27), None]
+        );
     }
 }

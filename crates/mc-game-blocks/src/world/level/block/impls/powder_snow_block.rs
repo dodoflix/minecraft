@@ -1,11 +1,13 @@
 //! `net.minecraft.world.level.block.PowderSnowBlock` (the entity-facing half: `entityInside`, `fallOn`).
-use mc_game_core::register_block_class;
-use mc_game_core::world::level::block::impls::prelude::*;
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::entity::Entity;
-use mc_game_core::world::entity::inside_block_effects::{InsideBlockEffectApplier, InsideBlockEffectType};
 use mc_core::phys::Vec3;
 use mc_core::random::RandomSource;
+use mc_game_core::register_block_class;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::inside_block_effects::{
+    InsideBlockEffectApplier, InsideBlockEffectType,
+};
+use mc_game_core::world::level::block::impls::prelude::*;
 use mc_protocol::packets::play::{ParticleOptions, RandomizationType};
 
 pub struct PowderSnowBlock;
@@ -18,23 +20,56 @@ fn random_between(random: &mut dyn RandomSource, min: f32, max: f32) -> f32 {
 impl BlockBehaviour for PowderSnowBlock {
     /// `getCollisionShape`: a falling entity (fall distance > 2.5) lands on a 0.9 high slab of the block, entities that can
     /// walk on powder snow (leather boots, ...) and falling blocks stand on the full block, everything else sinks in.
-    fn get_collision_shape(&self, _state: BlockState, _level: &dyn BlockGetter, pos: BlockPos, context: &mc_game_core::world::level::collision::CollisionContext) -> mc_core::phys::shapes::VoxelShape {
+    fn get_collision_shape(
+        &self,
+        _state: BlockState,
+        _level: &dyn BlockGetter,
+        pos: BlockPos,
+        context: &mc_game_core::world::level::collision::CollisionContext,
+    ) -> mc_core::phys::shapes::VoxelShape {
         use mc_core::phys::shapes::Shapes;
         if !context.is_placement() && context.entity().is_some() {
             if context.entity_fall_distance() > 2.5 {
                 return Shapes::box_(0.0, 0.0, 0.0, 1.0, f64::from(0.9f32), 1.0);
             }
-            if context.entity_is_falling_block() || (context.entity_can_walk_on_powder_snow() && context.is_above(&Shapes::block(), pos, false) && !context.is_descending()) {
+            if context.entity_is_falling_block()
+                || (context.entity_can_walk_on_powder_snow()
+                    && context.is_above(&Shapes::block(), pos, false)
+                    && !context.is_descending())
+            {
                 return Shapes::block();
             }
         }
         Shapes::empty()
     }
-    fn get_entity_inside_collision_shape(&self, state: BlockState, level: &dyn BlockGetter, pos: BlockPos, entity: &dyn Entity) -> mc_core::phys::shapes::VoxelShape {
-        let shape = self.get_collision_shape(state, level, pos, &mc_game_core::world::entity::movement::collision_context(entity));
-        if shape.is_empty() { mc_core::phys::shapes::Shapes::block() } else { shape }
+    fn get_entity_inside_collision_shape(
+        &self,
+        state: BlockState,
+        level: &dyn BlockGetter,
+        pos: BlockPos,
+        entity: &dyn Entity,
+    ) -> mc_core::phys::shapes::VoxelShape {
+        let shape = self.get_collision_shape(
+            state,
+            level,
+            pos,
+            &mc_game_core::world::entity::movement::collision_context(entity),
+        );
+        if shape.is_empty() {
+            mc_core::phys::shapes::Shapes::block()
+        } else {
+            shape
+        }
     }
-    fn entity_inside(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, entity: &mut dyn Entity, effect_applier: &mut dyn InsideBlockEffectApplier, _is_precise: bool) {
+    fn entity_inside(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        entity: &mut dyn Entity,
+        effect_applier: &mut dyn InsideBlockEffectApplier,
+        _is_precise: bool,
+    ) {
         if entity.living().is_none() || entity.get_in_block_state(level).is_block(state.block()) {
             entity.make_stuck_in_block(state, Vec3::new(f64::from(0.9f32), 1.5, f64::from(0.9f32)));
             let known_movement = entity.get_known_movement(level);
@@ -65,7 +100,10 @@ impl BlockBehaviour for PowderSnowBlock {
         effect_applier.run_before(
             InsideBlockEffectType::Extinguish,
             Box::new(move |e, level| {
-                if e.is_on_fire() && (level.mob_griefing() || e.is_player()) && e.may_interact(level, pos) {
+                if e.is_on_fire()
+                    && (level.mob_griefing() || e.is_player())
+                    && e.may_interact(level, pos)
+                {
                     level.destroy_block(pos, false, None, 512);
                 }
             }),
@@ -78,7 +116,13 @@ impl BlockBehaviour for PowderSnowBlock {
         true
     }
     /// `BucketPickup.pickupBlock`.
-    fn pickup_block(&self, _user: Option<&dyn Entity>, level: &mut dyn LevelAccessor, pos: BlockPos, state: BlockState) -> mc_game_core::world::item::ItemStack {
+    fn pickup_block(
+        &self,
+        _user: Option<&dyn Entity>,
+        level: &mut dyn LevelAccessor,
+        pos: BlockPos,
+        state: BlockState,
+    ) -> mc_game_core::world::item::ItemStack {
         level.set_block_flags(pos, air(), 11);
         level.level_event(None, 2001, pos, state.id() as i32);
         mc_game_core::world::item::ItemStack::new(mc_data::Item::POWDER_SNOW_BUCKET)
@@ -87,15 +131,33 @@ impl BlockBehaviour for PowderSnowBlock {
         Some(mc_data::SoundEvent::ITEM_BUCKET_FILL_POWDER_SNOW)
     }
 
-    fn fall_on(&self, level: &mut ServerLevel, _state: BlockState, _pos: BlockPos, entity: &mut dyn Entity, fall_distance: f64) {
+    fn fall_on(
+        &self,
+        level: &mut ServerLevel,
+        _state: BlockState,
+        _pos: BlockPos,
+        entity: &mut dyn Entity,
+        fall_distance: f64,
+    ) {
         if !(fall_distance < 4.0) && entity.living().is_some() {
             // `LivingEntity.getFallSounds()`: players have their own, mobs override per type (generic default here)
             let (small, big) = if entity.is_player() {
-                (mc_data::SoundEvent::ENTITY_PLAYER_SMALL_FALL, mc_data::SoundEvent::ENTITY_PLAYER_BIG_FALL)
+                (
+                    mc_data::SoundEvent::ENTITY_PLAYER_SMALL_FALL,
+                    mc_data::SoundEvent::ENTITY_PLAYER_BIG_FALL,
+                )
             } else {
-                (mc_data::SoundEvent::ENTITY_GENERIC_SMALL_FALL, mc_data::SoundEvent::ENTITY_GENERIC_BIG_FALL)
+                (
+                    mc_data::SoundEvent::ENTITY_GENERIC_SMALL_FALL,
+                    mc_data::SoundEvent::ENTITY_GENERIC_BIG_FALL,
+                )
             };
-            entity.play_sound(level, if fall_distance < 7.0 { small } else { big }, 1.0, 1.0);
+            entity.play_sound(
+                level,
+                if fall_distance < 7.0 { small } else { big },
+                1.0,
+                1.0,
+            );
         }
     }
 }

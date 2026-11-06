@@ -1,17 +1,19 @@
 //! `net.minecraft.world.level.block.CopperGolemStatueBlock`.
-use mc_game_core::{register_block_class, update_shape};
 use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::{register_block_class, update_shape};
 
 pub struct CopperGolemStatueBlock;
 
 impl BlockBehaviour for CopperGolemStatueBlock {
     mc_game_core::simple_waterlogged!();
-    update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
-        if state.get(props::WATERLOGGED) {
-            helpers::schedule_water_tick(level, pos);
+    update_shape!(
+        |self, state, level, pos, direction, neighbour_pos, neighbour_state| {
+            if state.get(props::WATERLOGGED) {
+                helpers::schedule_water_tick(level, pos);
+            }
+            state
         }
-        state
-    });
+    );
     fn rotate(&self, state: BlockState, rotation: Rotation) -> BlockState {
         helpers::rotate_facing(state, props::HORIZONTAL_FACING, rotation)
     }
@@ -20,4 +22,6 @@ impl BlockBehaviour for CopperGolemStatueBlock {
     }
 }
 
-register_block_class!("CopperGolemStatueBlock", |_| Box::new(CopperGolemStatueBlock));
+register_block_class!("CopperGolemStatueBlock", |_| Box::new(
+    CopperGolemStatueBlock
+));

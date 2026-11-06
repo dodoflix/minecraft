@@ -57,7 +57,11 @@ impl LinkedLongSet {
 
 impl LeveledPriorityQueue {
     fn new(level_count: i32) -> Self {
-        Self { level_count, queues: (0..level_count).map(|_| LinkedLongSet::default()).collect(), first_queued_level: level_count }
+        Self {
+            level_count,
+            queues: (0..level_count).map(|_| LinkedLongSet::default()).collect(),
+            first_queued_level: level_count,
+        }
     }
 
     fn remove_first_long(&mut self) -> i64 {
@@ -105,8 +109,20 @@ const NO_COMPUTED_LEVEL: i32 = 255;
 /// The abstract methods of `DynamicGraphMinFixedPoint`.
 pub trait GraphBehavior {
     fn is_source(&self, node: i64) -> bool;
-    fn get_computed_level(&mut self, st: &GraphState, node: i64, known_parent: i64, known_level_from_parent: i32) -> i32;
-    fn check_neighbors_after_update(&mut self, st: &mut GraphState, node: i64, level: i32, only_decrease: bool);
+    fn get_computed_level(
+        &mut self,
+        st: &GraphState,
+        node: i64,
+        known_parent: i64,
+        known_level_from_parent: i32,
+    ) -> i32;
+    fn check_neighbors_after_update(
+        &mut self,
+        st: &mut GraphState,
+        node: i64,
+        level: i32,
+        only_decrease: bool,
+    );
     fn get_level(&mut self, node: i64) -> i32;
     fn set_level(&mut self, node: i64, level: i32);
     fn compute_level_from_neighbor(&mut self, from: i64, to: i64, from_level: i32) -> i32;
@@ -123,11 +139,18 @@ pub struct GraphState {
 impl GraphState {
     pub fn new(level_count: i32) -> Self {
         assert!(level_count < 254, "Level count must be < 254.");
-        Self { level_count, priority_queue: LeveledPriorityQueue::new(level_count), computed_levels: LongOpenHashMap::new(), has_work: false }
+        Self {
+            level_count,
+            priority_queue: LeveledPriorityQueue::new(level_count),
+            computed_levels: LongOpenHashMap::new(),
+            has_work: false,
+        }
     }
 
     fn computed(&self, node: i64) -> i32 {
-        self.computed_levels.get(node).map_or(NO_COMPUTED_LEVEL, |&v| i32::from(v))
+        self.computed_levels
+            .get(node)
+            .map_or(NO_COMPUTED_LEVEL, |&v| i32::from(v))
     }
 
     pub fn has_work(&self) -> bool {
@@ -140,11 +163,15 @@ impl GraphState {
 
     /// `removeFromQueue(node)`.
     pub fn remove_from_queue<B: GraphBehavior>(&mut self, b: &mut B, node: i64) {
-        let computed_level = self.computed_levels.remove(node).map_or(NO_COMPUTED_LEVEL, i32::from);
+        let computed_level = self
+            .computed_levels
+            .remove(node)
+            .map_or(NO_COMPUTED_LEVEL, i32::from);
         if computed_level != NO_COMPUTED_LEVEL {
             let level = b.get_level(node);
             let priority = self.calculate_priority(level, computed_level);
-            self.priority_queue.dequeue(node, priority, self.level_count);
+            self.priority_queue
+                .dequeue(node, priority, self.level_count);
             self.has_work = !self.priority_queue.is_empty();
         }
     }
@@ -154,10 +181,25 @@ impl GraphState {
     }
 
     /// `checkEdge(from, to, newLevelFrom, onlyDecreased)`.
-    pub fn check_edge<B: GraphBehavior>(&mut self, b: &mut B, from: i64, to: i64, new_level_from: i32, only_decreased: bool) {
+    pub fn check_edge<B: GraphBehavior>(
+        &mut self,
+        b: &mut B,
+        from: i64,
+        to: i64,
+        new_level_from: i32,
+        only_decreased: bool,
+    ) {
         let level_to = b.get_level(to);
         let old_computed = self.computed(to);
-        self.check_edge_full(b, from, to, new_level_from, level_to, old_computed, only_decreased);
+        self.check_edge_full(
+            b,
+            from,
+            to,
+            new_level_from,
+            level_to,
+            old_computed,
+            only_decreased,
+        );
         self.has_work = !self.priority_queue.is_empty();
     }
 
@@ -184,7 +226,11 @@ impl GraphState {
         let new_computed_level = if only_decreased {
             old_computed_level.min(new_level_from)
         } else {
-            mth::clamp_i32(b.get_computed_level(self, to, from, new_level_from), 0, self.level_count - 1)
+            mth::clamp_i32(
+                b.get_computed_level(self, to, from, new_level_from),
+                0,
+                self.level_count - 1,
+            )
         };
         let old_priority = self.calculate_priority(level_to, old_computed_level);
         if level_to != new_computed_level {
@@ -195,18 +241,38 @@ impl GraphState {
             self.priority_queue.enqueue(to, new_priority);
             self.computed_levels.insert(to, new_computed_level as u8);
         } else if !was_consistent {
-            self.priority_queue.dequeue(to, old_priority, self.level_count);
+            self.priority_queue
+                .dequeue(to, old_priority, self.level_count);
             self.computed_levels.remove(to);
         }
     }
 
     /// `checkNeighbor(from, to, level, onlyDecreased)`.
-    pub fn check_neighbor<B: GraphBehavior>(&mut self, b: &mut B, from: i64, to: i64, level: i32, only_decreased: bool) {
+    pub fn check_neighbor<B: GraphBehavior>(
+        &mut self,
+        b: &mut B,
+        from: i64,
+        to: i64,
+        level: i32,
+        only_decreased: bool,
+    ) {
         let stored_old_computed_level = self.computed(to);
-        let level_from = mth::clamp_i32(b.compute_level_from_neighbor(from, to, level), 0, self.level_count - 1);
+        let level_from = mth::clamp_i32(
+            b.compute_level_from_neighbor(from, to, level),
+            0,
+            self.level_count - 1,
+        );
         if only_decreased {
             let level_to = b.get_level(to);
-            self.check_edge_full(b, from, to, level_from, level_to, stored_old_computed_level, only_decreased);
+            self.check_edge_full(
+                b,
+                from,
+                to,
+                level_from,
+                level_to,
+                stored_old_computed_level,
+                only_decreased,
+            );
         } else {
             let was_consistent = stored_old_computed_level == NO_COMPUTED_LEVEL;
             let old_computed_level = if was_consistent {
@@ -215,8 +281,20 @@ impl GraphState {
                 stored_old_computed_level
             };
             if level_from == old_computed_level {
-                let level_to = if was_consistent { old_computed_level } else { b.get_level(to) };
-                self.check_edge_full(b, from, to, self.level_count - 1, level_to, stored_old_computed_level, only_decreased);
+                let level_to = if was_consistent {
+                    old_computed_level
+                } else {
+                    b.get_level(to)
+                };
+                self.check_edge_full(
+                    b,
+                    from,
+                    to,
+                    self.level_count - 1,
+                    level_to,
+                    stored_old_computed_level,
+                    only_decreased,
+                );
             }
         }
     }
@@ -230,7 +308,10 @@ impl GraphState {
             count -= 1;
             let node = self.priority_queue.remove_first_long();
             let level = mth::clamp_i32(b.get_level(node), 0, self.level_count - 1);
-            let computed_level = self.computed_levels.remove(node).map_or(NO_COMPUTED_LEVEL, i32::from);
+            let computed_level = self
+                .computed_levels
+                .remove(node)
+                .map_or(NO_COMPUTED_LEVEL, i32::from);
             if computed_level < level {
                 b.set_level(node, computed_level);
                 b.check_neighbors_after_update(self, node, computed_level, true);
@@ -268,13 +349,20 @@ impl<T: ChunkTrackerBehavior> GraphBehavior for ChunkTracker<'_, T> {
         node == ChunkPos::INVALID_CHUNK_POS
     }
 
-    fn check_neighbors_after_update(&mut self, st: &mut GraphState, node: i64, level: i32, only_decrease: bool) {
+    fn check_neighbors_after_update(
+        &mut self,
+        st: &mut GraphState,
+        node: i64,
+        level: i32,
+        only_decrease: bool,
+    ) {
         if !only_decrease || level < st.level_count - 2 {
             let pos = ChunkPos::unpack(node);
             let (x, z) = (pos.x, pos.z);
             for offset_x in -1..=1 {
                 for offset_z in -1..=1 {
-                    let neighbor = ChunkPos::pack_xz(x.wrapping_add(offset_x), z.wrapping_add(offset_z));
+                    let neighbor =
+                        ChunkPos::pack_xz(x.wrapping_add(offset_x), z.wrapping_add(offset_z));
                     if neighbor != node {
                         st.check_neighbor(self, node, neighbor, level, only_decrease);
                     }
@@ -283,19 +371,27 @@ impl<T: ChunkTrackerBehavior> GraphBehavior for ChunkTracker<'_, T> {
         }
     }
 
-    fn get_computed_level(&mut self, _st: &GraphState, node: i64, known_parent: i64, known_level_from_parent: i32) -> i32 {
+    fn get_computed_level(
+        &mut self,
+        _st: &GraphState,
+        node: i64,
+        known_parent: i64,
+        known_level_from_parent: i32,
+    ) -> i32 {
         let mut computed_level = known_level_from_parent;
         let pos = ChunkPos::unpack(node);
         let (x, z) = (pos.x, pos.z);
         for offset_x in -1..=1 {
             for offset_z in -1..=1 {
-                let mut neighbor = ChunkPos::pack_xz(x.wrapping_add(offset_x), z.wrapping_add(offset_z));
+                let mut neighbor =
+                    ChunkPos::pack_xz(x.wrapping_add(offset_x), z.wrapping_add(offset_z));
                 if neighbor == node {
                     neighbor = ChunkPos::INVALID_CHUNK_POS;
                 }
                 if neighbor != known_parent {
                     let level = self.0.get_level(neighbor);
-                    let cost_from_neighbor = self.compute_level_from_neighbor(neighbor, node, level);
+                    let cost_from_neighbor =
+                        self.compute_level_from_neighbor(neighbor, node, level);
                     if computed_level > cost_from_neighbor {
                         computed_level = cost_from_neighbor;
                     }
@@ -317,17 +413,37 @@ impl<T: ChunkTrackerBehavior> GraphBehavior for ChunkTracker<'_, T> {
     }
 
     fn compute_level_from_neighbor(&mut self, from: i64, to: i64, from_level: i32) -> i32 {
-        if from == ChunkPos::INVALID_CHUNK_POS { self.0.get_level_from_source(to) } else { from_level + 1 }
+        if from == ChunkPos::INVALID_CHUNK_POS {
+            self.0.get_level_from_source(to)
+        } else {
+            from_level + 1
+        }
     }
 }
 
 impl GraphState {
     /// `ChunkTracker.update(node, newLevelFrom, onlyDecreased)`.
-    pub fn chunk_tracker_update<T: ChunkTrackerBehavior>(&mut self, tracker: &mut T, node: i64, new_level_from: i32, only_decreased: bool) {
-        self.check_edge(&mut ChunkTracker(tracker), ChunkPos::INVALID_CHUNK_POS, node, new_level_from, only_decreased);
+    pub fn chunk_tracker_update<T: ChunkTrackerBehavior>(
+        &mut self,
+        tracker: &mut T,
+        node: i64,
+        new_level_from: i32,
+        only_decreased: bool,
+    ) {
+        self.check_edge(
+            &mut ChunkTracker(tracker),
+            ChunkPos::INVALID_CHUNK_POS,
+            node,
+            new_level_from,
+            only_decreased,
+        );
     }
 
-    pub fn run_chunk_tracker_updates<T: ChunkTrackerBehavior>(&mut self, tracker: &mut T, count: i32) -> i32 {
+    pub fn run_chunk_tracker_updates<T: ChunkTrackerBehavior>(
+        &mut self,
+        tracker: &mut T,
+        count: i32,
+    ) -> i32 {
         self.run_updates(&mut ChunkTracker(tracker), count)
     }
 }

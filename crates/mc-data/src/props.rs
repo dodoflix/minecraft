@@ -107,7 +107,11 @@ impl Property for IntegerProperty {
     }
     fn value_index(self, value: i32) -> usize {
         let i = value.wrapping_sub(self.1);
-        assert!(i >= 0 && (i as usize) < self.def().values.len(), "{} cannot hold {value}", self.def().name);
+        assert!(
+            i >= 0 && (i as usize) < self.def().values.len(),
+            "{} cannot hold {value}",
+            self.def().name
+        );
         i as usize
     }
     fn value(self, index: usize) -> i32 {
@@ -135,7 +139,11 @@ impl<T: EnumValue> std::fmt::Debug for EnumProperty<T> {
 
 impl<T: EnumValue> EnumProperty<T> {
     pub(crate) const fn new(index: usize, values: &'static [T]) -> Self {
-        EnumProperty { index, values, _p: PhantomData }
+        EnumProperty {
+            index,
+            values,
+            _p: PhantomData,
+        }
     }
 
     /// The possible values in vanilla order (`getPossibleValues()`).

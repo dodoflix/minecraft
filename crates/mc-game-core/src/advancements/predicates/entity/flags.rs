@@ -5,7 +5,7 @@ use super::support;
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
 use mc_core::phys::Vec3;
-use mc_dfu::{Codec, BOOL};
+use mc_dfu::{BOOL, Codec};
 use std::sync::LazyLock;
 
 #[derive(Clone, Debug, PartialEq)]
@@ -34,7 +34,9 @@ impl EntityFlagsPredicate {
             return false;
         }
         if let Some(want) = self.is_flying {
-            let flying = entity.living().is_some() && (support::is_fall_flying(entity) || entity.player().is_some_and(|p| p.abilities.flying));
+            let flying = entity.living().is_some()
+                && (support::is_fall_flying(entity)
+                    || entity.player().is_some_and(|p| p.abilities.flying));
             if flying != want {
                 return false;
             }
@@ -42,7 +44,9 @@ impl EntityFlagsPredicate {
         if differs(self.is_in_water, entity.is_in_water()) {
             return false;
         }
-        if entity.living().is_some() && differs(self.is_fall_flying, support::is_fall_flying(entity)) {
+        if entity.living().is_some()
+            && differs(self.is_fall_flying, support::is_fall_flying(entity))
+        {
             return false;
         }
         match self.is_baby {
@@ -71,7 +75,13 @@ impl EntitySubPredicateImpl for EntityFlagsPredicate {
         C.clone()
     }
 
-    fn matches<'a>(&self, entity: &'a dyn Entity, _level: &'a ServerLevel, _position: Option<Vec3>, _lent: &[&'a dyn Entity]) -> bool {
+    fn matches<'a>(
+        &self,
+        entity: &'a dyn Entity,
+        _level: &'a ServerLevel,
+        _position: Option<Vec3>,
+        _lent: &[&'a dyn Entity],
+    ) -> bool {
         self.matches_entity(entity)
     }
 }

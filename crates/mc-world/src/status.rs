@@ -32,7 +32,8 @@ pub enum ChunkStatus {
 pub const MAX_STRUCTURE_DISTANCE: i32 = 8;
 
 /// `ChunkStatus.WORLDGEN_HEIGHTMAPS` (`EnumSet` ordinal order).
-pub const WORLDGEN_HEIGHTMAPS: &[HeightmapType] = &[HeightmapType::WorldSurfaceWg, HeightmapType::OceanFloorWg];
+pub const WORLDGEN_HEIGHTMAPS: &[HeightmapType] =
+    &[HeightmapType::WorldSurfaceWg, HeightmapType::OceanFloorWg];
 
 /// `ChunkStatus.FINAL_HEIGHTMAPS` (`EnumSet` ordinal order).
 pub const FINAL_HEIGHTMAPS: &[HeightmapType] = &[
@@ -95,9 +96,10 @@ impl ChunkStatus {
     /// `heightmapsAfter()`.
     pub const fn heightmaps_after(self) -> &'static [HeightmapType] {
         match self {
-            ChunkStatus::Empty | ChunkStatus::StructureStarts | ChunkStatus::StructureReferences | ChunkStatus::Biomes => {
-                WORLDGEN_HEIGHTMAPS
-            }
+            ChunkStatus::Empty
+            | ChunkStatus::StructureStarts
+            | ChunkStatus::StructureReferences
+            | ChunkStatus::Biomes => WORLDGEN_HEIGHTMAPS,
             _ => FINAL_HEIGHTMAPS,
         }
     }

@@ -33,15 +33,23 @@ pub struct OreVeinRule {
 #[derive(Clone, Debug)]
 pub enum MaterialRule {
     /// `MaterialRule.HolderHolder`: a reference into `worldgen/material_rule`.
-    Reference { key: Identifier, rule: Arc<MaterialRule> },
+    Reference {
+        key: Identifier,
+        rule: Arc<MaterialRule>,
+    },
     /// `BlockRule`.
-    Block { result_state: BlockState },
+    Block {
+        result_state: BlockState,
+    },
     /// `BandlandsRule`.
     Bandlands,
     /// `SequenceRule`.
     Sequence(Vec<MaterialRule>),
     /// `ConditionRule`.
-    Condition { if_true: MaterialCondition, then_run: Box<MaterialRule> },
+    Condition {
+        if_true: MaterialCondition,
+        then_run: Box<MaterialRule>,
+    },
     OreVein(Box<OreVeinRule>),
 }
 
@@ -86,9 +94,11 @@ impl MaterialRule {
                 result_state: fields.required("result_state", block_state)?,
             }),
             "bandlands" => Ok(MaterialRule::Bandlands),
-            "sequence" => Ok(MaterialRule::Sequence(fields.required("sequence", |v| {
-                parse_list(v, |e| MaterialRule::decode(e, d))
-            })?)),
+            "sequence" => Ok(MaterialRule::Sequence(
+                fields.required("sequence", |v| {
+                    parse_list(v, |e| MaterialRule::decode(e, d))
+                })?,
+            )),
             "condition" => Ok(MaterialRule::Condition {
                 if_true: fields.required("if_true", |v| MaterialCondition::decode(v, d))?,
                 then_run: Box::new(fields.required("then_run", |v| MaterialRule::decode(v, d))?),
@@ -116,7 +126,9 @@ impl MaterialRule {
                     filler_gap: df("filler_gap")?,
                 })))
             }
-            other => Err(LoadError::new(format!("Unknown registry key: minecraft:{other}")).at("type")),
+            other => {
+                Err(LoadError::new(format!("Unknown registry key: minecraft:{other}")).at("type"))
+            }
         }
     }
 
@@ -205,7 +217,11 @@ impl OreVeinEvaluator<'_> {
         }
         let richness = self.richness.get(ctx);
         if random.next_float() < richness && self.filler_gap.get(ctx) < 0.0 {
-            Some(if random.next_float() < self.raw_ore_chance { self.raw_ore_block } else { self.ore_block })
+            Some(if random.next_float() < self.raw_ore_chance {
+                self.raw_ore_block
+            } else {
+                self.ore_block
+            })
         } else {
             Some(self.filler_block)
         }
@@ -234,7 +250,11 @@ impl RuleEvaluator<'_> {
             }
             RuleEvaluator::Condition(parts) => {
                 let (if_true, then_run) = &mut **parts;
-                if if_true.test(ctx) { then_run.try_apply(ctx, block_x, block_y, block_z) } else { None }
+                if if_true.test(ctx) {
+                    then_run.try_apply(ctx, block_x, block_y, block_z)
+                } else {
+                    None
+                }
             }
             RuleEvaluator::OreVein(rule) => rule.try_apply(ctx, block_x, block_y, block_z),
         }

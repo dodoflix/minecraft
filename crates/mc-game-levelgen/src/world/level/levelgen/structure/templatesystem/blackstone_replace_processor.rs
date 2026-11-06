@@ -1,12 +1,14 @@
 //! `BlackstoneReplaceProcessor` (`blackstone_replace`).
 
-use mc_game_core::world::level::levelgen::structure::templatesystem::structure_place_settings::StructurePlaceSettings;
-use mc_game_core::world::level::levelgen::structure::templatesystem::structure_processor::{STRUCTURE_PROCESSOR_TYPES, StructureProcessor};
-use mc_game_core::world::level::levelgen::structure::templatesystem::structure_template::StructureBlockInfo;
-use mc_game_core::world::level::LevelReader;
-use mc_game_core::world::level::levelgen::codec::TypeEntry;
 use mc_core::pos::BlockPos;
 use mc_data::block::Block;
+use mc_game_core::world::level::LevelReader;
+use mc_game_core::world::level::levelgen::codec::TypeEntry;
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_place_settings::StructurePlaceSettings;
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_processor::{
+    STRUCTURE_PROCESSOR_TYPES, StructureProcessor,
+};
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_template::StructureBlockInfo;
 use std::collections::HashMap;
 use std::sync::{Arc, LazyLock};
 
@@ -20,7 +22,10 @@ const REPLACEMENTS: [(&str, &str); 23] = [
     ("mossy_cobblestone_stairs", "blackstone_stairs"),
     ("stone_stairs", "polished_blackstone_stairs"),
     ("stone_brick_stairs", "polished_blackstone_brick_stairs"),
-    ("mossy_stone_brick_stairs", "polished_blackstone_brick_stairs"),
+    (
+        "mossy_stone_brick_stairs",
+        "polished_blackstone_brick_stairs",
+    ),
     ("cobblestone_slab", "blackstone_slab"),
     ("mossy_cobblestone_slab", "blackstone_slab"),
     ("smooth_stone_slab", "polished_blackstone_slab"),
@@ -37,8 +42,14 @@ const REPLACEMENTS: [(&str, &str); 23] = [
 ];
 
 static MAP: LazyLock<HashMap<Block, Block>> = LazyLock::new(|| {
-    let block = |name: &str| Block::by_name(&format!("minecraft:{name}")).unwrap_or_else(|| panic!("unknown block {name}"));
-    REPLACEMENTS.iter().map(|(from, to)| (block(from), block(to))).collect()
+    let block = |name: &str| {
+        Block::by_name(&format!("minecraft:{name}"))
+            .unwrap_or_else(|| panic!("unknown block {name}"))
+    };
+    REPLACEMENTS
+        .iter()
+        .map(|(from, to)| (block(from), block(to)))
+        .collect()
 });
 
 pub struct BlackstoneReplaceProcessor;
@@ -53,7 +64,9 @@ impl StructureProcessor for BlackstoneReplaceProcessor {
         processed_block_info: StructureBlockInfo,
         _settings: &StructurePlaceSettings,
     ) -> Option<StructureBlockInfo> {
-        let Some(new_block) = MAP.get(&processed_block_info.state.block()).copied() else { return Some(processed_block_info) };
+        let Some(new_block) = MAP.get(&processed_block_info.state.block()).copied() else {
+            return Some(processed_block_info);
+        };
         let old_state = processed_block_info.state;
         let mut new_state = new_block.default_state();
         // `StairBlock.FACING` (horizontal), `StairBlock.HALF`, `SlabBlock.TYPE`: the replaced blocks only have these
@@ -65,9 +78,16 @@ impl StructureProcessor for BlackstoneReplaceProcessor {
                 new_state = updated;
             }
         }
-        Some(StructureBlockInfo::new(processed_block_info.pos, new_state, processed_block_info.nbt))
+        Some(StructureBlockInfo::new(
+            processed_block_info.pos,
+            new_state,
+            processed_block_info.nbt,
+        ))
     }
 }
 
 #[linkme::distributed_slice(STRUCTURE_PROCESSOR_TYPES)]
-static TYPE: TypeEntry<dyn StructureProcessor> = TypeEntry { name: "blackstone_replace", decode: |_, _| Ok(Arc::new(BlackstoneReplaceProcessor)) };
+static TYPE: TypeEntry<dyn StructureProcessor> = TypeEntry {
+    name: "blackstone_replace",
+    decode: |_, _| Ok(Arc::new(BlackstoneReplaceProcessor)),
+};

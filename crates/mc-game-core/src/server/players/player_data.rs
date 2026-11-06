@@ -19,7 +19,9 @@ impl PlayerList {
     /// `loadPlayerData(nameAndId)` + `tag.read(SavedPosition.MAP_CODEC).orElse(EMPTY)`.
     pub fn load_player_data_with_position(&self, name_and_id: &NameAndId) -> LoadedPlayerData {
         let data = self.load_player_data(name_and_id);
-        let position = data.as_ref().map_or(SavedPosition::EMPTY, SavedPosition::read);
+        let position = data
+            .as_ref()
+            .map_or(SavedPosition::EMPTY, SavedPosition::read);
         LoadedPlayerData { data, position }
     }
 }
@@ -51,12 +53,25 @@ mod tests {
 
         let mut tag = CompoundTag::new();
         tag.put_string("Dimension", "minecraft:the_nether");
-        tag.put("Pos", Tag::List([Tag::double(1.0), Tag::double(70.5), Tag::double(-8.25)].into_iter().collect()));
-        tag.put("Rotation", Tag::List([Tag::float(90.0), Tag::float(-10.0)].into_iter().collect()));
+        tag.put(
+            "Pos",
+            Tag::List(
+                [Tag::double(1.0), Tag::double(70.5), Tag::double(-8.25)]
+                    .into_iter()
+                    .collect(),
+            ),
+        );
+        tag.put(
+            "Rotation",
+            Tag::List([Tag::float(90.0), Tag::float(-10.0)].into_iter().collect()),
+        );
         io.save(&steve.id, tag).unwrap();
         let again = list.load_player_data_with_position(&steve);
         assert_eq!(again.position.position, Some(Vec3::new(1.0, 70.5, -8.25)));
-        assert_eq!(again.position.dimension.unwrap().to_string(), "minecraft:the_nether");
+        assert_eq!(
+            again.position.dimension.unwrap().to_string(),
+            "minecraft:the_nether"
+        );
         assert_eq!(again.data.unwrap().get_int("DataVersion"), Some(5023));
     }
 }

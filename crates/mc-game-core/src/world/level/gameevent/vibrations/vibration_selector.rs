@@ -20,7 +20,9 @@ impl VibrationSelector {
     }
 
     fn should_replace_vibration(&self, new_vibration: &VibrationInfo, tick_time: i64) -> bool {
-        let Some((previous, previous_tick)) = &self.current_vibration_data else { return true };
+        let Some((previous, previous_tick)) = &self.current_vibration_data else {
+            return true;
+        };
         if tick_time != *previous_tick {
             return false;
         }
@@ -29,7 +31,8 @@ impl VibrationSelector {
         } else if new_vibration.distance > previous.distance {
             false
         } else {
-            get_game_event_frequency(new_vibration.game_event) > get_game_event_frequency(previous.game_event)
+            get_game_event_frequency(new_vibration.game_event)
+                > get_game_event_frequency(previous.game_event)
         }
     }
 
@@ -60,10 +63,18 @@ pub static CODEC: LazyLock<Codec<VibrationSelector>> = LazyLock::new(|| {
     })
     .codec()
     .xmap(
-        |w: Wire| VibrationSelector { current_vibration_data: w.event.map(|event| (event, w.tick)) },
+        |w: Wire| VibrationSelector {
+            current_vibration_data: w.event.map(|event| (event, w.tick)),
+        },
         |s: &VibrationSelector| match &s.current_vibration_data {
-            Some((event, tick)) => Wire { event: Some(event.clone()), tick: *tick },
-            None => Wire { event: None, tick: -1 },
+            Some((event, tick)) => Wire {
+                event: Some(event.clone()),
+                tick: *tick,
+            },
+            None => Wire {
+                event: None,
+                tick: -1,
+            },
         },
     )
 });

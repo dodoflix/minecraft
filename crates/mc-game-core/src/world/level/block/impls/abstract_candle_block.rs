@@ -9,7 +9,9 @@ use mc_protocol::packets::play::level::SoundSource;
 
 /// `AbstractCandleBlock.isLit(state)`.
 pub fn is_lit(state: BlockState) -> bool {
-    state.has_property(props::LIT) && (state.is_tag("candles") || state.is_tag("candle_cakes")) && state.get(props::LIT)
+    state.has_property(props::LIT)
+        && (state.is_tag("candles") || state.is_tag("candle_cakes"))
+        && state.get(props::LIT)
 }
 
 /// `setLit(level, state, pos, lit)`.
@@ -18,14 +20,36 @@ fn set_lit(level: &mut dyn LevelAccessor, state: BlockState, pos: BlockPos, lit:
 }
 
 /// `AbstractCandleBlock.extinguish(player, state, level, pos)` (the smoke particles are client side).
-pub fn extinguish(player: Option<EntityId>, state: BlockState, level: &mut dyn LevelAccessor, pos: BlockPos) {
+pub fn extinguish(
+    player: Option<EntityId>,
+    state: BlockState,
+    level: &mut dyn LevelAccessor,
+    pos: BlockPos,
+) {
     set_lit(level, state, pos, false);
-    level.play_sound(None, pos, SoundEvent::BLOCK_CANDLE_EXTINGUISH, SoundSource::Blocks, 1.0, 1.0);
-    level.game_event(GameEvent::BLOCK_CHANGE, mc_core::phys::Vec3::at_center_of(&pos), &GameEventContext::of_entity(player));
+    level.play_sound(
+        None,
+        pos,
+        SoundEvent::BLOCK_CANDLE_EXTINGUISH,
+        SoundSource::Blocks,
+        1.0,
+        1.0,
+    );
+    level.game_event(
+        GameEvent::BLOCK_CHANGE,
+        mc_core::phys::Vec3::at_center_of(&pos),
+        &GameEventContext::of_entity(player),
+    );
 }
 
 /// `AbstractCandleBlock.onProjectileHit`: `canBeLit` is the subclass' test.
-pub fn on_projectile_hit(level: &mut ServerLevel, state: BlockState, hit: &mc_core::phys::BlockHitResult, projectile: &dyn crate::world::entity::Entity, can_be_lit: bool) {
+pub fn on_projectile_hit(
+    level: &mut ServerLevel,
+    state: BlockState,
+    hit: &mc_core::phys::BlockHitResult,
+    projectile: &dyn crate::world::entity::Entity,
+    can_be_lit: bool,
+) {
     if projectile.is_on_fire() && can_be_lit {
         set_lit(level, state, hit.block_pos, true);
     }

@@ -17,7 +17,6 @@ pub mod structure_processor_list;
 pub mod structure_template;
 pub mod structure_template_manager;
 
-
 pub use liquid_settings::LiquidSettings;
 pub use structure_place_settings::StructurePlaceSettings;
 pub use structure_processor::StructureProcessor;

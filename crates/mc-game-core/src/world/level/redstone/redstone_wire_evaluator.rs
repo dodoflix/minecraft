@@ -11,7 +11,14 @@ use mc_data::props;
 
 pub trait RedstoneWireEvaluator {
     /// `updatePowerStrength(level, pos, state, orientation, skipShapeUpdates)`.
-    fn update_power_strength(&mut self, level: &mut ServerLevel, pos: BlockPos, state: BlockState, orientation: Option<Orientation>, skip_shape_updates: bool);
+    fn update_power_strength(
+        &mut self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        state: BlockState,
+        orientation: Option<Orientation>,
+        skip_shape_updates: bool,
+    );
 
     /// `getBlockSignal(level, pos)`.
     fn get_block_signal(&self, level: &mut ServerLevel, pos: BlockPos) -> i32 {
@@ -20,7 +27,11 @@ pub trait RedstoneWireEvaluator {
 
     /// `getWireSignal(pos, state)`.
     fn get_wire_signal(&self, _pos: BlockPos, state: BlockState) -> i32 {
-        if state.is_block(Block::REDSTONE_WIRE) { state.get(props::POWER) } else { 0 }
+        if state.is_block(Block::REDSTONE_WIRE) {
+            state.get(props::POWER)
+        } else {
+            0
+        }
     }
 
     /// `getIncomingWireSignal(level, pos)`.
@@ -31,12 +42,20 @@ pub trait RedstoneWireEvaluator {
             let neighbor_state = level.get_block_state(neighbor_pos);
             wire_signal = wire_signal.max(self.get_wire_signal(neighbor_pos, neighbor_state));
             let above_pos = pos.above();
-            if neighbor_state.is_redstone_conductor() && !level.get_block_state(above_pos).is_redstone_conductor() {
+            if neighbor_state.is_redstone_conductor()
+                && !level.get_block_state(above_pos).is_redstone_conductor()
+            {
                 let above_neighbor_pos = neighbor_pos.above();
-                wire_signal = wire_signal.max(self.get_wire_signal(above_neighbor_pos, level.get_block_state(above_neighbor_pos)));
+                wire_signal = wire_signal.max(self.get_wire_signal(
+                    above_neighbor_pos,
+                    level.get_block_state(above_neighbor_pos),
+                ));
             } else if !neighbor_state.is_redstone_conductor() {
                 let below_neighbor_pos = neighbor_pos.below();
-                wire_signal = wire_signal.max(self.get_wire_signal(below_neighbor_pos, level.get_block_state(below_neighbor_pos)));
+                wire_signal = wire_signal.max(self.get_wire_signal(
+                    below_neighbor_pos,
+                    level.get_block_state(below_neighbor_pos),
+                ));
             }
         }
         (wire_signal - 1).max(0)

@@ -54,7 +54,12 @@ impl ShulkerBullet {
     }
 
     /// `ShulkerBullet(level, owner, target, invalidStartAxis)`.
-    pub fn from_owner(level: &ServerLevel, owner: &dyn Entity, target: &dyn Entity, invalid_start_axis: Axis) -> Self {
+    pub fn from_owner(
+        level: &ServerLevel,
+        owner: &dyn Entity,
+        target: &dyn Entity,
+        invalid_start_axis: Axis,
+    ) -> Self {
         let mut bullet = Self::new(EntityType::SHULKER_BULLET, level.next_entity_id());
         bullet.set_owner(Some(owner));
         let position = owner.get_bounding_box().get_center();
@@ -67,7 +72,12 @@ impl ShulkerBullet {
     }
 
     /// `selectNextMoveDirection(avoidAxis, target)`.
-    fn select_next_move_direction(&mut self, level: &ServerLevel, avoid_axis: Option<Axis>, target: Option<&dyn Entity>) {
+    fn select_next_move_direction(
+        &mut self,
+        level: &ServerLevel,
+        avoid_axis: Option<Axis>,
+        target: Option<&dyn Entity>,
+    ) {
         let mut y_offset = 0.5;
         let target_pos = match target {
             None => self.block_position().below(),
@@ -160,14 +170,27 @@ impl Projectile for ShulkerBullet {
     fn on_hit_entity(&mut self, level: &mut ServerLevel, hit: &EntityHitResult) {
         let victim = hit.entity;
         let owner_id = self.get_owner(level).map(|o| o.id());
-        let owner_living_id = owner_id.filter(|id| level.get_entity(*id).is_some_and(|o| o.living().is_some()));
-        let source = level.damage_sources().mob_projectile(self.as_dyn(), owner_living_id.and_then(|id| level.get_entity(id)));
+        let owner_living_id =
+            owner_id.filter(|id| level.get_entity(*id).is_some_and(|o| o.living().is_some()));
+        let source = level.damage_sources().mob_projectile(
+            self.as_dyn(),
+            owner_living_id.and_then(|id| level.get_entity(id)),
+        );
         let effect_source = owner_id.unwrap_or(self.id());
         level.with_entity(victim, |level, target| {
             if target.hurt_server(level, &source, 4.0) {
-                crate::world::item::enchantment_helper::do_post_attack_effects(level, &mut Actors::of(&mut *target), victim, &source);
+                crate::world::item::enchantment_helper::do_post_attack_effects(
+                    level,
+                    &mut Actors::of(&mut *target),
+                    victim,
+                    &source,
+                );
                 if target.living().is_some() {
-                    target.add_effect(level, MobEffectInstance::of(MobEffect::LEVITATION, 200, 0), Some(effect_source));
+                    target.add_effect(
+                        level,
+                        MobEffectInstance::of(MobEffect::LEVITATION, 200, 0),
+                        Some(effect_source),
+                    );
                 }
             }
         });
@@ -176,7 +199,17 @@ impl Projectile for ShulkerBullet {
     fn on_hit_block(&mut self, level: &mut ServerLevel, hit: &BlockHitResult) {
         super::on_hit_block_base(self, level, hit);
         let p = self.position();
-        level.send_particles(ParticleOptions::Simple(ParticleType::EXPLOSION), p.x, p.y, p.z, 2, 0.2, 0.2, 0.2, 0.0);
+        level.send_particles(
+            ParticleOptions::Simple(ParticleType::EXPLOSION),
+            p.x,
+            p.y,
+            p.z,
+            2,
+            0.2,
+            0.2,
+            0.2,
+            0.0,
+        );
         self.play_sound(level, SoundEvent::ENTITY_SHULKER_BULLET_HIT, 1.0, 1.0);
     }
 
@@ -184,7 +217,14 @@ impl Projectile for ShulkerBullet {
         let (self_id, owner) = (self.id(), self.projectile.owner);
         level.with_entity(hit_projectile, |level, e| {
             if let Some(p) = e.as_projectile_mut() {
-                p.deflect(level, ProjectileDeflection::MomentumDeflect, Some(self_id), owner, true, Vec3::new(1.0, 1.0, 1.0));
+                p.deflect(
+                    level,
+                    ProjectileDeflection::MomentumDeflect,
+                    Some(self_id),
+                    owner,
+                    true,
+                    Vec3::new(1.0, 1.0, 1.0),
+                );
             }
         });
     }
@@ -250,21 +290,41 @@ impl Entity for ShulkerBullet {
         true
     }
 
-    fn hurt_server(&mut self, level: &mut ServerLevel, _source: &DamageSource, _amount: f32) -> bool {
+    fn hurt_server(
+        &mut self,
+        level: &mut ServerLevel,
+        _source: &DamageSource,
+        _amount: f32,
+    ) -> bool {
         self.play_sound(level, SoundEvent::ENTITY_SHULKER_BULLET_HURT, 1.0, 1.0);
         let p = self.position();
-        level.send_particles(ParticleOptions::Simple(ParticleType::CRIT), p.x, p.y, p.z, 15, 0.2, 0.2, 0.2, 0.0);
+        level.send_particles(
+            ParticleOptions::Simple(ParticleType::CRIT),
+            p.x,
+            p.y,
+            p.z,
+            15,
+            0.2,
+            0.2,
+            0.2,
+            0.0,
+        );
         self.destroy(level);
         true
     }
 
     fn tick(&mut self, level: &mut ServerLevel) {
         super::tick(self, level);
-        let final_target_id = self.final_target.and_then(|u| level.get_entity_by_uuid(u)).map(|e| e.id());
+        let final_target_id = self
+            .final_target
+            .and_then(|u| level.get_entity_by_uuid(u))
+            .map(|e| e.id());
         if final_target_id.is_none() {
             self.final_target = None;
         }
-        let target_alive = final_target_id.and_then(|id| level.get_entity(id)).is_some_and(|t| t.is_alive() && !(t.is_player() && t.is_spectator()));
+        let target_alive = final_target_id
+            .and_then(|id| level.get_entity(id))
+            .is_some_and(|t| t.is_alive() && !(t.is_player() && t.is_spectator()));
         if !target_alive {
             self.apply_gravity();
         } else {
@@ -278,11 +338,18 @@ impl Entity for ShulkerBullet {
                 (self.target_delta_z - movement.z) * 0.2,
             ));
         }
-        let hit_result = super::util::get_hit_result_on_move_vector(level, self, &|e| self.can_hit_entity(level, e));
+        let hit_result = super::util::get_hit_result_on_move_vector(level, self, &|e| {
+            self.can_hit_entity(level, e)
+        });
         let movement = self.base.delta_movement();
         self.set_pos_vec(self.position().add(movement));
         self.apply_effects_from_blocks(level);
-        if self.base.portal_process.as_ref().is_some_and(|p| p.is_inside_portal_this_tick()) {
+        if self
+            .base
+            .portal_process
+            .as_ref()
+            .is_some_and(|p| p.is_inside_portal_this_tick())
+        {
             self.handle_portal(level);
         }
         if self.is_alive() && hit_result.get_type() != super::HitType::Miss {
@@ -305,14 +372,22 @@ impl Entity for ShulkerBullet {
                 let rel = current.relative(dir);
                 let can_stand = level.is_in_valid_bounds(rel)
                     && level.has_chunk(rel.x() >> 4, rel.z() >> 4)
-                    && crate::world::entity::ai::navigation::entity_can_stand_on(level.get_block_state(rel), &*level, rel, self);
+                    && crate::world::entity::ai::navigation::entity_can_stand_on(
+                        level.get_block_state(rel),
+                        &*level,
+                        rel,
+                        self,
+                    );
                 if can_stand {
                     if let Some(t) = level.get_entity(target_id) {
                         self.select_next_move_direction(level, Some(axis), Some(t));
                     }
                 } else if let Some(t) = level.get_entity(target_id) {
                     let target_pos = t.block_position();
-                    if (axis == Axis::X && current.x() == target_pos.x()) || (axis == Axis::Z && current.z() == target_pos.z()) || (axis == Axis::Y && current.y() == target_pos.y()) {
+                    if (axis == Axis::X && current.x() == target_pos.x())
+                        || (axis == Axis::Z && current.z() == target_pos.z())
+                        || (axis == Axis::Y && current.y() == target_pos.y())
+                    {
                         self.select_next_move_direction(level, Some(axis), Some(t));
                     }
                 }
@@ -323,7 +398,10 @@ impl Entity for ShulkerBullet {
     fn add_additional_save_data(&self, out: &mut CompoundTag) {
         super::add_additional_save_data(self, out);
         if let Some(target) = self.final_target {
-            out.put_int_array("Target", mc_core::uuid_util::uuid_to_int_array(&target).to_vec());
+            out.put_int_array(
+                "Target",
+                mc_core::uuid_util::uuid_to_int_array(&target).to_vec(),
+            );
         }
         if let Some(dir) = self.current_move_direction {
             out.put_int("Dir", dir.get_3d_data_value() as i32);
@@ -340,10 +418,16 @@ impl Entity for ShulkerBullet {
         self.target_delta_x = input.get_double_or("TXD", 0.0);
         self.target_delta_y = input.get_double_or("TYD", 0.0);
         self.target_delta_z = input.get_double_or("TZD", 0.0);
-        self.current_move_direction = input.get("Dir").and_then(|t| t.as_number()).map(|n| Direction::from_3d_data_value(n.int_value()));
+        self.current_move_direction = input
+            .get("Dir")
+            .and_then(|t| t.as_number())
+            .map(|n| Direction::from_3d_data_value(n.int_value()));
         self.final_target = entity::read_uuid(input.get("Target"));
     }
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static SHULKER_BULLET_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::SHULKER_BULLET, create: |ty, id, _registries| Box::new(ShulkerBullet::new(ty, id)) };
+static SHULKER_BULLET_FACTORY: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::SHULKER_BULLET,
+    create: |ty, id, _registries| Box::new(ShulkerBullet::new(ty, id)),
+};

@@ -8,7 +8,11 @@ pub struct TickThrottler {
 
 impl TickThrottler {
     pub fn new(increment_step: i32, threshold: i32) -> Self {
-        Self { increment_step, threshold, count: 0 }
+        Self {
+            increment_step,
+            threshold,
+            count: 0,
+        }
     }
 
     pub fn increment(&mut self) {

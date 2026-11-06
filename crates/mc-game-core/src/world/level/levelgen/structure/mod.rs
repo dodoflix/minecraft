@@ -17,7 +17,9 @@ pub mod structure_start;
 pub mod templatesystem;
 
 pub use manager::StructureManager;
-pub use piece::{PieceBase, StructurePiece, StructurePieceSerializationContext, StructurePieceType};
+pub use piece::{
+    PieceBase, StructurePiece, StructurePieceSerializationContext, StructurePieceType,
+};
 pub use pieces::{PiecesContainer, StructurePiecesBuilder};
 pub use structure::{GenerationContext, GenerationStub, Structure, StructureSettings};
 pub use structure_start::{StartHandle, StructureStart};

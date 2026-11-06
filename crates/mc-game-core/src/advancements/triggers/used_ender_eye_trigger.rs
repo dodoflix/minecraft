@@ -11,13 +11,15 @@ pub struct UsedEnderEyeTriggerInstance {
 
 impl TriggerInstance for UsedEnderEyeTriggerInstance {
     fn codec() -> Codec<Self> {
-        static C: std::sync::LazyLock<Codec<UsedEnderEyeTriggerInstance>> = std::sync::LazyLock::new(|| {
-            mc_dfu::record!(UsedEnderEyeTriggerInstance {
-                player: condition_holder_codec().optional_field_of("player"),
-                distance: Doubles::codec().optional_field_of_default("distance", Doubles::any()),
-            })
-            .codec()
-        });
+        static C: std::sync::LazyLock<Codec<UsedEnderEyeTriggerInstance>> =
+            std::sync::LazyLock::new(|| {
+                mc_dfu::record!(UsedEnderEyeTriggerInstance {
+                    player: condition_holder_codec().optional_field_of("player"),
+                    distance: Doubles::codec()
+                        .optional_field_of_default("distance", Doubles::any()),
+                })
+                .codec()
+            });
         C.clone()
     }
 }

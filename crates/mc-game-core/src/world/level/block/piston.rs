@@ -22,18 +22,70 @@ pub fn get_movement_area(aabb: &AABB, direction: Direction, amount: f64) -> AABB
     let min = delta.min(0.0);
     let max = delta.max(0.0);
     match direction {
-        West => AABB::new(aabb.min_x + min, aabb.min_y, aabb.min_z, aabb.min_x + max, aabb.max_y, aabb.max_z),
-        East => AABB::new(aabb.max_x + min, aabb.min_y, aabb.min_z, aabb.max_x + max, aabb.max_y, aabb.max_z),
-        Down => AABB::new(aabb.min_x, aabb.min_y + min, aabb.min_z, aabb.max_x, aabb.min_y + max, aabb.max_z),
-        Up => AABB::new(aabb.min_x, aabb.max_y + min, aabb.min_z, aabb.max_x, aabb.max_y + max, aabb.max_z),
-        North => AABB::new(aabb.min_x, aabb.min_y, aabb.min_z + min, aabb.max_x, aabb.max_y, aabb.min_z + max),
-        South => AABB::new(aabb.min_x, aabb.min_y, aabb.max_z + min, aabb.max_x, aabb.max_y, aabb.max_z + max),
+        West => AABB::new(
+            aabb.min_x + min,
+            aabb.min_y,
+            aabb.min_z,
+            aabb.min_x + max,
+            aabb.max_y,
+            aabb.max_z,
+        ),
+        East => AABB::new(
+            aabb.max_x + min,
+            aabb.min_y,
+            aabb.min_z,
+            aabb.max_x + max,
+            aabb.max_y,
+            aabb.max_z,
+        ),
+        Down => AABB::new(
+            aabb.min_x,
+            aabb.min_y + min,
+            aabb.min_z,
+            aabb.max_x,
+            aabb.min_y + max,
+            aabb.max_z,
+        ),
+        Up => AABB::new(
+            aabb.min_x,
+            aabb.max_y + min,
+            aabb.min_z,
+            aabb.max_x,
+            aabb.max_y + max,
+            aabb.max_z,
+        ),
+        North => AABB::new(
+            aabb.min_x,
+            aabb.min_y,
+            aabb.min_z + min,
+            aabb.max_x,
+            aabb.max_y,
+            aabb.min_z + max,
+        ),
+        South => AABB::new(
+            aabb.min_x,
+            aabb.min_y,
+            aabb.max_z + min,
+            aabb.max_x,
+            aabb.max_y,
+            aabb.max_z + max,
+        ),
     }
 }
 
 /// `PistonBaseBlock.isPushable(state, level, pos, direction, allowDestroyable, connectionDirection)`.
-pub fn is_pushable(state: BlockState, level: &ServerLevel, pos: BlockPos, direction: Direction, allow_destroyable: bool, connection_direction: Direction) -> bool {
-    if pos.y() < level.get_min_y() || pos.y() > level.get_max_y() || !level.is_within_world_border(pos) {
+pub fn is_pushable(
+    state: BlockState,
+    level: &ServerLevel,
+    pos: BlockPos,
+    direction: Direction,
+    allow_destroyable: bool,
+    connection_direction: Direction,
+) -> bool {
+    if pos.y() < level.get_min_y()
+        || pos.y() > level.get_max_y()
+        || !level.is_within_world_border(pos)
+    {
         return false;
     }
     if state.is_air() {
@@ -93,13 +145,30 @@ pub struct PistonStructureResolver<'a> {
 }
 
 impl<'a> PistonStructureResolver<'a> {
-    pub fn new(level: &'a ServerLevel, piston_pos: BlockPos, direction: Direction, extending: bool) -> Self {
+    pub fn new(
+        level: &'a ServerLevel,
+        piston_pos: BlockPos,
+        direction: Direction,
+        extending: bool,
+    ) -> Self {
         let (push_direction, start_pos) = if extending {
             (direction, piston_pos.relative(direction))
         } else {
-            (direction.get_opposite(), piston_pos.relative_n(direction, 2))
+            (
+                direction.get_opposite(),
+                piston_pos.relative_n(direction, 2),
+            )
         };
-        Self { level, piston_pos, extending, start_pos, push_direction, to_push: Vec::new(), to_destroy: Vec::new(), piston_direction: direction }
+        Self {
+            level,
+            piston_pos,
+            extending,
+            start_pos,
+            push_direction,
+            to_push: Vec::new(),
+            to_destroy: Vec::new(),
+            piston_direction: direction,
+        }
     }
 
     fn state_at(&self, pos: BlockPos) -> BlockState {
@@ -110,7 +179,14 @@ impl<'a> PistonStructureResolver<'a> {
         self.to_push.clear();
         self.to_destroy.clear();
         let next_state = self.state_at(self.start_pos);
-        if !is_pushable(next_state, self.level, self.start_pos, self.push_direction, false, self.piston_direction) {
+        if !is_pushable(
+            next_state,
+            self.level,
+            self.start_pos,
+            self.push_direction,
+            false,
+            self.piston_direction,
+        ) {
             if self.extending && push_reaction(next_state) == PushReaction::Popped {
                 self.to_destroy.push(self.start_pos);
                 true
@@ -137,7 +213,14 @@ impl<'a> PistonStructureResolver<'a> {
         if next_state.is_air() {
             return true;
         }
-        if !is_pushable(next_state, self.level, start, self.push_direction, false, direction) {
+        if !is_pushable(
+            next_state,
+            self.level,
+            start,
+            self.push_direction,
+            false,
+            direction,
+        ) {
             return true;
         }
         if start == self.piston_pos {
@@ -156,7 +239,14 @@ impl<'a> PistonStructureResolver<'a> {
             next_state = self.state_at(pos);
             if next_state.is_air()
                 || !can_stick_to_each_other(previous_state, next_state)
-                || !is_pushable(next_state, self.level, pos, self.push_direction, false, self.push_direction.get_opposite())
+                || !is_pushable(
+                    next_state,
+                    self.level,
+                    pos,
+                    self.push_direction,
+                    false,
+                    self.push_direction.get_opposite(),
+                )
                 || pos == self.piston_pos
             {
                 break;
@@ -169,7 +259,8 @@ impl<'a> PistonStructureResolver<'a> {
 
         let mut blocks_added = 0usize;
         for i in (0..block_count).rev() {
-            self.to_push.push(start.relative_n(self.push_direction.get_opposite(), i as i32));
+            self.to_push
+                .push(start.relative_n(self.push_direction.get_opposite(), i as i32));
             blocks_added += 1;
         }
 
@@ -180,7 +271,8 @@ impl<'a> PistonStructureResolver<'a> {
                 self.reorder_list_at_collision(blocks_added, collision_pos);
                 for j in 0..=collision_pos + blocks_added {
                     let block_pos = self.to_push[j];
-                    if is_sticky(self.state_at(block_pos)) && !self.add_branching_blocks(block_pos) {
+                    if is_sticky(self.state_at(block_pos)) && !self.add_branching_blocks(block_pos)
+                    {
                         return false;
                     }
                 }
@@ -191,7 +283,15 @@ impl<'a> PistonStructureResolver<'a> {
             if next_state.is_air() {
                 return true;
             }
-            if !is_pushable(next_state, self.level, pos, self.push_direction, true, self.push_direction) || pos == self.piston_pos {
+            if !is_pushable(
+                next_state,
+                self.level,
+                pos,
+                self.push_direction,
+                true,
+                self.push_direction,
+            ) || pos == self.piston_pos
+            {
                 return false;
             }
             if push_reaction(next_state) == PushReaction::Popped {
@@ -222,7 +322,9 @@ impl<'a> PistonStructureResolver<'a> {
             if direction.get_axis() != self.push_direction.get_axis() {
                 let neighbour_pos = from_pos.relative(direction);
                 let neighbour_state = self.state_at(neighbour_pos);
-                if can_stick_to_each_other(neighbour_state, from_state) && !self.add_block_line(neighbour_pos, direction) {
+                if can_stick_to_each_other(neighbour_state, from_state)
+                    && !self.add_block_line(neighbour_pos, direction)
+                {
                     return false;
                 }
             }

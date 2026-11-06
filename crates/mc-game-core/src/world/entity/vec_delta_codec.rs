@@ -14,7 +14,9 @@ pub fn encoding_precision_loss(d: f64) -> f64 {
 }
 
 pub fn is_delta_too_big(xa: i64, ya: i64, za: i64) -> bool {
-    !(-32768..=32767).contains(&xa) || !(-32768..=32767).contains(&ya) || !(-32768..=32767).contains(&za)
+    !(-32768..=32767).contains(&xa)
+        || !(-32768..=32767).contains(&ya)
+        || !(-32768..=32767).contains(&za)
 }
 
 /// `VecDelta.Linear`: a short per axis.
@@ -41,9 +43,21 @@ impl VecDeltaCodec {
         if xa == 0 && ya == 0 && za == 0 {
             self.base
         } else {
-            let x = if xa == 0 { self.base.x } else { decode(encode(self.base.x) + xa) };
-            let y = if ya == 0 { self.base.y } else { decode(encode(self.base.y) + ya) };
-            let z = if za == 0 { self.base.z } else { decode(encode(self.base.z) + za) };
+            let x = if xa == 0 {
+                self.base.x
+            } else {
+                decode(encode(self.base.x) + xa)
+            };
+            let y = if ya == 0 {
+                self.base.y
+            } else {
+                decode(encode(self.base.y) + ya)
+            };
+            let z = if za == 0 {
+                self.base.z
+            } else {
+                decode(encode(self.base.z) + za)
+            };
             Vec3::new(x, y, z)
         }
     }
@@ -51,7 +65,11 @@ impl VecDeltaCodec {
     /// `tryEncode(Vec3)`: `None` when a delta doesn't fit a short.
     pub fn try_encode(&self, pos: Vec3) -> Option<VecDeltaLinear> {
         let (xa, ya, za) = (self.encode_x(pos), self.encode_y(pos), self.encode_z(pos));
-        (!is_delta_too_big(xa, ya, za)).then(|| VecDeltaLinear { xa: xa as i16, ya: ya as i16, za: za as i16 })
+        (!is_delta_too_big(xa, ya, za)).then(|| VecDeltaLinear {
+            xa: xa as i16,
+            ya: ya as i16,
+            za: za as i16,
+        })
     }
 
     pub fn encode_x(&self, pos: Vec3) -> i64 {

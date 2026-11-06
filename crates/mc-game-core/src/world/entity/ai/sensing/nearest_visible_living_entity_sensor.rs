@@ -27,12 +27,20 @@ impl<M: NearestVisibleLivingEntityMatcher> Sensor for NearestVisibleLivingEntity
             .brain()
             .get_memory(&NEAREST_VISIBLE_LIVING_ENTITIES)
             .cloned()
-            .and_then(|visible| visible.find_closest(level, &*body, |mob| self.0.is_matching_entity(level, &*body, mob)));
-        body.brain_mut().set_memory_opt(&self.0.get_memory_to_set(), nearest);
+            .and_then(|visible| {
+                visible.find_closest(level, &*body, |mob| {
+                    self.0.is_matching_entity(level, &*body, mob)
+                })
+            });
+        body.brain_mut()
+            .set_memory_opt(&self.0.get_memory_to_set(), nearest);
     }
 
     fn requires(&self) -> Vec<MemoryTypeId> {
-        let mut r = vec![self.0.get_memory_to_set().id(), NEAREST_VISIBLE_LIVING_ENTITIES.id()];
+        let mut r = vec![
+            self.0.get_memory_to_set().id(),
+            NEAREST_VISIBLE_LIVING_ENTITIES.id(),
+        ];
         r.extend(self.0.extra_requires());
         r
     }

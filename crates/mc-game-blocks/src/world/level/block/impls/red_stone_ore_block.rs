@@ -1,12 +1,14 @@
 //! `net.minecraft.world.level.block.RedStoneOreBlock` (`isRandomlyTicking` = lit, static data). Particles are client side
 //! but `spawnParticles` consumes the level random on the server too.
-use mc_game_core::register_block_class;
-use mc_game_core::world::level::block::impls::prelude::*;
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::entity::{Entity, ServerPlayer};
-use mc_game_core::world::item::{BlockPlaceContext, InteractionHand, InteractionResult, ItemStack, UseOnContext};
 use mc_core::phys::BlockHitResult;
 use mc_core::random::RandomSource;
+use mc_game_core::register_block_class;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::{Entity, ServerPlayer};
+use mc_game_core::world::item::{
+    BlockPlaceContext, InteractionHand, InteractionResult, ItemStack, UseOnContext,
+};
+use mc_game_core::world::level::block::impls::prelude::*;
 
 pub struct RedStoneOreBlock;
 
@@ -34,23 +36,51 @@ fn interact(state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
 }
 
 impl BlockBehaviour for RedStoneOreBlock {
-    fn attack(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, _player: &mut ServerPlayer) {
+    fn attack(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        _player: &mut ServerPlayer,
+    ) {
         interact(state, level, pos);
     }
-    fn step_on(&self, level: &mut ServerLevel, pos: BlockPos, on_state: BlockState, entity: &mut dyn Entity) {
+    fn step_on(
+        &self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        on_state: BlockState,
+        entity: &mut dyn Entity,
+    ) {
         // shortcut: `Entity.isSteppingCarefully` = `isShiftKeyDown` (Cat/Ocelot also check `isCrouching`), switch once the trait has it
         if !entity.is_shift_key_down() {
             interact(on_state, level, pos);
         }
     }
-    fn use_item_on(&self, stack: &ItemStack, state: BlockState, level: &mut ServerLevel, pos: BlockPos, player: &mut ServerPlayer, hand: InteractionHand, hit: &BlockHitResult) -> InteractionResult {
+    fn use_item_on(
+        &self,
+        stack: &ItemStack,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        player: &mut ServerPlayer,
+        hand: InteractionHand,
+        hit: &BlockHitResult,
+    ) -> InteractionResult {
         interact(state, level, pos);
         let clicked = hit.block_pos;
-        let place_context = BlockPlaceContext::new(UseOnContext::new(Some(player.context_player()), hand, stack.clone(), *hit), |c| {
-            BlockGetter::get_block_state(level, clicked).can_be_replaced_by(c)
+        let place_context = BlockPlaceContext::new(
+            UseOnContext::new(Some(player.context_player()), hand, stack.clone(), *hit),
+            |c| BlockGetter::get_block_state(level, clicked).can_be_replaced_by(c),
+        );
+        let can_place = place_context.can_place(|c| {
+            BlockGetter::get_block_state(level, c.get_clicked_pos()).can_be_replaced_by(c)
         });
-        let can_place = place_context.can_place(|c| BlockGetter::get_block_state(level, c.get_clicked_pos()).can_be_replaced_by(c));
-        if !stack.is_empty() && stack.item().data().classes.contains(&"BlockItem") && can_place { InteractionResult::PASS } else { InteractionResult::SUCCESS }
+        if !stack.is_empty() && stack.item().data().classes.contains(&"BlockItem") && can_place {
+            InteractionResult::PASS
+        } else {
+            InteractionResult::SUCCESS
+        }
     }
     fn random_tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         if state.get(props::LIT) {

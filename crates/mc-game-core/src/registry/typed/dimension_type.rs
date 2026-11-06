@@ -48,8 +48,22 @@ pub struct CardinalLighting {
 impl CardinalLightType {
     pub fn get(self) -> CardinalLighting {
         match self {
-            CardinalLightType::Default => CardinalLighting { down: 0.5, up: 1.0, north: 0.8, south: 0.8, west: 0.6, east: 0.6 },
-            CardinalLightType::Nether => CardinalLighting { down: 0.9, up: 0.9, north: 0.8, south: 0.8, west: 0.6, east: 0.6 },
+            CardinalLightType::Default => CardinalLighting {
+                down: 0.5,
+                up: 1.0,
+                north: 0.8,
+                south: 0.8,
+                west: 0.6,
+                east: 0.6,
+            },
+            CardinalLightType::Nether => CardinalLighting {
+                down: 0.9,
+                up: 0.9,
+                north: 0.8,
+                south: 0.8,
+                west: 0.6,
+                east: 0.6,
+            },
         }
     }
 }
@@ -104,7 +118,10 @@ impl DimensionType {
     }
 
     /// `DIRECT_CODEC` decode and re-encode (`encodeStart(NbtOps)`): the type and its canonical NBT.
-    pub fn from_json_with_nbt(json: &Value, ctx: &RegistryDecodeContext) -> Result<(DimensionType, Tag), String> {
+    pub fn from_json_with_nbt(
+        json: &Value,
+        ctx: &RegistryDecodeContext,
+    ) -> Result<(DimensionType, Tag), String> {
         decode_checked(json, ctx, false)
     }
 }
@@ -115,18 +132,41 @@ fn record() -> Schema {
         req("has_skylight", Schema::Bool),
         req("has_ceiling", Schema::Bool),
         req("has_ender_dragon_fight", Schema::Bool),
-        req("coordinate_scale", Schema::DoubleRange(1.0E-5f32 as f64, 3.0E7)),
+        req(
+            "coordinate_scale",
+            Schema::DoubleRange(1.0E-5f32 as f64, 3.0E7),
+        ),
         req("min_y", Schema::IntRange(MIN_Y, MAX_Y)),
         req("height", Schema::IntRange(16, Y_SIZE)),
         req("logical_height", Schema::IntRange(0, Y_SIZE)),
-        req("infiniburn", Schema::HolderSet { registry: keys::BLOCK, always_list: false }),
+        req(
+            "infiniburn",
+            Schema::HolderSet {
+                registry: keys::BLOCK,
+                always_list: false,
+            },
+        ),
         req("ambient_light", Schema::Float),
         req("monster_spawn_light_level", int_provider::schema(0, 15)),
         req("monster_spawn_block_light_limit", Schema::IntRange(0, 15)),
-        default("skybox", Schema::Enum(&["none", "overworld", "end"]), Value::from("overworld")),
-        default("cardinal_light", Schema::Enum(&["default", "nether"]), Value::from("default")),
+        default(
+            "skybox",
+            Schema::Enum(&["none", "overworld", "end"]),
+            Value::from("overworld"),
+        ),
+        default(
+            "cardinal_light",
+            Schema::Enum(&["default", "nether"]),
+            Value::from("default"),
+        ),
         // `attributes` is handled by `decode_checked`
-        opt("timelines", Schema::HolderSet { registry: keys::TIMELINE, always_list: false }),
+        opt(
+            "timelines",
+            Schema::HolderSet {
+                registry: keys::TIMELINE,
+                always_list: false,
+            },
+        ),
         opt("default_clock", Schema::Holder(keys::WORLD_CLOCK)),
     ])
 }
@@ -136,7 +176,10 @@ fn check(height: i32, min_y: i32, logical_height: i32) -> Result<(), String> {
     if height < MIN_HEIGHT {
         Err("height has to be at least 16".to_owned())
     } else if min_y + height > MAX_Y + 1 {
-        Err(format!("min_y + height cannot be higher than: {}", MAX_Y + 1))
+        Err(format!(
+            "min_y + height cannot be higher than: {}",
+            MAX_Y + 1
+        ))
     } else if logical_height > height {
         Err("logical_height cannot be higher than height".to_owned())
     } else if height % 16 != 0 {
@@ -148,9 +191,15 @@ fn check(height: i32, min_y: i32, logical_height: i32) -> Result<(), String> {
     }
 }
 
-fn decode_checked(json: &Value, ctx: &RegistryDecodeContext, network: bool) -> Result<(DimensionType, Tag), String> {
+fn decode_checked(
+    json: &Value,
+    ctx: &RegistryDecodeContext,
+    network: bool,
+) -> Result<(DimensionType, Tag), String> {
     let inner = || -> Result<(DimensionType, Tag), String> {
-        let Tag::Compound(mut nbt) = record().convert(json, ctx)? else { return Err("Not a map".to_owned()) };
+        let Tag::Compound(mut nbt) = record().convert(json, ctx)? else {
+            return Err("Not a map".to_owned());
+        };
         // `attributes`: optional, `EnvironmentAttributeMap.CODEC` (or `NETWORK_CODEC`)
         let attributes = match json.get("attributes") {
             Some(a) => {
@@ -163,7 +212,11 @@ fn decode_checked(json: &Value, ctx: &RegistryDecodeContext, network: bool) -> R
             }
             None => EnvironmentAttributeMap::default(),
         };
-        let (min_y, height, logical_height) = (get_i32(json, "min_y").unwrap_or(0), get_i32(json, "height").unwrap_or(0), get_i32(json, "logical_height").unwrap_or(0));
+        let (min_y, height, logical_height) = (
+            get_i32(json, "min_y").unwrap_or(0),
+            get_i32(json, "height").unwrap_or(0),
+            get_i32(json, "logical_height").unwrap_or(0),
+        );
         check(height, min_y, logical_height)?;
         let dim = DimensionType {
             has_fixed_time: get_bool(json, "has_fixed_time").unwrap_or(false),
@@ -174,29 +227,57 @@ fn decode_checked(json: &Value, ctx: &RegistryDecodeContext, network: bool) -> R
             min_y,
             height,
             logical_height,
-            infiniburn: json.get("infiniburn").and_then(HolderSetRef::from_json).ok_or("Missing infiniburn")?,
+            infiniburn: json
+                .get("infiniburn")
+                .and_then(HolderSetRef::from_json)
+                .ok_or("Missing infiniburn")?,
             ambient_light: get_f32(json, "ambient_light").unwrap_or(0.0),
-            monster_spawn_light_test: json.get("monster_spawn_light_level").and_then(IntProvider::from_json).ok_or("Missing monster_spawn_light_level")?,
-            monster_spawn_block_light_limit: get_i32(json, "monster_spawn_block_light_limit").unwrap_or(0),
+            monster_spawn_light_test: json
+                .get("monster_spawn_light_level")
+                .and_then(IntProvider::from_json)
+                .ok_or("Missing monster_spawn_light_level")?,
+            monster_spawn_block_light_limit: get_i32(json, "monster_spawn_block_light_limit")
+                .unwrap_or(0),
             skybox: match get_str(json, "skybox") {
                 Some("none") => Skybox::None,
                 Some("end") => Skybox::End,
                 _ => Skybox::Overworld,
             },
-            cardinal_light_type: if get_str(json, "cardinal_light") == Some("nether") { CardinalLightType::Nether } else { CardinalLightType::Default },
+            cardinal_light_type: if get_str(json, "cardinal_light") == Some("nether") {
+                CardinalLightType::Nether
+            } else {
+                CardinalLightType::Default
+            },
             attributes,
-            timelines: json.get("timelines").and_then(HolderSetRef::from_json).unwrap_or(HolderSetRef::Elements(Vec::new())),
+            timelines: json
+                .get("timelines")
+                .and_then(HolderSetRef::from_json)
+                .unwrap_or(HolderSetRef::Elements(Vec::new())),
             default_clock: get_str(json, "default_clock").and_then(Identifier::try_parse),
         };
         Ok((dim, Tag::Compound(nbt)))
     };
     // `ExtraCodecs.catchDecoderException` wraps the constructor's `IllegalStateException`
-    inner().map_err(|e| if is_constructor_error(&e) { format!("Caught exception decoding {}: {e}", serde_json::to_string(json).unwrap_or_default()) } else { e })
+    inner().map_err(|e| {
+        if is_constructor_error(&e) {
+            format!(
+                "Caught exception decoding {}: {e}",
+                serde_json::to_string(json).unwrap_or_default()
+            )
+        } else {
+            e
+        }
+    })
 }
 
 fn is_constructor_error(e: &str) -> bool {
-    matches!(e, "height has to be at least 16" | "logical_height cannot be higher than height" | "height has to be multiple of 16" | "min_y has to be a multiple of 16")
-        || e.starts_with("min_y + height cannot be higher than")
+    matches!(
+        e,
+        "height has to be at least 16"
+            | "logical_height cannot be higher than height"
+            | "height has to be multiple of 16"
+            | "min_y has to be a multiple of 16"
+    ) || e.starts_with("min_y + height cannot be higher than")
 }
 
 fn decode(json: &Value, ctx: &RegistryDecodeContext) -> Result<DecodedEntry, String> {
@@ -207,7 +288,10 @@ fn decode(json: &Value, ctx: &RegistryDecodeContext) -> Result<DecodedEntry, Str
 }
 
 #[linkme::distributed_slice(DYNAMIC_REGISTRY_DECODERS)]
-static DECODER: DynamicRegistryDecoder = DynamicRegistryDecoder { registry: keys::DIMENSION_TYPE, decode };
+static DECODER: DynamicRegistryDecoder = DynamicRegistryDecoder {
+    registry: keys::DIMENSION_TYPE,
+    decode,
+};
 
 #[cfg(test)]
 mod tests {
@@ -244,15 +328,30 @@ mod tests {
         let mut bad = base();
         bad["height"] = json!(100);
         bad["logical_height"] = json!(96);
-        assert!(DimensionType::from_json(&bad, &ctx).unwrap_err().contains("height has to be multiple of 16"));
+        assert!(
+            DimensionType::from_json(&bad, &ctx)
+                .unwrap_err()
+                .contains("height has to be multiple of 16")
+        );
         let mut bad = base();
         bad["logical_height"] = json!(500);
-        assert!(DimensionType::from_json(&bad, &ctx).unwrap_err().contains("logical_height cannot be higher than height"));
+        assert!(
+            DimensionType::from_json(&bad, &ctx)
+                .unwrap_err()
+                .contains("logical_height cannot be higher than height")
+        );
         let mut bad = base();
         bad["min_y"] = json!(-8);
-        assert!(DimensionType::from_json(&bad, &ctx).unwrap_err().contains("min_y has to be a multiple of 16"));
+        assert!(
+            DimensionType::from_json(&bad, &ctx)
+                .unwrap_err()
+                .contains("min_y has to be a multiple of 16")
+        );
         let mut bad = base();
         bad["height"] = json!(5000);
-        assert_eq!(DimensionType::from_json(&bad, &ctx).unwrap_err(), "Value 5000 outside of range [16:4064]");
+        assert_eq!(
+            DimensionType::from_json(&bad, &ctx).unwrap_err(),
+            "Value 5000 outside of range [16:4064]"
+        );
     }
 }

@@ -6,10 +6,10 @@ use std::time::{Duration, Instant};
 use mc_protocol::codec::{Decode, read_varint};
 use mc_protocol::command_tree_diff::{canonical, diff_trees};
 use mc_protocol::packets::play::ClientboundCommandsPacket;
+use mc_testbot::Bot;
 use mc_testbot::harness::{OurServer, repo_root};
 use mc_testbot::join::BotOptions;
 use mc_testbot::log::Dir;
-use mc_testbot::Bot;
 use regex::Regex;
 
 const BOTS: [&str; 2] = ["Bot", "Bot0"];
@@ -54,8 +54,14 @@ fn parse_corpus(file: &str, text: &str) -> Res<Vec<Line>> {
             let (word, arg) = rest.split_once(' ').unwrap_or((rest, ""));
             let arg = arg.trim();
             match word {
-                "wait" => Item::Wait(arg.parse().map_err(|_| at(format!("!wait needs milliseconds, got `{arg}`")))?),
-                "ticks" => Item::Ticks(arg.parse().map_err(|_| at(format!("!ticks needs a tick count, got `{arg}`")))?),
+                "wait" => Item::Wait(
+                    arg.parse()
+                        .map_err(|_| at(format!("!wait needs milliseconds, got `{arg}`")))?,
+                ),
+                "ticks" => Item::Ticks(
+                    arg.parse()
+                        .map_err(|_| at(format!("!ticks needs a tick count, got `{arg}`")))?,
+                ),
                 "ignore" => {
                     Regex::new(arg).map_err(|e| at(format!("bad !ignore regex: {e}")))?;
                     Item::Ignore(arg.to_string())
@@ -67,13 +73,23 @@ fn parse_corpus(file: &str, text: &str) -> Res<Vec<Line>> {
                 "datapack" => {
                     let dir = Path::new(file).parent().unwrap_or(Path::new(".")).join(arg);
                     if arg.is_empty() || !dir.is_dir() {
-                        return Err(at(format!("!datapack needs a directory relative to the corpus file ({} is none)", dir.display())));
+                        return Err(at(format!(
+                            "!datapack needs a directory relative to the corpus file ({} is none)",
+                            dir.display()
+                        )));
                     }
                     Item::Datapack(dir.to_string_lossy().into_owned())
                 }
                 "join" | "leave" => {
-                    let b = BOTS.iter().position(|n| *n == arg).ok_or_else(|| at(format!("!{word} needs Bot or Bot0")))?;
-                    if word == "join" { Item::Join(b) } else { Item::Leave(b) }
+                    let b = BOTS
+                        .iter()
+                        .position(|n| *n == arg)
+                        .ok_or_else(|| at(format!("!{word} needs Bot or Bot0")))?;
+                    if word == "join" {
+                        Item::Join(b)
+                    } else {
+                        Item::Leave(b)
+                    }
                 }
                 _ => return Err(at(format!("unknown directive !{word}"))),
             }
@@ -86,7 +102,12 @@ fn parse_corpus(file: &str, text: &str) -> Res<Vec<Line>> {
         } else {
             Item::Console(line.trim_start_matches('/').to_string())
         };
-        out.push(Line { file: file.rsplit('/').next().unwrap_or(file).to_string(), no: i + 1, item, text: line.to_string() });
+        out.push(Line {
+            file: file.rsplit('/').next().unwrap_or(file).to_string(),
+            no: i + 1,
+            item,
+            text: line.to_string(),
+        });
     }
     Ok(out)
 }
@@ -108,7 +129,13 @@ impl Norm {
     fn new(dirs: Vec<String>, bot_uuids: &[uuid::Uuid]) -> Self {
         let ints = |u: &uuid::Uuid| {
             let b = u.as_u128();
-            format!("[I; {},{},{},{}]", (b >> 96) as u32 as i32, (b >> 64) as u32 as i32, (b >> 32) as u32 as i32, b as u32 as i32)
+            format!(
+                "[I; {},{},{},{}]",
+                (b >> 96) as u32 as i32,
+                (b >> 64) as u32 as i32,
+                (b >> 32) as u32 as i32,
+                b as u32 as i32
+            )
         };
         Self {
             prefix: Regex::new(r"^\[\d\d:\d\d:\d\d\] \[.*?/([A-Z]+)\]: ").expect("regex"),
@@ -129,7 +156,11 @@ impl Norm {
         let mut s = match self.prefix.captures(raw) {
             Some(c) => {
                 let rest = &raw[c.get(0).expect("match").end()..];
-                if &c[1] == "INFO" { rest.to_string() } else { format!("{}: {rest}", &c[1]) }
+                if &c[1] == "INFO" {
+                    rest.to_string()
+                } else {
+                    format!("{}: {rest}", &c[1])
+                }
             }
             None => raw.to_string(),
         };
@@ -138,12 +169,25 @@ impl Norm {
         }
         s = self.addr.replace_all(&s, "/127.0.0.1:<PORT>").into_owned();
         s = self.login.replace(&s, "${1}<ID>${2}<POS>)").into_owned();
-        s = self.uuid.replace_all(&s, |c: &regex::Captures| if self.keep_uuids.contains(&c[0].to_lowercase()) { c[0].to_string() } else { "<UUID>".into() }).into_owned();
+        s = self
+            .uuid
+            .replace_all(&s, |c: &regex::Captures| {
+                if self.keep_uuids.contains(&c[0].to_lowercase()) {
+                    c[0].to_string()
+                } else {
+                    "<UUID>".into()
+                }
+            })
+            .into_owned();
         s = self
             .uuid_ints
             .replace_all(&s, |c: &regex::Captures| {
                 let whole = format!("[I; {},{},{},{}]", &c[2], &c[3], &c[4], &c[5]);
-                if self.keep_ints.contains(&whole) { c[0].to_string() } else { format!("{}<UUID>{}", &c[1], &c[6]) }
+                if self.keep_ints.contains(&whole) {
+                    c[0].to_string()
+                } else {
+                    format!("{}<UUID>{}", &c[1], &c[6])
+                }
             })
             .into_owned();
         s.trim_end().to_string()
@@ -216,7 +260,12 @@ fn prepare_dir(dir: &Path, datapacks: &[String]) -> std::io::Result<()> {
     let packs = dir.join("world/datapacks");
     std::fs::create_dir_all(&packs)?;
     let uuid = mc_core::uuid_util::create_offline_player_uuid("Bot");
-    std::fs::write(dir.join("ops.json"), format!("[{{\"uuid\":\"{uuid}\",\"name\":\"Bot\",\"level\":4,\"bypassesPlayerLimit\":false}}]\n"))?;
+    std::fs::write(
+        dir.join("ops.json"),
+        format!(
+            "[{{\"uuid\":\"{uuid}\",\"name\":\"Bot\",\"level\":4,\"bypassesPlayerLimit\":false}}]\n"
+        ),
+    )?;
     for d in datapacks {
         let src = Path::new(d);
         copy_dir(src, &packs.join(src.file_name().unwrap_or_default()))?;
@@ -242,20 +291,38 @@ fn start_server(ours: bool, o: &Opts, tag: &str, datapacks: &[String]) -> Res<Sr
     let level = format!("level-type={}", o.level_type);
     // `MC_CMDDIFF_STRUCTURES=1`: structures on (for `/locate structure` corpora).
     let structures = std::env::var_os("MC_CMDDIFF_STRUCTURES").is_some();
-    let mut props: Vec<&str> = PROPS.iter().copied().filter(|p| !(structures && p.starts_with("generate-structures="))).collect();
+    let mut props: Vec<&str> = PROPS
+        .iter()
+        .copied()
+        .filter(|p| !(structures && p.starts_with("generate-structures=")))
+        .collect();
     props.push(&level);
     if structures {
         props.push("generate-structures=true");
     }
-    let prepare = |dir: &Path| prepare_dir(dir, datapacks).map_err(|e| format!("prepare {}: {e}", dir.display()));
+    let prepare = |dir: &Path| {
+        prepare_dir(dir, datapacks).map_err(|e| format!("prepare {}: {e}", dir.display()))
+    };
     if ours {
-        let dir = repo_root().join("run/cmd-diff").join(&o.run_id).join(tag).join("ours");
+        let dir = repo_root()
+            .join("run/cmd-diff")
+            .join(&o.run_id)
+            .join(tag)
+            .join("ours");
         prepare(&dir)?;
-        OurServer::start_in(&o.ours_bin, o.seed, &o.gamemode, &props, Some(dir), o.keep).map(Srv::Ours).map_err(|e| e.to_string())
+        OurServer::start_in(&o.ours_bin, o.seed, &o.gamemode, &props, Some(dir), o.keep)
+            .map(Srv::Ours)
+            .map_err(|e| e.to_string())
     } else {
-        let dir = repo_root().join("run/servers").join(format!("cmddiff-{}-{tag}", o.run_id));
+        let dir = repo_root()
+            .join("run/servers")
+            .join(format!("cmddiff-{}-{tag}", o.run_id));
         prepare(&dir)?;
-        mc_testbot::harness::vanilla(o.seed, &o.gamemode, &props).dir(dir).start().map(Srv::Vanilla).map_err(|e| e.to_string())
+        mc_testbot::harness::vanilla(o.seed, &o.gamemode, &props)
+            .dir(dir)
+            .start()
+            .map(Srv::Vanilla)
+            .map_err(|e| e.to_string())
     }
 }
 
@@ -292,15 +359,24 @@ impl Side {
         let mut o = BotOptions::new("127.0.0.1", self.srv.port(), BOTS[i]);
         o.timeout = Duration::from_secs(120);
         o.record_raw = self.raw_packets;
-        let bot = Bot::connect(o).await.map_err(|e| format!("{} {}: {e}", self.label, BOTS[i]))?;
-        bot.wait_joined(Duration::from_secs(60)).await.map_err(|e| format!("{} {} login: {e}", self.label, BOTS[i]))?;
-        bot.wait_ready(Duration::from_secs(90)).await.map_err(|e| format!("{} {} ready: {e}", self.label, BOTS[i]))?;
+        let bot = Bot::connect(o)
+            .await
+            .map_err(|e| format!("{} {}: {e}", self.label, BOTS[i]))?;
+        bot.wait_joined(Duration::from_secs(60))
+            .await
+            .map_err(|e| format!("{} {} login: {e}", self.label, BOTS[i]))?;
+        bot.wait_ready(Duration::from_secs(90))
+            .await
+            .map_err(|e| format!("{} {} ready: {e}", self.label, BOTS[i]))?;
         self.bots[i] = Some(bot);
         Ok(())
     }
 
     fn mark(&self) -> Mark {
-        let mut m = Mark { chat: [0; 2], pkt: [0; 2] };
+        let mut m = Mark {
+            chat: [0; 2],
+            pkt: [0; 2],
+        };
         for (i, b) in self.bots.iter().enumerate() {
             if let Some(b) = b {
                 m.chat[i] = b.chat_len();
@@ -311,7 +387,9 @@ impl Side {
     }
 
     fn log_text(&self) -> String {
-        std::fs::read(self.srv.log_path()).map(|b| String::from_utf8_lossy(&b).into_owned()).unwrap_or_default()
+        std::fs::read(self.srv.log_path())
+            .map(|b| String::from_utf8_lossy(&b).into_owned())
+            .unwrap_or_default()
     }
 
     /// Server log (raw lines) since the last marker up to the marker line `n`; advances the read offset past it.
@@ -334,14 +412,19 @@ impl Side {
             if !console_fallback
                 && start.elapsed() > Duration::from_millis(1500)
                 && let Some(i) = issuer
-                && self.bots[i].as_ref().is_none_or(|b| b.disconnect_reason().is_some())
+                && self.bots[i]
+                    .as_ref()
+                    .is_none_or(|b| b.disconnect_reason().is_some())
             {
                 // the issuing bot was kicked by its own command: no chat marker will ever come
                 self.srv.cmd(&format!("say {tag}"));
                 console_fallback = true;
             }
             if start.elapsed() > MARKER_TIMEOUT {
-                return Err(format!("{}: timeout waiting for the log marker `{tag}` (server dead or hung?)", self.label));
+                return Err(format!(
+                    "{}: timeout waiting for the log marker `{tag}` (server dead or hung?)",
+                    self.label
+                ));
             }
             tokio::time::sleep(Duration::from_millis(15)).await;
         }
@@ -354,11 +437,24 @@ impl Side {
     async fn finish(&mut self, m: Mark, header: String, n: u32, issuer: Option<usize>) -> Res<Seg> {
         let log = self.wait_log_marker(n, issuer).await?;
         let tag = format!("{MARKER} {n}");
-        let mut lines: Vec<String> = log.lines().map(|l| self.norm.line(l)).filter(|l| self.keep_line(l)).map(|l| format!("log| {l}")).collect();
+        let mut lines: Vec<String> = log
+            .lines()
+            .map(|l| self.norm.line(l))
+            .filter(|l| self.keep_line(l))
+            .map(|l| format!("log| {l}"))
+            .collect();
         for i in 0..2 {
             let Some(bot) = &self.bots[i] else { continue };
             // the marker is a broadcast chat line: once the bot has it, everything before it arrived
-            let _ = bot.wait_for(Duration::from_secs(10), |s| s.chat.iter().skip(m.chat[i]).any(|l| l.text.contains(&tag)).then_some(())).await;
+            let _ = bot
+                .wait_for(Duration::from_secs(10), |s| {
+                    s.chat
+                        .iter()
+                        .skip(m.chat[i])
+                        .any(|l| l.text.contains(&tag))
+                        .then_some(())
+                })
+                .await;
             let chat: Vec<(String, String)> = bot.with_state(|s| {
                 let mut chat = Vec::new();
                 for l in s.chat.iter().skip(m.chat[i]) {
@@ -368,9 +464,16 @@ impl Side {
                         }
                         continue;
                     }
-                    let who = l.sender.as_deref().map(|n| format!("{n}: ")).unwrap_or_default();
+                    let who = l
+                        .sender
+                        .as_deref()
+                        .map(|n| format!("{n}: "))
+                        .unwrap_or_default();
                     let overlay = if l.overlay { " overlay" } else { "" };
-                    chat.push((format!("{}| [{}{overlay}] {who}{}", BOTS[i], l.kind, l.text), l.json.clone()));
+                    chat.push((
+                        format!("{}| [{}{overlay}] {who}{}", BOTS[i], l.kind, l.text),
+                        l.json.clone(),
+                    ));
                 }
                 chat
             });
@@ -389,13 +492,27 @@ impl Side {
                     .log
                     .lock()
                     .map(|l| {
-                        l.entries().iter().skip(m.pkt[i]).filter(|e| e.dir == Dir::In && re.is_match(&e.name)).map(|e| format!("{}| packet {} {}", BOTS[i], e.name, e.debug)).collect()
+                        l.entries()
+                            .iter()
+                            .skip(m.pkt[i])
+                            .filter(|e| e.dir == Dir::In && re.is_match(&e.name))
+                            .map(|e| format!("{}| packet {} {}", BOTS[i], e.name, e.debug))
+                            .collect()
                     })
                     .unwrap_or_default();
-                lines.extend(entries.into_iter().map(|e| self.norm.line(&e)).filter(|l| self.keep_line(l)));
+                lines.extend(
+                    entries
+                        .into_iter()
+                        .map(|e| self.norm.line(&e))
+                        .filter(|l| self.keep_line(l)),
+                );
             }
             if let Some(r) = bot.disconnect_reason() {
-                lines.push(format!("{}| (disconnected: {})", BOTS[i], self.norm.line(&r)));
+                lines.push(format!(
+                    "{}| (disconnected: {})",
+                    BOTS[i],
+                    self.norm.line(&r)
+                ));
                 self.bots[i] = None;
             }
         }
@@ -417,7 +534,10 @@ impl Side {
             }
             Some(i) => {
                 let Some(bot) = &self.bots[i] else {
-                    return Ok(Seg { header, lines: vec![format!("{}| (not connected: command not sent)", BOTS[i])] });
+                    return Ok(Seg {
+                        header,
+                        lines: vec![format!("{}| (not connected: command not sent)", BOTS[i])],
+                    });
                 };
                 if let Some(c) = cmd {
                     bot.command(c);
@@ -430,9 +550,19 @@ impl Side {
     }
 
     async fn gametime(&mut self) -> Res<i64> {
-        let seg = self.issue(None, Some("time query gametime"), String::new()).await?;
+        let seg = self
+            .issue(None, Some("time query gametime"), String::new())
+            .await?;
         let re = Regex::new(r"The time is (-?\d+)").expect("regex");
-        seg.lines.iter().find_map(|l| re.captures(l).and_then(|c| c[1].parse().ok())).ok_or_else(|| format!("{}: `time query gametime` gave no time: {:?}", self.label, seg.lines))
+        seg.lines
+            .iter()
+            .find_map(|l| re.captures(l).and_then(|c| c[1].parse().ok()))
+            .ok_or_else(|| {
+                format!(
+                    "{}: `time query gametime` gave no time: {:?}",
+                    self.label, seg.lines
+                )
+            })
     }
 
     async fn run_item(&mut self, l: &Line) -> Res<Option<Seg>> {
@@ -456,12 +586,17 @@ impl Side {
             Item::Ticks(n) => {
                 let g0 = self.gametime().await?;
                 if self.frozen {
-                    self.issue(None, Some(&format!("tick step {n}")), String::new()).await?;
+                    self.issue(None, Some(&format!("tick step {n}")), String::new())
+                        .await?;
                 }
-                let deadline = Instant::now() + Duration::from_secs(30) + Duration::from_millis(*n * 50);
+                let deadline =
+                    Instant::now() + Duration::from_secs(30) + Duration::from_millis(*n * 50);
                 while self.gametime().await? < g0 + *n as i64 {
                     if Instant::now() > deadline {
-                        return Err(format!("{}: !ticks {n}: the game time does not advance (frozen without `tick freeze` seen?)", self.label));
+                        return Err(format!(
+                            "{}: !ticks {n}: the game time does not advance (frozen without `tick freeze` seen?)",
+                            self.label
+                        ));
                     }
                     tokio::time::sleep(Duration::from_millis(40)).await;
                 }
@@ -515,10 +650,27 @@ struct SideOut {
 async fn run_side(ours: bool, o: &Opts, tag: &str, lines: &[Line]) -> Res<SideOut> {
     let label = if ours { "ours" } else { "vanilla" };
     let (oc, tc) = (o.clone(), tag.to_string());
-    let packs: Vec<String> = lines.iter().filter_map(|l| if let Item::Datapack(d) = &l.item { Some(d.clone()) } else { None }).collect();
-    let srv = tokio::task::spawn_blocking(move || start_server(ours, &oc, &tc, &packs)).await.map_err(|e| e.to_string())??;
-    let uuids: Vec<uuid::Uuid> = BOTS.iter().map(|n| mc_core::uuid_util::create_offline_player_uuid(n)).collect();
-    let mut dirs = vec![srv.dir().to_string_lossy().into_owned(), repo_root().to_string_lossy().into_owned()];
+    let packs: Vec<String> = lines
+        .iter()
+        .filter_map(|l| {
+            if let Item::Datapack(d) = &l.item {
+                Some(d.clone())
+            } else {
+                None
+            }
+        })
+        .collect();
+    let srv = tokio::task::spawn_blocking(move || start_server(ours, &oc, &tc, &packs))
+        .await
+        .map_err(|e| e.to_string())??;
+    let uuids: Vec<uuid::Uuid> = BOTS
+        .iter()
+        .map(|n| mc_core::uuid_util::create_offline_player_uuid(n))
+        .collect();
+    let mut dirs = vec![
+        srv.dir().to_string_lossy().into_owned(),
+        repo_root().to_string_lossy().into_owned(),
+    ];
     dirs.sort_by_key(|d| std::cmp::Reverse(d.len()));
     let mut side = Side {
         label,
@@ -571,8 +723,14 @@ async fn run_side(ours: bool, o: &Opts, tag: &str, lines: &[Line]) -> Res<SideOu
 /// The first `commands` packet the bot received (op/permission view at join).
 fn first_commands_packet(bot: &Bot) -> Option<ClientboundCommandsPacket> {
     let log = bot.shared.log.lock().ok()?;
-    let entry = log.entries().iter().find(|e| e.dir == Dir::In && e.name == "commands")?;
-    let bytes: Vec<u8> = (0..entry.raw.as_ref()?.len()).step_by(2).map(|i| u8::from_str_radix(&entry.raw.as_ref()?[i..i + 2], 16).ok()).collect::<Option<_>>()?;
+    let entry = log
+        .entries()
+        .iter()
+        .find(|e| e.dir == Dir::In && e.name == "commands")?;
+    let bytes: Vec<u8> = (0..entry.raw.as_ref()?.len())
+        .step_by(2)
+        .map(|i| u8::from_str_radix(&entry.raw.as_ref()?[i..i + 2], 16).ok())
+        .collect::<Option<_>>()?;
     let mut s = bytes.as_slice();
     read_varint(&mut s).ok()?; // packet id
     ClientboundCommandsPacket::decode(&mut s).ok()
@@ -586,7 +744,11 @@ fn lcs_diff<'a>(a: &'a [String], b: &'a [String]) -> Vec<(char, &'a str)> {
     let mut t = vec![vec![0u32; m + 1]; n + 1];
     for i in (0..n).rev() {
         for j in (0..m).rev() {
-            t[i][j] = if a[i] == b[j] { t[i + 1][j + 1] + 1 } else { t[i + 1][j].max(t[i][j + 1]) };
+            t[i][j] = if a[i] == b[j] {
+                t[i + 1][j + 1] + 1
+            } else {
+                t[i + 1][j].max(t[i][j + 1])
+            };
         }
     }
     let (mut i, mut j, mut out) = (0, 0, Vec::new());
@@ -607,7 +769,9 @@ fn lcs_diff<'a>(a: &'a [String], b: &'a [String]) -> Vec<(char, &'a str)> {
 }
 
 fn transcript(segs: &[Seg]) -> String {
-    segs.iter().map(|s| format!("### {}\n{}\n", s.header, s.lines.join("\n"))).collect()
+    segs.iter()
+        .map(|s| format!("### {}\n{}\n", s.header, s.lines.join("\n")))
+        .collect()
 }
 
 /// Prints the per-command diff; number of differing commands.
@@ -626,7 +790,11 @@ fn report(file: &str, v: &[Seg], o: &[Seg]) -> usize {
         println!();
     }
     if v.len() != o.len() {
-        println!("{file}: vanilla produced {} outputs, ours {}", v.len(), o.len());
+        println!(
+            "{file}: vanilla produced {} outputs, ours {}",
+            v.len(),
+            o.len()
+        );
         differing += 1;
     }
     differing
@@ -635,9 +803,17 @@ fn report(file: &str, v: &[Seg], o: &[Seg]) -> usize {
 fn compare_trees(v: &SideOut, o: &SideOut, strict: bool) -> usize {
     let mut bad = 0;
     for (i, name) in BOTS.iter().enumerate() {
-        let what = if i == 0 { "Bot (op, level 4)" } else { "Bot0 (non-op, level 0)" };
+        let what = if i == 0 {
+            "Bot (op, level 4)"
+        } else {
+            "Bot0 (non-op, level 0)"
+        };
         let (Some(a), Some(b)) = (&v.trees[i], &o.trees[i]) else {
-            println!("tree {name}: no commands packet captured (vanilla {}, ours {})", v.trees[i].is_some(), o.trees[i].is_some());
+            println!(
+                "tree {name}: no commands packet captured (vanilla {}, ours {})",
+                v.trees[i].is_some(),
+                o.trees[i].is_some()
+            );
             bad += 1;
             continue;
         };
@@ -680,7 +856,8 @@ async fn main() {
         tree_strict: false,
         out: repo_root().join("run/cmd-diff"),
         ours_bin: PathBuf::new(),
-        run_id: std::env::var("MC_CMDDIFF_RUN_ID").unwrap_or_else(|_| std::process::id().to_string()),
+        run_id: std::env::var("MC_CMDDIFF_RUN_ID")
+            .unwrap_or_else(|_| std::process::id().to_string()),
     };
     let mut files = Vec::new();
     while let Some(a) = args.next() {
@@ -689,7 +866,11 @@ async fn main() {
             "--seed" => o.seed = val().parse().unwrap_or_else(|_| usage()),
             "--level-type" => {
                 let t = val();
-                o.level_type = if t.contains(':') { t } else { format!("minecraft:{t}") };
+                o.level_type = if t.contains(':') {
+                    t
+                } else {
+                    format!("minecraft:{t}")
+                };
             }
             "--gamemode" => o.gamemode = val(),
             "--keep" => o.keep = true,
@@ -702,7 +883,10 @@ async fn main() {
         }
     }
     if o.ours_bin.as_os_str().is_empty() || !o.ours_bin.exists() {
-        eprintln!("mc-command-diff: our server binary not found: {}", o.ours_bin.display());
+        eprintln!(
+            "mc-command-diff: our server binary not found: {}",
+            o.ours_bin.display()
+        );
         std::process::exit(2);
     }
     if files.is_empty() && !o.tree {
@@ -740,8 +924,16 @@ async fn run_all(o: &Opts, corpora: &[(String, Vec<Line>)]) -> i32 {
     let mut total_cmds = 0;
     for (idx, (file, lines)) in corpora.iter().enumerate() {
         let tag = format!("{idx}");
-        eprintln!("[command-diff] {file}: {} corpus lines, seed {}, {}", lines.len(), o.seed, o.level_type);
-        let (v, ours) = tokio::join!(run_side(false, o, &tag, lines), run_side(true, o, &tag, lines));
+        eprintln!(
+            "[command-diff] {file}: {} corpus lines, seed {}, {}",
+            lines.len(),
+            o.seed,
+            o.level_type
+        );
+        let (v, ours) = tokio::join!(
+            run_side(false, o, &tag, lines),
+            run_side(true, o, &tag, lines)
+        );
         let (v, ours) = match (v, ours) {
             (Ok(v), Ok(ours)) => (v, ours),
             (a, b) => {
@@ -751,7 +943,10 @@ async fn run_all(o: &Opts, corpora: &[(String, Vec<Line>)]) -> i32 {
                 return 2;
             }
         };
-        let stem = Path::new(file).file_stem().and_then(|s| s.to_str()).unwrap_or("corpus");
+        let stem = Path::new(file)
+            .file_stem()
+            .and_then(|s| s.to_str())
+            .unwrap_or("corpus");
         let dir = o.out.join(&o.run_id);
         let _ = std::fs::create_dir_all(&dir);
         let _ = std::fs::write(dir.join(format!("{stem}.vanilla.txt")), transcript(&v.segs));
@@ -766,7 +961,10 @@ async fn run_all(o: &Opts, corpora: &[(String, Vec<Line>)]) -> i32 {
         println!("IDENTICAL ({total_cmds} commands)");
         0
     } else {
-        println!("DIFFERENT: {total_diff} difference(s) in {total_cmds} commands (transcripts in {})", o.out.join(&o.run_id).display());
+        println!(
+            "DIFFERENT: {total_diff} difference(s) in {total_cmds} commands (transcripts in {})",
+            o.out.join(&o.run_id).display()
+        );
         1
     }
 }
@@ -801,20 +999,32 @@ mod tests {
     fn normalization() {
         let bot = mc_core::uuid_util::create_offline_player_uuid("Bot");
         let n = Norm::new(vec!["/srv/run".into()], &[bot]);
-        assert_eq!(n.line("[12:00:01] [Server thread/INFO]: [Bot: Done]"), "[Bot: Done]");
-        assert_eq!(n.line("[12:00:01] [Server thread/WARN]: careful"), "WARN: careful");
+        assert_eq!(
+            n.line("[12:00:01] [Server thread/INFO]: [Bot: Done]"),
+            "[Bot: Done]"
+        );
+        assert_eq!(
+            n.line("[12:00:01] [Server thread/WARN]: careful"),
+            "WARN: careful"
+        );
         assert_eq!(n.line("x /srv/run/world y"), "x <DIR>/world y");
         assert_eq!(n.line("a/127.0.0.1:5555 b"), "a/127.0.0.1:<PORT> b");
         assert_eq!(n.line("u 123e4567-e89b-12d3-a456-426614174000"), "u <UUID>");
         assert_eq!(n.line(&format!("u {bot}")), format!("u {bot}"));
         assert_eq!(n.line("UUID: [I; 1, 2, 3, 4]"), "UUID: [I; <UUID>]");
-        assert_eq!(n.line("Bot[/1.2.3.4:5] logged in with entity id 12 at (0.5, 4.0, 1.5)"), "Bot[/1.2.3.4:5] logged in with entity id <ID> at (<POS>)");
+        assert_eq!(
+            n.line("Bot[/1.2.3.4:5] logged in with entity id 12 at (0.5, 4.0, 1.5)"),
+            "Bot[/1.2.3.4:5] logged in with entity id <ID> at (<POS>)"
+        );
     }
 
     #[test]
     fn lcs() {
         let a: Vec<String> = ["a", "b", "c"].map(String::from).to_vec();
         let b: Vec<String> = ["a", "x", "c"].map(String::from).to_vec();
-        assert_eq!(lcs_diff(&a, &b), vec![(' ', "a"), ('-', "b"), ('+', "x"), (' ', "c")]);
+        assert_eq!(
+            lcs_diff(&a, &b),
+            vec![(' ', "a"), ('-', "b"), ('+', "x"), (' ', "c")]
+        );
     }
 }

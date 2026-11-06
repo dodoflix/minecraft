@@ -80,29 +80,67 @@ async fn play_state_decodes_everything_vanilla_sends() {
     let port = server.port;
     let mut c = connect(port).await;
     handshake(&mut c, port, ClientIntent::Login).await;
-    send!(c, login::ServerboundLoginPacket::Hello(login::ServerboundHelloPacket { name: "PlayBot".into(), profile_id: Uuid::nil() }));
+    send!(
+        c,
+        login::ServerboundLoginPacket::Hello(login::ServerboundHelloPacket {
+            name: "PlayBot".into(),
+            profile_id: Uuid::nil()
+        })
+    );
     loop {
         let payload = read(&mut c).await;
         match login::ClientboundLoginPacket::decode_payload(&payload).unwrap() {
-            login::ClientboundLoginPacket::LoginCompression(p) => c.set_compression(p.compression_threshold, false),
+            login::ClientboundLoginPacket::LoginCompression(p) => {
+                c.set_compression(p.compression_threshold, false)
+            }
             login::ClientboundLoginPacket::LoginFinished(_) => break,
             other => panic!("unexpected login packet {other:?}"),
         }
     }
-    send!(c, login::ServerboundLoginPacket::LoginAcknowledged(login::ServerboundLoginAcknowledgedPacket));
-    send!(c, cfg::ServerboundConfigurationPacket::ClientInformation(cfg::ServerboundClientInformationPacket { information: Default::default() }));
+    send!(
+        c,
+        login::ServerboundLoginPacket::LoginAcknowledged(login::ServerboundLoginAcknowledgedPacket)
+    );
+    send!(
+        c,
+        cfg::ServerboundConfigurationPacket::ClientInformation(
+            cfg::ServerboundClientInformationPacket {
+                information: Default::default()
+            }
+        )
+    );
     loop {
         let payload = read(&mut c).await;
         match cfg::ClientboundConfigurationPacket::decode_payload(&payload).unwrap() {
             cfg::ClientboundConfigurationPacket::SelectKnownPacks(_) => {
-                send!(c, cfg::ServerboundConfigurationPacket::SelectKnownPacks(cfg::ServerboundSelectKnownPacks { known_packs: vec![] }))
+                send!(
+                    c,
+                    cfg::ServerboundConfigurationPacket::SelectKnownPacks(
+                        cfg::ServerboundSelectKnownPacks {
+                            known_packs: vec![]
+                        }
+                    )
+                )
             }
             cfg::ClientboundConfigurationPacket::KeepAlive(p) => {
-                send!(c, cfg::ServerboundConfigurationPacket::KeepAlive(cfg::ServerboundKeepAlivePacket { id: p.id }))
+                send!(
+                    c,
+                    cfg::ServerboundConfigurationPacket::KeepAlive(
+                        cfg::ServerboundKeepAlivePacket { id: p.id }
+                    )
+                )
             }
-            cfg::ClientboundConfigurationPacket::Ping(p) => send!(c, cfg::ServerboundConfigurationPacket::Pong(cfg::ServerboundPongPacket { id: p.id })),
+            cfg::ClientboundConfigurationPacket::Ping(p) => send!(
+                c,
+                cfg::ServerboundConfigurationPacket::Pong(cfg::ServerboundPongPacket { id: p.id })
+            ),
             cfg::ClientboundConfigurationPacket::FinishConfiguration(_) => {
-                send!(c, cfg::ServerboundConfigurationPacket::FinishConfiguration(cfg::ServerboundFinishConfigurationPacket));
+                send!(
+                    c,
+                    cfg::ServerboundConfigurationPacket::FinishConfiguration(
+                        cfg::ServerboundFinishConfigurationPacket
+                    )
+                );
                 break;
             }
             _ => {}
@@ -120,7 +158,11 @@ async fn play_state_decodes_everything_vanilla_sends() {
             next_command += 1;
             next_at += Duration::from_millis(300);
         }
-        let Ok(Ok(payload)) = tokio::time::timeout(Duration::from_millis(100), c.read_payload()).await else { continue };
+        let Ok(Ok(payload)) =
+            tokio::time::timeout(Duration::from_millis(100), c.read_payload()).await
+        else {
+            continue;
+        };
         let packet = match play::ClientboundPlayPacket::decode_payload(&payload) {
             Ok(p) => p,
             Err(e) => {
@@ -134,36 +176,78 @@ async fn play_state_decodes_everything_vanilla_sends() {
         let mut again = Vec::new();
         packet.encode_payload(&mut again).unwrap();
         if again != payload {
-            failures.push(format!("re-encode mismatch {} ({} vs {} bytes)", packet.name(), again.len(), payload.len()));
+            failures.push(format!(
+                "re-encode mismatch {} ({} vs {} bytes)",
+                packet.name(),
+                again.len(),
+                payload.len()
+            ));
         }
         match packet {
-            play::ClientboundPlayPacket::KeepAlive(p) => send!(c, play::ServerboundPlayPacket::KeepAlive(play::ServerboundKeepAlivePacket { id: p.id })),
-            play::ClientboundPlayPacket::Ping(p) => send!(c, play::ServerboundPlayPacket::Pong(play::ServerboundPongPacket { id: p.id })),
+            play::ClientboundPlayPacket::KeepAlive(p) => send!(
+                c,
+                play::ServerboundPlayPacket::KeepAlive(play::ServerboundKeepAlivePacket {
+                    id: p.id
+                })
+            ),
+            play::ClientboundPlayPacket::Ping(p) => send!(
+                c,
+                play::ServerboundPlayPacket::Pong(play::ServerboundPongPacket { id: p.id })
+            ),
             play::ClientboundPlayPacket::ChunkBatchFinished(_) => {
-                send!(c, play::ServerboundPlayPacket::ChunkBatchReceived(play::ServerboundChunkBatchReceivedPacket { desired_chunks_per_tick: 20.0 }))
+                send!(
+                    c,
+                    play::ServerboundPlayPacket::ChunkBatchReceived(
+                        play::ServerboundChunkBatchReceivedPacket {
+                            desired_chunks_per_tick: 20.0
+                        }
+                    )
+                )
             }
             play::ClientboundPlayPacket::PlayerPosition(p) => send!(
                 c,
-                play::ServerboundPlayPacket::AcceptTeleportation(play::ServerboundAcceptTeleportationPacket {
-                    id: p.id,
-                    x: p.change.position.x,
-                    y: p.change.position.y,
-                    z: p.change.position.z,
-                    y_rot: p.change.y_rot,
-                    x_rot: p.change.x_rot,
-                })
+                play::ServerboundPlayPacket::AcceptTeleportation(
+                    play::ServerboundAcceptTeleportationPacket {
+                        id: p.id,
+                        x: p.change.position.x,
+                        y: p.change.position.y,
+                        z: p.change.position.z,
+                        y_rot: p.change.y_rot,
+                        x_rot: p.change.x_rot,
+                    }
+                )
             ),
-            play::ClientboundPlayPacket::Login(_) => send!(c, play::ServerboundPlayPacket::PlayerLoaded(play::ServerboundPlayerLoadedPacket)),
-            play::ClientboundPlayPacket::Disconnect(d) => panic!("kicked: {}", d.reason.get_string()),
+            play::ClientboundPlayPacket::Login(_) => send!(
+                c,
+                play::ServerboundPlayPacket::PlayerLoaded(play::ServerboundPlayerLoadedPacket)
+            ),
+            play::ClientboundPlayPacket::Disconnect(d) => {
+                panic!("kicked: {}", d.reason.get_string())
+            }
             _ => {}
         }
     }
-    println!("{} packets, {} distinct types", counts.values().sum::<usize>(), counts.len());
+    println!(
+        "{} packets, {} distinct types",
+        counts.values().sum::<usize>(),
+        counts.len()
+    );
     for (name, n) in &counts {
         println!("{n:6} {name}");
     }
-    assert!(failures.is_empty(), "{} packets failed:\n{}", failures.len(), failures.join("\n"));
-    for expected in ["minecraft:login", "minecraft:level_chunk_with_light", "minecraft:commands", "minecraft:player_position", "minecraft:set_time"] {
+    assert!(
+        failures.is_empty(),
+        "{} packets failed:\n{}",
+        failures.len(),
+        failures.join("\n")
+    );
+    for expected in [
+        "minecraft:login",
+        "minecraft:level_chunk_with_light",
+        "minecraft:commands",
+        "minecraft:player_position",
+        "minecraft:set_time",
+    ] {
         assert!(counts.contains_key(expected), "never received {expected}");
     }
 }

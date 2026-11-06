@@ -22,23 +22,29 @@ use mc_protocol::codec::GameProfile;
 use std::collections::HashMap;
 use std::sync::Arc;
 
-
 fn parse_state(text: &str) -> BlockState {
     let (name, props) = match text.split_once('[') {
         Some((n, p)) => (n, Some(p.trim_end_matches(']'))),
         None => (text, None),
     };
-    let mut state = Block::by_name(name).unwrap_or_else(|| panic!("block {name}")).default_state();
+    let mut state = Block::by_name(name)
+        .unwrap_or_else(|| panic!("block {name}"))
+        .default_state();
     for kv in props.into_iter().flat_map(|p| p.split(',')) {
         let (k, v) = kv.split_once('=').unwrap();
-        state = state.with_property_str(k, v).unwrap_or_else(|| panic!("property {kv} of {text}"));
+        state = state
+            .with_property_str(k, v)
+            .unwrap_or_else(|| panic!("property {kv} of {text}"));
     }
     state
 }
 
 fn serialize(state: BlockState) -> String {
     let mut s = state.block().name().to_string();
-    let props: Vec<String> = state.values().map(|(d, i)| format!("{}={}", d.name, d.values[i])).collect();
+    let props: Vec<String> = state
+        .values()
+        .map(|(d, i)| format!("{}={}", d.name, d.values[i]))
+        .collect();
     if !props.is_empty() {
         s.push('[');
         s.push_str(&props.join(","));
@@ -61,7 +67,9 @@ struct Case {
 }
 
 fn cases() -> Vec<Case> {
-    let text = std::fs::read_to_string(common::entity_oracle::fixture_dir().join("item_blocks.txt")).unwrap();
+    let text =
+        std::fs::read_to_string(common::entity_oracle::fixture_dir().join("item_blocks.txt"))
+            .unwrap();
     let mut cases: Vec<Case> = Vec::new();
     for line in text.lines() {
         if let Some(rest) = line.strip_prefix("# CASE ") {
@@ -71,7 +79,13 @@ fn cases() -> Vec<Case> {
             let block = get("block=");
             let above = get("above=");
             let face = get("face=");
-            cases.push(Case { tool, block, above: (above != "none").then_some(above), face: direction(&face), expected: Vec::new() });
+            cases.push(Case {
+                tool,
+                block,
+                above: (above != "none").then_some(above),
+                face: direction(&face),
+                expected: Vec::new(),
+            });
         } else if let Some(case) = cases.last_mut() {
             if line.starts_with("B ") || line.starts_with("I ") || line.starts_with("E ") {
                 case.expected.push(line.to_owned());
@@ -81,10 +95,17 @@ fn cases() -> Vec<Case> {
     cases
 }
 
-fn transformers() -> (HashMap<Identifier, Arc<BlockTransformer>>, Arc<mc_worldgen::biome::BiomeRegistry>) {
+fn transformers() -> (
+    HashMap<Identifier, Arc<BlockTransformer>>,
+    Arc<mc_worldgen::biome::BiomeRegistry>,
+) {
     let (_, biomes, registries) = load_vanilla_data();
     let registries = registries.expect("vanilla feature layer decodes");
-    let map = registries.block_transformers.iter().map(|(id, h)| (id.clone(), h.value().clone())).collect();
+    let map = registries
+        .block_transformers
+        .iter()
+        .map(|(id, h)| (id.clone(), h.value().clone()))
+        .collect();
     (map, biomes)
 }
 
@@ -105,31 +126,80 @@ fn block_transformers_and_honeycomb_match_vanilla() {
         // doors, trapdoors and copper chests consume the use themselves (`Block.useItemOn`/`useWithoutItem` run before the
         // item's `useOn` in `ServerPlayerGameMode.useItemOn`): the vanilla fixture shows the block's own interaction, which
         // belongs to the block behaviours, not to the item behaviours replayed here.
-        if ["_door", "trapdoor", "copper_chest"].iter().any(|k| case.block.contains(k)) {
+        if ["_door", "trapdoor", "copper_chest"]
+            .iter()
+            .any(|k| case.block.contains(k))
+        {
             continue;
         }
         let mut level = ServerLevel::detached(overworld.clone());
-        let mut steve = ServerPlayer::new(1, overworld.clone(), GameProfile { id: uuid::Uuid::from_u128(1), name: "Steve".into(), properties: vec![] }, Default::default());
+        let mut steve = ServerPlayer::new(
+            1,
+            overworld.clone(),
+            GameProfile {
+                id: uuid::Uuid::from_u128(1),
+                name: "Steve".into(),
+                properties: vec![],
+            },
+            Default::default(),
+        );
         steve.set_pos(0.5, -60.0, 0.5);
         steve.base_mut().set_on_ground_raw(true);
         steve.player.abilities.may_build = true;
         // the flat world's grass floor
         for x in 0..=4 {
             for z in -2..=2 {
-                level.set_block(BlockPos::new(x, -61, z), Block::GRASS_BLOCK.default_state(), 3, 512);
+                level.set_block(
+                    BlockPos::new(x, -61, z),
+                    Block::GRASS_BLOCK.default_state(),
+                    3,
+                    512,
+                );
             }
         }
         let pos = BlockPos::new(2, -60, 0);
         level.set_block(pos, parse_state(&case.block), 3, 512);
-        level.set_block(pos.above(), case.above.as_deref().map_or_else(|| Block::AIR.default_state(), parse_state), 3, 512);
+        level.set_block(
+            pos.above(),
+            case.above
+                .as_deref()
+                .map_or_else(|| Block::AIR.default_state(), parse_state),
+            3,
+            512,
+        );
         let item = Item::by_name(&format!("minecraft:{}", case.tool)).unwrap();
         steve.set_item_in_hand(InteractionHand::MainHand, ItemStack::new(item));
-        let location = Vec3::new(f64::from(pos.x()) + 0.5 + f64::from(case.face.get_step_x()) * 0.5, f64::from(pos.y()) + 0.5 + f64::from(case.face.get_step_y()) * 0.5, f64::from(pos.z()) + 0.5 + f64::from(case.face.get_step_z()) * 0.5);
-        let hit = BlockHitResult { location, direction: case.face, block_pos: pos, miss: false, inside: false, world_border_hit: false };
+        let location = Vec3::new(
+            f64::from(pos.x()) + 0.5 + f64::from(case.face.get_step_x()) * 0.5,
+            f64::from(pos.y()) + 0.5 + f64::from(case.face.get_step_y()) * 0.5,
+            f64::from(pos.z()) + 0.5 + f64::from(case.face.get_step_z()) * 0.5,
+        );
+        let hit = BlockHitResult {
+            location,
+            direction: case.face,
+            block_pos: pos,
+            miss: false,
+            inside: false,
+            world_border_hit: false,
+        };
         let stack = steve.get_item_in_hand(InteractionHand::MainHand);
-        let mut ctx = UseOnContext::new(Some(steve.context_player()), InteractionHand::MainHand, stack, hit);
-        if let Some(name) = ctx.item_stack.get(&mc_protocol::components::BLOCK_TRANSFORMER).and_then(|h| h.name().cloned()) {
-            mc_game::world::item::block_transformer::transform_block(&transformers[&name], &mut ctx, &mut level, &mut steve);
+        let mut ctx = UseOnContext::new(
+            Some(steve.context_player()),
+            InteractionHand::MainHand,
+            stack,
+            hit,
+        );
+        if let Some(name) = ctx
+            .item_stack
+            .get(&mc_protocol::components::BLOCK_TRANSFORMER)
+            .and_then(|h| h.name().cloned())
+        {
+            mc_game::world::item::block_transformer::transform_block(
+                &transformers[&name],
+                &mut ctx,
+                &mut level,
+                &mut steve,
+            );
         } else {
             item_stack_use_on(&mut ctx, &mut level, &mut steve);
         }
@@ -138,17 +208,33 @@ fn block_transformers_and_honeycomb_match_vanilla() {
         for p in [pos, pos.above()] {
             let state = level.get_block_state(p);
             if !state.is_air() {
-                actual.push(format!("B {} {} {} {}", p.x(), p.y(), p.z(), serialize(state)));
+                actual.push(format!(
+                    "B {} {} {} {}",
+                    p.x(),
+                    p.y(),
+                    p.z(),
+                    serialize(state)
+                ));
             }
         }
         let held = steve.get_item_in_hand(InteractionHand::MainHand);
         if !held.is_empty() {
             actual.push(format!("I Steve 0 {}", stack_text(&held)));
         }
-        let expected: Vec<String> = case.expected.iter().filter(|l| !l.starts_with("E ")).cloned().collect();
+        let expected: Vec<String> = case
+            .expected
+            .iter()
+            .filter(|l| !l.starts_with("E "))
+            .cloned()
+            .collect();
         if actual != expected {
             failures.push(format!("case {index} {} on {} above={:?} face={:?}\n  expected {expected:?}\n  actual   {actual:?}", case.tool, case.block, case.above, case.face));
         }
     }
-    assert!(failures.is_empty(), "{} differences:\n{}", failures.len(), failures.join("\n"));
+    assert!(
+        failures.is_empty(),
+        "{} differences:\n{}",
+        failures.len(),
+        failures.join("\n")
+    );
 }

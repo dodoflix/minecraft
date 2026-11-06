@@ -14,11 +14,19 @@ pub struct DimensionPadding {
 
 impl DimensionPadding {
     /// `DimensionPadding.ZERO`.
-    pub const ZERO: DimensionPadding = DimensionPadding { bottom: 0, top: 0, is_zero_constant: true };
+    pub const ZERO: DimensionPadding = DimensionPadding {
+        bottom: 0,
+        top: 0,
+        is_zero_constant: true,
+    };
 
     /// `new DimensionPadding(bottom, top)`.
     pub const fn new(bottom: i32, top: i32) -> DimensionPadding {
-        DimensionPadding { bottom, top, is_zero_constant: false }
+        DimensionPadding {
+            bottom,
+            top,
+            is_zero_constant: false,
+        }
     }
 
     /// `this == DimensionPadding.ZERO`.
@@ -34,7 +42,11 @@ impl DimensionPadding {
     /// `ExtraCodecs.NON_NEGATIVE_INT`.
     fn parse_non_negative(value: &Value) -> LoadResult<i32> {
         let v = parse_int(value)?;
-        if v < 0 { Err(LoadError::new(format!("Value must be non-negative: {v}"))) } else { Ok(v) }
+        if v < 0 {
+            Err(LoadError::new(format!("Value must be non-negative: {v}")))
+        } else {
+            Ok(v)
+        }
     }
 
     /// `DimensionPadding.CODEC`: `Codec.either(NON_NEGATIVE_INT, RECORD_CODEC)`.
@@ -45,9 +57,17 @@ impl DimensionPadding {
         };
         let second = Fields::new(value).and_then(|f| {
             // `lenientOptionalFieldOf`: an invalid value falls back to the default
-            let lenient = |name: &str| f.get(name).and_then(|v| Self::parse_non_negative(v).ok()).unwrap_or(0);
+            let lenient = |name: &str| {
+                f.get(name)
+                    .and_then(|v| Self::parse_non_negative(v).ok())
+                    .unwrap_or(0)
+            };
             Ok(DimensionPadding::new(lenient("bottom"), lenient("top")))
         });
-        second.map_err(|second| LoadError::new(format!("Failed to parse either. First: {first}; Second: {second}")))
+        second.map_err(|second| {
+            LoadError::new(format!(
+                "Failed to parse either. First: {first}; Second: {second}"
+            ))
+        })
     }
 }

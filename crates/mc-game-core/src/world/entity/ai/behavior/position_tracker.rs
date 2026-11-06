@@ -19,12 +19,18 @@ pub struct BlockPosTracker {
 impl BlockPosTracker {
     /// `new BlockPosTracker(BlockPos)`.
     pub fn new(block_pos: BlockPos) -> Self {
-        Self { block_pos, center_position: Vec3::at_center_of(&block_pos) }
+        Self {
+            block_pos,
+            center_position: Vec3::at_center_of(&block_pos),
+        }
     }
 
     /// `new BlockPosTracker(Vec3)`.
     pub fn from_vec3(vec: Vec3) -> Self {
-        Self { block_pos: BlockPos::containing(vec.x, vec.y, vec.z), center_position: vec }
+        Self {
+            block_pos: BlockPos::containing(vec.x, vec.y, vec.z),
+            center_position: vec,
+        }
     }
 }
 
@@ -42,7 +48,9 @@ pub struct EntityTracker {
 
 impl PartialEq for EntityTracker {
     fn eq(&self, other: &Self) -> bool {
-        self.entity == other.entity && self.track_eye_height == other.track_eye_height && self.target_eye_height == other.target_eye_height
+        self.entity == other.entity
+            && self.track_eye_height == other.track_eye_height
+            && self.target_eye_height == other.target_eye_height
     }
 }
 
@@ -54,7 +62,13 @@ impl EntityTracker {
 
     /// `new EntityTracker(entity, trackEyeHeight, targetEyeHeight)`.
     pub fn new_full(entity: &dyn Entity, track_eye_height: bool, target_eye_height: bool) -> Self {
-        let tracker = Self { entity: entity.id(), track_eye_height, target_eye_height, living: entity.living().is_some(), last: Cell::new((Vec3::ZERO, BlockPos::ZERO)) };
+        let tracker = Self {
+            entity: entity.id(),
+            track_eye_height,
+            target_eye_height,
+            living: entity.living().is_some(),
+            last: Cell::new((Vec3::ZERO, BlockPos::ZERO)),
+        };
         tracker.remember(entity);
         tracker
     }

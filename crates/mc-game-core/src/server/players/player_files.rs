@@ -47,7 +47,15 @@ pub fn locate_stats_file(stats_dir: &Path, id: Uuid, name: &str) -> PathBuf {
 
 /// `FileUtil.isValidPathSegment`: not `.`/`..`-like, no separators or reserved characters.
 fn is_valid_path_segment(s: &str) -> bool {
-    !s.is_empty() && s != "." && s != ".." && !s.chars().any(|c| matches!(c, '/' | '\\' | ':' | '*' | '?' | '"' | '<' | '>' | '|' | '\0'))
+    !s.is_empty()
+        && s != "."
+        && s != ".."
+        && !s.chars().any(|c| {
+            matches!(
+                c,
+                '/' | '\\' | ':' | '*' | '?' | '"' | '<' | '>' | '|' | '\0'
+            )
+        })
 }
 
 #[cfg(test)]

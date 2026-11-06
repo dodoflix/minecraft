@@ -13,4 +13,6 @@ impl BlockBehaviour for HorizontalDirectionalBlock {
     }
 }
 
-register_block_class!("HorizontalDirectionalBlock", |_| Box::new(HorizontalDirectionalBlock));
+register_block_class!("HorizontalDirectionalBlock", |_| Box::new(
+    HorizontalDirectionalBlock
+));

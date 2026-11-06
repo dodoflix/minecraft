@@ -29,9 +29,17 @@ pub fn still_valid_block_entity(pos: mc_core::pos::BlockPos, player: &dyn MenuPl
 }
 
 /// `stillValidBlockEntity(blockEntity, player, distanceBuffer)`.
-pub fn still_valid_block_entity_range(pos: mc_core::pos::BlockPos, player: &dyn MenuPlayer, distance_buffer: f64) -> bool {
+pub fn still_valid_block_entity_range(
+    pos: mc_core::pos::BlockPos,
+    player: &dyn MenuPlayer,
+    distance_buffer: f64,
+) -> bool {
     use crate::world::level::BlockGetter;
-    player.level_ref().and_then(|l| l.get_block_entity(pos)).is_some_and(|be| !be.is_removed()) && player.is_within_block_interaction_range(pos, distance_buffer)
+    player
+        .level_ref()
+        .and_then(|l| l.get_block_entity(pos))
+        .is_some_and(|be| !be.is_removed())
+        && player.is_within_block_interaction_range(pos, distance_buffer)
 }
 
 /// `Container` (+ `Clearable`).
@@ -77,7 +85,11 @@ pub trait Container: Any {
     }
 
     fn count_item(&self, item: Item) -> i32 {
-        (0..self.get_container_size()).map(|i| self.get_item(i)).filter(|s| s.item() == item).map(ItemStack::count).sum()
+        (0..self.get_container_size())
+            .map(|i| self.get_item(i))
+            .filter(|s| s.item() == item)
+            .map(ItemStack::count)
+            .sum()
     }
     fn has_any_of(&self, items: &[Item]) -> bool {
         self.has_any_matching(&|s| !s.is_empty() && items.contains(&s.item()))
@@ -97,9 +109,20 @@ pub trait WorldlyContainer: Container {
     /// `getSlotsForFace(direction)`.
     fn get_slots_for_face(&self, direction: Direction) -> &'static [usize];
     /// `canPlaceItemThroughFace(slot, stack, direction)`.
-    fn can_place_item_through_face(&self, level: &ServerLevel, slot: usize, stack: &ItemStack, direction: Option<Direction>) -> bool;
+    fn can_place_item_through_face(
+        &self,
+        level: &ServerLevel,
+        slot: usize,
+        stack: &ItemStack,
+        direction: Option<Direction>,
+    ) -> bool;
     /// `canTakeItemThroughFace(slot, stack, direction)`.
-    fn can_take_item_through_face(&self, slot: usize, stack: &ItemStack, direction: Direction) -> bool;
+    fn can_take_item_through_face(
+        &self,
+        slot: usize,
+        stack: &ItemStack,
+        direction: Direction,
+    ) -> bool;
 }
 
 /// A block entity (that is a `Container`) that was taken out of its chunk, usable as an owned `Container`.
@@ -107,10 +130,14 @@ pub struct BlockEntityContainer(pub Box<dyn crate::world::block_entity::BlockEnt
 
 impl BlockEntityContainer {
     fn inner(&self) -> &dyn Container {
-        self.0.as_container().expect("BlockEntityContainer wraps a container block entity")
+        self.0
+            .as_container()
+            .expect("BlockEntityContainer wraps a container block entity")
     }
     fn inner_mut(&mut self) -> &mut dyn Container {
-        self.0.as_container_mut().expect("BlockEntityContainer wraps a container block entity")
+        self.0
+            .as_container_mut()
+            .expect("BlockEntityContainer wraps a container block entity")
     }
 }
 
@@ -171,7 +198,10 @@ pub struct CompoundContainer<A: Container, B: Container> {
 
 impl<A: Container, B: Container> CompoundContainer<A, B> {
     pub fn new(container1: A, container2: B) -> Self {
-        Self { container1, container2 }
+        Self {
+            container1,
+            container2,
+        }
     }
 }
 
@@ -190,23 +220,43 @@ impl<A: Container, B: Container> Container for CompoundContainer<A, B> {
     }
     fn get_item(&self, slot: usize) -> &ItemStack {
         let n = self.container1.get_container_size();
-        if slot >= n { self.container2.get_item(slot - n) } else { self.container1.get_item(slot) }
+        if slot >= n {
+            self.container2.get_item(slot - n)
+        } else {
+            self.container1.get_item(slot)
+        }
     }
     fn get_item_mut(&mut self, slot: usize) -> Option<&mut ItemStack> {
         let n = self.container1.get_container_size();
-        if slot >= n { self.container2.get_item_mut(slot - n) } else { self.container1.get_item_mut(slot) }
+        if slot >= n {
+            self.container2.get_item_mut(slot - n)
+        } else {
+            self.container1.get_item_mut(slot)
+        }
     }
     fn remove_item(&mut self, slot: usize, count: i32) -> ItemStack {
         let n = self.container1.get_container_size();
-        if slot >= n { self.container2.remove_item(slot - n, count) } else { self.container1.remove_item(slot, count) }
+        if slot >= n {
+            self.container2.remove_item(slot - n, count)
+        } else {
+            self.container1.remove_item(slot, count)
+        }
     }
     fn remove_item_no_update(&mut self, slot: usize) -> ItemStack {
         let n = self.container1.get_container_size();
-        if slot >= n { self.container2.remove_item_no_update(slot - n) } else { self.container1.remove_item_no_update(slot) }
+        if slot >= n {
+            self.container2.remove_item_no_update(slot - n)
+        } else {
+            self.container1.remove_item_no_update(slot)
+        }
     }
     fn set_item(&mut self, slot: usize, stack: ItemStack) {
         let n = self.container1.get_container_size();
-        if slot >= n { self.container2.set_item(slot - n, stack) } else { self.container1.set_item(slot, stack) }
+        if slot >= n {
+            self.container2.set_item(slot - n, stack)
+        } else {
+            self.container1.set_item(slot, stack)
+        }
     }
     fn clear_content(&mut self) {
         self.container1.clear_content();
@@ -224,7 +274,11 @@ impl<A: Container, B: Container> Container for CompoundContainer<A, B> {
     }
     fn can_place_item(&self, slot: usize, stack: &ItemStack) -> bool {
         let n = self.container1.get_container_size();
-        if slot >= n { self.container2.can_place_item(slot - n, stack) } else { self.container1.can_place_item(slot, stack) }
+        if slot >= n {
+            self.container2.can_place_item(slot - n, stack)
+        } else {
+            self.container1.can_place_item(slot, stack)
+        }
     }
 }
 
@@ -243,7 +297,9 @@ pub fn get_redstone_signal_from_container(container: Option<&dyn Container>) -> 
 }
 
 /// `AbstractContainerMenu.getRedstoneSignalFromBlockEntity(blockEntity)`.
-pub fn get_redstone_signal_from_block_entity(block_entity: Option<&dyn crate::world::block_entity::BlockEntity>) -> i32 {
+pub fn get_redstone_signal_from_block_entity(
+    block_entity: Option<&dyn crate::world::block_entity::BlockEntity>,
+) -> i32 {
     get_redstone_signal_from_container(block_entity.and_then(|be| be.as_container()))
 }
 
@@ -261,28 +317,51 @@ pub mod helper {
 
     /// `takeItem(list, slot)`.
     pub fn take_item(stacks: &mut [ItemStack], slot: usize) -> ItemStack {
-        stacks.get_mut(slot).map_or(ItemStack::empty(), std::mem::take)
+        stacks
+            .get_mut(slot)
+            .map_or(ItemStack::empty(), std::mem::take)
     }
 
     /// `clearOrCountMatchingItems(stack, predicate, amountToRemove, countingOnly)`.
-    pub fn clear_or_count_matching_items_stack(stack: &mut ItemStack, predicate: &dyn Fn(&ItemStack) -> bool, amount_to_remove: i32, counting_only: bool) -> i32 {
+    pub fn clear_or_count_matching_items_stack(
+        stack: &mut ItemStack,
+        predicate: &dyn Fn(&ItemStack) -> bool,
+        amount_to_remove: i32,
+        counting_only: bool,
+    ) -> i32 {
         if stack.is_empty() || !predicate(stack) {
             0
         } else if counting_only {
             stack.count()
         } else {
-            let removed = if amount_to_remove < 0 { stack.count() } else { amount_to_remove.min(stack.count()) };
+            let removed = if amount_to_remove < 0 {
+                stack.count()
+            } else {
+                amount_to_remove.min(stack.count())
+            };
             stack.shrink(removed);
             removed
         }
     }
 
     /// `clearOrCountMatchingItems(container, predicate, amountToRemove, countingOnly)`.
-    pub fn clear_or_count_matching_items(container: &mut dyn Container, predicate: &dyn Fn(&ItemStack) -> bool, amount_to_remove: i32, counting_only: bool) -> i32 {
+    pub fn clear_or_count_matching_items(
+        container: &mut dyn Container,
+        predicate: &dyn Fn(&ItemStack) -> bool,
+        amount_to_remove: i32,
+        counting_only: bool,
+    ) -> i32 {
         let mut count = 0;
         for i in 0..container.get_container_size() {
-            let Some(stack) = container.get_item_mut(i) else { continue };
-            let removed = clear_or_count_matching_items_stack(stack, predicate, amount_to_remove - count, counting_only);
+            let Some(stack) = container.get_item_mut(i) else {
+                continue;
+            };
+            let removed = clear_or_count_matching_items_stack(
+                stack,
+                predicate,
+                amount_to_remove - count,
+                counting_only,
+            );
             if removed > 0 && !counting_only && stack.is_empty() {
                 container.set_item(i, ItemStack::empty());
             }
@@ -294,7 +373,11 @@ pub mod helper {
     /// `saveAllItems(output, items, alsoWhenEmpty)`: the `Items` list (`None` = nothing to write).
     pub fn save_all_items(stacks: &[ItemStack], also_when_empty: bool) -> Option<ListTag> {
         let list = save_slots(stacks.iter().enumerate().map(|(i, s)| (i, s)));
-        if list.is_empty() && !also_when_empty { None } else { Some(list) }
+        if list.is_empty() && !also_when_empty {
+            None
+        } else {
+            Some(list)
+        }
     }
 
     /// `loadAllItems(input, items)`.
@@ -340,7 +423,9 @@ pub struct SimpleContainer {
 
 impl SimpleContainer {
     pub fn new(size: usize) -> Self {
-        Self { items: vec![ItemStack::empty(); size] }
+        Self {
+            items: vec![ItemStack::empty(); size],
+        }
     }
 
     pub fn from_stacks(stacks: Vec<ItemStack>) -> Self {
@@ -353,7 +438,12 @@ impl SimpleContainer {
 
     /// `removeAllItems()`.
     pub fn remove_all_items(&mut self) -> Vec<ItemStack> {
-        let removed = self.items.iter().filter(|s| !s.is_empty()).cloned().collect();
+        let removed = self
+            .items
+            .iter()
+            .filter(|s| !s.is_empty())
+            .cloned()
+            .collect();
         self.clear_content();
         removed
     }
@@ -389,12 +479,20 @@ impl SimpleContainer {
             return ItemStack::empty();
         }
         self.move_item_to_empty_slots(&mut remaining);
-        if remaining.is_empty() { ItemStack::empty() } else { remaining }
+        if remaining.is_empty() {
+            ItemStack::empty()
+        } else {
+            remaining
+        }
     }
 
     /// `canAddItem(stack)`.
     pub fn can_add_item(&self, stack: &ItemStack) -> bool {
-        self.items.iter().any(|t| t.is_empty() || (ItemStack::is_same_item_same_components(t, stack) && t.count() < t.get_max_stack_size()))
+        self.items.iter().any(|t| {
+            t.is_empty()
+                || (ItemStack::is_same_item_same_components(t, stack)
+                    && t.count() < t.get_max_stack_size())
+        })
     }
 
     fn move_item_to_empty_slots(&mut self, source: &mut ItemStack) {
@@ -438,7 +536,11 @@ impl SimpleContainer {
 
     /// `storeAsItemList`: the non-empty stacks in slot order.
     pub fn store_as_item_list(&self) -> Vec<ItemStack> {
-        self.items.iter().filter(|s| !s.is_empty()).cloned().collect()
+        self.items
+            .iter()
+            .filter(|s| !s.is_empty())
+            .cloned()
+            .collect()
     }
 }
 
@@ -470,7 +572,9 @@ impl Container for SimpleContainer {
     }
     fn remove_item_no_update(&mut self, slot: usize) -> ItemStack {
         // Java's `items.get(slot)` throws for an out-of-range slot; every caller passes a valid index.
-        self.items.get_mut(slot).map_or(ItemStack::empty(), std::mem::take)
+        self.items
+            .get_mut(slot)
+            .map_or(ItemStack::empty(), std::mem::take)
     }
     fn set_item(&mut self, slot: usize, mut stack: ItemStack) {
         let max = self.get_max_stack_size_for(&stack);

@@ -8,10 +8,12 @@ pub use function_builder::FunctionBuilder;
 pub use macro_function::MacroFunction;
 pub use string_template::StringTemplate;
 
-use super::execution::tasks::build_contexts::BuildContexts;
 use super::execution::UnboundEntryAction;
+use super::execution::tasks::build_contexts::BuildContexts;
 use super::{CommandSourceStack, Commands};
-use mc_brigadier::{CommandDispatcher, CommandSyntaxException, ContextChain, ImmutableStringReader, StringReader};
+use mc_brigadier::{
+    CommandDispatcher, CommandSyntaxException, ContextChain, ImmutableStringReader, StringReader,
+};
 use mc_core::ident::Identifier;
 use mc_nbt::CompoundTag;
 use mc_text::Component;
@@ -83,7 +85,9 @@ pub fn check_command_line_length(line: &str) -> Result<(), String> {
     let length = mc_brigadier::utf16::len16(line);
     if length > MAX_COMMAND_LENGTH {
         let truncated = mc_brigadier::utf16::substring(line, 0, length.min(512));
-        return Err(format!("Command too long: {length} characters, contents: {truncated}..."));
+        return Err(format!(
+            "Command too long: {length} characters, contents: {truncated}..."
+        ));
     }
     Ok(())
 }
@@ -144,7 +148,12 @@ pub fn from_lines(
             } else {
                 match parse_command(dispatcher, compilation_context, input) {
                     Ok(command) => function_builder.add_command(command),
-                    Err(e) => return Err(format!("Whilst parsing command on line {line_number}: {}", e.get_message())),
+                    Err(e) => {
+                        return Err(format!(
+                            "Whilst parsing command on line {line_number}: {}",
+                            e.get_message()
+                        ));
+                    }
                 }
             }
         }
@@ -164,6 +173,8 @@ pub fn parse_command(
     Commands::validate_parse_results(&parse)?;
     match ContextChain::try_flatten(&parse.get_context().build(&string)) {
         Some(chain) => Ok(BuildContexts::unbound(&string, chain)),
-        None => Err(CommandSyntaxException::built_in_exceptions().dispatcher_unknown_command().create_with_context(parse.get_reader())),
+        None => Err(CommandSyntaxException::built_in_exceptions()
+            .dispatcher_unknown_command()
+            .create_with_context(parse.get_reader())),
     }
 }

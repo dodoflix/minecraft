@@ -1,14 +1,14 @@
 //! `UseItemGoal<T extends Mob>`.
 
-use mc_game_core::world::entity::ai::goal::{Goal, GoalFlags};
+use mc_core::random::RandomSource;
+use mc_data::SoundEvent;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::ai::goal::{Goal, GoalFlags};
 use mc_game_core::world::entity::equipment::EquipmentSlot;
 use mc_game_core::world::entity::living_entity::using_item as use_item;
 use mc_game_core::world::entity::mob::equipment;
 use mc_game_core::world::item::{InteractionHand, ItemStack};
-use mc_core::random::RandomSource;
-use mc_data::SoundEvent;
 use std::sync::Arc;
 
 pub struct UseItemGoal {
@@ -19,8 +19,16 @@ pub struct UseItemGoal {
 
 impl UseItemGoal {
     /// `UseItemGoal(mob, item, finishUsingSound, canUseSelector)`.
-    pub fn new(item: ItemStack, finish_using_sound: Option<SoundEvent>, can_use_selector: Arc<dyn Fn(&dyn Entity) -> bool + Send + Sync>) -> Self {
-        Self { item, can_use_selector, finish_using_sound }
+    pub fn new(
+        item: ItemStack,
+        finish_using_sound: Option<SoundEvent>,
+        can_use_selector: Arc<dyn Fn(&dyn Entity) -> bool + Send + Sync>,
+    ) -> Self {
+        Self {
+            item,
+            can_use_selector,
+            finish_using_sound,
+        }
     }
 }
 

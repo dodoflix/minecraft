@@ -1,23 +1,33 @@
 //! `AdvancementCommands`.
 use super::command_response_tracker::{CommandResponseTracker, ElementType, display_name};
-use mc_game_core::commands::arguments::selector::EntityRef;
+use mc_brigadier::arguments::StringArgumentType;
+use mc_brigadier::{
+    ArgumentBuilder, CommandContext, CommandSyntaxException, Dynamic2CommandExceptionType,
+    Dynamic3CommandExceptionType,
+};
 use mc_game_core::commands::arguments::EntityArgument;
 use mc_game_core::commands::arguments::resource_arguments::ResourceKeyArgument;
+use mc_game_core::commands::arguments::selector::EntityRef;
 use mc_game_core::commands::host::{self, AdvancementRef};
 use mc_game_core::commands::message::message;
 use mc_game_core::commands::shared_suggestion_provider::suggest;
-use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
-use mc_game_core::{register_command, translatable};
-use mc_brigadier::arguments::StringArgumentType;
-use mc_brigadier::{
-    ArgumentBuilder, CommandContext, CommandSyntaxException, Dynamic2CommandExceptionType, Dynamic3CommandExceptionType,
+use mc_game_core::commands::{
+    CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal,
 };
+use mc_game_core::{register_command, translatable};
 use mc_text::Component;
 use std::sync::LazyLock;
 
-static ERROR_CRITERION_NOT_FOUND: LazyLock<Dynamic2CommandExceptionType<Component, String>> = LazyLock::new(|| {
-    Dynamic2CommandExceptionType::new(|name: Component, criterion: String| message(translatable!("commands.advancement.criterionNotFound", name, criterion)))
-});
+static ERROR_CRITERION_NOT_FOUND: LazyLock<Dynamic2CommandExceptionType<Component, String>> =
+    LazyLock::new(|| {
+        Dynamic2CommandExceptionType::new(|name: Component, criterion: String| {
+            message(translatable!(
+                "commands.advancement.criterionNotFound",
+                name,
+                criterion
+            ))
+        })
+    });
 
 #[derive(Clone, Copy, PartialEq, Eq)]
 enum Action {
@@ -50,23 +60,43 @@ register_command!("AdvancementCommands", |ctx| {
         c: &Ctx,
         p: mc_brigadier::SuggestionsBuilder,
     ) -> Result<mc_brigadier::Suggestions, CommandSyntaxException> {
-        Ok(suggest(ResourceKeyArgument::get_advancement(c, "advancement")?.criteria, p))
+        Ok(suggest(
+            ResourceKeyArgument::get_advancement(c, "advancement")?.criteria,
+            p,
+        ))
     }
 
-    fn mode_branch(action: Action, name: &'static str, mode: Mode) -> mc_brigadier::LiteralArgumentBuilder<CommandSourceStack> {
-        literal(name).then(argument("advancement", ResourceKeyArgument::key("advancement")).executes(move |c| {
-            let players = EntityArgument::get_players(c, "targets")?;
-            let advancements = get_advancements(c, ResourceKeyArgument::get_advancement(c, "advancement")?, mode);
-            perform(c.get_source(), &players, action, &advancements, true)
-        }))
+    fn mode_branch(
+        action: Action,
+        name: &'static str,
+        mode: Mode,
+    ) -> mc_brigadier::LiteralArgumentBuilder<CommandSourceStack> {
+        literal(name).then(
+            argument("advancement", ResourceKeyArgument::key("advancement")).executes(move |c| {
+                let players = EntityArgument::get_players(c, "targets")?;
+                let advancements = get_advancements(
+                    c,
+                    ResourceKeyArgument::get_advancement(c, "advancement")?,
+                    mode,
+                );
+                perform(c.get_source(), &players, action, &advancements, true)
+            }),
+        )
     }
 
-    fn action_branch(action: Action, name: &'static str) -> mc_brigadier::LiteralArgumentBuilder<CommandSourceStack> {
+    fn action_branch(
+        action: Action,
+        name: &'static str,
+    ) -> mc_brigadier::LiteralArgumentBuilder<CommandSourceStack> {
         let only = literal("only").then(
             argument("advancement", ResourceKeyArgument::key("advancement"))
                 .executes(move |c| {
                     let players = EntityArgument::get_players(c, "targets")?;
-                    let advancements = get_advancements(c, ResourceKeyArgument::get_advancement(c, "advancement")?, Mode::Only);
+                    let advancements = get_advancements(
+                        c,
+                        ResourceKeyArgument::get_advancement(c, "advancement")?,
+                        Mode::Only,
+                    );
                     perform(c.get_source(), &players, action, &advancements, true)
                 })
                 .then(
@@ -93,7 +123,9 @@ register_command!("AdvancementCommands", |ctx| {
                 .then(mode_branch(action, "through", Mode::Through))
                 .then(literal("everything").executes(move |c| {
                     let players = EntityArgument::get_players(c, "targets")?;
-                    let all = c.get_source().with_server(|server| host::advancement_all(server));
+                    let all = c
+                        .get_source()
+                        .with_server(|server| host::advancement_all(server));
                     perform(c.get_source(), &players, action, &all, show_everything)
                 })),
         )
@@ -116,7 +148,13 @@ impl Action {
     }
 
     /// `Action.perform(player, advancements, showAdvancements)`.
-    fn perform_all(self, source: &CommandSourceStack, player: &EntityRef, advancements: &[AdvancementRef], show: bool) -> i32 {
+    fn perform_all(
+        self,
+        source: &CommandSourceStack,
+        player: &EntityRef,
+        advancements: &[AdvancementRef],
+        show: bool,
+    ) -> i32 {
         source.with_server(|server| {
             if !show {
                 host::player_advancements_flush_dirty(server, player, true);
@@ -134,7 +172,12 @@ impl Action {
         })
     }
 
-    fn perform(self, server: &mut mc_game_core::server::MinecraftServer, player: &EntityRef, advancement: &AdvancementRef) -> bool {
+    fn perform(
+        self,
+        server: &mut mc_game_core::server::MinecraftServer,
+        player: &EntityRef,
+        advancement: &AdvancementRef,
+    ) -> bool {
         let progress = host::player_advancement_progress(server, player, &advancement.id);
         match self {
             Self::Grant => {
@@ -158,10 +201,20 @@ impl Action {
         }
     }
 
-    fn perform_criterion(self, source: &CommandSourceStack, player: &EntityRef, advancement: &AdvancementRef, criterion: &str) -> bool {
+    fn perform_criterion(
+        self,
+        source: &CommandSourceStack,
+        player: &EntityRef,
+        advancement: &AdvancementRef,
+        criterion: &str,
+    ) -> bool {
         source.with_server(|server| match self {
-            Self::Grant => host::player_advancement_award(server, player, &advancement.id, criterion),
-            Self::Revoke => host::player_advancement_revoke(server, player, &advancement.id, criterion),
+            Self::Grant => {
+                host::player_advancement_award(server, player, &advancement.id, criterion)
+            }
+            Self::Revoke => {
+                host::player_advancement_revoke(server, player, &advancement.id, criterion)
+            }
         })
     }
 }
@@ -175,7 +228,10 @@ fn perform(
 ) -> Result<i32, CommandSyntaxException> {
     let mut tracker = CommandResponseTracker::<EntityRef>::create();
     for player in players {
-        tracker.track(player, action.perform_all(source, player, advancements, show_advancements));
+        tracker.track(
+            player,
+            action.perform_all(source, player, advancements, show_advancements),
+        );
     }
     let key = action.key();
     let advancement_count = advancements.len() as i32;
@@ -185,12 +241,24 @@ fn perform(
             return Err(tracker.dispatch(
                 ElementType::Any,
                 |player, _| {
-                    Dynamic2CommandExceptionType::new(move |a: Component, p: Component| message(translatable!(format!("commands.advancement.{key}.one.to.one.failure"), a, p)))
-                        .create(name.clone(), display_name(source, player))
+                    Dynamic2CommandExceptionType::new(move |a: Component, p: Component| {
+                        message(translatable!(
+                            format!("commands.advancement.{key}.one.to.one.failure"),
+                            a,
+                            p
+                        ))
+                    })
+                    .create(name.clone(), display_name(source, player))
                 },
                 |player_count, _| {
-                    Dynamic2CommandExceptionType::new(move |a: Component, n: i32| message(translatable!(format!("commands.advancement.{key}.one.to.many.failure"), a, n)))
-                        .create(name.clone(), player_count)
+                    Dynamic2CommandExceptionType::new(move |a: Component, n: i32| {
+                        message(translatable!(
+                            format!("commands.advancement.{key}.one.to.many.failure"),
+                            a,
+                            n
+                        ))
+                    })
+                    .create(name.clone(), player_count)
                 },
             ));
         }
@@ -199,20 +267,44 @@ fn perform(
             true,
             ElementType::NonZero,
             None::<fn() -> CommandSyntaxException>,
-            |player, _| translatable!(format!("commands.advancement.{key}.one.to.one.success"), name.clone(), display_name(source, player)),
-            |player_count, _| translatable!(format!("commands.advancement.{key}.one.to.many.success"), name.clone(), player_count),
+            |player, _| {
+                translatable!(
+                    format!("commands.advancement.{key}.one.to.one.success"),
+                    name.clone(),
+                    display_name(source, player)
+                )
+            },
+            |player_count, _| {
+                translatable!(
+                    format!("commands.advancement.{key}.one.to.many.success"),
+                    name.clone(),
+                    player_count
+                )
+            },
         );
     }
     if tracker.total_value() == 0 {
         return Err(tracker.dispatch(
             ElementType::Any,
             |player, _| {
-                Dynamic2CommandExceptionType::new(move |n: i32, p: Component| message(translatable!(format!("commands.advancement.{key}.many.to.one.failure"), n, p)))
-                    .create(advancement_count, display_name(source, player))
+                Dynamic2CommandExceptionType::new(move |n: i32, p: Component| {
+                    message(translatable!(
+                        format!("commands.advancement.{key}.many.to.one.failure"),
+                        n,
+                        p
+                    ))
+                })
+                .create(advancement_count, display_name(source, player))
             },
             |player_count, _| {
-                Dynamic2CommandExceptionType::new(move |n: i32, p: i32| message(translatable!(format!("commands.advancement.{key}.many.to.many.failure"), n, p)))
-                    .create(advancement_count, player_count)
+                Dynamic2CommandExceptionType::new(move |n: i32, p: i32| {
+                    message(translatable!(
+                        format!("commands.advancement.{key}.many.to.many.failure"),
+                        n,
+                        p
+                    ))
+                })
+                .create(advancement_count, player_count)
             },
         ));
     }
@@ -221,8 +313,20 @@ fn perform(
         true,
         ElementType::NonZero,
         None::<fn() -> CommandSyntaxException>,
-        |player, _| translatable!(format!("commands.advancement.{key}.many.to.one.success"), advancement_count, display_name(source, player)),
-        |player_count, _| translatable!(format!("commands.advancement.{key}.many.to.many.success"), advancement_count, player_count),
+        |player, _| {
+            translatable!(
+                format!("commands.advancement.{key}.many.to.one.success"),
+                advancement_count,
+                display_name(source, player)
+            )
+        },
+        |player_count, _| {
+            translatable!(
+                format!("commands.advancement.{key}.many.to.many.success"),
+                advancement_count,
+                player_count
+            )
+        },
     )
 }
 
@@ -234,11 +338,16 @@ fn perform_criterion(
     criterion: &str,
 ) -> Result<i32, CommandSyntaxException> {
     if !advancement.criteria.iter().any(|c| c == criterion) {
-        return Err(ERROR_CRITERION_NOT_FOUND.create(advancement.name.clone(), criterion.to_owned()));
+        return Err(
+            ERROR_CRITERION_NOT_FOUND.create(advancement.name.clone(), criterion.to_owned())
+        );
     }
     let mut tracker = CommandResponseTracker::<EntityRef>::create();
     for player in players {
-        tracker.track_bool(player, action.perform_criterion(source, player, advancement, criterion));
+        tracker.track_bool(
+            player,
+            action.perform_criterion(source, player, advancement, criterion),
+        );
     }
     let key = action.key();
     let (name, criterion) = (&advancement.name, criterion.to_owned());
@@ -247,13 +356,27 @@ fn perform_criterion(
             ElementType::Any,
             |player, _| {
                 Dynamic3CommandExceptionType::new(move |c: String, a: Component, p: Component| {
-                    message(translatable!(format!("commands.advancement.{key}.criterion.to.one.failure"), c, a, p))
+                    message(translatable!(
+                        format!("commands.advancement.{key}.criterion.to.one.failure"),
+                        c,
+                        a,
+                        p
+                    ))
                 })
-                .create(criterion.clone(), name.clone(), display_name(source, player))
+                .create(
+                    criterion.clone(),
+                    name.clone(),
+                    display_name(source, player),
+                )
             },
             |player_count, _| {
                 Dynamic3CommandExceptionType::new(move |c: String, a: Component, n: i32| {
-                    message(translatable!(format!("commands.advancement.{key}.criterion.to.many.failure"), c, a, n))
+                    message(translatable!(
+                        format!("commands.advancement.{key}.criterion.to.many.failure"),
+                        c,
+                        a,
+                        n
+                    ))
                 })
                 .create(criterion.clone(), name.clone(), player_count)
             },
@@ -265,21 +388,40 @@ fn perform_criterion(
         ElementType::NonZero,
         None::<fn() -> CommandSyntaxException>,
         |player, _| {
-            translatable!(format!("commands.advancement.{key}.criterion.to.one.success"), criterion.clone(), name.clone(), display_name(source, player))
+            translatable!(
+                format!("commands.advancement.{key}.criterion.to.one.success"),
+                criterion.clone(),
+                name.clone(),
+                display_name(source, player)
+            )
         },
-        |player_count, _| translatable!(format!("commands.advancement.{key}.criterion.to.many.success"), criterion.clone(), name.clone(), player_count),
+        |player_count, _| {
+            translatable!(
+                format!("commands.advancement.{key}.criterion.to.many.success"),
+                criterion.clone(),
+                name.clone(),
+                player_count
+            )
+        },
     )
 }
 
 /// `getAdvancements(context, target, mode)`.
 fn get_advancements(context: &Ctx, target: AdvancementRef, mode: Mode) -> Vec<AdvancementRef> {
-    let node = context.get_source().with_server(|server| host::advancement_node(server, &target.id));
-    let Some(node) = node else { return vec![target] };
+    let node = context
+        .get_source()
+        .with_server(|server| host::advancement_node(server, &target.id));
+    let Some(node) = node else {
+        return vec![target];
+    };
     let mut advancements = Vec::new();
     if mode.parents() {
         let mut parent = node.parent;
         while let Some(p) = parent {
-            parent = context.get_source().with_server(|server| host::advancement_node(server, &p.id)).and_then(|n| n.parent);
+            parent = context
+                .get_source()
+                .with_server(|server| host::advancement_node(server, &p.id))
+                .and_then(|n| n.parent);
             advancements.push(p);
         }
     }
@@ -293,7 +435,9 @@ fn get_advancements(context: &Ctx, target: AdvancementRef, mode: Mode) -> Vec<Ad
 }
 
 fn add_children(context: &Ctx, child: AdvancementRef, output: &mut Vec<AdvancementRef>) {
-    let node = context.get_source().with_server(|server| host::advancement_node(server, &child.id));
+    let node = context
+        .get_source()
+        .with_server(|server| host::advancement_node(server, &child.id));
     output.push(child);
     if let Some(node) = node {
         for grandchild in node.children {

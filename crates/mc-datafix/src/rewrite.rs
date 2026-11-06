@@ -29,7 +29,10 @@ impl BitSet {
         b
     }
     pub fn set(&mut self, index: i32) {
-        assert!((0..64).contains(&index), "recursive family index out of range: {index}");
+        assert!(
+            (0..64).contains(&index),
+            "recursive family index out of range: {index}"
+        );
         self.0 |= 1 << index;
     }
     pub fn or(&mut self, other: BitSet) {
@@ -63,7 +66,11 @@ pub(crate) struct FoldShared {
 
 impl FoldShared {
     /// `RecursiveTypeFamily.fold(algebra, newFamily)`.
-    pub(crate) fn fold_fn(family: &Arc<RecursiveTypeFamily>, algebra: Algebra, new_family: &Arc<RecursiveTypeFamily>) -> IntFn {
+    pub(crate) fn fold_fn(
+        family: &Arc<RecursiveTypeFamily>,
+        algebra: Algebra,
+        new_family: &Arc<RecursiveTypeFamily>,
+    ) -> IntFn {
         let shared = Arc::new_cyclic(|this| FoldShared {
             family: family.clone(),
             new_family: new_family.clone(),
@@ -82,7 +89,14 @@ impl FoldShared {
             let a = shared.family.apply(index);
             let b = shared.new_family.apply(index);
             RewriteResult::create(
-                View(PointFree::new(PfKind::Fold { shared: shared.clone(), index }, a, b)),
+                View(PointFree::new(
+                    PfKind::Fold {
+                        shared: shared.clone(),
+                        index,
+                    },
+                    a,
+                    b,
+                )),
                 result.rec_data,
             )
         })
@@ -120,7 +134,9 @@ pub(crate) enum PfKind {
     /// `Fold` (cata over a recursive family).
     Fold { shared: Arc<FoldShared>, index: i32 },
     /// `TaggedChoiceType.RewriteFunc`.
-    TaggedChoice { results: Vec<(String, RewriteResult)> },
+    TaggedChoice {
+        results: Vec<(String, RewriteResult)>,
+    },
 }
 
 pub(crate) struct PfNode {
@@ -137,7 +153,13 @@ pub struct PointFree(Arc<PfNode>);
 
 impl PointFree {
     pub(crate) fn new(kind: PfKind, ty: Type, new_ty: Type) -> PointFree {
-        PointFree(Arc::new(PfNode { kind, ty, new_ty, eval: OnceLock::new(), hash: OnceLock::new() }))
+        PointFree(Arc::new(PfNode {
+            kind,
+            ty,
+            new_ty,
+            eval: OnceLock::new(),
+            hash: OnceLock::new(),
+        }))
     }
 
     pub fn id(ty: &Type) -> PointFree {
@@ -200,10 +222,16 @@ impl PointFree {
                     Arc::new(move |ops: &Ops, v: Value| shared.func(index)(ops, v))
                 }
                 PfKind::TaggedChoice { results } => {
-                    let evals: Vec<(String, ViewFn)> = results.iter().map(|(k, r)| (k.clone(), r.view.0.eval())).collect();
+                    let evals: Vec<(String, ViewFn)> = results
+                        .iter()
+                        .map(|(k, r)| (k.clone(), r.view.0.eval()))
+                        .collect();
                     Arc::new(move |ops: &Ops, v: Value| {
                         let (k, x) = v.into_pair();
-                        match evals.iter().find(|(name, _)| matches!(&k, Value::Str(s) if s == name)) {
+                        match evals
+                            .iter()
+                            .find(|(name, _)| matches!(&k, Value::Str(s) if s == name))
+                        {
                             Some((_, f)) => Value::pair(k, f(ops, x)),
                             None => Value::pair(k, x),
                         }
@@ -261,12 +289,18 @@ impl PartialEq for PointFree {
             (PfKind::Id, PfKind::Id) | (PfKind::In, PfKind::In) => types(),
             (PfKind::Fun { name: n1, .. }, PfKind::Fun { name: n2, .. }) => n1 == n2 && types(),
             (PfKind::Comp(x), PfKind::Comp(y)) => x == y,
-            (PfKind::App { optic: o1, f: f1 }, PfKind::App { optic: o2, f: f2 }) => o1 == o2 && f1 == f2,
+            (PfKind::App { optic: o1, f: f1 }, PfKind::App { optic: o2, f: f2 }) => {
+                o1 == o2 && f1 == f2
+            }
             (PfKind::Fold { shared: s1, .. }, PfKind::Fold { shared: s2, .. }) => {
                 types() && (Arc::ptr_eq(s1, s2) || *s1.algebra == *s2.algebra)
             }
             (PfKind::TaggedChoice { results: r1 }, PfKind::TaggedChoice { results: r2 }) => {
-                types() && r1.len() == r2.len() && r1.iter().all(|(k, v)| r2.iter().any(|(k2, v2)| k == k2 && v == v2))
+                types()
+                    && r1.len() == r2.len()
+                    && r1
+                        .iter()
+                        .all(|(k, v)| r2.iter().any(|(k2, v2)| k == k2 && v == v2))
             }
             _ => false,
         }
@@ -301,19 +335,41 @@ impl View {
         new_ty: &Type,
         f: impl Fn(&Ops, Value) -> Value + Send + Sync + 'static,
     ) -> View {
-        View(PointFree::new(PfKind::Fun { name: name.to_string(), f: Arc::new(f) }, ty.clone(), new_ty.clone()))
+        View(PointFree::new(
+            PfKind::Fun {
+                name: name.to_string(),
+                f: Arc::new(f),
+            },
+            ty.clone(),
+            new_ty.clone(),
+        ))
     }
     /// `Functions.app(profunctorTransformer(optic), function)`.
     pub(crate) fn app(optic: TypedOptic, inner: &View) -> View {
         let (s, t) = (optic.s_type().clone(), optic.t_type().clone());
-        View(PointFree::new(PfKind::App { optic, f: inner.0.clone() }, s, t))
+        View(PointFree::new(
+            PfKind::App {
+                optic,
+                f: inner.0.clone(),
+            },
+            s,
+            t,
+        ))
     }
     /// `View.create(Functions.in(type))`.
     pub(crate) fn in_(point: &Type, unfolded: &Type) -> View {
         View(PointFree::new(PfKind::In, unfolded.clone(), point.clone()))
     }
-    pub(crate) fn tagged_choice(results: Vec<(String, RewriteResult)>, ty: &Type, new_ty: &Type) -> View {
-        View(PointFree::new(PfKind::TaggedChoice { results }, ty.clone(), new_ty.clone()))
+    pub(crate) fn tagged_choice(
+        results: Vec<(String, RewriteResult)>,
+        ty: &Type,
+        new_ty: &Type,
+    ) -> View {
+        View(PointFree::new(
+            PfKind::TaggedChoice { results },
+            ty.clone(),
+            new_ty.clone(),
+        ))
     }
 
     /// `view.type()`.
@@ -368,7 +424,10 @@ impl RewriteResult {
     }
     /// `RewriteResult.nop(type)`.
     pub fn nop(ty: &Type) -> RewriteResult {
-        RewriteResult { view: View::nop_view(ty), rec_data: BitSet::new() }
+        RewriteResult {
+            view: View::nop_view(ty),
+            rec_data: BitSet::new(),
+        }
     }
     /// `this.compose(that)`: `that` first, then `this`.
     pub fn compose(&self, that: &RewriteResult) -> RewriteResult {
@@ -376,7 +435,10 @@ impl RewriteResult {
         if self.view.ty().is_recursive_point() && that.view.ty().is_recursive_point() {
             data.or(that.rec_data);
         }
-        RewriteResult { view: self.view.compose(&that.view), rec_data: data }
+        RewriteResult {
+            view: self.view.compose(&that.view),
+            rec_data: data,
+        }
     }
 }
 
@@ -406,7 +468,10 @@ static NEXT_LAZY_ID: AtomicU64 = AtomicU64::new(1);
 #[derive(Clone)]
 enum Second {
     Nop,
-    Lazy { id: u64, get: Arc<dyn Fn() -> TypeRewriteRule + Send + Sync> },
+    Lazy {
+        id: u64,
+        get: Arc<dyn Fn() -> TypeRewriteRule + Send + Sync>,
+    },
 }
 
 impl Second {
@@ -432,10 +497,22 @@ enum RuleKind {
     Nop,
     Seq(Vec<TypeRewriteRule>),
     OrElse(TypeRewriteRule, Second),
-    All { rule: TypeRewriteRule, recurse: bool, check_index: bool },
+    All {
+        rule: TypeRewriteRule,
+        recurse: bool,
+        check_index: bool,
+    },
     One(TypeRewriteRule),
-    Everywhere { rule: TypeRewriteRule, opt: OptimizationRule, recurse: bool, check_index: bool },
-    IfSame { target: Type, value: RewriteResult },
+    Everywhere {
+        rule: TypeRewriteRule,
+        opt: OptimizationRule,
+        recurse: bool,
+        check_index: bool,
+    },
+    IfSame {
+        target: Type,
+        value: RewriteResult,
+    },
 }
 
 struct RuleNode {
@@ -459,15 +536,43 @@ impl PartialEq for TypeRewriteRule {
             (RuleKind::Nop, RuleKind::Nop) => true,
             (RuleKind::Seq(a), RuleKind::Seq(b)) => a == b,
             (RuleKind::OrElse(a1, a2), RuleKind::OrElse(b1, b2)) => a1 == b1 && a2 == b2,
-            (RuleKind::All { rule: r1, recurse: a1, check_index: c1 }, RuleKind::All { rule: r2, recurse: a2, check_index: c2 }) => {
-                r1 == r2 && a1 == a2 && c1 == c2
-            }
+            (
+                RuleKind::All {
+                    rule: r1,
+                    recurse: a1,
+                    check_index: c1,
+                },
+                RuleKind::All {
+                    rule: r2,
+                    recurse: a2,
+                    check_index: c2,
+                },
+            ) => r1 == r2 && a1 == a2 && c1 == c2,
             (RuleKind::One(a), RuleKind::One(b)) => a == b,
             (
-                RuleKind::Everywhere { rule: r1, opt: o1, recurse: a1, check_index: c1 },
-                RuleKind::Everywhere { rule: r2, opt: o2, recurse: a2, check_index: c2 },
+                RuleKind::Everywhere {
+                    rule: r1,
+                    opt: o1,
+                    recurse: a1,
+                    check_index: c1,
+                },
+                RuleKind::Everywhere {
+                    rule: r2,
+                    opt: o2,
+                    recurse: a2,
+                    check_index: c2,
+                },
             ) => r1 == r2 && o1 == o2 && a1 == a2 && c1 == c2,
-            (RuleKind::IfSame { target: t1, value: v1 }, RuleKind::IfSame { target: t2, value: v2 }) => t1 == t2 && v1 == v2,
+            (
+                RuleKind::IfSame {
+                    target: t1,
+                    value: v1,
+                },
+                RuleKind::IfSame {
+                    target: t2,
+                    value: v2,
+                },
+            ) => t1 == t2 && v1 == v2,
             _ => false,
         }
     }
@@ -497,13 +602,30 @@ impl TypeRewriteRule {
     fn make(kind: RuleKind) -> TypeRewriteRule {
         let hash = match &kind {
             RuleKind::Nop => 1,
-            RuleKind::Seq(rules) => mix(&std::iter::once(2).chain(rules.iter().map(|r| r.0.hash)).collect::<Vec<_>>()),
-            RuleKind::OrElse(first, second) => mix(&[3, first.0.hash, matches!(second, Second::Nop) as u64]),
-            RuleKind::All { rule, recurse, check_index } => mix(&[4, rule.0.hash, *recurse as u64, *check_index as u64]),
-            RuleKind::One(rule) => mix(&[5, rule.0.hash]),
-            RuleKind::Everywhere { rule, opt, recurse, check_index } => {
-                mix(&[6, rule.0.hash, *opt as u64, *recurse as u64, *check_index as u64])
+            RuleKind::Seq(rules) => mix(&std::iter::once(2)
+                .chain(rules.iter().map(|r| r.0.hash))
+                .collect::<Vec<_>>()),
+            RuleKind::OrElse(first, second) => {
+                mix(&[3, first.0.hash, matches!(second, Second::Nop) as u64])
             }
+            RuleKind::All {
+                rule,
+                recurse,
+                check_index,
+            } => mix(&[4, rule.0.hash, *recurse as u64, *check_index as u64]),
+            RuleKind::One(rule) => mix(&[5, rule.0.hash]),
+            RuleKind::Everywhere {
+                rule,
+                opt,
+                recurse,
+                check_index,
+            } => mix(&[
+                6,
+                rule.0.hash,
+                *opt as u64,
+                *recurse as u64,
+                *check_index as u64,
+            ]),
             RuleKind::IfSame { target, value } => mix(&[7, hash_of(target), hash_of(value)]),
         };
         TypeRewriteRule(Arc::new(RuleNode { kind, hash }))
@@ -511,7 +633,8 @@ impl TypeRewriteRule {
 
     /// `TypeRewriteRule.nop()` (a singleton: fixes returning it are skipped by `DataFixerUpper.getRule`).
     pub fn nop() -> TypeRewriteRule {
-        static NOP: LazyLock<TypeRewriteRule> = LazyLock::new(|| TypeRewriteRule::make(RuleKind::Nop));
+        static NOP: LazyLock<TypeRewriteRule> =
+            LazyLock::new(|| TypeRewriteRule::make(RuleKind::Nop));
         NOP.clone()
     }
     pub fn is_nop(&self) -> bool {
@@ -549,16 +672,29 @@ impl TypeRewriteRule {
         TypeRewriteRule::or_else_lazy(first, move || second.clone())
     }
     /// `TypeRewriteRule.orElse(first, Supplier)`; every call is a new supplier identity.
-    pub fn or_else_lazy(first: TypeRewriteRule, second: impl Fn() -> TypeRewriteRule + Send + Sync + 'static) -> TypeRewriteRule {
+    pub fn or_else_lazy(
+        first: TypeRewriteRule,
+        second: impl Fn() -> TypeRewriteRule + Send + Sync + 'static,
+    ) -> TypeRewriteRule {
         let id = NEXT_LAZY_ID.fetch_add(1, Ordering::Relaxed);
-        TypeRewriteRule::make(RuleKind::OrElse(first, Second::Lazy { id, get: Arc::new(second) }))
+        TypeRewriteRule::make(RuleKind::OrElse(
+            first,
+            Second::Lazy {
+                id,
+                get: Arc::new(second),
+            },
+        ))
     }
     /// `orElse(rule, TypeRewriteRule::nop)` (the shared nop supplier, as used by `Type.everywhere`).
     fn or_else_nop(first: TypeRewriteRule) -> TypeRewriteRule {
         TypeRewriteRule::make(RuleKind::OrElse(first, Second::Nop))
     }
     pub fn all(rule: TypeRewriteRule, recurse: bool, check_index: bool) -> TypeRewriteRule {
-        TypeRewriteRule::make(RuleKind::All { rule, recurse, check_index })
+        TypeRewriteRule::make(RuleKind::All {
+            rule,
+            recurse,
+            check_index,
+        })
     }
     pub fn one(rule: TypeRewriteRule) -> TypeRewriteRule {
         TypeRewriteRule::make(RuleKind::One(rule))
@@ -566,14 +702,29 @@ impl TypeRewriteRule {
     /// `TypeRewriteRule.once(rule)` = `orElse(rule, () -> one(once(rule)))`.
     pub fn once(rule: TypeRewriteRule) -> TypeRewriteRule {
         let r2 = rule.clone();
-        TypeRewriteRule::or_else_lazy(rule, move || TypeRewriteRule::one(TypeRewriteRule::once(r2.clone())))
+        TypeRewriteRule::or_else_lazy(rule, move || {
+            TypeRewriteRule::one(TypeRewriteRule::once(r2.clone()))
+        })
     }
-    pub fn everywhere(rule: TypeRewriteRule, opt: OptimizationRule, recurse: bool, check_index: bool) -> TypeRewriteRule {
-        TypeRewriteRule::make(RuleKind::Everywhere { rule, opt, recurse, check_index })
+    pub fn everywhere(
+        rule: TypeRewriteRule,
+        opt: OptimizationRule,
+        recurse: bool,
+        check_index: bool,
+    ) -> TypeRewriteRule {
+        TypeRewriteRule::make(RuleKind::Everywhere {
+            rule,
+            opt,
+            recurse,
+            check_index,
+        })
     }
     /// `TypeRewriteRule.ifSame(targetType, value)`.
     pub fn if_same(target: &Type, value: RewriteResult) -> TypeRewriteRule {
-        TypeRewriteRule::make(RuleKind::IfSame { target: target.clone(), value })
+        TypeRewriteRule::make(RuleKind::IfSame {
+            target: target.clone(),
+            value,
+        })
     }
 
     /// `rule.rewrite(type)`.
@@ -588,19 +739,39 @@ impl TypeRewriteRule {
                 }
                 Some(result)
             }
-            RuleKind::OrElse(first, second) => first.rewrite(ty).or_else(|| second.get().rewrite(ty)),
-            RuleKind::All { rule, recurse, check_index } => Some(ty.all(rule, *recurse, *check_index)),
+            RuleKind::OrElse(first, second) => {
+                first.rewrite(ty).or_else(|| second.get().rewrite(ty))
+            }
+            RuleKind::All {
+                rule,
+                recurse,
+                check_index,
+            } => Some(ty.all(rule, *recurse, *check_index)),
             RuleKind::One(rule) => ty.one(rule),
-            RuleKind::Everywhere { rule, opt, recurse, check_index } => ty.everywhere(rule, *opt, *recurse, *check_index),
+            RuleKind::Everywhere {
+                rule,
+                opt,
+                recurse,
+                check_index,
+            } => ty.everywhere(rule, *opt, *recurse, *check_index),
             RuleKind::IfSame { target, value } => ty.if_same_rewrite(target, value),
         }
     }
 
     /// The rule `Type.everywhere` rewrites with at every level (`seq(orElse(rule, nop), all(everywhere(rule)))`).
-    pub(crate) fn everywhere_step(rule: &TypeRewriteRule, opt: OptimizationRule, recurse: bool, check_index: bool) -> TypeRewriteRule {
+    pub(crate) fn everywhere_step(
+        rule: &TypeRewriteRule,
+        opt: OptimizationRule,
+        recurse: bool,
+        check_index: bool,
+    ) -> TypeRewriteRule {
         TypeRewriteRule::seq(
             TypeRewriteRule::or_else_nop(rule.clone()),
-            TypeRewriteRule::all(TypeRewriteRule::everywhere(rule.clone(), opt, recurse, check_index), recurse, check_index),
+            TypeRewriteRule::all(
+                TypeRewriteRule::everywhere(rule.clone(), opt, recurse, check_index),
+                recurse,
+                check_index,
+            ),
         )
     }
 }

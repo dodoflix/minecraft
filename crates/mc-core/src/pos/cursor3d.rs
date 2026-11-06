@@ -21,7 +21,14 @@ impl Cursor3D {
     pub const TYPE_EDGE: i32 = 2;
     pub const TYPE_CORNER: i32 = 3;
 
-    pub const fn new(min_x: i32, min_y: i32, min_z: i32, max_x: i32, max_y: i32, max_z: i32) -> Cursor3D {
+    pub const fn new(
+        min_x: i32,
+        min_y: i32,
+        min_z: i32,
+        max_x: i32,
+        max_y: i32,
+        max_z: i32,
+    ) -> Cursor3D {
         let width = max_x.wrapping_sub(min_x).wrapping_add(1);
         let height = max_y.wrapping_sub(min_y).wrapping_add(1);
         let depth = max_z.wrapping_sub(min_z).wrapping_add(1);

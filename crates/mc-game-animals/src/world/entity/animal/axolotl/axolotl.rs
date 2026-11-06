@@ -2,6 +2,12 @@
 //! hunts aquatic mobs and gives regeneration to the player that it helped to kill something.
 
 use super::axolotl_ai;
+use linkme::distributed_slice;
+use mc_core::phys::Vec3;
+use mc_core::pos::BlockPos;
+use mc_core::random::RandomSource;
+use mc_data::enums::EntitySpawnReason;
+use mc_data::{EntityType, Item, MobEffect, SoundEvent};
 use mc_game_core::define_accessor;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::damagesource::DamageSource;
@@ -11,29 +17,31 @@ use mc_game_core::world::entity::ai::control::look_control::{LookControl, LookCo
 use mc_game_core::world::entity::ai::control::move_control::{MoveControl, MoveControlBase};
 use mc_game_core::world::entity::ai::control::smooth_swimming_look_control::SmoothSwimmingLookControl;
 use mc_game_core::world::entity::ai::control::smooth_swimming_move_control::SmoothSwimmingMoveControl;
-use mc_game_core::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, HAS_HUNTING_COOLDOWN, PLAY_DEAD_TICKS};
 use mc_game_core::world::entity::ai::memory::BrainPacked;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{
+    ATTACK_TARGET, HAS_HUNTING_COOLDOWN, PLAY_DEAD_TICKS,
+};
 use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
-use mc_game_core::world::entity::ai::sensing::sensor_type::{AXOLOTL_ATTACKABLES, FOOD_TEMPTATIONS, HURT_BY, NEAREST_ADULT, NEAREST_LIVING_ENTITIES};
+use mc_game_core::world::entity::ai::sensing::sensor_type::{
+    AXOLOTL_ATTACKABLES, FOOD_TEMPTATIONS, HURT_BY, NEAREST_ADULT, NEAREST_LIVING_ENTITIES,
+};
 use mc_game_core::world::entity::bucketable::{self, Bucketable};
 use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
 use mc_game_core::world::entity::effect::MobEffectInstance;
-use mc_game_core::world::entity::factory::{self, ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
+use mc_game_core::world::entity::factory::{
+    self, ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest,
+};
 use mc_game_core::world::entity::mob::spawn::AgeableMobGroupData;
 use mc_game_core::world::entity::mob::{self, MobData, MobKind, ageable};
 use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
 use mc_game_core::world::entity::{Entity, EntityId, MoverType, ServerPlayer};
-use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack, create_filled_result};
+use mc_game_core::world::item::{
+    InteractionHand, InteractionResult, ItemStack, create_filled_result,
+};
 use mc_game_core::world::level::LevelReader;
 use mc_game_core::world::level::block::state::BlockStateExt;
 use mc_game_core::world::level::pathfinder::PathType;
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
-use linkme::distributed_slice;
-use mc_core::phys::Vec3;
-use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
-use mc_data::enums::EntitySpawnReason;
-use mc_data::{EntityType, Item, MobEffect, SoundEvent};
 use mc_nbt::CompoundTag;
 use mc_protocol::components::{AXOLOTL_VARIANT, AxolotlVariant, BUCKET_ENTITY_DATA, CustomData};
 
@@ -57,8 +65,16 @@ const REGEN_BUFF_MAX_DURATION: i32 = 2400;
 const REGEN_BUFF_BASE_DURATION: i32 = 100;
 
 /// `BRAIN_PROVIDER`.
-static BRAIN_PROVIDER: Provider =
-    Provider::with_activities(&[&NEAREST_LIVING_ENTITIES, &NEAREST_ADULT, &HURT_BY, &AXOLOTL_ATTACKABLES, &FOOD_TEMPTATIONS], axolotl_ai::get_activities);
+static BRAIN_PROVIDER: Provider = Provider::with_activities(
+    &[
+        &NEAREST_LIVING_ENTITIES,
+        &NEAREST_ADULT,
+        &HURT_BY,
+        &AXOLOTL_ATTACKABLES,
+        &FOOD_TEMPTATIONS,
+    ],
+    axolotl_ai::get_activities,
+);
 
 /// `Axolotl.Variant.DEFAULT`.
 pub const DEFAULT_VARIANT: AxolotlVariant = AxolotlVariant::Lucy;
@@ -75,7 +91,11 @@ pub fn variant_by_id(id: i32) -> AxolotlVariant {
 
 /// `Axolotl.Variant.getSpawnVariant(random, common)`: `Util.getRandom(validVariants, random)`.
 fn get_spawn_variant(random: &mut dyn RandomSource, common: bool) -> AxolotlVariant {
-    let valid: Vec<AxolotlVariant> = AxolotlVariant::ALL.iter().copied().filter(|&v| is_common(v) == common).collect();
+    let valid: Vec<AxolotlVariant> = AxolotlVariant::ALL
+        .iter()
+        .copied()
+        .filter(|&v| is_common(v) == common)
+        .collect();
     valid[random.next_int_bounded(valid.len() as i32) as usize]
 }
 
@@ -103,7 +123,10 @@ pub struct AxolotlGroupData {
 impl AxolotlGroupData {
     /// `new AxolotlGroupData(types...)`.
     pub fn new(types: Vec<AxolotlVariant>) -> Self {
-        Self { base: AgeableMobGroupData::with_baby(false), types }
+        Self {
+            base: AgeableMobGroupData::with_baby(false),
+            types,
+        }
     }
 
     /// `getVariant(random)`.
@@ -127,7 +150,9 @@ impl SpawnGroupData for AxolotlGroupData {
 /// `BABY_DIMENSIONS`.
 fn baby_dimensions() -> EntityDimensions {
     let dims = EntityDimensions::scalable(0.375, 0.21).with_eye_height(0.09375);
-    dims.with_attachments(EntityAttachments::create_default(0.375, 0.21).with_passenger(Vec3::new(0.0, 0.1875, 0.0)))
+    dims.with_attachments(
+        EntityAttachments::create_default(0.375, 0.21).with_passenger(Vec3::new(0.0, 0.1875, 0.0)),
+    )
 }
 
 /// `isPlayingDead()`.
@@ -143,11 +168,12 @@ pub struct Axolotl {
 impl Axolotl {
     /// `new Axolotl(type, level)`.
     pub fn new(ty: EntityType, id: EntityId) -> Self {
-        let mob = MobData::new_with_air_supply(ty, id, MobKind::Animal, AXOLOTL_TOTAL_AIR_SUPPLY, |b| {
-            b.define(DATA_VARIANT, 0);
-            b.define(DATA_PLAYING_DEAD, false);
-            b.define(FROM_BUCKET, false);
-        });
+        let mob =
+            MobData::new_with_air_supply(ty, id, MobKind::Animal, AXOLOTL_TOTAL_AIR_SUPPLY, |b| {
+                b.define(DATA_VARIANT, 0);
+                b.define(DATA_PLAYING_DEAD, false);
+                b.define(FROM_BUCKET, false);
+            });
         let mut axolotl = Axolotl { mob };
         // `LivingEntity.<init>`: `this.brain = this.makeBrain(Brain.Packed.EMPTY)`
         let brain = axolotl.make_brain(&BrainPacked::EMPTY);
@@ -167,12 +193,20 @@ impl Axolotl {
 
     /// `setVariant(variant)`.
     pub fn set_variant(&mut self, variant: AxolotlVariant) {
-        self.mob.living.entity.entity_data.set(DATA_VARIANT, variant.id());
+        self.mob
+            .living
+            .entity
+            .entity_data
+            .set(DATA_VARIANT, variant.id());
     }
 
     /// `setPlayingDead(playingDead)`.
     pub fn set_playing_dead(&mut self, playing_dead: bool) {
-        self.mob.living.entity.entity_data.set(DATA_PLAYING_DEAD, playing_dead);
+        self.mob
+            .living
+            .entity
+            .entity_data
+            .set(DATA_PLAYING_DEAD, playing_dead);
     }
 
     /// `isPlayingDead()`.
@@ -199,11 +233,18 @@ impl Axolotl {
     pub fn apply_supporting_effects(&self, level: &mut ServerLevel, player: EntityId) {
         let source = self.id();
         level.with_entity(player, |level, p| {
-            let regen = p.get_effect(MobEffect::REGENERATION).map(|e| (e.duration, e.ends_within(REGEN_BUFF_MAX_DURATION - 1)));
+            let regen = p
+                .get_effect(MobEffect::REGENERATION)
+                .map(|e| (e.duration, e.ends_within(REGEN_BUFF_MAX_DURATION - 1)));
             if regen.is_none_or(|(_, ends_within)| ends_within) {
                 let previous_duration = regen.map_or(0, |(d, _)| d);
-                let regen_duration = REGEN_BUFF_MAX_DURATION.min(REGEN_BUFF_BASE_DURATION + previous_duration);
-                p.add_effect(level, MobEffectInstance::of(MobEffect::REGENERATION, regen_duration, 0), Some(source));
+                let regen_duration =
+                    REGEN_BUFF_MAX_DURATION.min(REGEN_BUFF_BASE_DURATION + previous_duration);
+                p.add_effect(
+                    level,
+                    MobEffectInstance::of(MobEffect::REGENERATION, regen_duration, 0),
+                    Some(source),
+                );
             }
             p.remove_effect(level, MobEffect::MINING_FATIGUE);
         });
@@ -212,13 +253,29 @@ impl Axolotl {
 
 /// `Axolotl.onStopAttacking(level, body, target)`: the `StopAttackingIfTargetInvalid` callback.
 pub fn on_stop_attacking(level: &mut ServerLevel, body: &mut dyn Entity, target: EntityId) {
-    let Some(target) = level.get_entity(target) else { return };
+    let Some(target) = level.get_entity(target) else {
+        return;
+    };
     if !target.is_dead_or_dying() {
         return;
     }
-    let Some(last_damage_source) = mc_game_core::world::entity::ai::sensing::hurt_by_sensor::get_last_damage_source(level, target) else { return };
-    let Some(player) = last_damage_source.get_entity().filter(|&id| level.get_entity(id).is_some_and(|e| e.is_player())) else { return };
-    let range = body.base().bounding_box().inflate_scalar(PLAYER_REGEN_DETECTION_RANGE);
+    let Some(last_damage_source) =
+        mc_game_core::world::entity::ai::sensing::hurt_by_sensor::get_last_damage_source(
+            level, target,
+        )
+    else {
+        return;
+    };
+    let Some(player) = last_damage_source
+        .get_entity()
+        .filter(|&id| level.get_entity(id).is_some_and(|e| e.is_player()))
+    else {
+        return;
+    };
+    let range = body
+        .base()
+        .bounding_box()
+        .inflate_scalar(PLAYER_REGEN_DETECTION_RANGE);
     let players_in_range = level.get_entities_of_class(&range, |e| e.is_player(), |_| true);
     if players_in_range.contains(&player) {
         if let Some(axolotl) = body.as_any().downcast_ref::<Axolotl>() {
@@ -228,8 +285,16 @@ pub fn on_stop_attacking(level: &mut ServerLevel, body: &mut dyn Entity, target:
 }
 
 /// `Axolotl.checkAxolotlSpawnRules`.
-pub fn check_axolotl_spawn_rules(_ty: EntityType, level: &dyn ServerLevelAccessor, _reason: EntitySpawnReason, pos: BlockPos, _random: &mut dyn RandomSource) -> bool {
-    level.get_block_state(pos.below()).is_tag("axolotls_spawnable_on")
+pub fn check_axolotl_spawn_rules(
+    _ty: EntityType,
+    level: &dyn ServerLevelAccessor,
+    _reason: EntitySpawnReason,
+    pos: BlockPos,
+    _random: &mut dyn RandomSource,
+) -> bool {
+    level
+        .get_block_state(pos.below())
+        .is_tag("axolotls_spawnable_on")
 }
 
 mc_game_core::register_spawn_placement!(EntityType::AXOLOTL, check_axolotl_spawn_rules);
@@ -241,7 +306,9 @@ struct AxolotlMoveControl {
 
 impl AxolotlMoveControl {
     fn new() -> Self {
-        Self { inner: SmoothSwimmingMoveControl::new(85, 10, 0.1, 0.5, false) }
+        Self {
+            inner: SmoothSwimmingMoveControl::new(85, 10, 0.1, 0.5, false),
+        }
     }
 }
 
@@ -266,7 +333,9 @@ struct AxolotlLookControl {
 
 impl AxolotlLookControl {
     fn new(max_y_rot_from_center: i32) -> Self {
-        Self { inner: SmoothSwimmingLookControl::new(max_y_rot_from_center) }
+        Self {
+            inner: SmoothSwimmingLookControl::new(max_y_rot_from_center),
+        }
     }
 }
 
@@ -294,17 +363,27 @@ impl Bucketable for Axolotl {
         self.mob.living.entity.entity_data.get(FROM_BUCKET)
     }
     fn set_from_bucket(&mut self, from_bucket: bool) {
-        self.mob.living.entity.entity_data.set(FROM_BUCKET, from_bucket);
+        self.mob
+            .living
+            .entity
+            .entity_data
+            .set(FROM_BUCKET, from_bucket);
     }
     fn save_to_bucket_tag(&self, bucket: &mut ItemStack) {
         bucketable::save_default_data_to_bucket_tag(self, bucket);
         bucket.set(AXOLOTL_VARIANT, self.get_variant());
-        let mut tag = bucket.get(&BUCKET_ENTITY_DATA).map(|d| d.copy_tag()).unwrap_or_default();
+        let mut tag = bucket
+            .get(&BUCKET_ENTITY_DATA)
+            .map(|d| d.copy_tag())
+            .unwrap_or_default();
         tag.put_int("Age", ageable::get_age(self));
         tag.put_boolean("AgeLocked", ageable::is_age_locked(self));
         let brain = self.brain();
         if brain.has_memory_value(HAS_HUNTING_COOLDOWN.id()) {
-            tag.put_long("HuntingCooldown", brain.get_time_until_expiry(&HAS_HUNTING_COOLDOWN));
+            tag.put_long(
+                "HuntingCooldown",
+                brain.get_time_until_expiry(&HAS_HUNTING_COOLDOWN),
+            );
         }
         bucket.set(BUCKET_ENTITY_DATA, CustomData::of(&tag));
     }
@@ -313,7 +392,11 @@ impl Bucketable for Axolotl {
         ageable::set_age(self, tag.get_int_or("Age", 0));
         ageable::set_age_locked(self, tag.get_boolean_or("AgeLocked", false));
         match tag.get_long("HuntingCooldown") {
-            Some(_) => self.brain_mut().set_memory_with_expiry(&HAS_HUNTING_COOLDOWN, true, tag.get_long_or("HuntingCooldown", 0)),
+            Some(_) => self.brain_mut().set_memory_with_expiry(
+                &HAS_HUNTING_COOLDOWN,
+                true,
+                tag.get_long_or("HuntingCooldown", 0),
+            ),
             None => self.brain_mut().erase_memory(&HAS_HUNTING_COOLDOWN),
         }
     }
@@ -333,7 +416,11 @@ impl Entity for Axolotl {
     }
 
     fn get_dimensions(&self, _pose: mc_data::enums::Pose) -> EntityDimensions {
-        if self.is_baby() { baby_dimensions() } else { EntityDimensions::of_type(self.mob.living.entity.entity_type) }
+        if self.is_baby() {
+            baby_dimensions()
+        } else {
+            EntityDimensions::of_type(self.mob.living.entity.entity_type)
+        }
     }
 
     fn get_walk_target_value(&self, _pos: BlockPos, _level: &dyn LevelReader) -> f32 {
@@ -352,7 +439,9 @@ impl Entity for Axolotl {
 
     fn read_additional_save_data(&mut self, input: &CompoundTag) {
         mob::nbt::read_additional_save_data(self, input);
-        self.set_variant(variant_by_id(input.get_int_or("Variant", DEFAULT_VARIANT.id())));
+        self.set_variant(variant_by_id(
+            input.get_int_or("Variant", DEFAULT_VARIANT.id()),
+        ));
         Bucketable::set_from_bucket(self, input.get_boolean_or("FromBucket", false));
     }
 
@@ -375,7 +464,10 @@ impl Entity for Axolotl {
         let mut is_baby = false;
         let group_data = match group_data {
             Some(mut data) if data.as_any().is::<AxolotlGroupData>() => {
-                if data.as_ageable_mut().is_some_and(|d| d.get_group_size() >= 2) {
+                if data
+                    .as_ageable_mut()
+                    .is_some_and(|d| d.get_group_size() >= 2)
+                {
                     is_baby = true;
                 }
                 data
@@ -387,7 +479,11 @@ impl Entity for Axolotl {
                 Box::new(AxolotlGroupData::new(vec![first, second])) as Box<dyn SpawnGroupData>
             }
         };
-        let variant = group_data.as_any().downcast_ref::<AxolotlGroupData>().expect("axolotl group data").get_variant(level.random());
+        let variant = group_data
+            .as_any()
+            .downcast_ref::<AxolotlGroupData>()
+            .expect("axolotl group data")
+            .get_variant(level.random());
         self.set_variant(variant);
         if is_baby {
             ageable::set_age(self, -24000);
@@ -430,8 +526,13 @@ impl Entity for Axolotl {
     }
 
     fn entity_components(&self) -> mc_protocol::components::DataComponentMap {
-        let base = mc_game_core::advancements::predicates::entity::support::base_entity_components(self.base());
-        mc_protocol::components::DataComponentMap::builder().add_all(&base).set(AXOLOTL_VARIANT, self.get_variant()).build()
+        let base = mc_game_core::advancements::predicates::entity::support::base_entity_components(
+            self.base(),
+        );
+        mc_protocol::components::DataComponentMap::builder()
+            .add_all(&base)
+            .set(AXOLOTL_VARIANT, self.get_variant())
+            .build()
     }
 
     fn apply_implicit_components(&mut self, stack: &ItemStack) {
@@ -441,15 +542,29 @@ impl Entity for Axolotl {
         mc_game_core::world::entity::spawn_config::apply_base_implicit_components(self, stack);
     }
 
-    fn get_breed_offspring(&mut self, level: &mut ServerLevel, partner: EntityId) -> Option<Box<dyn Entity>> {
-        let mut baby = factory::create(EntityType::AXOLOTL, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })?;
+    fn get_breed_offspring(
+        &mut self,
+        level: &mut ServerLevel,
+        partner: EntityId,
+    ) -> Option<Box<dyn Entity>> {
+        let mut baby = factory::create(
+            EntityType::AXOLOTL,
+            level,
+            EntitySpawnRequest {
+                reason: EntitySpawnReason::Breeding,
+                ignore_checks: false,
+            },
+        )?;
         let own_variant = self.get_variant();
         let variant = if use_rare_variant(&mut self.base_mut().random) {
             get_rare_spawn_variant(&mut self.base_mut().random)
         } else if self.base_mut().random.next_boolean() {
             own_variant
         } else {
-            level.get_entity(partner).and_then(|p| p.as_any().downcast_ref::<Axolotl>()).map_or(own_variant, Axolotl::get_variant)
+            level
+                .get_entity(partner)
+                .and_then(|p| p.as_any().downcast_ref::<Axolotl>())
+                .map_or(own_variant, Axolotl::get_variant)
         };
         if let Some(axolotl) = baby.as_any_mut().downcast_mut::<Axolotl>() {
             axolotl.set_variant(variant);
@@ -470,7 +585,10 @@ impl Entity for Axolotl {
         Brain::tick(level, self);
         axolotl_ai::update_activity(self);
         if !self.mob.is_no_ai() {
-            let playing_dead = self.brain().get_memory(&PLAY_DEAD_TICKS).is_some_and(|&ticks| ticks > 0);
+            let playing_dead = self
+                .brain()
+                .get_memory(&PLAY_DEAD_TICKS)
+                .is_some_and(|&ticks| ticks > 0);
             self.set_playing_dead(playing_dead);
         }
     }
@@ -483,13 +601,15 @@ impl Entity for Axolotl {
         let current_health = self.get_health();
         if !self.mob.is_no_ai()
             && self.base_mut().random.next_int_bounded(3) == 0
-            && ((self.base_mut().random.next_int_bounded(3) as f32) < damage || current_health / self.mob.living.get_max_health() < 0.5)
+            && ((self.base_mut().random.next_int_bounded(3) as f32) < damage
+                || current_health / self.mob.living.get_max_health() < 0.5)
             && damage < current_health
             && self.is_in_water()
             && (source.get_entity().is_some() || source.get_direct_entity().is_some())
             && !self.is_playing_dead()
         {
-            self.brain_mut().set_memory(&PLAY_DEAD_TICKS, TOTAL_PLAYDEAD_TIME);
+            self.brain_mut()
+                .set_memory(&PLAY_DEAD_TICKS, TOTAL_PLAYDEAD_TIME);
         }
         mc_game_core::world::entity::living_entity::damage::hurt_server(self, level, source, damage)
     }
@@ -502,7 +622,12 @@ impl Entity for Axolotl {
         1
     }
 
-    fn mob_interact(&mut self, level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) -> InteractionResult {
+    fn mob_interact(
+        &mut self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        hand: InteractionHand,
+    ) -> InteractionResult {
         match bucketable::bucket_mob_pickup_in_place(level, player, hand, self) {
             Some(result) => result,
             None => mob::interact::mob_interact(self, level, player, hand),
@@ -510,11 +635,14 @@ impl Entity for Axolotl {
     }
 
     fn can_be_seen_as_enemy(&self) -> bool {
-        !self.is_playing_dead() && !self.base().permanently_invulnerable && self.can_be_seen_by_anyone()
+        !self.is_playing_dead()
+            && !self.base().permanently_invulnerable
+            && self.can_be_seen_by_anyone()
     }
 
     fn requires_custom_persistence(&self) -> bool {
-        (self.base().is_passenger() || mob::leashable::is_leashed(self)) || Bucketable::from_bucket(self)
+        (self.base().is_passenger() || mob::leashable::is_leashed(self))
+            || Bucketable::from_bucket(self)
     }
 
     fn get_hurt_sound(&self, _source: &DamageSource) -> Option<SoundEvent> {
@@ -526,7 +654,11 @@ impl Entity for Axolotl {
     }
 
     fn get_ambient_sound(&self) -> Option<SoundEvent> {
-        Some(if self.is_in_water() { SoundEvent::ENTITY_AXOLOTL_IDLE_WATER } else { SoundEvent::ENTITY_AXOLOTL_IDLE_AIR })
+        Some(if self.is_in_water() {
+            SoundEvent::ENTITY_AXOLOTL_IDLE_WATER
+        } else {
+            SoundEvent::ENTITY_AXOLOTL_IDLE_AIR
+        })
     }
 
     fn get_swim_splash_sound(&self) -> SoundEvent {
@@ -537,7 +669,14 @@ impl Entity for Axolotl {
         SoundEvent::ENTITY_AXOLOTL_SWIM
     }
 
-    fn travel_in_water(&mut self, level: &mut ServerLevel, input: Vec3, _base_gravity: f64, _is_falling: bool, _old_y: f64) {
+    fn travel_in_water(
+        &mut self,
+        level: &mut ServerLevel,
+        input: Vec3,
+        _base_gravity: f64,
+        _is_falling: bool,
+        _old_y: f64,
+    ) {
         let speed = self.get_speed();
         self.move_relative(speed, input);
         let delta = self.base().delta_movement();
@@ -546,10 +685,20 @@ impl Entity for Axolotl {
         self.base_mut().set_delta_movement(scaled);
     }
 
-    fn use_player_item(&mut self, level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) {
+    fn use_player_item(
+        &mut self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        hand: InteractionHand,
+    ) {
         let item_stack = player.get_item_in_hand(hand);
         if item_stack.item() == Item::TROPICAL_FISH_BUCKET {
-            let filled = create_filled_result(item_stack, &mut mc_game_core::world::entity::player::menu_ctx::PlayerCtx { player, level }, ItemStack::new(Item::WATER_BUCKET), false);
+            let filled = create_filled_result(
+                item_stack,
+                &mut mc_game_core::world::entity::player::menu_ctx::PlayerCtx { player, level },
+                ItemStack::new(Item::WATER_BUCKET),
+                false,
+            );
             player.set_item_in_hand(hand, filled);
         } else {
             mob::interact::use_player_item(level, player, hand);
@@ -566,4 +715,7 @@ impl Entity for Axolotl {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static AXOLOTL: EntityRegistration = EntityRegistration { entity_type: EntityType::AXOLOTL, create: |ty, id, _registries| Box::new(Axolotl::new(ty, id)) };
+static AXOLOTL: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::AXOLOTL,
+    create: |ty, id, _registries| Box::new(Axolotl::new(ty, id)),
+};

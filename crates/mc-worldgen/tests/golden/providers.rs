@@ -81,9 +81,10 @@ fn providers_match_vanilla() {
             }
             "float" => float_case(FloatProvider::from_json(&value), &mut actual),
             "float_min:0.0" => float_case(FloatProvider::from_json_min(&value, 0.0), &mut actual),
-            "float_r:-1.0:1.0" => {
-                float_case(FloatProvider::from_json_range(&value, -1.0, 1.0), &mut actual)
-            }
+            "float_r:-1.0:1.0" => float_case(
+                FloatProvider::from_json_range(&value, -1.0, 1.0),
+                &mut actual,
+            ),
             "height" => match HeightProvider::from_json(&value) {
                 Ok(p) => {
                     for (min_y, height, sea) in CONTEXTS {
@@ -114,23 +115,38 @@ fn providers_match_vanilla() {
         }
     }
     // The fixture must exercise both outcomes and plenty of sample sequences.
-    assert!(ok_cases > 500 && err_cases > 100 && sampled > 3000, "{ok_cases} {err_cases} {sampled}");
+    assert!(
+        ok_cases > 500 && err_cases > 100 && sampled > 3000,
+        "{ok_cases} {err_cases} {sampled}"
+    );
 }
 
-fn int_case(result: Result<IntProvider, mc_worldgen::data::LoadError>, actual: &mut Vec<String>) -> Result<(), String> {
+fn int_case(
+    result: Result<IntProvider, mc_worldgen::data::LoadError>,
+    actual: &mut Vec<String>,
+) -> Result<(), String> {
     let p = result.map_err(|e| e.to_string())?;
     actual.push(format!("{} {}", p.min_inclusive(), p.max_inclusive()));
     for (kind, seed) in SPECS {
-        actual.push(format!("i{kind}_{seed}={}", run(kind, seed, |r| p.sample(r).to_string())));
+        actual.push(format!(
+            "i{kind}_{seed}={}",
+            run(kind, seed, |r| p.sample(r).to_string())
+        ));
     }
     Ok(())
 }
 
-fn float_case(result: Result<FloatProvider, mc_worldgen::data::LoadError>, actual: &mut Vec<String>) -> Result<(), String> {
+fn float_case(
+    result: Result<FloatProvider, mc_worldgen::data::LoadError>,
+    actual: &mut Vec<String>,
+) -> Result<(), String> {
     let p = result.map_err(|e| e.to_string())?;
     actual.push(format!("{} {}", bits(p.min()), bits(p.max())));
     for (kind, seed) in SPECS {
-        actual.push(format!("f{kind}_{seed}={}", run(kind, seed, |r| bits(p.sample(r)))));
+        actual.push(format!(
+            "f{kind}_{seed}={}",
+            run(kind, seed, |r| bits(p.sample(r)))
+        ));
     }
     Ok(())
 }

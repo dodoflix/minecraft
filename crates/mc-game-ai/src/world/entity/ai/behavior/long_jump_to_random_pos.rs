@@ -1,16 +1,6 @@
 //! `LongJumpToRandomPos` and its subclass `LongJumpToPreferredBlock` (a configuration of the same behavior here).
 
-use mc_game_core::world::entity::ai::behavior::behavior_utils;
 use super::long_jump_util;
-use mc_game_core::world::entity::ai::behavior::position_tracker::{BlockPosTracker, PositionTracker};
-use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase};
-use mc_game_core::entry_condition;
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::entity::ai::memory::memory_module_type::{LONG_JUMP_COOLDOWN_TICKS, LONG_JUMP_MID_JUMP, LOOK_TARGET};
-use mc_game_core::world::entity::entity::Entity;
-use mc_game_core::world::entity::mob::navigation;
-use mc_game_core::world::level::BlockGetter;
-use mc_game_core::world::level::block::state::BlockStateExt;
 use mc_core::direction::Direction;
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
@@ -18,6 +8,20 @@ use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::Block;
 use mc_data::{Attribute, SoundEvent};
+use mc_game_core::entry_condition;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ai::behavior::behavior_utils;
+use mc_game_core::world::entity::ai::behavior::position_tracker::{
+    BlockPosTracker, PositionTracker,
+};
+use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase};
+use mc_game_core::world::entity::ai::memory::memory_module_type::{
+    LONG_JUMP_COOLDOWN_TICKS, LONG_JUMP_MID_JUMP, LOOK_TARGET,
+};
+use mc_game_core::world::entity::entity::Entity;
+use mc_game_core::world::entity::mob::navigation;
+use mc_game_core::world::level::BlockGetter;
+use mc_game_core::world::level::block::state::BlockStateExt;
 use mc_protocol::packets::play::SoundSource;
 
 pub const FIND_JUMP_TRIES: i32 = 20;
@@ -60,7 +64,11 @@ pub struct LongJumpToRandomPos {
 }
 
 /// `defaultAcceptableLandingSpot(body, targetPos)`.
-pub fn default_acceptable_landing_spot(body: &mut dyn Entity, level: &ServerLevel, target_pos: BlockPos) -> bool {
+pub fn default_acceptable_landing_spot(
+    body: &mut dyn Entity,
+    level: &ServerLevel,
+    target_pos: BlockPos,
+) -> bool {
     let below = target_pos.below();
     let ty = navigation::path_type_static(body, level, target_pos);
     level.get_block_state(below).is_solid_render() && body.get_pathfinding_malus(level, ty) == 0.0
@@ -75,7 +83,14 @@ impl LongJumpToRandomPos {
         max_jump_velocity_multiplier: f32,
         get_jump_sound: impl Fn(&dyn Entity) -> SoundEvent + 'static,
     ) -> BehaviorBase<LongJumpToRandomPos> {
-        Self::with_landing_spot(time_between_long_jumps, max_long_jump_height, max_long_jump_width, max_jump_velocity_multiplier, get_jump_sound, default_acceptable_landing_spot)
+        Self::with_landing_spot(
+            time_between_long_jumps,
+            max_long_jump_height,
+            max_long_jump_width,
+            max_jump_velocity_multiplier,
+            get_jump_sound,
+            default_acceptable_landing_spot,
+        )
     }
 
     /// `new LongJumpToRandomPos(..., acceptableLandingSpot)`.
@@ -87,7 +102,15 @@ impl LongJumpToRandomPos {
         get_jump_sound: impl Fn(&dyn Entity) -> SoundEvent + 'static,
         acceptable_landing_spot: impl Fn(&mut dyn Entity, &ServerLevel, BlockPos) -> bool + 'static,
     ) -> BehaviorBase<LongJumpToRandomPos> {
-        Self::build(time_between_long_jumps, max_long_jump_height, max_long_jump_width, max_jump_velocity_multiplier, Box::new(get_jump_sound), Box::new(acceptable_landing_spot), None)
+        Self::build(
+            time_between_long_jumps,
+            max_long_jump_height,
+            max_long_jump_width,
+            max_jump_velocity_multiplier,
+            Box::new(get_jump_sound),
+            Box::new(acceptable_landing_spot),
+            None,
+        )
     }
 
     /// `new LongJumpToPreferredBlock(timeBetweenLongJumps, maxLongJumpHeight, maxLongJumpWidth, maxJumpVelocity, getJumpSound,
@@ -110,7 +133,12 @@ impl LongJumpToRandomPos {
             max_jump_velocity,
             Box::new(get_jump_sound),
             Box::new(acceptable_landing_spot),
-            Some(Preferred { preferred_block_tag, preferred_blocks_chance, not_preferred_jump_candidates: Vec::new(), currently_wanting_preferred_ones: false }),
+            Some(Preferred {
+                preferred_block_tag,
+                preferred_blocks_chance,
+                not_preferred_jump_candidates: Vec::new(),
+                currently_wanting_preferred_ones: false,
+            }),
         )
     }
 
@@ -144,13 +172,23 @@ impl LongJumpToRandomPos {
     }
 
     fn sample_time_between(&self, level: &mut ServerLevel) -> i32 {
-        level.tick_state.random.next_int_between_inclusive(self.time_between_long_jumps.0, self.time_between_long_jumps.1)
+        level.tick_state.random.next_int_between_inclusive(
+            self.time_between_long_jumps.0,
+            self.time_between_long_jumps.1,
+        )
     }
 
     /// `getJumpCandidate(level)` (the `LongJumpToRandomPos` version: weighted random pick, removed from the list).
     fn get_jump_candidate_base(&mut self, level: &mut ServerLevel) -> Option<PossibleJump> {
-        let total: i64 = self.jump_candidates.iter().map(|j| i64::from(j.weight)).sum();
-        assert!(total <= i64::from(i32::MAX), "Sum of weights must be <= 2147483647");
+        let total: i64 = self
+            .jump_candidates
+            .iter()
+            .map(|j| i64::from(j.weight))
+            .sum();
+        assert!(
+            total <= i64::from(i32::MAX),
+            "Sum of weights must be <= 2147483647"
+        );
         let total = total as i32;
         if total == 0 {
             return None;
@@ -168,14 +206,18 @@ impl LongJumpToRandomPos {
     }
 
     fn get_jump_candidate(&mut self, level: &mut ServerLevel) -> Option<PossibleJump> {
-        let wants_preferred = self.preferred.as_ref().is_some_and(|p| p.currently_wanting_preferred_ones);
+        let wants_preferred = self
+            .preferred
+            .as_ref()
+            .is_some_and(|p| p.currently_wanting_preferred_ones);
         if self.preferred.is_none() || !wants_preferred {
             return self.get_jump_candidate_base(level);
         }
         while !self.jump_candidates.is_empty() {
             if let Some(possible_jump) = self.get_jump_candidate_base(level) {
                 let preferred = self.preferred.as_mut().expect("preferred");
-                let below = level.get_block_state(possible_jump.target_pos.relative(Direction::Down));
+                let below =
+                    level.get_block_state(possible_jump.target_pos.relative(Direction::Down));
                 if below.is_tag(preferred.preferred_block_tag) {
                     return Some(possible_jump);
                 }
@@ -183,10 +225,19 @@ impl LongJumpToRandomPos {
             }
         }
         let preferred = self.preferred.as_mut().expect("preferred");
-        if preferred.not_preferred_jump_candidates.is_empty() { None } else { Some(preferred.not_preferred_jump_candidates.remove(0)) }
+        if preferred.not_preferred_jump_candidates.is_empty() {
+            None
+        } else {
+            Some(preferred.not_preferred_jump_candidates.remove(0))
+        }
     }
 
-    fn is_acceptable_landing_position(&self, level: &ServerLevel, body: &mut dyn Entity, target_pos: BlockPos) -> bool {
+    fn is_acceptable_landing_position(
+        &self,
+        level: &ServerLevel,
+        body: &mut dyn Entity,
+        target_pos: BlockPos,
+    ) -> bool {
         let body_pos = body.block_position();
         if body_pos.x() == target_pos.x() && body_pos.z() == target_pos.z() {
             false
@@ -195,16 +246,32 @@ impl LongJumpToRandomPos {
         }
     }
 
-    fn calculate_optimal_jump_vector(&self, level: &mut ServerLevel, body: &mut dyn Entity, target_pos: Vec3) -> Option<Vec3> {
+    fn calculate_optimal_jump_vector(
+        &self,
+        level: &mut ServerLevel,
+        body: &mut dyn Entity,
+        target_pos: Vec3,
+    ) -> Option<Vec3> {
         let mut allowed_angles = ALLOWED_ANGLES.to_vec();
         // `Collections.shuffle(allowedAngles)`: unseeded `java.util.Random` in vanilla; same algorithm on the level random here
         for n in (2..=allowed_angles.len()).rev() {
             let j = level.tick_state.random.next_int_bounded(n as i32) as usize;
             allowed_angles.swap(n - 1, j);
         }
-        let max_jump_velocity = (body.living().expect("living").get_attribute_value(Attribute::JUMP_STRENGTH) * f64::from(self.max_jump_velocity_multiplier)) as f32;
+        let max_jump_velocity = (body
+            .living()
+            .expect("living")
+            .get_attribute_value(Attribute::JUMP_STRENGTH)
+            * f64::from(self.max_jump_velocity_multiplier)) as f32;
         for angle in allowed_angles {
-            if let Some(v) = long_jump_util::calculate_jump_vector_for_angle(level, body, target_pos, max_jump_velocity, angle, true) {
+            if let Some(v) = long_jump_util::calculate_jump_vector_for_angle(
+                level,
+                body,
+                target_pos,
+                max_jump_velocity,
+                angle,
+                true,
+            ) {
                 return Some(v);
             }
         }
@@ -213,13 +280,29 @@ impl LongJumpToRandomPos {
 
     fn pick_candidate(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, timestamp: i64) {
         while !self.jump_candidates.is_empty() {
-            let Some(position) = self.get_jump_candidate(level) else { continue };
+            let Some(position) = self.get_jump_candidate(level) else {
+                continue;
+            };
             let target_pos = position.target_pos;
             if self.is_acceptable_landing_position(level, body, target_pos) {
                 let target_position = Vec3::at_center_of(&target_pos);
-                if let Some(jump_vector) = self.calculate_optimal_jump_vector(level, body, target_position) {
-                    body.brain_mut().set_memory(&LOOK_TARGET, PositionTracker::Block(BlockPosTracker::new(target_pos)));
-                    let path = navigation::with_navigation(body, level, |n, m, l| n.create_path_pos_len(m, &*l, target_pos, 0, MIN_PATHFIND_DISTANCE_TO_VALID_JUMP as f32)).flatten();
+                if let Some(jump_vector) =
+                    self.calculate_optimal_jump_vector(level, body, target_position)
+                {
+                    body.brain_mut().set_memory(
+                        &LOOK_TARGET,
+                        PositionTracker::Block(BlockPosTracker::new(target_pos)),
+                    );
+                    let path = navigation::with_navigation(body, level, |n, m, l| {
+                        n.create_path_pos_len(
+                            m,
+                            &*l,
+                            target_pos,
+                            0,
+                            MIN_PATHFIND_DISTANCE_TO_VALID_JUMP as f32,
+                        )
+                    })
+                    .flatten();
                     if path.is_none_or(|p| !p.can_reach()) {
                         self.chosen_jump = Some(jump_vector);
                         self.prepare_jump_start = timestamp;
@@ -232,26 +315,39 @@ impl LongJumpToRandomPos {
 }
 
 impl Behavior for LongJumpToRandomPos {
-    fn check_extra_start_conditions(&mut self, level: &mut ServerLevel, body: &mut dyn Entity) -> bool {
+    fn check_extra_start_conditions(
+        &mut self,
+        level: &mut ServerLevel,
+        body: &mut dyn Entity,
+    ) -> bool {
         let can_start = body.base().on_ground()
             && !body.is_in_water()
             && !body.is_in_lava()
-            && !level.get_block_state(body.block_position()).is_block(Block::HONEY_BLOCK);
+            && !level
+                .get_block_state(body.block_position())
+                .is_block(Block::HONEY_BLOCK);
         if !can_start {
             let cooldown = self.sample_time_between(level) / 2;
-            body.brain_mut().set_memory(&LONG_JUMP_COOLDOWN_TICKS, cooldown);
+            body.brain_mut()
+                .set_memory(&LONG_JUMP_COOLDOWN_TICKS, cooldown);
         }
         can_start
     }
 
-    fn can_still_use(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, _timestamp: i64) -> bool {
+    fn can_still_use(
+        &mut self,
+        level: &mut ServerLevel,
+        body: &mut dyn Entity,
+        _timestamp: i64,
+    ) -> bool {
         let is_valid = self.initial_position.is_some_and(|p| p == body.position())
             && self.find_jump_tries > 0
             && !body.is_in_water()
             && (self.chosen_jump.is_some() || !self.jump_candidates.is_empty());
         if !is_valid && body.brain().get_memory(&LONG_JUMP_MID_JUMP).is_none() {
             let cooldown = self.sample_time_between(level) / 2;
-            body.brain_mut().set_memory(&LONG_JUMP_COOLDOWN_TICKS, cooldown);
+            body.brain_mut()
+                .set_memory(&LONG_JUMP_COOLDOWN_TICKS, cooldown);
             body.brain_mut().erase_memory(&LOOK_TARGET);
         }
         is_valid
@@ -272,11 +368,15 @@ impl Behavior for LongJumpToRandomPos {
             mob_z + self.max_long_jump_width,
         )
         .filter(|pos| *pos != mob_pos)
-        .map(|pos| PossibleJump { target_pos: pos, weight: mth::ceil_f64(mob_pos.dist_sqr(&pos)) })
+        .map(|pos| PossibleJump {
+            target_pos: pos,
+            weight: mth::ceil_f64(mob_pos.dist_sqr(&pos)),
+        })
         .collect();
         if let Some(p) = self.preferred.as_mut() {
             p.not_preferred_jump_candidates.clear();
-            p.currently_wanting_preferred_ones = body.base_mut().random.next_float() < p.preferred_blocks_chance;
+            p.currently_wanting_preferred_ones =
+                body.base_mut().random.next_float() < p.preferred_blocks_chance;
         }
     }
 
@@ -287,10 +387,23 @@ impl Behavior for LongJumpToRandomPos {
                 body.base_mut().set_y_rot(y_body_rot);
                 body.living_mut().expect("living").discard_friction = true;
                 let org_length = chosen_jump.length();
-                let length_with_jump_boost = org_length + f64::from(mc_game_core::world::entity::living_entity::jump::get_jump_boost_power(&*body));
-                body.base_mut().set_delta_movement(chosen_jump.scale(length_with_jump_boost / org_length));
+                let length_with_jump_boost = org_length
+                    + f64::from(
+                        mc_game_core::world::entity::living_entity::jump::get_jump_boost_power(
+                            &*body,
+                        ),
+                    );
+                body.base_mut()
+                    .set_delta_movement(chosen_jump.scale(length_with_jump_boost / org_length));
                 body.brain_mut().set_memory(&LONG_JUMP_MID_JUMP, true);
-                behavior_utils::play_sound_from_entity(level, body.id(), (self.get_jump_sound)(&*body), SoundSource::Neutral, 1.0, 1.0);
+                behavior_utils::play_sound_from_entity(
+                    level,
+                    body.id(),
+                    (self.get_jump_sound)(&*body),
+                    SoundSource::Neutral,
+                    1.0,
+                    1.0,
+                );
             }
         } else {
             self.find_jump_tries -= 1;

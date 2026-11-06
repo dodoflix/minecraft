@@ -1,8 +1,8 @@
 //! `net.minecraft.world.level.block.NetherrackBlock`: bone meal turns it into the nylium found next to it.
 use mc_game_core::register_block_class;
-use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::level::block::bonemeal::{BonemealSource, BonemealType};
+use mc_game_core::world::level::block::impls::prelude::*;
 
 pub struct NetherrackBlock;
 
@@ -18,10 +18,25 @@ impl BlockBehaviour for NetherrackBlock {
     fn is_bonemealable(&self) -> bool {
         true
     }
-    fn is_valid_bonemeal_target(&self, level: &dyn LevelReader, pos: BlockPos, _state: BlockState, _source: BonemealSource) -> bool {
-        level.get_block_state(pos.above()).propagates_skylight_down() && nylium_around(level, pos).next().is_some()
+    fn is_valid_bonemeal_target(
+        &self,
+        level: &dyn LevelReader,
+        pos: BlockPos,
+        _state: BlockState,
+        _source: BonemealSource,
+    ) -> bool {
+        level
+            .get_block_state(pos.above())
+            .propagates_skylight_down()
+            && nylium_around(level, pos).next().is_some()
     }
-    fn perform_bonemeal(&self, level: &mut ServerLevel, pos: BlockPos, _state: BlockState, _source: BonemealSource) {
+    fn perform_bonemeal(
+        &self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        _state: BlockState,
+        _source: BonemealSource,
+    ) {
         let (mut found_red, mut found_blue) = (false, false);
         for state in nylium_around(&*level, pos) {
             if state.is_block(Block::WARPED_NYLIUM) {
@@ -34,7 +49,11 @@ impl BlockBehaviour for NetherrackBlock {
             }
         }
         if found_blue && found_red {
-            let nylium = if level.random().next_boolean() { Block::WARPED_NYLIUM } else { Block::CRIMSON_NYLIUM };
+            let nylium = if level.random().next_boolean() {
+                Block::WARPED_NYLIUM
+            } else {
+                Block::CRIMSON_NYLIUM
+            };
             level.set_block_and_update(pos, nylium.default_state());
         } else if found_blue {
             level.set_block_and_update(pos, Block::WARPED_NYLIUM.default_state());

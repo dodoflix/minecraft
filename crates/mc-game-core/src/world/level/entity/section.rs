@@ -11,7 +11,10 @@ pub struct EntitySection {
 
 impl EntitySection {
     pub fn new(chunk_status: Visibility) -> Self {
-        Self { storage: Vec::new(), chunk_status }
+        Self {
+            storage: Vec::new(),
+            chunk_status,
+        }
     }
 
     pub fn add(&mut self, entity: EntityId) {

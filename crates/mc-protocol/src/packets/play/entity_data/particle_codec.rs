@@ -1,14 +1,14 @@
 //! The data codecs of the particle options: `ParticleType.codec()` (the options' own fields) and `ParticleTypes.CODEC`
 //! (`{type: <particle type>, ...}`), over every `DynamicOps`.
 use super::particle::{ParticleOptions, PositionSource};
-use crate::components::holder::registry_by_name_codec;
 use crate::components::ItemStackTemplate;
+use crate::components::holder::registry_by_name_codec;
 use mc_core::phys::vec3::Vec3;
 use mc_core::pos::block_pos::BlockPos;
-use mc_data::block::{Block, BlockState};
 use mc_data::ParticleType;
-use mc_dfu::extra::{fixed_size, POSITIVE_INT, RGB_COLOR_CODEC};
-use mc_dfu::{record, Codec, DataResult, Dyn, MapCodec, DOUBLE, FLOAT, INT, INT_STREAM};
+use mc_data::block::{Block, BlockState};
+use mc_dfu::extra::{POSITIVE_INT, RGB_COLOR_CODEC, fixed_size};
+use mc_dfu::{Codec, DOUBLE, DataResult, Dyn, FLOAT, INT, INT_STREAM, MapCodec, record};
 use std::sync::LazyLock;
 
 /// `ARGB.colorFromFloat(alpha, red, green, blue)`.
@@ -19,8 +19,12 @@ fn color_from_float(alpha: f32, red: f32, green: f32, blue: f32) -> i32 {
 
 /// `ExtraCodecs.ARGB_COLOR_CODEC`: an int or an `[r, g, b, a]` float list.
 pub static ARGB_COLOR_CODEC: LazyLock<Codec<i32>> = LazyLock::new(|| {
-    let vector4f = FLOAT.list_of().comap_flat_map(|l| fixed_size(l, 4), |v: &Vec<f32>| v.clone());
-    INT.with_alternative_conv(&vector4f, |v: Vec<f32>| color_from_float(v[3], v[0], v[1], v[2]))
+    let vector4f = FLOAT
+        .list_of()
+        .comap_flat_map(|l| fixed_size(l, 4), |v: &Vec<f32>| v.clone());
+    INT.with_alternative_conv(&vector4f, |v: Vec<f32>| {
+        color_from_float(v[3], v[0], v[1], v[2])
+    })
 });
 
 /// `Vec3.CODEC`: a list of three doubles.
@@ -49,7 +53,9 @@ fn properties_codec(block: Block) -> Codec<BlockState> {
                 let mut state = block.default_state();
                 for p in block.properties() {
                     let parsed = m.get(p.name).and_then(|v| ops.get_string_value(v).result());
-                    if let Some(next) = parsed.and_then(|value| state.with_property_str(p.name, &value)) {
+                    if let Some(next) =
+                        parsed.and_then(|value| state.with_property_str(p.name, &value))
+                    {
                         state = next;
                     }
                 }
@@ -75,14 +81,20 @@ pub fn block_state_codec() -> Codec<BlockState> {
     registry_by_name_codec::<Block>().either(&full).xmap(
         |e| e.map(|block| block.default_state(), |state| state),
         |state: &BlockState| {
-            if *state == state.block().default_state() { mc_dfu::Either::Left(state.block()) } else { mc_dfu::Either::Right(*state) }
+            if *state == state.block().default_state() {
+                mc_dfu::Either::Left(state.block())
+            } else {
+                mc_dfu::Either::Right(*state)
+            }
         },
     )
 }
 
 /// `BlockParticleOption.BLOCK_STATE_CODEC`: `BlockState.CODEC` or a bare block name.
 fn block_particle_state_codec() -> Codec<BlockState> {
-    block_state_codec().with_alternative_conv(&registry_by_name_codec::<Block>(), |block: Block| block.default_state())
+    block_state_codec().with_alternative_conv(&registry_by_name_codec::<Block>(), |block: Block| {
+        block.default_state()
+    })
 }
 
 /// `VibrationParticleOption.SAFE_POSITION_SOURCE_CODEC`: `PositionSource.CODEC` minus entity sources.
@@ -107,26 +119,47 @@ fn safe_position_source_codec() -> Codec<PositionSource> {
     let uuid = crate::components::common::uuid_codec();
     kind.dispatch(
         "type",
-        |s: &PositionSource| if matches!(s, PositionSource::Block(_)) { Kind::Block } else { Kind::Entity },
-        move |k: &Kind| match k {
-            Kind::Block => block_pos.field_of("pos").xmap(PositionSource::Block, |s: &PositionSource| match s {
-                PositionSource::Block(p) => *p,
-                PositionSource::Entity { .. } => BlockPos::new(0, 0, 0),
-            }),
-            Kind::Entity => {
-                record!(EntityFields { y_offset: FLOAT.optional_field_of_default("y_offset", 0.0f32), source_entity: uuid.field_of("source_entity") })
-                    .xmap(
-                        |f| PositionSource::Entity { source_entity_id: 0, y_offset: f.y_offset },
-                        |s: &PositionSource| match s {
-                            PositionSource::Entity { y_offset, .. } => EntityFields { source_entity: uuid::Uuid::nil(), y_offset: *y_offset },
-                            PositionSource::Block(_) => EntityFields { source_entity: uuid::Uuid::nil(), y_offset: 0.0 },
-                        },
-                    )
+        |s: &PositionSource| {
+            if matches!(s, PositionSource::Block(_)) {
+                Kind::Block
+            } else {
+                Kind::Entity
             }
+        },
+        move |k: &Kind| match k {
+            Kind::Block => block_pos.field_of("pos").xmap(
+                PositionSource::Block,
+                |s: &PositionSource| match s {
+                    PositionSource::Block(p) => *p,
+                    PositionSource::Entity { .. } => BlockPos::new(0, 0, 0),
+                },
+            ),
+            Kind::Entity => record!(EntityFields {
+                y_offset: FLOAT.optional_field_of_default("y_offset", 0.0f32),
+                source_entity: uuid.field_of("source_entity")
+            })
+            .xmap(
+                |f| PositionSource::Entity {
+                    source_entity_id: 0,
+                    y_offset: f.y_offset,
+                },
+                |s: &PositionSource| match s {
+                    PositionSource::Entity { y_offset, .. } => EntityFields {
+                        source_entity: uuid::Uuid::nil(),
+                        y_offset: *y_offset,
+                    },
+                    PositionSource::Block(_) => EntityFields {
+                        source_entity: uuid::Uuid::nil(),
+                        y_offset: 0.0,
+                    },
+                },
+            ),
         },
     )
     .validate(|s| match s {
-        PositionSource::Entity { .. } => DataResult::error_str("Entity position sources are not allowed"),
+        PositionSource::Entity { .. } => {
+            DataResult::error_str("Entity position sources are not allowed")
+        }
         s => DataResult::success(s),
     })
 }
@@ -156,7 +189,12 @@ static SCALE: LazyLock<Codec<f32>> = LazyLock::new(|| {
         if (0.01f32..=4.0f32).contains(&v) {
             DataResult::success(v)
         } else {
-            DataResult::error(move || format!("Value must be within range [0.01;4.0]: {}", mc_core::math::java::java_float_to_string(v)))
+            DataResult::error(move || {
+                format!(
+                    "Value must be within range [0.01;4.0]: {}",
+                    mc_core::math::java::java_float_to_string(v)
+                )
+            })
         }
     })
 });
@@ -199,73 +237,130 @@ impl ParticleOptions {
     /// encoding a value of another shape writes nothing sensible, like a ClassCastException in vanilla).
     pub fn map_codec(t: ParticleType) -> MapCodec<ParticleOptions> {
         match t {
-            ParticleType::BLOCK | ParticleType::BLOCK_MARKER | ParticleType::FALLING_DUST | ParticleType::DUST_PILLAR | ParticleType::BLOCK_CRUMBLE => {
-                block_particle_state_codec()
-                    .xmap(
-                        move |state| ParticleOptions::Block { particle_type: t, state },
-                        |o: &ParticleOptions| match o {
-                            ParticleOptions::Block { state, .. } => *state,
-                            _ => Block::AIR.default_state(),
-                        },
-                    )
-                    .field_of("block_state")
-            }
-            ParticleType::ENTITY_EFFECT | ParticleType::TINTED_LEAVES | ParticleType::FLASH => ARGB_COLOR_CODEC
+            ParticleType::BLOCK
+            | ParticleType::BLOCK_MARKER
+            | ParticleType::FALLING_DUST
+            | ParticleType::DUST_PILLAR
+            | ParticleType::BLOCK_CRUMBLE => block_particle_state_codec()
                 .xmap(
-                    move |color| ParticleOptions::Color { particle_type: t, color },
+                    move |state| ParticleOptions::Block {
+                        particle_type: t,
+                        state,
+                    },
                     |o: &ParticleOptions| match o {
-                        ParticleOptions::Color { color, .. } => *color,
-                        _ => 0,
+                        ParticleOptions::Block { state, .. } => *state,
+                        _ => Block::AIR.default_state(),
                     },
                 )
-                .field_of("color"),
+                .field_of("block_state"),
+            ParticleType::ENTITY_EFFECT | ParticleType::TINTED_LEAVES | ParticleType::FLASH => {
+                ARGB_COLOR_CODEC
+                    .xmap(
+                        move |color| ParticleOptions::Color {
+                            particle_type: t,
+                            color,
+                        },
+                        |o: &ParticleOptions| match o {
+                            ParticleOptions::Color { color, .. } => *color,
+                            _ => 0,
+                        },
+                    )
+                    .field_of("color")
+            }
             ParticleType::DRAGON_BREATH => FLOAT
                 .xmap(
-                    move |power| ParticleOptions::Power { particle_type: t, power },
+                    move |power| ParticleOptions::Power {
+                        particle_type: t,
+                        power,
+                    },
                     |o: &ParticleOptions| match o {
                         ParticleOptions::Power { power, .. } => *power,
                         _ => 1.0,
                     },
                 )
-                .optional_field_of_default("power", ParticleOptions::Power { particle_type: t, power: 1.0 }),
+                .optional_field_of_default(
+                    "power",
+                    ParticleOptions::Power {
+                        particle_type: t,
+                        power: 1.0,
+                    },
+                ),
             ParticleType::EFFECT | ParticleType::INSTANT_EFFECT => record!(SpellFields {
                 power: FLOAT.optional_field_of_default("power", 1.0f32),
                 color: RGB_COLOR_CODEC.optional_field_of_default("color", -1),
             })
             .xmap(
-                move |f| ParticleOptions::Spell { particle_type: t, color: f.color, power: f.power },
+                move |f| ParticleOptions::Spell {
+                    particle_type: t,
+                    color: f.color,
+                    power: f.power,
+                },
                 |o: &ParticleOptions| match o {
-                    ParticleOptions::Spell { color, power, .. } => SpellFields { color: *color, power: *power },
-                    _ => SpellFields { color: -1, power: 1.0 },
+                    ParticleOptions::Spell { color, power, .. } => SpellFields {
+                        color: *color,
+                        power: *power,
+                    },
+                    _ => SpellFields {
+                        color: -1,
+                        power: 1.0,
+                    },
                 },
             ),
-            ParticleType::GEYSER | ParticleType::GEYSER_PLUME => POSITIVE_INT
-                .field_of("water_blocks")
-                .xmap(
-                    move |water_blocks| ParticleOptions::Geyser { particle_type: t, water_blocks },
+            ParticleType::GEYSER | ParticleType::GEYSER_PLUME => {
+                POSITIVE_INT.field_of("water_blocks").xmap(
+                    move |water_blocks| ParticleOptions::Geyser {
+                        particle_type: t,
+                        water_blocks,
+                    },
                     |o: &ParticleOptions| match o {
                         ParticleOptions::Geyser { water_blocks, .. } => *water_blocks,
                         _ => 1,
                     },
-                ),
+                )
+            }
             ParticleType::GEYSER_BASE | ParticleType::GEYSER_POOF => record!(GeyserBaseFields {
                 burst_impulse_base: FLOAT.field_of("burst_impulse_base"),
                 water_blocks: POSITIVE_INT.field_of("water_blocks"),
             })
             .xmap(
-                move |f| ParticleOptions::GeyserBase { particle_type: t, water_blocks: f.water_blocks, burst_impulse_base: f.burst_impulse_base },
+                move |f| ParticleOptions::GeyserBase {
+                    particle_type: t,
+                    water_blocks: f.water_blocks,
+                    burst_impulse_base: f.burst_impulse_base,
+                },
                 |o: &ParticleOptions| match o {
-                    ParticleOptions::GeyserBase { water_blocks, burst_impulse_base, .. } => {
-                        GeyserBaseFields { water_blocks: *water_blocks, burst_impulse_base: *burst_impulse_base }
-                    }
-                    _ => GeyserBaseFields { water_blocks: 1, burst_impulse_base: 0.0 },
+                    ParticleOptions::GeyserBase {
+                        water_blocks,
+                        burst_impulse_base,
+                        ..
+                    } => GeyserBaseFields {
+                        water_blocks: *water_blocks,
+                        burst_impulse_base: *burst_impulse_base,
+                    },
+                    _ => GeyserBaseFields {
+                        water_blocks: 1,
+                        burst_impulse_base: 0.0,
+                    },
                 },
             ),
-            ParticleType::DUST => record!(DustFields { scale: SCALE.field_of("scale"), color: RGB_COLOR_CODEC.field_of("color") }).xmap(
-                |f| ParticleOptions::Dust { color: f.color, scale: f.scale },
+            ParticleType::DUST => record!(DustFields {
+                scale: SCALE.field_of("scale"),
+                color: RGB_COLOR_CODEC.field_of("color")
+            })
+            .xmap(
+                |f| ParticleOptions::Dust {
+                    color: f.color,
+                    scale: f.scale,
+                },
                 |o: &ParticleOptions| match o {
-                    ParticleOptions::Dust { color, scale } => DustFields { color: *color, scale: *scale },
-                    _ => DustFields { color: 0, scale: 1.0 },
+                    ParticleOptions::Dust { color, scale } => DustFields {
+                        color: *color,
+                        scale: *scale,
+                    },
+                    _ => DustFields {
+                        color: 0,
+                        scale: 1.0,
+                    },
                 },
             ),
             ParticleType::DUST_COLOR_TRANSITION => record!(DustTransitionFields {
@@ -274,12 +369,26 @@ impl ParticleOptions {
                 from_color: RGB_COLOR_CODEC.field_of("from_color"),
             })
             .xmap(
-                |f| ParticleOptions::DustColorTransition { from_color: f.from_color, to_color: f.to_color, scale: f.scale },
+                |f| ParticleOptions::DustColorTransition {
+                    from_color: f.from_color,
+                    to_color: f.to_color,
+                    scale: f.scale,
+                },
                 |o: &ParticleOptions| match o {
-                    ParticleOptions::DustColorTransition { from_color, to_color, scale } => {
-                        DustTransitionFields { from_color: *from_color, to_color: *to_color, scale: *scale }
-                    }
-                    _ => DustTransitionFields { from_color: 0, to_color: 0, scale: 1.0 },
+                    ParticleOptions::DustColorTransition {
+                        from_color,
+                        to_color,
+                        scale,
+                    } => DustTransitionFields {
+                        from_color: *from_color,
+                        to_color: *to_color,
+                        scale: *scale,
+                    },
+                    _ => DustTransitionFields {
+                        from_color: 0,
+                        to_color: 0,
+                        scale: 1.0,
+                    },
                 },
             ),
             ParticleType::SCULK_CHARGE => FLOAT.field_of("roll").xmap(
@@ -297,25 +406,32 @@ impl ParticleOptions {
                 },
             ),
             ParticleType::ITEM => ItemStackTemplate::codec()
-                .xmap(
-                    ParticleOptions::Item,
-                    |o: &ParticleOptions| match o {
-                        ParticleOptions::Item(item) => item.clone(),
-                        _ => ItemStackTemplate::of(mc_data::Item::STONE),
-                    },
-                )
+                .xmap(ParticleOptions::Item, |o: &ParticleOptions| match o {
+                    ParticleOptions::Item(item) => item.clone(),
+                    _ => ItemStackTemplate::of(mc_data::Item::STONE),
+                })
                 .field_of("item"),
             ParticleType::VIBRATION => record!(VibrationFields {
                 arrival_in_ticks: INT.field_of("arrival_in_ticks"),
                 destination: safe_position_source_codec().field_of("destination"),
             })
             .xmap(
-                |f| ParticleOptions::Vibration { destination: f.destination, arrival_in_ticks: f.arrival_in_ticks },
+                |f| ParticleOptions::Vibration {
+                    destination: f.destination,
+                    arrival_in_ticks: f.arrival_in_ticks,
+                },
                 |o: &ParticleOptions| match o {
-                    ParticleOptions::Vibration { destination, arrival_in_ticks } => {
-                        VibrationFields { destination: *destination, arrival_in_ticks: *arrival_in_ticks }
-                    }
-                    _ => VibrationFields { destination: PositionSource::Block(BlockPos::new(0, 0, 0)), arrival_in_ticks: 0 },
+                    ParticleOptions::Vibration {
+                        destination,
+                        arrival_in_ticks,
+                    } => VibrationFields {
+                        destination: *destination,
+                        arrival_in_ticks: *arrival_in_ticks,
+                    },
+                    _ => VibrationFields {
+                        destination: PositionSource::Block(BlockPos::new(0, 0, 0)),
+                        arrival_in_ticks: 0,
+                    },
                 },
             ),
             ParticleType::TRAIL => record!(TrailFields {
@@ -324,10 +440,26 @@ impl ParticleOptions {
                 target: vec3_codec().field_of("target"),
             })
             .xmap(
-                |f| ParticleOptions::Trail { target: f.target, color: f.color, duration: f.duration },
+                |f| ParticleOptions::Trail {
+                    target: f.target,
+                    color: f.color,
+                    duration: f.duration,
+                },
                 |o: &ParticleOptions| match o {
-                    ParticleOptions::Trail { target, color, duration } => TrailFields { target: *target, color: *color, duration: *duration },
-                    _ => TrailFields { target: Vec3::new(0.0, 0.0, 0.0), color: 0, duration: 1 },
+                    ParticleOptions::Trail {
+                        target,
+                        color,
+                        duration,
+                    } => TrailFields {
+                        target: *target,
+                        color: *color,
+                        duration: *duration,
+                    },
+                    _ => TrailFields {
+                        target: Vec3::new(0.0, 0.0, 0.0),
+                        color: 0,
+                        duration: 1,
+                    },
                 },
             ),
             _ => MapCodec::unit(ParticleOptions::Simple(t)),
@@ -336,11 +468,18 @@ impl ParticleOptions {
 
     /// `ParticleTypes.CODEC`: the particle type's registry name under `type`, then its options.
     pub fn codec() -> Codec<ParticleOptions> {
-        registry_by_name_codec::<ParticleType>().dispatch("type", |o: &ParticleOptions| o.particle_type(), |t: &ParticleType| Self::map_codec(*t))
+        registry_by_name_codec::<ParticleType>().dispatch(
+            "type",
+            |o: &ParticleOptions| o.particle_type(),
+            |t: &ParticleType| Self::map_codec(*t),
+        )
     }
 
     /// Parse the options of `particle_type` from NBT `data` (`type.codec().codec().parse(NbtOps, data)`): the error message.
     pub fn parse_nbt(t: ParticleType, data: &mc_nbt::Tag) -> Result<ParticleOptions, String> {
-        Self::map_codec(t).codec().parse(&mc_dfu::NBT, &Dyn::from(data)).into_result()
+        Self::map_codec(t)
+            .codec()
+            .parse(&mc_dfu::NBT, &Dyn::from(data))
+            .into_result()
     }
 }

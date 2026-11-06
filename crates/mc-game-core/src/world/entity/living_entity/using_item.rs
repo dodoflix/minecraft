@@ -22,7 +22,11 @@ pub fn is_using_item(e: &dyn Entity) -> bool {
 
 /// `getUsedItemHand()`.
 pub fn get_used_item_hand(e: &dyn Entity) -> InteractionHand {
-    if flag(e, LIVING_ENTITY_FLAG_OFF_HAND) { InteractionHand::OffHand } else { InteractionHand::MainHand }
+    if flag(e, LIVING_ENTITY_FLAG_OFF_HAND) {
+        InteractionHand::OffHand
+    } else {
+        InteractionHand::MainHand
+    }
 }
 
 /// `getUseItem()`.
@@ -50,8 +54,16 @@ fn item_in_hand(e: &dyn Entity, hand: InteractionHand) -> ItemStack {
 }
 
 /// `ItemStack.causeUseVibration(causer, event)`.
-fn cause_use_vibration(e: &dyn Entity, level: &mut ServerLevel, stack: &ItemStack, event: GameEvent) {
-    if stack.get(&USE_EFFECTS).is_some_and(|u| u.interact_vibrations) {
+fn cause_use_vibration(
+    e: &dyn Entity,
+    level: &mut ServerLevel,
+    stack: &ItemStack,
+    event: GameEvent,
+) {
+    if stack
+        .get(&USE_EFFECTS)
+        .is_some_and(|u| u.interact_vibrations)
+    {
         level.game_event_from_entity_ref(e, event, e.base().position());
     }
 }
@@ -68,12 +80,20 @@ pub fn start_using_item(e: &mut dyn Entity, level: &mut ServerLevel, hand: Inter
         living.use_item_remaining = behaviour(stack.item()).get_use_duration(&stack);
     }
     // `updatePlayersWithNewEquipment`
-    let packet = ClientboundSetEquipmentPacket { entity: e.id(), slots: vec![(hand.as_equipment_slot().to_protocol(), stack.clone())] };
-    level.entity_tracker.send_to_tracking_players(e.id(), &encode_packet(&packet));
+    let packet = ClientboundSetEquipmentPacket {
+        entity: e.id(),
+        slots: vec![(hand.as_equipment_slot().to_protocol(), stack.clone())],
+    };
+    level
+        .entity_tracker
+        .send_to_tracking_players(e.id(), &encode_packet(&packet));
     {
         let living = e.living_mut().expect("living");
         living.set_living_entity_flag(LIVING_ENTITY_FLAG_IS_USING, true);
-        living.set_living_entity_flag(LIVING_ENTITY_FLAG_OFF_HAND, hand == InteractionHand::OffHand);
+        living.set_living_entity_flag(
+            LIVING_ENTITY_FLAG_OFF_HAND,
+            hand == InteractionHand::OffHand,
+        );
     }
     cause_use_vibration(e, level, &stack, GameEvent::ITEM_INTERACT_START);
     // `recentKineticEnemies = new Object2LongOpenHashMap()` for a kinetic weapon: owned by the combat code.
@@ -82,7 +102,9 @@ pub fn start_using_item(e: &mut dyn Entity, level: &mut ServerLevel, hand: Inter
 /// `stopUsingItem()`.
 pub fn stop_using_item(e: &mut dyn Entity, level: &mut ServerLevel) {
     let was_using = is_using_item(e);
-    e.living_mut().expect("living").set_living_entity_flag(LIVING_ENTITY_FLAG_IS_USING, false);
+    e.living_mut()
+        .expect("living")
+        .set_living_entity_flag(LIVING_ENTITY_FLAG_IS_USING, false);
     if was_using {
         let stack = get_use_item(e);
         cause_use_vibration(e, level, &stack, GameEvent::ITEM_INTERACT_FINISH);
@@ -103,7 +125,16 @@ pub fn release_using_item(e: &mut dyn Entity, level: &mut ServerLevel) {
         let before = in_hand.copy();
         let released = behaviour(in_hand.item()).release_using(&mut in_hand, level, e, remaining);
         // the hook mutates the stack the entity holds (`this.useItem` aliases the hand stack)
-        let stored = if released { crate::world::item::apply_after_use_component_side_effects(level, in_hand.clone(), e, &before) } else { in_hand.clone() };
+        let stored = if released {
+            crate::world::item::apply_after_use_component_side_effects(
+                level,
+                in_hand.clone(),
+                e,
+                &before,
+            )
+        } else {
+            in_hand.clone()
+        };
         if stored != item_in_hand(e, hand) {
             e.set_item_slot(level, hand.as_equipment_slot(), stored);
         }

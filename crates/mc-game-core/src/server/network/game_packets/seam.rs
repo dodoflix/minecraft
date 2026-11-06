@@ -33,12 +33,18 @@ impl ServerPlayer {
 
     /// `nameAndId()`.
     pub fn name_and_id(&self) -> NameAndId {
-        NameAndId { id: self.player.game_profile.id, name: self.player.game_profile.name.clone() }
+        NameAndId {
+            id: self.player.game_profile.id,
+            name: self.player.game_profile.name.clone(),
+        }
     }
 
     /// `getDisplayName()` without the team formatting (that needs the scoreboard: `host::entity_display_name`).
     pub fn get_display_name(&self) -> Component {
-        crate::commands::host::decorate_display_name(Component::literal(self.player.game_profile.name.clone()), self)
+        crate::commands::host::decorate_display_name(
+            Component::literal(self.player.game_profile.name.clone()),
+            self,
+        )
     }
 
     pub fn get_y_rot(&self) -> f32 {
@@ -89,7 +95,10 @@ impl ServerPlayer {
 
     /// `setShiftKeyDown(shift)`.
     pub fn set_shift_key_down(&mut self, shift: bool) {
-        self.player.living.entity.set_shared_flag(crate::world::entity::entity::FLAG_SHIFT_KEY_DOWN, shift);
+        self.player
+            .living
+            .entity
+            .set_shared_flag(crate::world::entity::entity::FLAG_SHIFT_KEY_DOWN, shift);
     }
 
     /// `setKnownMovement(movement)`.
@@ -110,14 +119,23 @@ impl ServerPlayer {
     /// `clientInformation()` (the model customisation is read back from the synched data like vanilla).
     pub fn client_information(&self) -> ClientInformation {
         let mut info = self.client_information.clone();
-        info.model_customisation = self.player.living.entity.entity_data.get(crate::world::entity::player::DATA_PLAYER_MODE_CUSTOMISATION) as u8;
+        info.model_customisation = self
+            .player
+            .living
+            .entity
+            .entity_data
+            .get(crate::world::entity::player::DATA_PLAYER_MODE_CUSTOMISATION)
+            as u8;
         info.main_hand = self.player.get_main_arm();
         info
     }
 
     /// `sendSystemMessage(message)`.
     pub fn send_system_message(&self, message: Component) {
-        self.send(&ClientboundSystemChatPacket { content: message, overlay: false });
+        self.send(&ClientboundSystemChatPacket {
+            content: message,
+            overlay: false,
+        });
     }
 }
 
@@ -126,14 +144,28 @@ pub(super) fn no_collision(level: &ServerLevel, entity: &dyn Entity, aabb: &AABB
     let context = collision_context(entity);
     level.no_block_collision(Some(&context), aabb)
         && level.entity_collisions(Some(entity), aabb).is_empty()
-        && level.world_border_collision(entity, aabb).is_none_or(|border| !Shapes::join_is_not_empty(&border, &Shapes::create(*aabb), BooleanOp::AND))
+        && level
+            .world_border_collision(entity, aabb)
+            .is_none_or(|border| {
+                !Shapes::join_is_not_empty(&border, &Shapes::create(*aabb), BooleanOp::AND)
+            })
 }
 
 /// `getPreMoveCollisions(entity, box, oldPos)`.
-pub(super) fn get_pre_move_collisions(level: &ServerLevel, entity: &dyn Entity, aabb: &AABB, old_pos: Vec3) -> Vec<VoxelShape> {
+pub(super) fn get_pre_move_collisions(
+    level: &ServerLevel,
+    entity: &dyn Entity,
+    aabb: &AABB,
+    old_pos: Vec3,
+) -> Vec<VoxelShape> {
     let mut shapes = level.entity_collisions(Some(entity), aabb);
-    let context =
-        CollisionContext::with_position(entity.id(), entity.is_descending(), old_pos.y, entity.held_item_for_collision(), entity.can_stand_on_fluid_fn());
+    let context = CollisionContext::with_position(
+        entity.id(),
+        entity.is_descending(),
+        old_pos.y,
+        entity.held_item_for_collision(),
+        entity.can_stand_on_fluid_fn(),
+    );
     shapes.extend(level.get_block_collisions_from_context(context, *aabb));
     shapes
 }
@@ -155,7 +187,10 @@ pub(super) fn all_blocks_in_are_air(level: &ServerLevel, aabb: &AABB) -> bool {
 }
 
 /// `itemStack.isItemEnabled(level.enabledFeatures())`.
-pub(super) fn item_enabled(level: &ServerLevel, stack: &mc_protocol::components::ItemStack) -> bool {
+pub(super) fn item_enabled(
+    level: &ServerLevel,
+    stack: &mc_protocol::components::ItemStack,
+) -> bool {
     crate::world::item::is_item_enabled(stack, level.enabled_features())
 }
 
@@ -163,7 +198,10 @@ impl PlayCtx<'_> {
     /// `player.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER)`.
     pub(super) fn has_gamemaster_permission(&mut self) -> bool {
         let id = self.player.name_and_id();
-        self.server.player_list.get_profile_permissions(&id).has_permission(&crate::server::permissions::permissions::COMMANDS_GAMEMASTER)
+        self.server
+            .player_list
+            .get_profile_permissions(&id)
+            .has_permission(&crate::server::permissions::permissions::COMMANDS_GAMEMASTER)
     }
 
     /// `player.hasInfiniteMaterials()` (creative: `abilities.instabuild`).

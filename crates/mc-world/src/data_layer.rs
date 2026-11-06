@@ -40,13 +40,22 @@ impl DataLayer {
 
     /// `new DataLayer(int defaultValue)`: e.g. `filled(15)` for full skylight.
     pub fn filled(default_value: i32) -> DataLayer {
-        DataLayer { data: None, default_value }
+        DataLayer {
+            data: None,
+            default_value,
+        }
     }
 
     /// `new DataLayer(byte[])`.
     pub fn from_bytes(data: Vec<u8>) -> Result<DataLayer, InvalidSize> {
-        let data: Box<[u8; SIZE]> = data.into_boxed_slice().try_into().map_err(|d: Box<[u8]>| InvalidSize(d.len()))?;
-        Ok(DataLayer { data: Some(data), default_value: 0 })
+        let data: Box<[u8; SIZE]> = data
+            .into_boxed_slice()
+            .try_into()
+            .map_err(|d: Box<[u8]>| InvalidSize(d.len()))?;
+        Ok(DataLayer {
+            data: Some(data),
+            default_value: 0,
+        })
     }
 
     fn get_index(x: i32, y: i32, z: i32) -> usize {

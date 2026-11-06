@@ -23,7 +23,13 @@ impl DedicatedPlayerList {
         view_distance: i32,
         simulation_distance: i32,
     ) -> PlayerList {
-        let mut list = PlayerList::new(settings, player_io, stats_dir, advancements_dir, notifications);
+        let mut list = PlayerList::new(
+            settings,
+            player_io,
+            stats_dir,
+            advancements_dir,
+            notifications,
+        );
         list.set_view_distance_value(view_distance);
         list.set_simulation_distance_value(simulation_distance);
         list.load_user_ban_list();

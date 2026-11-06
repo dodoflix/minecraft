@@ -9,7 +9,9 @@ use std::path::{Component, Path, PathBuf};
 use mc_core::ident::Identifier;
 use mc_nbt::{CompoundTag, NbtAccounter, Tag};
 
-use super::file_util::{create_directories_safe, nbt_error_to_io, read_compressed, write_compressed};
+use super::file_util::{
+    create_directories_safe, nbt_error_to_io, read_compressed, write_compressed,
+};
 use super::version::add_current_data_version;
 
 /// `Path.normalize()` (lexical).
@@ -56,7 +58,9 @@ pub struct SavedDataStorage {
 
 impl SavedDataStorage {
     pub fn new(data_folder: impl Into<PathBuf>) -> SavedDataStorage {
-        SavedDataStorage { data_folder: data_folder.into() }
+        SavedDataStorage {
+            data_folder: data_folder.into(),
+        }
     }
 
     pub fn data_folder(&self) -> &Path {
@@ -65,12 +69,18 @@ impl SavedDataStorage {
 
     /// `getDataFile`: `id` + `.dat` against the data folder; escaping it is `IllegalArgumentException`.
     pub fn get_data_file(&self, id: &Identifier) -> io::Result<PathBuf> {
-        let path = resolve_against(&id.with_suffix(".dat").map_err(io::Error::other)?, &self.data_folder)?;
+        let path = resolve_against(
+            &id.with_suffix(".dat").map_err(io::Error::other)?,
+            &self.data_folder,
+        )?;
         let absolute = std::path::absolute(&path)?;
         if !normalize(&absolute).starts_with(normalize(&std::path::absolute(&self.data_folder)?)) {
             return Err(io::Error::new(
                 io::ErrorKind::InvalidInput,
-                format!("SavedDataStorage attempted file access outside of data directory: {{}}{}", path.display()),
+                format!(
+                    "SavedDataStorage attempted file access outside of data directory: {{}}{}",
+                    path.display()
+                ),
             ));
         }
         Ok(path)
@@ -85,7 +95,8 @@ impl SavedDataStorage {
             read_compressed(data_file, &mut NbtAccounter::unlimited_heap())
         } else {
             let data = fs::read(data_file)?;
-            mc_nbt::nbt_io::read(&mut data.as_slice(), &mut NbtAccounter::unlimited_heap()).map_err(nbt_error_to_io)
+            mc_nbt::nbt_io::read(&mut data.as_slice(), &mut NbtAccounter::unlimited_heap())
+                .map_err(nbt_error_to_io)
         }
     }
 
@@ -144,7 +155,10 @@ mod tests {
         assert!(dir.path().join("data/minecraft/weather.dat").is_file());
         assert_eq!(storage.get(&id), Some(data));
         let file = storage.read_file(&id).unwrap().unwrap();
-        assert_eq!(file.get_int("DataVersion"), Some(super::super::version::WORLD_VERSION));
+        assert_eq!(
+            file.get_int("DataVersion"),
+            Some(super::super::version::WORLD_VERSION)
+        );
     }
 
     #[test]
@@ -154,7 +168,11 @@ mod tests {
         let id = Identifier::parse("minecraft:plain").unwrap();
         let tag = SavedDataStorage::encode_file(Tag::Int(7));
         std::fs::create_dir_all(dir.path().join("minecraft")).unwrap();
-        std::fs::write(dir.path().join("minecraft/plain.dat"), mc_nbt::nbt_io::to_bytes(&tag)).unwrap();
+        std::fs::write(
+            dir.path().join("minecraft/plain.dat"),
+            mc_nbt::nbt_io::to_bytes(&tag),
+        )
+        .unwrap();
         assert_eq!(storage.get(&id), Some(Tag::Int(7)));
         let evil = Identifier::parse("minecraft:a/../../../b").unwrap();
         assert!(storage.get_data_file(&evil).is_err());

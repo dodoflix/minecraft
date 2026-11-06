@@ -11,7 +11,13 @@ use mc_protocol::packets::play::SoundSource;
 
 /// `LivingEntity.onEquipItem(slot, oldStack, stack)` (server side): equip sound + `EQUIP`/`UNEQUIP` game event when the
 /// stack really changed.
-pub fn on_equip_item(entity: &mut dyn Entity, level: &mut ServerLevel, slot: EquipmentSlot, old: &ItemStack, new: &ItemStack) {
+pub fn on_equip_item(
+    entity: &mut dyn Entity,
+    level: &mut ServerLevel,
+    slot: EquipmentSlot,
+    old: &ItemStack,
+    new: &ItemStack,
+) {
     if entity.is_spectator() {
         return;
     }
@@ -20,18 +26,29 @@ pub fn on_equip_item(entity: &mut dyn Entity, level: &mut ServerLevel, slot: Equ
         if !entity.base().is_silent() {
             if let Some(eq) = equippable {
                 if slot == EquipmentSlot::from_protocol(eq.slot) {
-                    let own = eq.equip_sound.name().and_then(|n| SoundEvent::by_name(&n.to_string()));
+                    let own = eq
+                        .equip_sound
+                        .name()
+                        .and_then(|n| SoundEvent::by_name(&n.to_string()));
                     if let Some(sound) = entity.get_equip_sound_override(slot).or(own) {
                         let seed = entity.base_mut().random.next_long();
                         let p = entity.base().position();
-                        let source = if entity.is_player() { SoundSource::Players } else { SoundSource::Neutral };
+                        let source = if entity.is_player() {
+                            SoundSource::Players
+                        } else {
+                            SoundSource::Neutral
+                        };
                         level.play_seeded_sound(None, p.x, p.y, p.z, sound, source, 1.0, 1.0, seed);
                     }
                 }
             }
         }
         if entity.does_emit_equip_event(slot) {
-            let event = if equippable.is_some() { GameEvent::EQUIP } else { GameEvent::UNEQUIP };
+            let event = if equippable.is_some() {
+                GameEvent::EQUIP
+            } else {
+                GameEvent::UNEQUIP
+            };
             level.game_event_from_entity_ref(&*entity, event, entity.base().position());
         }
     }
@@ -48,5 +65,9 @@ pub fn get_armor_cover_percentage(entity: &dyn Entity) -> f32 {
             total += 1;
         }
     }
-    if total > 0 { count as f32 / total as f32 } else { 0.0 }
+    if total > 0 {
+        count as f32 / total as f32
+    } else {
+        0.0
+    }
 }

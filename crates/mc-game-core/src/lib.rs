@@ -9,6 +9,6 @@ pub mod crash_report;
 pub mod gametest;
 pub mod registry;
 pub mod server;
+pub mod stats;
 pub mod util;
 pub mod world;
-pub mod stats;

@@ -10,7 +10,10 @@ pub struct MarsagliaPolarGaussian {
 
 impl MarsagliaPolarGaussian {
     pub const fn new() -> Self {
-        Self { next_next_gaussian: 0.0, have_next_next_gaussian: false }
+        Self {
+            next_next_gaussian: 0.0,
+            have_next_next_gaussian: false,
+        }
     }
 
     pub fn reset(&mut self) {

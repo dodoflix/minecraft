@@ -1,18 +1,24 @@
 //! `PoolElementStructurePiece` (piece type `jigsaw`): a placed pool element with its position, rotation and the junctions
 //! to its neighbours.
 
-use mc_game_core::world::level::levelgen::structure::manager::StructureManager;
-use mc_game_core::world::level::levelgen::structure::piece::{PieceBase, StructurePiece, StructurePieceSerializationContext, StructurePieceType};
 use super::pools::jigsaw_junction::JigsawJunction;
-use mc_game_core::world::level::levelgen::structure::pools::structure_pool_element::{StructurePoolElement, decode_element_from_nbt, encode_element};
-use mc_game_core::world::level::levelgen::structure::pools::structure_template_pool::Projection;
-use mc_game_core::world::level::levelgen::structure::templatesystem::{LiquidSettings, StructureTemplateManager};
-use mc_game_core::world::level::levelgen::env::GenEnv;
-use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::bounding_box::BoundingBox;
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_core::random::RandomSource;
 use mc_core::rotation::Rotation;
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::structure::manager::StructureManager;
+use mc_game_core::world::level::levelgen::structure::piece::{
+    PieceBase, StructurePiece, StructurePieceSerializationContext, StructurePieceType,
+};
+use mc_game_core::world::level::levelgen::structure::pools::structure_pool_element::{
+    StructurePoolElement, decode_element_from_nbt, encode_element,
+};
+use mc_game_core::world::level::levelgen::structure::pools::structure_template_pool::Projection;
+use mc_game_core::world::level::levelgen::structure::templatesystem::{
+    LiquidSettings, StructureTemplateManager,
+};
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_nbt::{CompoundTag, ListTag, Tag};
 use mc_worldgen::beardifier::{JigsawJunction as BeardJunction, StructurePieceKind};
 use std::sync::Arc;
@@ -20,10 +26,15 @@ use std::sync::Arc;
 /// `JigsawStructure.DEFAULT_LIQUID_SETTINGS`.
 pub const DEFAULT_LIQUID_SETTINGS: LiquidSettings = LiquidSettings::ApplyWaterlogging;
 
-#[linkme::distributed_slice(mc_game_core::world::level::levelgen::structure::piece::STRUCTURE_PIECE_TYPES)]
+#[linkme::distributed_slice(
+    mc_game_core::world::level::levelgen::structure::piece::STRUCTURE_PIECE_TYPES
+)]
 pub static JIGSAW: StructurePieceType = StructurePieceType {
     id: "jigsaw",
-    load: |context, tag| PoolElementStructurePiece::load(context, tag).map(|p| Box::new(p) as Box<dyn StructurePiece>),
+    load: |context, tag| {
+        PoolElementStructurePiece::load(context, tag)
+            .map(|p| Box::new(p) as Box<dyn StructurePiece>)
+    },
 };
 
 pub struct PoolElementStructurePiece {
@@ -62,13 +73,23 @@ impl PoolElementStructurePiece {
     }
 
     /// `PoolElementStructurePiece(context, tag)`.
-    pub fn load(context: &StructurePieceSerializationContext<'_>, tag: &CompoundTag) -> Result<PoolElementStructurePiece, String> {
+    pub fn load(
+        context: &StructurePieceSerializationContext<'_>,
+        tag: &CompoundTag,
+    ) -> Result<PoolElementStructurePiece, String> {
         let mut base = PieceBase::load(&JIGSAW, tag)?;
         let manager = context.env.structure_template_manager.clone();
-        let position = BlockPos::new(tag.get_int_or("PosX", 0), tag.get_int_or("PosY", 0), tag.get_int_or("PosZ", 0));
+        let position = BlockPos::new(
+            tag.get_int_or("PosX", 0),
+            tag.get_int_or("PosY", 0),
+            tag.get_int_or("PosZ", 0),
+        );
         let ground_level_delta = tag.get_int_or("ground_level_delta", 0);
-        let element_tag = tag.get_compound("pool_element").ok_or("Invalid pool element found")?;
-        let element = decode_element_from_nbt(element_tag, context.env).map_err(|_| "Invalid pool element found".to_owned())?;
+        let element_tag = tag
+            .get_compound("pool_element")
+            .ok_or("Invalid pool element found")?;
+        let element = decode_element_from_nbt(element_tag, context.env)
+            .map_err(|_| "Invalid pool element found".to_owned())?;
         // `Rotation.LEGACY_CODEC`: the enum constant name
         let rotation = match tag.get_string("rotation") {
             Some("NONE") => Rotation::None,
@@ -79,9 +100,25 @@ impl PoolElementStructurePiece {
         };
         base.bounding_box = element.get_bounding_box(&manager, position, rotation);
         let empty = CompoundTag::new();
-        let junctions = tag.get_list_or_empty("junctions").iter().map(|j| JigsawJunction::deserialize(j.as_compound().unwrap_or(&empty))).collect();
-        let liquid_settings = tag.get_string("liquid_settings").and_then(LiquidSettings::by_name).unwrap_or(DEFAULT_LIQUID_SETTINGS);
-        Ok(PoolElementStructurePiece { base, element, position, ground_level_delta, rotation, junctions, structure_template_manager: manager, liquid_settings })
+        let junctions = tag
+            .get_list_or_empty("junctions")
+            .iter()
+            .map(|j| JigsawJunction::deserialize(j.as_compound().unwrap_or(&empty)))
+            .collect();
+        let liquid_settings = tag
+            .get_string("liquid_settings")
+            .and_then(LiquidSettings::by_name)
+            .unwrap_or(DEFAULT_LIQUID_SETTINGS);
+        Ok(PoolElementStructurePiece {
+            base,
+            element,
+            position,
+            ground_level_delta,
+            rotation,
+            junctions,
+            structure_template_manager: manager,
+            liquid_settings,
+        })
     }
 
     /// `place(level, structureManager, generator, random, chunkBB, referencePos, keepJigsaws)`.
@@ -146,12 +183,19 @@ impl StructurePiece for PoolElementStructurePiece {
         &mut self.base
     }
 
-    fn add_additional_save_data(&self, _context: &StructurePieceSerializationContext<'_>, tag: &mut CompoundTag) {
+    fn add_additional_save_data(
+        &self,
+        _context: &StructurePieceSerializationContext<'_>,
+        tag: &mut CompoundTag,
+    ) {
         tag.put_int("PosX", self.position.x());
         tag.put_int("PosY", self.position.y());
         tag.put_int("PosZ", self.position.z());
         tag.put_int("ground_level_delta", self.ground_level_delta);
-        tag.put("pool_element", Tag::Compound(encode_element(&*self.element)));
+        tag.put(
+            "pool_element",
+            Tag::Compound(encode_element(&*self.element)),
+        );
         // `Rotation.LEGACY_CODEC`: `Enum::toString`
         tag.put_string(
             "rotation",
@@ -168,7 +212,10 @@ impl StructurePiece for PoolElementStructurePiece {
         }
         tag.put("junctions", Tag::List(junctions));
         if self.liquid_settings != DEFAULT_LIQUID_SETTINGS {
-            tag.put_string("liquid_settings", self.liquid_settings.get_serialized_name());
+            tag.put_string(
+                "liquid_settings",
+                self.liquid_settings.get_serialized_name(),
+            );
         }
     }
 
@@ -182,7 +229,15 @@ impl StructurePiece for PoolElementStructurePiece {
         _chunk_pos: ChunkPos,
         reference_pos: BlockPos,
     ) {
-        self.place(level, structure_manager, generator, random, chunk_bb, reference_pos, false);
+        self.place(
+            level,
+            structure_manager,
+            generator,
+            random,
+            chunk_bb,
+            reference_pos,
+            false,
+        );
     }
 
     fn move_by(&mut self, dx: i32, dy: i32, dz: i32) {
@@ -198,7 +253,15 @@ impl StructurePiece for PoolElementStructurePiece {
         StructurePieceKind::PoolElement {
             rigid: self.element.get_projection() == Projection::Rigid,
             ground_level_delta: self.ground_level_delta,
-            junctions: self.junctions.iter().map(|j| BeardJunction { source_x: j.source_x, source_ground_y: j.source_ground_y, source_z: j.source_z }).collect(),
+            junctions: self
+                .junctions
+                .iter()
+                .map(|j| BeardJunction {
+                    source_x: j.source_x,
+                    source_ground_y: j.source_ground_y,
+                    source_z: j.source_z,
+                })
+                .collect(),
         }
     }
 }

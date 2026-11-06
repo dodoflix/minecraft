@@ -2,9 +2,9 @@
 
 use crate::chat_formatting::ChatFormatting;
 use crate::events::{ClickEvent, HoverEvent};
+use crate::profile::ResolvableProfile;
 use crate::text_color::TextColor;
 use mc_core::ident::Identifier;
-use crate::profile::ResolvableProfile;
 use std::fmt;
 
 /// `FontDescription`. Only `Resource` is serialisable (vanilla's codec rejects the sprite variants);
@@ -12,8 +12,14 @@ use std::fmt;
 #[derive(Clone, Debug, PartialEq)]
 pub enum FontDescription {
     Resource(Identifier),
-    AtlasSprite { atlas_id: Identifier, sprite_id: Identifier },
-    PlayerSprite { profile: Box<ResolvableProfile>, hat: bool },
+    AtlasSprite {
+        atlas_id: Identifier,
+        sprite_id: Identifier,
+    },
+    PlayerSprite {
+        profile: Box<ResolvableProfile>,
+        hat: bool,
+    },
 }
 
 impl FontDescription {
@@ -148,7 +154,10 @@ impl Style {
     }
     /// `getFont()`: the explicit font or `minecraft:default`.
     pub fn font(&self) -> FontDescription {
-        self.font.as_deref().cloned().unwrap_or_else(FontDescription::default_font)
+        self.font
+            .as_deref()
+            .cloned()
+            .unwrap_or_else(FontDescription::default_font)
     }
     /// The explicitly set font, if any.
     pub fn font_opt(&self) -> Option<&FontDescription> {
@@ -164,15 +173,24 @@ impl Style {
     with_fn!(with_insertion, insertion, Option<String>);
 
     pub fn with_click_event(&self, click_event: Option<ClickEvent>) -> Style {
-        Style { click_event: click_event.map(Box::new), ..self.clone() }
+        Style {
+            click_event: click_event.map(Box::new),
+            ..self.clone()
+        }
     }
 
     pub fn with_hover_event(&self, hover_event: Option<HoverEvent>) -> Style {
-        Style { hover_event: hover_event.map(Box::new), ..self.clone() }
+        Style {
+            hover_event: hover_event.map(Box::new),
+            ..self.clone()
+        }
     }
 
     pub fn with_font(&self, font: Option<FontDescription>) -> Style {
-        Style { font: font.map(Box::new), ..self.clone() }
+        Style {
+            font: font.map(Box::new),
+            ..self.clone()
+        }
     }
 
     pub fn with_color_formatting(&self, color: Option<ChatFormatting>) -> Style {
@@ -216,14 +234,22 @@ impl Style {
     /// `applyFormat`: `Reset` yields `EMPTY`.
     pub fn apply_format(&self, format: ChatFormatting) -> Style {
         let mut s = self.clone();
-        if s.apply_format_to(format) { s } else { Style::EMPTY }
+        if s.apply_format_to(format) {
+            s
+        } else {
+            Style::EMPTY
+        }
     }
 
     /// `applyLegacyFormat`: a colour also clears every other formatting flag.
     pub fn apply_legacy_format(&self, format: ChatFormatting) -> Style {
         let mut s = self.clone();
         match format {
-            ChatFormatting::Obfuscated | ChatFormatting::Bold | ChatFormatting::Strikethrough | ChatFormatting::Underline | ChatFormatting::Italic => {
+            ChatFormatting::Obfuscated
+            | ChatFormatting::Bold
+            | ChatFormatting::Strikethrough
+            | ChatFormatting::Underline
+            | ChatFormatting::Italic => {
                 s.apply_format_to(format);
             }
             ChatFormatting::Reset => return Style::EMPTY,
@@ -265,8 +291,14 @@ impl Style {
             underlined: self.underlined.or(other.underlined),
             strikethrough: self.strikethrough.or(other.strikethrough),
             obfuscated: self.obfuscated.or(other.obfuscated),
-            click_event: self.click_event.clone().or_else(|| other.click_event.clone()),
-            hover_event: self.hover_event.clone().or_else(|| other.hover_event.clone()),
+            click_event: self
+                .click_event
+                .clone()
+                .or_else(|| other.click_event.clone()),
+            hover_event: self
+                .hover_event
+                .clone()
+                .or_else(|| other.hover_event.clone()),
             insertion: self.insertion.clone().or_else(|| other.insertion.clone()),
             font: self.font.clone().or_else(|| other.font.clone()),
         }

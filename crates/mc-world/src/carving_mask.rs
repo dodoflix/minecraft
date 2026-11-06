@@ -23,7 +23,12 @@ pub struct CarvingMask {
 impl CarvingMask {
     pub fn new(min_y: i32, max_y: i32) -> CarvingMask {
         let height = max_y - min_y + 1;
-        CarvingMask { min_y, max_y, height, mask: vec![0; (256 * height as usize).div_ceil(64)] }
+        CarvingMask {
+            min_y,
+            max_y,
+            height,
+            mask: vec![0; (256 * height as usize).div_ceil(64)],
+        }
     }
 
     fn get_index(&self, x: i32, y: i32, z: i32) -> usize {
@@ -41,7 +46,12 @@ impl CarvingMask {
         }
     }
 
-    fn visit_segment(&self, visitor: &mut impl FnMut(i32, i32, i32, i32), start_index: usize, end_index: usize) {
+    fn visit_segment(
+        &self,
+        visitor: &mut impl FnMut(i32, i32, i32, i32),
+        start_index: usize,
+        end_index: usize,
+    ) {
         let height = self.height as usize;
         for column in start_index / height..=end_index / height {
             let column_x = (column >> 4 & 15) as i32;

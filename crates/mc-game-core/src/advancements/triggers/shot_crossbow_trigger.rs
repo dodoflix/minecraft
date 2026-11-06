@@ -11,13 +11,14 @@ pub struct ShotCrossbowTriggerInstance {
 
 impl TriggerInstance for ShotCrossbowTriggerInstance {
     fn codec() -> Codec<Self> {
-        static C: std::sync::LazyLock<Codec<ShotCrossbowTriggerInstance>> = std::sync::LazyLock::new(|| {
-            mc_dfu::record!(ShotCrossbowTriggerInstance {
-                player: condition_holder_codec().optional_field_of("player"),
-                item: ItemPredicate::codec().optional_field_of("item"),
-            })
-            .codec()
-        });
+        static C: std::sync::LazyLock<Codec<ShotCrossbowTriggerInstance>> =
+            std::sync::LazyLock::new(|| {
+                mc_dfu::record!(ShotCrossbowTriggerInstance {
+                    player: condition_holder_codec().optional_field_of("player"),
+                    item: ItemPredicate::codec().optional_field_of("item"),
+                })
+                .codec()
+            });
         C.clone()
     }
 }
@@ -43,7 +44,12 @@ impl ShotCrossbowTriggerInstance {
 
 impl Trigger<ShotCrossbowTriggerInstance> {
     /// `trigger(player, itemStack)`.
-    pub fn trigger(&self, level: &mut ServerLevel, player: &mut ServerPlayer, item_stack: &ItemStack) {
+    pub fn trigger(
+        &self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        item_stack: &ItemStack,
+    ) {
         self.trigger_with(level, player, |t| t.matches(item_stack));
     }
 }

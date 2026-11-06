@@ -1,5 +1,7 @@
+use crate::server::network::configuration_task::{
+    ConfigurationTask, PacketSink, TaskError, TaskType,
+};
 use crate::server::network::hooks::ServerHandle;
-use crate::server::network::configuration_task::{ConfigurationTask, PacketSink, TaskError, TaskType};
 use crate::server::network::pending_player::PendingPlayer;
 use parking_lot::Mutex;
 use std::sync::Arc;
@@ -17,7 +19,11 @@ pub trait PrepareSpawn: Send {
     fn close(&mut self, server: &mut dyn ServerHandle);
     /// `spawnPlayer(connection, cookie)`: create the player and `PlayerList.placeNewPlayer`. An error is logged as
     /// `Couldn't place player in world` and answered with `multiplayer.disconnect.invalid_player_data`.
-    fn spawn_player(&mut self, server: &mut dyn ServerHandle, pending: PendingPlayer) -> Result<(), TaskError>;
+    fn spawn_player(
+        &mut self,
+        server: &mut dyn ServerHandle,
+        pending: PendingPlayer,
+    ) -> Result<(), TaskError>;
 }
 
 /// `PrepareSpawnTask`, as a queued configuration task that the listener also keeps a handle to.
@@ -32,10 +38,16 @@ impl PrepareSpawnTask {
     pub const PREPARE_CHUNK_RADIUS: i32 = 3;
 
     pub fn new(spawn: Box<dyn PrepareSpawn>) -> Self {
-        Self { inner: Arc::new(Mutex::new(Some(spawn))) }
+        Self {
+            inner: Arc::new(Mutex::new(Some(spawn))),
+        }
     }
 
-    pub fn spawn_player(&self, server: &mut dyn ServerHandle, pending: PendingPlayer) -> Result<(), TaskError> {
+    pub fn spawn_player(
+        &self,
+        server: &mut dyn ServerHandle,
+        pending: PendingPlayer,
+    ) -> Result<(), TaskError> {
         match self.inner.lock().as_mut() {
             Some(spawn) => spawn.spawn_player(server, pending),
             None => Err("Player spawn was not ready".into()),
@@ -56,7 +68,11 @@ impl PrepareSpawnTask {
 }
 
 impl ConfigurationTask for PrepareSpawnTask {
-    fn start(&mut self, server: &mut dyn ServerHandle, _connection: PacketSink) -> Result<(), TaskError> {
+    fn start(
+        &mut self,
+        server: &mut dyn ServerHandle,
+        _connection: PacketSink,
+    ) -> Result<(), TaskError> {
         match self.inner.lock().as_mut() {
             Some(spawn) => spawn.start(server),
             None => Ok(()),

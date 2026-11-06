@@ -11,7 +11,10 @@ use std::sync::LazyLock;
 #[derive(Clone, Debug, PartialEq)]
 pub enum ValueMatcher {
     Exact(String),
-    Ranged { min: Option<String>, max: Option<String> },
+    Ranged {
+        min: Option<String>,
+        max: Option<String>,
+    },
 }
 
 /// `StatePropertiesPredicate.PropertyMatcher`.
@@ -30,8 +33,11 @@ struct Ranged {
 impl ValueMatcher {
     fn codec() -> Codec<ValueMatcher> {
         static C: LazyLock<Codec<ValueMatcher>> = LazyLock::new(|| {
-            let ranged =
-                mc_dfu::record!(Ranged { min: STRING.optional_field_of("min"), max: STRING.optional_field_of("max") }).codec();
+            let ranged = mc_dfu::record!(Ranged {
+                min: STRING.optional_field_of("min"),
+                max: STRING.optional_field_of("max")
+            })
+            .codec();
             STRING.either(&ranged).xmap(
                 |e| match e {
                     Either::Left(v) => ValueMatcher::Exact(v),
@@ -39,7 +45,10 @@ impl ValueMatcher {
                 },
                 |m: &ValueMatcher| match m {
                     ValueMatcher::Exact(v) => Either::Left(v.clone()),
-                    ValueMatcher::Ranged { min, max } => Either::Right(Ranged { min: min.clone(), max: max.clone() }),
+                    ValueMatcher::Ranged { min, max } => Either::Right(Ranged {
+                        min: min.clone(),
+                        max: max.clone(),
+                    }),
                 },
             )
         });
@@ -68,7 +77,10 @@ impl Decode for ValueMatcher {
         if bool::decode(input)? {
             String::decode(input).map(ValueMatcher::Exact)
         } else {
-            Ok(ValueMatcher::Ranged { min: Option::<String>::decode(input)?, max: Option::<String>::decode(input)? })
+            Ok(ValueMatcher::Ranged {
+                min: Option::<String>::decode(input)?,
+                max: Option::<String>::decode(input)?,
+            })
         }
     }
 }
@@ -81,7 +93,10 @@ impl Encode for PropertyMatcher {
 }
 impl Decode for PropertyMatcher {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
-        Ok(PropertyMatcher { name: String::decode(input)?, value_matcher: ValueMatcher::decode(input)? })
+        Ok(PropertyMatcher {
+            name: String::decode(input)?,
+            value_matcher: ValueMatcher::decode(input)?,
+        })
     }
 }
 
@@ -99,7 +114,13 @@ impl StatePropertiesPredicate {
             STRING.unbounded_map(&ValueMatcher::codec()).flat_xmap(
                 |map| {
                     DataResult::success(StatePropertiesPredicate {
-                        properties: map.into_iter().map(|(name, value_matcher)| PropertyMatcher { name, value_matcher }).collect(),
+                        properties: map
+                            .into_iter()
+                            .map(|(name, value_matcher)| PropertyMatcher {
+                                name,
+                                value_matcher,
+                            })
+                            .collect(),
                     })
                 },
                 |p: &StatePropertiesPredicate| {
@@ -108,7 +129,11 @@ impl StatePropertiesPredicate {
                         let m = format!("Duplicate key {}", dup.name);
                         return DataResult::error(move || m.clone());
                     }
-                    let entries = p.properties.iter().map(|m| (m.name.clone(), m.value_matcher.clone())).collect();
+                    let entries = p
+                        .properties
+                        .iter()
+                        .map(|m| (m.name.clone(), m.value_matcher.clone()))
+                        .collect();
                     DataResult::success(mc_dfu::extra::java_hash_map_order(entries))
                 },
             )
@@ -125,7 +150,8 @@ impl Encode for StatePropertiesPredicate {
 }
 impl Decode for StatePropertiesPredicate {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
-        Vec::<PropertyMatcher>::decode(input).map(|properties| StatePropertiesPredicate { properties })
+        Vec::<PropertyMatcher>::decode(input)
+            .map(|properties| StatePropertiesPredicate { properties })
     }
 }
 
@@ -138,14 +164,17 @@ pub struct NbtPredicate {
 impl NbtPredicate {
     /// `NbtPredicate.CODEC` (`TagParser.LENIENT_CODEC`): an SNBT string or a compound.
     pub fn codec() -> Codec<NbtPredicate> {
-        static C: LazyLock<Codec<NbtPredicate>> =
-            LazyLock::new(|| lenient_compound_codec().xmap(|tag| NbtPredicate { tag }, |p: &NbtPredicate| p.tag.clone()));
+        static C: LazyLock<Codec<NbtPredicate>> = LazyLock::new(|| {
+            lenient_compound_codec()
+                .xmap(|tag| NbtPredicate { tag }, |p: &NbtPredicate| p.tag.clone())
+        });
         C.clone()
     }
 
     /// `matches(Tag)`: `NbtUtils.compareNbt(tag, other, true)`.
     pub fn matches_tag(&self, other: Option<&Tag>) -> bool {
-        other.is_some() && mc_nbt::nbt_utils::compare_nbt(Some(&Tag::Compound(self.tag.clone())), other, true)
+        other.is_some()
+            && mc_nbt::nbt_utils::compare_nbt(Some(&Tag::Compound(self.tag.clone())), other, true)
     }
 }
 

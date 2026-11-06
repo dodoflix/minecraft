@@ -29,13 +29,13 @@ pub mod prelude {
     pub use crate::register_block_class;
     pub use crate::world::level::block::helpers::{self, air};
     pub use crate::world::level::block::{BlockBehaviour, BlockStateExt};
+    pub use crate::world::level::material::FluidStateExt;
     pub use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
     pub use mc_core::direction::{Axis, Direction};
     pub use mc_core::mirror::Mirror;
     pub use mc_core::pos::BlockPos;
     pub use mc_core::rotation::Rotation;
     pub use mc_data::block::{Block, BlockState, SupportType};
-    pub use crate::world::level::material::FluidStateExt;
     pub use mc_data::props;
 }
 
@@ -52,9 +52,9 @@ pub mod candle_block;
 pub mod candle_cake_block;
 pub mod cave_vines;
 pub mod chest_block;
-pub mod composter_block;
 pub mod chorus_flower_block;
 pub mod chorus_plant_block;
+pub mod composter_block;
 pub mod copper_chest_block;
 pub mod crop_block;
 pub mod diode_block;
@@ -77,8 +77,8 @@ pub mod sculk_sensor_block;
 pub mod sculk_vein_block;
 pub mod sign_block;
 pub mod soul_fire_block;
-pub mod turtle_egg_block;
 pub mod tnt_block;
+pub mod turtle_egg_block;
 pub mod vegetation_block;
 pub mod vine_block;
 pub mod wall_hanging_sign_block;

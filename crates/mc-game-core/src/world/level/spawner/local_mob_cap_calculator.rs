@@ -40,18 +40,29 @@ impl LocalMobCapCalculator {
 
     /// `getPlayersNear(pos)`: memoized `chunkMap.getPlayersCloseForSpawning(pos)`.
     fn get_players_near(&mut self, chunk_map: &mut ChunkMap, pos: ChunkPos) -> Vec<EntityId> {
-        self.players_near_chunk.entry(pos.pack()).or_insert_with(|| chunk_map.get_players_close_for_spawning(pos)).clone()
+        self.players_near_chunk
+            .entry(pos.pack())
+            .or_insert_with(|| chunk_map.get_players_close_for_spawning(pos))
+            .clone()
     }
 
     /// `addMob(pos, category)`.
     pub fn add_mob(&mut self, chunk_map: &mut ChunkMap, pos: ChunkPos, category: MobCategory) {
         for player in self.get_players_near(chunk_map, pos) {
-            self.player_mob_counts.entry(player).or_default().add(category);
+            self.player_mob_counts
+                .entry(player)
+                .or_default()
+                .add(category);
         }
     }
 
     /// `canSpawn(category, pos)`.
-    pub fn can_spawn(&mut self, chunk_map: &mut ChunkMap, category: MobCategory, pos: ChunkPos) -> bool {
+    pub fn can_spawn(
+        &mut self,
+        chunk_map: &mut ChunkMap,
+        category: MobCategory,
+        pos: ChunkPos,
+    ) -> bool {
         for player in self.get_players_near(chunk_map, pos) {
             match self.player_mob_counts.get(&player) {
                 None => return true,

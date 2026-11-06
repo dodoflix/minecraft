@@ -33,7 +33,11 @@ pub trait PlayerSystems: Sync {
         false
     }
     /// `Entity.onClimbable()` for a controlled vehicle that is a `LivingEntity` (then `resetFallDistance`).
-    fn vehicle_on_climbable(&self, ctx: &mut PlayCtx, vehicle: &dyn crate::world::entity::Entity) -> bool {
+    fn vehicle_on_climbable(
+        &self,
+        ctx: &mut PlayCtx,
+        vehicle: &dyn crate::world::entity::Entity,
+    ) -> bool {
         false
     }
     /// `ServerPlayer.checkMovementStatistics(dx, dy, dz)` (walk/swim/climb/fly distance stats + exhaustion).
@@ -46,7 +50,12 @@ pub trait PlayerSystems: Sync {
     }
     fn reset_attack_strength_ticker(&self, ctx: &mut PlayCtx) {}
     /// `Player.isWithinAttackRange(mainHandItem, targetBounds, buffer)`.
-    fn is_within_attack_range(&self, ctx: &mut PlayCtx, target: &mc_core::phys::AABB, buffer: f64) -> bool {
+    fn is_within_attack_range(
+        &self,
+        ctx: &mut PlayCtx,
+        target: &mc_core::phys::AABB,
+        buffer: f64,
+    ) -> bool {
         false
     }
     fn main_hand_has_piercing_weapon(&self, ctx: &mut PlayCtx) -> bool {
@@ -55,12 +64,30 @@ pub trait PlayerSystems: Sync {
     /// `ServerPlayer.attack(target)`.
     fn attack(&self, ctx: &mut PlayCtx, target: crate::world::entity::EntityId) {}
     /// `ServerPlayer.interactOn(target, hand, location)`.
-    fn interact_on(&self, ctx: &mut PlayCtx, target: crate::world::entity::EntityId, hand: InteractionHand, location: mc_core::phys::Vec3) -> InteractionResult {
+    fn interact_on(
+        &self,
+        ctx: &mut PlayCtx,
+        target: crate::world::entity::EntityId,
+        hand: InteractionHand,
+        location: mc_core::phys::Vec3,
+    ) -> InteractionResult {
         InteractionResult::PASS
     }
     /// `CriteriaTriggers.ANY_BLOCK_USE` / `PLAYER_INTERACTED_WITH_ENTITY` triggers.
-    fn trigger_any_block_use(&self, ctx: &mut PlayCtx, pos: mc_core::pos::BlockPos, hand: InteractionHand) {}
-    fn trigger_player_interacted_with_entity(&self, ctx: &mut PlayCtx, awarded_for_stack: crate::world::item::ItemStack, target: crate::world::entity::EntityId) {}
+    fn trigger_any_block_use(
+        &self,
+        ctx: &mut PlayCtx,
+        pos: mc_core::pos::BlockPos,
+        hand: InteractionHand,
+    ) {
+    }
+    fn trigger_player_interacted_with_entity(
+        &self,
+        ctx: &mut PlayCtx,
+        awarded_for_stack: crate::world::item::ItemStack,
+        target: crate::world::entity::EntityId,
+    ) {
+    }
     /// `ServerPlayer.sendBuildLimitMessage(upper, limit)` / `sendSpawnProtectionMessage(pos)`.
     fn send_build_limit_message(&self, ctx: &mut PlayCtx, upper: bool, limit: i32) {}
     fn send_spawn_protection_message(&self, ctx: &mut PlayCtx, pos: mc_core::pos::BlockPos) {}
@@ -78,9 +105,26 @@ pub trait PlayerSystems: Sync {
         false
     }
     fn stop_fall_flying(&self, ctx: &mut PlayCtx) {}
-    fn stop_sleep_in_bed(&self, ctx: &mut PlayCtx, was_slept_long_enough: bool, update_level_list: bool) {}
+    fn stop_sleep_in_bed(
+        &self,
+        ctx: &mut PlayCtx,
+        was_slept_long_enough: bool,
+        update_level_list: bool,
+    ) {
+    }
     /// `ServerPlayer.teleportTo(level, x, y, z, relatives, yRot, xRot, setCamera)` across levels.
-    fn teleport_to(&self, ctx: &mut PlayCtx, dimension: &crate::world::level::DimensionKey, x: f64, y: f64, z: f64, y_rot: f32, x_rot: f32, set_camera: bool) {}
+    fn teleport_to(
+        &self,
+        ctx: &mut PlayCtx,
+        dimension: &crate::world::level::DimensionKey,
+        x: f64,
+        y: f64,
+        z: f64,
+        y_rot: f32,
+        x_rot: f32,
+        set_camera: bool,
+    ) {
+    }
     /// `ServerPlayer.createCommandSourceStack()` permission level / `permissions().hasPermission(COMMANDS_GAMEMASTER)`.
     fn has_gamemaster_permission(&self, ctx: &mut PlayCtx) -> Option<bool> {
         None
@@ -113,13 +157,37 @@ pub trait ItemSystems: Sync {
         false
     }
     /// `itemStack.getInteractAnimation()` / `getAttackAnimation()` (a `SwingAnimation`, opaque to the listener).
-    fn swing_animation(&self, ctx: &mut PlayCtx, hand: InteractionHand, attack: bool) -> SwingAnimationRef {
+    fn swing_animation(
+        &self,
+        ctx: &mut PlayCtx,
+        hand: InteractionHand,
+        attack: bool,
+    ) -> SwingAnimationRef {
         SwingAnimationRef::default()
     }
-    fn swing(&self, ctx: &mut PlayCtx, hand: InteractionHand, animation: SwingAnimationRef, send_to_swinging_entity: bool) {}
-    fn swing_and_reset_attack_strength(&self, ctx: &mut PlayCtx, hand: InteractionHand, animation: SwingAnimationRef, send_to_swinging_entity: bool) {}
+    fn swing(
+        &self,
+        ctx: &mut PlayCtx,
+        hand: InteractionHand,
+        animation: SwingAnimationRef,
+        send_to_swinging_entity: bool,
+    ) {
+    }
+    fn swing_and_reset_attack_strength(
+        &self,
+        ctx: &mut PlayCtx,
+        hand: InteractionHand,
+        animation: SwingAnimationRef,
+        send_to_swinging_entity: bool,
+    ) {
+    }
     /// `ServerPlayerGameMode.useItemOn(player, level, stack, hand, hit)` / `useItem(player, level, stack, hand)`.
-    fn use_item_on(&self, ctx: &mut PlayCtx, hand: InteractionHand, hit: &ServerboundBlockHitResult) -> InteractionResult {
+    fn use_item_on(
+        &self,
+        ctx: &mut PlayCtx,
+        hand: InteractionHand,
+        hit: &ServerboundBlockHitResult,
+    ) -> InteractionResult {
         InteractionResult::PASS
     }
     fn use_item(&self, ctx: &mut PlayCtx, hand: InteractionHand) -> InteractionResult {
@@ -145,19 +213,49 @@ pub trait PlayHandlers: Sync {
     /// `containerMenu.clicked`, remote slot bookkeeping, `broadcastChanges`/`broadcastFullState`.
     fn handle_container_click(&self, ctx: &mut PlayCtx, packet: &ServerboundContainerClickPacket) {}
     /// `handleContainerButtonClick` (after `resetLastActionTime`).
-    fn handle_container_button_click(&self, ctx: &mut PlayCtx, packet: &ServerboundContainerButtonClickPacket) {}
+    fn handle_container_button_click(
+        &self,
+        ctx: &mut PlayCtx,
+        packet: &ServerboundContainerButtonClickPacket,
+    ) {
+    }
     /// `handleContainerSlotStateChanged` (crafter menu).
-    fn handle_container_slot_state_changed(&self, ctx: &mut PlayCtx, packet: &ServerboundContainerSlotStateChangedPacket) {}
+    fn handle_container_slot_state_changed(
+        &self,
+        ctx: &mut PlayCtx,
+        packet: &ServerboundContainerSlotStateChangedPacket,
+    ) {
+    }
     /// `handlePlaceRecipe` (after `resetLastActionTime`).
     fn handle_place_recipe(&self, ctx: &mut PlayCtx, packet: &ServerboundPlaceRecipePacket) {}
     /// `handleRecipeBookSeenRecipePacket`.
-    fn handle_recipe_book_seen_recipe(&self, ctx: &mut PlayCtx, packet: &ServerboundRecipeBookSeenRecipePacket) {}
+    fn handle_recipe_book_seen_recipe(
+        &self,
+        ctx: &mut PlayCtx,
+        packet: &ServerboundRecipeBookSeenRecipePacket,
+    ) {
+    }
     /// `handleRecipeBookChangeSettingsPacket`.
-    fn handle_recipe_book_change_settings(&self, ctx: &mut PlayCtx, packet: &ServerboundRecipeBookChangeSettingsPacket) {}
+    fn handle_recipe_book_change_settings(
+        &self,
+        ctx: &mut PlayCtx,
+        packet: &ServerboundRecipeBookChangeSettingsPacket,
+    ) {
+    }
     /// `handleSeenAdvancements`.
-    fn handle_seen_advancements(&self, ctx: &mut PlayCtx, packet: &ServerboundSeenAdvancementsPacket) {}
+    fn handle_seen_advancements(
+        &self,
+        ctx: &mut PlayCtx,
+        packet: &ServerboundSeenAdvancementsPacket,
+    ) {
+    }
     /// `handleBundleItemSelectedPacket`.
-    fn handle_bundle_item_selected(&self, ctx: &mut PlayCtx, packet: &ServerboundSelectBundleItemPacket) {}
+    fn handle_bundle_item_selected(
+        &self,
+        ctx: &mut PlayCtx,
+        packet: &ServerboundSelectBundleItemPacket,
+    ) {
+    }
     /// `handleRenameItem` (anvil menu).
     fn handle_rename_item(&self, ctx: &mut PlayCtx, packet: &ServerboundRenameItemPacket) {}
     /// `handleSetBeaconPacket`: on an invalid selection the implementor disconnects with
@@ -168,36 +266,94 @@ pub trait PlayHandlers: Sync {
     /// `handleEditBook` (text is passed through the pass-through text filter first).
     fn handle_edit_book(&self, ctx: &mut PlayCtx, packet: &ServerboundEditBookPacket) {}
     /// `updateSignText` (after `resetLastActionTime`, with `ChatFormatting.stripFormatting` applied to the lines).
-    fn update_sign_text(&self, ctx: &mut PlayCtx, packet: &ServerboundSignUpdatePacket, lines: &[String]) {}
+    fn update_sign_text(
+        &self,
+        ctx: &mut PlayCtx,
+        packet: &ServerboundSignUpdatePacket,
+        lines: &[String],
+    ) {
+    }
     /// `handleSetCommandBlock` (`player.canUseGameMasterBlocks()` is checked by the implementor, it owns the message).
-    fn handle_set_command_block(&self, ctx: &mut PlayCtx, packet: &ServerboundSetCommandBlockPacket) {}
+    fn handle_set_command_block(
+        &self,
+        ctx: &mut PlayCtx,
+        packet: &ServerboundSetCommandBlockPacket,
+    ) {
+    }
     /// `handleSetCommandMinecart`.
-    fn handle_set_command_minecart(&self, ctx: &mut PlayCtx, packet: &ServerboundSetCommandMinecartPacket) {}
+    fn handle_set_command_minecart(
+        &self,
+        ctx: &mut PlayCtx,
+        packet: &ServerboundSetCommandMinecartPacket,
+    ) {
+    }
     /// `handleSetStructureBlock`.
-    fn handle_set_structure_block(&self, ctx: &mut PlayCtx, packet: &ServerboundSetStructureBlockPacket) {}
+    fn handle_set_structure_block(
+        &self,
+        ctx: &mut PlayCtx,
+        packet: &ServerboundSetStructureBlockPacket,
+    ) {
+    }
     /// `handleSetTestBlock`.
     fn handle_set_test_block(&self, ctx: &mut PlayCtx, packet: &ServerboundSetTestBlockPacket) {}
     /// `handleTestInstanceBlockAction`.
-    fn handle_test_instance_block_action(&self, ctx: &mut PlayCtx, packet: &ServerboundTestInstanceBlockActionPacket) {}
+    fn handle_test_instance_block_action(
+        &self,
+        ctx: &mut PlayCtx,
+        packet: &ServerboundTestInstanceBlockActionPacket,
+    ) {
+    }
     /// `handleSetJigsawBlock`.
-    fn handle_set_jigsaw_block(&self, ctx: &mut PlayCtx, packet: &ServerboundSetJigsawBlockPacket) {}
+    fn handle_set_jigsaw_block(&self, ctx: &mut PlayCtx, packet: &ServerboundSetJigsawBlockPacket) {
+    }
     /// `handleJigsawGenerate`.
     fn handle_jigsaw_generate(&self, ctx: &mut PlayCtx, packet: &ServerboundJigsawGeneratePacket) {}
     /// `handlePickItemFromBlock`.
-    fn handle_pick_item_from_block(&self, ctx: &mut PlayCtx, packet: &ServerboundPickItemFromBlockPacket) {}
+    fn handle_pick_item_from_block(
+        &self,
+        ctx: &mut PlayCtx,
+        packet: &ServerboundPickItemFromBlockPacket,
+    ) {
+    }
     /// `handlePickItemFromEntity`.
-    fn handle_pick_item_from_entity(&self, ctx: &mut PlayCtx, packet: &ServerboundPickItemFromEntityPacket) {}
+    fn handle_pick_item_from_entity(
+        &self,
+        ctx: &mut PlayCtx,
+        packet: &ServerboundPickItemFromEntityPacket,
+    ) {
+    }
     /// `handleEntityTagQuery` (permission already checked by the dispatcher).
-    fn handle_entity_tag_query(&self, ctx: &mut PlayCtx, packet: &ServerboundEntityTagQueryPacket) {}
+    fn handle_entity_tag_query(&self, ctx: &mut PlayCtx, packet: &ServerboundEntityTagQueryPacket) {
+    }
     /// `handleBlockEntityTagQuery` (permission already checked by the dispatcher).
-    fn handle_block_entity_tag_query(&self, ctx: &mut PlayCtx, packet: &ServerboundBlockEntityTagQueryPacket) {}
+    fn handle_block_entity_tag_query(
+        &self,
+        ctx: &mut PlayCtx,
+        packet: &ServerboundBlockEntityTagQueryPacket,
+    ) {
+    }
     /// `handleSetCreativeModeSlot`, slot assignment (`validSlot && validData`): `inventoryMenu.getSlot(n).setByPlayer`,
     /// `setRemoteSlot`, `broadcastChanges`.
-    fn handle_set_creative_mode_slot(&self, ctx: &mut PlayCtx, packet: &ServerboundSetCreativeModeSlotPacket) {}
+    fn handle_set_creative_mode_slot(
+        &self,
+        ctx: &mut PlayCtx,
+        packet: &ServerboundSetCreativeModeSlotPacket,
+    ) {
+    }
     /// `handleSetCreativeModeSlot`, drop (`drop && validData`, already rate limited): `player.drop(stack, true, PREDICTED)`.
-    fn handle_creative_drop(&self, ctx: &mut PlayCtx, packet: &ServerboundSetCreativeModeSlotPacket) {}
+    fn handle_creative_drop(
+        &self,
+        ctx: &mut PlayCtx,
+        packet: &ServerboundSetCreativeModeSlotPacket,
+    ) {
+    }
     /// `handleDebugSubscriptionRequest` -> `player.requestDebugSubscriptions`.
-    fn handle_debug_subscription_request(&self, ctx: &mut PlayCtx, packet: &ServerboundDebugSubscriptionRequestPacket) {}
+    fn handle_debug_subscription_request(
+        &self,
+        ctx: &mut PlayCtx,
+        packet: &ServerboundDebugSubscriptionRequestPacket,
+    ) {
+    }
     /// `handleSetGameRule` (permission checked by the dispatcher): apply `entries` to the level's `GameRules`.
     fn handle_set_game_rule(&self, ctx: &mut PlayCtx, packet: &ServerboundSetGameRulePacket) {}
 }
@@ -233,13 +389,19 @@ impl PlayCtx<'_> {
                 self.player.reset_last_action_time();
                 self.hooks(|h, c| h.handle_container_button_click(c, &p));
             }
-            P::ContainerSlotStateChanged(p) => self.hooks(|h, c| h.handle_container_slot_state_changed(c, &p)),
+            P::ContainerSlotStateChanged(p) => {
+                self.hooks(|h, c| h.handle_container_slot_state_changed(c, &p))
+            }
             P::PlaceRecipe(p) => {
                 self.player.reset_last_action_time();
                 self.hooks(|h, c| h.handle_place_recipe(c, &p));
             }
-            P::RecipeBookSeenRecipe(p) => self.hooks(|h, c| h.handle_recipe_book_seen_recipe(c, &p)),
-            P::RecipeBookChangeSettings(p) => self.hooks(|h, c| h.handle_recipe_book_change_settings(c, &p)),
+            P::RecipeBookSeenRecipe(p) => {
+                self.hooks(|h, c| h.handle_recipe_book_seen_recipe(c, &p))
+            }
+            P::RecipeBookChangeSettings(p) => {
+                self.hooks(|h, c| h.handle_recipe_book_change_settings(c, &p))
+            }
             P::SeenAdvancements(p) => self.hooks(|h, c| h.handle_seen_advancements(c, &p)),
             P::SelectBundleItem(p) => self.hooks(|h, c| h.handle_bundle_item_selected(c, &p)),
             P::RenameItem(p) => self.hooks(|h, c| h.handle_rename_item(c, &p)),
@@ -252,7 +414,11 @@ impl PlayCtx<'_> {
                 }
             }
             P::SignUpdate(p) => {
-                let lines: Vec<String> = p.lines.iter().map(|l| mc_text::ChatFormatting::strip_formatting(l)).collect();
+                let lines: Vec<String> = p
+                    .lines
+                    .iter()
+                    .map(|l| mc_text::ChatFormatting::strip_formatting(l))
+                    .collect();
                 self.player.reset_last_action_time();
                 self.hooks(|h, c| h.update_sign_text(c, &p, &lines));
             }
@@ -260,7 +426,9 @@ impl PlayCtx<'_> {
             P::SetCommandMinecart(p) => self.hooks(|h, c| h.handle_set_command_minecart(c, &p)),
             P::SetStructureBlock(p) => self.hooks(|h, c| h.handle_set_structure_block(c, &p)),
             P::SetTestBlock(p) => self.hooks(|h, c| h.handle_set_test_block(c, &p)),
-            P::TestInstanceBlockAction(p) => self.hooks(|h, c| h.handle_test_instance_block_action(c, &p)),
+            P::TestInstanceBlockAction(p) => {
+                self.hooks(|h, c| h.handle_test_instance_block_action(c, &p))
+            }
             P::SetJigsawBlock(p) => self.hooks(|h, c| h.handle_set_jigsaw_block(c, &p)),
             P::JigsawGenerate(p) => self.hooks(|h, c| h.handle_jigsaw_generate(c, &p)),
             P::PickItemFromBlock(p) => self.hooks(|h, c| h.handle_pick_item_from_block(c, &p)),
@@ -276,10 +444,15 @@ impl PlayCtx<'_> {
                 }
             }
             P::SetCreativeModeSlot(p) => self.handle_set_creative_mode_slot(&p),
-            P::DebugSubscriptionRequest(p) => self.hooks(|h, c| h.handle_debug_subscription_request(c, &p)),
+            P::DebugSubscriptionRequest(p) => {
+                self.hooks(|h, c| h.handle_debug_subscription_request(c, &p))
+            }
             P::SetGameRule(p) => {
                 if !self.has_gamemaster_permission() {
-                    log::warn!("Player {} tried to set game rule values without required permissions", self.player.get_profile().name);
+                    log::warn!(
+                        "Player {} tried to set game rule values without required permissions",
+                        self.player.get_profile().name
+                    );
                 } else {
                     self.hooks(|h, c| h.handle_set_game_rule(c, &p));
                 }
@@ -299,7 +472,8 @@ impl PlayCtx<'_> {
             return;
         }
         let valid_slot = (1..=45).contains(&packet.slot_num);
-        let valid_data = item_stack.is_empty() || item_stack.count() <= item_stack.get_max_stack_size();
+        let valid_data =
+            item_stack.is_empty() || item_stack.count() <= item_stack.get_max_stack_size();
         if valid_slot && valid_data {
             self.hooks(|h, c| h.handle_set_creative_mode_slot(c, packet));
         } else if drop && valid_data {
@@ -307,7 +481,10 @@ impl PlayCtx<'_> {
                 self.lis().drop_spam_throttler.increment();
                 self.hooks(|h, c| h.handle_creative_drop(c, packet));
             } else {
-                log::warn!("Player {} was dropping items too fast in creative mode, ignoring.", self.player.get_plain_text_name());
+                log::warn!(
+                    "Player {} was dropping items too fast in creative mode, ignoring.",
+                    self.player.get_plain_text_name()
+                );
             }
         }
     }

@@ -28,7 +28,12 @@ impl ItemCost {
     /// `new ItemCost(item, count, components)`.
     pub fn new(item: Item, count: i32, components: DataComponentExactPredicate) -> ItemCost {
         let item_stack = ItemStack::with_patch(item, count, &components.as_patch());
-        ItemCost { item, count, components, item_stack }
+        ItemCost {
+            item,
+            count,
+            components,
+            item_stack,
+        }
     }
 
     /// `new ItemCost(item, count)`.
@@ -63,18 +68,27 @@ impl ItemCost {
         record!(Fields {
             item: registry_by_name_codec::<Item>().field_of("id"),
             count: optional_always_present_field_of(&POSITIVE_INT, "count", 1),
-            components: DataComponentExactPredicate::codec().optional_field_of_default("components", DataComponentExactPredicate::empty()),
+            components: DataComponentExactPredicate::codec()
+                .optional_field_of_default("components", DataComponentExactPredicate::empty()),
         })
         .xmap(
             |f: Fields| ItemCost::new(f.item, f.count, f.components),
-            |c: &ItemCost| Fields { item: c.item, count: c.count, components: c.components.clone() },
+            |c: &ItemCost| Fields {
+                item: c.item,
+                count: c.count,
+                components: c.components.clone(),
+            },
         )
         .codec()
     }
 
     /// The `ItemCost.STREAM_CODEC` value (the encoding lives in `mc-protocol`).
     pub fn to_wire(&self) -> WireItemCost {
-        WireItemCost { item: self.item, count: self.count, components: self.components.clone() }
+        WireItemCost {
+            item: self.item,
+            count: self.count,
+            components: self.components.clone(),
+        }
     }
 
     pub fn from_wire(wire: WireItemCost) -> ItemCost {

@@ -4,23 +4,32 @@
 //! Vanilla's `Either<Identifier, StructureTemplate>` template: the runtime-template alternative only exists for
 //! game tests / data generation and cannot be serialized, so only the identifier is held.
 
-use mc_game_core::world::level::levelgen::structure::pools::structure_pool_element::{ElementCodecCtx, ProcessorListRef, STRUCTURE_POOL_ELEMENT_TYPES, StructurePoolElement, StructurePoolElementType, parse_projection};
-use mc_game_core::world::level::levelgen::structure::pools::structure_template_pool::Projection;
-use mc_game_core::world::level::levelgen::codec::*;
-use mc_game_core::world::level::levelgen::env::GenEnv;
-use mc_game_core::world::level::levelgen::feature::tree::shuffle;
-use mc_game_core::world::level::levelgen::structure::StructureManager;
-use crate::world::level::levelgen::structure::templatesystem::block_ignore_processor::{STRUCTURE_AND_AIR, STRUCTURE_BLOCK};
+use crate::world::level::levelgen::structure::templatesystem::block_ignore_processor::{
+    STRUCTURE_AND_AIR, STRUCTURE_BLOCK,
+};
 use crate::world::level::levelgen::structure::templatesystem::jigsaw_replacement_processor;
-use mc_game_core::world::level::levelgen::structure::templatesystem::structure_template::{JigsawBlockInfo, StructureBlockInfo, process_block_infos};
-use mc_game_core::world::level::levelgen::structure::templatesystem::{LiquidSettings, StructurePlaceSettings, StructureTemplate, StructureTemplateManager};
-use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::bounding_box::BoundingBox;
 use mc_core::ident::Identifier;
 use mc_core::pos::{BlockPos, Vec3i};
 use mc_core::random::RandomSource;
 use mc_core::rotation::Rotation;
 use mc_data::block::Block;
+use mc_game_core::world::level::levelgen::codec::*;
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::feature::tree::shuffle;
+use mc_game_core::world::level::levelgen::structure::StructureManager;
+use mc_game_core::world::level::levelgen::structure::pools::structure_pool_element::{
+    ElementCodecCtx, ProcessorListRef, STRUCTURE_POOL_ELEMENT_TYPES, StructurePoolElement,
+    StructurePoolElementType, parse_projection,
+};
+use mc_game_core::world::level::levelgen::structure::pools::structure_template_pool::Projection;
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_template::{
+    JigsawBlockInfo, StructureBlockInfo, process_block_infos,
+};
+use mc_game_core::world::level::levelgen::structure::templatesystem::{
+    LiquidSettings, StructurePlaceSettings, StructureTemplate, StructureTemplateManager,
+};
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_nbt::CompoundTag;
 use std::fmt;
 use std::sync::Arc;
@@ -41,13 +50,35 @@ pub struct SinglePoolElement {
 
 impl SinglePoolElement {
     /// `new SinglePoolElement(template, processors, projection, overrideLiquidSettings)`.
-    pub fn new(template: Identifier, processors: ProcessorListRef, projection: Projection, override_liquid_settings: Option<LiquidSettings>) -> SinglePoolElement {
-        SinglePoolElement { variant: Variant::Single, template, processors, projection, override_liquid_settings }
+    pub fn new(
+        template: Identifier,
+        processors: ProcessorListRef,
+        projection: Projection,
+        override_liquid_settings: Option<LiquidSettings>,
+    ) -> SinglePoolElement {
+        SinglePoolElement {
+            variant: Variant::Single,
+            template,
+            processors,
+            projection,
+            override_liquid_settings,
+        }
     }
 
     /// `new LegacySinglePoolElement(template, processors, projection, overrideLiquidSettings)`.
-    pub fn new_legacy(template: Identifier, processors: ProcessorListRef, projection: Projection, override_liquid_settings: Option<LiquidSettings>) -> SinglePoolElement {
-        SinglePoolElement { variant: Variant::Legacy, template, processors, projection, override_liquid_settings }
+    pub fn new_legacy(
+        template: Identifier,
+        processors: ProcessorListRef,
+        projection: Projection,
+        override_liquid_settings: Option<LiquidSettings>,
+    ) -> SinglePoolElement {
+        SinglePoolElement {
+            variant: Variant::Legacy,
+            template,
+            processors,
+            projection,
+            override_liquid_settings,
+        }
     }
 
     /// `getTemplateLocation()`.
@@ -60,7 +91,13 @@ impl SinglePoolElement {
     }
 
     /// `getDataMarkers(structureTemplateManager, position, rotation, absolute)`.
-    pub fn get_data_markers(&self, manager: &StructureTemplateManager, position: BlockPos, rotation: Rotation, absolute: bool) -> Vec<StructureBlockInfo> {
+    pub fn get_data_markers(
+        &self,
+        manager: &StructureTemplateManager,
+        position: BlockPos,
+        rotation: Rotation,
+        absolute: bool,
+    ) -> Vec<StructureBlockInfo> {
         let template = self.get_template(manager);
         let mut settings = StructurePlaceSettings::new();
         settings.set_rotation(rotation);
@@ -69,12 +106,22 @@ impl SinglePoolElement {
             .filter_blocks_abs(position, &settings, structure_block, absolute)
             .into_iter()
             // `mode` is the legacy enum name (`StructureMode.LEGACY_CODEC`)
-            .filter(|info| info.nbt.as_ref().is_some_and(|nbt| nbt.get_string("mode") == Some("DATA")))
+            .filter(|info| {
+                info.nbt
+                    .as_ref()
+                    .is_some_and(|nbt| nbt.get_string("mode") == Some("DATA"))
+            })
             .collect()
     }
 
     /// `getSettings(rotation, chunkBB, liquidSettings, keepJigsaws)` (the legacy element swaps the block ignore processor).
-    fn get_settings(&self, rotation: Rotation, chunk_bb: &BoundingBox, liquid_settings: LiquidSettings, keep_jigsaws: bool) -> StructurePlaceSettings {
+    fn get_settings(
+        &self,
+        rotation: Rotation,
+        chunk_bb: &BoundingBox,
+        liquid_settings: LiquidSettings,
+        keep_jigsaws: bool,
+    ) -> StructurePlaceSettings {
         let mut settings = StructurePlaceSettings::new();
         settings.set_bounding_box(*chunk_bb);
         settings.set_rotation(rotation);
@@ -114,17 +161,29 @@ impl StructurePoolElement for SinglePoolElement {
         self.get_template(manager).get_size_rotated(rotation)
     }
 
-    fn get_shuffled_jigsaw_blocks(&self, manager: &StructureTemplateManager, position: BlockPos, rotation: Rotation, random: &mut dyn RandomSource) -> Vec<JigsawBlockInfo> {
+    fn get_shuffled_jigsaw_blocks(
+        &self,
+        manager: &StructureTemplateManager,
+        position: BlockPos,
+        rotation: Rotation,
+        random: &mut dyn RandomSource,
+    ) -> Vec<JigsawBlockInfo> {
         let mut jigsaws = self.get_template(manager).get_jigsaws(position, rotation);
         shuffle(&mut jigsaws, random);
         sort_by_selection_priority(&mut jigsaws);
         jigsaws
     }
 
-    fn get_bounding_box(&self, manager: &StructureTemplateManager, position: BlockPos, rotation: Rotation) -> BoundingBox {
+    fn get_bounding_box(
+        &self,
+        manager: &StructureTemplateManager,
+        position: BlockPos,
+        rotation: Rotation,
+    ) -> BoundingBox {
         let mut settings = StructurePlaceSettings::new();
         settings.set_rotation(rotation);
-        self.get_template(manager).get_bounding_box(&settings, position)
+        self.get_template(manager)
+            .get_bounding_box(&settings, position)
     }
 
     fn place(
@@ -147,7 +206,9 @@ impl StructurePoolElement for SinglePoolElement {
             return false;
         }
         let markers = self.get_data_markers(manager, position, rotation, false);
-        for data_marker in process_block_infos(&*level, position, reference_pos, &settings, &markers) {
+        for data_marker in
+            process_block_infos(&*level, position, reference_pos, &settings, &markers)
+        {
             self.handle_data_marker(level, &data_marker, position, rotation, random, chunk_bb);
         }
         true
@@ -189,13 +250,18 @@ pub fn sort_by_selection_priority(blocks: &mut [JigsawBlockInfo]) {
     blocks.sort_by(|a, b| b.selection_priority.cmp(&a.selection_priority));
 }
 
-fn decode_single(fields: &Fields<'_>, ctx: &ElementCodecCtx<'_, '_>, legacy: bool) -> LoadResult<Arc<dyn StructurePoolElement>> {
+fn decode_single(
+    fields: &Fields<'_>,
+    ctx: &ElementCodecCtx<'_, '_>,
+    legacy: bool,
+) -> LoadResult<Arc<dyn StructurePoolElement>> {
     let template = fields.required("location", parse_identifier)?;
     let processors = fields.required("processors", |v| ProcessorListRef::decode(v, ctx))?;
     let projection = fields.required("projection", parse_projection)?;
     let override_liquid = fields.optional("override_liquid_settings", |v| {
         let name = parse_str(v)?;
-        LiquidSettings::by_name(name).ok_or_else(|| LoadError::new(format!("Unknown element name:{name}")))
+        LiquidSettings::by_name(name)
+            .ok_or_else(|| LoadError::new(format!("Unknown element name:{name}")))
     })?;
     Ok(Arc::new(if legacy {
         SinglePoolElement::new_legacy(template, processors, projection, override_liquid)
@@ -205,7 +271,13 @@ fn decode_single(fields: &Fields<'_>, ctx: &ElementCodecCtx<'_, '_>, legacy: boo
 }
 
 #[linkme::distributed_slice(STRUCTURE_POOL_ELEMENT_TYPES)]
-static SINGLE: StructurePoolElementType = StructurePoolElementType { name: "single_pool_element", decode: |f, ctx| decode_single(f, ctx, false) };
+static SINGLE: StructurePoolElementType = StructurePoolElementType {
+    name: "single_pool_element",
+    decode: |f, ctx| decode_single(f, ctx, false),
+};
 
 #[linkme::distributed_slice(STRUCTURE_POOL_ELEMENT_TYPES)]
-static LEGACY: StructurePoolElementType = StructurePoolElementType { name: "legacy_single_pool_element", decode: |f, ctx| decode_single(f, ctx, true) };
+static LEGACY: StructurePoolElementType = StructurePoolElementType {
+    name: "legacy_single_pool_element",
+    decode: |f, ctx| decode_single(f, ctx, true),
+};

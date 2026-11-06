@@ -35,12 +35,22 @@ impl_saved_data!(Raids);
 impl Default for Raids {
     fn default() -> Self {
         // `Raids()` constructor: `setDirty()`
-        Raids { dirty: true, raid_map: LongOpenHashMap::new_int(), next_id: 1, tick: 0 }
+        Raids {
+            dirty: true,
+            raid_map: LongOpenHashMap::new_int(),
+            next_id: 1,
+            tick: 0,
+        }
     }
 }
 
 static RAIDS_TYPE: LazyLock<SavedDataType<Raids>> = LazyLock::new(|| {
-    SavedDataType::new(Identifier::parse("minecraft:raids").expect("static id"), Raids::default, Raids::decode, Raids::encode)
+    SavedDataType::new(
+        Identifier::parse("minecraft:raids").expect("static id"),
+        Raids::default,
+        Raids::decode,
+        Raids::encode,
+    )
 });
 
 /// `Raids.TYPE`.
@@ -50,7 +60,11 @@ pub fn raids_type() -> &'static SavedDataType<Raids> {
 
 /// `Raids.getNearbyRaid(pos, maxDistSqr)` over `(id, center, active)` entries in map order: the id of the closest active
 /// raid strictly closer than `max_dist_sqr` (the first of equally close ones).
-pub fn nearby_raid_id(metas: impl Iterator<Item = RaidMeta>, pos: BlockPos, max_dist_sqr: i32) -> Option<i32> {
+pub fn nearby_raid_id(
+    metas: impl Iterator<Item = RaidMeta>,
+    pos: BlockPos,
+    max_dist_sqr: i32,
+) -> Option<i32> {
     let mut closest = None;
     let mut closest_distance_sqr = f64::from(max_dist_sqr);
     for meta in metas {
@@ -70,11 +84,15 @@ pub(super) fn set_dirty(level: &mut ServerLevel) {
 impl Raids {
     /// `get(raidId)`: `None` for an unknown raid or while it is checked out.
     pub fn get(&self, raid_id: i32) -> Option<&Raid> {
-        self.raid_map.get(i64::from(raid_id)).and_then(|s| s.raid.as_ref())
+        self.raid_map
+            .get(i64::from(raid_id))
+            .and_then(|s| s.raid.as_ref())
     }
 
     pub fn get_mut(&mut self, raid_id: i32) -> Option<&mut Raid> {
-        self.raid_map.get_mut(i64::from(raid_id)).and_then(|s| s.raid.as_mut())
+        self.raid_map
+            .get_mut(i64::from(raid_id))
+            .and_then(|s| s.raid.as_mut())
     }
 
     /// Whether a raid with this id exists (also while checked out).
@@ -88,7 +106,12 @@ impl Raids {
     }
 
     fn view(&self) -> Vec<RaidMeta> {
-        self.raid_map.keys().into_iter().filter_map(|k| self.raid_map.get(k)).map(|s| s.meta).collect()
+        self.raid_map
+            .keys()
+            .into_iter()
+            .filter_map(|k| self.raid_map.get(k))
+            .map(|s| s.meta)
+            .collect()
     }
 
     /// Every raid's id in map iteration order.
@@ -103,12 +126,18 @@ impl Raids {
 
     /// `getRaidCentersInChunk(chunkPos)`.
     pub fn get_raid_centers_in_chunk(&self, chunk_x: i32, chunk_z: i32) -> Vec<BlockPos> {
-        self.view().into_iter().map(|m| m.center).filter(|c| c.x() >> 4 == chunk_x && c.z() >> 4 == chunk_z).collect()
+        self.view()
+            .into_iter()
+            .map(|m| m.center)
+            .filter(|c| c.x() >> 4 == chunk_x && c.z() >> 4 == chunk_z)
+            .collect()
     }
 
     /// Checks the raid out (leaving its meta behind).
     fn check_out(&mut self, raid_id: i32) -> Option<Raid> {
-        self.raid_map.get_mut(i64::from(raid_id)).and_then(|s| s.raid.take())
+        self.raid_map
+            .get_mut(i64::from(raid_id))
+            .and_then(|s| s.raid.take())
     }
 
     fn check_in(&mut self, raid: Raid) {
@@ -121,7 +150,13 @@ impl Raids {
     fn put(&mut self, id: i32, mut raid: Raid) {
         raid.set_id(id);
         let meta = raid.meta();
-        self.raid_map.insert(i64::from(id), RaidSlot { raid: Some(raid), meta });
+        self.raid_map.insert(
+            i64::from(id),
+            RaidSlot {
+                raid: Some(raid),
+                meta,
+            },
+        );
     }
 
     fn get_unique_id(&mut self) -> i32 {
@@ -133,14 +168,22 @@ impl Raids {
 
     fn decode(tag: &Tag) -> DecodeResult<Raids> {
         let m = codec::compound(tag)?;
-        let mut raids = Raids { dirty: false, raid_map: LongOpenHashMap::new_int(), next_id: 0, tick: 0 };
+        let mut raids = Raids {
+            dirty: false,
+            raid_map: LongOpenHashMap::new_int(),
+            next_id: 0,
+            tick: 0,
+        };
         raids.next_id = codec::int(codec::field(m, "next_id")?)?;
         raids.tick = codec::int(codec::field(m, "tick")?)?;
         if let Some(list) = codec::optional(m, "raids", codec::list)? {
             for entry in list {
                 let e = codec::compound(&entry)?;
                 let id = codec::int(codec::field(e, "id")?)?;
-                let raid = Raid::decode(e).map_err(|p: Partial<Raid>| Partial { value: None, error: p.error })?;
+                let raid = Raid::decode(e).map_err(|p: Partial<Raid>| Partial {
+                    value: None,
+                    error: p.error,
+                })?;
                 raids.put(id, raid);
             }
         }
@@ -152,8 +195,12 @@ impl Raids {
         // `optionalFieldOf("raids", List.of())` omits an empty list
         let mut list = ListTag::new();
         for key in self.raid_map.keys() {
-            let Some(slot) = self.raid_map.get(key) else { continue };
-            let Some(raid) = slot.raid.as_ref() else { continue };
+            let Some(slot) = self.raid_map.get(key) else {
+                continue;
+            };
+            let Some(raid) = slot.raid.as_ref() else {
+                continue;
+            };
             let mut entry = CompoundTag::new();
             entry.put_int("id", key as i32);
             raid.encode_into(&mut entry);
@@ -170,14 +217,21 @@ impl Raids {
     // ---- ticking --------------------------------------------------------------------------------------------------
 
     /// `createOrExtendRaid(player, raidPosition)`: the id of the raid.
-    pub fn create_or_extend_raid(level: &mut ServerLevel, player: &mut ServerPlayer, raid_position: BlockPos) -> Option<i32> {
+    pub fn create_or_extend_raid(
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        raid_position: BlockPos,
+    ) -> Option<i32> {
         if player.is_spectator() {
             return None;
         }
         if !level.raids() {
             return None;
         }
-        if !level.attribute_bool(crate::world::attribute::attributes::CAN_START_RAID, raid_position) {
+        if !level.attribute_bool(
+            crate::world::attribute::attributes::CAN_START_RAID,
+            raid_position,
+        ) {
             return None;
         }
         let posses = super::raid_world::occupied_village_pois(level, raid_position, 64);
@@ -185,7 +239,11 @@ impl Raids {
         let mut pos_totals = Vec3::ZERO;
         for p in &posses {
             let pos = *p;
-            pos_totals = pos_totals.add(Vec3::new(f64::from(pos.x()), f64::from(pos.y()), f64::from(pos.z())));
+            pos_totals = pos_totals.add(Vec3::new(
+                f64::from(pos.x()),
+                f64::from(pos.y()),
+                f64::from(pos.z()),
+            ));
             count += 1;
         }
         let raid_center_pos = if count > 0 {
@@ -220,7 +278,11 @@ impl Raids {
 
 /// `Raids.canJoinRaid(raider)`.
 pub fn can_join_raid(raider: &dyn crate::world::entity::Entity) -> bool {
-    raider.is_alive() && raider::can_join_raid(raider) && raider.living().is_some_and(|l| l.no_action_time <= super::raid::MAX_NO_ACTION_TIME)
+    raider.is_alive()
+        && raider::can_join_raid(raider)
+        && raider
+            .living()
+            .is_some_and(|l| l.no_action_time <= super::raid::MAX_NO_ACTION_TIME)
 }
 
 /// `Raids.tick(level)`.
@@ -232,7 +294,9 @@ pub fn tick_raids(level: &mut ServerLevel) {
     };
     for id in ids {
         let rule = level.raids();
-        let Some(mut raid) = level.get_raids_mut().check_out(id) else { continue };
+        let Some(mut raid) = level.get_raids_mut().check_out(id) else {
+            continue;
+        };
         if !rule {
             raid.stop();
         }
@@ -260,7 +324,9 @@ impl ServerLevel {
 
     /// `getRaids()`.
     pub fn get_raids_mut(&mut self) -> &mut Raids {
-        self.chunk_source.data_storage.compute_if_absent(raids_type())
+        self.chunk_source
+            .data_storage
+            .compute_if_absent(raids_type())
     }
 
     /// `getRaids()` for shared readers; `None` until the raids were loaded ([`ServerLevel::install_raids`]).
@@ -271,12 +337,16 @@ impl ServerLevel {
     /// `getRaidAt(pos)`: the closest active raid within 96 blocks. `None` while that raid is checked out.
     pub fn get_raid_at(&self, pos: BlockPos) -> Option<&Raid> {
         let raids = self.get_raids()?;
-        raids.get_nearby_raid(pos, VALID_RAID_RADIUS_SQR).and_then(|id| raids.get(id))
+        raids
+            .get_nearby_raid(pos, VALID_RAID_RADIUS_SQR)
+            .and_then(|id| raids.get(id))
     }
 
     /// `isRaided(pos)`.
     pub fn is_raided(&self, pos: BlockPos) -> bool {
-        self.get_raids().and_then(|r| r.get_nearby_raid(pos, VALID_RAID_RADIUS_SQR)).is_some()
+        self.get_raids()
+            .and_then(|r| r.get_nearby_raid(pos, VALID_RAID_RADIUS_SQR))
+            .is_some()
     }
 
     /// `Raids.get(raidId)`.
@@ -286,7 +356,11 @@ impl ServerLevel {
 
     /// Runs `f` with the raid checked out of the level's raids (so `f` may use the level mutably); `None` when there is no
     /// such raid or it is already checked out. The raid's `Raids` meta is refreshed afterwards.
-    pub fn with_raid<R>(&mut self, raid_id: i32, f: impl FnOnce(&mut ServerLevel, &mut Raid) -> R) -> Option<R> {
+    pub fn with_raid<R>(
+        &mut self,
+        raid_id: i32,
+        f: impl FnOnce(&mut ServerLevel, &mut Raid) -> R,
+    ) -> Option<R> {
         let mut raid = self.get_raids_mut().check_out(raid_id)?;
         let result = f(self, &mut raid);
         self.get_raids_mut().check_in(raid);

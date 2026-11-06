@@ -34,11 +34,17 @@ impl FilteredText {
     }
 
     pub fn pass_through(message: impl Into<String>) -> Self {
-        Self { raw: message.into(), mask: FilterMask::PassThrough }
+        Self {
+            raw: message.into(),
+            mask: FilterMask::PassThrough,
+        }
     }
 
     pub fn fully_filtered(message: impl Into<String>) -> Self {
-        Self { raw: message.into(), mask: FilterMask::FullyFiltered }
+        Self {
+            raw: message.into(),
+            mask: FilterMask::FullyFiltered,
+        }
     }
 
     pub fn filtered(&self) -> Option<String> {
@@ -73,7 +79,10 @@ impl TextFilter for DummyTextFilter {
     }
 
     fn process_message_bundle(&self, messages: &[String]) -> Vec<FilteredText> {
-        messages.iter().map(|m| FilteredText::pass_through(m.as_str())).collect()
+        messages
+            .iter()
+            .map(|m| FilteredText::pass_through(m.as_str()))
+            .collect()
     }
 }
 
@@ -86,24 +95,40 @@ pub struct Filterable<T> {
 
 impl<T> Filterable<T> {
     pub fn pass_through(value: T) -> Self {
-        Self { raw: value, filtered: None }
+        Self {
+            raw: value,
+            filtered: None,
+        }
     }
 
     /// `get(filterEnabled)`.
     pub fn get(&self, filter_enabled: bool) -> &T {
-        if filter_enabled { self.filtered.as_ref().unwrap_or(&self.raw) } else { &self.raw }
+        if filter_enabled {
+            self.filtered.as_ref().unwrap_or(&self.raw)
+        } else {
+            &self.raw
+        }
     }
 
     pub fn map<U>(self, f: impl Fn(T) -> U) -> Filterable<U> {
-        Filterable { raw: f(self.raw), filtered: self.filtered.map(f) }
+        Filterable {
+            raw: f(self.raw),
+            filtered: self.filtered.map(f),
+        }
     }
 
     /// `resolve`: `None` unless the function accepts the raw value (and the filtered one, if present).
     pub fn resolve<U>(&self, f: impl Fn(&T) -> Option<U>) -> Option<Filterable<U>> {
         let raw = f(&self.raw)?;
         match &self.filtered {
-            Some(filtered) => Some(Filterable { raw, filtered: Some(f(filtered)?) }),
-            None => Some(Filterable { raw, filtered: None }),
+            Some(filtered) => Some(Filterable {
+                raw,
+                filtered: Some(f(filtered)?),
+            }),
+            None => Some(Filterable {
+                raw,
+                filtered: None,
+            }),
         }
     }
 }
@@ -111,7 +136,10 @@ impl<T> Filterable<T> {
 impl Filterable<String> {
     /// `Filterable.from(FilteredText)`.
     pub fn from_text(text: &FilteredText) -> Self {
-        Self { raw: text.raw.clone(), filtered: text.is_filtered().then(|| text.filtered_or_empty()) }
+        Self {
+            raw: text.raw.clone(),
+            filtered: text.is_filtered().then(|| text.filtered_or_empty()),
+        }
     }
 }
 
@@ -126,27 +154,54 @@ mod tests {
         bits.set(1);
         bits.set(2);
         bits.set(40); // beyond the text: ignored
-        let text = FilteredText { raw: "abcd".into(), mask: FilterMask::PartiallyFiltered(bits) };
+        let text = FilteredText {
+            raw: "abcd".into(),
+            mask: FilterMask::PartiallyFiltered(bits),
+        };
         assert_eq!(text.filtered().as_deref(), Some("a##d"));
         assert!(text.is_filtered());
         assert_eq!(FilteredText::fully_filtered("x").filtered(), None);
         assert_eq!(FilteredText::fully_filtered("x").filtered_or_empty(), "");
         assert!(!FilteredText::pass_through("x").is_filtered());
-        assert_eq!(Filterable::from_text(&text), Filterable { raw: "abcd".into(), filtered: Some("a##d".into()) });
+        assert_eq!(
+            Filterable::from_text(&text),
+            Filterable {
+                raw: "abcd".into(),
+                filtered: Some("a##d".into())
+            }
+        );
     }
 
     #[test]
     fn filterable_get_map_resolve() {
-        let f = Filterable { raw: 1, filtered: Some(2) };
+        let f = Filterable {
+            raw: 1,
+            filtered: Some(2),
+        };
         assert_eq!((*f.get(true), *f.get(false)), (2, 1));
-        assert_eq!(f.clone().map(|v| v * 10), Filterable { raw: 10, filtered: Some(20) });
+        assert_eq!(
+            f.clone().map(|v| v * 10),
+            Filterable {
+                raw: 10,
+                filtered: Some(20)
+            }
+        );
         assert_eq!(f.resolve(|v| (*v < 2).then_some(*v)), None);
-        assert_eq!(Filterable::pass_through(1).resolve(|v| Some(*v)), Some(Filterable { raw: 1, filtered: None }));
+        assert_eq!(
+            Filterable::pass_through(1).resolve(|v| Some(*v)),
+            Some(Filterable {
+                raw: 1,
+                filtered: None
+            })
+        );
     }
 
     #[test]
     fn dummy_filter_passes_everything() {
         let messages = vec!["a".to_owned(), String::new()];
-        assert_eq!(DummyTextFilter.process_message_bundle(&messages), vec![FilteredText::pass_through("a"), FilteredText::empty()]);
+        assert_eq!(
+            DummyTextFilter.process_message_bundle(&messages),
+            vec![FilteredText::pass_through("a"), FilteredText::empty()]
+        );
     }
 }

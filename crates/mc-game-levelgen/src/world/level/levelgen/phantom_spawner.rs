@@ -1,20 +1,22 @@
 //! `net.minecraft.world.level.levelgen.PhantomSpawner`: spawns phantoms above players that did not rest for a long time.
 
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::stats::stats::Stats;
-use mc_game_core::world::entity::ServerPlayer;
-use mc_game_core::world::entity::factory::EntitySpawnRequest;
-use mc_game_core::world::level::BlockGetter;
-use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
-use mc_game_core::world::level::spawner::custom_spawner::{CUSTOM_SPAWNERS, CustomSpawner, CustomSpawnerRegistration, order};
-use mc_game_core::world::level::spawner::natural_spawner;
-use mc_game_core::world::level::LevelReader;
 use linkme::distributed_slice;
 use mc_core::math::mth;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::EntityType;
 use mc_data::enums::EntitySpawnReason;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::stats::stats::Stats;
+use mc_game_core::world::entity::ServerPlayer;
+use mc_game_core::world::entity::factory::EntitySpawnRequest;
+use mc_game_core::world::level::BlockGetter;
+use mc_game_core::world::level::LevelReader;
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::world::level::spawner::custom_spawner::{
+    CUSTOM_SPAWNERS, CustomSpawner, CustomSpawnerRegistration, order,
+};
+use mc_game_core::world::level::spawner::natural_spawner;
 
 /// `PhantomSpawner`.
 #[derive(Default)]
@@ -41,16 +43,23 @@ impl CustomSpawner for PhantomSpawner {
         let mut count = 0;
         let players: Vec<_> = level.players().to_vec();
         for player_id in players {
-            let Some((is_spectator, player_pos, time_since_rest)) = level.get_entity(player_id).map(|p| {
-                let time = p.as_any().downcast_ref::<ServerPlayer>().map_or(0, |sp| sp.stats.lock().get_value(&Stats::TIME_SINCE_REST));
-                (p.is_spectator(), p.block_position(), time)
-            }) else {
+            let Some((is_spectator, player_pos, time_since_rest)) =
+                level.get_entity(player_id).map(|p| {
+                    let time = p
+                        .as_any()
+                        .downcast_ref::<ServerPlayer>()
+                        .map_or(0, |sp| sp.stats.lock().get_value(&Stats::TIME_SINCE_REST));
+                    (p.is_spectator(), p.block_position(), time)
+                })
+            else {
                 continue;
             };
             if is_spectator {
                 continue;
             }
-            if has_sky_light && !(player_pos.y() >= level.get_sea_level() && level.can_see_sky(player_pos)) {
+            if has_sky_light
+                && !(player_pos.y() >= level.get_sea_level() && level.can_see_sky(player_pos))
+            {
                 continue;
             }
             let difficulty = ServerLevelAccessor::get_current_difficulty_at(&*level, player_pos);
@@ -61,18 +70,47 @@ impl CustomSpawner for PhantomSpawner {
             if random.next_int_bounded(value) < 72000 {
                 continue;
             }
-            let spawn_pos = player_pos.above_n(20 + random.next_int_bounded(15)).east_n(-10 + random.next_int_bounded(21)).south_n(-10 + random.next_int_bounded(21));
+            let spawn_pos = player_pos
+                .above_n(20 + random.next_int_bounded(15))
+                .east_n(-10 + random.next_int_bounded(21))
+                .south_n(-10 + random.next_int_bounded(21));
             let block_state = level.get_block_state(spawn_pos);
             let fluid_state = level.get_fluid_state(spawn_pos);
-            if !natural_spawner::is_valid_empty_spawn_block(&*level, spawn_pos, block_state, fluid_state, EntityType::PHANTOM) {
+            if !natural_spawner::is_valid_empty_spawn_block(
+                &*level,
+                spawn_pos,
+                block_state,
+                fluid_state,
+                EntityType::PHANTOM,
+            ) {
                 continue;
             }
             let mut group_data = None;
             let group_size = 1 + random.next_int_bounded(difficulty.get_difficulty().get_id() + 1);
             for _ in 0..group_size {
-                let Some(mut phantom) = mc_game_core::world::entity::factory::create(EntityType::PHANTOM, level, EntitySpawnRequest { reason: EntitySpawnReason::Natural, ignore_checks: false }) else { continue };
-                phantom.snap_to(f64::from(spawn_pos.x()) + 0.5, f64::from(spawn_pos.y()), f64::from(spawn_pos.z()) + 0.5, 0.0, 0.0);
-                group_data = phantom.finalize_spawn(level, difficulty, EntitySpawnReason::Natural, group_data);
+                let Some(mut phantom) = mc_game_core::world::entity::factory::create(
+                    EntityType::PHANTOM,
+                    level,
+                    EntitySpawnRequest {
+                        reason: EntitySpawnReason::Natural,
+                        ignore_checks: false,
+                    },
+                ) else {
+                    continue;
+                };
+                phantom.snap_to(
+                    f64::from(spawn_pos.x()) + 0.5,
+                    f64::from(spawn_pos.y()),
+                    f64::from(spawn_pos.z()) + 0.5,
+                    0.0,
+                    0.0,
+                );
+                group_data = phantom.finalize_spawn(
+                    level,
+                    difficulty,
+                    EntitySpawnReason::Natural,
+                    group_data,
+                );
                 level.add_fresh_entity_with_passengers(vec![phantom]);
                 count += 1;
             }
@@ -82,4 +120,7 @@ impl CustomSpawner for PhantomSpawner {
 }
 
 #[distributed_slice(CUSTOM_SPAWNERS)]
-static PHANTOM_SPAWNER: CustomSpawnerRegistration = CustomSpawnerRegistration { order: order::PHANTOM, create: |_| Some(Box::new(PhantomSpawner::default())) };
+static PHANTOM_SPAWNER: CustomSpawnerRegistration = CustomSpawnerRegistration {
+    order: order::PHANTOM,
+    create: |_| Some(Box::new(PhantomSpawner::default())),
+};

@@ -30,7 +30,12 @@ pub enum WeatherState {
 }
 
 impl WeatherState {
-    const ALL: [WeatherState; 4] = [Self::Unaffected, Self::Exposed, Self::Weathered, Self::Oxidized];
+    const ALL: [WeatherState; 4] = [
+        Self::Unaffected,
+        Self::Exposed,
+        Self::Weathered,
+        Self::Oxidized,
+    ];
 
     pub fn ordinal(self) -> usize {
         self as usize
@@ -52,7 +57,10 @@ struct Maps {
 }
 
 static MAPS: LazyLock<Maps> = LazyLock::new(|| {
-    let previous: HashMap<Block, Block> = WEATHERING_NEXT.iter().map(|(from, to)| (*to, *from)).collect();
+    let previous: HashMap<Block, Block> = WEATHERING_NEXT
+        .iter()
+        .map(|(from, to)| (*to, *from))
+        .collect();
     let mut age = HashMap::new();
     for (from, to) in WEATHERING_NEXT.iter() {
         for block in [*from, *to] {
@@ -65,8 +73,15 @@ static MAPS: LazyLock<Maps> = LazyLock::new(|| {
             age.insert(block, WeatherState::ALL[depth]);
         }
     }
-    let wax_off = WAXABLES.iter().map(|(unwaxed, waxed)| (*waxed, *unwaxed)).collect();
-    Maps { previous, age, wax_off }
+    let wax_off = WAXABLES
+        .iter()
+        .map(|(unwaxed, waxed)| (*waxed, *unwaxed))
+        .collect();
+    Maps {
+        previous,
+        age,
+        wax_off,
+    }
 });
 
 fn maps() -> &'static Maps {
@@ -129,16 +144,26 @@ pub fn get_first_block(block: Block) -> Block {
 
 /// `WeatheringCopper.getFirst(state)`.
 pub fn get_first(state: BlockState) -> BlockState {
-    get_first_block(state.block()).default_state().with_properties_of(state)
+    get_first_block(state.block())
+        .default_state()
+        .with_properties_of(state)
 }
 
 /// `WeatheringCopper.getChanceModifier`.
 fn chance_modifier(age: WeatherState) -> f32 {
-    if age == WeatherState::Unaffected { 0.75 } else { 1.0 }
+    if age == WeatherState::Unaffected {
+        0.75
+    } else {
+        1.0
+    }
 }
 
 /// `ChangeOverTimeBlock.getNextState`.
-pub fn get_next_state_scanning(state: BlockState, level: &mut ServerLevel, pos: BlockPos) -> Option<BlockState> {
+pub fn get_next_state_scanning(
+    state: BlockState,
+    level: &mut ServerLevel,
+    pos: BlockPos,
+) -> Option<BlockState> {
     let own_age = age(state.block())?.ordinal();
     let mut same_age_count = 0i32;
     let mut older_count = 0i32;

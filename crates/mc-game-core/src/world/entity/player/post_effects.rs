@@ -32,7 +32,12 @@ impl ServerPlayer {
 
     /// `removePostEffect(postEffect)`: false when it was not present.
     pub fn remove_post_effect(&mut self, post_effect: &Identifier) -> bool {
-        match self.player.post_effects.iter().position(|p| p == post_effect) {
+        match self
+            .player
+            .post_effects
+            .iter()
+            .position(|p| p == post_effect)
+        {
             Some(index) => {
                 self.player.post_effects.remove(index);
                 self.post_effects_dirty = true;

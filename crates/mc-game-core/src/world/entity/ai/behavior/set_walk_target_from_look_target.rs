@@ -1,10 +1,10 @@
 //! `SetWalkTargetFromLookTarget`: worked example of a declarative behavior (see the module header of
 //! [`crate::world::entity::ai::behavior`]).
 
-use super::declarative::BehaviorBuilder;
 use super::OneShot;
-use crate::world::entity::ai::memory::memory_module_type::{LOOK_TARGET, WALK_TARGET};
+use super::declarative::BehaviorBuilder;
 use crate::world::entity::ai::memory::WalkTarget;
+use crate::world::entity::ai::memory::memory_module_type::{LOOK_TARGET, WALK_TARGET};
 use crate::world::entity::entity::Entity;
 
 /// `create(speedModifier, closeEnoughDistance)`.
@@ -25,7 +25,11 @@ pub fn create_with(
         if !can_set_walk_target_predicate(c.body()) {
             false
         } else {
-            let target = WalkTarget::new(c.get(&look_target).clone(), speed_modifier(c.body()), close_enough_distance);
+            let target = WalkTarget::new(
+                c.get(&look_target).clone(),
+                speed_modifier(c.body()),
+                close_enough_distance,
+            );
             c.set(&walk_target, target);
             true
         }

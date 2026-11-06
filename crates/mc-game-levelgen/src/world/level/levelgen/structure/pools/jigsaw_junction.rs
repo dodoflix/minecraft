@@ -13,8 +13,20 @@ pub struct JigsawJunction {
 }
 
 impl JigsawJunction {
-    pub fn new(source_x: i32, source_ground_y: i32, source_z: i32, delta_y: i32, dest_projection: Projection) -> JigsawJunction {
-        JigsawJunction { source_x, source_ground_y, source_z, delta_y, dest_projection }
+    pub fn new(
+        source_x: i32,
+        source_ground_y: i32,
+        source_z: i32,
+        delta_y: i32,
+        dest_projection: Projection,
+    ) -> JigsawJunction {
+        JigsawJunction {
+            source_x,
+            source_ground_y,
+            source_z,
+            delta_y,
+            dest_projection,
+        }
     }
 
     /// `serialize(NbtOps)`.
@@ -36,7 +48,8 @@ impl JigsawJunction {
             source_ground_y: tag.get_int_or("source_ground_y", 0),
             source_z: tag.get_int_or("source_z", 0),
             delta_y: tag.get_int_or("delta_y", 0),
-            dest_projection: Projection::by_name(tag.get_string_or("dest_proj", "")).unwrap_or(Projection::Rigid),
+            dest_projection: Projection::by_name(tag.get_string_or("dest_proj", ""))
+                .unwrap_or(Projection::Rigid),
         }
     }
 }

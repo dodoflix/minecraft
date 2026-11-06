@@ -1,7 +1,7 @@
 //! `HurtByTargetGoal`.
 
-use super::target_goal::TargetGoal;
 use super::EntityClass;
+use super::target_goal::TargetGoal;
 use crate::server::level::ServerLevel;
 use crate::world::entity::ai::goal::{Flag, Goal, GoalFlags};
 use crate::world::entity::ai::targeting::TargetingConditions;
@@ -34,7 +34,9 @@ impl HurtByTargetGoal {
     pub fn new(ignore_damage_from: Vec<EntityClass>) -> Self {
         Self {
             target_goal: TargetGoal::new(true, false),
-            hurt_by_targeting: TargetingConditions::for_combat().ignore_line_of_sight().ignore_invisibility_testing(),
+            hurt_by_targeting: TargetingConditions::for_combat()
+                .ignore_line_of_sight()
+                .ignore_invisibility_testing(),
             alert_same_type: false,
             timestamp: 0,
             to_ignore_damage: ignore_damage_from,
@@ -54,17 +56,32 @@ impl HurtByTargetGoal {
     /// `alertOthers()`.
     pub fn alert_others(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         let within = self.target_goal.get_follow_distance(mob);
-        let search_aabb: AABB = AABB::unit_cube_from_lower_corner(mob.position()).inflate(within, ALERT_RANGE_Y, within);
+        let search_aabb: AABB = AABB::unit_cube_from_lower_corner(mob.position()).inflate(
+            within,
+            ALERT_RANGE_Y,
+            within,
+        );
         let mob_type_id = mob.as_any().type_id();
         let nearby = level.get_entities_of_class(
             &search_aabb,
-            |e| e.mob().is_some() && self.alert_class.as_ref().map_or_else(|| e.as_any().type_id() == mob_type_id, |class| class(e)),
+            |e| {
+                e.mob().is_some()
+                    && self
+                        .alert_class
+                        .as_ref()
+                        .map_or_else(|| e.as_any().type_id() == mob_type_id, |class| class(e))
+            },
             |e| !e.is_spectator(),
         );
         let hurt_by = combat::get_last_hurt_by_mob(mob, level);
-        let tamable_owner = mob.mob().is_some_and(|m| m.tamable.is_some()).then(|| tamable::get_owner(mob, level));
+        let tamable_owner = mob
+            .mob()
+            .is_some_and(|m| m.tamable.is_some())
+            .then(|| tamable::get_owner(mob, level));
         for other_id in nearby {
-            let Some(other) = level.get_entity(other_id) else { continue };
+            let Some(other) = level.get_entity(other_id) else {
+                continue;
+            };
             if mob.id() == other.id() || tick::get_target_checked(other, level).is_some() {
                 continue;
             }
@@ -73,7 +90,10 @@ impl HurtByTargetGoal {
                     continue;
                 }
             }
-            if hurt_by.and_then(|h| level.get_entity(h)).is_some_and(|h| ext::is_allied_to(level, other, h)) {
+            if hurt_by
+                .and_then(|h| level.get_entity(h))
+                .is_some_and(|h| ext::is_allied_to(level, other, h))
+            {
                 continue;
             }
             if let Some(ignore) = &self.to_ignore_alert {
@@ -102,15 +122,23 @@ impl Goal for HurtByTargetGoal {
         let last_hurt_by_mob = combat::get_last_hurt_by_mob(mob, level);
         if timestamp != self.timestamp {
             if let Some(hurt_by) = last_hurt_by_mob {
-                let Some(hurt_by_entity) = level.get_entity(hurt_by) else { return false };
+                let Some(hurt_by_entity) = level.get_entity(hurt_by) else {
+                    return false;
+                };
                 if hurt_by_entity.get_type() == EntityType::PLAYER && level.universal_anger() {
                     return false;
                 }
-                if self.to_ignore_damage.iter().any(|class| class(hurt_by_entity)) {
+                if self
+                    .to_ignore_damage
+                    .iter()
+                    .any(|class| class(hurt_by_entity))
+                {
                     return false;
                 }
                 let conditions = self.hurt_by_targeting.clone();
-                return self.target_goal.can_attack(mob, level, Some(hurt_by), &conditions);
+                return self
+                    .target_goal
+                    .can_attack(mob, level, Some(hurt_by), &conditions);
             }
         }
         false

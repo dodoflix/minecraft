@@ -12,13 +12,14 @@ pub struct LootTableTriggerInstance {
 
 impl TriggerInstance for LootTableTriggerInstance {
     fn codec() -> Codec<Self> {
-        static C: std::sync::LazyLock<Codec<LootTableTriggerInstance>> = std::sync::LazyLock::new(|| {
-            mc_dfu::record!(LootTableTriggerInstance {
-                player: condition_holder_codec().optional_field_of("player"),
-                loot_table: loot_table_set_codec().field_of("loot_tables"),
-            })
-            .codec()
-        });
+        static C: std::sync::LazyLock<Codec<LootTableTriggerInstance>> =
+            std::sync::LazyLock::new(|| {
+                mc_dfu::record!(LootTableTriggerInstance {
+                    player: condition_holder_codec().optional_field_of("player"),
+                    loot_table: loot_table_set_codec().field_of("loot_tables"),
+                })
+                .codec()
+            });
         C.clone()
     }
 }
@@ -37,17 +38,28 @@ crate::register_triggers!(LootTableTriggerInstance {
 
 impl LootTableTriggerInstance {
     /// `matches(lootTable)`: `lootTable.stream().anyMatch(table -> table.is(lootTable))`.
-    pub fn matches(&self, registries: &crate::registry::RegistryAccess, loot_table: &Identifier) -> bool {
+    pub fn matches(
+        &self,
+        registries: &crate::registry::RegistryAccess,
+        loot_table: &Identifier,
+    ) -> bool {
         match &self.loot_table {
             LootTableSet::Elements(ids) => ids.contains(loot_table),
-            LootTableSet::Tag(tag) => registries.is_in_tag(crate::registry::keys::LOOT_TABLE, loot_table, tag),
+            LootTableSet::Tag(tag) => {
+                registries.is_in_tag(crate::registry::keys::LOOT_TABLE, loot_table, tag)
+            }
         }
     }
 }
 
 impl Trigger<LootTableTriggerInstance> {
     /// `trigger(player, lootTable)`.
-    pub fn trigger(&self, level: &mut ServerLevel, player: &mut ServerPlayer, loot_table: &Identifier) {
+    pub fn trigger(
+        &self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        loot_table: &Identifier,
+    ) {
         let registries = level.registries.clone();
         self.trigger_with(level, player, |t| t.matches(&registries, loot_table));
     }
@@ -73,16 +85,29 @@ pub fn loot_table_set_codec() -> Codec<LootTableSet> {
                     holders
                         .into_iter()
                         .filter_map(|h| match h {
-                            crate::world::level::storage::loot::holder::Holder::Reference { id, .. } => Some(id),
+                            crate::world::level::storage::loot::holder::Holder::Reference {
+                                id,
+                                ..
+                            } => Some(id),
                             _ => None,
                         })
                         .collect(),
                 ),
             },
             |s: &LootTableSet| match s {
-                LootTableSet::Tag(tag) => HolderSet::Named { registry: LOOT_TABLE, tag: tag.clone() },
+                LootTableSet::Tag(tag) => HolderSet::Named {
+                    registry: LOOT_TABLE,
+                    tag: tag.clone(),
+                },
                 LootTableSet::Elements(ids) => HolderSet::Direct(
-                    ids.iter().map(|id| crate::world::level::storage::loot::holder::Holder::Reference { registry: LOOT_TABLE, id: id.clone() }).collect(),
+                    ids.iter()
+                        .map(
+                            |id| crate::world::level::storage::loot::holder::Holder::Reference {
+                                registry: LOOT_TABLE,
+                                id: id.clone(),
+                            },
+                        )
+                        .collect(),
                 ),
             },
         )

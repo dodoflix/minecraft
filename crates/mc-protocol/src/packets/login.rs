@@ -4,8 +4,8 @@ use mc_core::ident::Identifier;
 use uuid::Uuid;
 
 use super::common::cookie_packets;
-use crate::codec::{read_varint, write_varint, DecodeResult, GameProfile, JsonComponent, Rest};
-use crate::{packet_enum, Decode, Encode, Packet};
+use crate::codec::{DecodeResult, GameProfile, JsonComponent, Rest, read_varint, write_varint};
+use crate::{Decode, Encode, Packet, packet_enum};
 
 cookie_packets!(login);
 
@@ -85,7 +85,10 @@ impl Decode for ServerboundCustomQueryAnswerPacket {
             Some((&flag, data)) if flag != 0 => Some(data.to_vec()),
             _ => None,
         };
-        Ok(Self { transaction_id, payload })
+        Ok(Self {
+            transaction_id,
+            payload,
+        })
     }
 }
 

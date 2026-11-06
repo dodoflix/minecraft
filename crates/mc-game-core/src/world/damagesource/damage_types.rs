@@ -82,7 +82,8 @@ impl DamageTypeTags {
     pub const NO_IMPACT: &'static str = "minecraft:no_impact";
     pub const ALWAYS_MOST_SIGNIFICANT_FALL: &'static str = "minecraft:always_most_significant_fall";
     pub const WITHER_IMMUNE_TO: &'static str = "minecraft:wither_immune_to";
-    pub const SULFUR_CUBE_WITH_BLOCK_IMMUNE_TO: &'static str = "minecraft:sulfur_cube_with_block_immune_to";
+    pub const SULFUR_CUBE_WITH_BLOCK_IMMUNE_TO: &'static str =
+        "minecraft:sulfur_cube_with_block_immune_to";
     pub const IGNITES_ARMOR_STANDS: &'static str = "minecraft:ignites_armor_stands";
     pub const BURNS_ARMOR_STANDS: &'static str = "minecraft:burns_armor_stands";
     pub const AVOIDS_GUARDIAN_THORNS: &'static str = "minecraft:avoids_guardian_thorns";

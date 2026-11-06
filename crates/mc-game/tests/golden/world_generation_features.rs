@@ -40,9 +40,24 @@ struct Dimension {
     has_sky_light: bool,
 }
 
-const OVERWORLD: Dimension = Dimension { id: "overworld", min_y: -64, height: 384, has_sky_light: true };
-const NETHER: Dimension = Dimension { id: "the_nether", min_y: 0, height: 256, has_sky_light: false };
-const END: Dimension = Dimension { id: "the_end", min_y: 0, height: 256, has_sky_light: false };
+const OVERWORLD: Dimension = Dimension {
+    id: "overworld",
+    min_y: -64,
+    height: 384,
+    has_sky_light: true,
+};
+const NETHER: Dimension = Dimension {
+    id: "the_nether",
+    min_y: 0,
+    height: 256,
+    has_sky_light: false,
+};
+const END: Dimension = Dimension {
+    id: "the_end",
+    min_y: 0,
+    height: 256,
+    has_sky_light: false,
+};
 
 struct World {
     worldgen: Arc<WorldgenRegistries>,
@@ -57,28 +72,85 @@ fn load_world() -> World {
     let source: Arc<dyn WorldgenDataSource> = Arc::new(FsDataSource::new(data));
     let worldgen = Arc::new(WorldgenRegistries::new(source.clone()));
     let biomes = Arc::new(BiomeRegistry::load(&worldgen).unwrap());
-    let registries = Arc::new(GenRegistries::load(source.clone(), &worldgen, &biomes).unwrap_or_else(|e| panic!("feature registries: {e}")));
-    let structures = Arc::new(StructureRegistries::load(source, &worldgen, &biomes).unwrap_or_else(|e| panic!("structure registries: {e}")));
+    let registries = Arc::new(
+        GenRegistries::load(source.clone(), &worldgen, &biomes)
+            .unwrap_or_else(|e| panic!("feature registries: {e}")),
+    );
+    let structures = Arc::new(
+        StructureRegistries::load(source, &worldgen, &biomes)
+            .unwrap_or_else(|e| panic!("structure registries: {e}")),
+    );
     let pack = PathPackResources::new(
-        PackLocationInfo { id: "vanilla".into(), title: Component::literal("vanilla"), source: PackSource::BuiltIn, known_pack_info: None },
+        PackLocationInfo {
+            id: "vanilla".into(),
+            title: Component::literal("vanilla"),
+            source: PackSource::BuiltIn,
+            known_pack_info: None,
+        },
         Path::new(env!("CARGO_MANIFEST_DIR")).join("../../ref/src"),
     );
-    let resources = Arc::new(MultiPackResourceManager::new(PackType::ServerData, vec![Arc::new(pack)]));
-    let templates = Arc::new(StructureTemplateManager::new(resources, std::env::temp_dir().join(format!("mc-worldgen-features-generated-{}", std::process::id()))));
-    World { worldgen, biomes, registries, structures, templates }
+    let resources = Arc::new(MultiPackResourceManager::new(
+        PackType::ServerData,
+        vec![Arc::new(pack)],
+    ));
+    let templates = Arc::new(StructureTemplateManager::new(
+        resources,
+        std::env::temp_dir().join(format!(
+            "mc-worldgen-features-generated-{}",
+            std::process::id()
+        )),
+    ));
+    World {
+        worldgen,
+        biomes,
+        registries,
+        structures,
+        templates,
+    }
 }
 
 /// The level `level_lifecycle::create_level` builds for the vanilla `normal` world preset's dimension.
 fn open_level(world: &World, dimension: &Dimension, seed: i64, dir: &Path) -> ServerLevel {
-    let preset = world.worldgen.raw("worldgen/world_preset", &Identifier::parse("minecraft:normal").unwrap()).unwrap();
+    let preset = world
+        .worldgen
+        .raw(
+            "worldgen/world_preset",
+            &Identifier::parse("minecraft:normal").unwrap(),
+        )
+        .unwrap();
     let generator_json = &preset["dimensions"][format!("minecraft:{}", dimension.id)]["generator"];
-    let biome_source = biome_source_from_json(&generator_json["biome_source"], &world.worldgen, &world.biomes).unwrap();
+    let biome_source = biome_source_from_json(
+        &generator_json["biome_source"],
+        &world.worldgen,
+        &world.biomes,
+    )
+    .unwrap();
     let settings_id = Identifier::parse(generator_json["settings"].as_str().unwrap()).unwrap();
     let settings = Arc::new(world.worldgen.noise_settings(&settings_id).unwrap());
-    let generator = Arc::new(NoiseBasedChunkGenerator::new(biome_source.clone(), settings.clone(), world.worldgen.clone(), world.biomes.clone()).unwrap());
+    let generator = Arc::new(
+        NoiseBasedChunkGenerator::new(
+            biome_source.clone(),
+            settings.clone(),
+            world.worldgen.clone(),
+            world.biomes.clone(),
+        )
+        .unwrap(),
+    );
     let random_state = Arc::new(RandomState::create(world.worldgen.clone(), seed, &settings));
-    let structure_state = create_structure_state(generator.as_ref(), biome_source, None, random_state.clone(), seed, &world.worldgen, &world.biomes).unwrap();
-    let level_height = LevelHeight { min_y: dimension.min_y, height: dimension.height };
+    let structure_state = create_structure_state(
+        generator.as_ref(),
+        biome_source,
+        None,
+        random_state.clone(),
+        seed,
+        &world.worldgen,
+        &world.biomes,
+    )
+    .unwrap();
+    let level_height = LevelHeight {
+        min_y: dimension.min_y,
+        height: dimension.height,
+    };
     let env = Arc::new(GenEnv {
         dimension: Identifier::parse(&format!("minecraft:{}", dimension.id)).unwrap(),
         seed,
@@ -94,7 +166,12 @@ fn open_level(world: &World, dimension: &Dimension, seed: i64, dir: &Path) -> Se
         generate_structures: true,
         level_height,
     });
-    let backend = Arc::new(NoiseWorldGenerator::new(generator.clone(), random_state, seed, Identifier::parse("minecraft:noise").ok()));
+    let backend = Arc::new(NoiseWorldGenerator::new(
+        generator.clone(),
+        random_state,
+        seed,
+        Identifier::parse("minecraft:noise").ok(),
+    ));
     backend.set_gen_env(env.clone());
     let (shared, _rx) = ServerShared::new();
     let structures = world.structures.clone();
@@ -106,12 +183,19 @@ fn open_level(world: &World, dimension: &Dimension, seed: i64, dir: &Path) -> Se
         level_height,
         sea_level: generator.get_sea_level(),
         has_sky_light: dimension.has_sky_light,
-        factory: Arc::new(PalettedContainerFactory::create(mc_world::palette::BiomeRegistry::new(world.biomes.names())).unwrap()),
+        factory: Arc::new(
+            PalettedContainerFactory::create(mc_world::palette::BiomeRegistry::new(
+                world.biomes.names(),
+            ))
+            .unwrap(),
+        ),
         generator: backend,
         generate_structures: true,
         hooks: Arc::new(VanillaWorldGenHooks::new(env)),
         seed,
-        is_known_structure: Arc::new(move |id| Identifier::try_parse(id).is_some_and(|id| structures.get(&id).is_some())),
+        is_known_structure: Arc::new(move |id| {
+            Identifier::try_parse(id).is_some_and(|id| structures.get(&id).is_some())
+        }),
         view_distance: 10,
         simulation_distance: 10,
         sync_writes: true,
@@ -121,7 +205,10 @@ fn open_level(world: &World, dimension: &Dimension, seed: i64, dir: &Path) -> Se
 }
 
 fn scratch(name: &str) -> PathBuf {
-    let dir = std::env::temp_dir().join(format!("mc-worldgen-features-{name}-{}", std::process::id()));
+    let dir = std::env::temp_dir().join(format!(
+        "mc-worldgen-features-{name}-{}",
+        std::process::id()
+    ));
     let _ = std::fs::remove_dir_all(&dir);
     dir
 }
@@ -133,7 +220,15 @@ fn block_names(level: &mut ServerLevel, pos: ChunkPos, height: LevelHeight) -> B
     for y in height.min_y..height.min_y + height.height {
         for z in 0..16 {
             for x in 0..16 {
-                names.insert(chunk.data.get_block_state(BlockPos::new(pos.x * 16 + x, y, pos.z * 16 + z)).block().data().name.to_string());
+                names.insert(
+                    chunk
+                        .data
+                        .get_block_state(BlockPos::new(pos.x * 16 + x, y, pos.z * 16 + z))
+                        .block()
+                        .data()
+                        .name
+                        .to_string(),
+                );
             }
         }
     }
@@ -142,7 +237,12 @@ fn block_names(level: &mut ServerLevel, pos: ChunkPos, height: LevelHeight) -> B
 
 /// `structures` of the chunk (starts + references) as the chunk map holds it.
 fn structure_data(level: &mut ServerLevel, pos: ChunkPos) -> StructureData {
-    level.chunk_blocking_mut(pos.x, pos.z).data.access.structures.clone()
+    level
+        .chunk_blocking_mut(pos.x, pos.z)
+        .data
+        .access
+        .structures
+        .clone()
 }
 
 #[test]
@@ -150,10 +250,15 @@ fn overworld_has_trees_ores_flowers_and_structure_data_round_trips() {
     let world = load_world();
     let dir = scratch("overworld");
     let seed = 2;
-    let height = LevelHeight { min_y: OVERWORLD.min_y, height: OVERWORLD.height };
+    let height = LevelHeight {
+        min_y: OVERWORLD.min_y,
+        height: OVERWORLD.height,
+    };
     let mut level = open_level(&world, &OVERWORLD, seed, &dir);
     let mut names = BTreeSet::new();
-    let area: Vec<ChunkPos> = (-4..4).flat_map(|z| (-4..4).map(move |x| ChunkPos::new(x, z))).collect();
+    let area: Vec<ChunkPos> = (-4..4)
+        .flat_map(|z| (-4..4).map(move |x| ChunkPos::new(x, z)))
+        .collect();
     for pos in &area {
         names.extend(block_names(&mut level, *pos, height));
     }
@@ -161,24 +266,52 @@ fn overworld_has_trees_ores_flowers_and_structure_data_round_trips() {
     assert!(has("_log"), "no trees: {names:?}");
     assert!(has("_leaves"), "no trees: {names:?}");
     assert!(has("coal_ore") && has("iron_ore"), "no ores: {names:?}");
-    assert!(has("granite") || has("diorite") || has("andesite"), "no stone blobs: {names:?}");
-    assert!(has("grass") || has("fern") || has("poppy") || has("dandelion") || has("tulip"), "no ground vegetation: {names:?}");
+    assert!(
+        has("granite") || has("diorite") || has("andesite"),
+        "no stone blobs: {names:?}"
+    );
+    assert!(
+        has("grass") || has("fern") || has("poppy") || has("dandelion") || has("tulip"),
+        "no ground vegetation: {names:?}"
+    );
 
     // structure starts/references: generated (FULL chunks around the origin, STRUCTURE_REFERENCES further out), saved, and
     // read back from the region files by a second level
-    let outside: Vec<ChunkPos> = (-24..24).flat_map(|z| (-24..24).map(move |x| ChunkPos::new(x, z))).filter(|p| !area.contains(p)).collect();
+    let outside: Vec<ChunkPos> = (-24..24)
+        .flat_map(|z| (-24..24).map(move |x| ChunkPos::new(x, z)))
+        .filter(|p| !area.contains(p))
+        .collect();
     let capture = |level: &mut ServerLevel| -> Vec<(ChunkPos, StructureData)> {
-        let mut all: Vec<_> = area.iter().map(|pos| (*pos, structure_data(level, *pos))).collect();
+        let mut all: Vec<_> = area
+            .iter()
+            .map(|pos| (*pos, structure_data(level, *pos)))
+            .collect();
         let proto: Vec<_> = outside
             .iter()
-            .map(|pos| (*pos, level.proto_chunk_blocking(pos.x, pos.z, ChunkStatus::StructureReferences, true).expect("structure references").access.structures.clone()))
+            .map(|pos| {
+                (
+                    *pos,
+                    level
+                        .proto_chunk_blocking(pos.x, pos.z, ChunkStatus::StructureReferences, true)
+                        .expect("structure references")
+                        .access
+                        .structures
+                        .clone(),
+                )
+            })
             .collect();
         all.extend(proto);
         all
     };
     let before = capture(&mut level);
-    assert!(before.iter().any(|(_, data)| !data.starts.is_empty()), "no structure start in the area");
-    assert!(before.iter().any(|(_, data)| !data.references.is_empty()), "no structure reference in the area");
+    assert!(
+        before.iter().any(|(_, data)| !data.starts.is_empty()),
+        "no structure start in the area"
+    );
+    assert!(
+        before.iter().any(|(_, data)| !data.references.is_empty()),
+        "no structure reference in the area"
+    );
     level.close();
     let mut reloaded = open_level(&world, &OVERWORLD, seed, &dir);
     for (pos, expected) in &capture(&mut reloaded) {
@@ -194,7 +327,9 @@ fn start_ids(level: &mut ServerLevel, x0: i32, z0: i32, n: i32) -> BTreeSet<Stri
     let mut ids = BTreeSet::new();
     for z in z0..z0 + n {
         for x in x0..x0 + n {
-            let chunk = level.proto_chunk_blocking(x, z, ChunkStatus::StructureStarts, true).expect("structure starts generated");
+            let chunk = level
+                .proto_chunk_blocking(x, z, ChunkStatus::StructureStarts, true)
+                .expect("structure starts generated");
             ids.extend(chunk.access.structures.starts.keys().cloned());
         }
     }
@@ -210,13 +345,26 @@ fn nether_records_fortress_and_bastion_starts_and_has_features() {
     let starts = start_ids(&mut level, -40, -40, 80);
     assert!(starts.contains("minecraft:fortress"), "{starts:?}");
     assert!(starts.contains("minecraft:bastion_remnant"), "{starts:?}");
-    let height = LevelHeight { min_y: NETHER.min_y, height: NETHER.height };
+    let height = LevelHeight {
+        min_y: NETHER.min_y,
+        height: NETHER.height,
+    };
     let mut names = BTreeSet::new();
     for pos in (-2..2).flat_map(|z| (-2..2).map(move |x| ChunkPos::new(x, z))) {
         names.extend(block_names(&mut level, pos, height));
     }
-    assert!(names.iter().any(|n| n.contains("quartz_ore") || n.contains("nether_gold_ore")), "{names:?}");
-    assert!(names.iter().any(|n| n.contains("glowstone") || n.contains("magma") || n.contains("fire")), "{names:?}");
+    assert!(
+        names
+            .iter()
+            .any(|n| n.contains("quartz_ore") || n.contains("nether_gold_ore")),
+        "{names:?}"
+    );
+    assert!(
+        names
+            .iter()
+            .any(|n| n.contains("glowstone") || n.contains("magma") || n.contains("fire")),
+        "{names:?}"
+    );
     level.close();
     let _ = std::fs::remove_dir_all(&dir);
 }
@@ -227,13 +375,19 @@ fn end_has_spikes_islands_and_end_cities() {
     let dir = scratch("end");
     let seed = 2;
     let mut level = open_level(&world, &END, seed, &dir);
-    let height = LevelHeight { min_y: END.min_y, height: END.height };
+    let height = LevelHeight {
+        min_y: END.min_y,
+        height: END.height,
+    };
     let mut names = BTreeSet::new();
     for pos in (-3..3).flat_map(|z| (-3..3).map(move |x| ChunkPos::new(x, z))) {
         names.extend(block_names(&mut level, pos, height));
     }
     assert!(names.contains("minecraft:end_stone"), "{names:?}");
-    assert!(names.contains("minecraft:obsidian"), "end spikes: {names:?}");
+    assert!(
+        names.contains("minecraft:obsidian"),
+        "end spikes: {names:?}"
+    );
     // outer islands start 1000+ blocks from the center; their cities are structures of the outer end
     let starts = start_ids(&mut level, 64, 0, 160);
     assert!(starts.contains("minecraft:end_city"), "{starts:?}");

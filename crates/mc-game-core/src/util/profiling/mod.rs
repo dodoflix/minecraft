@@ -76,7 +76,9 @@ pub fn use_profilers(profilers: Vec<ProfilerHandle>) -> ProfilerScope {
 impl Drop for ProfilerScope {
     fn drop(&mut self) {
         if self.0 {
-            let profilers = ACTIVE.with(|active| active.borrow_mut().take()).expect("Profiler was not active");
+            let profilers = ACTIVE
+                .with(|active| active.borrow_mut().take())
+                .expect("Profiler was not active");
             for profiler in &profilers {
                 profiler.lock().end_tick();
             }

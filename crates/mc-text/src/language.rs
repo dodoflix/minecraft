@@ -14,23 +14,33 @@ pub struct Language {
     storage: HashMap<String, String>,
 }
 
-static DEFAULT_INSTANCE: LazyLock<Arc<Language>> = LazyLock::new(|| Arc::new(Language::load_default()));
+static DEFAULT_INSTANCE: LazyLock<Arc<Language>> =
+    LazyLock::new(|| Arc::new(Language::load_default()));
 static INSTANCE: RwLock<Option<Arc<Language>>> = RwLock::new(None);
 
 impl Language {
     /// Builds a language from key/value pairs after applying vanilla's `%d`/`%f` -> `%s` rewrite
     /// (`Language.loadFromJson`).
     pub fn from_entries(entries: impl IntoIterator<Item = (String, String)>) -> Language {
-        Language { storage: entries.into_iter().map(|(k, v)| (k, replace_unsupported_formats(&v))).collect() }
+        Language {
+            storage: entries
+                .into_iter()
+                .map(|(k, v)| (k, replace_unsupported_formats(&v)))
+                .collect(),
+        }
     }
 
     /// Parses a language JSON object (`Language.loadFromJson`); non-string values are rejected.
     pub fn from_json(json: &str) -> Result<Language, String> {
         let value: serde_json::Value = serde_json::from_str(json).map_err(|e| e.to_string())?;
-        let obj = value.as_object().ok_or("Language file is not a JSON object")?;
+        let obj = value
+            .as_object()
+            .ok_or("Language file is not a JSON object")?;
         let mut entries = Vec::with_capacity(obj.len());
         for (k, v) in obj {
-            let s = v.as_str().ok_or_else(|| format!("Expected {k} to be a string"))?;
+            let s = v
+                .as_str()
+                .ok_or_else(|| format!("Expected {k} to be a string"))?;
             entries.push((k.clone(), s.to_owned()));
         }
         Ok(Language::from_entries(entries))
@@ -39,7 +49,8 @@ impl Language {
     /// `Language.loadDefault`: en_us.json with deprecated.json applied.
     fn load_default() -> Language {
         let mut lang = Language::from_json(EN_US).expect("bundled en_us.json is valid");
-        let deprecated: serde_json::Value = serde_json::from_str(DEPRECATED).expect("bundled deprecated.json is valid");
+        let deprecated: serde_json::Value =
+            serde_json::from_str(DEPRECATED).expect("bundled deprecated.json is valid");
         if let Some(removed) = deprecated.get("removed").and_then(|v| v.as_array()) {
             for key in removed.iter().filter_map(|k| k.as_str()) {
                 lang.storage.remove(key);
@@ -174,6 +185,9 @@ mod tests {
     fn default_language_loaded() {
         let l = Language::default_instance();
         assert_eq!(l.get("gui.done"), Some("Done"));
-        assert!(!l.has("block.minecraft.grass"), "removed by deprecated.json");
+        assert!(
+            !l.has("block.minecraft.grass"),
+            "removed by deprecated.json"
+        );
     }
 }

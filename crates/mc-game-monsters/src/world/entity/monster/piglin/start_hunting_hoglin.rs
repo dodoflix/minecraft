@@ -1,10 +1,12 @@
 //! `StartHuntingHoglin`.
 
 use super::piglin_ai;
+use mc_game_core::world::entity::Entity;
 use mc_game_core::world::entity::ai::behavior::{BehaviorBuilder, OneShot};
 use mc_game_core::world::entity::ai::memory::EntityRef;
-use mc_game_core::world::entity::ai::memory::memory_module_type::{ANGRY_AT, HUNTED_RECENTLY, NEAREST_VISIBLE_ADULT_PIGLINS, NEAREST_VISIBLE_HUNTABLE_HOGLIN};
-use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{
+    ANGRY_AT, HUNTED_RECENTLY, NEAREST_VISIBLE_ADULT_PIGLINS, NEAREST_VISIBLE_HUNTABLE_HOGLIN,
+};
 
 pub fn create() -> OneShot {
     let mut i = BehaviorBuilder::instance();
@@ -14,7 +16,10 @@ pub fn create() -> OneShot {
     let nearest_piglins = i.registered(&NEAREST_VISIBLE_ADULT_PIGLINS);
     i.create(move |c| {
         let piglins: Option<Vec<EntityRef>> = c.try_get(&nearest_piglins).cloned();
-        let any_hunted = piglins.as_ref().is_some_and(|p| p.iter().any(|r| c.level.get_entity(r.0).is_some_and(has_hunted_recently)));
+        let any_hunted = piglins.as_ref().is_some_and(|p| {
+            p.iter()
+                .any(|r| c.level.get_entity(r.0).is_some_and(has_hunted_recently))
+        });
         if c.body.is_baby() || any_hunted {
             return false;
         }
@@ -27,7 +32,9 @@ pub fn create() -> OneShot {
         });
         if let Some(piglins) = piglins {
             for EntityRef(id) in piglins {
-                level.with_entity(id, |level, p| piglin_ai::dont_kill_any_more_hoglins_for_a_while(level, p));
+                level.with_entity(id, |level, p| {
+                    piglin_ai::dont_kill_any_more_hoglins_for_a_while(level, p)
+                });
             }
         }
         true

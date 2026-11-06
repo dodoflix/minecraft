@@ -6,7 +6,6 @@
 //! (reloaded from its own saved tag, like a persisted chunk) over synthetic terrain: blocks as a per-chunk digest, block entity
 //! NBT (loot chests, spawners, ...), scheduled ticks, heightmaps, post-processing marks, region random.
 
-
 use crate::common::feature_harness::*;
 use flate2::read::GzDecoder;
 use mc_core::bounding_box::BoundingBox;
@@ -32,7 +31,13 @@ fn canon(tag: &Tag) -> String {
         Tag::Compound(c) => {
             let mut keys: Vec<&String> = c.keys().collect();
             keys.sort();
-            format!("{{{}}}", keys.iter().map(|k| format!("{k}:{}", canon(c.get(k).unwrap()))).collect::<Vec<_>>().join(","))
+            format!(
+                "{{{}}}",
+                keys.iter()
+                    .map(|k| format!("{k}:{}", canon(c.get(k).unwrap())))
+                    .collect::<Vec<_>>()
+                    .join(",")
+            )
         }
         Tag::List(l) => format!("[{}]", l.iter().map(canon).collect::<Vec<_>>().join(",")),
         Tag::String(s) => format!("\"{s}\""),
@@ -42,9 +47,27 @@ fn canon(tag: &Tag) -> String {
         Tag::Long(v) => format!("{v}l"),
         Tag::Float(v) => format!("{}f", v.to_bits() as i32),
         Tag::Double(v) => format!("{}d", v.to_bits() as i64),
-        Tag::IntArray(a) => format!("I[{}]", a.iter().map(ToString::to_string).collect::<Vec<_>>().join(",")),
-        Tag::ByteArray(a) => format!("B[{}]", a.iter().map(ToString::to_string).collect::<Vec<_>>().join(",")),
-        Tag::LongArray(a) => format!("L[{}]", a.iter().map(ToString::to_string).collect::<Vec<_>>().join(",")),
+        Tag::IntArray(a) => format!(
+            "I[{}]",
+            a.iter()
+                .map(ToString::to_string)
+                .collect::<Vec<_>>()
+                .join(",")
+        ),
+        Tag::ByteArray(a) => format!(
+            "B[{}]",
+            a.iter()
+                .map(ToString::to_string)
+                .collect::<Vec<_>>()
+                .join(",")
+        ),
+        Tag::LongArray(a) => format!(
+            "L[{}]",
+            a.iter()
+                .map(ToString::to_string)
+                .collect::<Vec<_>>()
+                .join(",")
+        ),
         Tag::End => panic!("end tag"),
     }
 }
@@ -61,7 +84,10 @@ fn fold(lines: Vec<String>) -> Vec<String> {
     for line in lines {
         if line.starts_with("B ") {
             let t: Vec<&str> = line.split(' ').collect();
-            let (x, z) = (t[1].parse::<i32>().unwrap().div_euclid(16), t[3].parse::<i32>().unwrap().div_euclid(16));
+            let (x, z) = (
+                t[1].parse::<i32>().unwrap().div_euclid(16),
+                t[3].parse::<i32>().unwrap().div_euclid(16),
+            );
             if group.as_ref().is_some_and(|g| (g.0, g.1) != (x, z)) {
                 flush(&mut group, &mut out);
             }
@@ -85,7 +111,8 @@ fn generate(structure: &Holder<dyn Structure>, seed: i64, cx: i32, cz: i32) -> S
     let mut context = GenerationContext::new(&env, seed, ChunkPos::new(cx, cz), height, &valid);
     if let Some(stub) = structure.value().find_valid_generation_point(&mut context) {
         let builder = stub.get_pieces_builder(&mut context);
-        let start = StructureStart::new(structure.clone(), ChunkPos::new(cx, cz), 0, builder.build());
+        let start =
+            StructureStart::new(structure.clone(), ChunkPos::new(cx, cz), 0, builder.build());
         if start.is_valid() {
             return start;
         }
@@ -95,17 +122,24 @@ fn generate(structure: &Holder<dyn Structure>, seed: i64, cx: i32, cz: i32) -> S
 
 /// Mirror of `JigsawStructureOracle.beard`.
 fn beard(start: &StructureStart, chunk_pos: ChunkPos) -> String {
-    if start.get_structure().value().terrain_adaptation() == mc_worldgen::beardifier::TerrainAdjustment::None {
+    if start.get_structure().value().terrain_adaptation()
+        == mc_worldgen::beardifier::TerrainAdjustment::None
+    {
         return "-".to_owned();
     }
     let beardifier = Beardifier::for_structures_in_chunk(chunk_pos, &[start_info(start)]);
-    let Some(affected) = beardifier.affected_box().copied() else { return "empty".to_owned() };
+    let Some(affected) = beardifier.affected_box().copied() else {
+        return "empty".to_owned();
+    };
     let ctx = SamplerContext::empty_uncached();
     let mut fnv = Fnv::default();
     let mut non_zero = 0;
     for xi in [0, 3, 8, 15] {
         for zi in [0, 6, 9, 15] {
-            let (x, z) = (chunk_pos.get_min_block_x() + xi, chunk_pos.get_min_block_z() + zi);
+            let (x, z) = (
+                chunk_pos.get_min_block_x() + xi,
+                chunk_pos.get_min_block_z() + zi,
+            );
             let mut y = affected.min_y();
             while y <= affected.max_y() {
                 let v = beardifier.sample_value(&ctx, x, y, z);
@@ -117,11 +151,23 @@ fn beard(start: &StructureStart, chunk_pos: ChunkPos) -> String {
             }
         }
     }
-    format!("{},{},{},{},{},{} {non_zero} {}", affected.min_x(), affected.min_y(), affected.min_z(), affected.max_x(), affected.max_y(), affected.max_z(), fnv.hex())
+    format!(
+        "{},{},{},{},{},{} {non_zero} {}",
+        affected.min_x(),
+        affected.min_y(),
+        affected.min_z(),
+        affected.max_x(),
+        affected.max_y(),
+        affected.max_z(),
+        fnv.hex()
+    )
 }
 
 fn first_diff<T: PartialEq>(a: &[T], b: &[T]) -> usize {
-    a.iter().zip(b).position(|(x, y)| x != y).unwrap_or(a.len().min(b.len()))
+    a.iter()
+        .zip(b)
+        .position(|(x, y)| x != y)
+        .unwrap_or(a.len().min(b.len()))
 }
 
 #[test]
@@ -131,7 +177,9 @@ fn jigsaw_structures_match_vanilla() {
     match std::env::var("JIGSAW_FIXTURE") {
         Ok(path) => text = std::fs::read_to_string(path).expect("JIGSAW_FIXTURE"),
         Err(_) => {
-            GzDecoder::new(&include_bytes!("../fixtures/jigsaw_structures.txt.gz")[..]).read_to_string(&mut text).expect("fixture present");
+            GzDecoder::new(&include_bytes!("../fixtures/jigsaw_structures.txt.gz")[..])
+                .read_to_string(&mut text)
+                .expect("fixture present");
         }
     }
     let only = std::env::var("JIGSAW_ONLY").ok();
@@ -144,10 +192,22 @@ fn jigsaw_structures_match_vanilla() {
     while let Some(header) = lines.next() {
         let h: Vec<&str> = header.split(' ').collect();
         assert_eq!(h[0], "START", "{header}");
-        let (id, seed, cx, cz, count) = (h[1], h[2].parse::<i64>().unwrap(), h[3].parse::<i32>().unwrap(), h[4].parse::<i32>().unwrap(), h[5].parse::<usize>().unwrap());
+        let (id, seed, cx, cz, count) = (
+            h[1],
+            h[2].parse::<i64>().unwrap(),
+            h[3].parse::<i32>().unwrap(),
+            h[4].parse::<i32>().unwrap(),
+            h[5].parse::<usize>().unwrap(),
+        );
         let mut want_pieces = Vec::new();
         for _ in 0..count {
-            want_pieces.push(lines.next().and_then(|l| l.strip_prefix("P ")).expect("piece line").to_owned());
+            want_pieces.push(
+                lines
+                    .next()
+                    .and_then(|l| l.strip_prefix("P "))
+                    .expect("piece line")
+                    .to_owned(),
+            );
         }
         let skip_rest = |lines: &mut std::iter::Peekable<std::str::Lines<'_>>| {
             while lines.peek().is_some_and(|l| !l.starts_with("START")) {
@@ -159,7 +219,10 @@ fn jigsaw_structures_match_vanilla() {
             continue;
         }
         covered.insert(id.to_owned());
-        let structure = match Identifier::parse(id).ok().and_then(|i| WORLD.structures.get(&i)) {
+        let structure = match Identifier::parse(id)
+            .ok()
+            .and_then(|i| WORLD.structures.get(&i))
+        {
             Some(s) => s.clone(),
             None => {
                 failures.push(format!("{id}: not in our structure registry"));
@@ -170,7 +233,12 @@ fn jigsaw_structures_match_vanilla() {
         let start = generate(&structure, seed, cx, cz);
         let env = gen_env(seed);
         let context = StructurePieceSerializationContext { env: &env };
-        let got_pieces: Vec<String> = start.piece_container.pieces.iter().map(|p| canon(&Tag::Compound(p.create_tag(&context)))).collect();
+        let got_pieces: Vec<String> = start
+            .piece_container
+            .pieces
+            .iter()
+            .map(|p| canon(&Tag::Compound(p.create_tag(&context))))
+            .collect();
         pieces += count;
         starts += 1;
         let describe = |what: &str, got: &[String]| {
@@ -193,7 +261,8 @@ fn jigsaw_structures_match_vanilla() {
         let mut start = start;
         if start.is_valid() {
             let tag = start.create_tag(&context, ChunkPos::new(cx, cz));
-            let reloaded = StructureStart::load_static_start(&context, &tag, seed).unwrap_or_else(|e| panic!("{id}: reload: {e}"));
+            let reloaded = StructureStart::load_static_start(&context, &tag, seed)
+                .unwrap_or_else(|e| panic!("{id}: reload: {e}"));
             let header = lines.next().expect("reload header");
             assert_eq!(header, format!("R {count}"), "{id}");
             let mut want_changed = Vec::new();
@@ -211,22 +280,35 @@ fn jigsaw_structures_match_vanilla() {
                 .filter(|(i, again)| *again != want_pieces[*i])
                 .collect();
             if got_changed != want_changed {
-                failures.push(format!("{id} {seed} {cx} {cz}: reloaded pieces: ours {:?}, vanilla {:?}", got_changed.iter().take(1).collect::<Vec<_>>(), want_changed.iter().take(1).collect::<Vec<_>>()));
+                failures.push(format!(
+                    "{id} {seed} {cx} {cz}: reloaded pieces: ours {:?}, vanilla {:?}",
+                    got_changed.iter().take(1).collect::<Vec<_>>(),
+                    want_changed.iter().take(1).collect::<Vec<_>>()
+                ));
                 skip_rest(&mut lines);
                 continue;
             }
         }
-        while lines.peek().is_some_and(|l| l.starts_with("BEARD") || l.starts_with("PLACE")) {
+        while lines
+            .peek()
+            .is_some_and(|l| l.starts_with("BEARD") || l.starts_with("PLACE"))
+        {
             let line = lines.next().unwrap();
             let t: Vec<&str> = line.split(' ').collect();
             let (px, pz) = (t[1].parse::<i32>().unwrap(), t[2].parse::<i32>().unwrap());
             if t[0] == "BEARD" {
                 // `affected rigids junctions nonZero digest`: the rigid/junction counts are internal to the beardifier
-                let want = if t.len() > 4 { format!("{} {} {}", t[3], t[6], t[7]) } else { t[3].to_owned() };
+                let want = if t.len() > 4 {
+                    format!("{} {} {}", t[3], t[6], t[7])
+                } else {
+                    t[3].to_owned()
+                };
                 let got = beard(&start, ChunkPos::new(px, pz));
                 beards += 1;
                 if got != want {
-                    failures.push(format!("{id} {seed} {cx} {cz} beardifier {px} {pz}: ours `{got}`, vanilla `{want}`"));
+                    failures.push(format!(
+                        "{id} {seed} {cx} {cz} beardifier {px} {pz}: ours `{got}`, vanilla `{want}`"
+                    ));
                 }
                 continue;
             }
@@ -243,16 +325,41 @@ fn jigsaw_structures_match_vanilla() {
             let mut level = synth.level();
             let mut random = WorldgenRandom::new(Box::new(LegacyRandomSource::new(0)));
             let decoration_seed = random.set_decoration_seed(seed, px * 16, pz * 16);
-            random.set_feature_seed(decoration_seed, 0, structure.value().step().ordinal() as i32);
+            random.set_feature_seed(
+                decoration_seed,
+                0,
+                structure.value().step().ordinal() as i32,
+            );
             let (min_x, min_z) = (px * 16, pz * 16);
-            let writable = BoundingBox::new(min_x, MIN_Y + 1, min_z, min_x + 15, MIN_Y + HEIGHT - 1, min_z + 15);
+            let writable = BoundingBox::new(
+                min_x,
+                MIN_Y + 1,
+                min_z,
+                min_x + 15,
+                MIN_Y + HEIGHT - 1,
+                min_z + 15,
+            );
             let manager = StructureManager::new(&env);
-            start.place_in_chunk(&mut level, &manager, &env, &mut random, &writable, ChunkPos::new(px, pz));
+            start.place_in_chunk(
+                &mut level,
+                &manager,
+                &env,
+                &mut random,
+                &writable,
+                ChunkPos::new(px, pz),
+            );
             // Entities (`N` lines: armor stands, cushions, ...) cannot be created by the oracle: vanilla builds them through a
             // `ServerLevel` (`EntityType.create(..., level.getLevel(), ...)`), which the oracle's `WorldGenRegion` does not have, so
             // `StructureTemplate.placeEntities` places none there. Compared: everything else.
-            let dumped: Vec<String> = dump(&mut level, &before).into_iter().filter(|l| !l.starts_with("N ")).collect();
-            let got = if std::env::var_os("JIGSAW_NOFOLD").is_some() { dumped } else { fold(dumped) };
+            let dumped: Vec<String> = dump(&mut level, &before)
+                .into_iter()
+                .filter(|l| !l.starts_with("N "))
+                .collect();
+            let got = if std::env::var_os("JIGSAW_NOFOLD").is_some() {
+                dumped
+            } else {
+                fold(dumped)
+            };
             placements += 1;
             dump_lines += expected.len();
             chests += expected.iter().filter(|l| l.contains("chest")).count();
@@ -267,7 +374,10 @@ fn jigsaw_structures_match_vanilla() {
                     expected.len()
                 ));
                 if std::env::var_os("JIGSAW_DIFFS").is_some() {
-                    let (ours, theirs): (std::collections::HashSet<&String>, std::collections::HashSet<&String>) = (got.iter().collect(), expected.iter().collect());
+                    let (ours, theirs): (
+                        std::collections::HashSet<&String>,
+                        std::collections::HashSet<&String>,
+                    ) = (got.iter().collect(), expected.iter().collect());
                     for l in got.iter().filter(|l| !theirs.contains(l)) {
                         eprintln!("  {id} {seed} place {px} {pz} OURS    {l}");
                     }
@@ -278,19 +388,37 @@ fn jigsaw_structures_match_vanilla() {
             }
         }
     }
-    eprintln!("{starts} starts, {pieces} pieces, {beards} beardifier chunks, {placements} placements, {dump_lines} dump lines, {chests} chest / {spawners} spawner lines");
-    assert!(failures.is_empty(), "{} failures:\n{}", failures.len(), failures.join("\n"));
+    eprintln!(
+        "{starts} starts, {pieces} pieces, {beards} beardifier chunks, {placements} placements, {dump_lines} dump lines, {chests} chest / {spawners} spawner lines"
+    );
+    assert!(
+        failures.is_empty(),
+        "{} failures:\n{}",
+        failures.len(),
+        failures.join("\n")
+    );
     if only.is_none() {
-        let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../ref/src/data/minecraft/worldgen/structure");
+        let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+            .join("../../ref/src/data/minecraft/worldgen/structure");
         let mut jigsaw = std::collections::BTreeSet::new();
         for entry in std::fs::read_dir(root).unwrap() {
             let path = entry.unwrap().path();
-            let json: serde_json::Value = serde_json::from_slice(&std::fs::read(&path).unwrap()).unwrap();
+            let json: serde_json::Value =
+                serde_json::from_slice(&std::fs::read(&path).unwrap()).unwrap();
             if json["type"] == "minecraft:jigsaw" {
-                jigsaw.insert(format!("minecraft:{}", path.file_stem().unwrap().to_str().unwrap()));
+                jigsaw.insert(format!(
+                    "minecraft:{}",
+                    path.file_stem().unwrap().to_str().unwrap()
+                ));
             }
         }
-        assert_eq!(covered, jigsaw, "the fixture covers every vanilla jigsaw structure");
-        assert!(chests >= 20 && spawners >= 5, "fixture lacks chests/spawners: {chests}/{spawners}");
+        assert_eq!(
+            covered, jigsaw,
+            "the fixture covers every vanilla jigsaw structure"
+        );
+        assert!(
+            chests >= 20 && spawners >= 5,
+            "fixture lacks chests/spawners: {chests}/{spawners}"
+        );
     }
 }

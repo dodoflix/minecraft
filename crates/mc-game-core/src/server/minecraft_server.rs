@@ -23,15 +23,17 @@ use super::watchdog::{SharedWatchdogInfo, WatchdogInfo};
 use crate::crash_report::{CrashReport, ReportedException, SystemReport, install_panic_hook};
 use crate::registry::LayeredRegistryAccess;
 use crate::server::level::ServerLevel;
+use crate::server::level::level_data::SharedWorldData;
 use crate::server::tick_rate_manager::ServerTickRateManager;
 use crate::world::level::DimensionKey;
-use crate::world::level::gamerules::{GameRules, GameRuleValue, GameRuleValueType};
+use crate::world::level::gamerules::{GameRuleValue, GameRuleValueType, GameRules};
 use crate::world::level::saveddata::{SavedDataManager, SavedDataType};
 use indexmap::IndexMap;
 use mc_core::random::LegacyRandomSource;
 use mc_protocol::auth::ServerKeyPair;
-use crate::server::level::level_data::SharedWorldData;
-use mc_world::level_storage::{LevelStorageAccess, PlayerDataStorage, PrimaryLevelData, RespawnData, WorldGenSettings};
+use mc_world::level_storage::{
+    LevelStorageAccess, PlayerDataStorage, PrimaryLevelData, RespawnData, WorldGenSettings,
+};
 use parking_lot::Mutex;
 use std::panic::{self, AssertUnwindSafe};
 use std::path::{Path, PathBuf};
@@ -75,7 +77,6 @@ pub struct ServerInit {
     pub profile_resolver: Arc<dyn crate::server::players::ProfileResolver>,
     pub level_load_listener: Box<dyn LevelLoadListener>,
 }
-
 
 /// A level that is taken out of [`MinecraftServer::levels`] for its tick but reachable again through `level`/`level_mut`/
 /// `with_level` while it is lent. Only the game thread ever sets or reads it.
@@ -124,7 +125,8 @@ pub struct MinecraftServer {
     pub(super) game_rules_type: SavedDataType<GameRules>,
     pub saved_types: SavedDataTypes,
     /// `randomSequences` shared with the levels' loot evaluation; copied into `saved_data` when saving.
-    pub loot_random_sequences: Arc<parking_lot::Mutex<crate::world::level::saveddata::random_sequences::RandomSequences>>,
+    pub loot_random_sequences:
+        Arc<parking_lot::Mutex<crate::world::level::saveddata::random_sequences::RandomSequences>>,
     /// `metricsRecorder` & co: what `/perf` records.
     pub(super) metrics_recording: super::metrics_recording::MetricsRecording,
     pub registries: LayeredRegistryAccess<RegistryLayer>,
@@ -137,7 +139,8 @@ pub struct MinecraftServer {
     pub player_list: PlayerList,
     /// Players that left their level storage but still have a connection (`ServerPlayer.showEndCredits()` removes the
     /// player with `CHANGED_DIMENSION` and the poem plays until the respawn request), keyed by uuid.
-    pub detached_players: std::collections::HashMap<uuid::Uuid, Box<crate::world::entity::ServerPlayer>>,
+    pub detached_players:
+        std::collections::HashMap<uuid::Uuid, Box<crate::world::entity::ServerPlayer>>,
     pub notification_manager: Arc<NotificationManager>,
     pub name_to_id_cache: Arc<CachedUserNameToIdResolver>,
     /// `services().profileResolver()`.
@@ -185,7 +188,9 @@ pub struct MinecraftServer {
 }
 
 /// The `PlayerList` settings mirrored from `server.properties` (`uses_authentication` is set by `initServer`).
-pub(super) fn player_list_settings(properties: &super::dedicated::properties::DedicatedServerProperties) -> crate::server::players::player_list::PlayerListSettings {
+pub(super) fn player_list_settings(
+    properties: &super::dedicated::properties::DedicatedServerProperties,
+) -> crate::server::players::player_list::PlayerListSettings {
     crate::server::players::player_list::PlayerListSettings {
         max_players: *properties.max_players.get(),
         using_whitelist: *properties.white_list.get(),
@@ -199,26 +204,51 @@ pub(super) fn player_list_settings(properties: &super::dedicated::properties::De
 impl MinecraftServer {
     /// The `MinecraftServer` constructor. Runs on the game thread, which it binds as the server thread
     /// (`MinecraftServer.spin` creates the thread). `Err` = vanilla's `IllegalStateException`.
-    pub fn new(shared: Arc<ServerShared>, tasks: Receiver<TickTask>, init: ServerInit) -> Result<Self, String> {
+    pub fn new(
+        shared: Arc<ServerShared>,
+        tasks: Receiver<TickTask>,
+        init: ServerInit,
+    ) -> Result<Self, String> {
         let overworld = super::world_dimensions::overworld_key();
-        if !init.registries.composite_access().registry_or_throw(crate::registry::keys::LEVEL_STEM).contains(&overworld) {
+        if !init
+            .registries
+            .composite_access()
+            .registry_or_throw(crate::registry::keys::LEVEL_STEM)
+            .contains(&overworld)
+        {
             return Err("Missing Overworld dimension data".to_owned());
         }
-        init.registries.composite_access().install_protocol_context();
+        init.registries
+            .composite_access()
+            .install_protocol_context();
         shared.bind_game_thread();
         let enabled_features = init.world_data.settings.data_configuration.enabled_features;
         let mut saved_data = SavedDataManager::new(mc_world::level_storage::SavedDataStorage::new(
-            init.storage_source.get_level_path(mc_world::level_storage::LevelResource::DATA),
+            init.storage_source
+                .get_level_path(mc_world::level_storage::LevelResource::DATA),
         ));
-        shared.map_storage.init(mc_world::level_storage::SavedDataStorage::new(init.storage_source.get_level_path(mc_world::level_storage::LevelResource::DATA)));
-        crate::world::item::crafting::set_map_scale_lookup(crate::world::item::map_item::map_scale_lookup);
+        shared
+            .map_storage
+            .init(mc_world::level_storage::SavedDataStorage::new(
+                init.storage_source
+                    .get_level_path(mc_world::level_storage::LevelResource::DATA),
+            ));
+        crate::world::item::crafting::set_map_scale_lookup(
+            crate::world::item::map_item::map_scale_lookup,
+        );
         let registries = init.registries;
-        crate::server::players::server_join_host::set_send_commands(|server, player, permissions| {
-            crate::commands::send_commands(server, player, &permissions.into());
-        });
+        crate::server::players::server_join_host::set_send_commands(
+            |server, player, permissions| {
+                crate::commands::send_commands(server, player, &permissions.into());
+            },
+        );
         let commands = init.resources.managers.commands().clone();
         let functions = super::server_function_manager::ServerFunctionManager::new(
-            init.resources.managers.listener::<super::server_function_library::ServerFunctionLibrary>().map(|l| l.data().clone()).unwrap_or_default(),
+            init.resources
+                .managers
+                .listener::<super::server_function_library::ServerFunctionLibrary>()
+                .map(|l| l.data().clone())
+                .unwrap_or_default(),
         );
         let game_rules_type = GameRules::type_(enabled_features);
         saved_data.compute_if_absent(&game_rules_type);
@@ -226,13 +256,24 @@ impl MinecraftServer {
         let player_list = crate::server::players::DedicatedPlayerList::new(
             player_list_settings(init.dedicated.settings.get_properties()),
             init.player_data_storage.clone(),
-            init.storage_source.get_level_path(mc_world::level_storage::LevelResource::PLAYER_STATS_DIR),
-            init.storage_source.get_level_path(mc_world::level_storage::LevelResource::PLAYER_ADVANCEMENTS_DIR),
+            init.storage_source
+                .get_level_path(mc_world::level_storage::LevelResource::PLAYER_STATS_DIR),
+            init.storage_source
+                .get_level_path(mc_world::level_storage::LevelResource::PLAYER_ADVANCEMENTS_DIR),
             init.notification_manager.clone(),
             *init.dedicated.settings.get_properties().view_distance.get(),
-            *init.dedicated.settings.get_properties().simulation_distance.get(),
+            *init
+                .dedicated
+                .settings
+                .get_properties()
+                .simulation_distance
+                .get(),
         );
-        if let Some(recipes) = init.resources.managers.listener::<crate::world::item::crafting::RecipeManager>() {
+        if let Some(recipes) = init
+            .resources
+            .managers
+            .listener::<crate::world::item::crafting::RecipeManager>()
+        {
             shared.set_recipe_manager(recipes.clone());
         }
         let mut server = Self {
@@ -294,11 +335,20 @@ impl MinecraftServer {
             server_id: None,
             effective_respawn_data: None,
         };
-        *server.loot_random_sequences.lock() = server.saved_data.compute_if_absent(&server.saved_types.random_sequences).clone();
-        server.saved_data.compute_if_absent(&server.saved_types.random_sequences);
-        server.saved_data.compute_if_absent(&server.saved_types.scheduled_events);
+        *server.loot_random_sequences.lock() = server
+            .saved_data
+            .compute_if_absent(&server.saved_types.random_sequences)
+            .clone();
+        server
+            .saved_data
+            .compute_if_absent(&server.saved_types.random_sequences);
+        server
+            .saved_data
+            .compute_if_absent(&server.saved_types.scheduled_events);
         server.weather_data();
-        server.saved_data.compute_if_absent(&server.saved_types.custom_boss_events);
+        server
+            .saved_data
+            .compute_if_absent(&server.saved_types.custom_boss_events);
         server.init_clock_manager();
         Ok(server)
     }
@@ -306,14 +356,19 @@ impl MinecraftServer {
     // ------------------------------------------------------------------ level container
 
     pub fn add_level(&mut self, level: ServerLevel) {
-        self.levels.insert(level.dimension.clone(), Some(Box::new(level)));
+        self.levels
+            .insert(level.dimension.clone(), Some(Box::new(level)));
     }
 
     pub fn level(&self, dimension: &DimensionKey) -> Option<&ServerLevel> {
         match self.levels.get(dimension)? {
             Some(level) => Some(level),
             // SAFETY: `lent_level` is only set by `with_lent_level`, whose caller does not touch the level meanwhile.
-            None => self.lent_level.as_ref().filter(|l| l.dimension == *dimension).map(|l| unsafe { l.level.as_ref() }),
+            None => self
+                .lent_level
+                .as_ref()
+                .filter(|l| l.dimension == *dimension)
+                .map(|l| unsafe { l.level.as_ref() }),
         }
     }
 
@@ -321,15 +376,26 @@ impl MinecraftServer {
         match self.levels.get_mut(dimension)? {
             Some(level) => Some(level),
             // SAFETY: see `level`; `&mut self` makes this the only access to the lent level.
-            None => self.lent_level.as_mut().filter(|l| l.dimension == *dimension).map(|l| unsafe { l.level.as_mut() }),
+            None => self
+                .lent_level
+                .as_mut()
+                .filter(|l| l.dimension == *dimension)
+                .map(|l| unsafe { l.level.as_mut() }),
         }
     }
 
     /// Runs `f` with `level` (which the caller took out of the server to tick it) reachable through
     /// `level`/`level_mut`/`with_level` again. Vanilla's `ServerLevel.tickTime` runs scheduled functions that act on their own
     /// level; the caller must not use `level` while `f` runs.
-    pub(super) fn with_lent_level<R>(&mut self, level: &mut ServerLevel, f: impl FnOnce(&mut MinecraftServer) -> R) -> R {
-        let lent = LentLevel { dimension: level.dimension.clone(), level: NonNull::from(&mut *level) };
+    pub(super) fn with_lent_level<R>(
+        &mut self,
+        level: &mut ServerLevel,
+        f: impl FnOnce(&mut MinecraftServer) -> R,
+    ) -> R {
+        let lent = LentLevel {
+            dimension: level.dimension.clone(),
+            level: NonNull::from(&mut *level),
+        };
         let previous = self.lent_level.replace(lent);
         let result = panic::catch_unwind(AssertUnwindSafe(|| f(self)));
         self.lent_level = previous;
@@ -348,12 +414,18 @@ impl MinecraftServer {
     /// return `None`) and `&mut ServerLevel`, then put it back. This is how a level ticks while still being able to
     /// reach the server and the other levels. Returns `None` if the level doesn't exist or is already taken out.
     /// The level is put back even when `f` panics.
-    pub fn with_level<R>(&mut self, dimension: &DimensionKey, f: impl FnOnce(&mut MinecraftServer, &mut ServerLevel) -> R) -> Option<R> {
+    pub fn with_level<R>(
+        &mut self,
+        dimension: &DimensionKey,
+        f: impl FnOnce(&mut MinecraftServer, &mut ServerLevel) -> R,
+    ) -> Option<R> {
         let Some(mut level) = self.levels.get_mut(dimension)?.take() else {
             // The level of the running tick: lent for the call, taken out of the server while `f` has it.
             let lent = self.lent_level.take_if(|l| l.dimension == *dimension)?;
             // SAFETY: see `level_mut`; the lent pointer was taken out, so nothing else can reach the level during `f`.
-            let result = panic::catch_unwind(AssertUnwindSafe(|| f(self, unsafe { &mut *lent.level.as_ptr() })));
+            let result = panic::catch_unwind(AssertUnwindSafe(|| {
+                f(self, unsafe { &mut *lent.level.as_ptr() })
+            }));
             self.lent_level = Some(lent);
             return match result {
                 Ok(r) => Some(r),
@@ -374,28 +446,42 @@ impl MinecraftServer {
     pub fn all_levels(&self) -> impl Iterator<Item = &ServerLevel> {
         let lent = self.lent_level.as_ref();
         // SAFETY: see `level`.
-        self.levels.iter().filter_map(move |(key, l)| match l.as_deref() {
-            Some(level) => Some(level),
-            None => lent.filter(|l| l.dimension == *key).map(|l| unsafe { l.level.as_ref() }),
-        })
+        self.levels
+            .iter()
+            .filter_map(move |(key, l)| match l.as_deref() {
+                Some(level) => Some(level),
+                None => lent
+                    .filter(|l| l.dimension == *key)
+                    .map(|l| unsafe { l.level.as_ref() }),
+            })
     }
 
     pub fn all_levels_mut(&mut self) -> impl Iterator<Item = &mut ServerLevel> {
-        let lent = self.lent_level.as_ref().map(|l| (l.dimension.clone(), l.level));
-        self.levels.iter_mut().filter_map(move |(key, l)| match l.as_deref_mut() {
-            Some(level) => Some(level),
-            // SAFETY: see `level_mut`; no other access to the lent level exists while `&mut self` is borrowed.
-            None => lent.as_ref().filter(|(d, _)| d == key).map(|(_, p)| unsafe { &mut *p.as_ptr() }),
-        })
+        let lent = self
+            .lent_level
+            .as_ref()
+            .map(|l| (l.dimension.clone(), l.level));
+        self.levels
+            .iter_mut()
+            .filter_map(move |(key, l)| match l.as_deref_mut() {
+                Some(level) => Some(level),
+                // SAFETY: see `level_mut`; no other access to the lent level exists while `&mut self` is borrowed.
+                None => lent
+                    .as_ref()
+                    .filter(|(d, _)| d == key)
+                    .map(|(_, p)| unsafe { &mut *p.as_ptr() }),
+            })
     }
 
     /// `overworld()`.
     pub fn overworld(&self) -> &ServerLevel {
-        self.level(&super::world_dimensions::overworld_key()).expect("overworld is not loaded (or taken out for its own tick)")
+        self.level(&super::world_dimensions::overworld_key())
+            .expect("overworld is not loaded (or taken out for its own tick)")
     }
 
     pub fn overworld_mut(&mut self) -> &mut ServerLevel {
-        self.level_mut(&super::world_dimensions::overworld_key()).expect("overworld is not loaded (or taken out for its own tick)")
+        self.level_mut(&super::world_dimensions::overworld_key())
+            .expect("overworld is not loaded (or taken out for its own tick)")
     }
 
     // ------------------------------------------------------------------ game rules
@@ -406,19 +492,30 @@ impl MinecraftServer {
     }
 
     /// `getGameRules().get(rule)`.
-    pub fn game_rule<T: GameRuleValueType>(&mut self, rule: crate::world::level::gamerules::GameRule<T>) -> T {
+    pub fn game_rule<T: GameRuleValueType>(
+        &mut self,
+        rule: crate::world::level::gamerules::GameRule<T>,
+    ) -> T {
         self.game_rules().get(rule)
     }
 
     /// [`Self::set_game_rule`] for a type-erased rule.
-    pub fn set_game_rule_value(&mut self, rule: crate::world::level::gamerules::AnyGameRule, value: crate::world::level::gamerules::GameRuleValue) {
+    pub fn set_game_rule_value(
+        &mut self,
+        rule: crate::world::level::gamerules::AnyGameRule,
+        value: crate::world::level::gamerules::GameRuleValue,
+    ) {
         if self.game_rules().try_set_value(rule, value) {
             self.on_game_rule_changed(rule, value);
         }
     }
 
     /// `getGameRules().set(rule, value, this)`: change a rule and run [`Self::on_game_rule_changed`].
-    pub fn set_game_rule<T: GameRuleValueType>(&mut self, rule: crate::world::level::gamerules::GameRule<T>, value: T) {
+    pub fn set_game_rule<T: GameRuleValueType>(
+        &mut self,
+        rule: crate::world::level::gamerules::GameRule<T>,
+        value: T,
+    ) {
         let value = value.into_value();
         if self.game_rules().try_set_value(rule.erase(), value) {
             self.on_game_rule_changed(rule.erase(), value);
@@ -449,12 +546,18 @@ impl MinecraftServer {
         if self.schedule_executables() {
             self.shared.execute(task);
         } else {
-            self.do_run_task(TickTask { tick: self.tick_count, run: Box::new(task) });
+            self.do_run_task(TickTask {
+                tick: self.tick_count,
+                run: Box::new(task),
+            });
         }
     }
 
     /// `executeIfPossible`: rejected once the server is stopped.
-    pub fn execute_if_possible(&mut self, task: impl FnOnce(&mut MinecraftServer) + Send + 'static) -> Result<(), &'static str> {
+    pub fn execute_if_possible(
+        &mut self,
+        task: impl FnOnce(&mut MinecraftServer) + Send + 'static,
+    ) -> Result<(), &'static str> {
         if self.shared.is_stopped() {
             return Err("Server already shutting down");
         }
@@ -509,7 +612,9 @@ impl MinecraftServer {
         if !has_head {
             return false;
         }
-        let run = self.should_run_all_tasks() || head_tick.wrapping_add(MAX_TICK_LATENCY) < self.tick_count || self.have_time();
+        let run = self.should_run_all_tasks()
+            || head_tick.wrapping_add(MAX_TICK_LATENCY) < self.tick_count
+            || self.have_time();
         if !run {
             return false;
         }
@@ -530,7 +635,8 @@ impl MinecraftServer {
         if self.poll_queued_task() {
             return true;
         }
-        if self.tick_rate_manager.is_sprinting() || self.should_run_all_tasks() || self.have_time() {
+        if self.tick_rate_manager.is_sprinting() || self.should_run_all_tasks() || self.have_time()
+        {
             for level in self.all_levels_mut() {
                 if level.poll_chunk_task() {
                     return true;
@@ -558,7 +664,11 @@ impl MinecraftServer {
 
     /// `MinecraftServer.waitForTasks`: park until the next tick is due (while waiting for it) or 100 µs.
     fn wait_for_tasks(&mut self) {
-        let wait_nanos = if self.waiting_for_next_tick { self.next_tick_time_nanos - get_nanos() } else { 100_000 };
+        let wait_nanos = if self.waiting_for_next_tick {
+            self.next_tick_time_nanos - get_nanos()
+        } else {
+            100_000
+        };
         if wait_nanos > 0 {
             std::thread::park_timeout(Duration::from_nanos(wait_nanos as u64));
         }
@@ -571,8 +681,14 @@ impl MinecraftServer {
 
     /// Mirror `haveTime`'s inputs into `ServerShared` (they change at the same places as in vanilla).
     fn sync_have_time(&self) {
-        self.shared.set_next_tick_time_nanos(self.next_tick_time_nanos);
-        self.shared.set_have_time_deadline(if self.may_have_delayed_tasks { self.delayed_tasks_max_next_tick_time_nanos } else { self.next_tick_time_nanos });
+        self.shared
+            .set_next_tick_time_nanos(self.next_tick_time_nanos);
+        self.shared
+            .set_have_time_deadline(if self.may_have_delayed_tasks {
+                self.delayed_tasks_max_next_tick_time_nanos
+            } else {
+                self.next_tick_time_nanos
+            });
     }
 
     pub(super) fn set_next_tick_time(&mut self, nanos: i64) {
@@ -600,12 +716,18 @@ impl MinecraftServer {
         let result = panic::catch_unwind(AssertUnwindSafe(|| self.run_loop()));
         if let Err(payload) = result {
             let report = self.crash_report_for(payload);
-            log::error!("Encountered an unexpected exception\n{}", report.exception());
+            log::error!(
+                "Encountered an unexpected exception\n{}",
+                report.exception()
+            );
             self.finish_crash_report(report);
         }
         self.shared.set_stopped();
         if let Err(payload) = panic::catch_unwind(AssertUnwindSafe(|| self.stop_server())) {
-            log::error!("Exception stopping the server\n{}", crate::crash_report::exception_text(payload.as_ref()));
+            log::error!(
+                "Exception stopping the server\n{}",
+                crate::crash_report::exception_text(payload.as_ref())
+            );
         }
         self.on_server_exit();
         self.shared.set_exited();
@@ -624,7 +746,10 @@ impl MinecraftServer {
 
         while self.shared.is_running() {
             let this_tick_nanos;
-            if !self.is_paused() && self.tick_rate_manager.is_sprinting() && self.check_should_sprint_this_tick() {
+            if !self.is_paused()
+                && self.tick_rate_manager.is_sprinting()
+                && self.check_should_sprint_this_tick()
+            {
                 this_tick_nanos = 0;
                 self.next_tick_time_nanos = get_nanos();
                 self.last_overload_warning_nanos = self.next_tick_time_nanos;
@@ -637,14 +762,21 @@ impl MinecraftServer {
                     this_tick_nanos,
                 );
                 if let Some(overload) = overload {
-                    log::warn!("Can't keep up! Is the server overloaded? Running {}ms or {} ticks behind", overload.millis, overload.ticks);
+                    log::warn!(
+                        "Can't keep up! Is the server overloaded? Running {}ms or {} ticks behind",
+                        overload.millis,
+                        overload.ticks
+                    );
                 }
             }
 
             let sprinting = this_tick_nanos == 0;
             if self.debug_command_profiler_delay_start {
                 self.debug_command_profiler_delay_start = false;
-                self.debug_command_profiler = Some(TimeProfiler { start_nanos: get_nanos(), start_tick: self.tick_count });
+                self.debug_command_profiler = Some(TimeProfiler {
+                    start_nanos: get_nanos(),
+                    start_tick: self.tick_count,
+                });
             }
             let next = self.next_tick_time_nanos + this_tick_nanos;
             self.set_next_tick_time(next);
@@ -653,7 +785,8 @@ impl MinecraftServer {
             self.process_packets_and_tick(sprinting);
             crate::util::profiling::push("nextTickWait");
             self.may_have_delayed_tasks = true;
-            self.delayed_tasks_max_next_tick_time_nanos = (get_nanos() + this_tick_nanos).max(self.next_tick_time_nanos);
+            self.delayed_tasks_max_next_tick_time_nanos =
+                (get_nanos() + this_tick_nanos).max(self.next_tick_time_nanos);
             self.sync_have_time();
             self.wait_until_next_tick();
             if sprinting {
@@ -665,7 +798,8 @@ impl MinecraftServer {
             self.end_metrics_recording_tick();
 
             self.shared.set_ready();
-            crate::util::profiling::jfr::instance().on_server_tick(self.get_current_smoothed_tick_time());
+            crate::util::profiling::jfr::instance()
+                .on_server_tick(self.get_current_smoothed_tick_time());
         }
     }
 
@@ -679,9 +813,15 @@ impl MinecraftServer {
 
     /// The tail of the `catch (Throwable)` block of `runServer`: save the report, then `onServerCrash`.
     fn finish_crash_report(&mut self, mut report: CrashReport) {
-        let file = self.server_directory.join("crash-reports").join(format!("crash-{}-server.txt", crate::crash_report::filename_formatted_date_time()));
+        let file = self.server_directory.join("crash-reports").join(format!(
+            "crash-{}-server.txt",
+            crate::crash_report::filename_formatted_date_time()
+        ));
         if report.save_to_file(&file) {
-            log::error!("This crash report has been saved to: {}", std::path::absolute(&file).unwrap_or(file).display());
+            log::error!(
+                "This crash report has been saved to: {}",
+                std::path::absolute(&file).unwrap_or(file).display()
+            );
         } else {
             log::error!("We were unable to save this crash report to disk.");
         }
@@ -715,7 +855,10 @@ impl MinecraftServer {
     pub fn stop_time_profiler(&mut self) -> (i64, i32) {
         match self.debug_command_profiler.take() {
             None => (0, 0),
-            Some(profiler) => (get_nanos() - profiler.start_nanos, self.tick_count.wrapping_sub(profiler.start_tick)),
+            Some(profiler) => (
+                get_nanos() - profiler.start_nanos,
+                self.tick_count.wrapping_sub(profiler.start_tick),
+            ),
         }
     }
 
@@ -745,7 +888,10 @@ impl MinecraftServer {
             }
             if self.empty_ticks >= empty_tick_threshold {
                 if self.empty_ticks == empty_tick_threshold {
-                    log::info!("Server empty for {} seconds, pausing", self.pause_when_empty_seconds());
+                    log::info!(
+                        "Server empty for {} seconds, pausing",
+                        self.pause_when_empty_seconds()
+                    );
                     self.auto_save();
                 }
                 self.tick_connection();
@@ -782,7 +928,10 @@ impl MinecraftServer {
 
     /// `autoSave`.
     fn auto_save(&mut self) {
-        self.ticks_until_autosave = self.compute_next_autosave_interval(self.tick_rate_manager.tickrate(), self.tick_rate_manager.is_sprinting());
+        self.ticks_until_autosave = self.compute_next_autosave_interval(
+            self.tick_rate_manager.tickrate(),
+            self.tick_rate_manager.is_sprinting(),
+        );
         log::debug!("Autosave started");
         crate::util::profiling::push("save");
         self.save_everything(true, false, false);
@@ -791,7 +940,11 @@ impl MinecraftServer {
     }
 
     fn compute_next_autosave_interval(&self, tickrate: f32, sprinting: bool) -> i32 {
-        let ticks_per_second = if sprinting { tick_pacing::sprint_ticks_per_second(self.get_average_tick_time_nanos()) } else { tickrate };
+        let ticks_per_second = if sprinting {
+            tick_pacing::sprint_ticks_per_second(self.get_average_tick_time_nanos())
+        } else {
+            tickrate
+        };
         tick_pacing::compute_next_autosave_interval(ticks_per_second)
     }
 
@@ -852,10 +1005,28 @@ impl MinecraftServer {
         report.set_detail("Server Running", self.shared.is_running());
         report.set_detail(
             "Player Count",
-            format!("{} / {}; {}", self.player_list.get_player_count(), self.player_list.get_max_players(), player_names_debug(&self.player_list)),
+            format!(
+                "{} / {}; {}",
+                self.player_list.get_player_count(),
+                self.player_list.get_max_players(),
+                player_names_debug(&self.player_list)
+            ),
         );
-        report.set_detail("Active Data Packs", self.pack_repository.selected_ids().join(", "));
-        report.set_detail("Enabled Feature Flags", format!("{:?}", self.world_data.lock().settings.data_configuration.enabled_features));
+        report.set_detail(
+            "Active Data Packs",
+            self.pack_repository.selected_ids().join(", "),
+        );
+        report.set_detail(
+            "Enabled Feature Flags",
+            format!(
+                "{:?}",
+                self.world_data
+                    .lock()
+                    .settings
+                    .data_configuration
+                    .enabled_features
+            ),
+        );
         report.set_detail("World Seed", self.world_gen_settings.options.seed);
         self.fill_system_report_details(report);
     }
@@ -868,5 +1039,12 @@ impl MinecraftServer {
 }
 
 fn player_names_debug(list: &PlayerList) -> String {
-    format!("[{}]", list.get_players().iter().map(|p| p.name().to_owned()).collect::<Vec<_>>().join(", "))
+    format!(
+        "[{}]",
+        list.get_players()
+            .iter()
+            .map(|p| p.name().to_owned())
+            .collect::<Vec<_>>()
+            .join(", ")
+    )
 }

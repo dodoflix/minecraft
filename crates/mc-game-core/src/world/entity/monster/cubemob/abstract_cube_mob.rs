@@ -94,7 +94,10 @@ pub trait CubeMob: Entity {
     }
     /// `setCubeMobHealth(actualSize)`.
     fn set_cube_mob_health(&mut self, actual_size: i32) {
-        if let Some(health) = lm(self.as_dyn_mut()).attributes.get_instance(Attribute::MAX_HEALTH) {
+        if let Some(health) = lm(self.as_dyn_mut())
+            .attributes
+            .get_instance(Attribute::MAX_HEALTH)
+        {
             health.set_base_value(f64::from(actual_size.wrapping_mul(actual_size)));
         }
     }
@@ -103,7 +106,11 @@ pub trait CubeMob: Entity {
         set_size(self, size, update_health);
     }
     /// `setSpawnSize(level, difficulty)`.
-    fn set_spawn_size(&mut self, level: &mut dyn ServerLevelAccessor, difficulty: DifficultyInstance) {
+    fn set_spawn_size(
+        &mut self,
+        level: &mut dyn ServerLevelAccessor,
+        difficulty: DifficultyInstance,
+    ) {
         let random = level.random();
         let mut size_scale = random.next_int_bounded(3);
         if size_scale < 2 && random.next_float() < 0.5 * difficulty.get_special_multiplier() {
@@ -143,7 +150,12 @@ pub struct CubeMobMoveControl {
 impl CubeMobMoveControl {
     /// `new CubeMobMoveControl(cubeMob)` (`yRot = 180.0F * cubeMob.getYRot() / (float)Math.PI`).
     pub fn new(cube_mob_y_rot: f32) -> Self {
-        Self { base: MoveControlBase::default(), y_rot: 180.0 * cube_mob_y_rot / std::f32::consts::PI, jump_delay: 0, is_aggressive: false }
+        Self {
+            base: MoveControlBase::default(),
+            y_rot: 180.0 * cube_mob_y_rot / std::f32::consts::PI,
+            jump_delay: 0,
+            is_aggressive: false,
+        }
     }
 
     /// `setDirection(yRot, isAggressive)`.
@@ -179,7 +191,9 @@ impl MoveControl for CubeMobMoveControl {
             mob::set_zza(mob, 0.0);
         } else {
             self.base.operation = Operation::Wait;
-            let speed = (self.base.speed_modifier * mob::attribute_value(mob, Attribute::MOVEMENT_SPEED)) as f32;
+            let speed = (self.base.speed_modifier
+                * mob::attribute_value(mob, Attribute::MOVEMENT_SPEED))
+                as f32;
             if mob.base().on_ground() {
                 mob.set_speed(speed);
                 let delay = self.jump_delay;
@@ -210,14 +224,21 @@ impl MoveControl for CubeMobMoveControl {
 }
 
 /// `getMoveControl() instanceof CubeMobMoveControl` with the control at hand.
-fn with_cube_move_control<R>(mob: &mut dyn Entity, f: impl FnOnce(&mut CubeMobMoveControl) -> R) -> Option<R> {
+fn with_cube_move_control<R>(
+    mob: &mut dyn Entity,
+    f: impl FnOnce(&mut CubeMobMoveControl) -> R,
+) -> Option<R> {
     let control = mob.mob_mut()?.move_control.as_deref_mut()?;
-    (control as &mut dyn std::any::Any).downcast_mut::<CubeMobMoveControl>().map(f)
+    (control as &mut dyn std::any::Any)
+        .downcast_mut::<CubeMobMoveControl>()
+        .map(f)
 }
 
 /// `getMoveControl() instanceof CubeMobMoveControl`.
 fn has_cube_move_control(mob: &dyn Entity) -> bool {
-    mob.mob().and_then(|m| m.move_control.as_deref()).is_some_and(|c| (c as &dyn std::any::Any).is::<CubeMobMoveControl>())
+    mob.mob()
+        .and_then(|m| m.move_control.as_deref())
+        .is_some_and(|c| (c as &dyn std::any::Any).is::<CubeMobMoveControl>())
 }
 
 /// `cubeMobMoveControl.setDirection(yRot, isAggressive)` when the mob has one.
@@ -237,10 +258,20 @@ pub fn add_slime_targeting_goals(selector: &mut crate::world::entity::ai::goal::
         1,
         Box::new(
             NearestAttackableTargetGoal::build(TargetType::Player, 10, true, false, None)
-                .with_source_selector(std::sync::Arc::new(|mob: &dyn Entity, target: &dyn Entity, _level: &ServerLevel| (target.base().y() - mob.base().y()).abs() <= 4.0)),
+                .with_source_selector(std::sync::Arc::new(
+                    |mob: &dyn Entity, target: &dyn Entity, _level: &ServerLevel| {
+                        (target.base().y() - mob.base().y()).abs() <= 4.0
+                    },
+                )),
         ),
     );
-    selector.add_goal(3, Box::new(NearestAttackableTargetGoal::new(TargetType::of_type(EntityType::IRON_GOLEM), true)));
+    selector.add_goal(
+        3,
+        Box::new(NearestAttackableTargetGoal::new(
+            TargetType::of_type(EntityType::IRON_GOLEM),
+            true,
+        )),
+    );
 }
 
 // ---- goals -----------------------------------------------------------------------------------------------------------
@@ -259,7 +290,11 @@ impl CubeMobAttackGoal {
 
 impl Goal for CubeMobAttackGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        let Some(target) = mob::tick::get_target_checked(mob, level).and_then(|t| level.get_entity(t)) else { return false };
+        let Some(target) =
+            mob::tick::get_target_checked(mob, level).and_then(|t| level.get_entity(t))
+        else {
+            return false;
+        };
         mob.can_attack(level, target) && has_cube_move_control(mob)
     }
 
@@ -268,7 +303,11 @@ impl Goal for CubeMobAttackGoal {
     }
 
     fn can_continue_to_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        let Some(target) = mob::tick::get_target_checked(mob, level).and_then(|t| level.get_entity(t)) else { return false };
+        let Some(target) =
+            mob::tick::get_target_checked(mob, level).and_then(|t| level.get_entity(t))
+        else {
+            return false;
+        };
         if !mob.can_attack(level, target) {
             return false;
         }
@@ -363,7 +402,9 @@ impl CubeMobRandomDirectionGoal {
 impl Goal for CubeMobRandomDirectionGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         mob::tick::get_target_checked(mob, level).is_none()
-            && (mob.base().on_ground() || mob.is_in_liquid() || mob.has_effect(mc_data::MobEffect::LEVITATION))
+            && (mob.base().on_ground()
+                || mob.is_in_liquid()
+                || mob.has_effect(mc_data::MobEffect::LEVITATION))
             && has_cube_move_control(mob)
     }
 
@@ -431,7 +472,10 @@ pub fn set_size<T: CubeMob + ?Sized>(this: &mut T, size: i32, update_health: boo
     this.reapply_position();
     this.refresh_dimensions();
     this.set_cube_mob_health(actual_size);
-    if let Some(speed) = lm(this.as_dyn_mut()).attributes.get_instance(Attribute::MOVEMENT_SPEED) {
+    if let Some(speed) = lm(this.as_dyn_mut())
+        .attributes
+        .get_instance(Attribute::MOVEMENT_SPEED)
+    {
         speed.set_base_value(f64::from(0.2f32 + 0.1f32 * actual_size as f32));
     }
     if update_health {
@@ -442,7 +486,12 @@ pub fn set_size<T: CubeMob + ?Sized>(this: &mut T, size: i32, update_health: boo
 }
 
 /// `setSize` for a caller with the level at hand: plays the splash `onSyncedDataUpdated(ID_SIZE)` decided.
-pub fn set_size_in_level<T: CubeMob + ?Sized>(this: &mut T, level: &mut ServerLevel, size: i32, update_health: bool) {
+pub fn set_size_in_level<T: CubeMob + ?Sized>(
+    this: &mut T,
+    level: &mut ServerLevel,
+    size: i32,
+    update_health: bool,
+) {
     this.set_size(size, update_health);
     play_pending_splash(this, level);
 }
@@ -489,7 +538,11 @@ pub fn tick<T: CubeMob + ?Sized>(this: &mut T, level: &mut ServerLevel) {
 }
 
 /// `remove(reason)`, the part before `super.remove(reason)`: a dead cube mob larger than 1 splits.
-pub fn before_remove<T: CubeMob + ?Sized>(this: &mut T, level: &mut ServerLevel, _reason: RemovalReason) {
+pub fn before_remove<T: CubeMob + ?Sized>(
+    this: &mut T,
+    level: &mut ServerLevel,
+    _reason: RemovalReason,
+) {
     let size = this.get_size();
     if size <= 1 || !this.is_dead_or_dying() {
         return;
@@ -499,8 +552,16 @@ pub fn before_remove<T: CubeMob + ?Sized>(this: &mut T, level: &mut ServerLevel,
     let xz_cube_spawn_offset = width / 2.0;
     let half_size = size / 2;
     let count = this.get_split_count();
-    let team = level.scoreboard().get_players_team(&this.get_scoreboard_name()).map(|t| t.get_name().to_string());
-    let params = ConversionParams { ty: ConversionType::SplitOnDeath, keep_equipment: false, preserve_can_pick_up_loot: false, team };
+    let team = level
+        .scoreboard()
+        .get_players_team(&this.get_scoreboard_name())
+        .map(|t| t.get_name().to_string());
+    let params = ConversionParams {
+        ty: ConversionType::SplitOnDeath,
+        keep_equipment: false,
+        preserve_can_pick_up_loot: false,
+        team,
+    };
     let ty = this.get_type();
     let babies = this.split_cubes_are_babies();
     for i in 0..count {
@@ -510,18 +571,35 @@ pub fn before_remove<T: CubeMob + ?Sized>(this: &mut T, level: &mut ServerLevel,
         // and the `afterConversion` callback, so it is made first
         let yaw = this.base_mut().random.next_float() * 360.0;
         let pos = this.base().position();
-        mob::convert::convert_to(this.as_dyn_mut(), level, ty, &params, EntitySpawnReason::Triggered, |cube_mob, _level| {
-            cube_mut(cube_mob).set_size(half_size, true);
-            cube_mob.snap_to(pos.x + f64::from(xd), pos.y + 0.5, pos.z + f64::from(zd), yaw, 0.0);
-            if babies {
-                mob::ageable::set_baby(cube_mob, true);
-            }
-        });
+        mob::convert::convert_to(
+            this.as_dyn_mut(),
+            level,
+            ty,
+            &params,
+            EntitySpawnReason::Triggered,
+            |cube_mob, _level| {
+                cube_mut(cube_mob).set_size(half_size, true);
+                cube_mob.snap_to(
+                    pos.x + f64::from(xd),
+                    pos.y + 0.5,
+                    pos.z + f64::from(zd),
+                    yaw,
+                    0.0,
+                );
+                if babies {
+                    mob::ageable::set_baby(cube_mob, true);
+                }
+            },
+        );
     }
 }
 
 /// `push(entity)`.
-pub fn push_entity<T: CubeMob + ?Sized>(this: &mut T, level: &mut ServerLevel, other: &mut dyn Entity) {
+pub fn push_entity<T: CubeMob + ?Sized>(
+    this: &mut T,
+    level: &mut ServerLevel,
+    other: &mut dyn Entity,
+) {
     crate::world::entity::entity::push_entity_base(this, level, other);
     if other.get_type() == EntityType::IRON_GOLEM && this.can_deal_damage() {
         deal_damage(this, level, other);
@@ -529,14 +607,22 @@ pub fn push_entity<T: CubeMob + ?Sized>(this: &mut T, level: &mut ServerLevel, o
 }
 
 /// `playerTouch(player)`.
-pub fn player_touch<T: CubeMob + ?Sized>(this: &mut T, level: &mut ServerLevel, player: &mut ServerPlayer) {
+pub fn player_touch<T: CubeMob + ?Sized>(
+    this: &mut T,
+    level: &mut ServerLevel,
+    player: &mut ServerPlayer,
+) {
     if this.can_deal_damage() {
         deal_damage(this, level, player);
     }
 }
 
 /// `dealDamage(target)`.
-pub fn deal_damage<T: CubeMob + ?Sized>(this: &mut T, level: &mut ServerLevel, target: &mut dyn Entity) {
+pub fn deal_damage<T: CubeMob + ?Sized>(
+    this: &mut T,
+    level: &mut ServerLevel,
+    target: &mut dyn Entity,
+) {
     if this.is_alive()
         && crate::world::entity::team::do_teams_allow_damage(level, this.as_dyn(), target)
         && mob::ext::is_within_melee_attack_range(level, this.as_dyn(), target)
@@ -551,21 +637,39 @@ pub fn deal_damage<T: CubeMob + ?Sized>(this: &mut T, level: &mut ServerLevel, t
             };
             this.play_sound(level, SoundEvent::ENTITY_SLIME_ATTACK, 1.0, pitch);
             let victim: EntityId = target.id();
-            crate::world::item::enchantment_helper::do_post_attack_effects(level, &mut Actors::of(target).and(this.as_dyn_mut()), victim, &damage_source);
+            crate::world::item::enchantment_helper::do_post_attack_effects(
+                level,
+                &mut Actors::of(target).and(this.as_dyn_mut()),
+                victim,
+                &damage_source,
+            );
         }
     }
 }
 
 /// `getPassengerAttachmentPoint(passenger, dimensions, scale)`.
-pub fn get_passenger_attachment_point<T: CubeMob + ?Sized>(this: &T, dimensions: &EntityDimensions, scale: f32) -> Vec3 {
-    Vec3::new(0.0, f64::from(dimensions.height) - 0.015625 * f64::from(this.get_size()) * f64::from(scale), 0.0)
+pub fn get_passenger_attachment_point<T: CubeMob + ?Sized>(
+    this: &T,
+    dimensions: &EntityDimensions,
+    scale: f32,
+) -> Vec3 {
+    Vec3::new(
+        0.0,
+        f64::from(dimensions.height) - 0.015625 * f64::from(this.get_size()) * f64::from(scale),
+        0.0,
+    )
 }
 
 /// `jumpFromGround()`.
-pub fn jump_from_ground<T: CubeMob + ?Sized>(this: &mut T, level: &ServerLevel, extra_jump_power: f32) {
+pub fn jump_from_ground<T: CubeMob + ?Sized>(
+    this: &mut T,
+    level: &ServerLevel,
+    extra_jump_power: f32,
+) {
     let movement = this.base().delta_movement();
     let jump_power = this.get_jump_power(level) + extra_jump_power;
-    this.base_mut().set_delta_movement_xyz(movement.x, f64::from(jump_power), movement.z);
+    this.base_mut()
+        .set_delta_movement_xyz(movement.x, f64::from(jump_power), movement.z);
     this.base_mut().needs_sync = true;
 }
 

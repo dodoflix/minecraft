@@ -1,11 +1,11 @@
 //! `RestrictSunGoal`.
 
-use mc_game_core::world::entity::ai::goal::{Goal, GoalFlags};
 use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::ai::goal::{Goal, GoalFlags};
 use mc_game_core::world::entity::ai::util::goal_utils;
 use mc_game_core::world::entity::equipment::EquipmentSlot;
 use mc_game_core::world::entity::mob::navigation;
-use mc_game_core::world::entity::Entity;
 
 #[derive(Default)]
 pub struct RestrictSunGoal;
@@ -27,7 +27,9 @@ impl RestrictSunGoal {
 
 impl Goal for RestrictSunGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        level.is_bright_outside() && mob.get_item_by_slot(EquipmentSlot::Head).is_empty() && goal_utils::has_ground_path_navigation(mob, level)
+        level.is_bright_outside()
+            && mob.get_item_by_slot(EquipmentSlot::Head).is_empty()
+            && goal_utils::has_ground_path_navigation(mob, level)
     }
 
     fn start(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {

@@ -16,6 +16,11 @@ impl LiquidSettings {
 
     /// `LiquidSettings.CODEC` (`StringRepresentable.fromValues`).
     pub fn by_name(name: &str) -> Option<LiquidSettings> {
-        [LiquidSettings::IgnoreWaterlogging, LiquidSettings::ApplyWaterlogging].into_iter().find(|s| s.get_serialized_name() == name)
+        [
+            LiquidSettings::IgnoreWaterlogging,
+            LiquidSettings::ApplyWaterlogging,
+        ]
+        .into_iter()
+        .find(|s| s.get_serialized_name() == name)
     }
 }

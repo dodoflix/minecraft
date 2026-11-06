@@ -1,20 +1,22 @@
 //! `BrushableBlockEntity` (suspicious sand / gravel): brush progress, the archaeology loot (`LootTable` + seed or the
 //! unpacked `item`) and the direction the brushing started from.
 
-use mc_game_core::block_entity_base;
-use mc_game_core::world::block_entity::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec};
 use linkme::distributed_slice;
 use mc_core::direction::Direction;
 use mc_core::ident::Identifier;
 use mc_core::pos::BlockPos;
 use mc_data::BlockEntityType;
 use mc_data::block::BlockState;
-use mc_dfu::extra::IDENTIFIER;
-use mc_nbt::CompoundTag;
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::level::LevelAccessor;
-use mc_game_core::world::item::ItemStack;
 use mc_data::props;
+use mc_dfu::extra::IDENTIFIER;
+use mc_game_core::block_entity_base;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::block_entity::{
+    BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec,
+};
+use mc_game_core::world::item::ItemStack;
+use mc_game_core::world::level::LevelAccessor;
+use mc_nbt::CompoundTag;
 
 pub const BRUSH_COOLDOWN_TICKS: i64 = 10;
 pub const BRUSH_RESET_TICKS: i64 = 40;
@@ -73,7 +75,10 @@ impl BrushableBlockEntity {
             self.brush_count = (self.brush_count - 2).max(0);
             let completion_state = self.get_completion_state();
             if previous_completion_state != completion_state {
-                level.set_block_and_update(pos, self.get_block_state().set(props::DUSTED, completion_state));
+                level.set_block_and_update(
+                    pos,
+                    self.get_block_state().set(props::DUSTED, completion_state),
+                );
             }
             self.brush_count_resets_at_tick = level.get_game_time() + 4;
         }
@@ -102,8 +107,14 @@ impl BlockEntity for BrushableBlockEntity {
         // `tryLoadLootTable`
         self.loot_table = read_codec(tag, "LootTable", &IDENTIFIER);
         self.loot_table_seed = tag.get_long_or("LootTableSeed", 0);
-        self.item = if self.loot_table.is_none() { read_codec(tag, "item", &ItemStack::codec()).unwrap_or_else(ItemStack::empty) } else { ItemStack::empty() };
-        self.hit_direction = tag.get_byte("hit_direction").map(|b| Direction::from_3d_data_value(i32::from(b)));
+        self.item = if self.loot_table.is_none() {
+            read_codec(tag, "item", &ItemStack::codec()).unwrap_or_else(ItemStack::empty)
+        } else {
+            ItemStack::empty()
+        };
+        self.hit_direction = tag
+            .get_byte("hit_direction")
+            .map(|b| Direction::from_3d_data_value(i32::from(b)));
     }
 
     fn save_additional(&self, tag: &mut CompoundTag) {
@@ -136,11 +147,21 @@ impl BlockEntity for BrushableBlockEntity {
         tag
     }
 
-    fn get_update_packet(&self) -> Option<mc_protocol::packets::play::level::ClientboundBlockEntityDataPacket> {
-        Some(mc_protocol::packets::play::level::ClientboundBlockEntityDataPacket { pos: self.get_block_pos(), r#type: self.get_type(), tag: self.get_update_tag() })
+    fn get_update_packet(
+        &self,
+    ) -> Option<mc_protocol::packets::play::level::ClientboundBlockEntityDataPacket> {
+        Some(
+            mc_protocol::packets::play::level::ClientboundBlockEntityDataPacket {
+                pos: self.get_block_pos(),
+                r#type: self.get_type(),
+                tag: self.get_update_tag(),
+            },
+        )
     }
 }
 
 #[distributed_slice(BLOCK_ENTITY_TYPES)]
-static BRUSHABLE: BlockEntityRegistration =
-    BlockEntityRegistration { ty: BlockEntityType::BRUSHABLE_BLOCK, create: |pos, state| Box::new(BrushableBlockEntity::new(pos, state)) };
+static BRUSHABLE: BlockEntityRegistration = BlockEntityRegistration {
+    ty: BlockEntityType::BRUSHABLE_BLOCK,
+    create: |pos, state| Box::new(BrushableBlockEntity::new(pos, state)),
+};

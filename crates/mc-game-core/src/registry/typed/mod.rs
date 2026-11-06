@@ -33,7 +33,11 @@ impl HolderSetRef {
                 Some(tag) => Identifier::try_parse(tag).map(HolderSetRef::Tag),
                 None => Identifier::try_parse(s).map(|i| HolderSetRef::Elements(vec![i])),
             },
-            Value::Array(list) => list.iter().map(|e| e.as_str().and_then(Identifier::try_parse)).collect::<Option<Vec<_>>>().map(HolderSetRef::Elements),
+            Value::Array(list) => list
+                .iter()
+                .map(|e| e.as_str().and_then(Identifier::try_parse))
+                .collect::<Option<Vec<_>>>()
+                .map(HolderSetRef::Elements),
             _ => None,
         }
     }
@@ -57,7 +61,9 @@ pub(crate) fn get_bool(o: &Value, key: &str) -> Option<bool> {
 
 pub(crate) fn get_i32(o: &Value, key: &str) -> Option<i32> {
     let v = o.get(key)?;
-    v.as_i64().map(|i| i as i32).or_else(|| v.as_f64().map(|f| f as i32))
+    v.as_i64()
+        .map(|i| i as i32)
+        .or_else(|| v.as_f64().map(|f| f as i32))
 }
 
 pub(crate) fn get_f64(o: &Value, key: &str) -> Option<f64> {

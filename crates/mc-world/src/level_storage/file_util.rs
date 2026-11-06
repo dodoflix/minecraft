@@ -36,7 +36,11 @@ pub fn read_compressed(path: &Path, acc: &mut NbtAccounter) -> io::Result<Compou
 
 /// `NbtIo.writeCompressed(CompoundTag, Path)`: `CREATE, TRUNCATE_EXISTING, WRITE, SYNC`.
 pub fn write_compressed(tag: &CompoundTag, path: &Path) -> io::Result<()> {
-    let mut file = OpenOptions::new().create(true).truncate(true).write(true).open(path)?;
+    let mut file = OpenOptions::new()
+        .create(true)
+        .truncate(true)
+        .write(true)
+        .open(path)?;
     file.write_all(&mc_nbt::compress::write_compressed(tag))?;
     file.sync_all()
 }
@@ -47,7 +51,9 @@ pub fn create_temp_file(dir: &Path, prefix: &str, suffix: &str) -> io::Result<Pa
     use std::hash::{BuildHasher, Hasher};
     loop {
         // RandomState is seeded from the OS per instance; plenty for a collision-avoiding name.
-        let n = std::collections::hash_map::RandomState::new().build_hasher().finish();
+        let n = std::collections::hash_map::RandomState::new()
+            .build_hasher()
+            .finish();
         let path = dir.join(format!("{prefix}{n}{suffix}"));
         let mut options = OpenOptions::new();
         options.write(true).create_new(true);
@@ -64,7 +70,10 @@ pub fn create_temp_file(dir: &Path, prefix: &str, suffix: &str) -> io::Result<Pa
 /// `Files.move(from, to)` without options: fails when the target exists.
 fn move_no_replace(from: &Path, to: &Path) -> io::Result<()> {
     if fs::symlink_metadata(to).is_ok() {
-        return Err(io::Error::new(io::ErrorKind::AlreadyExists, to.display().to_string()));
+        return Err(io::Error::new(
+            io::ErrorKind::AlreadyExists,
+            to.display().to_string(),
+        ));
     }
     fs::rename(from, to)
 }
@@ -99,11 +108,17 @@ fn deleter(target: &Path) -> Operation<'_> {
 }
 
 fn file_deleted_check(target: &Path) -> Operation<'_> {
-    (format!("verify that {} is deleted", target.display()), Box::new(move || !target.exists()))
+    (
+        format!("verify that {} is deleted", target.display()),
+        Box::new(move || !target.exists()),
+    )
 }
 
 fn file_created_check(target: &Path) -> Operation<'_> {
-    (format!("verify that {} is present", target.display()), Box::new(move || target.is_file()))
+    (
+        format!("verify that {} is present", target.display()),
+        Box::new(move || target.is_file()),
+    )
 }
 
 fn execute_in_sequence(operations: &[Operation<'_>]) -> bool {
@@ -116,7 +131,11 @@ fn execute_in_sequence(operations: &[Operation<'_>]) -> bool {
     true
 }
 
-fn run_with_retries(number_of_retries: i32, description: &str, operations: &[Operation<'_>]) -> bool {
+fn run_with_retries(
+    number_of_retries: i32,
+    description: &str,
+    operations: &[Operation<'_>],
+) -> bool {
     for retry in 0..number_of_retries {
         if execute_in_sequence(operations) {
             return true;
@@ -142,12 +161,21 @@ pub fn safe_replace_file(target: &Path, new: &Path, backup: &Path) {
 }
 
 /// `Util.safeReplaceOrMoveFile`.
-pub fn safe_replace_or_move_file(target: &Path, new: &Path, backup: &Path, no_rollback: bool) -> bool {
+pub fn safe_replace_or_move_file(
+    target: &Path,
+    new: &Path,
+    backup: &Path,
+    no_rollback: bool,
+) -> bool {
     if target.exists()
         && !run_with_retries(
             10,
             &format!("create backup {}", backup.display()),
-            &[deleter(backup), renamer(target, backup), file_created_check(backup)],
+            &[
+                deleter(backup),
+                renamer(target, backup),
+                file_created_check(backup),
+            ],
         )
     {
         return false;
@@ -177,7 +205,14 @@ pub fn safe_replace_or_move_file(target: &Path, new: &Path, backup: &Path, no_ro
 
 /// `FileNameDateFormatter.FORMATTER`: `yyyy-MM-dd_HH-mm-ss` (year padded to 4 digits, a `+` sign when it
 /// needs more than 4, `-` when negative).
-pub fn format_file_name_date(year: i64, month: u32, day: u32, hour: u32, minute: u32, second: u32) -> String {
+pub fn format_file_name_date(
+    year: i64,
+    month: u32,
+    day: u32,
+    hour: u32,
+    minute: u32,
+    second: u32,
+) -> String {
     let year = match year {
         y if y < 0 => format!("-{:04}", -y),
         y if y > 9999 => format!("+{y}"),
@@ -238,8 +273,14 @@ mod tests {
 
     #[test]
     fn date_format() {
-        assert_eq!(format_file_name_date(2026, 11, 4, 13, 8, 9), "2026-11-04_13-08-09");
-        assert_eq!(format_file_name_date(12345, 1, 2, 3, 4, 5), "+12345-01-02_03-04-05");
+        assert_eq!(
+            format_file_name_date(2026, 11, 4, 13, 8, 9),
+            "2026-11-04_13-08-09"
+        );
+        assert_eq!(
+            format_file_name_date(12345, 1, 2, 3, 4, 5),
+            "+12345-01-02_03-04-05"
+        );
         assert_eq!(civil_from_days(0), (1970, 1, 1));
         assert_eq!(civil_from_days(20_396), (2025, 11, 4));
     }

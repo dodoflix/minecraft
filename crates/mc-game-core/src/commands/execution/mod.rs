@@ -8,9 +8,11 @@ mod trace_callbacks;
 
 pub use chain_modifiers::ChainModifiers;
 pub use custom::{
-    CustomCommandExecutor, CustomModifierExecutor, custom_command, custom_modifier, lookup_custom_command,
-    lookup_custom_modifier, run_with_error_handling,
+    CustomCommandExecutor, CustomModifierExecutor, custom_command, custom_modifier,
+    lookup_custom_command, lookup_custom_modifier, run_with_error_handling,
 };
-pub use execution_context::{CommandQueueEntry, EntryAction, ExecutionContext, ExecutionControl, UnboundEntryAction, bind};
+pub use execution_context::{
+    CommandQueueEntry, EntryAction, ExecutionContext, ExecutionControl, UnboundEntryAction, bind,
+};
 pub use frame::{Frame, FrameControl};
 pub use trace_callbacks::TraceCallbacks;

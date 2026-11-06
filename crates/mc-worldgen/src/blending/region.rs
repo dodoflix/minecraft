@@ -2,8 +2,8 @@
 //! over its region/chunk holders. [`ProtoChunk`] and [`LevelChunk`] implement the chunk side.
 
 use mc_core::pos::{BlockPos, ChunkPos};
-use mc_data::fluid::FluidState;
 use mc_data::block::BlockState;
+use mc_data::fluid::FluidState;
 use mc_world::blending_data::BlendingData;
 use mc_world::chunk::{LevelChunk, ProtoChunk};
 use mc_world::heightmap::HeightmapType;
@@ -54,7 +54,12 @@ pub trait BlendingRegion {
 
 impl dyn BlendingRegion + '_ {
     /// `with_chunk` returning a value.
-    pub fn read_chunk<R>(&self, chunk_x: i32, chunk_z: i32, f: impl FnOnce(&mut dyn BlendingChunk) -> R) -> R {
+    pub fn read_chunk<R>(
+        &self,
+        chunk_x: i32,
+        chunk_z: i32,
+        f: impl FnOnce(&mut dyn BlendingChunk) -> R,
+    ) -> R {
         let mut f = Some(f);
         let mut result = None;
         self.with_chunk(chunk_x, chunk_z, &mut |chunk| {

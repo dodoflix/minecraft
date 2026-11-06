@@ -6,14 +6,16 @@
 
 use super::block_break;
 use crate::advancements::triggers::CriteriaTriggers;
+use crate::server::level::ServerLevel;
+use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::player::server_player::ServerPlayer;
 use crate::world::entity::{Entity, EntityId};
 use crate::world::item::behaviour;
-use crate::server::level::ServerLevel;
-use crate::world::item::{InteractionHand, InteractionResult, ItemStack, ItemStackExt, UseOnContext, ContextPlayer};
+use crate::world::item::{
+    ContextPlayer, InteractionHand, InteractionResult, ItemStack, ItemStackExt, UseOnContext,
+};
 use crate::world::level::block::behaviour as block_behaviour;
 use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
-use crate::world::entity::equipment::EquipmentSlot;
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;
 use mc_data::block::{Block, BlockState};
@@ -21,14 +23,20 @@ use mc_data::enums::GameType;
 use mc_data::{Attribute, MobEffect};
 use mc_protocol::packets::common::ChatVisibility;
 use mc_protocol::packets::play::{
-    ClientboundBlockUpdatePacket, ClientboundGameEventPacket, ClientboundPlayerAbilitiesPacket, ClientboundSystemChatPacket, ServerboundPlayerActionAction as Action,
+    ClientboundBlockUpdatePacket, ClientboundGameEventPacket, ClientboundPlayerAbilitiesPacket,
+    ClientboundSystemChatPacket, ServerboundPlayerActionAction as Action,
 };
 use mc_text::{ChatFormatting, Component};
 use mc_world::level_storage::FeatureFlagSet;
 
 /// `Block.isEnabled(enabledFeatures)`.
 fn block_is_enabled(block: Block, enabled_features: FeatureFlagSet) -> bool {
-    let required: Vec<mc_core::ident::Identifier> = block.data().required_features.iter().filter_map(|n| mc_core::ident::Identifier::try_parse(n)).collect();
+    let required: Vec<mc_core::ident::Identifier> = block
+        .data()
+        .required_features
+        .iter()
+        .filter_map(|n| mc_core::ident::Identifier::try_parse(n))
+        .collect();
     FeatureFlagSet::from_names(required.iter(), |_| {}).is_subset_of(enabled_features)
 }
 impl ServerPlayer {
@@ -43,7 +51,11 @@ impl ServerPlayer {
     /// `Player.getDestroySpeed(state)`.
     pub fn get_destroy_speed(&self, state: BlockState) -> f32 {
         let stack = self.player.inventory.get_selected_item();
-        let mut speed = if stack.is_empty() { 1.0 } else { behaviour(stack.item()).get_destroy_speed(stack, state) };
+        let mut speed = if stack.is_empty() {
+            1.0
+        } else {
+            behaviour(stack.item()).get_destroy_speed(stack, state)
+        };
         let living = &self.player.living;
         if speed > 1.0 {
             speed += living.get_attribute_value(Attribute::MINING_EFFICIENCY) as f32;
@@ -67,7 +79,9 @@ impl ServerPlayer {
     /// `Player.hasCorrectToolForDrops(state)`.
     pub fn has_correct_tool_for_drops(&self, state: BlockState) -> bool {
         let stack = self.player.inventory.get_selected_item();
-        !state.requires_correct_tool_for_drops() || (!stack.is_empty() && behaviour(stack.item()).is_correct_tool_for_drops(stack, state))
+        !state.requires_correct_tool_for_drops()
+            || (!stack.is_empty()
+                && behaviour(stack.item()).is_correct_tool_for_drops(stack, state))
     }
 
     /// `BlockState.getDestroyProgress(player, level, pos)`.
@@ -76,7 +90,11 @@ impl ServerPlayer {
         if destroy_speed == -1.0 {
             0.0
         } else {
-            let modifier = if self.has_correct_tool_for_drops(state) { 30 } else { 100 };
+            let modifier = if self.has_correct_tool_for_drops(state) {
+                30
+            } else {
+                100
+            };
             self.get_destroy_speed(state) / destroy_speed / modifier as f32
         }
     }
@@ -148,7 +166,8 @@ impl ServerPlayer {
             Action::ChangeDestroyDirection => self.game_mode.destroy_direction = direction,
             Action::StopDestroyBlock => {
                 if pos == self.game_mode.destroy_pos {
-                    let ticks_spent = self.game_mode.game_ticks - self.game_mode.destroy_progress_start;
+                    let ticks_spent =
+                        self.game_mode.game_ticks - self.game_mode.destroy_progress_start;
                     let state = level.get_block_state(pos);
                     if !state.is_air() {
                         let progress = self.get_destroy_progress(state) * (ticks_spent + 1) as f32;
@@ -162,7 +181,8 @@ impl ServerPlayer {
                             self.game_mode.is_destroying_block = false;
                             self.game_mode.has_delayed_destroy = true;
                             self.game_mode.delayed_destroy_pos = pos;
-                            self.game_mode.delayed_tick_start = self.game_mode.destroy_progress_start;
+                            self.game_mode.delayed_tick_start =
+                                self.game_mode.destroy_progress_start;
                         }
                     }
                 }
@@ -173,7 +193,12 @@ impl ServerPlayer {
     }
 
     /// `EnchantmentHelper.onHitBlock(level, mainHandItem, player, player, MAINHAND, Vec3.atCenterOf(pos), state, item -> player.onEquippedItemBroken(item, MAINHAND))`.
-    fn enchantment_on_hit_block(&mut self, level: &mut ServerLevel, pos: BlockPos, state: BlockState) {
+    fn enchantment_on_hit_block(
+        &mut self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        state: BlockState,
+    ) {
         use crate::world::entity::equipment::EquipmentSlot as Slot;
         use crate::world::item::enchantment::actors::Actors;
         use std::sync::{Arc, Mutex};
@@ -203,14 +228,21 @@ impl ServerPlayer {
 
     /// `connection.send(new ClientboundBlockUpdatePacket(pos, level.getBlockState(pos)))`.
     fn send_block_update(&self, level: &ServerLevel, pos: BlockPos) {
-        self.send(&ClientboundBlockUpdatePacket { pos, block_state: level.get_block_state(pos) });
+        self.send(&ClientboundBlockUpdatePacket {
+            pos,
+            block_state: level.get_block_state(pos),
+        });
     }
 
     fn abort_destroy_block(&mut self, level: &mut ServerLevel, pos: BlockPos) {
         let id = self.base_id();
         self.game_mode.is_destroying_block = false;
         if self.game_mode.destroy_pos != pos {
-            log::warn!("Mismatch in destroy block pos: {} {}", self.game_mode.destroy_pos, pos);
+            log::warn!(
+                "Mismatch in destroy block pos: {} {}",
+                self.game_mode.destroy_pos,
+                pos
+            );
             level.destroy_block_progress(id, self.game_mode.destroy_pos, -1);
         }
         level.destroy_block_progress(id, pos, -1);
@@ -225,7 +257,12 @@ impl ServerPlayer {
 
     /// `Player.blockActionRestricted(level, pos, gameType)`: adventure/spectator rules (`CAN_BREAK` predicate of the
     /// main hand in adventure mode without `mayBuild`).
-    pub fn block_action_restricted(&self, level: &ServerLevel, pos: BlockPos, game_type: GameType) -> bool {
+    pub fn block_action_restricted(
+        &self,
+        level: &ServerLevel,
+        pos: BlockPos,
+        game_type: GameType,
+    ) -> bool {
         if !matches!(game_type, GameType::Adventure | GameType::Spectator) {
             return false;
         }
@@ -236,7 +273,8 @@ impl ServerPlayer {
             return false;
         }
         let stack = self.player.inventory.get_selected_item();
-        stack.is_empty() || !crate::world::item::can_break_block_in_adventure_mode(stack, level, pos)
+        stack.is_empty()
+            || !crate::world::item::can_break_block_in_adventure_mode(stack, level, pos)
     }
 
     /// `ServerPlayerGameMode.destroyBlock(pos)`.
@@ -244,7 +282,8 @@ impl ServerPlayer {
         let state = level.get_block_state(pos);
         let mut main = self.get_item_in_hand(InteractionHand::MainHand);
         if !main.is_empty() {
-            let can_destroy = behaviour(main.item()).can_destroy_block(&mut main, state, level, pos, self);
+            let can_destroy =
+                behaviour(main.item()).can_destroy_block(&mut main, state, level, pos, self);
             if main != self.get_item_in_hand(InteractionHand::MainHand) {
                 self.set_item_in_hand(InteractionHand::MainHand, main.clone());
             }
@@ -254,7 +293,9 @@ impl ServerPlayer {
         }
         let block_entity = block_break::snapshot_block_entity(level, pos);
         let block = state.block();
-        if block.data().classes.iter().any(|c| *c == "GameMasterBlock") && !self.can_use_game_master_blocks() {
+        if block.data().classes.iter().any(|c| *c == "GameMasterBlock")
+            && !self.can_use_game_master_blocks()
+        {
             level.send_block_updated(pos, state, state, 3);
             return false;
         }
@@ -276,7 +317,14 @@ impl ServerPlayer {
         crate::world::item::mine_block(&mut mined_with, level, adjusted, pos, self);
         self.set_item_in_hand(InteractionHand::MainHand, mined_with);
         if changed && can_destroy {
-            block_behaviour(block).player_destroy(level, self, pos, adjusted, block_entity.as_deref(), &destroyed_with);
+            block_behaviour(block).player_destroy(
+                level,
+                self,
+                pos,
+                adjusted,
+                block_entity.as_deref(),
+                &destroyed_with,
+            );
         }
         true
     }
@@ -294,7 +342,10 @@ impl ServerPlayer {
     /// `ServerPlayer.sendSystemMessage(message, overlay)`: hidden chat only accepts overlay messages.
     pub fn send_system_message_overlay(&self, message: Component, overlay: bool) {
         if self.chat_visibility != ChatVisibility::Hidden || overlay {
-            self.send(&ClientboundSystemChatPacket { content: message, overlay });
+            self.send(&ClientboundSystemChatPacket {
+                content: message,
+                overlay,
+            });
         }
     }
 
@@ -305,13 +356,22 @@ impl ServerPlayer {
 
     /// `sendBuildLimitMessage(isTooHigh, limit)`.
     pub fn send_build_limit_message(&self, is_too_high: bool, limit: i32) {
-        let key = if is_too_high { "build.tooHigh" } else { "build.tooLow" };
-        self.send_overlay_message(Component::translatable(key, vec![limit.into()]).with_format(ChatFormatting::Red));
+        let key = if is_too_high {
+            "build.tooHigh"
+        } else {
+            "build.tooLow"
+        };
+        self.send_overlay_message(
+            Component::translatable(key, vec![limit.into()]).with_format(ChatFormatting::Red),
+        );
     }
 
     /// `sendSpawnProtectionMessage(pos)`.
     pub fn send_spawn_protection_message(&self, pos: BlockPos) {
-        self.send_overlay_message(Component::translatable("build.spawn_protection", vec![pos.to_short_string().into()]).with_format(ChatFormatting::Red));
+        self.send_overlay_message(
+            Component::translatable("build.spawn_protection", vec![pos.to_short_string().into()])
+                .with_format(ChatFormatting::Red),
+        );
     }
 
     /// `Player.canUseGameMasterBlocks()`: `abilities.instabuild` and op permission (ops are not modelled yet, so
@@ -324,7 +384,11 @@ impl ServerPlayer {
     pub fn get_item_in_hand(&self, hand: InteractionHand) -> ItemStack {
         match hand {
             InteractionHand::MainHand => self.player.inventory.get_selected_item().clone(),
-            InteractionHand::OffHand => self.player.inventory.equipment_get(EquipmentSlot::OffHand).clone(),
+            InteractionHand::OffHand => self
+                .player
+                .inventory
+                .equipment_get(EquipmentSlot::OffHand)
+                .clone(),
         }
     }
 
@@ -335,17 +399,29 @@ impl ServerPlayer {
                 self.player.inventory.set_selected_item(stack);
             }
             InteractionHand::OffHand => {
-                self.player.inventory.equipment_set(EquipmentSlot::OffHand, stack);
+                self.player
+                    .inventory
+                    .equipment_set(EquipmentSlot::OffHand, stack);
             }
         }
     }
 
     pub fn context_player(&self) -> ContextPlayer {
-        ContextPlayer { entity_id: self.base_id(), y_rot: self.base().y_rot(), x_rot: self.base().x_rot(), secondary_use_active: self.is_shift_key_down(), can_use_game_master_blocks: self.can_use_game_master_blocks() }
+        ContextPlayer {
+            entity_id: self.base_id(),
+            y_rot: self.base().y_rot(),
+            x_rot: self.base().x_rot(),
+            secondary_use_active: self.is_shift_key_down(),
+            can_use_game_master_blocks: self.can_use_game_master_blocks(),
+        }
     }
 
     /// `ServerPlayerGameMode.useItem(player, level, stack, hand)`.
-    pub fn use_item(&mut self, level: &mut ServerLevel, hand: InteractionHand) -> InteractionResult {
+    pub fn use_item(
+        &mut self,
+        level: &mut ServerLevel,
+        hand: InteractionHand,
+    ) -> InteractionResult {
         if self.game_mode.game_mode_for_player == GameType::Spectator {
             return InteractionResult::PASS;
         }
@@ -362,8 +438,16 @@ impl ServerPlayer {
         };
         let same_stack = transformed.is_none();
         let result_stack = transformed.unwrap_or_else(|| self.get_item_in_hand(hand));
-        let use_duration = if result_stack.is_empty() { 0 } else { behaviour(result_stack.item()).get_use_duration(&result_stack) };
-        if same_stack && result_stack.count() == old_count && use_duration <= 0 && result_stack.get_damage_value() == old_damage {
+        let use_duration = if result_stack.is_empty() {
+            0
+        } else {
+            behaviour(result_stack.item()).get_use_duration(&result_stack)
+        };
+        if same_stack
+            && result_stack.count() == old_count
+            && use_duration <= 0
+            && result_stack.get_damage_value() == old_damage
+        {
             return result;
         }
         if result == InteractionResult::FAIL && use_duration > 0 && !self.is_using_item() {
@@ -387,14 +471,25 @@ impl ServerPlayer {
         use crate::world::inventory::PlayerMenus;
         let mut menus = std::mem::replace(&mut self.player.menus, PlayerMenus::new());
         {
-            let mut ctx = PlayerCtx { player: self, level };
-            menus.inventory_menu_mut().base_mut().send_all_data_to_remote(&mut ctx);
+            let mut ctx = PlayerCtx {
+                player: self,
+                level,
+            };
+            menus
+                .inventory_menu_mut()
+                .base_mut()
+                .send_all_data_to_remote(&mut ctx);
         }
         self.player.menus = menus;
     }
 
     /// `ServerPlayerGameMode.useItemOn(player, level, stack, hand, hitResult)`.
-    pub fn use_item_on(&mut self, level: &mut ServerLevel, hand: InteractionHand, hit: &mc_core::phys::BlockHitResult) -> InteractionResult {
+    pub fn use_item_on(
+        &mut self,
+        level: &mut ServerLevel,
+        hand: InteractionHand,
+        hit: &mc_core::phys::BlockHitResult,
+    ) -> InteractionResult {
         let pos = hit.block_pos;
         let state = level.get_block_state(pos);
         if !block_is_enabled(state.block(), level.enabled_features()) {
@@ -412,16 +507,24 @@ impl ServerPlayer {
             };
         }
         let item_stack = self.get_item_in_hand(hand);
-        let have_something = !self.player.inventory.get_selected_item().is_empty() || !self.player.inventory.equipment_get(EquipmentSlot::OffHand).is_empty();
+        let have_something = !self.player.inventory.get_selected_item().is_empty()
+            || !self
+                .player
+                .inventory
+                .equipment_get(EquipmentSlot::OffHand)
+                .is_empty();
         let suppress_using_block = self.is_shift_key_down() && have_something;
         let behaviour_of_block = block_behaviour(state.block());
         if !suppress_using_block {
-            let item_use = behaviour_of_block.use_item_on(&item_stack, state, level, pos, self, hand, hit);
+            let item_use =
+                behaviour_of_block.use_item_on(&item_stack, state, level, pos, self, hand, hit);
             if item_use.consumes_action() {
                 CriteriaTriggers::ITEM_USED_ON_BLOCK.trigger(level, self, pos, &item_stack);
                 return item_use;
             }
-            if item_use == InteractionResult::TRY_WITH_EMPTY_HAND && hand == InteractionHand::MainHand {
+            if item_use == InteractionResult::TRY_WITH_EMPTY_HAND
+                && hand == InteractionHand::MainHand
+            {
                 let r = behaviour_of_block.use_without_item(state, level, pos, self, hit);
                 if r.consumes_action() {
                     CriteriaTriggers::DEFAULT_BLOCK_USE.trigger(level, self, pos);
@@ -430,7 +533,8 @@ impl ServerPlayer {
             }
         }
         if !item_stack.is_empty() && !self.player.cooldowns.is_on_cooldown(&item_stack) {
-            let mut context = UseOnContext::new(Some(self.context_player()), hand, item_stack.clone(), *hit);
+            let mut context =
+                UseOnContext::new(Some(self.context_player()), hand, item_stack.clone(), *hit);
             let infinite = self.has_infinite_materials();
             let count = item_stack.count();
             let result = crate::world::item::item_stack_use_on(&mut context, level, self);
@@ -488,7 +592,13 @@ impl ServerPlayer {
         }
     }
 
-    fn increment_destroy_progress(&mut self, level: &mut ServerLevel, state: BlockState, pos: BlockPos, ticks_spent: i32) -> f32 {
+    fn increment_destroy_progress(
+        &mut self,
+        level: &mut ServerLevel,
+        state: BlockState,
+        pos: BlockPos,
+        ticks_spent: i32,
+    ) -> f32 {
         let progress = self.get_destroy_progress(state) * (ticks_spent + 1) as f32;
         let s = (progress * 10.0) as i32;
         if s != self.game_mode.last_sent_state {

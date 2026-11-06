@@ -3,7 +3,9 @@
 use mc_data::Item;
 use mc_dfu::{DataResult, MapCodec, STRING};
 use mc_protocol::components::ItemStackTemplate;
-use mc_protocol::packets::play::inventory::{RecipeDisplay, ShapedCraftingRecipeDisplay, ShapelessCraftingRecipeDisplay, SlotDisplay};
+use mc_protocol::packets::play::inventory::{
+    RecipeDisplay, ShapedCraftingRecipeDisplay, ShapelessCraftingRecipeDisplay, SlotDisplay,
+};
 
 use super::display::{item_display, stack_display};
 use super::ingredient::{Ingredient, PlacementInfo};
@@ -33,10 +35,14 @@ impl ShapedPatternData {
                 let first_length = java_len(&strings[0]);
                 for line in &strings {
                     if java_len(line) > MAX_SIZE {
-                        return DataResult::error_str("Invalid pattern: too many columns, 3 is maximum");
+                        return DataResult::error_str(
+                            "Invalid pattern: too many columns, 3 is maximum",
+                        );
                     }
                     if first_length != java_len(line) {
-                        return DataResult::error_str("Invalid pattern: each row must be the same width");
+                        return DataResult::error_str(
+                            "Invalid pattern: each row must be the same width",
+                        );
                     }
                 }
                 DataResult::success(strings)
@@ -64,7 +70,9 @@ impl ShapedPatternData {
     /// `Data.MAP_CODEC`.
     pub fn map_codec() -> MapCodec<ShapedPatternData> {
         mc_dfu::record!(ShapedPatternData {
-            key: Self::symbol_codec().unbounded_map(&Ingredient::codec()).field_of("key"),
+            key: Self::symbol_codec()
+                .unbounded_map(&Ingredient::codec())
+                .field_of("key"),
             pattern: Self::pattern_codec().field_of("pattern"),
         })
     }
@@ -87,14 +95,29 @@ pub struct ShapedRecipePattern {
 }
 
 impl ShapedRecipePattern {
-    fn new(width: usize, height: usize, ingredients: Vec<Option<Ingredient>>, data: Option<ShapedPatternData>) -> Self {
+    fn new(
+        width: usize,
+        height: usize,
+        ingredients: Vec<Option<Ingredient>>,
+        data: Option<ShapedPatternData>,
+    ) -> Self {
         let ingredient_count = ingredients.iter().flatten().count();
         let symmetrical = is_symmetrical(width, height, &ingredients);
-        ShapedRecipePattern { width, height, ingredients, data, ingredient_count, symmetrical }
+        ShapedRecipePattern {
+            width,
+            height,
+            ingredients,
+            data,
+            ingredient_count,
+            symmetrical,
+        }
     }
 
     /// `ShapedRecipePattern.of(key, pattern)`.
-    pub fn of(key: Vec<(char, Ingredient)>, pattern: Vec<String>) -> Result<ShapedRecipePattern, String> {
+    pub fn of(
+        key: Vec<(char, Ingredient)>,
+        pattern: Vec<String>,
+    ) -> Result<ShapedRecipePattern, String> {
         Self::unpack(ShapedPatternData { key, pattern }).into_result()
     }
 
@@ -113,7 +136,9 @@ impl ShapedRecipePattern {
                     match data.key.iter().find(|(c, _)| c == symbol) {
                         Some((_, i)) => Some(i.clone()),
                         None => {
-                            let message = format!("Pattern references symbol '{symbol}' but it's not defined in the key");
+                            let message = format!(
+                                "Pattern references symbol '{symbol}' but it's not defined in the key"
+                            );
                             return DataResult::error(move || message.clone());
                         }
                     }
@@ -123,11 +148,20 @@ impl ShapedRecipePattern {
             }
         }
         if !unused_symbols.is_empty() {
-            let listed = unused_symbols.iter().map(char::to_string).collect::<Vec<_>>().join(", ");
+            let listed = unused_symbols
+                .iter()
+                .map(char::to_string)
+                .collect::<Vec<_>>()
+                .join(", ");
             let message = format!("Key defines symbols that aren't used in pattern: [{listed}]");
             return DataResult::error(move || message.clone());
         }
-        DataResult::success(ShapedRecipePattern::new(width, height, ingredients, Some(data)))
+        DataResult::success(ShapedRecipePattern::new(
+            width,
+            height,
+            ingredients,
+            Some(data),
+        ))
     }
 
     /// `ShapedRecipePattern.MAP_CODEC`.
@@ -172,7 +206,11 @@ impl ShapedRecipePattern {
     fn matches_flipped(&self, input: &CraftingInput, x_flip: bool) -> bool {
         for y in 0..self.height {
             for x in 0..self.width {
-                let expected = if x_flip { &self.ingredients[self.width - x - 1 + y * self.width] } else { &self.ingredients[x + y * self.width] };
+                let expected = if x_flip {
+                    &self.ingredients[self.width - x - 1 + y * self.width]
+                } else {
+                    &self.ingredients[x + y * self.width]
+                };
                 if !Ingredient::test_optional(expected.as_ref(), input.get_item_at(x, y)) {
                     return false;
                 }
@@ -186,7 +224,11 @@ impl ShapedRecipePattern {
 fn shrink(pattern: &[String]) -> Vec<Vec<char>> {
     let rows: Vec<Vec<char>> = pattern.iter().map(|l| l.chars().collect()).collect();
     let first_non_empty = |line: &[char]| line.iter().take_while(|c| **c == ' ').count() as i32;
-    let last_non_empty = |line: &[char]| line.iter().rposition(|c| *c != ' ').map_or(-1, |i| i as i32);
+    let last_non_empty = |line: &[char]| {
+        line.iter()
+            .rposition(|c| *c != ' ')
+            .map_or(-1, |i| i as i32)
+    };
     let (mut left, mut right, mut top, mut bottom) = (i32::MAX, 0i32, 0usize, 0usize);
     for (i, line) in rows.iter().enumerate() {
         left = left.min(first_non_empty(line));
@@ -204,7 +246,9 @@ fn shrink(pattern: &[String]) -> Vec<Vec<char>> {
     if rows.len() == bottom {
         return Vec::new();
     }
-    (0..rows.len() - bottom - top).map(|line| rows[line + top][left as usize..=right as usize].to_vec()).collect()
+    (0..rows.len() - bottom - top)
+        .map(|line| rows[line + top][left as usize..=right as usize].to_vec())
+        .collect()
 }
 
 /// `Util.isSymmetrical(width, height, list)`.
@@ -248,7 +292,12 @@ impl ShapedRecipe {
     }
 
     pub(super) fn create_placement_info(&self) -> PlacementInfo {
-        let ingredients: Vec<Option<&Ingredient>> = self.pattern.ingredients.iter().map(Option::as_ref).collect();
+        let ingredients: Vec<Option<&Ingredient>> = self
+            .pattern
+            .ingredients
+            .iter()
+            .map(Option::as_ref)
+            .collect();
         PlacementInfo::create_from_optionals(&ingredients)
     }
 
@@ -268,7 +317,12 @@ impl ShapedRecipe {
         vec![RecipeDisplay::CraftingShaped(ShapedCraftingRecipeDisplay {
             width: self.pattern.width as i32,
             height: self.pattern.height as i32,
-            ingredients: self.pattern.ingredients.iter().map(|i| i.as_ref().map_or(SlotDisplay::Empty, Ingredient::display)).collect(),
+            ingredients: self
+                .pattern
+                .ingredients
+                .iter()
+                .map(|i| i.as_ref().map_or(SlotDisplay::Empty, Ingredient::display))
+                .collect(),
             result: stack_display(&self.result),
             crafting_station: item_display(Item::CRAFTING_TABLE),
         })]
@@ -290,7 +344,9 @@ impl ShapelessRecipe {
             common: CommonInfo::map_codec(),
             book: CraftingBookInfo::map_codec(),
             result: ItemStackTemplate::codec().field_of("result"),
-            ingredients: Ingredient::codec().list_of_range(1, 9).field_of("ingredients"),
+            ingredients: Ingredient::codec()
+                .list_of_range(1, 9)
+                .field_of("ingredients"),
         })
     }
 
@@ -308,7 +364,10 @@ impl ShapelessRecipe {
         if self.ingredients.iter().any(Ingredient::is_empty) {
             return false;
         }
-        input.stacked_contents().clone().can_craft_ingredients(&self.ingredients, 1, None)
+        input
+            .stacked_contents()
+            .clone()
+            .can_craft_ingredients(&self.ingredients, 1, None)
     }
 
     pub fn assemble(&self, _input: &CraftingInput) -> ItemStack {
@@ -316,10 +375,12 @@ impl ShapelessRecipe {
     }
 
     pub(super) fn display(&self) -> Vec<RecipeDisplay> {
-        vec![RecipeDisplay::CraftingShapeless(ShapelessCraftingRecipeDisplay {
-            ingredients: self.ingredients.iter().map(Ingredient::display).collect(),
-            result: stack_display(&self.result),
-            crafting_station: item_display(Item::CRAFTING_TABLE),
-        })]
+        vec![RecipeDisplay::CraftingShapeless(
+            ShapelessCraftingRecipeDisplay {
+                ingredients: self.ingredients.iter().map(Ingredient::display).collect(),
+                result: stack_display(&self.result),
+                crafting_station: item_display(Item::CRAFTING_TABLE),
+            },
+        )]
     }
 }

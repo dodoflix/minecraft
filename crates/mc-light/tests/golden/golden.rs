@@ -16,7 +16,9 @@ use std::collections::{BTreeMap, VecDeque};
 use std::path::Path;
 
 fn fnv(bytes: &[u8]) -> u64 {
-    bytes.iter().fold(0xcbf29ce484222325u64, |h, &b| (h ^ u64::from(b)).wrapping_mul(0x100000001b3))
+    bytes.iter().fold(0xcbf29ce484222325u64, |h, &b| {
+        (h ^ u64::from(b)).wrapping_mul(0x100000001b3)
+    })
 }
 
 struct Scenario {
@@ -47,7 +49,10 @@ impl Scenario {
         for cz in g0..g0 + n {
             for cx in g0..g0 + n {
                 let pos = ChunkPos::new(cx, cz);
-                getter.insert(pos, ProtoChunk::new(pos, UpgradeData::empty(), height, factory, None));
+                getter.insert(
+                    pos,
+                    ProtoChunk::new(pos, UpgradeData::empty(), height, factory, None),
+                );
             }
         }
         Scenario {
@@ -66,12 +71,22 @@ impl Scenario {
 
     fn positions(&self) -> Vec<ChunkPos> {
         let (g0, n) = self.grid;
-        (g0..g0 + n).flat_map(|cz| (g0..g0 + n).map(move |cx| ChunkPos::new(cx, cz))).collect()
+        (g0..g0 + n)
+            .flat_map(|cz| (g0..g0 + n).map(move |cx| ChunkPos::new(cx, cz)))
+            .collect()
     }
 
     fn apply_section(&mut self, f: &[&str]) {
-        let (cx, sy, cz): (i32, i32, i32) = (f[1].parse().unwrap(), f[2].parse().unwrap(), f[3].parse().unwrap());
-        let chunk = self.getter.chunks.get_mut(&ChunkPos::pack_xz(cx, cz)).unwrap();
+        let (cx, sy, cz): (i32, i32, i32) = (
+            f[1].parse().unwrap(),
+            f[2].parse().unwrap(),
+            f[3].parse().unwrap(),
+        );
+        let chunk = self
+            .getter
+            .chunks
+            .get_mut(&ChunkPos::pack_xz(cx, cz))
+            .unwrap();
         let index = self.height.section_index_from_section_y(sy) as usize;
         let section = &mut chunk.access.sections[index];
         let mut i = 0;
@@ -88,8 +103,13 @@ impl Scenario {
     }
 
     fn record_run(&mut self, count: i32) {
-        let mut updates: Vec<i64> =
-            self.engine.engine_mut().take_light_updates().into_iter().map(|(layer, s)| s.as_long() * 2 + i64::from(layer == LightLayer::Sky)).collect();
+        let mut updates: Vec<i64> = self
+            .engine
+            .engine_mut()
+            .take_light_updates()
+            .into_iter()
+            .map(|(layer, s)| s.as_long() * 2 + i64::from(layer == LightLayer::Sky))
+            .collect();
         updates.sort_unstable();
         updates.dedup();
         let bytes: Vec<u8> = updates.iter().flat_map(|l| l.to_be_bytes()).collect();
@@ -111,7 +131,8 @@ impl Scenario {
             chunk.set_persisted_status(ChunkStatus::Light);
         }
         for pos in &positions {
-            self.engine.initialize_light(&self.getter.chunks[&pos.pack()].access, false);
+            self.engine
+                .initialize_light(&self.getter.chunks[&pos.pack()].access, false);
         }
         let r = self.engine.run_update(&self.getter, &|_| 45);
         self.record_run(r.light_updates_run);
@@ -123,10 +144,22 @@ impl Scenario {
     }
 
     fn op(&mut self, f: &[&str]) {
-        let (x, y, z): (i32, i32, i32) = (f[1].parse().unwrap(), f[2].parse().unwrap(), f[3].parse().unwrap());
+        let (x, y, z): (i32, i32, i32) = (
+            f[1].parse().unwrap(),
+            f[2].parse().unwrap(),
+            f[3].parse().unwrap(),
+        );
         let state = BlockState::from_id(f[4].parse().unwrap()).unwrap();
-        let chunk = self.getter.chunks.get_mut(&ChunkPos::pack_xz(x >> 4, z >> 4)).unwrap();
-        chunk.set_block_state(BlockPos::new(x, y, z), state, Some(self.engine.engine_mut()));
+        let chunk = self
+            .getter
+            .chunks
+            .get_mut(&ChunkPos::pack_xz(x >> 4, z >> 4))
+            .unwrap();
+        chunk.set_block_state(
+            BlockPos::new(x, y, z),
+            state,
+            Some(self.engine.engine_mut()),
+        );
     }
 
     fn run_queued(&mut self) {
@@ -140,8 +173,14 @@ impl Scenario {
         self.saved.clear();
         for sy in engine.get_min_light_section()..engine.get_max_light_section() {
             let section = SectionPos::of_chunk(&pos, sy);
-            let keep = |layer| engine.get_data_layer_data(layer, section).filter(|l| !l.is_empty()).map(|l| (*l).clone());
-            self.saved.insert(sy, (keep(LightLayer::Block), keep(LightLayer::Sky)));
+            let keep = |layer| {
+                engine
+                    .get_data_layer_data(layer, section)
+                    .filter(|l| !l.is_empty())
+                    .map(|l| (*l).clone())
+            };
+            self.saved
+                .insert(sy, (keep(LightLayer::Block), keep(LightLayer::Sky)));
         }
         self.removed = self.getter.chunks.remove(&pos.pack());
         self.engine.update_chunk_status(pos);
@@ -153,9 +192,13 @@ impl Scenario {
         let mut chunk = self.removed.take().expect("unloaded chunk");
         chunk.access.initialize_light_sources();
         self.getter.chunks.insert(pos.pack(), chunk);
-        let saved: Vec<_> = std::mem::take(&mut self.saved).into_iter().map(|(y, (b, s))| (y, b, if self.has_sky { s } else { None })).collect();
+        let saved: Vec<_> = std::mem::take(&mut self.saved)
+            .into_iter()
+            .map(|(y, (b, s))| (y, b, if self.has_sky { s } else { None }))
+            .collect();
         self.engine.load_chunk_light(pos, saved);
-        self.engine.initialize_light(&self.getter.chunks[&pos.pack()].access, true);
+        self.engine
+            .initialize_light(&self.getter.chunks[&pos.pack()].access, true);
         self.run_queued();
         self.run_queued();
     }
@@ -184,23 +227,43 @@ fn matches_vanilla_light_engine() {
             }
             "OP" => scen.as_mut().unwrap().op(&f),
             "RUN" => scen.as_mut().unwrap().run_engine(),
-            "UNLOAD" => scen.as_mut().unwrap().unload(f[1].parse().unwrap(), f[2].parse().unwrap()),
-            "RELOAD" => scen.as_mut().unwrap().reload(f[1].parse().unwrap(), f[2].parse().unwrap()),
+            "UNLOAD" => scen
+                .as_mut()
+                .unwrap()
+                .unload(f[1].parse().unwrap(), f[2].parse().unwrap()),
+            "RELOAD" => scen
+                .as_mut()
+                .unwrap()
+                .reload(f[1].parse().unwrap(), f[2].parse().unwrap()),
             "RUNCOUNT" => {
                 let s = scen.as_mut().unwrap();
                 checks += 1;
                 s.current_run = s.runs.pop_front().expect("engine run for RUNCOUNT");
                 let want: i32 = f[1].parse().unwrap();
                 if s.current_run.0 != want {
-                    fail.push(format!("[{}] {}: runLightUpdates count {} != {want}", s.name, ctx(), s.current_run.0));
+                    fail.push(format!(
+                        "[{}] {}: runLightUpdates count {} != {want}",
+                        s.name,
+                        ctx(),
+                        s.current_run.0
+                    ));
                 }
             }
             "UPD" => {
                 let s = scen.as_ref().unwrap();
                 checks += 1;
-                let (n, h): (usize, u64) = (f[1].parse().unwrap(), u64::from_str_radix(f[2], 16).unwrap());
+                let (n, h): (usize, u64) = (
+                    f[1].parse().unwrap(),
+                    u64::from_str_radix(f[2], 16).unwrap(),
+                );
                 if (s.current_run.2, s.current_run.1) != (n, h) {
-                    fail.push(format!("[{}] {}: onLightUpdate sections {} / {:x} != {n} / {h:x}", s.name, ctx(), s.current_run.2, s.current_run.1));
+                    fail.push(format!(
+                        "[{}] {}: onLightUpdate sections {} / {:x} != {n} / {h:x}",
+                        s.name,
+                        ctx(),
+                        s.current_run.2,
+                        s.current_run.1
+                    ));
                 }
             }
             "SNAP" => {
@@ -210,11 +273,27 @@ fn matches_vanilla_light_engine() {
             "L" => {
                 let s = scen.as_ref().unwrap();
                 checks += 1;
-                let layer = if f[1] == "B" { LightLayer::Block } else { LightLayer::Sky };
-                let section = SectionPos::of(f[2].parse().unwrap(), f[3].parse().unwrap(), f[4].parse().unwrap());
-                let got = layer_hash(s.engine.engine().get_data_layer_data(layer, section).as_deref());
+                let layer = if f[1] == "B" {
+                    LightLayer::Block
+                } else {
+                    LightLayer::Sky
+                };
+                let section = SectionPos::of(
+                    f[2].parse().unwrap(),
+                    f[3].parse().unwrap(),
+                    f[4].parse().unwrap(),
+                );
+                let got = layer_hash(
+                    s.engine
+                        .engine()
+                        .get_data_layer_data(layer, section)
+                        .as_deref(),
+                );
                 if got != f[5] {
-                    fail.push(format!("[{}] {label}: layer {} {section}: {got} != {}", s.name, f[1], f[5]));
+                    fail.push(format!(
+                        "[{}] {label}: layer {} {section}: {got} != {}",
+                        s.name, f[1], f[5]
+                    ));
                 }
             }
             "SRC" => {
@@ -222,10 +301,15 @@ fn matches_vanilla_light_engine() {
                 checks += 1;
                 let pos = ChunkPos::new(f[1].parse().unwrap(), f[2].parse().unwrap());
                 let sources = &s.getter.chunks[&pos.pack()].access.sky_light_sources;
-                let bytes: Vec<u8> = (0..256).flat_map(|i| sources.get_lowest_source_y(i & 15, i >> 4).to_be_bytes()).collect();
+                let bytes: Vec<u8> = (0..256)
+                    .flat_map(|i| sources.get_lowest_source_y(i & 15, i >> 4).to_be_bytes())
+                    .collect();
                 let got = format!("{:x}", fnv(&bytes));
                 if got != f[3] {
-                    fail.push(format!("[{}] {label}: sky sources of {pos}: {got} != {}", s.name, f[3]));
+                    fail.push(format!(
+                        "[{}] {label}: sky sources of {pos}: {got} != {}",
+                        s.name, f[3]
+                    ));
                 }
             }
             "PKT" => {
@@ -234,15 +318,26 @@ fn matches_vanilla_light_engine() {
                 let pos = ChunkPos::new(f[1].parse().unwrap(), f[2].parse().unwrap());
                 let engine = s.engine.engine();
                 let mut out = Vec::new();
-                engine.light_update_packet_data(pos, None, None).write(&mut out);
+                engine
+                    .light_update_packet_data(pos, None, None)
+                    .write(&mut out);
                 let (mut f1, mut f2) = (BitSet::new(), BitSet::new());
-                (0..engine.get_light_section_count() as usize).step_by(3).for_each(|i| f1.set(i));
-                (1..engine.get_light_section_count() as usize).step_by(2).for_each(|i| f2.set(i));
+                (0..engine.get_light_section_count() as usize)
+                    .step_by(3)
+                    .for_each(|i| f1.set(i));
+                (1..engine.get_light_section_count() as usize)
+                    .step_by(2)
+                    .for_each(|i| f2.set(i));
                 let mut out2 = Vec::new();
-                engine.light_update_packet_data(pos, Some(&f1), Some(&f2)).write(&mut out2);
+                engine
+                    .light_update_packet_data(pos, Some(&f1), Some(&f2))
+                    .write(&mut out2);
                 let got = format!("{:x} {:x}", fnv(&out), fnv(&out2));
                 if got != format!("{} {}", f[3], f[4]) {
-                    fail.push(format!("[{}] {label}: light packet of {pos}: {got} != {} {}", s.name, f[3], f[4]));
+                    fail.push(format!(
+                        "[{}] {label}: light packet of {pos}: {got} != {} {}",
+                        s.name, f[3], f[4]
+                    ));
                 }
             }
             "Q" => {
@@ -257,7 +352,10 @@ fn matches_vanilla_light_engine() {
                     _ => (reader.get_raw_brightness(pos, v[3]), v[4]),
                 };
                 if got != want {
-                    fail.push(format!("[{}] {label}: query {} {pos}: {got} != {want}", s.name, f[1]));
+                    fail.push(format!(
+                        "[{}] {label}: query {} {pos}: {got} != {want}",
+                        s.name, f[1]
+                    ));
                 }
             }
             "END" => ended = true,
@@ -265,7 +363,10 @@ fn matches_vanilla_light_engine() {
         }
     }
     assert!(ended);
-    eprintln!("{snaps} snapshots, {checks} checks, {} failures", fail.len());
+    eprintln!(
+        "{snaps} snapshots, {checks} checks, {} failures",
+        fail.len()
+    );
     for m in fail.iter().take(40) {
         eprintln!("{m}");
     }

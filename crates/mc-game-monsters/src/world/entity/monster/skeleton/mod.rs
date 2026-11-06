@@ -5,6 +5,12 @@
 
 mod goals;
 
+use linkme::distributed_slice;
+use mc_core::pos::BlockPos;
+use mc_core::random::RandomSource;
+use mc_data::block::Block;
+use mc_data::enums::EntitySpawnReason;
+use mc_data::{EntityType, Item, MobEffect, SoundEvent};
 use mc_game_core::define_accessor;
 use mc_game_core::register_spawn_placement;
 use mc_game_core::registry::RegistryAccess;
@@ -17,22 +23,18 @@ use mc_game_core::world::entity::effect::MobEffectInstance;
 use mc_game_core::world::entity::equipment::EquipmentSlot;
 use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
 use mc_game_core::world::entity::living_entity::util::lm;
-use mc_game_core::world::entity::mob::conversion_tracker::{ConversionTracker, ConversionTrackerConfig};
+use mc_game_core::world::entity::mob::conversion_tracker::{
+    ConversionTracker, ConversionTrackerConfig,
+};
 use mc_game_core::world::entity::mob::{self, MobData, MobKind};
 use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
 use mc_game_core::world::entity::spawn_predicates as sp;
 use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
 use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
-use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
-use mc_game_core::world::level::pathfinder::PathType;
 use mc_game_core::world::level::BlockGetter;
 use mc_game_core::world::level::block::state::BlockStateExt;
-use linkme::distributed_slice;
-use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
-use mc_data::block::Block;
-use mc_data::enums::EntitySpawnReason;
-use mc_data::{EntityType, Item, MobEffect, SoundEvent};
+use mc_game_core::world::level::pathfinder::PathType;
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_nbt::CompoundTag;
 use mc_world::level_storage::Difficulty;
 
@@ -94,7 +96,13 @@ impl AbstractSkeleton {
             }
             _ => {}
         });
-        let mut skeleton = AbstractSkeleton { mob, kind, parked_bow_goal: None, parked_melee_goal: None, weapon_goal_dirty: false };
+        let mut skeleton = AbstractSkeleton {
+            mob,
+            kind,
+            parked_bow_goal: None,
+            parked_melee_goal: None,
+            weapon_goal_dirty: false,
+        };
         let navigation = StandardPathNavigation::ground(&skeleton);
         skeleton.mob.set_navigation(Box::new(navigation));
         goals::register_goals(&mut skeleton);
@@ -135,13 +143,19 @@ impl AbstractSkeleton {
 
     /// `setSheared(sheared)` (`Bogged`).
     pub fn set_sheared(&mut self, sheared: bool) {
-        self.mob.living.entity.entity_data.set(DATA_SHEARED, sheared);
+        self.mob
+            .living
+            .entity
+            .entity_data
+            .set(DATA_SHEARED, sheared);
     }
 
     /// `isShaking()`: `Skeleton` while its freezing conversion runs, else fully frozen.
     pub fn is_shaking(&self) -> bool {
         match &self.kind {
-            SkeletonKind::Skeleton(tracker) => tracker.is_converting(&self.mob.living.entity.entity_data),
+            SkeletonKind::Skeleton(tracker) => {
+                tracker.is_converting(&self.mob.living.entity.entity_data)
+            }
             _ => self.base().get_ticks_frozen() >= self.get_ticks_required_to_freeze(),
         }
     }
@@ -213,13 +227,20 @@ impl Entity for AbstractSkeleton {
         })
     }
 
-    fn play_step_sound(&mut self, level: &mut ServerLevel, _pos: BlockPos, _state: mc_data::block::BlockState) {
+    fn play_step_sound(
+        &mut self,
+        level: &mut ServerLevel,
+        _pos: BlockPos,
+        _state: mc_data::block::BlockState,
+    ) {
         let sound = self.get_step_sound();
         self.play_sound(level, sound, 0.15, 1.0);
     }
 
     fn after_ride_tick(&mut self, level: &ServerLevel) {
-        if let Some(vehicle) = mob::navigation::controlled_vehicle(self, level).and_then(|v| level.get_entity(v)) {
+        if let Some(vehicle) =
+            mob::navigation::controlled_vehicle(self, level).and_then(|v| level.get_entity(v))
+        {
             if vehicle.mob().is_some_and(|m| m.kind.is_pathfinder()) {
                 let body = vehicle.living().map(|l| l.y_body_rot);
                 if let (Some(body), Some(l)) = (body, self.living_mut()) {
@@ -229,19 +250,38 @@ impl Entity for AbstractSkeleton {
         }
     }
 
-    fn populate_default_equipment_slots(&mut self, random: &mut dyn RandomSource, difficulty: &DifficultyInstance) {
+    fn populate_default_equipment_slots(
+        &mut self,
+        random: &mut dyn RandomSource,
+        difficulty: &DifficultyInstance,
+    ) {
         match self.kind {
-            SkeletonKind::WitherSkeleton => mob::equipment::set_item_slot_spawn(self, EquipmentSlot::MainHand, ItemStack::new(Item::STONE_SWORD)),
+            SkeletonKind::WitherSkeleton => mob::equipment::set_item_slot_spawn(
+                self,
+                EquipmentSlot::MainHand,
+                ItemStack::new(Item::STONE_SWORD),
+            ),
             _ => {
                 mob::equipment::populate_default_equipment_slots(self, random, difficulty);
-                mob::equipment::set_item_slot_spawn(self, EquipmentSlot::MainHand, ItemStack::new(Item::BOW));
+                mob::equipment::set_item_slot_spawn(
+                    self,
+                    EquipmentSlot::MainHand,
+                    ItemStack::new(Item::BOW),
+                );
             }
         }
     }
 
-    fn populate_default_equipment_enchantments(&mut self, registries: &RegistryAccess, random: &mut dyn RandomSource, difficulty: &DifficultyInstance) {
+    fn populate_default_equipment_enchantments(
+        &mut self,
+        registries: &RegistryAccess,
+        random: &mut dyn RandomSource,
+        difficulty: &DifficultyInstance,
+    ) {
         if !matches!(self.kind, SkeletonKind::WitherSkeleton) {
-            mob::equipment::populate_default_equipment_enchantments(self, registries, random, difficulty);
+            mob::equipment::populate_default_equipment_enchantments(
+                self, registries, random, difficulty,
+            );
         }
     }
 
@@ -260,14 +300,24 @@ impl Entity for AbstractSkeleton {
         self.reassess_weapon_goal(difficulty.get_difficulty());
         let can_pick_up = level.random().next_float() < 0.55 * difficulty.get_special_multiplier();
         self.set_can_pick_up_loot(can_pick_up);
-        if self.get_item_by_slot(EquipmentSlot::Head).is_empty() && mc_game_core::util::special_dates::is_halloween() && level.random().next_float() < 0.25 {
-            let pumpkin = if level.random().next_float() < 0.1 { Item::JACK_O_LANTERN } else { Item::CARVED_PUMPKIN };
+        if self.get_item_by_slot(EquipmentSlot::Head).is_empty()
+            && mc_game_core::util::special_dates::is_halloween()
+            && level.random().next_float() < 0.25
+        {
+            let pumpkin = if level.random().next_float() < 0.1 {
+                Item::JACK_O_LANTERN
+            } else {
+                Item::CARVED_PUMPKIN
+            };
             mob::equipment::set_item_slot_spawn(self, EquipmentSlot::Head, ItemStack::new(pumpkin));
             self.set_drop_chance(EquipmentSlot::Head, 0.0);
         }
         if let SkeletonKind::WitherSkeleton = self.kind {
             // `WitherSkeleton.finalizeSpawn`: after `super`
-            if let Some(a) = lm(self).attributes.get_instance(mc_data::Attribute::ATTACK_DAMAGE) {
+            if let Some(a) = lm(self)
+                .attributes
+                .get_instance(mc_data::Attribute::ATTACK_DAMAGE)
+            {
                 a.set_base_value(4.0);
             }
             self.reassess_weapon_goal(difficulty.get_difficulty());
@@ -288,45 +338,72 @@ impl Entity for AbstractSkeleton {
 
     fn can_hold_item(&self, stack: &ItemStack) -> bool {
         match self.kind {
-            SkeletonKind::WitherSkeleton => !goals::item_is_in_tag(stack, "wither_skeleton_disliked_weapons"),
+            SkeletonKind::WitherSkeleton => {
+                !goals::item_is_in_tag(stack, "wither_skeleton_disliked_weapons")
+            }
             _ => true,
         }
     }
 
     fn wants_to_pick_up(&self, _level: &ServerLevel, stack: &ItemStack) -> bool {
-        if goals::item_is_in_tag(stack, "spears") { false } else { self.can_hold_item(stack) }
+        if goals::item_is_in_tag(stack, "spears") {
+            false
+        } else {
+            self.can_hold_item(stack)
+        }
     }
 
     fn can_be_affected(&self, level: &ServerLevel, effect: &MobEffectInstance) -> bool {
         match self.kind {
             SkeletonKind::WitherSkeleton if effect.effect == MobEffect::WITHER => false,
             SkeletonKind::Parched if effect.effect == MobEffect::WEAKNESS => false,
-            _ => mc_game_core::world::entity::living_entity::effects::can_be_affected(self, level, effect),
+            _ => mc_game_core::world::entity::living_entity::effects::can_be_affected(
+                self, level, effect,
+            ),
         }
     }
 
     fn do_hurt_target(&mut self, level: &mut ServerLevel, target: &mut dyn Entity) -> bool {
-        let result = mc_game_core::world::entity::living_entity::combat::mob_do_hurt_target(self, level, target);
+        let result = mc_game_core::world::entity::living_entity::combat::mob_do_hurt_target(
+            self, level, target,
+        );
         if let SkeletonKind::WitherSkeleton = self.kind {
             if !result {
                 return false;
             }
             if target.living().is_some() {
                 let source = self.id();
-                target.add_effect(level, MobEffectInstance::of(MobEffect::WITHER, 200, 0), Some(source));
+                target.add_effect(
+                    level,
+                    MobEffectInstance::of(MobEffect::WITHER, 200, 0),
+                    Some(source),
+                );
             }
             return true;
         }
         result
     }
 
-    fn on_equip_item(&mut self, level: &mut ServerLevel, slot: EquipmentSlot, old: &ItemStack, new: &ItemStack) {
-        mc_game_core::world::entity::living_entity::equipment::on_equip_item(self, level, slot, old, new);
+    fn on_equip_item(
+        &mut self,
+        level: &mut ServerLevel,
+        slot: EquipmentSlot,
+        old: &ItemStack,
+        new: &ItemStack,
+    ) {
+        mc_game_core::world::entity::living_entity::equipment::on_equip_item(
+            self, level, slot, old, new,
+        );
         let difficulty = level.difficulty();
         self.reassess_weapon_goal(difficulty);
     }
 
-    fn mob_interact(&mut self, level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) -> InteractionResult {
+    fn mob_interact(
+        &mut self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        hand: InteractionHand,
+    ) -> InteractionResult {
         if let SkeletonKind::Bogged = self.kind {
             let in_hand = player.get_item_in_hand(hand);
             if in_hand.is(Item::SHEARS) && !self.is_sheared() {
@@ -346,7 +423,11 @@ impl Entity for AbstractSkeleton {
         match &self.kind {
             SkeletonKind::Skeleton(tracker) => {
                 let afflicted = self.base().is_in_powder_snow;
-                tracker.add_additional_save_data(&self.mob.living.entity.entity_data, afflicted, out);
+                tracker.add_additional_save_data(
+                    &self.mob.living.entity.entity_data,
+                    afflicted,
+                    out,
+                );
             }
             SkeletonKind::Bogged => out.put_boolean("sheared", self.is_sheared()),
             _ => {}
@@ -357,7 +438,9 @@ impl Entity for AbstractSkeleton {
         mob::nbt::read_additional_save_data(self, input);
         self.weapon_goal_dirty = true;
         match &mut self.kind {
-            SkeletonKind::Skeleton(tracker) => tracker.read_additional_save_data(&mut self.mob.living.entity.entity_data, input),
+            SkeletonKind::Skeleton(tracker) => {
+                tracker.read_additional_save_data(&mut self.mob.living.entity.entity_data, input)
+            }
             SkeletonKind::Bogged => {
                 let sheared = input.get_boolean_or("sheared", false);
                 self.set_sheared(sheared);
@@ -373,30 +456,49 @@ impl AbstractSkeleton {
         let ready = self.is_alive() && !self.mob.is_no_ai();
         let afflicted = ready && self.base().is_in_powder_snow;
         let convert = match &mut self.kind {
-            SkeletonKind::Skeleton(tracker) => tracker.tick(&mut self.mob.living.entity.entity_data, ready, afflicted),
+            SkeletonKind::Skeleton(tracker) => {
+                tracker.tick(&mut self.mob.living.entity.entity_data, ready, afflicted)
+            }
             _ => false,
         };
         if convert {
             let params = mob::ConversionParams::single(self, level, true, true);
-            mob::convert::convert_to(self, level, EntityType::STRAY, &params, EntitySpawnReason::Conversion, |converted, level| {
-                if !converted.base().is_silent() {
-                    level.level_event_impl(None, 1048, converted.block_position(), 0);
-                }
-            });
+            mob::convert::convert_to(
+                self,
+                level,
+                EntityType::STRAY,
+                &params,
+                EntitySpawnReason::Conversion,
+                |converted, level| {
+                    if !converted.base().is_silent() {
+                        level.level_event_impl(None, 1048, converted.block_position(), 0);
+                    }
+                },
+            );
         }
     }
 }
 
 /// `Stray.checkStraySpawnRules(type, level, spawnReason, pos, random)`.
-pub fn check_stray_spawn_rules(ty: EntityType, level: &dyn ServerLevelAccessor, reason: EntitySpawnReason, pos: BlockPos, random: &mut dyn RandomSource) -> bool {
+pub fn check_stray_spawn_rules(
+    ty: EntityType,
+    level: &dyn ServerLevelAccessor,
+    reason: EntitySpawnReason,
+    pos: BlockPos,
+    random: &mut dyn RandomSource,
+) -> bool {
     let mut check_sky_pos = pos;
     loop {
         check_sky_pos = check_sky_pos.above();
-        if !level.get_block_state(check_sky_pos).is_block(Block::POWDER_SNOW) {
+        if !level
+            .get_block_state(check_sky_pos)
+            .is_block(Block::POWDER_SNOW)
+        {
             break;
         }
     }
-    sp::check_monster_spawn_rules(ty, level, reason, pos, random) && (sp::is_spawner(reason) || level.can_see_sky(check_sky_pos.below()))
+    sp::check_monster_spawn_rules(ty, level, reason, pos, random)
+        && (sp::is_spawner(reason) || level.can_see_sky(check_sky_pos.below()))
 }
 
 register_spawn_placement!(EntityType::STRAY, check_stray_spawn_rules);
@@ -404,7 +506,10 @@ register_spawn_placement!(EntityType::STRAY, check_stray_spawn_rules);
 macro_rules! register_skeleton {
     ($name:ident, $ty:ident) => {
         #[distributed_slice(ENTITY_FACTORIES)]
-        static $name: EntityRegistration = EntityRegistration { entity_type: EntityType::$ty, create: |ty, id, registries| Box::new(AbstractSkeleton::new(ty, id, registries)) };
+        static $name: EntityRegistration = EntityRegistration {
+            entity_type: EntityType::$ty,
+            create: |ty, id, registries| Box::new(AbstractSkeleton::new(ty, id, registries)),
+        };
     };
 }
 

@@ -1,10 +1,10 @@
 //! `RegionFile`: sector allocation, header validation, corrupt-file handling, oversized external
 //! chunks, every compression version, and reading region files written by the vanilla Java `RegionFile` (committed fixtures).
 
-use mc_core::pos::chunk_pos::ChunkPos;
-use mc_world::region::region_file_version::{self as v, RegionFileVersion};
-use mc_world::region::RegionFile;
 use crate::region_common::*;
+use mc_core::pos::chunk_pos::ChunkPos;
+use mc_world::region::RegionFile;
+use mc_world::region::region_file_version::{self as v, RegionFileVersion};
 use std::io::Read;
 use std::path::Path;
 
@@ -21,7 +21,10 @@ fn pseudo_random(n: usize, mut seed: u64) -> Vec<u8> {
 
 fn read(f: &RegionFile, x: i32, z: i32) -> Option<Vec<u8>> {
     let mut b = Vec::new();
-    f.get_chunk_data_input_stream(&ChunkPos::new(x, z)).unwrap()?.read_to_end(&mut b).unwrap();
+    f.get_chunk_data_input_stream(&ChunkPos::new(x, z))
+        .unwrap()?
+        .read_to_end(&mut b)
+        .unwrap();
     Some(b)
 }
 
@@ -37,7 +40,11 @@ fn sector(offset: i32) -> (usize, usize) {
 fn sector_allocation_reuse_and_padding() {
     let dir = tempfile::tempdir().unwrap();
     let mut f = open(dir.path(), "r.0.0.mca", &v::VERSION_NONE);
-    let (a, b, c) = (ChunkPos::new(0, 0), ChunkPos::new(1, 0), ChunkPos::new(0, 1));
+    let (a, b, c) = (
+        ChunkPos::new(0, 0),
+        ChunkPos::new(1, 0),
+        ChunkPos::new(0, 1),
+    );
     f.write_chunk_data(&a, &[1; 100]).unwrap();
     assert_eq!(sector(f.get_offset(&a)), (2, 1));
     f.write_chunk_data(&b, &pseudo_random(9000, 1)).unwrap(); // 5 + 9000 -> 3 sectors
@@ -50,7 +57,9 @@ fn sector_allocation_reuse_and_padding() {
     assert_eq!(sector(f.get_offset(&ChunkPos::new(2, 0))), (2, 1)); // reuses the sector freed by rewriting `a`
     assert_eq!(f.used_sectors().get_used(), (0..9).collect::<Vec<_>>());
     f.close().unwrap();
-    let len = std::fs::metadata(dir.path().join("r.0.0.mca")).unwrap().len();
+    let len = std::fs::metadata(dir.path().join("r.0.0.mca"))
+        .unwrap()
+        .len();
     assert_eq!(len, 9 * 4096);
 
     let f = open(dir.path(), "r.0.0.mca", &v::VERSION_NONE);
@@ -59,7 +68,11 @@ fn sector_allocation_reuse_and_padding() {
     assert_eq!(read(&f, 0, 1).unwrap(), vec![7; 4092]);
     assert_eq!(f.used_sectors().get_used(), (0..9).collect::<Vec<_>>());
     assert!(f.get_timestamp(&a) > 1_700_000_000);
-    assert!(read(&f, 9, 9).is_none() && !f.has_chunk(&ChunkPos::new(9, 9)) && !f.does_chunk_exist(&ChunkPos::new(9, 9)));
+    assert!(
+        read(&f, 9, 9).is_none()
+            && !f.has_chunk(&ChunkPos::new(9, 9))
+            && !f.does_chunk_exist(&ChunkPos::new(9, 9))
+    );
 }
 
 #[test]
@@ -67,7 +80,12 @@ fn untouched_new_file_stays_empty_and_clear_frees() {
     let dir = tempfile::tempdir().unwrap();
     let f = open(dir.path(), "r.0.0.mca", &v::VERSION_DEFLATE);
     f.close().unwrap();
-    assert_eq!(std::fs::metadata(dir.path().join("r.0.0.mca")).unwrap().len(), 0);
+    assert_eq!(
+        std::fs::metadata(dir.path().join("r.0.0.mca"))
+            .unwrap()
+            .len(),
+        0
+    );
 
     let mut f = open(dir.path(), "r.0.0.mca", &v::VERSION_DEFLATE);
     let p = ChunkPos::new(3, 4);
@@ -86,14 +104,28 @@ fn untouched_new_file_stays_empty_and_clear_frees() {
 #[test]
 fn every_version_round_trips_and_ids_are_stored() {
     let dir = tempfile::tempdir().unwrap();
-    let data = pseudo_random(40_000, 5).into_iter().enumerate().map(|(i, b)| if i % 3 == 0 { 0 } else { b }).collect::<Vec<_>>();
-    for ver in [&v::VERSION_GZIP, &v::VERSION_DEFLATE, &v::VERSION_NONE, &v::VERSION_LZ4] {
+    let data = pseudo_random(40_000, 5)
+        .into_iter()
+        .enumerate()
+        .map(|(i, b)| if i % 3 == 0 { 0 } else { b })
+        .collect::<Vec<_>>();
+    for ver in [
+        &v::VERSION_GZIP,
+        &v::VERSION_DEFLATE,
+        &v::VERSION_NONE,
+        &v::VERSION_LZ4,
+    ] {
         let name = format!("r.{}.0.mca", ver.get_id());
         let mut f = open(dir.path(), &name, ver);
-        f.write_chunk_data(&ChunkPos::new(ver.get_id() * 32 + 4, 5), &data).unwrap();
+        f.write_chunk_data(&ChunkPos::new(ver.get_id() * 32 + 4, 5), &data)
+            .unwrap();
         f.close().unwrap();
         let raw = std::fs::read(dir.path().join(&name)).unwrap();
-        let (n, _) = sector(i32::from_be_bytes(raw[(4 + 5 * 32) * 4..(4 + 5 * 32) * 4 + 4].try_into().unwrap()));
+        let (n, _) = sector(i32::from_be_bytes(
+            raw[(4 + 5 * 32) * 4..(4 + 5 * 32) * 4 + 4]
+                .try_into()
+                .unwrap(),
+        ));
         assert_eq!(raw[n * 4096 + 4], ver.get_id() as u8);
         let len = i32::from_be_bytes(raw[n * 4096..n * 4096 + 4].try_into().unwrap()) as usize;
         let payload = &raw[n * 4096 + 5..n * 4096 + 4 + len];
@@ -101,7 +133,12 @@ fn every_version_round_trips_and_ids_are_stored() {
             assert_eq!(payload, &data[..]);
         }
         let f = open(dir.path(), &name, &v::VERSION_DEFLATE); // reading is independent of the write version
-        assert_eq!(read(&f, ver.get_id() * 32 + 4, 5).unwrap(), data, "version {}", ver.get_id());
+        assert_eq!(
+            read(&f, ver.get_id() * 32 + 4, 5).unwrap(),
+            data,
+            "version {}",
+            ver.get_id()
+        );
     }
     // writing with the custom version fails like vanilla's UnsupportedOperationException
     let mut f = open(dir.path(), "r.9.0.mca", &v::VERSION_CUSTOM);
@@ -128,10 +165,12 @@ fn oversized_chunk_goes_to_mcc() {
     // 255 sectors minus the 5-byte header still fits inline
     let mut f = open(dir.path(), "r.0.0.mca", &v::VERSION_NONE);
     let q = ChunkPos::new(4, 4);
-    f.write_chunk_data(&q, &pseudo_random(255 * 4096 - 5, 4)).unwrap();
+    f.write_chunk_data(&q, &pseudo_random(255 * 4096 - 5, 4))
+        .unwrap();
     assert_eq!(sector(f.get_offset(&q)).1, 255);
     assert!(!dir.path().join("c.4.4.mcc").exists());
-    f.write_chunk_data(&q, &pseudo_random(255 * 4096 - 4, 4)).unwrap();
+    f.write_chunk_data(&q, &pseudo_random(255 * 4096 - 4, 4))
+        .unwrap();
     assert!(dir.path().join("c.4.4.mcc").exists());
 
     // rewriting small removes the external file; clearing removes it too
@@ -139,7 +178,19 @@ fn oversized_chunk_goes_to_mcc() {
     assert!(!mcc.exists());
     f.clear(&q).unwrap();
     assert!(!dir.path().join("c.4.4.mcc").exists());
-    assert_eq!(std::fs::read_dir(dir.path()).unwrap().filter(|e| e.as_ref().unwrap().file_name().to_str().unwrap().starts_with("tmp")).count(), 0);
+    assert_eq!(
+        std::fs::read_dir(dir.path())
+            .unwrap()
+            .filter(|e| e
+                .as_ref()
+                .unwrap()
+                .file_name()
+                .to_str()
+                .unwrap()
+                .starts_with("tmp"))
+            .count(),
+        0
+    );
 }
 
 #[test]
@@ -174,14 +225,21 @@ fn malformed_files_behave_like_vanilla() {
         let f = open(dir.path(), "r.0.0.mca", &v::VERSION_DEFLATE);
         assert!(read(&f, 0, 0).is_none(), "{name}");
         // doesChunkExist only checks id validity, external file presence and declared length
-        assert_eq!(f.does_chunk_exist(&ChunkPos::new(0, 0)), exists_expected, "{name}");
+        assert_eq!(
+            f.does_chunk_exist(&ChunkPos::new(0, 0)),
+            exists_expected,
+            "{name}"
+        );
         drop(f);
     }
 
     // corrupt compressed data surfaces as an IO error while reading the stream
     std::fs::write(&path, corrupt_deflate_file()).unwrap();
     let f = open(dir.path(), "r.0.0.mca", &v::VERSION_DEFLATE);
-    let mut s = f.get_chunk_data_input_stream(&ChunkPos::new(0, 0)).unwrap().unwrap();
+    let mut s = f
+        .get_chunk_data_input_stream(&ChunkPos::new(0, 0))
+        .unwrap()
+        .unwrap();
     assert!(s.read_to_end(&mut Vec::new()).is_err());
     assert!(f.does_chunk_exist(&ChunkPos::new(0, 0)));
     drop((s, f));
@@ -193,8 +251,16 @@ fn malformed_files_behave_like_vanilla() {
 #[test]
 fn sync_option_opens_with_dsync() {
     let dir = tempfile::tempdir().unwrap();
-    let mut f = RegionFile::with_version(info(), &dir.path().join("r.0.0.mca"), dir.path(), &v::VERSION_LZ4, true).unwrap();
-    f.write_chunk_data(&ChunkPos::new(0, 0), b"durable").unwrap();
+    let mut f = RegionFile::with_version(
+        info(),
+        &dir.path().join("r.0.0.mca"),
+        dir.path(),
+        &v::VERSION_LZ4,
+        true,
+    )
+    .unwrap();
+    f.write_chunk_data(&ChunkPos::new(0, 0), b"durable")
+        .unwrap();
     assert_eq!(read(&f, 0, 0).unwrap(), b"durable");
     f.flush().unwrap();
 }
@@ -202,13 +268,23 @@ fn sync_option_opens_with_dsync() {
 #[test]
 fn reads_java_written_files() {
     let dir = fixtures().join("java");
-    let expected: Vec<String> = std::fs::read_to_string(dir.join("expected.txt")).unwrap().lines().map(str::to_owned).collect();
+    let expected: Vec<String> = std::fs::read_to_string(dir.join("expected.txt"))
+        .unwrap()
+        .lines()
+        .map(str::to_owned)
+        .collect();
     assert_eq!(dump_dir(&dir), expected);
     assert_eq!(expected.len(), 16);
 }
 
 #[test]
 fn sha256_vectors() {
-    assert_eq!(sha256_hex(b"abc"), "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad");
-    assert_eq!(sha256_hex(b""), "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855");
+    assert_eq!(
+        sha256_hex(b"abc"),
+        "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+    );
+    assert_eq!(
+        sha256_hex(b""),
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    );
 }

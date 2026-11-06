@@ -94,7 +94,14 @@ impl FrequencyReductionMethod {
     }
 
     /// `shouldGenerate(seed, salt, sourceX, sourceZ, probability)`.
-    pub fn should_generate(self, seed: i64, salt: i32, source_x: i32, source_z: i32, probability: f32) -> bool {
+    pub fn should_generate(
+        self,
+        seed: i64,
+        salt: i32,
+        source_x: i32,
+        source_z: i32,
+        probability: f32,
+    ) -> bool {
         let mut random = worldgen_random();
         match self {
             // `probabilityReducer`: vanilla passes (salt, sourceX, sourceZ) as (x, z, blend) - kept as is.
@@ -112,7 +119,12 @@ impl FrequencyReductionMethod {
             }
             // `legacyArbitrarySaltProbabilityReducer`
             FrequencyReductionMethod::LegacyType2 => {
-                random.set_large_feature_with_salt(seed, source_x, source_z, HIGHLY_ARBITRARY_RANDOM_SALT);
+                random.set_large_feature_with_salt(
+                    seed,
+                    source_x,
+                    source_z,
+                    HIGHLY_ARBITRARY_RANDOM_SALT,
+                );
                 random.next_float() < probability
             }
             // `legacyProbabilityReducerWithDouble`
@@ -181,7 +193,9 @@ impl SpreadingPlacement {
                         .ok_or_else(|| LoadError::new(format!("Unknown element name:{name}")))
                 })?
                 .unwrap_or(FrequencyReductionMethod::Default),
-            frequency: fields.optional("frequency", parse_frequency)?.unwrap_or(1.0),
+            frequency: fields
+                .optional("frequency", parse_frequency)?
+                .unwrap_or(1.0),
             salt: fields.required("salt", |v| {
                 let n = parse_int(v)?;
                 if n >= 0 {
@@ -195,11 +209,20 @@ impl SpreadingPlacement {
     }
 
     /// `applyAdditionalChunkRestrictions(sourceX, sourceZ, levelSeed)`.
-    pub fn apply_additional_chunk_restrictions(&self, source_x: i32, source_z: i32, level_seed: i64) -> bool {
+    pub fn apply_additional_chunk_restrictions(
+        &self,
+        source_x: i32,
+        source_z: i32,
+        level_seed: i64,
+    ) -> bool {
         !(self.frequency < 1.0)
-            || self
-                .frequency_reduction_method
-                .should_generate(level_seed, self.salt, source_x, source_z, self.frequency)
+            || self.frequency_reduction_method.should_generate(
+                level_seed,
+                self.salt,
+                source_x,
+                source_z,
+                self.frequency,
+            )
     }
 
     /// `applyInteractionsWithOtherStructures(state, sourceX, sourceZ)`. An `other_set` that the state's registry
@@ -212,10 +235,14 @@ impl SpreadingPlacement {
     ) -> bool {
         match &self.exclusion_zone {
             None => true,
-            Some(zone) => !state
-                .registry()
-                .get(&zone.other_set)
-                .is_some_and(|other| state.has_structure_chunk_in_range(other.value(), source_x, source_z, zone.chunk_count)),
+            Some(zone) => !state.registry().get(&zone.other_set).is_some_and(|other| {
+                state.has_structure_chunk_in_range(
+                    other.value(),
+                    source_x,
+                    source_z,
+                    zone.chunk_count,
+                )
+            }),
         }
     }
 
@@ -235,8 +262,13 @@ impl SpreadingPlacement {
 
 /// `Vec3i.offsetCodec(16)`: a list of exactly three ints, each at most 16 from zero (`Math.abs`, so `Integer.MIN_VALUE` passes).
 fn parse_offset_vec3i(value: &Value) -> LoadResult<Vec3i> {
-    let list = value.as_array().ok_or_else(|| LoadError::new("Not a JSON array"))?;
-    let ints = list.iter().map(parse_int).collect::<LoadResult<Vec<i32>>>()?;
+    let list = value
+        .as_array()
+        .ok_or_else(|| LoadError::new("Not a JSON array"))?;
+    let ints = list
+        .iter()
+        .map(parse_int)
+        .collect::<LoadResult<Vec<i32>>>()?;
     let [x, y, z] = ints[..] else {
         return Err(LoadError::new("Input is not a list of 3 ints"));
     };
@@ -302,11 +334,21 @@ impl RandomSpreadStructurePlacement {
         if spacing <= separation {
             return Err(LoadError::new("Spacing has to be larger than separation"));
         }
-        Ok(RandomSpreadStructurePlacement { spreading, spacing, separation, spread_type })
+        Ok(RandomSpreadStructurePlacement {
+            spreading,
+            spacing,
+            separation,
+            spread_type,
+        })
     }
 
     /// `getPotentialStructureChunk(seed, sourceX, sourceZ)`.
-    pub fn get_potential_structure_chunk(&self, seed: i64, source_x: i32, source_z: i32) -> ChunkPos {
+    pub fn get_potential_structure_chunk(
+        &self,
+        seed: i64,
+        source_x: i32,
+        source_z: i32,
+    ) -> ChunkPos {
         let spaced_grid_x = floor_div_i32(source_x, self.spacing);
         let spaced_grid_z = floor_div_i32(source_z, self.spacing);
         let mut random = worldgen_random();
@@ -315,13 +357,22 @@ impl RandomSpreadStructurePlacement {
         let spread_x = self.spread_type.evaluate(&mut random, limit);
         let spread_z = self.spread_type.evaluate(&mut random, limit);
         ChunkPos::new(
-            spaced_grid_x.wrapping_mul(self.spacing).wrapping_add(spread_x),
-            spaced_grid_z.wrapping_mul(self.spacing).wrapping_add(spread_z),
+            spaced_grid_x
+                .wrapping_mul(self.spacing)
+                .wrapping_add(spread_x),
+            spaced_grid_z
+                .wrapping_mul(self.spacing)
+                .wrapping_add(spread_z),
         )
     }
 
     /// `isPlacementChunk(state, sourceX, sourceZ)`.
-    pub fn is_placement_chunk(&self, state: &ChunkGeneratorStructureState, source_x: i32, source_z: i32) -> bool {
+    pub fn is_placement_chunk(
+        &self,
+        state: &ChunkGeneratorStructureState,
+        source_x: i32,
+        source_z: i32,
+    ) -> bool {
         let chunk = self.get_potential_structure_chunk(state.level_seed(), source_x, source_z);
         chunk.x == source_x && chunk.z == source_z
     }
@@ -357,12 +408,18 @@ impl ConcentricRingsStructurePlacement {
             distance: fields.required("distance", |v| parse_int_range(v, 0, 1023))?,
             spread: fields.required("spread", |v| parse_int_range(v, 0, 1023))?,
             count: fields.required("count", |v| parse_int_range(v, 1, 4095))?,
-            preferred_biomes: fields.required("preferred_biomes", |v| biomes.holder_set_from_json(v))?,
+            preferred_biomes: fields
+                .required("preferred_biomes", |v| biomes.holder_set_from_json(v))?,
         })
     }
 
     /// `isPlacementChunk(state, sourceX, sourceZ)`.
-    pub fn is_placement_chunk(&self, state: &ChunkGeneratorStructureState, source_x: i32, source_z: i32) -> bool {
+    pub fn is_placement_chunk(
+        &self,
+        state: &ChunkGeneratorStructureState,
+        source_x: i32,
+        source_z: i32,
+    ) -> bool {
         state
             .get_ring_positions_for(self)
             .is_some_and(|positions| positions.contains(&ChunkPos::new(source_x, source_z)))
@@ -384,28 +441,41 @@ impl StructurePlacement {
         let fields = Fields::new(value)?;
         let kind = fields.required("type", parse_identifier)?;
         if kind.namespace() != "minecraft" {
-            return Err(LoadError::new(format!("Unknown registry key in minecraft:worldgen/structure_placement: {kind}")).at("type"));
+            return Err(LoadError::new(format!(
+                "Unknown registry key in minecraft:worldgen/structure_placement: {kind}"
+            ))
+            .at("type"));
         }
         match kind.path() {
-            "random_spread" => RandomSpreadStructurePlacement::from_json(&fields).map(StructurePlacement::RandomSpread),
-            "concentric_rings" => {
-                ConcentricRingsStructurePlacement::from_json(&fields, biomes).map(StructurePlacement::ConcentricRings)
-            }
+            "random_spread" => RandomSpreadStructurePlacement::from_json(&fields)
+                .map(StructurePlacement::RandomSpread),
+            "concentric_rings" => ConcentricRingsStructurePlacement::from_json(&fields, biomes)
+                .map(StructurePlacement::ConcentricRings),
             "dimension_origin" => Ok(StructurePlacement::DimensionOrigin),
-            _ => Err(LoadError::new(format!("Unknown registry key in minecraft:worldgen/structure_placement: {kind}")).at("type")),
+            _ => Err(LoadError::new(format!(
+                "Unknown registry key in minecraft:worldgen/structure_placement: {kind}"
+            ))
+            .at("type")),
         }
     }
 
     /// `isStructureChunk(state, sourceX, sourceZ)`.
-    pub fn is_structure_chunk(&self, state: &ChunkGeneratorStructureState, source_x: i32, source_z: i32) -> bool {
+    pub fn is_structure_chunk(
+        &self,
+        state: &ChunkGeneratorStructureState,
+        source_x: i32,
+        source_z: i32,
+    ) -> bool {
         match self {
             StructurePlacement::RandomSpread(p) => {
                 let placement_chunk = p.is_placement_chunk(state, source_x, source_z);
-                p.spreading.is_structure_chunk(placement_chunk, state, source_x, source_z)
+                p.spreading
+                    .is_structure_chunk(placement_chunk, state, source_x, source_z)
             }
             StructurePlacement::ConcentricRings(p) => {
                 let placement_chunk = p.is_placement_chunk(state, source_x, source_z);
-                p.spreading.is_structure_chunk(placement_chunk, state, source_x, source_z)
+                p.spreading
+                    .is_structure_chunk(placement_chunk, state, source_x, source_z)
             }
             StructurePlacement::DimensionOrigin => {
                 let origin = state.get_dimension_origin();
@@ -415,12 +485,20 @@ impl StructurePlacement {
     }
 
     /// `applyAdditionalChunkRestrictions(sourceX, sourceZ, levelSeed)`.
-    pub fn apply_additional_chunk_restrictions(&self, source_x: i32, source_z: i32, level_seed: i64) -> bool {
+    pub fn apply_additional_chunk_restrictions(
+        &self,
+        source_x: i32,
+        source_z: i32,
+        level_seed: i64,
+    ) -> bool {
         match self {
-            StructurePlacement::RandomSpread(RandomSpreadStructurePlacement { spreading, .. })
-            | StructurePlacement::ConcentricRings(ConcentricRingsStructurePlacement { spreading, .. }) => {
-                spreading.apply_additional_chunk_restrictions(source_x, source_z, level_seed)
-            }
+            StructurePlacement::RandomSpread(RandomSpreadStructurePlacement {
+                spreading, ..
+            })
+            | StructurePlacement::ConcentricRings(ConcentricRingsStructurePlacement {
+                spreading,
+                ..
+            }) => spreading.apply_additional_chunk_restrictions(source_x, source_z, level_seed),
             StructurePlacement::DimensionOrigin => true,
         }
     }
@@ -428,16 +506,20 @@ impl StructurePlacement {
     /// `locateOffset()`.
     pub fn locate_offset(&self) -> Vec3i {
         match self {
-            StructurePlacement::RandomSpread(RandomSpreadStructurePlacement { spreading, .. })
-            | StructurePlacement::ConcentricRings(ConcentricRingsStructurePlacement { spreading, .. }) => {
-                spreading.locate_offset
-            }
+            StructurePlacement::RandomSpread(RandomSpreadStructurePlacement {
+                spreading, ..
+            })
+            | StructurePlacement::ConcentricRings(ConcentricRingsStructurePlacement {
+                spreading,
+                ..
+            }) => spreading.locate_offset,
             StructurePlacement::DimensionOrigin => Vec3i::ZERO,
         }
     }
 
     /// `getLocatePos(chunkPos)`.
     pub fn get_locate_pos(&self, chunk_pos: ChunkPos) -> BlockPos {
-        BlockPos::new(chunk_pos.get_min_block_x(), 0, chunk_pos.get_min_block_z()).offset_vec(&self.locate_offset())
+        BlockPos::new(chunk_pos.get_min_block_x(), 0, chunk_pos.get_min_block_z())
+            .offset_vec(&self.locate_offset())
     }
 }

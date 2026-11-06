@@ -28,7 +28,11 @@ impl WorldGenerationContext {
 
     /// The private `WorldGenerationContext(LevelAccessor)` constructor (plain level extent).
     pub fn of_level(min_y: i32, height: i32, sea_level: i32) -> WorldGenerationContext {
-        WorldGenerationContext { min_y, height, sea_level }
+        WorldGenerationContext {
+            min_y,
+            height,
+            sea_level,
+        }
     }
 
     pub fn get_min_gen_y(&self) -> i32 {

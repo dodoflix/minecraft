@@ -41,29 +41,53 @@ impl ArgumentTypeInfos {
         Self::try_unpack(argument_type).is_some()
     }
 
-    pub fn try_unpack(argument_type: &dyn ArgumentType<CommandSourceStack>) -> Option<ArgumentTypeTemplate> {
-        ARGUMENT_TYPE_INFOS.iter().find_map(|entry| (entry.unpack)(argument_type))
+    pub fn try_unpack(
+        argument_type: &dyn ArgumentType<CommandSourceStack>,
+    ) -> Option<ArgumentTypeTemplate> {
+        ARGUMENT_TYPE_INFOS
+            .iter()
+            .find_map(|entry| (entry.unpack)(argument_type))
     }
 
     /// `unpack(argumentType)`: panics for an unregistered type like vanilla's `IllegalArgumentException`.
     pub fn unpack(argument_type: &dyn ArgumentType<CommandSourceStack>) -> ArgumentTypeTemplate {
-        Self::try_unpack(argument_type)
-            .unwrap_or_else(|| panic!("Unrecognized argument type {} ({})", argument_type.describe(), argument_type.describe()))
+        Self::try_unpack(argument_type).unwrap_or_else(|| {
+            panic!(
+                "Unrecognized argument type {} ({})",
+                argument_type.describe(),
+                argument_type.describe()
+            )
+        })
     }
 }
 
 // Brigadier's own argument types.
 mod brigadier_types {
     use mc_brigadier::arguments::{
-        BoolArgumentType, DoubleArgumentType, FloatArgumentType, IntegerArgumentType, LongArgumentType, StringArgumentType, StringType,
+        BoolArgumentType, DoubleArgumentType, FloatArgumentType, IntegerArgumentType,
+        LongArgumentType, StringArgumentType, StringType,
     };
-    use mc_protocol::packets::play::{ArgumentTypeTemplate as T, StringArgumentType as WireStringType};
+    use mc_protocol::packets::play::{
+        ArgumentTypeTemplate as T, StringArgumentType as WireStringType,
+    };
 
     crate::register_argument_type!(BoolArgumentType, |_a| T::Bool);
-    crate::register_argument_type!(FloatArgumentType, |a| T::Float { min: a.get_minimum(), max: a.get_maximum() });
-    crate::register_argument_type!(DoubleArgumentType, |a| T::Double { min: a.get_minimum(), max: a.get_maximum() });
-    crate::register_argument_type!(IntegerArgumentType, |a| T::Integer { min: a.get_minimum(), max: a.get_maximum() });
-    crate::register_argument_type!(LongArgumentType, |a| T::Long { min: a.get_minimum(), max: a.get_maximum() });
+    crate::register_argument_type!(FloatArgumentType, |a| T::Float {
+        min: a.get_minimum(),
+        max: a.get_maximum()
+    });
+    crate::register_argument_type!(DoubleArgumentType, |a| T::Double {
+        min: a.get_minimum(),
+        max: a.get_maximum()
+    });
+    crate::register_argument_type!(IntegerArgumentType, |a| T::Integer {
+        min: a.get_minimum(),
+        max: a.get_maximum()
+    });
+    crate::register_argument_type!(LongArgumentType, |a| T::Long {
+        min: a.get_minimum(),
+        max: a.get_maximum()
+    });
     crate::register_argument_type!(StringArgumentType, |a| T::String(match a.get_type() {
         StringType::SingleWord => WireStringType::SingleWord,
         StringType::QuotablePhrase => WireStringType::QuotablePhrase,

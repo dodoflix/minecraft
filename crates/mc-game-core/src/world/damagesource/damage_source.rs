@@ -83,7 +83,9 @@ impl DamageEntity {
     /// The entity as a damage source participant: description + full snapshot.
     pub fn capture(entity: &dyn Entity) -> DamageEntity {
         let mut info = DamageEntity::of(entity);
-        info.snapshot = entity.snapshot_for_damage().map(|b| EntitySnapshot(Rc::new(std::cell::RefCell::new(b))));
+        info.snapshot = entity
+            .snapshot_for_damage()
+            .map(|b| EntitySnapshot(Rc::new(std::cell::RefCell::new(b))));
         info
     }
 
@@ -101,9 +103,14 @@ impl DamageEntity {
             scoreboard_name: entity.get_scoreboard_name(),
             is_living,
             is_player: entity.is_player(),
-            instabuild: entity.is_player() && entity.player().is_some_and(|p| p.abilities.instabuild),
+            instabuild: entity.is_player()
+                && entity.player().is_some_and(|p| p.abilities.instabuild),
             may_build: entity.is_player() && entity.player().is_some_and(|p| p.abilities.may_build),
-            main_hand_item: if is_living { entity.get_item_by_slot(EquipmentSlot::MainHand) } else { ItemStack::empty() },
+            main_hand_item: if is_living {
+                entity.get_item_by_slot(EquipmentSlot::MainHand)
+            } else {
+                ItemStack::empty()
+            },
             weapon_item: entity.get_weapon_item(),
             seconds_to_disable_blocking: entity.get_seconds_to_disable_blocking(),
             pierce_level: entity.get_pierce_level(),
@@ -131,10 +138,20 @@ pub struct DamageSource {
 
 impl DamageSource {
     /// `new DamageSource(type, directEntity, causingEntity, position)`.
-    pub fn new(damage_type: Identifier, data: Arc<DamageType>, direct: Option<&dyn Entity>, causing: Option<&dyn Entity>, source_position: Option<Vec3>) -> DamageSource {
+    pub fn new(
+        damage_type: Identifier,
+        data: Arc<DamageType>,
+        direct: Option<&dyn Entity>,
+        causing: Option<&dyn Entity>,
+        source_position: Option<Vec3>,
+    ) -> DamageSource {
         let same = matches!((direct, causing), (Some(d), Some(c)) if d.id() == c.id());
         let direct_snapshot = direct.map(|e| Arc::new(DamageEntity::capture(e)));
-        let causing_snapshot = if same { direct_snapshot.clone() } else { causing.map(|e| Arc::new(DamageEntity::capture(e))) };
+        let causing_snapshot = if same {
+            direct_snapshot.clone()
+        } else {
+            causing.map(|e| Arc::new(DamageEntity::capture(e)))
+        };
         DamageSource {
             damage_type,
             data,
@@ -183,21 +200,31 @@ impl DamageSource {
 
     /// The snapshot of the causing entity when it is not in the level (it is the running, taken-out entity): lend it
     /// to enchantment/loot code (`Actors::push`) and read it as the attacker.
-    pub fn causing_snapshot(&self, level: &ServerLevel) -> Option<std::cell::RefMut<'_, Box<dyn Entity>>> {
+    pub fn causing_snapshot(
+        &self,
+        level: &ServerLevel,
+    ) -> Option<std::cell::RefMut<'_, Box<dyn Entity>>> {
         let info = self.causing.as_deref()?;
         if level.get_entity(info.id).is_some() {
             return None;
         }
-        info.snapshot.as_ref().and_then(|s| s.0.try_borrow_mut().ok())
+        info.snapshot
+            .as_ref()
+            .and_then(|s| s.0.try_borrow_mut().ok())
     }
 
     /// Like [`DamageSource::causing_snapshot`] for the direct entity (`None` when it is the causing one, already lent).
-    pub fn direct_snapshot(&self, level: &ServerLevel) -> Option<std::cell::RefMut<'_, Box<dyn Entity>>> {
+    pub fn direct_snapshot(
+        &self,
+        level: &ServerLevel,
+    ) -> Option<std::cell::RefMut<'_, Box<dyn Entity>>> {
         let info = self.direct.as_deref()?;
         if level.get_entity(info.id).is_some() || self.causing_entity == self.direct_entity {
             return None;
         }
-        info.snapshot.as_ref().and_then(|s| s.0.try_borrow_mut().ok())
+        info.snapshot
+            .as_ref()
+            .and_then(|s| s.0.try_borrow_mut().ok())
     }
 
     /// Snapshot of the direct entity.
@@ -234,19 +261,24 @@ impl DamageSource {
     pub fn scales_with_difficulty(&self) -> bool {
         match self.data.scaling {
             DamageScaling::Never => false,
-            DamageScaling::WhenCausedByLivingNonPlayer => self.causing_is_living() && !self.causing_is_player(),
+            DamageScaling::WhenCausedByLivingNonPlayer => {
+                self.causing_is_living() && !self.causing_is_player()
+            }
             DamageScaling::Always => true,
         }
     }
 
     /// `isCreativePlayer()`: `getEntity() instanceof Player && abilities.instabuild`.
     pub fn is_creative_player(&self) -> bool {
-        self.causing.as_ref().is_some_and(|e| e.is_player && e.instabuild)
+        self.causing
+            .as_ref()
+            .is_some_and(|e| e.is_player && e.instabuild)
     }
 
     /// `getSourcePosition()`: the explicit position, else the direct entity's position.
     pub fn get_source_position(&self) -> Option<Vec3> {
-        self.source_position.or_else(|| self.direct.as_ref().map(|e| e.position))
+        self.source_position
+            .or_else(|| self.direct.as_ref().map(|e| e.position))
     }
 
     /// `sourcePositionRaw()`.
@@ -257,38 +289,64 @@ impl DamageSource {
     /// `is(ResourceKey<DamageType>)`: `key` is a full identifier (`DamageTypes::FALL`) or a `minecraft:` path.
     pub fn is(&self, key: &str) -> bool {
         match key.split_once(':') {
-            Some((ns, path)) => self.damage_type.namespace() == ns && self.damage_type.path() == path,
+            Some((ns, path)) => {
+                self.damage_type.namespace() == ns && self.damage_type.path() == path
+            }
             None => self.damage_type.namespace() == "minecraft" && self.damage_type.path() == key,
         }
     }
 
     /// `is(TagKey<DamageType>)` (`DamageTypeTags::IS_FIRE`, ...): membership in the level's `damage_type` tags.
     pub fn is_tag(&self, level: &ServerLevel, tag: &str) -> bool {
-        let Some(tag) = Identifier::try_parse(tag) else { return false };
-        level.registries.is_in_tag(crate::registry::keys::DAMAGE_TYPE, &self.damage_type, &tag)
+        let Some(tag) = Identifier::try_parse(tag) else {
+            return false;
+        };
+        level
+            .registries
+            .is_in_tag(crate::registry::keys::DAMAGE_TYPE, &self.damage_type, &tag)
     }
 
     /// `getLocalizedDeathMessage(victim)`.
-    pub fn get_localized_death_message(&self, level: &ServerLevel, victim: &dyn Entity) -> Component {
+    pub fn get_localized_death_message(
+        &self,
+        level: &ServerLevel,
+        victim: &dyn Entity,
+    ) -> Component {
         use crate::world::damagesource::display_name::entity_display_name;
         let death_msg = format!("death.attack.{}", self.data.msg_id);
         let victim_name = entity_display_name(level, victim);
         if self.causing.is_none() && self.direct.is_none() {
-            let source = crate::world::entity::living_entity::death::resolve_kill_credit(level, victim, None);
+            let source = crate::world::entity::living_entity::death::resolve_kill_credit(
+                level, victim, None,
+            );
             let player_msg = format!("{death_msg}.player");
             match source {
-                Some(source) => Component::translatable(player_msg, vec![victim_name.into(), source.display_name(level).into()]),
+                Some(source) => Component::translatable(
+                    player_msg,
+                    vec![victim_name.into(), source.display_name(level).into()],
+                ),
                 None => Component::translatable(death_msg, vec![victim_name.into()]),
             }
         } else {
-            let name_source = self.causing.as_ref().or(self.direct.as_ref()).expect("one entity present");
+            let name_source = self
+                .causing
+                .as_ref()
+                .or(self.direct.as_ref())
+                .expect("one entity present");
             let name = name_source.display_name(level);
             let held = match &self.causing {
                 Some(c) if c.is_living => c.main_hand_item.clone(),
                 _ => ItemStack::empty(),
             };
             if !held.is_empty() && held.has(mc_data::DataComponentType::CUSTOM_NAME) {
-                Component::translatable(format!("{death_msg}.item"), vec![victim_name.into(), name.into(), held.get_display_name().into()])
+                Component::translatable(
+                    format!("{death_msg}.item"),
+                    vec![
+                        victim_name.into(),
+                        name.into(),
+                        held.get_display_name().into(),
+                    ],
+                )
             } else {
                 Component::translatable(death_msg, vec![victim_name.into(), name.into()])
             }
@@ -296,11 +354,17 @@ impl DamageSource {
     }
 
     /// `HolderSet<DamageType>.contains(source.typeHolder())` for the `bypassed_by` / `type` sets of data components.
-    pub fn is_in_holder_set(&self, level: &ServerLevel, set: &mc_protocol::components::holder::HolderSet<mc_protocol::components::holder::NoDirect>) -> bool {
+    pub fn is_in_holder_set(
+        &self,
+        level: &ServerLevel,
+        set: &mc_protocol::components::holder::HolderSet<mc_protocol::components::holder::NoDirect>,
+    ) -> bool {
         use mc_protocol::components::holder::{Holder, HolderSet};
         match set {
             HolderSet::Named(tag) => self.is_tag(level, &tag.to_string()),
-            HolderSet::Direct(holders) => holders.iter().any(|h| matches!(h, Holder::Reference(name) if *name == self.damage_type)),
+            HolderSet::Direct(holders) => holders
+                .iter()
+                .any(|h| matches!(h, Holder::Reference(name) if *name == self.damage_type)),
         }
     }
 }

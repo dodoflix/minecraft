@@ -3,15 +3,18 @@
 //! and ordering is vanilla's `ServerGamePacketListenerImpl`.
 
 use super::{PlayCtx, seam};
-use crate::world::level::BlockGetter;
 use crate::world::entity::{Entity, MoverType};
+use crate::world::level::BlockGetter;
 use mc_core::math::mth;
 use mc_core::phys::shapes::{BooleanOp, Shapes};
 use mc_core::phys::{AABB, Vec3};
 use mc_core::pos::BlockPos;
 use mc_protocol::packets::play::{
-    ClientboundBlockChangedAckPacket, ClientboundBlockUpdatePacket, ClientboundMoveVehiclePacket, PositionAndRotation, ServerboundAcceptTeleportationPacket, ServerboundMovePlayerPosPacket, ServerboundMovePlayerPosRotPacket, ServerboundMovePlayerRotPacket,
-    ServerboundMovePlayerStatusOnlyPacket, ServerboundMoveVehiclePacket, ServerboundPlayerLoadedPacket,
+    ClientboundBlockChangedAckPacket, ClientboundBlockUpdatePacket, ClientboundMoveVehiclePacket,
+    PositionAndRotation, ServerboundAcceptTeleportationPacket, ServerboundMovePlayerPosPacket,
+    ServerboundMovePlayerPosRotPacket, ServerboundMovePlayerRotPacket,
+    ServerboundMovePlayerStatusOnlyPacket, ServerboundMoveVehiclePacket,
+    ServerboundPlayerLoadedPacket,
 };
 use mc_text::Component;
 
@@ -46,29 +49,55 @@ impl MovePlayer {
 
 impl From<&ServerboundMovePlayerPosPacket> for MovePlayer {
     fn from(p: &ServerboundMovePlayerPosPacket) -> Self {
-        Self { pos: Some(Vec3::new(p.x, p.y, p.z)), rot: None, on_ground: p.on_ground, horizontal_collision: p.horizontal_collision }
+        Self {
+            pos: Some(Vec3::new(p.x, p.y, p.z)),
+            rot: None,
+            on_ground: p.on_ground,
+            horizontal_collision: p.horizontal_collision,
+        }
     }
 }
 impl From<&ServerboundMovePlayerPosRotPacket> for MovePlayer {
     fn from(p: &ServerboundMovePlayerPosRotPacket) -> Self {
-        Self { pos: Some(Vec3::new(p.x, p.y, p.z)), rot: Some((p.y_rot, p.x_rot)), on_ground: p.on_ground, horizontal_collision: p.horizontal_collision }
+        Self {
+            pos: Some(Vec3::new(p.x, p.y, p.z)),
+            rot: Some((p.y_rot, p.x_rot)),
+            on_ground: p.on_ground,
+            horizontal_collision: p.horizontal_collision,
+        }
     }
 }
 impl From<&ServerboundMovePlayerRotPacket> for MovePlayer {
     fn from(p: &ServerboundMovePlayerRotPacket) -> Self {
-        Self { pos: None, rot: Some((p.y_rot, p.x_rot)), on_ground: p.on_ground, horizontal_collision: p.horizontal_collision }
+        Self {
+            pos: None,
+            rot: Some((p.y_rot, p.x_rot)),
+            on_ground: p.on_ground,
+            horizontal_collision: p.horizontal_collision,
+        }
     }
 }
 impl From<&ServerboundMovePlayerStatusOnlyPacket> for MovePlayer {
     fn from(p: &ServerboundMovePlayerStatusOnlyPacket) -> Self {
-        Self { pos: None, rot: None, on_ground: p.on_ground, horizontal_collision: p.horizontal_collision }
+        Self {
+            pos: None,
+            rot: None,
+            on_ground: p.on_ground,
+            horizontal_collision: p.horizontal_collision,
+        }
     }
 }
 
 /// `ClientboundMoveVehiclePacket.fromEntity`.
 fn move_vehicle_packet(entity: &dyn Entity) -> ClientboundMoveVehiclePacket {
     let base = entity.base();
-    ClientboundMoveVehiclePacket { moving_to: PositionAndRotation { position: base.position(), y_rot: base.y_rot(), x_rot: base.x_rot() } }
+    ClientboundMoveVehiclePacket {
+        moving_to: PositionAndRotation {
+            position: base.position(),
+            y_rot: base.y_rot(),
+            x_rot: base.x_rot(),
+        },
+    }
 }
 
 /// `containsInvalidValues`.
@@ -107,19 +136,30 @@ impl PlayCtx<'_> {
             self.command_suggestions_tick();
             let idle_minutes = self.server.player_idle_timeout();
             let last_action_time = self.player.get_last_action_time();
-            if last_action_time > 0 && idle_minutes > 0 && now - last_action_time > i64::from(idle_minutes) * 60_000 && !self.player.won_game {
-                self.disconnect(Component::translatable("multiplayer.disconnect.idling", vec![]));
+            if last_action_time > 0
+                && idle_minutes > 0
+                && now - last_action_time > i64::from(idle_minutes) * 60_000
+                && !self.player.won_game
+            {
+                self.disconnect(Component::translatable(
+                    "multiplayer.disconnect.idling",
+                    vec![],
+                ));
             }
         }
     }
 
     /// `keepConnectionAlive()`.
     fn keep_connection_alive(&mut self, now_ms: i64) {
-        use crate::server::network::common_listener::{KeepAliveAction, timeout_disconnection_message};
+        use crate::server::network::common_listener::{
+            KeepAliveAction, timeout_disconnection_message,
+        };
         let action = self.lis().common.poll_keep_alive(now_ms);
         match action {
             KeepAliveAction::Nothing => {}
-            KeepAliveAction::Send(id) => self.send(&mc_protocol::packets::play::ClientboundKeepAlivePacket { id }),
+            KeepAliveAction::Send(id) => {
+                self.send(&mc_protocol::packets::play::ClientboundKeepAlivePacket { id })
+            }
             KeepAliveAction::Timeout => self.disconnect(timeout_disconnection_message()),
         }
     }
@@ -139,11 +179,23 @@ impl PlayCtx<'_> {
         self.lis().tick_count += 1;
         let received = self.lis().received_move_packet_count;
         self.lis().known_move_packet_count = received;
-        if self.lis().client_is_floating && !self.player.is_sleeping() && !self.player.is_passenger() && !self.player.is_dead_or_dying() {
+        if self.lis().client_is_floating
+            && !self.player.is_sleeping()
+            && !self.player.is_passenger()
+            && !self.player.is_dead_or_dying()
+        {
             self.lis().above_ground_tick_count += 1;
-            if self.lis().above_ground_tick_count > self.maximum_flying_ticks(self.player.get_gravity()) {
-                log::warn!("{} was kicked for floating too long!", self.player.get_plain_text_name());
-                self.disconnect(Component::translatable("multiplayer.disconnect.flying", vec![]));
+            if self.lis().above_ground_tick_count
+                > self.maximum_flying_ticks(self.player.get_gravity())
+            {
+                log::warn!(
+                    "{} was kicked for floating too long!",
+                    self.player.get_plain_text_name()
+                );
+                self.disconnect(Component::translatable(
+                    "multiplayer.disconnect.flying",
+                    vec![],
+                ));
                 return true;
             }
         } else {
@@ -155,10 +207,19 @@ impl PlayCtx<'_> {
         let root_vehicle = self.root_vehicle();
         let player_id = self.player.id();
         match root_vehicle {
-            Some(vehicle_id) if vehicle_id != player_id && self.controlling_passenger(vehicle_id) == Some(player_id) => {
+            Some(vehicle_id)
+                if vehicle_id != player_id
+                    && self.controlling_passenger(vehicle_id) == Some(player_id) =>
+            {
                 self.lis().last_vehicle = Some(vehicle_id);
-                let pos = self.level.get_entity(vehicle_id).map_or(Vec3::ZERO, |e| e.position());
-                let gravity = self.level.get_entity(vehicle_id).map_or(0.08, |e| e.get_gravity());
+                let pos = self
+                    .level
+                    .get_entity(vehicle_id)
+                    .map_or(Vec3::ZERO, |e| e.position());
+                let gravity = self
+                    .level
+                    .get_entity(vehicle_id)
+                    .map_or(0.08, |e| e.get_gravity());
                 let max_ticks = self.maximum_flying_ticks(gravity);
                 let lis = self.lis();
                 lis.vehicle_first_good_x = pos.x;
@@ -170,8 +231,14 @@ impl PlayCtx<'_> {
                 if lis.client_vehicle_is_floating {
                     lis.above_ground_vehicle_tick_count += 1;
                     if lis.above_ground_vehicle_tick_count > max_ticks {
-                        log::warn!("{} was kicked for floating a vehicle too long!", self.player.get_plain_text_name());
-                        self.disconnect(Component::translatable("multiplayer.disconnect.flying", vec![]));
+                        log::warn!(
+                            "{} was kicked for floating a vehicle too long!",
+                            self.player.get_plain_text_name()
+                        );
+                        self.disconnect(Component::translatable(
+                            "multiplayer.disconnect.flying",
+                            vec![],
+                        ));
                         return true;
                     }
                 } else {
@@ -211,7 +278,10 @@ impl PlayCtx<'_> {
     }
 
     /// `handlePlayerInput`.
-    pub fn handle_player_input(&mut self, packet: &mc_protocol::packets::play::ServerboundPlayerInputPacket) {
+    pub fn handle_player_input(
+        &mut self,
+        packet: &mc_protocol::packets::play::ServerboundPlayerInputPacket,
+    ) {
         self.player.set_last_client_input(packet.input);
         if self.has_client_loaded() {
             self.player.reset_last_action_time();
@@ -224,30 +294,43 @@ impl PlayCtx<'_> {
         let moving_to = packet.moving_to;
         let to = moving_to.position;
         if contains_invalid_values(to.x, to.y, to.z, moving_to.y_rot, moving_to.x_rot) {
-            self.disconnect(Component::translatable("multiplayer.disconnect.invalid_vehicle_movement", vec![]));
+            self.disconnect(Component::translatable(
+                "multiplayer.disconnect.invalid_vehicle_movement",
+                vec![],
+            ));
             return;
         }
         if self.update_awaiting_teleport() || !self.has_client_loaded() {
             return;
         }
         let player_id = self.player.id();
-        let Some(vehicle_id) = self.root_vehicle() else { return };
+        let Some(vehicle_id) = self.root_vehicle() else {
+            return;
+        };
         let controlling = self.controlling_passenger(vehicle_id) == Some(player_id);
         let is_last_vehicle = self.lis().last_vehicle == Some(vehicle_id);
         if vehicle_id != player_id && controlling && is_last_vehicle {
             // The vehicle is taken out of the level for the duration of its handling (queries exclude it).
-            let Some(mut vehicle) = self.level.take_entity(vehicle_id) else { return };
+            let Some(mut vehicle) = self.level.take_entity(vehicle_id) else {
+                return;
+            };
             self.handle_vehicle_movement(&mut *vehicle, packet);
             self.level.put_back_entity(vehicle_id, vehicle);
         } else if vehicle_id != player_id && !controlling {
             let tick_count = self.lis().tick_count;
             let reset_at = self.lis().vehicle_position_last_reset_at;
-            let distance_sqr = self.level.get_entity(vehicle_id).map_or(0.0, |e| e.position().distance_to_sqr(to));
+            let distance_sqr = self
+                .level
+                .get_entity(vehicle_id)
+                .map_or(0.0, |e| e.position().distance_to_sqr(to));
             if tick_count - reset_at > 20 || distance_sqr > mth::square_f64(1.0) {
                 log::warn!(
                     "{} was expected to be controlling vehicle {} but was not. Resetting vehicle position.",
                     self.player.get_plain_text_name(),
-                    self.level.get_entity(vehicle_id).map(|e| entity_plain_name(e)).unwrap_or_default()
+                    self.level
+                        .get_entity(vehicle_id)
+                        .map(|e| entity_plain_name(e))
+                        .unwrap_or_default()
                 );
                 if let Some(vehicle) = self.level.get_entity(vehicle_id) {
                     let packet = move_vehicle_packet(vehicle);
@@ -258,7 +341,11 @@ impl PlayCtx<'_> {
         }
     }
 
-    fn handle_vehicle_movement(&mut self, vehicle: &mut dyn Entity, packet: &ServerboundMoveVehiclePacket) {
+    fn handle_vehicle_movement(
+        &mut self,
+        vehicle: &mut dyn Entity,
+        packet: &ServerboundMoveVehiclePacket,
+    ) {
         let moving_to = packet.moving_to;
         let old_pos = vehicle.position();
         let (old_x, old_y, old_z) = (old_pos.x, old_pos.y, old_pos.z);
@@ -269,7 +356,14 @@ impl PlayCtx<'_> {
         let target_x_rot = mth::wrap_degrees_f32(moving_to.x_rot);
         let (fx, fy, fz, lx, ly, lz) = {
             let l = self.lis();
-            (l.vehicle_first_good_x, l.vehicle_first_good_y, l.vehicle_first_good_z, l.vehicle_last_good_x, l.vehicle_last_good_y, l.vehicle_last_good_z)
+            (
+                l.vehicle_first_good_x,
+                l.vehicle_first_good_y,
+                l.vehicle_first_good_z,
+                l.vehicle_last_good_x,
+                l.vehicle_last_good_y,
+                l.vehicle_last_good_z,
+            )
         };
         let mut x_dist = target_x - fx;
         let mut y_dist = target_y - fy;
@@ -298,7 +392,11 @@ impl PlayCtx<'_> {
             vehicle.reset_fall_distance();
         }
 
-        vehicle.r#move(&mut *self.level, MoverType::Player, Vec3::new(x_dist, y_dist, z_dist));
+        vehicle.r#move(
+            &mut *self.level,
+            MoverType::Player,
+            Vec3::new(x_dist, y_dist, z_dist),
+        );
         let now_pos = vehicle.position();
         x_dist = target_x - now_pos.x;
         // vanilla: `if (yDist > -0.5 || yDist < 0.5)` is always true
@@ -316,7 +414,11 @@ impl PlayCtx<'_> {
             );
         }
 
-        if (fail && seam::no_collision(self.level, &*vehicle, &old_aabb)) || self.is_entity_colliding_with_anything_new(&*vehicle, &old_aabb, target_x, target_y, target_z) {
+        if (fail && seam::no_collision(self.level, &*vehicle, &old_aabb))
+            || self.is_entity_colliding_with_anything_new(
+                &*vehicle, &old_aabb, target_x, target_y, target_z,
+            )
+        {
             vehicle.abs_snap_to(old_x, old_y, old_z, target_y_rot, target_x_rot);
             self.send(&move_vehicle_packet(&*vehicle));
             vehicle.base_mut().movement_this_tick.pop_back();
@@ -329,9 +431,25 @@ impl PlayCtx<'_> {
         let client_delta_movement = Vec3::new(p.x - old_x, p.y - old_y, p.z - old_z);
         self.handle_player_known_movement(client_delta_movement);
         let hc = vehicle.base().horizontal_collision;
-        vehicle.set_on_ground_with_movement(&*self.level, packet.on_ground, hc, client_delta_movement);
-        vehicle.do_check_fall_damage(&mut *self.level, client_delta_movement.x, client_delta_movement.y, client_delta_movement.z, packet.on_ground);
-        self.sys().check_movement_statistics(self, client_delta_movement.x, client_delta_movement.y, client_delta_movement.z);
+        vehicle.set_on_ground_with_movement(
+            &*self.level,
+            packet.on_ground,
+            hc,
+            client_delta_movement,
+        );
+        vehicle.do_check_fall_damage(
+            &mut *self.level,
+            client_delta_movement.x,
+            client_delta_movement.y,
+            client_delta_movement.z,
+            packet.on_ground,
+        );
+        self.sys().check_movement_statistics(
+            self,
+            client_delta_movement.x,
+            client_delta_movement.y,
+            client_delta_movement.z,
+        );
         let floating = y_dist >= -0.03125
             && !vehicle_rests_on_something
             && !self.server.allow_flight()
@@ -347,7 +465,11 @@ impl PlayCtx<'_> {
 
     /// `noBlocksAround(entity)`.
     fn no_blocks_around(&self, entity: &dyn Entity) -> bool {
-        let aabb = entity.base().bounding_box().inflate_scalar(0.0625).expand_towards(0.0, -0.55, 0.0);
+        let aabb = entity
+            .base()
+            .bounding_box()
+            .inflate_scalar(0.0625)
+            .expand_towards(0.0, -0.55, 0.0);
         seam::all_blocks_in_are_air(self.level, &aabb)
     }
 
@@ -357,19 +479,30 @@ impl PlayCtx<'_> {
             return;
         }
         let awaiting = self.lis().awaiting_position_from_client;
-        let Some(awaiting) = awaiting.filter(|_| !contains_invalid_values(packet.x, packet.y, packet.z, packet.y_rot, packet.x_rot)) else {
+        let Some(awaiting) = awaiting.filter(|_| {
+            !contains_invalid_values(packet.x, packet.y, packet.z, packet.y_rot, packet.x_rot)
+        }) else {
             self.disconnect(invalid_player_movement());
             return;
         };
         let (y_rot, x_rot) = (self.player.get_y_rot(), self.player.get_x_rot());
-        self.player.abs_snap_to(awaiting.x, awaiting.y, awaiting.z, y_rot, x_rot);
+        self.player
+            .abs_snap_to(awaiting.x, awaiting.y, awaiting.z, y_rot, x_rot);
         let lis = self.lis();
         lis.last_good_x = awaiting.x;
         lis.last_good_y = awaiting.y;
         lis.last_good_z = awaiting.z;
         self.player.is_changing_dimension = false;
         self.lis().awaiting_position_from_client = None;
-        self.handle_player_position_change(packet.x, packet.y, packet.z, packet.y_rot, packet.x_rot, false, false);
+        self.handle_player_position_change(
+            packet.x,
+            packet.y,
+            packet.z,
+            packet.y_rot,
+            packet.x_rot,
+            false,
+            false,
+        );
     }
 
     /// `handleAcceptPlayerLoad`.
@@ -379,7 +512,13 @@ impl PlayCtx<'_> {
 
     /// `handleMovePlayer`.
     pub fn handle_move_player(&mut self, packet: &MovePlayer) {
-        if contains_invalid_values(packet.get_x(0.0), packet.get_y(0.0), packet.get_z(0.0), packet.get_y_rot(0.0), packet.get_x_rot(0.0)) {
+        if contains_invalid_values(
+            packet.get_x(0.0),
+            packet.get_y(0.0),
+            packet.get_z(0.0),
+            packet.get_y_rot(0.0),
+            packet.get_x_rot(0.0),
+        ) {
             self.disconnect(invalid_player_movement());
             return;
         }
@@ -400,7 +539,10 @@ impl PlayCtx<'_> {
                 let requested_y_rot = packet.get_y_rot(self.player.get_y_rot());
                 let requested_x_rot = packet.get_x_rot(self.player.get_x_rot());
                 if self.update_awaiting_teleport() {
-                    self.player.abs_snap_rotation_to(mth::wrap_degrees_f32(requested_y_rot), mth::wrap_degrees_f32(requested_x_rot));
+                    self.player.abs_snap_rotation_to(
+                        mth::wrap_degrees_f32(requested_y_rot),
+                        mth::wrap_degrees_f32(requested_x_rot),
+                    );
                 } else {
                     let pos = self.player.position();
                     self.handle_player_position_change(
@@ -436,7 +578,8 @@ impl PlayCtx<'_> {
         let target_x_rot = mth::wrap_degrees_f32(requested_x_rot);
         if self.player.is_passenger() {
             let p = self.player.position();
-            self.player.abs_snap_to(p.x, p.y, p.z, target_y_rot, target_x_rot);
+            self.player
+                .abs_snap_to(p.x, p.y, p.z, target_y_rot, target_x_rot);
             self.chunk_source_move();
             return;
         }
@@ -463,9 +606,14 @@ impl PlayCtx<'_> {
         let is_fall_flying = self.player.is_fall_flying();
         if self.runs_normally() {
             self.lis().received_move_packet_count += 1;
-            let mut delta_packets = self.lis().received_move_packet_count - self.lis().known_move_packet_count;
+            let mut delta_packets =
+                self.lis().received_move_packet_count - self.lis().known_move_packet_count;
             if delta_packets > 5 {
-                log::debug!("{} is sending move packets too frequently ({} packets since last tick)", self.player.get_plain_text_name(), delta_packets);
+                log::debug!(
+                    "{} is sending move packets too frequently ({} packets since last tick)",
+                    self.player.get_plain_text_name(),
+                    delta_packets
+                );
                 delta_packets = 1;
             }
 
@@ -473,7 +621,13 @@ impl PlayCtx<'_> {
                 let meters_per_tick: f32 = if is_fall_flying { 300.0 } else { 100.0 };
                 // `float * int` is float arithmetic, compared against a double
                 if moved_dist - expected_dist > f64::from(meters_per_tick * delta_packets as f32) {
-                    log::warn!("{} moved too quickly! {},{},{}", self.player.get_plain_text_name(), java_double(x_dist), java_double(y_dist), java_double(z_dist));
+                    log::warn!(
+                        "{} moved too quickly! {},{},{}",
+                        self.player.get_plain_text_name(),
+                        java_double(x_dist),
+                        java_double(y_dist),
+                        java_double(z_dist)
+                    );
                     let (yr, xr) = (self.player.get_y_rot(), self.player.get_x_rot());
                     self.teleport(start_x, start_y, start_z, yr, xr);
                     return;
@@ -499,7 +653,11 @@ impl PlayCtx<'_> {
             self.force_send_player_support_blocks();
         }
 
-        self.player.r#move(&mut *self.level, MoverType::Player, Vec3::new(x_dist, y_dist, z_dist));
+        self.player.r#move(
+            &mut *self.level,
+            MoverType::Player,
+            Vec3::new(x_dist, y_dist, z_dist),
+        );
         let now_pos = self.player.position();
         x_dist = target_x - now_pos.x;
         // vanilla: `if (yDist > -0.5 || yDist < 0.5)` is always true
@@ -521,9 +679,16 @@ impl PlayCtx<'_> {
         let accepted = self.player.base().no_physics
             || self.player.is_sleeping()
             || (!fail || !seam::no_collision(self.level, &*self.player, &old_aabb))
-                && !self.is_entity_colliding_with_anything_new(&*self.player, &old_aabb, target_x, target_y, target_z);
+                && !self.is_entity_colliding_with_anything_new(
+                    &*self.player,
+                    &old_aabb,
+                    target_x,
+                    target_y,
+                    target_z,
+                );
         if accepted {
-            self.player.abs_snap_to(target_x, target_y, target_z, target_y_rot, target_x_rot);
+            self.player
+                .abs_snap_to(target_x, target_y, target_z, target_y_rot, target_x_rot);
             let is_auto_spin_attack = self.player.is_auto_spin_attack();
             let floating = y_dist >= -0.03125
                 && !player_stands_on_something
@@ -538,8 +703,19 @@ impl PlayCtx<'_> {
             self.chunk_source_move();
             let p = self.player.position();
             let client_delta_movement = Vec3::new(p.x - start_x, p.y - start_y, p.z - start_z);
-            self.player.set_on_ground_with_movement(&*self.level, is_on_ground, horizontal_collision, client_delta_movement);
-            self.player.do_check_fall_damage(&mut *self.level, client_delta_movement.x, client_delta_movement.y, client_delta_movement.z, is_on_ground);
+            self.player.set_on_ground_with_movement(
+                &*self.level,
+                is_on_ground,
+                horizontal_collision,
+                client_delta_movement,
+            );
+            self.player.do_check_fall_damage(
+                &mut *self.level,
+                client_delta_movement.x,
+                client_delta_movement.y,
+                client_delta_movement.z,
+                is_on_ground,
+            );
             self.handle_player_known_movement(client_delta_movement);
             if moved_upwards {
                 self.player.reset_fall_distance();
@@ -556,7 +732,8 @@ impl PlayCtx<'_> {
             }
 
             let p = self.player.position();
-            self.sys().check_movement_statistics(self, p.x - start_x, p.y - start_y, p.z - start_z);
+            self.sys()
+                .check_movement_statistics(self, p.x - start_x, p.y - start_y, p.z - start_z);
             let l = self.lis();
             l.last_good_x = p.x;
             l.last_good_y = p.y;
@@ -564,8 +741,19 @@ impl PlayCtx<'_> {
         } else {
             self.teleport(start_x, start_y, start_z, target_y_rot, target_x_rot);
             let p = self.player.position();
-            self.player.do_check_fall_damage(&mut *self.level, p.x - start_x, p.y - start_y, p.z - start_z, is_on_ground);
-            self.player.player.living.entity.movement_this_tick.pop_back();
+            self.player.do_check_fall_damage(
+                &mut *self.level,
+                p.x - start_x,
+                p.y - start_y,
+                p.z - start_z,
+                is_on_ground,
+            );
+            self.player
+                .player
+                .living
+                .entity
+                .movement_this_tick
+                .pop_back();
         }
     }
 
@@ -575,7 +763,8 @@ impl PlayCtx<'_> {
             return false;
         }
         use crate::world::level::gamerules::GameRules;
-        self.server.game_rule(GameRules::PLAYER_MOVEMENT_CHECK) && (!is_fall_flying || self.server.game_rule(GameRules::ELYTRA_MOVEMENT_CHECK))
+        self.server.game_rule(GameRules::PLAYER_MOVEMENT_CHECK)
+            && (!is_fall_flying || self.server.game_rule(GameRules::ELYTRA_MOVEMENT_CHECK))
     }
 
     /// `forceSendPlayerSupportBlocks`.
@@ -585,11 +774,19 @@ impl PlayCtx<'_> {
             return;
         }
         self.lis().last_supported_blocks_send = tick_count;
-        log::info!("Player {} standing on air - force-sending blocks below", self.player.get_plain_text_name());
+        log::info!(
+            "Player {} standing on air - force-sending blocks below",
+            self.player.get_plain_text_name()
+        );
         let aabb = self.player.base().bounding_box();
         let just_below = aabb.min_y - f64::from(1.0E-5f32);
         let mut positions: Vec<BlockPos> = Vec::with_capacity(4);
-        for (x, z) in [(aabb.min_x, aabb.min_z), (aabb.max_x, aabb.min_z), (aabb.min_x, aabb.max_z), (aabb.max_x, aabb.max_z)] {
+        for (x, z) in [
+            (aabb.min_x, aabb.min_z),
+            (aabb.max_x, aabb.min_z),
+            (aabb.min_x, aabb.max_z),
+            (aabb.max_x, aabb.max_z),
+        ] {
             let pos = BlockPos::containing(x, just_below, z);
             if !positions.contains(&pos) {
                 positions.push(pos);
@@ -597,8 +794,15 @@ impl PlayCtx<'_> {
         }
         for pos in positions {
             let state = self.level.get_block_state(pos);
-            self.send(&ClientboundBlockUpdatePacket { pos, block_state: state });
-            if let Some(packet) = self.level.get_block_entity(pos).and_then(|be| be.get_update_packet()) {
+            self.send(&ClientboundBlockUpdatePacket {
+                pos,
+                block_state: state,
+            });
+            if let Some(packet) = self
+                .level
+                .get_block_entity(pos)
+                .and_then(|be| be.get_update_packet())
+            {
                 self.send(&packet);
             }
         }
@@ -626,10 +830,26 @@ impl PlayCtx<'_> {
     }
 
     /// `isEntityCollidingWithAnythingNew`.
-    fn is_entity_colliding_with_anything_new(&self, entity: &dyn Entity, old_aabb: &AABB, new_x: f64, new_y: f64, new_z: f64) -> bool {
+    fn is_entity_colliding_with_anything_new(
+        &self,
+        entity: &dyn Entity,
+        old_aabb: &AABB,
+        new_x: f64,
+        new_y: f64,
+        new_z: f64,
+    ) -> bool {
         let pos = entity.position();
-        let new_aabb = entity.base().bounding_box().move_(new_x - pos.x, new_y - pos.y, new_z - pos.z);
-        let new_collisions = seam::get_pre_move_collisions(self.level, entity, &new_aabb.deflate_scalar(f64::from(1.0E-5f32)), old_aabb.get_bottom_center());
+        let new_aabb =
+            entity
+                .base()
+                .bounding_box()
+                .move_(new_x - pos.x, new_y - pos.y, new_z - pos.z);
+        let new_collisions = seam::get_pre_move_collisions(
+            self.level,
+            entity,
+            &new_aabb.deflate_scalar(f64::from(1.0E-5f32)),
+            old_aabb.get_bottom_center(),
+        );
         let old_shape = Shapes::create(old_aabb.deflate_scalar(f64::from(1.0E-5f32)));
         for shape in new_collisions {
             if !Shapes::join_is_not_empty(&shape, &old_shape, BooleanOp::AND) {
@@ -654,7 +874,10 @@ impl PlayCtx<'_> {
     }
 
     /// `handleClientTickEnd`.
-    pub fn handle_client_tick_end(&mut self, _packet: &mc_protocol::packets::play::ServerboundClientTickEndPacket) {
+    pub fn handle_client_tick_end(
+        &mut self,
+        _packet: &mc_protocol::packets::play::ServerboundClientTickEndPacket,
+    ) {
         if !self.lis().received_movement_this_tick {
             self.player.set_known_movement(Vec3::ZERO);
         }
@@ -673,7 +896,9 @@ fn java_double(v: f64) -> String {
 pub(super) fn entity_plain_name(entity: &dyn Entity) -> String {
     match entity.base().get_custom_name() {
         Some(name) => name.get_string(),
-        None => Component::translatable(entity.get_type().data().description_id, vec![]).get_string(),
+        None => {
+            Component::translatable(entity.get_type().data().description_id, vec![]).get_string()
+        }
     }
 }
 
@@ -690,8 +915,13 @@ impl PlayCtx<'_> {
     }
 
     /// `entity.getControllingPassenger()`.
-    fn controlling_passenger(&self, vehicle: crate::world::entity::EntityId) -> Option<crate::world::entity::EntityId> {
-        self.level.get_entity(vehicle).and_then(|e| e.get_controlling_passenger())
+    fn controlling_passenger(
+        &self,
+        vehicle: crate::world::entity::EntityId,
+    ) -> Option<crate::world::entity::EntityId> {
+        self.level
+            .get_entity(vehicle)
+            .and_then(|e| e.get_controlling_passenger())
     }
 }
 
@@ -699,7 +929,8 @@ impl crate::world::entity::ServerPlayer {
     /// `LivingEntity.hasLandedInLiquid()`.
     pub(super) fn has_landed_in_liquid(&self) -> bool {
         let e = &self.player.living.entity;
-        e.delta_movement().y < f64::from(1.0E-5f32) && (e.was_touching_water || (!e.first_tick && e.fluid_height[1] > 0.0))
+        e.delta_movement().y < f64::from(1.0E-5f32)
+            && (e.was_touching_water || (!e.first_tick && e.fluid_height[1] > 0.0))
     }
 
     /// `isInPostImpulseGraceTime()`.
@@ -721,7 +952,10 @@ impl crate::world::entity::ServerPlayer {
 
     /// `hasEffect(MobEffects.LEVITATION)`.
     pub(super) fn has_levitation(&self) -> bool {
-        self.player.living.active_effects.contains_key(&mc_data::MobEffect::LEVITATION)
+        self.player
+            .living
+            .active_effects
+            .contains_key(&mc_data::MobEffect::LEVITATION)
     }
 }
 

@@ -44,11 +44,13 @@ mod dropper_block_entity;
 
 pub mod hopper_block_entity;
 
-pub use hopper_block_entity::{HopperBlockEntity, Hopper};
+pub use hopper_block_entity::{Hopper, HopperBlockEntity};
 
 pub mod piston_moving_block_entity;
 
-pub use piston_moving_block_entity::{MovingPistonInfo, PistonMovingBlockEntity, moving_piston_collision_shape};
+pub use piston_moving_block_entity::{
+    MovingPistonInfo, PistonMovingBlockEntity, moving_piston_collision_shape,
+};
 
 mod potent_sulfur_block_entity;
 

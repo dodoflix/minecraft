@@ -1,11 +1,11 @@
 //! `MapBanner`, `MapFrame` and `MapIndex` (the `maps/last_id` counter).
 
 use super::map_decoration::{MapDecorationType, banner_decoration};
+use crate::impl_saved_data;
 use crate::util::codec::{self, DataResult, DecodeResult};
 use crate::world::block_entity::BlockEntity;
 use crate::world::level::BlockGetter;
 use crate::world::level::saveddata::{SavedData, SavedDataType};
-use crate::impl_saved_data;
 use mc_core::ident::Identifier;
 use mc_core::pos::BlockPos;
 use mc_data::BlockEntityType;
@@ -20,10 +20,16 @@ pub fn block_pos_to_tag(pos: BlockPos) -> Tag {
 
 /// `BlockPos.CODEC`.
 pub fn block_pos_from_tag(tag: &Tag) -> DataResult<BlockPos> {
-    let ints = codec::list(tag)?.iter().map(codec::int).collect::<DataResult<Vec<_>>>()?;
+    let ints = codec::list(tag)?
+        .iter()
+        .map(codec::int)
+        .collect::<DataResult<Vec<_>>>()?;
     match ints[..] {
         [x, y, z] => Ok(BlockPos::new(x, y, z)),
-        _ => Err(format!("Input is not a list of 3 ints: {} elements", ints.len())),
+        _ => Err(format!(
+            "Input is not a list of 3 ints: {} elements",
+            ints.len()
+        )),
     }
 }
 
@@ -45,8 +51,15 @@ impl MapBanner {
         }
         let block = be.get_block_state().block();
         let path = block.name().trim_start_matches("minecraft:");
-        let color = path.strip_suffix("_wall_banner").or_else(|| path.strip_suffix("_banner")).and_then(DyeColor::from_name)?;
-        Some(MapBanner { pos, color, name: custom_name(be) })
+        let color = path
+            .strip_suffix("_wall_banner")
+            .or_else(|| path.strip_suffix("_banner"))
+            .and_then(DyeColor::from_name)?;
+        Some(MapBanner {
+            pos,
+            color,
+            name: custom_name(be),
+        })
     }
 
     pub fn get_decoration(&self) -> MapDecorationType {
@@ -62,7 +75,11 @@ impl MapBanner {
         let m = codec::compound(tag)?;
         let pos = block_pos_from_tag(codec::field(m, "pos")?)?;
         // `lenientOptionalFieldOf`: an unreadable value counts as absent.
-        let color = m.get("color").and_then(|t| t.as_string()).and_then(DyeColor::from_name).unwrap_or(DyeColor::White);
+        let color = m
+            .get("color")
+            .and_then(|t| t.as_string())
+            .and_then(DyeColor::from_name)
+            .unwrap_or(DyeColor::White);
         let name = m.get("name").and_then(|t| Component::from_nbt(t).ok());
         Ok(MapBanner { pos, color, name })
     }
@@ -84,7 +101,8 @@ impl MapBanner {
 fn custom_name(be: &dyn BlockEntity) -> Option<Component> {
     let mut tag = CompoundTag::new();
     be.save_additional(&mut tag);
-    tag.get("CustomName").and_then(|t| Component::from_nbt(t).ok())
+    tag.get("CustomName")
+        .and_then(|t| Component::from_nbt(t).ok())
 }
 
 /// `MapFrame`.
@@ -134,7 +152,10 @@ impl_saved_data!(MapIndex);
 
 impl Default for MapIndex {
     fn default() -> Self {
-        MapIndex { dirty: false, last_map_id: -1 }
+        MapIndex {
+            dirty: false,
+            last_map_id: -1,
+        }
     }
 }
 
@@ -149,7 +170,10 @@ impl MapIndex {
 
     pub fn decode(tag: &Tag) -> DecodeResult<MapIndex> {
         let m = codec::compound(tag)?;
-        Ok(MapIndex { dirty: false, last_map_id: codec::optional(m, "map", codec::int)?.unwrap_or(-1) })
+        Ok(MapIndex {
+            dirty: false,
+            last_map_id: codec::optional(m, "map", codec::int)?.unwrap_or(-1),
+        })
     }
 
     pub fn encode(&self) -> DataResult<Tag> {
@@ -162,6 +186,11 @@ impl MapIndex {
 
     /// `MapIndex.TYPE`.
     pub fn type_() -> SavedDataType<MapIndex> {
-        SavedDataType::new(Identifier::parse("minecraft:maps/last_id").expect("static id"), MapIndex::default, MapIndex::decode, MapIndex::encode)
+        SavedDataType::new(
+            Identifier::parse("minecraft:maps/last_id").expect("static id"),
+            MapIndex::default,
+            MapIndex::decode,
+            MapIndex::encode,
+        )
     }
 }

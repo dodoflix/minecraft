@@ -13,12 +13,20 @@ pub struct PoiRecord {
 impl PoiRecord {
     /// `new PoiRecord(pos, type, setDirty)`: all tickets free.
     pub fn new(pos: BlockPos, poi_type: PoiTypeHolder) -> Self {
-        Self { pos, poi_type, free_tickets: poi_type.max_tickets() }
+        Self {
+            pos,
+            poi_type,
+            free_tickets: poi_type.max_tickets(),
+        }
     }
 
     /// `PoiRecord.Packed.unpack` / the private constructor with explicit tickets.
     pub fn with_free_tickets(pos: BlockPos, poi_type: PoiTypeHolder, free_tickets: i32) -> Self {
-        Self { pos, poi_type, free_tickets }
+        Self {
+            pos,
+            poi_type,
+            free_tickets,
+        }
     }
 
     /// `getFreeTickets()`.

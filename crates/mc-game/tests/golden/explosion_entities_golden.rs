@@ -17,22 +17,28 @@ use mc_data::enums::GameType;
 use mc_data::{Item, MobEffect};
 use mc_game::server::level::ServerLevel;
 use mc_game::server::level::level_explode::Explode;
-use mc_game::world::level::explosion::ExplosionInteraction;
 use mc_game::world::damagesource::DamageSource;
 use mc_game::world::entity::effect::MobEffectInstance;
 use mc_game::world::entity::equipment::EquipmentSlot;
 use mc_game::world::entity::{Entity, ServerPlayer};
 use mc_game::world::item::ItemStack;
 use mc_game::world::level::LevelAccessor;
+use mc_game::world::level::explosion::ExplosionInteraction;
 use mc_protocol::codec::GameProfile;
 use mc_world::level_storage::Difficulty;
 
-static ACCESS: std::sync::LazyLock<mc_game::registry::RegistryAccess> = std::sync::LazyLock::new(|| {
-    let _serial = common::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
-    let dir = tempfile::tempdir().unwrap();
-    let (_, stem) = common::load_world(dir.path(), mc_world::level_storage::WorldDataConfiguration::DEFAULT, true).expect("default world loads");
-    stem.registries.composite_access().clone()
-});
+static ACCESS: std::sync::LazyLock<mc_game::registry::RegistryAccess> =
+    std::sync::LazyLock::new(|| {
+        let _serial = common::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
+        let dir = tempfile::tempdir().unwrap();
+        let (_, stem) = common::load_world(
+            dir.path(),
+            mc_world::level_storage::WorldDataConfiguration::DEFAULT,
+            true,
+        )
+        .expect("default world loads");
+        stem.registries.composite_access().clone()
+    });
 
 fn registries() -> mc_game::registry::RegistryAccess {
     ACCESS.clone()
@@ -55,19 +61,34 @@ impl Replay {
         let mut level = ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap());
         level.registries = registries();
         let world = mc_game::server::level::level_data::default_world_data();
-        level.level_data = Box::new(mc_game::server::level::level_data::PrimaryServerLevelData(world.clone()));
+        level.level_data = Box::new(mc_game::server::level::level_data::PrimaryServerLevelData(
+            world.clone(),
+        ));
         for x in -3..=130 {
             for z in -4..=4 {
-                level.set_block_and_update(BlockPos::new(x, -61, z), Block::GRASS_BLOCK.default_state());
+                level.set_block_and_update(
+                    BlockPos::new(x, -61, z),
+                    Block::GRASS_BLOCK.default_state(),
+                );
             }
         }
-        Replay { level, players: Vec::new(), out: Vec::new(), next_id: 1, world }
+        Replay {
+            level,
+            players: Vec::new(),
+            out: Vec::new(),
+            next_id: 1,
+            world,
+        }
     }
 
     fn player(&mut self, name: &str) -> &mut ServerPlayer {
-        &mut self.players.iter_mut().find(|(n, _)| n == name).unwrap_or_else(|| panic!("no player {name}")).1
+        &mut self
+            .players
+            .iter_mut()
+            .find(|(n, _)| n == name)
+            .unwrap_or_else(|| panic!("no player {name}"))
+            .1
     }
-
 
     fn dump_player(&mut self, name: &str) {
         let p = self.player(name);
@@ -76,7 +97,12 @@ impl Replay {
         let d = |v: f64| mc_core::math::java::java_double_to_string(v);
         let line = format!(
             "P {name} minecraft:player pos={},{},{} delta={},{},{} alive={} hp={} abs={} hurt={}/{} death={} food={} sat={} exh={}",
-            d(pos.x), d(pos.y), d(pos.z), d(dm.x), d(dm.y), d(dm.z),
+            d(pos.x),
+            d(pos.y),
+            d(pos.z),
+            d(dm.x),
+            d(dm.y),
+            d(dm.z),
             u8::from(p.is_alive()),
             f(l.get_health()),
             f(p.player.get_absorption_amount()),
@@ -123,8 +149,17 @@ impl Replay {
             "spawn_player" => {
                 let id = self.next_id;
                 self.next_id += 1;
-                let profile = GameProfile { id: uuid::Uuid::from_u128(id as u128), name: t[1].into(), properties: vec![] };
-                let mut p = ServerPlayer::new(id, Identifier::parse("minecraft:overworld").unwrap(), profile, Default::default());
+                let profile = GameProfile {
+                    id: uuid::Uuid::from_u128(id as u128),
+                    name: t[1].into(),
+                    properties: vec![],
+                };
+                let mut p = ServerPlayer::new(
+                    id,
+                    Identifier::parse("minecraft:overworld").unwrap(),
+                    profile,
+                    Default::default(),
+                );
                 let mode = match t[2] {
                     "creative" => GameType::Creative,
                     "spectator" => GameType::Spectator,
@@ -145,14 +180,21 @@ impl Replay {
                     other => panic!("slot {other}"),
                 };
                 let item = Item::by_name(t[3]).unwrap_or_else(|| panic!("item {}", t[3]));
-                self.player(t[1]).player.inventory.equipment_set(slot, ItemStack::new(item));
+                self.player(t[1])
+                    .player
+                    .inventory
+                    .equipment_set(slot, ItemStack::new(item));
             }
             "effect" => {
                 let effect = MobEffect::by_name(t[2]).unwrap_or_else(|| panic!("effect {}", t[2]));
                 let (amp, dur) = (t[3].parse().unwrap(), t[4].parse().unwrap());
                 let (level, players) = (&mut self.level, &mut self.players);
                 let p = &mut players.iter_mut().find(|(n, _)| n == t[1]).unwrap().1;
-                p.add_effect(level, MobEffectInstance::new(effect, dur, amp, false, true, true, None), None);
+                p.add_effect(
+                    level,
+                    MobEffectInstance::new(effect, dur, amp, false, true, true, None),
+                    None,
+                );
             }
             "set" => {
                 let v: f32 = t[3].parse().unwrap();
@@ -167,10 +209,18 @@ impl Replay {
                 let (level, players) = (&mut self.level, &mut self.players);
                 let p = &mut players.iter_mut().find(|(n, _)| n == t[1]).unwrap().1;
                 let key = Identifier::parse(&format!("minecraft:{}", t[2])).unwrap();
-                let data = level.registries.get::<mc_game::registry::typed::damage_type::DamageType>("minecraft:damage_type", &key).expect("damage type").clone();
+                let data = level
+                    .registries
+                    .get::<mc_game::registry::typed::damage_type::DamageType>(
+                        "minecraft:damage_type",
+                        &key,
+                    )
+                    .expect("damage type")
+                    .clone();
                 let source = DamageSource::new(key, std::sync::Arc::new(data), None, None, None);
                 let r = p.hurt_server(level, &source, t[3].parse::<f64>().unwrap() as f32);
-                self.out.push(format!("HURT {} {} {} -> {}", t[1], t[2], t[3], r));
+                self.out
+                    .push(format!("HURT {} {} {} -> {}", t[1], t[2], t[3], r));
             }
             "tick" => {
                 for _ in 0..t.get(1).map_or(1, |n| n.parse().unwrap()) {
@@ -192,14 +242,27 @@ impl Replay {
                     other => panic!("{other}"),
                 };
                 let n = |i: usize| t[i].parse::<f64>().unwrap();
-                let params = Explode::new(None, n(1), n(2), n(3), t[4].parse::<f32>().unwrap(), interaction).with_fire(t.contains(&"fire"));
-                let mut participants: Vec<&mut dyn Entity> = self.players.iter_mut().map(|(_, p)| p as &mut dyn Entity).collect();
+                let params = Explode::new(
+                    None,
+                    n(1),
+                    n(2),
+                    n(3),
+                    t[4].parse::<f32>().unwrap(),
+                    interaction,
+                )
+                .with_fire(t.contains(&"fire"));
+                let mut participants: Vec<&mut dyn Entity> = self
+                    .players
+                    .iter_mut()
+                    .map(|(_, p)| p as &mut dyn Entity)
+                    .collect();
                 self.level.explode(params, &mut participants);
             }
             "dump" => {
                 for w in &t[1..] {
                     if *w == "all_players" {
-                        let names: Vec<String> = self.players.iter().map(|(n, _)| n.clone()).collect();
+                        let names: Vec<String> =
+                            self.players.iter().map(|(n, _)| n.clone()).collect();
                         for name in names {
                             self.dump_player(&name);
                         }
@@ -228,7 +291,10 @@ fn check(name: &str) {
     let fixture = Fixture::load(name);
     let opts = Options {
         ignore_kinds: vec!["I", "PKT", "C", "#", "B", "EFFECT", "DIG", "T", "E"],
-        ignore_fields: vec!["pos", "delta", "rot", "og", "fall", "fire", "air", "pose", "gm", "fx", "xp", "sel", "main"],
+        ignore_fields: vec![
+            "pos", "delta", "rot", "og", "fall", "fire", "air", "pose", "gm", "fx", "xp", "sel",
+            "main",
+        ],
         ..Default::default()
     };
     fixture.assert_matches(&replay(name), &opts);
@@ -239,7 +305,9 @@ fn explosions_hurt_and_push_players_like_vanilla() {
     let fixture = Fixture::load("explosion_entities");
     let opts = Options {
         ignore_kinds: vec!["I", "PKT", "C", "#", "B", "EFFECT", "DIG", "T", "E"],
-        ignore_fields: vec!["rot", "og", "fall", "fire", "air", "pose", "gm", "fx", "xp", "sel", "main"],
+        ignore_fields: vec![
+            "rot", "og", "fall", "fire", "air", "pose", "gm", "fx", "xp", "sel", "main",
+        ],
         ..Default::default()
     };
     fixture.assert_matches(&replay("explosion_entities"), &opts);

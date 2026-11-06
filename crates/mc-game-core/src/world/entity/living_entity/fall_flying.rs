@@ -16,13 +16,21 @@ pub fn can_glide_using(stack: &ItemStack, slot: EquipmentSlot) -> bool {
     if stack.get(&GLIDER).is_none() {
         return false;
     }
-    stack.get(&EQUIPPABLE).is_some_and(|equippable| slot == EquipmentSlot::from_protocol(equippable.slot)) && !stack.next_damage_will_break()
+    stack
+        .get(&EQUIPPABLE)
+        .is_some_and(|equippable| slot == EquipmentSlot::from_protocol(equippable.slot))
+        && !stack.next_damage_will_break()
 }
 
 /// `canGlide()`.
 pub fn can_glide(entity: &dyn Entity) -> bool {
-    if !entity.base().on_ground() && !entity.base().is_passenger() && !has_effect(entity, MobEffect::LEVITATION) {
-        EquipmentSlot::VALUES.into_iter().any(|slot| can_glide_using(&entity.get_item_by_slot(slot), slot))
+    if !entity.base().on_ground()
+        && !entity.base().is_passenger()
+        && !has_effect(entity, MobEffect::LEVITATION)
+    {
+        EquipmentSlot::VALUES
+            .into_iter()
+            .any(|slot| can_glide_using(&entity.get_item_by_slot(slot), slot))
     } else {
         false
     }
@@ -53,10 +61,15 @@ pub fn update_fall_flying(entity: &mut dyn Entity, level: &mut ServerLevel) {
     if check_fall_fly_ticks % 10 == 0 {
         let free_fall_interval = check_fall_fly_ticks / 10;
         if free_fall_interval % 2 == 0 {
-            let slots_with_gliders: Vec<EquipmentSlot> =
-                EquipmentSlot::VALUES.into_iter().filter(|&slot| can_glide_using(&entity.get_item_by_slot(slot), slot)).collect();
+            let slots_with_gliders: Vec<EquipmentSlot> = EquipmentSlot::VALUES
+                .into_iter()
+                .filter(|&slot| can_glide_using(&entity.get_item_by_slot(slot), slot))
+                .collect();
             // `Util.getRandom(list, random)`: `list.get(random.nextInt(list.size()))`
-            let index = entity.base_mut().random.next_int_bounded(slots_with_gliders.len() as i32) as usize;
+            let index = entity
+                .base_mut()
+                .random
+                .next_int_bounded(slots_with_gliders.len() as i32) as usize;
             let slot_to_damage = slots_with_gliders[index];
             entity.hurt_and_break_equipment(level, slot_to_damage, 1);
         }
@@ -65,8 +78,15 @@ pub fn update_fall_flying(entity: &mut dyn Entity, level: &mut ServerLevel) {
 }
 
 /// `ItemStack.hurtAndBreak(amount, this, slot)` for a non-player owner (players: `ServerPlayer`'s override).
-pub fn hurt_and_break_equipment(entity: &mut dyn Entity, level: &mut ServerLevel, slot: EquipmentSlot, amount: i32) {
-    let Some(mut stack) = entity.item_by_slot_mut(slot).map(|s| s.clone()) else { return };
+pub fn hurt_and_break_equipment(
+    entity: &mut dyn Entity,
+    level: &mut ServerLevel,
+    slot: EquipmentSlot,
+    amount: i32,
+) {
+    let Some(mut stack) = entity.item_by_slot_mut(slot).map(|s| s.clone()) else {
+        return;
+    };
     if !stack.is_damageable_item() || amount <= 0 {
         return;
     }

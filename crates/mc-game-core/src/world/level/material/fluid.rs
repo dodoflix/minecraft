@@ -14,13 +14,34 @@ use std::sync::OnceLock;
 /// (amount, source flag, own height, legacy block, random ticking, explosion resistance) is in `mc_data`.
 pub trait FluidBehaviour: Send + Sync + 'static {
     /// `tick(level, pos, blockState, fluidState)` (scheduled fluid tick).
-    fn tick(&self, _level: &mut ServerLevel, _pos: BlockPos, _block_state: BlockState, _fluid_state: FluidState) {}
+    fn tick(
+        &self,
+        _level: &mut ServerLevel,
+        _pos: BlockPos,
+        _block_state: BlockState,
+        _fluid_state: FluidState,
+    ) {
+    }
     /// `randomTick`.
     fn random_tick(&self, _level: &mut ServerLevel, _pos: BlockPos, _fluid_state: FluidState) {}
     /// `entityInside(level, pos, entity, effectApplier)`.
-    fn entity_inside(&self, _level: &mut ServerLevel, _pos: BlockPos, _entity: &mut dyn crate::world::entity::Entity, _effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier) {}
+    fn entity_inside(
+        &self,
+        _level: &mut ServerLevel,
+        _pos: BlockPos,
+        _entity: &mut dyn crate::world::entity::Entity,
+        _effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier,
+    ) {
+    }
     /// `canBeReplacedWith(state, level, pos, other, direction)`.
-    fn can_be_replaced_with(&self, _state: FluidState, _level: &dyn BlockGetter, _pos: BlockPos, _other: Fluid, _direction: Direction) -> bool {
+    fn can_be_replaced_with(
+        &self,
+        _state: FluidState,
+        _level: &dyn BlockGetter,
+        _pos: BlockPos,
+        _other: Fluid,
+        _direction: Direction,
+    ) -> bool {
         false
     }
     /// `getFlow(level, pos, state)`.
@@ -77,7 +98,10 @@ macro_rules! register_fluid {
         const _: () = {
             #[::linkme::distributed_slice($crate::world::level::material::FLUIDS)]
             static REG: $crate::world::level::material::FluidRegistration =
-                $crate::world::level::material::FluidRegistration { fluid: $name, create: $create };
+                $crate::world::level::material::FluidRegistration {
+                    fluid: $name,
+                    create: $create,
+                };
         };
     };
 }
@@ -86,15 +110,14 @@ static TABLE: OnceLock<Vec<Box<dyn FluidBehaviour>>> = OnceLock::new();
 
 /// The behavior of `fluid` (`FluidState.getType()` + virtual dispatch).
 pub fn fluid_behaviour(fluid: Fluid) -> &'static dyn FluidBehaviour {
-    TABLE
-        .get_or_init(|| {
-            Fluid::iter()
-                .map(|f| match FLUIDS.iter().find(|r| r.fluid == f.data().name) {
-                    Some(r) => (r.create)(f),
-                    None => Box::new(EmptyFluid) as Box<dyn FluidBehaviour>,
-                })
-                .collect()
-        })[fluid.id() as usize]
+    TABLE.get_or_init(|| {
+        Fluid::iter()
+            .map(|f| match FLUIDS.iter().find(|r| r.fluid == f.data().name) {
+                Some(r) => (r.create)(f),
+                None => Box::new(EmptyFluid) as Box<dyn FluidBehaviour>,
+            })
+            .collect()
+    })[fluid.id() as usize]
         .as_ref()
 }
 
@@ -109,7 +132,13 @@ pub trait FluidStateExt: Copy {
     fn random_tick(self, level: &mut ServerLevel, pos: BlockPos);
     fn get_flow(self, level: &dyn BlockGetter, pos: BlockPos) -> Vec3;
     fn get_height(self, level: &dyn BlockGetter, pos: BlockPos) -> f32;
-    fn can_be_replaced_with(self, level: &dyn BlockGetter, pos: BlockPos, other: Fluid, direction: Direction) -> bool;
+    fn can_be_replaced_with(
+        self,
+        level: &dyn BlockGetter,
+        pos: BlockPos,
+        other: Fluid,
+        direction: Direction,
+    ) -> bool;
     fn get_shape(self, level: &dyn BlockGetter, pos: BlockPos) -> VoxelShape;
     /// `getAABB(level, pos)`.
     fn get_aabb(self, level: &dyn BlockGetter, pos: BlockPos) -> Option<AABB>;
@@ -144,7 +173,13 @@ impl FluidStateExt for FluidState {
     fn get_height(self, level: &dyn BlockGetter, pos: BlockPos) -> f32 {
         fluid_behaviour(self.fluid()).get_height(self, level, pos)
     }
-    fn can_be_replaced_with(self, level: &dyn BlockGetter, pos: BlockPos, other: Fluid, direction: Direction) -> bool {
+    fn can_be_replaced_with(
+        self,
+        level: &dyn BlockGetter,
+        pos: BlockPos,
+        other: Fluid,
+        direction: Direction,
+    ) -> bool {
         fluid_behaviour(self.fluid()).can_be_replaced_with(self, level, pos, other, direction)
     }
     fn get_shape(self, level: &dyn BlockGetter, pos: BlockPos) -> VoxelShape {

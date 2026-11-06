@@ -77,7 +77,9 @@ pub(crate) fn varint_size(value: u32) -> usize {
 pub(crate) fn read_varint(input: &mut &[u8]) -> Result<u32, PaletteError> {
     let mut value = 0u32;
     for i in 0..5 {
-        let Some((&b, rest)) = input.split_first() else { return err("Not enough bytes in buffer") };
+        let Some((&b, rest)) = input.split_first() else {
+            return err("Not enough bytes in buffer");
+        };
         *input = rest;
         value |= u32::from(b & 0x7F) << (7 * i);
         if b & 0x80 == 0 {
@@ -105,7 +107,10 @@ pub enum Configuration {
     /// `Configuration.Simple(HashMapPalette, bits)`.
     HashMap(i32),
     /// `Configuration.Global(bitsInMemory, bitsInStorage)`.
-    Global { bits_in_memory: i32, bits_in_storage: i32 },
+    Global {
+        bits_in_memory: i32,
+        bits_in_storage: i32,
+    },
 }
 
 impl Configuration {
@@ -123,7 +128,9 @@ impl Configuration {
 
     pub fn bits_in_storage(self) -> i32 {
         match self {
-            Configuration::Global { bits_in_storage, .. } => bits_in_storage,
+            Configuration::Global {
+                bits_in_storage, ..
+            } => bits_in_storage,
             other => other.bits_in_memory(),
         }
     }
@@ -132,7 +139,10 @@ impl Configuration {
         Ok(match self {
             Configuration::Single => {
                 if entries.len() > 1 {
-                    return err(format!("Can't initialize SingleValuePalette with {} values.", entries.len()));
+                    return err(format!(
+                        "Can't initialize SingleValuePalette with {} values.",
+                        entries.len()
+                    ));
                 }
                 Palette::Single(entries.first().copied())
             }
@@ -144,7 +154,10 @@ impl Configuration {
                         entries.len()
                     ));
                 }
-                Palette::Linear { values: entries.to_vec(), bits }
+                Palette::Linear {
+                    values: entries.to_vec(),
+                    bits,
+                }
             }
             Configuration::HashMap(bits) => Palette::hash_from(bits, entries),
             Configuration::Global { .. } => Palette::Global,
@@ -244,9 +257,16 @@ enum IdFor {
 #[derive(Clone, Debug)]
 enum Palette<T: PaletteValue> {
     Single(Option<T>),
-    Linear { values: Vec<T>, bits: i32 },
+    Linear {
+        values: Vec<T>,
+        bits: i32,
+    },
     /// `CrudeIncrementalIntIdentityHashBiMap`: ids are insertion order, duplicates keep the first id.
-    Hash { values: Vec<T>, index: HashMap<T, u32>, bits: i32 },
+    Hash {
+        values: Vec<T>,
+        index: HashMap<T, u32>,
+        bits: i32,
+    },
     Global,
 }
 
@@ -256,7 +276,11 @@ impl<T: PaletteValue> Palette<T> {
         for (i, &v) in entries.iter().enumerate() {
             index.entry(v).or_insert(i as u32);
         }
-        Palette::Hash { values: entries.to_vec(), index, bits }
+        Palette::Hash {
+            values: entries.to_vec(),
+            index,
+            bits,
+        }
     }
 
     fn id_for(&mut self, value: T) -> IdFor {
@@ -279,14 +303,22 @@ impl<T: PaletteValue> Palette<T> {
                     IdFor::Resize(*bits + 1)
                 }
             }
-            Palette::Hash { values, index, bits } => {
+            Palette::Hash {
+                values,
+                index,
+                bits,
+            } => {
                 if let Some(&id) = index.get(&value) {
                     return IdFor::Id(id);
                 }
                 let id = values.len() as u32;
                 values.push(value);
                 index.insert(value, id);
-                if id >= 1u32 << *bits { IdFor::Resize(*bits + 1) } else { IdFor::Id(id) }
+                if id >= 1u32 << *bits {
+                    IdFor::Resize(*bits + 1)
+                } else {
+                    IdFor::Id(id)
+                }
             }
             Palette::Global => IdFor::Id(value.global_id()),
         }
@@ -296,14 +328,18 @@ impl<T: PaletteValue> Palette<T> {
     fn id_for_no_resize(&mut self, value: T) -> u32 {
         match self.id_for(value) {
             IdFor::Id(id) => id,
-            IdFor::Resize(bits) => panic!("Unexpected palette resize, bits = {bits}, added value = {value:?}"),
+            IdFor::Resize(bits) => {
+                panic!("Unexpected palette resize, bits = {bits}, added value = {value:?}")
+            }
         }
     }
 
     fn maybe_has(&self, pred: &mut dyn FnMut(T) -> bool) -> bool {
         match self {
             Palette::Single(v) => pred(v.expect("Use of an uninitialized palette")),
-            Palette::Linear { values, .. } | Palette::Hash { values, .. } => values.iter().any(|&v| pred(v)),
+            Palette::Linear { values, .. } | Palette::Hash { values, .. } => {
+                values.iter().any(|&v| pred(v))
+            }
             Palette::Global => true,
         }
     }
@@ -316,7 +352,9 @@ impl<T: PaletteValue> Palette<T> {
                     _ => err(format!("Missing Palette entry for id {index}.")),
                 };
             }
-            Palette::Linear { values, .. } | Palette::Hash { values, .. } => values.get(index as usize).copied(),
+            Palette::Linear { values, .. } | Palette::Hash { values, .. } => {
+                values.get(index as usize).copied()
+            }
             Palette::Global => T::from_global_id(index),
         };
         found.ok_or_else(|| PaletteError(format!("Missing Palette entry for index {index}.")))
@@ -341,13 +379,22 @@ impl<T: PaletteValue> Palette<T> {
                     values.push(by_id_or_throw(input)?);
                 }
             }
-            Palette::Hash { values, index, bits } => {
+            Palette::Hash {
+                values,
+                index,
+                bits,
+            } => {
                 let size = read_varint(input)?;
                 let mut entries = Vec::with_capacity(size.min(1 << 16) as usize);
                 for _ in 0..size {
                     entries.push(by_id_or_throw(input)?);
                 }
-                if let Palette::Hash { values: v, index: i, .. } = Palette::hash_from(*bits, &entries) {
+                if let Palette::Hash {
+                    values: v,
+                    index: i,
+                    ..
+                } = Palette::hash_from(*bits, &entries)
+                {
                     *values = v;
                     *index = i;
                 }
@@ -379,7 +426,11 @@ impl<T: PaletteValue> Palette<T> {
             Palette::Single(Some(v)) => varint_size(v.global_id()),
             Palette::Single(None) => return err("Use of an uninitialized palette"),
             Palette::Linear { values, .. } | Palette::Hash { values, .. } => {
-                varint_size(values.len() as u32) + values.iter().map(|v| varint_size(v.global_id())).sum::<usize>()
+                varint_size(values.len() as u32)
+                    + values
+                        .iter()
+                        .map(|v| varint_size(v.global_id()))
+                        .sum::<usize>()
             }
             Palette::Global => 0,
         })
@@ -413,13 +464,24 @@ struct Data<T: PaletteValue> {
 
 impl<T: PaletteValue> Data<T> {
     fn copy(&self) -> Self {
-        Data { configuration: self.configuration, storage: self.storage.copy(), palette: self.palette.clone() }
+        Data {
+            configuration: self.configuration,
+            storage: self.storage.copy(),
+            palette: self.palette.clone(),
+        }
     }
 
     /// `Data.copyFrom(oldPalette, oldStorage)`.
-    fn copy_from(&mut self, old_palette: &Palette<T>, old_storage: &dyn BitStorage, global_size: usize) {
+    fn copy_from(
+        &mut self,
+        old_palette: &Palette<T>,
+        old_storage: &dyn BitStorage,
+        global_size: usize,
+    ) {
         if old_palette.size(global_size) == 1 {
-            let value = old_palette.value_for(0).expect("single-value palette is initialized");
+            let value = old_palette
+                .value_for(0)
+                .expect("single-value palette is initialized");
             let id = self.palette.id_for_no_resize(value);
             self.storage.fill(id as i32);
         } else {
@@ -428,7 +490,9 @@ impl<T: PaletteValue> Data<T> {
             for i in 0..old_storage.get_size() {
                 let old_id = old_storage.get(i);
                 if old_id != last_old_id {
-                    let value = old_palette.value_for(old_id as u32).expect("palette entry exists");
+                    let value = old_palette
+                        .value_for(old_id as u32)
+                        .expect("palette entry exists");
                     new_id = self.palette.id_for_no_resize(value) as i32;
                     last_old_id = old_id;
                 }
@@ -454,13 +518,18 @@ pub struct PalettedContainer<T: PaletteValue> {
 
 impl<T: PaletteValue> Clone for PalettedContainer<T> {
     fn clone(&self) -> Self {
-        PalettedContainer { data: self.data.copy(), strategy: self.strategy.clone() }
+        PalettedContainer {
+            data: self.data.copy(),
+            strategy: self.strategy.clone(),
+        }
     }
 }
 
 impl<T: PaletteValue> fmt::Debug for PalettedContainer<T> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        f.debug_struct("PalettedContainer").field("config", &self.data.configuration).finish()
+        f.debug_struct("PalettedContainer")
+            .field("config", &self.data.configuration)
+            .finish()
     }
 }
 
@@ -474,7 +543,10 @@ fn new_storage(config: Configuration, entry_count: usize) -> Box<dyn BitStorage>
 impl<T: PaletteValue> PalettedContainer<T> {
     /// `new PalettedContainer(initialValue, strategy)`.
     pub fn new(initial_value: T, strategy: Strategy<T>) -> Self {
-        let mut c = PalettedContainer { data: Self::create_data(&strategy, None, 0), strategy };
+        let mut c = PalettedContainer {
+            data: Self::create_data(&strategy, None, 0),
+            strategy,
+        };
         c.data.palette.id_for_no_resize(initial_value);
         c
     }
@@ -487,15 +559,25 @@ impl<T: PaletteValue> PalettedContainer<T> {
         {
             return old.copy();
         }
-        let palette = config.create_palette(&[]).expect("empty palette always fits");
-        Data { configuration: config, storage: new_storage(config, strategy.entry_count), palette }
+        let palette = config
+            .create_palette(&[])
+            .expect("empty palette always fits");
+        Data {
+            configuration: config,
+            storage: new_storage(config, strategy.entry_count),
+            palette,
+        }
     }
 
     /// `onResize(bits, lastAddedValue)`.
     fn on_resize(&mut self, bits: i32, last_added: T) -> u32 {
         // (a resize always changes the configuration, so vanilla's "reuse old data" branch never applies)
         let mut new_data = Self::create_data(&self.strategy, None, bits);
-        new_data.copy_from(&self.data.palette, self.data.storage.as_ref(), self.strategy.global_size);
+        new_data.copy_from(
+            &self.data.palette,
+            self.data.storage.as_ref(),
+            self.strategy.global_size,
+        );
         self.data = new_data;
         self.data.palette.id_for_no_resize(last_added)
     }
@@ -520,7 +602,10 @@ impl<T: PaletteValue> PalettedContainer<T> {
     fn get_and_set_index(&mut self, index: usize, value: T) -> T {
         let id = self.id_for(value);
         let old_id = self.data.storage.get_and_set(index, id as i32);
-        self.data.palette.value_for(old_id as u32).expect("stored id is in the palette")
+        self.data
+            .palette
+            .value_for(old_id as u32)
+            .expect("stored id is in the palette")
     }
 
     pub fn set(&mut self, x: i32, y: i32, z: i32, value: T) {
@@ -534,7 +619,10 @@ impl<T: PaletteValue> PalettedContainer<T> {
     }
 
     pub fn get_index(&self, index: usize) -> T {
-        self.data.palette.value_for(self.data.storage.get(index) as u32).expect("stored id is in the palette")
+        self.data
+            .palette
+            .value_for(self.data.storage.get(index) as u32)
+            .expect("stored id is in the palette")
     }
 
     /// `getAll(consumer)`: every distinct value in the storage (ascending palette id).
@@ -546,13 +634,20 @@ impl<T: PaletteValue> PalettedContainer<T> {
             }
         });
         for id in seen {
-            consumer(self.data.palette.value_for(id as u32).expect("stored id is in the palette"));
+            consumer(
+                self.data
+                    .palette
+                    .value_for(id as u32)
+                    .expect("stored id is in the palette"),
+            );
         }
     }
 
     /// `read(buffer)` (network format).
     pub fn read(&mut self, input: &mut &[u8]) -> Result<(), PaletteError> {
-        let Some((&new_bits, rest)) = input.split_first() else { return err("Not enough bytes in buffer") };
+        let Some((&new_bits, rest)) = input.split_first() else {
+            return err("Not enough bytes in buffer");
+        };
         *input = rest;
         let new_bits = new_bits as i8 as i32;
         let mut new_data = Self::create_data(&self.strategy, Some(&self.data), new_bits);
@@ -560,14 +655,20 @@ impl<T: PaletteValue> PalettedContainer<T> {
         let longs = new_data.storage.get_raw().len();
         let mut raw = Vec::with_capacity(longs);
         for _ in 0..longs {
-            let Some((chunk, rest)) = input.split_first_chunk::<8>() else { return err("Not enough bytes in buffer") };
+            let Some((chunk, rest)) = input.split_first_chunk::<8>() else {
+                return err("Not enough bytes in buffer");
+            };
             *input = rest;
             raw.push(i64::from_be_bytes(*chunk));
         }
         if longs > 0 {
             new_data.storage = Box::new(
-                SimpleBitStorage::with_data(new_data.configuration.bits_in_memory(), self.strategy.entry_count, raw)
-                    .map_err(|e| PaletteError(e.0))?,
+                SimpleBitStorage::with_data(
+                    new_data.configuration.bits_in_memory(),
+                    self.strategy.entry_count,
+                    raw,
+                )
+                .map_err(|e| PaletteError(e.0))?,
             );
         }
         self.data = new_data;
@@ -601,30 +702,59 @@ impl<T: PaletteValue> PalettedContainer<T> {
     /// `forEachInPalette(consumer)`.
     pub fn for_each_in_palette(&self, mut consumer: impl FnMut(T)) {
         for i in 0..self.data.palette.size(self.strategy.global_size) {
-            consumer(self.data.palette.value_for(i as u32).expect("palette entry exists"));
+            consumer(
+                self.data
+                    .palette
+                    .value_for(i as u32)
+                    .expect("palette entry exists"),
+            );
         }
     }
 
     /// `recreate()`: an empty container filled with this one's first palette value.
     pub fn recreate(&self) -> Self {
-        Self::new(self.data.palette.value_for(0).expect("palette entry 0 exists"), self.strategy.clone())
+        Self::new(
+            self.data
+                .palette
+                .value_for(0)
+                .expect("palette entry 0 exists"),
+            self.strategy.clone(),
+        )
     }
 
     /// `count(output)`: `output(value, count)` for each distinct value.
     pub fn count(&self, mut output: impl FnMut(T, usize)) {
         if self.data.palette.size(self.strategy.global_size) == 1 {
-            output(self.data.palette.value_for(0).expect("palette entry 0 exists"), self.data.storage.get_size());
+            output(
+                self.data
+                    .palette
+                    .value_for(0)
+                    .expect("palette entry 0 exists"),
+                self.data.storage.get_size(),
+            );
         } else {
             let mut counts: HashMap<i32, usize> = HashMap::new();
-            self.data.storage.get_all(&mut |id| *counts.entry(id).or_default() += 1);
+            self.data
+                .storage
+                .get_all(&mut |id| *counts.entry(id).or_default() += 1);
             for (id, n) in counts {
-                output(self.data.palette.value_for(id as u32).expect("stored id is in the palette"), n);
+                output(
+                    self.data
+                        .palette
+                        .value_for(id as u32)
+                        .expect("stored id is in the palette"),
+                    n,
+                );
             }
         }
     }
 
     /// `reencodeContents(storage, oldPalette, newPalette)`.
-    fn reencode(storage: &dyn BitStorage, old: &Palette<T>, new: &mut Palette<T>) -> Result<Vec<i32>, PaletteError> {
+    fn reencode(
+        storage: &dyn BitStorage,
+        old: &Palette<T>,
+        new: &mut Palette<T>,
+    ) -> Result<Vec<i32>, PaletteError> {
         let mut buffer = vec![0i32; storage.get_size()];
         storage.unpack(&mut buffer);
         let (mut last_read, mut last_written) = (-1, -1);
@@ -645,12 +775,20 @@ impl<T: PaletteValue> PalettedContainer<T> {
         let mut new_palette = Palette::hash_from(storage.get_bits(), &[]);
         let contents = Self::reencode(storage, &self.data.palette, &mut new_palette)
             .expect("in-memory container only holds palette ids");
-        let config = self.strategy.configuration_for_palette_size(new_palette.size(self.strategy.global_size));
+        let config = self
+            .strategy
+            .configuration_for_palette_size(new_palette.size(self.strategy.global_size));
         let bits_on_disc = config.bits_in_storage();
         let values = (bits_on_disc != 0).then(|| {
-            SimpleBitStorage::from_values(bits_on_disc, self.strategy.entry_count, &contents).get_raw().to_vec()
+            SimpleBitStorage::from_values(bits_on_disc, self.strategy.entry_count, &contents)
+                .get_raw()
+                .to_vec()
         });
-        PackedData { palette_entries: new_palette.entries(), storage: values, bits_per_entry: bits_on_disc }
+        PackedData {
+            palette_entries: new_palette.entries(),
+            storage: values,
+            bits_per_entry: bits_on_disc,
+        }
     }
 
     /// `PalettedContainer.unpack(strategy, packedData)`.
@@ -665,7 +803,8 @@ impl<T: PaletteValue> PalettedContainer<T> {
                 packed.bits_per_entry
             ));
         }
-        let (storage, palette): (Box<dyn BitStorage>, Palette<T>) = if stored.bits_in_memory() == 0 {
+        let (storage, palette): (Box<dyn BitStorage>, Palette<T>) = if stored.bits_in_memory() == 0
+        {
             // an empty entry list leaves the single-value palette uninitialised: reading it would throw
             let palette = stored.create_palette(entries)?;
             if entries.is_empty() {
@@ -673,10 +812,16 @@ impl<T: PaletteValue> PalettedContainer<T> {
             }
             (Box::new(ZeroBitStorage::new(entry_count)), palette)
         } else {
-            let Some(data) = packed.storage.clone() else { return err("Missing values for non-zero storage") };
-            let init = |e: mc_core::bits::InitializationException| PaletteError(format!("Failed to read PalettedContainer: {}", e.0));
+            let Some(data) = packed.storage.clone() else {
+                return err("Missing values for non-zero storage");
+            };
+            let init = |e: mc_core::bits::InitializationException| {
+                PaletteError(format!("Failed to read PalettedContainer: {}", e.0))
+            };
             if !stored.always_repack() && stored.bits_in_memory() == bits_on_disc {
-                let storage = SimpleBitStorage::with_data(stored.bits_in_memory(), entry_count, data).map_err(init)?;
+                let storage =
+                    SimpleBitStorage::with_data(stored.bits_in_memory(), entry_count, data)
+                        .map_err(init)?;
                 // vanilla would throw MissingPaletteEntryException on first access of a dangling id
                 if entries.len() < (1usize << bits_on_disc) {
                     let mut ids = vec![0i32; entry_count];
@@ -688,14 +833,23 @@ impl<T: PaletteValue> PalettedContainer<T> {
                 (Box::new(storage), stored.create_palette(entries)?)
             } else {
                 let old_palette = Palette::hash_from(bits_on_disc, entries);
-                let old_storage = SimpleBitStorage::with_data(bits_on_disc, entry_count, data).map_err(init)?;
+                let old_storage =
+                    SimpleBitStorage::with_data(bits_on_disc, entry_count, data).map_err(init)?;
                 let mut new_palette = stored.create_palette(entries)?;
                 let contents = Self::reencode(&old_storage, &old_palette, &mut new_palette)?;
-                let storage = SimpleBitStorage::from_values(stored.bits_in_memory(), entry_count, &contents);
+                let storage =
+                    SimpleBitStorage::from_values(stored.bits_in_memory(), entry_count, &contents);
                 (Box::new(storage), new_palette)
             }
         };
-        Ok(PalettedContainer { data: Data { configuration: stored, storage, palette }, strategy })
+        Ok(PalettedContainer {
+            data: Data {
+                configuration: stored,
+                storage,
+                palette,
+            },
+            strategy,
+        })
     }
 }
 
@@ -714,7 +868,10 @@ fn decode_long_stream(tag: &Tag) -> Option<Vec<i64>> {
         Tag::LongArray(l) => Some(l.clone()),
         Tag::IntArray(l) => Some(l.iter().map(|&v| i64::from(v)).collect()),
         Tag::ByteArray(l) => Some(l.iter().map(|&v| i64::from(v)).collect()),
-        Tag::List(l) => l.iter().map(|t| t.as_number().map(|n| n.long_value())).collect(),
+        Tag::List(l) => l
+            .iter()
+            .map(|t| t.as_number().map(|n| n.long_value()))
+            .collect(),
         _ => None,
     }
 }
@@ -734,7 +891,9 @@ impl<T: PaletteValue> PalettedContainer<T> {
         strategy: Strategy<T>,
         default_value: T,
     ) -> Result<Unpacked<T>, PaletteError> {
-        let Some(compound) = tag.as_compound() else { return err("Not a map: expected a compound") };
+        let Some(compound) = tag.as_compound() else {
+            return err("Not a map: expected a compound");
+        };
         let Some(Tag::List(palette_tag)) = compound.get("palette") else {
             return err("No key palette in MapLike[...]");
         };
@@ -751,9 +910,18 @@ impl<T: PaletteValue> PalettedContainer<T> {
         }
         // lenientOptionalFieldOf("data"): an undecodable value counts as absent
         let storage = compound.get("data").and_then(decode_long_stream);
-        let container =
-            Self::unpack(strategy, PackedData { palette_entries: entries, storage, bits_per_entry: -1 })?;
-        Ok(Unpacked { container, problems })
+        let container = Self::unpack(
+            strategy,
+            PackedData {
+                palette_entries: entries,
+                storage,
+                bits_per_entry: -1,
+            },
+        )?;
+        Ok(Unpacked {
+            container,
+            problems,
+        })
     }
 
     /// Codec encode: `{palette: [...], data?: long[]}`.
@@ -789,7 +957,9 @@ impl ElementCodec<BlockState> for BlockStateCodec {
         match tag {
             Tag::String(name) => by_name(name).map(Block::default_state),
             Tag::Compound(c) => {
-                let Some(Tag::String(name)) = c.get("id") else { return Err("No key id in MapLike[...]".into()) };
+                let Some(Tag::String(name)) = c.get("id") else {
+                    return Err("No key id in MapLike[...]".into());
+                };
                 let block = by_name(name)?;
                 let mut state = block.default_state();
                 // lenientOptionalFieldOf("properties") + per-property orElseGet(default)
@@ -833,7 +1003,11 @@ pub struct BiomeRegistry {
 
 impl BiomeRegistry {
     pub fn new(names: Vec<String>) -> Self {
-        let by_name = names.iter().enumerate().map(|(i, n)| (n.clone(), i as u32)).collect();
+        let by_name = names
+            .iter()
+            .enumerate()
+            .map(|(i, n)| (n.clone(), i as u32))
+            .collect();
         BiomeRegistry { names, by_name }
     }
 
@@ -846,7 +1020,11 @@ impl BiomeRegistry {
     }
 
     pub fn id_of(&self, name: &str) -> Option<BiomeId> {
-        let full = if name.contains(':') { name.to_owned() } else { format!("minecraft:{name}") };
+        let full = if name.contains(':') {
+            name.to_owned()
+        } else {
+            format!("minecraft:{name}")
+        };
         self.by_name.get(&full).map(|&i| BiomeId(i))
     }
 
@@ -857,7 +1035,9 @@ impl BiomeRegistry {
 
 impl ElementCodec<BiomeId> for BiomeRegistry {
     fn decode(&self, tag: &Tag) -> Result<BiomeId, String> {
-        let Tag::String(name) = tag else { return Err("Not a string".into()) };
+        let Tag::String(name) = tag else {
+            return Err("Not a string".into());
+        };
         let valid = mc_core::ident::Identifier::parse(name).ok();
         valid
             .and_then(|id| self.id_of(&id.to_string()))
@@ -912,6 +1092,11 @@ impl PalettedContainerFactory {
     }
 
     pub fn biomes_from_nbt(&self, tag: &Tag) -> Result<Unpacked<BiomeId>, PaletteError> {
-        PalettedContainer::from_nbt(tag, &self.biomes, self.biome_strategy.clone(), self.default_biome)
+        PalettedContainer::from_nbt(
+            tag,
+            &self.biomes,
+            self.biome_strategy.clone(),
+            self.default_biome,
+        )
     }
 }

@@ -5,7 +5,12 @@ use crate::world::damagesource::DamageSource;
 use crate::world::entity::Entity;
 
 /// `getCombatTracker().recordDamage(source, damage)` (then `onLeaveCombat()` / `onEnterCombat()` as the tracker decided).
-pub fn record_damage(entity: &mut dyn Entity, level: &mut ServerLevel, source: &DamageSource, damage: f32) {
+pub fn record_damage(
+    entity: &mut dyn Entity,
+    level: &mut ServerLevel,
+    source: &DamageSource,
+    damage: f32,
+) {
     let mut tracker = std::mem::take(&mut entity.living_mut().expect("living").combat_tracker);
     let events = tracker.record_damage(level, entity, source, damage);
     entity.living_mut().expect("living").combat_tracker = tracker;
@@ -43,35 +48,81 @@ pub const DEG_TO_RAD: f32 = (std::f64::consts::PI / 180.0) as f32;
 
 /// `attacker.createDamageSource()`: `LivingEntity` = `mob_attack`, `Player` = `player_attack`.
 pub fn create_damage_source(level: &ServerLevel, attacker: &dyn Entity) -> DamageSource {
-    if attacker.is_player() { level.damage_sources().player_attack(attacker) } else { level.damage_sources().mob_attack(attacker) }
+    if attacker.is_player() {
+        level.damage_sources().player_attack(attacker)
+    } else {
+        level.damage_sources().mob_attack(attacker)
+    }
 }
 
 /// `ItemStack.getDamageSource(attacker)`: the `damage_type` component, else the item's, else the attacker's default.
-pub fn item_stack_damage_source(level: &ServerLevel, stack: &ItemStack, attacker: &dyn Entity) -> DamageSource {
+pub fn item_stack_damage_source(
+    level: &ServerLevel,
+    stack: &ItemStack,
+    attacker: &dyn Entity,
+) -> DamageSource {
     if let Some(Holder::Reference(id)) = stack.get(&DAMAGE_TYPE)
-        && let Some(data) = level.registries.get::<crate::registry::typed::damage_type::DamageType>(crate::registry::keys::DAMAGE_TYPE, id)
+        && let Some(data) = level
+            .registries
+            .get::<crate::registry::typed::damage_type::DamageType>(
+                crate::registry::keys::DAMAGE_TYPE,
+                id,
+            )
     {
-        return DamageSource::new(id.clone(), std::sync::Arc::new(data.clone()), Some(attacker), Some(attacker), None);
+        return DamageSource::new(
+            id.clone(),
+            std::sync::Arc::new(data.clone()),
+            Some(attacker),
+            Some(attacker),
+            None,
+        );
     }
-    crate::world::item::behaviour(stack.item()).get_item_damage_source(level, attacker).unwrap_or_else(|| create_damage_source(level, attacker))
+    crate::world::item::behaviour(stack.item())
+        .get_item_damage_source(level, attacker)
+        .unwrap_or_else(|| create_damage_source(level, attacker))
 }
 
 /// `LivingEntity.getKnockback(target, damageSource)`: the `attack_knockback` attribute run through the weapon's enchantments, halved.
-pub fn get_knockback(attacker: &mut dyn Entity, level: &mut ServerLevel, target: &mut dyn Entity, source: &DamageSource) -> f32 {
-    let knockback = attacker.living().expect("living").get_attribute_value(Attribute::ATTACK_KNOCKBACK) as f32;
+pub fn get_knockback(
+    attacker: &mut dyn Entity,
+    level: &mut ServerLevel,
+    target: &mut dyn Entity,
+    source: &DamageSource,
+) -> f32 {
+    let knockback = attacker
+        .living()
+        .expect("living")
+        .get_attribute_value(Attribute::ATTACK_KNOCKBACK) as f32;
     let weapon = attacker.get_weapon_item().unwrap_or_else(ItemStack::empty);
     let target_id = target.id();
     let mut actors = Actors::of(attacker).and(target);
-    enchantment_helper::modify_knockback(level, &mut actors, &weapon, target_id, source, knockback) / 2.0
+    enchantment_helper::modify_knockback(level, &mut actors, &weapon, target_id, source, knockback)
+        / 2.0
 }
 
 /// `LivingEntity.causeExtraKnockback`.
-pub fn cause_extra_knockback(attacker: &mut dyn Entity, target: &mut dyn Entity, knockback: f32, source: &DamageSource, damage: f32, comes_from_effect: bool) {
+pub fn cause_extra_knockback(
+    attacker: &mut dyn Entity,
+    target: &mut dyn Entity,
+    knockback: f32,
+    source: &DamageSource,
+    damage: f32,
+    comes_from_effect: bool,
+) {
     if knockback > 0.0 && target.living().is_some() {
         let y_rot = attacker.base().y_rot();
-        target.knockback(f64::from(knockback), f64::from(mth::sin(f64::from(y_rot * DEG_TO_RAD))), f64::from(-mth::cos(f64::from(y_rot * DEG_TO_RAD))), source, damage, comes_from_effect);
+        target.knockback(
+            f64::from(knockback),
+            f64::from(mth::sin(f64::from(y_rot * DEG_TO_RAD))),
+            f64::from(-mth::cos(f64::from(y_rot * DEG_TO_RAD))),
+            source,
+            damage,
+            comes_from_effect,
+        );
         let m = attacker.base().delta_movement();
-        attacker.base_mut().set_delta_movement(m.multiply(Vec3::new(0.6, 1.0, 0.6)));
+        attacker
+            .base_mut()
+            .set_delta_movement(m.multiply(Vec3::new(0.6, 1.0, 0.6)));
     }
 }
 
@@ -83,18 +134,46 @@ pub fn post_piercing_attack(attacker: &mut dyn Entity, level: &mut ServerLevel) 
 
 /// `Mob.doHurtTarget(level, target)`: the melee attack of a mob (`ATTACK_DAMAGE` + weapon enchantments + item bonus, knockback,
 /// weapon `hurtEnemy`, post-attack effects). Mob classes call this from their `do_hurt_target` override.
-pub fn mob_do_hurt_target(attacker: &mut dyn Entity, level: &mut ServerLevel, target: &mut dyn Entity) -> bool {
-    let mut dmg = attacker.living().expect("living").get_attribute_value(Attribute::ATTACK_DAMAGE) as f32;
+pub fn mob_do_hurt_target(
+    attacker: &mut dyn Entity,
+    level: &mut ServerLevel,
+    target: &mut dyn Entity,
+) -> bool {
+    let mut dmg = attacker
+        .living()
+        .expect("living")
+        .get_attribute_value(Attribute::ATTACK_DAMAGE) as f32;
     let weapon_item = attacker.get_weapon_item().unwrap_or_else(ItemStack::empty);
     let damage_source = item_stack_damage_source(level, &weapon_item, &*attacker);
     let target_id = target.id();
-    dmg = enchantment_helper::modify_damage(level, &mut Actors::of(&mut *attacker).and(&mut *target), &weapon_item, target_id, &damage_source, dmg);
-    dmg += crate::world::item::behaviour(weapon_item.item()).get_attack_damage_bonus_for(level, &weapon_item, &mut *target, dmg, &damage_source, &mut *attacker);
+    dmg = enchantment_helper::modify_damage(
+        level,
+        &mut Actors::of(&mut *attacker).and(&mut *target),
+        &weapon_item,
+        target_id,
+        &damage_source,
+        dmg,
+    );
+    dmg += crate::world::item::behaviour(weapon_item.item()).get_attack_damage_bonus_for(
+        level,
+        &weapon_item,
+        &mut *target,
+        dmg,
+        &damage_source,
+        &mut *attacker,
+    );
     let old_movement = target.base().delta_movement();
     let was_hurt = target.hurt_server(level, &damage_source, dmg);
     if was_hurt {
         let knockback = get_knockback(&mut *attacker, level, &mut *target, &damage_source);
-        attacker.cause_extra_knockback(&mut *target, knockback, old_movement, &damage_source, dmg, true);
+        attacker.cause_extra_knockback(
+            &mut *target,
+            knockback,
+            old_movement,
+            &damage_source,
+            dmg,
+            true,
+        );
         if target.living().is_some() {
             // `weaponItem.hurtEnemy(livingTarget, this)` on the held stack
             let mut stack = weapon_item.clone();
@@ -103,7 +182,12 @@ pub fn mob_do_hurt_target(attacker: &mut dyn Entity, level: &mut ServerLevel, ta
                 *slot = stack;
             }
         }
-        enchantment_helper::do_post_attack_effects(level, &mut Actors::of(&mut *attacker).and(&mut *target), target_id, &damage_source);
+        enchantment_helper::do_post_attack_effects(
+            level,
+            &mut Actors::of(&mut *attacker).and(&mut *target),
+            target_id,
+            &damage_source,
+        );
         attacker.set_last_hurt_mob(&*target);
         attacker.play_attack_sound(level);
     }

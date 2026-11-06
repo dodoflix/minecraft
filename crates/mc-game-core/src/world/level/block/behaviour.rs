@@ -85,11 +85,33 @@ pub trait BlockBehaviour: Send + Sync + 'static {
     ) {
     }
     /// `onPlace`.
-    fn on_place(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _old_state: BlockState, _moved_by_piston: bool) {}
+    fn on_place(
+        &self,
+        _state: BlockState,
+        _level: &mut ServerLevel,
+        _pos: BlockPos,
+        _old_state: BlockState,
+        _moved_by_piston: bool,
+    ) {
+    }
     /// `affectNeighborsAfterRemoval`.
-    fn affect_neighbors_after_removal(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _moved_by_piston: bool) {}
+    fn affect_neighbors_after_removal(
+        &self,
+        _state: BlockState,
+        _level: &mut ServerLevel,
+        _pos: BlockPos,
+        _moved_by_piston: bool,
+    ) {
+    }
     /// `triggerEvent` (block events: `level.blockEvent`).
-    fn trigger_event(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _b0: i32, _b1: i32) -> bool {
+    fn trigger_event(
+        &self,
+        _state: BlockState,
+        _level: &mut ServerLevel,
+        _pos: BlockPos,
+        _b0: i32,
+        _b1: i32,
+    ) -> bool {
         false
     }
     /// `shouldChangedStateKeepBlockEntity`.
@@ -114,7 +136,12 @@ pub trait BlockBehaviour: Send + Sync + 'static {
         state.can_be_replaced() && (held.is_empty() || Some(held.item()) != state.block().item())
     }
     /// `Block.getStateForPlacement(context)` (`None` = cannot be placed here).
-    fn get_state_for_placement(&self, block: Block, _level: &mut ServerLevel, _context: &BlockPlaceContext) -> Option<BlockState> {
+    fn get_state_for_placement(
+        &self,
+        block: Block,
+        _level: &mut ServerLevel,
+        _context: &BlockPlaceContext,
+    ) -> Option<BlockState> {
         Some(block.default_state())
     }
     /// `getSeed`.
@@ -123,11 +150,21 @@ pub trait BlockBehaviour: Send + Sync + 'static {
     }
     /// `getBlockSupportShape`: the per-state shape extracted from vanilla (`EmptyBlockGetter`), i.e. the base class's
     /// collision shape or the override of `LeavesBlock`, `MudBlock`, `SoulSandBlock`, `SnowLayerBlock`, `FenceGateBlock`, ....
-    fn get_block_support_shape(&self, state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos) -> VoxelShape {
+    fn get_block_support_shape(
+        &self,
+        state: BlockState,
+        _level: &dyn BlockGetter,
+        _pos: BlockPos,
+    ) -> VoxelShape {
         voxel_shape(state.block_support_shape())
     }
     /// `getInteractionShape`.
-    fn get_interaction_shape(&self, _state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos) -> VoxelShape {
+    fn get_interaction_shape(
+        &self,
+        _state: BlockState,
+        _level: &dyn BlockGetter,
+        _pos: BlockPos,
+    ) -> VoxelShape {
         Shapes::empty()
     }
     /// `canSurvive`.
@@ -135,27 +172,62 @@ pub trait BlockBehaviour: Send + Sync + 'static {
         true
     }
     /// `getAnalogOutputSignal`.
-    fn get_analog_output_signal(&self, _state: BlockState, _level: &ServerLevel, _pos: BlockPos, _direction: Direction) -> i32 {
+    fn get_analog_output_signal(
+        &self,
+        _state: BlockState,
+        _level: &ServerLevel,
+        _pos: BlockPos,
+        _direction: Direction,
+    ) -> i32 {
         0
     }
     /// `getShape` (outline).
-    fn get_shape(&self, state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos, _context: &CollisionContext) -> VoxelShape {
+    fn get_shape(
+        &self,
+        state: BlockState,
+        _level: &dyn BlockGetter,
+        _pos: BlockPos,
+        _context: &CollisionContext,
+    ) -> VoxelShape {
         voxel_shape(state.shape())
     }
     /// `getCollisionShape`.
-    fn get_collision_shape(&self, state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos, _context: &CollisionContext) -> VoxelShape {
+    fn get_collision_shape(
+        &self,
+        state: BlockState,
+        _level: &dyn BlockGetter,
+        _pos: BlockPos,
+        _context: &CollisionContext,
+    ) -> VoxelShape {
         voxel_shape(state.collision_shape())
     }
     /// `getEntityInsideCollisionShape`.
-    fn get_entity_inside_collision_shape(&self, _state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos, _entity: &dyn Entity) -> VoxelShape {
+    fn get_entity_inside_collision_shape(
+        &self,
+        _state: BlockState,
+        _level: &dyn BlockGetter,
+        _pos: BlockPos,
+        _entity: &dyn Entity,
+    ) -> VoxelShape {
         Shapes::block()
     }
     /// `isCollisionShapeFullBlock`.
-    fn is_collision_shape_full_block(&self, state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos) -> bool {
+    fn is_collision_shape_full_block(
+        &self,
+        state: BlockState,
+        _level: &dyn BlockGetter,
+        _pos: BlockPos,
+    ) -> bool {
         state.is_collision_shape_full_block()
     }
     /// `getVisualShape` (used by `ClipContext.Block.VISUAL`).
-    fn get_visual_shape(&self, state: BlockState, level: &dyn BlockGetter, pos: BlockPos, context: &CollisionContext) -> VoxelShape {
+    fn get_visual_shape(
+        &self,
+        state: BlockState,
+        level: &dyn BlockGetter,
+        pos: BlockPos,
+        context: &CollisionContext,
+    ) -> VoxelShape {
         self.get_collision_shape(state, level, pos, context)
     }
     /// `tick` (scheduled tick; the random is `level.random()`).
@@ -175,11 +247,23 @@ pub trait BlockBehaviour: Send + Sync + 'static {
     ) {
     }
     /// `shouldRedstoneWireConnectTo`.
-    fn should_redstone_wire_connect_to(&self, state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos, direction: Option<Direction>) -> bool {
+    fn should_redstone_wire_connect_to(
+        &self,
+        state: BlockState,
+        _level: &dyn BlockGetter,
+        _pos: BlockPos,
+        direction: Option<Direction>,
+    ) -> bool {
         state.is_signal_source() && direction.is_some()
     }
     /// `getSignal`.
-    fn get_signal(&self, state: BlockState, level: &dyn BlockGetter, pos: BlockPos, _direction: Direction) -> i32 {
+    fn get_signal(
+        &self,
+        state: BlockState,
+        level: &dyn BlockGetter,
+        pos: BlockPos,
+        _direction: Direction,
+    ) -> i32 {
         self.own_signal(state, level, pos)
     }
     /// `ownSignal`.
@@ -187,22 +271,51 @@ pub trait BlockBehaviour: Send + Sync + 'static {
         0
     }
     /// `getDirectSignal`.
-    fn get_direct_signal(&self, _state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos, _direction: Direction) -> i32 {
+    fn get_direct_signal(
+        &self,
+        _state: BlockState,
+        _level: &dyn BlockGetter,
+        _pos: BlockPos,
+        _direction: Direction,
+    ) -> i32 {
         0
     }
 
     // ------------------------------------------------------------------------------------------------------ Block
 
     /// `Block.stepOn`.
-    fn step_on(&self, _level: &mut ServerLevel, _pos: BlockPos, _on_state: BlockState, _entity: &mut dyn Entity) {}
+    fn step_on(
+        &self,
+        _level: &mut ServerLevel,
+        _pos: BlockPos,
+        _on_state: BlockState,
+        _entity: &mut dyn Entity,
+    ) {
+    }
     /// `Block.fallOn(level, state, pos, entity, fallDistance)`.
-    fn fall_on(&self, level: &mut ServerLevel, state: BlockState, _pos: BlockPos, entity: &mut dyn Entity, fall_distance: f64) {
-        let reduced_fall_distance = fall_distance * f64::from(1.0f32 - state.block().data().fall_distance_reduction);
+    fn fall_on(
+        &self,
+        level: &mut ServerLevel,
+        state: BlockState,
+        _pos: BlockPos,
+        entity: &mut dyn Entity,
+        fall_distance: f64,
+    ) {
+        let reduced_fall_distance =
+            fall_distance * f64::from(1.0f32 - state.block().data().fall_distance_reduction);
         let source = level.damage_sources().fall();
         entity.cause_fall_damage(level, reduced_fall_distance, 1.0, &source);
     }
     /// `Block.bounceOn(level, state, pos, entity, fallDistance)`.
-    fn bounce_on(&self, _level: &mut ServerLevel, _state: BlockState, _pos: BlockPos, _entity: &mut dyn Entity, _fall_distance: f64) {}
+    fn bounce_on(
+        &self,
+        _level: &mut ServerLevel,
+        _state: BlockState,
+        _pos: BlockPos,
+        _entity: &mut dyn Entity,
+        _fall_distance: f64,
+    ) {
+    }
     /// `BlockBehaviour.onExplosionHit(state, level, pos, explosion, onHit)`: default = [`default_on_explosion_hit`].
     fn on_explosion_hit(
         &self,
@@ -212,22 +325,47 @@ pub trait BlockBehaviour: Send + Sync + 'static {
         explosion: &dyn crate::world::level::explosion::Explosion,
         on_hit: &mut dyn FnMut(crate::world::item::ItemStack, BlockPos),
     ) {
-        crate::world::level::explosion::default_on_explosion_hit(state, level, pos, explosion, on_hit);
+        crate::world::level::explosion::default_on_explosion_hit(
+            state, level, pos, explosion, on_hit,
+        );
     }
     /// `Block.wasExploded(level, pos, explosion)`.
-    fn was_exploded(&self, _level: &mut ServerLevel, _pos: BlockPos, _explosion: &dyn crate::world::level::explosion::Explosion) {}
+    fn was_exploded(
+        &self,
+        _level: &mut ServerLevel,
+        _pos: BlockPos,
+        _explosion: &dyn crate::world::level::explosion::Explosion,
+    ) {
+    }
     /// `Block.dropFromExplosion(explosion)`.
-    fn drop_from_explosion(&self, _explosion: &dyn crate::world::level::explosion::Explosion) -> bool {
+    fn drop_from_explosion(
+        &self,
+        _explosion: &dyn crate::world::level::explosion::Explosion,
+    ) -> bool {
         true
     }
     /// `BlockBehaviour.onProjectileHit(level, state, blockHit, projectile)`.
-    fn on_projectile_hit(&self, _level: &mut ServerLevel, _state: BlockState, _hit: &mc_core::phys::BlockHitResult, _projectile: &mut dyn crate::world::entity::projectile::Projectile) {}
+    fn on_projectile_hit(
+        &self,
+        _level: &mut ServerLevel,
+        _state: BlockState,
+        _hit: &mc_core::phys::BlockHitResult,
+        _projectile: &mut dyn crate::world::entity::projectile::Projectile,
+    ) {
+    }
     /// `BlockBehaviour.getMenuProvider(state, level, pos)`: `BaseEntityBlock`'s default is the block entity when it is a
     /// `MenuProvider` (`BlockEntity::menu_provider`); blocks with their own provider (double chest, lectern without a
     /// book, ...) override.
-    fn get_menu_provider(&self, _state: BlockState, level: &ServerLevel, pos: BlockPos) -> Option<Box<dyn crate::world::inventory::MenuProvider>> {
+    fn get_menu_provider(
+        &self,
+        _state: BlockState,
+        level: &ServerLevel,
+        pos: BlockPos,
+    ) -> Option<Box<dyn crate::world::inventory::MenuProvider>> {
         use crate::world::level::BlockGetter;
-        level.get_block_entity(pos).and_then(|be| be.menu_provider())
+        level
+            .get_block_entity(pos)
+            .and_then(|be| be.menu_provider())
     }
     /// `BlockBehaviour.useItemOn(stack, state, level, pos, player, hand, hitResult)`: default `TRY_WITH_EMPTY_HAND`.
     fn use_item_on(
@@ -255,19 +393,46 @@ pub trait BlockBehaviour: Send + Sync + 'static {
     }
     /// `BlockBehaviour.getCloneItemStack(level, pos, state, includeData)` (pick block): default `new ItemStack(this)`;
     /// blocks whose item differs (crops, fire, beds, ...) override.
-    fn get_clone_item_stack(&self, state: BlockState, _level: &ServerLevel, _pos: BlockPos, _include_data: bool) -> crate::world::item::ItemStack {
+    fn get_clone_item_stack(
+        &self,
+        state: BlockState,
+        _level: &ServerLevel,
+        _pos: BlockPos,
+        _include_data: bool,
+    ) -> crate::world::item::ItemStack {
         match state.block().item() {
             Some(item) => crate::world::item::ItemStack::new(item),
             None => crate::world::item::ItemStack::empty(),
         }
     }
     /// `Block.setPlacedBy(level, pos, state, placer, stack)`: called by `BlockItem.place` after the block was set.
-    fn set_placed_by(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _placer: Option<&mut crate::world::entity::ServerPlayer>, _stack: &crate::world::item::ItemStack) {}
+    fn set_placed_by(
+        &self,
+        _state: BlockState,
+        _level: &mut ServerLevel,
+        _pos: BlockPos,
+        _placer: Option<&mut crate::world::entity::ServerPlayer>,
+        _stack: &crate::world::item::ItemStack,
+    ) {
+    }
     /// `BlockBehaviour.attack(state, level, pos, player)` (start of digging).
-    fn attack(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _player: &mut crate::world::entity::ServerPlayer) {}
+    fn attack(
+        &self,
+        _state: BlockState,
+        _level: &mut ServerLevel,
+        _pos: BlockPos,
+        _player: &mut crate::world::entity::ServerPlayer,
+    ) {
+    }
     /// `Block.playerWillDestroy`: destroy particles, `BLOCK_DESTROY` game event; returns the state to use (overrides call
     /// `server::level::block_break::player_will_destroy` as their `super`).
-    fn player_will_destroy(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, player: &mut crate::world::entity::ServerPlayer) -> BlockState {
+    fn player_will_destroy(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        player: &mut crate::world::entity::ServerPlayer,
+    ) -> BlockState {
         crate::server::level::block_break::player_will_destroy(level, pos, state, player)
     }
     /// `Block.playerDestroy` (stats, exhaustion, drops); `block_entity` is the destroyed block's entity (a snapshot).
@@ -280,14 +445,36 @@ pub trait BlockBehaviour: Send + Sync + 'static {
         block_entity: Option<&dyn crate::world::block_entity::BlockEntity>,
         destroyed_with: &crate::world::item::ItemStack,
     ) {
-        crate::server::level::block_break::player_destroy(level, player, pos, state, block_entity, destroyed_with);
+        crate::server::level::block_break::player_destroy(
+            level,
+            player,
+            pos,
+            state,
+            block_entity,
+            destroyed_with,
+        );
     }
     /// `Block.destroy` (called by `LevelChunk`-independent callers such as `ServerPlayerGameMode`).
     fn destroy(&self, _level: &mut dyn LevelAccessor, _pos: BlockPos, _state: BlockState) {}
     /// `BlockBehaviour.spawnAfterBreak(state, level, pos, tool, dropExperience)` (experience from ores, spawners, ...).
-    fn spawn_after_break(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _tool: &crate::world::item::ItemStack, _drop_experience: bool) {}
+    fn spawn_after_break(
+        &self,
+        _state: BlockState,
+        _level: &mut ServerLevel,
+        _pos: BlockPos,
+        _tool: &crate::world::item::ItemStack,
+        _drop_experience: bool,
+    ) {
+    }
     /// `Block.handlePrecipitation`.
-    fn handle_precipitation(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _precipitation: Precipitation) {}
+    fn handle_precipitation(
+        &self,
+        _state: BlockState,
+        _level: &mut ServerLevel,
+        _pos: BlockPos,
+        _precipitation: Precipitation,
+    ) {
+    }
     /// `block instanceof Portal portal`: the block's static `Portal` (nether/end portals and end gateways).
     fn as_portal(&self) -> Option<&'static dyn crate::world::entity::portal::Portal> {
         None
@@ -313,7 +500,11 @@ pub trait BlockBehaviour: Send + Sync + 'static {
 
     // `Fallable` (FallingBlock, BrushableBlock, SpeleothemBlock)
     /// `FallingBlock.falling(entity)`: configures the entity before it enters the level.
-    fn falling(&self, _entity: &mut crate::world::entity::falling_block_entity::FallingBlockEntity) {}
+    fn falling(
+        &self,
+        _entity: &mut crate::world::entity::falling_block_entity::FallingBlockEntity,
+    ) {
+    }
     /// `Fallable.onLand(level, pos, state, replacedBlock, entity)`.
     fn on_land(
         &self,
@@ -325,9 +516,19 @@ pub trait BlockBehaviour: Send + Sync + 'static {
     ) {
     }
     /// `Fallable.onBrokenAfterFall(level, pos, entity)`.
-    fn on_broken_after_fall(&self, _level: &mut ServerLevel, _pos: BlockPos, _entity: &crate::world::entity::falling_block_entity::FallingBlockEntity) {}
+    fn on_broken_after_fall(
+        &self,
+        _level: &mut ServerLevel,
+        _pos: BlockPos,
+        _entity: &crate::world::entity::falling_block_entity::FallingBlockEntity,
+    ) {
+    }
     /// `Fallable.getFallDamageSource(entity)`.
-    fn get_fall_damage_source(&self, level: &ServerLevel, entity: &crate::world::entity::falling_block_entity::FallingBlockEntity) -> crate::world::damagesource::DamageSource {
+    fn get_fall_damage_source(
+        &self,
+        level: &ServerLevel,
+        entity: &crate::world::entity::falling_block_entity::FallingBlockEntity,
+    ) -> crate::world::damagesource::DamageSource {
         level.damage_sources().falling_block(entity)
     }
 
@@ -337,15 +538,34 @@ pub trait BlockBehaviour: Send + Sync + 'static {
         false
     }
     /// `BonemealableBlock.isValidBonemealTarget(level, pos, state, source)`.
-    fn is_valid_bonemeal_target(&self, _level: &dyn LevelReader, _pos: BlockPos, _state: BlockState, _source: BonemealSource) -> bool {
+    fn is_valid_bonemeal_target(
+        &self,
+        _level: &dyn LevelReader,
+        _pos: BlockPos,
+        _state: BlockState,
+        _source: BonemealSource,
+    ) -> bool {
         false
     }
     /// `BonemealableBlock.isBonemealSuccess(level, random, pos, state, source)` (random = `level.random()`).
-    fn is_bonemeal_success(&self, _level: &mut ServerLevel, _pos: BlockPos, _state: BlockState, _source: BonemealSource) -> bool {
+    fn is_bonemeal_success(
+        &self,
+        _level: &mut ServerLevel,
+        _pos: BlockPos,
+        _state: BlockState,
+        _source: BonemealSource,
+    ) -> bool {
         true
     }
     /// `BonemealableBlock.performBonemeal(level, random, pos, state, source)` (random = `level.random()`).
-    fn perform_bonemeal(&self, _level: &mut ServerLevel, _pos: BlockPos, _state: BlockState, _source: BonemealSource) {}
+    fn perform_bonemeal(
+        &self,
+        _level: &mut ServerLevel,
+        _pos: BlockPos,
+        _state: BlockState,
+        _source: BonemealSource,
+    ) {
+    }
     /// `BonemealableBlock.getType()`.
     fn get_bonemeal_type(&self) -> BonemealType {
         BonemealType::Grower
@@ -362,11 +582,24 @@ pub trait BlockBehaviour: Send + Sync + 'static {
         false
     }
     /// `LiquidBlockContainer.canPlaceLiquid(user, level, pos, state, type)`.
-    fn can_place_liquid(&self, _user: Option<&dyn Entity>, _level: &dyn BlockGetter, _pos: BlockPos, _state: BlockState, _fluid: Fluid) -> bool {
+    fn can_place_liquid(
+        &self,
+        _user: Option<&dyn Entity>,
+        _level: &dyn BlockGetter,
+        _pos: BlockPos,
+        _state: BlockState,
+        _fluid: Fluid,
+    ) -> bool {
         false
     }
     /// `LiquidBlockContainer.placeLiquid(level, pos, state, fluidState)`.
-    fn place_liquid(&self, _level: &mut dyn LevelAccessor, _pos: BlockPos, _state: BlockState, _fluid_state: mc_data::fluid::FluidState) -> bool {
+    fn place_liquid(
+        &self,
+        _level: &mut dyn LevelAccessor,
+        _pos: BlockPos,
+        _state: BlockState,
+        _fluid_state: mc_data::fluid::FluidState,
+    ) -> bool {
         false
     }
     /// `this instanceof BucketPickup` (`LiquidBlock`, `SimpleWaterloggedBlock`, `PowderSnowBlock`).
@@ -374,7 +607,13 @@ pub trait BlockBehaviour: Send + Sync + 'static {
         false
     }
     /// `BucketPickup.pickupBlock(user, level, pos, state)` (`ItemStack.EMPTY` when nothing was picked up).
-    fn pickup_block(&self, _user: Option<&dyn Entity>, _level: &mut dyn LevelAccessor, _pos: BlockPos, _state: BlockState) -> crate::world::item::ItemStack {
+    fn pickup_block(
+        &self,
+        _user: Option<&dyn Entity>,
+        _level: &mut dyn LevelAccessor,
+        _pos: BlockPos,
+        _state: BlockState,
+    ) -> crate::world::item::ItemStack {
         crate::world::item::ItemStack::empty()
     }
     /// `BucketPickup.getPickupSound()`.
@@ -386,7 +625,13 @@ pub trait BlockBehaviour: Send + Sync + 'static {
     /// `BonemealableBlock.isValidBonemealTarget(level, pos, state, source)` for implementors that need the server level
     /// (`level instanceof ServerLevel`, the feature registry, `level.getRandom()`: saplings, mushrooms, azalea). Callers use
     /// this entry point; the default delegates to [`BlockBehaviour::is_valid_bonemeal_target`].
-    fn is_valid_bonemeal_target_server(&self, level: &mut ServerLevel, pos: BlockPos, state: BlockState, source: BonemealSource) -> bool {
+    fn is_valid_bonemeal_target_server(
+        &self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        state: BlockState,
+        source: BonemealSource,
+    ) -> bool {
         self.is_valid_bonemeal_target(&*level, pos, state, source)
     }
     /// `SuspiciousEffectHolder.getSuspiciousEffects()` (`None` when the block is not a holder; flowers).
@@ -394,7 +639,9 @@ pub trait BlockBehaviour: Send + Sync + 'static {
         None
     }
     /// `FlowerBlock.getBeeInteractionEffect()` (wither rose: wither, eyeblossom: poison; plain flowers `null`).
-    fn get_bee_interaction_effect(&self) -> Option<crate::world::entity::effect::MobEffectInstance> {
+    fn get_bee_interaction_effect(
+        &self,
+    ) -> Option<crate::world::entity::effect::MobEffectInstance> {
         None
     }
     // ==== [Blocks:Dispensers] WorldlyContainerHolder ====
@@ -405,12 +652,23 @@ pub trait BlockBehaviour: Send + Sync + 'static {
     /// `WorldlyContainerHolder.getContainer(state, level, pos)`: a transient container over the block; its effects on the
     /// world (vanilla does them inside `setItem`/`removeItem`/`setChanged`, which have the level there) are applied by
     /// [`BlockBehaviour::finish_worldly_container`] after the transfer that used it.
-    fn get_worldly_container(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos) -> Option<Box<dyn crate::world::container::Container>> {
+    fn get_worldly_container(
+        &self,
+        _state: BlockState,
+        _level: &mut ServerLevel,
+        _pos: BlockPos,
+    ) -> Option<Box<dyn crate::world::container::Container>> {
         None
     }
     /// Applies what the container returned by `get_worldly_container` deferred (composter fill / output emptying).
-    fn finish_worldly_container(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _container: Box<dyn crate::world::container::Container>) {}
-
+    fn finish_worldly_container(
+        &self,
+        _state: BlockState,
+        _level: &mut ServerLevel,
+        _pos: BlockPos,
+        _container: Box<dyn crate::world::container::Container>,
+    ) {
+    }
 
     // ==== [Blocks:SpeleothemCopper] AbstractCauldronBlock stalactite drips ====
     /// `AbstractCauldronBlock.canReceiveStalactiteDrip(fluid)`.
@@ -418,12 +676,24 @@ pub trait BlockBehaviour: Send + Sync + 'static {
         false
     }
     /// `AbstractCauldronBlock.receiveStalactiteDrip(state, level, pos, fluid)`.
-    fn receive_stalactite_drip(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _fluid: Fluid) {}
+    fn receive_stalactite_drip(
+        &self,
+        _state: BlockState,
+        _level: &mut ServerLevel,
+        _pos: BlockPos,
+        _fluid: Fluid,
+    ) {
+    }
 
     // ==== [Blocks:Pistons] ====
     /// The state whose loot table `BlockBehaviour.getDrops` uses: `state` itself except `MovingPistonBlock` (the drops
     /// of the block entity's moved state, nothing without a block entity). Consumed by `helpers::drop_resources`.
-    fn get_drops_state(&self, state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos) -> BlockState {
+    fn get_drops_state(
+        &self,
+        state: BlockState,
+        _level: &dyn BlockGetter,
+        _pos: BlockPos,
+    ) -> BlockState {
         state
     }
     // ==== [/Blocks:Pistons] ====
@@ -456,7 +726,10 @@ macro_rules! register_block_class {
         const _: () = {
             #[::linkme::distributed_slice($crate::world::level::block::BLOCK_CLASSES)]
             static REG: $crate::world::level::block::BlockClassRegistration =
-                $crate::world::level::block::BlockClassRegistration { class: $class, create: $create };
+                $crate::world::level::block::BlockClassRegistration {
+                    class: $class,
+                    create: $create,
+                };
         };
     };
 }
@@ -467,7 +740,10 @@ macro_rules! register_block {
         const _: () = {
             #[::linkme::distributed_slice($crate::world::level::block::BLOCKS)]
             static REG: $crate::world::level::block::BlockRegistration =
-                $crate::world::level::block::BlockRegistration { block: $name, create: $create };
+                $crate::world::level::block::BlockRegistration {
+                    block: $name,
+                    create: $create,
+                };
         };
     };
 }

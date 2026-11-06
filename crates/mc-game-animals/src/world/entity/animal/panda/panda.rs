@@ -1,26 +1,9 @@
 //! `Panda`: main/hidden genes, sneezing, rolling, sitting and eating, lying on the back, bamboo-dependent breeding.
 
 use super::panda_goals::{
-    PandaAttackGoal, PandaAvoidGoal, PandaBreedGoal, PandaHurtByTargetGoal, PandaLieOnBackGoal, PandaLookAtPlayerGoal, PandaPanicGoal, PandaRollGoal, PandaSitGoal, PandaSneezeGoal,
+    PandaAttackGoal, PandaAvoidGoal, PandaBreedGoal, PandaHurtByTargetGoal, PandaLieOnBackGoal,
+    PandaLookAtPlayerGoal, PandaPanicGoal, PandaRollGoal, PandaSitGoal, PandaSneezeGoal,
 };
-use mc_game_core::define_accessor;
-use mc_game_core::registry::RegistryAccess;
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::damagesource::DamageSource;
-use mc_game_core::world::difficulty_instance::DifficultyInstance;
-use mc_game_core::world::entity::ai::control::move_control::{self, MoveControl, MoveControlBase};
-use mc_game_core::world::entity::ai::goal::{FloatGoal, FollowParentGoal, RandomLookAroundGoal, TemptGoal, WaterAvoidingRandomStrollGoal};
-use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
-use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
-use mc_game_core::world::entity::equipment::EquipmentSlot;
-use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
-use mc_game_core::world::entity::item::{self, ItemEntity};
-use mc_game_core::world::entity::mob::spawn::AgeableMobGroupData;
-use mc_game_core::world::entity::mob::{self, MobData, MobKind, ageable, animal, ext, navigation};
-use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
-use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
-use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
-use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
 use mc_core::ident::Identifier;
 use mc_core::math::mth;
@@ -28,6 +11,28 @@ use mc_core::phys::Vec3;
 use mc_core::random::RandomSource;
 use mc_data::enums::{EntitySpawnReason, Pose};
 use mc_data::{Attribute, EntityType, GameEvent, Item, SoundEvent};
+use mc_game_core::define_accessor;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::control::move_control::{self, MoveControl, MoveControlBase};
+use mc_game_core::world::entity::ai::goal::{
+    FloatGoal, FollowParentGoal, RandomLookAroundGoal, TemptGoal, WaterAvoidingRandomStrollGoal,
+};
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
+use mc_game_core::world::entity::equipment::EquipmentSlot;
+use mc_game_core::world::entity::factory::{
+    ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest,
+};
+use mc_game_core::world::entity::item::{self, ItemEntity};
+use mc_game_core::world::entity::mob::spawn::AgeableMobGroupData;
+use mc_game_core::world::entity::mob::{self, MobData, MobKind, ageable, animal, ext, navigation};
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
+use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_nbt::CompoundTag;
 use std::sync::Arc;
 
@@ -58,7 +63,15 @@ pub enum Gene {
 }
 
 impl Gene {
-    pub const ALL: [Gene; 7] = [Gene::Normal, Gene::Lazy, Gene::Worried, Gene::Playful, Gene::Brown, Gene::Weak, Gene::Aggressive];
+    pub const ALL: [Gene; 7] = [
+        Gene::Normal,
+        Gene::Lazy,
+        Gene::Worried,
+        Gene::Playful,
+        Gene::Brown,
+        Gene::Weak,
+        Gene::Aggressive,
+    ];
 
     pub fn id(self) -> i32 {
         self as i32
@@ -89,7 +102,11 @@ impl Gene {
     /// `getVariantFromGenes(mainGene, hiddenGene)`.
     pub fn get_variant_from_genes(main_gene: Gene, hidden_gene: Gene) -> Gene {
         if main_gene.is_recessive() {
-            if main_gene == hidden_gene { main_gene } else { Gene::Normal }
+            if main_gene == hidden_gene {
+                main_gene
+            } else {
+                Gene::Normal
+            }
         } else {
             main_gene
         }
@@ -97,7 +114,10 @@ impl Gene {
 
     /// `byId(id)` (`ByIdMap.continuous(.., ZERO)`).
     pub fn by_id(id: i32) -> Gene {
-        usize::try_from(id).ok().and_then(|i| Self::ALL.get(i).copied()).unwrap_or(Gene::Normal)
+        usize::try_from(id)
+            .ok()
+            .and_then(|i| Self::ALL.get(i).copied())
+            .unwrap_or(Gene::Normal)
     }
 
     /// `getRandom(random)`.
@@ -124,7 +144,10 @@ impl Gene {
 /// `BABY_DIMENSIONS`.
 fn baby_dimensions() -> EntityDimensions {
     let base = EntityDimensions::of_type(EntityType::PANDA).scale(0.5);
-    base.with_eye_height(0.28125).with_attachments(EntityAttachments::create_default(base.width, base.height).with_passenger(Vec3::new(0.0, 0.5625, 0.0)))
+    base.with_eye_height(0.28125).with_attachments(
+        EntityAttachments::create_default(base.width, base.height)
+            .with_passenger(Vec3::new(0.0, 0.5625, 0.0)),
+    )
 }
 
 /// `ItemTags.PANDA_FOOD`.
@@ -134,7 +157,10 @@ fn is_panda_food(stack: &ItemStack) -> bool {
 
 /// `Panda.canPickUpAndEat(entity)`.
 pub fn can_pick_up_and_eat(entity: &ItemEntity) -> bool {
-    mc_data::tags::get::<Item>("panda_eats_from_ground").is_some_and(|t| t.contains(entity.get_item().item())) && entity.is_alive() && !entity.has_pick_up_delay()
+    mc_data::tags::get::<Item>("panda_eats_from_ground")
+        .is_some_and(|t| t.contains(entity.get_item().item()))
+        && entity.is_alive()
+        && !entity.has_pick_up_delay()
 }
 
 /// `Panda.PandaMoveControl`.
@@ -152,7 +178,11 @@ impl MoveControl for PandaMoveControl {
     }
 
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
-        if mob.as_any().downcast_ref::<Panda>().is_some_and(|p| p.can_perform_action(level)) {
+        if mob
+            .as_any()
+            .downcast_ref::<Panda>()
+            .is_some_and(|p| p.can_perform_action(level))
+        {
             move_control::base_tick(&mut self.base, mob, level);
         }
     }
@@ -180,7 +210,14 @@ impl Panda {
             b.define(DATA_ID_FLAGS, 0i8);
             b.define(EAT_COUNTER, 0);
         });
-        let mut panda = Panda { mob, got_bamboo: false, did_bite: false, roll_counter: 0, roll_delta: Vec3::ZERO, look_at_request: None };
+        let mut panda = Panda {
+            mob,
+            got_bamboo: false,
+            did_bite: false,
+            roll_counter: 0,
+            roll_delta: Vec3::ZERO,
+            look_at_request: None,
+        };
         let navigation = StandardPathNavigation::ground(&panda);
         panda.mob.set_navigation(Box::new(navigation));
         panda.register_goals();
@@ -202,9 +239,32 @@ impl Panda {
         goals.add_goal(2, Box::new(PandaPanicGoal::new(2.0)));
         goals.add_goal(2, Box::new(breed));
         goals.add_goal(3, Box::new(PandaAttackGoal::new(f64::from(1.2f32), true)));
-        goals.add_goal(4, Box::new(TemptGoal::new(1.0, Arc::new(|stack: &ItemStack| is_panda_food(stack)), false)));
-        goals.add_goal(6, Box::new(PandaAvoidGoal::new(Arc::new(|e: &dyn Entity| e.is_player()), 8.0, 2.0, 2.0)));
-        goals.add_goal(6, Box::new(PandaAvoidGoal::new(Arc::new(|e: &dyn Entity| e.mob().is_some_and(|m| m.kind == MobKind::Monster)), 4.0, 2.0, 2.0)));
+        goals.add_goal(
+            4,
+            Box::new(TemptGoal::new(
+                1.0,
+                Arc::new(|stack: &ItemStack| is_panda_food(stack)),
+                false,
+            )),
+        );
+        goals.add_goal(
+            6,
+            Box::new(PandaAvoidGoal::new(
+                Arc::new(|e: &dyn Entity| e.is_player()),
+                8.0,
+                2.0,
+                2.0,
+            )),
+        );
+        goals.add_goal(
+            6,
+            Box::new(PandaAvoidGoal::new(
+                Arc::new(|e: &dyn Entity| e.mob().is_some_and(|m| m.kind == MobKind::Monster)),
+                4.0,
+                2.0,
+                2.0,
+            )),
+        );
         goals.add_goal(7, Box::new(PandaSitGoal::new()));
         goals.add_goal(8, Box::new(PandaLieOnBackGoal::new()));
         goals.add_goal(8, Box::new(PandaSneezeGoal));
@@ -213,7 +273,9 @@ impl Panda {
         goals.add_goal(12, Box::new(PandaRollGoal));
         goals.add_goal(13, Box::new(follow_parent));
         goals.add_goal(14, Box::new(WaterAvoidingRandomStrollGoal::new(1.0)));
-        self.mob.target_selector.add_goal(1, Box::new(PandaHurtByTargetGoal::new()));
+        self.mob
+            .target_selector
+            .add_goal(1, Box::new(PandaHurtByTargetGoal::new()));
     }
 
     // ---- synched data ----
@@ -231,7 +293,11 @@ impl Panda {
 
     fn set_flag(&mut self, flag: i32, value: bool) {
         let current = i32::from(self.base().entity_data.get(DATA_ID_FLAGS));
-        let new = if value { current | flag } else { current & !flag };
+        let new = if value {
+            current | flag
+        } else {
+            current & !flag
+        };
         self.base_mut().entity_data.set(DATA_ID_FLAGS, new as i8);
     }
 
@@ -260,7 +326,9 @@ impl Panda {
     }
 
     pub fn eat(&mut self, value: bool) {
-        self.base_mut().entity_data.set(EAT_COUNTER, i32::from(value));
+        self.base_mut()
+            .entity_data
+            .set(EAT_COUNTER, i32::from(value));
     }
 
     fn get_eat_counter(&self) -> i32 {
@@ -300,7 +368,9 @@ impl Panda {
     }
 
     pub fn set_main_gene(&mut self, gene: Gene) {
-        self.base_mut().entity_data.set(MAIN_GENE_ID, gene.id() as i8);
+        self.base_mut()
+            .entity_data
+            .set(MAIN_GENE_ID, gene.id() as i8);
     }
 
     pub fn get_hidden_gene(&self) -> Gene {
@@ -308,7 +378,9 @@ impl Panda {
     }
 
     pub fn set_hidden_gene(&mut self, gene: Gene) {
-        self.base_mut().entity_data.set(HIDDEN_GENE_ID, gene.id() as i8);
+        self.base_mut()
+            .entity_data
+            .set(HIDDEN_GENE_ID, gene.id() as i8);
     }
 
     /// `getVariant()`.
@@ -338,18 +410,32 @@ impl Panda {
 
     /// `getOneOfGenesRandomly()`.
     fn get_one_of_genes_randomly(&mut self) -> Gene {
-        if self.base_mut().random.next_boolean() { self.get_main_gene() } else { self.get_hidden_gene() }
+        if self.base_mut().random.next_boolean() {
+            self.get_main_gene()
+        } else {
+            self.get_hidden_gene()
+        }
     }
 
     /// `setAttributes()`.
     pub fn set_attributes(&mut self) {
         if self.is_weak() {
-            if let Some(health) = self.mob.living.attributes.get_instance(Attribute::MAX_HEALTH) {
+            if let Some(health) = self
+                .mob
+                .living
+                .attributes
+                .get_instance(Attribute::MAX_HEALTH)
+            {
                 health.set_base_value(10.0);
             }
         }
         if self.is_lazy() {
-            if let Some(speed) = self.mob.living.attributes.get_instance(Attribute::MOVEMENT_SPEED) {
+            if let Some(speed) = self
+                .mob
+                .living
+                .attributes
+                .get_instance(Attribute::MOVEMENT_SPEED)
+            {
                 speed.set_base_value(f64::from(0.07f32));
             }
         }
@@ -363,7 +449,11 @@ impl Panda {
 
     /// `canPerformAction()`.
     pub fn can_perform_action(&self, level: &ServerLevel) -> bool {
-        !self.is_on_back() && !self.is_scared(level) && !self.is_eating() && !self.is_rolling() && !self.is_sitting()
+        !self.is_on_back()
+            && !self.is_scared(level)
+            && !self.is_eating()
+            && !self.is_rolling()
+            && !self.is_sitting()
     }
 
     /// `tryToSit()`.
@@ -378,7 +468,12 @@ impl Panda {
     /// `handleEating()`.
     fn handle_eating(&mut self, level: &mut ServerLevel) {
         let mainhand = EquipmentSlot::MainHand;
-        if !self.is_eating() && self.is_sitting() && !self.is_scared(level) && !self.get_item_by_slot(mainhand).is_empty() && self.base_mut().random.next_int_bounded(80) == 1 {
+        if !self.is_eating()
+            && self.is_sitting()
+            && !self.is_scared(level)
+            && !self.get_item_by_slot(mainhand).is_empty()
+            && self.base_mut().random.next_int_bounded(80) == 1
+        {
             self.eat(true);
         } else if self.get_item_by_slot(mainhand).is_empty() || !self.is_sitting() {
             self.eat(false);
@@ -386,7 +481,10 @@ impl Panda {
         if self.is_eating() {
             self.add_eating_particles(level);
             if self.get_eat_counter() > 80 && self.base_mut().random.next_int_bounded(20) == 1 {
-                if self.get_eat_counter() > 100 && mc_data::tags::get::<Item>("panda_eats_from_ground").is_some_and(|t| t.contains(self.get_item_by_slot(mainhand).item())) {
+                if self.get_eat_counter() > 100
+                    && mc_data::tags::get::<Item>("panda_eats_from_ground")
+                        .is_some_and(|t| t.contains(self.get_item_by_slot(mainhand).item()))
+                {
                     self.set_item_slot(level, mainhand, ItemStack::empty());
                     self.game_event(level, GameEvent::EAT);
                     self.sit(false);
@@ -404,7 +502,9 @@ impl Panda {
     fn add_eating_particles(&mut self, level: &mut ServerLevel) {
         if self.get_eat_counter() % 5 == 0 {
             let volume = 0.5 + 0.5 * self.base_mut().random.next_int_bounded(2) as f32;
-            let pitch = (self.base_mut().random.next_float() - self.base_mut().random.next_float()) * 0.2 + 1.0;
+            let pitch = (self.base_mut().random.next_float() - self.base_mut().random.next_float())
+                * 0.2
+                + 1.0;
             self.play_sound(level, SoundEvent::ENTITY_PANDA_EAT, volume, pitch);
             if !self.get_item_by_slot(EquipmentSlot::MainHand).is_empty() {
                 for _ in 0..6 {
@@ -427,14 +527,22 @@ impl Panda {
             if self.roll_counter == 1 {
                 let angle = self.base().y_rot() * (std::f64::consts::PI / 180.0) as f32;
                 let multiplier = if self.is_baby() { 0.1f32 } else { 0.2f32 };
-                self.roll_delta = Vec3::new(movement.x + f64::from(-mth::sin(f64::from(angle)) * multiplier), 0.0, movement.z + f64::from(mth::cos(f64::from(angle)) * multiplier));
+                self.roll_delta = Vec3::new(
+                    movement.x + f64::from(-mth::sin(f64::from(angle)) * multiplier),
+                    0.0,
+                    movement.z + f64::from(mth::cos(f64::from(angle)) * multiplier),
+                );
                 let delta = self.roll_delta.add_xyz(0.0, 0.27, 0.0);
                 self.base_mut().set_delta_movement(delta);
             } else if self.roll_counter != 7 && self.roll_counter != 15 && self.roll_counter != 23 {
                 let delta = Vec3::new(self.roll_delta.x, movement.y, self.roll_delta.z);
                 self.base_mut().set_delta_movement(delta);
             } else {
-                let y = if self.base().on_ground() { 0.27 } else { movement.y };
+                let y = if self.base().on_ground() {
+                    0.27
+                } else {
+                    movement.y
+                };
                 self.base_mut().set_delta_movement(Vec3::new(0.0, y, 0.0));
             }
         }
@@ -445,14 +553,27 @@ impl Panda {
         // `level.addParticle(SNEEZE ..)` is client side
         self.play_sound(level, SoundEvent::ENTITY_PANDA_SNEEZE, 1.0, 1.0);
         let bb = self.base().bounding_box().inflate_scalar(10.0);
-        let pandas = level.get_entities_of_class(&bb, |e| e.as_any().is::<Panda>(), |e| {
-            e.as_any().downcast_ref::<Panda>().is_some_and(|p| !p.is_baby() && p.base().on_ground() && !p.is_in_water() && p.can_perform_action(level))
-        });
+        let pandas = level.get_entities_of_class(
+            &bb,
+            |e| e.as_any().is::<Panda>(),
+            |e| {
+                e.as_any().downcast_ref::<Panda>().is_some_and(|p| {
+                    !p.is_baby()
+                        && p.base().on_ground()
+                        && !p.is_in_water()
+                        && p.can_perform_action(level)
+                })
+            },
+        );
         for id in pandas {
             level.with_entity(id, |level, p| p.jump_from_ground(level));
         }
         // the ticking panda is not part of the level queries above
-        if !self.is_baby() && self.base().on_ground() && !self.is_in_water() && self.can_perform_action(level) {
+        if !self.is_baby()
+            && self.base().on_ground()
+            && !self.is_in_water()
+            && self.can_perform_action(level)
+        {
             self.jump_from_ground(level);
         }
         if level.mob_drops() {
@@ -472,7 +593,11 @@ impl Entity for Panda {
     }
 
     fn get_dimensions(&self, _pose: Pose) -> EntityDimensions {
-        if self.is_baby() { baby_dimensions() } else { EntityDimensions::of_type(self.mob.living.entity.entity_type) }
+        if self.is_baby() {
+            baby_dimensions()
+        } else {
+            EntityDimensions::of_type(self.mob.living.entity.entity_type)
+        }
     }
 
     fn is_aggressive(&self) -> bool {
@@ -545,7 +670,14 @@ impl Entity for Panda {
         if !self.get_item_by_slot(EquipmentSlot::MainHand).is_empty() {
             return;
         }
-        let Some(stack) = level.get_entity(item_id).and_then(|e| e.as_any().downcast_ref::<ItemEntity>()).filter(|i| can_pick_up_and_eat(i)).map(ItemEntity::get_item) else { return };
+        let Some(stack) = level
+            .get_entity(item_id)
+            .and_then(|e| e.as_any().downcast_ref::<ItemEntity>())
+            .filter(|i| can_pick_up_and_eat(i))
+            .map(ItemEntity::get_item)
+        else {
+            return;
+        };
         mc_game_core::world::entity::player::pickup::on_item_pickup_by_id(level, &*self, item_id);
         self.set_item_slot(level, EquipmentSlot::MainHand, stack.clone());
         mob::equipment::set_guaranteed_drop(self, EquipmentSlot::MainHand);
@@ -570,18 +702,40 @@ impl Entity for Panda {
         let hidden = Gene::get_random(level.random());
         self.set_hidden_gene(hidden);
         self.set_attributes();
-        let group_data = group_data.unwrap_or_else(|| Box::new(AgeableMobGroupData::with_chance(0.2)));
+        let group_data =
+            group_data.unwrap_or_else(|| Box::new(AgeableMobGroupData::with_chance(0.2)));
         mob::spawn::finalize_spawn(self, level, difficulty, reason, Some(group_data))
     }
 
-    fn get_breed_offspring(&mut self, level: &mut ServerLevel, partner: EntityId) -> Option<Box<dyn Entity>> {
-        let mut baby = mc_game_core::world::entity::factory::create(EntityType::PANDA, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })?;
-        let partner_is_panda = level.get_entity(partner).is_some_and(|p| p.as_any().is::<Panda>());
+    fn get_breed_offspring(
+        &mut self,
+        level: &mut ServerLevel,
+        partner: EntityId,
+    ) -> Option<Box<dyn Entity>> {
+        let mut baby = mc_game_core::world::entity::factory::create(
+            EntityType::PANDA,
+            level,
+            EntitySpawnRequest {
+                reason: EntitySpawnReason::Breeding,
+                ignore_checks: false,
+            },
+        )?;
+        let partner_is_panda = level
+            .get_entity(partner)
+            .is_some_and(|p| p.as_any().is::<Panda>());
         if partner_is_panda {
             // `setGeneFromParents(this, partner)`: `this.random` of the baby, `getOneOfGenesRandomly()` on each parent's random
             let baby_panda = baby.as_any_mut().downcast_mut::<Panda>().expect("panda");
             let genes_of = |parent: &mut Panda| parent.get_one_of_genes_randomly();
-            let partner_gene = |level: &mut ServerLevel| level.with_entity(partner, |_, p| p.as_any_mut().downcast_mut::<Panda>().map(|p| p.get_one_of_genes_randomly())).flatten();
+            let partner_gene = |level: &mut ServerLevel| {
+                level
+                    .with_entity(partner, |_, p| {
+                        p.as_any_mut()
+                            .downcast_mut::<Panda>()
+                            .map(|p| p.get_one_of_genes_randomly())
+                    })
+                    .flatten()
+            };
             if baby_panda.base_mut().random.next_boolean() {
                 let main = genes_of(self);
                 let hidden = partner_gene(level);
@@ -608,7 +762,12 @@ impl Entity for Panda {
         Some(baby)
     }
 
-    fn mob_interact(&mut self, level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) -> InteractionResult {
+    fn mob_interact(
+        &mut self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        hand: InteractionHand,
+    ) -> InteractionResult {
         let interaction_item = player.get_item_in_hand(hand);
         if self.is_scared(level) {
             InteractionResult::PASS
@@ -640,12 +799,21 @@ impl Entity for Panda {
                     if !current.is_empty() && !player.player.abilities.instabuild {
                         item::spawn_at_location(level, self, current, Vec3::ZERO);
                     }
-                    self.set_item_slot(level, EquipmentSlot::MainHand, ItemStack::with_count(interaction_item.item(), 1));
+                    self.set_item_slot(
+                        level,
+                        EquipmentSlot::MainHand,
+                        ItemStack::with_count(interaction_item.item(), 1),
+                    );
                     self.use_player_item(level, player, hand);
                 }
             }
             InteractionResult::SUCCESS_SERVER
-        } else if self.is_baby() && mc_game_core::world::entity::animal::equine::abstract_horse::is_holding(player, Item::GOLDEN_DANDELION) {
+        } else if self.is_baby()
+            && mc_game_core::world::entity::animal::equine::abstract_horse::is_holding(
+                player,
+                Item::GOLDEN_DANDELION,
+            )
+        {
             mob::interact::mob_interact(self, level, player, hand)
         } else {
             InteractionResult::PASS
@@ -662,7 +830,12 @@ impl Entity for Panda {
         }
     }
 
-    fn play_step_sound(&mut self, level: &mut ServerLevel, _pos: mc_core::pos::BlockPos, _state: mc_data::block::BlockState) {
+    fn play_step_sound(
+        &mut self,
+        level: &mut ServerLevel,
+        _pos: mc_core::pos::BlockPos,
+        _state: mc_data::block::BlockState,
+    ) {
         self.play_sound(level, SoundEvent::ENTITY_PANDA_STEP, 0.15, 1.0);
     }
 
@@ -686,10 +859,23 @@ impl Entity for Panda {
 
     fn read_additional_save_data(&mut self, input: &CompoundTag) {
         mob::nbt::read_additional_save_data(self, input);
-        self.set_main_gene(input.get_string("MainGene").and_then(Gene::from_name).unwrap_or(Gene::Normal));
-        self.set_hidden_gene(input.get_string("HiddenGene").and_then(Gene::from_name).unwrap_or(Gene::Normal));
+        self.set_main_gene(
+            input
+                .get_string("MainGene")
+                .and_then(Gene::from_name)
+                .unwrap_or(Gene::Normal),
+        );
+        self.set_hidden_gene(
+            input
+                .get_string("HiddenGene")
+                .and_then(Gene::from_name)
+                .unwrap_or(Gene::Normal),
+        );
     }
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static PANDA: EntityRegistration = EntityRegistration { entity_type: EntityType::PANDA, create: |ty, id, registries| Box::new(Panda::new(ty, id, registries)) };
+static PANDA: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::PANDA,
+    create: |ty, id, registries| Box::new(Panda::new(ty, id, registries)),
+};

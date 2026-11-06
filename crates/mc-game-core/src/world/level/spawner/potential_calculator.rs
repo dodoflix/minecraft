@@ -13,7 +13,11 @@ impl PointCharge {
     /// `PointCharge.getPotentialChange(pos)`.
     fn get_potential_change(&self, pos: BlockPos) -> f64 {
         let dist_sqr = dist_sqr(self.pos, pos);
-        if dist_sqr == 0.0 { f64::INFINITY } else { self.charge / dist_sqr.sqrt() }
+        if dist_sqr == 0.0 {
+            f64::INFINITY
+        } else {
+            self.charge / dist_sqr.sqrt()
+        }
     }
 }
 
@@ -66,9 +70,16 @@ mod tests {
         calculator.add_charge(BlockPos::new(0, 64, 0), 0.15);
         calculator.add_charge(BlockPos::new(3, 64, 4), 0.0); // not stored
         calculator.add_charge(BlockPos::new(3, 64, 4), 0.5);
-        assert!(calculator.get_potential_energy_change(BlockPos::new(0, 64, 0), 0.15).is_infinite());
+        assert!(
+            calculator
+                .get_potential_energy_change(BlockPos::new(0, 64, 0), 0.15)
+                .is_infinite()
+        );
         let change = calculator.get_potential_energy_change(BlockPos::new(0, 64, 8), 0.15);
         assert_eq!(change, (0.15 / 8.0 + 0.5 / 5.0) * 0.15);
-        assert_eq!(calculator.get_potential_energy_change(BlockPos::new(1, 1, 1), 0.0), 0.0);
+        assert_eq!(
+            calculator.get_potential_energy_change(BlockPos::new(1, 1, 1), 0.0),
+            0.0
+        );
     }
 }

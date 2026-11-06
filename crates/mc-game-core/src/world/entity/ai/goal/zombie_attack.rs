@@ -12,7 +12,10 @@ pub struct ZombieAttackGoal {
 impl ZombieAttackGoal {
     /// `ZombieAttackGoal(zombie, speedModifier, trackTarget)`.
     pub fn new(speed_modifier: f64, track_target: bool) -> Self {
-        Self { melee: MeleeAttackGoal::new(speed_modifier, track_target), raise_arm_ticks: 0 }
+        Self {
+            melee: MeleeAttackGoal::new(speed_modifier, track_target),
+            raise_arm_ticks: 0,
+        }
     }
 }
 
@@ -42,7 +45,8 @@ impl Goal for ZombieAttackGoal {
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         self.melee.tick_impl(mob, level);
         self.raise_arm_ticks += 1;
-        let aggressive = self.raise_arm_ticks >= 5 && self.melee.get_ticks_until_next_attack() < self.melee.get_attack_interval() / 2;
+        let aggressive = self.raise_arm_ticks >= 5
+            && self.melee.get_ticks_until_next_attack() < self.melee.get_attack_interval() / 2;
         mob.mob_mut().expect("mob").set_aggressive(aggressive);
     }
 

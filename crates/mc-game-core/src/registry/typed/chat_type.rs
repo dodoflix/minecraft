@@ -35,18 +35,26 @@ pub struct ChatType {
 fn decoration_schema() -> Schema {
     Schema::Record(vec![
         req("translation_key", Schema::String),
-        req("parameters", Schema::list_of(Schema::Enum(&["sender", "target", "content"]))),
+        req(
+            "parameters",
+            Schema::list_of(Schema::Enum(&["sender", "target", "content"])),
+        ),
         default("style", Schema::Style, Value::Object(Default::default())),
     ])
 }
 
 fn schema() -> Schema {
-    Schema::Record(vec![req("chat", decoration_schema()), req("narration", decoration_schema())])
+    Schema::Record(vec![
+        req("chat", decoration_schema()),
+        req("narration", decoration_schema()),
+    ])
 }
 
 fn decoration(json: &Value) -> Result<ChatTypeDecoration, String> {
     Ok(ChatTypeDecoration {
-        translation_key: get_str(json, "translation_key").unwrap_or_default().to_owned(),
+        translation_key: get_str(json, "translation_key")
+            .unwrap_or_default()
+            .to_owned(),
         parameters: json
             .get("parameters")
             .and_then(Value::as_array)
@@ -69,7 +77,10 @@ fn decoration(json: &Value) -> Result<ChatTypeDecoration, String> {
 
 impl ChatType {
     /// `DIRECT_CODEC` decode; the NBT is the same codec's encoding.
-    pub fn from_json(json: &Value, ctx: &crate::registry::codec::RegistryDecodeContext) -> Result<(ChatType, Tag), String> {
+    pub fn from_json(
+        json: &Value,
+        ctx: &crate::registry::codec::RegistryDecodeContext,
+    ) -> Result<(ChatType, Tag), String> {
         let tag = schema().convert(json, ctx)?;
         let chat = decoration(json.get("chat").unwrap_or(&Value::Null))?;
         let narration = decoration(json.get("narration").unwrap_or(&Value::Null))?;
@@ -83,4 +94,7 @@ fn decode(json: &Value, ctx: &RegistryDecodeContext) -> Result<DecodedEntry, Str
 }
 
 #[linkme::distributed_slice(DYNAMIC_REGISTRY_DECODERS)]
-static DECODER: DynamicRegistryDecoder = DynamicRegistryDecoder { registry: keys::CHAT_TYPE, decode };
+static DECODER: DynamicRegistryDecoder = DynamicRegistryDecoder {
+    registry: keys::CHAT_TYPE,
+    decode,
+};

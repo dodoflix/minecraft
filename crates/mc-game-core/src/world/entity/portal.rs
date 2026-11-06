@@ -14,7 +14,9 @@ use crate::server::players::dimension_change::TeleportTransition;
 use mc_core::pos::BlockPos;
 
 /// `LivingEntity.resetForwardDirectionOfRelativePortalPosition(offsets)`.
-pub fn reset_forward_direction_of_relative_portal_position(offsets: mc_core::phys::Vec3) -> mc_core::phys::Vec3 {
+pub fn reset_forward_direction_of_relative_portal_position(
+    offsets: mc_core::phys::Vec3,
+) -> mc_core::phys::Vec3 {
     mc_core::phys::Vec3::new(offsets.x, offsets.y, 0.0)
 }
 
@@ -33,7 +35,13 @@ pub trait Portal: Send + Sync {
     }
 
     /// `getPortalDestination(currentLevel, entity, portalEntryPos)`; `server` gives access to the other levels.
-    fn get_portal_destination(&self, server: &mut MinecraftServer, current_level: &mut ServerLevel, entity: &mut dyn Entity, portal_entry_pos: BlockPos) -> Option<TeleportTransition>;
+    fn get_portal_destination(
+        &self,
+        server: &mut MinecraftServer,
+        current_level: &mut ServerLevel,
+        entity: &mut dyn Entity,
+        portal_entry_pos: BlockPos,
+    ) -> Option<TeleportTransition>;
 
     /// `getLocalTransition()`.
     fn get_local_transition(&self) -> PortalTransition {
@@ -52,11 +60,21 @@ pub struct PortalProcessor {
 
 impl PortalProcessor {
     pub fn new(portal: &'static dyn Portal, portal_entry_position: BlockPos) -> Self {
-        Self { portal, entry_position: portal_entry_position, portal_time: 0, inside_portal_this_tick: true }
+        Self {
+            portal,
+            entry_position: portal_entry_position,
+            portal_time: 0,
+            inside_portal_this_tick: true,
+        }
     }
 
     /// `processPortalTeleportation(serverLevel, entity, allowedToTeleport)`.
-    pub fn process_portal_teleportation(&mut self, level: &ServerLevel, entity: &dyn Entity, allowed_to_teleport: bool) -> bool {
+    pub fn process_portal_teleportation(
+        &mut self,
+        level: &ServerLevel,
+        entity: &dyn Entity,
+        allowed_to_teleport: bool,
+    ) -> bool {
         if !self.inside_portal_this_tick {
             self.decay_tick();
             false
@@ -71,8 +89,14 @@ impl PortalProcessor {
     }
 
     /// `getPortalDestination(serverLevel, entity)`.
-    pub fn get_portal_destination(&self, server: &mut MinecraftServer, level: &mut ServerLevel, entity: &mut dyn Entity) -> Option<TeleportTransition> {
-        self.portal.get_portal_destination(server, level, entity, self.entry_position)
+    pub fn get_portal_destination(
+        &self,
+        server: &mut MinecraftServer,
+        level: &mut ServerLevel,
+        entity: &mut dyn Entity,
+    ) -> Option<TeleportTransition> {
+        self.portal
+            .get_portal_destination(server, level, entity, self.entry_position)
     }
 
     pub fn get_portal_local_transition(&self) -> PortalTransition {
@@ -108,6 +132,9 @@ impl PortalProcessor {
     }
 
     pub fn is_same_portal(&self, portal: &dyn Portal) -> bool {
-        std::ptr::addr_eq(self.portal as *const dyn Portal, portal as *const dyn Portal)
+        std::ptr::addr_eq(
+            self.portal as *const dyn Portal,
+            portal as *const dyn Portal,
+        )
     }
 }

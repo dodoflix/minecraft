@@ -15,7 +15,9 @@ impl ChainModifiers {
     }
 
     pub fn set_forked(self) -> ChainModifiers {
-        ChainModifiers { flags: self.flags | Self::FLAG_FORKED }
+        ChainModifiers {
+            flags: self.flags | Self::FLAG_FORKED,
+        }
     }
 
     pub fn is_return(self) -> bool {
@@ -23,6 +25,8 @@ impl ChainModifiers {
     }
 
     pub fn set_return(self) -> ChainModifiers {
-        ChainModifiers { flags: self.flags | Self::FLAG_IS_RETURN }
+        ChainModifiers {
+            flags: self.flags | Self::FLAG_IS_RETURN,
+        }
     }
 }

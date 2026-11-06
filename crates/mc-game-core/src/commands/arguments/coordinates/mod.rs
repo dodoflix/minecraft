@@ -16,18 +16,26 @@ pub use vec3_argument::Vec3Argument;
 
 use crate::commands::CommandSourceStack;
 use crate::commands::message::simple_translatable;
-use mc_brigadier::{CommandSyntaxException, ImmutableStringReader, SimpleCommandExceptionType, StringReader};
+use mc_brigadier::{
+    CommandSyntaxException, ImmutableStringReader, SimpleCommandExceptionType, StringReader,
+};
 use mc_core::math::mth;
 use mc_core::phys::{Vec2, Vec3};
 use mc_core::pos::BlockPos;
 use std::sync::LazyLock;
 
-pub static ERROR_EXPECTED_DOUBLE: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| simple_translatable("argument.pos.missing.double"));
-pub static ERROR_NOT_COMPLETE_3D: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| simple_translatable("argument.pos3d.incomplete"));
-pub static ERROR_MIXED_TYPE: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| simple_translatable("argument.pos.mixed"));
-pub static ERROR_NOT_COMPLETE_2D: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| simple_translatable("argument.pos2d.incomplete"));
-pub static ERROR_ROTATION_INCOMPLETE: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| simple_translatable("argument.rotation.incomplete"));
-pub static ERROR_EXPECTED_INT: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| simple_translatable("argument.pos.missing.int"));
+pub static ERROR_EXPECTED_DOUBLE: LazyLock<SimpleCommandExceptionType> =
+    LazyLock::new(|| simple_translatable("argument.pos.missing.double"));
+pub static ERROR_NOT_COMPLETE_3D: LazyLock<SimpleCommandExceptionType> =
+    LazyLock::new(|| simple_translatable("argument.pos3d.incomplete"));
+pub static ERROR_MIXED_TYPE: LazyLock<SimpleCommandExceptionType> =
+    LazyLock::new(|| simple_translatable("argument.pos.mixed"));
+pub static ERROR_NOT_COMPLETE_2D: LazyLock<SimpleCommandExceptionType> =
+    LazyLock::new(|| simple_translatable("argument.pos2d.incomplete"));
+pub static ERROR_ROTATION_INCOMPLETE: LazyLock<SimpleCommandExceptionType> =
+    LazyLock::new(|| simple_translatable("argument.rotation.incomplete"));
+pub static ERROR_EXPECTED_INT: LazyLock<SimpleCommandExceptionType> =
+    LazyLock::new(|| simple_translatable("argument.pos.missing.int"));
 
 /// `WorldCoordinate`.
 #[derive(Clone, Copy, PartialEq, Debug)]
@@ -42,10 +50,17 @@ impl WorldCoordinate {
     }
 
     pub fn get(&self, original: f64) -> f64 {
-        if self.relative { self.value + original } else { self.value }
+        if self.relative {
+            self.value + original
+        } else {
+            self.value
+        }
     }
 
-    pub fn parse_double(reader: &mut StringReader, center: bool) -> Result<WorldCoordinate, CommandSyntaxException> {
+    pub fn parse_double(
+        reader: &mut StringReader,
+        center: bool,
+    ) -> Result<WorldCoordinate, CommandSyntaxException> {
         if reader.can_read() && reader.peek() == '^' {
             Err(ERROR_MIXED_TYPE.create_with_context(reader))
         } else if !reader.can_read() {
@@ -53,8 +68,13 @@ impl WorldCoordinate {
         } else {
             let relative = Self::is_relative(reader);
             let start = reader.get_cursor();
-            let mut value = if reader.can_read() && reader.peek() != ' ' { reader.read_double()? } else { 0.0 };
-            let number = mc_brigadier::utf16::substring(reader.get_string(), start, reader.get_cursor());
+            let mut value = if reader.can_read() && reader.peek() != ' ' {
+                reader.read_double()?
+            } else {
+                0.0
+            };
+            let number =
+                mc_brigadier::utf16::substring(reader.get_string(), start, reader.get_cursor());
             if relative && number.is_empty() {
                 Ok(WorldCoordinate::new(true, 0.0))
             } else {
@@ -74,7 +94,11 @@ impl WorldCoordinate {
         } else {
             let relative = Self::is_relative(reader);
             let value = if reader.can_read() && reader.peek() != ' ' {
-                if relative { reader.read_double()? } else { f64::from(reader.read_int()?) }
+                if relative {
+                    reader.read_double()?
+                } else {
+                    f64::from(reader.read_int()?)
+                }
             } else {
                 0.0
             };
@@ -105,7 +129,9 @@ impl WorldCoordinates {
         Self::absolute_rotation(Vec2::new(0.0, 0.0))
     }
 
-    pub fn parse_int(reader: &mut StringReader) -> Result<WorldCoordinates, CommandSyntaxException> {
+    pub fn parse_int(
+        reader: &mut StringReader,
+    ) -> Result<WorldCoordinates, CommandSyntaxException> {
         let start = reader.get_cursor();
         let x = WorldCoordinate::parse_int(reader)?;
         if reader.can_read() && reader.peek() == ' ' {
@@ -121,7 +147,10 @@ impl WorldCoordinates {
         Err(ERROR_NOT_COMPLETE_3D.create_with_context(reader))
     }
 
-    pub fn parse_double(reader: &mut StringReader, center_correct: bool) -> Result<WorldCoordinates, CommandSyntaxException> {
+    pub fn parse_double(
+        reader: &mut StringReader,
+        center_correct: bool,
+    ) -> Result<WorldCoordinates, CommandSyntaxException> {
         let start = reader.get_cursor();
         let x = WorldCoordinate::parse_double(reader, center_correct)?;
         if reader.can_read() && reader.peek() == ' ' {
@@ -138,7 +167,11 @@ impl WorldCoordinates {
     }
 
     pub fn absolute(x: f64, y: f64, z: f64) -> WorldCoordinates {
-        WorldCoordinates { x: WorldCoordinate::new(false, x), y: WorldCoordinate::new(false, y), z: WorldCoordinate::new(false, z) }
+        WorldCoordinates {
+            x: WorldCoordinate::new(false, x),
+            y: WorldCoordinate::new(false, y),
+            z: WorldCoordinate::new(false, z),
+        }
     }
 
     pub fn absolute_rotation(rotation: Vec2) -> WorldCoordinates {
@@ -169,8 +202,16 @@ impl LocalCoordinates {
         let x_sin = mth::sin(f64::from(-rotation.x * pi));
         let x_cos_up = mth::cos(f64::from((-rotation.x + 90.0) * pi));
         let x_sin_up = mth::sin(f64::from((-rotation.x + 90.0) * pi));
-        let forwards = Vec3::new(f64::from(y_cos * x_cos), f64::from(x_sin), f64::from(y_sin * x_cos));
-        let up = Vec3::new(f64::from(y_cos * x_cos_up), f64::from(x_sin_up), f64::from(y_sin * x_cos_up));
+        let forwards = Vec3::new(
+            f64::from(y_cos * x_cos),
+            f64::from(x_sin),
+            f64::from(y_sin * x_cos),
+        );
+        let up = Vec3::new(
+            f64::from(y_cos * x_cos_up),
+            f64::from(x_sin_up),
+            f64::from(y_sin * x_cos_up),
+        );
         let left = forwards.cross(up).scale(-1.0);
         source.add_xyz(
             forwards.x * self.forwards + up.x * self.up + left.x * self.left,
@@ -203,7 +244,11 @@ impl LocalCoordinates {
             Err(ERROR_MIXED_TYPE.create_with_context(reader))
         } else {
             reader.skip();
-            if reader.can_read() && reader.peek() != ' ' { reader.read_double() } else { Ok(0.0) }
+            if reader.can_read() && reader.peek() != ' ' {
+                reader.read_double()
+            } else {
+                Ok(0.0)
+            }
         }
     }
 }
@@ -222,7 +267,10 @@ impl Coordinates {
                 let pos = sender.get_position();
                 Vec3::new(c.x.get(pos.x), c.y.get(pos.y), c.z.get(pos.z))
             }
-            Coordinates::Local(c) => c.apply(sender.get_anchor().apply_source(sender), sender.get_rotation()),
+            Coordinates::Local(c) => c.apply(
+                sender.get_anchor().apply_source(sender),
+                sender.get_rotation(),
+            ),
         }
     }
 
@@ -230,7 +278,10 @@ impl Coordinates {
         match self {
             Coordinates::World(c) => {
                 let rot = sender.get_rotation();
-                Vec2::new(c.x.get(f64::from(rot.x)) as f32, c.y.get(f64::from(rot.y)) as f32)
+                Vec2::new(
+                    c.x.get(f64::from(rot.x)) as f32,
+                    c.y.get(f64::from(rot.y)) as f32,
+                )
             }
             Coordinates::Local(_) => Vec2::ZERO,
         }

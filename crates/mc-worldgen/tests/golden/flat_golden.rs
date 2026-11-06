@@ -15,16 +15,27 @@ use mc_world::chunk::{LevelHeight, ProtoChunk};
 use mc_world::heightmap::HeightmapType;
 use mc_world::palette::{BiomeId, PalettedContainerFactory};
 use mc_world::upgrade_data::UpgradeData;
-use mc_worldgen::biome::{BiomeGenerationSettings, BiomeManager, BiomeRegistry, BiomeSource, PlacedFeatureRef};
+use mc_worldgen::biome::{
+    BiomeGenerationSettings, BiomeManager, BiomeRegistry, BiomeSource, PlacedFeatureRef,
+};
 use mc_worldgen::blending::Blender;
 use mc_worldgen::data::{McDataSource, WorldgenRegistries};
 use mc_worldgen::debug_level_source::{self, DebugLevelSource};
 use mc_worldgen::flat::settings::StructureSetHolderSet;
-use mc_worldgen::flat::{FlatLayerInfo, FlatLevelGeneratorPreset, FlatLevelGeneratorSettings, FlatLevelSource};
+use mc_worldgen::flat::{
+    FlatLayerInfo, FlatLevelGeneratorPreset, FlatLevelGeneratorSettings, FlatLevelSource,
+};
 use mc_worldgen::generator::{BlockColumn, BuildTerrainContext, ChunkGenerator};
 use mc_worldgen::random_state::RandomState;
 
-const HEIGHTS: [(i32, i32); 6] = [(-64, 384), (0, 256), (0, 16), (-64, 32), (-2032, 4064), (0, 3)];
+const HEIGHTS: [(i32, i32); 6] = [
+    (-64, 384),
+    (0, 256),
+    (0, 16),
+    (-64, 32),
+    (-2032, 4064),
+    (0, 3),
+];
 const CHUNKS: [(i32, i32); 2] = [(0, 0), (-3, 7)];
 
 struct Env {
@@ -43,18 +54,28 @@ fn env() -> &'static Env {
             .noise_settings(&Identifier::parse("minecraft:overworld").unwrap())
             .expect("overworld noise settings");
         let random_state = Arc::new(RandomState::create(registries.clone(), 0, &settings));
-        let factory = PalettedContainerFactory::create(mc_world::palette::BiomeRegistry::new(biomes.names()))
-            .expect("plains registered");
-        Env { registries, biomes, random_state, factory }
+        let factory =
+            PalettedContainerFactory::create(mc_world::palette::BiomeRegistry::new(biomes.names()))
+                .expect("plains registered");
+        Env {
+            registries,
+            biomes,
+            random_state,
+            factory,
+        }
     })
 }
 
 fn fixture(name: &str) -> String {
-    let path = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/flat").join(format!("{name}.gz"));
+    let path = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+        .join("tests/fixtures/flat")
+        .join(format!("{name}.gz"));
     let mut text = String::new();
-    GzDecoder::new(std::fs::File::open(&path).unwrap_or_else(|e| panic!("{}: {e}", path.display())))
-        .read_to_string(&mut text)
-        .unwrap();
+    GzDecoder::new(
+        std::fs::File::open(&path).unwrap_or_else(|e| panic!("{}: {e}", path.display())),
+    )
+    .read_to_string(&mut text)
+    .unwrap();
     text
 }
 
@@ -73,7 +94,10 @@ fn rle(values: &[String]) -> String {
 }
 
 fn states_of(states: &[Option<BlockState>]) -> Vec<String> {
-    states.iter().map(|s| s.map_or("null".to_string(), |s| s.id().to_string())).collect()
+    states
+        .iter()
+        .map(|s| s.map_or("null".to_string(), |s| s.id().to_string()))
+        .collect()
 }
 
 fn biome_key(id: BiomeId) -> String {
@@ -92,7 +116,10 @@ fn summary(s: &FlatLevelGeneratorSettings) -> String {
         None => "none".to_string(),
         Some(StructureSetHolderSet::Tag(t)) => format!("tag:{t}"),
         Some(StructureSetHolderSet::Direct(ids)) => {
-            format!("list:{}", ids.iter().map(|i| format!("{i},")).collect::<String>())
+            format!(
+                "list:{}",
+                ids.iter().map(|i| format!("{i},")).collect::<String>()
+            )
         }
     };
     format!(
@@ -108,7 +135,9 @@ fn summary(s: &FlatLevelGeneratorSettings) -> String {
 fn placed(f: &PlacedFeatureRef) -> String {
     match f {
         PlacedFeatureRef::Named(id) => id.to_string(),
-        PlacedFeatureRef::InlineFillLayer { height, state } => format!("fill_layer({height},{})+0", state.id()),
+        PlacedFeatureRef::InlineFillLayer { height, state } => {
+            format!("fill_layer({height},{})+0", state.id())
+        }
     }
 }
 
@@ -132,7 +161,13 @@ fn settings_of(g: &BiomeGenerationSettings, full: bool) -> String {
 }
 
 fn new_chunk(cx: i32, cz: i32, min_y: i32, height: i32) -> ProtoChunk {
-    ProtoChunk::new(ChunkPos::new(cx, cz), UpgradeData::empty(), LevelHeight::new(min_y, height), &env().factory, None)
+    ProtoChunk::new(
+        ChunkPos::new(cx, cz),
+        UpgradeData::empty(),
+        LevelHeight::new(min_y, height),
+        &env().factory,
+        None,
+    )
 }
 
 fn chunk_dump(chunk: &ProtoChunk, min_y: i32, height: i32) -> String {
@@ -140,7 +175,12 @@ fn chunk_dump(chunk: &ProtoChunk, min_y: i32, height: i32) -> String {
     for y in min_y..min_y + height {
         for z in 0..16 {
             for x in 0..16 {
-                blocks.push(chunk.get_block_state(BlockPos::new(x, y, z)).id().to_string());
+                blocks.push(
+                    chunk
+                        .get_block_state(BlockPos::new(x, y, z))
+                        .id()
+                        .to_string(),
+                );
             }
         }
     }
@@ -167,7 +207,10 @@ fn generator_functions(out: &mut Vec<String>, tag: &str, gen_: &dyn ChunkGenerat
     ));
     for (min_y, height) in HEIGHTS {
         let acc = LevelHeight::new(min_y, height);
-        let mut line = format!("{tag} fn {min_y} {height} spawn={}", gen_.get_spawn_height(acc));
+        let mut line = format!(
+            "{tag} fn {min_y} {height} spawn={}",
+            gen_.get_spawn_height(acc)
+        );
         for ty in HeightmapType::ALL {
             line.push_str(&format!(
                 " {}={}/{}/{}",
@@ -179,8 +222,9 @@ fn generator_functions(out: &mut Vec<String>, tag: &str, gen_: &dyn ChunkGenerat
         }
         out.push(line);
         let col = gen_.get_base_column(-17, 40, acc, rs);
-        let states: Vec<String> =
-            (min_y - 3..min_y + height.min(600) + 3).map(|y| col.get_block(y).id().to_string()).collect();
+        let states: Vec<String> = (min_y - 3..min_y + height.min(600) + 3)
+            .map(|y| col.get_block(y).id().to_string())
+            .collect();
         out.push(format!("{tag} col {min_y} {height} {}", rle(&states)));
     }
 }
@@ -194,7 +238,9 @@ fn parse(json: &str) -> Option<FlatLevelGeneratorSettings> {
 /// The lines vanilla printed for one `INPUT` (see `FlatOracle.flatCase`).
 fn flat_case(name: &str, json: &str) -> Vec<String> {
     let e = env();
-    let Some(reference) = parse(json) else { return vec![format!("CASE {name} ERR")] };
+    let Some(reference) = parse(json) else {
+        return vec![format!("CASE {name} ERR")];
+    };
     let mut out = vec![format!("CASE {name} OK {}", summary(&reference))];
     for phase in 0..2 {
         let settings = parse(json).expect("decoded once already");
@@ -202,7 +248,10 @@ fn flat_case(name: &str, json: &str) -> Vec<String> {
         let source = FlatLevelSource::new(settings, e.biomes.clone());
         let tag = format!("{name} {}", if phase == 0 { "pre" } else { "post" });
         if phase == 1 {
-            out.push(format!("{tag} adjust_flat {}", settings_of(source.get_biome_generation_settings(flat_biome), true)));
+            out.push(format!(
+                "{tag} adjust_flat {}",
+                settings_of(source.get_biome_generation_settings(flat_biome), true)
+            ));
             let void = e.biomes.id_of_name("the_void").unwrap();
             let plains = e.biomes.id_of_name("plains").unwrap();
             out.push(format!(
@@ -215,15 +264,24 @@ fn flat_case(name: &str, json: &str) -> Vec<String> {
                 biome_key(plains),
                 settings_of(source.get_biome_generation_settings(plains), false)
             ));
-            out.push(format!("{tag} layers_after {}", rle(&states_of(source.settings().get_layers()))));
-            out.push(format!("{tag} source biomes={}", biome_list(source.biome_source())));
+            out.push(format!(
+                "{tag} layers_after {}",
+                rle(&states_of(source.settings().get_layers()))
+            ));
+            out.push(format!(
+                "{tag} source biomes={}",
+                biome_list(source.biome_source())
+            ));
         }
         generator_functions(&mut out, &tag, &source);
         for (min_y, height) in HEIGHTS {
             for (cx, cz) in CHUNKS {
                 let mut chunk = new_chunk(cx, cz, min_y, height);
                 build_terrain(&source, &mut chunk);
-                out.push(format!("{tag} chunk {min_y} {height} {cx} {cz} {}", chunk_dump(&chunk, min_y, height)));
+                out.push(format!(
+                    "{tag} chunk {min_y} {height} {cx} {cz} {}",
+                    chunk_dump(&chunk, min_y, height)
+                ));
             }
         }
     }
@@ -231,7 +289,15 @@ fn flat_case(name: &str, json: &str) -> Vec<String> {
 }
 
 fn biome_list(source: &dyn BiomeSource) -> String {
-    format!("[{}]", source.possible_biomes().iter().map(|b| biome_key(*b)).collect::<Vec<_>>().join(", "))
+    format!(
+        "[{}]",
+        source
+            .possible_biomes()
+            .iter()
+            .map(|b| biome_key(*b))
+            .collect::<Vec<_>>()
+            .join(", ")
+    )
 }
 
 fn build_terrain(gen_: &dyn ChunkGenerator, chunk: &mut ProtoChunk) {
@@ -276,14 +342,21 @@ fn flat_settings_presets_and_generator() {
             let expected: Vec<&str> = lines[i + 1..]
                 .iter()
                 .copied()
-                .take_while(|l| l.starts_with(&format!("CASE {name} ")) || l.starts_with(&format!("{name} ")))
+                .take_while(|l| {
+                    l.starts_with(&format!("CASE {name} ")) || l.starts_with(&format!("{name} "))
+                })
                 .collect();
             cases.push((name, json, expected));
         } else if let Some(rest) = line.strip_prefix("PRESET ") {
             let (key, rest) = rest.split_once(" display=").unwrap();
             let id = Identifier::parse(key).unwrap();
             let preset = FlatLevelGeneratorPreset::load(&e.registries, &e.biomes, &id).unwrap();
-            let actual = format!("{} display={} {}", key, preset.display_item.name(), summary(&preset.settings));
+            let actual = format!(
+                "{} display={} {}",
+                key,
+                preset.display_item.name(),
+                summary(&preset.settings)
+            );
             assert_eq!(actual, format!("{key} display={rest}"));
             presets += 1;
         } else if let Some(rest) = line.strip_prefix("DEFAULT ") {
@@ -296,7 +369,10 @@ fn flat_settings_presets_and_generator() {
                 FlatLayerInfo::new(1, mc_data::Block::BEDROCK),
                 FlatLayerInfo::new(3, mc_data::Block::BASALT),
             ];
-            assert_eq!(summary(&dflt.with_biome_and_layers(&layers, None, basalt)), rest);
+            assert_eq!(
+                summary(&dflt.with_biome_and_layers(&layers, None, basalt)),
+                rest
+            );
         } else if let Some(rest) = line.strip_prefix("BOOTSTRAP_PRESET ") {
             bootstrap.push(rest.to_string());
         }
@@ -309,7 +385,9 @@ fn flat_settings_presets_and_generator() {
             scope.spawn(|| {
                 loop {
                     let i = next.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
-                    let Some((name, json, expected)) = cases.get(i) else { break };
+                    let Some((name, json, expected)) = cases.get(i) else {
+                        break;
+                    };
                     let actual = flat_case(name, json);
                     assert_eq!(actual.len(), expected.len(), "{name}: line count");
                     for (a, x) in actual.iter().zip(expected) {
@@ -328,8 +406,16 @@ fn flat_settings_presets_and_generator() {
         let (key, rest) = b.split_once(" display=").unwrap();
         let id = Identifier::parse(key).unwrap();
         let preset = FlatLevelGeneratorPreset::load(&e.registries, &e.biomes, &id).unwrap();
-        let actual = format!("{key} display={} {}", preset.display_item.name(), summary(&preset.settings));
-        assert_eq!(bootstrap_view(&actual), bootstrap_view(&format!("{key} display={rest}")), "bootstrap {key}");
+        let actual = format!(
+            "{key} display={} {}",
+            preset.display_item.name(),
+            summary(&preset.settings)
+        );
+        assert_eq!(
+            bootstrap_view(&actual),
+            bootstrap_view(&format!("{key} display={rest}")),
+            "bootstrap {key}"
+        );
     }
     assert_eq!(presets, 9);
     assert!(checked_cases >= 49, "{checked_cases}");
@@ -365,19 +451,36 @@ fn debug_level_source() {
         runs.push_str(&format!("{}..{} ", all[i].id(), all[j].id()));
         i = j + 1;
     }
-    assert_eq!(lines.next().unwrap(), format!("ALL_BLOCKS size={} runs={}", all.len(), runs.trim()));
     assert_eq!(
         lines.next().unwrap(),
-        format!("GRID width={} height={}", debug_level_source::grid_width(), debug_level_source::grid_height())
+        format!("ALL_BLOCKS size={} runs={}", all.len(), runs.trim())
     );
     assert_eq!(
         lines.next().unwrap(),
-        format!("CONSTS height={} barrier={}", debug_level_source::HEIGHT, debug_level_source::BARRIER_HEIGHT)
+        format!(
+            "GRID width={} height={}",
+            debug_level_source::grid_width(),
+            debug_level_source::grid_height()
+        )
     );
-    assert_eq!(lines.next().unwrap(), format!("SOURCE biomes={}", biome_list(source.biome_source())));
     assert_eq!(
         lines.next().unwrap(),
-        format!("SOURCE_SETTINGS {}", settings_of(source.get_biome_generation_settings(plains), false))
+        format!(
+            "CONSTS height={} barrier={}",
+            debug_level_source::HEIGHT,
+            debug_level_source::BARRIER_HEIGHT
+        )
+    );
+    assert_eq!(
+        lines.next().unwrap(),
+        format!("SOURCE biomes={}", biome_list(source.biome_source()))
+    );
+    assert_eq!(
+        lines.next().unwrap(),
+        format!(
+            "SOURCE_SETTINGS {}",
+            settings_of(source.get_biome_generation_settings(plains), false)
+        )
     );
     let mut functions = Vec::new();
     generator_functions(&mut functions, "debug", &source);
@@ -409,7 +512,10 @@ fn debug_level_source() {
     ];
     for x in samples {
         for z in samples {
-            let expected = format!("STATE_FOR {x} {z} {}", debug_level_source::get_block_state_for(x, z).id());
+            let expected = format!(
+                "STATE_FOR {x} {z} {}",
+                debug_level_source::get_block_state_for(x, z).id()
+            );
             assert_eq!(lines.next().unwrap(), expected);
         }
     }
@@ -421,13 +527,19 @@ fn debug_level_source() {
             .iter()
             .map(|(p, s)| format!("{},{},{}={}/2", p.x(), p.y(), p.z(), s.id()))
             .collect();
-        assert_eq!(lines.next().unwrap(), format!("DECORATE {cx} {cz} {} {}", joined.len(), joined.join(" ")));
+        assert_eq!(
+            lines.next().unwrap(),
+            format!("DECORATE {cx} {cz} {} {}", joined.len(), joined.join(" "))
+        );
     }
 
     // buildTerrain leaves the chunk untouched
     let mut chunk = new_chunk(0, 0, -64, 384);
     build_terrain(&source, &mut chunk);
-    assert_eq!(lines.next().unwrap(), format!("TERRAIN {}", chunk_dump(&chunk, -64, 384)));
+    assert_eq!(
+        lines.next().unwrap(),
+        format!("TERRAIN {}", chunk_dump(&chunk, -64, 384))
+    );
     assert!(lines.next().is_none());
 }
 
@@ -456,9 +568,15 @@ fn debug_grid_matches_vanilla() {
         }
     }
     assert_eq!(seen, expected.len());
-    assert_eq!(seen, debug_level_source::all_blocks().len() - count_air_states());
+    assert_eq!(
+        seen,
+        debug_level_source::all_blocks().len() - count_air_states()
+    );
 }
 
 fn count_air_states() -> usize {
-    debug_level_source::all_blocks().iter().filter(|s| s.is_air()).count()
+    debug_level_source::all_blocks()
+        .iter()
+        .filter(|s| s.is_air())
+        .count()
 }

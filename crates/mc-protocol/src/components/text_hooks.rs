@@ -42,23 +42,43 @@ fn to_json(kind: PayloadKind, t: &Tag) -> Result<serde_json::Value, String> {
             // The stored compound keeps the typed patch's insertion order (vanilla's `Reference2ObjectArrayMap`), which is
             // observable in the JSON output; only the top level is ordered that way, nested compounds are `HashMap`s.
             let ordered = match t {
-                Tag::Compound(c) => Dyn::Map(c.iter().map(|(k, v)| (Dyn::Str(k.clone()), Dyn::from(v))).collect()),
+                Tag::Compound(c) => Dyn::Map(
+                    c.iter()
+                        .map(|(k, v)| (Dyn::Str(k.clone()), Dyn::from(v)))
+                        .collect(),
+                ),
                 other => Dyn::from(other),
             };
-            let patch = DataComponentPatch::codec().parse(&NBT, &ordered).into_result()?;
-            let d: Dyn = DataComponentPatch::codec().encode_start(&JSON, &patch).into_result()?;
+            let patch = DataComponentPatch::codec()
+                .parse(&NBT, &ordered)
+                .into_result()?;
+            let d: Dyn = DataComponentPatch::codec()
+                .encode_start(&JSON, &patch)
+                .into_result()?;
             Ok(dyn_to_serde(&d))
         }
         // a registry reference was validated when it was parsed
-        PayloadKind::Dialog if matches!(t, Tag::String(_)) => Ok(dyn_to_serde(&NBT.convert_to(&JSON, &Dyn::from(t)))),
+        PayloadKind::Dialog if matches!(t, Tag::String(_)) => {
+            Ok(dyn_to_serde(&NBT.convert_to(&JSON, &Dyn::from(t))))
+        }
         PayloadKind::Dialog => {
-            let dialog = Dialog::direct_codec().parse(&NBT, &Dyn::from(t)).into_result()?;
-            Ok(dyn_to_serde(&Dialog::direct_codec().encode_start(&JSON, &dialog).into_result()?))
+            let dialog = Dialog::direct_codec()
+                .parse(&NBT, &Dyn::from(t))
+                .into_result()?;
+            Ok(dyn_to_serde(
+                &Dialog::direct_codec()
+                    .encode_start(&JSON, &dialog)
+                    .into_result()?,
+            ))
         }
     }
 }
 
 /// Install the hooks into `mc_text` (call once at startup, like `mc_text::set_validators`).
 pub fn install_text_hooks() {
-    mc_text::set_payload_hooks(PayloadHooks { from_json, from_nbt, to_json });
+    mc_text::set_payload_hooks(PayloadHooks {
+        from_json,
+        from_nbt,
+        to_json,
+    });
 }

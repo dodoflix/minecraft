@@ -3,8 +3,8 @@
 use super::{BehaviorBuilder, OneShot};
 use crate::world::entity::ai::memory::memory_module_type::{JOB_SITE, POTENTIAL_JOB_SITE};
 use crate::world::entity::npc::villager::villager_data::VillagerDataExt;
+use crate::world::entity::npc::villager::villager_mut;
 use crate::world::entity::npc::villager::villager_profession as profession_data;
-use crate::world::entity::npc::villager::{villager_mut};
 use mc_data::VillagerProfession;
 
 pub fn create() -> OneShot {
@@ -27,7 +27,9 @@ pub fn create() -> OneShot {
         // `server.getLevel(pos.dimension())`: only the level the villager is in is reachable from here
         if pos.dimension == c.level.dimension {
             if let Some(poi_type) = c.level.poi_manager().get_type(pos.pos) {
-                if let Some(profession) = VillagerProfession::iter().find(|&p| profession_data::data(p).held_job_site.test(poi_type)) {
+                if let Some(profession) = VillagerProfession::iter()
+                    .find(|&p| profession_data::data(p).held_job_site.test(poi_type))
+                {
                     let villager = villager_mut(c.body);
                     let data = villager.get_villager_data().with_profession(profession);
                     villager.set_villager_data(data);

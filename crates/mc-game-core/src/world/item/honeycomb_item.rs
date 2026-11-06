@@ -4,11 +4,11 @@
 use super::{InteractionResult, ItemBehaviour, ItemStackExt, UseOnContext};
 use crate::register_item_class;
 use crate::server::level::ServerLevel;
-use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
 use crate::world::entity::ServerPlayer;
-use crate::world::level::block::impls::chest_block;
 use crate::world::level::block::BlockStateExt;
+use crate::world::level::block::impls::chest_block;
 use crate::world::level::gameevent::GameEventContext;
+use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
 use mc_core::phys::Vec3;
 use mc_data::block::{Block, BlockState};
 use mc_data::enums::ChestType;
@@ -43,12 +43,27 @@ fn waxables() -> &'static HashMap<Block, Block> {
         let mut map = HashMap::new();
         for family in WAXABLE_FAMILIES {
             // `copper_block` -> `exposed_copper`, ...; everything else keeps its name behind the weathering prefix
-            let stem = if family == "copper_block" { "copper" } else { family };
-            for (prefix, unwaxed_name) in [("", family), ("exposed_", ""), ("weathered_", ""), ("oxidized_", "")] {
-                let unwaxed = if prefix.is_empty() { unwaxed_name.to_owned() } else { format!("{prefix}{stem}") };
+            let stem = if family == "copper_block" {
+                "copper"
+            } else {
+                family
+            };
+            for (prefix, unwaxed_name) in [
+                ("", family),
+                ("exposed_", ""),
+                ("weathered_", ""),
+                ("oxidized_", ""),
+            ] {
+                let unwaxed = if prefix.is_empty() {
+                    unwaxed_name.to_owned()
+                } else {
+                    format!("{prefix}{stem}")
+                };
                 let waxed = format!("waxed_{unwaxed}");
-                let unwaxed_block = Block::by_name(&format!("minecraft:{unwaxed}")).unwrap_or_else(|| panic!("no block {unwaxed}"));
-                let waxed_block = Block::by_name(&format!("minecraft:{waxed}")).unwrap_or_else(|| panic!("no block {waxed}"));
+                let unwaxed_block = Block::by_name(&format!("minecraft:{unwaxed}"))
+                    .unwrap_or_else(|| panic!("no block {unwaxed}"));
+                let waxed_block = Block::by_name(&format!("minecraft:{waxed}"))
+                    .unwrap_or_else(|| panic!("no block {waxed}"));
                 map.insert(unwaxed_block, waxed_block);
             }
         }
@@ -58,7 +73,9 @@ fn waxables() -> &'static HashMap<Block, Block> {
 
 /// `HoneycombItem.getWaxed(oldState)`.
 pub fn get_waxed(old_state: BlockState) -> Option<BlockState> {
-    waxables().get(&old_state.block()).map(|b| b.default_state().with_properties_of(old_state))
+    waxables()
+        .get(&old_state.block())
+        .map(|b| b.default_state().with_properties_of(old_state))
 }
 
 /// `HoneycombItem.WAXABLES` as `(unwaxed, waxed)` pairs.
@@ -69,23 +86,59 @@ pub fn waxable_pairs() -> impl Iterator<Item = (Block, Block)> {
 pub struct HoneycombItem;
 
 impl ItemBehaviour for HoneycombItem {
-    fn use_on(&self, context: &mut UseOnContext, level: &mut ServerLevel, player: &mut ServerPlayer) -> InteractionResult {
+    fn use_on(
+        &self,
+        context: &mut UseOnContext,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+    ) -> InteractionResult {
         let pos = context.get_clicked_pos();
         let old_state = level.get_block_state(pos);
-        let Some(waxed_state) = get_waxed(old_state) else { return InteractionResult::PASS };
+        let Some(waxed_state) = get_waxed(old_state) else {
+            return InteractionResult::PASS;
+        };
         let player_id = Some(player.base_id());
-        crate::advancements::triggers::CriteriaTriggers::ITEM_USED_ON_BLOCK.trigger(level, player, pos, &context.item_stack);
+        crate::advancements::triggers::CriteriaTriggers::ITEM_USED_ON_BLOCK.trigger(
+            level,
+            player,
+            pos,
+            &context.item_stack,
+        );
         context.item_stack.shrink(1);
         level.set_block_flags(pos, waxed_state, 11);
-        level.game_event(GameEvent::BLOCK_CHANGE, Vec3::at_center_of(&pos), &GameEventContext::of(player_id, Some(waxed_state)));
+        level.game_event(
+            GameEvent::BLOCK_CHANGE,
+            Vec3::at_center_of(&pos),
+            &GameEventContext::of(player_id, Some(waxed_state)),
+        );
         level.level_event(player_id, 3003, pos, 0);
-        level.play_sound(player_id, pos, SoundEvent::ITEM_HONEYCOMB_WAX_ON, SoundSource::Blocks, 1.0, 1.0);
-        if old_state.block().data().classes.contains(&"ChestBlock") && old_state.get(props::CHEST_TYPE) != ChestType::Single {
+        level.play_sound(
+            player_id,
+            pos,
+            SoundEvent::ITEM_HONEYCOMB_WAX_ON,
+            SoundSource::Blocks,
+            1.0,
+            1.0,
+        );
+        if old_state.block().data().classes.contains(&"ChestBlock")
+            && old_state.get(props::CHEST_TYPE) != ChestType::Single
+        {
             let neighbor_pos = pos.relative(chest_block::get_connected_direction(old_state));
             let neighbor_state = level.get_block_state(neighbor_pos);
-            level.game_event(GameEvent::BLOCK_CHANGE, Vec3::at_center_of(&neighbor_pos), &GameEventContext::of(player_id, Some(neighbor_state)));
+            level.game_event(
+                GameEvent::BLOCK_CHANGE,
+                Vec3::at_center_of(&neighbor_pos),
+                &GameEventContext::of(player_id, Some(neighbor_state)),
+            );
             level.level_event(player_id, 3003, neighbor_pos, 0);
-            level.play_sound(player_id, pos, SoundEvent::ITEM_HONEYCOMB_WAX_ON, SoundSource::Blocks, 1.0, 1.0);
+            level.play_sound(
+                player_id,
+                pos,
+                SoundEvent::ITEM_HONEYCOMB_WAX_ON,
+                SoundSource::Blocks,
+                1.0,
+                1.0,
+            );
         }
         InteractionResult::SUCCESS
     }

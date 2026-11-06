@@ -51,12 +51,21 @@ impl ServerLevel {
     }
 
     /// `LevelChunk.setBlockState(pos, state, flags)`: `None` is vanilla's `null` (nothing changed / aborted).
-    pub(super) fn chunk_set_block_state(&mut self, pos: BlockPos, state: BlockState, flags: u32) -> Option<BlockState> {
-        let raw = self.chunk_at_mut(pos)?.data.set_block_state_raw(pos, state)?;
+    pub(super) fn chunk_set_block_state(
+        &mut self,
+        pos: BlockPos,
+        state: BlockState,
+        flags: u32,
+    ) -> Option<BlockState> {
+        let raw = self
+            .chunk_at_mut(pos)?
+            .data
+            .set_block_state_raw(pos, state)?;
         let old_state = raw.old_state;
         let new_block = state.block();
         if raw.section_was_empty != raw.section_is_empty {
-            self.light_engine_mut().update_section_status(SectionPos::of_block_pos(&pos), raw.section_is_empty);
+            self.light_engine_mut()
+                .update_section_status(SectionPos::of_block_pos(&pos), raw.section_is_empty);
         }
         if raw.light_properties_changed {
             self.light_engine_mut().check_block(pos);
@@ -65,8 +74,17 @@ impl ServerLevel {
         let block_changed = old_state.block() != new_block;
         let moved_by_piston = flags & UPDATE_MOVE_BY_PISTON != 0;
         let side_effects = flags & UPDATE_SKIP_BLOCK_ENTITY_SIDEEFFECTS == 0;
-        if block_changed && old_state.has_block_entity() && !state.should_changed_state_keep_block_entity(old_state) {
-            if let Some(taken) = self.tick_state.taken_block_entities.iter_mut().rev().find(|t| t.pos == pos) {
+        if block_changed
+            && old_state.has_block_entity()
+            && !state.should_changed_state_keep_block_entity(old_state)
+        {
+            if let Some(taken) = self
+                .tick_state
+                .taken_block_entities
+                .iter_mut()
+                .rev()
+                .find(|t| t.pos == pos)
+            {
                 // the block entity is out of its chunk running its own code: it is dropped when that code returns
                 taken.removed = true;
             } else if side_effects && let Some(mut block_entity) = self.take_block_entity(pos) {
@@ -76,7 +94,9 @@ impl ServerLevel {
             self.remove_block_entity_at(pos);
         }
 
-        if (block_changed || is_rail_block(new_block)) && (flags & UPDATE_NEIGHBORS != 0 || moved_by_piston) {
+        if (block_changed || is_rail_block(new_block))
+            && (flags & UPDATE_NEIGHBORS != 0 || moved_by_piston)
+        {
             old_state.affect_neighbors_after_removal(self, pos, moved_by_piston);
         }
 
@@ -86,19 +106,34 @@ impl ServerLevel {
         if flags & UPDATE_SKIP_ON_PLACE == 0 {
             state.on_place(self, pos, old_state, moved_by_piston);
         }
-        if let Some(taken) = self.tick_state.taken_block_entities.iter_mut().rev().find(|t| t.pos == pos) {
+        if let Some(taken) = self
+            .tick_state
+            .taken_block_entities
+            .iter_mut()
+            .rev()
+            .find(|t| t.pos == pos)
+        {
             // `setBlock` from inside the block entity's own code (brewing stand `HAS_BOTTLE`, furnace `LIT`, ...): the live
             // block entity keeps living, it just learns its new state when it is put back
             if !taken.removed && state.has_block_entity() {
                 taken.new_state = Some(state);
             }
-        } else if state.has_block_entity() && BlockGetter::get_block_state(self, pos).block() == new_block {
+        } else if state.has_block_entity()
+            && BlockGetter::get_block_state(self, pos).block() == new_block
+        {
             let mut present = self.get_block_entity_creating(pos, EntityCreationType::Check);
             if present {
-                let valid = self.get_block_entity(pos).is_some_and(|be| be.is_valid_block_state(state));
+                let valid = self
+                    .get_block_entity(pos)
+                    .is_some_and(|be| be.is_valid_block_state(state));
                 if !valid {
                     if let Some(be) = self.get_block_entity(pos) {
-                        log::warn!("Found mismatched block entity @ {}: type = {}, state = {}", pos.to_short_string(), be.get_type().name(), state);
+                        log::warn!(
+                            "Found mismatched block entity @ {}: type = {}, state = {}",
+                            pos.to_short_string(),
+                            be.get_type().name(),
+                            state
+                        );
                     }
                     self.remove_block_entity_at(pos);
                     present = false;
@@ -142,9 +177,19 @@ impl ServerLevel {
 
     /// Run `f` with the block entity at `pos` taken out (it can use the level freely), then put it back. `setBlock` on `pos`
     /// from inside `f` keeps this block entity (see `TakenBlockEntity`).
-    pub fn with_block_entity<R>(&mut self, pos: BlockPos, f: impl FnOnce(&mut ServerLevel, &mut dyn BlockEntity) -> R) -> Option<R> {
+    pub fn with_block_entity<R>(
+        &mut self,
+        pos: BlockPos,
+        f: impl FnOnce(&mut ServerLevel, &mut dyn BlockEntity) -> R,
+    ) -> Option<R> {
         let mut block_entity = self.take_block_entity(pos)?;
-        self.tick_state.taken_block_entities.push(super::level_tick_state::TakenBlockEntity { pos, new_state: None, removed: false });
+        self.tick_state
+            .taken_block_entities
+            .push(super::level_tick_state::TakenBlockEntity {
+                pos,
+                new_state: None,
+                removed: false,
+            });
         crate::world::block_entity::deferred::enter();
         let result = f(self, block_entity.as_mut());
         if let Some(taken) = self.tick_state.taken_block_entities.pop() {
@@ -163,8 +208,14 @@ impl ServerLevel {
 
     /// `LevelChunk.getBlockEntity(pos, creationType)` (which may promote pending NBT or create the entity): whether a
     /// live block entity exists at `pos` afterwards (read it through `get_block_entity`).
-    pub fn get_block_entity_creating(&mut self, pos: BlockPos, creation: EntityCreationType) -> bool {
-        let Some(chunk) = self.chunk_at_mut(pos) else { return false };
+    pub fn get_block_entity_creating(
+        &mut self,
+        pos: BlockPos,
+        creation: EntityCreationType,
+    ) -> bool {
+        let Some(chunk) = self.chunk_at_mut(pos) else {
+            return false;
+        };
         if !chunk.block_entities.contains_key(&pos) {
             if let Some(tag) = chunk.data.access.block_entities.remove(&pos)
                 && self.promote_pending_block_entity(pos, tag)
@@ -183,7 +234,11 @@ impl ServerLevel {
             return false;
         }
         let chunk = self.chunk_at_mut(pos).expect("chunk checked above");
-        if chunk.block_entities.get(&pos).is_some_and(|be| be.is_removed()) {
+        if chunk
+            .block_entities
+            .get(&pos)
+            .is_some_and(|be| be.is_removed())
+        {
             chunk.block_entities.remove(&pos);
             return false;
         }
@@ -192,18 +247,28 @@ impl ServerLevel {
 
     /// `Level.getBlockEntity(pos)` with `EntityCreationType.IMMEDIATE`.
     pub fn get_block_entity_immediate(&mut self, pos: BlockPos) -> Option<&mut dyn BlockEntity> {
-        if !self.is_in_valid_bounds(pos) || !self.get_block_entity_creating(pos, EntityCreationType::Immediate) {
+        if !self.is_in_valid_bounds(pos)
+            || !self.get_block_entity_creating(pos, EntityCreationType::Immediate)
+        {
             return None;
         }
-        self.chunk_at_mut(pos)?.block_entities.get_mut(&pos).map(|b| &mut **b)
+        self.chunk_at_mut(pos)?
+            .block_entities
+            .get_mut(&pos)
+            .map(|b| &mut **b)
     }
 
     /// `Level.getBlockEntity(pos)` (`EntityCreationType.CHECK`: pending NBT is promoted, nothing is created).
     pub fn get_block_entity_check_mut(&mut self, pos: BlockPos) -> Option<&mut dyn BlockEntity> {
-        if !self.is_in_valid_bounds(pos) || !self.get_block_entity_creating(pos, EntityCreationType::Check) {
+        if !self.is_in_valid_bounds(pos)
+            || !self.get_block_entity_creating(pos, EntityCreationType::Check)
+        {
             return None;
         }
-        self.chunk_at_mut(pos)?.block_entities.get_mut(&pos).map(|b| &mut **b)
+        self.chunk_at_mut(pos)?
+            .block_entities
+            .get_mut(&pos)
+            .map(|b| &mut **b)
     }
 
     /// `LevelChunk.promotePendingBlockEntity`: the pending NBT (or `DUMMY` stub) becomes a live block entity. Types
@@ -224,13 +289,20 @@ impl ServerLevel {
                 }
                 created
             } else {
-                log::warn!("Tried to load a DUMMY block entity @ {} but found not block entity block {} at location", pos.to_short_string(), state);
+                log::warn!(
+                    "Tried to load a DUMMY block entity @ {} but found not block entity block {} at location",
+                    pos.to_short_string(),
+                    state
+                );
                 None
             }
         } else {
             match BlockEntityType::by_name(&id) {
                 None => {
-                    log::error!("Skipping block entity with invalid type: {}", tag.get("id").map(|t| t.to_string()).unwrap_or_default());
+                    log::error!(
+                        "Skipping block entity with invalid type: {}",
+                        tag.get("id").map(|t| t.to_string()).unwrap_or_default()
+                    );
                     None
                 }
                 Some(ty) => match create_block_entity(ty, pos, state) {
@@ -254,7 +326,11 @@ impl ServerLevel {
                 true
             }
             None => {
-                log::warn!("Tried to load a block entity for block {} but failed at location {}", state, pos.to_short_string());
+                log::warn!(
+                    "Tried to load a block entity for block {} but failed at location {}",
+                    state,
+                    pos.to_short_string()
+                );
                 false
             }
         }
@@ -281,22 +357,40 @@ impl ServerLevel {
         let pos = block_entity.get_block_pos();
         let block_state = BlockGetter::get_block_state(self, pos);
         if !block_state.has_block_entity() {
-            log::warn!("Trying to set block entity {} at position {}, but state {} does not allow it", block_entity.get_type().name(), pos.to_short_string(), block_state);
+            log::warn!(
+                "Trying to set block entity {} at position {}, but state {} does not allow it",
+                block_entity.get_type().name(),
+                pos.to_short_string(),
+                block_state
+            );
             return false;
         }
         let cached = block_entity.get_block_state();
         if block_state != cached {
             if !block_entity.is_valid_block_state(block_state) {
-                log::warn!("Trying to set block entity {} at position {}, but state {} does not allow it", block_entity.get_type().name(), pos.to_short_string(), block_state);
+                log::warn!(
+                    "Trying to set block entity {} at position {}, but state {} does not allow it",
+                    block_entity.get_type().name(),
+                    pos.to_short_string(),
+                    block_state
+                );
                 return false;
             }
             if block_state.block() != cached.block() {
-                log::warn!("Block state mismatch on block entity {} in position {}, {} != {}, updating", block_entity.get_type().name(), pos.to_short_string(), block_state, cached);
+                log::warn!(
+                    "Block state mismatch on block entity {} in position {}, {} != {}, updating",
+                    block_entity.get_type().name(),
+                    pos.to_short_string(),
+                    block_state,
+                    cached
+                );
             }
             block_entity.set_block_state(block_state);
         }
         block_entity.clear_removed();
-        let Some(chunk) = self.chunk_at_mut(pos) else { return false };
+        let Some(chunk) = self.chunk_at_mut(pos) else {
+            return false;
+        };
         let previous = chunk.block_entities.insert(pos, block_entity);
         if let Some(mut previous) = previous {
             previous.set_removed_in_level(self);
@@ -316,7 +410,9 @@ impl ServerLevel {
         let in_level = self.chunk_at(pos).is_some_and(|c| c.data.is_loaded());
         if in_level {
             self.remove_game_event_listener(pos);
-            let removed = self.chunk_at_mut(pos).and_then(|chunk| chunk.block_entities.remove(&pos));
+            let removed = self
+                .chunk_at_mut(pos)
+                .and_then(|chunk| chunk.block_entities.remove(&pos));
             if let Some(mut removed) = removed {
                 removed.set_removed_in_level(self);
             }
@@ -337,13 +433,18 @@ impl ServerLevel {
 
     /// `LevelChunk.updateBlockEntityTicker(blockEntity)`.
     pub(super) fn update_block_entity_ticker(&mut self, pos: BlockPos) {
-        let ticks = self.chunk_at(pos).and_then(|c| c.block_entities.get(&pos)).is_some_and(|be| be.is_ticking());
+        let ticks = self
+            .chunk_at(pos)
+            .and_then(|c| c.block_entities.get(&pos))
+            .is_some_and(|be| be.is_ticking());
         if !ticks {
             self.remove_block_entity_ticker(pos);
             return;
         }
         let in_level = self.chunk_at(pos).is_some_and(|c| c.data.is_loaded());
-        let Some(chunk) = self.chunk_at_mut(pos) else { return };
+        let Some(chunk) = self.chunk_at_mut(pos) else {
+            return;
+        };
         if let Some(existing) = chunk.tickers_in_level.get(&pos) {
             existing.0.set(Some(pos));
         } else if in_level {
@@ -370,7 +471,12 @@ impl ServerLevel {
     fn game_event_registration(&mut self, pos: BlockPos) -> Option<RegisteredListener> {
         let chunk = self.chunk_at(pos)?;
         let listener = chunk.block_entities.get(&pos)?.game_event_listener()?;
-        Some(RegisteredListener { owner: ListenerOwner::BlockEntity(pos), source: listener.source, radius: listener.radius, delivery: listener.delivery })
+        Some(RegisteredListener {
+            owner: ListenerOwner::BlockEntity(pos),
+            source: listener.source,
+            radius: listener.radius,
+            delivery: listener.delivery,
+        })
     }
 
     /// `LevelChunk.addGameEventListener(blockEntity, level)`.
@@ -378,7 +484,11 @@ impl ServerLevel {
         if let Some(registration) = self.game_event_registration(pos) {
             let section_y = pos.y() >> 4;
             if let Some(chunk) = self.chunk_at_mut(pos) {
-                chunk.game_event_registries.entry(section_y).or_default().register(registration);
+                chunk
+                    .game_event_registries
+                    .entry(section_y)
+                    .or_default()
+                    .register(registration);
             }
         }
     }
@@ -398,7 +508,9 @@ impl ServerLevel {
 
     /// `LevelChunk.registerAllBlockEntitiesAfterLevelLoad()`.
     pub fn register_all_block_entities_after_level_load(&mut self, pos: ChunkPos) {
-        let Some(chunk) = self.chunk_now(pos.x, pos.z) else { return };
+        let Some(chunk) = self.chunk_now(pos.x, pos.z) else {
+            return;
+        };
         let positions: Vec<BlockPos> = chunk.block_entities.keys().copied().collect();
         for p in positions {
             self.add_game_event_listener(p);
@@ -408,7 +520,9 @@ impl ServerLevel {
 
     /// `registerTickContainerInLevel(level)`: hands the chunk's scheduled ticks to the level.
     pub fn register_tick_container_in_level(&mut self, pos: ChunkPos) {
-        let Some(chunk) = self.chunk_now_mut(pos.x, pos.z) else { return };
+        let Some(chunk) = self.chunk_now_mut(pos.x, pos.z) else {
+            return;
+        };
         let block = std::mem::take(&mut chunk.data.block_ticks);
         let fluid = std::mem::take(&mut chunk.data.fluid_ticks);
         let mut ticks = self.tick_state.ticks.lock();
@@ -444,7 +558,10 @@ impl ServerLevel {
     }
 
     /// `unregisterTickContainerFromLevel(level)`: the scheduled ticks go back into the chunk.
-    pub fn unregister_tick_container_from_level(chunk: &mut LevelChunk, ticks: &super::level_tick_state::SharedTickContainers) {
+    pub fn unregister_tick_container_from_level(
+        chunk: &mut LevelChunk,
+        ticks: &super::level_tick_state::SharedTickContainers,
+    ) {
         let pos = chunk.pos();
         let mut ticks = ticks.lock();
         if let Some(block) = ticks.block.remove_container(pos) {
@@ -457,7 +574,9 @@ impl ServerLevel {
 
     /// `LevelChunk.postProcessGeneration(level)`.
     pub fn post_process_generation(&mut self, pos: ChunkPos) {
-        let Some(chunk) = self.chunk_now_mut(pos.x, pos.z) else { return };
+        let Some(chunk) = self.chunk_now_mut(pos.x, pos.z) else {
+            return;
+        };
         let min_section_y = chunk.data.access.level_height.min_section_y();
         let mut lists: Vec<(usize, Vec<i16>)> = Vec::new();
         for (index, list) in chunk.data.access.post_processing.iter_mut().enumerate() {
@@ -467,7 +586,8 @@ impl ServerLevel {
         }
         for (index, offsets) in lists {
             for packed in offsets {
-                let block_pos = unpack_offset_coordinates(packed, min_section_y + index as i32, pos);
+                let block_pos =
+                    unpack_offset_coordinates(packed, min_section_y + index as i32, pos);
                 let block_state = BlockGetter::get_block_state(self, block_pos);
                 let fluid_state = block_state.get_fluid_state();
                 if !fluid_state.is_empty() {
@@ -476,20 +596,31 @@ impl ServerLevel {
                 if block_state.block().data().classes.contains(&"LiquidBlock") {
                     block_state.tick(self, block_pos);
                 } else {
-                    let new_state = crate::world::level::block::helpers::update_from_neighbour_shapes(block_state, self, block_pos);
+                    let new_state =
+                        crate::world::level::block::helpers::update_from_neighbour_shapes(
+                            block_state,
+                            self,
+                            block_pos,
+                        );
                     if new_state != block_state {
                         self.set_block_impl(block_pos, new_state, 276, 512);
                     }
                 }
             }
         }
-        let pending: Vec<BlockPos> = self.chunk_now(pos.x, pos.z).map(|c| c.data.access.block_entities.keys().copied().collect()).unwrap_or_default();
+        let pending: Vec<BlockPos> = self
+            .chunk_now(pos.x, pos.z)
+            .map(|c| c.data.access.block_entities.keys().copied().collect())
+            .unwrap_or_default();
         for p in pending {
             self.get_block_entity_creating(p, EntityCreationType::Check);
         }
         // Types without an implementation stay pending (`pendingBlockEntities.clear()` would lose their data).
         let mut upgrade = match self.chunk_now_mut(pos.x, pos.z) {
-            Some(chunk) => std::mem::replace(&mut chunk.data.access.upgrade_data, mc_world::upgrade_data::UpgradeData::empty()),
+            Some(chunk) => std::mem::replace(
+                &mut chunk.data.access.upgrade_data,
+                mc_world::upgrade_data::UpgradeData::empty(),
+            ),
             None => return,
         };
         let result = upgrade.upgrade(&mut ChunkUpgrade { level: self, pos });
@@ -532,29 +663,64 @@ impl UpgradeChunk for ChunkUpgrade<'_> {
     fn get_fluid_type(&self, pos: &BlockPos) -> Fluid {
         BlockGetter::get_fluid_state(&*self.level, *pos).fluid()
     }
-    fn set_block(&mut self, pos: &BlockPos, state: BlockState, flags: i32, update_limit: i32) -> bool {
-        self.level.set_block_impl(*pos, state, flags as u32, update_limit)
+    fn set_block(
+        &mut self,
+        pos: &BlockPos,
+        state: BlockState,
+        flags: i32,
+        update_limit: i32,
+    ) -> bool {
+        self.level
+            .set_block_impl(*pos, state, flags as u32, update_limit)
     }
     fn destroy_block(&mut self, pos: &BlockPos, drop_resources: bool, update_limit: i32) -> bool {
-        self.level.destroy_block_impl(*pos, drop_resources, None, update_limit)
+        self.level
+            .destroy_block_impl(*pos, drop_resources, None, update_limit)
     }
-    fn update_shape(&mut self, state: BlockState, direction: Direction, pos: &BlockPos, neighbour_pos: &BlockPos, neighbour_state: BlockState) -> BlockState {
-        state.update_shape(&mut *self.level, *pos, direction, *neighbour_pos, neighbour_state)
+    fn update_shape(
+        &mut self,
+        state: BlockState,
+        direction: Direction,
+        pos: &BlockPos,
+        neighbour_pos: &BlockPos,
+        neighbour_state: BlockState,
+    ) -> BlockState {
+        state.update_shape(
+            &mut *self.level,
+            *pos,
+            direction,
+            *neighbour_pos,
+            neighbour_state,
+        )
     }
     fn swap_chest_contents(&mut self, _a: &BlockPos, _b: &BlockPos) {
         // `ChestBlockEntity.swapContents`: handled by the chest block entity (no chest implementation registered).
     }
-    fn schedule_block_tick(&mut self, pos: &BlockPos, block: Block, delay: i32, priority: TickPriority) {
+    fn schedule_block_tick(
+        &mut self,
+        pos: &BlockPos,
+        block: Block,
+        delay: i32,
+        priority: TickPriority,
+    ) {
         LevelAccessor::schedule_block_tick(&mut *self.level, *pos, block, delay, priority);
     }
-    fn schedule_fluid_tick(&mut self, pos: &BlockPos, fluid: Fluid, delay: i32, priority: TickPriority) {
+    fn schedule_fluid_tick(
+        &mut self,
+        pos: &BlockPos,
+        fluid: Fluid,
+        delay: i32,
+        priority: TickPriority,
+    ) {
         LevelAccessor::schedule_fluid_tick(&mut *self.level, *pos, fluid, delay, priority);
     }
 }
 
-
 /// Bring the chunk's scheduled ticks back from the level's containers (for saving); `true` if they were registered.
-pub fn take_ticks_back(chunk: &mut LevelChunk, ticks: &super::level_tick_state::SharedTickContainers) -> bool {
+pub fn take_ticks_back(
+    chunk: &mut LevelChunk,
+    ticks: &super::level_tick_state::SharedTickContainers,
+) -> bool {
     let pos = chunk.pos();
     let mut ticks = ticks.lock();
     let block = ticks.block.remove_container(pos);
@@ -573,6 +739,10 @@ pub fn take_ticks_back(chunk: &mut LevelChunk, ticks: &super::level_tick_state::
 pub fn give_ticks(chunk: &mut LevelChunk, ticks: &super::level_tick_state::SharedTickContainers) {
     let pos = chunk.pos();
     let mut ticks = ticks.lock();
-    ticks.block.add_container(pos, std::mem::take(&mut chunk.data.block_ticks));
-    ticks.fluid.add_container(pos, std::mem::take(&mut chunk.data.fluid_ticks));
+    ticks
+        .block
+        .add_container(pos, std::mem::take(&mut chunk.data.block_ticks));
+    ticks
+        .fluid
+        .add_container(pos, std::mem::take(&mut chunk.data.fluid_ticks));
 }

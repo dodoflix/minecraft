@@ -1,7 +1,10 @@
 //! `net.minecraft.world.item.BowItem`.
 
 use super::projectile_weapon_item::{ProjectileWeapon, draw, get_projectile, is_arrow, shoot};
-use super::{APPROXIMATELY_INFINITE_USE_DURATION, InteractionHand, InteractionResult, ItemBehaviour, ItemStack};
+use super::{
+    APPROXIMATELY_INFINITE_USE_DURATION, InteractionHand, InteractionResult, ItemBehaviour,
+    ItemStack,
+};
 use crate::register_item_class;
 use crate::server::level::ServerLevel;
 use crate::stats::Stat;
@@ -36,16 +39,47 @@ impl ProjectileWeapon for BowItem {
         is_arrow(stack)
     }
 
-    fn shoot_projectile(&self, level: &mut ServerLevel, shooter: &mut dyn Entity, projectile: &mut dyn Projectile, _index: i32, power: f32, uncertainty: f32, angle: f32, _target: Option<EntityId>) {
+    fn shoot_projectile(
+        &self,
+        level: &mut ServerLevel,
+        shooter: &mut dyn Entity,
+        projectile: &mut dyn Projectile,
+        _index: i32,
+        power: f32,
+        uncertainty: f32,
+        angle: f32,
+        _target: Option<EntityId>,
+    ) {
         let movement = shooter.get_known_movement(level);
-        let (x_rot, y_rot, on_ground) = (shooter.base().x_rot(), shooter.base().y_rot(), shooter.base().on_ground());
-        shoot_from_rotation(projectile, movement, on_ground, x_rot, y_rot + angle, 0.0, power, uncertainty);
+        let (x_rot, y_rot, on_ground) = (
+            shooter.base().x_rot(),
+            shooter.base().y_rot(),
+            shooter.base().on_ground(),
+        );
+        shoot_from_rotation(
+            projectile,
+            movement,
+            on_ground,
+            x_rot,
+            y_rot + angle,
+            0.0,
+            power,
+            uncertainty,
+        );
     }
 }
 
 impl ItemBehaviour for BowItem {
-    fn release_using(&self, stack: &mut ItemStack, level: &mut ServerLevel, entity: &mut dyn Entity, remaining_time: i32) -> bool {
-        let Some(player) = entity.as_any_mut().downcast_mut::<ServerPlayer>() else { return false };
+    fn release_using(
+        &self,
+        stack: &mut ItemStack,
+        level: &mut ServerLevel,
+        entity: &mut dyn Entity,
+        remaining_time: i32,
+    ) -> bool {
+        let Some(player) = entity.as_any_mut().downcast_mut::<ServerPlayer>() else {
+            return false;
+        };
         let mut source = get_projectile(player, self);
         if source.stack.is_empty() {
             return false;
@@ -59,11 +93,31 @@ impl ItemBehaviour for BowItem {
         source.write_back(player);
         if !fired.is_empty() {
             let hand = player.get_used_item_hand();
-            shoot(self, level, player, hand, stack, &fired, pow * 3.0, 1.0, pow == 1.0, None);
+            shoot(
+                self,
+                level,
+                player,
+                hand,
+                stack,
+                &fired,
+                pow * 3.0,
+                1.0,
+                pow == 1.0,
+                None,
+            );
         }
         let pitch = 1.0 / (level.random().next_float() * 0.4 + 1.2) + pow * 0.5;
         let p = player.position();
-        level.play_sound_at(None, p.x, p.y, p.z, SoundEvent::ENTITY_ARROW_SHOOT, SoundSource::Players, 1.0, pitch);
+        level.play_sound_at(
+            None,
+            p.x,
+            p.y,
+            p.z,
+            SoundEvent::ENTITY_ARROW_SHOOT,
+            SoundSource::Players,
+            1.0,
+            pitch,
+        );
         player.award_stat_once(level, Stat::Used(self.item));
         true
     }
@@ -76,7 +130,12 @@ impl ItemBehaviour for BowItem {
         ItemUseAnimation::Bow
     }
 
-    fn use_item(&self, level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) -> InteractionResult {
+    fn use_item(
+        &self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        hand: InteractionHand,
+    ) -> InteractionResult {
         let stack = player.get_item_in_hand(hand);
         let found_projectile = !get_projectile(player, self).stack.is_empty();
         if !player.has_infinite_materials() && !found_projectile {

@@ -8,21 +8,23 @@
 //! `&dyn ServerLevelAccessor` / `&mut dyn ServerLevelAccessor`. Add methods here (own marked section) when a mob needs
 //! another read of the level.
 
+use super::spawner::mob_spawn_settings::MobSpawnSettings;
 use crate::server::level::ServerLevel;
 use crate::world::difficulty_instance::DifficultyInstance;
 use crate::world::entity::Entity;
 use crate::world::entity::factory::EntitySpawnRequest;
-use crate::world::level::LevelReader;
-use mc_data::EntityType;
 use crate::world::level::LevelAccessor;
+use crate::world::level::LevelReader;
 use mc_core::phys::AABB;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
+use mc_data::EntityType;
 use mc_world::level_storage::Difficulty;
-use super::spawner::mob_spawn_settings::MobSpawnSettings;
 use std::sync::Arc;
 
-pub trait ServerLevelAccessor: LevelAccessor + crate::world::entity::variant::SpawnContextLevel {
+pub trait ServerLevelAccessor:
+    LevelAccessor + crate::world::entity::variant::SpawnContextLevel
+{
     /// `getDifficulty()`.
     fn get_difficulty(&self) -> Difficulty;
     /// `getCurrentDifficultyAt(pos)`.
@@ -52,11 +54,15 @@ pub trait ServerLevelAccessor: LevelAccessor + crate::world::entity::variant::Sp
     fn spawn_mobs_rule(&self) -> bool;
     /// `type.create(getLevel(), request)`: `None` when the factory yields nothing or the spawn checks fail
     /// (`EntityType.canSpawn(level)`: enabled features, peaceful difficulty).
-    fn create_entity(&self, ty: EntityType, request: EntitySpawnRequest) -> Option<Box<dyn Entity>>;
+    fn create_entity(&self, ty: EntityType, request: EntitySpawnRequest)
+    -> Option<Box<dyn Entity>>;
     /// Runs `f` with this level's own random (`getRandom()`) taken out of the level, for calls vanilla makes as
     /// `f(this, ..., this.getRandom())` (the borrow checker cannot lend the level and its random at once; reads of the
     /// level random inside `f` through the level are not supported).
-    fn with_random_taken(&mut self, f: &mut dyn FnMut(&dyn ServerLevelAccessor, &mut dyn RandomSource) -> bool) -> bool;
+    fn with_random_taken(
+        &mut self,
+        f: &mut dyn FnMut(&dyn ServerLevelAccessor, &mut dyn RandomSource) -> bool,
+    ) -> bool;
     /// `registryAccess()`.
     fn registry_access(&self) -> &crate::registry::RegistryAccess;
     /// `getBiome(pos)` as the registry id of the (block-resolution) biome; `None` while a needed chunk is missing.
@@ -72,31 +78,64 @@ pub trait ServerLevelAccessor: LevelAccessor + crate::world::entity::variant::Sp
     // ==== mob spine additions (ServerLevelAccessor methods) ====
     // ==== monster additions (ServerLevelAccessor methods) ====
     /// `getNearestPlayer(x, y, z, distance, true)` (`EntitySelector.NO_CREATIVE_OR_SPECTATOR`); a generation region has no players.
-    fn get_nearest_player_ignoring_creative(&self, x: f64, y: f64, z: f64, distance: f64) -> Option<crate::world::entity::EntityId> {
-        self.as_server_level().and_then(|level| level.get_nearest_player(x, y, z, distance, crate::world::entity::mob::ext::no_creative_or_spectator))
+    fn get_nearest_player_ignoring_creative(
+        &self,
+        x: f64,
+        y: f64,
+        z: f64,
+        distance: f64,
+    ) -> Option<crate::world::entity::EntityId> {
+        self.as_server_level().and_then(|level| {
+            level.get_nearest_player(
+                x,
+                y,
+                z,
+                distance,
+                crate::world::entity::mob::ext::no_creative_or_spectator,
+            )
+        })
     }
     /// `environmentAttributes().getValue(SURFACE_SLIME_SPAWN_CHANCE, pos)`.
     fn surface_slime_spawn_chance_at(&self, pos: BlockPos) -> f32 {
-        self.as_server_level().map_or(0.0, |level| level.attribute_float(crate::world::attribute::attributes::SURFACE_SLIME_SPAWN_CHANCE, pos))
+        self.as_server_level().map_or(0.0, |level| {
+            level.attribute_float(
+                crate::world::attribute::attributes::SURFACE_SLIME_SPAWN_CHANCE,
+                pos,
+            )
+        })
     }
     /// `level instanceof WorldGenLevel worldGenLevel` -> `worldGenLevel.getSeed()`.
     fn world_gen_seed(&self) -> Option<i64> {
-        self.as_server_level().map(crate::world::level::levelgen::WorldGenLevel::get_seed)
+        self.as_server_level()
+            .map(crate::world::level::levelgen::WorldGenLevel::get_seed)
     }
     /// `getBiome(pos).is(tag)` for a biome tag (`BiomeTags.*`, the tag's path under `tags/worldgen/biome`).
     fn biome_is_tag(&self, pos: BlockPos, tag: &str) -> bool {
-        let Some(id) = self.get_biome_id(pos) else { return false };
-        let Ok(tag) = mc_core::ident::Identifier::parse(tag) else { return false };
-        self.registry_access().registry("worldgen/biome").is_some_and(|r| r.is_in_tag(id.0, &tag))
+        let Some(id) = self.get_biome_id(pos) else {
+            return false;
+        };
+        let Ok(tag) = mc_core::ident::Identifier::parse(tag) else {
+            return false;
+        };
+        self.registry_access()
+            .registry("worldgen/biome")
+            .is_some_and(|r| r.is_in_tag(id.0, &tag))
     }
 }
 
 /// `IntProvider.sample(random)` of a data-loaded provider (`dimensionType().monsterSpawnLightTest()`): the modelled
 /// kinds directly, any other through the worldgen provider decoder.
-pub fn sample_int_provider(provider: &crate::registry::typed::int_provider::IntProvider, random: &mut dyn RandomSource) -> i32 {
+pub fn sample_int_provider(
+    provider: &crate::registry::typed::int_provider::IntProvider,
+    random: &mut dyn RandomSource,
+) -> i32 {
     use crate::registry::typed::int_provider::IntProvider;
     match provider {
-        IntProvider::Other { json, min_inclusive, .. } => match mc_worldgen::provider::IntProvider::from_json(json) {
+        IntProvider::Other {
+            json,
+            min_inclusive,
+            ..
+        } => match mc_worldgen::provider::IntProvider::from_json(json) {
             Ok(decoded) => decoded.sample(random),
             Err(_) => *min_inclusive,
         },

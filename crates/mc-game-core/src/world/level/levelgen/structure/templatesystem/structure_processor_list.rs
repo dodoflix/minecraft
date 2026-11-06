@@ -28,13 +28,20 @@ impl DecodeCtx<'_> {
     /// `StructureProcessorType.LIST_CODEC` (`RegistryCodecs.holder(PROCESSOR_LIST, DIRECT_CODEC)`): a string is a
     /// reference, anything else an inline list.
     pub fn processor_list(&self, value: &Value) -> LoadResult<Holder<StructureProcessorList>> {
-        self.holder_or_direct(PROCESSOR_LIST_REGISTRY, value, |v| decode_direct_list(v, self).map(Arc::new))
+        self.holder_or_direct(PROCESSOR_LIST_REGISTRY, value, |v| {
+            decode_direct_list(v, self).map(Arc::new)
+        })
     }
 }
 
 /// Decodes every `worldgen/processor_list` entry of the data source behind `ctx` and binds the holders.
-pub fn load_processor_lists(ctx: &DecodeCtx<'_>) -> LoadResult<TypedRegistry<StructureProcessorList>> {
-    let registry = load_registry(ctx, PROCESSOR_LIST_REGISTRY, |v, c| decode_direct_list(v, c).map(Arc::new))?;
-    ctx.cells.check_all_bound::<StructureProcessorList>(PROCESSOR_LIST_REGISTRY)?;
+pub fn load_processor_lists(
+    ctx: &DecodeCtx<'_>,
+) -> LoadResult<TypedRegistry<StructureProcessorList>> {
+    let registry = load_registry(ctx, PROCESSOR_LIST_REGISTRY, |v, c| {
+        decode_direct_list(v, c).map(Arc::new)
+    })?;
+    ctx.cells
+        .check_all_bound::<StructureProcessorList>(PROCESSOR_LIST_REGISTRY)?;
     Ok(registry)
 }

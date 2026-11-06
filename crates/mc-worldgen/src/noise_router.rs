@@ -49,6 +49,14 @@ impl NoiseRouter {
             sampler(&self.depth),
             sampler(&self.ridges),
         );
-        climate::Sampler::new(samplers, temperature, humidity, continentalness, erosion, depth, weirdness)
+        climate::Sampler::new(
+            samplers,
+            temperature,
+            humidity,
+            continentalness,
+            erosion,
+            depth,
+            weirdness,
+        )
     }
 }

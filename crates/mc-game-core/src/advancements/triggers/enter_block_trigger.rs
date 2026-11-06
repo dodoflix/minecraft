@@ -1,8 +1,10 @@
 //! `EnterBlockTrigger`: `enter_block`.
 
 use super::prelude::*;
-use mc_protocol::components::{PotionContents, PotionsPredicate, RegistrySet, StatePropertiesPredicate};
 use crate::world::container::Container;
+use mc_protocol::components::{
+    PotionContents, PotionsPredicate, RegistrySet, StatePropertiesPredicate,
+};
 
 /// `EnterBlockTrigger.TriggerInstance`.
 #[derive(Clone)]
@@ -14,14 +16,15 @@ pub struct EnterBlockTriggerInstance {
 
 impl TriggerInstance for EnterBlockTriggerInstance {
     fn codec() -> Codec<Self> {
-        static C: std::sync::LazyLock<Codec<EnterBlockTriggerInstance>> = std::sync::LazyLock::new(|| {
-            mc_dfu::record!(EnterBlockTriggerInstance {
-                player: condition_holder_codec().optional_field_of("player"),
-                block: RegistrySet::<mc_data::Block>::codec().optional_field_of("blocks"),
-                state: StatePropertiesPredicate::codec().optional_field_of("state"),
-            })
-            .codec()
-        });
+        static C: std::sync::LazyLock<Codec<EnterBlockTriggerInstance>> =
+            std::sync::LazyLock::new(|| {
+                mc_dfu::record!(EnterBlockTriggerInstance {
+                    player: condition_holder_codec().optional_field_of("player"),
+                    block: RegistrySet::<mc_data::Block>::codec().optional_field_of("blocks"),
+                    state: StatePropertiesPredicate::codec().optional_field_of("state"),
+                })
+                .codec()
+            });
         C.clone()
     }
 }
@@ -41,7 +44,11 @@ crate::register_triggers!(EnterBlockTriggerInstance {
 impl EnterBlockTriggerInstance {
     /// `matches(state)`.
     pub fn matches(&self, state: BlockState) -> bool {
-        if self.block.as_ref().is_some_and(|b| !b.contains(state.block())) {
+        if self
+            .block
+            .as_ref()
+            .is_some_and(|b| !b.contains(state.block()))
+        {
             return false;
         }
         self.state.as_ref().is_none_or(|p| p.matches(state))

@@ -13,7 +13,9 @@ use mc_data::props;
 
 /// `SignalGetter.getDirectSignal(pos, direction)`.
 pub fn get_direct_signal(level: &dyn BlockGetter, pos: BlockPos, direction: Direction) -> i32 {
-    level.get_block_state(pos).get_direct_signal(level, pos, direction)
+    level
+        .get_block_state(pos)
+        .get_direct_signal(level, pos, direction)
 }
 
 /// `SignalGetter.getDirectSignalTo(pos)`.
@@ -36,10 +38,19 @@ pub fn get_direct_signal_to(level: &dyn BlockGetter, pos: BlockPos) -> i32 {
 }
 
 /// `SignalGetter.getControlInputSignal(pos, direction, onlyDiodes)`.
-pub fn get_control_input_signal(level: &dyn BlockGetter, pos: BlockPos, direction: Direction, only_diodes: bool) -> i32 {
+pub fn get_control_input_signal(
+    level: &dyn BlockGetter,
+    pos: BlockPos,
+    direction: Direction,
+    only_diodes: bool,
+) -> i32 {
     let state = level.get_block_state(pos);
     if only_diodes {
-        if is_diode(state) { get_direct_signal(level, pos, direction) } else { 0 }
+        if is_diode(state) {
+            get_direct_signal(level, pos, direction)
+        } else {
+            0
+        }
     } else if state.is_block(Block::REDSTONE_BLOCK) {
         15
     } else if state.is_block(Block::REDSTONE_WIRE) {
@@ -60,13 +71,21 @@ pub fn has_signal(level: &dyn BlockGetter, pos: BlockPos, direction: Direction) 
 pub fn get_signal(level: &dyn BlockGetter, pos: BlockPos, direction: Direction) -> i32 {
     let state = level.get_block_state(pos);
     let signal = state.get_signal(level, pos, direction);
-    if state.is_redstone_conductor() { signal.max(get_direct_signal_to(level, pos)) } else { signal }
+    if state.is_redstone_conductor() {
+        signal.max(get_direct_signal_to(level, pos))
+    } else {
+        signal
+    }
 }
 
 /// `SignalGetter.getBestOwnOrNeighbourSignal(pos)`.
 pub fn get_best_own_or_neighbour_signal(level: &dyn BlockGetter, pos: BlockPos) -> i32 {
     let state = level.get_block_state(pos);
-    get_best_neighbor_signal(level, pos).max(if state.is_signal_source() { state.get_own_signal(level, pos) } else { 0 })
+    get_best_neighbor_signal(level, pos).max(if state.is_signal_source() {
+        state.get_own_signal(level, pos)
+    } else {
+        0
+    })
 }
 
 /// `SignalGetter.hasNeighborSignal(pos)`.
@@ -100,7 +119,12 @@ pub trait SignalGetter: BlockGetter + Sized {
     fn get_direct_signal_to(&self, pos: BlockPos) -> i32 {
         get_direct_signal_to(self, pos)
     }
-    fn get_control_input_signal(&self, pos: BlockPos, direction: Direction, only_diodes: bool) -> i32 {
+    fn get_control_input_signal(
+        &self,
+        pos: BlockPos,
+        direction: Direction,
+        only_diodes: bool,
+    ) -> i32 {
         get_control_input_signal(self, pos, direction, only_diodes)
     }
     fn has_signal(&self, pos: BlockPos, direction: Direction) -> bool {

@@ -1,12 +1,12 @@
 //! `TryFindLiquidGoal` (`TryFindWaterGoal` is `new(mob, FluidTags.WATER)`).
 
-use mc_game_core::world::entity::ai::goal::{Goal, GoalFlags};
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::entity::Entity;
-use mc_game_core::world::level::BlockGetter;
 use mc_core::math::mth;
 use mc_core::pos::BlockPos;
 use mc_data::fluid::Fluid;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::ai::goal::{Goal, GoalFlags};
+use mc_game_core::world::level::BlockGetter;
 
 pub struct TryFindLiquidGoal {
     /// `fluidTag` (a `fluid` tag name such as `"water"`).
@@ -19,7 +19,8 @@ impl TryFindLiquidGoal {
     }
 
     fn is_fluid(&self, level: &ServerLevel, pos: BlockPos) -> bool {
-        mc_data::tags::get::<Fluid>(self.fluid_tag).is_some_and(|t| t.contains(level.get_fluid_state(pos).fluid()))
+        mc_data::tags::get::<Fluid>(self.fluid_tag)
+            .is_some_and(|t| t.contains(level.get_fluid_state(pos).fluid()))
     }
 }
 
@@ -40,7 +41,13 @@ impl Goal for TryFindLiquidGoal {
         )
         .find(|pos| self.is_fluid(level, *pos));
         if let Some(pos) = found {
-            mc_game_core::world::entity::mob::set_wanted_position(mob, f64::from(pos.x()), f64::from(pos.y()), f64::from(pos.z()), 1.0);
+            mc_game_core::world::entity::mob::set_wanted_position(
+                mob,
+                f64::from(pos.x()),
+                f64::from(pos.y()),
+                f64::from(pos.z()),
+                1.0,
+            );
         }
     }
 

@@ -74,7 +74,7 @@ mod var_int_array {
         write_varint(out, ids.len() as i32);
         for id in ids {
             write_varint(out, *id);
-        };
+        }
         Ok(())
     }
     pub fn decode(input: &mut &[u8]) -> DecodeResult<Vec<i32>> {
@@ -679,7 +679,7 @@ impl Encode for ClientboundSetEquipmentPacket {
             })
             .encode(out)?;
             stack.encode(out)?;
-        };
+        }
         Ok(())
     }
 }

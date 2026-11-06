@@ -16,7 +16,10 @@ fn golden() -> HashMap<String, Vec<u8>> {
         .lines()
         .map(|l| {
             let (label, hex) = l.split_once(':').expect("label:hex");
-            let bytes = (0..hex.len()).step_by(2).map(|i| u8::from_str_radix(&hex[i..i + 2], 16).unwrap()).collect();
+            let bytes = (0..hex.len())
+                .step_by(2)
+                .map(|i| u8::from_str_radix(&hex[i..i + 2], 16).unwrap())
+                .collect();
             (label.to_owned(), bytes)
         })
         .collect()
@@ -32,12 +35,19 @@ fn uuid1() -> Uuid {
 
 macro_rules! check {
     ($g:expr, $label:expr, $enum:ty, $packet:expr) => {{
-        let expected = $g.get($label).unwrap_or_else(|| panic!("no fixture {}", $label));
+        let expected = $g
+            .get($label)
+            .unwrap_or_else(|| panic!("no fixture {}", $label));
         let p: $enum = $packet.into();
         let mut out = Vec::new();
         p.encode_payload(&mut out).unwrap();
         assert_eq!(hex(&out), hex(expected), "encode {}", $label);
-        assert_eq!(<$enum>::decode_payload(expected).unwrap_or_else(|e| panic!("decode {}: {e}", $label)), p, "decode {}", $label);
+        assert_eq!(
+            <$enum>::decode_payload(expected).unwrap_or_else(|e| panic!("decode {}: {e}", $label)),
+            p,
+            "decode {}",
+            $label
+        );
     }};
 }
 
@@ -54,44 +64,121 @@ fn handshake() {
         port,
         intention,
     };
-    check!(g, "handshake/intention_login", ServerboundHandshakePacket, intention(777, "localhost", 25565, ClientIntent::Login));
-    check!(g, "handshake/intention_status", ServerboundHandshakePacket, intention(-1, "mc.example.org", 1, ClientIntent::Status));
-    check!(g, "handshake/intention_transfer", ServerboundHandshakePacket, intention(777, "h\u{e9}llo.\u{fc}nicode", 65535, ClientIntent::Transfer));
+    check!(
+        g,
+        "handshake/intention_login",
+        ServerboundHandshakePacket,
+        intention(777, "localhost", 25565, ClientIntent::Login)
+    );
+    check!(
+        g,
+        "handshake/intention_status",
+        ServerboundHandshakePacket,
+        intention(-1, "mc.example.org", 1, ClientIntent::Status)
+    );
+    check!(
+        g,
+        "handshake/intention_transfer",
+        ServerboundHandshakePacket,
+        intention(
+            777,
+            "h\u{e9}llo.\u{fc}nicode",
+            65535,
+            ClientIntent::Transfer
+        )
+    );
 }
 
 #[test]
 fn status() {
     let g = golden();
-    check!(g, "status/status_request", ServerboundStatusPacket, ServerboundStatusRequestPacket);
-    check!(g, "status/ping_request", ServerboundStatusPacket, ServerboundPingRequestPacket { time: 0x0123456789abcdef });
-    check!(g, "status/pong_response", ClientboundStatusPacket, ClientboundPongResponsePacket { time: -42 });
+    check!(
+        g,
+        "status/status_request",
+        ServerboundStatusPacket,
+        ServerboundStatusRequestPacket
+    );
+    check!(
+        g,
+        "status/ping_request",
+        ServerboundStatusPacket,
+        ServerboundPingRequestPacket {
+            time: 0x0123456789abcdef
+        }
+    );
+    check!(
+        g,
+        "status/pong_response",
+        ClientboundStatusPacket,
+        ClientboundPongResponsePacket { time: -42 }
+    );
     let full = ServerStatus {
         description: Component::literal("A Minecraft Server"),
-        players: Some(Players { max: 20, online: 3, sample: vec![(uuid1(), "Notch".into())] }),
-        version: Some(Version { name: "26.3".into(), protocol: 777 }),
+        players: Some(Players {
+            max: 20,
+            online: 3,
+            sample: vec![(uuid1(), "Notch".into())],
+        }),
+        version: Some(Version {
+            name: "26.3".into(),
+            protocol: 777,
+        }),
         favicon: Some(vec![1, 2, 3, 4, 5, 0xff, 0xfe]),
         enforces_secure_chat: true,
     };
-    check!(g, "status/status_response_full", ClientboundStatusPacket, ClientboundStatusResponsePacket { status: full });
-    let min = ServerStatus { description: Component::empty(), players: None, version: None, favicon: None, enforces_secure_chat: false };
-    check!(g, "status/status_response_min", ClientboundStatusPacket, ClientboundStatusResponsePacket { status: min });
-    let styled = ServerStatus {
-        description: Component::literal("Hello")
-            .with_formats(&[ChatFormatting::Red, ChatFormatting::Bold])
-            .append(Component::translatable("menu.quit", vec![])),
-        players: Some(Players { max: 0, online: 0, sample: vec![] }),
+    check!(
+        g,
+        "status/status_response_full",
+        ClientboundStatusPacket,
+        ClientboundStatusResponsePacket { status: full }
+    );
+    let min = ServerStatus {
+        description: Component::empty(),
+        players: None,
         version: None,
         favicon: None,
         enforces_secure_chat: false,
     };
-    check!(g, "status/status_response_styled", ClientboundStatusPacket, ClientboundStatusResponsePacket { status: styled });
+    check!(
+        g,
+        "status/status_response_min",
+        ClientboundStatusPacket,
+        ClientboundStatusResponsePacket { status: min }
+    );
+    let styled = ServerStatus {
+        description: Component::literal("Hello")
+            .with_formats(&[ChatFormatting::Red, ChatFormatting::Bold])
+            .append(Component::translatable("menu.quit", vec![])),
+        players: Some(Players {
+            max: 0,
+            online: 0,
+            sample: vec![],
+        }),
+        version: None,
+        favicon: None,
+        enforces_secure_chat: false,
+    };
+    check!(
+        g,
+        "status/status_response_styled",
+        ClientboundStatusPacket,
+        ClientboundStatusResponsePacket { status: styled }
+    );
 }
 
 #[test]
 fn login() {
     use mc_protocol::packets::login::*;
     let g = golden();
-    check!(g, "login/hello_sb", ServerboundLoginPacket, ServerboundHelloPacket { name: "Steve".into(), profile_id: uuid1() });
+    check!(
+        g,
+        "login/hello_sb",
+        ServerboundLoginPacket,
+        ServerboundHelloPacket {
+            name: "Steve".into(),
+            profile_id: uuid1()
+        }
+    );
     check!(
         g,
         "login/hello_cb",
@@ -103,37 +190,124 @@ fn login() {
             should_authenticate: true
         }
     );
-    check!(g, "login/login_compression", ClientboundLoginPacket, ClientboundLoginCompressionPacket { compression_threshold: 256 });
+    check!(
+        g,
+        "login/login_compression",
+        ClientboundLoginPacket,
+        ClientboundLoginCompressionPacket {
+            compression_threshold: 256
+        }
+    );
     check!(
         g,
         "login/login_disconnect",
         ClientboundLoginPacket,
-        ClientboundLoginDisconnectPacket { reason: mc_protocol::codec::JsonComponent(Component::literal("bye").with_format(ChatFormatting::Green)) }
+        ClientboundLoginDisconnectPacket {
+            reason: mc_protocol::codec::JsonComponent(
+                Component::literal("bye").with_format(ChatFormatting::Green)
+            )
+        }
     );
     let session = Uuid::parse_str("00000000-0000-0001-0000-000000000002").unwrap();
     let profile = GameProfile {
         id: uuid1(),
         name: "Notch".into(),
         properties: vec![
-            Property { name: "textures".into(), value: "dGV4dHVyZXM=".into(), signature: Some("c2lnbmF0dXJl".into()) },
-            Property { name: "plain".into(), value: "v".into(), signature: None },
+            Property {
+                name: "textures".into(),
+                value: "dGV4dHVyZXM=".into(),
+                signature: Some("c2lnbmF0dXJl".into()),
+            },
+            Property {
+                name: "plain".into(),
+                value: "v".into(),
+                signature: None,
+            },
         ],
     };
-    check!(g, "login/login_finished", ClientboundLoginPacket, ClientboundLoginFinishedPacket { game_profile: profile, session_id: session });
-    let bare = GameProfile { id: uuid1(), name: "Notch".into(), properties: vec![] };
-    check!(g, "login/login_finished_noprops", ClientboundLoginPacket, ClientboundLoginFinishedPacket { game_profile: bare, session_id: uuid1() });
-    check!(g, "login/login_acknowledged", ServerboundLoginPacket, ServerboundLoginAcknowledgedPacket);
+    check!(
+        g,
+        "login/login_finished",
+        ClientboundLoginPacket,
+        ClientboundLoginFinishedPacket {
+            game_profile: profile,
+            session_id: session
+        }
+    );
+    let bare = GameProfile {
+        id: uuid1(),
+        name: "Notch".into(),
+        properties: vec![],
+    };
+    check!(
+        g,
+        "login/login_finished_noprops",
+        ClientboundLoginPacket,
+        ClientboundLoginFinishedPacket {
+            game_profile: bare,
+            session_id: uuid1()
+        }
+    );
+    check!(
+        g,
+        "login/login_acknowledged",
+        ServerboundLoginPacket,
+        ServerboundLoginAcknowledgedPacket
+    );
     check!(
         g,
         "login/custom_query",
         ClientboundLoginPacket,
-        ClientboundCustomQueryPacket { transaction_id: 300, id: id("mod:chan"), data: Rest(vec![]) }
+        ClientboundCustomQueryPacket {
+            transaction_id: 300,
+            id: id("mod:chan"),
+            data: Rest(vec![])
+        }
     );
-    check!(g, "login/custom_query_answer_null", ServerboundLoginPacket, ServerboundCustomQueryAnswerPacket { transaction_id: 5, payload: None });
-    check!(g, "login/custom_query_answer_some", ServerboundLoginPacket, ServerboundCustomQueryAnswerPacket { transaction_id: 5, payload: Some(vec![]) });
-    check!(g, "login/cookie_request", ClientboundLoginPacket, ClientboundCookieRequestPacket { key: id("mod:cookie") });
-    check!(g, "login/cookie_response_some", ServerboundLoginPacket, ServerboundCookieResponsePacket { key: id("mod:cookie"), payload: Some(vec![1, 2, 3]) });
-    check!(g, "login/cookie_response_null", ServerboundLoginPacket, ServerboundCookieResponsePacket { key: id("mod:cookie"), payload: None });
+    check!(
+        g,
+        "login/custom_query_answer_null",
+        ServerboundLoginPacket,
+        ServerboundCustomQueryAnswerPacket {
+            transaction_id: 5,
+            payload: None
+        }
+    );
+    check!(
+        g,
+        "login/custom_query_answer_some",
+        ServerboundLoginPacket,
+        ServerboundCustomQueryAnswerPacket {
+            transaction_id: 5,
+            payload: Some(vec![])
+        }
+    );
+    check!(
+        g,
+        "login/cookie_request",
+        ClientboundLoginPacket,
+        ClientboundCookieRequestPacket {
+            key: id("mod:cookie")
+        }
+    );
+    check!(
+        g,
+        "login/cookie_response_some",
+        ServerboundLoginPacket,
+        ServerboundCookieResponsePacket {
+            key: id("mod:cookie"),
+            payload: Some(vec![1, 2, 3])
+        }
+    );
+    check!(
+        g,
+        "login/cookie_response_null",
+        ServerboundLoginPacket,
+        ServerboundCookieResponsePacket {
+            key: id("mod:cookie"),
+            payload: None
+        }
+    );
 }
 
 #[test]
@@ -141,14 +315,53 @@ fn configuration_clientbound() {
     use mc_protocol::packets::configuration::*;
     let g = golden();
     type Cb = ClientboundConfigurationPacket;
-    check!(g, "config/cb_cookie_request", Cb, ClientboundCookieRequestPacket { key: id("minecraft:c") });
-    check!(g, "config/cb_custom_payload_brand", Cb, ClientboundCustomPayloadPacket { payload: CustomPayload::brand("vanilla").unwrap() });
-    check!(g, "config/cb_custom_payload_discarded", Cb, ClientboundCustomPayloadPacket { payload: CustomPayload { id: id("mod:x"), data: vec![] } });
+    check!(
+        g,
+        "config/cb_cookie_request",
+        Cb,
+        ClientboundCookieRequestPacket {
+            key: id("minecraft:c")
+        }
+    );
+    check!(
+        g,
+        "config/cb_custom_payload_brand",
+        Cb,
+        ClientboundCustomPayloadPacket {
+            payload: CustomPayload::brand("vanilla").unwrap()
+        }
+    );
+    check!(
+        g,
+        "config/cb_custom_payload_discarded",
+        Cb,
+        ClientboundCustomPayloadPacket {
+            payload: CustomPayload {
+                id: id("mod:x"),
+                data: vec![]
+            }
+        }
+    );
     let mut kicked = Component::translatable("multiplayer.disconnect.kicked", vec![]);
     kicked = kicked.with_formats(&[ChatFormatting::Red, ChatFormatting::Bold]);
-    check!(g, "config/cb_disconnect", Cb, ClientboundDisconnectPacket { reason: kicked });
-    check!(g, "config/cb_finish_configuration", Cb, ClientboundFinishConfigurationPacket);
-    check!(g, "config/cb_keep_alive", Cb, ClientboundKeepAlivePacket { id: i64::MAX });
+    check!(
+        g,
+        "config/cb_disconnect",
+        Cb,
+        ClientboundDisconnectPacket { reason: kicked }
+    );
+    check!(
+        g,
+        "config/cb_finish_configuration",
+        Cb,
+        ClientboundFinishConfigurationPacket
+    );
+    check!(
+        g,
+        "config/cb_keep_alive",
+        Cb,
+        ClientboundKeepAlivePacket { id: i64::MAX }
+    );
     check!(g, "config/cb_ping", Cb, ClientboundPingPacket { id: -7 });
     check!(g, "config/cb_reset_chat", Cb, ClientboundResetChatPacket);
     let mut reg = CompoundTag::new();
@@ -161,13 +374,29 @@ fn configuration_clientbound() {
         ClientboundRegistryDataPacket {
             registry: id("minecraft:dimension_type"),
             entries: vec![
-                PackedRegistryEntry { id: id("minecraft:overworld"), data: Some(Tag::Compound(reg)) },
-                PackedRegistryEntry { id: id("minecraft:the_nether"), data: None },
+                PackedRegistryEntry {
+                    id: id("minecraft:overworld"),
+                    data: Some(Tag::Compound(reg))
+                },
+                PackedRegistryEntry {
+                    id: id("minecraft:the_nether"),
+                    data: None
+                },
             ],
         }
     );
-    check!(g, "config/cb_resource_pack_pop_some", Cb, ClientboundResourcePackPopPacket { id: Some(uuid1()) });
-    check!(g, "config/cb_resource_pack_pop_none", Cb, ClientboundResourcePackPopPacket { id: None });
+    check!(
+        g,
+        "config/cb_resource_pack_pop_some",
+        Cb,
+        ClientboundResourcePackPopPacket { id: Some(uuid1()) }
+    );
+    check!(
+        g,
+        "config/cb_resource_pack_pop_none",
+        Cb,
+        ClientboundResourcePackPopPacket { id: None }
+    );
     check!(
         g,
         "config/cb_resource_pack_push",
@@ -184,35 +413,105 @@ fn configuration_clientbound() {
         g,
         "config/cb_resource_pack_push_noprompt",
         Cb,
-        ClientboundResourcePackPushPacket { id: uuid1(), url: "u".into(), hash: String::new(), required: false, prompt: None }
+        ClientboundResourcePackPushPacket {
+            id: uuid1(),
+            url: "u".into(),
+            hash: String::new(),
+            required: false,
+            prompt: None
+        }
     );
-    check!(g, "config/cb_post_effects", Cb, ClientboundPostEffectsPacket { post_effects: vec![id("minecraft:a"), id("b:c")] });
-    check!(g, "config/cb_store_cookie", Cb, ClientboundStoreCookiePacket { key: id("mod:cookie"), payload: vec![5, 4, 3] });
-    check!(g, "config/cb_transfer", Cb, ClientboundTransferPacket { host: "play.example.org".into(), port: 25566 });
-    check!(g, "config/cb_update_enabled_features", Cb, ClientboundUpdateEnabledFeaturesPacket { features: vec![id("minecraft:vanilla")] });
+    check!(
+        g,
+        "config/cb_post_effects",
+        Cb,
+        ClientboundPostEffectsPacket {
+            post_effects: vec![id("minecraft:a"), id("b:c")]
+        }
+    );
+    check!(
+        g,
+        "config/cb_store_cookie",
+        Cb,
+        ClientboundStoreCookiePacket {
+            key: id("mod:cookie"),
+            payload: vec![5, 4, 3]
+        }
+    );
+    check!(
+        g,
+        "config/cb_transfer",
+        Cb,
+        ClientboundTransferPacket {
+            host: "play.example.org".into(),
+            port: 25566
+        }
+    );
+    check!(
+        g,
+        "config/cb_update_enabled_features",
+        Cb,
+        ClientboundUpdateEnabledFeaturesPacket {
+            features: vec![id("minecraft:vanilla")]
+        }
+    );
     check!(
         g,
         "config/cb_update_tags",
         Cb,
         ClientboundUpdateTagsPacket {
-            tags: vec![(id("minecraft:block"), TagNetworkPayload { tags: vec![(id("minecraft:logs"), vec![1, 200, 70000])] })]
+            tags: vec![(
+                id("minecraft:block"),
+                TagNetworkPayload {
+                    tags: vec![(id("minecraft:logs"), vec![1, 200, 70000])]
+                }
+            )]
         }
     );
-    let pack = |ns: &str, i: &str, v: &str| KnownPack { namespace: ns.into(), id: i.into(), version: v.into() };
-    check!(g, "config/cb_select_known_packs", Cb, ClientboundSelectKnownPacks { known_packs: vec![pack("minecraft", "core", "26.3"), pack("mod", "p", "1")] });
-    check!(g, "config/cb_custom_report_details", Cb, ClientboundCustomReportDetailsPacket { details: ReportDetails(vec![("k".into(), "v".into())]) });
+    let pack = |ns: &str, i: &str, v: &str| KnownPack {
+        namespace: ns.into(),
+        id: i.into(),
+        version: v.into(),
+    };
+    check!(
+        g,
+        "config/cb_select_known_packs",
+        Cb,
+        ClientboundSelectKnownPacks {
+            known_packs: vec![pack("minecraft", "core", "26.3"), pack("mod", "p", "1")]
+        }
+    );
+    check!(
+        g,
+        "config/cb_custom_report_details",
+        Cb,
+        ClientboundCustomReportDetailsPacket {
+            details: ReportDetails(vec![("k".into(), "v".into())])
+        }
+    );
     check!(
         g,
         "config/cb_server_links",
         Cb,
         ClientboundServerLinksPacket {
             links: vec![
-                UntrustedEntry { link_type: Either::Left(KnownLinkType::Website), link: "https://example.org".into() },
-                UntrustedEntry { link_type: Either::Right(Component::literal("Wiki")), link: "https://wiki.example.org".into() },
+                UntrustedEntry {
+                    link_type: Either::Left(KnownLinkType::Website),
+                    link: "https://example.org".into()
+                },
+                UntrustedEntry {
+                    link_type: Either::Right(Component::literal("Wiki")),
+                    link: "https://wiki.example.org".into()
+                },
             ]
         }
     );
-    check!(g, "config/cb_clear_dialog", Cb, ClientboundClearDialogPacket);
+    check!(
+        g,
+        "config/cb_clear_dialog",
+        Cb,
+        ClientboundClearDialogPacket
+    );
     use mc_protocol::dialog::{CommonDialogData, Dialog, DialogAction, NoticeDialog};
     let dialog = Dialog::Notice(NoticeDialog {
         common: CommonDialogData {
@@ -226,8 +525,20 @@ fn configuration_clientbound() {
         },
         action: NoticeDialog::default_action(),
     });
-    check!(g, "config/cb_show_dialog", Cb, ClientboundShowDialogPacket { dialog });
-    check!(g, "config/cb_code_of_conduct", Cb, ClientboundCodeOfConductPacket { code_of_conduct: "Be nice.".into() });
+    check!(
+        g,
+        "config/cb_show_dialog",
+        Cb,
+        ClientboundShowDialogPacket { dialog }
+    );
+    check!(
+        g,
+        "config/cb_code_of_conduct",
+        Cb,
+        ClientboundCodeOfConductPacket {
+            code_of_conduct: "Be nice.".into()
+        }
+    );
 }
 
 #[test]
@@ -235,7 +546,14 @@ fn configuration_serverbound() {
     use mc_protocol::packets::configuration::*;
     let g = golden();
     type Sb = ServerboundConfigurationPacket;
-    check!(g, "config/sb_client_information_default", Sb, ServerboundClientInformationPacket { information: ClientInformation::default() });
+    check!(
+        g,
+        "config/sb_client_information_default",
+        Sb,
+        ServerboundClientInformationPacket {
+            information: ClientInformation::default()
+        }
+    );
     check!(
         g,
         "config/sb_client_information",
@@ -254,34 +572,124 @@ fn configuration_serverbound() {
             }
         }
     );
-    check!(g, "config/sb_cookie_response", Sb, ServerboundCookieResponsePacket { key: id("minecraft:c"), payload: Some(vec![]) });
-    check!(g, "config/sb_custom_payload_brand", Sb, ServerboundCustomPayloadPacket { payload: CustomPayload::brand("fabric").unwrap() });
-    check!(g, "config/sb_finish_configuration", Sb, ServerboundFinishConfigurationPacket);
-    check!(g, "config/sb_keep_alive", Sb, ServerboundKeepAlivePacket { id: -1 });
-    check!(g, "config/sb_pong", Sb, ServerboundPongPacket { id: 123456 });
-    check!(g, "config/sb_resource_pack", Sb, ServerboundResourcePackPacket { id: uuid1(), action: ResourcePackAction::FailedReload });
-    let pack = KnownPack { namespace: "minecraft".into(), id: "core".into(), version: "26.3".into() };
-    check!(g, "config/sb_select_known_packs", Sb, ServerboundSelectKnownPacks { known_packs: vec![pack] });
+    check!(
+        g,
+        "config/sb_cookie_response",
+        Sb,
+        ServerboundCookieResponsePacket {
+            key: id("minecraft:c"),
+            payload: Some(vec![])
+        }
+    );
+    check!(
+        g,
+        "config/sb_custom_payload_brand",
+        Sb,
+        ServerboundCustomPayloadPacket {
+            payload: CustomPayload::brand("fabric").unwrap()
+        }
+    );
+    check!(
+        g,
+        "config/sb_finish_configuration",
+        Sb,
+        ServerboundFinishConfigurationPacket
+    );
+    check!(
+        g,
+        "config/sb_keep_alive",
+        Sb,
+        ServerboundKeepAlivePacket { id: -1 }
+    );
+    check!(
+        g,
+        "config/sb_pong",
+        Sb,
+        ServerboundPongPacket { id: 123456 }
+    );
+    check!(
+        g,
+        "config/sb_resource_pack",
+        Sb,
+        ServerboundResourcePackPacket {
+            id: uuid1(),
+            action: ResourcePackAction::FailedReload
+        }
+    );
+    let pack = KnownPack {
+        namespace: "minecraft".into(),
+        id: "core".into(),
+        version: "26.3".into(),
+    };
+    check!(
+        g,
+        "config/sb_select_known_packs",
+        Sb,
+        ServerboundSelectKnownPacks {
+            known_packs: vec![pack]
+        }
+    );
     let mut click = CompoundTag::new();
     click.put_int("n", 5);
-    check!(g, "config/sb_custom_click_action_some", Sb, ServerboundCustomClickActionPacket { id: id("mod:click"), payload: ClickPayload(Some(Tag::Compound(click))) });
-    check!(g, "config/sb_custom_click_action_none", Sb, ServerboundCustomClickActionPacket { id: id("mod:click"), payload: ClickPayload(None) });
-    check!(g, "config/sb_accept_code_of_conduct", Sb, ServerboundAcceptCodeOfConductPacket);
+    check!(
+        g,
+        "config/sb_custom_click_action_some",
+        Sb,
+        ServerboundCustomClickActionPacket {
+            id: id("mod:click"),
+            payload: ClickPayload(Some(Tag::Compound(click)))
+        }
+    );
+    check!(
+        g,
+        "config/sb_custom_click_action_none",
+        Sb,
+        ServerboundCustomClickActionPacket {
+            id: id("mod:click"),
+            payload: ClickPayload(None)
+        }
+    );
+    check!(
+        g,
+        "config/sb_accept_code_of_conduct",
+        Sb,
+        ServerboundAcceptCodeOfConductPacket
+    );
 }
 
 /// Every packet vanilla's `packets.json` lists for these states has exactly one struct, under the right id and name.
 #[test]
 fn enums_cover_packets_json() {
-    use mc_protocol::packet::{packet_names, ConnectionState::*, PacketFlow::*};
+    use mc_protocol::packet::{ConnectionState::*, PacketFlow::*, packet_names};
     use mc_protocol::packets::{configuration, handshake, login, status};
     let cases: [(_, _, &[(i32, &str)]); 7] = [
-        (Handshake, Serverbound, handshake::ServerboundHandshakePacket::PACKETS),
-        (Status, Serverbound, status::ServerboundStatusPacket::PACKETS),
-        (Status, Clientbound, status::ClientboundStatusPacket::PACKETS),
+        (
+            Handshake,
+            Serverbound,
+            handshake::ServerboundHandshakePacket::PACKETS,
+        ),
+        (
+            Status,
+            Serverbound,
+            status::ServerboundStatusPacket::PACKETS,
+        ),
+        (
+            Status,
+            Clientbound,
+            status::ClientboundStatusPacket::PACKETS,
+        ),
         (Login, Serverbound, login::ServerboundLoginPacket::PACKETS),
         (Login, Clientbound, login::ClientboundLoginPacket::PACKETS),
-        (Configuration, Serverbound, configuration::ServerboundConfigurationPacket::PACKETS),
-        (Configuration, Clientbound, configuration::ClientboundConfigurationPacket::PACKETS),
+        (
+            Configuration,
+            Serverbound,
+            configuration::ServerboundConfigurationPacket::PACKETS,
+        ),
+        (
+            Configuration,
+            Clientbound,
+            configuration::ClientboundConfigurationPacket::PACKETS,
+        ),
     ];
     for (state, flow, ours) in cases {
         let mut ours = ours.to_vec();

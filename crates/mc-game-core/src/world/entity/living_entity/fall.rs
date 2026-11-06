@@ -2,8 +2,8 @@
 
 use super::util::{self, l, lm};
 use crate::server::level::ServerLevel;
-use crate::world::item::enchantment::actors::Actors;
 use crate::world::entity::Entity;
+use crate::world::item::enchantment::actors::Actors;
 use mc_core::math::mth;
 use mc_core::pos::BlockPos;
 use mc_data::Attribute;
@@ -17,16 +17,29 @@ fn calculate_fall_power(entity: &dyn Entity, fall_distance: f64) -> f64 {
 
 /// The part of `LivingEntity.checkFallDamage` that runs before `super.checkFallDamage`: fluid refresh when not in water and
 /// the landing particles.
-pub fn before_check_fall_damage(entity: &mut dyn Entity, level: &mut ServerLevel, on_ground: bool, on_state: BlockState, pos: BlockPos) {
+pub fn before_check_fall_damage(
+    entity: &mut dyn Entity,
+    level: &mut ServerLevel,
+    on_ground: bool,
+    on_state: BlockState,
+    pos: BlockPos,
+) {
     if !entity.is_in_water() {
         entity.update_fluid_interaction(level);
     }
     if on_ground && entity.base().fall_distance > 0.0 {
         {
             let id = entity.id();
-            crate::world::item::enchantment_helper::run_location_changed_effects(level, &mut Actors::of(entity), id);
+            crate::world::item::enchantment_helper::run_location_changed_effects(
+                level,
+                &mut Actors::of(entity),
+                id,
+            );
         }
-        let power = f64::from(0.max(mth::floor_f64(calculate_fall_power(entity, entity.base().fall_distance))));
+        let power = f64::from(0.max(mth::floor_f64(calculate_fall_power(
+            entity,
+            entity.base().fall_distance,
+        ))));
         if power > 0.0 && !on_state.is_air() {
             let p = entity.base().position();
             let (mut x, y, mut z) = (p.x, p.y, p.z);
@@ -40,7 +53,20 @@ pub fn before_check_fall_damage(entity: &mut dyn Entity, level: &mut ServerLevel
             }
             let scale = (f64::from(0.2f32) + power / 15.0).min(2.5);
             let particles = (150.0 * scale) as i32;
-            level.send_particles(ParticleOptions::Block { particle_type: mc_data::ParticleType::BLOCK, state: on_state }, x, y, z, particles, 0.0, 0.0, 0.0, f64::from(0.15f32));
+            level.send_particles(
+                ParticleOptions::Block {
+                    particle_type: mc_data::ParticleType::BLOCK,
+                    state: on_state,
+                },
+                x,
+                y,
+                z,
+                particles,
+                0.0,
+                0.0,
+                0.0,
+                f64::from(0.15f32),
+            );
         }
     }
 }

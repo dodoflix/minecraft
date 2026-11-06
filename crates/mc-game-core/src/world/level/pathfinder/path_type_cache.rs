@@ -16,7 +16,10 @@ pub struct PathTypeCache {
 
 impl Default for PathTypeCache {
     fn default() -> Self {
-        PathTypeCache { positions: Box::new([0; SIZE]), path_types: Box::new([None; SIZE]) }
+        PathTypeCache {
+            positions: Box::new([0; SIZE]),
+            path_types: Box::new([None; SIZE]),
+        }
     }
 }
 
@@ -33,7 +36,11 @@ fn index(pos: i64) -> usize {
 
 impl PathTypeCache {
     /// `getOrCompute(level, pos)`.
-    pub fn get_or_compute<L: BlockGetter + ?Sized>(&mut self, level: &L, pos: BlockPos) -> PathType {
+    pub fn get_or_compute<L: BlockGetter + ?Sized>(
+        &mut self,
+        level: &L,
+        pos: BlockPos,
+    ) -> PathType {
         let key = pos.as_long();
         let index = index(key);
         if self.positions[index] == key
@@ -60,6 +67,10 @@ impl PathTypeCache {
     pub fn peek(&self, pos: BlockPos) -> Option<PathType> {
         let key = pos.as_long();
         let index = index(key);
-        if self.positions[index] == key { self.path_types[index] } else { None }
+        if self.positions[index] == key {
+            self.path_types[index]
+        } else {
+            None
+        }
     }
 }

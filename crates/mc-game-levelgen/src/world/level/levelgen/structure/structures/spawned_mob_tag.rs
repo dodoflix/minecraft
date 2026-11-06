@@ -18,7 +18,11 @@ fn mob_tag(id: &str, position: BlockPos, max_health: f32) -> CompoundTag {
     let mut tag = CompoundTag::new();
     tag.put_string("id", id);
     let mut pos = ListTag::new();
-    for v in [f64::from(position.x()) + 0.5, f64::from(position.y()), f64::from(position.z()) + 0.5] {
+    for v in [
+        f64::from(position.x()) + 0.5,
+        f64::from(position.y()),
+        f64::from(position.z()) + 0.5,
+    ] {
         pos.push(v);
     }
     tag.put("Pos", pos);
@@ -38,7 +42,15 @@ fn mob_tag(id: &str, position: BlockPos, max_health: f32) -> CompoundTag {
     tag.put_boolean("Invulnerable", false);
     tag.put_int("PortalCooldown", 0);
     let uuid = mth::create_insecure_uuid(&mut random::create_new()).as_u64_pair();
-    tag.put_int_array("UUID", vec![(uuid.0 >> 32) as i32, uuid.0 as i32, (uuid.1 >> 32) as i32, uuid.1 as i32]);
+    tag.put_int_array(
+        "UUID",
+        vec![
+            (uuid.0 >> 32) as i32,
+            uuid.0 as i32,
+            (uuid.1 >> 32) as i32,
+            uuid.1 as i32,
+        ],
+    );
     tag.put_float("Health", max_health);
     tag.put_short("HurtTime", 0);
     tag.put_short("DeathTime", 0);

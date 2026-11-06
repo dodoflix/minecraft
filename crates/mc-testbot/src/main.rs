@@ -10,9 +10,9 @@
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
 
-use mc_testbot::join::{status_ping, BotOptions};
-use mc_testbot::log::{diff_logs, read_jsonl, Dir, DiffOptions, PacketLog};
 use mc_testbot::Bot;
+use mc_testbot::join::{BotOptions, status_ping};
+use mc_testbot::log::{DiffOptions, Dir, PacketLog, diff_logs, read_jsonl};
 
 fn usage() -> ! {
     eprintln!(
@@ -72,7 +72,8 @@ async fn status(args: &[String]) -> i32 {
 async fn join(args: &[String]) -> i32 {
     let Some(target) = args.first() else { usage() };
     let (host, port) = host_port(target);
-    let (mut name, mut seconds, mut walk, mut chat, mut log, mut text) = ("Bot".to_string(), 30u64, false, None, None, false);
+    let (mut name, mut seconds, mut walk, mut chat, mut log, mut text) =
+        ("Bot".to_string(), 30u64, false, None, None, false);
     let mut commands = Vec::new();
     let mut it = args[1..].iter();
     while let Some(a) = it.next() {
@@ -89,7 +90,9 @@ async fn join(args: &[String]) -> i32 {
         }
     }
     let opts = BotOptions::new(host, port, name);
-    let bot = Bot::connect(opts).await.unwrap_or_else(|e| fatal(&e.to_string()));
+    let bot = Bot::connect(opts)
+        .await
+        .unwrap_or_else(|e| fatal(&e.to_string()));
     let result = async {
         bot.wait_joined(Duration::from_secs(60)).await?;
         bot.wait_ready(Duration::from_secs(90)).await?;
@@ -105,7 +108,15 @@ async fn join(args: &[String]) -> i32 {
         while std::time::Instant::now() < end {
             if walk {
                 for (dx, dz) in [(6.0, 0.0), (6.0, 6.0), (0.0, 6.0), (0.0, 0.0)] {
-                    let _ = bot.walk_to(start.x + dx, start.z + dz, 0.6, false, Duration::from_secs(10)).await;
+                    let _ = bot
+                        .walk_to(
+                            start.x + dx,
+                            start.z + dz,
+                            0.6,
+                            false,
+                            Duration::from_secs(10),
+                        )
+                        .await;
                     bot.assert_connected()?;
                 }
             } else {
@@ -120,7 +131,13 @@ async fn join(args: &[String]) -> i32 {
         for l in &s.chat {
             println!("[{}] {}", l.kind, l.text);
         }
-        println!("health {} food {} chunks {} entities {}", s.health, s.food, s.world.chunk_count(), s.entities.len());
+        println!(
+            "health {} food {} chunks {} entities {}",
+            s.health,
+            s.food,
+            s.world.chunk_count(),
+            s.entities.len()
+        );
     });
     if let Some(f) = &log
         && let Err(e) = bot.write_log(f)
@@ -142,7 +159,9 @@ async fn join(args: &[String]) -> i32 {
 
 /// `run HOST SCENARIO [--name N] [--log F] [--obs F]`: join, run the scenario file, print/write the observation lines.
 async fn run(args: &[String]) -> i32 {
-    let (Some(target), Some(file)) = (args.first(), args.get(1)) else { usage() };
+    let (Some(target), Some(file)) = (args.first(), args.get(1)) else {
+        usage()
+    };
     let (host, port) = host_port(target);
     let (mut name, mut log, mut obs) = ("Bot".to_string(), None, None);
     let mut it = args[2..].iter();
@@ -156,7 +175,9 @@ async fn run(args: &[String]) -> i32 {
         }
     }
     let text = std::fs::read_to_string(file).unwrap_or_else(|e| fatal(&format!("{file}: {e}")));
-    let bot = Bot::connect(BotOptions::new(host, port, name)).await.unwrap_or_else(|e| fatal(&e.to_string()));
+    let bot = Bot::connect(BotOptions::new(host, port, name))
+        .await
+        .unwrap_or_else(|e| fatal(&e.to_string()));
     let result = async {
         bot.wait_joined(Duration::from_secs(60)).await?;
         bot.wait_ready(Duration::from_secs(90)).await?;
@@ -186,7 +207,9 @@ async fn run(args: &[String]) -> i32 {
 }
 
 fn diff(args: &[String]) -> i32 {
-    let (Some(a), Some(b)) = (args.first(), args.get(1)) else { usage() };
+    let (Some(a), Some(b)) = (args.first(), args.get(1)) else {
+        usage()
+    };
     let mut opts = DiffOptions::default();
     let mut it = args[2..].iter();
     while let Some(arg) = it.next() {
@@ -204,13 +227,21 @@ fn diff(args: &[String]) -> i32 {
             "--all-fields" => opts.compare_all_fields = true,
             "--field" => {
                 let v = val();
-                let Some((n, f)) = v.split_once('=') else { usage() };
-                opts.fields.entry(n.to_string()).or_insert_with(Vec::new).extend(f.split(',').map(str::to_string));
+                let Some((n, f)) = v.split_once('=') else {
+                    usage()
+                };
+                opts.fields
+                    .entry(n.to_string())
+                    .or_insert_with(Vec::new)
+                    .extend(f.split(',').map(str::to_string));
             }
             _ => usage(),
         }
     }
-    let (la, lb) = (read_jsonl(a).unwrap_or_else(|e| fatal(&e.to_string())), read_jsonl(b).unwrap_or_else(|e| fatal(&e.to_string())));
+    let (la, lb) = (
+        read_jsonl(a).unwrap_or_else(|e| fatal(&e.to_string())),
+        read_jsonl(b).unwrap_or_else(|e| fatal(&e.to_string())),
+    );
     let d = diff_logs(&la, &lb, &opts);
     print!("{}", d.render());
     if d.is_empty() {

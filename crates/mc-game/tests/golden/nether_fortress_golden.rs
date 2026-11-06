@@ -5,17 +5,47 @@
 //! and `chests/nether_bridge` chests, scheduled ticks, heightmaps, post-processing marks, region random). Driver:
 //! `common/structure_golden.rs`.
 
-
 use crate::common::structure_golden::{run_fixture, structure};
 
 #[test]
 fn nether_fortress_matches_vanilla() {
     let fortress = structure("fortress");
     let stats = run_fixture("nether_fortress.txt", &|_| &fortress);
-    assert!(stats.starts >= 40 && stats.pieces > 3000 && stats.placements >= 100 && stats.dump_lines > 5000, "fixture too small");
-    for id in ["nebcr", "nebef", "nebs", "neccs", "nece", "necsr", "nectb", "nemt", "nerc", "nesc", "nesclt", "nescrt", "nescsc", "nesr"] {
-        assert!(stats.piece_ids.contains_key(&format!("minecraft:{id}")), "fixture lacks piece {id}: {:?}", stats.piece_ids);
+    assert!(
+        stats.starts >= 40
+            && stats.pieces > 3000
+            && stats.placements >= 100
+            && stats.dump_lines > 5000,
+        "fixture too small"
+    );
+    for id in [
+        "nebcr", "nebef", "nebs", "neccs", "nece", "necsr", "nectb", "nemt", "nerc", "nesc",
+        "nesclt", "nescrt", "nescsc", "nesr",
+    ] {
+        assert!(
+            stats.piece_ids.contains_key(&format!("minecraft:{id}")),
+            "fixture lacks piece {id}: {:?}",
+            stats.piece_ids
+        );
     }
-    assert!(stats.block_entity_ids.get("minecraft:mob_spawner").copied().unwrap_or(0) >= 5, "no blaze spawners: {:?}", stats.block_entity_ids);
-    assert!(stats.loot_tables.get("minecraft:chests/nether_bridge").copied().unwrap_or(0) >= 5, "no chests: {:?}", stats.loot_tables);
+    assert!(
+        stats
+            .block_entity_ids
+            .get("minecraft:mob_spawner")
+            .copied()
+            .unwrap_or(0)
+            >= 5,
+        "no blaze spawners: {:?}",
+        stats.block_entity_ids
+    );
+    assert!(
+        stats
+            .loot_tables
+            .get("minecraft:chests/nether_bridge")
+            .copied()
+            .unwrap_or(0)
+            >= 5,
+        "no chests: {:?}",
+        stats.loot_tables
+    );
 }

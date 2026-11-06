@@ -9,14 +9,23 @@ use mc_protocol::packets::status::ClientboundStatusResponsePacket;
 use mc_protocol::{Decode, Encode};
 
 fn unhex(s: &str) -> String {
-    let bytes: Vec<u8> = (0..s.len()).step_by(2).map(|i| u8::from_str_radix(&s[i..i + 2], 16).expect("hex")).collect();
+    let bytes: Vec<u8> = (0..s.len())
+        .step_by(2)
+        .map(|i| u8::from_str_radix(&s[i..i + 2], 16).expect("hex"))
+        .collect();
     String::from_utf8(bytes).expect("fixture strings are valid UTF-8")
 }
 
 fn fixture() -> String {
-    let raw = std::fs::read(concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures/status_json.txt.gz")).expect("fixture");
+    let raw = std::fs::read(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/tests/fixtures/status_json.txt.gz"
+    ))
+    .expect("fixture");
     let mut s = String::new();
-    flate2::read::GzDecoder::new(&raw[..]).read_to_string(&mut s).expect("gunzip");
+    flate2::read::GzDecoder::new(&raw[..])
+        .read_to_string(&mut s)
+        .expect("gunzip");
     s
 }
 
@@ -36,7 +45,10 @@ fn status_result(input: &str) -> String {
             let mut out = Vec::new();
             p.encode(&mut out).unwrap();
             let mut s = &out[..];
-            format!("ok:{}", mc_protocol::codec::read_utf(&mut s, 32767).expect("own output decodes"))
+            format!(
+                "ok:{}",
+                mc_protocol::codec::read_utf(&mut s, 32767).expect("own output decodes")
+            )
         }
         Err(e) => format!("err:{e}"),
     }
@@ -72,13 +84,27 @@ fn lenient_parse_and_status_match_vanilla() {
         n += 1;
         let p = parse_result(&input);
         if p != parse_golden {
-            failures.push(format!("PARSE {input:?}\n   ours:   {p:?}\n   vanilla:{parse_golden:?}"));
+            failures.push(format!(
+                "PARSE {input:?}\n   ours:   {p:?}\n   vanilla:{parse_golden:?}"
+            ));
         }
         let s = status_result(&input);
         if !KNOWN_GAPS.contains(&input.as_str()) && !same_status(&s, &status_golden) {
-            failures.push(format!("STATUS {input:?}\n   ours:   {s:?}\n   vanilla:{status_golden:?}"));
+            failures.push(format!(
+                "STATUS {input:?}\n   ours:   {s:?}\n   vanilla:{status_golden:?}"
+            ));
         }
     }
     assert!(n > 7000, "fixture has {n} cases");
-    assert!(failures.is_empty(), "{} of {n} cases differ:\n{}", failures.len(), failures.iter().take(25).cloned().collect::<Vec<_>>().join("\n"));
+    assert!(
+        failures.is_empty(),
+        "{} of {n} cases differ:\n{}",
+        failures.len(),
+        failures
+            .iter()
+            .take(25)
+            .cloned()
+            .collect::<Vec<_>>()
+            .join("\n")
+    );
 }

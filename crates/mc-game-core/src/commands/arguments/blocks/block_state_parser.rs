@@ -1,14 +1,18 @@
 //! `BlockStateParser`: `stone[facing=north]{nbt}` / `#tag[prop=value]{nbt}`.
 
+use crate::commands::RegistryView;
 use crate::commands::arguments::nbt_arguments::parse_compound_as_argument;
 use crate::commands::arguments::read_identifier;
 use crate::commands::message::message;
-use crate::commands::shared_suggestion_provider::{suggest_resource, suggest_resource_into, suggest_resource_prefixed, suggest_resource_prefixed_into};
-use crate::commands::RegistryView;
+use crate::commands::shared_suggestion_provider::{
+    suggest_resource, suggest_resource_into, suggest_resource_prefixed,
+    suggest_resource_prefixed_into,
+};
 use crate::translatable;
 use mc_brigadier::{
-    CommandSyntaxException, Dynamic2CommandExceptionType, Dynamic3CommandExceptionType, DynamicCommandExceptionType,
-    ImmutableStringReader, SimpleCommandExceptionType, StringReader, Suggestions, SuggestionsBuilder,
+    CommandSyntaxException, Dynamic2CommandExceptionType, Dynamic3CommandExceptionType,
+    DynamicCommandExceptionType, ImmutableStringReader, SimpleCommandExceptionType, StringReader,
+    Suggestions, SuggestionsBuilder,
 };
 use mc_core::ident::Identifier;
 use mc_data::block::{Block, BlockState};
@@ -17,28 +21,65 @@ use mc_nbt::CompoundTag;
 use std::collections::BTreeMap;
 use std::sync::LazyLock;
 
-pub static ERROR_NO_TAGS_ALLOWED: LazyLock<SimpleCommandExceptionType> =
-    LazyLock::new(|| SimpleCommandExceptionType::new(message(translatable!("argument.block.tag.disallowed"))));
+pub static ERROR_NO_TAGS_ALLOWED: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| {
+    SimpleCommandExceptionType::new(message(translatable!("argument.block.tag.disallowed")))
+});
 pub static ERROR_UNKNOWN_BLOCK: LazyLock<DynamicCommandExceptionType<String>> =
-    LazyLock::new(|| DynamicCommandExceptionType::new(|id: String| message(translatable!("argument.block.id.invalid", id))));
-pub static ERROR_UNKNOWN_PROPERTY: LazyLock<Dynamic2CommandExceptionType<String, String>> = LazyLock::new(|| {
-    Dynamic2CommandExceptionType::new(|block: String, property: String| message(translatable!("argument.block.property.unknown", block, property)))
-});
-pub static ERROR_DUPLICATE_PROPERTY: LazyLock<Dynamic2CommandExceptionType<String, String>> = LazyLock::new(|| {
-    Dynamic2CommandExceptionType::new(|block: String, property: String| message(translatable!("argument.block.property.duplicate", property, block)))
-});
-pub static ERROR_INVALID_VALUE: LazyLock<Dynamic3CommandExceptionType<String, String, String>> = LazyLock::new(|| {
-    Dynamic3CommandExceptionType::new(|block: String, property: String, value: String| {
-        message(translatable!("argument.block.property.invalid", block, value, property))
+    LazyLock::new(|| {
+        DynamicCommandExceptionType::new(|id: String| {
+            message(translatable!("argument.block.id.invalid", id))
+        })
+    });
+pub static ERROR_UNKNOWN_PROPERTY: LazyLock<Dynamic2CommandExceptionType<String, String>> =
+    LazyLock::new(|| {
+        Dynamic2CommandExceptionType::new(|block: String, property: String| {
+            message(translatable!(
+                "argument.block.property.unknown",
+                block,
+                property
+            ))
+        })
+    });
+pub static ERROR_DUPLICATE_PROPERTY: LazyLock<Dynamic2CommandExceptionType<String, String>> =
+    LazyLock::new(|| {
+        Dynamic2CommandExceptionType::new(|block: String, property: String| {
+            message(translatable!(
+                "argument.block.property.duplicate",
+                property,
+                block
+            ))
+        })
+    });
+pub static ERROR_INVALID_VALUE: LazyLock<Dynamic3CommandExceptionType<String, String, String>> =
+    LazyLock::new(|| {
+        Dynamic3CommandExceptionType::new(|block: String, property: String, value: String| {
+            message(translatable!(
+                "argument.block.property.invalid",
+                block,
+                value,
+                property
+            ))
+        })
+    });
+pub static ERROR_EXPECTED_VALUE: LazyLock<Dynamic2CommandExceptionType<String, String>> =
+    LazyLock::new(|| {
+        Dynamic2CommandExceptionType::new(|block: String, property: String| {
+            message(translatable!(
+                "argument.block.property.novalue",
+                property,
+                block
+            ))
+        })
+    });
+pub static ERROR_EXPECTED_END_OF_PROPERTIES: LazyLock<SimpleCommandExceptionType> =
+    LazyLock::new(|| {
+        SimpleCommandExceptionType::new(message(translatable!("argument.block.property.unclosed")))
+    });
+pub static ERROR_UNKNOWN_TAG: LazyLock<DynamicCommandExceptionType<String>> = LazyLock::new(|| {
+    DynamicCommandExceptionType::new(|tag: String| {
+        message(translatable!("arguments.block.tag.unknown", tag))
     })
 });
-pub static ERROR_EXPECTED_VALUE: LazyLock<Dynamic2CommandExceptionType<String, String>> = LazyLock::new(|| {
-    Dynamic2CommandExceptionType::new(|block: String, property: String| message(translatable!("argument.block.property.novalue", property, block)))
-});
-pub static ERROR_EXPECTED_END_OF_PROPERTIES: LazyLock<SimpleCommandExceptionType> =
-    LazyLock::new(|| SimpleCommandExceptionType::new(message(translatable!("argument.block.property.unclosed"))));
-pub static ERROR_UNKNOWN_TAG: LazyLock<DynamicCommandExceptionType<String>> =
-    LazyLock::new(|| DynamicCommandExceptionType::new(|tag: String| message(translatable!("arguments.block.tag.unknown", tag))));
 
 /// A property value: index into `PropertyDef::values`.
 pub type PropertyValue = (&'static PropertyDef, usize);
@@ -97,7 +138,9 @@ pub struct BlockStateParser<'a> {
 }
 
 fn has_block_entity(block: Block) -> bool {
-    block.data().has(mc_data::block::block_flags::HAS_BLOCK_ENTITY)
+    block
+        .data()
+        .has(mc_data::block::block_flags::HAS_BLOCK_ENTITY)
 }
 
 fn property_def(block: Block, name: &str) -> Option<&'static PropertyDef> {
@@ -122,7 +165,12 @@ pub fn parse_property_value(property: &'static PropertyDef, raw: &str) -> Option
 }
 
 impl<'a> BlockStateParser<'a> {
-    fn new(blocks: &'a dyn RegistryView, reader: &'a mut StringReader, for_testing: bool, allow_nbt: bool) -> Self {
+    fn new(
+        blocks: &'a dyn RegistryView,
+        reader: &'a mut StringReader,
+        for_testing: bool,
+        allow_nbt: bool,
+    ) -> Self {
         Self {
             blocks,
             reader,
@@ -130,7 +178,8 @@ impl<'a> BlockStateParser<'a> {
             allow_nbt,
             properties: Vec::new(),
             vague_properties: BTreeMap::new(),
-            id: Identifier::with_default_namespace("").unwrap_or_else(|_| Identifier::parse("minecraft:air").expect("valid")),
+            id: Identifier::with_default_namespace("")
+                .unwrap_or_else(|_| Identifier::parse("minecraft:air").expect("valid")),
             block: None,
             state: None,
             nbt: None,
@@ -140,7 +189,11 @@ impl<'a> BlockStateParser<'a> {
     }
 
     /// `parseForBlock`.
-    pub fn parse_for_block(blocks: &dyn RegistryView, reader: &mut StringReader, allow_nbt: bool) -> Result<BlockResult, CommandSyntaxException> {
+    pub fn parse_for_block(
+        blocks: &dyn RegistryView,
+        reader: &mut StringReader,
+        allow_nbt: bool,
+    ) -> Result<BlockResult, CommandSyntaxException> {
         let cursor = reader.get_cursor();
         let mut parser = BlockStateParser::new(blocks, reader, false, allow_nbt);
         match parser.parse() {
@@ -166,8 +219,17 @@ impl<'a> BlockStateParser<'a> {
         let mut parser = BlockStateParser::new(blocks, reader, true, allow_nbt);
         match parser.parse() {
             Ok(()) => Ok(match parser.tag {
-                Some((tag, tag_blocks)) => Err(TagResult { tag, tag_blocks, vague_properties: parser.vague_properties, nbt: parser.nbt }),
-                None => Ok(BlockResult { block_state: parser.state.expect("parsed a block"), properties: parser.properties, nbt: parser.nbt }),
+                Some((tag, tag_blocks)) => Err(TagResult {
+                    tag,
+                    tag_blocks,
+                    vague_properties: parser.vague_properties,
+                    nbt: parser.nbt,
+                }),
+                None => Ok(BlockResult {
+                    block_state: parser.state.expect("parsed a block"),
+                    properties: parser.properties,
+                    nbt: parser.nbt,
+                }),
             }),
             Err(e) => {
                 reader.set_cursor(cursor);
@@ -177,7 +239,12 @@ impl<'a> BlockStateParser<'a> {
     }
 
     /// `fillSuggestions`.
-    pub fn fill_suggestions(blocks: &dyn RegistryView, builder: SuggestionsBuilder, for_testing: bool, allow_nbt: bool) -> Suggestions {
+    pub fn fill_suggestions(
+        blocks: &dyn RegistryView,
+        builder: SuggestionsBuilder,
+        for_testing: bool,
+        allow_nbt: bool,
+    ) -> Suggestions {
         let mut reader = StringReader::new(builder.get_input());
         reader.set_cursor(builder.get_start());
         let mut parser = BlockStateParser::new(blocks, &mut reader, for_testing, allow_nbt);
@@ -188,7 +255,11 @@ impl<'a> BlockStateParser<'a> {
     }
 
     fn parse(&mut self) -> Result<(), CommandSyntaxException> {
-        self.suggestions = if self.for_testing { Suggest::BlockIdOrTag } else { Suggest::Item };
+        self.suggestions = if self.for_testing {
+            Suggest::BlockIdOrTag
+        } else {
+            Suggest::Item
+        };
         if self.reader.can_read() && self.reader.peek() == '#' {
             self.read_tag()?;
             self.suggestions = Suggest::OpenVaguePropertiesOrNbt;
@@ -281,7 +352,9 @@ impl<'a> BlockStateParser<'a> {
                 let prefix = builder.get_remaining().to_lowercase();
                 let block = self.state.expect("block read").block();
                 for property in block.properties() {
-                    if !self.properties.iter().any(|(p, _)| p.name == property.name) && property.name.starts_with(&prefix) {
+                    if !self.properties.iter().any(|(p, _)| p.name == property.name)
+                        && property.name.starts_with(&prefix)
+                    {
                         builder.suggest(format!("{}=", property.name));
                     }
                 }
@@ -291,7 +364,9 @@ impl<'a> BlockStateParser<'a> {
                 let prefix = builder.get_remaining().to_lowercase();
                 for block in self.tag_blocks() {
                     for property in block.properties() {
-                        if !self.vague_properties.contains_key(property.name) && property.name.starts_with(&prefix) {
+                        if !self.vague_properties.contains_key(property.name)
+                            && property.name.starts_with(&prefix)
+                        {
                             builder.suggest(format!("{}=", property.name));
                         }
                     }
@@ -314,7 +389,11 @@ impl<'a> BlockStateParser<'a> {
                     if let Some(property) = property_def(*block, key) {
                         add_property_suggestions(&mut builder, property);
                     }
-                    if !has_more_properties && block.properties().any(|p| !self.vague_properties.contains_key(p.name)) {
+                    if !has_more_properties
+                        && block
+                            .properties()
+                            .any(|p| !self.vague_properties.contains_key(p.name))
+                    {
                         has_more_properties = true;
                     }
                 }
@@ -329,7 +408,9 @@ impl<'a> BlockStateParser<'a> {
                     builder.suggest("]");
                 }
                 let block = self.state.expect("block read").block();
-                if builder.get_remaining().is_empty() && self.properties.len() < block.properties().len() {
+                if builder.get_remaining().is_empty()
+                    && self.properties.len() < block.properties().len()
+                {
                     builder.suggest(",");
                 }
                 builder.build()
@@ -340,7 +421,11 @@ impl<'a> BlockStateParser<'a> {
     fn read_block(&mut self) -> Result<(), CommandSyntaxException> {
         let start = self.reader.get_cursor();
         self.id = read_identifier(self.reader)?;
-        let block = if self.blocks.contains(&self.id) { Block::by_name(&self.id.to_string()) } else { None };
+        let block = if self.blocks.contains(&self.id) {
+            Block::by_name(&self.id.to_string())
+        } else {
+            None
+        };
         let Some(block) = block else {
             self.reader.set_cursor(start);
             return Err(ERROR_UNKNOWN_BLOCK.create_with_context(self.reader, self.id.to_string()));
@@ -360,7 +445,10 @@ impl<'a> BlockStateParser<'a> {
         let id = read_identifier(self.reader)?;
         match self.blocks.tag_elements(&id) {
             Some(members) => {
-                let blocks = members.iter().filter_map(|m| Block::by_name(&m.to_string())).collect();
+                let blocks = members
+                    .iter()
+                    .filter_map(|m| Block::by_name(&m.to_string()))
+                    .collect();
                 self.tag = Some((id, blocks));
                 Ok(())
             }
@@ -382,16 +470,28 @@ impl<'a> BlockStateParser<'a> {
             let key = self.reader.read_string()?;
             let Some(property) = property_def(block, &key) else {
                 self.reader.set_cursor(key_start);
-                return Err(ERROR_UNKNOWN_PROPERTY.create_with_context(self.reader, self.id.to_string(), key));
+                return Err(ERROR_UNKNOWN_PROPERTY.create_with_context(
+                    self.reader,
+                    self.id.to_string(),
+                    key,
+                ));
             };
             if self.properties.iter().any(|(p, _)| p.name == property.name) {
                 self.reader.set_cursor(key_start);
-                return Err(ERROR_DUPLICATE_PROPERTY.create_with_context(self.reader, self.id.to_string(), key));
+                return Err(ERROR_DUPLICATE_PROPERTY.create_with_context(
+                    self.reader,
+                    self.id.to_string(),
+                    key,
+                ));
             }
             self.reader.skip_whitespace();
             self.suggestions = Suggest::Equals;
             if !self.reader.can_read() || self.reader.peek() != '=' {
-                return Err(ERROR_EXPECTED_VALUE.create_with_context(self.reader, self.id.to_string(), key));
+                return Err(ERROR_EXPECTED_VALUE.create_with_context(
+                    self.reader,
+                    self.id.to_string(),
+                    key,
+                ));
             }
             self.reader.skip();
             self.reader.skip_whitespace();
@@ -404,7 +504,9 @@ impl<'a> BlockStateParser<'a> {
             if self.reader.can_read() {
                 if self.reader.peek() != ',' {
                     if self.reader.peek() != ']' {
-                        return Err(ERROR_EXPECTED_END_OF_PROPERTIES.create_with_context(self.reader));
+                        return Err(
+                            ERROR_EXPECTED_END_OF_PROPERTIES.create_with_context(self.reader)
+                        );
                     }
                     break;
                 }
@@ -431,12 +533,20 @@ impl<'a> BlockStateParser<'a> {
             let key = self.reader.read_string()?;
             if self.vague_properties.contains_key(&key) {
                 self.reader.set_cursor(key_start);
-                return Err(ERROR_DUPLICATE_PROPERTY.create_with_context(self.reader, self.id.to_string(), key));
+                return Err(ERROR_DUPLICATE_PROPERTY.create_with_context(
+                    self.reader,
+                    self.id.to_string(),
+                    key,
+                ));
             }
             self.reader.skip_whitespace();
             if !self.reader.can_read() || self.reader.peek() != '=' {
                 self.reader.set_cursor(key_start);
-                return Err(ERROR_EXPECTED_VALUE.create_with_context(self.reader, self.id.to_string(), key));
+                return Err(ERROR_EXPECTED_VALUE.create_with_context(
+                    self.reader,
+                    self.id.to_string(),
+                    key,
+                ));
             }
             self.reader.skip();
             self.reader.skip_whitespace();
@@ -449,7 +559,9 @@ impl<'a> BlockStateParser<'a> {
                 value_start = None;
                 if self.reader.peek() != ',' {
                     if self.reader.peek() != ']' {
-                        return Err(ERROR_EXPECTED_END_OF_PROPERTIES.create_with_context(self.reader));
+                        return Err(
+                            ERROR_EXPECTED_END_OF_PROPERTIES.create_with_context(self.reader)
+                        );
                     }
                     break;
                 }
@@ -473,17 +585,31 @@ impl<'a> BlockStateParser<'a> {
         Ok(())
     }
 
-    fn set_value(&mut self, property: &'static PropertyDef, raw: &str, start: usize) -> Result<(), CommandSyntaxException> {
+    fn set_value(
+        &mut self,
+        property: &'static PropertyDef,
+        raw: &str,
+        start: usize,
+    ) -> Result<(), CommandSyntaxException> {
         match parse_property_value(property, raw) {
             Some(index) => {
                 let state = self.state.expect("block read");
-                self.state = Some(state.with_property_str(property.name, property.values[index]).expect("valid property value"));
+                self.state = Some(
+                    state
+                        .with_property_str(property.name, property.values[index])
+                        .expect("valid property value"),
+                );
                 self.properties.push((property, index));
                 Ok(())
             }
             None => {
                 self.reader.set_cursor(start);
-                Err(ERROR_INVALID_VALUE.create_with_context(self.reader, self.id.to_string(), property.name.to_owned(), raw.to_owned()))
+                Err(ERROR_INVALID_VALUE.create_with_context(
+                    self.reader,
+                    self.id.to_string(),
+                    property.name.to_owned(),
+                    raw.to_owned(),
+                ))
             }
         }
     }
@@ -521,4 +647,3 @@ pub fn serialize(state: BlockState) -> String {
     }
     result
 }
-

@@ -7,20 +7,34 @@ use mc_core::pos::BlockPos;
 use mc_data::Item;
 use mc_game::registry::{RegistryAccess, keys};
 use mc_game::server::level::ServerLevel;
-use mc_game::world::item::{ItemStack, JukeboxSongPlayer, behaviour, get_instrument, jukebox_song_from_stack, set_item_registries};
-use mc_protocol::components::{Holder, INSTRUMENT, InstrumentComponent, Instrument, JUKEBOX_PLAYABLE, JukeboxSong};
+use mc_game::world::item::{
+    ItemStack, JukeboxSongPlayer, behaviour, get_instrument, jukebox_song_from_stack,
+    set_item_registries,
+};
+use mc_protocol::components::{
+    Holder, INSTRUMENT, Instrument, InstrumentComponent, JUKEBOX_PLAYABLE, JukeboxSong,
+};
 use std::path::PathBuf;
 use std::sync::LazyLock;
 
 static ACCESS: LazyLock<RegistryAccess> = LazyLock::new(|| {
     let _serial = common::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
     let dir = tempfile::tempdir().unwrap();
-    let (_, stem) = common::load_world(dir.path(), mc_world::level_storage::WorldDataConfiguration::DEFAULT, true).expect("default world loads");
+    let (_, stem) = common::load_world(
+        dir.path(),
+        mc_world::level_storage::WorldDataConfiguration::DEFAULT,
+        true,
+    )
+    .expect("default world loads");
     stem.registries.composite_access().clone()
 });
 
 fn data_dir(name: &str) -> PathBuf {
-    PathBuf::from(concat!(env!("CARGO_MANIFEST_DIR"), "/../../ref/src/data/minecraft")).join(name)
+    PathBuf::from(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/../../ref/src/data/minecraft"
+    ))
+    .join(name)
 }
 
 fn json_files(dir: &str) -> Vec<(String, serde_json::Value)> {
@@ -28,7 +42,10 @@ fn json_files(dir: &str) -> Vec<(String, serde_json::Value)> {
         .unwrap()
         .map(|e| {
             let path = e.unwrap().path();
-            (path.file_stem().unwrap().to_str().unwrap().to_owned(), serde_json::from_str(&std::fs::read_to_string(&path).unwrap()).unwrap())
+            (
+                path.file_stem().unwrap().to_str().unwrap().to_owned(),
+                serde_json::from_str(&std::fs::read_to_string(&path).unwrap()).unwrap(),
+            )
         })
         .collect();
     files.sort_by(|a, b| a.0.cmp(&b.0));
@@ -41,10 +58,25 @@ fn every_vanilla_instrument_is_decoded() {
     assert_eq!(files.len(), 8);
     for (name, json) in files {
         let id = Identifier::parse(&format!("minecraft:{name}")).unwrap();
-        let instrument: &Instrument = ACCESS.get(keys::INSTRUMENT, &id).unwrap_or_else(|| panic!("instrument {id} not decoded"));
-        assert_eq!(f64::from(instrument.use_duration), json["use_duration"].as_f64().unwrap(), "{name}");
-        assert_eq!(f64::from(instrument.range), json["range"].as_f64().unwrap(), "{name}");
-        assert_eq!(instrument.durability_damage, json.get("durability_damage").and_then(|v| v.as_i64()).unwrap_or(0) as i32);
+        let instrument: &Instrument = ACCESS
+            .get(keys::INSTRUMENT, &id)
+            .unwrap_or_else(|| panic!("instrument {id} not decoded"));
+        assert_eq!(
+            f64::from(instrument.use_duration),
+            json["use_duration"].as_f64().unwrap(),
+            "{name}"
+        );
+        assert_eq!(
+            f64::from(instrument.range),
+            json["range"].as_f64().unwrap(),
+            "{name}"
+        );
+        assert_eq!(
+            instrument.durability_damage,
+            json.get("durability_damage")
+                .and_then(|v| v.as_i64())
+                .unwrap_or(0) as i32
+        );
     }
 }
 
@@ -54,32 +86,58 @@ fn every_vanilla_jukebox_song_is_decoded_and_every_disc_resolves() {
     assert_eq!(files.len(), 22);
     for (name, json) in &files {
         let id = Identifier::parse(&format!("minecraft:{name}")).unwrap();
-        let song: &JukeboxSong = ACCESS.get(keys::JUKEBOX_SONG, &id).unwrap_or_else(|| panic!("song {id} not decoded"));
-        assert_eq!(f64::from(song.length_in_seconds), json["length_in_seconds"].as_f64().unwrap(), "{name}");
-        assert_eq!(i64::from(song.comparator_output), json["comparator_output"].as_i64().unwrap(), "{name}");
+        let song: &JukeboxSong = ACCESS
+            .get(keys::JUKEBOX_SONG, &id)
+            .unwrap_or_else(|| panic!("song {id} not decoded"));
+        assert_eq!(
+            f64::from(song.length_in_seconds),
+            json["length_in_seconds"].as_f64().unwrap(),
+            "{name}"
+        );
+        assert_eq!(
+            i64::from(song.comparator_output),
+            json["comparator_output"].as_i64().unwrap(),
+            "{name}"
+        );
     }
     let mut discs = 0;
     for item in Item::iter() {
         let stack = ItemStack::new(item);
         if let Some(Holder::Reference(song)) = jukebox_song_from_stack(&stack) {
-            assert!(ACCESS.get::<JukeboxSong>(keys::JUKEBOX_SONG, &song).is_some(), "{item} plays unknown song {song}");
+            assert!(
+                ACCESS
+                    .get::<JukeboxSong>(keys::JUKEBOX_SONG, &song)
+                    .is_some(),
+                "{item} plays unknown song {song}"
+            );
             discs += 1;
         }
     }
-    assert_eq!(discs, 22, "items with a jukebox_playable component in items.json");
+    assert_eq!(
+        discs, 22,
+        "items with a jukebox_playable component in items.json"
+    );
 }
 
 #[test]
 fn goat_horn_use_duration_comes_from_its_instrument() {
     set_item_registries(ACCESS.clone());
     let mut horn = ItemStack::new(Item::GOAT_HORN);
-    horn.set(INSTRUMENT, InstrumentComponent { instrument: Holder::reference("minecraft:ponder_goat_horn") });
+    horn.set(
+        INSTRUMENT,
+        InstrumentComponent {
+            instrument: Holder::reference("minecraft:ponder_goat_horn"),
+        },
+    );
     let instrument = get_instrument(&ACCESS, &horn).unwrap();
     assert_eq!(instrument.range, 256.0);
     assert_eq!(behaviour(Item::GOAT_HORN).get_use_duration(&horn), 140);
     // no instrument component value: zero duration (`Optional.empty().orElse(0)`)
     let plain = ItemStack::new(Item::GOAT_HORN);
-    assert_eq!(get_instrument(&ACCESS, &plain).is_some(), plain.get(&INSTRUMENT).is_some());
+    assert_eq!(
+        get_instrument(&ACCESS, &plain).is_some(),
+        plain.get(&INSTRUMENT).is_some()
+    );
 }
 
 #[test]

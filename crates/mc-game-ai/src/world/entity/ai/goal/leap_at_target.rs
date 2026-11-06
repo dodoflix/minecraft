@@ -1,10 +1,10 @@
 //! `LeapAtTargetGoal`.
 
-use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags, reduced_tick_delay};
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::entity::{Entity, EntityId};
 use mc_core::phys::Vec3;
 use mc_core::random::RandomSource;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags, reduced_tick_delay};
+use mc_game_core::world::entity::{Entity, EntityId};
 
 pub struct LeapAtTargetGoal {
     target: Option<EntityId>,
@@ -23,7 +23,9 @@ impl Goal for LeapAtTargetGoal {
             return false;
         }
         self.target = mob.get_target();
-        let Some(target) = self.target.and_then(|t| level.get_entity(t)) else { return false };
+        let Some(target) = self.target.and_then(|t| level.get_entity(t)) else {
+            return false;
+        };
         let d = mob.base().distance_to_sqr_vec(target.position());
         if d < 4.0 || d > 16.0 {
             return false;
@@ -31,7 +33,10 @@ impl Goal for LeapAtTargetGoal {
         if !mob.base().on_ground() {
             return false;
         }
-        mob.base_mut().random.next_int_bounded(reduced_tick_delay(5)) == 0
+        mob.base_mut()
+            .random
+            .next_int_bounded(reduced_tick_delay(5))
+            == 0
     }
 
     fn can_continue_to_use(&mut self, mob: &mut dyn Entity, _level: &mut ServerLevel) -> bool {
@@ -39,13 +44,20 @@ impl Goal for LeapAtTargetGoal {
     }
 
     fn start(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
-        let Some(target) = self.target.and_then(|t| level.get_entity(t)) else { return };
+        let Some(target) = self.target.and_then(|t| level.get_entity(t)) else {
+            return;
+        };
         let movement = mob.base().delta_movement();
-        let mut delta = Vec3::new(target.base().x() - mob.base().x(), 0.0, target.base().z() - mob.base().z());
+        let mut delta = Vec3::new(
+            target.base().x() - mob.base().x(),
+            0.0,
+            target.base().z() - mob.base().z(),
+        );
         if delta.length_sqr() > 1.0E-7 {
             delta = delta.normalize().scale(0.4).add(movement.scale(0.2));
         }
-        mob.base_mut().set_delta_movement(Vec3::new(delta.x, f64::from(self.yd), delta.z));
+        mob.base_mut()
+            .set_delta_movement(Vec3::new(delta.x, f64::from(self.yd), delta.z));
     }
 
     fn flags(&self) -> GoalFlags {

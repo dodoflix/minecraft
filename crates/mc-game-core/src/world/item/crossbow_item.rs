@@ -1,7 +1,13 @@
 //! `net.minecraft.world.item.CrossbowItem`.
 
-use super::projectile_weapon_item::{ProjectileWeapon, create_arrow_projectile, draw, get_projectile, is_arrow, is_arrow_or_firework, shoot};
-use super::{APPROXIMATELY_INFINITE_USE_DURATION, InteractionHand, InteractionResult, ItemBehaviour, ItemStack, ItemStackExt as _, holder_sound};
+use super::projectile_weapon_item::{
+    ProjectileWeapon, create_arrow_projectile, draw, get_projectile, is_arrow,
+    is_arrow_or_firework, shoot,
+};
+use super::{
+    APPROXIMATELY_INFINITE_USE_DURATION, InteractionHand, InteractionResult, ItemBehaviour,
+    ItemStack, ItemStackExt as _, holder_sound,
+};
 use crate::register_item_class;
 use crate::server::level::ServerLevel;
 use crate::stats::Stat;
@@ -15,7 +21,9 @@ use mc_core::math::mth;
 use mc_core::phys::Vec3;
 use mc_core::random::RandomSource;
 use mc_data::{Item, SoundEvent};
-use mc_protocol::components::{CHARGED_PROJECTILES, ChargedProjectiles, ItemStackTemplate, ItemUseAnimation};
+use mc_protocol::components::{
+    CHARGED_PROJECTILES, ChargedProjectiles, ItemStackTemplate, ItemUseAnimation,
+};
 use mc_protocol::packets::play::SoundSource;
 use std::sync::atomic::{AtomicBool, Ordering};
 
@@ -36,17 +44,33 @@ pub struct CrossbowItem {
 
 /// `CrossbowItem.isCharged(itemStack)`.
 pub fn is_charged(stack: &ItemStack) -> bool {
-    stack.get(&CHARGED_PROJECTILES).is_some_and(|c| !c.items.is_empty())
+    stack
+        .get(&CHARGED_PROJECTILES)
+        .is_some_and(|c| !c.items.is_empty())
 }
 
 /// `CrossbowItem.getChargeDuration(crossbow, user)`.
-pub fn get_charge_duration(level: &ServerLevel, crossbow: &ItemStack, user: &mut dyn Entity) -> i32 {
-    let duration = helper::modify_crossbow_charging_time(&level.registries, crossbow, user, MAX_CHARGE_DURATION);
+pub fn get_charge_duration(
+    level: &ServerLevel,
+    crossbow: &ItemStack,
+    user: &mut dyn Entity,
+) -> i32 {
+    let duration = helper::modify_crossbow_charging_time(
+        &level.registries,
+        crossbow,
+        user,
+        MAX_CHARGE_DURATION,
+    );
     mth::floor_f32(duration * 20.0)
 }
 
 /// `getPowerForTime(timeHeld, itemStack, holder)`.
-fn get_power_for_time(level: &ServerLevel, time_held: i32, crossbow: &ItemStack, holder: &mut dyn Entity) -> f32 {
+fn get_power_for_time(
+    level: &ServerLevel,
+    time_held: i32,
+    crossbow: &ItemStack,
+    holder: &mut dyn Entity,
+) -> f32 {
     let mut pow = time_held as f32 / get_charge_duration(level, crossbow, holder) as f32;
     if pow > 1.0 {
         pow = 1.0;
@@ -56,12 +80,24 @@ fn get_power_for_time(level: &ServerLevel, time_held: i32, crossbow: &ItemStack,
 
 /// `getShootingPower(projectiles)`.
 fn get_shooting_power(projectiles: &ChargedProjectiles) -> f32 {
-    if projectiles.items.iter().any(|t| t.item == Item::FIREWORK_ROCKET) { FIREWORK_POWER } else { ARROW_POWER }
+    if projectiles
+        .items
+        .iter()
+        .any(|t| t.item == Item::FIREWORK_ROCKET)
+    {
+        FIREWORK_POWER
+    } else {
+        ARROW_POWER
+    }
 }
 
 /// `getShotPitch(random, index)`.
 fn get_shot_pitch(random: &mut dyn RandomSource, index: i32) -> f32 {
-    if index == 0 { 1.0 } else { get_random_shot_pitch((index & 1) == 1, random) }
+    if index == 0 {
+        1.0
+    } else {
+        get_random_shot_pitch((index & 1) == 1, random)
+    }
 }
 
 fn get_random_shot_pitch(high_pitch: bool, random: &mut dyn RandomSource) -> f32 {
@@ -80,18 +116,30 @@ struct V3 {
 
 impl V3 {
     fn of(v: Vec3) -> V3 {
-        V3 { x: v.x as f32, y: v.y as f32, z: v.z as f32 }
+        V3 {
+            x: v.x as f32,
+            y: v.y as f32,
+            z: v.z as f32,
+        }
     }
 
     /// `normalize()`.
     fn normalize(self) -> V3 {
         let scalar = 1.0 / (self.x * self.x + (self.y * self.y + self.z * self.z)).sqrt();
-        V3 { x: self.x * scalar, y: self.y * scalar, z: self.z * scalar }
+        V3 {
+            x: self.x * scalar,
+            y: self.y * scalar,
+            z: self.z * scalar,
+        }
     }
 
     /// `cross(v)`.
     fn cross(self, v: V3) -> V3 {
-        V3 { x: self.y * v.z + -self.z * v.y, y: self.z * v.x + -self.x * v.z, z: self.x * v.y + -self.y * v.x }
+        V3 {
+            x: self.y * v.z + -self.z * v.y,
+            y: self.z * v.x + -self.x * v.z,
+            z: self.x * v.y + -self.y * v.x,
+        }
     }
 
     fn length_squared(self) -> f32 {
@@ -119,17 +167,29 @@ impl V3 {
             let angle = ax * angle;
             let sin = (f64::from(angle).sin()) as f32;
             let cos = cos_from_sin_f32(sin, angle);
-            V3 { x: self.x, y: self.y * cos - self.z * sin, z: self.y * sin + self.z * cos }
+            V3 {
+                x: self.x,
+                y: self.y * cos - self.z * sin,
+                z: self.y * sin + self.z * cos,
+            }
         } else if ax == 0.0 && az == 0.0 && abs_one(ay) {
             let angle = ay * angle;
             let sin = (f64::from(angle).sin()) as f32;
             let cos = cos_from_sin_f32(sin, angle);
-            V3 { x: self.x * cos + self.z * sin, y: self.y, z: -self.x * sin + self.z * cos }
+            V3 {
+                x: self.x * cos + self.z * sin,
+                y: self.y,
+                z: -self.x * sin + self.z * cos,
+            }
         } else if ax == 0.0 && ay == 0.0 && abs_one(az) {
             let angle = az * angle;
             let sin = (f64::from(angle).sin()) as f32;
             let cos = cos_from_sin_f32(sin, angle);
-            V3 { x: self.x * cos - self.y * sin, y: self.x * sin + self.y * cos, z: self.z }
+            V3 {
+                x: self.x * cos - self.y * sin,
+                y: self.x * sin + self.y * cos,
+                z: self.z,
+            }
         } else {
             let hangle = angle * 0.5;
             let sin_angle = (f64::from(hangle).sin()) as f32;
@@ -157,14 +217,19 @@ fn cos_from_sin_f32(sin: f32, angle: f32) -> f32 {
     if f64::from(b) < 0.0 {
         b += two_pi;
     }
-    if b >= std::f64::consts::PI as f32 { -cos } else { cos }
+    if b >= std::f64::consts::PI as f32 {
+        -cos
+    } else {
+        cos
+    }
 }
 
 /// `org.joml.Math.cosFromSin(double, double)` (`FASTMATH` off).
 fn cos_from_sin_f64(sin: f64, angle: f64) -> f64 {
     let cos = (1.0 - sin * sin).sqrt();
     let a = angle + std::f64::consts::PI / 2.0;
-    let mut b = a - f64::from((a / (std::f64::consts::PI * 2.0)) as i32) * (std::f64::consts::PI * 2.0);
+    let mut b =
+        a - f64::from((a / (std::f64::consts::PI * 2.0)) as i32) * (std::f64::consts::PI * 2.0);
     if b < 0.0 {
         b += std::f64::consts::PI * 2.0;
     }
@@ -174,19 +239,38 @@ fn cos_from_sin_f64(sin: f64, angle: f64) -> f64 {
 /// `new Quaternionf().setAngleAxis(angle, x, y, z)` as `[x, y, z, w]`.
 fn quaternion_from_angle_axis(angle: f64, x: f64, y: f64, z: f64) -> [f32; 4] {
     let s = (angle * 0.5).sin();
-    [(x * s) as f32, (y * s) as f32, (z * s) as f32, cos_from_sin_f64(s, angle * 0.5) as f32]
+    [
+        (x * s) as f32,
+        (y * s) as f32,
+        (z * s) as f32,
+        cos_from_sin_f64(s, angle * 0.5) as f32,
+    ]
 }
 
 /// `getProjectileShotVector(body, originalVector, angle)`.
 fn get_projectile_shot_vector(body: &dyn Entity, original_vector: Vec3, angle: f32) -> V3 {
     let view_vec = V3::of(original_vector).normalize();
-    let mut right_vector_pre_rot = view_vec.cross(V3 { x: 0.0, y: 1.0, z: 0.0 });
+    let mut right_vector_pre_rot = view_vec.cross(V3 {
+        x: 0.0,
+        y: 1.0,
+        z: 0.0,
+    });
     if f64::from(right_vector_pre_rot.length_squared()) <= 1.0E-7 {
         let up = get_up_vector(body);
         right_vector_pre_rot = view_vec.cross(V3::of(up));
     }
-    let view_vec_3f = view_vec.rotate_axis((std::f64::consts::PI / 2.0) as f32, right_vector_pre_rot.x, right_vector_pre_rot.y, right_vector_pre_rot.z);
-    view_vec.rotate_axis(angle * (std::f64::consts::PI / 180.0) as f32, view_vec_3f.x, view_vec_3f.y, view_vec_3f.z)
+    let view_vec_3f = view_vec.rotate_axis(
+        (std::f64::consts::PI / 2.0) as f32,
+        right_vector_pre_rot.x,
+        right_vector_pre_rot.y,
+        right_vector_pre_rot.z,
+    );
+    view_vec.rotate_axis(
+        angle * (std::f64::consts::PI / 180.0) as f32,
+        view_vec_3f.x,
+        view_vec_3f.y,
+        view_vec_3f.z,
+    )
 }
 
 /// `getUpVector(1.0F)` = `calculateUpVector(getViewXRot(1), getViewYRot(1))`.
@@ -204,40 +288,85 @@ impl ProjectileWeapon for CrossbowItem {
     }
 
     fn get_durability_use(&self, projectile: &ItemStack) -> i32 {
-        if projectile.item() == Item::FIREWORK_ROCKET { 3 } else { 1 }
+        if projectile.item() == Item::FIREWORK_ROCKET {
+            3
+        } else {
+            1
+        }
     }
 
-    fn shoot_projectile(&self, level: &mut ServerLevel, shooter: &mut dyn Entity, projectile: &mut dyn Projectile, index: i32, power: f32, uncertainty: f32, angle: f32, target_override: Option<EntityId>) {
+    fn shoot_projectile(
+        &self,
+        level: &mut ServerLevel,
+        shooter: &mut dyn Entity,
+        projectile: &mut dyn Projectile,
+        index: i32,
+        power: f32,
+        uncertainty: f32,
+        angle: f32,
+        target_override: Option<EntityId>,
+    ) {
         let shot_vector = match target_override.and_then(|id| level.get_entity(id)) {
             Some(target) => {
                 let xd = target.base().x() - shooter.base().x();
                 let zd = target.base().z() - shooter.base().z();
                 let distance_to_target = (xd * xd + zd * zd).sqrt();
-                let yd = target.base().get_y_progress(0.3333333333333333) - projectile.base().y() + distance_to_target * f64::from(0.2f32);
+                let yd = target.base().get_y_progress(0.3333333333333333) - projectile.base().y()
+                    + distance_to_target * f64::from(0.2f32);
                 get_projectile_shot_vector(&*shooter, Vec3::new(xd, yd, zd), angle)
             }
             None => {
                 let up_vector = get_up_vector(&*shooter);
-                let up_quaternion = quaternion_from_angle_axis(f64::from(angle * (std::f64::consts::PI / 180.0) as f32), up_vector.x, up_vector.y, up_vector.z);
+                let up_quaternion = quaternion_from_angle_axis(
+                    f64::from(angle * (std::f64::consts::PI / 180.0) as f32),
+                    up_vector.x,
+                    up_vector.y,
+                    up_vector.z,
+                );
                 let view_vec = shooter.get_view_vector(1.0);
                 V3::of(view_vec).rotate(up_quaternion)
             }
         };
-        projectile.shoot(f64::from(shot_vector.x), f64::from(shot_vector.y), f64::from(shot_vector.z), power, uncertainty);
+        projectile.shoot(
+            f64::from(shot_vector.x),
+            f64::from(shot_vector.y),
+            f64::from(shot_vector.z),
+            power,
+            uncertainty,
+        );
         let sound_pitch = get_shot_pitch(&mut shooter.base_mut().random, index);
         let p = shooter.position();
         let source = shooter.get_sound_source();
-        level.play_sound_at(None, p.x, p.y, p.z, SoundEvent::ITEM_CROSSBOW_SHOOT, source, 1.0, sound_pitch);
+        level.play_sound_at(
+            None,
+            p.x,
+            p.y,
+            p.z,
+            SoundEvent::ITEM_CROSSBOW_SHOOT,
+            source,
+            1.0,
+            sound_pitch,
+        );
     }
 
-    fn create_projectile(&self, level: &mut ServerLevel, shooter: &dyn Entity, held_item: &ItemStack, projectile: &ItemStack, is_crit: bool) -> Box<dyn Entity> {
+    fn create_projectile(
+        &self,
+        level: &mut ServerLevel,
+        shooter: &dyn Entity,
+        held_item: &ItemStack,
+        projectile: &ItemStack,
+        is_crit: bool,
+    ) -> Box<dyn Entity> {
         if projectile.item() == Item::FIREWORK_ROCKET {
             // `new FireworkRocketEntity(level, projectile, shooter, x, shooter.getEyeY() - 0.15F, z, true)`
             let (x, z) = (shooter.base().x(), shooter.base().z());
             let y = shooter.base().get_eye_y() - f64::from(0.15f32);
-            crate::world::entity::projectile::firework_rocket::FireworkRocketEntity::new_shot_by(level, projectile, shooter, x, y, z, true)
+            crate::world::entity::projectile::firework_rocket::FireworkRocketEntity::new_shot_by(
+                level, projectile, shooter, x, y, z, true,
+            )
         } else {
-            let mut entity = create_arrow_projectile(level, shooter, held_item, projectile, is_crit);
+            let mut entity =
+                create_arrow_projectile(level, shooter, held_item, projectile, is_crit);
             set_crossbow_hit_sound(&mut *entity);
             entity
         }
@@ -261,32 +390,71 @@ impl CrossbowItem {
     /// The `CrossbowItem` singleton for callers without an item registry handle (mobs shooting their crossbow: only the
     /// loading-sound flags are instance state, `performShooting` does not touch them).
     pub fn singleton() -> Self {
-        CrossbowItem { item: Item::CROSSBOW, start_sound_played: AtomicBool::new(false), mid_load_sound_played: AtomicBool::new(false) }
+        CrossbowItem {
+            item: Item::CROSSBOW,
+            start_sound_played: AtomicBool::new(false),
+            mid_load_sound_played: AtomicBool::new(false),
+        }
     }
 
     /// `performShooting(level, shooter, hand, weapon, power, uncertainty, targetOverride)`.
-    pub fn perform_shooting(&self, level: &mut ServerLevel, shooter: &mut dyn Entity, hand: InteractionHand, weapon: &mut ItemStack, power: f32, uncertainty: f32, target_override: Option<EntityId>) {
-        let charged = weapon.set(CHARGED_PROJECTILES, ChargedProjectiles::default()).and_then(|v| v.downcast_ref::<ChargedProjectiles>().cloned());
+    pub fn perform_shooting(
+        &self,
+        level: &mut ServerLevel,
+        shooter: &mut dyn Entity,
+        hand: InteractionHand,
+        weapon: &mut ItemStack,
+        power: f32,
+        uncertainty: f32,
+        target_override: Option<EntityId>,
+    ) {
+        let charged = weapon
+            .set(CHARGED_PROJECTILES, ChargedProjectiles::default())
+            .and_then(|v| v.downcast_ref::<ChargedProjectiles>().cloned());
         if let Some(charged) = charged
             && !charged.items.is_empty()
         {
-            let projectiles: Vec<ItemStack> = charged.items.iter().map(ItemStackTemplate::create).collect();
+            let projectiles: Vec<ItemStack> = charged
+                .items
+                .iter()
+                .map(ItemStackTemplate::create)
+                .collect();
             let is_player = shooter.is_player();
-            shoot(self, level, shooter, hand, weapon, &projectiles, power, uncertainty, is_player, target_override);
+            shoot(
+                self,
+                level,
+                shooter,
+                hand,
+                weapon,
+                &projectiles,
+                power,
+                uncertainty,
+                is_player,
+                target_override,
+            );
             if let Some(player) = shooter.as_any_mut().downcast_mut::<ServerPlayer>() {
-                crate::advancements::triggers::CriteriaTriggers::SHOT_CROSSBOW.trigger(level, player, weapon);
+                crate::advancements::triggers::CriteriaTriggers::SHOT_CROSSBOW
+                    .trigger(level, player, weapon);
                 player.award_stat_once(level, Stat::Used(weapon.item()));
             }
         }
     }
 
     /// `tryLoadProjectiles(shooter, heldItem)`.
-    fn try_load_projectiles(&self, level: &mut ServerLevel, shooter: &mut dyn Entity, held_item: &mut ItemStack) -> bool {
+    fn try_load_projectiles(
+        &self,
+        level: &mut ServerLevel,
+        shooter: &mut dyn Entity,
+        held_item: &mut ItemStack,
+    ) -> bool {
         let mut source = get_projectile(&*shooter, self);
         let drawn = draw(level, held_item, &mut source.stack, shooter);
         source.write_back(shooter);
         if !drawn.is_empty() {
-            let templates: Vec<ItemStackTemplate> = drawn.iter().filter_map(|s| ItemStackTemplate::from_stack(s).ok()).collect();
+            let templates: Vec<ItemStackTemplate> = drawn
+                .iter()
+                .filter_map(|s| ItemStackTemplate::from_stack(s).ok())
+                .collect();
             held_item.set(CHARGED_PROJECTILES, ChargedProjectiles { items: templates });
             true
         } else {
@@ -296,7 +464,12 @@ impl CrossbowItem {
 }
 
 impl ItemBehaviour for CrossbowItem {
-    fn use_item(&self, level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) -> InteractionResult {
+    fn use_item(
+        &self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        hand: InteractionHand,
+    ) -> InteractionResult {
         let mut stack = player.get_item_in_hand(hand);
         let charged = stack.get(&CHARGED_PROJECTILES).cloned();
         if let Some(charged) = charged
@@ -316,15 +489,37 @@ impl ItemBehaviour for CrossbowItem {
         }
     }
 
-    fn release_using(&self, stack: &mut ItemStack, level: &mut ServerLevel, entity: &mut dyn Entity, remaining_time: i32) -> bool {
+    fn release_using(
+        &self,
+        stack: &mut ItemStack,
+        level: &mut ServerLevel,
+        entity: &mut dyn Entity,
+        remaining_time: i32,
+    ) -> bool {
         let time_held = self.get_use_duration(stack) - remaining_time;
         get_power_for_time(level, time_held, stack, entity) >= 1.0 && is_charged(stack)
     }
 
-    fn on_use_tick(&self, level: &mut ServerLevel, entity: &mut dyn Entity, stack: &mut ItemStack, ticks_remaining: i32) {
-        let sounds = helper::pick_crossbow_charging_sounds(&level.registries, stack).cloned().unwrap_or_else(default_sounds);
-        let tick_percent = (self.get_use_duration(stack) - ticks_remaining) as f32 / get_charge_duration(level, stack, entity) as f32;
-        let play = |level: &mut ServerLevel, entity: &dyn Entity, holder: &Option<mc_protocol::components::Holder<mc_protocol::components::SoundEvent>>, source, volume, pitch: f32| {
+    fn on_use_tick(
+        &self,
+        level: &mut ServerLevel,
+        entity: &mut dyn Entity,
+        stack: &mut ItemStack,
+        ticks_remaining: i32,
+    ) {
+        let sounds = helper::pick_crossbow_charging_sounds(&level.registries, stack)
+            .cloned()
+            .unwrap_or_else(default_sounds);
+        let tick_percent = (self.get_use_duration(stack) - ticks_remaining) as f32
+            / get_charge_duration(level, stack, entity) as f32;
+        let play = |level: &mut ServerLevel,
+                    entity: &dyn Entity,
+                    holder: &Option<
+            mc_protocol::components::Holder<mc_protocol::components::SoundEvent>,
+        >,
+                    source,
+                    volume,
+                    pitch: f32| {
             if let Some(sound) = holder.as_ref().and_then(holder_sound) {
                 let p = entity.position();
                 level.play_sound_at(None, p.x, p.y, p.z, sound, source, volume, pitch);
@@ -336,13 +531,24 @@ impl ItemBehaviour for CrossbowItem {
         }
         if tick_percent >= START_SOUND_PERCENT && !self.start_sound_played.load(Ordering::Relaxed) {
             self.start_sound_played.store(true, Ordering::Relaxed);
-            play(level, &*entity, &sounds.start, SoundSource::Players, 0.5, 1.0);
+            play(
+                level,
+                &*entity,
+                &sounds.start,
+                SoundSource::Players,
+                0.5,
+                1.0,
+            );
         }
-        if tick_percent >= MID_SOUND_PERCENT && !self.mid_load_sound_played.load(Ordering::Relaxed) {
+        if tick_percent >= MID_SOUND_PERCENT && !self.mid_load_sound_played.load(Ordering::Relaxed)
+        {
             self.mid_load_sound_played.store(true, Ordering::Relaxed);
             play(level, &*entity, &sounds.mid, SoundSource::Players, 0.5, 1.0);
         }
-        if tick_percent >= 1.0 && !is_charged(stack) && self.try_load_projectiles(level, entity, stack) {
+        if tick_percent >= 1.0
+            && !is_charged(stack)
+            && self.try_load_projectiles(level, entity, stack)
+        {
             let pitch = 1.0 / (level.random().next_float() * 0.5 + 1.0) + 0.2;
             let source = entity.get_sound_source();
             play(level, &*entity, &sounds.end, source, 1.0, pitch);
@@ -363,7 +569,8 @@ impl ItemBehaviour for CrossbowItem {
 }
 
 /// `CrossbowItem.DEFAULT_SOUNDS`.
-fn default_sounds() -> crate::world::item::enchantment::enchantment_effect_components::ChargingSounds {
+fn default_sounds() -> crate::world::item::enchantment::enchantment_effect_components::ChargingSounds
+{
     use mc_protocol::components::Holder;
     let reference = |s: SoundEvent| Some(Holder::Reference(s.identifier()));
     crate::world::item::enchantment::enchantment_effect_components::ChargingSounds {
@@ -373,4 +580,8 @@ fn default_sounds() -> crate::world::item::enchantment::enchantment_effect_compo
     }
 }
 
-register_item_class!("CrossbowItem", |item| Box::new(CrossbowItem { item, start_sound_played: AtomicBool::new(false), mid_load_sound_played: AtomicBool::new(false) }));
+register_item_class!("CrossbowItem", |item| Box::new(CrossbowItem {
+    item,
+    start_sound_played: AtomicBool::new(false),
+    mid_load_sound_played: AtomicBool::new(false)
+}));

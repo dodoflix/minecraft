@@ -11,8 +11,8 @@
 //! chunk's neighbourhood is generated on the serial worldgen thread before the next one is requested. When the area is
 //! done the server is halted, which saves every level (like `save-all flush` + `stop`).
 
-use mc_core::pos::ChunkPos;
 use mc_core::ident::Identifier;
+use mc_core::pos::ChunkPos;
 use mc_game::server::MinecraftServer;
 use mc_game::server::dedicated::launch::create_server;
 use mc_game::server::dedicated::logging;
@@ -53,15 +53,24 @@ impl Gen {
             server.set_game_rule(GameRules::RANDOM_TICK_SPEED, 0);
             (self.cx, self.cz) = (x1, z1);
         }
-        let Some(dim) = self.dims.get(self.dim).cloned() else { return };
-        let Some(level) = server.level_mut(&dim) else { panic!("dimension {dim} is not loaded") };
+        let Some(dim) = self.dims.get(self.dim).cloned() else {
+            return;
+        };
+        let Some(level) = server.level_mut(&dim) else {
+            panic!("dimension {dim} is not loaded")
+        };
         let Some(settled) = self.waiting else {
-            level.chunk_source.update_chunk_forced(ChunkPos::new(self.cx, self.cz), true);
+            level
+                .chunk_source
+                .update_chunk_forced(ChunkPos::new(self.cx, self.cz), true);
             self.waiting = Some(0);
             return;
         };
         let map = &level.chunk_source.chunk_map;
-        let idle = map.pending_task_count() == 0 && !map.worldgen_busy() && map.loading_count() == 0 && map.main_tasks.is_empty();
+        let idle = map.pending_task_count() == 0
+            && !map.worldgen_busy()
+            && map.loading_count() == 0
+            && map.main_tasks.is_empty();
         if level.full_chunk_status(self.cx, self.cz) != FullChunkStatus::EntityTicking || !idle {
             self.waiting = Some(0);
             return;
@@ -89,7 +98,8 @@ impl Gen {
 }
 
 fn parse_args() -> Result<Gen, String> {
-    let mut dims = vec![Identifier::with_default_namespace("overworld").map_err(|e| e.to_string())?];
+    let mut dims =
+        vec![Identifier::with_default_namespace("overworld").map_err(|e| e.to_string())?];
     let mut area = None;
     let mut args = std::env::args().skip(1);
     while let Some(arg) = args.next() {
@@ -98,19 +108,39 @@ fn parse_args() -> Result<Gen, String> {
             "--dims" => {
                 dims = value
                     .split(',')
-                    .map(|d| Identifier::read(d.strip_prefix("minecraft:").unwrap_or(d)).map_err(|e| format!("bad dimension {d}: {e}")))
+                    .map(|d| {
+                        Identifier::read(d.strip_prefix("minecraft:").unwrap_or(d))
+                            .map_err(|e| format!("bad dimension {d}: {e}"))
+                    })
                     .collect::<Result<_, _>>()?
             }
             "--area" => {
-                let n: Vec<i32> = value.split(',').map(|v| v.parse().map_err(|_| format!("bad number in --area {value}"))).collect::<Result<_, _>>()?;
-                let [x1, z1, x2, z2] = n[..] else { return Err("--area wants X1,Z1,X2,Z2".to_owned()) };
+                let n: Vec<i32> = value
+                    .split(',')
+                    .map(|v| {
+                        v.parse()
+                            .map_err(|_| format!("bad number in --area {value}"))
+                    })
+                    .collect::<Result<_, _>>()?;
+                let [x1, z1, x2, z2] = n[..] else {
+                    return Err("--area wants X1,Z1,X2,Z2".to_owned());
+                };
                 area = Some((x1, z1, x2, z2));
             }
             _ => return Err(format!("unknown option {arg}")),
         }
     }
     let area = area.ok_or("--area X1,Z1,X2,Z2 is required")?;
-    Ok(Gen { dims, area, started: false, dim: 0, cx: 0, cz: 0, waiting: None, done: 0 })
+    Ok(Gen {
+        dims,
+        area,
+        started: false,
+        dim: 0,
+        cx: 0,
+        cz: 0,
+        waiting: None,
+        done: 0,
+    })
 }
 
 fn main() -> std::process::ExitCode {
@@ -121,21 +151,27 @@ fn main() -> std::process::ExitCode {
             return std::process::ExitCode::from(2);
         }
     };
-    let thread = std::thread::Builder::new().name("Server thread".to_owned()).stack_size(64 << 20).spawn(move || {
-        if let Err(e) = logging::init("logs", log::LevelFilter::Info) {
-            eprintln!("Failed to initialize logging: {e}");
-        }
-        let settings = DedicatedServerSettings::new(Path::new("server.properties")).expect("server.properties");
-        RegionFileVersion::configure(&settings.get_properties().region_file_compression);
-        let mut server = create_server(ServerOptions::default(), settings).expect("server").expect("server stopped early (eula?)");
-        let job = Arc::new(Mutex::new(job));
-        let shared = server.shared.clone();
-        server.add_tickable(move || {
-            let job = job.clone();
-            shared.execute(move |server| job.lock().expect("job lock").step(server));
+    let thread = std::thread::Builder::new()
+        .name("Server thread".to_owned())
+        .stack_size(64 << 20)
+        .spawn(move || {
+            if let Err(e) = logging::init("logs", log::LevelFilter::Info) {
+                eprintln!("Failed to initialize logging: {e}");
+            }
+            let settings = DedicatedServerSettings::new(Path::new("server.properties"))
+                .expect("server.properties");
+            RegionFileVersion::configure(&settings.get_properties().region_file_compression);
+            let mut server = create_server(ServerOptions::default(), settings)
+                .expect("server")
+                .expect("server stopped early (eula?)");
+            let job = Arc::new(Mutex::new(job));
+            let shared = server.shared.clone();
+            server.add_tickable(move || {
+                let job = job.clone();
+                shared.execute(move |server| job.lock().expect("job lock").step(server));
+            });
+            server.run_server();
         });
-        server.run_server();
-    });
     match thread.map(|t| t.join()) {
         Ok(Ok(())) => std::process::ExitCode::SUCCESS,
         _ => std::process::ExitCode::FAILURE,

@@ -4,7 +4,8 @@
 //! as trees: per top-level command, node by node, addressed by path: name, flags, argument parser template, suggestion
 //! provider, children order, redirect target (as a path). `a` is the reference (vanilla), `b` the candidate (ours).
 use crate::packets::play::{
-    COMMAND_NODE_REDIRECT, ClientboundCommandsEntry, ClientboundCommandsNodeStub, ClientboundCommandsPacket,
+    COMMAND_NODE_REDIRECT, ClientboundCommandsEntry, ClientboundCommandsNodeStub,
+    ClientboundCommandsPacket,
 };
 use std::collections::{HashMap, HashSet, VecDeque};
 
@@ -28,8 +29,13 @@ fn sig(e: &ClientboundCommandsEntry) -> String {
 
 /// `(name, entry index)` of the root's children, in packet order.
 pub fn top_level(p: &ClientboundCommandsPacket) -> Vec<(String, usize)> {
-    let Some(root) = p.entries.get(p.root_index as usize) else { return Vec::new() };
-    root.children.iter().filter_map(|&c| p.entries.get(c as usize).map(|e| (name_of(e), c as usize))).collect()
+    let Some(root) = p.entries.get(p.root_index as usize) else {
+        return Vec::new();
+    };
+    root.children
+        .iter()
+        .filter_map(|&c| p.entries.get(c as usize).map(|e| (name_of(e), c as usize)))
+        .collect()
 }
 
 fn entry(p: &ClientboundCommandsPacket, i: usize) -> Option<&ClientboundCommandsEntry> {
@@ -37,7 +43,11 @@ fn entry(p: &ClientboundCommandsPacket, i: usize) -> Option<&ClientboundCommands
 }
 
 /// First-visit DFS paths below `start` (child order).
-fn dfs_paths(p: &ClientboundCommandsPacket, start: usize, start_path: &str) -> HashMap<usize, String> {
+fn dfs_paths(
+    p: &ClientboundCommandsPacket,
+    start: usize,
+    start_path: &str,
+) -> HashMap<usize, String> {
     let mut paths = HashMap::new();
     let mut stack = vec![(start, start_path.to_string())];
     // an explicit stack visits children in reverse; push them reversed to keep child order
@@ -49,7 +59,10 @@ fn dfs_paths(p: &ClientboundCommandsPacket, start: usize, start_path: &str) -> H
         if let Some(e) = entry(p, i) {
             for &c in e.children.iter().rev() {
                 if let Some(ce) = entry(p, c as usize) {
-                    stack.push((c as usize, format!("{}/{}", path.trim_end_matches('/'), name_of(ce))));
+                    stack.push((
+                        c as usize,
+                        format!("{}/{}", path.trim_end_matches('/'), name_of(ce)),
+                    ));
                 }
             }
         }
@@ -69,7 +82,10 @@ fn bfs_paths(p: &ClientboundCommandsPacket) -> HashMap<usize, String> {
         if let Some(e) = entry(p, i) {
             for &c in &e.children {
                 if let Some(ce) = entry(p, c as usize) {
-                    queue.push_back((c as usize, format!("{}/{}", path.trim_end_matches('/'), name_of(ce))));
+                    queue.push_back((
+                        c as usize,
+                        format!("{}/{}", path.trim_end_matches('/'), name_of(ce)),
+                    ));
                 }
             }
         }
@@ -89,11 +105,24 @@ impl Side<'_> {
             return String::new();
         }
         let t = e.redirect as usize;
-        self.local.get(&t).or_else(|| self.global.get(&t)).cloned().unwrap_or_else(|| format!("#{t}"))
+        self.local
+            .get(&t)
+            .or_else(|| self.global.get(&t))
+            .cloned()
+            .unwrap_or_else(|| format!("#{t}"))
     }
 }
 
-fn cmp_node(a: &Side, ai: usize, b: &Side, bi: usize, path: &str, unordered: bool, seen: &mut HashSet<(usize, usize)>, out: &mut Vec<String>) {
+fn cmp_node(
+    a: &Side,
+    ai: usize,
+    b: &Side,
+    bi: usize,
+    path: &str,
+    unordered: bool,
+    seen: &mut HashSet<(usize, usize)>,
+    out: &mut Vec<String>,
+) {
     if out.len() >= MAX_DIFFS || !seen.insert((ai, bi)) {
         return;
     }
@@ -102,17 +131,29 @@ fn cmp_node(a: &Side, ai: usize, b: &Side, bi: usize, path: &str, unordered: boo
         return;
     };
     if sig(ea) != sig(eb) {
-        out.push(format!("{path}: node differs\n    vanilla: {}\n    ours:    {}", sig(ea), sig(eb)));
+        out.push(format!(
+            "{path}: node differs\n    vanilla: {}\n    ours:    {}",
+            sig(ea),
+            sig(eb)
+        ));
     }
     let (ra, rb) = (a.redirect_path(ea), b.redirect_path(eb));
     if ra != rb {
-        out.push(format!("{path}: redirect target differs\n    vanilla: {ra:?}\n    ours:    {rb:?}"));
+        out.push(format!(
+            "{path}: redirect target differs\n    vanilla: {ra:?}\n    ours:    {rb:?}"
+        ));
     }
     let names = |s: &Side, e: &ClientboundCommandsEntry| -> Vec<(String, usize)> {
-        e.children.iter().filter_map(|&c| entry(s.p, c as usize).map(|ce| (name_of(ce), c as usize))).collect()
+        e.children
+            .iter()
+            .filter_map(|&c| entry(s.p, c as usize).map(|ce| (name_of(ce), c as usize)))
+            .collect()
     };
     let (ca, cb) = (names(a, ea), names(b, eb));
-    let (na, nb): (Vec<&str>, Vec<&str>) = (ca.iter().map(|c| c.0.as_str()).collect(), cb.iter().map(|c| c.0.as_str()).collect());
+    let (na, nb): (Vec<&str>, Vec<&str>) = (
+        ca.iter().map(|c| c.0.as_str()).collect(),
+        cb.iter().map(|c| c.0.as_str()).collect(),
+    );
     let same_names = if unordered {
         let (mut x, mut y) = (na.clone(), nb.clone());
         x.sort_unstable();
@@ -174,7 +215,10 @@ impl TreeReport {
             }
         }
         if !self.extra_in_b.is_empty() {
-            s += &format!("commands only in ours (not in vanilla): {:?}\n", self.extra_in_b);
+            s += &format!(
+                "commands only in ours (not in vanilla): {:?}\n",
+                self.extra_in_b
+            );
         }
         if self.order_differs {
             s += "top-level command order differs between vanilla and ours\n";
@@ -201,20 +245,49 @@ pub fn diff_trees(a: &ClientboundCommandsPacket, b: &ClientboundCommandsPacket) 
         };
         let path = format!("/{name}");
         let (sa, sb) = (
-            Side { p: a, local: dfs_paths(a, *ai, &path), global: &ga },
-            Side { p: b, local: dfs_paths(b, *bi, &path), global: &gb },
+            Side {
+                p: a,
+                local: dfs_paths(a, *ai, &path),
+                global: &ga,
+            },
+            Side {
+                p: b,
+                local: dfs_paths(b, *bi, &path),
+                global: &gb,
+            },
         );
         let mut out = Vec::new();
-        cmp_node(&sa, *ai, &sb, *bi, &path, UNORDERED.contains(&name.as_str()), &mut HashSet::new(), &mut out);
+        cmp_node(
+            &sa,
+            *ai,
+            &sb,
+            *bi,
+            &path,
+            UNORDERED.contains(&name.as_str()),
+            &mut HashSet::new(),
+            &mut out,
+        );
         if out.is_empty() {
             report.equal.push(name.clone());
         } else {
             report.differing.push((name.clone(), out));
         }
     }
-    report.extra_in_b = tb.iter().filter(|(n, _)| !ta.iter().any(|(m, _)| m == n)).map(|(n, _)| n.clone()).collect();
-    let common_a: Vec<&String> = ta.iter().map(|t| &t.0).filter(|n| tb.iter().any(|(m, _)| &m == n)).collect();
-    let common_b: Vec<&String> = tb.iter().map(|t| &t.0).filter(|n| ta.iter().any(|(m, _)| &m == n)).collect();
+    report.extra_in_b = tb
+        .iter()
+        .filter(|(n, _)| !ta.iter().any(|(m, _)| m == n))
+        .map(|(n, _)| n.clone())
+        .collect();
+    let common_a: Vec<&String> = ta
+        .iter()
+        .map(|t| &t.0)
+        .filter(|n| tb.iter().any(|(m, _)| &m == n))
+        .collect();
+    let common_b: Vec<&String> = tb
+        .iter()
+        .map(|t| &t.0)
+        .filter(|n| ta.iter().any(|(m, _)| &m == n))
+        .collect();
     report.order_differs = common_a != common_b;
     report
 }
@@ -224,7 +297,9 @@ pub fn diff_trees(a: &ClientboundCommandsPacket, b: &ClientboundCommandsPacket) 
 /// those orders (and nothing else) get identical bytes.
 pub fn canonical(p: &ClientboundCommandsPacket) -> ClientboundCommandsPacket {
     let sorted_children = |i: usize| -> Vec<i32> {
-        let Some(e) = entry(p, i) else { return Vec::new() };
+        let Some(e) = entry(p, i) else {
+            return Vec::new();
+        };
         let mut c = e.children.clone();
         let is_unordered = p.entries.get(p.root_index as usize).is_some_and(|r| {
             r.children.contains(&(i as i32)) && UNORDERED.contains(&name_of(e).as_str())
@@ -256,9 +331,16 @@ pub fn canonical(p: &ClientboundCommandsPacket) -> ClientboundCommandsPacket {
         .map(|(i, e)| ClientboundCommandsEntry {
             stub: e.stub.clone(),
             flags: e.flags,
-            redirect: if e.flags & COMMAND_NODE_REDIRECT != 0 { map(e.redirect) } else { 0 },
+            redirect: if e.flags & COMMAND_NODE_REDIRECT != 0 {
+                map(e.redirect)
+            } else {
+                0
+            },
             children: sorted_children(i).into_iter().map(map).collect(),
         })
         .collect();
-    ClientboundCommandsPacket { entries, root_index: 0 }
+    ClientboundCommandsPacket {
+        entries,
+        root_index: 0,
+    }
 }

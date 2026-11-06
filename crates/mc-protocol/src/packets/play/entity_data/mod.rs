@@ -14,7 +14,7 @@ mod profile;
 mod serializers;
 
 pub use particle::*;
-pub use particle_codec::{block_state_codec, ARGB_COLOR_CODEC};
+pub use particle_codec::{ARGB_COLOR_CODEC, block_state_codec};
 pub use profile::*;
 pub use serializers::*;
 
@@ -124,7 +124,7 @@ impl<T: Encode> Encode for WeightedList<T> {
         for w in &self.0 {
             w.value.encode(out)?;
             write_varint(out, w.weight);
-        };
+        }
         Ok(())
     }
 }

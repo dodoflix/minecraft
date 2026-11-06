@@ -18,7 +18,8 @@ impl ClockTimeMarker {
             None => i64::from(total_ticks >= i64::from(self.ticks)),
             Some(period) => {
                 let period = i64::from(period);
-                total_ticks.wrapping_div(period) + i64::from(total_ticks.wrapping_rem(period) >= i64::from(self.ticks))
+                total_ticks.wrapping_div(period)
+                    + i64::from(total_ticks.wrapping_rem(period) >= i64::from(self.ticks))
             }
         }
     }
@@ -28,7 +29,11 @@ impl ClockTimeMarker {
             None => i64::from(self.ticks),
             Some(period) => {
                 let period = i64::from(period);
-                total_ticks.wrapping_add(duration_to_next(period, total_ticks.wrapping_rem(period), i64::from(self.ticks)))
+                total_ticks.wrapping_add(duration_to_next(
+                    period,
+                    total_ticks.wrapping_rem(period),
+                    i64::from(self.ticks),
+                ))
             }
         }
     }
@@ -43,7 +48,11 @@ impl ClockTimeMarker {
 
 fn duration_to_next(period_ticks: i64, from: i64, to: i64) -> i64 {
     let duration = to - from;
-    if duration > 0 { duration } else { period_ticks + duration }
+    if duration > 0 {
+        duration
+    } else {
+        period_ticks + duration
+    }
 }
 
 /// `ClockTimeMarkers` keys (`minecraft:day`, ...).
@@ -61,13 +70,22 @@ impl ClockTimeMarkers {
 /// `Timeline.registerTimeMarkers` over one raw timeline JSON object (`clock`, `period_ticks`, `time_markers`).
 /// A marker is `{ticks: int >= 0, show_in_commands: bool = false}` or a bare int (`ticks`). Mirrors
 /// `Timeline.DIRECT_CODEC`'s validation of those fields; returns `(marker id, marker)` in file order.
-pub fn time_markers_from_timeline_json(timeline: &Value) -> Result<Vec<(Identifier, ClockTimeMarker)>, String> {
+pub fn time_markers_from_timeline_json(
+    timeline: &Value,
+) -> Result<Vec<(Identifier, ClockTimeMarker)>, String> {
     let obj = timeline.as_object().ok_or("Not a JSON object")?;
-    let clock = Identifier::read(obj.get("clock").and_then(Value::as_str).ok_or("No key clock in MapLike")?)?;
+    let clock = Identifier::read(
+        obj.get("clock")
+            .and_then(Value::as_str)
+            .ok_or("No key clock in MapLike")?,
+    )?;
     let period_ticks = match obj.get("period_ticks") {
         None => None,
         Some(v) => {
-            let p = v.as_i64().filter(|p| *p > 0 && *p <= i64::from(i32::MAX)).ok_or("Value must be positive: period_ticks")? as i32;
+            let p = v
+                .as_i64()
+                .filter(|p| *p > 0 && *p <= i64::from(i32::MAX))
+                .ok_or("Value must be positive: period_ticks")? as i32;
             Some(p)
         }
     };
@@ -77,8 +95,13 @@ pub fn time_markers_from_timeline_json(timeline: &Value) -> Result<Vec<(Identifi
             let id = Identifier::read(key)?;
             let (ticks, show) = match info {
                 Value::Object(o) => (
-                    o.get("ticks").and_then(Value::as_i64).ok_or("No key ticks in MapLike")?,
-                    o.get("show_in_commands").map(|b| b.as_bool().ok_or("Not a boolean")).transpose()?.unwrap_or(false),
+                    o.get("ticks")
+                        .and_then(Value::as_i64)
+                        .ok_or("No key ticks in MapLike")?,
+                    o.get("show_in_commands")
+                        .map(|b| b.as_bool().ok_or("Not a boolean"))
+                        .transpose()?
+                        .unwrap_or(false),
                 ),
                 other => (other.as_i64().ok_or("Not a number")?, false),
             };
@@ -90,7 +113,15 @@ pub fn time_markers_from_timeline_json(timeline: &Value) -> Result<Vec<(Identifi
             {
                 return Err(format!("Time Marker {id} must be in range [0; {p})"));
             }
-            out.push((id, ClockTimeMarker { clock: clock.clone(), ticks: ticks as i32, period_ticks, show_in_commands: show }));
+            out.push((
+                id,
+                ClockTimeMarker {
+                    clock: clock.clone(),
+                    ticks: ticks as i32,
+                    period_ticks,
+                    show_in_commands: show,
+                },
+            ));
         }
     }
     Ok(out)
@@ -101,7 +132,12 @@ mod tests {
     use super::*;
 
     fn marker(ticks: i32, period: Option<i32>) -> ClockTimeMarker {
-        ClockTimeMarker { clock: Identifier::parse("minecraft:overworld").unwrap(), ticks, period_ticks: period, show_in_commands: true }
+        ClockTimeMarker {
+            clock: Identifier::parse("minecraft:overworld").unwrap(),
+            ticks,
+            period_ticks: period,
+            show_in_commands: true,
+        }
     }
 
     #[test]
@@ -125,11 +161,18 @@ mod tests {
     #[test]
     fn reads_vanilla_day_timeline() {
         let json = mc_data::datapack::read_string("data/minecraft/timeline/day.json").unwrap();
-        let markers = time_markers_from_timeline_json(&serde_json::from_str(&json).unwrap()).unwrap();
-        let by: std::collections::HashMap<_, _> = markers.iter().map(|(k, v)| (k.to_string(), v.clone())).collect();
+        let markers =
+            time_markers_from_timeline_json(&serde_json::from_str(&json).unwrap()).unwrap();
+        let by: std::collections::HashMap<_, _> = markers
+            .iter()
+            .map(|(k, v)| (k.to_string(), v.clone()))
+            .collect();
         assert_eq!(by["minecraft:noon"].ticks, 6000);
         assert!(by["minecraft:noon"].show_in_commands);
-        assert_eq!(by["minecraft:wake_up_from_sleep"], marker(0, Some(24000)).tap_show(false));
+        assert_eq!(
+            by["minecraft:wake_up_from_sleep"],
+            marker(0, Some(24000)).tap_show(false)
+        );
         assert_eq!(by["minecraft:roll_village_siege"].ticks, 18000);
     }
 

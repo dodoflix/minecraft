@@ -21,17 +21,91 @@ enum ValidSpawn {
 
 fn kind_of(name: &str) -> ValidSpawn {
     match name {
-        "minecraft:bedrock" | "minecraft:glass" | "minecraft:moving_piston" | "minecraft:white_stained_glass" | "minecraft:orange_stained_glass" | "minecraft:magenta_stained_glass" | "minecraft:light_blue_stained_glass" | "minecraft:yellow_stained_glass" | "minecraft:lime_stained_glass" | "minecraft:pink_stained_glass" | "minecraft:gray_stained_glass" | "minecraft:light_gray_stained_glass" | "minecraft:cyan_stained_glass" | "minecraft:purple_stained_glass" | "minecraft:blue_stained_glass" | "minecraft:brown_stained_glass" | "minecraft:green_stained_glass" | "minecraft:red_stained_glass" | "minecraft:black_stained_glass" | "minecraft:oak_trapdoor" | "minecraft:spruce_trapdoor" | "minecraft:birch_trapdoor" | "minecraft:jungle_trapdoor" | "minecraft:acacia_trapdoor" | "minecraft:cherry_trapdoor" | "minecraft:dark_oak_trapdoor" | "minecraft:pale_oak_trapdoor" | "minecraft:mangrove_trapdoor" | "minecraft:poplar_trapdoor" | "minecraft:bamboo_trapdoor" | "minecraft:barrier" | "minecraft:iron_trapdoor" | "minecraft:chorus_flower" | "minecraft:scaffolding" | "minecraft:crimson_trapdoor" | "minecraft:warped_trapdoor" | "minecraft:tinted_glass" | "minecraft:copper_trapdoor" | "minecraft:exposed_copper_trapdoor" | "minecraft:weathered_copper_trapdoor" | "minecraft:oxidized_copper_trapdoor" | "minecraft:waxed_copper_trapdoor" | "minecraft:waxed_exposed_copper_trapdoor" | "minecraft:waxed_weathered_copper_trapdoor" | "minecraft:waxed_oxidized_copper_trapdoor" | "minecraft:copper_grate" | "minecraft:exposed_copper_grate" | "minecraft:weathered_copper_grate" | "minecraft:oxidized_copper_grate" | "minecraft:waxed_copper_grate" | "minecraft:waxed_exposed_copper_grate" | "minecraft:waxed_weathered_copper_grate" | "minecraft:waxed_oxidized_copper_grate" => ValidSpawn::Never,
-        "minecraft:oak_leaves" | "minecraft:spruce_leaves" | "minecraft:birch_leaves" | "minecraft:jungle_leaves" | "minecraft:acacia_leaves" | "minecraft:cherry_leaves" | "minecraft:dark_oak_leaves" | "minecraft:pale_oak_leaves" | "minecraft:mangrove_leaves" | "minecraft:red_poplar_leaves" | "minecraft:orange_poplar_leaves" | "minecraft:yellow_poplar_leaves" | "minecraft:azalea_leaves" | "minecraft:flowering_azalea_leaves" => ValidSpawn::OcelotOrParrot,
+        "minecraft:bedrock"
+        | "minecraft:glass"
+        | "minecraft:moving_piston"
+        | "minecraft:white_stained_glass"
+        | "minecraft:orange_stained_glass"
+        | "minecraft:magenta_stained_glass"
+        | "minecraft:light_blue_stained_glass"
+        | "minecraft:yellow_stained_glass"
+        | "minecraft:lime_stained_glass"
+        | "minecraft:pink_stained_glass"
+        | "minecraft:gray_stained_glass"
+        | "minecraft:light_gray_stained_glass"
+        | "minecraft:cyan_stained_glass"
+        | "minecraft:purple_stained_glass"
+        | "minecraft:blue_stained_glass"
+        | "minecraft:brown_stained_glass"
+        | "minecraft:green_stained_glass"
+        | "minecraft:red_stained_glass"
+        | "minecraft:black_stained_glass"
+        | "minecraft:oak_trapdoor"
+        | "minecraft:spruce_trapdoor"
+        | "minecraft:birch_trapdoor"
+        | "minecraft:jungle_trapdoor"
+        | "minecraft:acacia_trapdoor"
+        | "minecraft:cherry_trapdoor"
+        | "minecraft:dark_oak_trapdoor"
+        | "minecraft:pale_oak_trapdoor"
+        | "minecraft:mangrove_trapdoor"
+        | "minecraft:poplar_trapdoor"
+        | "minecraft:bamboo_trapdoor"
+        | "minecraft:barrier"
+        | "minecraft:iron_trapdoor"
+        | "minecraft:chorus_flower"
+        | "minecraft:scaffolding"
+        | "minecraft:crimson_trapdoor"
+        | "minecraft:warped_trapdoor"
+        | "minecraft:tinted_glass"
+        | "minecraft:copper_trapdoor"
+        | "minecraft:exposed_copper_trapdoor"
+        | "minecraft:weathered_copper_trapdoor"
+        | "minecraft:oxidized_copper_trapdoor"
+        | "minecraft:waxed_copper_trapdoor"
+        | "minecraft:waxed_exposed_copper_trapdoor"
+        | "minecraft:waxed_weathered_copper_trapdoor"
+        | "minecraft:waxed_oxidized_copper_trapdoor"
+        | "minecraft:copper_grate"
+        | "minecraft:exposed_copper_grate"
+        | "minecraft:weathered_copper_grate"
+        | "minecraft:oxidized_copper_grate"
+        | "minecraft:waxed_copper_grate"
+        | "minecraft:waxed_exposed_copper_grate"
+        | "minecraft:waxed_weathered_copper_grate"
+        | "minecraft:waxed_oxidized_copper_grate" => ValidSpawn::Never,
+        "minecraft:oak_leaves"
+        | "minecraft:spruce_leaves"
+        | "minecraft:birch_leaves"
+        | "minecraft:jungle_leaves"
+        | "minecraft:acacia_leaves"
+        | "minecraft:cherry_leaves"
+        | "minecraft:dark_oak_leaves"
+        | "minecraft:pale_oak_leaves"
+        | "minecraft:mangrove_leaves"
+        | "minecraft:red_poplar_leaves"
+        | "minecraft:orange_poplar_leaves"
+        | "minecraft:yellow_poplar_leaves"
+        | "minecraft:azalea_leaves"
+        | "minecraft:flowering_azalea_leaves" => ValidSpawn::OcelotOrParrot,
         "minecraft:ice" | "minecraft:frosted_ice" => ValidSpawn::PolarBear,
-        "minecraft:soul_sand" | "minecraft:carved_pumpkin" | "minecraft:jack_o_lantern" | "minecraft:redstone_lamp" | "minecraft:mud" => ValidSpawn::Always,
+        "minecraft:soul_sand"
+        | "minecraft:carved_pumpkin"
+        | "minecraft:jack_o_lantern"
+        | "minecraft:redstone_lamp"
+        | "minecraft:mud" => ValidSpawn::Always,
         "minecraft:magma_block" => ValidSpawn::FireImmune,
         _ => ValidSpawn::Default,
     }
 }
 
 /// `state.isValidSpawn(level, pos, type)`.
-pub fn is_valid_spawn(state: BlockState, level: &dyn BlockGetter, pos: BlockPos, ty: EntityType) -> bool {
+pub fn is_valid_spawn(
+    state: BlockState,
+    level: &dyn BlockGetter,
+    pos: BlockPos,
+    ty: EntityType,
+) -> bool {
     match kind_of(state.block().data().name) {
         ValidSpawn::Never => false,
         ValidSpawn::Always => true,

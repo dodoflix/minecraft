@@ -1,15 +1,15 @@
 //! `RangedBowAttackGoal` (skeletons and other `Monster & RangedAttackMob` bow users; the mob overrides
 //! `Entity::perform_ranged_attack`).
 
-use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags};
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::entity::living_entity::using_item;
-use mc_game_core::world::entity::mob::{self, combat, navigation, tick};
-use mc_game_core::world::entity::Entity;
-use mc_game_core::world::item::bow_item;
-use mc_game_core::world::item::projectile_weapon_item::get_weapon_holding_hand;
 use mc_core::random::RandomSource;
 use mc_data::Item;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags};
+use mc_game_core::world::entity::living_entity::using_item;
+use mc_game_core::world::entity::mob::{self, combat, navigation, tick};
+use mc_game_core::world::item::bow_item;
+use mc_game_core::world::item::projectile_weapon_item::get_weapon_holding_hand;
 
 pub struct RangedBowAttackGoal {
     speed_modifier: f64,
@@ -50,7 +50,11 @@ impl RangedBowAttackGoal {
 
 impl Goal for RangedBowAttackGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        if tick::get_target_checked(mob, level).is_none() { false } else { Self::is_holding_bow(mob) }
+        if tick::get_target_checked(mob, level).is_none() {
+            false
+        } else {
+            Self::is_holding_bow(mob)
+        }
     }
 
     fn can_continue_to_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
@@ -73,10 +77,20 @@ impl Goal for RangedBowAttackGoal {
     }
 
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
-        let Some(target_id) = tick::get_target_checked(mob, level) else { return };
-        let Some(target) = level.get_entity(target_id) else { return };
-        let target_dist_sqr = mob.base().distance_to_sqr_xyz(target.base().x(), target.base().y(), target.base().z());
-        let has_line_of_sight = mob.mob().expect("mob").sensing.has_line_of_sight(level, mob, target);
+        let Some(target_id) = tick::get_target_checked(mob, level) else {
+            return;
+        };
+        let Some(target) = level.get_entity(target_id) else {
+            return;
+        };
+        let target_dist_sqr =
+            mob.base()
+                .distance_to_sqr_xyz(target.base().x(), target.base().y(), target.base().z());
+        let has_line_of_sight = mob
+            .mob()
+            .expect("mob")
+            .sensing
+            .has_line_of_sight(level, mob, target);
         let target_pos = target.block_position();
         let had_line_of_sight = self.see_time > 0;
         if has_line_of_sight != had_line_of_sight {
@@ -109,8 +123,13 @@ impl Goal for RangedBowAttackGoal {
             } else if target_dist_sqr < f64::from(self.attack_radius_sqr * 0.25) {
                 self.strafing_backwards = true;
             }
-            mob.mob_mut().expect("mob").move_control_mut().strafe(if self.strafing_backwards { -0.5 } else { 0.5 }, if self.strafing_clockwise { 0.5 } else { -0.5 });
-            if let Some(vehicle) = navigation::controlled_vehicle(mob, level).filter(|v| level.get_entity(*v).is_some_and(|e| e.mob().is_some())) {
+            mob.mob_mut().expect("mob").move_control_mut().strafe(
+                if self.strafing_backwards { -0.5 } else { 0.5 },
+                if self.strafing_clockwise { 0.5 } else { -0.5 },
+            );
+            if let Some(vehicle) = navigation::controlled_vehicle(mob, level)
+                .filter(|v| level.get_entity(*v).is_some_and(|e| e.mob().is_some()))
+            {
                 level.with_entity(vehicle, |level, v| {
                     if let Some(target) = level.get_entity(target_id) {
                         combat::look_at(v, target, 30.0, 30.0);
@@ -130,7 +149,11 @@ impl Goal for RangedBowAttackGoal {
                 let pull_time = using_item::get_ticks_using_item(mob);
                 if pull_time >= 20 {
                     using_item::stop_using_item(mob, level);
-                    mob.perform_ranged_attack(level, target_id, bow_item::get_power_for_time(pull_time));
+                    mob.perform_ranged_attack(
+                        level,
+                        target_id,
+                        bow_item::get_power_for_time(pull_time),
+                    );
                     self.attack_time = self.attack_interval_min;
                 }
             }

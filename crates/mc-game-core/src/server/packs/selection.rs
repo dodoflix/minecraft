@@ -19,11 +19,24 @@ pub fn configure_pack_repository(
     safe_mode: bool,
 ) -> WorldDataConfiguration {
     let data_pack_config = initial_data_config.data_packs();
-    let forced_features = if init_mode { FeatureFlagSet::EMPTY } else { initial_data_config.enabled_features };
-    let allowed_features = if init_mode { FeatureFlagSet::ALL } else { initial_data_config.enabled_features };
+    let forced_features = if init_mode {
+        FeatureFlagSet::EMPTY
+    } else {
+        initial_data_config.enabled_features
+    };
+    let allowed_features = if init_mode {
+        FeatureFlagSet::ALL
+    } else {
+        initial_data_config.enabled_features
+    };
     pack_repository.reload();
     if safe_mode {
-        return configure_repository_with_selection(pack_repository, vec!["vanilla".to_owned()], forced_features, false);
+        return configure_repository_with_selection(
+            pack_repository,
+            vec!["vanilla".to_owned()],
+            forced_features,
+            false,
+        );
     }
     // `LinkedHashSet`
     let mut selected: Vec<String> = Vec::new();
@@ -52,7 +65,10 @@ pub fn configure_pack_repository(
                 log::info!("Found new data pack {pack_id}, loading it automatically");
                 add(&mut selected, pack_id);
             } else {
-                log::info!("Found new data pack {pack_id}, but can't load it due to missing features {}", print_missing_flags(allowed_features, pack_features));
+                log::info!(
+                    "Found new data pack {pack_id}, but can't load it due to missing features {}",
+                    print_missing_flags(allowed_features, pack_features)
+                );
             }
         }
         if is_selected && !pack_features.is_subset_of(allowed_features) {
@@ -79,11 +95,19 @@ fn configure_repository_with_selection(
     pack_repository.set_selected(&selected);
     enable_forced_feature_packs(pack_repository, forced_features);
     let pack_config = get_selected_packs(pack_repository, disable_inactive);
-    let pack_requested_features = pack_repository.requested_feature_flags().join(forced_features);
-    WorldDataConfiguration { data_packs: Some(pack_config), enabled_features: pack_requested_features }
+    let pack_requested_features = pack_repository
+        .requested_feature_flags()
+        .join(forced_features);
+    WorldDataConfiguration {
+        data_packs: Some(pack_config),
+        enabled_features: pack_requested_features,
+    }
 }
 
-fn enable_forced_feature_packs(pack_repository: &mut PackRepository, forced_features: FeatureFlagSet) {
+fn enable_forced_feature_packs(
+    pack_repository: &mut PackRepository,
+    forced_features: FeatureFlagSet,
+) {
     let provided_features = pack_repository.requested_feature_flags();
     let mut missing_features = forced_features.subtract(provided_features);
     if missing_features.is_empty() {
@@ -97,10 +121,20 @@ fn enable_forced_feature_packs(pack_repository: &mut PackRepository, forced_feat
         }
         if pack.pack_source() == PackSource::Feature {
             let pack_features = pack.requested_features();
-            if !pack_features.is_empty() && pack_features.intersects(missing_features) && pack_features.is_subset_of(forced_features) {
-                assert!(!selected.iter().any(|s| s == pack.id()), "Tried to force '{}', but it was already enabled", pack.id());
+            if !pack_features.is_empty()
+                && pack_features.intersects(missing_features)
+                && pack_features.is_subset_of(forced_features)
+            {
+                assert!(
+                    !selected.iter().any(|s| s == pack.id()),
+                    "Tried to force '{}', but it was already enabled",
+                    pack.id()
+                );
                 selected.push(pack.id().to_owned());
-                log::info!("Found feature pack ('{}') for requested feature, forcing to enabled", pack.id());
+                log::info!(
+                    "Found feature pack ('{}') for requested feature, forcing to enabled",
+                    pack.id()
+                );
                 missing_features = missing_features.subtract(pack_features);
             }
         }
@@ -109,9 +143,23 @@ fn enable_forced_feature_packs(pack_repository: &mut PackRepository, forced_feat
 }
 
 /// `getSelectedPacks(packRepository, disableInactive)`: the `DataPacks` value for the current selection.
-pub fn get_selected_packs(pack_repository: &PackRepository, disable_inactive: bool) -> DataPackConfig {
+pub fn get_selected_packs(
+    pack_repository: &PackRepository,
+    disable_inactive: bool,
+) -> DataPackConfig {
     let enabled = pack_repository.selected_ids();
     let selected: HashSet<&str> = enabled.iter().map(String::as_str).collect();
-    let disabled = if disable_inactive { pack_repository.available_ids().filter(|id| !selected.contains(id)).map(str::to_owned).collect() } else { Vec::new() };
-    DataPackConfig { enabled: enabled.clone(), disabled }
+    let disabled = if disable_inactive {
+        pack_repository
+            .available_ids()
+            .filter(|id| !selected.contains(id))
+            .map(str::to_owned)
+            .collect()
+    } else {
+        Vec::new()
+    };
+    DataPackConfig {
+        enabled: enabled.clone(),
+        disabled,
+    }
 }

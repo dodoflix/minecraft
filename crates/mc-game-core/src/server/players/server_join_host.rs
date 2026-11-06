@@ -7,21 +7,22 @@ use super::name_and_id::NameAndId;
 use super::player_handle::PlayerHandle;
 use super::player_list::PlayerList;
 use crate::registry::keys;
-use crate::server::world_dimensions::LevelStem;
-use mc_worldgen::world_preset::Holder;
 use crate::server::MinecraftServer;
 use crate::server::level::ServerLevel;
 use crate::server::permissions::LevelBasedPermissionSet;
+use crate::server::world_dimensions::LevelStem;
 use crate::world::entity::{EntityId, ServerPlayer};
-use crate::world::level::{DimensionKey, LevelReader};
 use crate::world::level::gamerules::GameRules;
 use crate::world::level::saveddata::world_border::WorldBorder;
+use crate::world::level::{DimensionKey, LevelReader};
 use mc_core::ident::Identifier;
+use mc_protocol::codec::GlobalPos;
 use mc_protocol::packets::play::{
     ClientboundInitializeBorderPacket, ClientboundServerDataPacket, ClientboundSetTimePacket,
-    ClientboundTickingStatePacket, ClientboundTickingStepPacket, ClientboundUpdateRecipesPacket, Difficulty, RespawnData as WireRespawnData,
+    ClientboundTickingStatePacket, ClientboundTickingStepPacket, ClientboundUpdateRecipesPacket,
+    Difficulty, RespawnData as WireRespawnData,
 };
-use mc_protocol::codec::GlobalPos;
+use mc_worldgen::world_preset::Holder;
 use uuid::Uuid;
 
 /// `Commands.sendCommands(player)`: installed by the command system (`commands`) when it is created, since the command
@@ -43,7 +44,9 @@ impl ServerLevel {
     /// `getWorldBorder()`: the level's border saved data, its initial settings applied on first use.
     pub fn get_world_border(&mut self) -> &mut WorldBorder {
         let game_time = self.level_data.get_game_time();
-        let border = self.get_data_storage().compute_if_absent(&WorldBorder::type_());
+        let border = self
+            .get_data_storage()
+            .compute_if_absent(&WorldBorder::type_());
         border.apply_initial_settings(game_time);
         border
     }
@@ -53,11 +56,24 @@ impl MinecraftServer {
     /// `level.dimensionTypeRegistration()`'s protocol id (`0` for an inline dimension type, which has no registry id).
     pub fn dimension_type_id(&self, dimension: &DimensionKey) -> i32 {
         let access = self.registries.composite_access();
-        let Some(stems) = access.registry(keys::LEVEL_STEM) else { return 0 };
-        let Some(id) = stems.id_of(dimension) else { return 0 };
-        let Some(stem) = stems.entry(id).and_then(|e| e.value.clone()).and_then(|v| v.downcast::<LevelStem>().ok()) else { return 0 };
+        let Some(stems) = access.registry(keys::LEVEL_STEM) else {
+            return 0;
+        };
+        let Some(id) = stems.id_of(dimension) else {
+            return 0;
+        };
+        let Some(stem) = stems
+            .entry(id)
+            .and_then(|e| e.value.clone())
+            .and_then(|v| v.downcast::<LevelStem>().ok())
+        else {
+            return 0;
+        };
         match &stem.dimension_type {
-            Holder::Reference(type_id, _) => access.registry(keys::DIMENSION_TYPE).and_then(|r| r.id_of(type_id)).map_or(0, |i| i as i32),
+            Holder::Reference(type_id, _) => access
+                .registry(keys::DIMENSION_TYPE)
+                .and_then(|r| r.id_of(type_id))
+                .map_or(0, |i| i as i32),
             Holder::Direct(_) => 0,
         }
     }
@@ -85,13 +101,23 @@ pub fn level_join_info(server: &mut MinecraftServer, level: &mut ServerLevel) ->
     let (hardcore, difficulty, difficulty_locked, is_flat) = {
         let data = server.world_data.lock();
         let settings = &data.settings.difficulty_settings;
-        (settings.hardcore, settings.difficulty, settings.locked, data.is_flat_world())
+        (
+            settings.hardcore,
+            settings.difficulty,
+            settings.locked,
+            data.is_flat_world(),
+        )
     };
     let rules = server.game_rules_ref();
-    let (immediate_respawn, reduced_debug_info, limited_crafting) =
-        (rules.get(GameRules::IMMEDIATE_RESPAWN), rules.get(GameRules::REDUCED_DEBUG_INFO), rules.get(GameRules::LIMITED_CRAFTING));
+    let (immediate_respawn, reduced_debug_info, limited_crafting) = (
+        rules.get(GameRules::IMMEDIATE_RESPAWN),
+        rules.get(GameRules::REDUCED_DEBUG_INFO),
+        rules.get(GameRules::LIMITED_CRAFTING),
+    );
     let border = initialize_border_packet(level.get_world_border());
-    let raining = level.is_raining().then(|| (level.get_rain_level(1.0), level.get_thunder_level(1.0)));
+    let raining = level
+        .is_raining()
+        .then(|| (level.get_rain_level(1.0), level.get_thunder_level(1.0)));
     LevelJoinInfo {
         hardcore,
         difficulty: Difficulty::by_id(difficulty.get_id()),
@@ -106,7 +132,10 @@ pub fn level_join_info(server: &mut MinecraftServer, level: &mut ServerLevel) ->
         sea_level: level.get_sea_level(),
         border,
         respawn_data: WireRespawnData {
-            global_pos: GlobalPos { dimension: respawn.dimension, pos: respawn.pos },
+            global_pos: GlobalPos {
+                dimension: respawn.dimension,
+                pos: respawn.pos,
+            },
             yaw: respawn.yaw,
             pitch: respawn.pitch,
         },
@@ -140,9 +169,19 @@ impl JoinHost for ServerJoinHost<'_> {
         self.level.recipe_access()
     }
 
-    fn player_advancements(&mut self, player: &PlayerHandle) -> crate::advancements::SharedAdvancements {
-        let manager = self.server.resources.managers.listener::<crate::advancements::ServerAdvancementManager>().expect("advancement manager is registered");
-        self.server.player_list.get_player_advancements(player, manager)
+    fn player_advancements(
+        &mut self,
+        player: &PlayerHandle,
+    ) -> crate::advancements::SharedAdvancements {
+        let manager = self
+            .server
+            .resources
+            .managers
+            .listener::<crate::advancements::ServerAdvancementManager>()
+            .expect("advancement manager is registered");
+        self.server
+            .player_list
+            .get_player_advancements(player, manager)
     }
 
     fn send_commands(&mut self, player: &PlayerHandle, permissions: LevelBasedPermissionSet) {
@@ -161,7 +200,10 @@ impl JoinHost for ServerJoinHost<'_> {
 
     fn server_data_packet(&self) -> Option<ClientboundServerDataPacket> {
         let status = self.server.shared.status()?;
-        Some(ClientboundServerDataPacket { motd: status.description.clone(), icon_bytes: status.favicon.clone() })
+        Some(ClientboundServerDataPacket {
+            motd: status.description.clone(),
+            icon_bytes: status.favicon.clone(),
+        })
     }
 
     fn name_cache_get(&self, id: &Uuid) -> Option<String> {
@@ -181,8 +223,13 @@ impl JoinHost for ServerJoinHost<'_> {
     fn ticking_packets(&self) -> (ClientboundTickingStatePacket, ClientboundTickingStepPacket) {
         let (state, step) = self.server.tick_rate_manager.update_joining_player();
         (
-            ClientboundTickingStatePacket { tick_rate: state.tick_rate, is_frozen: state.is_frozen },
-            ClientboundTickingStepPacket { tick_steps: step.tick_steps },
+            ClientboundTickingStatePacket {
+                tick_rate: state.tick_rate,
+                is_frozen: state.is_frozen,
+            },
+            ClientboundTickingStepPacket {
+                tick_steps: step.tick_steps,
+            },
         )
     }
 
@@ -194,7 +241,11 @@ impl JoinHost for ServerJoinHost<'_> {
         self.level.add_player(Box::new(player));
     }
 
-    fn with_player(&mut self, id: EntityId, f: &mut dyn FnMut(&mut ServerLevel, &mut ServerPlayer)) {
+    fn with_player(
+        &mut self,
+        id: EntityId,
+        f: &mut dyn FnMut(&mut ServerLevel, &mut ServerPlayer),
+    ) {
         self.level.with_player(id, |level, player| f(level, player));
     }
 }

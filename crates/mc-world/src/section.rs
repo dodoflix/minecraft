@@ -23,7 +23,12 @@ fn state_counts(state: BlockState) -> [i16; 4] {
     }
     let fluid = state.get_fluid_state();
     let has_fluid = !fluid.is_empty();
-    [1, i16::from(has_fluid), i16::from(state.is_randomly_ticking()), i16::from(has_fluid && fluid.data().random_ticking)]
+    [
+        1,
+        i16::from(has_fluid),
+        i16::from(state.is_randomly_ticking()),
+        i16::from(has_fluid && fluid.data().random_ticking),
+    ]
 }
 
 impl LevelChunkSection {
@@ -57,13 +62,27 @@ impl LevelChunkSection {
         self.states.get(section_x, section_y, section_z)
     }
 
-    pub fn get_fluid_state(&self, section_x: i32, section_y: i32, section_z: i32) -> mc_data::fluid::FluidState {
-        self.get_block_state(section_x, section_y, section_z).get_fluid_state()
+    pub fn get_fluid_state(
+        &self,
+        section_x: i32,
+        section_y: i32,
+        section_z: i32,
+    ) -> mc_data::fluid::FluidState {
+        self.get_block_state(section_x, section_y, section_z)
+            .get_fluid_state()
     }
 
     /// `setBlockState`: returns the previous state and updates the counters.
-    pub fn set_block_state(&mut self, section_x: i32, section_y: i32, section_z: i32, state: BlockState) -> BlockState {
-        let previous = self.states.get_and_set(section_x, section_y, section_z, state);
+    pub fn set_block_state(
+        &mut self,
+        section_x: i32,
+        section_y: i32,
+        section_z: i32,
+        state: BlockState,
+    ) -> BlockState {
+        let previous = self
+            .states
+            .get_and_set(section_x, section_y, section_z, state);
         let [ne, f, tb, tf] = state_counts(previous);
         self.non_empty_block_count -= ne;
         self.fluid_count -= f;
@@ -184,7 +203,12 @@ impl LevelChunkSection {
         for x in 0..4 {
             for y in 0..4 {
                 for z in 0..4 {
-                    new_biomes.get_and_set(x, y, z, resolver(quart_min_x + x, quart_min_y + y, quart_min_z + z));
+                    new_biomes.get_and_set(
+                        x,
+                        y,
+                        z,
+                        resolver(quart_min_x + x, quart_min_y + y, quart_min_z + z),
+                    );
                 }
             }
         }
@@ -205,7 +229,12 @@ impl LevelChunkSection {
             for y in 0..4 {
                 for z in 0..4 {
                     let current = self.biomes.get(x, y, z);
-                    new_biomes.get_and_set(x, y, z, resolver(quart_min_x + x, quart_min_y + y, quart_min_z + z, current));
+                    new_biomes.get_and_set(
+                        x,
+                        y,
+                        z,
+                        resolver(quart_min_x + x, quart_min_y + y, quart_min_z + z, current),
+                    );
                 }
             }
         }

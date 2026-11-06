@@ -68,28 +68,190 @@ const fn wood(name: &'static str) -> BlockSetType {
     }
 }
 
-pub static IRON: BlockSetType = set_type!("iron", false, false, false, Everything, [BLOCK_IRON_DOOR_CLOSE, BLOCK_IRON_DOOR_OPEN, BLOCK_IRON_TRAPDOOR_CLOSE, BLOCK_IRON_TRAPDOOR_OPEN, BLOCK_METAL_PRESSURE_PLATE_CLICK_OFF, BLOCK_METAL_PRESSURE_PLATE_CLICK_ON, BLOCK_STONE_BUTTON_CLICK_OFF, BLOCK_STONE_BUTTON_CLICK_ON]);
-pub static COPPER: BlockSetType = set_type!("copper", true, true, false, Everything, [BLOCK_COPPER_DOOR_CLOSE, BLOCK_COPPER_DOOR_OPEN, BLOCK_COPPER_TRAPDOOR_CLOSE, BLOCK_COPPER_TRAPDOOR_OPEN, BLOCK_METAL_PRESSURE_PLATE_CLICK_OFF, BLOCK_METAL_PRESSURE_PLATE_CLICK_ON, BLOCK_STONE_BUTTON_CLICK_OFF, BLOCK_STONE_BUTTON_CLICK_ON]);
-pub static GOLD: BlockSetType = set_type!("gold", false, true, false, Everything, [BLOCK_IRON_DOOR_CLOSE, BLOCK_IRON_DOOR_OPEN, BLOCK_IRON_TRAPDOOR_CLOSE, BLOCK_IRON_TRAPDOOR_OPEN, BLOCK_METAL_PRESSURE_PLATE_CLICK_OFF, BLOCK_METAL_PRESSURE_PLATE_CLICK_ON, BLOCK_STONE_BUTTON_CLICK_OFF, BLOCK_STONE_BUTTON_CLICK_ON]);
-pub static STONE: BlockSetType = set_type!("stone", true, true, false, Mobs, [BLOCK_IRON_DOOR_CLOSE, BLOCK_IRON_DOOR_OPEN, BLOCK_IRON_TRAPDOOR_CLOSE, BLOCK_IRON_TRAPDOOR_OPEN, BLOCK_STONE_PRESSURE_PLATE_CLICK_OFF, BLOCK_STONE_PRESSURE_PLATE_CLICK_ON, BLOCK_STONE_BUTTON_CLICK_OFF, BLOCK_STONE_BUTTON_CLICK_ON]);
-pub static POLISHED_BLACKSTONE: BlockSetType = set_type!("polished_blackstone", true, true, false, Mobs, [BLOCK_IRON_DOOR_CLOSE, BLOCK_IRON_DOOR_OPEN, BLOCK_IRON_TRAPDOOR_CLOSE, BLOCK_IRON_TRAPDOOR_OPEN, BLOCK_STONE_PRESSURE_PLATE_CLICK_OFF, BLOCK_STONE_PRESSURE_PLATE_CLICK_ON, BLOCK_STONE_BUTTON_CLICK_OFF, BLOCK_STONE_BUTTON_CLICK_ON]);
+pub static IRON: BlockSetType = set_type!(
+    "iron",
+    false,
+    false,
+    false,
+    Everything,
+    [
+        BLOCK_IRON_DOOR_CLOSE,
+        BLOCK_IRON_DOOR_OPEN,
+        BLOCK_IRON_TRAPDOOR_CLOSE,
+        BLOCK_IRON_TRAPDOOR_OPEN,
+        BLOCK_METAL_PRESSURE_PLATE_CLICK_OFF,
+        BLOCK_METAL_PRESSURE_PLATE_CLICK_ON,
+        BLOCK_STONE_BUTTON_CLICK_OFF,
+        BLOCK_STONE_BUTTON_CLICK_ON
+    ]
+);
+pub static COPPER: BlockSetType = set_type!(
+    "copper",
+    true,
+    true,
+    false,
+    Everything,
+    [
+        BLOCK_COPPER_DOOR_CLOSE,
+        BLOCK_COPPER_DOOR_OPEN,
+        BLOCK_COPPER_TRAPDOOR_CLOSE,
+        BLOCK_COPPER_TRAPDOOR_OPEN,
+        BLOCK_METAL_PRESSURE_PLATE_CLICK_OFF,
+        BLOCK_METAL_PRESSURE_PLATE_CLICK_ON,
+        BLOCK_STONE_BUTTON_CLICK_OFF,
+        BLOCK_STONE_BUTTON_CLICK_ON
+    ]
+);
+pub static GOLD: BlockSetType = set_type!(
+    "gold",
+    false,
+    true,
+    false,
+    Everything,
+    [
+        BLOCK_IRON_DOOR_CLOSE,
+        BLOCK_IRON_DOOR_OPEN,
+        BLOCK_IRON_TRAPDOOR_CLOSE,
+        BLOCK_IRON_TRAPDOOR_OPEN,
+        BLOCK_METAL_PRESSURE_PLATE_CLICK_OFF,
+        BLOCK_METAL_PRESSURE_PLATE_CLICK_ON,
+        BLOCK_STONE_BUTTON_CLICK_OFF,
+        BLOCK_STONE_BUTTON_CLICK_ON
+    ]
+);
+pub static STONE: BlockSetType = set_type!(
+    "stone",
+    true,
+    true,
+    false,
+    Mobs,
+    [
+        BLOCK_IRON_DOOR_CLOSE,
+        BLOCK_IRON_DOOR_OPEN,
+        BLOCK_IRON_TRAPDOOR_CLOSE,
+        BLOCK_IRON_TRAPDOOR_OPEN,
+        BLOCK_STONE_PRESSURE_PLATE_CLICK_OFF,
+        BLOCK_STONE_PRESSURE_PLATE_CLICK_ON,
+        BLOCK_STONE_BUTTON_CLICK_OFF,
+        BLOCK_STONE_BUTTON_CLICK_ON
+    ]
+);
+pub static POLISHED_BLACKSTONE: BlockSetType = set_type!(
+    "polished_blackstone",
+    true,
+    true,
+    false,
+    Mobs,
+    [
+        BLOCK_IRON_DOOR_CLOSE,
+        BLOCK_IRON_DOOR_OPEN,
+        BLOCK_IRON_TRAPDOOR_CLOSE,
+        BLOCK_IRON_TRAPDOOR_OPEN,
+        BLOCK_STONE_PRESSURE_PLATE_CLICK_OFF,
+        BLOCK_STONE_PRESSURE_PLATE_CLICK_ON,
+        BLOCK_STONE_BUTTON_CLICK_OFF,
+        BLOCK_STONE_BUTTON_CLICK_ON
+    ]
+);
 pub static OAK: BlockSetType = wood("oak");
 pub static SPRUCE: BlockSetType = wood("spruce");
 pub static BIRCH: BlockSetType = wood("birch");
 pub static ACACIA: BlockSetType = wood("acacia");
-pub static CHERRY: BlockSetType = set_type!("cherry", true, true, true, Everything, [BLOCK_CHERRY_WOOD_DOOR_CLOSE, BLOCK_CHERRY_WOOD_DOOR_OPEN, BLOCK_CHERRY_WOOD_TRAPDOOR_CLOSE, BLOCK_CHERRY_WOOD_TRAPDOOR_OPEN, BLOCK_CHERRY_WOOD_PRESSURE_PLATE_CLICK_OFF, BLOCK_CHERRY_WOOD_PRESSURE_PLATE_CLICK_ON, BLOCK_CHERRY_WOOD_BUTTON_CLICK_OFF, BLOCK_CHERRY_WOOD_BUTTON_CLICK_ON]);
+pub static CHERRY: BlockSetType = set_type!(
+    "cherry",
+    true,
+    true,
+    true,
+    Everything,
+    [
+        BLOCK_CHERRY_WOOD_DOOR_CLOSE,
+        BLOCK_CHERRY_WOOD_DOOR_OPEN,
+        BLOCK_CHERRY_WOOD_TRAPDOOR_CLOSE,
+        BLOCK_CHERRY_WOOD_TRAPDOOR_OPEN,
+        BLOCK_CHERRY_WOOD_PRESSURE_PLATE_CLICK_OFF,
+        BLOCK_CHERRY_WOOD_PRESSURE_PLATE_CLICK_ON,
+        BLOCK_CHERRY_WOOD_BUTTON_CLICK_OFF,
+        BLOCK_CHERRY_WOOD_BUTTON_CLICK_ON
+    ]
+);
 pub static JUNGLE: BlockSetType = wood("jungle");
 pub static DARK_OAK: BlockSetType = wood("dark_oak");
 pub static PALE_OAK: BlockSetType = wood("pale_oak");
 pub static POPLAR: BlockSetType = wood("poplar");
-pub static CRIMSON: BlockSetType = set_type!("crimson", true, true, true, Everything, [BLOCK_NETHER_WOOD_DOOR_CLOSE, BLOCK_NETHER_WOOD_DOOR_OPEN, BLOCK_NETHER_WOOD_TRAPDOOR_CLOSE, BLOCK_NETHER_WOOD_TRAPDOOR_OPEN, BLOCK_NETHER_WOOD_PRESSURE_PLATE_CLICK_OFF, BLOCK_NETHER_WOOD_PRESSURE_PLATE_CLICK_ON, BLOCK_NETHER_WOOD_BUTTON_CLICK_OFF, BLOCK_NETHER_WOOD_BUTTON_CLICK_ON]);
-pub static WARPED: BlockSetType = set_type!("warped", true, true, true, Everything, [BLOCK_NETHER_WOOD_DOOR_CLOSE, BLOCK_NETHER_WOOD_DOOR_OPEN, BLOCK_NETHER_WOOD_TRAPDOOR_CLOSE, BLOCK_NETHER_WOOD_TRAPDOOR_OPEN, BLOCK_NETHER_WOOD_PRESSURE_PLATE_CLICK_OFF, BLOCK_NETHER_WOOD_PRESSURE_PLATE_CLICK_ON, BLOCK_NETHER_WOOD_BUTTON_CLICK_OFF, BLOCK_NETHER_WOOD_BUTTON_CLICK_ON]);
+pub static CRIMSON: BlockSetType = set_type!(
+    "crimson",
+    true,
+    true,
+    true,
+    Everything,
+    [
+        BLOCK_NETHER_WOOD_DOOR_CLOSE,
+        BLOCK_NETHER_WOOD_DOOR_OPEN,
+        BLOCK_NETHER_WOOD_TRAPDOOR_CLOSE,
+        BLOCK_NETHER_WOOD_TRAPDOOR_OPEN,
+        BLOCK_NETHER_WOOD_PRESSURE_PLATE_CLICK_OFF,
+        BLOCK_NETHER_WOOD_PRESSURE_PLATE_CLICK_ON,
+        BLOCK_NETHER_WOOD_BUTTON_CLICK_OFF,
+        BLOCK_NETHER_WOOD_BUTTON_CLICK_ON
+    ]
+);
+pub static WARPED: BlockSetType = set_type!(
+    "warped",
+    true,
+    true,
+    true,
+    Everything,
+    [
+        BLOCK_NETHER_WOOD_DOOR_CLOSE,
+        BLOCK_NETHER_WOOD_DOOR_OPEN,
+        BLOCK_NETHER_WOOD_TRAPDOOR_CLOSE,
+        BLOCK_NETHER_WOOD_TRAPDOOR_OPEN,
+        BLOCK_NETHER_WOOD_PRESSURE_PLATE_CLICK_OFF,
+        BLOCK_NETHER_WOOD_PRESSURE_PLATE_CLICK_ON,
+        BLOCK_NETHER_WOOD_BUTTON_CLICK_OFF,
+        BLOCK_NETHER_WOOD_BUTTON_CLICK_ON
+    ]
+);
 pub static MANGROVE: BlockSetType = wood("mangrove");
-pub static BAMBOO: BlockSetType = set_type!("bamboo", true, true, true, Everything, [BLOCK_BAMBOO_WOOD_DOOR_CLOSE, BLOCK_BAMBOO_WOOD_DOOR_OPEN, BLOCK_BAMBOO_WOOD_TRAPDOOR_CLOSE, BLOCK_BAMBOO_WOOD_TRAPDOOR_OPEN, BLOCK_BAMBOO_WOOD_PRESSURE_PLATE_CLICK_OFF, BLOCK_BAMBOO_WOOD_PRESSURE_PLATE_CLICK_ON, BLOCK_BAMBOO_WOOD_BUTTON_CLICK_OFF, BLOCK_BAMBOO_WOOD_BUTTON_CLICK_ON]);
+pub static BAMBOO: BlockSetType = set_type!(
+    "bamboo",
+    true,
+    true,
+    true,
+    Everything,
+    [
+        BLOCK_BAMBOO_WOOD_DOOR_CLOSE,
+        BLOCK_BAMBOO_WOOD_DOOR_OPEN,
+        BLOCK_BAMBOO_WOOD_TRAPDOOR_CLOSE,
+        BLOCK_BAMBOO_WOOD_TRAPDOOR_OPEN,
+        BLOCK_BAMBOO_WOOD_PRESSURE_PLATE_CLICK_OFF,
+        BLOCK_BAMBOO_WOOD_PRESSURE_PLATE_CLICK_ON,
+        BLOCK_BAMBOO_WOOD_BUTTON_CLICK_OFF,
+        BLOCK_BAMBOO_WOOD_BUTTON_CLICK_ON
+    ]
+);
 
 /// Every registered `BlockSetType` (`BlockSetType.values()`, registration order).
-pub static ALL: [&BlockSetType; 18] =
-    [&IRON, &COPPER, &GOLD, &STONE, &POLISHED_BLACKSTONE, &OAK, &SPRUCE, &BIRCH, &ACACIA, &CHERRY, &JUNGLE, &DARK_OAK, &PALE_OAK, &POPLAR, &CRIMSON, &WARPED, &MANGROVE, &BAMBOO];
+pub static ALL: [&BlockSetType; 18] = [
+    &IRON,
+    &COPPER,
+    &GOLD,
+    &STONE,
+    &POLISHED_BLACKSTONE,
+    &OAK,
+    &SPRUCE,
+    &BIRCH,
+    &ACACIA,
+    &CHERRY,
+    &JUNGLE,
+    &DARK_OAK,
+    &PALE_OAK,
+    &POPLAR,
+    &CRIMSON,
+    &WARPED,
+    &MANGROVE,
+    &BAMBOO,
+];
 
 impl BlockSetType {
     fn by_name(name: &str) -> Option<&'static BlockSetType> {
@@ -103,7 +265,9 @@ impl BlockSetType {
         let full = block.data().name;
         let name = full.strip_prefix("minecraft:").unwrap_or(full);
         match name {
-            "stone_button" | "polished_blackstone_button" | "stone_pressure_plate" => return Some(&STONE),
+            "stone_button" | "polished_blackstone_button" | "stone_pressure_plate" => {
+                return Some(&STONE);
+            }
             "polished_blackstone_pressure_plate" => return Some(&POLISHED_BLACKSTONE),
             "light_weighted_pressure_plate" => return Some(&GOLD),
             "heavy_weighted_pressure_plate" | "iron_door" | "iron_trapdoor" => return Some(&IRON),
@@ -112,7 +276,15 @@ impl BlockSetType {
         if name.contains("copper") && (name.ends_with("door") || name.ends_with("trapdoor")) {
             return Some(&COPPER);
         }
-        let stem = ["_trapdoor", "_door", "_pressure_plate", "_button", "_fence_gate"].iter().find_map(|s| name.strip_suffix(s))?;
+        let stem = [
+            "_trapdoor",
+            "_door",
+            "_pressure_plate",
+            "_button",
+            "_fence_gate",
+        ]
+        .iter()
+        .find_map(|s| name.strip_suffix(s))?;
         Self::by_name(stem)
     }
 }
@@ -129,15 +301,31 @@ impl WoodType {
     /// The `WoodType` passed to the `FenceGateBlock` constructor of `block` (`oak_fence_gate` -> `WoodType.OAK`).
     pub fn for_fence_gate(block: Block) -> Option<WoodType> {
         let full = block.data().name;
-        let stem = full.strip_prefix("minecraft:").unwrap_or(full).strip_suffix("_fence_gate")?;
+        let stem = full
+            .strip_prefix("minecraft:")
+            .unwrap_or(full)
+            .strip_suffix("_fence_gate")?;
         let set_type = BlockSetType::by_name(stem)?;
         let (fence_gate_close, fence_gate_open) = match stem {
-            "cherry" => (S::BLOCK_CHERRY_WOOD_FENCE_GATE_CLOSE, S::BLOCK_CHERRY_WOOD_FENCE_GATE_OPEN),
-            "crimson" | "warped" => (S::BLOCK_NETHER_WOOD_FENCE_GATE_CLOSE, S::BLOCK_NETHER_WOOD_FENCE_GATE_OPEN),
-            "bamboo" => (S::BLOCK_BAMBOO_WOOD_FENCE_GATE_CLOSE, S::BLOCK_BAMBOO_WOOD_FENCE_GATE_OPEN),
+            "cherry" => (
+                S::BLOCK_CHERRY_WOOD_FENCE_GATE_CLOSE,
+                S::BLOCK_CHERRY_WOOD_FENCE_GATE_OPEN,
+            ),
+            "crimson" | "warped" => (
+                S::BLOCK_NETHER_WOOD_FENCE_GATE_CLOSE,
+                S::BLOCK_NETHER_WOOD_FENCE_GATE_OPEN,
+            ),
+            "bamboo" => (
+                S::BLOCK_BAMBOO_WOOD_FENCE_GATE_CLOSE,
+                S::BLOCK_BAMBOO_WOOD_FENCE_GATE_OPEN,
+            ),
             _ => (S::BLOCK_FENCE_GATE_CLOSE, S::BLOCK_FENCE_GATE_OPEN),
         };
-        Some(WoodType { set_type, fence_gate_close, fence_gate_open })
+        Some(WoodType {
+            set_type,
+            fence_gate_close,
+            fence_gate_open,
+        })
     }
 }
 
@@ -151,20 +339,42 @@ mod tests {
     fn every_set_type_block_maps() {
         for block in Block::iter() {
             let classes = block.data().classes;
-            let needs = ["DoorBlock", "TrapDoorBlock", "ButtonBlock", "PressurePlateBlock", "WeightedPressurePlateBlock"].iter().any(|c| classes.contains(c));
+            let needs = [
+                "DoorBlock",
+                "TrapDoorBlock",
+                "ButtonBlock",
+                "PressurePlateBlock",
+                "WeightedPressurePlateBlock",
+            ]
+            .iter()
+            .any(|c| classes.contains(c));
             if needs {
-                assert!(BlockSetType::for_block(block).is_some(), "{} has no BlockSetType", block.data().name);
+                assert!(
+                    BlockSetType::for_block(block).is_some(),
+                    "{} has no BlockSetType",
+                    block.data().name
+                );
             }
             if classes.contains(&"FenceGateBlock") {
-                assert!(WoodType::for_fence_gate(block).is_some(), "{} has no WoodType", block.data().name);
+                assert!(
+                    WoodType::for_fence_gate(block).is_some(),
+                    "{} has no WoodType",
+                    block.data().name
+                );
             }
         }
         let by = |n: &str| BlockSetType::for_block(Block::by_name(n).unwrap()).unwrap();
         assert_eq!(by("minecraft:iron_door").name, "iron");
-        assert_eq!(by("minecraft:waxed_weathered_copper_trapdoor").name, "copper");
+        assert_eq!(
+            by("minecraft:waxed_weathered_copper_trapdoor").name,
+            "copper"
+        );
         assert_eq!(by("minecraft:polished_blackstone_button").name, "stone");
         assert_eq!(by("minecraft:light_weighted_pressure_plate").name, "gold");
-        assert_eq!(by("minecraft:cherry_button").button_click_on, SoundEvent::BLOCK_CHERRY_WOOD_BUTTON_CLICK_ON);
+        assert_eq!(
+            by("minecraft:cherry_button").button_click_on,
+            SoundEvent::BLOCK_CHERRY_WOOD_BUTTON_CLICK_ON
+        );
         assert!(!by("minecraft:iron_door").can_open_by_hand);
     }
 }

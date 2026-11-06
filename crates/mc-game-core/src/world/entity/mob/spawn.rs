@@ -1,22 +1,23 @@
 //! `Mob.finalizeSpawn`, `AgeableMob.finalizeSpawn` + `AgeableMobGroupData`, `Mob.checkDespawn`, spawn checks.
 
-use mc_core::random::RandomSource;
 use super::MobData;
 use crate::server::level::ServerLevel;
 use crate::world::difficulty_instance::DifficultyInstance;
+use crate::world::entity::Entity;
 use crate::world::entity::attributes::{AttributeModifier, AttributeModifierOperation};
 use crate::world::entity::living_entity::util::{l, lm};
 use crate::world::entity::spawn_group_data::SpawnGroupData;
-use crate::world::entity::Entity;
 use crate::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_core::ident::Identifier;
+use mc_core::random::RandomSource;
 use mc_data::Attribute;
 use mc_data::enums::EntitySpawnReason;
 use mc_world::level_storage::Difficulty;
 use std::sync::LazyLock;
 
 /// `RANDOM_SPAWN_BONUS_ID`.
-static RANDOM_SPAWN_BONUS_ID: LazyLock<Identifier> = LazyLock::new(|| Identifier::new("minecraft", "random_spawn_bonus").expect("valid id"));
+static RANDOM_SPAWN_BONUS_ID: LazyLock<Identifier> =
+    LazyLock::new(|| Identifier::new("minecraft", "random_spawn_bonus").expect("valid id"));
 
 /// `AgeableMob.AgeableMobGroupData`.
 pub struct AgeableMobGroupData {
@@ -27,7 +28,11 @@ pub struct AgeableMobGroupData {
 
 impl AgeableMobGroupData {
     pub fn new(should_spawn_baby: bool, baby_spawn_chance: f32) -> Self {
-        Self { group_size: 0, should_spawn_baby, baby_spawn_chance }
+        Self {
+            group_size: 0,
+            should_spawn_baby,
+            baby_spawn_chance,
+        }
     }
 
     /// `AgeableMobGroupData(shouldSpawnBaby)` (chance 0.05).
@@ -78,7 +83,11 @@ pub fn finalize_spawn(
     reason: EntitySpawnReason,
     group_data: Option<Box<dyn SpawnGroupData>>,
 ) -> Option<Box<dyn SpawnGroupData>> {
-    let group_data = if e.mob().is_some_and(|m| m.ageable.is_some()) { super::ageable::finalize_spawn(e, level, difficulty, reason, group_data) } else { group_data };
+    let group_data = if e.mob().is_some_and(|m| m.ageable.is_some()) {
+        super::ageable::finalize_spawn(e, level, difficulty, reason, group_data)
+    } else {
+        group_data
+    };
     mob_finalize_spawn(e, level, difficulty, reason, group_data)
 }
 
@@ -91,7 +100,10 @@ pub fn mob_finalize_spawn(
     group_data: Option<Box<dyn SpawnGroupData>>,
 ) -> Option<Box<dyn SpawnGroupData>> {
     let random = level.random();
-    let follow_range = lm(e).attributes.get_instance(Attribute::FOLLOW_RANGE).expect("follow_range attribute");
+    let follow_range = lm(e)
+        .attributes
+        .get_instance(Attribute::FOLLOW_RANGE)
+        .expect("follow_range attribute");
     if !follow_range.has_modifier(&RANDOM_SPAWN_BONUS_ID) {
         follow_range.add_permanent_modifier(AttributeModifier {
             id: RANDOM_SPAWN_BONUS_ID.clone(),
@@ -114,16 +126,26 @@ pub fn check_despawn(e: &mut dyn Entity, level: &mut ServerLevel) {
     let pos = e.position();
     let player = level.get_nearest_player(pos.x, pos.y, pos.z, -1.0, |p| !p.is_spectator());
     if let Some(player) = player {
-        let dist_sqr = level.get_entity(player).map_or(0.0, |p| p.base().distance_to_sqr_vec(pos));
+        let dist_sqr = level
+            .get_entity(player)
+            .map_or(0.0, |p| p.base().distance_to_sqr_vec(pos));
         let category = e.get_type().data().category.data();
         let despawn_distance = category.despawn_distance;
         let despawn_distance_sqr = despawn_distance * despawn_distance;
-        if !is_persistent && dist_sqr > f64::from(despawn_distance_sqr) && e.remove_when_far_away(dist_sqr) {
+        if !is_persistent
+            && dist_sqr > f64::from(despawn_distance_sqr)
+            && e.remove_when_far_away(dist_sqr)
+        {
             e.discard();
         }
         let no_despawn_distance = category.no_despawn_distance;
         let no_despawn_distance_sqr = no_despawn_distance * no_despawn_distance;
-        if !is_persistent && l(e).no_action_time > 600 && e.base_mut().random.next_int_bounded(800) == 0 && dist_sqr > f64::from(no_despawn_distance_sqr) && e.remove_when_far_away(dist_sqr) {
+        if !is_persistent
+            && l(e).no_action_time > 600
+            && e.base_mut().random.next_int_bounded(800) == 0
+            && dist_sqr > f64::from(no_despawn_distance_sqr)
+            && e.remove_when_far_away(dist_sqr)
+        {
             e.discard();
         } else if dist_sqr < f64::from(no_despawn_distance_sqr) {
             lm(e).no_action_time = 0;

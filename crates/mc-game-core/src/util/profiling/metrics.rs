@@ -43,7 +43,11 @@ pub struct MetricSampler {
 
 impl MetricSampler {
     /// `MetricSampler.create(name, category, sampler)`.
-    pub fn create(name: impl Into<String>, category: MetricCategory, sampler: impl FnMut() -> f64 + Send + 'static) -> Self {
+    pub fn create(
+        name: impl Into<String>,
+        category: MetricCategory,
+        sampler: impl FnMut() -> f64 + Send + 'static,
+    ) -> Self {
         Self {
             name: name.into(),
             phase: SamplingPhase::EndTick,
@@ -76,7 +80,10 @@ impl MetricSampler {
 
     /// `valueAtTick(tick)` (`Int2DoubleMap.get`: 0.0 when absent).
     fn value_at_tick(&self, tick: i32) -> f64 {
-        self.ticks.iter().position(|t| *t == tick).map_or(0.0, |i| self.values[i])
+        self.ticks
+            .iter()
+            .position(|t| *t == tick)
+            .map_or(0.0, |i| self.values[i])
     }
 }
 
@@ -86,13 +93,21 @@ fn tick_time_sampler() -> MetricSampler {
     let sampler_started = started.clone();
     let mut sampler = MetricSampler::create("ticktime", MetricCategory::TickLoop, move || {
         let start = sampler_started.swap(-1, Ordering::SeqCst);
-        if start < 0 { 0.0 } else { (get_nanos() - start) as f64 }
+        if start < 0 {
+            0.0
+        } else {
+            (get_nanos() - start) as f64
+        }
     });
-    sampler.before_tick = Some(Box::new(move || started.store(get_nanos(), Ordering::SeqCst)));
+    sampler.before_tick = Some(Box::new(move || {
+        started.store(get_nanos(), Ordering::SeqCst)
+    }));
     // `ValueIncreasedByPercentage(2.0F)`
     let mut previous = f64::from_bits(1); // Double.MIN_VALUE
     sampler.threshold = Some(Box::new(move |value| {
-        let result = previous != f64::from_bits(1) && !(value <= previous) && (value - previous) / previous >= f64::from(2.0_f32);
+        let result = previous != f64::from_bits(1)
+            && !(value <= previous)
+            && (value - previous) / previous >= f64::from(2.0_f32);
         previous = value;
         result
     }));
@@ -108,11 +123,17 @@ struct CpuStats {
 
 /// (busy + idle total, idle) ticks per logical processor.
 fn read_cpu_ticks() -> Vec<(u64, u64)> {
-    let Ok(stat) = std::fs::read_to_string("/proc/stat") else { return Vec::new() };
+    let Ok(stat) = std::fs::read_to_string("/proc/stat") else {
+        return Vec::new();
+    };
     stat.lines()
         .filter(|l| l.starts_with("cpu") && l.as_bytes().get(3).is_some_and(u8::is_ascii_digit))
         .map(|l| {
-            let fields: Vec<u64> = l.split_whitespace().skip(1).filter_map(|v| v.parse().ok()).collect();
+            let fields: Vec<u64> = l
+                .split_whitespace()
+                .skip(1)
+                .filter_map(|v| v.parse().ok())
+                .collect();
             let total: u64 = fields.iter().take(8).sum();
             let idle = fields.get(3).copied().unwrap_or(0) + fields.get(4).copied().unwrap_or(0);
             (total, idle)
@@ -124,7 +145,11 @@ impl CpuStats {
     fn new() -> Self {
         let previous = read_cpu_ticks();
         let current_load = vec![0.0; previous.len()];
-        Self { previous, current_load, last_poll_ms: 0 }
+        Self {
+            previous,
+            current_load,
+            last_poll_ms: 0,
+        }
     }
 
     fn load_for_cpu(&mut self, i: usize) -> f64 {
@@ -136,7 +161,11 @@ impl CpuStats {
                 .zip(&self.previous)
                 .map(|((total, idle), (previous_total, previous_idle))| {
                     let total_delta = total.saturating_sub(*previous_total);
-                    if total_delta == 0 { 0.0 } else { 1.0 - idle.saturating_sub(*previous_idle) as f64 / total_delta as f64 }
+                    if total_delta == 0 {
+                        0.0
+                    } else {
+                        1.0 - idle.saturating_sub(*previous_idle) as f64 / total_delta as f64
+                    }
                 })
                 .collect();
             self.previous = ticks;
@@ -148,7 +177,10 @@ impl CpuStats {
 
 /// `SystemReport.sizeInMiB(Runtime used memory)`: here the resident set of the process.
 fn resident_mib() -> f64 {
-    let pages: u64 = std::fs::read_to_string("/proc/self/statm").ok().and_then(|s| s.split_whitespace().nth(1)?.parse().ok()).unwrap_or(0);
+    let pages: u64 = std::fs::read_to_string("/proc/self/statm")
+        .ok()
+        .and_then(|s| s.split_whitespace().nth(1)?.parse().ok())
+        .unwrap_or(0);
     f64::from(((pages * 4096) as i64) as f32 / 1048576.0_f32)
 }
 
@@ -160,9 +192,17 @@ fn server_samplers(dedicated: bool) -> Vec<MetricSampler> {
         let stats = Arc::new(Mutex::new(CpuStats::new()));
         for i in 0..cpus {
             let stats = stats.clone();
-            samplers.push(MetricSampler::create(format!("cpu#{i}"), MetricCategory::Cpu, move || stats.lock().load_for_cpu(i)));
+            samplers.push(MetricSampler::create(
+                format!("cpu#{i}"),
+                MetricCategory::Cpu,
+                move || stats.lock().load_for_cpu(i),
+            ));
         }
-        samplers.push(MetricSampler::create("heap MiB", MetricCategory::Jvm, resident_mib));
+        samplers.push(MetricSampler::create(
+            "heap MiB",
+            MetricCategory::Jvm,
+            resident_mib,
+        ));
     }
     samplers
 }
@@ -197,7 +237,11 @@ impl ActiveMetricsRecorder {
     pub fn create_started(dedicated: bool) -> Self {
         let current_tick = Arc::new(AtomicI32::new(0));
         let tick = current_tick.clone();
-        let task_profiler = Arc::new(Mutex::new(ActiveProfiler::new(Arc::new(get_nanos), Arc::new(move || tick.load(Ordering::SeqCst)), false)));
+        let task_profiler = Arc::new(Mutex::new(ActiveProfiler::new(
+            Arc::new(get_nanos),
+            Arc::new(move || tick.load(Ordering::SeqCst)),
+            false,
+        )));
         let mut recorder = Self {
             samplers: server_samplers(dedicated),
             deviations: Vec::new(),
@@ -213,7 +257,11 @@ impl ActiveMetricsRecorder {
 
     fn new_single_tick_profiler(&self) -> ProfilerHandle {
         let tick = self.current_tick.clone();
-        Arc::new(Mutex::new(ActiveProfiler::new(Arc::new(get_nanos), Arc::new(move || tick.load(Ordering::SeqCst)), true)))
+        Arc::new(Mutex::new(ActiveProfiler::new(
+            Arc::new(get_nanos),
+            Arc::new(move || tick.load(Ordering::SeqCst)),
+            true,
+        )))
     }
 
     /// `getProfiler()`: the profilers `Profiler.use` installs for the tick.
@@ -244,8 +292,18 @@ impl ActiveMetricsRecorder {
             if sampler.phase == phase {
                 sampler.on_end_tick(tick);
                 if sampler.triggers_threshold() {
-                    let results = self.single_tick_profiler.as_ref().map_or(ProfileResults::Empty, |p| p.lock().get_results());
-                    self.deviations.push((sampler.name.clone(), RecordedDeviation { timestamp: chrono::Local::now(), tick, profiler_result_at_tick: results }));
+                    let results = self
+                        .single_tick_profiler
+                        .as_ref()
+                        .map_or(ProfileResults::Empty, |p| p.lock().get_results());
+                    self.deviations.push((
+                        sampler.name.clone(),
+                        RecordedDeviation {
+                            timestamp: chrono::Local::now(),
+                            tick,
+                            profiler_result_at_tick: results,
+                        },
+                    ));
                 }
             }
         }
@@ -261,7 +319,11 @@ impl ActiveMetricsRecorder {
         self.kill_switch = false;
         let results = self.task_profiler.lock().get_results();
         self.single_tick_profiler = None;
-        let job = SaveJob { samplers: std::mem::take(&mut self.samplers), deviations: std::mem::take(&mut self.deviations), results: results.clone() };
+        let job = SaveJob {
+            samplers: std::mem::take(&mut self.samplers),
+            deviations: std::mem::take(&mut self.deviations),
+            results: results.clone(),
+        };
         Some((results, job))
     }
 }
@@ -276,7 +338,8 @@ impl SaveJob {
         if !self.deviations.is_empty() {
             save_deviations(&self.deviations, &working_dir.join("deviations"))?;
         }
-        self.results.save_results(&working_dir.join("profiling.txt"));
+        self.results
+            .save_results(&working_dir.join("profiling.txt"));
         Ok(temp_dir)
     }
 }
@@ -296,12 +359,19 @@ fn create_temp_dir(prefix: &str) -> io::Result<PathBuf> {
 
 /// `StringEscapeUtils.escapeCsv`.
 fn escape_csv(value: &str) -> String {
-    if value.contains([',', '"', '\r', '\n']) { format!("\"{}\"", value.replace('"', "\"\"")) } else { value.to_owned() }
+    if value.contains([',', '"', '\r', '\n']) {
+        format!("\"{}\"", value.replace('"', "\"\""))
+    } else {
+        value.to_owned()
+    }
 }
 
 fn save_metrics(samplers: &[MetricSampler], dir: &Path) -> io::Result<()> {
     if samplers.is_empty() {
-        return Err(io::Error::new(io::ErrorKind::InvalidInput, "Expected at least one sampler to persist"));
+        return Err(io::Error::new(
+            io::ErrorKind::InvalidInput,
+            "Expected at least one sampler to persist",
+        ));
     }
     let mut categories: Vec<MetricCategory> = Vec::new();
     for sampler in samplers {
@@ -310,8 +380,12 @@ fn save_metrics(samplers: &[MetricSampler], dir: &Path) -> io::Result<()> {
         }
     }
     for category in categories {
-        let in_category: Vec<&MetricSampler> = samplers.iter().filter(|s| s.category == category).collect();
-        let file = dir.join(format!("{}.csv", sanitize_to_path_chars(category.get_description())));
+        let in_category: Vec<&MetricSampler> =
+            samplers.iter().filter(|s| s.category == category).collect();
+        let file = dir.join(format!(
+            "{}.csv",
+            sanitize_to_path_chars(category.get_description())
+        ));
         let write = || -> io::Result<()> {
             std::fs::create_dir_all(dir)?;
             let mut csv = String::from("@tick");
@@ -320,13 +394,25 @@ fn save_metrics(samplers: &[MetricSampler], dir: &Path) -> io::Result<()> {
                 csv.push_str(&escape_csv(&sampler.name));
             }
             csv.push_str("\r\n");
-            let first = in_category.iter().filter_map(|s| s.ticks.first()).min().copied().unwrap_or(0);
-            let last = in_category.iter().filter_map(|s| s.ticks.last()).max().copied().unwrap_or(-1);
+            let first = in_category
+                .iter()
+                .filter_map(|s| s.ticks.first())
+                .min()
+                .copied()
+                .unwrap_or(0);
+            let last = in_category
+                .iter()
+                .filter_map(|s| s.ticks.last())
+                .max()
+                .copied()
+                .unwrap_or(-1);
             for tick in first..=last {
                 let _ = write!(csv, "{tick}");
                 for sampler in &in_category {
                     csv.push(',');
-                    csv.push_str(&escape_csv(&java_double_to_string(sampler.value_at_tick(tick))));
+                    csv.push_str(&escape_csv(&java_double_to_string(
+                        sampler.value_at_tick(tick),
+                    )));
                 }
                 csv.push_str("\r\n");
             }
@@ -343,7 +429,9 @@ fn save_metrics(samplers: &[MetricSampler], dir: &Path) -> io::Result<()> {
 fn save_deviations(deviations: &[(String, RecordedDeviation)], directory: &Path) -> io::Result<()> {
     for (sampler_name, deviation) in deviations {
         let timestamp = deviation.timestamp.format("%Y-%m-%d_%H.%M.%S%.3f");
-        let file = directory.join(sanitize_to_path_chars(sampler_name)).join(format!("{}@{timestamp}.txt", deviation.tick));
+        let file = directory
+            .join(sanitize_to_path_chars(sampler_name))
+            .join(format!("{}@{timestamp}.txt", deviation.tick));
         deviation.profiler_result_at_tick.save_results(&file);
     }
     Ok(())
@@ -382,6 +470,9 @@ mod tests {
         let file = dir.path().join("profiling.txt");
         assert!(results.save_results(&file));
         let report = std::fs::read_to_string(file).unwrap();
-        assert!(report.contains("Tick span: 4 ticks") && report.contains("--- BEGIN PROFILE DUMP ---"), "{report}");
+        assert!(
+            report.contains("Tick span: 4 ticks") && report.contains("--- BEGIN PROFILE DUMP ---"),
+            "{report}"
+        );
     }
 }

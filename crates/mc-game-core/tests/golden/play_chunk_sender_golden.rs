@@ -26,13 +26,25 @@ fn set_iteration_and_selection_order_match_vanilla() {
             let kind = p.next().unwrap();
             let x: i32 = p.next().unwrap().parse().unwrap();
             let z: i32 = p.next().unwrap().parse().unwrap();
-            if kind == "a" { set.add(ChunkPos::pack_xz(x, z)); } else { set.remove(ChunkPos::pack_xz(x, z)); }
+            if kind == "a" {
+                set.add(ChunkPos::pack_xz(x, z));
+            } else {
+                set.remove(ChunkPos::pack_xz(x, z));
+            }
         }
         let (cx, cz) = f[1].split_once(',').unwrap();
         let player = ChunkPos::new(cx.parse().unwrap(), cz.parse().unwrap());
         let k: usize = f[2].parse().unwrap();
-        assert_eq!(set.len(), f[3].parse::<usize>().unwrap(), "size, case {line}");
-        assert_eq!(set.iter().collect::<Vec<_>>(), parse_list(f[4]), "iteration order, case {line}");
+        assert_eq!(
+            set.len(),
+            f[3].parse::<usize>().unwrap(),
+            "size, case {line}"
+        );
+        assert_eq!(
+            set.iter().collect::<Vec<_>>(),
+            parse_list(f[4]),
+            "iteration order, case {line}"
+        );
         let dist = |p: i64| player.distance_squared_long(p);
         let got = least(k, set.iter(), |a, b| dist(*a).cmp(&dist(*b)));
         assert_eq!(got, parse_list(f[5]), "least({k}), case {line}");

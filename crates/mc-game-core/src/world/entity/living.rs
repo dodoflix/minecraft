@@ -1,16 +1,16 @@
 //! `LivingEntity` data and its save/load (`addAdditionalSaveData` / `readAdditionalSaveData`).
 
 use super::attributes::AttributeMap;
-use super::equipment::EntityEquipment;
 use super::effect::MobEffectInstance;
 use super::entity::{DATA_POSE, EntityData, FLAG_FALL_FLYING};
+use super::equipment::EntityEquipment;
 use super::synched_data::SynchedEntityDataBuilder;
 use crate::define_accessor;
 use indexmap::IndexMap;
 use mc_core::math::mth;
-use mc_core::random::RandomSource;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
+use mc_core::random::RandomSource;
 use mc_data::enums::Pose;
 use mc_data::{Attribute, EntityType, MobEffect};
 use mc_nbt::{CompoundTag, ListTag, Tag};
@@ -112,7 +112,12 @@ pub struct LivingEntityData {
 
 impl LivingEntityData {
     /// `LivingEntity(type, level)`. `define_synched_data` adds the subclasses' accessors.
-    pub fn new(entity_type: EntityType, id: super::EntityId, max_air_supply: i32, define_synched_data: impl FnOnce(&mut SynchedEntityDataBuilder)) -> Self {
+    pub fn new(
+        entity_type: EntityType,
+        id: super::EntityId,
+        max_air_supply: i32,
+        define_synched_data: impl FnOnce(&mut SynchedEntityDataBuilder),
+    ) -> Self {
         let mut entity = EntityData::new(entity_type, id, max_air_supply, |b| {
             b.define(DATA_LIVING_ENTITY_FLAGS, 0);
             b.define(DATA_EFFECT_PARTICLES, Vec::<ParticleOptions>::new());
@@ -124,7 +129,8 @@ impl LivingEntityData {
             define_synched_data(b);
         });
         entity.blocks_building = true;
-        entity.interpolation_tracker = super::interpolation::InterpolationTracker::Stepped(Default::default());
+        entity.interpolation_tracker =
+            super::interpolation::InterpolationTracker::Stepped(Default::default());
         let attributes = AttributeMap::new(entity_type);
         let mut data = Self {
             entity,
@@ -212,7 +218,9 @@ impl LivingEntityData {
     /// `setHealth(health)`: clamped to `0..=maxHealth`.
     pub fn set_health(&mut self, health: f32) {
         let max = self.get_max_health();
-        self.entity.entity_data.set(DATA_HEALTH_ID, mth::clamp_f32(health, 0.0, max));
+        self.entity
+            .entity_data
+            .set(DATA_HEALTH_ID, mth::clamp_f32(health, 0.0, max));
     }
 
     /// `isDeadOrDying()`.
@@ -227,7 +235,9 @@ impl LivingEntityData {
     pub fn set_living_entity_flag(&mut self, flag: i32, value: bool) {
         let cur = self.entity.entity_data.get(DATA_LIVING_ENTITY_FLAGS) as i32;
         let new = if value { cur | flag } else { cur & !flag };
-        self.entity.entity_data.set(DATA_LIVING_ENTITY_FLAGS, new as i8);
+        self.entity
+            .entity_data
+            .set(DATA_LIVING_ENTITY_FLAGS, new as i8);
     }
 
     /// `isFallFlying()`.
@@ -262,19 +272,32 @@ fn put_vec3(out: &mut CompoundTag, key: &str, v: Vec3) {
 
 /// `LivingEntity.addAdditionalSaveData` (the `Brain` and `equipment` keys are written by the callers that own
 /// those parts: mobs / the equipment holder; `locator_bar_icon` is unmodelled).
-pub fn add_additional_save_data(living: &LivingEntityData, absorption_amount: f32, equipment: &EntityEquipment, out: &mut CompoundTag) {
+pub fn add_additional_save_data(
+    living: &LivingEntityData,
+    absorption_amount: f32,
+    equipment: &EntityEquipment,
+    out: &mut CompoundTag,
+) {
     out.put_float("Health", living.get_health());
     out.put_short("HurtTime", living.hurt_time as i16);
     out.put_short("DeathTime", living.death_time as i16);
     out.put_float("AbsorptionAmount", absorption_amount);
-    out.put_int("current_impulse_context_reset_grace_time", living.current_impulse_context_reset_grace_time);
+    out.put_int(
+        "current_impulse_context_reset_grace_time",
+        living.current_impulse_context_reset_grace_time,
+    );
     if let Some(pos) = living.current_impulse_impact_pos {
         put_vec3(out, "current_explosion_impact_pos", pos);
     }
     out.put("attributes", living.attributes.pack());
     out.put("Brain", Tag::Compound(living.brain.pack().to_nbt()));
     if living.locator_bar_icon.has_data() {
-        if let Ok(tag) = mc_dfu::encode_nbt(&crate::world::waypoints::Icon::codec(), &living.locator_bar_icon).into_result() {
+        if let Ok(tag) = mc_dfu::encode_nbt(
+            &crate::world::waypoints::Icon::codec(),
+            &living.locator_bar_icon,
+        )
+        .into_result()
+        {
             out.put("locator_bar_icon", tag);
         }
     }
@@ -290,12 +313,27 @@ pub fn add_additional_save_data(living: &LivingEntityData, absorption_amount: f3
         out.put_int_array("sleeping_pos", vec![pos.x(), pos.y(), pos.z()]);
     }
     if let Some(uuid) = living.last_hurt_by_player {
-        out.put_int_array("last_hurt_by_player", mc_core::uuid_util::uuid_to_int_array(&uuid).to_vec());
-        out.put_int("last_hurt_by_player_memory_time", living.last_hurt_by_player_memory_time);
+        out.put_int_array(
+            "last_hurt_by_player",
+            mc_core::uuid_util::uuid_to_int_array(&uuid).to_vec(),
+        );
+        out.put_int(
+            "last_hurt_by_player_memory_time",
+            living.last_hurt_by_player_memory_time,
+        );
     }
     if let Some(uuid) = living.last_hurt_by_mob {
-        out.put_int_array("last_hurt_by_mob", mc_core::uuid_util::uuid_to_int_array(&uuid).to_vec());
-        out.put_int("ticks_since_last_hurt_by_mob", living.entity.tick_count.wrapping_sub(living.last_hurt_by_mob_timestamp));
+        out.put_int_array(
+            "last_hurt_by_mob",
+            mc_core::uuid_util::uuid_to_int_array(&uuid).to_vec(),
+        );
+        out.put_int(
+            "ticks_since_last_hurt_by_mob",
+            living
+                .entity
+                .tick_count
+                .wrapping_sub(living.last_hurt_by_mob_timestamp),
+        );
     }
     if !equipment.is_empty() {
         out.put("equipment", Tag::Compound(equipment.save()));
@@ -317,14 +355,21 @@ pub fn read_block_pos(tag: Option<&Tag>) -> Option<BlockPos> {
 /// `LivingEntity.readAdditionalSaveData` (state part; `setPosToBed` / `stopSleeping` follow-ups need the level
 /// and run when the entity first ticks, see `LivingEntity.baseTick` on `firstTick`).
 /// Returns the absorption amount (set by the caller: players keep it in synched data) and the decoded `equipment`.
-pub fn read_additional_save_data(living: &mut LivingEntityData, input: &CompoundTag) -> (f32, EntityEquipment) {
+pub fn read_additional_save_data(
+    living: &mut LivingEntityData,
+    input: &CompoundTag,
+) -> (f32, EntityEquipment) {
     let absorption = input.get_float_or("AbsorptionAmount", 0.0);
     if let Some(list) = input.get_list("attributes") {
         living.attributes.apply(list);
     }
     living.locator_bar_icon = input
         .get("locator_bar_icon")
-        .and_then(|tag| mc_dfu::parse_nbt(&crate::world::waypoints::Icon::codec(), tag).into_result().ok())
+        .and_then(|tag| {
+            mc_dfu::parse_nbt(&crate::world::waypoints::Icon::codec(), tag)
+                .into_result()
+                .ok()
+        })
         .unwrap_or_default();
     living.active_effects.clear();
     if let Some(list) = input.get_list("active_effects") {
@@ -340,7 +385,9 @@ pub fn read_additional_save_data(living: &mut LivingEntityData, input: &Compound
     living.set_health(health);
     living.hurt_time = i32::from(input.get_short_or("HurtTime", 0));
     living.death_time = i32::from(input.get_short_or("DeathTime", 0));
-    living.entity.set_shared_flag(FLAG_FALL_FLYING, input.get_boolean_or("FallFlying", false));
+    living
+        .entity
+        .set_shared_flag(FLAG_FALL_FLYING, input.get_boolean_or("FallFlying", false));
     match read_block_pos(input.get("sleeping_pos")) {
         Some(pos) => {
             living.set_sleeping_pos(pos);
@@ -352,9 +399,17 @@ pub fn read_additional_save_data(living: &mut LivingEntityData, input: &Compound
     living.last_hurt_by_player = super::entity::read_uuid(input.get("last_hurt_by_player"));
     living.last_hurt_by_player_memory_time = input.get_int_or("last_hurt_by_player_memory_time", 0);
     living.last_hurt_by_mob = super::entity::read_uuid(input.get("last_hurt_by_mob"));
-    living.last_hurt_by_mob_timestamp = living.entity.tick_count.wrapping_sub(input.get_int_or("ticks_since_last_hurt_by_mob", 0));
-    living.current_impulse_context_reset_grace_time = input.get_int_or("current_impulse_context_reset_grace_time", 0);
-    living.current_impulse_impact_pos = super::entity::read_vec3(input.get("current_explosion_impact_pos"));
-    let equipment = input.get_compound("equipment").map(EntityEquipment::load).unwrap_or_default();
+    living.last_hurt_by_mob_timestamp = living
+        .entity
+        .tick_count
+        .wrapping_sub(input.get_int_or("ticks_since_last_hurt_by_mob", 0));
+    living.current_impulse_context_reset_grace_time =
+        input.get_int_or("current_impulse_context_reset_grace_time", 0);
+    living.current_impulse_impact_pos =
+        super::entity::read_vec3(input.get("current_explosion_impact_pos"));
+    let equipment = input
+        .get_compound("equipment")
+        .map(EntityEquipment::load)
+        .unwrap_or_default();
     (absorption, equipment)
 }

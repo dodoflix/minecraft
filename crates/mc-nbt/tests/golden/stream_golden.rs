@@ -3,13 +3,18 @@
 //! a row is rebuilt here in the same order and compared as a whole string.
 
 use mc_nbt::snbt::print_compact;
-use mc_nbt::stream::{self, CollectFields, CollectToTag, EntryResult, FieldSelector, SkipAll, SkipFields, StreamTagVisitor, ValueResult};
-use mc_nbt::{nbt_io, NbtAccounter, NbtError, Tag};
+use mc_nbt::stream::{
+    self, CollectFields, CollectToTag, EntryResult, FieldSelector, SkipAll, SkipFields,
+    StreamTagVisitor, ValueResult,
+};
+use mc_nbt::{NbtAccounter, NbtError, Tag, nbt_io};
 
 const QUOTA: i64 = 104_857_600;
 
 fn unhex(h: &str) -> Vec<u8> {
-    (0..h.len() / 2).map(|i| u8::from_str_radix(&h[2 * i..2 * i + 2], 16).unwrap()).collect()
+    (0..h.len() / 2)
+        .map(|i| u8::from_str_radix(&h[2 * i..2 * i + 2], 16).unwrap())
+        .collect()
 }
 
 /// `StreamOracle.esc` (no lone surrogates occur in the fixture).
@@ -62,12 +67,24 @@ struct Trace {
     h: u64,
 }
 
-const POLICY: [[i64; 3]; 6] = [[0, 0, 0], [0, 0, 7], [0, 2, 0], [1, 0, 0], [1, 2, 7], [2, 3, 5]];
+const POLICY: [[i64; 3]; 6] = [
+    [0, 0, 0],
+    [0, 0, 7],
+    [0, 2, 0],
+    [1, 0, 0],
+    [1, 2, 7],
+    [2, 3, 5],
+];
 const FNV_PRIME: u64 = 0x100000001b3;
 
 impl Trace {
     fn new(mode: usize) -> Self {
-        Self { mode, n: 0, count: 0, h: 0xcbf29ce484222325 }
+        Self {
+            mode,
+            n: 0,
+            count: 0,
+            h: 0xcbf29ce484222325,
+        }
     }
 
     fn log(&mut self, s: &str) {
@@ -155,7 +172,11 @@ impl StreamTagVisitor for Trace {
         self.value()
     }
     fn visit_double(&mut self, v: f64) -> ValueResult {
-        let bits = if v.is_nan() { 0x7ff8_0000_0000_0000 } else { v.to_bits() } as i64;
+        let bits = if v.is_nan() {
+            0x7ff8_0000_0000_0000
+        } else {
+            v.to_bits()
+        } as i64;
         self.log(&format!("D{bits}"));
         self.value()
     }
@@ -195,7 +216,11 @@ impl StreamTagVisitor for Trace {
 }
 
 fn sel(type_id: u8, name: &str, path: &[&str]) -> FieldSelector {
-    FieldSelector { path: path.iter().map(|s| s.to_string()).collect(), type_id, name: name.to_string() }
+    FieldSelector {
+        path: path.iter().map(|s| s.to_string()).collect(),
+        type_id,
+        name: name.to_string(),
+    }
 }
 
 /// `StreamOracle.SETS`.
@@ -207,8 +232,17 @@ fn sets() -> Vec<Vec<FieldSelector>> {
         vec![sel(10, "a", &[])],
         vec![sel(3, "DataVersion", &[])],
         vec![sel(3, "b", &["a"])],
-        vec![sel(3, "DataVersion", &["Data"]), sel(8, "name", &["Data", "version"]), sel(3, "DataVersion", &[])],
-        vec![sel(9, "k1", &[]), sel(10, "k0", &[]), sel(3, "k2", &[]), sel(8, "k3", &[])],
+        vec![
+            sel(3, "DataVersion", &["Data"]),
+            sel(8, "name", &["Data", "version"]),
+            sel(3, "DataVersion", &[]),
+        ],
+        vec![
+            sel(9, "k1", &[]),
+            sel(10, "k0", &[]),
+            sel(3, "k2", &[]),
+            sel(8, "k3", &[]),
+        ],
         vec![sel(10, "k29", &["k28"]), sel(3, "k2", &["k0", "k1"])],
         vec![
             sel(1, "a", &[]),
@@ -243,16 +277,32 @@ fn cells(b: &[u8]) -> Vec<(String, String)> {
     let r = run_with(b, &mut c, &mut a);
     push("collect".into(), format!("{r}|{}", tag_str(c.get_result())));
     let usage = a.usage();
-    push("collect quota/2".into(), run(b, &mut CollectToTag::new(), acc(usage / 2, 512)));
-    push("collect depth 3".into(), run(b, &mut CollectToTag::new(), acc(QUOTA, 3)));
+    push(
+        "collect quota/2".into(),
+        run(b, &mut CollectToTag::new(), acc(usage / 2, 512)),
+    );
+    push(
+        "collect depth 3".into(),
+        run(b, &mut CollectToTag::new(), acc(QUOTA, 3)),
+    );
     push("skip all".into(), run(b, &mut SkipAll, acc(QUOTA, 512)));
     for (i, set) in sets.iter().enumerate() {
         let mut cf = CollectFields::new(set);
         let rc = run(b, &mut cf, acc(QUOTA, 512));
-        push(format!("collect_fields[{i}]"), format!("{rc}|{}|{}", cf.get_missing_field_count(), tag_str(cf.get_result())));
+        push(
+            format!("collect_fields[{i}]"),
+            format!(
+                "{rc}|{}|{}",
+                cf.get_missing_field_count(),
+                tag_str(cf.get_result())
+            ),
+        );
         let mut sf = SkipFields::new(set);
         let rs = run(b, &mut sf, acc(QUOTA, 512));
-        push(format!("skip_fields[{i}]"), format!("{rs}|{}", tag_str(sf.get_result())));
+        push(
+            format!("skip_fields[{i}]"),
+            format!("{rs}|{}", tag_str(sf.get_result())),
+        );
     }
     for mode in 0..POLICY.len() {
         let mut t = Trace::new(mode);
@@ -276,7 +326,14 @@ fn cells(b: &[u8]) -> Vec<(String, String)> {
     for (i, set) in sets.iter().enumerate() {
         let mut cf = CollectFields::new(set);
         tag.accept_as_root(&mut cf);
-        push(format!("accept collect_fields[{i}]"), format!("{}|{}", cf.get_missing_field_count(), tag_str(cf.get_result())));
+        push(
+            format!("accept collect_fields[{i}]"),
+            format!(
+                "{}|{}",
+                cf.get_missing_field_count(),
+                tag_str(cf.get_result())
+            ),
+        );
         let mut sf = SkipFields::new(set);
         tag.accept_as_root(&mut sf);
         push(format!("accept skip_fields[{i}]"), tag_str(sf.get_result()));
@@ -300,7 +357,11 @@ fn run_with(b: &[u8], v: &mut dyn StreamTagVisitor, a: &mut NbtAccounter) -> Str
 
 #[test]
 fn stream_matches_vanilla() {
-    let data = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures/stream_golden.tsv")).unwrap();
+    let data = std::fs::read_to_string(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/tests/fixtures/stream_golden.tsv"
+    ))
+    .unwrap();
     let mut problems = Vec::new();
     let mut rows = 0;
     for line in data.lines() {
@@ -310,7 +371,12 @@ fn stream_matches_vanilla() {
         let got = cells(&bytes);
         rows += 1;
         if got.len() != f.len() - 2 {
-            problems.push(format!("{}: {} cells, want {}", f[1], got.len(), f.len() - 2));
+            problems.push(format!(
+                "{}: {} cells, want {}",
+                f[1],
+                got.len(),
+                f.len() - 2
+            ));
             continue;
         }
         for ((label, cell), want) in got.iter().zip(&f[2..]) {
@@ -320,17 +386,33 @@ fn stream_matches_vanilla() {
         }
     }
     assert!(rows > 400, "fixture too small: {rows} rows");
-    assert!(problems.is_empty(), "{} mismatches in {rows} rows, first:\n{}", problems.len(), problems.iter().take(8).cloned().collect::<Vec<_>>().join("\n"));
+    assert!(
+        problems.is_empty(),
+        "{} mismatches in {rows} rows, first:\n{}",
+        problems.len(),
+        problems
+            .iter()
+            .take(8)
+            .cloned()
+            .collect::<Vec<_>>()
+            .join("\n")
+    );
 }
 
 /// Parsing with `CollectToTag` yields the tag `read_unnamed_tag` loads, and `accept` re-collects it.
 #[test]
 fn collect_roundtrips_loaded_tags() {
-    let data = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures/stream_golden.tsv")).unwrap();
+    let data = std::fs::read_to_string(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/tests/fixtures/stream_golden.tsv"
+    ))
+    .unwrap();
     let mut checked = 0;
     for line in data.lines() {
         let bytes = unhex(line.split('\t').nth(1).unwrap());
-        let Ok(loaded) = nbt_io::read_unnamed_tag(&mut &*bytes, &mut acc(QUOTA, 512)) else { continue };
+        let Ok(loaded) = nbt_io::read_unnamed_tag(&mut &*bytes, &mut acc(QUOTA, 512)) else {
+            continue;
+        };
         let mut c = CollectToTag::new();
         stream::parse(&mut &*bytes, &mut c, &mut acc(QUOTA, 512)).unwrap();
         assert_eq!(c.get_result(), Some(&loaded), "parse {line}");

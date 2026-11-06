@@ -45,8 +45,12 @@ pub fn simple_translatable(key: &'static str) -> mc_brigadier::SimpleCommandExce
 }
 
 /// `new DynamicCommandExceptionType(a -> Component.translatableEscape(key, a))` for string-like arguments.
-pub fn dynamic_translatable(key: &'static str) -> mc_brigadier::DynamicCommandExceptionType<String> {
-    mc_brigadier::DynamicCommandExceptionType::new(move |a: String| message(Component::translatable(key, vec![a.into()])))
+pub fn dynamic_translatable(
+    key: &'static str,
+) -> mc_brigadier::DynamicCommandExceptionType<String> {
+    mc_brigadier::DynamicCommandExceptionType::new(move |a: String| {
+        message(Component::translatable(key, vec![a.into()]))
+    })
 }
 
 /// `LiteralMessage`.

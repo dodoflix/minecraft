@@ -16,7 +16,12 @@ pub struct NbtAccounter {
 
 impl NbtAccounter {
     pub fn new(quota: i64, max_depth: i32) -> Self {
-        Self { quota, usage: 0, max_depth, depth: 0 }
+        Self {
+            quota,
+            usage: 0,
+            max_depth,
+            depth: 0,
+        }
     }
 
     pub fn create(quota: i64) -> Self {
@@ -42,7 +47,9 @@ impl NbtAccounter {
 
     pub fn account_bytes(&mut self, size: i64) -> Result<()> {
         if size < 0 {
-            return Err(NbtError::IllegalArgument(format!("Tried to account NBT tag with negative size: {size}")));
+            return Err(NbtError::IllegalArgument(format!(
+                "Tried to account NBT tag with negative size: {size}"
+            )));
         }
         // Java long arithmetic wraps.
         if self.usage.wrapping_add(size) > self.quota {
@@ -68,7 +75,9 @@ impl NbtAccounter {
 
     pub fn pop_depth(&mut self) -> Result<()> {
         if self.depth <= 0 {
-            return Err(NbtError::Accounter("NBT-Accounter tried to pop stack-depth at top-level".to_string()));
+            return Err(NbtError::Accounter(
+                "NBT-Accounter tried to pop stack-depth at top-level".to_string(),
+            ));
         }
         self.depth -= 1;
         Ok(())

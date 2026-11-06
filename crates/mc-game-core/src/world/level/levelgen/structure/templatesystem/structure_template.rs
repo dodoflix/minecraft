@@ -71,7 +71,9 @@ impl JointType {
     }
 
     pub fn by_name(name: &str) -> Option<JointType> {
-        [JointType::Rollable, JointType::Aligned].into_iter().find(|t| t.get_serialized_name() == name)
+        [JointType::Rollable, JointType::Aligned]
+            .into_iter()
+            .find(|t| t.get_serialized_name() == name)
     }
 }
 
@@ -103,7 +105,10 @@ fn read_identifier(nbt: &CompoundTag, key: &str) -> Option<Identifier> {
 impl JigsawBlockInfo {
     /// `JigsawBlockInfo.parse(info)`; panics when the info has no NBT (`Objects.requireNonNull`).
     pub fn parse(info: &StructureBlockInfo) -> JigsawBlockInfo {
-        let nbt = info.nbt.as_ref().unwrap_or_else(|| panic!("{info:?} nbt was null"));
+        let nbt = info
+            .nbt
+            .as_ref()
+            .unwrap_or_else(|| panic!("{info:?} nbt was null"));
         JigsawBlockInfo {
             pos: info.pos,
             state: info.state,
@@ -118,24 +123,38 @@ impl JigsawBlockInfo {
 
     /// `withInfo(pos, state)`.
     pub fn with_info(&self, pos: BlockPos, state: BlockState) -> JigsawBlockInfo {
-        JigsawBlockInfo { pos, state, ..self.clone() }
+        JigsawBlockInfo {
+            pos,
+            state,
+            ..self.clone()
+        }
     }
 }
 
 /// `JigsawBlock.getFrontFacing(state)`: the front of the `orientation` property.
 pub fn jigsaw_front_facing(state: BlockState) -> Direction {
-    let name = state.get_property_str("orientation").expect("jigsaw orientation");
-    mc_core::direction::FrontAndTop::by_name(name).expect("valid jigsaw orientation").front()
+    let name = state
+        .get_property_str("orientation")
+        .expect("jigsaw orientation");
+    mc_core::direction::FrontAndTop::by_name(name)
+        .expect("valid jigsaw orientation")
+        .front()
 }
 
 /// `StructureTemplate.getJointType(nbt, state)`.
 pub fn get_joint_type(nbt: &CompoundTag, state: BlockState) -> JointType {
-    nbt.get_string("joint").and_then(JointType::by_name).unwrap_or_else(|| get_default_joint_type(state))
+    nbt.get_string("joint")
+        .and_then(JointType::by_name)
+        .unwrap_or_else(|| get_default_joint_type(state))
 }
 
 /// `StructureTemplate.getDefaultJointType(state)`.
 pub fn get_default_joint_type(state: BlockState) -> JointType {
-    if jigsaw_front_facing(state).get_axis().is_horizontal() { JointType::Aligned } else { JointType::Rollable }
+    if jigsaw_front_facing(state).get_axis().is_horizontal() {
+        JointType::Aligned
+    } else {
+        JointType::Rollable
+    }
 }
 
 /// `StructureTemplate.Palette`.
@@ -154,12 +173,21 @@ impl Clone for Palette {
 
 impl Palette {
     fn new(blocks: Vec<StructureBlockInfo>) -> Palette {
-        Palette { blocks, cache: Mutex::new(HashMap::new()), cached_jigsaws: OnceLock::new() }
+        Palette {
+            blocks,
+            cache: Mutex::new(HashMap::new()),
+            cached_jigsaws: OnceLock::new(),
+        }
     }
 
     /// `jigsaws()`.
     pub fn jigsaws(&self) -> &[JigsawBlockInfo] {
-        self.cached_jigsaws.get_or_init(|| self.blocks_of(jigsaw_block()).iter().map(JigsawBlockInfo::parse).collect())
+        self.cached_jigsaws.get_or_init(|| {
+            self.blocks_of(jigsaw_block())
+                .iter()
+                .map(JigsawBlockInfo::parse)
+                .collect()
+        })
     }
 
     /// `blocks()`.
@@ -170,7 +198,16 @@ impl Palette {
     /// `blocks(filter)`.
     pub fn blocks_of(&self, filter: Block) -> Arc<[StructureBlockInfo]> {
         let mut cache = self.cache.lock().unwrap_or_else(|e| e.into_inner());
-        cache.entry(filter).or_insert_with(|| self.blocks.iter().filter(|b| b.state.block() == filter).cloned().collect()).clone()
+        cache
+            .entry(filter)
+            .or_insert_with(|| {
+                self.blocks
+                    .iter()
+                    .filter(|b| b.state.block() == filter)
+                    .cloned()
+                    .collect()
+            })
+            .clone()
     }
 }
 
@@ -179,7 +216,9 @@ fn jigsaw_block() -> Block {
 }
 
 fn air() -> BlockState {
-    Block::by_name("minecraft:air").expect("air block").default_state()
+    Block::by_name("minecraft:air")
+        .expect("air block")
+        .default_state()
 }
 
 /// `StructureTemplate.SimplePalette`: `IdMapper<BlockState>` (state -> id lookup keeps the last mapping, id -> state
@@ -203,7 +242,10 @@ impl SimplePalette {
     }
 
     fn state_for(&self, index: i32) -> BlockState {
-        usize::try_from(index).ok().and_then(|i| self.id_to_state.get(i).copied().flatten()).unwrap_or_else(air)
+        usize::try_from(index)
+            .ok()
+            .and_then(|i| self.id_to_state.get(i).copied().flatten())
+            .unwrap_or_else(air)
     }
 
     fn add_mapping(&mut self, state: BlockState, id: i32) {
@@ -222,7 +264,11 @@ impl SimplePalette {
 
 /// `NbtUtils.readBlockState(blocks, tag)`.
 pub fn read_block_state(tag: &CompoundTag) -> BlockState {
-    let Some(block) = tag.get_string("id").and_then(|s| Identifier::read(s).ok()).and_then(|id| Block::by_name(&id.to_string())) else {
+    let Some(block) = tag
+        .get_string("id")
+        .and_then(|s| Identifier::read(s).ok())
+        .and_then(|id| Block::by_name(&id.to_string()))
+    else {
         return air();
     };
     let mut result = block.default_state();
@@ -233,7 +279,9 @@ pub fn read_block_state(tag: &CompoundTag) -> BlockState {
             {
                 result = updated;
             } else if result.get_property_str(key).is_some() {
-                log::warn!("Unable to read property: {key} with value: {value:?} for blockstate: {tag:?}");
+                log::warn!(
+                    "Unable to read property: {key} with value: {value:?} for blockstate: {tag:?}"
+                );
             }
         }
     }
@@ -287,7 +335,9 @@ fn add_to_lists(
 ) {
     if info.nbt.is_some() {
         block_entities_list.push(info);
-    } else if !info.state.block().data().has(block_flags::DYNAMIC_SHAPE) && info.state.is_collision_shape_full_block() {
+    } else if !info.state.block().data().has(block_flags::DYNAMIC_SHAPE)
+        && info.state.is_collision_shape_full_block()
+    {
         full_block_list.push(info);
     } else {
         other_blocks_list.push(info);
@@ -326,7 +376,11 @@ impl StructureTemplate {
 
     /// `getAuthor()` (`"?"` for a template that never had one set).
     pub fn get_author(&self) -> &str {
-        if self.author.is_empty() { "?" } else { &self.author }
+        if self.author.is_empty() {
+            "?"
+        } else {
+            &self.author
+        }
     }
 
     pub fn palettes(&self) -> &[Palette] {
@@ -355,8 +409,16 @@ impl StructureTemplate {
         let mut full_block_list = Vec::new();
         let mut block_entities_list = Vec::new();
         let mut other_blocks_list = Vec::new();
-        let min_corner = BlockPos::new(position.x().min(corner2.x()), position.y().min(corner2.y()), position.z().min(corner2.z()));
-        let max_corner = BlockPos::new(position.x().max(corner2.x()), position.y().max(corner2.y()), position.z().max(corner2.z()));
+        let min_corner = BlockPos::new(
+            position.x().min(corner2.x()),
+            position.y().min(corner2.y()),
+            position.z().min(corner2.z()),
+        );
+        let max_corner = BlockPos::new(
+            position.x().max(corner2.x()),
+            position.y().max(corner2.y()),
+            position.z().max(corner2.z()),
+        );
         self.size = size;
         for pos in BlockPos::between_closed(&min_corner, &max_corner) {
             let state = level.get_block_state(pos);
@@ -365,40 +427,77 @@ impl StructureTemplate {
             }
             let relative_pos = pos.subtract(&min_corner);
             let nbt = level.get_block_entity(pos).map(save_with_id);
-            add_to_lists(StructureBlockInfo::new(relative_pos, state, nbt), &mut full_block_list, &mut block_entities_list, &mut other_blocks_list);
+            add_to_lists(
+                StructureBlockInfo::new(relative_pos, state, nbt),
+                &mut full_block_list,
+                &mut block_entities_list,
+                &mut other_blocks_list,
+            );
         }
-        let block_info_list = build_info_list(full_block_list, block_entities_list, other_blocks_list);
+        let block_info_list =
+            build_info_list(full_block_list, block_entities_list, other_blocks_list);
         self.palettes.clear();
         self.palettes.push(Palette::new(block_info_list));
         self.entity_info_list.clear();
         if let Some(entities) = entities {
             for (entity_pos, painting_pos, nbt) in entities {
-                let pos = Vec3::new(entity_pos.x - f64::from(min_corner.x()), entity_pos.y - f64::from(min_corner.y()), entity_pos.z - f64::from(min_corner.z()));
+                let pos = Vec3::new(
+                    entity_pos.x - f64::from(min_corner.x()),
+                    entity_pos.y - f64::from(min_corner.y()),
+                    entity_pos.z - f64::from(min_corner.z()),
+                );
                 let block_pos = match painting_pos {
                     Some(painting) => painting.subtract(&min_corner),
                     None => BlockPos::containing(pos.x, pos.y, pos.z),
                 };
-                self.entity_info_list.push(StructureEntityInfo { pos, block_pos, nbt: nbt.copy() });
+                self.entity_info_list.push(StructureEntityInfo {
+                    pos,
+                    block_pos,
+                    nbt: nbt.copy(),
+                });
             }
         }
     }
 
     /// `filterBlocks(position, settings, block)` (absolute).
-    pub fn filter_blocks(&self, position: BlockPos, settings: &StructurePlaceSettings, block: Block) -> Vec<StructureBlockInfo> {
+    pub fn filter_blocks(
+        &self,
+        position: BlockPos,
+        settings: &StructurePlaceSettings,
+        block: Block,
+    ) -> Vec<StructureBlockInfo> {
         self.filter_blocks_abs(position, settings, block, true)
     }
 
     /// `filterBlocks(position, settings, block, absolute)`.
-    pub fn filter_blocks_abs(&self, position: BlockPos, settings: &StructurePlaceSettings, block: Block, absolute: bool) -> Vec<StructureBlockInfo> {
+    pub fn filter_blocks_abs(
+        &self,
+        position: BlockPos,
+        settings: &StructurePlaceSettings,
+        block: Block,
+        absolute: bool,
+    ) -> Vec<StructureBlockInfo> {
         let mut result = Vec::new();
         let bounding_box = settings.get_bounding_box();
         if self.palettes.is_empty() {
             return result;
         }
-        for block_info in settings.get_random_palette(&self.palettes, Some(position)).blocks_of(block).iter() {
-            let block_pos = if absolute { calculate_relative_position(settings, block_info.pos).offset_vec(&position) } else { block_info.pos };
+        for block_info in settings
+            .get_random_palette(&self.palettes, Some(position))
+            .blocks_of(block)
+            .iter()
+        {
+            let block_pos = if absolute {
+                calculate_relative_position(settings, block_info.pos).offset_vec(&position)
+            } else {
+                block_info.pos
+            };
             if bounding_box.is_none_or(|bb| bb.is_inside(&block_pos)) {
-                result.push(StructureBlockInfo::new(block_pos, block_info.state.rotate(settings.get_rotation()), block_info.nbt.clone()));
+                result.push(StructureBlockInfo::new(
+                    block_pos,
+                    block_info.state.rotate(settings.get_rotation()),
+                    block_info.nbt.clone(),
+                ));
             }
         }
         result
@@ -415,12 +514,23 @@ impl StructureTemplate {
             .get_random_palette(&self.palettes, Some(position))
             .jigsaws()
             .iter()
-            .map(|jigsaw| jigsaw.with_info(calculate_relative_position(&settings, jigsaw.pos).offset_vec(&position), jigsaw.state.rotate(settings.get_rotation())))
+            .map(|jigsaw| {
+                jigsaw.with_info(
+                    calculate_relative_position(&settings, jigsaw.pos).offset_vec(&position),
+                    jigsaw.state.rotate(settings.get_rotation()),
+                )
+            })
             .collect()
     }
 
     /// `calculateConnectedPosition(settings1, connection1, settings2, connection2)`.
-    pub fn calculate_connected_position(&self, settings1: &StructurePlaceSettings, connection1: BlockPos, settings2: &StructurePlaceSettings, connection2: BlockPos) -> BlockPos {
+    pub fn calculate_connected_position(
+        &self,
+        settings1: &StructurePlaceSettings,
+        connection1: BlockPos,
+        settings2: &StructurePlaceSettings,
+        connection2: BlockPos,
+    ) -> BlockPos {
         let marker_pos1 = calculate_relative_position(settings1, connection1);
         let marker_pos2 = calculate_relative_position(settings2, connection2);
         marker_pos1.subtract(&marker_pos2)
@@ -439,8 +549,15 @@ impl StructureTemplate {
         if self.palettes.is_empty() {
             return false;
         }
-        let block_info_list = settings.get_random_palette(&self.palettes, Some(position)).blocks();
-        if (block_info_list.is_empty() && (settings.is_ignore_entities() || self.entity_info_list.is_empty())) || self.size.x < 1 || self.size.y < 1 || self.size.z < 1 {
+        let block_info_list = settings
+            .get_random_palette(&self.palettes, Some(position))
+            .blocks();
+        if (block_info_list.is_empty()
+            && (settings.is_ignore_entities() || self.entity_info_list.is_empty()))
+            || self.size.x < 1
+            || self.size.y < 1
+            || self.size.z < 1
+        {
             return false;
         }
         let bounding_box = settings.get_bounding_box();
@@ -450,15 +567,21 @@ impl StructureTemplate {
         let mut placed: Vec<(BlockPos, bool)> = Vec::with_capacity(block_info_list.len());
         let (mut min_x, mut min_y, mut min_z) = (i32::MAX, i32::MAX, i32::MAX);
         let (mut max_x, mut max_y, mut max_z) = (i32::MIN, i32::MIN, i32::MIN);
-        let processed_block_info_list = process_block_infos(level, position, reference_pos, settings, block_info_list);
-        let barrier = Block::by_name("minecraft:barrier").expect("barrier block").default_state();
+        let processed_block_info_list =
+            process_block_infos(level, position, reference_pos, settings, block_info_list);
+        let barrier = Block::by_name("minecraft:barrier")
+            .expect("barrier block")
+            .default_state();
         for mut block_info in processed_block_info_list {
             let block_pos = block_info.pos;
             if !bounding_box.is_none_or(|bb| bb.is_inside(&block_pos)) {
                 continue;
             }
             let previous_fluid_state = waterlogging.then(|| level.get_fluid_state(block_pos));
-            let state = block_info.state.mirror(settings.get_mirror()).rotate(settings.get_rotation());
+            let state = block_info
+                .state
+                .mirror(settings.get_mirror())
+                .rotate(settings.get_rotation());
             if block_info.nbt.is_some() {
                 level.set_block(block_pos, barrier, 820, 512);
             }
@@ -493,7 +616,12 @@ impl StructureTemplate {
                 if state.get_fluid_state().is_source() {
                     locked_fluids.push(block_pos);
                 } else if super::liquid_block_container::is_liquid_block_container(state) {
-                    super::liquid_block_container::place_liquid(level, block_pos, state, previous_fluid_state);
+                    super::liquid_block_container::place_liquid(
+                        level,
+                        block_pos,
+                        state,
+                        previous_fluid_state,
+                    );
                     if !previous_fluid_state.is_source() {
                         to_fill.push(block_pos);
                     }
@@ -501,7 +629,13 @@ impl StructureTemplate {
             }
         }
         let mut filled = true;
-        const DIRECTIONS: [Direction; 5] = [Direction::Up, Direction::North, Direction::East, Direction::South, Direction::West];
+        const DIRECTIONS: [Direction; 5] = [
+            Direction::Up,
+            Direction::North,
+            Direction::East,
+            Direction::South,
+            Direction::West,
+        ];
         while filled && !to_fill.is_empty() {
             filled = false;
             let mut i = 0;
@@ -531,11 +665,26 @@ impl StructureTemplate {
         }
         if min_x <= max_x {
             if !settings.get_known_shape() {
-                let mut shape = BitSetDiscreteVoxelShape::new(max_x - min_x + 1, max_y - min_y + 1, max_z - min_z + 1);
+                let mut shape = BitSetDiscreteVoxelShape::new(
+                    max_x - min_x + 1,
+                    max_y - min_y + 1,
+                    max_z - min_z + 1,
+                );
                 for (block_pos, _) in &placed {
-                    shape.fill(block_pos.x() - min_x, block_pos.y() - min_y, block_pos.z() - min_z);
+                    shape.fill(
+                        block_pos.x() - min_x,
+                        block_pos.y() - min_y,
+                        block_pos.z() - min_z,
+                    );
                 }
-                update_shape_at_edge(level, update_mode, &DiscreteVoxelShape::from(shape), min_x, min_y, min_z);
+                update_shape_at_edge(
+                    level,
+                    update_mode,
+                    &DiscreteVoxelShape::from(shape),
+                    min_x,
+                    min_y,
+                    min_z,
+                );
             }
             for (block_pos, _has_nbt) in &placed {
                 let block_pos = *block_pos;
@@ -551,24 +700,47 @@ impl StructureTemplate {
             }
         }
         if !settings.is_ignore_entities() {
-            self.place_entities(level, position, settings.get_mirror(), settings.get_rotation(), settings.get_rotation_pivot(), bounding_box);
+            self.place_entities(
+                level,
+                position,
+                settings.get_mirror(),
+                settings.get_rotation(),
+                settings.get_rotation_pivot(),
+                bounding_box,
+            );
         }
         true
     }
 
-    fn place_entities(&self, level: &mut dyn WorldGenLevel, position: BlockPos, mirror: Mirror, rotation: Rotation, pivot: BlockPos, bounding_box: Option<BoundingBox>) {
+    fn place_entities(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        position: BlockPos,
+        mirror: Mirror,
+        rotation: Rotation,
+        pivot: BlockPos,
+        bounding_box: Option<BoundingBox>,
+    ) {
         for entity_info in &self.entity_info_list {
-            let block_pos = transform(entity_info.block_pos, mirror, rotation, pivot).offset_vec(&position);
+            let block_pos =
+                transform(entity_info.block_pos, mirror, rotation, pivot).offset_vec(&position);
             if !bounding_box.is_none_or(|bb| bb.is_inside(&block_pos)) {
                 continue;
             }
             let mut tag = entity_info.nbt.copy();
             let relative_pos = transform_vec3(entity_info.pos, mirror, rotation, pivot);
-            let pos = relative_pos.add(Vec3::new(f64::from(position.x()), f64::from(position.y()), f64::from(position.z())));
+            let pos = relative_pos.add(Vec3::new(
+                f64::from(position.x()),
+                f64::from(position.y()),
+                f64::from(position.z()),
+            ));
             tag.put("Pos", double_list(&[pos.x, pos.y, pos.z]));
             tag.remove("UUID");
             if tag.contains("block_pos") {
-                tag.put_int_array("block_pos", vec![block_pos.x(), block_pos.y(), block_pos.z()]);
+                tag.put_int_array(
+                    "block_pos",
+                    vec![block_pos.x(), block_pos.y(), block_pos.z()],
+                );
             }
             // `EntityType.create` + `rotate(rotation)` / `mirror(mirror)` / `snapTo` (the base `Entity` rotation rules)
             let (old_y_rot, x_rot) = read_rotation(&tag);
@@ -587,12 +759,24 @@ impl StructureTemplate {
             let mut y_rot = rotated;
             y_rot += mirrored - old_y_rot;
             let mut rotation_tag = ListTag::new();
-            rotation_tag.push(Tag::Float(if y_rot.is_finite() { y_rot } else { old_y_rot }));
+            rotation_tag.push(Tag::Float(if y_rot.is_finite() {
+                y_rot
+            } else {
+                old_y_rot
+            }));
             rotation_tag.push(Tag::Float(x_rot));
             tag.put("Rotation", rotation_tag);
             // the entity constructor draws a fresh random UUID (`Mth.createInsecureUUID(entity.random)`)
             let uuid = mth::create_insecure_uuid(&mut random::create_new()).as_u64_pair();
-            tag.put_int_array("UUID", vec![(uuid.0 >> 32) as i32, uuid.0 as i32, (uuid.1 >> 32) as i32, uuid.1 as i32]);
+            tag.put_int_array(
+                "UUID",
+                vec![
+                    (uuid.0 >> 32) as i32,
+                    uuid.0 as i32,
+                    (uuid.1 >> 32) as i32,
+                    uuid.1 as i32,
+                ],
+            );
             level.add_fresh_entity_nbt(tag);
         }
     }
@@ -600,23 +784,45 @@ impl StructureTemplate {
     /// `getSize(rotation)`.
     pub fn get_size_rotated(&self, rotation: Rotation) -> Vec3i {
         match rotation {
-            Rotation::Counterclockwise90 | Rotation::Clockwise90 => Vec3i::new(self.size.z, self.size.y, self.size.x),
+            Rotation::Counterclockwise90 | Rotation::Clockwise90 => {
+                Vec3i::new(self.size.z, self.size.y, self.size.x)
+            }
             _ => self.size,
         }
     }
 
     /// `getZeroPositionWithTransform(zeroPos, mirror, rotation)`.
-    pub fn get_zero_position_with_transform(&self, zero_pos: BlockPos, mirror: Mirror, rotation: Rotation) -> BlockPos {
+    pub fn get_zero_position_with_transform(
+        &self,
+        zero_pos: BlockPos,
+        mirror: Mirror,
+        rotation: Rotation,
+    ) -> BlockPos {
         get_zero_position_with_transform(zero_pos, mirror, rotation, self.size.x, self.size.z)
     }
 
     /// `getBoundingBox(settings, position)`.
-    pub fn get_bounding_box(&self, settings: &StructurePlaceSettings, position: BlockPos) -> BoundingBox {
-        self.get_bounding_box_with(position, settings.get_rotation(), settings.get_rotation_pivot(), settings.get_mirror())
+    pub fn get_bounding_box(
+        &self,
+        settings: &StructurePlaceSettings,
+        position: BlockPos,
+    ) -> BoundingBox {
+        self.get_bounding_box_with(
+            position,
+            settings.get_rotation(),
+            settings.get_rotation_pivot(),
+            settings.get_mirror(),
+        )
     }
 
     /// `getBoundingBox(position, rotation, pivot, mirror)`.
-    pub fn get_bounding_box_with(&self, position: BlockPos, rotation: Rotation, pivot: BlockPos, mirror: Mirror) -> BoundingBox {
+    pub fn get_bounding_box_with(
+        &self,
+        position: BlockPos,
+        rotation: Rotation,
+        pivot: BlockPos,
+        mirror: Mirror,
+    ) -> BoundingBox {
         get_bounding_box(position, rotation, pivot, mirror, self.size)
     }
 
@@ -634,7 +840,10 @@ impl StructureTemplate {
             let main_palette_blocks = self.palettes[0].blocks();
             for (i, block_info) in main_palette_blocks.iter().enumerate() {
                 let mut block_tag = CompoundTag::new();
-                block_tag.put("pos", int_list(&[block_info.pos.x(), block_info.pos.y(), block_info.pos.z()]));
+                block_tag.put(
+                    "pos",
+                    int_list(&[block_info.pos.x(), block_info.pos.y(), block_info.pos.z()]),
+                );
                 let id = palettes[0].id_for(block_info.state);
                 block_tag.put_int("state", id);
                 if let Some(nbt) = &block_info.nbt {
@@ -666,8 +875,18 @@ impl StructureTemplate {
         let mut entity_list = ListTag::new();
         for entity_info in &self.entity_info_list {
             let mut entity_tag = CompoundTag::new();
-            entity_tag.put("pos", double_list(&[entity_info.pos.x, entity_info.pos.y, entity_info.pos.z]));
-            entity_tag.put("blockPos", int_list(&[entity_info.block_pos.x(), entity_info.block_pos.y(), entity_info.block_pos.z()]));
+            entity_tag.put(
+                "pos",
+                double_list(&[entity_info.pos.x, entity_info.pos.y, entity_info.pos.z]),
+            );
+            entity_tag.put(
+                "blockPos",
+                int_list(&[
+                    entity_info.block_pos.x(),
+                    entity_info.block_pos.y(),
+                    entity_info.block_pos.z(),
+                ]),
+            );
             entity_tag.put("nbt", entity_info.nbt.clone());
             entity_list.push(entity_tag);
         }
@@ -682,7 +901,11 @@ impl StructureTemplate {
         self.palettes.clear();
         self.entity_info_list.clear();
         let size_tag = tag.get_list_or_empty("size");
-        self.size = Vec3i::new(size_tag.get_int_or(0, 0), size_tag.get_int_or(1, 0), size_tag.get_int_or(2, 0));
+        self.size = Vec3i::new(
+            size_tag.get_int_or(0, 0),
+            size_tag.get_int_or(1, 0),
+            size_tag.get_int_or(2, 0),
+        );
         let block_list = tag.get_list_or_empty("blocks");
         if let Some(palette_list_list) = tag.get_list("palettes") {
             for p in 0..palette_list_list.len() {
@@ -693,11 +916,23 @@ impl StructureTemplate {
         }
         for entity_tag in tag.get_list_or_empty("entities").compounds() {
             let pos_tag = entity_tag.get_list_or_empty("pos");
-            let pos = Vec3::new(pos_tag.get_double_or(0, 0.0), pos_tag.get_double_or(1, 0.0), pos_tag.get_double_or(2, 0.0));
+            let pos = Vec3::new(
+                pos_tag.get_double_or(0, 0.0),
+                pos_tag.get_double_or(1, 0.0),
+                pos_tag.get_double_or(2, 0.0),
+            );
             let block_pos_tag = entity_tag.get_list_or_empty("blockPos");
-            let block_pos = BlockPos::new(block_pos_tag.get_int_or(0, 0), block_pos_tag.get_int_or(1, 0), block_pos_tag.get_int_or(2, 0));
+            let block_pos = BlockPos::new(
+                block_pos_tag.get_int_or(0, 0),
+                block_pos_tag.get_int_or(1, 0),
+                block_pos_tag.get_int_or(2, 0),
+            );
             if let Some(nbt) = entity_tag.get_compound("nbt") {
-                self.entity_info_list.push(StructureEntityInfo { pos, block_pos, nbt: nbt.clone() });
+                self.entity_info_list.push(StructureEntityInfo {
+                    pos,
+                    block_pos,
+                    nbt: nbt.clone(),
+                });
             }
         }
     }
@@ -705,19 +940,35 @@ impl StructureTemplate {
     fn load_palette(&mut self, palette_list: &ListTag, block_list: &ListTag) {
         let mut palette = SimplePalette::default();
         for i in 0..palette_list.len() {
-            palette.add_mapping(read_block_state(&palette_list.get_compound_or_empty(i)), i as i32);
+            palette.add_mapping(
+                read_block_state(&palette_list.get_compound_or_empty(i)),
+                i as i32,
+            );
         }
         let mut full_block_list = Vec::new();
         let mut block_entities_list = Vec::new();
         let mut other_blocks_list = Vec::new();
         for block_tag in block_list.compounds() {
             let pos_tag = block_tag.get_list_or_empty("pos");
-            let pos = BlockPos::new(pos_tag.get_int_or(0, 0), pos_tag.get_int_or(1, 0), pos_tag.get_int_or(2, 0));
+            let pos = BlockPos::new(
+                pos_tag.get_int_or(0, 0),
+                pos_tag.get_int_or(1, 0),
+                pos_tag.get_int_or(2, 0),
+            );
             let state = palette.state_for(block_tag.get_int_or("state", 0));
             let nbt = block_tag.get_compound("nbt").cloned();
-            add_to_lists(StructureBlockInfo::new(pos, state, nbt), &mut full_block_list, &mut block_entities_list, &mut other_blocks_list);
+            add_to_lists(
+                StructureBlockInfo::new(pos, state, nbt),
+                &mut full_block_list,
+                &mut block_entities_list,
+                &mut other_blocks_list,
+            );
         }
-        self.palettes.push(Palette::new(build_info_list(full_block_list, block_entities_list, other_blocks_list)));
+        self.palettes.push(Palette::new(build_info_list(
+            full_block_list,
+            block_entities_list,
+            other_blocks_list,
+        )));
     }
 }
 
@@ -725,7 +976,12 @@ impl StructureTemplate {
 fn save_with_id(block_entity: &dyn BlockEntity) -> CompoundTag {
     let mut tag = CompoundTag::new();
     block_entity.save_additional(&mut tag);
-    if let Ok(components) = mc_dfu::encode_nbt(&mc_protocol::components::DataComponentMap::codec(), &block_entity.base().components).into_result() {
+    if let Ok(components) = mc_dfu::encode_nbt(
+        &mc_protocol::components::DataComponentMap::codec(),
+        &block_entity.base().components,
+    )
+    .into_result()
+    {
         tag.put("components", components);
     }
     tag.put_string("id", block_entity.get_type().name());
@@ -747,10 +1003,13 @@ fn is_randomizable_container(block: Block) -> bool {
         "minecraft:shulker_box",
     ];
     static BLOCKS: LazyLock<Vec<Block>> = LazyLock::new(|| {
-        TYPES.iter().filter_map(|name| BlockEntityType::by_name(name)).flat_map(|ty| ty.data().valid_blocks.iter().copied()).collect()
+        TYPES
+            .iter()
+            .filter_map(|name| BlockEntityType::by_name(name))
+            .flat_map(|ty| ty.data().valid_blocks.iter().copied())
+            .collect()
     });
-    BLOCKS
-        .contains(&block)
+    BLOCKS.contains(&block)
 }
 
 fn read_rotation(tag: &CompoundTag) -> (f32, f32) {
@@ -766,7 +1025,14 @@ fn wrap_degrees(degrees: f32) -> f32 {
 }
 
 /// `StructureTemplate.updateShapeAtEdge(level, updateMode, shape, startX, startY, startZ)`.
-pub fn update_shape_at_edge(level: &mut dyn LevelAccessor, update_mode: u32, shape: &DiscreteVoxelShape, start_x: i32, start_y: i32, start_z: i32) {
+pub fn update_shape_at_edge(
+    level: &mut dyn LevelAccessor,
+    update_mode: u32,
+    shape: &DiscreteVoxelShape,
+    start_x: i32,
+    start_y: i32,
+    start_z: i32,
+) {
     shape.for_all_faces(&mut |direction, x, y, z| {
         let pos = BlockPos::new(start_x + x, start_y + y, start_z + z);
         let neighbor_pos = pos.relative(direction);
@@ -776,7 +1042,13 @@ pub fn update_shape_at_edge(level: &mut dyn LevelAccessor, update_mode: u32, sha
         if state != new_state {
             level.set_block(pos, new_state, update_mode & !1, 512);
         }
-        let new_neighbor_state = neighbor_state.update_shape(level, neighbor_pos, direction.get_opposite(), pos, new_state);
+        let new_neighbor_state = neighbor_state.update_shape(
+            level,
+            neighbor_pos,
+            direction.get_opposite(),
+            pos,
+            new_state,
+        );
         if neighbor_state != new_neighbor_state {
             level.set_block(neighbor_pos, new_neighbor_state, update_mode & !1, 512);
         }
@@ -793,15 +1065,31 @@ pub fn process_block_infos(
 ) -> Vec<StructureBlockInfo> {
     let mut original_block_info_list: Vec<StructureBlockInfo> = Vec::new();
     let mut processed_block_info_list: Vec<StructureBlockInfo> = Vec::new();
-    let process_only_in_current_chunk = !settings.get_processors().iter().any(|p| p.evaluates_entire_piece_state());
+    let process_only_in_current_chunk = !settings
+        .get_processors()
+        .iter()
+        .any(|p| p.evaluates_entire_piece_state());
     let chunk_bb = settings.get_bounding_box();
     for block_info in block_info_list {
         let block_pos = calculate_relative_position(settings, block_info.pos).offset_vec(&position);
         if !process_only_in_current_chunk || chunk_bb.is_none_or(|bb| bb.is_inside(&block_pos)) {
-            let mut processed_block_info = Some(StructureBlockInfo::new(block_pos, block_info.state, block_info.nbt.clone()));
+            let mut processed_block_info = Some(StructureBlockInfo::new(
+                block_pos,
+                block_info.state,
+                block_info.nbt.clone(),
+            ));
             for processor in settings.get_processors() {
-                let Some(info) = processed_block_info else { break };
-                processed_block_info = processor.process_block(level, position, reference_pos, block_info.pos, info, settings);
+                let Some(info) = processed_block_info else {
+                    break;
+                };
+                processed_block_info = processor.process_block(
+                    level,
+                    position,
+                    reference_pos,
+                    block_info.pos,
+                    info,
+                    settings,
+                );
             }
             if let Some(info) = processed_block_info {
                 processed_block_info_list.push(info);
@@ -810,14 +1098,26 @@ pub fn process_block_infos(
         }
     }
     for processor in settings.get_processors() {
-        processed_block_info_list = processor.finalize_processing(level, position, reference_pos, &original_block_info_list, processed_block_info_list, settings);
+        processed_block_info_list = processor.finalize_processing(
+            level,
+            position,
+            reference_pos,
+            &original_block_info_list,
+            processed_block_info_list,
+            settings,
+        );
     }
     processed_block_info_list
 }
 
 /// `calculateRelativePosition(settings, pos)`.
 pub fn calculate_relative_position(settings: &StructurePlaceSettings, pos: BlockPos) -> BlockPos {
-    transform(pos, settings.get_mirror(), settings.get_rotation(), settings.get_rotation_pivot())
+    transform(
+        pos,
+        settings.get_mirror(),
+        settings.get_rotation(),
+        settings.get_rotation_pivot(),
+    )
 }
 
 /// `transform(pos, mirror, rotation, pivot)` (blocks).
@@ -832,9 +1132,21 @@ pub fn transform(pos: BlockPos, mirror: Mirror, rotation: Rotation, pivot: Block
     let pivot_x = pivot.x();
     let pivot_z = pivot.z();
     match rotation {
-        Rotation::Counterclockwise90 => BlockPos::new(pivot_x.wrapping_sub(pivot_z).wrapping_add(z), y, pivot_x.wrapping_add(pivot_z).wrapping_sub(x)),
-        Rotation::Clockwise90 => BlockPos::new(pivot_x.wrapping_add(pivot_z).wrapping_sub(z), y, pivot_z.wrapping_sub(pivot_x).wrapping_add(x)),
-        Rotation::Clockwise180 => BlockPos::new(pivot_x.wrapping_add(pivot_x).wrapping_sub(x), y, pivot_z.wrapping_add(pivot_z).wrapping_sub(z)),
+        Rotation::Counterclockwise90 => BlockPos::new(
+            pivot_x.wrapping_sub(pivot_z).wrapping_add(z),
+            y,
+            pivot_x.wrapping_add(pivot_z).wrapping_sub(x),
+        ),
+        Rotation::Clockwise90 => BlockPos::new(
+            pivot_x.wrapping_add(pivot_z).wrapping_sub(z),
+            y,
+            pivot_z.wrapping_sub(pivot_x).wrapping_add(x),
+        ),
+        Rotation::Clockwise180 => BlockPos::new(
+            pivot_x.wrapping_add(pivot_x).wrapping_sub(x),
+            y,
+            pivot_z.wrapping_add(pivot_z).wrapping_sub(z),
+        ),
         Rotation::None => {
             if was_mirrored {
                 BlockPos::new(x, y, z)
@@ -862,7 +1174,11 @@ pub fn transform_vec3(pos: Vec3, mirror: Mirror, rotation: Rotation, pivot: Bloc
     match rotation {
         Rotation::Counterclockwise90 => Vec3::new(pxmz + z, y, pxz1 - x),
         Rotation::Clockwise90 => Vec3::new(pxz1 - z, y, pzmx + x),
-        Rotation::Clockwise180 => Vec3::new(f64::from(px.wrapping_add(px).wrapping_add(1)) - x, y, f64::from(pz.wrapping_add(pz).wrapping_add(1)) - z),
+        Rotation::Clockwise180 => Vec3::new(
+            f64::from(px.wrapping_add(px).wrapping_add(1)) - x,
+            y,
+            f64::from(pz.wrapping_add(pz).wrapping_add(1)) - z,
+        ),
         Rotation::None => {
             if was_mirrored {
                 Vec3::new(x, y, z)
@@ -874,22 +1190,54 @@ pub fn transform_vec3(pos: Vec3, mirror: Mirror, rotation: Rotation, pivot: Bloc
 }
 
 /// `getZeroPositionWithTransform(zeroPos, mirror, rotation, sizeX, sizeZ)`.
-pub fn get_zero_position_with_transform(zero_pos: BlockPos, mirror: Mirror, rotation: Rotation, size_x: i32, size_z: i32) -> BlockPos {
+pub fn get_zero_position_with_transform(
+    zero_pos: BlockPos,
+    mirror: Mirror,
+    rotation: Rotation,
+    size_x: i32,
+    size_z: i32,
+) -> BlockPos {
     let size_x = size_x.wrapping_sub(1);
     let size_z = size_z.wrapping_sub(1);
-    let mirror_delta_x = if mirror == Mirror::FrontBack { size_x } else { 0 };
-    let mirror_delta_z = if mirror == Mirror::LeftRight { size_z } else { 0 };
+    let mirror_delta_x = if mirror == Mirror::FrontBack {
+        size_x
+    } else {
+        0
+    };
+    let mirror_delta_z = if mirror == Mirror::LeftRight {
+        size_z
+    } else {
+        0
+    };
     match rotation {
-        Rotation::Counterclockwise90 => zero_pos.offset(mirror_delta_z, 0, size_x.wrapping_sub(mirror_delta_x)),
-        Rotation::Clockwise90 => zero_pos.offset(size_z.wrapping_sub(mirror_delta_z), 0, mirror_delta_x),
-        Rotation::Clockwise180 => zero_pos.offset(size_x.wrapping_sub(mirror_delta_x), 0, size_z.wrapping_sub(mirror_delta_z)),
+        Rotation::Counterclockwise90 => {
+            zero_pos.offset(mirror_delta_z, 0, size_x.wrapping_sub(mirror_delta_x))
+        }
+        Rotation::Clockwise90 => {
+            zero_pos.offset(size_z.wrapping_sub(mirror_delta_z), 0, mirror_delta_x)
+        }
+        Rotation::Clockwise180 => zero_pos.offset(
+            size_x.wrapping_sub(mirror_delta_x),
+            0,
+            size_z.wrapping_sub(mirror_delta_z),
+        ),
         Rotation::None => zero_pos.offset(mirror_delta_x, 0, mirror_delta_z),
     }
 }
 
 /// `getBoundingBox(position, rotation, pivot, mirror, size)`.
-pub fn get_bounding_box(position: BlockPos, rotation: Rotation, pivot: BlockPos, mirror: Mirror, size: Vec3i) -> BoundingBox {
-    let delta = Vec3i::new(size.x.wrapping_sub(1), size.y.wrapping_sub(1), size.z.wrapping_sub(1));
+pub fn get_bounding_box(
+    position: BlockPos,
+    rotation: Rotation,
+    pivot: BlockPos,
+    mirror: Mirror,
+    size: Vec3i,
+) -> BoundingBox {
+    let delta = Vec3i::new(
+        size.x.wrapping_sub(1),
+        size.y.wrapping_sub(1),
+        size.z.wrapping_sub(1),
+    );
     let corner1 = transform(BlockPos::ZERO, mirror, rotation, pivot);
     let corner2 = transform(BlockPos::ZERO.offset_vec(&delta), mirror, rotation, pivot);
     *BoundingBox::from_corners(&corner1, &corner2).move_vec(&position)

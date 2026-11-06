@@ -1,8 +1,8 @@
 //! `net.minecraft.advancements.predicates.MinMaxBounds` (`Ints`, `Doubles`, `FloatDegrees`).
 
 use crate::codec::EncodeResult;
-use crate::codec::{take, Decode, DecodeResult, Encode};
-use mc_dfu::{java_double_cmp, java_float_cmp, Codec, DataResult, Either, DOUBLE, FLOAT, INT};
+use crate::codec::{Decode, DecodeResult, Encode, take};
+use mc_dfu::{Codec, DOUBLE, DataResult, Either, FLOAT, INT, java_double_cmp, java_float_cmp};
 use std::cmp::Ordering;
 use std::fmt::Debug;
 use std::sync::LazyLock;
@@ -47,7 +47,9 @@ impl BoundNumber for f64 {
 }
 
 fn opt_str<T: BoundNumber>(v: Option<T>) -> String {
-    v.map_or("Optional.empty".into(), |v| format!("Optional[{}]", v.java_str()))
+    v.map_or("Optional.empty".into(), |v| {
+        format!("Optional[{}]", v.java_str())
+    })
 }
 
 /// `MinMaxBounds.Bounds`.
@@ -70,19 +72,34 @@ impl<T: BoundNumber> PartialEq for Bounds<T> {
 
 impl<T: BoundNumber> Bounds<T> {
     pub fn any() -> Self {
-        Bounds { min: None, max: None }
+        Bounds {
+            min: None,
+            max: None,
+        }
     }
     pub fn exactly(value: T) -> Self {
-        Bounds { min: Some(value), max: Some(value) }
+        Bounds {
+            min: Some(value),
+            max: Some(value),
+        }
     }
     pub fn between(min: T, max: T) -> Self {
-        Bounds { min: Some(min), max: Some(max) }
+        Bounds {
+            min: Some(min),
+            max: Some(max),
+        }
     }
     pub fn at_least(value: T) -> Self {
-        Bounds { min: Some(value), max: None }
+        Bounds {
+            min: Some(value),
+            max: None,
+        }
     }
     pub fn at_most(value: T) -> Self {
-        Bounds { min: None, max: Some(value) }
+        Bounds {
+            min: None,
+            max: Some(value),
+        }
     }
     pub fn is_any(&self) -> bool {
         self.min.is_none() && self.max.is_none()
@@ -98,11 +115,18 @@ impl<T: BoundNumber> Bounds<T> {
         }
     }
     pub fn map<U: BoundNumber>(&self, f: impl Fn(T) -> U) -> Bounds<U> {
-        Bounds { min: self.min.map(&f), max: self.max.map(f) }
+        Bounds {
+            min: self.min.map(&f),
+            max: self.max.map(f),
+        }
     }
     fn validate_swapped(self) -> DataResult<Self> {
         if self.are_swapped() {
-            let m = format!("Swapped bounds in range: {} is higher than {}", opt_str(self.min), opt_str(self.max));
+            let m = format!(
+                "Swapped bounds in range: {} is higher than {}",
+                opt_str(self.min),
+                opt_str(self.max)
+            );
             DataResult::error(move || m.clone())
         } else {
             DataResult::success(self)
@@ -126,7 +150,11 @@ impl<T: BoundNumber> Bounds<T> {
 }
 
 /// `Bounds.createStreamCodec`: a flag byte (`1` = min, `2` = max) then the present numbers.
-fn encode_bounds<T: Copy>(b: &Bounds<T>, out: &mut Vec<u8>, enc: impl Fn(T, &mut Vec<u8>) -> EncodeResult<()>) -> EncodeResult<()> {
+fn encode_bounds<T: Copy>(
+    b: &Bounds<T>,
+    out: &mut Vec<u8>,
+    enc: impl Fn(T, &mut Vec<u8>) -> EncodeResult<()>,
+) -> EncodeResult<()> {
     out.push(u8::from(b.min.is_some()) | (u8::from(b.max.is_some()) << 1));
     if let Some(v) = b.min {
         enc(v, out)?;
@@ -137,10 +165,21 @@ fn encode_bounds<T: Copy>(b: &Bounds<T>, out: &mut Vec<u8>, enc: impl Fn(T, &mut
     Ok(())
 }
 
-fn decode_bounds<T>(input: &mut &[u8], dec: impl Fn(&mut &[u8]) -> DecodeResult<T>) -> DecodeResult<Bounds<T>> {
+fn decode_bounds<T>(
+    input: &mut &[u8],
+    dec: impl Fn(&mut &[u8]) -> DecodeResult<T>,
+) -> DecodeResult<Bounds<T>> {
     let flags = take(input, 1)?[0];
-    let min = if flags & 1 != 0 { Some(dec(input)?) } else { None };
-    let max = if flags & 2 != 0 { Some(dec(input)?) } else { None };
+    let min = if flags & 1 != 0 {
+        Some(dec(input)?)
+    } else {
+        None
+    };
+    let max = if flags & 2 != 0 {
+        Some(dec(input)?)
+    } else {
+        None
+    };
     Ok(Bounds { min, max })
 }
 
@@ -153,7 +192,10 @@ macro_rules! sqr_bounds {
         }
         impl $name {
             pub fn new(bounds: Bounds<$t>) -> Self {
-                $name { bounds, bounds_sqr: bounds.map($sq) }
+                $name {
+                    bounds,
+                    bounds_sqr: bounds.map($sq),
+                }
             }
             pub fn any() -> Self {
                 Self::new(Bounds::any())
@@ -175,7 +217,9 @@ macro_rules! sqr_bounds {
             }
             pub fn codec() -> Codec<$name> {
                 static C: LazyLock<Codec<$name>> = LazyLock::new(|| {
-                    Bounds::create_codec(&$num).validate(Bounds::validate_swapped).xmap($name::new, |b: &$name| b.bounds)
+                    Bounds::create_codec(&$num)
+                        .validate(Bounds::validate_swapped)
+                        .xmap($name::new, |b: &$name| b.bounds)
                 });
                 C.clone()
             }
@@ -197,7 +241,8 @@ impl Ints {
         !self.bounds.min.is_some_and(|m| m > value) && self.bounds.max.is_none_or(|m| m >= value)
     }
     pub fn matches_sqr(&self, value_sqr: i64) -> bool {
-        !self.bounds_sqr.min.is_some_and(|m| m > value_sqr) && self.bounds_sqr.max.is_none_or(|m| m >= value_sqr)
+        !self.bounds_sqr.min.is_some_and(|m| m > value_sqr)
+            && self.bounds_sqr.max.is_none_or(|m| m >= value_sqr)
     }
 }
 
@@ -206,7 +251,8 @@ impl Doubles {
         !self.bounds.min.is_some_and(|m| m > value) && self.bounds.max.is_none_or(|m| !(m < value))
     }
     pub fn matches_sqr(&self, value_sqr: f64) -> bool {
-        !self.bounds_sqr.min.is_some_and(|m| m > value_sqr) && self.bounds_sqr.max.is_none_or(|m| !(m < value_sqr))
+        !self.bounds_sqr.min.is_some_and(|m| m > value_sqr)
+            && self.bounds_sqr.max.is_none_or(|m| !(m < value_sqr))
     }
 }
 
@@ -218,11 +264,17 @@ pub struct FloatDegrees {
 
 impl FloatDegrees {
     pub fn any() -> Self {
-        FloatDegrees { bounds: Bounds::any() }
+        FloatDegrees {
+            bounds: Bounds::any(),
+        }
     }
     pub fn codec() -> Codec<FloatDegrees> {
-        static C: LazyLock<Codec<FloatDegrees>> =
-            LazyLock::new(|| Bounds::create_codec(&FLOAT).xmap(|bounds| FloatDegrees { bounds }, |b: &FloatDegrees| b.bounds));
+        static C: LazyLock<Codec<FloatDegrees>> = LazyLock::new(|| {
+            Bounds::create_codec(&FLOAT).xmap(
+                |bounds| FloatDegrees { bounds },
+                |b: &FloatDegrees| b.bounds,
+            )
+        });
         C.clone()
     }
 }

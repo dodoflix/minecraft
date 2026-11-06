@@ -12,7 +12,12 @@ use mc_data::EntityType;
 use mc_data::enums::EntitySpawnReason;
 
 /// `SpawnPlacements.checkSpawnRules(type, level, reason, pos, random)`.
-pub fn check_spawn_placements(_level: &mut ServerLevel, _ty: EntityType, _reason: EntitySpawnReason, _pos: BlockPos) -> bool {
+pub fn check_spawn_placements(
+    _level: &mut ServerLevel,
+    _ty: EntityType,
+    _reason: EntitySpawnReason,
+    _pos: BlockPos,
+) -> bool {
     true
 }
 
@@ -29,7 +34,12 @@ pub struct MobSpawnSteps<'a> {
 
 /// The `if (entity instanceof Mob mob) { ... }` block of both spawners. `false` = the spawn attempt is rejected
 /// (`continue` / `Optional.empty()`). Order: rules, obstruction, finalize, persistence, equipment.
-pub fn prepare_mob(_entity: &mut dyn Entity, _level: &mut ServerLevel, _reason: EntitySpawnReason, _steps: &MobSpawnSteps) -> bool {
+pub fn prepare_mob(
+    _entity: &mut dyn Entity,
+    _level: &mut ServerLevel,
+    _reason: EntitySpawnReason,
+    _steps: &MobSpawnSteps,
+) -> bool {
     true
 }
 

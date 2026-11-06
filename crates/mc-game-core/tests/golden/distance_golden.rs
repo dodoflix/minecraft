@@ -41,7 +41,8 @@ impl DistanceHost for Host {
             result = true;
         }
         let pos = ChunkPos::unpack(node);
-        self.log.push(format!("L set {},{} {}", pos.x, pos.z, level));
+        self.log
+            .push(format!("L set {},{} {}", pos.x, pos.z, level));
         result
     }
 }
@@ -65,7 +66,11 @@ fn distance_manager_matches_vanilla() {
     ];
     let mut tickets = TicketStorage::new();
     let mut dm = DistanceManager::new();
-    let mut host = Host { levels: HashMap::new(), to_drop: LongOpenHashSet::new(), log: Vec::new() };
+    let mut host = Host {
+        levels: HashMap::new(),
+        to_drop: LongOpenHashSet::new(),
+        log: Vec::new(),
+    };
     let mut lines = golden.lines().peekable();
     let mut updates = 0;
     let mut map: LongOpenHashMap<u8> = LongOpenHashMap::new();
@@ -74,19 +79,37 @@ fn distance_manager_matches_vanilla() {
         let parts: Vec<&str> = line.split(' ').collect();
         match parts[0] {
             "A" => {
-                let (t, level, x, z): (usize, i32, i32, i32) = (parts[1].parse().unwrap(), parts[2].parse().unwrap(), parts[3].parse().unwrap(), parts[4].parse().unwrap());
+                let (t, level, x, z): (usize, i32, i32, i32) = (
+                    parts[1].parse().unwrap(),
+                    parts[2].parse().unwrap(),
+                    parts[3].parse().unwrap(),
+                    parts[4].parse().unwrap(),
+                );
                 tickets.add_ticket(Ticket::new(types[t], level), ChunkPos::new(x, z));
             }
             "R" => {
-                let (t, level, x, z): (usize, i32, i32, i32) = (parts[1].parse().unwrap(), parts[2].parse().unwrap(), parts[3].parse().unwrap(), parts[4].parse().unwrap());
+                let (t, level, x, z): (usize, i32, i32, i32) = (
+                    parts[1].parse().unwrap(),
+                    parts[2].parse().unwrap(),
+                    parts[3].parse().unwrap(),
+                    parts[4].parse().unwrap(),
+                );
                 tickets.remove_ticket(&Ticket::new(types[t], level), ChunkPos::new(x, z));
             }
             "P" => {
-                let (id, x, z): (i32, i32, i32) = (parts[1].parse().unwrap(), parts[2].parse().unwrap(), parts[3].parse().unwrap());
+                let (id, x, z): (i32, i32, i32) = (
+                    parts[1].parse().unwrap(),
+                    parts[2].parse().unwrap(),
+                    parts[3].parse().unwrap(),
+                );
                 dm.add_player(SectionPos::of(x, 0, z), id, &mut tickets);
             }
             "Q" => {
-                let (id, x, z): (i32, i32, i32) = (parts[1].parse().unwrap(), parts[2].parse().unwrap(), parts[3].parse().unwrap());
+                let (id, x, z): (i32, i32, i32) = (
+                    parts[1].parse().unwrap(),
+                    parts[2].parse().unwrap(),
+                    parts[3].parse().unwrap(),
+                );
                 dm.remove_player(SectionPos::of(x, 0, z), id, &mut tickets);
             }
             "U" => {
@@ -98,7 +121,10 @@ fn distance_manager_matches_vanilla() {
                 while lines.peek().is_some_and(|l| l.starts_with("L ")) {
                     expected_log.push(lines.next().unwrap().to_string());
                 }
-                assert_eq!(host.log, expected_log, "loading setLevel sequence at update {updates}");
+                assert_eq!(
+                    host.log, expected_log,
+                    "loading setLevel sequence at update {updates}"
+                );
                 let t_line = lines.next().unwrap();
                 let s_line = lines.next().unwrap();
                 for z in -22..=22 {
@@ -107,7 +133,11 @@ fn distance_manager_matches_vanilla() {
                     let got: Vec<String> = (-22..=22)
                         .map(|x| {
                             let k = ChunkPos::pack_xz(x, z);
-                            format!("{}/{}", dm.get_chunk_level(&mut host, k, false), dm.get_chunk_level(&mut host, k, true))
+                            format!(
+                                "{}/{}",
+                                dm.get_chunk_level(&mut host, k, false),
+                                dm.get_chunk_level(&mut host, k, true)
+                            )
                         })
                         .collect();
                     assert_eq!(got, expected, "levels row z={z} at update {updates}");
@@ -117,7 +147,11 @@ fn distance_manager_matches_vanilla() {
                     let p = ChunkPos::unpack(k);
                     ticking.push(format!("{},{}", p.x, p.z));
                 });
-                assert_eq!(ticking, parse_key_list(t_line), "entity ticking order at update {updates}");
+                assert_eq!(
+                    ticking,
+                    parse_key_list(t_line),
+                    "entity ticking order at update {updates}"
+                );
                 let spawn: Vec<String> = dm
                     .get_spawn_candidate_chunks()
                     .into_iter()
@@ -126,7 +160,11 @@ fn distance_manager_matches_vanilla() {
                         format!("{},{}", p.x, p.z)
                     })
                     .collect();
-                assert_eq!(spawn, parse_key_list(s_line), "spawn candidate order at update {updates}");
+                assert_eq!(
+                    spawn,
+                    parse_key_list(s_line),
+                    "spawn candidate order at update {updates}"
+                );
                 // `ChunkMap.processUnloads`
                 let mut dropped = Vec::new();
                 host.to_drop.drain_filter_in_order(|k| {
@@ -138,7 +176,11 @@ fn distance_manager_matches_vanilla() {
                 }
                 let n_line = lines.next().unwrap();
                 let n: Vec<&str> = n_line.split(' ').collect();
-                assert_eq!(dm.get_natural_spawn_chunk_count().to_string(), n[1], "natural spawn count at update {updates}");
+                assert_eq!(
+                    dm.get_natural_spawn_chunk_count().to_string(),
+                    n[1],
+                    "natural spawn count at update {updates}"
+                );
                 assert_eq!(tickets.get_force_loaded_chunks().len().to_string(), n[2]);
             }
             "fp" => {
@@ -153,17 +195,28 @@ fn distance_manager_matches_vanilla() {
             }
             "FM" => {
                 let got: Vec<String> = map.keys().iter().map(i64::to_string).collect();
-                let expected: Vec<String> = parts[1..].iter().map(|e| e.split(':').next().unwrap().to_string()).collect();
+                let expected: Vec<String> = parts[1..]
+                    .iter()
+                    .map(|e| e.split(':').next().unwrap().to_string())
+                    .collect();
                 assert_eq!(got, expected, "Long2ByteOpenHashMap iteration order");
             }
             "FS" => {
                 let got: Vec<String> = set.iter().map(|k| k.to_string()).collect();
-                assert_eq!(got, parts[1..].iter().map(|s| s.to_string()).collect::<Vec<_>>(), "LongOpenHashSet iteration order");
+                assert_eq!(
+                    got,
+                    parts[1..].iter().map(|s| s.to_string()).collect::<Vec<_>>(),
+                    "LongOpenHashSet iteration order"
+                );
             }
             "FR" => {
                 set.drain_filter_in_order(|k| ((k >> 3) & 1) == 0);
                 let got: Vec<String> = set.iter().map(|k| k.to_string()).collect();
-                assert_eq!(got, parts[1..].iter().map(|s| s.to_string()).collect::<Vec<_>>(), "iteration order after remove()");
+                assert_eq!(
+                    got,
+                    parts[1..].iter().map(|s| s.to_string()).collect::<Vec<_>>(),
+                    "iteration order after remove()"
+                );
             }
             "E" => {
                 map = LongOpenHashMap::new();

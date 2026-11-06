@@ -23,7 +23,10 @@
 //! tickers; `random_tick_speed` defaults to 0 like the oracle), game time advances one per tick. Prefer `tick_chunk` + `rand_value` to
 //! `gamerule random_tick_speed`: whole-level random ticking depends on chunk iteration order, which the two servers do not share.
 //! `gamerule` goes through the real `GameRules` (all rules).
-#![allow(dead_code, reason = "each test target uses a subset of the shared helpers")]
+#![allow(
+    dead_code,
+    reason = "each test target uses a subset of the shared helpers"
+)]
 
 #[path = "block_scenario_actors.rs"]
 mod actors;
@@ -44,7 +47,10 @@ use mc_game::world::level::{BlockGetter, LevelAccessor};
 use mc_nbt::{CompoundTag, Tag};
 use mc_protocol::codec::{Decode, read_varint};
 use mc_protocol::packet::Packet;
-use mc_protocol::packets::play::{ClientboundBlockEventPacket, ClientboundLevelEventPacket, ClientboundSoundPacket, SoundEventHolder, SoundSource};
+use mc_protocol::packets::play::{
+    ClientboundBlockEventPacket, ClientboundLevelEventPacket, ClientboundSoundPacket,
+    SoundEventHolder, SoundSource,
+};
 use mc_world::chunk::{LevelHeight, ProtoChunk, SectionsView};
 use mc_world::heightmap::{Heightmap, HeightmapType};
 use mc_world::level_storage::{Difficulty, FeatureFlagSet};
@@ -56,7 +62,8 @@ use std::time::{Duration, Instant};
 /// Replay `tests/oracle/scenarios/NAME.txt` and return the lines the Java driver would print.
 pub fn run_scenario(name: &str) -> Vec<String> {
     let path = scenario_dir().join(format!("{name}.txt"));
-    let text = std::fs::read_to_string(&path).unwrap_or_else(|e| panic!("scenario {}: {e}", path.display()));
+    let text = std::fs::read_to_string(&path)
+        .unwrap_or_else(|e| panic!("scenario {}: {e}", path.display()));
     run_scenario_text(&text)
 }
 
@@ -69,7 +76,10 @@ pub fn check_with(name: &str, opts: &Options) {
     let actual = run_scenario(name);
     let fixture = Fixture::load(name);
     if let Err(report) = compare(&fixture.lines, &actual, opts) {
-        panic!("block oracle scenario `{name}` differs from {}:\n{report}", fixture_dir().join(format!("{name}.txt")).display());
+        panic!(
+            "block oracle scenario `{name}` differs from {}:\n{report}",
+            fixture_dir().join(format!("{name}.txt")).display()
+        );
     }
 }
 
@@ -123,8 +133,12 @@ pub fn parse_state(text: &str) -> BlockState {
         None => (text, None),
     };
     let block = Block::by_name(name).unwrap_or_else(|| panic!("unknown block {name}"));
-    let props: Vec<(&str, &str)> = props.map(|p| p.split(',').filter_map(|kv| kv.split_once('=')).collect()).unwrap_or_default();
-    block.state_from_properties(props).unwrap_or_else(|| panic!("invalid properties in {text}"))
+    let props: Vec<(&str, &str)> = props
+        .map(|p| p.split(',').filter_map(|kv| kv.split_once('=')).collect())
+        .unwrap_or_default();
+    block
+        .state_from_properties(props)
+        .unwrap_or_else(|| panic!("invalid properties in {text}"))
 }
 
 fn int(s: &str) -> i32 {
@@ -144,7 +158,14 @@ struct FlatGenerator {
 
 impl FlatGenerator {
     fn default_layers() -> Self {
-        Self { layers: vec![Block::BEDROCK.default_state(), Block::DIRT.default_state(), Block::DIRT.default_state(), Block::GRASS_BLOCK.default_state()] }
+        Self {
+            layers: vec![
+                Block::BEDROCK.default_state(),
+                Block::DIRT.default_state(),
+                Block::DIRT.default_state(),
+                Block::GRASS_BLOCK.default_state(),
+            ],
+        }
     }
 }
 
@@ -165,9 +186,14 @@ impl ChunkGeneratorBackend for FlatGenerator {
                 for z in 0..16 {
                     chunk.set_block_state(BlockPos::new(x, y, z), state, None);
                     let access = &mut chunk.access;
-                    let view = SectionsView { level_height: access.level_height, sections: &access.sections, void_air_outside: true };
+                    let view = SectionsView {
+                        level_height: access.level_height,
+                        sections: &access.sections,
+                        void_air_outside: true,
+                    };
                     for ty in [HeightmapType::OceanFloorWg, HeightmapType::WorldSurfaceWg] {
-                        let heightmap: &mut Heightmap = access.heightmaps.get_mut(&ty).expect("created above");
+                        let heightmap: &mut Heightmap =
+                            access.heightmaps.get_mut(&ty).expect("created above");
                         heightmap.update(x, y, z, state, &view);
                     }
                 }
@@ -208,11 +234,27 @@ impl LevelTickEnv for Env {
     fn overworld_clock_time(&self) -> i64 {
         self.clock
     }
-    fn tick_scheduled_events(&mut self, _game_time: i64, _level: &mut mc_game::server::level::ServerLevel) {}
-    fn broadcast_game_event_to_all(&mut self, _packet: &mc_protocol::packets::play::ClientboundGameEventPacket) {}
+    fn tick_scheduled_events(
+        &mut self,
+        _game_time: i64,
+        _level: &mut mc_game::server::level::ServerLevel,
+    ) {
+    }
+    fn broadcast_game_event_to_all(
+        &mut self,
+        _packet: &mc_protocol::packets::play::ClientboundGameEventPacket,
+    ) {
+    }
     fn set_game_time(&mut self, _game_time: i64) {}
-    fn perform_prefixed_command(&mut self, _level: &mut ServerLevel, _source: mc_game::commands::CommandSourceStack, command: &str) {
-        panic!("block_scenario: command execution from a ticking level (command blocks) is not wired: `{command}`");
+    fn perform_prefixed_command(
+        &mut self,
+        _level: &mut ServerLevel,
+        _source: mc_game::commands::CommandSourceStack,
+        command: &str,
+    ) {
+        panic!(
+            "block_scenario: command execution from a ticking level (command blocks) is not wired: `{command}`"
+        );
     }
     fn command_rules(&self) -> mc_game::server::level::level_commands::CommandRules {
         Default::default()
@@ -245,17 +287,37 @@ impl Scenario {
     pub fn new() -> Self {
         // VanillaLevel.boot: frozen, quiet world
         let mut game_rules = GameRules::new(FeatureFlagSet::DEFAULT_FLAGS);
-        for rule in ["advance_time", "advance_weather", "spawn_mobs", "spawn_monsters", "spawn_patrols", "spawn_phantoms", "spawn_wandering_traders", "spawn_wardens", "raids"] {
+        for rule in [
+            "advance_time",
+            "advance_weather",
+            "spawn_mobs",
+            "spawn_monsters",
+            "spawn_patrols",
+            "spawn_phantoms",
+            "spawn_wandering_traders",
+            "spawn_wardens",
+            "raids",
+        ] {
             set_rule(&mut game_rules, rule, "false");
         }
         set_rule(&mut game_rules, "random_tick_speed", "0");
         Scenario {
             level: None,
-            env: Env { game_rules, weather: WeatherState::default(), difficulty: Difficulty::Normal, clock: 0 },
+            env: Env {
+                game_rules,
+                weather: WeatherState::default(),
+                difficulty: Difficulty::Normal,
+                clock: 0,
+            },
             out: Vec::new(),
             ticks: 0,
             watches: Vec::new(),
-            opts: Options_ { flat: true, difficulty: Difficulty::Normal, preload: 6, features: mc_world::level_storage::FeatureFlagSet::DEFAULT_FLAGS },
+            opts: Options_ {
+                flat: true,
+                difficulty: Difficulty::Normal,
+                preload: 6,
+                features: mc_world::level_storage::FeatureFlagSet::DEFAULT_FLAGS,
+            },
             log: Arc::new(Mutex::new(Vec::new())),
             line_no: 0,
             actors: Default::default(),
@@ -273,16 +335,27 @@ impl Scenario {
             return;
         }
         static COUNTER: std::sync::atomic::AtomicU32 = std::sync::atomic::AtomicU32::new(0);
-        let dir = std::env::temp_dir().join(format!("mc-block-scenario-{}-{}", std::process::id(), COUNTER.fetch_add(1, std::sync::atomic::Ordering::Relaxed)));
+        let dir = std::env::temp_dir().join(format!(
+            "mc-block-scenario-{}-{}",
+            std::process::id(),
+            COUNTER.fetch_add(1, std::sync::atomic::Ordering::Relaxed)
+        ));
         let (shared, _rx) = ServerShared::new();
         let biomes = BiomeRegistry::new(vec!["minecraft:plains".to_string()]);
-        let generator: Arc<dyn ChunkGeneratorBackend> = if self.opts.flat { Arc::new(FlatGenerator::default_layers()) } else { Arc::new(FlatGenerator { layers: Vec::new() }) };
+        let generator: Arc<dyn ChunkGeneratorBackend> = if self.opts.flat {
+            Arc::new(FlatGenerator::default_layers())
+        } else {
+            Arc::new(FlatGenerator { layers: Vec::new() })
+        };
         let mut level = ServerLevel::new(ServerLevelParams {
             shared,
             dimension: Identifier::parse("minecraft:overworld").unwrap(),
             level_id: "block_scenario".to_string(),
             dimension_dir: dir,
-            level_height: LevelHeight { min_y: -64, height: 384 },
+            level_height: LevelHeight {
+                min_y: -64,
+                height: 384,
+            },
             sea_level: 63,
             has_sky_light: true,
             factory: Arc::new(PalettedContainerFactory::create(biomes).expect("plains registered")),
@@ -295,7 +368,9 @@ impl Scenario {
             simulation_distance: 4,
             sync_writes: false,
             is_debug: false,
-            level_data: Box::new(mc_game::server::level::level_data::PrimaryServerLevelData(mc_game::server::level::level_data::default_world_data())),
+            level_data: Box::new(mc_game::server::level::level_data::PrimaryServerLevelData(
+                mc_game::server::level::level_data::default_world_data(),
+            )),
         });
         level.tick_state.tick_time = true;
         level.tick_state.enabled_features = self.opts.features;
@@ -305,7 +380,9 @@ impl Scenario {
         let r = self.opts.preload;
         for cx in -r..=r {
             for cz in -r..=r {
-                level.chunk_source_mut().update_chunk_forced(ChunkPos::new(cx, cz), true);
+                level
+                    .chunk_source_mut()
+                    .update_chunk_forced(ChunkPos::new(cx, cz), true);
             }
         }
         let start = Instant::now();
@@ -313,15 +390,25 @@ impl Scenario {
             level.tick_chunk_source(&|| true, false, true);
             while level.poll_chunk_task() {}
             level.tick_entity_management();
-            let ready = (-r..=r).all(|cx| (-r..=r).all(|cz| level.is_position_ticking_with_entities_loaded(ChunkPos::pack_xz(cx, cz))));
+            let ready = (-r..=r).all(|cx| {
+                (-r..=r).all(|cz| {
+                    level.is_position_ticking_with_entities_loaded(ChunkPos::pack_xz(cx, cz))
+                })
+            });
             if ready {
                 break;
             }
-            assert!(start.elapsed() < Duration::from_secs(120), "chunks did not reach entity ticking");
+            assert!(
+                start.elapsed() < Duration::from_secs(120),
+                "chunks did not reach entity ticking"
+            );
             std::thread::sleep(Duration::from_millis(1));
         }
         use mc_core::random::RandomSource;
-        level.tick_state.random.set_seed(self.opts_seed() ^ 0x5DEECE66D);
+        level
+            .tick_state
+            .random
+            .set_seed(self.opts_seed() ^ 0x5DEECE66D);
         self.level = Some(level);
     }
 
@@ -348,11 +435,16 @@ impl Scenario {
         use mc_core::random::RandomSource;
         match a[0].as_str() {
             "level" => {
-                assert!(self.level.is_none(), "`level` only before the first world command");
+                assert!(
+                    self.level.is_none(),
+                    "`level` only before the first world command"
+                );
                 self.opts.flat = match a[1].as_str() {
                     "flat" => true,
                     "void" => false,
-                    other => panic!("level type {other} is not supported by the Rust replay (flat|void)"),
+                    other => {
+                        panic!("level type {other} is not supported by the Rust replay (flat|void)")
+                    }
                 };
             }
             "seed" => {}
@@ -369,12 +461,14 @@ impl Scenario {
             "features" => {
                 use mc_world::level_storage::FeatureFlagSet as F;
                 for name in a[1].split(',').filter(|n| !n.is_empty()) {
-                    self.opts.features = self.opts.features.join(match name.strip_prefix("minecraft:").unwrap_or(name) {
-                        "redstone_experiments" => F::REDSTONE_EXPERIMENTS,
-                        "trade_rebalance" => F::TRADE_REBALANCE,
-                        "minecart_improvements" => F::MINECART_IMPROVEMENTS,
-                        other => panic!("unknown feature flag {other}"),
-                    });
+                    self.opts.features = self.opts.features.join(
+                        match name.strip_prefix("minecraft:").unwrap_or(name) {
+                            "redstone_experiments" => F::REDSTONE_EXPERIMENTS,
+                            "trade_rebalance" => F::TRADE_REBALANCE,
+                            "minecart_improvements" => F::MINECART_IMPROVEMENTS,
+                            other => panic!("unknown feature flag {other}"),
+                        },
+                    );
                 }
             }
             "note" => self.out.push(format!("# {}", self.line[4..].trim())),
@@ -406,7 +500,8 @@ impl Scenario {
                 for x in p1.x().min(p2.x())..=p1.x().max(p2.x()) {
                     for y in p1.y().min(p2.y())..=p1.y().max(p2.y()) {
                         for z in p1.z().min(p2.z())..=p1.z().max(p2.z()) {
-                            self.level().set_block(BlockPos::new(x, y, z), state, 3, 512);
+                            self.level()
+                                .set_block(BlockPos::new(x, y, z), state, 3, 512);
                         }
                     }
                 }
@@ -419,7 +514,8 @@ impl Scenario {
             }
             "tick_chunk" => {
                 self.world();
-                self.level().tick_chunk(ChunkPos::new(int(&a[1]), int(&a[2])), int(&a[3]));
+                self.level()
+                    .tick_chunk(ChunkPos::new(int(&a[1]), int(&a[2])), int(&a[3]));
             }
             "random_tick" => {
                 self.world();
@@ -427,7 +523,10 @@ impl Scenario {
             }
             "be_nbt" => {
                 self.world();
-                self.be_nbt(pos(a, 1), &self.line[self.line.find(a[4].as_str()).expect("snbt")..].to_string());
+                self.be_nbt(
+                    pos(a, 1),
+                    &self.line[self.line.find(a[4].as_str()).expect("snbt")..].to_string(),
+                );
             }
             "tick" => {
                 self.world();
@@ -444,17 +543,28 @@ impl Scenario {
             }
             "dump" => {
                 self.world();
-                let what: Vec<String> = if a.len() > 1 { a[1..].to_vec() } else { vec!["entities".to_string(), "all_players".to_string()] };
+                let what: Vec<String> = if a.len() > 1 {
+                    a[1..].to_vec()
+                } else {
+                    vec!["entities".to_string(), "all_players".to_string()]
+                };
                 self.dump(&what);
             }
             _ if self.actor_command(a) => {}
-            other => panic!("command `{other}` is not supported by tests/common/block_scenario.rs yet"),
+            other => {
+                panic!("command `{other}` is not supported by tests/common/block_scenario.rs yet")
+            }
         }
     }
 
     fn gamerule(&mut self, name: &str, value: &str) {
         set_rule(&mut self.env.game_rules, name, value);
-        self.level.as_mut().expect("world").server_state.rules.refresh(&self.env.game_rules);
+        self.level
+            .as_mut()
+            .expect("world")
+            .server_state
+            .rules
+            .refresh(&self.env.game_rules);
     }
 
     /// One real server tick; with `watch`es set the `T n` header and the dumps follow.
@@ -503,7 +613,8 @@ impl Scenario {
 
     /// `/data merge block`.
     fn be_nbt(&mut self, p: BlockPos, snbt: &str) {
-        let tag = mc_nbt::snbt::parse_compound(snbt).unwrap_or_else(|e| panic!("bad SNBT {snbt}: {e}"));
+        let tag =
+            mc_nbt::snbt::parse_compound(snbt).unwrap_or_else(|e| panic!("bad SNBT {snbt}: {e}"));
         let level = self.level();
         let state = level.get_block_state(p);
         let ok = level.with_block_entity(p, |_, be| {
@@ -519,17 +630,24 @@ impl Scenario {
 
     pub fn dump(&mut self, what: &[String]) {
         for w in what {
-            let (kind, arg) = w.split_once(':').map_or((w.as_str(), None), |(k, v)| (k, Some(v)));
+            let (kind, arg) = w
+                .split_once(':')
+                .map_or((w.as_str(), None), |(k, v)| (k, Some(v)));
             match kind {
                 "blocks" => {
-                    let c: Vec<i32> = arg.expect("blocks:x1,y1,z1,x2,y2,z2").split(',').map(int).collect();
+                    let c: Vec<i32> = arg
+                        .expect("blocks:x1,y1,z1,x2,y2,z2")
+                        .split(',')
+                        .map(int)
+                        .collect();
                     assert_eq!(c.len(), 6, "blocks:x1,y1,z1,x2,y2,z2");
                     for x in c[0].min(c[3])..=c[0].max(c[3]) {
                         for y in c[1].min(c[4])..=c[1].max(c[4]) {
                             for z in c[2].min(c[5])..=c[2].max(c[5]) {
                                 let state = self.level().get_block_state(BlockPos::new(x, y, z));
                                 if !state.is_air() {
-                                    self.out.push(format!("B {x} {y} {z} {}", state_string(state)));
+                                    self.out
+                                        .push(format!("B {x} {y} {z} {}", state_string(state)));
                                 }
                             }
                         }
@@ -542,15 +660,21 @@ impl Scenario {
                         Some(be) => snbt(be.save_with_full_metadata()),
                         None => "-".to_string(),
                     };
-                    self.out.push(format!("BE {} {} {} {text}", c[0], c[1], c[2]));
+                    self.out
+                        .push(format!("BE {} {} {} {text}", c[0], c[1], c[2]));
                 }
                 "beu" => {
                     let c: Vec<i32> = arg.expect("beu:x,y,z").split(',').map(int).collect();
-                    let text = match self.level().get_block_entity(BlockPos::new(c[0], c[1], c[2])).and_then(|be| be.get_update_packet()) {
+                    let text = match self
+                        .level()
+                        .get_block_entity(BlockPos::new(c[0], c[1], c[2]))
+                        .and_then(|be| be.get_update_packet())
+                    {
                         Some(p) => format!("{} {}", p.r#type.name(), snbt(p.tag)),
                         None => "-".to_string(),
                     };
-                    self.out.push(format!("BEU {} {} {} {text}", c[0], c[1], c[2]));
+                    self.out
+                        .push(format!("BEU {} {} {} {text}", c[0], c[1], c[2]));
                 }
                 "ticks" => self.dump_ticks(),
                 _ if self.dump_actor(kind, arg) => {}
@@ -571,12 +695,38 @@ impl Scenario {
                 let cp = ChunkPos::new(cx, cz);
                 if let Some(c) = containers.block.container(cp) {
                     for t in c.get_all() {
-                        rows.push((t.trigger_tick, t.priority.get_value(), t.sub_tick_order, format!("TICK block {} {} {} {} delay={} prio={}", t.pos.x(), t.pos.y(), t.pos.z(), t.ty.name(), t.trigger_tick - game_time, t.priority.get_value())));
+                        rows.push((
+                            t.trigger_tick,
+                            t.priority.get_value(),
+                            t.sub_tick_order,
+                            format!(
+                                "TICK block {} {} {} {} delay={} prio={}",
+                                t.pos.x(),
+                                t.pos.y(),
+                                t.pos.z(),
+                                t.ty.name(),
+                                t.trigger_tick - game_time,
+                                t.priority.get_value()
+                            ),
+                        ));
                     }
                 }
                 if let Some(c) = containers.fluid.container(cp) {
                     for t in c.get_all() {
-                        rows.push((t.trigger_tick, t.priority.get_value(), t.sub_tick_order, format!("TICK fluid {} {} {} {} delay={} prio={}", t.pos.x(), t.pos.y(), t.pos.z(), t.ty.name(), t.trigger_tick - game_time, t.priority.get_value())));
+                        rows.push((
+                            t.trigger_tick,
+                            t.priority.get_value(),
+                            t.sub_tick_order,
+                            format!(
+                                "TICK fluid {} {} {} {} delay={} prio={}",
+                                t.pos.x(),
+                                t.pos.y(),
+                                t.pos.z(),
+                                t.ty.name(),
+                                t.trigger_tick - game_time,
+                                t.priority.get_value()
+                            ),
+                        ));
                     }
                 }
             }
@@ -595,9 +745,12 @@ impl Scenario {
 
 /// `/gamerule NAME VALUE` (unknown rules and rules disabled by the feature flags are ignored like a rejected command).
 fn set_rule(rules: &mut GameRules, name: &str, value: &str) {
-    let id = Identifier::parse(&format!("minecraft:{name}")).unwrap_or_else(|_| panic!("gamerule {name}"));
+    let id = Identifier::parse(&format!("minecraft:{name}"))
+        .unwrap_or_else(|_| panic!("gamerule {name}"));
     let rule = AnyGameRule::by_identifier(&id).unwrap_or_else(|| panic!("unknown gamerule {name}"));
-    let parsed = rule.deserialize(value).unwrap_or_else(|_| panic!("gamerule {name}: bad value {value}"));
+    let parsed = rule
+        .deserialize(value)
+        .unwrap_or_else(|_| panic!("gamerule {name}: bad value {value}"));
     rules.try_set_value(rule, parsed);
 }
 
@@ -638,15 +791,47 @@ pub fn format_broadcast(r: &BroadcastRecord) -> String {
             SoundEventHolder::Reference(s) => s.name().to_string(),
             SoundEventHolder::Direct(_) => "[unregistered]".to_string(),
         };
-        format!("EV sound at={:?},{:?},{:?} {head} event={event} source={} vol={:?} pitch={:?}", r.x, r.y, r.z, sound_source_name(p.source), p.volume, p.pitch)
+        format!(
+            "EV sound at={:?},{:?},{:?} {head} event={event} source={} vol={:?} pitch={:?}",
+            r.x,
+            r.y,
+            r.z,
+            sound_source_name(p.source),
+            p.volume,
+            p.pitch
+        )
     } else if id == ClientboundLevelEventPacket::ID {
         let p = ClientboundLevelEventPacket::decode(&mut body).expect("level event packet");
-        format!("EV level_event {head} type={} pos={},{},{} data={} global={}", p.r#type, p.pos.x(), p.pos.y(), p.pos.z(), p.data, i32::from(p.global_event))
+        format!(
+            "EV level_event {head} type={} pos={},{},{} data={} global={}",
+            p.r#type,
+            p.pos.x(),
+            p.pos.y(),
+            p.pos.z(),
+            p.data,
+            i32::from(p.global_event)
+        )
     } else if id == ClientboundBlockEventPacket::ID {
         let p = ClientboundBlockEventPacket::decode(&mut body).expect("block event packet");
-        format!("EV block_event {head} pos={},{},{} block={} b0={} b1={}", p.pos.x(), p.pos.y(), p.pos.z(), p.block.name(), p.b0, p.b1)
+        format!(
+            "EV block_event {head} pos={},{},{} block={} b0={} b1={}",
+            p.pos.x(),
+            p.pos.y(),
+            p.pos.z(),
+            p.block.name(),
+            p.b0,
+            p.b1
+        )
     } else {
-        let name = mc_protocol::packet::packet_name(mc_protocol::packet::ConnectionState::Play, mc_protocol::packet::PacketFlow::Clientbound, id).unwrap_or("?");
-        format!("EV packet at={:?},{:?},{:?} {head} id={name}", r.x, r.y, r.z)
+        let name = mc_protocol::packet::packet_name(
+            mc_protocol::packet::ConnectionState::Play,
+            mc_protocol::packet::PacketFlow::Clientbound,
+            id,
+        )
+        .unwrap_or("?");
+        format!(
+            "EV packet at={:?},{:?},{:?} {head} id={name}",
+            r.x, r.y, r.z
+        )
     }
 }

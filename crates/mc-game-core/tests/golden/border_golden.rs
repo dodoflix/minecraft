@@ -12,14 +12,26 @@ fn d(v: f64) -> String {
 fn line(b: &WorldBorder) -> String {
     let mut s = String::new();
     for p in [0.0f32, 0.5, 1.0] {
-        s += &format!("{} {} {} {} | ", d(b.get_min_x_at(p)), d(b.get_max_x_at(p)), d(b.get_min_z_at(p)), d(b.get_max_z_at(p)));
+        s += &format!(
+            "{} {} {} {} | ",
+            d(b.get_min_x_at(p)),
+            d(b.get_max_x_at(p)),
+            d(b.get_min_z_at(p)),
+            d(b.get_max_z_at(p))
+        );
     }
     let status = match b.get_status() {
         BorderStatus::Growing => "GROWING",
         BorderStatus::Shrinking => "SHRINKING",
         BorderStatus::Stationary => "STATIONARY",
     };
-    s += &format!("{} {} {} {} {status} | ", d(b.get_size()), b.get_lerp_time(), d(b.get_lerp_target()), d(b.get_lerp_speed()));
+    s += &format!(
+        "{} {} {} {} {status} | ",
+        d(b.get_size()),
+        b.get_lerp_time(),
+        d(b.get_lerp_target()),
+        d(b.get_lerp_speed())
+    );
     s += &format!(
         "{} {} {} {} {} {} {} | ",
         d(b.get_center_x()),
@@ -30,7 +42,15 @@ fn line(b: &WorldBorder) -> String {
         b.get_warning_blocks(),
         b.get_absolute_max_size()
     );
-    let pts = [(0.0, 0.0), (10.5, -7.25), (49.99, 50.0), (-100.0, 3.0), (1e9, -1e9), (b.get_max_x(), 0.0), (b.get_min_x(), b.get_min_z())];
+    let pts = [
+        (0.0, 0.0),
+        (10.5, -7.25),
+        (49.99, 50.0),
+        (-100.0, 3.0),
+        (1e9, -1e9),
+        (b.get_max_x(), 0.0),
+        (b.get_min_x(), b.get_min_z()),
+    ];
     for (x, z) in pts {
         let c = b.clamp_vec3_to_bound(x, 64.0, z);
         s += &format!(
@@ -46,13 +66,28 @@ fn line(b: &WorldBorder) -> String {
     s += &format!(
         " | {},{},{},{},{} | ",
         b.is_within_bounds_aabb(&AABB::new(-1.0, 0.0, -1.0, 1.0, 2.0, 1.0)),
-        b.is_within_bounds_aabb(&AABB::new(b.get_max_x() - 1.0, 0.0, 0.0, b.get_max_x() + 1.0, 2.0, 1.0)),
+        b.is_within_bounds_aabb(&AABB::new(
+            b.get_max_x() - 1.0,
+            0.0,
+            0.0,
+            b.get_max_x() + 1.0,
+            2.0,
+            1.0
+        )),
         b.is_within_bounds_chunk(&ChunkPos::new(0, 0)),
         b.is_within_bounds_chunk(&ChunkPos::new(1875000, 0)),
         b.is_within_bounds_block(&BlockPos::new(5, 5, 5)),
     );
     for bb in b.get_collision_shape().to_aabbs() {
-        s += &format!("{},{},{},{},{},{};", d(bb.min_x), d(bb.min_y), d(bb.min_z), d(bb.max_x), d(bb.max_y), d(bb.max_z));
+        s += &format!(
+            "{},{},{},{},{},{};",
+            d(bb.min_x),
+            d(bb.min_y),
+            d(bb.min_z),
+            d(bb.max_x),
+            d(bb.max_y),
+            d(bb.max_z)
+        );
     }
     s
 }
@@ -93,11 +128,19 @@ fn replay_matches_vanilla() {
             "init" => b.apply_initial_settings(t[1].parse().unwrap()),
             other => panic!("{other}"),
         }
-        let (head, snbt) = expected.strip_prefix(&format!("{op} => ")).unwrap().rsplit_once(" | ").unwrap();
+        let (head, snbt) = expected
+            .strip_prefix(&format!("{op} => "))
+            .unwrap()
+            .rsplit_once(" | ")
+            .unwrap();
         // the shape column may be empty, which leaves a trailing "| " in `head`
         let ours = line(&b);
         assert_eq!(ours.trim_end(), head.trim_end(), "after `{op}`");
-        assert_eq!(b.current_settings().encode(), mc_nbt::snbt::parse(snbt).unwrap(), "codec after `{op}`");
+        assert_eq!(
+            b.current_settings().encode(),
+            mc_nbt::snbt::parse(snbt).unwrap(),
+            "codec after `{op}`"
+        );
         n += 1;
     }
     assert_eq!(n, ops.lines().count());

@@ -7,7 +7,9 @@ fn duplicate_cases(source: &str) -> Vec<String> {
     // the command switch is `switch (cmd) {` ... first `default ->` after it; dump kinds are `switch (kind)` and checked separately
     let mut dups = Vec::new();
     for selector in ["switch (cmd) {", "switch (kind) {", "switch (what) {"] {
-        let Some(start) = source.find(selector) else { continue };
+        let Some(start) = source.find(selector) else {
+            continue;
+        };
         let mut seen: BTreeMap<String, usize> = BTreeMap::new();
         let mut depth = 0i32;
         let mut line_no = source[..start].matches('\n').count() + 1;
@@ -44,7 +46,8 @@ fn duplicate_cases(source: &str) -> Vec<String> {
 
 #[test]
 fn entity_oracle_driver_has_no_duplicate_command_labels() {
-    let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../mc-game/tests/oracle/EntityOracleDriver.java");
+    let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../mc-game/tests/oracle/EntityOracleDriver.java");
     let source = std::fs::read_to_string(path).unwrap();
     let dups = duplicate_cases(&source);
     assert!(dups.is_empty(), "EntityOracleDriver.java: {dups:#?}");

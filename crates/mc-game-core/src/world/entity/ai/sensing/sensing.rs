@@ -19,7 +19,12 @@ impl Sensing {
     }
 
     /// `hasLineOfSight(target)`; `mob` owns this cache.
-    pub fn has_line_of_sight(&self, level: &ServerLevel, mob: &dyn Entity, target: &dyn Entity) -> bool {
+    pub fn has_line_of_sight(
+        &self,
+        level: &ServerLevel,
+        mob: &dyn Entity,
+        target: &dyn Entity,
+    ) -> bool {
         let id = target.id();
         if self.seen.borrow().contains(&id) {
             return true;

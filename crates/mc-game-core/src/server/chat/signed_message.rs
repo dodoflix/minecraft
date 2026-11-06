@@ -29,7 +29,11 @@ impl SignedMessageLink {
     }
 
     pub fn root(sender: Uuid, session_id: Uuid) -> Self {
-        Self { index: 0, sender, session_id }
+        Self {
+            index: 0,
+            sender,
+            session_id,
+        }
     }
 
     /// `updateSignature`: sender, session id (16 bytes each, most significant first), index (big endian int).
@@ -44,7 +48,10 @@ impl SignedMessageLink {
     }
 
     pub fn advance(&self) -> Option<SignedMessageLink> {
-        (self.index != i32::MAX).then(|| Self { index: self.index + 1, ..self.clone() })
+        (self.index != i32::MAX).then(|| Self {
+            index: self.index + 1,
+            ..self.clone()
+        })
     }
 }
 
@@ -59,7 +66,12 @@ pub struct SignedMessageBody {
 
 impl SignedMessageBody {
     pub fn unsigned(content: impl Into<String>) -> Self {
-        Self { content: content.into(), time_stamp: instant_now(), salt: 0, last_seen: LastSeenMessages::empty() }
+        Self {
+            content: content.into(),
+            time_stamp: instant_now(),
+            salt: 0,
+            last_seen: LastSeenMessages::empty(),
+        }
     }
 
     pub fn update_signature(&self, out: &mut Vec<u8>) {
@@ -81,13 +93,18 @@ impl SignedMessageBody {
 }
 
 /// `SignedMessageBody.Packed.unpack`: `Ok(None)` = an entry is not in the cache (vanilla `Optional.empty()`).
-pub fn unpack_body(packed: &SignedMessageBodyPacked, cache: &MessageSignatureCache) -> Result<Option<SignedMessageBody>, IdOutOfRange> {
-    Ok(last_seen_messages::unpack(&packed.last_seen, cache)?.map(|last_seen| SignedMessageBody {
-        content: packed.content.clone(),
-        time_stamp: packed.time_stamp,
-        salt: packed.salt,
-        last_seen,
-    }))
+pub fn unpack_body(
+    packed: &SignedMessageBodyPacked,
+    cache: &MessageSignatureCache,
+) -> Result<Option<SignedMessageBody>, IdOutOfRange> {
+    Ok(
+        last_seen_messages::unpack(&packed.last_seen, cache)?.map(|last_seen| SignedMessageBody {
+            content: packed.content.clone(),
+            time_stamp: packed.time_stamp,
+            salt: packed.salt,
+            last_seen,
+        }),
+    )
 }
 
 /// `SignedMessageChain.DecodeException`: the component is the kick/disable reason.
@@ -96,25 +113,44 @@ pub type DecodeException = ThrowingComponent;
 pub mod decode_exception {
     use super::*;
     pub fn missing_profile_key() -> DecodeException {
-        ThrowingComponent::new(Component::translatable("chat.disabled.missingProfileKey", vec![]))
+        ThrowingComponent::new(Component::translatable(
+            "chat.disabled.missingProfileKey",
+            vec![],
+        ))
     }
     pub fn chain_broken() -> DecodeException {
-        ThrowingComponent::new(Component::translatable("chat.disabled.chain_broken", vec![]))
+        ThrowingComponent::new(Component::translatable(
+            "chat.disabled.chain_broken",
+            vec![],
+        ))
     }
     pub fn expired_profile_key() -> DecodeException {
-        ThrowingComponent::new(Component::translatable("chat.disabled.expiredProfileKey", vec![]))
+        ThrowingComponent::new(Component::translatable(
+            "chat.disabled.expiredProfileKey",
+            vec![],
+        ))
     }
     pub fn invalid_signature() -> DecodeException {
-        ThrowingComponent::new(Component::translatable("chat.disabled.invalid_signature", vec![]))
+        ThrowingComponent::new(Component::translatable(
+            "chat.disabled.invalid_signature",
+            vec![],
+        ))
     }
     pub fn out_of_order_chat() -> DecodeException {
-        ThrowingComponent::new(Component::translatable("chat.disabled.out_of_order_chat", vec![]))
+        ThrowingComponent::new(Component::translatable(
+            "chat.disabled.out_of_order_chat",
+            vec![],
+        ))
     }
 }
 
 /// `SignedMessageChain.Decoder`.
 pub trait Decoder: Send {
-    fn unpack(&mut self, signature: Option<&MessageSignature>, body: SignedMessageBody) -> Result<PlayerChatMessage, DecodeException>;
+    fn unpack(
+        &mut self,
+        signature: Option<&MessageSignature>,
+        body: SignedMessageBody,
+    ) -> Result<PlayerChatMessage, DecodeException>;
     fn set_chain_broken(&mut self) {}
 }
 
@@ -125,13 +161,23 @@ pub struct UnsignedDecoder {
 }
 
 impl UnsignedDecoder {
-    pub fn new(profile_id: Uuid, enforces_secure_chat: Arc<dyn Fn() -> bool + Send + Sync>) -> Self {
-        Self { profile_id, enforces_secure_chat }
+    pub fn new(
+        profile_id: Uuid,
+        enforces_secure_chat: Arc<dyn Fn() -> bool + Send + Sync>,
+    ) -> Self {
+        Self {
+            profile_id,
+            enforces_secure_chat,
+        }
     }
 }
 
 impl Decoder for UnsignedDecoder {
-    fn unpack(&mut self, _signature: Option<&MessageSignature>, body: SignedMessageBody) -> Result<PlayerChatMessage, DecodeException> {
+    fn unpack(
+        &mut self,
+        _signature: Option<&MessageSignature>,
+        body: SignedMessageBody,
+    ) -> Result<PlayerChatMessage, DecodeException> {
         if (self.enforces_secure_chat)() {
             Err(decode_exception::missing_profile_key())
         } else {
@@ -149,11 +195,18 @@ pub struct SignedMessageChain {
 
 impl SignedMessageChain {
     pub fn new(profile_id: Uuid, session_id: Uuid) -> Self {
-        Self { next_link: Some(SignedMessageLink::root(profile_id, session_id)), last_time_stamp: Instant(0) }
+        Self {
+            next_link: Some(SignedMessageLink::root(profile_id, session_id)),
+            last_time_stamp: Instant(0),
+        }
     }
 
     /// `encoder(signer)`: signs bodies; `None` once the chain index is exhausted.
-    pub fn encode(&mut self, body: &SignedMessageBody, sign: impl FnOnce(&[u8]) -> Vec<u8>) -> Option<MessageSignature> {
+    pub fn encode(
+        &mut self,
+        body: &SignedMessageBody,
+        sign: impl FnOnce(&[u8]) -> Vec<u8>,
+    ) -> Option<MessageSignature> {
         let link = self.next_link.take()?;
         self.next_link = link.advance();
         let mut payload = Vec::new();
@@ -162,8 +215,16 @@ impl SignedMessageChain {
     }
 
     /// `decoder(profilePublicKey)`. `expires_at` is `profilePublicKey.data().expiresAt()`.
-    pub fn decoder(self, validator: Arc<dyn SignatureValidator>, expires_at: Instant) -> KeyBasedDecoder {
-        KeyBasedDecoder { chain: self, validator, expires_at }
+    pub fn decoder(
+        self,
+        validator: Arc<dyn SignatureValidator>,
+        expires_at: Instant,
+    ) -> KeyBasedDecoder {
+        KeyBasedDecoder {
+            chain: self,
+            validator,
+            expires_at,
+        }
     }
 }
 
@@ -174,12 +235,20 @@ pub struct KeyBasedDecoder {
 }
 
 impl Decoder for KeyBasedDecoder {
-    fn unpack(&mut self, signature: Option<&MessageSignature>, body: SignedMessageBody) -> Result<PlayerChatMessage, DecodeException> {
-        let Some(signature) = signature else { return Err(decode_exception::missing_profile_key()) };
+    fn unpack(
+        &mut self,
+        signature: Option<&MessageSignature>,
+        body: SignedMessageBody,
+    ) -> Result<PlayerChatMessage, DecodeException> {
+        let Some(signature) = signature else {
+            return Err(decode_exception::missing_profile_key());
+        };
         if self.expires_at < instant_now() {
             return Err(decode_exception::expired_profile_key());
         }
-        let Some(link) = self.chain.next_link.clone() else { return Err(decode_exception::chain_broken()) };
+        let Some(link) = self.chain.next_link.clone() else {
+            return Err(decode_exception::chain_broken());
+        };
         if body.time_stamp < self.chain.last_time_stamp {
             self.set_chain_broken();
             return Err(decode_exception::out_of_order_chat());
@@ -197,7 +266,10 @@ impl Decoder for KeyBasedDecoder {
             return Err(decode_exception::invalid_signature());
         }
         if unpacked.has_expired_server(instant_now()) {
-            log::warn!("Received expired chat: '{}'. Is the client/server system time unsynchronized?", unpacked.signed_body.content);
+            log::warn!(
+                "Received expired chat: '{}'. Is the client/server system time unsynchronized?",
+                unpacked.signed_body.content
+            );
         }
         self.chain.next_link = link.advance();
         Ok(unpacked)

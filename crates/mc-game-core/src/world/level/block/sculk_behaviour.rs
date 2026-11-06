@@ -18,15 +18,34 @@ pub trait SculkBehaviour: Send + Sync {
     }
 
     /// `onDischarged(level, state, pos, random)`.
-    fn on_discharged(&self, _level: &mut dyn LevelAccessor, _state: BlockState, _pos: BlockPos, _random: &mut dyn RandomSource) {}
+    fn on_discharged(
+        &self,
+        _level: &mut dyn LevelAccessor,
+        _state: BlockState,
+        _pos: BlockPos,
+        _random: &mut dyn RandomSource,
+    ) {
+    }
 
     /// `depositCharge(level, pos, random)`.
-    fn deposit_charge(&self, _level: &mut dyn LevelAccessor, _pos: BlockPos, _random: &mut dyn RandomSource) -> bool {
+    fn deposit_charge(
+        &self,
+        _level: &mut dyn LevelAccessor,
+        _pos: BlockPos,
+        _random: &mut dyn RandomSource,
+    ) -> bool {
         false
     }
 
     /// `attemptSpreadVein(level, pos, state, facings, postProcess)`.
-    fn attempt_spread_vein(&self, level: &mut dyn LevelAccessor, pos: BlockPos, state: BlockState, _facings: Option<&[Direction]>, post_process: bool) -> bool {
+    fn attempt_spread_vein(
+        &self,
+        level: &mut dyn LevelAccessor,
+        pos: BlockPos,
+        state: BlockState,
+        _facings: Option<&[Direction]>,
+        post_process: bool,
+    ) -> bool {
         sculk_vein_block::vein_spreader().spread_all(state, level, pos, post_process) > 0
     }
 
@@ -58,11 +77,23 @@ pub struct DefaultSculkBehaviour;
 pub static DEFAULT: DefaultSculkBehaviour = DefaultSculkBehaviour;
 
 impl SculkBehaviour for DefaultSculkBehaviour {
-    fn attempt_spread_vein(&self, level: &mut dyn LevelAccessor, pos: BlockPos, state: BlockState, facings: Option<&[Direction]>, post_process: bool) -> bool {
+    fn attempt_spread_vein(
+        &self,
+        level: &mut dyn LevelAccessor,
+        pos: BlockPos,
+        state: BlockState,
+        facings: Option<&[Direction]>,
+        post_process: bool,
+    ) -> bool {
         match facings {
             None => {
                 let current = level.get_block_state(pos);
-                sculk_vein_block::same_space_spreader().spread_all(current, level, pos, post_process) > 0
+                sculk_vein_block::same_space_spreader().spread_all(
+                    current,
+                    level,
+                    pos,
+                    post_process,
+                ) > 0
             }
             Some(faces) if !faces.is_empty() => {
                 if !state.is_air() && state.get_fluid_state().fluid() != Fluid::WATER {
@@ -71,7 +102,9 @@ impl SculkBehaviour for DefaultSculkBehaviour {
                     sculk_vein_block::regrow(level, pos, state, faces)
                 }
             }
-            Some(_) => sculk_vein_block::vein_spreader().spread_all(state, level, pos, post_process) > 0,
+            Some(_) => {
+                sculk_vein_block::vein_spreader().spread_all(state, level, pos, post_process) > 0
+            }
         }
     }
 
@@ -84,7 +117,11 @@ impl SculkBehaviour for DefaultSculkBehaviour {
         _spreader: &SculkSpreader,
         _spread_veins: bool,
     ) -> i32 {
-        if cursor.get_decay_delay() > 0 { cursor.get_charge() } else { 0 }
+        if cursor.get_decay_delay() > 0 {
+            cursor.get_charge()
+        } else {
+            0
+        }
     }
 
     fn update_decay_delay(&self, age: i32) -> i32 {

@@ -4,7 +4,8 @@ use super::connection::ReadError;
 use super::connection_task::{ConnectionContext, Event};
 use mc_protocol::net::NetError;
 use mc_protocol::packets::status::{
-    ClientboundPongResponsePacket, ClientboundStatusResponsePacket, ServerStatus, ServerboundStatusPacket,
+    ClientboundPongResponsePacket, ClientboundStatusResponsePacket, ServerStatus,
+    ServerboundStatusPacket,
 };
 use mc_text::Component;
 use std::sync::Arc;
@@ -27,11 +28,14 @@ pub(super) async fn run(ctx: &mut ConnectionContext, status: Arc<ServerStatus>) 
                         ctx.sender.close_with(disconnect_reason());
                     } else {
                         has_requested_status = true;
-                        ctx.sender.send(&ClientboundStatusResponsePacket { status: (*status).clone() });
+                        ctx.sender.send(&ClientboundStatusResponsePacket {
+                            status: (*status).clone(),
+                        });
                     }
                 }
                 Ok(ServerboundStatusPacket::PingRequest(ping)) => {
-                    ctx.sender.send(&ClientboundPongResponsePacket { time: ping.time });
+                    ctx.sender
+                        .send(&ClientboundPongResponsePacket { time: ping.time });
                     ctx.sender.close_with(disconnect_reason());
                 }
             },

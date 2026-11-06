@@ -4,9 +4,9 @@ use mc_core::phys::vec3::Vec3;
 
 use mc_core::ident::Identifier;
 
-use crate::codec::{read_varint, write_varint, DecodeResult};
-use crate::{Decode, Encode};
+use crate::codec::{DecodeResult, read_varint, write_varint};
 use crate::packets::common::id_enum;
+use crate::{Decode, Encode};
 
 id_enum!(
     /// `GameType` (`GameType.STREAM_CODEC`: VarInt id, unknown ids = survival)
@@ -61,7 +61,10 @@ impl Relatives {
     pub const ROTATION: Self = Self(1 << Relative::XRot as u16 | 1 << Relative::YRot as u16);
     /// `Relative.DELTA`
     pub const DELTA: Self = Self(
-        1 << Relative::DeltaX as u16 | 1 << Relative::DeltaY as u16 | 1 << Relative::DeltaZ as u16 | 1 << Relative::RotateDelta as u16,
+        1 << Relative::DeltaX as u16
+            | 1 << Relative::DeltaY as u16
+            | 1 << Relative::DeltaZ as u16
+            | 1 << Relative::RotateDelta as u16,
     );
 
     pub fn contains(self, r: Relative) -> bool {

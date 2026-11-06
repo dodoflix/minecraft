@@ -11,10 +11,10 @@ use mc_core::math::mth::{clamp_f32, create_insecure_uuid};
 use mc_core::random::RandomSource;
 use mc_core::uuid_util::{uuid_from_int_array, uuid_to_int_array};
 use mc_nbt::{CompoundTag, ListTag, Tag};
+use mc_protocol::packets::play as wire;
 use mc_text::util::wrap_in_square_brackets;
 use mc_text::{ChatFormatting, Component, HoverEvent};
 use uuid::Uuid;
-use mc_protocol::packets::play as wire;
 
 use crate::server::players::player_handle::PlayerHandle;
 
@@ -35,14 +35,30 @@ pub enum BossBarColor {
 }
 
 impl BossBarColor {
-    const ALL: [BossBarColor; 7] = [BossBarColor::Pink, BossBarColor::Blue, BossBarColor::Red, BossBarColor::Green, BossBarColor::Yellow, BossBarColor::Purple, BossBarColor::White];
+    const ALL: [BossBarColor; 7] = [
+        BossBarColor::Pink,
+        BossBarColor::Blue,
+        BossBarColor::Red,
+        BossBarColor::Green,
+        BossBarColor::Yellow,
+        BossBarColor::Purple,
+        BossBarColor::White,
+    ];
 
     pub fn get_name(self) -> &'static str {
         ["pink", "blue", "red", "green", "yellow", "purple", "white"][self as usize]
     }
 
     pub fn get_formatting(self) -> ChatFormatting {
-        [ChatFormatting::Red, ChatFormatting::Blue, ChatFormatting::DarkRed, ChatFormatting::Green, ChatFormatting::Yellow, ChatFormatting::DarkBlue, ChatFormatting::White][self as usize]
+        [
+            ChatFormatting::Red,
+            ChatFormatting::Blue,
+            ChatFormatting::DarkRed,
+            ChatFormatting::Green,
+            ChatFormatting::Yellow,
+            ChatFormatting::DarkBlue,
+            ChatFormatting::White,
+        ][self as usize]
     }
 
     pub fn by_name(name: &str) -> Option<BossBarColor> {
@@ -61,10 +77,22 @@ pub enum BossBarOverlay {
 }
 
 impl BossBarOverlay {
-    const ALL: [BossBarOverlay; 5] = [BossBarOverlay::Progress, BossBarOverlay::Notched6, BossBarOverlay::Notched10, BossBarOverlay::Notched12, BossBarOverlay::Notched20];
+    const ALL: [BossBarOverlay; 5] = [
+        BossBarOverlay::Progress,
+        BossBarOverlay::Notched6,
+        BossBarOverlay::Notched10,
+        BossBarOverlay::Notched12,
+        BossBarOverlay::Notched20,
+    ];
 
     pub fn get_name(self) -> &'static str {
-        ["progress", "notched_6", "notched_10", "notched_12", "notched_20"][self as usize]
+        [
+            "progress",
+            "notched_6",
+            "notched_10",
+            "notched_12",
+            "notched_20",
+        ][self as usize]
     }
 
     pub fn by_name(name: &str) -> Option<BossBarOverlay> {
@@ -100,16 +128,21 @@ impl PackedBossEvent {
             visible: codec::optional(m, "Visible", codec::boolean)?.unwrap_or(false),
             value: codec::optional(m, "Value", codec::int)?.unwrap_or(0),
             max: codec::optional(m, "Max", codec::int)?.unwrap_or(100),
-            color: codec::optional(m, "Color", |t| enum_by_name(t, BossBarColor::by_name))?.unwrap_or(BossBarColor::White),
-            overlay: codec::optional(m, "Overlay", |t| enum_by_name(t, BossBarOverlay::by_name))?.unwrap_or(BossBarOverlay::Progress),
+            color: codec::optional(m, "Color", |t| enum_by_name(t, BossBarColor::by_name))?
+                .unwrap_or(BossBarColor::White),
+            overlay: codec::optional(m, "Overlay", |t| enum_by_name(t, BossBarOverlay::by_name))?
+                .unwrap_or(BossBarOverlay::Progress),
             darken_screen: codec::optional(m, "DarkenScreen", codec::boolean)?.unwrap_or(false),
             play_boss_music: codec::optional(m, "PlayBossMusic", codec::boolean)?.unwrap_or(false),
-            create_world_fog: codec::optional(m, "CreateWorldFog", codec::boolean)?.unwrap_or(false),
+            create_world_fog: codec::optional(m, "CreateWorldFog", codec::boolean)?
+                .unwrap_or(false),
             players: codec::optional(m, "Players", |t| {
                 codec::list(t)?
                     .iter()
                     .map(|e| match e {
-                        Tag::IntArray(a) if a.len() == 4 => Ok(uuid_from_int_array([a[0], a[1], a[2], a[3]])),
+                        Tag::IntArray(a) if a.len() == 4 => {
+                            Ok(uuid_from_int_array([a[0], a[1], a[2], a[3]]))
+                        }
                         _ => Err("Expected an int array of length 4".to_string()),
                     })
                     .collect::<DataResult<BTreeSet<_>>>()
@@ -172,16 +205,34 @@ pub struct CustomBossEvent {
 }
 
 pub(crate) fn wire_color(c: BossBarColor) -> wire::BossBarColor {
-    [wire::BossBarColor::Pink, wire::BossBarColor::Blue, wire::BossBarColor::Red, wire::BossBarColor::Green, wire::BossBarColor::Yellow, wire::BossBarColor::Purple, wire::BossBarColor::White][c as usize]
+    [
+        wire::BossBarColor::Pink,
+        wire::BossBarColor::Blue,
+        wire::BossBarColor::Red,
+        wire::BossBarColor::Green,
+        wire::BossBarColor::Yellow,
+        wire::BossBarColor::Purple,
+        wire::BossBarColor::White,
+    ][c as usize]
 }
 
 pub(crate) fn wire_overlay(o: BossBarOverlay) -> wire::BossBarOverlay {
-    [wire::BossBarOverlay::Progress, wire::BossBarOverlay::Notched6, wire::BossBarOverlay::Notched10, wire::BossBarOverlay::Notched12, wire::BossBarOverlay::Notched20][o as usize]
+    [
+        wire::BossBarOverlay::Progress,
+        wire::BossBarOverlay::Notched6,
+        wire::BossBarOverlay::Notched10,
+        wire::BossBarOverlay::Notched12,
+        wire::BossBarOverlay::Notched20,
+    ][o as usize]
 }
 
 impl std::fmt::Debug for CustomBossEvent {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.debug_struct("CustomBossEvent").field("custom_id", &self.custom_id).field("state", &self.state).field("online", &self.online.len()).finish()
+        f.debug_struct("CustomBossEvent")
+            .field("custom_id", &self.custom_id)
+            .field("state", &self.state)
+            .field("online", &self.online.len())
+            .finish()
     }
 }
 
@@ -270,11 +321,16 @@ impl CustomBossEvent {
     /// `ServerBossEvent.getPlayers()`: the online players the bar is shown to, in the iteration order of vanilla's
     /// `HashSet<ServerPlayer>` (`Entity.hashCode()` is the entity id).
     pub fn online_players(&self) -> Vec<PlayerHandle> {
-        self.online_capacity.iteration_order(self.online.iter().cloned(), |p| p.id)
+        self.online_capacity
+            .iteration_order(self.online.iter().cloned(), |p| p.id)
     }
 
     fn properties(&self) -> wire::BossEventProperties {
-        wire::BossEventProperties { darken_screen: self.state.darken_screen, play_music: self.state.play_boss_music, create_world_fog: self.state.create_world_fog }
+        wire::BossEventProperties {
+            darken_screen: self.state.darken_screen,
+            play_music: self.state.play_boss_music,
+            create_world_fog: self.state.create_world_fog,
+        }
     }
 
     /// `ClientboundBossEventPacket.createAddPacket`.
@@ -293,7 +349,10 @@ impl CustomBossEvent {
 
     fn broadcast(&self, operation: wire::BossEventOperation) {
         if self.state.visible {
-            let packet = wire::ClientboundBossEventPacket { id: self.id, operation };
+            let packet = wire::ClientboundBossEventPacket {
+                id: self.id,
+                operation,
+            };
             for player in &self.online {
                 player.connection.send(&packet);
             }
@@ -332,7 +391,10 @@ impl CustomBossEvent {
         if color != self.state.color {
             self.state.color = color;
             self.dirty = true;
-            self.broadcast(wire::BossEventOperation::UpdateStyle { color: wire_color(color), overlay: wire_overlay(self.state.overlay) });
+            self.broadcast(wire::BossEventOperation::UpdateStyle {
+                color: wire_color(color),
+                overlay: wire_overlay(self.state.overlay),
+            });
         }
     }
 
@@ -340,7 +402,10 @@ impl CustomBossEvent {
         if overlay != self.state.overlay {
             self.state.overlay = overlay;
             self.dirty = true;
-            self.broadcast(wire::BossEventOperation::UpdateStyle { color: wire_color(self.state.color), overlay: wire_overlay(overlay) });
+            self.broadcast(wire::BossEventOperation::UpdateStyle {
+                color: wire_color(self.state.color),
+                overlay: wire_overlay(overlay),
+            });
         }
     }
 
@@ -348,7 +413,9 @@ impl CustomBossEvent {
         if v != self.state.darken_screen {
             self.state.darken_screen = v;
             self.dirty = true;
-            self.broadcast(wire::BossEventOperation::UpdateProperties { properties: self.properties() });
+            self.broadcast(wire::BossEventOperation::UpdateProperties {
+                properties: self.properties(),
+            });
         }
     }
 
@@ -356,7 +423,9 @@ impl CustomBossEvent {
         if v != self.state.play_boss_music {
             self.state.play_boss_music = v;
             self.dirty = true;
-            self.broadcast(wire::BossEventOperation::UpdateProperties { properties: self.properties() });
+            self.broadcast(wire::BossEventOperation::UpdateProperties {
+                properties: self.properties(),
+            });
         }
     }
 
@@ -364,7 +433,9 @@ impl CustomBossEvent {
         if v != self.state.create_world_fog {
             self.state.create_world_fog = v;
             self.dirty = true;
-            self.broadcast(wire::BossEventOperation::UpdateProperties { properties: self.properties() });
+            self.broadcast(wire::BossEventOperation::UpdateProperties {
+                properties: self.properties(),
+            });
         }
     }
 
@@ -376,7 +447,10 @@ impl CustomBossEvent {
                 if visible {
                     player.connection.send(&self.create_add_packet());
                 } else {
-                    player.connection.send(&wire::ClientboundBossEventPacket { id: self.id, operation: wire::BossEventOperation::Remove });
+                    player.connection.send(&wire::ClientboundBossEventPacket {
+                        id: self.id,
+                        operation: wire::BossEventOperation::Remove,
+                    });
                 }
             }
         }
@@ -387,7 +461,10 @@ impl CustomBossEvent {
             Some(i) => {
                 self.online.remove(i);
                 if self.state.visible {
-                    player.connection.send(&wire::ClientboundBossEventPacket { id: self.id, operation: wire::BossEventOperation::Remove });
+                    player.connection.send(&wire::ClientboundBossEventPacket {
+                        id: self.id,
+                        operation: wire::BossEventOperation::Remove,
+                    });
                 }
                 true
             }
@@ -430,8 +507,17 @@ impl CustomBossEvent {
 
     /// `setPlayers(players)`: the bar is shown to exactly `players`; returns whether the set changed.
     pub fn set_players(&mut self, players: &[PlayerHandle]) -> bool {
-        let to_remove: Vec<Uuid> = self.state.players.iter().filter(|u| !players.iter().any(|p| p.uuid == **u)).copied().collect();
-        let to_add: Vec<&PlayerHandle> = players.iter().filter(|p| !self.state.players.contains(&p.uuid)).collect();
+        let to_remove: Vec<Uuid> = self
+            .state
+            .players
+            .iter()
+            .filter(|u| !players.iter().any(|p| p.uuid == **u))
+            .copied()
+            .collect();
+        let to_add: Vec<&PlayerHandle> = players
+            .iter()
+            .filter(|p| !self.state.players.contains(&p.uuid))
+            .collect();
         for uuid in &to_remove {
             if let Some(p) = self.online.iter().find(|p| p.uuid == *uuid).cloned() {
                 self.remove_player(&p);
@@ -520,12 +606,22 @@ impl CustomBossEvents {
         self.events.get_mut(id)
     }
 
-    pub fn create(&mut self, random: &mut dyn RandomSource, id: Identifier, name: Component) -> &mut CustomBossEvent {
+    pub fn create(
+        &mut self,
+        random: &mut dyn RandomSource,
+        id: Identifier,
+        name: Component,
+    ) -> &mut CustomBossEvent {
         self.create_with_uuid(create_insecure_uuid(random), id, name)
     }
 
     /// `create` with the bar's UUID already drawn from the level random (`createInsecureUUID`).
-    pub fn create_with_uuid(&mut self, uuid: Uuid, id: Identifier, name: Component) -> &mut CustomBossEvent {
+    pub fn create_with_uuid(
+        &mut self,
+        uuid: Uuid,
+        id: Identifier,
+        name: Component,
+    ) -> &mut CustomBossEvent {
         let event = CustomBossEvent::new(uuid, id.clone(), name);
         self.events.insert(id.clone(), event);
         self.capacity.grow_to_fit(self.events.len());
@@ -541,22 +637,38 @@ impl CustomBossEvents {
 
     /// `getIds()` in `HashMap` iteration order.
     pub fn get_ids(&self) -> Vec<&Identifier> {
-        self.capacity.iteration_order(self.events.keys(), |id| id.java_hash_code())
+        self.capacity
+            .iteration_order(self.events.keys(), |id| id.java_hash_code())
     }
 
     /// `getEvents()` in `HashMap` iteration order.
     pub fn get_events(&self) -> Vec<&CustomBossEvent> {
-        self.capacity.iteration_order(self.events.iter(), |(id, _)| id.java_hash_code()).into_iter().map(|(_, e)| e).collect()
+        self.capacity
+            .iteration_order(self.events.iter(), |(id, _)| id.java_hash_code())
+            .into_iter()
+            .map(|(_, e)| e)
+            .collect()
     }
 
     fn decode(tag: &Tag) -> DecodeResult<CustomBossEvents> {
         let entries = codec::unbounded_map(tag, Identifier::read, PackedBossEvent::decode);
         codec::map_decoded(entries, |entries| {
-            let events: IndexMap<Identifier, CustomBossEvent> =
-                entries.into_iter().map(|(id, packed)| (id.clone(), CustomBossEvent::load(Uuid::new_v4(), id, packed))).collect();
+            let events: IndexMap<Identifier, CustomBossEvent> = entries
+                .into_iter()
+                .map(|(id, packed)| {
+                    (
+                        id.clone(),
+                        CustomBossEvent::load(Uuid::new_v4(), id, packed),
+                    )
+                })
+                .collect();
             let mut capacity = JavaHashCapacity::default();
             capacity.grow_to_fit(events.len());
-            CustomBossEvents { dirty: false, events, capacity }
+            CustomBossEvents {
+                dirty: false,
+                events,
+                capacity,
+            }
         })
     }
 
@@ -570,7 +682,12 @@ impl CustomBossEvents {
 
     /// `CustomBossEvents.TYPE`.
     pub fn type_() -> SavedDataType<CustomBossEvents> {
-        SavedDataType::new(Identifier::parse("minecraft:custom_boss_events").expect("static id"), CustomBossEvents::default, CustomBossEvents::decode, CustomBossEvents::encode)
+        SavedDataType::new(
+            Identifier::parse("minecraft:custom_boss_events").expect("static id"),
+            CustomBossEvents::default,
+            CustomBossEvents::decode,
+            CustomBossEvents::encode,
+        )
     }
 }
 
@@ -586,13 +703,22 @@ mod tests {
         .unwrap();
         let ty = CustomBossEvents::type_();
         let mut events = (ty.decode)(&tag).map_err(|e| e.error).unwrap();
-        assert!(events.is_dirty(), "load runs the setters, which dirty the data like vanilla");
+        assert!(
+            events.is_dirty(),
+            "load runs the setters, which dirty the data like vanilla"
+        );
         let a = events.get(&Identifier::parse("a").unwrap()).unwrap();
-        assert_eq!((a.value(), a.max(), a.get_progress(), a.get_color()), (5, 10, 0.5, BossBarColor::Red));
+        assert_eq!(
+            (a.value(), a.max(), a.get_progress(), a.get_color()),
+            (5, 10, 0.5, BossBarColor::Red)
+        );
         assert_eq!((ty.encode)(&events).unwrap(), tag);
         events.set_dirty_to(false);
         assert!(!events.is_dirty());
-        events.get_mut(&Identifier::parse("a").unwrap()).unwrap().set_value(9);
+        events
+            .get_mut(&Identifier::parse("a").unwrap())
+            .unwrap()
+            .set_value(9);
         assert!(events.is_dirty());
     }
 }

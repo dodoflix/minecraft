@@ -29,7 +29,10 @@ pub struct DataVersion {
 
 impl DataVersion {
     pub fn new(version: i32, series: impl Into<String>) -> DataVersion {
-        DataVersion { version, series: series.into() }
+        DataVersion {
+            version,
+            series: series.into(),
+        }
     }
 
     /// `SharedConstants.getCurrentVersion().dataVersion()`.
@@ -49,7 +52,11 @@ impl DataVersion {
 
 /// `FileFixerUpper.worldVersionToFileFixerVersion`.
 pub fn world_version_to_file_fixer_version(level_data_version: i32) -> i32 {
-    if level_data_version < 4772 { 0 } else { level_data_version }
+    if level_data_version < 4772 {
+        0
+    } else {
+        level_data_version
+    }
 }
 
 /// `FileFixerUpper.requiresFileFixing`.

@@ -1,15 +1,26 @@
 //! `net.minecraft.world.entity.monster.Guardian` and `ElderGuardian` (a `Guardian` subclass: one struct serves both types).
 
+use linkme::distributed_slice;
+use mc_core::math::mth;
+use mc_core::phys::Vec3;
+use mc_core::pos::BlockPos;
+use mc_core::random::RandomSource;
+use mc_data::enums::EntitySpawnReason;
+use mc_data::{Attribute, EntityType, MobEffect, SoundEvent};
+use mc_game_ai::world::entity::ai::goal::MoveTowardsRestrictionGoal;
 use mc_game_core::define_accessor;
 use mc_game_core::register_spawn_placement;
 use mc_game_core::registry::RegistryAccess;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::damagesource::DamageSource;
-use mc_game_core::world::entity::ai::control::move_control::{MoveControl, MoveControlBase, Operation};
-use mc_game_core::world::entity::ai::goal::target::{NearestAttackableTargetGoal, TargetType};
-use mc_game_ai::world::entity::ai::goal::MoveTowardsRestrictionGoal;
-use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags, LookAtPlayerGoal, RandomLookAroundGoal, RandomStrollGoal};
+use mc_game_core::world::entity::ai::control::move_control::{
+    MoveControl, MoveControlBase, Operation,
+};
 use mc_game_core::world::entity::ai::goal::look_at_player::LookAtType;
+use mc_game_core::world::entity::ai::goal::target::{NearestAttackableTargetGoal, TargetType};
+use mc_game_core::world::entity::ai::goal::{
+    Flag, Goal, GoalFlags, LookAtPlayerGoal, RandomLookAroundGoal, RandomStrollGoal,
+};
 use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
 use mc_game_core::world::entity::ai::targeting::TargetingConditions;
 use mc_game_core::world::entity::effect::MobEffectInstance;
@@ -18,17 +29,10 @@ use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration}
 use mc_game_core::world::entity::mob::{self, MobData, MobKind};
 use mc_game_core::world::entity::monster::WithFlags;
 use mc_game_core::world::entity::{Entity, EntityId, MoverType};
+use mc_game_core::world::level::material::FluidStateExt as _;
 use mc_game_core::world::level::pathfinder::PathType;
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
-use mc_game_core::world::level::material::FluidStateExt as _;
 use mc_game_core::world::level::{BlockGetter, LevelReader};
-use linkme::distributed_slice;
-use mc_core::math::mth;
-use mc_core::phys::Vec3;
-use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
-use mc_data::enums::EntitySpawnReason;
-use mc_data::{Attribute, EntityType, MobEffect, SoundEvent};
 use mc_world::level_storage::Difficulty;
 use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, Ordering};
@@ -56,10 +60,15 @@ impl Guardian {
             b.define(DATA_ID_MOVING, false);
             b.define(DATA_ID_ATTACK_TARGET, 0);
         });
-        let mut guardian = Guardian { mob, stroll_trigger: Arc::new(AtomicBool::new(false)) };
+        let mut guardian = Guardian {
+            mob,
+            stroll_trigger: Arc::new(AtomicBool::new(false)),
+        };
         guardian.mob.xp_reward = 10;
         guardian.mob.set_pathfinding_malus(PathType::Water, 0.0);
-        guardian.mob.move_control = Some(Box::new(GuardianMoveControl { base: MoveControlBase::default() }));
+        guardian.mob.move_control = Some(Box::new(GuardianMoveControl {
+            base: MoveControlBase::default(),
+        }));
         // `clientSideTailAnimation = random.nextFloat()`: the draw is part of the entity random stream
         let _ = guardian.mob.living.entity.random.next_float();
         let navigation = StandardPathNavigation::water_bound(&guardian);
@@ -79,17 +88,40 @@ impl Guardian {
     fn register_goals(&mut self) {
         let interval = if self.is_elder() { 400 } else { 80 };
         let look_at_player = LookAtPlayerGoal::new_player(self, 8.0);
-        let look_at_guardian = LookAtPlayerGoal::with_probability(self, LookAtType::Class(Arc::new(|e: &dyn Entity| e.as_any().is::<Guardian>())), 12.0, 0.01);
-        let stroll = GuardianRandomStrollGoal { stroll: RandomStrollGoal::with_interval(1.0, interval), trigger: self.stroll_trigger.clone() };
+        let look_at_guardian = LookAtPlayerGoal::with_probability(
+            self,
+            LookAtType::Class(Arc::new(|e: &dyn Entity| e.as_any().is::<Guardian>())),
+            12.0,
+            0.01,
+        );
+        let stroll = GuardianRandomStrollGoal {
+            stroll: RandomStrollGoal::with_interval(1.0, interval),
+            trigger: self.stroll_trigger.clone(),
+        };
         let elder = self.is_elder();
         let goals = &mut self.mob.goal_selector;
-        goals.add_goal(4, Box::new(GuardianAttackGoal { attack_time: 0, elder, stroll_trigger: self.stroll_trigger.clone() }));
-        goals.add_goal(5, Box::new(WithFlags::new(MoveTowardsRestrictionGoal::new(1.0), GoalFlags::of(&[Flag::Move, Flag::Look]))));
+        goals.add_goal(
+            4,
+            Box::new(GuardianAttackGoal {
+                attack_time: 0,
+                elder,
+                stroll_trigger: self.stroll_trigger.clone(),
+            }),
+        );
+        goals.add_goal(
+            5,
+            Box::new(WithFlags::new(
+                MoveTowardsRestrictionGoal::new(1.0),
+                GoalFlags::of(&[Flag::Move, Flag::Look]),
+            )),
+        );
         goals.add_goal(7, Box::new(stroll));
         goals.add_goal(8, Box::new(look_at_player));
         goals.add_goal(8, Box::new(look_at_guardian));
         goals.add_goal(9, Box::new(RandomLookAroundGoal::new()));
-        self.mob.target_selector.add_goal(1, Box::new(GuardianTargetGoal::new()));
+        self.mob
+            .target_selector
+            .add_goal(1, Box::new(GuardianTargetGoal::new()));
     }
 
     /// `isMoving()`.
@@ -99,7 +131,11 @@ impl Guardian {
 
     /// `setMoving(value)`.
     pub fn set_moving(&mut self, value: bool) {
-        self.mob.living.entity.entity_data.set(DATA_ID_MOVING, value);
+        self.mob
+            .living
+            .entity
+            .entity_data
+            .set(DATA_ID_MOVING, value);
     }
 
     /// `getAttackDuration()`.
@@ -109,12 +145,21 @@ impl Guardian {
 
     /// `setActiveAttackTarget(entityId)`.
     fn set_active_attack_target(&mut self, entity_id: i32) {
-        self.mob.living.entity.entity_data.set(DATA_ID_ATTACK_TARGET, entity_id);
+        self.mob
+            .living
+            .entity
+            .entity_data
+            .set(DATA_ID_ATTACK_TARGET, entity_id);
     }
 
     /// `hasActiveAttackTarget()`.
     pub fn has_active_attack_target(&self) -> bool {
-        self.mob.living.entity.entity_data.get(DATA_ID_ATTACK_TARGET) != 0
+        self.mob
+            .living
+            .entity
+            .entity_data
+            .get(DATA_ID_ATTACK_TARGET)
+            != 0
     }
 }
 
@@ -160,7 +205,11 @@ impl Entity for Guardian {
     }
 
     fn get_walk_target_value(&self, pos: BlockPos, level: &dyn LevelReader) -> f32 {
-        if level.get_fluid_state(pos).is_tag("water") { 10.0 + level.get_pathfinding_cost_from_light_levels(pos) } else { mob::pathfinder::get_walk_target_value(self, pos, level) }
+        if level.get_fluid_state(pos).is_tag("water") {
+            10.0 + level.get_pathfinding_cost_from_light_levels(pos)
+        } else {
+            mob::pathfinder::get_walk_target_value(self, pos, level)
+        }
     }
 
     fn ai_step(&mut self, level: &mut ServerLevel) {
@@ -169,9 +218,13 @@ impl Entity for Guardian {
                 self.base_mut().set_air_supply(300);
             } else if self.base().on_ground() {
                 let random = &mut self.mob.living.entity.random;
-                let (dx, dz) = ((random.next_float() * 2.0 - 1.0) * 0.4, (random.next_float() * 2.0 - 1.0) * 0.4);
+                let (dx, dz) = (
+                    (random.next_float() * 2.0 - 1.0) * 0.4,
+                    (random.next_float() * 2.0 - 1.0) * 0.4,
+                );
                 let m = self.base().delta_movement();
-                self.base_mut().set_delta_movement(m.add_xyz(f64::from(dx), 0.5, f64::from(dz)));
+                self.base_mut()
+                    .set_delta_movement(m.add_xyz(f64::from(dx), 0.5, f64::from(dz)));
                 let y_rot = self.base_mut().random.next_float() * 360.0;
                 self.base_mut().set_y_rot(y_rot);
                 mc_game_core::world::entity::movement::set_on_ground(self, &*level, false);
@@ -190,8 +243,14 @@ impl Entity for Guardian {
     }
 
     fn hurt_server(&mut self, level: &mut ServerLevel, source: &DamageSource, damage: f32) -> bool {
-        if !self.is_moving() && !source.is_tag(level, "avoids_guardian_thorns") && !source.is("minecraft:thorns") {
-            if let Some(cause) = source.get_direct_entity().filter(|id| level.get_entity(*id).is_some_and(|e| e.living().is_some()) || source.direct_info().is_some_and(|d| d.is_living)) {
+        if !self.is_moving()
+            && !source.is_tag(level, "avoids_guardian_thorns")
+            && !source.is("minecraft:thorns")
+        {
+            if let Some(cause) = source.get_direct_entity().filter(|id| {
+                level.get_entity(*id).is_some_and(|e| e.living().is_some())
+                    || source.direct_info().is_some_and(|d| d.is_living)
+            }) {
                 let thorns = level.damage_sources().thorns(self);
                 level.with_entity_or_defer(cause, move |level, e| {
                     e.hurt_server(level, &thorns, 2.0);
@@ -206,7 +265,14 @@ impl Entity for Guardian {
         180
     }
 
-    fn travel_in_water(&mut self, level: &mut ServerLevel, input: Vec3, _base_gravity: f64, _is_falling: bool, _old_y: f64) {
+    fn travel_in_water(
+        &mut self,
+        level: &mut ServerLevel,
+        input: Vec3,
+        _base_gravity: f64,
+        _is_falling: bool,
+        _old_y: f64,
+    ) {
         self.move_relative(0.1, input);
         let m = self.base().delta_movement();
         self.r#move(level, MoverType::SelfMover, m);
@@ -214,7 +280,8 @@ impl Entity for Guardian {
         self.base_mut().set_delta_movement(m.scale(0.9));
         if !self.is_moving() && self.get_target().is_none() {
             let m = self.base().delta_movement();
-            self.base_mut().set_delta_movement(m.add_xyz(0.0, -0.005, 0.0));
+            self.base_mut()
+                .set_delta_movement(m.add_xyz(0.0, -0.005, 0.0));
         }
     }
 
@@ -223,12 +290,28 @@ impl Entity for Guardian {
             return;
         }
         if (self.base().tick_count + self.id()) % EFFECT_INTERVAL == 0 {
-            let mining_fatigue = MobEffectInstance::of(MobEffect::MINING_FATIGUE, EFFECT_DURATION, EFFECT_AMPLIFIER);
+            let mining_fatigue =
+                MobEffectInstance::of(MobEffect::MINING_FATIGUE, EFFECT_DURATION, EFFECT_AMPLIFIER);
             let position = self.position();
-            let affected = mc_game_core::world::effect::mob_effect_util::add_effect_to_players_around(level, Some(self.as_dyn()), position, EFFECT_RADIUS, &mining_fatigue, EFFECT_DISPLAY_LIMIT);
+            let affected =
+                mc_game_core::world::effect::mob_effect_util::add_effect_to_players_around(
+                    level,
+                    Some(self.as_dyn()),
+                    position,
+                    EFFECT_RADIUS,
+                    &mining_fatigue,
+                    EFFECT_DISPLAY_LIMIT,
+                );
             let param = if self.base().is_silent() { 0.0 } else { 1.0 };
             for player in affected {
-                if let Some(connection) = level.get_entity(player).and_then(|p| p.as_any().downcast_ref::<mc_game_core::world::entity::ServerPlayer>()).and_then(|p| p.connection.as_ref()) {
+                if let Some(connection) = level
+                    .get_entity(player)
+                    .and_then(|p| {
+                        p.as_any()
+                            .downcast_ref::<mc_game_core::world::entity::ServerPlayer>()
+                    })
+                    .and_then(|p| p.connection.as_ref())
+                {
                     connection.send(&mc_protocol::packets::play::ClientboundGameEventPacket { event: mc_protocol::packets::play::ClientboundGameEventPacket::GUARDIAN_ELDER_EFFECT, param });
                 }
             }
@@ -241,10 +324,17 @@ impl Entity for Guardian {
 }
 
 /// `Guardian.checkGuardianSpawnRules`.
-fn check_guardian_spawn_rules(_ty: EntityType, level: &dyn ServerLevelAccessor, reason: EntitySpawnReason, pos: BlockPos, random: &mut dyn RandomSource) -> bool {
+fn check_guardian_spawn_rules(
+    _ty: EntityType,
+    level: &dyn ServerLevelAccessor,
+    reason: EntitySpawnReason,
+    pos: BlockPos,
+    random: &mut dyn RandomSource,
+) -> bool {
     (random.next_int_bounded(20) == 0 || !can_see_sky_from_below_water(level, pos))
         && level.get_difficulty() != Difficulty::Peaceful
-        && (mc_game_core::world::entity::spawn_predicates::is_spawner(reason) || level.get_fluid_state(pos).is_tag("water"))
+        && (mc_game_core::world::entity::spawn_predicates::is_spawner(reason)
+            || level.get_fluid_state(pos).is_tag("water"))
         && level.get_fluid_state(pos.below()).is_tag("water")
 }
 
@@ -302,7 +392,9 @@ impl Goal for GuardianRandomStrollGoal {
 }
 
 fn guardian_mut(mob: &mut dyn Entity) -> &mut Guardian {
-    mob.as_any_mut().downcast_mut::<Guardian>().expect("Guardian")
+    mob.as_any_mut()
+        .downcast_mut::<Guardian>()
+        .expect("Guardian")
 }
 
 /// `Guardian.GuardianAttackGoal`.
@@ -314,20 +406,26 @@ struct GuardianAttackGoal {
 
 impl Goal for GuardianAttackGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        mob::tick::get_target_checked(mob, level).and_then(|t| level.get_entity(t)).is_some_and(|t| t.is_alive())
+        mob::tick::get_target_checked(mob, level)
+            .and_then(|t| level.get_entity(t))
+            .is_some_and(|t| t.is_alive())
     }
 
     fn can_continue_to_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         // `super.canContinueToUse()` = `canUse()`
         self.can_use(mob, level)
             && (self.elder
-                || mob::tick::get_target_checked(mob, level).and_then(|t| level.get_entity(t)).is_some_and(|t| mob.base().distance_to_sqr_vec(t.position()) > 9.0))
+                || mob::tick::get_target_checked(mob, level)
+                    .and_then(|t| level.get_entity(t))
+                    .is_some_and(|t| mob.base().distance_to_sqr_vec(t.position()) > 9.0))
     }
 
     fn start(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         self.attack_time = -10;
         mob::navigation::stop(mob, level);
-        if let Some(target) = mob::tick::get_target_checked(mob, level).and_then(|t| level.get_entity(t)) {
+        if let Some(target) =
+            mob::tick::get_target_checked(mob, level).and_then(|t| level.get_entity(t))
+        {
             mob::look_at_entity_full(mob, target, 90.0, 90.0);
         }
         mob.base_mut().needs_sync = true;
@@ -344,13 +442,19 @@ impl Goal for GuardianAttackGoal {
     }
 
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
-        let Some(target_id) = mob::tick::get_target_checked(mob, level) else { return };
+        let Some(target_id) = mob::tick::get_target_checked(mob, level) else {
+            return;
+        };
         mob::navigation::stop(mob, level);
         {
-            let Some(target) = level.get_entity(target_id) else { return };
+            let Some(target) = level.get_entity(target_id) else {
+                return;
+            };
             mob::look_at_entity_full(mob, target, 90.0, 90.0);
         }
-        let can_see = level.get_entity(target_id).is_some_and(|t| mob::ext::has_line_of_sight(level, mob, t));
+        let can_see = level
+            .get_entity(target_id)
+            .is_some_and(|t| mob::ext::has_line_of_sight(level, mob, t));
         if !can_see {
             mob.set_target(level, None);
             return;
@@ -370,7 +474,9 @@ impl Goal for GuardianAttackGoal {
             if self.elder {
                 magic_damage += 2.0;
             }
-            let source = level.damage_sources().indirect_magic(mob.as_dyn(), Some(mob.as_dyn()));
+            let source = level
+                .damage_sources()
+                .indirect_magic(mob.as_dyn(), Some(mob.as_dyn()));
             level.with_entity(target_id, |level, target| {
                 target.hurt_server(level, &source, magic_damage);
             });
@@ -393,8 +499,17 @@ struct GuardianTargetGoal {
 
 impl GuardianTargetGoal {
     fn new() -> Self {
-        let class: mc_game_core::world::entity::ai::goal::target::EntityClass = Arc::new(|e: &dyn Entity| e.living().is_some());
-        Self { inner: NearestAttackableTargetGoal::build(TargetType::Class(class), 10, true, false, None) }
+        let class: mc_game_core::world::entity::ai::goal::target::EntityClass =
+            Arc::new(|e: &dyn Entity| e.living().is_some());
+        Self {
+            inner: NearestAttackableTargetGoal::build(
+                TargetType::Class(class),
+                10,
+                true,
+                false,
+                None,
+            ),
+        }
     }
 }
 
@@ -402,7 +517,9 @@ impl Goal for GuardianTargetGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         let position = mob.position();
         let selector = Arc::new(move |target: &dyn Entity, _level: &ServerLevel| {
-            (target.is_player() || matches!(target.get_type(), EntityType::SQUID | EntityType::AXOLOTL)) && target.base().distance_to_sqr_vec(position) > 9.0
+            (target.is_player()
+                || matches!(target.get_type(), EntityType::SQUID | EntityType::AXOLOTL))
+                && target.base().distance_to_sqr_vec(position) > 9.0
         });
         self.inner.target_conditions = TargetingConditions::for_combat().selector(Some(selector));
         self.inner.can_use(mob, level)
@@ -441,17 +558,24 @@ impl MoveControl for GuardianMoveControl {
 
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         if self.base.operation == Operation::MoveTo && !mob::navigation::is_done(mob, level) {
-            let delta = Vec3::new(self.base.wanted_x - mob.base().x(), self.base.wanted_y - mob.base().y(), self.base.wanted_z - mob.base().z());
+            let delta = Vec3::new(
+                self.base.wanted_x - mob.base().x(),
+                self.base.wanted_y - mob.base().y(),
+                self.base.wanted_z - mob.base().z(),
+            );
             let length = delta.length();
             let xd = delta.x / length;
             let yd = delta.y / length;
             let zd = delta.z / length;
             let pi = std::f32::consts::PI;
-            let y_rot_d = (mth::atan2(delta.z, delta.x) * f64::from(180.0f32) / f64::from(pi)) as f32 - 90.0;
+            let y_rot_d =
+                (mth::atan2(delta.z, delta.x) * f64::from(180.0f32) / f64::from(pi)) as f32 - 90.0;
             let new_y_rot = self.base.rotlerp(mob.base().y_rot(), y_rot_d, 90.0);
             mob.base_mut().set_y_rot(new_y_rot);
             mob.living_mut().expect("living").y_body_rot = new_y_rot;
-            let target_speed = (self.base.speed_modifier * mob::attribute_value(mob, Attribute::MOVEMENT_SPEED)) as f32;
+            let target_speed = (self.base.speed_modifier
+                * mob::attribute_value(mob, Attribute::MOVEMENT_SPEED))
+                as f32;
             let new_speed = mth::lerp_f32(0.125, mob.get_speed(), target_speed);
             mob.set_speed(new_speed);
             let tick_id = f64::from(mob.base().tick_count + mob.id());
@@ -461,17 +585,39 @@ impl MoveControl for GuardianMoveControl {
             let sin = f64::from(y_rot * (pi / 180.0)).sin();
             let y_push = (tick_id * 0.75).sin() * 0.05;
             let m = mob.base().delta_movement();
-            mob.base_mut().set_delta_movement(m.add_xyz(push * cos, y_push * (sin + cos) * 0.25 + f64::from(new_speed) * yd * 0.1, push * sin));
+            mob.base_mut().set_delta_movement(m.add_xyz(
+                push * cos,
+                y_push * (sin + cos) * 0.25 + f64::from(new_speed) * yd * 0.1,
+                push * sin,
+            ));
             let (old_x, old_y, old_z, looking) = {
-                let control = mob.mob().and_then(|m| m.look_control.as_deref()).expect("look control");
-                (control.get_wanted_x(), control.get_wanted_y(), control.get_wanted_z(), control.is_looking_at_target())
+                let control = mob
+                    .mob()
+                    .and_then(|m| m.look_control.as_deref())
+                    .expect("look control");
+                (
+                    control.get_wanted_x(),
+                    control.get_wanted_y(),
+                    control.get_wanted_z(),
+                    control.is_looking_at_target(),
+                )
             };
             let new_look_x = mob.base().x() + xd * 2.0;
             let new_look_y = mob.base().get_eye_y() + yd / length;
             let new_look_z = mob.base().z() + zd * 2.0;
-            let (old_x, old_y, old_z) = if !looking { (new_look_x, new_look_y, new_look_z) } else { (old_x, old_y, old_z) };
+            let (old_x, old_y, old_z) = if !looking {
+                (new_look_x, new_look_y, new_look_z)
+            } else {
+                (old_x, old_y, old_z)
+            };
             if let Some(m) = mob.mob_mut() {
-                m.look_control_mut().set_look_at_full(mth::lerp_f64(0.125, old_x, new_look_x), mth::lerp_f64(0.125, old_y, new_look_y), mth::lerp_f64(0.125, old_z, new_look_z), 10.0, 40.0);
+                m.look_control_mut().set_look_at_full(
+                    mth::lerp_f64(0.125, old_x, new_look_x),
+                    mth::lerp_f64(0.125, old_y, new_look_y),
+                    mth::lerp_f64(0.125, old_z, new_look_z),
+                    10.0,
+                    40.0,
+                );
             }
             guardian_mut(mob).set_moving(true);
         } else {
@@ -482,7 +628,13 @@ impl MoveControl for GuardianMoveControl {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static GUARDIAN: EntityRegistration = EntityRegistration { entity_type: EntityType::GUARDIAN, create: |ty, id, registries| Box::new(Guardian::new(ty, id, registries)) };
+static GUARDIAN: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::GUARDIAN,
+    create: |ty, id, registries| Box::new(Guardian::new(ty, id, registries)),
+};
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static ELDER_GUARDIAN: EntityRegistration = EntityRegistration { entity_type: EntityType::ELDER_GUARDIAN, create: |ty, id, registries| Box::new(Guardian::new(ty, id, registries)) };
+static ELDER_GUARDIAN: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::ELDER_GUARDIAN,
+    create: |ty, id, registries| Box::new(Guardian::new(ty, id, registries)),
+};

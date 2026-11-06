@@ -57,7 +57,9 @@ fn color_schema() -> Schema {
     // `ExtraCodecs.STRING_RGB_COLOR`
     Schema::custom(|v, _ctx| {
         let tag = match v {
-            Value::String(_) | Value::Number(_) | Value::Array(_) => parse_rgb(v).map(|c| Tag::String(format!("#{:06x}", c as u32 & 0xFF_FFFF)))?,
+            Value::String(_) | Value::Number(_) | Value::Array(_) => {
+                parse_rgb(v).map(|c| Tag::String(format!("#{:06x}", c as u32 & 0xFF_FFFF)))?
+            }
             other => return Err(format!("Not a string: {other}")),
         };
         Ok(tag)
@@ -70,14 +72,26 @@ fn parse_rgb(v: &Value) -> Result<i32, String> {
         Value::String(s) => {
             let rest = s.strip_prefix('#').ok_or("Hex color must begin with #")?;
             if rest.len() != 6 {
-                return Err(format!("Hex color is wrong size, expected 6 digits but got {}", rest.len()));
+                return Err(format!(
+                    "Hex color is wrong size, expected 6 digits but got {}",
+                    rest.len()
+                ));
             }
-            let value = u32::from_str_radix(rest, 16).map_err(|_| format!("Invalid color value: {s}"))?;
+            let value =
+                u32::from_str_radix(rest, 16).map_err(|_| format!("Invalid color value: {s}"))?;
             Ok((0xFF00_0000u32 | value) as i32)
         }
-        Value::Number(n) => n.as_i64().map(|i| i as i32).or_else(|| n.as_f64().map(|f| f as i32)).ok_or_else(|| "Not a number".to_owned()),
+        Value::Number(n) => n
+            .as_i64()
+            .map(|i| i as i32)
+            .or_else(|| n.as_f64().map(|f| f as i32))
+            .ok_or_else(|| "Not a number".to_owned()),
         Value::Array(l) if l.len() == 3 => {
-            let ch = |x: &Value| x.as_f64().map(|d| ((d as f32 * 255.0).floor() as i32).clamp(0, 255)).ok_or_else(|| format!("Not a number: {x}"));
+            let ch = |x: &Value| {
+                x.as_f64()
+                    .map(|d| ((d as f32 * 255.0).floor() as i32).clamp(0, 255))
+                    .ok_or_else(|| format!("Not a number: {x}"))
+            };
             Ok((0xFF << 24) | (ch(&l[0])? << 16) | (ch(&l[1])? << 8) | ch(&l[2])?)
         }
         other => Err(format!("Not a string: {other}")),
@@ -88,7 +102,11 @@ fn climate_fields() -> Vec<crate::registry::codec::Field> {
     vec![
         req("has_precipitation", Schema::Bool),
         req("temperature", Schema::Float),
-        default("temperature_modifier", Schema::Enum(&["none", "frozen"]), Value::from("none")),
+        default(
+            "temperature_modifier",
+            Schema::Enum(&["none", "frozen"]),
+            Value::from("none"),
+        ),
         req("downfall", Schema::Float),
     ]
 }
@@ -99,15 +117,31 @@ fn effects_schema() -> Schema {
         crate::registry::codec::opt("foliage_color", color_schema()),
         crate::registry::codec::opt("dry_foliage_color", color_schema()),
         crate::registry::codec::opt("grass_color", color_schema()),
-        default("grass_color_modifier", Schema::Enum(&["none", "dark_forest", "swamp"]), Value::from("none")),
+        default(
+            "grass_color_modifier",
+            Schema::Enum(&["none", "dark_forest", "swamp"]),
+            Value::from("none"),
+        ),
     ])
 }
 
 fn generation_fields() -> Vec<crate::registry::codec::Field> {
     vec![
-        req("carvers", Schema::HolderSet { registry: keys::CARVER, always_list: false }),
+        req(
+            "carvers",
+            Schema::HolderSet {
+                registry: keys::CARVER,
+                always_list: false,
+            },
+        ),
         // `PlacedFeature.LIST_OF_LISTS_CODEC`: `RegistryCodecs.homogeneousList` always uses the list form
-        req("features", Schema::list_of(Schema::HolderSet { registry: keys::PLACED_FEATURE, always_list: true })),
+        req(
+            "features",
+            Schema::list_of(Schema::HolderSet {
+                registry: keys::PLACED_FEATURE,
+                always_list: true,
+            }),
+        ),
     ]
 }
 
@@ -118,7 +152,9 @@ fn convert(json: &Value, ctx: &RegistryDecodeContext, direct: bool) -> Result<Ta
     if direct {
         fields.extend(generation_fields());
     }
-    let Tag::Compound(mut nbt) = Schema::Record(fields).convert(json, ctx)? else { return Err("Not a map".to_owned()) };
+    let Tag::Compound(mut nbt) = Schema::Record(fields).convert(json, ctx)? else {
+        return Err("Not a map".to_owned());
+    };
     if let Some(attributes) = json.get("attributes") {
         // direct: positional attributes only; network: syncable only
         let (map, attr_nbt) = EnvironmentAttributeMap::parse(attributes, ctx, direct, !direct)?;
@@ -138,12 +174,19 @@ fn encode_direct(json: &Value, ctx: &RegistryDecodeContext) -> Result<Tag, Strin
 
 /// `Biome.CODEC` (`RegistryCodecs.holder(BIOME, DIRECT_CODEC)`): a reference or an inline definition.
 pub fn holder_schema() -> Schema {
-    Schema::HolderOrDirect { registry: keys::BIOME, direct: encode_direct }
+    Schema::HolderOrDirect {
+        registry: keys::BIOME,
+        direct: encode_direct,
+    }
 }
 
 /// `Biome.LIST_CODEC` (`RegistryCodecs.holderSet(BIOME, DIRECT_CODEC)`).
 pub fn holder_set_schema() -> Schema {
-    Schema::HolderSetOrDirect { registry: keys::BIOME, always_list: false, direct: encode_direct }
+    Schema::HolderSetOrDirect {
+        registry: keys::BIOME,
+        always_list: false,
+        direct: encode_direct,
+    }
 }
 
 impl Biome {
@@ -159,7 +202,11 @@ impl Biome {
         Ok(Biome {
             has_precipitation: get_bool(json, "has_precipitation").unwrap_or(false),
             temperature: get_f32(json, "temperature").unwrap_or(0.0),
-            temperature_modifier: if get_str(json, "temperature_modifier") == Some("frozen") { TemperatureModifier::Frozen } else { TemperatureModifier::None },
+            temperature_modifier: if get_str(json, "temperature_modifier") == Some("frozen") {
+                TemperatureModifier::Frozen
+            } else {
+                TemperatureModifier::None
+            },
             downfall: get_f32(json, "downfall").unwrap_or(0.0),
             attributes,
             special_effects: BiomeSpecialEffects {
@@ -174,7 +221,10 @@ impl Biome {
                 },
             },
             generation_settings: BiomeGenerationSettings {
-                carvers: json.get("carvers").and_then(HolderSetRef::from_json).unwrap_or(HolderSetRef::Elements(Vec::new())),
+                carvers: json
+                    .get("carvers")
+                    .and_then(HolderSetRef::from_json)
+                    .unwrap_or(HolderSetRef::Elements(Vec::new())),
                 features: json
                     .get("features")
                     .and_then(Value::as_array)
@@ -197,4 +247,7 @@ fn decode(json: &Value, ctx: &RegistryDecodeContext) -> Result<DecodedEntry, Str
 }
 
 #[linkme::distributed_slice(DYNAMIC_REGISTRY_DECODERS)]
-static DECODER: DynamicRegistryDecoder = DynamicRegistryDecoder { registry: keys::BIOME, decode };
+static DECODER: DynamicRegistryDecoder = DynamicRegistryDecoder {
+    registry: keys::BIOME,
+    decode,
+};

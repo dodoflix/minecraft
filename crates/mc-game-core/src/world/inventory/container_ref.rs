@@ -17,14 +17,20 @@ pub struct ContainerRef {
 fn instance_at(player: &dyn MenuPlayer, key: &ContainerKey) -> Option<u64> {
     use crate::world::level::BlockGetter;
     match key {
-        ContainerKey::BlockEntity(pos) => player.level_ref()?.get_block_entity(*pos).map(|be| be.base().instance_id),
+        ContainerKey::BlockEntity(pos) => player
+            .level_ref()?
+            .get_block_entity(*pos)
+            .map(|be| be.base().instance_id),
         _ => None,
     }
 }
 
 impl ContainerRef {
     pub fn single(key: ContainerKey, size: usize) -> Self {
-        Self { parts: vec![(key, size)], bound: std::cell::RefCell::new(vec![None]) }
+        Self {
+            parts: vec![(key, size)],
+            bound: std::cell::RefCell::new(vec![None]),
+        }
     }
 
     /// The `Container` of the block entity at `pos` (`size` = `getContainerSize()`).
@@ -68,13 +74,24 @@ impl ContainerRef {
 
     /// `checkContainerSize(container, minSize)`.
     pub fn check_size(&self, min_size: usize) {
-        assert!(self.size() >= min_size, "Container size {} is smaller than expected {}", self.size(), min_size);
+        assert!(
+            self.size() >= min_size,
+            "Container size {} is smaller than expected {}",
+            self.size(),
+            min_size
+        );
     }
 
     /// `container.stillValid(player)` (`CompoundContainer`: every part).
     pub fn still_valid(&self, player: &dyn MenuPlayer) -> bool {
         let bound = self.bound.borrow();
-        self.parts.iter().zip(bound.iter()).all(|((key, _), bound)| key.still_valid(player) && bound.is_none_or(|id| instance_at(player, key) == Some(id)))
+        self.parts
+            .iter()
+            .zip(bound.iter())
+            .all(|((key, _), bound)| {
+                key.still_valid(player)
+                    && bound.is_none_or(|id| instance_at(player, key) == Some(id))
+            })
     }
 
     /// `container.startOpen(player)` (every part).

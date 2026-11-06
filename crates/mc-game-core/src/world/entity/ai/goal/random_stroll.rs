@@ -1,13 +1,13 @@
 //! `RandomStrollGoal`.
 
-use mc_core::random::RandomSource;
 use super::{Flag, Goal, GoalFlags, reduced_tick_delay};
 use crate::server::level::ServerLevel;
+use crate::world::entity::Entity;
 use crate::world::entity::ai::util::default_random_pos;
 use crate::world::entity::living_entity::util::l;
 use crate::world::entity::mob::navigation;
-use crate::world::entity::Entity;
 use mc_core::phys::Vec3;
+use mc_core::random::RandomSource;
 
 pub const DEFAULT_INTERVAL: i32 = 120;
 
@@ -32,7 +32,15 @@ impl RandomStrollGoal {
     }
 
     pub fn with_check(speed_modifier: f64, interval: i32, check_no_action_time: bool) -> Self {
-        Self { wanted_x: 0.0, wanted_y: 0.0, wanted_z: 0.0, speed_modifier, interval, force_trigger: false, check_no_action_time }
+        Self {
+            wanted_x: 0.0,
+            wanted_y: 0.0,
+            wanted_z: 0.0,
+            speed_modifier,
+            interval,
+            force_trigger: false,
+            check_no_action_time,
+        }
     }
 
     /// `getPosition()` of the base class.
@@ -41,7 +49,12 @@ impl RandomStrollGoal {
     }
 
     /// `canUse()` with `getPosition` supplied by the (sub)class.
-    pub fn can_use_with(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel, get_position: impl FnOnce(&mut dyn Entity, &mut ServerLevel) -> Option<Vec3>) -> bool {
+    pub fn can_use_with(
+        &mut self,
+        mob: &mut dyn Entity,
+        level: &mut ServerLevel,
+        get_position: impl FnOnce(&mut dyn Entity, &mut ServerLevel) -> Option<Vec3>,
+    ) -> bool {
         if mob.has_controlling_passenger() {
             return false;
         }
@@ -49,11 +62,18 @@ impl RandomStrollGoal {
             if self.check_no_action_time && l(mob).no_action_time >= 100 {
                 return false;
             }
-            if mob.base_mut().random.next_int_bounded(reduced_tick_delay(self.interval)) != 0 {
+            if mob
+                .base_mut()
+                .random
+                .next_int_bounded(reduced_tick_delay(self.interval))
+                != 0
+            {
                 return false;
             }
         }
-        let Some(pos) = get_position(mob, level) else { return false };
+        let Some(pos) = get_position(mob, level) else {
+            return false;
+        };
         self.wanted_x = pos.x;
         self.wanted_y = pos.y;
         self.wanted_z = pos.z;
@@ -66,7 +86,14 @@ impl RandomStrollGoal {
     }
 
     pub fn start_impl(&self, mob: &mut dyn Entity, level: &mut ServerLevel) {
-        navigation::move_to(mob, level, self.wanted_x, self.wanted_y, self.wanted_z, self.speed_modifier);
+        navigation::move_to(
+            mob,
+            level,
+            self.wanted_x,
+            self.wanted_y,
+            self.wanted_z,
+            self.speed_modifier,
+        );
     }
 
     pub fn stop_impl(&self, mob: &mut dyn Entity, level: &mut ServerLevel) {

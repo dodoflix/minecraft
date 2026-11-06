@@ -1,18 +1,25 @@
 //! `net.minecraft.world.level.block.ChorusFlowerBlock`.
+use super::chorus_plant_block::get_state_with_connections;
 use super::prelude::*;
 use crate::server::level::ServerLevel;
-use super::chorus_plant_block::get_state_with_connections;
 use mc_core::direction::Plane;
 use mc_core::random::RandomSource;
 
 pub struct ChorusFlowerBlock;
 
 fn all_neighbors_empty(level: &dyn LevelReader, pos: BlockPos, ignore: Option<Direction>) -> bool {
-    Direction::HORIZONTAL.into_iter().all(|d| Some(d) == ignore || level.is_empty_block(pos.relative(d)))
+    Direction::HORIZONTAL
+        .into_iter()
+        .all(|d| Some(d) == ignore || level.is_empty_block(pos.relative(d)))
 }
 
 /// `ChorusFlowerBlock.generatePlant`.
-pub fn generate_plant(level: &mut dyn LevelAccessor, target: BlockPos, random: &mut dyn RandomSource, max_horizontal_spread: i32) {
+pub fn generate_plant(
+    level: &mut dyn LevelAccessor,
+    target: BlockPos,
+    random: &mut dyn RandomSource,
+    max_horizontal_spread: i32,
+) {
     let state = get_state_with_connections(&*level, target, Block::CHORUS_PLANT.default_state());
     level.set_block_flags(target, state, 2);
     grow_tree_recursive(level, target, random, target, max_horizontal_spread, 0);
@@ -23,7 +30,14 @@ fn place_chorus(level: &mut dyn LevelAccessor, pos: BlockPos) {
     level.set_block_flags(pos, state, 2);
 }
 
-fn grow_tree_recursive(level: &mut dyn LevelAccessor, current: BlockPos, random: &mut dyn RandomSource, start_pos: BlockPos, max_horizontal_spread: i32, depth: i32) {
+fn grow_tree_recursive(
+    level: &mut dyn LevelAccessor,
+    current: BlockPos,
+    random: &mut dyn RandomSource,
+    start_pos: BlockPos,
+    max_horizontal_spread: i32,
+    depth: i32,
+) {
     let mut height = random.next_int_bounded(4) + 1;
     if depth == 0 {
         height += 1;
@@ -54,29 +68,54 @@ fn grow_tree_recursive(level: &mut dyn LevelAccessor, current: BlockPos, random:
                 placed_stem = true;
                 place_chorus(level, target);
                 place_chorus(level, target.relative(direction.get_opposite()));
-                grow_tree_recursive(level, target, random, start_pos, max_horizontal_spread, depth + 1);
+                grow_tree_recursive(
+                    level,
+                    target,
+                    random,
+                    start_pos,
+                    max_horizontal_spread,
+                    depth + 1,
+                );
             }
         }
     }
     if !placed_stem {
-        level.set_block_flags(current.above_n(height), Block::CHORUS_FLOWER.default_state().set(props::AGE_5, 5), 2);
+        level.set_block_flags(
+            current.above_n(height),
+            Block::CHORUS_FLOWER.default_state().set(props::AGE_5, 5),
+            2,
+        );
     }
 }
 
 /// `placeGrownFlower`.
 fn place_grown_flower(level: &mut ServerLevel, pos: BlockPos, age: i32) {
-    level.set_block_flags(pos, Block::CHORUS_FLOWER.default_state().set(props::AGE_5, age), 2);
+    level.set_block_flags(
+        pos,
+        Block::CHORUS_FLOWER.default_state().set(props::AGE_5, age),
+        2,
+    );
     level.level_event(None, 1033, pos, 0);
 }
 
 /// `placeDeadFlower`.
 fn place_dead_flower(level: &mut ServerLevel, pos: BlockPos) {
-    level.set_block_flags(pos, Block::CHORUS_FLOWER.default_state().set(props::AGE_5, 5), 2);
+    level.set_block_flags(
+        pos,
+        Block::CHORUS_FLOWER.default_state().set(props::AGE_5, 5),
+        2,
+    );
     level.level_event(None, 1034, pos, 0);
 }
 
 impl BlockBehaviour for ChorusFlowerBlock {
-    fn on_projectile_hit(&self, level: &mut ServerLevel, _state: BlockState, hit: &mc_core::phys::BlockHitResult, projectile: &mut dyn crate::world::entity::projectile::Projectile) {
+    fn on_projectile_hit(
+        &self,
+        level: &mut ServerLevel,
+        _state: BlockState,
+        hit: &mc_core::phys::BlockHitResult,
+        projectile: &mut dyn crate::world::entity::projectile::Projectile,
+    ) {
         let pos = hit.block_pos;
         if projectile.may_interact_projectile(level, pos) && projectile.may_break(level, pos) {
             level.destroy_block(pos, true, Some(projectile.id()), 512);
@@ -113,14 +152,23 @@ impl BlockBehaviour for ChorusFlowerBlock {
                 }
                 height += 1;
             }
-            if height < 2 || height <= level.random().next_int_bounded(if pillar_on_support_block { 5 } else { 4 }) {
+            if height < 2
+                || height
+                    <= level
+                        .random()
+                        .next_int_bounded(if pillar_on_support_block { 5 } else { 4 })
+            {
                 grow_upwards = true;
             }
         } else if below_state.is_air() {
             grow_upwards = true;
         }
-        if grow_upwards && all_neighbors_empty(&*level, above, None) && level.is_empty_block(pos.above_n(2)) {
-            let plant = get_state_with_connections(&*level, pos, Block::CHORUS_PLANT.default_state());
+        if grow_upwards
+            && all_neighbors_empty(&*level, above, None)
+            && level.is_empty_block(pos.above_n(2))
+        {
+            let plant =
+                get_state_with_connections(&*level, pos, Block::CHORUS_PLANT.default_state());
             level.set_block_flags(pos, plant, 2);
             place_grown_flower(level, above, current_age);
         } else if current_age < 4 {
@@ -132,13 +180,17 @@ impl BlockBehaviour for ChorusFlowerBlock {
             for _ in 0..num_branch_attempts {
                 let direction = Plane::Horizontal.get_random_direction(level.random());
                 let target = pos.relative(direction);
-                if level.is_empty_block(target) && level.is_empty_block(target.below()) && all_neighbors_empty(&*level, target, Some(direction.get_opposite())) {
+                if level.is_empty_block(target)
+                    && level.is_empty_block(target.below())
+                    && all_neighbors_empty(&*level, target, Some(direction.get_opposite()))
+                {
                     place_grown_flower(level, target, current_age + 1);
                     created_branch = true;
                 }
             }
             if created_branch {
-                let plant = get_state_with_connections(&*level, pos, Block::CHORUS_PLANT.default_state());
+                let plant =
+                    get_state_with_connections(&*level, pos, Block::CHORUS_PLANT.default_state());
                 level.set_block_flags(pos, plant, 2);
             } else {
                 place_dead_flower(level, pos);
@@ -149,7 +201,9 @@ impl BlockBehaviour for ChorusFlowerBlock {
     }
     fn can_survive(&self, _state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         let below_state = level.get_block_state(pos.below());
-        if !below_state.is_block(Block::CHORUS_PLANT) && !below_state.is_tag("supports_chorus_flower") {
+        if !below_state.is_block(Block::CHORUS_PLANT)
+            && !below_state.is_tag("supports_chorus_flower")
+        {
             if !below_state.is_air() {
                 return false;
             }
@@ -170,12 +224,14 @@ impl BlockBehaviour for ChorusFlowerBlock {
             true
         }
     }
-    update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
-        if direction != Direction::Up && !state.can_survive(&*level, pos) {
-            helpers::schedule_block_tick(level, pos, state.block(), 1);
+    update_shape!(
+        |self, state, level, pos, direction, neighbour_pos, neighbour_state| {
+            if direction != Direction::Up && !state.can_survive(&*level, pos) {
+                helpers::schedule_block_tick(level, pos, state.block(), 1);
+            }
+            state
         }
-        state
-    });
+    );
 }
 
 register_block_class!("ChorusFlowerBlock", |_| Box::new(ChorusFlowerBlock));

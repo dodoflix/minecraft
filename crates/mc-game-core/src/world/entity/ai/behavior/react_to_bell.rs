@@ -10,7 +10,9 @@ pub fn create() -> OneShot {
     i.create(move |c| {
         let nearby_raid = c.level.get_raid_at(c.body().block_position());
         if nearby_raid.is_none() {
-            c.body_mut().brain_mut().set_active_activity_if_possible(Activity::HIDE);
+            c.body_mut()
+                .brain_mut()
+                .set_active_activity_if_possible(Activity::HIDE);
         }
         true
     })

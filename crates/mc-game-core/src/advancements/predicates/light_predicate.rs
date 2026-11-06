@@ -14,7 +14,11 @@ pub struct LightPredicate {
 
 /// `LevelReader.getMaxLocalRawBrightness(pos)`.
 pub fn get_max_local_raw_brightness(level: &ServerLevel, pos: BlockPos) -> i32 {
-    if pos.x() >= -30_000_000 && pos.z() >= -30_000_000 && pos.x() < 30_000_000 && pos.z() < 30_000_000 {
+    if pos.x() >= -30_000_000
+        && pos.z() >= -30_000_000
+        && pos.x() < 30_000_000
+        && pos.z() < 30_000_000
+    {
         level.get_raw_brightness(pos, level.get_sky_darken())
     } else {
         15
@@ -24,12 +28,18 @@ pub fn get_max_local_raw_brightness(level: &ServerLevel, pos: BlockPos) -> i32 {
 impl LightPredicate {
     pub fn codec() -> Codec<LightPredicate> {
         static C: LazyLock<Codec<LightPredicate>> = LazyLock::new(|| {
-            mc_dfu::record!(LightPredicate { composite: Ints::codec().optional_field_of_default("light", Ints::any()) }).codec()
+            mc_dfu::record!(LightPredicate {
+                composite: Ints::codec().optional_field_of_default("light", Ints::any())
+            })
+            .codec()
         });
         C.clone()
     }
 
     pub fn matches(&self, level: &ServerLevel, pos: BlockPos) -> bool {
-        level.is_loaded(pos) && self.composite.matches(get_max_local_raw_brightness(level, pos))
+        level.is_loaded(pos)
+            && self
+                .composite
+                .matches(get_max_local_raw_brightness(level, pos))
     }
 }

@@ -13,7 +13,9 @@ use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
 use mc_data::block::{Block, BlockState};
 use mc_data::{GameEvent, ParticleType};
-use mc_dfu::{Codec, DataResult, Dyn, Either, FLOAT, INT, MapCodec, STRING, record, string_enum_codec};
+use mc_dfu::{
+    Codec, DataResult, Dyn, Either, FLOAT, INT, MapCodec, STRING, record, string_enum_codec,
+};
 use mc_nbt::{CompoundTag, Tag};
 use mc_protocol::components::common::SoundEvent;
 use mc_protocol::components::holder::{Holder, registry_by_name_codec};
@@ -24,7 +26,9 @@ use serde_json::Value;
 
 use super::codecs::{holder_file_codec, type_codec, vec3_codec};
 use crate::registry::codec::{Lookup, RegistryDecodeContext, RegistryLookup, Schema};
-use crate::registry::typed::damage_type::{DamageEffects, DamageScaling, DamageType, DeathMessageType};
+use crate::registry::typed::damage_type::{
+    DamageEffects, DamageScaling, DamageType, DeathMessageType,
+};
 use crate::world::level::levelgen::blockpredicates::{self, BlockPredicate};
 use crate::world::level::levelgen::stateproviders::{self, BlockStateProvider};
 
@@ -105,33 +109,45 @@ fn float_provider_dispatch_arm(ty: &str) -> MapCodec<FloatProvider> {
         plateau: f32,
     }
     match ty {
-        "minecraft:constant" => record!(Constant { value: FLOAT.field_of("value") }).xmap(
+        "minecraft:constant" => record!(Constant {
+            value: FLOAT.field_of("value")
+        })
+        .xmap(
             |c| F::constant(c.value),
             |f: &F| match f {
                 F::Constant(v) => Constant { value: *v },
                 _ => unreachable!("dispatched by type"),
             },
         ),
-        "minecraft:uniform" => record!(Uniform { min_inclusive: FLOAT.field_of("min_inclusive"), max_exclusive: FLOAT.field_of("max_exclusive") })
-            .validate(|u: Uniform| {
-                if u.max_exclusive <= u.min_inclusive {
-                    let m = format!(
-                        "Max must be larger than min, min: {}, max: {}",
-                        mc_core::math::java::java_float_to_string(u.min_inclusive),
-                        mc_core::math::java::java_float_to_string(u.max_exclusive)
-                    );
-                    DataResult::error(move || m.clone())
-                } else {
-                    DataResult::success(u)
-                }
-            })
-            .xmap(
-                |u| F::Uniform { min: u.min_inclusive, max: u.max_exclusive },
-                |f: &F| match f {
-                    F::Uniform { min, max } => Uniform { min_inclusive: *min, max_exclusive: *max },
-                    _ => unreachable!("dispatched by type"),
+        "minecraft:uniform" => record!(Uniform {
+            min_inclusive: FLOAT.field_of("min_inclusive"),
+            max_exclusive: FLOAT.field_of("max_exclusive")
+        })
+        .validate(|u: Uniform| {
+            if u.max_exclusive <= u.min_inclusive {
+                let m = format!(
+                    "Max must be larger than min, min: {}, max: {}",
+                    mc_core::math::java::java_float_to_string(u.min_inclusive),
+                    mc_core::math::java::java_float_to_string(u.max_exclusive)
+                );
+                DataResult::error(move || m.clone())
+            } else {
+                DataResult::success(u)
+            }
+        })
+        .xmap(
+            |u| F::Uniform {
+                min: u.min_inclusive,
+                max: u.max_exclusive,
+            },
+            |f: &F| match f {
+                F::Uniform { min, max } => Uniform {
+                    min_inclusive: *min,
+                    max_exclusive: *max,
                 },
-            ),
+                _ => unreachable!("dispatched by type"),
+            },
+        ),
         "minecraft:clamped_normal" => record!(Normal {
             mean: FLOAT.field_of("mean"),
             deviation: FLOAT.field_of("deviation"),
@@ -151,32 +167,67 @@ fn float_provider_dispatch_arm(ty: &str) -> MapCodec<FloatProvider> {
             }
         })
         .xmap(
-            |c| F::ClampedNormal { mean: c.mean, deviation: c.deviation, min: c.min, max: c.max },
+            |c| F::ClampedNormal {
+                mean: c.mean,
+                deviation: c.deviation,
+                min: c.min,
+                max: c.max,
+            },
             |f: &F| match f {
-                F::ClampedNormal { mean, deviation, min, max } => Normal { mean: *mean, deviation: *deviation, min: *min, max: *max },
+                F::ClampedNormal {
+                    mean,
+                    deviation,
+                    min,
+                    max,
+                } => Normal {
+                    mean: *mean,
+                    deviation: *deviation,
+                    min: *min,
+                    max: *max,
+                },
                 _ => unreachable!("dispatched by type"),
             },
         ),
-        "minecraft:trapezoid" => record!(Trapezoid { min: FLOAT.field_of("min"), max: FLOAT.field_of("max"), plateau: FLOAT.field_of("plateau") })
-            .validate(|c: Trapezoid| {
-                let jf = mc_core::math::java::java_float_to_string;
-                if c.max < c.min {
-                    let m = format!("Max must be larger than min: [{}, {}]", jf(c.min), jf(c.max));
-                    DataResult::error(move || m.clone())
-                } else if c.plateau > c.max - c.min {
-                    let m = format!("Plateau can at most be the full span: [{}, {}]", jf(c.min), jf(c.max));
-                    DataResult::error(move || m.clone())
-                } else {
-                    DataResult::success(c)
-                }
-            })
-            .xmap(
-                |c| F::Trapezoid { min: c.min, max: c.max, plateau: c.plateau },
-                |f: &F| match f {
-                    F::Trapezoid { min, max, plateau } => Trapezoid { min: *min, max: *max, plateau: *plateau },
-                    _ => unreachable!("dispatched by type"),
+        "minecraft:trapezoid" => record!(Trapezoid {
+            min: FLOAT.field_of("min"),
+            max: FLOAT.field_of("max"),
+            plateau: FLOAT.field_of("plateau")
+        })
+        .validate(|c: Trapezoid| {
+            let jf = mc_core::math::java::java_float_to_string;
+            if c.max < c.min {
+                let m = format!(
+                    "Max must be larger than min: [{}, {}]",
+                    jf(c.min),
+                    jf(c.max)
+                );
+                DataResult::error(move || m.clone())
+            } else if c.plateau > c.max - c.min {
+                let m = format!(
+                    "Plateau can at most be the full span: [{}, {}]",
+                    jf(c.min),
+                    jf(c.max)
+                );
+                DataResult::error(move || m.clone())
+            } else {
+                DataResult::success(c)
+            }
+        })
+        .xmap(
+            |c| F::Trapezoid {
+                min: c.min,
+                max: c.max,
+                plateau: c.plateau,
+            },
+            |f: &F| match f {
+                F::Trapezoid { min, max, plateau } => Trapezoid {
+                    min: *min,
+                    max: *max,
+                    plateau: *plateau,
                 },
-            ),
+                _ => unreachable!("dispatched by type"),
+            },
+        ),
         _ => unreachable!("type_codec only yields registered names"),
     }
 }
@@ -214,13 +265,23 @@ pub fn float_provider_codec(min: Option<f32>, max: Option<f32>) -> Codec<FloatPr
     float_provider_base_codec().validate(move |v: FloatProvider| {
         if let Some(lo) = min {
             if v.min() < lo {
-                let m = format!("Value provider too low: {} [{}-{}]", jf(lo), jf(v.min()), jf(v.max()));
+                let m = format!(
+                    "Value provider too low: {} [{}-{}]",
+                    jf(lo),
+                    jf(v.min()),
+                    jf(v.max())
+                );
                 return DataResult::error(move || m.clone());
             }
         }
         if let Some(hi) = max {
             if v.max() > hi {
-                let m = format!("Value provider too high: {} [{}-{}]", jf(hi), jf(v.min()), jf(v.max()));
+                let m = format!(
+                    "Value provider too high: {} [{}-{}]",
+                    jf(hi),
+                    jf(v.min()),
+                    jf(v.max())
+                );
                 return DataResult::error(move || m.clone());
             }
         }
@@ -259,7 +320,13 @@ pub fn block_state_full_codec() -> Codec<BlockState> {
                                 state
                             }
                         },
-                        |s: &BlockState| Some(s.values().map(|(def, i)| (def.name.to_owned(), def.values[i].to_owned())).collect()),
+                        |s: &BlockState| {
+                            Some(
+                                s.values()
+                                    .map(|(def, i)| (def.name.to_owned(), def.values[i].to_owned()))
+                                    .collect(),
+                            )
+                        },
                     )
             },
         )
@@ -269,20 +336,31 @@ pub fn block_state_full_codec() -> Codec<BlockState> {
 
 /// `BlockState.CODEC`: a bare block id (default state) or the full form.
 pub fn block_state_codec() -> Codec<BlockState> {
-    registry_by_name_codec::<Block>().either(&block_state_full_codec()).xmap(
-        |e| match e {
-            Either::Left(block) => block.default_state(),
-            Either::Right(state) => state,
-        },
-        |s: &BlockState| if *s == s.block().default_state() { Either::Left(s.block()) } else { Either::Right(*s) },
-    )
+    registry_by_name_codec::<Block>()
+        .either(&block_state_full_codec())
+        .xmap(
+            |e| match e {
+                Either::Left(block) => block.default_state(),
+                Either::Right(state) => state,
+            },
+            |s: &BlockState| {
+                if *s == s.block().default_state() {
+                    Either::Left(s.block())
+                } else {
+                    Either::Right(*s)
+                }
+            },
+        )
 }
 
 // ---- ParticleTypes.CODEC --------------------------------------------------------------------------------------------------
 
 fn argb_color_codec() -> Codec<i32> {
     static VECTOR4F: LazyLock<Codec<[f32; 4]>> = LazyLock::new(|| {
-        FLOAT.list_of().comap_flat_map(|l| mc_dfu::extra::fixed_size(l, 4).map(|v| [v[0], v[1], v[2], v[3]]), |v: &[f32; 4]| v.to_vec())
+        FLOAT.list_of().comap_flat_map(
+            |l| mc_dfu::extra::fixed_size(l, 4).map(|v| [v[0], v[1], v[2], v[3]]),
+            |v: &[f32; 4]| v.to_vec(),
+        )
     });
     INT.with_alternative_conv(&VECTOR4F, |v: [f32; 4]| {
         // `ARGB.colorFromFloat(v.w(), v.x(), v.y(), v.z())`
@@ -296,7 +374,10 @@ fn scale_codec() -> Codec<f32> {
         if (0.01..=4.0).contains(&v) {
             DataResult::success(v)
         } else {
-            let m = format!("Value must be within range [0.01;4.0]: {}", mc_core::math::java::java_float_to_string(v));
+            let m = format!(
+                "Value must be within range [0.01;4.0]: {}",
+                mc_core::math::java::java_float_to_string(v)
+            );
             DataResult::error(move || m.clone())
         }
     })
@@ -306,52 +387,79 @@ fn particle_arm(t: ParticleType) -> MapCodec<ParticleOptions> {
     use ParticleOptions as P;
     let rgb = || mc_dfu::extra::RGB_COLOR_CODEC.clone();
     match t {
-        ParticleType::BLOCK | ParticleType::BLOCK_MARKER | ParticleType::FALLING_DUST | ParticleType::DUST_PILLAR | ParticleType::BLOCK_CRUMBLE => {
-            block_state_codec().field_of("block_state").xmap(
-                move |state| P::Block { particle_type: t, state },
+        ParticleType::BLOCK
+        | ParticleType::BLOCK_MARKER
+        | ParticleType::FALLING_DUST
+        | ParticleType::DUST_PILLAR
+        | ParticleType::BLOCK_CRUMBLE => block_state_codec().field_of("block_state").xmap(
+            move |state| P::Block {
+                particle_type: t,
+                state,
+            },
+            |p: &P| match p {
+                P::Block { state, .. } => *state,
+                _ => unreachable!("dispatched by type"),
+            },
+        ),
+        ParticleType::ENTITY_EFFECT | ParticleType::TINTED_LEAVES | ParticleType::FLASH => {
+            argb_color_codec().field_of("color").xmap(
+                move |color| P::Color {
+                    particle_type: t,
+                    color,
+                },
                 |p: &P| match p {
-                    P::Block { state, .. } => *state,
+                    P::Color { color, .. } => *color,
                     _ => unreachable!("dispatched by type"),
                 },
             )
         }
-        ParticleType::ENTITY_EFFECT | ParticleType::TINTED_LEAVES | ParticleType::FLASH => argb_color_codec().field_of("color").xmap(
-            move |color| P::Color { particle_type: t, color },
+        ParticleType::DRAGON_BREATH => FLOAT.optional_field_of_default("power", 1.0).xmap(
+            move |power| P::Power {
+                particle_type: t,
+                power,
+            },
             |p: &P| match p {
-                P::Color { color, .. } => *color,
+                P::Power { power, .. } => *power,
                 _ => unreachable!("dispatched by type"),
             },
         ),
-        ParticleType::DRAGON_BREATH => FLOAT
-            .optional_field_of_default("power", 1.0)
-            .xmap(
-                move |power| P::Power { particle_type: t, power },
-                |p: &P| match p {
-                    P::Power { power, .. } => *power,
-                    _ => unreachable!("dispatched by type"),
-                },
-            ),
         ParticleType::EFFECT | ParticleType::INSTANT_EFFECT => {
             #[derive(Clone)]
             struct Spell {
                 color: i32,
                 power: f32,
             }
-            record!(Spell { color: rgb().optional_field_of_default("color", -1), power: FLOAT.optional_field_of_default("power", 1.0) }).xmap(
-                move |s| P::Spell { particle_type: t, color: s.color, power: s.power },
+            record!(Spell {
+                color: rgb().optional_field_of_default("color", -1),
+                power: FLOAT.optional_field_of_default("power", 1.0)
+            })
+            .xmap(
+                move |s| P::Spell {
+                    particle_type: t,
+                    color: s.color,
+                    power: s.power,
+                },
                 |p: &P| match p {
-                    P::Spell { color, power, .. } => Spell { color: *color, power: *power },
+                    P::Spell { color, power, .. } => Spell {
+                        color: *color,
+                        power: *power,
+                    },
                     _ => unreachable!("dispatched by type"),
                 },
             )
         }
-        ParticleType::GEYSER | ParticleType::GEYSER_PLUME => mc_dfu::extra::POSITIVE_INT.field_of("water_blocks").xmap(
-            move |water_blocks| P::Geyser { particle_type: t, water_blocks },
-            |p: &P| match p {
-                P::Geyser { water_blocks, .. } => *water_blocks,
-                _ => unreachable!("dispatched by type"),
-            },
-        ),
+        ParticleType::GEYSER | ParticleType::GEYSER_PLUME => {
+            mc_dfu::extra::POSITIVE_INT.field_of("water_blocks").xmap(
+                move |water_blocks| P::Geyser {
+                    particle_type: t,
+                    water_blocks,
+                },
+                |p: &P| match p {
+                    P::Geyser { water_blocks, .. } => *water_blocks,
+                    _ => unreachable!("dispatched by type"),
+                },
+            )
+        }
         ParticleType::GEYSER_BASE | ParticleType::GEYSER_POOF => {
             struct Base {
                 water_blocks: i32,
@@ -362,9 +470,20 @@ fn particle_arm(t: ParticleType) -> MapCodec<ParticleOptions> {
                 burst_impulse_base: FLOAT.field_of("burst_impulse_base"),
             })
             .xmap(
-                move |b| P::GeyserBase { particle_type: t, water_blocks: b.water_blocks, burst_impulse_base: b.burst_impulse_base },
+                move |b| P::GeyserBase {
+                    particle_type: t,
+                    water_blocks: b.water_blocks,
+                    burst_impulse_base: b.burst_impulse_base,
+                },
                 |p: &P| match p {
-                    P::GeyserBase { water_blocks, burst_impulse_base, .. } => Base { water_blocks: *water_blocks, burst_impulse_base: *burst_impulse_base },
+                    P::GeyserBase {
+                        water_blocks,
+                        burst_impulse_base,
+                        ..
+                    } => Base {
+                        water_blocks: *water_blocks,
+                        burst_impulse_base: *burst_impulse_base,
+                    },
                     _ => unreachable!("dispatched by type"),
                 },
             )
@@ -374,10 +493,20 @@ fn particle_arm(t: ParticleType) -> MapCodec<ParticleOptions> {
                 color: i32,
                 scale: f32,
             }
-            record!(Dust { color: rgb().field_of("color"), scale: scale_codec().field_of("scale") }).xmap(
-                |d| P::Dust { color: d.color, scale: d.scale.clamp(0.01, 4.0) },
+            record!(Dust {
+                color: rgb().field_of("color"),
+                scale: scale_codec().field_of("scale")
+            })
+            .xmap(
+                |d| P::Dust {
+                    color: d.color,
+                    scale: d.scale.clamp(0.01, 4.0),
+                },
                 |p: &P| match p {
-                    P::Dust { color, scale } => Dust { color: *color, scale: *scale },
+                    P::Dust { color, scale } => Dust {
+                        color: *color,
+                        scale: *scale,
+                    },
                     _ => unreachable!("dispatched by type"),
                 },
             )
@@ -394,11 +523,21 @@ fn particle_arm(t: ParticleType) -> MapCodec<ParticleOptions> {
                 scale: scale_codec().field_of("scale"),
             })
             .xmap(
-                |d| P::DustColorTransition { from_color: d.from_color, to_color: d.to_color, scale: d.scale.clamp(0.01, 4.0) },
+                |d| P::DustColorTransition {
+                    from_color: d.from_color,
+                    to_color: d.to_color,
+                    scale: d.scale.clamp(0.01, 4.0),
+                },
                 |p: &P| match p {
-                    P::DustColorTransition { from_color, to_color, scale } => {
-                        Transition { from_color: *from_color, to_color: *to_color, scale: *scale }
-                    }
+                    P::DustColorTransition {
+                        from_color,
+                        to_color,
+                        scale,
+                    } => Transition {
+                        from_color: *from_color,
+                        to_color: *to_color,
+                        scale: *scale,
+                    },
                     _ => unreachable!("dispatched by type"),
                 },
             )
@@ -417,13 +556,12 @@ fn particle_arm(t: ParticleType) -> MapCodec<ParticleOptions> {
                 _ => unreachable!("dispatched by type"),
             },
         ),
-        ParticleType::ITEM => ItemStackTemplate::codec().field_of("item").xmap(
-            P::Item,
-            |p: &P| match p {
+        ParticleType::ITEM => ItemStackTemplate::codec()
+            .field_of("item")
+            .xmap(P::Item, |p: &P| match p {
                 P::Item(item) => item.clone(),
                 _ => unreachable!("dispatched by type"),
-            },
-        ),
+            }),
         ParticleType::VIBRATION => {
             struct Vibration {
                 destination: ParticlePositionSource,
@@ -434,9 +572,18 @@ fn particle_arm(t: ParticleType) -> MapCodec<ParticleOptions> {
                 arrival_in_ticks: INT.field_of("arrival_in_ticks"),
             })
             .xmap(
-                |v| P::Vibration { destination: v.destination, arrival_in_ticks: v.arrival_in_ticks },
+                |v| P::Vibration {
+                    destination: v.destination,
+                    arrival_in_ticks: v.arrival_in_ticks,
+                },
                 |p: &P| match p {
-                    P::Vibration { destination, arrival_in_ticks } => Vibration { destination: *destination, arrival_in_ticks: *arrival_in_ticks },
+                    P::Vibration {
+                        destination,
+                        arrival_in_ticks,
+                    } => Vibration {
+                        destination: *destination,
+                        arrival_in_ticks: *arrival_in_ticks,
+                    },
                     _ => unreachable!("dispatched by type"),
                 },
             )
@@ -453,9 +600,21 @@ fn particle_arm(t: ParticleType) -> MapCodec<ParticleOptions> {
                 duration: mc_dfu::extra::POSITIVE_INT.field_of("duration"),
             })
             .xmap(
-                |t| P::Trail { target: t.target, color: t.color, duration: t.duration },
+                |t| P::Trail {
+                    target: t.target,
+                    color: t.color,
+                    duration: t.duration,
+                },
                 |p: &P| match p {
-                    P::Trail { target, color, duration } => Trail { target: *target, color: *color, duration: *duration },
+                    P::Trail {
+                        target,
+                        color,
+                        duration,
+                    } => Trail {
+                        target: *target,
+                        color: *color,
+                        duration: *duration,
+                    },
                     _ => unreachable!("dispatched by type"),
                 },
             )
@@ -472,7 +631,8 @@ fn safe_position_source_codec() -> Codec<ParticlePositionSource> {
     let block = record!(BlockPos {
         pos: mc_dfu::INT_STREAM
             .comap_flat_map(
-                |l| mc_dfu::extra::fixed_size(l, 3).map(|v| mc_core::pos::BlockPos::new(v[0], v[1], v[2])),
+                |l| mc_dfu::extra::fixed_size(l, 3)
+                    .map(|v| mc_core::pos::BlockPos::new(v[0], v[1], v[2])),
                 |p: &mc_core::pos::BlockPos| vec![p.x(), p.y(), p.z()],
             )
             .field_of("pos"),
@@ -506,7 +666,9 @@ pub fn particle_options_codec() -> Codec<ParticleOptions> {
         type_codec("minecraft:particle_type").dispatch(
             "type",
             |p: &ParticleOptions| p.particle_type().name(),
-            |ty: &&'static str| particle_arm(ParticleType::by_name(ty).expect("registered particle type")),
+            |ty: &&'static str| {
+                particle_arm(ParticleType::by_name(ty).expect("registered particle type"))
+            },
         )
     });
     CODEC.clone()
@@ -518,7 +680,10 @@ pub fn particle_options_codec() -> Codec<ParticleOptions> {
 fn damage_type_direct_codec() -> Codec<DamageType> {
     static SCALING: [(DamageScaling, &str); 3] = [
         (DamageScaling::Never, "never"),
-        (DamageScaling::WhenCausedByLivingNonPlayer, "when_caused_by_living_non_player"),
+        (
+            DamageScaling::WhenCausedByLivingNonPlayer,
+            "when_caused_by_living_non_player",
+        ),
         (DamageScaling::Always, "always"),
     ];
     static EFFECTS: [(DamageEffects, &str); 6] = [
@@ -532,14 +697,19 @@ fn damage_type_direct_codec() -> Codec<DamageType> {
     static DEATH: [(DeathMessageType, &str); 3] = [
         (DeathMessageType::Default, "default"),
         (DeathMessageType::FallVariants, "fall_variants"),
-        (DeathMessageType::IntentionalGameDesign, "intentional_game_design"),
+        (
+            DeathMessageType::IntentionalGameDesign,
+            "intentional_game_design",
+        ),
     ];
     record!(DamageType {
         msg_id: STRING.field_of("message_id"),
         scaling: string_enum_codec(&SCALING).field_of("scaling"),
         exhaustion: FLOAT.field_of("exhaustion"),
-        effects: string_enum_codec(&EFFECTS).optional_field_of_default("effects", DamageEffects::Hurt),
-        death_message_type: string_enum_codec(&DEATH).optional_field_of_default("death_message_type", DeathMessageType::Default),
+        effects: string_enum_codec(&EFFECTS)
+            .optional_field_of_default("effects", DamageEffects::Hurt),
+        death_message_type: string_enum_codec(&DEATH)
+            .optional_field_of_default("death_message_type", DeathMessageType::Default),
     })
     .codec()
 }
@@ -575,15 +745,26 @@ struct StaticLookup;
 
 impl RegistryLookup for StaticLookup {
     fn contains(&self, registry: &str, id: &Identifier) -> Lookup {
-        if mc_protocol::registry_context::registry_contains(registry, id) { Lookup::Yes } else { Lookup::No }
+        if mc_protocol::registry_context::registry_contains(registry, id) {
+            Lookup::Yes
+        } else {
+            Lookup::No
+        }
     }
     fn tag_exists(&self, registry: &str, tag: &Identifier) -> Lookup {
-        if mc_protocol::registry_context::get().tag_exists(registry, tag) { Lookup::Yes } else { Lookup::No }
+        if mc_protocol::registry_context::get().tag_exists(registry, tag) {
+            Lookup::Yes
+        } else {
+            Lookup::No
+        }
     }
 }
 
 fn convert_with_scope(schema: &Schema, json: &Value) -> Result<Tag, String> {
-    super::codecs::with_scoped_ctx(|ctx| schema.convert(json, ctx), || schema.convert(json, &RegistryDecodeContext::new(&StaticLookup)))
+    super::codecs::with_scoped_ctx(
+        |ctx| schema.convert(json, ctx),
+        || schema.convert(json, &RegistryDecodeContext::new(&StaticLookup)),
+    )
 }
 
 fn dyn_to_json(d: &Dyn) -> Result<Value, String> {
@@ -601,16 +782,28 @@ struct GenEnv {
     source: Arc<dyn mc_worldgen::data::WorldgenDataSource>,
 }
 
-fn with_gen_ctx<R>(f: impl FnOnce(&crate::world::level::levelgen::registries::DecodeCtx<'_>) -> R) -> R {
+fn with_gen_ctx<R>(
+    f: impl FnOnce(&crate::world::level::levelgen::registries::DecodeCtx<'_>) -> R,
+) -> R {
     GEN_ENV.with(|cell| {
         let env = cell.get_or_init(|| {
-            let source: Arc<dyn mc_worldgen::data::WorldgenDataSource> = Arc::new(mc_worldgen::data::McDataSource);
+            let source: Arc<dyn mc_worldgen::data::WorldgenDataSource> =
+                Arc::new(mc_worldgen::data::McDataSource);
             let worldgen = mc_worldgen::data::WorldgenRegistries::new(source.clone());
-            let biomes = mc_worldgen::biome::BiomeRegistry::load(&worldgen).expect("vanilla biomes");
-            GenEnv { worldgen, biomes, source }
+            let biomes =
+                mc_worldgen::biome::BiomeRegistry::load(&worldgen).expect("vanilla biomes");
+            GenEnv {
+                worldgen,
+                biomes,
+                source,
+            }
         });
         let cells = crate::world::level::levelgen::registries::Cells::new(env.source.clone());
-        f(&crate::world::level::levelgen::registries::DecodeCtx { worldgen: &env.worldgen, biomes: &env.biomes, cells: &cells })
+        f(&crate::world::level::levelgen::registries::DecodeCtx {
+            worldgen: &env.worldgen,
+            biomes: &env.biomes,
+            cells: &cells,
+        })
     })
 }
 
@@ -619,7 +812,12 @@ fn vec3i_offset_schema(max: i32, _required: bool) -> Schema {
         let list = v.as_array().ok_or_else(|| format!("Not a list: {v}"))?;
         let ints: Vec<i32> = list
             .iter()
-            .map(|e| e.as_i64().or_else(|| e.as_f64().map(|f| f as i64)).map(|i| i as i32).ok_or_else(|| format!("Not a number: {e}")))
+            .map(|e| {
+                e.as_i64()
+                    .or_else(|| e.as_f64().map(|f| f as i64))
+                    .map(|i| i as i32)
+                    .ok_or_else(|| format!("Not a number: {e}"))
+            })
             .collect::<Result<_, _>>()?;
         if ints.len() != 3 {
             return Err(format!("Input is not a list of 3 elements"));
@@ -635,7 +833,11 @@ fn vec3i_offset_schema(max: i32, _required: bool) -> Schema {
 }
 
 fn offset_field() -> crate::registry::codec::Field {
-    crate::registry::codec::default("offset", vec3i_offset_schema(16, false), Value::from(vec![0, 0, 0]))
+    crate::registry::codec::default(
+        "offset",
+        vec3i_offset_schema(16, false),
+        Value::from(vec![0, 0, 0]),
+    )
 }
 
 fn block_state_schema() -> Schema {
@@ -687,7 +889,10 @@ fn vertical_anchor_schema() -> Schema {
 fn block_predicate_schema() -> Schema {
     use crate::registry::codec::req;
     fn resolve(name: &str) -> Option<Schema> {
-        let block_set = |registry: &'static str| Schema::HolderSet { registry, always_list: false };
+        let block_set = |registry: &'static str| Schema::HolderSet {
+            registry,
+            always_list: false,
+        };
         let tag_key = Schema::custom(|v, _ctx| {
             let s = v.as_str().ok_or_else(|| format!("Not a string: {v}"))?;
             let id = Identifier::read(s)?;
@@ -695,27 +900,71 @@ fn block_predicate_schema() -> Schema {
         });
         let offset = || offset_field();
         Some(match name {
-            "minecraft:all_of" | "minecraft:any_of" => Schema::Record(vec![req("predicates", Schema::list_of(Schema::Dispatch { key: "type", resolve }))]),
-            "minecraft:not" => Schema::Record(vec![req("predicate", Schema::Dispatch { key: "type", resolve })]),
+            "minecraft:all_of" | "minecraft:any_of" => Schema::Record(vec![req(
+                "predicates",
+                Schema::list_of(Schema::Dispatch {
+                    key: "type",
+                    resolve,
+                }),
+            )]),
+            "minecraft:not" => Schema::Record(vec![req(
+                "predicate",
+                Schema::Dispatch {
+                    key: "type",
+                    resolve,
+                },
+            )]),
             "minecraft:true" => Schema::Record(vec![]),
-            "minecraft:matching_blocks" => Schema::Record(vec![offset(), req("blocks", block_set("minecraft:block"))]),
-            "minecraft:matching_fluids" => Schema::Record(vec![offset(), req("fluids", block_set("minecraft:fluid"))]),
+            "minecraft:matching_blocks" => {
+                Schema::Record(vec![offset(), req("blocks", block_set("minecraft:block"))])
+            }
+            "minecraft:matching_fluids" => {
+                Schema::Record(vec![offset(), req("fluids", block_set("minecraft:fluid"))])
+            }
             "minecraft:matching_block_tag" => Schema::Record(vec![offset(), req("tag", tag_key)]),
-            "minecraft:matching_biomes" => Schema::Record(vec![req("biomes", block_set("minecraft:worldgen/biome"))]),
-            "minecraft:has_sturdy_face" => Schema::Record(vec![offset(), req("direction", Schema::Enum(&["down", "up", "north", "south", "west", "east"]))]),
-            "minecraft:solid" | "minecraft:replaceable" | "minecraft:inside_world_bounds" => Schema::Record(vec![offset()]),
-            "minecraft:would_survive" => Schema::Record(vec![offset(), req("state", block_state_schema())]),
-            "minecraft:unobstructed" => Schema::Record(vec![crate::registry::codec::default("offset", vec3i_offset_schema(i32::MAX, false), Value::from(vec![0, 0, 0]))]),
-            "minecraft:height_range" => Schema::Record(vec![req("min_inclusive", vertical_anchor_schema()), req("max_inclusive", vertical_anchor_schema())]),
+            "minecraft:matching_biomes" => {
+                Schema::Record(vec![req("biomes", block_set("minecraft:worldgen/biome"))])
+            }
+            "minecraft:has_sturdy_face" => Schema::Record(vec![
+                offset(),
+                req(
+                    "direction",
+                    Schema::Enum(&["down", "up", "north", "south", "west", "east"]),
+                ),
+            ]),
+            "minecraft:solid" | "minecraft:replaceable" | "minecraft:inside_world_bounds" => {
+                Schema::Record(vec![offset()])
+            }
+            "minecraft:would_survive" => {
+                Schema::Record(vec![offset(), req("state", block_state_schema())])
+            }
+            "minecraft:unobstructed" => Schema::Record(vec![crate::registry::codec::default(
+                "offset",
+                vec3i_offset_schema(i32::MAX, false),
+                Value::from(vec![0, 0, 0]),
+            )]),
+            "minecraft:height_range" => Schema::Record(vec![
+                req("min_inclusive", vertical_anchor_schema()),
+                req("max_inclusive", vertical_anchor_schema()),
+            ]),
             "minecraft:volume_match" => Schema::Record(vec![
                 req("min", vec3i_offset_schema(16, true)),
                 req("max", vec3i_offset_schema(16, true)),
-                req("match", Schema::Dispatch { key: "type", resolve }),
+                req(
+                    "match",
+                    Schema::Dispatch {
+                        key: "type",
+                        resolve,
+                    },
+                ),
             ]),
             _ => return None,
         })
     }
-    Schema::Dispatch { key: "type", resolve }
+    Schema::Dispatch {
+        key: "type",
+        resolve,
+    }
 }
 
 /// A decoded `BlockPredicate` together with its `encodeStart(NbtOps)` form.
@@ -728,7 +977,9 @@ pub struct BlockPredicateRef {
 /// `BlockPredicate.CODEC`.
 pub fn block_predicate_codec() -> Codec<BlockPredicateRef> {
     Codec::from_fns(
-        |ops, input: &BlockPredicateRef, _prefix| DataResult::success(mc_dfu::NBT.convert_to(ops, &Dyn::from(&input.nbt))),
+        |ops, input: &BlockPredicateRef, _prefix| {
+            DataResult::success(mc_dfu::NBT.convert_to(ops, &Dyn::from(&input.nbt)))
+        },
         |_ops, input| {
             let json = match dyn_to_json(input) {
                 Ok(j) => j,
@@ -774,7 +1025,9 @@ fn block_state_provider_schema() -> Schema {
 /// `BlockStateProvider.CODEC` (`RegistryCodecs.holder(BLOCK_STATE_PROVIDER, DIRECT_CODEC)`).
 pub fn block_state_provider_holder_codec() -> Codec<Holder<BlockStateProviderRef>> {
     let direct = Codec::from_fns(
-        |ops, input: &BlockStateProviderRef, _prefix| DataResult::success(mc_dfu::NBT.convert_to(ops, &Dyn::from(&input.nbt))),
+        |ops, input: &BlockStateProviderRef, _prefix| {
+            DataResult::success(mc_dfu::NBT.convert_to(ops, &Dyn::from(&input.nbt)))
+        },
         |_ops, input| {
             let json = match dyn_to_json(input) {
                 Ok(j) => j,
@@ -785,7 +1038,9 @@ pub fn block_state_provider_holder_codec() -> Codec<Holder<BlockStateProviderRef
                 Err(e) => return DataResult::error(move || e.clone()),
             };
             match with_gen_ctx(|ctx| stateproviders::decode_direct(&json, ctx)) {
-                Ok(provider) => DataResult::success((BlockStateProviderRef { provider, nbt }, input.clone())),
+                Ok(provider) => {
+                    DataResult::success((BlockStateProviderRef { provider, nbt }, input.clone()))
+                }
                 Err(e) => {
                     let m = e.to_string();
                     DataResult::error(move || m.clone())
@@ -796,9 +1051,13 @@ pub fn block_state_provider_holder_codec() -> Codec<Holder<BlockStateProviderRef
     holder_file_codec("minecraft:worldgen/block_state_provider", &direct, true)
 }
 
-
 /// The provider of a `worldgen/block_state_provider` registry entry (decoded on demand from its JSON).
-pub fn resolve_block_state_provider(registries: &crate::registry::RegistryAccess, id: &Identifier) -> Option<Arc<dyn BlockStateProvider>> {
-    let entry = registries.registry("minecraft:worldgen/block_state_provider")?.entry_by_key(id)?;
+pub fn resolve_block_state_provider(
+    registries: &crate::registry::RegistryAccess,
+    id: &Identifier,
+) -> Option<Arc<dyn BlockStateProvider>> {
+    let entry = registries
+        .registry("minecraft:worldgen/block_state_provider")?
+        .entry_by_key(id)?;
     with_gen_ctx(|ctx| stateproviders::decode_direct(&entry.json, ctx)).ok()
 }

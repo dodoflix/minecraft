@@ -1,11 +1,10 @@
 //! `UseBonemeal`: villagers with bone meal grow crops around them.
 
-use mc_core::random::RandomSource;
-use crate::world::container::Container;
 use super::position_tracker::{BlockPosTracker, PositionTracker};
 use super::{Behavior, BehaviorBase, DEFAULT_DURATION};
 use crate::entry_condition;
 use crate::server::level::ServerLevel;
+use crate::world::container::Container;
 use crate::world::entity::Entity;
 use crate::world::entity::ai::memory::WalkTarget;
 use crate::world::entity::ai::memory::memory_module_type::{LOOK_TARGET, WALK_TARGET};
@@ -16,6 +15,7 @@ use crate::world::level::BlockGetter;
 use crate::world::level::LevelAccessor as _;
 use crate::world::level::block::impls::crop_block;
 use mc_core::pos::BlockPos;
+use mc_core::random::RandomSource;
 use mc_data::Item;
 
 const BONEMEALING_DURATION: i32 = 80;
@@ -33,7 +33,12 @@ impl UseBonemeal {
             entry_condition![LOOK_TARGET => ValueAbsent, WALK_TARGET => ValueAbsent],
             DEFAULT_DURATION,
             DEFAULT_DURATION,
-            UseBonemeal { next_work_cycle_time: 0, last_bonemealing_session: 0, time_worked_so_far: 0, crop_pos: None },
+            UseBonemeal {
+                next_work_cycle_time: 0,
+                last_bonemealing_session: 0,
+                time_worked_so_far: 0,
+                crop_pos: None,
+            },
         )
     }
 
@@ -61,7 +66,8 @@ impl UseBonemeal {
         if let Some(pos) = self.crop_pos {
             let tracker = PositionTracker::Block(BlockPosTracker::new(pos));
             body.brain_mut().set_memory(&LOOK_TARGET, tracker.clone());
-            body.brain_mut().set_memory(&WALK_TARGET, WalkTarget::new(tracker, 0.5, 1));
+            body.brain_mut()
+                .set_memory(&WALK_TARGET, WalkTarget::new(tracker, 0.5, 1));
         }
     }
 }
@@ -71,9 +77,16 @@ fn valid_pos(block_pos: BlockPos, level: &ServerLevel) -> bool {
 }
 
 impl Behavior for UseBonemeal {
-    fn check_extra_start_conditions(&mut self, level: &mut ServerLevel, body: &mut dyn Entity) -> bool {
+    fn check_extra_start_conditions(
+        &mut self,
+        level: &mut ServerLevel,
+        body: &mut dyn Entity,
+    ) -> bool {
         let tick_count = i64::from(body.base().tick_count);
-        if body.base().tick_count % 10 == 0 && (self.last_bonemealing_session == 0 || self.last_bonemealing_session + 160 <= tick_count) {
+        if body.base().tick_count % 10 == 0
+            && (self.last_bonemealing_session == 0
+                || self.last_bonemealing_session + 160 <= tick_count)
+        {
             if villager_mut(body).av.inventory.count_item(Item::BONE_MEAL) <= 0 {
                 return false;
             }
@@ -84,13 +97,22 @@ impl Behavior for UseBonemeal {
         }
     }
 
-    fn can_still_use(&mut self, _level: &mut ServerLevel, _body: &mut dyn Entity, _timestamp: i64) -> bool {
+    fn can_still_use(
+        &mut self,
+        _level: &mut ServerLevel,
+        _body: &mut dyn Entity,
+        _timestamp: i64,
+    ) -> bool {
         self.time_worked_so_far < BONEMEALING_DURATION && self.crop_pos.is_some()
     }
 
     fn start(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, timestamp: i64) {
         self.set_current_crop_as_target(body);
-        body.set_item_slot(level, EquipmentSlot::MainHand, ItemStack::new(Item::BONE_MEAL));
+        body.set_item_slot(
+            level,
+            EquipmentSlot::MainHand,
+            ItemStack::new(Item::BONE_MEAL),
+        );
         self.next_work_cycle_time = timestamp;
         self.time_worked_so_far = 0;
     }
@@ -101,12 +123,23 @@ impl Behavior for UseBonemeal {
     }
 
     fn tick(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, timestamp: i64) {
-        let Some(target_pos) = self.crop_pos else { return };
-        if timestamp >= self.next_work_cycle_time && target_pos.closer_to_center_than(&body.position(), 1.0) {
+        let Some(target_pos) = self.crop_pos else {
+            return;
+        };
+        if timestamp >= self.next_work_cycle_time
+            && target_pos.closer_to_center_than(&body.position(), 1.0)
+        {
             let size = villager_mut(body).av.inventory.get_container_size();
             let mut bonemeal_slot = None;
             for i in 0..size {
-                if villager_mut(body).av.inventory.get_item(i).item() == Item::BONE_MEAL && !villager_mut(body).av.inventory.get_item(i).clone().is_empty() {
+                if villager_mut(body).av.inventory.get_item(i).item() == Item::BONE_MEAL
+                    && !villager_mut(body)
+                        .av
+                        .inventory
+                        .get_item(i)
+                        .clone()
+                        .is_empty()
+                {
                     bonemeal_slot = Some(i);
                     break;
                 }

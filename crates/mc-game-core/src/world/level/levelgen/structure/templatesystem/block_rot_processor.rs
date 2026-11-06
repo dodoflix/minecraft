@@ -15,7 +15,10 @@ pub struct BlockRotProcessor {
 
 impl BlockRotProcessor {
     pub fn new(rottable_blocks: Option<BlockSet>, integrity: f32) -> BlockRotProcessor {
-        BlockRotProcessor { rottable_blocks, integrity }
+        BlockRotProcessor {
+            rottable_blocks,
+            integrity,
+        }
     }
 }
 
@@ -30,8 +33,15 @@ impl StructureProcessor for BlockRotProcessor {
         settings: &StructurePlaceSettings,
     ) -> Option<StructureBlockInfo> {
         let mut random = settings.get_random(Some(processed_block_info.pos));
-        let rots = self.rottable_blocks.as_ref().is_none_or(|set| set.contains(processed_block_info.state.block()));
-        if rots && !(random.next_float() <= self.integrity) { None } else { Some(processed_block_info) }
+        let rots = self
+            .rottable_blocks
+            .as_ref()
+            .is_none_or(|set| set.contains(processed_block_info.state.block()));
+        if rots && !(random.next_float() <= self.integrity) {
+            None
+        } else {
+            Some(processed_block_info)
+        }
     }
 }
 

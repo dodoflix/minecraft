@@ -29,7 +29,11 @@ pub struct ConversionTracker {
 
 impl ConversionTracker {
     pub fn new(config: ConversionTrackerConfig) -> Self {
-        Self { config, affliction_time: 0, conversion_time: 0 }
+        Self {
+            config,
+            affliction_time: 0,
+            conversion_time: 0,
+        }
     }
 
     /// `tick()` for a mob that is `isAlive() && !isNoAi()` (`ready`); returns true when `doConversion` must run now.
@@ -66,9 +70,28 @@ impl ConversionTracker {
     }
 
     /// `addAdditionalSaveData(output)`.
-    pub fn add_additional_save_data(&self, data: &SynchedEntityData, is_afflicted: bool, out: &mut CompoundTag) {
-        out.put_int(self.config.conversion_time_tag, if self.is_converting(data) { self.conversion_time } else { NOT_CONVERTING });
-        out.put_int(self.config.affliction_time_tag, if is_afflicted { self.affliction_time } else { -1 });
+    pub fn add_additional_save_data(
+        &self,
+        data: &SynchedEntityData,
+        is_afflicted: bool,
+        out: &mut CompoundTag,
+    ) {
+        out.put_int(
+            self.config.conversion_time_tag,
+            if self.is_converting(data) {
+                self.conversion_time
+            } else {
+                NOT_CONVERTING
+            },
+        );
+        out.put_int(
+            self.config.affliction_time_tag,
+            if is_afflicted {
+                self.affliction_time
+            } else {
+                -1
+            },
+        );
     }
 
     /// `readAdditionalSaveData(input)`.

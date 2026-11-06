@@ -59,7 +59,9 @@ macro_rules! java_to_string {
             // value (ties to even) and prints at least two digits; `{:.N e}` is exactly that rounding.
             let n = digits.len().max(2);
             let (d2, e2) = split_sci(&format!("{:.*e}", n - 1, a));
-            let back: $t = format!("{}e{}", d2, e2 - (n as i32 - 1)).parse().unwrap_or(0.0);
+            let back: $t = format!("{}e{}", d2, e2 - (n as i32 - 1))
+                .parse()
+                .unwrap_or(0.0);
             if back == a {
                 digits = d2;
                 exp = e2;

@@ -91,7 +91,11 @@ impl RandomSource for SequenceRandom {
 /// `server.getRandomSequence(key)`.
 pub fn random_sequence(level: &ServerLevel, key: &Identifier) -> Box<dyn RandomSource> {
     let services = &level.server_state.loot;
-    Box::new(SequenceRandom { sequences: services.random_sequences.clone(), key: key.clone(), world_seed: services.world_seed })
+    Box::new(SequenceRandom {
+        sequences: services.random_sequences.clone(),
+        key: key.clone(),
+        world_seed: services.world_seed,
+    })
 }
 
 /// `level.getRandom()` for a table without a random sequence: vanilla draws from the level's own random, which cannot be
@@ -104,7 +108,12 @@ pub fn level_random(level: &ServerLevel) -> Box<dyn RandomSource> {
 pub fn score(level: &ServerLevel, holder_name: &str, objective: &str) -> Option<i32> {
     let scoreboard = level.scoreboard();
     scoreboard.get_objective(objective)?;
-    scoreboard.get_player_score_info(&crate::world::scores::score::for_name_only(holder_name), objective).map(|s| s.value())
+    scoreboard
+        .get_player_score_info(
+            &crate::world::scores::score::for_name_only(holder_name),
+            objective,
+        )
+        .map(|s| s.value())
 }
 
 /// `server.getCommandStorage().get(id)`.
@@ -201,16 +210,27 @@ pub fn environment_attribute_int(context: &LootContext, id: &Identifier) -> Opti
 pub fn environment_attribute_value_codec(id: &Identifier) -> Option<Codec<AttrValue>> {
     let def = attribute_def(id)?;
     Some(match def.kind {
-        AttributeKind::Float | AttributeKind::AngleDegrees => FLOAT.xmap(AttrValue::Float, |v: &AttrValue| if let AttrValue::Float(f) = v { *f } else { 0.0 }),
-        AttributeKind::Boolean => BOOL.xmap(AttrValue::Bool, |v: &AttrValue| matches!(v, AttrValue::Bool(true))),
+        AttributeKind::Float | AttributeKind::AngleDegrees => {
+            FLOAT.xmap(AttrValue::Float, |v: &AttrValue| {
+                if let AttrValue::Float(f) = v { *f } else { 0.0 }
+            })
+        }
+        AttributeKind::Boolean => BOOL.xmap(AttrValue::Bool, |v: &AttrValue| {
+            matches!(v, AttrValue::Bool(true))
+        }),
         AttributeKind::Integer => INT.xmap(AttrValue::Int, |v: &AttrValue| v.to_int().unwrap_or(0)),
         AttributeKind::MoonPhase => STRING.flat_xmap(
-            |name: String| match crate::world::attribute::value::MOON_PHASES.iter().position(|p| *p == name) {
+            |name: String| match crate::world::attribute::value::MOON_PHASES
+                .iter()
+                .position(|p| *p == name)
+            {
                 Some(i) => DataResult::success(AttrValue::MoonPhase(i as u8)),
                 None => DataResult::error(move || format!("Unknown moon phase: {name}")),
             },
             |v: &AttrValue| match v {
-                AttrValue::MoonPhase(i) => DataResult::success(crate::world::attribute::value::MOON_PHASES[usize::from(*i)].to_owned()),
+                AttrValue::MoonPhase(i) => DataResult::success(
+                    crate::world::attribute::value::MOON_PHASES[usize::from(*i)].to_owned(),
+                ),
                 _ => DataResult::error(|| "not a moon phase".to_owned()),
             },
         ),
@@ -219,9 +239,16 @@ pub fn environment_attribute_value_codec(id: &Identifier) -> Option<Codec<AttrVa
 }
 
 /// `EnvironmentAttributeCheck.test`: the sampled value equals `value`.
-pub fn environment_attribute_matches(context: &LootContext, id: &Identifier, value: &AttrValue, _origin: Option<Vec3>) -> bool {
+pub fn environment_attribute_matches(
+    context: &LootContext,
+    id: &Identifier,
+    value: &AttrValue,
+    _origin: Option<Vec3>,
+) -> bool {
     attribute_value(context, id).is_some_and(|actual| match (actual, value) {
-        (AttrValue::Float(a), AttrValue::Float(b)) => a.to_bits() == b.to_bits() || (a.is_nan() && b.is_nan()),
+        (AttrValue::Float(a), AttrValue::Float(b)) => {
+            a.to_bits() == b.to_bits() || (a.is_nan() && b.is_nan())
+        }
         (a, b) => a == *b,
     })
 }

@@ -6,23 +6,30 @@
 //! children go into a fresh one ([`recursive_children`]).
 
 use super::structure_entities;
-use mc_game_core::commands::arguments::coordinates::block_pos_argument::is_in_spawnable_bounds;
-use mc_game_core::world::level::levelgen::block_entity_data::set_block_entity_loot_table;
-use mc_game_core::world::level::levelgen::env::GenEnv;
-use mc_game_core::world::level::levelgen::structure::manager::StructureManager;
-use mc_game_core::world::level::levelgen::structure::piece::{
-    PieceBase, STRUCTURE_PIECE_TYPES, StructurePiece, StructurePieceSerializationContext, StructurePieceType, find_collision_piece,
+use crate::world::level::levelgen::structure::template_structure_piece::{
+    TemplateStructurePieceData, read_rotation, rotation_legacy_name,
 };
-use crate::world::level::levelgen::structure::template_structure_piece::{TemplateStructurePieceData, read_rotation, rotation_legacy_name};
-use crate::world::level::levelgen::structure::templatesystem::block_ignore_processor::{STRUCTURE_AND_AIR, STRUCTURE_BLOCK};
-use mc_game_core::world::level::levelgen::structure::templatesystem::{StructurePlaceSettings, StructureTemplateManager};
-use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
+use crate::world::level::levelgen::structure::templatesystem::block_ignore_processor::{
+    STRUCTURE_AND_AIR, STRUCTURE_BLOCK,
+};
 use mc_core::bounding_box::BoundingBox;
 use mc_core::direction::Direction;
 use mc_core::ident::Identifier;
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_core::random::RandomSource;
 use mc_core::rotation::Rotation;
+use mc_game_core::commands::arguments::coordinates::block_pos_argument::is_in_spawnable_bounds;
+use mc_game_core::world::level::levelgen::block_entity_data::set_block_entity_loot_table;
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::structure::manager::StructureManager;
+use mc_game_core::world::level::levelgen::structure::piece::{
+    PieceBase, STRUCTURE_PIECE_TYPES, StructurePiece, StructurePieceSerializationContext,
+    StructurePieceType, find_collision_piece,
+};
+use mc_game_core::world::level::levelgen::structure::templatesystem::{
+    StructurePlaceSettings, StructureTemplateManager,
+};
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_nbt::CompoundTag;
 
 const MAX_GEN_DEPTH: i32 = 8;
@@ -43,10 +50,19 @@ const FAT_TOWER_BRIDGES: [(Rotation, BlockPos); 4] = [
 ];
 
 #[linkme::distributed_slice(STRUCTURE_PIECE_TYPES)]
-pub static END_CITY_PIECE: StructurePieceType = StructurePieceType { id: "ecp", load: load_piece };
+pub static END_CITY_PIECE: StructurePieceType = StructurePieceType {
+    id: "ecp",
+    load: load_piece,
+};
 
-fn load_piece(context: &StructurePieceSerializationContext<'_>, tag: &CompoundTag) -> Result<Box<dyn StructurePiece>, String> {
-    Ok(Box::new(EndCityPiece::load(&context.env.structure_template_manager, tag)?))
+fn load_piece(
+    context: &StructurePieceSerializationContext<'_>,
+    tag: &CompoundTag,
+) -> Result<Box<dyn StructurePiece>, String> {
+    Ok(Box::new(EndCityPiece::load(
+        &context.env.structure_template_manager,
+        tag,
+    )?))
 }
 
 /// `EndCityPieces.EndCityPiece`.
@@ -58,7 +74,13 @@ pub struct EndCityPiece {
 
 impl EndCityPiece {
     /// `EndCityPiece(manager, templateName, position, rotation, overwrite)`.
-    pub fn new(structure_template_manager: &StructureTemplateManager, template_name: &str, position: BlockPos, rotation: Rotation, overwrite: bool) -> EndCityPiece {
+    pub fn new(
+        structure_template_manager: &StructureTemplateManager,
+        template_name: &str,
+        position: BlockPos,
+        rotation: Rotation,
+        overwrite: bool,
+    ) -> EndCityPiece {
         let data = TemplateStructurePieceData::new(
             &END_CITY_PIECE,
             0,
@@ -72,7 +94,10 @@ impl EndCityPiece {
     }
 
     /// `EndCityPiece(manager, tag)`.
-    pub fn load(structure_template_manager: &StructureTemplateManager, tag: &CompoundTag) -> Result<EndCityPiece, String> {
+    pub fn load(
+        structure_template_manager: &StructureTemplateManager,
+        tag: &CompoundTag,
+    ) -> Result<EndCityPiece, String> {
         let overwrite = tag.get_boolean_or("OW", false);
         let data = TemplateStructurePieceData::load_with_location(
             &END_CITY_PIECE,
@@ -91,15 +116,23 @@ impl EndCityPiece {
 
 /// `makeSettings(overwrite, rotation)`.
 fn make_settings(overwrite: bool, rotation: Rotation) -> StructurePlaceSettings {
-    let processor = if overwrite { STRUCTURE_BLOCK.clone() } else { STRUCTURE_AND_AIR.clone() };
+    let processor = if overwrite {
+        STRUCTURE_BLOCK.clone()
+    } else {
+        STRUCTURE_AND_AIR.clone()
+    };
     let mut settings = StructurePlaceSettings::new();
-    settings.set_ignore_entities(true).add_processor(processor).set_rotation(rotation);
+    settings
+        .set_ignore_entities(true)
+        .add_processor(processor)
+        .set_rotation(rotation);
     settings
 }
 
 /// `makeIdentifier(templateName)`.
 fn make_identifier(template_name: &str) -> Identifier {
-    Identifier::with_default_namespace(&format!("end_city/{template_name}")).expect("valid end city template id")
+    Identifier::with_default_namespace(&format!("end_city/{template_name}"))
+        .expect("valid end city template id")
 }
 
 impl StructurePiece for EndCityPiece {
@@ -111,7 +144,11 @@ impl StructurePiece for EndCityPiece {
         &mut self.data.base
     }
 
-    fn add_additional_save_data(&self, context: &StructurePieceSerializationContext<'_>, tag: &mut CompoundTag) {
+    fn add_additional_save_data(
+        &self,
+        context: &StructurePieceSerializationContext<'_>,
+        tag: &mut CompoundTag,
+    ) {
         self.data.add_additional_save_data(context, tag);
         tag.put_string("Rot", rotation_legacy_name(self.rotation()));
         tag.put_boolean("OW", self.overwrite);
@@ -136,14 +173,27 @@ impl StructurePiece for EndCityPiece {
         reference_pos: BlockPos,
     ) {
         let rotation = self.rotation();
-        self.data.post_process(level, random, chunk_bb, reference_pos, &mut |marker_id, position, level, random, chunk_bb| {
-            handle_data_marker(rotation, marker_id, position, level, random, chunk_bb)
-        });
+        self.data.post_process(
+            level,
+            random,
+            chunk_bb,
+            reference_pos,
+            &mut |marker_id, position, level, random, chunk_bb| {
+                handle_data_marker(rotation, marker_id, position, level, random, chunk_bb)
+            },
+        );
     }
 }
 
 /// `EndCityPiece.handleDataMarker(markerId, position, level, random, chunkBB)`.
-fn handle_data_marker(rotation: Rotation, marker_id: &str, position: BlockPos, level: &mut dyn WorldGenLevel, random: &mut dyn RandomSource, chunk_bb: &BoundingBox) {
+fn handle_data_marker(
+    rotation: Rotation,
+    marker_id: &str,
+    position: BlockPos,
+    level: &mut dyn WorldGenLevel,
+    random: &mut dyn RandomSource,
+    chunk_bb: &BoundingBox,
+) {
     if marker_id.starts_with("Chest") {
         let chest_position = position.below();
         if chunk_bb.is_inside(&chest_position) {
@@ -153,7 +203,10 @@ fn handle_data_marker(rotation: Rotation, marker_id: &str, position: BlockPos, l
         if marker_id.starts_with("Sentry") {
             level.add_fresh_entity_nbt(structure_entities::shulker(position));
         } else if marker_id.starts_with("Elytra") {
-            level.add_fresh_entity_nbt(structure_entities::elytra_item_frame(position, rotation.rotate(Direction::South)));
+            level.add_fresh_entity_nbt(structure_entities::elytra_item_frame(
+                position,
+                rotation.rotate(Direction::South),
+            ));
         }
     }
 }
@@ -173,9 +226,27 @@ struct Generators {
 }
 
 /// `addPiece(manager, parent, offset, templateName, rotation, overwrite)`.
-fn add_piece(manager: &StructureTemplateManager, parent: &EndCityPiece, offset: BlockPos, template_name: &str, rotation: Rotation, overwrite: bool) -> EndCityPiece {
-    let mut child = EndCityPiece::new(manager, template_name, parent.data.template_position, rotation, overwrite);
-    let origin = parent.data.template.calculate_connected_position(&parent.data.place_settings, offset, &child.data.place_settings, BlockPos::ZERO);
+fn add_piece(
+    manager: &StructureTemplateManager,
+    parent: &EndCityPiece,
+    offset: BlockPos,
+    template_name: &str,
+    rotation: Rotation,
+    overwrite: bool,
+) -> EndCityPiece {
+    let mut child = EndCityPiece::new(
+        manager,
+        template_name,
+        parent.data.template_position,
+        rotation,
+        overwrite,
+    );
+    let origin = parent.data.template.calculate_connected_position(
+        &parent.data.place_settings,
+        offset,
+        &child.data.place_settings,
+        BlockPos::ZERO,
+    );
     child.move_by(origin.x(), origin.y(), origin.z());
     child
 }
@@ -187,19 +258,78 @@ fn add_helper(pieces: &mut Vec<EndCityPiece>, piece: EndCityPiece) -> usize {
 }
 
 /// `addHelper(pieces, addPiece(manager, pieces[parent], ..))` for a parent in the same list.
-fn add_child(manager: &StructureTemplateManager, pieces: &mut Vec<EndCityPiece>, parent: usize, offset: BlockPos, template_name: &str, rotation: Rotation, overwrite: bool) -> usize {
-    let child = add_piece(manager, &pieces[parent], offset, template_name, rotation, overwrite);
+fn add_child(
+    manager: &StructureTemplateManager,
+    pieces: &mut Vec<EndCityPiece>,
+    parent: usize,
+    offset: BlockPos,
+    template_name: &str,
+    rotation: Rotation,
+    overwrite: bool,
+) -> usize {
+    let child = add_piece(
+        manager,
+        &pieces[parent],
+        offset,
+        template_name,
+        rotation,
+        overwrite,
+    );
     add_helper(pieces, child)
 }
 
 /// `startHouseTower(manager, origin, rotation, pieces, random)`.
-pub fn start_house_tower(manager: &StructureTemplateManager, origin: BlockPos, rotation: Rotation, pieces: &mut Vec<EndCityPiece>, random: &mut dyn RandomSource) {
-    let mut generators = Generators { ship_created: false };
-    let mut last = add_helper(pieces, EndCityPiece::new(manager, "base_floor", origin, rotation, true));
-    last = add_child(manager, pieces, last, BlockPos::new(-1, 0, -1), "second_floor_1", rotation, false);
-    last = add_child(manager, pieces, last, BlockPos::new(-1, 4, -1), "third_floor_1", rotation, false);
-    last = add_child(manager, pieces, last, BlockPos::new(-1, 8, -1), "third_roof", rotation, true);
-    recursive_children(manager, &mut generators, Section::Tower, 1, last, None, pieces, random);
+pub fn start_house_tower(
+    manager: &StructureTemplateManager,
+    origin: BlockPos,
+    rotation: Rotation,
+    pieces: &mut Vec<EndCityPiece>,
+    random: &mut dyn RandomSource,
+) {
+    let mut generators = Generators {
+        ship_created: false,
+    };
+    let mut last = add_helper(
+        pieces,
+        EndCityPiece::new(manager, "base_floor", origin, rotation, true),
+    );
+    last = add_child(
+        manager,
+        pieces,
+        last,
+        BlockPos::new(-1, 0, -1),
+        "second_floor_1",
+        rotation,
+        false,
+    );
+    last = add_child(
+        manager,
+        pieces,
+        last,
+        BlockPos::new(-1, 4, -1),
+        "third_floor_1",
+        rotation,
+        false,
+    );
+    last = add_child(
+        manager,
+        pieces,
+        last,
+        BlockPos::new(-1, 8, -1),
+        "third_roof",
+        rotation,
+        true,
+    );
+    recursive_children(
+        manager,
+        &mut generators,
+        Section::Tower,
+        1,
+        last,
+        None,
+        pieces,
+        random,
+    );
 }
 
 /// `recursiveChildren(manager, generator, genDepth, parent, offset, pieces, random)`: `parent` is an index into `pieces`.
@@ -218,13 +348,27 @@ fn recursive_children(
         return false;
     }
     let mut child_pieces = Vec::new();
-    if generate(manager, generators, section, gen_depth, &pieces[parent], offset, &mut child_pieces, random) {
+    if generate(
+        manager,
+        generators,
+        section,
+        gen_depth,
+        &pieces[parent],
+        offset,
+        &mut child_pieces,
+        random,
+    ) {
         let mut collision = false;
         let child_tag = random.next_int();
         for child in &mut child_pieces {
             child.data.base.gen_depth = child_tag;
-            let collision_piece = find_collision_piece(pieces.iter().map(|p| p as &dyn StructurePiece), &child.get_bounding_box());
-            if collision_piece.is_some_and(|c| c.get_gen_depth() != pieces[parent].data.base.gen_depth) {
+            let collision_piece = find_collision_piece(
+                pieces.iter().map(|p| p as &dyn StructurePiece),
+                &child.get_bounding_box(),
+            );
+            if collision_piece
+                .is_some_and(|c| c.get_gen_depth() != pieces[parent].data.base.gen_depth)
+            {
                 collision = true;
                 break;
             }
@@ -250,10 +394,22 @@ fn generate(
     random: &mut dyn RandomSource,
 ) -> bool {
     match section {
-        Section::HouseTower => generate_house_tower(manager, generators, gen_depth, parent, offset.expect("house tower offset"), pieces, random),
+        Section::HouseTower => generate_house_tower(
+            manager,
+            generators,
+            gen_depth,
+            parent,
+            offset.expect("house tower offset"),
+            pieces,
+            random,
+        ),
         Section::Tower => generate_tower(manager, generators, gen_depth, parent, pieces, random),
-        Section::TowerBridge => generate_tower_bridge(manager, generators, gen_depth, parent, pieces, random),
-        Section::FatTower => generate_fat_tower(manager, generators, gen_depth, parent, pieces, random),
+        Section::TowerBridge => {
+            generate_tower_bridge(manager, generators, gen_depth, parent, pieces, random)
+        }
+        Section::FatTower => {
+            generate_fat_tower(manager, generators, gen_depth, parent, pieces, random)
+        }
     }
 }
 
@@ -274,16 +430,82 @@ fn generate_house_tower(
     let mut last = add_helper(pieces, first);
     let num_floors = random.next_int_bounded(3);
     if num_floors == 0 {
-        add_child(manager, pieces, last, BlockPos::new(-1, 4, -1), "base_roof", rotation, true);
+        add_child(
+            manager,
+            pieces,
+            last,
+            BlockPos::new(-1, 4, -1),
+            "base_roof",
+            rotation,
+            true,
+        );
     } else if num_floors == 1 {
-        last = add_child(manager, pieces, last, BlockPos::new(-1, 0, -1), "second_floor_2", rotation, false);
-        last = add_child(manager, pieces, last, BlockPos::new(-1, 8, -1), "second_roof", rotation, false);
-        recursive_children(manager, generators, Section::Tower, gen_depth + 1, last, None, pieces, random);
+        last = add_child(
+            manager,
+            pieces,
+            last,
+            BlockPos::new(-1, 0, -1),
+            "second_floor_2",
+            rotation,
+            false,
+        );
+        last = add_child(
+            manager,
+            pieces,
+            last,
+            BlockPos::new(-1, 8, -1),
+            "second_roof",
+            rotation,
+            false,
+        );
+        recursive_children(
+            manager,
+            generators,
+            Section::Tower,
+            gen_depth + 1,
+            last,
+            None,
+            pieces,
+            random,
+        );
     } else if num_floors == 2 {
-        last = add_child(manager, pieces, last, BlockPos::new(-1, 0, -1), "second_floor_2", rotation, false);
-        last = add_child(manager, pieces, last, BlockPos::new(-1, 4, -1), "third_floor_2", rotation, false);
-        last = add_child(manager, pieces, last, BlockPos::new(-1, 8, -1), "third_roof", rotation, true);
-        recursive_children(manager, generators, Section::Tower, gen_depth + 1, last, None, pieces, random);
+        last = add_child(
+            manager,
+            pieces,
+            last,
+            BlockPos::new(-1, 0, -1),
+            "second_floor_2",
+            rotation,
+            false,
+        );
+        last = add_child(
+            manager,
+            pieces,
+            last,
+            BlockPos::new(-1, 4, -1),
+            "third_floor_2",
+            rotation,
+            false,
+        );
+        last = add_child(
+            manager,
+            pieces,
+            last,
+            BlockPos::new(-1, 8, -1),
+            "third_roof",
+            rotation,
+            true,
+        );
+        recursive_children(
+            manager,
+            generators,
+            Section::Tower,
+            gen_depth + 1,
+            last,
+            None,
+            pieces,
+            random,
+        );
     }
     true
 }
@@ -300,13 +522,40 @@ fn generate_tower(
     // Java evaluates the two `nextInt(2)` of the offset left to right
     let base_x = 3 + random.next_int_bounded(2);
     let base_z = 3 + random.next_int_bounded(2);
-    let base = add_piece(manager, parent, BlockPos::new(base_x, -3, base_z), "tower_base", rotation, true);
+    let base = add_piece(
+        manager,
+        parent,
+        BlockPos::new(base_x, -3, base_z),
+        "tower_base",
+        rotation,
+        true,
+    );
     let mut last = add_helper(pieces, base);
-    last = add_child(manager, pieces, last, BlockPos::new(0, 7, 0), "tower_piece", rotation, true);
-    let mut bridge_piece = if random.next_int_bounded(3) == 0 { Some(last) } else { None };
+    last = add_child(
+        manager,
+        pieces,
+        last,
+        BlockPos::new(0, 7, 0),
+        "tower_piece",
+        rotation,
+        true,
+    );
+    let mut bridge_piece = if random.next_int_bounded(3) == 0 {
+        Some(last)
+    } else {
+        None
+    };
     let tower_height = 1 + random.next_int_bounded(3);
     for i in 0..tower_height {
-        last = add_child(manager, pieces, last, BlockPos::new(0, 4, 0), "tower_piece", rotation, true);
+        last = add_child(
+            manager,
+            pieces,
+            last,
+            BlockPos::new(0, 4, 0),
+            "tower_piece",
+            rotation,
+            true,
+        );
         if i < tower_height - 1 && random.next_boolean() {
             bridge_piece = Some(last);
         }
@@ -314,16 +563,58 @@ fn generate_tower(
     if let Some(bridge_piece) = bridge_piece {
         for (bridge_rotation, bridge_offset) in TOWER_BRIDGES {
             if random.next_boolean() {
-                let bridge_start = add_child(manager, pieces, bridge_piece, bridge_offset, "bridge_end", rotation.get_rotated(bridge_rotation), true);
-                recursive_children(manager, generators, Section::TowerBridge, gen_depth + 1, bridge_start, None, pieces, random);
+                let bridge_start = add_child(
+                    manager,
+                    pieces,
+                    bridge_piece,
+                    bridge_offset,
+                    "bridge_end",
+                    rotation.get_rotated(bridge_rotation),
+                    true,
+                );
+                recursive_children(
+                    manager,
+                    generators,
+                    Section::TowerBridge,
+                    gen_depth + 1,
+                    bridge_start,
+                    None,
+                    pieces,
+                    random,
+                );
             }
         }
-        add_child(manager, pieces, last, BlockPos::new(-1, 4, -1), "tower_top", rotation, true);
+        add_child(
+            manager,
+            pieces,
+            last,
+            BlockPos::new(-1, 4, -1),
+            "tower_top",
+            rotation,
+            true,
+        );
     } else {
         if gen_depth != 7 {
-            return recursive_children(manager, generators, Section::FatTower, gen_depth + 1, last, None, pieces, random);
+            return recursive_children(
+                manager,
+                generators,
+                Section::FatTower,
+                gen_depth + 1,
+                last,
+                None,
+                pieces,
+                random,
+            );
         }
-        add_child(manager, pieces, last, BlockPos::new(-1, 4, -1), "tower_top", rotation, true);
+        add_child(
+            manager,
+            pieces,
+            last,
+            BlockPos::new(-1, 4, -1),
+            "tower_top",
+            rotation,
+            true,
+        );
     }
     true
 }
@@ -338,19 +629,50 @@ fn generate_tower_bridge(
 ) -> bool {
     let rotation = parent.rotation();
     let bridge_length = random.next_int_bounded(4) + 1;
-    let first = add_piece(manager, parent, BlockPos::new(0, 0, -4), "bridge_piece", rotation, true);
+    let first = add_piece(
+        manager,
+        parent,
+        BlockPos::new(0, 0, -4),
+        "bridge_piece",
+        rotation,
+        true,
+    );
     let mut last = add_helper(pieces, first);
     pieces[last].data.base.gen_depth = -1;
     let mut next_y = 0;
     for _ in 0..bridge_length {
         if random.next_boolean() {
-            last = add_child(manager, pieces, last, BlockPos::new(0, next_y, -4), "bridge_piece", rotation, true);
+            last = add_child(
+                manager,
+                pieces,
+                last,
+                BlockPos::new(0, next_y, -4),
+                "bridge_piece",
+                rotation,
+                true,
+            );
             next_y = 0;
         } else {
             if random.next_boolean() {
-                last = add_child(manager, pieces, last, BlockPos::new(0, next_y, -4), "bridge_steep_stairs", rotation, true);
+                last = add_child(
+                    manager,
+                    pieces,
+                    last,
+                    BlockPos::new(0, next_y, -4),
+                    "bridge_steep_stairs",
+                    rotation,
+                    true,
+                );
             } else {
-                last = add_child(manager, pieces, last, BlockPos::new(0, next_y, -8), "bridge_gentle_stairs", rotation, true);
+                last = add_child(
+                    manager,
+                    pieces,
+                    last,
+                    BlockPos::new(0, next_y, -8),
+                    "bridge_gentle_stairs",
+                    rotation,
+                    true,
+                );
             }
             next_y = 4;
         }
@@ -359,12 +681,37 @@ fn generate_tower_bridge(
         // Java evaluates the two offset components left to right
         let ship_x = -8 + random.next_int_bounded(8);
         let ship_z = -70 + random.next_int_bounded(10);
-        add_child(manager, pieces, last, BlockPos::new(ship_x, next_y, ship_z), "ship", rotation, true);
+        add_child(
+            manager,
+            pieces,
+            last,
+            BlockPos::new(ship_x, next_y, ship_z),
+            "ship",
+            rotation,
+            true,
+        );
         generators.ship_created = true;
-    } else if !recursive_children(manager, generators, Section::HouseTower, gen_depth + 1, last, Some(BlockPos::new(-3, next_y + 1, -11)), pieces, random) {
+    } else if !recursive_children(
+        manager,
+        generators,
+        Section::HouseTower,
+        gen_depth + 1,
+        last,
+        Some(BlockPos::new(-3, next_y + 1, -11)),
+        pieces,
+        random,
+    ) {
         return false;
     }
-    last = add_child(manager, pieces, last, BlockPos::new(4, next_y, 0), "bridge_end", rotation.get_rotated(Rotation::Clockwise180), true);
+    last = add_child(
+        manager,
+        pieces,
+        last,
+        BlockPos::new(4, next_y, 0),
+        "bridge_end",
+        rotation.get_rotated(Rotation::Clockwise180),
+        true,
+    );
     pieces[last].data.base.gen_depth = -1;
     true
 }
@@ -378,20 +725,68 @@ fn generate_fat_tower(
     random: &mut dyn RandomSource,
 ) -> bool {
     let rotation = parent.rotation();
-    let base = add_piece(manager, parent, BlockPos::new(-3, 4, -3), "fat_tower_base", rotation, true);
+    let base = add_piece(
+        manager,
+        parent,
+        BlockPos::new(-3, 4, -3),
+        "fat_tower_base",
+        rotation,
+        true,
+    );
     let mut last = add_helper(pieces, base);
-    last = add_child(manager, pieces, last, BlockPos::new(0, 4, 0), "fat_tower_middle", rotation, true);
+    last = add_child(
+        manager,
+        pieces,
+        last,
+        BlockPos::new(0, 4, 0),
+        "fat_tower_middle",
+        rotation,
+        true,
+    );
     let mut i = 0;
     while i < 2 && random.next_int_bounded(3) != 0 {
-        last = add_child(manager, pieces, last, BlockPos::new(0, 8, 0), "fat_tower_middle", rotation, true);
+        last = add_child(
+            manager,
+            pieces,
+            last,
+            BlockPos::new(0, 8, 0),
+            "fat_tower_middle",
+            rotation,
+            true,
+        );
         for (bridge_rotation, bridge_offset) in FAT_TOWER_BRIDGES {
             if random.next_boolean() {
-                let bridge_start = add_child(manager, pieces, last, bridge_offset, "bridge_end", rotation.get_rotated(bridge_rotation), true);
-                recursive_children(manager, generators, Section::TowerBridge, gen_depth + 1, bridge_start, None, pieces, random);
+                let bridge_start = add_child(
+                    manager,
+                    pieces,
+                    last,
+                    bridge_offset,
+                    "bridge_end",
+                    rotation.get_rotated(bridge_rotation),
+                    true,
+                );
+                recursive_children(
+                    manager,
+                    generators,
+                    Section::TowerBridge,
+                    gen_depth + 1,
+                    bridge_start,
+                    None,
+                    pieces,
+                    random,
+                );
             }
         }
         i += 1;
     }
-    add_child(manager, pieces, last, BlockPos::new(-2, 8, -2), "fat_tower_top", rotation, true);
+    add_child(
+        manager,
+        pieces,
+        last,
+        BlockPos::new(-2, 8, -2),
+        "fat_tower_top",
+        rotation,
+        true,
+    );
     true
 }

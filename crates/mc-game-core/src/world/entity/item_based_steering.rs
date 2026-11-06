@@ -13,7 +13,11 @@ pub struct ItemBasedSteering {
 impl ItemBasedSteering {
     /// `new ItemBasedSteering(entityData, boostTimeAccessor)`.
     pub fn new(boost_time_accessor: EntityDataAccessor<serializer::Int>) -> Self {
-        Self { boost_time_accessor, boosting: false, boost_time: 0 }
+        Self {
+            boost_time_accessor,
+            boosting: false,
+            boost_time: 0,
+        }
     }
 
     /// `onSynced()`.
@@ -46,7 +50,11 @@ impl ItemBasedSteering {
     /// `boostFactor()`.
     pub fn boost_factor(&self, data: &SynchedEntityData) -> f32 {
         if self.boosting {
-            1.0 + 1.15 * mth::sin(f64::from(self.boost_time as f32 / data.get(self.boost_time_accessor) as f32 * std::f32::consts::PI))
+            1.0 + 1.15
+                * mth::sin(f64::from(
+                    self.boost_time as f32 / data.get(self.boost_time_accessor) as f32
+                        * std::f32::consts::PI,
+                ))
         } else {
             1.0
         }

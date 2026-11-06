@@ -16,7 +16,11 @@ use std::collections::HashSet;
 use std::sync::Arc;
 
 fn protocol_pack(pack: &KnownPack) -> cfg::KnownPack {
-    cfg::KnownPack { namespace: pack.namespace.clone(), id: pack.id.clone(), version: pack.version.clone() }
+    cfg::KnownPack {
+        namespace: pack.namespace.clone(),
+        id: pack.id.clone(),
+        version: pack.version.clone(),
+    }
 }
 
 /// `packRegistries` + `serializeTagsToNetwork` pre-encoded as packets.
@@ -37,21 +41,30 @@ fn registry_packets(
     sync::pack_registries(&access, negotiated)
         .into_iter()
         .map(|(registry, entries)| cfg::ClientboundRegistryDataPacket {
-            registry: Identifier::parse(&registry).unwrap_or_else(|e| panic!("invalid registry key {registry}: {e}")),
-            entries: entries.into_iter().map(|PackedRegistryEntry { id, data }| cfg::PackedRegistryEntry { id, data }).collect(),
+            registry: Identifier::parse(&registry)
+                .unwrap_or_else(|e| panic!("invalid registry key {registry}: {e}")),
+            entries: entries
+                .into_iter()
+                .map(|PackedRegistryEntry { id, data }| cfg::PackedRegistryEntry { id, data })
+                .collect(),
         })
         .collect()
 }
 
 impl RegistrySynchronization for PackedRegistries {
-    fn pack_registries(&self, negotiated: &HashSet<cfg::KnownPack>) -> Vec<cfg::ClientboundRegistryDataPacket> {
+    fn pack_registries(
+        &self,
+        negotiated: &HashSet<cfg::KnownPack>,
+    ) -> Vec<cfg::ClientboundRegistryDataPacket> {
         if negotiated.is_empty() {
             self.unknown.clone()
         } else if *negotiated == self.requested {
             self.known.clone()
         } else {
             // `handleResponse` only ever passes the requested packs or none.
-            unreachable!("registry synchronization is only negotiated with all or none of the offered packs")
+            unreachable!(
+                "registry synchronization is only negotiated with all or none of the offered packs"
+            )
         }
     }
 
@@ -64,7 +77,13 @@ impl RegistrySynchronization for PackedRegistries {
 pub fn configuration_data(server: &MinecraftServer) -> ConfigurationData {
     let packs: Vec<KnownPack> = {
         use crate::server::packs::{PackResources, ResourceManager};
-        server.resources.resource_manager.list_packs().iter().filter_map(|p| PackResources::known_pack_info(&**p).cloned()).collect()
+        server
+            .resources
+            .resource_manager
+            .list_packs()
+            .iter()
+            .filter_map(|p| PackResources::known_pack_info(&**p).cloned())
+            .collect()
     };
     let requested: HashSet<KnownPack> = packs.iter().cloned().collect();
     let tags = cfg::ClientboundUpdateTagsPacket {
@@ -72,8 +91,15 @@ pub fn configuration_data(server: &MinecraftServer) -> ConfigurationData {
             .into_iter()
             .map(|(registry, payload)| {
                 (
-                    Identifier::parse(&registry).unwrap_or_else(|e| panic!("invalid registry key {registry}: {e}")),
-                    TagNetworkPayload { tags: payload.tags.into_iter().map(|(id, ids)| (id, ids.into_iter().map(|i| i as i32).collect())).collect() },
+                    Identifier::parse(&registry)
+                        .unwrap_or_else(|e| panic!("invalid registry key {registry}: {e}")),
+                    TagNetworkPayload {
+                        tags: payload
+                            .tags
+                            .into_iter()
+                            .map(|(id, ids)| (id, ids.into_iter().map(|i| i as i32).collect()))
+                            .collect(),
+                    },
                 )
             })
             .collect(),
@@ -87,16 +113,29 @@ pub fn configuration_data(server: &MinecraftServer) -> ConfigurationData {
     let settings = server.dedicated.settings.get_properties();
     ConfigurationData {
         known_packs: packs.iter().map(protocol_pack).collect(),
-        enabled_features: server.world_data.lock().settings.data_configuration.enabled_features.names(),
+        enabled_features: server
+            .world_data
+            .lock()
+            .settings
+            .data_configuration
+            .enabled_features
+            .names(),
         // `serverLinks()`: the dedicated server's link list is not available yet (empty = no packet).
         server_links: Vec::new(),
-        code_of_conducts: server.dedicated.code_of_conduct_texts.iter().map(|(k, v)| (k.clone(), v.clone())).collect::<IndexMap<_, _>>(),
-        resource_pack: settings.server_resource_pack_info.as_ref().map(|p| ServerResourcePackInfo {
-            id: p.id,
-            url: p.url.clone(),
-            hash: p.hash.clone(),
-            is_required: p.is_required,
-            prompt: p.prompt.clone(),
+        code_of_conducts: server
+            .dedicated
+            .code_of_conduct_texts
+            .iter()
+            .map(|(k, v)| (k.clone(), v.clone()))
+            .collect::<IndexMap<_, _>>(),
+        resource_pack: settings.server_resource_pack_info.as_ref().map(|p| {
+            ServerResourcePackInfo {
+                id: p.id,
+                url: p.url.clone(),
+                hash: p.hash.clone(),
+                is_required: p.is_required,
+                prompt: p.prompt.clone(),
+            }
         }),
         registries: Arc::new(registries),
     }

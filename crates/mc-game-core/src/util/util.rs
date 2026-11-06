@@ -22,7 +22,9 @@ pub fn get_millis() -> i64 {
 
 /// `Util.getEpochMillis`.
 pub fn get_epoch_millis() -> i64 {
-    SystemTime::now().duration_since(UNIX_EPOCH).map_or(0, |d| d.as_millis() as i64)
+    SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .map_or(0, |d| d.as_millis() as i64)
 }
 
 /// `Util.toMillis(double seconds)`.
@@ -34,7 +36,11 @@ pub fn to_millis(seconds: f64) -> i64 {
 pub fn make_description_id(prefix: &str, location: Option<&Identifier>) -> String {
     match location {
         None => format!("{prefix}.unregistered_sadface"),
-        Some(id) => format!("{prefix}.{}.{}", id.namespace(), id.path().replace('/', ".")),
+        Some(id) => format!(
+            "{prefix}.{}.{}",
+            id.namespace(),
+            id.path().replace('/', ".")
+        ),
     }
 }
 
@@ -45,8 +51,14 @@ mod tests {
     #[test]
     fn description_id() {
         let id = Identifier::parse("minecraft:a/b").unwrap();
-        assert_eq!(make_description_id("gamerule", Some(&id)), "gamerule.minecraft.a.b");
-        assert_eq!(make_description_id("gamerule", None), "gamerule.unregistered_sadface");
+        assert_eq!(
+            make_description_id("gamerule", Some(&id)),
+            "gamerule.minecraft.a.b"
+        );
+        assert_eq!(
+            make_description_id("gamerule", None),
+            "gamerule.unregistered_sadface"
+        );
     }
 
     #[test]

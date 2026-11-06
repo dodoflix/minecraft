@@ -31,15 +31,24 @@ pub struct Overload {
 
 /// The overload check of `runServer` for a non-sprinting tick. On a warning, `*next_tick_time_nanos` is advanced by
 /// the missed ticks and `*last_overload_warning_nanos` reset, exactly like vanilla.
-pub fn check_overloaded(now_nanos: i64, next_tick_time_nanos: &mut i64, last_overload_warning_nanos: &mut i64, this_tick_nanos: i64) -> Option<Overload> {
+pub fn check_overloaded(
+    now_nanos: i64,
+    next_tick_time_nanos: &mut i64,
+    last_overload_warning_nanos: &mut i64,
+    this_tick_nanos: i64,
+) -> Option<Overload> {
     let behind_time_nanos = now_nanos - *next_tick_time_nanos;
     if behind_time_nanos > OVERLOADED_THRESHOLD_NANOS + 20 * this_tick_nanos
-        && *next_tick_time_nanos - *last_overload_warning_nanos >= OVERLOADED_WARNING_INTERVAL_NANOS + 100 * this_tick_nanos
+        && *next_tick_time_nanos - *last_overload_warning_nanos
+            >= OVERLOADED_WARNING_INTERVAL_NANOS + 100 * this_tick_nanos
     {
         let ticks = behind_time_nanos / this_tick_nanos;
         *next_tick_time_nanos += ticks * this_tick_nanos;
         *last_overload_warning_nanos = *next_tick_time_nanos;
-        Some(Overload { millis: behind_time_nanos / NANOSECONDS_PER_MILLISECOND, ticks })
+        Some(Overload {
+            millis: behind_time_nanos / NANOSECONDS_PER_MILLISECOND,
+            ticks,
+        })
     } else {
         None
     }
@@ -54,7 +63,11 @@ pub struct TickTimes {
 
 impl Default for TickTimes {
     fn default() -> Self {
-        Self { tick_times_nanos: [0; TICK_STATS_SPAN], aggregated_tick_times_nanos: 0, smoothed_tick_time_millis: 0.0 }
+        Self {
+            tick_times_nanos: [0; TICK_STATS_SPAN],
+            aggregated_tick_times_nanos: 0,
+            smoothed_tick_time_millis: 0.0,
+        }
     }
 }
 
@@ -62,10 +75,12 @@ impl TickTimes {
     /// The "tallying" step of `tickServer` for the tick numbered `tick_count` (already incremented).
     pub fn record(&mut self, tick_count: i32, tick_time_nanos: i64) {
         let tick_index = tick_count.rem_euclid(TICK_STATS_SPAN as i32) as usize;
-        self.aggregated_tick_times_nanos = self.aggregated_tick_times_nanos - self.tick_times_nanos[tick_index] + tick_time_nanos;
+        self.aggregated_tick_times_nanos =
+            self.aggregated_tick_times_nanos - self.tick_times_nanos[tick_index] + tick_time_nanos;
         self.tick_times_nanos[tick_index] = tick_time_nanos;
-        self.smoothed_tick_time_millis =
-            self.smoothed_tick_time_millis * AVERAGE_TICK_TIME_SMOOTHING + tick_time_nanos as f32 / NANOSECONDS_PER_MILLISECOND as f32 * 0.19999999;
+        self.smoothed_tick_time_millis = self.smoothed_tick_time_millis
+            * AVERAGE_TICK_TIME_SMOOTHING
+            + tick_time_nanos as f32 / NANOSECONDS_PER_MILLISECOND as f32 * 0.19999999;
     }
 
     /// `getCurrentSmoothedTickTime`.
@@ -111,15 +126,27 @@ mod tests {
         let mut next = 0;
         let mut last = 0;
         // just under the threshold (1000 ms + 20 ticks): nothing
-        assert_eq!(check_overloaded(2_000_000_000, &mut next, &mut last, TICK), None);
+        assert_eq!(
+            check_overloaded(2_000_000_000, &mut next, &mut last, TICK),
+            None
+        );
         // the warning interval since the last one (10 s + 100 ticks) has not elapsed
         let mut next = 14_000_000_000;
         let mut last = 0;
-        assert_eq!(check_overloaded(next + 2_000_000_001, &mut next, &mut last, TICK), None);
+        assert_eq!(
+            check_overloaded(next + 2_000_000_001, &mut next, &mut last, TICK),
+            None
+        );
         let mut next = 15_000_000_000;
         let mut last = 0;
         let warning = check_overloaded(15_000_000_000 + 3_236_000_000, &mut next, &mut last, TICK);
-        assert_eq!(warning, Some(Overload { millis: 3236, ticks: 64 }));
+        assert_eq!(
+            warning,
+            Some(Overload {
+                millis: 3236,
+                ticks: 64
+            })
+        );
         assert_eq!(next, 15_000_000_000 + 64 * TICK);
         assert_eq!(last, next);
     }
@@ -130,7 +157,9 @@ mod tests {
         for tick in 1..=250 {
             t.record(tick, 1_000_000 * i64::from(tick % 7));
         }
-        let expected: i64 = (151..=250).map(|tick| 1_000_000 * i64::from(tick % 7)).sum();
+        let expected: i64 = (151..=250)
+            .map(|tick| 1_000_000 * i64::from(tick % 7))
+            .sum();
         assert_eq!(t.average_tick_time_nanos(250), expected / 100);
         assert_eq!(t.average_tick_time_nanos(0), expected); // divisor is max(1, min(100, tickCount))
         assert_eq!(t.tick_times_nanos()[0], 1_000_000 * (200 % 7));

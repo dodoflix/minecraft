@@ -1,6 +1,9 @@
 //! `SpawnEggItem`: spawning the egg's mob (`useOn`, `use` on liquids) and `spawnOffspringFromSpawnEgg` (baby spawn).
 
-use super::{InteractionHand, InteractionResult, ItemBehaviour, ItemStack, ItemStackExt, UseOnContext, player_pov_hit_result};
+use super::{
+    InteractionHand, InteractionResult, ItemBehaviour, ItemStack, ItemStackExt, UseOnContext,
+    player_pov_hit_result,
+};
 use crate::register_item_class;
 use crate::server::level::ServerLevel;
 use crate::world::entity::factory::{self, EntitySpawnRequest};
@@ -33,18 +36,30 @@ fn can_spawn(level: &ServerLevel, ty: EntityType) -> bool {
 }
 
 /// `SpawnEggItem.spawnMob(type, user, itemStack, level, spawnPos, tryMoveDown, movedUp)`; `stack` is consumed on success.
-fn spawn_mob(ty: EntityType, user: &ServerPlayer, stack: &mut ItemStack, level: &mut ServerLevel, spawn_pos: BlockPos, try_move_down: bool, moved_up: bool) -> InteractionResult {
+fn spawn_mob(
+    ty: EntityType,
+    user: &ServerPlayer,
+    stack: &mut ItemStack,
+    level: &mut ServerLevel,
+    spawn_pos: BlockPos,
+    try_move_down: bool,
+    moved_up: bool,
+) -> InteractionResult {
     let config_stack = stack.clone();
     let created = create_at(
         level,
         ty,
-        Some(&mut |level: &mut ServerLevel, entity: &mut dyn Entity| apply_default_stack_config(level, entity, &config_stack, Some(user))),
+        Some(&mut |level: &mut ServerLevel, entity: &mut dyn Entity| {
+            apply_default_stack_config(level, entity, &config_stack, Some(user))
+        }),
         spawn_pos,
         EntitySpawnReason::SpawnItemUse,
         try_move_down,
         moved_up,
     );
-    let Some(entity) = created else { return InteractionResult::FAIL };
+    let Some(entity) = created else {
+        return InteractionResult::FAIL;
+    };
     let id = entity.id();
     level.add_fresh_entity_with_passengers(vec![entity]);
     // `EntityType.spawn`: `mob.playAmbientSound()`
@@ -54,12 +69,23 @@ fn spawn_mob(ty: EntityType, user: &ServerPlayer, stack: &mut ItemStack, level: 
         }
     });
     stack.consume(1, user.player.abilities.instabuild);
-    level.game_event(GameEvent::ENTITY_PLACE, Vec3::at_center_of(&spawn_pos), &GameEventContext::of_entity(Some(user.base_id())));
+    level.game_event(
+        GameEvent::ENTITY_PLACE,
+        Vec3::at_center_of(&spawn_pos),
+        &GameEventContext::of_entity(Some(user.base_id())),
+    );
     InteractionResult::SUCCESS
 }
 
 /// `SpawnEggItem.spawnOffspringFromSpawnEgg(player, parent, type, level, pos, spawnEggStack)`.
-pub fn spawn_offspring_from_spawn_egg(player: &ServerPlayer, parent: &mut dyn Entity, ty: EntityType, level: &mut ServerLevel, pos: Vec3, stack: &mut ItemStack) -> Option<EntityId> {
+pub fn spawn_offspring_from_spawn_egg(
+    player: &ServerPlayer,
+    parent: &mut dyn Entity,
+    ty: EntityType,
+    level: &mut ServerLevel,
+    pos: Vec3,
+    stack: &mut ItemStack,
+) -> Option<EntityId> {
     if !spawns_entity(stack, ty) {
         return None;
     }
@@ -68,7 +94,14 @@ pub fn spawn_offspring_from_spawn_egg(player: &ServerPlayer, parent: &mut dyn En
         let parent_id = parent.id();
         parent.get_breed_offspring(level, parent_id)?
     } else {
-        factory::create(ty, level, EntitySpawnRequest { reason: EntitySpawnReason::SpawnItemUse, ignore_checks: false })?
+        factory::create(
+            ty,
+            level,
+            EntitySpawnRequest {
+                reason: EntitySpawnReason::SpawnItemUse,
+                ignore_checks: false,
+            },
+        )?
     };
     crate::world::entity::mob::ageable::set_baby(offspring.as_mut(), true);
     if !offspring.is_baby() {
@@ -85,34 +118,68 @@ pub fn spawn_offspring_from_spawn_egg(player: &ServerPlayer, parent: &mut dyn En
 pub struct SpawnEggItem;
 
 impl ItemBehaviour for SpawnEggItem {
-    fn use_on(&self, context: &mut UseOnContext, level: &mut ServerLevel, player: &mut ServerPlayer) -> InteractionResult {
-        let Some(ty) = get_type(&context.item_stack) else { return InteractionResult::FAIL };
+    fn use_on(
+        &self,
+        context: &mut UseOnContext,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+    ) -> InteractionResult {
+        let Some(ty) = get_type(&context.item_stack) else {
+            return InteractionResult::FAIL;
+        };
         if !can_spawn(level, ty) {
             return InteractionResult::FAIL;
         }
         let pos = context.get_clicked_pos();
         let clicked_face = context.get_clicked_face();
         let block_state = level.get_block_state(pos);
-        let spawn_pos = if block_state.get_collision_shape(&*level, pos).is_empty() { pos } else { pos.relative(clicked_face) };
+        let spawn_pos = if block_state.get_collision_shape(&*level, pos).is_empty() {
+            pos
+        } else {
+            pos.relative(clicked_face)
+        };
         let moved_up = pos != spawn_pos && clicked_face == Direction::Up;
-        spawn_mob(ty, player, &mut context.item_stack, level, spawn_pos, true, moved_up)
+        spawn_mob(
+            ty,
+            player,
+            &mut context.item_stack,
+            level,
+            spawn_pos,
+            true,
+            moved_up,
+        )
     }
 
-    fn use_item(&self, level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) -> InteractionResult {
+    fn use_item(
+        &self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        hand: InteractionHand,
+    ) -> InteractionResult {
         let mut stack = player.get_item_in_hand(hand);
         let hit = player_pov_hit_result(level, player, true);
         if hit.miss {
             return InteractionResult::PASS;
         }
-        let Some(ty) = get_type(&stack) else { return InteractionResult::FAIL };
+        let Some(ty) = get_type(&stack) else {
+            return InteractionResult::FAIL;
+        };
         if !can_spawn(level, ty) {
             return InteractionResult::FAIL;
         }
         let pos = hit.block_pos;
-        if !level.get_block_state(pos).block().data().classes.contains(&"LiquidBlock") {
+        if !level
+            .get_block_state(pos)
+            .block()
+            .data()
+            .classes
+            .contains(&"LiquidBlock")
+        {
             return InteractionResult::PASS;
         }
-        if super::may_interact(level, player, pos) && super::may_use_item_at(level, player, pos, hit.direction, &stack) {
+        if super::may_interact(level, player, pos)
+            && super::may_use_item_at(level, player, pos, hit.direction, &stack)
+        {
             let result = spawn_mob(ty, player, &mut stack, level, pos, false, false);
             player.set_item_in_hand(hand, stack.clone());
             if result == InteractionResult::SUCCESS {

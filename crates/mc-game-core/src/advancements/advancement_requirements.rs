@@ -19,11 +19,16 @@ pub fn object_open_hash_set_order<'a>(values: impl IntoIterator<Item = &'a Strin
         }
     }
     let hashes: Vec<i32> = distinct.iter().map(|s| java_string_hash(s)).collect();
-    object_open_hash_order(&hashes, DEFAULT_TABLE).into_iter().map(|i| distinct[i].clone()).collect()
+    object_open_hash_order(&hashes, DEFAULT_TABLE)
+        .into_iter()
+        .map(|i| distinct[i].clone())
+        .collect()
 }
 
 impl AdvancementRequirements {
-    pub const EMPTY: AdvancementRequirements = AdvancementRequirements { requirements: Vec::new() };
+    pub const EMPTY: AdvancementRequirements = AdvancementRequirements {
+        requirements: Vec::new(),
+    };
 
     pub fn new(requirements: Vec<Vec<String>>) -> Self {
         AdvancementRequirements { requirements }
@@ -31,17 +36,24 @@ impl AdvancementRequirements {
 
     /// `AdvancementRequirements.CODEC`.
     pub fn codec() -> Codec<AdvancementRequirements> {
-        STRING.list_of().list_of().xmap(AdvancementRequirements::new, |r: &AdvancementRequirements| r.requirements.clone())
+        STRING.list_of().list_of().xmap(
+            AdvancementRequirements::new,
+            |r: &AdvancementRequirements| r.requirements.clone(),
+        )
     }
 
     /// `allOf(criteria)`: every criterion is its own group.
     pub fn all_of<'a>(criteria: impl IntoIterator<Item = &'a String>) -> Self {
-        AdvancementRequirements { requirements: criteria.into_iter().map(|c| vec![c.clone()]).collect() }
+        AdvancementRequirements {
+            requirements: criteria.into_iter().map(|c| vec![c.clone()]).collect(),
+        }
     }
 
     /// `anyOf(criteria)`: one group with every criterion.
     pub fn any_of<'a>(criteria: impl IntoIterator<Item = &'a String>) -> Self {
-        AdvancementRequirements { requirements: vec![criteria.into_iter().cloned().collect()] }
+        AdvancementRequirements {
+            requirements: vec![criteria.into_iter().cloned().collect()],
+        }
     }
 
     pub fn size(&self) -> usize {
@@ -53,12 +65,17 @@ impl AdvancementRequirements {
         if self.requirements.is_empty() {
             return false;
         }
-        self.requirements.iter().all(|set| set.iter().any(|c| predicate(c)))
+        self.requirements
+            .iter()
+            .all(|set| set.iter().any(|c| predicate(c)))
     }
 
     /// `count(predicate)`: the satisfied groups.
     pub fn count(&self, predicate: impl Fn(&str) -> bool) -> usize {
-        self.requirements.iter().filter(|set| set.iter().any(|c| predicate(c))).count()
+        self.requirements
+            .iter()
+            .filter(|set| set.iter().any(|c| predicate(c)))
+            .count()
     }
 
     /// `validate(expectedCriteria)`.
@@ -74,15 +91,28 @@ impl AdvancementRequirements {
                 }
             }
         }
-        let same = referenced.len() == expected_criteria.len() && expected_criteria.iter().all(|c| referenced.contains(&c));
+        let same = referenced.len() == expected_criteria.len()
+            && expected_criteria.iter().all(|c| referenced.contains(&c));
         if same {
             return Ok(());
         }
-        let missing: Vec<&String> = expected_criteria.iter().filter(|c| !referenced.contains(c)).collect();
-        let unknown: Vec<String> = object_open_hash_set_order(referenced.iter().copied().filter(|c| !expected_criteria.contains(c)));
+        let missing: Vec<&String> = expected_criteria
+            .iter()
+            .filter(|c| !referenced.contains(c))
+            .collect();
+        let unknown: Vec<String> = object_open_hash_set_order(
+            referenced
+                .iter()
+                .copied()
+                .filter(|c| !expected_criteria.contains(c)),
+        );
         Err(format!(
             "Advancement completion requirements did not exactly match specified criteria. Missing: [{}]. Unknown: [{}]",
-            missing.iter().map(|s| s.as_str()).collect::<Vec<_>>().join(", "),
+            missing
+                .iter()
+                .map(|s| s.as_str())
+                .collect::<Vec<_>>()
+                .join(", "),
             unknown.join(", ")
         ))
     }
@@ -99,7 +129,9 @@ impl AdvancementRequirements {
 
 impl From<&AdvancementRequirements> for mc_protocol::packets::play::AdvancementRequirements {
     fn from(r: &AdvancementRequirements) -> Self {
-        mc_protocol::packets::play::AdvancementRequirements { requirements: r.requirements.clone() }
+        mc_protocol::packets::play::AdvancementRequirements {
+            requirements: r.requirements.clone(),
+        }
     }
 }
 
@@ -111,11 +143,13 @@ pub enum Strategy {
 }
 
 impl Strategy {
-    pub fn create<'a>(self, criteria: impl IntoIterator<Item = &'a String>) -> AdvancementRequirements {
+    pub fn create<'a>(
+        self,
+        criteria: impl IntoIterator<Item = &'a String>,
+    ) -> AdvancementRequirements {
         match self {
             Strategy::And => AdvancementRequirements::all_of(criteria),
             Strategy::Or => AdvancementRequirements::any_of(criteria),
         }
     }
 }
-

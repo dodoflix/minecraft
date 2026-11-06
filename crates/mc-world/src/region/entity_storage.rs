@@ -67,7 +67,10 @@ fn decode_chunk_pos(tag: &Tag) -> Option<ChunkPos> {
         Tag::IntArray(v) => v.clone(),
         Tag::ByteArray(v) => v.iter().map(|&b| b as i32).collect(),
         Tag::LongArray(v) => v.iter().map(|&l| l as i32).collect(),
-        Tag::List(list) => list.iter().map(|t| t.as_number().map(|n| n.int_value())).collect::<Option<_>>()?,
+        Tag::List(list) => list
+            .iter()
+            .map(|t| t.as_number().map(|n| n.int_value()))
+            .collect::<Option<_>>()?,
         _ => return None,
     };
     match ints[..] {
@@ -78,12 +81,19 @@ fn decode_chunk_pos(tag: &Tag) -> Option<ChunkPos> {
 
 impl EntityStorage {
     pub fn new(storage: SimpleRegionStorage) -> Self {
-        Self { storage, empty_chunks: HashSet::new() }
+        Self {
+            storage,
+            empty_chunks: HashSet::new(),
+        }
     }
 
     /// `loadEntities(pos)`
     pub fn load_entities(&mut self, pos: &ChunkPos) -> io::Result<LoadedEntities> {
-        let empty = |problem| LoadedEntities { chunk: ChunkEntities::new(*pos, Vec::new()), position_problem: problem, skipped_entries: Vec::new() };
+        let empty = |problem| LoadedEntities {
+            chunk: ChunkEntities::new(*pos, Vec::new()),
+            position_problem: problem,
+            skipped_entries: Vec::new(),
+        };
         if self.empty_chunks.contains(&pos.pack()) {
             return Ok(empty(None));
         }
@@ -94,7 +104,12 @@ impl EntityStorage {
         let position_problem = match tag.get(POSITION_TAG).and_then(decode_chunk_pos) {
             Some(stored) if stored == *pos => None,
             Some(stored) => {
-                log::error!("Chunk file at {} is in the wrong location. (Expected {}, got {})", pos, pos, stored);
+                log::error!(
+                    "Chunk file at {} is in the wrong location. (Expected {}, got {})",
+                    pos,
+                    pos,
+                    stored
+                );
                 Some(PositionProblem::Misplaced { stored })
             }
             None => {
@@ -112,7 +127,11 @@ impl EntityStorage {
                 }
             }
         }
-        Ok(LoadedEntities { chunk: ChunkEntities::new(*pos, entities), position_problem, skipped_entries })
+        Ok(LoadedEntities {
+            chunk: ChunkEntities::new(*pos, entities),
+            position_problem,
+            skipped_entries,
+        })
     }
 
     /// `storeEntities(chunk)`: empty chunks are written once (as removal); others as a full tag.

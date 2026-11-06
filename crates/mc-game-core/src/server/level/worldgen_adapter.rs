@@ -2,6 +2,10 @@
 //! [`ChunkGeneratorBackend`]: biome creation and terrain building over a [`WorldGenRegion`].
 
 use super::world_gen::{ChunkGeneratorBackend, WorldGenRegion};
+use crate::world::level::levelgen::GenEnv;
+use crate::world::level::levelgen::structure::beardifier::{
+    CenterAndRegion, structure_start_infos,
+};
 use mc_core::ident::Identifier;
 use mc_core::pos::{ChunkPos, SectionPos};
 use mc_world::chunk::ProtoChunk;
@@ -10,8 +14,6 @@ use mc_worldgen::biome::{BiomeManager, BiomeResolver};
 use mc_worldgen::blending::Blender;
 use mc_worldgen::generator::{BuildTerrainContext, ChunkGenerator};
 use mc_worldgen::random_state::RandomState;
-use crate::world::level::levelgen::GenEnv;
-use crate::world::level::levelgen::structure::beardifier::{CenterAndRegion, structure_start_infos};
 use std::sync::{Arc, OnceLock};
 
 pub struct NoiseWorldGenerator {
@@ -25,8 +27,19 @@ pub struct NoiseWorldGenerator {
 
 impl NoiseWorldGenerator {
     /// `type_name`: the generator's `type` id for the data fixer context (`getTypeNameForDataFixer`).
-    pub fn new(generator: Arc<dyn ChunkGenerator>, random_state: Arc<RandomState>, seed: i64, type_name: Option<Identifier>) -> Self {
-        Self { generator, random_state, seed, type_name, gen_env: OnceLock::new() }
+    pub fn new(
+        generator: Arc<dyn ChunkGenerator>,
+        random_state: Arc<RandomState>,
+        seed: i64,
+        type_name: Option<Identifier>,
+    ) -> Self {
+        Self {
+            generator,
+            random_state,
+            seed,
+            type_name,
+            gen_env: OnceLock::new(),
+        }
     }
 
     /// Gives the terrain step access to the structure starts (`Beardifier`).
@@ -70,13 +83,21 @@ impl ChunkGeneratorBackend for NoiseWorldGenerator {
         self.generator.get_spawn_height(height)
     }
 
-    fn get_base_height(&self, x: i32, z: i32, ty: mc_world::heightmap::HeightmapType, height: mc_world::chunk::LevelHeight) -> i32 {
-        self.generator.get_base_height(x, z, ty, height, &self.random_state)
+    fn get_base_height(
+        &self,
+        x: i32,
+        z: i32,
+        ty: mc_world::heightmap::HeightmapType,
+        height: mc_world::chunk::LevelHeight,
+    ) -> i32 {
+        self.generator
+            .get_base_height(x, z, ty, height, &self.random_state)
     }
 
     fn create_biomes(&self, chunk: &mut ProtoChunk, _region: &WorldGenRegion) {
         // `Blender.of(region)` is empty unless old-version blending data is around (not supported).
-        self.generator.create_biomes(&self.random_state, &Blender::empty(), chunk);
+        self.generator
+            .create_biomes(&self.random_state, &Blender::empty(), chunk);
     }
 
     fn build_terrain(&self, chunk: &mut ProtoChunk, region: &WorldGenRegion) {
@@ -101,9 +122,26 @@ impl ChunkGeneratorBackend for NoiseWorldGenerator {
         // The center chunk is mutated by `build_terrain`, so its biomes are read through a snapshot (at this stage the
         // sections are still empty, the clone is cheap).
         let snapshot = chunk.clone();
-        let resolver = RegionBiomesWithCenter { region, center, center_chunk: &snapshot };
+        let resolver = RegionBiomesWithCenter {
+            region,
+            center,
+            center_chunk: &snapshot,
+        };
         let biome_manager = BiomeManager::new(&resolver, BiomeManager::obfuscate_seed(self.seed));
-        let structure_starts = self.gen_env.get().map(|env| structure_start_infos(env, &CenterAndRegion { center: &*chunk, region }, center)).unwrap_or_default();
+        let structure_starts = self
+            .gen_env
+            .get()
+            .map(|env| {
+                structure_start_infos(
+                    env,
+                    &CenterAndRegion {
+                        center: &*chunk,
+                        region,
+                    },
+                    center,
+                )
+            })
+            .unwrap_or_default();
         let ctx = BuildTerrainContext {
             random_state: &self.random_state,
             blender: &Blender::empty(),
@@ -128,7 +166,10 @@ impl BiomeResolver for RegionBiomesWithCenter<'_> {
         let cx = SectionPos::block_to_section_coord_i32(quart_x << 2);
         let cz = SectionPos::block_to_section_coord_i32(quart_z << 2);
         if ChunkPos::new(cx, cz) == self.center {
-            return self.center_chunk.access.get_noise_biome(quart_x, quart_y, quart_z);
+            return self
+                .center_chunk
+                .access
+                .get_noise_biome(quart_x, quart_y, quart_z);
         }
         RegionBiomes(self.region).get_noise_biome(quart_x, quart_y, quart_z)
     }

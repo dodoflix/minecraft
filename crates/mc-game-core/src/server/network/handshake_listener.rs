@@ -15,11 +15,16 @@ pub(super) enum HandshakeOutcome {
     Closed,
     /// Status protocol with this status.
     Status(Arc<ServerStatus>),
-    Login { transferred: bool },
+    Login {
+        transferred: bool,
+    },
 }
 
 /// `handleIntention`.
-pub(super) async fn handle_intention(ctx: &mut ConnectionContext, packet: ClientIntentionPacket) -> HandshakeOutcome {
+pub(super) async fn handle_intention(
+    ctx: &mut ConnectionContext,
+    packet: ClientIntentionPacket,
+) -> HandshakeOutcome {
     let settings = ctx.hooks.settings();
     match packet.intention {
         ClientIntent::Login => begin_login(ctx, &packet, false),
@@ -29,7 +34,10 @@ pub(super) async fn handle_intention(ctx: &mut ConnectionContext, packet: Client
             match status {
                 Some(status) if settings.replies_to_status => HandshakeOutcome::Status(status),
                 _ => {
-                    ctx.sender.close_with(Component::translatable("disconnect.ignoring_status_request", vec![]));
+                    ctx.sender.close_with(Component::translatable(
+                        "disconnect.ignoring_status_request",
+                        vec![],
+                    ));
                     HandshakeOutcome::Closed
                 }
             }
@@ -37,8 +45,11 @@ pub(super) async fn handle_intention(ctx: &mut ConnectionContext, packet: Client
         ClientIntent::Transfer => {
             if !settings.accepts_transfers {
                 ctx.sender.set_outbound_state(ConnectionState::Login);
-                let reason = Component::translatable("multiplayer.disconnect.transfers_disabled", vec![]);
-                ctx.sender.send(&ClientboundLoginDisconnectPacket { reason: JsonComponent(reason.clone()) });
+                let reason =
+                    Component::translatable("multiplayer.disconnect.transfers_disabled", vec![]);
+                ctx.sender.send(&ClientboundLoginDisconnectPacket {
+                    reason: JsonComponent(reason.clone()),
+                });
                 ctx.sender.close_with(reason);
                 HandshakeOutcome::Closed
             } else {
@@ -48,12 +59,23 @@ pub(super) async fn handle_intention(ctx: &mut ConnectionContext, packet: Client
     }
 }
 
-fn begin_login(ctx: &mut ConnectionContext, packet: &ClientIntentionPacket, transferred: bool) -> HandshakeOutcome {
+fn begin_login(
+    ctx: &mut ConnectionContext,
+    packet: &ClientIntentionPacket,
+    transferred: bool,
+) -> HandshakeOutcome {
     ctx.sender.set_outbound_state(ConnectionState::Login);
     if packet.protocol_version != PROTOCOL_VERSION {
-        let key = if packet.protocol_version < 754 { "multiplayer.disconnect.outdated_client" } else { "multiplayer.disconnect.incompatible" };
-        let reason = Component::translatable(key, vec![TranslatableArg::String(VERSION_NAME.to_owned())]);
-        ctx.sender.send(&ClientboundLoginDisconnectPacket { reason: JsonComponent(reason.clone()) });
+        let key = if packet.protocol_version < 754 {
+            "multiplayer.disconnect.outdated_client"
+        } else {
+            "multiplayer.disconnect.incompatible"
+        };
+        let reason =
+            Component::translatable(key, vec![TranslatableArg::String(VERSION_NAME.to_owned())]);
+        ctx.sender.send(&ClientboundLoginDisconnectPacket {
+            reason: JsonComponent(reason.clone()),
+        });
         ctx.sender.close_with(reason);
         HandshakeOutcome::Closed
     } else {

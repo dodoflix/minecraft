@@ -13,14 +13,18 @@ pub struct FoodPredicate {
 
 impl FoodPredicate {
     pub fn any() -> FoodPredicate {
-        FoodPredicate { level: Ints::any(), saturation: Doubles::any() }
+        FoodPredicate {
+            level: Ints::any(),
+            saturation: Doubles::any(),
+        }
     }
 
     pub fn codec() -> Codec<FoodPredicate> {
         static C: LazyLock<Codec<FoodPredicate>> = LazyLock::new(|| {
             mc_dfu::record!(FoodPredicate {
                 level: Ints::codec().optional_field_of_default("level", Ints::any()),
-                saturation: Doubles::codec().optional_field_of_default("saturation", Doubles::any()),
+                saturation: Doubles::codec()
+                    .optional_field_of_default("saturation", Doubles::any()),
             })
             .codec()
         });
@@ -28,6 +32,7 @@ impl FoodPredicate {
     }
 
     pub fn matches(&self, food: &FoodData) -> bool {
-        self.level.matches(food.food_level) && self.saturation.matches(f64::from(food.saturation_level))
+        self.level.matches(food.food_level)
+            && self.saturation.matches(f64::from(food.saturation_level))
     }
 }

@@ -6,15 +6,6 @@
 //! children are the builder indices of pieces whose children are still to be generated
 //! ([`StructurePiecesBuilder::take_out`] hands such a piece out mutably next to the builder).
 
-use mc_game_core::world::level::levelgen::block_entity_data::spawner_tag;
-use mc_game_core::world::level::levelgen::env::GenEnv;
-use mc_game_core::world::level::levelgen::structure::manager::StructureManager;
-use mc_game_core::world::level::levelgen::structure::piece::{
-    PieceBase, StructurePiece, StructurePieceSerializationContext, StructurePieceType, get_random_horizontal_direction, make_bounding_box,
-    STRUCTURE_PIECE_TYPES,
-};
-use mc_game_core::world::level::levelgen::structure::pieces::StructurePiecesBuilder;
-use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::bounding_box::BoundingBox;
 use mc_core::direction::Direction;
 use mc_core::pos::{BlockPos, ChunkPos};
@@ -22,6 +13,15 @@ use mc_core::random::{RandomSource, SingleThreadedRandomSource};
 use mc_data::block::{Block, BlockState};
 use mc_data::fluid::Fluid;
 use mc_data::props;
+use mc_game_core::world::level::levelgen::block_entity_data::spawner_tag;
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::structure::manager::StructureManager;
+use mc_game_core::world::level::levelgen::structure::piece::{
+    PieceBase, STRUCTURE_PIECE_TYPES, StructurePiece, StructurePieceSerializationContext,
+    StructurePieceType, get_random_horizontal_direction, make_bounding_box,
+};
+use mc_game_core::world::level::levelgen::structure::pieces::StructurePiecesBuilder;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_nbt::CompoundTag;
 use mc_world::ticks::TickPriority;
 
@@ -58,8 +58,19 @@ struct PieceWeight {
 }
 
 impl PieceWeight {
-    const fn new(kind: PieceKind, weight: i32, max_place_count: i32, allow_in_row: bool) -> PieceWeight {
-        PieceWeight { kind, weight, place_count: 0, max_place_count, allow_in_row }
+    const fn new(
+        kind: PieceKind,
+        weight: i32,
+        max_place_count: i32,
+        allow_in_row: bool,
+    ) -> PieceWeight {
+        PieceWeight {
+            kind,
+            weight,
+            place_count: 0,
+            max_place_count,
+            allow_in_row,
+        }
     }
 
     fn do_place(&self, _depth: i32) -> bool {
@@ -106,8 +117,11 @@ fn create_box(
     size: (i32, i32, i32),
     direction: Direction,
 ) -> Option<BoundingBox> {
-    let bounding_box = BoundingBox::orient_box(foot.0, foot.1, foot.2, offset.0, offset.1, offset.2, size.0, size.1, size.2, direction);
-    (is_ok_box(&bounding_box) && builder.find_collision_piece(&bounding_box).is_none()).then_some(bounding_box)
+    let bounding_box = BoundingBox::orient_box(
+        foot.0, foot.1, foot.2, offset.0, offset.1, offset.2, size.0, size.1, size.2, direction,
+    );
+    (is_ok_box(&bounding_box) && builder.find_collision_piece(&bounding_box).is_none())
+        .then_some(bounding_box)
 }
 
 /// `findAndCreateBridgePieceFactory(piece, builder, random, footX, footY, footZ, direction, depth)`.
@@ -125,25 +139,73 @@ fn find_and_create_bridge_piece_factory(
     let foot = (foot_x, foot_y, foot_z);
     let create = |offset, size| create_box(builder, foot, offset, size, direction);
     Some(match kind {
-        PieceKind::BridgeStraight => Box::new(BridgeStraight::new(depth, create((-1, -3, 0), (5, 10, 19))?, direction)),
-        PieceKind::BridgeCrossing => Box::new(BridgeCrossing::new(depth, create((-8, -3, 0), (19, 10, 19))?, direction)),
-        PieceKind::RoomCrossing => Box::new(RoomCrossing::new(depth, create((-2, 0, 0), (7, 9, 7))?, direction)),
-        PieceKind::StairsRoom => Box::new(StairsRoom::new(depth, create((-2, 0, 0), (7, 11, 7))?, direction)),
-        PieceKind::MonsterThrone => Box::new(MonsterThrone::new(depth, create((-2, 0, 0), (7, 8, 9))?, direction)),
-        PieceKind::CastleEntrance => Box::new(CastleEntrance::new(depth, create((-5, -3, 0), (13, 14, 13))?, direction)),
-        PieceKind::CastleSmallCorridor => Box::new(CastleSmallCorridor::new(depth, create((-1, 0, 0), (5, 7, 5))?, direction)),
-        PieceKind::CastleSmallCorridorRightTurn => {
-            Box::new(CastleSmallCorridorRightTurn::create(depth, random, create((-1, 0, 0), (5, 7, 5))?, direction))
-        }
-        PieceKind::CastleSmallCorridorLeftTurn => {
-            Box::new(CastleSmallCorridorLeftTurn::create(depth, random, create((-1, 0, 0), (5, 7, 5))?, direction))
-        }
-        PieceKind::CastleCorridorStairs => Box::new(CastleCorridorStairs::new(depth, create((-1, -7, 0), (5, 14, 10))?, direction)),
-        PieceKind::CastleCorridorTBalcony => Box::new(CastleCorridorTBalcony::new(depth, create((-3, 0, 0), (9, 7, 9))?, direction)),
-        PieceKind::CastleSmallCorridorCrossing => {
-            Box::new(CastleSmallCorridorCrossing::new(depth, create((-1, 0, 0), (5, 7, 5))?, direction))
-        }
-        PieceKind::CastleStalkRoom => Box::new(CastleStalkRoom::new(depth, create((-5, -3, 0), (13, 14, 13))?, direction)),
+        PieceKind::BridgeStraight => Box::new(BridgeStraight::new(
+            depth,
+            create((-1, -3, 0), (5, 10, 19))?,
+            direction,
+        )),
+        PieceKind::BridgeCrossing => Box::new(BridgeCrossing::new(
+            depth,
+            create((-8, -3, 0), (19, 10, 19))?,
+            direction,
+        )),
+        PieceKind::RoomCrossing => Box::new(RoomCrossing::new(
+            depth,
+            create((-2, 0, 0), (7, 9, 7))?,
+            direction,
+        )),
+        PieceKind::StairsRoom => Box::new(StairsRoom::new(
+            depth,
+            create((-2, 0, 0), (7, 11, 7))?,
+            direction,
+        )),
+        PieceKind::MonsterThrone => Box::new(MonsterThrone::new(
+            depth,
+            create((-2, 0, 0), (7, 8, 9))?,
+            direction,
+        )),
+        PieceKind::CastleEntrance => Box::new(CastleEntrance::new(
+            depth,
+            create((-5, -3, 0), (13, 14, 13))?,
+            direction,
+        )),
+        PieceKind::CastleSmallCorridor => Box::new(CastleSmallCorridor::new(
+            depth,
+            create((-1, 0, 0), (5, 7, 5))?,
+            direction,
+        )),
+        PieceKind::CastleSmallCorridorRightTurn => Box::new(CastleSmallCorridorRightTurn::create(
+            depth,
+            random,
+            create((-1, 0, 0), (5, 7, 5))?,
+            direction,
+        )),
+        PieceKind::CastleSmallCorridorLeftTurn => Box::new(CastleSmallCorridorLeftTurn::create(
+            depth,
+            random,
+            create((-1, 0, 0), (5, 7, 5))?,
+            direction,
+        )),
+        PieceKind::CastleCorridorStairs => Box::new(CastleCorridorStairs::new(
+            depth,
+            create((-1, -7, 0), (5, 14, 10))?,
+            direction,
+        )),
+        PieceKind::CastleCorridorTBalcony => Box::new(CastleCorridorTBalcony::new(
+            depth,
+            create((-3, 0, 0), (9, 7, 9))?,
+            direction,
+        )),
+        PieceKind::CastleSmallCorridorCrossing => Box::new(CastleSmallCorridorCrossing::new(
+            depth,
+            create((-1, 0, 0), (5, 7, 5))?,
+            direction,
+        )),
+        PieceKind::CastleStalkRoom => Box::new(CastleStalkRoom::new(
+            depth,
+            create((-5, -3, 0), (13, 14, 13))?,
+            direction,
+        )),
     })
 }
 
@@ -158,8 +220,19 @@ fn create_bridge_end_filler(
     direction: Direction,
     gen_depth: i32,
 ) -> Option<Box<dyn StructurePiece>> {
-    let bounding_box = create_box(builder, (foot_x, foot_y, foot_z), (-1, -3, 0), (5, 10, 8), direction)?;
-    Some(Box::new(BridgeEndFiller::new(gen_depth, random, bounding_box, direction)))
+    let bounding_box = create_box(
+        builder,
+        (foot_x, foot_y, foot_z),
+        (-1, -3, 0),
+        (5, 10, 8),
+        direction,
+    )?;
+    Some(Box::new(BridgeEndFiller::new(
+        gen_depth,
+        random,
+        bounding_box,
+        direction,
+    )))
 }
 
 /// `NetherBridgePiece.updatePieceWeight(currentPieces)`.
@@ -189,7 +262,11 @@ fn generate_piece(
     direction: Direction,
     depth: i32,
 ) -> Option<Box<dyn StructurePiece>> {
-    let current_pieces = if is_castle { &mut start.available_castle_pieces } else { &mut start.available_bridge_pieces };
+    let current_pieces = if is_castle {
+        &mut start.available_castle_pieces
+    } else {
+        &mut start.available_bridge_pieces
+    };
     let total_weight = update_piece_weight(current_pieces);
     let do_stuff = total_weight > 0 && depth <= MAX_DEPTH;
     let mut num_attempts = 0;
@@ -200,11 +277,15 @@ fn generate_piece(
             let piece = &current_pieces[index];
             weight_selection -= piece.weight;
             if weight_selection < 0 {
-                if !piece.do_place(depth) || (Some(piece.kind) == start.previous_piece && !piece.allow_in_row) {
+                if !piece.do_place(depth)
+                    || (Some(piece.kind) == start.previous_piece && !piece.allow_in_row)
+                {
                     break;
                 }
                 let kind = piece.kind;
-                if let Some(structure_piece) = find_and_create_bridge_piece_factory(kind, builder, random, foot_x, foot_y, foot_z, direction, depth) {
+                if let Some(structure_piece) = find_and_create_bridge_piece_factory(
+                    kind, builder, random, foot_x, foot_y, foot_z, direction, depth,
+                ) {
                     current_pieces[index].place_count += 1;
                     start.previous_piece = Some(kind);
                     if !current_pieces[index].is_valid() {
@@ -234,7 +315,17 @@ fn generate_and_add_piece(
     if (foot_x.wrapping_sub(start.base.bounding_box.min_x())).wrapping_abs() <= 112
         && (foot_z.wrapping_sub(start.base.bounding_box.min_z())).wrapping_abs() <= 112
     {
-        if let Some(new_piece) = generate_piece(start, is_castle, builder, random, foot_x, foot_y, foot_z, direction, depth + 1) {
+        if let Some(new_piece) = generate_piece(
+            start,
+            is_castle,
+            builder,
+            random,
+            foot_x,
+            foot_y,
+            foot_z,
+            direction,
+            depth + 1,
+        ) {
             builder.add_piece(new_piece);
             start.pending_children.push(builder.len() - 1);
         }
@@ -255,7 +346,9 @@ fn generate_child_forward(
     is_castle: bool,
 ) {
     let bb = &piece.bounding_box;
-    let Some(orientation) = piece.orientation() else { return };
+    let Some(orientation) = piece.orientation() else {
+        return;
+    };
     let depth = piece.gen_depth;
     let (x, z) = match orientation {
         Direction::North => (bb.min_x() + x_off, bb.min_z() - 1),
@@ -264,7 +357,17 @@ fn generate_child_forward(
         Direction::East => (bb.max_x() + 1, bb.min_z() + x_off),
         _ => return,
     };
-    generate_and_add_piece(start, builder, random, x, bb.min_y() + y_off, z, orientation, depth, is_castle);
+    generate_and_add_piece(
+        start,
+        builder,
+        random,
+        x,
+        bb.min_y() + y_off,
+        z,
+        orientation,
+        depth,
+        is_castle,
+    );
 }
 
 /// `generateChildLeft(startPiece, builder, random, yOff, zOff, isCastle)`.
@@ -278,14 +381,28 @@ fn generate_child_left(
     is_castle: bool,
 ) {
     let bb = &piece.bounding_box;
-    let Some(orientation) = piece.orientation() else { return };
+    let Some(orientation) = piece.orientation() else {
+        return;
+    };
     let depth = piece.gen_depth;
     let (x, z, direction) = match orientation {
-        Direction::North | Direction::South => (bb.min_x() - 1, bb.min_z() + z_off, Direction::West),
+        Direction::North | Direction::South => {
+            (bb.min_x() - 1, bb.min_z() + z_off, Direction::West)
+        }
         Direction::West | Direction::East => (bb.min_x() + z_off, bb.min_z() - 1, Direction::North),
         _ => return,
     };
-    generate_and_add_piece(start, builder, random, x, bb.min_y() + y_off, z, direction, depth, is_castle);
+    generate_and_add_piece(
+        start,
+        builder,
+        random,
+        x,
+        bb.min_y() + y_off,
+        z,
+        direction,
+        depth,
+        is_castle,
+    );
 }
 
 /// `generateChildRight(startPiece, builder, random, yOff, zOff, isCastle)`.
@@ -299,19 +416,35 @@ fn generate_child_right(
     is_castle: bool,
 ) {
     let bb = &piece.bounding_box;
-    let Some(orientation) = piece.orientation() else { return };
+    let Some(orientation) = piece.orientation() else {
+        return;
+    };
     let depth = piece.gen_depth;
     let (x, z, direction) = match orientation {
-        Direction::North | Direction::South => (bb.max_x() + 1, bb.min_z() + z_off, Direction::East),
+        Direction::North | Direction::South => {
+            (bb.max_x() + 1, bb.min_z() + z_off, Direction::East)
+        }
         Direction::West | Direction::East => (bb.min_x() + z_off, bb.max_z() + 1, Direction::South),
         _ => return,
     };
-    generate_and_add_piece(start, builder, random, x, bb.min_y() + y_off, z, direction, depth, is_castle);
+    generate_and_add_piece(
+        start,
+        builder,
+        random,
+        x,
+        bb.min_y() + y_off,
+        z,
+        direction,
+        depth,
+        is_castle,
+    );
 }
 
 /// The `(StartPiece)startPiece` cast of every `addChildren`.
 fn start_of(start_piece: Option<&mut dyn StructurePiece>) -> &mut StartPiece {
-    start_piece.and_then(|p| p.downcast_mut::<StartPiece>()).expect("the start piece of a nether fortress")
+    start_piece
+        .and_then(|p| p.downcast_mut::<StartPiece>())
+        .expect("the start piece of a nether fortress")
 }
 
 fn nether_bricks() -> BlockState {
@@ -341,12 +474,20 @@ fn we_fence() -> BlockState {
 }
 
 fn stairs(facing: Direction) -> BlockState {
-    Block::NETHER_BRICK_STAIRS.default_state().set(props::HORIZONTAL_FACING, facing)
+    Block::NETHER_BRICK_STAIRS
+        .default_state()
+        .set(props::HORIZONTAL_FACING, facing)
 }
 
 /// `generateBox(level, chunkBB, x0, y0, z0, x1, y1, z1, block, block, false)`, the only box form of the fortress.
 trait FillBox: StructurePiece {
-    fn fill(&self, level: &mut dyn WorldGenLevel, chunk_bb: &BoundingBox, [x0, y0, z0, x1, y1, z1]: [i32; 6], state: BlockState) {
+    fn fill(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        chunk_bb: &BoundingBox,
+        [x0, y0, z0, x1, y1, z1]: [i32; 6],
+        state: BlockState,
+    ) {
         self.generate_box(level, chunk_bb, x0, y0, z0, x1, y1, z1, state, state, false);
     }
 
@@ -394,8 +535,14 @@ macro_rules! plain_piece {
         }
 
         #[linkme::distributed_slice(STRUCTURE_PIECE_TYPES)]
-        pub static $type_static: StructurePieceType =
-            StructurePieceType { id: $id, load: |_, tag| Ok(Box::new($name { base: PieceBase::load(&$type_static, tag)? })) };
+        pub static $type_static: StructurePieceType = StructurePieceType {
+            id: $id,
+            load: |_, tag| {
+                Ok(Box::new($name {
+                    base: PieceBase::load(&$type_static, tag)?,
+                }))
+            },
+        };
 
         impl $name {
             pub fn new(gen_depth: i32, bounding_box: BoundingBox, direction: Direction) -> $name {
@@ -414,14 +561,23 @@ macro_rules! plain_piece {
 plain_piece!(BridgeCrossing, NETHER_FORTRESS_BRIDGE_CROSSING, "nebcr");
 
 /// `BridgeCrossing.addChildren`.
-fn bridge_crossing_add_children(piece: &PieceBase, start: &mut StartPiece, builder: &mut StructurePiecesBuilder, random: &mut dyn RandomSource) {
+fn bridge_crossing_add_children(
+    piece: &PieceBase,
+    start: &mut StartPiece,
+    builder: &mut StructurePiecesBuilder,
+    random: &mut dyn RandomSource,
+) {
     generate_child_forward(piece, start, builder, random, 8, 3, false);
     generate_child_left(piece, start, builder, random, 3, 8, false);
     generate_child_right(piece, start, builder, random, 3, 8, false);
 }
 
 /// `BridgeCrossing.postProcess` (the start piece inherits it).
-fn bridge_crossing_post_process(piece: &dyn StructurePiece, level: &mut dyn WorldGenLevel, chunk_bb: &BoundingBox) {
+fn bridge_crossing_post_process(
+    piece: &dyn StructurePiece,
+    level: &mut dyn WorldGenLevel,
+    chunk_bb: &BoundingBox,
+) {
     let nb = nether_bricks();
     let air = air();
     piece.fill(level, chunk_bb, [7, 3, 0, 11, 4, 18], nb);
@@ -464,9 +620,19 @@ fn bridge_crossing_post_process(piece: &dyn StructurePiece, level: &mut dyn Worl
 impl StructurePiece for BridgeCrossing {
     base_accessors!();
 
-    fn add_additional_save_data(&self, _: &StructurePieceSerializationContext<'_>, _: &mut CompoundTag) {}
+    fn add_additional_save_data(
+        &self,
+        _: &StructurePieceSerializationContext<'_>,
+        _: &mut CompoundTag,
+    ) {
+    }
 
-    fn add_children(&mut self, start_piece: Option<&mut dyn StructurePiece>, builder: &mut StructurePiecesBuilder, random: &mut dyn RandomSource) {
+    fn add_children(
+        &mut self,
+        start_piece: Option<&mut dyn StructurePiece>,
+        builder: &mut StructurePiecesBuilder,
+        random: &mut dyn RandomSource,
+    ) {
         bridge_crossing_add_children(&self.base, start_of(start_piece), builder, random);
     }
 
@@ -486,15 +652,21 @@ pub struct StartPiece {
 }
 
 #[linkme::distributed_slice(STRUCTURE_PIECE_TYPES)]
-pub static NETHER_FORTRESS_START: StructurePieceType =
-    StructurePieceType { id: "nestart", load: |_, tag| Ok(Box::new(StartPiece::load(tag)?)) };
+pub static NETHER_FORTRESS_START: StructurePieceType = StructurePieceType {
+    id: "nestart",
+    load: |_, tag| Ok(Box::new(StartPiece::load(tag)?)),
+};
 
 impl StartPiece {
     /// `StartPiece(random, west, north)`: the `BridgeCrossing(west, north, direction)` constructor, so a generated start
     /// piece is a `NeBCr` piece (only a saved `NeStart` loads as a `StartPiece` type).
     pub fn new(random: &mut dyn RandomSource, west: i32, north: i32) -> StartPiece {
         let direction = get_random_horizontal_direction(random);
-        let mut base = PieceBase::new(&NETHER_FORTRESS_BRIDGE_CROSSING, 0, make_bounding_box(west, MAGIC_START_Y, north, direction, 19, 10, 19));
+        let mut base = PieceBase::new(
+            &NETHER_FORTRESS_BRIDGE_CROSSING,
+            0,
+            make_bounding_box(west, MAGIC_START_Y, north, direction, 19, 10, 19),
+        );
         base.set_orientation(Some(direction));
         StartPiece {
             base,
@@ -519,9 +691,19 @@ impl StartPiece {
 impl StructurePiece for StartPiece {
     base_accessors!();
 
-    fn add_additional_save_data(&self, _: &StructurePieceSerializationContext<'_>, _: &mut CompoundTag) {}
+    fn add_additional_save_data(
+        &self,
+        _: &StructurePieceSerializationContext<'_>,
+        _: &mut CompoundTag,
+    ) {
+    }
 
-    fn add_children(&mut self, _start_piece: Option<&mut dyn StructurePiece>, builder: &mut StructurePiecesBuilder, random: &mut dyn RandomSource) {
+    fn add_children(
+        &mut self,
+        _start_piece: Option<&mut dyn StructurePiece>,
+        builder: &mut StructurePiecesBuilder,
+        random: &mut dyn RandomSource,
+    ) {
         // `startPiece` is this piece itself
         let piece = self.base.clone();
         bridge_crossing_add_children(&piece, self, builder, random);
@@ -545,22 +727,37 @@ pub struct BridgeEndFiller {
 pub static NETHER_FORTRESS_BRIDGE_END_FILLER: StructurePieceType = StructurePieceType {
     id: "nebef",
     load: |_, tag| {
-        Ok(Box::new(BridgeEndFiller { base: PieceBase::load(&NETHER_FORTRESS_BRIDGE_END_FILLER, tag)?, self_seed: tag.get_int_or("Seed", 0) }))
+        Ok(Box::new(BridgeEndFiller {
+            base: PieceBase::load(&NETHER_FORTRESS_BRIDGE_END_FILLER, tag)?,
+            self_seed: tag.get_int_or("Seed", 0),
+        }))
     },
 };
 
 impl BridgeEndFiller {
-    pub fn new(gen_depth: i32, random: &mut dyn RandomSource, bounding_box: BoundingBox, direction: Direction) -> BridgeEndFiller {
+    pub fn new(
+        gen_depth: i32,
+        random: &mut dyn RandomSource,
+        bounding_box: BoundingBox,
+        direction: Direction,
+    ) -> BridgeEndFiller {
         let mut base = PieceBase::new(&NETHER_FORTRESS_BRIDGE_END_FILLER, gen_depth, bounding_box);
         base.set_orientation(Some(direction));
-        BridgeEndFiller { base, self_seed: random.next_int() }
+        BridgeEndFiller {
+            base,
+            self_seed: random.next_int(),
+        }
     }
 }
 
 impl StructurePiece for BridgeEndFiller {
     base_accessors!();
 
-    fn add_additional_save_data(&self, _: &StructurePieceSerializationContext<'_>, tag: &mut CompoundTag) {
+    fn add_additional_save_data(
+        &self,
+        _: &StructurePieceSerializationContext<'_>,
+        tag: &mut CompoundTag,
+    ) {
         tag.put_int("Seed", self.self_seed);
     }
 
@@ -603,10 +800,28 @@ plain_piece!(BridgeStraight, NETHER_FORTRESS_BRIDGE_STRAIGHT, "nebs");
 impl StructurePiece for BridgeStraight {
     base_accessors!();
 
-    fn add_additional_save_data(&self, _: &StructurePieceSerializationContext<'_>, _: &mut CompoundTag) {}
+    fn add_additional_save_data(
+        &self,
+        _: &StructurePieceSerializationContext<'_>,
+        _: &mut CompoundTag,
+    ) {
+    }
 
-    fn add_children(&mut self, start_piece: Option<&mut dyn StructurePiece>, builder: &mut StructurePiecesBuilder, random: &mut dyn RandomSource) {
-        generate_child_forward(&self.base, start_of(start_piece), builder, random, 1, 3, false);
+    fn add_children(
+        &mut self,
+        start_piece: Option<&mut dyn StructurePiece>,
+        builder: &mut StructurePiecesBuilder,
+        random: &mut dyn RandomSource,
+    ) {
+        generate_child_forward(
+            &self.base,
+            start_of(start_piece),
+            builder,
+            random,
+            1,
+            3,
+            false,
+        );
     }
 
     post_process!(self, level, _random, chunk_bb, {
@@ -644,15 +859,37 @@ impl StructurePiece for BridgeStraight {
 // CastleCorridorStairsPiece
 // ---------------------------------------------------------------------------------------------------------------------
 
-plain_piece!(CastleCorridorStairs, NETHER_FORTRESS_CASTLE_CORRIDOR_STAIRS, "neccs");
+plain_piece!(
+    CastleCorridorStairs,
+    NETHER_FORTRESS_CASTLE_CORRIDOR_STAIRS,
+    "neccs"
+);
 
 impl StructurePiece for CastleCorridorStairs {
     base_accessors!();
 
-    fn add_additional_save_data(&self, _: &StructurePieceSerializationContext<'_>, _: &mut CompoundTag) {}
+    fn add_additional_save_data(
+        &self,
+        _: &StructurePieceSerializationContext<'_>,
+        _: &mut CompoundTag,
+    ) {
+    }
 
-    fn add_children(&mut self, start_piece: Option<&mut dyn StructurePiece>, builder: &mut StructurePiecesBuilder, random: &mut dyn RandomSource) {
-        generate_child_forward(&self.base, start_of(start_piece), builder, random, 1, 0, true);
+    fn add_children(
+        &mut self,
+        start_piece: Option<&mut dyn StructurePiece>,
+        builder: &mut StructurePiecesBuilder,
+        random: &mut dyn RandomSource,
+    ) {
+        generate_child_forward(
+            &self.base,
+            start_of(start_piece),
+            builder,
+            random,
+            1,
+            0,
+            true,
+        );
     }
 
     post_process!(self, level, _random, chunk_bb, {
@@ -665,7 +902,12 @@ impl StructurePiece for CastleCorridorStairs {
             let roof = (floor + 5).max(14 - step).min(13);
             let z = step;
             self.fill(level, chunk_bb, [0, 0, step, 4, floor, step], nb);
-            self.fill(level, chunk_bb, [1, floor + 1, step, 3, roof - 1, step], air());
+            self.fill(
+                level,
+                chunk_bb,
+                [1, floor + 1, step, 3, roof - 1, step],
+                air(),
+            );
             if step <= 6 {
                 self.place_block(level, stairs, 1, floor + 1, step, chunk_bb);
                 self.place_block(level, stairs, 2, floor + 1, step, chunk_bb);
@@ -676,8 +918,18 @@ impl StructurePiece for CastleCorridorStairs {
             self.fill(level, chunk_bb, [0, floor + 1, step, 0, roof - 1, step], nb);
             self.fill(level, chunk_bb, [4, floor + 1, step, 4, roof - 1, step], nb);
             if (step & 1) == 0 {
-                self.fill(level, chunk_bb, [0, floor + 2, step, 0, floor + 3, step], ns_fence);
-                self.fill(level, chunk_bb, [4, floor + 2, step, 4, floor + 3, step], ns_fence);
+                self.fill(
+                    level,
+                    chunk_bb,
+                    [0, floor + 2, step, 0, floor + 3, step],
+                    ns_fence,
+                );
+                self.fill(
+                    level,
+                    chunk_bb,
+                    [4, floor + 2, step, 4, floor + 3, step],
+                    ns_fence,
+                );
             }
 
             for x in 0..=4 {
@@ -691,14 +943,28 @@ impl StructurePiece for CastleCorridorStairs {
 // CastleCorridorTBalconyPiece
 // ---------------------------------------------------------------------------------------------------------------------
 
-plain_piece!(CastleCorridorTBalcony, NETHER_FORTRESS_CASTLE_CORRIDOR_T_BALCONY, "nectb");
+plain_piece!(
+    CastleCorridorTBalcony,
+    NETHER_FORTRESS_CASTLE_CORRIDOR_T_BALCONY,
+    "nectb"
+);
 
 impl StructurePiece for CastleCorridorTBalcony {
     base_accessors!();
 
-    fn add_additional_save_data(&self, _: &StructurePieceSerializationContext<'_>, _: &mut CompoundTag) {}
+    fn add_additional_save_data(
+        &self,
+        _: &StructurePieceSerializationContext<'_>,
+        _: &mut CompoundTag,
+    ) {
+    }
 
-    fn add_children(&mut self, start_piece: Option<&mut dyn StructurePiece>, builder: &mut StructurePiecesBuilder, random: &mut dyn RandomSource) {
+    fn add_children(
+        &mut self,
+        start_piece: Option<&mut dyn StructurePiece>,
+        builder: &mut StructurePiecesBuilder,
+        random: &mut dyn RandomSource,
+    ) {
         let start = start_of(start_piece);
         let mut z_off = 1;
         let orientation = self.get_orientation();
@@ -755,10 +1021,28 @@ plain_piece!(CastleEntrance, NETHER_FORTRESS_CASTLE_ENTRANCE, "nece");
 impl StructurePiece for CastleEntrance {
     base_accessors!();
 
-    fn add_additional_save_data(&self, _: &StructurePieceSerializationContext<'_>, _: &mut CompoundTag) {}
+    fn add_additional_save_data(
+        &self,
+        _: &StructurePieceSerializationContext<'_>,
+        _: &mut CompoundTag,
+    ) {
+    }
 
-    fn add_children(&mut self, start_piece: Option<&mut dyn StructurePiece>, builder: &mut StructurePiecesBuilder, random: &mut dyn RandomSource) {
-        generate_child_forward(&self.base, start_of(start_piece), builder, random, 5, 3, true);
+    fn add_children(
+        &mut self,
+        start_piece: Option<&mut dyn StructurePiece>,
+        builder: &mut StructurePiecesBuilder,
+        random: &mut dyn RandomSource,
+    ) {
+        generate_child_forward(
+            &self.base,
+            start_of(start_piece),
+            builder,
+            random,
+            5,
+            3,
+            true,
+        );
     }
 
     post_process!(self, level, _random, chunk_bb, {
@@ -775,7 +1059,12 @@ impl StructurePiece for CastleEntrance {
         self.fill(level, chunk_bb, [8, 5, 0, 10, 12, 1], nb);
         self.fill(level, chunk_bb, [5, 9, 0, 7, 12, 1], nb);
         self.fill(level, chunk_bb, [2, 11, 2, 10, 12, 10], nb);
-        self.fill(level, chunk_bb, [5, 8, 0, 7, 8, 0], Block::NETHER_BRICK_FENCE.default_state());
+        self.fill(
+            level,
+            chunk_bb,
+            [5, 8, 0, 7, 8, 0],
+            Block::NETHER_BRICK_FENCE.default_state(),
+        );
         let we_fence = we_fence();
         let ns_fence = ns_fence();
 
@@ -848,14 +1137,28 @@ impl StructurePiece for CastleEntrance {
 // CastleSmallCorridorCrossingPiece
 // ---------------------------------------------------------------------------------------------------------------------
 
-plain_piece!(CastleSmallCorridorCrossing, NETHER_FORTRESS_CASTLE_SMALL_CORRIDOR_CROSSING, "nescsc");
+plain_piece!(
+    CastleSmallCorridorCrossing,
+    NETHER_FORTRESS_CASTLE_SMALL_CORRIDOR_CROSSING,
+    "nescsc"
+);
 
 impl StructurePiece for CastleSmallCorridorCrossing {
     base_accessors!();
 
-    fn add_additional_save_data(&self, _: &StructurePieceSerializationContext<'_>, _: &mut CompoundTag) {}
+    fn add_additional_save_data(
+        &self,
+        _: &StructurePieceSerializationContext<'_>,
+        _: &mut CompoundTag,
+    ) {
+    }
 
-    fn add_children(&mut self, start_piece: Option<&mut dyn StructurePiece>, builder: &mut StructurePiecesBuilder, random: &mut dyn RandomSource) {
+    fn add_children(
+        &mut self,
+        start_piece: Option<&mut dyn StructurePiece>,
+        builder: &mut StructurePiecesBuilder,
+        random: &mut dyn RandomSource,
+    ) {
         let start = start_of(start_piece);
         generate_child_forward(&self.base, start, builder, random, 1, 0, true);
         generate_child_left(&self.base, start, builder, random, 0, 1, true);
@@ -890,33 +1193,63 @@ pub struct CastleSmallCorridorLeftTurn {
 }
 
 #[linkme::distributed_slice(STRUCTURE_PIECE_TYPES)]
-pub static NETHER_FORTRESS_CASTLE_SMALL_CORRIDOR_LEFT_TURN: StructurePieceType = StructurePieceType {
-    id: "nesclt",
-    load: |_, tag| {
-        Ok(Box::new(CastleSmallCorridorLeftTurn {
-            base: PieceBase::load(&NETHER_FORTRESS_CASTLE_SMALL_CORRIDOR_LEFT_TURN, tag)?,
-            is_needing_chest: tag.get_boolean_or("Chest", false),
-        }))
-    },
-};
+pub static NETHER_FORTRESS_CASTLE_SMALL_CORRIDOR_LEFT_TURN: StructurePieceType =
+    StructurePieceType {
+        id: "nesclt",
+        load: |_, tag| {
+            Ok(Box::new(CastleSmallCorridorLeftTurn {
+                base: PieceBase::load(&NETHER_FORTRESS_CASTLE_SMALL_CORRIDOR_LEFT_TURN, tag)?,
+                is_needing_chest: tag.get_boolean_or("Chest", false),
+            }))
+        },
+    };
 
 impl CastleSmallCorridorLeftTurn {
-    pub fn create(gen_depth: i32, random: &mut dyn RandomSource, bounding_box: BoundingBox, direction: Direction) -> CastleSmallCorridorLeftTurn {
-        let mut base = PieceBase::new(&NETHER_FORTRESS_CASTLE_SMALL_CORRIDOR_LEFT_TURN, gen_depth, bounding_box);
+    pub fn create(
+        gen_depth: i32,
+        random: &mut dyn RandomSource,
+        bounding_box: BoundingBox,
+        direction: Direction,
+    ) -> CastleSmallCorridorLeftTurn {
+        let mut base = PieceBase::new(
+            &NETHER_FORTRESS_CASTLE_SMALL_CORRIDOR_LEFT_TURN,
+            gen_depth,
+            bounding_box,
+        );
         base.set_orientation(Some(direction));
-        CastleSmallCorridorLeftTurn { base, is_needing_chest: random.next_int_bounded(3) == 0 }
+        CastleSmallCorridorLeftTurn {
+            base,
+            is_needing_chest: random.next_int_bounded(3) == 0,
+        }
     }
 }
 
 impl StructurePiece for CastleSmallCorridorLeftTurn {
     base_accessors!();
 
-    fn add_additional_save_data(&self, _: &StructurePieceSerializationContext<'_>, tag: &mut CompoundTag) {
+    fn add_additional_save_data(
+        &self,
+        _: &StructurePieceSerializationContext<'_>,
+        tag: &mut CompoundTag,
+    ) {
         tag.put_boolean("Chest", self.is_needing_chest);
     }
 
-    fn add_children(&mut self, start_piece: Option<&mut dyn StructurePiece>, builder: &mut StructurePiecesBuilder, random: &mut dyn RandomSource) {
-        generate_child_left(&self.base, start_of(start_piece), builder, random, 0, 1, true);
+    fn add_children(
+        &mut self,
+        start_piece: Option<&mut dyn StructurePiece>,
+        builder: &mut StructurePiecesBuilder,
+        random: &mut dyn RandomSource,
+    ) {
+        generate_child_left(
+            &self.base,
+            start_of(start_piece),
+            builder,
+            random,
+            0,
+            1,
+            true,
+        );
     }
 
     post_process!(self, level, random, chunk_bb, {
@@ -953,33 +1286,63 @@ pub struct CastleSmallCorridorRightTurn {
 }
 
 #[linkme::distributed_slice(STRUCTURE_PIECE_TYPES)]
-pub static NETHER_FORTRESS_CASTLE_SMALL_CORRIDOR_RIGHT_TURN: StructurePieceType = StructurePieceType {
-    id: "nescrt",
-    load: |_, tag| {
-        Ok(Box::new(CastleSmallCorridorRightTurn {
-            base: PieceBase::load(&NETHER_FORTRESS_CASTLE_SMALL_CORRIDOR_RIGHT_TURN, tag)?,
-            is_needing_chest: tag.get_boolean_or("Chest", false),
-        }))
-    },
-};
+pub static NETHER_FORTRESS_CASTLE_SMALL_CORRIDOR_RIGHT_TURN: StructurePieceType =
+    StructurePieceType {
+        id: "nescrt",
+        load: |_, tag| {
+            Ok(Box::new(CastleSmallCorridorRightTurn {
+                base: PieceBase::load(&NETHER_FORTRESS_CASTLE_SMALL_CORRIDOR_RIGHT_TURN, tag)?,
+                is_needing_chest: tag.get_boolean_or("Chest", false),
+            }))
+        },
+    };
 
 impl CastleSmallCorridorRightTurn {
-    pub fn create(gen_depth: i32, random: &mut dyn RandomSource, bounding_box: BoundingBox, direction: Direction) -> CastleSmallCorridorRightTurn {
-        let mut base = PieceBase::new(&NETHER_FORTRESS_CASTLE_SMALL_CORRIDOR_RIGHT_TURN, gen_depth, bounding_box);
+    pub fn create(
+        gen_depth: i32,
+        random: &mut dyn RandomSource,
+        bounding_box: BoundingBox,
+        direction: Direction,
+    ) -> CastleSmallCorridorRightTurn {
+        let mut base = PieceBase::new(
+            &NETHER_FORTRESS_CASTLE_SMALL_CORRIDOR_RIGHT_TURN,
+            gen_depth,
+            bounding_box,
+        );
         base.set_orientation(Some(direction));
-        CastleSmallCorridorRightTurn { base, is_needing_chest: random.next_int_bounded(3) == 0 }
+        CastleSmallCorridorRightTurn {
+            base,
+            is_needing_chest: random.next_int_bounded(3) == 0,
+        }
     }
 }
 
 impl StructurePiece for CastleSmallCorridorRightTurn {
     base_accessors!();
 
-    fn add_additional_save_data(&self, _: &StructurePieceSerializationContext<'_>, tag: &mut CompoundTag) {
+    fn add_additional_save_data(
+        &self,
+        _: &StructurePieceSerializationContext<'_>,
+        tag: &mut CompoundTag,
+    ) {
         tag.put_boolean("Chest", self.is_needing_chest);
     }
 
-    fn add_children(&mut self, start_piece: Option<&mut dyn StructurePiece>, builder: &mut StructurePiecesBuilder, random: &mut dyn RandomSource) {
-        generate_child_right(&self.base, start_of(start_piece), builder, random, 0, 1, true);
+    fn add_children(
+        &mut self,
+        start_piece: Option<&mut dyn StructurePiece>,
+        builder: &mut StructurePiecesBuilder,
+        random: &mut dyn RandomSource,
+    ) {
+        generate_child_right(
+            &self.base,
+            start_of(start_piece),
+            builder,
+            random,
+            0,
+            1,
+            true,
+        );
     }
 
     post_process!(self, level, random, chunk_bb, {
@@ -1014,15 +1377,37 @@ impl StructurePiece for CastleSmallCorridorRightTurn {
 // CastleSmallCorridorPiece
 // ---------------------------------------------------------------------------------------------------------------------
 
-plain_piece!(CastleSmallCorridor, NETHER_FORTRESS_CASTLE_SMALL_CORRIDOR, "nesc");
+plain_piece!(
+    CastleSmallCorridor,
+    NETHER_FORTRESS_CASTLE_SMALL_CORRIDOR,
+    "nesc"
+);
 
 impl StructurePiece for CastleSmallCorridor {
     base_accessors!();
 
-    fn add_additional_save_data(&self, _: &StructurePieceSerializationContext<'_>, _: &mut CompoundTag) {}
+    fn add_additional_save_data(
+        &self,
+        _: &StructurePieceSerializationContext<'_>,
+        _: &mut CompoundTag,
+    ) {
+    }
 
-    fn add_children(&mut self, start_piece: Option<&mut dyn StructurePiece>, builder: &mut StructurePiecesBuilder, random: &mut dyn RandomSource) {
-        generate_child_forward(&self.base, start_of(start_piece), builder, random, 1, 0, true);
+    fn add_children(
+        &mut self,
+        start_piece: Option<&mut dyn StructurePiece>,
+        builder: &mut StructurePiecesBuilder,
+        random: &mut dyn RandomSource,
+    ) {
+        generate_child_forward(
+            &self.base,
+            start_of(start_piece),
+            builder,
+            random,
+            1,
+            0,
+            true,
+        );
     }
 
     post_process!(self, level, _random, chunk_bb, {
@@ -1055,9 +1440,19 @@ plain_piece!(CastleStalkRoom, NETHER_FORTRESS_CASTLE_STALK_ROOM, "necsr");
 impl StructurePiece for CastleStalkRoom {
     base_accessors!();
 
-    fn add_additional_save_data(&self, _: &StructurePieceSerializationContext<'_>, _: &mut CompoundTag) {}
+    fn add_additional_save_data(
+        &self,
+        _: &StructurePieceSerializationContext<'_>,
+        _: &mut CompoundTag,
+    ) {
+    }
 
-    fn add_children(&mut self, start_piece: Option<&mut dyn StructurePiece>, builder: &mut StructurePiecesBuilder, random: &mut dyn RandomSource) {
+    fn add_children(
+        &mut self,
+        start_piece: Option<&mut dyn StructurePiece>,
+        builder: &mut StructurePiecesBuilder,
+        random: &mut dyn RandomSource,
+    ) {
         let start = start_of(start_piece);
         generate_child_forward(&self.base, start, builder, random, 5, 3, true);
         generate_child_forward(&self.base, start, builder, random, 5, 11, true);
@@ -1209,14 +1604,21 @@ impl MonsterThrone {
     pub fn new(gen_depth: i32, bounding_box: BoundingBox, direction: Direction) -> MonsterThrone {
         let mut base = PieceBase::new(&NETHER_FORTRESS_MONSTER_THRONE, gen_depth, bounding_box);
         base.set_orientation(Some(direction));
-        MonsterThrone { base, has_placed_spawner: false }
+        MonsterThrone {
+            base,
+            has_placed_spawner: false,
+        }
     }
 }
 
 impl StructurePiece for MonsterThrone {
     base_accessors!();
 
-    fn add_additional_save_data(&self, _: &StructurePieceSerializationContext<'_>, tag: &mut CompoundTag) {
+    fn add_additional_save_data(
+        &self,
+        _: &StructurePieceSerializationContext<'_>,
+        tag: &mut CompoundTag,
+    ) {
         tag.put_boolean("Mob", self.has_placed_spawner);
     }
 
@@ -1280,9 +1682,19 @@ plain_piece!(RoomCrossing, NETHER_FORTRESS_ROOM_CROSSING, "nerc");
 impl StructurePiece for RoomCrossing {
     base_accessors!();
 
-    fn add_additional_save_data(&self, _: &StructurePieceSerializationContext<'_>, _: &mut CompoundTag) {}
+    fn add_additional_save_data(
+        &self,
+        _: &StructurePieceSerializationContext<'_>,
+        _: &mut CompoundTag,
+    ) {
+    }
 
-    fn add_children(&mut self, start_piece: Option<&mut dyn StructurePiece>, builder: &mut StructurePiecesBuilder, random: &mut dyn RandomSource) {
+    fn add_children(
+        &mut self,
+        start_piece: Option<&mut dyn StructurePiece>,
+        builder: &mut StructurePiecesBuilder,
+        random: &mut dyn RandomSource,
+    ) {
         let start = start_of(start_piece);
         generate_child_forward(&self.base, start, builder, random, 2, 0, false);
         generate_child_left(&self.base, start, builder, random, 0, 2, false);
@@ -1329,10 +1741,28 @@ plain_piece!(StairsRoom, NETHER_FORTRESS_STAIRS_ROOM, "nesr");
 impl StructurePiece for StairsRoom {
     base_accessors!();
 
-    fn add_additional_save_data(&self, _: &StructurePieceSerializationContext<'_>, _: &mut CompoundTag) {}
+    fn add_additional_save_data(
+        &self,
+        _: &StructurePieceSerializationContext<'_>,
+        _: &mut CompoundTag,
+    ) {
+    }
 
-    fn add_children(&mut self, start_piece: Option<&mut dyn StructurePiece>, builder: &mut StructurePiecesBuilder, random: &mut dyn RandomSource) {
-        generate_child_right(&self.base, start_of(start_piece), builder, random, 6, 2, false);
+    fn add_children(
+        &mut self,
+        start_piece: Option<&mut dyn StructurePiece>,
+        builder: &mut StructurePiecesBuilder,
+        random: &mut dyn RandomSource,
+    ) {
+        generate_child_right(
+            &self.base,
+            start_of(start_piece),
+            builder,
+            random,
+            6,
+            2,
+            false,
+        );
     }
 
     post_process!(self, level, _random, chunk_bb, {

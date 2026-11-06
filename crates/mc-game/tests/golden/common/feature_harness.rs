@@ -16,7 +16,10 @@
 //! `GenEnv` has the real overworld `NoiseBasedChunkGenerator` and `RandomState` of the seed (as the Java oracle's
 //! `generator()`/`randomState(seed)`) and the vanilla feature registries (when all of them decode; otherwise empty ones
 //! so tests of the level itself still run).
-#![allow(dead_code, reason = "each test target uses a subset of the shared helpers")]
+#![allow(
+    dead_code,
+    reason = "each test target uses a subset of the shared helpers"
+)]
 
 use std::collections::HashMap;
 use std::sync::{Arc, LazyLock};
@@ -25,19 +28,19 @@ use mc_core::ident::Identifier;
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_data::block::{Block, BlockState};
 use mc_game::server::level::world_gen::{GenChunk, WorldGenRegion};
+use mc_game::server::packs::repository::PackSource;
+use mc_game::server::packs::resource_manager::MultiPackResourceManager;
+use mc_game::server::packs::resources::PathPackResources;
+use mc_game::server::packs::{PackLocationInfo, PackType};
+use mc_game::world::level::LevelAccessor;
 use mc_game::world::level::chunk::status::{ChunkStep, GENERATION_PYRAMID};
+use mc_game::world::level::levelgen::GenEnv;
 use mc_game::world::level::levelgen::gen_level::GenLevel;
 use mc_game::world::level::levelgen::registries::GenRegistries;
 use mc_game::world::level::levelgen::structure::check::{NoChunkScan, StructureCheck};
 use mc_game::world::level::levelgen::structure::registries::{StartCache, StructureRegistries};
 use mc_game::world::level::levelgen::structure::templatesystem::StructureTemplateManager;
-use mc_game::server::packs::repository::PackSource;
-use mc_game::server::packs::resource_manager::MultiPackResourceManager;
-use mc_game::server::packs::resources::PathPackResources;
-use mc_game::server::packs::{PackLocationInfo, PackType};
 use mc_text::Component;
-use mc_game::world::level::levelgen::GenEnv;
-use mc_game::world::level::LevelAccessor;
 use mc_world::chunk::{LevelHeight, ProtoChunk};
 use mc_world::heightmap::HeightmapType;
 use mc_world::palette::{BiomeId, PalettedContainerFactory};
@@ -52,7 +55,16 @@ use mc_worldgen::random_state::RandomState;
 pub const MIN_Y: i32 = -64;
 pub const HEIGHT: i32 = 384;
 pub const SEA_LEVEL: i32 = 63;
-pub const BIOME_NAMES: [&str; 8] = ["plains", "forest", "desert", "ocean", "river", "swamp", "taiga", "birch_forest"];
+pub const BIOME_NAMES: [&str; 8] = [
+    "plains",
+    "forest",
+    "desert",
+    "ocean",
+    "river",
+    "swamp",
+    "taiga",
+    "birch_forest",
+];
 
 // ---- deterministic hash helpers (ported verbatim from FeatureOracleBase.java) ----
 
@@ -65,7 +77,13 @@ pub fn mix64(mut z: i64) -> i64 {
 pub fn h(seed: i64, a: i64, b: i64, c: i64) -> i64 {
     mix64(
         seed.wrapping_mul(0x9E3779B97F4A7C15u64 as i64)
-            ^ mix64(a.wrapping_mul(0xD6E8FEB86659FD93u64 as i64) ^ mix64(b.wrapping_mul(0xCA5A826395121157u64 as i64) ^ mix64(c.wrapping_add(0x1234567)))),
+            ^ mix64(
+                a.wrapping_mul(0xD6E8FEB86659FD93u64 as i64)
+                    ^ mix64(
+                        b.wrapping_mul(0xCA5A826395121157u64 as i64)
+                            ^ mix64(c.wrapping_add(0x1234567)),
+                    ),
+            ),
     )
 }
 
@@ -81,7 +99,10 @@ pub struct Fnv {
 
 impl Default for Fnv {
     fn default() -> Self {
-        Fnv { v: 0xcbf29ce484222325, count: 0 }
+        Fnv {
+            v: 0xcbf29ce484222325,
+            count: 0,
+        }
     }
 }
 
@@ -124,8 +145,18 @@ fn lattice(seed: i64, i: i32, j: i32) -> i32 {
 
 /// First y above the solid surface of column (x, z): 50..75.
 pub fn surface_top(seed: i64, x: i32, z: i32) -> i32 {
-    let (gx, gz, fx, fz) = (x.div_euclid(8), z.div_euclid(8), x.rem_euclid(8), z.rem_euclid(8));
-    let (a, b, c, d) = (lattice(seed, gx, gz), lattice(seed, gx + 1, gz), lattice(seed, gx, gz + 1), lattice(seed, gx + 1, gz + 1));
+    let (gx, gz, fx, fz) = (
+        x.div_euclid(8),
+        z.div_euclid(8),
+        x.rem_euclid(8),
+        z.rem_euclid(8),
+    );
+    let (a, b, c, d) = (
+        lattice(seed, gx, gz),
+        lattice(seed, gx + 1, gz),
+        lattice(seed, gx, gz + 1),
+        lattice(seed, gx + 1, gz + 1),
+    );
     let v = ((a * (8 - fx) + b * fx) * (8 - fz) + (c * (8 - fx) + d * fx) * fz) / 64;
     50 + v + i32::from(hmod(h(seed, i64::from(x), i64::from(z), 2), 3) == 0)
 }
@@ -140,9 +171,18 @@ pub fn terrain(seed: i64, x: i32, y: i32, z: i32) -> BlockState {
     }
     let top = surface_top(seed, x, z);
     if y >= top {
-        return if y < SEA_LEVEL { Block::WATER } else { Block::AIR }.default_state();
+        return if y < SEA_LEVEL {
+            Block::WATER
+        } else {
+            Block::AIR
+        }
+        .default_state();
     }
-    let bed = if hmod(at(x >> 3, z >> 3, 3), 2) == 0 { Block::SAND } else { Block::GRAVEL };
+    let bed = if hmod(at(x >> 3, z >> 3, 3), 2) == 0 {
+        Block::SAND
+    } else {
+        Block::GRAVEL
+    };
     if y == top - 1 {
         return if top <= 64 { bed } else { Block::GRASS_BLOCK }.default_state();
     }
@@ -153,14 +193,23 @@ pub fn terrain(seed: i64, x: i32, y: i32, z: i32) -> BlockState {
     if cave {
         return if y < -50 { Block::LAVA } else { Block::AIR }.default_state();
     }
-    if y < hmod(at(x >> 2, 0, z >> 2), 8) { Block::DEEPSLATE } else { Block::STONE }.default_state()
+    if y < hmod(at(x >> 2, 0, z >> 2), 8) {
+        Block::DEEPSLATE
+    } else {
+        Block::STONE
+    }
+    .default_state()
 }
 
 /// Biome of a 4x4x4 cell: 8 surface biomes in 8x8 columns, cave biomes below y=-16.
 pub fn biome_name(seed: i64, qx: i32, qy: i32, qz: i32) -> &'static str {
     let at = |a: i32, b: i32, c: i32| h(seed ^ 0xB10, i64::from(a), i64::from(b), i64::from(c));
     if qy < -4 {
-        return if hmod(at(qx >> 1, qy >> 1, qz >> 1), 2) == 0 { "lush_caves" } else { "dripstone_caves" };
+        return if hmod(at(qx >> 1, qy >> 1, qz >> 1), 2) == 0 {
+            "lush_caves"
+        } else {
+            "dripstone_caves"
+        };
     }
     BIOME_NAMES[hmod(at(qx >> 1, 0, qz >> 1), BIOME_NAMES.len() as i32) as usize]
 }
@@ -184,7 +233,8 @@ pub struct FeatureWorld {
 pub static WORLD: LazyLock<FeatureWorld> = LazyLock::new(|| {
     let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../ref/src/data");
     let source: Arc<dyn WorldgenDataSource> = Arc::new(FsDataSource::new(root.clone()));
-    let empty: Arc<dyn WorldgenDataSource> = Arc::new(FsDataSource::new(root.join("no_such_data_dir")));
+    let empty: Arc<dyn WorldgenDataSource> =
+        Arc::new(FsDataSource::new(root.join("no_such_data_dir")));
     let worldgen = Arc::new(WorldgenRegistries::new(source.clone()));
     let biomes = Arc::new(BiomeRegistry::load(&worldgen).expect("vanilla biomes load"));
     // Registries of types that are not ported yet fail to decode: those tests then run with empty ones.
@@ -201,19 +251,54 @@ pub static WORLD: LazyLock<FeatureWorld> = LazyLock::new(|| {
         registries_loaded = false;
         StructureRegistries::load(empty, &worldgen, &biomes).expect("empty structure registries")
     });
-    let settings = worldgen.noise_settings(&Identifier::with_default_namespace("overworld").unwrap()).expect("overworld noise settings");
-    let generator_source = biome_source_from_json(&serde_json::json!({"type": "minecraft:multi_noise", "preset": "minecraft:overworld"}), &worldgen, &biomes)
-        .expect("overworld biome source");
-    let generator = NoiseBasedChunkGenerator::new(generator_source, Arc::new(settings), worldgen.clone(), biomes.clone()).expect("overworld generator");
-    let factory = PalettedContainerFactory::create(mc_world::palette::BiomeRegistry::new(biomes.names())).expect("plains");
+    let settings = worldgen
+        .noise_settings(&Identifier::with_default_namespace("overworld").unwrap())
+        .expect("overworld noise settings");
+    let generator_source = biome_source_from_json(
+        &serde_json::json!({"type": "minecraft:multi_noise", "preset": "minecraft:overworld"}),
+        &worldgen,
+        &biomes,
+    )
+    .expect("overworld biome source");
+    let generator = NoiseBasedChunkGenerator::new(
+        generator_source,
+        Arc::new(settings),
+        worldgen.clone(),
+        biomes.clone(),
+    )
+    .expect("overworld generator");
+    let factory =
+        PalettedContainerFactory::create(mc_world::palette::BiomeRegistry::new(biomes.names()))
+            .expect("plains");
     // The vanilla data pack (`ref/src/data`), e.g. for the structure templates; generated structures go to a scratch dir.
     let pack = PathPackResources::new(
-        PackLocationInfo { id: "vanilla".into(), title: Component::literal("vanilla"), source: PackSource::BuiltIn, known_pack_info: None },
+        PackLocationInfo {
+            id: "vanilla".into(),
+            title: Component::literal("vanilla"),
+            source: PackSource::BuiltIn,
+            known_pack_info: None,
+        },
         std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../ref/src"),
     );
-    let resources = Arc::new(MultiPackResourceManager::new(PackType::ServerData, vec![Arc::new(pack)]));
-    let templates = Arc::new(StructureTemplateManager::new(resources, std::env::temp_dir().join("mc-feature-harness-generated")));
-    FeatureWorld { worldgen, biomes, registries: Arc::new(registries), structures: Arc::new(structures), templates, generator: Arc::new(generator), factory, registries_loaded, features_loaded }
+    let resources = Arc::new(MultiPackResourceManager::new(
+        PackType::ServerData,
+        vec![Arc::new(pack)],
+    ));
+    let templates = Arc::new(StructureTemplateManager::new(
+        resources,
+        std::env::temp_dir().join("mc-feature-harness-generated"),
+    ));
+    FeatureWorld {
+        worldgen,
+        biomes,
+        registries: Arc::new(registries),
+        structures: Arc::new(structures),
+        templates,
+        generator: Arc::new(generator),
+        factory,
+        registries_loaded,
+        features_loaded,
+    }
 });
 
 pub fn level_height() -> LevelHeight {
@@ -227,7 +312,11 @@ pub fn gen_env(seed: i64) -> Arc<GenEnv> {
         dimension: Identifier::with_default_namespace("overworld").unwrap(),
         seed,
         generator: w.generator.clone(),
-        random_state: Arc::new(RandomState::create(w.worldgen.clone(), seed, w.generator.settings())),
+        random_state: Arc::new(RandomState::create(
+            w.worldgen.clone(),
+            seed,
+            w.generator.settings(),
+        )),
         biomes: w.biomes.clone(),
         registries: w.registries.clone(),
         structures: w.structures.clone(),
@@ -241,13 +330,22 @@ pub fn gen_env(seed: i64) -> Arc<GenEnv> {
 }
 
 fn biome_id(name: &str) -> BiomeId {
-    WORLD.biomes.id_of_name(name).unwrap_or_else(|| panic!("biome {name}"))
+    WORLD
+        .biomes
+        .id_of_name(name)
+        .unwrap_or_else(|| panic!("biome {name}"))
 }
 
 /// A synthetic chunk with the final heightmaps (and, with `prime_wg`, the two worldgen ones) primed and the given persisted
 /// status.
 pub fn make_chunk(seed: i64, cx: i32, cz: i32, status: ChunkStatus, prime_wg: bool) -> ProtoChunk {
-    let mut chunk = ProtoChunk::new(ChunkPos::new(cx, cz), UpgradeData::EMPTY, level_height(), &WORLD.factory, None);
+    let mut chunk = ProtoChunk::new(
+        ChunkPos::new(cx, cz),
+        UpgradeData::EMPTY,
+        level_height(),
+        &WORLD.factory,
+        None,
+    );
     for si in 0..(HEIGHT / 16) {
         let base_y = MIN_Y + si * 16;
         let section = chunk.access.get_section_mut(si as usize);
@@ -262,11 +360,18 @@ pub fn make_chunk(seed: i64, cx: i32, cz: i32, status: ChunkStatus, prime_wg: bo
             }
         }
     }
-    chunk.access.fill_biomes_from_noise(level_height(), |qx, qy, qz| biome_id(biome_name(seed, qx, qy, qz)));
+    chunk
+        .access
+        .fill_biomes_from_noise(level_height(), |qx, qy, qz| {
+            biome_id(biome_name(seed, qx, qy, qz))
+        });
     chunk.set_persisted_status(status);
     chunk.access.prime_heightmaps(true, FINAL_HEIGHTMAPS);
     if prime_wg {
-        chunk.access.prime_heightmaps(true, &[HeightmapType::WorldSurfaceWg, HeightmapType::OceanFloorWg]);
+        chunk.access.prime_heightmaps(
+            true,
+            &[HeightmapType::WorldSurfaceWg, HeightmapType::OceanFloorWg],
+        );
     }
     chunk
 }
@@ -290,12 +395,28 @@ impl SynthRegion {
     }
 
     /// `prime_wg = false`: the chunks lack the worldgen heightmaps (vanilla primes them on first read).
-    pub fn with_wg_heightmaps(seed: i64, cx: i32, cz: i32, step_status: ChunkStatus, radius: i32, prime_wg: bool) -> SynthRegion {
+    pub fn with_wg_heightmaps(
+        seed: i64,
+        cx: i32,
+        cz: i32,
+        step_status: ChunkStatus,
+        radius: i32,
+        prime_wg: bool,
+    ) -> SynthRegion {
         let step = GENERATION_PYRAMID.get_step_to(step_status);
         let mut chunks = HashMap::new();
         for x in cx - radius..=cx + radius {
             for z in cz - radius..=cz + radius {
-                chunks.insert(ChunkPos::pack_xz(x, z), GenChunk::Loaned(Box::new(make_chunk(seed, x, z, ChunkStatus::Terrain, prime_wg))));
+                chunks.insert(
+                    ChunkPos::pack_xz(x, z),
+                    GenChunk::Loaned(Box::new(make_chunk(
+                        seed,
+                        x,
+                        z,
+                        ChunkStatus::Terrain,
+                        prime_wg,
+                    ))),
+                );
             }
         }
         let region = WorldGenRegion::new(
@@ -306,7 +427,15 @@ impl SynthRegion {
             HashMap::new(),
             level_height(),
         );
-        SynthRegion { region, env: gen_env(seed), step, seed, cx, cz, radius }
+        SynthRegion {
+            region,
+            env: gen_env(seed),
+            step,
+            seed,
+            cx,
+            cz,
+            radius,
+        }
     }
 
     /// The `GenLevel` (vanilla `WorldGenRegion`) over the lent chunks.
@@ -323,10 +452,14 @@ pub fn parse_state(s: &str) -> BlockState {
         Some((name, props)) => (name, props.trim_end_matches(']')),
         None => (s, ""),
     };
-    let mut state = Block::by_name(name).unwrap_or_else(|| panic!("block {name}")).default_state();
+    let mut state = Block::by_name(name)
+        .unwrap_or_else(|| panic!("block {name}"))
+        .default_state();
     for kv in props.split(',').filter(|p| !p.is_empty()) {
         let (k, v) = kv.split_once('=').expect("property=value");
-        state = state.with_property_str(k, v).unwrap_or_else(|| panic!("property {kv} of {name}"));
+        state = state
+            .with_property_str(k, v)
+            .unwrap_or_else(|| panic!("property {kv} of {name}"));
     }
     state
 }
@@ -379,7 +512,11 @@ fn blocks_of(chunk: &ProtoChunk) -> Vec<BlockState> {
     for y in MIN_Y..MIN_Y + HEIGHT {
         for z in 0..16 {
             for x in 0..16 {
-                out.push(chunk.get_block_state(BlockPos::new(min.get_min_block_x() + x, y, min.get_min_block_z() + z)));
+                out.push(chunk.get_block_state(BlockPos::new(
+                    min.get_min_block_x() + x,
+                    y,
+                    min.get_min_block_z() + z,
+                )));
             }
         }
     }
@@ -398,10 +535,18 @@ pub fn snapshot(synth: &SynthRegion) -> Snapshot {
     let mut blocks = HashMap::new();
     for x in synth.cx - synth.radius..=synth.cx + synth.radius {
         for z in synth.cz - synth.radius..=synth.cz + synth.radius {
-            blocks.insert(ChunkPos::pack_xz(x, z), blocks_of(synth.region.get_chunk(x, z).expect("chunk of the region")));
+            blocks.insert(
+                ChunkPos::pack_xz(x, z),
+                blocks_of(synth.region.get_chunk(x, z).expect("chunk of the region")),
+            );
         }
     }
-    Snapshot { cx: synth.cx, cz: synth.cz, radius: synth.radius, blocks }
+    Snapshot {
+        cx: synth.cx,
+        cz: synth.cz,
+        radius: synth.radius,
+        blocks,
+    }
 }
 
 /// The compact dump documented on `FeatureOracleBase.dump` (same lines, same order) of every chunk of the region.
@@ -409,36 +554,63 @@ pub fn dump(level: &mut GenLevel<'_>, before: &Snapshot) -> Vec<String> {
     let mut out = Vec::new();
     for cx in before.cx - before.radius..=before.cx + before.radius {
         for cz in before.cz - before.radius..=before.cz + before.radius {
-            let chunk = level.region().get_chunk(cx, cz).expect("chunk of the region");
+            let chunk = level
+                .region()
+                .get_chunk(cx, cz)
+                .expect("chunk of the region");
             let was = &before.blocks[&ChunkPos::pack_xz(cx, cz)];
-            out.push(format!("C {cx} {cz} {}", chunk.get_persisted_status().name()));
+            out.push(format!(
+                "C {cx} {cz} {}",
+                chunk.get_persisted_status().name()
+            ));
             let mut t = Fnv::default();
             for s in was {
                 t.i(s.id() as i32);
             }
             out.push(format!("T {cx} {cz} {} {}", t.hex(), t.count));
             let mut m = Fnv::default();
-            let (qx0, qz0) = (chunk.pos().get_min_block_x() >> 2, chunk.pos().get_min_block_z() >> 2);
+            let (qx0, qz0) = (
+                chunk.pos().get_min_block_x() >> 2,
+                chunk.pos().get_min_block_z() >> 2,
+            );
             for qy in (MIN_Y >> 2)..((MIN_Y + HEIGHT) >> 2) {
                 for qz in 0..4 {
                     for qx in 0..4 {
-                        m.s(WORLD.biomes.key(chunk.access.get_noise_biome(qx0 + qx, qy, qz0 + qz)).path());
+                        m.s(WORLD
+                            .biomes
+                            .key(chunk.access.get_noise_biome(qx0 + qx, qy, qz0 + qz))
+                            .path());
                     }
                 }
             }
             out.push(format!("M {cx} {cz} {} {}", m.hex(), m.count));
             for (i, (now, was)) in blocks_of(chunk).into_iter().zip(was).enumerate() {
                 if now != *was {
-                    let (x, z, y) = (cx * 16 + (i & 15) as i32, cz * 16 + ((i >> 4) & 15) as i32, MIN_Y + (i >> 8) as i32);
+                    let (x, z, y) = (
+                        cx * 16 + (i & 15) as i32,
+                        cz * 16 + ((i >> 4) & 15) as i32,
+                        MIN_Y + (i >> 8) as i32,
+                    );
                     out.push(format!("B {x} {y} {z} {}", state_string(now)));
                 }
             }
             let mut bes: Vec<_> = chunk.access.block_entities.iter().collect();
             bes.sort_by_key(|(p, _)| (p.x(), p.y(), p.z()));
             for (p, tag) in bes {
-                out.push(format!("E {} {} {} {}", p.x(), p.y(), p.z(), mc_nbt::Tag::Compound(tag.clone())));
+                out.push(format!(
+                    "E {} {} {} {}",
+                    p.x(),
+                    p.y(),
+                    p.z(),
+                    mc_nbt::Tag::Compound(tag.clone())
+                ));
             }
-            let mut maps: Vec<_> = chunk.access.heightmaps.iter().map(|(ty, map)| (heightmap_name(*ty), map)).collect();
+            let mut maps: Vec<_> = chunk
+                .access
+                .heightmaps
+                .iter()
+                .map(|(ty, map)| (heightmap_name(*ty), map))
+                .collect();
             maps.sort_by_key(|(name, _)| *name);
             for (name, map) in maps {
                 let mut f = Fnv::default();
@@ -456,10 +628,26 @@ pub fn dump(level: &mut GenLevel<'_>, before: &Snapshot) -> Vec<String> {
                 }
             }
             for t in chunk.block_ticks.scheduled_ticks() {
-                out.push(format!("K b {} {} {} {} {} {}", t.pos.x(), t.pos.y(), t.pos.z(), t.ty.name(), t.delay, priority_name(t.priority)));
+                out.push(format!(
+                    "K b {} {} {} {} {} {}",
+                    t.pos.x(),
+                    t.pos.y(),
+                    t.pos.z(),
+                    t.ty.name(),
+                    t.delay,
+                    priority_name(t.priority)
+                ));
             }
             for t in chunk.fluid_ticks.scheduled_ticks() {
-                out.push(format!("K f {} {} {} {} {} {}", t.pos.x(), t.pos.y(), t.pos.z(), t.ty.name(), t.delay, priority_name(t.priority)));
+                out.push(format!(
+                    "K f {} {} {} {} {} {}",
+                    t.pos.x(),
+                    t.pos.y(),
+                    t.pos.z(),
+                    t.ty.name(),
+                    t.delay,
+                    priority_name(t.priority)
+                ));
             }
             for e in &chunk.entities {
                 out.push(format!("N {cx} {cz} {}", mc_nbt::Tag::Compound(e.clone())));

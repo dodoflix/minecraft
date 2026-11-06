@@ -7,7 +7,8 @@ use std::path::PathBuf;
 use mc_core::bounding_box::BoundingBox;
 use mc_core::pos::chunk_pos::ChunkPos;
 use mc_worldgen::beardifier::{
-    Beardifier, JigsawJunction, Rigid, StructurePieceInfo, StructurePieceKind, StructureStartInfo, TerrainAdjustment,
+    Beardifier, JigsawJunction, Rigid, StructurePieceInfo, StructurePieceKind, StructureStartInfo,
+    TerrainAdjustment,
 };
 use mc_worldgen::densityfunction::{DensityBuffer, DensitySampler, DensityVolume, SamplerContext};
 
@@ -63,7 +64,11 @@ fn beardifier_matches_vanilla() {
                     }
                     "J" => {
                         let v: [i32; 3] = ints(&parts[2..]);
-                        case.junctions.push(JigsawJunction { source_x: v[0], source_ground_y: v[1], source_z: v[2] });
+                        case.junctions.push(JigsawJunction {
+                            source_x: v[0],
+                            source_ground_y: v[1],
+                            source_z: v[2],
+                        });
                     }
                     "W" => {
                         let v: [i32; 6] = ints(&parts[2..]);
@@ -71,11 +76,13 @@ fn beardifier_matches_vanilla() {
                     }
                     "S" => {
                         let v: [i32; 3] = ints(&parts[2..]);
-                        case.samples.push((v, u32::from_str_radix(parts[5], 16).unwrap()));
+                        case.samples
+                            .push((v, u32::from_str_radix(parts[5], 16).unwrap()));
                     }
                     "V" => {
                         let v: [i32; 9] = ints(&parts[2..]);
-                        case.volumes.push((v, u64::from_str_radix(parts[11], 16).unwrap()));
+                        case.volumes
+                            .push((v, u64::from_str_radix(parts[11], 16).unwrap()));
                     }
                     other => panic!("unknown tag {other}"),
                 }
@@ -87,17 +94,25 @@ fn beardifier_matches_vanilla() {
     let ctx = SamplerContext::empty_uncached();
     let mut checked = 0;
     for (id, case) in &cases {
-        let beardifier = Beardifier::new(case.rigids.clone(), case.junctions.clone(), case.affected);
+        let beardifier =
+            Beardifier::new(case.rigids.clone(), case.junctions.clone(), case.affected);
         for (pos, bits) in &case.samples {
             let value = beardifier.sample_value(&ctx, pos[0], pos[1], pos[2]);
-            assert_eq!(value.to_bits(), *bits, "case {id} sample at {pos:?}: {value}");
+            assert_eq!(
+                value.to_bits(),
+                *bits,
+                "case {id} sample at {pos:?}: {value}"
+            );
             checked += 1;
         }
         for (v, hash) in &case.volumes {
             let volume = DensityVolume::new(v[0], v[1], v[2], v[3], v[4], v[5], v[6], v[7], v[8]);
             let mut buffer = DensityBuffer::create_unpooled(volume.size());
             beardifier.sample_volume(&ctx, &mut buffer, &volume);
-            let h = buffer.as_slice().iter().fold(0xcbf29ce484222325u64, |h, f| fnv(h, f.to_bits()));
+            let h = buffer
+                .as_slice()
+                .iter()
+                .fold(0xcbf29ce484222325u64, |h, f| fnv(h, f.to_bits()));
             assert_eq!(h, *hash, "case {id} volume {v:?}");
             checked += 1;
         }
@@ -106,7 +121,11 @@ fn beardifier_matches_vanilla() {
 
     let kernel = Beardifier::new(
         Vec::new(),
-        vec![JigsawJunction { source_x: 0, source_ground_y: 0, source_z: 0 }],
+        vec![JigsawJunction {
+            source_x: 0,
+            source_ground_y: 0,
+            source_z: 0,
+        }],
         Some(BoundingBox::new(-30, -30, -30, 30, 30, 30)),
     );
     let mut h = 0xcbf29ce484222325u64;
@@ -129,16 +148,30 @@ fn for_structures_in_chunk_selection() {
         StructureStartInfo {
             terrain_adaptation: TerrainAdjustment::BeardThin,
             pieces: vec![
-                StructurePieceInfo { bounding_box: near, kind: StructurePieceKind::Plain },
-                StructurePieceInfo { bounding_box: far, kind: StructurePieceKind::Plain },
+                StructurePieceInfo {
+                    bounding_box: near,
+                    kind: StructurePieceKind::Plain,
+                },
+                StructurePieceInfo {
+                    bounding_box: far,
+                    kind: StructurePieceKind::Plain,
+                },
                 StructurePieceInfo {
                     bounding_box: BoundingBox::new(-5, 60, -5, 3, 70, 3),
                     kind: StructurePieceKind::PoolElement {
                         rigid: false,
                         ground_level_delta: 2,
                         junctions: vec![
-                            JigsawJunction { source_x: 5, source_ground_y: 64, source_z: 5 },
-                            JigsawJunction { source_x: 400, source_ground_y: 64, source_z: 5 },
+                            JigsawJunction {
+                                source_x: 5,
+                                source_ground_y: 64,
+                                source_z: 5,
+                            },
+                            JigsawJunction {
+                                source_x: 400,
+                                source_ground_y: 64,
+                                source_z: 5,
+                            },
                         ],
                     },
                 },
@@ -146,11 +179,21 @@ fn for_structures_in_chunk_selection() {
         },
         StructureStartInfo {
             terrain_adaptation: TerrainAdjustment::None,
-            pieces: vec![StructurePieceInfo { bounding_box: near, kind: StructurePieceKind::Plain }],
+            pieces: vec![StructurePieceInfo {
+                bounding_box: near,
+                kind: StructurePieceKind::Plain,
+            }],
         },
     ];
     let beardifier = Beardifier::for_structures_in_chunk(ChunkPos::new(0, 0), &starts);
     let affected = beardifier.affected_box().expect("pieces near the chunk");
-    assert_eq!(*affected, BoundingBox::new(0, 60, 0, 10, 70, 10).inflated_by(24));
-    assert!(Beardifier::for_structures_in_chunk(ChunkPos::new(40, 40), &starts[1..]).affected_box().is_none());
+    assert_eq!(
+        *affected,
+        BoundingBox::new(0, 60, 0, 10, 70, 10).inflated_by(24)
+    );
+    assert!(
+        Beardifier::for_structures_in_chunk(ChunkPos::new(40, 40), &starts[1..])
+            .affected_box()
+            .is_none()
+    );
 }

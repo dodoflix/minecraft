@@ -1,22 +1,15 @@
 //! `levelgen.feature.TreeFeature` (type `tree`): the config record, the `place`/`doPlace` pipeline, `updateLeaves` and the
 //! shared helpers (`validTreePos`, `isVine`, ...).
 
-use mc_game_core::world::level::levelgen::feature::tree::java_hash_set::BlockPosHashSet;
-use super::tree_decorator::{Context, TreeDecorator};
-use super::{FEATURE_SIZE_TYPES, FOLIAGE_PLACER_TYPES, ROOT_PLACER_TYPES, TREE_DECORATOR_TYPES, TRUNK_PLACER_TYPES, block_tag_fn};
 use super::feature_size::FeatureSize;
 use super::foliage_placer::FoliagePlacer;
 use super::root_placer::RootPlacer;
+use super::tree_decorator::{Context, TreeDecorator};
 use super::trunk_placer::TrunkPlacer;
-use mc_game_core::world::level::levelgen::codec::{LoadResult, TypeEntry, decode_dispatch, parse_bool, parse_list};
-use mc_game_core::world::level::levelgen::env::GenEnv;
-use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature};
-use mc_game_core::world::level::levelgen::holder::Holder;
-use mc_game_core::world::level::levelgen::registries::DecodeCtx;
-use mc_game_core::world::level::levelgen::stateproviders::BlockStateProvider;
-use mc_game_core::world::level::levelgen::structure::templatesystem::structure_template::update_shape_at_edge;
-use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
-use mc_game_core::world::level::LevelAccessor;
+use super::{
+    FEATURE_SIZE_TYPES, FOLIAGE_PLACER_TYPES, ROOT_PLACER_TYPES, TREE_DECORATOR_TYPES,
+    TRUNK_PLACER_TYPES, block_tag_fn,
+};
 use mc_core::bounding_box::BoundingBox;
 use mc_core::direction::Direction;
 use mc_core::phys::shapes::{BitSetDiscreteVoxelShape, DiscreteVoxelShape};
@@ -25,6 +18,18 @@ use mc_core::random::RandomSource;
 use mc_data::block::{Block, BlockState};
 use mc_data::fluid::{Fluid, FluidState};
 use mc_data::props;
+use mc_game_core::world::level::LevelAccessor;
+use mc_game_core::world::level::levelgen::codec::{
+    LoadResult, TypeEntry, decode_dispatch, parse_bool, parse_list,
+};
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::feature::tree::java_hash_set::BlockPosHashSet;
+use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature};
+use mc_game_core::world::level::levelgen::holder::Holder;
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::stateproviders::BlockStateProvider;
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_template::update_shape_at_edge;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use std::collections::HashSet;
 use std::sync::Arc;
 
@@ -47,8 +52,10 @@ block_tag_fn!(
 
 /// `fluidState.is(FluidTags.WATER)`.
 pub fn fluid_is_water(fluid: FluidState) -> bool {
-    static TAG: std::sync::OnceLock<Option<&'static mc_data::tags::TagSet<Fluid>>> = std::sync::OnceLock::new();
-    TAG.get_or_init(|| mc_data::tags::get::<Fluid>("minecraft:water")).is_some_and(|tag| tag.contains(fluid.fluid()))
+    static TAG: std::sync::OnceLock<Option<&'static mc_data::tags::TagSet<Fluid>>> =
+        std::sync::OnceLock::new();
+    TAG.get_or_init(|| mc_data::tags::get::<Fluid>("minecraft:water"))
+        .is_some_and(|tag| tag.contains(fluid.fluid()))
 }
 
 /// `fluidState.isSourceOfType(Fluids.WATER)`.
@@ -81,7 +88,9 @@ pub struct TreeSetter {
 
 impl TreeSetter {
     pub fn tracking() -> Self {
-        TreeSetter { positions: Some(BlockPosHashSet::new()) }
+        TreeSetter {
+            positions: Some(BlockPosHashSet::new()),
+        }
     }
 
     pub fn untracked() -> Self {
@@ -102,7 +111,10 @@ impl TreeSetter {
     }
 
     pub fn positions(&self) -> BlockPosHashSet {
-        self.positions.as_ref().map(|set| set.clone()).unwrap_or_default()
+        self.positions
+            .as_ref()
+            .map(|set| set.clone())
+            .unwrap_or_default()
     }
 
     fn is_empty(&self) -> bool {
@@ -133,7 +145,9 @@ impl TreeFeature {
         foliage_setter: &mut TreeSetter,
     ) -> bool {
         let tree_height = self.trunk_placer.get_tree_height(random);
-        let foliage_height = self.foliage_placer.foliage_height(random, tree_height, self);
+        let foliage_height = self
+            .foliage_placer
+            .foliage_height(random, tree_height, self);
         let trunk_height = tree_height - foliage_height;
         let leaf_radius = self.foliage_placer.foliage_radius(random, trunk_height);
         let trunk_origin = match &self.root_placer {
@@ -147,7 +161,9 @@ impl TreeFeature {
         }
         let min_clipped_height = self.minimum_size.min_clipped_height();
         let clipped_tree_height = self.get_max_free_tree_height(level, tree_height, trunk_origin);
-        if !(clipped_tree_height >= tree_height || min_clipped_height.is_some_and(|min| clipped_tree_height >= min)) {
+        if !(clipped_tree_height >= tree_height
+            || min_clipped_height.is_some_and(|min| clipped_tree_height >= min))
+        {
             return false;
         }
         if let Some(root_placer) = &self.root_placer
@@ -155,20 +171,43 @@ impl TreeFeature {
         {
             return false;
         }
-        let foliage_attachments = self.trunk_placer.place_trunk(level, trunk_setter, random, clipped_tree_height, trunk_origin, self);
+        let foliage_attachments = self.trunk_placer.place_trunk(
+            level,
+            trunk_setter,
+            random,
+            clipped_tree_height,
+            trunk_origin,
+            self,
+        );
         for attachment in foliage_attachments {
-            self.foliage_placer.create_foliage(level, foliage_setter, random, self, clipped_tree_height, attachment, foliage_height, leaf_radius);
+            self.foliage_placer.create_foliage(
+                level,
+                foliage_setter,
+                random,
+                self,
+                clipped_tree_height,
+                attachment,
+                foliage_height,
+                leaf_radius,
+            );
         }
         true
     }
 
-    fn get_max_free_tree_height(&self, level: &dyn LevelAccessor, max_tree_height: i32, tree_pos: BlockPos) -> i32 {
+    fn get_max_free_tree_height(
+        &self,
+        level: &dyn LevelAccessor,
+        max_tree_height: i32,
+        tree_pos: BlockPos,
+    ) -> i32 {
         for y in 0..=max_tree_height + 1 {
             let r = self.minimum_size.get_size_at_height(max_tree_height, y);
             for x in -r..=r {
                 for z in -r..=r {
                     let block_pos = tree_pos.offset(x, y, z);
-                    if !self.trunk_placer.is_free(level, block_pos) || !self.ignore_vines && is_vine(level, block_pos) {
+                    if !self.trunk_placer.is_free(level, block_pos)
+                        || !self.ignore_vines && is_vine(level, block_pos)
+                    {
                         return y - 2;
                     }
                 }
@@ -177,24 +216,56 @@ impl TreeFeature {
         max_tree_height
     }
 
-    pub fn decode(fields: &mc_game_core::world::level::levelgen::codec::Fields<'_>, ctx: &DecodeCtx<'_>) -> LoadResult<TreeFeature> {
+    pub fn decode(
+        fields: &mc_game_core::world::level::levelgen::codec::Fields<'_>,
+        ctx: &DecodeCtx<'_>,
+    ) -> LoadResult<TreeFeature> {
         let trunk_provider = fields.required("trunk_provider", |v| ctx.block_state_provider(v))?;
-        let trunk_placer = fields.required("trunk_placer", |v| decode_dispatch(v, ctx, &TRUNK_PLACER_TYPES))?;
-        let foliage_provider = fields.required("foliage_provider", |v| ctx.block_state_provider(v))?;
-        let foliage_placer = fields.required("foliage_placer", |v| decode_dispatch(v, ctx, &FOLIAGE_PLACER_TYPES))?;
-        let root_placer = fields.optional("root_placer", |v| decode_dispatch(v, ctx, &ROOT_PLACER_TYPES))?;
-        let minimum_size = fields.required("minimum_size", |v| decode_dispatch(v, ctx, &FEATURE_SIZE_TYPES))?;
-        let decorators = fields.required("decorators", |v| parse_list(v, |d| decode_dispatch(d, ctx, &TREE_DECORATOR_TYPES)))?;
+        let trunk_placer = fields.required("trunk_placer", |v| {
+            decode_dispatch(v, ctx, &TRUNK_PLACER_TYPES)
+        })?;
+        let foliage_provider =
+            fields.required("foliage_provider", |v| ctx.block_state_provider(v))?;
+        let foliage_placer = fields.required("foliage_placer", |v| {
+            decode_dispatch(v, ctx, &FOLIAGE_PLACER_TYPES)
+        })?;
+        let root_placer = fields.optional("root_placer", |v| {
+            decode_dispatch(v, ctx, &ROOT_PLACER_TYPES)
+        })?;
+        let minimum_size = fields.required("minimum_size", |v| {
+            decode_dispatch(v, ctx, &FEATURE_SIZE_TYPES)
+        })?;
+        let decorators = fields.required("decorators", |v| {
+            parse_list(v, |d| decode_dispatch(d, ctx, &TREE_DECORATOR_TYPES))
+        })?;
         // `Codec.BOOL.fieldOf("ignore_vines").orElse(false)`: a missing or malformed field is `false`
-        let ignore_vines = fields.get("ignore_vines").and_then(|v| parse_bool(v).ok()).unwrap_or(false);
-        let below_trunk_provider = fields.required("below_trunk_provider", |v| ctx.block_state_provider(v))?;
-        Ok(TreeFeature { trunk_provider, trunk_placer, foliage_provider, foliage_placer, root_placer, minimum_size, decorators, ignore_vines, below_trunk_provider })
+        let ignore_vines = fields
+            .get("ignore_vines")
+            .and_then(|v| parse_bool(v).ok())
+            .unwrap_or(false);
+        let below_trunk_provider =
+            fields.required("below_trunk_provider", |v| ctx.block_state_provider(v))?;
+        Ok(TreeFeature {
+            trunk_provider,
+            trunk_placer,
+            foliage_provider,
+            foliage_placer,
+            root_placer,
+            minimum_size,
+            decorators,
+            ignore_vines,
+            below_trunk_provider,
+        })
     }
 }
 
 /// `LeavesBlock.getOptionalDistanceAt(state)`.
 fn get_optional_distance_at(state: BlockState) -> Option<i32> {
-    if block_prevents_nearby_leaf_decay(state) { Some(0) } else { state.try_get(props::DISTANCE) }
+    if block_prevents_nearby_leaf_decay(state) {
+        Some(0)
+    } else {
+        state.try_get(props::DISTANCE)
+    }
 }
 
 /// `TreeFeature.updateLeaves(level, bounds, logs, decorationSet, rootPositions)`.
@@ -205,8 +276,18 @@ fn update_leaves(
     decoration_set: &BlockPosHashSet,
     root_positions: &BlockPosHashSet,
 ) -> DiscreteVoxelShape {
-    let mut shape = BitSetDiscreteVoxelShape::new(bounds.get_x_span(), bounds.get_y_span(), bounds.get_z_span());
-    let fill = |shape: &mut BitSetDiscreteVoxelShape, pos: &BlockPos| shape.fill(pos.x() - bounds.min_x(), pos.y() - bounds.min_y(), pos.z() - bounds.min_z());
+    let mut shape = BitSetDiscreteVoxelShape::new(
+        bounds.get_x_span(),
+        bounds.get_y_span(),
+        bounds.get_z_span(),
+    );
+    let fill = |shape: &mut BitSetDiscreteVoxelShape, pos: &BlockPos| {
+        shape.fill(
+            pos.x() - bounds.min_x(),
+            pos.y() - bounds.min_y(),
+            pos.z() - bounds.min_z(),
+        )
+    };
     let mut to_check: Vec<BlockPosHashSet> = (0..7).map(|_| BlockPosHashSet::new()).collect();
 
     for pos in decoration_set.iter().chain(root_positions.iter()) {
@@ -227,20 +308,33 @@ fn update_leaves(
             if smallest_distance >= 7 {
                 return shape.into();
             }
-            let pos = to_check[smallest_distance].iter().next().expect("checked non-empty");
+            let pos = to_check[smallest_distance]
+                .iter()
+                .next()
+                .expect("checked non-empty");
             to_check[smallest_distance].remove(&pos);
             if bounds.is_inside(&pos) {
                 if smallest_distance != 0 {
                     let state = level.get_block_state(pos);
-                    level.set_block(pos, state.set(props::DISTANCE, smallest_distance as i32), 19, 512);
+                    level.set_block(
+                        pos,
+                        state.set(props::DISTANCE, smallest_distance as i32),
+                        19,
+                        512,
+                    );
                 }
                 fill(&mut shape, &pos);
 
                 for direction in Direction::ALL {
                     let neighbor_pos = pos.relative(direction);
                     if bounds.is_inside(&neighbor_pos)
-                        && !shape.is_full(neighbor_pos.x() - bounds.min_x(), neighbor_pos.y() - bounds.min_y(), neighbor_pos.z() - bounds.min_z())
-                        && let Some(distance) = get_optional_distance_at(level.get_block_state(neighbor_pos))
+                        && !shape.is_full(
+                            neighbor_pos.x() - bounds.min_x(),
+                            neighbor_pos.y() - bounds.min_y(),
+                            neighbor_pos.z() - bounds.min_z(),
+                        )
+                        && let Some(distance) =
+                            get_optional_distance_at(level.get_block_state(neighbor_pos))
                     {
                         let new_distance = distance.min(smallest_distance as i32 + 1);
                         if new_distance < 7 {
@@ -276,7 +370,13 @@ impl Feature for TreeFeature {
         Some(self.trunk_placer.get_base_height())
     }
 
-    fn place(&self, level: &mut dyn WorldGenLevel, _generator: &GenEnv, random: &mut dyn RandomSource, origin: BlockPos) -> bool {
+    fn place(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        _generator: &GenEnv,
+        random: &mut dyn RandomSource,
+        origin: BlockPos,
+    ) -> bool {
         let mut roots = TreeSetter::tracking();
         let mut trunks = TreeSetter::tracking();
         let mut foliage = TreeSetter::tracking();
@@ -286,18 +386,41 @@ impl Feature for TreeFeature {
             return false;
         }
         if !self.decorators.is_empty() {
-            let mut context = Context::new(level, &mut decorations, random, &trunks.positions(), &foliage.positions(), &roots.positions());
+            let mut context = Context::new(
+                level,
+                &mut decorations,
+                random,
+                &trunks.positions(),
+                &foliage.positions(),
+                &roots.positions(),
+            );
             for decorator in &self.decorators {
                 decorator.place(&mut context);
             }
         }
 
-        let (root_set, trunk_set, foliage_set, decoration_set) = (roots.positions(), trunks.positions(), foliage.positions(), decorations.positions());
-        let all = root_set.iter().chain(trunk_set.iter()).chain(foliage_set.iter()).chain(decoration_set.iter());
+        let (root_set, trunk_set, foliage_set, decoration_set) = (
+            roots.positions(),
+            trunks.positions(),
+            foliage.positions(),
+            decorations.positions(),
+        );
+        let all = root_set
+            .iter()
+            .chain(trunk_set.iter())
+            .chain(foliage_set.iter())
+            .chain(decoration_set.iter());
         match BoundingBox::encapsulating_positions(all) {
             Some(bounds) => {
                 let shape = update_leaves(level, &bounds, &trunk_set, &decoration_set, &root_set);
-                update_shape_at_edge(level, 3, &shape, bounds.min_x(), bounds.min_y(), bounds.min_z());
+                update_shape_at_edge(
+                    level,
+                    3,
+                    &shape,
+                    bounds.min_x(),
+                    bounds.min_y(),
+                    bounds.min_z(),
+                );
                 true
             }
             None => false,
@@ -306,5 +429,7 @@ impl Feature for TreeFeature {
 }
 
 #[linkme::distributed_slice(FEATURE_TYPES)]
-static TREE: TypeEntry<dyn Feature> = TypeEntry { name: "tree", decode: |fields, ctx| Ok(Arc::new(TreeFeature::decode(fields, ctx)?)) };
-
+static TREE: TypeEntry<dyn Feature> = TypeEntry {
+    name: "tree",
+    decode: |fields, ctx| Ok(Arc::new(TreeFeature::decode(fields, ctx)?)),
+};

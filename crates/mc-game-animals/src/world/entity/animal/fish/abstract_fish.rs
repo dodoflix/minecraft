@@ -4,22 +4,24 @@
 //! A concrete fish embeds `MobData`, implements [`AbstractFish`] and writes `abstract_fish_entity!()` inside its
 //! `impl Entity` block (which expands to every override `AbstractFish` makes), adding its own overrides after it.
 
+use mc_core::math::mth;
+use mc_core::phys::Vec3;
 use mc_core::random::RandomSource as _;
-use mc_game_core::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
-use mc_game_core::world::level::material::FluidStateExt as _;
+use mc_data::{Attribute, SoundEvent};
+use mc_game_ai::world::entity::ai::goal::{AvoidEntityGoal, RandomSwimmingGoal};
 use mc_game_core::define_accessor;
 use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::entity::ai::control::move_control::{MoveControl, MoveControlBase, Operation};
-use mc_game_ai::world::entity::ai::goal::{AvoidEntityGoal, RandomSwimmingGoal};
+use mc_game_core::world::entity::ai::control::move_control::{
+    MoveControl, MoveControlBase, Operation,
+};
 use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags, PanicGoal};
 use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
 use mc_game_core::world::entity::mob::{self, MobData};
 use mc_game_core::world::entity::movement;
 use mc_game_core::world::entity::{Entity, MoverType};
 use mc_game_core::world::item::ItemStack;
-use mc_core::math::mth;
-use mc_core::phys::Vec3;
-use mc_data::{Attribute, SoundEvent};
+use mc_game_core::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
+use mc_game_core::world::level::material::FluidStateExt as _;
 use mc_nbt::CompoundTag;
 use std::sync::Arc;
 
@@ -39,12 +41,17 @@ pub trait AbstractFish: Entity {
     fn get_bucket_item_stack(&self) -> ItemStack;
     /// `saveToBucketTag(bucket)` (subclasses add their variant components).
     fn save_to_bucket_tag(&self, bucket: &mut ItemStack) {
-        mc_game_core::world::entity::bucketable::save_default_data_to_bucket_tag(self.as_dyn(), bucket);
+        mc_game_core::world::entity::bucketable::save_default_data_to_bucket_tag(
+            self.as_dyn(),
+            bucket,
+        );
     }
 }
 
 /// `AbstractFish.createAttributes()` is `Mob.createMobAttributes().add(MAX_HEALTH, 3.0)`: read from `mc_data`.
-pub fn define_synched_data(b: &mut mc_game_core::world::entity::synched_data::SynchedEntityDataBuilder) {
+pub fn define_synched_data(
+    b: &mut mc_game_core::world::entity::synched_data::SynchedEntityDataBuilder,
+) {
     b.define(FROM_BUCKET, false);
 }
 
@@ -69,7 +76,13 @@ pub fn init_controls(mob: &mut MobData, navigation: StandardPathNavigation) {
 /// `registerGoals()` of `AbstractFish` (`super.registerGoals()` of `WaterAnimal`/`PathfinderMob` adds nothing).
 pub fn register_goals(e: &mut dyn Entity) {
     // `EntitySelector.NO_SPECTATORS`
-    let avoid = AvoidEntityGoal::with_predicate_on_avoid_entity(Arc::new(|target| target.is_player()), 8.0, 1.6, 1.4, Arc::new(|target| !target.is_spectator()));
+    let avoid = AvoidEntityGoal::with_predicate_on_avoid_entity(
+        Arc::new(|target| target.is_player()),
+        8.0,
+        1.6,
+        1.4,
+        Arc::new(|target| !target.is_spectator()),
+    );
     let goals = &mut e.mob_mut().expect("mob").goal_selector;
     goals.add_goal(0, Box::new(PanicGoal::new(1.25)));
     goals.add_goal(2, Box::new(avoid));
@@ -116,7 +129,11 @@ pub fn ai_step(e: &mut dyn Entity, level: &mut ServerLevel, flop_sound: SoundEve
     if !e.is_in_water() && e.base().on_ground() && e.base().vertical_collision {
         let dx = (e.base_mut().random.next_float() * 2.0 - 1.0) * 0.05;
         let dz = (e.base_mut().random.next_float() * 2.0 - 1.0) * 0.05;
-        let dm = e.base().delta_movement().add(Vec3::new(f64::from(dx), f64::from(0.4f32), f64::from(dz)));
+        let dm = e.base().delta_movement().add(Vec3::new(
+            f64::from(dx),
+            f64::from(0.4f32),
+            f64::from(dz),
+        ));
         e.base_mut().set_delta_movement(dm);
         movement::set_on_ground(e, &*level, false);
         e.base_mut().needs_sync = true;
@@ -146,7 +163,8 @@ impl MoveControl for FishMoveControl {
         }
         let b = &mut self.base;
         if b.operation == Operation::MoveTo && !mob::navigation::is_done(mob, level) {
-            let target_speed = (b.speed_modifier * mob::attribute_value(mob, Attribute::MOVEMENT_SPEED)) as f32;
+            let target_speed =
+                (b.speed_modifier * mob::attribute_value(mob, Attribute::MOVEMENT_SPEED)) as f32;
             let speed = mth::lerp_f32(0.125, mob.get_speed(), target_speed);
             mob.set_speed(speed);
             let xd = b.wanted_x - mob.base().x();
@@ -154,11 +172,17 @@ impl MoveControl for FishMoveControl {
             let zd = b.wanted_z - mob.base().z();
             if yd != 0.0 {
                 let dd = (xd * xd + yd * yd + zd * zd).sqrt();
-                let dm = mob.base().delta_movement().add(Vec3::new(0.0, f64::from(mob.get_speed()) * (yd / dd) * 0.1, 0.0));
+                let dm = mob.base().delta_movement().add(Vec3::new(
+                    0.0,
+                    f64::from(mob.get_speed()) * (yd / dd) * 0.1,
+                    0.0,
+                ));
                 mob.base_mut().set_delta_movement(dm);
             }
             if xd != 0.0 || zd != 0.0 {
-                let y_rot_d = (mth::atan2(zd, xd) * f64::from(180.0f32) / f64::from(std::f32::consts::PI)) as f32 - 90.0;
+                let y_rot_d = (mth::atan2(zd, xd) * f64::from(180.0f32)
+                    / f64::from(std::f32::consts::PI)) as f32
+                    - 90.0;
                 let new_y_rot = b.rotlerp(mob.base().y_rot(), y_rot_d, 90.0);
                 mob.set_y_rot(new_y_rot);
                 l_mut(mob).y_body_rot = new_y_rot;
@@ -180,7 +204,9 @@ pub struct FishSwimGoal {
 
 impl FishSwimGoal {
     pub fn new() -> Self {
-        Self { inner: RandomSwimmingGoal::new(1.0, 40) }
+        Self {
+            inner: RandomSwimmingGoal::new(1.0, 40),
+        }
     }
 }
 
@@ -228,22 +254,44 @@ macro_rules! abstract_fish_entity {
         fn remove_when_far_away(&self, _dist_sqr: f64) -> bool {
             crate::world::entity::animal::fish::abstract_fish::remove_when_far_away(self)
         }
-        fn travel_in_water(&mut self, level: &mut mc_game_core::server::level::ServerLevel, input: mc_core::phys::Vec3, _base_gravity: f64, _is_falling: bool, _old_y: f64) {
+        fn travel_in_water(
+            &mut self,
+            level: &mut mc_game_core::server::level::ServerLevel,
+            input: mc_core::phys::Vec3,
+            _base_gravity: f64,
+            _is_falling: bool,
+            _old_y: f64,
+        ) {
             crate::world::entity::animal::fish::abstract_fish::travel_in_water(self, level, input);
         }
         fn ai_step(&mut self, level: &mut mc_game_core::server::level::ServerLevel) {
-            let flop = crate::world::entity::animal::fish::abstract_fish::AbstractFish::get_flop_sound(self);
+            let flop =
+                crate::world::entity::animal::fish::abstract_fish::AbstractFish::get_flop_sound(
+                    self,
+                );
             crate::world::entity::animal::fish::abstract_fish::ai_step(self, level, flop);
-            crate::world::entity::animal::fish::abstract_fish::AbstractFish::after_ai_step(self, level);
+            crate::world::entity::animal::fish::abstract_fish::AbstractFish::after_ai_step(
+                self, level,
+            );
         }
         fn get_swim_sound(&self) -> mc_data::SoundEvent {
             mc_data::SoundEvent::ENTITY_FISH_SWIM
         }
-        fn play_step_sound(&mut self, _level: &mut mc_game_core::server::level::ServerLevel, _pos: mc_core::pos::BlockPos, _state: mc_data::block::BlockState) {}
-        fn as_bucketable(&self) -> Option<&dyn mc_game_core::world::entity::bucketable::Bucketable> {
+        fn play_step_sound(
+            &mut self,
+            _level: &mut mc_game_core::server::level::ServerLevel,
+            _pos: mc_core::pos::BlockPos,
+            _state: mc_data::block::BlockState,
+        ) {
+        }
+        fn as_bucketable(
+            &self,
+        ) -> Option<&dyn mc_game_core::world::entity::bucketable::Bucketable> {
             Some(self)
         }
-        fn as_bucketable_mut(&mut self) -> Option<&mut dyn mc_game_core::world::entity::bucketable::Bucketable> {
+        fn as_bucketable_mut(
+            &mut self,
+        ) -> Option<&mut dyn mc_game_core::world::entity::bucketable::Bucketable> {
             Some(self)
         }
         fn mob_interact(
@@ -252,9 +300,13 @@ macro_rules! abstract_fish_entity {
             player: &mut mc_game_core::world::entity::ServerPlayer,
             hand: mc_game_core::world::item::InteractionHand,
         ) -> mc_game_core::world::item::InteractionResult {
-            match mc_game_core::world::entity::bucketable::bucket_mob_pickup_in_place(level, player, hand, self) {
+            match mc_game_core::world::entity::bucketable::bucket_mob_pickup_in_place(
+                level, player, hand, self,
+            ) {
                 Some(result) => result,
-                None => mc_game_core::world::entity::mob::interact::mob_interact(self, level, player, hand),
+                None => mc_game_core::world::entity::mob::interact::mob_interact(
+                    self, level, player, hand,
+                ),
             }
         }
     };

@@ -17,7 +17,10 @@ pub struct PlayerEnderChestContainer {
 
 impl PlayerEnderChestContainer {
     pub fn new() -> Self {
-        Self { inner: SimpleContainer::new(27), active_chest: None }
+        Self {
+            inner: SimpleContainer::new(27),
+            active_chest: None,
+        }
     }
 
     /// `setActiveChest(chest)`.

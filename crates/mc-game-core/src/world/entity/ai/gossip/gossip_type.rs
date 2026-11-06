@@ -19,7 +19,13 @@ pub const REPUTATION_CHANGE_PER_TRADE: i32 = 2;
 
 impl GossipType {
     /// `GossipType.values()` (ordinal order).
-    pub const ALL: [GossipType; 5] = [GossipType::MajorNegative, GossipType::MinorNegative, GossipType::MinorPositive, GossipType::MajorPositive, GossipType::Trading];
+    pub const ALL: [GossipType; 5] = [
+        GossipType::MajorNegative,
+        GossipType::MinorNegative,
+        GossipType::MinorPositive,
+        GossipType::MajorPositive,
+        GossipType::Trading,
+    ];
 
     /// `getSerializedName()` (`id`).
     pub const fn id(self) -> &'static str {

@@ -40,11 +40,18 @@ impl PartialEq for Optic {
     fn eq(&self, o: &Optic) -> bool {
         use Optic::*;
         match (self, o) {
-            (Id, Id) | (Proj1, Proj1) | (Proj2, Proj2) | (Inj1, Inj1) | (Inj2, Inj2) | (ListTraversal, ListTraversal) => true,
+            (Id, Id)
+            | (Proj1, Proj1)
+            | (Proj2, Proj2)
+            | (Inj1, Inj1)
+            | (Inj2, Inj2)
+            | (ListTraversal, ListTraversal) => true,
             (InjTagged(a), InjTagged(b)) => a == b,
             (Sum(a1, a2), Sum(b1, b2)) => a1 == b1 && a2 == b2,
             (Choice(a), Choice(b)) => {
-                a.len() == b.len() && a.iter().all(|(k, v)| b.iter().any(|(k2, v2)| k == k2 && v == v2))
+                a.len() == b.len()
+                    && a.iter()
+                        .all(|(k, v)| b.iter().any(|(k2, v2)| k == k2 && v == v2))
             }
             _ => false,
         }
@@ -88,7 +95,11 @@ impl Optic {
             Optic::ListTraversal => Value::List(s.into_list().into_iter().map(|v| f(v)).collect()),
             Optic::InjTagged(key) => {
                 let (k, v) = s.into_pair();
-                if matches!(&k, Value::Str(s) if s == key) { Value::pair(k, f(v)) } else { Value::pair(k, v) }
+                if matches!(&k, Value::Str(s) if s == key) {
+                    Value::pair(k, f(v))
+                } else {
+                    Value::pair(k, v)
+                }
             }
             Optic::Sum(l, r) => match s {
                 Value::Left(a) => Value::left(l.update(*a, f)),
@@ -97,7 +108,10 @@ impl Optic {
             },
             Optic::Choice(optics) => {
                 let (k, v) = s.into_pair();
-                match optics.iter().find(|(name, _)| matches!(&k, Value::Str(s) if s == name)) {
+                match optics
+                    .iter()
+                    .find(|(name, _)| matches!(&k, Value::Str(s) if s == name))
+                {
                     Some((_, o)) => Value::pair(k, o.update(v, f)),
                     None => Value::pair(k, v),
                 }
@@ -134,7 +148,10 @@ impl Optic {
             },
             Optic::Choice(optics) => {
                 let (k, v) = s.as_pair();
-                if let Some((_, o)) = optics.iter().find(|(name, _)| matches!(k, Value::Str(s) if s == name)) {
+                if let Some((_, o)) = optics
+                    .iter()
+                    .find(|(name, _)| matches!(k, Value::Str(s) if s == name))
+                {
                     o.visit(v, f)
                 }
             }
@@ -184,7 +201,9 @@ impl Hash for TypedOptic {
 
 impl TypedOptic {
     fn single(s: Type, t: Type, a: Type, b: Type, optic: Optic) -> TypedOptic {
-        TypedOptic { elements: Arc::new(vec![Element { s, t, a, b, optic }]) }
+        TypedOptic {
+            elements: Arc::new(vec![Element { s, t, a, b, optic }]),
+        }
     }
 
     pub fn s_type(&self) -> &Type {
@@ -205,7 +224,9 @@ impl TypedOptic {
         let mut v = Vec::with_capacity(self.elements.len() + other.elements.len());
         v.extend(self.elements.iter().cloned());
         v.extend(other.elements.iter().cloned());
-        TypedOptic { elements: Arc::new(v) }
+        TypedOptic {
+            elements: Arc::new(v),
+        }
     }
 
     /// `castOuterUnchecked(sType, tType)`.
@@ -213,7 +234,9 @@ impl TypedOptic {
         let mut v: Vec<Element> = (*self.elements).clone();
         v[0].s = s;
         v[0].t = t;
-        TypedOptic { elements: Arc::new(v) }
+        TypedOptic {
+            elements: Arc::new(v),
+        }
     }
 
     // ---- constructors (`TypedOptic.*`) -------------------------------------------------------------------------
@@ -223,20 +246,50 @@ impl TypedOptic {
         TypedOptic::single(s.clone(), t.clone(), s.clone(), t.clone(), Optic::Id)
     }
     pub fn proj1(f: &Type, g: &Type, new_type: &Type) -> TypedOptic {
-        TypedOptic::single(Type::product(f, g), Type::product(new_type, g), f.clone(), new_type.clone(), Optic::Proj1)
+        TypedOptic::single(
+            Type::product(f, g),
+            Type::product(new_type, g),
+            f.clone(),
+            new_type.clone(),
+            Optic::Proj1,
+        )
     }
     pub fn proj2(f: &Type, g: &Type, new_type: &Type) -> TypedOptic {
-        TypedOptic::single(Type::product(f, g), Type::product(f, new_type), g.clone(), new_type.clone(), Optic::Proj2)
+        TypedOptic::single(
+            Type::product(f, g),
+            Type::product(f, new_type),
+            g.clone(),
+            new_type.clone(),
+            Optic::Proj2,
+        )
     }
     pub fn inj1(f: &Type, g: &Type, new_type: &Type) -> TypedOptic {
-        TypedOptic::single(Type::sum(f, g), Type::sum(new_type, g), f.clone(), new_type.clone(), Optic::Inj1)
+        TypedOptic::single(
+            Type::sum(f, g),
+            Type::sum(new_type, g),
+            f.clone(),
+            new_type.clone(),
+            Optic::Inj1,
+        )
     }
     pub fn inj2(f: &Type, g: &Type, new_type: &Type) -> TypedOptic {
-        TypedOptic::single(Type::sum(f, g), Type::sum(f, new_type), g.clone(), new_type.clone(), Optic::Inj2)
+        TypedOptic::single(
+            Type::sum(f, g),
+            Type::sum(f, new_type),
+            g.clone(),
+            new_type.clone(),
+            Optic::Inj2,
+        )
     }
     /// `TypedOptic.list(aType, bType)`.
     pub fn list(a: &Type, b: &Type) -> TypedOptic {
-        TypedOptic::single(Type::list(a), Type::list(b), a.clone(), b.clone(), Optic::ListTraversal)
+        TypedOptic::single(
+            Type::list(a),
+            Type::list(b),
+            a.clone(),
+            b.clone(),
+            Optic::ListTraversal,
+        )
     }
     /// `TypedOptic.compoundListKeys(aType, bType, valueType)`.
     pub fn compound_list_keys(a: &Type, b: &Type, value: &Type) -> TypedOptic {
@@ -247,7 +300,13 @@ impl TypedOptic {
             Type::product(b, value),
             Optic::ListTraversal,
         )
-        .compose(&TypedOptic::single(Type::product(a, value), Type::product(b, value), a.clone(), b.clone(), Optic::Proj1))
+        .compose(&TypedOptic::single(
+            Type::product(a, value),
+            Type::product(b, value),
+            a.clone(),
+            b.clone(),
+            Optic::Proj1,
+        ))
     }
     /// `TypedOptic.compoundListElements(keyType, aType, bType)`.
     pub fn compound_list_elements(key: &Type, a: &Type, b: &Type) -> TypedOptic {
@@ -258,12 +317,24 @@ impl TypedOptic {
             Type::product(key, b),
             Optic::ListTraversal,
         )
-        .compose(&TypedOptic::single(Type::product(key, a), Type::product(key, b), a.clone(), b.clone(), Optic::Proj2))
+        .compose(&TypedOptic::single(
+            Type::product(key, a),
+            Type::product(key, b),
+            a.clone(),
+            b.clone(),
+            Optic::Proj2,
+        ))
     }
     /// `TypedOptic.tagged(sType, key, aType, bType)`.
     pub fn tagged(s: &TaggedChoiceType, key: &str, a: &Type, b: &Type) -> TypedOptic {
         let t = s.replace_tagged(key, a, b);
-        TypedOptic::single(s.ty().clone(), t, a.clone(), b.clone(), Optic::InjTagged(key.to_string()))
+        TypedOptic::single(
+            s.ty().clone(),
+            t,
+            a.clone(),
+            b.clone(),
+            Optic::InjTagged(key.to_string()),
+        )
     }
 
     // ---- crate-internal constructors used by the type implementations -------------------------------------------
@@ -286,7 +357,13 @@ impl TypedOptic {
             Optic::Sum(Box::new(l.clone()), Box::new(r.clone())),
         )
     }
-    pub(crate) fn choice(s: Type, t: Type, a: Type, b: Type, optics: Vec<(String, TypedOptic)>) -> TypedOptic {
+    pub(crate) fn choice(
+        s: Type,
+        t: Type,
+        a: Type,
+        b: Type,
+        optics: Vec<(String, TypedOptic)>,
+    ) -> TypedOptic {
         TypedOptic::single(s, t, a, b, Optic::Choice(Arc::new(optics)))
     }
 
@@ -300,7 +377,9 @@ impl TypedOptic {
     fn update_from(&self, k: usize, s: Value, f: &mut dyn FnMut(Value) -> Value) -> Value {
         match self.elements.get(k) {
             None => f(s),
-            Some(e) => e.optic.update(s, &mut |inner| self.update_from(k + 1, inner, &mut *f)),
+            Some(e) => e
+                .optic
+                .update(s, &mut |inner| self.update_from(k + 1, inner, &mut *f)),
         }
     }
 
@@ -312,7 +391,9 @@ impl TypedOptic {
     fn visit_from(&self, k: usize, s: &Value, f: &mut dyn FnMut(&Value)) {
         match self.elements.get(k) {
             None => f(s),
-            Some(e) => e.optic.visit(s, &mut |inner| self.visit_from(k + 1, inner, &mut *f)),
+            Some(e) => e
+                .optic
+                .visit(s, &mut |inner| self.visit_from(k + 1, inner, &mut *f)),
         }
     }
 

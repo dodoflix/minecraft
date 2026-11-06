@@ -5,8 +5,8 @@
 use super::world_gen_level::WorldGenLevel;
 use crate::world::block_entity::{BlockEntity, TheEndGatewayBlockEntity, new_block_entity};
 use mc_core::pos::BlockPos;
-use mc_data::BlockEntityType;
 use mc_core::random::RandomSource;
+use mc_data::BlockEntityType;
 use mc_nbt::{CompoundTag, ListTag};
 
 /// `BlockEntity.saveWithFullMetadata` without the type specific fields.
@@ -24,7 +24,14 @@ pub fn base_tag(id: &str, pos: BlockPos) -> CompoundTag {
 fn is_randomizable_container(id: &str) -> bool {
     matches!(
         id,
-        "minecraft:chest" | "minecraft:trapped_chest" | "minecraft:barrel" | "minecraft:dispenser" | "minecraft:dropper" | "minecraft:hopper" | "minecraft:crafter" | "minecraft:shulker_box"
+        "minecraft:chest"
+            | "minecraft:trapped_chest"
+            | "minecraft:barrel"
+            | "minecraft:dispenser"
+            | "minecraft:dropper"
+            | "minecraft:hopper"
+            | "minecraft:crafter"
+            | "minecraft:shulker_box"
     )
 }
 
@@ -36,7 +43,11 @@ pub(super) fn block_entity_type_of(block: mc_data::block::Block) -> Option<Block
 /// `new XBlockEntity(pos, state).saveWithFullMetadata()` for the types worldgen features configure (`None`: not modelled).
 fn default_tag(id: &str, pos: BlockPos) -> Option<CompoundTag> {
     match id {
-        "minecraft:chest" | "minecraft:trapped_chest" | "minecraft:barrel" | "minecraft:dispenser" | "minecraft:dropper" => {
+        "minecraft:chest"
+        | "minecraft:trapped_chest"
+        | "minecraft:barrel"
+        | "minecraft:dispenser"
+        | "minecraft:dropper" => {
             let mut tag = base_tag(id, pos);
             tag.put("Items", ListTag::new());
             Some(tag)
@@ -83,7 +94,9 @@ pub fn load_and_save_template_block_entity(mut tag: CompoundTag) -> CompoundTag 
             tag.remove("LootTableSeed");
         }
     }
-    if tag.get_string("id") == Some("minecraft:banner") && tag.get_list("patterns").is_some_and(|p| p.is_empty()) {
+    if tag.get_string("id") == Some("minecraft:banner")
+        && tag.get_list("patterns").is_some_and(|p| p.is_empty())
+    {
         tag.remove("patterns");
     }
     if tag.get_string("id") == Some("minecraft:jigsaw") {
@@ -114,7 +127,12 @@ pub fn load_and_save_template_block_entity(mut tag: CompoundTag) -> CompoundTag 
 /// `RandomizableContainer.setBlockEntityLootTable(level, random, pos, lootTable)`: when the block entity at `pos` is a
 /// randomizable container it gets the loot table and `random.nextLong()` as seed (`trySaveLootTable`: the seed is only
 /// saved when non-zero, and a container with a loot table saves no `Items`).
-pub fn set_block_entity_loot_table(level: &mut dyn WorldGenLevel, random: &mut dyn RandomSource, pos: BlockPos, loot_table: &str) {
+pub fn set_block_entity_loot_table(
+    level: &mut dyn WorldGenLevel,
+    random: &mut dyn RandomSource,
+    pos: BlockPos,
+    loot_table: &str,
+) {
     let Some(mut tag) = get_block_entity_nbt(level, pos) else {
         return;
     };
@@ -152,7 +170,8 @@ pub fn spawner_tag(pos: BlockPos, entity_id: &str) -> CompoundTag {
 
 /// `TheEndGatewayBlockEntity` (`Age`, and the exit when `setExitPosition(pos, exact)` was called).
 pub fn end_gateway_tag(pos: BlockPos, exit: Option<(BlockPos, bool)>) -> CompoundTag {
-    let mut gateway = TheEndGatewayBlockEntity::new(pos, mc_data::block::Block::END_GATEWAY.default_state());
+    let mut gateway =
+        TheEndGatewayBlockEntity::new(pos, mc_data::block::Block::END_GATEWAY.default_state());
     if let Some((exit_pos, exact)) = exit {
         gateway.set_exit_position(exit_pos, exact);
     }

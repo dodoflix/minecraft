@@ -30,7 +30,11 @@ pub struct ChunkStep {
 impl ChunkStep {
     /// `getAccumulatedRadiusOf(status)`.
     pub fn get_accumulated_radius_of(&self, status: ChunkStatus) -> i32 {
-        if status == self.target_status { 0 } else { self.accumulated_dependencies.get_radius_of(status) }
+        if status == self.target_status {
+            0
+        } else {
+            self.accumulated_dependencies.get_radius_of(status)
+        }
     }
 }
 
@@ -47,11 +51,25 @@ impl ChunkStepBuilder {
     pub(super) fn new(status: ChunkStatus, parent: Option<&ChunkStep>) -> Self {
         match parent {
             None => {
-                assert!(status.parent() == status, "Not starting with the first status: {}", status.name());
-                Self { status, parent: None, direct_dependencies_by_radius: Vec::new(), block_state_write_radius: -1, task: ChunkStatusTask::PassThrough }
+                assert!(
+                    status.parent() == status,
+                    "Not starting with the first status: {}",
+                    status.name()
+                );
+                Self {
+                    status,
+                    parent: None,
+                    direct_dependencies_by_radius: Vec::new(),
+                    block_state_write_radius: -1,
+                    task: ChunkStatusTask::PassThrough,
+                }
             }
             Some(parent) => {
-                assert!(parent.target_status.index() == status.index() - 1, "Out of order status: {}", status.name());
+                assert!(
+                    parent.target_status.index() == status.index() - 1,
+                    "Out of order status: {}",
+                    status.name()
+                );
                 Self {
                     status,
                     parent: Some(parent.clone()),
@@ -64,7 +82,12 @@ impl ChunkStepBuilder {
     }
 
     pub(super) fn add_requirement(mut self, status: ChunkStatus, radius: i32) -> Self {
-        assert!(!status.is_or_after(self.status), "Status {} can not be required by {}", status.name(), self.status.name());
+        assert!(
+            !status.is_or_after(self.status),
+            "Status {} can not be required by {}",
+            status.name(),
+            self.status.name()
+        );
         let previous = std::mem::take(&mut self.direct_dependencies_by_radius);
         let new_length = radius as usize + 1;
         if new_length > previous.len() {
@@ -109,7 +132,9 @@ impl ChunkStepBuilder {
     }
 
     fn build_accumulated_dependencies(&self) -> Vec<ChunkStatus> {
-        let Some(parent) = &self.parent else { return self.direct_dependencies_by_radius.clone() };
+        let Some(parent) = &self.parent else {
+            return self.direct_dependencies_by_radius.clone();
+        };
         let radius_of_parent = self.get_radius_of_parent(parent.target_status);
         let parent_dependencies = &parent.accumulated_dependencies;
         let direct = &self.direct_dependencies_by_radius;
@@ -118,12 +143,17 @@ impl ChunkStepBuilder {
             .map(|distance| {
                 // `distanceInParent` may be negative in Java: wrap like the `< 0` check.
                 let distance_in_parent = distance as isize - radius_of_parent as isize;
-                if distance_in_parent < 0 || distance_in_parent as usize >= parent_dependencies.size() {
+                if distance_in_parent < 0
+                    || distance_in_parent as usize >= parent_dependencies.size()
+                {
                     direct[distance]
                 } else if distance >= direct.len() {
                     parent_dependencies.get(distance_in_parent as i32)
                 } else {
-                    ChunkStatus::max(direct[distance], parent_dependencies.get(distance_in_parent as i32))
+                    ChunkStatus::max(
+                        direct[distance],
+                        parent_dependencies.get(distance_in_parent as i32),
+                    )
                 }
             })
             .collect()

@@ -2,8 +2,10 @@
 //! (`ItemStack` methods that depend on game types, or that the value type does not carry).
 
 use mc_nbt::{CompoundTag, Tag};
+use mc_protocol::components::{
+    CUSTOM_NAME, DataComponentPatch, RARITY, Rarity, WRITTEN_BOOK_CONTENT,
+};
 use mc_protocol::components::{ENCHANTMENTS, ItemStack};
-use mc_protocol::components::{CUSTOM_NAME, DataComponentPatch, RARITY, Rarity, WRITTEN_BOOK_CONTENT};
 use mc_text::{ChatFormatting, Component, HoverEvent, ItemStackTemplate};
 
 pub trait ItemStackExt {
@@ -26,7 +28,11 @@ pub trait ItemStackExt {
     /// `getRarity()`.
     fn get_rarity(&self) -> Rarity;
     /// `canBeHurtBy(source)`: false when the `damage_resistant` component covers the damage type of `source`.
-    fn can_be_hurt_by(&self, level: &crate::server::level::ServerLevel, source: &crate::world::damagesource::DamageSource) -> bool;
+    fn can_be_hurt_by(
+        &self,
+        level: &crate::server::level::ServerLevel,
+        source: &crate::world::damagesource::DamageSource,
+    ) -> bool;
     /// `getDisplayName()`: the bracketed, rarity-coloured name with the `show_item` hover.
     fn get_display_name(&self) -> Component;
 }
@@ -36,12 +42,24 @@ impl ItemStackExt for ItemStack {
         self.get(&ENCHANTMENTS).is_some_and(|e| !e.is_empty())
     }
 
-    fn can_be_hurt_by(&self, level: &crate::server::level::ServerLevel, source: &crate::world::damagesource::DamageSource) -> bool {
+    fn can_be_hurt_by(
+        &self,
+        level: &crate::server::level::ServerLevel,
+        source: &crate::world::damagesource::DamageSource,
+    ) -> bool {
         use mc_protocol::components::{DAMAGE_RESISTANT, HolderSet};
-        let Some(resistant) = self.get(&DAMAGE_RESISTANT) else { return true };
+        let Some(resistant) = self.get(&DAMAGE_RESISTANT) else {
+            return true;
+        };
         let resistant_to = match &resistant.types {
-            HolderSet::Named(tag) => level.registries.is_in_tag(crate::registry::keys::DAMAGE_TYPE, &source.damage_type, tag),
-            HolderSet::Direct(holders) => holders.iter().any(|h| h.name() == Some(&source.damage_type)),
+            HolderSet::Named(tag) => level.registries.is_in_tag(
+                crate::registry::keys::DAMAGE_TYPE,
+                &source.damage_type,
+                tag,
+            ),
+            HolderSet::Direct(holders) => holders
+                .iter()
+                .any(|h| h.name() == Some(&source.damage_type)),
         };
         !resistant_to
     }
@@ -52,12 +70,14 @@ impl ItemStackExt for ItemStack {
         }
         let title = &self.get(&WRITTEN_BOOK_CONTENT)?.title.raw;
         // `StringUtil.isBlank`: `Character.isWhitespace || Character.isSpaceChar` (Rust's White_Space differs at U+0085 and U+001C..1F).
-        let whitespace = |c: char| (c.is_whitespace() && c != '\u{85}') || ('\u{1c}'..='\u{1f}').contains(&c);
+        let whitespace =
+            |c: char| (c.is_whitespace() && c != '\u{85}') || ('\u{1c}'..='\u{1f}').contains(&c);
         (!title.chars().all(whitespace)).then(|| Component::literal(title.clone()))
     }
 
     fn get_hover_name(&self) -> Component {
-        self.get_custom_name().unwrap_or_else(|| super::behaviour(self.item()).get_name(self))
+        self.get_custom_name()
+            .unwrap_or_else(|| super::behaviour(self.item()).get_name(self))
     }
 
     fn get_rarity(&self) -> Rarity {
@@ -87,10 +107,25 @@ impl ItemStackExt for ItemStack {
             Rarity::Rare => ChatFormatting::Aqua,
             Rarity::Epic => ChatFormatting::LightPurple,
         };
-        let patch = self.components().map_or_else(DataComponentPatch::empty, |c| c.as_patch());
-        let components = if patch.is_empty() { None } else { mc_dfu::encode_nbt(&DataComponentPatch::codec(), &patch).into_result().ok() };
-        let hover = HoverEvent::ShowItem(ItemStackTemplate { id: self.item().identifier(), count: self.count(), components });
-        result.with_style_fn(|s| s.with_color_formatting(Some(color)).with_hover_event(Some(hover)))
+        let patch = self
+            .components()
+            .map_or_else(DataComponentPatch::empty, |c| c.as_patch());
+        let components = if patch.is_empty() {
+            None
+        } else {
+            mc_dfu::encode_nbt(&DataComponentPatch::codec(), &patch)
+                .into_result()
+                .ok()
+        };
+        let hover = HoverEvent::ShowItem(ItemStackTemplate {
+            id: self.item().identifier(),
+            count: self.count(),
+            components,
+        });
+        result.with_style_fn(|s| {
+            s.with_color_formatting(Some(color))
+                .with_hover_event(Some(hover))
+        })
     }
 
     fn save_into(&self, tag: &mut CompoundTag) {
@@ -118,10 +153,11 @@ impl ItemStackExt for ItemStack {
     fn next_damage_will_break(&self) -> bool {
         self.is_damageable_item() && self.get_damage_value() >= self.get_max_damage() - 1
     }
-
 }
 
 /// Decodes the `MAP_CODEC` fields of `tag` (`None` = undecodable entry: unknown item, count outside 1..=99, ...).
 pub fn load_item_stack(tag: &CompoundTag) -> Option<ItemStack> {
-    ItemStack::from_tag(&Tag::Compound(tag.clone())).into_result().ok()
+    ItemStack::from_tag(&Tag::Compound(tag.clone()))
+        .into_result()
+        .ok()
 }

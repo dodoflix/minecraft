@@ -32,7 +32,10 @@ impl NearestVisibleLivingEntities {
 
     /// `new NearestVisibleLivingEntities(level, body, livingEntities)`.
     pub fn new(living_entities: Vec<EntityRef>) -> Self {
-        Self { nearby: Arc::new(living_entities), cache: Arc::default() }
+        Self {
+            nearby: Arc::new(living_entities),
+            cache: Arc::default(),
+        }
     }
 
     /// `nearbyEntities()`.
@@ -52,7 +55,12 @@ impl NearestVisibleLivingEntities {
     }
 
     /// `findClosest(filter)`.
-    pub fn find_closest(&self, level: &ServerLevel, body: &dyn Entity, mut filter: impl FnMut(&dyn Entity) -> bool) -> Option<EntityRef> {
+    pub fn find_closest(
+        &self,
+        level: &ServerLevel,
+        body: &dyn Entity,
+        mut filter: impl FnMut(&dyn Entity) -> bool,
+    ) -> Option<EntityRef> {
         for &nearby in self.nearby.iter() {
             if let Some(e) = level.get_entity(nearby.0)
                 && filter(e)
@@ -65,26 +73,48 @@ impl NearestVisibleLivingEntities {
     }
 
     /// `findAll(filter)` / `find(filter)`.
-    pub fn find_all(&self, level: &ServerLevel, body: &dyn Entity, mut filter: impl FnMut(&dyn Entity) -> bool) -> Vec<EntityRef> {
+    pub fn find_all(
+        &self,
+        level: &ServerLevel,
+        body: &dyn Entity,
+        mut filter: impl FnMut(&dyn Entity) -> bool,
+    ) -> Vec<EntityRef> {
         self.nearby
             .iter()
             .copied()
-            .filter(|nearby| level.get_entity(nearby.0).is_some_and(|e| filter(e) && self.line_of_sight(level, body, e)))
+            .filter(|nearby| {
+                level
+                    .get_entity(nearby.0)
+                    .is_some_and(|e| filter(e) && self.line_of_sight(level, body, e))
+            })
             .collect()
     }
 
     /// `contains(LivingEntity)`.
     pub fn contains(&self, level: &ServerLevel, body: &dyn Entity, target: EntityId) -> bool {
-        self.nearby.contains(&EntityRef(target)) && level.get_entity(target).is_some_and(|e| self.line_of_sight(level, body, e))
+        self.nearby.contains(&EntityRef(target))
+            && level
+                .get_entity(target)
+                .is_some_and(|e| self.line_of_sight(level, body, e))
     }
 
     /// `contains(LivingEntity)` for a target that is out of the level (the running entity): the entity itself is given.
-    pub fn contains_entity(&self, level: &ServerLevel, body: &dyn Entity, target: &dyn Entity) -> bool {
+    pub fn contains_entity(
+        &self,
+        level: &ServerLevel,
+        body: &dyn Entity,
+        target: &dyn Entity,
+    ) -> bool {
         self.nearby.contains(&EntityRef(target.id())) && self.line_of_sight(level, body, target)
     }
 
     /// `contains(Predicate)`.
-    pub fn contains_matching(&self, level: &ServerLevel, body: &dyn Entity, filter: impl FnMut(&dyn Entity) -> bool) -> bool {
+    pub fn contains_matching(
+        &self,
+        level: &ServerLevel,
+        body: &dyn Entity,
+        filter: impl FnMut(&dyn Entity) -> bool,
+    ) -> bool {
         self.find_closest(level, body, filter).is_some()
     }
 }

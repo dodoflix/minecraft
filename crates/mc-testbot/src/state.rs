@@ -10,12 +10,12 @@ use mc_core::pos::block_pos::BlockPos;
 use mc_data::block::BlockState;
 use mc_protocol::packets::play::*;
 
+use crate::inventory::Menu;
 use crate::join::{Configured, SyncedRegistry};
 use crate::physics::{MoveOut, PlayerBody};
-use mc_protocol::packets::play::{ClientboundPlayPacket, ServerboundPlayPacket};
-use crate::inventory::Menu;
 use crate::tracking::*;
 use crate::world::ClientWorld;
+use mc_protocol::packets::play::{ClientboundPlayPacket, ServerboundPlayPacket};
 
 pub type Out = Vec<ServerboundPlayPacket>;
 
@@ -33,7 +33,11 @@ pub struct ChunkBatchSizeCalculator {
 
 impl Default for ChunkBatchSizeCalculator {
     fn default() -> Self {
-        Self { aggregated_nanos_per_chunk: 2_000_000.0, old_samples_weight: 1, batch_start: Instant::now() }
+        Self {
+            aggregated_nanos_per_chunk: 2_000_000.0,
+            old_samples_weight: 1,
+            batch_start: Instant::now(),
+        }
     }
 }
 
@@ -46,9 +50,13 @@ impl ChunkBatchSizeCalculator {
         if batch_size > 0 {
             let duration = self.batch_start.elapsed().as_nanos() as f64;
             let per_chunk = duration / batch_size as f64;
-            let clamped = per_chunk.clamp(self.aggregated_nanos_per_chunk / 3.0, self.aggregated_nanos_per_chunk * 3.0);
+            let clamped = per_chunk.clamp(
+                self.aggregated_nanos_per_chunk / 3.0,
+                self.aggregated_nanos_per_chunk * 3.0,
+            );
             self.aggregated_nanos_per_chunk =
-                (self.aggregated_nanos_per_chunk * self.old_samples_weight as f64 + clamped) / (self.old_samples_weight + 1) as f64;
+                (self.aggregated_nanos_per_chunk * self.old_samples_weight as f64 + clamped)
+                    / (self.old_samples_weight + 1) as f64;
             self.old_samples_weight = (self.old_samples_weight + 1).min(49);
         }
     }
@@ -204,15 +212,40 @@ pub struct State {
 #[derive(Debug, Clone, PartialEq)]
 pub enum Observed {
     /// `player_combat_kill`: the player died; `message` is the plain death message.
-    Death { tick: u64, player_id: i32, message: String },
+    Death {
+        tick: u64,
+        player_id: i32,
+        message: String,
+    },
     /// `damage_event` (entity took damage; ids `-1` = none, `source_type` = raw damage_type registry id).
-    Damage { tick: u64, entity_id: i32, source_type: i32, cause_id: i32, direct_id: i32 },
+    Damage {
+        tick: u64,
+        entity_id: i32,
+        source_type: i32,
+        cause_id: i32,
+        direct_id: i32,
+    },
     /// `explode`.
-    Explosion { tick: u64, center: Vec3, radius: f32, block_count: i32, knockback: Option<Vec3> },
+    Explosion {
+        tick: u64,
+        center: Vec3,
+        radius: f32,
+        block_count: i32,
+        knockback: Option<Vec3>,
+    },
     /// `take_item_entity` (pickup animation: `collector_id` picked `amount` of entity `item_id`).
-    TakeItem { tick: u64, item_id: i32, collector_id: i32, amount: i32 },
+    TakeItem {
+        tick: u64,
+        item_id: i32,
+        collector_id: i32,
+        amount: i32,
+    },
     /// `entity_event` (status byte), e.g. 2 hurt, 3 death, 9 use item finished.
-    EntityEvent { tick: u64, entity_id: i32, event_id: i8 },
+    EntityEvent {
+        tick: u64,
+        entity_id: i32,
+        event_id: i8,
+    },
     /// `hurt_animation`.
     HurtAnimation { tick: u64, entity_id: i32 },
     /// `respawn` (after the death screen).
@@ -225,13 +258,23 @@ fn dimension_height(registries: &[SyncedRegistry], dimension_type: i32) -> (i32,
     let entry = registries
         .iter()
         .find(|r| r.id == ident("minecraft:dimension_type"))
-        .and_then(|r| usize::try_from(dimension_type).ok().and_then(|i| r.entries.get(i)));
+        .and_then(|r| {
+            usize::try_from(dimension_type)
+                .ok()
+                .and_then(|i| r.entries.get(i))
+        });
     if let Some((name, data)) = entry {
         if let Some(mc_nbt::Tag::Compound(c)) = data {
             return (c.get_int_or("min_y", 0), c.get_int_or("height", 256));
         }
-        let path = format!("data/{}/dimension_type/{}.json", name.namespace(), name.path());
-        if let Some(json) = mc_data::datapack::read_string(&path).and_then(|s| serde_json::from_str::<serde_json::Value>(&s).ok()) {
+        let path = format!(
+            "data/{}/dimension_type/{}.json",
+            name.namespace(),
+            name.path()
+        );
+        if let Some(json) = mc_data::datapack::read_string(&path)
+            .and_then(|s| serde_json::from_str::<serde_json::Value>(&s).ok())
+        {
             let get = |k: &str, d: i64| json[k].as_i64().unwrap_or(d) as i32;
             return (get("min_y", 0), get("height", 256));
         }
@@ -240,7 +283,10 @@ fn dimension_height(registries: &[SyncedRegistry], dimension_type: i32) -> (i32,
 }
 
 fn biome_count(registries: &[SyncedRegistry]) -> usize {
-    registries.iter().find(|r| r.id == ident("minecraft:worldgen/biome")).map_or(64, |r| r.entries.len())
+    registries
+        .iter()
+        .find(|r| r.id == ident("minecraft:worldgen/biome"))
+        .map_or(64, |r| r.entries.len())
 }
 
 impl State {
@@ -337,16 +383,27 @@ impl State {
     /// Registry entry name by protocol id.
     pub fn registry_entry(&self, registry: &str, id: i32) -> Option<&Identifier> {
         let reg = ident(registry);
-        self.configured.registries.iter().find(|r| r.id == reg)?.entries.get(usize::try_from(id).ok()?).map(|(n, _)| n)
+        self.configured
+            .registries
+            .iter()
+            .find(|r| r.id == reg)?
+            .entries
+            .get(usize::try_from(id).ok()?)
+            .map(|(n, _)| n)
     }
 
     /// Ticks of a world clock by registry name (`minecraft:overworld`), from `set_time`.
     pub fn clock_ticks(&self, name: &str) -> Option<i64> {
-        let id = self.configured.registries.iter().find(|r| r.id == ident("minecraft:world_clock"))?
-            .entries.iter().position(|(n, _)| *n == ident(name))?;
+        let id = self
+            .configured
+            .registries
+            .iter()
+            .find(|r| r.id == ident("minecraft:world_clock"))?
+            .entries
+            .iter()
+            .position(|(n, _)| *n == ident(name))?;
         self.clocks.get(&(id as i32)).map(|c| c.total_ticks)
     }
-
 
     fn reset_level(&mut self, info: &CommonPlayerSpawnInfo) {
         let (min_y, height) = dimension_height(&self.configured.registries, info.dimension_type);
@@ -358,7 +415,8 @@ impl State {
         self.level_load = LevelLoad::default();
         self.chunk_center = (0, 0);
         self.body.abilities.instabuild = info.game_type == GameType::Creative;
-        self.body.abilities.may_fly = matches!(info.game_type, GameType::Creative | GameType::Spectator);
+        self.body.abilities.may_fly =
+            matches!(info.game_type, GameType::Creative | GameType::Spectator);
         self.control.goal = None;
         self.control.input = Input::default();
         self.entities.clear();
@@ -368,15 +426,21 @@ impl State {
     pub fn on_packet(&mut self, packet: ClientboundPlayPacket, out: &mut Out) {
         use ClientboundPlayPacket as P;
         match packet {
-            P::KeepAlive(p) => out.push(ServerboundPlayPacket::KeepAlive(ServerboundKeepAlivePacket { id: p.id })),
-            P::Ping(p) => out.push(ServerboundPlayPacket::Pong(ServerboundPongPacket { id: p.id })),
+            P::KeepAlive(p) => out.push(ServerboundPlayPacket::KeepAlive(
+                ServerboundKeepAlivePacket { id: p.id },
+            )),
+            P::Ping(p) => out.push(ServerboundPlayPacket::Pong(ServerboundPongPacket {
+                id: p.id,
+            })),
             P::Disconnect(p) => self.disconnect(p.reason.get_string()),
             P::Transfer(p) => {
                 self.transfer = Some((p.host.clone(), p.port));
                 self.disconnect(format!("transfer to {}:{}", p.host, p.port));
             }
             P::StartConfiguration(_) => self.reconfigure_requested = true,
-            P::CustomPayload(p) => self.custom_payloads.push((p.payload.id.clone(), p.payload.data.clone())),
+            P::CustomPayload(p) => self
+                .custom_payloads
+                .push((p.payload.id.clone(), p.payload.data.clone())),
             P::Login(p) => {
                 self.entity_id = p.player_id;
                 self.hardcore = p.hardcore;
@@ -396,8 +460,16 @@ impl State {
             P::PlayerPosition(p) => self.on_player_position(p, out),
             P::PlayerRotation(p) => {
                 let b = &mut self.body;
-                b.yaw = if p.relative_y { b.yaw + p.y_rot } else { p.y_rot };
-                b.pitch = if p.relative_x { b.pitch + p.x_rot } else { p.x_rot };
+                b.yaw = if p.relative_y {
+                    b.yaw + p.y_rot
+                } else {
+                    p.y_rot
+                };
+                b.pitch = if p.relative_x {
+                    b.pitch + p.x_rot
+                } else {
+                    p.x_rot
+                };
             }
             P::PlayerAbilities(p) => {
                 let a = &mut self.body.abilities;
@@ -411,9 +483,11 @@ impl State {
             P::ChunkBatchStart(_) => self.batch.on_batch_start(),
             P::ChunkBatchFinished(p) => {
                 self.batch.on_batch_finished(p.batch_size);
-                out.push(ServerboundPlayPacket::ChunkBatchReceived(ServerboundChunkBatchReceivedPacket {
-                    desired_chunks_per_tick: self.batch.desired_chunks_per_tick(),
-                }));
+                out.push(ServerboundPlayPacket::ChunkBatchReceived(
+                    ServerboundChunkBatchReceivedPacket {
+                        desired_chunks_per_tick: self.batch.desired_chunks_per_tick(),
+                    },
+                ));
             }
             P::LevelChunkWithLight(p) => {
                 match self.world.load_chunk(p.x, p.z, &p.chunk_data.buffer) {
@@ -425,9 +499,17 @@ impl State {
             P::SetChunkCacheCenter(p) => self.chunk_center = (p.x, p.z),
             P::BlockUpdate(p) => self.set_block(p.pos, p.block_state),
             P::SectionBlocksUpdate(p) => {
-                let (sx, sy, sz) = (p.section_pos.x() << 4, p.section_pos.y() << 4, p.section_pos.z() << 4);
+                let (sx, sy, sz) = (
+                    p.section_pos.x() << 4,
+                    p.section_pos.y() << 4,
+                    p.section_pos.z() << 4,
+                );
                 for (packed, state) in p.changes {
-                    let pos = BlockPos::new(sx + (packed >> 8 & 15) as i32, sy + (packed & 15) as i32, sz + (packed >> 4 & 15) as i32);
+                    let pos = BlockPos::new(
+                        sx + (packed >> 8 & 15) as i32,
+                        sy + (packed & 15) as i32,
+                        sz + (packed >> 4 & 15) as i32,
+                    );
                     self.set_block(pos, state);
                 }
             }
@@ -444,8 +526,13 @@ impl State {
     }
 
     fn set_block(&mut self, pos: BlockPos, state: BlockState) {
-        self.world.set_block_state_id(pos.x(), pos.y(), pos.z(), state.id() as u16);
-        self.block_updates.push(BlockUpdate { tick: self.tick, pos, state });
+        self.world
+            .set_block_state_id(pos.x(), pos.y(), pos.z(), state.id() as u16);
+        self.block_updates.push(BlockUpdate {
+            tick: self.tick,
+            pos,
+            state,
+        });
         if self.block_updates.len() > 20_000 {
             self.block_updates.drain(..10_000);
         }
@@ -461,8 +548,12 @@ impl State {
             }
             ClientboundGameEventPacket::RAIN_LEVEL_CHANGE => self.rain_level = p.param,
             ClientboundGameEventPacket::THUNDER_LEVEL_CHANGE => self.thunder_level = p.param,
-            ClientboundGameEventPacket::IMMEDIATE_RESPAWN => self.immediate_respawn = p.param == 1.0,
-            ClientboundGameEventPacket::LEVEL_CHUNKS_LOAD_START => self.level_load.chunks_load_started = true,
+            ClientboundGameEventPacket::IMMEDIATE_RESPAWN => {
+                self.immediate_respawn = p.param == 1.0
+            }
+            ClientboundGameEventPacket::LEVEL_CHUNKS_LOAD_START => {
+                self.level_load.chunks_load_started = true
+            }
             _ => {}
         }
     }
@@ -473,21 +564,55 @@ impl State {
         let (cur_pos, cur_vel) = (b.pos, b.vel);
         let rel = |r: Relative| p.relatives.contains(r);
         let pos = Vec3::new(
-            if rel(Relative::X) { cur_pos.x + p.change.position.x } else { p.change.position.x },
-            if rel(Relative::Y) { cur_pos.y + p.change.position.y } else { p.change.position.y },
-            if rel(Relative::Z) { cur_pos.z + p.change.position.z } else { p.change.position.z },
+            if rel(Relative::X) {
+                cur_pos.x + p.change.position.x
+            } else {
+                p.change.position.x
+            },
+            if rel(Relative::Y) {
+                cur_pos.y + p.change.position.y
+            } else {
+                p.change.position.y
+            },
+            if rel(Relative::Z) {
+                cur_pos.z + p.change.position.z
+            } else {
+                p.change.position.z
+            },
         );
-        let yaw = if rel(Relative::YRot) { b.yaw + p.change.y_rot } else { p.change.y_rot };
-        let pitch = if rel(Relative::XRot) { b.pitch + p.change.x_rot } else { p.change.x_rot };
+        let yaw = if rel(Relative::YRot) {
+            b.yaw + p.change.y_rot
+        } else {
+            p.change.y_rot
+        };
+        let pitch = if rel(Relative::XRot) {
+            b.pitch + p.change.x_rot
+        } else {
+            p.change.x_rot
+        };
         let mut vel = cur_vel;
         if rel(Relative::RotateDelta) {
             let (dy, dx) = (p.change.y_rot - b.yaw, p.change.x_rot - b.pitch);
-            vel = vel.x_rot(-dx * (std::f32::consts::PI / 180.0)).y_rot(-dy * (std::f32::consts::PI / 180.0));
+            vel = vel
+                .x_rot(-dx * (std::f32::consts::PI / 180.0))
+                .y_rot(-dy * (std::f32::consts::PI / 180.0));
         }
         let vel = Vec3::new(
-            if rel(Relative::DeltaX) { vel.x + p.change.delta_movement.x } else { p.change.delta_movement.x },
-            if rel(Relative::DeltaY) { vel.y + p.change.delta_movement.y } else { p.change.delta_movement.y },
-            if rel(Relative::DeltaZ) { vel.z + p.change.delta_movement.z } else { p.change.delta_movement.z },
+            if rel(Relative::DeltaX) {
+                vel.x + p.change.delta_movement.x
+            } else {
+                p.change.delta_movement.x
+            },
+            if rel(Relative::DeltaY) {
+                vel.y + p.change.delta_movement.y
+            } else {
+                p.change.delta_movement.y
+            },
+            if rel(Relative::DeltaZ) {
+                vel.z + p.change.delta_movement.z
+            } else {
+                p.change.delta_movement.z
+            },
         );
         // `setPos` + rotation; the position/rotation "last sent" bookkeeping of LocalPlayer is left untouched
         self.body.pos = pos;
@@ -496,22 +621,31 @@ impl State {
         self.body.pitch = pitch;
         self.last_teleport_id = Some(p.id);
         self.teleports += 1;
-        out.push(ServerboundPlayPacket::AcceptTeleportation(ServerboundAcceptTeleportationPacket {
-            id: p.id,
-            x: pos.x,
-            y: pos.y,
-            z: pos.z,
-            y_rot: yaw,
-            x_rot: pitch,
-        }));
+        out.push(ServerboundPlayPacket::AcceptTeleportation(
+            ServerboundAcceptTeleportationPacket {
+                id: p.id,
+                x: pos.x,
+                y: pos.y,
+                z: pos.z,
+                y_rot: yaw,
+                x_rot: pitch,
+            },
+        ));
     }
 
     /// `AttributeInstance.getValue` of an own attribute known from `update_attributes` (`default` when never sent).
     pub fn attribute_value(&self, attribute: mc_data::Attribute, default: f64) -> f64 {
-        let Some((base, mods)) = self.attributes.get(&attribute) else { return default };
-        let sum = |op: AttributeModifierOperation| mods.iter().filter(move |m| m.operation == op).map(|m| m.amount);
+        let Some((base, mods)) = self.attributes.get(&attribute) else {
+            return default;
+        };
+        let sum = |op: AttributeModifierOperation| {
+            mods.iter()
+                .filter(move |m| m.operation == op)
+                .map(|m| m.amount)
+        };
         let base_total = base + sum(AttributeModifierOperation::AddValue).sum::<f64>();
-        let mut value = base_total * (1.0 + sum(AttributeModifierOperation::AddMultipliedBase).sum::<f64>());
+        let mut value =
+            base_total * (1.0 + sum(AttributeModifierOperation::AddMultipliedBase).sum::<f64>());
         for m in sum(AttributeModifierOperation::AddMultipliedTotal) {
             value *= 1.0 + m;
         }
@@ -519,7 +653,10 @@ impl State {
     }
 
     fn effect_amp(&self, effect: mc_data::MobEffect) -> Option<i32> {
-        self.effects.iter().find(|(e, _)| *e == effect).map(|(_, amp)| *amp - 1)
+        self.effects
+            .iter()
+            .find(|(e, _)| *e == effect)
+            .map(|(_, amp)| *amp - 1)
     }
 
     /// `Player.getDestroySpeed` for the held stack (attributes and effects as the server told this client).
@@ -529,7 +666,13 @@ impl State {
         if speed > 1.0 {
             speed += self.attribute_value(Attribute::MINING_EFFICIENCY, 0.0) as f32;
         }
-        let dig = [self.effect_amp(MobEffect::HASTE), self.effect_amp(MobEffect::CONDUIT_POWER)].into_iter().flatten().max();
+        let dig = [
+            self.effect_amp(MobEffect::HASTE),
+            self.effect_amp(MobEffect::CONDUIT_POWER),
+        ]
+        .into_iter()
+        .flatten()
+        .max();
         if let Some(amp) = dig {
             speed *= 1.0 + (amp + 1) as f32 * 0.2;
         }
@@ -540,7 +683,11 @@ impl State {
         let eye = self.body.eye_position();
         let in_water = self
             .world
-            .block_state(eye.x.floor() as i32, eye.y.floor() as i32, eye.z.floor() as i32)
+            .block_state(
+                eye.x.floor() as i32,
+                eye.y.floor() as i32,
+                eye.z.floor() as i32,
+            )
             .is_some_and(|s| s.block() == mc_data::Block::WATER);
         if in_water {
             speed *= self.attribute_value(Attribute::SUBMERGED_MINING_SPEED, 0.2) as f32;
@@ -553,29 +700,45 @@ impl State {
 
     /// `BlockBehaviour.getDestroyProgress` per tick for the block at `pos` (`Player.getDestroySpeed / hardness / 30|100`).
     pub fn destroy_progress(&self, pos: BlockPos) -> f32 {
-        let Some(state) = self.world.block_state_at(pos) else { return 0.0 };
+        let Some(state) = self.world.block_state_at(pos) else {
+            return 0.0;
+        };
         let hardness = state.data().destroy_speed;
         if hardness == -1.0 {
             return 0.0;
         }
-        let correct = !state.requires_correct_tool_for_drops() || self.tool_for(state.block()).correct_for_drops;
+        let correct = !state.requires_correct_tool_for_drops()
+            || self.tool_for(state.block()).correct_for_drops;
         self.destroy_speed(state.block()) / hardness / if correct { 30.0 } else { 100.0 }
     }
 
     /// Mining speed / drop correctness of the held stack against `block` (`Tool` rules, else bare hand).
     pub fn tool_for(&self, block: mc_data::Block) -> HandTool {
         use mc_protocol::components::{RegistrySet, TOOL};
-        let mut out = HandTool { speed: 1.0, correct_for_drops: false };
-        let Some(t) = self.held_item().get(&TOOL) else { return out };
+        let mut out = HandTool {
+            speed: 1.0,
+            correct_for_drops: false,
+        };
+        let Some(t) = self.held_item().get(&TOOL) else {
+            return out;
+        };
         out.speed = t.default_mining_speed;
         let matches = |set: &RegistrySet<mc_data::Block>| match set {
             RegistrySet::Tag(tag) => block.is_in_tag(&tag.to_string()),
             RegistrySet::Entries(v) => v.contains(&block),
         };
-        if let Some(rule) = t.rules.iter().find(|r| r.correct_for_drops.is_some() && matches(&r.blocks)) {
+        if let Some(rule) = t
+            .rules
+            .iter()
+            .find(|r| r.correct_for_drops.is_some() && matches(&r.blocks))
+        {
             out.correct_for_drops = rule.correct_for_drops.unwrap_or(false);
         }
-        if let Some(rule) = t.rules.iter().find(|r| r.speed.is_some() && matches(&r.blocks)) {
+        if let Some(rule) = t
+            .rules
+            .iter()
+            .find(|r| r.speed.is_some() && matches(&r.blocks))
+        {
             out.speed = rule.speed.unwrap_or(1.0);
         }
         out
@@ -583,7 +746,8 @@ impl State {
 
     fn destroy_block_locally(&mut self, pos: BlockPos) {
         let air = mc_data::Block::AIR.default_state();
-        self.world.set_block_state_id(pos.x(), pos.y(), pos.z(), air.id() as u16);
+        self.world
+            .set_block_state_id(pos.x(), pos.y(), pos.z(), air.id() as u16);
         self.dug.push(pos);
     }
 
@@ -591,28 +755,50 @@ impl State {
     pub fn start_dig(&mut self, pos: BlockPos, face: Direction, out: &mut Out) {
         if self.body.abilities.instabuild {
             let sequence = self.next_sequence();
-            out.push(ServerboundPlayPacket::PlayerAction(ServerboundPlayerActionPacket {
-                action: ServerboundPlayerActionAction::StartDestroyBlock, pos, direction: face, sequence,
-            }));
+            out.push(ServerboundPlayPacket::PlayerAction(
+                ServerboundPlayerActionPacket {
+                    action: ServerboundPlayerActionAction::StartDestroyBlock,
+                    pos,
+                    direction: face,
+                    sequence,
+                },
+            ));
             self.destroy_block_locally(pos);
             self.dig_delay = 5;
             return;
         }
         if let Some(old) = self.digging.take() {
             let sequence = self.next_sequence();
-            out.push(ServerboundPlayPacket::PlayerAction(ServerboundPlayerActionPacket {
-                action: ServerboundPlayerActionAction::AbortDestroyBlock, pos: old.pos, direction: old.face, sequence,
-            }));
+            out.push(ServerboundPlayPacket::PlayerAction(
+                ServerboundPlayerActionPacket {
+                    action: ServerboundPlayerActionAction::AbortDestroyBlock,
+                    pos: old.pos,
+                    direction: old.face,
+                    sequence,
+                },
+            ));
         }
         let sequence = self.next_sequence();
-        out.push(ServerboundPlayPacket::PlayerAction(ServerboundPlayerActionPacket {
-            action: ServerboundPlayerActionAction::StartDestroyBlock, pos, direction: face, sequence,
-        }));
-        let solid = self.world.block_state_at(pos).is_some_and(|s| !s.block().is_air());
+        out.push(ServerboundPlayPacket::PlayerAction(
+            ServerboundPlayerActionPacket {
+                action: ServerboundPlayerActionAction::StartDestroyBlock,
+                pos,
+                direction: face,
+                sequence,
+            },
+        ));
+        let solid = self
+            .world
+            .block_state_at(pos)
+            .is_some_and(|s| !s.block().is_air());
         if solid && self.destroy_progress(pos) >= 1.0 {
             self.destroy_block_locally(pos);
         } else {
-            self.digging = Some(Dig { pos, face, progress: 0.0 });
+            self.digging = Some(Dig {
+                pos,
+                face,
+                progress: 0.0,
+            });
         }
     }
 
@@ -620,9 +806,14 @@ impl State {
     pub fn abort_dig(&mut self, out: &mut Out) {
         if let Some(d) = self.digging.take() {
             let sequence = self.next_sequence();
-            out.push(ServerboundPlayPacket::PlayerAction(ServerboundPlayerActionPacket {
-                action: ServerboundPlayerActionAction::AbortDestroyBlock, pos: d.pos, direction: d.face, sequence,
-            }));
+            out.push(ServerboundPlayPacket::PlayerAction(
+                ServerboundPlayerActionPacket {
+                    action: ServerboundPlayerActionAction::AbortDestroyBlock,
+                    pos: d.pos,
+                    direction: d.face,
+                    sequence,
+                },
+            ));
         }
     }
 
@@ -633,7 +824,11 @@ impl State {
             return;
         }
         let Some(mut d) = self.digging else { return };
-        if self.world.block_state_at(d.pos).is_none_or(|s| s.block().is_air()) {
+        if self
+            .world
+            .block_state_at(d.pos)
+            .is_none_or(|s| s.block().is_air())
+        {
             self.digging = None;
             return;
         }
@@ -641,9 +836,14 @@ impl State {
         if d.progress >= 1.0 {
             self.digging = None;
             let sequence = self.next_sequence();
-            out.push(ServerboundPlayPacket::PlayerAction(ServerboundPlayerActionPacket {
-                action: ServerboundPlayerActionAction::StopDestroyBlock, pos: d.pos, direction: d.face, sequence,
-            }));
+            out.push(ServerboundPlayPacket::PlayerAction(
+                ServerboundPlayerActionPacket {
+                    action: ServerboundPlayerActionAction::StopDestroyBlock,
+                    pos: d.pos,
+                    direction: d.face,
+                    sequence,
+                },
+            ));
             self.destroy_block_locally(d.pos);
             self.dig_delay = 5;
         } else {
@@ -667,7 +867,9 @@ impl State {
                 self.control.goal_failed = true;
             } else {
                 g.ticks_left -= 1;
-                self.body.yaw = mc_core::math::mth::wrap_degrees_f32((dz.atan2(dx) * 57.29577951308232) as f32 - 90.0);
+                self.body.yaw = mc_core::math::mth::wrap_degrees_f32(
+                    (dz.atan2(dx) * 57.29577951308232) as f32 - 90.0,
+                );
                 input.forward = true;
                 input.sprint |= g.sprint;
                 // auto-jump: blocked while standing
@@ -692,7 +894,9 @@ impl State {
             && self.world.has_chunk_at_block(bx, bz)
         {
             self.level_load.player_loaded_sent = true;
-            out.push(ServerboundPlayPacket::PlayerLoaded(ServerboundPlayerLoadedPacket));
+            out.push(ServerboundPlayPacket::PlayerLoaded(
+                ServerboundPlayerLoadedPacket,
+            ));
         }
         // LocalPlayer only simulates inside loaded chunks
         if self.world.has_chunk_at_block(bx, bz) && !self.dead {
@@ -701,41 +905,85 @@ impl State {
             self.body.tick(&self.world, input);
             if input != self.control.last_sent_input {
                 self.control.last_sent_input = input;
-                out.push(ServerboundPlayPacket::PlayerInput(ServerboundPlayerInputPacket { input }));
+                out.push(ServerboundPlayPacket::PlayerInput(
+                    ServerboundPlayerInputPacket { input },
+                ));
             }
             if self.body.sprinting != self.control.last_sent_sprint {
                 self.control.last_sent_sprint = self.body.sprinting;
-                out.push(ServerboundPlayPacket::PlayerCommand(ServerboundPlayerCommandPacket {
-                    id: self.entity_id,
-                    action: if self.body.sprinting {
-                        ServerboundPlayerCommandAction::StartSprinting
-                    } else {
-                        ServerboundPlayerCommandAction::StopSprinting
+                out.push(ServerboundPlayPacket::PlayerCommand(
+                    ServerboundPlayerCommandPacket {
+                        id: self.entity_id,
+                        action: if self.body.sprinting {
+                            ServerboundPlayerCommandAction::StartSprinting
+                        } else {
+                            ServerboundPlayerCommandAction::StopSprinting
+                        },
+                        data: 0,
                     },
-                    data: 0,
-                }));
+                ));
             }
             self.tick_digging(out);
             if let Some(m) = self.body.position_packet() {
                 out.push(match m {
-                    MoveOut::PosRot { x, y, z, yaw, pitch, on_ground, h_collision } => {
+                    MoveOut::PosRot {
+                        x,
+                        y,
+                        z,
+                        yaw,
+                        pitch,
+                        on_ground,
+                        h_collision,
+                    } => {
                         ServerboundPlayPacket::MovePlayerPosRot(ServerboundMovePlayerPosRotPacket {
-                            x, y, z, y_rot: yaw, x_rot: pitch, on_ground, horizontal_collision: h_collision,
+                            x,
+                            y,
+                            z,
+                            y_rot: yaw,
+                            x_rot: pitch,
+                            on_ground,
+                            horizontal_collision: h_collision,
                         })
                     }
-                    MoveOut::Pos { x, y, z, on_ground, h_collision } => {
-                        ServerboundPlayPacket::MovePlayerPos(ServerboundMovePlayerPosPacket { x, y, z, on_ground, horizontal_collision: h_collision })
-                    }
-                    MoveOut::Rot { yaw, pitch, on_ground, h_collision } => {
-                        ServerboundPlayPacket::MovePlayerRot(ServerboundMovePlayerRotPacket { y_rot: yaw, x_rot: pitch, on_ground, horizontal_collision: h_collision })
-                    }
-                    MoveOut::Status { on_ground, h_collision } => ServerboundPlayPacket::MovePlayerStatusOnly(
-                        ServerboundMovePlayerStatusOnlyPacket { on_ground, horizontal_collision: h_collision },
+                    MoveOut::Pos {
+                        x,
+                        y,
+                        z,
+                        on_ground,
+                        h_collision,
+                    } => ServerboundPlayPacket::MovePlayerPos(ServerboundMovePlayerPosPacket {
+                        x,
+                        y,
+                        z,
+                        on_ground,
+                        horizontal_collision: h_collision,
+                    }),
+                    MoveOut::Rot {
+                        yaw,
+                        pitch,
+                        on_ground,
+                        h_collision,
+                    } => ServerboundPlayPacket::MovePlayerRot(ServerboundMovePlayerRotPacket {
+                        y_rot: yaw,
+                        x_rot: pitch,
+                        on_ground,
+                        horizontal_collision: h_collision,
+                    }),
+                    MoveOut::Status {
+                        on_ground,
+                        h_collision,
+                    } => ServerboundPlayPacket::MovePlayerStatusOnly(
+                        ServerboundMovePlayerStatusOnlyPacket {
+                            on_ground,
+                            horizontal_collision: h_collision,
+                        },
                     ),
                 });
             }
         }
-        out.push(ServerboundPlayPacket::ClientTickEnd(ServerboundClientTickEndPacket));
+        out.push(ServerboundPlayPacket::ClientTickEnd(
+            ServerboundClientTickEndPacket,
+        ));
     }
 }
 
@@ -744,7 +992,10 @@ impl State {
     pub fn mirror_menu_after_click(&mut self) {
         if let Some(open) = &self.open_menu {
             for i in 0..36 {
-                if let (Some(a), Some(b)) = (self.inventory.slot_of_inventory(i), open.slot_of_inventory(i)) {
+                if let (Some(a), Some(b)) = (
+                    self.inventory.slot_of_inventory(i),
+                    open.slot_of_inventory(i),
+                ) {
                     self.inventory.slots[a] = open.slots[b].clone();
                 }
             }

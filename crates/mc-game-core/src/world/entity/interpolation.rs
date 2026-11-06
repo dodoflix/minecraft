@@ -20,14 +20,21 @@ pub struct SteppedInterpolationTracker {
 
 impl Default for SteppedInterpolationTracker {
     fn default() -> Self {
-        Self { tracked_steps: Vec::new(), ticks_since_last_step: -1, predicted_delta: Vec3::ZERO }
+        Self {
+            tracked_steps: Vec::new(),
+            ticks_since_last_step: -1,
+            predicted_delta: Vec3::ZERO,
+        }
     }
 }
 
 impl SteppedInterpolationTracker {
     fn add_step(&mut self, pos: Vec3) {
         if self.ticks_since_last_step > 0 {
-            self.tracked_steps.push(PositionStep { position: pos, tick_offset: self.ticks_since_last_step });
+            self.tracked_steps.push(PositionStep {
+                position: pos,
+                tick_offset: self.ticks_since_last_step,
+            });
             self.ticks_since_last_step = 0;
         }
     }
@@ -65,7 +72,11 @@ impl InterpolationTracker {
             Self::NoOp => PositionPath::Linear(current),
             Self::Stepped(t) => {
                 t.add_step(current);
-                if t.tracked_steps.is_empty() { PositionPath::Linear(current) } else { PositionPath::Stepped(t.tracked_steps.clone()) }
+                if t.tracked_steps.is_empty() {
+                    PositionPath::Linear(current)
+                } else {
+                    PositionPath::Stepped(t.tracked_steps.clone())
+                }
             }
         }
     }

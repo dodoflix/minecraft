@@ -1,9 +1,9 @@
 //! `LookAtTradingPlayerGoal` (`LookAtPlayerGoal` whose target is the trading player).
 
-use mc_game_core::world::entity::ai::goal::look_at_player::LookAtPlayerGoal;
-use mc_game_core::world::entity::ai::goal::{Goal, GoalFlags};
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::ai::goal::look_at_player::LookAtPlayerGoal;
+use mc_game_core::world::entity::ai::goal::{Goal, GoalFlags};
 
 pub struct LookAtTradingPlayerGoal {
     pub base: LookAtPlayerGoal,
@@ -12,7 +12,9 @@ pub struct LookAtTradingPlayerGoal {
 impl LookAtTradingPlayerGoal {
     /// `LookAtTradingPlayerGoal(villager)`: `super(villager, Player.class, 8.0F)`.
     pub fn new(villager: &dyn Entity) -> Self {
-        Self { base: LookAtPlayerGoal::new_player(villager, 8.0) }
+        Self {
+            base: LookAtPlayerGoal::new_player(villager, 8.0),
+        }
     }
 }
 

@@ -2,12 +2,12 @@
 
 use super::foliage_placer::FoliageAttachment;
 use super::tree_feature::{self, TreeFeature, TreeSetter, block_is_logs};
-use mc_game_core::world::level::LevelAccessor;
-use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, parse_int_range};
-use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::BlockState;
+use mc_game_core::world::level::LevelAccessor;
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, parse_int_range};
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 
 /// The fields every trunk placer shares (`trunkPlacerParts`).
 #[derive(Clone, Copy, Debug)]
@@ -119,7 +119,11 @@ pub fn place_below_trunk_block(
     pos: BlockPos,
     tree: &TreeFeature,
 ) {
-    if let Some(state) = tree.below_trunk_provider.value().get_optional_state(level, random, pos) {
+    if let Some(state) = tree
+        .below_trunk_provider
+        .value()
+        .get_optional_state(level, random, pos)
+    {
         trunk_setter.set(level, pos, state);
     }
 }

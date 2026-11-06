@@ -1,16 +1,18 @@
 //! `AbstractChestedHorse` (donkeys, mules, llamas): the chest flag and its inventory.
 
-use mc_game_core::world::entity::animal::equine::abstract_horse::{self, AbstractHorse, add_behaviour_goals, is_tamed, make_mad};
+use mc_core::phys::Vec3;
+use mc_core::random::RandomSource;
+use mc_data::{Attribute, Item, SoundEvent};
 use mc_game_core::define_accessor;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::container::Container;
+use mc_game_core::world::entity::animal::equine::abstract_horse::{
+    self, AbstractHorse, add_behaviour_goals, is_tamed, make_mad,
+};
 use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
 use mc_game_core::world::entity::mob::{self, interact::with_hand_stack};
 use mc_game_core::world::entity::{Entity, ServerPlayer};
 use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack, ItemStackExt as _};
-use mc_core::phys::Vec3;
-use mc_core::random::RandomSource;
-use mc_data::{Attribute, Item, SoundEvent};
 use mc_nbt::CompoundTag;
 
 define_accessor!(pub DATA_ID_CHEST: Boolean = AbstractChestedHorse);
@@ -19,7 +21,8 @@ define_accessor!(pub DATA_ID_CHEST: Boolean = AbstractChestedHorse);
 pub trait AbstractChestedHorse: AbstractHorse {
     /// `playChestEquipsSound()`.
     fn play_chest_equips_sound(&mut self, level: &mut ServerLevel) {
-        let pitch = (self.base_mut().random.next_float() - self.base_mut().random.next_float()) * 0.2 + 1.0;
+        let pitch =
+            (self.base_mut().random.next_float() - self.base_mut().random.next_float()) * 0.2 + 1.0;
         self.play_sound(level, SoundEvent::ENTITY_DONKEY_CHEST, 1.0, pitch);
     }
 }
@@ -27,7 +30,9 @@ pub trait AbstractChestedHorse: AbstractHorse {
 /// The chested horse's constructor part: `canGallop = false` and `babyDimensions`.
 pub fn baby_dimensions(ty: mc_data::EntityType) -> EntityDimensions {
     let base = EntityDimensions::of_type(ty);
-    let attachments = EntityAttachments::create_default(base.width, base.height).with_passenger(Vec3::new(0.0, f64::from(ty.data().height + 0.03125), -0.3125));
+    let attachments = EntityAttachments::create_default(base.width, base.height).with_passenger(
+        Vec3::new(0.0, f64::from(ty.data().height + 0.03125), -0.3125),
+    );
     base.with_attachments(attachments).scale(0.5)
 }
 
@@ -42,9 +47,17 @@ pub fn set_chest(e: &mut (impl AbstractChestedHorse + ?Sized), flag: bool) {
 }
 
 /// `randomizeAttributes(random)` of `AbstractChestedHorse`.
-pub fn randomize_attributes(e: &mut (impl AbstractChestedHorse + ?Sized), random: &mut dyn RandomSource) {
-    let health = f64::from(abstract_horse::generate_max_health(|bound| random.next_int_bounded(bound)));
-    if let Some(i) = e.living_mut().and_then(|l| l.attributes.get_instance(Attribute::MAX_HEALTH)) {
+pub fn randomize_attributes(
+    e: &mut (impl AbstractChestedHorse + ?Sized),
+    random: &mut dyn RandomSource,
+) {
+    let health = f64::from(abstract_horse::generate_max_health(|bound| {
+        random.next_int_bounded(bound)
+    }));
+    if let Some(i) = e
+        .living_mut()
+        .and_then(|l| l.attributes.get_instance(Attribute::MAX_HEALTH))
+    {
         i.set_base_value(health);
     }
 }
@@ -53,7 +66,12 @@ pub fn randomize_attributes(e: &mut (impl AbstractChestedHorse + ?Sized), random
 pub fn drop_equipment(e: &mut (impl AbstractChestedHorse + ?Sized), level: &mut ServerLevel) {
     abstract_horse::drop_equipment(e, level);
     if has_chest(e) {
-        mc_game_core::world::entity::item::spawn_at_location(level, e.as_dyn(), ItemStack::new(Item::CHEST), Vec3::ZERO);
+        mc_game_core::world::entity::item::spawn_at_location(
+            level,
+            e.as_dyn(),
+            ItemStack::new(Item::CHEST),
+            Vec3::ZERO,
+        );
         set_chest(e, false);
     }
 }
@@ -64,19 +82,29 @@ pub fn add_additional_save_data(e: &(impl AbstractChestedHorse + ?Sized), out: &
     out.put_boolean("ChestedHorse", has_chest(e));
     if has_chest(e) {
         let inventory = &e.horse().inventory;
-        out.put("Items", mc_game_core::world::container::save_slots((0..inventory.get_container_size()).map(|i| (i, inventory.get_item(i)))));
+        out.put(
+            "Items",
+            mc_game_core::world::container::save_slots(
+                (0..inventory.get_container_size()).map(|i| (i, inventory.get_item(i))),
+            ),
+        );
     }
 }
 
 /// `readAdditionalSaveData(input)` of `AbstractChestedHorse`.
-pub fn read_additional_save_data(e: &mut (impl AbstractChestedHorse + ?Sized), input: &CompoundTag) {
+pub fn read_additional_save_data(
+    e: &mut (impl AbstractChestedHorse + ?Sized),
+    input: &CompoundTag,
+) {
     abstract_horse::read_additional_save_data(e, input);
     let chest = input.get_boolean_or("ChestedHorse", false);
     set_chest(e, chest);
     e.create_inventory();
     if has_chest(e) {
         let size = e.horse().inventory.get_container_size();
-        for (slot, stack) in mc_game_core::world::container::load_slots(input.get_list_or_empty("Items")) {
+        for (slot, stack) in
+            mc_game_core::world::container::load_slots(input.get_list_or_empty("Items"))
+        {
             if slot < size {
                 e.horse_mut().inventory.set_item(slot, stack);
             }
@@ -85,9 +113,17 @@ pub fn read_additional_save_data(e: &mut (impl AbstractChestedHorse + ?Sized), i
 }
 
 /// `mobInteract(player, hand)` of `AbstractChestedHorse`.
-pub fn mob_interact(e: &mut (impl AbstractChestedHorse + ?Sized), level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) -> InteractionResult {
+pub fn mob_interact(
+    e: &mut (impl AbstractChestedHorse + ?Sized),
+    level: &mut ServerLevel,
+    player: &mut ServerPlayer,
+    hand: InteractionHand,
+) -> InteractionResult {
     let should_open_inventory = !e.is_baby() && is_tamed(e) && player.is_shift_key_down();
-    if !e.base().is_vehicle() && !should_open_inventory && (!e.is_baby() || !abstract_horse::is_holding(player, Item::GOLDEN_DANDELION)) {
+    if !e.base().is_vehicle()
+        && !should_open_inventory
+        && (!e.is_baby() || !abstract_horse::is_holding(player, Item::GOLDEN_DANDELION))
+    {
         let item_stack = player.get_item_in_hand(hand);
         if !item_stack.is_empty() {
             if e.is_food(&item_stack) {
@@ -109,10 +145,17 @@ pub fn mob_interact(e: &mut (impl AbstractChestedHorse + ?Sized), level: &mut Se
 }
 
 /// `equipChest(player, itemStack)`.
-fn equip_chest(e: &mut (impl AbstractChestedHorse + ?Sized), level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) {
+fn equip_chest(
+    e: &mut (impl AbstractChestedHorse + ?Sized),
+    level: &mut ServerLevel,
+    player: &mut ServerPlayer,
+    hand: InteractionHand,
+) {
     set_chest(e, true);
     e.play_chest_equips_sound(level);
-    with_hand_stack(player, hand, |s, p| s.consume(1, p.has_infinite_materials()));
+    with_hand_stack(player, hand, |s, p| {
+        s.consume(1, p.has_infinite_materials())
+    });
     e.create_inventory();
 }
 
@@ -128,7 +171,11 @@ pub fn add_default_behaviour_goals<E: AbstractChestedHorse + Sized>(e: &mut E) {
 
 /// The slot-499 `SlotAccess` of `getSlot(slot)`: the chest item.
 pub fn chest_slot_get(e: &(impl AbstractChestedHorse + ?Sized)) -> ItemStack {
-    if has_chest(e) { ItemStack::new(Item::CHEST) } else { ItemStack::empty() }
+    if has_chest(e) {
+        ItemStack::new(Item::CHEST)
+    } else {
+        ItemStack::empty()
+    }
 }
 
 /// `SlotAccess.set(stack)` of the chest slot.

@@ -11,13 +11,14 @@ pub struct FilledBucketTriggerInstance {
 
 impl TriggerInstance for FilledBucketTriggerInstance {
     fn codec() -> Codec<Self> {
-        static C: std::sync::LazyLock<Codec<FilledBucketTriggerInstance>> = std::sync::LazyLock::new(|| {
-            mc_dfu::record!(FilledBucketTriggerInstance {
-                player: condition_holder_codec().optional_field_of("player"),
-                item: ItemPredicate::codec().optional_field_of("item"),
-            })
-            .codec()
-        });
+        static C: std::sync::LazyLock<Codec<FilledBucketTriggerInstance>> =
+            std::sync::LazyLock::new(|| {
+                mc_dfu::record!(FilledBucketTriggerInstance {
+                    player: condition_holder_codec().optional_field_of("player"),
+                    item: ItemPredicate::codec().optional_field_of("item"),
+                })
+                .codec()
+            });
         C.clone()
     }
 }

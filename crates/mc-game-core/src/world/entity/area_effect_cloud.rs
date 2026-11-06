@@ -33,7 +33,10 @@ define_accessor!(pub DATA_PARTICLE: Particle = AreaEffectCloud);
 
 /// `DEFAULT_PARTICLE`: `ColorParticleOption.create(ENTITY_EFFECT, -1)`.
 fn default_particle() -> ParticleOptions {
-    ParticleOptions::Color { particle_type: mc_data::ParticleType::ENTITY_EFFECT, color: -1 }
+    ParticleOptions::Color {
+        particle_type: mc_data::ParticleType::ENTITY_EFFECT,
+        color: -1,
+    }
 }
 
 pub struct AreaEffectCloud {
@@ -53,7 +56,12 @@ pub struct AreaEffectCloud {
 }
 
 fn empty_contents() -> PotionContents {
-    PotionContents { potion: None, custom_color: None, custom_effects: Vec::new(), custom_name: None }
+    PotionContents {
+        potion: None,
+        custom_color: None,
+        custom_effects: Vec::new(),
+        custom_name: None,
+    }
 }
 
 impl AreaEffectCloud {
@@ -90,7 +98,11 @@ impl AreaEffectCloud {
 
     /// `setRadius(radius)`.
     pub fn set_radius(&mut self, radius: f32) {
-        if self.base.entity_data.set(DATA_RADIUS, mth::clamp_f32(radius, 0.0, MAX_RADIUS)) {
+        if self
+            .base
+            .entity_data
+            .set(DATA_RADIUS, mth::clamp_f32(radius, 0.0, MAX_RADIUS))
+        {
             self.on_synced_data_updated(DATA_RADIUS.id());
         }
     }
@@ -119,7 +131,9 @@ impl AreaEffectCloud {
     /// `applyComponentsFromItemStack(stack)`: `Entity` takes the custom name and data, the cloud the potion contents
     /// and the duration scale.
     pub fn apply_components_from_item_stack(&mut self, stack: &crate::world::item::ItemStack) {
-        use mc_protocol::components::{CUSTOM_DATA, CUSTOM_NAME, POTION_CONTENTS, POTION_DURATION_SCALE};
+        use mc_protocol::components::{
+            CUSTOM_DATA, CUSTOM_NAME, POTION_CONTENTS, POTION_DURATION_SCALE,
+        };
         if let Some(name) = stack.get(&CUSTOM_NAME) {
             self.base.set_custom_name(Some(name.clone()));
         }
@@ -139,8 +153,12 @@ impl AreaEffectCloud {
         let particle = match &self.custom_particle {
             Some(p) => p.clone(),
             None => {
-                let color = potion_contents::get_color(&self.potion_contents) | 0xFF00_0000u32 as i32;
-                ParticleOptions::Color { particle_type: mc_data::ParticleType::ENTITY_EFFECT, color }
+                let color =
+                    potion_contents::get_color(&self.potion_contents) | 0xFF00_0000u32 as i32;
+                ParticleOptions::Color {
+                    particle_type: mc_data::ParticleType::ENTITY_EFFECT,
+                    color,
+                }
             }
         };
         self.base.entity_data.set(DATA_PARTICLE, particle);
@@ -149,15 +167,17 @@ impl AreaEffectCloud {
     /// `addEffect(effect)`: `potionContents.withEffectAdded(effect)`.
     pub fn add_effect(&mut self, effect: &MobEffectInstance) {
         let mut contents = self.potion_contents.clone();
-        contents.custom_effects.push(mc_protocol::components::MobEffectInstance {
-            effect: effect.effect,
-            duration: effect.duration,
-            amplifier: effect.amplifier,
-            ambient: effect.ambient,
-            visible: effect.visible,
-            show_icon: effect.show_icon,
-            hidden_effect: None,
-        });
+        contents
+            .custom_effects
+            .push(mc_protocol::components::MobEffectInstance {
+                effect: effect.effect,
+                duration: effect.duration,
+                amplifier: effect.amplifier,
+                ambient: effect.ambient,
+                visible: effect.visible,
+                show_icon: effect.show_icon,
+                hidden_effect: None,
+            });
         self.set_potion_contents(contents);
     }
 
@@ -207,7 +227,9 @@ impl AreaEffectCloud {
         self.owner = owner.map(|o| o.uuid());
     }
     pub fn get_owner<'l>(&self, level: &'l ServerLevel) -> Option<&'l dyn Entity> {
-        level.get_entity_by_uuid(self.owner?).filter(|e| e.living().is_some())
+        level
+            .get_entity_by_uuid(self.owner?)
+            .filter(|e| e.living().is_some())
     }
 
     /// `serverTick(serverLevel)`.
@@ -243,22 +265,33 @@ impl AreaEffectCloud {
             return;
         }
         let mut all_effects = Vec::new();
-        potion_contents::for_each_effect(&self.potion_contents, self.potion_duration_scale, |e| all_effects.push(e));
-        let entities = level.get_entities_of_class(&self.base.bounding_box(), |e| e.living().is_some(), |_| true);
+        potion_contents::for_each_effect(&self.potion_contents, self.potion_duration_scale, |e| {
+            all_effects.push(e)
+        });
+        let entities = level.get_entities_of_class(
+            &self.base.bounding_box(),
+            |e| e.living().is_some(),
+            |_| true,
+        );
         let owner_id = self.get_owner(level).map(|o| o.id());
         for id in entities {
             if self.victims.contains_key(&id) {
                 continue;
             }
-            let Some(entity) = level.get_entity(id) else { continue };
-            if !entity.is_affected_by_potions() || !all_effects.iter().any(|e| entity.can_be_affected(level, e)) {
+            let Some(entity) = level.get_entity(id) else {
+                continue;
+            };
+            if !entity.is_affected_by_potions()
+                || !all_effects.iter().any(|e| entity.can_be_affected(level, e))
+            {
                 continue;
             }
             let xd = entity.base().x() - self.base.x();
             let zd = entity.base().z() - self.base.z();
             let dist = xd * xd + zd * zd;
             if dist <= f64::from(radius) * f64::from(radius) {
-                self.victims.insert(id, tick_count + self.reapplication_delay);
+                self.victims
+                    .insert(id, tick_count + self.reapplication_delay);
                 self.apply_effects(level, id, owner_id, &all_effects);
                 if self.radius_on_use != 0.0 {
                     radius += self.radius_on_use;
@@ -281,9 +314,17 @@ impl AreaEffectCloud {
 
     /// The effect loop for one victim. The owner (a live entity of the level) is lent out of the level storage for the
     /// call so it can be passed by reference next to `&mut level`; when the victim is the owner it is its own cause.
-    fn apply_effects(&self, level: &mut ServerLevel, victim: EntityId, owner_id: Option<EntityId>, effects: &[MobEffectInstance]) {
+    fn apply_effects(
+        &self,
+        level: &mut ServerLevel,
+        victim: EntityId,
+        owner_id: Option<EntityId>,
+        effects: &[MobEffectInstance],
+    ) {
         let owner_is_victim = owner_id == Some(victim);
-        let lent_owner = owner_id.filter(|_| !owner_is_victim).and_then(|o| level.take_entity(o).map(|e| (o, e)));
+        let lent_owner = owner_id
+            .filter(|_| !owner_is_victim)
+            .and_then(|o| level.take_entity(o).map(|e| (o, e)));
         level.with_entity(victim, |level, entity| {
             let owner_cause = match (&lent_owner, owner_is_victim) {
                 (Some((_, owner)), _) => Some(EffectCause::Entity(owner.as_ref())),
@@ -292,7 +333,14 @@ impl AreaEffectCloud {
             };
             for effect in effects {
                 if effect.effect.is_instantaneous() {
-                    effect.effect.apply_instantaneous_effect(level, Some(EffectCause::Entity(self)), owner_cause, entity, effect.amplifier, 0.5);
+                    effect.effect.apply_instantaneous_effect(
+                        level,
+                        Some(EffectCause::Entity(self)),
+                        owner_cause,
+                        entity,
+                        effect.amplifier,
+                        0.5,
+                    );
                 } else {
                     entity.add_effect(level, effect.clone(), Some(self.base.id));
                 }
@@ -352,7 +400,12 @@ impl Entity for AreaEffectCloud {
         EntityDimensions::scalable(self.get_radius() * 2.0, HEIGHT)
     }
 
-    fn hurt_server(&mut self, _level: &mut ServerLevel, _source: &crate::world::damagesource::DamageSource, _amount: f32) -> bool {
+    fn hurt_server(
+        &mut self,
+        _level: &mut ServerLevel,
+        _source: &crate::world::damagesource::DamageSource,
+        _amount: f32,
+    ) -> bool {
         false
     }
 
@@ -369,10 +422,14 @@ impl Entity for AreaEffectCloud {
             out.put("custom_particle", tag);
         }
         if let Some(owner) = self.owner {
-            out.put_int_array("Owner", mc_core::uuid_util::uuid_to_int_array(&owner).to_vec());
+            out.put_int_array(
+                "Owner",
+                mc_core::uuid_util::uuid_to_int_array(&owner).to_vec(),
+            );
         }
         if self.potion_contents != empty_contents()
-            && let Ok(tag) = mc_dfu::encode_nbt(&PotionContents::codec(), &self.potion_contents).into_result()
+            && let Ok(tag) =
+                mc_dfu::encode_nbt(&PotionContents::codec(), &self.potion_contents).into_result()
         {
             out.put("potion_contents", tag);
         }
@@ -394,7 +451,11 @@ impl Entity for AreaEffectCloud {
         self.set_custom_particle(input.get("custom_particle").and_then(particle_from_nbt));
         let contents = input
             .get("potion_contents")
-            .and_then(|t| mc_dfu::parse_nbt(&PotionContents::codec(), t).into_result().ok())
+            .and_then(|t| {
+                mc_dfu::parse_nbt(&PotionContents::codec(), t)
+                    .into_result()
+                    .ok()
+            })
             .unwrap_or_else(empty_contents);
         self.set_potion_contents(contents);
         self.potion_duration_scale = input.get_float_or("potion_duration_scale", 1.0);
@@ -407,15 +468,24 @@ fn particle_to_nbt(particle: &ParticleOptions) -> Option<Tag> {
     let mut tag = CompoundTag::new();
     match particle {
         ParticleOptions::Simple(t) => tag.put_string("type", t.name()),
-        ParticleOptions::Color { particle_type, color } => {
+        ParticleOptions::Color {
+            particle_type,
+            color,
+        } => {
             tag.put_string("type", particle_type.name());
             tag.put_int("color", *color);
         }
-        ParticleOptions::Power { particle_type, power } => {
+        ParticleOptions::Power {
+            particle_type,
+            power,
+        } => {
             tag.put_string("type", particle_type.name());
             tag.put_float("power", *power);
         }
-        ParticleOptions::Block { particle_type, state } => {
+        ParticleOptions::Block {
+            particle_type,
+            state,
+        } => {
             tag.put_string("type", particle_type.name());
             tag.put("block_state", Tag::Compound(crate::world::level::levelgen::structure::templatesystem::structure_template::write_block_state(*state)));
         }
@@ -431,18 +501,29 @@ fn particle_from_nbt(tag: &Tag) -> Option<ParticleOptions> {
     let tag = tag.as_compound()?;
     let ty = mc_data::ParticleType::by_name(tag.get_string("type")?)?;
     if let Some(color) = tag.get("color").and_then(|t| t.as_number()) {
-        return Some(ParticleOptions::Color { particle_type: ty, color: color.int_value() });
+        return Some(ParticleOptions::Color {
+            particle_type: ty,
+            color: color.int_value(),
+        });
     }
     if ty == mc_data::ParticleType::DRAGON_BREATH {
-        return Some(ParticleOptions::Power { particle_type: ty, power: tag.get_float_or("power", 1.0) });
+        return Some(ParticleOptions::Power {
+            particle_type: ty,
+            power: tag.get_float_or("power", 1.0),
+        });
     }
     if let Some(state) = tag.get_compound("block_state") {
         let state = crate::world::level::levelgen::structure::templatesystem::structure_template::read_block_state(state);
-        return Some(ParticleOptions::Block { particle_type: ty, state });
+        return Some(ParticleOptions::Block {
+            particle_type: ty,
+            state,
+        });
     }
     Some(ParticleOptions::Simple(ty))
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static AREA_EFFECT_CLOUD_FACTORY: EntityRegistration =
-    EntityRegistration { entity_type: EntityType::AREA_EFFECT_CLOUD, create: |ty, id, _registries| Box::new(AreaEffectCloud::new(ty, id)) };
+static AREA_EFFECT_CLOUD_FACTORY: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::AREA_EFFECT_CLOUD,
+    create: |ty, id, _registries| Box::new(AreaEffectCloud::new(ty, id)),
+};

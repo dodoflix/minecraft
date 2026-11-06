@@ -11,13 +11,14 @@ pub struct SummonedEntityTriggerInstance {
 
 impl TriggerInstance for SummonedEntityTriggerInstance {
     fn codec() -> Codec<Self> {
-        static C: std::sync::LazyLock<Codec<SummonedEntityTriggerInstance>> = std::sync::LazyLock::new(|| {
-            mc_dfu::record!(SummonedEntityTriggerInstance {
-                player: condition_holder_codec().optional_field_of("player"),
-                entity: condition_holder_codec().optional_field_of("entity"),
-            })
-            .codec()
-        });
+        static C: std::sync::LazyLock<Codec<SummonedEntityTriggerInstance>> =
+            std::sync::LazyLock::new(|| {
+                mc_dfu::record!(SummonedEntityTriggerInstance {
+                    player: condition_holder_codec().optional_field_of("player"),
+                    entity: condition_holder_codec().optional_field_of("entity"),
+                })
+                .codec()
+            });
         C.clone()
     }
 }
@@ -29,7 +30,11 @@ impl SimpleInstance for SummonedEntityTriggerInstance {
 }
 
 crate::simple_instance!(SummonedEntityTriggerInstance, |this, validator| {
-    crate::world::level::storage::loot::validation::validate_holder_opt(&validator.entity_context(), "entity", &this.entity);
+    crate::world::level::storage::loot::validation::validate_holder_opt(
+        &validator.entity_context(),
+        "entity",
+        &this.entity,
+    );
 });
 
 crate::register_triggers!(SummonedEntityTriggerInstance {
@@ -51,7 +56,12 @@ impl Trigger<SummonedEntityTriggerInstance> {
     }
 
     /// The listeners that match; nothing is mutated.
-    pub fn matches(&self, level: &ServerLevel, player: &ServerPlayer, entity: &dyn Entity) -> TriggerMatches {
+    pub fn matches(
+        &self,
+        level: &ServerLevel,
+        player: &ServerPlayer,
+        entity: &dyn Entity,
+    ) -> TriggerMatches {
         let params = entity_params(level, player.position(), entity);
         let mut context = new_context(&params);
         self.collect(level, player, |t| t.matches(&mut context))

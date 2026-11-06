@@ -1,6 +1,6 @@
 //! Shared building blocks of component values: enums, text components, sound events, registry sets.
 
-use crate::codec::{read_varint, write_varint, Decode, DecodeError, DecodeResult, Encode};
+use crate::codec::{Decode, DecodeError, DecodeResult, Encode, read_varint, write_varint};
 use crate::components::holder::{self, Holder};
 use mc_core::ident::Identifier;
 use mc_data::registry::RegistryId;
@@ -34,7 +34,10 @@ macro_rules! string_enum {
 /// `ByIdMap.OutOfBoundsStrategy.ZERO` read of an ordinal: `0` when out of range.
 pub fn read_enum_zero<T: Copy>(input: &mut &[u8], all: &[T]) -> DecodeResult<T> {
     let id = read_varint(input)?;
-    Ok(usize::try_from(id).ok().and_then(|i| all.get(i).copied()).unwrap_or(all[0]))
+    Ok(usize::try_from(id)
+        .ok()
+        .and_then(|i| all.get(i).copied())
+        .unwrap_or(all[0]))
 }
 
 string_enum! {
@@ -86,17 +89,31 @@ pub fn dyn_to_serde(d: &Dyn) -> serde_json::Value {
         Dyn::Short(v) => Value::from(*v as i64),
         Dyn::Int(v) => Value::from(*v as i64),
         Dyn::Long(v) => Value::from(*v),
-        Dyn::Float(v) => Number::from_f64(*v as f64).map(Value::Number).unwrap_or(Value::Null),
-        Dyn::Double(v) => Number::from_f64(*v).map(Value::Number).unwrap_or(Value::Null),
+        Dyn::Float(v) => Number::from_f64(*v as f64)
+            .map(Value::Number)
+            .unwrap_or(Value::Null),
+        Dyn::Double(v) => Number::from_f64(*v)
+            .map(Value::Number)
+            .unwrap_or(Value::Null),
         Dyn::JsonNum(t) => t
             .parse::<i64>()
             .map(Value::from)
             .or_else(|_| t.parse::<u64>().map(Value::from))
-            .or_else(|_| t.parse::<f64>().map(|f| Number::from_f64(f).map(Value::Number).unwrap_or(Value::Null)))
+            .or_else(|_| {
+                t.parse::<f64>().map(|f| {
+                    Number::from_f64(f)
+                        .map(Value::Number)
+                        .unwrap_or(Value::Null)
+                })
+            })
             .unwrap_or(Value::Null),
         Dyn::Str(s) => Value::String(s.clone()),
         Dyn::List(l) => Value::Array(l.iter().map(dyn_to_serde).collect()),
-        Dyn::Map(m) => Value::Object(m.iter().map(|(k, v)| (k.as_str().unwrap_or("").to_string(), dyn_to_serde(v))).collect()),
+        Dyn::Map(m) => Value::Object(
+            m.iter()
+                .map(|(k, v)| (k.as_str().unwrap_or("").to_string(), dyn_to_serde(v)))
+                .collect(),
+        ),
         Dyn::Bytes(v) => Value::Array(v.iter().map(|x| Value::from(*x as i64)).collect()),
         Dyn::Ints(v) => Value::Array(v.iter().map(|x| Value::from(*x as i64)).collect()),
         Dyn::Longs(v) => Value::Array(v.iter().map(|x| Value::from(*x)).collect()),
@@ -115,7 +132,11 @@ pub fn serde_to_dyn(v: &serde_json::Value) -> Dyn {
         },
         Value::String(s) => Dyn::Str(s.clone()),
         Value::Array(a) => Dyn::List(a.iter().map(serde_to_dyn).collect()),
-        Value::Object(o) => Dyn::Map(o.iter().map(|(k, v)| (Dyn::Str(k.clone()), serde_to_dyn(v))).collect()),
+        Value::Object(o) => Dyn::Map(
+            o.iter()
+                .map(|(k, v)| (Dyn::Str(k.clone()), serde_to_dyn(v)))
+                .collect(),
+        ),
     }
 }
 
@@ -136,9 +157,12 @@ fn mark_bools(nbt: Dyn, json: &Dyn) -> Dyn {
                 })
                 .collect(),
         ),
-        (Dyn::List(l), Dyn::List(jl)) if l.len() == jl.len() => {
-            Dyn::List(l.into_iter().zip(jl.iter()).map(|(v, j)| mark_bools(v, j)).collect())
-        }
+        (Dyn::List(l), Dyn::List(jl)) if l.len() == jl.len() => Dyn::List(
+            l.into_iter()
+                .zip(jl.iter())
+                .map(|(v, j)| mark_bools(v, j))
+                .collect(),
+        ),
         (other, _) => other,
     }
 }
@@ -148,8 +172,14 @@ pub fn component_codec() -> Codec<Component> {
     Codec::from_fns(
         |ops, input: &Component, prefix| {
             let encoded: Result<Dyn, String> = match ops.kind() {
-                OpsKind::Json => input.to_json().map(|v| serde_to_dyn(&v)).map_err(|e| e.to_string()),
-                OpsKind::Nbt => input.to_nbt().map(|t| Dyn::from(&t)).map_err(|e| e.to_string()),
+                OpsKind::Json => input
+                    .to_json()
+                    .map(|v| serde_to_dyn(&v))
+                    .map_err(|e| e.to_string()),
+                OpsKind::Nbt => input
+                    .to_nbt()
+                    .map(|t| Dyn::from(&t))
+                    .map_err(|e| e.to_string()),
                 OpsKind::Hash => input.to_nbt().map_err(|e| e.to_string()).map(|t| {
                     let nbt = Dyn::from(&t);
                     match input.to_json() {
@@ -165,7 +195,9 @@ pub fn component_codec() -> Codec<Component> {
         },
         |ops, input| {
             let r: Result<Component, String> = match ops.kind() {
-                OpsKind::Json => Component::from_json(&dyn_to_serde(input)).map_err(|e| e.to_string()),
+                OpsKind::Json => {
+                    Component::from_json(&dyn_to_serde(input)).map_err(|e| e.to_string())
+                }
                 OpsKind::Nbt => match input.to_tag() {
                     Ok(t) => Component::from_nbt(&t).map_err(|e| e.to_string()),
                     Err(e) => Err(e),
@@ -215,11 +247,21 @@ impl SoundEvent {
     }
     pub fn decode_direct(input: &mut &[u8]) -> DecodeResult<SoundEvent> {
         let location = Identifier::decode(input)?;
-        let fixed_range = if bool::decode(input)? { Some(f32::decode(input)?) } else { None };
-        Ok(SoundEvent { location, fixed_range })
+        let fixed_range = if bool::decode(input)? {
+            Some(f32::decode(input)?)
+        } else {
+            None
+        };
+        Ok(SoundEvent {
+            location,
+            fixed_range,
+        })
     }
     /// `SoundEvent.STREAM_CODEC`.
-    pub fn encode_holder(h: &Holder<SoundEvent>, out: &mut Vec<u8>) -> crate::codec::EncodeResult<()> {
+    pub fn encode_holder(
+        h: &Holder<SoundEvent>,
+        out: &mut Vec<u8>,
+    ) -> crate::codec::EncodeResult<()> {
         holder::encode_holder("minecraft:sound_event", h, out, |v, o| v.encode_direct(o))?;
         Ok(())
     }
@@ -247,7 +289,11 @@ impl<T: RegistryId> RegistrySet<T> {
         let registry = T::registry().name();
         let element = holder::registry_by_name_codec::<T>();
         let list = element.list_of();
-        let direct = if always_use_list { list } else { mc_dfu::extra::compact_list_codec_with(&element, &list) };
+        let direct = if always_use_list {
+            list
+        } else {
+            mc_dfu::extra::compact_list_codec_with(&element, &list)
+        };
         let tag = hashed_tag_codec();
         let either = tag.either(&direct);
         let (e1, e2) = (either.clone(), either);
@@ -257,16 +303,19 @@ impl<T: RegistryId> RegistrySet<T> {
                 RegistrySet::Entries(v) => e1.encode(ops, &Either::Right(v.clone()), prefix),
             },
             move |ops, input| {
-                e2.decode(ops, input).flat_map(|(either, rest)| match either {
-                    Either::Left(tag) => {
-                        if crate::registry_context::get().tag_exists(registry, &tag) {
-                            DataResult::success((RegistrySet::Tag(tag), rest))
-                        } else {
-                            DataResult::error(move || format!("Missing tag: '{tag}' in '{registry}'"))
+                e2.decode(ops, input)
+                    .flat_map(|(either, rest)| match either {
+                        Either::Left(tag) => {
+                            if crate::registry_context::get().tag_exists(registry, &tag) {
+                                DataResult::success((RegistrySet::Tag(tag), rest))
+                            } else {
+                                DataResult::error(move || {
+                                    format!("Missing tag: '{tag}' in '{registry}'")
+                                })
+                            }
                         }
-                    }
-                    Either::Right(v) => DataResult::success((RegistrySet::Entries(v), rest)),
-                })
+                        Either::Right(v) => DataResult::success((RegistrySet::Entries(v), rest)),
+                    })
             },
         )
     }
@@ -275,7 +324,9 @@ impl<T: RegistryId> RegistrySet<T> {
     pub fn contains(&self, value: T) -> bool {
         match self {
             RegistrySet::Entries(v) => v.contains(&value),
-            RegistrySet::Tag(t) => mc_data::tags::get::<T>(&t.to_string()).is_some_and(|s| s.contains(value)),
+            RegistrySet::Tag(t) => {
+                mc_data::tags::get::<T>(&t.to_string()).is_some_and(|s| s.contains(value))
+            }
         }
     }
 
@@ -333,7 +384,9 @@ pub fn hashed_tag_codec() -> Codec<Identifier> {
 
 fn json_null_map_value(d: &Dyn) -> bool {
     match d {
-        Dyn::Map(m) => m.iter().any(|(_, v)| matches!(v, Dyn::Empty) || json_null_map_value(v)),
+        Dyn::Map(m) => m
+            .iter()
+            .any(|(_, v)| matches!(v, Dyn::Empty) || json_null_map_value(v)),
         Dyn::List(l) => l.iter().any(json_null_map_value),
         _ => false,
     }
@@ -354,7 +407,12 @@ pub fn compound_tag_codec() -> Codec<mc_nbt::CompoundTag> {
                 Err(e) => DataResult::error(move || e.clone()),
             }
         },
-        |c: &mc_nbt::CompoundTag| DataResult::success(mc_dfu::Dynamic::new(mc_dfu::NBT, Dyn::from(&Tag::Compound(c.clone())))),
+        |c: &mc_nbt::CompoundTag| {
+            DataResult::success(mc_dfu::Dynamic::new(
+                mc_dfu::NBT,
+                Dyn::from(&Tag::Compound(c.clone())),
+            ))
+        },
     )
 }
 
@@ -399,7 +457,12 @@ pub fn uuid_codec() -> Codec<uuid::Uuid> {
         },
         |u: &uuid::Uuid| {
             let (most, least) = u.as_u64_pair();
-            vec![(most >> 32) as i32, most as i32, (least >> 32) as i32, least as i32]
+            vec![
+                (most >> 32) as i32,
+                most as i32,
+                (least >> 32) as i32,
+                least as i32,
+            ]
         },
     )
 }

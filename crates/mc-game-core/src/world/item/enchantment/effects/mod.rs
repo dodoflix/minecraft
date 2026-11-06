@@ -21,9 +21,10 @@ use mc_worldgen::provider::FloatProvider;
 use super::codecs::{type_codec, vec3_codec, vec3i_codec};
 use super::level_based_value::LevelBasedValue;
 use super::value_codecs::{
-    BlockPredicateRef, BlockStateProviderRef, ExplosionInteraction, ExplosionParticleInfo, Weighted, block_predicate_codec,
-    block_state_provider_holder_codec, damage_type_holder_codec, explosion_particle_infos_codec, game_event_codec, particle_options_codec,
-    float_provider_codec, play_sound_codec,
+    BlockPredicateRef, BlockStateProviderRef, ExplosionInteraction, ExplosionParticleInfo,
+    Weighted, block_predicate_codec, block_state_provider_holder_codec, damage_type_holder_codec,
+    explosion_particle_infos_codec, float_provider_codec, game_event_codec, particle_options_codec,
+    play_sound_codec,
 };
 use crate::registry::typed::damage_type::DamageType;
 use mc_protocol::packets::play::ParticleOptions;
@@ -190,9 +191,14 @@ impl EnchantmentEntityEffect {
 
     /// `EnchantmentEntityEffect.CODEC`.
     pub fn codec() -> Codec<EnchantmentEntityEffect> {
-        static CODEC: std::sync::LazyLock<Codec<EnchantmentEntityEffect>> = std::sync::LazyLock::new(|| {
-            type_codec(ENTITY_REGISTRY).dispatch("type", |e: &EnchantmentEntityEffect| e.type_name(), |ty: &&'static str| entity_arm(ty))
-        });
+        static CODEC: std::sync::LazyLock<Codec<EnchantmentEntityEffect>> =
+            std::sync::LazyLock::new(|| {
+                type_codec(ENTITY_REGISTRY).dispatch(
+                    "type",
+                    |e: &EnchantmentEntityEffect| e.type_name(),
+                    |ty: &&'static str| entity_arm(ty),
+                )
+            });
         CODEC.clone()
     }
 }
@@ -208,13 +214,14 @@ impl EnchantmentLocationBasedEffect {
 
     /// `EnchantmentLocationBasedEffect.CODEC`.
     pub fn codec() -> Codec<EnchantmentLocationBasedEffect> {
-        static CODEC: std::sync::LazyLock<Codec<EnchantmentLocationBasedEffect>> = std::sync::LazyLock::new(|| {
-            type_codec(LOCATION_REGISTRY).dispatch(
-                "type",
-                |e: &EnchantmentLocationBasedEffect| e.type_name(),
-                |ty: &&'static str| location_arm(ty),
-            )
-        });
+        static CODEC: std::sync::LazyLock<Codec<EnchantmentLocationBasedEffect>> =
+            std::sync::LazyLock::new(|| {
+                type_codec(LOCATION_REGISTRY).dispatch(
+                    "type",
+                    |e: &EnchantmentLocationBasedEffect| e.type_name(),
+                    |ty: &&'static str| location_arm(ty),
+                )
+            });
         CODEC.clone()
     }
 }
@@ -254,10 +261,15 @@ fn entity_leaf(ty: &str) -> MapCodec<EnchantmentEntityEffect> {
             E::ApplyMobEffect(x) => x.clone(),
             _ => unreachable!("dispatched by type"),
         }),
-        "minecraft:change_item_damage" => record!(AmountRec { amount: level_value("amount") }).xmap(
+        "minecraft:change_item_damage" => record!(AmountRec {
+            amount: level_value("amount")
+        })
+        .xmap(
             |r| E::ChangeItemDamage { amount: r.amount },
             |e: &E| match e {
-                E::ChangeItemDamage { amount } => AmountRec { amount: amount.clone() },
+                E::ChangeItemDamage { amount } => AmountRec {
+                    amount: amount.clone(),
+                },
                 _ => unreachable!("dispatched by type"),
             },
         ),
@@ -273,7 +285,8 @@ fn entity_leaf(ty: &str) -> MapCodec<EnchantmentEntityEffect> {
         "minecraft:explode" => record!(ExplodeEffect {
             attribute_to_user: BOOL.optional_field_of_default("attribute_to_user", false),
             damage_type: damage_type_holder_codec().optional_field_of("damage_type"),
-            knockback_multiplier: LevelBasedValue::codec().optional_field_of("knockback_multiplier"),
+            knockback_multiplier: LevelBasedValue::codec()
+                .optional_field_of("knockback_multiplier"),
             immune_blocks: RegistrySet::<Block>::codec().optional_field_of("immune_blocks"),
             offset: vec3_codec().optional_field_of_default("offset", Vec3::ZERO),
             radius: level_value("radius"),
@@ -281,17 +294,28 @@ fn entity_leaf(ty: &str) -> MapCodec<EnchantmentEntityEffect> {
             block_interaction: ExplosionInteraction::codec().field_of("block_interaction"),
             small_particle: particle_options_codec().field_of("small_particle"),
             large_particle: particle_options_codec().field_of("large_particle"),
-            block_particles: explosion_particle_infos_codec().optional_field_of_default("block_particles", Vec::new()),
+            block_particles: explosion_particle_infos_codec()
+                .optional_field_of_default("block_particles", Vec::new()),
             sound: SoundEvent::holder_codec().field_of("sound"),
         })
-        .xmap(|e| E::Explode(Box::new(e)), |e: &E| match e {
-            E::Explode(x) => (**x).clone(),
-            _ => unreachable!("dispatched by type"),
-        }),
-        "minecraft:ignite" => record!(DurationRec { duration: level_value("duration") }).xmap(
-            |r| E::Ignite { duration: r.duration },
+        .xmap(
+            |e| E::Explode(Box::new(e)),
             |e: &E| match e {
-                E::Ignite { duration } => DurationRec { duration: duration.clone() },
+                E::Explode(x) => (**x).clone(),
+                _ => unreachable!("dispatched by type"),
+            },
+        ),
+        "minecraft:ignite" => record!(DurationRec {
+            duration: level_value("duration")
+        })
+        .xmap(
+            |r| E::Ignite {
+                duration: r.duration,
+            },
+            |e: &E| match e {
+                E::Ignite { duration } => DurationRec {
+                    duration: duration.clone(),
+                },
                 _ => unreachable!("dispatched by type"),
             },
         ),
@@ -304,10 +328,15 @@ fn entity_leaf(ty: &str) -> MapCodec<EnchantmentEntityEffect> {
             E::ApplyImpulse(x) => x.clone(),
             _ => unreachable!("dispatched by type"),
         }),
-        "minecraft:apply_exhaustion" => record!(AmountRec { amount: level_value("amount") }).xmap(
+        "minecraft:apply_exhaustion" => record!(AmountRec {
+            amount: level_value("amount")
+        })
+        .xmap(
             |r| E::ApplyExhaustion { amount: r.amount },
             |e: &E| match e {
-                E::ApplyExhaustion { amount } => AmountRec { amount: amount.clone() },
+                E::ApplyExhaustion { amount } => AmountRec {
+                    amount: amount.clone(),
+                },
                 _ => unreachable!("dispatched by type"),
             },
         ),
@@ -342,10 +371,17 @@ fn entity_leaf(ty: &str) -> MapCodec<EnchantmentEntityEffect> {
             E::ReplaceDisk(x) => x.clone(),
             _ => unreachable!("dispatched by type"),
         }),
-        "minecraft:run_function" => record!(FunctionRec { function: mc_dfu::extra::IDENTIFIER.field_of("function") }).xmap(
-            |r| E::RunFunction { function: r.function },
+        "minecraft:run_function" => record!(FunctionRec {
+            function: mc_dfu::extra::IDENTIFIER.field_of("function")
+        })
+        .xmap(
+            |r| E::RunFunction {
+                function: r.function,
+            },
             |e: &E| match e {
-                E::RunFunction { function } => FunctionRec { function: function.clone() },
+                E::RunFunction { function } => FunctionRec {
+                    function: function.clone(),
+                },
                 _ => unreachable!("dispatched by type"),
             },
         ),
@@ -360,11 +396,20 @@ fn entity_leaf(ty: &str) -> MapCodec<EnchantmentEntityEffect> {
         }),
         "minecraft:spawn_particles" => record!(SpawnParticlesEffect {
             particle: particle_options_codec().field_of("particle"),
-            horizontal_position: PositionSource::codec().codec().field_of("horizontal_position"),
-            vertical_position: PositionSource::codec().codec().field_of("vertical_position"),
-            horizontal_velocity: VelocitySource::codec().codec().field_of("horizontal_velocity"),
-            vertical_velocity: VelocitySource::codec().codec().field_of("vertical_velocity"),
-            speed: float_provider_codec(None, None).optional_field_of_default("speed", FloatProvider::constant(0.0)),
+            horizontal_position: PositionSource::codec()
+                .codec()
+                .field_of("horizontal_position"),
+            vertical_position: PositionSource::codec()
+                .codec()
+                .field_of("vertical_position"),
+            horizontal_velocity: VelocitySource::codec()
+                .codec()
+                .field_of("horizontal_velocity"),
+            vertical_velocity: VelocitySource::codec()
+                .codec()
+                .field_of("vertical_velocity"),
+            speed: float_provider_codec(None, None)
+                .optional_field_of_default("speed", FloatProvider::constant(0.0)),
         })
         .xmap(E::SpawnParticles, |e: &E| match e {
             E::SpawnParticles(x) => x.clone(),
@@ -384,10 +429,17 @@ fn entity_leaf(ty: &str) -> MapCodec<EnchantmentEntityEffect> {
 
 fn entity_arm(ty: &str) -> MapCodec<EnchantmentEntityEffect> {
     if ty == "minecraft:all_of" {
-        record!(AllOfEntityRec { effects: Codec::lazy(EnchantmentEntityEffect::codec).list_of().field_of("effects") }).xmap(
+        record!(AllOfEntityRec {
+            effects: Codec::lazy(EnchantmentEntityEffect::codec)
+                .list_of()
+                .field_of("effects")
+        })
+        .xmap(
             |r| EnchantmentEntityEffect::AllOf(r.effects),
             |e: &EnchantmentEntityEffect| match e {
-                EnchantmentEntityEffect::AllOf(effects) => AllOfEntityRec { effects: effects.clone() },
+                EnchantmentEntityEffect::AllOf(effects) => AllOfEntityRec {
+                    effects: effects.clone(),
+                },
                 _ => unreachable!("dispatched by type"),
             },
         )
@@ -399,19 +451,26 @@ fn entity_arm(ty: &str) -> MapCodec<EnchantmentEntityEffect> {
 fn location_arm(ty: &str) -> MapCodec<EnchantmentLocationBasedEffect> {
     use EnchantmentLocationBasedEffect as L;
     match ty {
-        "minecraft:all_of" => {
-            record!(AllOfLocationRec { effects: Codec::lazy(EnchantmentLocationBasedEffect::codec).list_of().field_of("effects") }).xmap(
-                |r| L::AllOf(r.effects),
-                |e: &L| match e {
-                    L::AllOf(effects) => AllOfLocationRec { effects: effects.clone() },
-                    _ => unreachable!("dispatched by type"),
+        "minecraft:all_of" => record!(AllOfLocationRec {
+            effects: Codec::lazy(EnchantmentLocationBasedEffect::codec)
+                .list_of()
+                .field_of("effects")
+        })
+        .xmap(
+            |r| L::AllOf(r.effects),
+            |e: &L| match e {
+                L::AllOf(effects) => AllOfLocationRec {
+                    effects: effects.clone(),
                 },
-            )
+                _ => unreachable!("dispatched by type"),
+            },
+        ),
+        "minecraft:attribute" => {
+            EnchantmentAttributeEffect::map_codec().xmap(L::Attribute, |e: &L| match e {
+                L::Attribute(a) => a.clone(),
+                _ => unreachable!("dispatched by type"),
+            })
         }
-        "minecraft:attribute" => EnchantmentAttributeEffect::map_codec().xmap(L::Attribute, |e: &L| match e {
-            L::Attribute(a) => a.clone(),
-            _ => unreachable!("dispatched by type"),
-        }),
         _ => entity_leaf(ty).xmap(L::Entity, |e: &L| match e {
             L::Entity(x) => x.clone(),
             _ => unreachable!("dispatched by type"),
@@ -423,8 +482,10 @@ impl PositionSource {
     /// `PositionSource.CODEC` (a `MapCodec`).
     pub fn codec() -> MapCodec<PositionSource> {
         use mc_dfu::string_enum_codec;
-        static TYPES: [(PositionSourceType, &str); 2] =
-            [(PositionSourceType::EntityPosition, "entity_position"), (PositionSourceType::BoundingBox, "in_bounding_box")];
+        static TYPES: [(PositionSourceType, &str); 2] = [
+            (PositionSourceType::EntityPosition, "entity_position"),
+            (PositionSourceType::BoundingBox, "in_bounding_box"),
+        ];
         record!(PositionSource {
             ty: string_enum_codec(&TYPES).field_of("type"),
             offset: FLOAT.optional_field_of_default("offset", 0.0),
@@ -445,18 +506,27 @@ impl VelocitySource {
     pub fn codec() -> MapCodec<VelocitySource> {
         record!(VelocitySource {
             movement_scale: FLOAT.optional_field_of_default("movement_scale", 0.0),
-            base: float_provider_codec(None, None).optional_field_of_default("base", FloatProvider::constant(0.0)),
+            base: float_provider_codec(None, None)
+                .optional_field_of_default("base", FloatProvider::constant(0.0)),
         })
     }
 }
 
 impl PositionSource {
     /// `getCoordinate(position, center, boundingBoxSpan, random)`.
-    pub fn get_coordinate(&self, position: f64, center: f64, bounding_box_span: f32, random: &mut dyn mc_core::random::RandomSource) -> f64 {
+    pub fn get_coordinate(
+        &self,
+        position: f64,
+        center: f64,
+        bounding_box_span: f32,
+        random: &mut dyn mc_core::random::RandomSource,
+    ) -> f64 {
         let span = bounding_box_span * self.scale;
         let base = match self.ty {
             PositionSourceType::EntityPosition => position,
-            PositionSourceType::BoundingBox => center + (random.next_double() - 0.5) * f64::from(span),
+            PositionSourceType::BoundingBox => {
+                center + (random.next_double() - 0.5) * f64::from(span)
+            }
         };
         base + f64::from(self.offset)
     }
@@ -464,7 +534,11 @@ impl PositionSource {
 
 impl VelocitySource {
     /// `getVelocity(movement, random)`.
-    pub fn get_velocity(&self, movement: f64, random: &mut dyn mc_core::random::RandomSource) -> f64 {
+    pub fn get_velocity(
+        &self,
+        movement: f64,
+        random: &mut dyn mc_core::random::RandomSource,
+    ) -> f64 {
         movement * f64::from(self.movement_scale) + f64::from(self.base.sample(random))
     }
 }

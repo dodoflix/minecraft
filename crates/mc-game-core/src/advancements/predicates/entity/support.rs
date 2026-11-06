@@ -2,14 +2,14 @@
 //! our traits yet) and the data types of the `Entity` seam hooks.
 
 use crate::server::level::ServerLevel;
+use crate::world::container::Container;
 use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::movement;
 use crate::world::entity::{Entity, EntityData, EntityId, ServerPlayer};
-use crate::world::container::Container;
 use crate::world::inventory::InventoryMenu;
 use crate::world::item::ItemStack;
 use mc_core::phys::Vec3;
-use mc_protocol::components::{DataComponentMap, CUSTOM_DATA, CUSTOM_NAME};
+use mc_protocol::components::{CUSTOM_DATA, CUSTOM_NAME, DataComponentMap};
 
 /// `LightningBolt` as seen by `LightningBoltPredicate`.
 #[derive(Clone, Debug, PartialEq)]
@@ -36,7 +36,12 @@ pub fn base_entity_components(base: &EntityData) -> DataComponentMap {
     if let Some(name) = base.get_custom_name() {
         builder = builder.set(CUSTOM_NAME, name);
     }
-    builder.set(CUSTOM_DATA, mc_protocol::components::CustomData::of(&base.custom_data)).build()
+    builder
+        .set(
+            CUSTOM_DATA,
+            mc_protocol::components::CustomData::of(&base.custom_data),
+        )
+        .build()
 }
 
 /// `getEquipmentSlot(slot)` of `LivingEntity.getSlot`.
@@ -60,16 +65,30 @@ pub(crate) fn equipment_slot_of(slot: i32) -> Option<EquipmentSlot> {
 pub fn get_slot(entity: &dyn Entity, slot: i32) -> Option<ItemStack> {
     if let Some(player) = entity.player() {
         if slot == 499 {
-            return entity.as_any().downcast_ref::<ServerPlayer>().map(|p| p.player.menus.current().base().get_carried().clone());
+            return entity
+                .as_any()
+                .downcast_ref::<ServerPlayer>()
+                .map(|p| p.player.menus.current().base().get_carried().clone());
         }
         let craft_slot = slot - 500;
         if (0..4).contains(&craft_slot) {
-            return player.menus.inventory_menu().as_any().downcast_ref::<InventoryMenu>().map(|m| m.get_craft_slots().get_item(craft_slot as usize).clone());
+            return player
+                .menus
+                .inventory_menu()
+                .as_any()
+                .downcast_ref::<InventoryMenu>()
+                .map(|m| m.get_craft_slots().get_item(craft_slot as usize).clone());
         }
-        if let Some(stack) = usize::try_from(slot).ok().and_then(|s| player.inventory.get_non_equipment_items().get(s)) {
+        if let Some(stack) = usize::try_from(slot)
+            .ok()
+            .and_then(|s| player.inventory.get_non_equipment_items().get(s))
+        {
             return Some(stack.clone());
         }
-        if let Some(stack) = usize::try_from(slot - 200).ok().and_then(|s| player.ender_chest.get_items().get(s)) {
+        if let Some(stack) = usize::try_from(slot - 200)
+            .ok()
+            .and_then(|s| player.ender_chest.get_items().get(s))
+        {
             return Some(stack.clone());
         }
     }
@@ -85,13 +104,27 @@ pub fn is_fall_flying(entity: &dyn Entity) -> bool {
 }
 
 /// The entity with `id`: one of the `lent` entities (running entities are not in the level's storage) or the level's.
-pub fn resolve<'a>(level: &'a ServerLevel, lent: &[&'a dyn Entity], id: EntityId) -> Option<&'a dyn Entity> {
-    lent.iter().copied().find(|e| e.id() == id).or_else(|| level.get_entity(id))
+pub fn resolve<'a>(
+    level: &'a ServerLevel,
+    lent: &[&'a dyn Entity],
+    id: EntityId,
+) -> Option<&'a dyn Entity> {
+    lent.iter()
+        .copied()
+        .find(|e| e.id() == id)
+        .or_else(|| level.get_entity(id))
 }
 
 /// `Entity.getVehicle()`.
-pub fn get_vehicle<'a>(level: &'a ServerLevel, lent: &[&'a dyn Entity], entity: &dyn Entity) -> Option<&'a dyn Entity> {
-    entity.base().vehicle.and_then(|id| resolve(level, lent, id))
+pub fn get_vehicle<'a>(
+    level: &'a ServerLevel,
+    lent: &[&'a dyn Entity],
+    entity: &dyn Entity,
+) -> Option<&'a dyn Entity> {
+    entity
+        .base()
+        .vehicle
+        .and_then(|id| resolve(level, lent, id))
 }
 
 /// `Entity.getKnownMovement()` (`ServerPlayer` overrides it with the last client movement).
@@ -100,7 +133,9 @@ pub fn get_vehicle<'a>(level: &'a ServerLevel, lent: &[&'a dyn Entity], entity: 
 pub fn get_known_movement(level: &ServerLevel, entity: &dyn Entity) -> Vec3 {
     if let Some(player) = entity.as_any().downcast_ref::<ServerPlayer>() {
         return match get_vehicle(level, &[], entity) {
-            Some(vehicle) if vehicle.get_controlling_passenger() != Some(entity.id()) => get_known_movement(level, vehicle),
+            Some(vehicle) if vehicle.get_controlling_passenger() != Some(entity.id()) => {
+                get_known_movement(level, vehicle)
+            }
             _ => player.last_known_client_movement,
         };
     }
@@ -113,11 +148,17 @@ pub fn get_on_pos(level: &ServerLevel, entity: &dyn Entity) -> mc_core::pos::Blo
 }
 
 /// `Entity.getBlockPosBelowThatAffectsMyMovement()`.
-pub fn get_block_pos_below_that_affects_my_movement(level: &ServerLevel, entity: &dyn Entity) -> mc_core::pos::BlockPos {
+pub fn get_block_pos_below_that_affects_my_movement(
+    level: &ServerLevel,
+    entity: &dyn Entity,
+) -> mc_core::pos::BlockPos {
     movement::get_block_pos_below_that_affects_my_movement(entity, level)
 }
 
 /// `Entity.getTeam().getName()`: the scoreboard team of the entity's scoreboard name.
 pub fn get_team_name(level: &ServerLevel, entity: &dyn Entity) -> Option<String> {
-    level.scoreboard().get_players_team(&entity.get_scoreboard_name()).map(|t| t.get_name().to_owned())
+    level
+        .scoreboard()
+        .get_players_team(&entity.get_scoreboard_name())
+        .map(|t| t.get_name().to_owned())
 }

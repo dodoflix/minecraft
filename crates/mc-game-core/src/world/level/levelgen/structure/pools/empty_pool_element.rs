@@ -1,11 +1,15 @@
 //! `EmptyPoolElement` (`empty_pool_element`): the placeholder that ends a pool's candidate list.
 
-use super::structure_pool_element::{STRUCTURE_POOL_ELEMENT_TYPES, StructurePoolElement, StructurePoolElementType};
+use super::structure_pool_element::{
+    STRUCTURE_POOL_ELEMENT_TYPES, StructurePoolElement, StructurePoolElementType,
+};
 use super::structure_template_pool::Projection;
 use crate::world::level::levelgen::env::GenEnv;
 use crate::world::level::levelgen::structure::StructureManager;
 use crate::world::level::levelgen::structure::templatesystem::structure_template::JigsawBlockInfo;
-use crate::world::level::levelgen::structure::templatesystem::{LiquidSettings, StructureTemplateManager};
+use crate::world::level::levelgen::structure::templatesystem::{
+    LiquidSettings, StructureTemplateManager,
+};
 use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::bounding_box::BoundingBox;
 use mc_core::pos::{BlockPos, Vec3i};
@@ -17,7 +21,8 @@ use std::sync::{Arc, LazyLock};
 
 pub struct EmptyPoolElement;
 
-static INSTANCE: LazyLock<Arc<dyn StructurePoolElement>> = LazyLock::new(|| Arc::new(EmptyPoolElement));
+static INSTANCE: LazyLock<Arc<dyn StructurePoolElement>> =
+    LazyLock::new(|| Arc::new(EmptyPoolElement));
 
 /// `EmptyPoolElement.INSTANCE`.
 pub fn empty_pool_element() -> Arc<dyn StructurePoolElement> {
@@ -35,11 +40,22 @@ impl StructurePoolElement for EmptyPoolElement {
         Vec3i::new(0, 0, 0)
     }
 
-    fn get_shuffled_jigsaw_blocks(&self, _manager: &StructureTemplateManager, _position: BlockPos, _rotation: Rotation, _random: &mut dyn RandomSource) -> Vec<JigsawBlockInfo> {
+    fn get_shuffled_jigsaw_blocks(
+        &self,
+        _manager: &StructureTemplateManager,
+        _position: BlockPos,
+        _rotation: Rotation,
+        _random: &mut dyn RandomSource,
+    ) -> Vec<JigsawBlockInfo> {
         Vec::new()
     }
 
-    fn get_bounding_box(&self, _manager: &StructureTemplateManager, _position: BlockPos, _rotation: Rotation) -> BoundingBox {
+    fn get_bounding_box(
+        &self,
+        _manager: &StructureTemplateManager,
+        _position: BlockPos,
+        _rotation: Rotation,
+    ) -> BoundingBox {
         panic!("Invalid call to EmptyPoolElement.getBoundingBox, filter me!")
     }
 
@@ -80,4 +96,7 @@ impl StructurePoolElement for EmptyPoolElement {
 }
 
 #[linkme::distributed_slice(STRUCTURE_POOL_ELEMENT_TYPES)]
-static TYPE: StructurePoolElementType = StructurePoolElementType { name: "empty_pool_element", decode: |_, _| Ok(empty_pool_element()) };
+static TYPE: StructurePoolElementType = StructurePoolElementType {
+    name: "empty_pool_element",
+    decode: |_, _| Ok(empty_pool_element()),
+};

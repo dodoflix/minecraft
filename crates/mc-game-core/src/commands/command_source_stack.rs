@@ -14,7 +14,9 @@ use crate::server::permissions::{Permission, PermissionSet};
 use crate::server::players::player_handle::PlayerHandle;
 use crate::world::entity::EntityId;
 use crate::world::level::DimensionKey;
-use mc_brigadier::{CommandExceptionType, CommandSyntaxException, MessageRef, SimpleCommandExceptionType};
+use mc_brigadier::{
+    CommandExceptionType, CommandSyntaxException, MessageRef, SimpleCommandExceptionType,
+};
 use mc_core::math::mth;
 use mc_core::phys::{Vec2, Vec3};
 use mc_text::{ChatFormatting, Component};
@@ -22,13 +24,15 @@ use std::sync::{Arc, LazyLock};
 use uuid::Uuid;
 
 use super::execution::TraceCallbacks;
-use super::shared_suggestion_provider::TextCoordinates;
 use super::message::{from_message, message};
+use super::shared_suggestion_provider::TextCoordinates;
 
-pub static ERROR_NOT_PLAYER: LazyLock<SimpleCommandExceptionType> =
-    LazyLock::new(|| SimpleCommandExceptionType::new(message(crate::translatable!("permissions.requires.player"))));
-pub static ERROR_NOT_ENTITY: LazyLock<SimpleCommandExceptionType> =
-    LazyLock::new(|| SimpleCommandExceptionType::new(message(crate::translatable!("permissions.requires.entity"))));
+pub static ERROR_NOT_PLAYER: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| {
+    SimpleCommandExceptionType::new(message(crate::translatable!("permissions.requires.player")))
+});
+pub static ERROR_NOT_ENTITY: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| {
+    SimpleCommandExceptionType::new(message(crate::translatable!("permissions.requires.entity")))
+});
 
 /// The entity a stack runs as: its id plus the facts the stack itself consults (vanilla reads them from the live
 /// `Entity`; entities are not reachable without the server here).
@@ -50,7 +54,11 @@ pub struct CommandEntity {
 
 impl std::fmt::Debug for CommandEntity {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.debug_struct("CommandEntity").field("id", &self.id).field("uuid", &self.uuid).field("is_player", &self.is_player).finish()
+        f.debug_struct("CommandEntity")
+            .field("id", &self.id)
+            .field("uuid", &self.uuid)
+            .field("is_player", &self.is_player)
+            .finish()
     }
 }
 
@@ -92,7 +100,15 @@ impl CommandSourceStack {
         permissions: PermissionSet,
         entity: CommandEntity,
     ) -> Self {
-        Self::build(source, position, rotation, level, permissions, NamesProvider::ForEntity, Some(Arc::new(entity)))
+        Self::build(
+            source,
+            position,
+            rotation,
+            level,
+            permissions,
+            NamesProvider::ForEntity,
+            Some(Arc::new(entity)),
+        )
     }
 
     /// `new CommandSourceStack(source, position, rotation, level, permissions, name, server)`: a named, entity-less source.
@@ -104,7 +120,15 @@ impl CommandSourceStack {
         permissions: PermissionSet,
         name: Component,
     ) -> Self {
-        Self::build(source, position, rotation, level, permissions, NamesProvider::Constant(name), None)
+        Self::build(
+            source,
+            position,
+            rotation,
+            level,
+            permissions,
+            NamesProvider::Constant(name),
+            None,
+        )
     }
 
     /// `Commands.createCompilationContext`: a null-source stack used where only the permissions matter (tree pruning,
@@ -148,26 +172,44 @@ impl CommandSourceStack {
         if Arc::ptr_eq(&self.source, &source) {
             return self.clone();
         }
-        Self { source, ..self.clone() }
+        Self {
+            source,
+            ..self.clone()
+        }
     }
 
     pub fn with_entity(&self, entity: CommandEntity) -> Self {
-        if self.entity.as_deref() == Some(&entity) && matches!(self.names_provider, NamesProvider::ForEntity) {
+        if self.entity.as_deref() == Some(&entity)
+            && matches!(self.names_provider, NamesProvider::ForEntity)
+        {
             return self.clone();
         }
-        Self { entity: Some(Arc::new(entity)), names_provider: NamesProvider::ForEntity, ..self.clone() }
+        Self {
+            entity: Some(Arc::new(entity)),
+            names_provider: NamesProvider::ForEntity,
+            ..self.clone()
+        }
     }
 
     pub fn with_position(&self, pos: Vec3) -> Self {
-        Self { world_position: pos, ..self.clone() }
+        Self {
+            world_position: pos,
+            ..self.clone()
+        }
     }
 
     pub fn with_rotation(&self, rotation: Vec2) -> Self {
-        Self { rotation, ..self.clone() }
+        Self {
+            rotation,
+            ..self.clone()
+        }
     }
 
     pub fn with_callback(&self, result_callback: CommandResultCallback) -> Self {
-        Self { result_callback, ..self.clone() }
+        Self {
+            result_callback,
+            ..self.clone()
+        }
     }
 
     /// `withCallback(newCallback, combiner)`.
@@ -185,11 +227,21 @@ impl CommandSourceStack {
     }
 
     pub fn with_suppressed_output(&self) -> Self {
-        if !self.silent && !self.source.always_accepts() { Self { silent: true, ..self.clone() } } else { self.clone() }
+        if !self.silent && !self.source.always_accepts() {
+            Self {
+                silent: true,
+                ..self.clone()
+            }
+        } else {
+            self.clone()
+        }
     }
 
     pub fn with_permission(&self, permissions: PermissionSet) -> Self {
-        Self { permissions, ..self.clone() }
+        Self {
+            permissions,
+            ..self.clone()
+        }
     }
 
     pub fn with_maximum_permission(&self, new_permissions: &PermissionSet) -> Self {
@@ -197,7 +249,10 @@ impl CommandSourceStack {
     }
 
     pub fn with_anchor(&self, anchor: Anchor) -> Self {
-        Self { anchor, ..self.clone() }
+        Self {
+            anchor,
+            ..self.clone()
+        }
     }
 
     /// `withLevel(level)` for a level whose coordinate scale relative to the current one is `scale`
@@ -206,8 +261,16 @@ impl CommandSourceStack {
         if level == self.level {
             return self.clone();
         }
-        let pos = Vec3::new(self.world_position.x() * scale, self.world_position.y(), self.world_position.z() * scale);
-        Self { world_position: pos, level, ..self.clone() }
+        let pos = Vec3::new(
+            self.world_position.x() * scale,
+            self.world_position.y(),
+            self.world_position.z() * scale,
+        );
+        Self {
+            world_position: pos,
+            level,
+            ..self.clone()
+        }
     }
 
     /// `facing(Vec3 pos)`: rotate to look at `pos` from the anchor position.
@@ -224,7 +287,10 @@ impl CommandSourceStack {
     }
 
     pub fn with_signing_context(&self, signing_context: CommandSigningContext) -> Self {
-        Self { signing_context, ..self.clone() }
+        Self {
+            signing_context,
+            ..self.clone()
+        }
     }
 
     pub fn get_display_name(&self) -> Component {
@@ -235,11 +301,16 @@ impl CommandSourceStack {
                 // fallback when no server is reachable.
                 let live = super::server_access::has_server().then(|| {
                     self.with_server(|server| {
-                        let entity_ref = super::arguments::selector::EntityRef { dimension: self.level.clone(), id: entity.id };
-                        super::host::get_entity(server, &entity_ref).map(|e| super::host::entity_display_name(server, e))
+                        let entity_ref = super::arguments::selector::EntityRef {
+                            dimension: self.level.clone(),
+                            id: entity.id,
+                        };
+                        super::host::get_entity(server, &entity_ref)
+                            .map(|e| super::host::entity_display_name(server, e))
                     })
                 });
-                live.flatten().unwrap_or_else(|| entity.display_name.clone())
+                live.flatten()
+                    .unwrap_or_else(|| entity.display_name.clone())
             }
             (NamesProvider::ForEntity, None) => Component::empty(),
         }
@@ -274,7 +345,9 @@ impl CommandSourceStack {
     }
 
     pub fn get_entity_or_exception(&self) -> Result<&CommandEntity, CommandSyntaxException> {
-        self.entity.as_deref().ok_or_else(|| ERROR_NOT_ENTITY.create())
+        self.entity
+            .as_deref()
+            .ok_or_else(|| ERROR_NOT_ENTITY.create())
     }
 
     /// `getPlayerOrException`: the player entity this stack runs as.
@@ -335,7 +408,10 @@ impl CommandSourceStack {
     }
 
     /// `customSuggestion(context)`: the server has nothing to add for `ask_server` nodes.
-    pub fn custom_suggestion(&self, _context: &mc_brigadier::CommandContext<CommandSourceStack>) -> mc_brigadier::Suggestions {
+    pub fn custom_suggestion(
+        &self,
+        _context: &mc_brigadier::CommandContext<CommandSourceStack>,
+    ) -> mc_brigadier::Suggestions {
         mc_brigadier::Suggestions::empty()
     }
 
@@ -358,15 +434,24 @@ impl CommandSourceStack {
         mut builder: mc_brigadier::SuggestionsBuilder,
         filter: Option<&dyn Fn(&mc_core::ident::Identifier) -> bool>,
     ) -> mc_brigadier::Suggestions {
-        use super::shared_suggestion_provider::{suggest_resource_into, suggest_resource_prefixed_into};
-        let Some(view) = self.with_server(|server| super::host::registry_view(server, registry_key)) else {
+        use super::shared_suggestion_provider::{
+            suggest_resource_into, suggest_resource_prefixed_into,
+        };
+        let Some(view) =
+            self.with_server(|server| super::host::registry_view(server, registry_key))
+        else {
             return mc_brigadier::Suggestions::empty();
         };
         if elements.should_suggest_tags() {
             suggest_resource_prefixed_into(view.tag_ids(), &mut builder, "#");
         }
         if elements.should_suggest_elements() {
-            suggest_resource_into(view.element_ids().into_iter().filter(|id| filter.is_none_or(|f| f(id))), &mut builder);
+            suggest_resource_into(
+                view.element_ids()
+                    .into_iter()
+                    .filter(|id| filter.is_none_or(|f| f(id))),
+                &mut builder,
+            );
         }
         builder.build()
     }
@@ -408,17 +493,29 @@ impl CommandSourceStack {
         .with_formats(&[ChatFormatting::Gray, ChatFormatting::Italic]);
         let source_kind = self.source.kind();
         let level = self.level.clone();
-        self.with_server(|server| super::host::broadcast_to_admins(server, source_kind, &level, &broadcast));
+        self.with_server(|server| {
+            super::host::broadcast_to_admins(server, source_kind, &level, &broadcast)
+        });
     }
 
     pub fn send_failure(&self, message: Component) {
         if self.source.accepts_failure() && !self.silent {
-            self.source.send_system_message(&Component::empty().append(message).with_format(ChatFormatting::Red));
+            self.source.send_system_message(
+                &Component::empty()
+                    .append(message)
+                    .with_format(ChatFormatting::Red),
+            );
         }
     }
 
     /// `ExecutionCommandSource.handleError(CommandExceptionType, Message, forked, tracer)`.
-    pub fn handle_error_message(&self, _type: CommandExceptionType, message: &MessageRef, forked: bool, tracer: Option<&mut dyn TraceCallbacks>) {
+    pub fn handle_error_message(
+        &self,
+        _type: CommandExceptionType,
+        message: &MessageRef,
+        forked: bool,
+        tracer: Option<&mut dyn TraceCallbacks>,
+    ) {
         if let Some(tracer) = tracer {
             tracer.on_error(&message.get_string());
         }
@@ -428,7 +525,12 @@ impl CommandSourceStack {
     }
 
     /// `ExecutionCommandSource.handleError(CommandSyntaxException, forked, tracer)`.
-    pub fn handle_error(&self, e: &CommandSyntaxException, forked: bool, tracer: Option<&mut dyn TraceCallbacks>) {
+    pub fn handle_error(
+        &self,
+        e: &CommandSyntaxException,
+        forked: bool,
+        tracer: Option<&mut dyn TraceCallbacks>,
+    ) {
         self.handle_error_message(e.get_type(), e.get_raw_message(), forked, tracer);
     }
 }

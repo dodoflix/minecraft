@@ -17,12 +17,29 @@ use mc_protocol::packets::play::SoundSource;
 
 /// `Level.getLogicalHeight()` of the level's dimension type (the level height when no `LevelStem` is registered).
 pub fn get_logical_height(level: &ServerLevel) -> i32 {
-    let from_stem = || Some(level.registries.level_stem(&level.dimension)?.dimension_type.value().logical_height);
+    let from_stem = || {
+        Some(
+            level
+                .registries
+                .level_stem(&level.dimension)?
+                .dimension_type
+                .value()
+                .logical_height,
+        )
+    };
     from_stem().unwrap_or_else(|| level.level_height().height)
 }
 
 /// `LivingEntity.randomTeleport(x, y, z, showParticles, avoidanceTag)`.
-pub fn random_teleport(entity: &mut dyn Entity, level: &mut ServerLevel, xx: f64, yy: f64, zz: f64, show_particles: bool, avoidance_tag: &str) -> bool {
+pub fn random_teleport(
+    entity: &mut dyn Entity,
+    level: &mut ServerLevel,
+    xx: f64,
+    yy: f64,
+    zz: f64,
+    show_particles: bool,
+    avoidance_tag: &str,
+) -> bool {
     let mut y = yy;
     let clamped = level.world_border().clamp_vec3_to_bound(xx, yy, zz);
     let mut pos = BlockPos::containing(clamped.x, clamped.y, clamped.z);
@@ -31,7 +48,16 @@ pub fn random_teleport(entity: &mut dyn Entity, level: &mut ServerLevel, xx: f64
             pos = pos.below();
             let state = level.get_block_state(pos);
             if state.block().is_in_tag("entities_can_teleport_to") {
-                return check_position_and_teleport(entity, level, clamped.x, y, clamped.z, show_particles, avoidance_tag, state);
+                return check_position_and_teleport(
+                    entity,
+                    level,
+                    clamped.x,
+                    y,
+                    clamped.z,
+                    show_particles,
+                    avoidance_tag,
+                    state,
+                );
             }
             y -= 1.0;
         }
@@ -40,7 +66,16 @@ pub fn random_teleport(entity: &mut dyn Entity, level: &mut ServerLevel, xx: f64
 }
 
 #[allow(clippy::too_many_arguments)]
-fn check_position_and_teleport(entity: &mut dyn Entity, level: &mut ServerLevel, xx: f64, y: f64, zz: f64, show_particles: bool, avoidance_tag: &str, state: BlockState) -> bool {
+fn check_position_and_teleport(
+    entity: &mut dyn Entity,
+    level: &mut ServerLevel,
+    xx: f64,
+    y: f64,
+    zz: f64,
+    show_particles: bool,
+    avoidance_tag: &str,
+    state: BlockState,
+) -> bool {
     let invalid = |s: BlockState| s.block().is_in_tag(avoidance_tag);
     if invalid(state) {
         return false;
@@ -66,7 +101,11 @@ fn check_position_and_teleport(entity: &mut dyn Entity, level: &mut ServerLevel,
 }
 
 /// `TeleportRandomlyConsumeEffect.apply(level, stack, user)`.
-pub fn apply_teleport_randomly(effect: &TeleportRandomlyConsumeEffect, level: &mut ServerLevel, user: &mut dyn Entity) -> bool {
+pub fn apply_teleport_randomly(
+    effect: &TeleportRandomlyConsumeEffect,
+    level: &mut ServerLevel,
+    user: &mut dyn Entity,
+) -> bool {
     let diameter = f64::from(effect.diameter);
     for _ in 0..16 {
         let xx = user.base().x() + (user.base_mut().random.next_double() - 0.5) * diameter;
@@ -92,7 +131,13 @@ pub fn apply_teleport_randomly(effect: &TeleportRandomlyConsumeEffect, level: &m
             if effect.directional_particles {
                 let origin = BlockPos::containing(old_pos.x, old_pos.y, old_pos.z);
                 let target = user.base().block_position();
-                crate::world::level::LevelAccessor::level_event(level, None, 2017, origin, clamped_pack_difference_in_position(origin, target, 127, 127, 127));
+                crate::world::level::LevelAccessor::level_event(
+                    level,
+                    None,
+                    2017,
+                    origin,
+                    clamped_pack_difference_in_position(origin, target, 127, 127, 127),
+                );
             }
             user.reset_fall_distance();
             reset_current_impulse_context(user);
@@ -110,8 +155,18 @@ pub fn reset_current_impulse_context(entity: &mut dyn Entity) {
 }
 
 /// `BlockUtil.clampedPackDifferenceInPosition(pos, testPos, xRadius, yRadius, zRadius)`.
-pub fn clamped_pack_difference_in_position(pos: BlockPos, test_pos: BlockPos, x_radius: i32, y_radius: i32, z_radius: i32) -> i32 {
-    let (xr, yr, zr) = (x_radius.clamp(0, 127), y_radius.clamp(0, 127), z_radius.clamp(0, 127));
+pub fn clamped_pack_difference_in_position(
+    pos: BlockPos,
+    test_pos: BlockPos,
+    x_radius: i32,
+    y_radius: i32,
+    z_radius: i32,
+) -> i32 {
+    let (xr, yr, zr) = (
+        x_radius.clamp(0, 127),
+        y_radius.clamp(0, 127),
+        z_radius.clamp(0, 127),
+    );
     let x_diff = (test_pos.x() - pos.x()).clamp(-127, 127);
     let y_diff = (test_pos.y() - pos.y()).clamp(-127, 127);
     let z_diff = (test_pos.z() - pos.z()).clamp(-127, 127);

@@ -1,17 +1,17 @@
 //! `net.minecraft.world.level.block.FenceGateBlock` (extends `HorizontalDirectionalBlock`).
-use mc_game_core::{register_block_class, update_shape};
-use mc_game_core::world::level::block::impls::prelude::*;
+use mc_core::phys::{BlockHitResult, Vec3};
+use mc_core::random::RandomSource;
+use mc_data::GameEvent;
+use mc_data::block::PathComputationType;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::entity::{Entity, ServerPlayer};
-use mc_game_core::world::item::{ItemStack, BlockPlaceContext, InteractionResult};
+use mc_game_core::world::item::{BlockPlaceContext, InteractionResult, ItemStack};
 use mc_game_core::world::level::block::block_set_type::WoodType;
+use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_game_core::world::level::redstone::Orientation;
 use mc_game_core::world::level::signal_getter::has_neighbor_signal;
-use mc_core::phys::{BlockHitResult, Vec3};
-use mc_core::random::RandomSource;
-use mc_data::block::PathComputationType;
-use mc_data::GameEvent;
+use mc_game_core::{register_block_class, update_shape};
 use mc_protocol::packets::play::level::SoundSource;
 
 pub struct FenceGateBlock {
@@ -28,53 +28,117 @@ fn is_wall(state: BlockState) -> bool {
 }
 
 impl FenceGateBlock {
-    fn play_sound(&self, level: &mut ServerLevel, except: Option<mc_game_core::world::entity::EntityId>, pos: BlockPos, open: bool) {
+    fn play_sound(
+        &self,
+        level: &mut ServerLevel,
+        except: Option<mc_game_core::world::entity::EntityId>,
+        pos: BlockPos,
+        open: bool,
+    ) {
         let pitch = level.random().next_float() * 0.1 + 0.9;
-        let sound = if open { self.wood.fence_gate_open } else { self.wood.fence_gate_close };
+        let sound = if open {
+            self.wood.fence_gate_open
+        } else {
+            self.wood.fence_gate_close
+        };
         level.play_sound(except, pos, sound, SoundSource::Blocks, 1.0, pitch);
     }
 
-        fn on_explosion_hit_inner(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, can_trigger_blocks: bool) {
+    fn on_explosion_hit_inner(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        can_trigger_blocks: bool,
+    ) {
         if can_trigger_blocks && !state.get(props::POWERED) {
             let open = state.get(props::OPEN);
             level.set_block_and_update(pos, state.set(props::OPEN, !open));
             self.play_sound(level, None, pos, !open);
-            let event = if open { GameEvent::BLOCK_CLOSE } else { GameEvent::BLOCK_OPEN };
-            level.game_event(event, Vec3::at_center_of(&pos), &GameEventContext::of_state(Some(state)));
+            let event = if open {
+                GameEvent::BLOCK_CLOSE
+            } else {
+                GameEvent::BLOCK_OPEN
+            };
+            level.game_event(
+                event,
+                Vec3::at_center_of(&pos),
+                &GameEventContext::of_state(Some(state)),
+            );
         }
     }
 }
 
 impl BlockBehaviour for FenceGateBlock {
-    fn on_explosion_hit(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, explosion: &dyn mc_game_core::world::level::explosion::Explosion, on_hit: &mut dyn FnMut(ItemStack, BlockPos)) {
+    fn on_explosion_hit(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        explosion: &dyn mc_game_core::world::level::explosion::Explosion,
+        on_hit: &mut dyn FnMut(ItemStack, BlockPos),
+    ) {
         self.on_explosion_hit_inner(state, level, pos, explosion.can_trigger_blocks());
-        mc_game_core::world::level::explosion::default_on_explosion_hit(state, level, pos, explosion, on_hit);
+        mc_game_core::world::level::explosion::default_on_explosion_hit(
+            state, level, pos, explosion, on_hit,
+        );
     }
-    update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
-        let axis = direction.get_axis();
-        if state.get(props::HORIZONTAL_FACING).get_clockwise().get_axis() != axis {
-            state
-        } else {
-            let in_wall = is_wall(neighbour_state) || is_wall(level.get_block_state(pos.relative(direction.get_opposite())));
-            state.set(props::IN_WALL, in_wall)
+    update_shape!(
+        |self, state, level, pos, direction, neighbour_pos, neighbour_state| {
+            let axis = direction.get_axis();
+            if state
+                .get(props::HORIZONTAL_FACING)
+                .get_clockwise()
+                .get_axis()
+                != axis
+            {
+                state
+            } else {
+                let in_wall = is_wall(neighbour_state)
+                    || is_wall(level.get_block_state(pos.relative(direction.get_opposite())));
+                state.set(props::IN_WALL, in_wall)
+            }
         }
-    });
+    );
     fn is_pathfindable(&self, state: BlockState, ty: PathComputationType) -> bool {
         match ty {
             PathComputationType::Land | PathComputationType::Air => state.get(props::OPEN),
             PathComputationType::Water => false,
         }
     }
-    fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
+    fn get_state_for_placement(
+        &self,
+        block: Block,
+        level: &mut ServerLevel,
+        context: &BlockPlaceContext,
+    ) -> Option<BlockState> {
         let pos = context.get_clicked_pos();
         let is_open = has_neighbor_signal(&*level, pos);
         let direction = context.get_horizontal_direction();
         let axis = direction.get_axis();
-        let in_wall = (axis == Axis::Z && (is_wall(level.get_block_state(pos.west())) || is_wall(level.get_block_state(pos.east()))))
-            || (axis == Axis::X && (is_wall(level.get_block_state(pos.north())) || is_wall(level.get_block_state(pos.south()))));
-        Some(block.default_state().set(props::HORIZONTAL_FACING, direction).set(props::OPEN, is_open).set(props::POWERED, is_open).set(props::IN_WALL, in_wall))
+        let in_wall = (axis == Axis::Z
+            && (is_wall(level.get_block_state(pos.west()))
+                || is_wall(level.get_block_state(pos.east()))))
+            || (axis == Axis::X
+                && (is_wall(level.get_block_state(pos.north()))
+                    || is_wall(level.get_block_state(pos.south()))));
+        Some(
+            block
+                .default_state()
+                .set(props::HORIZONTAL_FACING, direction)
+                .set(props::OPEN, is_open)
+                .set(props::POWERED, is_open)
+                .set(props::IN_WALL, in_wall),
+        )
     }
-    fn use_without_item(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, player: &mut ServerPlayer, _hit: &BlockHitResult) -> InteractionResult {
+    fn use_without_item(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        player: &mut ServerPlayer,
+        _hit: &BlockHitResult,
+    ) -> InteractionResult {
         let mut state = state;
         if state.get(props::OPEN) {
             state = state.set(props::OPEN, false);
@@ -90,18 +154,48 @@ impl BlockBehaviour for FenceGateBlock {
         let opens = state.get(props::OPEN);
         let id = Some(player.base_id());
         self.play_sound(level, id, pos, opens);
-        let event = if opens { GameEvent::BLOCK_OPEN } else { GameEvent::BLOCK_CLOSE };
-        level.game_event(event, Vec3::at_center_of(&pos), &GameEventContext::of(id, None));
+        let event = if opens {
+            GameEvent::BLOCK_OPEN
+        } else {
+            GameEvent::BLOCK_CLOSE
+        };
+        level.game_event(
+            event,
+            Vec3::at_center_of(&pos),
+            &GameEventContext::of(id, None),
+        );
         InteractionResult::SUCCESS
     }
-    fn neighbor_changed(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, _block: Block, _orientation: Option<Orientation>, _moved_by_piston: bool) {
+    fn neighbor_changed(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        _block: Block,
+        _orientation: Option<Orientation>,
+        _moved_by_piston: bool,
+    ) {
         let has_power = has_neighbor_signal(&*level, pos);
         if state.get(props::POWERED) != has_power {
-            level.set_block_flags(pos, state.set(props::POWERED, has_power).set(props::OPEN, has_power), 2);
+            level.set_block_flags(
+                pos,
+                state
+                    .set(props::POWERED, has_power)
+                    .set(props::OPEN, has_power),
+                2,
+            );
             if state.get(props::OPEN) != has_power {
                 self.play_sound(level, None, pos, has_power);
-                let event = if has_power { GameEvent::BLOCK_OPEN } else { GameEvent::BLOCK_CLOSE };
-                level.game_event(event, Vec3::at_center_of(&pos), &GameEventContext::of(None, None));
+                let event = if has_power {
+                    GameEvent::BLOCK_OPEN
+                } else {
+                    GameEvent::BLOCK_CLOSE
+                };
+                level.game_event(
+                    event,
+                    Vec3::at_center_of(&pos),
+                    &GameEventContext::of(None, None),
+                );
             }
         }
     }
@@ -113,4 +207,6 @@ impl BlockBehaviour for FenceGateBlock {
     }
 }
 
-register_block_class!("FenceGateBlock", |block| Box::new(FenceGateBlock { wood: WoodType::for_fence_gate(block).expect("fence gate without WoodType") }));
+register_block_class!("FenceGateBlock", |block| Box::new(FenceGateBlock {
+    wood: WoodType::for_fence_gate(block).expect("fence gate without WoodType")
+}));

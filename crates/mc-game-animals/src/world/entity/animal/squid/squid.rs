@@ -3,29 +3,31 @@
 //! `GlowSquid extends Squid`: both embed [`SquidData`] (the fields of the Java `Squid` class) and share the behavior
 //! through the free functions of this module; [`as_squid_data`] is the `instanceof Squid` of the goals.
 
+use linkme::distributed_slice;
+use mc_core::math::mth;
+use mc_core::phys::Vec3;
+use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource as _;
-use mc_game_core::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
-use mc_game_core::world::level::material::FluidStateExt as _;
+use mc_data::enums::{EntitySpawnReason, Pose};
+use mc_data::{EntityType, MobEffect, SoundEvent};
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
 use mc_game_core::world::entity::ai::goal::{Goal, GoalFlags, reduced_tick_delay};
 use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
 use mc_game_core::world::entity::dimensions::EntityDimensions;
-use mc_game_core::world::entity::factory::{self, ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
+use mc_game_core::world::entity::factory::{
+    self, ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest,
+};
 use mc_game_core::world::entity::living_entity::damage::make_sound;
 use mc_game_core::world::entity::living_entity::util::{broadcast_entity_event, l};
 use mc_game_core::world::entity::mob::spawn::AgeableMobGroupData;
 use mc_game_core::world::entity::mob::{self, MobData, MobKind};
 use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
 use mc_game_core::world::entity::{Entity, EntityId, MoverType};
-use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
+use mc_game_core::world::level::material::FluidStateExt as _;
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
-use linkme::distributed_slice;
-use mc_core::math::mth;
-use mc_core::phys::Vec3;
-use mc_core::pos::BlockPos;
-use mc_data::enums::{EntitySpawnReason, Pose};
-use mc_data::{EntityType, MobEffect, SoundEvent};
 use mc_protocol::packets::play::ParticleOptions;
 
 const PI_F: f32 = std::f32::consts::PI;
@@ -101,7 +103,8 @@ pub fn as_squid_data(e: &mut dyn Entity) -> Option<&mut SquidData> {
     if any.is::<Squid>() {
         return any.downcast_mut::<Squid>().map(|s| &mut s.squid);
     }
-    any.downcast_mut::<super::glow_squid::GlowSquid>().map(|s| &mut s.squid)
+    any.downcast_mut::<super::glow_squid::GlowSquid>()
+        .map(|s| &mut s.squid)
 }
 
 /// `squid` field shared read access for the goals (`instanceof Squid`).
@@ -110,15 +113,18 @@ pub fn as_squid_data_ref(e: &dyn Entity) -> Option<&SquidData> {
     if let Some(s) = any.downcast_ref::<Squid>() {
         return Some(&s.squid);
     }
-    any.downcast_ref::<super::glow_squid::GlowSquid>().map(|s| &s.squid)
+    any.downcast_ref::<super::glow_squid::GlowSquid>()
+        .map(|s| &s.squid)
 }
 
 /// `Mob.<init>` tail shared by squids: ground navigation, goals, water malus (`AgeableWaterCreature.<init>`).
 pub fn init(mob: &mut MobData, navigation: StandardPathNavigation) {
     mob.set_pathfinding_malus(mc_game_core::world::level::pathfinder::PathType::Water, 0.0);
     mob.set_navigation(Box::new(navigation));
-    mob.goal_selector.add_goal(0, Box::new(SquidRandomMovementGoal));
-    mob.goal_selector.add_goal(1, Box::new(SquidFleeGoal { flee_ticks: 0 }));
+    mob.goal_selector
+        .add_goal(0, Box::new(SquidRandomMovementGoal));
+    mob.goal_selector
+        .add_goal(1, Box::new(SquidFleeGoal { flee_ticks: 0 }));
 }
 
 /// `rotateVector(vec)`.
@@ -132,16 +138,34 @@ fn spawn_ink<E: SquidLike>(e: &mut E, level: &mut ServerLevel) {
     use mc_core::random::RandomSource;
     let sound = e.get_squirt_sound();
     make_sound(e, level, sound);
-    let pos = rotate_vector(e, e.squid(), Vec3::new(0.0, -1.0, 0.0)).add(Vec3::new(e.base().x(), e.base().y(), e.base().z()));
+    let pos = rotate_vector(e, e.squid(), Vec3::new(0.0, -1.0, 0.0)).add(Vec3::new(
+        e.base().x(),
+        e.base().y(),
+        e.base().z(),
+    ));
     let particle = e.get_ink_particle();
     for _ in 0..30 {
         let rx = e.base_mut().random.next_float();
         let rz = e.base_mut().random.next_float();
-        let dir = rotate_vector(e, e.squid(), Vec3::new(f64::from(rx) * 0.6 - 0.3, -1.0, f64::from(rz) * 0.6 - 0.3));
+        let dir = rotate_vector(
+            e,
+            e.squid(),
+            Vec3::new(f64::from(rx) * 0.6 - 0.3, -1.0, f64::from(rz) * 0.6 - 0.3),
+        );
         let ink_pos_offset_scale = if e.is_baby() { 0.1f32 } else { 0.3f32 };
         let scale = f64::from(ink_pos_offset_scale + e.base_mut().random.next_float() * 2.0);
         let dir_offset = dir.scale(scale);
-        level.send_particles(particle.clone(), pos.x, pos.y + 0.5, pos.z, 0, dir_offset.x, dir_offset.y, dir_offset.z, f64::from(0.1f32));
+        level.send_particles(
+            particle.clone(),
+            pos.x,
+            pos.y + 0.5,
+            pos.z,
+            0,
+            dir_offset.x,
+            dir_offset.y,
+            dir_offset.z,
+            f64::from(0.1f32),
+        );
     }
 }
 
@@ -168,7 +192,8 @@ pub fn ai_step<E: SquidLike>(e: &mut E, level: &mut ServerLevel) {
     if e.is_in_water() {
         if e.squid().tentacle_movement < PI_F {
             let tentacle_scale = e.squid().tentacle_movement / PI_F;
-            e.squid_mut().tentacle_angle = mth::sin(f64::from(tentacle_scale * tentacle_scale * PI_F)) * PI_F * 0.25;
+            e.squid_mut().tentacle_angle =
+                mth::sin(f64::from(tentacle_scale * tentacle_scale * PI_F)) * PI_F * 0.25;
             if f64::from(tentacle_scale) > 0.75 {
                 if e.is_local_instance_authoritative() {
                     let mv = e.squid().movement_vector;
@@ -189,23 +214,30 @@ pub fn ai_step<E: SquidLike>(e: &mut E, level: &mut ServerLevel) {
         let movement = e.base().delta_movement();
         let horizontal_movement = movement.horizontal_distance();
         let y_body_rot = l(e).y_body_rot;
-        let new_y_body_rot = y_body_rot + (-(mth::atan2(movement.x, movement.z) as f32) * (180.0 / PI_F) - y_body_rot) * 0.1;
+        let new_y_body_rot = y_body_rot
+            + (-(mth::atan2(movement.x, movement.z) as f32) * (180.0 / PI_F) - y_body_rot) * 0.1;
         e.living_mut().expect("living").y_body_rot = new_y_body_rot;
         e.set_y_rot(new_y_body_rot);
         let s = e.squid_mut();
         s.z_body_rot += PI_F * s.rotate_speed * 1.5;
-        s.x_body_rot += (-(mth::atan2(horizontal_movement, movement.y) as f32) * (180.0 / PI_F) - s.x_body_rot) * 0.1;
+        s.x_body_rot += (-(mth::atan2(horizontal_movement, movement.y) as f32) * (180.0 / PI_F)
+            - s.x_body_rot)
+            * 0.1;
     } else {
         let s = e.squid_mut();
         s.tentacle_angle = mth::abs_f32(mth::sin(f64::from(s.tentacle_movement))) * PI_F * 0.25;
         let mut yd = e.base().delta_movement().y;
-        if let Some(amplifier) = mc_game_core::world::entity::living_entity::util::effect_amplifier(e, MobEffect::LEVITATION) {
+        if let Some(amplifier) = mc_game_core::world::entity::living_entity::util::effect_amplifier(
+            e,
+            MobEffect::LEVITATION,
+        ) {
             yd = 0.05 * f64::from(amplifier + 1);
         } else {
             yd -= e.get_gravity();
         }
         let drag = f64::from(e.get_air_drag());
-        e.base_mut().set_delta_movement(Vec3::new(0.0, yd * drag, 0.0));
+        e.base_mut()
+            .set_delta_movement(Vec3::new(0.0, yd * drag, 0.0));
         let s = e.squid_mut();
         s.x_body_rot += (-90.0 - s.x_body_rot) * 0.02;
     }
@@ -219,8 +251,15 @@ pub fn get_last_hurt_by_mob(level: &ServerLevel, e: &dyn Entity) -> Option<Entit
 }
 
 /// `Squid.hurtServer(level, source, damage)`.
-pub fn hurt_server<E: SquidLike>(e: &mut E, level: &mut ServerLevel, source: &DamageSource, damage: f32) -> bool {
-    if mc_game_core::world::entity::living_entity::damage::hurt_server(e, level, source, damage) && get_last_hurt_by_mob(level, e).is_some() {
+pub fn hurt_server<E: SquidLike>(
+    e: &mut E,
+    level: &mut ServerLevel,
+    source: &DamageSource,
+    damage: f32,
+) -> bool {
+    if mc_game_core::world::entity::living_entity::damage::hurt_server(e, level, source, damage)
+        && get_last_hurt_by_mob(level, e).is_some()
+    {
         spawn_ink(e, level);
         true
     } else {
@@ -248,12 +287,23 @@ pub fn finalize_spawn(
 
 /// `getDefaultDimensions(pose)`.
 pub fn get_dimensions(e: &dyn Entity, _pose: Pose) -> EntityDimensions {
-    if e.is_baby() { baby_dimensions() } else { EntityDimensions::of_type(e.get_type()) }
+    if e.is_baby() {
+        baby_dimensions()
+    } else {
+        EntityDimensions::of_type(e.get_type())
+    }
 }
 
 /// `getBreedOffspring(level, partner)`: `EntityTypes.SQUID/GLOW_SQUID.create(level, BREEDING)`.
 pub fn get_breed_offspring(ty: EntityType, level: &mut ServerLevel) -> Option<Box<dyn Entity>> {
-    factory::create(ty, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })
+    factory::create(
+        ty,
+        level,
+        EntitySpawnRequest {
+            reason: EntitySpawnReason::Breeding,
+            ignore_checks: false,
+        },
+    )
 }
 
 /// The `Squid` overrides for an `impl Entity` block of `Squid` / `GlowSquid` (both write the rest themselves).
@@ -263,7 +313,12 @@ macro_rules! squid_entity {
         fn ai_step(&mut self, level: &mut mc_game_core::server::level::ServerLevel) {
             crate::world::entity::animal::squid::squid::ai_step(self, level);
         }
-        fn hurt_server(&mut self, level: &mut mc_game_core::server::level::ServerLevel, source: &mc_game_core::world::damagesource::DamageSource, damage: f32) -> bool {
+        fn hurt_server(
+            &mut self,
+            level: &mut mc_game_core::server::level::ServerLevel,
+            source: &mc_game_core::world::damagesource::DamageSource,
+            damage: f32,
+        ) -> bool {
             crate::world::entity::animal::squid::squid::hurt_server(self, level, source, damage)
         }
     };
@@ -280,7 +335,11 @@ macro_rules! squid_entity {
         fn get_default_gravity(&self) -> f64 {
             0.08
         }
-        fn travel(&mut self, level: &mut mc_game_core::server::level::ServerLevel, _input: mc_core::phys::Vec3) {
+        fn travel(
+            &mut self,
+            level: &mut mc_game_core::server::level::ServerLevel,
+            _input: mc_core::phys::Vec3,
+        ) {
             crate::world::entity::animal::squid::squid::travel(self, level);
         }
         fn finalize_spawn(
@@ -288,11 +347,18 @@ macro_rules! squid_entity {
             level: &mut dyn mc_game_core::world::level::server_level_accessor::ServerLevelAccessor,
             difficulty: mc_game_core::world::difficulty_instance::DifficultyInstance,
             reason: mc_data::enums::EntitySpawnReason,
-            group_data: Option<Box<dyn mc_game_core::world::entity::spawn_group_data::SpawnGroupData>>,
+            group_data: Option<
+                Box<dyn mc_game_core::world::entity::spawn_group_data::SpawnGroupData>,
+            >,
         ) -> Option<Box<dyn mc_game_core::world::entity::spawn_group_data::SpawnGroupData>> {
-            crate::world::entity::animal::squid::squid::finalize_spawn(self, level, difficulty, reason, group_data)
+            crate::world::entity::animal::squid::squid::finalize_spawn(
+                self, level, difficulty, reason, group_data,
+            )
         }
-        fn get_dimensions(&self, pose: mc_data::enums::Pose) -> mc_game_core::world::entity::dimensions::EntityDimensions {
+        fn get_dimensions(
+            &self,
+            pose: mc_data::enums::Pose,
+        ) -> mc_game_core::world::entity::dimensions::EntityDimensions {
             crate::world::entity::animal::squid::squid::get_dimensions(self, pose)
         }
     };
@@ -335,7 +401,11 @@ impl Entity for Squid {
         Some("minecraft:squid")
     }
 
-    fn get_breed_offspring(&mut self, level: &mut ServerLevel, _partner: EntityId) -> Option<Box<dyn Entity>> {
+    fn get_breed_offspring(
+        &mut self,
+        level: &mut ServerLevel,
+        _partner: EntityId,
+    ) -> Option<Box<dyn Entity>> {
         get_breed_offspring(EntityType::SQUID, level)
     }
 
@@ -367,14 +437,22 @@ impl Goal for SquidRandomMovementGoal {
             if let Some(s) = as_squid_data(mob) {
                 s.movement_vector = Vec3::ZERO;
             }
-        } else if mob.base_mut().random.next_int_bounded(reduced_tick_delay(50)) == 0
+        } else if mob
+            .base_mut()
+            .random
+            .next_int_bounded(reduced_tick_delay(50))
+            == 0
             || !mob.base().was_touching_water
             || !as_squid_data_ref(mob).is_some_and(|s| s.has_movement_vector())
         {
             let angle = mob.base_mut().random.next_float() * TWO_PI_F;
             let y = -0.1f32 + mob.base_mut().random.next_float() * 0.2;
             if let Some(s) = as_squid_data(mob) {
-                s.movement_vector = Vec3::new(f64::from(mth::cos(f64::from(angle)) * 0.2), f64::from(y), f64::from(mth::sin(f64::from(angle)) * 0.2));
+                s.movement_vector = Vec3::new(
+                    f64::from(mth::cos(f64::from(angle)) * 0.2),
+                    f64::from(y),
+                    f64::from(mth::sin(f64::from(angle)) * 0.2),
+                );
             }
         }
     }
@@ -391,7 +469,10 @@ struct SquidFleeGoal {
 
 impl Goal for SquidFleeGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        let Some(entity) = get_last_hurt_by_mob(level, mob).and_then(|id| level.get_entity(id)) else { return false };
+        let Some(entity) = get_last_hurt_by_mob(level, mob).and_then(|id| level.get_entity(id))
+        else {
+            return false;
+        };
         mob.is_in_water() && mob.base().distance_to_sqr_vec(entity.position()) < 100.0
     }
 
@@ -405,9 +486,18 @@ impl Goal for SquidFleeGoal {
 
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         self.flee_ticks += 1;
-        let Some(last_hurt_by_mob) = get_last_hurt_by_mob(level, mob).and_then(|id| level.get_entity(id)).map(|e| e.position()) else { return };
+        let Some(last_hurt_by_mob) = get_last_hurt_by_mob(level, mob)
+            .and_then(|id| level.get_entity(id))
+            .map(|e| e.position())
+        else {
+            return;
+        };
         let (x, y, z) = (mob.base().x(), mob.base().y(), mob.base().z());
-        let mut flee_to = Vec3::new(x - last_hurt_by_mob.x, y - last_hurt_by_mob.y, z - last_hurt_by_mob.z);
+        let mut flee_to = Vec3::new(
+            x - last_hurt_by_mob.x,
+            y - last_hurt_by_mob.y,
+            z - last_hurt_by_mob.z,
+        );
         let target = BlockPos::containing(x + flee_to.x, y + flee_to.y, z + flee_to.z);
         let block_state = level.get_block_state(target);
         let fluid_state = level.get_fluid_state(target);
@@ -439,4 +529,7 @@ impl Goal for SquidFleeGoal {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static SQUID: EntityRegistration = EntityRegistration { entity_type: EntityType::SQUID, create: |ty, id, _registries| Box::new(Squid::new(ty, id)) };
+static SQUID: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::SQUID,
+    create: |ty, id, _registries| Box::new(Squid::new(ty, id)),
+};

@@ -14,7 +14,10 @@ pub fn get_state(level: &dyn BlockGetter, pos: BlockPos) -> BlockState {
 }
 
 /// `BaseFireBlock.entityInside` (`fire_damage`: 1.0 for fire, 2.0 for soul fire).
-pub fn entity_inside(effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier, fire_damage: f32) {
+pub fn entity_inside(
+    effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier,
+    fire_damage: f32,
+) {
     use crate::world::entity::inside_block_effects::InsideBlockEffectType;
     effect_applier.apply(InsideBlockEffectType::ClearFreeze);
     effect_applier.apply(InsideBlockEffectType::FireIgnite);
@@ -28,7 +31,12 @@ pub fn entity_inside(effect_applier: &mut dyn crate::world::entity::inside_block
 }
 
 /// `BaseFireBlock.playerWillDestroy`: the fire-extinguish sound event, then `Block.playerWillDestroy`.
-pub fn player_will_destroy(state: BlockState, level: &mut crate::server::level::ServerLevel, pos: BlockPos, player: &mut crate::world::entity::ServerPlayer) -> BlockState {
+pub fn player_will_destroy(
+    state: BlockState,
+    level: &mut crate::server::level::ServerLevel,
+    pos: BlockPos,
+    player: &mut crate::world::entity::ServerPlayer,
+) -> BlockState {
     level.level_event(None, 1009, pos, 0);
     crate::server::level::block_break::player_will_destroy(level, pos, state, player)
 }
@@ -56,9 +64,18 @@ pub fn on_place(state: BlockState, level: &mut ServerLevel, pos: BlockPos, old_s
 }
 
 /// `BaseFireBlock.canBePlacedAt(level, pos, forwardDirection)`.
-pub fn can_be_placed_at(level: &mut ServerLevel, pos: BlockPos, forward_direction: Direction) -> bool {
+pub fn can_be_placed_at(
+    level: &mut ServerLevel,
+    pos: BlockPos,
+    forward_direction: Direction,
+) -> bool {
     let state = level.get_block_state(pos);
-    if !state.is_air() { false } else { get_state(&*level, pos).can_survive(&*level, pos) || is_portal(level, pos, forward_direction) }
+    if !state.is_air() {
+        false
+    } else {
+        get_state(&*level, pos).can_survive(&*level, pos)
+            || is_portal(level, pos, forward_direction)
+    }
 }
 
 fn is_portal(level: &mut ServerLevel, pos: BlockPos, forward_direction: Direction) -> bool {

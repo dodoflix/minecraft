@@ -1,8 +1,8 @@
 //! Generic entity for types without an implementation: all base `Entity` state is modelled, everything else the
 //! entity was saved with is kept as raw NBT and written back unchanged (lossless world round trip).
 
-use super::entity::{self, Entity, EntityData};
 use super::EntityId;
+use super::entity::{self, Entity, EntityData};
 use mc_data::EntityType;
 use mc_nbt::CompoundTag;
 use std::any::Any;
@@ -19,16 +19,39 @@ fn base_keys() -> &'static [&'static str] {
     static KEYS: OnceLock<Vec<&'static str>> = OnceLock::new();
     KEYS.get_or_init(|| {
         vec![
-            entity::TAG_ID, entity::TAG_UUID, entity::TAG_PASSENGERS, entity::TAG_DATA, entity::TAG_POS, entity::TAG_MOTION, entity::TAG_ROTATION,
-            "fall_distance", "Fire", "Air", "OnGround", "Invulnerable", "PortalCooldown", "invulnerable_time", "CustomName", "CustomNameVisible",
-            "Silent", "NoGravity", "Glowing", "TicksFrozen", "HasVisualFire", "Tags", "Team",
+            entity::TAG_ID,
+            entity::TAG_UUID,
+            entity::TAG_PASSENGERS,
+            entity::TAG_DATA,
+            entity::TAG_POS,
+            entity::TAG_MOTION,
+            entity::TAG_ROTATION,
+            "fall_distance",
+            "Fire",
+            "Air",
+            "OnGround",
+            "Invulnerable",
+            "PortalCooldown",
+            "invulnerable_time",
+            "CustomName",
+            "CustomNameVisible",
+            "Silent",
+            "NoGravity",
+            "Glowing",
+            "TicksFrozen",
+            "HasVisualFire",
+            "Tags",
+            "Team",
         ]
     })
 }
 
 impl PlainEntity {
     pub fn new(ty: EntityType, id: EntityId) -> Self {
-        Self { base: EntityData::new(ty, id, entity::TOTAL_AIR_SUPPLY, |_| {}), extra: CompoundTag::new() }
+        Self {
+            base: EntityData::new(ty, id, entity::TOTAL_AIR_SUPPLY, |_| {}),
+            extra: CompoundTag::new(),
+        }
     }
 }
 
@@ -100,16 +123,25 @@ mod tests {
         tag.put_int("PortalCooldown", 0);
         tag.put_int_array("UUID", vec![1, 2, 3, 4]);
         tag.put_float("Health", 10.0);
-        tag.put("Tags", ListTag::from_iter([Tag::String("a".into()), Tag::String("b".into())]));
+        tag.put(
+            "Tags",
+            ListTag::from_iter([Tag::String("a".into()), Tag::String("b".into())]),
+        );
         tag.put("attributes", Tag::Compound(compound! {}));
         tag
     }
 
     #[test]
     fn plain_entity_round_trips_nbt() {
-        let level = ServerLevel::detached(mc_core::ident::Identifier::parse("minecraft:overworld").unwrap());
+        let level = ServerLevel::detached(
+            mc_core::ident::Identifier::parse("minecraft:overworld").unwrap(),
+        );
         let tag = pig_tag();
-        let loaded = factory::load_entities_recursive(std::slice::from_ref(&tag), &level, mc_data::enums::EntitySpawnReason::Load);
+        let loaded = factory::load_entities_recursive(
+            std::slice::from_ref(&tag),
+            &level,
+            mc_data::enums::EntitySpawnReason::Load,
+        );
         assert_eq!(loaded.len(), 1);
         let none = |_| None;
         let saved = crate::world::entity::entity::save(loaded[0].as_ref(), &none).unwrap();
@@ -118,12 +150,18 @@ mod tests {
 
     #[test]
     fn unknown_id_and_player_are_skipped() {
-        let level = ServerLevel::detached(mc_core::ident::Identifier::parse("minecraft:overworld").unwrap());
+        let level = ServerLevel::detached(
+            mc_core::ident::Identifier::parse("minecraft:overworld").unwrap(),
+        );
         let mut bad = pig_tag();
         bad.put_string("id", "minecraft:nope");
         let mut player = pig_tag();
         player.put_string("id", "minecraft:player");
-        let loaded = factory::load_entities_recursive(&[bad, player], &level, mc_data::enums::EntitySpawnReason::Load);
+        let loaded = factory::load_entities_recursive(
+            &[bad, player],
+            &level,
+            mc_data::enums::EntitySpawnReason::Load,
+        );
         assert!(loaded.is_empty());
     }
 }
@@ -140,7 +178,12 @@ mod teleport_tests {
         let mut e = PlainEntity::new(EntityType::PIG, 1);
         e.set_pos(10.0, 64.0, 10.0);
         e.base_mut().set_y_rot(90.0);
-        let dest = PositionMoveRotation { position: Vec3::new(1.0, 2.0, 3.0), delta_movement: Vec3::ZERO, y_rot: 45.0, x_rot: 100.0 };
+        let dest = PositionMoveRotation {
+            position: Vec3::new(1.0, 2.0, 3.0),
+            delta_movement: Vec3::ZERO,
+            y_rot: 45.0,
+            x_rot: 100.0,
+        };
         e.teleport_set_position(dest, Relatives::NONE.with(Relative::X).with(Relative::YRot));
         assert_eq!(e.base().position(), Vec3::new(11.0, 2.0, 3.0));
         assert_eq!(e.base().y_rot(), 135.0);

@@ -6,7 +6,9 @@ use super::nearest_visible_living_entity_sensor::NearestVisibleLivingEntityMatch
 use super::sensor::{Sensor, is_entity_attackable};
 use super::{closer_than, distance_to_sqr};
 use crate::server::level::ServerLevel;
-use crate::world::entity::ai::memory::memory_module_type::{HAS_HUNTING_COOLDOWN, NEAREST_ATTACKABLE, NEAREST_LIVING_ENTITIES, UNREACHABLE_TONGUE_TARGETS};
+use crate::world::entity::ai::memory::memory_module_type::{
+    HAS_HUNTING_COOLDOWN, NEAREST_ATTACKABLE, NEAREST_LIVING_ENTITIES, UNREACHABLE_TONGUE_TARGETS,
+};
 use crate::world::entity::ai::memory::{EntityRef, MemoryModuleType, MemoryTypeId};
 use crate::world::entity::entity::Entity;
 use mc_data::EntityType;
@@ -23,7 +25,9 @@ impl NearestVisibleLivingEntityMatcher for AxolotlAttackablesSensor {
         let is_close = distance_to_sqr(mob, body) <= 64.0;
         is_close
             && mob.is_in_water()
-            && (entity_type_tag("axolotl_always_hostiles", mob.get_type()) || (!body.brain().has_memory_value(HAS_HUNTING_COOLDOWN) && entity_type_tag("axolotl_hunt_targets", mob.get_type())))
+            && (entity_type_tag("axolotl_always_hostiles", mob.get_type())
+                || (!body.brain().has_memory_value(HAS_HUNTING_COOLDOWN)
+                    && entity_type_tag("axolotl_hunt_targets", mob.get_type())))
             && is_entity_attackable(level, body, mob)
     }
 
@@ -49,7 +53,14 @@ pub fn frog_can_eat(entity: &dyn Entity) -> bool {
 
 impl NearestVisibleLivingEntityMatcher for FrogAttackablesSensor {
     fn is_matching_entity(&self, level: &ServerLevel, body: &dyn Entity, mob: &dyn Entity) -> bool {
-        if is_entity_attackable(level, body, mob) && frog_can_eat(mob) && !self.is_unreachable_attack_target(body, mob) { closer_than(mob, body, 10.0) } else { false }
+        if is_entity_attackable(level, body, mob)
+            && frog_can_eat(mob)
+            && !self.is_unreachable_attack_target(body, mob)
+        {
+            closer_than(mob, body, 10.0)
+        } else {
+            false
+        }
     }
 
     fn get_memory_to_set(&self) -> MemoryModuleType<EntityRef> {
@@ -63,12 +74,18 @@ impl NearestVisibleLivingEntityMatcher for FrogAttackablesSensor {
 
 impl FrogAttackablesSensor {
     fn is_unreachable_attack_target(&self, body: &dyn Entity, mob: &dyn Entity) -> bool {
-        body.brain().get_memory(&UNREACHABLE_TONGUE_TARGETS).is_some_and(|l| l.contains(&mob.uuid()))
+        body.brain()
+            .get_memory(&UNREACHABLE_TONGUE_TARGETS)
+            .is_some_and(|l| l.contains(&mob.uuid()))
     }
 }
 
 fn nearest_attackable_requires() -> Vec<MemoryTypeId> {
-    vec![NEAREST_LIVING_ENTITIES.id(), crate::world::entity::ai::memory::memory_module_type::NEAREST_VISIBLE_LIVING_ENTITIES.id(), NEAREST_ATTACKABLE.id()]
+    vec![
+        NEAREST_LIVING_ENTITIES.id(),
+        crate::world::entity::ai::memory::memory_module_type::NEAREST_VISIBLE_LIVING_ENTITIES.id(),
+        NEAREST_ATTACKABLE.id(),
+    ]
 }
 
 /// `WardenEntitySensor extends NearestLivingEntitySensor<Warden>`.
@@ -86,9 +103,14 @@ impl Sensor for WardenEntitySensor {
                 .get_memory(&NEAREST_LIVING_ENTITIES)?
                 .iter()
                 .copied()
-                .find(|r| level.get_entity(r.0).is_some_and(|e| body.can_target_entity(level, e) && test(e)))
+                .find(|r| {
+                    level
+                        .get_entity(r.0)
+                        .is_some_and(|e| body.can_target_entity(level, e) && test(e))
+                })
         };
-        let target = closest(&|e| e.get_type() == EntityType::PLAYER).or_else(|| closest(&|e| e.get_type() != EntityType::PLAYER));
+        let target = closest(&|e| e.get_type() == EntityType::PLAYER)
+            .or_else(|| closest(&|e| e.get_type() != EntityType::PLAYER));
         body.brain_mut().set_memory_opt(&NEAREST_ATTACKABLE, target);
     }
 }
@@ -98,7 +120,8 @@ pub struct BreezeAttackEntitySensor;
 
 /// `EntitySelector.NO_CREATIVE_OR_SPECTATOR`.
 pub fn no_creative_or_spectator(entity: &dyn Entity) -> bool {
-    !entity.is_player() || (!entity.is_spectator() && !entity.player().is_some_and(|p| p.abilities.instabuild))
+    !entity.is_player()
+        || (!entity.is_spectator() && !entity.player().is_some_and(|p| p.abilities.instabuild))
 }
 
 impl Sensor for BreezeAttackEntitySensor {
@@ -111,7 +134,13 @@ impl Sensor for BreezeAttackEntitySensor {
         let target = body
             .brain()
             .get_memory(&NEAREST_LIVING_ENTITIES)
-            .and_then(|l| l.iter().copied().find(|r| level.get_entity(r.0).is_some_and(|e| no_creative_or_spectator(e) && is_entity_attackable(level, &*body, e))));
+            .and_then(|l| {
+                l.iter().copied().find(|r| {
+                    level.get_entity(r.0).is_some_and(|e| {
+                        no_creative_or_spectator(e) && is_entity_attackable(level, &*body, e)
+                    })
+                })
+            });
         body.brain_mut().set_memory_opt(&NEAREST_ATTACKABLE, target);
     }
 }

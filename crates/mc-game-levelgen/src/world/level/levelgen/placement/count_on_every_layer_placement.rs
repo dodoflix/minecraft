@@ -1,12 +1,14 @@
 //! `CountOnEveryLayerPlacement`: `count` random columns per ground layer, for every layer that has one.
 
-use mc_game_core::world::level::levelgen::placement::{PLACEMENT_MODIFIER_TYPES, PlacementContext, PlacementModifier};
-use mc_game_core::world::level::block::BlockStateExt;
-use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry};
-use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::{Block, BlockState};
+use mc_game_core::world::level::block::BlockStateExt;
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry};
+use mc_game_core::world::level::levelgen::placement::{
+    PLACEMENT_MODIFIER_TYPES, PlacementContext, PlacementModifier,
+};
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_world::heightmap::HeightmapType;
 use mc_worldgen::provider::IntProvider;
 use std::sync::Arc;
@@ -17,17 +19,28 @@ pub struct CountOnEveryLayerPlacement {
 
 impl CountOnEveryLayerPlacement {
     fn decode(fields: &Fields<'_>, _ctx: &DecodeCtx<'_>) -> LoadResult<Arc<dyn PlacementModifier>> {
-        Ok(Arc::new(CountOnEveryLayerPlacement { count: fields.required("count", |v| IntProvider::from_json_range(v, 0, 256))? }))
+        Ok(Arc::new(CountOnEveryLayerPlacement {
+            count: fields.required("count", |v| IntProvider::from_json_range(v, 0, 256))?,
+        }))
     }
 
-    fn find_on_ground_y_position(context: &PlacementContext<'_>, x_start: i32, y_start: i32, z_start: i32, layer_to_place_on: i32) -> i32 {
+    fn find_on_ground_y_position(
+        context: &PlacementContext<'_>,
+        x_start: i32,
+        y_start: i32,
+        z_start: i32,
+        layer_to_place_on: i32,
+    ) -> i32 {
         let mut current_layer = 0;
         let mut current_block = context.get_block_state(BlockPos::new(x_start, y_start, z_start));
         let mut y = y_start;
         while y >= context.get_min_y() + 1 {
             let below_pos = BlockPos::new(x_start, y - 1, z_start);
             let below_block = context.get_block_state(below_pos);
-            if !Self::is_empty(below_block) && Self::is_empty(current_block) && !below_block.is_block(Block::BEDROCK) {
+            if !Self::is_empty(below_block)
+                && Self::is_empty(current_block)
+                && !below_block.is_block(Block::BEDROCK)
+            {
                 if current_layer == layer_to_place_on {
                     return below_pos.y() + 1;
                 }
@@ -45,7 +58,13 @@ impl CountOnEveryLayerPlacement {
 }
 
 impl PlacementModifier for CountOnEveryLayerPlacement {
-    fn modify(&self, context: &PlacementContext<'_>, random: &mut dyn RandomSource, origin: BlockPos, output: &mut Vec<BlockPos>) {
+    fn modify(
+        &self,
+        context: &PlacementContext<'_>,
+        random: &mut dyn RandomSource,
+        origin: BlockPos,
+        output: &mut Vec<BlockPos>,
+    ) {
         let mut layer = 0;
         loop {
             let mut found_any = false;
@@ -71,5 +90,7 @@ impl PlacementModifier for CountOnEveryLayerPlacement {
 }
 
 #[linkme::distributed_slice(PLACEMENT_MODIFIER_TYPES)]
-static COUNT_ON_EVERY_LAYER: TypeEntry<dyn PlacementModifier> =
-    TypeEntry { name: "count_on_every_layer", decode: CountOnEveryLayerPlacement::decode };
+static COUNT_ON_EVERY_LAYER: TypeEntry<dyn PlacementModifier> = TypeEntry {
+    name: "count_on_every_layer",
+    decode: CountOnEveryLayerPlacement::decode,
+};

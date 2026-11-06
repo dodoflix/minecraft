@@ -22,11 +22,21 @@ impl ClockState {
         let partial_tick = codec::optional(m, "partial_tick", codec::float)?.unwrap_or(0.0);
         let rate = match codec::optional(m, "rate", codec::float)? {
             Some(rate) if rate > 0.0 => rate,
-            Some(rate) => return Err(format!("Value must be positive: {}", mc_core::math::java::java_float_to_string(rate))),
+            Some(rate) => {
+                return Err(format!(
+                    "Value must be positive: {}",
+                    mc_core::math::java::java_float_to_string(rate)
+                ));
+            }
             None => 1.0,
         };
         let paused = codec::optional(m, "paused", codec::boolean)?.unwrap_or(false);
-        Ok(ClockState { total_ticks, partial_tick, rate, paused })
+        Ok(ClockState {
+            total_ticks,
+            partial_tick,
+            rate,
+            paused,
+        })
     }
 
     /// `ClockState.CODEC` encode: defaults are omitted (`optionalFieldOf(name, default)`).
@@ -65,7 +75,10 @@ impl PackedClockStates {
     pub const EMPTY: PackedClockStates = PackedClockStates { clocks: Vec::new() };
 
     pub fn decode(tag: &Tag) -> DecodeResult<PackedClockStates> {
-        map_decoded(codec::unbounded_map(tag, Identifier::read, ClockState::decode), |clocks| PackedClockStates { clocks })
+        map_decoded(
+            codec::unbounded_map(tag, Identifier::read, ClockState::decode),
+            |clocks| PackedClockStates { clocks },
+        )
     }
 
     pub fn encode(&self) -> Tag {

@@ -31,9 +31,18 @@ pub enum RunningPolicy {
 
 impl RunningPolicy {
     /// `apply(behaviors, level, body, timestamp)`: tries the stopped ones in order (`RunOne` stops at the first that starts).
-    pub fn apply(self, behaviors: &mut ShufflingList<Box<dyn BehaviorControl>>, level: &mut ServerLevel, body: &mut dyn Entity, timestamp: i64) {
+    pub fn apply(
+        self,
+        behaviors: &mut ShufflingList<Box<dyn BehaviorControl>>,
+        level: &mut ServerLevel,
+        body: &mut dyn Entity,
+        timestamp: i64,
+    ) {
         for behavior in behaviors.iter_mut() {
-            if behavior.get_status() == Status::Stopped && behavior.try_start(level, body, timestamp) && self == RunningPolicy::RunOne {
+            if behavior.get_status() == Status::Stopped
+                && behavior.try_start(level, body, timestamp)
+                && self == RunningPolicy::RunOne
+            {
                 break;
             }
         }
@@ -59,7 +68,15 @@ impl GateBehavior {
         running_policy: RunningPolicy,
         behaviors: Vec<(Box<dyn BehaviorControl>, i32)>,
     ) -> Self {
-        Self::with_list(entry_condition, exit_erased_memories, order_policy, running_policy, behaviors, ShufflingList::new(), "GateBehavior")
+        Self::with_list(
+            entry_condition,
+            exit_erased_memories,
+            order_policy,
+            running_policy,
+            behaviors,
+            ShufflingList::new(),
+            "GateBehavior",
+        )
     }
 
     /// As [`GateBehavior::new`] with the shuffling list's random source chosen by the caller (tests).
@@ -75,11 +92,21 @@ impl GateBehavior {
         for (behavior, weight) in behaviors {
             list.add(behavior, weight);
         }
-        Self { entry_condition, exit_erased_memories, order_policy, running_policy, behaviors: list, status: Status::Stopped, name }
+        Self {
+            entry_condition,
+            exit_erased_memories,
+            order_policy,
+            running_policy,
+            behaviors: list,
+            status: Status::Stopped,
+            name,
+        }
     }
 
     fn has_required_memories(&self, body: &dyn Entity) -> bool {
-        self.entry_condition.iter().all(|&(t, s)| body.brain().check_memory(t, s))
+        self.entry_condition
+            .iter()
+            .all(|&(t, s)| body.brain().check_memory(t, s))
     }
 }
 
@@ -89,7 +116,8 @@ impl BehaviorControl for GateBehavior {
     }
 
     fn get_required_memories(&self) -> Vec<MemoryTypeId> {
-        let mut memories: Vec<MemoryTypeId> = self.entry_condition.iter().map(|&(t, _)| t).collect();
+        let mut memories: Vec<MemoryTypeId> =
+            self.entry_condition.iter().map(|&(t, _)| t).collect();
         for behavior in self.behaviors.iter() {
             for m in behavior.get_required_memories() {
                 if !memories.contains(&m) {
@@ -100,11 +128,17 @@ impl BehaviorControl for GateBehavior {
         memories
     }
 
-    fn try_start(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, timestamp: i64) -> bool {
+    fn try_start(
+        &mut self,
+        level: &mut ServerLevel,
+        body: &mut dyn Entity,
+        timestamp: i64,
+    ) -> bool {
         if self.has_required_memories(body) {
             self.status = Status::Running;
             self.order_policy.apply(&mut self.behaviors);
-            self.running_policy.apply(&mut self.behaviors, level, body, timestamp);
+            self.running_policy
+                .apply(&mut self.behaviors, level, body, timestamp);
             true
         } else {
             false
@@ -117,7 +151,11 @@ impl BehaviorControl for GateBehavior {
                 goal.tick_or_stop(level, body, timestamp);
             }
         }
-        if !self.behaviors.iter().any(|g| g.get_status() == Status::Running) {
+        if !self
+            .behaviors
+            .iter()
+            .any(|g| g.get_status() == Status::Running)
+        {
             self.do_stop(level, body, timestamp);
         }
     }
@@ -135,7 +173,12 @@ impl BehaviorControl for GateBehavior {
     }
 
     fn debug_string(&self) -> String {
-        let running: Vec<String> = self.behaviors.iter().filter(|g| g.get_status() == Status::Running).map(|b| b.debug_string()).collect();
+        let running: Vec<String> = self
+            .behaviors
+            .iter()
+            .filter(|g| g.get_status() == Status::Running)
+            .map(|b| b.debug_string())
+            .collect();
         format!("{}: {:?}", self.name, running)
     }
 }
@@ -150,7 +193,18 @@ impl RunOne {
     }
 
     /// `new RunOne(entryCondition, weightedBehaviors)`.
-    pub fn with_entry_condition(entry_condition: Vec<(MemoryTypeId, MemoryStatus)>, weighted_behaviors: Vec<(Box<dyn BehaviorControl>, i32)>) -> GateBehavior {
-        GateBehavior::with_list(entry_condition, Vec::new(), OrderPolicy::Shuffled, RunningPolicy::RunOne, weighted_behaviors, ShufflingList::new(), "RunOne")
+    pub fn with_entry_condition(
+        entry_condition: Vec<(MemoryTypeId, MemoryStatus)>,
+        weighted_behaviors: Vec<(Box<dyn BehaviorControl>, i32)>,
+    ) -> GateBehavior {
+        GateBehavior::with_list(
+            entry_condition,
+            Vec::new(),
+            OrderPolicy::Shuffled,
+            RunningPolicy::RunOne,
+            weighted_behaviors,
+            ShufflingList::new(),
+            "RunOne",
+        )
     }
 }

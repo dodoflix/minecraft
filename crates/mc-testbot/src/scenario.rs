@@ -33,11 +33,19 @@ fn fail(line_no: usize, line: &str, msg: impl std::fmt::Display) -> BotError {
 }
 
 fn entity_type(name: &str) -> Option<EntityType> {
-    EntityType::by_name(&if name.contains(':') { name.to_string() } else { format!("minecraft:{name}") })
+    EntityType::by_name(&if name.contains(':') {
+        name.to_string()
+    } else {
+        format!("minecraft:{name}")
+    })
 }
 
 fn hand(t: Option<&&str>) -> InteractionHand {
-    if t == Some(&"off") { InteractionHand::OffHand } else { InteractionHand::MainHand }
+    if t == Some(&"off") {
+        InteractionHand::OffHand
+    } else {
+        InteractionHand::MainHand
+    }
 }
 
 fn face(name: &str) -> Option<Direction> {
@@ -69,9 +77,18 @@ pub async fn run(bot: &Bot, text: &str) -> Result<Vec<String>> {
         }
         bot.assert_connected()?;
         let t: Vec<&str> = line.split_whitespace().collect();
-        let rest = line.split_once(char::is_whitespace).map_or("", |(_, r)| r.trim());
-        let num = |s: &str| s.parse::<f64>().map_err(|_| fail(no, line, format!("not a number: {s}")));
-        let arg = |k: usize| t.get(k).copied().ok_or_else(|| fail(no, line, "missing argument"));
+        let rest = line
+            .split_once(char::is_whitespace)
+            .map_or("", |(_, r)| r.trim());
+        let num = |s: &str| {
+            s.parse::<f64>()
+                .map_err(|_| fail(no, line, format!("not a number: {s}")))
+        };
+        let arg = |k: usize| {
+            t.get(k)
+                .copied()
+                .ok_or_else(|| fail(no, line, "missing argument"))
+        };
         match t[0] {
             "cmd" => bot.command(rest.trim_start_matches('/')),
             "chat" => bot.chat(rest),
@@ -80,18 +97,30 @@ pub async fn run(bot: &Bot, text: &str) -> Result<Vec<String>> {
             "wait_chat" => {
                 let secs = t.get(2).map_or(Ok(10.0), |s| num(s))?;
                 let needle = arg(1)?;
-                bot.wait_chat(needle, 0, Duration::from_secs_f64(secs)).await?;
+                bot.wait_chat(needle, 0, Duration::from_secs_f64(secs))
+                    .await?;
             }
             "look_at" => bot.look_at(Vec3::new(num(arg(1)?)?, num(arg(2)?)?, num(arg(3)?)?)),
-            "walk" => bot.walk_to(num(arg(1)?)?, num(arg(2)?)?, 0.6, t.get(3) == Some(&"sprint"), Duration::from_secs(30)).await?,
+            "walk" => {
+                bot.walk_to(
+                    num(arg(1)?)?,
+                    num(arg(2)?)?,
+                    0.6,
+                    t.get(3) == Some(&"sprint"),
+                    Duration::from_secs(30),
+                )
+                .await?
+            }
             "jump" => bot.jump(t.get(1).map_or(Ok(1.0), |s| num(s))? as u32),
             "sneak" => bot.set_sneaking(arg(1)? == "on"),
             "select" => bot.select_hotbar(num(arg(1)?)? as u8),
             "wait_entity" => {
-                let ty = entity_type(arg(1)?).ok_or_else(|| fail(no, line, "unknown entity type"))?;
+                let ty =
+                    entity_type(arg(1)?).ok_or_else(|| fail(no, line, "unknown entity type"))?;
                 let secs = t.get(2).map_or(Ok(10.0), |s| num(s))?;
                 let known = bot.entities_of(ty);
-                bot.wait_entity(ty, &known, Duration::from_secs_f64(secs)).await?;
+                bot.wait_entity(ty, &known, Duration::from_secs_f64(secs))
+                    .await?;
             }
             "attack" | "interact" => {
                 let r = arg(1)?;
@@ -103,9 +132,17 @@ pub async fn run(bot: &Bot, text: &str) -> Result<Vec<String>> {
                 }
             }
             "use_item_on" => {
-                let pos = BlockPos::new(num(arg(1)?)? as i32, num(arg(2)?)? as i32, num(arg(3)?)? as i32);
+                let pos = BlockPos::new(
+                    num(arg(1)?)? as i32,
+                    num(arg(2)?)? as i32,
+                    num(arg(3)?)? as i32,
+                );
                 let f = face(arg(4)?).ok_or_else(|| fail(no, line, "face"))?;
-                let cursor = (0.5 + 0.5 * f.get_step_x() as f32, 0.5 + 0.5 * f.get_step_y() as f32, 0.5 + 0.5 * f.get_step_z() as f32);
+                let cursor = (
+                    0.5 + 0.5 * f.get_step_x() as f32,
+                    0.5 + 0.5 * f.get_step_y() as f32,
+                    0.5 + 0.5 * f.get_step_z() as f32,
+                );
                 bot.use_item_on(hand(t.get(5)), pos, f, cursor, false);
             }
             "use" => bot.use_item(hand(t.get(1))),
@@ -113,12 +150,25 @@ pub async fn run(bot: &Bot, text: &str) -> Result<Vec<String>> {
             "observe" => {
                 out.push(format!("# observe {}", t.get(1).copied().unwrap_or("")));
                 let p = bot.position();
-                out.push(format!("PLAYER pos={:?},{:?},{:?} health={:?} food={}", p.x, p.y, p.z, bot.health(), bot.food()));
+                out.push(format!(
+                    "PLAYER pos={:?},{:?},{:?} health={:?} food={}",
+                    p.x,
+                    p.y,
+                    p.z,
+                    bot.health(),
+                    bot.food()
+                ));
                 out.extend(bot.entity_lines());
                 out.extend(bot.merchant_offer_lines());
             }
             "note" => out.push(format!("# {rest}")),
-            other => return Err(fail(no, line, format!("unknown scenario command `{other}`"))),
+            other => {
+                return Err(fail(
+                    no,
+                    line,
+                    format!("unknown scenario command `{other}`"),
+                ));
+            }
         }
     }
     Ok(out)

@@ -1,12 +1,12 @@
 //! `BellBlockEntity`: shake animation state, the nearby-entity snapshot taken when the bell is rung (villager
 //! `HEARD_BELL_TIME` memory) and raid resonation (raiders within range glow once the resonation ended).
 
-use linkme::distributed_slice;
 use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration};
 use crate::server::level::ServerLevel;
-use crate::world::level::LevelAccessor;
 use crate::world::entity::effect::MobEffectInstance;
 use crate::world::entity::{Entity, EntityId};
+use crate::world::level::LevelAccessor;
+use linkme::distributed_slice;
 use mc_core::direction::Direction;
 use mc_core::phys::AABB;
 use mc_core::pos::BlockPos;
@@ -49,7 +49,12 @@ impl BellBlockEntity {
         } else {
             self.shaking = true;
         }
-        level.block_event(bell_pos, self.get_block_state().block(), 1, click_direction.get_3d_data_value() as i32);
+        level.block_event(
+            bell_pos,
+            self.get_block_state().block(),
+            1,
+            click_direction.get_3d_data_value() as i32,
+        );
     }
 
     /// `updateEntities()`.
@@ -59,7 +64,8 @@ impl BellBlockEntity {
         if game_time > self.last_ring_timestamp + 60 || self.nearby_entities.is_none() {
             self.last_ring_timestamp = game_time;
             let aabb = AABB::from_block_pos(&block_pos).inflate_scalar(48.0);
-            self.nearby_entities = Some(level.get_entities_of_class(&aabb, |e| e.living().is_some(), |_| true));
+            self.nearby_entities =
+                Some(level.get_entities_of_class(&aabb, |e| e.living().is_some(), |_| true));
         }
         for id in self.nearby_entities.clone().unwrap_or_default() {
             if is_alive_and_loaded(level, id)
@@ -77,7 +83,9 @@ impl BellBlockEntity {
         let pos = self.get_block_pos();
         self.nearby_entities.iter().flatten().any(|&id| {
             is_alive_and_loaded(level, id)
-                && level.get_entity(id).is_some_and(|e| pos.closer_to_center_than(&e.position(), 32.0) && is_raider(e.get_type()))
+                && level.get_entity(id).is_some_and(|e| {
+                    pos.closer_to_center_than(&e.position(), 32.0) && is_raider(e.get_type())
+                })
         })
     }
 
@@ -94,7 +102,9 @@ impl BellBlockEntity {
 
 /// `entity.isAlive() && !entity.isRemoved()` of an entity that may have left the level since the snapshot.
 fn is_alive_and_loaded(level: &ServerLevel, id: EntityId) -> bool {
-    level.get_entity(id).is_some_and(|e| e.is_alive() && !e.is_removed())
+    level
+        .get_entity(id)
+        .is_some_and(|e| e.is_alive() && !e.is_removed())
 }
 
 fn is_raider(ty: EntityType) -> bool {
@@ -103,7 +113,10 @@ fn is_raider(ty: EntityType) -> bool {
 
 /// `isRaiderWithinRange(blockPos, entity)`.
 fn is_raider_within_range(level: &ServerLevel, pos: BlockPos, id: EntityId) -> bool {
-    is_alive_and_loaded(level, id) && level.get_entity(id).is_some_and(|e| pos.closer_to_center_than(&e.position(), 48.0) && is_raider(e.get_type()))
+    is_alive_and_loaded(level, id)
+        && level.get_entity(id).is_some_and(|e| {
+            pos.closer_to_center_than(&e.position(), 48.0) && is_raider(e.get_type())
+        })
 }
 
 impl BlockEntity for BellBlockEntity {
@@ -138,7 +151,14 @@ impl BlockEntity for BellBlockEntity {
         let pos = self.get_block_pos();
         if self.ticks >= 5 && self.resonation_ticks == 0 && self.are_raiders_nearby(level) {
             self.resonating = true;
-            level.play_sound(None, pos, SoundEvent::BLOCK_BELL_RESONATE, SoundSource::Blocks, 1.0, 1.0);
+            level.play_sound(
+                None,
+                pos,
+                SoundEvent::BLOCK_BELL_RESONATE,
+                SoundSource::Blocks,
+                1.0,
+                1.0,
+            );
         }
         if self.resonating {
             if self.resonation_ticks < 40 {
@@ -161,10 +181,16 @@ fn hear_bell(level: &mut ServerLevel, id: EntityId, game_time: i64) {
 /// `raider.addEffect(new MobEffectInstance(MobEffects.GLOWING, 60))`.
 fn glow(level: &mut ServerLevel, id: EntityId) {
     level.with_entity(id, |level, entity| {
-        entity.add_effect(level, MobEffectInstance::of(MobEffect::GLOWING, 60, 0), None);
+        entity.add_effect(
+            level,
+            MobEffectInstance::of(MobEffect::GLOWING, 60, 0),
+            None,
+        );
     });
 }
 
 #[distributed_slice(BLOCK_ENTITY_TYPES)]
-static BELL: BlockEntityRegistration =
-    BlockEntityRegistration { ty: BlockEntityType::BELL, create: |pos, state| Box::new(BellBlockEntity::new(pos, state)) };
+static BELL: BlockEntityRegistration = BlockEntityRegistration {
+    ty: BlockEntityType::BELL,
+    create: |pos, state| Box::new(BellBlockEntity::new(pos, state)),
+};

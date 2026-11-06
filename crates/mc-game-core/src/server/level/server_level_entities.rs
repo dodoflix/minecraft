@@ -1,8 +1,8 @@
 //! The entity half of `ServerLevel`: id allocation, adding, lookups, queries, the take-out loop and the
 //! `ServerLevel.EntityCallbacks` (applied from the manager's event queue).
 
-use super::entity_tracker::{Entities, TrackerPlayer};
 use super::ServerLevel;
+use super::entity_tracker::{Entities, TrackerPlayer};
 use crate::world::entity::{Entity, EntityId, RemovalReason};
 use crate::world::level::entity::EntityLevelEvent;
 use crate::world::level::gameevent::DynamicListenerAction;
@@ -18,7 +18,9 @@ static ENTITY_COUNTER: AtomicI32 = AtomicI32::new(0);
 /// `ServerLevel.ENTITY_COUNTER.incrementAndGet()` for entities created off the game thread (worldgen): no level to
 /// check for taken ids (they are saved as NBT and get a fresh id when loaded).
 pub fn next_detached_entity_id() -> EntityId {
-    ENTITY_COUNTER.fetch_add(1, Ordering::Relaxed).wrapping_add(1)
+    ENTITY_COUNTER
+        .fetch_add(1, Ordering::Relaxed)
+        .wrapping_add(1)
 }
 
 impl ServerLevel {
@@ -36,11 +38,18 @@ impl ServerLevel {
     /// difficulty is not peaceful.
     pub fn can_spawn_entity_type(&self, ty: EntityType) -> bool {
         let data = ty.data();
-        let required: Vec<mc_core::ident::Identifier> = data.required_features.iter().filter_map(|n| mc_core::ident::Identifier::try_parse(n)).collect();
-        if !mc_world::level_storage::FeatureFlagSet::from_names(required.iter(), |_| {}).is_subset_of(self.tick_state.enabled_features) {
+        let required: Vec<mc_core::ident::Identifier> = data
+            .required_features
+            .iter()
+            .filter_map(|n| mc_core::ident::Identifier::try_parse(n))
+            .collect();
+        if !mc_world::level_storage::FeatureFlagSet::from_names(required.iter(), |_| {})
+            .is_subset_of(self.tick_state.enabled_features)
+        {
             return false;
         }
-        data.allowed_in_peaceful || self.difficulty() != mc_world::level_storage::Difficulty::Peaceful
+        data.allowed_in_peaceful
+            || self.difficulty() != mc_world::level_storage::Difficulty::Peaceful
     }
 
     // ---- adding ---------------------------------------------------------------------------------------------
@@ -48,12 +57,18 @@ impl ServerLevel {
     /// `addFreshEntity(entity)` (= `addEntity`): false if the entity is already marked removed or its UUID exists.
     pub fn add_fresh_entity(&mut self, entity: Box<dyn Entity>) -> bool {
         if entity.is_removed() {
-            log::warn!("Tried to add entity {} but it was marked as removed already", entity.get_type().data().name);
+            log::warn!(
+                "Tried to add entity {} but it was marked as removed already",
+                entity.get_type().data().name
+            );
             return false;
         }
         let mut entity = entity;
         // `addFreshEntityWithPassengers`: passengers created by `finalizeSpawn` (spider jockey) follow their vehicle
-        let passengers = entity.mob_mut().map(|m| std::mem::take(&mut m.pending_passengers)).unwrap_or_default();
+        let passengers = entity
+            .mob_mut()
+            .map(|m| std::mem::take(&mut m.pending_passengers))
+            .unwrap_or_default();
         let ok = self.entity_manager.add_new_entity(entity).is_ok();
         self.process_entity_events();
         if ok {
@@ -74,7 +89,10 @@ impl ServerLevel {
 
     /// `tryAddFreshEntityWithPassengers(entity)`.
     pub fn try_add_fresh_entity_with_passengers(&mut self, entities: Vec<Box<dyn Entity>>) -> bool {
-        if entities.iter().any(|e| self.entity_manager.is_loaded(e.uuid())) {
+        if entities
+            .iter()
+            .any(|e| self.entity_manager.is_loaded(e.uuid()))
+        {
             return false;
         }
         self.add_fresh_entity_with_passengers(entities);
@@ -127,9 +145,16 @@ impl ServerLevel {
 
     /// Take an entity out of its slot (lookups return `None` while it is out). Pair with [`ServerLevel::put_back_entity`].
     pub fn take_entity(&mut self, id: EntityId) -> Option<Box<dyn Entity>> {
-        let entity = self.entity_manager.take(id).or_else(|| self.dead_players.remove(&id))?;
-        if let Some(p) = entity.as_any().downcast_ref::<crate::world::entity::ServerPlayer>() {
-            self.taken_out_players.insert(id, super::TrackerPlayer::of(p));
+        let entity = self
+            .entity_manager
+            .take(id)
+            .or_else(|| self.dead_players.remove(&id))?;
+        if let Some(p) = entity
+            .as_any()
+            .downcast_ref::<crate::world::entity::ServerPlayer>()
+        {
+            self.taken_out_players
+                .insert(id, super::TrackerPlayer::of(p));
         }
         Some(entity)
     }
@@ -152,7 +177,11 @@ impl ServerLevel {
 
     /// Run `f` on entity `id` now if it is in storage (returns its result); if the entity is taken out (it is the
     /// one running, e.g. the attacker whose hit kills the victim) `f` runs when it is put back and `None` is returned.
-    pub fn with_entity_or_defer<R: 'static>(&mut self, id: EntityId, f: impl FnOnce(&mut ServerLevel, &mut dyn Entity) -> R + 'static) -> Option<R> {
+    pub fn with_entity_or_defer<R: 'static>(
+        &mut self,
+        id: EntityId,
+        f: impl FnOnce(&mut ServerLevel, &mut dyn Entity) -> R + 'static,
+    ) -> Option<R> {
         match self.take_entity(id) {
             Some(mut entity) => {
                 let result = f(self, entity.as_mut());
@@ -161,9 +190,12 @@ impl ServerLevel {
             }
             None => {
                 if self.entity_manager.has_entity_with_id(id) {
-                    self.deferred_level_ops.entry(id).or_default().push(Box::new(move |level, entity| {
-                        f(level, entity);
-                    }));
+                    self.deferred_level_ops
+                        .entry(id)
+                        .or_default()
+                        .push(Box::new(move |level, entity| {
+                            f(level, entity);
+                        }));
                 }
                 None
             }
@@ -188,7 +220,11 @@ impl ServerLevel {
     }
 
     /// Take `id` out, run `f` with the level (the entity is absent from lookups), put it back.
-    pub fn with_entity<R>(&mut self, id: EntityId, f: impl FnOnce(&mut ServerLevel, &mut dyn Entity) -> R) -> Option<R> {
+    pub fn with_entity<R>(
+        &mut self,
+        id: EntityId,
+        f: impl FnOnce(&mut ServerLevel, &mut dyn Entity) -> R,
+    ) -> Option<R> {
         let mut entity = self.take_entity(id)?;
         let result = f(self, entity.as_mut());
         self.put_back_entity(id, entity);
@@ -196,8 +232,17 @@ impl ServerLevel {
     }
 
     /// `with_entity` for a player: `f` gets the `ServerPlayer` (taken out of the level while it runs).
-    pub fn with_player<R>(&mut self, id: EntityId, f: impl FnOnce(&mut ServerLevel, &mut crate::world::entity::ServerPlayer) -> R) -> Option<R> {
-        self.with_entity(id, |level, e| e.as_any_mut().downcast_mut::<crate::world::entity::ServerPlayer>().map(|p| f(level, p))).flatten()
+    pub fn with_player<R>(
+        &mut self,
+        id: EntityId,
+        f: impl FnOnce(&mut ServerLevel, &mut crate::world::entity::ServerPlayer) -> R,
+    ) -> Option<R> {
+        self.with_entity(id, |level, e| {
+            e.as_any_mut()
+                .downcast_mut::<crate::world::entity::ServerPlayer>()
+                .map(|p| f(level, p))
+        })
+        .flatten()
     }
 
     /// `entityTickList.forEach(f)` with vanilla's snapshot semantics: every entity that was in the tick list when
@@ -218,14 +263,23 @@ impl ServerLevel {
     /// `processPendingLoads()`: instantiate the entities of chunks whose entity data arrived and add them.
     pub fn process_pending_entity_loads(&mut self) {
         for chunk in self.entity_manager.take_loaded_chunks() {
-            let entities = crate::world::entity::factory::load_entities_recursive(chunk.get_entities(), self, mc_data::enums::EntitySpawnReason::Load);
-            let loaded_ids: Vec<EntityId> = entities.iter().filter(|e| e.raider().is_some()).map(|e| e.id()).collect();
+            let entities = crate::world::entity::factory::load_entities_recursive(
+                chunk.get_entities(),
+                self,
+                mc_data::enums::EntitySpawnReason::Load,
+            );
+            let loaded_ids: Vec<EntityId> = entities
+                .iter()
+                .filter(|e| e.raider().is_some())
+                .map(|e| e.id())
+                .collect();
             self.entity_manager.add_legacy_chunk_entities(entities);
             // `Raider.readAdditionalSaveData` joins the saved raid
             for id in loaded_ids {
                 self.with_entity(id, |level, e| e.after_loaded_to_level(level));
             }
-            self.entity_manager.mark_chunk_entities_loaded(chunk.get_pos());
+            self.entity_manager
+                .mark_chunk_entities_loaded(chunk.get_pos());
         }
         self.process_entity_events();
     }
@@ -240,7 +294,9 @@ impl ServerLevel {
             for event in events {
                 let waypoint_event = match &event {
                     EntityLevelEvent::TrackingStart(id) => Some((*id, true)),
-                    EntityLevelEvent::TrackingEnd(id) | EntityLevelEvent::Destroyed(id) => Some((*id, false)),
+                    EntityLevelEvent::TrackingEnd(id) | EntityLevelEvent::Destroyed(id) => {
+                        Some((*id, false))
+                    }
                     _ => None,
                 };
                 self.handle_entity_event(event);
@@ -252,7 +308,20 @@ impl ServerLevel {
             }
         }
         // a killed player's entity leaves the level but the player lives on (player list, connection, respawn)
-        let dead: Vec<EntityId> = self.entity_manager.removed_ids().into_iter().filter(|&id| self.entity_manager.get_removed(id).is_some_and(|e| e.is_player() && e.base().removal_reason() == Some(RemovalReason::Killed) && e.as_any().downcast_ref::<crate::world::entity::ServerPlayer>().is_some_and(|p| p.connection.is_some()))).collect();
+        let dead: Vec<EntityId> = self
+            .entity_manager
+            .removed_ids()
+            .into_iter()
+            .filter(|&id| {
+                self.entity_manager.get_removed(id).is_some_and(|e| {
+                    e.is_player()
+                        && e.base().removal_reason() == Some(RemovalReason::Killed)
+                        && e.as_any()
+                            .downcast_ref::<crate::world::entity::ServerPlayer>()
+                            .is_some_and(|p| p.connection.is_some())
+                })
+            })
+            .collect();
         for id in dead {
             if let Some(player) = self.entity_manager.take_removed(id) {
                 self.dead_players.insert(id, player);
@@ -269,31 +338,52 @@ impl ServerLevel {
     fn handle_entity_event(&mut self, event: EntityLevelEvent) {
         match event {
             EntityLevelEvent::TrackingStart(id) => {
-                if self.entity_manager.get_any(id).is_some_and(|e| e.is_player()) && !self.players.contains(&id) {
+                if self
+                    .entity_manager
+                    .get_any(id)
+                    .is_some_and(|e| e.is_player())
+                    && !self.players.contains(&id)
+                {
                     self.players.push(id);
                     // `ServerChunkCache.addEntity(player)` -> `ChunkMap.updatePlayerStatus(player, true)`
                     let info = self
                         .entity_manager
                         .get_any(id)
-                        .and_then(|e| e.as_any().downcast_ref::<crate::world::entity::ServerPlayer>())
-                        .and_then(|p| Some((p, p.connection.clone()?, p.listener.as_ref()?.chunk_sender.clone())))
-                        .map(|(p, connection, sink)| super::chunk_map::PlayerTrackingInfo {
-                            entity_id: id,
-                            uuid: p.uuid(),
-                            connection,
-                            sink: Box::new(sink),
-                            position: p.position(),
-                            requested_view_distance: p.requested_view_distance,
-                            spectator: p.is_spectator(),
-                            alive: p.is_alive(),
-                        });
+                        .and_then(|e| {
+                            e.as_any()
+                                .downcast_ref::<crate::world::entity::ServerPlayer>()
+                        })
+                        .and_then(|p| {
+                            Some((
+                                p,
+                                p.connection.clone()?,
+                                p.listener.as_ref()?.chunk_sender.clone(),
+                            ))
+                        })
+                        .map(
+                            |(p, connection, sink)| super::chunk_map::PlayerTrackingInfo {
+                                entity_id: id,
+                                uuid: p.uuid(),
+                                connection,
+                                sink: Box::new(sink),
+                                position: p.position(),
+                                requested_view_distance: p.requested_view_distance,
+                                spectator: p.is_spectator(),
+                                alive: p.is_alive(),
+                            },
+                        );
                     if let Some(info) = info {
                         self.chunk_source.chunk_map.add_player(info);
                     }
                     self.update_sleeping_player_list();
                 }
                 let players = self.tracker_players();
-                self.entity_tracker.add_entity(&mut Entities::new(&mut self.entity_manager), &self.chunk_source.chunk_map, &players, id);
+                self.entity_tracker.add_entity(
+                    &mut Entities::new(&mut self.entity_manager),
+                    &self.chunk_source.chunk_map,
+                    &players,
+                    id,
+                );
                 self.update_dynamic_game_event_listener(id, DynamicListenerAction::Add);
             }
             EntityLevelEvent::TrackingEnd(id) => {
@@ -309,12 +399,21 @@ impl ServerLevel {
                     .entity_manager
                     .get_removed(id)
                     .or_else(|| self.entity_manager.get_any(id))
-                    .and_then(|e| e.as_any().downcast_ref::<crate::world::entity::ServerPlayer>())
+                    .and_then(|e| {
+                        e.as_any()
+                            .downcast_ref::<crate::world::entity::ServerPlayer>()
+                    })
                     .map(super::TrackerPlayer::of);
-                self.entity_tracker.remove_entity(&mut Entities::new(&mut self.entity_manager), id, player.as_ref());
+                self.entity_tracker.remove_entity(
+                    &mut Entities::new(&mut self.entity_manager),
+                    id,
+                    player.as_ref(),
+                );
                 self.update_dynamic_game_event_listener(id, DynamicListenerAction::Remove);
             }
-            EntityLevelEvent::SectionChange(id) => self.update_dynamic_game_event_listener(id, DynamicListenerAction::Move),
+            EntityLevelEvent::SectionChange(id) => {
+                self.update_dynamic_game_event_listener(id, DynamicListenerAction::Move)
+            }
             // tick list is maintained by the manager; the other callbacks have no state of their own yet
             EntityLevelEvent::Created(_)
             | EntityLevelEvent::Destroyed(_)
@@ -326,7 +425,13 @@ impl ServerLevel {
     /// `entity.updateDynamicGameEventListener(action)` (the entity is taken out of its slot, or out of the removal limbo,
     /// while it gets the level).
     fn update_dynamic_game_event_listener(&mut self, id: EntityId, action: DynamicListenerAction) {
-        let Some(mut entity) = self.entity_manager.take(id).or_else(|| self.entity_manager.take_removed(id)) else { return };
+        let Some(mut entity) = self
+            .entity_manager
+            .take(id)
+            .or_else(|| self.entity_manager.take_removed(id))
+        else {
+            return;
+        };
         entity.update_dynamic_game_event_listener(self, action);
         // a removed entity's slot is gone: `put_back` parks it in the limbo again
         self.entity_manager.put_back(id, entity);
@@ -347,7 +452,10 @@ impl ServerLevel {
         self.players
             .iter()
             .filter_map(|&id| {
-                match self.entity_manager.get_any(id).and_then(|e| e.as_any().downcast_ref::<crate::world::entity::ServerPlayer>()) {
+                match self.entity_manager.get_any(id).and_then(|e| {
+                    e.as_any()
+                        .downcast_ref::<crate::world::entity::ServerPlayer>()
+                }) {
                     Some(p) => Some(super::TrackerPlayer::of(p)),
                     None => self.taken_out_players.get(&id).cloned(),
                 }
@@ -358,13 +466,20 @@ impl ServerLevel {
     /// `ChunkMap.tick()`'s entity half (`updateTrackedEntities` + `sendChanges`).
     pub fn tick_entity_tracker(&mut self) {
         let players = self.tracker_players();
-        self.entity_tracker.tick(&mut Entities::new(&mut self.entity_manager), &self.chunk_source.chunk_map, &players);
+        self.entity_tracker.tick(
+            &mut Entities::new(&mut self.entity_manager),
+            &self.chunk_source.chunk_map,
+            &players,
+        );
     }
 
     /// `ChunkMap.move(player)` entity half for a player that is currently taken out of the level (its packet or tick
     /// is being handled): the player is passed explicitly. Call it BEFORE the chunk map's own `move_player` (vanilla
     /// runs the tracker loop first, with the previous chunk tracking view).
-    pub fn entity_tracker_move_taken_out_player(&mut self, player: &mut crate::world::entity::ServerPlayer) {
+    pub fn entity_tracker_move_taken_out_player(
+        &mut self,
+        player: &mut crate::world::entity::ServerPlayer,
+    ) {
         let mut players = self.tracker_players();
         let snapshot = TrackerPlayer::of(player);
         match players.iter_mut().find(|p| p.id == snapshot.id) {
@@ -373,13 +488,23 @@ impl ServerLevel {
         }
         self.taken_out_players.insert(snapshot.id, snapshot.clone());
         let mut entities = Entities::with_extra(&mut self.entity_manager, player);
-        self.entity_tracker.move_player(&mut entities, &self.chunk_source.chunk_map, &players, &snapshot);
+        self.entity_tracker.move_player(
+            &mut entities,
+            &self.chunk_source.chunk_map,
+            &players,
+            &snapshot,
+        );
     }
 
     // ---- queries ----------------------------------------------------------------------------------------------
 
     /// `getEntities(except, bb, selector)`: ids in vanilla iteration order (sections by key, insertion order inside).
-    pub fn get_entities(&self, except: Option<EntityId>, bb: &AABB, mut selector: impl FnMut(&dyn Entity) -> bool) -> Vec<EntityId> {
+    pub fn get_entities(
+        &self,
+        except: Option<EntityId>,
+        bb: &AABB,
+        mut selector: impl FnMut(&dyn Entity) -> bool,
+    ) -> Vec<EntityId> {
         let mut out = Vec::new();
         self.entity_manager.for_each_in_aabb(bb, |id, e| {
             if Some(id) != except && selector(e) {
@@ -391,7 +516,12 @@ impl ServerLevel {
     }
 
     /// `getEntities(EntityTypeTest, bb, selector)` / `getEntitiesOfClass`: `test` is the type test (`instanceof`).
-    pub fn get_entities_of_class(&self, bb: &AABB, test: impl Fn(&dyn Entity) -> bool, mut selector: impl FnMut(&dyn Entity) -> bool) -> Vec<EntityId> {
+    pub fn get_entities_of_class(
+        &self,
+        bb: &AABB,
+        test: impl Fn(&dyn Entity) -> bool,
+        mut selector: impl FnMut(&dyn Entity) -> bool,
+    ) -> Vec<EntityId> {
         let mut out = Vec::new();
         self.entity_manager.for_each_in_aabb(bb, |id, e| {
             if test(e) && selector(e) {
@@ -411,21 +541,31 @@ impl ServerLevel {
         mut selector: impl FnMut(&dyn Entity) -> bool,
     ) -> Vec<EntityId> {
         let mut out = Vec::new();
-        self.entity_manager.for_each_in_aabb_with_stand_in(bb, stand_in, |id, e| {
-            if test(e) && selector(e) {
-                out.push(id);
-            }
-            ControlFlow::Continue(())
-        });
+        self.entity_manager
+            .for_each_in_aabb_with_stand_in(bb, stand_in, |id, e| {
+                if test(e) && selector(e) {
+                    out.push(id);
+                }
+                ControlFlow::Continue(())
+            });
         out
     }
 
     /// `getNearestPlayer(x, y, z, range, predicate)`.
-    pub fn get_nearest_player(&self, x: f64, y: f64, z: f64, range: f64, predicate: impl Fn(&dyn Entity) -> bool) -> Option<EntityId> {
+    pub fn get_nearest_player(
+        &self,
+        x: f64,
+        y: f64,
+        z: f64,
+        range: f64,
+        predicate: impl Fn(&dyn Entity) -> bool,
+    ) -> Option<EntityId> {
         let mut best = -1.0;
         let mut result = None;
         for &id in &self.players {
-            let Some(player) = self.entity_manager.get_any(id) else { continue };
+            let Some(player) = self.entity_manager.get_any(id) else {
+                continue;
+            };
             if predicate(player) {
                 let dist = player.base().distance_to_sqr_xyz(x, y, z);
                 if (range < 0.0 || dist < range * range) && (best == -1.0 || dist < best) {
@@ -439,10 +579,13 @@ impl ServerLevel {
 
     /// `getPlayerByUUID(uuid)`.
     pub fn get_player_by_uuid(&self, uuid: Uuid) -> Option<EntityId> {
-        self.players.iter().copied().find(|&id| self.entity_manager.get_any(id).is_some_and(|p| p.uuid() == uuid))
+        self.players.iter().copied().find(|&id| {
+            self.entity_manager
+                .get_any(id)
+                .is_some_and(|p| p.uuid() == uuid)
+        })
     }
 }
-
 
 // ---- collision / movement integration ----------------------------------------------------------------------------
 
@@ -452,36 +595,63 @@ impl crate::world::level::collision::CollisionGetter for ServerLevel {
     }
 
     /// `borderCollision(source, box)`.
-    fn border_collision(&self, source: EntityId, aabb: &AABB) -> Option<mc_core::phys::shapes::VoxelShape> {
+    fn border_collision(
+        &self,
+        source: EntityId,
+        aabb: &AABB,
+    ) -> Option<mc_core::phys::shapes::VoxelShape> {
         let entity = self.entity_manager.get_any(source)?;
         let border = self.world_border_ref()?;
-        border.is_inside_close_to_border(entity.base().x(), entity.base().z(), aabb).then(|| border.get_collision_shape())
+        border
+            .is_inside_close_to_border(entity.base().x(), entity.base().z(), aabb)
+            .then(|| border.get_collision_shape())
     }
 
     /// `Level.isUnobstructed(source, shape)`: no entity that `blocksBuilding` intersects `shape`.
-    fn is_unobstructed(&self, source: Option<EntityId>, shape: &mc_core::phys::shapes::VoxelShape) -> bool {
+    fn is_unobstructed(
+        &self,
+        source: Option<EntityId>,
+        shape: &mc_core::phys::shapes::VoxelShape,
+    ) -> bool {
         use mc_core::phys::shapes::{BooleanOp, Shapes};
         if shape.is_empty() {
             return true;
         }
         let source = source.and_then(|id| self.entity_manager.get_any(id));
-        self.get_entities(None, &shape.bounds(), |_| true).into_iter().filter_map(|id| self.entity_manager.get_any(id)).all(|e| {
-            e.is_removed()
-                || !e.base().blocks_building
-                || source.is_some_and(|s| self.is_passenger_of_same_vehicle(s, e))
-                || !Shapes::join_is_not_empty(shape, &Shapes::create(e.get_bounding_box()), BooleanOp::AND)
-        })
+        self.get_entities(None, &shape.bounds(), |_| true)
+            .into_iter()
+            .filter_map(|id| self.entity_manager.get_any(id))
+            .all(|e| {
+                e.is_removed()
+                    || !e.base().blocks_building
+                    || source.is_some_and(|s| self.is_passenger_of_same_vehicle(s, e))
+                    || !Shapes::join_is_not_empty(
+                        shape,
+                        &Shapes::create(e.get_bounding_box()),
+                        BooleanOp::AND,
+                    )
+            })
     }
 
     /// Id-based form (no live source): every entity that can be collided with.
-    fn get_entity_collisions(&self, _source: Option<EntityId>, test_area: &AABB) -> Vec<mc_core::phys::shapes::VoxelShape> {
-        crate::world::entity::movement::EntityCollisionQuery::entity_collisions(self, None, test_area)
+    fn get_entity_collisions(
+        &self,
+        _source: Option<EntityId>,
+        test_area: &AABB,
+    ) -> Vec<mc_core::phys::shapes::VoxelShape> {
+        crate::world::entity::movement::EntityCollisionQuery::entity_collisions(
+            self, None, test_area,
+        )
     }
 }
 
 impl crate::world::entity::movement::EntityCollisionQuery for ServerLevel {
     /// `EntityGetter.getEntityCollisions(source, testArea)`.
-    fn entity_collisions(&self, source: Option<&dyn Entity>, test_area: &AABB) -> Vec<mc_core::phys::shapes::VoxelShape> {
+    fn entity_collisions(
+        &self,
+        source: Option<&dyn Entity>,
+        test_area: &AABB,
+    ) -> Vec<mc_core::phys::shapes::VoxelShape> {
         if test_area.get_size() < 1.0E-7 {
             return Vec::new();
         }
@@ -490,10 +660,15 @@ impl crate::world::entity::movement::EntityCollisionQuery for ServerLevel {
             !e.is_spectator()
                 && match source {
                     None => e.can_be_collided_with(None),
-                    Some(s) => e.can_be_collided_with(Some(s)) && !self.is_passenger_of_same_vehicle(s, e),
+                    Some(s) => {
+                        e.can_be_collided_with(Some(s)) && !self.is_passenger_of_same_vehicle(s, e)
+                    }
                 }
         });
-        ids.into_iter().filter_map(|id| self.entity_manager.get_any(id)).map(|e| mc_core::phys::shapes::Shapes::create(e.get_bounding_box())).collect()
+        ids.into_iter()
+            .filter_map(|id| self.entity_manager.get_any(id))
+            .map(|e| mc_core::phys::shapes::Shapes::create(e.get_bounding_box()))
+            .collect()
     }
 }
 
@@ -502,14 +677,22 @@ impl crate::world::entity::movement::MovementLevel for ServerLevel {
         ServerLevel::game_time(self)
     }
 
-    fn world_border_collision(&self, source: &dyn Entity, aabb: &AABB) -> Option<mc_core::phys::shapes::VoxelShape> {
+    fn world_border_collision(
+        &self,
+        source: &dyn Entity,
+        aabb: &AABB,
+    ) -> Option<mc_core::phys::shapes::VoxelShape> {
         let border = self.world_border_ref()?;
-        border.is_inside_close_to_border(source.base().x(), source.base().z(), aabb).then(|| border.get_collision_shape())
+        border
+            .is_inside_close_to_border(source.base().x(), source.base().z(), aabb)
+            .then(|| border.get_collision_shape())
     }
 
     fn has_chunks_at(&self, x0: i32, z0: i32, x1: i32, z1: i32) -> bool {
         let (cx0, cx1, cz0, cz1) = (x0 >> 4, x1 >> 4, z0 >> 4, z1 >> 4);
-        (cx0..=cx1).all(|cx| (cz0..=cz1).all(|cz| crate::world::level::LevelReader::has_chunk(self, cx, cz)))
+        (cx0..=cx1).all(|cx| {
+            (cz0..=cz1).all(|cz| crate::world::level::LevelReader::has_chunk(self, cx, cz))
+        })
     }
 }
 
@@ -521,11 +704,13 @@ impl ServerLevel {
             let mut cur = e.base().vehicle;
             while let Some(v) = cur {
                 id = v;
-                cur = self.entity_manager.get_any(v).and_then(|x| x.base().vehicle);
+                cur = self
+                    .entity_manager
+                    .get_any(v)
+                    .and_then(|x| x.base().vehicle);
             }
             id
         };
         root(a) == root(b)
     }
 }
-

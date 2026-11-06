@@ -5,7 +5,7 @@
 use mc_core::pos::chunk_pos::ChunkPos;
 use mc_data::block::Block;
 use mc_data::fluid::Fluid;
-use mc_nbt::{nbt_io, CompoundTag, NbtAccounter, Tag};
+use mc_nbt::{CompoundTag, NbtAccounter, Tag, nbt_io};
 use mc_world::ticks::{LevelChunkTicks, ProtoChunkTicks, SavedTick, SerializableTickContainer};
 use mc_world::upgrade_data::UpgradeData;
 use std::io::Read;
@@ -24,11 +24,20 @@ fn read_region(path: &Path) -> Vec<CompoundTag> {
         let payload = &data[off + 5..off + 4 + len];
         let mut raw = Vec::new();
         match data[off + 4] {
-            1 => flate2::read::GzDecoder::new(payload).read_to_end(&mut raw).map(drop).unwrap(),
-            2 => flate2::read::ZlibDecoder::new(payload).read_to_end(&mut raw).map(drop).unwrap(),
+            1 => flate2::read::GzDecoder::new(payload)
+                .read_to_end(&mut raw)
+                .map(drop)
+                .unwrap(),
+            2 => flate2::read::ZlibDecoder::new(payload)
+                .read_to_end(&mut raw)
+                .map(drop)
+                .unwrap(),
             3 => raw.extend_from_slice(payload),
             4 => continue, // lz4 payloads are covered by the region tests
-            other => panic!("unsupported region compression {other} in {}", path.display()),
+            other => panic!(
+                "unsupported region compression {other} in {}",
+                path.display()
+            ),
         }
         out.push(nbt_io::read(&mut raw.as_slice(), &mut NbtAccounter::unlimited_heap()).unwrap());
     }
@@ -37,10 +46,15 @@ fn read_region(path: &Path) -> Vec<CompoundTag> {
 
 fn region_files(world: &Path) -> Vec<PathBuf> {
     let mut files = Vec::new();
-    let dims = std::fs::read_dir(world.join("dimensions/minecraft")).expect("the reference world has no dimensions folder");
+    let dims = std::fs::read_dir(world.join("dimensions/minecraft"))
+        .expect("the reference world has no dimensions folder");
     for dim in dims.flatten() {
         if let Ok(rd) = std::fs::read_dir(dim.path().join("region")) {
-            files.extend(rd.flatten().map(|e| e.path()).filter(|p| p.extension().is_some_and(|e| e == "mca")));
+            files.extend(
+                rd.flatten()
+                    .map(|e| e.path())
+                    .filter(|p| p.extension().is_some_and(|e| e == "mca")),
+            );
         }
     }
     files.sort();
@@ -57,14 +71,23 @@ fn worldref_tick_lists_roundtrip() {
     for file in files {
         for chunk in read_region(&file) {
             chunks += 1;
-            let pos = ChunkPos::new(chunk.get_int("xPos").unwrap(), chunk.get_int("zPos").unwrap());
+            let pos = ChunkPos::new(
+                chunk.get_int("xPos").unwrap(),
+                chunk.get_int("zPos").unwrap(),
+            );
             for (key, is_block) in [("block_ticks", true), ("fluid_ticks", false)] {
-                let Some(Tag::List(list)) = chunk.get(key) else { continue };
+                let Some(Tag::List(list)) = chunk.get(key) else {
+                    continue;
+                };
                 let (written, n) = if is_block {
                     let ticks = SavedTick::<Block>::read_list(&chunk, key);
                     let own = SavedTick::filter_tick_list_for_chunk(&ticks, pos);
                     assert_eq!(LevelChunkTicks::from_pending(own.clone()).pack(0), own);
-                    assert_eq!(ProtoChunkTicks::load(&ticks).pack(0), ticks, "vanilla never saves duplicate (type, pos) ticks");
+                    assert_eq!(
+                        ProtoChunkTicks::load(&ticks).pack(0),
+                        ticks,
+                        "vanilla never saves duplicate (type, pos) ticks"
+                    );
                     block_ticks += ticks.len();
                     (SavedTick::write_list(&ticks), ticks.len())
                 } else {
@@ -72,7 +95,12 @@ fn worldref_tick_lists_roundtrip() {
                     fluid_ticks += ticks.len();
                     (SavedTick::write_list(&ticks), ticks.len())
                 };
-                assert_eq!(n, list.len(), "{} {pos:?} {key}: an element was dropped", file.display());
+                assert_eq!(
+                    n,
+                    list.len(),
+                    "{} {pos:?} {key}: an element was dropped",
+                    file.display()
+                );
                 assert_eq!(&written, list, "{} {pos:?} {key}", file.display());
             }
             if let Some(tag) = chunk.get_compound("UpgradeData") {
@@ -83,5 +111,7 @@ fn worldref_tick_lists_roundtrip() {
         }
     }
     assert!(chunks > 0 && block_ticks > 0 && fluid_ticks > 0);
-    println!("worldref: {chunks} chunks, {block_ticks} block ticks, {fluid_ticks} fluid ticks, {upgrade} UpgradeData tags round-tripped");
+    println!(
+        "worldref: {chunks} chunks, {block_ticks} block ticks, {fluid_ticks} fluid ticks, {upgrade} UpgradeData tags round-tripped"
+    );
 }

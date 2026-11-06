@@ -14,9 +14,14 @@ fn ingredient_matches(level: &ServerLevel, ingredient: &Value, stack: &ItemStack
         Value::String(s) => match s.strip_prefix('#') {
             Some(tag) => Identifier::try_parse(tag).is_some_and(|tag| {
                 let item_id = stack.item().id();
-                level.registries.registry("minecraft:item").is_some_and(|r| r.is_in_tag(item_id, &tag))
+                level
+                    .registries
+                    .registry("minecraft:item")
+                    .is_some_and(|r| r.is_in_tag(item_id, &tag))
             }),
-            None => Identifier::try_parse(s).is_some_and(|id| id.to_string() == stack.item().name()),
+            None => {
+                Identifier::try_parse(s).is_some_and(|id| id.to_string() == stack.item().name())
+            }
         },
         Value::Array(list) => list.iter().any(|i| ingredient_matches(level, i, stack)),
         _ => false,
@@ -31,12 +36,18 @@ pub fn smelting_result(level: &ServerLevel, stack: &ItemStack) -> Option<ItemSta
         if json.get("type").and_then(Value::as_str) != Some("minecraft:smelting") {
             continue;
         }
-        if !json.get("ingredient").is_some_and(|i| ingredient_matches(level, i, stack)) {
+        if !json
+            .get("ingredient")
+            .is_some_and(|i| ingredient_matches(level, i, stack))
+        {
             continue;
         }
         let result = json.get("result")?;
         let dyn_value = Dyn::from_json_str(&result.to_string()).ok()?;
-        let template = ItemStackTemplate::codec().parse(&JSON, &dyn_value).into_result().ok()?;
+        let template = ItemStackTemplate::codec()
+            .parse(&JSON, &dyn_value)
+            .into_result()
+            .ok()?;
         return Some(template.create());
     }
     None

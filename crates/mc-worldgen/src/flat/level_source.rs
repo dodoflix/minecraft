@@ -25,7 +25,10 @@ pub struct FlatLevelSource {
 
 impl FlatLevelSource {
     /// `new FlatLevelSource(settings)`.
-    pub fn new(settings: FlatLevelGeneratorSettings, biomes: Arc<BiomeRegistry>) -> FlatLevelSource {
+    pub fn new(
+        settings: FlatLevelGeneratorSettings,
+        biomes: Arc<BiomeRegistry>,
+    ) -> FlatLevelSource {
         FlatLevelSource {
             biome_source: FixedBiomeSource::new(settings.get_biome()),
             settings: RwLock::new(settings),
@@ -51,7 +54,9 @@ impl ChunkGenerator for FlatLevelSource {
         }
         self.flat_biome_settings.get_or_init(|| {
             let mut settings = self.settings.write().unwrap_or_else(|p| p.into_inner());
-            settings.adjust_generation_settings(&self.biomes, biome).into_owned()
+            settings
+                .adjust_generation_settings(&self.biomes, biome)
+                .into_owned()
         })
     }
 
@@ -70,7 +75,9 @@ impl ChunkGenerator for FlatLevelSource {
         }
         let count = (chunk.access.height() as i64).min(layers.len() as i64) as i32;
         for layer_index in 0..count.max(0) {
-            let Some(block_state) = layers[layer_index as usize] else { continue };
+            let Some(block_state) = layers[layer_index as usize] else {
+                continue;
+            };
             let y = min_y.wrapping_add(layer_index);
             for x in 0..16 {
                 for z in 0..16 {
@@ -115,7 +122,13 @@ impl ChunkGenerator for FlatLevelSource {
         height.min_y
     }
 
-    fn get_base_column(&self, _x: i32, _z: i32, height: LevelHeight, _random_state: &Arc<RandomState>) -> NoiseColumn {
+    fn get_base_column(
+        &self,
+        _x: i32,
+        _z: i32,
+        height: LevelHeight,
+        _random_state: &Arc<RandomState>,
+    ) -> NoiseColumn {
         let air: BlockState = Block::AIR.default_state();
         let column = self
             .settings()

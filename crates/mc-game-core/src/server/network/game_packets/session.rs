@@ -4,24 +4,33 @@
 
 use super::PlayCtx;
 use crate::server::network::common_listener::disconnect_unexpected_query;
-use mc_protocol::packets::common::ClientInformation;
-use mc_protocol::packets::play::{
-    ClientboundPongResponsePacket, ClientboundStartConfigurationPacket, ServerboundChangeDifficultyPacket, ServerboundChangeGameModePacket,
-    ServerboundChunkBatchReceivedPacket, ServerboundClientCommandAction, ServerboundClientCommandPacket, ServerboundClientInformationPacket,
-    ServerboundConfigurationAcknowledgedPacket, ServerboundCookieResponsePacket, ServerboundCustomClickActionPacket, ServerboundCustomPayloadPacket,
-    ServerboundKeepAlivePacket, ServerboundLockDifficultyPacket, ServerboundPingRequestPacket, ServerboundPlayerAbilitiesPacket, ServerboundPongPacket,
-    ServerboundResourcePackPacket,
-};
-use mc_protocol::packets::common::ResourcePackAction;
-use mc_core::ident::Identifier;
-use mc_text::{ChatFormatting, Component};
 use crate::world::entity::Entity;
+use mc_core::ident::Identifier;
+use mc_protocol::packets::common::ClientInformation;
+use mc_protocol::packets::common::ResourcePackAction;
+use mc_protocol::packets::play::{
+    ClientboundPongResponsePacket, ClientboundStartConfigurationPacket,
+    ServerboundChangeDifficultyPacket, ServerboundChangeGameModePacket,
+    ServerboundChunkBatchReceivedPacket, ServerboundClientCommandAction,
+    ServerboundClientCommandPacket, ServerboundClientInformationPacket,
+    ServerboundConfigurationAcknowledgedPacket, ServerboundCookieResponsePacket,
+    ServerboundCustomClickActionPacket, ServerboundCustomPayloadPacket, ServerboundKeepAlivePacket,
+    ServerboundLockDifficultyPacket, ServerboundPingRequestPacket,
+    ServerboundPlayerAbilitiesPacket, ServerboundPongPacket, ServerboundResourcePackPacket,
+};
+use mc_text::{ChatFormatting, Component};
 
 impl PlayCtx<'_> {
     /// `handleKeepAlive` (`ServerCommonPacketListenerImpl`); `received_at_ms` is `Util.getMillis()` at packet arrival.
     pub fn handle_keep_alive(&mut self, packet: &ServerboundKeepAlivePacket, received_at_ms: i64) {
-        if self.lis().common.handle_keep_alive(packet.id, received_at_ms) {
-            self.disconnect(crate::server::network::common_listener::timeout_disconnection_message());
+        if self
+            .lis()
+            .common
+            .handle_keep_alive(packet.id, received_at_ms)
+        {
+            self.disconnect(
+                crate::server::network::common_listener::timeout_disconnection_message(),
+            );
         }
     }
 
@@ -34,14 +43,32 @@ impl PlayCtx<'_> {
     /// `handleCustomClickAction`.
     pub fn handle_custom_click_action(&mut self, packet: &ServerboundCustomClickActionPacket) {
         // `MinecraftServer.handleCustomClickAction(id, payload)` only logs
-        log::debug!("Received custom click action {} with payload {:?}", packet.id, packet.payload);
+        log::debug!(
+            "Received custom click action {} with payload {:?}",
+            packet.id,
+            packet.payload
+        );
     }
 
     /// `handleResourcePackResponse`.
     pub fn handle_resource_pack_response(&mut self, packet: &ServerboundResourcePackPacket) {
-        if packet.action == ResourcePackAction::Declined && self.server.properties().server_resource_pack_info.as_ref().is_some_and(|p| p.is_required) {
-            log::info!("Disconnecting {} due to resource pack {} rejection", self.player.get_profile().name, packet.id);
-            self.disconnect(Component::translatable("multiplayer.requiredTexturePrompt.disconnect", vec![]));
+        if packet.action == ResourcePackAction::Declined
+            && self
+                .server
+                .properties()
+                .server_resource_pack_info
+                .as_ref()
+                .is_some_and(|p| p.is_required)
+        {
+            log::info!(
+                "Disconnecting {} due to resource pack {} rejection",
+                self.player.get_profile().name,
+                packet.id
+            );
+            self.disconnect(Component::translatable(
+                "multiplayer.requiredTexturePrompt.disconnect",
+                vec![],
+            ));
         }
     }
 
@@ -57,7 +84,9 @@ impl PlayCtx<'_> {
 
     /// `handleChunkBatchReceived`.
     pub fn handle_chunk_batch_received(&mut self, packet: &ServerboundChunkBatchReceivedPacket) {
-        self.lis().chunk_sender.on_chunk_batch_received_by_client(packet.desired_chunks_per_tick);
+        self.lis()
+            .chunk_sender
+            .on_chunk_batch_received_by_client(packet.desired_chunks_per_tick);
     }
 
     /// `handleClientInformation`.
@@ -70,7 +99,12 @@ impl PlayCtx<'_> {
             && let Some(handle) = self.player.handle.clone()
         {
             use mc_protocol::packets::play::ClientboundPlayerInfoUpdateAction;
-            let update = crate::server::players::player_handle::create_info_update([ClientboundPlayerInfoUpdateAction::UpdateHat].into_iter().collect(), [&handle]);
+            let update = crate::server::players::player_handle::create_info_update(
+                [ClientboundPlayerInfoUpdateAction::UpdateHat]
+                    .into_iter()
+                    .collect(),
+                [&handle],
+            );
             self.server.player_list.broadcast_all(&update);
         }
     }
@@ -116,9 +150,15 @@ impl PlayCtx<'_> {
         };
         if self.player.set_game_mode(self.level, target) {
             // `logGamemodeChange`: `source.sendSuccess(commands.gamemode.success.self)`
-            if self.server.game_rule(crate::world::level::gamerules::GameRules::SEND_COMMAND_FEEDBACK) {
+            if self
+                .server
+                .game_rule(crate::world::level::gamerules::GameRules::SEND_COMMAND_FEEDBACK)
+            {
                 let name = Component::translatable(format!("gameMode.{}", mode.get_name()), vec![]);
-                self.player.send_system_message(Component::translatable("commands.gamemode.success.self", vec![name.into()]));
+                self.player.send_system_message(Component::translatable(
+                    "commands.gamemode.success.self",
+                    vec![name.into()],
+                ));
             }
         }
     }
@@ -160,17 +200,24 @@ impl PlayCtx<'_> {
     /// `sendGameRuleValues`.
     fn send_game_rule_values(&mut self) {
         if !self.has_gamemaster_permission() {
-            log::warn!("Player {} tried to request game rule values without required permissions", self.player.get_profile().name);
+            log::warn!(
+                "Player {} tried to request game rule values without required permissions",
+                self.player.get_profile().name
+            );
             return;
         }
         let rules = self.server.game_rules();
-        let values: Vec<(Identifier, String)> =
-            crate::world::level::gamerules::AnyGameRule::all().map(|rule| (rule.get_identifier(), rules.get_as_string(rule))).collect();
+        let values: Vec<(Identifier, String)> = crate::world::level::gamerules::AnyGameRule::all()
+            .map(|rule| (rule.get_identifier(), rules.get_as_string(rule)))
+            .collect();
         self.send(&mc_protocol::packets::play::ClientboundGameRuleValuesPacket { values });
     }
 
     /// `handleConfigurationAcknowledged`.
-    pub fn handle_configuration_acknowledged(&mut self, _packet: &ServerboundConfigurationAcknowledgedPacket) {
+    pub fn handle_configuration_acknowledged(
+        &mut self,
+        _packet: &ServerboundConfigurationAcknowledgedPacket,
+    ) {
         if !self.lis().waiting_for_switch_to_config {
             panic!("Client acknowledged config, but none was requested");
         }
@@ -189,7 +236,9 @@ impl PlayCtx<'_> {
         self.lis().waiting_for_switch_to_config = true;
         self.remove_player_from_world();
         self.send(&ClientboundStartConfigurationPacket);
-        self.lis().sender.set_outbound_state(mc_protocol::packet::ConnectionState::Configuration);
+        self.lis()
+            .sender
+            .set_outbound_state(mc_protocol::packet::ConnectionState::Configuration);
     }
 
     /// `onDisconnect(details)` / `Connection.handleDisconnection`: runs once the connection is closed.
@@ -206,7 +255,11 @@ impl PlayCtx<'_> {
 
     /// `onDisconnect`.
     fn on_disconnect(&mut self, reason: &Component) {
-        log::info!("{} lost connection: {}", self.player.get_plain_text_name(), reason.get_string());
+        log::info!(
+            "{} lost connection: {}",
+            self.player.get_plain_text_name(),
+            reason.get_string()
+        );
         self.remove_player_from_world();
     }
 
@@ -214,14 +267,24 @@ impl PlayCtx<'_> {
     /// is applied when the taken-out player is put back, see `ServerLevel::put_back_entity`).
     fn remove_player_from_world(&mut self) {
         self.server.invalidate_status();
-        let message = Component::translatable("multiplayer.player.left", vec![crate::commands::host::entity_display_name(self.server, &*self.player).into()]).with_format(ChatFormatting::Yellow);
-        self.server.player_list.broadcast_system_message(&message, false);
+        let message = Component::translatable(
+            "multiplayer.player.left",
+            vec![crate::commands::host::entity_display_name(self.server, &*self.player).into()],
+        )
+        .with_format(ChatFormatting::Yellow);
+        self.server
+            .player_list
+            .broadcast_system_message(&message, false);
         self.player.disconnected = true;
         self.remove_from_player_list();
     }
 
     /// `PlayerList.remove(player)`.
     fn remove_from_player_list(&mut self) {
-        crate::server::players::player_ops::remove(&mut *self.server, &mut *self.level, &mut *self.player);
+        crate::server::players::player_ops::remove(
+            &mut *self.server,
+            &mut *self.level,
+            &mut *self.player,
+        );
     }
 }

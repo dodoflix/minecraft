@@ -69,7 +69,9 @@ static TYPES: LazyLock<Arc<TypeTable<dyn ScoreboardNameProvider>>> = LazyLock::n
             (
                 "fixed",
                 lift(
-                    record!(FixedScoreboardNameProvider { name: STRING.field_of("name") }),
+                    record!(FixedScoreboardNameProvider {
+                        name: STRING.field_of("name")
+                    }),
                     |v| Arc::new(v) as Arc<dyn ScoreboardNameProvider>,
                     |t| t.as_any().downcast_ref::<FixedScoreboardNameProvider>(),
                 ),
@@ -77,7 +79,9 @@ static TYPES: LazyLock<Arc<TypeTable<dyn ScoreboardNameProvider>>> = LazyLock::n
             (
                 "context",
                 lift(
-                    record!(ContextScoreboardNameProvider { target: EntityTarget::codec().field_of("target") }),
+                    record!(ContextScoreboardNameProvider {
+                        target: EntityTarget::codec().field_of("target")
+                    }),
                     |v| Arc::new(v) as Arc<dyn ScoreboardNameProvider>,
                     |t| t.as_any().downcast_ref::<ContextScoreboardNameProvider>(),
                 ),
@@ -91,13 +95,19 @@ pub fn scoreboard_name_provider_codec() -> Codec<Arc<dyn ScoreboardNameProvider>
     Codec::lazy(|| {
         static C: LazyLock<Codec<Arc<dyn ScoreboardNameProvider>>> = LazyLock::new(|| {
             let typed = TYPES.codec(|e| e.type_name());
-            let inline = EntityTarget::codec().xmap(|target| ContextScoreboardNameProvider { target }, |c: &ContextScoreboardNameProvider| c.target);
+            let inline = EntityTarget::codec().xmap(
+                |target| ContextScoreboardNameProvider { target },
+                |c: &ContextScoreboardNameProvider| c.target,
+            );
             inline.either(&typed).xmap(
                 |e| match e {
                     Either::Left(c) => Arc::new(c) as Arc<dyn ScoreboardNameProvider>,
                     Either::Right(p) => p,
                 },
-                |p: &Arc<dyn ScoreboardNameProvider>| match p.as_any().downcast_ref::<ContextScoreboardNameProvider>() {
+                |p: &Arc<dyn ScoreboardNameProvider>| match p
+                    .as_any()
+                    .downcast_ref::<ContextScoreboardNameProvider>()
+                {
                     Some(c) => Either::Left(c.clone()),
                     None => Either::Right(p.clone()),
                 },
@@ -106,4 +116,3 @@ pub fn scoreboard_name_provider_codec() -> Codec<Arc<dyn ScoreboardNameProvider>
         C.clone()
     })
 }
-

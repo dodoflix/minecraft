@@ -1,15 +1,17 @@
 //! `BlockAgeProcessor` (`block_age`).
 
-use mc_game_core::world::level::levelgen::structure::templatesystem::structure_place_settings::StructurePlaceSettings;
-use mc_game_core::world::level::levelgen::structure::templatesystem::structure_processor::{STRUCTURE_PROCESSOR_TYPES, StructureProcessor};
-use mc_game_core::world::level::levelgen::structure::templatesystem::structure_template::StructureBlockInfo;
-use mc_game_core::world::level::LevelReader;
-use mc_game_core::world::level::block::BlockStateExt;
-use mc_game_core::world::level::levelgen::codec::*;
 use mc_core::direction::Plane;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::{Block, BlockState};
+use mc_game_core::world::level::LevelReader;
+use mc_game_core::world::level::block::BlockStateExt;
+use mc_game_core::world::level::levelgen::codec::*;
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_place_settings::StructurePlaceSettings;
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_processor::{
+    STRUCTURE_PROCESSOR_TYPES, StructureProcessor,
+};
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_template::StructureBlockInfo;
 use std::sync::Arc;
 
 const PROBABILITY_OF_REPLACING_FULL_BLOCK: f32 = 0.5;
@@ -38,34 +40,78 @@ impl BlockAgeProcessor {
             return None;
         }
         // both arrays are built eagerly: their random facings/halves consume the random in this order
-        let non_mossy = [default_state("cracked_stone_bricks"), get_random_facing_stairs(random, block("stone_brick_stairs"))];
-        let mossy = [default_state("mossy_stone_bricks"), get_random_facing_stairs(random, block("mossy_stone_brick_stairs"))];
+        let non_mossy = [
+            default_state("cracked_stone_bricks"),
+            get_random_facing_stairs(random, block("stone_brick_stairs")),
+        ];
+        let mossy = [
+            default_state("mossy_stone_bricks"),
+            get_random_facing_stairs(random, block("mossy_stone_brick_stairs")),
+        ];
         Some(self.get_random_block(random, &non_mossy, &mossy))
     }
 
-    fn maybe_replace_stairs(&self, state: BlockState, random: &mut dyn RandomSource) -> Option<BlockState> {
+    fn maybe_replace_stairs(
+        &self,
+        state: BlockState,
+        random: &mut dyn RandomSource,
+    ) -> Option<BlockState> {
         if random.next_float() >= PROBABILITY_OF_REPLACING_STAIRS {
             return None;
         }
-        let non_mossy = [default_state("stone_slab"), default_state("stone_brick_slab")];
-        let mossy = [block("mossy_stone_brick_stairs").default_state().with_properties_of(state), default_state("mossy_stone_brick_slab")];
+        let non_mossy = [
+            default_state("stone_slab"),
+            default_state("stone_brick_slab"),
+        ];
+        let mossy = [
+            block("mossy_stone_brick_stairs")
+                .default_state()
+                .with_properties_of(state),
+            default_state("mossy_stone_brick_slab"),
+        ];
         Some(self.get_random_block(random, &non_mossy, &mossy))
     }
 
-    fn maybe_replace_slab(&self, state: BlockState, random: &mut dyn RandomSource) -> Option<BlockState> {
-        (random.next_float() < self.mossiness).then(|| block("mossy_stone_brick_slab").default_state().with_properties_of(state))
+    fn maybe_replace_slab(
+        &self,
+        state: BlockState,
+        random: &mut dyn RandomSource,
+    ) -> Option<BlockState> {
+        (random.next_float() < self.mossiness).then(|| {
+            block("mossy_stone_brick_slab")
+                .default_state()
+                .with_properties_of(state)
+        })
     }
 
-    fn maybe_replace_wall(&self, state: BlockState, random: &mut dyn RandomSource) -> Option<BlockState> {
-        (random.next_float() < self.mossiness).then(|| block("mossy_stone_brick_wall").default_state().with_properties_of(state))
+    fn maybe_replace_wall(
+        &self,
+        state: BlockState,
+        random: &mut dyn RandomSource,
+    ) -> Option<BlockState> {
+        (random.next_float() < self.mossiness).then(|| {
+            block("mossy_stone_brick_wall")
+                .default_state()
+                .with_properties_of(state)
+        })
     }
 
     fn maybe_replace_obsidian(&self, random: &mut dyn RandomSource) -> Option<BlockState> {
-        (random.next_float() < PROBABILITY_OF_REPLACING_OBSIDIAN).then(|| default_state("crying_obsidian"))
+        (random.next_float() < PROBABILITY_OF_REPLACING_OBSIDIAN)
+            .then(|| default_state("crying_obsidian"))
     }
 
-    fn get_random_block(&self, random: &mut dyn RandomSource, non_mossy_blocks: &[BlockState], mossy_blocks: &[BlockState]) -> BlockState {
-        if random.next_float() < self.mossiness { get_random_block(random, mossy_blocks) } else { get_random_block(random, non_mossy_blocks) }
+    fn get_random_block(
+        &self,
+        random: &mut dyn RandomSource,
+        non_mossy_blocks: &[BlockState],
+        mossy_blocks: &[BlockState],
+    ) -> BlockState {
+        if random.next_float() < self.mossiness {
+            get_random_block(random, mossy_blocks)
+        } else {
+            get_random_block(random, non_mossy_blocks)
+        }
     }
 }
 
@@ -73,7 +119,11 @@ fn get_random_facing_stairs(random: &mut dyn RandomSource, stair_block: Block) -
     let facing = Plane::Horizontal.get_random_direction(random);
     // `Util.getRandom(Half.values(), random)`: TOP, BOTTOM
     let half = ["top", "bottom"][random.next_int_bounded(2) as usize];
-    stair_block.default_state().with_property_str("facing", facing.get_name()).and_then(|s| s.with_property_str("half", half)).expect("stairs have facing and half")
+    stair_block
+        .default_state()
+        .with_property_str("facing", facing.get_name())
+        .and_then(|s| s.with_property_str("half", half))
+        .expect("stairs have facing and half")
 }
 
 fn get_random_block(random: &mut dyn RandomSource, blocks: &[BlockState]) -> BlockState {
@@ -93,7 +143,10 @@ impl StructureProcessor for BlockAgeProcessor {
         let mut random = settings.get_random(Some(processed_block_info.pos));
         let random = &mut *random;
         let state = processed_block_info.state;
-        let new_state = if state.is_block(block("stone_bricks")) || state.is_block(block("stone")) || state.is_block(block("chiseled_stone_bricks")) {
+        let new_state = if state.is_block(block("stone_bricks"))
+            || state.is_block(block("stone"))
+            || state.is_block(block("chiseled_stone_bricks"))
+        {
             self.maybe_replace_full_stone_block(random)
         } else if state.is_tag("stairs") {
             self.maybe_replace_stairs(state, random)
@@ -107,7 +160,11 @@ impl StructureProcessor for BlockAgeProcessor {
             None
         };
         Some(match new_state {
-            Some(new_state) => StructureBlockInfo::new(processed_block_info.pos, new_state, processed_block_info.nbt),
+            Some(new_state) => StructureBlockInfo::new(
+                processed_block_info.pos,
+                new_state,
+                processed_block_info.nbt,
+            ),
             None => processed_block_info,
         })
     }
@@ -116,5 +173,9 @@ impl StructureProcessor for BlockAgeProcessor {
 #[linkme::distributed_slice(STRUCTURE_PROCESSOR_TYPES)]
 static TYPE: TypeEntry<dyn StructureProcessor> = TypeEntry {
     name: "block_age",
-    decode: |f, _| Ok(Arc::new(BlockAgeProcessor::new(f.required("mossiness", parse_f32)?))),
+    decode: |f, _| {
+        Ok(Arc::new(BlockAgeProcessor::new(
+            f.required("mossiness", parse_f32)?,
+        )))
+    },
 };

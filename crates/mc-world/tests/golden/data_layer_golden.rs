@@ -7,14 +7,22 @@ fn hex(b: &[u8]) -> String {
 }
 
 fn unhex(s: &str) -> Vec<u8> {
-    (0..s.len() / 2).map(|i| u8::from_str_radix(&s[i * 2..i * 2 + 2], 16).unwrap()).collect()
+    (0..s.len() / 2)
+        .map(|i| u8::from_str_radix(&s[i * 2..i * 2 + 2], 16).unwrap())
+        .collect()
 }
 
 fn state(d: &DataLayer) -> String {
-    [d.is_definitely_homogenous(), d.is_empty(), d.is_definitely_filled_with(0), d.is_definitely_filled_with(15), d.is_definitely_filled_with(7)]
-        .iter()
-        .map(|&b| if b { '1' } else { '0' })
-        .collect()
+    [
+        d.is_definitely_homogenous(),
+        d.is_empty(),
+        d.is_definitely_filled_with(0),
+        d.is_definitely_filled_with(15),
+        d.is_definitely_filled_with(7),
+    ]
+    .iter()
+    .map(|&b| if b { '1' } else { '0' })
+    .collect()
 }
 
 #[test]
@@ -44,7 +52,10 @@ fn matches_vanilla_data_layer() {
             "FILLDATA" => {
                 let data = *last_filled.get_data();
                 let distinct: std::collections::HashSet<u8> = data.iter().copied().collect();
-                assert_eq!(format!("{} {} {} {}", n(0), data[0], data[SIZE - 1], distinct.len()), rest);
+                assert_eq!(
+                    format!("{} {} {} {}", n(0), data[0], data[SIZE - 1], distinct.len()),
+                    rest
+                );
             }
             "SCN" => {
                 in_fill = false;
@@ -73,10 +84,21 @@ fn matches_vanilla_data_layer() {
                 ops += 1;
                 let c = layer.copy();
                 layer.set(n(0), n(1), n(2), 7);
-                assert_eq!((c.get(n(0), n(1), n(2)), layer.get(n(0), n(1), n(2))), (n(3), n(4)), "copy independence");
+                assert_eq!(
+                    (c.get(n(0), n(1), n(2)), layer.get(n(0), n(1), n(2))),
+                    (n(3), n(4)),
+                    "copy independence"
+                );
                 layer = c;
             }
-            "COPYDATA" => assert_eq!(format!("{}{}", u8::from(layer.is_definitely_homogenous()), u8::from(layer.is_empty())), f.join("")),
+            "COPYDATA" => assert_eq!(
+                format!(
+                    "{}{}",
+                    u8::from(layer.is_definitely_homogenous()),
+                    u8::from(layer.is_empty())
+                ),
+                f.join("")
+            ),
             "STATE" => assert_eq!(state(if in_fill { &last_filled } else { &layer }), f[0]),
             "LAYER" => assert_eq!(layer.layer_to_string(3).replace('\n', "|"), rest),
             "STR" => assert_eq!(layer.to_string().replace('\n', "|"), rest),
@@ -96,5 +118,8 @@ fn borrowed_data_view_matches_materialization() {
     let mut m = DataLayer::filled(9);
     let expected = *m.get_data();
     assert_eq!(*DataLayer::filled(9).data(), expected);
-    assert_eq!(DataLayer::from_bytes(vec![1; 10]).unwrap_err(), InvalidSize(10));
+    assert_eq!(
+        DataLayer::from_bytes(vec![1; 10]).unwrap_err(),
+        InvalidSize(10)
+    );
 }

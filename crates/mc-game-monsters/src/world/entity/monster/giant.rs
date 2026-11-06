@@ -1,14 +1,14 @@
 //! `Giant`: the unused giant zombie (a `Monster` without goals).
 
+use linkme::distributed_slice;
+use mc_core::pos::BlockPos;
+use mc_data::EntityType;
 use mc_game_core::registry::RegistryAccess;
 use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
 use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
 use mc_game_core::world::entity::mob::{MobData, MobKind};
 use mc_game_core::world::entity::{Entity, EntityId};
 use mc_game_core::world::level::LevelReader;
-use linkme::distributed_slice;
-use mc_core::pos::BlockPos;
-use mc_data::EntityType;
 
 /// `Giant`.
 pub struct Giant {
@@ -35,4 +35,7 @@ impl Entity for Giant {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static GIANT: EntityRegistration = EntityRegistration { entity_type: EntityType::GIANT, create: |ty, id, registries| Box::new(Giant::new(ty, id, registries)) };
+static GIANT: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::GIANT,
+    create: |ty, id, registries| Box::new(Giant::new(ty, id, registries)),
+};

@@ -34,11 +34,19 @@ fn is_flammable(level: &dyn LevelReader, pos: BlockPos) -> bool {
 
 /// `hasFlammableNeighbours(level, pos)`.
 fn has_flammable_neighbours(level: &dyn LevelReader, pos: BlockPos) -> bool {
-    Direction::ALL.iter().any(|&d| is_flammable(level, pos.relative(d)))
+    Direction::ALL
+        .iter()
+        .any(|&d| is_flammable(level, pos.relative(d)))
 }
 
 impl FluidBehaviour for LavaFluid {
-    fn tick(&self, level: &mut ServerLevel, pos: BlockPos, block_state: BlockState, fluid_state: FluidState) {
+    fn tick(
+        &self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        block_state: BlockState,
+        fluid_state: FluidState,
+    ) {
         flowing_fluid::tick(self, level, pos, block_state, fluid_state);
     }
 
@@ -87,13 +95,29 @@ impl FluidBehaviour for LavaFluid {
         }
     }
 
-    fn entity_inside(&self, _level: &mut ServerLevel, _pos: BlockPos, _entity: &mut dyn Entity, effect_applier: &mut dyn InsideBlockEffectApplier) {
+    fn entity_inside(
+        &self,
+        _level: &mut ServerLevel,
+        _pos: BlockPos,
+        _entity: &mut dyn Entity,
+        effect_applier: &mut dyn InsideBlockEffectApplier,
+    ) {
         effect_applier.apply(InsideBlockEffectType::ClearFreeze);
         effect_applier.apply(InsideBlockEffectType::LavaIgnite);
-        effect_applier.run_after(InsideBlockEffectType::LavaIgnite, Box::new(|entity, level| entity.lava_hurt(level)));
+        effect_applier.run_after(
+            InsideBlockEffectType::LavaIgnite,
+            Box::new(|entity, level| entity.lava_hurt(level)),
+        );
     }
 
-    fn can_be_replaced_with(&self, state: FluidState, level: &dyn BlockGetter, pos: BlockPos, other: Fluid, _direction: Direction) -> bool {
+    fn can_be_replaced_with(
+        &self,
+        state: FluidState,
+        level: &dyn BlockGetter,
+        pos: BlockPos,
+        other: Fluid,
+        _direction: Direction,
+    ) -> bool {
         state.get_height(level, pos) >= 0.44444445 && fluid_is_tag(other, "water")
     }
     fn get_flow(&self, level: &dyn BlockGetter, pos: BlockPos, state: FluidState) -> Vec3 {
@@ -133,7 +157,13 @@ impl FlowingFluid for LavaFluid {
         if level.is_fast_lava() { 1 } else { 2 }
     }
 
-    fn get_spread_delay(&self, level: &mut ServerLevel, pos: BlockPos, old: FluidState, new: FluidState) -> i32 {
+    fn get_spread_delay(
+        &self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        old: FluidState,
+        new: FluidState,
+    ) -> i32 {
         let mut result = self.get_tick_delay(&*level);
         if !old.is_empty()
             && !new.is_empty()
@@ -147,7 +177,14 @@ impl FlowingFluid for LavaFluid {
         result
     }
 
-    fn spread_to(&self, level: &mut ServerLevel, pos: BlockPos, state: BlockState, direction: Direction, target: FluidState) {
+    fn spread_to(
+        &self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        state: BlockState,
+        direction: Direction,
+        target: FluidState,
+    ) {
         if direction == Direction::Down {
             let fluid_state = BlockGetter::get_fluid_state(level, pos);
             if fluid_is_tag(Fluid::LAVA, "lava") && fluid_state.is_tag("water") {

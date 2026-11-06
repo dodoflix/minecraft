@@ -37,7 +37,11 @@ impl dyn LootItemCondition {
         let problems = ProblemCollector::new();
         let context = ValidationContext::without_resolver(&problems, *params);
         self.validate(&context);
-        if problems.is_empty() { Ok(()) } else { Err(format!("Validation error: {}", problems.get_report())) }
+        if problems.is_empty() {
+            Ok(())
+        } else {
+            Err(format!("Validation error: {}", problems.get_report()))
+        }
     }
 }
 
@@ -52,7 +56,8 @@ pub type ConditionRef = Arc<dyn LootItemCondition>;
 pub type ConditionHolder = Holder<dyn LootItemCondition>;
 pub type ConditionHolderSet = HolderSet<dyn LootItemCondition>;
 
-static TYPES: LazyLock<Arc<TypeTable<dyn LootItemCondition>>> = LazyLock::new(conditions::type_table);
+static TYPES: LazyLock<Arc<TypeTable<dyn LootItemCondition>>> =
+    LazyLock::new(conditions::type_table);
 
 /// `LootItemCondition.DIRECT_CODEC`.
 pub fn condition_codec() -> Codec<ConditionRef> {

@@ -1,9 +1,9 @@
 //! `net.minecraft.world.level.block.WallSignBlock` (extends `SignBlock`).
-use mc_game_core::{register_block_class, update_shape};
-use mc_game_core::world::level::block::impls::prelude::*;
-use mc_game_core::world::level::block::impls::sign_block::{self, sign_block_common};
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::item::BlockPlaceContext;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::world::level::block::impls::sign_block::{self, sign_block_common};
+use mc_game_core::{register_block_class, update_shape};
 
 pub struct WallSignBlock;
 
@@ -11,9 +11,16 @@ impl BlockBehaviour for WallSignBlock {
     mc_game_core::simple_waterlogged!();
     sign_block_common!();
     fn can_survive(&self, state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
-        level.get_block_state(pos.relative(state.get(props::HORIZONTAL_FACING).get_opposite())).is_solid()
+        level
+            .get_block_state(pos.relative(state.get(props::HORIZONTAL_FACING).get_opposite()))
+            .is_solid()
     }
-    fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
+    fn get_state_for_placement(
+        &self,
+        block: Block,
+        level: &mut ServerLevel,
+        context: &BlockPlaceContext,
+    ) -> Option<BlockState> {
         let mut state = block.default_state();
         let pos = context.get_clicked_pos();
         let waterlogged = sign_block::waterlogged_by(&*level, pos);
@@ -27,13 +34,17 @@ impl BlockBehaviour for WallSignBlock {
         }
         None
     }
-    update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
-        if direction.get_opposite() == state.get(props::HORIZONTAL_FACING) && !state.can_survive(&*level, pos) {
-            air()
-        } else {
-            sign_block::update_shape(state, level, pos)
+    update_shape!(
+        |self, state, level, pos, direction, neighbour_pos, neighbour_state| {
+            if direction.get_opposite() == state.get(props::HORIZONTAL_FACING)
+                && !state.can_survive(&*level, pos)
+            {
+                air()
+            } else {
+                sign_block::update_shape(state, level, pos)
+            }
         }
-    });
+    );
     fn rotate(&self, state: BlockState, rotation: Rotation) -> BlockState {
         helpers::rotate_facing(state, props::HORIZONTAL_FACING, rotation)
     }

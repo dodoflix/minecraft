@@ -26,8 +26,16 @@ pub(crate) enum TemplateKind {
     Sum(Template, Template),
     List(Template),
     CompoundList(Template, Template),
-    Check { name: String, index: i32, element: Template },
-    Hook { element: Template, pre: HookFunction, post: HookFunction },
+    Check {
+        name: String,
+        index: i32,
+        element: Template,
+    },
+    Hook {
+        element: Template,
+        pre: HookFunction,
+        post: HookFunction,
+    },
     TaggedChoice(TaggedChoiceTemplate),
     RecursivePoint(i32),
 }
@@ -58,14 +66,25 @@ impl Template {
                 h.finish()
             }
             TemplateKind::Tag(n, e) | TemplateKind::Named(n, e) => comb(str_hash(n), e.hash64()),
-            TemplateKind::Product(a, b) | TemplateKind::Sum(a, b) | TemplateKind::CompoundList(a, b) => comb(a.hash64(), b.hash64()),
+            TemplateKind::Product(a, b)
+            | TemplateKind::Sum(a, b)
+            | TemplateKind::CompoundList(a, b) => comb(a.hash64(), b.hash64()),
             TemplateKind::List(a) => a.hash64() ^ 0x1234_5678,
-            TemplateKind::Check { name, index, element } => comb(comb(str_hash(name), *index as u64), element.hash64()),
-            TemplateKind::Hook { element, pre, post } => comb(comb(element.hash64(), pre.addr() as u64), post.addr() as u64),
+            TemplateKind::Check {
+                name,
+                index,
+                element,
+            } => comb(comb(str_hash(name), *index as u64), element.hash64()),
+            TemplateKind::Hook { element, pre, post } => comb(
+                comb(element.hash64(), pre.addr() as u64),
+                post.addr() as u64,
+            ),
             TemplateKind::TaggedChoice(tc) => {
                 let mut h = std::collections::hash_map::DefaultHasher::new();
                 tc.key_type.hash(&mut h);
-                let entries = tc.templates.iter().fold(0u64, |acc, (k, t)| acc.wrapping_add(str_hash(k) ^ t.hash64()));
+                let entries = tc.templates.iter().fold(0u64, |acc, (k, t)| {
+                    acc.wrapping_add(str_hash(k) ^ t.hash64())
+                });
                 comb(comb(str_hash(&tc.name), h.finish()), entries)
             }
             TemplateKind::RecursivePoint(i) => *i as u64 ^ 0x9e37_79b9,
@@ -101,20 +120,37 @@ impl Template {
         Template::make(TemplateKind::CompoundList(key.clone(), element.clone()))
     }
     pub fn check(name: &str, index: i32, element: &Template) -> Template {
-        Template::make(TemplateKind::Check { name: name.to_string(), index, element: element.clone() })
+        Template::make(TemplateKind::Check {
+            name: name.to_string(),
+            index,
+            element: element.clone(),
+        })
     }
     pub fn hook(element: &Template, pre: &HookFunction, post: &HookFunction) -> Template {
-        Template::make(TemplateKind::Hook { element: element.clone(), pre: pre.clone(), post: post.clone() })
+        Template::make(TemplateKind::Hook {
+            element: element.clone(),
+            pre: pre.clone(),
+            post: post.clone(),
+        })
     }
     pub fn id(index: i32) -> Template {
         Template::make(TemplateKind::RecursivePoint(index))
     }
     /// `DSL.taggedChoice(name, keyType, templates)`: `templates` in the iteration order of the Java map passed in
     /// (`new Object2ObjectOpenHashMap<>(templates)` is applied here).
-    pub fn tagged_choice(name: &str, key_type: &Type, templates: Vec<(String, Template)>) -> Template {
+    pub fn tagged_choice(
+        name: &str,
+        key_type: &Type,
+        templates: Vec<(String, Template)>,
+    ) -> Template {
         let templates = fast_order(templates);
         let size = templates.iter().map(|(_, t)| t.size()).max().unwrap_or(0);
-        Template::make(TemplateKind::TaggedChoice(TaggedChoiceTemplate { name: name.to_string(), key_type: key_type.clone(), templates, size }))
+        Template::make(TemplateKind::TaggedChoice(TaggedChoiceTemplate {
+            name: name.to_string(),
+            key_type: key_type.clone(),
+            templates,
+            size,
+        }))
     }
 
     /// `template.size()`.
@@ -123,7 +159,9 @@ impl Template {
             TemplateKind::Const(_) => 0,
             TemplateKind::Tag(_, e) | TemplateKind::Named(_, e) | TemplateKind::List(e) => e.size(),
             TemplateKind::Hook { element, .. } => element.size(),
-            TemplateKind::Product(a, b) | TemplateKind::Sum(a, b) | TemplateKind::CompoundList(a, b) => a.size().max(b.size()),
+            TemplateKind::Product(a, b)
+            | TemplateKind::Sum(a, b)
+            | TemplateKind::CompoundList(a, b) => a.size().max(b.size()),
             TemplateKind::Check { index, element, .. } => (index + 1).max(element.size()),
             TemplateKind::TaggedChoice(tc) => tc.size,
             TemplateKind::RecursivePoint(i) => i + 1,
@@ -136,17 +174,33 @@ impl Template {
             TemplateKind::Const(t) => t.clone(),
             TemplateKind::Tag(n, e) => Type::tag(n, &e.apply_at(family, index)),
             TemplateKind::Named(n, e) => Type::named(n, &e.apply_at(family, index)),
-            TemplateKind::Product(a, b) => Type::product(&a.apply_at(family, index), &b.apply_at(family, index)),
-            TemplateKind::Sum(a, b) => Type::sum(&a.apply_at(family, index), &b.apply_at(family, index)),
+            TemplateKind::Product(a, b) => {
+                Type::product(&a.apply_at(family, index), &b.apply_at(family, index))
+            }
+            TemplateKind::Sum(a, b) => {
+                Type::sum(&a.apply_at(family, index), &b.apply_at(family, index))
+            }
             TemplateKind::List(e) => Type::list(&e.apply_at(family, index)),
-            TemplateKind::CompoundList(a, b) => Type::compound_list(&a.apply_at(family, index), &b.apply_at(family, index)),
-            TemplateKind::Check { name, index: expected, element } => {
+            TemplateKind::CompoundList(a, b) => {
+                Type::compound_list(&a.apply_at(family, index), &b.apply_at(family, index))
+            }
+            TemplateKind::Check {
+                name,
+                index: expected,
+                element,
+            } => {
                 assert!(index >= 0, "IndexOutOfBounds: Check applied at {index}");
                 Type::check(name, index, *expected, &element.apply_at(family, index))
             }
-            TemplateKind::Hook { element, pre, post } => Type::hook(&element.apply_at(family, index), pre, post),
+            TemplateKind::Hook { element, pre, post } => {
+                Type::hook(&element.apply_at(family, index), pre, post)
+            }
             TemplateKind::TaggedChoice(tc) => {
-                let types: Vec<(String, Type)> = tc.templates.iter().map(|(k, t)| (k.clone(), t.apply_at(family, index))).collect();
+                let types: Vec<(String, Type)> = tc
+                    .templates
+                    .iter()
+                    .map(|(k, t)| (k.clone(), t.apply_at(family, index)))
+                    .collect();
                 // `new Object2ObjectOpenHashMap<>(templates.size())` filled in iteration order
                 Type::tagged_choice(&tc.name, &tc.key_type, fast_order(types))
             }
@@ -203,7 +257,10 @@ impl Template {
                 Arc::new(move |i| {
                     let view = elem(i);
                     let ty = this.apply_at(&family, i);
-                    let element = ty.as_list().expect("list template applies to a list type").clone();
+                    let element = ty
+                        .as_list()
+                        .expect("list template applies to a list type")
+                        .clone();
                     ty.fix_list(&element, view)
                 })
             }
@@ -212,22 +269,37 @@ impl Template {
                 Arc::new(move |_| {
                     let result = function(index);
                     let source = family.apply(index);
-                    assert!(source.is_recursive_point(), "Type error: Recursive point template template got a non-recursice type as an input.");
-                    assert!(*result.view.ty() == source, "Type error: hmap function input type");
+                    assert!(
+                        source.is_recursive_point(),
+                        "Type error: Recursive point template template got a non-recursice type as an input."
+                    );
+                    assert!(
+                        *result.view.ty() == source,
+                        "Type error: hmap function input type"
+                    );
                     let mut bits: BitSet = result.rec_data;
                     bits.set(index);
                     RewriteResult::create(result.view, bits)
                 })
             }
             TemplateKind::TaggedChoice(tc) => {
-                let elems: Vec<(String, IntFn)> = tc.templates.iter().map(|(k, t)| (k.clone(), t.hmap(&family, function.clone()))).collect();
+                let elems: Vec<(String, IntFn)> = tc
+                    .templates
+                    .iter()
+                    .map(|(k, t)| (k.clone(), t.hmap(&family, function.clone())))
+                    .collect();
                 Arc::new(move |index| {
                     let ty = this.apply_at(&family, index);
                     let mut result = RewriteResult::nop(&ty);
                     for (key, elem) in &elems {
                         let element_result = elem(index);
-                        let choice = result.view.new_type().as_tagged_choice().expect("tagged choice template applies to a tagged choice");
-                        result = tagged_element_result(key, &choice, &element_result).compose(&result);
+                        let choice = result
+                            .view
+                            .new_type()
+                            .as_tagged_choice()
+                            .expect("tagged choice template applies to a tagged choice");
+                        result =
+                            tagged_element_result(key, &choice, &element_result).compose(&result);
                     }
                     result
                 })
@@ -248,17 +320,41 @@ impl PartialEq for Template {
         match (&self.0.kind, &o.0.kind) {
             (Const(a), Const(b)) => a == b,
             (Tag(n1, a), Tag(n2, b)) | (Named(n1, a), Named(n2, b)) => n1 == n2 && a == b,
-            (Product(a1, a2), Product(b1, b2)) | (Sum(a1, a2), Sum(b1, b2)) | (CompoundList(a1, a2), CompoundList(b1, b2)) => {
-                a1 == b1 && a2 == b2
-            }
+            (Product(a1, a2), Product(b1, b2))
+            | (Sum(a1, a2), Sum(b1, b2))
+            | (CompoundList(a1, a2), CompoundList(b1, b2)) => a1 == b1 && a2 == b2,
             (List(a), List(b)) => a == b,
-            (Check { name: n1, index: i1, element: a }, Check { name: n2, index: i2, element: b }) => n1 == n2 && i1 == i2 && a == b,
-            (Hook { element: a, pre: p1, post: q1 }, Hook { element: b, pre: p2, post: q2 }) => a == b && p1 == p2 && q1 == q2,
+            (
+                Check {
+                    name: n1,
+                    index: i1,
+                    element: a,
+                },
+                Check {
+                    name: n2,
+                    index: i2,
+                    element: b,
+                },
+            ) => n1 == n2 && i1 == i2 && a == b,
+            (
+                Hook {
+                    element: a,
+                    pre: p1,
+                    post: q1,
+                },
+                Hook {
+                    element: b,
+                    pre: p2,
+                    post: q2,
+                },
+            ) => a == b && p1 == p2 && q1 == q2,
             (TaggedChoice(a), TaggedChoice(b)) => {
                 a.name == b.name
                     && a.key_type == b.key_type
                     && a.templates.len() == b.templates.len()
-                    && a.templates.iter().all(|(k, t)| b.templates.iter().any(|(k2, t2)| k == k2 && t == t2))
+                    && a.templates
+                        .iter()
+                        .all(|(k, t)| b.templates.iter().any(|(k2, t2)| k == k2 && t == t2))
             }
             (RecursivePoint(a), RecursivePoint(b)) => a == b,
             _ => false,
@@ -283,7 +379,11 @@ impl std::fmt::Display for Template {
             Sum(a, b) => write!(f, "({a} | {b})"),
             List(e) => write!(f, "List[{e}]"),
             CompoundList(_, e) => write!(f, "CompoundList[{e}]"),
-            Check { name, index, element } => write!(f, "Tag[{name}, {index}: {element}]"),
+            Check {
+                name,
+                index,
+                element,
+            } => write!(f, "Tag[{name}, {index}: {element}]"),
             Hook { element, .. } => write!(f, "Hook[{element}]"),
             TaggedChoice(tc) => {
                 write!(f, "TaggedChoice[{}", tc.name)?;

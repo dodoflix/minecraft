@@ -9,14 +9,19 @@ use mc_data::{DataComponentType, Item, RecipeSerializer};
 use mc_dfu::{BOOL, Codec, DataResult, MapCodec};
 use mc_protocol::components::values::*;
 use mc_protocol::components::{DataComponentPatch, DyeColor, ItemStackTemplate};
-use mc_protocol::packets::play::inventory::{RecipeDisplay, ShapedCraftingRecipeDisplay, ShapelessCraftingRecipeDisplay, SlotDisplay};
+use mc_protocol::packets::play::inventory::{
+    RecipeDisplay, ShapedCraftingRecipeDisplay, ShapelessCraftingRecipeDisplay, SlotDisplay,
+};
 
 use super::crafting_recipes::ShapedRecipePattern;
 use super::display::{item_display, stack_display};
 use super::ingredient::{Ingredient, PlacementInfo};
 use super::inputs::CraftingInput;
 use super::recipe::{CommonInfo, CraftingBookInfo, default_crafting_reminder};
-use super::util::{banner_color, create_with_original_components, dye_firework_color, dye_texture_diffuse_color, patch_of, template_apply};
+use super::util::{
+    banner_color, create_with_original_components, dye_firework_color, dye_texture_diffuse_color,
+    patch_of, template_apply,
+};
 use crate::registry::{RegistryAccess, keys};
 use crate::server::level::ServerLevel;
 use crate::world::item::ItemStack;
@@ -25,7 +30,10 @@ use crate::world::item::ItemStack;
 pub use mc_protocol::components::values::Ints;
 
 /// `MinMaxBounds.validateContainedInRange(allowed)` for `Ints`: the bounds must be bounded on both sides inside `[lo, hi]`.
-fn contained_in_range(lo: i32, hi: i32) -> impl Fn(Ints) -> DataResult<Ints> + Clone + Send + Sync + 'static {
+fn contained_in_range(
+    lo: i32,
+    hi: i32,
+) -> impl Fn(Ints) -> DataResult<Ints> + Clone + Send + Sync + 'static {
     move |target: Ints| {
         let (min, max) = (target.bounds.min, target.bounds.max);
         if min.is_some_and(|m| m >= lo) && max.is_some_and(|m| m <= hi) {
@@ -57,21 +65,35 @@ pub struct TransmuteResult {
 impl TransmuteResult {
     /// `TransmuteResult.CODEC`: the map form or a bare item id.
     pub fn codec() -> Codec<TransmuteResult> {
-        let item = mc_protocol::components::holder::registry_by_name_codec::<Item>().validate(|item| {
-            if item == Item::AIR { DataResult::error_str("Item must not be minecraft:air") } else { DataResult::success(item) }
-        });
+        let item =
+            mc_protocol::components::holder::registry_by_name_codec::<Item>().validate(|item| {
+                if item == Item::AIR {
+                    DataResult::error_str("Item must not be minecraft:air")
+                } else {
+                    DataResult::success(item)
+                }
+            });
         let map = mc_dfu::record!(TransmuteResult {
             item: item.optional_field_of("id"),
             count: mc_dfu::extra::extra_int_range(1, 99).optional_field_of_default("count", 1),
-            components: DataComponentPatch::codec().optional_field_of_default("components", DataComponentPatch::empty()),
+            components: DataComponentPatch::codec()
+                .optional_field_of_default("components", DataComponentPatch::empty()),
         })
         .codec();
-        map.with_alternative_conv(&item, |item| TransmuteResult { item: Some(item), count: 1, components: DataComponentPatch::empty() })
+        map.with_alternative_conv(&item, |item| TransmuteResult {
+            item: Some(item),
+            count: 1,
+            components: DataComponentPatch::empty(),
+        })
     }
 
     /// `resolve(inputItem, count)`.
     fn resolve(&self, input_item: Item, count: i32) -> ItemStackTemplate {
-        ItemStackTemplate { item: self.item.unwrap_or(input_item), count, components: self.components.clone() }
+        ItemStackTemplate {
+            item: self.item.unwrap_or(input_item),
+            count,
+            components: self.components.clone(),
+        }
     }
 }
 
@@ -100,7 +122,8 @@ impl TransmuteRecipe {
             material: ingredient.field_of("material"),
             material_count: bounds.optional_field_of_default("material_count", Ints::exactly(1)),
             result: TransmuteResult::codec().field_of("result"),
-            add_material_count_to_result: BOOL.optional_field_of_default("add_material_count_to_result", false),
+            add_material_count_to_result: BOOL
+                .optional_field_of_default("add_material_count_to_result", false),
         })
     }
 
@@ -113,11 +136,21 @@ impl TransmuteRecipe {
     }
 
     fn compute_result_size(&self, material_count: i32) -> i32 {
-        if self.add_material_count_to_result { material_count.wrapping_add(self.result.count) } else { self.result.count }
+        if self.add_material_count_to_result {
+            material_count.wrapping_add(self.result.count)
+        } else {
+            self.result.count
+        }
     }
 
     fn compute_result(&self, input_ingredient: &ItemStack, material_count: i32) -> ItemStack {
-        create_with_original_components(&self.result.resolve(input_ingredient.item(), self.result.count), input_ingredient, material_count)
+        create_with_original_components(
+            &self
+                .result
+                .resolve(input_ingredient.item(), self.result.count),
+            input_ingredient,
+            material_count,
+        )
     }
 
     pub fn matches(&self, input: &CraftingInput) -> bool {
@@ -184,18 +217,30 @@ impl TransmuteRecipe {
 
     pub(super) fn create_placement_info(&self) -> PlacementInfo {
         let mut ingredients = vec![self.input.clone()];
-        ingredients.extend(std::iter::repeat_n(self.material.clone(), self.max_material_count().max(0) as usize));
+        ingredients.extend(std::iter::repeat_n(
+            self.material.clone(),
+            self.max_material_count().max(0) as usize,
+        ));
         PlacementInfo::create(&ingredients)
     }
 
     fn stack_display(&self, item: Item, result_count: i32) -> SlotDisplay {
-        SlotDisplay::ItemStack { stack: self.result.resolve(item, result_count) }
+        SlotDisplay::ItemStack {
+            stack: self.result.resolve(item, result_count),
+        }
     }
 
     fn result_display(&self, result_count: i32) -> SlotDisplay {
         match self.result.item {
             Some(item) => self.stack_display(item, result_count),
-            None => SlotDisplay::Composite { contents: self.input.items().iter().map(|i| self.stack_display(*i, result_count)).collect() },
+            None => SlotDisplay::Composite {
+                contents: self
+                    .input
+                    .items()
+                    .iter()
+                    .map(|i| self.stack_display(*i, result_count))
+                    .collect(),
+            },
         }
     }
 
@@ -205,11 +250,13 @@ impl TransmuteRecipe {
         let material_display = self.material.display();
         for material_count in self.min_material_count()..=self.max_material_count() {
             ingredient_slots.push(material_display.clone());
-            displays.push(RecipeDisplay::CraftingShapeless(ShapelessCraftingRecipeDisplay {
-                ingredients: ingredient_slots.clone(),
-                result: self.result_display(self.compute_result_size(material_count)),
-                crafting_station: item_display(Item::CRAFTING_TABLE),
-            }));
+            displays.push(RecipeDisplay::CraftingShapeless(
+                ShapelessCraftingRecipeDisplay {
+                    ingredients: ingredient_slots.clone(),
+                    result: self.result_display(self.compute_result_size(material_count)),
+                    crafting_station: item_display(Item::CRAFTING_TABLE),
+                },
+            ));
         }
         displays
     }
@@ -229,7 +276,8 @@ pub struct DyeRecipe {
 
 /// `DyedItemColor.applyDyes(currentDye, dyes)`.
 pub fn apply_dyes(current: Option<&DyedItemColor>, dyes: &[DyeColor]) -> DyedItemColor {
-    let (mut red_total, mut green_total, mut blue_total, mut intensity_total, mut color_count) = (0i32, 0i32, 0i32, 0i32, 0i32);
+    let (mut red_total, mut green_total, mut blue_total, mut intensity_total, mut color_count) =
+        (0i32, 0i32, 0i32, 0i32, 0i32);
     let mut add = |color: i32| {
         let (red, green, blue) = ((color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF);
         intensity_total += red.max(green.max(blue));
@@ -244,14 +292,20 @@ pub fn apply_dyes(current: Option<&DyedItemColor>, dyes: &[DyeColor]) -> DyedIte
     for dye in dyes {
         add(dye_texture_diffuse_color(*dye));
     }
-    let (mut red, mut green, mut blue) = (red_total / color_count, green_total / color_count, blue_total / color_count);
+    let (mut red, mut green, mut blue) = (
+        red_total / color_count,
+        green_total / color_count,
+        blue_total / color_count,
+    );
     let average_intensity = intensity_total as f32 / color_count as f32;
     let result_intensity = red.max(green.max(blue)) as f32;
     red = (red as f32 * average_intensity / result_intensity) as i32;
     green = (green as f32 * average_intensity / result_intensity) as i32;
     blue = (blue as f32 * average_intensity / result_intensity) as i32;
     // `ARGB.color(0, red, green, blue)`
-    DyedItemColor { rgb: (red << 16) | (green << 8) | blue }
+    DyedItemColor {
+        rgb: (red << 16) | (green << 8) | blue,
+    }
 }
 
 impl DyeRecipe {
@@ -317,13 +371,21 @@ impl DyeRecipe {
     }
 
     pub(super) fn display(&self) -> Vec<RecipeDisplay> {
-        let dyes_with_dye_component = SlotDisplay::OnlyWithComponent { source: Box::new(self.dye.display()), component: DataComponentType::DYE };
+        let dyes_with_dye_component = SlotDisplay::OnlyWithComponent {
+            source: Box::new(self.dye.display()),
+            component: DataComponentType::DYE,
+        };
         let target_display = self.target.display();
-        vec![RecipeDisplay::CraftingShapeless(ShapelessCraftingRecipeDisplay {
-            ingredients: vec![target_display.clone(), dyes_with_dye_component.clone()],
-            result: SlotDisplay::Dyed { dye: Box::new(dyes_with_dye_component), target: Box::new(target_display) },
-            crafting_station: item_display(Item::CRAFTING_TABLE),
-        })]
+        vec![RecipeDisplay::CraftingShapeless(
+            ShapelessCraftingRecipeDisplay {
+                ingredients: vec![target_display.clone(), dyes_with_dye_component.clone()],
+                result: SlotDisplay::Dyed {
+                    dye: Box::new(dyes_with_dye_component),
+                    target: Box::new(target_display),
+                },
+                crafting_station: item_display(Item::CRAFTING_TABLE),
+            },
+        )]
     }
 }
 
@@ -361,7 +423,11 @@ impl ImbueRecipe {
                 if stack.is_empty() {
                     return false;
                 }
-                let ingredient = if x == 1 && y == 1 { &self.source } else { &self.material };
+                let ingredient = if x == 1 && y == 1 {
+                    &self.source
+                } else {
+                    &self.material
+                };
                 if !ingredient.test(stack) {
                     return false;
                 }
@@ -386,12 +452,24 @@ impl ImbueRecipe {
 
     pub(super) fn create_placement_info(&self) -> PlacementInfo {
         let m = &self.material;
-        PlacementInfo::create(&[m.clone(), m.clone(), m.clone(), m.clone(), self.source.clone(), m.clone(), m.clone(), m.clone(), m.clone()])
+        PlacementInfo::create(&[
+            m.clone(),
+            m.clone(),
+            m.clone(),
+            m.clone(),
+            self.source.clone(),
+            m.clone(),
+            m.clone(),
+            m.clone(),
+            m.clone(),
+        ])
     }
 
     pub(super) fn display(&self) -> Vec<RecipeDisplay> {
         let material = self.material.display();
-        let source = SlotDisplay::WithAnyPotion { display: Box::new(self.source.display()) };
+        let source = SlotDisplay::WithAnyPotion {
+            display: Box::new(self.source.display()),
+        };
         vec![RecipeDisplay::CraftingShaped(ShapedCraftingRecipeDisplay {
             width: 3,
             height: 3,
@@ -406,7 +484,9 @@ impl ImbueRecipe {
                 material.clone(),
                 material,
             ],
-            result: SlotDisplay::WithAnyPotion { display: Box::new(stack_display(&self.result)) },
+            result: SlotDisplay::WithAnyPotion {
+                display: Box::new(stack_display(&self.result)),
+            },
             crafting_station: item_display(Item::CRAFTING_TABLE),
         })]
     }
@@ -448,7 +528,11 @@ impl DecoratedPotRecipe {
 
     fn assemble(&self, input: &CraftingInput) -> ItemStack {
         let to_optional = |stack: &ItemStack| {
-            (!stack.is_empty()).then(|| ItemStackTemplate { item: stack.item(), count: 1, components: stack.get_components_patch() })
+            (!stack.is_empty()).then(|| ItemStackTemplate {
+                item: stack.item(),
+                count: 1,
+                components: stack.get_components_patch(),
+            })
         };
         let decorations = PotDecorations {
             back: to_optional(input.get_item_at(1, 0)),
@@ -456,9 +540,13 @@ impl DecoratedPotRecipe {
             right: to_optional(input.get_item_at(2, 1)),
             front: to_optional(input.get_item_at(1, 2)),
         };
-        template_apply(&self.result, self.result.count, &patch_of(self.result.item, |s| {
-            s.set(POT_DECORATIONS, decorations);
-        }))
+        template_apply(
+            &self.result,
+            self.result.count,
+            &patch_of(self.result.item, |s| {
+                s.set(POT_DECORATIONS, decorations);
+            }),
+        )
     }
 }
 
@@ -478,7 +566,8 @@ impl BookCloningRecipe {
         mc_dfu::record!(BookCloningRecipe {
             source: ingredient.field_of("source"),
             material: ingredient.field_of("material"),
-            allowed_generations: generations.optional_field_of_default("allowed_generations", Ints::between(0, 1)),
+            allowed_generations: generations
+                .optional_field_of_default("allowed_generations", Ints::between(0, 1)),
             result: ItemStackTemplate::codec().field_of("result"),
         })
     }
@@ -524,9 +613,14 @@ impl BookCloningRecipe {
                 count += 1;
             }
         }
-        let Some(content) = source.get(&WRITTEN_BOOK_CONTENT) else { return ItemStack::empty() };
+        let Some(content) = source.get(&WRITTEN_BOOK_CONTENT) else {
+            return ItemStack::empty();
+        };
         // `craftCopy()`
-        let copied = WrittenBookContent { generation: content.generation.wrapping_add(1), ..content.clone() };
+        let copied = WrittenBookContent {
+            generation: content.generation.wrapping_add(1),
+            ..content.clone()
+        };
         let mut result = create_with_original_components(&self.result, &source, count - 1);
         result.set(WRITTEN_BOOK_CONTENT, copied);
         result
@@ -572,7 +666,12 @@ impl MapExtendingRecipe {
             vec!["###".to_owned(), "#x#".to_owned(), "###".to_owned()],
         )
         .expect("fixed map extending pattern");
-        MapExtendingRecipe { pattern, map, material, result }
+        MapExtendingRecipe {
+            pattern,
+            map,
+            material,
+            result,
+        }
     }
 
     fn map_codec() -> MapCodec<MapExtendingRecipe> {
@@ -582,15 +681,23 @@ impl MapExtendingRecipe {
             material: ingredient.field_of("material"),
             result: TransmuteResult::codec().field_of("result"),
         })
-        .xmap(|f: MapExtendingFields| MapExtendingRecipe::new(f.map, f.material, f.result), |r: &MapExtendingRecipe| MapExtendingFields {
-            map: r.map.clone(),
-            material: r.material.clone(),
-            result: r.result.clone(),
-        })
+        .xmap(
+            |f: MapExtendingFields| MapExtendingRecipe::new(f.map, f.material, f.result),
+            |r: &MapExtendingRecipe| MapExtendingFields {
+                map: r.map.clone(),
+                material: r.material.clone(),
+                result: r.result.clone(),
+            },
+        )
     }
 
     fn find_filled_map(input: &CraftingInput) -> ItemStack {
-        input.items().iter().find(|s| s.has(DataComponentType::MAP_ID)).cloned().unwrap_or_else(ItemStack::empty)
+        input
+            .items()
+            .iter()
+            .find(|s| s.has(DataComponentType::MAP_ID))
+            .cloned()
+            .unwrap_or_else(ItemStack::empty)
     }
 
     fn matches(&self, input: &CraftingInput, level: &ServerLevel) -> bool {
@@ -601,12 +708,19 @@ impl MapExtendingRecipe {
         if map.is_empty() {
             return false;
         }
-        MAP_SCALE_LOOKUP.get().and_then(|lookup| lookup(level, &map)).is_some_and(|scale| scale < 4)
+        MAP_SCALE_LOOKUP
+            .get()
+            .and_then(|lookup| lookup(level, &map))
+            .is_some_and(|scale| scale < 4)
     }
 
     fn assemble(&self, input: &CraftingInput) -> ItemStack {
         let source_map = Self::find_filled_map(input);
-        let mut map = create_with_original_components(&self.result.resolve(source_map.item(), self.result.count), &source_map, 0);
+        let mut map = create_with_original_components(
+            &self.result.resolve(source_map.item(), self.result.count),
+            &source_map,
+            0,
+        );
         map.set(MAP_POST_PROCESSING, MapPostProcessing::Scale);
         map
     }
@@ -674,9 +788,19 @@ impl FireworkRocketRecipe {
                 }
             }
         }
-        template_apply(&self.result, self.result.count, &patch_of(self.result.item, |s| {
-            s.set(FIREWORKS, Fireworks { flight_duration: fuel_count, explosions });
-        }))
+        template_apply(
+            &self.result,
+            self.result.count,
+            &patch_of(self.result.item, |s| {
+                s.set(
+                    FIREWORKS,
+                    Fireworks {
+                        flight_duration: fuel_count,
+                        explosions,
+                    },
+                );
+            }),
+        )
     }
 }
 
@@ -695,7 +819,9 @@ impl FireworkStarRecipe {
     fn map_codec() -> MapCodec<FireworkStarRecipe> {
         let ingredient = Ingredient::codec();
         mc_dfu::record!(FireworkStarRecipe {
-            shapes: FireworkShape::codec().unbounded_map(&ingredient).field_of("shapes"),
+            shapes: FireworkShape::codec()
+                .unbounded_map(&ingredient)
+                .field_of("shapes"),
             trail: ingredient.field_of("trail"),
             twinkle: ingredient.field_of("twinkle"),
             fuel: ingredient.field_of("fuel"),
@@ -705,14 +831,18 @@ impl FireworkStarRecipe {
     }
 
     fn find_shape(&self, stack: &ItemStack) -> Option<FireworkShape> {
-        self.shapes.iter().find(|(_, i)| i.test(stack)).map(|(s, _)| *s)
+        self.shapes
+            .iter()
+            .find(|(_, i)| i.test(stack))
+            .map(|(s, _)| *s)
     }
 
     fn matches(&self, input: &CraftingInput) -> bool {
         if input.ingredient_count() < 2 {
             return false;
         }
-        let (mut has_fuel, mut has_dye, mut has_shape, mut has_trail, mut has_twinkle) = (false, false, false, false, false);
+        let (mut has_fuel, mut has_dye, mut has_shape, mut has_trail, mut has_twinkle) =
+            (false, false, false, false, false);
         for stack in input.items().iter().filter(|s| !s.is_empty()) {
             if self.twinkle.test(stack) {
                 if has_twinkle {
@@ -753,11 +883,22 @@ impl FireworkStarRecipe {
             } else if self.trail.test(stack) {
                 has_trail = true;
             } else if self.dye.test(stack) {
-                colors.push(dye_firework_color(stack.get(&DYE).copied().unwrap_or(DyeColor::White)));
+                colors.push(dye_firework_color(
+                    stack.get(&DYE).copied().unwrap_or(DyeColor::White),
+                ));
             }
         }
         let mut star = self.result.create();
-        star.set(FIREWORK_EXPLOSION, FireworkExplosion { shape, colors, fade_colors: Vec::new(), has_trail, has_twinkle });
+        star.set(
+            FIREWORK_EXPLOSION,
+            FireworkExplosion {
+                shape,
+                colors,
+                fade_colors: Vec::new(),
+                has_trail,
+                has_twinkle,
+            },
+        );
         star
     }
 }
@@ -803,7 +944,9 @@ impl FireworkStarFadeRecipe {
         let mut target_stack: Option<&ItemStack> = None;
         for stack in input.items() {
             if self.dye.test(stack) {
-                colors.push(dye_firework_color(stack.get(&DYE).copied().unwrap_or(DyeColor::White)));
+                colors.push(dye_firework_color(
+                    stack.get(&DYE).copied().unwrap_or(DyeColor::White),
+                ));
             } else if self.target.test(stack) {
                 target_stack = Some(stack);
             }
@@ -847,7 +990,10 @@ impl BannerDuplicateRecipe {
         let mut color: Option<DyeColor> = None;
         let (mut has_target, mut has_source) = (false, false);
         for stack in input.items().iter().filter(|s| !s.is_empty()) {
-            let Some(banner_color) = banner_color(stack.item()).filter(|_| self.banner.test(stack)) else { return false };
+            let Some(banner_color) = banner_color(stack.item()).filter(|_| self.banner.test(stack))
+            else {
+                return false;
+            };
             match color {
                 None => color = Some(banner_color),
                 Some(c) if c != banner_color => return false,
@@ -1003,8 +1149,12 @@ impl RepairItemRecipe {
     }
 
     fn assemble(&self, input: &CraftingInput) -> ItemStack {
-        use crate::world::item::enchantment_helper::{get_enchantments_for_crafting, update_enchantments};
-        let Some((first, second)) = Self::get_items_to_combine(input) else { return ItemStack::empty() };
+        use crate::world::item::enchantment_helper::{
+            get_enchantments_for_crafting, update_enchantments,
+        };
+        let Some((first, second)) = Self::get_items_to_combine(input) else {
+            return ItemStack::empty();
+        };
         let durability = first.get_max_damage().max(second.get_max_damage());
         let remaining1 = first.get_max_damage() - first.get_damage_value();
         let remaining2 = second.get_max_damage() - second.get_damage_value();
@@ -1017,10 +1167,18 @@ impl RepairItemRecipe {
         let curses = &self.curses;
         update_enchantments(&mut stack, |new_enchantments| {
             // `Sets.union(first.keySet(), second.keySet())`: the first set's entries, then the second's others
-            let union = first_enchants.entries().iter().map(|(k, _)| k).chain(second_enchants.entries().iter().map(|(k, _)| k).filter(|k| first_enchants.get_level(k) == 0));
+            let union = first_enchants.entries().iter().map(|(k, _)| k).chain(
+                second_enchants
+                    .entries()
+                    .iter()
+                    .map(|(k, _)| k)
+                    .filter(|k| first_enchants.get_level(k) == 0),
+            );
             for enchantment in union {
                 if enchantment.name().is_some_and(|n| curses.contains(n)) {
-                    let level = first_enchants.get_level(enchantment).max(second_enchants.get_level(enchantment));
+                    let level = first_enchants
+                        .get_level(enchantment)
+                        .max(second_enchants.get_level(enchantment));
                     new_enchantments.set(enchantment, level);
                 }
             }
@@ -1051,9 +1209,13 @@ impl CustomRecipe {
             CustomRecipe::MapExtending(_) => RecipeSerializer::CRAFTING_SPECIAL_MAPEXTENDING,
             CustomRecipe::FireworkRocket(_) => RecipeSerializer::CRAFTING_SPECIAL_FIREWORK_ROCKET,
             CustomRecipe::FireworkStar(_) => RecipeSerializer::CRAFTING_SPECIAL_FIREWORK_STAR,
-            CustomRecipe::FireworkStarFade(_) => RecipeSerializer::CRAFTING_SPECIAL_FIREWORK_STAR_FADE,
+            CustomRecipe::FireworkStarFade(_) => {
+                RecipeSerializer::CRAFTING_SPECIAL_FIREWORK_STAR_FADE
+            }
             CustomRecipe::BannerDuplicate(_) => RecipeSerializer::CRAFTING_SPECIAL_BANNERDUPLICATE,
-            CustomRecipe::ShieldDecoration(_) => RecipeSerializer::CRAFTING_SPECIAL_SHIELDDECORATION,
+            CustomRecipe::ShieldDecoration(_) => {
+                RecipeSerializer::CRAFTING_SPECIAL_SHIELDDECORATION
+            }
             CustomRecipe::RepairItem(_) => RecipeSerializer::CRAFTING_SPECIAL_REPAIRITEM,
         }
     }
@@ -1061,47 +1223,70 @@ impl CustomRecipe {
     /// The map codec of the custom recipe registered as `serializer`.
     pub fn map_codec(serializer: RecipeSerializer) -> Option<MapCodec<CustomRecipe>> {
         let codec = if serializer == RecipeSerializer::CRAFTING_DECORATED_POT {
-            DecoratedPotRecipe::map_codec().xmap(CustomRecipe::DecoratedPot, |r: &CustomRecipe| match r {
-                CustomRecipe::DecoratedPot(r) => r.clone(),
-                _ => unreachable!("serializer/kind mismatch"),
+            DecoratedPotRecipe::map_codec().xmap(CustomRecipe::DecoratedPot, |r: &CustomRecipe| {
+                match r {
+                    CustomRecipe::DecoratedPot(r) => r.clone(),
+                    _ => unreachable!("serializer/kind mismatch"),
+                }
             })
         } else if serializer == RecipeSerializer::CRAFTING_SPECIAL_BOOKCLONING {
-            BookCloningRecipe::map_codec().xmap(CustomRecipe::BookCloning, |r: &CustomRecipe| match r {
-                CustomRecipe::BookCloning(r) => r.clone(),
-                _ => unreachable!("serializer/kind mismatch"),
+            BookCloningRecipe::map_codec().xmap(CustomRecipe::BookCloning, |r: &CustomRecipe| {
+                match r {
+                    CustomRecipe::BookCloning(r) => r.clone(),
+                    _ => unreachable!("serializer/kind mismatch"),
+                }
             })
         } else if serializer == RecipeSerializer::CRAFTING_SPECIAL_MAPEXTENDING {
-            MapExtendingRecipe::map_codec().xmap(CustomRecipe::MapExtending, |r: &CustomRecipe| match r {
-                CustomRecipe::MapExtending(r) => r.clone(),
-                _ => unreachable!("serializer/kind mismatch"),
+            MapExtendingRecipe::map_codec().xmap(CustomRecipe::MapExtending, |r: &CustomRecipe| {
+                match r {
+                    CustomRecipe::MapExtending(r) => r.clone(),
+                    _ => unreachable!("serializer/kind mismatch"),
+                }
             })
         } else if serializer == RecipeSerializer::CRAFTING_SPECIAL_FIREWORK_ROCKET {
-            FireworkRocketRecipe::map_codec().xmap(CustomRecipe::FireworkRocket, |r: &CustomRecipe| match r {
-                CustomRecipe::FireworkRocket(r) => r.clone(),
-                _ => unreachable!("serializer/kind mismatch"),
-            })
+            FireworkRocketRecipe::map_codec().xmap(
+                CustomRecipe::FireworkRocket,
+                |r: &CustomRecipe| match r {
+                    CustomRecipe::FireworkRocket(r) => r.clone(),
+                    _ => unreachable!("serializer/kind mismatch"),
+                },
+            )
         } else if serializer == RecipeSerializer::CRAFTING_SPECIAL_FIREWORK_STAR {
-            FireworkStarRecipe::map_codec().xmap(CustomRecipe::FireworkStar, |r: &CustomRecipe| match r {
-                CustomRecipe::FireworkStar(r) => r.clone(),
-                _ => unreachable!("serializer/kind mismatch"),
+            FireworkStarRecipe::map_codec().xmap(CustomRecipe::FireworkStar, |r: &CustomRecipe| {
+                match r {
+                    CustomRecipe::FireworkStar(r) => r.clone(),
+                    _ => unreachable!("serializer/kind mismatch"),
+                }
             })
         } else if serializer == RecipeSerializer::CRAFTING_SPECIAL_FIREWORK_STAR_FADE {
-            FireworkStarFadeRecipe::map_codec().xmap(CustomRecipe::FireworkStarFade, |r: &CustomRecipe| match r {
-                CustomRecipe::FireworkStarFade(r) => r.clone(),
-                _ => unreachable!("serializer/kind mismatch"),
-            })
+            FireworkStarFadeRecipe::map_codec().xmap(
+                CustomRecipe::FireworkStarFade,
+                |r: &CustomRecipe| match r {
+                    CustomRecipe::FireworkStarFade(r) => r.clone(),
+                    _ => unreachable!("serializer/kind mismatch"),
+                },
+            )
         } else if serializer == RecipeSerializer::CRAFTING_SPECIAL_BANNERDUPLICATE {
-            BannerDuplicateRecipe::map_codec().xmap(CustomRecipe::BannerDuplicate, |r: &CustomRecipe| match r {
-                CustomRecipe::BannerDuplicate(r) => r.clone(),
-                _ => unreachable!("serializer/kind mismatch"),
-            })
+            BannerDuplicateRecipe::map_codec().xmap(
+                CustomRecipe::BannerDuplicate,
+                |r: &CustomRecipe| match r {
+                    CustomRecipe::BannerDuplicate(r) => r.clone(),
+                    _ => unreachable!("serializer/kind mismatch"),
+                },
+            )
         } else if serializer == RecipeSerializer::CRAFTING_SPECIAL_SHIELDDECORATION {
-            ShieldDecorationRecipe::map_codec().xmap(CustomRecipe::ShieldDecoration, |r: &CustomRecipe| match r {
-                CustomRecipe::ShieldDecoration(r) => r.clone(),
-                _ => unreachable!("serializer/kind mismatch"),
-            })
+            ShieldDecorationRecipe::map_codec().xmap(
+                CustomRecipe::ShieldDecoration,
+                |r: &CustomRecipe| match r {
+                    CustomRecipe::ShieldDecoration(r) => r.clone(),
+                    _ => unreachable!("serializer/kind mismatch"),
+                },
+            )
         } else if serializer == RecipeSerializer::CRAFTING_SPECIAL_REPAIRITEM {
-            MapCodec::unit(RepairItemRecipe::default()).xmap(CustomRecipe::RepairItem, |_: &CustomRecipe| RepairItemRecipe::default())
+            MapCodec::unit(RepairItemRecipe::default())
+                .xmap(CustomRecipe::RepairItem, |_: &CustomRecipe| {
+                    RepairItemRecipe::default()
+                })
         } else {
             return None;
         };
@@ -1110,22 +1295,39 @@ impl CustomRecipe {
 
     pub(super) fn for_each_ingredient_mut(&mut self, f: &mut dyn FnMut(&mut Ingredient)) {
         match self {
-            CustomRecipe::DecoratedPot(r) => [&mut r.back_pattern, &mut r.left_pattern, &mut r.right_pattern, &mut r.front_pattern].into_iter().for_each(f),
-            CustomRecipe::BookCloning(r) => [&mut r.source, &mut r.material].into_iter().for_each(f),
+            CustomRecipe::DecoratedPot(r) => [
+                &mut r.back_pattern,
+                &mut r.left_pattern,
+                &mut r.right_pattern,
+                &mut r.front_pattern,
+            ]
+            .into_iter()
+            .for_each(f),
+            CustomRecipe::BookCloning(r) => {
+                [&mut r.source, &mut r.material].into_iter().for_each(f)
+            }
             CustomRecipe::MapExtending(r) => {
                 let (mut map, mut material) = (r.map.clone(), r.material.clone());
                 f(&mut map);
                 f(&mut material);
                 *r = MapExtendingRecipe::new(map, material, r.result.clone());
             }
-            CustomRecipe::FireworkRocket(r) => [&mut r.shell, &mut r.fuel, &mut r.star].into_iter().for_each(f),
+            CustomRecipe::FireworkRocket(r) => [&mut r.shell, &mut r.fuel, &mut r.star]
+                .into_iter()
+                .for_each(f),
             CustomRecipe::FireworkStar(r) => {
                 r.shapes.iter_mut().for_each(|(_, i)| f(i));
-                [&mut r.trail, &mut r.twinkle, &mut r.fuel, &mut r.dye].into_iter().for_each(f);
+                [&mut r.trail, &mut r.twinkle, &mut r.fuel, &mut r.dye]
+                    .into_iter()
+                    .for_each(f);
             }
-            CustomRecipe::FireworkStarFade(r) => [&mut r.target, &mut r.dye].into_iter().for_each(f),
+            CustomRecipe::FireworkStarFade(r) => {
+                [&mut r.target, &mut r.dye].into_iter().for_each(f)
+            }
             CustomRecipe::BannerDuplicate(r) => f(&mut r.banner),
-            CustomRecipe::ShieldDecoration(r) => [&mut r.banner, &mut r.target].into_iter().for_each(f),
+            CustomRecipe::ShieldDecoration(r) => {
+                [&mut r.banner, &mut r.target].into_iter().for_each(f)
+            }
             CustomRecipe::RepairItem(_) => {}
         }
     }
@@ -1177,4 +1379,3 @@ impl CustomRecipe {
         }
     }
 }
-

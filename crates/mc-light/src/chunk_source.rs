@@ -62,7 +62,9 @@ pub struct ChunkMapGetter<C> {
 
 impl<C: LightChunk> ChunkMapGetter<C> {
     pub fn new() -> Self {
-        ChunkMapGetter { chunks: HashMap::new() }
+        ChunkMapGetter {
+            chunks: HashMap::new(),
+        }
     }
 
     pub fn insert(&mut self, pos: ChunkPos, chunk: C) -> Option<C> {
@@ -72,7 +74,9 @@ impl<C: LightChunk> ChunkMapGetter<C> {
 
 impl<C: LightChunk> LightChunkGetter for ChunkMapGetter<C> {
     fn get_chunk_for_lighting(&self, x: i32, z: i32) -> Option<&dyn LightChunk> {
-        self.chunks.get(&ChunkPos::pack_xz(x, z)).map(|c| c as &dyn LightChunk)
+        self.chunks
+            .get(&ChunkPos::pack_xz(x, z))
+            .map(|c| c as &dyn LightChunk)
     }
 }
 

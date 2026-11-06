@@ -14,12 +14,18 @@ use mc_game::world::level::explosion::ExplosionInteraction;
 use mc_game::world::level::{BlockGetter, LevelAccessor};
 
 fn registries() -> mc_game::registry::RegistryAccess {
-    static ACCESS: std::sync::OnceLock<mc_game::registry::RegistryAccess> = std::sync::OnceLock::new();
+    static ACCESS: std::sync::OnceLock<mc_game::registry::RegistryAccess> =
+        std::sync::OnceLock::new();
     ACCESS
         .get_or_init(|| {
             let _serial = common::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
             let dir = tempfile::tempdir().unwrap();
-            let (_, stem) = common::load_world(dir.path(), mc_world::level_storage::WorldDataConfiguration::DEFAULT, true).expect("default world loads");
+            let (_, stem) = common::load_world(
+                dir.path(),
+                mc_world::level_storage::WorldDataConfiguration::DEFAULT,
+                true,
+            )
+            .expect("default world loads");
             stem.registries.composite_access().clone()
         })
         .clone()
@@ -30,17 +36,24 @@ fn parse_state(text: &str) -> BlockState {
         Some((n, p)) => (n, Some(p.trim_end_matches(']'))),
         None => (text, None),
     };
-    let mut state = Block::by_name(name).unwrap_or_else(|| panic!("block {name}")).default_state();
+    let mut state = Block::by_name(name)
+        .unwrap_or_else(|| panic!("block {name}"))
+        .default_state();
     for kv in props.into_iter().flat_map(|p| p.split(',')) {
         let (k, v) = kv.split_once('=').unwrap();
-        state = state.with_property_str(k, v).unwrap_or_else(|| panic!("property {kv} of {text}"));
+        state = state
+            .with_property_str(k, v)
+            .unwrap_or_else(|| panic!("property {kv} of {text}"));
     }
     state
 }
 
 fn serialize(state: BlockState) -> String {
     let mut s = state.block().name().to_string();
-    let props: Vec<String> = state.values().map(|(d, i)| format!("{}={}", d.name, d.values[i])).collect();
+    let props: Vec<String> = state
+        .values()
+        .map(|(d, i)| format!("{}={}", d.name, d.values[i]))
+        .collect();
     if !props.is_empty() {
         s.push('[');
         s.push_str(&props.join(","));
@@ -51,13 +64,21 @@ fn serialize(state: BlockState) -> String {
 
 #[test]
 fn explosion_block_sets_match_vanilla() {
-    let scenario = std::fs::read_to_string(common::entity_oracle::scenario_dir().join("explosion_blocks.txt")).unwrap();
-    let expected = std::fs::read_to_string(common::entity_oracle::fixture_dir().join("explosion_blocks.txt")).unwrap();
+    let scenario =
+        std::fs::read_to_string(common::entity_oracle::scenario_dir().join("explosion_blocks.txt"))
+            .unwrap();
+    let expected =
+        std::fs::read_to_string(common::entity_oracle::fixture_dir().join("explosion_blocks.txt"))
+            .unwrap();
     let mut level = ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap());
     level.registries = registries();
     let mut actual: Vec<String> = Vec::new();
     let i = |s: &str| s.parse::<i32>().unwrap();
-    for line in scenario.lines().map(str::trim).filter(|l| !l.is_empty() && !l.starts_with('#')) {
+    for line in scenario
+        .lines()
+        .map(str::trim)
+        .filter(|l| !l.is_empty() && !l.starts_with('#'))
+    {
         let a: Vec<&str> = line.split_whitespace().collect();
         match a[0] {
             "level" => {}
@@ -83,11 +104,24 @@ fn explosion_block_sets_match_vanilla() {
                     other => panic!("{other}"),
                 };
                 let fire = a.contains(&"fire");
-                let (x, y, z, r): (f64, f64, f64, f32) = (a[1].parse().unwrap(), a[2].parse().unwrap(), a[3].parse().unwrap(), a[4].parse().unwrap());
-                level.explode(Explode::new(None, x, y, z, r, interaction).with_fire(fire), &mut []);
+                let (x, y, z, r): (f64, f64, f64, f32) = (
+                    a[1].parse().unwrap(),
+                    a[2].parse().unwrap(),
+                    a[3].parse().unwrap(),
+                    a[4].parse().unwrap(),
+                );
+                level.explode(
+                    Explode::new(None, x, y, z, r, interaction).with_fire(fire),
+                    &mut [],
+                );
             }
             "dump" => {
-                let c: Vec<i32> = a[1].strip_prefix("blocks:").unwrap().split(',').map(|v| v.parse().unwrap()).collect();
+                let c: Vec<i32> = a[1]
+                    .strip_prefix("blocks:")
+                    .unwrap()
+                    .split(',')
+                    .map(|v| v.parse().unwrap())
+                    .collect();
                 for x in c[0]..=c[3] {
                     for y in c[1]..=c[4] {
                         for z in c[2]..=c[5] {
@@ -116,5 +150,9 @@ fn explosion_block_sets_match_vanilla() {
             }
         }
     }
-    assert_eq!((diffs, expected.len()), (0, actual.len()), "explosion results differ from vanilla");
+    assert_eq!(
+        (diffs, expected.len()),
+        (0, actual.len()),
+        "explosion results differ from vanilla"
+    );
 }

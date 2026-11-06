@@ -6,14 +6,14 @@
 
 use super::name_and_id::NameAndId;
 use super::player_files::locate_stats_file;
-use crate::advancements::{PlayerAdvancements, ServerAdvancementManager, SharedAdvancements};
-use crate::stats::{ServerStatsCounter, SharedStats};
 use super::player_handle::PlayerHandle;
 use super::user_lists::{IpBanList, ServerOpList, ServerOpListEntry, UserBanList, UserWhiteList};
+use crate::advancements::{PlayerAdvancements, ServerAdvancementManager, SharedAdvancements};
 use crate::server::chat::chat_type::Bound;
 use crate::server::chat::{OutgoingChatMessage, PlayerChatMessage, instant_now};
 use crate::server::notifications::NotificationService;
 use crate::server::permissions::{LevelBasedPermissionSet, PermissionLevel};
+use crate::stats::{ServerStatsCounter, SharedStats};
 use crate::world::level::DimensionKey;
 use mc_core::phys::Vec3;
 use mc_nbt::CompoundTag;
@@ -169,7 +169,9 @@ impl PlayerList {
 
     /// `getPlayer(name)` / `getPlayerByName(name)`: case-insensitive, first in join order.
     pub fn get_player_by_name(&self, name: &str) -> Option<&PlayerHandle> {
-        self.players.iter().find(|p| p.name().eq_ignore_ascii_case(name) || p.name().to_lowercase() == name.to_lowercase())
+        self.players.iter().find(|p| {
+            p.name().eq_ignore_ascii_case(name) || p.name().to_lowercase() == name.to_lowercase()
+        })
     }
 
     /// `getPlayerNamesArray()`.
@@ -179,7 +181,11 @@ impl PlayerList {
 
     /// `getPlayersWithAddress(ip)`.
     pub fn get_players_with_address(&self, ip: &str) -> Vec<PlayerHandle> {
-        self.players.iter().filter(|p| p.ip_address == ip).cloned().collect()
+        self.players
+            .iter()
+            .filter(|p| p.ip_address == ip)
+            .cloned()
+            .collect()
     }
 
     pub fn get_white_list_names(&self) -> Vec<String> {
@@ -199,7 +205,9 @@ impl PlayerList {
 
     /// `isWhiteListed` (`DedicatedPlayerList`).
     pub fn is_white_listed(&self, name_and_id: &NameAndId) -> bool {
-        !self.settings.using_whitelist || self.is_op(name_and_id) || self.whitelist.is_white_listed(name_and_id)
+        !self.settings.using_whitelist
+            || self.is_op(name_and_id)
+            || self.whitelist.is_white_listed(name_and_id)
     }
 
     /// `canBypassPlayerLimit` (`DedicatedPlayerList`).
@@ -211,7 +219,9 @@ impl PlayerList {
     pub fn get_profile_permissions(&mut self, name_and_id: &NameAndId) -> LevelBasedPermissionSet {
         if self.is_op(name_and_id) {
             let operator = self.settings.operator_user_permissions;
-            self.ops.get(name_and_id).map_or(operator, ServerOpListEntry::permissions)
+            self.ops
+                .get(name_and_id)
+                .map_or(operator, ServerOpListEntry::permissions)
         } else {
             LevelBasedPermissionSet::for_level(PermissionLevel::All)
         }
@@ -220,25 +230,49 @@ impl PlayerList {
     // ---------------------------------------------------------------------------------------------- login checks
 
     /// `canPlayerLogin(address, nameAndId)`: the disconnect reason, or `None` when the player may join.
-    pub fn can_player_login(&mut self, address: &SocketAddr, name_and_id: &NameAndId) -> Option<Component> {
+    pub fn can_player_login(
+        &mut self,
+        address: &SocketAddr,
+        name_and_id: &NameAndId,
+    ) -> Option<Component> {
         if self.bans.is_banned(name_and_id) {
             let ban = self.bans.get(name_and_id)?;
-            let mut reason = Component::translatable("multiplayer.disconnect.banned.reason", vec![ban.get_reason_message().into()]);
+            let mut reason = Component::translatable(
+                "multiplayer.disconnect.banned.reason",
+                vec![ban.get_reason_message().into()],
+            );
             if let Some(expires) = &ban.expires {
-                reason = reason.append(Component::translatable("multiplayer.disconnect.banned.expiration", vec![format_ban_date(expires).into()]));
+                reason = reason.append(Component::translatable(
+                    "multiplayer.disconnect.banned.expiration",
+                    vec![format_ban_date(expires).into()],
+                ));
             }
             Some(reason)
         } else if !self.is_white_listed(name_and_id) {
-            Some(Component::translatable("multiplayer.disconnect.not_whitelisted", vec![]))
+            Some(Component::translatable(
+                "multiplayer.disconnect.not_whitelisted",
+                vec![],
+            ))
         } else if self.ip_bans.is_banned_address(address) {
             let ban = self.ip_bans.get_address(address)?;
-            let mut reason = Component::translatable("multiplayer.disconnect.banned_ip.reason", vec![ban.get_reason_message().into()]);
+            let mut reason = Component::translatable(
+                "multiplayer.disconnect.banned_ip.reason",
+                vec![ban.get_reason_message().into()],
+            );
             if let Some(expires) = &ban.expires {
-                reason = reason.append(Component::translatable("multiplayer.disconnect.banned_ip.expiration", vec![format_ban_date(expires).into()]));
+                reason = reason.append(Component::translatable(
+                    "multiplayer.disconnect.banned_ip.expiration",
+                    vec![format_ban_date(expires).into()],
+                ));
             }
             Some(reason)
-        } else if self.players.len() as i32 >= self.get_max_players() && !self.can_bypass_player_limit(name_and_id) {
-            Some(Component::translatable("multiplayer.disconnect.server_full", vec![]))
+        } else if self.players.len() as i32 >= self.get_max_players()
+            && !self.can_bypass_player_limit(name_and_id)
+        {
+            Some(Component::translatable(
+                "multiplayer.disconnect.server_full",
+                vec![],
+            ))
         } else {
             None
         }
@@ -247,7 +281,11 @@ impl PlayerList {
     /// `disconnectAllPlayersWithProfile(playerId)`: kicks every connection of that profile with
     /// `multiplayer.disconnect.duplicate_login`; `true` if there was one.
     pub fn disconnect_all_players_with_profile(&self, player_id: &Uuid) -> bool {
-        let mut dupes: Vec<&PlayerHandle> = self.players.iter().filter(|p| &p.uuid == player_id).collect();
+        let mut dupes: Vec<&PlayerHandle> = self
+            .players
+            .iter()
+            .filter(|p| &p.uuid == player_id)
+            .collect();
         if let Some(by_uuid) = self.players_by_uuid.get(player_id)
             && !dupes.iter().any(|p| p.same_player(by_uuid))
         {
@@ -278,7 +316,11 @@ impl PlayerList {
     /// belongs to this player (a duplicate login may have replaced it) — drop it, its stats/advancements and notify.
     pub fn remove_player(&mut self, handle: &PlayerHandle) {
         self.remove_from_players(handle);
-        if self.players_by_uuid.get(&handle.uuid).is_some_and(|p| p.same_player(handle)) {
+        if self
+            .players_by_uuid
+            .get(&handle.uuid)
+            .is_some_and(|p| p.same_player(handle))
+        {
             self.players_by_uuid.remove(&handle.uuid);
             self.stats.remove(&handle.uuid);
             self.advancements.remove(&handle.uuid);
@@ -316,16 +358,31 @@ impl PlayerList {
         let stats_dir = &self.stats_dir;
         self.stats
             .entry(handle.uuid)
-            .or_insert_with(|| SharedStats::new(ServerStatsCounter::new(locate_stats_file(stats_dir, handle.uuid, handle.name()))))
+            .or_insert_with(|| {
+                SharedStats::new(ServerStatsCounter::new(locate_stats_file(
+                    stats_dir,
+                    handle.uuid,
+                    handle.name(),
+                )))
+            })
             .clone()
     }
 
     /// `getPlayerAdvancements(player)`.
-    pub fn get_player_advancements(&mut self, handle: &PlayerHandle, manager: &ServerAdvancementManager) -> SharedAdvancements {
+    pub fn get_player_advancements(
+        &mut self,
+        handle: &PlayerHandle,
+        manager: &ServerAdvancementManager,
+    ) -> SharedAdvancements {
         let dir = &self.advancements_dir;
         self.advancements
             .entry(handle.uuid)
-            .or_insert_with(|| SharedAdvancements::new(PlayerAdvancements::new(manager, Some(dir.join(format!("{}.json", handle.uuid))))))
+            .or_insert_with(|| {
+                SharedAdvancements::new(PlayerAdvancements::new(
+                    manager,
+                    Some(dir.join(format!("{}.json", handle.uuid))),
+                ))
+            })
             .clone()
     }
 
@@ -350,19 +407,36 @@ impl PlayerList {
     }
 
     /// `op(nameAndId, permissions, canBypassPlayerLimit)` list part; the caller sends the permission level.
-    pub fn op_entry(&mut self, name_and_id: NameAndId, permissions: Option<LevelBasedPermissionSet>, can_bypass_player_limit: Option<bool>) {
+    pub fn op_entry(
+        &mut self,
+        name_and_id: NameAndId,
+        permissions: Option<LevelBasedPermissionSet>,
+        can_bypass_player_limit: Option<bool>,
+    ) {
         let permissions = permissions.unwrap_or(self.settings.operator_user_permissions);
-        let bypass = can_bypass_player_limit.unwrap_or_else(|| self.ops.can_bypass_player_limit(&name_and_id));
-        self.ops.add(ServerOpListEntry::new(name_and_id, permissions, bypass));
+        let bypass = can_bypass_player_limit
+            .unwrap_or_else(|| self.ops.can_bypass_player_limit(&name_and_id));
+        self.ops
+            .add(ServerOpListEntry::new(name_and_id, permissions, bypass));
     }
 }
 
 /// `BAN_DATE_FORMAT`: `yyyy-MM-dd 'at' HH:mm:ss z` in the default time zone (`z`: see [`short_zone_name`]).
 pub fn format_ban_date(date: &chrono::DateTime<chrono::Utc>) -> String {
-    let Some(tm) = local_time(date.timestamp()) else { return date.format("%Y-%m-%d at %H:%M:%S UTC").to_string() };
+    let Some(tm) = local_time(date.timestamp()) else {
+        return date.format("%Y-%m-%d at %H:%M:%S UTC").to_string();
+    };
     let offset = tm.tm_gmtoff;
     let zone = short_zone_name(offset, &tm);
-    format!("{:04}-{:02}-{:02} at {:02}:{:02}:{:02} {zone}", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec)
+    format!(
+        "{:04}-{:02}-{:02} at {:02}:{:02}:{:02} {zone}",
+        tm.tm_year + 1900,
+        tm.tm_mon + 1,
+        tm.tm_mday,
+        tm.tm_hour,
+        tm.tm_min,
+        tm.tm_sec
+    )
 }
 
 /// `localtime_r` (honours the process `TZ`, which chrono's cached `Local` does not re-read).
@@ -380,10 +454,25 @@ fn local_time(epoch_seconds: i64) -> Option<libc::tm> {
 fn short_zone_name(offset: libc::c_long, tm: &libc::tm) -> String {
     if offset == 0 {
         // SAFETY: `tm_zone` is null or a NUL-terminated string owned by libc's tz database; it is read immediately.
-        let zone = unsafe { (!tm.tm_zone.is_null()).then(|| std::ffi::CStr::from_ptr(tm.tm_zone).to_string_lossy().into_owned()) };
-        return if zone.as_deref() == Some("UTC") { "UTC" } else { "GMT" }.to_owned();
+        let zone = unsafe {
+            (!tm.tm_zone.is_null()).then(|| {
+                std::ffi::CStr::from_ptr(tm.tm_zone)
+                    .to_string_lossy()
+                    .into_owned()
+            })
+        };
+        return if zone.as_deref() == Some("UTC") {
+            "UTC"
+        } else {
+            "GMT"
+        }
+        .to_owned();
     }
-    let (sign, abs) = if offset < 0 { ('-', -offset) } else { ('+', offset) };
+    let (sign, abs) = if offset < 0 {
+        ('-', -offset)
+    } else {
+        ('+', offset)
+    };
     format!("GMT{sign}{:02}:{:02}", abs / 3600, abs % 3600 / 60)
 }
 
@@ -405,12 +494,25 @@ impl PlayerList {
     }
 
     /// `broadcast(except, x, y, z, range, dimension, packet)`.
-    pub fn broadcast<P: Packet>(&self, except: Option<&PlayerHandle>, x: f64, y: f64, z: f64, range: f64, dimension: &DimensionKey, packet: &P) {
+    pub fn broadcast<P: Packet>(
+        &self,
+        except: Option<&PlayerHandle>,
+        x: f64,
+        y: f64,
+        z: f64,
+        range: f64,
+        dimension: &DimensionKey,
+        packet: &P,
+    ) {
         for player in &self.players {
             if except.is_some_and(|e| e.same_player(player)) || &player.dimension() != dimension {
                 continue;
             }
-            let Vec3 { x: px, y: py, z: pz } = player.position();
+            let Vec3 {
+                x: px,
+                y: py,
+                z: pz,
+            } = player.position();
             let (xd, yd, zd) = (x - px, y - py, z - pz);
             if xd * xd + yd * yd + zd * zd < range * range {
                 player.connection.send(packet);
@@ -421,7 +523,12 @@ impl PlayerList {
     /// `tick()`.
     pub fn tick(&mut self) {
         if self.tick_state() {
-            let packet = super::player_handle::create_info_update([ClientboundPlayerInfoUpdateAction::UpdateLatency].into_iter().collect::<EnumSet<_>>(), &self.players);
+            let packet = super::player_handle::create_info_update(
+                [ClientboundPlayerInfoUpdateAction::UpdateLatency]
+                    .into_iter()
+                    .collect::<EnumSet<_>>(),
+                &self.players,
+            );
             self.broadcast_all(&packet);
         }
     }
@@ -455,7 +562,11 @@ impl PlayerList {
         chat_type: &Bound,
     ) {
         let trusted = verify_chat_trusted(message);
-        log_chat_message(&message.decorated_content(), chat_type, if trusted { None } else { Some("Not Secure") });
+        log_chat_message(
+            &message.decorated_content(),
+            chat_type,
+            if trusted { None } else { Some("Not Secure") },
+        );
         let tracked = OutgoingChatMessage::create(message);
         let mut was_fully_filtered = false;
         for player in &self.players {
@@ -469,11 +580,26 @@ impl PlayerList {
     }
 
     /// `broadcastChatMessage(message, sender, chatType)` (filter predicate `sender.shouldFilterMessageTo`).
-    pub fn broadcast_chat_message_from_player(&self, message: &PlayerChatMessage, sender: &PlayerHandle, chat_type: &Bound) {
-        self.broadcast_chat_message(message, |receiver| sender.should_filter_message_to(receiver), Some(sender), chat_type);
+    pub fn broadcast_chat_message_from_player(
+        &self,
+        message: &PlayerChatMessage,
+        sender: &PlayerHandle,
+        chat_type: &Bound,
+    ) {
+        self.broadcast_chat_message(
+            message,
+            |receiver| sender.should_filter_message_to(receiver),
+            Some(sender),
+            chat_type,
+        );
     }
 
-    pub fn broadcast_system_to_team(&self, sender: &PlayerHandle, team_members: &[String], message: &Component) {
+    pub fn broadcast_system_to_team(
+        &self,
+        sender: &PlayerHandle,
+        team_members: &[String],
+        message: &Component,
+    ) {
         for name in team_members {
             if let Some(team_player) = self.get_player_by_name(name)
                 && !team_player.same_player(sender)
@@ -504,13 +630,18 @@ impl PlayerList {
     /// `removeAll()`: kick everybody with `multiplayer.disconnect.server_shutdown`.
     pub fn remove_all(&self) {
         for player in &self.players {
-            player.disconnect(&Component::translatable("multiplayer.disconnect.server_shutdown", vec![]));
+            player.disconnect(&Component::translatable(
+                "multiplayer.disconnect.server_shutdown",
+                vec![],
+            ));
         }
     }
 
     /// `broadcastAll(new ClientboundPlayerInfoRemovePacket(List.of(uuid)))` of `remove`.
     pub fn broadcast_player_info_remove(&self, uuid: Uuid) {
-        self.broadcast_all(&ClientboundPlayerInfoRemovePacket { profile_ids: vec![uuid] });
+        self.broadcast_all(&ClientboundPlayerInfoRemovePacket {
+            profile_ids: vec![uuid],
+        });
     }
 }
 
@@ -547,8 +678,14 @@ pub fn permission_level_event_id(permissions: LevelBasedPermissionSet) -> i8 {
 /// Plain-text join message pieces (`multiplayer.player.joined[.renamed]`, yellow).
 pub fn join_message(display_name: Component, old_name: Option<&str>) -> Component {
     let message = match old_name {
-        None => Component::translatable("multiplayer.player.joined", vec![TranslatableArg::Component(display_name)]),
-        Some(old) => Component::translatable("multiplayer.player.joined.renamed", vec![TranslatableArg::Component(display_name), old.into()]),
+        None => Component::translatable(
+            "multiplayer.player.joined",
+            vec![TranslatableArg::Component(display_name)],
+        ),
+        Some(old) => Component::translatable(
+            "multiplayer.player.joined.renamed",
+            vec![TranslatableArg::Component(display_name), old.into()],
+        ),
     };
     message.with_format(ChatFormatting::Yellow)
 }
@@ -556,29 +693,42 @@ pub fn join_message(display_name: Component, old_name: Option<&str>) -> Componen
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::stats::stats::Stats;
     use crate::server::chat::chat_type;
     use crate::server::notifications::EmptyNotificationService;
     use crate::server::players::player_handle::test_support::handle;
+    use crate::stats::stats::Stats;
     use mc_protocol::packets::common::ChatVisibility;
     use mc_protocol::packets::play::{
-        ClientboundDisguisedChatPacket, ClientboundPlayerChatPacket, ClientboundPlayerInfoRemovePacket as Remove, ClientboundSetTimePacket,
+        ClientboundDisguisedChatPacket, ClientboundPlayerChatPacket,
+        ClientboundPlayerInfoRemovePacket as Remove, ClientboundSetTimePacket,
         ClientboundSystemChatPacket,
     };
 
     fn list(dir: &std::path::Path) -> PlayerList {
         let mut list = PlayerList::new(
-            PlayerListSettings { max_players: 2, ..Default::default() },
+            PlayerListSettings {
+                max_players: 2,
+                ..Default::default()
+            },
             PlayerDataStorage::new(dir.join("players/data")),
             dir.join("players/stats"),
             dir.join("players/advancements"),
             Arc::new(EmptyNotificationService),
         );
         // keep the user lists inside the temp dir
-        list.whitelist = UserWhiteList::new(dir.join("whitelist.json"), Arc::new(EmptyNotificationService));
+        list.whitelist = UserWhiteList::new(
+            dir.join("whitelist.json"),
+            Arc::new(EmptyNotificationService),
+        );
         list.ops = ServerOpList::new(dir.join("ops.json"), Arc::new(EmptyNotificationService));
-        list.bans = UserBanList::new(dir.join("banned-players.json"), Arc::new(EmptyNotificationService));
-        list.ip_bans = IpBanList::new(dir.join("banned-ips.json"), Arc::new(EmptyNotificationService));
+        list.bans = UserBanList::new(
+            dir.join("banned-players.json"),
+            Arc::new(EmptyNotificationService),
+        );
+        list.ip_bans = IpBanList::new(
+            dir.join("banned-ips.json"),
+            Arc::new(EmptyNotificationService),
+        );
         list
     }
 
@@ -591,8 +741,16 @@ mod tests {
     }
 
     fn bound(key: &str, name: &str) -> Bound {
-        let (_, ct) = chat_type::bootstrap().into_iter().find(|(k, _)| *k == key).unwrap();
-        Bound { chat_type_id: 0, chat_type: Arc::new(ct), name: Component::literal(name), target_name: None }
+        let (_, ct) = chat_type::bootstrap()
+            .into_iter()
+            .find(|(k, _)| *k == key)
+            .unwrap();
+        Bound {
+            chat_type_id: 0,
+            chat_type: Arc::new(ct),
+            name: Component::literal(name),
+            target_name: None,
+        }
     }
 
     #[test]
@@ -604,21 +762,39 @@ mod tests {
         assert!(list.can_player_login(&addr(), &steve).is_none());
 
         // banned (with reason, no expiry)
-        list.bans.add(UserBanListEntry::new(Some(steve.clone()), None, Some("op"), None, Some("Griefing")));
+        list.bans.add(UserBanListEntry::new(
+            Some(steve.clone()),
+            None,
+            Some("op"),
+            None,
+            Some("Griefing"),
+        ));
         let reason = list.can_player_login(&addr(), &steve).unwrap();
-        assert_eq!(reason.get_string(), "You are banned from this server.\nReason: Griefing");
+        assert_eq!(
+            reason.get_string(),
+            "You are banned from this server.\nReason: Griefing"
+        );
         list.bans.remove(&steve);
 
         // whitelist: ops bypass it, others are rejected
         list.settings.using_whitelist = true;
-        assert_eq!(list.can_player_login(&addr(), &steve).unwrap().get_string(), "You are not white-listed on this server!");
+        assert_eq!(
+            list.can_player_login(&addr(), &steve).unwrap().get_string(),
+            "You are not white-listed on this server!"
+        );
         list.op_entry(steve.clone(), None, None);
         assert!(list.can_player_login(&addr(), &steve).is_none());
         list.ops.remove(&steve);
         list.settings.using_whitelist = false;
 
         // ip ban
-        list.ip_bans.add(IpBanListEntry::new(Some("10.1.2.3".to_owned()), None, None, None, None));
+        list.ip_bans.add(IpBanListEntry::new(
+            Some("10.1.2.3".to_owned()),
+            None,
+            None,
+            None,
+            None,
+        ));
         assert_eq!(
             list.can_player_login(&addr(), &steve).unwrap().get_string(),
             "Your IP address is banned from this server.\nReason: Banned by an operator."
@@ -629,9 +805,15 @@ mod tests {
         for (i, n) in ["A", "B"].into_iter().enumerate() {
             list.add_player(handle(i as i32 + 1, n, "minecraft:overworld").0);
         }
-        assert_eq!(list.can_player_login(&addr(), &steve).unwrap().get_string(), "The server is full!");
+        assert_eq!(
+            list.can_player_login(&addr(), &steve).unwrap().get_string(),
+            "The server is full!"
+        );
         list.op_entry(steve.clone(), None, Some(true));
-        assert!(list.can_player_login(&addr(), &steve).is_none(), "ops with bypassesPlayerLimit may join a full server");
+        assert!(
+            list.can_player_login(&addr(), &steve).is_none(),
+            "ops with bypassesPlayerLimit may join a full server"
+        );
     }
 
     #[test]
@@ -641,9 +823,20 @@ mod tests {
         let mut list = list(dir.path());
         let steve = NameAndId::create_offline("Steve");
         let expires = chrono::Utc::now() + chrono::Duration::days(1);
-        list.bans.add(UserBanListEntry::new(Some(steve.clone()), None, None, Some(expires), Some("x")));
+        list.bans.add(UserBanListEntry::new(
+            Some(steve.clone()),
+            None,
+            None,
+            Some(expires),
+            Some("x"),
+        ));
         let text = list.can_player_login(&addr(), &steve).unwrap().get_string();
-        assert!(text.starts_with("You are banned from this server.\nReason: x\nYour ban will be removed on 20"), "{text}");
+        assert!(
+            text.starts_with(
+                "You are banned from this server.\nReason: x\nYour ban will be removed on 20"
+            ),
+            "{text}"
+        );
         assert!(text.contains(" at "), "{text}");
     }
 
@@ -660,7 +853,10 @@ mod tests {
         for h in [&a, &b, &c] {
             list.add_player(h.clone());
         }
-        let packet = ClientboundSetTimePacket { game_time: 1, clock_updates: vec![] };
+        let packet = ClientboundSetTimePacket {
+            game_time: 1,
+            clock_updates: vec![],
+        };
         list.broadcast_all(&packet);
         assert_eq!(wa.ids(), [id_of::<ClientboundSetTimePacket>()]);
         assert_eq!(wb.ids().len(), 1);
@@ -672,7 +868,11 @@ mod tests {
 
         // `player != except`, same dimension, strictly inside the range
         list.broadcast(Some(&a), 0.0, 64.0, 0.0, 10.0, &overworld, &packet);
-        assert_eq!((wa.ids().len(), wb.ids().len(), wc.ids().len()), (0, 0, 0), "B is exactly at range: not inside");
+        assert_eq!(
+            (wa.ids().len(), wb.ids().len(), wc.ids().len()),
+            (0, 0, 0),
+            "B is exactly at range: not inside"
+        );
         list.broadcast(None, 0.0, 64.0, 0.0, 10.5, &overworld, &packet);
         assert_eq!((wa.ids().len(), wb.ids().len(), wc.ids().len()), (1, 1, 0));
     }
@@ -690,7 +890,13 @@ mod tests {
         list.broadcast_system_message(&msg, false);
         assert_eq!((wa.ids().len(), wb.ids().len()), (1, 0));
         list.broadcast_system_message(&msg, true);
-        assert_eq!((wa.ids(), wb.ids()), (vec![id_of::<ClientboundSystemChatPacket>()], vec![id_of::<ClientboundSystemChatPacket>()]));
+        assert_eq!(
+            (wa.ids(), wb.ids()),
+            (
+                vec![id_of::<ClientboundSystemChatPacket>()],
+                vec![id_of::<ClientboundSystemChatPacket>()]
+            )
+        );
     }
 
     #[test]
@@ -708,7 +914,12 @@ mod tests {
         assert!(wb.ids().is_empty());
         // system-sender messages are disguised
         let system = PlayerChatMessage::system("announce");
-        list.broadcast_chat_message(&system, |_| false, None, &bound(chat_type::SAY_COMMAND, "Server"));
+        list.broadcast_chat_message(
+            &system,
+            |_| false,
+            None,
+            &bound(chat_type::SAY_COMMAND, "Server"),
+        );
         assert_eq!(wa.ids(), [id_of::<ClientboundDisguisedChatPacket>()]);
     }
 
@@ -724,9 +935,18 @@ mod tests {
         let mut message = PlayerChatMessage::unsigned(a.uuid, "bad");
         message.filter_mask = mc_protocol::packets::play::FilterMask::FullyFiltered;
         list.broadcast_chat_message_from_player(&message, &a, &bound(chat_type::CHAT, "A"));
-        assert!(wb.ids().is_empty(), "filtered for B and fully masked: not sent");
+        assert!(
+            wb.ids().is_empty(),
+            "filtered for B and fully masked: not sent"
+        );
         // A receives its own message (never filtered for the sender), then `chat.filtered_full`
-        assert_eq!(wa.ids(), [id_of::<ClientboundPlayerChatPacket>(), id_of::<ClientboundSystemChatPacket>()]);
+        assert_eq!(
+            wa.ids(),
+            [
+                id_of::<ClientboundPlayerChatPacket>(),
+                id_of::<ClientboundSystemChatPacket>()
+            ]
+        );
     }
 
     #[test]
@@ -740,9 +960,16 @@ mod tests {
         assert_eq!(wa.ids(), [None], "disconnect packet + close");
         assert!(!list.disconnect_all_players_with_profile(&Uuid::from_u128(1)));
 
-        list.get_player_stats(&a).lock().increment(Stats::LEAVE_GAME, 1);
+        list.get_player_stats(&a)
+            .lock()
+            .increment(Stats::LEAVE_GAME, 1);
         list.save_player_files(&a);
-        assert!(dir.path().join("players/stats").join(format!("{}.json", a.uuid)).exists());
+        assert!(
+            dir.path()
+                .join("players/stats")
+                .join(format!("{}.json", a.uuid))
+                .exists()
+        );
         list.remove_player(&a);
         assert_eq!(list.get_player_count(), 0);
         assert!(list.get_player(&a.uuid).is_none());
@@ -756,6 +983,9 @@ mod tests {
     #[test]
     fn permission_level_events() {
         assert_eq!(permission_level_event_id(LevelBasedPermissionSet::ALL), 24);
-        assert_eq!(permission_level_event_id(LevelBasedPermissionSet::for_level(PermissionLevel::Owners)), 28);
+        assert_eq!(
+            permission_level_event_id(LevelBasedPermissionSet::for_level(PermissionLevel::Owners)),
+            28
+        );
     }
 }

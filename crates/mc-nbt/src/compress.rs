@@ -3,10 +3,10 @@
 
 use crate::accounter::NbtAccounter;
 use crate::error::{NbtError, Result};
-use crate::{io, CompoundTag};
+use crate::{CompoundTag, io};
+use flate2::Compression;
 use flate2::read::{MultiGzDecoder, ZlibDecoder};
 use flate2::write::{GzEncoder, ZlibEncoder};
-use flate2::Compression;
 use std::io::{Read, Write};
 
 fn inflate(mut decoder: impl Read, max_len: Option<u64>) -> Result<Vec<u8>> {
@@ -17,9 +17,13 @@ fn inflate(mut decoder: impl Read, max_len: Option<u64>) -> Result<Vec<u8>> {
         }
         Some(max) => {
             // Read one byte past the limit to detect overflow without unbounded allocation.
-            (&mut decoder).take(max.saturating_add(1)).read_to_end(&mut out)?;
+            (&mut decoder)
+                .take(max.saturating_add(1))
+                .read_to_end(&mut out)?;
             if out.len() as u64 > max {
-                return Err(NbtError::Accounter(format!("Decompressed NBT is larger than the allowed {max} bytes")));
+                return Err(NbtError::Accounter(format!(
+                    "Decompressed NBT is larger than the allowed {max} bytes"
+                )));
             }
         }
     }

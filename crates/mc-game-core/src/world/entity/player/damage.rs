@@ -4,7 +4,10 @@
 
 use mc_core::math::mth;
 use mc_data::{GameEvent, SoundEvent};
-use mc_protocol::packets::play::{ClientboundHurtAnimationPacket, ClientboundPlayerCombatEndPacket, ClientboundPlayerCombatEnterPacket, ClientboundPlayerCombatKillPacket};
+use mc_protocol::packets::play::{
+    ClientboundHurtAnimationPacket, ClientboundPlayerCombatEndPacket,
+    ClientboundPlayerCombatEnterPacket, ClientboundPlayerCombatKillPacket,
+};
 use mc_text::Component;
 use mc_world::level_storage::Difficulty;
 
@@ -34,7 +37,9 @@ impl ServerPlayer {
     /// `Entity.getTeam()`'s name -> `doTeamsAllowDamage(other)` (`team == null || !team.isAlliedTo(otherTeam) || allowFriendlyFire`).
     fn do_teams_allow_damage(&self, level: &ServerLevel, other_scoreboard_name: &str) -> bool {
         let scoreboard = level.scoreboard();
-        let Some(team) = scoreboard.get_players_team(&self.player.game_profile.name) else { return true };
+        let Some(team) = scoreboard.get_players_team(&self.player.game_profile.name) else {
+            return true;
+        };
         let other_team = scoreboard.get_players_team(other_scoreboard_name);
         !team.is_allied_to(other_team) || team.is_allow_friendly_fire()
     }
@@ -53,7 +58,11 @@ impl ServerPlayer {
 }
 
 /// `Player.isInvulnerableTo` + `ServerPlayer.isInvulnerableTo`.
-pub fn is_invulnerable_to(player: &mut ServerPlayer, level: &mut ServerLevel, source: &DamageSource) -> bool {
+pub fn is_invulnerable_to(
+    player: &mut ServerPlayer,
+    level: &mut ServerLevel,
+    source: &DamageSource,
+) -> bool {
     // Player: LivingEntity (base + enchantment immunity), then the game rules
     let player_invulnerable = if damage::is_invulnerable_to(player, level, source) {
         true
@@ -70,11 +79,19 @@ pub fn is_invulnerable_to(player: &mut ServerPlayer, level: &mut ServerLevel, so
     };
     player_invulnerable
         || player.is_changing_dimension() && !source.is(DamageTypes::ENDER_PEARL)
-        || player.listener.as_ref().is_some_and(|l| !l.has_client_loaded())
+        || player
+            .listener
+            .as_ref()
+            .is_some_and(|l| !l.has_client_loaded())
 }
 
 /// `ServerPlayer.hurtServer(level, source, damage)`.
-pub fn hurt_server(player: &mut ServerPlayer, level: &mut ServerLevel, source: &DamageSource, damage: f32) -> bool {
+pub fn hurt_server(
+    player: &mut ServerPlayer,
+    level: &mut ServerLevel,
+    source: &DamageSource,
+    damage: f32,
+) -> bool {
     if player.is_invulnerable_to(level, source) {
         return false;
     }
@@ -89,11 +106,18 @@ pub fn hurt_server(player: &mut ServerPlayer, level: &mut ServerLevel, source: &
 }
 
 /// `Player.hurtServer(level, source, damage)`.
-fn player_hurt_server(player: &mut ServerPlayer, level: &mut ServerLevel, source: &DamageSource, mut damage: f32) -> bool {
+fn player_hurt_server(
+    player: &mut ServerPlayer,
+    level: &mut ServerLevel,
+    source: &DamageSource,
+    mut damage: f32,
+) -> bool {
     if player.is_invulnerable_to(level, source) {
         return false;
     }
-    if player.player.abilities.invulnerable && !source.is_tag(level, DamageTypeTags::BYPASSES_INVULNERABILITY) {
+    if player.player.abilities.invulnerable
+        && !source.is_tag(level, DamageTypeTags::BYPASSES_INVULNERABILITY)
+    {
         return false;
     }
     player.player.living.no_action_time = 0;
@@ -113,11 +137,20 @@ fn player_hurt_server(player: &mut ServerPlayer, level: &mut ServerLevel, source
             damage = damage * 3.0 / 2.0;
         }
     }
-    if damage == 0.0 { false } else { damage::hurt_server(player, level, source, damage) }
+    if damage == 0.0 {
+        false
+    } else {
+        damage::hurt_server(player, level, source, damage)
+    }
 }
 
 /// `Player.actuallyHurt(level, source, dmg)`.
-pub fn actually_hurt(player: &mut ServerPlayer, level: &mut ServerLevel, source: &DamageSource, dmg: f32) {
+pub fn actually_hurt(
+    player: &mut ServerPlayer,
+    level: &mut ServerLevel,
+    source: &DamageSource,
+    dmg: f32,
+) {
     if player.is_invulnerable_to(level, source) {
         return;
     }
@@ -128,7 +161,11 @@ pub fn actually_hurt(player: &mut ServerPlayer, level: &mut ServerLevel, source:
     player.set_absorption_amount(absorption - (dmg - var8));
     let absorbed_damage = dmg - var8;
     if absorbed_damage > 0.0 && absorbed_damage < 3.4028235E37 {
-        player.award_stat(level, Stats::DAMAGE_ABSORBED, mc_core::math::java::round_f32(absorbed_damage * 10.0));
+        player.award_stat(
+            level,
+            Stats::DAMAGE_ABSORBED,
+            mc_core::math::java::round_f32(absorbed_damage * 10.0),
+        );
     }
     if var8 != 0.0 {
         player.cause_food_exhaustion(source.get_food_exhaustion());
@@ -136,18 +173,43 @@ pub fn actually_hurt(player: &mut ServerPlayer, level: &mut ServerLevel, source:
         let health = player.get_health();
         player.player.living.set_health(health - var8);
         if var8 < 3.4028235E37 {
-            player.award_stat(level, Stats::DAMAGE_TAKEN, mc_core::math::java::round_f32(var8 * 10.0));
+            player.award_stat(
+                level,
+                Stats::DAMAGE_TAKEN,
+                mc_core::math::java::round_f32(var8 * 10.0),
+            );
         }
         player.game_event(level, GameEvent::ENTITY_DAMAGE);
     }
 }
 
 /// `Player.hurtArmor` / `hurtHelmet`.
-pub fn hurt_armor(player: &mut ServerPlayer, level: &mut ServerLevel, source: &DamageSource, dmg: f32) {
-    damage::do_hurt_equipment(player, level, source, dmg, &[EquipmentSlot::Feet, EquipmentSlot::Legs, EquipmentSlot::Chest, EquipmentSlot::Head]);
+pub fn hurt_armor(
+    player: &mut ServerPlayer,
+    level: &mut ServerLevel,
+    source: &DamageSource,
+    dmg: f32,
+) {
+    damage::do_hurt_equipment(
+        player,
+        level,
+        source,
+        dmg,
+        &[
+            EquipmentSlot::Feet,
+            EquipmentSlot::Legs,
+            EquipmentSlot::Chest,
+            EquipmentSlot::Head,
+        ],
+    );
 }
 
-pub fn hurt_helmet(player: &mut ServerPlayer, level: &mut ServerLevel, source: &DamageSource, dmg: f32) {
+pub fn hurt_helmet(
+    player: &mut ServerPlayer,
+    level: &mut ServerLevel,
+    source: &DamageSource,
+    dmg: f32,
+) {
     damage::do_hurt_equipment(player, level, source, dmg, &[EquipmentSlot::Head]);
 }
 
@@ -158,26 +220,48 @@ pub fn get_hurt_sound(source: &DamageSource) -> SoundEvent {
 
 /// `ServerPlayer.indicateDamage(xd, zd)`.
 pub fn indicate_damage(player: &mut ServerPlayer, xd: f64, zd: f64) {
-    player.player.hurt_dir = (mth::atan2(zd, xd) * 180.0 / f64::from(std::f32::consts::PI) as f64) as f32 - player.base().y_rot();
-    let packet = ClientboundHurtAnimationPacket { id: player.id(), yaw: player.player.hurt_dir };
+    player.player.hurt_dir = (mth::atan2(zd, xd) * 180.0 / f64::from(std::f32::consts::PI) as f64)
+        as f32
+        - player.base().y_rot();
+    let packet = ClientboundHurtAnimationPacket {
+        id: player.id(),
+        yaw: player.player.hurt_dir,
+    };
     if let Some(connection) = &player.connection {
         connection.send(&packet);
     }
 }
 
 /// `Player.blockUsingItem`: the base behaviour, then the attacker's weapon may disable the shield.
-pub fn block_using_item(player: &mut ServerPlayer, level: &mut ServerLevel, attacker: &DamageEntity, source: &DamageSource, damage: f32, fully_blocked: bool) {
+pub fn block_using_item(
+    player: &mut ServerPlayer,
+    level: &mut ServerLevel,
+    attacker: &DamageEntity,
+    source: &DamageSource,
+    damage: f32,
+    fully_blocked: bool,
+) {
     blocking::block_using_item(player, level, attacker, source, damage, fully_blocked);
     blocking::disable_after_block(player, level, attacker);
 }
 
 /// `Player.causeFallDamage(fallDistance, damageModifier, source)`.
-pub fn cause_fall_damage(player: &mut ServerPlayer, level: &mut ServerLevel, fall_distance: f64, damage_modifier: f32, source: &DamageSource) -> bool {
+pub fn cause_fall_damage(
+    player: &mut ServerPlayer,
+    level: &mut ServerLevel,
+    fall_distance: f64,
+    damage_modifier: f32,
+    source: &DamageSource,
+) -> bool {
     if player.player.abilities.mayfly {
         return false;
     }
     if fall_distance >= 2.0 {
-        player.award_stat(level, Stats::FALL_ONE_CM, mc_core::math::java::round_f64(fall_distance * 100.0) as i32);
+        player.award_stat(
+            level,
+            Stats::FALL_ONE_CM,
+            mc_core::math::java::round_f64(fall_distance * 100.0) as i32,
+        );
     }
     damage::cause_fall_damage(player, level, fall_distance, damage_modifier, source)
 }
@@ -190,7 +274,11 @@ pub fn on_enter_combat(player: &ServerPlayer) {
 }
 
 pub fn on_leave_combat(player: &ServerPlayer) {
-    let duration = player.player.living.combat_tracker.get_combat_duration(player);
+    let duration = player
+        .player
+        .living
+        .combat_tracker
+        .get_combat_duration(player);
     if let Some(connection) = &player.connection {
         connection.send(&ClientboundPlayerCombatEndPacket { duration });
     }
@@ -210,7 +298,10 @@ pub fn drop_equipment(player: &mut ServerPlayer, level: &mut ServerLevel) {
 }
 
 /// `Player.destroyVanishingCursedItems()`.
-fn destroy_vanishing_cursed_items(player: &mut ServerPlayer, level_registries: &crate::registry::RegistryAccess) {
+fn destroy_vanishing_cursed_items(
+    player: &mut ServerPlayer,
+    level_registries: &crate::registry::RegistryAccess,
+) {
     use crate::world::container::Container;
     let size = player.player.inventory.get_container_size();
     for i in 0..size {
@@ -223,11 +314,21 @@ fn destroy_vanishing_cursed_items(player: &mut ServerPlayer, level_registries: &
 
 /// `Player.getBaseExperienceReward(level)`.
 pub fn get_base_experience_reward(player: &ServerPlayer, level: &ServerLevel) -> i32 {
-    if !level.keep_inventory() && !player.is_spectator() { i32::min(player.player.experience_level * 7, 100) } else { 0 }
+    if !level.keep_inventory() && !player.is_spectator() {
+        i32::min(player.player.experience_level * 7, 100)
+    } else {
+        0
+    }
 }
 
 /// `ServerPlayer.awardKillScore(victim, killingBlow)`.
-pub fn award_kill_score(player: &mut ServerPlayer, level: &mut ServerLevel, victim: &DamageEntity, victim_entity: Option<&dyn Entity>, killing_blow: &DamageSource) {
+pub fn award_kill_score(
+    player: &mut ServerPlayer,
+    level: &mut ServerLevel,
+    victim: &DamageEntity,
+    victim_entity: Option<&dyn Entity>,
+    killing_blow: &DamageSource,
+) {
     if victim.id == player.id() {
         return;
     }
@@ -239,9 +340,13 @@ pub fn award_kill_score(player: &mut ServerPlayer, level: &mut ServerLevel, vict
             let _ = score.increment();
         });
         if victim.is_player {
-            scoreboard.for_all_objectives(&ObjectiveCriteria::KILL_COUNT_PLAYERS, &*player, |score| {
-                let _ = score.increment();
-            });
+            scoreboard.for_all_objectives(
+                &ObjectiveCriteria::KILL_COUNT_PLAYERS,
+                &*player,
+                |score| {
+                    let _ = score.increment();
+                },
+            );
         }
     }
     if victim.is_player {
@@ -253,7 +358,8 @@ pub fn award_kill_score(player: &mut ServerPlayer, level: &mut ServerLevel, vict
     handle_team_kill(level, &own_name, &victim.scoreboard_name, true);
     handle_team_kill(level, &victim.scoreboard_name, &own_name, false);
     if let Some(victim_entity) = victim_entity.or_else(|| level.get_entity(victim.id)) {
-        let matches = crate::advancements::triggers::CriteriaTriggers::PLAYER_KILLED_ENTITY.matches(&*level, &*player, victim_entity, killing_blow);
+        let matches = crate::advancements::triggers::CriteriaTriggers::PLAYER_KILLED_ENTITY
+            .matches(&*level, &*player, victim_entity, killing_blow);
         matches.award(level, player);
     }
 }
@@ -264,9 +370,15 @@ fn handle_team_kill(level: &ServerLevel, source: &str, target: &str, team_kill: 
     use crate::world::scores::ObjectiveCriteria;
     use crate::world::scores::score::NameOnlyHolder;
     let mut scoreboard = level.scoreboard_mut();
-    let color = scoreboard.get_players_team(target).and_then(|t| t.get_color());
+    let color = scoreboard
+        .get_players_team(target)
+        .and_then(|t| t.get_color());
     if let Some(color) = color {
-        let criteria = if team_kill { ObjectiveCriteria::team_kill(color) } else { ObjectiveCriteria::killed_by_team(color) };
+        let criteria = if team_kill {
+            ObjectiveCriteria::team_kill(color)
+        } else {
+            ObjectiveCriteria::killed_by_team(color)
+        };
         scoreboard.for_all_objectives(&criteria, &NameOnlyHolder(source.to_owned()), |score| {
             let _ = score.increment();
         });
@@ -274,7 +386,11 @@ fn handle_team_kill(level: &ServerLevel, source: &str, target: &str, team_kill: 
 }
 
 /// `Player.killedEntity(level, victim, source)`: counts the kill, the victim's death proceeds.
-pub fn killed_entity(player: &mut ServerPlayer, level: &mut ServerLevel, victim: &DamageEntity) -> bool {
+pub fn killed_entity(
+    player: &mut ServerPlayer,
+    level: &mut ServerLevel,
+    victim: &DamageEntity,
+) -> bool {
     player.award_stat(level, Stat::Killed(victim.entity_type), 1);
     true
 }
@@ -289,11 +405,17 @@ pub fn die(player: &mut ServerPlayer, level: &mut ServerLevel, source: &DamageSo
         let death_message = tracker.get_death_message(level, player);
         player.player.living.combat_tracker = tracker;
         if let Some(connection) = &player.connection {
-            connection.send(&ClientboundPlayerCombatKillPacket { player_id: player.id(), message: death_message.clone() });
+            connection.send(&ClientboundPlayerCombatKillPacket {
+                player_id: player.id(),
+                message: death_message.clone(),
+            });
         }
         broadcast_death_message(player, level, &death_message);
     } else if let Some(connection) = &player.connection {
-        connection.send(&ClientboundPlayerCombatKillPacket { player_id: player.id(), message: Component::empty() });
+        connection.send(&ClientboundPlayerCombatKillPacket {
+            player_id: player.id(),
+            message: Component::empty(),
+        });
     }
 
     player.remove_entities_on_shoulder(level);
@@ -305,9 +427,13 @@ pub fn die(player: &mut ServerPlayer, level: &mut ServerLevel, source: &DamageSo
     }
     {
         use crate::world::scores::ObjectiveCriteria;
-        level.scoreboard_mut().for_all_objectives(&ObjectiveCriteria::DEATH_COUNT, &*player, |score| {
-            let _ = score.increment();
-        });
+        level.scoreboard_mut().for_all_objectives(
+            &ObjectiveCriteria::DEATH_COUNT,
+            &*player,
+            |score| {
+                let _ = score.increment();
+            },
+        );
     }
     let killer = death::resolve_kill_credit(level, player, Some(source));
     if let Some(killer) = &killer {
@@ -324,7 +450,10 @@ pub fn die(player: &mut ServerPlayer, level: &mut ServerLevel, source: &DamageSo
     player.base_mut().set_ticks_frozen(0);
     player.set_shared_flag_on_fire(false);
     crate::world::entity::living_entity::combat::recheck_status(player, level);
-    player.player.last_death_location = Some(mc_protocol::codec::GlobalPos { dimension: player.dimension.clone(), pos: player.base().block_position() });
+    player.player.last_death_location = Some(mc_protocol::codec::GlobalPos {
+        dimension: player.dimension.clone(),
+        pos: player.base().block_position(),
+    });
     if let Some(listener) = player.listener.as_mut() {
         listener.mark_client_unloaded_after_death();
     }
@@ -355,7 +484,9 @@ fn broadcast_death_message(player: &ServerPlayer, level: &ServerLevel, message: 
         }
         Some(Visibility::HideForOwnTeam) => {
             for h in &handles {
-                if scoreboard.get_players_team(h.name()).map(|t| t.get_name()) != team.map(|t| t.get_name()) {
+                if scoreboard.get_players_team(h.name()).map(|t| t.get_name())
+                    != team.map(|t| t.get_name())
+                {
                     h.send_system_message(message, false);
                 }
             }
@@ -368,9 +499,16 @@ fn broadcast_death_message(player: &ServerPlayer, level: &ServerLevel, message: 
 /// evaluation reads of an attacker (position, flags, attributes, effects, equipment, inventory, abilities, game mode).
 pub fn snapshot_for_damage(player: &ServerPlayer) -> Box<dyn Entity> {
     use crate::world::entity::entity::DATA_SHARED_FLAGS_ID;
-    let mut copy = ServerPlayer::new(player.id(), player.dimension.clone(), player.player.game_profile.clone(), Default::default());
+    let mut copy = ServerPlayer::new(
+        player.id(),
+        player.dimension.clone(),
+        player.player.game_profile.clone(),
+        Default::default(),
+    );
     let (src, dst) = (&player.player, &mut copy.player);
-    dst.inventory.equipment_mut().set_all(src.inventory.equipment());
+    dst.inventory
+        .equipment_mut()
+        .set_all(src.inventory.equipment());
     dst.inventory.replace_with(&src.inventory);
     dst.abilities = src.abilities.clone();
     dst.food_data = src.food_data.clone();
@@ -385,12 +523,22 @@ pub fn snapshot_for_damage(player: &ServerPlayer) -> Box<dyn Entity> {
     dst.living.use_item_remaining = src.living.use_item_remaining;
     dst.living.absorption_amount = src.living.absorption_amount;
     dst.internal_set_absorption_amount(src.get_absorption_amount());
-    let living_flags = src.living.entity.entity_data.get(crate::world::entity::living::DATA_LIVING_ENTITY_FLAGS);
-    dst.living.entity.entity_data.set(crate::world::entity::living::DATA_LIVING_ENTITY_FLAGS, living_flags);
+    let living_flags = src
+        .living
+        .entity
+        .entity_data
+        .get(crate::world::entity::living::DATA_LIVING_ENTITY_FLAGS);
+    dst.living.entity.entity_data.set(
+        crate::world::entity::living::DATA_LIVING_ENTITY_FLAGS,
+        living_flags,
+    );
     dst.living.set_health(src.living.get_health());
     let (se, de) = (&src.living.entity, &mut dst.living.entity);
     de.uuid = se.uuid;
-    de.entity_data.set(DATA_SHARED_FLAGS_ID, se.entity_data.get(DATA_SHARED_FLAGS_ID));
+    de.entity_data.set(
+        DATA_SHARED_FLAGS_ID,
+        se.entity_data.get(DATA_SHARED_FLAGS_ID),
+    );
     de.fall_distance = se.fall_distance;
     de.remaining_fire_ticks = se.remaining_fire_ticks;
     de.tick_count = se.tick_count;

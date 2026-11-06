@@ -28,7 +28,11 @@ pub struct AbstractVillagerData {
 
 impl AbstractVillagerData {
     pub fn new() -> Self {
-        Self { trading_player: None, offers: None, inventory: SimpleContainer::new(8) }
+        Self {
+            trading_player: None,
+            offers: None,
+            inventory: SimpleContainer::new(8),
+        }
     }
 }
 
@@ -57,7 +61,10 @@ pub fn set_unhappy_counter(e: &mut dyn Entity, value: i32) {
 /// `AbstractVillager.addAdditionalSaveData` (after `super`).
 pub fn add_additional_save_data(data: &AbstractVillagerData, out: &mut CompoundTag) {
     if let Some(offers) = &data.offers {
-        if let Some(tag) = mc_dfu::encode_nbt(&MerchantOffers::codec(), offers).into_result().ok() {
+        if let Some(tag) = mc_dfu::encode_nbt(&MerchantOffers::codec(), offers)
+            .into_result()
+            .ok()
+        {
             out.put("Offers", tag);
         }
     }
@@ -66,12 +73,21 @@ pub fn add_additional_save_data(data: &AbstractVillagerData, out: &mut CompoundT
 
 /// `AbstractVillager.readAdditionalSaveData` (after `super`).
 pub fn read_additional_save_data(data: &mut AbstractVillagerData, input: &CompoundTag) {
-    data.offers = input.get("Offers").and_then(|t| mc_dfu::parse_nbt(&MerchantOffers::codec(), t).into_result().ok());
+    data.offers = input.get("Offers").and_then(|t| {
+        mc_dfu::parse_nbt(&MerchantOffers::codec(), t)
+            .into_result()
+            .ok()
+    });
     inventory_carrier::read_inventory_from_tag(&mut data.inventory, input);
 }
 
 /// `addOffersFromTradeSet(level, offers, key)`.
-pub fn add_offers_from_trade_set(level: &ServerLevel, merchant: &dyn Entity, offers: &mut MerchantOffers, key: &Identifier) {
+pub fn add_offers_from_trade_set(
+    level: &ServerLevel,
+    merchant: &dyn Entity,
+    offers: &mut MerchantOffers,
+    key: &Identifier,
+) {
     trading::add_offers_from_trade_set(level, merchant, offers, key);
 }
 

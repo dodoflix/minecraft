@@ -1,14 +1,14 @@
 //! `net.minecraft.world.level.block.BasePressurePlateBlock` and its two subclasses `PressurePlateBlock` (powered
 //! boolean, sensitivity from the `BlockSetType`) and `WeightedPressurePlateBlock` (power from the entity count).
-use mc_game_core::{register_block_class, update_shape};
-use mc_game_core::world::level::block::impls::prelude::*;
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::entity::{Entity, EntityId};
-use mc_game_core::world::level::block::block_set_type::{BlockSetType, PressurePlateSensitivity};
-use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_core::math::mth;
 use mc_core::phys::AABB;
 use mc_data::GameEvent;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::level::block::block_set_type::{BlockSetType, PressurePlateSensitivity};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::world::level::gameevent::GameEventContext;
+use mc_game_core::{register_block_class, update_shape};
 use mc_protocol::packets::play::level::SoundSource;
 
 /// `PressurePlateBlock` (`max_weight == None`) or `WeightedPressurePlateBlock`.
@@ -19,18 +19,31 @@ pub struct BasePressurePlateBlock {
 
 /// `BasePressurePlateBlock.TOUCH_AABB` = `Block.column(14.0, 0.0, 4.0).toAabbs().getFirst()`.
 fn touch_aabb(pos: BlockPos) -> AABB {
-    AABB::new(1.0 / 16.0, 0.0, 1.0 / 16.0, 15.0 / 16.0, 0.25, 15.0 / 16.0).move_(f64::from(pos.x()), f64::from(pos.y()), f64::from(pos.z()))
+    AABB::new(1.0 / 16.0, 0.0, 1.0 / 16.0, 15.0 / 16.0, 0.25, 15.0 / 16.0).move_(
+        f64::from(pos.x()),
+        f64::from(pos.y()),
+        f64::from(pos.z()),
+    )
 }
 
 impl BasePressurePlateBlock {
     pub fn new(block: Block, max_weight: Option<i32>) -> Self {
-        Self { ty: BlockSetType::for_block(block).expect("every pressure plate has a block set type"), max_weight }
+        Self {
+            ty: BlockSetType::for_block(block).expect("every pressure plate has a block set type"),
+            max_weight,
+        }
     }
 
     /// `getSignalForState`.
     fn get_signal_for_state(&self, state: BlockState) -> i32 {
         match self.max_weight {
-            None => if state.get(props::POWERED) { 15 } else { 0 },
+            None => {
+                if state.get(props::POWERED) {
+                    15
+                } else {
+                    0
+                }
+            }
             Some(_) => state.get(props::POWER),
         }
     }
@@ -51,19 +64,45 @@ impl BasePressurePlateBlock {
     /// `getEntityCount(level, TOUCH_AABB.move(pos), entityClass)`: `living_only` selects `LivingEntity.class`.
     /// `inside` is the entity whose `entityInside` is running: it is out of the level's entity storage meanwhile, so it is
     /// counted here (vanilla's query finds it in its section).
-    fn get_entity_count(level: &ServerLevel, pos: BlockPos, living_only: bool, inside: Option<&dyn Entity>) -> i32 {
+    fn get_entity_count(
+        level: &ServerLevel,
+        pos: BlockPos,
+        living_only: bool,
+        inside: Option<&dyn Entity>,
+    ) -> i32 {
         let aabb = touch_aabb(pos);
-        let counts = |e: &dyn Entity| (!living_only || e.living().is_some()) && !e.is_spectator() && !e.is_ignoring_block_triggers();
-        let ids = level.get_entities_of_class(&aabb, |e| !living_only || e.living().is_some(), |e| !e.is_spectator() && !e.is_ignoring_block_triggers());
-        ids.len() as i32 + i32::from(inside.is_some_and(|e| counts(e) && e.get_bounding_box().intersects_aabb(&aabb)))
+        let counts = |e: &dyn Entity| {
+            (!living_only || e.living().is_some())
+                && !e.is_spectator()
+                && !e.is_ignoring_block_triggers()
+        };
+        let ids = level.get_entities_of_class(
+            &aabb,
+            |e| !living_only || e.living().is_some(),
+            |e| !e.is_spectator() && !e.is_ignoring_block_triggers(),
+        );
+        ids.len() as i32
+            + i32::from(
+                inside.is_some_and(|e| counts(e) && e.get_bounding_box().intersects_aabb(&aabb)),
+            )
     }
 
     /// `getSignalStrength`.
-    fn get_signal_strength(&self, level: &ServerLevel, pos: BlockPos, inside: Option<&dyn Entity>) -> i32 {
+    fn get_signal_strength(
+        &self,
+        level: &ServerLevel,
+        pos: BlockPos,
+        inside: Option<&dyn Entity>,
+    ) -> i32 {
         match self.max_weight {
             None => {
-                let living_only = self.ty.pressure_plate_sensitivity == PressurePlateSensitivity::Mobs;
-                if Self::get_entity_count(level, pos, living_only, inside) > 0 { 15 } else { 0 }
+                let living_only =
+                    self.ty.pressure_plate_sensitivity == PressurePlateSensitivity::Mobs;
+                if Self::get_entity_count(level, pos, living_only, inside) > 0 {
+                    15
+                } else {
+                    0
+                }
             }
             Some(max_weight) => {
                 let count = Self::get_entity_count(level, pos, false, inside).min(max_weight);
@@ -78,7 +117,14 @@ impl BasePressurePlateBlock {
     }
 
     /// `checkPressed(sourceEntity, level, pos, state, oldSignal)`.
-    fn check_pressed(&self, inside: Option<&dyn Entity>, level: &mut ServerLevel, pos: BlockPos, state: BlockState, old_signal: i32) {
+    fn check_pressed(
+        &self,
+        inside: Option<&dyn Entity>,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        state: BlockState,
+        old_signal: i32,
+    ) {
         let source_entity: Option<EntityId> = inside.map(|e| e.id());
         let signal = self.get_signal_strength(level, pos, inside);
         let was_pressed = old_signal > 0;
@@ -89,11 +135,33 @@ impl BasePressurePlateBlock {
             self.update_neighbours(level, pos, state.block());
         }
         if !is_pressed && was_pressed {
-            level.play_sound(None, pos, self.ty.pressure_plate_click_off, SoundSource::Blocks, 1.0, 1.0);
-            level.game_event_at_block(GameEvent::BLOCK_DEACTIVATE, pos, &GameEventContext::of_entity(source_entity));
+            level.play_sound(
+                None,
+                pos,
+                self.ty.pressure_plate_click_off,
+                SoundSource::Blocks,
+                1.0,
+                1.0,
+            );
+            level.game_event_at_block(
+                GameEvent::BLOCK_DEACTIVATE,
+                pos,
+                &GameEventContext::of_entity(source_entity),
+            );
         } else if is_pressed && !was_pressed {
-            level.play_sound(None, pos, self.ty.pressure_plate_click_on, SoundSource::Blocks, 1.0, 1.0);
-            level.game_event_at_block(GameEvent::BLOCK_ACTIVATE, pos, &GameEventContext::of_entity(source_entity));
+            level.play_sound(
+                None,
+                pos,
+                self.ty.pressure_plate_click_on,
+                SoundSource::Blocks,
+                1.0,
+                1.0,
+            );
+            level.game_event_at_block(
+                GameEvent::BLOCK_ACTIVATE,
+                pos,
+                &GameEventContext::of_entity(source_entity),
+            );
         }
         if is_pressed {
             level.schedule_tick_block(pos, state.block(), self.get_pressed_time());
@@ -110,11 +178,18 @@ impl BasePressurePlateBlock {
 impl BlockBehaviour for BasePressurePlateBlock {
     fn can_survive(&self, _state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         let below = pos.below();
-        helpers::can_support_rigid_block(level, below) || helpers::can_support_center(level, below, Direction::Up)
+        helpers::can_support_rigid_block(level, below)
+            || helpers::can_support_center(level, below, Direction::Up)
     }
-    update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
-        if direction == Direction::Down && !state.can_survive(&*level, pos) { air() } else { state }
-    });
+    update_shape!(
+        |self, state, level, pos, direction, neighbour_pos, neighbour_state| {
+            if direction == Direction::Down && !state.can_survive(&*level, pos) {
+                air()
+            } else {
+                state
+            }
+        }
+    );
     fn is_possible_to_respawn_in_this(&self, _state: BlockState) -> bool {
         true
     }
@@ -138,21 +213,43 @@ impl BlockBehaviour for BasePressurePlateBlock {
             self.check_pressed(Some(&*entity), level, pos, state, signal);
         }
     }
-    fn affect_neighbors_after_removal(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, moved_by_piston: bool) {
+    fn affect_neighbors_after_removal(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        moved_by_piston: bool,
+    ) {
         if !moved_by_piston && self.get_signal_for_state(state) > 0 {
             self.update_neighbours(level, pos, state.block());
         }
     }
-    fn get_direct_signal(&self, state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos, direction: Direction) -> i32 {
-        if direction == Direction::Up { self.get_signal_for_state(state) } else { 0 }
+    fn get_direct_signal(
+        &self,
+        state: BlockState,
+        _level: &dyn BlockGetter,
+        _pos: BlockPos,
+        direction: Direction,
+    ) -> i32 {
+        if direction == Direction::Up {
+            self.get_signal_for_state(state)
+        } else {
+            0
+        }
     }
     fn own_signal(&self, state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos) -> i32 {
         self.get_signal_for_state(state)
     }
 }
 
-register_block_class!("PressurePlateBlock", |block| Box::new(BasePressurePlateBlock::new(block, None)));
+register_block_class!("PressurePlateBlock", |block| Box::new(
+    BasePressurePlateBlock::new(block, None)
+));
 register_block_class!("WeightedPressurePlateBlock", |block| {
-    let max_weight = if block.data().name == "minecraft:light_weighted_pressure_plate" { 15 } else { 150 };
+    let max_weight = if block.data().name == "minecraft:light_weighted_pressure_plate" {
+        15
+    } else {
+        150
+    };
     Box::new(BasePressurePlateBlock::new(block, Some(max_weight)))
 });

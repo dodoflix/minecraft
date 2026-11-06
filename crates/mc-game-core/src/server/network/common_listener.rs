@@ -130,7 +130,11 @@ mod tests {
     fn listener(now: i64) -> ServerCommonListener {
         ServerCommonListener::new(
             &CommonListenerCookie {
-                profile: GameProfile { id: uuid::Uuid::nil(), name: "t".into(), properties: vec![] },
+                profile: GameProfile {
+                    id: uuid::Uuid::nil(),
+                    name: "t".into(),
+                    properties: vec![],
+                },
                 latency: 0,
                 client_information: ClientInformation::default(),
                 transferred: false,

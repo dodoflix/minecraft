@@ -21,5 +21,7 @@ impl<T: StateTestingPredicate> BlockPredicate for T {
 
 /// `stateTestingCodec`: `Vec3i.offsetCodec(16).optionalFieldOf("offset", Vec3i.ZERO)`.
 pub fn state_testing_codec(fields: &Fields<'_>) -> LoadResult<Vec3i> {
-    Ok(fields.optional("offset", |v| parse_vec3i_offset(v, 16))?.unwrap_or(Vec3i::ZERO))
+    Ok(fields
+        .optional("offset", |v| parse_vec3i_offset(v, 16))?
+        .unwrap_or(Vec3i::ZERO))
 }

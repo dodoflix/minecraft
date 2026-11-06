@@ -28,7 +28,12 @@ pub static ENTITY_FACTORIES: [EntityRegistration];
 
 fn factories() -> &'static HashMap<EntityType, &'static EntityRegistration> {
     static MAP: OnceLock<HashMap<EntityType, &'static EntityRegistration>> = OnceLock::new();
-    MAP.get_or_init(|| ENTITY_FACTORIES.iter().map(|r| (r.entity_type, r)).collect())
+    MAP.get_or_init(|| {
+        ENTITY_FACTORIES
+            .iter()
+            .map(|r| (r.entity_type, r))
+            .collect()
+    })
 }
 
 /// `EntitySpawnRequest`.
@@ -44,7 +49,11 @@ pub fn has_factory(ty: EntityType) -> bool {
 }
 
 /// `EntityType.create(level, request)`: `None` when the factory returns null (the player type) or the spawn checks fail.
-pub fn create(ty: EntityType, level: &ServerLevel, request: EntitySpawnRequest) -> Option<Box<dyn Entity>> {
+pub fn create(
+    ty: EntityType,
+    level: &ServerLevel,
+    request: EntitySpawnRequest,
+) -> Option<Box<dyn Entity>> {
     if ty == EntityType::PLAYER {
         return None; // `EntityType.PLAYER` is `createNothing`
     }
@@ -56,7 +65,11 @@ pub fn create(ty: EntityType, level: &ServerLevel, request: EntitySpawnRequest) 
 
 /// `factory.create(type, level)` with an explicit entity id and the registries: usable without a `ServerLevel`
 /// (worldgen worker threads); no spawn checks.
-pub fn instantiate(ty: EntityType, id: EntityId, registries: &crate::registry::RegistryAccess) -> Box<dyn Entity> {
+pub fn instantiate(
+    ty: EntityType,
+    id: EntityId,
+    registries: &crate::registry::RegistryAccess,
+) -> Box<dyn Entity> {
     match factories().get(&ty) {
         Some(reg) => (reg.create)(ty, id, registries),
         None => Box::new(PlainEntity::new(ty, id)),
@@ -75,9 +88,16 @@ pub type LoadedEntities = Vec<Box<dyn Entity>>;
 
 /// `EntityType.create(input, level, request)` + `load`: `None` (logged) when the id is unknown / not creatable /
 /// the tag is invalid.
-pub fn create_and_load(tag: &CompoundTag, level: &ServerLevel, request: EntitySpawnRequest) -> Option<Box<dyn Entity>> {
+pub fn create_and_load(
+    tag: &CompoundTag,
+    level: &ServerLevel,
+    request: EntitySpawnRequest,
+) -> Option<Box<dyn Entity>> {
     let Some(ty) = by(tag) else {
-        log::warn!("Skipping Entity with id {}", tag.get_string("id").unwrap_or("[invalid]"));
+        log::warn!(
+            "Skipping Entity with id {}",
+            tag.get_string("id").unwrap_or("[invalid]")
+        );
         return None;
     };
     let mut entity = create(ty, level, request)?;
@@ -95,12 +115,23 @@ pub fn create_and_load(tag: &CompoundTag, level: &ServerLevel, request: EntitySp
 
 /// `EntityType.loadEntityRecursive(tag, level, request, postLoad)` with the flattening `postLoad` of
 /// `loadEntitiesRecursive`: root first, then its passengers (each followed by theirs).
-pub fn load_entity_recursive(tag: &CompoundTag, level: &ServerLevel, request: EntitySpawnRequest, out: &mut LoadedEntities) {
-    let Some(entity) = create_and_load(tag, level, request) else { return };
+pub fn load_entity_recursive(
+    tag: &CompoundTag,
+    level: &ServerLevel,
+    request: EntitySpawnRequest,
+    out: &mut LoadedEntities,
+) {
+    let Some(entity) = create_and_load(tag, level, request) else {
+        return;
+    };
     let root_index = out.len();
     let root_id = entity.id();
     out.push(entity);
-    for passenger_tag in tag.get_list_or_empty("Passengers").iter().filter_map(|t| t.as_compound()) {
+    for passenger_tag in tag
+        .get_list_or_empty("Passengers")
+        .iter()
+        .filter_map(|t| t.as_compound())
+    {
         let start = out.len();
         load_entity_recursive(passenger_tag, level, request, out);
         if out.len() > start {
@@ -114,7 +145,10 @@ pub fn load_entity_recursive(tag: &CompoundTag, level: &ServerLevel, request: En
 
 /// `addPassenger`: players boarding a player-less vehicle go first (server side).
 fn add_passenger_link(out: &mut LoadedEntities, vehicle_index: usize, passenger_id: EntityId) {
-    let passenger_is_player = out.iter().find(|e| e.id() == passenger_id).is_some_and(|e| e.is_player());
+    let passenger_is_player = out
+        .iter()
+        .find(|e| e.id() == passenger_id)
+        .is_some_and(|e| e.is_player());
     let first_is_player = out[vehicle_index]
         .base()
         .passengers
@@ -130,8 +164,15 @@ fn add_passenger_link(out: &mut LoadedEntities, vehicle_index: usize, passenger_
 }
 
 /// `EntityType.loadEntitiesRecursive(entities, level, reason)`: all entities of a chunk's entity list, flattened.
-pub fn load_entities_recursive(tags: &[CompoundTag], level: &ServerLevel, reason: EntitySpawnReason) -> LoadedEntities {
-    let request = EntitySpawnRequest { reason, ignore_checks: false };
+pub fn load_entities_recursive(
+    tags: &[CompoundTag],
+    level: &ServerLevel,
+    reason: EntitySpawnReason,
+) -> LoadedEntities {
+    let request = EntitySpawnRequest {
+        reason,
+        ignore_checks: false,
+    };
     let mut out = Vec::new();
     for tag in tags {
         load_entity_recursive(tag, level, request, &mut out);

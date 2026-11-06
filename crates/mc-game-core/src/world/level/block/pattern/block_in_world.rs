@@ -15,12 +15,18 @@ pub struct BlockInWorld {
 
 impl BlockInWorld {
     pub fn new(pos: BlockPos, load_chunks: bool) -> Self {
-        BlockInWorld { pos, load_chunks, state: None }
+        BlockInWorld {
+            pos,
+            load_chunks,
+            state: None,
+        }
     }
 
     /// `getState()`: `None` (vanilla `null`) when the chunk is not loaded and loading is not requested.
     pub fn get_state(&mut self, level: &dyn LevelReader) -> Option<BlockState> {
-        if self.state.is_none() && (self.load_chunks || level.has_chunk(self.pos.x() >> 4, self.pos.z() >> 4)) {
+        if self.state.is_none()
+            && (self.load_chunks || level.has_chunk(self.pos.x() >> 4, self.pos.z() >> 4))
+        {
             self.state = Some(level.get_block_state(self.pos));
         }
         self.state

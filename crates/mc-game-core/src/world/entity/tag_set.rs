@@ -18,7 +18,10 @@ fn spread(s: &str) -> u32 {
 
 impl JavaStringSet {
     pub fn new() -> Self {
-        Self { items: Vec::new(), capacity: 16 }
+        Self {
+            items: Vec::new(),
+            capacity: 16,
+        }
     }
 
     pub fn len(&self) -> usize {
@@ -65,7 +68,11 @@ impl JavaStringSet {
     /// Iteration order of the Java set.
     pub fn iter_java_order(&self) -> Vec<&str> {
         let cap = self.capacity.max(16) as u32;
-        let mut v: Vec<(u32, &str)> = self.items.iter().map(|s| (spread(s) & (cap - 1), s.as_str())).collect();
+        let mut v: Vec<(u32, &str)> = self
+            .items
+            .iter()
+            .map(|s| (spread(s) & (cap - 1), s.as_str()))
+            .collect();
         v.sort_by_key(|(bucket, _)| *bucket); // stable: insertion order inside a bucket
         v.into_iter().map(|(_, s)| s).collect()
     }

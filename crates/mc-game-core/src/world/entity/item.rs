@@ -6,12 +6,11 @@ use super::factory::{ENTITY_FACTORIES, EntityRegistration};
 use super::{EntityId, MoverType, movement};
 use crate::define_accessor;
 use crate::server::level::ServerLevel;
-use crate::world::entity::ServerPlayer;
 use crate::world::damagesource::DamageSource;
-use crate::world::level::{BlockGetter, LevelAccessor};
-use mc_data::GameEvent;
-use crate::world::level::block::BlockStateExt;
+use crate::world::entity::ServerPlayer;
 use crate::world::item::{ItemStack, ItemStackExt, load_item_stack};
+use crate::world::level::block::BlockStateExt;
+use crate::world::level::{BlockGetter, LevelAccessor};
 use linkme::distributed_slice;
 use mc_core::direction::{Axis, Direction};
 use mc_core::math::mth;
@@ -19,6 +18,7 @@ use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::EntityType;
+use mc_data::GameEvent;
 use mc_data::block::BlockState;
 use mc_nbt::{CompoundTag, Tag};
 use std::any::Any;
@@ -54,7 +54,16 @@ impl ItemEntity {
         let bob_offs = base.random.next_float() * std::f32::consts::PI * 2.0;
         let yaw = base.random.next_float() * 360.0;
         base.set_y_rot(yaw);
-        Self { base, age: 0, pickup_delay: 0, health: DEFAULT_HEALTH, thrower: None, target: None, bob_offs, fire_immune_item: false }
+        Self {
+            base,
+            age: 0,
+            pickup_delay: 0,
+            health: DEFAULT_HEALTH,
+            thrower: None,
+            target: None,
+            bob_offs,
+            fire_immune_item: false,
+        }
     }
 
     /// `ItemEntity(level, x, y, z, itemStack)`: random horizontal motion.
@@ -69,7 +78,16 @@ impl ItemEntity {
     }
 
     /// `ItemEntity(level, x, y, z, itemStack, dx, dy, dz)`.
-    pub fn with_stack_and_motion(level: &ServerLevel, x: f64, y: f64, z: f64, stack: ItemStack, dx: f64, dy: f64, dz: f64) -> Self {
+    pub fn with_stack_and_motion(
+        level: &ServerLevel,
+        x: f64,
+        y: f64,
+        z: f64,
+        stack: ItemStack,
+        dx: f64,
+        dy: f64,
+        dz: f64,
+    ) -> Self {
         let mut e = Self::new(EntityType::ITEM, level.next_entity_id());
         e.set_pos(x, y, z);
         e.set_item(stack);
@@ -142,12 +160,24 @@ impl ItemEntity {
 
     fn is_mergable(&self) -> bool {
         let item = self.get_item();
-        self.is_alive() && self.pickup_delay != INFINITE_PICKUP_DELAY && self.age != INFINITE_LIFETIME && self.age < LIFETIME && item.count() < item.get_max_stack_size()
+        self.is_alive()
+            && self.pickup_delay != INFINITE_PICKUP_DELAY
+            && self.age != INFINITE_LIFETIME
+            && self.age < LIFETIME
+            && item.count() < item.get_max_stack_size()
     }
 
     fn set_fluid_movement(&mut self, multiplier: f64) {
         let m = self.base.delta_movement();
-        self.base.set_delta_movement_xyz(m.x * multiplier, m.y + if m.y < f64::from(0.06f32) { f64::from(5.0E-4f32) } else { 0.0 }, m.z * multiplier);
+        self.base.set_delta_movement_xyz(
+            m.x * multiplier,
+            m.y + if m.y < f64::from(0.06f32) {
+                f64::from(5.0E-4f32)
+            } else {
+                0.0
+            },
+            m.z * multiplier,
+        );
     }
 
     /// `mergeWithNeighbours()`.
@@ -156,7 +186,15 @@ impl ItemEntity {
             return;
         }
         let area = self.base.bounding_box().inflate(0.5, 0.0, 0.5);
-        let ids = level.get_entities_of_class(&area, |e| e.as_any().is::<ItemEntity>(), |e| e.as_any().downcast_ref::<ItemEntity>().is_some_and(ItemEntity::is_mergable));
+        let ids = level.get_entities_of_class(
+            &area,
+            |e| e.as_any().is::<ItemEntity>(),
+            |e| {
+                e.as_any()
+                    .downcast_ref::<ItemEntity>()
+                    .is_some_and(ItemEntity::is_mergable)
+            },
+        );
         for id in ids {
             level.with_entity(id, |_, other| {
                 if let Some(other) = other.as_any_mut().downcast_mut::<ItemEntity>() {
@@ -195,14 +233,20 @@ pub fn are_mergable(this_stack: &ItemStack, other_stack: &ItemStack) -> bool {
 
 /// `ItemEntity.merge(toStack, fromStack, maxCount)`.
 pub fn merge_stacks(to_stack: &ItemStack, from_stack: &mut ItemStack, max_count: i32) -> ItemStack {
-    let delta = (to_stack.get_max_stack_size().min(max_count) - to_stack.count()).min(from_stack.count());
+    let delta =
+        (to_stack.get_max_stack_size().min(max_count) - to_stack.count()).min(from_stack.count());
     let new_to = to_stack.copy_with_count(to_stack.count() + delta);
     from_stack.shrink(delta);
     new_to
 }
 
 /// `ItemEntity.merge(toItem, toStack, fromItem, fromStack)`.
-fn merge_entities(to: &mut ItemEntity, to_stack: ItemStack, from: &mut ItemEntity, mut from_stack: ItemStack) {
+fn merge_entities(
+    to: &mut ItemEntity,
+    to_stack: ItemStack,
+    from: &mut ItemEntity,
+    mut from_stack: ItemStack,
+) {
     let new_to = merge_stacks(&to_stack, &mut from_stack, 64);
     to.set_item(new_to);
     to.pickup_delay = to.pickup_delay.max(from.pickup_delay);
@@ -215,12 +259,18 @@ fn merge_entities(to: &mut ItemEntity, to_stack: ItemStack, from: &mut ItemEntit
 }
 
 /// `Entity.spawnAtLocation(level, itemStack, offset)`: a default-pickup-delay item entity at the entity's position.
-pub fn spawn_at_location(level: &mut ServerLevel, at: &dyn Entity, stack: ItemStack, offset: Vec3) -> Option<EntityId> {
+pub fn spawn_at_location(
+    level: &mut ServerLevel,
+    at: &dyn Entity,
+    stack: ItemStack,
+    offset: Vec3,
+) -> Option<EntityId> {
     if stack.is_empty() {
         return None;
     }
     let p = at.base().position();
-    let mut entity = ItemEntity::with_stack(level, p.x + offset.x, p.y + offset.y, p.z + offset.z, stack);
+    let mut entity =
+        ItemEntity::with_stack(level, p.x + offset.x, p.y + offset.y, p.z + offset.z, stack);
     entity.set_default_pick_up_delay();
     let id = entity.base.id;
     level.add_fresh_entity(Box::new(entity));
@@ -304,13 +354,21 @@ impl Entity for ItemEntity {
             self.apply_gravity();
         }
         let area = self.base.bounding_box().deflate_scalar(1.0E-7);
-        self.base.no_physics = !crate::world::level::collision::CollisionGetter::no_collision(level, Some(self.base.id), Some(&movement::collision_context(self)), &area);
+        self.base.no_physics = !crate::world::level::collision::CollisionGetter::no_collision(
+            level,
+            Some(self.base.id),
+            Some(&movement::collision_context(self)),
+            &area,
+        );
         if self.base.no_physics {
             let bb = self.base.bounding_box();
             move_towards_closest_space(self, level, pos.x, (bb.min_y + bb.max_y) / 2.0, pos.z);
         }
         let hdist = self.base.delta_movement().horizontal_distance_sqr();
-        if self.base.on_ground() && !(hdist > f64::from(1.0E-5f32)) && (self.base.tick_count.wrapping_add(self.base.id)) % 4 != 0 {
+        if self.base.on_ground()
+            && !(hdist > f64::from(1.0E-5f32))
+            && (self.base.tick_count.wrapping_add(self.base.id)) % 4 != 0
+        {
             self.apply_effects_from_blocks_for_last_movements(level);
         } else {
             let dm = self.base.delta_movement();
@@ -323,7 +381,11 @@ impl Entity for ItemEntity {
                 ground_friction = air_drag * level.get_block_state(below).block().data().friction;
             }
             let m = self.base.delta_movement();
-            self.base.set_delta_movement(m.multiply_xyz(f64::from(ground_friction), f64::from(air_drag), f64::from(ground_friction)));
+            self.base.set_delta_movement(m.multiply_xyz(
+                f64::from(ground_friction),
+                f64::from(air_drag),
+                f64::from(ground_friction),
+            ));
             if self.base.on_ground() {
                 let m = self.base.delta_movement();
                 if m.y < 0.0 {
@@ -332,7 +394,9 @@ impl Entity for ItemEntity {
             }
         }
         let p = self.base.position();
-        let moved = mth::floor_f64(self.base.xo) != mth::floor_f64(p.x) || mth::floor_f64(self.base.yo) != mth::floor_f64(p.y) || mth::floor_f64(self.base.zo) != mth::floor_f64(p.z);
+        let moved = mth::floor_f64(self.base.xo) != mth::floor_f64(p.x)
+            || mth::floor_f64(self.base.yo) != mth::floor_f64(p.y)
+            || mth::floor_f64(self.base.zo) != mth::floor_f64(p.z);
         let rate = if moved { 2 } else { 40 };
         if self.base.tick_count % rate == 0 && self.is_mergable() {
             self.merge_with_neighbours(level);
@@ -342,7 +406,11 @@ impl Entity for ItemEntity {
         }
         let in_fluid = self.update_fluid_interaction(level);
         self.base.needs_sync |= in_fluid;
-        let diff = self.base.delta_movement().subtract(old_movement).length_sqr();
+        let diff = self
+            .base
+            .delta_movement()
+            .subtract(old_movement)
+            .length_sqr();
         if diff > 0.01 {
             self.base.needs_sync = true;
         }
@@ -356,7 +424,11 @@ impl Entity for ItemEntity {
         if self.is_invulnerable_to_base(level, source) {
             return false;
         }
-        if !level.mob_griefing() && source.causing_info().is_some_and(|c| is_mob(c.entity_type, c.is_living, c.is_player)) {
+        if !level.mob_griefing()
+            && source
+                .causing_info()
+                .is_some_and(|c| is_mob(c.entity_type, c.is_living, c.is_player))
+        {
             return false;
         }
         let mut stack = self.get_item();
@@ -381,7 +453,10 @@ impl Entity for ItemEntity {
         let item = stack.item();
         let org_count = stack.count();
         let infinite = player.player.abilities.instabuild;
-        if self.pickup_delay == 0 && self.target.is_none_or(|t| t == player.uuid()) && player.player.inventory.add(&mut stack, infinite) {
+        if self.pickup_delay == 0
+            && self.target.is_none_or(|t| t == player.uuid())
+            && player.player.inventory.add(&mut stack, infinite)
+        {
             self.set_item_in_place(stack.clone());
             player.take(level, self, org_count);
             if stack.is_empty() {
@@ -399,7 +474,10 @@ impl Entity for ItemEntity {
         out.put_short("Age", self.age as i16);
         out.put_short("PickupDelay", self.pickup_delay as i16);
         if let Some(t) = self.thrower {
-            out.put_int_array("Thrower", mc_core::uuid_util::uuid_to_int_array(&t).to_vec());
+            out.put_int_array(
+                "Thrower",
+                mc_core::uuid_util::uuid_to_int_array(&t).to_vec(),
+            );
         }
         if let Some(t) = self.target {
             out.put_int_array("Owner", mc_core::uuid_util::uuid_to_int_array(&t).to_vec());
@@ -418,7 +496,10 @@ impl Entity for ItemEntity {
         self.pickup_delay = i32::from(input.get_short_or("PickupDelay", 0));
         self.target = entity::read_uuid(input.get("Owner"));
         self.thrower = entity::read_uuid(input.get("Thrower"));
-        let item = input.get_compound("Item").and_then(load_item_stack).unwrap_or_else(ItemStack::empty);
+        let item = input
+            .get_compound("Item")
+            .and_then(load_item_stack)
+            .unwrap_or_else(ItemStack::empty);
         self.set_item(item);
         if self.get_item().is_empty() {
             self.discard();
@@ -432,19 +513,39 @@ fn is_mob(ty: EntityType, is_living: bool, is_player: bool) -> bool {
 }
 
 /// `Entity.moveTowardsClosestSpace(x, y, z)`.
-pub fn move_towards_closest_space(entity: &mut dyn Entity, level: &ServerLevel, x: f64, y: f64, z: f64) {
-    
-use crate::world::level::{BlockGetter, LevelAccessor};
+pub fn move_towards_closest_space(
+    entity: &mut dyn Entity,
+    level: &ServerLevel,
+    x: f64,
+    y: f64,
+    z: f64,
+) {
+    use crate::world::level::{BlockGetter, LevelAccessor};
     let pos = BlockPos::containing(x, y, z);
-    let delta = Vec3::new(x - f64::from(pos.x()), y - f64::from(pos.y()), z - f64::from(pos.z()));
+    let delta = Vec3::new(
+        x - f64::from(pos.x()),
+        y - f64::from(pos.y()),
+        z - f64::from(pos.z()),
+    );
     let mut closest_direction = Direction::Up;
     let mut closest = f64::MAX;
-    for direction in [Direction::North, Direction::South, Direction::West, Direction::East, Direction::Up] {
+    for direction in [
+        Direction::North,
+        Direction::South,
+        Direction::West,
+        Direction::East,
+        Direction::Up,
+    ] {
         let neighbor = pos.relative(direction);
         let state: BlockState = level.get_block_state(neighbor);
         if !state.is_collision_shape_full_block_at(level, neighbor) {
             let d = delta.get(direction.get_axis());
-            let oriented = if direction.get_axis_direction() == mc_core::direction::AxisDirection::Positive { 1.0 - d } else { d };
+            let oriented =
+                if direction.get_axis_direction() == mc_core::direction::AxisDirection::Positive {
+                    1.0 - d
+                } else {
+                    d
+                };
             if oriented < closest {
                 closest = oriented;
                 closest_direction = direction;
@@ -456,9 +557,15 @@ use crate::world::level::{BlockGetter, LevelAccessor};
     let scaled = entity.base().delta_movement().scale(0.75);
     let (s, _speed) = (f64::from(step * speed), ());
     match closest_direction.get_axis() {
-        Axis::X => entity.base_mut().set_delta_movement_xyz(s, scaled.y, scaled.z),
-        Axis::Y => entity.base_mut().set_delta_movement_xyz(scaled.x, s, scaled.z),
-        Axis::Z => entity.base_mut().set_delta_movement_xyz(scaled.x, scaled.y, s),
+        Axis::X => entity
+            .base_mut()
+            .set_delta_movement_xyz(s, scaled.y, scaled.z),
+        Axis::Y => entity
+            .base_mut()
+            .set_delta_movement_xyz(scaled.x, s, scaled.z),
+        Axis::Z => entity
+            .base_mut()
+            .set_delta_movement_xyz(scaled.x, scaled.y, s),
     }
 }
 
@@ -480,16 +587,32 @@ mod tests {
     #[test]
     fn item_entity_nbt_round_trip_and_factory() {
         let level = level();
-        let mut e = ItemEntity::with_stack(&level, 1.5, 70.0, -2.5, ItemStack::with_count(Item::DIAMOND, 5));
+        let mut e = ItemEntity::with_stack(
+            &level,
+            1.5,
+            70.0,
+            -2.5,
+            ItemStack::with_count(Item::DIAMOND, 5),
+        );
         e.age = 12;
         e.pickup_delay = 7;
         e.target = Some(Uuid::from_u128(9));
         let none = |_| None;
         let tag = entity::save(&e, &none).unwrap();
         assert_eq!(tag.get_string("id"), Some("minecraft:item"));
-        let loaded = crate::world::entity::factory::load_entities_recursive(std::slice::from_ref(&tag), &level, mc_data::enums::EntitySpawnReason::Load);
-        let back = loaded[0].as_any().downcast_ref::<ItemEntity>().expect("ItemEntity factory");
-        assert_eq!((back.age, back.pickup_delay, back.target), (12, 7, Some(Uuid::from_u128(9))));
+        let loaded = crate::world::entity::factory::load_entities_recursive(
+            std::slice::from_ref(&tag),
+            &level,
+            mc_data::enums::EntitySpawnReason::Load,
+        );
+        let back = loaded[0]
+            .as_any()
+            .downcast_ref::<ItemEntity>()
+            .expect("ItemEntity factory");
+        assert_eq!(
+            (back.age, back.pickup_delay, back.target),
+            (12, 7, Some(Uuid::from_u128(9)))
+        );
         assert_eq!(back.get_item().count(), 5);
         assert_eq!(entity::save(back, &none).unwrap(), tag);
     }
@@ -497,8 +620,20 @@ mod tests {
     #[test]
     fn merging_moves_items_into_the_larger_stack() {
         let level = level();
-        let mut a = ItemEntity::with_stack(&level, 0.0, 70.0, 0.0, ItemStack::with_count(Item::DIAMOND, 10));
-        let mut b = ItemEntity::with_stack(&level, 0.0, 70.0, 0.0, ItemStack::with_count(Item::DIAMOND, 3));
+        let mut a = ItemEntity::with_stack(
+            &level,
+            0.0,
+            70.0,
+            0.0,
+            ItemStack::with_count(Item::DIAMOND, 10),
+        );
+        let mut b = ItemEntity::with_stack(
+            &level,
+            0.0,
+            70.0,
+            0.0,
+            ItemStack::with_count(Item::DIAMOND, 3),
+        );
         a.age = 5;
         b.age = 2;
         a.try_to_merge(&mut b);
@@ -510,10 +645,35 @@ mod tests {
     #[test]
     fn pickup_adds_to_inventory_and_discards() {
         let mut level = level();
-        let mut player = ServerPlayer::new(1, mc_core::ident::Identifier::parse("minecraft:overworld").unwrap(), mc_protocol::codec::GameProfile { id: Uuid::from_u128(1), name: "P".into(), properties: vec![] }, Default::default());
-        let mut e = ItemEntity::with_stack(&level, 0.0, 70.0, 0.0, ItemStack::with_count(Item::DIAMOND, 4));
+        let mut player = ServerPlayer::new(
+            1,
+            mc_core::ident::Identifier::parse("minecraft:overworld").unwrap(),
+            mc_protocol::codec::GameProfile {
+                id: Uuid::from_u128(1),
+                name: "P".into(),
+                properties: vec![],
+            },
+            Default::default(),
+        );
+        let mut e = ItemEntity::with_stack(
+            &level,
+            0.0,
+            70.0,
+            0.0,
+            ItemStack::with_count(Item::DIAMOND, 4),
+        );
         e.player_touch(&mut level, &mut player);
         assert!(e.is_removed());
-        assert_eq!(player.player.inventory.get_selected_item().count() + (1..9).map(|i| crate::world::container::Container::get_item(&player.player.inventory, i).count()).sum::<i32>(), 4);
+        assert_eq!(
+            player.player.inventory.get_selected_item().count()
+                + (1..9)
+                    .map(|i| crate::world::container::Container::get_item(
+                        &player.player.inventory,
+                        i
+                    )
+                    .count())
+                    .sum::<i32>(),
+            4
+        );
     }
 }

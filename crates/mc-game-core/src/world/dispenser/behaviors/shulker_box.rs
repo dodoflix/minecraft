@@ -1,6 +1,8 @@
 //! `ShulkerBoxDispenseBehavior`: places the block in front (`BlockItem.place` with a `DirectionalPlaceContext`).
 
-use crate::world::dispenser::{BlockSource, DispenseTemplate, OptionalState, Templated, play_optional_sound};
+use crate::world::dispenser::{
+    BlockSource, DispenseTemplate, OptionalState, Templated, play_optional_sound,
+};
 use crate::world::item::{BlockItem, BlockPlaceContext, ItemStack};
 use crate::world::level::LevelReader;
 use mc_core::direction::Direction;
@@ -16,8 +18,13 @@ impl DispenseTemplate for ShulkerBoxDispense {
         }
         let facing = source.facing();
         let relative_pos = source.pos.relative(facing);
-        let clicked_face = if source.level.is_empty_block(relative_pos.below()) { facing } else { Direction::Up };
-        let mut context = BlockPlaceContext::directional(relative_pos, facing, dispensed, clicked_face);
+        let clicked_face = if source.level.is_empty_block(relative_pos.below()) {
+            facing
+        } else {
+            Direction::Up
+        };
+        let mut context =
+            BlockPlaceContext::directional(relative_pos, facing, dispensed, clicked_face);
         let result = BlockItem::for_item(item).place(&mut context, source.level, None);
         self.0.set_success(result.consumes_action());
         context.use_on.item_stack

@@ -5,17 +5,19 @@
 //! `setPage` -> `signalPageChange`); the container methods here only queue those effects in order, and the menu
 //! resolver runs them through [`BlockEntity::container_accessed`] right after the container operation.
 
-use mc_game_core::block_entity_base;
-use mc_game_core::world::block_entity::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, set_changed};
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::container::{Container, empty_stack, still_valid_block_entity};
-use mc_game_core::world::inventory::{ContainerData, MenuPlayer};
-use mc_game_core::world::item::ItemStack;
 use linkme::distributed_slice;
 use mc_core::math::mth;
 use mc_core::pos::BlockPos;
 use mc_data::BlockEntityType;
 use mc_data::block::BlockState;
+use mc_game_core::block_entity_base;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::block_entity::{
+    BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, set_changed,
+};
+use mc_game_core::world::container::{Container, empty_stack, still_valid_block_entity};
+use mc_game_core::world::inventory::{ContainerData, MenuPlayer};
+use mc_game_core::world::item::ItemStack;
 use mc_nbt::CompoundTag;
 use mc_protocol::components::{WRITABLE_BOOK_CONTENT, WRITTEN_BOOK_CONTENT};
 use std::any::Any;
@@ -57,7 +59,13 @@ fn get_page_count(book: &ItemStack) -> i32 {
 
 impl LecternBlockEntity {
     pub fn new(pos: BlockPos, state: BlockState) -> Self {
-        Self { base: BlockEntityData::new(BlockEntityType::LECTERN, pos, state), book: ItemStack::empty(), page: 0, page_count: 0, pending: Vec::new() }
+        Self {
+            base: BlockEntityData::new(BlockEntityType::LECTERN, pos, state),
+            book: ItemStack::empty(),
+            page: 0,
+            page_count: 0,
+            pending: Vec::new(),
+        }
     }
 
     /// `getBook()`.
@@ -67,7 +75,8 @@ impl LecternBlockEntity {
 
     /// `hasBook()`.
     pub fn has_book(&self) -> bool {
-        self.book.get(&WRITABLE_BOOK_CONTENT).is_some() || self.book.get(&WRITTEN_BOOK_CONTENT).is_some()
+        self.book.get(&WRITABLE_BOOK_CONTENT).is_some()
+            || self.book.get(&WRITTEN_BOOK_CONTENT).is_some()
     }
 
     /// `setBook(book)` (the caller resolves written-book components first, see `LecternBlock::place_book`).
@@ -82,13 +91,18 @@ impl LecternBlockEntity {
     /// a game-master source at the lectern. Vanilla only does it for a block entity that has a level; here the server
     /// must be installed (`enter_server`), which block use from a player packet guarantees, while chunk loading (no
     /// level yet in vanilla either) does not resolve.
-    pub fn resolve_book(&self, level: &ServerLevel, player: Option<&mc_game_core::world::entity::ServerPlayer>, book: &mut ItemStack) {
+    pub fn resolve_book(
+        &self,
+        level: &ServerLevel,
+        player: Option<&mc_game_core::world::entity::ServerPlayer>,
+        book: &mut ItemStack,
+    ) {
+        use mc_core::phys::{Vec2, Vec3};
         use mc_game_core::commands::command_source::null_source;
         use mc_game_core::commands::command_source_stack::{CommandEntity, CommandSourceStack};
         use mc_game_core::commands::component_utils::ResolutionContext;
         use mc_game_core::server::permissions::{LevelBasedPermissionSet, PermissionSet};
         use mc_game_core::world::entity::Entity;
-        use mc_core::phys::{Vec2, Vec3};
         if !mc_game_core::commands::server_access::has_server() {
             return;
         }
@@ -111,7 +125,14 @@ impl LecternBlockEntity {
                     player: player.handle.clone(),
                 },
             ),
-            None => CommandSourceStack::named(null_source(), position, Vec2::ZERO, level.dimension.clone(), permissions, mc_text::Component::literal("Lectern")),
+            None => CommandSourceStack::named(
+                null_source(),
+                position,
+                Vec2::ZERO,
+                level.dimension.clone(),
+                permissions,
+                mc_text::Component::literal("Lectern"),
+            ),
         };
         mc_game_core::world::item::resolve_for_item(book, &ResolutionContext::create(&source));
     }
@@ -123,7 +144,11 @@ impl LecternBlockEntity {
 
     /// `getRedstoneSignal()`.
     pub fn get_redstone_signal(&self) -> i32 {
-        let page_progress = if self.page_count > 1 { self.page as f32 / (self.page_count as f32 - 1.0) } else { 1.0 };
+        let page_progress = if self.page_count > 1 {
+            self.page as f32 / (self.page_count as f32 - 1.0)
+        } else {
+            1.0
+        };
         mth::floor_f32(page_progress * 14.0) + i32::from(self.has_book())
     }
 
@@ -148,7 +173,10 @@ impl BlockEntity for LecternBlockEntity {
     block_entity_base!();
 
     fn load_additional(&mut self, tag: &CompoundTag) {
-        self.book = tag.get("Book").and_then(|t| ItemStack::from_tag(t).result()).unwrap_or_default();
+        self.book = tag
+            .get("Book")
+            .and_then(|t| ItemStack::from_tag(t).result())
+            .unwrap_or_default();
         self.page_count = get_page_count(&self.book);
         self.page = mth::clamp_i32(tag.get_int_or("Page", 0), 0, self.page_count - 1);
     }
@@ -185,7 +213,9 @@ impl BlockEntity for LecternBlockEntity {
     }
 
     fn container_accessed(&mut self, level: &mut ServerLevel) {
-        use crate::world::level::block::impls::lectern_block::{reset_book_state, signal_page_change};
+        use crate::world::level::block::impls::lectern_block::{
+            reset_book_state, signal_page_change,
+        };
         let (pos, state) = (self.base.pos, self.base.block_state);
         for effect in std::mem::take(&mut self.pending) {
             match effect {
@@ -197,7 +227,12 @@ impl BlockEntity for LecternBlockEntity {
     }
 
     /// `preRemoveSideEffects`: a lectern with a book drops it in front of the lectern.
-    fn pre_remove_side_effects(&mut self, level: &mut ServerLevel, pos: BlockPos, state: BlockState) {
+    fn pre_remove_side_effects(
+        &mut self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        state: BlockState,
+    ) {
         use crate::world::level::block::impls::lectern_block::drop_book;
         drop_book(level, pos, state, &self.book);
     }
@@ -217,7 +252,11 @@ impl Container for LecternBlockEntity {
         self.book.is_empty()
     }
     fn get_item(&self, slot: usize) -> &ItemStack {
-        if slot == SLOT_BOOK { &self.book } else { empty_stack() }
+        if slot == SLOT_BOOK {
+            &self.book
+        } else {
+            empty_stack()
+        }
     }
     fn get_item_mut(&mut self, slot: usize) -> Option<&mut ItemStack> {
         (slot == SLOT_BOOK).then_some(&mut self.book)
@@ -272,4 +311,7 @@ impl ContainerData for LecternBlockEntity {
 }
 
 #[distributed_slice(BLOCK_ENTITY_TYPES)]
-static LECTERN: BlockEntityRegistration = BlockEntityRegistration { ty: BlockEntityType::LECTERN, create: |pos, state| Box::new(LecternBlockEntity::new(pos, state)) };
+static LECTERN: BlockEntityRegistration = BlockEntityRegistration {
+    ty: BlockEntityType::LECTERN,
+    create: |pos, state| Box::new(LecternBlockEntity::new(pos, state)),
+};

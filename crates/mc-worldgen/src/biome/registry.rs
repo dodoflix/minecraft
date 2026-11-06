@@ -13,7 +13,9 @@ use mc_data::block::BlockState;
 use mc_world::palette::BiomeId;
 
 use crate::data::{LoadError, WorldgenDataSource, WorldgenRegistries};
-use crate::densityfunction::codec::{Fields, LoadResult, parse_bool, parse_f32, parse_identifier, parse_list, parse_str};
+use crate::densityfunction::codec::{
+    Fields, LoadResult, parse_bool, parse_f32, parse_identifier, parse_list, parse_str,
+};
 use crate::synth::{Noise, NoiseStack, SimplexNoise};
 
 /// The registry folder of biomes.
@@ -23,7 +25,10 @@ const PLACED_FEATURE_TAG_DIR: &str = "worldgen/placed_feature";
 const BIOME_TAG_DIR: &str = "worldgen/biome";
 
 static TEMPERATURE_NOISE: LazyLock<SimplexNoise> = LazyLock::new(|| {
-    SimplexNoise::new(&mut WorldgenRandom::new(Box::new(LegacyRandomSource::new(1234))), true)
+    SimplexNoise::new(
+        &mut WorldgenRandom::new(Box::new(LegacyRandomSource::new(1234))),
+        true,
+    )
 });
 
 /// `Biome.FROZEN_TEMPERATURE_NOISE`.
@@ -41,7 +46,10 @@ pub static FROZEN_TEMPERATURE_NOISE: LazyLock<NoiseStack> = LazyLock::new(|| {
 
 /// `Biome.BIOME_INFO_NOISE`.
 pub static BIOME_INFO_NOISE: LazyLock<SimplexNoise> = LazyLock::new(|| {
-    SimplexNoise::new(&mut WorldgenRandom::new(Box::new(LegacyRandomSource::new(2345))), true)
+    SimplexNoise::new(
+        &mut WorldgenRandom::new(Box::new(LegacyRandomSource::new(2345))),
+        true,
+    )
 });
 
 /// `Biome.TemperatureModifier`.
@@ -77,10 +85,12 @@ impl TemperatureModifier {
                 let z = f64::from(pos.z());
                 let ground_value_large_variation =
                     f64::from(FROZEN_TEMPERATURE_NOISE.get2(x * 0.05, z * 0.05) * 7.0f32);
-                let ground_value_edge_variation = f64::from(BIOME_INFO_NOISE.get2(x * 0.2, z * 0.2));
+                let ground_value_edge_variation =
+                    f64::from(BIOME_INFO_NOISE.get2(x * 0.2, z * 0.2));
                 let ice_patches = ground_value_large_variation + ground_value_edge_variation;
                 if ice_patches < 0.3 {
-                    let ground_value_small_variation = f64::from(BIOME_INFO_NOISE.get2(x * 0.09, z * 0.09));
+                    let ground_value_small_variation =
+                        f64::from(BIOME_INFO_NOISE.get2(x * 0.09, z * 0.09));
                     if ground_value_small_variation < 0.8 {
                         return 0.2;
                     }
@@ -144,7 +154,10 @@ pub struct BiomeGenerationSettings {
 
 impl BiomeGenerationSettings {
     /// `BiomeGenerationSettings.EMPTY` is `BiomeGenerationSettings::default()`.
-    pub fn new(carvers: Vec<Identifier>, features: Vec<Vec<PlacedFeatureRef>>) -> BiomeGenerationSettings {
+    pub fn new(
+        carvers: Vec<Identifier>,
+        features: Vec<Vec<PlacedFeatureRef>>,
+    ) -> BiomeGenerationSettings {
         BiomeGenerationSettings { carvers, features }
     }
 
@@ -161,7 +174,9 @@ impl BiomeGenerationSettings {
     /// The `RegistryOps` element lookups of an inline biome: every referenced carver and placed feature must exist.
     fn check_references(&self, source: &dyn WorldgenDataSource) -> LoadResult<()> {
         let missing = |registry: &str, id: &Identifier| {
-            LoadError::new(format!("Failed to get element {id} from registry minecraft:{registry}"))
+            LoadError::new(format!(
+                "Failed to get element {id} from registry minecraft:{registry}"
+            ))
         };
         for carver in &self.carvers {
             if source.get(CARVER_TAG_DIR, carver).is_none() {
@@ -201,8 +216,9 @@ fn holder_set_names(value: &Value, tag_dir: &str) -> LoadResult<Vec<Identifier>>
         Value::String(s) => {
             if let Some(tag) = s.strip_prefix('#') {
                 let tag = Identifier::read(tag).map_err(LoadError::new)?;
-                let names = mc_data::tags::names(tag_dir, &tag.to_string())
-                    .ok_or_else(|| LoadError::new(format!("Missing tag: '{tag}' in 'minecraft:{tag_dir}'")))?;
+                let names = mc_data::tags::names(tag_dir, &tag.to_string()).ok_or_else(|| {
+                    LoadError::new(format!("Missing tag: '{tag}' in 'minecraft:{tag_dir}'"))
+                })?;
                 names
                     .iter()
                     .map(|n| Identifier::read(n).map_err(LoadError::new))
@@ -213,7 +229,9 @@ fn holder_set_names(value: &Value, tag_dir: &str) -> LoadResult<Vec<Identifier>>
         }
         Value::Array(_) => parse_list(value, |e| match e {
             Value::String(_) => parse_identifier(e),
-            _ => Err(LoadError::new("inline registry entries are not supported here")),
+            _ => Err(LoadError::new(
+                "inline registry entries are not supported here",
+            )),
         }),
         _ => Err(LoadError::new("expected id, tag or list")),
     }
@@ -288,8 +306,7 @@ impl Biome {
                 f64::from(pos.x() as f32 / 8.0f32),
                 f64::from(pos.z() as f32 / 8.0f32),
             ) * 8.0f32;
-            adjusted_temperature
-                - (v + pos.y() as f32 - snow_level as f32) * 0.05f32 / 40.0f32
+            adjusted_temperature - (v + pos.y() as f32 - snow_level as f32) * 0.05f32 / 40.0f32
         } else {
             adjusted_temperature
         }
@@ -362,7 +379,9 @@ pub struct BiomeRegistry {
 
 impl std::fmt::Debug for BiomeRegistry {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.debug_struct("BiomeRegistry").field("keys", &self.keys).finish()
+        f.debug_struct("BiomeRegistry")
+            .field("keys", &self.keys)
+            .finish()
     }
 }
 
@@ -373,9 +392,9 @@ impl BiomeRegistry {
         keys.sort_by_key(|key| key.to_string());
         let mut biomes = Vec::with_capacity(keys.len());
         for key in &keys {
-            let json = registries
-                .raw(BIOME_REGISTRY, key)
-                .ok_or_else(|| LoadError::new("no such registry entry").in_entry(BIOME_REGISTRY, key))?;
+            let json = registries.raw(BIOME_REGISTRY, key).ok_or_else(|| {
+                LoadError::new("no such registry entry").in_entry(BIOME_REGISTRY, key)
+            })?;
             biomes.push(Biome::from_json(&json).map_err(|e| e.in_entry(BIOME_REGISTRY, key))?);
         }
         let ids = keys
@@ -383,7 +402,12 @@ impl BiomeRegistry {
             .enumerate()
             .map(|(i, key)| (key.clone(), BiomeId(i as u32)))
             .collect();
-        Ok(BiomeRegistry { biomes, keys, ids, source: registries.source().clone() })
+        Ok(BiomeRegistry {
+            biomes,
+            keys,
+            ids,
+            source: registries.source().clone(),
+        })
     }
 
     pub fn len(&self) -> usize {
@@ -412,12 +436,20 @@ impl BiomeRegistry {
     /// `getKey(biome)`; an inline biome has no key and reports a name no registry entry has. Panics on an id outside
     /// the registry.
     pub fn key(&self, id: BiomeId) -> &Identifier {
-        if Self::is_inline(id) { &INLINE_BIOME_KEY } else { &self.keys[id.0 as usize] }
+        if Self::is_inline(id) {
+            &INLINE_BIOME_KEY
+        } else {
+            &self.keys[id.0 as usize]
+        }
     }
 
     /// `byId(id)`. Panics on an id outside the registry.
     pub fn get(&self, id: BiomeId) -> &Biome {
-        if Self::is_inline(id) { inline_biome(id) } else { &self.biomes[id.0 as usize] }
+        if Self::is_inline(id) {
+            inline_biome(id)
+        } else {
+            &self.biomes[id.0 as usize]
+        }
     }
 
     /// All ids in registry order.
@@ -447,8 +479,12 @@ impl BiomeRegistry {
         match value {
             Value::String(s) if s.starts_with('#') => {
                 let tag = Identifier::read(&s[1..]).map_err(LoadError::new)?;
-                let names = mc_data::tags::names(BIOME_TAG_DIR, &tag.to_string())
-                    .ok_or_else(|| LoadError::new(format!("Missing tag: '{tag}' in 'minecraft:worldgen/biome'")))?;
+                let names =
+                    mc_data::tags::names(BIOME_TAG_DIR, &tag.to_string()).ok_or_else(|| {
+                        LoadError::new(format!(
+                            "Missing tag: '{tag}' in 'minecraft:worldgen/biome'"
+                        ))
+                    })?;
                 names
                     .iter()
                     .map(|n| {

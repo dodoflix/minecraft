@@ -26,11 +26,21 @@ impl Swim {
 }
 
 impl Behavior for Swim {
-    fn check_extra_start_conditions(&mut self, _level: &mut ServerLevel, body: &mut dyn Entity) -> bool {
-        body.get_fluid_height(self.fluid) > body.base().get_fluid_jump_threshold() || body.is_in_lava()
+    fn check_extra_start_conditions(
+        &mut self,
+        _level: &mut ServerLevel,
+        body: &mut dyn Entity,
+    ) -> bool {
+        body.get_fluid_height(self.fluid) > body.base().get_fluid_jump_threshold()
+            || body.is_in_lava()
     }
 
-    fn can_still_use(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, _timestamp: i64) -> bool {
+    fn can_still_use(
+        &mut self,
+        level: &mut ServerLevel,
+        body: &mut dyn Entity,
+        _timestamp: i64,
+    ) -> bool {
         self.check_extra_start_conditions(level, body)
     }
 

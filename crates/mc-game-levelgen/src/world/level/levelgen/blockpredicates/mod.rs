@@ -34,12 +34,12 @@ pub mod volume_match_predicate;
 
 pub mod would_survive_predicate;
 
-use mc_game_core::world::level::levelgen::blockpredicates::BlockPredicate;
-use mc_game_core::world::level::levelgen::codec::{BlockSet, FluidSet};
 use mc_core::direction::Direction;
 use mc_core::pos::Vec3i;
 use mc_data::block::Block;
 use mc_data::fluid::Fluid;
+use mc_game_core::world::level::levelgen::blockpredicates::BlockPredicate;
+use mc_game_core::world::level::levelgen::codec::{BlockSet, FluidSet};
 use mc_worldgen::vertical_anchor::VerticalAnchor;
 use std::sync::Arc;
 
@@ -55,7 +55,10 @@ pub fn any_of(predicates: Vec<Arc<dyn BlockPredicate>>) -> Arc<dyn BlockPredicat
 
 /// `matchesBlocks(offset, blocks)`.
 pub fn matches_blocks(offset: Vec3i, blocks: Vec<Block>) -> Arc<dyn BlockPredicate> {
-    Arc::new(matching_blocks_predicate::MatchingBlocksPredicate::new(offset, BlockSet::Blocks(blocks)))
+    Arc::new(matching_blocks_predicate::MatchingBlocksPredicate::new(
+        offset,
+        BlockSet::Blocks(blocks),
+    ))
 }
 
 /// `matchesTag(offset, tag)` (`tag`: `minecraft:air`).
@@ -65,7 +68,10 @@ pub fn matches_tag(offset: Vec3i, tag: &str) -> Arc<dyn BlockPredicate> {
 
 /// `matchesFluids(offset, fluids)`.
 pub fn matches_fluids(offset: Vec3i, fluids: Vec<Fluid>) -> Arc<dyn BlockPredicate> {
-    Arc::new(matching_fluids_predicate::MatchingFluidsPredicate::new(offset, FluidSet::Fluids(fluids)))
+    Arc::new(matching_fluids_predicate::MatchingFluidsPredicate::new(
+        offset,
+        FluidSet::Fluids(fluids),
+    ))
 }
 
 /// `not(predicate)`.
@@ -75,12 +81,17 @@ pub fn not(predicate: Arc<dyn BlockPredicate>) -> Arc<dyn BlockPredicate> {
 
 /// `replaceable()`.
 pub fn replaceable() -> Arc<dyn BlockPredicate> {
-    Arc::new(replaceable_predicate::ReplaceablePredicate { offset: Vec3i::ZERO })
+    Arc::new(replaceable_predicate::ReplaceablePredicate {
+        offset: Vec3i::ZERO,
+    })
 }
 
 /// `wouldSurvive(block)`.
 pub fn would_survive(block: Block) -> Arc<dyn BlockPredicate> {
-    Arc::new(would_survive_predicate::WouldSurvivePredicate { offset: Vec3i::ZERO, state: block.default_state() })
+    Arc::new(would_survive_predicate::WouldSurvivePredicate {
+        offset: Vec3i::ZERO,
+        state: block.default_state(),
+    })
 }
 
 /// `hasSturdyFace(offset, direction)`.
@@ -110,16 +121,28 @@ pub fn always_true() -> Arc<dyn BlockPredicate> {
 
 /// `unobstructed()`.
 pub fn unobstructed() -> Arc<dyn BlockPredicate> {
-    Arc::new(unobstructed_predicate::UnobstructedPredicate { offset: Vec3i::ZERO })
+    Arc::new(unobstructed_predicate::UnobstructedPredicate {
+        offset: Vec3i::ZERO,
+    })
 }
 
 /// `heightRange(minInclusive, maxInclusive)`.
-pub fn height_range(min_inclusive: VerticalAnchor, max_inclusive: VerticalAnchor) -> Arc<dyn BlockPredicate> {
-    Arc::new(height_range_predicate::HeightRangePredicate { min_inclusive, max_inclusive })
+pub fn height_range(
+    min_inclusive: VerticalAnchor,
+    max_inclusive: VerticalAnchor,
+) -> Arc<dyn BlockPredicate> {
+    Arc::new(height_range_predicate::HeightRangePredicate {
+        min_inclusive,
+        max_inclusive,
+    })
 }
 
 /// `volumeMatch(min, max, match)`.
-pub fn volume_match(min: Vec3i, max: Vec3i, match_: Arc<dyn BlockPredicate>) -> Arc<dyn BlockPredicate> {
+pub fn volume_match(
+    min: Vec3i,
+    max: Vec3i,
+    match_: Arc<dyn BlockPredicate>,
+) -> Arc<dyn BlockPredicate> {
     Arc::new(volume_match_predicate::VolumeMatchPredicate { min, max, match_ })
 }
 
@@ -130,5 +153,8 @@ pub fn only_in_air_predicate() -> Arc<dyn BlockPredicate> {
 
 /// `ONLY_IN_AIR_OR_WATER_PREDICATE` = `anyOf(ONLY_IN_AIR_PREDICATE, matchesBlocks(Blocks.WATER))`.
 pub fn only_in_air_or_water_predicate() -> Arc<dyn BlockPredicate> {
-    any_of(vec![only_in_air_predicate(), matches_blocks(Vec3i::ZERO, vec![Block::WATER])])
+    any_of(vec![
+        only_in_air_predicate(),
+        matches_blocks(Vec3i::ZERO, vec![Block::WATER]),
+    ])
 }

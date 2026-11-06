@@ -14,7 +14,11 @@ impl BlockBehaviour for BaseTorchBlock {
         _neighbour_pos: BlockPos,
         _neighbour_state: BlockState,
     ) -> BlockState {
-        if direction_to_neighbour == Direction::Down && !self.can_survive(state, &*level, pos) { air() } else { state }
+        if direction_to_neighbour == Direction::Down && !self.can_survive(state, &*level, pos) {
+            air()
+        } else {
+            state
+        }
     }
     fn can_survive(&self, _state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         helpers::can_support_center(level, pos.below(), Direction::Up)

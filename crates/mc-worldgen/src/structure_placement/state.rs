@@ -54,7 +54,16 @@ impl ChunkGeneratorStructureState {
         structure_biomes: &dyn Fn(&Identifier) -> Vec<BiomeId>,
     ) -> ChunkGeneratorStructureState {
         let sets = registry.iter().cloned().collect::<Vec<_>>();
-        Self::new(random_state, biome_source, registry, level_seed, origin, level_seed, sets, structure_biomes)
+        Self::new(
+            random_state,
+            biome_source,
+            registry,
+            level_seed,
+            origin,
+            level_seed,
+            sets,
+            structure_biomes,
+        )
     }
 
     /// `createForFlat(randomState, levelSeed, origin, biomeSource, structureOverrides)`: `structure_overrides` are
@@ -69,7 +78,16 @@ impl ChunkGeneratorStructureState {
         structure_biomes: &dyn Fn(&Identifier) -> Vec<BiomeId>,
     ) -> ChunkGeneratorStructureState {
         let sets = structure_overrides.into_iter().collect::<Vec<_>>();
-        Self::new(random_state, biome_source, registry, level_seed, origin, 0, sets, structure_biomes)
+        Self::new(
+            random_state,
+            biome_source,
+            registry,
+            level_seed,
+            origin,
+            0,
+            sets,
+            structure_biomes,
+        )
     }
 
     #[allow(clippy::too_many_arguments)]
@@ -83,7 +101,8 @@ impl ChunkGeneratorStructureState {
         candidate_sets: Vec<StructureSetHolder>,
         structure_biomes: &dyn Fn(&Identifier) -> Vec<BiomeId>,
     ) -> ChunkGeneratorStructureState {
-        let possible_biomes: HashSet<BiomeId> = biome_source.possible_biomes().iter().copied().collect();
+        let possible_biomes: HashSet<BiomeId> =
+            biome_source.possible_biomes().iter().copied().collect();
         let mut possible_structure_sets = Vec::new();
         let mut placeable_structures = Vec::new();
         for set in candidate_sets {
@@ -91,7 +110,11 @@ impl ChunkGeneratorStructureState {
             let placeable: Vec<Identifier> = set
                 .structures
                 .iter()
-                .filter(|entry| structure_biomes(&entry.structure).iter().any(|b| possible_biomes.contains(b)))
+                .filter(|entry| {
+                    structure_biomes(&entry.structure)
+                        .iter()
+                        .any(|b| possible_biomes.contains(b))
+                })
                 .map(|entry| entry.structure.clone())
                 .collect();
             if !placeable.is_empty() {
@@ -150,23 +173,37 @@ impl ChunkGeneratorStructureState {
 
     fn generated(&self) -> &Generated {
         self.generated.get_or_init(|| {
-            let mut placements_for_structure: HashMap<Identifier, Vec<StructureSetHolder>> = HashMap::new();
+            let mut placements_for_structure: HashMap<Identifier, Vec<StructureSetHolder>> =
+                HashMap::new();
             let mut ring_positions = HashMap::new();
-            for (set, placeable) in self.possible_structure_sets.iter().zip(&self.placeable_structures) {
+            for (set, placeable) in self
+                .possible_structure_sets
+                .iter()
+                .zip(&self.placeable_structures)
+            {
                 for structure in placeable {
-                    placements_for_structure.entry(structure.clone()).or_default().push(set.clone());
+                    placements_for_structure
+                        .entry(structure.clone())
+                        .or_default()
+                        .push(set.clone());
                 }
                 if let StructurePlacement::ConcentricRings(rings) = &set.placement {
                     ring_positions.insert(ring_key(rings), self.generate_ring_positions(rings));
                 }
             }
-            Generated { placements_for_structure, ring_positions }
+            Generated {
+                placements_for_structure,
+                ring_positions,
+            }
         })
     }
 
     /// `generateRingPositions(structureSet, placement)`: the exact RNG sequence, then one biome search per ring
     /// position (each has its own forked random, so concurrent searches give the same results).
-    fn generate_ring_positions(&self, placement: &ConcentricRingsStructurePlacement) -> Vec<ChunkPos> {
+    fn generate_ring_positions(
+        &self,
+        placement: &ConcentricRingsStructurePlacement,
+    ) -> Vec<ChunkPos> {
         if placement.count == 0 {
             return Vec::new();
         }
@@ -180,8 +217,11 @@ impl ChunkGeneratorStructureState {
 
         let mut searches = Vec::with_capacity(count as usize);
         for i in 0..count {
-            let ring_distance = 4i32.wrapping_mul(distance).wrapping_add(distance.wrapping_mul(circle).wrapping_mul(6));
-            let dist = f64::from(ring_distance) + (random.next_double() - 0.5) * (f64::from(distance) * 2.5);
+            let ring_distance = 4i32
+                .wrapping_mul(distance)
+                .wrapping_add(distance.wrapping_mul(circle).wrapping_mul(6));
+            let dist = f64::from(ring_distance)
+                + (random.next_double() - 0.5) * (f64::from(distance) * 2.5);
             let initial_x = round_f64(angle.cos() * dist) as i32;
             let initial_z = round_f64(angle.sin() * dist) as i32;
             // `random.fork()` of a `LegacyRandomSource`
@@ -216,7 +256,9 @@ impl ChunkGeneratorStructureState {
             }
         };
         // Vanilla runs the searches on its background executor; so do we, in order-preserving chunks.
-        let threads = std::thread::available_parallelism().map_or(1, |n| n.get()).min(searches.len());
+        let threads = std::thread::available_parallelism()
+            .map_or(1, |n| n.get())
+            .min(searches.len());
         let chunk_size = searches.len().div_ceil(threads);
         std::thread::scope(|scope| {
             let workers: Vec<_> = searches
@@ -225,25 +267,44 @@ impl ChunkGeneratorStructureState {
                 .collect();
             workers
                 .into_iter()
-                .flat_map(|worker| worker.join().unwrap_or_else(|panic| std::panic::resume_unwind(panic)))
+                .flat_map(|worker| {
+                    worker
+                        .join()
+                        .unwrap_or_else(|panic| std::panic::resume_unwind(panic))
+                })
                 .collect()
         })
     }
 
     /// `getRingPositionsFor(placement)`: `None` unless `placement` is (by identity) the placement of a possible set
     /// of this state.
-    pub fn get_ring_positions_for(&self, placement: &ConcentricRingsStructurePlacement) -> Option<&[ChunkPos]> {
-        self.generated().ring_positions.get(&ring_key(placement)).map(Vec::as_slice)
+    pub fn get_ring_positions_for(
+        &self,
+        placement: &ConcentricRingsStructurePlacement,
+    ) -> Option<&[ChunkPos]> {
+        self.generated()
+            .ring_positions
+            .get(&ring_key(placement))
+            .map(Vec::as_slice)
     }
 
     /// `getPlacementsForStructure(structure)`: the possible sets whose placement places the structure (a set is
     /// listed once per entry naming the structure).
     pub fn get_placements_for_structure(&self, structure: &Identifier) -> &[StructureSetHolder] {
-        self.generated().placements_for_structure.get(structure).map_or(&[], Vec::as_slice)
+        self.generated()
+            .placements_for_structure
+            .get(structure)
+            .map_or(&[], Vec::as_slice)
     }
 
     /// `hasStructureChunkInRange(structureSet, sourceX, sourceZ, range)`.
-    pub fn has_structure_chunk_in_range(&self, structure_set: &StructureSet, source_x: i32, source_z: i32, range: i32) -> bool {
+    pub fn has_structure_chunk_in_range(
+        &self,
+        structure_set: &StructureSet,
+        source_x: i32,
+        source_z: i32,
+        range: i32,
+    ) -> bool {
         let placement = &structure_set.placement;
         for test_x in source_x.wrapping_sub(range)..=source_x.wrapping_add(range) {
             for test_z in source_z.wrapping_sub(range)..=source_z.wrapping_add(range) {
@@ -256,8 +317,15 @@ impl ChunkGeneratorStructureState {
     }
 
     /// `structureSet.placement().isStructureChunk(state, x, z)`.
-    pub fn is_structure_chunk(&self, structure_set: &StructureSet, source_x: i32, source_z: i32) -> bool {
-        structure_set.placement.is_structure_chunk(self, source_x, source_z)
+    pub fn is_structure_chunk(
+        &self,
+        structure_set: &StructureSet,
+        source_x: i32,
+        source_z: i32,
+    ) -> bool {
+        structure_set
+            .placement
+            .is_structure_chunk(self, source_x, source_z)
     }
 }
 

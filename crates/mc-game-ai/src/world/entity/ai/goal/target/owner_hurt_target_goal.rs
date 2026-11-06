@@ -1,7 +1,7 @@
 //! `OwnerHurtTargetGoal`: a tamed animal attacks whatever its owner attacked.
 
-use mc_game_core::world::entity::ai::goal::target::target_goal::TargetGoal;
 use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ai::goal::target::target_goal::TargetGoal;
 use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags};
 use mc_game_core::world::entity::ai::targeting::default_conditions;
 use mc_game_core::world::entity::mob::tamable;
@@ -15,7 +15,11 @@ pub struct OwnerHurtTargetGoal {
 
 impl OwnerHurtTargetGoal {
     pub fn new() -> Self {
-        Self { target_goal: TargetGoal::new(false, false), owner_last_hurt: None, timestamp: 0 }
+        Self {
+            target_goal: TargetGoal::new(false, false),
+            owner_last_hurt: None,
+            timestamp: 0,
+        }
     }
 }
 
@@ -24,13 +28,25 @@ impl Goal for OwnerHurtTargetGoal {
         if !tamable::is_tame(tame_animal) || tamable::is_ordered_to_sit(tame_animal) {
             return false;
         }
-        let Some(owner_id) = tamable::get_owner(tame_animal, level) else { return false };
-        let Some(owner) = level.get_entity(owner_id) else { return false };
+        let Some(owner_id) = tamable::get_owner(tame_animal, level) else {
+            return false;
+        };
+        let Some(owner) = level.get_entity(owner_id) else {
+            return false;
+        };
         self.owner_last_hurt = owner.living().and_then(|l| l.last_hurt_mob);
         let ts = owner.living().map_or(0, |l| l.last_hurt_mob_timestamp);
         ts != self.timestamp
-            && self.target_goal.can_attack(tame_animal, level, self.owner_last_hurt, &default_conditions())
-            && match (self.owner_last_hurt.and_then(|t| level.get_entity(t)), level.get_entity(owner_id)) {
+            && self.target_goal.can_attack(
+                tame_animal,
+                level,
+                self.owner_last_hurt,
+                &default_conditions(),
+            )
+            && match (
+                self.owner_last_hurt.and_then(|t| level.get_entity(t)),
+                level.get_entity(owner_id),
+            ) {
                 (Some(target), Some(owner)) => tame_animal.wants_to_attack(level, target, owner),
                 _ => false,
             }

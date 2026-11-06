@@ -14,14 +14,15 @@ pub struct ChangeDimensionTriggerInstance {
 
 impl TriggerInstance for ChangeDimensionTriggerInstance {
     fn codec() -> Codec<Self> {
-        static C: std::sync::LazyLock<Codec<ChangeDimensionTriggerInstance>> = std::sync::LazyLock::new(|| {
-            mc_dfu::record!(ChangeDimensionTriggerInstance {
-                player: condition_holder_codec().optional_field_of("player"),
-                from: IDENTIFIER.optional_field_of("from"),
-                to: IDENTIFIER.optional_field_of("to"),
-            })
-            .codec()
-        });
+        static C: std::sync::LazyLock<Codec<ChangeDimensionTriggerInstance>> =
+            std::sync::LazyLock::new(|| {
+                mc_dfu::record!(ChangeDimensionTriggerInstance {
+                    player: condition_holder_codec().optional_field_of("player"),
+                    from: IDENTIFIER.optional_field_of("from"),
+                    to: IDENTIFIER.optional_field_of("to"),
+                })
+                .codec()
+            });
         C.clone()
     }
 }
@@ -50,7 +51,13 @@ impl ChangeDimensionTriggerInstance {
 
 impl Trigger<ChangeDimensionTriggerInstance> {
     /// `trigger(player, from, to)` (dimension keys).
-    pub fn trigger(&self, level: &mut ServerLevel, player: &mut ServerPlayer, from: &Identifier, to: &Identifier) {
+    pub fn trigger(
+        &self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        from: &Identifier,
+        to: &Identifier,
+    ) {
         self.trigger_with(level, player, |t| t.matches(from, to));
     }
 }

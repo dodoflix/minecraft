@@ -8,7 +8,9 @@ use std::io::Read;
 
 use mc_core::ident::Identifier;
 use mc_game::world::item::crafting::*;
-use mc_protocol::packets::play::inventory::{ClientboundRecipeBookAddPacket, RecipeBookType, RecipeDisplayId};
+use mc_protocol::packets::play::inventory::{
+    ClientboundRecipeBookAddPacket, RecipeBookType, RecipeDisplayId,
+};
 use mc_protocol::{Decode, Encode};
 use mc_world::level_storage::WorldDataConfiguration;
 
@@ -19,14 +21,17 @@ fn hex<T: Encode>(value: &T) -> String {
 }
 
 fn unhex(s: &str) -> Vec<u8> {
-    (0..s.len() / 2).map(|i| u8::from_str_radix(&s[2 * i..2 * i + 2], 16).unwrap()).collect()
+    (0..s.len() / 2)
+        .map(|i| u8::from_str_radix(&s[2 * i..2 * i + 2], 16).unwrap())
+        .collect()
 }
 
 /// The `recipe_book_add` of the initial book lists the known recipes in an unspecified (identity hash) order: sort by display id.
 fn normalized_add(hex_text: &str) -> String {
     let mut bytes = unhex(hex_text).as_slice().to_vec();
     let mut input: &[u8] = &bytes;
-    let mut packet = ClientboundRecipeBookAddPacket::decode(&mut input).expect("decodable add packet");
+    let mut packet =
+        ClientboundRecipeBookAddPacket::decode(&mut input).expect("decodable add packet");
     packet.entries.sort_by_key(|e| e.contents.id.index);
     bytes.clear();
     hex(&packet)
@@ -42,12 +47,27 @@ fn sorted_ids<'a>(ids: impl Iterator<Item = &'a Identifier>) -> String {
 fn recipe_book_matches_vanilla() {
     let _s = common::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
     let dir = tempfile::tempdir().unwrap();
-    let (_, stem) = common::load_world(&dir.path().join("world"), WorldDataConfiguration::DEFAULT, true).unwrap();
-    let manager = stem.data_pack_resources.listener::<RecipeManager>().expect("recipe manager").clone();
+    let (_, stem) = common::load_world(
+        &dir.path().join("world"),
+        WorldDataConfiguration::DEFAULT,
+        true,
+    )
+    .unwrap();
+    let manager = stem
+        .data_pack_resources
+        .listener::<RecipeManager>()
+        .expect("recipe manager")
+        .clone();
     let mut text = String::new();
-    flate2::read::GzDecoder::new(std::fs::File::open(concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures/recipe_book_golden.txt.gz")).unwrap())
-        .read_to_string(&mut text)
-        .unwrap();
+    flate2::read::GzDecoder::new(
+        std::fs::File::open(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/tests/fixtures/recipe_book_golden.txt.gz"
+        ))
+        .unwrap(),
+    )
+    .read_to_string(&mut text)
+    .unwrap();
 
     let mut book = ServerRecipeBook::new();
     let mut lines = text.lines().peekable();
@@ -61,7 +81,12 @@ fn recipe_book_matches_vanilla() {
                 break;
             }
             // the advancement trigger is not part of the book (it fires between the learn step and the packet)
-            let l = lines.next().unwrap().strip_prefix("OUT ").unwrap().to_owned();
+            let l = lines
+                .next()
+                .unwrap()
+                .strip_prefix("OUT ")
+                .unwrap()
+                .to_owned();
             if l != "TRIGGER" {
                 expected.push(l);
             }
@@ -69,7 +94,16 @@ fn recipe_book_matches_vanilla() {
         op_no += 1;
         let words: Vec<&str> = op.split(' ').collect();
         let mut events: Vec<String> = Vec::new();
-        let holders = |ids: &str| -> Vec<RecipeHolder> { ids.split(',').map(|id| manager.by_key(&Identifier::parse(id).unwrap()).expect("recipe").clone()).collect() };
+        let holders = |ids: &str| -> Vec<RecipeHolder> {
+            ids.split(',')
+                .map(|id| {
+                    manager
+                        .by_key(&Identifier::parse(id).unwrap())
+                        .expect("recipe")
+                        .clone()
+                })
+                .collect()
+        };
         match words[0] {
             "scenario" => {
                 book = ServerRecipeBook::new();
@@ -96,12 +130,19 @@ fn recipe_book_matches_vanilla() {
                 events.push(format!("RET {count}"));
             }
             "seen" => {
-                if let Some(info) = manager.get_recipe_from_display(RecipeDisplayId { index: words[1].parse().unwrap() }) {
+                if let Some(info) = manager.get_recipe_from_display(RecipeDisplayId {
+                    index: words[1].parse().unwrap(),
+                }) {
                     book.remove_highlight(&info.parent.id);
                 }
             }
             "settings" => {
-                let ty = [RecipeBookType::Crafting, RecipeBookType::Furnace, RecipeBookType::BlastFurnace, RecipeBookType::Smoker][words[1].parse::<usize>().unwrap()];
+                let ty = [
+                    RecipeBookType::Crafting,
+                    RecipeBookType::Furnace,
+                    RecipeBookType::BlastFurnace,
+                    RecipeBookType::Smoker,
+                ][words[1].parse::<usize>().unwrap()];
                 book.set_book_setting(ty, words[2] == "true", words[3] == "true");
             }
             "initial" => {

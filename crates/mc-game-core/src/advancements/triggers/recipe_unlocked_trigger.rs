@@ -12,13 +12,14 @@ pub struct RecipeUnlockedTriggerInstance {
 
 impl TriggerInstance for RecipeUnlockedTriggerInstance {
     fn codec() -> Codec<Self> {
-        static C: std::sync::LazyLock<Codec<RecipeUnlockedTriggerInstance>> = std::sync::LazyLock::new(|| {
-            mc_dfu::record!(RecipeUnlockedTriggerInstance {
-                player: condition_holder_codec().optional_field_of("player"),
-                recipes: recipe_set_codec().field_of("recipes"),
-            })
-            .codec()
-        });
+        static C: std::sync::LazyLock<Codec<RecipeUnlockedTriggerInstance>> =
+            std::sync::LazyLock::new(|| {
+                mc_dfu::record!(RecipeUnlockedTriggerInstance {
+                    player: condition_holder_codec().optional_field_of("player"),
+                    recipes: recipe_set_codec().field_of("recipes"),
+                })
+                .codec()
+            });
         C.clone()
     }
 }
@@ -37,7 +38,11 @@ crate::register_triggers!(RecipeUnlockedTriggerInstance {
 
 impl RecipeUnlockedTriggerInstance {
     /// `matches(recipe)`: `recipes.stream().anyMatch(holder -> holder.is(recipe.id()))`.
-    pub fn matches(&self, registries: &crate::registry::RegistryAccess, recipe: &Identifier) -> bool {
+    pub fn matches(
+        &self,
+        registries: &crate::registry::RegistryAccess,
+        recipe: &Identifier,
+    ) -> bool {
         self.recipes.contains(registries, recipe)
     }
 }
@@ -69,8 +74,8 @@ impl RecipeSet {
 }
 
 pub fn recipe_set_codec() -> Codec<RecipeSet> {
-    use mc_dfu::extra::{IDENTIFIER, compact_list_codec_with};
     use crate::world::level::storage::loot::holder::registry_ref_codec;
+    use mc_dfu::extra::{IDENTIFIER, compact_list_codec_with};
     static C: std::sync::LazyLock<Codec<RecipeSet>> = std::sync::LazyLock::new(|| {
         let tag = STRING.comap_flat_map(
             |s: String| match s.strip_prefix('#') {

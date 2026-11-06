@@ -9,7 +9,10 @@ use std::path::{Path, PathBuf};
 use mc_nbt::{CompoundTag, NbtAccounter};
 use uuid::Uuid;
 
-use super::file_util::{create_temp_file, format_file_name_date_now, read_compressed, safe_replace_file, write_compressed};
+use super::file_util::{
+    create_temp_file, format_file_name_date_now, read_compressed, safe_replace_file,
+    write_compressed,
+};
 use super::version::add_current_data_version;
 
 #[derive(Clone, Debug)]
@@ -48,12 +51,18 @@ impl PlayerDataStorage {
     fn backup(&self, uuid: &Uuid, name: &str, suffix: &str) {
         let id = uuid.to_string();
         let real_path = self.player_dir.join(format!("{id}{suffix}"));
-        let backup_path = self.player_dir.join(format!("{id}_corrupted_{}{suffix}", format_file_name_date_now()));
+        let backup_path = self.player_dir.join(format!(
+            "{id}_corrupted_{}{suffix}",
+            format_file_name_date_now()
+        ));
         if real_path.is_file() {
             let copied = fs::copy(&real_path, &backup_path).and_then(|_| {
                 // StandardCopyOption.COPY_ATTRIBUTES: keep the modification time
                 let modified = fs::metadata(&real_path)?.modified()?;
-                fs::File::options().write(true).open(&backup_path)?.set_modified(modified)
+                fs::File::options()
+                    .write(true)
+                    .open(&backup_path)?
+                    .set_modified(modified)
             });
             if let Err(e) = copied {
                 log::warn!("Failed to copy the player.dat file for {name}: {e}");
@@ -94,12 +103,20 @@ mod tests {
         let uuid = Uuid::from_u128(0x1234_5678_9abc_def0_1122_3344_5566_7788);
         assert!(storage.load(&uuid, "Bob").is_none());
 
-        storage.save(&uuid, CompoundTag::new().with("Health", Tag::float(20.0))).unwrap();
-        storage.save(&uuid, CompoundTag::new().with("Health", Tag::float(10.0))).unwrap();
+        storage
+            .save(&uuid, CompoundTag::new().with("Health", Tag::float(20.0)))
+            .unwrap();
+        storage
+            .save(&uuid, CompoundTag::new().with("Health", Tag::float(10.0)))
+            .unwrap();
         let tag = storage.load(&uuid, "Bob").unwrap();
         assert_eq!(tag.get_float("Health"), Some(10.0));
         assert_eq!(tag.get_int("DataVersion"), Some(5023));
-        let old = read_compressed(&storage.player_dir().join(format!("{uuid}.dat_old")), &mut NbtAccounter::unlimited_heap()).unwrap();
+        let old = read_compressed(
+            &storage.player_dir().join(format!("{uuid}.dat_old")),
+            &mut NbtAccounter::unlimited_heap(),
+        )
+        .unwrap();
         assert_eq!(old.get_float("Health"), Some(20.0));
         // no temp files left behind
         assert_eq!(fs::read_dir(storage.player_dir()).unwrap().count(), 2);

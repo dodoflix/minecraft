@@ -8,7 +8,6 @@
 //! On a mismatch the Rust dump is written to `/tmp/tree_golden_<scenario>.rust.txt`; regenerate the vanilla one with
 //! `scripts/vanilla-java.sh crates/mc-game/tests/oracle/TreeOracle.java /tmp/v.txt <scenario> full` and diff the `L` lines.
 
-
 use crate::common::feature_harness::*;
 use mc_core::ident::Identifier;
 use mc_core::pos::BlockPos;
@@ -39,8 +38,14 @@ static REGISTRIES: LazyLock<Arc<GenRegistries>> = LazyLock::new(|| {
         fn list(&self, registry: &str) -> Vec<Identifier> {
             let ids = self.0.list(registry);
             let is_tree = |id: &Identifier| {
-                let ty = self.0.get("worldgen/feature", id).and_then(|v| v["type"].as_str().map(str::to_owned));
-                matches!(ty.as_deref(), Some("minecraft:tree" | "minecraft:fallen_tree"))
+                let ty = self
+                    .0
+                    .get("worldgen/feature", id)
+                    .and_then(|v| v["type"].as_str().map(str::to_owned));
+                matches!(
+                    ty.as_deref(),
+                    Some("minecraft:tree" | "minecraft:fallen_tree")
+                )
             };
             match registry {
                 "worldgen/feature" => ids.into_iter().filter(|id| is_tree(id)).collect(),
@@ -48,8 +53,13 @@ static REGISTRIES: LazyLock<Arc<GenRegistries>> = LazyLock::new(|| {
                 "worldgen/placed_feature" => ids
                     .into_iter()
                     .filter(|id| {
-                        let feature = self.0.get(registry, id).and_then(|v| v["feature"].as_str().map(str::to_owned));
-                        feature.and_then(|f| Identifier::parse(&f).ok()).is_some_and(|f| is_tree(&f))
+                        let feature = self
+                            .0
+                            .get(registry, id)
+                            .and_then(|v| v["feature"].as_str().map(str::to_owned));
+                        feature
+                            .and_then(|f| Identifier::parse(&f).ok())
+                            .is_some_and(|f| is_tree(&f))
                     })
                     .collect(),
                 _ => ids,
@@ -57,7 +67,14 @@ static REGISTRIES: LazyLock<Arc<GenRegistries>> = LazyLock::new(|| {
         }
     }
     let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../ref/src/data");
-    Arc::new(GenRegistries::load(Arc::new(TreesOnly(FsDataSource::new(root))), &WORLD.worldgen, &WORLD.biomes).expect("tree registries decode"))
+    Arc::new(
+        GenRegistries::load(
+            Arc::new(TreesOnly(FsDataSource::new(root))),
+            &WORLD.worldgen,
+            &WORLD.biomes,
+        )
+        .expect("tree registries decode"),
+    )
 });
 
 fn put(level: &mut GenLevel<'_>, x: i32, y: i32, z: i32, state: &str) {
@@ -84,7 +101,13 @@ fn prepare(level: &mut GenLevel<'_>, seed: i64, variant: i32, cx: i32, cz: i32) 
                         put(level, x, top - 1, z, "minecraft:grass_block[snowy=true]");
                     }
                     if top >= 63 && is_air(level, x, top, z) && hmod(hv, 4) != 0 {
-                        put(level, x, top, z, &format!("minecraft:snow[layers={}]", 1 + hmod(hv8, 3)));
+                        put(
+                            level,
+                            x,
+                            top,
+                            z,
+                            &format!("minecraft:snow[layers={}]", 1 + hmod(hv8, 3)),
+                        );
                     }
                 }
                 2 => {
@@ -103,7 +126,13 @@ fn prepare(level: &mut GenLevel<'_>, seed: i64, variant: i32, cx: i32, cz: i32) 
                     let d = hmod(h(seed, i64::from(x), i64::from(z), 200), 3);
                     if r < 3 {
                         if is_air(level, x, top + 1 + d, z) {
-                            put(level, x, top + 1 + d, z, "minecraft:oak_leaves[distance=7,persistent=true,waterlogged=false]");
+                            put(
+                                level,
+                                x,
+                                top + 1 + d,
+                                z,
+                                "minecraft:oak_leaves[distance=7,persistent=true,waterlogged=false]",
+                            );
                         }
                     } else if r < 5 {
                         if is_air(level, x, top, z) {
@@ -126,7 +155,13 @@ fn prepare(level: &mut GenLevel<'_>, seed: i64, variant: i32, cx: i32, cz: i32) 
                             put(level, x, top, z, "minecraft:short_grass");
                         }
                     } else if r < 24 && is_air(level, x, top + 1, z) {
-                        put(level, x, top + 1, z, "minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]");
+                        put(
+                            level,
+                            x,
+                            top + 1,
+                            z,
+                            "minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]",
+                        );
                     }
                 }
                 4 => {
@@ -149,7 +184,11 @@ fn prepare(level: &mut GenLevel<'_>, seed: i64, variant: i32, cx: i32, cz: i32) 
 
 #[test]
 fn trees_match_vanilla() {
-    let fixture = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures/tree_golden.txt")).expect("fixture present");
+    let fixture = std::fs::read_to_string(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/tests/fixtures/tree_golden.txt"
+    ))
+    .expect("fixture present");
     let mut lines = fixture.lines();
     let mut failures: Vec<String> = Vec::new();
     let (mut scenarios, mut placements, mut placed_trees, mut dump_lines) = (0, 0, 0, 0);
@@ -157,8 +196,15 @@ fn trees_match_vanilla() {
         let head: Vec<&str> = header.split(' ').collect();
         assert_eq!(head[0], "SCENARIO", "{header}");
         let (scenario, feature_id, seed) = (head[1], head[2], head[3].parse::<i64>().unwrap());
-        let (variant, cx, cz) = (head[4].parse::<i32>().unwrap(), head[5].parse::<i32>().unwrap(), head[6].parse::<i32>().unwrap());
-        let feature = REGISTRIES.feature(&Identifier::parse(feature_id).unwrap()).unwrap_or_else(|| panic!("feature {feature_id}")).clone();
+        let (variant, cx, cz) = (
+            head[4].parse::<i32>().unwrap(),
+            head[5].parse::<i32>().unwrap(),
+            head[6].parse::<i32>().unwrap(),
+        );
+        let feature = REGISTRIES
+            .feature(&Identifier::parse(feature_id).unwrap())
+            .unwrap_or_else(|| panic!("feature {feature_id}"))
+            .clone();
         let fi = scenario.parse::<i64>().unwrap() / i64::from(VARIANTS);
 
         let mut synth = SynthRegion::new(seed, cx, cz, ChunkStatus::Features, 1);
@@ -188,7 +234,10 @@ fn trees_match_vanilla() {
                 _ => {}
             }
             let mut random = XoroshiroRandomSource::new(h(seed, fi, i, 14));
-            let placed = feature.value().place(&mut level, &env, &mut random, BlockPos::new(x, y, z));
+            let placed =
+                feature
+                    .value()
+                    .place(&mut level, &env, &mut random, BlockPos::new(x, y, z));
             placements += 1;
             placed_trees += usize::from(placed);
             got.push(format!("P {i} {x} {y} {z} {placed} {}", random.next_long()));
@@ -203,8 +252,15 @@ fn trees_match_vanilla() {
             got.push(format!("D {kind} {} {}", f.count, f.hex()));
         }
         if got != expected {
-            let _ = std::fs::write(format!("/tmp/tree_golden_{scenario}.rust.txt"), dump_all.join("\n"));
-            let first = got.iter().zip(&expected).position(|(a, b)| a != b).unwrap_or(got.len().min(expected.len()));
+            let _ = std::fs::write(
+                format!("/tmp/tree_golden_{scenario}.rust.txt"),
+                dump_all.join("\n"),
+            );
+            let first = got
+                .iter()
+                .zip(&expected)
+                .position(|(a, b)| a != b)
+                .unwrap_or(got.len().min(expected.len()));
             failures.push(format!(
                 "scenario {scenario} ({feature_id} variant {variant}): first difference at line {first}: ours `{}`, vanilla `{}`",
                 got.get(first).map_or("<none>", String::as_str),
@@ -213,6 +269,14 @@ fn trees_match_vanilla() {
         }
         scenarios += 1;
     }
-    assert!(failures.is_empty(), "{} of {scenarios} scenarios differ ({placements} placements):\n{}", failures.len(), failures.join("\n"));
-    assert!(scenarios >= 250 && placed_trees > 500 && dump_lines > 10_000, "fixture too small/degenerate: {scenarios} scenarios, {placed_trees} placed, {dump_lines} dump lines");
+    assert!(
+        failures.is_empty(),
+        "{} of {scenarios} scenarios differ ({placements} placements):\n{}",
+        failures.len(),
+        failures.join("\n")
+    );
+    assert!(
+        scenarios >= 250 && placed_trees > 500 && dump_lines > 10_000,
+        "fixture too small/degenerate: {scenarios} scenarios, {placed_trees} placed, {dump_lines} dump lines"
+    );
 }

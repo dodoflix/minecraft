@@ -13,5 +13,9 @@ pub fn set_item_registries(registries: RegistryAccess) {
 
 /// Runs `f` with the installed registries (`None` before a server created its levels).
 pub fn with_item_registries<R>(f: impl FnOnce(&RegistryAccess) -> R) -> Option<R> {
-    REGISTRIES.read().unwrap_or_else(|e| e.into_inner()).as_ref().map(f)
+    REGISTRIES
+        .read()
+        .unwrap_or_else(|e| e.into_inner())
+        .as_ref()
+        .map(f)
 }

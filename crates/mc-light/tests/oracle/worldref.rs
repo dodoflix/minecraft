@@ -21,10 +21,20 @@ const DIMENSIONS: [(&str, LevelHeight, bool); 3] = [
 ];
 
 fn factory() -> PalettedContainerFactory {
-    let dir = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../ref/generated/data/minecraft/worldgen/biome");
+    let dir = Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../../ref/generated/data/minecraft/worldgen/biome");
     let mut names: Vec<String> = std::fs::read_dir(dir)
         .unwrap()
-        .map(|e| format!("minecraft:{}", e.unwrap().file_name().to_str().unwrap().trim_end_matches(".json")))
+        .map(|e| {
+            format!(
+                "minecraft:{}",
+                e.unwrap()
+                    .file_name()
+                    .to_str()
+                    .unwrap()
+                    .trim_end_matches(".json")
+            )
+        })
         .collect();
     names.sort();
     PalettedContainerFactory::create(BiomeRegistry::new(names)).unwrap()
@@ -40,7 +50,11 @@ fn read_all(folder: &Path) -> Vec<(ChunkPos, mc_nbt::CompoundTag)> {
         }
     }
     regions.sort();
-    let info = RegionStorageInfo::new("test", Identifier::parse("minecraft:overworld").unwrap(), "chunk");
+    let info = RegionStorageInfo::new(
+        "test",
+        Identifier::parse("minecraft:overworld").unwrap(),
+        "chunk",
+    );
     let mut storage = RegionFileStorage::new(info, folder, false);
     let mut out = Vec::new();
     for (rx, rz) in regions {
@@ -77,7 +91,10 @@ impl LightChunk for Chunk {
             Chunk::Level(l) => LightChunk::get_block_state(l, pos),
         }
     }
-    fn find_block_light_sources(&self, consumer: &mut dyn FnMut(mc_core::pos::BlockPos, mc_data::block::BlockState)) {
+    fn find_block_light_sources(
+        &self,
+        consumer: &mut dyn FnMut(mc_core::pos::BlockPos, mc_data::block::BlockState),
+    ) {
         match self {
             Chunk::Proto(p) => p.find_block_light_sources(consumer),
             Chunk::Level(l) => l.find_block_light_sources(consumer),
@@ -92,7 +109,13 @@ impl LightChunk for Chunk {
 }
 
 fn nibbles(layer: Option<&DataLayer>) -> Vec<u8> {
-    (0..4096usize).map(|i| layer.map_or(0, |l| l.get((i & 15) as i32, (i >> 8) as i32, ((i >> 4) & 15) as i32) as u8)).collect()
+    (0..4096usize)
+        .map(|i| {
+            layer.map_or(0, |l| {
+                l.get((i & 15) as i32, (i >> 8) as i32, ((i >> 4) & 15) as i32) as u8
+            })
+        })
+        .collect()
 }
 
 #[test]
@@ -105,14 +128,32 @@ fn relight_matches_saved_light() {
     for (dim, height, has_sky) in DIMENSIONS {
         let folder = world.join(format!("dimensions/minecraft/{dim}/region"));
         let mut getter: ChunkMapGetter<Chunk> = ChunkMapGetter::new();
-        let mut saved: HashMap<ChunkPos, (bool, ChunkStatus, HashMap<i32, (Option<DataLayer>, Option<DataLayer>)>)> = HashMap::new();
+        let mut saved: HashMap<
+            ChunkPos,
+            (
+                bool,
+                ChunkStatus,
+                HashMap<i32, (Option<DataLayer>, Option<DataLayer>)>,
+            ),
+        > = HashMap::new();
         for (pos, tag) in read_all(&folder) {
-            let data = SerializableChunkData::parse(height, &factory, &tag).unwrap().expect("status");
+            let data = SerializableChunkData::parse(height, &factory, &tag)
+                .unwrap()
+                .expect("status");
             let status = data.chunk_status;
             let lit = data.light_correct;
-            let ctx = ReadContext { level_height: height, has_sky_light: has_sky, factory: &factory, is_known_structure: &all_known };
+            let ctx = ReadContext {
+                level_height: height,
+                has_sky_light: has_sky,
+                factory: &factory,
+                is_known_structure: &all_known,
+            };
             let loaded = data.read(&ctx, pos);
-            let light = loaded.light.into_iter().map(|(y, b, s)| (y, (b, s))).collect();
+            let light = loaded
+                .light
+                .into_iter()
+                .map(|(y, b, s)| (y, (b, s)))
+                .collect();
             saved.insert(pos, (lit, status, light));
             getter.insert(
                 pos,
@@ -131,7 +172,12 @@ fn relight_matches_saved_light() {
             v
         };
         for pos in &positions {
-            getter.chunks.get_mut(&pos.pack()).unwrap().access_mut().initialize_light_sources();
+            getter
+                .chunks
+                .get_mut(&pos.pack())
+                .unwrap()
+                .access_mut()
+                .initialize_light_sources();
         }
         let mut engine = ThreadedLevelLightEngine::new(height, has_sky, 46);
         for pos in &positions {
@@ -152,20 +198,30 @@ fn relight_matches_saved_light() {
         }
         assert!(!engine.has_pending_work());
 
-        let is_full = |p: ChunkPos| saved.get(&p).is_some_and(|(_, s, _)| *s == ChunkStatus::Full);
+        let is_full = |p: ChunkPos| {
+            saved
+                .get(&p)
+                .is_some_and(|(_, s, _)| *s == ChunkStatus::Full)
+        };
         let (mut compared_chunks, mut bad_chunks, mut sections, mut stale_in_opaque) = (0, 0, 0, 0);
         for pos in &positions {
             let (lit, status, light) = &saved[pos];
-            let surrounded = (-1..=1).all(|dz| (-1..=1).all(|dx| is_full(ChunkPos::new(pos.x + dx, pos.z + dz))));
+            let surrounded = (-1..=1)
+                .all(|dz| (-1..=1).all(|dx| is_full(ChunkPos::new(pos.x + dx, pos.z + dz))));
             if !*lit || *status != ChunkStatus::Full || !surrounded {
                 continue;
             }
             compared_chunks += 1;
             let mut bad = Vec::new();
-            for section_y in engine.engine().get_min_light_section()..engine.engine().get_max_light_section() {
+            for section_y in
+                engine.engine().get_min_light_section()..engine.engine().get_max_light_section()
+            {
                 let section = SectionPos::of_chunk(pos, section_y);
                 let (sb, ss) = light.get(&section_y).cloned().unwrap_or((None, None));
-                let layers = [(LightLayer::Block, sb), (LightLayer::Sky, if has_sky { ss } else { None })];
+                let layers = [
+                    (LightLayer::Block, sb),
+                    (LightLayer::Sky, if has_sky { ss } else { None }),
+                ];
                 for (layer, expected) in layers {
                     if layer == LightLayer::Sky && !has_sky {
                         continue;
@@ -177,7 +233,11 @@ fn relight_matches_saved_light() {
                         // Vanilla drops a section's layer when its last non-empty neighbor section goes away (chunk unloading
                         // order at save time), so "absent" only tells us the sky was open or the layer was empty.
                         let homogeneous = g.iter().all(|&n| n == g[0]);
-                        let plausible = if layer == LightLayer::Block { g.iter().all(|&n| n == 0) } else { homogeneous && (g[0] == 0 || g[0] == 15) };
+                        let plausible = if layer == LightLayer::Block {
+                            g.iter().all(|&n| n == 0)
+                        } else {
+                            homogeneous && (g[0] == 0 || g[0] == 15)
+                        };
                         if plausible {
                             e = g.clone();
                         }
@@ -187,7 +247,11 @@ fn relight_matches_saved_light() {
                         let chunk = &getter.chunks[&pos.pack()];
                         for (i, (en, gn)) in e.iter_mut().zip(&g).enumerate() {
                             if en != gn {
-                                let bp = mc_core::pos::BlockPos::new(pos.x * 16 + (i & 15) as i32, section_y * 16 + (i >> 8) as i32, pos.z * 16 + ((i >> 4) & 15) as i32);
+                                let bp = mc_core::pos::BlockPos::new(
+                                    pos.x * 16 + (i & 15) as i32,
+                                    section_y * 16 + (i >> 8) as i32,
+                                    pos.z * 16 + ((i >> 4) & 15) as i32,
+                                );
                                 if chunk.get_block_state(bp).get_light_block() == 15 {
                                     stale_in_opaque += 1;
                                     *en = *gn;
@@ -200,7 +264,12 @@ fn relight_matches_saved_light() {
                         let hist = |v: &[u8]| {
                             let mut h = [0usize; 16];
                             v.iter().for_each(|&n| h[n as usize] += 1);
-                            h.iter().enumerate().filter(|(_, c)| **c > 0).map(|(i, c)| format!("{i}:{c}")).collect::<Vec<_>>().join(",")
+                            h.iter()
+                                .enumerate()
+                                .filter(|(_, c)| **c > 0)
+                                .map(|(i, c)| format!("{i}:{c}"))
+                                .collect::<Vec<_>>()
+                                .join(",")
                         };
                         let firsts: Vec<String> = e
                             .iter()
@@ -208,7 +277,14 @@ fn relight_matches_saved_light() {
                             .enumerate()
                             .filter(|(_, (a, b))| a != b)
                             .take(4)
-                            .map(|(i, (a, b))| format!("(x{} y{} z{}: want {a} got {b})", i & 15, i >> 8, (i >> 4) & 15))
+                            .map(|(i, (a, b))| {
+                                format!(
+                                    "(x{} y{} z{}: want {a} got {b})",
+                                    i & 15,
+                                    i >> 8,
+                                    (i >> 4) & 15
+                                )
+                            })
                             .collect();
                         bad.push(format!(
                             "{layer:?} y={section_y}: {diffs} nibbles differ; saved={} stored={} want[{}] got[{}] {}",
@@ -226,17 +302,32 @@ fn relight_matches_saved_light() {
                     Chunk::Proto(p) => &p.access,
                     Chunk::Level(l) => &l.access,
                 };
-                for section_y in engine.engine().get_min_light_section()..engine.engine().get_max_light_section() {
+                for section_y in
+                    engine.engine().get_min_light_section()..engine.engine().get_max_light_section()
+                {
                     let idx = section_y - height.min_section_y();
-                    let non_empty = (idx >= 0 && (idx as usize) < access.sections.len()).then(|| access.sections[idx as usize].non_empty_block_count());
+                    let non_empty = (idx >= 0 && (idx as usize) < access.sections.len())
+                        .then(|| access.sections[idx as usize].non_empty_block_count());
                     let (_, ss) = light.get(&section_y).cloned().unwrap_or((None, None));
-                    let got = engine.engine().get_data_layer_data(LightLayer::Sky, SectionPos::of_chunk(pos, section_y));
+                    let got = engine
+                        .engine()
+                        .get_data_layer_data(LightLayer::Sky, SectionPos::of_chunk(pos, section_y));
                     let hist = |v: &[u8]| {
                         let mut h = [0usize; 16];
                         v.iter().for_each(|&n| h[n as usize] += 1);
-                        h.iter().enumerate().filter(|(_, c)| **c > 0).map(|(i, c)| format!("{i}:{c}")).collect::<Vec<_>>().join(",")
+                        h.iter()
+                            .enumerate()
+                            .filter(|(_, c)| **c > 0)
+                            .map(|(i, c)| format!("{i}:{c}"))
+                            .collect::<Vec<_>>()
+                            .join(",")
                     };
-                    eprintln!("  y={section_y} nonempty={non_empty:?} saved[{}] got[{}] gotstored={}", hist(&nibbles(ss.as_ref())), hist(&nibbles(got.as_deref())), got.is_some());
+                    eprintln!(
+                        "  y={section_y} nonempty={non_empty:?} saved[{}] got[{}] gotstored={}",
+                        hist(&nibbles(ss.as_ref())),
+                        hist(&nibbles(got.as_deref())),
+                        got.is_some()
+                    );
                 }
                 if let Ok(spec) = std::env::var("COLUMN") {
                     let v: Vec<i32> = spec.split(',').map(|n| n.parse().unwrap()).collect();
@@ -246,8 +337,14 @@ fn relight_matches_saved_light() {
                         let cpos = ChunkPos::new(bx >> 4, bz >> 4);
                         let st = getter.chunks[&cpos.pack()].get_block_state(bp);
                         let sec = y >> 4;
-                        let sv = saved[&cpos].2.get(&sec).and_then(|(_, s)| s.as_ref().map(|l| l.get(bx & 15, y & 15, bz & 15)));
-                        eprintln!("    ({bx},{y},{bz}) {st} saved={sv:?} got={}", engine.engine().get_light_value(LightLayer::Sky, bp));
+                        let sv = saved[&cpos]
+                            .2
+                            .get(&sec)
+                            .and_then(|(_, s)| s.as_ref().map(|l| l.get(bx & 15, y & 15, bz & 15)));
+                        eprintln!(
+                            "    ({bx},{y},{bz}) {st} saved={sv:?} got={}",
+                            engine.engine().get_light_value(LightLayer::Sky, bp)
+                        );
                     }
                 }
                 let src = access.sky_light_sources.get_highest_lowest_source_y();
@@ -258,7 +355,9 @@ fn relight_matches_saved_light() {
                 eprintln!("{dim} chunk {pos}: {}", bad.join("; "));
             }
         }
-        eprintln!("{dim}: compared {compared_chunks} chunks / {sections} light sections, {bad_chunks} chunks differ ({stale_in_opaque} stale cells inside opaque blocks ignored)");
+        eprintln!(
+            "{dim}: compared {compared_chunks} chunks / {sections} light sections, {bad_chunks} chunks differ ({stale_in_opaque} stale cells inside opaque blocks ignored)"
+        );
         grand.0 += compared_chunks;
         grand.1 += sections;
         grand.2 += bad_chunks;

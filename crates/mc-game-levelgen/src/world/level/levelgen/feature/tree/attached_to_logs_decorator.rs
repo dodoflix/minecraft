@@ -2,12 +2,12 @@
 
 use super::TREE_DECORATOR_TYPES;
 use super::attached_to_leaves_decorator::parse_non_empty_directions;
-use mc_game_core::world::level::levelgen::feature::tree::shuffle;
 use super::tree_decorator::{Context, TreeDecorator};
+use mc_core::direction::Direction;
 use mc_game_core::world::level::levelgen::codec::{TypeEntry, parse_float_range};
+use mc_game_core::world::level::levelgen::feature::tree::shuffle;
 use mc_game_core::world::level::levelgen::holder::Holder;
 use mc_game_core::world::level::levelgen::stateproviders::BlockStateProvider;
-use mc_core::direction::Direction;
 use std::sync::Arc;
 
 pub struct AttachedToLogsDecorator {
@@ -21,10 +21,17 @@ impl TreeDecorator for AttachedToLogsDecorator {
         let mut logs = context.logs.clone();
         shuffle(&mut logs, context.random);
         for logs_pos in logs {
-            let direction = self.directions[context.random.next_int_bounded(self.directions.len() as i32) as usize];
+            let direction = self.directions[context
+                .random
+                .next_int_bounded(self.directions.len() as i32)
+                as usize];
             let placement_pos = logs_pos.relative(direction);
             if context.random.next_float() <= self.probability && context.is_air(placement_pos) {
-                let state = self.block_provider.value().get_state(context.level, context.random, placement_pos);
+                let state = self.block_provider.value().get_state(
+                    context.level,
+                    context.random,
+                    placement_pos,
+                );
                 context.set_block(placement_pos, state);
             }
         }

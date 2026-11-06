@@ -30,10 +30,14 @@ pub fn get_start<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>)
     if this.can_float() && env.mob.is_in_water() {
         let mut y = env.mob.get_block_y();
         let (mx, mz) = (env.mob.x(), env.mob.z());
-        let mut state = env.context.get_block_state(BlockPos::containing(mx, f64::from(y), mz));
+        let mut state = env
+            .context
+            .get_block_state(BlockPos::containing(mx, f64::from(y), mz));
         while state.block() == Block::WATER {
             y += 1;
-            state = env.context.get_block_state(BlockPos::containing(mx, f64::from(y), mz));
+            state = env
+                .context
+                .get_block_state(BlockPos::containing(mx, f64::from(y), mz));
         }
         start_y = y;
     } else {
@@ -45,7 +49,12 @@ pub fn get_start<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>)
         let is_small_mob = bb.get_size() < 1.0;
         if !is_small_mob {
             let y = f64::from(env.mob.get_block_y());
-            for (x, z) in [(bb.min_x, bb.min_z), (bb.min_x, bb.max_z), (bb.max_x, bb.min_z), (bb.max_x, bb.max_z)] {
+            for (x, z) in [
+                (bb.min_x, bb.min_z),
+                (bb.min_x, bb.max_z),
+                (bb.max_x, bb.min_z),
+                (bb.max_x, bb.max_z),
+            ] {
                 let tested = BlockPos::containing(x, y, z);
                 if this.can_start_at(env, tested) {
                     return walk::get_start_node(this, env, tested);
@@ -57,8 +66,16 @@ pub fn get_start<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>)
             let x_padding = 0.0f64.max(inflate - bb.get_xsize());
             let y_padding = 0.0f64.max(inflate - bb.get_ysize());
             let inflated = bb.inflate(x_padding, y_padding, z_padding);
-            let (min_x, min_y, min_z) = (mth::floor_f64(inflated.min_x), mth::floor_f64(inflated.min_y), mth::floor_f64(inflated.min_z));
-            let (max_x, max_y, max_z) = (mth::floor_f64(inflated.max_x), mth::floor_f64(inflated.max_y), mth::floor_f64(inflated.max_z));
+            let (min_x, min_y, min_z) = (
+                mth::floor_f64(inflated.min_x),
+                mth::floor_f64(inflated.min_y),
+                mth::floor_f64(inflated.min_z),
+            );
+            let (max_x, max_y, max_z) = (
+                mth::floor_f64(inflated.max_x),
+                mth::floor_f64(inflated.max_y),
+                mth::floor_f64(inflated.max_z),
+            );
             let width = max_x.wrapping_sub(min_x).wrapping_add(1);
             let height = max_y.wrapping_sub(min_y).wrapping_add(1);
             let depth = max_z.wrapping_sub(min_z).wrapping_add(1);
@@ -77,7 +94,11 @@ pub fn get_start<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>)
     walk::get_start_node(this, env, start_pos)
 }
 
-pub fn can_start_at<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>, pos: BlockPos) -> bool {
+pub fn can_start_at<N: NodeEvaluator + ?Sized>(
+    this: &mut N,
+    env: &mut PathEnv<'_>,
+    pos: BlockPos,
+) -> bool {
     let ty = this.get_cached_path_type(env, pos.x(), pos.y(), pos.z());
     env.mob.get_pathfinding_malus(ty) >= 0.0
 }
@@ -86,35 +107,40 @@ pub fn can_start_at<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'
 /// the nodes that must also have a non-negative malus. Vanilla evaluates `findAcceptedNode` for every entry (its side
 /// effects on the node pool are observable), then checks `isOpen(node)` and the dependencies.
 const NEIGHBORS: [([i32; 3], &[usize]); 26] = [
-    ([0, 0, 1], &[]),                          // 0 south
-    ([-1, 0, 0], &[]),                         // 1 west
-    ([1, 0, 0], &[]),                          // 2 east
-    ([0, 0, -1], &[]),                         // 3 north
-    ([0, 1, 0], &[]),                          // 4 up
-    ([0, -1, 0], &[]),                         // 5 down
-    ([0, 1, 1], &[0, 4]),                      // 6 southUp
-    ([-1, 1, 0], &[1, 4]),                     // 7 westUp
-    ([1, 1, 0], &[2, 4]),                      // 8 eastUp
-    ([0, 1, -1], &[3, 4]),                     // 9 northUp
-    ([0, -1, 1], &[0, 5]),                     // 10 southDown
-    ([-1, -1, 0], &[1, 5]),                    // 11 westDown
-    ([1, -1, 0], &[2, 5]),                     // 12 eastDown
-    ([0, -1, -1], &[3, 5]),                    // 13 northDown
-    ([1, 0, -1], &[3, 2]),                     // 14 northEast
-    ([1, 0, 1], &[0, 2]),                      // 15 southEast
-    ([-1, 0, -1], &[3, 1]),                    // 16 northWest
-    ([-1, 0, 1], &[0, 1]),                     // 17 southWest
-    ([1, 1, -1], &[14, 3, 2, 4, 9, 8]),        // 18 northEastUp
-    ([1, 1, 1], &[15, 0, 2, 4, 6, 8]),         // 19 southEastUp
-    ([-1, 1, -1], &[16, 3, 1, 4, 9, 7]),       // 20 northWestUp
-    ([-1, 1, 1], &[17, 0, 1, 4, 6, 7]),        // 21 southWestUp
-    ([1, -1, -1], &[14, 3, 2, 5, 13, 12]),     // 22 northEastDown
-    ([1, -1, 1], &[15, 0, 2, 5, 10, 12]),      // 23 southEastDown
-    ([-1, -1, -1], &[16, 3, 1, 5, 13, 11]),    // 24 northWestDown
-    ([-1, -1, 1], &[17, 0, 1, 5, 10, 11]),     // 25 southWestDown
+    ([0, 0, 1], &[]),                       // 0 south
+    ([-1, 0, 0], &[]),                      // 1 west
+    ([1, 0, 0], &[]),                       // 2 east
+    ([0, 0, -1], &[]),                      // 3 north
+    ([0, 1, 0], &[]),                       // 4 up
+    ([0, -1, 0], &[]),                      // 5 down
+    ([0, 1, 1], &[0, 4]),                   // 6 southUp
+    ([-1, 1, 0], &[1, 4]),                  // 7 westUp
+    ([1, 1, 0], &[2, 4]),                   // 8 eastUp
+    ([0, 1, -1], &[3, 4]),                  // 9 northUp
+    ([0, -1, 1], &[0, 5]),                  // 10 southDown
+    ([-1, -1, 0], &[1, 5]),                 // 11 westDown
+    ([1, -1, 0], &[2, 5]),                  // 12 eastDown
+    ([0, -1, -1], &[3, 5]),                 // 13 northDown
+    ([1, 0, -1], &[3, 2]),                  // 14 northEast
+    ([1, 0, 1], &[0, 2]),                   // 15 southEast
+    ([-1, 0, -1], &[3, 1]),                 // 16 northWest
+    ([-1, 0, 1], &[0, 1]),                  // 17 southWest
+    ([1, 1, -1], &[14, 3, 2, 4, 9, 8]),     // 18 northEastUp
+    ([1, 1, 1], &[15, 0, 2, 4, 6, 8]),      // 19 southEastUp
+    ([-1, 1, -1], &[16, 3, 1, 4, 9, 7]),    // 20 northWestUp
+    ([-1, 1, 1], &[17, 0, 1, 4, 6, 7]),     // 21 southWestUp
+    ([1, -1, -1], &[14, 3, 2, 5, 13, 12]),  // 22 northEastDown
+    ([1, -1, 1], &[15, 0, 2, 5, 10, 12]),   // 23 southEastDown
+    ([-1, -1, -1], &[16, 3, 1, 5, 13, 11]), // 24 northWestDown
+    ([-1, -1, 1], &[17, 0, 1, 5, 10, 11]),  // 25 southWestDown
 ];
 
-pub fn get_neighbors<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>, neighbors: &mut [NodeId; 32], pos: NodeId) -> usize {
+pub fn get_neighbors<N: NodeEvaluator + ?Sized>(
+    this: &mut N,
+    env: &mut PathEnv<'_>,
+    neighbors: &mut [NodeId; 32],
+    pos: NodeId,
+) -> usize {
     let (px, py, pz) = {
         let n = this.node(pos);
         (n.x, n.y, n.z)
@@ -126,7 +152,11 @@ pub fn get_neighbors<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<
         found[i] = node;
         let open = node.is_some_and(|n| !this.node(n).closed);
         // the first six (direct neighbors) have no dependency; the others need every dependency's malus >= 0
-        if open && deps.iter().all(|&d| found[d].is_some_and(|n| this.node(n).cost_malus >= 0.0)) {
+        if open
+            && deps
+                .iter()
+                .all(|&d| found[d].is_some_and(|n| this.node(n).cost_malus >= 0.0))
+        {
             neighbors[count] = node.expect("open node");
             count += 1;
         }
@@ -134,7 +164,13 @@ pub fn get_neighbors<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<
     count
 }
 
-fn find_accepted_node<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>, x: i32, y: i32, z: i32) -> Option<NodeId> {
+fn find_accepted_node<N: NodeEvaluator + ?Sized>(
+    this: &mut N,
+    env: &mut PathEnv<'_>,
+    x: i32,
+    y: i32,
+    z: i32,
+) -> Option<NodeId> {
     let path_type = this.get_cached_path_type(env, x, y, z);
     let path_cost = env.mob.get_pathfinding_malus(path_type);
     if path_cost >= 0.0 {
@@ -155,7 +191,9 @@ pub fn get_path_type(env: &mut PathEnv<'_>, x: i32, y: i32, z: i32) -> PathType 
     let mut block_path_type = env.context.get_path_type_from_state(x, y, z);
     if block_path_type == PathType::Open && y >= env.context.level().get_min_y() + 1 {
         let below_pos = BlockPos::new(x, y - 1, z);
-        let below_type = env.context.get_path_type_from_state(below_pos.x(), below_pos.y(), below_pos.z());
+        let below_type =
+            env.context
+                .get_path_type_from_state(below_pos.x(), below_pos.y(), below_pos.z());
         if below_type == PathType::Fire || below_type == PathType::Lava {
             block_path_type = PathType::Fire;
         } else if below_type == PathType::Damaging {
@@ -167,7 +205,10 @@ pub fn get_path_type(env: &mut PathEnv<'_>, x: i32, y: i32, z: i32) -> PathType 
                 block_path_type = PathType::Fence;
             }
         } else {
-            block_path_type = if below_type != PathType::Walkable && below_type != PathType::Open && below_type != PathType::Water {
+            block_path_type = if below_type != PathType::Walkable
+                && below_type != PathType::Open
+                && below_type != PathType::Water
+            {
                 PathType::Walkable
             } else {
                 PathType::Open

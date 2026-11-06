@@ -23,7 +23,10 @@ impl ServerPlayer {
         }
         if !self.won_game {
             self.won_game = true;
-            self.send(&ClientboundGameEventPacket { event: ClientboundGameEventPacket::WIN_GAME, param: 0.0 });
+            self.send(&ClientboundGameEventPacket {
+                event: ClientboundGameEventPacket::WIN_GAME,
+                param: 0.0,
+            });
             self.seen_credits = true;
         }
     }
@@ -32,18 +35,44 @@ impl ServerPlayer {
 /// What has to happen once a player's packet handling / tick is over and the player is back in its level: the portal
 /// teleport `handlePortal()` decided on, the removal `showEndCredits()` asked for.
 pub fn finish_player_step(server: &mut MinecraftServer, uuid: Uuid) {
-    let Some((id, dimension)) = server.player_list.get_player(&uuid).map(|h| (h.id, h.dimension())) else { return };
+    let Some((id, dimension)) = server
+        .player_list
+        .get_player(&uuid)
+        .map(|h| (h.id, h.dimension()))
+    else {
+        return;
+    };
     let moved_to = server
         .with_level(&dimension, |server, level| {
             if level.take_portal_teleport(id) {
-                level.with_entity(id, |level, e| crate::server::players::dimension_change::teleport_through_portal(server, level, e));
-                return server.player_list.get_player(&uuid).map(|h| h.dimension()).filter(|d| *d != dimension);
+                level.with_entity(id, |level, e| {
+                    crate::server::players::dimension_change::teleport_through_portal(
+                        server, level, e,
+                    )
+                });
+                return server
+                    .player_list
+                    .get_player(&uuid)
+                    .map(|h| h.dimension())
+                    .filter(|d| *d != dimension);
             }
-            if let Some(index) = level.tick_state.pending_player_detach.iter().position(|&e| e == id) {
+            if let Some(index) = level
+                .tick_state
+                .pending_player_detach
+                .iter()
+                .position(|&e| e == id)
+            {
                 level.tick_state.pending_player_detach.remove(index);
                 level.with_entity(id, |level, e| {
-                    let Some(slot) = e.as_any_mut().downcast_mut::<ServerPlayer>() else { return };
-                    let mut placeholder = ServerPlayer::new(id, slot.dimension.clone(), slot.player.game_profile.clone(), Default::default());
+                    let Some(slot) = e.as_any_mut().downcast_mut::<ServerPlayer>() else {
+                        return;
+                    };
+                    let mut placeholder = ServerPlayer::new(
+                        id,
+                        slot.dimension.clone(),
+                        slot.player.game_profile.clone(),
+                        Default::default(),
+                    );
                     placeholder.remove(RemovalReason::ChangedDimension);
                     let mut real = Box::new(std::mem::replace(slot, placeholder));
                     real.close_menus_on_removal(level);
@@ -56,6 +85,8 @@ pub fn finish_player_step(server: &mut MinecraftServer, uuid: Uuid) {
         .flatten();
     // a player that changed dimension runs the tail of `doTick()` in its new level (see `teleport_player_through_portal`)
     if let Some(new_dimension) = moved_to {
-        server.with_level(&new_dimension, |_, level| level.with_player(id, |level, player| player.do_tick_tail(level)));
+        server.with_level(&new_dimension, |_, level| {
+            level.with_player(id, |level, player| player.do_tick_tail(level))
+        });
     }
 }

@@ -29,30 +29,52 @@ impl ServerLevel {
 
     /// `DimensionType.getTeleportationScale(this.dimensionType(), other.dimensionType())`.
     pub fn teleportation_scale_to(&self, other: &ServerLevel) -> f64 {
-        let scale = |l: &ServerLevel| l.dimension_type.as_ref().map_or(1.0, |t| t.coordinate_scale);
+        let scale = |l: &ServerLevel| {
+            l.dimension_type
+                .as_ref()
+                .map_or(1.0, |t| t.coordinate_scale)
+        };
         scale(self) / scale(other)
     }
 
     /// `getLogicalHeight()` (`dimensionType().logicalHeight()`).
     pub fn get_logical_height(&self) -> i32 {
-        self.dimension_type.as_ref().map_or_else(|| self.get_height(), |t| t.logical_height)
+        self.dimension_type
+            .as_ref()
+            .map_or_else(|| self.get_height(), |t| t.logical_height)
     }
 }
 
 impl PortalForcer<'_> {
     /// `ServerLevel.getBlockState(pos)`: loads the chunk when it is not there.
     pub fn block_state(&mut self, pos: BlockPos) -> BlockState {
-        if !self.level.is_outside_build_height(pos.y()) && self.level.chunk_now(pos.x() >> 4, pos.z() >> 4).is_none() {
+        if !self.level.is_outside_build_height(pos.y())
+            && self.level.chunk_now(pos.x() >> 4, pos.z() >> 4).is_none()
+        {
             self.level.chunk_blocking_mut(pos.x() >> 4, pos.z() >> 4);
         }
         self.level.get_block_state(pos)
     }
 
     /// `findClosestPortalPosition(approximateExitPos, toNether, worldBorder)`: the border is the one of this level.
-    pub fn find_closest_portal_position(&mut self, approximate_exit_pos: BlockPos, to_nether: bool) -> Option<BlockPos> {
-        let radius = if to_nether { NETHER_PORTAL_RADIUS } else { OVERWORLD_PORTAL_RADIUS };
-        self.level.poi_ensure_loaded_and_valid(approximate_exit_pos, radius);
-        let candidates = self.level.poi_manager().get_in_square(&|t| t.is(PoiTypes::NETHER_PORTAL), approximate_exit_pos, radius, Occupancy::Any);
+    pub fn find_closest_portal_position(
+        &mut self,
+        approximate_exit_pos: BlockPos,
+        to_nether: bool,
+    ) -> Option<BlockPos> {
+        let radius = if to_nether {
+            NETHER_PORTAL_RADIUS
+        } else {
+            OVERWORLD_PORTAL_RADIUS
+        };
+        self.level
+            .poi_ensure_loaded_and_valid(approximate_exit_pos, radius);
+        let candidates = self.level.poi_manager().get_in_square(
+            &|t| t.is(PoiTypes::NETHER_PORTAL),
+            approximate_exit_pos,
+            radius,
+            Occupancy::Any,
+        );
         let mut best: Option<(f64, BlockPos)> = None;
         for record in candidates {
             let pos = record.get_pos();
@@ -66,7 +88,9 @@ impl PortalForcer<'_> {
             let dist = pos.dist_sqr(&approximate_exit_pos);
             let better = match best {
                 None => true,
-                Some((best_dist, best_pos)) => dist < best_dist || (dist == best_dist && pos.y() < best_pos.y()),
+                Some((best_dist, best_pos)) => {
+                    dist < best_dist || (dist == best_dist && pos.y() < best_pos.y())
+                }
             };
             if better {
                 best = Some((dist, pos));
@@ -82,12 +106,27 @@ impl PortalForcer<'_> {
         let mut closest_full_position: Option<BlockPos> = None;
         let mut closest_partial_distance_sqr = -1.0f64;
         let mut closest_partial_position: Option<BlockPos> = None;
-        let max_placeable_y = self.level.get_max_y().min(self.level.get_min_y() + self.level.get_logical_height() - 1);
+        let max_placeable_y = self
+            .level
+            .get_max_y()
+            .min(self.level.get_min_y() + self.level.get_logical_height() - 1);
         let min_y = self.level.get_min_y();
 
         for column_pos in BlockPos::spiral_around(&origin, 16, Direction::East, Direction::South) {
-            let height = max_placeable_y.min(self.level.get_height_at(HeightmapType::MotionBlocking, column_pos.x(), column_pos.z()));
-            if self.level.world_border().is_within_bounds_block(&column_pos) && self.level.world_border().is_within_bounds_block(&column_pos.relative(direction)) {
+            let height = max_placeable_y.min(self.level.get_height_at(
+                HeightmapType::MotionBlocking,
+                column_pos.x(),
+                column_pos.z(),
+            ));
+            if self
+                .level
+                .world_border()
+                .is_within_bounds_block(&column_pos)
+                && self
+                    .level
+                    .world_border()
+                    .is_within_bounds_block(&column_pos.relative(direction))
+            {
                 let mut y = height;
                 while y >= min_y {
                     let mut at = column_pos.at_y(y);
@@ -109,13 +148,17 @@ impl PortalForcer<'_> {
                                     let distance = origin.dist_sqr(&host);
                                     if self.can_host_frame(host, direction, -1)
                                         && self.can_host_frame(host, direction, 1)
-                                        && (closest_full_distance_sqr == -1.0 || closest_full_distance_sqr > distance)
+                                        && (closest_full_distance_sqr == -1.0
+                                            || closest_full_distance_sqr > distance)
                                     {
                                         closest_full_distance_sqr = distance;
                                         closest_full_position = Some(host);
                                     }
 
-                                    if closest_full_distance_sqr == -1.0 && (closest_partial_distance_sqr == -1.0 || closest_partial_distance_sqr > distance) {
+                                    if closest_full_distance_sqr == -1.0
+                                        && (closest_partial_distance_sqr == -1.0
+                                            || closest_partial_distance_sqr > distance)
+                                    {
                                         closest_partial_distance_sqr = distance;
                                         closest_partial_position = Some(host);
                                     }
@@ -140,14 +183,22 @@ impl PortalForcer<'_> {
                 return None;
             }
 
-            let start = BlockPos::new(origin.x() - direction.get_step_x(), mth::clamp_i32(origin.y(), min_start_y, max_start_y), origin.z() - direction.get_step_z());
+            let start = BlockPos::new(
+                origin.x() - direction.get_step_x(),
+                mth::clamp_i32(origin.y(), min_start_y, max_start_y),
+                origin.z() - direction.get_step_z(),
+            );
             let closest = self.level.world_border().clamp_to_bounds_block(&start);
             let clock_wise = direction.get_clockwise();
 
             for box_ in -1..2 {
                 for width in 0..2 {
                     for height in -1..3 {
-                        let block_state = if height < 0 { Block::OBSIDIAN.default_state() } else { Block::AIR.default_state() };
+                        let block_state = if height < 0 {
+                            Block::OBSIDIAN.default_state()
+                        } else {
+                            Block::AIR.default_state()
+                        };
                         let pos = closest.offset(
                             width * direction.get_step_x() + box_ * clock_wise.get_step_x(),
                             height,
@@ -165,22 +216,37 @@ impl PortalForcer<'_> {
         for width in -1..3 {
             for height in -1..4 {
                 if width == -1 || width == 2 || height == -1 || height == 3 {
-                    let pos = closest_full_position.offset(width * direction.get_step_x(), height, width * direction.get_step_z());
-                    self.level.set_block_and_update(pos, Block::OBSIDIAN.default_state());
+                    let pos = closest_full_position.offset(
+                        width * direction.get_step_x(),
+                        height,
+                        width * direction.get_step_z(),
+                    );
+                    self.level
+                        .set_block_and_update(pos, Block::OBSIDIAN.default_state());
                 }
             }
         }
 
-        let portal_block_state = Block::NETHER_PORTAL.default_state().set(props::HORIZONTAL_AXIS, portal_axis);
+        let portal_block_state = Block::NETHER_PORTAL
+            .default_state()
+            .set(props::HORIZONTAL_AXIS, portal_axis);
 
         for width in 0..2 {
             for height in 0..3 {
-                let pos = closest_full_position.offset(width * direction.get_step_x(), height, width * direction.get_step_z());
+                let pos = closest_full_position.offset(
+                    width * direction.get_step_x(),
+                    height,
+                    width * direction.get_step_z(),
+                );
                 self.level.set_block_flags(pos, portal_block_state, 18);
             }
         }
 
-        Some(FoundRectangle { min_corner: closest_full_position, axis1_size: 2, axis2_size: 3 })
+        Some(FoundRectangle {
+            min_corner: closest_full_position,
+            axis1_size: 2,
+            axis2_size: 3,
+        })
     }
 
     fn can_portal_replace_block(&mut self, pos: BlockPos) -> bool {
@@ -193,7 +259,11 @@ impl PortalForcer<'_> {
 
         for width in -1..3 {
             for height in -1..4 {
-                let pos = origin.offset(direction.get_step_x() * width + clock_wise.get_step_x() * offset, height, direction.get_step_z() * width + clock_wise.get_step_z() * offset);
+                let pos = origin.offset(
+                    direction.get_step_x() * width + clock_wise.get_step_x() * offset,
+                    height,
+                    direction.get_step_z() * width + clock_wise.get_step_z() * offset,
+                );
                 if height < 0 && !self.block_state(pos).is_solid() {
                     return false;
                 }

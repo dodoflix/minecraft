@@ -1,6 +1,8 @@
 //! Helpers shared by the argument parsers.
 
-use mc_brigadier::{CommandExceptionType, CommandSyntaxException, ImmutableStringReader, StringReader};
+use mc_brigadier::{
+    CommandExceptionType, CommandSyntaxException, ImmutableStringReader, StringReader,
+};
 use mc_nbt::snbt::SnbtError;
 use std::sync::LazyLock;
 
@@ -26,7 +28,8 @@ pub fn reader_byte_cursor(reader: &StringReader) -> usize {
     utf16_to_byte(reader.get_string(), reader.get_cursor())
 }
 
-static SNBT_EXCEPTION_TYPE: LazyLock<CommandExceptionType> = LazyLock::new(CommandExceptionType::new);
+static SNBT_EXCEPTION_TYPE: LazyLock<CommandExceptionType> =
+    LazyLock::new(CommandExceptionType::new);
 
 /// The `CommandSyntaxException` a failed SNBT grammar parse raises.
 pub fn snbt_exception(error: &SnbtError, input: &str) -> CommandSyntaxException {

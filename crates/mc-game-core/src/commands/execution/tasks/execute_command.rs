@@ -11,8 +11,16 @@ pub struct ExecuteCommand {
 }
 
 impl ExecuteCommand {
-    pub fn new(command_input: String, modifiers: ChainModifiers, execution_context: CommandContext<CommandSourceStack>) -> Self {
-        Self { command_input, modifiers, execution_context }
+    pub fn new(
+        command_input: String,
+        modifiers: ChainModifiers,
+        execution_context: CommandContext<CommandSourceStack>,
+    ) -> Self {
+        Self {
+            command_input,
+            modifiers,
+            execution_context,
+        }
     }
 }
 

@@ -22,20 +22,34 @@ pub fn on_sand(level: &dyn BlockGetter, pos: BlockPos) -> bool {
 
 /// `shouldUpdateHatchLevel`.
 fn should_update_hatch_level(level: &mut ServerLevel, pos: BlockPos) -> bool {
-    let chance = level.attribute_float(crate::world::attribute::attributes::TURTLE_EGG_HATCH_CHANCE, pos);
+    let chance = level.attribute_float(
+        crate::world::attribute::attributes::TURTLE_EGG_HATCH_CHANCE,
+        pos,
+    );
     chance > 0.0 && level.random().next_float() < chance
 }
 
 /// `decreaseEggs`.
 pub fn decrease_eggs(level: &mut ServerLevel, pos: BlockPos, state: BlockState) {
     let pitch = 0.9f32 + level.random().next_float() * 0.2f32;
-    level.play_sound(None, pos, SoundEvent::ENTITY_TURTLE_EGG_BREAK, SoundSource::Blocks, 0.7, pitch);
+    level.play_sound(
+        None,
+        pos,
+        SoundEvent::ENTITY_TURTLE_EGG_BREAK,
+        SoundSource::Blocks,
+        0.7,
+        pitch,
+    );
     let number_of_eggs = state.get(props::EGGS);
     if number_of_eggs <= 1 {
         level.destroy_block(pos, false, None, 512);
     } else {
         level.set_block_flags(pos, state.set(props::EGGS, number_of_eggs - 1), 2);
-        level.game_event_at_block(GameEvent::BLOCK_DESTROY, pos, &GameEventContext::of_state(Some(state)));
+        level.game_event_at_block(
+            GameEvent::BLOCK_DESTROY,
+            pos,
+            &GameEventContext::of_state(Some(state)),
+        );
         level.level_event(None, 2001, pos, state.id() as i32);
     }
 }
@@ -45,7 +59,10 @@ fn can_destroy_egg(level: &ServerLevel, pos: BlockPos, entity: &dyn Entity) -> b
     if matches!(entity.get_type(), EntityType::TURTLE | EntityType::BAT) {
         false
     } else if entity.is_player() {
-        entity.as_any().downcast_ref::<ServerPlayer>().is_some_and(|player| !level.is_under_spawn_protection(player, pos))
+        entity
+            .as_any()
+            .downcast_ref::<ServerPlayer>()
+            .is_some_and(|player| !level.is_under_spawn_protection(player, pos))
     } else if entity.living().is_some() {
         level.mob_griefing()
     } else {
@@ -54,24 +71,47 @@ fn can_destroy_egg(level: &ServerLevel, pos: BlockPos, entity: &dyn Entity) -> b
 }
 
 /// `destroyEgg(level, state, pos, entity, randomness)`.
-fn destroy_egg(level: &mut ServerLevel, state: BlockState, pos: BlockPos, entity: &dyn Entity, randomness: i32) {
-    if state.is_block(Block::TURTLE_EGG) && can_destroy_egg(level, pos, entity) && level.random().next_int_bounded(randomness) == 0 {
+fn destroy_egg(
+    level: &mut ServerLevel,
+    state: BlockState,
+    pos: BlockPos,
+    entity: &dyn Entity,
+    randomness: i32,
+) {
+    if state.is_block(Block::TURTLE_EGG)
+        && can_destroy_egg(level, pos, entity)
+        && level.random().next_int_bounded(randomness) == 0
+    {
         decrease_eggs(level, pos, state);
     }
 }
 
 impl BlockBehaviour for TurtleEggBlock {
-    fn step_on(&self, level: &mut ServerLevel, pos: BlockPos, on_state: BlockState, entity: &mut dyn Entity) {
+    fn step_on(
+        &self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        on_state: BlockState,
+        entity: &mut dyn Entity,
+    ) {
         if !entity.is_stepping_carefully() {
             destroy_egg(level, on_state, pos, &*entity, 100);
         }
     }
-    fn fall_on(&self, level: &mut ServerLevel, state: BlockState, pos: BlockPos, entity: &mut dyn Entity, fall_distance: f64) {
+    fn fall_on(
+        &self,
+        level: &mut ServerLevel,
+        state: BlockState,
+        pos: BlockPos,
+        entity: &mut dyn Entity,
+        fall_distance: f64,
+    ) {
         if entity.get_type() != EntityType::ZOMBIE {
             destroy_egg(level, state, pos, &*entity, 3);
         }
         // `super.fallOn`
-        let reduced_fall_distance = fall_distance * f64::from(1.0f32 - state.block().data().fall_distance_reduction);
+        let reduced_fall_distance =
+            fall_distance * f64::from(1.0f32 - state.block().data().fall_distance_reduction);
         let source = level.damage_sources().fall();
         entity.cause_fall_damage(level, reduced_fall_distance, 1.0, &source);
     }
@@ -84,7 +124,14 @@ impl BlockBehaviour for TurtleEggBlock {
         block_entity: Option<&dyn crate::world::block_entity::BlockEntity>,
         destroyed_with: &crate::world::item::ItemStack,
     ) {
-        crate::server::level::block_break::player_destroy(level, player, pos, state, block_entity, destroyed_with);
+        crate::server::level::block_break::player_destroy(
+            level,
+            player,
+            pos,
+            state,
+            block_entity,
+            destroyed_with,
+        );
         decrease_eggs(level, pos, state);
     }
     fn random_tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
@@ -92,17 +139,45 @@ impl BlockBehaviour for TurtleEggBlock {
             let hatch = state.get(props::HATCH);
             if hatch < 2 {
                 let pitch = 0.9f32 + level.random().next_float() * 0.2f32;
-                level.play_sound(None, pos, SoundEvent::ENTITY_TURTLE_EGG_CRACK, SoundSource::Blocks, 0.7, pitch);
+                level.play_sound(
+                    None,
+                    pos,
+                    SoundEvent::ENTITY_TURTLE_EGG_CRACK,
+                    SoundSource::Blocks,
+                    0.7,
+                    pitch,
+                );
                 level.set_block_flags(pos, state.set(props::HATCH, hatch + 1), 2);
-                level.game_event_at_block(GameEvent::BLOCK_CHANGE, pos, &GameEventContext::of_state(Some(state)));
+                level.game_event_at_block(
+                    GameEvent::BLOCK_CHANGE,
+                    pos,
+                    &GameEventContext::of_state(Some(state)),
+                );
             } else {
                 let pitch = 0.9f32 + level.random().next_float() * 0.2f32;
-                level.play_sound(None, pos, SoundEvent::ENTITY_TURTLE_EGG_HATCH, SoundSource::Blocks, 0.7, pitch);
+                level.play_sound(
+                    None,
+                    pos,
+                    SoundEvent::ENTITY_TURTLE_EGG_HATCH,
+                    SoundSource::Blocks,
+                    0.7,
+                    pitch,
+                );
                 level.remove_block(pos, false);
-                level.game_event_at_block(GameEvent::BLOCK_DESTROY, pos, &GameEventContext::of_state(Some(state)));
+                level.game_event_at_block(
+                    GameEvent::BLOCK_DESTROY,
+                    pos,
+                    &GameEventContext::of_state(Some(state)),
+                );
                 for i in 0..state.get(props::EGGS) {
                     level.level_event(None, 2001, pos, state.id() as i32);
-                    let mut tag = hatch_spawns::snap_to_tag(f64::from(pos.x()) + 0.3 + f64::from(i) * 0.2, f64::from(pos.y()), f64::from(pos.z()) + 0.3, 0.0, 0.0);
+                    let mut tag = hatch_spawns::snap_to_tag(
+                        f64::from(pos.x()) + 0.3 + f64::from(i) * 0.2,
+                        f64::from(pos.y()),
+                        f64::from(pos.z()) + 0.3,
+                        0.0,
+                        0.0,
+                    );
                     tag.put_int("Age", hatch_spawns::BABY_AGE);
                     tag.put_int_array("home_pos", vec![pos.x(), pos.y(), pos.z()]);
                     hatch_spawns::spawn_breeding(level, EntityType::TURTLE, &tag);
@@ -110,22 +185,43 @@ impl BlockBehaviour for TurtleEggBlock {
             }
         }
     }
-    fn on_place(&self, _state: BlockState, level: &mut ServerLevel, pos: BlockPos, _old_state: BlockState, _moved_by_piston: bool) {
+    fn on_place(
+        &self,
+        _state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        _old_state: BlockState,
+        _moved_by_piston: bool,
+    ) {
         if on_sand(&*level, pos) {
             level.level_event(None, 2012, pos, 15);
         }
     }
     fn can_be_replaced(&self, state: BlockState, context: &BlockPlaceContext) -> bool {
         let held = context.use_on.get_item_in_hand();
-        if !context.is_secondary_use_active() && !held.is_empty() && Some(held.item()) == state.block().item() && state.get(props::EGGS) < 4 {
+        if !context.is_secondary_use_active()
+            && !held.is_empty()
+            && Some(held.item()) == state.block().item()
+            && state.get(props::EGGS) < 4
+        {
             true
         } else {
-            state.can_be_replaced() && (held.is_empty() || Some(held.item()) != state.block().item())
+            state.can_be_replaced()
+                && (held.is_empty() || Some(held.item()) != state.block().item())
         }
     }
-    fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
+    fn get_state_for_placement(
+        &self,
+        block: Block,
+        level: &mut ServerLevel,
+        context: &BlockPlaceContext,
+    ) -> Option<BlockState> {
         let state = level.get_block_state(context.get_clicked_pos());
-        Some(if state.is_block(block) { state.set(props::EGGS, (state.get(props::EGGS) + 1).min(4)) } else { block.default_state() })
+        Some(if state.is_block(block) {
+            state.set(props::EGGS, (state.get(props::EGGS) + 1).min(4))
+        } else {
+            block.default_state()
+        })
     }
 }
 

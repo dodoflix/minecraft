@@ -20,7 +20,9 @@ pub fn spawn_spiral() -> impl Iterator<Item = (i32, i32)> {
         (-SPAWN_POSITION_SEARCH_RADIUS..=SPAWN_POSITION_SEARCH_RADIUS)
             .contains(&current.0)
             .then_some(current)
-            .filter(|c| (-SPAWN_POSITION_SEARCH_RADIUS..=SPAWN_POSITION_SEARCH_RADIUS).contains(&c.1))
+            .filter(|c| {
+                (-SPAWN_POSITION_SEARCH_RADIUS..=SPAWN_POSITION_SEARCH_RADIUS).contains(&c.1)
+            })
     })
 }
 
@@ -40,7 +42,12 @@ impl SpawnCandidates {
     /// `offset` is `RandomSource.createThreadLocalInstance().nextInt(candidateCount)`; see [`Self::candidate_count_for`].
     pub fn new(radius: i32, offset: i32) -> Self {
         let candidate_count = Self::candidate_count_for(radius);
-        Self { radius, candidate_count, coprime: get_coprime(candidate_count), offset }
+        Self {
+            radius,
+            candidate_count,
+            coprime: get_coprime(candidate_count),
+            offset,
+        }
     }
 
     pub fn candidate_count_for(radius: i32) -> i32 {
@@ -50,15 +57,23 @@ impl SpawnCandidates {
 
     /// `(deltaX - radius, deltaZ - radius)` of candidate `index` (`index < candidate_count`).
     pub fn delta(&self, index: i32) -> (i32, i32) {
-        let value = (i64::from(self.offset) + i64::from(self.coprime) * i64::from(index)) % i64::from(self.candidate_count);
+        let value = (i64::from(self.offset) + i64::from(self.coprime) * i64::from(index))
+            % i64::from(self.candidate_count);
         let side = i64::from(self.radius) * 2 + 1;
-        ((value % side) as i32 - self.radius, (value / side) as i32 - self.radius)
+        (
+            (value % side) as i32 - self.radius,
+            (value / side) as i32 - self.radius,
+        )
     }
 }
 
 /// `PlayerSpawnFinder.getCoprime`.
 fn get_coprime(possible_origins: i32) -> i32 {
-    if possible_origins <= 16 { possible_origins - 1 } else { 17 }
+    if possible_origins <= 16 {
+        possible_origins - 1
+    } else {
+        17
+    }
 }
 
 #[cfg(test)]
@@ -69,7 +84,10 @@ mod tests {
     #[test]
     fn spiral_covers_the_square_once_in_vanilla_order() {
         let cells: Vec<_> = spawn_spiral().collect();
-        assert_eq!(&cells[..6], &[(0, 0), (1, 0), (1, 1), (0, 1), (-1, 1), (-1, 0)]);
+        assert_eq!(
+            &cells[..6],
+            &[(0, 0), (1, 0), (1, 1), (0, 1), (-1, 1), (-1, 0)]
+        );
         assert_eq!(cells.len(), 121);
         assert_eq!(cells.iter().collect::<HashSet<_>>().len(), 121);
         assert!(cells.iter().all(|&(x, z)| x.abs() <= 5 && z.abs() <= 5));
@@ -86,7 +104,10 @@ mod tests {
             if radius <= 15 {
                 assert_eq!(seen.len(), count as usize, "radius {radius}");
             }
-            assert!(seen.iter().all(|&(x, z)| x.abs() <= radius && z.abs() <= radius));
+            assert!(
+                seen.iter()
+                    .all(|&(x, z)| x.abs() <= radius && z.abs() <= radius)
+            );
         }
     }
 }

@@ -1,20 +1,26 @@
 //! `OreFeature`: blobs of ore along a random segment, written straight into the chunk sections (`BulkSectionAccess`).
 
-use mc_game_core::world::level::levelgen::feature::Feature;
 use super::abstract_ore_feature::AbstractOreFeature;
-use mc_game_core::world::level::levelgen::codec::TypeEntry;
-use mc_game_core::world::level::levelgen::env::GenEnv;
-use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::math::mth;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
+use mc_game_core::world::level::levelgen::codec::TypeEntry;
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::feature::Feature;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_world::heightmap::HeightmapType;
 use std::sync::Arc;
 
 pub struct OreFeature(pub AbstractOreFeature);
 
 impl Feature for OreFeature {
-    fn place(&self, level: &mut dyn WorldGenLevel, _generator: &GenEnv, random: &mut dyn RandomSource, origin: BlockPos) -> bool {
+    fn place(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        _generator: &GenEnv,
+        random: &mut dyn RandomSource,
+        origin: BlockPos,
+    ) -> bool {
         let size = self.0.size;
         let dir = random.next_float() * mth::PI;
         let spread_xy = size as f32 / 8.0;
@@ -36,7 +42,14 @@ impl Feature for OreFeature {
         for xprobe in x_start..=x_start + size_xz {
             for zprobe in z_start..=z_start + size_xz {
                 if y_start <= level.get_height_at(HeightmapType::OceanFloorWg, xprobe, zprobe) {
-                    return self.do_place(level, random, [x0, x1, z0, z1, y0, y1], [x_start, y_start, z_start], size_xz, size_y);
+                    return self.do_place(
+                        level,
+                        random,
+                        [x0, x1, z0, z1, y0, y1],
+                        [x_start, y_start, z_start],
+                        size_xz,
+                        size_y,
+                    );
                 }
             }
         }
@@ -46,7 +59,15 @@ impl Feature for OreFeature {
 
 impl OreFeature {
     /// `doPlace`; `ends` = `[x0, x1, z0, z1, y0, y1]`, `start` = `[xStart, yStart, zStart]`.
-    fn do_place(&self, level: &mut dyn WorldGenLevel, random: &mut dyn RandomSource, ends: [f64; 6], start: [i32; 3], size_xz: i32, size_y: i32) -> bool {
+    fn do_place(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        random: &mut dyn RandomSource,
+        ends: [f64; 6],
+        start: [i32; 3],
+        size_xz: i32,
+        size_y: i32,
+    ) -> bool {
         let [x0, x1, z0, z1, y0, y1] = ends;
         let [x_start, y_start, z_start] = start;
         let size = self.0.size;
@@ -117,7 +138,10 @@ impl OreFeature {
                     for z in z_min..=z_max {
                         let zd = (f64::from(z) + 0.5 - zz) / r;
                         if xd * xd + yd * yd + zd * zd < 1.0 && !level.is_outside_build_height(y) {
-                            let index = (x - x_start + (y - y_start) * size_xz + (z - z_start) * size_xz * size_y) as usize;
+                            let index = (x - x_start
+                                + (y - y_start) * size_xz
+                                + (z - z_start) * size_xz * size_y)
+                                as usize;
                             if tested.get(index).copied().unwrap_or(false) {
                                 continue;
                             }
@@ -129,10 +153,18 @@ impl OreFeature {
                             if level.ensure_can_write(ore_pos) {
                                 let block_state = level.get_block_state_in_section(ore_pos);
                                 for target_state in &self.0.target_states {
-                                    let can_place =
-                                        self.0.can_place_ore(block_state, &|p| level.get_block_state_in_section(p), random, target_state, ore_pos);
+                                    let can_place = self.0.can_place_ore(
+                                        block_state,
+                                        &|p| level.get_block_state_in_section(p),
+                                        random,
+                                        target_state,
+                                        ore_pos,
+                                    );
                                     if can_place {
-                                        level.set_block_state_in_section(ore_pos, target_state.state);
+                                        level.set_block_state_in_section(
+                                            ore_pos,
+                                            target_state.state,
+                                        );
                                         placed += 1;
                                         break;
                                     }
@@ -148,4 +180,11 @@ impl OreFeature {
 }
 
 #[linkme::distributed_slice(mc_game_core::world::level::levelgen::feature::FEATURE_TYPES)]
-static ORE: TypeEntry<dyn Feature> = TypeEntry { name: "ore", decode: |fields, ctx| Ok(Arc::new(OreFeature(AbstractOreFeature::decode(fields, ctx)?))) };
+static ORE: TypeEntry<dyn Feature> = TypeEntry {
+    name: "ore",
+    decode: |fields, ctx| {
+        Ok(Arc::new(OreFeature(AbstractOreFeature::decode(
+            fields, ctx,
+        )?)))
+    },
+};

@@ -1,6 +1,8 @@
-use crate::server::network::hooks::ServerHandle;
-use crate::server::network::configuration_task::{ConfigurationTask, PacketSink, TaskError, TaskType};
+use crate::server::network::configuration_task::{
+    ConfigurationTask, PacketSink, TaskError, TaskType,
+};
 use crate::server::network::hooks::RegistrySynchronization;
+use crate::server::network::hooks::ServerHandle;
 use mc_protocol::packets::configuration::{
     ClientboundConfigurationPacket, ClientboundSelectKnownPacks, KnownPack,
 };
@@ -19,14 +21,19 @@ impl SynchronizeRegistriesTask {
     pub const TYPE: TaskType = TaskType("synchronize_registries");
 
     pub fn new(known_packs: Vec<KnownPack>, registries: Arc<dyn RegistrySynchronization>) -> Self {
-        Self { requested_packs: known_packs, registries }
+        Self {
+            requested_packs: known_packs,
+            registries,
+        }
     }
 
     fn send_registries(&self, connection: PacketSink, negotiated_packs: &HashSet<KnownPack>) {
         for packet in self.registries.pack_registries(negotiated_packs) {
             connection(ClientboundConfigurationPacket::RegistryData(packet));
         }
-        connection(ClientboundConfigurationPacket::UpdateTags(self.registries.tags()));
+        connection(ClientboundConfigurationPacket::UpdateTags(
+            self.registries.tags(),
+        ));
     }
 
     /// `handleResponse`: a pack list identical to the requested one enables the known-pack optimisation.
@@ -40,8 +47,16 @@ impl SynchronizeRegistriesTask {
 }
 
 impl ConfigurationTask for SynchronizeRegistriesTask {
-    fn start(&mut self, _server: &mut dyn ServerHandle, connection: PacketSink) -> Result<(), TaskError> {
-        connection(ClientboundConfigurationPacket::SelectKnownPacks(ClientboundSelectKnownPacks { known_packs: self.requested_packs.clone() }));
+    fn start(
+        &mut self,
+        _server: &mut dyn ServerHandle,
+        connection: PacketSink,
+    ) -> Result<(), TaskError> {
+        connection(ClientboundConfigurationPacket::SelectKnownPacks(
+            ClientboundSelectKnownPacks {
+                known_packs: self.requested_packs.clone(),
+            },
+        ));
         Ok(())
     }
 

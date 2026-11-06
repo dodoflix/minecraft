@@ -7,7 +7,7 @@
 //! are the same. `CachedParseState` memoization is omitted: it only suppresses repeated identical `store` calls.
 
 use crate::commands::arguments::nbt_arguments::parse_tag_as_argument;
-use crate::commands::arguments::{read_identifier_non_empty, ERROR_INVALID_ID};
+use crate::commands::arguments::{ERROR_INVALID_ID, read_identifier_non_empty};
 use crate::commands::shared_suggestion_provider::{matches_sub_str, suggest_resource_into};
 use mc_brigadier::{
     CommandSyntaxException, ImmutableStringReader, StringReader, Suggestions, SuggestionsBuilder,
@@ -21,17 +21,47 @@ pub trait Context {
     type C;
     type P;
 
-    fn for_element_type(&self, reader: &dyn ImmutableStringReader, id: &Identifier) -> Result<Self::T, CommandSyntaxException>;
+    fn for_element_type(
+        &self,
+        reader: &dyn ImmutableStringReader,
+        id: &Identifier,
+    ) -> Result<Self::T, CommandSyntaxException>;
     fn list_element_types(&self) -> Vec<Identifier>;
-    fn for_tag_type(&self, reader: &dyn ImmutableStringReader, id: &Identifier) -> Result<Self::T, CommandSyntaxException>;
+    fn for_tag_type(
+        &self,
+        reader: &dyn ImmutableStringReader,
+        id: &Identifier,
+    ) -> Result<Self::T, CommandSyntaxException>;
     fn list_tag_types(&self) -> Vec<Identifier>;
-    fn lookup_component_type(&self, reader: &dyn ImmutableStringReader, id: &Identifier) -> Result<Self::C, CommandSyntaxException>;
+    fn lookup_component_type(
+        &self,
+        reader: &dyn ImmutableStringReader,
+        id: &Identifier,
+    ) -> Result<Self::C, CommandSyntaxException>;
     fn list_component_types(&self) -> Vec<Identifier>;
-    fn create_component_test(&self, reader: &dyn ImmutableStringReader, component_type: &Self::C, value: &Tag) -> Result<Self::T, CommandSyntaxException>;
-    fn create_component_presence_test(&self, reader: &dyn ImmutableStringReader, component_type: &Self::C) -> Self::T;
-    fn lookup_predicate_type(&self, reader: &dyn ImmutableStringReader, id: &Identifier) -> Result<Self::P, CommandSyntaxException>;
+    fn create_component_test(
+        &self,
+        reader: &dyn ImmutableStringReader,
+        component_type: &Self::C,
+        value: &Tag,
+    ) -> Result<Self::T, CommandSyntaxException>;
+    fn create_component_presence_test(
+        &self,
+        reader: &dyn ImmutableStringReader,
+        component_type: &Self::C,
+    ) -> Self::T;
+    fn lookup_predicate_type(
+        &self,
+        reader: &dyn ImmutableStringReader,
+        id: &Identifier,
+    ) -> Result<Self::P, CommandSyntaxException>;
     fn list_predicate_types(&self) -> Vec<Identifier>;
-    fn create_predicate_test(&self, reader: &dyn ImmutableStringReader, predicate_type: &Self::P, value: &Tag) -> Result<Self::T, CommandSyntaxException>;
+    fn create_predicate_test(
+        &self,
+        reader: &dyn ImmutableStringReader,
+        predicate_type: &Self::P,
+        value: &Tag,
+    ) -> Result<Self::T, CommandSyntaxException>;
     fn negate(&self, value: Self::T) -> Self::T;
     fn any_of(&self, alternatives: Vec<Self::T>) -> Self::T;
 }
@@ -98,7 +128,14 @@ impl<'a, X: Context> Parser<'a, X> {
     fn new_state(ctx: &'a X, input: &str, cursor: usize) -> Parser<'a, X> {
         let mut reader = StringReader::new(input);
         reader.set_cursor(cursor);
-        Parser { ctx, reader, errors: Errors { last_cursor: -1, entries: Vec::new() } }
+        Parser {
+            ctx,
+            reader,
+            errors: Errors {
+                last_cursor: -1,
+                entries: Vec::new(),
+            },
+        }
     }
 
     fn mark(&self) -> usize {
@@ -112,7 +149,8 @@ impl<'a, X: Context> Parser<'a, X> {
         if self.reader.can_read() && self.reader.read() == c {
             return true;
         }
-        self.errors.store(cursor, Suggest::Char(c), Reason::Literal(c));
+        self.errors
+            .store(cursor, Suggest::Char(c), Reason::Literal(c));
         false
     }
 
@@ -123,7 +161,11 @@ impl<'a, X: Context> Parser<'a, X> {
     }
 
     /// `ResourceLookupRule.parse`.
-    fn lookup<R>(&mut self, kind: Lookup, validate: impl FnOnce(&X, &StringReader, &Identifier) -> Result<R, CommandSyntaxException>) -> Option<R> {
+    fn lookup<R>(
+        &mut self,
+        kind: Lookup,
+        validate: impl FnOnce(&X, &StringReader, &Identifier) -> Result<R, CommandSyntaxException>,
+    ) -> Option<R> {
         self.reader.skip_whitespace();
         let mark = self.mark();
         let suggest = match kind {
@@ -154,7 +196,8 @@ impl<'a, X: Context> Parser<'a, X> {
         match parse_tag_as_argument(&mut self.reader) {
             Ok(tag) => Some(tag),
             Err(e) => {
-                self.errors.store(mark, Suggest::Nothing, Reason::Exception(e));
+                self.errors
+                    .store(mark, Suggest::Nothing, Reason::Exception(e));
                 None
             }
         }
@@ -165,7 +208,9 @@ impl<'a, X: Context> Parser<'a, X> {
         let mark = self.mark();
         let mut cut = false;
         'alt1: {
-            let Some(ty) = self.type_rule() else { break 'alt1 };
+            let Some(ty) = self.type_rule() else {
+                break 'alt1;
+            };
             if !self.ch('[') {
                 break 'alt1;
             }
@@ -284,7 +329,11 @@ impl<'a, X: Context> Parser<'a, X> {
         let mut cut = false;
         // alternative 1
         'alt1: {
-            let Some(component) = self.lookup(Lookup::Component, |c, r, id| c.lookup_component_type(r, id)) else { break 'alt1 };
+            let Some(component) =
+                self.lookup(Lookup::Component, |c, r, id| c.lookup_component_type(r, id))
+            else {
+                break 'alt1;
+            };
             if !self.ch('=') {
                 break 'alt1;
             }
@@ -297,7 +346,11 @@ impl<'a, X: Context> Parser<'a, X> {
             if !cut {
                 // alternative 2
                 'alt2: {
-                    let Some(predicate) = self.lookup(Lookup::Predicate, |c, r, id| c.lookup_predicate_type(r, id)) else { break 'alt2 };
+                    let Some(predicate) =
+                        self.lookup(Lookup::Predicate, |c, r, id| c.lookup_predicate_type(r, id))
+                    else {
+                        break 'alt2;
+                    };
                     if !self.ch('~') {
                         break 'alt2;
                     }
@@ -309,7 +362,9 @@ impl<'a, X: Context> Parser<'a, X> {
                     self.reader.set_cursor(mark);
                     if !cut {
                         // alternative 3
-                        if let Some(component) = self.lookup(Lookup::Component, |c, r, id| c.lookup_component_type(r, id)) {
+                        if let Some(component) = self
+                            .lookup(Lookup::Component, |c, r, id| c.lookup_component_type(r, id))
+                        {
                             matched = Some(Matched::Component(component, None));
                         } else {
                             self.reader.set_cursor(mark);
@@ -321,14 +376,19 @@ impl<'a, X: Context> Parser<'a, X> {
         let matched = matched?;
         let result = match &matched {
             Matched::Predicate(p, value) => self.ctx.create_predicate_test(&self.reader, p, value),
-            Matched::Component(c, Some(value)) => self.ctx.create_component_test(&self.reader, c, value),
-            Matched::Component(c, None) => Ok(self.ctx.create_component_presence_test(&self.reader, c)),
+            Matched::Component(c, Some(value)) => {
+                self.ctx.create_component_test(&self.reader, c, value)
+            }
+            Matched::Component(c, None) => {
+                Ok(self.ctx.create_component_presence_test(&self.reader, c))
+            }
         };
         match result {
             Ok(t) => Some(t),
             Err(e) => {
                 let cursor = self.mark();
-                self.errors.store(cursor, Suggest::Nothing, Reason::Exception(e));
+                self.errors
+                    .store(cursor, Suggest::Nothing, Reason::Exception(e));
                 None
             }
         }
@@ -345,7 +405,10 @@ impl<'a, X: Context> Parser<'a, X> {
 }
 
 /// `Grammar.parseForCommands(reader)`.
-pub fn parse_for_commands<X: Context>(ctx: &X, reader: &mut StringReader) -> Result<Vec<X::T>, CommandSyntaxException> {
+pub fn parse_for_commands<X: Context>(
+    ctx: &X,
+    reader: &mut StringReader,
+) -> Result<Vec<X::T>, CommandSyntaxException> {
     let mut parser = Parser::new_state(ctx, reader.get_string(), reader.get_cursor());
     let result = parser.run_top();
     reader.set_cursor(parser.mark());
@@ -359,7 +422,9 @@ pub fn parse_for_commands<X: Context>(ctx: &X, reader: &mut StringReader) -> Res
             Reason::Literal(c) => {
                 let mut r = StringReader::new(reader.get_string());
                 r.set_cursor(cursor);
-                return Err(CommandSyntaxException::built_in_exceptions().literal_incorrect().create_with_context(&r, c.to_string()));
+                return Err(CommandSyntaxException::built_in_exceptions()
+                    .literal_incorrect()
+                    .create_with_context(&r, c.to_string()));
             }
             Reason::InvalidId => {
                 let mut r = StringReader::new(reader.get_string());

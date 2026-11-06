@@ -71,10 +71,18 @@ impl PostTeleportTransition {
             Self::DoNothing => {}
             Self::PlayPortalSound => {
                 if let Some(player) = entity.as_any().downcast_ref::<ServerPlayer>() {
-                    player.send(&ClientboundLevelEventPacket { r#type: 1032, pos: BlockPos::ZERO, data: 0, global_event: false });
+                    player.send(&ClientboundLevelEventPacket {
+                        r#type: 1032,
+                        pos: BlockPos::ZERO,
+                        data: 0,
+                        global_event: false,
+                    });
                 }
             }
-            Self::PlacePortalTicket => place_portal_ticket(level, BlockPos::containing_position(&entity.base().position())),
+            Self::PlacePortalTicket => place_portal_ticket(
+                level,
+                BlockPos::containing_position(&entity.base().position()),
+            ),
             Self::PlacePortalTicketAt(pos) => place_portal_ticket(level, *pos),
             Self::Then(pair) => {
                 pair.0.on_transition(level, entity);
@@ -87,7 +95,11 @@ impl PostTeleportTransition {
 
 /// `Entity.placePortalTicket(pos)`: `addTicketWithRadius(PORTAL, ChunkPos.containing(pos), 3)`.
 pub fn place_portal_ticket(level: &mut ServerLevel, pos: BlockPos) {
-    level.add_ticket_with_radius(TicketType::PORTAL, ChunkPos::new(pos.x() >> 4, pos.z() >> 4), 3);
+    level.add_ticket_with_radius(
+        TicketType::PORTAL,
+        ChunkPos::new(pos.x() >> 4, pos.z() >> 4),
+        3,
+    );
 }
 
 /// `TeleportTransition`.
@@ -107,7 +119,14 @@ pub struct TeleportTransition {
 
 impl TeleportTransition {
     /// The 6-argument constructor (`relatives = Set.of()`).
-    pub fn new(level: DimensionKey, position: Vec3, delta_movement: Vec3, y_rot: f32, x_rot: f32, post_teleport_transition: PostTeleportTransition) -> Self {
+    pub fn new(
+        level: DimensionKey,
+        position: Vec3,
+        delta_movement: Vec3,
+        y_rot: f32,
+        x_rot: f32,
+        post_teleport_transition: PostTeleportTransition,
+    ) -> Self {
         Self {
             level,
             position,
@@ -129,19 +148,33 @@ impl TeleportTransition {
 
     /// `createDefault(player, post)`: the world spawn of the respawn dimension. `level` is the player's current level
     /// (taken out of `server`).
-    pub fn create_default(server: &mut MinecraftServer, level: &mut ServerLevel, post_teleport_transition: PostTeleportTransition) -> Self {
+    pub fn create_default(
+        server: &mut MinecraftServer,
+        level: &mut ServerLevel,
+        post_teleport_transition: PostTeleportTransition,
+    ) -> Self {
         Self::at_shared_spawn(server, level, false, post_teleport_transition)
     }
 
     /// `missingRespawnBlock(player, post)`.
-    pub fn missing_respawn_block(server: &mut MinecraftServer, level: &mut ServerLevel, post_teleport_transition: PostTeleportTransition) -> Self {
+    pub fn missing_respawn_block(
+        server: &mut MinecraftServer,
+        level: &mut ServerLevel,
+        post_teleport_transition: PostTeleportTransition,
+    ) -> Self {
         Self::at_shared_spawn(server, level, true, post_teleport_transition)
     }
 
-    fn at_shared_spawn(server: &mut MinecraftServer, level: &mut ServerLevel, missing_respawn_block: bool, post_teleport_transition: PostTeleportTransition) -> Self {
+    fn at_shared_spawn(
+        server: &mut MinecraftServer,
+        level: &mut ServerLevel,
+        missing_respawn_block: bool,
+        post_teleport_transition: PostTeleportTransition,
+    ) -> Self {
         let dimension = server.find_respawn_dimension();
         let respawn = server.get_respawn_data();
-        let position = super::respawn::find_adjusted_shared_spawn_pos(server, level, &dimension, respawn.pos);
+        let position =
+            super::respawn::find_adjusted_shared_spawn_pos(server, level, &dimension, respawn.pos);
         Self {
             level: dimension,
             position,
@@ -157,42 +190,75 @@ impl TeleportTransition {
 
     /// `withRotation(yRot, xRot)`.
     pub fn with_rotation(&self, y_rot: f32, x_rot: f32) -> Self {
-        Self { y_rot, x_rot, ..self.clone() }
+        Self {
+            y_rot,
+            x_rot,
+            ..self.clone()
+        }
     }
 
     /// `withPosition(position)`.
     pub fn with_position(&self, position: Vec3) -> Self {
-        Self { position, ..self.clone() }
+        Self {
+            position,
+            ..self.clone()
+        }
     }
 
     /// `transitionAsPassenger()`.
     pub fn transition_as_passenger(&self) -> Self {
-        Self { as_passenger: true, ..self.clone() }
+        Self {
+            as_passenger: true,
+            ..self.clone()
+        }
     }
 
     /// `PositionMoveRotation.of(transition)`.
     pub fn position_move_rotation(&self) -> mc_protocol::packets::play::PositionMoveRotation {
-        mc_protocol::packets::play::PositionMoveRotation { position: self.position, delta_movement: self.delta_movement, y_rot: self.y_rot, x_rot: self.x_rot }
+        mc_protocol::packets::play::PositionMoveRotation {
+            position: self.position,
+            delta_movement: self.delta_movement,
+            y_rot: self.y_rot,
+            x_rot: self.x_rot,
+        }
     }
 }
 
 /// `Vec3.atBottomCenterOf(entity.adjustSpawnLocation(newLevel, suggestion))`: the `ServerPlayer` override runs the
 /// `PlayerSpawnFinder`, every other entity uses the world spawn column's top. `current_level` is the entity's level
 /// (taken out of `server`); `new_dimension` the destination.
-pub fn adjusted_spawn_pos(server: &mut MinecraftServer, current_level: &mut ServerLevel, new_dimension: &DimensionKey, entity: &dyn Entity, suggestion: BlockPos) -> Vec3 {
+pub fn adjusted_spawn_pos(
+    server: &mut MinecraftServer,
+    current_level: &mut ServerLevel,
+    new_dimension: &DimensionKey,
+    entity: &dyn Entity,
+    suggestion: BlockPos,
+) -> Vec3 {
     if entity.is_player() {
-        return super::respawn::find_adjusted_shared_spawn_pos(server, current_level, new_dimension, suggestion);
+        return super::respawn::find_adjusted_shared_spawn_pos(
+            server,
+            current_level,
+            new_dimension,
+            suggestion,
+        );
     }
     let column = |level: &mut ServerLevel| {
         use mc_world::heightmap::HeightmapType;
         let spawn_block = level.level_data.get_respawn_data().pos;
         level.chunk_blocking_mut(spawn_block.x() >> 4, spawn_block.z() >> 4);
-        let height = crate::world::level::LevelReader::get_height_at(&*level, HeightmapType::MotionBlockingNoLeaves, spawn_block.x(), spawn_block.z()) + 1;
+        let height = crate::world::level::LevelReader::get_height_at(
+            &*level,
+            HeightmapType::MotionBlockingNoLeaves,
+            spawn_block.x(),
+            spawn_block.z(),
+        ) + 1;
         Vec3::at_bottom_center_of(&BlockPos::new(spawn_block.x(), height, spawn_block.z()))
     };
     if *new_dimension == current_level.dimension {
         column(current_level)
     } else {
-        server.with_level(new_dimension, |_, level| column(level)).unwrap_or(Vec3::at_bottom_center_of(&suggestion))
+        server
+            .with_level(new_dimension, |_, level| column(level))
+            .unwrap_or(Vec3::at_bottom_center_of(&suggestion))
     }
 }

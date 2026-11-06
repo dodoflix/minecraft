@@ -40,7 +40,11 @@ impl TemplateMap {
     }
 
     /// `map.put(name, () -> template)`.
-    pub fn put(&mut self, name: &str, supplier: impl Fn(&Schema) -> Template + Send + Sync + 'static) {
+    pub fn put(
+        &mut self,
+        name: &str,
+        supplier: impl Fn(&Schema) -> Template + Send + Sync + 'static,
+    ) {
         self.put_supplier(name, Arc::new(supplier));
     }
 
@@ -69,7 +73,11 @@ impl TemplateMap {
         while self.max_len > (cap as f32 * 0.75f32) as usize {
             cap *= 2;
         }
-        mc_core::java_collections::hash_map_ordered(self.entries.clone(), |e| mc_core::math::java::java_string_hash(&e.0), cap)
+        mc_core::java_collections::hash_map_ordered(
+            self.entries.clone(),
+            |e| mc_core::math::java::java_string_hash(&e.0),
+            cap,
+        )
     }
 }
 
@@ -81,7 +89,13 @@ pub trait SchemaDef: Send + Sync + 'static {
     fn register_block_entities(&self, this: &Schema, schema: &Schema) -> TemplateMap {
         this.super_register_block_entities(schema)
     }
-    fn register_types(&self, this: &Schema, schema: &Schema, entity_types: &TemplateMap, block_entity_types: &TemplateMap) {
+    fn register_types(
+        &self,
+        this: &Schema,
+        schema: &Schema,
+        entity_types: &TemplateMap,
+        block_entity_types: &TemplateMap,
+    ) {
         this.super_register_types(schema, entity_types, block_entity_types)
     }
     /// `true` for `NamespacedSchema` subclasses (`getChoiceType` namespaces the choice name).
@@ -120,7 +134,15 @@ impl Schema {
     /// `new Schema(versionKey, parent)` of a subclass with definition `def`.
     pub fn new(version_key: i32, parent: Option<Schema>, def: impl SchemaDef) -> Schema {
         let sub = version_key % 10;
-        let name = format!("V{}{}", version_key / 10, if sub == 0 { String::new() } else { format!(".{sub}") });
+        let name = format!(
+            "V{}{}",
+            version_key / 10,
+            if sub == 0 {
+                String::new()
+            } else {
+                format!(".{sub}")
+            }
+        );
         let schema = Schema(Arc::new(SchemaInner {
             version_key,
             name,
@@ -132,7 +154,10 @@ impl Schema {
         }));
         let entities = schema.0.def.register_entities(&schema, &schema);
         let block_entities = schema.0.def.register_block_entities(&schema, &schema);
-        schema.0.def.register_types(&schema, &schema, &entities, &block_entities);
+        schema
+            .0
+            .def
+            .register_types(&schema, &schema, &entities, &block_entities);
         let types = schema.build_types();
         let _ = schema.0.types.set(types);
         schema
@@ -158,7 +183,14 @@ impl Schema {
             .reduce(|a, b| DSL::or(&a, &b))
             .expect("schema without recursive types");
         let family = RecursiveTypeFamily::new(&self.0.name, template);
-        let names: Vec<String> = self.0.type_templates.lock().unwrap().keys().cloned().collect();
+        let names: Vec<String> = self
+            .0
+            .type_templates
+            .lock()
+            .unwrap()
+            .keys()
+            .cloned()
+            .collect();
         let mut types = HashMap::new();
         for name in names {
             let ty = match recursive.iter().find(|(n, _)| *n == name) {
@@ -181,13 +213,20 @@ impl Schema {
     }
     /// `schema.types()`: the registered type names.
     pub fn types(&self) -> Vec<String> {
-        self.0.types.get().map(|t| t.keys().cloned().collect()).unwrap_or_default()
+        self.0
+            .types
+            .get()
+            .map(|t| t.keys().cloned().collect())
+            .unwrap_or_default()
     }
 
     // ---- super calls ----------------------------------------------------------------------------------------------
 
     fn parent_or_panic(&self) -> &Schema {
-        self.0.parent.as_ref().unwrap_or_else(|| panic!("schema {} has no parent to delegate to", self.0.name))
+        self.0
+            .parent
+            .as_ref()
+            .unwrap_or_else(|| panic!("schema {} has no parent to delegate to", self.0.name))
     }
     /// `super.registerEntities(schema)` (this = the schema whose definition is running).
     pub fn super_register_entities(&self, schema: &Schema) -> TemplateMap {
@@ -198,9 +237,15 @@ impl Schema {
         let p = self.parent_or_panic();
         p.0.def.register_block_entities(p, schema)
     }
-    pub fn super_register_types(&self, schema: &Schema, entity_types: &TemplateMap, block_entity_types: &TemplateMap) {
+    pub fn super_register_types(
+        &self,
+        schema: &Schema,
+        entity_types: &TemplateMap,
+        block_entity_types: &TemplateMap,
+    ) {
         let p = self.parent_or_panic();
-        p.0.def.register_types(p, schema, entity_types, block_entity_types)
+        p.0.def
+            .register_types(p, schema, entity_types, block_entity_types)
     }
 
     // ---- registration -------------------------------------------------------------------------------------------
@@ -211,20 +256,39 @@ impl Schema {
     }
 
     /// `schema.register(map, name, Function<String, TypeTemplate>)`.
-    pub fn register(&self, map: &mut TemplateMap, name: &str, template: impl Fn(&Schema, &str) -> Template + Send + Sync + 'static) {
+    pub fn register(
+        &self,
+        map: &mut TemplateMap,
+        name: &str,
+        template: impl Fn(&Schema, &str) -> Template + Send + Sync + 'static,
+    ) {
         let n = name.to_string();
         map.put(name, move |schema| template(schema, &n));
     }
 
     /// `schema.register(map, name, Supplier<TypeTemplate>)`.
-    pub fn register_with(&self, map: &mut TemplateMap, name: &str, template: impl Fn(&Schema) -> Template + Send + Sync + 'static) {
+    pub fn register_with(
+        &self,
+        map: &mut TemplateMap,
+        name: &str,
+        template: impl Fn(&Schema) -> Template + Send + Sync + 'static,
+    ) {
         map.put(name, template);
     }
 
     /// `schema.registerType(recursive, type, template)`.
-    pub fn register_type(&self, recursive: bool, ty: &TypeReference, template: impl Fn(&Schema) -> Template + Send + Sync + 'static) {
+    pub fn register_type(
+        &self,
+        recursive: bool,
+        ty: &TypeReference,
+        template: impl Fn(&Schema) -> Template + Send + Sync + 'static,
+    ) {
         let name = ty.type_name();
-        self.0.type_templates.lock().unwrap().insert(name.to_string(), Arc::new(template));
+        self.0
+            .type_templates
+            .lock()
+            .unwrap()
+            .insert(name.to_string(), Arc::new(template));
         let mut rec = self.0.recursive_types.lock().unwrap();
         if recursive && !rec.iter().any(|(n, _)| n == name) {
             let id = rec.len() as i32;
@@ -245,7 +309,14 @@ impl Schema {
 
     /// `schema.id(name)`: a recursion point for recursive types, else the named template.
     pub fn id(&self, name: &str) -> Template {
-        let id = self.0.recursive_types.lock().unwrap().iter().find(|(n, _)| n == name).map(|(_, i)| *i);
+        let id = self
+            .0
+            .recursive_types
+            .lock()
+            .unwrap()
+            .iter()
+            .find(|(n, _)| n == name)
+            .map(|(_, i)| *i);
         match id {
             Some(i) => DSL::id(i),
             None => self.get_template(name),
@@ -257,7 +328,11 @@ impl Schema {
     }
 
     fn type_named(&self, name: &str) -> &Type {
-        self.0.types.get().and_then(|t| t.get(name)).unwrap_or_else(|| panic!("Unknown type: {name}"))
+        self.0
+            .types
+            .get()
+            .and_then(|t| t.get(name))
+            .unwrap_or_else(|| panic!("Unknown type: {name}"))
     }
 
     /// `schema.getTypeRaw(type)`.
@@ -269,7 +344,8 @@ impl Schema {
     pub fn get_type(&self, ty: &TypeReference) -> Type {
         let t = self.type_named(ty.type_name());
         if t.is_recursive_point() {
-            t.find_checked_type(-1).expect("Could not find choice type in the recursive type")
+            t.find_checked_type(-1)
+                .expect("Could not find choice type in the recursive type")
         } else {
             t.clone()
         }
@@ -277,7 +353,9 @@ impl Schema {
 
     /// `schema.findChoiceType(type)`.
     pub fn find_choice_type(&self, ty: &TypeReference) -> TaggedChoiceType {
-        self.get_type(ty).find_choice_type("id", -1).expect("Not a choice type")
+        self.get_type(ty)
+            .find_choice_type("id", -1)
+            .expect("Not a choice type")
     }
 
     /// `schema.getChoiceType(type, choiceName)`.
@@ -292,7 +370,10 @@ impl Schema {
         let choice = self.find_choice_type(ty);
         match choice.get(choice_name) {
             Some(t) => t.clone(),
-            None => panic!("Data fixer not registered for: {choice_name} in {}", ty.type_name()),
+            None => panic!(
+                "Data fixer not registered for: {choice_name} in {}",
+                ty.type_name()
+            ),
         }
     }
 }

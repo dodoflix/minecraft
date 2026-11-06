@@ -5,7 +5,6 @@
 //! entities with their loot tables, spawners of spider corridors, scheduled ticks, heightmaps, region random). Driver:
 //! `common/structure_golden.rs`.
 
-
 use crate::common::structure_golden::{run_fixture, structure};
 use mc_game::world::level::levelgen::holder::Holder;
 use mc_game::world::level::levelgen::structure::structure::Structure;
@@ -13,13 +12,48 @@ use mc_game::world::level::levelgen::structure::structure::Structure;
 #[test]
 fn mineshaft_matches_vanilla() {
     // one fixture, two structures: the oracle alternates normal, normal, mesa
-    let structures: [Holder<dyn Structure>; 2] = [structure("mineshaft"), structure("mineshaft_mesa")];
+    let structures: [Holder<dyn Structure>; 2] =
+        [structure("mineshaft"), structure("mineshaft_mesa")];
     let stats = run_fixture("mineshaft.txt", &|i| &structures[usize::from(i % 3 == 2)]);
-    assert!(stats.starts >= 40 && stats.pieces > 1000 && stats.placements >= 200, "fixture too small: {} starts, {} pieces, {} placements", stats.starts, stats.pieces, stats.placements);
+    assert!(
+        stats.starts >= 40 && stats.pieces > 1000 && stats.placements >= 200,
+        "fixture too small: {} starts, {} pieces, {} placements",
+        stats.starts,
+        stats.pieces,
+        stats.placements
+    );
     for id in ["mscorridor", "mscrossing", "msroom", "msstairs"] {
-        assert!(stats.piece_ids.contains_key(&format!("minecraft:{id}")), "fixture lacks piece {id}: {:?}", stats.piece_ids);
+        assert!(
+            stats.piece_ids.contains_key(&format!("minecraft:{id}")),
+            "fixture lacks piece {id}: {:?}",
+            stats.piece_ids
+        );
     }
-    assert!(stats.block_entity_ids.get("minecraft:mob_spawner").copied().unwrap_or(0) >= 3, "no cave spider spawners: {:?}", stats.block_entity_ids);
-    assert!(stats.entity_ids.get("minecraft:chest_minecart").copied().unwrap_or(0) >= 5, "no chest minecarts: {:?}", stats.entity_ids);
-    assert!(stats.loot_tables.contains_key("minecraft:chests/abandoned_mineshaft"), "no loot: {:?}", stats.loot_tables);
+    assert!(
+        stats
+            .block_entity_ids
+            .get("minecraft:mob_spawner")
+            .copied()
+            .unwrap_or(0)
+            >= 3,
+        "no cave spider spawners: {:?}",
+        stats.block_entity_ids
+    );
+    assert!(
+        stats
+            .entity_ids
+            .get("minecraft:chest_minecart")
+            .copied()
+            .unwrap_or(0)
+            >= 5,
+        "no chest minecarts: {:?}",
+        stats.entity_ids
+    );
+    assert!(
+        stats
+            .loot_tables
+            .contains_key("minecraft:chests/abandoned_mineshaft"),
+        "no loot: {:?}",
+        stats.loot_tables
+    );
 }

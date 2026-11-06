@@ -1,10 +1,11 @@
 //! `net.minecraft.world.entity.animal.fish.Salmon`.
 
-use mc_core::random::RandomSource as _;
-use mc_game_core::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
-use mc_game_core::world::level::material::FluidStateExt as _;
 use super::abstract_fish::{self, AbstractFish, abstract_fish_bucketable, abstract_fish_entity};
 use super::abstract_schooling_fish::{self, FollowFlockLeaderGoal, SchoolData, SchoolingFish};
+use linkme::distributed_slice;
+use mc_core::random::RandomSource as _;
+use mc_data::enums::{EntitySpawnReason, Pose};
+use mc_data::{EntityType, Item, SoundEvent};
 use mc_game_core::define_accessor;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::damagesource::DamageSource;
@@ -17,10 +18,9 @@ use mc_game_core::world::entity::mob::{self, MobData, MobKind};
 use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
 use mc_game_core::world::entity::{Entity, EntityId};
 use mc_game_core::world::item::ItemStack;
+use mc_game_core::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
+use mc_game_core::world::level::material::FluidStateExt as _;
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
-use linkme::distributed_slice;
-use mc_data::enums::{EntitySpawnReason, Pose};
-use mc_data::{EntityType, Item, SoundEvent};
 use mc_nbt::CompoundTag;
 use mc_protocol::components::{SALMON_SIZE, SalmonVariant};
 
@@ -50,7 +50,10 @@ impl Salmon {
             abstract_fish::define_synched_data(b);
             b.define(DATA_TYPE, DEFAULT_VARIANT.id());
         });
-        let mut salmon = Salmon { mob, school: SchoolData::default() };
+        let mut salmon = Salmon {
+            mob,
+            school: SchoolData::default(),
+        };
         let navigation = StandardPathNavigation::water_bound(&salmon);
         abstract_fish::init_controls(&mut salmon.mob, navigation);
         salmon.register_goals();
@@ -66,12 +69,22 @@ impl Salmon {
 
     /// `setVariant(variant)`.
     fn set_variant(&mut self, variant: SalmonVariant) {
-        self.mob.living.entity.entity_data.set(DATA_TYPE, variant.id());
+        self.mob
+            .living
+            .entity
+            .entity_data
+            .set(DATA_TYPE, variant.id());
     }
 
     /// `getVariant()`: `ByIdMap.continuous(.., CLAMP)`.
     pub fn get_variant(&self) -> SalmonVariant {
-        let id = self.mob.living.entity.entity_data.get(DATA_TYPE).clamp(0, SalmonVariant::ALL.len() as i32 - 1);
+        let id = self
+            .mob
+            .living
+            .entity
+            .entity_data
+            .get(DATA_TYPE)
+            .clamp(0, SalmonVariant::ALL.len() as i32 - 1);
         SalmonVariant::from_id(id).unwrap_or(DEFAULT_VARIANT)
     }
 
@@ -142,7 +155,11 @@ impl Entity for Salmon {
     ) -> Option<Box<dyn SpawnGroupData>> {
         // `WeightedList.builder().add(SMALL, 30).add(MEDIUM, 50).add(LARGE, 15).build().getRandom(this.random)`
         let mut selection = self.base_mut().random.next_int_bounded(95);
-        for (variant, weight) in [(SalmonVariant::Small, 30), (SalmonVariant::Medium, 50), (SalmonVariant::Large, 15)] {
+        for (variant, weight) in [
+            (SalmonVariant::Small, 30),
+            (SalmonVariant::Medium, 50),
+            (SalmonVariant::Large, 15),
+        ] {
             selection -= weight;
             if selection < 0 {
                 self.set_variant(variant);
@@ -178,10 +195,16 @@ impl Entity for Salmon {
 
     fn read_additional_save_data(&mut self, input: &CompoundTag) {
         abstract_fish::read_additional_save_data(self, input);
-        let variant = input.get_string("type").and_then(SalmonVariant::from_name).unwrap_or(DEFAULT_VARIANT);
+        let variant = input
+            .get_string("type")
+            .and_then(SalmonVariant::from_name)
+            .unwrap_or(DEFAULT_VARIANT);
         self.set_variant(variant);
     }
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static SALMON: EntityRegistration = EntityRegistration { entity_type: EntityType::SALMON, create: |ty, id, _registries| Box::new(Salmon::new(ty, id)) };
+static SALMON: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::SALMON,
+    create: |ty, id, _registries| Box::new(Salmon::new(ty, id)),
+};

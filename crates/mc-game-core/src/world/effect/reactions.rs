@@ -27,7 +27,12 @@ pub fn weaving(level: &mut ServerLevel, mob: &mut dyn Entity) {
     let mut positions = BlockPosHashSet::new();
     for block_pos in BlockPos::random_in_cube(random, 15, &pos, 1) {
         let below = block_pos.below();
-        if !positions.contains(&block_pos) && level.get_block_state(block_pos).can_be_replaced() && level.get_block_state(below).is_face_sturdy_at(&*level, below, Direction::Up) {
+        if !positions.contains(&block_pos)
+            && level.get_block_state(block_pos).can_be_replaced()
+            && level
+                .get_block_state(below)
+                .is_face_sturdy_at(&*level, below, Direction::Up)
+        {
             positions.insert(block_pos);
             if positions.len() >= cobweb_count {
                 break;

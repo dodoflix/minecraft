@@ -90,16 +90,28 @@ fn codec_int(tag: &Tag) -> Option<i32> {
 impl<T> SavedTick<T> {
     /// `SavedTick.probe`.
     pub fn probe(ty: T, pos: BlockPos) -> SavedTick<T> {
-        SavedTick { ty, pos, delay: 0, priority: TickPriority::Normal }
+        SavedTick {
+            ty,
+            pos,
+            delay: 0,
+            priority: TickPriority::Normal,
+        }
     }
 
     /// `SavedTick.filterTickListForChunk`.
-    pub fn filter_tick_list_for_chunk(saved_ticks: &[SavedTick<T>], chunk_pos: ChunkPos) -> Vec<SavedTick<T>>
+    pub fn filter_tick_list_for_chunk(
+        saved_ticks: &[SavedTick<T>],
+        chunk_pos: ChunkPos,
+    ) -> Vec<SavedTick<T>>
     where
         T: Clone,
     {
         let key = chunk_pos.pack();
-        saved_ticks.iter().filter(|t| ChunkPos::pack_block_pos(&t.pos) == key).cloned().collect()
+        saved_ticks
+            .iter()
+            .filter(|t| ChunkPos::pack_block_pos(&t.pos) == key)
+            .cloned()
+            .collect()
     }
 
     /// `unpack(currentTick, currentSubTick)`.
@@ -125,15 +137,29 @@ impl<T: RegistryId> SavedTick<T> {
     fn from_tag_with(tag: &Tag, decode_type: &impl Fn(&Tag) -> Option<T>) -> Option<SavedTick<T>> {
         let c = tag.as_compound()?;
         let ty = decode_type(c.get("i")?)?;
-        let pos = BlockPos::new(codec_int(c.get("x")?)?, codec_int(c.get("y")?)?, codec_int(c.get("z")?)?);
+        let pos = BlockPos::new(
+            codec_int(c.get("x")?)?,
+            codec_int(c.get("y")?)?,
+            codec_int(c.get("z")?)?,
+        );
         let delay = codec_int(c.get("t")?)?;
         let priority = TickPriority::by_value(codec_int(c.get("p")?)?);
-        Some(SavedTick { ty, pos, delay, priority })
+        Some(SavedTick {
+            ty,
+            pos,
+            delay,
+            priority,
+        })
     }
 
-    fn parse_list_with(list: &ListTag, decode_type: impl Fn(&Tag) -> Option<T>) -> Vec<SavedTick<T>> {
+    fn parse_list_with(
+        list: &ListTag,
+        decode_type: impl Fn(&Tag) -> Option<T>,
+    ) -> Vec<SavedTick<T>> {
         // `ListCodec` keeps the elements that decode and `CompoundTag.read` (`resultOrPartial`) returns that partial list.
-        list.iter().filter_map(|e| Self::from_tag_with(e, &decode_type)).collect()
+        list.iter()
+            .filter_map(|e| Self::from_tag_with(e, &decode_type))
+            .collect()
     }
 
     /// `SavedTick.codec(registry.byNameCodec()).listOf()` as used by `SerializableChunkData`: elements that fail to
@@ -155,13 +181,20 @@ impl<T: RegistryId> SavedTick<T> {
 
     /// `tag.read(key, CODEC_WITH_ORELSE)` followed by `ifPresent(addAll)` / `orElse(List.of())`.
     pub fn read_list_or(tag: &CompoundTag, key: &str, default: T) -> Vec<SavedTick<T>> {
-        tag.get_list(key).map(|l| Self::parse_list_or(l, default)).unwrap_or_default()
+        tag.get_list(key)
+            .map(|l| Self::parse_list_or(l, default))
+            .unwrap_or_default()
     }
 
     /// Encoding of one tick (`i`, `x`, `y`, `z`, `t`, `p`).
     pub fn to_tag(&self) -> CompoundTag {
         let mut c = CompoundTag::new();
-        c.put_string("i", T::registry().name_of(self.ty.id()).expect("typed registry ids are valid"));
+        c.put_string(
+            "i",
+            T::registry()
+                .name_of(self.ty.id())
+                .expect("typed registry ids are valid"),
+        );
         c.put_int("x", self.pos.x());
         c.put_int("y", self.pos.y());
         c.put_int("z", self.pos.z());
@@ -189,7 +222,13 @@ pub struct ScheduledTick<T> {
 impl<T> ScheduledTick<T> {
     /// The 4-argument constructor (`TickPriority.NORMAL`).
     pub fn new(ty: T, pos: BlockPos, trigger_tick: i64, sub_tick_order: i64) -> Self {
-        Self { ty, pos, trigger_tick, priority: TickPriority::Normal, sub_tick_order }
+        Self {
+            ty,
+            pos,
+            trigger_tick,
+            priority: TickPriority::Normal,
+            sub_tick_order,
+        }
     }
 
     /// `ScheduledTick.probe`.
@@ -199,17 +238,26 @@ impl<T> ScheduledTick<T> {
 
     /// `DRAIN_ORDER`: trigger tick, then priority, then sub tick order.
     pub fn drain_order(a: &Self, b: &Self) -> Ordering {
-        a.trigger_tick.cmp(&b.trigger_tick).then_with(|| Self::intra_tick_drain_order(a, b))
+        a.trigger_tick
+            .cmp(&b.trigger_tick)
+            .then_with(|| Self::intra_tick_drain_order(a, b))
     }
 
     /// `INTRA_TICK_DRAIN_ORDER`: priority, then sub tick order.
     pub fn intra_tick_drain_order(a: &Self, b: &Self) -> Ordering {
-        a.priority.cmp(&b.priority).then_with(|| a.sub_tick_order.cmp(&b.sub_tick_order))
+        a.priority
+            .cmp(&b.priority)
+            .then_with(|| a.sub_tick_order.cmp(&b.sub_tick_order))
     }
 
     /// `toSavedTick(currentTick)`: the delay is `(int)(triggerTick - currentTick)`.
     pub fn to_saved_tick(self, current_tick: i64) -> SavedTick<T> {
-        SavedTick { ty: self.ty, pos: self.pos, delay: self.trigger_tick.wrapping_sub(current_tick) as i32, priority: self.priority }
+        SavedTick {
+            ty: self.ty,
+            pos: self.pos,
+            delay: self.trigger_tick.wrapping_sub(current_tick) as i32,
+            priority: self.priority,
+        }
     }
 }
 
@@ -301,7 +349,9 @@ impl<T, G: TickContainerGetter<T>> TickAccess<T> for WorldGenTickAccess<G> {
     }
 
     fn has_scheduled_tick(&self, pos: &BlockPos, ty: T) -> bool {
-        self.container_getter.container(pos).has_scheduled_tick(pos, ty)
+        self.container_getter
+            .container(pos)
+            .has_scheduled_tick(pos, ty)
     }
 
     fn count(&self) -> usize {
@@ -324,7 +374,10 @@ pub struct ProtoChunkTicks<T> {
 
 impl<T> Default for ProtoChunkTicks<T> {
     fn default() -> Self {
-        Self { ticks: Vec::new(), ticks_per_position: HashSet::new() }
+        Self {
+            ticks: Vec::new(),
+            ticks_per_position: HashSet::new(),
+        }
     }
 }
 
@@ -356,7 +409,12 @@ impl<T: Copy + Eq + Hash> ProtoChunkTicks<T> {
 
 impl<T: Copy + Eq + Hash> TickAccess<T> for ProtoChunkTicks<T> {
     fn schedule(&mut self, tick: ScheduledTick<T>) {
-        self.schedule_saved(SavedTick { ty: tick.ty, pos: tick.pos, delay: 0, priority: tick.priority });
+        self.schedule_saved(SavedTick {
+            ty: tick.ty,
+            pos: tick.pos,
+            delay: 0,
+            priority: tick.priority,
+        });
     }
 
     fn has_scheduled_tick(&self, pos: &BlockPos, ty: T) -> bool {
@@ -394,13 +452,21 @@ impl<T: Copy + Eq + Hash> Default for LevelChunkTicks<T> {
 
 impl<T: Copy + Eq + Hash> LevelChunkTicks<T> {
     pub fn new() -> Self {
-        Self { tick_queue: JavaPriorityQueue::new(ScheduledTick::drain_order), pending_ticks: None, ticks_per_position: HashSet::new() }
+        Self {
+            tick_queue: JavaPriorityQueue::new(ScheduledTick::drain_order),
+            pending_ticks: None,
+            ticks_per_position: HashSet::new(),
+        }
     }
 
     /// `LevelChunkTicks(List<SavedTick<T>> pendingTicks)`.
     pub fn from_pending(pending_ticks: Vec<SavedTick<T>>) -> Self {
         let ticks_per_position = pending_ticks.iter().map(|t| (t.ty, t.pos)).collect();
-        Self { tick_queue: JavaPriorityQueue::new(ScheduledTick::drain_order), pending_ticks: Some(pending_ticks), ticks_per_position }
+        Self {
+            tick_queue: JavaPriorityQueue::new(ScheduledTick::drain_order),
+            pending_ticks: Some(pending_ticks),
+            ticks_per_position,
+        }
     }
 
     pub fn peek(&self) -> Option<&ScheduledTick<T>> {
@@ -440,7 +506,8 @@ impl<T: Copy + Eq + Hash> LevelChunkTicks<T> {
         if let Some(pending) = self.pending_ticks.take() {
             let mut sub_tick_base = -(pending.len() as i64);
             for tick in pending {
-                self.tick_queue.add(tick.unpack(current_tick, sub_tick_base));
+                self.tick_queue
+                    .add(tick.unpack(current_tick, sub_tick_base));
                 sub_tick_base += 1;
             }
         }
@@ -543,11 +610,20 @@ impl<T: Copy + Eq + Hash> LevelTicks<T> {
     }
 
     fn update_container_scheduling(map: &mut Long2LongOpenHashMap, next_tick: &ScheduledTick<T>) {
-        map.put(ChunkPos::pack_block_pos(&next_tick.pos), next_tick.trigger_tick);
+        map.put(
+            ChunkPos::pack_block_pos(&next_tick.pos),
+            next_tick.trigger_tick,
+        );
     }
 
     /// `tick(currentTick, maxTicksToProcess, output)` for callers that need no re-entrancy.
-    pub fn tick(&mut self, current_tick: i64, max_ticks_to_process: usize, tick_check: impl FnMut(i64) -> bool, mut output: impl FnMut(BlockPos, T)) {
+    pub fn tick(
+        &mut self,
+        current_tick: i64,
+        max_ticks_to_process: usize,
+        tick_check: impl FnMut(i64) -> bool,
+        mut output: impl FnMut(BlockPos, T),
+    ) {
         self.collect_ticks(current_tick, max_ticks_to_process, tick_check);
         while let Some((pos, ty)) = self.poll_collected_tick() {
             output(pos, ty);
@@ -556,29 +632,44 @@ impl<T: Copy + Eq + Hash> LevelTicks<T> {
     }
 
     /// `collectTicks`: fills the run queue (`tick_check` is vanilla's `tickCheck.test(chunkPos)`).
-    pub fn collect_ticks(&mut self, current_tick: i64, max_ticks_to_process: usize, mut tick_check: impl FnMut(i64) -> bool) {
+    pub fn collect_ticks(
+        &mut self,
+        current_tick: i64,
+        max_ticks_to_process: usize,
+        mut tick_check: impl FnMut(i64) -> bool,
+    ) {
         // sortContainersToTick
         let all = &self.all_containers;
         let queue = &mut self.containers_to_tick;
-        self.next_tick_for_container.fast_iterate(|chunk_pos, next_tick| {
-            if *next_tick > current_tick {
-                return false;
-            }
-            let Some(next) = all.get(&chunk_pos).and_then(LevelChunkTicks::peek) else { return true };
-            if next.trigger_tick > current_tick {
-                *next_tick = next.trigger_tick;
-                false
-            } else if tick_check(chunk_pos) {
-                queue.add(QueuedContainer { chunk_key: chunk_pos, next: *next });
-                true
-            } else {
-                false
-            }
-        });
+        self.next_tick_for_container
+            .fast_iterate(|chunk_pos, next_tick| {
+                if *next_tick > current_tick {
+                    return false;
+                }
+                let Some(next) = all.get(&chunk_pos).and_then(LevelChunkTicks::peek) else {
+                    return true;
+                };
+                if next.trigger_tick > current_tick {
+                    *next_tick = next.trigger_tick;
+                    false
+                } else if tick_check(chunk_pos) {
+                    queue.add(QueuedContainer {
+                        chunk_key: chunk_pos,
+                        next: *next,
+                    });
+                    true
+                } else {
+                    false
+                }
+            });
         // drainContainers
         while self.to_run_this_tick.len() < max_ticks_to_process {
-            let Some(top) = self.containers_to_tick.poll() else { break };
-            let Some(container) = self.all_containers.get_mut(&top.chunk_key) else { continue };
+            let Some(top) = self.containers_to_tick.poll() else {
+                break;
+            };
+            let Some(container) = self.all_containers.get_mut(&top.chunk_key) else {
+                continue;
+            };
             if let Some(tick) = container.poll() {
                 self.to_run_this_tick.push_back(tick);
             }
@@ -586,10 +677,14 @@ impl<T: Copy + Eq + Hash> LevelTicks<T> {
             if self.to_run_this_tick.len() < max_ticks_to_process {
                 let next_from_next_container = self.containers_to_tick.peek().map(|q| q.next);
                 while self.to_run_this_tick.len() < max_ticks_to_process {
-                    let Some(next_from_current) = container.peek().copied() else { break };
+                    let Some(next_from_current) = container.peek().copied() else {
+                        break;
+                    };
                     if next_from_current.trigger_tick > current_tick
-                        || next_from_next_container
-                            .is_some_and(|n| ScheduledTick::intra_tick_drain_order(&next_from_current, &n) == Ordering::Greater)
+                        || next_from_next_container.is_some_and(|n| {
+                            ScheduledTick::intra_tick_drain_order(&next_from_current, &n)
+                                == Ordering::Greater
+                        })
                     {
                         break;
                     }
@@ -598,10 +693,18 @@ impl<T: Copy + Eq + Hash> LevelTicks<T> {
                 }
             }
             if let Some(next_tick) = container.peek().copied() {
-                if next_tick.trigger_tick <= current_tick && self.to_run_this_tick.len() < max_ticks_to_process {
-                    self.containers_to_tick.add(QueuedContainer { chunk_key: top.chunk_key, next: next_tick });
+                if next_tick.trigger_tick <= current_tick
+                    && self.to_run_this_tick.len() < max_ticks_to_process
+                {
+                    self.containers_to_tick.add(QueuedContainer {
+                        chunk_key: top.chunk_key,
+                        next: next_tick,
+                    });
                 } else {
-                    Self::update_container_scheduling(&mut self.next_tick_for_container, &next_tick);
+                    Self::update_container_scheduling(
+                        &mut self.next_tick_for_container,
+                        &next_tick,
+                    );
                 }
             }
         }
@@ -632,13 +735,17 @@ impl<T: Copy + Eq + Hash> LevelTicks<T> {
     pub fn clear_area(&mut self, area: &BoundingBox) {
         let inside = |t: &ScheduledTick<T>| area.is_inside(&t.pos);
         for pos in for_containers_in_area(area) {
-            let Some(container) = self.all_containers.get_mut(&pos) else { continue };
+            let Some(container) = self.all_containers.get_mut(&pos) else {
+                continue;
+            };
             let previous_top = container.peek().copied();
             container.remove_if(inside);
             let new_top = container.peek().copied();
             if new_top != previous_top {
                 match new_top {
-                    Some(t) => Self::update_container_scheduling(&mut self.next_tick_for_container, &t),
+                    Some(t) => {
+                        Self::update_container_scheduling(&mut self.next_tick_for_container, &t)
+                    }
                     None => self.next_tick_for_container.remove(pos),
                 }
             }
@@ -661,15 +768,27 @@ impl<T: Copy + Eq + Hash> LevelTicks<T> {
     }
 
     fn schedule_copies(&mut self, ticks: Vec<ScheduledTick<T>>, offset: &Vec3i) {
-        let min_sub_tick = ticks.iter().map(|t| t.sub_tick_order).min().unwrap_or(i64::MAX);
-        let max_sub_tick = ticks.iter().map(|t| t.sub_tick_order).max().unwrap_or(i64::MIN);
+        let min_sub_tick = ticks
+            .iter()
+            .map(|t| t.sub_tick_order)
+            .min()
+            .unwrap_or(i64::MAX);
+        let max_sub_tick = ticks
+            .iter()
+            .map(|t| t.sub_tick_order)
+            .max()
+            .unwrap_or(i64::MIN);
         for t in ticks {
             self.schedule_tick(ScheduledTick {
                 ty: t.ty,
                 pos: t.pos.offset_vec(offset),
                 trigger_tick: t.trigger_tick,
                 priority: t.priority,
-                sub_tick_order: t.sub_tick_order.wrapping_sub(min_sub_tick).wrapping_add(max_sub_tick).wrapping_add(1),
+                sub_tick_order: t
+                    .sub_tick_order
+                    .wrapping_sub(min_sub_tick)
+                    .wrapping_add(max_sub_tick)
+                    .wrapping_add(1),
             });
         }
     }
@@ -686,7 +805,12 @@ impl<T: Copy + Eq + Hash> LevelTicks<T> {
 
     /// `schedule`; a tick for an unloaded chunk is dropped (vanilla logs and pauses in an IDE only).
     pub fn schedule_tick(&mut self, tick: ScheduledTick<T>) {
-        let Some(container) = self.all_containers.get_mut(&ChunkPos::pack_block_pos(&tick.pos)) else { return };
+        let Some(container) = self
+            .all_containers
+            .get_mut(&ChunkPos::pack_block_pos(&tick.pos))
+        else {
+            return;
+        };
         // the container's `onTickAdded` callback: a new head tick updates the chunk's next trigger tick
         if container.schedule_tick(tick) && container.peek() == Some(&tick) {
             Self::update_container_scheduling(&mut self.next_tick_for_container, &tick);
@@ -700,7 +824,9 @@ impl<T: Copy + Eq + Hash> TickAccess<T> for LevelTicks<T> {
     }
 
     fn has_scheduled_tick(&self, pos: &BlockPos, ty: T) -> bool {
-        self.all_containers.get(&ChunkPos::pack_block_pos(pos)).is_some_and(|c| c.has_scheduled_tick(pos, ty))
+        self.all_containers
+            .get(&ChunkPos::pack_block_pos(pos))
+            .is_some_and(|c| c.has_scheduled_tick(pos, ty))
     }
 
     fn count(&self) -> usize {
@@ -711,7 +837,8 @@ impl<T: Copy + Eq + Hash> TickAccess<T> for LevelTicks<T> {
 impl<T: Copy + Eq + Hash> LevelTickAccess<T> for LevelTicks<T> {
     fn will_tick_this_tick(&mut self, pos: &BlockPos, ty: T) -> bool {
         if self.to_run_this_tick_set.is_empty() && !self.to_run_this_tick.is_empty() {
-            self.to_run_this_tick_set.extend(self.to_run_this_tick.iter().map(unique_key));
+            self.to_run_this_tick_set
+                .extend(self.to_run_this_tick.iter().map(unique_key));
         }
         self.to_run_this_tick_set.contains(&(ty, *pos))
     }

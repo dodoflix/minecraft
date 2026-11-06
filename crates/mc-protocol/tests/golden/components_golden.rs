@@ -5,12 +5,12 @@
 use mc_data::DataComponentType;
 use mc_dfu::{DataResult, Dyn, HASH, JSON, NBT};
 use mc_protocol::codec::{Decode, Encode};
-use mc_protocol::components::hashed::{component_hash, HashedStack};
+use mc_protocol::components::hashed::{HashedStack, component_hash};
 use mc_protocol::components::map::{DataComponentPatch, TypedDataComponent};
 use mc_protocol::components::registry::try_def;
 use mc_protocol::components::{ItemStack, Value};
 use mc_protocol::registry_context::{self, RegistryContext};
-use std::panic::{catch_unwind, AssertUnwindSafe};
+use std::panic::{AssertUnwindSafe, catch_unwind};
 
 const REGISTRIES: &str = include_str!("../fixtures/components/registries.golden");
 
@@ -19,14 +19,20 @@ fn hex(b: &[u8]) -> String {
 }
 
 fn unhex(s: &str) -> Vec<u8> {
-    (0..s.len() / 2).map(|i| u8::from_str_radix(&s[2 * i..2 * i + 2], 16).unwrap()).collect()
+    (0..s.len() / 2)
+        .map(|i| u8::from_str_radix(&s[2 * i..2 * i + 2], 16).unwrap())
+        .collect()
 }
 
 fn install_registries() {
     let mut ctx = RegistryContext::new();
     for line in REGISTRIES.lines() {
         let (key, names) = line.split_once('\t').unwrap_or((line, ""));
-        let names = names.split(',').filter(|n| !n.is_empty()).map(|n| mc_core::ident::Identifier::parse(n).unwrap()).collect();
+        let names = names
+            .split(',')
+            .filter(|n| !n.is_empty())
+            .map(|n| mc_core::ident::Identifier::parse(n).unwrap())
+            .collect();
         ctx = ctx.with_registry(&key.to_string(), names);
     }
     let _ = registry_context::set(ctx);
@@ -62,7 +68,11 @@ fn enc_hash<A: 'static>(c: &mc_dfu::Codec<A>, v: &A) -> String {
     }
 }
 
-fn parse_input<A: 'static>(c: &mc_dfu::Codec<A>, kind_suffix: &str, payload: &str) -> Result<A, String> {
+fn parse_input<A: 'static>(
+    c: &mc_dfu::Codec<A>,
+    kind_suffix: &str,
+    payload: &str,
+) -> Result<A, String> {
     match kind_suffix {
         "json" => {
             let d = Dyn::from_json_str(payload)?;
@@ -88,7 +98,9 @@ fn component_record(kind: &str, name: &str, payload: &str) -> Result<String, Str
         "wire" => {
             let bytes = unhex(payload);
             let mut s = &bytes[..];
-            let v = catch_unwind(AssertUnwindSafe(|| def.decode_network(&mut s))).map_err(|_| "panic".to_string())?.map_err(|e| e.to_string())?;
+            let v = catch_unwind(AssertUnwindSafe(|| def.decode_network(&mut s)))
+                .map_err(|_| "panic".to_string())?
+                .map_err(|e| e.to_string())?;
             left = s.len();
             v
         }
@@ -96,7 +108,11 @@ fn component_record(kind: &str, name: &str, payload: &str) -> Result<String, Str
     };
     let (json, snbt, hash) = match &def.codec {
         None => ("-".to_string(), "-".to_string(), "-".to_string()),
-        Some(c) => (enc_json(c, &value), enc_snbt(c, &value), enc_hash(c, &value)),
+        Some(c) => (
+            enc_json(c, &value),
+            enc_snbt(c, &value),
+            enc_hash(c, &value),
+        ),
     };
     let w = wire(|o| def.encode_network(&value, o));
     let mut r = format!("OK\tjson={json}\tsnbt={snbt}\twire={w}\thash={hash}");
@@ -152,7 +168,11 @@ fn stack_record(kind: &str, payload: &str) -> Result<String, String> {
         }
     };
     let hasher = |c: &TypedDataComponent| component_hash(c);
-    let valid = if ItemStack::validate_strict(s.clone()).is_success() { "valid" } else { "invalid" };
+    let valid = if ItemStack::validate_strict(s.clone()).is_success() {
+        "valid"
+    } else {
+        "invalid"
+    };
     Ok(format!(
         "OK\tjson={}\tsnbt={}\tosnbt={}\twire={}\twireu={}\tpatch={}\thashed={}\tmaxstack={}\t{valid}\tleft={left}",
         enc_json(&ItemStack::codec(), &s),
@@ -162,7 +182,11 @@ fn stack_record(kind: &str, payload: &str) -> Result<String, String> {
         wire(|o| s.encode_optional_untrusted(o)),
         wire(|o| s.get_components_patch().encode(o)),
         wire(|o| HashedStack::create(&s, &hasher).encode(o)),
-        if s.is_empty() { 0 } else { s.get_max_stack_size() },
+        if s.is_empty() {
+            0
+        } else {
+            s.get_max_stack_size()
+        },
     ))
 }
 
@@ -188,10 +212,14 @@ fn click_record(payload: &str) -> Result<String, String> {
         Some("PICKUP_ALL") => ContainerInput::PickupAll,
         _ => return Err("input".into()),
     };
-    let Some(Dyn::List(changed)) = d.map_get("changed") else { return Err("changed".into()) };
+    let Some(Dyn::List(changed)) = d.map_get("changed") else {
+        return Err("changed".into());
+    };
     let mut stacks: Vec<(i16, ItemStack)> = Vec::new();
     for e in changed {
-        let Dyn::List(pair) = e else { return Err("pair".into()) };
+        let Dyn::List(pair) = e else {
+            return Err("pair".into());
+        };
         stacks.push((num(&pair[0]) as i16, stack(&pair[1])?));
     }
     stacks.sort_by_key(|(s, _)| *s);
@@ -202,16 +230,38 @@ fn click_record(payload: &str) -> Result<String, String> {
         slot_num: int("slot")? as i16,
         button_num: int("button")? as i8,
         container_input: input,
-        changed_slots: stacks.iter().map(|(s, st)| (*s, HashedStack::create(st, &hasher))).collect(),
+        changed_slots: stacks
+            .iter()
+            .map(|(s, st)| (*s, HashedStack::create(st, &hasher)))
+            .collect(),
         carried_item: HashedStack::create(&carried, &hasher),
     };
     let other = ItemStack::with_count(mc_data::Item::DIAMOND, 3);
-    let mut m: Vec<bool> = packet.changed_slots.iter().zip(&stacks).map(|((_, h), (_, st))| h.matches(st, &hasher)).collect();
+    let mut m: Vec<bool> = packet
+        .changed_slots
+        .iter()
+        .zip(&stacks)
+        .map(|((_, h), (_, st))| h.matches(st, &hasher))
+        .collect();
     m.push(packet.carried_item.matches(&carried, &hasher));
-    let mut mm: Vec<bool> = packet.changed_slots.iter().map(|(_, h)| h.matches(&other, &hasher)).collect();
+    let mut mm: Vec<bool> = packet
+        .changed_slots
+        .iter()
+        .map(|(_, h)| h.matches(&other, &hasher))
+        .collect();
     mm.push(packet.carried_item.matches(&other, &hasher));
-    let list = |v: &[bool]| v.iter().map(|b| b.to_string()).collect::<Vec<_>>().join(",");
-    Ok(format!("OK\twire={}\tmatches={}\tmatchesmut={}", wire(|o| packet.encode(o)), list(&m), list(&mm)))
+    let list = |v: &[bool]| {
+        v.iter()
+            .map(|b| b.to_string())
+            .collect::<Vec<_>>()
+            .join(",")
+    };
+    Ok(format!(
+        "OK\twire={}\tmatches={}\tmatchesmut={}",
+        wire(|o| packet.encode(o)),
+        list(&m),
+        list(&mm)
+    ))
 }
 
 fn run(kind: &str, name: &str, payload: &str) -> String {
@@ -242,7 +292,16 @@ fn run(kind: &str, name: &str, payload: &str) -> String {
 /// Fields of `file` whose vanilla output order is JVM-run dependent (`hashed` is client-side and always unordered).
 fn relaxed_fields(file: &str) -> &'static [&'static str] {
     match file {
-        "90-hash-order-identity.txt" => &["json", "snbt", "osnbt", "wire", "wireu", "wiredelim", "patch", "hashed"],
+        "90-hash-order-identity.txt" => &[
+            "json",
+            "snbt",
+            "osnbt",
+            "wire",
+            "wireu",
+            "wiredelim",
+            "patch",
+            "hashed",
+        ],
         "93-hash-order-click.txt" => &["wire"],
         "91-hash-order-exactpred.txt" => &["json", "snbt", "osnbt", "hashed"],
         _ => &["hashed"],
@@ -273,7 +332,10 @@ fn semantic_eq(kind: &str, name: &str, key: &str, a: &str, b: &str) -> bool {
             _ => false,
         },
         _ => {
-            if a.len() != b.len() || !a.bytes().all(|c| c.is_ascii_hexdigit()) || !b.bytes().all(|c| c.is_ascii_hexdigit()) {
+            if a.len() != b.len()
+                || !a.bytes().all(|c| c.is_ascii_hexdigit())
+                || !b.bytes().all(|c| c.is_ascii_hexdigit())
+            {
                 return false;
             }
             let (ba, bb) = (unhex(a), unhex(b));
@@ -282,25 +344,63 @@ fn semantic_eq(kind: &str, name: &str, key: &str, a: &str, b: &str) -> bool {
             let is_patch = kind.starts_with("patch");
             let same = |x: Option<bool>| x == Some(true) && sa.is_empty() == sb.is_empty();
             match key {
-                "hashed" => HashedStack::decode(&mut sa).ok() == HashedStack::decode(&mut sb).ok() && same(Some(true)),
-                "patch" => same(DataComponentPatch::decode(&mut sa).ok().zip(DataComponentPatch::decode(&mut sb).ok()).map(|(x, y)| x == y)),
-                "wiredelim" => same(
-                    DataComponentPatch::decode_delimited(&mut sa).ok().zip(DataComponentPatch::decode_delimited(&mut sb).ok()).map(|(x, y)| x == y),
+                "hashed" => {
+                    HashedStack::decode(&mut sa).ok() == HashedStack::decode(&mut sb).ok()
+                        && same(Some(true))
+                }
+                "patch" => same(
+                    DataComponentPatch::decode(&mut sa)
+                        .ok()
+                        .zip(DataComponentPatch::decode(&mut sb).ok())
+                        .map(|(x, y)| x == y),
                 ),
-                "wireu" => same(ItemStack::decode_optional_untrusted(&mut sa).ok().zip(ItemStack::decode_optional_untrusted(&mut sb).ok()).map(|(x, y)| x == y)),
+                "wiredelim" => same(
+                    DataComponentPatch::decode_delimited(&mut sa)
+                        .ok()
+                        .zip(DataComponentPatch::decode_delimited(&mut sb).ok())
+                        .map(|(x, y)| x == y),
+                ),
+                "wireu" => same(
+                    ItemStack::decode_optional_untrusted(&mut sa)
+                        .ok()
+                        .zip(ItemStack::decode_optional_untrusted(&mut sb).ok())
+                        .map(|(x, y)| x == y),
+                ),
                 "wire" if kind == "click" => {
                     use mc_protocol::packets::play::ServerboundContainerClickPacket as P;
                     let sorted = |mut p: P| {
                         p.changed_slots.sort_by_key(|(s, _)| *s);
                         p
                     };
-                    same(P::decode(&mut sa).ok().zip(P::decode(&mut sb).ok()).map(|(x, y)| sorted(x) == sorted(y)))
+                    same(
+                        P::decode(&mut sa)
+                            .ok()
+                            .zip(P::decode(&mut sb).ok())
+                            .map(|(x, y)| sorted(x) == sorted(y)),
+                    )
                 }
-                "wire" if is_patch => same(DataComponentPatch::decode(&mut sa).ok().zip(DataComponentPatch::decode(&mut sb).ok()).map(|(x, y)| x == y)),
-                "wire" if is_stack => same(ItemStack::decode(&mut sa).ok().zip(ItemStack::decode(&mut sb).ok()).map(|(x, y)| x == y)),
+                "wire" if is_patch => same(
+                    DataComponentPatch::decode(&mut sa)
+                        .ok()
+                        .zip(DataComponentPatch::decode(&mut sb).ok())
+                        .map(|(x, y)| x == y),
+                ),
+                "wire" if is_stack => same(
+                    ItemStack::decode(&mut sa)
+                        .ok()
+                        .zip(ItemStack::decode(&mut sb).ok())
+                        .map(|(x, y)| x == y),
+                ),
                 "wire" => {
-                    let Some(def) = DataComponentType::by_name(name).and_then(try_def) else { return false };
-                    same(def.decode_network(&mut sa).ok().zip(def.decode_network(&mut sb).ok()).map(|(x, y)| x == y))
+                    let Some(def) = DataComponentType::by_name(name).and_then(try_def) else {
+                        return false;
+                    };
+                    same(
+                        def.decode_network(&mut sa)
+                            .ok()
+                            .zip(def.decode_network(&mut sb).ok())
+                            .map(|(x, y)| x == y),
+                    )
                 }
                 _ => false,
             }
@@ -314,22 +414,29 @@ fn records_match(file: &str, kind: &str, name: &str, expected: &str, got: &str) 
         return true;
     }
     let relaxed = relaxed_fields(file);
-    let (e, g): (Vec<&str>, Vec<&str>) = (expected.split('\t').collect(), got.split('\t').collect());
+    let (e, g): (Vec<&str>, Vec<&str>) =
+        (expected.split('\t').collect(), got.split('\t').collect());
     if e.len() != g.len() || e[0] != "OK" || g[0] != "OK" {
         return false;
     }
     e.iter().zip(&g).all(|(x, y)| {
         x == y
             || match (x.split_once('='), y.split_once('=')) {
-                (Some((kx, vx)), Some((ky, vy))) => kx == ky && relaxed.contains(&kx) && semantic_eq(kind, name, kx, vx, vy),
+                (Some((kx, vx)), Some((ky, vy))) => {
+                    kx == ky && relaxed.contains(&kx) && semantic_eq(kind, name, kx, vx, vy)
+                }
                 _ => false,
             }
     })
 }
 
 fn golden_files() -> Vec<std::path::PathBuf> {
-    let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/components/golden");
-    let mut v: Vec<_> = std::fs::read_dir(dir).unwrap().map(|e| e.unwrap().path()).collect();
+    let dir =
+        std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/components/golden");
+    let mut v: Vec<_> = std::fs::read_dir(dir)
+        .unwrap()
+        .map(|e| e.unwrap().path())
+        .collect();
     v.sort();
     v
 }
@@ -342,7 +449,10 @@ fn components_golden() {
     let only = std::env::var("MC_GOLDEN_FILE").ok();
     let (mut total, mut skipped, mut failures) = (0, 0, Vec::new());
     for path in golden_files() {
-        if only.as_deref().is_some_and(|o| path.file_name().unwrap().to_str() != Some(o)) {
+        if only
+            .as_deref()
+            .is_some_and(|o| path.file_name().unwrap().to_str() != Some(o))
+        {
             continue;
         }
         let text = std::fs::read_to_string(&path).unwrap();
@@ -365,13 +475,27 @@ fn components_golden() {
             let got = run(f[0], f[1], f[2]);
             let file = path.file_name().unwrap().to_str().unwrap();
             if !records_match(file, f[0], f[1], expected, &got) {
-                failures.push(format!("[{}] {}\t{}\t{}\n   expected {expected}\n   got      {got}", path.file_name().unwrap().to_str().unwrap(), f[0], f[1], f[2]));
+                failures.push(format!(
+                    "[{}] {}\t{}\t{}\n   expected {expected}\n   got      {got}",
+                    path.file_name().unwrap().to_str().unwrap(),
+                    f[0],
+                    f[1],
+                    f[2]
+                ));
             }
         }
     }
     if !failures.is_empty() {
         let shown: Vec<&String> = failures.iter().take(40).collect();
-        panic!("{} of {total} golden records differ:\n{}", failures.len(), shown.iter().map(|s| s.as_str()).collect::<Vec<_>>().join("\n"));
+        panic!(
+            "{} of {total} golden records differ:\n{}",
+            failures.len(),
+            shown
+                .iter()
+                .map(|s| s.as_str())
+                .collect::<Vec<_>>()
+                .join("\n")
+        );
     }
     eprintln!("{total} golden records matched, {skipped} skipped (component not implemented)");
 }
@@ -384,13 +508,19 @@ fn vanilla_registry_context_matches_server() {
     let mut checked = 0;
     for line in REGISTRIES.lines() {
         let (key, names) = line.split_once('\t').unwrap_or((line, ""));
-        let Some(t) = vanilla.registry(key) else { continue };
+        let Some(t) = vanilla.registry(key) else {
+            continue;
+        };
         let want: Vec<&str> = names.split(',').filter(|n| !n.is_empty()).collect();
         let got: Vec<String> = t.names().iter().map(|n| n.to_string()).collect();
         assert_eq!(got, want, "registry {key}");
         checked += 1;
     }
-    assert_eq!(checked, REGISTRIES.lines().count(), "every server registry must be known to RegistryContext::vanilla()");
+    assert_eq!(
+        checked,
+        REGISTRIES.lines().count(),
+        "every server registry must be known to RegistryContext::vanilla()"
+    );
 }
 
 /// Every vanilla data component type has a definition whose persistent/network flags equal the extracted vanilla ones.
@@ -403,13 +533,23 @@ fn all_components_defined() {
             None => missing.push(id.name()),
             Some(d) => {
                 if d.is_transient() == id.data().persistent {
-                    flag_mismatch.push(format!("{} persistent={}", id.name(), id.data().persistent));
+                    flag_mismatch.push(format!(
+                        "{} persistent={}",
+                        id.name(),
+                        id.data().persistent
+                    ));
                 }
             }
         }
     }
-    assert!(missing.is_empty(), "components without a definition: {missing:?}");
-    assert!(flag_mismatch.is_empty(), "flag mismatches: {flag_mismatch:?}");
+    assert!(
+        missing.is_empty(),
+        "components without a definition: {missing:?}"
+    );
+    assert!(
+        flag_mismatch.is_empty(),
+        "flag mismatches: {flag_mismatch:?}"
+    );
 }
 
 /// Default components of every item parse (typed) and re-encode to the extracted JSON.
@@ -420,5 +560,10 @@ fn all_item_defaults_parse() {
         let proto = mc_protocol::components::item_stack::item_prototype(item);
         let _ = proto.len();
     }
-    assert!(mc_protocol::components::item_stack::MISSING_PROTOTYPE_COMPONENTS.lock().unwrap().is_empty());
+    assert!(
+        mc_protocol::components::item_stack::MISSING_PROTOTYPE_COMPONENTS
+            .lock()
+            .unwrap()
+            .is_empty()
+    );
 }

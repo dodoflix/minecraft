@@ -8,10 +8,14 @@
 
 use super::MinecraftServer;
 use super::jsonrpc::ManagementApi;
-use super::jsonrpc::api::{GameRuleInfo, GameRuleType, ManagementPlayer, ServerVersion, SettingKey, SettingValue};
+use super::jsonrpc::api::{
+    GameRuleInfo, GameRuleType, ManagementPlayer, ServerVersion, SettingKey, SettingValue,
+};
 use super::notifications::GameRuleValue as NotifyValue;
 use super::permissions::{LevelBasedPermissionSet, PermissionLevel};
-use super::players::{IpBanListEntry, NameAndId, ServerOpListEntry, UserBanListEntry, UserWhiteListEntry};
+use super::players::{
+    IpBanListEntry, NameAndId, ServerOpListEntry, UserBanListEntry, UserWhiteListEntry,
+};
 use super::rcon::RconCommandRunner;
 use super::shared::ServerShared;
 use crate::commands::console_command_source::RconConsoleSource;
@@ -24,7 +28,10 @@ use std::sync::atomic::AtomicBool;
 use uuid::Uuid;
 
 /// Run `f` on the game thread with the server. Inside `run_on_server_thread` (server installed) it runs inline.
-fn on_server<R: Send + 'static>(shared: &ServerShared, f: impl FnOnce(&mut MinecraftServer) -> R + Send) -> R {
+fn on_server<R: Send + 'static>(
+    shared: &ServerShared,
+    f: impl FnOnce(&mut MinecraftServer) -> R + Send,
+) -> R {
     if has_server() {
         return with_server(f);
     }
@@ -32,8 +39,11 @@ fn on_server<R: Send + 'static>(shared: &ServerShared, f: impl FnOnce(&mut Minec
     // exited, in which case the closure is dropped on that thread before we return), so the borrows `f` captures
     // outlive its use; only the `'static` bound of the queue is being circumvented.
     let task: Box<dyn FnOnce(&mut MinecraftServer) -> R + Send + '_> = Box::new(f);
-    let task: Box<dyn FnOnce(&mut MinecraftServer) -> R + Send + 'static> = unsafe { std::mem::transmute(task) };
-    shared.execute_blocking(task).unwrap_or_else(|| panic!("the server is not running"))
+    let task: Box<dyn FnOnce(&mut MinecraftServer) -> R + Send + 'static> =
+        unsafe { std::mem::transmute(task) };
+    shared
+        .execute_blocking(task)
+        .unwrap_or_else(|| panic!("the server is not running"))
 }
 
 pub struct ServerManagementApi {
@@ -51,7 +61,10 @@ impl ServerManagementApi {
 }
 
 fn management_player(handle: &super::players::player_handle::PlayerHandle) -> ManagementPlayer {
-    ManagementPlayer { profile: handle.name_and_id(), ip_address: handle.ip_address.clone() }
+    ManagementPlayer {
+        profile: handle.name_and_id(),
+        ip_address: handle.ip_address.clone(),
+    }
 }
 
 fn rule_info(rules: &crate::world::level::gamerules::GameRules, rule: AnyGameRule) -> GameRuleInfo {
@@ -79,7 +92,10 @@ impl ManagementApi for ServerManagementApi {
     }
 
     fn version(&self) -> ServerVersion {
-        ServerVersion { name: mc_world::level_storage::WORLD_VERSION_NAME.to_owned(), protocol: mc_protocol::PROTOCOL_VERSION }
+        ServerVersion {
+            name: mc_world::level_storage::WORLD_VERSION_NAME.to_owned(),
+            protocol: mc_protocol::PROTOCOL_VERSION,
+        }
     }
 
     fn run_on_server_thread(&self, task: Box<dyn FnOnce() + Send + '_>) {
@@ -89,7 +105,8 @@ impl ManagementApi for ServerManagementApi {
         }
         // SAFETY: see `on_server`.
         let task: Box<dyn FnOnce() + Send + 'static> = unsafe { std::mem::transmute(task) };
-        self.shared.execute_blocking(move |server| enter_server(server, task));
+        self.shared
+            .execute_blocking(move |server| enter_server(server, task));
     }
 
     fn allowlist_entries(&self) -> Vec<UserWhiteListEntry> {
@@ -149,9 +166,19 @@ impl ManagementApi for ServerManagementApi {
     fn operator_entries(&self) -> Vec<ServerOpListEntry> {
         self.with(|s| s.player_list.ops.get_entries().cloned().collect())
     }
-    fn op(&self, user: NameAndId, level: Option<PermissionLevel>, bypasses_player_limit: Option<bool>) {
+    fn op(
+        &self,
+        user: NameAndId,
+        level: Option<PermissionLevel>,
+        bypasses_player_limit: Option<bool>,
+    ) {
         self.with(move |s| {
-            super::players::player_ops::op(s, user, level.map(LevelBasedPermissionSet::for_level), bypasses_player_limit);
+            super::players::player_ops::op(
+                s,
+                user,
+                level.map(LevelBasedPermissionSet::for_level),
+                bypasses_player_limit,
+            );
         });
     }
     fn deop(&self, user: &NameAndId) {
@@ -163,18 +190,34 @@ impl ManagementApi for ServerManagementApi {
     }
 
     fn players(&self) -> Vec<ManagementPlayer> {
-        self.with(|s| s.player_list.get_players().iter().map(management_player).collect())
+        self.with(|s| {
+            s.player_list
+                .get_players()
+                .iter()
+                .map(management_player)
+                .collect()
+        })
     }
     fn player_by_id(&self, id: Uuid) -> Option<ManagementPlayer> {
         self.with(move |s| s.player_list.get_player(&id).map(management_player))
     }
     fn player_by_name(&self, name: &str) -> Option<ManagementPlayer> {
         let name = name.to_owned();
-        self.with(move |s| s.player_list.get_player_by_name(&name).map(management_player))
+        self.with(move |s| {
+            s.player_list
+                .get_player_by_name(&name)
+                .map(management_player)
+        })
     }
     fn players_with_address(&self, ip: &str) -> Vec<ManagementPlayer> {
         let ip = ip.to_owned();
-        self.with(move |s| s.player_list.get_players_with_address(&ip).iter().map(management_player).collect())
+        self.with(move |s| {
+            s.player_list
+                .get_players_with_address(&ip)
+                .iter()
+                .map(management_player)
+                .collect()
+        })
     }
     fn cached_user_by_id(&self, id: Uuid) -> Option<NameAndId> {
         use super::players::UserNameToIdResolver;
@@ -232,14 +275,21 @@ impl ManagementApi for ServerManagementApi {
     fn game_rules(&self) -> Vec<GameRuleInfo> {
         self.with(|s| {
             let rules = s.game_rules_ref();
-            rules.available_rules().map(|rule| rule_info(rules, rule)).collect()
+            rules
+                .available_rules()
+                .map(|rule| rule_info(rules, rule))
+                .collect()
         })
     }
 
     fn update_game_rule(&self, key: &str, value: NotifyValue) -> Result<GameRuleInfo, String> {
         let key = key.to_owned();
         self.with(move |s| {
-            let id = if key.contains(':') { key.clone() } else { format!("minecraft:{key}") };
+            let id = if key.contains(':') {
+                key.clone()
+            } else {
+                format!("minecraft:{key}")
+            };
             let rule = mc_core::ident::Identifier::try_parse(&id)
                 .and_then(|id| AnyGameRule::by_identifier(&id))
                 .filter(|rule| s.game_rules_ref().available_rules().any(|r| r == *rule))
@@ -279,7 +329,10 @@ impl MinecraftServer {
         if self.is_enforce_whitelist() && self.is_using_whitelist() {
             for player in self.player_list.get_players() {
                 if !self.player_list.is_white_listed(&player.name_and_id()) {
-                    player.disconnect(&Component::translatable("multiplayer.disconnect.not_whitelisted", vec![]));
+                    player.disconnect(&Component::translatable(
+                        "multiplayer.disconnect.not_whitelisted",
+                        vec![],
+                    ));
                 }
             }
         }
@@ -287,10 +340,14 @@ impl MinecraftServer {
 
     /// `PlayerList.remove(player)` for the management API: the player leaves the level and the list.
     pub fn remove_player_by_id(&mut self, id: Uuid) {
-        let Some(handle) = self.player_list.get_player(&id).cloned() else { return };
+        let Some(handle) = self.player_list.get_player(&id).cloned() else {
+            return;
+        };
         let (entity_id, dimension) = (handle.id, handle.dimension());
         self.with_level(&dimension, |server, level| {
-            level.with_player(entity_id, |level, player| super::players::player_ops::remove(server, level, player));
+            level.with_player(entity_id, |level, player| {
+                super::players::player_ops::remove(server, level, player)
+            });
         });
     }
 
@@ -298,9 +355,12 @@ impl MinecraftServer {
     pub fn set_status_heartbeat_interval(&mut self, seconds: i32) -> bool {
         match self.dedicated.management_server.as_ref() {
             Some(management) => {
-                let rescheduled = management.schedule_heartbeat(self.notification_manager.clone(), i64::from(seconds));
+                let rescheduled = management
+                    .schedule_heartbeat(self.notification_manager.clone(), i64::from(seconds));
                 if rescheduled {
-                    self.dedicated.settings.update(|p| p.update(&p.status_heartbeat_interval, seconds));
+                    self.dedicated
+                        .settings
+                        .update(|p| p.update(&p.status_heartbeat_interval, seconds));
                 }
                 rescheduled
             }
@@ -316,7 +376,9 @@ impl MinecraftServer {
             SettingKey::EnforceWhitelist => SettingValue::Bool(*p.enforce_whitelist.get()),
             SettingKey::UsingWhitelist => SettingValue::Bool(*p.white_list.get()),
             SettingKey::MaxPlayers => SettingValue::Int(*p.max_players.get()),
-            SettingKey::PauseWhenEmptySeconds => SettingValue::Int(*p.pause_when_empty_seconds.get()),
+            SettingKey::PauseWhenEmptySeconds => {
+                SettingValue::Int(*p.pause_when_empty_seconds.get())
+            }
             SettingKey::PlayerIdleTimeout => SettingValue::Int(*p.player_idle_timeout.get()),
             SettingKey::AllowFlight => SettingValue::Bool(*p.allow_flight.get()),
             SettingKey::SpawnProtectionRadius => SettingValue::Int(*p.spawn_protection.get()),
@@ -326,11 +388,17 @@ impl MinecraftServer {
             SettingKey::ViewDistance => SettingValue::Int(*p.view_distance.get()),
             SettingKey::SimulationDistance => SettingValue::Int(*p.simulation_distance.get()),
             SettingKey::AcceptsTransfers => SettingValue::Bool(*p.accepts_transfers.get()),
-            SettingKey::StatusHeartbeatInterval => SettingValue::Int(*p.status_heartbeat_interval.get()),
-            SettingKey::OperatorUserPermissions => SettingValue::PermissionLevel(p.op_permissions.get().level()),
+            SettingKey::StatusHeartbeatInterval => {
+                SettingValue::Int(*p.status_heartbeat_interval.get())
+            }
+            SettingKey::OperatorUserPermissions => {
+                SettingValue::PermissionLevel(p.op_permissions.get().level())
+            }
             SettingKey::HidesOnlinePlayers => SettingValue::Bool(*p.hide_online_players.get()),
             SettingKey::RepliesToStatus => SettingValue::Bool(*p.enable_status.get()),
-            SettingKey::EntityBroadcastRangePercentage => SettingValue::Int(*p.entity_broadcast_range_percentage.get()),
+            SettingKey::EntityBroadcastRangePercentage => {
+                SettingValue::Int(*p.entity_broadcast_range_percentage.get())
+            }
         }
     }
 
@@ -339,7 +407,9 @@ impl MinecraftServer {
             (SettingKey::AutoSave, SettingValue::Bool(b)) => {
                 self.set_auto_save(b);
             }
-            (SettingKey::Difficulty, SettingValue::Difficulty(d)) => self.set_difficulty_property(d),
+            (SettingKey::Difficulty, SettingValue::Difficulty(d)) => {
+                self.set_difficulty_property(d)
+            }
             (SettingKey::EnforceWhitelist, SettingValue::Bool(b)) => self.set_enforce_whitelist(b),
             (SettingKey::UsingWhitelist, SettingValue::Bool(b)) => {
                 self.set_using_whitelist(b);
@@ -349,33 +419,51 @@ impl MinecraftServer {
                 self.set_max_players(i);
                 self.player_list.settings.max_players = i;
             }
-            (SettingKey::PauseWhenEmptySeconds, SettingValue::Int(i)) => self.set_pause_when_empty_seconds(i),
-            (SettingKey::PlayerIdleTimeout, SettingValue::Int(i)) => self.set_player_idle_timeout(i),
+            (SettingKey::PauseWhenEmptySeconds, SettingValue::Int(i)) => {
+                self.set_pause_when_empty_seconds(i)
+            }
+            (SettingKey::PlayerIdleTimeout, SettingValue::Int(i)) => {
+                self.set_player_idle_timeout(i)
+            }
             (SettingKey::AllowFlight, SettingValue::Bool(b)) => self.set_allow_flight(b),
-            (SettingKey::SpawnProtectionRadius, SettingValue::Int(i)) => self.set_spawn_protection_radius(i),
+            (SettingKey::SpawnProtectionRadius, SettingValue::Int(i)) => {
+                self.set_spawn_protection_radius(i)
+            }
             (SettingKey::Motd, SettingValue::Str(s)) => self.set_motd(&s),
             (SettingKey::ForceGameMode, SettingValue::Bool(b)) => {
-                self.dedicated.settings.update(|p| p.update(&p.force_game_mode, b));
+                self.dedicated
+                    .settings
+                    .update(|p| p.update(&p.force_game_mode, b));
             }
             (SettingKey::GameMode, SettingValue::GameType(g)) => self.set_game_mode_property(g),
             (SettingKey::ViewDistance, SettingValue::Int(i)) => self.set_view_distance(i),
-            (SettingKey::SimulationDistance, SettingValue::Int(i)) => self.set_simulation_distance(i),
+            (SettingKey::SimulationDistance, SettingValue::Int(i)) => {
+                self.set_simulation_distance(i)
+            }
             (SettingKey::AcceptsTransfers, SettingValue::Bool(b)) => self.set_accepts_transfers(b),
             (SettingKey::OperatorUserPermissions, SettingValue::PermissionLevel(l)) => {
                 let permissions = LevelBasedPermissionSet::for_level(l);
                 self.set_operator_user_permissions(permissions);
                 self.player_list.settings.operator_user_permissions = permissions;
             }
-            (SettingKey::HidesOnlinePlayers, SettingValue::Bool(b)) => self.set_hides_online_players(b),
+            (SettingKey::HidesOnlinePlayers, SettingValue::Bool(b)) => {
+                self.set_hides_online_players(b)
+            }
             (SettingKey::RepliesToStatus, SettingValue::Bool(b)) => self.set_replies_to_status(b),
-            (SettingKey::EntityBroadcastRangePercentage, SettingValue::Int(i)) => self.set_entity_broadcast_range_percentage(i),
-            (key, value) => log::warn!("Ignoring management setting {key:?} with mismatched value {value:?}"),
+            (SettingKey::EntityBroadcastRangePercentage, SettingValue::Int(i)) => {
+                self.set_entity_broadcast_range_percentage(i)
+            }
+            (key, value) => {
+                log::warn!("Ignoring management setting {key:?} with mismatched value {value:?}")
+            }
         }
     }
 
     /// `DedicatedServer.setGameMode`: persists the property and changes the world's default game type.
     pub fn set_game_mode_property(&mut self, game_mode: GameType) {
-        self.dedicated.settings.update(|p| p.update(&p.game_mode, game_mode));
+        self.dedicated
+            .settings
+            .update(|p| p.update(&p.game_mode, game_mode));
         self.world_data.lock().settings.game_type = game_mode;
     }
 }
@@ -389,7 +477,12 @@ pub struct ServerRconRunner {
 
 impl ServerRconRunner {
     pub fn new(shared: Arc<ServerShared>, broadcast_to_ops: bool) -> Self {
-        Self { shared, source: Arc::new(RconConsoleSource::new(Arc::new(AtomicBool::new(broadcast_to_ops)))) }
+        Self {
+            shared,
+            source: Arc::new(RconConsoleSource::new(Arc::new(AtomicBool::new(
+                broadcast_to_ops,
+            )))),
+        }
     }
 }
 
@@ -409,11 +502,18 @@ impl RconCommandRunner for ServerRconRunner {
 
 impl MinecraftServer {
     /// `rconConsoleSource.createCommandSourceStack()`: owner permissions, named `Rcon`, at the respawn position.
-    pub fn create_rcon_command_source_stack(&self, source: Arc<RconConsoleSource>) -> crate::commands::CommandSourceStack {
+    pub fn create_rcon_command_source_stack(
+        &self,
+        source: Arc<RconConsoleSource>,
+    ) -> crate::commands::CommandSourceStack {
         let respawn = self.get_respawn_data();
         crate::commands::CommandSourceStack::named(
             source,
-            mc_core::phys::Vec3::new(f64::from(respawn.pos.x()), f64::from(respawn.pos.y()), f64::from(respawn.pos.z())),
+            mc_core::phys::Vec3::new(
+                f64::from(respawn.pos.x()),
+                f64::from(respawn.pos.y()),
+                f64::from(respawn.pos.z()),
+            ),
             mc_core::phys::Vec2::ZERO,
             self.find_respawn_dimension(),
             LevelBasedPermissionSet::OWNER.into(),

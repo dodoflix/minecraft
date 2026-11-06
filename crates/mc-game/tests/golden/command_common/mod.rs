@@ -1,5 +1,8 @@
 //! Shared by the command tests.
-#![allow(dead_code, reason = "each test target uses a subset of the shared helpers")]
+#![allow(
+    dead_code,
+    reason = "each test target uses a subset of the shared helpers"
+)]
 
 /// The vanilla command tree: all features enabled like the golden generator (`createValidationContext`), built-in
 /// registries plus empty data-driven ones (the tree only needs registry existence).
@@ -11,8 +14,8 @@ pub fn vanilla_commands() -> mc_game::commands::Commands {
 
 /// The build context of [`vanilla_commands`].
 pub fn vanilla_build_context() -> mc_game::commands::CommandBuildContext {
-    use mc_game::commands::HolderLookupProvider as _;
     use mc_game::commands::CommandBuildContext;
+    use mc_game::commands::HolderLookupProvider as _;
     use mc_game::commands::command_build_context::StaticRegistries;
     use std::sync::Arc;
 
@@ -31,19 +34,27 @@ pub fn vanilla_build_context() -> mc_game::commands::CommandBuildContext {
         fn has_tag(&self, _: &mc_core::ident::Identifier) -> bool {
             false
         }
-        fn tag_elements(&self, _: &mc_core::ident::Identifier) -> Option<Vec<mc_core::ident::Identifier>> {
+        fn tag_elements(
+            &self,
+            _: &mc_core::ident::Identifier,
+        ) -> Option<Vec<mc_core::ident::Identifier>> {
             None
         }
     }
     impl mc_game::commands::HolderLookupProvider for WithEmptyDynamic {
         fn lookup(&self, key: &str) -> Option<Arc<dyn mc_game::commands::RegistryView>> {
-            StaticRegistries.lookup(key).or_else(|| Some(Arc::new(Empty) as Arc<dyn mc_game::commands::RegistryView>))
+            StaticRegistries
+                .lookup(key)
+                .or_else(|| Some(Arc::new(Empty) as Arc<dyn mc_game::commands::RegistryView>))
         }
         fn list_registry_keys(&self) -> Vec<String> {
             StaticRegistries.list_registry_keys()
         }
     }
-    CommandBuildContext::simple(Arc::new(WithEmptyDynamic), mc_world::level_storage::FeatureFlagSet::ALL)
+    CommandBuildContext::simple(
+        Arc::new(WithEmptyDynamic),
+        mc_world::level_storage::FeatureFlagSet::ALL,
+    )
 }
 
 /// Held by every test whose server lives in the working directory of the process (see [`test_server`]).
@@ -60,9 +71,15 @@ pub fn test_server() -> (mc_game::server::MinecraftServer, Box<dyn std::any::Any
     use mc_game::server::dedicated::properties::DedicatedServerSettings;
     let dir = tempfile::tempdir().expect("temp dir");
     std::fs::write(dir.path().join("eula.txt"), "eula=true\n").expect("eula");
-    let options = ServerOptions { universe: dir.path().to_string_lossy().into_owned(), ..ServerOptions::default() };
-    let settings = DedicatedServerSettings::new(dir.path().join("server.properties")).expect("settings");
+    let options = ServerOptions {
+        universe: dir.path().to_string_lossy().into_owned(),
+        ..ServerOptions::default()
+    };
+    let settings =
+        DedicatedServerSettings::new(dir.path().join("server.properties")).expect("settings");
     std::env::set_current_dir(dir.path()).expect("cd into the world directory");
-    let server = mc_game::server::dedicated::launch::create_server(options, settings).expect("server").expect("not stopped early");
+    let server = mc_game::server::dedicated::launch::create_server(options, settings)
+        .expect("server")
+        .expect("not stopped early");
     (server, Box::new((guard, dir)))
 }

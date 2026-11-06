@@ -194,7 +194,12 @@ pub struct EntityData {
 impl EntityData {
     /// `Entity(type, level)`: the id comes from `ServerLevel::next_entity_id`. `max_air_supply` is the value of
     /// the virtual `getMaxAirSupply()`; `define_synched_data` adds the subclass accessors (`defineSynchedData`).
-    pub fn new(entity_type: EntityType, id: EntityId, max_air_supply: i32, define_synched_data: impl FnOnce(&mut SynchedEntityDataBuilder)) -> Self {
+    pub fn new(
+        entity_type: EntityType,
+        id: EntityId,
+        max_air_supply: i32,
+        define_synched_data: impl FnOnce(&mut SynchedEntityDataBuilder),
+    ) -> Self {
         let mut random = mc_core::random::create_new();
         let uuid = mth::create_insecure_uuid(&mut random);
         let dimensions = EntityDimensions::of_type(entity_type);
@@ -342,7 +347,11 @@ impl EntityData {
         self.on_ground = on_ground;
     }
     pub fn delta_movement(&self) -> Vec3 {
-        if self.delta_movement_frozen { Vec3::ZERO } else { self.delta_movement }
+        if self.delta_movement_frozen {
+            Vec3::ZERO
+        } else {
+            self.delta_movement
+        }
     }
     pub fn removal_reason(&self) -> Option<RemovalReason> {
         self.removal_reason
@@ -378,10 +387,15 @@ impl EntityData {
             let fx = mth::floor_f64(x);
             let fy = mth::floor_f64(y);
             let fz = mth::floor_f64(z);
-            if fx != self.block_position.x() || fy != self.block_position.y() || fz != self.block_position.z() {
+            if fx != self.block_position.x()
+                || fy != self.block_position.y()
+                || fz != self.block_position.z()
+            {
                 self.block_position = BlockPos::new(fx, fy, fz);
                 self.in_block_state = None;
-                if SectionPos::block_to_section_coord_i32(fx) != self.chunk_position.x || SectionPos::block_to_section_coord_i32(fz) != self.chunk_position.z {
+                if SectionPos::block_to_section_coord_i32(fx) != self.chunk_position.x
+                    || SectionPos::block_to_section_coord_i32(fz) != self.chunk_position.z
+                {
                     self.chunk_position = ChunkPos::containing(&self.block_position);
                 }
                 self.moved_since_sync = true;
@@ -448,7 +462,11 @@ impl EntityData {
     /// `setSharedFlag` (the shared-flags accessor has no `onSyncedDataUpdated` reaction).
     pub fn set_shared_flag(&mut self, flag: i32, value: bool) {
         let current = self.entity_data.get(DATA_SHARED_FLAGS_ID);
-        let new = if value { (current as i32 | (1 << flag)) as i8 } else { (current as i32 & !(1 << flag)) as i8 };
+        let new = if value {
+            (current as i32 | (1 << flag)) as i8
+        } else {
+            (current as i32 & !(1 << flag)) as i8
+        };
         self.entity_data.set(DATA_SHARED_FLAGS_ID, new);
     }
 
@@ -522,7 +540,11 @@ impl EntityData {
     }
 
     pub fn add_tag(&mut self, tag: &str) -> bool {
-        if self.tags.len() >= MAX_ENTITY_TAG_COUNT { false } else { self.tags.insert(tag) }
+        if self.tags.len() >= MAX_ENTITY_TAG_COUNT {
+            false
+        } else {
+            self.tags.insert(tag)
+        }
     }
 
     pub fn remove_tag(&mut self, tag: &str) -> bool {
@@ -539,7 +561,11 @@ impl EntityData {
 
     /// `getFluidJumpThreshold()`.
     pub fn get_fluid_jump_threshold(&self) -> f64 {
-        if f64::from(self.eye_height) < 0.4 { 0.0 } else { 0.4 }
+        if f64::from(self.eye_height) < 0.4 {
+            0.0
+        } else {
+            0.4
+        }
     }
 
     pub fn get_eye_y(&self) -> f64 {
@@ -646,7 +672,10 @@ pub trait Entity: Any {
     /// indirect source, a projectile's is its living owner (`PrimedTnt` overrides with its owner).
     fn explosion_indirect_source(&self, level: &ServerLevel) -> Option<EntityId> {
         if let Some(projectile) = self.as_projectile() {
-            return projectile.get_owner(level).filter(|o| o.living().is_some()).map(|o| o.id());
+            return projectile
+                .get_owner(level)
+                .filter(|o| o.living().is_some())
+                .map(|o| o.id());
         }
         self.living().map(|_| self.id())
     }
@@ -695,8 +724,13 @@ pub trait Entity: Any {
     }
 
     /// `deflection(projectile)`: `DEFLECTS_PROJECTILES` entities reverse projectiles.
-    fn deflection(&self, _projectile: &dyn super::projectile::Projectile) -> super::projectile::ProjectileDeflection {
-        if mc_data::tags::get::<EntityType>("deflects_projectiles").is_some_and(|t| t.contains(self.get_type())) {
+    fn deflection(
+        &self,
+        _projectile: &dyn super::projectile::Projectile,
+    ) -> super::projectile::ProjectileDeflection {
+        if mc_data::tags::get::<EntityType>("deflects_projectiles")
+            .is_some_and(|t| t.contains(self.get_type()))
+        {
             super::projectile::ProjectileDeflection::Reverse
         } else {
             super::projectile::ProjectileDeflection::None
@@ -743,7 +777,9 @@ pub trait Entity: Any {
     fn as_mount_inventory(&self) -> Option<&dyn crate::world::inventory::MountInventory> {
         None
     }
-    fn as_mount_inventory_mut(&mut self) -> Option<&mut dyn crate::world::inventory::MountInventory> {
+    fn as_mount_inventory_mut(
+        &mut self,
+    ) -> Option<&mut dyn crate::world::inventory::MountInventory> {
         None
     }
 
@@ -784,7 +820,9 @@ pub trait Entity: Any {
 
     /// `maxUpStep()` (`LivingEntity`: the `STEP_HEIGHT` attribute).
     fn max_up_step(&self) -> f32 {
-        self.living().map_or(0.0, |l| l.get_attribute_value(mc_data::Attribute::STEP_HEIGHT) as f32)
+        self.living().map_or(0.0, |l| {
+            l.get_attribute_value(mc_data::Attribute::STEP_HEIGHT) as f32
+        })
     }
     /// `isDescending()` (= `isShiftKeyDown()`).
     fn is_descending(&self) -> bool {
@@ -816,7 +854,8 @@ pub trait Entity: Any {
     /// `canSimulateMovement()` on the server.
     fn can_simulate_movement(&self) -> bool {
         match self.move_simulation_type() {
-            MoveSimulationType::ServerAndClient | MoveSimulationType::AuthoritativeSideAndServer => true,
+            MoveSimulationType::ServerAndClient
+            | MoveSimulationType::AuthoritativeSideAndServer => true,
             MoveSimulationType::AuthoritativeSide => self.is_local_instance_authoritative(),
         }
     }
@@ -842,21 +881,34 @@ pub trait Entity: Any {
     }
     /// `getEffectiveGravity()` (`LivingEntity`: `SLOW_FALLING` caps the gravity of a falling entity at 0.01).
     fn get_effective_gravity(&self) -> f64 {
-        if self.living().is_some() { super::living_entity::travel::living_effective_gravity(self.as_dyn()) } else { self.get_gravity() }
+        if self.living().is_some() {
+            super::living_entity::travel::living_effective_gravity(self.as_dyn())
+        } else {
+            self.get_gravity()
+        }
     }
     /// `getGravity()` (`getDefaultGravity()` unless `noGravity`; living entities read the `GRAVITY` attribute).
     fn get_gravity(&self) -> f64 {
-        if self.base().is_no_gravity() { 0.0 } else { self.get_default_gravity() }
+        if self.base().is_no_gravity() {
+            0.0
+        } else {
+            self.get_default_gravity()
+        }
     }
     /// `getDefaultGravity()` (`LivingEntity`: the `GRAVITY` attribute).
     fn get_default_gravity(&self) -> f64 {
-        self.living().map_or(0.0, |l| l.get_attribute_value(mc_data::Attribute::GRAVITY))
+        self.living()
+            .map_or(0.0, |l| l.get_attribute_value(mc_data::Attribute::GRAVITY))
     }
     /// `getAirDrag()` (`LivingEntity`: modified by the `AIR_DRAG_MODIFIER` attribute).
     fn get_air_drag(&self) -> f32 {
         match self.living() {
             Some(l) => super::living_entity::travel::compute_modified_friction(
-                if self.omnidirectional_air_mover() { 0.91 } else { 0.98 },
+                if self.omnidirectional_air_mover() {
+                    0.91
+                } else {
+                    0.98
+                },
                 l.get_attribute_value(mc_data::Attribute::AIR_DRAG_MODIFIER) as f32,
             ),
             None => 0.98,
@@ -873,15 +925,39 @@ pub trait Entity: Any {
     }
 
     /// `setOnGroundWithMovement(onGround, horizontalCollision, movement)`.
-    fn set_on_ground_with_movement(&mut self, level: &ServerLevel, on_ground: bool, horizontal_collision: bool, movement: Vec3) {
-        super::movement::set_on_ground_with_movement(self.as_dyn_mut(), level, on_ground, horizontal_collision, movement);
+    fn set_on_ground_with_movement(
+        &mut self,
+        level: &ServerLevel,
+        on_ground: bool,
+        horizontal_collision: bool,
+        movement: Vec3,
+    ) {
+        super::movement::set_on_ground_with_movement(
+            self.as_dyn_mut(),
+            level,
+            on_ground,
+            horizontal_collision,
+            movement,
+        );
     }
 
     /// `doCheckFallDamage(xa, ya, za, onGround)`.
-    fn do_check_fall_damage(&mut self, level: &mut ServerLevel, xa: f64, ya: f64, za: f64, on_ground: bool) {
+    fn do_check_fall_damage(
+        &mut self,
+        level: &mut ServerLevel,
+        xa: f64,
+        ya: f64,
+        za: f64,
+        on_ground: bool,
+    ) {
         use crate::world::level::BlockGetter;
         if !super::movement::touching_unloaded_chunk(self.as_dyn(), &*level) {
-            super::movement::check_supporting_block(self.as_dyn_mut(), &*level, on_ground, Some(Vec3::new(xa, ya, za)));
+            super::movement::check_supporting_block(
+                self.as_dyn_mut(),
+                &*level,
+                on_ground,
+                Some(Vec3::new(xa, ya, za)),
+            );
             let pos = super::movement::get_on_pos_legacy(self.as_dyn(), &*level);
             let state = level.get_block_state(pos);
             self.check_fall_damage(level, ya, on_ground, state, pos);
@@ -894,7 +970,11 @@ pub trait Entity: Any {
     }
 
     /// `teleportSetPosition(destination, relatives)`.
-    fn teleport_set_position(&mut self, destination: mc_protocol::packets::play::PositionMoveRotation, relatives: mc_protocol::packets::play::Relatives) {
+    fn teleport_set_position(
+        &mut self,
+        destination: mc_protocol::packets::play::PositionMoveRotation,
+        relatives: mc_protocol::packets::play::Relatives,
+    ) {
         let current = position_move_rotation_of(self.as_dyn());
         self.teleport_set_position_from(current, destination, relatives);
     }
@@ -937,20 +1017,30 @@ pub trait Entity: Any {
     }
 
     /// `getAddEntityPacket(serverEntity)`.
-    fn get_add_entity_packet(&self, server_entity: &crate::server::level::ServerEntity) -> mc_protocol::packets::play::ClientboundAddEntityPacket {
+    fn get_add_entity_packet(
+        &self,
+        server_entity: &crate::server::level::ServerEntity,
+    ) -> mc_protocol::packets::play::ClientboundAddEntityPacket {
         server_entity.add_entity_packet(self.id(), self.uuid(), self.get_type(), 0)
     }
 
     /// `getItemBySlot(slot)` (empty for non-living entities).
-    fn get_item_by_slot(&self, slot: super::equipment::EquipmentSlot) -> crate::world::item::ItemStack {
+    fn get_item_by_slot(
+        &self,
+        slot: super::equipment::EquipmentSlot,
+    ) -> crate::world::item::ItemStack {
         if let Some(p) = self.player() {
             return p.inventory.equipment_get(slot).clone();
         }
-        self.living().map(|l| l.equipment.get(slot).clone()).unwrap_or_default()
+        self.living()
+            .map(|l| l.equipment.get(slot).clone())
+            .unwrap_or_default()
     }
 
     /// The `ClientboundSetEquipmentPacket` of a pairing (`None` when nothing is equipped / not living).
-    fn equipment_packet(&self) -> Option<mc_protocol::packets::play::ClientboundSetEquipmentPacket> {
+    fn equipment_packet(
+        &self,
+    ) -> Option<mc_protocol::packets::play::ClientboundSetEquipmentPacket> {
         self.living()?;
         let slots: Vec<_> = super::equipment::EquipmentSlot::VALUES
             .into_iter()
@@ -959,7 +1049,12 @@ pub trait Entity: Any {
                 (!stack.is_empty()).then(|| (protocol_slot(slot), stack))
             })
             .collect();
-        (!slots.is_empty()).then(|| mc_protocol::packets::play::ClientboundSetEquipmentPacket { entity: self.id(), slots })
+        (!slots.is_empty()).then(
+            || mc_protocol::packets::play::ClientboundSetEquipmentPacket {
+                entity: self.id(),
+                slots,
+            },
+        )
     }
 
     /// `playerTouch(player)` (pickup). The entity is taken out of the level while it runs.
@@ -1005,7 +1100,9 @@ pub trait Entity: Any {
             self.refresh_dimensions();
         }
         // `AgeableMob.onSyncedDataUpdated`: `DATA_BABY_ID` -> `refreshDimensions()` (ids are per class, so only ageable mobs)
-        if accessor_id == super::mob::DATA_BABY_ID.id() && self.mob().is_some_and(|m| m.ageable.is_some()) {
+        if accessor_id == super::mob::DATA_BABY_ID.id()
+            && self.mob().is_some_and(|m| m.ageable.is_some())
+        {
             self.refresh_dimensions();
         }
     }
@@ -1190,9 +1287,17 @@ pub trait Entity: Any {
         }
     }
     /// `ServerPlayer.stopSleepInBed(forceWakeUp, updateLevelList)` (only players sleep; `ServerPlayer` overrides).
-    fn stop_sleep_in_bed(&mut self, _level: &mut ServerLevel, _force_wake_up: bool, _update_level_list: bool) {}
+    fn stop_sleep_in_bed(
+        &mut self,
+        _level: &mut ServerLevel,
+        _force_wake_up: bool,
+        _update_level_list: bool,
+    ) {
+    }
     /// The entity's `DynamicGameEventListener` target, if it listens to game events (vibration listeners).
-    fn game_event_listener(&mut self) -> Option<&mut dyn crate::world::level::gameevent::GameEventListener> {
+    fn game_event_listener(
+        &mut self,
+    ) -> Option<&mut dyn crate::world::level::gameevent::GameEventListener> {
         None
     }
 
@@ -1213,7 +1318,8 @@ pub trait Entity: Any {
 
     fn set_shared_flag_on_fire(&mut self, value: bool) {
         let visual = self.base().has_visual_fire;
-        self.base_mut().set_shared_flag(FLAG_ONFIRE, value || visual);
+        self.base_mut()
+            .set_shared_flag(FLAG_ONFIRE, value || visual);
     }
 
     fn set_remaining_fire_ticks(&mut self, remaining_ticks: i32) {
@@ -1311,7 +1417,8 @@ pub trait Entity: Any {
     /// `isPushable()` (`LivingEntity`: alive, not spectating, not climbing, and in an entity-ticking chunk unless it
     /// always ticks).
     fn is_pushable(&self, level: &ServerLevel) -> bool {
-        self.living().is_some() && super::living_entity::push::living_is_pushable(self.as_dyn(), level)
+        self.living().is_some()
+            && super::living_entity::push::living_is_pushable(self.as_dyn(), level)
     }
     /// `isPickable()` (`LivingEntity`: not removed).
     fn is_pickable(&self) -> bool {
@@ -1382,7 +1489,11 @@ pub trait Entity: Any {
     }
     /// `isInLava()`.
     fn is_in_lava(&self) -> bool {
-        !self.base().first_tick && self.base().fluid_interaction.is_in_fluid(super::fluid_interaction::TAG_LAVA)
+        !self.base().first_tick
+            && self
+                .base()
+                .fluid_interaction
+                .is_in_fluid(super::fluid_interaction::TAG_LAVA)
     }
     /// `isInLiquid()`.
     fn is_in_liquid(&self) -> bool {
@@ -1390,7 +1501,9 @@ pub trait Entity: Any {
     }
     /// `isInFloatableFluid()`.
     fn is_in_floatable_fluid(&self) -> bool {
-        self.base().fluid_interaction.is_in_fluid(super::fluid_interaction::TAG_ENTITY_FLOATABLE)
+        self.base()
+            .fluid_interaction
+            .is_in_fluid(super::fluid_interaction::TAG_ENTITY_FLOATABLE)
     }
     /// `isUnderWater()`.
     fn is_under_water(&self) -> bool {
@@ -1403,7 +1516,12 @@ pub trait Entity: Any {
     /// `isInRain()`.
     fn is_in_rain(&self, level: &ServerLevel) -> bool {
         let pos = self.base().block_position();
-        level.is_raining_at(pos) || level.is_raining_at(BlockPos::new(pos.x(), mth::floor_f64(self.base().bounding_box().max_y), pos.z()))
+        level.is_raining_at(pos)
+            || level.is_raining_at(BlockPos::new(
+                pos.x(),
+                mth::floor_f64(self.base().bounding_box().max_y),
+                pos.z(),
+            ))
     }
     /// `isInWaterOrRain()`.
     fn is_in_water_or_rain(&self, level: &ServerLevel) -> bool {
@@ -1428,7 +1546,11 @@ pub trait Entity: Any {
     /// `getFluidInteractionBox()`.
     fn get_fluid_interaction_box(&self, level: &ServerLevel) -> Option<AABB> {
         let mut bx = self.base().bounding_box().deflate_scalar(0.001);
-        if let Some(vehicle) = self.base().vehicle.and_then(|v| level.entity_manager.get_any(v)) {
+        if let Some(vehicle) = self
+            .base()
+            .vehicle
+            .and_then(|v| level.entity_manager.get_any(v))
+        {
             bx = vehicle.modify_passenger_fluid_interaction_box(bx)?;
         }
         Some(bx)
@@ -1444,7 +1566,11 @@ pub trait Entity: Any {
         let in_lava = lava_height > 0.0;
         let is_player = self.is_player();
         let old_movement = self.base().delta_movement();
-        let water_impulse = if self.is_pushed_by_fluid() && in_water { interaction.current_impulse(true, is_player, old_movement, 0.014) } else { None };
+        let water_impulse = if self.is_pushed_by_fluid() && in_water {
+            interaction.current_impulse(true, is_player, old_movement, 0.014)
+        } else {
+            None
+        };
         {
             let b = self.base_mut();
             b.fluid_interaction = interaction;
@@ -1463,9 +1589,18 @@ pub trait Entity: Any {
                 self.base_mut().add_delta_movement(impulse);
             }
             if in_lava {
-                let scale = if level.fast_lava() { 0.007 } else { 0.0023333333333333335 };
+                let scale = if level.fast_lava() {
+                    0.007
+                } else {
+                    0.0023333333333333335
+                };
                 let old_movement = self.base().delta_movement();
-                if let Some(impulse) = self.base().fluid_interaction.current_impulse(false, is_player, old_movement, scale) {
+                if let Some(impulse) = self.base().fluid_interaction.current_impulse(
+                    false,
+                    is_player,
+                    old_movement,
+                    scale,
+                ) {
                     self.base_mut().add_delta_movement(impulse);
                 }
             }
@@ -1474,12 +1609,23 @@ pub trait Entity: Any {
     }
     /// `doWaterSplashEffect()`.
     fn do_water_splash_effect(&mut self, level: &mut ServerLevel) {
-        let controller = self.get_controlling_passenger().and_then(|id| level.entity_manager.get_any(id).map(|e| e.base().delta_movement()));
+        let controller = self.get_controlling_passenger().and_then(|id| {
+            level
+                .entity_manager
+                .get_any(id)
+                .map(|e| e.base().delta_movement())
+        });
         let (volume_modifier, movement) = match controller {
             Some(m) => (0.9f32, m),
             None => (0.2f32, self.base().delta_movement()),
         };
-        let speed = 1.0f32.min((movement.x * movement.x * f64::from(0.2f32) + movement.y * movement.y + movement.z * movement.z * f64::from(0.2f32)).sqrt() as f32 * volume_modifier);
+        let speed = 1.0f32.min(
+            (movement.x * movement.x * f64::from(0.2f32)
+                + movement.y * movement.y
+                + movement.z * movement.z * f64::from(0.2f32))
+            .sqrt() as f32
+                * volume_modifier,
+        );
         let pitch_a = self.base_mut().random.next_float();
         let pitch_b = self.base_mut().random.next_float();
         let pitch = 1.0 + (pitch_a - pitch_b) * 0.4;
@@ -1518,7 +1664,13 @@ pub trait Entity: Any {
             let swimming = self.is_sprinting()
                 && self.is_under_water()
                 && !self.base().is_passenger()
-                && crate::world::level::material::FluidStateExt::is_tag(crate::world::level::BlockGetter::get_fluid_state(level, self.base().block_position()), "water");
+                && crate::world::level::material::FluidStateExt::is_tag(
+                    crate::world::level::BlockGetter::get_fluid_state(
+                        level,
+                        self.base().block_position(),
+                    ),
+                    "water",
+                );
             self.set_swimming(swimming);
         }
     }
@@ -1560,7 +1712,12 @@ pub trait Entity: Any {
 
     /// `canSpawnSprintParticle()`.
     fn can_spawn_sprint_particle(&mut self) -> bool {
-        self.is_sprinting() && !self.is_in_water() && !self.is_spectator() && !self.is_crouching() && !self.is_in_lava() && self.is_alive()
+        self.is_sprinting()
+            && !self.is_in_water()
+            && !self.is_spectator()
+            && !self.is_crouching()
+            && !self.is_in_lava()
+            && self.is_alive()
     }
     /// `spawnSprintParticle()`: the particle itself is client-side; the draws of the entity's random are kept.
     fn spawn_sprint_particle(&mut self, level: &ServerLevel) {
@@ -1589,11 +1746,23 @@ pub trait Entity: Any {
     fn lava_hurt(&mut self, level: &mut ServerLevel) {
         if !self.fire_immune() {
             let source = level.damage_sources().lava();
-            if self.hurt_server(level, &source, 4.0) && self.should_play_lava_hurt_sound() && !self.base().is_silent() {
+            if self.hurt_server(level, &source, 4.0)
+                && self.should_play_lava_hurt_sound()
+                && !self.base().is_silent()
+            {
                 let pitch = 2.0 + self.base_mut().random.next_float() * 0.4;
                 let p = self.base().position();
                 let sound_source = self.get_sound_source();
-                level.play_sound_at(None, p.x, p.y, p.z, mc_data::SoundEvent::ENTITY_GENERIC_BURN, sound_source, 0.4, pitch);
+                level.play_sound_at(
+                    None,
+                    p.x,
+                    p.y,
+                    p.z,
+                    mc_data::SoundEvent::ENTITY_GENERIC_BURN,
+                    sound_source,
+                    0.4,
+                    pitch,
+                );
             }
         }
     }
@@ -1611,7 +1780,16 @@ pub trait Entity: Any {
         let b = self.base_mut().random.next_float();
         let p = self.base().position();
         let sound_source = self.get_sound_source();
-        level.play_sound_at(None, p.x, p.y, p.z, mc_data::SoundEvent::ENTITY_GENERIC_EXTINGUISH_FIRE, sound_source, 0.7, 1.6 + (a - b) * 0.4);
+        level.play_sound_at(
+            None,
+            p.x,
+            p.y,
+            p.z,
+            mc_data::SoundEvent::ENTITY_GENERIC_EXTINGUISH_FIRE,
+            sound_source,
+            0.7,
+            1.6 + (a - b) * 0.4,
+        );
     }
     /// `extinguishFire()`.
     fn extinguish_fire(&mut self, level: &mut ServerLevel) {
@@ -1654,11 +1832,19 @@ pub trait Entity: Any {
     }
     /// `applyEffectsFromBlocksForLastMovements()`.
     fn apply_effects_from_blocks_for_last_movements(&mut self, level: &mut ServerLevel) {
-        super::inside_block_effects::apply_effects_from_blocks_for_last_movements(self.as_dyn_mut(), level);
+        super::inside_block_effects::apply_effects_from_blocks_for_last_movements(
+            self.as_dyn_mut(),
+            level,
+        );
     }
     /// `applyEffectsFromBlocks(from, to)`.
     fn apply_effects_from_blocks_between(&mut self, level: &mut ServerLevel, from: Vec3, to: Vec3) {
-        super::inside_block_effects::apply_effects_from_blocks_between(self.as_dyn_mut(), level, from, to);
+        super::inside_block_effects::apply_effects_from_blocks_between(
+            self.as_dyn_mut(),
+            level,
+            from,
+            to,
+        );
     }
     /// `getInBlockState()` (cached until the block position changes / the next tick).
     fn get_in_block_state(&mut self, level: &ServerLevel) -> mc_data::block::BlockState {
@@ -1674,7 +1860,11 @@ pub trait Entity: Any {
     fn is_free(&self, level: &ServerLevel, xa: f64, ya: f64, za: f64) -> bool {
         use crate::world::level::collision::CollisionGetter;
         let bx = self.base().bounding_box().move_(xa, ya, za);
-        level.no_collision(Some(self.id()), Some(&super::movement::collision_context(self.as_dyn())), &bx) && !super::movement::contains_any_liquid(level, &bx)
+        level.no_collision(
+            Some(self.id()),
+            Some(&super::movement::collision_context(self.as_dyn())),
+            &bx,
+        ) && !super::movement::contains_any_liquid(level, &bx)
     }
     /// `isInWall()`.
     fn is_in_wall(&self, level: &ServerLevel) -> bool {
@@ -1682,13 +1872,32 @@ pub trait Entity: Any {
     }
     /// `Entity.getSoundSource()`.
     fn get_sound_source(&self) -> mc_protocol::packets::play::SoundSource {
-        if super::mob::monster::is_monster(self.as_dyn()) { super::mob::monster::SOUND_SOURCE } else { mc_protocol::packets::play::SoundSource::Neutral }
+        if super::mob::monster::is_monster(self.as_dyn()) {
+            super::mob::monster::SOUND_SOURCE
+        } else {
+            mc_protocol::packets::play::SoundSource::Neutral
+        }
     }
     /// `playSound(sound, volume, pitch)` (silent entities make no sound).
-    fn play_sound(&self, level: &mut ServerLevel, sound: mc_data::SoundEvent, volume: f32, pitch: f32) {
+    fn play_sound(
+        &self,
+        level: &mut ServerLevel,
+        sound: mc_data::SoundEvent,
+        volume: f32,
+        pitch: f32,
+    ) {
         if !self.base().is_silent() {
             let p = self.base().position();
-            level.play_sound_at(None, p.x, p.y, p.z, sound, self.get_sound_source(), volume, pitch);
+            level.play_sound_at(
+                None,
+                p.x,
+                p.y,
+                p.z,
+                sound,
+                self.get_sound_source(),
+                volume,
+                pitch,
+            );
         }
     }
     /// `playSound(sound)`.
@@ -1703,11 +1912,19 @@ pub trait Entity: Any {
     }
     /// `getSwimSound()`.
     fn get_swim_sound(&self) -> mc_data::SoundEvent {
-        if super::mob::monster::is_monster(self.as_dyn()) { super::mob::monster::SWIM_SOUND } else { mc_data::SoundEvent::ENTITY_GENERIC_SWIM }
+        if super::mob::monster::is_monster(self.as_dyn()) {
+            super::mob::monster::SWIM_SOUND
+        } else {
+            mc_data::SoundEvent::ENTITY_GENERIC_SWIM
+        }
     }
     /// `getSwimSplashSound()`.
     fn get_swim_splash_sound(&self) -> mc_data::SoundEvent {
-        if super::mob::monster::is_monster(self.as_dyn()) { super::mob::monster::SWIM_SPLASH_SOUND } else { mc_data::SoundEvent::ENTITY_GENERIC_SPLASH }
+        if super::mob::monster::is_monster(self.as_dyn()) {
+            super::mob::monster::SWIM_SPLASH_SOUND
+        } else {
+            mc_data::SoundEvent::ENTITY_GENERIC_SPLASH
+        }
     }
     /// `getSwimHighSpeedSplashSound()`.
     fn get_swim_high_speed_splash_sound(&self) -> mc_data::SoundEvent {
@@ -1738,12 +1955,23 @@ pub trait Entity: Any {
     }
     /// `waterSwimSound()`.
     fn water_swim_sound(&mut self, level: &mut ServerLevel) {
-        let controller = self.get_controlling_passenger().and_then(|id| level.entity_manager.get_any(id).map(|e| e.base().delta_movement()));
+        let controller = self.get_controlling_passenger().and_then(|id| {
+            level
+                .entity_manager
+                .get_any(id)
+                .map(|e| e.base().delta_movement())
+        });
         let (volume_modifier, delta_movement) = match controller {
             Some(m) => (0.4f32, m),
             None => (0.35f32, self.base().delta_movement()),
         };
-        let speed = 1.0f32.min((delta_movement.x * delta_movement.x * f64::from(0.2f32) + delta_movement.y * delta_movement.y + delta_movement.z * delta_movement.z * f64::from(0.2f32)).sqrt() as f32 * volume_modifier);
+        let speed = 1.0f32.min(
+            (delta_movement.x * delta_movement.x * f64::from(0.2f32)
+                + delta_movement.y * delta_movement.y
+                + delta_movement.z * delta_movement.z * f64::from(0.2f32))
+            .sqrt() as f32
+                * volume_modifier,
+        );
         self.play_swim_sound(level, speed);
     }
     /// `playSwimSound(volume)`.
@@ -1754,38 +1982,91 @@ pub trait Entity: Any {
         self.play_sound(level, sound, volume, 1.0 + (a - b) * 0.4);
     }
     /// `playStepSound(pos, blockState)`.
-    fn play_step_sound(&mut self, level: &mut ServerLevel, _pos: BlockPos, block_state: mc_data::block::BlockState) {
+    fn play_step_sound(
+        &mut self,
+        level: &mut ServerLevel,
+        _pos: BlockPos,
+        block_state: mc_data::block::BlockState,
+    ) {
         let sound_type = block_state.get_sound_type();
-        self.play_sound(level, sound_type.step_sound, sound_type.volume * 0.15, sound_type.pitch);
+        self.play_sound(
+            level,
+            sound_type.step_sound,
+            sound_type.volume * 0.15,
+            sound_type.pitch,
+        );
     }
     /// `getPrimaryStepSoundBlockPos(affectingPos)`.
-    fn get_primary_step_sound_block_pos(&self, level: &ServerLevel, affecting_pos: BlockPos) -> BlockPos {
+    fn get_primary_step_sound_block_pos(
+        &self,
+        level: &ServerLevel,
+        affecting_pos: BlockPos,
+    ) -> BlockPos {
         use crate::world::level::BlockGetter;
         let above_pos = affecting_pos.above();
         let above_state = level.get_block_state(above_pos);
-        if !above_state.block().is_in_tag("inside_step_sound_blocks") && !above_state.block().is_in_tag("combination_step_sound_blocks") { affecting_pos } else { above_pos }
+        if !above_state.block().is_in_tag("inside_step_sound_blocks")
+            && !above_state
+                .block()
+                .is_in_tag("combination_step_sound_blocks")
+        {
+            affecting_pos
+        } else {
+            above_pos
+        }
     }
     /// `playCombinationStepSounds(primary, secondary)`.
-    fn play_combination_step_sounds(&mut self, level: &mut ServerLevel, primary_step_sound: mc_data::block::BlockState, secondary_step_sound: mc_data::block::BlockState) {
+    fn play_combination_step_sounds(
+        &mut self,
+        level: &mut ServerLevel,
+        primary_step_sound: mc_data::block::BlockState,
+        secondary_step_sound: mc_data::block::BlockState,
+    ) {
         let sound_type = primary_step_sound.get_sound_type();
-        self.play_sound(level, sound_type.step_sound, sound_type.volume * 0.15, sound_type.pitch);
+        self.play_sound(
+            level,
+            sound_type.step_sound,
+            sound_type.volume * 0.15,
+            sound_type.pitch,
+        );
         self.play_muffled_step_sound(level, secondary_step_sound);
     }
     /// `playMuffledStepSound(blockState)`.
-    fn play_muffled_step_sound(&mut self, level: &mut ServerLevel, block_state: mc_data::block::BlockState) {
+    fn play_muffled_step_sound(
+        &mut self,
+        level: &mut ServerLevel,
+        block_state: mc_data::block::BlockState,
+    ) {
         let sound_type = block_state.get_sound_type();
-        self.play_sound(level, sound_type.step_sound, sound_type.volume * 0.05, sound_type.pitch * 0.8);
+        self.play_sound(
+            level,
+            sound_type.step_sound,
+            sound_type.volume * 0.05,
+            sound_type.pitch * 0.8,
+        );
     }
     /// `Entity.checkFallDamage(ya, onGround, onState, pos)`.
-    fn check_fall_damage(&mut self, level: &mut ServerLevel, ya: f64, on_ground: bool, on_state: mc_data::block::BlockState, pos: BlockPos) {
+    fn check_fall_damage(
+        &mut self,
+        level: &mut ServerLevel,
+        ya: f64,
+        on_ground: bool,
+        on_state: mc_data::block::BlockState,
+        pos: BlockPos,
+    ) {
         check_fall_damage_base(self.as_dyn_mut(), level, ya, on_ground, on_state, pos);
     }
     /// `onAboveBubbleColumn(dragDown, pos)`.
     fn on_above_bubble_column(&mut self, level: &mut ServerLevel, drag_down: bool, pos: BlockPos) {
         if self.can_simulate_movement() {
             let movement = self.base().delta_movement();
-            let yd = if drag_down { (-0.9f64).max(movement.y - 0.03) } else { 1.8f64.min(movement.y + 0.1) };
-            self.base_mut().set_delta_movement(Vec3::new(movement.x, yd, movement.z));
+            let yd = if drag_down {
+                (-0.9f64).max(movement.y - 0.03)
+            } else {
+                1.8f64.min(movement.y + 0.1)
+            };
+            self.base_mut()
+                .set_delta_movement(Vec3::new(movement.x, yd, movement.z));
         }
         send_bubble_column_particles(level, pos);
     }
@@ -1793,8 +2074,13 @@ pub trait Entity: Any {
     fn on_inside_bubble_column(&mut self, _level: &mut ServerLevel, drag_down: bool) {
         if self.can_simulate_movement() {
             let movement = self.base().delta_movement();
-            let yd = if drag_down { (-0.3f64).max(movement.y - 0.03) } else { 0.7f64.min(movement.y + 0.06) };
-            self.base_mut().set_delta_movement(Vec3::new(movement.x, yd, movement.z));
+            let yd = if drag_down {
+                (-0.3f64).max(movement.y - 0.03)
+            } else {
+                0.7f64.min(movement.y + 0.06)
+            };
+            self.base_mut()
+                .set_delta_movement(Vec3::new(movement.x, yd, movement.z));
         }
         self.reset_fall_distance();
     }
@@ -1805,7 +2091,11 @@ pub trait Entity: Any {
         }
     }
     /// `makeStuckInBlock(blockState, speedMultiplier)`.
-    fn make_stuck_in_block(&mut self, _block_state: mc_data::block::BlockState, speed_multiplier: Vec3) {
+    fn make_stuck_in_block(
+        &mut self,
+        _block_state: mc_data::block::BlockState,
+        speed_multiplier: Vec3,
+    ) {
         self.reset_fall_distance();
         self.base_mut().stuck_speed_multiplier = speed_multiplier;
     }
@@ -1814,7 +2104,8 @@ pub trait Entity: Any {
         let gravity = self.get_gravity();
         if gravity != 0.0 {
             let m = self.base().delta_movement();
-            self.base_mut().set_delta_movement(m.add(Vec3::new(0.0, -gravity, 0.0)));
+            self.base_mut()
+                .set_delta_movement(m.add(Vec3::new(0.0, -gravity, 0.0)));
         }
     }
     /// `moveRelative(speed, input)`.
@@ -1840,7 +2131,12 @@ pub trait Entity: Any {
         if self.is_player() {
             return 10;
         }
-        match self.base().passengers.first().and_then(|&p| level.entity_manager.get_any(p)) {
+        match self
+            .base()
+            .passengers
+            .first()
+            .and_then(|&p| level.entity_manager.get_any(p))
+        {
             Some(first) if first.is_player() => first.get_dimension_changing_delay(level),
             _ => 300,
         }
@@ -1865,15 +2161,40 @@ pub trait Entity: Any {
         (ignore_passenger || !self.base().is_passenger()) && self.is_alive()
     }
     /// `getRelativePortalPosition(axis, portalArea)` (living entities, boats and minecarts reset the forward offset).
-    fn get_relative_portal_position(&self, axis: mc_core::direction::Axis, portal_area: &crate::util::block_util::FoundRectangle) -> Vec3 {
-        let offsets = crate::world::level::portal::portal_shape::PortalShape::get_relative_position(portal_area, axis, self.base().position(), &self.get_dimensions(self.base().get_pose()));
-        if self.living().is_some() { super::portal::reset_forward_direction_of_relative_portal_position(offsets) } else { offsets }
+    fn get_relative_portal_position(
+        &self,
+        axis: mc_core::direction::Axis,
+        portal_area: &crate::util::block_util::FoundRectangle,
+    ) -> Vec3 {
+        let offsets = crate::world::level::portal::portal_shape::PortalShape::get_relative_position(
+            portal_area,
+            axis,
+            self.base().position(),
+            &self.get_dimensions(self.base().get_pose()),
+        );
+        if self.living().is_some() {
+            super::portal::reset_forward_direction_of_relative_portal_position(offsets)
+        } else {
+            offsets
+        }
     }
     /// `canTeleport(from, to)`: no player passenger that has not seen the credits may leave the End for the overworld.
-    fn can_teleport(&self, level: &ServerLevel, from: &mc_core::ident::Identifier, to: &mc_core::ident::Identifier) -> bool {
-        if *from == crate::server::world_dimensions::end_key() && *to == crate::server::world_dimensions::overworld_key() {
+    fn can_teleport(
+        &self,
+        level: &ServerLevel,
+        from: &mc_core::ident::Identifier,
+        to: &mc_core::ident::Identifier,
+    ) -> bool {
+        if *from == crate::server::world_dimensions::end_key()
+            && *to == crate::server::world_dimensions::overworld_key()
+        {
             for &pid in &self.base().passengers {
-                if level.entity_manager.get_any(pid).and_then(|p| p.as_any().downcast_ref::<super::ServerPlayer>()).is_some_and(|p| !p.seen_credits) {
+                if level
+                    .entity_manager
+                    .get_any(pid)
+                    .and_then(|p| p.as_any().downcast_ref::<super::ServerPlayer>())
+                    .is_some_and(|p| !p.seen_credits)
+                {
                     return false;
                 }
             }
@@ -1883,7 +2204,12 @@ pub trait Entity: Any {
     /// `Leashable.removeLeash()` of `removeAfterChangingDimensions` (the mob classes override it for leashable mobs).
     fn remove_leash(&mut self, _level: &mut ServerLevel) {}
     /// `setAsInsidePortal(portal, pos)`.
-    fn set_as_inside_portal(&mut self, level: &ServerLevel, portal: &'static dyn super::portal::Portal, pos: BlockPos) {
+    fn set_as_inside_portal(
+        &mut self,
+        level: &ServerLevel,
+        portal: &'static dyn super::portal::Portal,
+        pos: BlockPos,
+    ) {
         if self.is_on_portal_cooldown() {
             self.set_portal_cooldown(level);
         } else {
@@ -1918,22 +2244,34 @@ pub trait Entity: Any {
 
     /// `getVehicleAttachmentPoint(vehicle)`.
     fn get_vehicle_attachment_point(&self, _vehicle: &dyn Entity) -> Vec3 {
-        self.get_attachments().get(EntityAttachment::Vehicle, 0, self.base().y_rot())
+        self.get_attachments()
+            .get(EntityAttachment::Vehicle, 0, self.base().y_rot())
     }
     /// `getPassengerAttachmentPoint(passenger, dimensions, scale)`.
-    fn get_passenger_attachment_point(&self, passenger: &dyn Entity, dimensions: &EntityDimensions, _scale: f32) -> Vec3 {
+    fn get_passenger_attachment_point(
+        &self,
+        passenger: &dyn Entity,
+        dimensions: &EntityDimensions,
+        _scale: f32,
+    ) -> Vec3 {
         default_passenger_attachment_point(self.as_dyn(), passenger, &dimensions.attachments)
     }
     /// `getPassengerRidingPosition(passenger)`.
     fn get_passenger_riding_position(&self, passenger: &dyn Entity) -> Vec3 {
         let base = self.base();
-        base.position().add(self.get_passenger_attachment_point(passenger, &base.dimensions, 1.0))
+        base.position()
+            .add(self.get_passenger_attachment_point(passenger, &base.dimensions, 1.0))
     }
     /// `positionRider(passenger, moveFunction)` (protected, overridden by boats, minecarts, ...).
     fn position_rider_with(&self, passenger: &mut dyn Entity, move_function: MoveFunction) {
         let position = self.get_passenger_riding_position(passenger.as_dyn());
         let offset = passenger.get_vehicle_attachment_point(self.as_dyn());
-        move_function.apply(passenger, position.x - offset.x, position.y - offset.y, position.z - offset.z);
+        move_function.apply(
+            passenger,
+            position.x - offset.x,
+            position.y - offset.y,
+            position.z - offset.z,
+        );
     }
     /// `positionRider(passenger)`.
     fn position_rider(&self, passenger: &mut dyn Entity) {
@@ -1944,7 +2282,11 @@ pub trait Entity: Any {
     /// `onPassengerTurned(passenger)`.
     fn on_passenger_turned(&mut self, _passenger: &mut dyn Entity) {}
     /// `getDismountLocationForPassenger(passenger)`.
-    fn get_dismount_location_for_passenger(&self, _level: &ServerLevel, _passenger: &dyn Entity) -> Vec3 {
+    fn get_dismount_location_for_passenger(
+        &self,
+        _level: &ServerLevel,
+        _passenger: &dyn Entity,
+    ) -> Vec3 {
         let b = self.base();
         Vec3::new(b.x(), b.bounding_box().max_y, b.z())
     }
@@ -1965,11 +2307,13 @@ pub trait Entity: Any {
     }
     /// `dismountsUnderwater()`.
     fn dismounts_underwater(&self) -> bool {
-        mc_data::tags::get::<EntityType>("dismounts_underwater").is_some_and(|t| t.contains(self.get_type()))
+        mc_data::tags::get::<EntityType>("dismounts_underwater")
+            .is_some_and(|t| t.contains(self.get_type()))
     }
     /// `canControlVehicle()`.
     fn can_control_vehicle(&self) -> bool {
-        !mc_data::tags::get::<EntityType>("non_controlling_rider").is_some_and(|t| t.contains(self.get_type()))
+        !mc_data::tags::get::<EntityType>("non_controlling_rider")
+            .is_some_and(|t| t.contains(self.get_type()))
     }
     /// `getRootVehicle()`.
     fn get_root_vehicle(&self, level: &ServerLevel) -> EntityId {
@@ -1977,7 +2321,10 @@ pub trait Entity: Any {
         let mut cur = self.base().vehicle;
         while let Some(v) = cur {
             id = v;
-            cur = level.entity_manager.get_any(v).and_then(|e| e.base().vehicle);
+            cur = level
+                .entity_manager
+                .get_any(v)
+                .and_then(|e| e.base().vehicle);
         }
         id
     }
@@ -1992,7 +2339,10 @@ pub trait Entity: Any {
             if v == self.id() {
                 return true;
             }
-            cur = level.entity_manager.get_any(v).and_then(|e| e.base().vehicle);
+            cur = level
+                .entity_manager
+                .get_any(v)
+                .and_then(|e| e.base().vehicle);
         }
         false
     }
@@ -2018,11 +2368,15 @@ pub trait Entity: Any {
     }
     /// `canCollideWith(entity)`.
     fn can_collide_with(&self, level: &ServerLevel, entity: &dyn Entity) -> bool {
-        entity.can_be_collided_with(Some(self.as_dyn())) && !self.is_passenger_of_same_vehicle(level, entity)
+        entity.can_be_collided_with(Some(self.as_dyn()))
+            && !self.is_passenger_of_same_vehicle(level, entity)
     }
     /// `getKnownMovement()`.
     fn get_known_movement(&self, level: &ServerLevel) -> Vec3 {
-        if let Some(controller) = self.get_controlling_passenger().and_then(|id| level.entity_manager.get_any(id)) {
+        if let Some(controller) = self
+            .get_controlling_passenger()
+            .and_then(|id| level.entity_manager.get_any(id))
+        {
             if controller.is_player() && self.is_alive() {
                 return controller.get_known_movement(level);
             }
@@ -2031,7 +2385,10 @@ pub trait Entity: Any {
     }
     /// `getKnownSpeed()`.
     fn get_known_speed(&self, level: &ServerLevel) -> Vec3 {
-        if let Some(controller) = self.get_controlling_passenger().and_then(|id| level.entity_manager.get_any(id)) {
+        if let Some(controller) = self
+            .get_controlling_passenger()
+            .and_then(|id| level.entity_manager.get_any(id))
+        {
             if controller.is_player() && self.is_alive() {
                 return controller.get_known_speed(level);
             }
@@ -2093,11 +2450,19 @@ pub trait Entity: Any {
     }
     /// `getViewXRot(a)` / `getXRot(a)`.
     fn get_view_x_rot(&self, a: f32) -> f32 {
-        if a == 1.0 { self.base().x_rot() } else { mth::lerp_f32(a, self.base().x_rot_o, self.base().x_rot()) }
+        if a == 1.0 {
+            self.base().x_rot()
+        } else {
+            mth::lerp_f32(a, self.base().x_rot_o, self.base().x_rot())
+        }
     }
     /// `getViewYRot(a)` / `getYRot(a)`.
     fn get_view_y_rot(&self, a: f32) -> f32 {
-        if a == 1.0 { self.base().y_rot() } else { mth::rot_lerp_f32(a, self.base().y_rot_o, self.base().y_rot()) }
+        if a == 1.0 {
+            self.base().y_rot()
+        } else {
+            mth::rot_lerp_f32(a, self.base().y_rot_o, self.base().y_rot())
+        }
     }
     /// `getViewVector(a)`.
     fn get_view_vector(&self, a: f32) -> Vec3 {
@@ -2112,21 +2477,52 @@ pub trait Entity: Any {
         Vec3::new(x, y, z)
     }
     /// `pick(range, a, withLiquids)`.
-    fn pick(&self, level: &ServerLevel, range: f64, a: f32, with_liquids: bool) -> mc_core::phys::BlockHitResult {
+    fn pick(
+        &self,
+        level: &ServerLevel,
+        range: f64,
+        a: f32,
+        with_liquids: bool,
+    ) -> mc_core::phys::BlockHitResult {
         use crate::world::level::collision::{ClipBlock, ClipContext, ClipFluid};
         let from = self.get_eye_position_partial(a);
         let view_vector = self.get_view_vector(a);
-        let to = from.add(Vec3::new(view_vector.x * range, view_vector.y * range, view_vector.z * range));
-        crate::world::level::collision::BlockGetterExt::clip(level, &ClipContext::new(from, to, ClipBlock::Outline, if with_liquids { ClipFluid::Any } else { ClipFluid::None }, super::movement::collision_context(self.as_dyn())))
+        let to = from.add(Vec3::new(
+            view_vector.x * range,
+            view_vector.y * range,
+            view_vector.z * range,
+        ));
+        crate::world::level::collision::BlockGetterExt::clip(
+            level,
+            &ClipContext::new(
+                from,
+                to,
+                ClipBlock::Outline,
+                if with_liquids {
+                    ClipFluid::Any
+                } else {
+                    ClipFluid::None
+                },
+                super::movement::collision_context(self.as_dyn()),
+            ),
+        )
     }
     /// `lookAt(anchor, pos)`.
-    fn look_at(&mut self, anchor: crate::commands::arguments::entity_anchor_argument::Anchor, pos: Vec3) {
+    fn look_at(
+        &mut self,
+        anchor: crate::commands::arguments::entity_anchor_argument::Anchor,
+        pos: Vec3,
+    ) {
         let from = anchor.apply_entity(self.base().position(), self.base().eye_height);
         let (xd, yd, zd) = (pos.x - from.x, pos.y - from.y, pos.z - from.z);
         let sd = (xd * xd + zd * zd).sqrt();
         let pi = std::f64::consts::PI as f32;
-        self.set_x_rot(mth::wrap_degrees_f32((-(mth::atan2(yd, sd) * f64::from(180.0f32) / f64::from(pi))) as f32));
-        self.set_y_rot(mth::wrap_degrees_f32((mth::atan2(zd, xd) * f64::from(180.0f32) / f64::from(pi)) as f32 - 90.0));
+        self.set_x_rot(mth::wrap_degrees_f32(
+            (-(mth::atan2(yd, sd) * f64::from(180.0f32) / f64::from(pi))) as f32,
+        ));
+        self.set_y_rot(mth::wrap_degrees_f32(
+            (mth::atan2(zd, xd) * f64::from(180.0f32) / f64::from(pi)) as f32 - 90.0,
+        ));
         let y_rot = self.base().y_rot();
         self.set_y_head_rot(y_rot);
         let b = self.base_mut();
@@ -2155,7 +2551,13 @@ pub trait Entity: Any {
     }
     /// What `ServerPlayer.removeVehicle()` adds after the base `removeVehicle`: `old_vehicle` (in storage, or `held`
     /// when it is the entity being processed) lost this entity as a passenger.
-    fn on_vehicle_removed(&mut self, _level: &mut ServerLevel, _old_vehicle: EntityId, _held: Option<&dyn Entity>) {}
+    fn on_vehicle_removed(
+        &mut self,
+        _level: &mut ServerLevel,
+        _old_vehicle: EntityId,
+        _held: Option<&dyn Entity>,
+    ) {
+    }
     /// What `ServerPlayer.startRiding(...)` adds after the base `startRiding` succeeded: `vehicle` (in storage) gained this
     /// entity as a passenger.
     fn on_vehicle_started(&mut self, _level: &mut ServerLevel, _vehicle: EntityId) {}
@@ -2201,8 +2603,22 @@ pub trait Entity: Any {
         super::living_entity::travel::travel_in_fluid(self.as_dyn_mut(), level, input);
     }
     /// `travelInWater(input, baseGravity, isFalling, oldY)`.
-    fn travel_in_water(&mut self, level: &mut ServerLevel, input: Vec3, base_gravity: f64, is_falling: bool, old_y: f64) {
-        super::living_entity::travel::travel_in_water(self.as_dyn_mut(), level, input, base_gravity, is_falling, old_y);
+    fn travel_in_water(
+        &mut self,
+        level: &mut ServerLevel,
+        input: Vec3,
+        base_gravity: f64,
+        is_falling: bool,
+        old_y: f64,
+    ) {
+        super::living_entity::travel::travel_in_water(
+            self.as_dyn_mut(),
+            level,
+            input,
+            base_gravity,
+            is_falling,
+            old_y,
+        );
     }
     /// `getSpeed()` (`Player`: the `MOVEMENT_SPEED` attribute).
     fn get_speed(&self) -> f32 {
@@ -2264,8 +2680,18 @@ pub trait Entity: Any {
     }
     /// `ItemStack.hurtAndBreak(amount, this, slot)` on the item in `slot` (elytra wear); `Player` owners use the player
     /// item path.
-    fn hurt_and_break_equipment(&mut self, level: &mut ServerLevel, slot: super::equipment::EquipmentSlot, amount: i32) {
-        super::living_entity::fall_flying::hurt_and_break_equipment(self.as_dyn_mut(), level, slot, amount);
+    fn hurt_and_break_equipment(
+        &mut self,
+        level: &mut ServerLevel,
+        slot: super::equipment::EquipmentSlot,
+        amount: i32,
+    ) {
+        super::living_entity::fall_flying::hurt_and_break_equipment(
+            self.as_dyn_mut(),
+            level,
+            slot,
+            amount,
+        );
     }
     /// `pushEntities()`.
     fn push_entities(&mut self, level: &mut ServerLevel) {
@@ -2289,7 +2715,8 @@ pub trait Entity: Any {
     }
     /// `canBreatheUnderwater()` (entity type tag `can_breathe_under_water`).
     fn can_breathe_underwater(&self) -> bool {
-        mc_data::tags::get::<EntityType>("can_breathe_under_water").is_some_and(|t| t.contains(self.get_type()))
+        mc_data::tags::get::<EntityType>("can_breathe_under_water")
+            .is_some_and(|t| t.contains(self.get_type()))
     }
     /// `decreaseAirSupply(currentSupply)`.
     fn decrease_air_supply(&mut self, current_supply: i32) -> i32 {
@@ -2315,7 +2742,11 @@ pub trait Entity: Any {
     /// ignores block speed factors while flying/gliding.
     fn modify_block_speed_factor(&self, base: f32) -> f32 {
         match self.living() {
-            Some(l) => mth::lerp_f32(l.get_attribute_value(mc_data::Attribute::MOVEMENT_EFFICIENCY) as f32, base, 1.0),
+            Some(l) => mth::lerp_f32(
+                l.get_attribute_value(mc_data::Attribute::MOVEMENT_EFFICIENCY) as f32,
+                base,
+                1.0,
+            ),
             None => base,
         }
     }
@@ -2340,18 +2771,36 @@ pub trait Entity: Any {
         }
     }
     /// `getRiddenInput(controller, selfInput)`.
-    fn get_ridden_input(&self, _level: &ServerLevel, _controller: EntityId, self_input: Vec3) -> Vec3 {
+    fn get_ridden_input(
+        &self,
+        _level: &ServerLevel,
+        _controller: EntityId,
+        self_input: Vec3,
+    ) -> Vec3 {
         self_input
     }
     /// `tickRidden(controller, riddenInput)`.
-    fn tick_ridden(&mut self, _level: &mut ServerLevel, _controller: EntityId, _ridden_input: Vec3) {}
+    fn tick_ridden(
+        &mut self,
+        _level: &mut ServerLevel,
+        _controller: EntityId,
+        _ridden_input: Vec3,
+    ) {
+    }
     /// `getRiddenSpeed(controller)`.
     fn get_ridden_speed(&self, _level: &ServerLevel, _controller: EntityId) -> f32 {
         self.get_speed()
     }
     /// `getFallSounds()` as `(small, big)`.
     fn get_fall_sounds(&self) -> (mc_data::SoundEvent, mc_data::SoundEvent) {
-        if super::mob::monster::is_monster(self.as_dyn()) { super::mob::monster::FALL_SOUNDS } else { (mc_data::SoundEvent::ENTITY_GENERIC_SMALL_FALL, mc_data::SoundEvent::ENTITY_GENERIC_BIG_FALL) }
+        if super::mob::monster::is_monster(self.as_dyn()) {
+            super::mob::monster::FALL_SOUNDS
+        } else {
+            (
+                mc_data::SoundEvent::ENTITY_GENERIC_SMALL_FALL,
+                mc_data::SoundEvent::ENTITY_GENERIC_BIG_FALL,
+            )
+        }
     }
     /// `canInteractWithLevel()`.
     fn can_interact_with_level(&self) -> bool {
@@ -2364,8 +2813,24 @@ pub trait Entity: Any {
     /// `doAutoAttackOnTouch(entity)` (riptide spin attack; `Player`).
     fn do_auto_attack_on_touch(&mut self, _level: &mut ServerLevel, _target: &mut dyn Entity) {}
     /// `randomTeleport(x, y, z, showParticles, avoidanceTag)` (block tag name without namespace).
-    fn random_teleport(&mut self, level: &mut ServerLevel, x: f64, y: f64, z: f64, show_particles: bool, avoidance_tag: &str) -> bool {
-        super::living_entity::teleport::random_teleport(self.as_dyn_mut(), level, x, y, z, show_particles, avoidance_tag)
+    fn random_teleport(
+        &mut self,
+        level: &mut ServerLevel,
+        x: f64,
+        y: f64,
+        z: f64,
+        show_particles: bool,
+        avoidance_tag: &str,
+    ) -> bool {
+        super::living_entity::teleport::random_teleport(
+            self.as_dyn_mut(),
+            level,
+            x,
+            y,
+            z,
+            show_particles,
+            avoidance_tag,
+        )
     }
     /// `resetCurrentImpulseContext()`.
     fn reset_current_impulse_context(&mut self) {
@@ -2391,7 +2856,13 @@ pub trait Entity: Any {
         true
     }
     /// `onEquipItem(slot, oldStack, stack)`.
-    fn on_equip_item(&mut self, level: &mut ServerLevel, slot: super::equipment::EquipmentSlot, old: &crate::world::item::ItemStack, new: &crate::world::item::ItemStack) {
+    fn on_equip_item(
+        &mut self,
+        level: &mut ServerLevel,
+        slot: super::equipment::EquipmentSlot,
+        old: &crate::world::item::ItemStack,
+        new: &crate::world::item::ItemStack,
+    ) {
         super::living_entity::equipment::on_equip_item(self.as_dyn_mut(), level, slot, old, new);
     }
     /// `getArmorCoverPercentage()`.
@@ -2422,7 +2893,8 @@ pub trait Entity: Any {
 
     /// `getWeaponItem()`: `LivingEntity` = main hand; projectiles override with the weapon that fired them.
     fn get_weapon_item(&self) -> Option<crate::world::item::ItemStack> {
-        self.living().map(|_| self.get_item_by_slot(super::equipment::EquipmentSlot::MainHand))
+        self.living()
+            .map(|_| self.get_item_by_slot(super::equipment::EquipmentSlot::MainHand))
     }
 
     /// `isInvulnerable()`.
@@ -2446,21 +2918,38 @@ pub trait Entity: Any {
     }
 
     /// `isInvulnerableToBase(source)`.
-    fn is_invulnerable_to_base(&self, level: &ServerLevel, source: &crate::world::damagesource::DamageSource) -> bool {
+    fn is_invulnerable_to_base(
+        &self,
+        level: &ServerLevel,
+        source: &crate::world::damagesource::DamageSource,
+    ) -> bool {
         use crate::world::damagesource::DamageTypeTags;
         self.is_removed()
-            || self.is_invulnerable() && !source.is_tag(level, DamageTypeTags::BYPASSES_INVULNERABILITY) && !source.is_creative_player()
+            || self.is_invulnerable()
+                && !source.is_tag(level, DamageTypeTags::BYPASSES_INVULNERABILITY)
+                && !source.is_creative_player()
             || source.is_tag(level, DamageTypeTags::IS_FIRE) && self.fire_immune()
-            || source.is_tag(level, DamageTypeTags::IS_FALL) && mc_data::tags::get::<EntityType>("fall_damage_immune").is_some_and(|t| t.contains(self.get_type()))
+            || source.is_tag(level, DamageTypeTags::IS_FALL)
+                && mc_data::tags::get::<EntityType>("fall_damage_immune")
+                    .is_some_and(|t| t.contains(self.get_type()))
     }
 
     /// `isInvulnerableTo(level, source)` (`LivingEntity`: plus `EnchantmentHelper.isImmuneToDamage`).
-    fn is_invulnerable_to(&mut self, level: &mut ServerLevel, source: &crate::world::damagesource::DamageSource) -> bool {
+    fn is_invulnerable_to(
+        &mut self,
+        level: &mut ServerLevel,
+        source: &crate::world::damagesource::DamageSource,
+    ) -> bool {
         super::living_entity::damage::is_invulnerable_to(self.as_dyn_mut(), level, source)
     }
 
     /// `hurtServer(level, source, damage)`: abstract in `Entity` (non-living entities override); every living entity runs `LivingEntity.hurtServer`.
-    fn hurt_server(&mut self, level: &mut ServerLevel, source: &crate::world::damagesource::DamageSource, amount: f32) -> bool {
+    fn hurt_server(
+        &mut self,
+        level: &mut ServerLevel,
+        source: &crate::world::damagesource::DamageSource,
+        amount: f32,
+    ) -> bool {
         super::living_entity::damage::hurt_server(self.as_dyn_mut(), level, source, amount)
     }
 
@@ -2470,8 +2959,20 @@ pub trait Entity: Any {
     }
 
     /// `causeFallDamage(fallDistance, damageModifier, source)`.
-    fn cause_fall_damage(&mut self, level: &mut ServerLevel, fall_distance: f64, damage_modifier: f32, source: &crate::world::damagesource::DamageSource) -> bool {
-        super::living_entity::damage::cause_fall_damage(self.as_dyn_mut(), level, fall_distance, damage_modifier, source)
+    fn cause_fall_damage(
+        &mut self,
+        level: &mut ServerLevel,
+        fall_distance: f64,
+        damage_modifier: f32,
+        source: &crate::world::damagesource::DamageSource,
+    ) -> bool {
+        super::living_entity::damage::cause_fall_damage(
+            self.as_dyn_mut(),
+            level,
+            fall_distance,
+            damage_modifier,
+            source,
+        )
     }
 
     /// `kill(level)`: `Entity` removes itself (`KILLED`) and posts `ENTITY_DIE`; `LivingEntity` hurts itself with `generic_kill`.
@@ -2481,7 +2982,11 @@ pub trait Entity: Any {
             self.hurt_server(level, &source, f32::MAX);
         } else {
             level.remove_held_entity(self.as_dyn_mut(), RemovalReason::Killed);
-            level.game_event_from_entity(Some(self.id()), mc_data::GameEvent::ENTITY_DIE, self.position());
+            level.game_event_from_entity(
+                Some(self.id()),
+                mc_data::GameEvent::ENTITY_DIE,
+                self.position(),
+            );
         }
     }
 
@@ -2502,12 +3007,15 @@ pub trait Entity: Any {
 
     /// `isDeadOrDying()`.
     fn is_dead_or_dying(&self) -> bool {
-        self.living().is_some_and(|l| l.get_health() <= 0.0 || l.dead)
+        self.living()
+            .is_some_and(|l| l.get_health() <= 0.0 || l.dead)
     }
 
     /// `getArmorValue()`.
     fn get_armor_value(&self) -> i32 {
-        self.living().map_or(0, |l| mth::floor_f64(l.get_attribute_value(mc_data::Attribute::ARMOR)))
+        self.living().map_or(0, |l| {
+            mth::floor_f64(l.get_attribute_value(mc_data::Attribute::ARMOR))
+        })
     }
 
     /// `isBlocking()`.
@@ -2526,7 +3034,9 @@ pub trait Entity: Any {
     }
 
     /// `Projectile.calculateHorizontalHurtKnockbackDirection` (`None`: not a projectile).
-    fn hurt_knockback_direction(&self) -> Option<crate::world::damagesource::HurtKnockbackDirection> {
+    fn hurt_knockback_direction(
+        &self,
+    ) -> Option<crate::world::damagesource::HurtKnockbackDirection> {
         None
     }
 
@@ -2536,13 +3046,24 @@ pub trait Entity: Any {
     }
 
     /// `getHurtSound(source)` (`Player`: the damage type's `effects` sound).
-    fn get_hurt_sound(&self, _source: &crate::world::damagesource::DamageSource) -> Option<mc_data::SoundEvent> {
-        Some(if super::mob::monster::is_monster(self.as_dyn()) { super::mob::monster::HURT_SOUND } else { mc_data::SoundEvent::ENTITY_GENERIC_HURT })
+    fn get_hurt_sound(
+        &self,
+        _source: &crate::world::damagesource::DamageSource,
+    ) -> Option<mc_data::SoundEvent> {
+        Some(if super::mob::monster::is_monster(self.as_dyn()) {
+            super::mob::monster::HURT_SOUND
+        } else {
+            mc_data::SoundEvent::ENTITY_GENERIC_HURT
+        })
     }
 
     /// `getDeathSound()`.
     fn get_death_sound(&self) -> Option<mc_data::SoundEvent> {
-        Some(if super::mob::monster::is_monster(self.as_dyn()) { super::mob::monster::DEATH_SOUND } else { mc_data::SoundEvent::ENTITY_GENERIC_DEATH })
+        Some(if super::mob::monster::is_monster(self.as_dyn()) {
+            super::mob::monster::DEATH_SOUND
+        } else {
+            mc_data::SoundEvent::ENTITY_GENERIC_DEATH
+        })
     }
 
     /// `getSoundVolume()`.
@@ -2559,12 +3080,33 @@ pub trait Entity: Any {
     fn indicate_damage(&mut self, _level: &mut ServerLevel, _xd: f64, _zd: f64) {}
 
     /// `knockback(power, xd, zd, source, damage, comesFromEffect)`.
-    fn knockback(&mut self, power: f64, xd: f64, zd: f64, source: &crate::world::damagesource::DamageSource, damage: f32, comes_from_effect: bool) {
-        super::living_entity::damage::knockback(self.as_dyn_mut(), power, xd, zd, source, damage, comes_from_effect);
+    fn knockback(
+        &mut self,
+        power: f64,
+        xd: f64,
+        zd: f64,
+        source: &crate::world::damagesource::DamageSource,
+        damage: f32,
+        comes_from_effect: bool,
+    ) {
+        super::living_entity::damage::knockback(
+            self.as_dyn_mut(),
+            power,
+            xd,
+            zd,
+            source,
+            damage,
+            comes_from_effect,
+        );
     }
 
     /// `actuallyHurt(level, source, damage)`.
-    fn actually_hurt(&mut self, level: &mut ServerLevel, source: &crate::world::damagesource::DamageSource, damage: f32) {
+    fn actually_hurt(
+        &mut self,
+        level: &mut ServerLevel,
+        source: &crate::world::damagesource::DamageSource,
+        damage: f32,
+    ) {
         if self.mob().is_some_and(|m| m.animal.is_some()) {
             super::mob::animal::reset_love(self.as_dyn_mut()); // `Animal.actuallyHurt`
         }
@@ -2572,10 +3114,22 @@ pub trait Entity: Any {
     }
 
     /// `hurtArmor(source, damage)` (players damage their armor; mobs do nothing).
-    fn hurt_armor(&mut self, _level: &mut ServerLevel, _source: &crate::world::damagesource::DamageSource, _damage: f32) {}
+    fn hurt_armor(
+        &mut self,
+        _level: &mut ServerLevel,
+        _source: &crate::world::damagesource::DamageSource,
+        _damage: f32,
+    ) {
+    }
 
     /// `hurtHelmet(source, damage)`.
-    fn hurt_helmet(&mut self, _level: &mut ServerLevel, _source: &crate::world::damagesource::DamageSource, _damage: f32) {}
+    fn hurt_helmet(
+        &mut self,
+        _level: &mut ServerLevel,
+        _source: &crate::world::damagesource::DamageSource,
+        _damage: f32,
+    ) {
+    }
 
     /// `blockUsingItem(level, attacker, source, damage, fullyBlocked)` (`attacker` = the direct living entity).
     fn block_using_item(
@@ -2586,7 +3140,14 @@ pub trait Entity: Any {
         damage: f32,
         fully_blocked: bool,
     ) {
-        super::living_entity::blocking::block_using_item(self.as_dyn_mut(), level, attacker, source, damage, fully_blocked);
+        super::living_entity::blocking::block_using_item(
+            self.as_dyn_mut(),
+            level,
+            attacker,
+            source,
+            damage,
+            fully_blocked,
+        );
     }
 
     /// `onEnterCombat()` / `onLeaveCombat()` (`ServerPlayer` sends the combat packets).
@@ -2597,14 +3158,28 @@ pub trait Entity: Any {
     fn drop_equipment(&mut self, _level: &mut ServerLevel) {}
 
     /// `dropAllDeathLoot(level, source)`.
-    fn drop_all_death_loot(&mut self, level: &mut ServerLevel, source: &crate::world::damagesource::DamageSource) {
+    fn drop_all_death_loot(
+        &mut self,
+        level: &mut ServerLevel,
+        source: &crate::world::damagesource::DamageSource,
+    ) {
         super::living_entity::death::drop_all_death_loot(self.as_dyn_mut(), level, source);
     }
 
     /// `dropCustomDeathLoot(level, source, killedByPlayer)`.
-    fn drop_custom_death_loot(&mut self, level: &mut ServerLevel, source: &crate::world::damagesource::DamageSource, killed_by_player: bool) {
+    fn drop_custom_death_loot(
+        &mut self,
+        level: &mut ServerLevel,
+        source: &crate::world::damagesource::DamageSource,
+        killed_by_player: bool,
+    ) {
         if self.mob().is_some() {
-            super::mob::equipment::drop_custom_death_loot(self.as_dyn_mut(), level, source, killed_by_player);
+            super::mob::equipment::drop_custom_death_loot(
+                self.as_dyn_mut(),
+                level,
+                source,
+                killed_by_player,
+            );
         }
     }
 
@@ -2641,18 +3216,40 @@ pub trait Entity: Any {
     }
 
     /// `killedEntity(level, victim, source)`: whether the victim's death proceeds (drops).
-    fn killed_entity(&mut self, _level: &mut ServerLevel, _victim: &crate::world::damagesource::DamageEntity, _source: &crate::world::damagesource::DamageSource) -> bool {
+    fn killed_entity(
+        &mut self,
+        _level: &mut ServerLevel,
+        _victim: &crate::world::damagesource::DamageEntity,
+        _source: &crate::world::damagesource::DamageSource,
+    ) -> bool {
         true
     }
 
     /// `awardKillScore(victim, killingBlow)` (`ServerPlayer`: scoreboard + stats).
-    fn award_kill_score(&mut self, _level: &mut ServerLevel, _victim: &crate::world::damagesource::DamageEntity, _victim_entity: Option<&dyn Entity>, _source: &crate::world::damagesource::DamageSource) {}
+    fn award_kill_score(
+        &mut self,
+        _level: &mut ServerLevel,
+        _victim: &crate::world::damagesource::DamageEntity,
+        _victim_entity: Option<&dyn Entity>,
+        _source: &crate::world::damagesource::DamageSource,
+    ) {
+    }
     /// `LivingEntity.addEffect(newEffect, source)`.
-    fn add_effect(&mut self, level: &mut ServerLevel, effect: super::effect::MobEffectInstance, source: Option<EntityId>) -> bool {
+    fn add_effect(
+        &mut self,
+        level: &mut ServerLevel,
+        effect: super::effect::MobEffectInstance,
+        source: Option<EntityId>,
+    ) -> bool {
         super::living_entity::effects::add_effect(self.as_dyn_mut(), level, effect, source)
     }
     /// `LivingEntity.forceAddEffect(newEffect, source)`.
-    fn force_add_effect(&mut self, level: &mut ServerLevel, effect: super::effect::MobEffectInstance, source: Option<EntityId>) {
+    fn force_add_effect(
+        &mut self,
+        level: &mut ServerLevel,
+        effect: super::effect::MobEffectInstance,
+        source: Option<EntityId>,
+    ) {
         super::living_entity::effects::force_add_effect(self.as_dyn_mut(), level, effect, source)
     }
     /// `LivingEntity.removeEffect(effect)`.
@@ -2665,14 +3262,19 @@ pub trait Entity: Any {
     }
     /// `LivingEntity.hasEffect(effect)`.
     fn has_effect(&self, effect: mc_data::MobEffect) -> bool {
-        self.living().is_some_and(|l| l.active_effects.contains_key(&effect))
+        self.living()
+            .is_some_and(|l| l.active_effects.contains_key(&effect))
     }
     /// `LivingEntity.getEffect(effect)`.
     fn get_effect(&self, effect: mc_data::MobEffect) -> Option<&super::effect::MobEffectInstance> {
         self.living()?.active_effects.get(&effect)
     }
     /// `LivingEntity.canBeAffected(newEffect)`.
-    fn can_be_affected(&self, level: &ServerLevel, effect: &super::effect::MobEffectInstance) -> bool {
+    fn can_be_affected(
+        &self,
+        level: &ServerLevel,
+        effect: &super::effect::MobEffectInstance,
+    ) -> bool {
         super::living_entity::effects::can_be_affected(self.as_dyn(), level, effect)
     }
     /// `LivingEntity.isInvertedHealAndHarm()`.
@@ -2684,15 +3286,36 @@ pub trait Entity: Any {
         super::living_entity::effects::tick_effects(self.as_dyn_mut(), level)
     }
     /// `LivingEntity.onEffectAdded(effect, source)`.
-    fn on_effect_added(&mut self, level: &mut ServerLevel, effect: &super::effect::MobEffectInstance, source: Option<EntityId>) {
+    fn on_effect_added(
+        &mut self,
+        level: &mut ServerLevel,
+        effect: &super::effect::MobEffectInstance,
+        source: Option<EntityId>,
+    ) {
         super::living_entity::effects::on_effect_added(self.as_dyn_mut(), level, effect, source)
     }
     /// `LivingEntity.onEffectUpdated(effect, doRefreshAttributes, source)`.
-    fn on_effect_updated(&mut self, level: &mut ServerLevel, effect: &super::effect::MobEffectInstance, do_refresh_attributes: bool, source: Option<EntityId>) {
-        super::living_entity::effects::on_effect_updated(self.as_dyn_mut(), level, effect, do_refresh_attributes, source)
+    fn on_effect_updated(
+        &mut self,
+        level: &mut ServerLevel,
+        effect: &super::effect::MobEffectInstance,
+        do_refresh_attributes: bool,
+        source: Option<EntityId>,
+    ) {
+        super::living_entity::effects::on_effect_updated(
+            self.as_dyn_mut(),
+            level,
+            effect,
+            do_refresh_attributes,
+            source,
+        )
     }
     /// `LivingEntity.onEffectsRemoved(effects)`.
-    fn on_effects_removed(&mut self, level: &mut ServerLevel, effects: &[super::effect::MobEffectInstance]) {
+    fn on_effects_removed(
+        &mut self,
+        level: &mut ServerLevel,
+        effects: &[super::effect::MobEffectInstance],
+    ) {
         super::living_entity::effects::on_effects_removed(self.as_dyn_mut(), level, effects)
     }
     /// `LivingEntity.onAttributeUpdated(attribute)`.
@@ -2719,7 +3342,9 @@ pub trait Entity: Any {
     }
     /// `LivingEntity.getMaxAbsorption()`.
     fn get_max_absorption(&self) -> f32 {
-        self.living().map_or(0.0, |l| l.attributes.get_value(mc_data::Attribute::MAX_ABSORPTION) as f32)
+        self.living().map_or(0.0, |l| {
+            l.attributes.get_value(mc_data::Attribute::MAX_ABSORPTION) as f32
+        })
     }
     /// `LivingEntity.setAbsorptionAmount(amount)`: clamped to `0..=getMaxAbsorption()`.
     fn set_absorption_amount(&mut self, amount: f32) {
@@ -2742,7 +3367,8 @@ pub trait Entity: Any {
     }
     /// `LivingEntity.isBaby()`.
     fn is_baby(&self) -> bool {
-        self.mob().is_some_and(|m| m.ageable.is_some()) && super::mob::ageable::is_baby(self.as_dyn())
+        self.mob().is_some_and(|m| m.ageable.is_some())
+            && super::mob::ageable::is_baby(self.as_dyn())
     }
     /// `Mob.getTarget()` (`None` for non-mobs). SEAM(Mob): overridden by the mob classes.
     fn get_target(&self) -> Option<EntityId> {
@@ -2761,7 +3387,13 @@ pub trait Entity: Any {
         false
     }
     /// `Shearable.shear(level, soundSource, tool)`.
-    fn shear(&mut self, _level: &mut ServerLevel, _sound_source: mc_protocol::packets::play::SoundSource, _tool: &crate::world::item::ItemStack) {}
+    fn shear(
+        &mut self,
+        _level: &mut ServerLevel,
+        _sound_source: mc_protocol::packets::play::SoundSource,
+        _tool: &crate::world::item::ItemStack,
+    ) {
+    }
     /// `Mob.ate()` (called by `EatBlockGoal`; `Sheep` regrows its wool).
     fn ate(&mut self, level: &mut ServerLevel) {
         self.game_event(level, mc_data::GameEvent::EAT);
@@ -2773,7 +3405,12 @@ pub trait Entity: Any {
         false
     }
     /// `HasCustomInventoryScreen.openCustomInventoryScreen(player)`.
-    fn open_custom_inventory_screen(&mut self, _level: &mut ServerLevel, _player: &mut super::ServerPlayer) {}
+    fn open_custom_inventory_screen(
+        &mut self,
+        _level: &mut ServerLevel,
+        _player: &mut super::ServerPlayer,
+    ) {
+    }
     /// `this instanceof PlayerRideableJumping`.
     fn is_player_rideable_jumping(&self) -> bool {
         false
@@ -2822,7 +3459,12 @@ pub trait Entity: Any {
     }
     /// `collectEquipmentChanges(lastEquipmentItems)` override part that runs before the generic collection (`SulfurCube`
     /// swaps goals and archetype modifiers when the body item changes). `last` = the `lastEquipmentItems` being compared.
-    fn collect_equipment_changes_pre(&mut self, _level: &mut ServerLevel, _last: &[crate::world::item::ItemStack; 8]) {}
+    fn collect_equipment_changes_pre(
+        &mut self,
+        _level: &mut ServerLevel,
+        _last: &[crate::world::item::ItemStack; 8],
+    ) {
+    }
     /// `this instanceof AbstractCubeMob`: the cube-mob view of a slime / magma cube / sulfur cube.
     fn as_cube_mob(&self) -> Option<&dyn super::monster::cubemob::CubeMob> {
         None
@@ -2841,35 +3483,60 @@ pub trait Entity: Any {
     fn rehydrate(&mut self) {}
     /// `(LightningBolt.getBlocksSetOnFire(), LightningBolt.getHitEntities())`; `None` when the entity is not a
     /// `LightningBolt`. SEAM(LightningBolt): implemented by the lightning entity.
-    fn lightning_bolt_state(&self) -> Option<crate::advancements::predicates::entity::support::LightningBoltState> {
+    fn lightning_bolt_state(
+        &self,
+    ) -> Option<crate::advancements::predicates::entity::support::LightningBoltState> {
         None
     }
     /// `ServerPlayer.getStats().getValue(statType.get(stat))` for the stat type / stat registry ids (0 for non-players).
-    fn get_stat_value(&self, _stat_type: &mc_core::ident::Identifier, _stat: &mc_core::ident::Identifier) -> i32 {
+    fn get_stat_value(
+        &self,
+        _stat_type: &mc_core::ident::Identifier,
+        _stat: &mc_core::ident::Identifier,
+    ) -> i32 {
         0
     }
     /// `PlayerAdvancements.getOrStartProgress(advancement)` as data; `None` when the advancement does not exist.
     /// SEAM(advancements): implemented once player advancements are modelled.
-    fn advancement_progress(&self, _advancement: &mc_core::ident::Identifier) -> Option<crate::advancements::predicates::entity::support::AdvancementProgressSnapshot> {
+    fn advancement_progress(
+        &self,
+        _advancement: &mc_core::ident::Identifier,
+    ) -> Option<crate::advancements::predicates::entity::support::AdvancementProgressSnapshot> {
         None
     }
     /// The live stack of `slot` (`getItemBySlot(slot)` by reference), `None` for non-living entities. Enchantment effects
     /// write their durability changes back through it.
-    fn item_by_slot_mut(&mut self, slot: super::equipment::EquipmentSlot) -> Option<&mut crate::world::item::ItemStack> {
+    fn item_by_slot_mut(
+        &mut self,
+        slot: super::equipment::EquipmentSlot,
+    ) -> Option<&mut crate::world::item::ItemStack> {
         self.living_mut().map(|l| l.equipment.get_mut(slot))
     }
 
     /// `LivingEntity.onEquippedItemBroken(brokenItem, inSlot)`: the break entity event, then the location-based effects of the
     /// broken stack stop (`stopLocationBasedEffects`: its attribute modifiers are removed, its enchantment effects deactivated).
-    fn on_equipped_item_broken(&mut self, level: &mut ServerLevel, broken: &crate::world::item::ItemStack, slot: super::equipment::EquipmentSlot) {
-        crate::world::item::enchantment::broken_item::on_equipped_item_broken(self.as_dyn_mut(), level, broken, slot);
+    fn on_equipped_item_broken(
+        &mut self,
+        level: &mut ServerLevel,
+        broken: &crate::world::item::ItemStack,
+        slot: super::equipment::EquipmentSlot,
+    ) {
+        crate::world::item::enchantment::broken_item::on_equipped_item_broken(
+            self.as_dyn_mut(),
+            level,
+            broken,
+            slot,
+        );
     }
     /// `getBrain()` of a living entity (a brain-less `new Brain<>()` unless the mob made one); panics for non-living entities.
     fn brain(&self) -> &super::ai::brain::Brain {
         &self.living().expect("brain() on a non-living entity").brain
     }
     fn brain_mut(&mut self) -> &mut super::ai::brain::Brain {
-        &mut self.living_mut().expect("brain_mut() on a non-living entity").brain
+        &mut self
+            .living_mut()
+            .expect("brain_mut() on a non-living entity")
+            .brain
     }
     /// `LivingEntity.makeBrain(packed)`: the default is `new Brain<>()`; mobs with a brain return
     /// `BRAIN_PROVIDER.make_brain(self, packed)` (plus `registerBrainGoals` etc.).
@@ -2909,8 +3576,16 @@ pub trait Entity: Any {
     // Mob hooks the pathfinder/navigation call; the defaults are the behavior of an entity that is not a `Mob`
     // (`Mob` types override them: malus map, move control, ...).
     /// `Mob.getPathfindingMalus(type)` (incl. the controlled-vehicle redirect; `level` resolves the vehicle).
-    fn get_pathfinding_malus(&self, level: &ServerLevel, ty: crate::world::level::pathfinder::PathType) -> f32 {
-        if self.mob().is_some() { super::mob::get_pathfinding_malus(self.as_dyn(), level, ty) } else { ty.get_malus() }
+    fn get_pathfinding_malus(
+        &self,
+        level: &ServerLevel,
+        ty: crate::world::level::pathfinder::PathType,
+    ) -> f32 {
+        if self.mob().is_some() {
+            super::mob::get_pathfinding_malus(self.as_dyn(), level, ty)
+        } else {
+            ty.get_malus()
+        }
     }
     /// `Mob.setPathfindingMalus(type, cost)`.
     fn set_pathfinding_malus(&mut self, ty: crate::world::level::pathfinder::PathType, cost: f32) {
@@ -2939,24 +3614,36 @@ pub trait Entity: Any {
         super::mob::move_control_speed_modifier(self.as_dyn())
     }
     /// `this instanceof AbstractHorse` (the surface the generic horse goals use; implemented by `AbstractHorse` mobs).
-    fn as_abstract_horse(&self) -> Option<&dyn crate::world::entity::ai::goal::AbstractHorseAccess> {
+    fn as_abstract_horse(
+        &self,
+    ) -> Option<&dyn crate::world::entity::ai::goal::AbstractHorseAccess> {
         None
     }
-    fn as_abstract_horse_mut(&mut self) -> Option<&mut dyn crate::world::entity::ai::goal::AbstractHorseAccess> {
+    fn as_abstract_horse_mut(
+        &mut self,
+    ) -> Option<&mut dyn crate::world::entity::ai::goal::AbstractHorseAccess> {
         None
     }
     /// `this instanceof AbstractVillager` (the `Merchant` surface the trading goals use).
-    fn as_abstract_villager(&self) -> Option<&dyn crate::world::entity::ai::goal::AbstractVillagerAccess> {
+    fn as_abstract_villager(
+        &self,
+    ) -> Option<&dyn crate::world::entity::ai::goal::AbstractVillagerAccess> {
         None
     }
-    fn as_abstract_villager_mut(&mut self) -> Option<&mut dyn crate::world::entity::ai::goal::AbstractVillagerAccess> {
+    fn as_abstract_villager_mut(
+        &mut self,
+    ) -> Option<&mut dyn crate::world::entity::ai::goal::AbstractVillagerAccess> {
         None
     }
     /// `this instanceof ShoulderRidingEntity` (parrots).
-    fn as_shoulder_riding(&self) -> Option<&dyn crate::world::entity::ai::goal::ShoulderRidingAccess> {
+    fn as_shoulder_riding(
+        &self,
+    ) -> Option<&dyn crate::world::entity::ai::goal::ShoulderRidingAccess> {
         None
     }
-    fn as_shoulder_riding_mut(&mut self) -> Option<&mut dyn crate::world::entity::ai::goal::ShoulderRidingAccess> {
+    fn as_shoulder_riding_mut(
+        &mut self,
+    ) -> Option<&mut dyn crate::world::entity::ai::goal::ShoulderRidingAccess> {
         None
     }
     /// `Villager.wantsToSpawnGolem(gameTime)` (read for `EntityType.VILLAGER` by `GolemRandomStrollInVillageGoal`; the villager
@@ -2991,21 +3678,31 @@ pub trait Entity: Any {
     }
     /// `Mob.requiresCustomPersistence()`.
     fn requires_custom_persistence(&self) -> bool {
-        self.mob().is_some() && (self.base().is_passenger() || super::mob::leashable::is_leashed(self.as_dyn()))
+        self.mob().is_some()
+            && (self.base().is_passenger() || super::mob::leashable::is_leashed(self.as_dyn()))
     }
     /// `Mob.removeWhenFarAway(dist)`.
     fn remove_when_far_away(&self, _distance_to_closest_player: f64) -> bool {
         !self.mob().is_some_and(|m| m.animal.is_some())
     }
     /// `Mob.checkSpawnRules(level, reason)`.
-    fn check_spawn_rules(&self, level: &dyn crate::world::level::server_level_accessor::ServerLevelAccessor, _reason: mc_data::enums::EntitySpawnReason) -> bool {
+    fn check_spawn_rules(
+        &self,
+        level: &dyn crate::world::level::server_level_accessor::ServerLevelAccessor,
+        _reason: mc_data::enums::EntitySpawnReason,
+    ) -> bool {
         match self.mob() {
-            Some(m) if m.kind.is_pathfinder() => super::mob::spawn::pathfinder_check_spawn_rules(self.as_dyn(), level),
+            Some(m) if m.kind.is_pathfinder() => {
+                super::mob::spawn::pathfinder_check_spawn_rules(self.as_dyn(), level)
+            }
             _ => true,
         }
     }
     /// `Mob.checkSpawnObstruction(level)`.
-    fn check_spawn_obstruction(&self, level: &dyn crate::world::level::server_level_accessor::ServerLevelAccessor) -> bool {
+    fn check_spawn_obstruction(
+        &self,
+        level: &dyn crate::world::level::server_level_accessor::ServerLevelAccessor,
+    ) -> bool {
         self.mob().is_none() || super::mob::spawn::check_spawn_obstruction(self.as_dyn(), level)
     }
     /// `Mob.getMaxSpawnClusterSize()`.
@@ -3024,7 +3721,17 @@ pub trait Entity: Any {
         reason: mc_data::enums::EntitySpawnReason,
         group_data: Option<Box<dyn super::spawn_group_data::SpawnGroupData>>,
     ) -> Option<Box<dyn super::spawn_group_data::SpawnGroupData>> {
-        if self.mob().is_some() { super::mob::spawn::finalize_spawn(self.as_dyn_mut(), level, difficulty, reason, group_data) } else { group_data }
+        if self.mob().is_some() {
+            super::mob::spawn::finalize_spawn(
+                self.as_dyn_mut(),
+                level,
+                difficulty,
+                reason,
+                group_data,
+            )
+        } else {
+            group_data
+        }
     }
 
     /// `shouldPassengersInheritMalus()`.
@@ -3044,7 +3751,11 @@ pub trait Entity: Any {
     }
     /// `getAmbientSoundInterval()` (`Animal`: 120).
     fn get_ambient_sound_interval(&self) -> i32 {
-        if self.mob().is_some_and(|m| m.animal.is_some()) { 120 } else { 80 }
+        if self.mob().is_some_and(|m| m.animal.is_some()) {
+            120
+        } else {
+            80
+        }
     }
     /// `playAmbientSound()`.
     fn play_ambient_sound(&mut self, level: &mut ServerLevel) {
@@ -3094,7 +3805,11 @@ pub trait Entity: Any {
         true
     }
     /// `wantsToPickUp(level, stack)`.
-    fn wants_to_pick_up(&self, _level: &ServerLevel, stack: &crate::world::item::ItemStack) -> bool {
+    fn wants_to_pick_up(
+        &self,
+        _level: &ServerLevel,
+        stack: &crate::world::item::ItemStack,
+    ) -> bool {
         self.can_hold_item(stack)
     }
     /// `pickUpItem(level, itemEntity)`.
@@ -3102,7 +3817,11 @@ pub trait Entity: Any {
         super::mob::equipment::pick_up_item(self.as_dyn_mut(), level, item);
     }
     /// `canReplaceEqualItem(new, current)`.
-    fn can_replace_equal_item(&self, new: &crate::world::item::ItemStack, current: &crate::world::item::ItemStack) -> bool {
+    fn can_replace_equal_item(
+        &self,
+        new: &crate::world::item::ItemStack,
+        current: &crate::world::item::ItemStack,
+    ) -> bool {
         super::mob::equipment::can_replace_equal_item(new, current)
     }
     /// `getPreferredWeaponType()` (an item tag name).
@@ -3118,15 +3837,27 @@ pub trait Entity: Any {
         true
     }
     /// `getEquipmentSlotForItem(stack)`.
-    fn get_equipment_slot_for_item(&self, stack: &crate::world::item::ItemStack) -> super::equipment::EquipmentSlot {
+    fn get_equipment_slot_for_item(
+        &self,
+        stack: &crate::world::item::ItemStack,
+    ) -> super::equipment::EquipmentSlot {
         super::mob::equipment::get_equipment_slot_for_item(self.as_dyn(), stack)
     }
     /// `isEquippableInSlot(stack, slot)`.
-    fn is_equippable_in_slot(&self, stack: &crate::world::item::ItemStack, slot: super::equipment::EquipmentSlot) -> bool {
+    fn is_equippable_in_slot(
+        &self,
+        stack: &crate::world::item::ItemStack,
+        slot: super::equipment::EquipmentSlot,
+    ) -> bool {
         super::mob::equipment::is_equippable_in_slot(self.as_dyn(), stack, slot)
     }
     /// `setItemSlot(slot, stack)` (non-player living entities).
-    fn set_item_slot(&mut self, level: &mut ServerLevel, slot: super::equipment::EquipmentSlot, stack: crate::world::item::ItemStack) {
+    fn set_item_slot(
+        &mut self,
+        level: &mut ServerLevel,
+        slot: super::equipment::EquipmentSlot,
+        stack: crate::world::item::ItemStack,
+    ) {
         super::mob::equipment::set_item_slot(self.as_dyn_mut(), level, slot, stack);
     }
     /// `this instanceof Bucketable` (fish, axolotls, tadpoles override).
@@ -3143,20 +3874,60 @@ pub trait Entity: Any {
         }
     }
     /// `populateDefaultEquipmentSlots(random, difficulty)`.
-    fn populate_default_equipment_slots(&mut self, random: &mut dyn RandomSource, difficulty: &crate::world::difficulty_instance::DifficultyInstance) {
-        super::mob::equipment::populate_default_equipment_slots(self.as_dyn_mut(), random, difficulty);
+    fn populate_default_equipment_slots(
+        &mut self,
+        random: &mut dyn RandomSource,
+        difficulty: &crate::world::difficulty_instance::DifficultyInstance,
+    ) {
+        super::mob::equipment::populate_default_equipment_slots(
+            self.as_dyn_mut(),
+            random,
+            difficulty,
+        );
     }
     /// `populateDefaultEquipmentEnchantments(level, random, difficulty)`.
-    fn populate_default_equipment_enchantments(&mut self, registries: &crate::registry::RegistryAccess, random: &mut dyn RandomSource, difficulty: &crate::world::difficulty_instance::DifficultyInstance) {
-        super::mob::equipment::populate_default_equipment_enchantments(self.as_dyn_mut(), registries, random, difficulty);
+    fn populate_default_equipment_enchantments(
+        &mut self,
+        registries: &crate::registry::RegistryAccess,
+        random: &mut dyn RandomSource,
+        difficulty: &crate::world::difficulty_instance::DifficultyInstance,
+    ) {
+        super::mob::equipment::populate_default_equipment_enchantments(
+            self.as_dyn_mut(),
+            registries,
+            random,
+            difficulty,
+        );
     }
     /// `enchantSpawnedWeapon(level, random, difficulty)`.
-    fn enchant_spawned_weapon(&mut self, registries: &crate::registry::RegistryAccess, random: &mut dyn RandomSource, difficulty: &crate::world::difficulty_instance::DifficultyInstance) {
-        super::mob::equipment::enchant_spawned_weapon(self.as_dyn_mut(), registries, random, difficulty);
+    fn enchant_spawned_weapon(
+        &mut self,
+        registries: &crate::registry::RegistryAccess,
+        random: &mut dyn RandomSource,
+        difficulty: &crate::world::difficulty_instance::DifficultyInstance,
+    ) {
+        super::mob::equipment::enchant_spawned_weapon(
+            self.as_dyn_mut(),
+            registries,
+            random,
+            difficulty,
+        );
     }
     /// `enchantSpawnedArmor(level, random, slot, difficulty)`.
-    fn enchant_spawned_armor(&mut self, registries: &crate::registry::RegistryAccess, random: &mut dyn RandomSource, slot: super::equipment::EquipmentSlot, difficulty: &crate::world::difficulty_instance::DifficultyInstance) {
-        super::mob::equipment::enchant_spawned_armor(self.as_dyn_mut(), registries, random, slot, difficulty);
+    fn enchant_spawned_armor(
+        &mut self,
+        registries: &crate::registry::RegistryAccess,
+        random: &mut dyn RandomSource,
+        slot: super::equipment::EquipmentSlot,
+        difficulty: &crate::world::difficulty_instance::DifficultyInstance,
+    ) {
+        super::mob::equipment::enchant_spawned_armor(
+            self.as_dyn_mut(),
+            registries,
+            random,
+            slot,
+            difficulty,
+        );
     }
     /// `equip(EquipmentTable)`.
     fn equip(&mut self, level: &mut ServerLevel, table: &super::equipment_table::EquipmentTable) {
@@ -3177,12 +3948,17 @@ pub trait Entity: Any {
         super::mob::ext::can_attack_default(self.as_dyn(), level, target)
     }
     /// `getVisibilityPercent(level, targetingEntity)`.
-    fn get_visibility_percent(&self, _level: &ServerLevel, targeting_entity: Option<&dyn Entity>) -> f64 {
+    fn get_visibility_percent(
+        &self,
+        _level: &ServerLevel,
+        targeting_entity: Option<&dyn Entity>,
+    ) -> f64 {
         super::mob::ext::get_visibility_percent(self.as_dyn(), targeting_entity)
     }
     /// `Entity.isPanicking()` (`PathfinderMob`).
     fn is_panicking(&self) -> bool {
-        self.mob().is_some_and(|m| m.kind.is_pathfinder()) && super::mob::pathfinder::is_panicking(self.as_dyn())
+        self.mob().is_some_and(|m| m.kind.is_pathfinder())
+            && super::mob::pathfinder::is_panicking(self.as_dyn())
     }
     /// The brain's `IS_PANICKING` memory; `None` = no brain.
     fn is_panicking_by_brain(&self) -> Option<bool> {
@@ -3220,20 +3996,40 @@ pub trait Entity: Any {
         None
     }
     /// `PathfinderMob.getWalkTargetValue(pos, level)`.
-    fn get_walk_target_value(&self, pos: BlockPos, level: &dyn crate::world::level::LevelReader) -> f32 {
+    fn get_walk_target_value(
+        &self,
+        pos: BlockPos,
+        level: &dyn crate::world::level::LevelReader,
+    ) -> f32 {
         super::mob::pathfinder::get_walk_target_value(self.as_dyn(), pos, level)
     }
 
     // ---- interaction ----
     /// `mobInteract(player, hand)`.
-    fn mob_interact(&mut self, level: &mut ServerLevel, player: &mut super::ServerPlayer, hand: crate::world::item::InteractionHand) -> crate::world::item::InteractionResult {
+    fn mob_interact(
+        &mut self,
+        level: &mut ServerLevel,
+        player: &mut super::ServerPlayer,
+        hand: crate::world::item::InteractionHand,
+    ) -> crate::world::item::InteractionResult {
         super::mob::interact::mob_interact(self.as_dyn_mut(), level, player, hand)
     }
     /// `onOffspringSpawnedFromEgg(spawner, offspring)`.
-    fn on_offspring_spawned_from_egg(&mut self, _level: &mut ServerLevel, _spawner: &mut super::ServerPlayer, _offspring: EntityId) {}
+    fn on_offspring_spawned_from_egg(
+        &mut self,
+        _level: &mut ServerLevel,
+        _spawner: &mut super::ServerPlayer,
+        _offspring: EntityId,
+    ) {
+    }
     /// `dropAllLeashConnections(player)`: drops this entity's leash and every leash it holds.
-    fn drop_all_leash_connections(&mut self, level: &mut ServerLevel, player: Option<EntityId>) -> bool {
-        self.mob().is_some() && super::mob::interact::drop_all_leash_connections(self.as_dyn_mut(), level, player)
+    fn drop_all_leash_connections(
+        &mut self,
+        level: &mut ServerLevel,
+        player: Option<EntityId>,
+    ) -> bool {
+        self.mob().is_some()
+            && super::mob::interact::drop_all_leash_connections(self.as_dyn_mut(), level, player)
     }
     /// `canShearEquipment(player)`.
     fn can_shear_equipment(&self, _player: &super::ServerPlayer) -> bool {
@@ -3317,7 +4113,8 @@ pub trait Entity: Any {
     }
     /// `canAgeUp()`.
     fn can_age_up(&self) -> bool {
-        self.mob().is_some_and(|m| m.ageable.is_some()) && super::mob::ageable::can_age_up(self.as_dyn())
+        self.mob().is_some_and(|m| m.ageable.is_some())
+            && super::mob::ageable::can_age_up(self.as_dyn())
     }
     /// `Animal.isFood(stack)`.
     fn is_food(&self, _stack: &crate::world::item::ItemStack) -> bool {
@@ -3328,7 +4125,11 @@ pub trait Entity: Any {
         super::mob::animal::can_fall_in_love(self.as_dyn())
     }
     /// `AgeableMob.getBreedOffspring(level, partner)`.
-    fn get_breed_offspring(&mut self, _level: &mut ServerLevel, _partner: EntityId) -> Option<Box<dyn Entity>> {
+    fn get_breed_offspring(
+        &mut self,
+        _level: &mut ServerLevel,
+        _partner: EntityId,
+    ) -> Option<Box<dyn Entity>> {
         None
     }
     /// `TamableAnimal.applyTamingSideEffects()`.
@@ -3355,7 +4156,13 @@ pub trait Entity: Any {
         None
     }
     /// `canReplaceCurrentItem(newItemStack, currentItemStack, slot)`.
-    fn can_replace_current_item(&self, level: &ServerLevel, new: &crate::world::item::ItemStack, current: &crate::world::item::ItemStack, slot: super::equipment::EquipmentSlot) -> bool {
+    fn can_replace_current_item(
+        &self,
+        level: &ServerLevel,
+        new: &crate::world::item::ItemStack,
+        current: &crate::world::item::ItemStack,
+        slot: super::equipment::EquipmentSlot,
+    ) -> bool {
         super::mob::equipment::can_replace_current_item(self.as_dyn(), level, new, current, slot)
     }
     /// `Cat.hiss()` (a phantom swooping near cats); `Cat` overrides.
@@ -3370,7 +4177,12 @@ pub trait Entity: Any {
         if self.is_baby() { 0.5 } else { 1.0 }
     }
     /// `TamableAnimal.wantsToAttack(target, owner)`.
-    fn wants_to_attack(&self, _level: &ServerLevel, _target: &dyn Entity, _owner: &dyn Entity) -> bool {
+    fn wants_to_attack(
+        &self,
+        _level: &ServerLevel,
+        _target: &dyn Entity,
+        _owner: &dyn Entity,
+    ) -> bool {
         true
     }
     /// `getLeashOffset()`.
@@ -3379,7 +4191,12 @@ pub trait Entity: Any {
     }
     /// `TamableAnimal.setTame(isTame, includeSideEffects)` (virtual: `Cat` reassesses its goals). `level` is given when the
     /// caller has one (running goals can then be stopped).
-    fn set_tame(&mut self, _level: Option<&mut ServerLevel>, is_tame: bool, include_side_effects: bool) {
+    fn set_tame(
+        &mut self,
+        _level: Option<&mut ServerLevel>,
+        is_tame: bool,
+        include_side_effects: bool,
+    ) {
         super::mob::tamable::set_tame(self.as_dyn_mut(), is_tame, include_side_effects);
     }
     /// `canBeLeashed()` for classes whose answer depends on level state (`Wolf`: not while angry); callers use this one.
@@ -3387,7 +4204,11 @@ pub trait Entity: Any {
         self.can_be_leashed()
     }
     /// `getHurtSound(source)` for classes whose answer needs level state (`Wolf`: armor absorbs by damage type tag).
-    fn get_hurt_sound_in(&self, _level: &ServerLevel, source: &crate::world::damagesource::DamageSource) -> Option<mc_data::SoundEvent> {
+    fn get_hurt_sound_in(
+        &self,
+        _level: &ServerLevel,
+        source: &crate::world::damagesource::DamageSource,
+    ) -> Option<mc_data::SoundEvent> {
         self.get_hurt_sound(source)
     }
     /// `interact(player, hand, location)`: the player (taken out of the level) uses the entity.
@@ -3457,7 +4278,11 @@ pub trait Entity: Any {
     }
     /// The part of `EntityType.create(level, config, pos, ...)` that only applies to mobs (`yHeadRot`/`yBodyRot` = `yRot`,
     /// `finalizeSpawn`).
-    fn finalize_spawn_on_create(&mut self, level: &mut ServerLevel, reason: mc_data::enums::EntitySpawnReason) {
+    fn finalize_spawn_on_create(
+        &mut self,
+        level: &mut ServerLevel,
+        reason: mc_data::enums::EntitySpawnReason,
+    ) {
         if !self.is_mob() {
             return;
         }
@@ -3502,7 +4327,10 @@ pub trait Entity: Any {
     }
     /// `getEquipSound(slot, stack, equippable)` override (`Strider`: `STRIDER_SADDLE` for the saddle slot); `None` = the
     /// equippable's own sound.
-    fn get_equip_sound_override(&self, _slot: super::equipment::EquipmentSlot) -> Option<mc_data::SoundEvent> {
+    fn get_equip_sound_override(
+        &self,
+        _slot: super::equipment::EquipmentSlot,
+    ) -> Option<mc_data::SoundEvent> {
         None
     }
     /// `LivingEntity.getLiquidCollisionShape()` (`LiquidBlock.getCollisionShape` for mobs standing on fluid: `Strider`).
@@ -3538,7 +4366,14 @@ pub trait Entity: Any {
         true
     }
     /// `Raider.applyRaidBuffs(level, wave, isCaptain)`; `raid` is the raid the raider joins (vanilla reads `getCurrentRaid()`).
-    fn apply_raid_buffs(&mut self, _level: &mut ServerLevel, _wave: i32, _is_captain: bool, _raid: &super::raid::raid::Raid) {}
+    fn apply_raid_buffs(
+        &mut self,
+        _level: &mut ServerLevel,
+        _wave: i32,
+        _is_captain: bool,
+        _raid: &super::raid::raid::Raid,
+    ) {
+    }
     /// `Raider.getCelebrateSound()`.
     fn get_celebrate_sound(&self) -> Option<mc_data::SoundEvent> {
         None
@@ -3551,10 +4386,14 @@ pub trait Entity: Any {
         super::mob::ext::considers_entity_as_ally_default(level, self.as_dyn(), other)
     }
     /// The `SpellcasterIllager` data of evokers and illusioners.
-    fn spellcaster(&self) -> Option<&super::monster::illager::spellcaster_illager::SpellcasterData> {
+    fn spellcaster(
+        &self,
+    ) -> Option<&super::monster::illager::spellcaster_illager::SpellcasterData> {
         None
     }
-    fn spellcaster_mut(&mut self) -> Option<&mut super::monster::illager::spellcaster_illager::SpellcasterData> {
+    fn spellcaster_mut(
+        &mut self,
+    ) -> Option<&mut super::monster::illager::spellcaster_illager::SpellcasterData> {
         None
     }
     /// `AgeableMob.canBreed()` (villagers: enough food, awake, age 0).
@@ -3566,10 +4405,22 @@ pub trait Entity: Any {
         false
     }
     /// `ReputationEventHandler.onReputationEventFrom(type, source)`; `source` is the UUID of the causing entity.
-    fn on_reputation_event_from(&mut self, _level: &mut ServerLevel, _ty: super::ai::village::ReputationEventType, _source: uuid::Uuid) {}
+    fn on_reputation_event_from(
+        &mut self,
+        _level: &mut ServerLevel,
+        _ty: super::ai::village::ReputationEventType,
+        _source: uuid::Uuid,
+    ) {
+    }
     /// The part of `LivingEntity.setLastHurtByMob(hurtBy)` that subclasses add (villagers: reputation event + angry
     /// particles); called when a damage source with a living cause is resolved.
-    fn on_set_last_hurt_by_mob(&mut self, _level: &mut ServerLevel, _hurt_by: uuid::Uuid, _hurt_by_is_player: bool) {}
+    fn on_set_last_hurt_by_mob(
+        &mut self,
+        _level: &mut ServerLevel,
+        _hurt_by: uuid::Uuid,
+        _hurt_by_is_player: bool,
+    ) {
+    }
     /// `getTypeName()` (villagers: the profession name).
     fn get_type_name(&self) -> mc_text::Component {
         mc_text::Component::translatable(self.get_type().data().description_id, Vec::new())
@@ -3582,7 +4433,11 @@ pub trait Entity: Any {
     fn do_hurt_target(&mut self, level: &mut ServerLevel, target: &mut dyn Entity) -> bool {
         if self.mob().is_some() {
             // `Mob.doHurtTarget` is inherited by every mob that does not override it
-            return super::living_entity::combat::mob_do_hurt_target(self.as_dyn_mut(), level, target);
+            return super::living_entity::combat::mob_do_hurt_target(
+                self.as_dyn_mut(),
+                level,
+                target,
+            );
         }
         self.set_last_hurt_mob(&*target);
         false
@@ -3597,7 +4452,14 @@ pub trait Entity: Any {
         damage: f32,
         comes_from_effect: bool,
     ) {
-        super::living_entity::combat::cause_extra_knockback(self.as_dyn_mut(), target, knockback, source, damage, comes_from_effect);
+        super::living_entity::combat::cause_extra_knockback(
+            self.as_dyn_mut(),
+            target,
+            knockback,
+            source,
+            damage,
+            comes_from_effect,
+        );
     }
     /// `onAttack()` (`Player`: resets the attack strength ticker).
     fn on_attack(&mut self) {}
@@ -3607,38 +4469,65 @@ pub trait Entity: Any {
     }
     /// `Animal.usePlayerItem(player, hand, itemStack)` (virtual: `Axolotl` and `AbstractNautilus` swap a fish bucket for a
     /// water bucket); the default consumes one item and applies the `use_remainder`.
-    fn use_player_item(&mut self, level: &mut ServerLevel, player: &mut super::ServerPlayer, hand: crate::world::item::InteractionHand) {
+    fn use_player_item(
+        &mut self,
+        level: &mut ServerLevel,
+        player: &mut super::ServerPlayer,
+        hand: crate::world::item::InteractionHand,
+    ) {
         super::mob::interact::use_player_item(level, player, hand);
     }
     /// `LivingEntity.calculateFallDamage(fallDistance, damageModifier)` (virtual: `Frog`, `Goat`).
     fn calculate_fall_damage(&self, fall_distance: f64, damage_modifier: f32) -> i32 {
-        super::living_entity::damage::calculate_fall_damage(self.as_dyn(), fall_distance, damage_modifier)
+        super::living_entity::damage::calculate_fall_damage(
+            self.as_dyn(),
+            fall_distance,
+            damage_modifier,
+        )
     }
     /// `ignoreExplosion(explosion)` where the level is needed (the `mobGriefing` rule of vehicles).
-    fn ignore_explosion_in_level(&self, _level: &ServerLevel, _explosion: &dyn crate::world::level::explosion::Explosion) -> bool {
+    fn ignore_explosion_in_level(
+        &self,
+        _level: &ServerLevel,
+        _explosion: &dyn crate::world::level::explosion::Explosion,
+    ) -> bool {
         false
     }
     /// `LivingEntity.getDismountPoses()` (players: standing, crouching, swimming).
     fn get_dismount_poses(&self) -> &'static [mc_data::enums::Pose] {
         use mc_data::enums::Pose;
-        if self.is_player() { &[Pose::Standing, Pose::Crouching, Pose::Swimming] } else { &[Pose::Standing] }
+        if self.is_player() {
+            &[Pose::Standing, Pose::Crouching, Pose::Swimming]
+        } else {
+            &[Pose::Standing]
+        }
     }
     /// `getDismountLocationForPassenger(passenger)` of vehicles that also set the passenger's pose (boats, minecarts): the
     /// caller (`LivingEntity.dismountVehicle`) uses this variant.
-    fn get_dismount_location_for_passenger_setting_pose(&self, level: &ServerLevel, passenger: &mut dyn Entity) -> Vec3 {
+    fn get_dismount_location_for_passenger_setting_pose(
+        &self,
+        level: &ServerLevel,
+        passenger: &mut dyn Entity,
+    ) -> Vec3 {
         self.get_dismount_location_for_passenger(level, &*passenger)
     }
     /// The `ContainerEntity` state of chest vehicles (chest boats, chest/hopper minecarts).
     fn chest_vehicle(&self) -> Option<&super::vehicle::container_entity::ChestVehicleData> {
         None
     }
-    fn chest_vehicle_mut(&mut self) -> Option<&mut super::vehicle::container_entity::ChestVehicleData> {
+    fn chest_vehicle_mut(
+        &mut self,
+    ) -> Option<&mut super::vehicle::container_entity::ChestVehicleData> {
         None
     }
     /// `Container.startOpen/stopOpen(containerUser)` of the entity's container (chest vehicles also post the container events).
     fn container_open_close(&mut self, _level: &mut ServerLevel, user: EntityId, open: bool) {
         if let Some(c) = self.as_container_mut() {
-            if open { c.start_open(user) } else { c.stop_open(user) }
+            if open {
+                c.start_open(user)
+            } else {
+                c.stop_open(user)
+            }
         }
     }
     /// `LivingEntity.isSleeping()` (virtual: `Fox` keeps it in a synched flag instead of the sleeping position).
@@ -3651,11 +4540,23 @@ pub trait Entity: Any {
     }
     /// `Entity.updateDynamicGameEventListener(action)`: run by the level on tracking start (`Add`), tracking end (`Remove`)
     /// and section change (`Move`) of the entity (entities with a `DynamicGameEventListener`: warden, allay).
-    fn update_dynamic_game_event_listener(&mut self, _level: &mut ServerLevel, _action: crate::world::level::gameevent::DynamicListenerAction) {}
+    fn update_dynamic_game_event_listener(
+        &mut self,
+        _level: &mut ServerLevel,
+        _action: crate::world::level::gameevent::DynamicListenerAction,
+    ) {
+    }
 }
 
 /// `Entity.checkFallDamage(ya, onGround, onState, pos)` (the `super` call of overriding classes).
-pub fn check_fall_damage_base(this: &mut dyn Entity, level: &mut ServerLevel, ya: f64, on_ground: bool, on_state: mc_data::block::BlockState, pos: BlockPos) {
+pub fn check_fall_damage_base(
+    this: &mut dyn Entity,
+    level: &mut ServerLevel,
+    ya: f64,
+    on_ground: bool,
+    on_state: mc_data::block::BlockState,
+    pos: BlockPos,
+) {
     use crate::world::level::BlockGetter;
     if this.living().is_some() {
         super::living_entity::fall::before_check_fall_damage(this, level, on_ground, on_state, pos);
@@ -3666,12 +4567,25 @@ pub fn check_fall_damage_base(this: &mut dyn Entity, level: &mut ServerLevel, ya
     if on_ground {
         if this.base().fall_distance > 0.0 {
             let fall_distance = this.base().fall_distance;
-            crate::world::level::block::BlockStateExt::fall_on(on_state, level, pos, this, fall_distance);
+            crate::world::level::block::BlockStateExt::fall_on(
+                on_state,
+                level,
+                pos,
+                this,
+                fall_distance,
+            );
             let ctx_state = match this.base().main_supporting_block_pos {
                 Some(p) => level.get_block_state(p),
                 None => on_state,
             };
-            level.post_game_event(mc_data::GameEvent::HIT_GROUND, this.base().position(), &crate::world::level::gameevent::GameEventContext::of(Some(this.id()), Some(ctx_state)));
+            level.post_game_event(
+                mc_data::GameEvent::HIT_GROUND,
+                this.base().position(),
+                &crate::world::level::gameevent::GameEventContext::of(
+                    Some(this.id()),
+                    Some(ctx_state),
+                ),
+            );
         }
         this.reset_fall_distance();
     }
@@ -3682,7 +4596,11 @@ pub fn check_fall_damage_base(this: &mut dyn Entity, level: &mut ServerLevel, ya
 
 /// `Entity.push(entity)` / `LivingEntity.push(entity)`: separates two overlapping entities (`other` is the entity `this`
 /// collides with); the `super.push(entity)` of overriding classes.
-pub fn push_entity_base<E: Entity + ?Sized>(this: &mut E, level: &ServerLevel, other: &mut dyn Entity) {
+pub fn push_entity_base<E: Entity + ?Sized>(
+    this: &mut E,
+    level: &ServerLevel,
+    other: &mut dyn Entity,
+) {
     // `LivingEntity.push`: sleeping entities do not take part
     if this.is_sleeping() || this.is_passenger_of_same_vehicle(level, other.as_dyn()) {
         return;
@@ -3730,7 +4648,11 @@ pub fn save_as_passenger(entity: &dyn Entity, lookup: &EntityLookupFn<'_>) -> Op
 
 /// `Entity.save(output)`: passengers are saved with their vehicle only.
 pub fn save(entity: &dyn Entity, lookup: &EntityLookupFn<'_>) -> Option<CompoundTag> {
-    if entity.base().is_passenger() { None } else { save_as_passenger(entity, lookup) }
+    if entity.base().is_passenger() {
+        None
+    } else {
+        save_as_passenger(entity, lookup)
+    }
 }
 
 fn put_vec3_list(out: &mut CompoundTag, key: &str, v: Vec3) {
@@ -3742,7 +4664,11 @@ fn put_vec3_list(out: &mut CompoundTag, key: &str, v: Vec3) {
 }
 
 /// `Entity.saveWithoutId`.
-pub fn save_without_id<E: Entity + ?Sized>(entity: &E, out: &mut CompoundTag, lookup: &EntityLookupFn<'_>) {
+pub fn save_without_id<E: Entity + ?Sized>(
+    entity: &E,
+    out: &mut CompoundTag,
+    lookup: &EntityLookupFn<'_>,
+) {
     let b = entity.base();
     let pos = match b.vehicle.and_then(lookup) {
         Some(vehicle) => Vec3::new(vehicle.position().x, b.position().y, vehicle.position().z),
@@ -3763,7 +4689,10 @@ pub fn save_without_id<E: Entity + ?Sized>(entity: &E, out: &mut CompoundTag, lo
     if b.invulnerable_time > 0 {
         out.put_int("invulnerable_time", b.invulnerable_time);
     }
-    out.put_int_array(TAG_UUID, mc_core::uuid_util::uuid_to_int_array(&b.uuid).to_vec());
+    out.put_int_array(
+        TAG_UUID,
+        mc_core::uuid_util::uuid_to_int_array(&b.uuid).to_vec(),
+    );
     if let Some(name) = b.get_custom_name() {
         // Component codec failures leave the key out like `storeNullable` of a failed encode would not; encodable always here
         if let Ok(tag) = name.to_nbt() {
@@ -3821,7 +4750,11 @@ pub fn read_vec3(tag: Option<&Tag>) -> Option<Vec3> {
     if list.len() != 3 {
         return None;
     }
-    let n = |i: usize| list.get(i).and_then(|t| t.as_number()).map(|n| n.double_value());
+    let n = |i: usize| {
+        list.get(i)
+            .and_then(|t| t.as_number())
+            .map(|n| n.double_value())
+    };
     Some(Vec3::new(n(0)?, n(1)?, n(2)?))
 }
 
@@ -3831,7 +4764,11 @@ pub fn read_vec2(tag: Option<&Tag>) -> Option<Vec2> {
     if list.len() != 2 {
         return None;
     }
-    let n = |i: usize| list.get(i).and_then(|t| t.as_number()).map(|n| n.float_value());
+    let n = |i: usize| {
+        list.get(i)
+            .and_then(|t| t.as_number())
+            .map(|n| n.float_value())
+    };
     Some(Vec2::new(n(0)?, n(1)?))
 }
 
@@ -3839,7 +4776,10 @@ pub fn read_vec2(tag: Option<&Tag>) -> Option<Vec2> {
 pub fn read_uuid(tag: Option<&Tag>) -> Option<Uuid> {
     let ints: Vec<i32> = match tag? {
         Tag::IntArray(v) => v.clone(),
-        Tag::List(l) => l.iter().map(|t| t.as_number().map(|n| n.int_value())).collect::<Option<_>>()?,
+        Tag::List(l) => l
+            .iter()
+            .map(|t| t.as_number().map(|n| n.int_value()))
+            .collect::<Option<_>>()?,
         _ => return None,
     };
     let arr: [i32; 4] = ints.try_into().ok()?;
@@ -3856,7 +4796,11 @@ pub fn load<E: Entity + ?Sized>(entity: &mut E, input: &CompoundTag) -> Result<(
         let m = |v: f64| if v.abs() > 10.0 { 0.0 } else { v };
         b.set_delta_movement_xyz(m(motion.x), m(motion.y), m(motion.z));
         b.needs_sync = true;
-        b.set_pos_raw(mth::clamp_f64(pos.x, -3.0000512E7, 3.0000512E7), mth::clamp_f64(pos.y, -2.0E7, 2.0E7), mth::clamp_f64(pos.z, -3.0000512E7, 3.0000512E7));
+        b.set_pos_raw(
+            mth::clamp_f64(pos.x, -3.0000512E7, 3.0000512E7),
+            mth::clamp_f64(pos.y, -2.0E7, 2.0E7),
+            mth::clamp_f64(pos.z, -3.0000512E7, 3.0000512E7),
+        );
         b.set_y_rot(rotation.x);
         b.set_x_rot(rotation.y);
         b.set_old_pos_and_rot();
@@ -3890,7 +4834,9 @@ pub fn load<E: Entity + ?Sized>(entity: &mut E, input: &CompoundTag) -> Result<(
     entity.set_rot(yr, xr);
     {
         let b = entity.base_mut();
-        let name = input.get("CustomName").and_then(|t| Component::from_nbt(t).ok());
+        let name = input
+            .get("CustomName")
+            .and_then(|t| Component::from_nbt(t).ok());
         b.set_custom_name(name);
         b.set_custom_name_visible(input.get_boolean_or("CustomNameVisible", false));
         b.set_silent(input.get_boolean_or("Silent", false));
@@ -3934,7 +4880,11 @@ pub fn base_tick<E: Entity + ?Sized>(entity: &mut E, level: &mut ServerLevel) {
     entity.base_mut().in_block_state = None;
     if let Some(vehicle) = entity.base().vehicle {
         // a vehicle that is gone from the level (removed) cannot be ridden any more
-        if level.entity_manager.get_any(vehicle).is_none_or(|v| v.is_removed()) {
+        if level
+            .entity_manager
+            .get_any(vehicle)
+            .is_none_or(|v| v.is_removed())
+        {
             level.stop_riding(entity.as_dyn_mut());
         }
     }
@@ -3982,10 +4932,19 @@ pub fn get_input_vector(input: Vec3, speed: f32, y_rot: f32) -> Vec3 {
     if length < 1.0E-7 {
         return Vec3::ZERO;
     }
-    let movement = (if length > 1.0 { input.normalize() } else { input }).scale(f64::from(speed));
+    let movement = (if length > 1.0 {
+        input.normalize()
+    } else {
+        input
+    })
+    .scale(f64::from(speed));
     let sin = mth::sin(f64::from(y_rot * (std::f64::consts::PI / 180.0) as f32));
     let cos = mth::cos(f64::from(y_rot * (std::f64::consts::PI / 180.0) as f32));
-    Vec3::new(movement.x * f64::from(cos) - movement.z * f64::from(sin), movement.y, movement.z * f64::from(cos) + movement.x * f64::from(sin))
+    Vec3::new(
+        movement.x * f64::from(cos) - movement.z * f64::from(sin),
+        movement.y,
+        movement.z * f64::from(cos) + movement.x * f64::from(sin),
+    )
 }
 
 /// `Entity.MoveFunction` (`Entity::setPos` / `Entity::snapTo`).
@@ -4005,9 +4964,22 @@ impl MoveFunction {
 }
 
 /// `Entity.getDefaultPassengerAttachmentPoint(vehicle, passenger, attachments)`.
-pub fn default_passenger_attachment_point(vehicle: &dyn Entity, passenger: &dyn Entity, attachments: &EntityAttachments) -> Vec3 {
-    let index = vehicle.base().passengers.iter().position(|&p| p == passenger.id()).map_or(-1, |i| i as i32);
-    attachments.get_clamped(super::EntityAttachment::Passenger, index, vehicle.base().y_rot())
+pub fn default_passenger_attachment_point(
+    vehicle: &dyn Entity,
+    passenger: &dyn Entity,
+    attachments: &EntityAttachments,
+) -> Vec3 {
+    let index = vehicle
+        .base()
+        .passengers
+        .iter()
+        .position(|&p| p == passenger.id())
+        .map_or(-1, |i| i as i32);
+    attachments.get_clamped(
+        super::EntityAttachment::Passenger,
+        index,
+        vehicle.base().y_rot(),
+    )
 }
 
 /// `Entity.teleportPassengers()`: every passenger below `entity` is snapped to its riding position.
@@ -4029,7 +5001,11 @@ pub fn calculate_view_vector(x_rot: f32, y_rot: f32) -> Vec3 {
     let y_sin = mth::sin(f64::from(real_y_rot));
     let x_cos = mth::cos(f64::from(real_x_rot));
     let x_sin = mth::sin(f64::from(real_x_rot));
-    Vec3::new(f64::from(y_sin * x_cos), f64::from(-x_sin), f64::from(y_cos * x_cos))
+    Vec3::new(
+        f64::from(y_sin * x_cos),
+        f64::from(-x_sin),
+        f64::from(y_cos * x_cos),
+    )
 }
 
 /// `Entity.sendBubbleColumnParticles(level, pos)`.
@@ -4039,17 +5015,45 @@ pub fn send_bubble_column_particles(level: &mut ServerLevel, pos: BlockPos) {
     for _ in 0..2 {
         let rx = crate::world::level::LevelAccessor::random(level).next_double();
         let rz = crate::world::level::LevelAccessor::random(level).next_double();
-        level.send_particles(ParticleOptions::Simple(mc_data::ParticleType::SPLASH), f64::from(pos.x()) + rx, f64::from(pos.y() + 1), f64::from(pos.z()) + rz, 1, 0.0, 0.0, 0.0, 1.0);
+        level.send_particles(
+            ParticleOptions::Simple(mc_data::ParticleType::SPLASH),
+            f64::from(pos.x()) + rx,
+            f64::from(pos.y() + 1),
+            f64::from(pos.z()) + rz,
+            1,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+        );
         let rx = crate::world::level::LevelAccessor::random(level).next_double();
         let rz = crate::world::level::LevelAccessor::random(level).next_double();
-        level.send_particles(ParticleOptions::Simple(mc_data::ParticleType::BUBBLE), f64::from(pos.x()) + rx, f64::from(pos.y() + 1), f64::from(pos.z()) + rz, 1, 0.0, 0.01, 0.0, 0.2);
+        level.send_particles(
+            ParticleOptions::Simple(mc_data::ParticleType::BUBBLE),
+            f64::from(pos.x()) + rx,
+            f64::from(pos.y() + 1),
+            f64::from(pos.z()) + rz,
+            1,
+            0.0,
+            0.01,
+            0.0,
+            0.2,
+        );
     }
 }
 
 /// `Entity.causeFallDamage(fallDistance, damageModifier, damageSource)` of the base class: the entity itself takes no
 /// damage, the fall is propagated to its passengers. Always `false`.
-pub fn cause_fall_damage_base(entity: &mut dyn Entity, level: &mut ServerLevel, fall_distance: f64, damage_modifier: f32, source: &crate::world::damagesource::DamageSource) -> bool {
-    if mc_data::tags::get::<EntityType>("fall_damage_immune").is_some_and(|t| t.contains(entity.get_type())) {
+pub fn cause_fall_damage_base(
+    entity: &mut dyn Entity,
+    level: &mut ServerLevel,
+    fall_distance: f64,
+    damage_modifier: f32,
+    source: &crate::world::damagesource::DamageSource,
+) -> bool {
+    if mc_data::tags::get::<EntityType>("fall_damage_immune")
+        .is_some_and(|t| t.contains(entity.get_type()))
+    {
         return false;
     }
     propagate_fall_to_passengers(entity, level, fall_distance, damage_modifier, source);
@@ -4057,7 +5061,13 @@ pub fn cause_fall_damage_base(entity: &mut dyn Entity, level: &mut ServerLevel, 
 }
 
 /// `Entity.propagateFallToPassengers(...)`.
-pub fn propagate_fall_to_passengers(entity: &mut dyn Entity, level: &mut ServerLevel, fall_distance: f64, damage_modifier: f32, source: &crate::world::damagesource::DamageSource) {
+pub fn propagate_fall_to_passengers(
+    entity: &mut dyn Entity,
+    level: &mut ServerLevel,
+    fall_distance: f64,
+    damage_modifier: f32,
+    source: &crate::world::damagesource::DamageSource,
+) {
     if entity.base().is_vehicle() {
         for passenger in entity.base().passengers.clone() {
             level.with_entity(passenger, |level, p| {
@@ -4078,7 +5088,9 @@ pub fn common_tick<E: Entity + ?Sized>(entity: &mut E) {
 }
 
 /// `EquipmentSlot` -> the wire enum (`STREAM_CODEC` writes the slot id).
-pub fn protocol_slot(slot: super::equipment::EquipmentSlot) -> mc_protocol::packets::play::EquipmentSlot {
+pub fn protocol_slot(
+    slot: super::equipment::EquipmentSlot,
+) -> mc_protocol::packets::play::EquipmentSlot {
     use super::equipment::EquipmentSlot as S;
     use mc_protocol::packets::play::EquipmentSlot as P;
     match slot {
@@ -4094,9 +5106,16 @@ pub fn protocol_slot(slot: super::equipment::EquipmentSlot) -> mc_protocol::pack
 }
 
 /// `PositionMoveRotation.of(entity)`.
-pub fn position_move_rotation_of(e: &dyn Entity) -> mc_protocol::packets::play::PositionMoveRotation {
+pub fn position_move_rotation_of(
+    e: &dyn Entity,
+) -> mc_protocol::packets::play::PositionMoveRotation {
     let b = e.base();
-    mc_protocol::packets::play::PositionMoveRotation { position: b.position(), delta_movement: b.delta_movement(), y_rot: b.y_rot(), x_rot: b.x_rot() }
+    mc_protocol::packets::play::PositionMoveRotation {
+        position: b.position(),
+        delta_movement: b.delta_movement(),
+        y_rot: b.y_rot(),
+        x_rot: b.x_rot(),
+    }
 }
 
 /// `PositionMoveRotation.calculateAbsolute(source, change, relatives)`.
@@ -4107,9 +5126,25 @@ pub fn calculate_absolute(
 ) -> mc_protocol::packets::play::PositionMoveRotation {
     use mc_protocol::packets::play::Relative as R;
     let off = |r: R, v: f64| if relatives.contains(r) { v } else { 0.0 };
-    let position = Vec3::new(off(R::X, source.position.x) + change.position.x, off(R::Y, source.position.y) + change.position.y, off(R::Z, source.position.z) + change.position.z);
-    let y_rot = (if relatives.contains(R::YRot) { source.y_rot } else { 0.0 }) + change.y_rot;
-    let x_rot = mth::clamp_f32((if relatives.contains(R::XRot) { source.x_rot } else { 0.0 }) + change.x_rot, -90.0, 90.0);
+    let position = Vec3::new(
+        off(R::X, source.position.x) + change.position.x,
+        off(R::Y, source.position.y) + change.position.y,
+        off(R::Z, source.position.z) + change.position.z,
+    );
+    let y_rot = (if relatives.contains(R::YRot) {
+        source.y_rot
+    } else {
+        0.0
+    }) + change.y_rot;
+    let x_rot = mth::clamp_f32(
+        (if relatives.contains(R::XRot) {
+            source.x_rot
+        } else {
+            0.0
+        }) + change.x_rot,
+        -90.0,
+        90.0,
+    );
     let mut rotated = source.delta_movement;
     if relatives.contains(R::RotateDelta) {
         let diff_y = source.y_rot - y_rot;
@@ -4118,6 +5153,15 @@ pub fn calculate_absolute(
         rotated = rotated.y_rot(f64::from(diff_y).to_radians() as f32);
     }
     let d = |cur: f64, ch: f64, r: R| if relatives.contains(r) { cur + ch } else { ch };
-    let delta_movement = Vec3::new(d(rotated.x, change.delta_movement.x, R::DeltaX), d(rotated.y, change.delta_movement.y, R::DeltaY), d(rotated.z, change.delta_movement.z, R::DeltaZ));
-    mc_protocol::packets::play::PositionMoveRotation { position, delta_movement, y_rot, x_rot }
+    let delta_movement = Vec3::new(
+        d(rotated.x, change.delta_movement.x, R::DeltaX),
+        d(rotated.y, change.delta_movement.y, R::DeltaY),
+        d(rotated.z, change.delta_movement.z, R::DeltaZ),
+    );
+    mc_protocol::packets::play::PositionMoveRotation {
+        position,
+        delta_movement,
+        y_rot,
+        x_rot,
+    }
 }

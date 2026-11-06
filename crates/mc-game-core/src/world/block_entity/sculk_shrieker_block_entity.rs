@@ -2,15 +2,17 @@
 //! (`WardenSpawnTracker`), the delayed response and the warden summon. The vibration user is
 //! [`BlockEntityVibration`](super::vibration::BlockEntityVibration).
 
-use crate::world::level::LevelAccessor as _;
 use super::vibration::{self, BlockEntityVibration, Kind};
-use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec};
+use super::{
+    BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec,
+};
 use crate::server::level::ServerLevel;
 use crate::world::effect::mob_effect_util;
 use crate::world::entity::effect::MobEffectInstance;
 use crate::world::entity::spawn_util::{self, Strategy};
 use crate::world::entity::{Entity, EntityId};
 use crate::world::level::BlockGetter;
+use crate::world::level::LevelAccessor as _;
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::flags::UPDATE_CLIENTS;
 use crate::world::level::gameevent::vibrations::VibrationData;
@@ -44,9 +46,21 @@ fn sound_by_level(warning_level: i32) -> Option<SoundEvent> {
 }
 
 /// `Warden.applyDarknessAround(level, position, source, darknessRadius)`.
-pub fn apply_darkness_around(level: &mut ServerLevel, position: Vec3, source: Option<&dyn Entity>, darkness_radius: i32) {
+pub fn apply_darkness_around(
+    level: &mut ServerLevel,
+    position: Vec3,
+    source: Option<&dyn Entity>,
+    darkness_radius: i32,
+) {
     let darkness = MobEffectInstance::new(MobEffect::DARKNESS, 260, 0, false, false, false, None);
-    mob_effect_util::add_effect_to_players_around(level, source, position, f64::from(darkness_radius), &darkness, 200);
+    mob_effect_util::add_effect_to_players_around(
+        level,
+        source,
+        position,
+        f64::from(darkness_radius),
+        &darkness,
+        200,
+    );
 }
 
 pub struct SculkShriekerBlockEntity {
@@ -57,11 +71,23 @@ pub struct SculkShriekerBlockEntity {
 
 impl SculkShriekerBlockEntity {
     pub fn new(pos: BlockPos, state: BlockState) -> Self {
-        Self { base: BlockEntityData::new(BlockEntityType::SCULK_SHRIEKER, pos, state), warning_level: 0, vibration_data: VibrationData::default() }
+        Self {
+            base: BlockEntityData::new(BlockEntityType::SCULK_SHRIEKER, pos, state),
+            warning_level: 0,
+            vibration_data: VibrationData::default(),
+        }
     }
 
-    fn with<R>(level: &mut ServerLevel, pos: BlockPos, f: impl FnOnce(&mut SculkShriekerBlockEntity) -> R) -> Option<R> {
-        level.get_block_entity_immediate(pos)?.as_any_mut().downcast_mut::<SculkShriekerBlockEntity>().map(f)
+    fn with<R>(
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        f: impl FnOnce(&mut SculkShriekerBlockEntity) -> R,
+    ) -> Option<R> {
+        level
+            .get_block_entity_immediate(pos)?
+            .as_any_mut()
+            .downcast_mut::<SculkShriekerBlockEntity>()
+            .map(f)
     }
 
     /// `tryGetPlayer(sourceEntity)` for an entity given directly (`SculkShriekerBlock.stepOn`).
@@ -86,7 +112,9 @@ impl SculkShriekerBlockEntity {
         use crate::world::entity::player::server_player::WardenSpawnTracker;
         match WardenSpawnTracker::try_warn(level, pos, player) {
             Some(warning_level) => {
-                Self::with(level, pos, |shrieker| shrieker.warning_level = warning_level);
+                Self::with(level, pos, |shrieker| {
+                    shrieker.warning_level = warning_level
+                });
                 true
             }
             None => false,
@@ -96,11 +124,18 @@ impl SculkShriekerBlockEntity {
     /// `shriek(level, sourceEntity)`.
     fn shriek(level: &mut ServerLevel, pos: BlockPos, source_entity: EntityId) {
         let state = level.get_block_state(pos);
-        crate::world::level::LevelAccessor::set_block_flags(level, pos, state.set(props::SHRIEKING, true), UPDATE_CLIENTS);
+        crate::world::level::LevelAccessor::set_block_flags(
+            level,
+            pos,
+            state.set(props::SHRIEKING, true),
+            UPDATE_CLIENTS,
+        );
         level.schedule_tick_block(pos, state.block(), SHRIEKING_TICKS);
         level.level_event_impl(None, 3007, pos, 0);
         let context = match level.get_entity(source_entity) {
-            Some(entity) => GameEventContext::of_captured(crate::world::level::gameevent::vibrations::capture_source_entity(level, entity)),
+            Some(entity) => GameEventContext::of_captured(
+                crate::world::level::gameevent::vibrations::capture_source_entity(level, entity),
+            ),
             None => GameEventContext::of_entity(Some(source_entity)),
         };
         level.game_event_at_block(GameEvent::SHRIEK, pos, &context);
@@ -113,7 +148,9 @@ impl SculkShriekerBlockEntity {
 
     /// `canRespond` for a given state of this block.
     fn can_respond_for(level: &ServerLevel, state: BlockState) -> bool {
-        state.get(props::CAN_SUMMON) && level.difficulty() != mc_world::level_storage::Difficulty::Peaceful && level.spawn_wardens()
+        state.get(props::CAN_SUMMON)
+            && level.difficulty() != mc_world::level_storage::Difficulty::Peaceful
+            && level.spawn_wardens()
     }
 
     /// `tryRespond(level)`.
@@ -141,7 +178,16 @@ impl SculkShriekerBlockEntity {
             let x = pos.x() + mth::random_between_inclusive(random, -10, 10);
             let y = pos.y() + mth::random_between_inclusive(random, -10, 10);
             let z = pos.z() + mth::random_between_inclusive(random, -10, 10);
-            level.play_sound_at(None, f64::from(x), f64::from(y), f64::from(z), sound, SoundSource::Hostile, 5.0, 1.0);
+            level.play_sound_at(
+                None,
+                f64::from(x),
+                f64::from(y),
+                f64::from(z),
+                sound,
+                SoundSource::Hostile,
+                5.0,
+                1.0,
+            );
         }
     }
 
@@ -168,12 +214,15 @@ impl BlockEntity for SculkShriekerBlockEntity {
 
     fn load_additional(&mut self, tag: &CompoundTag) {
         self.warning_level = tag.get_int_or("warning_level", 0);
-        self.vibration_data = read_codec(tag, "listener", VibrationData::codec()).unwrap_or_default();
+        self.vibration_data =
+            read_codec(tag, "listener", VibrationData::codec()).unwrap_or_default();
     }
 
     fn save_additional(&self, tag: &mut CompoundTag) {
         tag.put_int("warning_level", self.warning_level);
-        if let Ok(listener) = mc_dfu::encode_nbt(VibrationData::codec(), &self.vibration_data).into_result() {
+        if let Ok(listener) =
+            mc_dfu::encode_nbt(VibrationData::codec(), &self.vibration_data).into_result()
+        {
             tag.put("listener", listener);
         }
     }
@@ -191,11 +240,19 @@ impl BlockEntity for SculkShriekerBlockEntity {
     }
 
     fn game_event_listener(&self) -> Option<BlockEntityListener> {
-        Some(BlockEntityVibration::listener(self.get_block_pos(), Kind::SculkShrieker))
+        Some(BlockEntityVibration::listener(
+            self.get_block_pos(),
+            Kind::SculkShrieker,
+        ))
     }
 
     /// `preRemoveSideEffects(pos, state)`: a shrieking shrieker answers before it is removed.
-    fn pre_remove_side_effects(&mut self, level: &mut ServerLevel, pos: BlockPos, state: BlockState) {
+    fn pre_remove_side_effects(
+        &mut self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        state: BlockState,
+    ) {
         if state.get(props::SHRIEKING) {
             SculkShriekerBlockEntity::respond(level, pos, state, self.warning_level);
         }
@@ -203,5 +260,7 @@ impl BlockEntity for SculkShriekerBlockEntity {
 }
 
 #[distributed_slice(BLOCK_ENTITY_TYPES)]
-static SCULK_SHRIEKER: BlockEntityRegistration =
-    BlockEntityRegistration { ty: BlockEntityType::SCULK_SHRIEKER, create: |pos, state| Box::new(SculkShriekerBlockEntity::new(pos, state)) };
+static SCULK_SHRIEKER: BlockEntityRegistration = BlockEntityRegistration {
+    ty: BlockEntityType::SCULK_SHRIEKER,
+    create: |pos, state| Box::new(SculkShriekerBlockEntity::new(pos, state)),
+};

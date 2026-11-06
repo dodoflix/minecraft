@@ -27,7 +27,9 @@ pub struct StackedContents<T: Copy + Eq + Hash> {
 
 impl<T: Copy + Eq + Hash> Default for StackedContents<T> {
     fn default() -> Self {
-        StackedContents { amounts: IndexMap::new() }
+        StackedContents {
+            amounts: IndexMap::new(),
+        }
     }
 }
 
@@ -45,7 +47,10 @@ impl<T: Copy + Eq + Hash> StackedContents<T> {
         let entry = self.amounts.entry(item).or_insert(0);
         let previous = *entry;
         *entry = entry.wrapping_sub(amount);
-        assert!(previous >= amount, "Took {amount} items, but only had {previous}");
+        assert!(
+            previous >= amount,
+            "Took {amount} items, but only had {previous}"
+        );
     }
 
     fn put(&mut self, item: T, count: i32) {
@@ -54,12 +59,22 @@ impl<T: Copy + Eq + Hash> StackedContents<T> {
     }
 
     /// `tryPick(ingredients, amount, output)`.
-    pub fn try_pick<I: IngredientInfo<T>>(&mut self, ingredients: &[I], amount: i32, output: Option<&mut dyn FnMut(T)>) -> bool {
+    pub fn try_pick<I: IngredientInfo<T>>(
+        &mut self,
+        ingredients: &[I],
+        amount: i32,
+        output: Option<&mut dyn FnMut(T)>,
+    ) -> bool {
         RecipePicker::new(self, ingredients).try_pick(amount, output)
     }
 
     /// `tryPickAll(ingredients, maxSize, output)`.
-    pub fn try_pick_all<I: IngredientInfo<T>>(&mut self, ingredients: &[I], max_size: i32, output: Option<&mut dyn FnMut(T)>) -> i32 {
+    pub fn try_pick_all<I: IngredientInfo<T>>(
+        &mut self,
+        ingredients: &[I],
+        max_size: i32,
+        output: Option<&mut dyn FnMut(T)>,
+    ) -> i32 {
         RecipePicker::new(self, ingredients).try_pick_all(max_size, output)
     }
 
@@ -226,7 +241,10 @@ impl<'a, T: Copy + Eq + Hash, I: IngredientInfo<T>> RecipePicker<'a, T, I> {
                 let item_to_assign = self.path[path_length - 1];
                 for ingredient in 0..self.ingredient_count {
                     let i = self.idx(item_to_assign, ingredient);
-                    if !self.visited_ingredient[ingredient] && self.connection[i] && !self.residual[i] {
+                    if !self.visited_ingredient[ingredient]
+                        && self.connection[i]
+                        && !self.residual[i]
+                    {
                         self.visited_ingredient[ingredient] = true;
                         self.path.push(ingredient);
                         break;
@@ -238,7 +256,9 @@ impl<'a, T: Copy + Eq + Hash, I: IngredientInfo<T>> RecipePicker<'a, T, I> {
                     return Some(self.path.clone());
                 }
                 for item in 0..self.item_count {
-                    if !self.visited_item[item] && self.residual[self.idx(item, last_assigned_ingredient)] {
+                    if !self.visited_item[item]
+                        && self.residual[self.idx(item, last_assigned_ingredient)]
+                    {
                         self.visited_item[item] = true;
                         self.path.push(item);
                         break;
@@ -254,7 +274,9 @@ impl<'a, T: Copy + Eq + Hash, I: IngredientInfo<T>> RecipePicker<'a, T, I> {
 
     fn try_pick_all(&mut self, max_size: i32, mut output: Option<&mut dyn FnMut(T)>) -> i32 {
         let mut min = 0i32;
-        let mut max = max_size.min(self.contents.get_result_upper_bound(self.ingredients)).wrapping_add(1);
+        let mut max = max_size
+            .min(self.contents.get_result_upper_bound(self.ingredients))
+            .wrapping_add(1);
         loop {
             let mid = (min.wrapping_add(max)) / 2;
             if self.try_pick(mid, None) {
@@ -318,18 +340,35 @@ impl StackedItemContents {
         self.can_craft_amount(recipe, 1, output)
     }
 
-    pub fn can_craft_amount(&mut self, recipe: &Recipe, amount: i32, output: Option<&mut dyn FnMut(Item)>) -> bool {
+    pub fn can_craft_amount(
+        &mut self,
+        recipe: &Recipe,
+        amount: i32,
+        output: Option<&mut dyn FnMut(Item)>,
+    ) -> bool {
         let placement = recipe.placement_info();
-        !placement.is_impossible_to_place() && self.can_craft_ingredients(placement.ingredients(), amount, output)
+        !placement.is_impossible_to_place()
+            && self.can_craft_ingredients(placement.ingredients(), amount, output)
     }
 
-    pub fn can_craft_ingredients<I: IngredientInfo<Item>>(&mut self, contents: &[I], amount: i32, output: Option<&mut dyn FnMut(Item)>) -> bool {
+    pub fn can_craft_ingredients<I: IngredientInfo<Item>>(
+        &mut self,
+        contents: &[I],
+        amount: i32,
+        output: Option<&mut dyn FnMut(Item)>,
+    ) -> bool {
         self.raw.try_pick(contents, amount, output)
     }
 
     /// `getBiggestCraftableStack(recipe, maxSize, output)`.
-    pub fn get_biggest_craftable_stack(&mut self, recipe: &Recipe, max_size: i32, output: Option<&mut dyn FnMut(Item)>) -> i32 {
-        self.raw.try_pick_all(recipe.placement_info().ingredients(), max_size, output)
+    pub fn get_biggest_craftable_stack(
+        &mut self,
+        recipe: &Recipe,
+        max_size: i32,
+        output: Option<&mut dyn FnMut(Item)>,
+    ) -> i32 {
+        self.raw
+            .try_pick_all(recipe.placement_info().ingredients(), max_size, output)
     }
 
     pub fn clear(&mut self) {

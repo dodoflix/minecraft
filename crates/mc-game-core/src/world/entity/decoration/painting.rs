@@ -3,9 +3,9 @@
 use super::block_attached::{self, Attached, BlockAttached, Cause};
 use super::hanging::{self, DATA_DIRECTION, Hanging};
 use crate::define_accessor;
+use crate::registry::RegistryAccess;
 use crate::registry::keys;
 use crate::registry::typed::painting_variant::PaintingVariant;
-use crate::registry::RegistryAccess;
 use crate::server::level::ServerLevel;
 use crate::server::level::server_entity::ServerEntity;
 use crate::world::damagesource::DamageSource;
@@ -48,11 +48,22 @@ impl Painting {
     /// `Painting(type, level)`: the data default is `VariantUtils.getAny(registryAccess, PAINTING_VARIANT)`.
     pub fn new(ty: EntityType, id: EntityId, registries: &RegistryAccess) -> Self {
         let (holder, key, variant) = any_variant(registries);
-        let base = EntityData::new(ty, id, crate::world::entity::entity::TOTAL_AIR_SUPPLY, |b| {
-            b.define(DATA_DIRECTION, hanging::DEFAULT_DIRECTION);
-            b.define(DATA_PAINTING_VARIANT_ID, holder);
-        });
-        let mut painting = Self { base, attached: Attached::default(), variant, variant_key: key, pending_variant: None };
+        let base = EntityData::new(
+            ty,
+            id,
+            crate::world::entity::entity::TOTAL_AIR_SUPPLY,
+            |b| {
+                b.define(DATA_DIRECTION, hanging::DEFAULT_DIRECTION);
+                b.define(DATA_PAINTING_VARIANT_ID, holder);
+            },
+        );
+        let mut painting = Self {
+            base,
+            attached: Attached::default(),
+            variant,
+            variant_key: key,
+            pending_variant: None,
+        };
         painting.set_pos(0.0, 0.0, 0.0);
         painting
     }
@@ -65,7 +76,13 @@ impl Painting {
     }
 
     /// `Painting(level, blockPos, direction, variant)`.
-    pub fn with_variant(id: EntityId, registries: &RegistryAccess, pos: BlockPos, direction: Direction, variant: &Identifier) -> Option<Self> {
+    pub fn with_variant(
+        id: EntityId,
+        registries: &RegistryAccess,
+        pos: BlockPos,
+        direction: Direction,
+        variant: &Identifier,
+    ) -> Option<Self> {
         let mut painting = Self::at_pos(id, registries, pos);
         painting.set_variant_key(registries, variant)?;
         painting.set_direction(direction);
@@ -77,11 +94,20 @@ impl Painting {
         let registry = registries.registry(keys::PAINTING_VARIANT)?;
         let id = registry.id_of(key)?;
         let value = registry.get_by_id::<PaintingVariant>(id)?;
-        self.set_variant(Holder::Reference(id as i32), Some(key.clone()), protocol_variant(value));
+        self.set_variant(
+            Holder::Reference(id as i32),
+            Some(key.clone()),
+            protocol_variant(value),
+        );
         Some(())
     }
 
-    fn set_variant(&mut self, holder: Holder<mc_protocol::packets::play::PaintingVariant>, key: Option<Identifier>, variant: mc_protocol::packets::play::PaintingVariant) {
+    fn set_variant(
+        &mut self,
+        holder: Holder<mc_protocol::packets::play::PaintingVariant>,
+        key: Option<Identifier>,
+        variant: mc_protocol::packets::play::PaintingVariant,
+    ) {
         self.variant = variant;
         self.variant_key = key;
         if self.base.entity_data.set(DATA_PAINTING_VARIANT_ID, holder) {
@@ -99,29 +125,52 @@ impl Painting {
         let mut candidate = Self::at_pos(level.next_entity_id(), registries, pos);
         let registry = registries.registry(keys::PAINTING_VARIANT)?;
         let placeable = Identifier::new("minecraft", "placeable").ok()?;
-        let mut potential: Vec<u32> = registry.tag(&placeable).map(<[u32]>::to_vec).unwrap_or_default();
+        let mut potential: Vec<u32> = registry
+            .tag(&placeable)
+            .map(<[u32]>::to_vec)
+            .unwrap_or_default();
         if potential.is_empty() {
             return None;
         }
         candidate.set_direction(direction);
         potential.retain(|&id| {
-            let (Some(value), Some(key)) = (registry.get_by_id::<PaintingVariant>(id), registry.name_of(id)) else { return false };
-            candidate.set_variant(Holder::Reference(id as i32), Some(key), protocol_variant(value));
+            let (Some(value), Some(key)) = (
+                registry.get_by_id::<PaintingVariant>(id),
+                registry.name_of(id),
+            ) else {
+                return false;
+            };
+            candidate.set_variant(
+                Holder::Reference(id as i32),
+                Some(key),
+                protocol_variant(value),
+            );
             candidate.survives(level)
         });
         if potential.is_empty() {
             return None;
         }
-        let area = |id: u32| registry.get_by_id::<PaintingVariant>(id).map_or(0, PaintingVariant::area);
+        let area = |id: u32| {
+            registry
+                .get_by_id::<PaintingVariant>(id)
+                .map_or(0, PaintingVariant::area)
+        };
         let largest = potential.iter().map(|&id| area(id)).max().unwrap_or(0);
         potential.retain(|&id| area(id) >= largest);
         // `Util.getRandomSafe(list, random)`
         if potential.is_empty() {
             return None;
         }
-        let selected = potential[candidate.base.random.next_int_bounded(potential.len() as i32) as usize];
+        let selected = potential[candidate
+            .base
+            .random
+            .next_int_bounded(potential.len() as i32) as usize];
         let value = registry.get_by_id::<PaintingVariant>(selected)?;
-        candidate.set_variant(Holder::Reference(selected as i32), registry.name_of(selected), protocol_variant(value));
+        candidate.set_variant(
+            Holder::Reference(selected as i32),
+            registry.name_of(selected),
+            protocol_variant(value),
+        );
         candidate.set_direction(direction);
         Some(candidate)
     }
@@ -132,10 +181,22 @@ impl Painting {
 }
 
 /// `VariantUtils.getAny(registryAccess, PAINTING_VARIANT)`: the registry's first entry.
-fn any_variant(registries: &RegistryAccess) -> (Holder<mc_protocol::packets::play::PaintingVariant>, Option<Identifier>, mc_protocol::packets::play::PaintingVariant) {
+fn any_variant(
+    registries: &RegistryAccess,
+) -> (
+    Holder<mc_protocol::packets::play::PaintingVariant>,
+    Option<Identifier>,
+    mc_protocol::packets::play::PaintingVariant,
+) {
     let registry = registries.registry_or_throw(keys::PAINTING_VARIANT);
-    let value = registry.get_by_id::<PaintingVariant>(0).expect("painting variant registry is empty");
-    (Holder::Reference(0), registry.name_of(0), protocol_variant(value))
+    let value = registry
+        .get_by_id::<PaintingVariant>(0)
+        .expect("painting variant registry is empty");
+    (
+        Holder::Reference(0),
+        registry.name_of(0),
+        protocol_variant(value),
+    )
 }
 
 impl BlockAttached for Painting {
@@ -173,11 +234,21 @@ impl Hanging for Painting {
         let horizontal_offset = Self::offset_for_painting_size(self.variant.width);
         let vertical_offset = Self::offset_for_painting_size(self.variant.height);
         let left = direction.get_counter_clockwise();
-        let position = attached_to_wall.relative(left, horizontal_offset).relative(Direction::Up, vertical_offset);
+        let position = attached_to_wall
+            .relative(left, horizontal_offset)
+            .relative(Direction::Up, vertical_offset);
         let axis = direction.get_axis();
-        let x_size = if axis == Axis::X { 0.0625 } else { f64::from(self.variant.width) };
+        let x_size = if axis == Axis::X {
+            0.0625
+        } else {
+            f64::from(self.variant.width)
+        };
         let y_size = f64::from(self.variant.height);
-        let z_size = if axis == Axis::Z { 0.0625 } else { f64::from(self.variant.width) };
+        let z_size = if axis == Axis::Z {
+            0.0625
+        } else {
+            f64::from(self.variant.width)
+        };
         AABB::of_size(position, x_size, y_size, z_size)
     }
     fn set_direction(&mut self, direction: Direction) {
@@ -275,18 +346,34 @@ impl Entity for Painting {
     fn tracking_position(&self) -> Vec3 {
         Vec3::at_lower_corner_of(&self.attached.pos)
     }
-    fn get_add_entity_packet(&self, server_entity: &ServerEntity) -> mc_protocol::packets::play::ClientboundAddEntityPacket {
-        hanging::add_entity_packet(server_entity, self, i32::try_from(self.get_hanging_direction().get_3d_data_value()).unwrap_or(0), self.attached.pos)
+    fn get_add_entity_packet(
+        &self,
+        server_entity: &ServerEntity,
+    ) -> mc_protocol::packets::play::ClientboundAddEntityPacket {
+        hanging::add_entity_packet(
+            server_entity,
+            self,
+            i32::try_from(self.get_hanging_direction().get_3d_data_value()).unwrap_or(0),
+            self.attached.pos,
+        )
     }
     fn add_additional_save_data(&self, out: &mut CompoundTag) {
-        out.put_byte("facing", self.get_hanging_direction().get_2d_data_value() as i8);
+        out.put_byte(
+            "facing",
+            self.get_hanging_direction().get_2d_data_value() as i8,
+        );
         block_attached::add_additional_save_data(self, out);
         if let Some(key) = &self.variant_key {
             out.put_string("variant", &key.to_string());
         }
     }
     fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        let direction = input.get("facing").and_then(|t| t.as_number()).map_or(Direction::South, |n| Direction::from_2d_data_value(i32::from(n.byte_value())));
+        let direction = input
+            .get("facing")
+            .and_then(|t| t.as_number())
+            .map_or(Direction::South, |n| {
+                Direction::from_2d_data_value(i32::from(n.byte_value()))
+            });
         block_attached::read_additional_save_data(self, input);
         self.set_direction(direction);
         self.pending_variant = input.get_string("variant").and_then(Identifier::try_parse);
@@ -294,4 +381,7 @@ impl Entity for Painting {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static PAINTING_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::PAINTING, create: |ty, id, registries| Box::new(Painting::new(ty, id, registries)) };
+static PAINTING_FACTORY: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::PAINTING,
+    create: |ty, id, registries| Box::new(Painting::new(ty, id, registries)),
+};

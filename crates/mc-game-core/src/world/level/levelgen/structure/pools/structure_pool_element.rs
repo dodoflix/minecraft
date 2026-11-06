@@ -9,8 +9,12 @@ use crate::world::level::levelgen::holder::Holder;
 use crate::world::level::levelgen::placement::PlacedFeature;
 use crate::world::level::levelgen::registries::DecodeCtx;
 use crate::world::level::levelgen::structure::StructureManager;
-use crate::world::level::levelgen::structure::templatesystem::structure_template::{JigsawBlockInfo, StructureBlockInfo};
-use crate::world::level::levelgen::structure::templatesystem::{LiquidSettings, StructureProcessorList, StructureTemplateManager};
+use crate::world::level::levelgen::structure::templatesystem::structure_template::{
+    JigsawBlockInfo, StructureBlockInfo,
+};
+use crate::world::level::levelgen::structure::templatesystem::{
+    LiquidSettings, StructureProcessorList, StructureTemplateManager,
+};
 use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::bounding_box::BoundingBox;
 use mc_core::pos::{BlockPos, Vec3i};
@@ -27,10 +31,21 @@ pub trait StructurePoolElement: fmt::Display + Send + Sync {
     fn get_size(&self, manager: &StructureTemplateManager, rotation: Rotation) -> Vec3i;
 
     /// `getShuffledJigsawBlocks(structureTemplateManager, position, rotation, random)`.
-    fn get_shuffled_jigsaw_blocks(&self, manager: &StructureTemplateManager, position: BlockPos, rotation: Rotation, random: &mut dyn RandomSource) -> Vec<JigsawBlockInfo>;
+    fn get_shuffled_jigsaw_blocks(
+        &self,
+        manager: &StructureTemplateManager,
+        position: BlockPos,
+        rotation: Rotation,
+        random: &mut dyn RandomSource,
+    ) -> Vec<JigsawBlockInfo>;
 
     /// `getBoundingBox(structureTemplateManager, position, rotation)`.
-    fn get_bounding_box(&self, manager: &StructureTemplateManager, position: BlockPos, rotation: Rotation) -> BoundingBox;
+    fn get_bounding_box(
+        &self,
+        manager: &StructureTemplateManager,
+        position: BlockPos,
+        rotation: Rotation,
+    ) -> BoundingBox;
 
     /// `place(structureTemplateManager, level, structureManager, generator, position, referencePos, rotation, chunkBB, random,
     /// liquidSettings, keepJigsaws)`.
@@ -126,8 +141,14 @@ impl ProcessorListRef {
                 }
                 // A saved inline list: only the empty list can be rebuilt without the data-pack decode context.
                 other => match other.get("processors") {
-                    Some(Value::Array(list)) if list.is_empty() => Holder::direct(Arc::new(StructureProcessorList::new(Vec::new()))),
-                    _ => return Err(LoadError::new("inline processor lists with processors cannot be read back from piece NBT")),
+                    Some(Value::Array(list)) if list.is_empty() => {
+                        Holder::direct(Arc::new(StructureProcessorList::new(Vec::new())))
+                    }
+                    _ => {
+                        return Err(LoadError::new(
+                            "inline processor lists with processors cannot be read back from piece NBT",
+                        ));
+                    }
                 },
             },
         };
@@ -140,9 +161,15 @@ impl ProcessorListRef {
             Some(id) => Tag::String(id.to_string()),
             // `StructureProcessorList.DIRECT_CODEC` always encodes the `{processors: [...]}` form, whichever form was read
             None => match self.inline.as_ref() {
-                Some(Value::Array(list)) => json_to_tag(&Value::Object(Map::from_iter([("processors".to_owned(), Value::Array(list.clone()))]))),
+                Some(Value::Array(list)) => json_to_tag(&Value::Object(Map::from_iter([(
+                    "processors".to_owned(),
+                    Value::Array(list.clone()),
+                )]))),
                 Some(object) => json_to_tag(object),
-                None => json_to_tag(&Value::Object(Map::from_iter([("processors".to_owned(), Value::Array(Vec::new()))]))),
+                None => json_to_tag(&Value::Object(Map::from_iter([(
+                    "processors".to_owned(),
+                    Value::Array(Vec::new()),
+                )]))),
             },
         }
     }
@@ -150,7 +177,10 @@ impl ProcessorListRef {
 
 /// `PlacedFeature.CODEC` of the feature element: a reference resolves against the feature registry (bound lazily, see
 /// [`FeaturePoolElement`](super::feature_pool_element::FeaturePoolElement)).
-pub fn decode_placed_feature(value: &Value, ctx: &ElementCodecCtx<'_, '_>) -> LoadResult<Holder<PlacedFeature>> {
+pub fn decode_placed_feature(
+    value: &Value,
+    ctx: &ElementCodecCtx<'_, '_>,
+) -> LoadResult<Holder<PlacedFeature>> {
     match ctx {
         ElementCodecCtx::Json(ctx) => ctx.placed_feature(value),
         ElementCodecCtx::Nbt(env) => match value {
@@ -161,7 +191,9 @@ pub fn decode_placed_feature(value: &Value, ctx: &ElementCodecCtx<'_, '_>) -> Lo
                     .cloned()
                     .ok_or_else(|| LoadError::new(format!("Failed to get element ResourceKey[minecraft:worldgen/placed_feature / {id}]")))
             }
-            _ => Err(LoadError::new("inline placed features cannot be read back from piece NBT")),
+            _ => Err(LoadError::new(
+                "inline placed features cannot be read back from piece NBT",
+            )),
         },
     }
 }
@@ -169,20 +201,32 @@ pub fn decode_placed_feature(value: &Value, ctx: &ElementCodecCtx<'_, '_>) -> Lo
 /// `StructurePoolElementType`: the registered type and the decoder of its `MapCodec` (it receives the whole object).
 pub struct StructurePoolElementType {
     pub name: &'static str,
-    pub decode: fn(&Fields<'_>, &ElementCodecCtx<'_, '_>) -> LoadResult<Arc<dyn StructurePoolElement>>,
+    pub decode:
+        fn(&Fields<'_>, &ElementCodecCtx<'_, '_>) -> LoadResult<Arc<dyn StructurePoolElement>>,
 }
 
 #[linkme::distributed_slice]
 pub static STRUCTURE_POOL_ELEMENT_TYPES: [StructurePoolElementType];
 
 /// `StructurePoolElement.CODEC`: `element_type` dispatch.
-pub fn decode_element(value: &Value, ctx: &ElementCodecCtx<'_, '_>) -> LoadResult<Arc<dyn StructurePoolElement>> {
+pub fn decode_element(
+    value: &Value,
+    ctx: &ElementCodecCtx<'_, '_>,
+) -> LoadResult<Arc<dyn StructurePoolElement>> {
     let fields = Fields::new(value)?;
     let ty = fields.required("element_type", parse_identifier)?;
-    let entry = (ty.namespace() == "minecraft").then(|| STRUCTURE_POOL_ELEMENT_TYPES.iter().find(|e| e.name == ty.path())).flatten();
+    let entry = (ty.namespace() == "minecraft")
+        .then(|| {
+            STRUCTURE_POOL_ELEMENT_TYPES
+                .iter()
+                .find(|e| e.name == ty.path())
+        })
+        .flatten();
     match entry {
         Some(entry) => (entry.decode)(&fields, ctx),
-        None => Err(LoadError::new(format!("Unknown registry key in dispatch: {ty}")).at("element_type")),
+        None => Err(
+            LoadError::new(format!("Unknown registry key in dispatch: {ty}")).at("element_type"),
+        ),
     }
 }
 
@@ -193,14 +237,22 @@ pub fn parse_projection(value: &Value) -> LoadResult<Projection> {
 }
 
 /// `StructurePoolElement.CODEC.parse(NbtOps, tag)`: the NBT is read through its JSON shape (strings, lists, compounds).
-pub fn decode_element_from_nbt(tag: &CompoundTag, env: &GenEnv) -> LoadResult<Arc<dyn StructurePoolElement>> {
-    decode_element(&tag_to_json(&Tag::Compound(tag.clone())), &ElementCodecCtx::Nbt(env))
+pub fn decode_element_from_nbt(
+    tag: &CompoundTag,
+    env: &GenEnv,
+) -> LoadResult<Arc<dyn StructurePoolElement>> {
+    decode_element(
+        &tag_to_json(&Tag::Compound(tag.clone())),
+        &ElementCodecCtx::Nbt(env),
+    )
 }
 
 /// `NbtOps` -> `JsonOps` conversion of a tag.
 pub fn tag_to_json(tag: &Tag) -> Value {
     match tag {
-        Tag::Compound(c) => Value::Object(c.iter().map(|(k, v)| (k.clone(), tag_to_json(v))).collect()),
+        Tag::Compound(c) => {
+            Value::Object(c.iter().map(|(k, v)| (k.clone(), tag_to_json(v))).collect())
+        }
         Tag::List(items) => Value::Array(items.iter().map(tag_to_json).collect()),
         Tag::String(s) => Value::String(s.clone()),
         Tag::Byte(v) => Value::from(*v),

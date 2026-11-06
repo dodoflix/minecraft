@@ -1,7 +1,7 @@
 //! `net.minecraft.world.level.block.CactusBlock`.
-use mc_game_core::{register_block_class, update_shape};
-use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::{register_block_class, update_shape};
 
 const MAX_CACTUS_GROWING_HEIGHT: i32 = 3;
 const ATTEMPT_GROW_CACTUS_FLOWER_AGE: i32 = 8;
@@ -33,13 +33,18 @@ impl BlockBehaviour for CactusBlock {
         }
         let mut height = 1;
         let age = state.get(props::AGE_15);
-        while level.get_block_state(pos.below_n(height)).is_block(state.block()) {
+        while level
+            .get_block_state(pos.below_n(height))
+            .is_block(state.block())
+        {
             height += 1;
             if height == MAX_CACTUS_GROWING_HEIGHT && age == 15 {
                 return;
             }
         }
-        if age == ATTEMPT_GROW_CACTUS_FLOWER_AGE && self.can_survive(state.block().default_state(), &*level, pos.above()) {
+        if age == ATTEMPT_GROW_CACTUS_FLOWER_AGE
+            && self.can_survive(state.block().default_state(), &*level, pos.above())
+        {
             let chance_to_grow_flower = if height >= 3 { 0.25 } else { 0.1 };
             if level.random().next_double() <= chance_to_grow_flower {
                 level.set_block_and_update(above, Block::CACTUS_FLOWER.default_state());
@@ -54,21 +59,28 @@ impl BlockBehaviour for CactusBlock {
             level.set_block_flags(pos, state.set(props::AGE_15, age + 1), 260);
         }
     }
-    update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
-        if !state.can_survive(&*level, pos) {
-            helpers::schedule_block_tick(level, pos, state.block(), 1);
+    update_shape!(
+        |self, state, level, pos, direction, neighbour_pos, neighbour_state| {
+            if !state.can_survive(&*level, pos) {
+                helpers::schedule_block_tick(level, pos, state.block(), 1);
+            }
+            state
         }
-        state
-    });
+    );
     fn can_survive(&self, state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         for direction in Direction::HORIZONTAL {
             let neighbor = level.get_block_state(pos.relative(direction));
-            if neighbor.is_solid() || level.get_fluid_state(pos.relative(direction)).is_tag("lava") {
+            if neighbor.is_solid()
+                || level
+                    .get_fluid_state(pos.relative(direction))
+                    .is_tag("lava")
+            {
                 return false;
             }
         }
         let below_state = level.get_block_state(pos.below());
-        (below_state.is_block(state.block()) || below_state.is_tag("supports_cactus")) && !level.get_block_state(pos.above()).liquid()
+        (below_state.is_block(state.block()) || below_state.is_tag("supports_cactus"))
+            && !level.get_block_state(pos.above()).liquid()
     }
 }
 

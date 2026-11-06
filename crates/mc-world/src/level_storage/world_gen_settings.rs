@@ -27,7 +27,12 @@ pub struct WorldOptions {
 
 impl WorldOptions {
     pub fn new(seed: i64, generate_structures: bool, generate_bonus_chest: bool) -> WorldOptions {
-        WorldOptions { seed, generate_structures, generate_bonus_chest, legacy_custom_options: None }
+        WorldOptions {
+            seed,
+            generate_structures,
+            generate_bonus_chest,
+            legacy_custom_options: None,
+        }
     }
 
     pub fn is_old_customized_world(&self) -> bool {
@@ -40,7 +45,10 @@ impl WorldOptions {
         if trimmed.is_empty() {
             return None;
         }
-        Some(java_parse_long(trimmed).unwrap_or_else(|| mc_core::math::java::java_string_hash(trimmed) as i64))
+        Some(
+            java_parse_long(trimmed)
+                .unwrap_or_else(|| mc_core::math::java::java_string_hash(trimmed) as i64),
+        )
     }
 }
 
@@ -65,21 +73,40 @@ impl WorldGenSettings {
     /// `WorldGenSettings.CODEC` decode (`Err` mirrors a failed `DataResult`).
     pub fn decode(tag: &Tag) -> Result<WorldGenSettings, String> {
         let c = tag.as_compound().ok_or("Not a map")?;
-        let seed = c.get("seed").ok_or("No key seed")?.as_long().ok_or("Not a number")?;
+        let seed = c
+            .get("seed")
+            .ok_or("No key seed")?
+            .as_long()
+            .ok_or("Not a number")?;
         let flag = |key: &str, default: bool| match c.get(key) {
             None => Ok(default),
-            Some(t) => t.as_number().map(|n| n.double_value() != 0.0).ok_or_else(|| format!("{key}: Not a number")),
+            Some(t) => t
+                .as_number()
+                .map(|n| n.double_value() != 0.0)
+                .ok_or_else(|| format!("{key}: Not a number")),
         };
         let generate_structures = flag("generate_structures", true)?;
         let generate_bonus_chest = flag("bonus_chest", false)?;
         // lenientOptionalFieldOf: a non-string value is treated as absent
-        let legacy_custom_options = c.get("legacy_custom_options").and_then(Tag::as_string).map(str::to_owned);
-        let dimensions = c.get("dimensions").ok_or("No key dimensions")?.as_compound().ok_or("Not a map")?;
+        let legacy_custom_options = c
+            .get("legacy_custom_options")
+            .and_then(Tag::as_string)
+            .map(str::to_owned);
+        let dimensions = c
+            .get("dimensions")
+            .ok_or("No key dimensions")?
+            .as_compound()
+            .ok_or("Not a map")?;
         for key in dimensions.keys() {
             Identifier::read(key)?;
         }
         Ok(WorldGenSettings {
-            options: WorldOptions { seed, generate_structures, generate_bonus_chest, legacy_custom_options },
+            options: WorldOptions {
+                seed,
+                generate_structures,
+                generate_bonus_chest,
+                legacy_custom_options,
+            },
             dimensions: dimensions.clone(),
         })
     }
@@ -119,8 +146,11 @@ impl WorldGenSettings {
     /// `<world>/data/minecraft/world_gen_settings.dat`. The error string is the `DataResult` message.
     pub fn read_existing(world_dir: &Path) -> Result<WorldGenSettings, String> {
         let data_dir = world_dir.join("data");
-        let path = SavedDataStorage::new(&data_dir).get_data_file(&world_gen_settings_id()).map_err(|e| e.to_string())?;
-        let file = read_compressed(&path, &mut NbtAccounter::unlimited_heap()).map_err(|e| e.to_string())?;
+        let path = SavedDataStorage::new(&data_dir)
+            .get_data_file(&world_gen_settings_id())
+            .map_err(|e| e.to_string())?;
+        let file = read_compressed(&path, &mut NbtAccounter::unlimited_heap())
+            .map_err(|e| e.to_string())?;
         WorldGenSettings::decode(&Tag::Compound(file.get_compound_or_empty("data").clone()))
     }
 
@@ -138,8 +168,14 @@ mod tests {
     fn seed_parsing() {
         assert_eq!(WorldOptions::parse_seed("  "), None);
         assert_eq!(WorldOptions::parse_seed(" 12345 "), Some(12345));
-        assert_eq!(WorldOptions::parse_seed("-9223372036854775808"), Some(i64::MIN));
+        assert_eq!(
+            WorldOptions::parse_seed("-9223372036854775808"),
+            Some(i64::MIN)
+        );
         assert_eq!(WorldOptions::parse_seed("hello"), Some(99162322));
-        assert_eq!(WorldOptions::parse_seed("9223372036854775808"), Some(mc_core::math::java::java_string_hash("9223372036854775808") as i64));
+        assert_eq!(
+            WorldOptions::parse_seed("9223372036854775808"),
+            Some(mc_core::math::java::java_string_hash("9223372036854775808") as i64)
+        );
     }
 }

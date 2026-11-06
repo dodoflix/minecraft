@@ -35,8 +35,14 @@ impl EnvironmentRef {
         match self {
             Self::Direct(def) => Some(def.clone()),
             Self::Registered(id) => {
-                let entry = registries.registry(keys::TEST_ENVIRONMENT)?.entry_by_key(id)?;
-                entry.value.clone()?.downcast::<TestEnvironmentDefinition>().ok()
+                let entry = registries
+                    .registry(keys::TEST_ENVIRONMENT)?
+                    .entry_by_key(id)?;
+                entry
+                    .value
+                    .clone()?
+                    .downcast::<TestEnvironmentDefinition>()
+                    .ok()
             }
         }
     }
@@ -83,9 +89,15 @@ impl WeatherType {
 
 pub enum TestEnvironmentDefinition {
     AllOf(Vec<EnvironmentRef>),
-    ClockTime { clock: Identifier, time: i32 },
+    ClockTime {
+        clock: Identifier,
+        time: i32,
+    },
     SetDifficulty(Difficulty),
-    Functions { setup_function: Option<Identifier>, teardown_function: Option<Identifier> },
+    Functions {
+        setup_function: Option<Identifier>,
+        teardown_function: Option<Identifier>,
+    },
     SetGameRules(GameRuleMap),
     Timelines(Vec<Identifier>),
     Weather(WeatherType),
@@ -111,14 +123,26 @@ pub struct Activation {
 
 impl Activation {
     /// `activate(environment, level)`.
-    pub fn activate(server: &mut MinecraftServer, definition: Arc<TestEnvironmentDefinition>, level: &DimensionKey) -> Activation {
+    pub fn activate(
+        server: &mut MinecraftServer,
+        definition: Arc<TestEnvironmentDefinition>,
+        level: &DimensionKey,
+    ) -> Activation {
         let value = definition.setup(server, level);
-        Activation { value, definition, level: level.clone() }
+        Activation {
+            value,
+            definition,
+            level: level.clone(),
+        }
     }
 
     /// `teardown()`.
     pub fn teardown(self, server: &mut MinecraftServer) {
-        let Activation { value, definition, level } = self;
+        let Activation {
+            value,
+            definition,
+            level,
+        } = self;
         definition.teardown(server, &level, value);
     }
 }
@@ -137,11 +161,18 @@ impl TestEnvironmentDefinition {
             }
             Self::ClockTime { clock, time } => {
                 let previous = server.clock_manager().get_instance(clock).total_ticks();
-                server.with_clock_manager(|clocks, host| clocks.set_total_ticks(host, clock, i64::from(*time)));
+                server.with_clock_manager(|clocks, host| {
+                    clocks.set_total_ticks(host, clock, i64::from(*time))
+                });
                 Saved::ClockTicks(previous)
             }
             Self::SetDifficulty(difficulty) => {
-                let old = server.world_data.lock().settings.difficulty_settings.difficulty;
+                let old = server
+                    .world_data
+                    .lock()
+                    .settings
+                    .difficulty_settings
+                    .difficulty;
                 server.set_difficulty(*difficulty, true);
                 Saved::Difficulty(old)
             }
@@ -159,7 +190,9 @@ impl TestEnvironmentDefinition {
                 set_game_rules(server, map);
                 Saved::GameRules(original)
             }
-            Self::Timelines(timelines) => Saved::Attributes(set_timelines(server, level, timelines)),
+            Self::Timelines(timelines) => {
+                Saved::Attributes(set_timelines(server, level, timelines))
+            }
             Self::Weather(weather) => {
                 let previous = {
                     let lvl = server.level(level).expect("test level");
@@ -185,15 +218,24 @@ impl TestEnvironmentDefinition {
                 }
             }
             (Self::ClockTime { clock, .. }, Saved::ClockTicks(previous)) => {
-                server.with_clock_manager(|clocks, host| clocks.set_total_ticks(host, clock, previous));
+                server.with_clock_manager(|clocks, host| {
+                    clocks.set_total_ticks(host, clock, previous)
+                });
             }
             (Self::SetDifficulty(_), Saved::Difficulty(old)) => server.set_difficulty(old, true),
-            (Self::Functions { teardown_function, .. }, Saved::Unit) => {
+            (
+                Self::Functions {
+                    teardown_function, ..
+                },
+                Saved::Unit,
+            ) => {
                 if let Some(id) = teardown_function {
                     run_function(server, level, id);
                 }
             }
-            (Self::SetGameRules(_), Saved::GameRules(original)) => set_game_rules(server, &original),
+            (Self::SetGameRules(_), Saved::GameRules(original)) => {
+                set_game_rules(server, &original)
+            }
             (Self::Timelines(_), Saved::Attributes(previous)) => {
                 if let Some(lvl) = server.level_mut(level) {
                     lvl.tick_state.attributes = previous;
@@ -201,7 +243,10 @@ impl TestEnvironmentDefinition {
             }
             (Self::Weather(_), Saved::Weather(previous)) => {
                 server.with_level(level, |server, lvl| {
-                    let mut env = ServerTickEnv { server, dimension: level.clone() };
+                    let mut env = ServerTickEnv {
+                        server,
+                        dimension: level.clone(),
+                    };
                     lvl.reset_weather_cycle(&mut env);
                 });
                 previous.apply(server);
@@ -224,7 +269,9 @@ fn run_function(server: &mut MinecraftServer, level: &DimensionKey, id: &Identif
         Some(function) => {
             let source = server
                 .create_command_source_stack()
-                .with_permission(crate::server::permissions::LevelBasedPermissionSet::GAMEMASTER.into())
+                .with_permission(
+                    crate::server::permissions::LevelBasedPermissionSet::GAMEMASTER.into(),
+                )
                 .with_suppressed_output()
                 .with_level(level.clone(), 1.0);
             server.execute_function(&function, source);
@@ -235,7 +282,11 @@ fn run_function(server: &mut MinecraftServer, level: &DimensionKey, id: &Identif
 
 /// `Timelines.setup(level)`: `level.setEnvironmentAttributes(builder().addDefaultLayers(level)` + the timelines`.build())`,
 /// returning the previous system.
-fn set_timelines(server: &mut MinecraftServer, level: &DimensionKey, timelines: &[Identifier]) -> crate::world::attribute::EnvironmentAttributeSystem {
+fn set_timelines(
+    server: &mut MinecraftServer,
+    level: &DimensionKey,
+    timelines: &[Identifier],
+) -> crate::world::attribute::EnvironmentAttributeSystem {
     let system = server.build_attribute_system_for(level, timelines);
     let lvl = server.level_mut(level).expect("test level");
     std::mem::replace(&mut lvl.tick_state.attributes, system)
@@ -243,44 +294,79 @@ fn set_timelines(server: &mut MinecraftServer, level: &DimensionKey, timelines: 
 
 // ---- codec ----
 
-pub fn decode_environment_ref(value: &Value, ctx: &RegistryDecodeContext) -> Result<EnvironmentRef, String> {
+pub fn decode_environment_ref(
+    value: &Value,
+    ctx: &RegistryDecodeContext,
+) -> Result<EnvironmentRef, String> {
     match value {
         Value::String(s) => {
             let id = Identifier::read(s)?;
             ctx.check_holder(keys::TEST_ENVIRONMENT, &id)?;
             Ok(EnvironmentRef::Registered(id))
         }
-        other => Ok(EnvironmentRef::Direct(Arc::new(decode_definition(other, ctx)?))),
+        other => Ok(EnvironmentRef::Direct(Arc::new(decode_definition(
+            other, ctx,
+        )?))),
     }
 }
 
 fn required<'a>(object: &'a Value, key: &str) -> Result<&'a Value, String> {
-    object.get(key).ok_or_else(|| format!("No key {key} in MapLike[{}]", object))
+    object
+        .get(key)
+        .ok_or_else(|| format!("No key {key} in MapLike[{}]", object))
 }
 
 fn non_negative_int(value: &Value) -> Result<i32, String> {
-    let n = value.as_f64().ok_or_else(|| format!("Not a number: {value}"))?;
+    let n = value
+        .as_f64()
+        .ok_or_else(|| format!("Not a number: {value}"))?;
     let n = n as i32;
-    if n < 0 { Err(format!("Value must be non-negative: {n}")) } else { Ok(n) }
+    if n < 0 {
+        Err(format!("Value must be non-negative: {n}"))
+    } else {
+        Ok(n)
+    }
 }
 
 /// `TestEnvironmentDefinition.DIRECT_CODEC`.
-pub fn decode_definition(json: &Value, ctx: &RegistryDecodeContext) -> Result<TestEnvironmentDefinition, String> {
-    let object = json.as_object().ok_or_else(|| format!("Not a JSON object: {json}"))?;
-    let ty = required(json, "type")?.as_str().ok_or_else(|| "Not a string: type".to_owned())?;
+pub fn decode_definition(
+    json: &Value,
+    ctx: &RegistryDecodeContext,
+) -> Result<TestEnvironmentDefinition, String> {
+    let object = json
+        .as_object()
+        .ok_or_else(|| format!("Not a JSON object: {json}"))?;
+    let ty = required(json, "type")?
+        .as_str()
+        .ok_or_else(|| "Not a string: type".to_owned())?;
     let ty = Identifier::read(ty)?;
     Ok(match ty.to_string().as_str() {
         "minecraft:all_of" => {
-            let list = required(json, "definitions")?.as_array().ok_or_else(|| "Not a list: definitions".to_owned())?;
-            TestEnvironmentDefinition::AllOf(list.iter().map(|d| decode_environment_ref(d, ctx)).collect::<Result<_, _>>()?)
+            let list = required(json, "definitions")?
+                .as_array()
+                .ok_or_else(|| "Not a list: definitions".to_owned())?;
+            TestEnvironmentDefinition::AllOf(
+                list.iter()
+                    .map(|d| decode_environment_ref(d, ctx))
+                    .collect::<Result<_, _>>()?,
+            )
         }
         "minecraft:clock_time" => {
-            let clock = Identifier::read(required(json, "clock")?.as_str().ok_or_else(|| "Not a string: clock".to_owned())?)?;
+            let clock = Identifier::read(
+                required(json, "clock")?
+                    .as_str()
+                    .ok_or_else(|| "Not a string: clock".to_owned())?,
+            )?;
             ctx.check_holder(keys::WORLD_CLOCK, &clock)?;
-            TestEnvironmentDefinition::ClockTime { clock, time: non_negative_int(required(json, "time")?)? }
+            TestEnvironmentDefinition::ClockTime {
+                clock,
+                time: non_negative_int(required(json, "time")?)?,
+            }
         }
         "minecraft:difficulty" => {
-            let name = required(json, "difficulty")?.as_str().ok_or_else(|| "Not a string: difficulty".to_owned())?;
+            let name = required(json, "difficulty")?
+                .as_str()
+                .ok_or_else(|| "Not a string: difficulty".to_owned())?;
             let difficulty = match name {
                 "peaceful" => Difficulty::Peaceful,
                 "easy" => Difficulty::Easy,
@@ -294,10 +380,16 @@ pub fn decode_definition(json: &Value, ctx: &RegistryDecodeContext) -> Result<Te
             let read = |key: &str| -> Result<Option<Identifier>, String> {
                 match object.get(key) {
                     None => Ok(None),
-                    Some(v) => Identifier::read(v.as_str().ok_or_else(|| format!("Not a string: {key}"))?).map(Some),
+                    Some(v) => {
+                        Identifier::read(v.as_str().ok_or_else(|| format!("Not a string: {key}"))?)
+                            .map(Some)
+                    }
                 }
             };
-            TestEnvironmentDefinition::Functions { setup_function: read("setup")?, teardown_function: read("teardown")? }
+            TestEnvironmentDefinition::Functions {
+                setup_function: read("setup")?,
+                teardown_function: read("teardown")?,
+            }
         }
         "minecraft:game_rules" => {
             let rules = required(json, "rules")?;
@@ -308,7 +400,9 @@ pub fn decode_definition(json: &Value, ctx: &RegistryDecodeContext) -> Result<Te
             TestEnvironmentDefinition::SetGameRules(map)
         }
         "minecraft:timeline_attributes" => {
-            let list = required(json, "timelines")?.as_array().ok_or_else(|| "Not a list: timelines".to_owned())?;
+            let list = required(json, "timelines")?
+                .as_array()
+                .ok_or_else(|| "Not a list: timelines".to_owned())?;
             let mut timelines = Vec::with_capacity(list.len());
             for t in list {
                 let id = Identifier::read(t.as_str().ok_or_else(|| format!("Not a string: {t}"))?)?;
@@ -318,10 +412,18 @@ pub fn decode_definition(json: &Value, ctx: &RegistryDecodeContext) -> Result<Te
             TestEnvironmentDefinition::Timelines(timelines)
         }
         "minecraft:weather" => {
-            let name = required(json, "weather")?.as_str().ok_or_else(|| "Not a string: weather".to_owned())?;
-            TestEnvironmentDefinition::Weather(WeatherType::by_name(name).ok_or_else(|| format!("Unknown enum value {name}"))?)
+            let name = required(json, "weather")?
+                .as_str()
+                .ok_or_else(|| "Not a string: weather".to_owned())?;
+            TestEnvironmentDefinition::Weather(
+                WeatherType::by_name(name).ok_or_else(|| format!("Unknown enum value {name}"))?,
+            )
         }
-        other => return Err(format!("Unknown registry key in ResourceKey[minecraft:root / minecraft:test_environment_definition_type]: {other}")),
+        other => {
+            return Err(format!(
+                "Unknown registry key in ResourceKey[minecraft:root / minecraft:test_environment_definition_type]: {other}"
+            ));
+        }
     })
 }
 
@@ -330,7 +432,10 @@ fn decode(json: &Value, ctx: &RegistryDecodeContext) -> Result<DecodedEntry, Str
 }
 
 #[linkme::distributed_slice(DYNAMIC_REGISTRY_DECODERS)]
-static DECODER: DynamicRegistryDecoder = DynamicRegistryDecoder { registry: keys::TEST_ENVIRONMENT, decode };
+static DECODER: DynamicRegistryDecoder = DynamicRegistryDecoder {
+    registry: keys::TEST_ENVIRONMENT,
+    decode,
+};
 
 #[cfg(test)]
 mod tests {
@@ -352,7 +457,8 @@ mod tests {
     #[test]
     fn decodes_every_definition_type() {
         let ctx = RegistryDecodeContext::new(&All);
-        let default = decode_definition(&json!({"type":"minecraft:all_of","definitions":[]}), &ctx).unwrap();
+        let default =
+            decode_definition(&json!({"type":"minecraft:all_of","definitions":[]}), &ctx).unwrap();
         assert!(matches!(default, TestEnvironmentDefinition::AllOf(ref d) if d.is_empty()));
         let nested = decode_definition(
             &json!({"type":"minecraft:all_of","definitions":["minecraft:default",{"type":"minecraft:weather","weather":"thunder"},{"type":"minecraft:clock_time","clock":"minecraft:overworld","time":6000}]}),
@@ -367,13 +473,36 @@ mod tests {
             }
             _ => panic!("all_of"),
         }
-        assert!(matches!(decode_definition(&json!({"type":"minecraft:difficulty","difficulty":"hard"}), &ctx), Ok(TestEnvironmentDefinition::SetDifficulty(Difficulty::Hard))));
+        assert!(matches!(
+            decode_definition(
+                &json!({"type":"minecraft:difficulty","difficulty":"hard"}),
+                &ctx
+            ),
+            Ok(TestEnvironmentDefinition::SetDifficulty(Difficulty::Hard))
+        ));
         assert!(matches!(
             decode_definition(&json!({"type":"minecraft:function","setup":"a:b"}), &ctx),
-            Ok(TestEnvironmentDefinition::Functions { setup_function: Some(_), teardown_function: None })
+            Ok(TestEnvironmentDefinition::Functions {
+                setup_function: Some(_),
+                teardown_function: None
+            })
         ));
-        assert!(matches!(decode_definition(&json!({"type":"minecraft:game_rules","rules":{"minecraft:pvp":false}}), &ctx), Ok(TestEnvironmentDefinition::SetGameRules(_))));
-        assert!(decode_definition(&json!({"type":"minecraft:clock_time","clock":"minecraft:overworld","time":-1}), &ctx).is_err());
-        assert!(decode_definition(&json!({"type":"minecraft:weather","weather":"hail"}), &ctx).is_err());
+        assert!(matches!(
+            decode_definition(
+                &json!({"type":"minecraft:game_rules","rules":{"minecraft:pvp":false}}),
+                &ctx
+            ),
+            Ok(TestEnvironmentDefinition::SetGameRules(_))
+        ));
+        assert!(
+            decode_definition(
+                &json!({"type":"minecraft:clock_time","clock":"minecraft:overworld","time":-1}),
+                &ctx
+            )
+            .is_err()
+        );
+        assert!(
+            decode_definition(&json!({"type":"minecraft:weather","weather":"hail"}), &ctx).is_err()
+        );
     }
 }

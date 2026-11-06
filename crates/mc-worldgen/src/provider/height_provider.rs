@@ -17,10 +17,25 @@ use crate::world_generation_context::WorldGenerationContext;
 #[derive(Clone, Debug, PartialEq)]
 pub enum HeightProvider {
     Constant(VerticalAnchor),
-    Uniform { min_inclusive: VerticalAnchor, max_inclusive: VerticalAnchor },
-    BiasedToBottom { min_inclusive: VerticalAnchor, max_inclusive: VerticalAnchor, inner: i32 },
-    VeryBiasedToBottom { min_inclusive: VerticalAnchor, max_inclusive: VerticalAnchor, inner: i32 },
-    Trapezoid { min_inclusive: VerticalAnchor, max_inclusive: VerticalAnchor, plateau: i32 },
+    Uniform {
+        min_inclusive: VerticalAnchor,
+        max_inclusive: VerticalAnchor,
+    },
+    BiasedToBottom {
+        min_inclusive: VerticalAnchor,
+        max_inclusive: VerticalAnchor,
+        inner: i32,
+    },
+    VeryBiasedToBottom {
+        min_inclusive: VerticalAnchor,
+        max_inclusive: VerticalAnchor,
+        inner: i32,
+    },
+    Trapezoid {
+        min_inclusive: VerticalAnchor,
+        max_inclusive: VerticalAnchor,
+        plateau: i32,
+    },
     WeightedList(WeightedList<HeightProvider>),
 }
 
@@ -29,7 +44,10 @@ impl HeightProvider {
     pub fn sample(&self, random: &mut dyn RandomSource, context: &WorldGenerationContext) -> i32 {
         match self {
             HeightProvider::Constant(value) => value.resolve_y(context),
-            HeightProvider::Uniform { min_inclusive, max_inclusive } => {
+            HeightProvider::Uniform {
+                min_inclusive,
+                max_inclusive,
+            } => {
                 let min = min_inclusive.resolve_y(context);
                 let max = max_inclusive.resolve_y(context);
                 if min > max {
@@ -38,7 +56,11 @@ impl HeightProvider {
                     mth::random_between_inclusive(random, min, max)
                 }
             }
-            HeightProvider::BiasedToBottom { min_inclusive, max_inclusive, inner } => {
+            HeightProvider::BiasedToBottom {
+                min_inclusive,
+                max_inclusive,
+                inner,
+            } => {
                 let min = min_inclusive.resolve_y(context);
                 let max = max_inclusive.resolve_y(context);
                 let bound = max.wrapping_sub(min).wrapping_sub(*inner).wrapping_add(1);
@@ -46,10 +68,16 @@ impl HeightProvider {
                     min
                 } else {
                     let limit = random.next_int_bounded(bound);
-                    random.next_int_bounded(limit.wrapping_add(*inner)).wrapping_add(min)
+                    random
+                        .next_int_bounded(limit.wrapping_add(*inner))
+                        .wrapping_add(min)
                 }
             }
-            HeightProvider::VeryBiasedToBottom { min_inclusive, max_inclusive, inner } => {
+            HeightProvider::VeryBiasedToBottom {
+                min_inclusive,
+                max_inclusive,
+                inner,
+            } => {
                 let min = min_inclusive.resolve_y(context);
                 let max = max_inclusive.resolve_y(context);
                 if max.wrapping_sub(min).wrapping_sub(*inner).wrapping_add(1) <= 0 {
@@ -65,7 +93,11 @@ impl HeightProvider {
                     )
                 }
             }
-            HeightProvider::Trapezoid { min_inclusive, max_inclusive, plateau } => {
+            HeightProvider::Trapezoid {
+                min_inclusive,
+                max_inclusive,
+                plateau,
+            } => {
                 let min = min_inclusive.resolve_y(context);
                 let max = max_inclusive.resolve_y(context);
                 if min > max {
@@ -83,9 +115,9 @@ impl HeightProvider {
                     }
                 }
             }
-            HeightProvider::WeightedList(distribution) => {
-                distribution.get_random_or_throw(random).sample(random, context)
-            }
+            HeightProvider::WeightedList(distribution) => distribution
+                .get_random_or_throw(random)
+                .sample(random, context),
         }
     }
 
@@ -102,7 +134,8 @@ impl HeightProvider {
             Ok((min, max))
         };
         let inner = || -> LoadResult<i32> {
-            Ok(f.optional("inner", |v| parse_int_range(v, 1, i32::MAX))?.unwrap_or(1))
+            Ok(f.optional("inner", |v| parse_int_range(v, 1, i32::MAX))?
+                .unwrap_or(1))
         };
         match ty.as_str() {
             // `VerticalAnchor.CODEC.fieldOf("value")`
@@ -111,11 +144,18 @@ impl HeightProvider {
             )),
             "uniform" => {
                 let (min_inclusive, max_inclusive) = anchors()?;
-                Ok(HeightProvider::Uniform { min_inclusive, max_inclusive })
+                Ok(HeightProvider::Uniform {
+                    min_inclusive,
+                    max_inclusive,
+                })
             }
             "biased_to_bottom" => {
                 let (min_inclusive, max_inclusive) = anchors()?;
-                Ok(HeightProvider::BiasedToBottom { min_inclusive, max_inclusive, inner: inner()? })
+                Ok(HeightProvider::BiasedToBottom {
+                    min_inclusive,
+                    max_inclusive,
+                    inner: inner()?,
+                })
             }
             "very_biased_to_bottom" => {
                 let (min_inclusive, max_inclusive) = anchors()?;
@@ -128,11 +168,17 @@ impl HeightProvider {
             "trapezoid" => {
                 let (min_inclusive, max_inclusive) = anchors()?;
                 let plateau = f.optional("plateau", parse_int)?.unwrap_or(0);
-                Ok(HeightProvider::Trapezoid { min_inclusive, max_inclusive, plateau })
+                Ok(HeightProvider::Trapezoid {
+                    min_inclusive,
+                    max_inclusive,
+                    plateau,
+                })
             }
-            "weighted_list" => Ok(HeightProvider::WeightedList(f.required("distribution", |v| {
-                WeightedList::non_empty_from_json(v, HeightProvider::from_json)
-            })?)),
+            "weighted_list" => Ok(HeightProvider::WeightedList(
+                f.required("distribution", |v| {
+                    WeightedList::non_empty_from_json(v, HeightProvider::from_json)
+                })?,
+            )),
             other => Err(unknown_type(other)),
         }
     }

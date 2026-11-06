@@ -18,7 +18,9 @@ pub struct PathfindToRaidGoal {
 
 impl PathfindToRaidGoal {
     pub fn new() -> Self {
-        PathfindToRaidGoal { recruitment_tick: 0 }
+        PathfindToRaidGoal {
+            recruitment_tick: 0,
+        }
     }
 
     /// `recruitNearby(raid)`.
@@ -27,14 +29,20 @@ impl PathfindToRaidGoal {
             return;
         }
         let bb = mob.get_bounding_box().inflate_scalar(16.0);
-        let nearby: Vec<EntityId> = level.get_entities_of_class(&bb, |e| e.raider().is_some(), |e| !has_active_raid(e, level) && can_join_raid(e));
+        let nearby: Vec<EntityId> = level.get_entities_of_class(
+            &bb,
+            |e| e.raider().is_some(),
+            |e| !has_active_raid(e, level) && can_join_raid(e),
+        );
         // `Sets.newHashSet()` of raiders: iterated in hash (entity id) order
         let mut capacity = JavaHashCapacity::default();
         capacity.grow_to_fit(nearby.len());
         for raider_id in capacity.iteration_order(nearby, |id| *id) {
             level.with_raid(raid_id, |level, raid| {
                 let groups = raid.get_groups_spawned();
-                level.with_entity(raider_id, |level, raider| raid.join_raid_existing(level, groups, raider));
+                level.with_entity(raider_id, |level, raider| {
+                    raid.join_raid_existing(level, groups, raider)
+                });
             });
         }
     }
@@ -47,12 +55,18 @@ impl Default for PathfindToRaidGoal {
 }
 
 fn raid_ongoing_outside_village(mob: &dyn Entity, level: &ServerLevel) -> bool {
-    has_active_raid(mob, level) && !get_current_raid(mob).and_then(|id| level.get_raid(id)).is_some_and(|r| r.is_over()) && !crate::world::entity::raid::raid_world::is_village(level, mob.block_position())
+    has_active_raid(mob, level)
+        && !get_current_raid(mob)
+            .and_then(|id| level.get_raid(id))
+            .is_some_and(|r| r.is_over())
+        && !crate::world::entity::raid::raid_world::is_village(level, mob.block_position())
 }
 
 impl Goal for PathfindToRaidGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        tick::get_target_checked(mob, level).is_none() && !mob.has_controlling_passenger() && raid_ongoing_outside_village(mob, level)
+        tick::get_target_checked(mob, level).is_none()
+            && !mob.has_controlling_passenger()
+            && raid_ongoing_outside_village(mob, level)
     }
 
     fn can_continue_to_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
@@ -63,12 +77,22 @@ impl Goal for PathfindToRaidGoal {
         if has_active_raid(mob, level) {
             let raid_id = get_current_raid(mob).expect("active raid");
             if mob.base().tick_count > self.recruitment_tick {
-                self.recruitment_tick = mob.base().tick_count.wrapping_add(RECRUITMENT_SEARCH_TICK_DELAY);
+                self.recruitment_tick = mob
+                    .base()
+                    .tick_count
+                    .wrapping_add(RECRUITMENT_SEARCH_TICK_DELAY);
                 Self::recruit_nearby(mob, level, raid_id);
             }
             if !navigation::is_in_progress(mob, level) {
                 let center = level.get_raid(raid_id).expect("active raid").get_center();
-                let pos_towards = default_random_pos::get_pos_towards(mob, level, 15, 4, Vec3::at_bottom_center_of(&center), f64::from(std::f32::consts::PI / 2.0));
+                let pos_towards = default_random_pos::get_pos_towards(
+                    mob,
+                    level,
+                    15,
+                    4,
+                    Vec3::at_bottom_center_of(&center),
+                    f64::from(std::f32::consts::PI / 2.0),
+                );
                 if let Some(p) = pos_towards {
                     navigation::move_to(mob, level, p.x, p.y, p.z, 1.0);
                 }

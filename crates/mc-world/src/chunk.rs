@@ -37,8 +37,10 @@ impl LevelHeight {
     }
 
     /// `BelowZeroRetrogen.UPGRADE_HEIGHT_ACCESSOR`.
-    pub const UPGRADE: LevelHeight =
-        LevelHeight::new(below_zero_retrogen::UPGRADE_MIN_Y, below_zero_retrogen::UPGRADE_HEIGHT);
+    pub const UPGRADE: LevelHeight = LevelHeight::new(
+        below_zero_retrogen::UPGRADE_MIN_Y,
+        below_zero_retrogen::UPGRADE_HEIGHT,
+    );
 
     pub const fn max_y(&self) -> i32 {
         self.min_y + self.height - 1
@@ -101,8 +103,13 @@ pub fn block_entity_pos_from_tag(base: ChunkPos, tag: &CompoundTag) -> BlockPos 
     let mut x = tag.get_int_or("x", 0);
     let y = tag.get_int_or("y", 0);
     let mut z = tag.get_int_or("z", 0);
-    if SectionPos::block_to_section_coord_i32(x) != base.x || SectionPos::block_to_section_coord_i32(z) != base.z {
-        log::warn!("Block entity {} found in a wrong chunk, expected position from chunk {base}", Tag::Compound(tag.clone()));
+    if SectionPos::block_to_section_coord_i32(x) != base.x
+        || SectionPos::block_to_section_coord_i32(z) != base.z
+    {
+        log::warn!(
+            "Block entity {} found in a wrong chunk, expected position from chunk {base}",
+            Tag::Compound(tag.clone())
+        );
         x = base.get_block_x(SectionPos::section_relative(x));
         z = base.get_block_z(SectionPos::section_relative(z));
     }
@@ -151,12 +158,22 @@ impl HeightmapChunk for SectionsView<'_> {
         highest_section_position(&self.level_height, self.sections)
     }
     fn get_block_state(&self, x: i32, y: i32, z: i32) -> BlockState {
-        block_state_in(&self.level_height, self.sections, x, y, z, self.void_air_outside)
+        block_state_in(
+            &self.level_height,
+            self.sections,
+            x,
+            y,
+            z,
+            self.void_air_outside,
+        )
     }
 }
 
 fn highest_filled_section_index(sections: &[LevelChunkSection]) -> i32 {
-    sections.iter().rposition(|s| !s.has_only_air()).map_or(-1, |i| i as i32)
+    sections
+        .iter()
+        .rposition(|s| !s.has_only_air())
+        .map_or(-1, |i| i as i32)
 }
 
 fn highest_section_position(h: &LevelHeight, sections: &[LevelChunkSection]) -> i32 {
@@ -167,7 +184,14 @@ fn highest_section_position(h: &LevelHeight, sections: &[LevelChunkSection]) -> 
 }
 
 /// `getBlockState` on chunk-local `x`/`z` and absolute `y`.
-fn block_state_in(h: &LevelHeight, sections: &[LevelChunkSection], x: i32, y: i32, z: i32, void_air: bool) -> BlockState {
+fn block_state_in(
+    h: &LevelHeight,
+    sections: &[LevelChunkSection],
+    x: i32,
+    y: i32,
+    z: i32,
+    void_air: bool,
+) -> BlockState {
     if void_air && h.is_outside_build_height(y) {
         return Block::VOID_AIR.default_state();
     }
@@ -219,10 +243,17 @@ impl ChunkAccess {
             if given.len() == count {
                 slots = given;
             } else {
-                log::warn!("Could not set level chunk sections, array length is {} instead of {}", given.len(), count);
+                log::warn!(
+                    "Could not set level chunk sections, array length is {} instead of {}",
+                    given.len(),
+                    count
+                );
             }
         }
-        let sections = slots.into_iter().map(|s| s.unwrap_or_else(|| LevelChunkSection::empty(factory))).collect();
+        let sections = slots
+            .into_iter()
+            .map(|s| s.unwrap_or_else(|| LevelChunkSection::empty(factory)))
+            .collect();
         ChunkAccess {
             pos,
             level_height,
@@ -249,12 +280,17 @@ impl ChunkAccess {
     }
 
     pub fn view(&self, void_air_outside: bool) -> SectionsView<'_> {
-        SectionsView { level_height: self.level_height, sections: &self.sections, void_air_outside }
+        SectionsView {
+            level_height: self.level_height,
+            sections: &self.sections,
+            void_air_outside,
+        }
     }
 
     /// `initializeLightSources()`.
     pub fn initialize_light_sources(&mut self) {
-        self.sky_light_sources.fill_from(self.level_height.min_section_y(), &self.sections);
+        self.sky_light_sources
+            .fill_from(self.level_height.min_section_y(), &self.sections);
     }
 
     pub fn get_highest_filled_section_index(&self) -> i32 {
@@ -295,7 +331,9 @@ impl ChunkAccess {
     /// `getOrCreateHeightmapUnprimed(type)`.
     pub fn get_or_create_heightmap_unprimed(&mut self, ty: HeightmapType) -> &mut Heightmap {
         let (min_y, height) = (self.level_height.min_y, self.level_height.height);
-        self.heightmaps.entry(ty).or_insert_with(|| Heightmap::new(min_y, height, ty))
+        self.heightmaps
+            .entry(ty)
+            .or_insert_with(|| Heightmap::new(min_y, height, ty))
     }
 
     pub fn has_primed_heightmap(&self, ty: HeightmapType) -> bool {
@@ -304,7 +342,11 @@ impl ChunkAccess {
 
     /// `Heightmap.primeHeightmaps(this, types)`.
     pub fn prime_heightmaps(&mut self, void_air_outside: bool, types: &[HeightmapType]) {
-        let view = SectionsView { level_height: self.level_height, sections: &self.sections, void_air_outside };
+        let view = SectionsView {
+            level_height: self.level_height,
+            sections: &self.sections,
+            void_air_outside,
+        };
         Heightmap::prime_heightmaps(&view, &mut self.heightmaps, types);
     }
 
@@ -342,7 +384,11 @@ impl ChunkAccess {
     }
 
     pub fn add_reference_for_structure(&mut self, structure: String, reference: i64) {
-        self.structures.references.entry(structure).or_default().insert(reference);
+        self.structures
+            .references
+            .entry(structure)
+            .or_default()
+            .insert(reference);
         self.mark_unsaved();
     }
 
@@ -396,7 +442,9 @@ impl ChunkAccess {
 
     /// `addPackedPostProcess(offsets, sectionIndex)`.
     pub fn add_packed_post_process(&mut self, packed_offsets: &[i16], section_index: usize) {
-        self.post_processing[section_index].get_or_insert_with(Vec::new).extend_from_slice(packed_offsets);
+        self.post_processing[section_index]
+            .get_or_insert_with(Vec::new)
+            .extend_from_slice(packed_offsets);
     }
 
     /// `isOldNoiseGeneration()`.
@@ -409,7 +457,9 @@ impl ChunkAccess {
         let quart_min_y = quart_pos::from_block(self.min_y());
         let quart_max_y = quart_min_y + quart_pos::from_block(self.height()) - 1;
         let clamped = mth::clamp_i32(quart_y, quart_min_y, quart_max_y);
-        let index = self.level_height.section_index(quart_pos::to_block(clamped));
+        let index = self
+            .level_height
+            .section_index(quart_pos::to_block(clamped));
         self.sections[index as usize].get_noise_biome(quart_x & 3, clamped & 3, quart_z & 3)
     }
 
@@ -421,7 +471,9 @@ impl ChunkAccess {
     ) {
         let quart_min_x = quart_pos::from_block(self.pos.get_min_block_x());
         let quart_min_z = quart_pos::from_block(self.pos.get_min_block_z());
-        for section_y in height_for_generation.min_section_y()..=height_for_generation.max_section_y() {
+        for section_y in
+            height_for_generation.min_section_y()..=height_for_generation.max_section_y()
+        {
             let index = self.level_height.section_index_from_section_y(section_y) as usize;
             self.sections[index].fill_biomes_from_noise(
                 &mut resolver,
@@ -440,7 +492,9 @@ impl ChunkAccess {
     ) {
         let quart_min_x = quart_pos::from_block(self.pos.get_min_block_x());
         let quart_min_z = quart_pos::from_block(self.pos.get_min_block_z());
-        for section_y in height_for_generation.min_section_y()..=height_for_generation.max_section_y() {
+        for section_y in
+            height_for_generation.min_section_y()..=height_for_generation.max_section_y()
+        {
             let index = self.level_height.section_index_from_section_y(section_y) as usize;
             self.sections[index].fill_biomes_from_noise_with_current(
                 &mut resolver,
@@ -460,9 +514,14 @@ impl ChunkAccess {
 
     /// `findBlocks(predicate, consumer)` over every section that may hold a matching state; `consumer` gets the
     /// absolute position in vanilla's iteration order (section by section, then x, y, z of `BlockScanUtils`).
-    pub fn find_blocks(&self, mut predicate: impl FnMut(BlockState) -> bool, mut consumer: impl FnMut(BlockPos, BlockState)) {
+    pub fn find_blocks(
+        &self,
+        mut predicate: impl FnMut(BlockState) -> bool,
+        mut consumer: impl FnMut(BlockPos, BlockState),
+    ) {
         for section_y in self.level_height.min_section_y()..=self.level_height.max_section_y() {
-            let section = &self.sections[self.level_height.section_index_from_section_y(section_y) as usize];
+            let section =
+                &self.sections[self.level_height.section_index_from_section_y(section_y) as usize];
             if section.maybe_has(&mut predicate) {
                 let origin = SectionPos::of_chunk(&self.pos, section_y).origin();
                 for y in 0..16 {
@@ -526,7 +585,15 @@ impl ProtoChunk {
         blending_data: Option<BlendingData>,
     ) -> Self {
         ProtoChunk {
-            access: ChunkAccess::new(pos, upgrade_data, level_height, factory, 0, sections, blending_data),
+            access: ChunkAccess::new(
+                pos,
+                upgrade_data,
+                level_height,
+                factory,
+                0,
+                sections,
+                blending_data,
+            ),
             status: ChunkStatus::Empty,
             entities: Vec::new(),
             below_zero_retrogen: None,
@@ -578,7 +645,11 @@ impl ProtoChunk {
 
     /// `getHeightAccessorForGeneration()`.
     pub fn get_height_accessor_for_generation(&self) -> LevelHeight {
-        if self.is_upgrading() { LevelHeight::UPGRADE } else { self.access.level_height }
+        if self.is_upgrading() {
+            LevelHeight::UPGRADE
+        } else {
+            self.access.level_height
+        }
     }
 
     /// `setLightEngine(lightEngine)`: from now on [`ProtoChunk::set_block_state`] reports to the hook it is given.
@@ -587,8 +658,16 @@ impl ProtoChunk {
     }
 
     /// `getNoiseBiome`: only valid once biomes exist.
-    pub fn get_noise_biome(&self, quart_x: i32, quart_y: i32, quart_z: i32) -> Result<BiomeId, &'static str> {
-        if self.get_highest_generated_status().is_or_after(ChunkStatus::Biomes) {
+    pub fn get_noise_biome(
+        &self,
+        quart_x: i32,
+        quart_y: i32,
+        quart_z: i32,
+    ) -> Result<BiomeId, &'static str> {
+        if self
+            .get_highest_generated_status()
+            .is_or_after(ChunkStatus::Biomes)
+        {
             Ok(self.access.get_noise_biome(quart_x, quart_y, quart_z))
         } else {
             Err("Asking for biomes before we have biomes")
@@ -623,7 +702,12 @@ impl ProtoChunk {
 
     /// `setBlockState(pos, state, flags)` (flags are irrelevant for proto chunks): returns the previous state
     /// (`VOID_AIR` outside the build height, `state` itself when it is air into an empty section).
-    pub fn set_block_state(&mut self, pos: BlockPos, state: BlockState, light: Option<&mut dyn LightEngineHook>) -> BlockState {
+    pub fn set_block_state(
+        &mut self,
+        pos: BlockPos,
+        state: BlockState,
+        light: Option<&mut dyn LightEngineHook>,
+    ) -> BlockState {
         let (x, y, z) = (pos.x(), pos.y(), pos.z());
         if self.access.level_height.is_outside_build_height(y) {
             return Block::VOID_AIR.default_state();
@@ -633,7 +717,11 @@ impl ProtoChunk {
         if was_empty && state.block() == Block::AIR {
             return state;
         }
-        let (local_x, local_y, local_z) = (SectionPos::section_relative(x), SectionPos::section_relative(y), SectionPos::section_relative(z));
+        let (local_x, local_y, local_z) = (
+            SectionPos::section_relative(x),
+            SectionPos::section_relative(y),
+            SectionPos::section_relative(z),
+        );
         let section = &mut self.access.sections[section_index];
         let old_state = section.set_block_state(local_x, local_y, local_z, state);
         if self.status.is_or_after(ChunkStatus::InitializeLight) && self.light_engine_attached {
@@ -645,8 +733,14 @@ impl ProtoChunk {
                 light.update_section_status(pos, is_empty);
             }
             if has_different_light_properties(old_state, state) {
-                let view = SectionsView { level_height: self.access.level_height, sections: &self.access.sections, void_air_outside: true };
-                self.access.sky_light_sources.update(&view, local_x, y, local_z);
+                let view = SectionsView {
+                    level_height: self.access.level_height,
+                    sections: &self.access.sections,
+                    void_air_outside: true,
+                };
+                self.access
+                    .sky_light_sources
+                    .update(&view, local_x, y, local_z);
                 if let Some(light) = light {
                     light.check_block(pos);
                 }
@@ -655,7 +749,11 @@ impl ProtoChunk {
 
         let after = self.status.heightmaps_after();
         let mut to_prime: Vec<HeightmapType> = Vec::new();
-        let view = SectionsView { level_height: self.access.level_height, sections: &self.access.sections, void_air_outside: true };
+        let view = SectionsView {
+            level_height: self.access.level_height,
+            sections: &self.access.sections,
+            void_air_outside: true,
+        };
         for &ty in after {
             match self.access.heightmaps.get_mut(&ty) {
                 None => to_prime.push(ty),
@@ -674,7 +772,9 @@ impl ProtoChunk {
     pub fn mark_pos_for_post_processing(&mut self, pos: BlockPos) {
         if self.access.level_height.is_inside_build_height(pos.y()) {
             let index = self.access.level_height.section_index(pos.y()) as usize;
-            self.access.post_processing[index].get_or_insert_with(Vec::new).push(pack_offset_coordinates(pos));
+            self.access.post_processing[index]
+                .get_or_insert_with(Vec::new)
+                .push(pack_offset_coordinates(pos));
         }
     }
 
@@ -685,7 +785,12 @@ impl ProtoChunk {
 
     /// `setStartForStructure`: with a below-zero retrogen, a valid start reaching outside the generation height is dropped.
     /// `bounding_y` is `(minY, maxY)` of the start's bounding box when the start is valid.
-    pub fn set_start_for_structure(&mut self, structure: String, start: CompoundTag, bounding_y: Option<(i32, i32)>) {
+    pub fn set_start_for_structure(
+        &mut self,
+        structure: String,
+        start: CompoundTag,
+        bounding_y: Option<(i32, i32)>,
+    ) {
         if self.below_zero_retrogen.is_some()
             && let Some((min, max)) = bounding_y
         {
@@ -699,7 +804,10 @@ impl ProtoChunk {
 
     /// `getTicksForSerialization(currentTick)`.
     pub fn get_ticks_for_serialization(&self, current_tick: i64) -> PackedTicks {
-        PackedTicks { blocks: self.block_ticks.pack(current_tick), fluids: self.fluid_ticks.pack(current_tick) }
+        PackedTicks {
+            blocks: self.block_ticks.pack(current_tick),
+            fluids: self.fluid_ticks.pack(current_tick),
+        }
     }
 }
 
@@ -736,17 +844,37 @@ impl LevelChunk {
         sections: Option<Vec<Option<LevelChunkSection>>>,
         blending_data: Option<BlendingData>,
     ) -> Self {
-        let mut access = ChunkAccess::new(pos, upgrade_data, level_height, factory, inhabited_time, sections, blending_data);
+        let mut access = ChunkAccess::new(
+            pos,
+            upgrade_data,
+            level_height,
+            factory,
+            inhabited_time,
+            sections,
+            blending_data,
+        );
         for ty in HeightmapType::ALL {
             if ChunkStatus::Full.heightmaps_after().contains(&ty) {
-                access.heightmaps.insert(ty, Heightmap::new(level_height.min_y, level_height.height, ty));
+                access.heightmaps.insert(
+                    ty,
+                    Heightmap::new(level_height.min_y, level_height.height, ty),
+                );
             }
         }
-        LevelChunk { access, block_ticks, fluid_ticks, loaded: false }
+        LevelChunk {
+            access,
+            block_ticks,
+            fluid_ticks,
+            loaded: false,
+        }
     }
 
     /// `new LevelChunk(level, pos)`: an empty chunk.
-    pub fn empty(level_height: LevelHeight, factory: &PalettedContainerFactory, pos: ChunkPos) -> Self {
+    pub fn empty(
+        level_height: LevelHeight,
+        factory: &PalettedContainerFactory,
+        pos: ChunkPos,
+    ) -> Self {
         Self::new(
             level_height,
             factory,
@@ -763,7 +891,12 @@ impl LevelChunk {
     /// `new LevelChunk(level, protoChunk, postLoad)` for the data parts (block entity instances, post-load
     /// processing and sky light sources are the gameplay layer's).
     pub fn from_proto(proto: ProtoChunk, factory: &PalettedContainerFactory) -> Self {
-        let ProtoChunk { access: p, block_ticks, fluid_ticks, .. } = proto;
+        let ProtoChunk {
+            access: p,
+            block_ticks,
+            fluid_ticks,
+            ..
+        } = proto;
         let light_correct = p.is_light_correct();
         let mut chunk = LevelChunk::new(
             p.level_height,
@@ -776,7 +909,12 @@ impl LevelChunk {
             Some(p.sections.into_iter().map(Some).collect()),
             p.blending_data.clone(),
         );
-        if chunk.access.block_entities.keys().any(|k| p.block_entities.contains_key(k)) {
+        if chunk
+            .access
+            .block_entities
+            .keys()
+            .any(|k| p.block_entities.contains_key(k))
+        {
             log::error!("Chunk at {} contains duplicated block entities", p.pos);
         }
         chunk.access.block_entities.extend(p.block_entities);
@@ -785,7 +923,9 @@ impl LevelChunk {
         chunk.access.set_all_references(p.structures.references);
         for (ty, heightmap) in &p.heightmaps {
             if ChunkStatus::Full.heightmaps_after().contains(ty) {
-                chunk.access.set_heightmap(false, *ty, heightmap.get_raw_data());
+                chunk
+                    .access
+                    .set_heightmap(false, *ty, heightmap.get_raw_data());
             }
         }
         chunk.access.sky_light_sources = p.sky_light_sources;
@@ -808,7 +948,14 @@ impl LevelChunk {
 
     /// `getBlockState(pos)` (non-debug level).
     pub fn get_block_state(&self, pos: BlockPos) -> BlockState {
-        block_state_in(&self.access.level_height, &self.access.sections, pos.x(), pos.y(), pos.z(), false)
+        block_state_in(
+            &self.access.level_height,
+            &self.access.sections,
+            pos.x(),
+            pos.y(),
+            pos.z(),
+            false,
+        )
     }
 
     /// `getFluidState(x, y, z)`.
@@ -834,11 +981,16 @@ impl LevelChunk {
             return None;
         }
         let (local_x, local_y, local_z) = (pos.x() & 15, y & 15, pos.z() & 15);
-        let old_state = self.access.sections[index].set_block_state(local_x, local_y, local_z, state);
+        let old_state =
+            self.access.sections[index].set_block_state(local_x, local_y, local_z, state);
         if old_state == state {
             return None;
         }
-        let view = SectionsView { level_height: self.access.level_height, sections: &self.access.sections, void_air_outside: false };
+        let view = SectionsView {
+            level_height: self.access.level_height,
+            sections: &self.access.sections,
+            void_air_outside: false,
+        };
         for ty in [
             HeightmapType::MotionBlocking,
             HeightmapType::MotionBlockingNoLeaves,
@@ -851,7 +1003,9 @@ impl LevelChunk {
         }
         let light_properties_changed = has_different_light_properties(old_state, state);
         if light_properties_changed {
-            self.access.sky_light_sources.update(&view, local_x, y, local_z);
+            self.access
+                .sky_light_sources
+                .update(&view, local_x, y, local_z);
         }
         Some(RawSetBlock {
             old_state,
@@ -863,6 +1017,9 @@ impl LevelChunk {
 
     /// `getTicksForSerialization(currentTick)`.
     pub fn get_ticks_for_serialization(&self, current_tick: i64) -> PackedTicks {
-        PackedTicks { blocks: self.block_ticks.pack(current_tick), fluids: self.fluid_ticks.pack(current_tick) }
+        PackedTicks {
+            blocks: self.block_ticks.pack(current_tick),
+            fluids: self.fluid_ticks.pack(current_tick),
+        }
     }
 }

@@ -1,10 +1,10 @@
 //! `net.minecraft.world.level.block.CaveVinesPlantBlock` (extends `GrowingPlantBodyBlock`).
-use mc_game_core::register_block_class;
 use super::growing_plant_block::GrowingPlant;
 use super::growing_plant_body_block::{GrowingPlantBody, growing_plant_body_behaviour};
-use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::register_block_class;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::level::block::bonemeal::BonemealSource;
+use mc_game_core::world::level::block::impls::prelude::*;
 
 pub struct CaveVinesPlantBlock;
 
@@ -23,23 +23,52 @@ impl GrowingPlant for CaveVinesPlantBlock {
     }
 }
 impl GrowingPlantBody for CaveVinesPlantBlock {
-    fn update_head_after_converted_from_body(&self, body_state: BlockState, head_state: BlockState) -> BlockState {
+    fn update_head_after_converted_from_body(
+        &self,
+        body_state: BlockState,
+        head_state: BlockState,
+    ) -> BlockState {
         head_state.set(props::BERRIES, body_state.get(props::BERRIES))
     }
 }
 
 impl BlockBehaviour for CaveVinesPlantBlock {
     growing_plant_body_behaviour!(custom_bonemeal_and_clone);
-    fn get_clone_item_stack(&self, _state: BlockState, _level: &ServerLevel, _pos: BlockPos, _include_data: bool) -> mc_game_core::world::item::ItemStack {
+    fn get_clone_item_stack(
+        &self,
+        _state: BlockState,
+        _level: &ServerLevel,
+        _pos: BlockPos,
+        _include_data: bool,
+    ) -> mc_game_core::world::item::ItemStack {
         mc_game_core::world::level::block::impls::cave_vines::glow_berries()
     }
-    fn use_without_item(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, player: &mut mc_game_core::world::entity::ServerPlayer, _hit: &mc_core::phys::BlockHitResult) -> mc_game_core::world::item::InteractionResult {
+    fn use_without_item(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        player: &mut mc_game_core::world::entity::ServerPlayer,
+        _hit: &mc_core::phys::BlockHitResult,
+    ) -> mc_game_core::world::item::InteractionResult {
         mc_game_core::world::level::block::impls::cave_vines::use_(&*player, state, level, pos)
     }
-    fn is_valid_bonemeal_target(&self, _level: &dyn LevelReader, _pos: BlockPos, state: BlockState, _source: BonemealSource) -> bool {
+    fn is_valid_bonemeal_target(
+        &self,
+        _level: &dyn LevelReader,
+        _pos: BlockPos,
+        state: BlockState,
+        _source: BonemealSource,
+    ) -> bool {
         !state.get(props::BERRIES)
     }
-    fn perform_bonemeal(&self, level: &mut ServerLevel, pos: BlockPos, state: BlockState, _source: BonemealSource) {
+    fn perform_bonemeal(
+        &self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        state: BlockState,
+        _source: BonemealSource,
+    ) {
         level.set_block_flags(pos, state.set(props::BERRIES, true), 2);
     }
 }

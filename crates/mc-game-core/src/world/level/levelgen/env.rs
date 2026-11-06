@@ -4,9 +4,8 @@
 
 use super::registries::GenRegistries;
 use super::structure::check::StructureCheck;
-use super::structure::templatesystem::StructureTemplateManager;
 use super::structure::registries::{StartCache, StructureRegistries};
-use mc_worldgen::structure_placement::ChunkGeneratorStructureState;
+use super::structure::templatesystem::StructureTemplateManager;
 use mc_core::ident::Identifier;
 use mc_core::pos::BlockPos;
 use mc_world::chunk::LevelHeight;
@@ -15,6 +14,7 @@ use mc_world::palette::BiomeId;
 use mc_worldgen::biome::{BiomeGenerationSettings, BiomeRegistry, BiomeSource};
 use mc_worldgen::generator::{ChunkGenerator, NoiseColumn};
 use mc_worldgen::random_state::RandomState;
+use mc_worldgen::structure_placement::ChunkGeneratorStructureState;
 use mc_worldgen::world_generation_context::WorldGenerationContext;
 use std::sync::Arc;
 
@@ -67,17 +67,24 @@ impl GenEnv {
 
     /// `getBaseHeight(x, z, type, heightAccessor, randomState)`.
     pub fn get_base_height(&self, x: i32, z: i32, ty: HeightmapType, height: LevelHeight) -> i32 {
-        self.generator.get_base_height(x, z, ty, height, &self.random_state)
+        self.generator
+            .get_base_height(x, z, ty, height, &self.random_state)
     }
 
     /// `getBaseColumn(x, z, heightAccessor, randomState)`.
     pub fn get_base_column(&self, x: i32, z: i32, height: LevelHeight) -> NoiseColumn {
-        self.generator.get_base_column(x, z, height, &self.random_state)
+        self.generator
+            .get_base_column(x, z, height, &self.random_state)
     }
 
     /// `new WorldGenerationContext(generator, heightAccessor)`.
     pub fn world_generation_context(&self, height: LevelHeight) -> WorldGenerationContext {
-        WorldGenerationContext::new(self.get_min_y(), self.get_gen_depth(), self.get_sea_level(), height)
+        WorldGenerationContext::new(
+            self.get_min_y(),
+            self.get_gen_depth(),
+            self.get_sea_level(),
+            height,
+        )
     }
 
     pub fn first_pos_of_chunk(&self, chunk_x: i32, chunk_z: i32) -> BlockPos {

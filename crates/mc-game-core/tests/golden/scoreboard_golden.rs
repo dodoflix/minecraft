@@ -1,8 +1,11 @@
 //! `ScoreboardSaveData` format vs the real classes (`fixtures/ScoreboardGolden.java`).
 
-use mc_game::world::scores::scoreboard_save_data::{ScoreboardSaveData, ScoreboardSaveDataPacked};
 use mc_game::world::scores::score::for_name_only;
-use mc_game::world::scores::{CollisionRule, DisplaySlot, NumberFormat, ObjectiveCriteria, RenderType, Scoreboard, TeamColor, Visibility};
+use mc_game::world::scores::scoreboard_save_data::{ScoreboardSaveData, ScoreboardSaveDataPacked};
+use mc_game::world::scores::{
+    CollisionRule, DisplaySlot, NumberFormat, ObjectiveCriteria, RenderType, Scoreboard, TeamColor,
+    Visibility,
+};
 use mc_nbt::{ListTag, Tag};
 use mc_text::{ChatFormatting, Component, Style, TranslatableArg};
 
@@ -31,8 +34,24 @@ fn canon(tag: &Tag) -> Tag {
 
 fn build() -> Scoreboard {
     let mut b = Scoreboard::new();
-    b.add_objective("kills", ObjectiveCriteria::DUMMY, Component::literal("Kills"), RenderType::Integer, false, None).unwrap();
-    b.add_objective("hp", ObjectiveCriteria::HEALTH, Component::literal("HP").with_format(ChatFormatting::Red), RenderType::Hearts, true, Some(NumberFormat::Blank)).unwrap();
+    b.add_objective(
+        "kills",
+        ObjectiveCriteria::DUMMY,
+        Component::literal("Kills"),
+        RenderType::Integer,
+        false,
+        None,
+    )
+    .unwrap();
+    b.add_objective(
+        "hp",
+        ObjectiveCriteria::HEALTH,
+        Component::literal("HP").with_format(ChatFormatting::Red),
+        RenderType::Hearts,
+        true,
+        Some(NumberFormat::Blank),
+    )
+    .unwrap();
     b.add_objective(
         "trig",
         ObjectiveCriteria::TRIGGER,
@@ -48,12 +67,19 @@ fn build() -> Scoreboard {
         Component::literal("TK"),
         RenderType::Integer,
         false,
-        Some(NumberFormat::Styled(Style::EMPTY.with_color_formatting(Some(ChatFormatting::Gold)).with_bold(Some(true)))),
+        Some(NumberFormat::Styled(
+            Style::EMPTY
+                .with_color_formatting(Some(ChatFormatting::Gold))
+                .with_bold(Some(true)),
+        )),
     )
     .unwrap();
     let alice = for_name_only("Alice");
     let bob = for_name_only("Bob");
-    b.get_or_create_player_score(&alice, "kills").unwrap().set(5).unwrap();
+    b.get_or_create_player_score(&alice, "kills")
+        .unwrap()
+        .set(5)
+        .unwrap();
     {
         let mut s = b.get_or_create_player_score(&bob, "kills").unwrap();
         s.set(-3).unwrap();
@@ -66,7 +92,10 @@ fn build() -> Scoreboard {
         s.set(0).unwrap();
         s.unlock();
     }
-    b.get_or_create_player_score_forced(&for_name_only("#hidden"), "tk", true).unwrap().set(i32::MAX).unwrap();
+    b.get_or_create_player_score_forced(&for_name_only("#hidden"), "tk", true)
+        .unwrap()
+        .set(i32::MAX)
+        .unwrap();
     b.set_display_objective(DisplaySlot::Sidebar, Some("kills"));
     b.set_display_objective(DisplaySlot::List, Some("hp"));
     b.set_display_objective(DisplaySlot::TeamRed, Some("tk"));
@@ -77,7 +106,9 @@ fn build() -> Scoreboard {
         t.set_color(Some(TeamColor::Red));
         t.set_allow_friendly_fire(false);
         t.set_see_friendly_invisibles(false);
-        t.set_player_prefix(Some(Component::literal("[R] ").with_format(ChatFormatting::Bold)));
+        t.set_player_prefix(Some(
+            Component::literal("[R] ").with_format(ChatFormatting::Bold),
+        ));
         t.set_player_suffix(Some(Component::literal("!")));
         t.set_name_tag_visibility(Visibility::HideForOtherTeams);
         t.set_death_message_visibility(Visibility::Never);
@@ -91,7 +122,11 @@ fn build() -> Scoreboard {
 }
 
 fn read(name: &str) -> Tag {
-    let text = std::fs::read_to_string(format!("{}/../mc-game/tests/fixtures/{name}", env!("CARGO_MANIFEST_DIR"))).unwrap();
+    let text = std::fs::read_to_string(format!(
+        "{}/../mc-game/tests/fixtures/{name}",
+        env!("CARGO_MANIFEST_DIR")
+    ))
+    .unwrap();
     mc_nbt::snbt::parse(text.trim()).unwrap()
 }
 
@@ -101,7 +136,14 @@ fn our_scoreboard_encodes_like_vanilla() {
     assert_eq!(canon(&ours), canon(&read("scoreboard.golden")));
     // the file the Java side re-reads; `MC_UPDATE_FIXTURES=1` rewrites it (then rerun ScoreboardGolden.java)
     if std::env::var_os("MC_UPDATE_FIXTURES").is_some() {
-        std::fs::write(format!("{}/../mc-game/tests/fixtures/scoreboard_in.snbt", env!("CARGO_MANIFEST_DIR")), format!("{ours}\n")).unwrap();
+        std::fs::write(
+            format!(
+                "{}/../mc-game/tests/fixtures/scoreboard_in.snbt",
+                env!("CARGO_MANIFEST_DIR")
+            ),
+            format!("{ours}\n"),
+        )
+        .unwrap();
     }
     assert_eq!(canon(&ours), canon(&read("scoreboard_in.snbt")));
 }
@@ -109,14 +151,22 @@ fn our_scoreboard_encodes_like_vanilla() {
 #[test]
 fn vanilla_data_loads_and_round_trips() {
     let golden = read("scoreboard.golden");
-    let packed = ScoreboardSaveDataPacked::decode(&golden).map_err(|e| e.error).unwrap();
+    let packed = ScoreboardSaveDataPacked::decode(&golden)
+        .map_err(|e| e.error)
+        .unwrap();
     let mut sb = Scoreboard::new_server();
     sb.load(&packed);
     assert_eq!(canon(&sb.store_to_tag().unwrap()), canon(&golden));
     assert_eq!(sb.get_players_team("Bob").unwrap().get_name(), "red_team");
-    assert!(sb.is_dirty(), "loading dirties a server scoreboard like vanilla");
+    assert!(
+        sb.is_dirty(),
+        "loading dirties a server scoreboard like vanilla"
+    );
     // vanilla's own load -> store of our file
-    assert_eq!(canon(&read("scoreboard_roundtrip.golden")), canon(&read("scoreboard_in.snbt")));
+    assert_eq!(
+        canon(&read("scoreboard_roundtrip.golden")),
+        canon(&read("scoreboard_in.snbt"))
+    );
 }
 
 #[test]

@@ -100,8 +100,12 @@ impl CanyonWorldCarver {
                 );
             let mut vertical_radius = horizontal_radius * y_scale;
             horizontal_radius *= f64::from(self.shape.horizontal_radius_factor.sample(&mut random));
-            vertical_radius =
-                self.update_vertical_radius(&mut random, vertical_radius, distance as f32, current_step as f32);
+            vertical_radius = self.update_vertical_radius(
+                &mut random,
+                vertical_radius,
+                distance as f32,
+                current_step as f32,
+            );
             let xc = mth::cos(f64::from(vertical_rotation));
             let xs = mth::sin(f64::from(vertical_rotation));
             x += f64::from(mth::cos(f64::from(horizontal_rotation)) * xc);
@@ -161,7 +165,8 @@ impl CanyonWorldCarver {
         let vertical_multiplier = 1.0f32 - (0.5f32 - current_step / distance).abs() * 2.0f32;
         let factor = self.shape.vertical_radius_default_factor
             + self.shape.vertical_radius_center_factor * vertical_multiplier;
-        f64::from(factor) * vertical_radius
+        f64::from(factor)
+            * vertical_radius
             * f64::from(mth::random_between(random, 0.75f32, 1.0f32))
     }
 }
@@ -176,8 +181,7 @@ fn should_skip(
     y: i32,
 ) -> bool {
     let y_index = y - context.get_min_gen_y();
-    (xd * xd + zd * zd) * f64::from(width_factor_per_height[(y_index - 1) as usize])
-        + yd * yd / 6.0
+    (xd * xd + zd * zd) * f64::from(width_factor_per_height[(y_index - 1) as usize]) + yd * yd / 6.0
         >= 1.0
 }
 

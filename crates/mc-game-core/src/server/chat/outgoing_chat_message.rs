@@ -36,7 +36,12 @@ pub enum SendOutcome {
 
 impl OutgoingChatState {
     /// `ServerGamePacketListenerImpl.sendPlayerChatMessage`.
-    pub fn send_player_chat_message(&mut self, connection: &ConnectionSender, message: &PlayerChatMessage, chat_type: &Bound) -> SendOutcome {
+    pub fn send_player_chat_message(
+        &mut self,
+        connection: &ConnectionSender,
+        message: &PlayerChatMessage,
+        chat_type: &Bound,
+    ) -> SendOutcome {
         let index = self.next_chat_index;
         self.next_chat_index = index.wrapping_add(1);
         connection.send(&ClientboundPlayerChatPacket {
@@ -50,7 +55,8 @@ impl OutgoingChatState {
             chat_type: chat_type.to_packet(),
         });
         if let Some(signature) = &message.signature {
-            self.message_signature_cache.push_body(&message.signed_body, Some(signature));
+            self.message_signature_cache
+                .push_body(&message.signed_body, Some(signature));
             self.last_seen_messages.add_pending(signature);
             if self.last_seen_messages.tracked_messages_count() > 4096 {
                 return SendOutcome::TooManyPending;
@@ -61,8 +67,15 @@ impl OutgoingChatState {
 }
 
 /// `sendDisguisedChatMessage`.
-pub fn send_disguised_chat_message(connection: &ConnectionSender, content: &Component, chat_type: &Bound) {
-    connection.send(&ClientboundDisguisedChatPacket { message: content.clone(), chat_type: chat_type.to_packet() });
+pub fn send_disguised_chat_message(
+    connection: &ConnectionSender,
+    content: &Component,
+    chat_type: &Bound,
+) {
+    connection.send(&ClientboundDisguisedChatPacket {
+        message: content.clone(),
+        chat_type: chat_type.to_packet(),
+    });
 }
 
 /// `OutgoingChatMessage`.
@@ -74,7 +87,11 @@ pub enum OutgoingChatMessage {
 
 impl OutgoingChatMessage {
     pub fn create(message: &PlayerChatMessage) -> Self {
-        if message.is_system() { Self::Disguised(message.decorated_content()) } else { Self::Player(message.clone()) }
+        if message.is_system() {
+            Self::Disguised(message.decorated_content())
+        } else {
+            Self::Player(message.clone())
+        }
     }
 
     pub fn content(&self) -> Component {

@@ -3,7 +3,10 @@ use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
 
 pub fn repo_root() -> PathBuf {
-    Path::new(env!("CARGO_MANIFEST_DIR")).join("../..").canonicalize().expect("repo root")
+    Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../..")
+        .canonicalize()
+        .expect("repo root")
 }
 
 /// The vanilla server (offline, peaceful, view/simulation distance 4) for `seed` and `gamemode`; `props` are extra
@@ -40,9 +43,18 @@ impl OurServer {
     /// Starts `bin` for `seed` and `gamemode`; `props` are `key=value` entries replacing the defaults of the same key (e.g.
     /// `difficulty=normal`, `level-type=minecraft:flat`). Runs in `dir` (default: a fresh temp dir; the caller wipes/prepares it);
     /// `keep` leaves it on drop.
-    pub fn start_in(bin: &Path, seed: i64, gamemode: &str, props: &[&str], dir: Option<PathBuf>, keep: bool) -> std::io::Result<Self> {
+    pub fn start_in(
+        bin: &Path,
+        seed: i64,
+        gamemode: &str,
+        props: &[&str],
+        dir: Option<PathBuf>,
+        keep: bool,
+    ) -> std::io::Result<Self> {
         let port = mc_testkit::free_port();
-        let dir = dir.unwrap_or_else(|| std::env::temp_dir().join(format!("mc-testbot-ours-{}-{port}", std::process::id())));
+        let dir = dir.unwrap_or_else(|| {
+            std::env::temp_dir().join(format!("mc-testbot-ours-{}-{port}", std::process::id()))
+        });
         std::fs::create_dir_all(&dir)?;
         std::fs::write(dir.join("eula.txt"), "eula=true\n")?;
         let mut entries: Vec<(String, String)> = [
@@ -74,16 +86,36 @@ impl OurServer {
         let text: String = entries.iter().map(|(k, v)| format!("{k}={v}\n")).collect();
         std::fs::write(dir.join("server.properties"), text)?;
         let (child, stdin, out) = Self::spawn(bin, &dir)?;
-        let server = Self { port, dir, child, stdin: std::sync::Mutex::new(stdin), out, keep };
-        server.wait_log(r"Done \(", 240).ok_or_else(|| std::io::Error::other(format!("our server did not start:\n{}", server.log())))?;
+        let server = Self {
+            port,
+            dir,
+            child,
+            stdin: std::sync::Mutex::new(stdin),
+            out,
+            keep,
+        };
+        server.wait_log(r"Done \(", 240).ok_or_else(|| {
+            std::io::Error::other(format!("our server did not start:\n{}", server.log()))
+        })?;
         std::thread::sleep(std::time::Duration::from_secs(1));
         Ok(server)
     }
 
-    fn spawn(bin: &Path, dir: &Path) -> std::io::Result<(std::process::Child, Option<std::process::ChildStdin>, std::sync::Arc<std::sync::Mutex<String>>)> {
+    fn spawn(
+        bin: &Path,
+        dir: &Path,
+    ) -> std::io::Result<(
+        std::process::Child,
+        Option<std::process::ChildStdin>,
+        std::sync::Arc<std::sync::Mutex<String>>,
+    )> {
         use std::io::{BufRead, BufReader};
         let mut cmd = Command::new(bin);
-        cmd.arg("nogui").current_dir(dir).stdin(Stdio::piped()).stdout(Stdio::piped()).stderr(Stdio::null());
+        cmd.arg("nogui")
+            .current_dir(dir)
+            .stdin(Stdio::piped())
+            .stdout(Stdio::piped())
+            .stderr(Stdio::null());
         let mut child = mc_testkit::spawn_in_group(cmd)?;
         let stdout = child.stdout.take().expect("piped");
         let stdin = child.stdin.take();

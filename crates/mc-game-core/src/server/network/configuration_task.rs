@@ -1,7 +1,7 @@
 //! `ConfigurationTask`: one step of the configuration phase, run in order by `ServerConfigurationPacketListenerImpl`.
 
-use mc_protocol::packets::configuration::ClientboundConfigurationPacket;
 use super::hooks::ServerHandle;
+use mc_protocol::packets::configuration::ClientboundConfigurationPacket;
 use std::fmt;
 
 /// `ConfigurationTask.Type`.
@@ -28,7 +28,11 @@ pub type TaskError = Box<dyn std::error::Error + Send + Sync>;
 pub type PacketSink<'a> = &'a mut dyn FnMut(ClientboundConfigurationPacket);
 
 pub trait ConfigurationTask: Send {
-    fn start(&mut self, server: &mut dyn ServerHandle, connection: PacketSink) -> Result<(), TaskError>;
+    fn start(
+        &mut self,
+        server: &mut dyn ServerHandle,
+        connection: PacketSink,
+    ) -> Result<(), TaskError>;
 
     /// `true` once the task is finished (the default never finishes by itself: a client packet ends the task).
     fn tick(&mut self, _server: &mut dyn ServerHandle) -> Result<bool, TaskError> {

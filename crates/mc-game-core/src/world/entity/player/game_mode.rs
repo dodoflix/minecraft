@@ -5,7 +5,8 @@ use crate::server::level::ServerLevel;
 use crate::world::entity::{Entity, movement};
 use mc_data::enums::GameType;
 use mc_protocol::packets::play::{
-    ClientboundGameEventPacket, ClientboundPlayerAbilitiesPacket, ClientboundPlayerInfoUpdateAction, ClientboundPlayerInfoUpdatePacket,
+    ClientboundGameEventPacket, ClientboundPlayerAbilitiesPacket,
+    ClientboundPlayerInfoUpdateAction, ClientboundPlayerInfoUpdatePacket,
 };
 
 /// `GameType.getId()`.
@@ -39,7 +40,8 @@ impl ServerPlayer {
 
     /// `ServerPlayerGameMode.isInRangeOfGround()`.
     fn is_in_range_of_ground(&self, level: &ServerLevel) -> bool {
-        movement::collect_all_colliders(self, level, &self.base().bounding_box()).is_empty() && movement::get_available_space_below(self, level, 1.0) < 1.0
+        movement::collect_all_colliders(self, level, &self.base().bounding_box()).is_empty()
+            && movement::get_available_space_below(self, level, 1.0) < 1.0
     }
 
     /// `ServerPlayerGameMode.changeGameModeForPlayer(mode)`: `false` when the mode does not change.
@@ -49,14 +51,19 @@ impl ServerPlayer {
             return false;
         }
         self.set_game_mode_for_player(mode, Some(old));
-        if self.player.abilities.flying && mode != GameType::Spectator && self.is_in_range_of_ground(level) {
+        if self.player.abilities.flying
+            && mode != GameType::Spectator
+            && self.is_in_range_of_ground(level)
+        {
             self.player.abilities.flying = false;
         }
         self.on_update_abilities();
         self.sync_handle();
         if let Some(handle) = &self.handle {
             level.broadcast_to_all_players(&ClientboundPlayerInfoUpdatePacket {
-                actions: [ClientboundPlayerInfoUpdateAction::UpdateGameMode].into_iter().collect(),
+                actions: [ClientboundPlayerInfoUpdateAction::UpdateGameMode]
+                    .into_iter()
+                    .collect(),
                 entries: vec![handle.info_entry()],
             });
         }
@@ -79,17 +86,28 @@ impl ServerPlayer {
         if !self.change_game_mode_for_player(level, mode) {
             return false;
         }
-        self.send(&ClientboundGameEventPacket { event: ClientboundGameEventPacket::CHANGE_GAME_MODE, param: game_type_id(mode) as f32 });
+        self.send(&ClientboundGameEventPacket {
+            event: ClientboundGameEventPacket::CHANGE_GAME_MODE,
+            param: game_type_id(mode) as f32,
+        });
         let id = self.base_id();
         if mode == GameType::Spectator {
             self.remove_entities_on_shoulder(level);
             level.stop_riding(self);
             self.stop_using_item(level);
-            crate::world::item::enchantment_helper::stop_location_based_effects(level, &mut crate::world::item::enchantment::actors::Actors::of(self), id);
+            crate::world::item::enchantment_helper::stop_location_based_effects(
+                level,
+                &mut crate::world::item::enchantment::actors::Actors::of(self),
+                id,
+            );
         } else {
             self.set_camera(level, None);
             if was_spectator {
-                crate::world::item::enchantment_helper::run_location_changed_effects(level, &mut crate::world::item::enchantment::actors::Actors::of(self), id);
+                crate::world::item::enchantment_helper::run_location_changed_effects(
+                    level,
+                    &mut crate::world::item::enchantment::actors::Actors::of(self),
+                    id,
+                );
             }
         }
         self.on_update_abilities();

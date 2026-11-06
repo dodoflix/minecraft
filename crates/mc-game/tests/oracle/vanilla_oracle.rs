@@ -10,9 +10,9 @@ use crate::test_packs;
 use std::path::{Path, PathBuf};
 use std::time::Duration;
 
+use mc_protocol::PROTOCOL_VERSION;
 use mc_protocol::net::Connection;
 use mc_protocol::packets::{configuration::*, handshake::*, login::*};
-use mc_protocol::PROTOCOL_VERSION;
 use tokio::net::TcpStream;
 use tokio::time::timeout;
 
@@ -56,7 +56,10 @@ async fn run_vanilla<F: FnOnce(&Path) + 'static>(setup: F, connect: bool) -> Cap
         server
     };
     server.kill();
-    Captured { packets, log: server.log().lines().map(str::to_owned).collect() }
+    Captured {
+        packets,
+        log: server.log().lines().map(str::to_owned).collect(),
+    }
 }
 
 macro_rules! send {
@@ -72,28 +75,67 @@ async fn capture_configuration(port: u16) -> Vec<Vec<u8>> {
     let mut c = Connection::new(TcpStream::connect(("127.0.0.1", port)).await.unwrap());
     send!(
         c,
-        ServerboundHandshakePacket::ClientIntention(ClientIntentionPacket { protocol_version: PROTOCOL_VERSION, host_name: "localhost".into(), port, intention: ClientIntent::Login })
+        ServerboundHandshakePacket::ClientIntention(ClientIntentionPacket {
+            protocol_version: PROTOCOL_VERSION,
+            host_name: "localhost".into(),
+            port,
+            intention: ClientIntent::Login
+        })
     );
-    send!(c, ServerboundLoginPacket::Hello(ServerboundHelloPacket { name: "OracleBot".into(), profile_id: uuid::Uuid::from_u128(1) }));
+    send!(
+        c,
+        ServerboundLoginPacket::Hello(ServerboundHelloPacket {
+            name: "OracleBot".into(),
+            profile_id: uuid::Uuid::from_u128(1)
+        })
+    );
     loop {
-        let payload = timeout(Duration::from_secs(30), c.read_payload()).await.unwrap().unwrap();
+        let payload = timeout(Duration::from_secs(30), c.read_payload())
+            .await
+            .unwrap()
+            .unwrap();
         match ClientboundLoginPacket::decode_payload(&payload).unwrap() {
-            ClientboundLoginPacket::LoginCompression(p) => c.set_compression(p.compression_threshold, false),
+            ClientboundLoginPacket::LoginCompression(p) => {
+                c.set_compression(p.compression_threshold, false)
+            }
             ClientboundLoginPacket::LoginFinished(_) => break,
             other => panic!("unexpected {other:?}"),
         }
     }
-    send!(c, ServerboundLoginPacket::LoginAcknowledged(ServerboundLoginAcknowledgedPacket));
-    send!(c, ServerboundConfigurationPacket::ClientInformation(ServerboundClientInformationPacket { information: Default::default() }));
+    send!(
+        c,
+        ServerboundLoginPacket::LoginAcknowledged(ServerboundLoginAcknowledgedPacket)
+    );
+    send!(
+        c,
+        ServerboundConfigurationPacket::ClientInformation(ServerboundClientInformationPacket {
+            information: Default::default()
+        })
+    );
     let mut out = Vec::new();
     loop {
-        let payload = timeout(Duration::from_secs(30), c.read_payload()).await.unwrap().unwrap();
+        let payload = timeout(Duration::from_secs(30), c.read_payload())
+            .await
+            .unwrap()
+            .unwrap();
         match ClientboundConfigurationPacket::decode_payload(&payload).unwrap() {
-            ClientboundConfigurationPacket::SelectKnownPacks(_) => send!(c, ServerboundConfigurationPacket::SelectKnownPacks(ServerboundSelectKnownPacks { known_packs: vec![] })),
-            ClientboundConfigurationPacket::KeepAlive(p) => send!(c, ServerboundConfigurationPacket::KeepAlive(ServerboundKeepAlivePacket { id: p.id })),
-            ClientboundConfigurationPacket::Ping(p) => send!(c, ServerboundConfigurationPacket::Pong(ServerboundPongPacket { id: p.id })),
+            ClientboundConfigurationPacket::SelectKnownPacks(_) => send!(
+                c,
+                ServerboundConfigurationPacket::SelectKnownPacks(ServerboundSelectKnownPacks {
+                    known_packs: vec![]
+                })
+            ),
+            ClientboundConfigurationPacket::KeepAlive(p) => send!(
+                c,
+                ServerboundConfigurationPacket::KeepAlive(ServerboundKeepAlivePacket { id: p.id })
+            ),
+            ClientboundConfigurationPacket::Ping(p) => send!(
+                c,
+                ServerboundConfigurationPacket::Pong(ServerboundPongPacket { id: p.id })
+            ),
             ClientboundConfigurationPacket::FinishConfiguration(_) => break,
-            ClientboundConfigurationPacket::RegistryData(_) | ClientboundConfigurationPacket::UpdateTags(_) => out.push(payload),
+            ClientboundConfigurationPacket::RegistryData(_)
+            | ClientboundConfigurationPacket::UpdateTags(_) => out.push(payload),
             _ => {}
         }
     }
@@ -101,7 +143,10 @@ async fn capture_configuration(port: u16) -> Vec<Vec<u8>> {
 }
 
 fn write_fixture(dir: &Path, name: &str, captured: &Captured, expect_packets: bool) {
-    assert!(!expect_packets || !captured.packets.is_empty(), "{name}: no configuration packets captured from vanilla");
+    assert!(
+        !expect_packets || !captured.packets.is_empty(),
+        "{name}: no configuration packets captured from vanilla"
+    );
     std::fs::create_dir_all(dir).unwrap();
     let mut bin = Vec::new();
     for p in &captured.packets {
@@ -110,7 +155,11 @@ fn write_fixture(dir: &Path, name: &str, captured: &Captured, expect_packets: bo
     }
     std::fs::write(dir.join(format!("{name}.bin")), bin).unwrap();
     // `.log` is git-ignored: the server logs would silently be missing from a clone
-    std::fs::write(dir.join(format!("{name}.server-log.txt")), captured.log.join("\n") + "\n").unwrap();
+    std::fs::write(
+        dir.join(format!("{name}.server-log.txt")),
+        captured.log.join("\n") + "\n",
+    )
+    .unwrap();
 }
 
 /// Records the three worlds into the committed fixtures. It is a generator, not a check: it does nothing unless
@@ -122,10 +171,23 @@ fn regen_oracle_fixtures() {
         return;
     }
     let dir = fixture_dir();
-    let rt = tokio::runtime::Builder::new_multi_thread().enable_all().build().unwrap();
+    let rt = tokio::runtime::Builder::new_multi_thread()
+        .enable_all()
+        .build()
+        .unwrap();
     rt.block_on(async {
         write_fixture(&dir, "default", &run_vanilla(|_| {}, true).await, true);
-        write_fixture(&dir, "custom", &run_vanilla(test_packs::write_custom_packs, true).await, true);
-        write_fixture(&dir, "broken", &run_vanilla(test_packs::write_broken_packs, false).await, false);
+        write_fixture(
+            &dir,
+            "custom",
+            &run_vanilla(test_packs::write_custom_packs, true).await,
+            true,
+        );
+        write_fixture(
+            &dir,
+            "broken",
+            &run_vanilla(test_packs::write_broken_packs, false).await,
+            false,
+        );
     });
 }

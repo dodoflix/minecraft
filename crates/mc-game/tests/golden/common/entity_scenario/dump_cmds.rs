@@ -8,13 +8,22 @@ pub(super) fn dump(h: &mut Harness, kind: &str, arg: Option<&str>) -> bool {
     match kind {
         "goals" => {
             let id = h.entity_ref(name);
-            let e = h.level.get_entity(id).unwrap_or_else(|| h.fail(&format!("entity {name} is not in the level")));
+            let e = h
+                .level
+                .get_entity(id)
+                .unwrap_or_else(|| h.fail(&format!("entity {name} is not in the level")));
             h.out.extend(sd::goal_lines(name, e));
         }
         "brain" => {
             let id = h.entity_ref(name);
-            let ctx = ScenarioDumpCtx { names: &h.names, uuids: &h.uuids };
-            let e = h.level.get_entity(id).unwrap_or_else(|| h.fail(&format!("entity {name} is not in the level")));
+            let ctx = ScenarioDumpCtx {
+                names: &h.names,
+                uuids: &h.uuids,
+            };
+            let e = h
+                .level
+                .get_entity(id)
+                .unwrap_or_else(|| h.fail(&format!("entity {name} is not in the level")));
             let lines = sd::brain_lines(name, e, &h.level, &ctx);
             h.out.extend(lines);
         }
@@ -25,17 +34,43 @@ pub(super) fn dump(h: &mut Harness, kind: &str, arg: Option<&str>) -> bool {
         // ATTR REF id:value ...  every attribute of the type's supplier, sorted, final values
         "attrs" => {
             let id = h.entity_ref(name);
-            let e = h.level.get_entity(id).unwrap_or_else(|| h.fail(&format!("entity {name} is not in the level")));
-            let l = e.living().unwrap_or_else(|| h.fail("attrs: not a living entity"));
-            let mut v: Vec<String> =
-                e.get_type().data().default_attributes.iter().map(|(a, _)| format!("{}:{}", a.name(), mc_core::math::java::java_double_to_string(l.attributes.get_value(*a)))).collect();
+            let e = h
+                .level
+                .get_entity(id)
+                .unwrap_or_else(|| h.fail(&format!("entity {name} is not in the level")));
+            let l = e
+                .living()
+                .unwrap_or_else(|| h.fail("attrs: not a living entity"));
+            let mut v: Vec<String> = e
+                .get_type()
+                .data()
+                .default_attributes
+                .iter()
+                .map(|(a, _)| {
+                    format!(
+                        "{}:{}",
+                        a.name(),
+                        mc_core::math::java::java_double_to_string(l.attributes.get_value(*a))
+                    )
+                })
+                .collect();
             v.sort();
-            h.out.push(format!("ATTR {name} {}", if v.is_empty() { "-".to_string() } else { v.join(" ") }));
+            h.out.push(format!(
+                "ATTR {name} {}",
+                if v.is_empty() {
+                    "-".to_string()
+                } else {
+                    v.join(" ")
+                }
+            ));
         }
         // N REF {canonical sorted SNBT of saveWithoutId, UUID removed}
         "nbt" => {
             let id = h.entity_ref(name);
-            let e = h.level.get_entity(id).unwrap_or_else(|| h.fail(&format!("entity {name} is not in the level")));
+            let e = h
+                .level
+                .get_entity(id)
+                .unwrap_or_else(|| h.fail(&format!("entity {name} is not in the level")));
             let mut tag = CompoundTag::new();
             e.save_without_id(&mut tag, &|i| h.level.get_entity(i));
             tag.remove("UUID");

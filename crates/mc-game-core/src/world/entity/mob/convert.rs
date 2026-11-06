@@ -2,11 +2,11 @@
 
 use super::{ageable, ext};
 use crate::server::level::ServerLevel;
+use crate::world::entity::Entity;
 use crate::world::entity::effect::MobEffectInstance;
 use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::factory::{self, EntitySpawnRequest};
 use crate::world::entity::living_entity::util::{l, lm};
-use crate::world::entity::Entity;
 use mc_data::EntityType;
 use mc_data::enums::EntitySpawnReason;
 
@@ -35,15 +35,27 @@ pub struct ConversionParams {
 
 impl ConversionParams {
     /// `ConversionParams.single(mob, keepEquipment, preserveCanPickUpLoot)`.
-    pub fn single(mob: &dyn Entity, level: &ServerLevel, keep_equipment: bool, preserve_can_pick_up_loot: bool) -> Self {
-        Self { ty: ConversionType::Single, keep_equipment, preserve_can_pick_up_loot, team: team_of(level, mob) }
+    pub fn single(
+        mob: &dyn Entity,
+        level: &ServerLevel,
+        keep_equipment: bool,
+        preserve_can_pick_up_loot: bool,
+    ) -> Self {
+        Self {
+            ty: ConversionType::Single,
+            keep_equipment,
+            preserve_can_pick_up_loot,
+            team: team_of(level, mob),
+        }
     }
 }
 
 /// `Entity.getTeam()` as the team name.
 fn team_of(level: &ServerLevel, e: &dyn Entity) -> Option<String> {
     let scoreboard = level.scoreboard();
-    scoreboard.get_players_team(&e.get_scoreboard_name()).map(|t| t.get_name().to_string())
+    scoreboard
+        .get_players_team(&e.get_scoreboard_name())
+        .map(|t| t.get_name().to_string())
 }
 
 /// `Mob.convertTo(type, params, spawnReason, afterConversion)`: the converted mob's id (already added to the level).
@@ -59,7 +71,14 @@ pub fn convert_to(
     if from.is_removed() {
         return None;
     }
-    let mut new_mob = factory::create(ty, level, EntitySpawnRequest { reason: spawn_reason, ignore_checks: false })?;
+    let mut new_mob = factory::create(
+        ty,
+        level,
+        EntitySpawnRequest {
+            reason: spawn_reason,
+            ignore_checks: false,
+        },
+    )?;
     convert(from, new_mob.as_mut(), level, params);
     after_conversion(new_mob.as_mut(), level);
     let new_id = new_mob.id();
@@ -74,14 +93,21 @@ pub fn convert_to(
 }
 
 /// The riding part of `ConversionType.SINGLE.convert` (needs the converted mob in the level).
-fn relink_riding(from: &mut dyn Entity, level: &mut ServerLevel, to_id: crate::world::entity::EntityId) {
+fn relink_riding(
+    from: &mut dyn Entity,
+    level: &mut ServerLevel,
+    to_id: crate::world::entity::EntityId,
+) {
     let root_passenger = from.base().passengers.first().copied();
     if let Some(root) = root_passenger {
         level.with_entity(root, |level, p| {
             level.stop_riding(p);
             p.base_mut().boarding_cooldown = 0;
         });
-        let existing: Vec<_> = level.get_entity(to_id).map(|t| t.base().passengers.clone()).unwrap_or_default();
+        let existing: Vec<_> = level
+            .get_entity(to_id)
+            .map(|t| t.base().passengers.clone())
+            .unwrap_or_default();
         for passenger in existing {
             level.with_entity(passenger, |level, p| {
                 level.stop_riding(p);
@@ -101,26 +127,35 @@ fn relink_riding(from: &mut dyn Entity, level: &mut ServerLevel, to_id: crate::w
 }
 
 /// `ConversionType.convert(from, to, params)` without the riding links (see [`relink_riding`]).
-fn convert(from: &mut dyn Entity, to: &mut dyn Entity, level: &mut ServerLevel, params: &ConversionParams) {
+fn convert(
+    from: &mut dyn Entity,
+    to: &mut dyn Entity,
+    level: &mut ServerLevel,
+    params: &ConversionParams,
+) {
     match params.ty {
         ConversionType::Single => {
             let (p, yr, xr) = (from.position(), from.base().y_rot(), from.base().x_rot());
             to.snap_to(p.x, p.y, p.z, yr, xr);
-            to.base_mut().set_delta_movement(from.base().delta_movement());
+            to.base_mut()
+                .set_delta_movement(from.base().delta_movement());
             if params.keep_equipment {
                 for slot in EquipmentSlot::VALUES {
                     let item = from.get_item_by_slot(slot);
                     if !item.is_empty() {
                         lm(from).equipment.get_mut(slot).set_count(0);
                         super::equipment::set_item_slot_spawn(to, slot, item);
-                        let chance = from.mob().map_or(0.085, |m| m.drop_chances.by_equipment(slot));
+                        let chance = from
+                            .mob()
+                            .map_or(0.085, |m| m.drop_chances.by_equipment(slot));
                         super::equipment::set_drop_chance(to, slot, chance);
                     }
                 }
             }
             to.base_mut().fall_distance = from.base().fall_distance;
             let fall_flying = l(from).is_fall_flying();
-            to.base_mut().set_shared_flag(crate::world::entity::entity::FLAG_FALL_FLYING, fall_flying);
+            to.base_mut()
+                .set_shared_flag(crate::world::entity::entity::FLAG_FALL_FLYING, fall_flying);
             lm(to).last_hurt_by_player_memory_time = l(from).last_hurt_by_player_memory_time;
             lm(to).hurt_time = l(from).hurt_time;
             lm(to).y_body_rot = l(from).y_body_rot;
@@ -130,7 +165,9 @@ fn convert(from: &mut dyn Entity, to: &mut dyn Entity, level: &mut ServerLevel, 
                 lm(to).set_sleeping_pos(pos);
             }
             if let Some(holder) = super::leashable::get_leash_holder(from) {
-                let info = level.get_entity(holder).map(super::leashable::LeashHolder::of);
+                let info = level
+                    .get_entity(holder)
+                    .map(super::leashable::LeashHolder::of);
                 if let Some(info) = info {
                     super::leashable::set_leashed_to(to, level, info, true);
                 }
@@ -150,7 +187,12 @@ fn convert(from: &mut dyn Entity, to: &mut dyn Entity, level: &mut ServerLevel, 
 }
 
 /// `ConversionType.convertCommon(from, to, params)`.
-fn convert_common(from: &mut dyn Entity, to: &mut dyn Entity, level: &mut ServerLevel, params: &ConversionParams) {
+fn convert_common(
+    from: &mut dyn Entity,
+    to: &mut dyn Entity,
+    level: &mut ServerLevel,
+    params: &ConversionParams,
+) {
     let absorption = from.get_absorption_amount();
     to.set_absorption_amount(absorption);
     let effects: Vec<MobEffectInstance> = l(from).active_effects.values().cloned().collect();
@@ -160,9 +202,14 @@ fn convert_common(from: &mut dyn Entity, to: &mut dyn Entity, level: &mut Server
     if from.is_baby() {
         to.set_baby(true);
     }
-    if from.mob().is_some_and(|m| m.ageable.is_some()) && to.mob().is_some_and(|m| m.ageable.is_some()) {
+    if from.mob().is_some_and(|m| m.ageable.is_some())
+        && to.mob().is_some_and(|m| m.ageable.is_some())
+    {
         let (age, forced_age, forced_age_timer) = {
-            let a = from.mob().and_then(|m| m.ageable.as_ref()).expect("ageable");
+            let a = from
+                .mob()
+                .and_then(|m| m.ageable.as_ref())
+                .expect("ageable");
             (a.age, a.forced_age, a.forced_age_timer)
         };
         ageable::set_age(to, age);
@@ -199,7 +246,13 @@ fn convert_common(from: &mut dyn Entity, to: &mut dyn Entity, level: &mut Server
     to.base_mut().portal_cooldown = from.base().portal_cooldown;
     let silent = from.base().is_silent();
     to.base_mut().set_silent(silent);
-    let tags: Vec<String> = from.base().tags.iter_java_order().into_iter().map(|t| t.to_string()).collect();
+    let tags: Vec<String> = from
+        .base()
+        .tags
+        .iter_java_order()
+        .into_iter()
+        .map(|t| t.to_string())
+        .collect();
     for t in tags {
         to.base_mut().add_tag(&t);
     }

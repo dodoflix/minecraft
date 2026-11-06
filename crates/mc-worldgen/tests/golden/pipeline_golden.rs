@@ -2,7 +2,6 @@
 //! settings x 3 seeds x 12 chunk positions: block states of every section, heightmaps and post-processing marks
 //! (fixture `tests/fixtures/terrain_golden.txt`, generator `tests/oracle/TerrainOracle.java`, `F*` lines).
 
-
 use mc_worldgen::biome::BiomeManager;
 use mc_worldgen::blending::Blender;
 use std::cell::{Cell, RefCell};
@@ -90,20 +89,34 @@ fn run_pipeline(use_cache: bool) {
                 checked += 1;
                 let got = section_hashes(&chunk).trim_start().to_owned();
                 if got != lines[0] {
-                    let first = got.split(' ').zip(lines[0].split(' ')).position(|(a, b)| a != b);
-                    bad.push(format!("{key}: blocks differ (first differing section {first:?})"));
+                    let first = got
+                        .split(' ')
+                        .zip(lines[0].split(' '))
+                        .position(|(a, b)| a != b);
+                    bad.push(format!(
+                        "{key}: blocks differ (first differing section {first:?})"
+                    ));
                 }
                 let got_hm = heightmap_lines(&mut chunk);
                 if got_hm != heightmaps[key] {
-                    bad.push(format!("{key}: heightmaps {got_hm:?} != {:?}", heightmaps[key]));
+                    bad.push(format!(
+                        "{key}: heightmaps {got_hm:?} != {:?}",
+                        heightmaps[key]
+                    ));
                 }
                 let got_post = format!("{:016x}", post_processing_hash(&chunk));
                 if got_post != post[key][0] {
-                    bad.push(format!("{key}: post-processing {got_post} != {}", post[key][0]));
+                    bad.push(format!(
+                        "{key}: post-processing {got_post} != {}",
+                        post[key][0]
+                    ));
                 }
             }
             if use_cache {
-                assert!(cache.computed.get() > 0, "carver biome cache never consulted");
+                assert!(
+                    cache.computed.get() > 0,
+                    "carver biome cache never consulted"
+                );
             }
         }
     }

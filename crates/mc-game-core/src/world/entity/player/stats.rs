@@ -31,24 +31,35 @@ impl ServerPlayer {
     pub fn award_stat(&mut self, level: &ServerLevel, stat: Stat, count: i32) {
         self.stats.lock().increment(stat, count);
         let criteria = ObjectiveCriteria::stat(build_name(&stat));
-        level.scoreboard_mut().for_all_objectives(&criteria, &*self, |score| {
-            let _ = score.add(count);
-        });
+        level
+            .scoreboard_mut()
+            .for_all_objectives(&criteria, &*self, |score| {
+                let _ = score.add(count);
+            });
     }
 
     /// `ServerPlayer.resetStat(stat)`.
     pub fn reset_stat(&mut self, level: &ServerLevel, stat: Stat) {
         self.stats.lock().set_value(stat, 0);
         let criteria = ObjectiveCriteria::stat(build_name(&stat));
-        level.scoreboard_mut().for_all_objectives(&criteria, &*self, |score| {
-            let _ = score.reset();
-        });
+        level
+            .scoreboard_mut()
+            .for_all_objectives(&criteria, &*self, |score| {
+                let _ = score.reset();
+            });
     }
 
     /// `updateScoreForCriteria(criteria, value)`.
-    pub fn update_score_for_criteria(&self, level: &ServerLevel, criteria: &ObjectiveCriteria, value: i32) {
-        level.scoreboard_mut().for_all_objectives(criteria, self, |score| {
-            let _ = score.set(value);
-        });
+    pub fn update_score_for_criteria(
+        &self,
+        level: &ServerLevel,
+        criteria: &ObjectiveCriteria,
+        value: i32,
+    ) {
+        level
+            .scoreboard_mut()
+            .for_all_objectives(criteria, self, |score| {
+                let _ = score.set(value);
+            });
     }
 }

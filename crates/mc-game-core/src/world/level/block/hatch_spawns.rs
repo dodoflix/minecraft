@@ -31,8 +31,19 @@ pub fn snap_to_tag(x: f64, y: f64, z: f64, y_rot: f32, x_rot: f32) -> CompoundTa
 }
 
 /// `EntityType.create(level, BREEDING)` + the configuration in `tag` + `level.addFreshEntity(entity)`: the new entity.
-pub fn spawn_breeding(level: &mut ServerLevel, ty: EntityType, tag: &CompoundTag) -> Option<EntityId> {
-    let Some(mut entity) = factory::create(ty, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false }) else {
+pub fn spawn_breeding(
+    level: &mut ServerLevel,
+    ty: EntityType,
+    tag: &CompoundTag,
+) -> Option<EntityId> {
+    let Some(mut entity) = factory::create(
+        ty,
+        level,
+        EntitySpawnRequest {
+            reason: EntitySpawnReason::Breeding,
+            ignore_checks: false,
+        },
+    ) else {
         return None;
     };
     if let Err(message) = entity.load(tag) {

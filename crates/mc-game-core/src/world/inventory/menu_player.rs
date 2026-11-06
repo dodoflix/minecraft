@@ -5,8 +5,8 @@ use crate::server::level::ServerLevel;
 use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::player::inventory::Inventory;
 use crate::world::item::ItemStack;
-use mc_protocol::components::EQUIPPABLE;
 use mc_core::pos::BlockPos;
+use mc_protocol::components::EQUIPPABLE;
 
 /// `net.minecraft.util.Prediction`.
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
@@ -17,7 +17,9 @@ pub enum Prediction {
 
 /// `Equippable.slot()` of `stack` (the `minecraft:equippable` component), if any.
 pub(crate) fn equippable_slot(stack: &ItemStack) -> Option<EquipmentSlot> {
-    stack.get(&EQUIPPABLE).map(|e| EquipmentSlot::from_protocol(e.slot))
+    stack
+        .get(&EQUIPPABLE)
+        .map(|e| EquipmentSlot::from_protocol(e.slot))
 }
 
 pub trait MenuPlayer {
@@ -85,12 +87,20 @@ pub trait MenuPlayer {
     /// `isWithinBlockInteractionRange(pos, buffer)`.
     fn is_within_block_interaction_range(&self, pos: BlockPos, buffer: f64) -> bool;
     /// `isWithinEntityInteractionRange(box, buffer)` (level-less test players are always in range).
-    fn is_within_entity_interaction_range(&self, _target: &mc_core::phys::AABB, _buffer: f64) -> bool {
+    fn is_within_entity_interaction_range(
+        &self,
+        _target: &mc_core::phys::AABB,
+        _buffer: f64,
+    ) -> bool {
         true
     }
     /// Runs `f` with the real `ServerLevel`/`ServerPlayer` (advancement triggers, stats, xp, ...); no-op for test
     /// players. The player's own menus are detached while a menu runs.
-    fn with_server_player(&mut self, _f: &mut dyn FnMut(&mut ServerLevel, &mut crate::world::entity::player::ServerPlayer)) {}
+    fn with_server_player(
+        &mut self,
+        _f: &mut dyn FnMut(&mut ServerLevel, &mut crate::world::entity::player::ServerPlayer),
+    ) {
+    }
     /// Read-only view of the player's level (`None` for level-less test players).
     fn level_ref(&self) -> Option<&ServerLevel> {
         None
@@ -137,7 +147,12 @@ pub trait MenuPlayer {
 }
 
 /// `Inventory.placeItemBackInInventory(stack, shouldSendSetSlotPacket, prediction)`.
-pub fn place_item_back_in_inventory(player: &mut dyn MenuPlayer, stack: &mut ItemStack, should_send_set_slot_packet: bool, prediction: Prediction) {
+pub fn place_item_back_in_inventory(
+    player: &mut dyn MenuPlayer,
+    stack: &mut ItemStack,
+    should_send_set_slot_packet: bool,
+    prediction: Prediction,
+) {
     while !stack.is_empty() {
         let mut slot = player.inventory().get_slot_with_remaining_space(stack);
         if slot == -1 {
@@ -148,11 +163,18 @@ pub fn place_item_back_in_inventory(player: &mut dyn MenuPlayer, stack: &mut Ite
             player.drop(rest, false, prediction);
             break;
         }
-        let space = stack.get_max_stack_size() - crate::world::container::Container::get_item(player.inventory(), slot as usize).count();
+        let space = stack.get_max_stack_size()
+            - crate::world::container::Container::get_item(player.inventory(), slot as usize)
+                .count();
         let mut part = stack.split(space);
         let infinite = player.has_infinite_materials();
-        if player.inventory_mut().add_at(slot, &mut part, infinite) && should_send_set_slot_packet && player.is_server_player() {
-            let updated = crate::world::container::Container::get_item(player.inventory(), slot as usize).copy();
+        if player.inventory_mut().add_at(slot, &mut part, infinite)
+            && should_send_set_slot_packet
+            && player.is_server_player()
+        {
+            let updated =
+                crate::world::container::Container::get_item(player.inventory(), slot as usize)
+                    .copy();
             player.send_inventory_slot_update(slot as usize, updated);
         }
     }

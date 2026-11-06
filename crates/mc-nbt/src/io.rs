@@ -65,27 +65,40 @@ pub(crate) fn read_utf(input: &mut &[u8]) -> Result<String> {
             12 | 13 => {
                 count += 2;
                 if count > utflen {
-                    return Err(NbtError::MalformedUtf("malformed input: partial character at end".into()));
+                    return Err(NbtError::MalformedUtf(
+                        "malformed input: partial character at end".into(),
+                    ));
                 }
                 let c2 = bytes[count - 1] as u32;
                 if c2 & 0xC0 != 0x80 {
-                    return Err(NbtError::MalformedUtf(format!("malformed input around byte {count}")));
+                    return Err(NbtError::MalformedUtf(format!(
+                        "malformed input around byte {count}"
+                    )));
                 }
                 units.push((((c & 0x1F) << 6) | (c2 & 0x3F)) as u16);
             }
             14 => {
                 count += 3;
                 if count > utflen {
-                    return Err(NbtError::MalformedUtf("malformed input: partial character at end".into()));
+                    return Err(NbtError::MalformedUtf(
+                        "malformed input: partial character at end".into(),
+                    ));
                 }
                 let c2 = bytes[count - 2] as u32;
                 let c3 = bytes[count - 1] as u32;
                 if c2 & 0xC0 != 0x80 || c3 & 0xC0 != 0x80 {
-                    return Err(NbtError::MalformedUtf(format!("malformed input around byte {}", count - 1)));
+                    return Err(NbtError::MalformedUtf(format!(
+                        "malformed input around byte {}",
+                        count - 1
+                    )));
                 }
                 units.push((((c & 0x0F) << 12) | ((c2 & 0x3F) << 6) | (c3 & 0x3F)) as u16);
             }
-            _ => return Err(NbtError::MalformedUtf(format!("malformed input around byte {count}"))),
+            _ => {
+                return Err(NbtError::MalformedUtf(format!(
+                    "malformed input around byte {count}"
+                )));
+            }
         }
     }
     Ok(String::from_utf16_lossy(&units))
@@ -118,7 +131,9 @@ pub(crate) fn write_utf(out: &mut Vec<u8>, s: &str, fallback: bool) -> Result<()
         let units: Vec<u16> = s.encode_utf16().collect();
         let head = String::from_utf16_lossy(&units[..8]);
         let tail = String::from_utf16_lossy(&units[units.len() - 8..]);
-        return Err(NbtError::MalformedUtf(format!("encoded string ({head}...{tail}) too long: {utflen} bytes")));
+        return Err(NbtError::MalformedUtf(format!(
+            "encoded string ({head}...{tail}) too long: {utflen} bytes"
+        )));
     }
     out.extend_from_slice(&(utflen as u16).to_be_bytes());
     if s.is_ascii() && !s.contains('\0') {
@@ -159,8 +174,17 @@ impl Tag {
             Tag::Int(v) => out.extend_from_slice(&v.to_be_bytes()),
             Tag::Long(v) => out.extend_from_slice(&v.to_be_bytes()),
             // DataOutput.writeFloat/writeDouble use floatToIntBits/doubleToLongBits: NaN is canonical.
-            Tag::Float(v) => out.extend_from_slice(&(if v.is_nan() { 0x7fc0_0000 } else { v.to_bits() }).to_be_bytes()),
-            Tag::Double(v) => out.extend_from_slice(&(if v.is_nan() { 0x7ff8_0000_0000_0000 } else { v.to_bits() }).to_be_bytes()),
+            Tag::Float(v) => out.extend_from_slice(
+                &(if v.is_nan() { 0x7fc0_0000 } else { v.to_bits() }).to_be_bytes(),
+            ),
+            Tag::Double(v) => out.extend_from_slice(
+                &(if v.is_nan() {
+                    0x7ff8_0000_0000_0000
+                } else {
+                    v.to_bits()
+                })
+                .to_be_bytes(),
+            ),
             Tag::ByteArray(v) => {
                 out.extend_from_slice(&(v.len() as i32).to_be_bytes());
                 out.extend(v.iter().map(|b| *b as u8));
@@ -206,7 +230,9 @@ impl ListTag {
         out.extend_from_slice(&(self.len() as i32).to_be_bytes());
         for element in self.iter() {
             match element {
-                Tag::Compound(c) if element_type == TAG_COMPOUND && !is_wrapper(c) => c.write_payload(out, fallback)?,
+                Tag::Compound(c) if element_type == TAG_COMPOUND && !is_wrapper(c) => {
+                    c.write_payload(out, fallback)?
+                }
                 _ if element_type == TAG_COMPOUND => {
                     // wrapElement: {"": element}
                     out.push(element.id());
@@ -287,14 +313,24 @@ impl Tag {
                 let len = read_i32(input)?;
                 acc.account_bytes_n(4, len as i64)?;
                 let bytes = take(input, len as usize * 4)?;
-                Ok(Tag::IntArray(bytes.chunks_exact(4).map(|c| i32::from_be_bytes(c.try_into().unwrap())).collect()))
+                Ok(Tag::IntArray(
+                    bytes
+                        .chunks_exact(4)
+                        .map(|c| i32::from_be_bytes(c.try_into().unwrap()))
+                        .collect(),
+                ))
             }
             TAG_LONG_ARRAY => {
                 acc.account_bytes(24)?;
                 let len = read_i32(input)?;
                 acc.account_bytes_n(8, len as i64)?;
                 let bytes = take(input, len as usize * 8)?;
-                Ok(Tag::LongArray(bytes.chunks_exact(8).map(|c| i64::from_be_bytes(c.try_into().unwrap())).collect()))
+                Ok(Tag::LongArray(
+                    bytes
+                        .chunks_exact(8)
+                        .map(|c| i64::from_be_bytes(c.try_into().unwrap()))
+                        .collect(),
+                ))
             }
             _ => Err(NbtError::InvalidTagId(id as i8 as i32)),
         }
@@ -304,7 +340,9 @@ impl Tag {
 fn read_list_count(input: &mut &[u8]) -> Result<i32> {
     let count = read_i32(input)?;
     if count < 0 {
-        return Err(NbtError::Format(format!("ListTag length cannot be negative: {count}")));
+        return Err(NbtError::Format(format!(
+            "ListTag length cannot be negative: {count}"
+        )));
     }
     Ok(count)
 }
@@ -350,10 +388,19 @@ fn load_compound(input: &mut &[u8], acc: &mut NbtAccounter) -> Result<CompoundTa
 }
 
 /// `CompoundTag.readNamedTagData`: IO failures become a `ReportedNbtException`.
-fn read_named_tag_data(tag_type: u8, name: &str, input: &mut &[u8], acc: &mut NbtAccounter) -> Result<Tag> {
+fn read_named_tag_data(
+    tag_type: u8,
+    name: &str,
+    input: &mut &[u8],
+    acc: &mut NbtAccounter,
+) -> Result<Tag> {
     Tag::load(tag_type, input, acc).map_err(|e| {
         if e.is_io() {
-            NbtError::Reported { tag_name: Some(name.to_string()), tag_type: Tag::type_name(tag_type), cause: Box::new(e) }
+            NbtError::Reported {
+                tag_name: Some(name.to_string()),
+                tag_type: Tag::type_name(tag_type),
+                cause: Box::new(e),
+            }
         } else {
             e
         }
@@ -364,7 +411,11 @@ fn read_named_tag_data(tag_type: u8, name: &str, input: &mut &[u8], acc: &mut Nb
 fn read_tag_safe(input: &mut &[u8], acc: &mut NbtAccounter, type_id: u8) -> Result<Tag> {
     Tag::load(type_id, input, acc).map_err(|e| {
         if e.is_io() {
-            NbtError::Reported { tag_name: None, tag_type: (type_id as i8).to_string(), cause: Box::new(e) }
+            NbtError::Reported {
+                tag_name: None,
+                tag_type: (type_id as i8).to_string(),
+                cause: Box::new(e),
+            }
         } else {
             e
         }
@@ -426,7 +477,8 @@ pub fn write_unnamed_tag_with_fallback(tag: &Tag, out: &mut Vec<u8>) {
     out.push(tag.id());
     if tag.id() != 0 {
         out.extend_from_slice(&[0, 0]);
-        tag.write_payload(out, true).expect("fallback writes cannot fail");
+        tag.write_payload(out, true)
+            .expect("fallback writes cannot fail");
     }
 }
 
@@ -435,7 +487,8 @@ pub fn write_unnamed_tag_with_fallback(tag: &Tag, out: &mut Vec<u8>) {
 pub fn write(tag: &CompoundTag, out: &mut Vec<u8>) {
     out.push(TAG_COMPOUND);
     out.extend_from_slice(&[0, 0]);
-    tag.write_payload(out, true).expect("fallback writes cannot fail");
+    tag.write_payload(out, true)
+        .expect("fallback writes cannot fail");
 }
 
 /// [`write`] into a fresh buffer.

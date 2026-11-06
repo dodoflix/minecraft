@@ -1,24 +1,31 @@
 //! `net.minecraft.world.entity.monster.Endermite`.
 
-use mc_game_core::register_spawn_placement;
-use mc_game_core::registry::RegistryAccess;
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::damagesource::DamageSource;
-use mc_game_core::world::entity::ai::goal::target::{HurtByTargetGoal, NearestAttackableTargetGoal, TargetType};
-use mc_game_ai::world::entity::ai::goal::ClimbOnTopOfPowderSnowGoal;
-use mc_game_core::world::entity::ai::goal::{FloatGoal, LookAtPlayerGoal, MeleeAttackGoal, RandomLookAroundGoal, WaterAvoidingRandomStrollGoal};
-use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
-use mc_game_core::world::entity::entity::MovementEmission;
-use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
-use mc_game_core::world::entity::mob::{self, MobData, MobKind};
-use mc_game_core::world::entity::spawn_predicates::{check_any_light_monster_spawn_rules, is_spawner};
-use mc_game_core::world::entity::{Entity, EntityId};
-use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::enums::EntitySpawnReason;
 use mc_data::{EntityType, SoundEvent};
+use mc_game_ai::world::entity::ai::goal::ClimbOnTopOfPowderSnowGoal;
+use mc_game_core::register_spawn_placement;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::entity::ai::goal::target::{
+    HurtByTargetGoal, NearestAttackableTargetGoal, TargetType,
+};
+use mc_game_core::world::entity::ai::goal::{
+    FloatGoal, LookAtPlayerGoal, MeleeAttackGoal, RandomLookAroundGoal,
+    WaterAvoidingRandomStrollGoal,
+};
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::entity::MovementEmission;
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::spawn_predicates::{
+    check_any_light_monster_spawn_rules, is_spawner,
+};
+use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_nbt::CompoundTag;
 
 const MAX_LIFE: i32 = 2400;
@@ -53,8 +60,14 @@ impl Endermite {
         goals.add_goal(7, Box::new(look_at));
         goals.add_goal(8, Box::new(RandomLookAroundGoal::new()));
         let targets = &mut self.mob.target_selector;
-        targets.add_goal(1, Box::new(HurtByTargetGoal::new(Vec::new()).set_alert_others(Vec::new())));
-        targets.add_goal(2, Box::new(NearestAttackableTargetGoal::new(TargetType::Player, true)));
+        targets.add_goal(
+            1,
+            Box::new(HurtByTargetGoal::new(Vec::new()).set_alert_others(Vec::new())),
+        );
+        targets.add_goal(
+            2,
+            Box::new(NearestAttackableTargetGoal::new(TargetType::Player, true)),
+        );
     }
 }
 
@@ -77,7 +90,12 @@ impl Entity for Endermite {
         Some(SoundEvent::ENTITY_ENDERMITE_DEATH)
     }
 
-    fn play_step_sound(&mut self, level: &mut ServerLevel, _pos: BlockPos, _state: mc_data::block::BlockState) {
+    fn play_step_sound(
+        &mut self,
+        level: &mut ServerLevel,
+        _pos: BlockPos,
+        _state: mc_data::block::BlockState,
+    ) {
         self.play_sound(level, SoundEvent::ENTITY_ENDERMITE_STEP, 0.15, 1.0);
     }
 
@@ -113,17 +131,33 @@ impl Entity for Endermite {
 }
 
 /// `Endermite.checkEndermiteSpawnRules`.
-fn check_endermite_spawn_rules(ty: EntityType, level: &dyn ServerLevelAccessor, reason: EntitySpawnReason, pos: BlockPos, random: &mut dyn RandomSource) -> bool {
+fn check_endermite_spawn_rules(
+    ty: EntityType,
+    level: &dyn ServerLevelAccessor,
+    reason: EntitySpawnReason,
+    pos: BlockPos,
+    random: &mut dyn RandomSource,
+) -> bool {
     if !check_any_light_monster_spawn_rules(ty, level, reason, pos, random) {
         false
     } else if is_spawner(reason) {
         true
     } else {
-        level.get_nearest_player_ignoring_creative(f64::from(pos.x()) + 0.5, f64::from(pos.y()) + 0.5, f64::from(pos.z()) + 0.5, 5.0).is_none()
+        level
+            .get_nearest_player_ignoring_creative(
+                f64::from(pos.x()) + 0.5,
+                f64::from(pos.y()) + 0.5,
+                f64::from(pos.z()) + 0.5,
+                5.0,
+            )
+            .is_none()
     }
 }
 
 register_spawn_placement!(EntityType::ENDERMITE, check_endermite_spawn_rules);
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static ENDERMITE: EntityRegistration = EntityRegistration { entity_type: EntityType::ENDERMITE, create: |ty, id, registries| Box::new(Endermite::new(ty, id, registries)) };
+static ENDERMITE: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::ENDERMITE,
+    create: |ty, id, registries| Box::new(Endermite::new(ty, id, registries)),
+};

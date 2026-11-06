@@ -10,7 +10,9 @@ pub const BYTES: usize = 256;
 
 /// `MessageSignature.checksum()` / `Arrays.hashCode(bytes)` (bytes are signed in Java).
 pub fn checksum(signature: &MessageSignature) -> i32 {
-    signature.0.iter().fold(1i32, |h, &b| h.wrapping_mul(31).wrapping_add(i32::from(b as i8)))
+    signature.0.iter().fold(1i32, |h, &b| {
+        h.wrapping_mul(31).wrapping_add(i32::from(b as i8))
+    })
 }
 
 /// `MessageSignature.toString()`: base64.
@@ -32,7 +34,10 @@ pub fn pack(signature: &MessageSignature, cache: &MessageSignatureCache) -> Mess
 }
 
 /// `MessageSignature.Packed.unpack(cache)`: `Err` where vanilla's array access throws (id outside the cache).
-pub fn unpack(packed: &MessageSignaturePacked, cache: &MessageSignatureCache) -> Result<Option<MessageSignature>, super::message_signature_cache::IdOutOfRange> {
+pub fn unpack(
+    packed: &MessageSignaturePacked,
+    cache: &MessageSignatureCache,
+) -> Result<Option<MessageSignature>, super::message_signature_cache::IdOutOfRange> {
     match packed {
         MessageSignaturePacked::Full(signature) => Ok(Some(signature.clone())),
         MessageSignaturePacked::Cached(id) => cache.unpack(*id),

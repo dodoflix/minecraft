@@ -38,7 +38,10 @@ pub struct RegionFile {
 }
 
 fn get_timestamp() -> i32 {
-    (SystemTime::now().duration_since(UNIX_EPOCH).map_or(0, |d| d.as_millis()) / 1000) as i32
+    (SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .map_or(0, |d| d.as_millis())
+        / 1000) as i32
 }
 
 fn is_external_stream_chunk(version: u8) -> bool {
@@ -86,9 +89,14 @@ fn read_at_most(file: &File, buf: &mut [u8], position: u64) -> io::Result<usize>
 fn temp_file_in(dir: &Path) -> io::Result<(PathBuf, File)> {
     static COUNTER: AtomicU64 = AtomicU64::new(0);
     loop {
-        let nanos = SystemTime::now().duration_since(UNIX_EPOCH).map_or(0, |d| d.as_nanos() as u64);
+        let nanos = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .map_or(0, |d| d.as_nanos() as u64);
         let n = COUNTER.fetch_add(1, Ordering::Relaxed);
-        let path = dir.join(format!("tmp{}.tmp", nanos ^ n.rotate_left(40) ^ (u64::from(std::process::id()) << 20)));
+        let path = dir.join(format!(
+            "tmp{}.tmp",
+            nanos ^ n.rotate_left(40) ^ (u64::from(std::process::id()) << 20)
+        ));
         match OpenOptions::new().write(true).create_new(true).open(&path) {
             Ok(f) => return Ok((path, f)),
             Err(e) if e.kind() == io::ErrorKind::AlreadyExists => {}
@@ -99,8 +107,19 @@ fn temp_file_in(dir: &Path) -> io::Result<(PathBuf, File)> {
 
 impl RegionFile {
     /// `RegionFile(info, path, externalFileDir, sync)` with the globally selected compression.
-    pub fn new(info: RegionStorageInfo, path: &Path, external_file_dir: &Path, sync: bool) -> io::Result<Self> {
-        Self::with_version(info, path, external_file_dir, RegionFileVersion::get_selected(), sync)
+    pub fn new(
+        info: RegionStorageInfo,
+        path: &Path,
+        external_file_dir: &Path,
+        sync: bool,
+    ) -> io::Result<Self> {
+        Self::with_version(
+            info,
+            path,
+            external_file_dir,
+            RegionFileVersion::get_selected(),
+            sync,
+        )
     }
 
     /// `sync` opens the file with `O_DSYNC` (`StandardOpenOption.DSYNC`).
@@ -112,8 +131,12 @@ impl RegionFile {
         sync: bool,
     ) -> io::Result<Self> {
         if !external_file_dir.is_dir() {
-            let abs = std::path::absolute(external_file_dir).unwrap_or_else(|_| external_file_dir.to_path_buf());
-            return Err(io::Error::new(io::ErrorKind::InvalidInput, format!("Expected directory, got {}", abs.display())));
+            let abs = std::path::absolute(external_file_dir)
+                .unwrap_or_else(|_| external_file_dir.to_path_buf());
+            return Err(io::Error::new(
+                io::ErrorKind::InvalidInput,
+                format!("Expected directory, got {}", abs.display()),
+            ));
         }
         let mut options = OpenOptions::new();
         options.create(true).read(true).write(true);
@@ -136,12 +159,18 @@ impl RegionFile {
         let read_header_bytes = read_at_most(&region.file, &mut header, 0)?;
         if read_header_bytes != 0 {
             if read_header_bytes != HEADER_SIZE {
-                log::warn!("Region file {} has truncated header: {}", path.display(), read_header_bytes);
+                log::warn!(
+                    "Region file {} has truncated header: {}",
+                    path.display(),
+                    read_header_bytes
+                );
             }
             let size = fs::metadata(path)?.len();
             for i in 0..SECTOR_INTS {
-                region.offsets[i] = i32::from_be_bytes(header[i * 4..i * 4 + 4].try_into().unwrap());
-                region.timestamps[i] = i32::from_be_bytes(header[4096 + i * 4..4096 + i * 4 + 4].try_into().unwrap());
+                region.offsets[i] =
+                    i32::from_be_bytes(header[i * 4..i * 4 + 4].try_into().unwrap());
+                region.timestamps[i] =
+                    i32::from_be_bytes(header[4096 + i * 4..4096 + i * 4 + 4].try_into().unwrap());
             }
             for i in 0..SECTOR_INTS {
                 let offset = region.offsets[i];
@@ -157,7 +186,11 @@ impl RegionFile {
                         );
                         region.offsets[i] = 0;
                     } else if num_sectors == 0 {
-                        log::warn!("Region file {} has an invalid sector at index: {}; size has to be > 0", path.display(), i);
+                        log::warn!(
+                            "Region file {} has an invalid sector at index: {}; size has to be > 0",
+                            path.display(),
+                            i
+                        );
                         region.offsets[i] = 0;
                     } else if sector_number as u64 * SECTOR_BYTES as u64 > size {
                         log::warn!(
@@ -199,12 +232,16 @@ impl RegionFile {
     }
 
     fn get_external_chunk_path(&self, pos: &ChunkPos) -> PathBuf {
-        self.external_file_dir.join(format!("c.{}.{}.mcc", pos.x, pos.z))
+        self.external_file_dir
+            .join(format!("c.{}.{}.mcc", pos.x, pos.z))
     }
 
     /// `getChunkDataInputStream`: decompressing reader over the chunk payload; `None` where vanilla
     /// returns null (missing, truncated, unsupported or invalid stream; logged like vanilla).
-    pub fn get_chunk_data_input_stream(&self, pos: &ChunkPos) -> io::Result<Option<ChunkInputStream>> {
+    pub fn get_chunk_data_input_stream(
+        &self,
+        pos: &ChunkPos,
+    ) -> io::Result<Option<ChunkInputStream>> {
         let offset = self.get_offset(pos);
         if offset == 0 {
             return Ok(None);
@@ -213,10 +250,19 @@ impl RegionFile {
         let num_sectors = get_num_sectors(offset);
         let sectors_length = num_sectors * SECTOR_BYTES;
         let mut buffer = vec![0u8; sectors_length];
-        let read = read_at_most(&self.file, &mut buffer, sector_number as u64 * SECTOR_BYTES as u64)?;
+        let read = read_at_most(
+            &self.file,
+            &mut buffer,
+            sector_number as u64 * SECTOR_BYTES as u64,
+        )?;
         buffer.truncate(read);
         if buffer.len() < CHUNK_HEADER_SIZE {
-            log::error!("Chunk {} header is truncated: expected {} but read {}", pos, sectors_length, buffer.len());
+            log::error!(
+                "Chunk {} header is truncated: expected {} but read {}",
+                pos,
+                sectors_length,
+                buffer.len()
+            );
             return Ok(None);
         }
         let length = i32::from_be_bytes(buffer[..4].try_into().unwrap());
@@ -233,18 +279,28 @@ impl RegionFile {
             }
             self.create_external_chunk_input_stream(pos, get_external_chunk_version(version_id))
         } else if stream_length > remaining {
-            log::error!("Chunk {} stream is truncated: expected {} but read {}", pos, stream_length, remaining);
+            log::error!(
+                "Chunk {} stream is truncated: expected {} but read {}",
+                pos,
+                stream_length,
+                remaining
+            );
             Ok(None)
         } else if stream_length < 0 {
             log::error!("Declared size {} of chunk {} is negative", length, pos);
             Ok(None)
         } else {
-            let payload = buffer[CHUNK_HEADER_SIZE..CHUNK_HEADER_SIZE + stream_length as usize].to_vec();
+            let payload =
+                buffer[CHUNK_HEADER_SIZE..CHUNK_HEADER_SIZE + stream_length as usize].to_vec();
             Self::create_chunk_input_stream(pos, version_id, payload)
         }
     }
 
-    fn create_chunk_input_stream(pos: &ChunkPos, version_id: u8, chunk_stream: Vec<u8>) -> io::Result<Option<ChunkInputStream>> {
+    fn create_chunk_input_stream(
+        pos: &ChunkPos,
+        version_id: u8,
+        chunk_stream: Vec<u8>,
+    ) -> io::Result<Option<ChunkInputStream>> {
         // Java bytes are signed: ids >= 128 never match a version.
         let version = RegionFileVersion::from_id(version_id as i8 as i32);
         match version {
@@ -264,17 +320,28 @@ impl RegionFile {
                 Ok(None)
             }
             None => {
-                log::error!("Chunk {} has invalid chunk stream version {}", pos, version_id as i8);
+                log::error!(
+                    "Chunk {} has invalid chunk stream version {}",
+                    pos,
+                    version_id as i8
+                );
                 Ok(None)
             }
             Some(v) => v.wrap_input(chunk_stream).map(Some),
         }
     }
 
-    fn create_external_chunk_input_stream(&self, pos: &ChunkPos, version_id: u8) -> io::Result<Option<ChunkInputStream>> {
+    fn create_external_chunk_input_stream(
+        &self,
+        pos: &ChunkPos,
+        version_id: u8,
+    ) -> io::Result<Option<ChunkInputStream>> {
         let external_file = self.get_external_chunk_path(pos);
         if !external_file.is_file() {
-            log::error!("External chunk path {} is not file", external_file.display());
+            log::error!(
+                "External chunk path {} is not file",
+                external_file.display()
+            );
             return Ok(None);
         }
         Self::create_chunk_input_stream(pos, version_id, fs::read(&external_file)?)
@@ -289,7 +356,11 @@ impl RegionFile {
         let sector_number = get_sector_number(offset);
         let num_sectors = get_num_sectors(offset);
         let mut stream_header = [0u8; CHUNK_HEADER_SIZE];
-        match read_at_most(&self.file, &mut stream_header, sector_number as u64 * SECTOR_BYTES as u64) {
+        match read_at_most(
+            &self.file,
+            &mut stream_header,
+            sector_number as u64 * SECTOR_BYTES as u64,
+        ) {
             Ok(CHUNK_HEADER_SIZE) => {}
             _ => return false,
         }
@@ -340,7 +411,8 @@ impl RegionFile {
                 Err(e) if e.kind() != io::ErrorKind::NotFound => return Err(e),
                 _ => {}
             }
-            self.used_sectors.free(get_sector_number(offset), get_num_sectors(offset));
+            self.used_sectors
+                .free(get_sector_number(offset), get_num_sectors(offset));
         }
         Ok(())
     }
@@ -358,7 +430,12 @@ impl RegionFile {
         let mut external_commit: Option<(PathBuf, PathBuf)> = None;
         if sectors_needed >= EXTERNAL_CHUNK_THRESHOLD {
             let external_chunk_path = self.get_external_chunk_path(pos);
-            log::warn!("Saving oversized chunk {} ({} bytes}} to external file {}", pos, data_size, external_chunk_path.display());
+            log::warn!(
+                "Saving oversized chunk {} ({} bytes}} to external file {}",
+                pos,
+                data_size,
+                external_chunk_path.display()
+            );
             sectors_needed = 1;
             new_sector_number = self.used_sectors.allocate(sectors_needed);
             let tmp_path = self.write_to_external_file(data)?;
@@ -366,10 +443,12 @@ impl RegionFile {
             let mut stub = [0u8; CHUNK_HEADER_SIZE];
             stub[..4].copy_from_slice(&1i32.to_be_bytes());
             stub[4] = self.version.get_id() as u8 | EXTERNAL_STREAM_FLAG;
-            self.file.write_all_at(&stub, new_sector_number as u64 * SECTOR_BYTES as u64)?;
+            self.file
+                .write_all_at(&stub, new_sector_number as u64 * SECTOR_BYTES as u64)?;
         } else {
             new_sector_number = self.used_sectors.allocate(sectors_needed);
-            self.file.write_all_at(data, new_sector_number as u64 * SECTOR_BYTES as u64)?;
+            self.file
+                .write_all_at(data, new_sector_number as u64 * SECTOR_BYTES as u64)?;
         }
         self.offsets[offset_index] = pack_sector_offset(new_sector_number, sectors_needed);
         self.timestamps[offset_index] = get_timestamp();
@@ -398,7 +477,8 @@ impl RegionFile {
         let mut header = [0u8; HEADER_SIZE];
         for i in 0..SECTOR_INTS {
             header[i * 4..i * 4 + 4].copy_from_slice(&self.offsets[i].to_be_bytes());
-            header[4096 + i * 4..4096 + i * 4 + 4].copy_from_slice(&self.timestamps[i].to_be_bytes());
+            header[4096 + i * 4..4096 + i * 4 + 4]
+                .copy_from_slice(&self.timestamps[i].to_be_bytes());
         }
         self.file.write_all_at(&header, 0)
     }

@@ -6,26 +6,33 @@
 //! (`SlotAccess.forEquipmentSlot`'s validator), remembers the stack, and later reads see it. The caller applies the writes
 //! with `apply_entity_writes` / `apply_container_writes` once the loot context is gone.
 use crate::advancements::predicates::entity::support::equipment_slot_of;
-use crate::commands::arguments::selector::EntityRef;
 use crate::commands::CommandSourceStack;
+use crate::commands::arguments::selector::EntityRef;
 use crate::server::level::ServerLevel;
 use crate::world::block_entity::BlockEntity;
 use crate::world::container::Container;
 use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::{Entity, EntityId, ServerPlayer};
-use crate::world::inventory::{equippable_slot, InventoryMenu};
+use crate::world::inventory::{InventoryMenu, equippable_slot};
 use crate::world::item::slot::{SlotAccess, SlotProvider};
-use crate::world::level::storage::loot::context::{LootParams, LootParamsBuilder};
 use crate::world::level::storage::loot::LootContextParamSets;
+use crate::world::level::storage::loot::context::{LootParams, LootParamsBuilder};
 use mc_core::pos::BlockPos;
 use mc_protocol::components::ItemStack;
 use std::cell::RefCell;
 use std::rc::Rc;
 
 /// `LootParams` of `ItemCommands.getSlotsFromProvider`: `ORIGIN`, `CONTAINER`, optional `THIS_ENTITY`, set `COMMAND_SLOT_SOURCE`.
-pub fn slot_params<'a>(level: &'a ServerLevel, source: &CommandSourceStack, container: &'a dyn SlotProvider) -> LootParams<'a> {
+pub fn slot_params<'a>(
+    level: &'a ServerLevel,
+    source: &CommandSourceStack,
+    container: &'a dyn SlotProvider,
+) -> LootParams<'a> {
     let this_entity = source.get_entity().and_then(|e| level.get_entity(e.id));
-    let builder: LootParamsBuilder<'a> = LootParams::builder(level).origin(source.get_position()).container(container).optional_this_entity(this_entity);
+    let builder: LootParamsBuilder<'a> = LootParams::builder(level)
+        .origin(source.get_position())
+        .container(container)
+        .optional_this_entity(this_entity);
     builder.create(&LootContextParamSets::COMMAND_SLOT_SOURCE)
 }
 
@@ -39,7 +46,10 @@ pub struct EntitySlots<'a> {
 
 impl<'a> EntitySlots<'a> {
     pub fn new(entity: &'a dyn Entity) -> Self {
-        Self { entity, writes: RefCell::new(Vec::new()) }
+        Self {
+            entity,
+            writes: RefCell::new(Vec::new()),
+        }
     }
 
     /// The writes `set` accepted, in order.
@@ -61,9 +71,15 @@ impl<'a> EntitySlots<'a> {
             return true;
         }
         match equipment_slot_of(slot) {
-            Some(equipment) if !matches!(equipment, EquipmentSlot::Head | EquipmentSlot::MainHand | EquipmentSlot::OffHand) => {
+            Some(equipment)
+                if !matches!(
+                    equipment,
+                    EquipmentSlot::Head | EquipmentSlot::MainHand | EquipmentSlot::OffHand
+                ) =>
+            {
                 // `getEquipmentSlotForItem`: the equippable's slot (`canUseSlot` is always true for the entities modelled), else the main hand
-                stack.is_empty() || equippable_slot(stack).unwrap_or(EquipmentSlot::MainHand) == equipment
+                stack.is_empty()
+                    || equippable_slot(stack).unwrap_or(EquipmentSlot::MainHand) == equipment
             }
             _ => true,
         }
@@ -91,7 +107,9 @@ impl SlotAccess for EntitySlot<'_, '_> {
 
 impl SlotProvider for EntitySlots<'_> {
     fn get_slot(&self, slot: i32) -> Option<Rc<dyn SlotAccess + '_>> {
-        self.entity.get_slot(slot).map(|_| Rc::new(EntitySlot { owner: self, slot }) as Rc<dyn SlotAccess + '_>)
+        self.entity
+            .get_slot(slot)
+            .map(|_| Rc::new(EntitySlot { owner: self, slot }) as Rc<dyn SlotAccess + '_>)
     }
 }
 
@@ -127,25 +145,48 @@ fn set_entity_slot(level: &mut ServerLevel, entity: &mut dyn Entity, slot: i32, 
 }
 
 /// `Player.getSlot(slot)` before the `LivingEntity` fallback; `false` when `slot` is not one of the player's own.
-fn set_player_slot(level: &mut ServerLevel, player: &mut ServerPlayer, slot: i32, stack: &ItemStack) -> bool {
+fn set_player_slot(
+    level: &mut ServerLevel,
+    player: &mut ServerPlayer,
+    slot: i32,
+    stack: &ItemStack,
+) -> bool {
     if slot == 499 {
-        player.player.menus.current_mut().base_mut().set_carried(stack.clone());
+        player
+            .player
+            .menus
+            .current_mut()
+            .base_mut()
+            .set_carried(stack.clone());
         return true;
     }
     let craft_slot = slot - 500;
     if (0..4).contains(&craft_slot) {
-        let menu = player.player.menus.inventory_menu_mut().as_any_mut().downcast_mut::<InventoryMenu>().expect("inventory menu");
-        menu.get_craft_slots_mut().set_item(craft_slot as usize, stack.clone());
+        let menu = player
+            .player
+            .menus
+            .inventory_menu_mut()
+            .as_any_mut()
+            .downcast_mut::<InventoryMenu>()
+            .expect("inventory menu");
+        menu.get_craft_slots_mut()
+            .set_item(craft_slot as usize, stack.clone());
         player.inventory_menu_slots_changed(level);
         return true;
     }
     if slot >= 0 && (slot as usize) < player.player.inventory.get_non_equipment_items().len() {
-        player.player.inventory.set_item(slot as usize, stack.clone());
+        player
+            .player
+            .inventory
+            .set_item(slot as usize, stack.clone());
         return true;
     }
     let ender_slot = slot - 200;
     if ender_slot >= 0 && (ender_slot as usize) < player.player.ender_chest.get_container_size() {
-        player.player.ender_chest.set_item(ender_slot as usize, stack.clone());
+        player
+            .player
+            .ender_chest
+            .set_item(ender_slot as usize, stack.clone());
         return true;
     }
     false
@@ -161,7 +202,10 @@ pub struct ContainerSlots<'a> {
 
 impl<'a> ContainerSlots<'a> {
     pub fn new(container: &'a dyn Container) -> Self {
-        Self { container, writes: RefCell::new(Vec::new()) }
+        Self {
+            container,
+            writes: RefCell::new(Vec::new()),
+        }
     }
 
     pub fn into_writes(self) -> Vec<(usize, ItemStack)> {
@@ -194,12 +238,21 @@ impl SlotAccess for ContainerSlot<'_, '_> {
 
 impl SlotProvider for ContainerSlots<'_> {
     fn get_slot(&self, slot: i32) -> Option<Rc<dyn SlotAccess + '_>> {
-        (slot >= 0 && (slot as usize) < self.container.get_container_size()).then(|| Rc::new(ContainerSlot { owner: self, slot: slot as usize }) as Rc<dyn SlotAccess + '_>)
+        (slot >= 0 && (slot as usize) < self.container.get_container_size()).then(|| {
+            Rc::new(ContainerSlot {
+                owner: self,
+                slot: slot as usize,
+            }) as Rc<dyn SlotAccess + '_>
+        })
     }
 }
 
 /// `Container.setItem(slot, stack)` for each write on the container block entity at `pos`.
-pub fn apply_container_writes(level: &mut ServerLevel, pos: BlockPos, writes: Vec<(usize, ItemStack)>) {
+pub fn apply_container_writes(
+    level: &mut ServerLevel,
+    pos: BlockPos,
+    writes: Vec<(usize, ItemStack)>,
+) {
     if writes.is_empty() {
         return;
     }
@@ -233,13 +286,37 @@ pub fn clear_or_count_matching_items(
     level
         .with_player(player, |level, player| {
             // the cursor stack lives in the current menu, the crafting grid in the inventory menu (which may be the same object)
-            let mut carried = std::mem::take(player.player.menus.current_mut().base_mut().get_carried_mut());
+            let mut carried = std::mem::take(
+                player
+                    .player
+                    .menus
+                    .current_mut()
+                    .base_mut()
+                    .get_carried_mut(),
+            );
             let count = {
                 let inventory = &mut player.player.inventory;
-                let menu = player.player.menus.inventory_menu_mut().as_any_mut().downcast_mut::<InventoryMenu>().expect("inventory menu");
-                inventory.clear_or_count_matching_items(predicate, counting_only, max_count, menu.get_craft_slots_mut(), &mut carried)
+                let menu = player
+                    .player
+                    .menus
+                    .inventory_menu_mut()
+                    .as_any_mut()
+                    .downcast_mut::<InventoryMenu>()
+                    .expect("inventory menu");
+                inventory.clear_or_count_matching_items(
+                    predicate,
+                    counting_only,
+                    max_count,
+                    menu.get_craft_slots_mut(),
+                    &mut carried,
+                )
             };
-            *player.player.menus.current_mut().base_mut().get_carried_mut() = carried;
+            *player
+                .player
+                .menus
+                .current_mut()
+                .base_mut()
+                .get_carried_mut() = carried;
             if !counting_only {
                 player.broadcast_menu_changes(level);
                 player.inventory_menu_slots_changed(level);
@@ -251,14 +328,18 @@ pub fn clear_or_count_matching_items(
 
 /// `player.getInventory().add(stack)` (`/loot give`): whether anything was added (the stack is a copy the caller does not reuse).
 pub fn give_to_inventory(level: &mut ServerLevel, player: EntityId, mut stack: ItemStack) -> bool {
-    level.with_player(player, |_, player| {
-        let infinite = player.player.abilities.instabuild;
-        player.player.inventory.add(&mut stack, infinite)
-    })
-    .unwrap_or(false)
+    level
+        .with_player(player, |_, player| {
+            let infinite = player.player.abilities.instabuild;
+            player.player.inventory.add(&mut stack, infinite)
+        })
+        .unwrap_or(false)
 }
 
 /// Resolves a command entity reference against its level.
-pub fn entity_in<'a>(server: &'a crate::server::MinecraftServer, entity: &EntityRef) -> Option<&'a dyn Entity> {
+pub fn entity_in<'a>(
+    server: &'a crate::server::MinecraftServer,
+    entity: &EntityRef,
+) -> Option<&'a dyn Entity> {
     server.level(&entity.dimension)?.get_entity(entity.id)
 }

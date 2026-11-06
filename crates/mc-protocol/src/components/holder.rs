@@ -5,7 +5,7 @@
 //! registries) or `mc_data` (built-in ones). Tags are never resolved here: a named set is just the tag id.
 
 use crate::codec::EncodeResult;
-use crate::codec::{read_varint, write_varint, DecodeError, DecodeResult, Decode, Encode};
+use crate::codec::{Decode, DecodeError, DecodeResult, Encode, read_varint, write_varint};
 use crate::registry_context as ctx;
 use mc_core::ident::Identifier;
 use mc_data::registry::RegistryId;
@@ -59,7 +59,12 @@ pub fn registry_by_name_codec<T: RegistryId>() -> Codec<T> {
                 DataResult::error(move || m.clone())
             }
         },
-        |t: &T| DataResult::success(Identifier::parse(T::registry().name_of(t.id()).expect("valid id")).expect("valid name")),
+        |t: &T| {
+            DataResult::success(
+                Identifier::parse(T::registry().name_of(t.id()).expect("valid id"))
+                    .expect("valid name"),
+            )
+        },
     )
 }
 
@@ -83,14 +88,18 @@ pub fn holder_fixed_codec<T: 'static>(registry: &'static str) -> Codec<Holder<T>
     Codec::from_fns(
         move |ops, input: &Holder<T>, prefix| match input {
             Holder::Reference(id) => IDENTIFIER.encode(ops, id, prefix),
-            Holder::Direct(_) => DataResult::error(move || format!("Elements from registry {registry} can't be serialized to a value")),
+            Holder::Direct(_) => DataResult::error(move || {
+                format!("Elements from registry {registry} can't be serialized to a value")
+            }),
         },
         move |ops, input| {
             IDENTIFIER.decode(ops, input).flat_map(|(id, rest)| {
                 if ctx::registry_contains(registry, &id) {
                     DataResult::success((Holder::Reference(id), rest))
                 } else {
-                    DataResult::error(move || format!("Failed to get element {id} from registry {registry}"))
+                    DataResult::error(move || {
+                        format!("Failed to get element {id} from registry {registry}")
+                    })
                 }
             })
         },
@@ -98,7 +107,11 @@ pub fn holder_fixed_codec<T: 'static>(registry: &'static str) -> Codec<Holder<T>
 }
 
 /// `RegistryFileCodec.create(key, elementCodec, allowInline)`.
-pub fn holder_file_codec<T: Clone + 'static>(registry: &'static str, element: &Codec<T>, allow_inline: bool) -> Codec<Holder<T>> {
+pub fn holder_file_codec<T: Clone + 'static>(
+    registry: &'static str,
+    element: &Codec<T>,
+    allow_inline: bool,
+) -> Codec<Holder<T>> {
     let (e, d) = (element.clone(), element.clone());
     Codec::from_fns(
         move |ops, input: &Holder<T>, prefix| match input {
@@ -110,7 +123,9 @@ pub fn holder_file_codec<T: Clone + 'static>(registry: &'static str, element: &C
                 if ctx::registry_contains(registry, &id) {
                     DataResult::success((Holder::Reference(id), rest))
                 } else {
-                    DataResult::error(move || format!("Failed to get element {id} from registry {registry}"))
+                    DataResult::error(move || {
+                        format!("Failed to get element {id} from registry {registry}")
+                    })
                 }
             }
             DataResult::Error { .. } => {
@@ -133,7 +148,11 @@ pub fn holder_set_codec<T: Clone + Send + Sync + 'static>(
     always_use_list: bool,
 ) -> Codec<HolderSet<T>> {
     let list = element.list_of();
-    let direct = if always_use_list { list } else { mc_dfu::extra::compact_list_codec_with(element, &list) };
+    let direct = if always_use_list {
+        list
+    } else {
+        mc_dfu::extra::compact_list_codec_with(element, &list)
+    };
     let either = hashed_tag_codec().either(&direct);
     let (e1, e2) = (either.clone(), either);
     Codec::from_fns(
@@ -142,16 +161,19 @@ pub fn holder_set_codec<T: Clone + Send + Sync + 'static>(
             HolderSet::Direct(v) => e1.encode(ops, &Either::Right(v.clone()), prefix),
         },
         move |ops, input| {
-            e2.decode(ops, input).flat_map(|(either, rest)| match either {
-                Either::Left(tag) => {
-                    if ctx::tag_exists(registry, &tag) {
-                        DataResult::success((HolderSet::Named(tag), rest))
-                    } else {
-                        DataResult::error(move || format!("Missing tag: '{tag}' in '{registry}'"))
+            e2.decode(ops, input)
+                .flat_map(|(either, rest)| match either {
+                    Either::Left(tag) => {
+                        if ctx::tag_exists(registry, &tag) {
+                            DataResult::success((HolderSet::Named(tag), rest))
+                        } else {
+                            DataResult::error(move || {
+                                format!("Missing tag: '{tag}' in '{registry}'")
+                            })
+                        }
                     }
-                }
-                Either::Right(values) => DataResult::success((HolderSet::Direct(values), rest)),
-            })
+                    Either::Right(values) => DataResult::success((HolderSet::Direct(values), rest)),
+                })
         },
     )
 }
@@ -160,16 +182,22 @@ pub fn holder_set_codec<T: Clone + Send + Sync + 'static>(
 
 /// `Registry.getIdOrThrow` (`IllegalArgumentException` in vanilla, an `EncoderException` once the packet codec wraps it).
 fn id_or_err(registry: &str, name: &Identifier) -> EncodeResult<i32> {
-    ctx::registry_id(registry, name)
-        .ok_or_else(|| crate::codec::EncodeError(format!("Can't find id for '{name}' in registry {registry}")))
+    ctx::registry_id(registry, name).ok_or_else(|| {
+        crate::codec::EncodeError(format!("Can't find id for '{name}' in registry {registry}"))
+    })
 }
 
 fn name_or_err(registry: &str, id: i32) -> DecodeResult<Identifier> {
-    ctx::registry_name(registry, id).ok_or_else(|| DecodeError::Message(format!("No value with id {id}")))
+    ctx::registry_name(registry, id)
+        .ok_or_else(|| DecodeError::Message(format!("No value with id {id}")))
 }
 
 /// `ByteBufCodecs.registry(key)` for a reference by name: the plain VarInt id.
-pub fn encode_registry_name(registry: &str, name: &Identifier, out: &mut Vec<u8>) -> EncodeResult<()> {
+pub fn encode_registry_name(
+    registry: &str,
+    name: &Identifier,
+    out: &mut Vec<u8>,
+) -> EncodeResult<()> {
     write_varint(out, id_or_err(registry, name)?);
     Ok(())
 }
@@ -179,12 +207,16 @@ pub fn decode_registry_name(registry: &str, input: &mut &[u8]) -> DecodeResult<I
 }
 
 /// `ByteBufCodecs.holderRegistry(key)`: VarInt id of a reference.
-pub fn encode_holder_registry<T>(registry: &str, holder: &Holder<T>, out: &mut Vec<u8>) -> EncodeResult<()> {
+pub fn encode_holder_registry<T>(
+    registry: &str,
+    holder: &Holder<T>,
+    out: &mut Vec<u8>,
+) -> EncodeResult<()> {
     match holder {
         Holder::Reference(n) => encode_registry_name(registry, n, out),
-        Holder::Direct(_) => {
-            Err(crate::codec::EncodeError(format!("Can't serialize a direct holder through holderRegistry({registry})")))
-        }
+        Holder::Direct(_) => Err(crate::codec::EncodeError(format!(
+            "Can't serialize a direct holder through holderRegistry({registry})"
+        ))),
     }
 }
 pub fn decode_holder_registry<T>(registry: &str, input: &mut &[u8]) -> DecodeResult<Holder<T>> {
@@ -192,7 +224,12 @@ pub fn decode_holder_registry<T>(registry: &str, input: &mut &[u8]) -> DecodeRes
 }
 
 /// `ByteBufCodecs.holder(key, directCodec)`: `0` + inline value, or `id + 1`.
-pub fn encode_holder<T>(registry: &str, holder: &Holder<T>, out: &mut Vec<u8>, direct: impl FnOnce(&T, &mut Vec<u8>) -> EncodeResult<()>) -> EncodeResult<()> {
+pub fn encode_holder<T>(
+    registry: &str,
+    holder: &Holder<T>,
+    out: &mut Vec<u8>,
+    direct: impl FnOnce(&T, &mut Vec<u8>) -> EncodeResult<()>,
+) -> EncodeResult<()> {
     match holder {
         Holder::Reference(n) => write_varint(out, id_or_err(registry, n)?.wrapping_add(1)),
         Holder::Direct(v) => {
@@ -216,7 +253,11 @@ pub fn decode_holder<T>(
 }
 
 /// `ByteBufCodecs.holderSet(key)`.
-pub fn encode_holder_set<T>(registry: &str, set: &HolderSet<T>, out: &mut Vec<u8>) -> EncodeResult<()> {
+pub fn encode_holder_set<T>(
+    registry: &str,
+    set: &HolderSet<T>,
+    out: &mut Vec<u8>,
+) -> EncodeResult<()> {
     match set {
         HolderSet::Named(tag) => {
             write_varint(out, 0);

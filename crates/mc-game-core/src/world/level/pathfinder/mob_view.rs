@@ -106,7 +106,9 @@ impl PathfindingMob for EntityMob<'_> {
         self.entity.is_in_floatable_fluid()
     }
     fn can_stand_on_fluid(&self, fluid: FluidState) -> bool {
-        self.entity.can_stand_on_fluid_fn().is_some_and(|f| f(fluid.fluid()))
+        self.entity
+            .can_stand_on_fluid_fn()
+            .is_some_and(|f| f(fluid.fluid()))
     }
     fn get_pathfinding_malus(&self, ty: PathType) -> f32 {
         self.entity.get_pathfinding_malus(self.level, ty)

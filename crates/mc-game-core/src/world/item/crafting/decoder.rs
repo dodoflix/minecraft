@@ -16,11 +16,16 @@ use crate::registry::keys;
 static CODEC: LazyLock<Codec<Recipe>> = LazyLock::new(Recipe::codec);
 
 /// Every `#tag` string of `json` (the ingredient tag references), looked up in the item registry.
-fn collect_item_tags(json: &Value, ctx: &RegistryDecodeContext, out: &mut HashMap<Identifier, bool>) {
+fn collect_item_tags(
+    json: &Value,
+    ctx: &RegistryDecodeContext,
+    out: &mut HashMap<Identifier, bool>,
+) {
     match json {
         Value::String(s) => {
             if let Some(tag) = s.strip_prefix('#').and_then(Identifier::try_parse) {
-                out.entry(tag.clone()).or_insert_with(|| ctx.lookup.tag_exists(keys::ITEM, &tag) == Lookup::Yes);
+                out.entry(tag.clone())
+                    .or_insert_with(|| ctx.lookup.tag_exists(keys::ITEM, &tag) == Lookup::Yes);
             }
         }
         Value::Array(items) => items.iter().for_each(|v| collect_item_tags(v, ctx, out)),
@@ -38,4 +43,7 @@ pub fn decode_recipe(json: &Value, ctx: &RegistryDecodeContext) -> Result<Recipe
 }
 
 #[linkme::distributed_slice(DYNAMIC_REGISTRY_DECODERS)]
-static RECIPE_DECODER: DynamicRegistryDecoder = DynamicRegistryDecoder { registry: keys::RECIPE, decode: |json, ctx| decode_recipe(json, ctx).map(DecodedEntry::new) };
+static RECIPE_DECODER: DynamicRegistryDecoder = DynamicRegistryDecoder {
+    registry: keys::RECIPE,
+    decode: |json, ctx| decode_recipe(json, ctx).map(DecodedEntry::new),
+};

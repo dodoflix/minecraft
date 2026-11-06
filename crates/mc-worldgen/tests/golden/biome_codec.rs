@@ -17,15 +17,30 @@ fn registries() -> WorldgenRegistries {
 
 #[test]
 fn parameter_codec_accepts_number_list_and_object() {
-    assert_eq!(Parameter::from_json(&json!(0.5)).unwrap(), Parameter::new(5000, 5000));
-    assert_eq!(Parameter::from_json(&json!([-1.0, 0.25])).unwrap(), Parameter::new(-10000, 2500));
+    assert_eq!(
+        Parameter::from_json(&json!(0.5)).unwrap(),
+        Parameter::new(5000, 5000)
+    );
+    assert_eq!(
+        Parameter::from_json(&json!([-1.0, 0.25])).unwrap(),
+        Parameter::new(-10000, 2500)
+    );
     assert_eq!(
         Parameter::from_json(&json!({"min": -0.45, "max": 1.0})).unwrap(),
         Parameter::new(-4500, 10000)
     );
-    assert!(Parameter::from_json(&json!([0.5, 0.1])).is_err(), "min > max");
-    assert!(Parameter::from_json(&json!([0.5])).is_err(), "not 2 elements");
-    assert!(Parameter::from_json(&json!(2.5)).is_err(), "outside [-2, 2]");
+    assert!(
+        Parameter::from_json(&json!([0.5, 0.1])).is_err(),
+        "min > max"
+    );
+    assert!(
+        Parameter::from_json(&json!([0.5])).is_err(),
+        "not 2 elements"
+    );
+    assert!(
+        Parameter::from_json(&json!(2.5)).is_err(),
+        "outside [-2, 2]"
+    );
     assert!(Parameter::from_json(&json!("x")).is_err());
 }
 
@@ -33,19 +48,38 @@ fn parameter_codec_accepts_number_list_and_object() {
 fn registry_resolves_ids_tags_and_lists() {
     let registries = registries();
     let biomes = BiomeRegistry::load(&registries).unwrap();
-    let plains = biomes.id_of(&Identifier::parse("minecraft:plains").unwrap()).unwrap();
+    let plains = biomes
+        .id_of(&Identifier::parse("minecraft:plains").unwrap())
+        .unwrap();
     assert_eq!(biomes.key(plains).to_string(), "minecraft:plains");
-    assert_eq!(biomes.holder_set_from_json(&json!("minecraft:plains")).unwrap(), vec![plains]);
     assert_eq!(
-        biomes.holder_set_from_json(&json!(["minecraft:plains", "minecraft:plains"])).unwrap(),
+        biomes
+            .holder_set_from_json(&json!("minecraft:plains"))
+            .unwrap(),
+        vec![plains]
+    );
+    assert_eq!(
+        biomes
+            .holder_set_from_json(&json!(["minecraft:plains", "minecraft:plains"]))
+            .unwrap(),
         vec![plains, plains]
     );
-    let ocean = biomes.holder_set_from_json(&json!("#minecraft:is_ocean")).unwrap();
+    let ocean = biomes
+        .holder_set_from_json(&json!("#minecraft:is_ocean"))
+        .unwrap();
     let names: Vec<String> = ocean.iter().map(|b| biomes.key(*b).to_string()).collect();
     let tag = mc_data::tags::names("worldgen/biome", "minecraft:is_ocean").unwrap();
     assert_eq!(names, tag);
-    assert!(biomes.holder_set_from_json(&json!("minecraft:nope")).is_err());
-    assert!(biomes.holder_set_from_json(&json!("#minecraft:nope")).is_err());
+    assert!(
+        biomes
+            .holder_set_from_json(&json!("minecraft:nope"))
+            .is_err()
+    );
+    assert!(
+        biomes
+            .holder_set_from_json(&json!("#minecraft:nope"))
+            .is_err()
+    );
 }
 
 #[test]
@@ -53,7 +87,10 @@ fn biome_climate_settings_are_decoded() {
     let registries = registries();
     let biomes = BiomeRegistry::load(&registries).unwrap();
     let frozen = biomes.id_of_name("frozen_ocean").unwrap();
-    assert_eq!(biomes.get(frozen).climate().temperature_modifier, TemperatureModifier::Frozen);
+    assert_eq!(
+        biomes.get(frozen).climate().temperature_modifier,
+        TemperatureModifier::Frozen
+    );
     let nether = biomes.id_of_name("nether_wastes").unwrap();
     assert_eq!(biomes.get(nether).generation_settings().carvers.len(), 1);
     assert!(!biomes.get(nether).has_precipitation());
@@ -75,10 +112,18 @@ fn biome_source_codec_dispatches_and_rejects() {
         json!({"type": "minecraft:checkerboard", "biomes": "minecraft:plains", "scale": 63}),
         json!({"biomes": []}),
     ] {
-        assert!(biome_source_from_json(&bad, &registries, &biomes).is_err(), "{bad}");
+        assert!(
+            biome_source_from_json(&bad, &registries, &biomes).is_err(),
+            "{bad}"
+        );
     }
     // inline holder and registry reference give the same list
-    let by_ref = MultiNoiseBiomeSource::from_json(&json!({"preset": "minecraft:nether"}), &registries, &biomes).unwrap();
+    let by_ref = MultiNoiseBiomeSource::from_json(
+        &json!({"preset": "minecraft:nether"}),
+        &registries,
+        &biomes,
+    )
+    .unwrap();
     let inline = MultiNoiseBiomeSource::from_json(
         &json!({"preset": {"preset": "minecraft:nether"}}),
         &registries,
@@ -87,7 +132,10 @@ fn biome_source_codec_dispatches_and_rejects() {
     .unwrap();
     assert!(by_ref.stable(&Identifier::parse("minecraft:nether").unwrap()));
     assert!(!inline.stable(&Identifier::parse("minecraft:nether").unwrap()));
-    assert_eq!(by_ref.parameter_list().values().len(), Preset::Nether.entries().len());
+    assert_eq!(
+        by_ref.parameter_list().values().len(),
+        Preset::Nether.entries().len()
+    );
 }
 
 #[test]
@@ -107,7 +155,20 @@ fn direct_multi_noise_list_selects_closest_entry() {
         &biomes,
     )
     .unwrap();
-    let target = |t: i64| TargetPoint { temperature: t, humidity: 0, continentalness: 0, erosion: 0, depth: 0, weirdness: 0 };
-    assert_eq!(source.get_noise_biome(&target(4000)), biomes.id_of_name("desert").unwrap());
-    assert_eq!(source.get_noise_biome(&target(-100)), biomes.id_of_name("taiga").unwrap());
+    let target = |t: i64| TargetPoint {
+        temperature: t,
+        humidity: 0,
+        continentalness: 0,
+        erosion: 0,
+        depth: 0,
+        weirdness: 0,
+    };
+    assert_eq!(
+        source.get_noise_biome(&target(4000)),
+        biomes.id_of_name("desert").unwrap()
+    );
+    assert_eq!(
+        source.get_noise_biome(&target(-100)),
+        biomes.id_of_name("taiga").unwrap()
+    );
 }

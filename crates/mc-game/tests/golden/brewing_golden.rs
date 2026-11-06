@@ -20,7 +20,14 @@ fn canon(tag: &Tag) -> String {
         Tag::Compound(c) => {
             let mut entries: Vec<(&String, &Tag)> = c.iter().collect();
             entries.sort_by(|a, b| a.0.cmp(b.0));
-            format!("{{{}}}", entries.iter().map(|(k, v)| format!("{k}:{}", canon(v))).collect::<Vec<_>>().join(","))
+            format!(
+                "{{{}}}",
+                entries
+                    .iter()
+                    .map(|(k, v)| format!("{k}:{}", canon(v)))
+                    .collect::<Vec<_>>()
+                    .join(",")
+            )
         }
         Tag::List(l) => format!("[{}]", l.iter().map(canon).collect::<Vec<_>>().join(",")),
         other => format!("{other:?}"),
@@ -43,21 +50,42 @@ fn parse_data_get(line: &str) -> (i32, i32, CompoundTag) {
     let tail = parts.next().unwrap();
     let (z, _) = tail.split_once(' ').unwrap();
     let snbt = rest.split_once("block data: ").expect("block data").1;
-    (x, z.parse().unwrap(), compound(mc_nbt::snbt::parse(snbt).unwrap_or_else(|e| panic!("snbt {snbt}: {e:?}"))))
+    (
+        x,
+        z.parse().unwrap(),
+        compound(mc_nbt::snbt::parse(snbt).unwrap_or_else(|e| panic!("snbt {snbt}: {e:?}"))),
+    )
 }
 
 #[test]
 fn brewing_stands_match_vanilla() {
     let _serial = common::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
     let dir = tempfile::tempdir().unwrap();
-    let (_, stem) = common::load_world(&dir.path().join("world"), WorldDataConfiguration::DEFAULT, true).expect("world loads");
-    let manager = stem.data_pack_resources.listener::<RecipeManager>().expect("recipe manager").clone();
+    let (_, stem) = common::load_world(
+        &dir.path().join("world"),
+        WorldDataConfiguration::DEFAULT,
+        true,
+    )
+    .expect("world loads");
+    let manager = stem
+        .data_pack_resources
+        .listener::<RecipeManager>()
+        .expect("recipe manager")
+        .clone();
     let mut level = ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap());
     level.registries = stem.registries.composite_access().clone();
     level.shared.set_recipe_manager(manager);
 
-    let scenario = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/tests/oracle/scenarios/brewing_cross.txt")).unwrap();
-    let fixture = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures/entity_oracle/brewing_cross.txt")).unwrap();
+    let scenario = std::fs::read_to_string(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/tests/oracle/scenarios/brewing_cross.txt"
+    ))
+    .unwrap();
+    let fixture = std::fs::read_to_string(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/tests/fixtures/entity_oracle/brewing_cross.txt"
+    ))
+    .unwrap();
 
     // stands in scenario order
     let mut stands: Vec<(i32, i32, BrewingStandBlockEntity)> = Vec::new();
@@ -82,7 +110,10 @@ fn brewing_stands_match_vanilla() {
     assert!(stands.len() > 900, "{} stands", stands.len());
 
     // the three tick stages of the scenario: `tick 1`, `tick 199`, `tick 201`
-    let mut expected = fixture.lines().filter(|l| l.starts_with("C ") && l.contains("block data:")).map(parse_data_get);
+    let mut expected = fixture
+        .lines()
+        .filter(|l| l.starts_with("C ") && l.contains("block data:"))
+        .map(parse_data_get);
     let mut mismatches = Vec::new();
     let mut compared = 0usize;
     for (stage, ticks) in [(0usize, 1), (1, 199), (2, 201)] {
@@ -92,7 +123,11 @@ fn brewing_stands_match_vanilla() {
             }
         }
         // stage 0/1 print every 9th stand, the last stage all of them
-        let indices: Vec<usize> = if stage < 2 { (0..stands.len()).step_by(9).collect() } else { (0..stands.len()).collect() };
+        let indices: Vec<usize> = if stage < 2 {
+            (0..stands.len()).step_by(9).collect()
+        } else {
+            (0..stands.len()).collect()
+        };
         for i in indices {
             let (x, z, want) = expected.next().expect("fixture has the data get");
             let (sx, sz, be) = &stands[i];
@@ -101,10 +136,25 @@ fn brewing_stands_match_vanilla() {
             compared += 1;
             let (a, b) = (canon(&Tag::Compound(ours)), canon(&Tag::Compound(want)));
             if a != b {
-                mismatches.push(format!("stage {stage} stand {i} ({x},{z})\n ours:    {a}\n vanilla: {b}"));
+                mismatches.push(format!(
+                    "stage {stage} stand {i} ({x},{z})\n ours:    {a}\n vanilla: {b}"
+                ));
             }
         }
     }
-    assert!(expected.next().is_none(), "fixture has more data gets than compared");
-    assert!(mismatches.is_empty(), "{} of {compared} stands differ, first:\n{}", mismatches.len(), mismatches.iter().take(3).cloned().collect::<Vec<_>>().join("\n"));
+    assert!(
+        expected.next().is_none(),
+        "fixture has more data gets than compared"
+    );
+    assert!(
+        mismatches.is_empty(),
+        "{} of {compared} stands differ, first:\n{}",
+        mismatches.len(),
+        mismatches
+            .iter()
+            .take(3)
+            .cloned()
+            .collect::<Vec<_>>()
+            .join("\n")
+    );
 }

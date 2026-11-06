@@ -1,12 +1,14 @@
 //! `SetRoarTarget`.
 
 use super::warden;
+use crate::world::entity::monster::warden::Warden;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::entity::EntityId;
 use mc_game_core::world::entity::ai::behavior::{BehaviorBuilder, OneShot};
 use mc_game_core::world::entity::ai::memory::EntityRef;
-use mc_game_core::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, CANT_REACH_WALK_TARGET_SINCE, ROAR_TARGET};
-use crate::world::entity::monster::warden::Warden;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{
+    ATTACK_TARGET, CANT_REACH_WALK_TARGET_SINCE, ROAR_TARGET,
+};
 
 /// `SetRoarTarget.create(targetFinderFunction)`.
 pub fn create(target_finder_function: fn(&Warden, &ServerLevel) -> Option<EntityId>) -> OneShot {
@@ -16,7 +18,11 @@ pub fn create(target_finder_function: fn(&Warden, &ServerLevel) -> Option<Entity
     let cant_reach_since = i.registered(&CANT_REACH_WALK_TARGET_SINCE);
     i.create(move |c| {
         let body = warden(&*c.body);
-        let target = target_finder_function(body, &*c.level).filter(|id| c.level.get_entity(*id).is_some_and(|e| body.can_target_entity_ref(&*c.level, e)));
+        let target = target_finder_function(body, &*c.level).filter(|id| {
+            c.level
+                .get_entity(*id)
+                .is_some_and(|e| body.can_target_entity_ref(&*c.level, e))
+        });
         let Some(target) = target else { return false };
         c.set(&roar_target, EntityRef(target));
         c.erase(&cant_reach_since);

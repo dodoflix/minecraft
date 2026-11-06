@@ -8,14 +8,16 @@ use super::bounds::{Doubles, Ints};
 use super::collection::CollectionPredicate;
 use super::matchers::DataComponentMatchers;
 use super::state::NbtPredicate;
-use crate::components::common::{component_codec, RegistrySet};
+use crate::components::common::{RegistrySet, component_codec};
+use crate::components::holder::{
+    HolderSet, NoDirect, holder_fixed_codec, holder_set_codec, registry_by_name_codec,
+};
 use crate::components::values::decor::FireworkShape;
 use crate::components::values::effects::EquipmentSlotGroup;
-use crate::components::holder::{holder_fixed_codec, holder_set_codec, registry_by_name_codec, HolderSet, NoDirect};
 use crate::packets::play::AttributeModifierOperation;
 use mc_core::ident::Identifier;
 use mc_dfu::extra::IDENTIFIER;
-use mc_dfu::{string_enum_codec, Codec, BOOL, STRING};
+use mc_dfu::{BOOL, Codec, STRING, string_enum_codec};
 use mc_text::Component;
 use std::sync::LazyLock;
 
@@ -56,7 +58,8 @@ impl EnchantmentPredicate {
     pub fn codec() -> Codec<EnchantmentPredicate> {
         static C: LazyLock<Codec<EnchantmentPredicate>> = LazyLock::new(|| {
             mc_dfu::record!(EnchantmentPredicate {
-                enchantments: data_driven_set_codec("minecraft:enchantment").optional_field_of("enchantments"),
+                enchantments: data_driven_set_codec("minecraft:enchantment")
+                    .optional_field_of("enchantments"),
                 level: Ints::codec().optional_field_of_default("levels", Ints::any()),
             })
             .codec()
@@ -73,9 +76,10 @@ pub struct EnchantmentsPredicate {
 
 impl EnchantmentsPredicate {
     pub fn codec() -> Codec<EnchantmentsPredicate> {
-        EnchantmentPredicate::codec().list_of().xmap(|enchantments| EnchantmentsPredicate { enchantments }, |p: &EnchantmentsPredicate| {
-            p.enchantments.clone()
-        })
+        EnchantmentPredicate::codec().list_of().xmap(
+            |enchantments| EnchantmentsPredicate { enchantments },
+            |p: &EnchantmentsPredicate| p.enchantments.clone(),
+        )
     }
 }
 
@@ -111,7 +115,10 @@ pub struct MobEffectsPredicate {
 impl PartialEq for MobEffectsPredicate {
     fn eq(&self, other: &Self) -> bool {
         self.effect_map.len() == other.effect_map.len()
-            && self.effect_map.iter().all(|(k, v)| other.effect_map.iter().any(|(k2, v2)| k == k2 && v == v2))
+            && self
+                .effect_map
+                .iter()
+                .all(|(k, v)| other.effect_map.iter().any(|(k2, v2)| k == k2 && v == v2))
     }
 }
 
@@ -119,7 +126,10 @@ impl MobEffectsPredicate {
     pub fn codec() -> Codec<MobEffectsPredicate> {
         registry_by_name_codec::<mc_data::MobEffect>()
             .unbounded_map(&MobEffectInstancePredicate::codec())
-            .xmap(|effect_map| MobEffectsPredicate { effect_map }, |p: &MobEffectsPredicate| p.effect_map.clone())
+            .xmap(
+                |effect_map| MobEffectsPredicate { effect_map },
+                |p: &MobEffectsPredicate| p.effect_map.clone(),
+            )
     }
 }
 
@@ -134,7 +144,8 @@ impl PotionsPredicate {
     pub fn codec() -> Codec<PotionsPredicate> {
         mc_dfu::record!(PotionsPredicate {
             potions: RegistrySet::<mc_data::Potion>::codec().optional_field_of("potions"),
-            effects: CollectionPredicate::codec(&MobEffectsPredicate::codec()).optional_field_of("effects"),
+            effects: CollectionPredicate::codec(&MobEffectsPredicate::codec())
+                .optional_field_of("effects"),
         })
         .codec()
     }
@@ -150,7 +161,10 @@ pub struct CustomDataPredicate {
 
 impl CustomDataPredicate {
     pub fn codec() -> Codec<CustomDataPredicate> {
-        NbtPredicate::codec().xmap(|value| CustomDataPredicate { value }, |p: &CustomDataPredicate| p.value.clone())
+        NbtPredicate::codec().xmap(
+            |value| CustomDataPredicate { value },
+            |p: &CustomDataPredicate| p.value.clone(),
+        )
     }
 }
 
@@ -164,7 +178,10 @@ pub struct ContainerPredicate {
 
 impl ContainerPredicate {
     pub fn codec() -> Codec<ContainerPredicate> {
-        mc_dfu::record!(ContainerPredicate { items: CollectionPredicate::codec(&ItemPredicate::codec()).optional_field_of("items") }).codec()
+        mc_dfu::record!(ContainerPredicate {
+            items: CollectionPredicate::codec(&ItemPredicate::codec()).optional_field_of("items")
+        })
+        .codec()
     }
 }
 
@@ -176,7 +193,10 @@ pub struct BundlePredicate {
 
 impl BundlePredicate {
     pub fn codec() -> Codec<BundlePredicate> {
-        mc_dfu::record!(BundlePredicate { items: CollectionPredicate::codec(&ItemPredicate::codec()).optional_field_of("items") }).codec()
+        mc_dfu::record!(BundlePredicate {
+            items: CollectionPredicate::codec(&ItemPredicate::codec()).optional_field_of("items")
+        })
+        .codec()
     }
 }
 
@@ -232,9 +252,10 @@ pub struct FireworkExplosionPredicate {
 
 impl FireworkExplosionPredicate {
     pub fn codec() -> Codec<FireworkExplosionPredicate> {
-        FireworkPredicate::codec().xmap(|predicate| FireworkExplosionPredicate { predicate }, |p: &FireworkExplosionPredicate| {
-            p.predicate.clone()
-        })
+        FireworkPredicate::codec().xmap(
+            |predicate| FireworkExplosionPredicate { predicate },
+            |p: &FireworkExplosionPredicate| p.predicate.clone(),
+        )
     }
 }
 
@@ -248,8 +269,10 @@ pub struct FireworksPredicate {
 impl FireworksPredicate {
     pub fn codec() -> Codec<FireworksPredicate> {
         mc_dfu::record!(FireworksPredicate {
-            explosions: CollectionPredicate::codec(&FireworkPredicate::codec()).optional_field_of("explosions"),
-            flight_duration: Ints::codec().optional_field_of_default("flight_duration", Ints::any()),
+            explosions: CollectionPredicate::codec(&FireworkPredicate::codec())
+                .optional_field_of("explosions"),
+            flight_duration: Ints::codec()
+                .optional_field_of_default("flight_duration", Ints::any()),
         })
         .codec()
     }
@@ -271,8 +294,14 @@ pub struct WritableBookPredicate {
 
 impl WritableBookPredicate {
     pub fn codec() -> Codec<WritableBookPredicate> {
-        let page = STRING.xmap(|contents| WritableBookPagePredicate { contents }, |p: &WritableBookPagePredicate| p.contents.clone());
-        mc_dfu::record!(WritableBookPredicate { pages: CollectionPredicate::codec(&page).optional_field_of("pages") }).codec()
+        let page = STRING.xmap(
+            |contents| WritableBookPagePredicate { contents },
+            |p: &WritableBookPagePredicate| p.contents.clone(),
+        );
+        mc_dfu::record!(WritableBookPredicate {
+            pages: CollectionPredicate::codec(&page).optional_field_of("pages")
+        })
+        .codec()
     }
 }
 
@@ -294,7 +323,10 @@ pub struct WrittenBookPredicate {
 
 impl WrittenBookPredicate {
     pub fn codec() -> Codec<WrittenBookPredicate> {
-        let page = component_codec().xmap(|contents| WrittenBookPagePredicate { contents }, |p: &WrittenBookPagePredicate| p.contents.clone());
+        let page = component_codec().xmap(
+            |contents| WrittenBookPagePredicate { contents },
+            |p: &WrittenBookPagePredicate| p.contents.clone(),
+        );
         mc_dfu::record!(WrittenBookPredicate {
             pages: CollectionPredicate::codec(&page).optional_field_of("pages"),
             author: STRING.optional_field_of("author"),
@@ -310,8 +342,14 @@ impl WrittenBookPredicate {
 
 static OPERATIONS: [(AttributeModifierOperation, &str); 3] = [
     (AttributeModifierOperation::AddValue, "add_value"),
-    (AttributeModifierOperation::AddMultipliedBase, "add_multiplied_base"),
-    (AttributeModifierOperation::AddMultipliedTotal, "add_multiplied_total"),
+    (
+        AttributeModifierOperation::AddMultipliedBase,
+        "add_multiplied_base",
+    ),
+    (
+        AttributeModifierOperation::AddMultipliedTotal,
+        "add_multiplied_total",
+    ),
 ];
 
 /// `AttributeModifiersPredicate.EntryPredicate`.
@@ -346,7 +384,8 @@ pub struct AttributeModifiersPredicate {
 impl AttributeModifiersPredicate {
     pub fn codec() -> Codec<AttributeModifiersPredicate> {
         mc_dfu::record!(AttributeModifiersPredicate {
-            modifiers: CollectionPredicate::codec(&AttributeEntryPredicate::codec()).optional_field_of("modifiers"),
+            modifiers: CollectionPredicate::codec(&AttributeEntryPredicate::codec())
+                .optional_field_of("modifiers"),
         })
         .codec()
     }
@@ -364,7 +403,8 @@ pub struct TrimPredicate {
 impl TrimPredicate {
     pub fn codec() -> Codec<TrimPredicate> {
         mc_dfu::record!(TrimPredicate {
-            material: data_driven_set_codec("minecraft:trim_material").optional_field_of("material"),
+            material: data_driven_set_codec("minecraft:trim_material")
+                .optional_field_of("material"),
             pattern: data_driven_set_codec("minecraft:trim_pattern").optional_field_of("pattern"),
         })
         .codec()
@@ -379,7 +419,10 @@ pub struct JukeboxPlayablePredicate {
 
 impl JukeboxPlayablePredicate {
     pub fn codec() -> Codec<JukeboxPlayablePredicate> {
-        mc_dfu::record!(JukeboxPlayablePredicate { song: data_driven_set_codec("minecraft:jukebox_song").optional_field_of("song") }).codec()
+        mc_dfu::record!(JukeboxPlayablePredicate {
+            song: data_driven_set_codec("minecraft:jukebox_song").optional_field_of("song")
+        })
+        .codec()
     }
 }
 
@@ -391,7 +434,9 @@ pub struct VillagerTypePredicate {
 
 impl VillagerTypePredicate {
     pub fn codec() -> Codec<VillagerTypePredicate> {
-        RegistrySet::<mc_data::VillagerType>::codec()
-            .xmap(|villager_types| VillagerTypePredicate { villager_types }, |p: &VillagerTypePredicate| p.villager_types.clone())
+        RegistrySet::<mc_data::VillagerType>::codec().xmap(
+            |villager_types| VillagerTypePredicate { villager_types },
+            |p: &VillagerTypePredicate| p.villager_types.clone(),
+        )
     }
 }

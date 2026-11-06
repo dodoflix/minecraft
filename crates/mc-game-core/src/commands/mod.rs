@@ -10,8 +10,8 @@ pub mod command_signing_context;
 pub mod command_source;
 pub mod command_source_stack;
 pub mod command_tree;
-pub mod component_utils;
 pub mod commands;
+pub mod component_utils;
 pub mod console_command_source;
 pub mod execution;
 pub mod functions;
@@ -24,18 +24,19 @@ pub mod synchronization;
 pub mod text_validators;
 
 pub use brigadier_exceptions::BrigadierExceptions;
-pub use text_validators::install_text_validators;
 pub use command_build_context::{CommandBuildContext, HolderLookupProvider, RegistryView};
 pub use command_result_callback::CommandResultCallback;
 pub use command_signing_context::CommandSigningContext;
-pub use console_command_source::{ConsoleCommandSource, RconConsoleSource};
 pub use command_source::{CommandSource, CommandSourceKind, NullCommandSource, null_source};
 pub use command_source_stack::{CommandEntity, CommandSourceStack};
-pub use player_commands::send_commands;
 pub use commands::{
-    COMMANDS, COMMAND_PREFIX, CommandRegistration, CommandRegistrationContext, CommandSelection, Commands, LEVEL_ADMINS, LEVEL_ALL,
-    LEVEL_GAMEMASTERS, LEVEL_MODERATORS, LEVEL_OWNERS, argument, has_permission, literal,
+    COMMAND_PREFIX, COMMANDS, CommandRegistration, CommandRegistrationContext, CommandSelection,
+    Commands, LEVEL_ADMINS, LEVEL_ALL, LEVEL_GAMEMASTERS, LEVEL_MODERATORS, LEVEL_OWNERS, argument,
+    has_permission, literal,
 };
+pub use console_command_source::{ConsoleCommandSource, RconConsoleSource};
+pub use player_commands::send_commands;
+pub use text_validators::install_text_validators;
 
 use mc_brigadier::ResultConsumer;
 use std::sync::Arc;

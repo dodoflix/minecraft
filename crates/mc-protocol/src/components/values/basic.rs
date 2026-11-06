@@ -3,19 +3,21 @@
 
 use crate::codec::EncodeResult;
 use crate::codec::{
-    decode_tag_with, encode_tag, read_count, read_registry_id, read_varint, write_varint, Decode, DecodeError, DecodeResult, Encode, NbtLimit,
+    Decode, DecodeError, DecodeResult, Encode, NbtLimit, decode_tag_with, encode_tag, read_count,
+    read_registry_id, read_varint, write_varint,
 };
 use crate::components::common::{
-    component_codec, compound_tag_codec, read_enum_zero, DyeColor, Rarity, RegistrySet, SoundEvent,
+    DyeColor, Rarity, RegistrySet, SoundEvent, component_codec, compound_tag_codec, read_enum_zero,
 };
 use crate::components::component::{ComponentDef, ComponentKey};
 use crate::components::holder::{self, Holder, NoDirect};
 use mc_core::ident::Identifier;
 use mc_data::{DataComponentType, EntityType, Item};
 use mc_dfu::extra::{
-    extra_float_range, extra_int_range, IDENTIFIER, NON_NEGATIVE_FLOAT, NON_NEGATIVE_INT, POSITIVE_INT, RGB_COLOR_CODEC,
+    IDENTIFIER, NON_NEGATIVE_FLOAT, NON_NEGATIVE_INT, POSITIVE_INT, RGB_COLOR_CODEC,
+    extra_float_range, extra_int_range,
 };
-use mc_dfu::{record, Codec, DataResult, Either, BOOL, FLOAT, INT, STRING, UNIT};
+use mc_dfu::{BOOL, Codec, DataResult, Either, FLOAT, INT, STRING, UNIT, record};
 use mc_nbt::CompoundTag;
 use mc_text::{ChatFormatting, Component, Style};
 
@@ -27,50 +29,78 @@ pub const MAX_DAMAGE: ComponentKey<i32> = ComponentKey::new(DataComponentType::M
 pub const DAMAGE: ComponentKey<i32> = ComponentKey::new(DataComponentType::DAMAGE);
 pub const UNBREAKABLE: ComponentKey<()> = ComponentKey::new(DataComponentType::UNBREAKABLE);
 pub const CUSTOM_NAME: ComponentKey<Component> = ComponentKey::new(DataComponentType::CUSTOM_NAME);
-pub const MINIMUM_ATTACK_CHARGE: ComponentKey<f32> = ComponentKey::new(DataComponentType::MINIMUM_ATTACK_CHARGE);
-pub const DAMAGE_TYPE: ComponentKey<Holder<NoDirect>> = ComponentKey::new(DataComponentType::DAMAGE_TYPE);
+pub const MINIMUM_ATTACK_CHARGE: ComponentKey<f32> =
+    ComponentKey::new(DataComponentType::MINIMUM_ATTACK_CHARGE);
+pub const DAMAGE_TYPE: ComponentKey<Holder<NoDirect>> =
+    ComponentKey::new(DataComponentType::DAMAGE_TYPE);
 pub const ITEM_NAME: ComponentKey<Component> = ComponentKey::new(DataComponentType::ITEM_NAME);
 pub const ITEM_MODEL: ComponentKey<Identifier> = ComponentKey::new(DataComponentType::ITEM_MODEL);
 pub const LORE: ComponentKey<ItemLore> = ComponentKey::new(DataComponentType::LORE);
 pub const RARITY: ComponentKey<Rarity> = ComponentKey::new(DataComponentType::RARITY);
-pub const ENCHANTMENTS: ComponentKey<ItemEnchantments> = ComponentKey::new(DataComponentType::ENCHANTMENTS);
-pub const CUSTOM_MODEL_DATA: ComponentKey<CustomModelData> = ComponentKey::new(DataComponentType::CUSTOM_MODEL_DATA);
-pub const TOOLTIP_DISPLAY: ComponentKey<TooltipDisplay> = ComponentKey::new(DataComponentType::TOOLTIP_DISPLAY);
+pub const ENCHANTMENTS: ComponentKey<ItemEnchantments> =
+    ComponentKey::new(DataComponentType::ENCHANTMENTS);
+pub const CUSTOM_MODEL_DATA: ComponentKey<CustomModelData> =
+    ComponentKey::new(DataComponentType::CUSTOM_MODEL_DATA);
+pub const TOOLTIP_DISPLAY: ComponentKey<TooltipDisplay> =
+    ComponentKey::new(DataComponentType::TOOLTIP_DISPLAY);
 pub const REPAIR_COST: ComponentKey<i32> = ComponentKey::new(DataComponentType::REPAIR_COST);
-pub const CREATIVE_SLOT_LOCK: ComponentKey<()> = ComponentKey::new(DataComponentType::CREATIVE_SLOT_LOCK);
-pub const ENCHANTMENT_GLINT_OVERRIDE: ComponentKey<bool> = ComponentKey::new(DataComponentType::ENCHANTMENT_GLINT_OVERRIDE);
-pub const INTANGIBLE_PROJECTILE: ComponentKey<()> = ComponentKey::new(DataComponentType::INTANGIBLE_PROJECTILE);
-pub const ENCHANTABLE: ComponentKey<Enchantable> = ComponentKey::new(DataComponentType::ENCHANTABLE);
+pub const CREATIVE_SLOT_LOCK: ComponentKey<()> =
+    ComponentKey::new(DataComponentType::CREATIVE_SLOT_LOCK);
+pub const ENCHANTMENT_GLINT_OVERRIDE: ComponentKey<bool> =
+    ComponentKey::new(DataComponentType::ENCHANTMENT_GLINT_OVERRIDE);
+pub const INTANGIBLE_PROJECTILE: ComponentKey<()> =
+    ComponentKey::new(DataComponentType::INTANGIBLE_PROJECTILE);
+pub const ENCHANTABLE: ComponentKey<Enchantable> =
+    ComponentKey::new(DataComponentType::ENCHANTABLE);
 pub const REPAIRABLE: ComponentKey<Repairable> = ComponentKey::new(DataComponentType::REPAIRABLE);
 pub const GLIDER: ComponentKey<()> = ComponentKey::new(DataComponentType::GLIDER);
-pub const TOOLTIP_STYLE: ComponentKey<Identifier> = ComponentKey::new(DataComponentType::TOOLTIP_STYLE);
-pub const ADDITIONAL_TRADE_COST: ComponentKey<i32> = ComponentKey::new(DataComponentType::ADDITIONAL_TRADE_COST);
-pub const BLOCK_TRANSFORMER: ComponentKey<Holder<NoDirect>> = ComponentKey::new(DataComponentType::BLOCK_TRANSFORMER);
-pub const VILLAGER_FOOD: ComponentKey<VillagerFood> = ComponentKey::new(DataComponentType::VILLAGER_FOOD);
-pub const STORED_ENCHANTMENTS: ComponentKey<ItemEnchantments> = ComponentKey::new(DataComponentType::STORED_ENCHANTMENTS);
+pub const TOOLTIP_STYLE: ComponentKey<Identifier> =
+    ComponentKey::new(DataComponentType::TOOLTIP_STYLE);
+pub const ADDITIONAL_TRADE_COST: ComponentKey<i32> =
+    ComponentKey::new(DataComponentType::ADDITIONAL_TRADE_COST);
+pub const BLOCK_TRANSFORMER: ComponentKey<Holder<NoDirect>> =
+    ComponentKey::new(DataComponentType::BLOCK_TRANSFORMER);
+pub const VILLAGER_FOOD: ComponentKey<VillagerFood> =
+    ComponentKey::new(DataComponentType::VILLAGER_FOOD);
+pub const STORED_ENCHANTMENTS: ComponentKey<ItemEnchantments> =
+    ComponentKey::new(DataComponentType::STORED_ENCHANTMENTS);
 pub const DYE: ComponentKey<DyeColor> = ComponentKey::new(DataComponentType::DYE);
-pub const DYED_COLOR: ComponentKey<DyedItemColor> = ComponentKey::new(DataComponentType::DYED_COLOR);
+pub const DYED_COLOR: ComponentKey<DyedItemColor> =
+    ComponentKey::new(DataComponentType::DYED_COLOR);
 pub const MAP_ID: ComponentKey<MapId> = ComponentKey::new(DataComponentType::MAP_ID);
-pub const MAP_POST_PROCESSING: ComponentKey<MapPostProcessing> = ComponentKey::new(DataComponentType::MAP_POST_PROCESSING);
-pub const POTION_DURATION_SCALE: ComponentKey<f32> = ComponentKey::new(DataComponentType::POTION_DURATION_SCALE);
-pub const BUCKET_ENTITY_DATA: ComponentKey<CustomData> = ComponentKey::new(DataComponentType::BUCKET_ENTITY_DATA);
+pub const MAP_POST_PROCESSING: ComponentKey<MapPostProcessing> =
+    ComponentKey::new(DataComponentType::MAP_POST_PROCESSING);
+pub const POTION_DURATION_SCALE: ComponentKey<f32> =
+    ComponentKey::new(DataComponentType::POTION_DURATION_SCALE);
+pub const BUCKET_ENTITY_DATA: ComponentKey<CustomData> =
+    ComponentKey::new(DataComponentType::BUCKET_ENTITY_DATA);
 pub const OMINOUS_BOTTLE_AMPLIFIER: ComponentKey<OminousBottleAmplifier> =
     ComponentKey::new(DataComponentType::OMINOUS_BOTTLE_AMPLIFIER);
-pub const NOTE_BLOCK_SOUND: ComponentKey<Identifier> = ComponentKey::new(DataComponentType::NOTE_BLOCK_SOUND);
+pub const NOTE_BLOCK_SOUND: ComponentKey<Identifier> =
+    ComponentKey::new(DataComponentType::NOTE_BLOCK_SOUND);
 pub const BASE_COLOR: ComponentKey<DyeColor> = ComponentKey::new(DataComponentType::BASE_COLOR);
-pub const BREAK_SOUND: ComponentKey<Holder<SoundEvent>> = ComponentKey::new(DataComponentType::BREAK_SOUND);
-pub const COMPOSTABLE: ComponentKey<Compostable> = ComponentKey::new(DataComponentType::COMPOSTABLE);
-pub const COOKING_FUEL: ComponentKey<CookingFuel> = ComponentKey::new(DataComponentType::COOKING_FUEL);
-pub const BREWING_FUEL: ComponentKey<BrewingFuel> = ComponentKey::new(DataComponentType::BREWING_FUEL);
-pub const MOB_VISIBILITY: ComponentKey<MobVisibility> = ComponentKey::new(DataComponentType::MOB_VISIBILITY);
+pub const BREAK_SOUND: ComponentKey<Holder<SoundEvent>> =
+    ComponentKey::new(DataComponentType::BREAK_SOUND);
+pub const COMPOSTABLE: ComponentKey<Compostable> =
+    ComponentKey::new(DataComponentType::COMPOSTABLE);
+pub const COOKING_FUEL: ComponentKey<CookingFuel> =
+    ComponentKey::new(DataComponentType::COOKING_FUEL);
+pub const BREWING_FUEL: ComponentKey<BrewingFuel> =
+    ComponentKey::new(DataComponentType::BREWING_FUEL);
+pub const MOB_VISIBILITY: ComponentKey<MobVisibility> =
+    ComponentKey::new(DataComponentType::MOB_VISIBILITY);
 pub const WOLF_COLLAR: ComponentKey<DyeColor> = ComponentKey::new(DataComponentType::WOLF_COLLAR);
-pub const TROPICAL_FISH_BASE_COLOR: ComponentKey<DyeColor> = ComponentKey::new(DataComponentType::TROPICAL_FISH_BASE_COLOR);
-pub const TROPICAL_FISH_PATTERN_COLOR: ComponentKey<DyeColor> = ComponentKey::new(DataComponentType::TROPICAL_FISH_PATTERN_COLOR);
+pub const TROPICAL_FISH_BASE_COLOR: ComponentKey<DyeColor> =
+    ComponentKey::new(DataComponentType::TROPICAL_FISH_BASE_COLOR);
+pub const TROPICAL_FISH_PATTERN_COLOR: ComponentKey<DyeColor> =
+    ComponentKey::new(DataComponentType::TROPICAL_FISH_PATTERN_COLOR);
 pub const CAT_COLLAR: ComponentKey<DyeColor> = ComponentKey::new(DataComponentType::CAT_COLLAR);
 pub const SHEEP_COLOR: ComponentKey<DyeColor> = ComponentKey::new(DataComponentType::SHEEP_COLOR);
-pub const SHULKER_COLOR: ComponentKey<DyeColor> = ComponentKey::new(DataComponentType::SHULKER_COLOR);
+pub const SHULKER_COLOR: ComponentKey<DyeColor> =
+    ComponentKey::new(DataComponentType::SHULKER_COLOR);
 pub const WAXED: ComponentKey<()> = ComponentKey::new(DataComponentType::WAXED);
-pub const CUSHION_COLOR: ComponentKey<DyeColor> = ComponentKey::new(DataComponentType::CUSHION_COLOR);
+pub const CUSHION_COLOR: ComponentKey<DyeColor> =
+    ComponentKey::new(DataComponentType::CUSHION_COLOR);
 
 // ---- CustomData ------------------------------------------------------------------------------------------------
 
@@ -95,7 +125,8 @@ impl CustomData {
     }
     /// `CustomData.COMPOUND_TAG_CODEC` = `Codec.withAlternative(CompoundTag.CODEC, TagParser.FLATTENED_CODEC)`.
     pub fn compound_tag_codec() -> Codec<CompoundTag> {
-        compound_tag_codec().with_alternative(&crate::components::common::flattened_compound_codec())
+        compound_tag_codec()
+            .with_alternative(&crate::components::common::flattened_compound_codec())
     }
     /// `CustomData.CODEC`.
     pub fn codec() -> Codec<CustomData> {
@@ -128,10 +159,14 @@ fn encode_component(c: &Component, out: &mut Vec<u8>) -> EncodeResult<()> {
 
 /// ... decode (default NBT quota).
 fn decode_component(input: &mut &[u8]) -> DecodeResult<Component> {
-    let tag = decode_tag_with(input, NbtLimit::DEFAULT)?.ok_or_else(|| DecodeError::msg("Expected non-null compound tag"))?;
+    let tag = decode_tag_with(input, NbtLimit::DEFAULT)?
+        .ok_or_else(|| DecodeError::msg("Expected non-null compound tag"))?;
     match mc_dfu::parse_nbt(&component_codec(), &tag) {
         DataResult::Success(c) => Ok(c),
-        e => Err(DecodeError::Message(format!("Failed to decode: {} {tag}", e.error_message().unwrap_or_default()))),
+        e => Err(DecodeError::Message(format!(
+            "Failed to decode: {} {tag}",
+            e.error_message().unwrap_or_default()
+        ))),
     }
 }
 
@@ -149,7 +184,11 @@ impl ItemLore {
     /// # Panics
     /// With more than [`ItemLore::MAX_LINES`] lines (vanilla throws `IllegalArgumentException`).
     pub fn new(lines: Vec<Component>) -> ItemLore {
-        assert!(lines.len() <= Self::MAX_LINES, "Got {} lines, but maximum is 256", lines.len());
+        assert!(
+            lines.len() <= Self::MAX_LINES,
+            "Got {} lines, but maximum is 256",
+            lines.len()
+        );
         ItemLore { lines }
     }
     pub fn lines(&self) -> &[Component] {
@@ -157,8 +196,13 @@ impl ItemLore {
     }
     /// `styledLines`: every line merged with dark purple italics.
     pub fn styled_lines(&self) -> Vec<Component> {
-        let style = Style::EMPTY.with_color_formatting(Some(ChatFormatting::DarkPurple)).with_italic(Some(true));
-        self.lines.iter().map(|c| mc_text::util::merge_styles(c.clone(), &style)).collect()
+        let style = Style::EMPTY
+            .with_color_formatting(Some(ChatFormatting::DarkPurple))
+            .with_italic(Some(true));
+        self.lines
+            .iter()
+            .map(|c| mc_text::util::merge_styles(c.clone(), &style))
+            .collect()
     }
     pub fn with_line_added(&self, line: Component) -> ItemLore {
         let mut lines = self.lines.clone();
@@ -166,7 +210,9 @@ impl ItemLore {
         ItemLore::new(lines)
     }
     pub fn codec() -> Codec<ItemLore> {
-        component_codec().size_limited_list_of(Self::MAX_LINES).xmap(ItemLore::new, |l: &ItemLore| l.lines.clone())
+        component_codec()
+            .size_limited_list_of(Self::MAX_LINES)
+            .xmap(ItemLore::new, |l: &ItemLore| l.lines.clone())
     }
 }
 
@@ -226,7 +272,8 @@ pub enum MapPostProcessing {
 }
 
 impl MapPostProcessing {
-    pub const ALL: &'static [MapPostProcessing] = &[MapPostProcessing::Lock, MapPostProcessing::Scale];
+    pub const ALL: &'static [MapPostProcessing] =
+        &[MapPostProcessing::Lock, MapPostProcessing::Scale];
     pub fn id(self) -> i32 {
         self as i32
     }
@@ -252,7 +299,10 @@ impl OminousBottleAmplifier {
     pub const MIN_AMPLIFIER: i32 = 0;
     pub const MAX_AMPLIFIER: i32 = 4;
     pub fn codec() -> Codec<OminousBottleAmplifier> {
-        extra_int_range(0, 4).xmap(|value| OminousBottleAmplifier { value }, |a: &OminousBottleAmplifier| a.value)
+        extra_int_range(0, 4).xmap(
+            |value| OminousBottleAmplifier { value },
+            |a: &OminousBottleAmplifier| a.value,
+        )
     }
 }
 impl Encode for OminousBottleAmplifier {
@@ -280,24 +330,41 @@ pub struct CustomModelData {
 impl CustomModelData {
     pub fn codec() -> Codec<CustomModelData> {
         record!(CustomModelData {
-            floats: FLOAT.list_of().optional_field_of_default("floats", Vec::new()),
-            flags: BOOL.list_of().optional_field_of_default("flags", Vec::new()),
-            strings: STRING.list_of().optional_field_of_default("strings", Vec::new()),
-            colors: RGB_COLOR_CODEC.list_of().optional_field_of_default("colors", Vec::new()),
+            floats: FLOAT
+                .list_of()
+                .optional_field_of_default("floats", Vec::new()),
+            flags: BOOL
+                .list_of()
+                .optional_field_of_default("flags", Vec::new()),
+            strings: STRING
+                .list_of()
+                .optional_field_of_default("strings", Vec::new()),
+            colors: RGB_COLOR_CODEC
+                .list_of()
+                .optional_field_of_default("colors", Vec::new()),
         })
         .codec()
     }
     pub fn get_float(&self, index: i32) -> Option<f32> {
-        usize::try_from(index).ok().and_then(|i| self.floats.get(i).copied())
+        usize::try_from(index)
+            .ok()
+            .and_then(|i| self.floats.get(i).copied())
     }
     pub fn get_boolean(&self, index: i32) -> Option<bool> {
-        usize::try_from(index).ok().and_then(|i| self.flags.get(i).copied())
+        usize::try_from(index)
+            .ok()
+            .and_then(|i| self.flags.get(i).copied())
     }
     pub fn get_string(&self, index: i32) -> Option<&str> {
-        usize::try_from(index).ok().and_then(|i| self.strings.get(i)).map(String::as_str)
+        usize::try_from(index)
+            .ok()
+            .and_then(|i| self.strings.get(i))
+            .map(String::as_str)
     }
     pub fn get_color(&self, index: i32) -> Option<i32> {
-        usize::try_from(index).ok().and_then(|i| self.colors.get(i).copied())
+        usize::try_from(index)
+            .ok()
+            .and_then(|i| self.colors.get(i).copied())
     }
 }
 impl Encode for CustomModelData {
@@ -358,7 +425,8 @@ pub struct ItemEnchantments {
 
 impl PartialEq for ItemEnchantments {
     fn eq(&self, other: &Self) -> bool {
-        self.entries.len() == other.entries.len() && self.entries.iter().all(|e| other.entries.contains(e))
+        self.entries.len() == other.entries.len()
+            && self.entries.iter().all(|e| other.entries.contains(e))
     }
 }
 
@@ -387,13 +455,19 @@ impl ItemEnchantments {
     }
     /// `getLevel(enchantment)`: 0 when absent.
     pub fn get_level(&self, enchantment: &EnchantmentHolder) -> i32 {
-        self.entries.iter().find(|(k, _)| k == enchantment).map_or(0, |(_, l)| *l)
+        self.entries
+            .iter()
+            .find(|(k, _)| k == enchantment)
+            .map_or(0, |(_, l)| *l)
     }
     pub fn codec() -> Codec<ItemEnchantments> {
         let level = mc_dfu::int_range(1, 255);
         holder::holder_fixed_codec::<NoDirect>(ENCHANTMENT_REGISTRY)
             .unbounded_map(&level)
-            .xmap(|entries| ItemEnchantments { entries }, |e: &ItemEnchantments| e.entries.clone())
+            .xmap(
+                |entries| ItemEnchantments { entries },
+                |e: &ItemEnchantments| e.entries.clone(),
+            )
     }
 }
 
@@ -403,7 +477,7 @@ impl Encode for ItemEnchantments {
         for (k, level) in &self.entries {
             holder::encode_holder_registry(ENCHANTMENT_REGISTRY, k, out)?;
             write_varint(out, *level);
-        };
+        }
         Ok(())
     }
 }
@@ -436,12 +510,18 @@ impl PartialEq for TooltipDisplay {
     fn eq(&self, other: &Self) -> bool {
         self.hide_tooltip == other.hide_tooltip
             && self.hidden_components.len() == other.hidden_components.len()
-            && self.hidden_components.iter().all(|c| other.hidden_components.contains(c))
+            && self
+                .hidden_components
+                .iter()
+                .all(|c| other.hidden_components.contains(c))
     }
 }
 
 impl TooltipDisplay {
-    pub const DEFAULT: TooltipDisplay = TooltipDisplay { hide_tooltip: false, hidden_components: Vec::new() };
+    pub const DEFAULT: TooltipDisplay = TooltipDisplay {
+        hide_tooltip: false,
+        hidden_components: Vec::new(),
+    };
 
     pub fn shows(&self, component: DataComponentType) -> bool {
         !self.hide_tooltip && !self.hidden_components.contains(&component)
@@ -466,10 +546,13 @@ impl TooltipDisplay {
         set
     }
     pub fn codec() -> Codec<TooltipDisplay> {
-        let component_set = holder::registry_by_name_codec::<DataComponentType>().list_of().xmap(Self::dedup, |s: &Vec<DataComponentType>| s.clone());
+        let component_set = holder::registry_by_name_codec::<DataComponentType>()
+            .list_of()
+            .xmap(Self::dedup, |s: &Vec<DataComponentType>| s.clone());
         record!(TooltipDisplay {
             hide_tooltip: BOOL.optional_field_of_default("hide_tooltip", false),
-            hidden_components: component_set.optional_field_of_default("hidden_components", Vec::new()),
+            hidden_components: component_set
+                .optional_field_of_default("hidden_components", Vec::new()),
         })
         .codec()
     }
@@ -481,7 +564,7 @@ impl Encode for TooltipDisplay {
         write_varint(out, self.hidden_components.len() as i32);
         for c in &self.hidden_components {
             write_varint(out, c.id() as i32);
-        };
+        }
         Ok(())
     }
 }
@@ -496,7 +579,10 @@ impl Decode for TooltipDisplay {
                 set.push(c);
             }
         }
-        Ok(TooltipDisplay { hide_tooltip, hidden_components: set })
+        Ok(TooltipDisplay {
+            hide_tooltip,
+            hidden_components: set,
+        })
     }
 }
 
@@ -510,11 +596,17 @@ impl Enchantable {
     /// # Panics
     /// When `value <= 0`.
     pub fn new(value: i32) -> Enchantable {
-        assert!(value > 0, "Enchantment value must be positive, but was {value}");
+        assert!(
+            value > 0,
+            "Enchantment value must be positive, but was {value}"
+        );
         Enchantable { value }
     }
     pub fn codec() -> Codec<Enchantable> {
-        record!(Enchantable { value: POSITIVE_INT.field_of("value") }).codec()
+        record!(Enchantable {
+            value: POSITIVE_INT.field_of("value")
+        })
+        .codec()
     }
 }
 impl Encode for Enchantable {
@@ -527,7 +619,9 @@ impl Decode for Enchantable {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
         let value = read_varint(input)?;
         if value <= 0 {
-            return Err(DecodeError::Message(format!("Enchantment value must be positive, but was {value}")));
+            return Err(DecodeError::Message(format!(
+                "Enchantment value must be positive, but was {value}"
+            )));
         }
         Ok(Enchantable { value })
     }
@@ -539,7 +633,10 @@ pub struct Repairable {
 }
 impl Repairable {
     pub fn codec() -> Codec<Repairable> {
-        record!(Repairable { items: RegistrySet::<Item>::codec().field_of("items") }).codec()
+        record!(Repairable {
+            items: RegistrySet::<Item>::codec().field_of("items")
+        })
+        .codec()
     }
     pub fn is_valid_repair_item(&self, item: Item) -> bool {
         self.items.contains(item)
@@ -563,7 +660,10 @@ pub struct VillagerFood {
 }
 impl VillagerFood {
     pub fn codec() -> Codec<VillagerFood> {
-        record!(VillagerFood { nutrition: POSITIVE_INT.field_of("nutrition") }).codec()
+        record!(VillagerFood {
+            nutrition: POSITIVE_INT.field_of("nutrition")
+        })
+        .codec()
     }
 }
 impl Encode for VillagerFood {
@@ -588,7 +688,8 @@ impl MobVisibility {
     pub const MAX_VISIBILITY: f32 = 10.0;
     pub fn codec() -> Codec<MobVisibility> {
         record!(MobVisibility {
-            targeting_entity_types: RegistrySet::<EntityType>::codec().field_of("targeting_entity_types"),
+            targeting_entity_types: RegistrySet::<EntityType>::codec()
+                .field_of("targeting_entity_types"),
             visibility: extra_float_range(0.0, 10.0).field_of("visibility"),
         })
         .codec()
@@ -603,7 +704,10 @@ impl Encode for MobVisibility {
 }
 impl Decode for MobVisibility {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
-        Ok(MobVisibility { targeting_entity_types: RegistrySet::decode_stream(input)?, visibility: f32::decode(input)? })
+        Ok(MobVisibility {
+            targeting_entity_types: RegistrySet::decode_stream(input)?,
+            visibility: f32::decode(input)?,
+        })
     }
 }
 
@@ -699,7 +803,10 @@ pub struct Compostable {
 }
 impl Compostable {
     pub fn codec() -> Codec<Compostable> {
-        record!(Compostable { layers: ResolvableInt::codec().field_of("layers") }).codec()
+        record!(Compostable {
+            layers: ResolvableInt::codec().field_of("layers")
+        })
+        .codec()
     }
 }
 impl Encode for Compostable {
@@ -737,7 +844,10 @@ impl Encode for CookingFuel {
 }
 impl Decode for CookingFuel {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
-        Ok(CookingFuel { burn_time: ResolvableInt::decode(input)?, speed_multiplier: ResolvableFloat::decode(input)? })
+        Ok(CookingFuel {
+            burn_time: ResolvableInt::decode(input)?,
+            speed_multiplier: ResolvableFloat::decode(input)?,
+        })
     }
 }
 
@@ -764,58 +874,122 @@ impl Encode for BrewingFuel {
 }
 impl Decode for BrewingFuel {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
-        Ok(BrewingFuel { uses: ResolvableInt::decode(input)?, speed_multiplier: ResolvableFloat::decode(input)? })
+        Ok(BrewingFuel {
+            uses: ResolvableInt::decode(input)?,
+            speed_multiplier: ResolvableFloat::decode(input)?,
+        })
     }
 }
 
 // ---- definitions -------------------------------------------------------------------------------------------------
 
 fn var_int(key: ComponentKey<i32>, codec: Codec<i32>) -> ComponentDef {
-    ComponentDef::builder(key).persistent(codec).network_with(|v, out| { write_varint(out, *v); Ok(()) }, |i| read_varint(i)).build()
+    ComponentDef::builder(key)
+        .persistent(codec)
+        .network_with(
+            |v, out| {
+                write_varint(out, *v);
+                Ok(())
+            },
+            |i| read_varint(i),
+        )
+        .build()
 }
 
 fn float(key: ComponentKey<f32>, codec: Codec<f32>) -> ComponentDef {
-    ComponentDef::builder(key).persistent(codec).network_with(|v, out| v.encode(out), |i| f32::decode(i)).build()
+    ComponentDef::builder(key)
+        .persistent(codec)
+        .network_with(|v, out| v.encode(out), |i| f32::decode(i))
+        .build()
 }
 
 fn unit(key: ComponentKey<()>, persistent: bool) -> ComponentDef {
     let b = ComponentDef::builder(key);
-    let b = if persistent { b.persistent(UNIT.clone()) } else { b };
+    let b = if persistent {
+        b.persistent(UNIT.clone())
+    } else {
+        b
+    };
     b.network_with(|_, _| Ok(()), |_| Ok(())).build()
 }
 
 fn dye(key: ComponentKey<DyeColor>) -> ComponentDef {
-    ComponentDef::builder(key).persistent(DyeColor::codec()).network_synchronized().build()
+    ComponentDef::builder(key)
+        .persistent(DyeColor::codec())
+        .network_synchronized()
+        .build()
 }
 
 fn identifier(key: ComponentKey<Identifier>) -> ComponentDef {
-    ComponentDef::builder(key).persistent(IDENTIFIER.clone()).network_synchronized().build()
+    ComponentDef::builder(key)
+        .persistent(IDENTIFIER.clone())
+        .network_synchronized()
+        .build()
 }
 
 pub(crate) fn defs(out: &mut Vec<ComponentDef>) {
-    out.push(ComponentDef::builder(CUSTOM_DATA).persistent(CustomData::codec()).build());
+    out.push(
+        ComponentDef::builder(CUSTOM_DATA)
+            .persistent(CustomData::codec())
+            .build(),
+    );
     out.push(var_int(MAX_STACK_SIZE, extra_int_range(1, 99)));
     out.push(var_int(MAX_DAMAGE, POSITIVE_INT.clone()));
     out.push(var_int(DAMAGE, NON_NEGATIVE_INT.clone()));
     out.push(unit(UNBREAKABLE, true));
-    out.push(ComponentDef::builder(CUSTOM_NAME).persistent(component_codec()).build());
+    out.push(
+        ComponentDef::builder(CUSTOM_NAME)
+            .persistent(component_codec())
+            .build(),
+    );
     out.push(float(MINIMUM_ATTACK_CHARGE, extra_float_range(0.0, 1.0)));
     out.push(
         ComponentDef::builder(DAMAGE_TYPE)
-            .persistent(holder::holder_fixed_codec::<NoDirect>("minecraft:damage_type"))
+            .persistent(holder::holder_fixed_codec::<NoDirect>(
+                "minecraft:damage_type",
+            ))
             .network_with(
                 |h, out| holder::encode_holder_registry("minecraft:damage_type", h, out),
                 |i| holder::decode_holder_registry("minecraft:damage_type", i),
             )
             .build(),
     );
-    out.push(ComponentDef::builder(ITEM_NAME).persistent(component_codec()).build());
+    out.push(
+        ComponentDef::builder(ITEM_NAME)
+            .persistent(component_codec())
+            .build(),
+    );
     out.push(identifier(ITEM_MODEL));
-    out.push(ComponentDef::builder(LORE).persistent(ItemLore::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(RARITY).persistent(Rarity::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(ENCHANTMENTS).persistent(ItemEnchantments::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(CUSTOM_MODEL_DATA).persistent(CustomModelData::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(TOOLTIP_DISPLAY).persistent(TooltipDisplay::codec()).network_synchronized().build());
+    out.push(
+        ComponentDef::builder(LORE)
+            .persistent(ItemLore::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(RARITY)
+            .persistent(Rarity::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(ENCHANTMENTS)
+            .persistent(ItemEnchantments::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(CUSTOM_MODEL_DATA)
+            .persistent(CustomModelData::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(TOOLTIP_DISPLAY)
+            .persistent(TooltipDisplay::codec())
+            .network_synchronized()
+            .build(),
+    );
     out.push(var_int(REPAIR_COST, NON_NEGATIVE_INT.clone()));
     out.push(unit(CREATIVE_SLOT_LOCK, false));
     out.push(
@@ -824,49 +998,134 @@ pub(crate) fn defs(out: &mut Vec<ComponentDef>) {
             .network_with(|v, out| v.encode(out), |i| bool::decode(i))
             .build(),
     );
-    out.push(ComponentDef::builder(INTANGIBLE_PROJECTILE).persistent(UNIT.clone()).build());
-    out.push(ComponentDef::builder(ENCHANTABLE).persistent(Enchantable::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(REPAIRABLE).persistent(Repairable::codec()).network_synchronized().build());
+    out.push(
+        ComponentDef::builder(INTANGIBLE_PROJECTILE)
+            .persistent(UNIT.clone())
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(ENCHANTABLE)
+            .persistent(Enchantable::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(REPAIRABLE)
+            .persistent(Repairable::codec())
+            .network_synchronized()
+            .build(),
+    );
     out.push(unit(GLIDER, true));
     out.push(identifier(TOOLTIP_STYLE));
     out.push(
         ComponentDef::builder(ADDITIONAL_TRADE_COST)
-            .network_with(|v, out| { write_varint(out, *v); Ok(()) }, |i| read_varint(i))
+            .network_with(
+                |v, out| {
+                    write_varint(out, *v);
+                    Ok(())
+                },
+                |i| read_varint(i),
+            )
             .build(),
     );
     out.push(
         ComponentDef::builder(BLOCK_TRANSFORMER)
-            .persistent(holder::holder_fixed_codec::<NoDirect>("minecraft:block_transformer"))
+            .persistent(holder::holder_fixed_codec::<NoDirect>(
+                "minecraft:block_transformer",
+            ))
             .network_with(
                 |h, out| holder::encode_holder_registry("minecraft:block_transformer", h, out),
                 |i| holder::decode_holder_registry("minecraft:block_transformer", i),
             )
             .build(),
     );
-    out.push(ComponentDef::builder(VILLAGER_FOOD).persistent(VillagerFood::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(STORED_ENCHANTMENTS).persistent(ItemEnchantments::codec()).network_synchronized().build());
-    out.push(dye(DYE));
-    out.push(ComponentDef::builder(DYED_COLOR).persistent(DyedItemColor::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(MAP_ID).persistent(MapId::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(MAP_POST_PROCESSING).network_synchronized().build());
-    out.push(float(POTION_DURATION_SCALE, NON_NEGATIVE_FLOAT.clone()));
-    out.push(ComponentDef::builder(BUCKET_ENTITY_DATA).persistent(CustomData::codec()).network_synchronized().build());
     out.push(
-        ComponentDef::builder(OMINOUS_BOTTLE_AMPLIFIER).persistent(OminousBottleAmplifier::codec()).network_synchronized().build(),
+        ComponentDef::builder(VILLAGER_FOOD)
+            .persistent(VillagerFood::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(STORED_ENCHANTMENTS)
+            .persistent(ItemEnchantments::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(dye(DYE));
+    out.push(
+        ComponentDef::builder(DYED_COLOR)
+            .persistent(DyedItemColor::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(MAP_ID)
+            .persistent(MapId::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(MAP_POST_PROCESSING)
+            .network_synchronized()
+            .build(),
+    );
+    out.push(float(POTION_DURATION_SCALE, NON_NEGATIVE_FLOAT.clone()));
+    out.push(
+        ComponentDef::builder(BUCKET_ENTITY_DATA)
+            .persistent(CustomData::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(OMINOUS_BOTTLE_AMPLIFIER)
+            .persistent(OminousBottleAmplifier::codec())
+            .network_synchronized()
+            .build(),
     );
     out.push(identifier(NOTE_BLOCK_SOUND));
     out.push(dye(BASE_COLOR));
     out.push(
         ComponentDef::builder(BREAK_SOUND)
             .persistent(SoundEvent::holder_codec())
-            .network_with(|h, out| SoundEvent::encode_holder(h, out), |i| SoundEvent::decode_holder(i))
+            .network_with(
+                |h, out| SoundEvent::encode_holder(h, out),
+                |i| SoundEvent::decode_holder(i),
+            )
             .build(),
     );
-    out.push(ComponentDef::builder(COMPOSTABLE).persistent(Compostable::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(COOKING_FUEL).persistent(CookingFuel::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(BREWING_FUEL).persistent(BrewingFuel::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(MOB_VISIBILITY).persistent(MobVisibility::codec()).network_synchronized().build());
-    for key in [WOLF_COLLAR, TROPICAL_FISH_BASE_COLOR, TROPICAL_FISH_PATTERN_COLOR, CAT_COLLAR, SHEEP_COLOR, SHULKER_COLOR, CUSHION_COLOR] {
+    out.push(
+        ComponentDef::builder(COMPOSTABLE)
+            .persistent(Compostable::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(COOKING_FUEL)
+            .persistent(CookingFuel::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(BREWING_FUEL)
+            .persistent(BrewingFuel::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(MOB_VISIBILITY)
+            .persistent(MobVisibility::codec())
+            .network_synchronized()
+            .build(),
+    );
+    for key in [
+        WOLF_COLLAR,
+        TROPICAL_FISH_BASE_COLOR,
+        TROPICAL_FISH_PATTERN_COLOR,
+        CAT_COLLAR,
+        SHEEP_COLOR,
+        SHULKER_COLOR,
+        CUSHION_COLOR,
+    ] {
         out.push(dye(key));
     }
     out.push(unit(WAXED, true));

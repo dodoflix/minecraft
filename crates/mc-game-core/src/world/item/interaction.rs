@@ -16,7 +16,11 @@ impl InteractionHand {
     }
     /// `BY_ID` with `OutOfBoundsStrategy.ZERO`.
     pub fn by_id(id: i32) -> InteractionHand {
-        if id == 1 { Self::OffHand } else { Self::MainHand }
+        if id == 1 {
+            Self::OffHand
+        } else {
+            Self::MainHand
+        }
     }
     pub fn to_protocol(self) -> mc_protocol::packets::play::InteractionHand {
         match self {
@@ -54,8 +58,14 @@ pub struct ItemContext {
 }
 
 impl ItemContext {
-    pub const NONE: ItemContext = ItemContext { was_item_interaction: false, held_item_transformed_to: None };
-    pub const DEFAULT: ItemContext = ItemContext { was_item_interaction: true, held_item_transformed_to: None };
+    pub const NONE: ItemContext = ItemContext {
+        was_item_interaction: false,
+        held_item_transformed_to: None,
+    };
+    pub const DEFAULT: ItemContext = ItemContext {
+        was_item_interaction: true,
+        held_item_transformed_to: None,
+    };
 }
 
 /// `InteractionResult.Success`.
@@ -70,10 +80,19 @@ impl Success {
         self.swing_source != SwingSource::None
     }
     pub fn held_item_transformed_to(self, stack: ItemStack) -> Success {
-        Success { swing_source: self.swing_source, item_context: ItemContext { was_item_interaction: true, held_item_transformed_to: Some(stack) } }
+        Success {
+            swing_source: self.swing_source,
+            item_context: ItemContext {
+                was_item_interaction: true,
+                held_item_transformed_to: Some(stack),
+            },
+        }
     }
     pub fn without_item(self) -> Success {
-        Success { swing_source: self.swing_source, item_context: ItemContext::NONE }
+        Success {
+            swing_source: self.swing_source,
+            item_context: ItemContext::NONE,
+        }
     }
     pub fn was_item_interaction(&self) -> bool {
         self.item_context.was_item_interaction
@@ -89,9 +108,18 @@ pub enum InteractionResult {
 }
 
 impl InteractionResult {
-    pub const SUCCESS: InteractionResult = InteractionResult::Success(Success { swing_source: SwingSource::Predicted, item_context: ItemContext::DEFAULT });
-    pub const SUCCESS_SERVER: InteractionResult = InteractionResult::Success(Success { swing_source: SwingSource::ServerOnly, item_context: ItemContext::DEFAULT });
-    pub const CONSUME: InteractionResult = InteractionResult::Success(Success { swing_source: SwingSource::None, item_context: ItemContext::DEFAULT });
+    pub const SUCCESS: InteractionResult = InteractionResult::Success(Success {
+        swing_source: SwingSource::Predicted,
+        item_context: ItemContext::DEFAULT,
+    });
+    pub const SUCCESS_SERVER: InteractionResult = InteractionResult::Success(Success {
+        swing_source: SwingSource::ServerOnly,
+        item_context: ItemContext::DEFAULT,
+    });
+    pub const CONSUME: InteractionResult = InteractionResult::Success(Success {
+        swing_source: SwingSource::None,
+        item_context: ItemContext::DEFAULT,
+    });
     pub const FAIL: InteractionResult = InteractionResult::Fail;
     pub const PASS: InteractionResult = InteractionResult::Pass;
     pub const TRY_WITH_EMPTY_HAND: InteractionResult = InteractionResult::TryEmptyHandInteraction;
@@ -99,7 +127,9 @@ impl InteractionResult {
     /// `Success.heldItemTransformedTo(stack)` (a no-op for the other results).
     pub fn held_item_transformed_to(self, stack: ItemStack) -> InteractionResult {
         match self {
-            InteractionResult::Success(s) => InteractionResult::Success(s.held_item_transformed_to(stack)),
+            InteractionResult::Success(s) => {
+                InteractionResult::Success(s.held_item_transformed_to(stack))
+            }
             other => other,
         }
     }

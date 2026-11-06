@@ -28,7 +28,10 @@ impl MojangProfileLookup {
     }
 
     fn client() -> Result<reqwest::blocking::Client, reqwest::Error> {
-        reqwest::blocking::Client::builder().connect_timeout(TIMEOUT).timeout(TIMEOUT).build()
+        reqwest::blocking::Client::builder()
+            .connect_timeout(TIMEOUT)
+            .timeout(TIMEOUT)
+            .build()
     }
 
     /// `GET url` -> `Ok(None)` for 204/404 (authlib: no profile), the parsed JSON otherwise.
@@ -47,18 +50,29 @@ impl MojangProfileLookup {
             match Self::get_json(DISCOVERY_URL) {
                 Ok(Some(document)) => *discovery = Some(document),
                 Ok(None) => {}
-                Err(e) => log::warn!("Failed to fetch discovery document from {DISCOVERY_URL}: {e}"),
+                Err(e) => {
+                    log::warn!("Failed to fetch discovery document from {DISCOVERY_URL}: {e}")
+                }
             }
         }
-        discovery.as_ref()?.pointer(&format!("/discovery/{service}/endpoints/{key}/uri"))?.as_str().map(str::to_owned)
+        discovery
+            .as_ref()?
+            .pointer(&format!("/discovery/{service}/endpoints/{key}/uri"))?
+            .as_str()
+            .map(str::to_owned)
     }
 }
 
 impl ProfileLookup for MojangProfileLookup {
     fn find_profile_by_name(&self, name: &str) -> Option<NameAndId> {
-        let url = self.endpoint("profiles", "getByName")?.replace("{name}", &name.to_lowercase());
+        let url = self
+            .endpoint("profiles", "getByName")?
+            .replace("{name}", &name.to_lowercase());
         match Self::get_json(&url) {
-            Ok(Some(body)) => Some(NameAndId::new(Uuid::parse_str(body.get("id")?.as_str()?).ok()?, body.get("name")?.as_str()?)),
+            Ok(Some(body)) => Some(NameAndId::new(
+                Uuid::parse_str(body.get("id")?.as_str()?).ok()?,
+                body.get("name")?.as_str()?,
+            )),
             Ok(None) => None,
             Err(e) => {
                 log::warn!("Couldn't find profile with name: {name}\n{e}");
@@ -68,7 +82,9 @@ impl ProfileLookup for MojangProfileLookup {
     }
 
     fn fetch_profile(&self, id: Uuid) -> Option<GameProfile> {
-        let url = self.endpoint("session", "getProfileById")?.replace("{profileId}", &id.simple().to_string());
+        let url = self
+            .endpoint("session", "getProfileById")?
+            .replace("{profileId}", &id.simple().to_string());
         match Self::get_json(&format!("{url}?unsigned=false")) {
             Ok(Some(body)) => {
                 let properties = body
@@ -80,11 +96,18 @@ impl ProfileLookup for MojangProfileLookup {
                         Some(Property {
                             name: p.get("name")?.as_str()?.to_owned(),
                             value: p.get("value")?.as_str()?.to_owned(),
-                            signature: p.get("signature").and_then(Value::as_str).map(str::to_owned),
+                            signature: p
+                                .get("signature")
+                                .and_then(Value::as_str)
+                                .map(str::to_owned),
                         })
                     })
                     .collect();
-                Some(GameProfile { id: Uuid::parse_str(body.get("id")?.as_str()?).ok()?, name: body.get("name")?.as_str()?.to_owned(), properties })
+                Some(GameProfile {
+                    id: Uuid::parse_str(body.get("id")?.as_str()?).ok()?,
+                    name: body.get("name")?.as_str()?.to_owned(),
+                    properties,
+                })
             }
             Ok(None) => None,
             Err(e) => {

@@ -1,11 +1,11 @@
 //! `AlwaysTrueTest` (`always_true`).
 
 use super::rule_test::{RULE_TEST_TYPES, RuleTest};
-use mc_game_core::world::level::levelgen::codec::*;
-use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::BlockState;
+use mc_game_core::world::level::levelgen::codec::*;
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use std::sync::Arc;
 
 pub struct AlwaysTrueTest;
@@ -23,4 +23,7 @@ impl RuleTest for AlwaysTrueTest {
 }
 
 #[linkme::distributed_slice(RULE_TEST_TYPES)]
-static TYPE: TypeEntry<dyn RuleTest> = TypeEntry { name: "always_true", decode: AlwaysTrueTest::decode };
+static TYPE: TypeEntry<dyn RuleTest> = TypeEntry {
+    name: "always_true",
+    decode: AlwaysTrueTest::decode,
+};

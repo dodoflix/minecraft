@@ -1,7 +1,9 @@
 //! `WeatherCommand`.
-use mc_game_core::commands::arguments::TimeArgument;
-use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
 use mc_brigadier::ArgumentBuilder;
+use mc_game_core::commands::arguments::TimeArgument;
+use mc_game_core::commands::{
+    CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal,
+};
 use mc_game_core::{register_command, translatable};
 
 const DEFAULT_TIME: i32 = -1;
@@ -17,24 +19,46 @@ register_command!("WeatherCommand", |ctx| {
             .then(
                 literal("clear")
                     .executes(|c| Ok(set_clear(c.get_source(), DEFAULT_TIME)))
-                    .then(argument("duration", TimeArgument::time_min(1)).executes(|c| Ok(set_clear(c.get_source(), *c.get_argument::<i32>("duration"))))),
+                    .then(
+                        argument("duration", TimeArgument::time_min(1)).executes(|c| {
+                            Ok(set_clear(
+                                c.get_source(),
+                                *c.get_argument::<i32>("duration"),
+                            ))
+                        }),
+                    ),
             )
             .then(
                 literal("rain")
                     .executes(|c| Ok(set_rain(c.get_source(), DEFAULT_TIME)))
-                    .then(argument("duration", TimeArgument::time_min(1)).executes(|c| Ok(set_rain(c.get_source(), *c.get_argument::<i32>("duration"))))),
+                    .then(
+                        argument("duration", TimeArgument::time_min(1)).executes(|c| {
+                            Ok(set_rain(c.get_source(), *c.get_argument::<i32>("duration")))
+                        }),
+                    ),
             )
             .then(
                 literal("thunder")
                     .executes(|c| Ok(set_thunder(c.get_source(), DEFAULT_TIME)))
-                    .then(argument("duration", TimeArgument::time_min(1)).executes(|c| Ok(set_thunder(c.get_source(), *c.get_argument::<i32>("duration"))))),
+                    .then(
+                        argument("duration", TimeArgument::time_min(1)).executes(|c| {
+                            Ok(set_thunder(
+                                c.get_source(),
+                                *c.get_argument::<i32>("duration"),
+                            ))
+                        }),
+                    ),
             ),
     );
 });
 
 /// `getDuration(source, input, defaultDistribution)`: samples the source level's random source.
 fn get_duration(source: &CommandSourceStack, input: i32, default_distribution: (i32, i32)) -> i32 {
-    if input == -1 { host::sample_uniform_int(source, default_distribution.0, default_distribution.1) } else { input }
+    if input == -1 {
+        host::sample_uniform_int(source, default_distribution.0, default_distribution.1)
+    } else {
+        input
+    }
 }
 
 fn set_clear(source: &CommandSourceStack, duration: i32) -> i32 {

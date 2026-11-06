@@ -8,7 +8,11 @@ use mc_text::Component;
 pub trait MenuProvider {
     /// `getDisplayName()`.
     fn get_display_name(&self) -> Component;
-    fn create_menu(&self, container_id: i32, player: &mut dyn MenuPlayer) -> Option<Box<dyn AbstractContainerMenu>>;
+    fn create_menu(
+        &self,
+        container_id: i32,
+        player: &mut dyn MenuPlayer,
+    ) -> Option<Box<dyn AbstractContainerMenu>>;
 }
 
 /// `SimpleMenuProvider(menuConstructor, title)`.
@@ -17,18 +21,26 @@ pub struct SimpleMenuProvider<F> {
     constructor: F,
 }
 
-impl<F: Fn(i32, &mut dyn MenuPlayer) -> Option<Box<dyn AbstractContainerMenu>>> SimpleMenuProvider<F> {
+impl<F: Fn(i32, &mut dyn MenuPlayer) -> Option<Box<dyn AbstractContainerMenu>>>
+    SimpleMenuProvider<F>
+{
     pub fn new(title: Component, constructor: F) -> Self {
         Self { title, constructor }
     }
 }
 
-impl<F: Fn(i32, &mut dyn MenuPlayer) -> Option<Box<dyn AbstractContainerMenu>>> MenuProvider for SimpleMenuProvider<F> {
+impl<F: Fn(i32, &mut dyn MenuPlayer) -> Option<Box<dyn AbstractContainerMenu>>> MenuProvider
+    for SimpleMenuProvider<F>
+{
     fn get_display_name(&self) -> Component {
         self.title.clone()
     }
 
-    fn create_menu(&self, container_id: i32, player: &mut dyn MenuPlayer) -> Option<Box<dyn AbstractContainerMenu>> {
+    fn create_menu(
+        &self,
+        container_id: i32,
+        player: &mut dyn MenuPlayer,
+    ) -> Option<Box<dyn AbstractContainerMenu>> {
         (self.constructor)(container_id, player)
     }
 }

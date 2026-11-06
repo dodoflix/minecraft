@@ -34,8 +34,16 @@ impl std::fmt::Display for FindError {
 /// `Type.TypeMatcher`: the two finders' matchers (`FieldFinder.Matcher`, `NamedChoiceFinder.Matcher`).
 #[derive(Clone)]
 pub(crate) enum Matcher {
-    Field { name: Option<String>, ty: Type, result: Type },
-    NamedChoice { name: String, ty: Type, result: Type },
+    Field {
+        name: Option<String>,
+        ty: Type,
+        result: Type,
+    },
+    NamedChoice {
+        name: String,
+        ty: Type,
+        result: Type,
+    },
 }
 
 impl Matcher {
@@ -54,7 +62,12 @@ impl Matcher {
         match self {
             Matcher::Field { name, ty, result } => {
                 if name.is_none() && ty.equals_with(target, true, false) {
-                    return Ok(TypedOptic::id_of(target.clone(), result.clone(), target.clone(), result.clone()));
+                    return Ok(TypedOptic::id_of(
+                        target.clone(),
+                        result.clone(),
+                        target.clone(),
+                        result.clone(),
+                    ));
                 }
                 match target.kind() {
                     TypeKind::Tag(tag_name, element) => {
@@ -71,7 +84,12 @@ impl Matcher {
                                 tag_name, ty, element
                             )));
                         }
-                        Ok(TypedOptic::id_of(target.clone(), Type::tag(tag_name, result), ty.clone(), result.clone()))
+                        Ok(TypedOptic::id_of(
+                            target.clone(),
+                            Type::tag(tag_name, result),
+                            ty.clone(),
+                            result.clone(),
+                        ))
                     }
                     TypeKind::TaggedChoice(tc) if Some(&tc.name) == name.as_ref() => {
                         if *ty != tc.key_type {
@@ -81,9 +99,16 @@ impl Matcher {
                             )));
                         }
                         if ty != result {
-                            return Err(FindError::NotFound("TaggedChoiceType key type change is unsupported.".into()));
+                            return Err(FindError::NotFound(
+                                "TaggedChoiceType key type change is unsupported.".into(),
+                            ));
                         }
-                        Ok(TypedOptic::proj1_raw(target.clone(), target.clone(), ty.clone(), ty.clone()))
+                        Ok(TypedOptic::proj1_raw(
+                            target.clone(),
+                            target.clone(),
+                            ty.clone(),
+                            ty.clone(),
+                        ))
                     }
                     _ => Err(FindError::Continue),
                 }
@@ -97,7 +122,12 @@ impl Matcher {
                                 name, target, element
                             )))
                         } else {
-                            Ok(TypedOptic::tagged(&TaggedChoiceType(target.clone()), name, ty, result))
+                            Ok(TypedOptic::tagged(
+                                &TaggedChoiceType(target.clone()),
+                                name,
+                                ty,
+                                result,
+                            ))
                         }
                     }
                     None => Err(FindError::Continue),
@@ -195,7 +225,9 @@ impl PrimKind {
             PrimKind::Float => mc_dfu::FLOAT.parse(ops, input).map(Value::Float),
             PrimKind::Double => mc_dfu::DOUBLE.parse(ops, input).map(Value::Double),
             PrimKind::Str => ops.get_string_value(input).map(Value::Str),
-            PrimKind::NamespacedStr => ops.get_string_value(input).map(|s| Value::Str(ensure_namespaced(&s))),
+            PrimKind::NamespacedStr => ops
+                .get_string_value(input)
+                .map(|s| Value::Str(ensure_namespaced(&s))),
         }
     }
 
@@ -208,7 +240,9 @@ impl PrimKind {
             (PrimKind::Long, Value::Long(b)) => ops.create_long(*b),
             (PrimKind::Float, Value::Float(b)) => ops.create_float(*b),
             (PrimKind::Double, Value::Double(b)) => ops.create_double(*b),
-            (PrimKind::Str | PrimKind::NamespacedStr, Value::Str(s)) => ops.create_string(s.clone()),
+            (PrimKind::Str | PrimKind::NamespacedStr, Value::Str(s)) => {
+                ops.create_string(s.clone())
+            }
             (k, v) => panic!("value {v:?} does not match primitive type {}", k.name()),
         }
     }
@@ -238,10 +272,23 @@ pub(crate) enum TypeKind {
     CompoundList(Type, Type),
     Tag(String, Type),
     Named(String, Type),
-    Check { name: String, index: i32, expected_index: i32, delegate: Type },
-    Hook { delegate: Type, pre: HookFunction, post: HookFunction },
+    Check {
+        name: String,
+        index: i32,
+        expected_index: i32,
+        delegate: Type,
+    },
+    Hook {
+        delegate: Type,
+        pre: HookFunction,
+        post: HookFunction,
+    },
     TaggedChoice(TaggedChoiceData),
-    RecursivePoint { family: Arc<RecursiveTypeFamily>, index: i32, unfold: OnceLock<Type> },
+    RecursivePoint {
+        family: Arc<RecursiveTypeFamily>,
+        index: i32,
+        unfold: OnceLock<Type>,
+    },
 }
 
 pub(crate) struct TypeNode {
@@ -290,13 +337,15 @@ static SHORT: LazyLock<Type> = LazyLock::new(|| singleton(TypeKind::Primitive(Pr
 static FLOAT: LazyLock<Type> = LazyLock::new(|| singleton(TypeKind::Primitive(PrimKind::Float)));
 static DOUBLE: LazyLock<Type> = LazyLock::new(|| singleton(TypeKind::Primitive(PrimKind::Double)));
 static STRING: LazyLock<Type> = LazyLock::new(|| singleton(TypeKind::Primitive(PrimKind::Str)));
-static NAMESPACED_STRING: LazyLock<Type> = LazyLock::new(|| singleton(TypeKind::Primitive(PrimKind::NamespacedStr)));
+static NAMESPACED_STRING: LazyLock<Type> =
+    LazyLock::new(|| singleton(TypeKind::Primitive(PrimKind::NamespacedStr)));
 static EMPTY_PART: LazyLock<Type> = LazyLock::new(|| singleton(TypeKind::EmptyPart));
 static EMPTY_PASSTHROUGH: LazyLock<Type> = LazyLock::new(|| singleton(TypeKind::Passthrough));
 
 /// `DSL.taggedChoiceType` cache (`TAGGED_CHOICE_TYPE_CACHE`): equal (name, key type, types) give the very same type
 /// instance, and with it the iteration order of the first construction.
-static TAGGED_CHOICE_CACHE: LazyLock<Mutex<HashMap<TaggedChoiceKey, Type>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+static TAGGED_CHOICE_CACHE: LazyLock<Mutex<HashMap<TaggedChoiceKey, Type>>> =
+    LazyLock::new(|| Mutex::new(HashMap::new()));
 
 #[derive(PartialEq, Eq, Hash)]
 struct TaggedChoiceKey {
@@ -312,7 +361,11 @@ pub(crate) fn fast_order<V>(entries: Vec<(String, V)>) -> Vec<(String, V)> {
 
 impl Type {
     pub(crate) fn new(kind: TypeKind) -> Type {
-        Type(Arc::new(TypeNode { kind, template: OnceLock::new(), hash: OnceLock::new() }))
+        Type(Arc::new(TypeNode {
+            kind,
+            template: OnceLock::new(),
+            hash: OnceLock::new(),
+        }))
     }
 
     pub(crate) fn kind(&self) -> &TypeKind {
@@ -376,26 +429,57 @@ impl Type {
         Type::new(TypeKind::Named(name.to_string(), element.clone()))
     }
     pub fn check(name: &str, index: i32, expected_index: i32, delegate: &Type) -> Type {
-        Type::new(TypeKind::Check { name: name.to_string(), index, expected_index, delegate: delegate.clone() })
+        Type::new(TypeKind::Check {
+            name: name.to_string(),
+            index,
+            expected_index,
+            delegate: delegate.clone(),
+        })
     }
     pub fn hook(delegate: &Type, pre: &HookFunction, post: &HookFunction) -> Type {
-        Type::new(TypeKind::Hook { delegate: delegate.clone(), pre: pre.clone(), post: post.clone() })
+        Type::new(TypeKind::Hook {
+            delegate: delegate.clone(),
+            pre: pre.clone(),
+            post: post.clone(),
+        })
     }
     pub(crate) fn recursive_point(family: Arc<RecursiveTypeFamily>, index: i32) -> Type {
-        Type::new(TypeKind::RecursivePoint { family, index, unfold: OnceLock::new() })
+        Type::new(TypeKind::RecursivePoint {
+            family,
+            index,
+            unfold: OnceLock::new(),
+        })
     }
     /// `DSL.taggedChoiceType(name, keyType, types)`: `types` in the iteration order of the Java map passed in.
     pub fn tagged_choice(name: &str, key_type: &Type, types: Vec<(String, Type)>) -> Type {
         let mut sorted = types.clone();
         sorted.sort_by(|a, b| a.0.cmp(&b.0));
-        let key = TaggedChoiceKey { name: name.to_string(), key_type: key_type.clone(), sorted };
+        let key = TaggedChoiceKey {
+            name: name.to_string(),
+            key_type: key_type.clone(),
+            sorted,
+        };
         if let Some(t) = TAGGED_CHOICE_CACHE.lock().unwrap().get(&key) {
             return t.clone();
         }
         let ordered = fast_order(types);
-        let index = ordered.iter().enumerate().map(|(i, (k, _))| (k.clone(), i)).collect();
-        let ty = Type::new(TypeKind::TaggedChoice(TaggedChoiceData { name: name.to_string(), key_type: key_type.clone(), types: ordered, index }));
-        TAGGED_CHOICE_CACHE.lock().unwrap().entry(key).or_insert(ty).clone()
+        let index = ordered
+            .iter()
+            .enumerate()
+            .map(|(i, (k, _))| (k.clone(), i))
+            .collect();
+        let ty = Type::new(TypeKind::TaggedChoice(TaggedChoiceData {
+            name: name.to_string(),
+            key_type: key_type.clone(),
+            types: ordered,
+            index,
+        }));
+        TAGGED_CHOICE_CACHE
+            .lock()
+            .unwrap()
+            .entry(key)
+            .or_insert(ty)
+            .clone()
     }
 
     // ---- inspection ---------------------------------------------------------------------------------------------
@@ -463,9 +547,13 @@ impl Type {
     /// `RecursivePointType.unfold()` (identity for other types is NOT provided: Java requires a point).
     pub fn unfold(&self) -> Type {
         match &self.0.kind {
-            TypeKind::RecursivePoint { family, index, unfold } => {
-                unfold.get_or_init(|| family.template().apply_at(family, *index)).clone()
-            }
+            TypeKind::RecursivePoint {
+                family,
+                index,
+                unfold,
+            } => unfold
+                .get_or_init(|| family.template().apply_at(family, *index))
+                .clone(),
             _ => panic!("Not recursive: {self}"),
         }
     }
@@ -473,34 +561,73 @@ impl Type {
     // ---- equality / hashing -------------------------------------------------------------------------------------
 
     /// `type.equals(other, ignoreRecursionPoints, checkIndex)`.
-    pub fn equals_with(&self, other: &Type, ignore_recursion_points: bool, check_index: bool) -> bool {
+    pub fn equals_with(
+        &self,
+        other: &Type,
+        ignore_recursion_points: bool,
+        check_index: bool,
+    ) -> bool {
         if Arc::ptr_eq(&self.0, &other.0) {
             return true;
         }
         let (i, c) = (ignore_recursion_points, check_index);
         use TypeKind::*;
         match (&self.0.kind, &other.0.kind) {
-            (Product(a1, a2), Product(b1, b2)) | (Sum(a1, a2), Sum(b1, b2)) | (CompoundList(a1, a2), CompoundList(b1, b2)) => {
+            (Product(a1, a2), Product(b1, b2))
+            | (Sum(a1, a2), Sum(b1, b2))
+            | (CompoundList(a1, a2), CompoundList(b1, b2)) => {
                 a1.equals_with(b1, i, c) && a2.equals_with(b2, i, c)
             }
             (List(a), List(b)) => a.equals_with(b, i, c),
-            (Tag(n1, a), Tag(n2, b)) | (Named(n1, a), Named(n2, b)) => n1 == n2 && a.equals_with(b, i, c),
-            (
-                Check { index: i1, expected_index: e1, delegate: d1, .. },
-                Check { index: i2, expected_index: e2, delegate: d2, .. },
-            ) => i1 == i2 && e1 == e2 && (!c || d1.equals_with(d2, i, c)),
-            (Hook { delegate: d1, pre: p1, post: q1 }, Hook { delegate: d2, pre: p2, post: q2 }) => {
-                d1.equals_with(d2, i, c) && p1 == p2 && q1 == q2
+            (Tag(n1, a), Tag(n2, b)) | (Named(n1, a), Named(n2, b)) => {
+                n1 == n2 && a.equals_with(b, i, c)
             }
+            (
+                Check {
+                    index: i1,
+                    expected_index: e1,
+                    delegate: d1,
+                    ..
+                },
+                Check {
+                    index: i2,
+                    expected_index: e2,
+                    delegate: d2,
+                    ..
+                },
+            ) => i1 == i2 && e1 == e2 && (!c || d1.equals_with(d2, i, c)),
+            (
+                Hook {
+                    delegate: d1,
+                    pre: p1,
+                    post: q1,
+                },
+                Hook {
+                    delegate: d2,
+                    pre: p2,
+                    post: q2,
+                },
+            ) => d1.equals_with(d2, i, c) && p1 == p2 && q1 == q2,
             (TaggedChoice(a), TaggedChoice(b)) => {
                 a.name == b.name
                     && a.key_type.equals_with(&b.key_type, i, c)
                     && a.types.len() == b.types.len()
-                    && a.types.iter().all(|(k, t)| b.get(k).is_some_and(|u| t.equals_with(u, i, c)))
+                    && a.types
+                        .iter()
+                        .all(|(k, t)| b.get(k).is_some_and(|u| t.equals_with(u, i, c)))
             }
-            (RecursivePoint { family: f1, index: x1, .. }, RecursivePoint { family: f2, index: x2, .. }) => {
-                (i || f1 == f2) && x1 == x2
-            }
+            (
+                RecursivePoint {
+                    family: f1,
+                    index: x1,
+                    ..
+                },
+                RecursivePoint {
+                    family: f2,
+                    index: x2,
+                    ..
+                },
+            ) => (i || f1 == f2) && x1 == x2,
             // primitives, empty part and remainder are equal only to themselves (identity, checked above)
             _ => false,
         }
@@ -516,13 +643,32 @@ impl Type {
                 Product(a, b) | Sum(a, b) | CompoundList(a, b) => comb(a.hash64(), b.hash64()),
                 List(a) => a.hash64() ^ 0x5bd1e995,
                 Tag(n, a) | Named(n, a) => comb(str_hash(n), a.hash64()),
-                Check { index, expected_index, delegate, .. } => comb(comb(*index as u64, *expected_index as u64), delegate.hash64()),
-                Hook { delegate, pre, post } => comb(comb(delegate.hash64(), pre.addr() as u64), post.addr() as u64),
+                Check {
+                    index,
+                    expected_index,
+                    delegate,
+                    ..
+                } => comb(
+                    comb(*index as u64, *expected_index as u64),
+                    delegate.hash64(),
+                ),
+                Hook {
+                    delegate,
+                    pre,
+                    post,
+                } => comb(
+                    comb(delegate.hash64(), pre.addr() as u64),
+                    post.addr() as u64,
+                ),
                 TaggedChoice(tc) => {
-                    let entries = tc.types.iter().fold(0u64, |acc, (k, t)| acc.wrapping_add(str_hash(k) ^ t.hash64()));
+                    let entries = tc.types.iter().fold(0u64, |acc, (k, t)| {
+                        acc.wrapping_add(str_hash(k) ^ t.hash64())
+                    });
                     comb(comb(str_hash(&tc.name), tc.key_type.hash64()), entries)
                 }
-                RecursivePoint { family, index, .. } => comb(family.template().hash64(), *index as u64),
+                RecursivePoint { family, index, .. } => {
+                    comb(family.template().hash64(), *index as u64)
+                }
             }
         })
     }
@@ -543,10 +689,23 @@ impl Type {
                     CompoundList(k, v) => Template::compound_list(&k.template(), &v.template()),
                     Tag(n, a) => Template::tag(n, &a.template()),
                     Named(n, a) => Template::named(n, &a.template()),
-                    Check { name, expected_index, delegate, .. } => Template::check(name, *expected_index, &delegate.template()),
-                    Hook { delegate, pre, post } => Template::hook(&delegate.template(), pre, post),
+                    Check {
+                        name,
+                        expected_index,
+                        delegate,
+                        ..
+                    } => Template::check(name, *expected_index, &delegate.template()),
+                    Hook {
+                        delegate,
+                        pre,
+                        post,
+                    } => Template::hook(&delegate.template(), pre, post),
                     TaggedChoice(tc) => {
-                        let templates: Vec<(String, Template)> = tc.types.iter().map(|(k, t)| (k.clone(), t.template())).collect();
+                        let templates: Vec<(String, Template)> = tc
+                            .types
+                            .iter()
+                            .map(|(k, t)| (k.clone(), t.template()))
+                            .collect();
                         // `new Object2ObjectOpenHashMap<>(types.size())` filled in iteration order, then copied by `taggedChoice`
                         Template::tagged_choice(&tc.name, &tc.key_type, fast_order(templates))
                     }
@@ -567,11 +726,21 @@ impl Type {
                 DataResult::Success(_) => DataResult::success((Value::Unit, Rest::Same)),
                 DataResult::Error { message, .. } => DataResult::error_msg(message, None),
             },
-            Passthrough => DataResult::success((Value::Dynamic(Dynamic::new(*ops, input.clone())), Rest::Val(Dyn::Empty))),
+            Passthrough => DataResult::success((
+                Value::Dynamic(Dynamic::new(*ops, input.clone())),
+                Rest::Val(Dyn::Empty),
+            )),
             Product(first, second) => first.decode(ops, input).flat_map(|(a, rest1)| {
-                second
-                    .decode(ops, rest1.view(input))
-                    .map(|(b, rest2)| (Value::pair(a, b), if matches!(rest2, Rest::Same) { rest1 } else { rest2 }))
+                second.decode(ops, rest1.view(input)).map(|(b, rest2)| {
+                    (
+                        Value::pair(a, b),
+                        if matches!(rest2, Rest::Same) {
+                            rest1
+                        } else {
+                            rest2
+                        },
+                    )
+                })
             }),
             Sum(first, second) => {
                 let first_read = first.decode(ops, input).map(|(a, r)| (Value::left(a), r));
@@ -588,8 +757,17 @@ impl Type {
                 if second_read.has_result_or_partial() {
                     return second_read;
                 }
-                let (m1, m2) = (first_read.error_msg_ref().cloned().unwrap(), second_read.error_msg_ref().cloned().unwrap());
-                DataResult::error(move || format!("Failed to parse either. First: {}; Second: {}", m1.get(), m2.get()))
+                let (m1, m2) = (
+                    first_read.error_msg_ref().cloned().unwrap(),
+                    second_read.error_msg_ref().cloned().unwrap(),
+                );
+                DataResult::error(move || {
+                    format!(
+                        "Failed to parse either. First: {}; Second: {}",
+                        m1.get(),
+                        m2.get()
+                    )
+                })
             }
             List(element) => decode_list(element, ops, input),
             CompoundList(key, element) => decode_compound_list(key, element, ops, input),
@@ -603,8 +781,15 @@ impl Type {
                 },
                 DataResult::Error { message, .. } => DataResult::error_msg(message, None),
             },
-            Named(name, element) => element.decode(ops, input).map(|(v, r)| (Value::named(name.clone(), v), r)),
-            Check { index, expected_index, delegate, .. } => {
+            Named(name, element) => element
+                .decode(ops, input)
+                .map(|(v, r)| (Value::named(name.clone(), v), r)),
+            Check {
+                index,
+                expected_index,
+                delegate,
+                ..
+            } => {
                 if index != expected_index {
                     let (i, e) = (*index, *expected_index);
                     DataResult::error(move || format!("Index mismatch: {i} != {e}"))
@@ -625,7 +810,9 @@ impl Type {
             TaggedChoice(tc) => {
                 let map = match ops.get_map(input) {
                     DataResult::Success(m) => m,
-                    DataResult::Error { message, .. } => return DataResult::error_msg(message, None),
+                    DataResult::Error { message, .. } => {
+                        return DataResult::error_msg(message, None);
+                    }
                 };
                 let key = match map.get(&tc.name) {
                     None => {
@@ -634,13 +821,17 @@ impl Type {
                     }
                     Some(k) => match tc.key_type.decode(ops, k) {
                         DataResult::Success((k, _)) => k,
-                        DataResult::Error { message, .. } => return DataResult::error_msg(message, None),
+                        DataResult::Error { message, .. } => {
+                            return DataResult::error_msg(message, None);
+                        }
                     },
                 };
                 let name = key.as_str().to_string();
                 match tc.get(&name) {
                     None => DataResult::error(move || format!("Unsupported key: {name}")),
-                    Some(ty) => ty.decode(ops, input).map(|(v, _)| (Value::pair(key, v), Rest::Same)),
+                    Some(ty) => ty
+                        .decode(ops, input)
+                        .map(|(v, _)| (Value::pair(key, v), Rest::Same)),
                 }
             }
             RecursivePoint { .. } => self.unfold().decode(ops, input),
@@ -656,7 +847,9 @@ impl Type {
             Passthrough => encode_passthrough(ops, value.as_dynamic(), prefix),
             Product(first, second) => {
                 let (a, b) = value.as_pair();
-                second.encode(ops, b, prefix).flat_map(|r| first.encode(ops, a, r))
+                second
+                    .encode(ops, b, prefix)
+                    .flat_map(|r| first.encode(ops, a, r))
             }
             Sum(first, second) => match value {
                 Value::Left(a) => first.encode(ops, a, prefix),
@@ -674,18 +867,27 @@ impl Type {
                 let mut b = ops.map_builder();
                 for entry in value.as_list() {
                     let (k, v) = entry.as_pair();
-                    b.add_results(key.encode(ops, k, Dyn::Empty), element.encode(ops, v, Dyn::Empty));
+                    b.add_results(
+                        key.encode(ops, k, Dyn::Empty),
+                        element.encode(ops, v, Dyn::Empty),
+                    );
                 }
                 b.build(&prefix)
             }
             Tag(name, element) => match element.encode(ops, value, Dyn::Empty) {
-                DataResult::Success(d) => put_entries(ops, prefix, vec![(Dyn::Str(name.clone()), d)]),
+                DataResult::Success(d) => {
+                    put_entries(ops, prefix, vec![(Dyn::Str(name.clone()), d)])
+                }
                 DataResult::Error { message, partial } => match partial {
                     Some(d) => match put_entries(ops, prefix, vec![(Dyn::Str(name.clone()), d)]) {
                         DataResult::Success(r) => DataResult::error_msg(message, Some(r)),
-                        DataResult::Error { message: m2, partial } => {
-                            DataResult::error_msg(Msg::new(move || format!("{}; {}", message.get(), m2.get())), partial)
-                        }
+                        DataResult::Error {
+                            message: m2,
+                            partial,
+                        } => DataResult::error_msg(
+                            Msg::new(move || format!("{}; {}", message.get(), m2.get())),
+                            partial,
+                        ),
                     },
                     None => DataResult::error_msg(message, None),
                 },
@@ -695,7 +897,11 @@ impl Type {
                 if n.as_str() != name {
                     let (expected, got) = (name.clone(), n.as_str().to_string());
                     DataResult::error_partial(
-                        move || format!("Named type name doesn't match: expected: {expected}, got: {got}"),
+                        move || {
+                            format!(
+                                "Named type name doesn't match: expected: {expected}, got: {got}"
+                            )
+                        },
                         prefix,
                     )
                 } else {
@@ -703,7 +909,9 @@ impl Type {
                 }
             }
             Check { delegate, .. } => delegate.encode(ops, value, prefix),
-            Hook { delegate, post, .. } => delegate.encode(ops, value, prefix).map(|v| post.apply(ops, v)),
+            Hook { delegate, post, .. } => delegate
+                .encode(ops, value, prefix)
+                .map(|v| post.apply(ops, v)),
             TaggedChoice(tc) => {
                 let (key, v) = value.as_pair();
                 let key_name = key.as_str();
@@ -740,15 +948,18 @@ impl Type {
     /// `type.read(dynamic)`.
     pub fn read(&self, input: &Dynamic) -> DataResult<(Value, Dynamic)> {
         let ops = input.ops;
-        self.decode(&ops, &input.value).map(|(v, r)| (v, Dynamic::new(ops, r.resolve(&input.value))))
+        self.decode(&ops, &input.value)
+            .map(|(v, r)| (v, Dynamic::new(ops, r.resolve(&input.value))))
     }
     /// `type.readTyped(dynamic)`.
     pub fn read_typed(&self, input: &Dynamic) -> DataResult<(Typed, Dynamic)> {
-        self.read(input).map(|(v, rest)| (Typed::new(self.clone(), input.ops, v), rest))
+        self.read(input)
+            .map(|(v, rest)| (Typed::new(self.clone(), input.ops, v), rest))
     }
     /// `type.readTyped(ops, input)`.
     pub fn read_typed_ops(&self, ops: &Ops, input: &Dyn) -> DataResult<(Typed, Dyn)> {
-        self.decode(ops, input).map(|(v, r)| (Typed::new(self.clone(), *ops, v), r.resolve(input)))
+        self.decode(ops, input)
+            .map(|(v, r)| (Typed::new(self.clone(), *ops, v), r.resolve(input)))
     }
     /// `type.write(ops, value)`.
     pub fn write(&self, ops: &Ops, value: &Value) -> DataResult<Dyn> {
@@ -760,10 +971,20 @@ impl Type {
     }
 
     /// `type.readAndWrite(ops, expectedType, rule, fRule, input)`.
-    pub fn read_and_write(&self, ops: &Ops, expected: &Type, rule: &TypeRewriteRule, opt: OptimizationRule, input: &Dyn) -> DataResult<Dyn> {
+    pub fn read_and_write(
+        &self,
+        ops: &Ops,
+        expected: &Type,
+        rule: &TypeRewriteRule,
+        opt: OptimizationRule,
+        input: &Dyn,
+    ) -> DataResult<Dyn> {
         let Some(result) = self.rewrite(rule, opt) else {
             let input = input.clone();
-            return DataResult::error_partial(move || "Could not build a rewrite rule".to_string(), input);
+            return DataResult::error_partial(
+                move || "Could not build a rewrite rule".to_string(),
+                input,
+            );
         };
         let view = result.view;
         if view.is_nop() {
@@ -782,7 +1003,8 @@ impl Type {
 
     /// `type.rewriteOrNop(rule)`.
     pub fn rewrite_or_nop(&self, rule: &TypeRewriteRule) -> RewriteResult {
-        rule.rewrite(self).unwrap_or_else(|| RewriteResult::nop(self))
+        rule.rewrite(self)
+            .unwrap_or_else(|| RewriteResult::nop(self))
     }
 
     /// `type.rewrite(rule, fRule)` with the global `REWRITE_CACHE`.
@@ -801,13 +1023,24 @@ impl Type {
         use TypeKind::*;
         match &self.0.kind {
             Primitive(_) | EmptyPart | Passthrough => RewriteResult::nop(self),
-            Product(first, second) => self.merge_product(first.rewrite_or_nop(rule), second.rewrite_or_nop(rule)),
-            Sum(first, second) => self.merge_sum(first.rewrite_or_nop(rule), second.rewrite_or_nop(rule)),
+            Product(first, second) => {
+                self.merge_product(first.rewrite_or_nop(rule), second.rewrite_or_nop(rule))
+            }
+            Sum(first, second) => {
+                self.merge_sum(first.rewrite_or_nop(rule), second.rewrite_or_nop(rule))
+            }
             List(element) => self.fix_list(element, element.rewrite_or_nop(rule)),
-            CompoundList(key, element) => self.merge_compound_list(key.rewrite_or_nop(rule), element.rewrite_or_nop(rule)),
+            CompoundList(key, element) => {
+                self.merge_compound_list(key.rewrite_or_nop(rule), element.rewrite_or_nop(rule))
+            }
             Tag(_, element) => self.wrap_tag(element.rewrite_or_nop(rule)),
             Named(name, element) => self.fix_named(name, element.rewrite_or_nop(rule)),
-            Check { index, expected_index, delegate, .. } => {
+            Check {
+                index,
+                expected_index,
+                delegate,
+                ..
+            } => {
                 if check_index && index != expected_index {
                     RewriteResult::nop(self)
                 } else {
@@ -828,32 +1061,54 @@ impl Type {
             Product(first, second) => rule
                 .rewrite(first)
                 .map(|v| fix_product_left(self, first, second, &v))
-                .or_else(|| rule.rewrite(second).map(|v| fix_product_right(self, first, second, &v))),
+                .or_else(|| {
+                    rule.rewrite(second)
+                        .map(|v| fix_product_right(self, first, second, &v))
+                }),
             Sum(first, second) => rule
                 .rewrite(first)
                 .map(|v| fix_sum_left(self, first, second, &v))
-                .or_else(|| rule.rewrite(second).map(|v| fix_sum_right(self, first, second, &v))),
+                .or_else(|| {
+                    rule.rewrite(second)
+                        .map(|v| fix_sum_right(self, first, second, &v))
+                }),
             List(element) => rule.rewrite(element).map(|v| self.fix_list(element, v)),
             CompoundList(key, element) => rule
                 .rewrite(key)
                 .map(|v| fix_compound_keys(self, key, element, &v))
-                .or_else(|| rule.rewrite(element).map(|v| fix_compound_values(self, key, element, &v))),
+                .or_else(|| {
+                    rule.rewrite(element)
+                        .map(|v| fix_compound_values(self, key, element, &v))
+                }),
             Tag(_, element) => rule.rewrite(element).map(|v| self.wrap_tag(v)),
             Named(name, element) => rule.rewrite(element).map(|v| self.fix_named(name, v)),
             Check { delegate, .. } => rule.rewrite(delegate).map(|v| self.fix_check(v)),
             Hook { delegate, .. } => rule.rewrite(delegate).map(|v| self.fix_hook(v)),
             TaggedChoice(tc) => {
                 let me = TaggedChoiceType(self.clone());
-                tc.types.iter().find_map(|(key, ty)| rule.rewrite(ty).map(|r| tagged_element_result(key, &me, &r)))
+                tc.types.iter().find_map(|(key, ty)| {
+                    rule.rewrite(ty)
+                        .map(|r| tagged_element_result(key, &me, &r))
+                })
             }
             RecursivePoint { .. } => self.unfold().one(rule),
         }
     }
 
     /// `type.everywhere(rule, optimizationRule, recurse, checkIndex)`.
-    pub fn everywhere(&self, rule: &TypeRewriteRule, opt: OptimizationRule, recurse: bool, check_index: bool) -> Option<RewriteResult> {
+    pub fn everywhere(
+        &self,
+        rule: &TypeRewriteRule,
+        opt: OptimizationRule,
+        recurse: bool,
+        check_index: bool,
+    ) -> Option<RewriteResult> {
         match &self.0.kind {
-            TypeKind::Check { index, expected_index, .. } if check_index && index != expected_index => None,
+            TypeKind::Check {
+                index,
+                expected_index,
+                ..
+            } if check_index && index != expected_index => None,
             TypeKind::RecursivePoint { family, index, .. } => {
                 if recurse && let Some(r) = family.everywhere(*index, rule, opt) {
                     return Some(r);
@@ -869,12 +1124,20 @@ impl Type {
 
     /// `type.ifSame(type2, value)` for rewrite results (compares with `ignoreRecursionPoints = checkIndex = true`).
     pub fn if_same_rewrite(&self, ty: &Type, value: &RewriteResult) -> Option<RewriteResult> {
-        if self.equals_with(ty, true, true) { Some(value.clone()) } else { None }
+        if self.equals_with(ty, true, true) {
+            Some(value.clone())
+        } else {
+            None
+        }
     }
 
     /// `type.ifSame(typed)`: the value when `typed` has an equal type.
     pub fn if_same(&self, typed: &Typed) -> Option<Value> {
-        if self.equals_with(&typed.ty, true, true) { Some(typed.value.clone()) } else { None }
+        if self.equals_with(&typed.ty, true, true) {
+            Some(typed.value.clone())
+        } else {
+            None
+        }
     }
 
     // ---- per-kind rewrite helpers -------------------------------------------------------------------------------
@@ -893,7 +1156,11 @@ impl Type {
         v2.compose(&v1)
     }
 
-    pub(crate) fn merge_compound_list(&self, left: RewriteResult, right: RewriteResult) -> RewriteResult {
+    pub(crate) fn merge_compound_list(
+        &self,
+        left: RewriteResult,
+        right: RewriteResult,
+    ) -> RewriteResult {
         let (key, element) = self.as_compound_list().unwrap();
         let v1 = fix_compound_keys(self, key, element, &left);
         let v2 = fix_compound_values(v1.view.new_type(), left.view.new_type(), element, &right);
@@ -911,7 +1178,12 @@ impl Type {
         }
         let (name, _) = self.as_tag().expect("not a tag type");
         let output = Type::tag(name, instance.view.new_type());
-        let optic = TypedOptic::id_of(self.clone(), output, instance.view.ty().clone(), instance.view.new_type().clone());
+        let optic = TypedOptic::id_of(
+            self.clone(),
+            output,
+            instance.view.ty().clone(),
+            instance.view.new_type().clone(),
+        );
         optic_view(self, &instance, optic)
     }
 
@@ -935,9 +1207,15 @@ impl Type {
 
     fn wrap_check_optic(&self, optic: &TypedOptic) -> TypedOptic {
         match &self.0.kind {
-            TypeKind::Check { name, index, expected_index, .. } => {
-                optic.cast_outer(self.clone(), Type::check(name, *index, *expected_index, optic.t_type()))
-            }
+            TypeKind::Check {
+                name,
+                index,
+                expected_index,
+                ..
+            } => optic.cast_outer(
+                self.clone(),
+                Type::check(name, *index, *expected_index, optic.t_type()),
+            ),
             _ => panic!("not a check type"),
         }
     }
@@ -947,7 +1225,9 @@ impl Type {
         if instance.view.is_nop() {
             return RewriteResult::nop(self);
         }
-        let TypeKind::Hook { pre, post, .. } = &self.0.kind else { panic!("not a hook type") };
+        let TypeKind::Hook { pre, post, .. } = &self.0.kind else {
+            panic!("not a hook type")
+        };
         let inner = TypedOptic::adapter(instance.view.ty(), instance.view.new_type());
         optic_view(self, &instance, wrap_hook_optic(&inner, pre, post))
     }
@@ -987,7 +1267,11 @@ impl Type {
     // ---- finders ------------------------------------------------------------------------------------------------
 
     /// `type.findType(type, resultType, matcher, recurse)`.
-    pub(crate) fn find_type(&self, matcher: &Matcher, recurse: bool) -> Result<TypedOptic, FindError> {
+    pub(crate) fn find_type(
+        &self,
+        matcher: &Matcher,
+        recurse: bool,
+    ) -> Result<TypedOptic, FindError> {
         match matcher.matches(self) {
             Ok(o) => Ok(o),
             Err(FindError::Continue) => self.find_type_in_children(matcher, recurse),
@@ -995,7 +1279,11 @@ impl Type {
         }
     }
 
-    fn find_type_in_children(&self, matcher: &Matcher, recurse: bool) -> Result<TypedOptic, FindError> {
+    fn find_type_in_children(
+        &self,
+        matcher: &Matcher,
+        recurse: bool,
+    ) -> Result<TypedOptic, FindError> {
         use TypeKind::*;
         match &self.0.kind {
             Product(first, second) => match first.find_type(matcher, recurse) {
@@ -1039,7 +1327,12 @@ impl Type {
         }
     }
 
-    fn find_in_tagged_choice(&self, tc: &TaggedChoiceData, matcher: &Matcher, recurse: bool) -> Result<TypedOptic, FindError> {
+    fn find_in_tagged_choice(
+        &self,
+        tc: &TaggedChoiceData,
+        matcher: &Matcher,
+        recurse: bool,
+    ) -> Result<TypedOptic, FindError> {
         let optics: Vec<(String, TypedOptic)> = tc
             .types
             .iter()
@@ -1049,7 +1342,15 @@ impl Type {
             0 => Err(FindError::NotFound("Not found in any choices".into())),
             1 => {
                 let (key, o) = &optics[0];
-                Ok(TypedOptic::tagged(&TaggedChoiceType(self.clone()), key, o.s_type(), o.t_type()).compose(o))
+                Ok(
+                    TypedOptic::tagged(
+                        &TaggedChoiceType(self.clone()),
+                        key,
+                        o.s_type(),
+                        o.t_type(),
+                    )
+                    .compose(o),
+                )
             }
             _ => {
                 // `new Object2ObjectOpenHashMap<>(this.types)` with the matched choices' new types set in place
@@ -1060,7 +1361,13 @@ impl Type {
                     }
                 }
                 let t = Type::tagged_choice(&tc.name, &tc.key_type, new_types);
-                Ok(TypedOptic::choice(self.clone(), t, matcher.ty().clone(), matcher.result().clone(), optics))
+                Ok(TypedOptic::choice(
+                    self.clone(),
+                    t,
+                    matcher.ty().clone(),
+                    matcher.result().clone(),
+                    optics,
+                ))
             }
         }
     }
@@ -1069,14 +1376,28 @@ impl Type {
     pub fn find_choice_type(&self, name: &str, index: i32) -> Option<TaggedChoiceType> {
         use TypeKind::*;
         match &self.0.kind {
-            Product(a, b) | Sum(a, b) => a.find_choice_type(name, index).or_else(|| b.find_choice_type(name, index)),
+            Product(a, b) | Sum(a, b) => a
+                .find_choice_type(name, index)
+                .or_else(|| b.find_choice_type(name, index)),
             Named(_, e) => e.find_choice_type(name, index),
-            Check { expected_index, delegate, .. } => {
-                if index == *expected_index { delegate.find_choice_type(name, index) } else { None }
+            Check {
+                expected_index,
+                delegate,
+                ..
+            } => {
+                if index == *expected_index {
+                    delegate.find_choice_type(name, index)
+                } else {
+                    None
+                }
             }
             Hook { delegate, .. } => delegate.find_choice_type(name, index),
             TaggedChoice(tc) => {
-                if tc.name == name { Some(TaggedChoiceType(self.clone())) } else { None }
+                if tc.name == name {
+                    Some(TaggedChoiceType(self.clone()))
+                } else {
+                    None
+                }
             }
             RecursivePoint { index: i, .. } => self.unfold().find_choice_type(name, *i),
             _ => None,
@@ -1087,13 +1408,26 @@ impl Type {
     pub fn find_checked_type(&self, index: i32) -> Option<Type> {
         use TypeKind::*;
         match &self.0.kind {
-            Product(a, b) | Sum(a, b) => a.find_checked_type(index).or_else(|| b.find_checked_type(index)),
+            Product(a, b) | Sum(a, b) => a
+                .find_checked_type(index)
+                .or_else(|| b.find_checked_type(index)),
             Named(_, e) => e.find_checked_type(index),
-            Check { expected_index, delegate, .. } => {
-                if index == *expected_index { Some(delegate.clone()) } else { None }
+            Check {
+                expected_index,
+                delegate,
+                ..
+            } => {
+                if index == *expected_index {
+                    Some(delegate.clone())
+                } else {
+                    None
+                }
             }
             Hook { delegate, .. } => delegate.find_checked_type(index),
-            TaggedChoice(tc) => tc.types.iter().find_map(|(_, t)| t.find_checked_type(index)),
+            TaggedChoice(tc) => tc
+                .types
+                .iter()
+                .find_map(|(_, t)| t.find_checked_type(index)),
             RecursivePoint { index: i, .. } => self.unfold().find_checked_type(*i),
             _ => None,
         }
@@ -1103,14 +1437,34 @@ impl Type {
     pub fn find_field_type_opt(&self, name: &str) -> Option<Type> {
         use TypeKind::*;
         match &self.0.kind {
-            Product(a, b) | Sum(a, b) => a.find_field_type_opt(name).or_else(|| b.find_field_type_opt(name)),
-            Tag(n, e) => if n == name { Some(e.clone()) } else { None },
+            Product(a, b) | Sum(a, b) => a
+                .find_field_type_opt(name)
+                .or_else(|| b.find_field_type_opt(name)),
+            Tag(n, e) => {
+                if n == name {
+                    Some(e.clone())
+                } else {
+                    None
+                }
+            }
             Named(_, e) => e.find_field_type_opt(name),
-            Check { index, expected_index, delegate, .. } => {
-                if index == expected_index { delegate.find_field_type_opt(name) } else { None }
+            Check {
+                index,
+                expected_index,
+                delegate,
+                ..
+            } => {
+                if index == expected_index {
+                    delegate.find_field_type_opt(name)
+                } else {
+                    None
+                }
             }
             Hook { delegate, .. } => delegate.find_field_type_opt(name),
-            TaggedChoice(tc) => tc.types.iter().find_map(|(_, t)| t.find_field_type_opt(name)),
+            TaggedChoice(tc) => tc
+                .types
+                .iter()
+                .find_map(|(_, t)| t.find_field_type_opt(name)),
             RecursivePoint { .. } => self.unfold().find_field_type_opt(name),
             _ => None,
         }
@@ -1119,7 +1473,8 @@ impl Type {
     /// `type.findFieldType(name)`; panics like Java's `IllegalArgumentException("Field not found: name")`.
     #[track_caller]
     pub fn find_field_type(&self, name: &str) -> Type {
-        self.find_field_type_opt(name).unwrap_or_else(|| panic!("Field not found: {name}"))
+        self.find_field_type_opt(name)
+            .unwrap_or_else(|| panic!("Field not found: {name}"))
     }
 
     /// `type.findField(name)`.
@@ -1135,7 +1490,11 @@ impl Type {
 
     /// `type.getSetType(optic, newType)`.
     pub fn get_set_type(&self, optic: &crate::finder::OpticFinder, new_type: &Type) -> Type {
-        optic.find_type(self, new_type, false).unwrap_or_else(|e| panic!("{e}")).t_type().clone()
+        optic
+            .find_type(self, new_type, false)
+            .unwrap_or_else(|e| panic!("{e}"))
+            .t_type()
+            .clone()
     }
 
     /// `type.point(ops)`: the default value, when one exists.
@@ -1145,14 +1504,33 @@ impl Type {
             Primitive(_) => None,
             EmptyPart => Some(Value::Unit),
             Passthrough => Some(Value::Dynamic(Dynamic::new(*ops, Dyn::Empty))),
-            Product(a, b) => a.point(ops).and_then(|x| b.point(ops).map(|y| Value::pair(x, y))),
-            Sum(a, b) => b.point(ops).map(Value::right).or_else(|| a.point(ops).map(Value::left)),
+            Product(a, b) => a
+                .point(ops)
+                .and_then(|x| b.point(ops).map(|y| Value::pair(x, y))),
+            Sum(a, b) => b
+                .point(ops)
+                .map(Value::right)
+                .or_else(|| a.point(ops).map(Value::left)),
             List(_) | CompoundList(..) => Some(Value::List(Vec::new())),
             Tag(_, e) => e.point(ops),
             Named(n, e) => e.point(ops).map(|v| Value::named(n.clone(), v)),
-            Check { index, expected_index, delegate, .. } => if index == expected_index { delegate.point(ops) } else { None },
+            Check {
+                index,
+                expected_index,
+                delegate,
+                ..
+            } => {
+                if index == expected_index {
+                    delegate.point(ops)
+                } else {
+                    None
+                }
+            }
             Hook { delegate, .. } => delegate.point(ops),
-            TaggedChoice(tc) => tc.types.iter().find_map(|(k, t)| t.point(ops).map(|v| Value::named(k.clone(), v))),
+            TaggedChoice(tc) => tc
+                .types
+                .iter()
+                .find_map(|(k, t)| t.point(ops).map(|v| Value::named(k.clone(), v))),
             RecursivePoint { .. } => self.unfold().point(ops),
         }
     }
@@ -1188,7 +1566,12 @@ impl std::fmt::Display for Type {
             CompoundList(k, v) => write!(f, "CompoundList[{k} -> {v}]"),
             Tag(n, e) => write!(f, "Tag[\"{n}\", {e}]"),
             Named(n, e) => write!(f, "NamedType[\"{n}\", {e}]"),
-            Check { name, index, expected_index, delegate } => write!(f, "TypeTag[{index}~{expected_index}][{name}: {delegate}]"),
+            Check {
+                name,
+                index,
+                expected_index,
+                delegate,
+            } => write!(f, "TypeTag[{index}~{expected_index}][{name}: {delegate}]"),
             Hook { delegate, .. } => write!(f, "HookType[{delegate}]"),
             TaggedChoice(tc) => {
                 write!(f, "TaggedChoiceType[{}, ", tc.name)?;
@@ -1200,7 +1583,9 @@ impl std::fmt::Display for Type {
                 }
                 f.write_str("]\n")
             }
-            RecursivePoint { family, index, .. } => write!(f, "MuType[{}_{}]", family.name(), index),
+            RecursivePoint { family, index, .. } => {
+                write!(f, "MuType[{}_{}]", family.name(), index)
+            }
         }
     }
 }
@@ -1212,28 +1597,62 @@ impl std::fmt::Debug for Type {
 }
 
 type RewriteKey = (Type, TypeRewriteRule, OptimizationRule);
-static REWRITE_CACHE: LazyLock<Mutex<HashMap<RewriteKey, Option<RewriteResult>>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
-
+static REWRITE_CACHE: LazyLock<Mutex<HashMap<RewriteKey, Option<RewriteResult>>>> =
+    LazyLock::new(|| Mutex::new(HashMap::new()));
 
 // ---- free helpers shared by the per-kind rewrite code ------------------------------------------------------------
 
 fn fix_product_left(ty: &Type, first: &Type, second: &Type, view: &RewriteResult) -> RewriteResult {
-    optic_view(ty, view, TypedOptic::proj1(first, second, view.view.new_type()))
+    optic_view(
+        ty,
+        view,
+        TypedOptic::proj1(first, second, view.view.new_type()),
+    )
 }
-fn fix_product_right(ty: &Type, first: &Type, second: &Type, view: &RewriteResult) -> RewriteResult {
-    optic_view(ty, view, TypedOptic::proj2(first, second, view.view.new_type()))
+fn fix_product_right(
+    ty: &Type,
+    first: &Type,
+    second: &Type,
+    view: &RewriteResult,
+) -> RewriteResult {
+    optic_view(
+        ty,
+        view,
+        TypedOptic::proj2(first, second, view.view.new_type()),
+    )
 }
 fn fix_sum_left(ty: &Type, first: &Type, second: &Type, view: &RewriteResult) -> RewriteResult {
-    optic_view(ty, view, TypedOptic::inj1(first, second, view.view.new_type()))
+    optic_view(
+        ty,
+        view,
+        TypedOptic::inj1(first, second, view.view.new_type()),
+    )
 }
 fn fix_sum_right(ty: &Type, first: &Type, second: &Type, view: &RewriteResult) -> RewriteResult {
-    optic_view(ty, view, TypedOptic::inj2(first, second, view.view.new_type()))
+    optic_view(
+        ty,
+        view,
+        TypedOptic::inj2(first, second, view.view.new_type()),
+    )
 }
 fn fix_compound_keys(ty: &Type, key: &Type, element: &Type, view: &RewriteResult) -> RewriteResult {
-    optic_view(ty, view, TypedOptic::compound_list_keys(key, view.view.new_type(), element))
+    optic_view(
+        ty,
+        view,
+        TypedOptic::compound_list_keys(key, view.view.new_type(), element),
+    )
 }
-fn fix_compound_values(ty: &Type, key: &Type, element: &Type, view: &RewriteResult) -> RewriteResult {
-    optic_view(ty, view, TypedOptic::compound_list_elements(key, element, view.view.new_type()))
+fn fix_compound_values(
+    ty: &Type,
+    key: &Type,
+    element: &Type,
+    view: &RewriteResult,
+) -> RewriteResult {
+    optic_view(
+        ty,
+        view,
+        TypedOptic::compound_list_elements(key, element, view.view.new_type()),
+    )
 }
 
 /// `NamedType.wrapOptic(name, optic)`.
@@ -1249,15 +1668,21 @@ fn wrap_named_optic(name: &str, optic: &TypedOptic) -> TypedOptic {
 
 /// `HookType.wrapOptic(optic, preRead, postWrite)`.
 fn wrap_hook_optic(optic: &TypedOptic, pre: &HookFunction, post: &HookFunction) -> TypedOptic {
-    optic.cast_outer(Type::hook(optic.s_type(), pre, post), Type::hook(optic.t_type(), pre, post))
+    optic.cast_outer(
+        Type::hook(optic.s_type(), pre, post),
+        Type::hook(optic.t_type(), pre, post),
+    )
 }
 
 /// `TaggedChoiceType.elementResult(key, type, result)`.
-pub(crate) fn tagged_element_result(key: &str, ty: &TaggedChoiceType, result: &RewriteResult) -> RewriteResult {
+pub(crate) fn tagged_element_result(
+    key: &str,
+    ty: &TaggedChoiceType,
+    result: &RewriteResult,
+) -> RewriteResult {
     let optic = TypedOptic::tagged(ty, key, result.view.ty(), result.view.new_type());
     optic_view(ty.ty(), result, optic)
 }
-
 
 fn decode_list(element: &Type, ops: &Ops, input: &Dyn) -> Decoded {
     let list = match ops.get_list(input) {
@@ -1283,7 +1708,9 @@ fn decode_list(element: &Type, ops: &Ops, input: &Dyn) -> Decoded {
     let errors = Rest::Val(ops.create_list(failed));
     match result {
         DataResult::Success(()) => DataResult::success((Value::List(elements), errors)),
-        DataResult::Error { message, .. } => DataResult::error_msg(message, Some((Value::List(elements), errors))),
+        DataResult::Error { message, .. } => {
+            DataResult::error_msg(message, Some((Value::List(elements), errors)))
+        }
     }
 }
 
@@ -1324,7 +1751,10 @@ fn put_entries(ops: &Ops, prefix: Dyn, entries: Vec<(Dyn, Dyn)>) -> DataResult<D
         }
         other => {
             let o = other.clone();
-            DataResult::error_partial(move || format!("mergeToMap called with not a map: {o}"), other)
+            DataResult::error_partial(
+                move || format!("mergeToMap called with not a map: {o}"),
+                other,
+            )
         }
     }
 }

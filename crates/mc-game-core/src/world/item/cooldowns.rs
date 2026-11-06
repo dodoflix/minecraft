@@ -51,7 +51,12 @@ impl ItemCooldowns {
         self.tick_count = self.tick_count.wrapping_add(1);
         if !self.cooldowns.is_empty() {
             let tick = self.tick_count;
-            let mut ended: Vec<Identifier> = self.cooldowns.iter().filter(|(_, c)| c.end_time <= tick).map(|(k, _)| k.clone()).collect();
+            let mut ended: Vec<Identifier> = self
+                .cooldowns
+                .iter()
+                .filter(|(_, c)| c.end_time <= tick)
+                .map(|(k, _)| k.clone())
+                .collect();
             ended.sort_by_key(|k| k.to_string());
             for group in ended {
                 self.cooldowns.remove(&group);
@@ -63,7 +68,9 @@ impl ItemCooldowns {
     /// `getCooldownGroup(item)`: the `use_cooldown` component's group, else the item's registry name.
     pub fn get_cooldown_group(item: &ItemStack) -> Identifier {
         let default_group = item.item().identifier();
-        item.get(&USE_COOLDOWN).and_then(|c| c.cooldown_group.clone()).unwrap_or(default_group)
+        item.get(&USE_COOLDOWN)
+            .and_then(|c| c.cooldown_group.clone())
+            .unwrap_or(default_group)
     }
 
     pub fn add_cooldown(&mut self, item: &ItemStack, time: i32) {
@@ -71,7 +78,13 @@ impl ItemCooldowns {
     }
 
     pub fn add_cooldown_group(&mut self, group: Identifier, time: i32) {
-        self.cooldowns.insert(group.clone(), CooldownInstance { start_time: self.tick_count, end_time: self.tick_count.wrapping_add(time) });
+        self.cooldowns.insert(
+            group.clone(),
+            CooldownInstance {
+                start_time: self.tick_count,
+                end_time: self.tick_count.wrapping_add(time),
+            },
+        );
         self.outbox.push((group, time));
     }
 

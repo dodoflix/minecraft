@@ -107,7 +107,11 @@ impl EquipmentSlot {
     /// `limit(toEquip)`: splits off at most `countLimit` items.
     pub fn limit(self, to_equip: &mut ItemStack) -> ItemStack {
         let limit = self.count_limit();
-        if limit > 0 { to_equip.split(limit) } else { std::mem::take(to_equip) }
+        if limit > 0 {
+            to_equip.split(limit)
+        } else {
+            std::mem::take(to_equip)
+        }
     }
 
     /// `getId()` (the wire id of `EquipmentSlot.STREAM_CODEC`).
@@ -148,7 +152,10 @@ impl EquipmentSlot {
     }
 
     pub fn is_armor(self) -> bool {
-        matches!(self.get_type(), EquipmentSlotType::HumanoidArmor | EquipmentSlotType::AnimalArmor)
+        matches!(
+            self.get_type(),
+            EquipmentSlotType::HumanoidArmor | EquipmentSlotType::AnimalArmor
+        )
     }
 
     pub fn can_increase_experience(self) -> bool {
@@ -213,7 +220,10 @@ impl EntityEquipment {
     pub fn load(tag: &CompoundTag) -> EntityEquipment {
         let mut eq = EntityEquipment::new();
         for (name, value) in tag.iter() {
-            if let (Some(slot), Some(item)) = (EquipmentSlot::by_name(name), value.as_compound().and_then(load_item_stack)) {
+            if let (Some(slot), Some(item)) = (
+                EquipmentSlot::by_name(name),
+                value.as_compound().and_then(load_item_stack),
+            ) {
                 eq.set(slot, item);
             }
         }

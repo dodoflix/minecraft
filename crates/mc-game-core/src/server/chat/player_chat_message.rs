@@ -41,20 +41,37 @@ impl PlayerChatMessage {
 
     pub fn with_unsigned_content(&self, content: Component) -> Self {
         let unsigned = (content != Component::literal(self.signed_content())).then_some(content);
-        Self { unsigned_content: unsigned, ..self.clone() }
+        Self {
+            unsigned_content: unsigned,
+            ..self.clone()
+        }
     }
 
     pub fn remove_unsigned_content(&self) -> Self {
-        Self { unsigned_content: None, ..self.clone() }
+        Self {
+            unsigned_content: None,
+            ..self.clone()
+        }
     }
 
     pub fn filter_with_mask(&self, filter_mask: FilterMask) -> Self {
-        if self.filter_mask == filter_mask { self.clone() } else { Self { filter_mask, ..self.clone() } }
+        if self.filter_mask == filter_mask {
+            self.clone()
+        } else {
+            Self {
+                filter_mask,
+                ..self.clone()
+            }
+        }
     }
 
     /// `filter(boolean filtered)`: keeps the mask when filtered, else pass-through.
     pub fn filter(&self, filtered: bool) -> Self {
-        self.filter_with_mask(if filtered { self.filter_mask.clone() } else { FilterMask::PassThrough })
+        self.filter_with_mask(if filtered {
+            self.filter_mask.clone()
+        } else {
+            FilterMask::PassThrough
+        })
     }
 
     pub fn remove_signature(&self) -> Self {
@@ -75,7 +92,9 @@ impl PlayerChatMessage {
     }
 
     pub fn verify(&self, validator: &dyn SignatureValidator) -> bool {
-        let Some(signature) = &self.signature else { return false };
+        let Some(signature) = &self.signature else {
+            return false;
+        };
         let mut payload = Vec::new();
         Self::update_signature(&mut payload, &self.link, &self.signed_body);
         validator.validate(&payload, &signature.0)
@@ -86,7 +105,9 @@ impl PlayerChatMessage {
     }
 
     pub fn decorated_content(&self) -> Component {
-        self.unsigned_content.clone().unwrap_or_else(|| Component::literal(self.signed_content()))
+        self.unsigned_content
+            .clone()
+            .unwrap_or_else(|| Component::literal(self.signed_content()))
     }
 
     pub fn time_stamp(&self) -> Instant {
@@ -98,11 +119,19 @@ impl PlayerChatMessage {
     }
 
     pub fn has_expired_server(&self, now: Instant) -> bool {
-        now.0 > self.time_stamp().0.saturating_add(MESSAGE_EXPIRES_AFTER_SERVER_MS)
+        now.0
+            > self
+                .time_stamp()
+                .0
+                .saturating_add(MESSAGE_EXPIRES_AFTER_SERVER_MS)
     }
 
     pub fn has_expired_client(&self, now: Instant) -> bool {
-        now.0 > self.time_stamp().0.saturating_add(MESSAGE_EXPIRES_AFTER_CLIENT_MS)
+        now.0
+            > self
+                .time_stamp()
+                .0
+                .saturating_add(MESSAGE_EXPIRES_AFTER_CLIENT_MS)
     }
 
     pub fn sender(&self) -> Uuid {
@@ -127,8 +156,13 @@ impl PlayerChatMessage {
 
     /// `PlayerChatMessage.describeSigned` (the time stamp prints like `Instant.toString`).
     pub fn describe_signed(message: &PlayerChatMessage) -> String {
-        let last_seen: String =
-            message.signed_body.last_seen.entries.iter().map(|s| format!("     {}\n", message_signature::describe(Some(s)))).collect();
+        let last_seen: String = message
+            .signed_body
+            .last_seen
+            .entries
+            .iter()
+            .map(|s| format!("     {}\n", message_signature::describe(Some(s))))
+            .collect();
         format!(
             "'{}' @ {}\n - From: {}/{}, message #{}\n - Salt: {}\n - Signature: {}\n - Last Seen: [\n{} ]\n",
             message.signed_body.content,

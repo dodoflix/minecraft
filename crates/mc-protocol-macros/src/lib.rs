@@ -19,7 +19,8 @@ use proc_macro::TokenStream;
 use proc_macro2::{Span, TokenStream as TokenStream2};
 use quote::{format_ident, quote};
 use syn::{
-    Data, DeriveInput, Error, Field, Fields, Ident, LitInt, LitStr, Result, Variant, parse_macro_input,
+    Data, DeriveInput, Error, Field, Fields, Ident, LitInt, LitStr, Result, Variant,
+    parse_macro_input,
 };
 
 const CRATE: &str = "mc_protocol";
@@ -124,7 +125,11 @@ fn fields_decode(fields: &Fields) -> Result<TokenStream2> {
     Ok(match fields {
         Fields::Unit => quote!(),
         Fields::Unnamed(u) => {
-            let ex = u.unnamed.iter().map(decode_expr).collect::<Result<Vec<_>>>()?;
+            let ex = u
+                .unnamed
+                .iter()
+                .map(decode_expr)
+                .collect::<Result<Vec<_>>>()?;
             quote!((#(#ex),*))
         }
         Fields::Named(n) => {
@@ -145,7 +150,10 @@ struct EnumAttrs {
 }
 
 fn enum_attrs(input: &DeriveInput) -> Result<EnumAttrs> {
-    let mut out = EnumAttrs { repr: "varint".into(), error: None };
+    let mut out = EnumAttrs {
+        repr: "varint".into(),
+        error: None,
+    };
     for attr in input.attrs.iter().filter(|a| a.path().is_ident("mc")) {
         attr.parse_nested_meta(|m| {
             if m.path.is_ident("repr") {
@@ -190,16 +198,23 @@ fn variant_ids(data: &syn::DataEnum) -> Result<Vec<i64>> {
 #[proc_macro_derive(Encode, attributes(mc))]
 pub fn derive_encode(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
-    expand_encode(&input).unwrap_or_else(Error::into_compile_error).into()
+    expand_encode(&input)
+        .unwrap_or_else(Error::into_compile_error)
+        .into()
 }
 
 #[proc_macro_derive(Decode, attributes(mc))]
 pub fn derive_decode(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
-    expand_decode(&input).unwrap_or_else(Error::into_compile_error).into()
+    expand_decode(&input)
+        .unwrap_or_else(Error::into_compile_error)
+        .into()
 }
 
-fn with_bounds(input: &DeriveInput, bound: TokenStream2) -> (TokenStream2, TokenStream2, TokenStream2) {
+fn with_bounds(
+    input: &DeriveInput,
+    bound: TokenStream2,
+) -> (TokenStream2, TokenStream2, TokenStream2) {
     let mut generics = input.generics.clone();
     for tp in generics.type_params_mut() {
         tp.bounds.push(syn::parse2(bound.clone()).unwrap());
@@ -218,7 +233,12 @@ fn write_repr(repr: &str, k: &TokenStream2, id: i64) -> Result<TokenStream2> {
         "i16" => lit(quote!(i16)),
         "i32" => lit(quote!(i32)),
         "i64" => lit(quote!(i64)),
-        other => return Err(Error::new(Span::call_site(), format!("unknown repr {other}"))),
+        other => {
+            return Err(Error::new(
+                Span::call_site(),
+                format!("unknown repr {other}"),
+            ));
+        }
     })
 }
 
@@ -232,7 +252,12 @@ fn read_repr(repr: &str, k: &TokenStream2) -> Result<TokenStream2> {
         "i16" => rd(quote!(i16)),
         "i32" => rd(quote!(i32)),
         "i64" => rd(quote!(i64)),
-        other => return Err(Error::new(Span::call_site(), format!("unknown repr {other}"))),
+        other => {
+            return Err(Error::new(
+                Span::call_site(),
+                format!("unknown repr {other}"),
+            ));
+        }
     })
 }
 
@@ -315,7 +340,9 @@ fn expand_decode(input: &DeriveInput) -> Result<TokenStream2> {
 #[proc_macro_derive(Packet, attributes(packet))]
 pub fn derive_packet(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
-    expand_packet(&input).unwrap_or_else(Error::into_compile_error).into()
+    expand_packet(&input)
+        .unwrap_or_else(Error::into_compile_error)
+        .into()
 }
 
 fn expand_packet(input: &DeriveInput) -> Result<TokenStream2> {
@@ -338,9 +365,21 @@ fn expand_packet(input: &DeriveInput) -> Result<TokenStream2> {
             Ok(())
         })?;
     }
-    let missing = || Error::new_spanned(input, "#[packet(state = .., flow = .., name = \"..\")] required");
-    let (state, flow, pname) = (state.ok_or_else(missing)?, flow.ok_or_else(missing)?, pname.ok_or_else(missing)?);
-    let konst = Ident::new(&pname.value().replace('/', "_").to_uppercase(), pname.span());
+    let missing = || {
+        Error::new_spanned(
+            input,
+            "#[packet(state = .., flow = .., name = \"..\")] required",
+        )
+    };
+    let (state, flow, pname) = (
+        state.ok_or_else(missing)?,
+        flow.ok_or_else(missing)?,
+        pname.ok_or_else(missing)?,
+    );
+    let konst = Ident::new(
+        &pname.value().replace('/', "_").to_uppercase(),
+        pname.span(),
+    );
     let name = &input.ident;
     let state_v = Ident::new(&capitalize(&state.to_string()), state.span());
     let flow_v = Ident::new(&capitalize(&flow.to_string()), flow.span());
@@ -358,5 +397,7 @@ fn expand_packet(input: &DeriveInput) -> Result<TokenStream2> {
 
 fn capitalize(s: &str) -> String {
     let mut c = s.chars();
-    c.next().map(|f| f.to_uppercase().collect::<String>() + c.as_str()).unwrap_or_default()
+    c.next()
+        .map(|f| f.to_uppercase().collect::<String>() + c.as_str())
+        .unwrap_or_default()
 }

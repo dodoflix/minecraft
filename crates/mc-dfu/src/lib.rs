@@ -4,22 +4,22 @@
 
 mod codec;
 pub mod dynamic_like;
-mod nbt_order;
 mod dynv;
 pub mod extra;
 mod hash;
+mod nbt_order;
 mod ops;
 #[macro_use]
 mod record;
-mod result;
 pub mod builtin;
+mod result;
 
 pub use builtin::*;
 pub use codec::{Codec, CodecImpl, Dynamic, Either, MapCodec, MapCodecImpl};
+pub use dynamic_like::OptionalDynamic;
 pub use dynv::{Dyn, JNum};
 pub use hash::{crc32c, hash_dyn};
-pub use ops::{ListBuilder, MapLike, Ops, OpsKind, RecordBuilder, HASH, JSON, NBT};
-pub use dynamic_like::OptionalDynamic;
+pub use ops::{HASH, JSON, ListBuilder, MapLike, NBT, Ops, OpsKind, RecordBuilder};
 pub use result::{DataResult, Msg};
 
 use mc_nbt::Tag;
@@ -31,7 +31,9 @@ pub fn parse_nbt<A: 'static>(codec: &Codec<A>, tag: &Tag) -> DataResult<A> {
 
 /// Encode a value to an NBT tag with `codec`.
 pub fn encode_nbt<A: 'static>(codec: &Codec<A>, value: &A) -> DataResult<Tag> {
-    codec.encode_start(&NBT, value).flat_map(|d| d.to_tag().into())
+    codec
+        .encode_start(&NBT, value)
+        .flat_map(|d| d.to_tag().into())
 }
 
 /// Parse a value from JSON text (strict JSON) with `codec`.

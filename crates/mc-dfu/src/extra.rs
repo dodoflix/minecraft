@@ -6,27 +6,52 @@ use crate::result::DataResult;
 use std::cmp::Ordering;
 use std::sync::LazyLock;
 
-fn int_with_message(min: i32, max: i32, msg: impl Fn(i32) -> String + Send + Sync + Clone + 'static) -> Codec<i32> {
-    INT.validate(move |v| if v >= min && v <= max { DataResult::success(v) } else { let m = msg(v); DataResult::error(move || m.clone()) })
+fn int_with_message(
+    min: i32,
+    max: i32,
+    msg: impl Fn(i32) -> String + Send + Sync + Clone + 'static,
+) -> Codec<i32> {
+    INT.validate(move |v| {
+        if v >= min && v <= max {
+            DataResult::success(v)
+        } else {
+            let m = msg(v);
+            DataResult::error(move || m.clone())
+        }
+    })
 }
 
-fn long_with_message(min: i64, max: i64, msg: impl Fn(i64) -> String + Send + Sync + Clone + 'static) -> Codec<i64> {
-    LONG.validate(move |v| if v >= min && v <= max { DataResult::success(v) } else { let m = msg(v); DataResult::error(move || m.clone()) })
+fn long_with_message(
+    min: i64,
+    max: i64,
+    msg: impl Fn(i64) -> String + Send + Sync + Clone + 'static,
+) -> Codec<i64> {
+    LONG.validate(move |v| {
+        if v >= min && v <= max {
+            DataResult::success(v)
+        } else {
+            let m = msg(v);
+            DataResult::error(move || m.clone())
+        }
+    })
 }
 
 pub static NON_NEGATIVE_INT: LazyLock<Codec<i32>> =
     LazyLock::new(|| int_with_message(0, i32::MAX, |n| format!("Value must be non-negative: {n}")));
 pub static POSITIVE_INT: LazyLock<Codec<i32>> =
     LazyLock::new(|| int_with_message(1, i32::MAX, |n| format!("Value must be positive: {n}")));
-pub static NON_NEGATIVE_LONG: LazyLock<Codec<i64>> =
-    LazyLock::new(|| long_with_message(0, i64::MAX, |n| format!("Value must be non-negative: {n}")));
+pub static NON_NEGATIVE_LONG: LazyLock<Codec<i64>> = LazyLock::new(|| {
+    long_with_message(0, i64::MAX, |n| format!("Value must be non-negative: {n}"))
+});
 pub static POSITIVE_LONG: LazyLock<Codec<i64>> =
     LazyLock::new(|| long_with_message(1, i64::MAX, |n| format!("Value must be positive: {n}")));
 
 /// `ExtraCodecs.NON_NEGATIVE_FLOAT` (`0.0 ..= Float.MAX_VALUE`, `Float.compareTo` ordering).
 pub static NON_NEGATIVE_FLOAT: LazyLock<Codec<f32>> = LazyLock::new(|| {
     FLOAT.validate(|v| {
-        if java_float_cmp(v, 0.0) != Ordering::Less && java_float_cmp(v, f32::MAX) != Ordering::Greater {
+        if java_float_cmp(v, 0.0) != Ordering::Less
+            && java_float_cmp(v, f32::MAX) != Ordering::Greater
+        {
             DataResult::success(v)
         } else {
             let s = mc_core::math::java::java_float_to_string(v);
@@ -37,7 +62,9 @@ pub static NON_NEGATIVE_FLOAT: LazyLock<Codec<f32>> = LazyLock::new(|| {
 /// `ExtraCodecs.POSITIVE_FLOAT` (`> 0.0`).
 pub static POSITIVE_FLOAT: LazyLock<Codec<f32>> = LazyLock::new(|| {
     FLOAT.validate(|v| {
-        if java_float_cmp(v, 0.0) == Ordering::Greater && java_float_cmp(v, f32::MAX) != Ordering::Greater {
+        if java_float_cmp(v, 0.0) == Ordering::Greater
+            && java_float_cmp(v, f32::MAX) != Ordering::Greater
+        {
             DataResult::success(v)
         } else {
             let s = mc_core::math::java::java_float_to_string(v);
@@ -48,7 +75,9 @@ pub static POSITIVE_FLOAT: LazyLock<Codec<f32>> = LazyLock::new(|| {
 
 /// `ExtraCodecs.intRange(min, max)`.
 pub fn extra_int_range(min: i32, max: i32) -> Codec<i32> {
-    int_with_message(min, max, move |n| format!("Value must be within range [{min};{max}]: {n}"))
+    int_with_message(min, max, move |n| {
+        format!("Value must be within range [{min};{max}]: {n}")
+    })
 }
 
 /// `ExtraCodecs.floatRange(min, max)`.
@@ -83,12 +112,25 @@ pub static UNSIGNED_BYTE: LazyLock<Codec<i32>> = LazyLock::new(|| {
 });
 
 /// `ExtraCodecs.NON_EMPTY_STRING`.
-pub static NON_EMPTY_STRING: LazyLock<Codec<String>> =
-    LazyLock::new(|| STRING.validate(|v| if v.is_empty() { DataResult::error_str("Expected non-empty string") } else { DataResult::success(v) }));
+pub static NON_EMPTY_STRING: LazyLock<Codec<String>> = LazyLock::new(|| {
+    STRING.validate(|v| {
+        if v.is_empty() {
+            DataResult::error_str("Expected non-empty string")
+        } else {
+            DataResult::success(v)
+        }
+    })
+});
 
 /// `ExtraCodecs.nonEmptyList`.
 pub fn non_empty_list<T: Clone + 'static>(list: &Codec<Vec<T>>) -> Codec<Vec<T>> {
-    list.validate(|l| if l.is_empty() { DataResult::error_str("List must have contents") } else { DataResult::success(l) })
+    list.validate(|l| {
+        if l.is_empty() {
+            DataResult::error_str("List must have contents")
+        } else {
+            DataResult::success(l)
+        }
+    })
 }
 
 /// `ExtraCodecs.compactListCodec(element)`: a list, or a single element standing for a one-element list.
@@ -96,16 +138,32 @@ pub fn compact_list_codec<E: Clone + Send + Sync + 'static>(element: &Codec<E>) 
     compact_list_codec_with(element, &element.list_of())
 }
 
-pub fn compact_list_codec_with<E: Clone + Send + Sync + 'static>(element: &Codec<E>, list: &Codec<Vec<E>>) -> Codec<Vec<E>> {
+pub fn compact_list_codec_with<E: Clone + Send + Sync + 'static>(
+    element: &Codec<E>,
+    list: &Codec<Vec<E>>,
+) -> Codec<Vec<E>> {
     list.either(element).xmap(
         |e| e.map(|l| l, |v| vec![v]),
-        |v: &Vec<E>| if v.len() == 1 { Either::Right(v[0].clone()) } else { Either::Left(v.clone()) },
+        |v: &Vec<E>| {
+            if v.len() == 1 {
+                Either::Right(v[0].clone())
+            } else {
+                Either::Left(v.clone())
+            }
+        },
     )
 }
 
 /// `ExtraCodecs.optionalAlwaysPresentFieldOf(element, name, default)`: absent reads as `default`, always written.
-pub fn optional_always_present_field_of<A: Clone + Send + Sync + 'static>(element: &Codec<A>, name: &str, default: A) -> crate::MapCodec<A> {
-    element.optional_field_of(name).xmap(move |o| o.unwrap_or_else(|| default.clone()), |a: &A| Some(a.clone()))
+pub fn optional_always_present_field_of<A: Clone + Send + Sync + 'static>(
+    element: &Codec<A>,
+    name: &str,
+    default: A,
+) -> crate::MapCodec<A> {
+    element.optional_field_of(name).xmap(
+        move |o| o.unwrap_or_else(|| default.clone()),
+        |a: &A| Some(a.clone()),
+    )
 }
 
 /// `ExtraCodecs.optionalEmptyMap(codec)`: an empty map reads as `None` and `None` writes an empty map.
@@ -157,10 +215,13 @@ pub fn dispatched_map<K: PartialEq + 'static, V: 'static>(
                 let key_result = kc2.parse(ops, k);
                 let value_result = match &key_result {
                     DataResult::Success(key) => vc2(key).flat_map(|c| c.parse(ops, v)),
-                    DataResult::Error { message, partial } => match partial.as_ref().map(|p| vc2(p)) {
-                        Some(r) => DataResult::error_msg(message.clone(), None).apply2(r.flat_map(|c| c.parse(ops, v)), |_: (), v| v),
-                        None => DataResult::error_msg(message.clone(), None),
-                    },
+                    DataResult::Error { message, partial } => {
+                        match partial.as_ref().map(|p| vc2(p)) {
+                            Some(r) => DataResult::error_msg(message.clone(), None)
+                                .apply2(r.flat_map(|c| c.parse(ops, v)), |_: (), v| v),
+                            None => DataResult::error_msg(message.clone(), None),
+                        }
+                    }
                 };
                 let entry_result = key_result.apply2(value_result, |k, v| (k, v));
                 let step: DataResult<()> = match entry_result.error_msg_ref() {
@@ -172,7 +233,12 @@ pub fn dispatched_map<K: PartialEq + 'static, V: 'static>(
                     if entries.iter().any(|(ek, _)| *ek == key) {
                         failed.push((k.clone(), v.clone()));
                         let key_text = k.clone();
-                        result = result.apply2(DataResult::error(move || format!("Duplicate entry for key: '{key_text}'")), |_, _: ()| ());
+                        result = result.apply2(
+                            DataResult::error(move || {
+                                format!("Duplicate entry for key: '{key_text}'")
+                            }),
+                            |_, _: ()| (),
+                        );
                         continue;
                     }
                     entries.push((key, val));
@@ -209,12 +275,18 @@ pub static IDENTIFIER: LazyLock<Codec<mc_core::ident::Identifier>> = LazyLock::n
 });
 
 /// `Util.fixedSize(list, size)`: a list of exactly `size` elements; longer lists are an error carrying the truncated list.
-pub fn fixed_size<T: Clone + Send + Sync + 'static>(mut list: Vec<T>, size: usize) -> DataResult<Vec<T>> {
+pub fn fixed_size<T: Clone + Send + Sync + 'static>(
+    mut list: Vec<T>,
+    size: usize,
+) -> DataResult<Vec<T>> {
     if list.len() == size {
         DataResult::success(list)
     } else if list.len() > size {
         list.truncate(size);
-        DataResult::error_partial(move || format!("Input is not a list of {size} elements"), list)
+        DataResult::error_partial(
+            move || format!("Input is not a list of {size} elements"),
+            list,
+        )
     } else {
         DataResult::error(move || format!("Input is not a list of {size} elements"))
     }
@@ -222,7 +294,10 @@ pub fn fixed_size<T: Clone + Send + Sync + 'static>(mut list: Vec<T>, size: usiz
 
 /// `ExtraCodecs.VECTOR3F`: a list of three floats.
 pub static VECTOR3F: LazyLock<Codec<[f32; 3]>> = LazyLock::new(|| {
-    FLOAT.list_of().comap_flat_map(|l| fixed_size(l, 3).map(|v| [v[0], v[1], v[2]]), |v: &[f32; 3]| v.to_vec())
+    FLOAT.list_of().comap_flat_map(
+        |l| fixed_size(l, 3).map(|v| [v[0], v[1], v[2]]),
+        |v: &[f32; 3]| v.to_vec(),
+    )
 });
 
 /// `ARGB.colorFromFloat(1.0F, r, g, b)` (channels `Mth.floor(v * 255.0F)`, masked to 8 bits).
@@ -232,7 +307,8 @@ pub fn rgb_from_floats(v: [f32; 3]) -> i32 {
 }
 
 /// `ExtraCodecs.RGB_COLOR_CODEC`: an int or a `[r, g, b]` float vector.
-pub static RGB_COLOR_CODEC: LazyLock<Codec<i32>> = LazyLock::new(|| INT.with_alternative_conv(&VECTOR3F, rgb_from_floats));
+pub static RGB_COLOR_CODEC: LazyLock<Codec<i32>> =
+    LazyLock::new(|| INT.with_alternative_conv(&VECTOR3F, rgb_from_floats));
 
 /// Entries in the iteration order of a `java.util.HashMap<String, V>` filled by `put`ing them in this order
 /// (see `mc_core::java_collections::hash_map_order`). Needed where vanilla encodes a `Collectors.toMap` result.

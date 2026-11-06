@@ -109,7 +109,10 @@ pub struct ChunkDiff {
 
 impl ChunkDiff {
     pub fn new(max_listed: usize) -> Self {
-        Self { max: max_listed, ..Self::default() }
+        Self {
+            max: max_listed,
+            ..Self::default()
+        }
     }
 
     pub fn is_empty(&self) -> bool {
@@ -188,7 +191,11 @@ pub fn diff_tag(path: &str, a: &Tag, b: &Tag, out: &mut Vec<String>) {
         (Tag::Compound(x), Tag::Compound(y)) => {
             let keys: BTreeSet<&String> = x.keys().chain(y.keys()).collect();
             for k in keys {
-                let p = if path.is_empty() { k.to_string() } else { format!("{path}.{k}") };
+                let p = if path.is_empty() {
+                    k.to_string()
+                } else {
+                    format!("{path}.{k}")
+                };
                 match (x.get(k), y.get(k)) {
                     (Some(l), Some(r)) => diff_tag(&p, l, r, out),
                     (Some(l), None) => out.push(short(format!("{p}: only in A = {}", canon(l)))),
@@ -199,7 +206,11 @@ pub fn diff_tag(path: &str, a: &Tag, b: &Tag, out: &mut Vec<String>) {
         }
         (Tag::List(x), Tag::List(y)) => {
             if x.len() != y.len() {
-                out.push(format!("{path}: list length {} (A) != {} (B)", x.len(), y.len()));
+                out.push(format!(
+                    "{path}: list length {} (A) != {} (B)",
+                    x.len(),
+                    y.len()
+                ));
             }
             for (i, (l, r)) in x.iter().zip(y.iter()).enumerate() {
                 diff_tag(&format!("{path}[{i}]"), l, r, out);
@@ -224,7 +235,10 @@ struct Container {
 
 impl Container {
     fn single(name: &str, n: usize) -> Self {
-        Self { palette: vec![name.to_owned()], idx: vec![0; n] }
+        Self {
+            palette: vec![name.to_owned()],
+            idx: vec![0; n],
+        }
     }
     fn at(&self, i: usize) -> &str {
         &self.palette[self.idx[i] as usize]
@@ -232,7 +246,11 @@ impl Container {
 }
 
 fn ceil_log2(n: usize) -> usize {
-    if n <= 1 { 0 } else { (usize::BITS - (n - 1).leading_zeros()) as usize }
+    if n <= 1 {
+        0
+    } else {
+        (usize::BITS - (n - 1).leading_zeros()) as usize
+    }
 }
 
 /// A palette entry in the 26.x layout: a bare string for property-less states, else `{id, properties:{..}}`.
@@ -240,12 +258,21 @@ fn state_string(tag: &Tag) -> String {
     if let Some(name) = tag.as_string() {
         return name.to_owned();
     }
-    let Some(c) = tag.as_compound() else { return canon(tag) };
+    let Some(c) = tag.as_compound() else {
+        return canon(tag);
+    };
     let name = c.get_string_or("id", "?");
     match c.get_compound("properties") {
         Some(p) if !p.is_empty() => {
-            let props: BTreeMap<&String, String> =
-                p.iter().map(|(k, v)| (k, v.as_string().map(str::to_owned).unwrap_or_else(|| canon(v)))).collect();
+            let props: BTreeMap<&String, String> = p
+                .iter()
+                .map(|(k, v)| {
+                    (
+                        k,
+                        v.as_string().map(str::to_owned).unwrap_or_else(|| canon(v)),
+                    )
+                })
+                .collect();
             let inner: Vec<String> = props.into_iter().map(|(k, v)| format!("{k}={v}")).collect();
             format!("{name}[{}]", inner.join(","))
         }
@@ -255,13 +282,28 @@ fn state_string(tag: &Tag) -> String {
 
 /// Decodes a `block_states` / `biomes` section compound with vanilla's persisted layout: palette list + optional long
 /// array packed without crossing longs, `max(min_bits, ceillog2(palette))` bits per entry.
-fn decode_container(c: &CompoundTag, n: usize, min_bits: usize, blocks: bool) -> Result<Container, String> {
-    let Some(pal) = c.get_list("palette") else { return Err("no palette".into()) };
+fn decode_container(
+    c: &CompoundTag,
+    n: usize,
+    min_bits: usize,
+    blocks: bool,
+) -> Result<Container, String> {
+    let Some(pal) = c.get_list("palette") else {
+        return Err("no palette".into());
+    };
     if pal.is_empty() {
         return Err("empty palette".into());
     }
-    let palette: Vec<String> =
-        pal.iter().map(|t| if blocks { state_string(t) } else { t.as_string().map(str::to_owned).unwrap_or_else(|| canon(t)) }).collect();
+    let palette: Vec<String> = pal
+        .iter()
+        .map(|t| {
+            if blocks {
+                state_string(t)
+            } else {
+                t.as_string().map(str::to_owned).unwrap_or_else(|| canon(t))
+            }
+        })
+        .collect();
     let bits = min_bits.max(ceil_log2(palette.len()));
     let idx = match c.get_long_array("data") {
         None if palette.len() == 1 => vec![0; n],
@@ -270,14 +312,23 @@ fn decode_container(c: &CompoundTag, n: usize, min_bits: usize, blocks: bool) ->
             let bits = bits.max(1);
             let per = 64 / bits;
             if data.len() != n.div_ceil(per) {
-                return Err(format!("data length {} != {} expected for {bits} bits", data.len(), n.div_ceil(per)));
+                return Err(format!(
+                    "data length {} != {} expected for {bits} bits",
+                    data.len(),
+                    n.div_ceil(per)
+                ));
             }
             let mask = (1u64 << bits) - 1;
-            (0..n).map(|i| ((data[i / per] as u64 >> ((i % per) * bits)) & mask) as u32).collect()
+            (0..n)
+                .map(|i| ((data[i / per] as u64 >> ((i % per) * bits)) & mask) as u32)
+                .collect()
         }
     };
     if let Some(&bad) = idx.iter().find(|&&i| i as usize >= palette.len()) {
-        return Err(format!("palette index {bad} out of range {}", palette.len()));
+        return Err(format!(
+            "palette index {bad} out of range {}",
+            palette.len()
+        ));
     }
     Ok(Container { palette, idx })
 }
@@ -305,7 +356,9 @@ fn compare_sections(a: &CompoundTag, b: &CompoundTag, d: &mut ChunkDiff) {
                 Some(c) => match decode_container(c, 4096, 4, true) {
                     Ok(c) => Some(c),
                     Err(e) => {
-                        d.note(Category::Blocks, || format!("section {y} ({side}): undecodable block_states: {e}"));
+                        d.note(Category::Blocks, || {
+                            format!("section {y} ({side}): undecodable block_states: {e}")
+                        });
                         None
                     }
                 },
@@ -318,11 +371,18 @@ fn compare_sections(a: &CompoundTag, b: &CompoundTag, d: &mut ChunkDiff) {
                     continue;
                 }
                 let (lt, rt) = (block_type(l), block_type(r));
-                let key = if lt == rt { format!("{lt} [state differs]") } else { format!("{lt} -> {rt}") };
+                let key = if lt == rt {
+                    format!("{lt} [state differs]")
+                } else {
+                    format!("{lt} -> {rt}")
+                };
                 *d.block_hist.entry(key).or_default() += 1;
                 d.note(Category::Blocks, || {
                     let (bx, by, bz) = (i & 15, (i >> 8) & 15, (i >> 4) & 15);
-                    format!("section {y} local ({bx},{by},{bz}) y={}: {l} (A) != {r} (B)", y * 16 + by as i32)
+                    format!(
+                        "section {y} local ({bx},{by},{bz}) y={}: {l} (A) != {r} (B)",
+                        y * 16 + by as i32
+                    )
                 });
             }
         }
@@ -331,19 +391,31 @@ fn compare_sections(a: &CompoundTag, b: &CompoundTag, d: &mut ChunkDiff) {
             sa.get(&y).and_then(|s| s.get_compound("biomes")),
             sb.get(&y).and_then(|s| s.get_compound("biomes")),
         ) {
-            match (decode_container(ca, 64, 0, false), decode_container(cb, 64, 0, false)) {
+            match (
+                decode_container(ca, 64, 0, false),
+                decode_container(cb, 64, 0, false),
+            ) {
                 (Ok(x), Ok(z)) => {
                     for i in 0..64 {
                         if x.at(i) != z.at(i) {
                             d.note(Category::Biomes, || {
-                                format!("section {y} cell ({},{},{}): {} (A) != {} (B)", i & 3, (i >> 4) & 3, (i >> 2) & 3, x.at(i), z.at(i))
+                                format!(
+                                    "section {y} cell ({},{},{}): {} (A) != {} (B)",
+                                    i & 3,
+                                    (i >> 4) & 3,
+                                    (i >> 2) & 3,
+                                    x.at(i),
+                                    z.at(i)
+                                )
                             });
                         }
                     }
                 }
                 (x, z) => {
                     for e in [x.err(), z.err()].into_iter().flatten() {
-                        d.note(Category::Biomes, || format!("section {y}: undecodable biomes: {e}"));
+                        d.note(Category::Biomes, || {
+                            format!("section {y}: undecodable biomes: {e}")
+                        });
                     }
                 }
             }
@@ -358,11 +430,18 @@ fn unpack_heights(data: &[i64]) -> Option<Vec<u32>> {
     let bits = (1..=32usize).find(|&b| 256usize.div_ceil(64 / b) == data.len())?;
     let per = 64 / bits;
     let mask = (1u64 << bits) - 1;
-    Some((0..256).map(|i| ((data[i / per] as u64 >> ((i % per) * bits)) & mask) as u32).collect())
+    Some(
+        (0..256)
+            .map(|i| ((data[i / per] as u64 >> ((i % per) * bits)) & mask) as u32)
+            .collect(),
+    )
 }
 
 fn compare_heightmaps(a: &CompoundTag, b: &CompoundTag, d: &mut ChunkDiff) {
-    let (ha, hb) = (a.get_compound_or_empty("Heightmaps"), b.get_compound_or_empty("Heightmaps"));
+    let (ha, hb) = (
+        a.get_compound_or_empty("Heightmaps"),
+        b.get_compound_or_empty("Heightmaps"),
+    );
     let names: BTreeSet<&String> = ha.keys().chain(hb.keys()).collect();
     for n in names {
         match (ha.get_long_array(n), hb.get_long_array(n)) {
@@ -371,11 +450,21 @@ fn compare_heightmaps(a: &CompoundTag, b: &CompoundTag, d: &mut ChunkDiff) {
                 (Some(vx), Some(vy)) => {
                     for i in 0..256 {
                         if vx[i] != vy[i] {
-                            d.note(Category::Heightmaps, || format!("{n} column ({},{}): {} (A) != {} (B)", i & 15, i >> 4, vx[i], vy[i]));
+                            d.note(Category::Heightmaps, || {
+                                format!(
+                                    "{n} column ({},{}): {} (A) != {} (B)",
+                                    i & 15,
+                                    i >> 4,
+                                    vx[i],
+                                    vy[i]
+                                )
+                            });
                         }
                     }
                 }
-                _ => d.note(Category::Heightmaps, || format!("{n}: raw arrays differ (lengths {} / {})", x.len(), y.len())),
+                _ => d.note(Category::Heightmaps, || {
+                    format!("{n}: raw arrays differ (lengths {} / {})", x.len(), y.len())
+                }),
             },
             (Some(_), None) => d.note(Category::Heightmaps, || format!("{n}: only in A")),
             (None, Some(_)) => d.note(Category::Heightmaps, || format!("{n}: only in B")),
@@ -411,7 +500,10 @@ pub fn diff_keyed(
     let (ga, gb) = (group(a), group(b));
     let keys: BTreeSet<&String> = ga.keys().chain(gb.keys()).collect();
     for k in keys {
-        let (va, vb) = (ga.get(k).map_or(&[][..], Vec::as_slice), gb.get(k).map_or(&[][..], Vec::as_slice));
+        let (va, vb) = (
+            ga.get(k).map_or(&[][..], Vec::as_slice),
+            gb.get(k).map_or(&[][..], Vec::as_slice),
+        );
         for i in 0..va.len().max(vb.len()) {
             match (va.get(i), vb.get(i)) {
                 (Some(x), Some(y)) if x.0 == y.0 => {}
@@ -436,14 +528,25 @@ fn int_of(t: &Tag, k: &str) -> i32 {
 
 fn block_entity_key(t: &Tag) -> String {
     let id = t.as_compound().map_or("?", |c| c.get_string_or("id", "?"));
-    format!("{id} @ ({},{},{})", int_of(t, "x"), int_of(t, "y"), int_of(t, "z"))
+    format!(
+        "{id} @ ({},{},{})",
+        int_of(t, "x"),
+        int_of(t, "y"),
+        int_of(t, "z")
+    )
 }
 
 /// Entities are keyed by id + position (3 decimals); see `normalize_entity` for the ignored fields.
 pub fn entity_key(t: &Tag) -> String {
     let c = t.as_compound();
     let id = c.map_or("?", |c| c.get_string_or("id", "?"));
-    let pos = c.and_then(|c| c.get_list("Pos")).map(|l| l.iter().filter_map(Tag::as_double).map(|v| format!("{v:.3}")).collect::<Vec<_>>().join(","));
+    let pos = c.and_then(|c| c.get_list("Pos")).map(|l| {
+        l.iter()
+            .filter_map(Tag::as_double)
+            .map(|v| format!("{v:.3}"))
+            .collect::<Vec<_>>()
+            .join(",")
+    });
     format!("{id} @ ({})", pos.unwrap_or_default())
 }
 
@@ -466,8 +569,14 @@ fn unpack_chunk_key(k: i64) -> String {
 }
 
 fn compare_structures(a: &CompoundTag, b: &CompoundTag, d: &mut ChunkDiff) {
-    let (sa, sb) = (a.get_compound_or_empty("structures"), b.get_compound_or_empty("structures"));
-    let (xa, xb) = (sa.get_compound_or_empty("starts"), sb.get_compound_or_empty("starts"));
+    let (sa, sb) = (
+        a.get_compound_or_empty("structures"),
+        b.get_compound_or_empty("structures"),
+    );
+    let (xa, xb) = (
+        sa.get_compound_or_empty("starts"),
+        sb.get_compound_or_empty("starts"),
+    );
     let ids: BTreeSet<&String> = xa.keys().chain(xb.keys()).collect();
     for id in ids {
         match (xa.get(id), xb.get(id)) {
@@ -483,24 +592,37 @@ fn compare_structures(a: &CompoundTag, b: &CompoundTag, d: &mut ChunkDiff) {
             }
             (Some(_), None) => {
                 d.starts.entry(id.clone()).or_default().only_a += 1;
-                d.note(Category::StructureStarts, || format!("{id}: start only in A"));
+                d.note(Category::StructureStarts, || {
+                    format!("{id}: start only in A")
+                });
             }
             (None, Some(_)) => {
                 d.starts.entry(id.clone()).or_default().only_b += 1;
-                d.note(Category::StructureStarts, || format!("{id}: start only in B"));
+                d.note(Category::StructureStarts, || {
+                    format!("{id}: start only in B")
+                });
             }
             (None, None) => {}
         }
     }
-    let (ra, rb) = (sa.get_compound_or_empty("References"), sb.get_compound_or_empty("References"));
+    let (ra, rb) = (
+        sa.get_compound_or_empty("References"),
+        sb.get_compound_or_empty("References"),
+    );
     let ids: BTreeSet<&String> = ra.keys().chain(rb.keys()).collect();
     for id in ids {
-        let set = |c: &CompoundTag| c.get_long_array(id).map(|v| v.iter().copied().collect::<BTreeSet<i64>>()).unwrap_or_default();
+        let set = |c: &CompoundTag| {
+            c.get_long_array(id)
+                .map(|v| v.iter().copied().collect::<BTreeSet<i64>>())
+                .unwrap_or_default()
+        };
         let (x, y) = (set(ra), set(rb));
         for (side, only) in [("A", x.difference(&y)), ("B", y.difference(&x))] {
             let only: Vec<String> = only.map(|&k| unpack_chunk_key(k)).collect();
             if !only.is_empty() {
-                d.note(Category::StructureReferences, || format!("{id}: references only in {side}: {}", only.join(" ")));
+                d.note(Category::StructureReferences, || {
+                    format!("{id}: references only in {side}: {}", only.join(" "))
+                });
             }
         }
     }
@@ -530,18 +652,42 @@ pub fn compare_chunk(a: &CompoundTag, b: &CompoundTag, max_listed: usize) -> Chu
     if sa != sb {
         d.note(Category::Status, || format!("{sa:?} (A) != {sb:?} (B)"));
     }
-    let (la, lb) = (a.get_boolean_or("isLightOn", false), b.get_boolean_or("isLightOn", false));
+    let (la, lb) = (
+        a.get_boolean_or("isLightOn", false),
+        b.get_boolean_or("isLightOn", false),
+    );
     if la != lb {
         d.note(Category::IsLightOn, || format!("{la} (A) != {lb} (B)"));
     }
     compare_sections(a, b, &mut d);
     compare_heightmaps(a, b, &mut d);
-    diff_keyed(&mut d, Category::BlockEntities, a.get_list_or_empty("block_entities"), b.get_list_or_empty("block_entities"), block_entity_key, Tag::clone);
+    diff_keyed(
+        &mut d,
+        Category::BlockEntities,
+        a.get_list_or_empty("block_entities"),
+        b.get_list_or_empty("block_entities"),
+        block_entity_key,
+        Tag::clone,
+    );
     for k in ["block_ticks", "fluid_ticks"] {
-        diff_keyed(&mut d, Category::Ticks, a.get_list_or_empty(k), b.get_list_or_empty(k), |t| format!("{k} {}", canon(t)), Tag::clone);
+        diff_keyed(
+            &mut d,
+            Category::Ticks,
+            a.get_list_or_empty(k),
+            b.get_list_or_empty(k),
+            |t| format!("{k} {}", canon(t)),
+            Tag::clone,
+        );
     }
     // entities still embedded in the chunk NBT (proto chunks); full chunks keep them in `entities/` regions
-    diff_keyed(&mut d, Category::Entities, a.get_list_or_empty("entities"), b.get_list_or_empty("entities"), entity_key, normalize_entity);
+    diff_keyed(
+        &mut d,
+        Category::Entities,
+        a.get_list_or_empty("entities"),
+        b.get_list_or_empty("entities"),
+        entity_key,
+        normalize_entity,
+    );
     compare_structures(a, b, &mut d);
     let mut out = Vec::new();
     let pp = |c: &CompoundTag| Tag::List(c.get_list_or_empty("PostProcessing").clone());
@@ -549,7 +695,11 @@ pub fn compare_chunk(a: &CompoundTag, b: &CompoundTag, max_listed: usize) -> Chu
     for m in out {
         d.note(Category::PostProcessing, || m);
     }
-    let keys: BTreeSet<&String> = a.keys().chain(b.keys()).filter(|k| !HANDLED.contains(&k.as_str())).collect();
+    let keys: BTreeSet<&String> = a
+        .keys()
+        .chain(b.keys())
+        .filter(|k| !HANDLED.contains(&k.as_str()))
+        .collect();
     for k in keys {
         let mut out = Vec::new();
         match (a.get(k), b.get(k)) {
@@ -568,8 +718,19 @@ pub fn compare_chunk(a: &CompoundTag, b: &CompoundTag, max_listed: usize) -> Chu
 /// Entity-region payloads (`entities/r.*.mca`): the `Entities` lists, UUIDs ignored. Absent == empty.
 pub fn compare_entity_chunks(a: Option<&CompoundTag>, b: Option<&CompoundTag>, d: &mut ChunkDiff) {
     let empty = ListTag::new();
-    let l = |c: Option<&CompoundTag>| c.and_then(|c| c.get_list("Entities")).cloned().unwrap_or_else(|| empty.clone());
-    diff_keyed(d, Category::Entities, &l(a), &l(b), entity_key, normalize_entity);
+    let l = |c: Option<&CompoundTag>| {
+        c.and_then(|c| c.get_list("Entities"))
+            .cloned()
+            .unwrap_or_else(|| empty.clone())
+    };
+    diff_keyed(
+        d,
+        Category::Entities,
+        &l(a),
+        &l(b),
+        entity_key,
+        normalize_entity,
+    );
 }
 
 #[cfg(test)]

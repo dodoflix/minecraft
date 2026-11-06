@@ -35,17 +35,30 @@ impl Container {
 
     pub fn get_keys(&self, namespace: &str) -> impl Iterator<Item = Identifier> + '_ {
         let namespace = namespace.to_string();
-        self.storage.keys().filter_map(move |p| Identifier::new(&namespace, p).ok())
+        self.storage
+            .keys()
+            .filter_map(move |p| Identifier::new(&namespace, p).ok())
     }
 
     fn decode(tag: &Tag) -> DecodeResult<Container> {
         let m = codec::compound(tag)?;
         let entries = codec::unbounded_map(
             codec::field(m, "contents")?,
-            |k| if is_valid_path(k) { Ok(k.to_string()) } else { Err(format!("Invalid string to use as a resource path element: {k}")) },
+            |k| {
+                if is_valid_path(k) {
+                    Ok(k.to_string())
+                } else {
+                    Err(format!(
+                        "Invalid string to use as a resource path element: {k}"
+                    ))
+                }
+            },
             |v| codec::compound(v).cloned(),
         );
-        map_decoded(entries, |entries| Container { dirty: false, storage: entries.into_iter().collect() })
+        map_decoded(entries, |entries| Container {
+            dirty: false,
+            storage: entries.into_iter().collect(),
+        })
     }
 
     fn encode(&self) -> DataResult<Tag> {
@@ -58,7 +71,12 @@ impl Container {
 
     /// `Container.type(namespace)`.
     pub fn type_(namespace: &str) -> Result<SavedDataType<Container>, String> {
-        Ok(SavedDataType::new(Identifier::new(namespace, "command_storage").map_err(|e| e.to_string())?, Container::default, Container::decode, Container::encode))
+        Ok(SavedDataType::new(
+            Identifier::new(namespace, "command_storage").map_err(|e| e.to_string())?,
+            Container::default,
+            Container::decode,
+            Container::encode,
+        ))
     }
 }
 
@@ -82,7 +100,11 @@ impl CommandStorage {
         }
     }
 
-    fn get_container<'a>(&mut self, data: &'a mut SavedDataManager, namespace: &str) -> Option<&'a mut Container> {
+    fn get_container<'a>(
+        &mut self,
+        data: &'a mut SavedDataManager,
+        namespace: &str,
+    ) -> Option<&'a mut Container> {
         let ty = Container::type_(namespace).ok()?;
         let container = data.get(&ty)?;
         if !self.namespaces.iter().any(|n| n == namespace) {
@@ -93,7 +115,9 @@ impl CommandStorage {
 
     /// `set`.
     pub fn set(&mut self, data: &mut SavedDataManager, id: &Identifier, contents: CompoundTag) {
-        let Ok(ty) = Container::type_(id.namespace()) else { return };
+        let Ok(ty) = Container::type_(id.namespace()) else {
+            return;
+        };
         if !self.namespaces.iter().any(|n| n == id.namespace()) {
             self.namespaces.push(id.namespace().to_string());
         }
@@ -127,7 +151,10 @@ mod tests {
         let dir = tempfile::tempdir().unwrap();
         let mut data = SavedDataManager::new(SavedDataStorage::new(dir.path().join("data")));
         let mut cs = CommandStorage::new();
-        assert!(cs.get(&mut data, &id("ns:a")).is_empty(), "missing namespace reads as empty");
+        assert!(
+            cs.get(&mut data, &id("ns:a")).is_empty(),
+            "missing namespace reads as empty"
+        );
         cs.set(&mut data, &id("ns:a"), CompoundTag::new().with("x", 1i32));
         cs.set(&mut data, &id("ns:b/c"), CompoundTag::new().with("y", "s"));
         assert_eq!(cs.get(&mut data, &id("ns:a")).get_int("x"), Some(1));
@@ -136,8 +163,15 @@ mod tests {
         // a fresh manager reads the file back
         let mut data2 = SavedDataManager::new(SavedDataStorage::new(dir.path().join("data")));
         let mut cs2 = CommandStorage::new();
-        assert_eq!(cs2.get(&mut data2, &id("ns:b/c")).get_string("y"), Some("s"));
-        let mut keys: Vec<_> = cs2.keys(&mut data2).iter().map(ToString::to_string).collect();
+        assert_eq!(
+            cs2.get(&mut data2, &id("ns:b/c")).get_string("y"),
+            Some("s")
+        );
+        let mut keys: Vec<_> = cs2
+            .keys(&mut data2)
+            .iter()
+            .map(ToString::to_string)
+            .collect();
         keys.sort();
         assert_eq!(keys, ["ns:a", "ns:b/c"]);
         cs2.set(&mut data2, &id("ns:a"), CompoundTag::new());

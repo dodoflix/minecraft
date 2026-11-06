@@ -8,9 +8,9 @@
 
 use super::ServerLevel;
 use crate::world::level::gamerules::{AnyGameRule, GameRuleMap, GameRules};
+use mc_world::level_storage::FeatureFlagSet;
 use parking_lot::RwLock;
 use std::sync::Arc;
-use mc_world::level_storage::FeatureFlagSet;
 
 macro_rules! level_rules {
     ($($field:ident: $ty:ty = $rule:ident),* $(,)?) => {

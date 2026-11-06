@@ -23,7 +23,12 @@ const EVENT_POTION_PUFF: i8 = 0;
 
 /// `PotionContents.EMPTY`.
 pub fn empty_potion_contents() -> PotionContents {
-    PotionContents { potion: None, custom_color: None, custom_effects: Vec::new(), custom_name: None }
+    PotionContents {
+        potion: None,
+        custom_color: None,
+        custom_effects: Vec::new(),
+        custom_name: None,
+    }
 }
 
 pub struct Arrow {
@@ -39,31 +44,72 @@ impl Arrow {
             super::define_synched_data(b);
             b.define(ID_EFFECT_COLOR, NO_EFFECT_COLOR);
         });
-        Self { base, projectile: ProjectileData::default(), arrow: AbstractArrowData::new(SoundEvent::ENTITY_ARROW_HIT, ItemStack::new(Item::ARROW)) }
+        Self {
+            base,
+            projectile: ProjectileData::default(),
+            arrow: AbstractArrowData::new(
+                SoundEvent::ENTITY_ARROW_HIT,
+                ItemStack::new(Item::ARROW),
+            ),
+        }
     }
 
     /// `Arrow(level, x, y, z, pickupItemStack, firedFromWeapon)`.
-    pub fn at(level: &mut ServerLevel, x: f64, y: f64, z: f64, pickup_item_stack: ItemStack, fired_from_weapon: Option<&ItemStack>) -> Self {
+    pub fn at(
+        level: &mut ServerLevel,
+        x: f64,
+        y: f64,
+        z: f64,
+        pickup_item_stack: ItemStack,
+        fired_from_weapon: Option<&ItemStack>,
+    ) -> Self {
         let mut arrow = Self::new(EntityType::ARROW, level.next_entity_id());
-        super::init_at(&mut arrow, level, x, y, z, pickup_item_stack, fired_from_weapon);
+        super::init_at(
+            &mut arrow,
+            level,
+            x,
+            y,
+            z,
+            pickup_item_stack,
+            fired_from_weapon,
+        );
         arrow.update_color();
         arrow
     }
 
     /// `Arrow(level, owner, pickupItemStack, firedFromWeapon)`.
-    pub fn from_owner(level: &mut ServerLevel, owner: &dyn Entity, pickup_item_stack: ItemStack, fired_from_weapon: Option<&ItemStack>) -> Self {
+    pub fn from_owner(
+        level: &mut ServerLevel,
+        owner: &dyn Entity,
+        pickup_item_stack: ItemStack,
+        fired_from_weapon: Option<&ItemStack>,
+    ) -> Self {
         let mut arrow = Self::new(EntityType::ARROW, level.next_entity_id());
-        super::init_from_owner(&mut arrow, level, owner, pickup_item_stack, fired_from_weapon);
+        super::init_from_owner(
+            &mut arrow,
+            level,
+            owner,
+            pickup_item_stack,
+            fired_from_weapon,
+        );
         arrow.update_color();
         arrow
     }
 
     fn get_potion_contents(&self) -> PotionContents {
-        self.arrow.pickup_item_stack.get(&POTION_CONTENTS).cloned().unwrap_or_else(empty_potion_contents)
+        self.arrow
+            .pickup_item_stack
+            .get(&POTION_CONTENTS)
+            .cloned()
+            .unwrap_or_else(empty_potion_contents)
     }
 
     fn get_potion_duration_scale(&self) -> f32 {
-        self.arrow.pickup_item_stack.get(&POTION_DURATION_SCALE).copied().unwrap_or(1.0)
+        self.arrow
+            .pickup_item_stack
+            .get(&POTION_DURATION_SCALE)
+            .copied()
+            .unwrap_or(1.0)
     }
 
     fn set_potion_contents(&mut self, contents: PotionContents) {
@@ -74,7 +120,11 @@ impl Arrow {
     /// `updateColor()`.
     fn update_color(&mut self) {
         let contents = self.get_potion_contents();
-        let color = if contents == empty_potion_contents() { -1 } else { potion_contents::get_color(&contents) };
+        let color = if contents == empty_potion_contents() {
+            -1
+        } else {
+            potion_contents::get_color(&contents)
+        };
         self.base.entity_data.set(ID_EFFECT_COLOR, color);
     }
 
@@ -138,7 +188,11 @@ impl Entity for Arrow {
         &self.base
     }
 
-    fn player_touch(&mut self, level: &mut ServerLevel, player: &mut crate::world::entity::ServerPlayer) {
+    fn player_touch(
+        &mut self,
+        level: &mut ServerLevel,
+        player: &mut crate::world::entity::ServerPlayer,
+    ) {
         super::player_touch(self, level, player);
     }
     fn base_mut(&mut self) -> &mut EntityData {
@@ -165,7 +219,11 @@ impl Entity for Arrow {
     fn tick(&mut self, level: &mut ServerLevel) {
         super::tick(self, level);
         // server side of `Arrow.tick`: the exposed potion arrow decays into a plain one
-        if self.is_in_ground() && self.arrow.in_ground_time != 0 && self.get_potion_contents() != empty_potion_contents() && self.arrow.in_ground_time >= EXPOSED_POTION_DECAY_TIME {
+        if self.is_in_ground()
+            && self.arrow.in_ground_time != 0
+            && self.get_potion_contents() != empty_potion_contents()
+            && self.arrow.in_ground_time >= EXPOSED_POTION_DECAY_TIME
+        {
             level.broadcast_entity_event(self.base.id, EVENT_POTION_PUFF);
             self.set_pickup_item_stack(ItemStack::new(Item::ARROW));
         }
@@ -181,4 +239,7 @@ impl Entity for Arrow {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static ARROW_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::ARROW, create: |ty, id, _registries| Box::new(Arrow::new(ty, id)) };
+static ARROW_FACTORY: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::ARROW,
+    create: |ty, id, _registries| Box::new(Arrow::new(ty, id)),
+};

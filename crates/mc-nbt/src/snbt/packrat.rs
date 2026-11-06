@@ -112,7 +112,11 @@ pub(crate) struct Scope {
 
 impl Scope {
     fn new() -> Self {
-        Scope { stack: vec![(Key::Frame(0), None)], top_entry: 0, top_marker: 0 }
+        Scope {
+            stack: vec![(Key::Frame(0), None)],
+            top_entry: 0,
+            top_marker: 0,
+        }
     }
 
     fn set(&mut self, idx: usize, entry: (Key, Option<Val>)) {
@@ -124,11 +128,15 @@ impl Scope {
     }
 
     fn value_index(&self, atom: Atom) -> Option<usize> {
-        (self.top_marker + 1..=self.top_entry).rev().find(|&i| self.stack[i].0 == Key::Atom(atom))
+        (self.top_marker + 1..=self.top_entry)
+            .rev()
+            .find(|&i| self.stack[i].0 == Key::Atom(atom))
     }
 
     fn value_index_for_any(&self, atoms: &[Atom]) -> Option<usize> {
-        (self.top_marker + 1..=self.top_entry).rev().find(|&i| matches!(self.stack[i].0, Key::Atom(a) if atoms.contains(&a)))
+        (self.top_marker + 1..=self.top_entry)
+            .rev()
+            .find(|&i| matches!(self.stack[i].0, Key::Atom(a) if atoms.contains(&a)))
     }
 
     fn setup_new_frame(&mut self) {
@@ -143,7 +151,9 @@ impl Scope {
     }
 
     pub fn pop_frame(&mut self) {
-        let Key::Frame(prev) = self.stack[self.top_marker].0 else { unreachable!("marker slot") };
+        let Key::Frame(prev) = self.stack[self.top_marker].0 else {
+            unreachable!("marker slot")
+        };
         self.top_entry = self.top_marker - 1;
         self.top_marker = prev;
     }
@@ -168,7 +178,9 @@ impl Scope {
     }
 
     pub fn merge_frame(&mut self) {
-        let Key::Frame(previous_marker) = self.stack[self.top_marker].0 else { unreachable!("marker slot") };
+        let Key::Frame(previous_marker) = self.stack[self.top_marker].0 else {
+            unreachable!("marker slot")
+        };
         let mut previous_cursor = previous_marker;
         let mut current_cursor = self.top_marker;
         while current_cursor < self.top_entry {
@@ -198,11 +210,13 @@ impl Scope {
 
     /// `scope.get(atom)`: null when absent or cleared.
     pub fn get(&self, atom: Atom) -> Option<&Val> {
-        self.value_index(atom).and_then(|i| self.stack[i].1.as_ref())
+        self.value_index(atom)
+            .and_then(|i| self.stack[i].1.as_ref())
     }
 
     pub fn get_any(&self, atoms: &[Atom]) -> Option<&Val> {
-        self.value_index_for_any(atoms).and_then(|i| self.stack[i].1.as_ref())
+        self.value_index_for_any(atoms)
+            .and_then(|i| self.stack[i].1.as_ref())
     }
 }
 
@@ -222,7 +236,12 @@ struct ErrorCollector {
 
 impl ErrorCollector {
     fn new() -> Self {
-        ErrorCollector { last_cursor: -1, first: None, entries: 0, suggestions: Vec::new() }
+        ErrorCollector {
+            last_cursor: -1,
+            first: None,
+            entries: 0,
+            suggestions: Vec::new(),
+        }
     }
 
     /// `discardErrorsFromShorterParse`.
@@ -247,7 +266,8 @@ impl ErrorCollector {
             self.entries += 1;
             // `TerminalCharacters`: one suggestion per accepted character (the error text joins them with `|`)
             if let Reason::Literal(text) = &reason {
-                self.suggestions.extend(text.split('|').filter(|c| !c.is_empty()).map(str::to_owned));
+                self.suggestions
+                    .extend(text.split('|').filter(|c| !c.is_empty()).map(str::to_owned));
             }
             if self.first.is_none() {
                 self.first = Some(reason);
@@ -280,13 +300,26 @@ pub(crate) enum Term {
     Sequence(Vec<Term>),
     Alternative(Vec<Term>),
     Maybe(Box<Term>),
-    Repeated { element: Atom, list: Atom, min: usize },
-    RepeatedWithSeparator { element: Atom, list: Atom, separator: Box<Term>, min: usize, trailing: bool },
+    Repeated {
+        element: Atom,
+        list: Atom,
+        min: usize,
+    },
+    RepeatedWithSeparator {
+        element: Atom,
+        list: Atom,
+        separator: Box<Term>,
+        min: usize,
+        trailing: bool,
+    },
     LookAhead(Box<Term>, bool),
     Cut,
     Fail(Reason),
     /// `Dictionary.Reference`: parse `rule`, store the result under `store`.
-    Reference { rule: Atom, store: Atom },
+    Reference {
+        rule: Atom,
+        store: Atom,
+    },
     /// `StringReaderTerms.TerminalCharacters` with its `literalIncorrect` error text.
     Chars(CharSet, &'static str),
 }
@@ -294,13 +327,27 @@ pub(crate) enum Term {
 pub(crate) type Action = fn(&mut Ps<'_>) -> Option<Val>;
 
 pub(crate) enum Rule {
-    Term { term: Term, action: Action },
+    Term {
+        term: Term,
+        action: Action,
+    },
     /// `NumberRunParseRule`.
-    NumberRun { accept: fn(u16) -> bool, no_value: Reason, underscore: Reason },
+    NumberRun {
+        accept: fn(u16) -> bool,
+        no_value: Reason,
+        underscore: Reason,
+    },
     /// `GreedyPredicateParseRule` (and `GreedyPatternParseRule` for plain character classes).
-    Greedy { accept: fn(u16) -> bool, min: usize, max: usize, error: Reason },
+    Greedy {
+        accept: fn(u16) -> bool,
+        min: usize,
+        max: usize,
+        error: Reason,
+    },
     /// `UnquotedStringParseRule` with min size 1.
-    Unquoted { error: Reason },
+    Unquoted {
+        error: Reason,
+    },
 }
 
 pub(crate) struct Grammar {
@@ -335,7 +382,14 @@ pub(crate) fn is_allowed_in_unquoted_string(c: u16) -> bool {
 
 impl<'g> Ps<'g> {
     pub fn new(grammar: &'g Grammar, input: &'g [u16], cursor: usize) -> Self {
-        Ps { grammar, input, cursor, scope: Scope::new(), err: ErrorCollector::new(), cache: HashMap::new() }
+        Ps {
+            grammar,
+            input,
+            cursor,
+            scope: Scope::new(),
+            err: ErrorCollector::new(),
+            cache: HashMap::new(),
+        }
     }
 
     pub fn store(&mut self, cursor: usize, reason: Reason) {
@@ -354,7 +408,10 @@ impl<'g> Ps<'g> {
     }
 
     pub fn failure(&self) -> Option<(usize, Reason)> {
-        self.err.first.clone().map(|r| (self.err.last_cursor as usize, r))
+        self.err
+            .first
+            .clone()
+            .map(|r| (self.err.last_cursor as usize, r))
     }
 
     /// `Grammar.parse` → `parseTopRule`.
@@ -369,7 +426,12 @@ impl<'g> Ps<'g> {
     /// `Grammar.parseForSuggestions` after the parse: the cursor of the longest failure and what its terminals would
     /// have accepted; `None` when no error was recorded there.
     pub fn suggestions(&self) -> Option<(usize, &[String])> {
-        (self.err.entries > 0).then(|| (self.err.last_cursor as usize, self.err.suggestions.as_slice()))
+        (self.err.entries > 0).then(|| {
+            (
+                self.err.last_cursor as usize,
+                self.err.suggestions.as_slice(),
+            )
+        })
     }
 
     /// `CachedParseState.parse(rule)`.
@@ -390,7 +452,8 @@ impl<'g> Ps<'g> {
                 self.cache.insert((mark, rule), CacheEntry::Negative);
             }
             Some(v) if !v.is_heavy() => {
-                self.cache.insert((mark, rule), CacheEntry::Positive(v.clone(), self.cursor));
+                self.cache
+                    .insert((mark, rule), CacheEntry::Positive(v.clone(), self.cursor));
             }
             Some(_) => {}
         }
@@ -402,11 +465,19 @@ impl<'g> Ps<'g> {
         match g.rules[atom].as_ref().expect("unbound rule") {
             Rule::Term { term, action } => {
                 self.scope.push_frame();
-                let result = if term.parse(self, None, false) { action(self) } else { None };
+                let result = if term.parse(self, None, false) {
+                    action(self)
+                } else {
+                    None
+                };
                 self.scope.pop_frame();
                 result
             }
-            Rule::NumberRun { accept, no_value, underscore } => {
+            Rule::NumberRun {
+                accept,
+                no_value,
+                underscore,
+            } => {
                 self.skip_whitespace();
                 let start = self.cursor;
                 let mut pos = start;
@@ -424,7 +495,12 @@ impl<'g> Ps<'g> {
                     None
                 }
             }
-            Rule::Greedy { accept, min, max, error } => {
+            Rule::Greedy {
+                accept,
+                min,
+                max,
+                error,
+            } => {
                 let start = self.cursor;
                 let mut pos = start;
                 while pos < self.input.len() && accept(self.input[pos]) && pos - start < *max {
@@ -520,7 +596,13 @@ impl Term {
                     }
                 }
             }
-            Term::RepeatedWithSeparator { element, list, separator, min, trailing } => {
+            Term::RepeatedWithSeparator {
+                element,
+                list,
+                separator,
+                min,
+                trailing,
+            } => {
                 let list_mark = ps.cursor;
                 let mut elements = Vec::new();
                 let mut first = true;
@@ -600,4 +682,3 @@ impl Term {
         }
     }
 }
-

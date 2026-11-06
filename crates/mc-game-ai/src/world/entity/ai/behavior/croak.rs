@@ -1,11 +1,11 @@
 //! `Croak` (the frog's croaking behavior; only needs the pose of its body).
 
-use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase};
+use mc_data::enums::Pose;
 use mc_game_core::entry_condition;
 use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase};
 use mc_game_core::world::entity::ai::memory::memory_module_type::WALK_TARGET;
 use mc_game_core::world::entity::entity::Entity;
-use mc_data::enums::Pose;
 
 const CROAK_TICKS: i32 = 60;
 const TIME_OUT_DURATION: i32 = 100;
@@ -17,16 +17,29 @@ pub struct Croak {
 impl Croak {
     /// `new Croak()`.
     pub fn new() -> BehaviorBase<Croak> {
-        BehaviorBase::with_timeout(entry_condition![WALK_TARGET => ValueAbsent], TIME_OUT_DURATION, Croak { croak_counter: 0 })
+        BehaviorBase::with_timeout(
+            entry_condition![WALK_TARGET => ValueAbsent],
+            TIME_OUT_DURATION,
+            Croak { croak_counter: 0 },
+        )
     }
 }
 
 impl Behavior for Croak {
-    fn check_extra_start_conditions(&mut self, _level: &mut ServerLevel, body: &mut dyn Entity) -> bool {
+    fn check_extra_start_conditions(
+        &mut self,
+        _level: &mut ServerLevel,
+        body: &mut dyn Entity,
+    ) -> bool {
         body.base().get_pose() == Pose::Standing
     }
 
-    fn can_still_use(&mut self, _level: &mut ServerLevel, _body: &mut dyn Entity, _timestamp: i64) -> bool {
+    fn can_still_use(
+        &mut self,
+        _level: &mut ServerLevel,
+        _body: &mut dyn Entity,
+        _timestamp: i64,
+    ) -> bool {
         self.croak_counter < CROAK_TICKS
     }
 

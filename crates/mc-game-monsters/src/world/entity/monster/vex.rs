@@ -1,14 +1,27 @@
 //! `net.minecraft.world.entity.monster.Vex` (the evoker's summoned vexes).
 
+use linkme::distributed_slice;
+use mc_core::math::mth;
+use mc_core::phys::Vec3;
+use mc_core::pos::BlockPos;
+use mc_core::random::RandomSource;
+use mc_data::enums::EntitySpawnReason;
+use mc_data::{EntityType, Item, SoundEvent};
 use mc_game_core::define_accessor;
 use mc_game_core::registry::RegistryAccess;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::damagesource::DamageSource;
 use mc_game_core::world::difficulty_instance::DifficultyInstance;
-use mc_game_core::world::entity::ai::control::move_control::{MoveControl, MoveControlBase, Operation};
+use mc_game_core::world::entity::ai::control::move_control::{
+    MoveControl, MoveControlBase, Operation,
+};
 use mc_game_core::world::entity::ai::goal::look_at_player::LookAtType;
-use mc_game_core::world::entity::ai::goal::target::{HurtByTargetGoal, NearestAttackableTargetGoal, TargetGoal, TargetType};
-use mc_game_core::world::entity::ai::goal::{FloatGoal, Flag, Goal, GoalFlags, LookAtPlayerGoal, reduced_tick_delay};
+use mc_game_core::world::entity::ai::goal::target::{
+    HurtByTargetGoal, NearestAttackableTargetGoal, TargetGoal, TargetType,
+};
+use mc_game_core::world::entity::ai::goal::{
+    Flag, FloatGoal, Goal, GoalFlags, LookAtPlayerGoal, reduced_tick_delay,
+};
 use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
 use mc_game_core::world::entity::ai::targeting::TargetingConditions;
 use mc_game_core::world::entity::equipment::EquipmentSlot;
@@ -17,13 +30,6 @@ use mc_game_core::world::entity::mob::{self, MobData, MobKind};
 use mc_game_core::world::entity::{Entity, EntityId};
 use mc_game_core::world::item::ItemStack;
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
-use linkme::distributed_slice;
-use mc_core::math::mth;
-use mc_core::phys::Vec3;
-use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
-use mc_data::enums::EntitySpawnReason;
-use mc_data::{EntityType, Item, SoundEvent};
 use mc_nbt::CompoundTag;
 use std::sync::Arc;
 use uuid::Uuid;
@@ -51,10 +57,18 @@ impl Vex {
         let mob = MobData::new(ty, id, MobKind::Monster, |b| {
             b.define(DATA_FLAGS_ID, 0);
         });
-        let mut vex = Vex { mob, owner: None, bound_origin: None, has_limited_life: false, limited_life_ticks: 0 };
+        let mut vex = Vex {
+            mob,
+            owner: None,
+            bound_origin: None,
+            has_limited_life: false,
+            limited_life_ticks: 0,
+        };
         let navigation = StandardPathNavigation::ground(&vex);
         vex.mob.set_navigation(Box::new(navigation));
-        vex.mob.move_control = Some(Box::new(VexMoveControl { base: MoveControlBase::default() }));
+        vex.mob.move_control = Some(Box::new(VexMoveControl {
+            base: MoveControlBase::default(),
+        }));
         vex.mob.xp_reward = 3;
         vex.register_goals();
         vex
@@ -64,18 +78,29 @@ impl Vex {
     fn register_goals(&mut self) {
         let float = FloatGoal::new(self);
         let look_player = LookAtPlayerGoal::with_probability(self, LookAtType::Player, 3.0, 1.0);
-        let look_mob = LookAtPlayerGoal::new(self, LookAtType::Class(Arc::new(|e: &dyn Entity| e.mob().is_some())), 8.0);
+        let look_mob = LookAtPlayerGoal::new(
+            self,
+            LookAtType::Class(Arc::new(|e: &dyn Entity| e.mob().is_some())),
+            8.0,
+        );
         let goals = &mut self.mob.goal_selector;
         goals.add_goal(0, Box::new(float));
         goals.add_goal(4, Box::new(VexChargeAttackGoal));
         goals.add_goal(8, Box::new(VexRandomMoveGoal));
         goals.add_goal(9, Box::new(look_player));
         goals.add_goal(10, Box::new(look_mob));
-        let raider: mc_game_core::world::entity::ai::goal::target::EntityClass = Arc::new(|e: &dyn Entity| e.raider().is_some());
+        let raider: mc_game_core::world::entity::ai::goal::target::EntityClass =
+            Arc::new(|e: &dyn Entity| e.raider().is_some());
         let targets = &mut self.mob.target_selector;
-        targets.add_goal(1, Box::new(HurtByTargetGoal::new(vec![raider]).set_alert_others(Vec::new())));
+        targets.add_goal(
+            1,
+            Box::new(HurtByTargetGoal::new(vec![raider]).set_alert_others(Vec::new())),
+        );
         targets.add_goal(2, Box::new(VexCopyOwnerTargetGoal::new()));
-        targets.add_goal(3, Box::new(NearestAttackableTargetGoal::new(TargetType::Player, true)));
+        targets.add_goal(
+            3,
+            Box::new(NearestAttackableTargetGoal::new(TargetType::Player, true)),
+        );
     }
 
     fn get_vex_flag(&self, flag: i32) -> bool {
@@ -89,7 +114,11 @@ impl Vex {
         } else {
             flags &= !flag;
         }
-        self.mob.living.entity.entity_data.set(DATA_FLAGS_ID, (flags & 0xFF) as i8);
+        self.mob
+            .living
+            .entity
+            .entity_data
+            .set(DATA_FLAGS_ID, (flags & 0xFF) as i8);
     }
 
     /// `isCharging()`.
@@ -109,7 +138,9 @@ impl Vex {
 
     /// `getOwner()` (`OwnableEntity`): the living owner while it is in the level.
     pub fn get_owner<'l>(&self, level: &'l ServerLevel) -> Option<&'l dyn Entity> {
-        level.get_entity_by_uuid(self.owner?).filter(|e| e.living().is_some())
+        level
+            .get_entity_by_uuid(self.owner?)
+            .filter(|e| e.living().is_some())
     }
 
     /// `getBoundOrigin()`.
@@ -157,7 +188,11 @@ impl Entity for Vex {
 
     fn read_additional_save_data(&mut self, input: &CompoundTag) {
         mob::nbt::read_additional_save_data(self, input);
-        self.bound_origin = input.get("bound_pos").and_then(|t| t.as_int_array()).filter(|a| a.len() == 3).map(|a| BlockPos::new(a[0], a[1], a[2]));
+        self.bound_origin = input
+            .get("bound_pos")
+            .and_then(|t| t.as_int_array())
+            .filter(|a| a.len() == 3)
+            .map(|a| BlockPos::new(a[0], a[1], a[2]));
         match input.get("life_ticks").and_then(|t| t.as_number()) {
             Some(n) => self.set_limited_life(n.int_value()),
             None => self.has_limited_life = false,
@@ -174,7 +209,10 @@ impl Entity for Vex {
             out.put_int("life_ticks", self.limited_life_ticks);
         }
         if let Some(owner) = self.owner {
-            out.put_int_array("owner", mc_core::uuid_util::uuid_to_int_array(&owner).to_vec());
+            out.put_int_array(
+                "owner",
+                mc_core::uuid_util::uuid_to_int_array(&owner).to_vec(),
+            );
         }
     }
 
@@ -207,8 +245,16 @@ impl Entity for Vex {
         mob::spawn::finalize_spawn(self, level, difficulty, reason, group_data)
     }
 
-    fn populate_default_equipment_slots(&mut self, _random: &mut dyn RandomSource, _difficulty: &DifficultyInstance) {
-        mob::equipment::set_item_slot_spawn(self, EquipmentSlot::MainHand, ItemStack::new(Item::IRON_SWORD));
+    fn populate_default_equipment_slots(
+        &mut self,
+        _random: &mut dyn RandomSource,
+        _difficulty: &DifficultyInstance,
+    ) {
+        mob::equipment::set_item_slot_spawn(
+            self,
+            EquipmentSlot::MainHand,
+            ItemStack::new(Item::IRON_SWORD),
+        );
         self.set_drop_chance(EquipmentSlot::MainHand, 0.0);
     }
 }
@@ -222,8 +268,23 @@ fn vex_mut(mob: &mut dyn Entity) -> &mut Vex {
 
 impl Goal for VexChargeAttackGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        let Some(target) = mob::tick::get_target_checked(mob, level).and_then(|t| level.get_entity(t)) else { return false };
-        if target.is_alive() && !mob.mob().and_then(|m| m.move_control.as_deref()).expect("move control").has_wanted() && mob.base_mut().random.next_int_bounded(reduced_tick_delay(7)) == 0 {
+        let Some(target) =
+            mob::tick::get_target_checked(mob, level).and_then(|t| level.get_entity(t))
+        else {
+            return false;
+        };
+        if target.is_alive()
+            && !mob
+                .mob()
+                .and_then(|m| m.move_control.as_deref())
+                .expect("move control")
+                .has_wanted()
+            && mob
+                .base_mut()
+                .random
+                .next_int_bounded(reduced_tick_delay(7))
+                == 0
+        {
             mob.base().distance_to_sqr_vec(target.position()) > 4.0
         } else {
             false
@@ -231,15 +292,28 @@ impl Goal for VexChargeAttackGoal {
     }
 
     fn can_continue_to_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        mob.mob().and_then(|m| m.move_control.as_deref()).expect("move control").has_wanted()
-            && mob.as_any().downcast_ref::<Vex>().is_some_and(Vex::is_charging)
-            && mob::tick::get_target_checked(mob, level).and_then(|t| level.get_entity(t)).is_some_and(|t| t.is_alive())
+        mob.mob()
+            .and_then(|m| m.move_control.as_deref())
+            .expect("move control")
+            .has_wanted()
+            && mob
+                .as_any()
+                .downcast_ref::<Vex>()
+                .is_some_and(Vex::is_charging)
+            && mob::tick::get_target_checked(mob, level)
+                .and_then(|t| level.get_entity(t))
+                .is_some_and(|t| t.is_alive())
     }
 
     fn start(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
-        if let Some(target) = mob::tick::get_target_checked(mob, level).and_then(|t| level.get_entity(t)) {
+        if let Some(target) =
+            mob::tick::get_target_checked(mob, level).and_then(|t| level.get_entity(t))
+        {
             let eye = target.get_eye_position_partial(1.0);
-            mob.mob_mut().expect("mob").move_control_mut().set_wanted_position(eye.x, eye.y, eye.z, 1.0);
+            mob.mob_mut()
+                .expect("mob")
+                .move_control_mut()
+                .set_wanted_position(eye.x, eye.y, eye.z, 1.0);
         }
         vex_mut(mob).set_is_charging(true);
         mob.play_sound(level, SoundEvent::ENTITY_VEX_CHARGE, 1.0, 1.0);
@@ -254,16 +328,27 @@ impl Goal for VexChargeAttackGoal {
     }
 
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
-        let Some(target_id) = mob::tick::get_target_checked(mob, level) else { return };
-        let Some(target) = level.get_entity(target_id) else { return };
-        if mob.base().bounding_box().intersects_aabb(&target.base().bounding_box()) {
+        let Some(target_id) = mob::tick::get_target_checked(mob, level) else {
+            return;
+        };
+        let Some(target) = level.get_entity(target_id) else {
+            return;
+        };
+        if mob
+            .base()
+            .bounding_box()
+            .intersects_aabb(&target.base().bounding_box())
+        {
             mob::combat::do_hurt_target(mob, level, target_id);
             vex_mut(mob).set_is_charging(false);
         } else {
             let distance = mob.base().distance_to_sqr_vec(target.position());
             if distance < 9.0 {
                 let eye = target.get_eye_position_partial(1.0);
-                mob.mob_mut().expect("mob").move_control_mut().set_wanted_position(eye.x, eye.y, eye.z, 1.0);
+                mob.mob_mut()
+                    .expect("mob")
+                    .move_control_mut()
+                    .set_wanted_position(eye.x, eye.y, eye.z, 1.0);
             }
         }
     }
@@ -281,7 +366,12 @@ struct VexCopyOwnerTargetGoal {
 
 impl VexCopyOwnerTargetGoal {
     fn new() -> Self {
-        Self { target_goal: TargetGoal::new(false, false), copy_owner_targeting: TargetingConditions::for_non_combat().ignore_line_of_sight().ignore_invisibility_testing() }
+        Self {
+            target_goal: TargetGoal::new(false, false),
+            copy_owner_targeting: TargetingConditions::for_non_combat()
+                .ignore_line_of_sight()
+                .ignore_invisibility_testing(),
+        }
     }
 
     /// The owner's target (`owner instanceof Targeting && owner.getTarget()`).
@@ -294,7 +384,10 @@ impl VexCopyOwnerTargetGoal {
 impl Goal for VexCopyOwnerTargetGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         let target = Self::owner_target(mob, level);
-        target.is_some() && self.target_goal.can_attack(mob, level, target, &self.copy_owner_targeting)
+        target.is_some()
+            && self
+                .target_goal
+                .can_attack(mob, level, target, &self.copy_owner_targeting)
     }
 
     fn can_continue_to_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
@@ -334,7 +427,11 @@ impl MoveControl for VexMoveControl {
         if self.base.operation != Operation::MoveTo {
             return;
         }
-        let delta = Vec3::new(self.base.wanted_x - mob.base().x(), self.base.wanted_y - mob.base().y(), self.base.wanted_z - mob.base().z());
+        let delta = Vec3::new(
+            self.base.wanted_x - mob.base().x(),
+            self.base.wanted_y - mob.base().y(),
+            self.base.wanted_z - mob.base().z(),
+        );
         let delta_length = delta.length();
         if delta_length < mob.base().bounding_box().get_size() {
             self.base.operation = Operation::Wait;
@@ -342,9 +439,13 @@ impl MoveControl for VexMoveControl {
             mob.base_mut().set_delta_movement(m.scale(0.5));
         } else {
             let m = mob.base().delta_movement();
-            mob.base_mut().set_delta_movement(m.add(delta.scale(self.base.speed_modifier * 0.05 / delta_length)));
+            mob.base_mut().set_delta_movement(
+                m.add(delta.scale(self.base.speed_modifier * 0.05 / delta_length)),
+            );
             let pi = std::f32::consts::PI;
-            let target = mob::tick::get_target_checked(mob, level).and_then(|t| level.get_entity(t)).map(|t| (t.base().x(), t.base().z()));
+            let target = mob::tick::get_target_checked(mob, level)
+                .and_then(|t| level.get_entity(t))
+                .map(|t| (t.base().x(), t.base().z()));
             let y_rot = match target {
                 None => {
                     let movement = mob.base().delta_movement();
@@ -366,7 +467,15 @@ struct VexRandomMoveGoal;
 
 impl Goal for VexRandomMoveGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, _level: &mut ServerLevel) -> bool {
-        !mob.mob().and_then(|m| m.move_control.as_deref()).expect("move control").has_wanted() && mob.base_mut().random.next_int_bounded(reduced_tick_delay(7)) == 0
+        !mob.mob()
+            .and_then(|m| m.move_control.as_deref())
+            .expect("move control")
+            .has_wanted()
+            && mob
+                .base_mut()
+                .random
+                .next_int_bounded(reduced_tick_delay(7))
+                == 0
     }
 
     fn can_continue_to_use(&mut self, _mob: &mut dyn Entity, _level: &mut ServerLevel) -> bool {
@@ -374,14 +483,29 @@ impl Goal for VexRandomMoveGoal {
     }
 
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
-        let bound_origin = mob.as_any().downcast_ref::<Vex>().and_then(Vex::get_bound_origin).unwrap_or_else(|| mob.block_position());
+        let bound_origin = mob
+            .as_any()
+            .downcast_ref::<Vex>()
+            .and_then(Vex::get_bound_origin)
+            .unwrap_or_else(|| mob.block_position());
         for _ in 0..3 {
             let random = &mut mob.base_mut().random;
-            let (dx, dy, dz) = (random.next_int_bounded(15) - 7, random.next_int_bounded(11) - 5, random.next_int_bounded(15) - 7);
+            let (dx, dy, dz) = (
+                random.next_int_bounded(15) - 7,
+                random.next_int_bounded(11) - 5,
+                random.next_int_bounded(15) - 7,
+            );
             let test_pos = bound_origin.offset(dx, dy, dz);
             if mc_game_core::world::level::LevelReader::is_empty_block(&*level, test_pos) {
-                let (x, y, z) = (f64::from(test_pos.x()) + 0.5, f64::from(test_pos.y()) + 0.5, f64::from(test_pos.z()) + 0.5);
-                mob.mob_mut().expect("mob").move_control_mut().set_wanted_position(x, y, z, 0.25);
+                let (x, y, z) = (
+                    f64::from(test_pos.x()) + 0.5,
+                    f64::from(test_pos.y()) + 0.5,
+                    f64::from(test_pos.z()) + 0.5,
+                );
+                mob.mob_mut()
+                    .expect("mob")
+                    .move_control_mut()
+                    .set_wanted_position(x, y, z, 0.25);
                 if mob::tick::get_target_checked(mob, level).is_none() {
                     if let Some(m) = mob.mob_mut() {
                         m.look_control_mut().set_look_at_full(x, y, z, 180.0, 20.0);
@@ -398,4 +522,7 @@ impl Goal for VexRandomMoveGoal {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static VEX: EntityRegistration = EntityRegistration { entity_type: EntityType::VEX, create: |ty, id, registries| Box::new(Vex::new(ty, id, registries)) };
+static VEX: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::VEX,
+    create: |ty, id, registries| Box::new(Vex::new(ty, id, registries)),
+};

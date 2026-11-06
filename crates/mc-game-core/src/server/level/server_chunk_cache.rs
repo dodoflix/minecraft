@@ -8,9 +8,9 @@ use super::chunk_map::{ChunkMap, ChunkMapEvent, ChunkMapParams};
 use super::fastutil::LongOpenHashSet;
 use super::{Ticket, TicketType};
 use crate::world::level::chunk::LevelChunk;
+use crate::world::level::saveddata::SavedDataManager;
 use crate::world::level::ticket_storage::TicketStorage;
 use mc_core::pos::{BlockPos, ChunkPos, SectionPos};
-use crate::world::level::saveddata::SavedDataManager;
 use mc_world::level_storage::SavedDataStorage;
 use mc_world::status::ChunkStatus;
 use std::collections::HashSet;
@@ -47,8 +47,15 @@ impl ServerChunkCache {
         params.tickets = std::mem::take(data_storage.compute_if_absent(&ticket_type));
         params.tickets.set_dirty_to(false);
         let mut chunk_map = ChunkMap::new(params);
-        chunk_map.distance_manager.update_simulation_distance(simulation_distance, &mut chunk_map.tickets);
-        Self { chunk_map, data_storage, spawn_enemies: true, chunk_holders_to_broadcast: indexmap::IndexSet::new() }
+        chunk_map
+            .distance_manager
+            .update_simulation_distance(simulation_distance, &mut chunk_map.tickets);
+        Self {
+            chunk_map,
+            data_storage,
+            spawn_enemies: true,
+            chunk_holders_to_broadcast: indexmap::IndexSet::new(),
+        }
     }
 
     /// `getGenerator()`.
@@ -60,11 +67,16 @@ impl ServerChunkCache {
 
     /// `getChunkNow(x, z)`: the `FULL` chunk if it is loaded.
     pub fn get_chunk_now(&self, x: i32, z: i32) -> Option<&LevelChunk> {
-        self.chunk_map.get_visible_chunk_if_present(ChunkPos::pack_xz(x, z))?.get_chunk_if_present_full()
+        self.chunk_map
+            .get_visible_chunk_if_present(ChunkPos::pack_xz(x, z))?
+            .get_chunk_if_present_full()
     }
 
     pub fn get_chunk_now_mut(&mut self, x: i32, z: i32) -> Option<&mut LevelChunk> {
-        self.chunk_map.holders.visible_holder_mut(ChunkPos::pack_xz(x, z))?.get_chunk_if_present_full_mut()
+        self.chunk_map
+            .holders
+            .visible_holder_mut(ChunkPos::pack_xz(x, z))?
+            .get_chunk_if_present_full_mut()
     }
 
     fn chunk_absent(holder: Option<&ChunkHolder>, target_ticket_level: i32) -> bool {
@@ -73,28 +85,48 @@ impl ServerChunkCache {
 
     /// `hasChunk(x, z)`.
     pub fn has_chunk(&self, x: i32, z: i32) -> bool {
-        let holder = self.chunk_map.get_visible_chunk_if_present(ChunkPos::pack_xz(x, z));
+        let holder = self
+            .chunk_map
+            .get_visible_chunk_if_present(ChunkPos::pack_xz(x, z));
         !Self::chunk_absent(holder, chunk_level::by_status(ChunkStatus::Full))
     }
 
     /// `getChunkFutureMainThread(x, z, status, loadOrGenerate)`.
-    pub fn get_chunk_future_main_thread(&mut self, x: i32, z: i32, target_status: ChunkStatus, load_or_generate: bool) -> ChunkFuture {
+    pub fn get_chunk_future_main_thread(
+        &mut self,
+        x: i32,
+        z: i32,
+        target_status: ChunkStatus,
+        load_or_generate: bool,
+    ) -> ChunkFuture {
         let pos = ChunkPos::new(x, z);
         let key = pos.pack();
         let target_ticket_level = chunk_level::by_status(target_status);
         if load_or_generate {
             self.add_ticket(Ticket::new(TicketType::UNKNOWN, target_ticket_level), pos);
-            if Self::chunk_absent(self.chunk_map.get_visible_chunk_if_present(key), target_ticket_level) {
+            if Self::chunk_absent(
+                self.chunk_map.get_visible_chunk_if_present(key),
+                target_ticket_level,
+            ) {
                 self.run_distance_manager_updates();
-                if Self::chunk_absent(self.chunk_map.get_visible_chunk_if_present(key), target_ticket_level) {
+                if Self::chunk_absent(
+                    self.chunk_map.get_visible_chunk_if_present(key),
+                    target_ticket_level,
+                ) {
                     panic!("No chunk holder after ticket has been added");
                 }
             }
         }
-        if Self::chunk_absent(self.chunk_map.get_visible_chunk_if_present(key), target_ticket_level) {
+        if Self::chunk_absent(
+            self.chunk_map.get_visible_chunk_if_present(key),
+            target_ticket_level,
+        ) {
             return ChunkFuture::Unloaded;
         }
-        match self.chunk_map.schedule_chunk_generation_task(key, target_status) {
+        match self
+            .chunk_map
+            .schedule_chunk_generation_task(key, target_status)
+        {
             FutureState::Unloaded => ChunkFuture::Unloaded,
             _ => ChunkFuture::Chunk(key, target_status),
         }
@@ -149,7 +181,12 @@ impl ServerChunkCache {
     pub fn tick_pre(&mut self, runs_normally: bool, tick_chunks: bool) {
         if runs_normally || !tick_chunks {
             let holders = &self.chunk_map.holders;
-            self.chunk_map.tickets.purge_stale_tickets(&|pos| holders.updating.get(&pos).is_none_or(ChunkHolder::is_ready_for_saving));
+            self.chunk_map.tickets.purge_stale_tickets(&|pos| {
+                holders
+                    .updating
+                    .get(&pos)
+                    .is_none_or(ChunkHolder::is_ready_for_saving)
+            });
         }
         self.run_distance_manager_updates();
     }
@@ -168,7 +205,10 @@ impl ServerChunkCache {
 
     /// `blockChanged(pos)`.
     pub fn block_changed(&mut self, pos: BlockPos) {
-        let key = ChunkPos::pack_xz(SectionPos::block_to_section_coord_i32(pos.x()), SectionPos::block_to_section_coord_i32(pos.z()));
+        let key = ChunkPos::pack_xz(
+            SectionPos::block_to_section_coord_i32(pos.x()),
+            SectionPos::block_to_section_coord_i32(pos.z()),
+        );
         if let Some(holder) = self.chunk_map.holders.visible_holder_mut(key) {
             if holder.block_changed(pos) {
                 self.chunk_holders_to_broadcast.insert(key);
@@ -191,7 +231,12 @@ impl ServerChunkCache {
     /// Called when a holder's ticking chunk became ready to send: queue pending broadcasts.
     pub fn after_chunk_ready_to_send(&mut self) {
         for key in std::mem::take(&mut self.chunk_map.chunk_ready_to_send) {
-            if self.chunk_map.holders.visible_holder(key).is_some_and(ChunkHolder::has_changes_to_broadcast) {
+            if self
+                .chunk_map
+                .holders
+                .visible_holder(key)
+                .is_some_and(ChunkHolder::has_changes_to_broadcast)
+            {
                 self.chunk_holders_to_broadcast.insert(key);
             }
         }
@@ -202,7 +247,9 @@ impl ServerChunkCache {
         if !should_tick_blocks_at {
             return false;
         }
-        self.chunk_map.get_visible_chunk_if_present(chunk_key).is_some_and(|h| h.ticking_chunk_future == PromotionFuture::Done)
+        self.chunk_map
+            .get_visible_chunk_if_present(chunk_key)
+            .is_some_and(|h| h.ticking_chunk_future == PromotionFuture::Done)
     }
 
     // ------------------------------------------------------------------ tickets
@@ -216,11 +263,15 @@ impl ServerChunkCache {
     }
 
     pub fn add_ticket_with_radius(&mut self, ty: TicketType, pos: ChunkPos, radius: i32) {
-        self.chunk_map.tickets.add_ticket_with_radius(ty, pos, radius);
+        self.chunk_map
+            .tickets
+            .add_ticket_with_radius(ty, pos, radius);
     }
 
     pub fn remove_ticket_with_radius(&mut self, ty: TicketType, pos: ChunkPos, radius: i32) {
-        self.chunk_map.tickets.remove_ticket_with_radius(ty, pos, radius);
+        self.chunk_map
+            .tickets
+            .remove_ticket_with_radius(ty, pos, radius);
     }
 
     /// `updateChunkForced(pos, forced)`.
@@ -248,7 +299,9 @@ impl ServerChunkCache {
     }
 
     pub fn set_simulation_distance(&mut self, simulation_distance: i32) {
-        self.chunk_map.distance_manager.update_simulation_distance(simulation_distance, &mut self.chunk_map.tickets);
+        self.chunk_map
+            .distance_manager
+            .update_simulation_distance(simulation_distance, &mut self.chunk_map.tickets);
     }
 
     pub fn set_spawn_settings(&mut self, spawn_enemies: bool) {
@@ -266,14 +319,20 @@ impl ServerChunkCache {
 
     /// `getChunkDebugData(pos)`.
     pub fn get_chunk_debug_data(&self, pos: ChunkPos) -> String {
-        let Some(h) = self.chunk_map.get_visible_chunk_if_present(pos.pack()) else { return "null".to_string() };
+        let Some(h) = self.chunk_map.get_visible_chunk_if_present(pos.pack()) else {
+            return "null".to_string();
+        };
         let mut result = format!("{}\n", h.get_ticket_level());
         if let Some(status) = h.get_latest_status() {
             result += &format!("St: \u{a7}{}{}\u{a7}r\n", status.index(), status.name());
         }
         if let Some(status) = h.latest_chunk_status() {
             let persisted = h.get_persisted_status().unwrap_or(status);
-            result += &format!("Ch: \u{a7}{}{}\u{a7}r\n", persisted.index(), persisted.name());
+            result += &format!(
+                "Ch: \u{a7}{}{}\u{a7}r\n",
+                persisted.index(),
+                persisted.name()
+            );
         }
         let full = h.get_full_status();
         result += &format!("\u{a7}{}{:?}\u{a7}r", full as i32, full);

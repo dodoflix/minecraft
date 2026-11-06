@@ -20,7 +20,9 @@ const EAGER_CHUNK_SAVE_COOLDOWN_IN_MILLIS: i64 = 10000;
 const MAX_ACTIVE_CHUNK_WRITES: i32 = 128;
 
 fn millis() -> i64 {
-    std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).map_or(0, |d| d.as_millis() as i64)
+    std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map_or(0, |d| d.as_millis() as i64)
 }
 
 impl ChunkMap {
@@ -49,7 +51,10 @@ impl ChunkMap {
             WorkerMessage::ChunkParsed { key, result } => match result {
                 Ok(Some(data)) => self.install_parsed_chunk(key, data),
                 Ok(None) => {
-                    log::error!("Chunk file at {} is missing level data, skipping", ChunkPos::unpack(key));
+                    log::error!(
+                        "Chunk file at {} is missing level data, skipping",
+                        ChunkPos::unpack(key)
+                    );
                     self.install_empty_chunk(key);
                 }
                 Err(e) => self.handle_chunk_load_failure(key, &e.to_string()),
@@ -69,7 +74,13 @@ impl ChunkMap {
     /// `createEmptyChunk(pos)`.
     fn install_empty_chunk(&mut self, key: i64) {
         self.chunk_type_cache.insert(key, CHUNK_TYPE_REPLACEABLE);
-        let proto = ProtoChunk::new(ChunkPos::unpack(key), UpgradeData::empty(), self.level_height, &self.factory, None);
+        let proto = ProtoChunk::new(
+            ChunkPos::unpack(key),
+            UpgradeData::empty(),
+            self.level_height,
+            &self.factory,
+            None,
+        );
         self.finish_load(key, ChunkSlot::Proto(Box::new(proto)));
     }
 
@@ -78,11 +89,19 @@ impl ChunkMap {
         // `SerializableChunkData.read`: `poiManager.checkConsistencyWithBlocks(sectionPos, section.chunkSection)`
         for section in &data.section_data {
             if let Some(chunk_section) = &section.chunk_section {
-                self.poi_manager.check_consistency_with_blocks(SectionPos::of_chunk(&pos, section.y), chunk_section);
+                self.poi_manager.check_consistency_with_blocks(
+                    SectionPos::of_chunk(&pos, section.y),
+                    chunk_section,
+                );
             }
         }
         let known = self.is_known_structure.clone();
-        let ctx = ReadContext { level_height: self.level_height, has_sky_light: self.has_sky_light, factory: &self.factory, is_known_structure: &*known };
+        let ctx = ReadContext {
+            level_height: self.level_height,
+            has_sky_light: self.has_sky_light,
+            factory: &self.factory,
+            is_known_structure: &*known,
+        };
         let loaded = data.read(&ctx, pos);
         self.light.load_chunk_light(pos, loaded.light);
         let slot = match loaded.chunk {
@@ -96,7 +115,10 @@ impl ChunkMap {
                     chunk.access.set_block_entity_nbt(tag);
                 }
                 if !loaded.post_load_entities.is_empty() {
-                    self.events.push(ChunkMapEvent::LegacyEntities(pos, loaded.post_load_entities));
+                    self.events.push(ChunkMapEvent::LegacyEntities(
+                        pos,
+                        loaded.post_load_entities,
+                    ));
                 }
                 ChunkSlot::Level(Box::new(LevelChunk::from_data(chunk)))
             }
@@ -106,7 +128,9 @@ impl ChunkMap {
 
     fn finish_load(&mut self, key: i64, slot: ChunkSlot) {
         self.loading.remove(key);
-        let Some(holder) = self.holders.holder_mut(key) else { return };
+        let Some(holder) = self.holders.holder_mut(key) else {
+            return;
+        };
         let status = match &slot {
             ChunkSlot::Proto(p) => p.get_persisted_status(),
             _ => ChunkStatus::Full,
@@ -126,13 +150,16 @@ impl ChunkMap {
 
     /// The `FULL` step could not run because the chunk is lent out: queue it again behind the current work.
     pub fn requeue_full_step(&mut self, pos: ChunkPos) {
-        self.main_tasks.push_back(super::chunk_map::MainTask::FullStep(pos.pack()));
+        self.main_tasks
+            .push_back(super::chunk_map::MainTask::FullStep(pos.pack()));
     }
 
     /// Answer to [`ChunkMapEvent::FullStep`]: the live chunk is built and registered.
     pub fn complete_full_step(&mut self, pos: ChunkPos, mut chunk: Box<LevelChunk>) {
         let key = pos.pack();
-        let Some(holder) = self.holders.holder_mut(key) else { return };
+        let Some(holder) = self.holders.holder_mut(key) else {
+            return;
+        };
         chunk.full_status = holder.get_full_status();
         holder.slot = ChunkSlot::Level(chunk);
         self.complete_step(key, ChunkStatus::Full);
@@ -159,7 +186,10 @@ impl ChunkMap {
     /// Answer to [`ChunkMapEvent::StartTicking`]: the chunk was post-processed and started ticking.
     pub fn complete_ticking(&mut self, pos: ChunkPos) {
         let key = pos.pack();
-        let still_pending = self.holders.holder(key).is_some_and(|h| h.ticking_chunk_future.is_pending());
+        let still_pending = self
+            .holders
+            .holder(key)
+            .is_some_and(|h| h.ticking_chunk_future.is_pending());
         if !still_pending {
             return;
         }
@@ -186,8 +216,11 @@ impl ChunkMap {
         }
         let mut minimal_number_of_chunks_to_process = self.unload_queue.len().saturating_sub(2000);
         while minimal_number_of_chunks_to_process > 0 || have_time() {
-            let Some((key, serial)) = self.unload_queue.pop_front() else { break };
-            minimal_number_of_chunks_to_process = minimal_number_of_chunks_to_process.saturating_sub(1);
+            let Some((key, serial)) = self.unload_queue.pop_front() else {
+                break;
+            };
+            minimal_number_of_chunks_to_process =
+                minimal_number_of_chunks_to_process.saturating_sub(1);
             self.run_unload(key, serial);
         }
         self.save_chunks_eagerly(have_time);
@@ -201,8 +234,14 @@ impl ChunkMap {
 
     /// Queue a wanted unload as soon as the holder is ready for saving (`saveSyncFuture.thenRunAsync(unloadQueue::add)`).
     pub(crate) fn check_unload_ready(&mut self, key: i64) {
-        let Some(&serial) = self.unload_wanted.get(&key) else { return };
-        let ready = self.holders.pending_unloads.get(&key).is_some_and(|h| h.serial == serial && h.is_ready_for_saving());
+        let Some(&serial) = self.unload_wanted.get(&key) else {
+            return;
+        };
+        let ready = self
+            .holders
+            .pending_unloads
+            .get(&key)
+            .is_some_and(|h| h.serial == serial && h.is_ready_for_saving());
         if ready {
             self.unload_wanted.remove(&key);
             self.unload_queue.push_back((key, serial));
@@ -210,7 +249,9 @@ impl ChunkMap {
     }
 
     fn run_unload(&mut self, key: i64, serial: u64) {
-        let Some(holder) = self.holders.pending_unloads.get(&key) else { return };
+        let Some(holder) = self.holders.pending_unloads.get(&key) else {
+            return;
+        };
         if holder.serial != serial {
             return;
         }
@@ -219,7 +260,11 @@ impl ChunkMap {
             self.schedule_unload(key, serial);
             return;
         }
-        let mut holder = self.holders.pending_unloads.shift_remove(&key).expect("present");
+        let mut holder = self
+            .holders
+            .pending_unloads
+            .shift_remove(&key)
+            .expect("present");
         let pos = holder.get_pos();
         if holder.latest_chunk_status().is_some() {
             let _saved = match &mut holder.slot {
@@ -243,14 +288,24 @@ impl ChunkMap {
         let mut eagerly_saved_count = 0;
         let keys: Vec<i64> = self.chunks_to_eagerly_save.iter().copied().collect();
         for key in keys {
-            if !(eagerly_saved_count < CHUNK_SAVED_EAGERLY_PER_TICK && self.active_chunk_writes.load(Ordering::Acquire) < MAX_ACTIVE_CHUNK_WRITES && have_time()) {
+            if !(eagerly_saved_count < CHUNK_SAVED_EAGERLY_PER_TICK
+                && self.active_chunk_writes.load(Ordering::Acquire) < MAX_ACTIVE_CHUNK_WRITES
+                && have_time())
+            {
                 break;
             }
-            let unsaved = self.holders.visible_holder(key).and_then(|h| match &h.slot {
-                ChunkSlot::Level(l) if h.latest_chunk_status().is_some() => Some(l.data.access.is_unsaved()),
-                ChunkSlot::Proto(p) if h.latest_chunk_status().is_some() => Some(p.access.is_unsaved()),
-                _ => None,
-            });
+            let unsaved = self
+                .holders
+                .visible_holder(key)
+                .and_then(|h| match &h.slot {
+                    ChunkSlot::Level(l) if h.latest_chunk_status().is_some() => {
+                        Some(l.data.access.is_unsaved())
+                    }
+                    ChunkSlot::Proto(p) if h.latest_chunk_status().is_some() => {
+                        Some(p.access.is_unsaved())
+                    }
+                    _ => None,
+                });
             if unsaved != Some(true) {
                 self.chunks_to_eagerly_save.shift_remove(&key);
             } else if self.save_chunk_if_needed(key, now) {
@@ -269,13 +324,17 @@ impl ChunkMap {
 
     /// `saveChunkIfNeeded(chunk, now)`.
     pub(crate) fn save_chunk_if_needed(&mut self, key: i64, now: i64) -> bool {
-        let Some(holder) = self.holders.visible_holder(key) else { return false };
+        let Some(holder) = self.holders.visible_holder(key) else {
+            return false;
+        };
         if !(holder.was_accessible_since_last_save() && holder.is_ready_for_saving()) {
             return false;
         }
         // Only full chunks (imposter or level chunks) are saved here.
         let (is_full, is_unsaved) = match &holder.slot {
-            ChunkSlot::Level(l) if holder.latest_chunk_status().is_some() => (true, l.data.access.is_unsaved()),
+            ChunkSlot::Level(l) if holder.latest_chunk_status().is_some() => {
+                (true, l.data.access.is_unsaved())
+            }
             _ => (false, false),
         };
         if !is_full || !is_unsaved {
@@ -292,7 +351,8 @@ impl ChunkMap {
         holder.slot = slot;
         holder.refresh_accessibility();
         if saved {
-            self.next_chunk_save_time.insert(key, now + EAGER_CHUNK_SAVE_COOLDOWN_IN_MILLIS);
+            self.next_chunk_save_time
+                .insert(key, now + EAGER_CHUNK_SAVE_COOLDOWN_IN_MILLIS);
         }
         saved
     }
@@ -313,7 +373,12 @@ impl ChunkMap {
                 return false;
             }
             let any_valid = match slot {
-                ChunkSlot::Proto(p) => p.access.structures.starts.values().any(|s| s.get_string("id").is_some_and(|id| id != "INVALID")),
+                ChunkSlot::Proto(p) => p
+                    .access
+                    .structures
+                    .starts
+                    .values()
+                    .any(|s| s.get_string("id").is_some_and(|id| id != "INVALID")),
                 _ => false,
             };
             if status == ChunkStatus::Empty && !any_valid {
@@ -326,8 +391,16 @@ impl ChunkMap {
             ChunkSlot::Level(l) => {
                 let block_entities = l.block_entity_nbt_for_saving();
                 // The scheduled ticks of a loaded chunk live in the level's containers: bring them home for the copy.
-                let took_ticks = self.tick_containers.as_ref().is_some_and(|t| super::level_chunk_ops::take_ticks_back(l, t));
-                let data = SerializableChunkData::from_level_chunk(&l.data, game_time, &light_fn, block_entities);
+                let took_ticks = self
+                    .tick_containers
+                    .as_ref()
+                    .is_some_and(|t| super::level_chunk_ops::take_ticks_back(l, t));
+                let data = SerializableChunkData::from_level_chunk(
+                    &l.data,
+                    game_time,
+                    &light_fn,
+                    block_entities,
+                );
                 if took_ticks && let Some(t) = &self.tick_containers {
                     super::level_chunk_ops::give_ticks(l, t);
                 }
@@ -356,7 +429,14 @@ impl ChunkMap {
             encoding.fetch_sub(1, Ordering::AcqRel);
             None
         });
-        self.chunk_type_cache.insert(pos.pack(), if status.chunk_type() == ChunkType::ProtoChunk { CHUNK_TYPE_REPLACEABLE } else { CHUNK_TYPE_FULL });
+        self.chunk_type_cache.insert(
+            pos.pack(),
+            if status.chunk_type() == ChunkType::ProtoChunk {
+                CHUNK_TYPE_REPLACEABLE
+            } else {
+                CHUNK_TYPE_FULL
+            },
+        );
         true
     }
 
@@ -377,8 +457,17 @@ impl ChunkMap {
                 false
             }
             Ok(Some(tag)) => {
-                let full = SerializableChunkData::get_chunk_status_from_tag(Some(&tag)).chunk_type() == ChunkType::LevelChunk;
-                self.chunk_type_cache.insert(key, if full { CHUNK_TYPE_FULL } else { CHUNK_TYPE_REPLACEABLE });
+                let full = SerializableChunkData::get_chunk_status_from_tag(Some(&tag))
+                    .chunk_type()
+                    == ChunkType::LevelChunk;
+                self.chunk_type_cache.insert(
+                    key,
+                    if full {
+                        CHUNK_TYPE_FULL
+                    } else {
+                        CHUNK_TYPE_REPLACEABLE
+                    },
+                );
                 full
             }
         }
@@ -401,7 +490,9 @@ impl ChunkMap {
 
     /// One round of `saveAllChunks(true)` for a chunk that is ready for saving: whether it was saved.
     pub fn save_full_chunk_for_flush(&mut self, key: i64) -> bool {
-        let Some(holder) = self.holders.holder_mut(key) else { return false };
+        let Some(holder) = self.holders.holder_mut(key) else {
+            return false;
+        };
         if holder.latest_chunk_status().is_none() || !matches!(holder.slot, ChunkSlot::Level(_)) {
             return false;
         }
@@ -413,7 +504,9 @@ impl ChunkMap {
     }
 
     pub fn is_ready_for_saving(&self, key: i64) -> bool {
-        self.holders.holder(key).is_none_or(ChunkHolder::is_ready_for_saving)
+        self.holders
+            .holder(key)
+            .is_none_or(ChunkHolder::is_ready_for_saving)
     }
 
     /// `saveAllChunks(false)`: periodic autosave.

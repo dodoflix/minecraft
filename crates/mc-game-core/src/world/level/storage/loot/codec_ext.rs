@@ -31,11 +31,19 @@ pub fn dispatch_optional_value<K: Clone + 'static, V: 'static>(
                 DataResult::error(move || m.clone())
             }
             Some(type_name) => tc_dec.decode(ops, type_name).flat_map(|(key, _)| {
-                let value: Dyn = input.get(value_key).cloned().unwrap_or_else(|| ops.empty_map());
+                let value: Dyn = input
+                    .get(value_key)
+                    .cloned()
+                    .unwrap_or_else(|| ops.empty_map());
                 value_codec(&key).flat_map(|c| c.decode(ops, &value).map(|(v, _)| v))
             }),
         },
-        move || vec![Dyn::Str(type_key.to_owned()), Dyn::Str(value_key.to_owned())],
+        move || {
+            vec![
+                Dyn::Str(type_key.to_owned()),
+                Dyn::Str(value_key.to_owned()),
+            ]
+        },
     )
 }
 
@@ -46,6 +54,9 @@ pub trait OptionalDefaultWith<H> {
 
 impl<H: Clone + Send + Sync + 'static> OptionalDefaultWith<H> for Codec<H> {
     fn optional_field_of_default_with(&self, name: &str, default: H) -> MapCodec<H> {
-        self.optional_field_of(name).xmap(move |o| o.unwrap_or_else(|| default.clone()), |h: &H| Some(h.clone()))
+        self.optional_field_of(name).xmap(
+            move |o| o.unwrap_or_else(|| default.clone()),
+            |h: &H| Some(h.clone()),
+        )
     }
 }

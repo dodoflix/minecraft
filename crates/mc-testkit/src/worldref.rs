@@ -26,10 +26,14 @@ pub fn worldref() -> Result<PathBuf> {
     // Take the server permit before the lock, so the process that holds the lock can always start its server.
     let _permit = crate::permit::acquire();
     fs::create_dir_all(&servers).map_err(|e| io("create run/servers", e))?;
-    let lock = File::create(servers.join("worldref.lock")).map_err(|e| io("create the worldref lock", e))?;
+    let lock = File::create(servers.join("worldref.lock"))
+        .map_err(|e| io("create the worldref lock", e))?;
     // SAFETY: plain syscall on a descriptor this function owns. The lock is released when `lock` drops.
     if unsafe { libc::flock(lock.as_raw_fd(), libc::LOCK_EX) } != 0 {
-        return fail(format!("lock the worldref generation: {}", std::io::Error::last_os_error()));
+        return fail(format!(
+            "lock the worldref generation: {}",
+            std::io::Error::last_os_error()
+        ));
     }
     if world.join("level.dat").is_file() {
         return Ok(world);
@@ -37,15 +41,29 @@ pub fn worldref() -> Result<PathBuf> {
     let scratch = servers.join(format!("worldref.generating-{}", std::process::id()));
     let _ = fs::remove_dir_all(&scratch);
     let server = Server::vanilla()
-        .properties(["level-seed=12345", "gamemode=creative", "difficulty=normal", "view-distance=6", "simulation-distance=6", "online-mode=false", "spawn-protection=0"])
+        .properties([
+            "level-seed=12345",
+            "gamemode=creative",
+            "difficulty=normal",
+            "view-distance=6",
+            "simulation-distance=6",
+            "online-mode=false",
+            "spawn-protection=0",
+        ])
         .dir(&scratch)
         .start()?;
     // Force-load the 7x7 chunks around the origin in every dimension and wait until the far corner is in memory:
     // the saved world then has full chunks (and the mobs generated with them) next to the generation-status chunks
     // of the spawn area, like a world somebody played in.
-    let dimensions = ["minecraft:overworld", "minecraft:the_nether", "minecraft:the_end"];
+    let dimensions = [
+        "minecraft:overworld",
+        "minecraft:the_nether",
+        "minecraft:the_end",
+    ];
     for dimension in dimensions {
-        server.cmd(&format!("execute in {dimension} run forceload add -48 -48 48 48"));
+        server.cmd(&format!(
+            "execute in {dimension} run forceload add -48 -48 48 48"
+        ));
     }
     let deadline = Instant::now() + Duration::from_secs(180);
     for dimension in dimensions {
@@ -57,7 +75,9 @@ pub fn worldref() -> Result<PathBuf> {
                 break;
             }
             if Instant::now() > deadline {
-                return fail(format!("the force-loaded chunks of {dimension} did not load within 180 s"));
+                return fail(format!(
+                    "the force-loaded chunks of {dimension} did not load within 180 s"
+                ));
             }
         }
     }
@@ -72,10 +92,13 @@ pub fn worldref() -> Result<PathBuf> {
         return fail("the vanilla server did not save the reference world");
     }
     if !server.stop() {
-        return fail("the vanilla server did not stop cleanly while generating the reference world");
+        return fail(
+            "the vanilla server did not stop cleanly while generating the reference world",
+        );
     }
     drop(server);
     let _ = fs::remove_dir_all(&dir);
-    fs::rename(&scratch, &dir).map_err(|e| io("move the generated world into run/servers/worldref", e))?;
+    fs::rename(&scratch, &dir)
+        .map_err(|e| io("move the generated world into run/servers/worldref", e))?;
     Ok(world)
 }

@@ -3,10 +3,10 @@
 //! The concrete head blocks (kelp, cave vines, twisting/weeping vines) implement [`GrowingPlantHead`] and get their
 //! [`BlockBehaviour`] methods from [`growing_plant_head_behaviour!`].
 use super::growing_plant_block::GrowingPlant;
-use mc_game_core::world::level::block::impls::prelude::*;
+use mc_core::random::RandomSource;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::item::BlockPlaceContext;
-use mc_core::random::RandomSource;
+use mc_game_core::world::level::block::impls::prelude::*;
 
 pub trait GrowingPlantHead: GrowingPlant {
     /// `growPerTickProbability` (constructor argument).
@@ -16,11 +16,19 @@ pub trait GrowingPlantHead: GrowingPlant {
     /// `canGrowInto(state)`.
     fn can_grow_into(&self, state: BlockState) -> bool;
     /// `getGrowIntoState(growFromState, random)`.
-    fn get_grow_into_state(&self, grow_from_state: BlockState, _random: &mut dyn RandomSource) -> BlockState {
+    fn get_grow_into_state(
+        &self,
+        grow_from_state: BlockState,
+        _random: &mut dyn RandomSource,
+    ) -> BlockState {
         grow_from_state.cycle(props::AGE_25)
     }
     /// `updateBodyAfterConvertedFromHead(headState, bodyState)`.
-    fn update_body_after_converted_from_head(&self, _head_state: BlockState, body_state: BlockState) -> BlockState {
+    fn update_body_after_converted_from_head(
+        &self,
+        _head_state: BlockState,
+        body_state: BlockState,
+    ) -> BlockState {
         body_state
     }
     /// Subclass guard in front of `GrowingPlantBlock.getStateForPlacement` (kelp: only placeable in a full water block).
@@ -42,16 +50,26 @@ pub fn head(block: Block) -> &'static dyn GrowingPlantHead {
 
 /// `GrowingPlantHeadBlock.getStateForPlacement(random)`.
 pub fn get_state_for_placement(head_block: Block, random: &mut dyn RandomSource) -> BlockState {
-    head_block.default_state().set(props::AGE_25, random.next_int_bounded(25))
+    head_block
+        .default_state()
+        .set(props::AGE_25, random.next_int_bounded(25))
 }
 
 /// `GrowingPlantBlock.getStateForPlacement(context)` of a head block (kelp calls this as its `super`).
-pub fn get_state_for_placement_ctx(this: &dyn GrowingPlantHead, block: Block, level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
+pub fn get_state_for_placement_ctx(
+    this: &dyn GrowingPlantHead,
+    block: Block,
+    level: &mut ServerLevel,
+    context: &BlockPlaceContext,
+) -> Option<BlockState> {
     if !this.can_be_placed_in(level.get_fluid_state(context.get_clicked_pos())) {
         return None;
     }
-    let growth_direction_state = level.get_block_state(context.get_clicked_pos().relative(this.growth_direction()));
-    if !growth_direction_state.is_block(this.head_block()) && !growth_direction_state.is_block(this.body_block()) {
+    let growth_direction_state =
+        level.get_block_state(context.get_clicked_pos().relative(this.growth_direction()));
+    if !growth_direction_state.is_block(this.head_block())
+        && !growth_direction_state.is_block(this.body_block())
+    {
         Some(get_state_for_placement(block, level.random()))
     } else {
         Some(this.body_block().default_state())
@@ -59,8 +77,15 @@ pub fn get_state_for_placement_ctx(this: &dyn GrowingPlantHead, block: Block, le
 }
 
 /// `GrowingPlantHeadBlock.randomTick`.
-pub fn random_tick(this: &dyn GrowingPlantHead, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
-    if state.get(props::AGE_25) < 25 && level.random().next_double() < this.grow_per_tick_probability() {
+pub fn random_tick(
+    this: &dyn GrowingPlantHead,
+    state: BlockState,
+    level: &mut ServerLevel,
+    pos: BlockPos,
+) {
+    if state.get(props::AGE_25) < 25
+        && level.random().next_double() < this.grow_per_tick_probability()
+    {
         let growth_pos = pos.relative(this.growth_direction());
         if this.can_grow_into(level.get_block_state(growth_pos)) {
             let grow_into = this.get_grow_into_state(state, level.random());
@@ -85,12 +110,19 @@ pub fn update_shape(
             helpers::schedule_block_tick(level, pos, this_block, 1);
         } else {
             let neighbor_in_growth_direction = level.get_block_state(pos.relative(growth));
-            if neighbor_in_growth_direction.is_block(this_block) || neighbor_in_growth_direction.is_block(this.body_block()) {
-                return this.update_body_after_converted_from_head(state, this.body_block().default_state());
+            if neighbor_in_growth_direction.is_block(this_block)
+                || neighbor_in_growth_direction.is_block(this.body_block())
+            {
+                return this.update_body_after_converted_from_head(
+                    state,
+                    this.body_block().default_state(),
+                );
             }
         }
     }
-    if direction_to_neighbour != growth || (!neighbour_state.is_block(this_block) && !neighbour_state.is_block(this.body_block())) {
+    if direction_to_neighbour != growth
+        || (!neighbour_state.is_block(this_block) && !neighbour_state.is_block(this.body_block()))
+    {
         if this.schedule_fluid_ticks() {
             helpers::schedule_water_tick(level, pos);
         }
@@ -101,18 +133,31 @@ pub fn update_shape(
 }
 
 /// `GrowingPlantHeadBlock.isValidBonemealTarget`.
-pub fn is_valid_bonemeal_target(this: &dyn GrowingPlantHead, level: &dyn LevelReader, pos: BlockPos) -> bool {
+pub fn is_valid_bonemeal_target(
+    this: &dyn GrowingPlantHead,
+    level: &dyn LevelReader,
+    pos: BlockPos,
+) -> bool {
     let growth_pos = pos.relative(this.growth_direction());
-    this.can_grow_into(level.get_block_state(growth_pos)) && !level.is_outside_build_height(growth_pos.y())
+    this.can_grow_into(level.get_block_state(growth_pos))
+        && !level.is_outside_build_height(growth_pos.y())
 }
 
 /// `GrowingPlantHeadBlock.performBonemeal`.
-pub fn perform_bonemeal(this: &dyn GrowingPlantHead, level: &mut ServerLevel, pos: BlockPos, state: BlockState) {
+pub fn perform_bonemeal(
+    this: &dyn GrowingPlantHead,
+    level: &mut ServerLevel,
+    pos: BlockPos,
+    state: BlockState,
+) {
     let mut forward_pos = pos.relative(this.growth_direction());
     let mut next_age = (state.get(props::AGE_25) + 1).min(25);
     let blocks_to_grow = this.blocks_to_grow_when_bonemealed(level.random());
     let mut i = 0;
-    while i < blocks_to_grow && this.can_grow_into(level.get_block_state(forward_pos)) && !level.is_outside_build_height(forward_pos.y()) {
+    while i < blocks_to_grow
+        && this.can_grow_into(level.get_block_state(forward_pos))
+        && !level.is_outside_build_height(forward_pos.y())
+    {
         level.set_block_and_update(forward_pos, state.set(props::AGE_25, next_age));
         forward_pos = forward_pos.relative(this.growth_direction());
         next_age = (next_age + 1).min(25);

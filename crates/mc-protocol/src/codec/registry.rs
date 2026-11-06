@@ -4,12 +4,15 @@
 use crate::codec::EncodeResult;
 use mc_data::registry::RegistryId;
 
-use super::{read_varint, write_varint, Decode, DecodeError, DecodeResult, Encode};
+use super::{Decode, DecodeError, DecodeResult, Encode, read_varint, write_varint};
 
 /// Strict decode of a VarInt protocol id (`holderRegistry`/`IdMap.byIdOrThrow` on a holder map): unknown ids throw.
 pub fn read_registry_id<T: RegistryId>(input: &mut &[u8]) -> DecodeResult<T> {
     let id = read_varint(input)?;
-    u32::try_from(id).ok().and_then(T::from_id).ok_or_else(|| DecodeError::Message(format!("No value with id {id}")))
+    u32::try_from(id)
+        .ok()
+        .and_then(T::from_id)
+        .ok_or_else(|| DecodeError::Message(format!("No value with id {id}")))
 }
 
 /// `ByteBufCodecs.registry(key)` decode: `Registry.byId`, where a *defaulted* registry (block, item, entity_type, fluid,
@@ -17,8 +20,15 @@ pub fn read_registry_id<T: RegistryId>(input: &mut &[u8]) -> DecodeResult<T> {
 pub fn read_registry_value<T: RegistryId>(input: &mut &[u8]) -> DecodeResult<T> {
     let id = read_varint(input)?;
     let found = u32::try_from(id).ok().and_then(T::from_id);
-    let default = || T::registry().default_name().and_then(|n| T::registry().id_of(n)).and_then(T::from_id);
-    found.or_else(default).ok_or_else(|| DecodeError::Message(format!("No value with id {id}")))
+    let default = || {
+        T::registry()
+            .default_name()
+            .and_then(|n| T::registry().id_of(n))
+            .and_then(T::from_id)
+    };
+    found
+        .or_else(default)
+        .ok_or_else(|| DecodeError::Message(format!("No value with id {id}")))
 }
 
 macro_rules! registry_codecs {
@@ -33,23 +43,101 @@ macro_rules! registry_codecs {
 }
 
 registry_codecs!(
-    Activity, Attribute, AttributeType, Block, BlockEntityType, BlockPredicateType, ChunkStatus, CommandArgumentType,
-    ConsumeEffectType, ContextFloatProviderType, ContextIntProviderType, ContextKeySet, CreativeModeTab, CustomStat,
-    DataComponentPredicateType, DataComponentType, DebugSubscription, DialogActionType, DialogBodyType, DialogType,
-    EnchantmentEffectComponentType, EnchantmentEntityEffectType, EnchantmentLevelBasedValueType,
-    EnchantmentLocationBasedEffectType, EnchantmentProviderType, EnchantmentValueEffectType, EntitySubPredicateType,
-    EntityType, EnvironmentAttribute, FloatProviderType, Fluid, GameEvent, GameRule, HeightProviderType,
-    IncomingRpcMethods, InputControlType, IntProviderType, Item, LootConditionType, LootFunctionType, LootNbtProviderType,
-    LootPoolEntryType, LootScoreProviderType, MapDecorationType, MemoryModuleType, MenuType, MobEffect, NumberFormatType,
-    OutgoingRpcMethods, ParticleType, PermissionCheckType, PermissionType, PointOfInterestType, PosRuleTest,
-    PositionSourceType, Potion, RecipeBookCategory, RecipeDisplay, RecipeSerializer, RecipeType, RuleBlockEntityModifier,
-    RuleTest, SensorType, SlotDisplay, SlotSourceType, SoundEvent, SpawnConditionType, StatType,
-    TestEnvironmentDefinitionType, TestFunction, TestInstanceType, TicketType, TriggerType, VillagerProfession,
-    VillagerType, WorldgenBiomeSource, WorldgenBlockStateProviderType, WorldgenCarverType, WorldgenChunkGenerator,
-    WorldgenDensityFunctionType, WorldgenFeatureSizeType, WorldgenFeatureType, WorldgenFoliagePlacerType,
-    WorldgenMaterialConditionType, WorldgenMaterialRuleType, WorldgenPlacementModifierType, WorldgenPoolAliasBinding,
-    WorldgenRootPlacerType, WorldgenStructurePiece, WorldgenStructurePlacement, WorldgenStructurePoolElement,
-    WorldgenStructureProcessor, WorldgenStructureType, WorldgenTreeDecoratorType, WorldgenTrunkPlacerType,
+    Activity,
+    Attribute,
+    AttributeType,
+    Block,
+    BlockEntityType,
+    BlockPredicateType,
+    ChunkStatus,
+    CommandArgumentType,
+    ConsumeEffectType,
+    ContextFloatProviderType,
+    ContextIntProviderType,
+    ContextKeySet,
+    CreativeModeTab,
+    CustomStat,
+    DataComponentPredicateType,
+    DataComponentType,
+    DebugSubscription,
+    DialogActionType,
+    DialogBodyType,
+    DialogType,
+    EnchantmentEffectComponentType,
+    EnchantmentEntityEffectType,
+    EnchantmentLevelBasedValueType,
+    EnchantmentLocationBasedEffectType,
+    EnchantmentProviderType,
+    EnchantmentValueEffectType,
+    EntitySubPredicateType,
+    EntityType,
+    EnvironmentAttribute,
+    FloatProviderType,
+    Fluid,
+    GameEvent,
+    GameRule,
+    HeightProviderType,
+    IncomingRpcMethods,
+    InputControlType,
+    IntProviderType,
+    Item,
+    LootConditionType,
+    LootFunctionType,
+    LootNbtProviderType,
+    LootPoolEntryType,
+    LootScoreProviderType,
+    MapDecorationType,
+    MemoryModuleType,
+    MenuType,
+    MobEffect,
+    NumberFormatType,
+    OutgoingRpcMethods,
+    ParticleType,
+    PermissionCheckType,
+    PermissionType,
+    PointOfInterestType,
+    PosRuleTest,
+    PositionSourceType,
+    Potion,
+    RecipeBookCategory,
+    RecipeDisplay,
+    RecipeSerializer,
+    RecipeType,
+    RuleBlockEntityModifier,
+    RuleTest,
+    SensorType,
+    SlotDisplay,
+    SlotSourceType,
+    SoundEvent,
+    SpawnConditionType,
+    StatType,
+    TestEnvironmentDefinitionType,
+    TestFunction,
+    TestInstanceType,
+    TicketType,
+    TriggerType,
+    VillagerProfession,
+    VillagerType,
+    WorldgenBiomeSource,
+    WorldgenBlockStateProviderType,
+    WorldgenCarverType,
+    WorldgenChunkGenerator,
+    WorldgenDensityFunctionType,
+    WorldgenFeatureSizeType,
+    WorldgenFeatureType,
+    WorldgenFoliagePlacerType,
+    WorldgenMaterialConditionType,
+    WorldgenMaterialRuleType,
+    WorldgenPlacementModifierType,
+    WorldgenPoolAliasBinding,
+    WorldgenRootPlacerType,
+    WorldgenStructurePiece,
+    WorldgenStructurePlacement,
+    WorldgenStructurePoolElement,
+    WorldgenStructureProcessor,
+    WorldgenStructureType,
+    WorldgenTreeDecoratorType,
+    WorldgenTrunkPlacerType,
 );
 
 /// `Block.BLOCK_STATE_REGISTRY` (`ByteBufCodecs.idMapper`): the global block state id as a VarInt.

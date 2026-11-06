@@ -13,7 +13,11 @@ pub struct ChunkTaskPriorityQueue<T> {
 
 impl<T> ChunkTaskPriorityQueue<T> {
     pub fn new(level_count: i32) -> Self {
-        Self { queues: (0..level_count).map(|_| IndexMap::new()).collect(), top_priority_queue_index: level_count, level_count }
+        Self {
+            queues: (0..level_count).map(|_| IndexMap::new()).collect(),
+            top_priority_queue_index: level_count,
+            level_count,
+        }
     }
 
     fn advance_top(&mut self) {
@@ -31,7 +35,10 @@ impl<T> ChunkTaskPriorityQueue<T> {
             }
             if let Some(old_tasks) = old_tasks {
                 if !old_tasks.is_empty() {
-                    self.queues[new_priority as usize].entry(pos).or_default().extend(old_tasks);
+                    self.queues[new_priority as usize]
+                        .entry(pos)
+                        .or_default()
+                        .extend(old_tasks);
                     self.top_priority_queue_index = self.top_priority_queue_index.min(new_priority);
                 }
             }
@@ -39,7 +46,10 @@ impl<T> ChunkTaskPriorityQueue<T> {
     }
 
     pub fn submit(&mut self, task: T, chunk_pos: i64, level: i32) {
-        self.queues[level as usize].entry(chunk_pos).or_default().push(task);
+        self.queues[level as usize]
+            .entry(chunk_pos)
+            .or_default()
+            .push(task);
         self.top_priority_queue_index = self.top_priority_queue_index.min(level);
     }
 

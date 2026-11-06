@@ -1,14 +1,16 @@
 //! `DaylightDetectorBlockEntity`: no saved data; its ticker (`DaylightDetectorBlock.tickEntity`) refreshes the
 //! signal every 20 ticks in dimensions with sky light.
 
-use mc_game_core::block_entity_base;
-use mc_game_core::world::block_entity::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration};
-use mc_game_core::server::level::ServerLevel;
 use crate::world::level::block::impls::daylight_detector_block::update_signal_strength;
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
 use mc_data::BlockEntityType;
 use mc_data::block::BlockState;
+use mc_game_core::block_entity_base;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::block_entity::{
+    BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration,
+};
 
 pub struct DaylightDetectorBlockEntity {
     base: BlockEntityData,
@@ -16,7 +18,9 @@ pub struct DaylightDetectorBlockEntity {
 
 impl DaylightDetectorBlockEntity {
     pub fn new(pos: BlockPos, state: BlockState) -> Self {
-        Self { base: BlockEntityData::new(BlockEntityType::DAYLIGHT_DETECTOR, pos, state) }
+        Self {
+            base: BlockEntityData::new(BlockEntityType::DAYLIGHT_DETECTOR, pos, state),
+        }
     }
 }
 
@@ -30,13 +34,18 @@ impl BlockEntity for DaylightDetectorBlockEntity {
 
     /// `DaylightDetectorBlock.tickEntity`.
     fn server_tick(&mut self, level: &mut ServerLevel) {
-        if level.chunk_source.chunk_map.has_sky_light && mc_game_core::world::level::LevelAccessor::get_game_time(level) % 20 == 0 {
-            let state = mc_game_core::world::level::BlockGetter::get_block_state(level, self.base.pos);
+        if level.chunk_source.chunk_map.has_sky_light
+            && mc_game_core::world::level::LevelAccessor::get_game_time(level) % 20 == 0
+        {
+            let state =
+                mc_game_core::world::level::BlockGetter::get_block_state(level, self.base.pos);
             update_signal_strength(state, level, self.base.pos);
         }
     }
 }
 
 #[distributed_slice(BLOCK_ENTITY_TYPES)]
-static DAYLIGHT_DETECTOR: BlockEntityRegistration =
-    BlockEntityRegistration { ty: BlockEntityType::DAYLIGHT_DETECTOR, create: |pos, state| Box::new(DaylightDetectorBlockEntity::new(pos, state)) };
+static DAYLIGHT_DETECTOR: BlockEntityRegistration = BlockEntityRegistration {
+    ty: BlockEntityType::DAYLIGHT_DETECTOR,
+    create: |pos, state| Box::new(DaylightDetectorBlockEntity::new(pos, state)),
+};

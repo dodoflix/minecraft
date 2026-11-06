@@ -3,8 +3,8 @@
 
 use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
-use mc_data::block::BlockState;
 use mc_core::pos::BlockPos;
+use mc_data::block::BlockState;
 use mc_protocol::components::ItemStack;
 
 use super::context::{LootParams, LootParamsBuilder};
@@ -18,19 +18,37 @@ use crate::world::level::block::{BlockStateExt, behaviour, helpers};
 
 /// `BlockBehaviour.BlockStateBase.getDrops(params)` (`BlockBehaviour.getDrops`): the loot table of the state's block with
 /// `BLOCK_STATE` added to `params`; blocks without a loot table drop nothing.
-pub fn state_get_drops(state: BlockState, pos: BlockPos, builder: LootParamsBuilder) -> Vec<ItemStack> {
+pub fn state_get_drops(
+    state: BlockState,
+    pos: BlockPos,
+    builder: LootParamsBuilder,
+) -> Vec<ItemStack> {
     let level = builder.level();
     // `MovingPistonBlock.getDrops`: the moved state's drops
     let state = behaviour(state.block()).get_drops_state(state, level, pos);
-    let Some(key) = state.block().data().loot_table else { return Vec::new() };
-    let params = builder.block_state(state).create(&LootContextParamSets::BLOCK);
-    let Some(id) = Identifier::try_parse(key) else { return Vec::new() };
+    let Some(key) = state.block().data().loot_table else {
+        return Vec::new();
+    };
+    let params = builder
+        .block_state(state)
+        .create(&LootContextParamSets::BLOCK);
+    let Some(id) = Identifier::try_parse(key) else {
+        return Vec::new();
+    };
     get_loot_table(&level.registries, &id).get_random_items(&params)
 }
 
 /// `Block.getDrops(state, level, pos, blockEntity)` (empty tool).
-pub fn get_drops(level: &ServerLevel, state: BlockState, pos: BlockPos, block_entity: Option<&dyn BlockEntity>) -> Vec<ItemStack> {
-    let params = LootParams::builder(level).origin(Vec3::at_center_of(&pos)).tool(&ItemStack::empty()).block_entity(block_entity);
+pub fn get_drops(
+    level: &ServerLevel,
+    state: BlockState,
+    pos: BlockPos,
+    block_entity: Option<&dyn BlockEntity>,
+) -> Vec<ItemStack> {
+    let params = LootParams::builder(level)
+        .origin(Vec3::at_center_of(&pos))
+        .tool(&ItemStack::empty())
+        .block_entity(block_entity);
     state_get_drops(state, pos, params)
 }
 
@@ -43,7 +61,11 @@ pub fn block_drops(
     breaker: Option<&dyn Entity>,
     tool: &ItemStack,
 ) -> Vec<ItemStack> {
-    let params = LootParams::builder(level).origin(Vec3::at_center_of(&pos)).tool(tool).optional_this_entity(breaker).block_entity(block_entity);
+    let params = LootParams::builder(level)
+        .origin(Vec3::at_center_of(&pos))
+        .tool(tool)
+        .optional_this_entity(breaker)
+        .block_entity(block_entity);
     state_get_drops(state, pos, params)
 }
 
@@ -84,12 +106,28 @@ pub fn drop_resources_with_tool(
 
 /// `helpers::drop_resources`: `Level.destroyBlock` →
 /// `Block.dropResources(state, level, pos, blockEntity, breaker, ItemStack.EMPTY)`.
-pub fn drop_resources_for_destroy(level: &mut ServerLevel, state: BlockState, pos: BlockPos, breaker: Option<EntityId>) {
+pub fn drop_resources_for_destroy(
+    level: &mut ServerLevel,
+    state: BlockState,
+    pos: BlockPos,
+    breaker: Option<EntityId>,
+) {
     let drops = {
         let level_ref: &ServerLevel = level;
-        let block_entity = if state.has_block_entity() { level_ref.get_block_entity(pos) } else { None };
+        let block_entity = if state.has_block_entity() {
+            level_ref.get_block_entity(pos)
+        } else {
+            None
+        };
         let breaker_entity = breaker.and_then(|id| level_ref.get_entity(id));
-        block_drops(level_ref, state, pos, block_entity, breaker_entity, &ItemStack::empty())
+        block_drops(
+            level_ref,
+            state,
+            pos,
+            block_entity,
+            breaker_entity,
+            &ItemStack::empty(),
+        )
     };
     for stack in drops {
         helpers::pop_resource(level, pos, stack);
@@ -127,7 +165,9 @@ pub fn block_interact_drops(
     tool: Option<&ItemStack>,
     interacting_entity: Option<&dyn Entity>,
 ) -> Vec<ItemStack> {
-    let Some(id) = Identifier::try_parse(key) else { return Vec::new() };
+    let Some(id) = Identifier::try_parse(key) else {
+        return Vec::new();
+    };
     let mut drops = Vec::new();
     drop_from_loot_table(
         level,

@@ -1,7 +1,7 @@
 //! `SwellGoal` (creeper ignition).
 
-use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags};
 use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags};
 use mc_game_core::world::entity::mob::{navigation, tick};
 use mc_game_core::world::entity::{Entity, EntityId};
 
@@ -20,7 +20,10 @@ impl SwellGoal {
 impl Goal for SwellGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         let target = tick::get_target_checked(mob, level).and_then(|t| level.get_entity(t));
-        mob.get_swell_dir() > 0 || target.is_some_and(|t| !t.is_dead_or_dying() && mob.base().distance_to_sqr_vec(t.position()) < 9.0)
+        mob.get_swell_dir() > 0
+            || target.is_some_and(|t| {
+                !t.is_dead_or_dying() && mob.base().distance_to_sqr_vec(t.position()) < 9.0
+            })
     }
 
     fn start(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
@@ -37,9 +40,19 @@ impl Goal for SwellGoal {
     }
 
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
-        let dir = match self.target.and_then(|t| level.get_entity(t)).filter(|t| !t.is_dead_or_dying()) {
+        let dir = match self
+            .target
+            .and_then(|t| level.get_entity(t))
+            .filter(|t| !t.is_dead_or_dying())
+        {
             Some(target) => {
-                if mob.base().distance_to_sqr_vec(target.position()) > 49.0 || !mob.mob().expect("mob").sensing.has_line_of_sight(level, mob, target) {
+                if mob.base().distance_to_sqr_vec(target.position()) > 49.0
+                    || !mob
+                        .mob()
+                        .expect("mob")
+                        .sensing
+                        .has_line_of_sight(level, mob, target)
+                {
                     -1
                 } else {
                     1

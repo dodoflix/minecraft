@@ -6,8 +6,8 @@ use crate::commands::shared_suggestion_provider::suggest;
 use crate::commands::{CommandBuildContext, CommandSourceStack};
 use mc_brigadier::arguments::value;
 use mc_brigadier::{
-    ArgumentType, CommandContext, CommandSyntaxException, DynamicCommandExceptionType, ImmutableStringReader, ParsedValue, StringReader,
-    Suggestions, SuggestionsBuilder,
+    ArgumentType, CommandContext, CommandSyntaxException, DynamicCommandExceptionType,
+    ImmutableStringReader, ParsedValue, StringReader, Suggestions, SuggestionsBuilder,
 };
 use mc_protocol::packets::play::ArgumentTypeTemplate;
 use std::sync::{Arc, LazyLock};
@@ -33,22 +33,40 @@ impl SlotRange {
     }
 }
 
-static ERROR_UNKNOWN: LazyLock<DynamicCommandExceptionType<String>> = LazyLock::new(|| dynamic_translatable("slot.unknown"));
-static ERROR_ONLY_SINGLE_SLOT_ALLOWED: LazyLock<DynamicCommandExceptionType<String>> = LazyLock::new(|| dynamic_translatable("slot.only_single_allowed"));
+static ERROR_UNKNOWN: LazyLock<DynamicCommandExceptionType<String>> =
+    LazyLock::new(|| dynamic_translatable("slot.unknown"));
+static ERROR_ONLY_SINGLE_SLOT_ALLOWED: LazyLock<DynamicCommandExceptionType<String>> =
+    LazyLock::new(|| dynamic_translatable("slot.only_single_allowed"));
 
 /// `SlotRanges.SLOTS` in registration order.
 static SLOTS: LazyLock<Vec<SlotRange>> = LazyLock::new(|| {
     let mut v: Vec<SlotRange> = Vec::new();
-    let single = |v: &mut Vec<SlotRange>, name: &str, id: i32| v.push(SlotRange { name: name.to_owned(), slots: vec![id] });
+    let single = |v: &mut Vec<SlotRange>, name: &str, id: i32| {
+        v.push(SlotRange {
+            name: name.to_owned(),
+            slots: vec![id],
+        })
+    };
     let range = |v: &mut Vec<SlotRange>, prefix: &str, offset: i32, size: i32| {
         let mut all = Vec::new();
         for i in 0..size {
-            v.push(SlotRange { name: format!("{prefix}{i}"), slots: vec![offset + i] });
+            v.push(SlotRange {
+                name: format!("{prefix}{i}"),
+                slots: vec![offset + i],
+            });
             all.push(offset + i);
         }
-        v.push(SlotRange { name: format!("{prefix}*"), slots: all });
+        v.push(SlotRange {
+            name: format!("{prefix}*"),
+            slots: all,
+        });
     };
-    let many = |v: &mut Vec<SlotRange>, name: &str, ids: &[i32]| v.push(SlotRange { name: name.to_owned(), slots: ids.to_vec() });
+    let many = |v: &mut Vec<SlotRange>, name: &str, ids: &[i32]| {
+        v.push(SlotRange {
+            name: name.to_owned(),
+            slots: ids.to_vec(),
+        })
+    };
     single(&mut v, "contents", 0);
     range(&mut v, "container.", 0, 54);
     range(&mut v, "hotbar.", 0, 9);
@@ -91,7 +109,10 @@ impl SlotRanges {
     }
 
     pub fn single_slot_names() -> impl Iterator<Item = &'static str> {
-        SLOTS.iter().filter(|s| s.size() == 1).map(|s| s.name.as_str())
+        SLOTS
+            .iter()
+            .filter(|s| s.size() == 1)
+            .map(|s| s.name.as_str())
     }
 
     /// `ParserUtils.readWhile(reader, c -> c != ' ')`.
@@ -130,12 +151,17 @@ impl ArgumentType<CommandSourceStack> for SlotArgument {
     fn parse(&self, reader: &mut StringReader) -> Result<ParsedValue, CommandSyntaxException> {
         let result = SlotRanges::read(reader)?;
         if result.size() != 1 {
-            return Err(ERROR_ONLY_SINGLE_SLOT_ALLOWED.create_with_context(reader, result.get_serialized_name().to_owned()));
+            return Err(ERROR_ONLY_SINGLE_SLOT_ALLOWED
+                .create_with_context(reader, result.get_serialized_name().to_owned()));
         }
         Ok(value(result.slots()[0]))
     }
 
-    fn list_suggestions(&self, _context: &CommandContext<CommandSourceStack>, builder: SuggestionsBuilder) -> Suggestions {
+    fn list_suggestions(
+        &self,
+        _context: &CommandContext<CommandSourceStack>,
+        builder: SuggestionsBuilder,
+    ) -> Suggestions {
         suggest(SlotRanges::single_slot_names(), builder)
     }
 
@@ -168,7 +194,11 @@ impl ArgumentType<CommandSourceStack> for SlotsArgument {
         SlotRanges::read(reader).map(|r| value(r.clone()))
     }
 
-    fn list_suggestions(&self, _context: &CommandContext<CommandSourceStack>, builder: SuggestionsBuilder) -> Suggestions {
+    fn list_suggestions(
+        &self,
+        _context: &CommandContext<CommandSourceStack>,
+        builder: SuggestionsBuilder,
+    ) -> Suggestions {
         suggest(SlotRanges::all_names(), builder)
     }
 
@@ -208,10 +238,15 @@ pub struct SlotSourceArgument {
 
 impl SlotSourceArgument {
     pub fn slot_source(context: &CommandBuildContext) -> Self {
-        Self { holder_argument: Arc::new(ResourceOrIdParser::new(context, "slot_source")) }
+        Self {
+            holder_argument: Arc::new(ResourceOrIdParser::new(context, "slot_source")),
+        }
     }
 
-    pub fn get_slot_source(context: &CommandContext<CommandSourceStack>, name: &str) -> SlotSourceResult {
+    pub fn get_slot_source(
+        context: &CommandContext<CommandSourceStack>,
+        name: &str,
+    ) -> SlotSourceResult {
         context.get_argument::<SlotSourceResult>(name).clone()
     }
 }
@@ -223,10 +258,16 @@ impl ArgumentType<CommandSourceStack> for SlotSourceArgument {
             return Ok(value(SlotSourceResult::Literal(range.clone())));
         }
         reader.set_cursor(start);
-        self.holder_argument.parse(reader).map(|h| value(SlotSourceResult::Holder(h)))
+        self.holder_argument
+            .parse(reader)
+            .map(|h| value(SlotSourceResult::Holder(h)))
     }
 
-    fn list_suggestions(&self, context: &CommandContext<CommandSourceStack>, mut builder: SuggestionsBuilder) -> Suggestions {
+    fn list_suggestions(
+        &self,
+        context: &CommandContext<CommandSourceStack>,
+        mut builder: SuggestionsBuilder,
+    ) -> Suggestions {
         let sub = suggest(SlotRanges::all_names(), builder.restart());
         for s in sub.get_list() {
             builder.suggest(s.get_text());
@@ -241,7 +282,18 @@ impl ArgumentType<CommandSourceStack> for SlotSourceArgument {
     }
 
     fn get_examples(&self) -> Vec<String> {
-        ["foo", "foo:bar", "012", "{}", "true", "container.*", "container.5", "weapon"].map(String::from).to_vec()
+        [
+            "foo",
+            "foo:bar",
+            "012",
+            "{}",
+            "true",
+            "container.*",
+            "container.5",
+            "weapon",
+        ]
+        .map(String::from)
+        .to_vec()
     }
 
     fn describe(&self) -> String {

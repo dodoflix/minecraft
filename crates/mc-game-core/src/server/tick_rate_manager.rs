@@ -6,7 +6,9 @@
 
 use mc_core::math::java::max_f32;
 
-use crate::util::time_util::{MILLISECONDS_PER_SECOND, NANOSECONDS_PER_MILLISECOND, NANOSECONDS_PER_SECOND};
+use crate::util::time_util::{
+    MILLISECONDS_PER_SECOND, NANOSECONDS_PER_MILLISECOND, NANOSECONDS_PER_SECOND,
+};
 use crate::util::util::get_nanos;
 
 /// `TickRateManager.MIN_TICKRATE`.
@@ -128,12 +130,17 @@ impl ServerTickRateManager {
 
     /// `ClientboundTickingStatePacket.from`.
     pub fn ticking_state(&self) -> TickingState {
-        TickingState { tick_rate: self.tickrate, is_frozen: self.is_frozen }
+        TickingState {
+            tick_rate: self.tickrate,
+            is_frozen: self.is_frozen,
+        }
     }
 
     /// `ClientboundTickingStepPacket.from`.
     pub fn ticking_step(&self) -> TickingStep {
-        TickingStep { tick_steps: self.frozen_ticks_to_run }
+        TickingStep {
+            tick_steps: self.frozen_ticks_to_run,
+        }
     }
 
     /// `updateJoiningPlayer`: the two packets to send to the joining player, in order.
@@ -161,7 +168,8 @@ impl ServerTickRateManager {
     /// `setTickRate(rate)`.
     pub fn set_tick_rate(&mut self, rate: f32, host: &mut dyn TickRateHost) {
         self.tickrate = max_f32(rate, MIN_TICKRATE);
-        self.nanoseconds_per_tick = (NANOSECONDS_PER_SECOND as f64 / f64::from(self.tickrate)) as i64;
+        self.nanoseconds_per_tick =
+            (NANOSECONDS_PER_SECOND as f64 / f64::from(self.tickrate)) as i64;
         host.on_tick_rate_changed(self.tickrate, self.is_sprinting());
         self.update_state_to_clients(host);
     }
@@ -208,12 +216,17 @@ impl ServerTickRateManager {
 
     fn finish_tick_sprint(&mut self, host: &mut dyn TickRateHost) {
         let completed_ticks = self.scheduled_current_sprint_ticks - self.remaining_sprint_ticks;
-        let milliseconds_to_complete = (self.sprint_time_spend as f64).max(1.0) / NANOSECONDS_PER_MILLISECOND as f64;
-        let ticks_per_second = (MILLISECONDS_PER_SECOND.wrapping_mul(completed_ticks) as f64 / milliseconds_to_complete) as i32;
+        let milliseconds_to_complete =
+            (self.sprint_time_spend as f64).max(1.0) / NANOSECONDS_PER_MILLISECOND as f64;
+        let ticks_per_second = (MILLISECONDS_PER_SECOND.wrapping_mul(completed_ticks) as f64
+            / milliseconds_to_complete) as i32;
         let milliseconds_per_tick = if completed_ticks == 0 {
             crate::util::java_format::format_fixed(f64::from(self.milliseconds_per_tick()), 2)
         } else {
-            crate::util::java_format::format_fixed(milliseconds_to_complete / completed_ticks as f64, 2)
+            crate::util::java_format::format_fixed(
+                milliseconds_to_complete / completed_ticks as f64,
+                2,
+            )
         };
         self.scheduled_current_sprint_ticks = 0;
         self.sprint_time_spend = 0;
@@ -269,11 +282,24 @@ mod tests {
     fn tick_rate_clamps_and_derives_nanos() {
         let mut m = ServerTickRateManager::new();
         let mut h = Host::default();
-        assert_eq!((m.tickrate(), m.nanoseconds_per_tick(), m.milliseconds_per_tick()), (20.0, 50_000_000, 50.0));
+        assert_eq!(
+            (
+                m.tickrate(),
+                m.nanoseconds_per_tick(),
+                m.milliseconds_per_tick()
+            ),
+            (20.0, 50_000_000, 50.0)
+        );
         m.set_tick_rate(0.1, &mut h);
-        assert_eq!((m.tickrate(), m.nanoseconds_per_tick()), (1.0, 1_000_000_000));
+        assert_eq!(
+            (m.tickrate(), m.nanoseconds_per_tick()),
+            (1.0, 1_000_000_000)
+        );
         m.set_tick_rate(100.0, &mut h);
-        assert_eq!((m.milliseconds_per_tick(), m.nanoseconds_per_tick()), (10.0, 10_000_000));
+        assert_eq!(
+            (m.milliseconds_per_tick(), m.nanoseconds_per_tick()),
+            (10.0, 10_000_000)
+        );
         m.set_tick_rate(3.0, &mut h);
         assert_eq!(m.nanoseconds_per_tick(), 333_333_333);
         assert_eq!(h.events[0], "changed");
@@ -333,6 +359,10 @@ mod tests {
         m.request_game_to_sprint(10, &mut h);
         assert!(m.stop_sprinting(&mut h));
         // no completed ticks: ticks/s 0, ms/tick falls back to the tick rate's 50.00
-        assert!(h.events.contains(&"report 0 50.00".to_string()), "{:?}", h.events);
+        assert!(
+            h.events.contains(&"report 0 50.00".to_string()),
+            "{:?}",
+            h.events
+        );
     }
 }

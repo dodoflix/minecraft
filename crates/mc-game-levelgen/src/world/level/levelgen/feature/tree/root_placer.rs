@@ -2,16 +2,16 @@
 
 use super::above_root_placement::AboveRootPlacement;
 use super::tree_feature::{self, TreeFeature, TreeSetter, fluid_is_water};
+use mc_core::pos::BlockPos;
+use mc_core::random::RandomSource;
+use mc_data::block::BlockState;
+use mc_data::props;
 use mc_game_core::world::level::LevelAccessor;
 use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult};
 use mc_game_core::world::level::levelgen::holder::Holder;
 use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_game_core::world::level::levelgen::stateproviders::BlockStateProvider;
 use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
-use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
-use mc_data::block::BlockState;
-use mc_data::props;
 use mc_worldgen::provider::IntProvider;
 
 /// The fields every root placer shares (`rootPlacerParts`).
@@ -26,7 +26,9 @@ impl RootBase {
         Ok(RootBase {
             trunk_offset_y: fields.required("trunk_offset_y", IntProvider::from_json)?,
             root_provider: fields.required("root_provider", |v| ctx.block_state_provider(v))?,
-            above_root_placement: fields.optional("above_root_placement", |v| AboveRootPlacement::decode(v, ctx))?,
+            above_root_placement: fields.optional("above_root_placement", |v| {
+                AboveRootPlacement::decode(v, ctx)
+            })?,
         })
     }
 }
@@ -51,7 +53,14 @@ pub trait RootPlacer: Send + Sync {
     }
 
     /// `placeRoot(level, rootSetter, random, pos, tree)`.
-    fn place_root(&self, level: &mut dyn WorldGenLevel, root_setter: &mut TreeSetter, random: &mut dyn RandomSource, pos: BlockPos, tree: &TreeFeature) {
+    fn place_root(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        root_setter: &mut TreeSetter,
+        random: &mut dyn RandomSource,
+        pos: BlockPos,
+        tree: &TreeFeature,
+    ) {
         place_root_default(self, level, root_setter, random, pos, tree);
     }
 
@@ -71,13 +80,22 @@ pub fn place_root_default<P: RootPlacer + ?Sized>(
     _tree: &TreeFeature,
 ) {
     if placer.can_place_root(level, pos) {
-        let state = placer.base().root_provider.value().get_state(level, random, pos);
+        let state = placer
+            .base()
+            .root_provider
+            .value()
+            .get_state(level, random, pos);
         let state = get_potentially_waterlogged_state(level, pos, state);
         root_setter.set(level, pos, state);
         if let Some(above_placement) = &placer.base().above_root_placement {
             let above = pos.above();
-            if random.next_float() < above_placement.above_root_placement_chance && level.get_block_state(above).is_air() {
-                let state = above_placement.above_root_provider.value().get_state(level, random, above);
+            if random.next_float() < above_placement.above_root_placement_chance
+                && level.get_block_state(above).is_air()
+            {
+                let state = above_placement
+                    .above_root_provider
+                    .value()
+                    .get_state(level, random, above);
                 let state = get_potentially_waterlogged_state(level, above, state);
                 root_setter.set(level, above, state);
             }
@@ -86,9 +104,16 @@ pub fn place_root_default<P: RootPlacer + ?Sized>(
 }
 
 /// `RootPlacer.getPotentiallyWaterloggedState(level, pos, state)`.
-pub fn get_potentially_waterlogged_state(level: &dyn LevelAccessor, pos: BlockPos, state: BlockState) -> BlockState {
+pub fn get_potentially_waterlogged_state(
+    level: &dyn LevelAccessor,
+    pos: BlockPos,
+    state: BlockState,
+) -> BlockState {
     if state.has_property(props::WATERLOGGED) {
-        state.set(props::WATERLOGGED, fluid_is_water(level.get_fluid_state(pos)))
+        state.set(
+            props::WATERLOGGED,
+            fluid_is_water(level.get_fluid_state(pos)),
+        )
     } else {
         state
     }

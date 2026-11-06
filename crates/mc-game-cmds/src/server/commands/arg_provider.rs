@@ -1,10 +1,14 @@
 //! `net.minecraft.server.commands.ArgProvider`: one alternative of a "`<kind> <argument>`" command branch
 //! (`entity <target>`, `block <pos>`, `storage <id>`), as the argument builder to attach and the accessor to resolve it.
+use mc_brigadier::{
+    ArgumentBuilder, CommandContext, CommandSyntaxException, RequiredArgumentBuilder,
+};
 use mc_game_core::commands::CommandSourceStack;
-use mc_brigadier::{ArgumentBuilder, CommandContext, CommandSyntaxException, RequiredArgumentBuilder};
 use std::sync::Arc;
 
-type Access<T> = Arc<dyn Fn(&CommandContext<CommandSourceStack>) -> Result<T, CommandSyntaxException> + Send + Sync>;
+type Access<T> = Arc<
+    dyn Fn(&CommandContext<CommandSourceStack>) -> Result<T, CommandSyntaxException> + Send + Sync,
+>;
 
 /// `ArgProvider<T>`.
 pub struct ArgProvider<T> {
@@ -15,7 +19,11 @@ pub struct ArgProvider<T> {
 
 impl<T> Clone for ArgProvider<T> {
     fn clone(&self) -> Self {
-        Self { key: self.key, child: self.child.clone(), access: self.access.clone() }
+        Self {
+            key: self.key,
+            child: self.child.clone(),
+            access: self.access.clone(),
+        }
     }
 }
 
@@ -27,13 +35,23 @@ impl<T> ArgProvider<T> {
     pub fn create(
         key: &'static str,
         child: impl Fn() -> RequiredArgumentBuilder<CommandSourceStack> + Send + Sync + 'static,
-        access: impl Fn(&CommandContext<CommandSourceStack>) -> Result<T, CommandSyntaxException> + Send + Sync + 'static,
+        access: impl Fn(&CommandContext<CommandSourceStack>) -> Result<T, CommandSyntaxException>
+        + Send
+        + Sync
+        + 'static,
     ) -> Self {
-        Self { key, child: Arc::new(child), access: Arc::new(access) }
+        Self {
+            key,
+            child: Arc::new(child),
+            access: Arc::new(access),
+        }
     }
 
     /// `access(context)`.
-    pub fn access(&self, context: &CommandContext<CommandSourceStack>) -> Result<T, CommandSyntaxException> {
+    pub fn access(
+        &self,
+        context: &CommandContext<CommandSourceStack>,
+    ) -> Result<T, CommandSyntaxException> {
         (self.access)(context)
     }
 

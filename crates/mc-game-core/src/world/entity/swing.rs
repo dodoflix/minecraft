@@ -21,14 +21,23 @@ pub struct SwingState {
 
 impl SwingState {
     /// `startIfAble(hand, animation, durationTicks)`.
-    pub fn start_if_able(&mut self, hand: InteractionHand, animation: SwingAnimation, duration_ticks: i32) -> bool {
+    pub fn start_if_able(
+        &mut self,
+        hand: InteractionHand,
+        animation: SwingAnimation,
+        duration_ticks: i32,
+    ) -> bool {
         if let Some(cur) = &self.current_swing {
             if self.ticks <= cur.duration_ticks / 2 && self.ticks > 0 {
                 return false;
             }
         }
         let old = self.current_swing;
-        let new = SwingDescription { hand, animation, duration_ticks };
+        let new = SwingDescription {
+            hand,
+            animation,
+            duration_ticks,
+        };
         self.current_swing = Some(new);
         if old != Some(new) {
             self.old_animation = 0.0;

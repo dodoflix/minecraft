@@ -34,8 +34,17 @@ pub struct Path(Arc<Mutex<PathData>>);
 impl Path {
     /// `new Path(nodes, target, reached)`.
     pub fn new(nodes: Vec<Node>, target: BlockPos, reached: bool) -> Path {
-        let dist_to_target = nodes.last().map_or(f32::MAX, |n| n.distance_manhattan_pos(target));
-        Path(Arc::new(Mutex::new(PathData { nodes, debug_data: None, next_node_index: 0, target, dist_to_target, reached })))
+        let dist_to_target = nodes
+            .last()
+            .map_or(f32::MAX, |n| n.distance_manhattan_pos(target));
+        Path(Arc::new(Mutex::new(PathData {
+            nodes,
+            debug_data: None,
+            next_node_index: 0,
+            target,
+            dist_to_target,
+            reached,
+        })))
     }
 
     /// `advance()`.
@@ -96,7 +105,11 @@ impl Path {
     pub fn get_entity_pos_at_node(&self, bb_width: f32, index: usize) -> Vec3 {
         let node = self.get_node(index);
         let half = f64::from((bb_width + 1.0) as i32) * 0.5;
-        Vec3::new(f64::from(node.x) + half, f64::from(node.y), f64::from(node.z) + half)
+        Vec3::new(
+            f64::from(node.x) + half,
+            f64::from(node.y),
+            f64::from(node.z) + half,
+        )
     }
 
     /// `getNodePos(index)`.
@@ -154,7 +167,11 @@ impl Path {
 
     /// `setDebug(openSet, closedSet, targets)`.
     pub fn set_debug(&self, open_set: Vec<Node>, closed_set: Vec<Node>, targets: Vec<Target>) {
-        self.0.lock().debug_data = Some(Arc::new(DebugData { open_set, closed_set, target_nodes: targets }));
+        self.0.lock().debug_data = Some(Arc::new(DebugData {
+            open_set,
+            closed_set,
+            target_nodes: targets,
+        }));
     }
 
     /// `debugData()`.
@@ -218,7 +235,11 @@ mod tests {
     use super::*;
 
     fn path() -> Path {
-        Path::new(vec![Node::new(0, 0, 0), Node::new(1, 0, 0), Node::new(2, 0, 0)], BlockPos::new(2, 0, 3), false)
+        Path::new(
+            vec![Node::new(0, 0, 0), Node::new(1, 0, 0), Node::new(2, 0, 0)],
+            BlockPos::new(2, 0, 3),
+            false,
+        )
     }
 
     #[test]

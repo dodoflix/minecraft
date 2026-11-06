@@ -14,17 +14,35 @@ const REGISTRY: &str = "minecraft:enchantment_value_effect_type";
 
 #[derive(Clone, Debug, PartialEq)]
 pub enum EnchantmentValueEffect {
-    Add { value: LevelBasedValue },
-    AllOf { effects: Vec<EnchantmentValueEffect> },
-    Multiply { factor: LevelBasedValue },
-    RemoveBinomial { chance: LevelBasedValue },
-    Exponential { base: LevelBasedValue, exponent: LevelBasedValue },
-    Set { value: LevelBasedValue },
+    Add {
+        value: LevelBasedValue,
+    },
+    AllOf {
+        effects: Vec<EnchantmentValueEffect>,
+    },
+    Multiply {
+        factor: LevelBasedValue,
+    },
+    RemoveBinomial {
+        chance: LevelBasedValue,
+    },
+    Exponential {
+        base: LevelBasedValue,
+        exponent: LevelBasedValue,
+    },
+    Set {
+        value: LevelBasedValue,
+    },
 }
 
 impl EnchantmentValueEffect {
     /// `process(enchantmentLevel, random, inputValue)`.
-    pub fn process(&self, enchantment_level: i32, random: &mut dyn RandomSource, input: f32) -> f32 {
+    pub fn process(
+        &self,
+        enchantment_level: i32,
+        random: &mut dyn RandomSource,
+        input: f32,
+    ) -> f32 {
         match self {
             EnchantmentValueEffect::Add { value } => input + value.calculate(enchantment_level),
             EnchantmentValueEffect::AllOf { effects } => {
@@ -34,10 +52,16 @@ impl EnchantmentValueEffect {
                 }
                 value
             }
-            EnchantmentValueEffect::Multiply { factor } => input * factor.calculate(enchantment_level),
-            EnchantmentValueEffect::RemoveBinomial { chance } => remove_binomial(chance.calculate(enchantment_level), random, input),
+            EnchantmentValueEffect::Multiply { factor } => {
+                input * factor.calculate(enchantment_level)
+            }
+            EnchantmentValueEffect::RemoveBinomial { chance } => {
+                remove_binomial(chance.calculate(enchantment_level), random, input)
+            }
             EnchantmentValueEffect::Exponential { base, exponent } => {
-                (input as f64 * (base.calculate(enchantment_level) as f64).powf(exponent.calculate(enchantment_level) as f64)) as f32
+                (input as f64
+                    * (base.calculate(enchantment_level) as f64)
+                        .powf(exponent.calculate(enchantment_level) as f64)) as f32
             }
             EnchantmentValueEffect::Set { value } => value.calculate(enchantment_level),
         }
@@ -91,31 +115,51 @@ struct EffectsRec {
 fn arm(ty: &str) -> MapCodec<EnchantmentValueEffect> {
     use EnchantmentValueEffect as E;
     match ty {
-        "minecraft:add" => record!(ValueRec { value: LevelBasedValue::codec().field_of("value") }).xmap(
+        "minecraft:add" => record!(ValueRec {
+            value: LevelBasedValue::codec().field_of("value")
+        })
+        .xmap(
             |r| E::Add { value: r.value },
             |e: &E| match e {
-                E::Add { value } => ValueRec { value: value.clone() },
+                E::Add { value } => ValueRec {
+                    value: value.clone(),
+                },
                 _ => unreachable!("dispatched by type"),
             },
         ),
-        "minecraft:set" => record!(ValueRec { value: LevelBasedValue::codec().field_of("value") }).xmap(
+        "minecraft:set" => record!(ValueRec {
+            value: LevelBasedValue::codec().field_of("value")
+        })
+        .xmap(
             |r| E::Set { value: r.value },
             |e: &E| match e {
-                E::Set { value } => ValueRec { value: value.clone() },
+                E::Set { value } => ValueRec {
+                    value: value.clone(),
+                },
                 _ => unreachable!("dispatched by type"),
             },
         ),
-        "minecraft:multiply" => record!(FactorRec { factor: LevelBasedValue::codec().field_of("factor") }).xmap(
+        "minecraft:multiply" => record!(FactorRec {
+            factor: LevelBasedValue::codec().field_of("factor")
+        })
+        .xmap(
             |r| E::Multiply { factor: r.factor },
             |e: &E| match e {
-                E::Multiply { factor } => FactorRec { factor: factor.clone() },
+                E::Multiply { factor } => FactorRec {
+                    factor: factor.clone(),
+                },
                 _ => unreachable!("dispatched by type"),
             },
         ),
-        "minecraft:remove_binomial" => record!(ChanceRec { chance: LevelBasedValue::codec().field_of("chance") }).xmap(
+        "minecraft:remove_binomial" => record!(ChanceRec {
+            chance: LevelBasedValue::codec().field_of("chance")
+        })
+        .xmap(
             |r| E::RemoveBinomial { chance: r.chance },
             |e: &E| match e {
-                E::RemoveBinomial { chance } => ChanceRec { chance: chance.clone() },
+                E::RemoveBinomial { chance } => ChanceRec {
+                    chance: chance.clone(),
+                },
                 _ => unreachable!("dispatched by type"),
             },
         ),
@@ -124,21 +168,32 @@ fn arm(ty: &str) -> MapCodec<EnchantmentValueEffect> {
             exponent: LevelBasedValue::codec().field_of("exponent"),
         })
         .xmap(
-            |r| E::Exponential { base: r.base, exponent: r.exponent },
+            |r| E::Exponential {
+                base: r.base,
+                exponent: r.exponent,
+            },
             |e: &E| match e {
-                E::Exponential { base, exponent } => ExpRec { base: base.clone(), exponent: exponent.clone() },
+                E::Exponential { base, exponent } => ExpRec {
+                    base: base.clone(),
+                    exponent: exponent.clone(),
+                },
                 _ => unreachable!("dispatched by type"),
             },
         ),
-        "minecraft:all_of" => {
-            record!(EffectsRec { effects: Codec::lazy(EnchantmentValueEffect::codec).list_of().field_of("effects") }).xmap(
-                |r| E::AllOf { effects: r.effects },
-                |e: &E| match e {
-                    E::AllOf { effects } => EffectsRec { effects: effects.clone() },
-                    _ => unreachable!("dispatched by type"),
+        "minecraft:all_of" => record!(EffectsRec {
+            effects: Codec::lazy(EnchantmentValueEffect::codec)
+                .list_of()
+                .field_of("effects")
+        })
+        .xmap(
+            |r| E::AllOf { effects: r.effects },
+            |e: &E| match e {
+                E::AllOf { effects } => EffectsRec {
+                    effects: effects.clone(),
                 },
-            )
-        }
+                _ => unreachable!("dispatched by type"),
+            },
+        ),
         _ => unreachable!("type_codec only yields registered names"),
     }
 }

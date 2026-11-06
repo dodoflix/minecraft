@@ -17,7 +17,8 @@ use mc_core::ident::Identifier;
 use mc_dfu::extra::IDENTIFIER;
 use mc_dfu::{Codec, DataResult, Dyn, JSON};
 use mc_protocol::packets::play::{
-    ClientboundSelectAdvancementsTabPacket, ClientboundUpdateAdvancementsPacket, PositionedAdvancement,
+    ClientboundSelectAdvancementsTabPacket, ClientboundUpdateAdvancementsPacket,
+    PositionedAdvancement,
 };
 use parking_lot::{Mutex, MutexGuard};
 use serde_json::Value;
@@ -42,7 +43,10 @@ pub struct TriggerInstanceKey {
 impl JavaHash for TriggerInstanceKey {
     /// The record hash: `31 * advancement.hashCode() + criterion.hashCode()`.
     fn java_hash(&self) -> i32 {
-        self.advancement.java_hash().wrapping_mul(31).wrapping_add(self.criterion.java_hash())
+        self.advancement
+            .java_hash()
+            .wrapping_mul(31)
+            .wrapping_add(self.criterion.java_hash())
     }
 }
 
@@ -61,13 +65,17 @@ pub struct PlayerAdvancements {
     roots_to_update: JavaHashSet<AdvancementHolder>,
     last_selected_tab: Option<AdvancementHolder>,
     is_first_packet: bool,
-    active_triggers: HashMap<&'static str, JavaHashMap<TriggerInstanceKey, Arc<dyn CriterionTriggerInstance>>>,
+    active_triggers:
+        HashMap<&'static str, JavaHashMap<TriggerInstanceKey, Arc<dyn CriterionTriggerInstance>>>,
 }
 
 impl PlayerAdvancements {
     /// `new PlayerAdvancements(dataFixer, playerList, manager, playerSavePath, player)`: loads the file.
     /// `None` path: nothing is read or written (players without a player list).
-    pub fn new(manager: &ServerAdvancementManager, player_save_path: Option<PathBuf>) -> PlayerAdvancements {
+    pub fn new(
+        manager: &ServerAdvancementManager,
+        player_save_path: Option<PathBuf>,
+    ) -> PlayerAdvancements {
         let mut this = PlayerAdvancements {
             player_save_path,
             tree: manager.tree().clone(),
@@ -117,9 +125,15 @@ impl PlayerAdvancements {
             match std::fs::read_to_string(&path) {
                 Ok(text) => match parse_player_file(&text) {
                     Ok(data) => self.apply_from(manager, data),
-                    Err(e) => log::error!("Couldn't parse player advancements in {}: {e}", path.display()),
+                    Err(e) => log::error!(
+                        "Couldn't parse player advancements in {}: {e}",
+                        path.display()
+                    ),
                 },
-                Err(e) => log::error!("Couldn't access player advancements in {}: {e}", path.display()),
+                Err(e) => log::error!(
+                    "Couldn't access player advancements in {}: {e}",
+                    path.display()
+                ),
             }
         }
         // `checkForAutomaticTriggers`: an advancement without criteria cannot exist (`Advancement.CODEC` rejects it)
@@ -128,31 +142,58 @@ impl PlayerAdvancements {
 
     /// `save()`: logs `Couldn't save player advancements to {}` on failure.
     pub fn save(&self) {
-        let Some(path) = &self.player_save_path else { return };
-        let data: Vec<(Identifier, AdvancementProgress)> =
-            self.progress.iter().filter(|(_, p)| p.has_progress()).map(|(h, p)| (h.id.clone(), p.clone())).collect();
+        let Some(path) = &self.player_save_path else {
+            return;
+        };
+        let data: Vec<(Identifier, AdvancementProgress)> = self
+            .progress
+            .iter()
+            .filter(|(_, p)| p.has_progress())
+            .map(|(h, p)| (h.id.clone(), p.clone()))
+            .collect();
         let encoded = data_codec().encode_start(&JSON, &data).into_result();
-        let mut json = match encoded.map(|d| d.to_json_string()).ok().and_then(|s| serde_json::from_str::<Value>(&s).ok()) {
+        let mut json = match encoded
+            .map(|d| d.to_json_string())
+            .ok()
+            .and_then(|s| serde_json::from_str::<Value>(&s).ok())
+        {
             Some(Value::Object(o)) => o,
             _ => {
-                log::error!("Couldn't save player advancements to {}: encoding failed", path.display());
+                log::error!(
+                    "Couldn't save player advancements to {}: encoding failed",
+                    path.display()
+                );
                 return;
             }
         };
-        json.insert("DataVersion".into(), Value::from(mc_world::level_storage::WORLD_VERSION));
-        if let Err(e) = crate::server::players::player_files::save_json(path, &Value::Object(json)) {
-            log::error!("Couldn't save player advancements to {}: {e}", path.display());
+        json.insert(
+            "DataVersion".into(),
+            Value::from(mc_world::level_storage::WORLD_VERSION),
+        );
+        if let Err(e) = crate::server::players::player_files::save_json(path, &Value::Object(json))
+        {
+            log::error!(
+                "Couldn't save player advancements to {}: {e}",
+                path.display()
+            );
         }
     }
 
-    fn apply_from(&mut self, manager: &ServerAdvancementManager, mut data: Vec<(Identifier, AdvancementProgress)>) {
+    fn apply_from(
+        &mut self,
+        manager: &ServerAdvancementManager,
+        mut data: Vec<(Identifier, AdvancementProgress)>,
+    ) {
         // `Data.forEach` iterates sorted by progress (first obtained time; stable)
         data.sort_by(|a, b| a.1.compare_to(&b.1));
         for (id, progress) in data {
             match manager.get(&id) {
                 None => log::warn!(
                     "Ignored advancement '{id}' in progress file {} - it doesn't exist anymore?",
-                    self.player_save_path.as_ref().map(|p| p.display().to_string()).unwrap_or_default()
+                    self.player_save_path
+                        .as_ref()
+                        .map(|p| p.display().to_string())
+                        .unwrap_or_default()
                 ),
                 Some(advancement) => {
                     let advancement = advancement.clone();
@@ -169,7 +210,11 @@ impl PlayerAdvancements {
         let mut result = false;
         self.get_or_start_progress(holder);
         let was_done = self.progress[holder].is_done();
-        let granted = self.progress.get_mut(holder).expect("started").grant_progress(criterion);
+        let granted = self
+            .progress
+            .get_mut(holder)
+            .expect("started")
+            .grant_progress(criterion);
         let mut newly_done = false;
         if granted {
             self.unregister_listeners(holder);
@@ -185,7 +230,12 @@ impl PlayerAdvancements {
         let mut result = false;
         self.get_or_start_progress(advancement);
         let was_done = self.progress[advancement].is_done();
-        if self.progress.get_mut(advancement).expect("started").revoke_progress(criterion) {
+        if self
+            .progress
+            .get_mut(advancement)
+            .expect("started")
+            .revoke_progress(criterion)
+        {
             self.register_listeners(advancement);
             self.progress_changed.insert(advancement.clone());
             result = true;
@@ -199,7 +249,8 @@ impl PlayerAdvancements {
     fn mark_for_visibility_update(&mut self, advancement: &AdvancementHolder) {
         if let Some(node) = self.tree.get_holder(advancement) {
             let root = self.tree.root_of(node);
-            self.roots_to_update.insert(self.tree.node(root).holder.clone());
+            self.roots_to_update
+                .insert(self.tree.node(root).holder.clone());
         }
     }
 
@@ -212,7 +263,13 @@ impl PlayerAdvancements {
         let mut to_add = Vec::new();
         for (name, criterion) in &holder.value().criteria {
             if progress.get_criterion(name).is_some_and(|c| !c.is_done()) {
-                to_add.push((criterion.clone(), TriggerInstanceKey { advancement: holder.clone(), criterion: name.clone() }));
+                to_add.push((
+                    criterion.clone(),
+                    TriggerInstanceKey {
+                        advancement: holder.clone(),
+                        criterion: name.clone(),
+                    },
+                ));
             }
         }
         for (criterion, key) in to_add {
@@ -225,8 +282,17 @@ impl PlayerAdvancements {
         let progress = &self.progress[holder];
         let mut to_remove = Vec::new();
         for (name, criterion) in &holder.value().criteria {
-            if progress.get_criterion(name).is_some_and(|c| c.is_done() || progress.is_done()) {
-                to_remove.push((criterion.trigger, TriggerInstanceKey { advancement: holder.clone(), criterion: name.clone() }));
+            if progress
+                .get_criterion(name)
+                .is_some_and(|c| c.is_done() || progress.is_done())
+            {
+                to_remove.push((
+                    criterion.trigger,
+                    TriggerInstanceKey {
+                        advancement: holder.clone(),
+                        criterion: name.clone(),
+                    },
+                ));
             }
         }
         for (trigger, key) in to_remove {
@@ -235,14 +301,24 @@ impl PlayerAdvancements {
     }
 
     /// `setSelectedTab(holder)`: the packet to send, if the selection changed.
-    fn set_selected_tab_state(&mut self, holder: Option<&AdvancementHolder>) -> Option<ClientboundSelectAdvancementsTabPacket> {
+    fn set_selected_tab_state(
+        &mut self,
+        holder: Option<&AdvancementHolder>,
+    ) -> Option<ClientboundSelectAdvancementsTabPacket> {
         let old = self.last_selected_tab.clone();
-        self.last_selected_tab = holder.filter(|h| h.value().is_root() && h.value().display.is_some()).cloned();
-        (old != self.last_selected_tab).then(|| ClientboundSelectAdvancementsTabPacket { tab: self.last_selected_tab.as_ref().map(|h| h.id.clone()) })
+        self.last_selected_tab = holder
+            .filter(|h| h.value().is_root() && h.value().display.is_some())
+            .cloned();
+        (old != self.last_selected_tab).then(|| ClientboundSelectAdvancementsTabPacket {
+            tab: self.last_selected_tab.as_ref().map(|h| h.id.clone()),
+        })
     }
 
     /// `getOrStartProgress(advancement)`.
-    pub fn get_or_start_progress(&mut self, advancement: &AdvancementHolder) -> &mut AdvancementProgress {
+    pub fn get_or_start_progress(
+        &mut self,
+        advancement: &AdvancementHolder,
+    ) -> &mut AdvancementProgress {
         if !self.progress.contains_key(advancement) {
             self.start_progress(advancement, AdvancementProgress::new());
         }
@@ -254,7 +330,12 @@ impl PlayerAdvancements {
         self.progress.insert(holder.clone(), progress);
     }
 
-    fn update_tree_visibility(&mut self, root: NodeId, added: &mut JavaHashSet<AdvancementHolder>, removed: &mut JavaHashSet<Identifier>) {
+    fn update_tree_visibility(
+        &mut self,
+        root: NodeId,
+        added: &mut JavaHashSet<AdvancementHolder>,
+        removed: &mut JavaHashSet<Identifier>,
+    ) {
         let tree = self.tree.clone();
         let mut done_cache: HashMap<NodeId, bool> = HashMap::new();
         for n in 0..tree.len() {
@@ -265,7 +346,9 @@ impl PlayerAdvancements {
             }
         }
         let mut changes: Vec<(NodeId, bool)> = Vec::new();
-        evaluate_visibility(&tree, root, &mut |n| done_cache[&n], &mut |n, v| changes.push((n, v)));
+        evaluate_visibility(&tree, root, &mut |n| done_cache[&n], &mut |n, v| {
+            changes.push((n, v))
+        });
         for (node, should_be_visible) in changes {
             let advancement = tree.node(node).holder.clone();
             if should_be_visible {
@@ -282,9 +365,15 @@ impl PlayerAdvancements {
     }
 
     /// `flushDirty(player, showAdvancements)`'s packet: `None` when nothing changed.
-    fn flush_dirty_state(&mut self, show_advancements: bool) -> Option<ClientboundUpdateAdvancementsPacket> {
+    fn flush_dirty_state(
+        &mut self,
+        show_advancements: bool,
+    ) -> Option<ClientboundUpdateAdvancementsPacket> {
         let mut packet = None;
-        if self.is_first_packet || !self.roots_to_update.is_empty() || !self.progress_changed.is_empty() {
+        if self.is_first_packet
+            || !self.roots_to_update.is_empty()
+            || !self.progress_changed.is_empty()
+        {
             let mut progress: JavaHashMap<Identifier, AdvancementProgress> = JavaHashMap::new();
             let mut added: JavaHashSet<AdvancementHolder> = JavaHashSet::new();
             let mut removed: JavaHashSet<Identifier> = JavaHashSet::new();
@@ -311,7 +400,10 @@ impl PlayerAdvancements {
                     .map(|n| {
                         let node = self.tree.node(n);
                         PositionedAdvancement {
-                            advancement: mc_protocol::packets::play::AdvancementHolder { id: node.holder.id.clone(), value: node.holder.value().to_network() },
+                            advancement: mc_protocol::packets::play::AdvancementHolder {
+                                id: node.holder.id.clone(),
+                                value: node.holder.value().to_network(),
+                            },
                             x: node.x,
                             y: node.y,
                         }
@@ -321,7 +413,10 @@ impl PlayerAdvancements {
                     should_reset: self.is_first_packet,
                     added: converted_added,
                     removed: removed.iter().cloned().collect(),
-                    progress: progress.iter().map(|(k, v)| (k.clone(), v.to_network())).collect(),
+                    progress: progress
+                        .iter()
+                        .map(|(k, v)| (k.clone(), v.to_network()))
+                        .collect(),
                     show_advancements,
                 });
             }
@@ -331,7 +426,10 @@ impl PlayerAdvancements {
     }
 
     fn add_listener(&mut self, criterion: &Criterion, key: TriggerInstanceKey) {
-        self.active_triggers.entry(criterion.trigger).or_default().insert(key, criterion.trigger_instance.clone());
+        self.active_triggers
+            .entry(criterion.trigger)
+            .or_default()
+            .insert(key, criterion.trigger_instance.clone());
     }
 
     fn remove_listener(&mut self, trigger: &'static str, key: &TriggerInstanceKey) {
@@ -344,8 +442,14 @@ impl PlayerAdvancements {
     }
 
     /// `getTriggerMapForType(type)` in the map's iteration order.
-    pub fn listeners_for(&self, trigger: &str) -> Vec<(TriggerInstanceKey, Arc<dyn CriterionTriggerInstance>)> {
-        self.active_triggers.get(trigger).map(|m| m.iter().map(|(k, v)| (k.clone(), v.clone())).collect()).unwrap_or_default()
+    pub fn listeners_for(
+        &self,
+        trigger: &str,
+    ) -> Vec<(TriggerInstanceKey, Arc<dyn CriterionTriggerInstance>)> {
+        self.active_triggers
+            .get(trigger)
+            .map(|m| m.iter().map(|(k, v)| (k.clone(), v.clone())).collect())
+            .unwrap_or_default()
     }
 
     /// The progress of `advancement` if it was started (read-only; `getOrStartProgress` without the insertion).
@@ -395,13 +499,21 @@ impl SharedAdvancements {
 
     /// `award(holder, criterion)`: grants the criterion; when that completes the advancement, the rewards are granted
     /// and the chat announcement sent. Returns whether the criterion was newly granted.
-    pub fn award(&self, level: &mut ServerLevel, player: &mut ServerPlayer, holder: &AdvancementHolder, criterion: &str) -> bool {
+    pub fn award(
+        &self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        holder: &AdvancementHolder,
+        criterion: &str,
+    ) -> bool {
         let (result, newly_done) = self.0.lock().award_state(holder, criterion);
         if newly_done {
             holder.value().rewards.grant(level, player);
             if let Some(display) = &holder.value().display {
                 if display.announce_to_chat && level.show_advancement_messages() {
-                    let message = display.type_.create_announcement(holder, player.get_display_name());
+                    let message = display
+                        .type_
+                        .create_announcement(holder, player.get_display_name());
                     broadcast_system_message(level, &message);
                 }
             }
@@ -437,7 +549,10 @@ impl SharedAdvancements {
     }
 
     /// `getTriggerMapForType(type)`.
-    pub fn listeners_for(&self, trigger: &str) -> Vec<(TriggerInstanceKey, Arc<dyn CriterionTriggerInstance>)> {
+    pub fn listeners_for(
+        &self,
+        trigger: &str,
+    ) -> Vec<(TriggerInstanceKey, Arc<dyn CriterionTriggerInstance>)> {
         self.0.lock().listeners_for(trigger)
     }
 

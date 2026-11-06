@@ -1,7 +1,7 @@
 //! `net.minecraft.world.level.block.SugarCaneBlock`.
-use mc_game_core::{register_block_class, update_shape};
-use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::{register_block_class, update_shape};
 
 pub struct SugarCaneBlock;
 
@@ -14,7 +14,10 @@ impl BlockBehaviour for SugarCaneBlock {
     fn random_tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         if level.is_empty_block(pos.above()) {
             let mut height = 1;
-            while level.get_block_state(pos.below_n(height)).is_block(state.block()) {
+            while level
+                .get_block_state(pos.below_n(height))
+                .is_block(state.block())
+            {
                 height += 1;
             }
             if height < 3 {
@@ -28,12 +31,14 @@ impl BlockBehaviour for SugarCaneBlock {
             }
         }
     }
-    update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
-        if !state.can_survive(&*level, pos) {
-            helpers::schedule_block_tick(level, pos, state.block(), 1);
+    update_shape!(
+        |self, state, level, pos, direction, neighbour_pos, neighbour_state| {
+            if !state.can_survive(&*level, pos) {
+                helpers::schedule_block_tick(level, pos, state.block(), 1);
+            }
+            state
         }
-        state
-    });
+    );
     fn can_survive(&self, state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         let state_below = level.get_block_state(pos.below());
         if state_below.is_block(state.block()) {
@@ -44,7 +49,9 @@ impl BlockBehaviour for SugarCaneBlock {
             for direction in Direction::HORIZONTAL {
                 let block_state = level.get_block_state(below.relative(direction));
                 let fluid_state = level.get_fluid_state(below.relative(direction));
-                if fluid_state.is_tag("supports_sugar_cane_adjacently") || block_state.is_tag("supports_sugar_cane_adjacently") {
+                if fluid_state.is_tag("supports_sugar_cane_adjacently")
+                    || block_state.is_tag("supports_sugar_cane_adjacently")
+                {
                     return true;
                 }
             }

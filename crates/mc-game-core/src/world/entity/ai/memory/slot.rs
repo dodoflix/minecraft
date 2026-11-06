@@ -19,7 +19,10 @@ impl Default for MemorySlot {
 impl MemorySlot {
     /// `MemorySlot.create()`.
     pub fn create() -> Self {
-        Self { value: None, time_to_live: NEVER_EXPIRE }
+        Self {
+            value: None,
+            time_to_live: NEVER_EXPIRE,
+        }
     }
 
     /// `tick()`: a value that can expire loses a tick, or is cleared once its time ran out.

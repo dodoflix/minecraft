@@ -1,6 +1,8 @@
 //! `rootplacers.MangroveRootPlacement`.
 
-use mc_game_core::world::level::levelgen::codec::{BlockSet, Fields, LoadResult, parse_float_range, parse_int_range};
+use mc_game_core::world::level::levelgen::codec::{
+    BlockSet, Fields, LoadResult, parse_float_range, parse_int_range,
+};
 use mc_game_core::world::level::levelgen::holder::Holder;
 use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_game_core::world::level::levelgen::stateproviders::BlockStateProvider;
@@ -21,10 +23,12 @@ impl MangroveRootPlacement {
         Ok(MangroveRootPlacement {
             can_grow_through: fields.required("can_grow_through", BlockSet::from_json)?,
             muddy_roots_in: fields.required("muddy_roots_in", BlockSet::from_json)?,
-            muddy_roots_provider: fields.required("muddy_roots_provider", |v| ctx.block_state_provider(v))?,
+            muddy_roots_provider: fields
+                .required("muddy_roots_provider", |v| ctx.block_state_provider(v))?,
             max_root_width: fields.required("max_root_width", |v| parse_int_range(v, 1, 12))?,
             max_root_length: fields.required("max_root_length", |v| parse_int_range(v, 1, 64))?,
-            random_skew_chance: fields.required("random_skew_chance", |v| parse_float_range(v, 0.0, 1.0))?,
+            random_skew_chance: fields
+                .required("random_skew_chance", |v| parse_float_range(v, 0.0, 1.0))?,
         })
     }
 }

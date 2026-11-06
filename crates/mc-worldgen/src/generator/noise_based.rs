@@ -59,7 +59,11 @@ impl NoiseBasedChunkGenerator {
         let material_rule = MaterialRule::from_json(&settings.material_rule, &registries, &biomes)?;
         let mut carvers = HashMap::new();
         // the registry's biomes, and the inline (`Holder.Direct`) ones the biome source uses
-        let inline = biome_source.possible_biomes().iter().copied().filter(|b| BiomeRegistry::is_inline(*b));
+        let inline = biome_source
+            .possible_biomes()
+            .iter()
+            .copied()
+            .filter(|b| BiomeRegistry::is_inline(*b));
         for biome in biomes.ids().chain(inline) {
             for id in biomes.get(biome).generation_settings().get_carvers() {
                 if !carvers.contains_key(id) {
@@ -125,11 +129,21 @@ impl NoiseBasedChunkGenerator {
         want_column: bool,
         tester: Option<&dyn Fn(BlockState) -> bool>,
     ) -> (Option<i32>, Option<NoiseColumn>) {
-        let noise_settings = self.settings.noise.clamp_to_height_accessor(height_accessor);
+        let noise_settings = self
+            .settings
+            .noise
+            .clamp_to_height_accessor(height_accessor);
         if noise_settings.height <= 0 {
             return (None, None);
         }
-        let volume = DensityVolume::with_unit_step(1, noise_settings.height, 1, block_x, noise_settings.min_y, block_z);
+        let volume = DensityVolume::with_unit_step(
+            1,
+            noise_settings.height,
+            1,
+            block_x,
+            noise_settings.min_y,
+            block_z,
+        );
         let mut write_to = want_column.then(|| vec![self.default_block; volume.size_y as usize]);
 
         let mut noise_chunk = NoiseChunk::new(
@@ -148,7 +162,8 @@ impl NoiseBasedChunkGenerator {
         for y in (0..volume.size_y).rev() {
             let density = density_buffer.get(volume.index_unchecked(0, y, 0));
             let block_y = volume.block_y(y);
-            let base_state = aquifer.compute_substance(block_x, block_y, block_z, f64::from(density));
+            let base_state =
+                aquifer.compute_substance(block_x, block_y, block_z, f64::from(density));
             let state = base_state.unwrap_or(self.default_block);
             if let Some(write_to) = &mut write_to {
                 write_to[y as usize] = state;
@@ -165,7 +180,12 @@ impl NoiseBasedChunkGenerator {
     }
 
     /// `buildSurface(...)`.
-    fn build_surface(&self, chunk: &mut ProtoChunk, noise_chunk: &NoiseChunk, ctx: &BuildTerrainContext<'_>) {
+    fn build_surface(
+        &self,
+        chunk: &mut ProtoChunk,
+        noise_chunk: &NoiseChunk,
+        ctx: &BuildTerrainContext<'_>,
+    ) {
         let context = self.generation_context(chunk);
         ctx.random_state.surface_system().build_surface(
             ctx.random_state,
@@ -198,10 +218,16 @@ impl NoiseBasedChunkGenerator {
     }
 
     /// `generateCarvers(chunk, blender, noiseChunk, randomState, biomeManager, carverBiomeRegion, materialRule)`.
-    fn generate_carvers(&self, chunk: &mut ProtoChunk, noise_chunk: &mut NoiseChunk, ctx: &BuildTerrainContext<'_>) {
+    fn generate_carvers(
+        &self,
+        chunk: &mut ProtoChunk,
+        noise_chunk: &mut NoiseChunk,
+        ctx: &BuildTerrainContext<'_>,
+    ) {
         let random_state = ctx.random_state;
         let biome_resolver = self.biome_source.create_uncached_resolver(random_state);
-        let mut random = WorldgenRandom::new(Box::new(LegacyRandomSource::new(generate_unique_seed())));
+        let mut random =
+            WorldgenRandom::new(Box::new(LegacyRandomSource::new(generate_unique_seed())));
         let pos = chunk.pos();
         let context = self.generation_context(chunk);
         let protected_blocks_on_top = if chunk.is_upgrading() { 0 } else { 7 };
@@ -212,14 +238,20 @@ impl NoiseBasedChunkGenerator {
             for dz in -8..=8 {
                 let source_pos = ChunkPos::new(pos.x + dx, pos.z + dz);
                 let source_biome = match ctx.carver_biome_cache {
-                    Some(cache) => cache.carver_biome(source_pos, &mut || Self::carver_biome(&*biome_resolver, source_pos)),
+                    Some(cache) => cache.carver_biome(source_pos, &mut || {
+                        Self::carver_biome(&*biome_resolver, source_pos)
+                    }),
                     None => Self::carver_biome(&*biome_resolver, source_pos),
                 };
                 let source_settings = self.get_biome_generation_settings(source_biome);
 
                 for (index, carver_id) in source_settings.get_carvers().iter().enumerate() {
                     let carver = &self.carvers[carver_id];
-                    random.set_large_feature_seed(random_state.seed().wrapping_add(index as i64), source_pos.x, source_pos.z);
+                    random.set_large_feature_seed(
+                        random_state.seed().wrapping_add(index as i64),
+                        source_pos.x,
+                        source_pos.z,
+                    );
                     if carver.is_start_chunk(&mut random) {
                         carver.carve(&context, &mut random, pos, source_pos, &mut mask);
                     }
@@ -258,7 +290,11 @@ impl NoiseBasedChunkGenerator {
         let samplers = noise_chunk.caching_samplers_rc();
         let aquifer = noise_chunk.aquifer();
         let uncarvable = mc_data::tags::get::<Block>("uncarvable");
-        let is_uncarvable = |state: BlockState| uncarvable.as_ref().is_some_and(|tag| tag.contains(state.block()));
+        let is_uncarvable = |state: BlockState| {
+            uncarvable
+                .as_ref()
+                .is_some_and(|tag| tag.contains(state.block()))
+        };
         mask.visit(|x, z, bottom_y, top_y| {
             let mut has_grass = false;
             let world_x = chunk_pos.get_block_x(x);
@@ -273,7 +309,9 @@ impl NoiseBasedChunkGenerator {
                 if is_uncarvable(block_state) {
                     continue;
                 }
-                if block_state.block() == Block::GRASS_BLOCK || block_state.block() == Block::MYCELIUM {
+                if block_state.block() == Block::GRASS_BLOCK
+                    || block_state.block() == Block::MYCELIUM
+                {
                     has_grass = true;
                 }
 
@@ -312,8 +350,12 @@ impl NoiseBasedChunkGenerator {
 
     /// `doFill(noiseChunk, chunk)`.
     pub fn do_fill(&self, noise_chunk: &mut NoiseChunk, chunk: &mut ProtoChunk) {
-        chunk.access.get_or_create_heightmap_unprimed(HeightmapType::OceanFloorWg);
-        chunk.access.get_or_create_heightmap_unprimed(HeightmapType::WorldSurfaceWg);
+        chunk
+            .access
+            .get_or_create_heightmap_unprimed(HeightmapType::OceanFloorWg);
+        chunk
+            .access
+            .get_or_create_heightmap_unprimed(HeightmapType::WorldSurfaceWg);
         let volume = *noise_chunk.volume();
         let samplers = noise_chunk.caching_samplers_rc();
         let final_density = samplers.get(&self.settings.noise_router.final_density);
@@ -345,8 +387,12 @@ impl NoiseBasedChunkGenerator {
                                 heightmap.update(x, block_y, z, state, &view);
                             }
                         }
-                        if aquifer.should_schedule_fluid_update() && !state.get_fluid_state().is_empty() {
-                            chunk.mark_pos_for_post_processing(BlockPos::new(block_x, block_y, block_z));
+                        if aquifer.should_schedule_fluid_update()
+                            && !state.get_fluid_state().is_empty()
+                        {
+                            chunk.mark_pos_for_post_processing(BlockPos::new(
+                                block_x, block_y, block_z,
+                            ));
                         }
                     }
                 }
@@ -360,7 +406,13 @@ pub fn create_fluid_picker(settings: &NoiseGeneratorSettings) -> LoadResult<Flui
     let lava_status = FluidStatus::new(-54, Block::LAVA.default_state());
     let sea_level = settings.sea_level;
     let sea_status = FluidStatus::new(sea_level, settings.default_fluid.resolve()?);
-    Ok(Arc::new(move |_x, y, _z| if y < (-54).min(sea_level) { lava_status } else { sea_status }))
+    Ok(Arc::new(move |_x, y, _z| {
+        if y < (-54).min(sea_level) {
+            lava_status
+        } else {
+            sea_status
+        }
+    }))
 }
 
 /// `DEBUG_DENSITY_FORMAT` (`DecimalFormat("0.000", Locale.ROOT)`) applied to a float widened to double.
@@ -369,7 +421,11 @@ fn format_density(value: f32) -> String {
     if value.is_nan() {
         "NaN".to_owned()
     } else if value.is_infinite() {
-        if value > 0.0 { "\u{221e}".to_owned() } else { "-\u{221e}".to_owned() }
+        if value > 0.0 {
+            "\u{221e}".to_owned()
+        } else {
+            "-\u{221e}".to_owned()
+        }
     } else {
         format!("{value:.3}")
     }
@@ -377,7 +433,14 @@ fn format_density(value: f32) -> String {
 
 /// `chunkVolume(chunk, noiseSettings)`.
 fn chunk_volume(pos: ChunkPos, noise_settings: NoiseSettings) -> DensityVolume {
-    DensityVolume::with_unit_step(16, noise_settings.height, 16, pos.get_min_block_x(), noise_settings.min_y, pos.get_min_block_z())
+    DensityVolume::with_unit_step(
+        16,
+        noise_settings.height,
+        16,
+        pos.get_min_block_x(),
+        noise_settings.min_y,
+        pos.get_min_block_z(),
+    )
 }
 
 impl ChunkGenerator for NoiseBasedChunkGenerator {
@@ -398,20 +461,39 @@ impl ChunkGenerator for NoiseBasedChunkGenerator {
         if spawn_target.is_empty() {
             return ChunkPos::ZERO;
         }
-        let samplers = random_state.samplers_with_context(SamplerContext::builder().enable_caches().build());
-        ChunkPos::containing(&NoiseSpawnFinder::find_spawn_position(spawn_target, &samplers))
+        let samplers =
+            random_state.samplers_with_context(SamplerContext::builder().enable_caches().build());
+        ChunkPos::containing(&NoiseSpawnFinder::find_spawn_position(
+            spawn_target,
+            &samplers,
+        ))
     }
 
-    fn decorate_biome_resolver<'a>(&'a self, blender: &'a Blender, chunk: &ProtoChunk, biome_resolver: BiomeFn<'a>) -> BiomeFn<'a> {
+    fn decorate_biome_resolver<'a>(
+        &'a self,
+        blender: &'a Blender,
+        chunk: &ProtoChunk,
+        biome_resolver: BiomeFn<'a>,
+    ) -> BiomeFn<'a> {
         let blended = blender.get_biome_resolver(biome_resolver);
         let retained: Vec<BiomeId> = mc_world::below_zero_retrogen::RETAINED_RETROGEN_BIOMES
             .iter()
             .filter_map(|name| self.biomes.id_of_name(name))
             .collect();
-        blending::get_below_zero_biome_resolver(blended, chunk, Box::new(move |biome| retained.contains(&biome)))
+        blending::get_below_zero_biome_resolver(
+            blended,
+            chunk,
+            Box::new(move |biome| retained.contains(&biome)),
+        )
     }
 
-    fn add_debug_screen_info(&self, result: &mut Vec<String>, random_state: &Arc<RandomState>, feet_pos: BlockPos, sampler_context: SamplerContext) {
+    fn add_debug_screen_info(
+        &self,
+        result: &mut Vec<String>,
+        random_state: &Arc<RandomState>,
+        feet_pos: BlockPos,
+        sampler_context: SamplerContext,
+    ) {
         let functions = &self.settings.debug_functions;
         if functions.is_empty() {
             return;
@@ -421,7 +503,12 @@ impl ChunkGenerator for NoiseBasedChunkGenerator {
         for (label, function) in functions {
             builder.push_str(label);
             builder.push_str(": ");
-            builder.push_str(&format_density(samplers.sample_value(function, feet_pos.x(), feet_pos.y(), feet_pos.z())));
+            builder.push_str(&format_density(samplers.sample_value(
+                function,
+                feet_pos.x(),
+                feet_pos.y(),
+                feet_pos.z(),
+            )));
             builder.push(' ');
         }
         builder.pop();
@@ -429,7 +516,10 @@ impl ChunkGenerator for NoiseBasedChunkGenerator {
     }
 
     fn build_terrain(&self, chunk: &mut ProtoChunk, ctx: &BuildTerrainContext<'_>) {
-        let noise_settings = self.settings.noise.clamp_to_height_accessor(chunk.get_height_accessor_for_generation());
+        let noise_settings = self
+            .settings
+            .noise
+            .clamp_to_height_accessor(chunk.get_height_accessor_for_generation());
         if noise_settings.height <= 0 {
             return;
         }
@@ -459,12 +549,25 @@ impl ChunkGenerator for NoiseBasedChunkGenerator {
         height_accessor: LevelHeight,
         random_state: &Arc<RandomState>,
     ) -> i32 {
-        self.iterate_noise_column(height_accessor, random_state, x, z, false, Some(&|state| ty.is_opaque(state)))
-            .0
-            .unwrap_or(height_accessor.min_y)
+        self.iterate_noise_column(
+            height_accessor,
+            random_state,
+            x,
+            z,
+            false,
+            Some(&|state| ty.is_opaque(state)),
+        )
+        .0
+        .unwrap_or(height_accessor.min_y)
     }
 
-    fn get_base_column(&self, x: i32, z: i32, height_accessor: LevelHeight, random_state: &Arc<RandomState>) -> NoiseColumn {
+    fn get_base_column(
+        &self,
+        x: i32,
+        z: i32,
+        height_accessor: LevelHeight,
+        random_state: &Arc<RandomState>,
+    ) -> NoiseColumn {
         // Vanilla returns `result.get()`, which is null when the noise height is empty; an empty column answers air.
         self.iterate_noise_column(height_accessor, random_state, x, z, true, None)
             .1

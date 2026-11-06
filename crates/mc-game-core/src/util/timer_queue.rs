@@ -29,7 +29,9 @@ pub struct TimerCallbacks<C> {
 
 impl<C> Default for TimerCallbacks<C> {
     fn default() -> Self {
-        TimerCallbacks { decoders: HashMap::new() }
+        TimerCallbacks {
+            decoders: HashMap::new(),
+        }
     }
 }
 
@@ -47,7 +49,10 @@ impl<C> TimerCallbacks<C> {
     pub fn decode(&self, tag: &Tag) -> DataResult<Box<dyn TimerCallback<C>>> {
         let m = codec::compound(tag)?;
         let id = codec::identifier(codec::field(m, "type")?)?;
-        let decoder = self.decoders.get(&id).ok_or_else(|| format!("Unknown element name: {id}"))?;
+        let decoder = self
+            .decoders
+            .get(&id)
+            .ok_or_else(|| format!("Unknown element name: {id}"))?;
         decoder(m)
     }
 
@@ -115,12 +120,22 @@ impl<C: FunctionHost + 'static> TimerCallbacks<C> {
     /// `TimerCallbacks.SERVER_CALLBACKS`.
     pub fn server_callbacks() -> Self {
         TimerCallbacks::new()
-            .register(Identifier::parse("minecraft:function").expect("static id"), |m| {
-                Ok(Box::new(FunctionCallback { function_id: decode_id(m)? }))
-            })
-            .register(Identifier::parse("minecraft:function_tag").expect("static id"), |m| {
-                Ok(Box::new(FunctionTagCallback { tag_id: decode_id(m)? }))
-            })
+            .register(
+                Identifier::parse("minecraft:function").expect("static id"),
+                |m| {
+                    Ok(Box::new(FunctionCallback {
+                        function_id: decode_id(m)?,
+                    }))
+                },
+            )
+            .register(
+                Identifier::parse("minecraft:function_tag").expect("static id"),
+                |m| {
+                    Ok(Box::new(FunctionTagCallback {
+                        tag_id: decode_id(m)?,
+                    }))
+                },
+            )
     }
 }
 
@@ -150,7 +165,12 @@ impl<T: 'static> SavedData for TimerQueue<T> {
 
 impl<T> Default for TimerQueue<T> {
     fn default() -> Self {
-        TimerQueue { dirty: false, queue: BTreeMap::new(), sequential_id: 0, events: HashMap::new() }
+        TimerQueue {
+            dirty: false,
+            queue: BTreeMap::new(),
+            sequential_id: 0,
+            events: HashMap::new(),
+        }
     }
 }
 
@@ -188,12 +208,25 @@ impl<T: 'static> TimerQueue<T> {
 
     /// `schedule`: ignored when `id` already has an event at `time`.
     pub fn schedule(&mut self, id: &str, time: i64, callback: Box<dyn TimerCallback<T>>) {
-        if self.events.get(id).is_some_and(|row| row.contains_key(&time)) {
+        if self
+            .events
+            .get(id)
+            .is_some_and(|row| row.contains_key(&time))
+        {
             return;
         }
         self.sequential_id = self.sequential_id.wrapping_add(1);
-        self.events.entry(id.to_string()).or_default().insert(time, self.sequential_id);
-        self.queue.insert((time, self.sequential_id), Event { id: id.to_string(), callback });
+        self.events
+            .entry(id.to_string())
+            .or_default()
+            .insert(time, self.sequential_id);
+        self.queue.insert(
+            (time, self.sequential_id),
+            Event {
+                id: id.to_string(),
+                callback,
+            },
+        );
         self.set_dirty();
     }
 
@@ -247,7 +280,12 @@ impl<T: 'static> TimerQueue<T> {
 impl<C: FunctionHost + 'static> TimerQueue<C> {
     /// `TimerQueue.TYPE` (`data/minecraft/scheduled_events.dat`).
     pub fn type_() -> SavedDataType<TimerQueue<C>> {
-        SavedDataType::new(Identifier::parse("minecraft:scheduled_events").expect("static id"), TimerQueue::new, |tag| TimerQueue::decode(tag, &TimerCallbacks::server_callbacks()), |q| q.pack(&TimerCallbacks::server_callbacks()))
+        SavedDataType::new(
+            Identifier::parse("minecraft:scheduled_events").expect("static id"),
+            TimerQueue::new,
+            |tag| TimerQueue::decode(tag, &TimerCallbacks::server_callbacks()),
+            |q| q.pack(&TimerCallbacks::server_callbacks()),
+        )
     }
 }
 
@@ -268,7 +306,9 @@ mod tests {
         }
     }
     fn f(name: &str) -> Box<dyn TimerCallback<Ctx>> {
-        Box::new(FunctionCallback { function_id: Identifier::parse(name).unwrap() })
+        Box::new(FunctionCallback {
+            function_id: Identifier::parse(name).unwrap(),
+        })
     }
 
     #[test]
@@ -339,7 +379,13 @@ mod tests {
     fn codec_round_trip() {
         let mut q = TimerQueue::<Ctx>::new();
         q.schedule("x", 7, f("a:b"));
-        q.schedule("y", 3, Box::new(FunctionTagCallback { tag_id: Identifier::parse("t:u").unwrap() }));
+        q.schedule(
+            "y",
+            3,
+            Box::new(FunctionTagCallback {
+                tag_id: Identifier::parse("t:u").unwrap(),
+            }),
+        );
         let cb = TimerCallbacks::<Ctx>::server_callbacks();
         let tag = q.pack(&cb).unwrap();
         let expected = mc_nbt::snbt::parse(
@@ -349,6 +395,15 @@ mod tests {
         assert_eq!(tag, expected);
         let back = TimerQueue::decode(&tag, &cb).map_err(|e| e.error).unwrap();
         assert_eq!(back.pack(&cb).unwrap(), tag);
-        assert!(TimerQueue::decode(&mc_nbt::snbt::parse("{events:[{trigger_time:1L,id:\"x\",callback:{type:\"minecraft:nope\"}}]}").unwrap(), &cb).is_err());
+        assert!(
+            TimerQueue::decode(
+                &mc_nbt::snbt::parse(
+                    "{events:[{trigger_time:1L,id:\"x\",callback:{type:\"minecraft:nope\"}}]}"
+                )
+                .unwrap(),
+                &cb
+            )
+            .is_err()
+        );
     }
 }

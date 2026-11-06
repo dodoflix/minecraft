@@ -240,13 +240,23 @@ impl WorldCarver for CaveWorldCarver {
             let start_vertical_radius_multiplier =
                 f64::from(self.start_vertical_radius_multiplier.sample(random));
             let floor_level = f64::from(self.floor_level.sample(random));
-            let skip_checker =
-                move |xd: f64, yd: f64, zd: f64, _world_y: i32| should_skip(xd, yd, zd, floor_level);
+            let skip_checker = move |xd: f64, yd: f64, zd: f64, _world_y: i32| {
+                should_skip(xd, yd, zd, floor_level)
+            };
             let mut tunnels = 1;
             if random.next_int_bounded(4) == 0 {
                 let y_scale = f64::from(self.room_vertical_radius_multiplier.sample(random));
                 let thickness = 1.0f32 + random.next_float() * 6.0f32;
-                self.create_room(chunk_pos, x, y, z, thickness, y_scale, output, &skip_checker);
+                self.create_room(
+                    chunk_pos,
+                    x,
+                    y,
+                    z,
+                    thickness,
+                    y_scale,
+                    output,
+                    &skip_checker,
+                );
                 tunnels += random.next_int_bounded(4);
             }
 

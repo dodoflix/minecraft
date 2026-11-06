@@ -99,37 +99,88 @@ struct Element {
 }
 
 fn element(name: &'static str, attributes: &[(&str, &str)], children: Vec<Element>) -> Element {
-    Element { name, attributes: attributes.iter().map(|(k, v)| ((*k).to_owned(), (*v).to_owned())).collect(), children }
+    Element {
+        name,
+        attributes: attributes
+            .iter()
+            .map(|(k, v)| ((*k).to_owned(), (*v).to_owned()))
+            .collect(),
+        children,
+    }
 }
 
 fn annotation(class: i64, value: &str) -> Element {
-    element("annotation", &[("class", &class.to_string()), ("value", value)], vec![])
+    element(
+        "annotation",
+        &[("class", &class.to_string()), ("value", value)],
+        vec![],
+    )
 }
 
 fn field(name: &str, class: i64, annotations: Vec<Element>) -> Element {
-    element("field", &[("name", name), ("class", &class.to_string())], annotations)
+    element(
+        "field",
+        &[("name", name), ("class", &class.to_string())],
+        annotations,
+    )
 }
 
 fn type_class(name: &str, id: i64, children: Vec<Element>) -> Element {
-    element("class", &[("name", name), ("id", &id.to_string())], children)
+    element(
+        "class",
+        &[("name", name), ("id", &id.to_string())],
+        children,
+    )
 }
 
 fn annotation_class(name: &str, id: i64, value_dimension: bool, children: Vec<Element>) -> Element {
-    let mut field = element("field", &[("name", "value"), ("class", &T_STRING.to_string())], vec![]);
+    let mut field = element(
+        "field",
+        &[("name", "value"), ("class", &T_STRING.to_string())],
+        vec![],
+    );
     if value_dimension {
-        field.attributes.push(("dimension".to_owned(), "1".to_owned()));
+        field
+            .attributes
+            .push(("dimension".to_owned(), "1".to_owned()));
     }
     // `jdk.jfr.ContentType` has no `value` member
-    let mut all = if name == "jdk.jfr.ContentType" { vec![] } else { vec![field] };
+    let mut all = if name == "jdk.jfr.ContentType" {
+        vec![]
+    } else {
+        vec![field]
+    };
     all.extend(children);
-    element("class", &[("name", name), ("superType", "java.lang.annotation.Annotation"), ("id", &id.to_string())], all)
+    element(
+        "class",
+        &[
+            ("name", name),
+            ("superType", "java.lang.annotation.Annotation"),
+            ("id", &id.to_string()),
+        ],
+        all,
+    )
 }
 
 /// The fields every event starts with.
 fn event_header_fields() -> Vec<Element> {
     vec![
-        field("startTime", T_LONG, vec![annotation(T_LABEL, "Start Time"), annotation(T_TIMESTAMP, "TICKS")]),
-        field("duration", T_LONG, vec![annotation(T_LABEL, "Duration"), annotation(T_TIMESPAN, "TICKS")]),
+        field(
+            "startTime",
+            T_LONG,
+            vec![
+                annotation(T_LABEL, "Start Time"),
+                annotation(T_TIMESTAMP, "TICKS"),
+            ],
+        ),
+        field(
+            "duration",
+            T_LONG,
+            vec![
+                annotation(T_LABEL, "Duration"),
+                annotation(T_TIMESPAN, "TICKS"),
+            ],
+        ),
     ]
 }
 
@@ -138,8 +189,24 @@ fn event_class(name: &str, id: i64, label: &str, category: &str, fields: Vec<Ele
     children.extend(fields);
     children.push(annotation(T_NAME, name));
     children.push(annotation(T_LABEL, label));
-    children.push(element("annotation", &[("class", &T_CATEGORY.to_string()), ("value-0", "Minecraft"), ("value-1", category)], vec![]));
-    element("class", &[("name", name), ("superType", "jdk.jfr.Event"), ("id", &id.to_string())], children)
+    children.push(element(
+        "annotation",
+        &[
+            ("class", &T_CATEGORY.to_string()),
+            ("value-0", "Minecraft"),
+            ("value-1", category),
+        ],
+        vec![],
+    ));
+    element(
+        "class",
+        &[
+            ("name", name),
+            ("superType", "jdk.jfr.Event"),
+            ("id", &id.to_string()),
+        ],
+        children,
+    )
 }
 
 fn named_field(name: &str, label: &str, class: i64, extra: Vec<Element>) -> Element {
@@ -155,10 +222,21 @@ fn metadata_tree() -> Element {
             named_field("packetDirection", "Packet Direction", T_STRING, vec![]),
             named_field("packetId", "Packet Id", T_STRING, vec![]),
             named_field("remoteAddress", "Remote Address", T_STRING, vec![]),
-            named_field("bytes", "Bytes", T_INT, vec![annotation(T_DATA_AMOUNT, "BYTES")]),
+            named_field(
+                "bytes",
+                "Bytes",
+                T_INT,
+                vec![annotation(T_DATA_AMOUNT, "BYTES")],
+            ),
         ]
     };
-    let content_type = || element("annotation", &[("class", &T_CONTENT_TYPE.to_string())], vec![]);
+    let content_type = || {
+        element(
+            "annotation",
+            &[("class", &T_CONTENT_TYPE.to_string())],
+            vec![],
+        )
+    };
     let classes = vec![
         type_class("long", T_LONG, vec![]),
         type_class("int", T_INT, vec![]),
@@ -171,35 +249,70 @@ fn metadata_tree() -> Element {
             "jdk.jfr.ContentType",
             T_CONTENT_TYPE,
             false,
-            vec![annotation(T_LABEL, "Content Type"), annotation(T_DESCRIPTION, "Semantic meaning of a value")],
+            vec![
+                annotation(T_LABEL, "Content Type"),
+                annotation(T_DESCRIPTION, "Semantic meaning of a value"),
+            ],
         ),
         annotation_class(
             "jdk.jfr.Timestamp",
             T_TIMESTAMP,
             false,
-            vec![content_type(), annotation(T_LABEL, "Timestamp"), annotation(T_DESCRIPTION, "A point in time")],
+            vec![
+                content_type(),
+                annotation(T_LABEL, "Timestamp"),
+                annotation(T_DESCRIPTION, "A point in time"),
+            ],
         ),
         annotation_class(
             "jdk.jfr.Timespan",
             T_TIMESPAN,
             false,
-            vec![content_type(), annotation(T_LABEL, "Timespan"), annotation(T_DESCRIPTION, "A duration, measured in nanoseconds by default")],
+            vec![
+                content_type(),
+                annotation(T_LABEL, "Timespan"),
+                annotation(
+                    T_DESCRIPTION,
+                    "A duration, measured in nanoseconds by default",
+                ),
+            ],
         ),
         annotation_class(
             "jdk.jfr.DataAmount",
             T_DATA_AMOUNT,
             false,
-            vec![content_type(), annotation(T_LABEL, "Data Amount"), annotation(T_DESCRIPTION, "Amount of data")],
+            vec![
+                content_type(),
+                annotation(T_LABEL, "Data Amount"),
+                annotation(T_DESCRIPTION, "Amount of data"),
+            ],
         ),
         event_class(
             "minecraft.ServerTickTime",
             T_EVENT_SERVER_TICK,
             "Server Tick Time",
             "Ticking",
-            vec![named_field("averageTickDuration", "Average Server Tick Duration", T_LONG, vec![annotation(T_TIMESPAN, "NANOSECONDS")])],
+            vec![named_field(
+                "averageTickDuration",
+                "Average Server Tick Duration",
+                T_LONG,
+                vec![annotation(T_TIMESPAN, "NANOSECONDS")],
+            )],
         ),
-        event_class("minecraft.PacketReceived", T_EVENT_PACKET_RECEIVED, "Network Packet Received", "Network", packet_fields()),
-        event_class("minecraft.PacketSent", T_EVENT_PACKET_SENT, "Network Packet Sent", "Network", packet_fields()),
+        event_class(
+            "minecraft.PacketReceived",
+            T_EVENT_PACKET_RECEIVED,
+            "Network Packet Received",
+            "Network",
+            packet_fields(),
+        ),
+        event_class(
+            "minecraft.PacketSent",
+            T_EVENT_PACKET_SENT,
+            "Network Packet Sent",
+            "Network",
+            packet_fields(),
+        ),
         event_class(
             "minecraft.NetworkSummary",
             T_EVENT_NETWORK_SUMMARY,
@@ -207,9 +320,19 @@ fn metadata_tree() -> Element {
             "Network",
             vec![
                 named_field("remoteAddress", "Remote Address", T_STRING, vec![]),
-                named_field("sentBytes", "Sent Bytes", T_LONG, vec![annotation(T_DATA_AMOUNT, "BYTES")]),
+                named_field(
+                    "sentBytes",
+                    "Sent Bytes",
+                    T_LONG,
+                    vec![annotation(T_DATA_AMOUNT, "BYTES")],
+                ),
                 named_field("sentPackets", "Sent Packets", T_INT, vec![]),
-                named_field("receivedBytes", "Received Bytes", T_LONG, vec![annotation(T_DATA_AMOUNT, "BYTES")]),
+                named_field(
+                    "receivedBytes",
+                    "Received Bytes",
+                    T_LONG,
+                    vec![annotation(T_DATA_AMOUNT, "BYTES")],
+                ),
                 named_field("receivedPackets", "Received Packets", T_INT, vec![]),
             ],
         ),
@@ -220,7 +343,15 @@ fn metadata_tree() -> Element {
         &[],
         vec![
             element("metadata", &[], classes),
-            element("region", &[("locale", "en_US"), ("gmtOffset", &gmt_offset_ms.to_string()), ("dst", "0")], vec![]),
+            element(
+                "region",
+                &[
+                    ("locale", "en_US"),
+                    ("gmtOffset", &gmt_offset_ms.to_string()),
+                    ("dst", "0"),
+                ],
+                vec![],
+            ),
         ],
     )
 }
@@ -323,7 +454,13 @@ struct Recording {
 }
 
 impl Recording {
-    fn commit(&mut self, type_id: i64, start_ticks: i64, end_ticks: i64, fields: &[u8]) -> io::Result<()> {
+    fn commit(
+        &mut self,
+        type_id: i64,
+        start_ticks: i64,
+        end_ticks: i64,
+        fields: &[u8],
+    ) -> io::Result<()> {
         let mut payload = Vec::new();
         put_varlong(&mut payload, start_ticks);
         put_varlong(&mut payload, end_ticks - start_ticks);
@@ -332,7 +469,10 @@ impl Recording {
         put_event(&mut event, type_id, &payload);
         self.events.write_all(&event)?;
         self.events_len += event.len() as u64;
-        self.first_event_ticks = Some(self.first_event_ticks.map_or(start_ticks, |t| t.min(start_ticks)));
+        self.first_event_ticks = Some(
+            self.first_event_ticks
+                .map_or(start_ticks, |t| t.min(start_ticks)),
+        );
         self.last_event_end_ticks = self.last_event_end_ticks.max(end_ticks);
         Ok(())
     }
@@ -360,18 +500,53 @@ impl Recording {
         }
     }
 
-    fn packet(&mut self, received: bool, protocol: &str, packet_id: &str, remote: &str, bytes: i32) {
+    fn packet(
+        &mut self,
+        received: bool,
+        protocol: &str,
+        packet_id: &str,
+        remote: &str,
+        bytes: i32,
+    ) {
         let now = get_nanos();
         let mut fields = Vec::new();
         put_string(&mut fields, protocol);
-        put_string(&mut fields, if received { "serverbound" } else { "clientbound" });
+        put_string(
+            &mut fields,
+            if received {
+                "serverbound"
+            } else {
+                "clientbound"
+            },
+        );
         put_string(&mut fields, packet_id);
         put_string(&mut fields, remote);
         put_varlong(&mut fields, i64::from(bytes));
-        let _ = self.commit(if received { T_EVENT_PACKET_RECEIVED } else { T_EVENT_PACKET_SENT }, now, now, &fields);
-        let agg = self.network_by_address.entry(remote.to_owned()).or_insert_with(|| Aggregation { started_ticks: now, ..Default::default() });
-        let stats = if received { &mut self.received } else { &mut self.sent };
-        let entry = stats.entry((protocol.to_owned(), packet_id.to_owned())).or_default();
+        let _ = self.commit(
+            if received {
+                T_EVENT_PACKET_RECEIVED
+            } else {
+                T_EVENT_PACKET_SENT
+            },
+            now,
+            now,
+            &fields,
+        );
+        let agg = self
+            .network_by_address
+            .entry(remote.to_owned())
+            .or_insert_with(|| Aggregation {
+                started_ticks: now,
+                ..Default::default()
+            });
+        let stats = if received {
+            &mut self.received
+        } else {
+            &mut self.sent
+        };
+        let entry = stats
+            .entry((protocol.to_owned(), packet_id.to_owned()))
+            .or_default();
         entry.count += 1;
         entry.size += i64::from(bytes);
         if received {
@@ -417,10 +592,15 @@ impl Recording {
         out.write_all(&checkpoint)?;
         out.flush()?;
         let _ = std::fs::remove_file(&self.events_path);
-        let to_epoch_millis = |ticks: i64| (self.start_epoch_nanos + (ticks - self.start_ticks)) / 1_000_000;
+        let to_epoch_millis =
+            |ticks: i64| (self.start_epoch_nanos + (ticks - self.start_ticks)) / 1_000_000;
         let summary = Summary {
             started_epoch_millis: self.first_event_ticks.map_or(0, to_epoch_millis),
-            ended_epoch_millis: if self.first_event_ticks.is_some() { to_epoch_millis(self.last_event_end_ticks) } else { 0 },
+            ended_epoch_millis: if self.first_event_ticks.is_some() {
+                to_epoch_millis(self.last_event_end_ticks)
+            } else {
+                0
+            },
             tick_times_nanos: self.tick_times,
             received: self.received,
             sent: self.sent,
@@ -456,7 +636,8 @@ fn percentiles(values: &[f64]) -> Vec<(i32, f64)> {
             let value = if remainder == 0 {
                 sorted[quotient]
             } else {
-                sorted[quotient] + (sorted[quotient + 1] - sorted[quotient]) * remainder as f64 / 100.0
+                sorted[quotient]
+                    + (sorted[quotient + 1] - sorted[quotient]) * remainder as f64 / 100.0
             };
             (index, value)
         })
@@ -469,7 +650,11 @@ fn num(value: f64) -> Value {
     if value.is_nan() {
         json!("\u{1}NaN")
     } else if value.is_infinite() {
-        json!(if value > 0.0 { "\u{1}Infinity" } else { "\u{1}-Infinity" })
+        json!(if value > 0.0 {
+            "\u{1}Infinity"
+        } else {
+            "\u{1}-Infinity"
+        })
     } else {
         json!(value)
     }
@@ -503,7 +688,8 @@ impl Summary {
         let seconds = self.duration_seconds();
         let duration_ms = self.ended_epoch_millis - self.started_epoch_millis;
         let empty_io = || json!({"totalBytes": 0, "count": 0, "bytesPerSecond": num(0.0 / seconds), "countPerSecond": num(0.0 / seconds), "topContributors": []});
-        let cpu = || json!({"min": num(f64::INFINITY), "average": 0.0, "max": num(f64::NEG_INFINITY)});
+        let cpu =
+            || json!({"min": num(f64::INFINITY), "average": 0.0, "max": num(f64::NEG_INFINITY)});
         let mut root = Map::new();
         root.insert("startedEpoch".into(), json!(self.started_epoch_millis));
         root.insert("endedEpoch".into(), json!(self.ended_epoch_millis));
@@ -512,15 +698,31 @@ impl Summary {
             "heap".into(),
             json!({"allocationRateBytesPerSecond": 0.0, "gcCount": 0, "gcOverHeadPercent": num(f64::from(0.0_f32 / duration_ms as f32)), "gcTotalDurationMs": 0}),
         );
-        root.insert("cpuPercent".into(), json!({"jvm": cpu(), "userJvm": cpu(), "system": cpu()}));
+        root.insert(
+            "cpuPercent".into(),
+            json!({"jvm": cpu(), "userJvm": cpu(), "system": cpu()}),
+        );
         root.insert("network".into(), json!({"sent": self.io_summary(&self.sent), "received": self.io_summary(&self.received)}));
         root.insert("fileIO".into(), json!({"write": empty_io(), "read": empty_io(), "chunksRead": empty_io(), "chunksWritten": empty_io()}));
         if !self.tick_times_nanos.is_empty() {
-            let ms: Vec<f64> = self.tick_times_nanos.iter().map(|n| *n as f64 / 1_000_000.0).collect();
+            let ms: Vec<f64> = self
+                .tick_times_nanos
+                .iter()
+                .map(|n| *n as f64 / 1_000_000.0)
+                .collect();
             let mut tick = Map::new();
-            tick.insert("minMs".into(), num(ms.iter().copied().fold(f64::INFINITY, f64::min)));
-            tick.insert("averageMs".into(), num(ms.iter().sum::<f64>() / ms.len() as f64));
-            tick.insert("maxMs".into(), num(ms.iter().copied().fold(f64::NEG_INFINITY, f64::max)));
+            tick.insert(
+                "minMs".into(),
+                num(ms.iter().copied().fold(f64::INFINITY, f64::min)),
+            );
+            tick.insert(
+                "averageMs".into(),
+                num(ms.iter().sum::<f64>() / ms.len() as f64),
+            );
+            tick.insert(
+                "maxMs".into(),
+                num(ms.iter().copied().fold(f64::NEG_INFINITY, f64::max)),
+            );
             for (p, v) in percentiles(&ms) {
                 tick.insert(format!("p{p}"), num(v));
             }
@@ -530,7 +732,9 @@ impl Summary {
         root.insert("chunkGen".into(), json!({}));
         root.insert("structureGen".into(), json!({}));
         let text = serde_json::to_string_pretty(&Value::Object(root)).expect("plain JSON values");
-        text.replace("\"\u{1}NaN\"", "NaN").replace("\"\u{1}Infinity\"", "Infinity").replace("\"\u{1}-Infinity\"", "-Infinity")
+        text.replace("\"\u{1}NaN\"", "NaN")
+            .replace("\"\u{1}Infinity\"", "Infinity")
+            .replace("\"\u{1}-Infinity\"", "-Infinity")
     }
 }
 
@@ -546,7 +750,11 @@ pub struct JfrProfiler {
 /// `JvmProfiler.INSTANCE`.
 pub fn instance() -> &'static JfrProfiler {
     static INSTANCE: OnceLock<JfrProfiler> = OnceLock::new();
-    INSTANCE.get_or_init(|| JfrProfiler { recording: Mutex::new(None), running: AtomicBool::new(false), next_recording_id: Mutex::new(1) })
+    INSTANCE.get_or_init(|| JfrProfiler {
+        recording: Mutex::new(None),
+        running: AtomicBool::new(false),
+        next_recording_id: Mutex::new(1),
+    })
 }
 
 impl JfrProfiler {
@@ -571,7 +779,10 @@ impl JfrProfiler {
             return false;
         }
         let timestamp = chrono::Local::now().format("%Y-%m-%d-%H%M%S").to_string();
-        let name = format!("{environment}-{}-{timestamp}", crate::server::packs::GAME_VERSION);
+        let name = format!(
+            "{environment}-{}-{timestamp}",
+            crate::server::packs::GAME_VERSION
+        );
         let destination = debug_dir.join(format!("{environment}-{timestamp}.jfr"));
         let events_path = debug_dir.join(format!("{environment}-{timestamp}.jfr.events"));
         let created = std::fs::create_dir_all(debug_dir).and_then(|()| File::create(&events_path));
@@ -590,7 +801,10 @@ impl JfrProfiler {
             id
         };
         let start_epoch_nanos = chrono::Utc::now().timestamp_nanos_opt().unwrap_or(0);
-        log::info!("Started flight recorder profiling id({id}):name({name}) - will dump to {} on exit or stop command", destination.display());
+        log::info!(
+            "Started flight recorder profiling id({id}):name({name}) - will dump to {} on exit or stop command",
+            destination.display()
+        );
         *slot = Some(Recording {
             id,
             destination,
@@ -618,7 +832,9 @@ impl JfrProfiler {
     pub fn stop(&self) -> Result<PathBuf, String> {
         let recording = self.recording.lock().take();
         self.running.store(false, Ordering::Relaxed);
-        let Some(recording) = recording else { return Err("Not currently profiling".to_owned()) };
+        let Some(recording) = recording else {
+            return Err("Not currently profiling".to_owned());
+        };
         let (destination, summary) = recording.finish().map_err(|e| e.to_string())?;
         report_summary(&destination, &summary);
         Ok(destination)
@@ -637,13 +853,20 @@ impl JfrProfiler {
             return;
         }
         if let Some(recording) = self.recording.lock().as_mut() {
-            recording.current_average_tick_nanos = (1_000_000.0_f32 * current_average_tick_time_millis) as i64;
+            recording.current_average_tick_nanos =
+                (1_000_000.0_f32 * current_average_tick_time_millis) as i64;
             recording.periodic(get_nanos());
         }
     }
 
     /// `onPacketReceived(protocol, packetId, remoteAddress, readableBytes)`.
-    pub fn on_packet_received(&self, protocol: &str, packet_id: &str, remote_address: &str, bytes: i32) {
+    pub fn on_packet_received(
+        &self,
+        protocol: &str,
+        packet_id: &str,
+        remote_address: &str,
+        bytes: i32,
+    ) {
         if self.is_running() {
             if let Some(recording) = self.recording.lock().as_mut() {
                 recording.packet(true, protocol, packet_id, remote_address, bytes);
@@ -652,7 +875,13 @@ impl JfrProfiler {
     }
 
     /// `onPacketSent(protocol, packetId, remoteAddress, writtenBytes)`.
-    pub fn on_packet_sent(&self, protocol: &str, packet_id: &str, remote_address: &str, bytes: i32) {
+    pub fn on_packet_sent(
+        &self,
+        protocol: &str,
+        packet_id: &str,
+        remote_address: &str,
+        bytes: i32,
+    ) {
         if self.is_running() {
             if let Some(recording) = self.recording.lock().as_mut() {
                 recording.packet(false, protocol, packet_id, remote_address, bytes);
@@ -666,7 +895,10 @@ fn report_summary(result: &Path, summary: &Summary) {
     log::info!("Dumped flight recorder profiling to {}", result.display());
     let json = summary.as_json();
     log::info!("{json}");
-    let file_name = result.file_name().map(|n| n.to_string_lossy().into_owned()).unwrap_or_default();
+    let file_name = result
+        .file_name()
+        .map(|n| n.to_string_lossy().into_owned())
+        .unwrap_or_default();
     let stem = file_name.split(".jfr").next().unwrap_or(&file_name);
     let report = result.with_file_name(format!("jfr-report-{stem}.json"));
     match std::fs::write(&report, &json) {
@@ -686,7 +918,11 @@ mod tests {
         put_varlong(&mut v, 128);
         put_varlong(&mut v, -1);
         assert_eq!(&v[..3], &[127, 0x80, 1]);
-        assert_eq!(v.len(), 3 + 9, "-1 is nine bytes: eight 0xff continuation bytes and a full last byte");
+        assert_eq!(
+            v.len(),
+            3 + 9,
+            "-1 is nine bytes: eight 0xff continuation bytes and a full last byte"
+        );
     }
 
     #[test]
@@ -699,9 +935,16 @@ mod tests {
     #[test]
     fn writes_a_chunk_the_jfr_tool_reads() {
         let dir = tempfile::tempdir().unwrap();
-        let profiler = JfrProfiler { recording: Mutex::new(None), running: AtomicBool::new(false), next_recording_id: Mutex::new(1) };
+        let profiler = JfrProfiler {
+            recording: Mutex::new(None),
+            running: AtomicBool::new(false),
+            next_recording_id: Mutex::new(1),
+        };
         assert!(profiler.start_in("server", dir.path()));
-        assert!(!profiler.start_in("server", dir.path()), "already in progress");
+        assert!(
+            !profiler.start_in("server", dir.path()),
+            "already in progress"
+        );
         profiler.on_server_tick(12.5);
         profiler.on_packet_sent("play", "minecraft:level_event", "/127.0.0.1:1", 42);
         profiler.on_packet_received("play", "minecraft:move_player_pos", "/127.0.0.1:1", 25);
@@ -711,7 +954,11 @@ mod tests {
         }
         let bytes = std::fs::read(&path).unwrap();
         assert_eq!(&bytes[..4], b"FLR\0");
-        assert_eq!(i64::from_be_bytes(bytes[8..16].try_into().unwrap()) as usize, bytes.len(), "chunk size");
+        assert_eq!(
+            i64::from_be_bytes(bytes[8..16].try_into().unwrap()) as usize,
+            bytes.len(),
+            "chunk size"
+        );
         assert_eq!(profiler.stop().unwrap_err(), "Not currently profiling");
     }
 }

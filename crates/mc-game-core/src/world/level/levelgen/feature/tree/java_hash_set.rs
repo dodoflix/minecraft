@@ -16,7 +16,11 @@ pub struct BlockPosHashSet {
 
 /// `HashMap.hash(key)` of `Vec3i.hashCode()`.
 fn hash(pos: &BlockPos) -> u32 {
-    let h = pos.y().wrapping_add(pos.z().wrapping_mul(31)).wrapping_mul(31).wrapping_add(pos.x()) as u32;
+    let h = pos
+        .y()
+        .wrapping_add(pos.z().wrapping_mul(31))
+        .wrapping_mul(31)
+        .wrapping_add(pos.x()) as u32;
     h ^ (h >> 16)
 }
 
@@ -34,7 +38,8 @@ impl BlockPosHashSet {
     }
 
     pub fn contains(&self, pos: &BlockPos) -> bool {
-        !self.table.is_empty() && self.table[hash(pos) as usize & (self.table.len() - 1)].contains(pos)
+        !self.table.is_empty()
+            && self.table[hash(pos) as usize & (self.table.len() - 1)].contains(pos)
     }
 
     /// `add(pos)`: whether the set changed.
@@ -64,7 +69,11 @@ impl BlockPosHashSet {
         let mut table: Vec<Vec<BlockPos>> = vec![Vec::new(); new_cap];
         for (j, bin) in std::mem::take(&mut self.table).into_iter().enumerate() {
             for pos in bin {
-                let index = if hash(&pos) as usize & old_cap == 0 { j } else { j + old_cap };
+                let index = if hash(&pos) as usize & old_cap == 0 {
+                    j
+                } else {
+                    j + old_cap
+                };
                 table[index].push(pos);
             }
         }

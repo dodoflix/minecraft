@@ -36,7 +36,9 @@ pub(crate) fn collect_defs(out: &mut Vec<ComponentDef>) {
 /// `ItemStack.validateComponents`.
 pub(crate) fn validate_components(stack: &ItemStack) -> Result<(), String> {
     use super::map::DataComponentGetter;
-    let Some(components) = stack.components() else { return Ok(()) };
+    let Some(components) = stack.components() else {
+        return Ok(());
+    };
     if components.has(MAX_DAMAGE.id()) && *components.get_or_default(&MAX_STACK_SIZE, &1) > 1 {
         return Err("Item cannot be both damageable and stackable".into());
     }

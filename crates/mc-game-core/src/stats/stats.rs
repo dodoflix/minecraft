@@ -114,9 +114,15 @@ mod tests {
 
     #[test]
     fn every_custom_stat_has_its_formatter() {
-        assert_eq!(Stats::formatter(CustomStat::WALK_ONE_CM), StatFormatter::Distance);
+        assert_eq!(
+            Stats::formatter(CustomStat::WALK_ONE_CM),
+            StatFormatter::Distance
+        );
         assert_eq!(Stats::formatter(CustomStat::PLAY_TIME), StatFormatter::Time);
-        assert_eq!(Stats::formatter(CustomStat::DAMAGE_DEALT), StatFormatter::DivideByTen);
+        assert_eq!(
+            Stats::formatter(CustomStat::DAMAGE_DEALT),
+            StatFormatter::DivideByTen
+        );
         assert_eq!(Stats::formatter(CustomStat::JUMP), StatFormatter::Default);
         assert_eq!(CustomStat::iter().count(), 78);
     }

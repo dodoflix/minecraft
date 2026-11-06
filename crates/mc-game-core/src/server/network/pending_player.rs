@@ -9,7 +9,10 @@ use std::sync::mpsc::Receiver;
 /// What the reader task of a connection in the play protocol sends to the game thread.
 pub enum InboundPacket {
     /// A decoded serverbound play packet. `received_at_ms` is `Util.getMillis()` at decode time (keep-alive latency).
-    Packet { packet: Box<ServerboundPlayPacket>, received_at_ms: i64 },
+    Packet {
+        packet: Box<ServerboundPlayPacket>,
+        received_at_ms: i64,
+    },
     /// The connection ended (always the last event): end of stream, timeout, a decode error
     /// (`Internal Exception: ...`) or the reason of a local `disconnect`.
     Disconnected(DisconnectionDetails),

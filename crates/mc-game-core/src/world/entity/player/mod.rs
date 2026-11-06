@@ -1,38 +1,38 @@
 //! `net.minecraft.world.entity.player.*` + `ServerPlayer`: `Avatar`/`Player` data and save/load.
 pub mod abilities;
 pub mod attack;
-pub mod experience;
-pub mod food;
-pub mod game_mode;
-pub mod shoulder;
-pub mod stats;
 pub mod damage;
-pub mod food_data;
-pub mod handle_sync;
 pub mod drop;
 pub mod effects;
+pub mod experience;
+pub mod food;
+pub mod food_data;
+pub mod game_mode;
+pub mod handle_sync;
 pub mod interact;
 pub mod inventory;
 pub mod item_use;
-pub mod player_systems;
 pub mod menu_ctx;
+pub mod menu_open;
 pub mod movement_stats;
 pub mod pickup;
-pub mod menu_open;
-pub mod recipes;
+pub mod player_systems;
 pub mod post_effects;
+pub mod recipes;
+pub mod server_player;
+pub mod shoulder;
+pub mod sleep_in_bed;
+pub mod stats;
 pub mod tick;
 pub mod travel;
 pub mod warden_spawn_tracker;
-pub mod server_player;
-pub mod sleep_in_bed;
 
-pub use abilities::Abilities;
-pub use food_data::FoodData;
-pub use server_player::ServerPlayer;
 use crate::world::container::SimpleContainer;
 use crate::world::inventory::PlayerMenus;
+pub use abilities::Abilities;
+pub use food_data::FoodData;
 use inventory::Inventory;
+pub use server_player::ServerPlayer;
 
 use super::dimensions::{EntityAttachments, EntityDimensions};
 use super::living::LivingEntityData;
@@ -65,7 +65,12 @@ pub fn avatar_dimensions(pose: Pose) -> EntityDimensions {
         .map(|&(_, w, h, e, f)| (w, h, e, f))
         // `POSES.getOrDefault(pose, STANDING_DIMENSIONS)`
         .unwrap_or((0.6, 1.8, 1.62, false));
-    let mut dims = if fixed { EntityDimensions::fixed(width, height) } else { EntityDimensions::scalable(width, height) }.with_eye_height(eye_height);
+    let mut dims = if fixed {
+        EntityDimensions::fixed(width, height)
+    } else {
+        EntityDimensions::scalable(width, height)
+    }
+    .with_eye_height(eye_height);
     if matches!(pose, Pose::Standing | Pose::Crouching) || !AVATAR_POSES_KNOWN.contains(&pose) {
         // `attach(VEHICLE, DEFAULT_VEHICLE_ATTACHMENT)`; the other attachments keep their fallbacks
         let base = EntityAttachments::create_default(width, height);
@@ -74,7 +79,15 @@ pub fn avatar_dimensions(pose: Pose) -> EntityDimensions {
     dims
 }
 
-const AVATAR_POSES_KNOWN: [Pose; 7] = [Pose::Standing, Pose::Sleeping, Pose::FallFlying, Pose::Swimming, Pose::SpinAttack, Pose::Crouching, Pose::Dying];
+const AVATAR_POSES_KNOWN: [Pose; 7] = [
+    Pose::Standing,
+    Pose::Sleeping,
+    Pose::FallFlying,
+    Pose::Swimming,
+    Pose::SpinAttack,
+    Pose::Crouching,
+    Pose::Dying,
+];
 
 /// `Player` fields (the `Avatar` accessors live in the synched data).
 pub struct PlayerData {
@@ -106,14 +119,19 @@ pub struct PlayerData {
 impl PlayerData {
     /// `Player(level, gameProfile)` (`super(EntityTypes.PLAYER, level)` then `setUUID(profile.id())`).
     pub fn new(id: super::EntityId, game_profile: GameProfile) -> Self {
-        let mut living = LivingEntityData::new(mc_data::EntityType::PLAYER, id, super::entity::TOTAL_AIR_SUPPLY, |b| {
-            b.define(DATA_PLAYER_MAIN_HAND, HumanoidArm::Right);
-            b.define(DATA_PLAYER_MODE_CUSTOMISATION, 0);
-            b.define(DATA_PLAYER_ABSORPTION_ID, 0.0);
-            b.define(DATA_SCORE_ID, 0);
-            b.define(DATA_SHOULDER_PARROT_LEFT, None);
-            b.define(DATA_SHOULDER_PARROT_RIGHT, None);
-        });
+        let mut living = LivingEntityData::new(
+            mc_data::EntityType::PLAYER,
+            id,
+            super::entity::TOTAL_AIR_SUPPLY,
+            |b| {
+                b.define(DATA_PLAYER_MAIN_HAND, HumanoidArm::Right);
+                b.define(DATA_PLAYER_MODE_CUSTOMISATION, 0);
+                b.define(DATA_PLAYER_ABSORPTION_ID, 0.0);
+                b.define(DATA_SCORE_ID, 0);
+                b.define(DATA_SHOULDER_PARROT_LEFT, None);
+                b.define(DATA_SHOULDER_PARROT_RIGHT, None);
+            },
+        );
         living.entity.uuid = game_profile.id;
         Self {
             living,
@@ -145,7 +163,10 @@ impl PlayerData {
     }
 
     pub fn set_main_arm(&mut self, arm: HumanoidArm) {
-        self.living.entity.entity_data.set(DATA_PLAYER_MAIN_HAND, arm);
+        self.living
+            .entity
+            .entity_data
+            .set(DATA_PLAYER_MAIN_HAND, arm);
     }
 
     /// `getScore()` / `setScore(score)`.
@@ -159,16 +180,28 @@ impl PlayerData {
 
     /// `getAbsorptionAmount()` (synched for players).
     pub fn get_absorption_amount(&self) -> f32 {
-        self.living.entity.entity_data.get(DATA_PLAYER_ABSORPTION_ID)
+        self.living
+            .entity
+            .entity_data
+            .get(DATA_PLAYER_ABSORPTION_ID)
     }
 
     pub fn internal_set_absorption_amount(&mut self, amount: f32) {
-        self.living.entity.entity_data.set(DATA_PLAYER_ABSORPTION_ID, amount);
+        self.living
+            .entity
+            .entity_data
+            .set(DATA_PLAYER_ABSORPTION_ID, amount);
     }
 
     /// `isModelPartShown(part)` with the part's mask.
     pub fn is_model_part_shown(&self, mask: u8) -> bool {
-        (self.living.entity.entity_data.get(DATA_PLAYER_MODE_CUSTOMISATION) as u8 & mask) == mask
+        (self
+            .living
+            .entity
+            .entity_data
+            .get(DATA_PLAYER_MODE_CUSTOMISATION) as u8
+            & mask)
+            == mask
     }
 
     pub fn is_sleeping_in_bed(&self) -> bool {

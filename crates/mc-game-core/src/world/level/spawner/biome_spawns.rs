@@ -7,7 +7,9 @@
 //! layer, then the biome layer (the attribute is `fullResolutionBiomes`, so the biome is the block-resolution
 //! `BiomeManager.getBiome`).
 
-use super::mob_spawn_settings::{DEFAULT_CREATURE_WORLD_GEN_SPAWN_PROBABILITY, EMPTY, MobSpawnSettings};
+use super::mob_spawn_settings::{
+    DEFAULT_CREATURE_WORLD_GEN_SPAWN_PROBABILITY, EMPTY, MobSpawnSettings,
+};
 use crate::registry::typed::attributes::EnvironmentAttributeMap;
 use mc_core::ident::Identifier;
 use mc_core::math::mth;
@@ -32,13 +34,20 @@ pub struct SpawnsEntry {
 impl SpawnsEntry {
     /// `applyModifier(baseValue)`.
     fn apply(&self, base: &Arc<MobSpawnSettings>) -> Arc<MobSpawnSettings> {
-        if self.overlay { MobSpawnSettings::overlay(base, &self.settings) } else { self.settings.clone() }
+        if self.overlay {
+            MobSpawnSettings::overlay(base, &self.settings)
+        } else {
+            self.settings.clone()
+        }
     }
 
     /// An `EnvironmentAttributeMap` entry (`modifier` + `argument` as validated JSON).
     fn from_entry(modifier: &str, argument: &Value) -> Option<SpawnsEntry> {
         match MobSpawnSettings::from_json(argument) {
-            Ok(settings) => Some(SpawnsEntry { overlay: modifier == "overlay", settings: Arc::new(settings) }),
+            Ok(settings) => Some(SpawnsEntry {
+                overlay: modifier == "overlay",
+                settings: Arc::new(settings),
+            }),
             Err(e) => {
                 log::warn!("Invalid {NATURAL_MOB_SPAWNS} attribute: {e}");
                 None
@@ -81,10 +90,20 @@ impl FloatEntry {
         if modifier == FloatModifier::AlphaBlend {
             let object = argument.as_object()?;
             let value = object.get("value")?.as_f64()? as f32;
-            let alpha = object.get("alpha").map_or(Some(1.0), |a| a.as_f64().map(|a| a as f32))?;
-            return Some(FloatEntry { modifier, value, alpha });
+            let alpha = object
+                .get("alpha")
+                .map_or(Some(1.0), |a| a.as_f64().map(|a| a as f32))?;
+            return Some(FloatEntry {
+                modifier,
+                value,
+                alpha,
+            });
         }
-        Some(FloatEntry { modifier, value: argument.as_f64()? as f32, alpha: 1.0 })
+        Some(FloatEntry {
+            modifier,
+            value: argument.as_f64()? as f32,
+            alpha: 1.0,
+        })
     }
 
     /// `FloatModifier.apply(subject, argument)`.
@@ -110,7 +129,10 @@ pub struct DimensionSpawnBase {
 
 impl Default for DimensionSpawnBase {
     fn default() -> Self {
-        DimensionSpawnBase { natural_mob_spawns: EMPTY.clone(), creature_probability: DEFAULT_CREATURE_WORLD_GEN_SPAWN_PROBABILITY }
+        DimensionSpawnBase {
+            natural_mob_spawns: EMPTY.clone(),
+            creature_probability: DEFAULT_CREATURE_WORLD_GEN_SPAWN_PROBABILITY,
+        }
     }
 }
 
@@ -149,15 +171,25 @@ impl BiomeSpawnTable {
         let mut table = BiomeSpawnTable::default();
         for index in 0..registry.len() {
             let attributes = registry.get(BiomeId(index as u32)).attributes.as_ref();
-            table.natural.push(attributes.and_then(|a| entry_of(a, NATURAL_MOB_SPAWNS)).and_then(|(m, v)| SpawnsEntry::from_entry(m, v)));
-            table.creature_probability.push(attributes.and_then(|a| entry_of(a, CREATURE_PROBABILITY)).and_then(|(m, v)| FloatEntry::from_entry(m, v)));
+            table.natural.push(
+                attributes
+                    .and_then(|a| entry_of(a, NATURAL_MOB_SPAWNS))
+                    .and_then(|(m, v)| SpawnsEntry::from_entry(m, v)),
+            );
+            table.creature_probability.push(
+                attributes
+                    .and_then(|a| entry_of(a, CREATURE_PROBABILITY))
+                    .and_then(|(m, v)| FloatEntry::from_entry(m, v)),
+            );
         }
         table
     }
 
     /// The table of `registry`, built on first use and shared afterwards (one table per registry instance).
     pub fn for_registry(registry: &Arc<BiomeRegistry>) -> Arc<BiomeSpawnTable> {
-        static TABLES: LazyLock<Mutex<HashMap<usize, (Weak<BiomeRegistry>, Arc<BiomeSpawnTable>)>>> = LazyLock::new(Mutex::default);
+        static TABLES: LazyLock<
+            Mutex<HashMap<usize, (Weak<BiomeRegistry>, Arc<BiomeSpawnTable>)>>,
+        > = LazyLock::new(Mutex::default);
         let mut tables = TABLES.lock().unwrap_or_else(|e| e.into_inner());
         tables.retain(|_, (registry, _)| registry.strong_count() > 0);
         let key = Arc::as_ptr(registry) as usize;
@@ -170,20 +202,38 @@ impl BiomeSpawnTable {
     }
 
     /// `getValue(NATURAL_MOB_SPAWNS, pos)` for the biome at `pos`.
-    pub fn natural_mob_spawns(&self, base: &DimensionSpawnBase, biome: Option<BiomeId>) -> Arc<MobSpawnSettings> {
-        match biome.and_then(|b| self.natural.get(b.0 as usize)).and_then(Option::as_ref) {
+    pub fn natural_mob_spawns(
+        &self,
+        base: &DimensionSpawnBase,
+        biome: Option<BiomeId>,
+    ) -> Arc<MobSpawnSettings> {
+        match biome
+            .and_then(|b| self.natural.get(b.0 as usize))
+            .and_then(Option::as_ref)
+        {
             Some(entry) => entry.apply(&base.natural_mob_spawns),
             None => base.natural_mob_spawns.clone(),
         }
     }
 
     /// `getValue(CREATURE_WORLD_GEN_SPAWN_PROBABILITY, pos)` for the biome at `pos` (sanitized to the attribute range).
-    pub fn creature_world_gen_spawn_probability(&self, base: &DimensionSpawnBase, biome: Option<BiomeId>) -> f32 {
-        let value = match biome.and_then(|b| self.creature_probability.get(b.0 as usize)).and_then(Option::as_ref) {
+    pub fn creature_world_gen_spawn_probability(
+        &self,
+        base: &DimensionSpawnBase,
+        biome: Option<BiomeId>,
+    ) -> f32 {
+        let value = match biome
+            .and_then(|b| self.creature_probability.get(b.0 as usize))
+            .and_then(Option::as_ref)
+        {
             Some(entry) => entry.apply(base.creature_probability),
             None => base.creature_probability,
         };
-        if (0.0..=PROBABILITY_MAX).contains(&value) { value } else { mth::clamp_f32(value, 0.0, PROBABILITY_MAX) }
+        if (0.0..=PROBABILITY_MAX).contains(&value) {
+            value
+        } else {
+            mth::clamp_f32(value, 0.0, PROBABILITY_MAX)
+        }
     }
 }
 
@@ -192,7 +242,10 @@ impl BiomeSpawnTable {
 fn entry_of<'a>(attributes: &'a Value, name: &str) -> Option<(&'a str, &'a Value)> {
     let value = attributes.get(name)?;
     if let Some(object) = value.as_object()
-        && let (Some(modifier), Some(argument)) = (object.get("modifier").and_then(Value::as_str), object.get("argument"))
+        && let (Some(modifier), Some(argument)) = (
+            object.get("modifier").and_then(Value::as_str),
+            object.get("argument"),
+        )
     {
         return Some((modifier, argument));
     }
@@ -210,10 +263,21 @@ mod tests {
             NATURAL_MOB_SPAWNS: {"modifier": "overlay", "argument": {"spawns_by_category": {}, "spawn_costs": {}}},
             CREATURE_PROBABILITY: 0.03
         });
-        assert_eq!(entry_of(&attributes, NATURAL_MOB_SPAWNS).map(|e| e.0), Some("overlay"));
-        assert_eq!(entry_of(&attributes, CREATURE_PROBABILITY).map(|e| e.0), Some("override"));
+        assert_eq!(
+            entry_of(&attributes, NATURAL_MOB_SPAWNS).map(|e| e.0),
+            Some("overlay")
+        );
+        assert_eq!(
+            entry_of(&attributes, CREATURE_PROBABILITY).map(|e| e.0),
+            Some("override")
+        );
         let entry = FloatEntry::from_entry("override", &json!(0.03)).unwrap();
         assert_eq!(entry.apply(0.1), 0.03f32);
-        assert_eq!(FloatEntry::from_entry("add", &json!(0.5)).unwrap().apply(0.25), 0.75);
+        assert_eq!(
+            FloatEntry::from_entry("add", &json!(0.5))
+                .unwrap()
+                .apply(0.25),
+            0.75
+        );
     }
 }

@@ -36,9 +36,12 @@ impl State {
                 }
             }
             P::MoveEntityPos(p) => self.move_entity(p.entity_id, &p.delta, None, p.on_ground),
-            P::MoveEntityPosRot(p) => {
-                self.move_entity(p.entity_id, &p.delta, Some((unpack_degrees(p.y_rot), unpack_degrees(p.x_rot))), p.on_ground)
-            }
+            P::MoveEntityPosRot(p) => self.move_entity(
+                p.entity_id,
+                &p.delta,
+                Some((unpack_degrees(p.y_rot), unpack_degrees(p.x_rot))),
+                p.on_ground,
+            ),
             P::MoveEntityRot(p) => {
                 if let Some(e) = self.entities.get_mut(&p.entity_id) {
                     e.yaw = unpack_degrees(p.y_rot);
@@ -54,13 +57,33 @@ impl State {
                     let rel = |r: Relative| p.relatives.contains(r);
                     let c = &p.change;
                     e.pos = Vec3::new(
-                        if rel(Relative::X) { e.pos.x + c.position.x } else { c.position.x },
-                        if rel(Relative::Y) { e.pos.y + c.position.y } else { c.position.y },
-                        if rel(Relative::Z) { e.pos.z + c.position.z } else { c.position.z },
+                        if rel(Relative::X) {
+                            e.pos.x + c.position.x
+                        } else {
+                            c.position.x
+                        },
+                        if rel(Relative::Y) {
+                            e.pos.y + c.position.y
+                        } else {
+                            c.position.y
+                        },
+                        if rel(Relative::Z) {
+                            e.pos.z + c.position.z
+                        } else {
+                            c.position.z
+                        },
                     );
                     e.vel = c.delta_movement;
-                    e.yaw = if rel(Relative::YRot) { e.yaw + c.y_rot } else { c.y_rot };
-                    e.pitch = if rel(Relative::XRot) { e.pitch + c.x_rot } else { c.x_rot };
+                    e.yaw = if rel(Relative::YRot) {
+                        e.yaw + c.y_rot
+                    } else {
+                        c.y_rot
+                    };
+                    e.pitch = if rel(Relative::XRot) {
+                        e.pitch + c.x_rot
+                    } else {
+                        c.x_rot
+                    };
                     e.on_ground = p.on_ground;
                 }
             }
@@ -141,12 +164,20 @@ impl State {
             P::UpdateAttributes(p) => {
                 if p.entity_id == self.entity_id {
                     for snap in p.attributes {
-                        self.attributes.insert(snap.attribute, (snap.base, snap.modifiers));
+                        self.attributes
+                            .insert(snap.attribute, (snap.base, snap.modifiers));
                     }
                 }
             }
-            P::EntityEvent(p) => self.events.push(Observed::EntityEvent { tick: self.tick, entity_id: p.entity_id, event_id: p.event_id }),
-            P::HurtAnimation(p) => self.events.push(Observed::HurtAnimation { tick: self.tick, entity_id: p.id }),
+            P::EntityEvent(p) => self.events.push(Observed::EntityEvent {
+                tick: self.tick,
+                entity_id: p.entity_id,
+                event_id: p.event_id,
+            }),
+            P::HurtAnimation(p) => self.events.push(Observed::HurtAnimation {
+                tick: self.tick,
+                entity_id: p.id,
+            }),
             P::DamageEvent(p) => self.events.push(Observed::Damage {
                 tick: self.tick,
                 entity_id: p.entity_id,
@@ -158,7 +189,11 @@ impl State {
                 if p.player_id == self.entity_id {
                     self.dead = true;
                 }
-                self.events.push(Observed::Death { tick: self.tick, player_id: p.player_id, message: p.message.get_string() });
+                self.events.push(Observed::Death {
+                    tick: self.tick,
+                    player_id: p.player_id,
+                    message: p.message.get_string(),
+                });
             }
             P::Explode(p) => self.events.push(Observed::Explosion {
                 tick: self.tick,
@@ -167,7 +202,12 @@ impl State {
                 block_count: p.block_count,
                 knockback: p.player_knockback,
             }),
-            P::TakeItemEntity(p) => self.events.push(Observed::TakeItem { tick: self.tick, item_id: p.item_id, collector_id: p.player_id, amount: p.amount }),
+            P::TakeItemEntity(p) => self.events.push(Observed::TakeItem {
+                tick: self.tick,
+                item_id: p.item_id,
+                collector_id: p.player_id,
+                amount: p.amount,
+            }),
 
             // ---- vitals ----
             P::SetHealth(p) => {
@@ -198,7 +238,11 @@ impl State {
             }
             P::MerchantOffers(p) => self.merchant_offers = Some(p),
             P::ContainerClose(p) => {
-                if self.open_menu.as_ref().is_some_and(|m| m.container_id == p.container_id) {
+                if self
+                    .open_menu
+                    .as_ref()
+                    .is_some_and(|m| m.container_id == p.container_id)
+                {
                     self.open_menu = None;
                 }
             }
@@ -243,7 +287,11 @@ impl State {
 
             // ---- chat / titles ----
             P::PlayerChat(p) => {
-                let content = p.unsigned_content.as_ref().map(text).unwrap_or(p.body.content.clone());
+                let content = p
+                    .unsigned_content
+                    .as_ref()
+                    .map(text)
+                    .unwrap_or(p.body.content.clone());
                 if p.signature.is_some() {
                     self.pending_chat_acks += 1;
                 }
@@ -264,9 +312,14 @@ impl State {
                 overlay: false,
                 sender: Some(text(&p.chat_type.name)),
             }),
-            P::SystemChat(p) => {
-                self.chat.push(ChatLine { tick: self.tick, kind: "system_chat", text: text(&p.content), json: json(&p.content), overlay: p.overlay, sender: None })
-            }
+            P::SystemChat(p) => self.chat.push(ChatLine {
+                tick: self.tick,
+                kind: "system_chat",
+                text: text(&p.content),
+                json: json(&p.content),
+                overlay: p.overlay,
+                sender: None,
+            }),
             P::ClearTitles(p) => {
                 let t = &mut self.social.titles;
                 t.title = None;
@@ -288,7 +341,9 @@ impl State {
                 self.social.tab_footer = text(&p.footer);
             }
             P::Commands(p) => {
-                let root = usize::try_from(p.root_index).ok().and_then(|i| p.entries.get(i));
+                let root = usize::try_from(p.root_index)
+                    .ok()
+                    .and_then(|i| p.entries.get(i));
                 self.commands = root
                     .map(|r| {
                         r.children
@@ -306,14 +361,18 @@ impl State {
             P::PlayerInfoUpdate(p) => {
                 use ClientboundPlayerInfoUpdateAction as A;
                 for en in p.entries {
-                    let info = self.social.players.entry(en.profile_id).or_insert_with(|| PlayerInfo {
-                        uuid: en.profile_id,
-                        name: String::new(),
-                        listed: false,
-                        latency: 0,
-                        game_mode: GameType::Survival,
-                        display_name: None,
-                    });
+                    let info =
+                        self.social
+                            .players
+                            .entry(en.profile_id)
+                            .or_insert_with(|| PlayerInfo {
+                                uuid: en.profile_id,
+                                name: String::new(),
+                                listed: false,
+                                latency: 0,
+                                game_mode: GameType::Survival,
+                                display_name: None,
+                            });
                     if p.actions.contains(A::AddPlayer)
                         && let Some(profile) = &en.profile
                     {
@@ -342,7 +401,14 @@ impl State {
                 use BossEventOperation as O;
                 match p.operation {
                     O::Add { name, progress, .. } => {
-                        self.social.bossbars.insert(p.id, BossBar { id: p.id, name: text(&name), progress });
+                        self.social.bossbars.insert(
+                            p.id,
+                            BossBar {
+                                id: p.id,
+                                name: text(&name),
+                                progress,
+                            },
+                        );
                     }
                     O::Remove => {
                         self.social.bossbars.remove(&p.id);
@@ -364,17 +430,24 @@ impl State {
                 ObjectiveMethod::Add(s) | ObjectiveMethod::Change(s) => {
                     self.social.objectives.insert(
                         p.objective_name.clone(),
-                        Objective { name: p.objective_name, display_name: text(&s.display_name) },
+                        Objective {
+                            name: p.objective_name,
+                            display_name: text(&s.display_name),
+                        },
                     );
                 }
                 ObjectiveMethod::Remove => {
                     self.social.objectives.remove(&p.objective_name);
-                    self.social.scores.retain(|(_, o), _| *o != p.objective_name);
+                    self.social
+                        .scores
+                        .retain(|(_, o), _| *o != p.objective_name);
                 }
                 ObjectiveMethod::Other(_) => {}
             },
             P::SetScore(p) => {
-                self.social.scores.insert((p.owner, p.objective_name), p.score);
+                self.social
+                    .scores
+                    .insert((p.owner, p.objective_name), p.score);
             }
             P::ResetScore(p) => match p.objective_name {
                 Some(o) => {
@@ -393,7 +466,10 @@ impl State {
             P::SetPlayerTeam(p) => {
                 let teams = &mut self.social.teams;
                 match p.method {
-                    TeamMethod::Add { parameters, players } => {
+                    TeamMethod::Add {
+                        parameters,
+                        players,
+                    } => {
                         teams.insert(
                             p.name.clone(),
                             Team {
@@ -433,10 +509,16 @@ impl State {
     }
 
     fn move_entity(&mut self, id: i32, delta: &VecDelta, rot: Option<(f32, f32)>, on_ground: bool) {
-        let Some(e) = self.entities.get_mut(&id) else { return };
+        let Some(e) = self.entities.get_mut(&id) else {
+            return;
+        };
         let (mut xa, mut ya, mut za) = (0i64, 0i64, 0i64);
         match delta {
-            VecDelta::Linear { xa: x, ya: y, za: z } => (xa, ya, za) = (*x as i64, *y as i64, *z as i64),
+            VecDelta::Linear {
+                xa: x,
+                ya: y,
+                za: z,
+            } => (xa, ya, za) = (*x as i64, *y as i64, *z as i64),
             VecDelta::Stepped(steps) => {
                 for s in steps {
                     xa += s.xa as i64;
@@ -446,7 +528,13 @@ impl State {
             }
         }
         // `VecDeltaCodec.decode`: axes with a zero delta keep the exact current coordinate
-        let dec = |cur: f64, d: i64| if d == 0 { cur } else { ((cur * 4096.0).round() as i64 + d) as f64 / 4096.0 };
+        let dec = |cur: f64, d: i64| {
+            if d == 0 {
+                cur
+            } else {
+                ((cur * 4096.0).round() as i64 + d) as f64 / 4096.0
+            }
+        };
         e.pos = Vec3::new(dec(e.pos.x, xa), dec(e.pos.y, ya), dec(e.pos.z, za));
         if let Some((y, x)) = rot {
             e.yaw = y;
@@ -459,22 +547,32 @@ impl State {
         if container_id == PLAYER_MENU {
             return Some(&mut self.inventory);
         }
-        self.open_menu.as_mut().filter(|m| m.container_id == container_id)
+        self.open_menu
+            .as_mut()
+            .filter(|m| m.container_id == container_id)
     }
 
     /// The player's inventory menu mirrors the tail of an open container and vice versa; keep both views of the
     /// 36 inventory slots equal after a full-content/slot update of either.
     fn sync_player_menu_from(&mut self, container_id: i32) {
-        let Some(open) = &mut self.open_menu else { return };
+        let Some(open) = &mut self.open_menu else {
+            return;
+        };
         if container_id == PLAYER_MENU {
             for i in 0..36 {
-                if let (Some(a), Some(b)) = (self.inventory.slot_of_inventory(i), open.slot_of_inventory(i)) {
+                if let (Some(a), Some(b)) = (
+                    self.inventory.slot_of_inventory(i),
+                    open.slot_of_inventory(i),
+                ) {
                     open.slots[b] = self.inventory.slots[a].clone();
                 }
             }
         } else if open.container_id == container_id {
             for i in 0..36 {
-                if let (Some(a), Some(b)) = (self.inventory.slot_of_inventory(i), open.slot_of_inventory(i)) {
+                if let (Some(a), Some(b)) = (
+                    self.inventory.slot_of_inventory(i),
+                    open.slot_of_inventory(i),
+                ) {
                     self.inventory.slots[a] = open.slots[b].clone();
                 }
             }

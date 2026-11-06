@@ -47,7 +47,11 @@ impl InvertableSetOptionState {
     }
 
     pub fn can_parse_element(&self, inverted: bool) -> bool {
-        if inverted { self.can_parse_negative_element() } else { self.can_parse_positive_element() }
+        if inverted {
+            self.can_parse_negative_element()
+        } else {
+            self.can_parse_positive_element()
+        }
     }
 
     pub fn mark_parsed_positive_element(&mut self) {

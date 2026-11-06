@@ -1,13 +1,13 @@
 //! `net.minecraft.server.dialog.input`: the form controls of a dialog (`Input`, `InputControl` and its four types).
 
-use super::template::ParsedTemplate;
 use super::Dialog;
-use crate::components::holder::registry_by_name_codec;
+use super::template::ParsedTemplate;
 use crate::components::component_codec;
+use crate::components::holder::registry_by_name_codec;
 use mc_core::math::java::java_double_to_string;
 use mc_data::InputControlType;
-use mc_dfu::extra::{extra_int_range, POSITIVE_FLOAT, POSITIVE_INT};
-use mc_dfu::{java_len, Codec, DataResult, MapCodec, BOOL, FLOAT, STRING};
+use mc_dfu::extra::{POSITIVE_FLOAT, POSITIVE_INT, extra_int_range};
+use mc_dfu::{BOOL, Codec, DataResult, FLOAT, MapCodec, STRING, java_len};
 use mc_text::Component;
 use std::sync::LazyLock;
 
@@ -80,8 +80,14 @@ impl RangeInfo {
                 let min = f64::from(java_min(range.start, range.end));
                 let max = f64::from(java_max(range.start, range.end));
                 if initial < min || initial > max {
-                    let (i, lo, hi) = (java_double_to_string(initial), java_double_to_string(min), java_double_to_string(max));
-                    return DataResult::error(move || format!("Initial value {i} is outside of range [{lo}, {hi}]"));
+                    let (i, lo, hi) = (
+                        java_double_to_string(initial),
+                        java_double_to_string(min),
+                        java_double_to_string(max),
+                    );
+                    return DataResult::error(move || {
+                        format!("Initial value {i} is outside of range [{lo}, {hi}]")
+                    });
                 }
             }
             DataResult::success(range)
@@ -103,7 +109,8 @@ impl NumberRangeInput {
         mc_dfu::record!(NumberRangeInput {
             width: Dialog::width_codec().optional_field_of_default("width", 200),
             label: component_codec().field_of("label"),
-            label_format: STRING.optional_field_of_default("label_format", "options.generic_value".to_owned()),
+            label_format: STRING
+                .optional_field_of_default("label_format", "options.generic_value".to_owned()),
             range_info: RangeInfo::map_codec(),
         })
     }
@@ -126,7 +133,11 @@ impl SingleOptionEntry {
             initial: BOOL.optional_field_of_default("initial", false),
         })
         .codec();
-        full.with_alternative_conv(&STRING, |id| SingleOptionEntry { id, display: None, initial: false })
+        full.with_alternative_conv(&STRING, |id| SingleOptionEntry {
+            id,
+            display: None,
+            initial: false,
+        })
     }
 }
 
@@ -143,7 +154,8 @@ impl SingleOptionInput {
     pub fn map_codec() -> MapCodec<SingleOptionInput> {
         mc_dfu::record!(SingleOptionInput {
             width: Dialog::width_codec().optional_field_of_default("width", 200),
-            entries: mc_dfu::extra::non_empty_list(&SingleOptionEntry::codec().list_of()).field_of("options"),
+            entries: mc_dfu::extra::non_empty_list(&SingleOptionEntry::codec().list_of())
+                .field_of("options"),
             label: component_codec().field_of("label"),
             label_visible: BOOL.optional_field_of_default("label_visible", true),
         })

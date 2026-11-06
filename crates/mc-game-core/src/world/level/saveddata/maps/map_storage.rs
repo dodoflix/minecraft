@@ -26,9 +26,16 @@ impl MapStorage {
     /// Map code must not call back into the storage from `f` (the lock is not re-entrant).
     pub fn with<R>(&self, f: impl FnOnce(&mut SavedDataManager) -> R) -> R {
         static COUNTER: AtomicU32 = AtomicU32::new(0);
-        let mut guard = self.inner.try_lock().expect("map saved data accessed re-entrantly");
+        let mut guard = self
+            .inner
+            .try_lock()
+            .expect("map saved data accessed re-entrantly");
         let manager = guard.get_or_insert_with(|| {
-            let dir = std::env::temp_dir().join(format!("mc-detached-maps-{}-{}", std::process::id(), COUNTER.fetch_add(1, Ordering::Relaxed)));
+            let dir = std::env::temp_dir().join(format!(
+                "mc-detached-maps-{}-{}",
+                std::process::id(),
+                COUNTER.fetch_add(1, Ordering::Relaxed)
+            ));
             SavedDataManager::new(SavedDataStorage::new(dir))
         });
         f(manager)
@@ -38,7 +45,9 @@ impl MapStorage {
     pub fn save(&self, flush: bool) {
         let pending = {
             let mut guard = self.inner.lock();
-            let Some(manager) = guard.as_mut() else { return };
+            let Some(manager) = guard.as_mut() else {
+                return;
+            };
             if flush {
                 manager.save_and_join();
                 return;
@@ -46,7 +55,10 @@ impl MapStorage {
             manager.schedule_save()
         };
         if !pending.is_empty() {
-            std::thread::Builder::new().name("IO-Worker".to_owned()).spawn(move || pending.write()).ok();
+            std::thread::Builder::new()
+                .name("IO-Worker".to_owned())
+                .spawn(move || pending.write())
+                .ok();
         }
     }
 
@@ -61,7 +73,11 @@ impl MapStorage {
 impl ServerLevel {
     /// `getMapData(id)`: runs `f` over the map's saved data (`None` if there is none). Do not call other map storage
     /// methods from inside `f`.
-    pub fn with_map_data<R>(&mut self, id: MapId, f: impl FnOnce(&mut ServerLevel, &mut MapItemSavedData) -> R) -> Option<R> {
+    pub fn with_map_data<R>(
+        &mut self,
+        id: MapId,
+        f: impl FnOnce(&mut ServerLevel, &mut MapItemSavedData) -> R,
+    ) -> Option<R> {
         let shared = self.shared.clone();
         shared.map_storage.with(|storage| {
             let data = storage.get(&MapItemSavedData::type_(id))?;
@@ -71,7 +87,11 @@ impl ServerLevel {
 
     /// `getMapData(id)` for readers that only need to look at the saved data.
     pub fn read_map_data<R>(&self, id: MapId, f: impl FnOnce(&MapItemSavedData) -> R) -> Option<R> {
-        self.shared.map_storage.with(|storage| storage.get(&MapItemSavedData::type_(id)).map(|data| f(data)))
+        self.shared.map_storage.with(|storage| {
+            storage
+                .get(&MapItemSavedData::type_(id))
+                .map(|data| f(data))
+        })
     }
 
     /// `setMapData(id, data)`.
@@ -83,6 +103,10 @@ impl ServerLevel {
 
     /// `getFreeMapId()`.
     pub fn get_free_map_id(&self) -> MapId {
-        self.shared.map_storage.with(|storage| storage.compute_if_absent(&MapIndex::type_()).get_next_map_id())
+        self.shared.map_storage.with(|storage| {
+            storage
+                .compute_if_absent(&MapIndex::type_())
+                .get_next_map_id()
+        })
     }
 }

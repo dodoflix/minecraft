@@ -3,7 +3,9 @@
 use mc_data::{Item, RecipeBookCategory, RecipeSerializer, RecipeType};
 use mc_dfu::{FLOAT, INT, MapCodec};
 use mc_protocol::components::ItemStackTemplate;
-use mc_protocol::packets::play::inventory::{FurnaceRecipeDisplay, RecipeDisplay, SlotDisplay, StonecutterRecipeDisplay};
+use mc_protocol::packets::play::inventory::{
+    FurnaceRecipeDisplay, RecipeDisplay, SlotDisplay, StonecutterRecipeDisplay,
+};
 
 use super::display::{item_display, stack_display};
 use super::ingredient::{Ingredient, PlacementInfo};
@@ -20,7 +22,14 @@ pub enum CookingKind {
 
 impl CookingKind {
     pub fn of_serializer(serializer: RecipeSerializer) -> Option<CookingKind> {
-        [CookingKind::Smelting, CookingKind::Blasting, CookingKind::Smoking, CookingKind::CampfireCooking].into_iter().find(|k| k.serializer() == serializer)
+        [
+            CookingKind::Smelting,
+            CookingKind::Blasting,
+            CookingKind::Smoking,
+            CookingKind::CampfireCooking,
+        ]
+        .into_iter()
+        .find(|k| k.serializer() == serializer)
     }
 
     pub fn serializer(self) -> RecipeSerializer {
@@ -67,8 +76,16 @@ pub struct CookingRecipe {
 impl CookingRecipe {
     /// `cookingMapCodec(factory)`.
     pub fn map_codec(kind: CookingKind) -> MapCodec<CookingRecipe> {
-        let (common, book, input, result) = (CommonInfo::map_codec(), CookingBookInfo::map_codec(), Ingredient::codec().field_of("ingredient"), ItemStackTemplate::codec().field_of("result"));
-        let (experience, cooking_time) = (FLOAT.optional_field_of_default("experience", 0.0f32), INT.field_of("cookingtime"));
+        let (common, book, input, result) = (
+            CommonInfo::map_codec(),
+            CookingBookInfo::map_codec(),
+            Ingredient::codec().field_of("ingredient"),
+            ItemStackTemplate::codec().field_of("result"),
+        );
+        let (experience, cooking_time) = (
+            FLOAT.optional_field_of_default("experience", 0.0f32),
+            INT.field_of("cookingtime"),
+        );
         mc_dfu::record!(CookingRecipeFields {
             common: common,
             book: book,
@@ -141,10 +158,14 @@ impl CookingRecipe {
     /// `recipeBookCategory()`.
     pub(super) fn recipe_book_category(&self) -> RecipeBookCategory {
         match (self.kind, self.book.category) {
-            (CookingKind::Smelting, CookingBookCategory::Blocks) => RecipeBookCategory::FURNACE_BLOCKS,
+            (CookingKind::Smelting, CookingBookCategory::Blocks) => {
+                RecipeBookCategory::FURNACE_BLOCKS
+            }
             (CookingKind::Smelting, CookingBookCategory::Food) => RecipeBookCategory::FURNACE_FOOD,
             (CookingKind::Smelting, CookingBookCategory::Misc) => RecipeBookCategory::FURNACE_MISC,
-            (CookingKind::Blasting, CookingBookCategory::Blocks) => RecipeBookCategory::BLAST_FURNACE_BLOCKS,
+            (CookingKind::Blasting, CookingBookCategory::Blocks) => {
+                RecipeBookCategory::BLAST_FURNACE_BLOCKS
+            }
             (CookingKind::Blasting, _) => RecipeBookCategory::BLAST_FURNACE_MISC,
             (CookingKind::Smoking, _) => RecipeBookCategory::SMOKER_FOOD,
             (CookingKind::CampfireCooking, _) => RecipeBookCategory::CAMPFIRE,

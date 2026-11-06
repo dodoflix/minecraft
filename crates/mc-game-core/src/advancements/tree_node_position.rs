@@ -25,8 +25,18 @@ struct Layout<'a> {
 
 impl Layout<'_> {
     /// The constructor: positions `node` and (recursively) its visible descendants.
-    fn create(&mut self, node: NodeId, parent: Option<usize>, previous_sibling: Option<usize>, child_index: i32, depth: i32) -> usize {
-        assert!(self.tree.node(node).advancement().display.is_some(), "Can't position an invisible advancement!");
+    fn create(
+        &mut self,
+        node: NodeId,
+        parent: Option<usize>,
+        previous_sibling: Option<usize>,
+        child_index: i32,
+        depth: i32,
+    ) -> usize {
+        assert!(
+            self.tree.node(node).advancement().display.is_some(),
+            "Can't position an invisible advancement!"
+        );
         let me = self.p.len();
         self.p.push(Pos {
             node,
@@ -51,7 +61,13 @@ impl Layout<'_> {
 
     fn add_child(&mut self, me: usize, node: NodeId, mut previous: Option<usize>) -> Option<usize> {
         if self.tree.node(node).advancement().display.is_some() {
-            let child = self.create(node, Some(me), previous, self.p[me].children.len() as i32 + 1, self.p[me].x + 1);
+            let child = self.create(
+                node,
+                Some(me),
+                previous,
+                self.p[me].children.len() as i32 + 1,
+                self.p[me].x + 1,
+            );
             self.p[me].children.push(child);
             previous = Some(child);
         } else {
@@ -134,11 +150,15 @@ impl Layout<'_> {
     }
 
     fn apportion(&mut self, me: usize, mut default_ancestor: usize) -> usize {
-        let Some(previous_sibling) = self.p[me].previous_sibling else { return default_ancestor };
+        let Some(previous_sibling) = self.p[me].previous_sibling else {
+            return default_ancestor;
+        };
         let mut vir = me;
         let mut vor = me;
         let mut vil = previous_sibling;
-        let parent = self.p[me].parent.expect("a node with a previous sibling has a parent");
+        let parent = self.p[me]
+            .parent
+            .expect("a node with a previous sibling has a parent");
         let mut vol = self.p[parent].children[0];
         let mut sir = self.p[me].mod_;
         let mut sor = self.p[me].mod_;
@@ -189,16 +209,28 @@ impl Layout<'_> {
     /// `this.getAncestor(other, defaultAncestor)` with `this` = `me`, `other` = `other`.
     fn get_ancestor(&self, me: usize, other: usize, default_ancestor: usize) -> usize {
         let ancestor = self.p[me].ancestor;
-        let other_parent = self.p[other].parent.expect("a node with a previous sibling has a parent");
-        if self.p[other_parent].children.contains(&ancestor) { ancestor } else { default_ancestor }
+        let other_parent = self.p[other]
+            .parent
+            .expect("a node with a previous sibling has a parent");
+        if self.p[other_parent].children.contains(&ancestor) {
+            ancestor
+        } else {
+            default_ancestor
+        }
     }
 }
 
 /// `TreeNodePosition.run(root)`: stores the final `x`/`y` in the tree's nodes.
 pub fn run(tree: &mut AdvancementTree, root: NodeId) {
-    assert!(tree.node(root).advancement().display.is_some(), "Can't position children of an invisible root!");
+    assert!(
+        tree.node(root).advancement().display.is_some(),
+        "Can't position children of an invisible root!"
+    );
     let (layout, _root_pos) = {
-        let mut layout = Layout { tree, p: Vec::new() };
+        let mut layout = Layout {
+            tree,
+            p: Vec::new(),
+        };
         let root_pos = layout.create(root, None, None, 1, 0);
         layout.first_walk(root_pos);
         let min = layout.second_walk(root_pos, 0.0, 0, layout.p[root_pos].y);

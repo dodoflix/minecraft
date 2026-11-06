@@ -1,5 +1,8 @@
 //! Shared helpers for the chunk-level tests against the vanilla reference world.
-#![allow(dead_code, reason = "each test target uses a subset of the shared helpers")]
+#![allow(
+    dead_code,
+    reason = "each test target uses a subset of the shared helpers"
+)]
 
 use mc_core::ident::Identifier;
 use mc_core::pos::ChunkPos;
@@ -17,10 +20,20 @@ pub const DIMENSIONS: [(&str, LevelHeight, bool); 3] = [
 ];
 
 pub fn factory() -> PalettedContainerFactory {
-    let dir = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../ref/generated/data/minecraft/worldgen/biome");
+    let dir = Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../../ref/generated/data/minecraft/worldgen/biome");
     let mut names: Vec<String> = std::fs::read_dir(dir)
         .expect("ref/ is missing: run scripts/setup-ref.sh")
-        .map(|e| format!("minecraft:{}", e.unwrap().file_name().to_str().unwrap().trim_end_matches(".json")))
+        .map(|e| {
+            format!(
+                "minecraft:{}",
+                e.unwrap()
+                    .file_name()
+                    .to_str()
+                    .unwrap()
+                    .trim_end_matches(".json")
+            )
+        })
         .collect();
     names.sort();
     PalettedContainerFactory::create(BiomeRegistry::new(names)).unwrap()
@@ -28,7 +41,11 @@ pub fn factory() -> PalettedContainerFactory {
 
 pub fn storage(folder: &Path, kind: &str) -> RegionFileStorage {
     RegionFileStorage::new(
-        RegionStorageInfo::new("test", Identifier::parse("minecraft:overworld").unwrap(), kind),
+        RegionStorageInfo::new(
+            "test",
+            Identifier::parse("minecraft:overworld").unwrap(),
+            kind,
+        ),
         folder,
         false,
     )
@@ -67,7 +84,11 @@ pub fn normalize(tag: &CompoundTag) -> CompoundTag {
         let mut items: Vec<Tag> = list.iter().cloned().collect();
         items.sort_by_key(|b| {
             let c = b.as_compound().unwrap();
-            (c.get_int_or("x", 0), c.get_int_or("y", 0), c.get_int_or("z", 0))
+            (
+                c.get_int_or("x", 0),
+                c.get_int_or("y", 0),
+                c.get_int_or("z", 0),
+            )
         });
         *list = ListTag::from(items);
     }
@@ -97,15 +118,25 @@ pub fn diff(a: &Tag, b: &Tag, path: &str) -> Option<String> {
                     }
                 }
             }
-            y.keys().find(|k| !x.contains(k)).map(|k| format!("{path}/{k}: missing in first"))
+            y.keys()
+                .find(|k| !x.contains(k))
+                .map(|k| format!("{path}/{k}: missing in first"))
         }
         (Tag::List(x), Tag::List(y)) => {
             if x.len() != y.len() {
                 return Some(format!("{path}: list length {} vs {}", x.len(), y.len()));
             }
-            x.iter().zip(y.iter()).enumerate().find_map(|(i, (p, q))| diff(p, q, &format!("{path}[{i}]")))
+            x.iter()
+                .zip(y.iter())
+                .enumerate()
+                .find_map(|(i, (p, q))| diff(p, q, &format!("{path}[{i}]")))
         }
         _ if a == b => None,
-        _ => Some(format!("{path}: {a:?} vs {b:?}").chars().take(400).collect()),
+        _ => Some(
+            format!("{path}: {a:?} vs {b:?}")
+                .chars()
+                .take(400)
+                .collect(),
+        ),
     }
 }

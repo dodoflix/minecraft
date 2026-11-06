@@ -9,7 +9,9 @@ use super::registry_layer::RegistryLayer;
 use super::reloadable_resources::{ReloadError, ReloadableServerResources};
 use crate::registry::data_loader::{self, RegistryLoadFailure};
 use crate::registry::keys::{DIMENSION_REGISTRIES, WORLD_REGISTRIES};
-use crate::registry::{LayeredRegistryAccess, RegistryAccess, build_updated_lookups, load_tags_for_existing_registries};
+use crate::registry::{
+    LayeredRegistryAccess, RegistryAccess, build_updated_lookups, load_tags_for_existing_registries,
+};
 
 /// `WorldLoader.PackConfig`.
 pub struct PackConfig<'a> {
@@ -24,10 +26,20 @@ pub struct PackConfig<'a> {
 
 impl PackConfig<'_> {
     /// `createResourceManager()`: select the packs and open them. Returns the data configuration to store in `level.dat`.
-    pub fn create_resource_manager(&mut self) -> (WorldDataConfiguration, MultiPackResourceManager) {
-        let new_pack_config = configure_pack_repository(self.pack_repository, &self.initial_data_config, self.init_mode, self.safe_mode);
+    pub fn create_resource_manager(
+        &mut self,
+    ) -> (WorldDataConfiguration, MultiPackResourceManager) {
+        let new_pack_config = configure_pack_repository(
+            self.pack_repository,
+            &self.initial_data_config,
+            self.init_mode,
+            self.safe_mode,
+        );
         let opened = self.pack_repository.open_all_selected();
-        (new_pack_config, MultiPackResourceManager::new(PackType::ServerData, opened))
+        (
+            new_pack_config,
+            MultiPackResourceManager::new(PackType::ServerData, opened),
+        )
     }
 }
 
@@ -85,10 +97,14 @@ impl WorldLoadError {
             "Failed to load datapacks, can't proceed with server load. You can either fix your datapacks or reset to vanilla with --safeMode\n{}",
             crate::server::packs::throwable(
                 "java.util.concurrent.ExecutionException",
-                &format!("net.minecraft.ReportedException: Failed to load registries due to errors{}", match self {
-                    WorldLoadError::Registries(e) | WorldLoadError::Reload(ReloadError::Registries(e)) => e.brief(),
-                    WorldLoadError::Reload(e) => format!(": {e}"),
-                })
+                &format!(
+                    "net.minecraft.ReportedException: Failed to load registries due to errors{}",
+                    match self {
+                        WorldLoadError::Registries(e)
+                        | WorldLoadError::Reload(ReloadError::Registries(e)) => e.brief(),
+                        WorldLoadError::Reload(e) => format!(": {e}"),
+                    }
+                )
             )
         );
     }
@@ -105,8 +121,18 @@ pub struct WorldStem<D> {
 
 impl<D> WorldStem<D> {
     /// `WorldStem::new` as the `ResultFactory`.
-    pub fn new(resource_manager: MultiPackResourceManager, managers: ReloadableServerResources, registries: LayeredRegistryAccess<RegistryLayer>, world_data: D) -> WorldStem<D> {
-        WorldStem { resource_manager, data_pack_resources: managers, registries, world_data }
+    pub fn new(
+        resource_manager: MultiPackResourceManager,
+        managers: ReloadableServerResources,
+        registries: LayeredRegistryAccess<RegistryLayer>,
+        world_data: D,
+    ) -> WorldStem<D> {
+        WorldStem {
+            resource_manager,
+            data_pack_resources: managers,
+            registries,
+            world_data,
+        }
     }
 
     /// `close()`.
@@ -121,10 +147,21 @@ impl<D> WorldStem<D> {
 pub fn load<D, R>(
     config: &mut PackConfig,
     world_data_supplier: impl FnOnce(&DataLoadContext) -> DataLoadOutput<D>,
-    result_factory: impl FnOnce(MultiPackResourceManager, ReloadableServerResources, LayeredRegistryAccess<RegistryLayer>, D) -> R,
+    result_factory: impl FnOnce(
+        MultiPackResourceManager,
+        ReloadableServerResources,
+        LayeredRegistryAccess<RegistryLayer>,
+        D,
+    ) -> R,
 ) -> Result<(WorldDataConfiguration, R), WorldLoadError> {
     let (world_data_configuration, resources) = config.create_resource_manager();
-    let result = load_with_resources(&world_data_configuration, &config.function_compilation_permissions, resources, world_data_supplier, result_factory);
+    let result = load_with_resources(
+        &world_data_configuration,
+        &config.function_compilation_permissions,
+        resources,
+        world_data_supplier,
+        result_factory,
+    );
     result.map(|r| (world_data_configuration, r))
 }
 
@@ -133,7 +170,12 @@ fn load_with_resources<D, R>(
     function_compilation_permissions: &PermissionSet,
     resources: MultiPackResourceManager,
     world_data_supplier: impl FnOnce(&DataLoadContext) -> DataLoadOutput<D>,
-    result_factory: impl FnOnce(MultiPackResourceManager, ReloadableServerResources, LayeredRegistryAccess<RegistryLayer>, D) -> R,
+    result_factory: impl FnOnce(
+        MultiPackResourceManager,
+        ReloadableServerResources,
+        LayeredRegistryAccess<RegistryLayer>,
+        D,
+    ) -> R,
 ) -> Result<R, WorldLoadError> {
     let attempt = (|| -> Result<(ReloadableServerResources, LayeredRegistryAccess<RegistryLayer>, D), WorldLoadError> {
         let initial_layers = RegistryLayer::create_registry_access();

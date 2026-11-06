@@ -1,10 +1,10 @@
 //! `net.minecraft.world.level.block.TestBlock`.
+use mc_data::enums::TestBlockMode;
 use mc_game_core::register_block_class;
-use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::block_entity::test_block_entity;
 use mc_game_core::world::item::{InteractionResult, ItemStack};
-use mc_data::enums::TestBlockMode;
+use mc_game_core::world::level::block::impls::prelude::*;
 use mc_protocol::components::values::containers::{BLOCK_STATE, BlockItemStateProperties};
 
 pub struct TestBlock;
@@ -20,7 +20,11 @@ impl BlockBehaviour for TestBlock {
         _hit: &mc_core::phys::BlockHitResult,
     ) -> InteractionResult {
         if test_block_entity::get(level, pos).is_some() {
-            if !player.can_use_game_master_blocks() { InteractionResult::PASS } else { InteractionResult::SUCCESS }
+            if !player.can_use_game_master_blocks() {
+                InteractionResult::PASS
+            } else {
+                InteractionResult::SUCCESS
+            }
         } else {
             InteractionResult::PASS
         }
@@ -39,10 +43,13 @@ impl BlockBehaviour for TestBlock {
         _orientation: Option<mc_game_core::world::level::redstone::Orientation>,
         _moved_by_piston: bool,
     ) {
-        let Some(test_block) = test_block_entity::get(level, pos) else { return };
+        let Some(test_block) = test_block_entity::get(level, pos) else {
+            return;
+        };
         if test_block.get_mode() != TestBlockMode::Start {
             let is_powered = test_block.is_powered();
-            let should_trigger = mc_game_core::world::level::signal_getter::has_neighbor_signal(&*level, pos);
+            let should_trigger =
+                mc_game_core::world::level::signal_getter::has_neighbor_signal(&*level, pos);
             if should_trigger && !is_powered {
                 if let Some(be) = test_block_entity::get(level, pos) {
                     be.set_powered(true);
@@ -60,13 +67,22 @@ impl BlockBehaviour for TestBlock {
         if state.get(props::TEST_BLOCK_MODE) != TestBlockMode::Start {
             return 0;
         }
-        match level.get_block_entity(pos).and_then(|be| be.as_any().downcast_ref::<mc_game_core::world::block_entity::TestBlockEntity>()) {
+        match level.get_block_entity(pos).and_then(|be| {
+            be.as_any()
+                .downcast_ref::<mc_game_core::world::block_entity::TestBlockEntity>()
+        }) {
             Some(test_block) if test_block.is_powered() => 15,
             _ => 0,
         }
     }
 
-    fn get_clone_item_stack(&self, state: BlockState, _level: &ServerLevel, _pos: BlockPos, _include_data: bool) -> ItemStack {
+    fn get_clone_item_stack(
+        &self,
+        state: BlockState,
+        _level: &ServerLevel,
+        _pos: BlockPos,
+        _include_data: bool,
+    ) -> ItemStack {
         let mut stack = ItemStack::new(Block::TEST_BLOCK.item().expect("test block item"));
         set_mode_on_stack(&mut stack, state.get(props::TEST_BLOCK_MODE));
         stack
@@ -75,7 +91,8 @@ impl BlockBehaviour for TestBlock {
 
 /// `setModeOnStack(itemStack, mode)`.
 pub fn set_mode_on_stack(stack: &mut ItemStack, mode: TestBlockMode) {
-    let mut properties: BlockItemStateProperties = stack.get(&BLOCK_STATE).cloned().unwrap_or_default();
+    let mut properties: BlockItemStateProperties =
+        stack.get(&BLOCK_STATE).cloned().unwrap_or_default();
     let value = mode.serialized_name().expect("serialized").to_owned();
     match properties.properties.iter_mut().find(|(k, _)| k == "mode") {
         Some(entry) => entry.1 = value,

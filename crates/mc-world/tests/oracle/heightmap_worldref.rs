@@ -9,9 +9,9 @@ use std::path::Path;
 use crate::height_status_common::TestChunk;
 use mc_core::bits::{BitStorage, SimpleBitStorage};
 use mc_core::math::mth;
-use mc_data::block::BlockState;
 use mc_data::Block;
-use mc_nbt::{nbt_io, CompoundTag, NbtAccounter, Tag};
+use mc_data::block::BlockState;
+use mc_nbt::{CompoundTag, NbtAccounter, Tag, nbt_io};
 use mc_world::heightmap::{Heightmap, HeightmapMap, HeightmapType};
 use mc_world::status::ChunkStatus;
 
@@ -29,10 +29,19 @@ fn read_region(path: &Path) -> Vec<CompoundTag> {
         let payload = &data[off + 5..off + 4 + len];
         let mut raw = Vec::new();
         match data[off + 4] {
-            1 => flate2::read::GzDecoder::new(payload).read_to_end(&mut raw).map(drop).unwrap(),
-            2 => flate2::read::ZlibDecoder::new(payload).read_to_end(&mut raw).map(drop).unwrap(),
+            1 => flate2::read::GzDecoder::new(payload)
+                .read_to_end(&mut raw)
+                .map(drop)
+                .unwrap(),
+            2 => flate2::read::ZlibDecoder::new(payload)
+                .read_to_end(&mut raw)
+                .map(drop)
+                .unwrap(),
             3 => raw.extend_from_slice(payload),
-            other => panic!("unsupported region compression {other} in {}", path.display()),
+            other => panic!(
+                "unsupported region compression {other} in {}",
+                path.display()
+            ),
         }
         out.push(nbt_io::read(&mut raw.as_slice(), &mut NbtAccounter::unlimited_heap()).unwrap());
     }
@@ -46,13 +55,19 @@ fn decode_state(entry: &Tag) -> BlockState {
         Tag::Compound(c) => (
             c.get_string("id").unwrap(),
             c.get_compound("properties")
-                .map(|p| p.iter().map(|(k, v)| (k.clone(), v.as_string().unwrap().to_owned())).collect())
+                .map(|p| {
+                    p.iter()
+                        .map(|(k, v)| (k.clone(), v.as_string().unwrap().to_owned()))
+                        .collect()
+                })
                 .unwrap_or_default(),
         ),
         other => panic!("bad palette entry {other:?}"),
     };
     let block = Block::by_name(name).unwrap_or_else(|| panic!("unknown block {name}"));
-    block.state_from_properties(props.iter().map(|(k, v)| (k.as_str(), v.as_str()))).unwrap()
+    block
+        .state_from_properties(props.iter().map(|(k, v)| (k.as_str(), v.as_str())))
+        .unwrap()
 }
 
 /// `sections[].block_states` -> dense chunk (palette strategy: single value, else `max(4, ceillog2(size))` bits).
@@ -60,11 +75,19 @@ fn decode_chunk(nbt: &CompoundTag, min_y: i32, height: i32) -> TestChunk {
     let mut chunk = TestChunk::new(min_y, height);
     for section in nbt.get_list("sections").unwrap().compounds() {
         let sy = i32::from(section.get_byte("Y").unwrap());
-        let Some(index) = (sy * 16 - min_y).checked_div(16).filter(|i| (0..height / 16).contains(i) && sy * 16 >= min_y) else {
+        let Some(index) = (sy * 16 - min_y)
+            .checked_div(16)
+            .filter(|i| (0..height / 16).contains(i) && sy * 16 >= min_y)
+        else {
             continue;
         };
         let bs = section.get_compound("block_states").unwrap();
-        let palette: Vec<BlockState> = bs.get_list("palette").unwrap().iter().map(decode_state).collect();
+        let palette: Vec<BlockState> = bs
+            .get_list("palette")
+            .unwrap()
+            .iter()
+            .map(decode_state)
+            .collect();
         if palette.is_empty() {
             continue; // sections of not-yet-generated chunks
         }
@@ -91,15 +114,30 @@ fn persisted_heightmaps_reprime_identically() {
     let world = mc_testkit::worldref().expect("reference world");
     let (mut full_chunks, mut other_chunks, mut compared, mut other_mismatch) = (0, 0, 0, 0);
     let mut by_kind = std::collections::BTreeMap::new();
-    for (dim, min_y, height) in [("overworld", -64, 384), ("the_nether", 0, 256), ("the_end", 0, 256)] {
+    for (dim, min_y, height) in [
+        ("overworld", -64, 384),
+        ("the_nether", 0, 256),
+        ("the_end", 0, 256),
+    ] {
         let dir = world.join("dimensions/minecraft").join(dim).join("region");
-        let mut files: Vec<_> = std::fs::read_dir(&dir).unwrap().map(|e| e.unwrap().path()).collect();
+        let mut files: Vec<_> = std::fs::read_dir(&dir)
+            .unwrap()
+            .map(|e| e.unwrap().path())
+            .collect();
         files.sort();
-        for file in files.iter().filter(|f| f.extension().is_some_and(|e| e == "mca")) {
+        for file in files
+            .iter()
+            .filter(|f| f.extension().is_some_and(|e| e == "mca"))
+        {
             for nbt in read_region(file) {
-                let status = nbt.get("Status").and_then(ChunkStatus::decode).unwrap_or(ChunkStatus::Empty);
+                let status = nbt
+                    .get("Status")
+                    .and_then(ChunkStatus::decode)
+                    .unwrap_or(ChunkStatus::Empty);
                 assert_eq!(nbt.get_int("yPos"), Some(min_y >> 4));
-                let Some(stored) = nbt.get_compound("Heightmaps") else { continue };
+                let Some(stored) = nbt.get_compound("Heightmaps") else {
+                    continue;
+                };
                 let chunk = decode_chunk(&nbt, min_y, height);
                 let is_full = status == ChunkStatus::Full;
                 if is_full {
@@ -109,7 +147,9 @@ fn persisted_heightmaps_reprime_identically() {
                 }
                 let mut types = Vec::new();
                 for ty in HeightmapType::ALL {
-                    let Some(longs) = stored.get_long_array(ty.serialization_key()) else { continue };
+                    let Some(longs) = stored.get_long_array(ty.serialization_key()) else {
+                        continue;
+                    };
                     types.push(ty);
                     // set_raw_data round trip
                     let mut hm = Heightmap::new(min_y, height, ty);
@@ -129,17 +169,28 @@ fn persisted_heightmaps_reprime_identically() {
                     let expected = stored.get_long_array(ty.serialization_key()).unwrap();
                     if primed[ty].get_raw_data() != expected {
                         if is_full {
-                            panic!("{dim} {file:?} chunk {:?},{:?}: {ty:?} differs", nbt.get_int("xPos"), nbt.get_int("zPos"));
+                            panic!(
+                                "{dim} {file:?} chunk {:?},{:?}: {ty:?} differs",
+                                nbt.get_int("xPos"),
+                                nbt.get_int("zPos")
+                            );
                         }
                         other_mismatch += 1;
-                        *by_kind.entry((status.name(), ty.serialization_key())).or_insert(0) += 1;
+                        *by_kind
+                            .entry((status.name(), ty.serialization_key()))
+                            .or_insert(0) += 1;
                     }
                 }
             }
         }
     }
-    eprintln!("full chunks {full_chunks}, other chunks with heightmaps {other_chunks}, compared {compared}, non-full mismatches {other_mismatch}: {by_kind:?}");
-    assert!(full_chunks > 100, "expected the vanilla world to contain full chunks");
+    eprintln!(
+        "full chunks {full_chunks}, other chunks with heightmaps {other_chunks}, compared {compared}, non-full mismatches {other_mismatch}: {by_kind:?}"
+    );
+    assert!(
+        full_chunks > 100,
+        "expected the vanilla world to contain full chunks"
+    );
 }
 
 #[test]

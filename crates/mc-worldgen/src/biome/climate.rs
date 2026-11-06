@@ -234,7 +234,9 @@ impl ParameterPoint {
     pub fn fitness(&self, target: &TargetPoint) -> i64 {
         square(self.temperature.distance(target.temperature))
             .wrapping_add(square(self.humidity.distance(target.humidity)))
-            .wrapping_add(square(self.continentalness.distance(target.continentalness)))
+            .wrapping_add(square(
+                self.continentalness.distance(target.continentalness),
+            ))
             .wrapping_add(square(self.erosion.distance(target.erosion)))
             .wrapping_add(square(self.depth.distance(target.depth)))
             .wrapping_add(square(self.weirdness.distance(target.weirdness)))
@@ -371,8 +373,9 @@ impl RTree {
             children.sort_by_key(|&c| {
                 let mut total_magnitude = 0i64;
                 for parameter in &nodes[c as usize].space {
-                    total_magnitude = total_magnitude
-                        .wrapping_add((parameter.min.wrapping_add(parameter.max) / 2).wrapping_abs());
+                    total_magnitude = total_magnitude.wrapping_add(
+                        (parameter.min.wrapping_add(parameter.max) / 2).wrapping_abs(),
+                    );
                 }
                 total_magnitude
             });
@@ -414,7 +417,11 @@ impl RTree {
                 let key = |c: u32| {
                     let parameter = nodes[c as usize].space[dim];
                     let center = parameter.min.wrapping_add(parameter.max) / 2;
-                    if absolute { center.wrapping_abs() } else { center }
+                    if absolute {
+                        center.wrapping_abs()
+                    } else {
+                        center
+                    }
                 };
                 let ordering = key(a).cmp(&key(b));
                 if ordering.is_ne() {

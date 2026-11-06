@@ -3,14 +3,16 @@
 //! through the methods taking `&mut dyn ServerHandle` (`on_server` hops there and back). The real implementation is
 //! `ServerNetworkHooks`; tests use a mock.
 
-use crate::server::{MinecraftServer, ServerShared};
 use crate::server::network::config::PrepareSpawn;
+use crate::server::{MinecraftServer, ServerShared};
 use indexmap::IndexMap;
 use mc_core::ident::Identifier;
 use mc_protocol::auth::{ServerKeyPair, SessionClient};
 use mc_protocol::codec::GameProfile;
 use mc_protocol::packets::common::UntrustedEntry;
-use mc_protocol::packets::configuration::{ClientboundRegistryDataPacket, ClientboundUpdateTagsPacket, KnownPack};
+use mc_protocol::packets::configuration::{
+    ClientboundRegistryDataPacket, ClientboundUpdateTagsPacket, KnownPack,
+};
 use mc_protocol::packets::status::ServerStatus;
 use mc_text::Component;
 use std::collections::HashSet;
@@ -88,7 +90,10 @@ pub struct ServerResourcePackInfo {
 pub trait RegistrySynchronization: Send + Sync {
     /// The `ClientboundRegistryDataPacket`s in vanilla's order; entries the client already knows from one of the
     /// `negotiated` packs are sent without data.
-    fn pack_registries(&self, negotiated: &HashSet<KnownPack>) -> Vec<ClientboundRegistryDataPacket>;
+    fn pack_registries(
+        &self,
+        negotiated: &HashSet<KnownPack>,
+    ) -> Vec<ClientboundRegistryDataPacket>;
     /// `ClientboundUpdateTagsPacket(serializeTagsToNetwork(registries))`.
     fn tags(&self) -> ClientboundUpdateTagsPacket;
 }
@@ -133,7 +138,12 @@ pub trait NetworkHooks: Send + Sync + 'static {
     // ---- game thread -----------------------------------------------------------------------------------------
 
     /// `PlayerList.canPlayerLogin(address, new NameAndId(profile))`: the disconnect reason, if the login must be refused.
-    fn can_player_login(&self, server: &mut dyn ServerHandle, addr: SocketAddr, profile: &GameProfile) -> Option<Component>;
+    fn can_player_login(
+        &self,
+        server: &mut dyn ServerHandle,
+        addr: SocketAddr,
+        profile: &GameProfile,
+    ) -> Option<Component>;
     /// `PlayerList.disconnectAllPlayersWithProfile(id)`: `true` if a player had to be disconnected (wait for it).
     fn disconnect_all_players_with_profile(&self, server: &mut dyn ServerHandle, id: Uuid) -> bool;
     /// `PlayerList.getPlayer(id) != null`.
@@ -141,7 +151,11 @@ pub trait NetworkHooks: Send + Sync + 'static {
     /// `serverActivityMonitor.reportLoginActivity()`.
     fn report_login_activity(&self, server: &mut dyn ServerHandle);
     /// `new PrepareSpawnTask(server, nameAndId)`.
-    fn prepare_spawn(&self, server: &mut dyn ServerHandle, profile: &GameProfile) -> Box<dyn PrepareSpawn>;
+    fn prepare_spawn(
+        &self,
+        server: &mut dyn ServerHandle,
+        profile: &GameProfile,
+    ) -> Box<dyn PrepareSpawn>;
 }
 
 /// The server as the network layer sees it on the game thread. The real server is a [`MinecraftServer`]; the network
@@ -173,7 +187,10 @@ impl GameThread for ServerShared {
 }
 
 /// Runs `f` on the game thread and returns its result; `None` if the server is gone.
-pub async fn on_server<R: Send + 'static>(game: &dyn GameThread, f: impl FnOnce(&mut dyn ServerHandle) -> R + Send + 'static) -> Option<R> {
+pub async fn on_server<R: Send + 'static>(
+    game: &dyn GameThread,
+    f: impl FnOnce(&mut dyn ServerHandle) -> R + Send + 'static,
+) -> Option<R> {
     let (tx, rx) = tokio::sync::oneshot::channel();
     game.execute(Box::new(move |server| {
         let _ = tx.send(f(server));

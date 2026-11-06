@@ -12,7 +12,10 @@ use crate::world::entity::Entity;
 /// skeleton of a spider jockey): the same checks and links as `ServerLevel::start_riding`, without level lookups. The
 /// rider is added to the level together with its vehicle (`MobData::pending_passengers`).
 pub fn start_riding_unadded(rider: &mut dyn Entity, vehicle: &mut dyn Entity) -> bool {
-    if rider.base().vehicle == Some(vehicle.id()) || !vehicle.could_accept_passenger() || !vehicle.get_type().data().serializable {
+    if rider.base().vehicle == Some(vehicle.id())
+        || !vehicle.could_accept_passenger()
+        || !vehicle.get_type().data().serializable
+    {
         return false;
     }
     if !(rider.can_ride(&*vehicle) && vehicle.can_add_passenger(&*rider)) {
@@ -35,12 +38,22 @@ impl<G: crate::world::entity::ai::goal::Goal> WithFlags<G> {
     }
 }
 
-impl<G: crate::world::entity::ai::goal::Goal> crate::world::entity::ai::goal::Goal for WithFlags<G> {
-    fn can_use(&mut self, mob: &mut dyn Entity, level: &mut crate::server::level::ServerLevel) -> bool {
+impl<G: crate::world::entity::ai::goal::Goal> crate::world::entity::ai::goal::Goal
+    for WithFlags<G>
+{
+    fn can_use(
+        &mut self,
+        mob: &mut dyn Entity,
+        level: &mut crate::server::level::ServerLevel,
+    ) -> bool {
         self.goal.can_use(mob, level)
     }
 
-    fn can_continue_to_use(&mut self, mob: &mut dyn Entity, level: &mut crate::server::level::ServerLevel) -> bool {
+    fn can_continue_to_use(
+        &mut self,
+        mob: &mut dyn Entity,
+        level: &mut crate::server::level::ServerLevel,
+    ) -> bool {
         self.goal.can_continue_to_use(mob, level)
     }
 

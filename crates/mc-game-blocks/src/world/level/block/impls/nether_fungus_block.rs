@@ -1,9 +1,11 @@
 //! `net.minecraft.world.level.block.NetherFungusBlock` (extends `VegetationBlock`): bonemeal grows the huge fungus.
 use mc_game_core::register_block_class;
-use mc_game_core::world::level::block::impls::prelude::*;
-use mc_game_core::world::level::block::impls::vegetation_block::{MayPlaceOn, vegetation_behaviour_methods};
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::level::block::bonemeal::BonemealSource;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::world::level::block::impls::vegetation_block::{
+    MayPlaceOn, vegetation_behaviour_methods,
+};
 
 pub struct NetherFungusBlock {
     /// `feature` (`worldgen/feature` id).
@@ -25,21 +27,52 @@ impl BlockBehaviour for NetherFungusBlock {
     fn is_bonemealable(&self) -> bool {
         true
     }
-    fn is_valid_bonemeal_target(&self, level: &dyn LevelReader, pos: BlockPos, _state: BlockState, _source: BonemealSource) -> bool {
-        level.get_block_state(pos.below()).is_block(self.required_block) && !level.is_outside_build_height(pos.above().y())
+    fn is_valid_bonemeal_target(
+        &self,
+        level: &dyn LevelReader,
+        pos: BlockPos,
+        _state: BlockState,
+        _source: BonemealSource,
+    ) -> bool {
+        level
+            .get_block_state(pos.below())
+            .is_block(self.required_block)
+            && !level.is_outside_build_height(pos.above().y())
     }
-    fn is_bonemeal_success(&self, level: &mut ServerLevel, _pos: BlockPos, _state: BlockState, _source: BonemealSource) -> bool {
+    fn is_bonemeal_success(
+        &self,
+        level: &mut ServerLevel,
+        _pos: BlockPos,
+        _state: BlockState,
+        _source: BonemealSource,
+    ) -> bool {
         level.random().next_float() < 0.4
     }
-    fn perform_bonemeal(&self, level: &mut ServerLevel, pos: BlockPos, _state: BlockState, _source: BonemealSource) {
+    fn perform_bonemeal(
+        &self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        _state: BlockState,
+        _source: BonemealSource,
+    ) {
         if let Some(feature) = level.lookup_feature(self.feature) {
             level.place_feature_value(&*feature, pos);
         }
     }
 }
 
-register_block_class!("NetherFungusBlock", |block| Box::new(match block.data().name {
-    "minecraft:warped_fungus" => NetherFungusBlock { feature: "warped_fungus_planted", required_block: Block::WARPED_NYLIUM, support_blocks: "supports_warped_fungus" },
-    "minecraft:crimson_fungus" => NetherFungusBlock { feature: "crimson_fungus_planted", required_block: Block::CRIMSON_NYLIUM, support_blocks: "supports_crimson_fungus" },
-    name => panic!("unexpected NetherFungusBlock {name}"),
-}));
+register_block_class!("NetherFungusBlock", |block| Box::new(
+    match block.data().name {
+        "minecraft:warped_fungus" => NetherFungusBlock {
+            feature: "warped_fungus_planted",
+            required_block: Block::WARPED_NYLIUM,
+            support_blocks: "supports_warped_fungus"
+        },
+        "minecraft:crimson_fungus" => NetherFungusBlock {
+            feature: "crimson_fungus_planted",
+            required_block: Block::CRIMSON_NYLIUM,
+            support_blocks: "supports_crimson_fungus"
+        },
+        name => panic!("unexpected NetherFungusBlock {name}"),
+    }
+));

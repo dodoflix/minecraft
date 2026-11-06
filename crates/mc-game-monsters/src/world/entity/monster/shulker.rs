@@ -1,31 +1,5 @@
 //! `net.minecraft.world.entity.monster.Shulker` (+ its goals, look and body-rotation controls).
 
-use mc_game_core::define_accessor;
-use mc_game_core::registry::RegistryAccess;
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::damagesource::DamageSource;
-use mc_game_core::world::difficulty_instance::DifficultyInstance;
-use mc_game_core::world::entity::ai::control::body_rotation_control::{BodyRotationControl, BodyRotationControlBase};
-use mc_game_core::world::entity::ai::control::look_control::{self, LookControl, LookControlBase};
-use mc_game_core::world::entity::ai::goal::look_at_player::LookAtType;
-use mc_game_core::world::entity::ai::goal::target::{HurtByTargetGoal, NearestAttackableTargetGoal, TargetType, class_of};
-use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags, LookAtPlayerGoal, RandomLookAroundGoal, reduced_tick_delay};
-use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
-use mc_game_core::world::entity::attributes::{AttributeModifier, AttributeModifierOperation};
-use mc_game_core::world::entity::dimensions::EntityDimensions;
-use mc_game_core::world::entity::entity::MovementEmission;
-use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
-use mc_game_core::world::entity::mob::{self, MobData, MobKind};
-use mc_game_core::world::entity::projectile::shulker_bullet::ShulkerBullet;
-use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
-use mc_game_core::world::entity::{Entity, EntityId, MoverType};
-use mc_game_core::world::item::ItemStack;
-use mc_game_core::world::level::block::BlockStateExt as _;
-use mc_game_core::world::level::collision::{BlockGetterExt as _, CollisionGetter as _};
-use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
-use mc_game_core::world::level::shapes::is_face_full;
-use mc_game_core::world::level::level_access::LevelAccessor as _;
-use mc_game_core::world::level::{BlockGetter, LevelReader as _};
 use linkme::distributed_slice;
 use mc_core::direction::{Axis, Direction};
 use mc_core::ident::Identifier;
@@ -36,6 +10,40 @@ use mc_core::random::RandomSource;
 use mc_data::block::Block;
 use mc_data::enums::{EntitySpawnReason, Pose};
 use mc_data::{Attribute, EntityType, GameEvent, SoundEvent};
+use mc_game_core::define_accessor;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::control::body_rotation_control::{
+    BodyRotationControl, BodyRotationControlBase,
+};
+use mc_game_core::world::entity::ai::control::look_control::{self, LookControl, LookControlBase};
+use mc_game_core::world::entity::ai::goal::look_at_player::LookAtType;
+use mc_game_core::world::entity::ai::goal::target::{
+    HurtByTargetGoal, NearestAttackableTargetGoal, TargetType, class_of,
+};
+use mc_game_core::world::entity::ai::goal::{
+    Flag, Goal, GoalFlags, LookAtPlayerGoal, RandomLookAroundGoal, reduced_tick_delay,
+};
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::attributes::{AttributeModifier, AttributeModifierOperation};
+use mc_game_core::world::entity::dimensions::EntityDimensions;
+use mc_game_core::world::entity::entity::MovementEmission;
+use mc_game_core::world::entity::factory::{
+    ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest,
+};
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::projectile::shulker_bullet::ShulkerBullet;
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::{Entity, EntityId, MoverType};
+use mc_game_core::world::item::ItemStack;
+use mc_game_core::world::level::block::BlockStateExt as _;
+use mc_game_core::world::level::collision::{BlockGetterExt as _, CollisionGetter as _};
+use mc_game_core::world::level::level_access::LevelAccessor as _;
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::world::level::shapes::is_face_full;
+use mc_game_core::world::level::{BlockGetter, LevelReader as _};
 use mc_nbt::CompoundTag;
 use mc_protocol::components::{DataComponentMap, SHULKER_COLOR};
 use mc_protocol::packets::play::SoundSource;
@@ -46,13 +54,18 @@ define_accessor!(pub DATA_ATTACH_FACE_ID: Direction = Shulker);
 define_accessor!(pub DATA_PEEK_ID: Byte = Shulker);
 define_accessor!(pub DATA_COLOR_ID: Byte = Shulker);
 
-static COVERED_ARMOR_MODIFIER_ID: LazyLock<Identifier> = LazyLock::new(|| Identifier::with_default_namespace("covered").expect("valid id"));
+static COVERED_ARMOR_MODIFIER_ID: LazyLock<Identifier> =
+    LazyLock::new(|| Identifier::with_default_namespace("covered").expect("valid id"));
 const NO_COLOR: i8 = 16;
 const PEEK_PER_TICK: f32 = 0.05;
 const DEFAULT_ATTACH_FACE: Direction = Direction::Down;
 
 fn covered_armor_modifier() -> AttributeModifier {
-    AttributeModifier { id: COVERED_ARMOR_MODIFIER_ID.clone(), amount: 20.0, operation: AttributeModifierOperation::AddValue }
+    AttributeModifier {
+        id: COVERED_ARMOR_MODIFIER_ID.clone(),
+        amount: 20.0,
+        operation: AttributeModifierOperation::AddValue,
+    }
 }
 
 /// `Shulker` (an `AbstractGolem` and `Enemy`).
@@ -70,7 +83,11 @@ impl Shulker {
             b.define(DATA_PEEK_ID, 0);
             b.define(DATA_COLOR_ID, 16);
         });
-        let mut shulker = Shulker { mob, current_peek_amount_o: 0.0, current_peek_amount: 0.0 };
+        let mut shulker = Shulker {
+            mob,
+            current_peek_amount_o: 0.0,
+            current_peek_amount: 0.0,
+        };
         shulker.mob.enemy = true;
         let navigation = StandardPathNavigation::ground(&shulker);
         shulker.mob.set_navigation(Box::new(navigation));
@@ -91,7 +108,12 @@ impl Shulker {
         goals.add_goal(7, Box::new(ShulkerPeekGoal { peek_time: 0 }));
         goals.add_goal(8, Box::new(RandomLookAroundGoal::new()));
         let targets = &mut self.mob.target_selector;
-        targets.add_goal(1, Box::new(HurtByTargetGoal::new(vec![class_of::<Shulker>()]).set_alert_others(Vec::new())));
+        targets.add_goal(
+            1,
+            Box::new(
+                HurtByTargetGoal::new(vec![class_of::<Shulker>()]).set_alert_others(Vec::new()),
+            ),
+        );
         targets.add_goal(2, Box::new(ShulkerNearestAttackGoal::new()));
         targets.add_goal(3, Box::new(ShulkerDefenseAttackGoal::new()));
     }
@@ -103,7 +125,13 @@ impl Shulker {
 
     /// `setAttachFace(attachmentDirection)`.
     fn set_attach_face(&mut self, attachment_direction: Direction) {
-        if self.mob.living.entity.entity_data.set(DATA_ATTACH_FACE_ID, attachment_direction) {
+        if self
+            .mob
+            .living
+            .entity
+            .entity_data
+            .set(DATA_ATTACH_FACE_ID, attachment_direction)
+        {
             self.on_synced_data_updated(DATA_ATTACH_FACE_ID.id());
         }
     }
@@ -128,7 +156,11 @@ impl Shulker {
             self.play_sound(level, SoundEvent::ENTITY_SHULKER_OPEN, 1.0, 1.0);
             self.game_event(level, GameEvent::CONTAINER_OPEN);
         }
-        self.mob.living.entity.entity_data.set(DATA_PEEK_ID, amount as i8);
+        self.mob
+            .living
+            .entity
+            .entity_data
+            .set(DATA_PEEK_ID, amount as i8);
     }
 
     /// `isClosed()`.
@@ -144,7 +176,8 @@ impl Shulker {
     /// `getColor()`.
     pub fn get_color(&self) -> Option<mc_protocol::components::DyeColor> {
         let color = self.mob.living.entity.entity_data.get(DATA_COLOR_ID);
-        (color != NO_COLOR && color <= 15).then(|| mc_game_core::world::item::dye_color::by_id(i32::from(color)))
+        (color != NO_COLOR && color <= 15)
+            .then(|| mc_game_core::world::item::dye_color::by_id(i32::from(color)))
     }
 
     /// `setVariant(color)`.
@@ -159,18 +192,40 @@ impl Shulker {
     }
 
     /// `getProgressAabb(size, direction, progressTo, position)`.
-    pub fn get_progress_aabb(size: f32, direction: Direction, progress_to: f32, position: Vec3) -> AABB {
+    pub fn get_progress_aabb(
+        size: f32,
+        direction: Direction,
+        progress_to: f32,
+        position: Vec3,
+    ) -> AABB {
         Self::get_progress_delta_aabb(size, direction, -1.0, progress_to, position)
     }
 
     /// `getProgressDeltaAabb(size, direction, progressFrom, progressTo, position)`.
-    pub fn get_progress_delta_aabb(size: f32, direction: Direction, progress_from: f32, progress_to: f32, position: Vec3) -> AABB {
+    pub fn get_progress_delta_aabb(
+        size: f32,
+        direction: Direction,
+        progress_from: f32,
+        progress_to: f32,
+        position: Vec3,
+    ) -> AABB {
         let size_d = f64::from(size);
-        let bounds_at_bottom_center = AABB::new(f64::from(-size) * 0.5, 0.0, f64::from(-size) * 0.5, size_d * 0.5, size_d, size_d * 0.5);
+        let bounds_at_bottom_center = AABB::new(
+            f64::from(-size) * 0.5,
+            0.0,
+            f64::from(-size) * 0.5,
+            size_d * 0.5,
+            size_d,
+            size_d * 0.5,
+        );
         let max_movement = f64::from(progress_from.max(progress_to));
         let min_movement = f64::from(progress_from.min(progress_to));
         let aabb = bounds_at_bottom_center
-            .expand_towards(f64::from(direction.get_step_x()) * max_movement * size_d, f64::from(direction.get_step_y()) * max_movement * size_d, f64::from(direction.get_step_z()) * max_movement * size_d)
+            .expand_towards(
+                f64::from(direction.get_step_x()) * max_movement * size_d,
+                f64::from(direction.get_step_y()) * max_movement * size_d,
+                f64::from(direction.get_step_z()) * max_movement * size_d,
+            )
             .contract(
                 f64::from(-direction.get_step_x()) * (1.0 + min_movement) * size_d,
                 f64::from(-direction.get_step_y()) * (1.0 + min_movement) * size_d,
@@ -187,9 +242,17 @@ impl Shulker {
             false
         } else {
             if self.current_peek_amount > target_peek_amount {
-                self.current_peek_amount = mth::clamp_f32(self.current_peek_amount - PEEK_PER_TICK, target_peek_amount, 1.0);
+                self.current_peek_amount = mth::clamp_f32(
+                    self.current_peek_amount - PEEK_PER_TICK,
+                    target_peek_amount,
+                    1.0,
+                );
             } else {
-                self.current_peek_amount = mth::clamp_f32(self.current_peek_amount + PEEK_PER_TICK, 0.0, target_peek_amount);
+                self.current_peek_amount = mth::clamp_f32(
+                    self.current_peek_amount + PEEK_PER_TICK,
+                    0.0,
+                    target_peek_amount,
+                );
             }
             true
         }
@@ -204,13 +267,34 @@ impl Shulker {
         let direction = self.get_attach_face().get_opposite();
         let push = (physical_peek - physical_peek_old) * self.get_scale();
         if !(push <= 0.0) {
-            let area = Self::get_progress_delta_aabb(self.get_scale(), direction, physical_peek_old, physical_peek, self.position());
+            let area = Self::get_progress_delta_aabb(
+                self.get_scale(),
+                direction,
+                physical_peek_old,
+                physical_peek,
+                self.position(),
+            );
             let candidates = level.get_entities(Some(self.id()), &area, |e| !e.is_spectator());
             for id in candidates {
-                let eligible = level.get_entity(id).is_some_and(|e| !self.is_passenger_of_same_vehicle(level, e) && e.get_type() != EntityType::SHULKER && !e.base().no_physics);
+                let eligible = level.get_entity(id).is_some_and(|e| {
+                    !self.is_passenger_of_same_vehicle(level, e)
+                        && e.get_type() != EntityType::SHULKER
+                        && !e.base().no_physics
+                });
                 if eligible {
-                    let delta = Vec3::new(f64::from(push) * f64::from(direction.get_step_x()), f64::from(push) * f64::from(direction.get_step_y()), f64::from(push) * f64::from(direction.get_step_z()));
-                    level.with_entity(id, |level, entity| mc_game_core::world::entity::movement::move_entity(entity, level, MoverType::Shulker, delta));
+                    let delta = Vec3::new(
+                        f64::from(push) * f64::from(direction.get_step_x()),
+                        f64::from(push) * f64::from(direction.get_step_y()),
+                        f64::from(push) * f64::from(direction.get_step_z()),
+                    );
+                    level.with_entity(id, |level, entity| {
+                        mc_game_core::world::entity::movement::move_entity(
+                            entity,
+                            level,
+                            MoverType::Shulker,
+                            delta,
+                        )
+                    });
                 }
             }
         }
@@ -228,7 +312,9 @@ impl Shulker {
 
     /// `findAttachableSurface(target)`.
     fn find_attachable_surface(&self, level: &ServerLevel, target: BlockPos) -> Option<Direction> {
-        Direction::ALL.into_iter().find(|direction| self.can_stay_at(level, target, *direction))
+        Direction::ALL
+            .into_iter()
+            .find(|direction| self.can_stay_at(level, target, *direction))
     }
 
     /// `canStayAt(target, face)`.
@@ -240,8 +326,20 @@ impl Shulker {
         if !loaded_and_entity_can_stand_on_face(level, target.relative(face), self, opposite_face) {
             return false;
         }
-        let fully_opened = Self::get_progress_aabb(self.get_scale(), opposite_face, 1.0, Vec3::at_bottom_center_of(&target)).deflate_scalar(1.0E-6);
-        level.no_collision(Some(self.id()), Some(&mc_game_core::world::entity::movement::collision_context(self)), &fully_opened)
+        let fully_opened = Self::get_progress_aabb(
+            self.get_scale(),
+            opposite_face,
+            1.0,
+            Vec3::at_bottom_center_of(&target),
+        )
+        .deflate_scalar(1.0E-6);
+        level.no_collision(
+            Some(self.id()),
+            Some(&mc_game_core::world::entity::movement::collision_context(
+                self,
+            )),
+            &fully_opened,
+        )
     }
 
     /// `isPositionBlocked(target)`.
@@ -250,7 +348,8 @@ impl Shulker {
         if state.is_air() {
             false
         } else {
-            let moving_piston_in_our_current_position = state.block() == Block::MOVING_PISTON && target == self.base().block_position();
+            let moving_piston_in_our_current_position =
+                state.block() == Block::MOVING_PISTON && target == self.base().block_position();
             !moving_piston_in_our_current_position
         }
     }
@@ -263,26 +362,59 @@ impl Shulker {
         let old_pos = self.base().block_position();
         for _ in 0..5 {
             let random = &mut self.mob.living.entity.random;
-            let (dx, dy, dz) = (random_between_inclusive(random, -8, 8), random_between_inclusive(random, -8, 8), random_between_inclusive(random, -8, 8));
+            let (dx, dy, dz) = (
+                random_between_inclusive(random, -8, 8),
+                random_between_inclusive(random, -8, 8),
+                random_between_inclusive(random, -8, 8),
+            );
             let target = old_pos.offset(dx, dy, dz);
             if target.y() > level.get_min_y()
                 && level.is_empty_block(target)
                 && level.world_border().is_within_bounds_block(&target)
                 && level.no_collision(
                     Some(self.id()),
-                    Some(&mc_game_core::world::entity::movement::collision_context(self)),
-                    &AABB::unit_cube_from_lower_corner(Vec3::new(f64::from(target.x()), f64::from(target.y()), f64::from(target.z()))).deflate_scalar(1.0E-6),
+                    Some(&mc_game_core::world::entity::movement::collision_context(
+                        self,
+                    )),
+                    &AABB::unit_cube_from_lower_corner(Vec3::new(
+                        f64::from(target.x()),
+                        f64::from(target.y()),
+                        f64::from(target.z()),
+                    ))
+                    .deflate_scalar(1.0E-6),
                 )
             {
                 if let Some(attachment_direction) = self.find_attachable_surface(level, target)
-                    && !level.get_block_state(target.relative(attachment_direction)).block().is_in_tag("shulker_does_not_teleport_to")
+                    && !level
+                        .get_block_state(target.relative(attachment_direction))
+                        .block()
+                        .is_in_tag("shulker_does_not_teleport_to")
                 {
                     level.un_ride(self);
                     self.set_attach_face(attachment_direction);
                     self.play_sound(level, SoundEvent::ENTITY_SHULKER_TELEPORT, 1.0, 1.0);
-                    self.set_pos(f64::from(target.x()) + 0.5, f64::from(target.y()), f64::from(target.z()) + 0.5);
-                    level.game_event_from_entity_ref(&*self, GameEvent::TELEPORT, Vec3::new(f64::from(old_pos.x()), f64::from(old_pos.y()), f64::from(old_pos.z())));
-                    let packed_diff = mc_game_core::util::block_util::pack_difference_in_position(old_pos, self.base().block_position(), 8, 8, 8).unwrap_or(0);
+                    self.set_pos(
+                        f64::from(target.x()) + 0.5,
+                        f64::from(target.y()),
+                        f64::from(target.z()) + 0.5,
+                    );
+                    level.game_event_from_entity_ref(
+                        &*self,
+                        GameEvent::TELEPORT,
+                        Vec3::new(
+                            f64::from(old_pos.x()),
+                            f64::from(old_pos.y()),
+                            f64::from(old_pos.z()),
+                        ),
+                    );
+                    let packed_diff = mc_game_core::util::block_util::pack_difference_in_position(
+                        old_pos,
+                        self.base().block_position(),
+                        8,
+                        8,
+                        8,
+                    )
+                    .unwrap_or(0);
                     level.level_event(None, 2016, old_pos, packed_diff);
                     self.mob.living.entity.entity_data.set(DATA_PEEK_ID, 0);
                     self.set_target(level, None);
@@ -300,13 +432,26 @@ impl Shulker {
         if !self.is_closed() && self.teleport_somewhere(level) {
             let query = old_aabb.inflate_scalar(8.0);
             // `this` is out of the level while it runs: it counts as one of the nearby shulkers when it is still in range
-            let mut shulker_count = level.get_entities_of_class(&query, |e| e.get_type() == EntityType::SHULKER, |e| e.is_alive()).len() as i32;
+            let mut shulker_count = level
+                .get_entities_of_class(
+                    &query,
+                    |e| e.get_type() == EntityType::SHULKER,
+                    |e| e.is_alive(),
+                )
+                .len() as i32;
             if self.is_alive() && self.get_bounding_box().intersects_aabb(&query) {
                 shulker_count += 1;
             }
             let failure_chance = (shulker_count - 1) as f32 / 5.0;
             if !(level.tick_state.random.next_float() < failure_chance)
-                && let Some(mut baby) = mc_game_core::world::entity::factory::create(EntityType::SHULKER, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })
+                && let Some(mut baby) = mc_game_core::world::entity::factory::create(
+                    EntityType::SHULKER,
+                    level,
+                    EntitySpawnRequest {
+                        reason: EntitySpawnReason::Breeding,
+                        ignore_checks: false,
+                    },
+                )
             {
                 if let Some(shulker) = baby.as_any_mut().downcast_mut::<Shulker>() {
                     shulker.set_variant(self.get_color());
@@ -325,7 +470,12 @@ fn random_between_inclusive(random: &mut impl RandomSource, min: i32, max: i32) 
 }
 
 /// `Level.loadedAndEntityCanStandOnFace(pos, entity, faceDirection)`.
-fn loaded_and_entity_can_stand_on_face(level: &ServerLevel, pos: BlockPos, entity: &dyn Entity, face_direction: Direction) -> bool {
+fn loaded_and_entity_can_stand_on_face(
+    level: &ServerLevel,
+    pos: BlockPos,
+    entity: &dyn Entity,
+    face_direction: Direction,
+) -> bool {
     if !level.is_in_valid_bounds(pos) {
         return false;
     }
@@ -334,7 +484,14 @@ fn loaded_and_entity_can_stand_on_face(level: &ServerLevel, pos: BlockPos, entit
     }
     let state = level.get_block_state(pos);
     // `BlockState.entityCanStandOnFace(level, pos, entity, direction)`
-    is_face_full(&state.get_collision_shape_ctx(level, pos, &mc_game_core::world::entity::movement::collision_context(entity)), face_direction)
+    is_face_full(
+        &state.get_collision_shape_ctx(
+            level,
+            pos,
+            &mc_game_core::world::entity::movement::collision_context(entity),
+        ),
+        face_direction,
+    )
 }
 
 impl Entity for Shulker {
@@ -367,7 +524,11 @@ impl Entity for Shulker {
     }
 
     fn get_hurt_sound(&self, _source: &DamageSource) -> Option<SoundEvent> {
-        Some(if self.is_closed() { SoundEvent::ENTITY_SHULKER_HURT_CLOSED } else { SoundEvent::ENTITY_SHULKER_HURT })
+        Some(if self.is_closed() {
+            SoundEvent::ENTITY_SHULKER_HURT_CLOSED
+        } else {
+            SoundEvent::ENTITY_SHULKER_HURT
+        })
     }
 
     fn is_enemy(&self) -> bool {
@@ -380,22 +541,42 @@ impl Entity for Shulker {
 
     fn add_additional_save_data(&self, out: &mut CompoundTag) {
         mob::nbt::add_additional_save_data(self, out);
-        out.put_byte("AttachFace", self.get_attach_face().get_3d_data_value() as i8);
+        out.put_byte(
+            "AttachFace",
+            self.get_attach_face().get_3d_data_value() as i8,
+        );
         out.put_byte("Peek", self.mob.living.entity.entity_data.get(DATA_PEEK_ID));
-        out.put_byte("Color", self.mob.living.entity.entity_data.get(DATA_COLOR_ID));
+        out.put_byte(
+            "Color",
+            self.mob.living.entity.entity_data.get(DATA_COLOR_ID),
+        );
     }
 
     fn read_additional_save_data(&mut self, input: &CompoundTag) {
         mob::nbt::read_additional_save_data(self, input);
-        let face = input.get_byte("AttachFace").map_or(DEFAULT_ATTACH_FACE, |b| Direction::from_3d_data_value(i32::from(b)));
+        let face = input
+            .get_byte("AttachFace")
+            .map_or(DEFAULT_ATTACH_FACE, |b| {
+                Direction::from_3d_data_value(i32::from(b))
+            });
         self.set_attach_face(face);
-        self.mob.living.entity.entity_data.set(DATA_PEEK_ID, input.get_byte_or("Peek", 0));
-        self.mob.living.entity.entity_data.set(DATA_COLOR_ID, input.get_byte_or("Color", 16));
+        self.mob
+            .living
+            .entity
+            .entity_data
+            .set(DATA_PEEK_ID, input.get_byte_or("Peek", 0));
+        self.mob
+            .living
+            .entity
+            .entity_data
+            .set(DATA_COLOR_ID, input.get_byte_or("Color", 16));
     }
 
     fn tick(&mut self, level: &mut ServerLevel) {
         mob::tick::tick(self, level);
-        if !self.base().is_passenger() && !self.can_stay_at(level, self.base().block_position(), self.get_attach_face()) {
+        if !self.base().is_passenger()
+            && !self.can_stay_at(level, self.base().block_position(), self.get_attach_face())
+        {
             self.find_new_attachment(level);
         }
         if self.update_peek_amount() {
@@ -422,7 +603,12 @@ impl Entity for Shulker {
         self.set_attach_face(Direction::Down);
     }
 
-    fn on_vehicle_removed(&mut self, _level: &mut ServerLevel, _old_vehicle: EntityId, _held: Option<&dyn Entity>) {
+    fn on_vehicle_removed(
+        &mut self,
+        _level: &mut ServerLevel,
+        _old_vehicle: EntityId,
+        _held: Option<&dyn Entity>,
+    ) {
         self.mob.living.y_body_rot_o = 0.0;
         self.mob.living.y_body_rot = 0.0;
     }
@@ -451,7 +637,11 @@ impl Entity for Shulker {
         if self.base().is_passenger() {
             self.base_mut().set_pos_raw(x, y, z);
         } else {
-            self.base_mut().set_pos_raw(f64::from(mth::floor_f64(x)) + 0.5, f64::from(mth::floor_f64(y + 0.5)), f64::from(mth::floor_f64(z)) + 0.5);
+            self.base_mut().set_pos_raw(
+                f64::from(mth::floor_f64(x)) + 0.5,
+                f64::from(mth::floor_f64(y + 0.5)),
+                f64::from(mth::floor_f64(z)) + 0.5,
+            );
         }
         let position = self.base().position();
         let bb = self.make_bounding_box(position);
@@ -467,16 +657,30 @@ impl Entity for Shulker {
 
     fn hurt_server(&mut self, level: &mut ServerLevel, source: &DamageSource, damage: f32) -> bool {
         if self.is_closed()
-            && source.direct_info().is_some_and(|d| matches!(d.entity_type, EntityType::ARROW | EntityType::SPECTRAL_ARROW | EntityType::TRIDENT))
+            && source.direct_info().is_some_and(|d| {
+                matches!(
+                    d.entity_type,
+                    EntityType::ARROW | EntityType::SPECTRAL_ARROW | EntityType::TRIDENT
+                )
+            })
         {
             return false;
         }
-        if !mc_game_core::world::entity::living_entity::damage::hurt_server(self, level, source, damage) {
+        if !mc_game_core::world::entity::living_entity::damage::hurt_server(
+            self, level, source, damage,
+        ) {
             return false;
         }
-        if f64::from(self.mob.living.get_health()) < f64::from(self.mob.living.get_max_health()) * 0.5 && self.base_mut().random.next_int_bounded(4) == 0 {
+        if f64::from(self.mob.living.get_health())
+            < f64::from(self.mob.living.get_max_health()) * 0.5
+            && self.base_mut().random.next_int_bounded(4) == 0
+        {
             self.teleport_somewhere(level);
-        } else if source.is_tag(level, "is_projectile") && source.direct_info().is_some_and(|d| d.entity_type == EntityType::SHULKER_BULLET) {
+        } else if source.is_tag(level, "is_projectile")
+            && source
+                .direct_info()
+                .is_some_and(|d| d.entity_type == EntityType::SHULKER_BULLET)
+        {
             self.hit_by_shulker_bullet(level);
         }
         true
@@ -508,7 +712,9 @@ impl Entity for Shulker {
     fn push_entity(&mut self, _level: &mut ServerLevel, _other: &mut dyn Entity) {}
 
     fn entity_components(&self) -> DataComponentMap {
-        let base = mc_game_core::advancements::predicates::entity::support::base_entity_components(self.base());
+        let base = mc_game_core::advancements::predicates::entity::support::base_entity_components(
+            self.base(),
+        );
         let builder = DataComponentMap::builder().add_all(&base);
         match self.get_color() {
             Some(color) => builder.set(SHULKER_COLOR, color).build(),
@@ -574,15 +780,21 @@ impl Goal for ShulkerAttackGoal {
             return;
         }
         self.attack_time -= 1;
-        let Some(target_id) = mob.get_target() else { return };
-        let Some(target) = level.get_entity(target_id) else { return };
+        let Some(target_id) = mob.get_target() else {
+            return;
+        };
+        let Some(target) = level.get_entity(target_id) else {
+            return;
+        };
         mob::look_at_entity_full(mob, target, 180.0, 180.0);
         let distance = mob.base().distance_to_sqr_vec(target.position());
         if distance < 400.0 {
             if self.attack_time <= 0 {
                 self.attack_time = 20 + mob.base_mut().random.next_int_bounded(10) * 20 / 2;
                 let axis = shulker_ref(mob).get_attach_face().get_axis();
-                let Some(target) = level.get_entity(target_id) else { return };
+                let Some(target) = level.get_entity(target_id) else {
+                    return;
+                };
                 let bullet = ShulkerBullet::from_owner(level, mob, target, axis);
                 level.add_fresh_entity(Box::new(bullet));
                 let random = &mut mob.base_mut().random;
@@ -627,7 +839,9 @@ impl ShulkerDefenseAttackGoal {
             10,
             true,
             false,
-            Some(Arc::new(|input: &dyn Entity, _level: &ServerLevel| input.mob().is_some_and(|m| m.enemy))),
+            Some(Arc::new(|input: &dyn Entity, _level: &ServerLevel| {
+                input.mob().is_some_and(|m| m.enemy)
+            })),
         );
         target.search_area = Some(Box::new(shulker_target_search_area));
         Self { target }
@@ -636,7 +850,11 @@ impl ShulkerDefenseAttackGoal {
 
 impl Goal for ShulkerDefenseAttackGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        if mob::combat::get_team_name(level, mob).is_none() { false } else { self.target.can_use_impl(mob, level) }
+        if mob::combat::get_team_name(level, mob).is_none() {
+            false
+        } else {
+            self.target.can_use_impl(mob, level)
+        }
     }
 
     fn can_continue_to_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
@@ -673,7 +891,12 @@ fn rotation_xyz(angle_x: f32, angle_y: f32, angle_z: f32) -> Quat {
     };
     let ((sx, cx), (sy, cy), (sz, cz)) = (half(angle_x), half(angle_y), half(angle_z));
     let (cycz, sysz, sycz, cysz) = (cy * cz, sy * sz, sy * cz, cy * sz);
-    (sx * cycz + cx * sysz, cx * sycz - sx * cysz, cx * cysz + sx * sycz, cx * cycz - sx * sysz)
+    (
+        sx * cycz + cx * sysz,
+        cx * sycz - sx * cysz,
+        cx * cysz + sx * sycz,
+        cx * cycz - sx * sysz,
+    )
 }
 
 /// `Direction.getRotation()`.
@@ -694,7 +917,11 @@ fn transform_forward((x, y, z, w): Quat) -> (f32, f32, f32) {
     let (w2, x2, y2, z2) = (w * w, x * x, y * y, z * z);
     let (zw, xy, xz, yw, yz, xw) = (z * w, x * y, x * z, y * w, y * z, x * w);
     let k = 1.0 / (w2 + x2 + y2 + z2);
-    (2.0 * (xz + yw) * k, 2.0 * (yz - xw) * k, (z2 - x2 - y2 + w2) * k)
+    (
+        2.0 * (xz + yw) * k,
+        2.0 * (yz - xw) * k,
+        (z2 - x2 - y2 + w2) * k,
+    )
 }
 
 impl LookControl for ShulkerLookControl {
@@ -713,18 +940,30 @@ impl LookControl for ShulkerLookControl {
         let up_normal = attach_face.get_unit_vec3i();
         let right = (up_normal.x as f32, up_normal.y as f32, up_normal.z as f32);
         // `right.cross(forward)`
-        let right = (right.1 * forward.2 - right.2 * forward.1, right.2 * forward.0 - right.0 * forward.2, right.0 * forward.1 - right.1 * forward.0);
+        let right = (
+            right.1 * forward.2 - right.2 * forward.1,
+            right.2 * forward.0 - right.0 * forward.2,
+            right.0 * forward.1 - right.1 * forward.0,
+        );
         let b = self.base();
         let xd = b.wanted_x - mob.base().x();
         let yd = b.wanted_y - mob.base().get_eye_y();
         let zd = b.wanted_z - mob.base().z();
         let out = (xd as f32, yd as f32, zd as f32);
-        let delta_right = right.0.mul_add(out.0, right.1.mul_add(out.1, right.2 * out.2));
-        let delta_forward = forward.0.mul_add(out.0, forward.1.mul_add(out.1, forward.2 * out.2));
+        let delta_right = right
+            .0
+            .mul_add(out.0, right.1.mul_add(out.1, right.2 * out.2));
+        let delta_forward = forward
+            .0
+            .mul_add(out.0, forward.1.mul_add(out.1, forward.2 * out.2));
         if !(delta_right.abs() > 1.0E-5) && !(delta_forward.abs() > 1.0E-5) {
             None
         } else {
-            Some((mth::atan2(f64::from(-delta_right), f64::from(delta_forward)) * f64::from(180.0f32) / f64::from(std::f32::consts::PI)) as f32)
+            Some(
+                (mth::atan2(f64::from(-delta_right), f64::from(delta_forward))
+                    * f64::from(180.0f32)
+                    / f64::from(std::f32::consts::PI)) as f32,
+            )
         }
     }
 
@@ -752,7 +991,11 @@ impl ShulkerNearestAttackGoal {
 
 impl Goal for ShulkerNearestAttackGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        if level.difficulty() == Difficulty::Peaceful { false } else { self.target.can_use_impl(mob, level) }
+        if level.difficulty() == Difficulty::Peaceful {
+            false
+        } else {
+            self.target.can_use_impl(mob, level)
+        }
     }
 
     fn can_continue_to_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
@@ -780,8 +1023,16 @@ struct ShulkerPeekGoal {
 impl Goal for ShulkerPeekGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         mob.get_target().is_none()
-            && mob.base_mut().random.next_int_bounded(reduced_tick_delay(40)) == 0
-            && shulker_ref(mob).can_stay_at(level, mob.base().block_position(), shulker_ref(mob).get_attach_face())
+            && mob
+                .base_mut()
+                .random
+                .next_int_bounded(reduced_tick_delay(40))
+                == 0
+            && shulker_ref(mob).can_stay_at(
+                level,
+                mob.base().block_position(),
+                shulker_ref(mob).get_attach_face(),
+            )
     }
 
     fn can_continue_to_use(&mut self, mob: &mut dyn Entity, _level: &mut ServerLevel) -> bool {
@@ -789,7 +1040,8 @@ impl Goal for ShulkerPeekGoal {
     }
 
     fn start(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
-        self.peek_time = self.adjusted_tick_delay(20 * (1 + mob.base_mut().random.next_int_bounded(3)));
+        self.peek_time =
+            self.adjusted_tick_delay(20 * (1 + mob.base_mut().random.next_int_bounded(3)));
         shulker_mut(mob).set_raw_peek_amount(level, 30);
     }
 
@@ -809,4 +1061,7 @@ impl Goal for ShulkerPeekGoal {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static SHULKER: EntityRegistration = EntityRegistration { entity_type: EntityType::SHULKER, create: |ty, id, registries| Box::new(Shulker::new(ty, id, registries)) };
+static SHULKER: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::SHULKER,
+    create: |ty, id, registries| Box::new(Shulker::new(ty, id, registries)),
+};

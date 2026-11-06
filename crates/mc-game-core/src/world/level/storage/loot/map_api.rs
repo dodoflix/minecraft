@@ -8,6 +8,11 @@ use mc_protocol::components::ItemStack;
 use super::functions::items::ExplorationMapFunction;
 use crate::server::level::ServerLevel;
 
-pub fn explore(_level: &ServerLevel, stack: ItemStack, _origin: Vec3, _function: &ExplorationMapFunction) -> ItemStack {
+pub fn explore(
+    _level: &ServerLevel,
+    stack: ItemStack,
+    _origin: Vec3,
+    _function: &ExplorationMapFunction,
+) -> ItemStack {
     stack
 }

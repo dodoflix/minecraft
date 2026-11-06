@@ -27,7 +27,10 @@ impl LockException {
     /// `LockException.alreadyLocked`.
     pub fn already_locked(path: &Path) -> Self {
         let absolute = std::path::absolute(path).unwrap_or_else(|_| path.to_path_buf());
-        Self(format!("{}: already locked (possibly by other Minecraft instance?)", absolute.display()))
+        Self(format!(
+            "{}: already locked (possibly by other Minecraft instance?)",
+            absolute.display()
+        ))
     }
 }
 
@@ -85,7 +88,10 @@ impl DirectoryLock {
     pub fn create(dir: &Path) -> io::Result<DirectoryLock> {
         let lock_path: PathBuf = dir.join(LOCK_FILE);
         create_directories_safe(dir)?;
-        let mut file = OpenOptions::new().create(true).write(true).open(&lock_path)?;
+        let mut file = OpenOptions::new()
+            .create(true)
+            .write(true)
+            .open(&lock_path)?;
         // `FileChannel.write(buf)` at the channel position 0; leaves any longer existing content in place.
         file.write_all(&DUMMY)?;
         file.sync_all()?;
@@ -137,11 +143,19 @@ mod tests {
         assert_eq!(std::fs::read(dir.path().join(LOCK_FILE)).unwrap(), DUMMY);
         assert!(DirectoryLock::is_locked(dir.path()).unwrap());
 
-        let err = DirectoryLock::create(dir.path()).err().expect("second lock must fail");
-        let lock_err = err.get_ref().and_then(|e| e.downcast_ref::<LockException>()).expect("LockException");
+        let err = DirectoryLock::create(dir.path())
+            .err()
+            .expect("second lock must fail");
+        let lock_err = err
+            .get_ref()
+            .and_then(|e| e.downcast_ref::<LockException>())
+            .expect("LockException");
         assert_eq!(
             lock_err.to_string(),
-            format!("{}: already locked (possibly by other Minecraft instance?)", dir.path().join(LOCK_FILE).display())
+            format!(
+                "{}: already locked (possibly by other Minecraft instance?)",
+                dir.path().join(LOCK_FILE).display()
+            )
         );
 
         first.close().unwrap();

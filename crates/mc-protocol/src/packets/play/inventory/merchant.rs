@@ -1,7 +1,7 @@
 //! `ClientboundMerchantOffersPacket` and its nested types.
-use crate::codec::EncodeResult;
 use super::strict_item;
 use crate::codec::DecodeResult;
+use crate::codec::EncodeResult;
 use crate::components::{DataComponentExactPredicate, ItemStack};
 use crate::{Decode, Encode, Packet};
 

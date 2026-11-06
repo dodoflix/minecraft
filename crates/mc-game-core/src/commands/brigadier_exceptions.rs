@@ -3,12 +3,18 @@
 use super::message::{dynamic_translatable, message, simple_translatable};
 use crate::translatable;
 use mc_brigadier::exceptions::{BuiltInExceptionProvider, CommandSyntaxException};
-use mc_brigadier::{Dynamic2CommandExceptionType, DynamicCommandExceptionType, SimpleCommandExceptionType};
+use mc_brigadier::{
+    Dynamic2CommandExceptionType, DynamicCommandExceptionType, SimpleCommandExceptionType,
+};
 use std::sync::Arc;
 
 /// `Component.translatableEscape(key, min, found)` with the `Dynamic2CommandExceptionType(found, limit)` argument order.
-fn bound<T: Into<mc_text::component::TranslatableArg> + Copy + Send + Sync + 'static>(key: &'static str) -> Dynamic2CommandExceptionType<T, T> {
-    Dynamic2CommandExceptionType::new(move |found: T, limit: T| message(translatable!(key, limit.into(), found.into())))
+fn bound<T: Into<mc_text::component::TranslatableArg> + Copy + Send + Sync + 'static>(
+    key: &'static str,
+) -> Dynamic2CommandExceptionType<T, T> {
+    Dynamic2CommandExceptionType::new(move |found: T, limit: T| {
+        message(translatable!(key, limit.into(), found.into()))
+    })
 }
 
 pub struct BrigadierExceptions {
@@ -69,7 +75,9 @@ impl BrigadierExceptions {
             reader_expected_symbol: dynamic_translatable("parsing.expected"),
             dispatcher_unknown_command: simple_translatable("command.unknown.command"),
             dispatcher_unknown_argument: simple_translatable("command.unknown.argument"),
-            dispatcher_expected_argument_separator: simple_translatable("command.expected.separator"),
+            dispatcher_expected_argument_separator: simple_translatable(
+                "command.expected.separator",
+            ),
             dispatcher_parse_exception: dynamic_translatable("command.exception"),
         }
     }

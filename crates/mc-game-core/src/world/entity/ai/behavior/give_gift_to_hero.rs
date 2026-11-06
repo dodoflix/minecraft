@@ -1,16 +1,18 @@
 //! `GiveGiftToHero`: villagers throw gifts to a nearby Hero of the Village.
 
-use mc_core::random::RandomSource;
 use super::behavior_utils::{look_at_entity, set_walk_and_look_target_memories_entity, throw_item};
 use super::{Behavior, BehaviorBase};
 use crate::entry_condition;
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
 use crate::world::entity::ai::memory::EntityRef;
-use crate::world::entity::ai::memory::memory_module_type::{INTERACTION_TARGET, LOOK_TARGET, NEAREST_VISIBLE_PLAYER, WALK_TARGET};
+use crate::world::entity::ai::memory::memory_module_type::{
+    INTERACTION_TARGET, LOOK_TARGET, NEAREST_VISIBLE_PLAYER, WALK_TARGET,
+};
 use crate::world::entity::mob::ext::drop_from_gift_loot_table;
 use crate::world::entity::npc::villager::villager_mut;
 use mc_core::ident::Identifier;
+use mc_core::random::RandomSource;
 use mc_data::{MobEffect, VillagerProfession};
 
 const THROW_GIFT_AT_DISTANCE: f64 = 5.0;
@@ -30,7 +32,11 @@ impl GiveGiftToHero {
         BehaviorBase::with_timeout(
             entry_condition![WALK_TARGET => Registered, LOOK_TARGET => Registered, INTERACTION_TARGET => Registered, NEAREST_VISIBLE_PLAYER => ValuePresent],
             timeout,
-            GiveGiftToHero { time_until_next_gift: MIN_TIME_BETWEEN_GIFTS, gift_given_during_this_run: false, time_since_start: 0 },
+            GiveGiftToHero {
+                time_until_next_gift: MIN_TIME_BETWEEN_GIFTS,
+                gift_given_during_this_run: false,
+                time_since_start: 0,
+            },
         )
     }
 }
@@ -61,13 +67,23 @@ fn get_loot_table_to_throw(villager: &mut dyn Entity) -> Identifier {
 }
 
 /// `getNearestTargetableHero(body)`.
-fn get_nearest_targetable_hero(level: &ServerLevel, body: &dyn Entity) -> Option<crate::world::entity::EntityId> {
+fn get_nearest_targetable_hero(
+    level: &ServerLevel,
+    body: &dyn Entity,
+) -> Option<crate::world::entity::EntityId> {
     let EntityRef(id) = *body.brain().get_memory(&NEAREST_VISIBLE_PLAYER)?;
-    level.get_entity(id).filter(|p| p.has_effect(MobEffect::HERO_OF_THE_VILLAGE)).map(|p| p.id())
+    level
+        .get_entity(id)
+        .filter(|p| p.has_effect(MobEffect::HERO_OF_THE_VILLAGE))
+        .map(|p| p.id())
 }
 
 impl Behavior for GiveGiftToHero {
-    fn check_extra_start_conditions(&mut self, level: &mut ServerLevel, body: &mut dyn Entity) -> bool {
+    fn check_extra_start_conditions(
+        &mut self,
+        level: &mut ServerLevel,
+        body: &mut dyn Entity,
+    ) -> bool {
         if get_nearest_targetable_hero(level, body).is_none() {
             false
         } else if self.time_until_next_gift > 0 {
@@ -81,27 +97,43 @@ impl Behavior for GiveGiftToHero {
     fn start(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, timestamp: i64) {
         self.gift_given_during_this_run = false;
         self.time_since_start = timestamp;
-        let Some(player) = get_nearest_targetable_hero(level, body) else { return };
-        body.brain_mut().set_memory(&INTERACTION_TARGET, EntityRef(player));
+        let Some(player) = get_nearest_targetable_hero(level, body) else {
+            return;
+        };
+        body.brain_mut()
+            .set_memory(&INTERACTION_TARGET, EntityRef(player));
         if let Some(p) = level.get_entity(player) {
             look_at_entity(body, p);
         }
     }
 
-    fn can_still_use(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, _timestamp: i64) -> bool {
+    fn can_still_use(
+        &mut self,
+        level: &mut ServerLevel,
+        body: &mut dyn Entity,
+        _timestamp: i64,
+    ) -> bool {
         get_nearest_targetable_hero(level, body).is_some() && !self.gift_given_during_this_run
     }
 
     fn tick(&mut self, level: &mut ServerLevel, villager: &mut dyn Entity, timestamp: i64) {
-        let Some(player_id) = get_nearest_targetable_hero(level, villager) else { return };
-        let Some(player) = level.get_entity(player_id) else { return };
+        let Some(player_id) = get_nearest_targetable_hero(level, villager) else {
+            return;
+        };
+        let Some(player) = level.get_entity(player_id) else {
+            return;
+        };
         look_at_entity(villager, player);
-        let within = villager.block_position().closer_than(&player.block_position(), THROW_GIFT_AT_DISTANCE);
+        let within = villager
+            .block_position()
+            .closer_than(&player.block_position(), THROW_GIFT_AT_DISTANCE);
         if within {
             if timestamp - self.time_since_start > TIME_TO_DELAY_FOR_HEAD_TO_FINISH_TURNING {
                 let target_pos = player.position();
                 let table = get_loot_table_to_throw(villager);
-                drop_from_gift_loot_table(level, villager, &table, |level, v, stack| throw_item(level, v, stack, target_pos));
+                drop_from_gift_loot_table(level, villager, &table, |level, v, stack| {
+                    throw_item(level, v, stack, target_pos)
+                });
                 self.gift_given_during_this_run = true;
             }
         } else {

@@ -100,7 +100,10 @@ pub struct DerivedLevelData {
 
 impl DerivedLevelData {
     pub fn new(world_data: SharedWorldData, wrapped: Box<dyn ServerLevelData>) -> Self {
-        Self { world_data, wrapped }
+        Self {
+            world_data,
+            wrapped,
+        }
     }
 }
 
@@ -127,7 +130,11 @@ impl ServerLevelData for DerivedLevelData {
         self.wrapped.is_initialized()
     }
     fn get_difficulty(&self) -> Difficulty {
-        self.world_data.lock().settings.difficulty_settings.difficulty
+        self.world_data
+            .lock()
+            .settings
+            .difficulty_settings
+            .difficulty
     }
     fn is_difficulty_locked(&self) -> bool {
         self.world_data.lock().settings.difficulty_settings.locked
@@ -164,17 +171,28 @@ mod tests {
     #[test]
     fn derived_data_follows_the_wrapped_data_and_ignores_most_setters() {
         let world = primary();
-        let mut derived = DerivedLevelData::new(world.clone(), Box::new(PrimaryServerLevelData(world.clone())));
+        let mut derived = DerivedLevelData::new(
+            world.clone(),
+            Box::new(PrimaryServerLevelData(world.clone())),
+        );
         assert_eq!(derived.get_game_time(), 77);
         assert_eq!(derived.get_level_name(), "w");
         assert_eq!(derived.get_game_type(), GameType::Creative);
         derived.set_game_time(5);
         derived.set_game_type(GameType::Survival);
-        assert_eq!(world.lock().game_time, 77, "DerivedLevelData.setGameTime is a no-op");
+        assert_eq!(
+            world.lock().game_time,
+            77,
+            "DerivedLevelData.setGameTime is a no-op"
+        );
         assert_eq!(world.lock().settings.game_type, GameType::Creative);
         let mut spawn = derived.get_respawn_data();
         spawn.yaw = 90.0;
         derived.set_spawn(spawn);
-        assert_eq!(world.lock().respawn_data.yaw, 90.0, "setSpawn goes to the wrapped data");
+        assert_eq!(
+            world.lock().respawn_data.yaw,
+            90.0,
+            "setSpawn goes to the wrapped data"
+        );
     }
 }

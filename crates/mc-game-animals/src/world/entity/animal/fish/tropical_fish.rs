@@ -1,10 +1,16 @@
 //! `net.minecraft.world.entity.animal.fish.TropicalFish`.
 
-use mc_core::random::RandomSource as _;
-use mc_game_core::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
-use mc_game_core::world::level::material::FluidStateExt as _;
 use super::abstract_fish::{self, AbstractFish, abstract_fish_bucketable, abstract_fish_entity};
-use super::abstract_schooling_fish::{self, FollowFlockLeaderGoal, SchoolData, SchoolSpawnGroupData, SchoolingFish};
+use super::abstract_schooling_fish::{
+    self, FollowFlockLeaderGoal, SchoolData, SchoolSpawnGroupData, SchoolingFish,
+};
+use linkme::distributed_slice;
+use mc_core::pos::BlockPos;
+use mc_core::random::RandomSource as _;
+use mc_core::random::RandomSource;
+use mc_data::block::Block;
+use mc_data::enums::EntitySpawnReason;
+use mc_data::{EntityType, Item, SoundEvent};
 use mc_game_core::define_accessor;
 use mc_game_core::impl_spawn_group_data;
 use mc_game_core::register_spawn_placement;
@@ -20,15 +26,14 @@ use mc_game_core::world::entity::spawn_predicates;
 use mc_game_core::world::entity::{Entity, EntityId};
 use mc_game_core::world::item::ItemStack;
 use mc_game_core::world::level::LevelAccessor;
+use mc_game_core::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
+use mc_game_core::world::level::material::FluidStateExt as _;
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
-use linkme::distributed_slice;
-use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
-use mc_data::block::Block;
-use mc_data::enums::EntitySpawnReason;
-use mc_data::{EntityType, Item, SoundEvent};
 use mc_nbt::CompoundTag;
-use mc_protocol::components::{DyeColor, TROPICAL_FISH_BASE_COLOR, TROPICAL_FISH_PATTERN, TROPICAL_FISH_PATTERN_COLOR, TropicalFishPattern};
+use mc_protocol::components::{
+    DyeColor, TROPICAL_FISH_BASE_COLOR, TROPICAL_FISH_PATTERN, TROPICAL_FISH_PATTERN_COLOR,
+    TropicalFishPattern,
+};
 
 define_accessor!(pub DATA_ID_TYPE_VARIANT: Int = TropicalFish);
 
@@ -41,13 +46,21 @@ pub struct Variant {
 }
 
 const fn v(pattern: TropicalFishPattern, base_color: DyeColor, pattern_color: DyeColor) -> Variant {
-    Variant { pattern, base_color, pattern_color }
+    Variant {
+        pattern,
+        base_color,
+        pattern_color,
+    }
 }
 
 impl Variant {
     /// `new Variant(packedId)`.
     pub fn from_packed(packed: i32) -> Variant {
-        Variant { pattern: get_pattern(packed), base_color: get_base_color(packed), pattern_color: get_pattern_color(packed) }
+        Variant {
+            pattern: get_pattern(packed),
+            base_color: get_base_color(packed),
+            pattern_color: get_pattern_color(packed),
+        }
     }
 
     /// `getPackedId()`.
@@ -61,28 +74,88 @@ pub const DEFAULT_VARIANT: Variant = v(TropicalFishPattern::Kob, DyeColor::White
 
 /// `COMMON_VARIANTS`.
 pub const COMMON_VARIANTS: [Variant; 22] = [
-    v(TropicalFishPattern::Stripey, DyeColor::Orange, DyeColor::Gray),
+    v(
+        TropicalFishPattern::Stripey,
+        DyeColor::Orange,
+        DyeColor::Gray,
+    ),
     v(TropicalFishPattern::Flopper, DyeColor::Gray, DyeColor::Gray),
     v(TropicalFishPattern::Flopper, DyeColor::Gray, DyeColor::Blue),
-    v(TropicalFishPattern::Clayfish, DyeColor::White, DyeColor::Gray),
-    v(TropicalFishPattern::Sunstreak, DyeColor::Blue, DyeColor::Gray),
+    v(
+        TropicalFishPattern::Clayfish,
+        DyeColor::White,
+        DyeColor::Gray,
+    ),
+    v(
+        TropicalFishPattern::Sunstreak,
+        DyeColor::Blue,
+        DyeColor::Gray,
+    ),
     v(TropicalFishPattern::Kob, DyeColor::Orange, DyeColor::White),
-    v(TropicalFishPattern::Spotty, DyeColor::Pink, DyeColor::LightBlue),
-    v(TropicalFishPattern::Blockfish, DyeColor::Purple, DyeColor::Yellow),
-    v(TropicalFishPattern::Clayfish, DyeColor::White, DyeColor::Red),
-    v(TropicalFishPattern::Spotty, DyeColor::White, DyeColor::Yellow),
-    v(TropicalFishPattern::Glitter, DyeColor::White, DyeColor::Gray),
-    v(TropicalFishPattern::Clayfish, DyeColor::White, DyeColor::Orange),
+    v(
+        TropicalFishPattern::Spotty,
+        DyeColor::Pink,
+        DyeColor::LightBlue,
+    ),
+    v(
+        TropicalFishPattern::Blockfish,
+        DyeColor::Purple,
+        DyeColor::Yellow,
+    ),
+    v(
+        TropicalFishPattern::Clayfish,
+        DyeColor::White,
+        DyeColor::Red,
+    ),
+    v(
+        TropicalFishPattern::Spotty,
+        DyeColor::White,
+        DyeColor::Yellow,
+    ),
+    v(
+        TropicalFishPattern::Glitter,
+        DyeColor::White,
+        DyeColor::Gray,
+    ),
+    v(
+        TropicalFishPattern::Clayfish,
+        DyeColor::White,
+        DyeColor::Orange,
+    ),
     v(TropicalFishPattern::Dasher, DyeColor::Cyan, DyeColor::Pink),
-    v(TropicalFishPattern::Brinely, DyeColor::Lime, DyeColor::LightBlue),
+    v(
+        TropicalFishPattern::Brinely,
+        DyeColor::Lime,
+        DyeColor::LightBlue,
+    ),
     v(TropicalFishPattern::Betty, DyeColor::Red, DyeColor::White),
     v(TropicalFishPattern::Snooper, DyeColor::Gray, DyeColor::Red),
-    v(TropicalFishPattern::Blockfish, DyeColor::Red, DyeColor::White),
-    v(TropicalFishPattern::Flopper, DyeColor::White, DyeColor::Yellow),
+    v(
+        TropicalFishPattern::Blockfish,
+        DyeColor::Red,
+        DyeColor::White,
+    ),
+    v(
+        TropicalFishPattern::Flopper,
+        DyeColor::White,
+        DyeColor::Yellow,
+    ),
     v(TropicalFishPattern::Kob, DyeColor::Red, DyeColor::White),
-    v(TropicalFishPattern::Sunstreak, DyeColor::Gray, DyeColor::White),
-    v(TropicalFishPattern::Dasher, DyeColor::Cyan, DyeColor::Yellow),
-    v(TropicalFishPattern::Flopper, DyeColor::Yellow, DyeColor::Yellow),
+    v(
+        TropicalFishPattern::Sunstreak,
+        DyeColor::Gray,
+        DyeColor::White,
+    ),
+    v(
+        TropicalFishPattern::Dasher,
+        DyeColor::Cyan,
+        DyeColor::Yellow,
+    ),
+    v(
+        TropicalFishPattern::Flopper,
+        DyeColor::Yellow,
+        DyeColor::Yellow,
+    ),
 ];
 
 /// `getPredefinedName(index)`.
@@ -91,7 +164,11 @@ pub fn get_predefined_name(index: usize) -> String {
 }
 
 /// `packVariant(pattern, baseColor, patternColor)`.
-fn pack_variant(pattern: TropicalFishPattern, base_color: DyeColor, pattern_color: DyeColor) -> i32 {
+fn pack_variant(
+    pattern: TropicalFishPattern,
+    base_color: DyeColor,
+    pattern_color: DyeColor,
+) -> i32 {
     pattern.packed_id() & 65535 | (base_color.id() & 0xFF) << 16 | (pattern_color.id() & 0xFF) << 24
 }
 
@@ -113,7 +190,11 @@ pub fn get_pattern_color(packed_variant: i32) -> DyeColor {
 /// `getPattern(packedVariant)`: `Pattern.byId` is `ByIdMap.sparse(.., KOB)`.
 pub fn get_pattern(packed_variant: i32) -> TropicalFishPattern {
     let id = packed_variant & 65535;
-    TropicalFishPattern::ALL.iter().copied().find(|p| p.packed_id() == id).unwrap_or(TropicalFishPattern::Kob)
+    TropicalFishPattern::ALL
+        .iter()
+        .copied()
+        .find(|p| p.packed_id() == id)
+        .unwrap_or(TropicalFishPattern::Kob)
 }
 
 /// `TropicalFish.TropicalFishGroupData`.
@@ -136,7 +217,11 @@ impl TropicalFish {
             abstract_fish::define_synched_data(b);
             b.define(DATA_ID_TYPE_VARIANT, DEFAULT_VARIANT.get_packed_id());
         });
-        let mut fish = TropicalFish { mob, school: SchoolData::default(), is_school: true };
+        let mut fish = TropicalFish {
+            mob,
+            school: SchoolData::default(),
+            is_school: true,
+        };
         let navigation = StandardPathNavigation::water_bound(&fish);
         abstract_fish::init_controls(&mut fish.mob, navigation);
         abstract_fish::register_goals(&mut fish);
@@ -146,7 +231,11 @@ impl TropicalFish {
     }
 
     fn set_packed_variant(&mut self, packed: i32) {
-        self.mob.living.entity.entity_data.set(DATA_ID_TYPE_VARIANT, packed);
+        self.mob
+            .living
+            .entity
+            .entity_data
+            .set(DATA_ID_TYPE_VARIANT, packed);
     }
 
     fn get_packed_variant(&self) -> i32 {
@@ -167,17 +256,29 @@ impl TropicalFish {
 
     fn set_pattern(&mut self, pattern: TropicalFishPattern) {
         let base = self.get_packed_variant();
-        self.set_packed_variant(pack_variant(pattern, get_base_color(base), get_pattern_color(base)));
+        self.set_packed_variant(pack_variant(
+            pattern,
+            get_base_color(base),
+            get_pattern_color(base),
+        ));
     }
 
     fn set_base_color(&mut self, base_color: DyeColor) {
         let base = self.get_packed_variant();
-        self.set_packed_variant(pack_variant(get_pattern(base), base_color, get_pattern_color(base)));
+        self.set_packed_variant(pack_variant(
+            get_pattern(base),
+            base_color,
+            get_pattern_color(base),
+        ));
     }
 
     fn set_pattern_color(&mut self, pattern_color: DyeColor) {
         let base = self.get_packed_variant();
-        self.set_packed_variant(pack_variant(get_pattern(base), get_base_color(base), pattern_color));
+        self.set_packed_variant(pack_variant(
+            get_pattern(base),
+            get_base_color(base),
+            pattern_color,
+        ));
     }
 }
 
@@ -269,21 +370,32 @@ impl Entity for TropicalFish {
         reason: EntitySpawnReason,
         group_data: Option<Box<dyn SpawnGroupData>>,
     ) -> Option<Box<dyn SpawnGroupData>> {
-        let mut group_data = abstract_schooling_fish::finalize_spawn(self, level, difficulty, reason, group_data);
+        let mut group_data =
+            abstract_schooling_fish::finalize_spawn(self, level, difficulty, reason, group_data);
         let random = level.random();
-        let existing = group_data.as_ref().and_then(|g| g.as_any().downcast_ref::<TropicalFishGroupData>()).map(|g| g.variant);
+        let existing = group_data
+            .as_ref()
+            .and_then(|g| g.as_any().downcast_ref::<TropicalFishGroupData>())
+            .map(|g| g.variant);
         let variant = if let Some(variant) = existing {
             variant
         } else if random.next_float() < 0.9 {
-            let variant = COMMON_VARIANTS[random.next_int_bounded(COMMON_VARIANTS.len() as i32) as usize];
+            let variant =
+                COMMON_VARIANTS[random.next_int_bounded(COMMON_VARIANTS.len() as i32) as usize];
             // `new TropicalFishGroupData(this, variant)`: this fish becomes the leader of the group
-            group_data = Some(Box::new(TropicalFishGroupData { school: SchoolSpawnGroupData::new(&*self, self.id()), variant }));
+            group_data = Some(Box::new(TropicalFishGroupData {
+                school: SchoolSpawnGroupData::new(&*self, self.id()),
+                variant,
+            }));
             variant
         } else {
             self.is_school = false;
-            let pattern = TropicalFishPattern::ALL[random.next_int_bounded(TropicalFishPattern::ALL.len() as i32) as usize];
-            let base_color = DyeColor::ALL[random.next_int_bounded(DyeColor::ALL.len() as i32) as usize];
-            let pattern_color = DyeColor::ALL[random.next_int_bounded(DyeColor::ALL.len() as i32) as usize];
+            let pattern = TropicalFishPattern::ALL
+                [random.next_int_bounded(TropicalFishPattern::ALL.len() as i32) as usize];
+            let base_color =
+                DyeColor::ALL[random.next_int_bounded(DyeColor::ALL.len() as i32) as usize];
+            let pattern_color =
+                DyeColor::ALL[random.next_int_bounded(DyeColor::ALL.len() as i32) as usize];
             v(pattern, base_color, pattern_color)
         };
         self.set_packed_variant(variant.get_packed_id());
@@ -292,20 +404,43 @@ impl Entity for TropicalFish {
 }
 
 /// `TropicalFish.checkTropicalFishSpawnRules`.
-fn check_tropical_fish_spawn_rules(ty: EntityType, level: &dyn ServerLevelAccessor, reason: EntitySpawnReason, pos: BlockPos, random: &mut dyn RandomSource) -> bool {
+fn check_tropical_fish_spawn_rules(
+    ty: EntityType,
+    level: &dyn ServerLevelAccessor,
+    reason: EntitySpawnReason,
+    pos: BlockPos,
+    random: &mut dyn RandomSource,
+) -> bool {
     level.get_fluid_state(pos.below()).is_tag("water")
         && level.get_block_state(pos.above()).block() == Block::WATER
-        && (biome_allows_any_height(level, pos) || spawn_predicates::check_surface_water_animal_spawn_rules(ty, level, reason, pos, random))
+        && (biome_allows_any_height(level, pos)
+            || spawn_predicates::check_surface_water_animal_spawn_rules(
+                ty, level, reason, pos, random,
+            ))
 }
 
 /// `level.getBiome(pos).is(BiomeTags.ALLOWS_TROPICAL_FISH_SPAWNS_AT_ANY_HEIGHT)`.
 fn biome_allows_any_height(level: &dyn ServerLevelAccessor, pos: BlockPos) -> bool {
     let registries = level.registry_access();
-    let Some(registry) = registries.registry(keys::BIOME) else { return false };
-    level.get_biome_id(pos).is_some_and(|id| registry.is_in_tag(id.0, &mc_core::ident::Identifier::new("minecraft", "allows_tropical_fish_spawns_at_any_height").expect("valid id")))
+    let Some(registry) = registries.registry(keys::BIOME) else {
+        return false;
+    };
+    level.get_biome_id(pos).is_some_and(|id| {
+        registry.is_in_tag(
+            id.0,
+            &mc_core::ident::Identifier::new(
+                "minecraft",
+                "allows_tropical_fish_spawns_at_any_height",
+            )
+            .expect("valid id"),
+        )
+    })
 }
 
 register_spawn_placement!(EntityType::TROPICAL_FISH, check_tropical_fish_spawn_rules);
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static TROPICAL_FISH: EntityRegistration = EntityRegistration { entity_type: EntityType::TROPICAL_FISH, create: |ty, id, _registries| Box::new(TropicalFish::new(ty, id)) };
+static TROPICAL_FISH: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::TROPICAL_FISH,
+    create: |ty, id, _registries| Box::new(TropicalFish::new(ty, id)),
+};

@@ -104,7 +104,10 @@ impl<S: Serializer> std::fmt::Debug for EntityDataAccessor<S> {
 
 impl<S: Serializer> EntityDataAccessor<S> {
     pub const fn new(id: u8) -> Self {
-        Self { id, _serializer: PhantomData }
+        Self {
+            id,
+            _serializer: PhantomData,
+        }
     }
 
     pub const fn id(&self) -> u8 {
@@ -140,7 +143,10 @@ pub const fn accessor_id(class: &str, field: &str, serializer_name: &str) -> u8 
     let mut i = 0;
     while i < table.len() {
         if str_eq(table[i].class, class) && str_eq(table[i].field, field) {
-            assert!(str_eq(table[i].serializer, serializer_name), "entity data accessor has a different serializer");
+            assert!(
+                str_eq(table[i].serializer, serializer_name),
+                "entity data accessor has a different serializer"
+            );
             return table[i].id as u8;
         }
         i += 1;
@@ -186,14 +192,22 @@ impl SynchedEntityDataBuilder {
     }
 
     /// `define(accessor, value)`; panics on duplicate ids like vanilla's `IllegalArgumentException`.
-    pub fn define<S: Serializer>(&mut self, accessor: EntityDataAccessor<S>, value: S::Value) -> &mut Self {
+    pub fn define<S: Serializer>(
+        &mut self,
+        accessor: EntityDataAccessor<S>,
+        value: S::Value,
+    ) -> &mut Self {
         let id = accessor.id as usize;
         if self.items.len() <= id {
             self.items.resize_with(id + 1, || None);
         }
         assert!(self.items[id].is_none(), "Duplicate id value for {id}!");
         let value = S::wrap(value);
-        self.items[id] = Some(DataItem { initial_value: value.clone(), value, dirty: false });
+        self.items[id] = Some(DataItem {
+            initial_value: value.clone(),
+            value,
+            dirty: false,
+        });
         self
     }
 
@@ -203,9 +217,14 @@ impl SynchedEntityDataBuilder {
             .items
             .into_iter()
             .enumerate()
-            .map(|(i, item)| item.unwrap_or_else(|| panic!("Entity has not defined synched data value {i}")))
+            .map(|(i, item)| {
+                item.unwrap_or_else(|| panic!("Entity has not defined synched data value {i}"))
+            })
             .collect();
-        SynchedEntityData { items, is_dirty: false }
+        SynchedEntityData {
+            items,
+            is_dirty: false,
+        }
     }
 }
 
@@ -236,7 +255,12 @@ impl SynchedEntityData {
         self.set_force(accessor, value, false)
     }
 
-    pub fn set_force<S: Serializer>(&mut self, accessor: EntityDataAccessor<S>, value: S::Value, force_dirty: bool) -> bool {
+    pub fn set_force<S: Serializer>(
+        &mut self,
+        accessor: EntityDataAccessor<S>,
+        value: S::Value,
+        force_dirty: bool,
+    ) -> bool {
         let item = &mut self.items[accessor.id as usize];
         let value = S::wrap(value);
         if force_dirty || value != item.value {
@@ -252,13 +276,21 @@ impl SynchedEntityData {
     /// Replaces the stored value without marking it dirty: vanilla code that mutates a stored object in place
     /// (`ItemEntity.merge`'s `fromStack.shrink`, `Inventory.add(itemEntity.getItem())`) is never noticed by
     /// `SynchedEntityData`.
-    pub fn set_untracked<S: Serializer>(&mut self, accessor: EntityDataAccessor<S>, value: S::Value) {
+    pub fn set_untracked<S: Serializer>(
+        &mut self,
+        accessor: EntityDataAccessor<S>,
+        value: S::Value,
+    ) {
         self.items[accessor.id as usize].value = S::wrap(value);
     }
 
     /// `define(accessor, value)` of an already built set: replaces both the value and the default it is compared with
     /// (a constructor whose `defineSynchedData` value depends on the entity's random, `ZombieVillager`'s profession).
-    pub fn redefine_initial<S: Serializer>(&mut self, accessor: EntityDataAccessor<S>, value: S::Value) {
+    pub fn redefine_initial<S: Serializer>(
+        &mut self,
+        accessor: EntityDataAccessor<S>,
+        value: S::Value,
+    ) {
         let item = &mut self.items[accessor.id as usize];
         let value = S::wrap(value);
         item.initial_value = value.clone();
@@ -280,7 +312,10 @@ impl SynchedEntityData {
         for (id, item) in self.items.iter_mut().enumerate() {
             if item.dirty {
                 item.dirty = false;
-                result.push(DataValue { id: id as u8, value: item.value.clone() });
+                result.push(DataValue {
+                    id: id as u8,
+                    value: item.value.clone(),
+                });
             }
         }
         Some(result)
@@ -288,14 +323,29 @@ impl SynchedEntityData {
 
     /// `getNonDefaultValues()`.
     pub fn get_non_default_values(&self) -> Option<Vec<DataValue>> {
-        let result: Vec<DataValue> =
-            self.items.iter().enumerate().filter(|(_, i)| !i.is_set_to_default()).map(|(id, i)| DataValue { id: id as u8, value: i.value.clone() }).collect();
+        let result: Vec<DataValue> = self
+            .items
+            .iter()
+            .enumerate()
+            .filter(|(_, i)| !i.is_set_to_default())
+            .map(|(id, i)| DataValue {
+                id: id as u8,
+                value: i.value.clone(),
+            })
+            .collect();
         (!result.is_empty()).then_some(result)
     }
 
     /// `packAll` of vanilla's `ServerEntity.sendPairingData`/`ClientboundSetEntityDataPacket` for every item.
     pub fn pack_all(&self) -> Vec<DataValue> {
-        self.items.iter().enumerate().map(|(id, i)| DataValue { id: id as u8, value: i.value.clone() }).collect()
+        self.items
+            .iter()
+            .enumerate()
+            .map(|(id, i)| DataValue {
+                id: id as u8,
+                value: i.value.clone(),
+            })
+            .collect()
     }
 
     /// `assignValues(items)`: returns the accessor ids that were assigned (vanilla's `onSyncedDataUpdated` calls);

@@ -47,9 +47,11 @@ impl Stub {
             return self.center;
         }
         let h = mix(
-            (self.world_seed.wrapping_mul(0x9E3779B97F4A7C15u64 as i64))
-                .wrapping_add((i64::from(x).wrapping_mul(73856093)) ^ (i64::from(y).wrapping_mul(19349663)) ^ (i64::from(z).wrapping_mul(83492791)))
-                as u64,
+            (self.world_seed.wrapping_mul(0x9E3779B97F4A7C15u64 as i64)).wrapping_add(
+                (i64::from(x).wrapping_mul(73856093))
+                    ^ (i64::from(y).wrapping_mul(19349663))
+                    ^ (i64::from(z).wrapping_mul(83492791)),
+            ) as u64,
         );
         let r = h % 100;
         let h2 = mix(h);
@@ -73,7 +75,10 @@ impl BlockGetter for Stub {
     fn get_fluid_state(&self, pos: BlockPos) -> mc_data::fluid::FluidState {
         self.get_block_state(pos).get_fluid_state()
     }
-    fn get_block_entity(&self, _pos: BlockPos) -> Option<&dyn mc_game::world::block_entity::BlockEntity> {
+    fn get_block_entity(
+        &self,
+        _pos: BlockPos,
+    ) -> Option<&dyn mc_game::world::block_entity::BlockEntity> {
         None
     }
     fn level_height(&self) -> LevelHeight {
@@ -92,7 +97,12 @@ impl LevelReader for Stub {
         63
     }
     fn get_brightness(&self, layer: LightLayer, pos: BlockPos) -> i32 {
-        brightness(pos.x(), pos.y(), pos.z(), if layer == LightLayer::Sky { 0 } else { 1 })
+        brightness(
+            pos.x(),
+            pos.y(),
+            pos.z(),
+            if layer == LightLayer::Sky { 0 } else { 1 },
+        )
     }
     fn get_sky_darken(&self) -> i32 {
         0
@@ -112,7 +122,13 @@ impl LevelAccessor for Stub {
     fn remove_block(&mut self, _pos: BlockPos, _moved: bool) -> bool {
         unreachable!("remove_block")
     }
-    fn destroy_block(&mut self, _pos: BlockPos, _drop: bool, _breaker: Option<i32>, _limit: i32) -> bool {
+    fn destroy_block(
+        &mut self,
+        _pos: BlockPos,
+        _drop: bool,
+        _breaker: Option<i32>,
+        _limit: i32,
+    ) -> bool {
         unreachable!("destroy_block")
     }
     fn get_game_time(&self) -> i64 {
@@ -124,11 +140,39 @@ impl LevelAccessor for Stub {
     fn random(&mut self) -> &mut dyn RandomSource {
         &mut self.random
     }
-    fn schedule_block_tick(&mut self, pos: BlockPos, block: Block, delay: i32, priority: TickPriority) {
-        self.ticks.push([0, i64::from(block.id()), i64::from(pos.x() - ORIGIN.x()), i64::from(pos.y() - ORIGIN.y()), i64::from(pos.z() - ORIGIN.z()), i64::from(delay), priority as i64]);
+    fn schedule_block_tick(
+        &mut self,
+        pos: BlockPos,
+        block: Block,
+        delay: i32,
+        priority: TickPriority,
+    ) {
+        self.ticks.push([
+            0,
+            i64::from(block.id()),
+            i64::from(pos.x() - ORIGIN.x()),
+            i64::from(pos.y() - ORIGIN.y()),
+            i64::from(pos.z() - ORIGIN.z()),
+            i64::from(delay),
+            priority as i64,
+        ]);
     }
-    fn schedule_fluid_tick(&mut self, pos: BlockPos, fluid: Fluid, delay: i32, priority: TickPriority) {
-        self.ticks.push([1, i64::from(fluid.id()), i64::from(pos.x() - ORIGIN.x()), i64::from(pos.y() - ORIGIN.y()), i64::from(pos.z() - ORIGIN.z()), i64::from(delay), priority as i64]);
+    fn schedule_fluid_tick(
+        &mut self,
+        pos: BlockPos,
+        fluid: Fluid,
+        delay: i32,
+        priority: TickPriority,
+    ) {
+        self.ticks.push([
+            1,
+            i64::from(fluid.id()),
+            i64::from(pos.x() - ORIGIN.x()),
+            i64::from(pos.y() - ORIGIN.y()),
+            i64::from(pos.z() - ORIGIN.z()),
+            i64::from(delay),
+            priority as i64,
+        ]);
     }
     fn has_scheduled_block_tick(&self, _pos: BlockPos, _block: Block) -> bool {
         false
@@ -161,10 +205,18 @@ fn eval_state(stub: &mut Stub, s: BlockState, verbose: &mut Option<String>) -> u
         let pp = s.get_post_process_pos(&*stub, ORIGIN);
         h = mix(h ^ match pp {
             None => 7,
-            Some(p) => (i64::from(p.x() - ORIGIN.x()) * 31 + i64::from(p.y() - ORIGIN.y()) * 5 + i64::from(p.z() - ORIGIN.z())) as u64,
+            Some(p) => {
+                (i64::from(p.x() - ORIGIN.x()) * 31
+                    + i64::from(p.y() - ORIGIN.y()) * 5
+                    + i64::from(p.z() - ORIGIN.z())) as u64
+            }
         });
         if let Some(v) = verbose {
-            let _ = write!(v, "S{sid} w{w} surv={surv} pp={}", pp.map_or("null".to_string(), |p| p.to_short_string()));
+            let _ = write!(
+                v,
+                "S{sid} w{w} surv={surv} pp={}",
+                pp.map_or("null".to_string(), |p| p.to_short_string())
+            );
         }
         for (di, d) in UPDATE_SHAPE_ORDER.into_iter().enumerate() {
             let np = ORIGIN.relative(d);
@@ -198,10 +250,21 @@ fn eval_state(stub: &mut Stub, s: BlockState, verbose: &mut Option<String>) -> u
 #[test]
 fn block_behaviour_matches_vanilla() {
     let fixture = include_str!("../fixtures/block_behaviour.txt");
-    let expected: HashMap<&str, &str> = fixture.lines().filter(|l| !l.starts_with('S')).filter_map(|l| l.split_once(' ')).collect();
+    let expected: HashMap<&str, &str> = fixture
+        .lines()
+        .filter(|l| !l.starts_with('S'))
+        .filter_map(|l| l.split_once(' '))
+        .collect();
     let mut global = Vec::new();
-    for name in include_str!("../fixtures/block_behaviour_pool.txt").lines().filter(|l| !l.trim().is_empty()) {
-        global.extend(capped(Block::by_name(&format!("minecraft:{name}")).unwrap_or_else(|| panic!("pool block {name}")), POOL_CAP));
+    for name in include_str!("../fixtures/block_behaviour_pool.txt")
+        .lines()
+        .filter(|l| !l.trim().is_empty())
+    {
+        global.extend(capped(
+            Block::by_name(&format!("minecraft:{name}"))
+                .unwrap_or_else(|| panic!("pool block {name}")),
+            POOL_CAP,
+        ));
     }
     let only = std::env::var("BLOCK_BEHAVIOUR_VERBOSE").ok();
     let mut stub = Stub {
@@ -238,8 +301,16 @@ fn block_behaviour_matches_vanilla() {
         }
         let want = expected.get(name).copied().unwrap_or("?");
         if want != format!("{h:x}") {
-            mismatches.push(format!("{name} ({}): expected {want}, got {h:x}", b.data().class));
+            mismatches.push(format!(
+                "{name} ({}): expected {want}, got {h:x}",
+                b.data().class
+            ));
         }
     }
-    assert!(mismatches.is_empty(), "{} blocks differ from vanilla:\n{}", mismatches.len(), mismatches.join("\n"));
+    assert!(
+        mismatches.is_empty(),
+        "{} blocks differ from vanilla:\n{}",
+        mismatches.len(),
+        mismatches.join("\n")
+    );
 }

@@ -34,15 +34,34 @@ impl ServerConnectionListener {
         let counter = AtomicUsize::new(0);
         let runtime = tokio::runtime::Builder::new_multi_thread()
             .worker_threads(std::thread::available_parallelism().map_or(2, |n| n.get().max(2)))
-            .thread_name_fn(move || format!("Netty Epoll Server IO #{}", counter.fetch_add(1, Ordering::Relaxed) + 1))
+            .thread_name_fn(move || {
+                format!(
+                    "Netty Epoll Server IO #{}",
+                    counter.fetch_add(1, Ordering::Relaxed) + 1
+                )
+            })
             .enable_all()
             .build()?;
-        Ok(Self { hooks, listener: ListenerShared::new(), runtime: Some(runtime), channels: Vec::new(), running: true, play_ticker: None })
+        Ok(Self {
+            hooks,
+            listener: ListenerShared::new(),
+            runtime: Some(runtime),
+            channels: Vec::new(),
+            running: true,
+            play_ticker: None,
+        })
     }
 
     /// `startTcpServerListener`: binds `address:port` (all interfaces when `None`). Returns the bound address.
-    pub fn start_tcp_server_listener(&mut self, address: Option<IpAddr>, port: u16) -> io::Result<SocketAddr> {
-        let runtime = self.runtime.as_ref().ok_or_else(|| io::Error::other("connection listener stopped"))?;
+    pub fn start_tcp_server_listener(
+        &mut self,
+        address: Option<IpAddr>,
+        port: u16,
+    ) -> io::Result<SocketAddr> {
+        let runtime = self
+            .runtime
+            .as_ref()
+            .ok_or_else(|| io::Error::other("connection listener stopped"))?;
         let socket = {
             let _guard = runtime.enter();
             match address {

@@ -44,7 +44,10 @@ impl JsonObject {
     }
 
     pub fn add_property_str(&mut self, key: &str, value: Option<&str>) {
-        self.add(key, value.map_or(JsonElement::Null, |v| JsonElement::String(v.to_owned())));
+        self.add(
+            key,
+            value.map_or(JsonElement::Null, |v| JsonElement::String(v.to_owned())),
+        );
     }
 
     pub fn add_property_int(&mut self, key: &str, value: i64) {
@@ -98,7 +101,9 @@ impl JsonElement {
                 if let Ok(v) = text.parse::<i64>() {
                     return Ok(v as i32);
                 }
-                text.parse::<f64>().map(|v| v as i32).map_err(|_| JsonError::new(format!("For input string: \"{text}\"")))
+                text.parse::<f64>()
+                    .map(|v| v as i32)
+                    .map_err(|_| JsonError::new(format!("For input string: \"{text}\"")))
             }
             JsonElement::Array(a) if a.len() == 1 => a[0].as_int(),
             _ => Err(JsonError::new("Not a JSON primitive")),
@@ -125,14 +130,32 @@ impl JsonElement {
     /// `JsonElement.toString()`: compact, no HTML escaping, nulls kept.
     pub fn to_compact_string(&self) -> String {
         let mut out = String::new();
-        write_element(&mut out, self, &Format { indent: false, html_safe: false, serialize_nulls: true }, 0);
+        write_element(
+            &mut out,
+            self,
+            &Format {
+                indent: false,
+                html_safe: false,
+                serialize_nulls: true,
+            },
+            0,
+        );
         out
     }
 
     /// `new GsonBuilder().create().toJson(element)`: compact with HTML-safe escaping, nulls skipped.
     pub fn to_gson_string(&self) -> String {
         let mut out = String::new();
-        write_element(&mut out, self, &Format { indent: false, html_safe: true, serialize_nulls: false }, 0);
+        write_element(
+            &mut out,
+            self,
+            &Format {
+                indent: false,
+                html_safe: true,
+                serialize_nulls: false,
+            },
+            0,
+        );
         out
     }
 
@@ -140,14 +163,32 @@ impl JsonElement {
     /// skipped in objects (`ByteBufCodecs.lenientJson`).
     pub fn to_gson_string_unescaped(&self) -> String {
         let mut out = String::new();
-        write_element(&mut out, self, &Format { indent: false, html_safe: false, serialize_nulls: false }, 0);
+        write_element(
+            &mut out,
+            self,
+            &Format {
+                indent: false,
+                html_safe: false,
+                serialize_nulls: false,
+            },
+            0,
+        );
         out
     }
 
     /// `GsonBuilder().setPrettyPrinting().create().toJson(element)`.
     pub fn to_pretty_string(&self) -> String {
         let mut out = String::new();
-        write_element(&mut out, self, &Format { indent: true, html_safe: true, serialize_nulls: false }, 0);
+        write_element(
+            &mut out,
+            self,
+            &Format {
+                indent: true,
+                html_safe: true,
+                serialize_nulls: false,
+            },
+            0,
+        );
         out
     }
 }
@@ -189,7 +230,10 @@ fn write_element(out: &mut String, element: &JsonElement, f: &Format, depth: usi
             out.push(']');
         }
         JsonElement::Object(obj) => {
-            let members: Vec<_> = obj.iter().filter(|(_, v)| f.serialize_nulls || *v != &JsonElement::Null).collect();
+            let members: Vec<_> = obj
+                .iter()
+                .filter(|(_, v)| f.serialize_nulls || *v != &JsonElement::Null)
+                .collect();
             if members.is_empty() {
                 out.push_str("{}");
                 return;
@@ -329,7 +373,13 @@ pub fn lazily_parsed_int_value(text: &str) -> Result<i32, String> {
         None => (false, text),
     };
     let (mantissa, exp) = match rest.find(['e', 'E']) {
-        Some(i) => (&rest[..i], rest[i + 1..].trim_start_matches('+').parse::<i64>().map_err(|_| unsupported())?),
+        Some(i) => (
+            &rest[..i],
+            rest[i + 1..]
+                .trim_start_matches('+')
+                .parse::<i64>()
+                .map_err(|_| unsupported())?,
+        ),
         None => (rest, 0),
     };
     let (int_digits, frac_digits) = mantissa.split_once('.').unwrap_or((mantissa, ""));
@@ -341,7 +391,9 @@ pub fn lazily_parsed_int_value(text: &str) -> Result<i32, String> {
     if scale > 0 {
         digits.truncate(digits.len().saturating_sub(scale as usize));
     }
-    let mut v = digits.iter().fold(0u32, |a, d| a.wrapping_mul(10).wrapping_add(u32::from(d - b'0')));
+    let mut v = digits.iter().fold(0u32, |a, d| {
+        a.wrapping_mul(10).wrapping_add(u32::from(d - b'0'))
+    });
     if scale < 0 {
         let (mut base, mut e, mut p) = (10u32, (-scale) as u32, 1u32);
         while e > 0 {
@@ -353,7 +405,11 @@ pub fn lazily_parsed_int_value(text: &str) -> Result<i32, String> {
         }
         v = v.wrapping_mul(p);
     }
-    Ok(if negative { v.wrapping_neg() as i32 } else { v as i32 })
+    Ok(if negative {
+        v.wrapping_neg() as i32
+    } else {
+        v as i32
+    })
 }
 
 /// `JsonToken`.
@@ -501,7 +557,9 @@ impl Reader {
 
     fn check_lenient(&self) -> RResult<()> {
         if self.strictness != Strictness::Lenient {
-            return Err(self.syntax_error("Use JsonReader.setStrictness(Strictness.LENIENT) to accept malformed JSON"));
+            return Err(self.syntax_error(
+                "Use JsonReader.setStrictness(Strictness.LENIENT) to accept malformed JSON",
+            ));
         }
         Ok(())
     }
@@ -562,21 +620,39 @@ impl Reader {
 
     /// The `p == X` guard of `beginArray`/`endArray`/...: the element reader only calls them after a matching peek.
     fn expect_peeked(&mut self, want: u8) -> RResult<()> {
-        let p = if self.peeked == PEEKED_NONE { self.do_peek()? } else { self.peeked };
+        let p = if self.peeked == PEEKED_NONE {
+            self.do_peek()?
+        } else {
+            self.peeked
+        };
         if p == want {
             Ok(())
         } else {
-            Err(ReadErr { eof: false, message: format!("java.lang.IllegalStateException: unexpected token {p}{}", self.location_string()) })
+            Err(ReadErr {
+                eof: false,
+                message: format!(
+                    "java.lang.IllegalStateException: unexpected token {p}{}",
+                    self.location_string()
+                ),
+            })
         }
     }
 
     fn has_next(&mut self) -> RResult<bool> {
-        let p = if self.peeked == PEEKED_NONE { self.do_peek()? } else { self.peeked };
+        let p = if self.peeked == PEEKED_NONE {
+            self.do_peek()?
+        } else {
+            self.peeked
+        };
         Ok(p != PEEKED_END_OBJECT && p != PEEKED_END_ARRAY && p != PEEKED_EOF)
     }
 
     fn peek(&mut self) -> RResult<Token> {
-        let p = if self.peeked == PEEKED_NONE { self.do_peek()? } else { self.peeked };
+        let p = if self.peeked == PEEKED_NONE {
+            self.do_peek()?
+        } else {
+            self.peeked
+        };
         Ok(match p {
             PEEKED_BEGIN_OBJECT => Token::BeginObject,
             PEEKED_END_OBJECT => Token::EndObject,
@@ -585,7 +661,9 @@ impl Reader {
             PEEKED_TRUE | PEEKED_FALSE => Token::Boolean,
             PEEKED_NULL => Token::Null,
             PEEKED_SINGLE_QUOTED | PEEKED_DOUBLE_QUOTED | PEEKED_UNQUOTED => Token::String,
-            PEEKED_SINGLE_QUOTED_NAME | PEEKED_DOUBLE_QUOTED_NAME | PEEKED_UNQUOTED_NAME => Token::Name,
+            PEEKED_SINGLE_QUOTED_NAME | PEEKED_DOUBLE_QUOTED_NAME | PEEKED_UNQUOTED_NAME => {
+                Token::Name
+            }
             PEEKED_LONG | PEEKED_NUMBER => Token::Number,
             _ => Token::EndDocument,
         })
@@ -814,7 +892,8 @@ impl Reader {
                             return Ok(0);
                         }
                         let new_value = value.wrapping_mul(10).wrapping_sub(digit);
-                        fits_in_long &= value > -922337203685477580 || value == -922337203685477580 && new_value < value;
+                        fits_in_long &= value > -922337203685477580
+                            || value == -922337203685477580 && new_value < value;
                         value = new_value;
                     } else if last == 3 {
                         last = 4;
@@ -853,12 +932,24 @@ impl Reader {
     }
 
     fn next_name(&mut self) -> RResult<String> {
-        let p = if self.peeked == PEEKED_NONE { self.do_peek()? } else { self.peeked };
+        let p = if self.peeked == PEEKED_NONE {
+            self.do_peek()?
+        } else {
+            self.peeked
+        };
         let result = match p {
             PEEKED_UNQUOTED_NAME => self.next_unquoted_value()?,
             PEEKED_SINGLE_QUOTED_NAME => self.next_quoted_value(c16('\''))?,
             PEEKED_DOUBLE_QUOTED_NAME => self.next_quoted_value(c16('"'))?,
-            _ => return Err(ReadErr { eof: false, message: format!("java.lang.IllegalStateException: Expected a name{}", self.location_string()) }),
+            _ => {
+                return Err(ReadErr {
+                    eof: false,
+                    message: format!(
+                        "java.lang.IllegalStateException: Expected a name{}",
+                        self.location_string()
+                    ),
+                });
+            }
         };
         self.peeked = PEEKED_NONE;
         let t = self.top();
@@ -872,18 +963,32 @@ impl Reader {
     }
 
     fn next_string(&mut self) -> RResult<String> {
-        let p = if self.peeked == PEEKED_NONE { self.do_peek()? } else { self.peeked };
+        let p = if self.peeked == PEEKED_NONE {
+            self.do_peek()?
+        } else {
+            self.peeked
+        };
         let result = match p {
             PEEKED_UNQUOTED => self.next_unquoted_value()?,
             PEEKED_SINGLE_QUOTED => self.next_quoted_value(c16('\''))?,
             PEEKED_DOUBLE_QUOTED => self.next_quoted_value(c16('"'))?,
             PEEKED_LONG => self.peeked_long.to_string(),
             PEEKED_NUMBER => {
-                let s = String::from_utf16_lossy(&self.buf[self.pos..self.pos + self.peeked_number_length]);
+                let s = String::from_utf16_lossy(
+                    &self.buf[self.pos..self.pos + self.peeked_number_length],
+                );
                 self.pos += self.peeked_number_length;
                 s
             }
-            _ => return Err(ReadErr { eof: false, message: format!("java.lang.IllegalStateException: Expected a string{}", self.location_string()) }),
+            _ => {
+                return Err(ReadErr {
+                    eof: false,
+                    message: format!(
+                        "java.lang.IllegalStateException: Expected a string{}",
+                        self.location_string()
+                    ),
+                });
+            }
         };
         self.peeked = PEEKED_NONE;
         self.bump_index();
@@ -891,13 +996,23 @@ impl Reader {
     }
 
     fn next_boolean(&mut self) -> RResult<bool> {
-        let p = if self.peeked == PEEKED_NONE { self.do_peek()? } else { self.peeked };
+        let p = if self.peeked == PEEKED_NONE {
+            self.do_peek()?
+        } else {
+            self.peeked
+        };
         if p == PEEKED_TRUE || p == PEEKED_FALSE {
             self.peeked = PEEKED_NONE;
             self.bump_index();
             Ok(p == PEEKED_TRUE)
         } else {
-            Err(ReadErr { eof: false, message: format!("java.lang.IllegalStateException: Expected a boolean{}", self.location_string()) })
+            Err(ReadErr {
+                eof: false,
+                message: format!(
+                    "java.lang.IllegalStateException: Expected a boolean{}",
+                    self.location_string()
+                ),
+            })
         }
     }
 
@@ -917,7 +1032,9 @@ impl Reader {
             let c = self.buf[p];
             p += 1;
             if self.strictness == Strictness::Strict && c < 32 {
-                return Err(self.syntax_error("Unescaped control characters (\\u0000-\\u001F) are not allowed in strict mode"));
+                return Err(self.syntax_error(
+                    "Unescaped control characters (\\u0000-\\u001F) are not allowed in strict mode",
+                ));
             }
             if c == quote {
                 self.pos = p;
@@ -964,7 +1081,13 @@ impl Reader {
             if p == l {
                 self.pos = p;
                 if throw_on_eof {
-                    return Err(ReadErr { eof: true, message: format!("java.io.EOFException: End of input{}", self.location_string()) });
+                    return Err(ReadErr {
+                        eof: true,
+                        message: format!(
+                            "java.io.EOFException: End of input{}",
+                            self.location_string()
+                        ),
+                    });
                 }
                 return Ok(-1);
             }
@@ -1045,7 +1168,9 @@ impl Reader {
         match escaped {
             0x0a => {
                 if self.strictness == Strictness::Strict {
-                    return Err(self.syntax_error("Cannot escape a newline character in strict mode"));
+                    return Err(
+                        self.syntax_error("Cannot escape a newline character in strict mode")
+                    );
                 }
                 self.line_number += 1;
                 self.line_start = self.pos;
@@ -1077,7 +1202,9 @@ impl Reader {
                         0x41..=0x46 => c - 0x41 + 10,
                         _ => {
                             let raw = String::from_utf16_lossy(&self.buf[self.pos..self.pos + 4]);
-                            return Err(self.syntax_error(&format!("Malformed Unicode escape \\u{raw}")));
+                            return Err(
+                                self.syntax_error(&format!("Malformed Unicode escape \\u{raw}"))
+                            );
                         }
                     };
                 }
@@ -1124,14 +1251,19 @@ impl Reader {
                 self.next_null()?;
                 Ok(JsonElement::Null)
             }
-            _ => Err(ReadErr { eof: false, message: format!("java.lang.IllegalStateException: Unexpected token: {peeked:?}") }),
+            _ => Err(ReadErr {
+                eof: false,
+                message: format!("java.lang.IllegalStateException: Unexpected token: {peeked:?}"),
+            }),
         }
     }
 
     /// `JsonElementTypeAdapter.read` (iterative).
     fn read_element(&mut self) -> RResult<JsonElement> {
         let peeked = self.peek()?;
-        let Some(first) = self.try_begin_nesting(peeked)? else { return self.read_terminal(peeked) };
+        let Some(first) = self.try_begin_nesting(peeked)? else {
+            return self.read_terminal(peeked);
+        };
         // containers being filled, with the member name each one is attached under once complete
         let mut stack: Vec<(JsonElement, Option<String>)> = Vec::new();
         let mut current = (first, None::<String>);
@@ -1142,12 +1274,18 @@ impl Reader {
                 } else {
                     self.end_object()?;
                 }
-                let Some(mut parent) = stack.pop() else { return Ok(current.0) };
+                let Some(mut parent) = stack.pop() else {
+                    return Ok(current.0);
+                };
                 let (finished, name) = current;
                 attach(&mut parent.0, name, finished);
                 current = parent;
             }
-            let name = if matches!(current.0, JsonElement::Object(_)) { Some(self.next_name()?) } else { None };
+            let name = if matches!(current.0, JsonElement::Object(_)) {
+                Some(self.next_name()?)
+            } else {
+                None
+            };
             let peeked = self.peek()?;
             match self.try_begin_nesting(peeked)? {
                 Some(value) => {
@@ -1183,7 +1321,10 @@ mod tests {
         o.add_property_int("level", 4);
         o.add_property_bool("flag", false);
         o.add_property_str("reason", None);
-        let arr = JsonElement::Array(vec![JsonElement::Object(o), JsonElement::Object(JsonObject::new())]);
+        let arr = JsonElement::Array(vec![
+            JsonElement::Object(o),
+            JsonElement::Object(JsonObject::new()),
+        ]);
         assert_eq!(
             arr.to_pretty_string(),
             "[\n  {\n    \"name\": \"a\\u003cb\",\n    \"level\": 4,\n    \"flag\": false\n  },\n  {}\n]"
@@ -1193,8 +1334,16 @@ mod tests {
 
     #[test]
     fn compact_strings() {
-        let v = parse("{\"a\": [1, 2.50, true, null, \"x\\u00e9\\n\"], \"b\":{}}", false).unwrap().unwrap();
-        assert_eq!(v.to_compact_string(), "{\"a\":[1,2.50,true,null,\"xé\\n\"],\"b\":{}}");
+        let v = parse(
+            "{\"a\": [1, 2.50, true, null, \"x\\u00e9\\n\"], \"b\":{}}",
+            false,
+        )
+        .unwrap()
+        .unwrap();
+        assert_eq!(
+            v.to_compact_string(),
+            "{\"a\":[1,2.50,true,null,\"xé\\n\"],\"b\":{}}"
+        );
         let mut s = String::new();
         write_string(&mut s, "<&='>\u{1}\u{2028}", true);
         assert_eq!(s, "\"\\u003c\\u0026\\u003d\\u0027\\u003e\\u0001\\u2028\"");
@@ -1214,6 +1363,9 @@ mod tests {
     #[test]
     fn duplicate_keys_keep_first_position() {
         let v = parse_object_strict("{\"a\":1,\"b\":2,\"a\":3}").unwrap();
-        assert_eq!(JsonElement::Object(v).to_compact_string(), "{\"a\":3,\"b\":2}");
+        assert_eq!(
+            JsonElement::Object(v).to_compact_string(),
+            "{\"a\":3,\"b\":2}"
+        );
     }
 }

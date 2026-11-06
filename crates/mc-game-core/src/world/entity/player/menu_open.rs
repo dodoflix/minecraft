@@ -6,29 +6,49 @@ use super::menu_ctx::{PlayerCtx, ServerPlayerMenuInit};
 use crate::server::level::ServerLevel;
 use crate::translatable;
 use crate::world::entity::Entity;
-use crate::world::inventory::{AbstractContainerMenu, HorseInventoryMenu, MenuProvider, NautilusInventoryMenu, PlayerMenus};
-use mc_protocol::packets::play::{ClientboundContainerClosePacket, ClientboundMountScreenOpenPacket, ClientboundOpenScreenPacket, ClientboundSystemChatPacket};
+use crate::world::inventory::{
+    AbstractContainerMenu, HorseInventoryMenu, MenuProvider, NautilusInventoryMenu, PlayerMenus,
+};
+use mc_protocol::packets::play::{
+    ClientboundContainerClosePacket, ClientboundMountScreenOpenPacket, ClientboundOpenScreenPacket,
+    ClientboundSystemChatPacket,
+};
 use mc_text::ChatFormatting;
 
 impl ServerPlayer {
     /// `ServerPlayer.openMenu(provider)`: the new container id (`OptionalInt`), `None` when the provider declined.
-    pub fn open_menu(&mut self, level: &mut ServerLevel, provider: &dyn MenuProvider) -> Option<i32> {
+    pub fn open_menu(
+        &mut self,
+        level: &mut ServerLevel,
+        provider: &dyn MenuProvider,
+    ) -> Option<i32> {
         if self.player.menus.has_container_open() {
             self.close_container(level);
         }
         let container_id = self.player.menus.next_container_counter();
         let created = {
-            let mut ctx = PlayerCtx { player: self, level };
+            let mut ctx = PlayerCtx {
+                player: self,
+                level,
+            };
             provider.create_menu(container_id, &mut ctx)
         };
         let Some(menu) = created else {
             if self.is_spectator() {
-                let message = translatable!("container.spectatorCantOpen").with_format(ChatFormatting::Red);
-                self.send(&ClientboundSystemChatPacket { content: message, overlay: true });
+                let message =
+                    translatable!("container.spectatorCantOpen").with_format(ChatFormatting::Red);
+                self.send(&ClientboundSystemChatPacket {
+                    content: message,
+                    overlay: true,
+                });
             }
             return None;
         };
-        self.send(&ClientboundOpenScreenPacket { container_id: menu.base().container_id, menu_type: menu.base().get_type(), title: provider.get_display_name() });
+        self.send(&ClientboundOpenScreenPacket {
+            container_id: menu.base().container_id,
+            menu_type: menu.base().get_type(),
+            title: provider.get_display_name(),
+        });
         self.init_menu(level, menu);
         Some(container_id)
     }
@@ -46,24 +66,55 @@ impl ServerPlayer {
             self.close_container(level);
         }
         let container_id = self.player.menus.next_container_counter();
-        self.send(&ClientboundMountScreenOpenPacket { container_id, inventory_columns, entity_id: mount_id });
+        self.send(&ClientboundMountScreenOpenPacket {
+            container_id,
+            inventory_columns,
+            entity_id: mount_id,
+        });
         let menu = {
-            let mut ctx = PlayerCtx { player: self, level };
+            let mut ctx = PlayerCtx {
+                player: self,
+                level,
+            };
             create(container_id, &mut ctx)
         };
         self.init_menu(level, menu);
     }
 
     /// `openHorseInventory(horse, container)` (the container is the horse's `Entity::as_container`).
-    pub fn open_horse_inventory(&mut self, level: &mut ServerLevel, horse: crate::world::entity::EntityId) {
-        let Some(columns) = level.get_entity(horse).and_then(|e| e.as_mount_inventory()).map(|m| m.get_inventory_columns()) else { return };
-        self.open_mount_inventory(level, horse, columns, |id, ctx| Box::new(HorseInventoryMenu::new(id, ctx, horse)));
+    pub fn open_horse_inventory(
+        &mut self,
+        level: &mut ServerLevel,
+        horse: crate::world::entity::EntityId,
+    ) {
+        let Some(columns) = level
+            .get_entity(horse)
+            .and_then(|e| e.as_mount_inventory())
+            .map(|m| m.get_inventory_columns())
+        else {
+            return;
+        };
+        self.open_mount_inventory(level, horse, columns, |id, ctx| {
+            Box::new(HorseInventoryMenu::new(id, ctx, horse))
+        });
     }
 
     /// `openNautilusInventory(nautilus, container)`.
-    pub fn open_nautilus_inventory(&mut self, level: &mut ServerLevel, nautilus: crate::world::entity::EntityId) {
-        let Some(columns) = level.get_entity(nautilus).and_then(|e| e.as_mount_inventory()).map(|m| m.get_inventory_columns()) else { return };
-        self.open_mount_inventory(level, nautilus, columns, |id, ctx| Box::new(NautilusInventoryMenu::new(id, ctx, nautilus)));
+    pub fn open_nautilus_inventory(
+        &mut self,
+        level: &mut ServerLevel,
+        nautilus: crate::world::entity::EntityId,
+    ) {
+        let Some(columns) = level
+            .get_entity(nautilus)
+            .and_then(|e| e.as_mount_inventory())
+            .map(|m| m.get_inventory_columns())
+        else {
+            return;
+        };
+        self.open_mount_inventory(level, nautilus, columns, |id, ctx| {
+            Box::new(NautilusInventoryMenu::new(id, ctx, nautilus))
+        });
     }
 
     /// `initMenu(menu)` + `containerMenu = menu`.
@@ -72,7 +123,10 @@ impl ServerPlayer {
         match self.connection.clone() {
             Some(connection) => {
                 let init = ServerPlayerMenuInit { connection };
-                let mut ctx = PlayerCtx { player: self, level };
+                let mut ctx = PlayerCtx {
+                    player: self,
+                    level,
+                };
                 menus.set_container_menu(menu, &init, &mut ctx);
             }
             None => menus.put_container_menu(menu),
@@ -90,8 +144,15 @@ impl ServerPlayer {
     /// `if (!containerMenu.stillValid(this)) closeContainer()` (`ServerPlayer.tick` and `doTick`).
     pub fn close_container_if_invalid(&mut self, level: &mut ServerLevel) {
         let valid = {
-            let mut ctx = PlayerCtx { player: self, level };
-            PlayerMenus::with_current(&mut ctx, |c| &mut c.player.player.menus, |menu, c| menu.still_valid(&*c))
+            let mut ctx = PlayerCtx {
+                player: self,
+                level,
+            };
+            PlayerMenus::with_current(
+                &mut ctx,
+                |c| &mut c.player.player.menus,
+                |menu, c| menu.still_valid(&*c),
+            )
         };
         if !valid {
             self.close_container(level);
@@ -103,7 +164,10 @@ impl ServerPlayer {
     pub fn close_menus_on_removal(&mut self, level: &mut ServerLevel) {
         let mut menus = std::mem::replace(&mut self.player.menus, PlayerMenus::new());
         {
-            let mut ctx = PlayerCtx { player: self, level };
+            let mut ctx = PlayerCtx {
+                player: self,
+                level,
+            };
             menus.inventory_menu_mut().removed(&mut ctx);
         }
         self.player.menus = menus;

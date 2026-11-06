@@ -53,13 +53,22 @@ pub trait WorldGenLevel: LevelAccessor {
     /// placed, e.g. `ScatteredFeaturePiece.heightPosition`; vanilla shares the start object with the chunk, which saves it
     /// later). Returns whether the chunk accepted the write (it is writable in this region); levels that cannot persist it
     /// keep the default.
-    fn set_structure_start_tag(&mut self, _pos: ChunkPos, _structure_id: &str, _tag: CompoundTag) -> bool {
+    fn set_structure_start_tag(
+        &mut self,
+        _pos: ChunkPos,
+        _structure_id: &str,
+        _tag: CompoundTag,
+    ) -> bool {
         false
     }
     /// `BulkSectionAccess.getBlockState(pos)`: the block of the chunk section at `pos` read directly (AIR outside the build
     /// height); no write-zone check and no "unsafe terrain read" warning. Default: [`BlockGetter::get_block_state`].
     fn get_block_state_in_section(&self, pos: BlockPos) -> BlockState {
-        if self.is_outside_build_height(pos.y()) { Block::AIR.default_state() } else { self.get_block_state(pos) }
+        if self.is_outside_build_height(pos.y()) {
+            Block::AIR.default_state()
+        } else {
+            self.get_block_state(pos)
+        }
     }
     /// `BulkSectionAccess.getSection(pos).setBlockState(sectionRelative x/y/z, state, false)`: a raw section write (no
     /// heightmap, light, block entity, neighbour or post-processing update; `pos` is inside the build height and the write

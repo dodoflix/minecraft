@@ -1,39 +1,54 @@
 //! `ItemStack` (value type: item, count, patched component map) and `ItemStackTemplate`.
 
-use crate::codec::EncodeResult;
-use super::map::{DataComponentGetter, DataComponentMap, DataComponentPatch, PatchedDataComponentMap};
+use super::map::{
+    DataComponentGetter, DataComponentMap, DataComponentPatch, PatchedDataComponentMap,
+};
 use super::registry::try_def;
 use super::values::{DAMAGE, MAX_DAMAGE, MAX_STACK_SIZE, UNBREAKABLE};
 use super::{ComponentKey, ComponentValue, Value};
-use crate::codec::{read_varint, write_varint, Decode, DecodeError, DecodeResult, Encode};
+use crate::codec::EncodeResult;
+use crate::codec::{Decode, DecodeError, DecodeResult, Encode, read_varint, write_varint};
 use mc_data::{DataComponentType, Item};
 use mc_dfu::{Codec, DataResult, Dyn, JSON};
 use std::sync::{LazyLock, OnceLock};
 
 /// Components of items whose default JSON could not be parsed because a component family is missing (see tests).
-pub static MISSING_PROTOTYPE_COMPONENTS: std::sync::Mutex<Vec<String>> = std::sync::Mutex::new(Vec::new());
+pub static MISSING_PROTOTYPE_COMPONENTS: std::sync::Mutex<Vec<String>> =
+    std::sync::Mutex::new(Vec::new());
 
 /// `Item.components()`: the item's default component map, parsed once from `mc_data`'s extracted defaults.
 pub fn item_prototype(item: Item) -> &'static DataComponentMap {
     static PROTOS: OnceLock<Vec<OnceLock<DataComponentMap>>> = OnceLock::new();
-    let protos = PROTOS.get_or_init(|| (0..Item::registry().len()).map(|_| OnceLock::new()).collect());
+    let protos = PROTOS.get_or_init(|| {
+        (0..Item::registry().len())
+            .map(|_| OnceLock::new())
+            .collect()
+    });
     protos[item.id() as usize].get_or_init(|| {
-        let json = Dyn::from_json_str(item.data().components_json).expect("components_json is valid JSON");
+        let json =
+            Dyn::from_json_str(item.data().components_json).expect("components_json is valid JSON");
         let mut b = DataComponentMap::builder();
         if let Dyn::Map(entries) = json {
             for (k, v) in entries {
                 let name = k.as_str().expect("string key").to_string();
-                let ty = DataComponentType::by_name(&name).unwrap_or_else(|| panic!("unknown component {name} in default components of {item}"));
+                let ty = DataComponentType::by_name(&name).unwrap_or_else(|| {
+                    panic!("unknown component {name} in default components of {item}")
+                });
                 match try_def(ty) {
                     Some(d) => {
                         let value = d
                             .codec_or_throw()
                             .parse(&JSON, &v)
                             .into_result()
-                            .unwrap_or_else(|e| panic!("default component {name} of {item} does not parse: {e}"));
+                            .unwrap_or_else(|e| {
+                                panic!("default component {name} of {item} does not parse: {e}")
+                            });
                         b.set_value(ty, Some(value));
                     }
-                    None => MISSING_PROTOTYPE_COMPONENTS.lock().unwrap().push(format!("{item}: {name}")),
+                    None => MISSING_PROTOTYPE_COMPONENTS
+                        .lock()
+                        .unwrap()
+                        .push(format!("{item}: {name}")),
                 }
             }
         }
@@ -51,7 +66,9 @@ pub struct ItemStack {
 impl PartialEq for ItemStack {
     /// Structural equality (vanilla `ItemStack` has identity equality; use [`ItemStack::matches`] for gameplay).
     fn eq(&self, other: &Self) -> bool {
-        self.item == other.item && self.count() == other.count() && self.components == other.components
+        self.item == other.item
+            && self.count() == other.count()
+            && self.components == other.components
     }
 }
 
@@ -64,13 +81,21 @@ impl Default for ItemStack {
 impl ItemStack {
     /// `ItemStack.EMPTY` (a fresh empty stack; cheap: shares the static empty maps).
     pub fn empty() -> ItemStack {
-        ItemStack { item: Item::AIR, count: 0, components: PatchedDataComponentMap::default() }
+        ItemStack {
+            item: Item::AIR,
+            count: 0,
+            components: PatchedDataComponentMap::default(),
+        }
     }
     pub fn new(item: Item) -> ItemStack {
         Self::with_count(item, 1)
     }
     pub fn with_count(item: Item, count: i32) -> ItemStack {
-        ItemStack { item, count, components: PatchedDataComponentMap::new(item_prototype(item).clone()) }
+        ItemStack {
+            item,
+            count,
+            components: PatchedDataComponentMap::new(item_prototype(item).clone()),
+        }
     }
     /// `transmuteCopy(newItem)`: same count and components patch on another item (`EMPTY` for an empty stack).
     pub fn transmute_copy(&self, new_item: Item) -> ItemStack {
@@ -78,11 +103,19 @@ impl ItemStack {
     }
     /// `transmuteCopy(newItem, newCount)`.
     pub fn transmute_copy_with_count(&self, new_item: Item, new_count: i32) -> ItemStack {
-        if self.is_empty() { Self::empty() } else { Self::with_patch(new_item, new_count, &self.get_components_patch()) }
+        if self.is_empty() {
+            Self::empty()
+        } else {
+            Self::with_patch(new_item, new_count, &self.get_components_patch())
+        }
     }
     /// `new ItemStack(item, count, patch)`.
     pub fn with_patch(item: Item, count: i32, patch: &DataComponentPatch) -> ItemStack {
-        ItemStack { item, count, components: PatchedDataComponentMap::from_patch(item_prototype(item).clone(), patch) }
+        ItemStack {
+            item,
+            count,
+            components: PatchedDataComponentMap::from_patch(item_prototype(item).clone(), patch),
+        }
     }
 
     pub fn is_empty(&self) -> bool {
@@ -90,7 +123,11 @@ impl ItemStack {
     }
     /// `getItem()` / `typeHolder()`: `air` for the empty stack.
     pub fn item(&self) -> Item {
-        if self.is_empty() { Item::AIR } else { self.item }
+        if self.is_empty() {
+            Item::AIR
+        } else {
+            self.item
+        }
     }
     pub fn is(&self, item: Item) -> bool {
         self.item() == item
@@ -116,7 +153,11 @@ impl ItemStack {
 
     /// `getComponents()`: the (patched) components; the empty stack has none.
     pub fn components(&self) -> Option<&PatchedDataComponentMap> {
-        if self.is_empty() { None } else { Some(&self.components) }
+        if self.is_empty() {
+            None
+        } else {
+            Some(&self.components)
+        }
     }
     pub fn get<T: 'static>(&self, key: &ComponentKey<T>) -> Option<&T> {
         self.components().and_then(|c| c.get(key))
@@ -124,7 +165,11 @@ impl ItemStack {
     pub fn get_value(&self, id: DataComponentType) -> Option<&Value> {
         self.components().and_then(|c| c.get_value(id))
     }
-    pub fn get_or_default<'a, T: 'static>(&'a self, key: &ComponentKey<T>, default: &'a T) -> &'a T {
+    pub fn get_or_default<'a, T: 'static>(
+        &'a self,
+        key: &ComponentKey<T>,
+        default: &'a T,
+    ) -> &'a T {
         self.get(key).unwrap_or(default)
     }
     pub fn has(&self, id: DataComponentType) -> bool {
@@ -147,17 +192,33 @@ impl ItemStack {
         self.components.apply_patch(patch)
     }
     pub fn get_components_patch(&self) -> DataComponentPatch {
-        if self.is_empty() { DataComponentPatch::empty() } else { self.components.as_patch() }
+        if self.is_empty() {
+            DataComponentPatch::empty()
+        } else {
+            self.components.as_patch()
+        }
     }
     pub fn get_prototype(&self) -> DataComponentMap {
-        if self.is_empty() { DataComponentMap::empty() } else { self.components.prototype().clone() }
+        if self.is_empty() {
+            DataComponentMap::empty()
+        } else {
+            self.components.prototype().clone()
+        }
     }
     pub fn immutable_components(&self) -> DataComponentMap {
-        if self.is_empty() { DataComponentMap::empty() } else { self.components.to_immutable_map() }
+        if self.is_empty() {
+            DataComponentMap::empty()
+        } else {
+            self.components.to_immutable_map()
+        }
     }
 
     pub fn copy(&self) -> ItemStack {
-        if self.is_empty() { Self::empty() } else { self.clone() }
+        if self.is_empty() {
+            Self::empty()
+        } else {
+            self.clone()
+        }
     }
     pub fn copy_with_count(&self, count: i32) -> ItemStack {
         if self.is_empty() {
@@ -220,7 +281,11 @@ impl ItemStack {
         }
         a.is_empty() && b.is_empty() || a.components == b.components
     }
-    pub fn matches_ignoring_components(a: &ItemStack, b: &ItemStack, ignored: impl Fn(DataComponentType) -> bool) -> bool {
+    pub fn matches_ignoring_components(
+        a: &ItemStack,
+        b: &ItemStack,
+        ignored: impl Fn(DataComponentType) -> bool,
+    ) -> bool {
         if a.count() != b.count() || a.item() != b.item() {
             return false;
         }
@@ -228,10 +293,16 @@ impl ItemStack {
             return true;
         }
         let keep = |m: &PatchedDataComponentMap| -> Vec<(DataComponentType, Value)> {
-            m.iter().filter(|(k, _)| !ignored(*k)).map(|(k, v)| (k, v.clone())).collect()
+            m.iter()
+                .filter(|(k, _)| !ignored(*k))
+                .map(|(k, v)| (k, v.clone()))
+                .collect()
         };
         let (ka, kb) = (keep(&a.components), keep(&b.components));
-        ka.len() == kb.len() && ka.iter().all(|(k, v)| kb.iter().any(|(k2, v2)| k == k2 && v == v2))
+        ka.len() == kb.len()
+            && ka
+                .iter()
+                .all(|(k, v)| kb.iter().any(|(k2, v2)| k == k2 && v == v2))
     }
 
     // ---- codecs ----------------------------------------------------------------------------------------------
@@ -273,7 +344,9 @@ impl ItemStack {
         }
         if stack.count() > stack.get_max_stack_size() {
             let (c, m) = (stack.count(), stack.get_max_stack_size());
-            return DataResult::error(move || format!("Item stack with stack size of {c} was larger than maximum: {m}"));
+            return DataResult::error(move || {
+                format!("Item stack with stack size of {c} was larger than maximum: {m}")
+            });
         }
         DataResult::success(stack)
     }
@@ -287,7 +360,11 @@ impl ItemStack {
             write_varint(out, self.count);
             self.item.encode(out)?;
             let patch = self.components.as_patch();
-            if delimited { patch.encode_delimited(out)? } else { patch.encode(out)? }
+            if delimited {
+                patch.encode_delimited(out)?
+            } else {
+                patch.encode(out)?
+            }
         };
         Ok(())
     }
@@ -298,14 +375,20 @@ impl ItemStack {
             return Ok(ItemStack::empty());
         }
         let item = crate::codec::read_registry_id::<Item>(input)?;
-        let patch = if delimited { DataComponentPatch::decode_delimited(input)? } else { DataComponentPatch::decode(input)? };
+        let patch = if delimited {
+            DataComponentPatch::decode_delimited(input)?
+        } else {
+            DataComponentPatch::decode(input)?
+        };
         Ok(ItemStack::with_patch(item, count, &patch))
     }
 
     /// `ItemStack.STREAM_CODEC` encode: rejects the empty stack.
     pub fn encode_non_empty(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         if self.is_empty() {
-            return Err(crate::codec::EncodeError::msg("Empty ItemStack not allowed"));
+            return Err(crate::codec::EncodeError::msg(
+                "Empty ItemStack not allowed",
+            ));
         }
         self.encode_with(out, false)
     }
@@ -330,7 +413,10 @@ impl ItemStack {
     pub fn decode_validated_untrusted(input: &mut &[u8]) -> DecodeResult<ItemStack> {
         let s = Self::decode_optional_untrusted(input)?;
         if !s.is_empty() {
-            Self::codec().encode_start(&mc_dfu::NBT, &s).into_result().map_err(DecodeError::Message)?;
+            Self::codec()
+                .encode_start(&mc_dfu::NBT, &s)
+                .into_result()
+                .map_err(DecodeError::Message)?;
         }
         Ok(s)
     }
@@ -344,17 +430,30 @@ fn build_codec() -> Codec<ItemStack> {
         components: DataComponentPatch,
     }
     let item_codec = super::holder::registry_by_name_codec::<Item>().validate(|item| {
-        if item == Item::AIR { DataResult::error_str("Item must not be minecraft:air") } else { DataResult::success(item) }
+        if item == Item::AIR {
+            DataResult::error_str("Item must not be minecraft:air")
+        } else {
+            DataResult::success(item)
+        }
     });
     mc_dfu::record!(Raw {
         id: item_codec.field_of("id"),
-        count: mc_dfu::extra::optional_always_present_field_of(&mc_dfu::extra::extra_int_range(1, 99), "count", 1),
-        components: DataComponentPatch::codec().optional_field_of_default("components", DataComponentPatch::empty()),
+        count: mc_dfu::extra::optional_always_present_field_of(
+            &mc_dfu::extra::extra_int_range(1, 99),
+            "count",
+            1
+        ),
+        components: DataComponentPatch::codec()
+            .optional_field_of_default("components", DataComponentPatch::empty()),
     })
     .codec()
     .xmap(
         |r: Raw| ItemStack::with_patch(r.id, r.count, &r.components),
-        |s: &ItemStack| Raw { id: s.item(), count: s.count(), components: s.get_components_patch() },
+        |s: &ItemStack| Raw {
+            id: s.item(),
+            count: s.count(),
+            components: s.get_components_patch(),
+        },
     )
 }
 
@@ -387,15 +486,27 @@ pub struct ItemStackTemplate {
 
 impl ItemStackTemplate {
     /// The constructor's check: `count != 0` and not air.
-    pub fn new(item: Item, count: i32, components: DataComponentPatch) -> Result<ItemStackTemplate, String> {
+    pub fn new(
+        item: Item,
+        count: i32,
+        components: DataComponentPatch,
+    ) -> Result<ItemStackTemplate, String> {
         if count != 0 && item != Item::AIR {
-            Ok(ItemStackTemplate { item, count, components })
+            Ok(ItemStackTemplate {
+                item,
+                count,
+                components,
+            })
         } else {
             Err("Item must be non-empty".into())
         }
     }
     pub fn of(item: Item) -> ItemStackTemplate {
-        ItemStackTemplate { item, count: 1, components: DataComponentPatch::empty() }
+        ItemStackTemplate {
+            item,
+            count: 1,
+            components: DataComponentPatch::empty(),
+        }
     }
     pub fn from_stack(stack: &ItemStack) -> Result<ItemStackTemplate, String> {
         Self::new(stack.item(), stack.count(), stack.get_components_patch())
@@ -415,21 +526,32 @@ impl ItemStackTemplate {
     /// `ItemStackTemplate.MAP_CODEC`.
     pub fn map_codec() -> mc_dfu::MapCodec<ItemStackTemplate> {
         let item_codec = super::holder::registry_by_name_codec::<Item>().validate(|item| {
-            if item == Item::AIR { DataResult::error_str("Item must not be minecraft:air") } else { DataResult::success(item) }
+            if item == Item::AIR {
+                DataResult::error_str("Item must not be minecraft:air")
+            } else {
+                DataResult::success(item)
+            }
         });
         mc_dfu::record!(ItemStackTemplate {
             item: item_codec.field_of("id"),
             count: mc_dfu::extra::extra_int_range(1, 99).optional_field_of_default("count", 1),
-            components: DataComponentPatch::codec().optional_field_of_default("components", DataComponentPatch::empty()),
+            components: DataComponentPatch::codec()
+                .optional_field_of_default("components", DataComponentPatch::empty()),
         })
     }
 
     /// `ItemStackTemplate.CODEC`: the map form, or a bare item id.
     pub fn codec() -> Codec<ItemStackTemplate> {
         let item_codec = super::holder::registry_by_name_codec::<Item>().validate(|item| {
-            if item == Item::AIR { DataResult::error_str("Item must not be minecraft:air") } else { DataResult::success(item) }
+            if item == Item::AIR {
+                DataResult::error_str("Item must not be minecraft:air")
+            } else {
+                DataResult::success(item)
+            }
         });
-        Self::map_codec().codec().with_alternative_conv(&item_codec, ItemStackTemplate::of)
+        Self::map_codec()
+            .codec()
+            .with_alternative_conv(&item_codec, ItemStackTemplate::of)
     }
 }
 

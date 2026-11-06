@@ -5,8 +5,11 @@ use super::ServerLevel;
 use super::block_events::BlockEvents;
 use crate::world::level::chunk::TickerCell;
 use crate::world::level::redstone::CollectingNeighborUpdater;
-use mc_core::random::{LegacyRandomSource, RandomSource, ThreadSafeLegacyRandomSource, create_new, create_thread_local_instance_new};
 use mc_core::pos::BlockPos;
+use mc_core::random::{
+    LegacyRandomSource, RandomSource, ThreadSafeLegacyRandomSource, create_new,
+    create_thread_local_instance_new,
+};
 use mc_data::block::Block;
 use mc_data::fluid::Fluid;
 use mc_world::level_storage::FeatureFlagSet;
@@ -182,7 +185,10 @@ impl LevelTickState {
             enabled_features: FeatureFlagSet::DEFAULT_FLAGS,
             can_have_weather: false,
             has_fixed_time: false,
-            infiniburn: crate::registry::typed::HolderSetRef::Tag(mc_core::ident::Identifier::with_default_namespace("infiniburn_overworld").expect("valid tag")),
+            infiniburn: crate::registry::typed::HolderSetRef::Tag(
+                mc_core::ident::Identifier::with_default_namespace("infiniburn_overworld")
+                    .expect("valid tag"),
+            ),
             ambient_light: 0.0,
             tick_time: false,
             runs_normally: true,
@@ -192,7 +198,13 @@ impl LevelTickState {
             lightning_spawn: Some(crate::world::entity::lightning_bolt::spawn_from_thunder),
             find_lightning_rod: None,
             dragon_fight_tick: None,
-            attributes: crate::world::attribute::EnvironmentAttributeSystem::build(&Default::default(), &Vec::new(), &[], false, Default::default()),
+            attributes: crate::world::attribute::EnvironmentAttributeSystem::build(
+                &Default::default(),
+                &Vec::new(),
+                &[],
+                false,
+                Default::default(),
+            ),
             handling_tick: false,
             broadcast_log: None,
             empty_time: 0,

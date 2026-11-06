@@ -4,9 +4,9 @@
 //! compares token by token (tokens prefixed `F:` in our output are doubles compared by value).
 use mc_core::bounding_box::BoundingBox;
 use mc_core::direction::{Axis, AxisCycle, Direction};
+use mc_core::phys::{AABB, Vec3};
 use mc_core::pos::block_pos::{self, TraversalNodeStatus};
-use mc_core::pos::{quart_pos, BlockPos, ChunkPos, Cursor3D, MutableBlockPos, SectionPos, Vec3i};
-use mc_core::phys::{Vec3, AABB};
+use mc_core::pos::{BlockPos, ChunkPos, Cursor3D, MutableBlockPos, SectionPos, Vec3i, quart_pos};
 use mc_core::random::{LegacyRandomSource, RandomSource};
 use mc_core::rotation::Rotation;
 
@@ -52,12 +52,24 @@ fn cp(c: &ChunkPos) -> String {
 }
 
 fn bb(b: &BoundingBox) -> String {
-    format!("{},{},{},{},{},{}", b.min_x(), b.min_y(), b.min_z(), b.max_x(), b.max_y(), b.max_z())
+    format!(
+        "{},{},{},{},{},{}",
+        b.min_x(),
+        b.min_y(),
+        b.min_z(),
+        b.max_x(),
+        b.max_y(),
+        b.max_z()
+    )
 }
 
 fn list(it: impl Iterator<Item = BlockPos>) -> String {
     let s: Vec<String> = it.map(|b| p(&b)).collect();
-    if s.is_empty() { "-".into() } else { s.join(";") }
+    if s.is_empty() {
+        "-".into()
+    } else {
+        s.join(";")
+    }
 }
 
 fn dir(name: &str) -> Direction {
@@ -70,7 +82,8 @@ fn f(x: f64) -> String {
 
 fn check(line_no: usize, tag: &str, expected: &str, actual: &[String]) {
     let actual = actual.join(" ");
-    let (e, a): (Vec<&str>, Vec<&str>) = (expected.split(' ').collect(), actual.split(' ').collect());
+    let (e, a): (Vec<&str>, Vec<&str>) =
+        (expected.split(' ').collect(), actual.split(' ').collect());
     let mut ok = e.len() == a.len();
     if ok {
         for (e, a) in e.iter().zip(&a) {
@@ -83,7 +96,10 @@ fn check(line_no: usize, tag: &str, expected: &str, actual: &[String]) {
             };
         }
     }
-    assert!(ok, "line {line_no} [{tag}]:\n  expected: {expected}\n  actual:   {actual}");
+    assert!(
+        ok,
+        "line {line_no} [{tag}]:\n  expected: {expected}\n  actual:   {actual}"
+    );
 }
 
 fn rotations() -> [Rotation; 4] {
@@ -95,7 +111,9 @@ fn golden() {
     let mut seen = std::collections::BTreeMap::<&str, usize>::new();
     for (i, line) in GOLDEN.lines().enumerate() {
         let line_no = i + 1;
-        let (lhs, expected) = line.split_once(" => ").unwrap_or_else(|| (line.strip_suffix(" =>").unwrap(), ""));
+        let (lhs, expected) = line
+            .split_once(" => ")
+            .unwrap_or_else(|| (line.strip_suffix(" =>").unwrap(), ""));
         let mut t = lhs.split(' ');
         let tag = t.next().unwrap();
         let a: Vec<&str> = t.collect();
@@ -128,13 +146,20 @@ fn golden() {
                     ChunkPos::pack_block_pos(&b).to_string(),
                 ]
             }
-            "bp_offset" => vec![BlockPos::offset_long(long(a[0]), int(a[1]), int(a[2]), int(a[3])).to_string()],
-            "bp_offset_dir" => vec![BlockPos::offset_long_direction(long(a[0]), dir(a[1])).to_string()],
+            "bp_offset" => {
+                vec![BlockPos::offset_long(long(a[0]), int(a[1]), int(a[2]), int(a[3])).to_string()]
+            }
+            "bp_offset_dir" => {
+                vec![BlockPos::offset_long_direction(long(a[0]), dir(a[1])).to_string()]
+            }
             "vec3i" => {
                 let (va, vb) = (v3i(a[0]), v3i(a[1]));
                 let exp_cmp = int(expected.split(' ').nth(1).unwrap());
                 let diff = |x: i32, y: i32| x as i64 - y as i64;
-                if [diff(va.y, vb.y), diff(va.z, vb.z), diff(va.x, vb.x)].iter().all(|d| i32::try_from(*d).is_ok()) {
+                if [diff(va.y, vb.y), diff(va.z, vb.z), diff(va.x, vb.x)]
+                    .iter()
+                    .all(|d| i32::try_from(*d).is_ok())
+                {
                     assert_eq!(va.cmp(&vb) as i32, exp_cmp.signum(), "line {line_no} Ord");
                 }
                 vec![
@@ -202,7 +227,8 @@ fn golden() {
                     bits(cl.z),
                     bits(q.dist_to_center_sqr_xyz(x, y, z)),
                     bits(q.dist_to_low_corner_sqr(x, y, z)),
-                    q.closer_to_center_than(&Vec3::new(x, y, z), 2.5).to_string(),
+                    q.closer_to_center_than(&Vec3::new(x, y, z), 2.5)
+                        .to_string(),
                     p(&SectionPos::of_position(&Vec3::new(x, y, z)).origin()),
                     SectionPos::pos_to_section_coord(x).to_string(),
                 ]
@@ -255,39 +281,75 @@ fn golden() {
                 o
             }
             "mutable_dbl" => vec![MutableBlockPos::from_f64(1.9, -0.1, 3.5).to_string()],
-            "spiral" => vec![list(BlockPos::spiral_around(&bp(a[0]), int(a[1]), dir(a[2]), dir(a[3])))],
+            "spiral" => vec![list(BlockPos::spiral_around(
+                &bp(a[0]),
+                int(a[1]),
+                dir(a[2]),
+                dir(a[3]),
+            ))],
             "manhattan" => vec![list(BlockPos::within_manhattan(&bp(a[0]), int(a[1])))],
-            "clipped_manhattan" => vec![list(BlockPos::within_clipped_manhattan(&bp(a[0]), int(a[1]), int(a[2]), int(a[3])))],
-            "box_manhattan" => vec![list(BlockPos::within_box_by_manhattan_distance(&bp(a[0]), int(a[1]), int(a[2]), int(a[3])))],
+            "clipped_manhattan" => vec![list(BlockPos::within_clipped_manhattan(
+                &bp(a[0]),
+                int(a[1]),
+                int(a[2]),
+                int(a[3]),
+            ))],
+            "box_manhattan" => vec![list(BlockPos::within_box_by_manhattan_distance(
+                &bp(a[0]),
+                int(a[1]),
+                int(a[2]),
+                int(a[3]),
+            ))],
             "between_closed" => vec![list(BlockPos::between_closed(&bp(a[0]), &bp(a[1])))],
             "between_closed_xyz" => {
                 let v: Vec<i32> = a.iter().map(|s| int(s)).collect();
-                vec![list(BlockPos::between_closed_xyz(v[0], v[1], v[2], v[3], v[4], v[5]))]
+                vec![list(BlockPos::between_closed_xyz(
+                    v[0], v[1], v[2], v[3], v[4], v[5],
+                ))]
             }
             "between_closed_box" => vec![list(BlockPos::between_closed_box(&bbox(a[0])))],
             "between_closed_aabb" => {
                 let d: Vec<f64> = a.iter().map(|s| dbl(s)).collect();
-                let l = list(BlockPos::between_closed_aabb(&AABB::new(d[0], d[1], d[2], d[3], d[4], d[5])));
+                let l = list(BlockPos::between_closed_aabb(&AABB::new(
+                    d[0], d[1], d[2], d[3], d[4], d[5],
+                )));
                 vec![l.clone(), "|".into(), l]
             }
-            "neighbor_column" => vec![list(BlockPos::neighbor_column(int(a[0]), int(a[1]), int(a[2]), int(a[3])))],
+            "neighbor_column" => vec![list(BlockPos::neighbor_column(
+                int(a[0]),
+                int(a[1]),
+                int(a[2]),
+                int(a[3]),
+            ))],
             "corners_dir" => {
                 let v: Vec<i32> = a[..6].iter().map(|s| int(s)).collect();
                 let dv = Vec3::new(dbl(a[6]), dbl(a[7]), dbl(a[8]));
-                vec![list(BlockPos::between_corners_in_direction_xyz(v[0], v[1], v[2], v[3], v[4], v[5], dv))]
+                vec![list(BlockPos::between_corners_in_direction_xyz(
+                    v[0], v[1], v[2], v[3], v[4], v[5], dv,
+                ))]
             }
             "corners_dir_aabb" => {
                 let dv = Vec3::new(dbl(a[0]), dbl(a[1]), dbl(a[2]));
-                vec![list(BlockPos::between_corners_in_direction_aabb(&AABB::new(-0.5, 0.2, 1.7, 1.3, 2.4, 2.1), dv))]
+                vec![list(BlockPos::between_corners_in_direction_aabb(
+                    &AABB::new(-0.5, 0.2, 1.7, 1.3, 2.4, 2.1),
+                    dv,
+                ))]
             }
             "random_between" => {
                 let mut rs = LegacyRandomSource::new(long(a[0]));
-                let l = list(BlockPos::random_between_closed(&mut rs, 7, -3, 4, 5, 5, 10, 9));
+                let l = list(BlockPos::random_between_closed(
+                    &mut rs, 7, -3, 4, 5, 5, 10, 9,
+                ));
                 vec![l, format!("next={}", rs.next_int())]
             }
             "random_cube" => {
                 let mut rs = LegacyRandomSource::new(long(a[0]));
-                let l = list(BlockPos::random_in_cube(&mut rs, 6, &BlockPos::new(1, 2, 3), 4));
+                let l = list(BlockPos::random_in_cube(
+                    &mut rs,
+                    6,
+                    &BlockPos::new(1, 2, 3),
+                    4,
+                ));
                 vec![l, format!("next={}", rs.next_int())]
             }
             "bfs" => {
@@ -306,7 +368,12 @@ fn golden() {
                     },
                     |pos| {
                         visited.push(p(&pos));
-                        let h = (pos.x.wrapping_mul(31).wrapping_add(pos.y.wrapping_mul(17)).wrapping_add(pos.z.wrapping_mul(13))).rem_euclid(11);
+                        let h = (pos
+                            .x
+                            .wrapping_mul(31)
+                            .wrapping_add(pos.y.wrapping_mul(17))
+                            .wrapping_add(pos.z.wrapping_mul(13)))
+                        .rem_euclid(11);
                         if h == 3 {
                             TraversalNodeStatus::Skip
                         } else if variant == 3 && h == 9 {
@@ -369,18 +436,37 @@ fn golden() {
             }
             "section_dbl" => {
                 let d = dbl(a[0]);
-                vec![SectionPos::block_to_section_coord_f64(d).to_string(), SectionPos::pos_to_section_coord(d).to_string()]
+                vec![
+                    SectionPos::block_to_section_coord_f64(d).to_string(),
+                    SectionPos::pos_to_section_coord(d).to_string(),
+                ]
             }
             "section_around" => {
                 let (x, y, z) = (int(a[0]), int(a[1]), int(a[2]));
                 let (mut g1, mut g2) = (vec![], vec![]);
                 SectionPos::around_and_at_block_pos(&BlockPos::new(x, y, z), |l| g1.push(l));
-                SectionPos::around_and_at_block_pos_long(BlockPos::as_long_xyz(x, y, z), |l| g2.push(l));
-                let fmt = |v: &[i64]| format!("[{}]", v.iter().map(|l| l.to_string()).collect::<Vec<_>>().join(", "));
+                SectionPos::around_and_at_block_pos_long(BlockPos::as_long_xyz(x, y, z), |l| {
+                    g2.push(l)
+                });
+                let fmt = |v: &[i64]| {
+                    format!(
+                        "[{}]",
+                        v.iter()
+                            .map(|l| l.to_string())
+                            .collect::<Vec<_>>()
+                            .join(", ")
+                    )
+                };
                 vec![fmt(&g1), fmt(&g2)]
             }
-            "section_cube" => vec![list(SectionPos::cube(&SectionPos::of(2, -1, 3), 1).map(|s| BlockPos::new(s.x, s.y, s.z)))],
-            "section_around_chunk" => vec![list(SectionPos::around_chunk(&ChunkPos::new(1, -2), 1, -2, 0).map(|s| BlockPos::new(s.x, s.y, s.z)))],
+            "section_cube" => vec![list(
+                SectionPos::cube(&SectionPos::of(2, -1, 3), 1)
+                    .map(|s| BlockPos::new(s.x, s.y, s.z)),
+            )],
+            "section_around_chunk" => vec![list(
+                SectionPos::around_chunk(&ChunkPos::new(1, -2), 1, -2, 0)
+                    .map(|s| BlockPos::new(s.x, s.y, s.z)),
+            )],
             "section_blocks_inside" => vec![list(SectionPos::of(-1, 0, 1).blocks_inside())],
             "chunk" => {
                 let (x, z, y) = (int(a[0]), int(a[1]), int(a[2]));
@@ -424,11 +510,23 @@ fn golden() {
             }
             "chunk_dist" => {
                 let (c, o) = (cpos(a[0]), cpos(a[1]));
-                vec![c.get_chessboard_distance(&o).to_string(), c.distance_squared(&o).to_string(), c.distance_squared_long(o.pack()).to_string()]
+                vec![
+                    c.get_chessboard_distance(&o).to_string(),
+                    c.distance_squared(&o).to_string(),
+                    c.distance_squared_long(o.pack()).to_string(),
+                ]
             }
             "chunk_contains" => vec![cpos(a[1]).contains(&bp(a[0])).to_string()],
-            "chunk_range" => vec![ChunkPos::range_closed_between(&cpos(a[0]), &cpos(a[1])).map(|c| cp(&c) + ";").collect::<String>()],
-            "chunk_range_radius" => vec![ChunkPos::range_closed(&ChunkPos::new(7, -7), int(a[0])).map(|c| cp(&c) + ";").collect::<String>()],
+            "chunk_range" => vec![
+                ChunkPos::range_closed_between(&cpos(a[0]), &cpos(a[1]))
+                    .map(|c| cp(&c) + ";")
+                    .collect::<String>(),
+            ],
+            "chunk_range_radius" => vec![
+                ChunkPos::range_closed(&ChunkPos::new(7, -7), int(a[0]))
+                    .map(|c| cp(&c) + ";")
+                    .collect::<String>(),
+            ],
             "quart" => {
                 let x = int(a[0]);
                 vec![
@@ -448,7 +546,13 @@ fn golden() {
                     n += 1;
                     n <= 200
                 } {
-                    s += &format!("{},{},{},{};", cur.next_x(), cur.next_y(), cur.next_z(), cur.get_next_type());
+                    s += &format!(
+                        "{},{},{},{};",
+                        cur.next_x(),
+                        cur.next_y(),
+                        cur.next_z(),
+                        cur.get_next_type()
+                    );
                 }
                 vec![if s.is_empty() { "-".into() } else { s }]
             }
@@ -464,15 +568,28 @@ fn golden() {
                 ep.encapsulate_pos(&pt);
                 let mut corners = String::new();
                 ba.for_all_corners(|c| corners += &format!("{};", p(&c)));
-                let chunks = if (ba.max_x() as i64 - ba.min_x() as i64) < 200 && (ba.max_z() as i64 - ba.min_z() as i64) < 200 {
-                    ba.intersecting_chunks().map(|c| cp(&c) + ";").collect::<String>()
+                let chunks = if (ba.max_x() as i64 - ba.min_x() as i64) < 200
+                    && (ba.max_z() as i64 - ba.min_z() as i64) < 200
+                {
+                    ba.intersecting_chunks()
+                        .map(|c| cp(&c) + ";")
+                        .collect::<String>()
                 } else {
                     "-".into()
                 };
                 vec![
                     ba.intersects(&bb_).to_string(),
-                    ba.intersects_xyz(bb_.min_x(), bb_.min_y(), bb_.min_z(), bb_.max_x(), bb_.max_y(), bb_.max_z()).to_string(),
-                    ba.intersects_xz(bb_.min_x(), bb_.min_z(), bb_.max_x(), bb_.max_z()).to_string(),
+                    ba.intersects_xyz(
+                        bb_.min_x(),
+                        bb_.min_y(),
+                        bb_.min_z(),
+                        bb_.max_x(),
+                        bb_.max_y(),
+                        bb_.max_z(),
+                    )
+                    .to_string(),
+                    ba.intersects_xz(bb_.min_x(), bb_.min_z(), bb_.max_x(), bb_.max_z())
+                        .to_string(),
                     bb(&BoundingBox::encapsulating(&ba, &bb_)),
                     bb(&en),
                     bb(&ep),
@@ -492,7 +609,10 @@ fn golden() {
                     ba.to_string(),
                     (ba == bb_).to_string(),
                     ba.hash_code().to_string(),
-                    bb(&BoundingBox::from_corners(&Vec3i::new(ba.min_x(), ba.min_y(), ba.min_z()), &Vec3i::new(bb_.min_x(), bb_.min_y(), bb_.min_z()))),
+                    bb(&BoundingBox::from_corners(
+                        &Vec3i::new(ba.min_x(), ba.min_y(), ba.min_z()),
+                        &Vec3i::new(bb_.min_x(), bb_.min_y(), bb_.min_z()),
+                    )),
                     bb(&BoundingBox::from_block_pos(&pt)),
                     chunks,
                 ]
@@ -508,11 +628,23 @@ fn golden() {
             }
             "bbox_encap_pos" => {
                 let r = BoundingBox::encapsulating_positions(a[0].split(';').map(bp)).unwrap();
-                vec![bb(&r), format!("empty={}", BoundingBox::encapsulating_positions(std::iter::empty()).is_some())]
+                vec![
+                    bb(&r),
+                    format!(
+                        "empty={}",
+                        BoundingBox::encapsulating_positions(std::iter::empty()).is_some()
+                    ),
+                ]
             }
             "bbox_encap_boxes" => {
                 let r = BoundingBox::encapsulating_boxes(a[0].split(';').map(bbox)).unwrap();
-                vec![bb(&r), format!("empty={}", BoundingBox::encapsulating_boxes(std::iter::empty()).is_some())]
+                vec![
+                    bb(&r),
+                    format!(
+                        "empty={}",
+                        BoundingBox::encapsulating_boxes(std::iter::empty()).is_some()
+                    ),
+                ]
             }
             other => panic!("line {line_no}: unknown tag {other}"),
         };

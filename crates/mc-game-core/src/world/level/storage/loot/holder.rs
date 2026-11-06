@@ -56,14 +56,20 @@ fn check_tag(registry: &str, tag: &Identifier) -> Result<(), String> {
 
 /// `Holder<T>`: a reference to a registry element by key, or an inline (direct) value.
 pub enum Holder<T: ?Sized + 'static> {
-    Reference { registry: &'static str, id: Identifier },
+    Reference {
+        registry: &'static str,
+        id: Identifier,
+    },
     Direct(Arc<T>),
 }
 
 impl<T: ?Sized + 'static> Clone for Holder<T> {
     fn clone(&self) -> Self {
         match self {
-            Holder::Reference { registry, id } => Holder::Reference { registry, id: id.clone() },
+            Holder::Reference { registry, id } => Holder::Reference {
+                registry,
+                id: id.clone(),
+            },
             Holder::Direct(v) => Holder::Direct(v.clone()),
         }
     }
@@ -87,7 +93,9 @@ impl<T: ?Sized + Send + Sync + 'static> Holder<T> {
     /// `value()`: unbound references cannot exist after registry loading succeeded.
     pub fn value(&self, resolver: &RegistryAccess) -> Arc<T> {
         self.try_value(resolver).unwrap_or_else(|| match self {
-            Holder::Reference { registry, id } => panic!("Trying to access unbound value 'ResourceKey[{registry} / {id}]'"),
+            Holder::Reference { registry, id } => {
+                panic!("Trying to access unbound value 'ResourceKey[{registry} / {id}]'")
+            }
             Holder::Direct(_) => unreachable!(),
         })
     }
@@ -104,14 +112,20 @@ impl<T: ?Sized + 'static> std::fmt::Debug for Holder<T> {
 
 /// `HolderSet<T>`: a tag or a direct list of holders.
 pub enum HolderSet<T: ?Sized + 'static> {
-    Named { registry: &'static str, tag: Identifier },
+    Named {
+        registry: &'static str,
+        tag: Identifier,
+    },
     Direct(Vec<Holder<T>>),
 }
 
 impl<T: ?Sized + 'static> Clone for HolderSet<T> {
     fn clone(&self) -> Self {
         match self {
-            HolderSet::Named { registry, tag } => HolderSet::Named { registry, tag: tag.clone() },
+            HolderSet::Named { registry, tag } => HolderSet::Named {
+                registry,
+                tag: tag.clone(),
+            },
             HolderSet::Direct(v) => HolderSet::Direct(v.clone()),
         }
     }
@@ -131,7 +145,9 @@ impl<T: ?Sized + Send + Sync + 'static> HolderSet<T> {
         match self {
             HolderSet::Direct(v) => v.clone(),
             HolderSet::Named { registry, tag } => {
-                let Some(reg) = resolver.registry(registry) else { return Vec::new() };
+                let Some(reg) = resolver.registry(registry) else {
+                    return Vec::new();
+                };
                 reg.tag(tag)
                     .unwrap_or(&[])
                     .iter()
@@ -144,13 +160,18 @@ impl<T: ?Sized + Send + Sync + 'static> HolderSet<T> {
 
     /// The values in order.
     pub fn values(&self, resolver: &RegistryAccess) -> Vec<Arc<T>> {
-        self.holders(resolver).iter().map(|h| h.value(resolver)).collect()
+        self.holders(resolver)
+            .iter()
+            .map(|h| h.value(resolver))
+            .collect()
     }
 
     pub fn size(&self, resolver: &RegistryAccess) -> usize {
         match self {
             HolderSet::Direct(v) => v.len(),
-            HolderSet::Named { registry, tag } => resolver.tag(registry, tag).map_or(0, <[u32]>::len),
+            HolderSet::Named { registry, tag } => {
+                resolver.tag(registry, tag).map_or(0, <[u32]>::len)
+            }
         }
     }
 }
@@ -158,7 +179,10 @@ impl<T: ?Sized + Send + Sync + 'static> HolderSet<T> {
 // ---- codecs -------------------------------------------------------------------------------------------------------------
 
 /// `RegistryFileCodec.create(registry, direct)`: a registered element's id, or an inline definition.
-pub fn holder_codec<T: ?Sized + Send + Sync + 'static>(registry: &'static str, direct: Codec<Arc<T>>) -> Codec<Holder<T>> {
+pub fn holder_codec<T: ?Sized + Send + Sync + 'static>(
+    registry: &'static str,
+    direct: Codec<Arc<T>>,
+) -> Codec<Holder<T>> {
     let (enc, dec) = (direct.clone(), direct);
     Codec::from_fns(
         move |ops, input: &Holder<T>, prefix| match input {
@@ -170,7 +194,9 @@ pub fn holder_codec<T: ?Sized + Send + Sync + 'static>(registry: &'static str, d
                 Ok(()) => DataResult::success((Holder::Reference { registry, id }, rest)),
                 Err(m) => DataResult::error(move || m.clone()),
             },
-            DataResult::Error { .. } => dec.decode(ops, input).map(|(v, rest)| (Holder::Direct(v), rest)),
+            DataResult::Error { .. } => dec
+                .decode(ops, input)
+                .map(|(v, rest)| (Holder::Direct(v), rest)),
         },
     )
 }
@@ -190,7 +216,10 @@ fn hashed_tag_codec() -> Codec<Identifier> {
 }
 
 /// `RegistryCodecs.holderSet(registry, elementCodec)` (`HolderSetCodec.create(key, RegistryFileCodec(key, element), false)`).
-pub fn holder_set_codec<T: ?Sized + Send + Sync + 'static>(registry: &'static str, element: Codec<Arc<T>>) -> Codec<HolderSet<T>> {
+pub fn holder_set_codec<T: ?Sized + Send + Sync + 'static>(
+    registry: &'static str,
+    element: Codec<Arc<T>>,
+) -> Codec<HolderSet<T>> {
     let element = holder_codec(registry, element);
     let list = element.list_of();
     let direct = compact_list_codec_with(&element, &list);
@@ -202,13 +231,14 @@ pub fn holder_set_codec<T: ?Sized + Send + Sync + 'static>(registry: &'static st
             HolderSet::Direct(v) => e1.encode(ops, &Either::Right(v.clone()), prefix),
         },
         move |ops, input| {
-            e2.decode(ops, input).flat_map(|(either, rest)| match either {
-                Either::Left(tag) => match check_tag(registry, &tag) {
-                    Ok(()) => DataResult::success((HolderSet::Named { registry, tag }, rest)),
-                    Err(m) => DataResult::error(move || m.clone()),
-                },
-                Either::Right(values) => DataResult::success((HolderSet::Direct(values), rest)),
-            })
+            e2.decode(ops, input)
+                .flat_map(|(either, rest)| match either {
+                    Either::Left(tag) => match check_tag(registry, &tag) {
+                        Ok(()) => DataResult::success((HolderSet::Named { registry, tag }, rest)),
+                        Err(m) => DataResult::error(move || m.clone()),
+                    },
+                    Either::Right(values) => DataResult::success((HolderSet::Direct(values), rest)),
+                })
         },
     )
 }
@@ -221,7 +251,10 @@ pub struct TypeTable<T: ?Sized + 'static> {
 }
 
 impl<T: ?Sized + 'static> TypeTable<T> {
-    pub fn new(registry: &'static str, entries: Vec<(&'static str, MapCodec<Arc<T>>)>) -> Arc<TypeTable<T>> {
+    pub fn new(
+        registry: &'static str,
+        entries: Vec<(&'static str, MapCodec<Arc<T>>)>,
+    ) -> Arc<TypeTable<T>> {
         Arc::new(TypeTable { registry, entries })
     }
 
@@ -236,14 +269,27 @@ impl<T: ?Sized + 'static> TypeTable<T> {
                     }
                 }
                 let registry = t1.registry;
-                DataResult::error(move || format!("Unknown registry key in ResourceKey[minecraft:root / {registry}]: {id}"))
+                DataResult::error(move || {
+                    format!(
+                        "Unknown registry key in ResourceKey[minecraft:root / {registry}]: {id}"
+                    )
+                })
             },
-            |name: &&'static str| DataResult::success(Identifier::new("minecraft", name).expect("valid type name")),
+            |name: &&'static str| {
+                DataResult::success(Identifier::new("minecraft", name).expect("valid type name"))
+            },
         );
         key_codec.dispatch(
             "type",
             move |e: &Arc<T>| type_name(&**e),
-            move |name: &&'static str| t2.entries.iter().find(|(n, _)| n == name).expect("registered type").1.clone(),
+            move |name: &&'static str| {
+                t2.entries
+                    .iter()
+                    .find(|(n, _)| n == name)
+                    .expect("registered type")
+                    .1
+                    .clone()
+            },
         )
     }
 }
@@ -254,7 +300,11 @@ pub fn lift<T: ?Sized + 'static, S: Clone + 'static>(
     up: impl Fn(S) -> Arc<T> + Send + Sync + 'static,
     down: fn(&T) -> Option<&S>,
 ) -> MapCodec<Arc<T>> {
-    codec.xmap(up, move |t: &Arc<T>| down(&**t).expect("type table entry matches the element").clone())
+    codec.xmap(up, move |t: &Arc<T>| {
+        down(&**t)
+            .expect("type table entry matches the element")
+            .clone()
+    })
 }
 
 /// `RegistryFixedCodec.create(registry)` of an already loaded registry (`Enchantment.CODEC`, `WorldClock.CODEC`, ...): a
@@ -265,7 +315,9 @@ pub fn registry_ref_codec(registry: &'static str) -> Codec<Identifier> {
             let checked = match with_current(|ctx| ctx.check_holder(registry, &id)) {
                 Some(r) => r,
                 None if mc_protocol::registry_context::registry_contains(registry, &id) => Ok(()),
-                None => Err(format!("Failed to get element {id} from registry {registry}")),
+                None => Err(format!(
+                    "Failed to get element {id} from registry {registry}"
+                )),
             };
             match checked {
                 Ok(()) => DataResult::success(id),
@@ -277,12 +329,24 @@ pub fn registry_ref_codec(registry: &'static str) -> Codec<Identifier> {
 }
 
 /// The ids of a reference-only holder set (`HolderSet.stream()`) of `registry`, tags expanded in tag order.
-pub fn holder_set_ids(registries: &RegistryAccess, registry: &str, set: &mc_protocol::components::HolderSet<mc_protocol::components::NoDirect>) -> Vec<Identifier> {
+pub fn holder_set_ids(
+    registries: &RegistryAccess,
+    registry: &str,
+    set: &mc_protocol::components::HolderSet<mc_protocol::components::NoDirect>,
+) -> Vec<Identifier> {
     match set {
         mc_protocol::components::HolderSet::Named(tag) => {
-            let Some(r) = registries.registry(registry) else { return Vec::new() };
-            r.tag(tag).unwrap_or(&[]).iter().filter_map(|id| r.name_of(*id)).collect()
+            let Some(r) = registries.registry(registry) else {
+                return Vec::new();
+            };
+            r.tag(tag)
+                .unwrap_or(&[])
+                .iter()
+                .filter_map(|id| r.name_of(*id))
+                .collect()
         }
-        mc_protocol::components::HolderSet::Direct(v) => v.iter().filter_map(|h| h.name().cloned()).collect(),
+        mc_protocol::components::HolderSet::Direct(v) => {
+            v.iter().filter_map(|h| h.name().cloned()).collect()
+        }
     }
 }

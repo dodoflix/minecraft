@@ -16,7 +16,11 @@ pub fn format_tick_duration(ticks: i32, tickrate: f32) -> String {
     seconds %= 60;
     let hours = minutes / 60;
     minutes %= 60;
-    if hours > 0 { format!("{hours:02}:{minutes:02}:{seconds:02}") } else { format!("{minutes:02}:{seconds:02}") }
+    if hours > 0 {
+        format!("{hours:02}:{minutes:02}:{seconds:02}")
+    } else {
+        format!("{minutes:02}:{seconds:02}")
+    }
 }
 
 /// `formatDuration(instance, scale, tickrate)`.
@@ -37,18 +41,24 @@ pub fn has_dig_speed(mob: &dyn Entity) -> bool {
 /// `getDigSpeedAmplification(mob)`.
 pub fn get_dig_speed_amplification(mob: &dyn Entity) -> i32 {
     let a = mob.get_effect(MobEffect::HASTE).map_or(0, |e| e.amplifier);
-    let b = mob.get_effect(MobEffect::CONDUIT_POWER).map_or(0, |e| e.amplifier);
+    let b = mob
+        .get_effect(MobEffect::CONDUIT_POWER)
+        .map_or(0, |e| e.amplifier);
     a.max(b)
 }
 
 /// `hasWaterBreathing(mob)`.
 pub fn has_water_breathing(mob: &dyn Entity) -> bool {
-    mob.has_effect(MobEffect::WATER_BREATHING) || mob.has_effect(MobEffect::CONDUIT_POWER) || mob.has_effect(MobEffect::BREATH_OF_THE_NAUTILUS)
+    mob.has_effect(MobEffect::WATER_BREATHING)
+        || mob.has_effect(MobEffect::CONDUIT_POWER)
+        || mob.has_effect(MobEffect::BREATH_OF_THE_NAUTILUS)
 }
 
 /// `shouldEffectsRefillAirsupply(mob)`.
 pub fn should_effects_refill_air_supply(mob: &dyn Entity) -> bool {
-    !mob.has_effect(MobEffect::BREATH_OF_THE_NAUTILUS) || mob.has_effect(MobEffect::WATER_BREATHING) || mob.has_effect(MobEffect::CONDUIT_POWER)
+    !mob.has_effect(MobEffect::BREATH_OF_THE_NAUTILUS)
+        || mob.has_effect(MobEffect::WATER_BREATHING)
+        || mob.has_effect(MobEffect::CONDUIT_POWER)
 }
 
 /// `Entity.isAlliedTo(other)` for the base team logic (`getTeam().isAlliedTo(other.getTeam())`).
@@ -58,7 +68,11 @@ pub fn is_allied_to(level: &ServerLevel, source: &dyn Entity, other: &dyn Entity
     }
     let scoreboard = level.scoreboard();
     let allied = |a: &dyn Entity, b: &dyn Entity| {
-        scoreboard.get_players_team(&a.get_scoreboard_name()).is_some_and(|team| team.is_allied_to(scoreboard.get_players_team(&b.get_scoreboard_name())))
+        scoreboard
+            .get_players_team(&a.get_scoreboard_name())
+            .is_some_and(|team| {
+                team.is_allied_to(scoreboard.get_players_team(&b.get_scoreboard_name()))
+            })
     };
     allied(source, other) || allied(other, source)
 }

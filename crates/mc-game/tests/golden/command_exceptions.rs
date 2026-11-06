@@ -1,7 +1,6 @@
 //! The error messages of invalid commands against the real vanilla command tree
 //! (`tests/fixtures/commands/ExceptionCorpus.java`): same text, same position, same context excerpt.
 
-
 use crate::command_common;
 
 use mc_game::commands::CommandSourceStack;

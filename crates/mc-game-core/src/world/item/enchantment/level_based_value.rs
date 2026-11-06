@@ -13,12 +13,30 @@ const REGISTRY: &str = "minecraft:enchantment_level_based_value_type";
 #[derive(Clone, Debug, PartialEq)]
 pub enum LevelBasedValue {
     Constant(f32),
-    Clamped { value: Box<LevelBasedValue>, min: f32, max: f32 },
-    Exponent { base: Box<LevelBasedValue>, power: Box<LevelBasedValue> },
-    Fraction { numerator: Box<LevelBasedValue>, denominator: Box<LevelBasedValue> },
-    LevelsSquared { added: f32 },
-    Linear { base: f32, per_level_above_first: f32 },
-    Lookup { values: Vec<f32>, fallback: Box<LevelBasedValue> },
+    Clamped {
+        value: Box<LevelBasedValue>,
+        min: f32,
+        max: f32,
+    },
+    Exponent {
+        base: Box<LevelBasedValue>,
+        power: Box<LevelBasedValue>,
+    },
+    Fraction {
+        numerator: Box<LevelBasedValue>,
+        denominator: Box<LevelBasedValue>,
+    },
+    LevelsSquared {
+        added: f32,
+    },
+    Linear {
+        base: f32,
+        per_level_above_first: f32,
+    },
+    Lookup {
+        values: Vec<f32>,
+        fallback: Box<LevelBasedValue>,
+    },
 }
 
 impl LevelBasedValue {
@@ -29,25 +47,46 @@ impl LevelBasedValue {
 
     /// `LevelBasedValue.perLevel(base, perLevelAboveFirst)`.
     pub fn per_level(base: f32, per_level_above_first: f32) -> LevelBasedValue {
-        LevelBasedValue::Linear { base, per_level_above_first }
+        LevelBasedValue::Linear {
+            base,
+            per_level_above_first,
+        }
     }
 
     /// `calculate(level)`.
     pub fn calculate(&self, level: i32) -> f32 {
         match self {
             LevelBasedValue::Constant(value) => *value,
-            LevelBasedValue::Clamped { value, min, max } => mth::clamp_f32(value.calculate(level), *min, *max),
-            LevelBasedValue::Exponent { base, power } => (base.calculate(level) as f64).powf(power.calculate(level) as f64) as f32,
-            LevelBasedValue::Fraction { numerator, denominator } => {
+            LevelBasedValue::Clamped { value, min, max } => {
+                mth::clamp_f32(value.calculate(level), *min, *max)
+            }
+            LevelBasedValue::Exponent { base, power } => {
+                (base.calculate(level) as f64).powf(power.calculate(level) as f64) as f32
+            }
+            LevelBasedValue::Fraction {
+                numerator,
+                denominator,
+            } => {
                 let denominator = denominator.calculate(level);
-                if denominator == 0.0 { 0.0 } else { numerator.calculate(level) / denominator }
+                if denominator == 0.0 {
+                    0.0
+                } else {
+                    numerator.calculate(level) / denominator
+                }
             }
             LevelBasedValue::LevelsSquared { added } => level.wrapping_mul(level) as f32 + added,
-            LevelBasedValue::Linear { base, per_level_above_first } => base + per_level_above_first * level.wrapping_sub(1) as f32,
+            LevelBasedValue::Linear {
+                base,
+                per_level_above_first,
+            } => base + per_level_above_first * level.wrapping_sub(1) as f32,
             LevelBasedValue::Lookup { values, fallback } => {
                 // `level <= values.size() ? values.get(level - 1)`: levels are >= 1 (`ItemEnchantments` levels), a lower
                 // level would make `List.get` throw in vanilla
-                if level >= 1 && level as usize <= values.len() { values[level as usize - 1] } else { fallback.calculate(level) }
+                if level >= 1 && level as usize <= values.len() {
+                    values[level as usize - 1]
+                } else {
+                    fallback.calculate(level)
+                }
             }
         }
     }
@@ -99,36 +138,72 @@ fn arm(ty: &str) -> MapCodec<LevelBasedValue> {
         })
         .validate(|u: ClampedRec| {
             if u.max <= u.min {
-                let m = format!("Max must be larger than min, min: {}, max: {}", java_float_to_string(u.min), java_float_to_string(u.max));
+                let m = format!(
+                    "Max must be larger than min, min: {}, max: {}",
+                    java_float_to_string(u.min),
+                    java_float_to_string(u.max)
+                );
                 DataResult::error(move || m.clone())
             } else {
                 DataResult::success(u)
             }
         })
         .xmap(
-            |r| L::Clamped { value: r.value, min: r.min, max: r.max },
-            |v: &L| match v {
-                L::Clamped { value, min, max } => ClampedRec { value: value.clone(), min: *min, max: *max },
-                _ => unreachable!("dispatched by type"),
+            |r| L::Clamped {
+                value: r.value,
+                min: r.min,
+                max: r.max,
             },
-        ),
-        "minecraft:exponent" => record!(ExponentRec { base: boxed().field_of("base"), power: boxed().field_of("power") }).xmap(
-            |r| L::Exponent { base: r.base, power: r.power },
             |v: &L| match v {
-                L::Exponent { base, power } => ExponentRec { base: base.clone(), power: power.clone() },
-                _ => unreachable!("dispatched by type"),
-            },
-        ),
-        "minecraft:fraction" => {
-            record!(FractionRec { numerator: boxed().field_of("numerator"), denominator: boxed().field_of("denominator") }).xmap(
-                |r| L::Fraction { numerator: r.numerator, denominator: r.denominator },
-                |v: &L| match v {
-                    L::Fraction { numerator, denominator } => FractionRec { numerator: numerator.clone(), denominator: denominator.clone() },
-                    _ => unreachable!("dispatched by type"),
+                L::Clamped { value, min, max } => ClampedRec {
+                    value: value.clone(),
+                    min: *min,
+                    max: *max,
                 },
-            )
-        }
-        "minecraft:levels_squared" => record!(LevelsSquaredRec { added: FLOAT.field_of("added") }).xmap(
+                _ => unreachable!("dispatched by type"),
+            },
+        ),
+        "minecraft:exponent" => record!(ExponentRec {
+            base: boxed().field_of("base"),
+            power: boxed().field_of("power")
+        })
+        .xmap(
+            |r| L::Exponent {
+                base: r.base,
+                power: r.power,
+            },
+            |v: &L| match v {
+                L::Exponent { base, power } => ExponentRec {
+                    base: base.clone(),
+                    power: power.clone(),
+                },
+                _ => unreachable!("dispatched by type"),
+            },
+        ),
+        "minecraft:fraction" => record!(FractionRec {
+            numerator: boxed().field_of("numerator"),
+            denominator: boxed().field_of("denominator")
+        })
+        .xmap(
+            |r| L::Fraction {
+                numerator: r.numerator,
+                denominator: r.denominator,
+            },
+            |v: &L| match v {
+                L::Fraction {
+                    numerator,
+                    denominator,
+                } => FractionRec {
+                    numerator: numerator.clone(),
+                    denominator: denominator.clone(),
+                },
+                _ => unreachable!("dispatched by type"),
+            },
+        ),
+        "minecraft:levels_squared" => record!(LevelsSquaredRec {
+            added: FLOAT.field_of("added")
+        })
+        .xmap(
             |r| L::LevelsSquared { added: r.added },
             |v: &L| match v {
                 L::LevelsSquared { added } => LevelsSquaredRec { added: *added },
@@ -140,16 +215,35 @@ fn arm(ty: &str) -> MapCodec<LevelBasedValue> {
             per_level_above_first: FLOAT.field_of("per_level_above_first"),
         })
         .xmap(
-            |r| L::Linear { base: r.base, per_level_above_first: r.per_level_above_first },
+            |r| L::Linear {
+                base: r.base,
+                per_level_above_first: r.per_level_above_first,
+            },
             |v: &L| match v {
-                L::Linear { base, per_level_above_first } => LinearRec { base: *base, per_level_above_first: *per_level_above_first },
+                L::Linear {
+                    base,
+                    per_level_above_first,
+                } => LinearRec {
+                    base: *base,
+                    per_level_above_first: *per_level_above_first,
+                },
                 _ => unreachable!("dispatched by type"),
             },
         ),
-        "minecraft:lookup" => record!(LookupRec { values: FLOAT.list_of().field_of("values"), fallback: boxed().field_of("fallback") }).xmap(
-            |r| L::Lookup { values: r.values, fallback: r.fallback },
+        "minecraft:lookup" => record!(LookupRec {
+            values: FLOAT.list_of().field_of("values"),
+            fallback: boxed().field_of("fallback")
+        })
+        .xmap(
+            |r| L::Lookup {
+                values: r.values,
+                fallback: r.fallback,
+            },
             |v: &L| match v {
-                L::Lookup { values, fallback } => LookupRec { values: values.clone(), fallback: fallback.clone() },
+                L::Lookup { values, fallback } => LookupRec {
+                    values: values.clone(),
+                    fallback: fallback.clone(),
+                },
                 _ => unreachable!("dispatched by type"),
             },
         ),
@@ -196,10 +290,19 @@ mod tests {
         let linear = LevelBasedValue::per_level(0.5, 0.5);
         assert_eq!(linear.calculate(1), 0.5);
         assert_eq!(linear.calculate(3), 1.5);
-        assert_eq!(LevelBasedValue::LevelsSquared { added: 6.0 }.calculate(3), 15.0);
-        let lookup = LevelBasedValue::Lookup { values: vec![1.0, 2.0], fallback: Box::new(LevelBasedValue::Constant(9.0)) };
+        assert_eq!(
+            LevelBasedValue::LevelsSquared { added: 6.0 }.calculate(3),
+            15.0
+        );
+        let lookup = LevelBasedValue::Lookup {
+            values: vec![1.0, 2.0],
+            fallback: Box::new(LevelBasedValue::Constant(9.0)),
+        };
         assert_eq!((lookup.calculate(2), lookup.calculate(3)), (2.0, 9.0));
-        let frac = LevelBasedValue::Fraction { numerator: Box::new(LevelBasedValue::Constant(1.0)), denominator: Box::new(LevelBasedValue::Constant(0.0)) };
+        let frac = LevelBasedValue::Fraction {
+            numerator: Box::new(LevelBasedValue::Constant(1.0)),
+            denominator: Box::new(LevelBasedValue::Constant(0.0)),
+        };
         assert_eq!(frac.calculate(1), 0.0);
     }
 }

@@ -26,21 +26,34 @@ impl ServerLevel {
     /// `minecraft:huge_brown_mushroom`).
     pub fn lookup_feature(&self, id: &str) -> Option<Arc<dyn Feature>> {
         let id = Identifier::read(id).ok()?;
-        self.gen_env().registries.feature(&id).map(|h| h.value().clone())
+        self.gen_env()
+            .registries
+            .feature(&id)
+            .map(|h| h.value().clone())
     }
 
     /// `registry.get(id).value().place(level, generator, level.getRandom(), pos)` for a configured feature id
     /// (`minecraft:nylium_bonemeal` or `nylium_bonemeal`); `false` when the id is not registered.
     pub fn place_feature(&mut self, id: &str, pos: BlockPos) -> bool {
-        let Some(feature) = self.lookup_feature(id) else { return false };
+        let Some(feature) = self.lookup_feature(id) else {
+            return false;
+        };
         self.place_feature_value(feature.as_ref(), pos)
     }
 
     /// The same for a placed feature id (`VegetationPlacements.GRASS_BONEMEAL`).
     pub fn place_placed_feature(&mut self, id: &str, pos: BlockPos) -> bool {
-        let Ok(id) = Identifier::read(id) else { return false };
+        let Ok(id) = Identifier::read(id) else {
+            return false;
+        };
         let env = self.gen_env().clone();
-        let Some(placed) = env.registries.placed_feature(&id).map(|h| h.value().clone()) else { return false };
+        let Some(placed) = env
+            .registries
+            .placed_feature(&id)
+            .map(|h| h.value().clone())
+        else {
+            return false;
+        };
         let mut random = self.tick_state.random.clone();
         if !WorldGenLevel::ensure_can_write(self, pos) {
             return false;
@@ -52,13 +65,18 @@ impl ServerLevel {
     /// features) tagged `#minecraft:can_spawn_from_bone_meal`, in decoration order.
     pub fn get_bone_meal_features(&self, pos: BlockPos) -> Vec<Arc<dyn Feature>> {
         let env = self.gen_env();
-        let tagged = mc_data::tags::names("worldgen/feature", CAN_SPAWN_FROM_BONE_MEAL).unwrap_or_default();
+        let tagged =
+            mc_data::tags::names("worldgen/feature", CAN_SPAWN_FROM_BONE_MEAL).unwrap_or_default();
         let biome = WorldGenLevel::get_biome(self, pos);
         let mut out = Vec::new();
         for step in env.get_biome_generation_settings(biome).features() {
             for reference in step {
-                let mc_worldgen::biome::PlacedFeatureRef::Named(id) = reference else { continue };
-                let Some(placed) = env.registries.placed_feature(id) else { continue };
+                let mc_worldgen::biome::PlacedFeatureRef::Named(id) = reference else {
+                    continue;
+                };
+                let Some(placed) = env.registries.placed_feature(id) else {
+                    continue;
+                };
                 for holder in placed.value().get_features() {
                     if is_in_tag(&holder, &tagged) {
                         out.push(holder.value().clone());

@@ -89,7 +89,11 @@ impl CounterCollector {
         self.total_value += value;
         match path.next() {
             None => self.self_value += value,
-            Some(segment) => self.children.entry((*segment).to_owned()).or_default().add_value(path, value),
+            Some(segment) => self
+                .children
+                .entry((*segment).to_owned())
+                .or_default()
+                .add_value(path, value),
         }
     }
 }
@@ -100,8 +104,19 @@ fn fixed(value: f64, digits: usize) -> String {
 }
 
 impl FilledProfileResults {
-    pub fn new(entries: HashMap<String, PathEntrySnapshot>, start_time_nano: i64, start_time_ticks: i32, end_time_nano: i64, end_time_ticks: i32) -> Self {
-        Self { entries, start_time_nano, end_time_nano, tick_duration: end_time_ticks.wrapping_sub(start_time_ticks) }
+    pub fn new(
+        entries: HashMap<String, PathEntrySnapshot>,
+        start_time_nano: i64,
+        start_time_ticks: i32,
+        end_time_nano: i64,
+        end_time_ticks: i32,
+    ) -> Self {
+        Self {
+            entries,
+            start_time_nano,
+            end_time_nano,
+            tick_duration: end_time_ticks.wrapping_sub(start_time_ticks),
+        }
     }
 
     fn entry(&self, path: &str) -> PathEntrySnapshot {
@@ -109,7 +124,9 @@ impl FilledProfileResults {
     }
 
     fn is_direct_child(path: &str, test: &str) -> bool {
-        test.len() > path.len() && test.starts_with(path) && !test[path.len() + 1..].contains(PATH_SEPARATOR)
+        test.len() > path.len()
+            && test.starts_with(path)
+            && !test[path.len() + 1..].contains(PATH_SEPARATOR)
     }
 
     /// `getTimes(path)`.
@@ -119,7 +136,11 @@ impl FilledProfileResults {
         let current = self.entry(path);
         let self_time = current.duration;
         let self_count = current.count;
-        let prefix = if path.is_empty() { String::new() } else { format!("{path}{PATH_SEPARATOR}") };
+        let prefix = if path.is_empty() {
+            String::new()
+        } else {
+            format!("{path}{PATH_SEPARATOR}")
+        };
         let mut total_time: i64 = 0;
         for key in self.entries.keys() {
             if Self::is_direct_child(&prefix, key) {
@@ -158,7 +179,12 @@ impl FilledProfileResults {
         result.sort_by(|a, b| a.compare(b));
         result.insert(
             0,
-            ResultField { name: raw_path.to_owned(), percentage: 100.0, global_percentage: total_time as f64 * 100.0 / global_time as f64, count: self_count },
+            ResultField {
+                name: raw_path.to_owned(),
+                percentage: 100.0,
+                global_percentage: total_time as f64 * 100.0 / global_time as f64,
+                count: self_count,
+            },
         );
         result
     }
@@ -169,7 +195,10 @@ impl FilledProfileResults {
             if !entry.counters.is_empty() {
                 let segments: Vec<&str> = path.split(PATH_SEPARATOR).collect();
                 for (counter, value) in &entry.counters {
-                    result.entry(counter.clone()).or_default().add_value(&mut segments.iter(), *value);
+                    result
+                        .entry(counter.clone())
+                        .or_default()
+                        .add_value(&mut segments.iter(), *value);
                 }
             }
         }
@@ -182,7 +211,13 @@ impl FilledProfileResults {
             if let Some(parent) = file.parent() {
                 std::fs::create_dir_all(parent)?;
             }
-            std::fs::write(file, self.get_profiler_results_report(self.end_time_nano - self.start_time_nano, self.tick_duration))
+            std::fs::write(
+                file,
+                self.get_profiler_results_report(
+                    self.end_time_nano - self.start_time_nano,
+                    self.tick_duration,
+                ),
+            )
         };
         match write() {
             Ok(()) => true,
@@ -202,7 +237,10 @@ impl FilledProfileResults {
         let _ = write!(
             builder,
             "// This is approximately {} ticks per second. It should be 20 ticks per second\n\n",
-            fixed(f64::from(tickspan as f32 / (timespan as f32 / 1.0E9_f32)), 2)
+            fixed(
+                f64::from(tickspan as f32 / (timespan as f32 / 1.0E9_f32)),
+                2
+            )
         );
         builder.push_str("--- BEGIN PROFILE DUMP ---\n\n");
         self.append_profiler_results(0, "root", &mut builder);
@@ -229,7 +267,13 @@ impl FilledProfileResults {
             for (id, value) in &entry.counters {
                 Self::indent_line(builder, depth);
                 // `value / this.tickDuration` is a `long / int` division (an ArithmeticException for 0 ticks)
-                let _ = writeln!(builder, "#{id} {value}/{}", value.checked_div(i64::from(self.tick_duration)).unwrap_or(0));
+                let _ = writeln!(
+                    builder,
+                    "#{id} {value}/{}",
+                    value
+                        .checked_div(i64::from(self.tick_duration))
+                        .unwrap_or(0)
+                );
             }
         }
         if results.len() >= 3 {
@@ -240,21 +284,41 @@ impl FilledProfileResults {
                     "{}({}/{}) - {}%/{}%",
                     result.name,
                     result.count,
-                    fixed(f64::from(result.count as f32 / self.tick_duration as f32), 0),
+                    fixed(
+                        f64::from(result.count as f32 / self.tick_duration as f32),
+                        0
+                    ),
                     fixed(result.percentage, 2),
                     fixed(result.global_percentage, 2)
                 );
                 if result.name != "unspecified" {
-                    self.append_profiler_results(depth + 1, &format!("{path}{PATH_SEPARATOR}{}", result.name), builder);
+                    self.append_profiler_results(
+                        depth + 1,
+                        &format!("{path}{PATH_SEPARATOR}{}", result.name),
+                        builder,
+                    );
                 }
             }
         }
     }
 
-    fn append_counter_results(depth: usize, name: &str, result: &CounterCollector, tickspan: i32, builder: &mut String) {
+    fn append_counter_results(
+        depth: usize,
+        name: &str,
+        result: &CounterCollector,
+        tickspan: i32,
+        builder: &mut String,
+    ) {
         Self::indent_line(builder, depth);
         let ticks = i64::from(tickspan).max(1);
-        let _ = writeln!(builder, "{name} total:{}/{} average: {}/{}", result.self_value, result.total_value, result.self_value / ticks, result.total_value / ticks);
+        let _ = writeln!(
+            builder,
+            "{name} total:{}/{} average: {}/{}",
+            result.self_value,
+            result.total_value,
+            result.self_value / ticks,
+            result.total_value / ticks
+        );
         let mut children: Vec<_> = result.children.iter().collect();
         children.sort_by_key(|(_, c)| std::cmp::Reverse(c.total_value));
         for (child_name, child) in children {
@@ -262,7 +326,11 @@ impl FilledProfileResults {
         }
     }
 
-    fn append_counters(counters: &BTreeMap<String, CounterCollector>, builder: &mut String, tickspan: i32) {
+    fn append_counters(
+        counters: &BTreeMap<String, CounterCollector>,
+        builder: &mut String,
+        tickspan: i32,
+    ) {
         for (counter, root) in counters {
             let _ = writeln!(builder, "-- Counter: {counter} --");
             if let Some(root_collector) = root.children.get("root") {

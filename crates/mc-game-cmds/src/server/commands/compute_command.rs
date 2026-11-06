@@ -6,32 +6,65 @@
 //! `getFloatUnsafe(lootContext)`, `Err` = the `ArithmeticException` message) to fill once it exists; everything else
 //! (tree, `scale`, rounding, result messages and errors) is vanilla's.
 use super::loot_context_sources::{ContextDecorator, LootContext, add_context_sources};
-use mc_game_core::commands::arguments::resource_arguments::{ContextFloatProviderArgument, ContextIntProviderArgument, ResourceOrId};
-use mc_game_core::commands::message::message;
-use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
-use mc_game_core::{register_command, translatable};
 use mc_brigadier::arguments::{FloatArgumentType, float_arg};
-use mc_brigadier::{ArgumentBuilder, CommandContext, CommandSyntaxException, Dynamic2CommandExceptionType, DynamicCommandExceptionType, NodeBuilder};
+use mc_brigadier::{
+    ArgumentBuilder, CommandContext, CommandSyntaxException, Dynamic2CommandExceptionType,
+    DynamicCommandExceptionType, NodeBuilder,
+};
 use mc_core::math::java::java_float_to_string;
 use mc_core::math::mth;
+use mc_game_core::commands::arguments::resource_arguments::{
+    ContextFloatProviderArgument, ContextIntProviderArgument, ResourceOrId,
+};
+use mc_game_core::commands::message::message;
+use mc_game_core::commands::{
+    CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal,
+};
+use mc_game_core::{register_command, translatable};
 use mc_text::Component;
 use std::sync::LazyLock;
 
-static INVALID_NAMED_VALUE: LazyLock<Dynamic2CommandExceptionType<Component, String>> = LazyLock::new(|| {
-    Dynamic2CommandExceptionType::new(|provider: Component, value: String| message(translatable!("command.compute.result.named.invalid", provider, value)))
+static INVALID_NAMED_VALUE: LazyLock<Dynamic2CommandExceptionType<Component, String>> =
+    LazyLock::new(|| {
+        Dynamic2CommandExceptionType::new(|provider: Component, value: String| {
+            message(translatable!(
+                "command.compute.result.named.invalid",
+                provider,
+                value
+            ))
+        })
+    });
+static INVALID_UNNAMED_VALUE: LazyLock<DynamicCommandExceptionType<String>> = LazyLock::new(|| {
+    DynamicCommandExceptionType::new(|value: String| {
+        message(translatable!(
+            "command.compute.result.unnamed.invalid",
+            value
+        ))
+    })
 });
-static INVALID_UNNAMED_VALUE: LazyLock<DynamicCommandExceptionType<String>> =
-    LazyLock::new(|| DynamicCommandExceptionType::new(|value: String| message(translatable!("command.compute.result.unnamed.invalid", value))));
 
 register_command!("ComputeCommand", |ctx| {
     let build_context = ctx.build_context.clone();
     ctx.dispatcher.register(add_context_sources(
         literal("compute").requires(has_permission(LEVEL_GAMEMASTERS)),
-        &move |decorator: ContextDecorator, output: &mut dyn FnMut(NodeBuilder<CommandSourceStack>)| {
-            let (float_decorator, scaled_decorator, int_decorator) = (decorator.clone(), decorator.clone(), decorator);
-            output(NodeBuilder::Literal(literal("float").then(
-                argument("provider", ContextFloatProviderArgument::float_provider(&build_context))
-                    .executes(move |c| compute_as_float(c, &float_decorator, &ContextFloatProviderArgument::get_float_provider(c, "provider"), 1.0))
+        &move |decorator: ContextDecorator,
+               output: &mut dyn FnMut(NodeBuilder<CommandSourceStack>)| {
+            let (float_decorator, scaled_decorator, int_decorator) =
+                (decorator.clone(), decorator.clone(), decorator);
+            output(NodeBuilder::Literal(
+                literal("float").then(
+                    argument(
+                        "provider",
+                        ContextFloatProviderArgument::float_provider(&build_context),
+                    )
+                    .executes(move |c| {
+                        compute_as_float(
+                            c,
+                            &float_decorator,
+                            &ContextFloatProviderArgument::get_float_provider(c, "provider"),
+                            1.0,
+                        )
+                    })
                     .then(argument("scale", float_arg()).executes(move |c| {
                         compute_as_float(
                             c,
@@ -40,11 +73,23 @@ register_command!("ComputeCommand", |ctx| {
                             FloatArgumentType::get_float(c, "scale"),
                         )
                     })),
-            )));
-            output(NodeBuilder::Literal(literal("integer").then(
-                argument("provider", ContextIntProviderArgument::int_provider(&build_context))
-                    .executes(move |c| compute_as_int(c, &int_decorator, &ContextIntProviderArgument::get_int_provider(c, "provider"))),
-            )));
+                ),
+            ));
+            output(NodeBuilder::Literal(
+                literal("integer").then(
+                    argument(
+                        "provider",
+                        ContextIntProviderArgument::int_provider(&build_context),
+                    )
+                    .executes(move |c| {
+                        compute_as_int(
+                            c,
+                            &int_decorator,
+                            &ContextIntProviderArgument::get_int_provider(c, "provider"),
+                        )
+                    }),
+                ),
+            ));
         },
     ));
 });
@@ -77,17 +122,31 @@ fn print_exact_output(source: &CommandSourceStack, provider: &ResourceOrId, resu
     );
 }
 
-fn print_rounded_output(source: &CommandSourceStack, provider: &ResourceOrId, result: i32, original: f32) {
+fn print_rounded_output(
+    source: &CommandSourceStack,
+    provider: &ResourceOrId,
+    result: i32,
+    original: f32,
+) {
     source.send_success(
         || match provider_name(provider) {
-            Some(name) => translatable!("command.compute.result.named.rounded", name, original, result),
+            Some(name) => translatable!(
+                "command.compute.result.named.rounded",
+                name,
+                original,
+                result
+            ),
             None => translatable!("command.compute.result.unnamed.rounded", original, result),
         },
         false,
     );
 }
 
-fn compute_as_int(context: &CommandContext<CommandSourceStack>, decorator: &ContextDecorator, provider: &ResourceOrId) -> Result<i32, CommandSyntaxException> {
+fn compute_as_int(
+    context: &CommandContext<CommandSourceStack>,
+    decorator: &ContextDecorator,
+    provider: &ResourceOrId,
+) -> Result<i32, CommandSyntaxException> {
     let loot_context = decorator(context)?;
     match evaluate_int(provider, &loot_context) {
         Ok(result) => {
@@ -105,9 +164,13 @@ fn compute_as_float(
     scale: f32,
 ) -> Result<i32, CommandSyntaxException> {
     let loot_context = decorator(context)?;
-    let original = evaluate_float(provider, &loot_context).map_err(|message| throw_invalid_value(provider, message))?;
+    let original = evaluate_float(provider, &loot_context)
+        .map_err(|message| throw_invalid_value(provider, message))?;
     if !original.is_finite() {
-        return Err(throw_invalid_value(provider, java_float_to_string(original)));
+        return Err(throw_invalid_value(
+            provider,
+            java_float_to_string(original),
+        ));
     }
     let result = mth::floor_f32(original * scale);
     let source = context.get_source();

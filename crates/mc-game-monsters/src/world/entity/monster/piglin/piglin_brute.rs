@@ -3,15 +3,24 @@
 use super::abstract_piglin::{self, AbstractPiglin, DATA_IMMUNE_TO_ZOMBIFICATION};
 use super::piglin_arm_pose::PiglinArmPose;
 use super::piglin_brute_ai;
+use linkme::distributed_slice;
+use mc_core::pos::BlockPos;
+use mc_core::random::RandomSource;
+use mc_data::enums::EntitySpawnReason;
+use mc_data::{EntityType, Item, SoundEvent};
 use mc_game_core::registry::RegistryAccess;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::damagesource::DamageSource;
 use mc_game_core::world::difficulty_instance::DifficultyInstance;
 use mc_game_core::world::entity::ai::brain::{Brain, Provider};
-use mc_game_core::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, NEAREST_VISIBLE_ADULT_PIGLINS};
+use mc_game_core::world::entity::ai::memory::memory_module_type::{
+    ATTACK_TARGET, NEAREST_VISIBLE_ADULT_PIGLINS,
+};
 use mc_game_core::world::entity::ai::memory::{BrainPacked, MemoryTypeId};
 use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
-use mc_game_core::world::entity::ai::sensing::sensor_type::{HURT_BY, NEAREST_ITEMS, NEAREST_LIVING_ENTITIES, NEAREST_PLAYERS, PIGLIN_BRUTE_SPECIFIC_SENSOR};
+use mc_game_core::world::entity::ai::sensing::sensor_type::{
+    HURT_BY, NEAREST_ITEMS, NEAREST_LIVING_ENTITIES, NEAREST_PLAYERS, PIGLIN_BRUTE_SPECIFIC_SENSOR,
+};
 use mc_game_core::world::entity::equipment::EquipmentSlot;
 use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
 use mc_game_core::world::entity::living_entity::damage::make_sound;
@@ -20,17 +29,22 @@ use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
 use mc_game_core::world::entity::{Entity, EntityId};
 use mc_game_core::world::item::ItemStack;
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
-use linkme::distributed_slice;
-use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
-use mc_data::enums::EntitySpawnReason;
-use mc_data::{EntityType, Item, SoundEvent};
 use mc_nbt::CompoundTag;
 
 static BRAIN_MEMORIES: [MemoryTypeId; 1] = [NEAREST_VISIBLE_ADULT_PIGLINS.id()];
 
 /// `BRAIN_PROVIDER`.
-static BRAIN_PROVIDER: Provider = Provider::with_memories(&BRAIN_MEMORIES, &[&NEAREST_LIVING_ENTITIES, &NEAREST_PLAYERS, &NEAREST_ITEMS, &HURT_BY, &PIGLIN_BRUTE_SPECIFIC_SENSOR], piglin_brute_ai::get_activities);
+static BRAIN_PROVIDER: Provider = Provider::with_memories(
+    &BRAIN_MEMORIES,
+    &[
+        &NEAREST_LIVING_ENTITIES,
+        &NEAREST_PLAYERS,
+        &NEAREST_ITEMS,
+        &HURT_BY,
+        &PIGLIN_BRUTE_SPECIFIC_SENSOR,
+    ],
+    piglin_brute_ai::get_activities,
+);
 
 pub struct PiglinBrute {
     pub mob: MobData,
@@ -43,7 +57,10 @@ impl PiglinBrute {
         let mob = MobData::new(ty, id, MobKind::Monster, |b| {
             b.define(DATA_IMMUNE_TO_ZOMBIFICATION, false);
         });
-        let mut brute = PiglinBrute { mob, time_in_overworld: 0 };
+        let mut brute = PiglinBrute {
+            mob,
+            time_in_overworld: 0,
+        };
         let brain = brute.make_brain(&BrainPacked::EMPTY);
         brute.mob.living.brain = brain;
         let mut navigation = StandardPathNavigation::ground(&brute);
@@ -78,11 +95,19 @@ impl AbstractPiglin for PiglinBrute {
     }
 
     fn play_converted_sound(&mut self, level: &mut ServerLevel) {
-        make_sound(self, level, SoundEvent::ENTITY_PIGLIN_BRUTE_CONVERTED_TO_ZOMBIFIED);
+        make_sound(
+            self,
+            level,
+            SoundEvent::ENTITY_PIGLIN_BRUTE_CONVERTED_TO_ZOMBIFIED,
+        );
     }
 
     fn get_arm_pose(&self) -> PiglinArmPose {
-        if self.mob.is_aggressive() && abstract_piglin::is_holding_melee_weapon(self) { PiglinArmPose::AttackingWithMeleeWeapon } else { PiglinArmPose::Default }
+        if self.mob.is_aggressive() && abstract_piglin::is_holding_melee_weapon(self) {
+            PiglinArmPose::AttackingWithMeleeWeapon
+        } else {
+            PiglinArmPose::Default
+        }
     }
 }
 
@@ -124,8 +149,16 @@ impl Entity for PiglinBrute {
         mob::spawn::finalize_spawn(self, level, difficulty, reason, group_data)
     }
 
-    fn populate_default_equipment_slots(&mut self, _random: &mut dyn RandomSource, _difficulty: &DifficultyInstance) {
-        mob::equipment::set_item_slot_spawn(self, EquipmentSlot::MainHand, ItemStack::new(Item::GOLDEN_AXE));
+    fn populate_default_equipment_slots(
+        &mut self,
+        _random: &mut dyn RandomSource,
+        _difficulty: &DifficultyInstance,
+    ) {
+        mob::equipment::set_item_slot_spawn(
+            self,
+            EquipmentSlot::MainHand,
+            ItemStack::new(Item::GOLDEN_AXE),
+        );
     }
 
     fn wants_to_pick_up(&self, _level: &ServerLevel, item_stack: &ItemStack) -> bool {
@@ -141,9 +174,13 @@ impl Entity for PiglinBrute {
     }
 
     fn hurt_server(&mut self, level: &mut ServerLevel, source: &DamageSource, damage: f32) -> bool {
-        let was_hurt = mc_game_core::world::entity::living_entity::damage::hurt_server(self, level, source, damage);
+        let was_hurt = mc_game_core::world::entity::living_entity::damage::hurt_server(
+            self, level, source, damage,
+        );
         if was_hurt && source.causing_is_living() {
-            mob::ext::with_causing_entity(level, source, |level, attacker| piglin_brute_ai::was_hurt_by(level, self, attacker));
+            mob::ext::with_causing_entity(level, source, |level, attacker| {
+                piglin_brute_ai::was_hurt_by(level, self, attacker)
+            });
         }
         was_hurt
     }
@@ -164,10 +201,18 @@ impl Entity for PiglinBrute {
         Some(SoundEvent::ENTITY_PIGLIN_BRUTE_DEATH)
     }
 
-    fn play_step_sound(&mut self, level: &mut ServerLevel, _pos: BlockPos, _state: mc_data::block::BlockState) {
+    fn play_step_sound(
+        &mut self,
+        level: &mut ServerLevel,
+        _pos: BlockPos,
+        _state: mc_data::block::BlockState,
+    ) {
         self.play_sound(level, SoundEvent::ENTITY_PIGLIN_BRUTE_STEP, 0.15, 1.0);
     }
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static PIGLIN_BRUTE: EntityRegistration = EntityRegistration { entity_type: EntityType::PIGLIN_BRUTE, create: |ty, id, registries| Box::new(PiglinBrute::new(ty, id, registries)) };
+static PIGLIN_BRUTE: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::PIGLIN_BRUTE,
+    create: |ty, id, registries| Box::new(PiglinBrute::new(ty, id, registries)),
+};

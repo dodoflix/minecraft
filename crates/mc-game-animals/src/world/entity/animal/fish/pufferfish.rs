@@ -1,6 +1,9 @@
 //! `net.minecraft.world.entity.animal.fish.Pufferfish`.
 
 use super::abstract_fish::{self, AbstractFish, abstract_fish_bucketable, abstract_fish_entity};
+use linkme::distributed_slice;
+use mc_data::enums::Pose;
+use mc_data::{EntityType, Item, MobEffect, SoundEvent};
 use mc_game_core::define_accessor;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::damagesource::DamageSource;
@@ -15,9 +18,6 @@ use mc_game_core::world::entity::living_entity::damage::make_sound;
 use mc_game_core::world::entity::mob::{self, MobData, MobKind};
 use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
 use mc_game_core::world::item::ItemStack;
-use linkme::distributed_slice;
-use mc_data::enums::Pose;
-use mc_data::{EntityType, Item, MobEffect, SoundEvent};
 use mc_nbt::CompoundTag;
 use mc_protocol::packets::play::ClientboundGameEventPacket;
 use std::sync::{Arc, LazyLock};
@@ -30,13 +30,19 @@ pub const STATE_FULL: i32 = 2;
 
 /// `TARGETING_CONDITIONS`: `forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().selector(SCARY_MOB)`.
 static TARGETING_CONDITIONS: LazyLock<TargetingConditions> = LazyLock::new(|| {
-    TargetingConditions::for_non_combat().ignore_invisibility_testing().ignore_line_of_sight().selector(Some(Arc::new(|target: &dyn Entity, _level: &ServerLevel| {
-        // `SCARY_MOB`: creative players are not scary, else `!target.is(EntityTypeTags.NOT_SCARY_FOR_PUFFERFISH)`
-        if mob::ext::is_creative_player(target) {
-            return false;
-        }
-        !mc_data::tags::get::<EntityType>("not_scary_for_pufferfish").is_some_and(|t| t.contains(target.get_type()))
-    })))
+    TargetingConditions::for_non_combat()
+        .ignore_invisibility_testing()
+        .ignore_line_of_sight()
+        .selector(Some(Arc::new(
+            |target: &dyn Entity, _level: &ServerLevel| {
+                // `SCARY_MOB`: creative players are not scary, else `!target.is(EntityTypeTags.NOT_SCARY_FOR_PUFFERFISH)`
+                if mob::ext::is_creative_player(target) {
+                    return false;
+                }
+                !mc_data::tags::get::<EntityType>("not_scary_for_pufferfish")
+                    .is_some_and(|t| t.contains(target.get_type()))
+            },
+        )))
 });
 
 pub struct Pufferfish {
@@ -52,11 +58,17 @@ impl Pufferfish {
             abstract_fish::define_synched_data(b);
             b.define(PUFF_STATE, 0);
         });
-        let mut fish = Pufferfish { mob, inflate_counter: 0, deflate_timer: 0 };
+        let mut fish = Pufferfish {
+            mob,
+            inflate_counter: 0,
+            deflate_timer: 0,
+        };
         let navigation = StandardPathNavigation::water_bound(&fish);
         abstract_fish::init_controls(&mut fish.mob, navigation);
         abstract_fish::register_goals(&mut fish);
-        fish.mob.goal_selector.add_goal(1, Box::new(PufferfishPuffGoal));
+        fish.mob
+            .goal_selector
+            .add_goal(1, Box::new(PufferfishPuffGoal));
         fish.refresh_dimensions();
         fish
     }
@@ -73,7 +85,9 @@ impl Pufferfish {
 
     /// `touch(level, mob)`.
     fn touch(&mut self, level: &mut ServerLevel, target: EntityId) {
-        let allowed = level.get_entity(target).is_some_and(|m| mc_game_core::world::entity::team::do_teams_allow_damage(level, self, m));
+        let allowed = level.get_entity(target).is_some_and(|m| {
+            mc_game_core::world::entity::team::do_teams_allow_damage(level, self, m)
+        });
         if !allowed {
             return;
         }
@@ -83,7 +97,11 @@ impl Pufferfish {
         let stung = level
             .with_entity(target, |level, m| {
                 if m.hurt_server(level, &source, (1 + puff_state) as f32) {
-                    m.add_effect(level, MobEffectInstance::of(MobEffect::POISON, 60 * puff_state, 0), Some(me));
+                    m.add_effect(
+                        level,
+                        MobEffectInstance::of(MobEffect::POISON, 60 * puff_state, 0),
+                        Some(me),
+                    );
                     true
                 } else {
                     false
@@ -109,7 +127,11 @@ impl AbstractFish for Pufferfish {
     fn after_ai_step(&mut self, level: &mut ServerLevel) {
         if self.is_alive() && self.get_puff_state() > 0 {
             let bb = self.base().bounding_box().inflate(0.3, 0.3, 0.3);
-            let targets = level.get_entities_of_class(&bb, |e| e.mob().is_some(), |e| TARGETING_CONDITIONS.test(level, Some(&*self), e));
+            let targets = level.get_entities_of_class(
+                &bb,
+                |e| e.mob().is_some(),
+                |e| TARGETING_CONDITIONS.test(level, Some(&*self), e),
+            );
             for target in targets {
                 if level.get_entity(target).is_some_and(|m| m.is_alive()) {
                     self.touch(level, target);
@@ -166,10 +188,17 @@ impl Entity for Pufferfish {
             let source = level.damage_sources().mob_attack(self);
             if puff_state > 0 && player.hurt_server(level, &source, (1 + puff_state) as f32) {
                 if !self.base().is_silent() {
-                    player.send(&ClientboundGameEventPacket { event: ClientboundGameEventPacket::PUFFER_FISH_STING, param: 0.0 });
+                    player.send(&ClientboundGameEventPacket {
+                        event: ClientboundGameEventPacket::PUFFER_FISH_STING,
+                        param: 0.0,
+                    });
                 }
                 let me = self.id();
-                player.add_effect(level, MobEffectInstance::of(MobEffect::POISON, 60 * puff_state, 0), Some(me));
+                player.add_effect(
+                    level,
+                    MobEffectInstance::of(MobEffect::POISON, 60 * puff_state, 0),
+                    Some(me),
+                );
             }
         }
     }
@@ -209,7 +238,13 @@ struct PufferfishPuffGoal;
 impl Goal for PufferfishPuffGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         let bb = mob.base().bounding_box().inflate(2.0, 2.0, 2.0);
-        !level.get_entities_of_class(&bb, |e| e.living().is_some(), |e| TARGETING_CONDITIONS.test(level, Some(&*mob), e)).is_empty()
+        !level
+            .get_entities_of_class(
+                &bb,
+                |e| e.living().is_some(),
+                |e| TARGETING_CONDITIONS.test(level, Some(&*mob), e),
+            )
+            .is_empty()
     }
 
     fn start(&mut self, mob: &mut dyn Entity, _level: &mut ServerLevel) {
@@ -231,4 +266,7 @@ impl Goal for PufferfishPuffGoal {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static PUFFERFISH: EntityRegistration = EntityRegistration { entity_type: EntityType::PUFFERFISH, create: |ty, id, _registries| Box::new(Pufferfish::new(ty, id)) };
+static PUFFERFISH: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::PUFFERFISH,
+    create: |ty, id, _registries| Box::new(Pufferfish::new(ty, id)),
+};

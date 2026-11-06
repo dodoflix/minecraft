@@ -17,7 +17,8 @@ use super::behavior::{BehaviorControl, Status};
 use super::memory::memory_map::BrainPacked;
 use super::memory::memory_module_type::REGISTRY;
 use super::memory::{
-    ExpirableValue, MemoryData, MemoryMap, MemoryModuleType, MemorySlot, MemoryStatus, MemoryTypeId, MemoryValue,
+    ExpirableValue, MemoryData, MemoryMap, MemoryModuleType, MemorySlot, MemoryStatus,
+    MemoryTypeId, MemoryValue,
 };
 use super::sensing::sensor::SensorInstance;
 use super::sensing::sensor_type::SensorType;
@@ -43,8 +44,15 @@ pub struct ActivityData {
 
 impl ActivityData {
     /// `create(activity, priorityOfFirstBehavior, behaviorList)`.
-    pub fn create(activity: Activity, priority_of_first_behavior: i32, behavior_list: Vec<Box<dyn BehaviorControl>>) -> Self {
-        Self::create_pairs(activity, Self::create_priority_pairs(priority_of_first_behavior, behavior_list))
+    pub fn create(
+        activity: Activity,
+        priority_of_first_behavior: i32,
+        behavior_list: Vec<Box<dyn BehaviorControl>>,
+    ) -> Self {
+        Self::create_pairs(
+            activity,
+            Self::create_priority_pairs(priority_of_first_behavior, behavior_list),
+        )
     }
 
     /// `create(activity, priorityOfFirstBehavior, behaviorList, memoryThatMustHaveValueAndWillBeErasedAfter)`.
@@ -56,15 +64,31 @@ impl ActivityData {
     ) -> Self {
         Self {
             activity_type: activity,
-            behavior_priority_pairs: Self::create_priority_pairs(priority_of_first_behavior, behavior_list),
-            conditions: vec![(memory_that_must_have_value_and_will_be_erased_after, MemoryStatus::ValuePresent)],
-            memories_to_erase_when_stopped: vec![memory_that_must_have_value_and_will_be_erased_after],
+            behavior_priority_pairs: Self::create_priority_pairs(
+                priority_of_first_behavior,
+                behavior_list,
+            ),
+            conditions: vec![(
+                memory_that_must_have_value_and_will_be_erased_after,
+                MemoryStatus::ValuePresent,
+            )],
+            memories_to_erase_when_stopped: vec![
+                memory_that_must_have_value_and_will_be_erased_after,
+            ],
         }
     }
 
     /// `create(activity, behaviorPriorityPairs)`.
-    pub fn create_pairs(activity: Activity, behavior_priority_pairs: Vec<(i32, Box<dyn BehaviorControl>)>) -> Self {
-        Self { activity_type: activity, behavior_priority_pairs, conditions: Vec::new(), memories_to_erase_when_stopped: Vec::new() }
+    pub fn create_pairs(
+        activity: Activity,
+        behavior_priority_pairs: Vec<(i32, Box<dyn BehaviorControl>)>,
+    ) -> Self {
+        Self {
+            activity_type: activity,
+            behavior_priority_pairs,
+            conditions: Vec::new(),
+            memories_to_erase_when_stopped: Vec::new(),
+        }
     }
 
     /// `create(activity, priorityOfFirstBehavior, behaviorList, conditions)`.
@@ -74,7 +98,11 @@ impl ActivityData {
         behavior_list: Vec<Box<dyn BehaviorControl>>,
         conditions: Vec<(MemoryTypeId, MemoryStatus)>,
     ) -> Self {
-        Self::create_pairs_with_conditions(activity, Self::create_priority_pairs(priority_of_first_behavior, behavior_list), conditions)
+        Self::create_pairs_with_conditions(
+            activity,
+            Self::create_priority_pairs(priority_of_first_behavior, behavior_list),
+            conditions,
+        )
     }
 
     /// `create(activity, behaviorPriorityPairs, conditions)`.
@@ -83,7 +111,12 @@ impl ActivityData {
         behavior_priority_pairs: Vec<(i32, Box<dyn BehaviorControl>)>,
         conditions: Vec<(MemoryTypeId, MemoryStatus)>,
     ) -> Self {
-        Self { activity_type: activity, behavior_priority_pairs, conditions, memories_to_erase_when_stopped: Vec::new() }
+        Self {
+            activity_type: activity,
+            behavior_priority_pairs,
+            conditions,
+            memories_to_erase_when_stopped: Vec::new(),
+        }
     }
 
     /// `create(activity, behaviorPriorityPairs, conditions, memoriesToEraseWhenStopped)`.
@@ -93,11 +126,19 @@ impl ActivityData {
         conditions: Vec<(MemoryTypeId, MemoryStatus)>,
         memories_to_erase_when_stopped: Vec<MemoryTypeId>,
     ) -> Self {
-        Self { activity_type: activity, behavior_priority_pairs, conditions, memories_to_erase_when_stopped }
+        Self {
+            activity_type: activity,
+            behavior_priority_pairs,
+            conditions,
+            memories_to_erase_when_stopped,
+        }
     }
 
     /// `createPriorityPairs(priorityOfFirstBehavior, behaviorList)`: consecutive priorities.
-    pub fn create_priority_pairs(priority_of_first_behavior: i32, behavior_list: Vec<Box<dyn BehaviorControl>>) -> Vec<(i32, Box<dyn BehaviorControl>)> {
+    pub fn create_priority_pairs(
+        priority_of_first_behavior: i32,
+        behavior_list: Vec<Box<dyn BehaviorControl>>,
+    ) -> Vec<(i32, Box<dyn BehaviorControl>)> {
         let mut next_prio = priority_of_first_behavior;
         behavior_list
             .into_iter()
@@ -127,24 +168,49 @@ fn no_activities(_: &dyn Entity) -> Vec<ActivityData> {
 impl Provider {
     /// `Brain.provider(sensorTypes)`.
     pub const fn new(sensor_types: &'static [&'static SensorType]) -> Self {
-        Self { memory_types: &[], sensor_types, activities: no_activities }
+        Self {
+            memory_types: &[],
+            sensor_types,
+            activities: no_activities,
+        }
     }
 
     /// `Brain.provider(sensorTypes, activities)`.
-    pub const fn with_activities(sensor_types: &'static [&'static SensorType], activities: ActivitySupplier) -> Self {
-        Self { memory_types: &[], sensor_types, activities }
+    pub const fn with_activities(
+        sensor_types: &'static [&'static SensorType],
+        activities: ActivitySupplier,
+    ) -> Self {
+        Self {
+            memory_types: &[],
+            sensor_types,
+            activities,
+        }
     }
 
     /// `Brain.provider(memoryTypes, sensorTypes, activities)`.
-    pub const fn with_memories(memory_types: &'static [MemoryTypeId], sensor_types: &'static [&'static SensorType], activities: ActivitySupplier) -> Self {
-        Self { memory_types, sensor_types, activities }
+    pub const fn with_memories(
+        memory_types: &'static [MemoryTypeId],
+        sensor_types: &'static [&'static SensorType],
+        activities: ActivitySupplier,
+    ) -> Self {
+        Self {
+            memory_types,
+            sensor_types,
+            activities,
+        }
     }
 
     /// `makeBrain(body, packed)`: the activities are built from the body, the sensors' initial scan delay consumes
     /// `body.getRandom()`.
     pub fn make_brain(&self, body: &mut dyn Entity, packed: &BrainPacked) -> Brain {
         let activities = (self.activities)(&*body);
-        Brain::construct(self.memory_types, self.sensor_types, activities, &packed.memories, &mut body.base_mut().random)
+        Brain::construct(
+            self.memory_types,
+            self.sensor_types,
+            activities,
+            &packed.memories,
+            &mut body.base_mut().random,
+        )
     }
 }
 
@@ -245,13 +311,22 @@ impl Brain {
             for t in instance.requires() {
                 brain.register_memory(t);
             }
-            match brain.sensors.iter_mut().find(|(t, _)| t.name == sensor_type.name) {
+            match brain
+                .sensors
+                .iter_mut()
+                .find(|(t, _)| t.name == sensor_type.name)
+            {
                 Some(entry) => entry.1 = instance,
                 None => brain.sensors.push((sensor_type, instance)),
             }
         }
         for activity in activities {
-            brain.add_activity(activity.activity_type, activity.behavior_priority_pairs, activity.conditions, activity.memories_to_erase_when_stopped);
+            brain.add_activity(
+                activity.activity_type,
+                activity.behavior_priority_pairs,
+                activity.conditions,
+                activity.memories_to_erase_when_stopped,
+            );
         }
         for (type_id, value) in memories.iter() {
             brain.set_memory_internal_expirable(type_id, value);
@@ -291,7 +366,8 @@ impl Brain {
 
     /// `getMemorySlot(type)`: throws `IllegalStateException` for an unregistered memory.
     fn slot_or_panic(&self, type_id: MemoryTypeId) -> &MemorySlot {
-        self.slot(type_id).unwrap_or_else(|| panic!("Unregistered memory fetched: {type_id}"))
+        self.slot(type_id)
+            .unwrap_or_else(|| panic!("Unregistered memory fetched: {type_id}"))
     }
 
     /// `pack()`: the serializable memories with value (`Brain.Packed`).
@@ -301,7 +377,11 @@ impl Brain {
             if let Some(value) = slot.value()
                 && type_id.can_serialize()
             {
-                let expirable = if slot.can_expire() { ExpirableValue::with_ttl(value.clone(), slot.time_to_live()) } else { ExpirableValue::of(value.clone()) };
+                let expirable = if slot.can_expire() {
+                    ExpirableValue::with_ttl(value.clone(), slot.time_to_live())
+                } else {
+                    ExpirableValue::of(value.clone())
+                };
                 map.insert(*type_id, expirable);
             }
         }
@@ -343,18 +423,32 @@ impl Brain {
     }
 
     /// `setMemoryWithExpiry(type, value, timeToLive)`.
-    pub fn set_memory_with_expiry<U: MemoryData>(&mut self, type_: &MemoryModuleType<U>, value: U, time_to_live: i64) {
+    pub fn set_memory_with_expiry<U: MemoryData>(
+        &mut self,
+        type_: &MemoryModuleType<U>,
+        value: U,
+        time_to_live: i64,
+    ) {
         self.set_memory_with_expiry_value(type_.id(), Some(value.into_value()), time_to_live);
     }
 
-    fn set_memory_internal_expirable(&mut self, type_id: MemoryTypeId, value: &ExpirableValue<MemoryValue>) {
+    fn set_memory_internal_expirable(
+        &mut self,
+        type_id: MemoryTypeId,
+        value: &ExpirableValue<MemoryValue>,
+    ) {
         match value.time_to_live {
             Some(ttl) => self.set_memory_with_expiry_value(type_id, Some(value.value.clone()), ttl),
             None => self.set_memory_internal(type_id, Some(value.value.clone())),
         }
     }
 
-    fn set_memory_with_expiry_value(&mut self, type_id: MemoryTypeId, value: Option<MemoryValue>, time_to_live: i64) {
+    fn set_memory_with_expiry_value(
+        &mut self,
+        type_id: MemoryTypeId,
+        value: Option<MemoryValue>,
+        time_to_live: i64,
+    ) {
         if let Some(slot) = self.slot_mut(type_id) {
             match value.filter(|v| !v.is_empty_collection()) {
                 None => slot.clear(),
@@ -374,7 +468,12 @@ impl Brain {
 
     /// `setMemory`/`setMemoryWithExpiry` for an untyped memory (`time_to_live` = `Some` for the expiring variant); used by data-driven
     /// test scenarios that set memories by registry id.
-    pub fn set_memory_value(&mut self, type_id: MemoryTypeId, value: Option<MemoryValue>, time_to_live: Option<i64>) {
+    pub fn set_memory_value(
+        &mut self,
+        type_id: MemoryTypeId,
+        value: Option<MemoryValue>,
+        time_to_live: Option<i64>,
+    ) {
         match time_to_live {
             Some(ttl) => self.set_memory_with_expiry_value(type_id, value, ttl),
             None => self.set_memory_internal(type_id, value),
@@ -383,7 +482,9 @@ impl Brain {
 
     /// `getMemory(type)`; panics (`IllegalStateException`) when the memory is not registered in this brain.
     pub fn get_memory<U: MemoryData>(&self, type_: &MemoryModuleType<U>) -> Option<&U> {
-        self.slot_or_panic(type_.id()).value().and_then(U::from_value)
+        self.slot_or_panic(type_.id())
+            .value()
+            .and_then(U::from_value)
     }
 
     /// Mutable access to the value of a registered memory (vanilla mutates the stored object in place, e.g. adds to
@@ -391,13 +492,20 @@ impl Brain {
     pub fn get_memory_mut<U: MemoryData>(&mut self, type_: &MemoryModuleType<U>) -> Option<&mut U> {
         match self.slot_index[type_.id().0 as usize] {
             NO_SLOT => panic!("Unregistered memory fetched: {}", type_.id()),
-            i => self.slots[i as usize].1.value_mut().and_then(U::from_value_mut),
+            i => self.slots[i as usize]
+                .1
+                .value_mut()
+                .and_then(U::from_value_mut),
         }
     }
 
     /// `getMemoryInternal(type)`: `None` when the memory is not registered, else its (maybe empty) value.
-    pub fn get_memory_internal<U: MemoryData>(&self, type_: &MemoryModuleType<U>) -> Option<Option<&U>> {
-        self.slot(type_.id()).map(|s| s.value().and_then(U::from_value))
+    pub fn get_memory_internal<U: MemoryData>(
+        &self,
+        type_: &MemoryModuleType<U>,
+    ) -> Option<Option<&U>> {
+        self.slot(type_.id())
+            .map(|s| s.value().and_then(U::from_value))
     }
 
     /// `getMemoryInternal` for the untyped value.
@@ -412,14 +520,21 @@ impl Brain {
 
     /// `isMemoryValue(type, value)`.
     pub fn is_memory_value<U: MemoryData>(&self, type_: &MemoryModuleType<U>, value: &U) -> bool {
-        self.slot(type_.id()).and_then(MemorySlot::value).and_then(U::from_value).is_some_and(|v| v == value)
+        self.slot(type_.id())
+            .and_then(MemorySlot::value)
+            .and_then(U::from_value)
+            .is_some_and(|v| v == value)
     }
 
     /// `checkMemory(type, status)`.
     pub fn check_memory(&self, type_id: MemoryTypeId, status: MemoryStatus) -> bool {
         match self.slot(type_id) {
             None => false,
-            Some(slot) => status == MemoryStatus::Registered || status == MemoryStatus::ValuePresent && slot.has_value() || status == MemoryStatus::ValueAbsent && !slot.has_value(),
+            Some(slot) => {
+                status == MemoryStatus::Registered
+                    || status == MemoryStatus::ValuePresent && slot.has_value()
+                    || status == MemoryStatus::ValueAbsent && !slot.has_value()
+            }
         }
     }
 
@@ -431,9 +546,16 @@ impl Brain {
     }
 
     /// `forEach(visitor)`: registered memories with their value state, `(type, value, time to live if it expires)`.
-    pub fn for_each(&self, mut visitor: impl FnMut(MemoryTypeId, Option<(&MemoryValue, Option<i64>)>)) {
+    pub fn for_each(
+        &self,
+        mut visitor: impl FnMut(MemoryTypeId, Option<(&MemoryValue, Option<i64>)>),
+    ) {
         for (type_id, slot) in &self.slots {
-            visitor(*type_id, slot.value().map(|v| (v, slot.can_expire().then(|| slot.time_to_live()))));
+            visitor(
+                *type_id,
+                slot.value()
+                    .map(|v| (v, slot.can_expire().then(|| slot.time_to_live()))),
+            );
         }
     }
 
@@ -466,7 +588,10 @@ impl Brain {
 
     /// `getActiveNonCoreActivity()`.
     pub fn get_active_non_core_activity(&self) -> Option<Activity> {
-        self.active_activities.iter().copied().find(|a| !self.core_activities.contains(a))
+        self.active_activities
+            .iter()
+            .copied()
+            .find(|a| !self.core_activities.contains(a))
     }
 
     /// `setActiveActivityIfPossible(activity)`.
@@ -482,7 +607,8 @@ impl Brain {
         if !self.is_active(activity) {
             self.erase_memories_for_other_activities_than(activity);
             self.active_activities.clear();
-            self.active_activities.extend(self.core_activities.iter().copied());
+            self.active_activities
+                .extend(self.core_activities.iter().copied());
             if !self.active_activities.contains(&activity) {
                 self.active_activities.push(activity);
             }
@@ -490,9 +616,18 @@ impl Brain {
     }
 
     fn erase_memories_for_other_activities_than(&mut self, activity: Activity) {
-        let old: Vec<Activity> = self.active_activities.iter().copied().filter(|&a| a != activity).collect();
+        let old: Vec<Activity> = self
+            .active_activities
+            .iter()
+            .copied()
+            .filter(|&a| a != activity)
+            .collect();
         for old_activity in old {
-            let memories = self.activity_memories_to_erase_when_stopped.iter().find(|(a, _)| *a == old_activity).map(|(_, m)| m.clone());
+            let memories = self
+                .activity_memories_to_erase_when_stopped
+                .iter()
+                .find(|(a, _)| *a == old_activity)
+                .map(|(_, m)| m.clone());
             for m in memories.into_iter().flatten() {
                 self.erase_memory_id(m);
             }
@@ -501,7 +636,11 @@ impl Brain {
 
     /// `updateActivityFromSchedule(environmentAttributes, gameTime, pos)`: `scheduled_activity` evaluates the schedule
     /// attribute (given its name) at the entity's position; it is only called when the update is due.
-    pub fn update_activity_from_schedule(&mut self, game_time: i64, scheduled_activity: impl FnOnce(&'static str) -> Activity) {
+    pub fn update_activity_from_schedule(
+        &mut self,
+        game_time: i64,
+        scheduled_activity: impl FnOnce(&'static str) -> Activity,
+    ) {
         if game_time - self.last_schedule_update > SCHEDULE_UPDATE_DELAY {
             self.last_schedule_update = game_time;
             let scheduled = match self.schedule {
@@ -537,14 +676,24 @@ impl Brain {
         conditions: Vec<(MemoryTypeId, MemoryStatus)>,
         memories_to_erase_when_stopped: Vec<MemoryTypeId>,
     ) {
-        match self.activity_requirements.iter_mut().find(|(a, _)| *a == activity) {
+        match self
+            .activity_requirements
+            .iter_mut()
+            .find(|(a, _)| *a == activity)
+        {
             Some(entry) => entry.1 = conditions,
             None => self.activity_requirements.push((activity, conditions)),
         }
         if !memories_to_erase_when_stopped.is_empty() {
-            match self.activity_memories_to_erase_when_stopped.iter_mut().find(|(a, _)| *a == activity) {
+            match self
+                .activity_memories_to_erase_when_stopped
+                .iter_mut()
+                .find(|(a, _)| *a == activity)
+            {
                 Some(entry) => entry.1 = memories_to_erase_when_stopped,
-                None => self.activity_memories_to_erase_when_stopped.push((activity, memories_to_erase_when_stopped)),
+                None => self
+                    .activity_memories_to_erase_when_stopped
+                    .push((activity, memories_to_erase_when_stopped)),
             }
         }
         for (priority, behavior) in behavior_priority_pairs {
@@ -555,14 +704,25 @@ impl Brain {
             let index = match level.iter().position(|a| a.activity == activity) {
                 Some(i) => i,
                 None => {
-                    level.push(ActivityBehaviors { activity, seq: self.next_seq, behaviors: Vec::new() });
+                    level.push(ActivityBehaviors {
+                        activity,
+                        seq: self.next_seq,
+                        behaviors: Vec::new(),
+                    });
                     self.next_seq += 1;
                     // restore insertion order, then re-derive the `HashMap` iteration order
                     level.sort_by_key(|a| a.seq);
                     let hashes: Vec<i32> = level.iter().map(|a| a.activity.hash_code()).collect();
-                    let mut by_insertion: Vec<Option<ActivityBehaviors>> = std::mem::take(level).into_iter().map(Some).collect();
-                    *level = java_hash_map_order(&hashes).into_iter().filter_map(|i| by_insertion[i].take()).collect();
-                    level.iter().position(|a| a.activity == activity).expect("just inserted")
+                    let mut by_insertion: Vec<Option<ActivityBehaviors>> =
+                        std::mem::take(level).into_iter().map(Some).collect();
+                    *level = java_hash_map_order(&hashes)
+                        .into_iter()
+                        .filter_map(|i| by_insertion[i].take())
+                        .collect();
+                    level
+                        .iter()
+                        .position(|a| a.activity == activity)
+                        .expect("just inserted")
                 }
             };
             level[index].behaviors.push(Some(behavior));
@@ -580,7 +740,11 @@ impl Brain {
     }
 
     fn activity_requirements_are_met(&self, activity: Activity) -> bool {
-        match self.activity_requirements.iter().find(|(a, _)| *a == activity) {
+        match self
+            .activity_requirements
+            .iter()
+            .find(|(a, _)| *a == activity)
+        {
             None => false,
             Some((_, requirements)) => requirements.iter().all(|&(t, s)| self.check_memory(t, s)),
         }
@@ -597,7 +761,15 @@ impl Brain {
     pub fn get_running_behaviors(&self) -> Vec<String> {
         self.running_behavior_coordinates()
             .into_iter()
-            .filter_map(|(p, a, b)| self.behaviors.get(&p)?.get(a)?.behaviors.get(b)?.as_ref().map(|b| b.debug_string()))
+            .filter_map(|(p, a, b)| {
+                self.behaviors
+                    .get(&p)?
+                    .get(a)?
+                    .behaviors
+                    .get(b)?
+                    .as_ref()
+                    .map(|b| b.debug_string())
+            })
             .collect()
     }
 
@@ -606,7 +778,10 @@ impl Brain {
         for (&priority, level) in &self.behaviors {
             for (ai, entry) in level.iter().enumerate() {
                 for (bi, behavior) in entry.behaviors.iter().enumerate() {
-                    if behavior.as_ref().is_some_and(|b| b.get_status() == Status::Running) {
+                    if behavior
+                        .as_ref()
+                        .is_some_and(|b| b.get_status() == Status::Running)
+                    {
                         out.push((priority, ai, bi));
                     }
                 }
@@ -615,12 +790,29 @@ impl Brain {
         out
     }
 
-    fn take_behavior(&mut self, (p, a, b): (i32, usize, usize)) -> Option<Box<dyn BehaviorControl>> {
-        self.behaviors.get_mut(&p)?.get_mut(a)?.behaviors.get_mut(b)?.take()
+    fn take_behavior(
+        &mut self,
+        (p, a, b): (i32, usize, usize),
+    ) -> Option<Box<dyn BehaviorControl>> {
+        self.behaviors
+            .get_mut(&p)?
+            .get_mut(a)?
+            .behaviors
+            .get_mut(b)?
+            .take()
     }
 
-    fn put_back_behavior(&mut self, (p, a, b): (i32, usize, usize), behavior: Box<dyn BehaviorControl>) {
-        if let Some(slot) = self.behaviors.get_mut(&p).and_then(|l| l.get_mut(a)).and_then(|e| e.behaviors.get_mut(b)) {
+    fn put_back_behavior(
+        &mut self,
+        (p, a, b): (i32, usize, usize),
+        behavior: Box<dyn BehaviorControl>,
+    ) {
+        if let Some(slot) = self
+            .behaviors
+            .get_mut(&p)
+            .and_then(|l| l.get_mut(a))
+            .and_then(|e| e.behaviors.get_mut(b))
+        {
             *slot = Some(behavior);
         }
     }
@@ -643,7 +835,9 @@ impl Brain {
             if !brain.sensors[i].1.due() {
                 continue;
             }
-            let Some(mut sensor) = brain.sensors[i].1.sensor.take() else { continue };
+            let Some(mut sensor) = brain.sensors[i].1.sensor.take() else {
+                continue;
+            };
             super::sensing::sensor::update_targeting_condition_ranges(&*body);
             sensor.do_tick(level, body);
             let brain = body.brain_mut();
@@ -664,7 +858,9 @@ impl Brain {
                 if brain.id != id {
                     return;
                 }
-                let Some(entry) = brain.behaviors.get(&priority).and_then(|l| l.get(ai)) else { break };
+                let Some(entry) = brain.behaviors.get(&priority).and_then(|l| l.get(ai)) else {
+                    break;
+                };
                 let (activity, count) = (entry.activity, entry.behaviors.len());
                 if brain.is_active(activity) {
                     for bi in 0..count {
@@ -673,10 +869,19 @@ impl Brain {
                         if brain.id != id {
                             return;
                         }
-                        if !brain.behaviors.get(&priority).and_then(|l| l.get(ai)).and_then(|e| e.behaviors.get(bi)).and_then(Option::as_ref).is_some_and(|b| b.get_status() == Status::Stopped) {
+                        if !brain
+                            .behaviors
+                            .get(&priority)
+                            .and_then(|l| l.get(ai))
+                            .and_then(|e| e.behaviors.get(bi))
+                            .and_then(Option::as_ref)
+                            .is_some_and(|b| b.get_status() == Status::Stopped)
+                        {
                             continue;
                         }
-                        let Some(mut behavior) = brain.take_behavior(coordinate) else { continue };
+                        let Some(mut behavior) = brain.take_behavior(coordinate) else {
+                            continue;
+                        };
                         behavior.try_start(level, body, time);
                         let brain = body.brain_mut();
                         if brain.id == id {
@@ -697,7 +902,9 @@ impl Brain {
             if brain.id != id {
                 return;
             }
-            let Some(mut behavior) = brain.take_behavior(coordinate) else { continue };
+            let Some(mut behavior) = brain.take_behavior(coordinate) else {
+                continue;
+            };
             behavior.tick_or_stop(level, body, timestamp);
             let brain = body.brain_mut();
             if brain.id == id {
@@ -715,7 +922,9 @@ impl Brain {
             if brain.id != id {
                 return;
             }
-            let Some(mut behavior) = brain.take_behavior(coordinate) else { continue };
+            let Some(mut behavior) = brain.take_behavior(coordinate) else {
+                continue;
+            };
             behavior.do_stop(level, body, timestamp);
             let brain = body.brain_mut();
             if brain.id == id {
@@ -746,8 +955,11 @@ pub fn update_activity_from_schedule(level: &ServerLevel, body: &mut dyn Entity)
     use crate::world::attribute::AttrValue;
     let pos = body.position();
     let game_time = level.game_time();
-    body.brain_mut().update_activity_from_schedule(game_time, |attribute| match level.environment_value(attribute, &pos) {
-        AttrValue::Activity(id) => Activity::by_id(&id).unwrap_or(Activity::IDLE),
-        _ => Activity::IDLE,
-    });
+    body.brain_mut()
+        .update_activity_from_schedule(game_time, |attribute| {
+            match level.environment_value(attribute, &pos) {
+                AttrValue::Activity(id) => Activity::by_id(&id).unwrap_or(Activity::IDLE),
+                _ => Activity::IDLE,
+            }
+        });
 }

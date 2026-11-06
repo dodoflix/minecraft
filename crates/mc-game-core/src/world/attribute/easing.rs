@@ -33,7 +33,10 @@ impl Curve {
 
 impl CubicBezier {
     pub fn new(x1: f32, y1: f32, x2: f32, y2: f32) -> CubicBezier {
-        CubicBezier { x: Curve::from_controls(x1, x2), y: Curve::from_controls(y1, y2) }
+        CubicBezier {
+            x: Curve::from_controls(x1, x2),
+            y: Curve::from_controls(y1, y2),
+        }
     }
 
     fn apply(&self, x: f32) -> f32 {
@@ -112,10 +115,17 @@ const SIMPLE: &[(&str, fn(f32) -> f32)] = &[
         } else if x == 1.0 {
             1.0
         } else {
-            (-pow(2.0, f64::from(x) * 10.0 - 10.0) * ((f64::from(x) * 10.0 - 10.75) * f64::from(C4)).sin()) as f32
+            (-pow(2.0, f64::from(x) * 10.0 - 10.0)
+                * ((f64::from(x) * 10.0 - 10.75) * f64::from(C4)).sin()) as f32
         }
     }),
-    ("in_expo", |x| if x == 0.0 { 0.0 } else { pow(2.0, f64::from(x) * 10.0 - 10.0) as f32 }),
+    ("in_expo", |x| {
+        if x == 0.0 {
+            0.0
+        } else {
+            pow(2.0, f64::from(x) * 10.0 - 10.0) as f32
+        }
+    }),
     ("in_quad", |x| x * x),
     ("in_quart", |x| sq(sq(x))),
     ("in_quint", |x| sq(sq(x)) * x),
@@ -128,7 +138,13 @@ const SIMPLE: &[(&str, fn(f32) -> f32)] = &[
             (dt * dt * (3.5949094 * dt + 2.5949094) + 2.0) / 2.0
         }
     }),
-    ("in_out_bounce", |x| if x < 0.5 { (1.0 - out_bounce(1.0 - 2.0 * x)) / 2.0 } else { (1.0 + out_bounce(2.0 * x - 1.0)) / 2.0 }),
+    ("in_out_bounce", |x| {
+        if x < 0.5 {
+            (1.0 - out_bounce(1.0 - 2.0 * x)) / 2.0
+        } else {
+            (1.0 + out_bounce(2.0 * x - 1.0)) / 2.0
+        }
+    }),
     ("in_out_circ", |x| {
         if x < 0.5 {
             ((1.0 - (1.0 - pow(2.0 * f64::from(x), 2.0)).sqrt()) / 2.0) as f32
@@ -136,7 +152,13 @@ const SIMPLE: &[(&str, fn(f32) -> f32)] = &[
             (((1.0 - pow(-2.0 * f64::from(x) + 2.0, 2.0)).sqrt() + 1.0) / 2.0) as f32
         }
     }),
-    ("in_out_cubic", |x| if x < 0.5 { 4.0 * cube(x) } else { (1.0 - pow(-2.0 * f64::from(x) + 2.0, 3.0) / 2.0) as f32 }),
+    ("in_out_cubic", |x| {
+        if x < 0.5 {
+            4.0 * cube(x)
+        } else {
+            (1.0 - pow(-2.0 * f64::from(x) + 2.0, 3.0) / 2.0) as f32
+        }
+    }),
     ("in_out_elastic", |x| {
         if x == 0.0 {
             0.0
@@ -153,18 +175,44 @@ const SIMPLE: &[(&str, fn(f32) -> f32)] = &[
     }),
     ("in_out_expo", |x| {
         if x < 0.5 {
-            if x == 0.0 { 0.0 } else { (pow(2.0, 20.0 * f64::from(x) - 10.0) / 2.0) as f32 }
+            if x == 0.0 {
+                0.0
+            } else {
+                (pow(2.0, 20.0 * f64::from(x) - 10.0) / 2.0) as f32
+            }
         } else if x == 1.0 {
             1.0
         } else {
             ((2.0 - pow(2.0, -20.0 * f64::from(x) + 10.0)) / 2.0) as f32
         }
     }),
-    ("in_out_quad", |x| if x < 0.5 { 2.0 * sq(x) } else { (1.0 - pow(-2.0 * f64::from(x) + 2.0, 2.0) / 2.0) as f32 }),
-    ("in_out_quart", |x| if x < 0.5 { 8.0 * sq(sq(x)) } else { (1.0 - pow(-2.0 * f64::from(x) + 2.0, 4.0) / 2.0) as f32 }),
-    ("in_out_quint", |x| if f64::from(x) < 0.5 { 16.0 * x * x * x * x * x } else { (1.0 - pow(-2.0 * f64::from(x) + 2.0, 5.0) / 2.0) as f32 }),
-    ("in_out_sine", |x| -(mth::cos(f64::from(PI * x)) - 1.0) / 2.0),
-    ("out_back", |x| 1.0 + 2.70158 * cube(x - 1.0) + 1.70158 * sq(x - 1.0)),
+    ("in_out_quad", |x| {
+        if x < 0.5 {
+            2.0 * sq(x)
+        } else {
+            (1.0 - pow(-2.0 * f64::from(x) + 2.0, 2.0) / 2.0) as f32
+        }
+    }),
+    ("in_out_quart", |x| {
+        if x < 0.5 {
+            8.0 * sq(sq(x))
+        } else {
+            (1.0 - pow(-2.0 * f64::from(x) + 2.0, 4.0) / 2.0) as f32
+        }
+    }),
+    ("in_out_quint", |x| {
+        if f64::from(x) < 0.5 {
+            16.0 * x * x * x * x * x
+        } else {
+            (1.0 - pow(-2.0 * f64::from(x) + 2.0, 5.0) / 2.0) as f32
+        }
+    }),
+    ("in_out_sine", |x| {
+        -(mth::cos(f64::from(PI * x)) - 1.0) / 2.0
+    }),
+    ("out_back", |x| {
+        1.0 + 2.70158 * cube(x - 1.0) + 1.70158 * sq(x - 1.0)
+    }),
     ("out_bounce", out_bounce),
     ("out_circ", |x| f64::from(1.0 - sq(x - 1.0)).sqrt() as f32),
     ("out_cubic", |x| 1.0 - cube(1.0 - x)),
@@ -174,10 +222,17 @@ const SIMPLE: &[(&str, fn(f32) -> f32)] = &[
         } else if x == 1.0 {
             1.0
         } else {
-            (pow(2.0, -10.0 * f64::from(x)) * ((f64::from(x) * 10.0 - 0.75) * f64::from(C4)).sin() + 1.0) as f32
+            (pow(2.0, -10.0 * f64::from(x)) * ((f64::from(x) * 10.0 - 0.75) * f64::from(C4)).sin()
+                + 1.0) as f32
         }
     }),
-    ("out_expo", |x| if x == 1.0 { 1.0 } else { 1.0 - pow(2.0, -10.0 * f64::from(x)) as f32 }),
+    ("out_expo", |x| {
+        if x == 1.0 {
+            1.0
+        } else {
+            1.0 - pow(2.0, -10.0 * f64::from(x)) as f32
+        }
+    }),
     ("out_quad", |x| 1.0 - sq(1.0 - x)),
     ("out_quart", |x| 1.0 - sq(sq(1.0 - x))),
     ("out_quint", |x| 1.0 - pow(1.0 - f64::from(x), 5.0) as f32),
@@ -190,10 +245,20 @@ impl EasingType {
     /// `EasingType.CODEC`: a simple name or `{"cubic_bezier": [x1, y1, x2, y2]}`.
     pub fn from_json(value: &Value) -> Option<EasingType> {
         match value {
-            Value::String(name) => SIMPLE.iter().find(|(n, _)| n == name).map(|(n, f)| EasingType::Named(*f, n)),
+            Value::String(name) => SIMPLE
+                .iter()
+                .find(|(n, _)| n == name)
+                .map(|(n, f)| EasingType::Named(*f, n)),
             Value::Object(o) => {
-                let controls: Vec<f32> = o.get("cubic_bezier")?.as_array()?.iter().map(|v| v.as_f64().map(|f| f as f32)).collect::<Option<_>>()?;
-                let [x1, y1, x2, y2] = controls[..] else { return None };
+                let controls: Vec<f32> = o
+                    .get("cubic_bezier")?
+                    .as_array()?
+                    .iter()
+                    .map(|v| v.as_f64().map(|f| f as f32))
+                    .collect::<Option<_>>()?;
+                let [x1, y1, x2, y2] = controls[..] else {
+                    return None;
+                };
                 if !(0.0..=1.0).contains(&x1) || !(0.0..=1.0).contains(&x2) {
                     return None;
                 }
@@ -227,7 +292,10 @@ mod tests {
 
     #[test]
     fn bezier_is_monotone_for_ease_in_out() {
-        let e = EasingType::from_json(&serde_json::json!({"cubic_bezier": [0.362, 0.241, 0.638, 0.759]})).unwrap();
+        let e = EasingType::from_json(
+            &serde_json::json!({"cubic_bezier": [0.362, 0.241, 0.638, 0.759]}),
+        )
+        .unwrap();
         let mut last = -1.0;
         for i in 0..=20 {
             let v = e.apply(i as f32 / 20.0);

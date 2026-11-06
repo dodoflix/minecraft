@@ -12,23 +12,39 @@ use mc_core::pos::BlockPos;
 use mc_world::palette::BiomeId;
 
 impl ServerLevel {
-    fn with_attribute_env<R>(&self, f: impl FnOnce(&crate::world::attribute::EnvironmentAttributeSystem, &AttributeEnv<'_>) -> R) -> R {
+    fn with_attribute_env<R>(
+        &self,
+        f: impl FnOnce(&crate::world::attribute::EnvironmentAttributeSystem, &AttributeEnv<'_>) -> R,
+    ) -> R {
         let biome_at = |pos: [f64; 3], full_resolution: bool| {
             if full_resolution {
-                self.get_biome_id(BlockPos::new(mth::floor_f64(pos[0]), mth::floor_f64(pos[1]), mth::floor_f64(pos[2])))
+                self.get_biome_id(BlockPos::new(
+                    mth::floor_f64(pos[0]),
+                    mth::floor_f64(pos[1]),
+                    mth::floor_f64(pos[2]),
+                ))
             } else {
                 self.noise_biome_id_at_position(pos[0], pos[1], pos[2])
             }
         };
-        let env = AttributeEnv { rain_level: self.get_rain_level(1.0), thunder_level: self.get_thunder_level(1.0), biome_at: &biome_at };
+        let env = AttributeEnv {
+            rain_level: self.get_rain_level(1.0),
+            thunder_level: self.get_thunder_level(1.0),
+            biome_at: &biome_at,
+        };
         f(&self.tick_state.attributes, &env)
     }
 
     /// `BiomeManager.getNoiseBiomeAtPosition(x, y, z)` (`None` while the chunk is not loaded).
     pub fn noise_biome_id_at_position(&self, x: f64, y: f64, z: f64) -> Option<BiomeId> {
         self.tick_state.biomes.as_ref()?;
-        let (qx, qy, qz) = (mth::floor_f64(x) >> 2, mth::floor_f64(y) >> 2, mth::floor_f64(z) >> 2);
-        self.chunk_now(qx >> 2, qz >> 2).map(|c| c.data.access.get_noise_biome(qx, qy, qz))
+        let (qx, qy, qz) = (
+            mth::floor_f64(x) >> 2,
+            mth::floor_f64(y) >> 2,
+            mth::floor_f64(z) >> 2,
+        );
+        self.chunk_now(qx >> 2, qz >> 2)
+            .map(|c| c.data.access.get_noise_biome(qx, qy, qz))
     }
 
     /// `Timelines.OVERWORLD_DAY.getPeriodCount(clockManager)` (24000-tick period of the `minecraft:overworld` clock).
@@ -44,12 +60,21 @@ impl ServerLevel {
 
     /// `environmentAttributes().getValue(attribute, pos)`.
     pub fn environment_value(&self, attribute: &str, pos: &Vec3) -> AttrValue {
-        self.with_attribute_env(|system, env| system.get_value(attribute, [pos.x, pos.y, pos.z], env))
+        self.with_attribute_env(|system, env| {
+            system.get_value(attribute, [pos.x, pos.y, pos.z], env)
+        })
     }
 
     /// `getValue(attribute, BlockPos)` = at `Vec3.atCenterOf(pos)`.
     pub fn environment_value_at(&self, attribute: &str, pos: BlockPos) -> AttrValue {
-        self.environment_value(attribute, &Vec3::new(f64::from(pos.x()) + 0.5, f64::from(pos.y()) + 0.5, f64::from(pos.z()) + 0.5))
+        self.environment_value(
+            attribute,
+            &Vec3::new(
+                f64::from(pos.x()) + 0.5,
+                f64::from(pos.y()) + 0.5,
+                f64::from(pos.z()) + 0.5,
+            ),
+        )
     }
 
     pub fn attribute_bool(&self, attribute: &str, pos: BlockPos) -> bool {

@@ -4,11 +4,13 @@
 //! committed as `shapes.out`) and the interpreter below (the Rust port). The output lines must be identical.
 
 use std::collections::HashMap;
-use std::panic::{catch_unwind, AssertUnwindSafe};
+use std::panic::{AssertUnwindSafe, catch_unwind};
 
 use mc_core::direction::{Axis, Direction};
-use mc_core::phys::shapes::{BitSetDiscreteVoxelShape, BooleanOp, Coords, DiscreteVoxelShape, Shapes, VoxelShape};
-use mc_core::phys::{Vec3, AABB};
+use mc_core::phys::shapes::{
+    BitSetDiscreteVoxelShape, BooleanOp, Coords, DiscreteVoxelShape, Shapes, VoxelShape,
+};
+use mc_core::phys::{AABB, Vec3};
 use mc_core::pos::BlockPos;
 
 const SCRIPT: &str = include_str!("../fixtures/shapes/shapes.script");
@@ -104,17 +106,49 @@ fn join_hex(it: impl Iterator<Item = f64>) -> String {
 
 fn dump(name: &str, s: &VoxelShape) -> String {
     let d = s.shape();
-    let mut b = format!("dump {name} kind={}", if s.is_cube_voxel_shape() { "cube" } else { "array" });
+    let mut b = format!(
+        "dump {name} kind={}",
+        if s.is_cube_voxel_shape() {
+            "cube"
+        } else {
+            "array"
+        }
+    );
     let (disc, words) = match &**d {
         DiscreteVoxelShape::BitSet(bs) => {
             let w = bs.bits();
-            ("bitset", if w.is_empty() { "-".to_string() } else { w.iter().map(|w| format!("{w:x}")).collect::<Vec<_>>().join(",") })
+            (
+                "bitset",
+                if w.is_empty() {
+                    "-".to_string()
+                } else {
+                    w.iter()
+                        .map(|w| format!("{w:x}"))
+                        .collect::<Vec<_>>()
+                        .join(",")
+                },
+            )
         }
         DiscreteVoxelShape::Sub(_) => ("sub", "-".to_string()),
     };
-    b += &format!(" disc={disc} size={},{},{}", d.get_x_size(), d.get_y_size(), d.get_z_size());
-    b += &format!(" first={},{},{}", d.first_full(Axis::X), d.first_full(Axis::Y), d.first_full(Axis::Z));
-    b += &format!(" last={},{},{}", d.last_full(Axis::X), d.last_full(Axis::Y), d.last_full(Axis::Z));
+    b += &format!(
+        " disc={disc} size={},{},{}",
+        d.get_x_size(),
+        d.get_y_size(),
+        d.get_z_size()
+    );
+    b += &format!(
+        " first={},{},{}",
+        d.first_full(Axis::X),
+        d.first_full(Axis::Y),
+        d.first_full(Axis::Z)
+    );
+    b += &format!(
+        " last={},{},{}",
+        d.last_full(Axis::X),
+        d.last_full(Axis::Y),
+        d.last_full(Axis::Z)
+    );
     b += &format!(" words={words} cells=");
     for x in 0..d.get_x_size() {
         for y in 0..d.get_y_size() {
@@ -125,7 +159,11 @@ fn dump(name: &str, s: &VoxelShape) -> String {
     }
     b += " ckind=";
     for a in Axis::VALUES {
-        b.push(if s.get_coords(a).is_cube_point_range() { 'c' } else { 'a' });
+        b.push(if s.get_coords(a).is_cube_point_range() {
+            'c'
+        } else {
+            'a'
+        });
     }
     for (n, a) in [("cx", Axis::X), ("cy", Axis::Y), ("cz", Axis::Z)] {
         b += &format!(" {n}={}", join_hex(s.get_coords(a).to_vec().into_iter()));
@@ -153,7 +191,9 @@ fn run(script: &str) -> (Vec<String>, HashMap<String, VoxelShape>) {
         let snapshot = shapes.clone();
         let mut lines: Vec<String> = Vec::new();
         let mut defined: Option<(String, VoxelShape)> = None;
-        let res = catch_unwind(AssertUnwindSafe(|| command(&t, &snapshot, &mut lines, &mut defined)));
+        let res = catch_unwind(AssertUnwindSafe(|| {
+            command(&t, &snapshot, &mut lines, &mut defined)
+        }));
         match res {
             Ok(()) => {
                 out.extend(lines);
@@ -176,7 +216,12 @@ fn f(s: &str) -> f64 {
     s.parse().unwrap()
 }
 
-fn command(t: &[&str], sh: &HashMap<String, VoxelShape>, out: &mut Vec<String>, defined: &mut Option<(String, VoxelShape)>) {
+fn command(
+    t: &[&str],
+    sh: &HashMap<String, VoxelShape>,
+    out: &mut Vec<String>,
+    defined: &mut Option<(String, VoxelShape)>,
+) {
     let name = t.get(1).copied().unwrap_or("");
     macro_rules! shape {
         ($n:expr) => {
@@ -209,7 +254,11 @@ fn command(t: &[&str], sh: &HashMap<String, VoxelShape>, out: &mut Vec<String>, 
         }
         "join" | "joinu" => {
             let (a, b) = (&sh[t[2]], &sh[t[3]]);
-            let r = if t[0] == "join" { Shapes::join(a, b, op(t[4])) } else { Shapes::join_unoptimized(a, b, op(t[4])) };
+            let r = if t[0] == "join" {
+                Shapes::join(a, b, op(t[4]))
+            } else {
+                Shapes::join_unoptimized(a, b, op(t[4]))
+            };
             out.push(format!("ref {name} {}", reference(&r, &[a, b])));
             *defined = Some((name.into(), r));
         }
@@ -221,7 +270,11 @@ fn command(t: &[&str], sh: &HashMap<String, VoxelShape>, out: &mut Vec<String>, 
         }
         "opt" | "single" => {
             let a = &sh[t[2]];
-            let r = if t[0] == "opt" { a.optimize() } else { a.single_encompassing() };
+            let r = if t[0] == "opt" {
+                a.optimize()
+            } else {
+                a.single_encompassing()
+            };
             out.push(format!("ref {name} {}", reference(&r, &[a])));
             *defined = Some((name.into(), r));
         }
@@ -229,13 +282,25 @@ fn command(t: &[&str], sh: &HashMap<String, VoxelShape>, out: &mut Vec<String>, 
             let a = &sh[t[2]];
             let r = a.get_face_shape(dir(t[3]));
             let r2 = a.get_face_shape(dir(t[3]));
-            out.push(format!("ref {name} {} cached={}", reference(&r, &[a]), r.ptr_eq(&r2)));
+            out.push(format!(
+                "ref {name} {} cached={}",
+                reference(&r, &[a]),
+                r.ptr_eq(&r2)
+            ));
             *defined = Some((name.into(), r));
         }
         "slice" => {
-            *defined = Some((name.into(), sh[t[2]].slice(axis(t[3]), t[4].parse().unwrap())));
+            *defined = Some((
+                name.into(),
+                sh[t[2]].slice(axis(t[3]), t[4].parse().unwrap()),
+            ));
         }
-        "findbits" => out.push(format!("findbits {} {} {}", t[1], t[2], Shapes::find_bits(f(t[1]), f(t[2])))),
+        "findbits" => out.push(format!(
+            "findbits {} {} {}",
+            t[1],
+            t[2],
+            Shapes::find_bits(f(t[1]), f(t[2]))
+        )),
         "dump" => {
             let s = shape!(name);
             out.push(dump(name, s));
@@ -244,7 +309,15 @@ fn command(t: &[&str], sh: &HashMap<String, VoxelShape>, out: &mut Vec<String>, 
             let s = shape!(name);
             let mut b = format!("aabbs {name} ");
             for a in s.to_aabbs() {
-                b += &format!("{},{},{},{},{},{};", hx(a.min_x), hx(a.min_y), hx(a.min_z), hx(a.max_x), hx(a.max_y), hx(a.max_z));
+                b += &format!(
+                    "{},{},{},{},{},{};",
+                    hx(a.min_x),
+                    hx(a.min_y),
+                    hx(a.min_z),
+                    hx(a.max_x),
+                    hx(a.max_y),
+                    hx(a.max_z)
+                );
             }
             out.push(b);
         }
@@ -283,7 +356,12 @@ fn command(t: &[&str], sh: &HashMap<String, VoxelShape>, out: &mut Vec<String>, 
             for x in VALS {
                 for y in VALS {
                     for d in DELTAS {
-                        h.add_f(Shapes::collide(Axis::Y, &AABB::new(x, y, 0.3, x + 0.4, y + 0.4, 0.7), list.iter(), d));
+                        h.add_f(Shapes::collide(
+                            Axis::Y,
+                            &AABB::new(x, y, 0.3, x + 0.4, y + 0.4, 0.7),
+                            list.iter(),
+                            d,
+                        ));
                     }
                 }
             }
@@ -347,12 +425,30 @@ fn command(t: &[&str], sh: &HashMap<String, VoxelShape>, out: &mut Vec<String>, 
         "closest" => {
             let s = shape!(name);
             let r = s.closest_point_to(Vec3::new(f(t[2]), f(t[3]), f(t[4])));
-            let r = r.map_or("none".to_string(), |v| join_hex([v.x, v.y, v.z].into_iter()));
+            let r = r.map_or("none".to_string(), |v| {
+                join_hex([v.x, v.y, v.z].into_iter())
+            });
             out.push(format!("closest {name} {} {} {} {r}", t[2], t[3], t[4]));
         }
-        "joinne" => out.push(format!("joinne {} {} {} {}", t[1], t[2], t[3], Shapes::join_is_not_empty(&sh[t[1]], &sh[t[2]], op(t[3])))),
-        "equal" => out.push(format!("equal {} {} {}", t[1], t[2], Shapes::equal(&sh[t[1]], &sh[t[2]]))),
-        "faceocc" => out.push(format!("faceocc {} {} {}", t[1], t[2], Shapes::face_shape_occludes(&sh[t[1]], &sh[t[2]]))),
+        "joinne" => out.push(format!(
+            "joinne {} {} {} {}",
+            t[1],
+            t[2],
+            t[3],
+            Shapes::join_is_not_empty(&sh[t[1]], &sh[t[2]], op(t[3]))
+        )),
+        "equal" => out.push(format!(
+            "equal {} {} {}",
+            t[1],
+            t[2],
+            Shapes::equal(&sh[t[1]], &sh[t[2]])
+        )),
+        "faceocc" => out.push(format!(
+            "faceocc {} {} {}",
+            t[1],
+            t[2],
+            Shapes::face_shape_occludes(&sh[t[1]], &sh[t[2]])
+        )),
         "occl" => {
             let d = dir(t[3]);
             out.push(format!(
@@ -367,7 +463,11 @@ fn command(t: &[&str], sh: &HashMap<String, VoxelShape>, out: &mut Vec<String>, 
         "clip" => {
             let s = &sh[t[1]];
             let v: Vec<f64> = (0..9).map(|i| f(t[2 + i])).collect();
-            let r = s.clip(Vec3::new(v[0], v[1], v[2]), Vec3::new(v[3], v[4], v[5]), BlockPos::new(v[6] as i32, v[7] as i32, v[8] as i32));
+            let r = s.clip(
+                Vec3::new(v[0], v[1], v[2]),
+                Vec3::new(v[3], v[4], v[5]),
+                BlockPos::new(v[6] as i32, v[7] as i32, v[8] as i32),
+            );
             let mut b = format!("clip {}", t[1..].join(" "));
             match r {
                 None => b += " null",
@@ -412,7 +512,9 @@ fn ints(s: &str) -> Vec<i32> {
 }
 
 fn hexes(s: &str) -> Vec<f64> {
-    s.split(',').map(|v| f64::from_bits(u64::from_str_radix(v, 16).unwrap())).collect()
+    s.split(',')
+        .map(|v| f64::from_bits(u64::from_str_radix(v, 16).unwrap()))
+        .collect()
 }
 
 /// The public "exact vanilla internals" constructors rebuild every dumped bitset-backed shape bit-for-bit.
@@ -420,22 +522,44 @@ fn hexes(s: &str) -> Vec<f64> {
 fn constructors_rebuild_dumped_shapes() {
     let (_, shapes) = run(SCRIPT);
     let mut rebuilt = 0;
-    for line in EXPECTED.lines().filter(|l| l.starts_with("dump ") && l.contains("disc=bitset")) {
+    for line in EXPECTED
+        .lines()
+        .filter(|l| l.starts_with("dump ") && l.contains("disc=bitset"))
+    {
         let name = line.split(' ').nth(1).unwrap();
         let size = ints(kv(line, "size"));
         let (first, last) = (ints(kv(line, "first")), ints(kv(line, "last")));
         let words_s = kv(line, "words");
-        let words: Vec<u64> = if words_s == "-" { vec![] } else { words_s.split(',').map(|w| u64::from_str_radix(w, 16).unwrap()).collect() };
-        let discrete = BitSetDiscreteVoxelShape::from_raw(size[0], size[1], size[2], &words, first[0], first[1], first[2], last[0], last[1], last[2]);
+        let words: Vec<u64> = if words_s == "-" {
+            vec![]
+        } else {
+            words_s
+                .split(',')
+                .map(|w| u64::from_str_radix(w, 16).unwrap())
+                .collect()
+        };
+        let discrete = BitSetDiscreteVoxelShape::from_raw(
+            size[0], size[1], size[2], &words, first[0], first[1], first[2], last[0], last[1],
+            last[2],
+        );
         let shape = if kv(line, "kind") == "cube" {
             VoxelShape::cube(DiscreteVoxelShape::BitSet(discrete))
         } else {
             let ckind = kv(line, "ckind").as_bytes();
             let mk = |i: usize, key: &str| {
                 let v = hexes(kv(line, key));
-                if ckind[i] == b'c' { Coords::cube(v.len() as i32 - 1) } else { Coords::array(v) }
+                if ckind[i] == b'c' {
+                    Coords::cube(v.len() as i32 - 1)
+                } else {
+                    Coords::array(v)
+                }
             };
-            VoxelShape::array(DiscreteVoxelShape::BitSet(discrete), mk(0, "cx"), mk(1, "cy"), mk(2, "cz"))
+            VoxelShape::array(
+                DiscreteVoxelShape::BitSet(discrete),
+                mk(0, "cx"),
+                mk(1, "cy"),
+                mk(2, "cz"),
+            )
         };
         assert_eq!(&shape, &shapes[name], "{name}");
         rebuilt += 1;
@@ -451,7 +575,11 @@ fn partial_eq_is_structural_and_ptr_eq_is_identity() {
     assert!(!a.ptr_eq(&b));
     assert!(a.ptr_eq(&a.clone()));
     assert_ne!(a, Shapes::box_(0.0, 0.0, 0.0, 1.0, 0.25, 1.0));
-    assert_ne!(a.move_(0.0, 0.0, 0.0), a, "moved shapes use OffsetDoubleList-style array coords");
+    assert_ne!(
+        a.move_(0.0, 0.0, 0.0),
+        a,
+        "moved shapes use OffsetDoubleList-style array coords"
+    );
 }
 
 #[test]

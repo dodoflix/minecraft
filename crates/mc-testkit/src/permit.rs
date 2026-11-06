@@ -16,8 +16,15 @@ struct Gate {
 }
 
 static GATE: LazyLock<Gate> = LazyLock::new(|| {
-    let limit = std::env::var("MC_TESTKIT_TESTS").ok().and_then(|v| v.parse::<usize>().ok()).filter(|n| *n > 0).unwrap_or(2);
-    Gate { free: Mutex::new(limit), released: Condvar::new() }
+    let limit = std::env::var("MC_TESTKIT_TESTS")
+        .ok()
+        .and_then(|v| v.parse::<usize>().ok())
+        .filter(|n| *n > 0)
+        .unwrap_or(2);
+    Gate {
+        free: Mutex::new(limit),
+        released: Condvar::new(),
+    }
 });
 
 /// One test's right to run servers. Dropping the last handle lets the next test in.
@@ -42,7 +49,10 @@ pub(crate) fn acquire() -> Arc<Permit> {
     }
     let mut free = GATE.free.lock().unwrap_or_else(PoisonError::into_inner);
     while *free == 0 {
-        free = GATE.released.wait(free).unwrap_or_else(PoisonError::into_inner);
+        free = GATE
+            .released
+            .wait(free)
+            .unwrap_or_else(PoisonError::into_inner);
     }
     *free -= 1;
     drop(free);

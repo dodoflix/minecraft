@@ -4,8 +4,8 @@ use mc_core::ident::Identifier;
 use uuid::Uuid;
 
 use super::{
-    read_varint, take, take_array, write_count, write_utf, write_varint, Decode, DecodeBounded, DecodeError, DecodeResult,
-    Encode, EncodeBounded, EncodeError,
+    Decode, DecodeBounded, DecodeError, DecodeResult, Encode, EncodeBounded, EncodeError,
+    read_varint, take, take_array, write_count, write_utf, write_varint,
 };
 
 /// `ByteBufCodecs.either`: `true` = left.
@@ -32,7 +32,11 @@ impl<L: Encode, R: Encode> Encode for Either<L, R> {
 }
 impl<L: Decode, R: Decode> Decode for Either<L, R> {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
-        if bool::decode(input)? { L::decode(input).map(Self::Left) } else { R::decode(input).map(Self::Right) }
+        if bool::decode(input)? {
+            L::decode(input).map(Self::Left)
+        } else {
+            R::decode(input).map(Self::Right)
+        }
     }
 }
 
@@ -197,7 +201,9 @@ pub fn write_properties(out: &mut Vec<u8>, properties: &[Property]) -> EncodeRes
 pub(crate) fn read_property_count(input: &mut &[u8]) -> DecodeResult<usize> {
     let count = read_varint(input)?;
     if count > 16 {
-        return Err(DecodeError::Message(format!("{count} elements exceeded max size of: 16")));
+        return Err(DecodeError::Message(format!(
+            "{count} elements exceeded max size of: 16"
+        )));
     }
     Ok(usize::try_from(count).unwrap_or(0))
 }
@@ -211,7 +217,16 @@ pub(crate) fn group_properties_by_name(props: Vec<Property>) -> Vec<Property> {
         }
     }
     let order: Vec<String> = names.into_iter().map(str::to_string).collect();
-    order.iter().flat_map(|n| props.iter().filter(move |p| &p.name == n).cloned().collect::<Vec<_>>()).collect()
+    order
+        .iter()
+        .flat_map(|n| {
+            props
+                .iter()
+                .filter(move |p| &p.name == n)
+                .cloned()
+                .collect::<Vec<_>>()
+        })
+        .collect()
 }
 
 impl Decode for GameProfile {
@@ -227,7 +242,11 @@ impl Decode for GameProfile {
                 signature: Option::<String>::decode_bounded(input, 1024)?,
             });
         }
-        Ok(Self { id, name, properties: group_properties_by_name(properties) })
+        Ok(Self {
+            id,
+            name,
+            properties: group_properties_by_name(properties),
+        })
     }
 }
 
@@ -264,15 +283,24 @@ mod tests {
         assert_eq!(Angle::pack(180.0), -128);
         assert_eq!(Angle::pack(359.9), 255u8 as i8);
         assert_eq!(Angle::unpack(-128), -180.0);
-        assert_eq!(from_bytes::<Angle>(&to_bytes(&Angle(45.0)).unwrap()).unwrap(), Angle(45.0));
+        assert_eq!(
+            from_bytes::<Angle>(&to_bytes(&Angle(45.0)).unwrap()).unwrap(),
+            Angle(45.0)
+        );
     }
 
     #[test]
     fn holder_ids() {
         assert_eq!(to_bytes(&Holder::<u8>::Reference(4)).unwrap(), [5]);
         assert_eq!(to_bytes(&Holder::Direct(9u8)).unwrap(), [0, 9]);
-        assert_eq!(from_bytes::<Holder<u8>>(&[0, 9]).unwrap(), Holder::Direct(9));
-        assert_eq!(from_bytes::<Holder<u8>>(&[5]).unwrap(), Holder::Reference(4));
+        assert_eq!(
+            from_bytes::<Holder<u8>>(&[0, 9]).unwrap(),
+            Holder::Direct(9)
+        );
+        assert_eq!(
+            from_bytes::<Holder<u8>>(&[5]).unwrap(),
+            Holder::Reference(4)
+        );
     }
 }
 
@@ -289,7 +317,9 @@ impl<const MAX: usize> Encode for Rest<MAX> {
 impl<const MAX: usize> Decode for Rest<MAX> {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
         if input.len() > MAX {
-            return Err(DecodeError::Message(format!("Payload may not be larger than {MAX} bytes")));
+            return Err(DecodeError::Message(format!(
+                "Payload may not be larger than {MAX} bytes"
+            )));
         }
         Ok(Self(std::mem::take(input).to_vec()))
     }
@@ -347,7 +377,10 @@ impl Encode for GlobalPos {
 }
 impl Decode for GlobalPos {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
-        Ok(Self { dimension: Identifier::decode(input)?, pos: Decode::decode(input)? })
+        Ok(Self {
+            dimension: Identifier::decode(input)?,
+            pos: Decode::decode(input)?,
+        })
     }
 }
 
@@ -365,7 +398,10 @@ impl<T: Encode, const MAX: usize> Encode for LengthPrefixed<T, MAX> {
         self.0.encode(&mut inner)?;
         if inner.len() > MAX {
             // sic: vanilla's message has two spaces before "larger"
-            return Err(EncodeError(format!("Buffer size {} is  larger than allowed limit of {MAX}", inner.len())));
+            return Err(EncodeError(format!(
+                "Buffer size {} is  larger than allowed limit of {MAX}",
+                inner.len()
+            )));
         }
         write_varint(out, inner.len() as i32);
         out.extend_from_slice(&inner);
@@ -376,9 +412,12 @@ impl<T: Decode, const MAX: usize> Decode for LengthPrefixed<T, MAX> {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
         let size = read_varint(input)?;
         if size > MAX as i32 {
-            return Err(DecodeError::Message(format!("Buffer size {size} is larger than allowed limit of {MAX}")));
+            return Err(DecodeError::Message(format!(
+                "Buffer size {size} is larger than allowed limit of {MAX}"
+            )));
         }
-        let size = usize::try_from(size).map_err(|_| DecodeError::Message(format!("Buffer size {size} is negative")))?;
+        let size = usize::try_from(size)
+            .map_err(|_| DecodeError::Message(format!("Buffer size {size} is negative")))?;
         T::decode(&mut take(input, size)?).map(Self)
     }
 }

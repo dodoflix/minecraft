@@ -19,7 +19,10 @@ pub trait FilterMaskExt {
 pub fn filtered_style() -> Style {
     Style::EMPTY
         .with_color_formatting(Some(ChatFormatting::DarkGray))
-        .with_hover_event(Some(HoverEvent::show_text(Component::translatable("chat.filtered", vec![]))))
+        .with_hover_event(Some(HoverEvent::show_text(Component::translatable(
+            "chat.filtered",
+            vec![],
+        ))))
 }
 
 impl FilterMaskExt for FilterMask {
@@ -70,11 +73,15 @@ impl FilterMaskExt for FilterMask {
                         return Some(result);
                     }
                     if filtered {
-                        result = result.append(Component::literal("#".repeat(next - previous)).with_style(&filtered_style()));
+                        result = result.append(
+                            Component::literal("#".repeat(next - previous))
+                                .with_style(&filtered_style()),
+                        );
                     } else {
                         // Java `substring` would throw past the end; the mask never exceeds the text in practice
                         let end = next.min(units.len());
-                        result = result.append_str(&String::from_utf16_lossy(&units[previous.min(end)..end]));
+                        result = result
+                            .append_str(&String::from_utf16_lossy(&units[previous.min(end)..end]));
                     }
                     filtered = !filtered;
                     previous = next;

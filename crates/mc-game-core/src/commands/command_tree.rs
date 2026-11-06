@@ -1,13 +1,14 @@
 //! The command tree as the client receives it: `Commands.sendCommands`' pruned copy and
 //! `ClientboundCommandsPacket`'s node enumeration.
 
-use super::synchronization::{ArgumentTypeInfos, suggestion_providers};
 use super::CommandSourceStack;
+use super::synchronization::{ArgumentTypeInfos, suggestion_providers};
 use crate::server::permissions::PermissionSet;
 use mc_brigadier::tree::NodeKind;
 use mc_brigadier::{ArgumentBuilder, CommandNode};
 use mc_protocol::packets::play::{
-    COMMAND_NODE_EXECUTABLE, COMMAND_NODE_RESTRICTED, ClientboundCommandsEntry, ClientboundCommandsPacket,
+    COMMAND_NODE_EXECUTABLE, COMMAND_NODE_RESTRICTED, ClientboundCommandsEntry,
+    ClientboundCommandsPacket,
 };
 use std::collections::{HashMap, VecDeque};
 use std::sync::{Arc, LazyLock};
@@ -19,11 +20,18 @@ fn ptr(node: &Node) -> usize {
 }
 
 /// `Commands.fillUsableCommands`: copies the children of `source` the filter may use into `target`.
-pub fn fill_usable_commands(source: &Node, target: &Node, command_filter: &CommandSourceStack, converted: &mut HashMap<usize, Node>) {
+pub fn fill_usable_commands(
+    source: &Node,
+    target: &Node,
+    command_filter: &CommandSourceStack,
+    converted: &mut HashMap<usize, Node>,
+) {
     for child in source.get_children() {
         if child.can_use(command_filter) {
             let builder = child.create_builder();
-            let redirect = child.get_redirect().and_then(|r| converted.get(&ptr(r)).cloned());
+            let redirect = child
+                .get_redirect()
+                .and_then(|r| converted.get(&ptr(r)).cloned());
             // `builder.redirect(converted.get(redirect))` (a missing target clears the redirect).
             let builder = builder.forward_shared(redirect, None, false);
             let node = builder.build();
@@ -70,7 +78,9 @@ impl NodeIds {
             NodeKind::Literal { literal, .. } => (1u8, literal).hash(&mut hasher),
             NodeKind::Argument { name, .. } => (2u8, name).hash(&mut hasher),
         }
-        node.get_command().map(|c| Arc::as_ptr(&c) as *const () as usize).hash(&mut hasher);
+        node.get_command()
+            .map(|c| Arc::as_ptr(&c) as *const () as usize)
+            .hash(&mut hasher);
         let mut children = 0u64;
         for child in node.get_children() {
             children = children.wrapping_add(self.hash(&child));
@@ -83,13 +93,20 @@ impl NodeIds {
 
     fn get(&mut self, node: &Node) -> Option<i32> {
         let h = self.hash(node);
-        self.buckets.get(&h)?.iter().find(|(n, _)| **n == **node).map(|(_, id)| *id)
+        self.buckets
+            .get(&h)?
+            .iter()
+            .find(|(n, _)| **n == **node)
+            .map(|(_, id)| *id)
     }
 
     /// `nodeToId.put(node, nodeToId.size())`.
     fn insert(&mut self, node: &Node) {
         let h = self.hash(node);
-        self.buckets.entry(h).or_default().push((node.clone(), self.count));
+        self.buckets
+            .entry(h)
+            .or_default()
+            .push((node.clone(), self.count));
         self.count += 1;
     }
 }
@@ -111,18 +128,41 @@ pub fn commands_packet(root: &Node) -> ClientboundCommandsPacket {
             }
         }
     }
-    let entries = ordered.iter().map(|node| create_entry(node, &mut ids)).collect();
-    ClientboundCommandsPacket { entries, root_index: ids.get(root).expect("the root is enumerated") }
+    let entries = ordered
+        .iter()
+        .map(|node| create_entry(node, &mut ids))
+        .collect();
+    ClientboundCommandsPacket {
+        entries,
+        root_index: ids.get(root).expect("the root is enumerated"),
+    }
 }
 
 fn create_entry(node: &Node, ids: &mut NodeIds) -> ClientboundCommandsEntry {
-    let children: Vec<i32> = node.get_children().iter().map(|c| ids.get(c).expect("children are enumerated")).collect();
+    let children: Vec<i32> = node
+        .get_children()
+        .iter()
+        .map(|c| ids.get(c).expect("children are enumerated"))
+        .collect();
     let mut entry = match node.kind() {
         NodeKind::Root => ClientboundCommandsEntry::root(children),
-        NodeKind::Literal { literal, .. } => ClientboundCommandsEntry::literal(literal.clone(), children),
-        NodeKind::Argument { name, type_, custom_suggestions } => {
-            let suggestion_id = custom_suggestions.as_ref().map(suggestion_providers::get_name);
-            ClientboundCommandsEntry::argument(name.clone(), ArgumentTypeInfos::unpack(type_.as_ref()), suggestion_id, children)
+        NodeKind::Literal { literal, .. } => {
+            ClientboundCommandsEntry::literal(literal.clone(), children)
+        }
+        NodeKind::Argument {
+            name,
+            type_,
+            custom_suggestions,
+        } => {
+            let suggestion_id = custom_suggestions
+                .as_ref()
+                .map(suggestion_providers::get_name);
+            ClientboundCommandsEntry::argument(
+                name.clone(),
+                ArgumentTypeInfos::unpack(type_.as_ref()),
+                suggestion_id,
+                children,
+            )
         }
     };
     if let Some(redirect) = node.get_redirect() {

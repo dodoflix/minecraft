@@ -5,12 +5,12 @@ use super::pos_rule_test::{self, PosRuleTest};
 use super::rule::blockentity::passthrough::Passthrough;
 use super::rule::blockentity::rule_block_entity_modifier::{self, RuleBlockEntityModifier};
 use super::rule_test::{self, RuleTest};
-use mc_game_core::world::level::LevelReader;
-use mc_game_core::world::level::levelgen::codec::*;
-use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::BlockState;
+use mc_game_core::world::level::LevelReader;
+use mc_game_core::world::level::levelgen::codec::*;
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_nbt::CompoundTag;
 use serde_json::Value;
 use std::sync::Arc;
@@ -31,7 +31,13 @@ impl ProcessorRule {
         output_state: BlockState,
         block_entity_modifier: Arc<dyn RuleBlockEntityModifier>,
     ) -> ProcessorRule {
-        ProcessorRule { input_predicate, loc_predicate, pos_predicate, output_state, block_entity_modifier }
+        ProcessorRule {
+            input_predicate,
+            loc_predicate,
+            pos_predicate,
+            output_state,
+            block_entity_modifier,
+        }
     }
 
     /// `ProcessorRule.CODEC`; the two `lenientOptionalFieldOf` fields fall back to their defaults on any error.
@@ -53,10 +59,22 @@ impl ProcessorRule {
     }
 
     /// `test(level, inputState, inTemplatePos, worldPos, reference, random)`.
-    pub fn test(&self, level: &dyn LevelReader, input_state: BlockState, in_template_pos: BlockPos, world_pos: BlockPos, reference: BlockPos, random: &mut dyn RandomSource) -> bool {
+    pub fn test(
+        &self,
+        level: &dyn LevelReader,
+        input_state: BlockState,
+        in_template_pos: BlockPos,
+        world_pos: BlockPos,
+        reference: BlockPos,
+        random: &mut dyn RandomSource,
+    ) -> bool {
         self.input_predicate.test(input_state, world_pos, random)
-            && self.loc_predicate.test_against_world_state(level, world_pos, random)
-            && self.pos_predicate.test(in_template_pos, world_pos, reference, random)
+            && self
+                .loc_predicate
+                .test_against_world_state(level, world_pos, random)
+            && self
+                .pos_predicate
+                .test(in_template_pos, world_pos, reference, random)
     }
 
     pub fn get_output_state(&self) -> BlockState {
@@ -64,7 +82,11 @@ impl ProcessorRule {
     }
 
     /// `getOutputTag(random, existingTag)`.
-    pub fn get_output_tag(&self, random: &mut dyn RandomSource, existing_tag: Option<&CompoundTag>) -> Option<CompoundTag> {
+    pub fn get_output_tag(
+        &self,
+        random: &mut dyn RandomSource,
+        existing_tag: Option<&CompoundTag>,
+    ) -> Option<CompoundTag> {
         self.block_entity_modifier.apply(random, existing_tag)
     }
 }

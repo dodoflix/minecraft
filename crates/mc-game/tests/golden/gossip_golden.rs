@@ -16,7 +16,13 @@ fn ty(name: &str) -> GossipType {
 fn dump(c: &GossipContainer) -> BTreeMap<String, Vec<(String, i32)>> {
     let mut m: BTreeMap<String, Vec<(String, i32)>> = BTreeMap::new();
     for (target, entries) in c.get_gossip_entries() {
-        m.insert(target.to_string(), entries.into_iter().map(|(t, v)| (t.id().to_string(), v)).collect());
+        m.insert(
+            target.to_string(),
+            entries
+                .into_iter()
+                .map(|(t, v)| (t.id().to_string(), v))
+                .collect(),
+        );
     }
     m
 }
@@ -27,10 +33,14 @@ fn parse_dump(line: &str) -> BTreeMap<String, Vec<(String, i32)>> {
     while let Some(open) = rest.find('[') {
         let target = rest[..open].trim().to_string();
         let close = rest.find(']').expect("]");
-        let entries: Vec<(String, i32)> = rest[open + 1..close].split(',').filter(|s| !s.is_empty()).map(|kv| {
-            let (k, v) = kv.split_once('=').expect("k=v");
-            (k.to_string(), v.parse().expect("int"))
-        }).collect();
+        let entries: Vec<(String, i32)> = rest[open + 1..close]
+            .split(',')
+            .filter(|s| !s.is_empty())
+            .map(|kv| {
+                let (k, v) = kv.split_once('=').expect("k=v");
+                (k.to_string(), v.parse().expect("int"))
+            })
+            .collect();
         m.insert(target, entries);
         rest = rest[close + 1..].trim();
     }
@@ -63,8 +73,16 @@ fn gossip_container_matches_vanilla() {
                 unordered = false;
             }
             "unordered" => unordered = true,
-            "add" => c.add(w[1].parse::<Uuid>().unwrap(), ty(w[2]), w[3].parse().unwrap()),
-            "remove_amount" => c.remove_amount(w[1].parse::<Uuid>().unwrap(), ty(w[2]), w[3].parse().unwrap()),
+            "add" => c.add(
+                w[1].parse::<Uuid>().unwrap(),
+                ty(w[2]),
+                w[3].parse().unwrap(),
+            ),
+            "remove_amount" => c.remove_amount(
+                w[1].parse::<Uuid>().unwrap(),
+                ty(w[2]),
+                w[3].parse().unwrap(),
+            ),
             "remove" => c.remove(&w[1].parse::<Uuid>().unwrap(), ty(w[2])),
             "decay" => c.decay(),
             "remove_type" => c.remove_type(ty(w[1])),
@@ -74,21 +92,46 @@ fn gossip_container_matches_vanilla() {
                 let n_src: usize = w[3].parse().unwrap();
                 let mut s = GossipContainer::new();
                 for i in 0..n_src {
-                    s.add(w[4 + 3 * i].parse::<Uuid>().unwrap(), ty(w[5 + 3 * i]), w[6 + 3 * i].parse().unwrap());
+                    s.add(
+                        w[4 + 3 * i].parse::<Uuid>().unwrap(),
+                        ty(w[5 + 3 * i]),
+                        w[6 + 3 * i].parse().unwrap(),
+                    );
                 }
                 let moved = c.transfer_from(&s, &mut LegacyRandomSource::new(seed), max);
                 assert_eq!(moved.to_string(), *w.last().unwrap(), "{ctx}");
             }
             "query" => {
                 let mask: u32 = w[2].parse().unwrap();
-                let rep = c.get_reputation(&w[1].parse::<Uuid>().unwrap(), |t| mask >> t.ordinal() & 1 != 0);
+                let rep = c.get_reputation(&w[1].parse::<Uuid>().unwrap(), |t| {
+                    mask >> t.ordinal() & 1 != 0
+                });
                 let cnt = c.get_count_for_type(ty(w[3]), |v| v > 3.0);
-                assert_eq!(format!("{rep} {cnt}"), format!("{} {}", w[5], w[6]), "{ctx}");
+                assert_eq!(
+                    format!("{rep} {cnt}"),
+                    format!("{} {}", w[5], w[6]),
+                    "{ctx}"
+                );
             }
-            "dump" => assert_eq!(dump(&c), parse_dump(line.strip_prefix("dump").unwrap()), "{ctx}"),
-            "copy" => assert_eq!(dump(&c.copy()), parse_dump(line.strip_prefix("copy").unwrap()), "{ctx}"),
+            "dump" => assert_eq!(
+                dump(&c),
+                parse_dump(line.strip_prefix("dump").unwrap()),
+                "{ctx}"
+            ),
+            "copy" => assert_eq!(
+                dump(&c.copy()),
+                parse_dump(line.strip_prefix("copy").unwrap()),
+                "{ctx}"
+            ),
             "order" => {
-                let (mut got, mut want): (Vec<String>, Vec<String>) = (order(&c).split("] ").map(String::from).collect(), line.strip_prefix("order ").unwrap_or("").split("] ").map(String::from).collect());
+                let (mut got, mut want): (Vec<String>, Vec<String>) = (
+                    order(&c).split("] ").map(String::from).collect(),
+                    line.strip_prefix("order ")
+                        .unwrap_or("")
+                        .split("] ")
+                        .map(String::from)
+                        .collect(),
+                );
                 if unordered {
                     got.sort();
                     want.sort();
@@ -97,7 +140,11 @@ fn gossip_container_matches_vanilla() {
             }
             "nbt_roundtrip" => {
                 let back = GossipContainer::from_nbt(&c.to_nbt());
-                assert_eq!(dump(&back), parse_dump(line.strip_prefix("nbt_roundtrip").unwrap()), "{ctx}");
+                assert_eq!(
+                    dump(&back),
+                    parse_dump(line.strip_prefix("nbt_roundtrip").unwrap()),
+                    "{ctx}"
+                );
             }
             other => panic!("unknown op {other}"),
         }

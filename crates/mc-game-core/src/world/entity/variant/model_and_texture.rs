@@ -15,7 +15,8 @@ pub struct ResourceTexture {
 impl ResourceTexture {
     /// `new ResourceTexture(texture)`: the path is `textures/<path>.png`.
     pub fn new(id: Identifier) -> ResourceTexture {
-        let texture_path = Identifier::new(id.namespace(), &format!("textures/{}.png", id.path())).expect("derived texture path is valid");
+        let texture_path = Identifier::new(id.namespace(), &format!("textures/{}.png", id.path()))
+            .expect("derived texture path is valid");
         ResourceTexture { id, texture_path }
     }
 

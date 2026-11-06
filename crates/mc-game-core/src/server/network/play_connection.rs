@@ -15,7 +15,10 @@ use mc_text::Component;
 use std::sync::mpsc::Sender;
 use tokio::sync::mpsc::unbounded_channel;
 
-pub(super) async fn run(ctx: &mut ConnectionContext, inbound: Sender<InboundPacket>) -> Option<CommonListenerCookie> {
+pub(super) async fn run(
+    ctx: &mut ConnectionContext,
+    inbound: Sender<InboundPacket>,
+) -> Option<CommonListenerCookie> {
     let (switch_tx, mut switch_rx) = unbounded_channel();
     ctx.handle.set_reconfigure_sender(switch_tx);
     loop {
@@ -24,11 +27,18 @@ pub(super) async fn run(ctx: &mut ConnectionContext, inbound: Sender<InboundPack
             Event::ReadError(e) => ctx.fault(e),
             Event::Payload(p) => {
                 let received_at_ms = get_millis();
-                let terminal = read_varint(&mut &p[..]).is_ok_and(|id| id == ids::play::serverbound::CONFIGURATION_ACKNOWLEDGED);
+                let terminal = read_varint(&mut &p[..])
+                    .is_ok_and(|id| id == ids::play::serverbound::CONFIGURATION_ACKNOWLEDGED);
                 match ServerboundPlayPacket::decode_payload(&p) {
                     Err(e) => ctx.fault(ReadError::Net(NetError::Decode(e))),
                     Ok(packet) => {
-                        if inbound.send(InboundPacket::Packet { packet: Box::new(packet), received_at_ms }).is_err() {
+                        if inbound
+                            .send(InboundPacket::Packet {
+                                packet: Box::new(packet),
+                                received_at_ms,
+                            })
+                            .is_err()
+                        {
                             // The play listener is gone (player removed): nobody reads this connection any more.
                             ctx.sender.close();
                         } else if terminal {
@@ -43,10 +53,12 @@ pub(super) async fn run(ctx: &mut ConnectionContext, inbound: Sender<InboundPack
             }
             Event::Stopped => {
                 ctx.wait_closed().await;
-                let details = ctx
-                    .handle
-                    .disconnection_details()
-                    .unwrap_or_else(|| DisconnectionDetails::new(Component::translatable("multiplayer.disconnect.generic", vec![])));
+                let details = ctx.handle.disconnection_details().unwrap_or_else(|| {
+                    DisconnectionDetails::new(Component::translatable(
+                        "multiplayer.disconnect.generic",
+                        vec![],
+                    ))
+                });
                 let _ = inbound.send(InboundPacket::Disconnected(details));
                 return None;
             }

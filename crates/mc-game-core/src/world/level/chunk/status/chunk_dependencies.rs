@@ -9,7 +9,9 @@ pub struct ChunkDependencies {
 
 impl ChunkDependencies {
     pub fn new(dependency_by_radius: Vec<ChunkStatus>) -> Self {
-        let size = dependency_by_radius.first().map_or(0, |s| s.index() as usize + 1);
+        let size = dependency_by_radius
+            .first()
+            .map_or(0, |s| s.index() as usize + 1);
         let mut radius_by_dependency = vec![0; size];
         for (radius, dependency) in dependency_by_radius.iter().enumerate() {
             let index = dependency.index() as usize;
@@ -17,7 +19,10 @@ impl ChunkDependencies {
                 *slot = radius as i32;
             }
         }
-        Self { dependency_by_radius, radius_by_dependency }
+        Self {
+            dependency_by_radius,
+            radius_by_dependency,
+        }
     }
 
     pub fn as_list(&self) -> &[ChunkStatus] {

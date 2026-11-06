@@ -73,12 +73,18 @@ pub struct EntityDataAccessorDef {
 include!(concat!(env!("OUT_DIR"), "/misc.rs"));
 
 fn lookup<V: Copy>(table: &'static [(Block, V)], block: Block) -> Option<V> {
-    table.binary_search_by_key(&block.id(), |(b, _)| b.id()).ok().map(|i| table[i].1)
+    table
+        .binary_search_by_key(&block.id(), |(b, _)| b.id())
+        .ok()
+        .map(|i| table[i].1)
 }
 
 /// `FireBlock` `(igniteOdds, burnOdds)` of a block (flammability), if flammable.
 pub fn fire_odds(block: Block) -> Option<(i32, i32)> {
-    FIRE_ODDS.binary_search_by_key(&block.id(), |(b, _, _)| b.id()).ok().map(|i| (FIRE_ODDS[i].1, FIRE_ODDS[i].2))
+    FIRE_ODDS
+        .binary_search_by_key(&block.id(), |(b, _, _)| b.id())
+        .ok()
+        .map(|i| (FIRE_ODDS[i].1, FIRE_ODDS[i].2))
 }
 
 /// `WeatheringCopper.NEXT_BY_BLOCK`.

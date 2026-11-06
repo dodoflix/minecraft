@@ -31,7 +31,10 @@ pub fn save_default_data_to_bucket_tag(entity: &dyn Entity, bucket: &mut ItemSta
     if let Some(name) = entity.base().get_custom_name() {
         bucket.set(CUSTOM_NAME, name);
     }
-    let mut tag = bucket.get(&BUCKET_ENTITY_DATA).map(|d| d.copy_tag()).unwrap_or_default();
+    let mut tag = bucket
+        .get(&BUCKET_ENTITY_DATA)
+        .map(|d| d.copy_tag())
+        .unwrap_or_default();
     if entity.mob().is_some_and(|m| m.is_no_ai()) {
         tag.put_boolean("NoAI", true);
     }
@@ -85,7 +88,12 @@ pub fn load_default_data_from_bucket_tag(entity: &mut dyn Entity, tag: &Compound
 
 /// `Bucketable.bucketMobPickup(player, hand, pickupEntity)` for the mob currently being interacted with (taken out of the
 /// level while its `mobInteract` runs, so it is passed in): `None` when it cannot be picked up with the held stack.
-pub fn bucket_mob_pickup_in_place(level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand, entity: &mut dyn Entity) -> Option<InteractionResult> {
+pub fn bucket_mob_pickup_in_place(
+    level: &mut ServerLevel,
+    player: &mut ServerPlayer,
+    hand: InteractionHand,
+    entity: &mut dyn Entity,
+) -> Option<InteractionResult> {
     let stack = player.get_item_in_hand(hand);
     let bucketable = entity.as_bucketable()?;
     if !(bucketable.can_be_picked_up_with_bucket(&stack) && entity.is_alive()) {
@@ -97,14 +105,24 @@ pub fn bucket_mob_pickup_in_place(level: &mut ServerLevel, player: &mut ServerPl
     entity.as_bucketable()?.save_to_bucket_tag(&mut bucket);
     crate::world::entity::mob::leashable::drop_leash(entity, level);
     entity.discard();
-    let result = create_filled_result(stack, &mut crate::world::entity::player::menu_ctx::PlayerCtx { player, level }, bucket.clone(), false);
+    let result = create_filled_result(
+        stack,
+        &mut crate::world::entity::player::menu_ctx::PlayerCtx { player, level },
+        bucket.clone(),
+        false,
+    );
     player.set_item_in_hand(hand, result);
     crate::advancements::triggers::CriteriaTriggers::FILLED_BUCKET.trigger(level, player, &bucket);
     Some(InteractionResult::SUCCESS)
 }
 
 /// `Bucketable.bucketMobPickup(player, hand, pickupEntity)`: `None` when the mob cannot be picked up with the held stack.
-pub fn bucket_mob_pickup(level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand, mob: EntityId) -> Option<InteractionResult> {
+pub fn bucket_mob_pickup(
+    level: &mut ServerLevel,
+    player: &mut ServerPlayer,
+    hand: InteractionHand,
+    mob: EntityId,
+) -> Option<InteractionResult> {
     let stack = player.get_item_in_hand(hand);
     let bucket = level.with_entity(mob, |level, entity| {
         let bucketable = entity.as_bucketable()?;
@@ -119,7 +137,12 @@ pub fn bucket_mob_pickup(level: &mut ServerLevel, player: &mut ServerPlayer, han
         entity.discard();
         Some(bucket)
     })??;
-    let result = create_filled_result(stack, &mut crate::world::entity::player::menu_ctx::PlayerCtx { player, level }, bucket.clone(), false);
+    let result = create_filled_result(
+        stack,
+        &mut crate::world::entity::player::menu_ctx::PlayerCtx { player, level },
+        bucket.clone(),
+        false,
+    );
     player.set_item_in_hand(hand, result);
     crate::advancements::triggers::CriteriaTriggers::FILLED_BUCKET.trigger(level, player, &bucket);
     Some(InteractionResult::SUCCESS)

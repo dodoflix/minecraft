@@ -29,15 +29,21 @@ pub struct StringArgumentType {
 
 impl StringArgumentType {
     pub fn word() -> Self {
-        Self { type_: StringType::SingleWord }
+        Self {
+            type_: StringType::SingleWord,
+        }
     }
 
     pub fn string() -> Self {
-        Self { type_: StringType::QuotablePhrase }
+        Self {
+            type_: StringType::QuotablePhrase,
+        }
     }
 
     pub fn greedy_string() -> Self {
-        Self { type_: StringType::GreedyPhrase }
+        Self {
+            type_: StringType::GreedyPhrase,
+        }
     }
 
     pub fn get_string<'a, S: 'static>(context: &'a CommandContext<S>, name: &str) -> &'a str {
@@ -63,7 +69,11 @@ impl<S: 'static> ArgumentType<S> for StringArgumentType {
     }
 
     fn get_examples(&self) -> Vec<String> {
-        self.type_.get_examples().iter().map(|s| (*s).to_owned()).collect()
+        self.type_
+            .get_examples()
+            .iter()
+            .map(|s| (*s).to_owned())
+            .collect()
     }
 
     fn describe(&self) -> String {
@@ -73,7 +83,10 @@ impl<S: 'static> ArgumentType<S> for StringArgumentType {
 
 /// `StringArgumentType.escapeIfRequired`.
 pub fn escape_if_required(input: &str) -> String {
-    if input.chars().all(StringReader::is_allowed_in_unquoted_string) {
+    if input
+        .chars()
+        .all(StringReader::is_allowed_in_unquoted_string)
+    {
         return input.to_owned();
     }
     let mut result = String::from("\"");

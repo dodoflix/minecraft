@@ -3,7 +3,9 @@
 use mc_nbt::Tag;
 use mc_world::level_storage::FeatureFlagSet;
 
-use super::{AnyGameRule, GameRule, GameRuleMap, GameRuleTypeVisitor, GameRuleValue, GameRuleValueType};
+use super::{
+    AnyGameRule, GameRule, GameRuleMap, GameRuleTypeVisitor, GameRuleValue, GameRuleValueType,
+};
 use crate::util::codec::{DecodeResult, map_decoded};
 use crate::world::level::saveddata::{SavedData, SavedDataType};
 
@@ -64,7 +66,9 @@ impl GameRules {
 
     /// `new GameRules(enabledFeatures)`: every enabled rule at its default.
     pub fn new(enabled_features: FeatureFlagSet) -> GameRules {
-        GameRules::with_map(GameRuleMap::of(AnyGameRule::all().filter(|r| r.is_enabled(enabled_features))))
+        GameRules::with_map(GameRuleMap::of(
+            AnyGameRule::all().filter(|r| r.is_enabled(enabled_features)),
+        ))
     }
 
     /// `new GameRules(enabledFeatures, map)`: missing enabled rules are reset to their default, rules whose features
@@ -104,19 +108,39 @@ impl GameRules {
 
     /// `get`: panics for a rule that is not available (`IllegalArgumentException`).
     pub fn get<T: GameRuleValueType>(&self, rule: GameRule<T>) -> T {
-        self.rules.get(rule).unwrap_or_else(|| panic!("Tried to access invalid game rule {}", rule.get_identifier()))
+        self.rules.get(rule).unwrap_or_else(|| {
+            panic!(
+                "Tried to access invalid game rule {}",
+                rule.get_identifier()
+            )
+        })
     }
 
     pub fn get_value(&self, rule: AnyGameRule) -> GameRuleValue {
-        self.rules.get_value(rule).unwrap_or_else(|| panic!("Tried to access invalid game rule {}", rule.get_identifier()))
+        self.rules.get_value(rule).unwrap_or_else(|| {
+            panic!(
+                "Tried to access invalid game rule {}",
+                rule.get_identifier()
+            )
+        })
     }
 
     /// `set(rule, value, server)`: logs and ignores rules that are not available; notifies `server` of the change.
-    pub fn set<T: GameRuleValueType>(&mut self, rule: GameRule<T>, value: T, server: Option<&mut dyn GameRuleListener>) {
+    pub fn set<T: GameRuleValueType>(
+        &mut self,
+        rule: GameRule<T>,
+        value: T,
+        server: Option<&mut dyn GameRuleListener>,
+    ) {
         self.set_value(rule.erase(), value.into_value(), server);
     }
 
-    pub fn set_value(&mut self, rule: AnyGameRule, value: GameRuleValue, server: Option<&mut dyn GameRuleListener>) {
+    pub fn set_value(
+        &mut self,
+        rule: AnyGameRule,
+        value: GameRuleValue,
+        server: Option<&mut dyn GameRuleListener>,
+    ) {
         if self.try_set_value(rule, value)
             && let Some(server) = server
         {
@@ -128,7 +152,11 @@ impl GameRules {
     /// object that would be notified): returns `false` (after logging) when the rule is not available.
     pub fn try_set_value(&mut self, rule: AnyGameRule, value: GameRuleValue) -> bool {
         if !self.rules.has(rule) {
-            log::warn!("Tried to set invalid game rule '{}' to value '{}'", rule.get_identifier(), rule.serialize(value));
+            log::warn!(
+                "Tried to set invalid game rule '{}' to value '{}'",
+                rule.get_identifier(),
+                rule.serialize(value)
+            );
             return false;
         }
         self.rules.set_value(rule, value);
@@ -178,7 +206,9 @@ impl GameRules {
 
     /// `GameRules.codec(enabledFeatures)` decode.
     pub fn decode(enabled_features: FeatureFlagSet, tag: &Tag) -> DecodeResult<GameRules> {
-        map_decoded(GameRuleMap::decode(tag), |map| GameRules::from_map(enabled_features, map))
+        map_decoded(GameRuleMap::decode(tag), |map| {
+            GameRules::from_map(enabled_features, map)
+        })
     }
 
     /// `GameRules.codec(enabledFeatures)` encode.

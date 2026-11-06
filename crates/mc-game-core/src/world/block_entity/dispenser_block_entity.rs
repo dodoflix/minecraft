@@ -2,7 +2,9 @@
 
 use super::base_container::BaseContainer;
 use super::randomizable_container::{RandomizableContainerData, unpack_loot_table};
-use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, changed_log};
+use super::{
+    BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, changed_log,
+};
 use crate::server::level::ServerLevel;
 use crate::world::container::{Container, empty_stack, helper};
 use crate::world::entity::Entity;
@@ -27,12 +29,21 @@ pub struct DispenserBlockEntity {
 impl DispenserBlockEntity {
     /// `DispenserBlockEntity(type, pos, state)` (`DISPENSER` or, for droppers, `DROPPER`).
     pub fn new(ty: BlockEntityType, pos: BlockPos, state: BlockState) -> Self {
-        Self { base: BlockEntityData::new(ty, pos, state), items: vec![ItemStack::empty(); CONTAINER_SIZE], loot: Default::default(), container: Default::default() }
+        Self {
+            base: BlockEntityData::new(ty, pos, state),
+            items: vec![ItemStack::empty(); CONTAINER_SIZE],
+            loot: Default::default(),
+            container: Default::default(),
+        }
     }
 
     /// `getDefaultName()`: the translation key of the title.
     pub fn default_name_key(&self) -> &'static str {
-        if self.base.ty == BlockEntityType::DROPPER { "container.dropper" } else { "container.dispenser" }
+        if self.base.ty == BlockEntityType::DROPPER {
+            "container.dropper"
+        } else {
+            "container.dispenser"
+        }
     }
 
     /// `getRandomSlot(random)`: reservoir pick over the non-empty slots (one `nextInt` per non-empty slot). The caller
@@ -113,7 +124,8 @@ impl BlockEntity for DispenserBlockEntity {
     }
 
     fn apply_components_from_item_stack(&mut self, stack: &ItemStack) {
-        self.container.apply_implicit_components(stack, &mut self.items);
+        self.container
+            .apply_implicit_components(stack, &mut self.items);
         self.loot.apply_implicit_components(stack);
     }
 
@@ -183,5 +195,13 @@ impl Container for DispenserBlockEntity {
 }
 
 #[linkme::distributed_slice(BLOCK_ENTITY_TYPES)]
-static DISPENSER: BlockEntityRegistration =
-    BlockEntityRegistration { ty: BlockEntityType::DISPENSER, create: |pos, state| Box::new(DispenserBlockEntity::new(BlockEntityType::DISPENSER, pos, state)) };
+static DISPENSER: BlockEntityRegistration = BlockEntityRegistration {
+    ty: BlockEntityType::DISPENSER,
+    create: |pos, state| {
+        Box::new(DispenserBlockEntity::new(
+            BlockEntityType::DISPENSER,
+            pos,
+            state,
+        ))
+    },
+};

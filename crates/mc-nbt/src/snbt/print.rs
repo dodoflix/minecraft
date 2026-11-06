@@ -15,9 +15,19 @@ where
     T: std::fmt::LowerExp + std::str::FromStr + PartialEq + Copy,
 {
     let shortest = format!("{abs:e}");
-    let n = shortest.split('e').next().unwrap().chars().filter(|c| c.is_ascii_digit()).count();
+    let n = shortest
+        .split('e')
+        .next()
+        .unwrap()
+        .chars()
+        .filter(|c| c.is_ascii_digit())
+        .count();
     let rounded = format!("{:.*e}", n.max(2) - 1, abs);
-    if rounded.parse::<T>().is_ok_and(|v| v == abs) { rounded } else { shortest }
+    if rounded.parse::<T>().is_ok_and(|v| v == abs) {
+        rounded
+    } else {
+        shortest
+    }
 }
 
 fn java_float_string(neg: bool, sci: &str, abs_is_zero: bool, in_plain_range: bool) -> String {
@@ -67,10 +77,19 @@ pub(crate) fn double_to_string(v: f64) -> String {
         return "NaN".into();
     }
     if v.is_infinite() {
-        return if v < 0.0 { "-Infinity".into() } else { "Infinity".into() };
+        return if v < 0.0 {
+            "-Infinity".into()
+        } else {
+            "Infinity".into()
+        };
     }
     let abs = v.abs();
-    java_float_string(v.is_sign_negative(), &java_sci(abs), abs == 0.0, (1e-3..1e7).contains(&abs))
+    java_float_string(
+        v.is_sign_negative(),
+        &java_sci(abs),
+        abs == 0.0,
+        (1e-3..1e7).contains(&abs),
+    )
 }
 
 pub(crate) fn float_to_string(v: f32) -> String {
@@ -78,10 +97,19 @@ pub(crate) fn float_to_string(v: f32) -> String {
         return "NaN".into();
     }
     if v.is_infinite() {
-        return if v < 0.0 { "-Infinity".into() } else { "Infinity".into() };
+        return if v < 0.0 {
+            "-Infinity".into()
+        } else {
+            "Infinity".into()
+        };
     }
     let abs = v.abs();
-    java_float_string(v.is_sign_negative(), &java_sci(abs), abs == 0.0, (1e-3f32..1e7f32).contains(&abs))
+    java_float_string(
+        v.is_sign_negative(),
+        &java_sci(abs),
+        abs == 0.0,
+        (1e-3f32..1e7f32).contains(&abs),
+    )
 }
 
 // ------------------------------------------------------------------- strings
@@ -169,9 +197,13 @@ fn java_cmp(a: &str, b: &str) -> Ordering {
 /// `[A-Za-z._]+[A-Za-z0-9._+-]*` and not `true`/`false` (any case).
 fn is_unquoted_key(key: &str) -> bool {
     let mut chars = key.chars();
-    let ok_first = chars.next().is_some_and(|c| c.is_ascii_alphabetic() || c == '.' || c == '_');
+    let ok_first = chars
+        .next()
+        .is_some_and(|c| c.is_ascii_alphabetic() || c == '.' || c == '_');
     ok_first
-        && key.chars().all(|c| c.is_ascii_alphanumeric() || matches!(c, '.' | '_' | '+' | '-'))
+        && key
+            .chars()
+            .all(|c| c.is_ascii_alphanumeric() || matches!(c, '.' | '_' | '+' | '-'))
         && !key.eq_ignore_ascii_case("true")
         && !key.eq_ignore_ascii_case("false")
 }
@@ -272,14 +304,32 @@ fn compact(tag: &Tag, out: &mut String) {
 // -------------------------------------------------------------------- pretty
 
 const KEY_ORDER: &[(&str, &[&str])] = &[
-    ("{}", &["DataVersion", "author", "size", "data", "entities", "palette", "palettes"]),
+    (
+        "{}",
+        &[
+            "DataVersion",
+            "author",
+            "size",
+            "data",
+            "entities",
+            "palette",
+            "palettes",
+        ],
+    ),
     ("{}.data.[].{}", &["pos", "state", "nbt"]),
     ("{}.entities.[].{}", &["blockPos", "pos"]),
 ];
-const NO_INDENTATION: &[&str] = &["{}.size.[]", "{}.data.[].{}", "{}.palette.[].{}", "{}.entities.[].{}"];
+const NO_INDENTATION: &[&str] = &[
+    "{}.size.[]",
+    "{}.data.[].{}",
+    "{}.palette.[].{}",
+    "{}.entities.[].{}",
+];
 
 fn is_simple_value(s: &str) -> bool {
-    !s.is_empty() && s.chars().all(|c| c.is_ascii_alphanumeric() || matches!(c, '.' | '_' | '+' | '-'))
+    !s.is_empty()
+        && s.chars()
+            .all(|c| c.is_ascii_alphanumeric() || matches!(c, '.' | '_' | '+' | '-'))
 }
 
 /// `SnbtPrinterTagVisitor` with the default four-space indentation.
@@ -288,7 +338,12 @@ pub fn print_pretty(tag: &Tag) -> String {
 }
 
 /// `new SnbtPrinterTagVisitor(indentation, depth, path).visit(tag)`.
-pub fn print_pretty_with(tag: &Tag, indentation: &str, depth: usize, path: &mut Vec<String>) -> String {
+pub fn print_pretty_with(
+    tag: &Tag,
+    indentation: &str,
+    depth: usize,
+    path: &mut Vec<String>,
+) -> String {
     match tag {
         Tag::End => String::new(),
         Tag::String(s) => quote_and_escape(s),
@@ -307,7 +362,11 @@ pub fn print_pretty_with(tag: &Tag, indentation: &str, depth: usize, path: &mut 
             }
             let mut out = String::from("[");
             path.push("[]".into());
-            let indentation = if NO_INDENTATION.contains(&path.join(".").as_str()) { "" } else { indentation };
+            let indentation = if NO_INDENTATION.contains(&path.join(".").as_str()) {
+                ""
+            } else {
+                indentation
+            };
             if !indentation.is_empty() {
                 out.push('\n');
             }
@@ -334,7 +393,11 @@ pub fn print_pretty_with(tag: &Tag, indentation: &str, depth: usize, path: &mut 
             let mut out = String::from("{");
             path.push("{}".into());
             let path_string = path.join(".");
-            let indentation = if NO_INDENTATION.contains(&path_string.as_str()) { "" } else { indentation };
+            let indentation = if NO_INDENTATION.contains(&path_string.as_str()) {
+                ""
+            } else {
+                indentation
+            };
             if !indentation.is_empty() {
                 out.push('\n');
             }
@@ -357,7 +420,11 @@ pub fn print_pretty_with(tag: &Tag, indentation: &str, depth: usize, path: &mut 
                 let value = c.get(key).expect("key present");
                 path.push(key.to_string());
                 out.push_str(&indentation.repeat(depth + 1));
-                out.push_str(&if is_simple_value(key) { key.to_string() } else { quote_and_escape(key) });
+                out.push_str(&if is_simple_value(key) {
+                    key.to_string()
+                } else {
+                    quote_and_escape(key)
+                });
                 out.push(':');
                 out.push(' ');
                 out.push_str(&print_pretty_with(value, indentation, depth + 1, path));

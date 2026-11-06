@@ -52,8 +52,8 @@
 //!     spawn predicates are registered with the spawn framework's `register_spawn_placement!`.
 
 pub mod ageable;
-pub mod combat;
 pub mod animal;
+pub mod combat;
 pub mod conversion_tracker;
 pub mod convert;
 pub mod drop_chances;
@@ -81,7 +81,8 @@ pub use tamable::TamableData;
 
 use super::EntityId;
 use super::ai::control::{
-    BodyRotationControl, JumpControl, LookControl, MoveControl, body_rotation_control::StandardBodyRotationControl, jump_control::StandardJumpControl,
+    BodyRotationControl, JumpControl, LookControl, MoveControl,
+    body_rotation_control::StandardBodyRotationControl, jump_control::StandardJumpControl,
     look_control::StandardLookControl, move_control::StandardMoveControl,
 };
 use super::ai::goal::GoalSelector;
@@ -138,7 +139,10 @@ impl MobKind {
         self != MobKind::Mob
     }
     pub fn is_ageable(self) -> bool {
-        matches!(self, MobKind::AgeableMob | MobKind::Animal | MobKind::TamableAnimal)
+        matches!(
+            self,
+            MobKind::AgeableMob | MobKind::Animal | MobKind::TamableAnimal
+        )
     }
     pub fn is_animal(self) -> bool {
         matches!(self, MobKind::Animal | MobKind::TamableAnimal)
@@ -189,12 +193,29 @@ pub struct MobData {
 impl MobData {
     /// `Mob(type, level)` without `createNavigation()` / `registerGoals()` (see the module docs, step 5).
     /// `define_synched_data` defines the concrete class's accessors after all generic layers.
-    pub fn new(entity_type: EntityType, id: EntityId, kind: MobKind, define_synched_data: impl FnOnce(&mut SynchedEntityDataBuilder)) -> Self {
-        Self::new_with_air_supply(entity_type, id, kind, super::entity::TOTAL_AIR_SUPPLY, define_synched_data)
+    pub fn new(
+        entity_type: EntityType,
+        id: EntityId,
+        kind: MobKind,
+        define_synched_data: impl FnOnce(&mut SynchedEntityDataBuilder),
+    ) -> Self {
+        Self::new_with_air_supply(
+            entity_type,
+            id,
+            kind,
+            super::entity::TOTAL_AIR_SUPPLY,
+            define_synched_data,
+        )
     }
     /// `Mob(type, level)` of a class whose `getMaxAirSupply()` override is not 300 (dolphin 4800, axolotl 6000): the
     /// virtual call in `Entity.<init>` / `defineSynchedData` makes it the initial air supply.
-    pub fn new_with_air_supply(entity_type: EntityType, id: EntityId, kind: MobKind, max_air_supply: i32, define_synched_data: impl FnOnce(&mut SynchedEntityDataBuilder)) -> Self {
+    pub fn new_with_air_supply(
+        entity_type: EntityType,
+        id: EntityId,
+        kind: MobKind,
+        max_air_supply: i32,
+        define_synched_data: impl FnOnce(&mut SynchedEntityDataBuilder),
+    ) -> Self {
         let living = LivingEntityData::new(entity_type, id, max_air_supply, |b| {
             b.define(DATA_MOB_FLAGS_ID, 0);
             if kind.is_ageable() {
@@ -260,15 +281,21 @@ impl MobData {
     }
 
     pub fn look_control_mut(&mut self) -> &mut dyn LookControl {
-        self.look_control.as_deref_mut().expect("look control is only taken while it ticks")
+        self.look_control
+            .as_deref_mut()
+            .expect("look control is only taken while it ticks")
     }
 
     pub fn move_control_mut(&mut self) -> &mut dyn MoveControl {
-        self.move_control.as_deref_mut().expect("move control is only taken while it ticks")
+        self.move_control
+            .as_deref_mut()
+            .expect("move control is only taken while it ticks")
     }
 
     pub fn jump_control_mut(&mut self) -> &mut dyn JumpControl {
-        self.jump_control.as_deref_mut().expect("jump control is only taken while it ticks")
+        self.jump_control
+            .as_deref_mut()
+            .expect("jump control is only taken while it ticks")
     }
 
     /// `setPathfindingMalus(type, cost)`.
@@ -283,12 +310,16 @@ impl MobData {
 
     /// `isWithinHome(pos)`.
     pub fn is_within_home_pos(&self, pos: BlockPos) -> bool {
-        self.home_radius == -1 || self.home_position.dist_sqr(&pos) < f64::from(self.home_radius.wrapping_mul(self.home_radius))
+        self.home_radius == -1
+            || self.home_position.dist_sqr(&pos)
+                < f64::from(self.home_radius.wrapping_mul(self.home_radius))
     }
 
     /// `isWithinHome(Vec3)`.
     pub fn is_within_home_vec(&self, pos: mc_core::phys::Vec3) -> bool {
-        self.home_radius == -1 || self.home_position.dist_to_center_sqr(&pos) < f64::from(self.home_radius.wrapping_mul(self.home_radius))
+        self.home_radius == -1
+            || self.home_position.dist_to_center_sqr(&pos)
+                < f64::from(self.home_radius.wrapping_mul(self.home_radius))
     }
 
     /// `setHomeTo(newCenter, radius)`.
@@ -309,7 +340,10 @@ impl MobData {
     pub fn set_mob_flag(&mut self, flag: i32, value: bool) {
         let cur = self.living.entity.entity_data.get(DATA_MOB_FLAGS_ID) as i32;
         let new = if value { cur | flag } else { cur & !flag };
-        self.living.entity.entity_data.set(DATA_MOB_FLAGS_ID, new as i8);
+        self.living
+            .entity
+            .entity_data
+            .set(DATA_MOB_FLAGS_ID, new as i8);
     }
 
     /// `isNoAi()`.
@@ -340,7 +374,9 @@ impl MobData {
 
 /// `getAttributeValue(attribute)` of a living mob.
 pub fn attribute_value(mob: &dyn Entity, attribute: Attribute) -> f64 {
-    mob.living().expect("living mob").get_attribute_value(attribute)
+    mob.living()
+        .expect("living mob")
+        .get_attribute_value(attribute)
 }
 
 /// `setZza(zza)`.
@@ -366,21 +402,36 @@ pub fn set_xxa(mob: &mut dyn Entity, xxa: f32) {
 
 /// `getLookControl().setLookAt(x, y, z)` (the mob's `getHeadRotSpeed()` / `getMaxHeadXRot()`).
 pub fn look_at_xyz(mob: &mut dyn Entity, x: f64, y: f64, z: f64) {
-    let (y_speed, x_max) = (mob.get_head_rot_speed() as f32, mob.get_max_head_x_rot() as f32);
+    let (y_speed, x_max) = (
+        mob.get_head_rot_speed() as f32,
+        mob.get_max_head_x_rot() as f32,
+    );
     if let Some(m) = mob.mob_mut() {
-        m.look_control_mut().set_look_at_full(x, y, z, y_speed, x_max);
+        m.look_control_mut()
+            .set_look_at_full(x, y, z, y_speed, x_max);
     }
 }
 
 /// `getLookControl().setLookAt(target)` (`target.getEyeY()`).
 pub fn look_at_entity(mob: &mut dyn Entity, target: &dyn Entity) {
-    look_at_xyz(mob, target.base().x(), target.base().get_eye_y(), target.base().z());
+    look_at_xyz(
+        mob,
+        target.base().x(),
+        target.base().get_eye_y(),
+        target.base().z(),
+    );
 }
 
 /// `getLookControl().setLookAt(target, yMaxRotSpeed, xMaxRotAngle)`.
-pub fn look_at_entity_full(mob: &mut dyn Entity, target: &dyn Entity, y_max_rot_speed: f32, x_max_rot_angle: f32) {
+pub fn look_at_entity_full(
+    mob: &mut dyn Entity,
+    target: &dyn Entity,
+    y_max_rot_speed: f32,
+    x_max_rot_angle: f32,
+) {
     if let Some(m) = mob.mob_mut() {
-        m.look_control_mut().set_look_at_entity_full(target, y_max_rot_speed, x_max_rot_angle);
+        m.look_control_mut()
+            .set_look_at_entity_full(target, y_max_rot_speed, x_max_rot_angle);
     }
 }
 
@@ -397,12 +448,17 @@ pub fn jump_control_jump(mob: &mut dyn Entity) {
 /// `shouldPassengersInheritMalus()`, else this mob's, falling back to the type's own malus.
 pub fn get_pathfinding_malus(mob: &dyn Entity, level: &ServerLevel, ty: PathType) -> f32 {
     let mut inherit_from = mob;
-    if let Some(vehicle) = navigation::controlled_vehicle(mob, level).and_then(|id| level.get_entity(id)) {
+    if let Some(vehicle) =
+        navigation::controlled_vehicle(mob, level).and_then(|id| level.get_entity(id))
+    {
         if vehicle.mob().is_some() && vehicle.should_passengers_inherit_malus() {
             inherit_from = vehicle;
         }
     }
-    inherit_from.mob().and_then(|m| m.pathfinding_malus.get(ty)).unwrap_or_else(|| ty.get_malus())
+    inherit_from
+        .mob()
+        .and_then(|m| m.pathfinding_malus.get(ty))
+        .unwrap_or_else(|| ty.get_malus())
 }
 
 /// `setPathfindingMalus(type, cost)`.
@@ -415,7 +471,9 @@ pub fn set_pathfinding_malus(mob: &mut dyn Entity, ty: PathType, cost: f32) {
 /// `getMoveControl().setWantedPosition(x, y, z, speedModifier)` (own control; use [`navigation`] helpers for the vehicle
 /// redirect of `getMoveControl()`).
 pub fn set_wanted_position(mob: &mut dyn Entity, x: f64, y: f64, z: f64, speed_modifier: f64) {
-    let Some(mut control) = mob.mob_mut().and_then(|m| m.move_control.take()) else { return };
+    let Some(mut control) = mob.mob_mut().and_then(|m| m.move_control.take()) else {
+        return;
+    };
     control.set_wanted_position_for(&*mob, x, y, z, speed_modifier);
     if let Some(m) = mob.mob_mut() {
         m.move_control = Some(control);
@@ -424,7 +482,9 @@ pub fn set_wanted_position(mob: &mut dyn Entity, x: f64, y: f64, z: f64, speed_m
 
 /// `getMoveControl().getSpeedModifier()`.
 pub fn move_control_speed_modifier(mob: &dyn Entity) -> f64 {
-    mob.mob().and_then(|m| m.move_control.as_deref()).map_or(0.0, |c| c.get_speed_modifier())
+    mob.mob()
+        .and_then(|m| m.move_control.as_deref())
+        .map_or(0.0, |c| c.get_speed_modifier())
 }
 
 /// Implements the structural `Entity` accessors for a concrete mob type whose `MobData` is the field `$mob`.

@@ -2,13 +2,15 @@ use crate::commands::CommandSourceStack;
 use crate::commands::message::simple_translatable;
 use mc_brigadier::arguments::value;
 use mc_brigadier::{
-    ArgumentType, CommandContext, CommandSyntaxException, ImmutableStringReader, ParsedValue, SimpleCommandExceptionType, StringReader,
+    ArgumentType, CommandContext, CommandSyntaxException, ImmutableStringReader, ParsedValue,
+    SimpleCommandExceptionType, StringReader,
 };
 use mc_core::direction::Axis;
 use std::collections::BTreeSet;
 use std::sync::LazyLock;
 
-static ERROR_INVALID: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| simple_translatable("arguments.swizzle.invalid"));
+static ERROR_INVALID: LazyLock<SimpleCommandExceptionType> =
+    LazyLock::new(|| simple_translatable("arguments.swizzle.invalid"));
 
 /// `SwizzleArgument` (`EnumSet<Direction.Axis>`, here an ordinal-ordered set).
 #[derive(Clone, Copy, Debug, Default)]
@@ -52,4 +54,6 @@ impl ArgumentType<CommandSourceStack> for SwizzleArgument {
     }
 }
 
-crate::register_argument_type!(SwizzleArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::Swizzle);
+crate::register_argument_type!(SwizzleArgument, |_a| {
+    mc_protocol::packets::play::ArgumentTypeTemplate::Swizzle
+});

@@ -42,11 +42,23 @@ pub struct SetPlayerTeam {
 #[derive(Debug, Clone, PartialEq)]
 pub enum ScoreboardPacket {
     /// `ClientboundSetScorePacket`.
-    SetScore { owner: String, objective_name: String, value: i32, display: Option<Component>, number_format: Option<NumberFormat> },
+    SetScore {
+        owner: String,
+        objective_name: String,
+        value: i32,
+        display: Option<Component>,
+        number_format: Option<NumberFormat>,
+    },
     /// `ClientboundResetScorePacket` (`objective_name == None`: every score of the owner).
-    ResetScore { owner: String, objective_name: Option<String> },
+    ResetScore {
+        owner: String,
+        objective_name: Option<String>,
+    },
     /// `ClientboundSetDisplayObjectivePacket` (`None` objective is the empty name).
-    SetDisplayObjective { slot: DisplaySlot, objective_name: Option<String> },
+    SetDisplayObjective {
+        slot: DisplaySlot,
+        objective_name: Option<String>,
+    },
     SetObjective(SetObjective),
     SetPlayerTeam(SetPlayerTeam),
 }

@@ -34,7 +34,10 @@ impl Default for GameRuleMap {
 impl GameRuleMap {
     /// `of()`.
     pub fn of_empty() -> GameRuleMap {
-        GameRuleMap { dirty: false, values: [None; GAME_RULE_DATA.len()] }
+        GameRuleMap {
+            dirty: false,
+            values: [None; GAME_RULE_DATA.len()],
+        }
     }
 
     /// `of(Stream<GameRule<?>>)`: every given rule at its default.
@@ -48,7 +51,10 @@ impl GameRuleMap {
 
     /// `copyOf`: the copy is not dirty.
     pub fn copy_of(other: &GameRuleMap) -> GameRuleMap {
-        GameRuleMap { dirty: false, values: other.values }
+        GameRuleMap {
+            dirty: false,
+            values: other.values,
+        }
     }
 
     pub fn has(&self, rule: AnyGameRule) -> bool {
@@ -69,10 +75,13 @@ impl GameRuleMap {
     }
 
     pub fn set_value(&mut self, rule: AnyGameRule, value: GameRuleValue) {
-        debug_assert_eq!(rule.game_rule_type(), match value {
-            GameRuleValue::Bool(_) => super::GameRuleType::Bool,
-            GameRuleValue::Int(_) => super::GameRuleType::Int,
-        });
+        debug_assert_eq!(
+            rule.game_rule_type(),
+            match value {
+                GameRuleValue::Bool(_) => super::GameRuleType::Bool,
+                GameRuleValue::Int(_) => super::GameRuleType::Int,
+            }
+        );
         self.set_dirty();
         self.values[rule.registry_id()] = Some(value);
     }
@@ -128,14 +137,24 @@ impl GameRuleMap {
                 Err(e) => errors.push(format!("{e} missed input: {{{key:?}:{value}}}")),
             }
         }
-        if errors.is_empty() { Ok(map) } else { Err(Partial { value: Some(map), error: errors.join("; ") }) }
+        if errors.is_empty() {
+            Ok(map)
+        } else {
+            Err(Partial {
+                value: Some(map),
+                error: errors.join("; "),
+            })
+        }
     }
 
     /// `CODEC` encode.
     pub fn encode(&self) -> Tag {
         let mut m = CompoundTag::new();
         for rule in self.key_set() {
-            m.put(rule.get_identifier().to_string(), rule.encode_value(self.get_value(rule).expect("key")));
+            m.put(
+                rule.get_identifier().to_string(),
+                rule.encode_value(self.get_value(rule).expect("key")),
+            );
         }
         Tag::Compound(m)
     }

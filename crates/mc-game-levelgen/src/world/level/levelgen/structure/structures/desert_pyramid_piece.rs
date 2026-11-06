@@ -1,13 +1,6 @@
 //! `DesertPyramidPiece`.
 
-use mc_game_core::world::level::BlockGetter as _;
-use mc_game_core::world::level::LevelAccessor as _;
-use mc_game_core::world::level::block::BlockStateExt as _;
-use mc_game_core::world::level::levelgen::env::GenEnv;
-use mc_game_core::world::level::levelgen::structure::manager::StructureManager;
-use mc_game_core::world::level::levelgen::structure::piece::{PieceBase, StructurePiece, StructurePieceSerializationContext, StructurePieceType, get_random_horizontal_direction};
 use crate::world::level::levelgen::structure::scattered_feature_piece::ScatteredFeaturePieceData;
-use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use linkme::distributed_slice;
 use mc_core::bounding_box::BoundingBox;
 use mc_core::direction::{Direction, Plane};
@@ -16,6 +9,16 @@ use mc_core::random::{RandomSource, create_thread_local_instance};
 use mc_core::rotation::Rotation;
 use mc_data::block::Block;
 use mc_data::props;
+use mc_game_core::world::level::BlockGetter as _;
+use mc_game_core::world::level::LevelAccessor as _;
+use mc_game_core::world::level::block::BlockStateExt as _;
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::structure::manager::StructureManager;
+use mc_game_core::world::level::levelgen::structure::piece::{
+    PieceBase, StructurePiece, StructurePieceSerializationContext, StructurePieceType,
+    get_random_horizontal_direction,
+};
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_nbt::CompoundTag;
 
 pub const WIDTH: i32 = 21;
@@ -41,7 +44,16 @@ impl DesertPyramidPiece {
     pub fn new(random: &mut dyn RandomSource, west: i32, north: i32) -> DesertPyramidPiece {
         let direction = get_random_horizontal_direction(random);
         DesertPyramidPiece {
-            data: ScatteredFeaturePieceData::new(&DESERT_PYRAMID_PIECE, west, 64, north, 21, 15, 21, direction),
+            data: ScatteredFeaturePieceData::new(
+                &DESERT_PYRAMID_PIECE,
+                west,
+                64,
+                north,
+                21,
+                15,
+                21,
+                direction,
+            ),
             has_placed_chest: [false; 4],
             potential_suspicious_sand_world_positions: Vec::new(),
             random_collapsed_roof_pos: BlockPos::ZERO,
@@ -77,7 +89,12 @@ impl DesertPyramidPiece {
         self.add_cellar_room(room_center, level, chunk_bb);
     }
 
-    fn add_cellar_stairs(&self, room_center: BlockPos, level: &mut dyn WorldGenLevel, chunk_bb: &BoundingBox) {
+    fn add_cellar_stairs(
+        &self,
+        room_center: BlockPos,
+        level: &mut dyn WorldGenLevel,
+        chunk_bb: &BoundingBox,
+    ) {
         let (x, y, z) = (room_center.x(), room_center.y(), room_center.z());
         let sandstone_stairs = Block::SANDSTONE_STAIRS.default_state();
         let stairs = sandstone_stairs.rotate(Rotation::Counterclockwise90);
@@ -93,29 +110,192 @@ impl DesertPyramidPiece {
         self.place_block(level, sand, x - 1, y + 4, z + 4, chunk_bb);
         self.place_block(level, sand, x, y + 4, z + 4, chunk_bb);
         self.place_block(level, sand, x - 2, y + 3, z + 4, chunk_bb);
-        self.place_block(level, if variant { sand } else { sandstone }, x - 1, y + 3, z + 4, chunk_bb);
-        self.place_block(level, if !variant { sand } else { sandstone }, x, y + 3, z + 4, chunk_bb);
+        self.place_block(
+            level,
+            if variant { sand } else { sandstone },
+            x - 1,
+            y + 3,
+            z + 4,
+            chunk_bb,
+        );
+        self.place_block(
+            level,
+            if !variant { sand } else { sandstone },
+            x,
+            y + 3,
+            z + 4,
+            chunk_bb,
+        );
         self.place_block(level, sand, x - 1, y + 2, z + 4, chunk_bb);
         self.place_block(level, sandstone, x, y + 2, z + 4, chunk_bb);
         self.place_block(level, sand, x, y + 1, z + 4, chunk_bb);
     }
 
-    fn add_cellar_room(&mut self, room_center: BlockPos, level: &mut dyn WorldGenLevel, chunk_bb: &BoundingBox) {
+    fn add_cellar_room(
+        &mut self,
+        room_center: BlockPos,
+        level: &mut dyn WorldGenLevel,
+        chunk_bb: &BoundingBox,
+    ) {
         let (x, y, z) = (room_center.x(), room_center.y(), room_center.z());
         let cut = Block::CUT_SANDSTONE.default_state();
         let hieroglyphs = Block::CHISELED_SANDSTONE.default_state();
-        self.generate_box(level, chunk_bb, x - 3, y + 1, z - 3, x - 3, y + 1, z + 2, cut, cut, true);
-        self.generate_box(level, chunk_bb, x + 3, y + 1, z - 3, x + 3, y + 1, z + 2, cut, cut, true);
-        self.generate_box(level, chunk_bb, x - 3, y + 1, z - 3, x + 3, y + 1, z - 2, cut, cut, true);
-        self.generate_box(level, chunk_bb, x - 3, y + 1, z + 3, x + 3, y + 1, z + 3, cut, cut, true);
-        self.generate_box(level, chunk_bb, x - 3, y + 2, z - 3, x - 3, y + 2, z + 2, hieroglyphs, hieroglyphs, true);
-        self.generate_box(level, chunk_bb, x + 3, y + 2, z - 3, x + 3, y + 2, z + 2, hieroglyphs, hieroglyphs, true);
-        self.generate_box(level, chunk_bb, x - 3, y + 2, z - 3, x + 3, y + 2, z - 2, hieroglyphs, hieroglyphs, true);
-        self.generate_box(level, chunk_bb, x - 3, y + 2, z + 3, x + 3, y + 2, z + 3, hieroglyphs, hieroglyphs, true);
-        self.generate_box(level, chunk_bb, x - 3, -1, z - 3, x - 3, -1, z + 2, cut, cut, true);
-        self.generate_box(level, chunk_bb, x + 3, -1, z - 3, x + 3, -1, z + 2, cut, cut, true);
-        self.generate_box(level, chunk_bb, x - 3, -1, z - 3, x + 3, -1, z - 2, cut, cut, true);
-        self.generate_box(level, chunk_bb, x - 3, -1, z + 3, x + 3, -1, z + 3, cut, cut, true);
+        self.generate_box(
+            level,
+            chunk_bb,
+            x - 3,
+            y + 1,
+            z - 3,
+            x - 3,
+            y + 1,
+            z + 2,
+            cut,
+            cut,
+            true,
+        );
+        self.generate_box(
+            level,
+            chunk_bb,
+            x + 3,
+            y + 1,
+            z - 3,
+            x + 3,
+            y + 1,
+            z + 2,
+            cut,
+            cut,
+            true,
+        );
+        self.generate_box(
+            level,
+            chunk_bb,
+            x - 3,
+            y + 1,
+            z - 3,
+            x + 3,
+            y + 1,
+            z - 2,
+            cut,
+            cut,
+            true,
+        );
+        self.generate_box(
+            level,
+            chunk_bb,
+            x - 3,
+            y + 1,
+            z + 3,
+            x + 3,
+            y + 1,
+            z + 3,
+            cut,
+            cut,
+            true,
+        );
+        self.generate_box(
+            level,
+            chunk_bb,
+            x - 3,
+            y + 2,
+            z - 3,
+            x - 3,
+            y + 2,
+            z + 2,
+            hieroglyphs,
+            hieroglyphs,
+            true,
+        );
+        self.generate_box(
+            level,
+            chunk_bb,
+            x + 3,
+            y + 2,
+            z - 3,
+            x + 3,
+            y + 2,
+            z + 2,
+            hieroglyphs,
+            hieroglyphs,
+            true,
+        );
+        self.generate_box(
+            level,
+            chunk_bb,
+            x - 3,
+            y + 2,
+            z - 3,
+            x + 3,
+            y + 2,
+            z - 2,
+            hieroglyphs,
+            hieroglyphs,
+            true,
+        );
+        self.generate_box(
+            level,
+            chunk_bb,
+            x - 3,
+            y + 2,
+            z + 3,
+            x + 3,
+            y + 2,
+            z + 3,
+            hieroglyphs,
+            hieroglyphs,
+            true,
+        );
+        self.generate_box(
+            level,
+            chunk_bb,
+            x - 3,
+            -1,
+            z - 3,
+            x - 3,
+            -1,
+            z + 2,
+            cut,
+            cut,
+            true,
+        );
+        self.generate_box(
+            level,
+            chunk_bb,
+            x + 3,
+            -1,
+            z - 3,
+            x + 3,
+            -1,
+            z + 2,
+            cut,
+            cut,
+            true,
+        );
+        self.generate_box(
+            level,
+            chunk_bb,
+            x - 3,
+            -1,
+            z - 3,
+            x + 3,
+            -1,
+            z - 2,
+            cut,
+            cut,
+            true,
+        );
+        self.generate_box(
+            level,
+            chunk_bb,
+            x - 3,
+            -1,
+            z + 3,
+            x + 3,
+            -1,
+            z + 3,
+            cut,
+            cut,
+            true,
+        );
         self.place_sand_box(x - 2, y + 1, z - 2, x + 2, y + 3, z + 2);
         self.place_collapsed_roof(level, chunk_bb, x - 2, y + 4, z - 2, x + 2, z + 2);
         let orange = Block::ORANGE_TERRACOTTA.default_state();
@@ -151,7 +331,8 @@ impl DesertPyramidPiece {
 
     fn place_sand(&mut self, x: i32, y: i32, z: i32) {
         let world_pos = self.get_world_pos(x, y, z);
-        self.potential_suspicious_sand_world_positions.push(world_pos);
+        self.potential_suspicious_sand_world_positions
+            .push(world_pos);
     }
 
     fn place_sand_box(&mut self, x0: i32, y0: i32, z0: i32, x1: i32, y1: i32, z1: i32) {
@@ -164,21 +345,47 @@ impl DesertPyramidPiece {
         }
     }
 
-    fn place_collapsed_roof_piece(&self, level: &mut dyn WorldGenLevel, x: i32, y: i32, z: i32, chunk_bb: &BoundingBox) {
-        let state = if level.random().next_float() < 0.33f32 { Block::SANDSTONE.default_state() } else { Block::SAND.default_state() };
+    fn place_collapsed_roof_piece(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        x: i32,
+        y: i32,
+        z: i32,
+        chunk_bb: &BoundingBox,
+    ) {
+        let state = if level.random().next_float() < 0.33f32 {
+            Block::SANDSTONE.default_state()
+        } else {
+            Block::SAND.default_state()
+        };
         self.place_block(level, state, x, y, z, chunk_bb);
     }
 
-    fn place_collapsed_roof(&mut self, level: &mut dyn WorldGenLevel, chunk_bb: &BoundingBox, x0: i32, y0: i32, z0: i32, x1: i32, z1: i32) {
+    fn place_collapsed_roof(
+        &mut self,
+        level: &mut dyn WorldGenLevel,
+        chunk_bb: &BoundingBox,
+        x0: i32,
+        y0: i32,
+        z0: i32,
+        x1: i32,
+        z1: i32,
+    ) {
         for x in x0..=x1 {
             for z in z0..=z1 {
                 self.place_collapsed_roof_piece(level, x, y0, z, chunk_bb);
             }
         }
-        let mut random = create_thread_local_instance(level.get_seed()).fork_positional().at_pos(self.get_world_pos(x0, y0, z0));
+        let mut random = create_thread_local_instance(level.get_seed())
+            .fork_positional()
+            .at_pos(self.get_world_pos(x0, y0, z0));
         let roof_pos_x = random.next_int_between_inclusive(x0, x1);
         let roof_pos_z = random.next_int_between_inclusive(z0, z1);
-        self.random_collapsed_roof_pos = BlockPos::new(self.get_world_x(roof_pos_x, roof_pos_z), self.get_world_y(y0), self.get_world_z(roof_pos_x, roof_pos_z));
+        self.random_collapsed_roof_pos = BlockPos::new(
+            self.get_world_x(roof_pos_x, roof_pos_z),
+            self.get_world_y(y0),
+            self.get_world_z(roof_pos_x, roof_pos_z),
+        );
     }
 }
 
@@ -191,7 +398,11 @@ impl StructurePiece for DesertPyramidPiece {
         &mut self.data.base
     }
 
-    fn add_additional_save_data(&self, context: &StructurePieceSerializationContext<'_>, tag: &mut CompoundTag) {
+    fn add_additional_save_data(
+        &self,
+        context: &StructurePieceSerializationContext<'_>,
+        tag: &mut CompoundTag,
+    ) {
         self.data.add_additional_save_data(context, tag);
         for (i, placed) in self.has_placed_chest.iter().enumerate() {
             tag.put_boolean(&format!("hasPlacedChest{i}"), *placed);
@@ -209,7 +420,10 @@ impl StructurePiece for DesertPyramidPiece {
         _reference_pos: BlockPos,
     ) {
         let offset = -random.next_int_bounded(3);
-        if !self.data.update_height_position_to_lowest_ground_height(level, offset) {
+        if !self
+            .data
+            .update_height_position_to_lowest_ground_height(level, offset)
+        {
             return;
         }
         let (width, depth) = (self.data.width, self.data.depth);
@@ -233,8 +447,26 @@ impl StructurePiece for DesertPyramidPiece {
 
         boxed!(0, -4, 0, width - 1, 0, depth - 1, sandstone, sandstone);
         for pos in 1..=9 {
-            boxed!(pos, pos, pos, width - 1 - pos, pos, depth - 1 - pos, sandstone, sandstone);
-            boxed!(pos + 1, pos, pos + 1, width - 2 - pos, pos, depth - 2 - pos, air, air);
+            boxed!(
+                pos,
+                pos,
+                pos,
+                width - 1 - pos,
+                pos,
+                depth - 1 - pos,
+                sandstone,
+                sandstone
+            );
+            boxed!(
+                pos + 1,
+                pos,
+                pos + 1,
+                width - 2 - pos,
+                pos,
+                depth - 2 - pos,
+                air,
+                air
+            );
         }
         for x in 0..width {
             for z in 0..depth {
@@ -242,10 +474,18 @@ impl StructurePiece for DesertPyramidPiece {
             }
         }
 
-        let north_stairs = Block::SANDSTONE_STAIRS.default_state().set(props::HORIZONTAL_FACING, Direction::North);
-        let south_stairs = Block::SANDSTONE_STAIRS.default_state().set(props::HORIZONTAL_FACING, Direction::South);
-        let east_stairs = Block::SANDSTONE_STAIRS.default_state().set(props::HORIZONTAL_FACING, Direction::East);
-        let west_stairs = Block::SANDSTONE_STAIRS.default_state().set(props::HORIZONTAL_FACING, Direction::West);
+        let north_stairs = Block::SANDSTONE_STAIRS
+            .default_state()
+            .set(props::HORIZONTAL_FACING, Direction::North);
+        let south_stairs = Block::SANDSTONE_STAIRS
+            .default_state()
+            .set(props::HORIZONTAL_FACING, Direction::South);
+        let east_stairs = Block::SANDSTONE_STAIRS
+            .default_state()
+            .set(props::HORIZONTAL_FACING, Direction::East);
+        let west_stairs = Block::SANDSTONE_STAIRS
+            .default_state()
+            .set(props::HORIZONTAL_FACING, Direction::West);
         boxed!(0, 0, 0, 4, 9, 4, sandstone, air);
         boxed!(1, 10, 1, 3, 10, 3, sandstone, sandstone);
         put!(north_stairs, 2, 10, 0);
@@ -418,7 +658,15 @@ impl StructurePiece for DesertPyramidPiece {
             if !self.has_placed_chest[index] {
                 let xo = direction.get_step_x() * 2;
                 let zo = direction.get_step_z() * 2;
-                self.has_placed_chest[index] = self.create_chest(level, bb, random, 10 + xo, -11, 10 + zo, "minecraft:chests/desert_pyramid");
+                self.has_placed_chest[index] = self.create_chest(
+                    level,
+                    bb,
+                    random,
+                    10 + xo,
+                    -11,
+                    10 + zo,
+                    "minecraft:chests/desert_pyramid",
+                );
             }
         }
 

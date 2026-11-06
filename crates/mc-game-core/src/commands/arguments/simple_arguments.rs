@@ -4,13 +4,14 @@
 
 use super::coordinates::WorldCoordinate;
 use super::string_representable_argument::string_representable_argument;
+use crate::commands::CommandSourceStack;
 use crate::commands::message::{dynamic_translatable, message, simple_translatable};
 use crate::commands::shared_suggestion_provider::{suggest, suggest_resource};
-use crate::commands::CommandSourceStack;
 use mc_brigadier::arguments::value;
 use mc_brigadier::{
-    ArgumentType, CommandContext, CommandSyntaxException, Dynamic2CommandExceptionType, DynamicCommandExceptionType,
-    ImmutableStringReader, ParsedValue, SimpleCommandExceptionType, StringReader, Suggestions, SuggestionsBuilder,
+    ArgumentType, CommandContext, CommandSyntaxException, Dynamic2CommandExceptionType,
+    DynamicCommandExceptionType, ImmutableStringReader, ParsedValue, SimpleCommandExceptionType,
+    StringReader, Suggestions, SuggestionsBuilder,
 };
 use mc_core::ident::{Identifier, is_allowed_in_identifier};
 use mc_core::math::mth;
@@ -23,8 +24,10 @@ use uuid::Uuid;
 
 // ---- AngleArgument ----
 
-static ERROR_ANGLE_NOT_COMPLETE: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| simple_translatable("argument.angle.incomplete"));
-static ERROR_INVALID_ANGLE: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| simple_translatable("argument.angle.invalid"));
+static ERROR_ANGLE_NOT_COMPLETE: LazyLock<SimpleCommandExceptionType> =
+    LazyLock::new(|| simple_translatable("argument.angle.incomplete"));
+static ERROR_INVALID_ANGLE: LazyLock<SimpleCommandExceptionType> =
+    LazyLock::new(|| simple_translatable("argument.angle.invalid"));
 
 /// `AngleArgument.SingleAngle`.
 #[derive(Clone, Copy, Debug)]
@@ -35,7 +38,11 @@ pub struct SingleAngle {
 
 impl SingleAngle {
     pub fn get_angle(&self, sender: &CommandSourceStack) -> f32 {
-        mth::wrap_degrees_f32(if self.is_relative { self.angle + sender.get_rotation().y } else { self.angle })
+        mth::wrap_degrees_f32(if self.is_relative {
+            self.angle + sender.get_rotation().y
+        } else {
+            self.angle
+        })
     }
 }
 
@@ -48,7 +55,9 @@ impl AngleArgument {
     }
 
     pub fn get_angle(context: &CommandContext<CommandSourceStack>, name: &str) -> f32 {
-        context.get_argument::<SingleAngle>(name).get_angle(context.get_source())
+        context
+            .get_argument::<SingleAngle>(name)
+            .get_angle(context.get_source())
     }
 }
 
@@ -58,7 +67,11 @@ impl ArgumentType<CommandSourceStack> for AngleArgument {
             return Err(ERROR_ANGLE_NOT_COMPLETE.create_with_context(reader));
         }
         let is_relative = WorldCoordinate::is_relative(reader);
-        let angle = if reader.can_read() && reader.peek() != ' ' { reader.read_float()? } else { 0.0 };
+        let angle = if reader.can_read() && reader.peek() != ' ' {
+            reader.read_float()?
+        } else {
+            0.0
+        };
         if angle.is_nan() || angle.is_infinite() {
             Err(ERROR_INVALID_ANGLE.create_with_context(reader))
         } else {
@@ -77,7 +90,8 @@ impl ArgumentType<CommandSourceStack> for AngleArgument {
 
 // ---- HexColorArgument ----
 
-pub static ERROR_INVALID_HEX: LazyLock<DynamicCommandExceptionType<String>> = LazyLock::new(|| dynamic_translatable("argument.hexcolor.invalid"));
+pub static ERROR_INVALID_HEX: LazyLock<DynamicCommandExceptionType<String>> =
+    LazyLock::new(|| dynamic_translatable("argument.hexcolor.invalid"));
 
 /// `Integer.parseInt(CharSequence, begin, end, 16)`; a malformed digit is a `NumberFormatException`
 /// (a runtime exception: brigadier reports it as "Could not parse command").
@@ -130,15 +144,21 @@ impl ArgumentType<CommandSourceStack> for HexColorArgument {
                 let d = |i: usize| parse_hex(&color_string, i, i + 1) * 17;
                 argb_color(d(0), d(1), d(2))
             }
-            6 if color_string.is_ascii() => {
-                argb_color(parse_hex(&color_string, 0, 2), parse_hex(&color_string, 2, 4), parse_hex(&color_string, 4, 6))
-            }
+            6 if color_string.is_ascii() => argb_color(
+                parse_hex(&color_string, 0, 2),
+                parse_hex(&color_string, 2, 4),
+                parse_hex(&color_string, 4, 6),
+            ),
             _ => return Err(ERROR_INVALID_HEX.create_with_context(reader, color_string)),
         };
         Ok(value(color))
     }
 
-    fn list_suggestions(&self, _context: &CommandContext<CommandSourceStack>, builder: SuggestionsBuilder) -> Suggestions {
+    fn list_suggestions(
+        &self,
+        _context: &CommandContext<CommandSourceStack>,
+        builder: SuggestionsBuilder,
+    ) -> Suggestions {
         suggest(["F00", "FF0000"], builder)
     }
 
@@ -153,7 +173,8 @@ impl ArgumentType<CommandSourceStack> for HexColorArgument {
 
 // ---- IdentifierArgument (+ Identifier.read) ----
 
-pub static ERROR_INVALID_ID: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| simple_translatable("argument.id.invalid"));
+pub static ERROR_INVALID_ID: LazyLock<SimpleCommandExceptionType> =
+    LazyLock::new(|| simple_translatable("argument.id.invalid"));
 
 /// `Identifier.readGreedy`.
 fn read_greedy(reader: &mut StringReader) -> String {
@@ -175,7 +196,9 @@ pub fn read_identifier(reader: &mut StringReader) -> Result<Identifier, CommandS
 }
 
 /// `Identifier.readNonEmpty(StringReader)`.
-pub fn read_identifier_non_empty(reader: &mut StringReader) -> Result<Identifier, CommandSyntaxException> {
+pub fn read_identifier_non_empty(
+    reader: &mut StringReader,
+) -> Result<Identifier, CommandSyntaxException> {
     let start = reader.get_cursor();
     let raw = read_greedy(reader);
     if raw.is_empty() {
@@ -216,7 +239,8 @@ impl ArgumentType<CommandSourceStack> for IdentifierArgument {
 
 // ---- DimensionArgument ----
 
-static ERROR_INVALID_DIMENSION: LazyLock<DynamicCommandExceptionType<String>> = LazyLock::new(|| dynamic_translatable("argument.dimension.invalid"));
+static ERROR_INVALID_DIMENSION: LazyLock<DynamicCommandExceptionType<String>> =
+    LazyLock::new(|| dynamic_translatable("argument.dimension.invalid"));
 
 #[derive(Clone, Copy, Debug, Default)]
 pub struct DimensionArgument;
@@ -227,10 +251,19 @@ impl DimensionArgument {
     }
 
     /// `getDimension`: the key of an existing level.
-    pub fn get_dimension(context: &CommandContext<CommandSourceStack>, name: &str) -> Result<Identifier, CommandSyntaxException> {
+    pub fn get_dimension(
+        context: &CommandContext<CommandSourceStack>,
+        name: &str,
+    ) -> Result<Identifier, CommandSyntaxException> {
         let location = context.get_argument::<Identifier>(name).clone();
-        let exists = context.get_source().with_server(|server| server.level(&location).is_some());
-        if exists { Ok(location) } else { Err(ERROR_INVALID_DIMENSION.create(location.to_string())) }
+        let exists = context
+            .get_source()
+            .with_server(|server| server.level(&location).is_some());
+        if exists {
+            Ok(location)
+        } else {
+            Err(ERROR_INVALID_DIMENSION.create(location.to_string()))
+        }
     }
 }
 
@@ -239,12 +272,18 @@ impl ArgumentType<CommandSourceStack> for DimensionArgument {
         read_identifier(reader).map(value)
     }
 
-    fn list_suggestions(&self, context: &CommandContext<CommandSourceStack>, builder: SuggestionsBuilder) -> Suggestions {
+    fn list_suggestions(
+        &self,
+        context: &CommandContext<CommandSourceStack>,
+        builder: SuggestionsBuilder,
+    ) -> Suggestions {
         suggest_resource(context.get_source().levels(), builder)
     }
 
     fn get_examples(&self) -> Vec<String> {
-        ["minecraft:overworld", "minecraft:the_nether"].map(String::from).to_vec()
+        ["minecraft:overworld", "minecraft:the_nether"]
+            .map(String::from)
+            .to_vec()
     }
 
     fn describe(&self) -> String {
@@ -254,9 +293,15 @@ impl ArgumentType<CommandSourceStack> for DimensionArgument {
 
 // ---- GameModeArgument ----
 
-static ERROR_INVALID_GAMEMODE: LazyLock<DynamicCommandExceptionType<String>> = LazyLock::new(|| dynamic_translatable("argument.gamemode.invalid"));
+static ERROR_INVALID_GAMEMODE: LazyLock<DynamicCommandExceptionType<String>> =
+    LazyLock::new(|| dynamic_translatable("argument.gamemode.invalid"));
 
-const GAME_TYPES: [GameType; 4] = [GameType::Survival, GameType::Creative, GameType::Adventure, GameType::Spectator];
+const GAME_TYPES: [GameType; 4] = [
+    GameType::Survival,
+    GameType::Creative,
+    GameType::Adventure,
+    GameType::Spectator,
+];
 
 #[derive(Clone, Copy, Debug, Default)]
 pub struct GameModeArgument;
@@ -280,7 +325,11 @@ impl ArgumentType<CommandSourceStack> for GameModeArgument {
         }
     }
 
-    fn list_suggestions(&self, _context: &CommandContext<CommandSourceStack>, builder: SuggestionsBuilder) -> Suggestions {
+    fn list_suggestions(
+        &self,
+        _context: &CommandContext<CommandSourceStack>,
+        builder: SuggestionsBuilder,
+    ) -> Suggestions {
         suggest(GAME_TYPES.map(GameType::get_name), builder)
     }
 
@@ -315,11 +364,14 @@ impl SwingAnimationType {
     }
 
     pub fn by_name(name: &str) -> Option<Self> {
-        Self::VALUES.into_iter().find(|t| t.get_serialized_name() == name)
+        Self::VALUES
+            .into_iter()
+            .find(|t| t.get_serialized_name() == name)
     }
 }
 
-static ERROR_INVALID_SWING: LazyLock<DynamicCommandExceptionType<String>> = LazyLock::new(|| dynamic_translatable("argument.swing_animation.invalid"));
+static ERROR_INVALID_SWING: LazyLock<DynamicCommandExceptionType<String>> =
+    LazyLock::new(|| dynamic_translatable("argument.swing_animation.invalid"));
 
 #[derive(Clone, Copy, Debug, Default)]
 pub struct SwingAnimationArgument;
@@ -329,7 +381,10 @@ impl SwingAnimationArgument {
         Self
     }
 
-    pub fn get_swing_animation_type(context: &CommandContext<CommandSourceStack>, name: &str) -> SwingAnimationType {
+    pub fn get_swing_animation_type(
+        context: &CommandContext<CommandSourceStack>,
+        name: &str,
+    ) -> SwingAnimationType {
         *context.get_argument::<SwingAnimationType>(name)
     }
 }
@@ -343,8 +398,15 @@ impl ArgumentType<CommandSourceStack> for SwingAnimationArgument {
         }
     }
 
-    fn list_suggestions(&self, _context: &CommandContext<CommandSourceStack>, builder: SuggestionsBuilder) -> Suggestions {
-        suggest(SwingAnimationType::VALUES.map(SwingAnimationType::get_serialized_name), builder)
+    fn list_suggestions(
+        &self,
+        _context: &CommandContext<CommandSourceStack>,
+        builder: SuggestionsBuilder,
+    ) -> Suggestions {
+        suggest(
+            SwingAnimationType::VALUES.map(SwingAnimationType::get_serialized_name),
+            builder,
+        )
     }
 
     fn get_examples(&self) -> Vec<String> {
@@ -360,7 +422,8 @@ impl ArgumentType<CommandSourceStack> for SwingAnimationArgument {
 
 pub use crate::world::scores::TeamColor;
 
-pub static ERROR_INVALID_TEAM_COLOR: LazyLock<DynamicCommandExceptionType<String>> = LazyLock::new(|| dynamic_translatable("argument.color.invalid"));
+pub static ERROR_INVALID_TEAM_COLOR: LazyLock<DynamicCommandExceptionType<String>> =
+    LazyLock::new(|| dynamic_translatable("argument.color.invalid"));
 
 #[derive(Clone, Copy, Debug, Default)]
 pub struct TeamColorArgument;
@@ -384,8 +447,15 @@ impl ArgumentType<CommandSourceStack> for TeamColorArgument {
         }
     }
 
-    fn list_suggestions(&self, _context: &CommandContext<CommandSourceStack>, builder: SuggestionsBuilder) -> Suggestions {
-        suggest(TeamColor::VALUES.map(TeamColor::get_serialized_name), builder)
+    fn list_suggestions(
+        &self,
+        _context: &CommandContext<CommandSourceStack>,
+        builder: SuggestionsBuilder,
+    ) -> Suggestions {
+        suggest(
+            TeamColor::VALUES.map(TeamColor::get_serialized_name),
+            builder,
+        )
     }
 
     fn get_examples(&self) -> Vec<String> {
@@ -421,10 +491,18 @@ string_representable_argument!(
 
 // ---- TimeArgument ----
 
-static ERROR_INVALID_UNIT: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| simple_translatable("argument.time.invalid_unit"));
-static ERROR_TICK_COUNT_TOO_LOW: LazyLock<Dynamic2CommandExceptionType<i32, i32>> = LazyLock::new(|| {
-    Dynamic2CommandExceptionType::new(|value: i32, limit: i32| message(crate::translatable!("argument.time.tick_count_too_low", limit, value)))
-});
+static ERROR_INVALID_UNIT: LazyLock<SimpleCommandExceptionType> =
+    LazyLock::new(|| simple_translatable("argument.time.invalid_unit"));
+static ERROR_TICK_COUNT_TOO_LOW: LazyLock<Dynamic2CommandExceptionType<i32, i32>> =
+    LazyLock::new(|| {
+        Dynamic2CommandExceptionType::new(|value: i32, limit: i32| {
+            message(crate::translatable!(
+                "argument.time.tick_count_too_low",
+                limit,
+                value
+            ))
+        })
+    });
 
 /// `TimeArgument.UNITS`.
 const TIME_UNITS: [(&str, i32); 4] = [("d", 24000), ("s", 20), ("t", 1), ("", 1)];
@@ -452,7 +530,10 @@ impl ArgumentType<CommandSourceStack> for TimeArgument {
     fn parse(&self, reader: &mut StringReader) -> Result<ParsedValue, CommandSyntaxException> {
         let v = reader.read_float()?;
         let unit = reader.read_unquoted_string();
-        let factor = TIME_UNITS.iter().find(|(u, _)| *u == unit).map_or(0, |(_, f)| *f);
+        let factor = TIME_UNITS
+            .iter()
+            .find(|(u, _)| *u == unit)
+            .map_or(0, |(_, f)| *f);
         if factor == 0 {
             return Err(ERROR_INVALID_UNIT.create_with_context(reader));
         }
@@ -464,7 +545,11 @@ impl ArgumentType<CommandSourceStack> for TimeArgument {
         }
     }
 
-    fn list_suggestions(&self, _context: &CommandContext<CommandSourceStack>, builder: SuggestionsBuilder) -> Suggestions {
+    fn list_suggestions(
+        &self,
+        _context: &CommandContext<CommandSourceStack>,
+        builder: SuggestionsBuilder,
+    ) -> Suggestions {
         let mut reader = StringReader::new(builder.get_remaining());
         if reader.read_float().is_err() {
             return builder.build();
@@ -484,7 +569,8 @@ impl ArgumentType<CommandSourceStack> for TimeArgument {
 
 // ---- UuidArgument ----
 
-static ERROR_INVALID_UUID: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| simple_translatable("argument.uuid.invalid"));
+static ERROR_INVALID_UUID: LazyLock<SimpleCommandExceptionType> =
+    LazyLock::new(|| simple_translatable("argument.uuid.invalid"));
 
 #[derive(Clone, Copy, Debug, Default)]
 pub struct UuidArgument;
@@ -502,7 +588,9 @@ impl UuidArgument {
 impl ArgumentType<CommandSourceStack> for UuidArgument {
     fn parse(&self, reader: &mut StringReader) -> Result<ParsedValue, CommandSyntaxException> {
         let remaining = reader.get_remaining();
-        let end = remaining.find(|c: char| !(c == '-' || c.is_ascii_hexdigit())).unwrap_or(remaining.len());
+        let end = remaining
+            .find(|c: char| !(c == '-' || c.is_ascii_hexdigit()))
+            .unwrap_or(remaining.len());
         let maybe_uuid = &remaining[..end];
         if !maybe_uuid.is_empty()
             && let Some(uuid) = mc_core::uuid_util::uuid_from_string(maybe_uuid).ok()
@@ -522,15 +610,39 @@ impl ArgumentType<CommandSourceStack> for UuidArgument {
     }
 }
 
-crate::register_argument_type!(AngleArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::Angle);
-crate::register_argument_type!(HexColorArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::HexColor);
-crate::register_argument_type!(IdentifierArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::ResourceLocation);
-crate::register_argument_type!(DimensionArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::Dimension);
-crate::register_argument_type!(GameModeArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::Gamemode);
-crate::register_argument_type!(SwingAnimationArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::SwingAnimation);
-crate::register_argument_type!(TeamColorArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::TeamColor);
-crate::register_argument_type!(HeightmapTypeArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::Heightmap);
-crate::register_argument_type!(TemplateMirrorArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::TemplateMirror);
-crate::register_argument_type!(TemplateRotationArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::TemplateRotation);
-crate::register_argument_type!(TimeArgument, |a| mc_protocol::packets::play::ArgumentTypeTemplate::Time { min: a.minimum });
-crate::register_argument_type!(UuidArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::Uuid);
+crate::register_argument_type!(AngleArgument, |_a| {
+    mc_protocol::packets::play::ArgumentTypeTemplate::Angle
+});
+crate::register_argument_type!(HexColorArgument, |_a| {
+    mc_protocol::packets::play::ArgumentTypeTemplate::HexColor
+});
+crate::register_argument_type!(IdentifierArgument, |_a| {
+    mc_protocol::packets::play::ArgumentTypeTemplate::ResourceLocation
+});
+crate::register_argument_type!(DimensionArgument, |_a| {
+    mc_protocol::packets::play::ArgumentTypeTemplate::Dimension
+});
+crate::register_argument_type!(GameModeArgument, |_a| {
+    mc_protocol::packets::play::ArgumentTypeTemplate::Gamemode
+});
+crate::register_argument_type!(SwingAnimationArgument, |_a| {
+    mc_protocol::packets::play::ArgumentTypeTemplate::SwingAnimation
+});
+crate::register_argument_type!(TeamColorArgument, |_a| {
+    mc_protocol::packets::play::ArgumentTypeTemplate::TeamColor
+});
+crate::register_argument_type!(HeightmapTypeArgument, |_a| {
+    mc_protocol::packets::play::ArgumentTypeTemplate::Heightmap
+});
+crate::register_argument_type!(TemplateMirrorArgument, |_a| {
+    mc_protocol::packets::play::ArgumentTypeTemplate::TemplateMirror
+});
+crate::register_argument_type!(TemplateRotationArgument, |_a| {
+    mc_protocol::packets::play::ArgumentTypeTemplate::TemplateRotation
+});
+crate::register_argument_type!(TimeArgument, |a| {
+    mc_protocol::packets::play::ArgumentTypeTemplate::Time { min: a.minimum }
+});
+crate::register_argument_type!(UuidArgument, |_a| {
+    mc_protocol::packets::play::ArgumentTypeTemplate::Uuid
+});

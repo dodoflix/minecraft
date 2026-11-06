@@ -32,8 +32,14 @@ pub struct CommandBuildContext {
 
 impl CommandBuildContext {
     /// `CommandBuildContext.simple(access, enabledFeatures)`.
-    pub fn simple(registries: Arc<dyn HolderLookupProvider>, enabled_features: FeatureFlagSet) -> Self {
-        Self { enabled_features, registries }
+    pub fn simple(
+        registries: Arc<dyn HolderLookupProvider>,
+        enabled_features: FeatureFlagSet,
+    ) -> Self {
+        Self {
+            enabled_features,
+            registries,
+        }
     }
 
     pub fn enabled_features(&self) -> &FeatureFlagSet {
@@ -61,11 +67,18 @@ impl RegistryView for StaticRegistryView {
     }
 
     fn element_ids(&self) -> Vec<Identifier> {
-        self.0.entries().iter().filter_map(|n| Identifier::try_parse(n)).collect()
+        self.0
+            .entries()
+            .iter()
+            .filter_map(|n| Identifier::try_parse(n))
+            .collect()
     }
 
     fn tag_ids(&self) -> Vec<Identifier> {
-        mc_data::tags::list(self.0.tag_dir()).iter().filter_map(|n| Identifier::try_parse(n)).collect()
+        mc_data::tags::list(self.0.tag_dir())
+            .iter()
+            .filter_map(|n| Identifier::try_parse(n))
+            .collect()
     }
 
     fn has_tag(&self, tag: &Identifier) -> bool {
@@ -73,17 +86,22 @@ impl RegistryView for StaticRegistryView {
     }
 
     fn tag_elements(&self, tag: &Identifier) -> Option<Vec<Identifier>> {
-        mc_data::tags::names(self.0.tag_dir(), &tag.to_string()).map(|v| v.iter().filter_map(|n| Identifier::try_parse(n)).collect())
+        mc_data::tags::names(self.0.tag_dir(), &tag.to_string())
+            .map(|v| v.iter().filter_map(|n| Identifier::try_parse(n)).collect())
     }
 }
 
 impl HolderLookupProvider for StaticRegistries {
     fn lookup(&self, registry_key: &str) -> Option<Arc<dyn RegistryView>> {
-        mc_data::registry::by_name(registry_key).map(|r| Arc::new(StaticRegistryView(r)) as Arc<dyn RegistryView>)
+        mc_data::registry::by_name(registry_key)
+            .map(|r| Arc::new(StaticRegistryView(r)) as Arc<dyn RegistryView>)
     }
 
     fn list_registry_keys(&self) -> Vec<String> {
-        mc_data::registry::registries::ALL.iter().map(|r| r.name().to_owned()).collect()
+        mc_data::registry::registries::ALL
+            .iter()
+            .map(|r| r.name().to_owned())
+            .collect()
     }
 }
 
@@ -111,13 +129,17 @@ impl RegistryView for AccessRegistryView {
     }
 
     fn tag_elements(&self, tag: &Identifier) -> Option<Vec<Identifier>> {
-        self.0.tag(tag).map(|ids| ids.iter().filter_map(|i| self.0.name_of(*i)).collect())
+        self.0
+            .tag(tag)
+            .map(|ids| ids.iter().filter_map(|i| self.0.name_of(*i)).collect())
     }
 }
 
 impl HolderLookupProvider for AccessRegistries {
     fn lookup(&self, registry_key: &str) -> Option<Arc<dyn RegistryView>> {
-        self.0.registry(registry_key).map(|r| Arc::new(AccessRegistryView(r.clone())) as Arc<dyn RegistryView>)
+        self.0
+            .registry(registry_key)
+            .map(|r| Arc::new(AccessRegistryView(r.clone())) as Arc<dyn RegistryView>)
     }
 
     fn list_registry_keys(&self) -> Vec<String> {

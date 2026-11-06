@@ -7,7 +7,9 @@ use mc_core::ident::Identifier;
 use mc_data::{Attribute, EntityType, MobEffect};
 use mc_game::world::effect::MobEffectExt;
 use mc_game::world::effect::potion_contents;
-use mc_game::world::entity::attributes::{AttributeMap, AttributeModifier, AttributeModifierOperation};
+use mc_game::world::entity::attributes::{
+    AttributeMap, AttributeModifier, AttributeModifierOperation,
+};
 use mc_game::world::entity::effect::MobEffectInstance;
 use mc_nbt::Tag;
 use mc_protocol::packets::play::ParticleOptions;
@@ -64,10 +66,23 @@ fn tick_intervals_categories_colors() {
         let f: Vec<&str> = line.split('\t').collect();
         let e = effect(f[1]);
         assert_eq!(e.is_instantaneous(), f[2] == "true", "{}", f[1]);
-        assert_eq!(format!("{:?}", e.data().category).to_uppercase(), f[3], "{}", f[1]);
+        assert_eq!(
+            format!("{:?}", e.data().category).to_uppercase(),
+            f[3],
+            "{}",
+            f[1]
+        );
         assert_eq!(e.get_color().to_string(), f[4], "{}", f[1]);
         for (amp, row) in f[5].split('|').filter(|r| !r.is_empty()).enumerate() {
-            let actual: String = (0..=120).map(|t| if e.should_apply_effect_tick_this_tick(t, amp as i32) { '1' } else { '0' }).collect();
+            let actual: String = (0..=120)
+                .map(|t| {
+                    if e.should_apply_effect_tick_this_tick(t, amp as i32) {
+                        '1'
+                    } else {
+                        '0'
+                    }
+                })
+                .collect();
             assert_eq!(actual, row, "{} amplifier {amp}", f[1]);
         }
         n += 1;
@@ -83,7 +98,15 @@ fn attribute_templates() {
         let actual: String = effect(f[1])
             .create_modifiers(amp)
             .iter()
-            .map(|(a, m)| format!("{},{},{},{};", a.identifier(), m.id, hex(m.amount), op_name(m.operation)))
+            .map(|(a, m)| {
+                format!(
+                    "{},{},{},{};",
+                    a.identifier(),
+                    m.id,
+                    hex(m.amount),
+                    op_name(m.operation)
+                )
+            })
             .collect();
         assert_eq!(actual, f[3], "{} amplifier {amp}", f[1]);
     }
@@ -93,10 +116,14 @@ fn attribute_templates() {
 fn particles() {
     for line in GOLDEN.lines().filter(|l| l.starts_with("PARTICLE\t")) {
         let f: Vec<&str> = line.split('\t').collect();
-        let instance = MobEffectInstance::new(effect(f[1]), 100, 0, f[2] == "true", true, true, None);
+        let instance =
+            MobEffectInstance::new(effect(f[1]), 100, 0, f[2] == "true", true, true, None);
         let actual = match instance.effect.create_particle_options(&instance) {
             ParticleOptions::Simple(t) => format!("{{type:\"{}\"}}", t.identifier()),
-            ParticleOptions::Color { particle_type, color } => format!("{{color:{color},type:\"{}\"}}", particle_type.identifier()),
+            ParticleOptions::Color {
+                particle_type,
+                color,
+            } => format!("{{color:{color},type:\"{}\"}}", particle_type.identifier()),
             other => panic!("unexpected {other:?}"),
         };
         assert_eq!(actual, f[3], "{} ambient={}", f[1], f[2]);
@@ -108,15 +135,37 @@ fn potion_contents() {
     for line in GOLDEN.lines().filter(|l| l.starts_with("POTION\t")) {
         let f: Vec<&str> = line.split('\t').collect();
         let potion = mc_data::Potion::by_name(f[1]).unwrap();
-        let contents = mc_protocol::components::PotionContents { potion: Some(potion), custom_color: None, custom_effects: vec![], custom_name: None };
-        assert_eq!(potion_contents::get_color(&contents).to_string(), f[2], "{}", f[1]);
-        assert_eq!(potion_contents::has_effects(&contents).to_string(), f[3], "{}", f[1]);
-        let effects: String = potion_contents::get_all_effects(&contents).iter().map(|e| format!("{};", state(e))).collect();
+        let contents = mc_protocol::components::PotionContents {
+            potion: Some(potion),
+            custom_color: None,
+            custom_effects: vec![],
+            custom_name: None,
+        };
+        assert_eq!(
+            potion_contents::get_color(&contents).to_string(),
+            f[2],
+            "{}",
+            f[1]
+        );
+        assert_eq!(
+            potion_contents::has_effects(&contents).to_string(),
+            f[3],
+            "{}",
+            f[1]
+        );
+        let effects: String = potion_contents::get_all_effects(&contents)
+            .iter()
+            .map(|e| format!("{};", state(e)))
+            .collect();
         assert_eq!(effects, f.get(4).copied().unwrap_or(""), "{}", f[1]);
     }
     for line in GOLDEN.lines().filter(|l| l.starts_with("POTIONCUSTOM\t")) {
         let f: Vec<&str> = line.split('\t').collect();
-        let instances: Vec<MobEffectInstance> = f[3].split(';').filter(|s| !s.is_empty()).map(parse_instance).collect();
+        let instances: Vec<MobEffectInstance> = f[3]
+            .split(';')
+            .filter(|s| !s.is_empty())
+            .map(parse_instance)
+            .collect();
         let custom_effects = instances
             .iter()
             .map(|i| mc_protocol::components::MobEffectInstance {
@@ -129,9 +178,22 @@ fn potion_contents() {
                 hidden_effect: None,
             })
             .collect();
-        let contents = mc_protocol::components::PotionContents { potion: None, custom_color: None, custom_effects, custom_name: None };
-        assert_eq!(potion_contents::get_color(&contents).to_string(), f[1], "{line}");
-        assert_eq!(potion_contents::get_color_or(&contents, 7).to_string(), f[2], "{line}");
+        let contents = mc_protocol::components::PotionContents {
+            potion: None,
+            custom_color: None,
+            custom_effects,
+            custom_name: None,
+        };
+        assert_eq!(
+            potion_contents::get_color(&contents).to_string(),
+            f[1],
+            "{line}"
+        );
+        assert_eq!(
+            potion_contents::get_color_or(&contents, 7).to_string(),
+            f[2],
+            "{line}"
+        );
     }
 }
 
@@ -173,9 +235,17 @@ fn mob_effect_instance_scripts() {
             "MISC" => {
                 let c = cur.as_ref().unwrap();
                 let other = parse_instance(f[1]);
-                assert_eq!(c.compare_to(&other) as i32, f[2].parse::<i32>().unwrap(), "{line}");
+                assert_eq!(
+                    c.compare_to(&other) as i32,
+                    f[2].parse::<i32>().unwrap(),
+                    "{line}"
+                );
                 assert_eq!((c == &other).to_string(), f[3], "{line}");
-                assert_eq!(c.ends_within(f[4].parse().unwrap()).to_string(), f[5], "{line}");
+                assert_eq!(
+                    c.ends_within(f[4].parse().unwrap()).to_string(),
+                    f[5],
+                    "{line}"
+                );
                 assert_eq!(c.is_infinite_duration().to_string(), f[6], "{line}");
             }
             _ => {}
@@ -217,20 +287,39 @@ fn attribute_instance_scripts() {
                     "remove" => {
                         inst.remove_modifier(&Identifier::parse(desc[1]).unwrap());
                     }
-                    "base" => inst.set_base_value(f64::from_bits(u64::from_str_radix(desc[1], 16).unwrap())),
+                    "base" => inst
+                        .set_base_value(f64::from_bits(u64::from_str_radix(desc[1], 16).unwrap())),
                     "remove_all" => inst.remove_modifiers(),
-                    "dup" => assert!(inst.has_modifier(&Identifier::parse(desc[1]).unwrap()), "vanilla threw for a present id"),
+                    "dup" => assert!(
+                        inst.has_modifier(&Identifier::parse(desc[1]).unwrap()),
+                        "vanilla threw for a present id"
+                    ),
                     other => panic!("op {other}"),
                 }
                 assert_eq!(hex(inst.get_value()), f[eq + 1], "{line}");
-                let mods: String = inst.get_modifiers().map(|m| format!("{}:{}:{},", m.id, hex(m.amount), op_ordinal(m.operation))).collect();
-                assert_eq!(mods, f.get(eq + 2).copied().unwrap_or(""), "{line}");
-                let perm: String = inst.get_permanent_modifiers().map(|m| format!("{},", m.id)).collect();
-                assert_eq!(perm, f.get(eq + 3).copied().unwrap_or(""), "{line}");
-                let order: String = [AttributeModifierOperation::AddValue, AttributeModifierOperation::AddMultipliedBase, AttributeModifierOperation::AddMultipliedTotal]
-                    .into_iter()
-                    .map(|op| inst.get_modifiers_for_operation(op).map(|m| format!("{},", m.id.path())).collect::<String>() + "|")
+                let mods: String = inst
+                    .get_modifiers()
+                    .map(|m| format!("{}:{}:{},", m.id, hex(m.amount), op_ordinal(m.operation)))
                     .collect();
+                assert_eq!(mods, f.get(eq + 2).copied().unwrap_or(""), "{line}");
+                let perm: String = inst
+                    .get_permanent_modifiers()
+                    .map(|m| format!("{},", m.id))
+                    .collect();
+                assert_eq!(perm, f.get(eq + 3).copied().unwrap_or(""), "{line}");
+                let order: String = [
+                    AttributeModifierOperation::AddValue,
+                    AttributeModifierOperation::AddMultipliedBase,
+                    AttributeModifierOperation::AddMultipliedTotal,
+                ]
+                .into_iter()
+                .map(|op| {
+                    inst.get_modifiers_for_operation(op)
+                        .map(|m| format!("{},", m.id.path()))
+                        .collect::<String>()
+                        + "|"
+                })
+                .collect();
                 assert_eq!(order, f.get(eq + 4).copied().unwrap_or(""), "{line}");
             }
             "COPY" => {

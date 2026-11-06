@@ -5,8 +5,8 @@
 //! states ([`FutureState`], [`PromotionFuture`]) and anything that waited on a future registers a [`Waiter`] that the
 //! chunk map wakes when the future completes or fails.
 
-use super::chunk_level;
 use super::FullChunkStatus;
+use super::chunk_level;
 use crate::world::level::chunk::LevelChunk;
 use mc_core::pos::{BlockPos, ChunkPos, SectionPos};
 use mc_world::chunk::{LevelHeight, ProtoChunk};
@@ -121,12 +121,21 @@ pub struct InvalidChunkPos(pub ChunkPos);
 
 impl std::fmt::Display for InvalidChunkPos {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "Trying to create chunk out of reasonable bounds: {}", self.0)
+        write!(
+            f,
+            "Trying to create chunk out of reasonable bounds: {}",
+            self.0
+        )
     }
 }
 
 impl ChunkHolder {
-    pub fn new(pos: ChunkPos, ticket_level: i32, level_height: LevelHeight, serial: u64) -> Result<Self, InvalidChunkPos> {
+    pub fn new(
+        pos: ChunkPos,
+        ticket_level: i32,
+        level_height: LevelHeight,
+        serial: u64,
+    ) -> Result<Self, InvalidChunkPos> {
         if !pos.is_valid() {
             return Err(InvalidChunkPos(pos));
         }
@@ -210,7 +219,8 @@ impl ChunkHolder {
     }
 
     pub fn refresh_accessibility(&mut self) {
-        self.was_accessible_since_last_save = chunk_level::full_status(self.ticket_level).is_or_after(FullChunkStatus::Full);
+        self.was_accessible_since_last_save =
+            chunk_level::full_status(self.ticket_level).is_or_after(FullChunkStatus::Full);
     }
 
     // ------------------------------------------------------------------ generation futures
@@ -225,7 +235,8 @@ impl ChunkHolder {
 
     /// `isStatusDisallowed(status)`.
     pub fn is_status_disallowed(&self, status: ChunkStatus) -> bool {
-        self.highest_allowed_status.is_none_or(|h| status.is_after(h))
+        self.highest_allowed_status
+            .is_none_or(|h| status.is_after(h))
     }
 
     pub fn started_work(&self) -> Option<ChunkStatus> {
@@ -234,7 +245,11 @@ impl ChunkHolder {
 
     /// `acquireStatusBump(status)`.
     pub fn acquire_status_bump(&mut self, status: ChunkStatus) -> bool {
-        let parent = if status == ChunkStatus::Empty { None } else { Some(status.parent()) };
+        let parent = if status == ChunkStatus::Empty {
+            None
+        } else {
+            Some(status.parent())
+        };
         let previous = self.started_work;
         if previous == parent {
             self.started_work = Some(status);
@@ -242,7 +257,9 @@ impl ChunkHolder {
         } else if previous.is_some_and(|p| !status.is_after(p)) {
             false
         } else {
-            panic!("Unexpected last startedWork status: {previous:?} while trying to start: {status:?}");
+            panic!(
+                "Unexpected last startedWork status: {previous:?} while trying to start: {status:?}"
+            );
         }
     }
 
@@ -292,7 +309,11 @@ impl ChunkHolder {
     }
 
     /// `failAndClearPendingFuturesBetween(fromExclusive, toInclusive)`: returns the waiters to wake.
-    pub fn fail_and_clear_pending_futures_between(&mut self, from_exclusive: Option<ChunkStatus>, to_inclusive: ChunkStatus) -> Vec<Waiter> {
+    pub fn fail_and_clear_pending_futures_between(
+        &mut self,
+        from_exclusive: Option<ChunkStatus>,
+        to_inclusive: ChunkStatus,
+    ) -> Vec<Waiter> {
         let start = from_exclusive.map_or(0, |s| s.index() + 1);
         let end = to_inclusive.index();
         let mut woken = Vec::new();
@@ -306,7 +327,10 @@ impl ChunkHolder {
     }
 
     /// `findHighestStatusWithPendingFuture(newStatus)`.
-    pub fn find_highest_status_with_pending_future(&self, new_status: Option<ChunkStatus>) -> Option<ChunkStatus> {
+    pub fn find_highest_status_with_pending_future(
+        &self,
+        new_status: Option<ChunkStatus>,
+    ) -> Option<ChunkStatus> {
         let new_status = new_status?;
         let mut highest = new_status;
         let already_started = self.started_work;
@@ -330,7 +354,10 @@ impl ChunkHolder {
     pub fn decrease_generation_ref_count(&mut self) {
         self.generation_ref_count -= 1;
         if self.generation_ref_count < 0 {
-            panic!("More releases than claims. Count: {}", self.generation_ref_count);
+            panic!(
+                "More releases than claims. Count: {}",
+                self.generation_ref_count
+            );
         }
     }
 
@@ -350,7 +377,11 @@ impl ChunkHolder {
 
     /// The persisted status of the chunk object (`getPersistedStatus`), `None` before the EMPTY future completed.
     pub fn get_persisted_status(&self) -> Option<ChunkStatus> {
-        if self.futures[0] == FutureState::Done { self.persisted_status } else { None }
+        if self.futures[0] == FutureState::Done {
+            self.persisted_status
+        } else {
+            None
+        }
     }
 
     pub fn set_persisted_status_cache(&mut self, status: Option<ChunkStatus>) {
@@ -359,7 +390,8 @@ impl ChunkHolder {
 
     /// `getChunkIfPresentUnchecked(status)` as a "done" test: the chunk exists and has completed `status`.
     pub fn has_chunk_unchecked(&self, status: ChunkStatus) -> bool {
-        self.futures[status.index() as usize] == FutureState::Done && !matches!(self.slot, ChunkSlot::None)
+        self.futures[status.index() as usize] == FutureState::Done
+            && !matches!(self.slot, ChunkSlot::None)
     }
 
     pub fn has_chunk(&self, status: ChunkStatus) -> bool {
@@ -369,7 +401,11 @@ impl ChunkHolder {
     /// `getLatestStatus()`.
     pub fn get_latest_status(&self) -> Option<ChunkStatus> {
         let status = self.started_work?;
-        if self.futures[status.index() as usize] == FutureState::Done { Some(status) } else { Some(status.parent()).filter(|_| status != ChunkStatus::Empty) }
+        if self.futures[status.index() as usize] == FutureState::Done {
+            Some(status)
+        } else {
+            Some(status.parent()).filter(|_| status != ChunkStatus::Empty)
+        }
     }
 
     /// Status of the latest chunk object (`getLatestChunk` helper): `started_work` if done else its parent.
@@ -457,8 +493,16 @@ impl ChunkHolder {
     }
 
     /// `sectionLightChanged(layer, chunkY)`; `min/max_light_section` come from the light engine.
-    pub fn section_light_changed(&mut self, sky: bool, chunk_y: i32, min_light_section: i32, max_light_section: i32) -> bool {
-        if !self.has_chunk_unchecked(ChunkStatus::InitializeLight) || self.is_status_disallowed(ChunkStatus::InitializeLight) {
+    pub fn section_light_changed(
+        &mut self,
+        sky: bool,
+        chunk_y: i32,
+        min_light_section: i32,
+        max_light_section: i32,
+    ) -> bool {
+        if !self.has_chunk_unchecked(ChunkStatus::InitializeLight)
+            || self.is_status_disallowed(ChunkStatus::InitializeLight)
+        {
             return false;
         }
         match &mut self.slot {
@@ -470,7 +514,11 @@ impl ChunkHolder {
             return false;
         }
         if chunk_y >= min_light_section && chunk_y <= max_light_section {
-            let filter = if sky { &mut self.sky_changed_light_section_filter } else { &mut self.block_changed_light_section_filter };
+            let filter = if sky {
+                &mut self.sky_changed_light_section_filter
+            } else {
+                &mut self.block_changed_light_section_filter
+            };
             let index = chunk_y - min_light_section;
             filter.insert(index)
         } else {
@@ -479,7 +527,9 @@ impl ChunkHolder {
     }
 
     pub fn has_changes_to_broadcast(&self) -> bool {
-        self.has_changed_sections || !self.sky_changed_light_section_filter.is_empty() || !self.block_changed_light_section_filter.is_empty()
+        self.has_changed_sections
+            || !self.sky_changed_light_section_filter.is_empty()
+            || !self.block_changed_light_section_filter.is_empty()
     }
 
     pub fn has_changed_sections(&self) -> bool {
@@ -500,7 +550,10 @@ impl ChunkHolder {
     }
 
     pub fn take_light_filters(&mut self) -> (HashSet<i32>, HashSet<i32>) {
-        (std::mem::take(&mut self.sky_changed_light_section_filter), std::mem::take(&mut self.block_changed_light_section_filter))
+        (
+            std::mem::take(&mut self.sky_changed_light_section_filter),
+            std::mem::take(&mut self.block_changed_light_section_filter),
+        )
     }
 
     pub fn level_height(&self) -> LevelHeight {

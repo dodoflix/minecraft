@@ -3,31 +3,7 @@
 use super::abstract_piglin::{self, AbstractPiglin, DATA_IMMUNE_TO_ZOMBIFICATION};
 use super::piglin_ai::{self, BARTERING_ITEM};
 use super::piglin_arm_pose::PiglinArmPose;
-use mc_game_core::define_accessor;
-use mc_game_core::registry::RegistryAccess;
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::container::SimpleContainer;
-use mc_game_core::world::damagesource::DamageSource;
-use mc_game_core::world::difficulty_instance::DifficultyInstance;
-use mc_game_core::world::entity::ai::brain::{Brain, Provider};
-use mc_game_core::world::entity::ai::memory::memory_module_type::{ATE_RECENTLY, SPEAR_CHARGE_POSITION, SPEAR_ENGAGE_TIME, SPEAR_FLEEING_POSITION, SPEAR_FLEEING_TIME, UNIVERSAL_ANGER};
-use mc_game_core::world::entity::ai::memory::memory_module_type::ATTACK_TARGET;
-use mc_game_core::world::entity::ai::memory::{BrainPacked, MemoryTypeId};
-use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
-use mc_game_core::world::entity::ai::sensing::sensor_type::{HURT_BY, NEAREST_ITEMS, NEAREST_LIVING_ENTITIES, NEAREST_PLAYERS, PIGLIN_SPECIFIC_SENSOR};
-use mc_game_core::world::entity::attributes::{AttributeModifier, AttributeModifierOperation};
-use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
-use mc_game_core::world::entity::equipment::EquipmentSlot;
-use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
-use mc_game_core::world::entity::living_entity::damage::make_sound;
-use mc_game_core::world::entity::mob::{self, MobData, MobKind};
 use crate::world::entity::monster::crossbow_attack_mob::perform_crossbow_attack;
-use mc_game_core::world::entity::npc::inventory_carrier::{self, InventoryCarrier};
-use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
-use mc_game_core::world::entity::{Entity, EntityId};
-use mc_game_core::world::item::crossbow_item;
-use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
-use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
 use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
@@ -36,6 +12,35 @@ use mc_core::random::RandomSource;
 use mc_data::block::Block;
 use mc_data::enums::{EntitySpawnReason, Pose};
 use mc_data::{Attribute, EntityType, Item, SoundEvent};
+use mc_game_core::define_accessor;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::container::SimpleContainer;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::brain::{Brain, Provider};
+use mc_game_core::world::entity::ai::memory::memory_module_type::ATTACK_TARGET;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{
+    ATE_RECENTLY, SPEAR_CHARGE_POSITION, SPEAR_ENGAGE_TIME, SPEAR_FLEEING_POSITION,
+    SPEAR_FLEEING_TIME, UNIVERSAL_ANGER,
+};
+use mc_game_core::world::entity::ai::memory::{BrainPacked, MemoryTypeId};
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::ai::sensing::sensor_type::{
+    HURT_BY, NEAREST_ITEMS, NEAREST_LIVING_ENTITIES, NEAREST_PLAYERS, PIGLIN_SPECIFIC_SENSOR,
+};
+use mc_game_core::world::entity::attributes::{AttributeModifier, AttributeModifierOperation};
+use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
+use mc_game_core::world::entity::equipment::EquipmentSlot;
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
+use mc_game_core::world::entity::living_entity::damage::make_sound;
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::npc::inventory_carrier::{self, InventoryCarrier};
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::item::crossbow_item;
+use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_nbt::CompoundTag;
 use mc_protocol::components::KINETIC_WEAPON;
 use std::sync::LazyLock;
@@ -52,17 +57,43 @@ const INVENTORY_SLOT_OFFSET: i32 = 300;
 const INVENTORY_SIZE: usize = 8;
 
 /// `SPEED_MODIFIER_BABY`.
-static SPEED_MODIFIER_BABY_ID: LazyLock<Identifier> = LazyLock::new(|| Identifier::with_default_namespace("baby").expect("valid id"));
+static SPEED_MODIFIER_BABY_ID: LazyLock<Identifier> =
+    LazyLock::new(|| Identifier::with_default_namespace("baby").expect("valid id"));
 
 /// `BABY_DIMENSIONS`.
 fn baby_dimensions() -> EntityDimensions {
-    EntityDimensions::scalable(0.49, 0.98).with_eye_height(0.78).with_attachments(EntityAttachments::create_default(0.49, 0.98).with_vehicle(Vec3::new(0.0, f64::from(0.1875f32), 0.0)))
+    EntityDimensions::scalable(0.49, 0.98)
+        .with_eye_height(0.78)
+        .with_attachments(
+            EntityAttachments::create_default(0.49, 0.98).with_vehicle(Vec3::new(
+                0.0,
+                f64::from(0.1875f32),
+                0.0,
+            )),
+        )
 }
 
-static BRAIN_MEMORIES: [MemoryTypeId; 6] = [UNIVERSAL_ANGER.id(), ATE_RECENTLY.id(), SPEAR_FLEEING_TIME.id(), SPEAR_FLEEING_POSITION.id(), SPEAR_CHARGE_POSITION.id(), SPEAR_ENGAGE_TIME.id()];
+static BRAIN_MEMORIES: [MemoryTypeId; 6] = [
+    UNIVERSAL_ANGER.id(),
+    ATE_RECENTLY.id(),
+    SPEAR_FLEEING_TIME.id(),
+    SPEAR_FLEEING_POSITION.id(),
+    SPEAR_CHARGE_POSITION.id(),
+    SPEAR_ENGAGE_TIME.id(),
+];
 
 /// `BRAIN_PROVIDER`.
-static BRAIN_PROVIDER: Provider = Provider::with_memories(&BRAIN_MEMORIES, &[&NEAREST_LIVING_ENTITIES, &NEAREST_PLAYERS, &NEAREST_ITEMS, &HURT_BY, &PIGLIN_SPECIFIC_SENSOR], piglin_ai::get_activities);
+static BRAIN_PROVIDER: Provider = Provider::with_memories(
+    &BRAIN_MEMORIES,
+    &[
+        &NEAREST_LIVING_ENTITIES,
+        &NEAREST_PLAYERS,
+        &NEAREST_ITEMS,
+        &HURT_BY,
+        &PIGLIN_SPECIFIC_SENSOR,
+    ],
+    piglin_ai::get_activities,
+);
 
 pub struct Piglin {
     pub mob: MobData,
@@ -80,7 +111,12 @@ impl Piglin {
             b.define(DATA_IS_CHARGING_CROSSBOW, false);
             b.define(DATA_IS_DANCING, false);
         });
-        let mut piglin = Piglin { mob, time_in_overworld: 0, inventory: SimpleContainer::new(INVENTORY_SIZE), cannot_hunt: false };
+        let mut piglin = Piglin {
+            mob,
+            time_in_overworld: 0,
+            inventory: SimpleContainer::new(INVENTORY_SIZE),
+            cannot_hunt: false,
+        };
         // `LivingEntity.<init>`: `this.brain = this.makeBrain(Brain.Packed.EMPTY)`
         let brain = piglin.make_brain(&BrainPacked::EMPTY);
         piglin.mob.living.brain = brain;
@@ -132,7 +168,11 @@ impl Piglin {
     }
 
     /// `canReplaceCurrentItem(newItemStack)`.
-    pub fn can_replace_current_item_stack(&self, level: &ServerLevel, new_item_stack: &ItemStack) -> bool {
+    pub fn can_replace_current_item_stack(
+        &self,
+        level: &ServerLevel,
+        new_item_stack: &ItemStack,
+    ) -> bool {
         let slot = self.get_equipment_slot_for_item(new_item_stack);
         let current = self.get_item_by_slot(slot);
         self.can_replace_current_item(level, new_item_stack, &current, slot)
@@ -140,14 +180,24 @@ impl Piglin {
 
     /// `holdInMainHand(itemStack)`.
     pub fn hold_in_main_hand(&mut self, level: &mut ServerLevel, item_stack: ItemStack) {
-        mob::equipment::set_item_slot_and_drop_when_killed(self, level, EquipmentSlot::MainHand, item_stack);
+        mob::equipment::set_item_slot_and_drop_when_killed(
+            self,
+            level,
+            EquipmentSlot::MainHand,
+            item_stack,
+        );
         self.set_persistence_required();
     }
 
     /// `holdInOffHand(itemStack)`.
     pub fn hold_in_off_hand(&mut self, level: &mut ServerLevel, item_stack: ItemStack) {
         let is_bartering_item = item_stack.item() == BARTERING_ITEM;
-        mob::equipment::set_item_slot_and_drop_when_killed(self, level, EquipmentSlot::OffHand, item_stack);
+        mob::equipment::set_item_slot_and_drop_when_killed(
+            self,
+            level,
+            EquipmentSlot::OffHand,
+            item_stack,
+        );
         if !is_bartering_item {
             self.set_persistence_required();
         }
@@ -159,12 +209,21 @@ impl Piglin {
         if f64::from(random.next_float()) < PROBABILITY_OF_SPAWNING_WITH_CROSSBOW_INSTEAD_OF_SWORD {
             ItemStack::new(Item::CROSSBOW)
         } else {
-            ItemStack::new(if random.next_int_bounded(10) == 0 { Item::GOLDEN_SPEAR } else { Item::GOLDEN_SWORD })
+            ItemStack::new(if random.next_int_bounded(10) == 0 {
+                Item::GOLDEN_SPEAR
+            } else {
+                Item::GOLDEN_SWORD
+            })
         }
     }
 
     /// `maybeWearArmor(slot, itemStack, random)` (spawn time: `setItemSlot` before the first tick).
-    fn maybe_wear_armor(&mut self, slot: EquipmentSlot, item_stack: ItemStack, random: &mut dyn RandomSource) {
+    fn maybe_wear_armor(
+        &mut self,
+        slot: EquipmentSlot,
+        item_stack: ItemStack,
+        random: &mut dyn RandomSource,
+    ) {
         if random.next_float() < CHANCE_OF_WEARING_EACH_ARMOUR_ITEM {
             mob::equipment::set_item_slot_spawn(self, slot, item_stack);
         }
@@ -177,9 +236,13 @@ impl Piglin {
 
     /// `getTopPassenger(vehicle, counter)`.
     fn get_top_passenger(level: &ServerLevel, vehicle: EntityId, counter: i32) -> EntityId {
-        let first = level.get_entity(vehicle).and_then(|v| v.base().passengers.first().copied());
+        let first = level
+            .get_entity(vehicle)
+            .and_then(|v| v.base().passengers.first().copied());
         match first {
-            Some(passenger) if counter != 1 => Self::get_top_passenger(level, passenger, counter - 1),
+            Some(passenger) if counter != 1 => {
+                Self::get_top_passenger(level, passenger, counter - 1)
+            }
             _ => vehicle,
         }
     }
@@ -201,13 +264,22 @@ impl AbstractPiglin for Piglin {
     fn finish_conversion(&mut self, level: &mut ServerLevel) {
         piglin_ai::cancel_admiring(level, self);
         for item_stack in self.inventory.remove_all_items() {
-            mc_game_core::world::entity::item::spawn_at_location(level, &*self, item_stack, Vec3::ZERO);
+            mc_game_core::world::entity::item::spawn_at_location(
+                level,
+                &*self,
+                item_stack,
+                Vec3::ZERO,
+            );
         }
         abstract_piglin::finish_conversion(self, level);
     }
 
     fn play_converted_sound(&mut self, level: &mut ServerLevel) {
-        make_sound(self, level, SoundEvent::ENTITY_PIGLIN_CONVERTED_TO_ZOMBIFIED);
+        make_sound(
+            self,
+            level,
+            SoundEvent::ENTITY_PIGLIN_CONVERTED_TO_ZOMBIFIED,
+        );
     }
 
     fn get_arm_pose(&self) -> PiglinArmPose {
@@ -224,7 +296,11 @@ impl AbstractPiglin for Piglin {
             let off = self.get_item_by_slot(EquipmentSlot::OffHand);
             let holding_crossbow = main.item() == Item::CROSSBOW || off.item() == Item::CROSSBOW;
             // `getWeaponItem()`: the main hand
-            if holding_crossbow && crossbow_item::is_charged(&main) { PiglinArmPose::CrossbowHold } else { PiglinArmPose::Default }
+            if holding_crossbow && crossbow_item::is_charged(&main) {
+                PiglinArmPose::CrossbowHold
+            } else {
+                PiglinArmPose::Default
+            }
         }
     }
 }
@@ -251,7 +327,11 @@ impl Entity for Piglin {
     }
 
     fn get_dimensions(&self, _pose: Pose) -> EntityDimensions {
-        if self.is_baby() { baby_dimensions() } else { EntityDimensions::of_type(self.mob.living.entity.entity_type) }
+        if self.is_baby() {
+            baby_dimensions()
+        } else {
+            EntityDimensions::of_type(self.mob.living.entity.entity_type)
+        }
     }
 
     fn on_synced_data_updated(&mut self, accessor_id: u8) {
@@ -303,10 +383,20 @@ impl Entity for Piglin {
         inventory_carrier::read_inventory_from_tag(&mut self.inventory, input);
     }
 
-    fn drop_custom_death_loot(&mut self, level: &mut ServerLevel, source: &DamageSource, killed_by_player: bool) {
+    fn drop_custom_death_loot(
+        &mut self,
+        level: &mut ServerLevel,
+        source: &DamageSource,
+        killed_by_player: bool,
+    ) {
         mob::equipment::drop_custom_death_loot(self, level, source, killed_by_player);
         for item_stack in self.inventory.remove_all_items() {
-            mc_game_core::world::entity::item::spawn_at_location(level, &*self, item_stack, Vec3::ZERO);
+            mc_game_core::world::entity::item::spawn_at_location(
+                level,
+                &*self,
+                item_stack,
+                Vec3::ZERO,
+            );
         }
     }
 
@@ -341,16 +431,41 @@ impl Entity for Piglin {
         mob::spawn::finalize_spawn(self, level, difficulty, reason, group_data)
     }
 
-    fn populate_default_equipment_slots(&mut self, random: &mut dyn RandomSource, _difficulty: &DifficultyInstance) {
+    fn populate_default_equipment_slots(
+        &mut self,
+        random: &mut dyn RandomSource,
+        _difficulty: &DifficultyInstance,
+    ) {
         if !self.is_baby() {
-            self.maybe_wear_armor(EquipmentSlot::Head, ItemStack::new(Item::GOLDEN_HELMET), random);
-            self.maybe_wear_armor(EquipmentSlot::Chest, ItemStack::new(Item::GOLDEN_CHESTPLATE), random);
-            self.maybe_wear_armor(EquipmentSlot::Legs, ItemStack::new(Item::GOLDEN_LEGGINGS), random);
-            self.maybe_wear_armor(EquipmentSlot::Feet, ItemStack::new(Item::GOLDEN_BOOTS), random);
+            self.maybe_wear_armor(
+                EquipmentSlot::Head,
+                ItemStack::new(Item::GOLDEN_HELMET),
+                random,
+            );
+            self.maybe_wear_armor(
+                EquipmentSlot::Chest,
+                ItemStack::new(Item::GOLDEN_CHESTPLATE),
+                random,
+            );
+            self.maybe_wear_armor(
+                EquipmentSlot::Legs,
+                ItemStack::new(Item::GOLDEN_LEGGINGS),
+                random,
+            );
+            self.maybe_wear_armor(
+                EquipmentSlot::Feet,
+                ItemStack::new(Item::GOLDEN_BOOTS),
+                random,
+            );
         }
     }
 
-    fn mob_interact(&mut self, level: &mut ServerLevel, player: &mut mc_game_core::world::entity::ServerPlayer, hand: InteractionHand) -> InteractionResult {
+    fn mob_interact(
+        &mut self,
+        level: &mut ServerLevel,
+        player: &mut mc_game_core::world::entity::ServerPlayer,
+        hand: InteractionHand,
+    ) -> InteractionResult {
         let interaction_result = mob::interact::mob_interact(self, level, player, hand);
         if interaction_result.consumes_action() {
             return interaction_result;
@@ -369,9 +484,13 @@ impl Entity for Piglin {
     }
 
     fn hurt_server(&mut self, level: &mut ServerLevel, source: &DamageSource, damage: f32) -> bool {
-        let was_hurt = mc_game_core::world::entity::living_entity::damage::hurt_server(self, level, source, damage);
+        let was_hurt = mc_game_core::world::entity::living_entity::damage::hurt_server(
+            self, level, source, damage,
+        );
         if was_hurt && source.causing_is_living() {
-            mob::ext::with_causing_entity(level, source, |level, attacker| piglin_ai::was_hurt_by(level, self, attacker));
+            mob::ext::with_causing_entity(level, source, |level, attacker| {
+                piglin_ai::was_hurt_by(level, self, attacker)
+            });
         }
         was_hurt
     }
@@ -381,21 +500,41 @@ impl Entity for Piglin {
     }
 
     fn get_preferred_weapon_type(&self) -> Option<&'static str> {
-        if self.is_baby() { None } else { Some("piglin_preferred_weapons") }
+        if self.is_baby() {
+            None
+        } else {
+            Some("piglin_preferred_weapons")
+        }
     }
 
     fn wants_to_pick_up(&self, level: &ServerLevel, item_stack: &ItemStack) -> bool {
-        level.mob_griefing() && self.can_pick_up_loot() && piglin_ai::wants_to_pickup(level, self, item_stack)
+        level.mob_griefing()
+            && self.can_pick_up_loot()
+            && piglin_ai::wants_to_pickup(level, self, item_stack)
     }
 
-    fn can_replace_current_item(&self, level: &ServerLevel, new_item_stack: &ItemStack, current_item_stack: &ItemStack, slot: EquipmentSlot) -> bool {
+    fn can_replace_current_item(
+        &self,
+        level: &ServerLevel,
+        new_item_stack: &ItemStack,
+        current_item_stack: &ItemStack,
+        slot: EquipmentSlot,
+    ) -> bool {
         use mc_game_core::world::item::enchantment::enchantment_effect_components::EffectComponent;
-        if mc_game_core::world::item::enchantment_helper::has(&level.registries, current_item_stack, EffectComponent::prevent_armor_change) {
+        if mc_game_core::world::item::enchantment_helper::has(
+            &level.registries,
+            current_item_stack,
+            EffectComponent::prevent_armor_change,
+        ) {
             return false;
         }
         let preferred = self.get_preferred_weapon_type();
-        let tag = |stack: &ItemStack, tag: &str| mc_data::tags::get::<Item>(tag).is_some_and(|t| t.contains(stack.item()));
-        let wanted = |stack: &ItemStack| piglin_ai_is_loved(stack) || preferred.is_some_and(|p| tag(stack, p));
+        let tag = |stack: &ItemStack, tag: &str| {
+            mc_data::tags::get::<Item>(tag).is_some_and(|t| t.contains(stack.item()))
+        };
+        let wanted = |stack: &ItemStack| {
+            piglin_ai_is_loved(stack) || preferred.is_some_and(|p| tag(stack, p))
+        };
         let new_item_wanted = wanted(new_item_stack);
         let current_item_wanted = wanted(current_item_stack);
         if new_item_wanted && !current_item_wanted {
@@ -403,7 +542,13 @@ impl Entity for Piglin {
         } else if !new_item_wanted && current_item_wanted {
             false
         } else {
-            mob::equipment::can_replace_current_item(self, level, new_item_stack, current_item_stack, slot)
+            mob::equipment::can_replace_current_item(
+                self,
+                level,
+                new_item_stack,
+                current_item_stack,
+                slot,
+            )
         }
     }
 
@@ -413,7 +558,11 @@ impl Entity for Piglin {
     }
 
     fn adjust_vehicle_to_ride(&self, level: &ServerLevel, vehicle: EntityId) -> EntityId {
-        if self.is_baby() && level.get_entity(vehicle).is_some_and(|v| v.get_type() == EntityType::HOGLIN) {
+        if self.is_baby()
+            && level
+                .get_entity(vehicle)
+                .is_some_and(|v| v.get_type() == EntityType::HOGLIN)
+        {
             Self::get_top_passenger(level, vehicle, MAX_PASSENGERS_ON_ONE_HOGLIN)
         } else {
             vehicle
@@ -438,7 +587,12 @@ impl Entity for Piglin {
         Some(SoundEvent::ENTITY_PIGLIN_DEATH)
     }
 
-    fn play_step_sound(&mut self, level: &mut ServerLevel, _pos: BlockPos, _state: mc_data::block::BlockState) {
+    fn play_step_sound(
+        &mut self,
+        level: &mut ServerLevel,
+        _pos: BlockPos,
+        _state: mc_data::block::BlockState,
+    ) {
         self.play_sound(level, SoundEvent::ENTITY_PIGLIN_STEP, 0.15, 1.0);
     }
 
@@ -451,7 +605,9 @@ impl Entity for Piglin {
     }
 
     fn set_charging_crossbow(&mut self, is_charging: bool) {
-        self.base_mut().entity_data.set(DATA_IS_CHARGING_CROSSBOW, is_charging);
+        self.base_mut()
+            .entity_data
+            .set(DATA_IS_CHARGING_CROSSBOW, is_charging);
     }
 
     fn on_crossbow_attack_performed(&mut self) {
@@ -460,7 +616,13 @@ impl Entity for Piglin {
 }
 
 /// `Piglin.checkPiglinSpawnRules(type, level, spawnReason, pos, random)`.
-fn check_piglin_spawn_rules(_ty: EntityType, level: &dyn ServerLevelAccessor, _reason: EntitySpawnReason, pos: BlockPos, _random: &mut dyn RandomSource) -> bool {
+fn check_piglin_spawn_rules(
+    _ty: EntityType,
+    level: &dyn ServerLevelAccessor,
+    _reason: EntitySpawnReason,
+    pos: BlockPos,
+    _random: &mut dyn RandomSource,
+) -> bool {
     use mc_game_core::world::level::BlockGetter;
     level.get_block_state(pos.below()).block() != Block::NETHER_WART_BLOCK
 }
@@ -468,4 +630,7 @@ fn check_piglin_spawn_rules(_ty: EntityType, level: &dyn ServerLevelAccessor, _r
 mc_game_core::register_spawn_placement!(EntityType::PIGLIN, check_piglin_spawn_rules);
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static PIGLIN: EntityRegistration = EntityRegistration { entity_type: EntityType::PIGLIN, create: |ty, id, registries| Box::new(Piglin::new(ty, id, registries)) };
+static PIGLIN: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::PIGLIN,
+    create: |ty, id, registries| Box::new(Piglin::new(ty, id, registries)),
+};

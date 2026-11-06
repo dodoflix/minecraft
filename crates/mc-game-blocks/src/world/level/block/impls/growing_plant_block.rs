@@ -33,7 +33,11 @@ pub fn can_survive(this: &dyn GrowingPlant, level: &dyn LevelReader, pos: BlockP
 }
 
 /// `GrowingPlantBlock.tick`.
-pub fn tick(state: BlockState, level: &mut mc_game_core::server::level::ServerLevel, pos: BlockPos) {
+pub fn tick(
+    state: BlockState,
+    level: &mut mc_game_core::server::level::ServerLevel,
+    pos: BlockPos,
+) {
     if !state.can_survive(&*level, pos) {
         level.destroy_block(pos, true, None, 512);
     }

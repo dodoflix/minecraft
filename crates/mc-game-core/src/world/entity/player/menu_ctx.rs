@@ -4,7 +4,10 @@ use super::ServerPlayer;
 use crate::server::level::ServerLevel;
 use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::player::inventory::Inventory;
-use crate::world::inventory::{ConnectionContainerSynchronizer, ContainerListener, ContainerSynchronizer, MenuInit, MenuPlayer, Prediction, Slot};
+use crate::world::inventory::{
+    ConnectionContainerSynchronizer, ContainerListener, ContainerSynchronizer, MenuInit,
+    MenuPlayer, Prediction, Slot,
+};
 use crate::world::item::ItemStack;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
@@ -40,7 +43,10 @@ impl MenuPlayer for PlayerCtx<'_> {
     }
     fn is_removed_not_changing_dimension(&self) -> bool {
         use crate::world::entity::{Entity, RemovalReason};
-        self.player.base().removal_reason().is_some_and(|r| r != RemovalReason::ChangedDimension)
+        self.player
+            .base()
+            .removal_reason()
+            .is_some_and(|r| r != RemovalReason::ChangedDimension)
     }
     fn may_build(&self) -> bool {
         self.player.player.abilities.may_build
@@ -54,7 +60,8 @@ impl MenuPlayer for PlayerCtx<'_> {
     }
     /// `Player.drop(...)`: spawns the item entity (`ServerPlayer.drop`).
     fn drop(&mut self, stack: ItemStack, thrown_from_hand: bool, prediction: Prediction) {
-        self.player.drop(self.level, stack, thrown_from_hand, prediction);
+        self.player
+            .drop(self.level, stack, thrown_from_hand, prediction);
     }
     fn on_equip_item(&mut self, slot: EquipmentSlot, old: &ItemStack, new: &ItemStack) {
         crate::world::entity::Entity::on_equip_item(self.player, self.level, slot, old, new);
@@ -63,7 +70,10 @@ impl MenuPlayer for PlayerCtx<'_> {
         self.player.is_within_block_interaction_range(pos, buffer)
     }
     fn send_inventory_slot_update(&mut self, slot: usize, stack: ItemStack) {
-        self.player.send(&ClientboundSetPlayerInventoryPacket { slot: slot as i32, contents: stack });
+        self.player.send(&ClientboundSetPlayerInventoryPacket {
+            slot: slot as i32,
+            contents: stack,
+        });
     }
     fn play_player_sound(&mut self, sound: mc_data::SoundEvent, volume: f32, pitch: f32) {
         crate::world::item::entity_play_sound(self.level, &*self.player, sound, volume, pitch);
@@ -76,10 +86,18 @@ impl MenuPlayer for PlayerCtx<'_> {
         Some(self.level)
     }
     fn container_interaction_range(&self) -> f64 {
-        self.player.player.living.get_attribute_value(mc_data::Attribute::BLOCK_INTERACTION_RANGE)
+        self.player
+            .player
+            .living
+            .get_attribute_value(mc_data::Attribute::BLOCK_INTERACTION_RANGE)
     }
-    fn is_within_entity_interaction_range(&self, target: &mc_core::phys::AABB, buffer: f64) -> bool {
-        self.player.is_within_entity_interaction_range(target, buffer)
+    fn is_within_entity_interaction_range(
+        &self,
+        target: &mc_core::phys::AABB,
+        buffer: f64,
+    ) -> bool {
+        self.player
+            .is_within_entity_interaction_range(target, buffer)
     }
     fn with_server_player(&mut self, f: &mut dyn FnMut(&mut ServerLevel, &mut ServerPlayer)) {
         f(&mut *self.level, &mut *self.player);
@@ -90,7 +108,9 @@ impl MenuPlayer for PlayerCtx<'_> {
     fn ender_chest(&self) -> Option<&crate::world::inventory::PlayerEnderChestContainer> {
         Some(&self.player.player.ender_chest)
     }
-    fn ender_chest_mut(&mut self) -> Option<&mut crate::world::inventory::PlayerEnderChestContainer> {
+    fn ender_chest_mut(
+        &mut self,
+    ) -> Option<&mut crate::world::inventory::PlayerEnderChestContainer> {
         Some(&mut self.player.player.ender_chest)
     }
     fn experience_level(&self) -> i32 {
@@ -106,8 +126,14 @@ impl MenuPlayer for PlayerCtx<'_> {
         self.player.on_enchantment_performed(enchantment_cost);
     }
     fn on_item_enchanted(&mut self, stack: &ItemStack, enchantment_cost: i32) {
-        self.player.award_stat_once(self.level, crate::stats::stats::Stats::ENCHANT_ITEM);
-        crate::advancements::triggers::CriteriaTriggers::ENCHANTED_ITEM.trigger(self.level, self.player, stack, enchantment_cost);
+        self.player
+            .award_stat_once(self.level, crate::stats::stats::Stats::ENCHANT_ITEM);
+        crate::advancements::triggers::CriteriaTriggers::ENCHANTED_ITEM.trigger(
+            self.level,
+            self.player,
+            stack,
+            enchantment_cost,
+        );
     }
     fn player_random_next_float(&mut self) -> f32 {
         use crate::world::entity::Entity;
@@ -128,7 +154,9 @@ impl ContainerListener for NoopListener {
 
 impl MenuInit for ServerPlayerMenuInit {
     fn container_synchronizer(&self) -> Box<dyn ContainerSynchronizer> {
-        Box::new(ConnectionContainerSynchronizer::new(self.connection.clone()))
+        Box::new(ConnectionContainerSynchronizer::new(
+            self.connection.clone(),
+        ))
     }
     fn container_listener(&self) -> Box<dyn ContainerListener> {
         Box::new(NoopListener)

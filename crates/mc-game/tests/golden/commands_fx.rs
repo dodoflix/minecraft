@@ -1,7 +1,6 @@
 //! `ParticleArgument` (options codecs) and the effect commands' parse errors against vanilla goldens
 //! (`fixtures/commands/ParticleCorpus.java`, `ExceptionCorpus.java` over `fx_exception_corpus_commands.txt`).
 
-
 use crate::command_common;
 
 use mc_brigadier::{ImmutableStringReader, StringReader};
@@ -23,7 +22,10 @@ fn particle_argument_matches_vanilla() {
                 let mut wire = Vec::new();
                 options.encode(&mut wire).unwrap();
                 let hex: String = wire.iter().map(|b| format!("{b:02x}")).collect();
-                format!("OK\t{hex}\t{}", reader.get_remaining().encode_utf16().count())
+                format!(
+                    "OK\t{hex}\t{}",
+                    reader.get_remaining().encode_utf16().count()
+                )
             }
             Err(e) => format!("ERR\t{}", e.get_message().replace('\n', "\\n")),
         };

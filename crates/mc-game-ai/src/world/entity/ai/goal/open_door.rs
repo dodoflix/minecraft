@@ -1,9 +1,9 @@
 //! `OpenDoorGoal`.
 
-use mc_game_core::world::entity::ai::goal::door_interact::DoorInteractData;
-use mc_game_core::world::entity::ai::goal::{Goal, GoalFlags};
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::ai::goal::door_interact::DoorInteractData;
+use mc_game_core::world::entity::ai::goal::{Goal, GoalFlags};
 
 pub struct OpenDoorGoal {
     pub base: DoorInteractData,
@@ -14,7 +14,11 @@ pub struct OpenDoorGoal {
 impl OpenDoorGoal {
     /// `OpenDoorGoal(mob, closeDoorAfter)`.
     pub fn new(mob: &dyn Entity, close_door_after: bool) -> Self {
-        Self { base: DoorInteractData::new(mob), close_door: close_door_after, forget_time: 0 }
+        Self {
+            base: DoorInteractData::new(mob),
+            close_door: close_door_after,
+            forget_time: 0,
+        }
     }
 }
 

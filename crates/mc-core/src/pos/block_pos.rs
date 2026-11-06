@@ -96,7 +96,12 @@ impl BlockPos {
 
     /// `BlockPos.offset(long, Direction)`
     pub fn offset_long_direction(block_node: i64, offset: Direction) -> i64 {
-        Self::offset_long(block_node, offset.get_step_x(), offset.get_step_y(), offset.get_step_z())
+        Self::offset_long(
+            block_node,
+            offset.get_step_x(),
+            offset.get_step_y(),
+            offset.get_step_z(),
+        )
     }
 
     /// `BlockPos.offset(long, int, int, int)`
@@ -110,7 +115,8 @@ impl BlockPos {
 
     /// `BlockPos.getX(long)`
     pub const fn get_x(block_node: i64) -> i32 {
-        (block_node << (64 - X_OFFSET - PACKED_HORIZONTAL_LENGTH) >> (64 - PACKED_HORIZONTAL_LENGTH)) as i32
+        (block_node << (64 - X_OFFSET - PACKED_HORIZONTAL_LENGTH)
+            >> (64 - PACKED_HORIZONTAL_LENGTH)) as i32
     }
 
     /// `BlockPos.getY(long)`
@@ -120,12 +126,17 @@ impl BlockPos {
 
     /// `BlockPos.getZ(long)`
     pub const fn get_z(block_node: i64) -> i32 {
-        (block_node << (64 - Z_OFFSET - PACKED_HORIZONTAL_LENGTH) >> (64 - PACKED_HORIZONTAL_LENGTH)) as i32
+        (block_node << (64 - Z_OFFSET - PACKED_HORIZONTAL_LENGTH)
+            >> (64 - PACKED_HORIZONTAL_LENGTH)) as i32
     }
 
     /// `BlockPos.of(long)`
     pub const fn of_long(block_node: i64) -> BlockPos {
-        BlockPos::new(Self::get_x(block_node), Self::get_y(block_node), Self::get_z(block_node))
+        BlockPos::new(
+            Self::get_x(block_node),
+            Self::get_y(block_node),
+            Self::get_z(block_node),
+        )
     }
 
     pub fn containing(x: f64, y: f64, z: f64) -> BlockPos {
@@ -243,8 +254,12 @@ impl BlockPos {
     pub const fn rotate(&self, rotation: Rotation) -> BlockPos {
         match rotation {
             Rotation::Clockwise90 => BlockPos::new(self.0.z.wrapping_neg(), self.0.y, self.0.x),
-            Rotation::Clockwise180 => BlockPos::new(self.0.x.wrapping_neg(), self.0.y, self.0.z.wrapping_neg()),
-            Rotation::Counterclockwise90 => BlockPos::new(self.0.z, self.0.y, self.0.x.wrapping_neg()),
+            Rotation::Clockwise180 => {
+                BlockPos::new(self.0.x.wrapping_neg(), self.0.y, self.0.z.wrapping_neg())
+            }
+            Rotation::Counterclockwise90 => {
+                BlockPos::new(self.0.z, self.0.y, self.0.x.wrapping_neg())
+            }
             Rotation::None => *self,
         }
     }
@@ -269,9 +284,21 @@ impl BlockPos {
     pub fn clamp_location_within(&self, location: &Vec3) -> Vec3 {
         let (x, y, z) = (self.0.x, self.0.y, self.0.z);
         Vec3 {
-            x: mth::clamp_f64(location.x, (x as f32 + 1.0E-5f32) as f64, x as f64 + 1.0 - 1.0E-5f32 as f64),
-            y: mth::clamp_f64(location.y, (y as f32 + 1.0E-5f32) as f64, y as f64 + 1.0 - 1.0E-5f32 as f64),
-            z: mth::clamp_f64(location.z, (z as f32 + 1.0E-5f32) as f64, z as f64 + 1.0 - 1.0E-5f32 as f64),
+            x: mth::clamp_f64(
+                location.x,
+                (x as f32 + 1.0E-5f32) as f64,
+                x as f64 + 1.0 - 1.0E-5f32 as f64,
+            ),
+            y: mth::clamp_f64(
+                location.y,
+                (y as f32 + 1.0E-5f32) as f64,
+                y as f64 + 1.0 - 1.0E-5f32 as f64,
+            ),
+            z: mth::clamp_f64(
+                location.z,
+                (z as f32 + 1.0E-5f32) as f64,
+                z as f64 + 1.0 - 1.0E-5f32 as f64,
+            ),
         }
     }
 
@@ -325,22 +352,54 @@ impl BlockPos {
         })
     }
 
-    pub fn within_manhattan(origin: &BlockPos, reach: i32) -> impl Iterator<Item = BlockPos> + use<> {
+    pub fn within_manhattan(
+        origin: &BlockPos,
+        reach: i32,
+    ) -> impl Iterator<Item = BlockPos> + use<> {
         Self::manhattan_ordered(origin, reach, reach, reach, reach)
     }
 
-    pub fn within_clipped_manhattan(origin: &BlockPos, reach_x: i32, reach_y: i32, reach_z: i32) -> impl Iterator<Item = BlockPos> + use<> {
-        Self::manhattan_ordered(origin, reach_x, reach_y, reach_z, reach_x.max(reach_y).max(reach_z))
+    pub fn within_clipped_manhattan(
+        origin: &BlockPos,
+        reach_x: i32,
+        reach_y: i32,
+        reach_z: i32,
+    ) -> impl Iterator<Item = BlockPos> + use<> {
+        Self::manhattan_ordered(
+            origin,
+            reach_x,
+            reach_y,
+            reach_z,
+            reach_x.max(reach_y).max(reach_z),
+        )
     }
 
-    pub fn within_box_by_manhattan_distance(origin: &BlockPos, reach_x: i32, reach_y: i32, reach_z: i32) -> impl Iterator<Item = BlockPos> + use<> {
-        Self::manhattan_ordered(origin, reach_x, reach_y, reach_z, reach_x.wrapping_add(reach_y).wrapping_add(reach_z))
+    pub fn within_box_by_manhattan_distance(
+        origin: &BlockPos,
+        reach_x: i32,
+        reach_y: i32,
+        reach_z: i32,
+    ) -> impl Iterator<Item = BlockPos> + use<> {
+        Self::manhattan_ordered(
+            origin,
+            reach_x,
+            reach_y,
+            reach_z,
+            reach_x.wrapping_add(reach_y).wrapping_add(reach_z),
+        )
     }
 
-    fn manhattan_ordered(origin: &BlockPos, reach_x: i32, reach_y: i32, reach_z: i32, max_depth: i32) -> impl Iterator<Item = BlockPos> + use<> {
+    fn manhattan_ordered(
+        origin: &BlockPos,
+        reach_x: i32,
+        reach_y: i32,
+        reach_z: i32,
+        max_depth: i32,
+    ) -> impl Iterator<Item = BlockPos> + use<> {
         let (origin_x, origin_y, origin_z) = (origin.x(), origin.y(), origin.z());
         let mut cursor = MutableBlockPos::default();
-        let (mut current_depth, mut max_x, mut max_y, mut x, mut y) = (0i32, 0i32, 0i32, 0i32, 0i32);
+        let (mut current_depth, mut max_x, mut max_y, mut x, mut y) =
+            (0i32, 0i32, 0i32, 0i32, 0i32);
         let mut z_mirror = false;
         iter_from_fn(move || {
             if z_mirror {
@@ -365,10 +424,20 @@ impl BlockPos {
                 }
                 let xx = x;
                 let yy = y;
-                let zz = current_depth.wrapping_sub(xx.wrapping_abs()).wrapping_sub(yy.wrapping_abs());
+                let zz = current_depth
+                    .wrapping_sub(xx.wrapping_abs())
+                    .wrapping_sub(yy.wrapping_abs());
                 if zz <= reach_z {
                     z_mirror = zz != 0;
-                    found = Some(cursor.set(origin_x.wrapping_add(xx), origin_y.wrapping_add(yy), origin_z.wrapping_add(zz)).immutable());
+                    found = Some(
+                        cursor
+                            .set(
+                                origin_x.wrapping_add(xx),
+                                origin_y.wrapping_add(yy),
+                                origin_z.wrapping_add(zz),
+                            )
+                            .immutable(),
+                    );
                 }
                 y = y.wrapping_add(1);
             }
@@ -385,11 +454,20 @@ impl BlockPos {
 
     /// `betweenClosed(BlockPos, BlockPos)` / `betweenClosedStream(BlockPos, BlockPos)`
     pub fn between_closed(a: &BlockPos, b: &BlockPos) -> impl Iterator<Item = BlockPos> + use<> {
-        Self::between_closed_xyz(a.x().min(b.x()), a.y().min(b.y()), a.z().min(b.z()), a.x().max(b.x()), a.y().max(b.y()), a.z().max(b.z()))
+        Self::between_closed_xyz(
+            a.x().min(b.x()),
+            a.y().min(b.y()),
+            a.z().min(b.z()),
+            a.x().max(b.x()),
+            a.y().max(b.y()),
+            a.z().max(b.z()),
+        )
     }
 
     /// `betweenClosedStream(BoundingBox)`
-    pub fn between_closed_box(bounding_box: &BoundingBox) -> impl Iterator<Item = BlockPos> + use<> {
+    pub fn between_closed_box(
+        bounding_box: &BoundingBox,
+    ) -> impl Iterator<Item = BlockPos> + use<> {
         Self::between_closed_xyz(
             bounding_box.min_x().min(bounding_box.max_x()),
             bounding_box.min_y().min(bounding_box.max_y()),
@@ -401,7 +479,14 @@ impl BlockPos {
     }
 
     /// `betweenClosed(int x6)` / `betweenClosedStream(int x6)`: x fastest, then y, then z.
-    pub fn between_closed_xyz(min_x: i32, min_y: i32, min_z: i32, max_x: i32, max_y: i32, max_z: i32) -> impl Iterator<Item = BlockPos> + use<> {
+    pub fn between_closed_xyz(
+        min_x: i32,
+        min_y: i32,
+        min_z: i32,
+        max_x: i32,
+        max_y: i32,
+        max_z: i32,
+    ) -> impl Iterator<Item = BlockPos> + use<> {
         let width = max_x.wrapping_sub(min_x).wrapping_add(1);
         let height = max_y.wrapping_sub(min_y).wrapping_add(1);
         let depth = max_z.wrapping_sub(min_z).wrapping_add(1);
@@ -417,14 +502,29 @@ impl BlockPos {
             let y = slice.wrapping_rem(height);
             let z = slice.wrapping_div(height);
             index = index.wrapping_add(1);
-            Some(BlockPos::new(min_x.wrapping_add(x), min_y.wrapping_add(y), min_z.wrapping_add(z)))
+            Some(BlockPos::new(
+                min_x.wrapping_add(x),
+                min_y.wrapping_add(y),
+                min_z.wrapping_add(z),
+            ))
         })
     }
 
-    pub fn neighbor_column(start_x: i32, start_y: i32, start_z: i32, end_y: i32) -> impl Iterator<Item = BlockPos> + use<> {
+    pub fn neighbor_column(
+        start_x: i32,
+        start_y: i32,
+        start_z: i32,
+        end_y: i32,
+    ) -> impl Iterator<Item = BlockPos> + use<> {
         let y_direction = if end_y > start_y { 1 } else { -1 };
         let height = end_y.wrapping_sub(start_y).wrapping_abs().wrapping_add(1);
-        let steps = [Vec3i::ZERO, Direction::North.get_unit_vec3i(), Direction::East.get_unit_vec3i(), Direction::South.get_unit_vec3i(), Direction::West.get_unit_vec3i()];
+        let steps = [
+            Vec3i::ZERO,
+            Direction::North.get_unit_vec3i(),
+            Direction::East.get_unit_vec3i(),
+            Direction::South.get_unit_vec3i(),
+            Direction::West.get_unit_vec3i(),
+        ];
         let step_count = (steps.len() as i32).wrapping_mul(height);
         let mut index = 0i32;
         iter_from_fn(move || {
@@ -444,9 +544,22 @@ impl BlockPos {
     }
 
     /// `spiralAround`. Panics (vanilla: `IllegalStateException`) if both directions share an axis.
-    pub fn spiral_around(center: &BlockPos, radius: i32, first_direction: Direction, second_direction: Direction) -> impl Iterator<Item = BlockPos> + use<> {
-        assert!(first_direction.get_axis() != second_direction.get_axis(), "The two directions cannot be on the same axis");
-        let directions = [first_direction, second_direction, first_direction.get_opposite(), second_direction.get_opposite()];
+    pub fn spiral_around(
+        center: &BlockPos,
+        radius: i32,
+        first_direction: Direction,
+        second_direction: Direction,
+    ) -> impl Iterator<Item = BlockPos> + use<> {
+        assert!(
+            first_direction.get_axis() != second_direction.get_axis(),
+            "The two directions cannot be on the same axis"
+        );
+        let directions = [
+            first_direction,
+            second_direction,
+            first_direction.get_opposite(),
+            second_direction.get_opposite(),
+        ];
         let mut cursor = center.mutable();
         cursor.move_dir(second_direction);
         let legs = radius.wrapping_mul(4);
@@ -490,7 +603,9 @@ impl BlockPos {
                         return count;
                     }
                     if depth < max_depth {
-                        neighbour_provider(current_pos, &mut |pos| nodes.push_back((pos, depth + 1)));
+                        neighbour_provider(current_pos, &mut |pos| {
+                            nodes.push_back((pos, depth + 1))
+                        });
                     }
                 }
             }
@@ -499,7 +614,10 @@ impl BlockPos {
     }
 
     /// `betweenCornersInDirection(AABB, Vec3)`
-    pub fn between_corners_in_direction_aabb(aabb: &AABB, direction: Vec3) -> impl Iterator<Item = BlockPos> + use<> {
+    pub fn between_corners_in_direction_aabb(
+        aabb: &AABB,
+        direction: Vec3,
+    ) -> impl Iterator<Item = BlockPos> + use<> {
         let min = aabb.get_min_position();
         let max = aabb.get_max_position();
         Self::between_corners_in_direction_xyz(
@@ -513,7 +631,11 @@ impl BlockPos {
         )
     }
 
-    pub fn between_corners_in_direction(first_corner: &BlockPos, second_corner: &BlockPos, direction: Vec3) -> impl Iterator<Item = BlockPos> + use<> {
+    pub fn between_corners_in_direction(
+        first_corner: &BlockPos,
+        second_corner: &BlockPos,
+        direction: Vec3,
+    ) -> impl Iterator<Item = BlockPos> + use<> {
         Self::between_corners_in_direction_xyz(
             first_corner.x(),
             first_corner.y(),
@@ -541,13 +663,24 @@ impl BlockPos {
         let max_x = first_corner_x.max(second_corner_x);
         let max_y = first_corner_y.max(second_corner_y);
         let max_z = first_corner_z.max(second_corner_z);
-        let (diff_x, diff_y, diff_z) = (max_x.wrapping_sub(min_x), max_y.wrapping_sub(min_y), max_z.wrapping_sub(min_z));
+        let (diff_x, diff_y, diff_z) = (
+            max_x.wrapping_sub(min_x),
+            max_y.wrapping_sub(min_y),
+            max_z.wrapping_sub(min_z),
+        );
         let start_x = if direction.x >= 0.0 { min_x } else { max_x };
         let start_y = if direction.y >= 0.0 { min_y } else { max_y };
         let start_z = if direction.z >= 0.0 { min_z } else { max_z };
         let axes = Direction::axis_step_order(direction);
-        let visit_dir = |axis: Axis| if direction.get(axis) >= 0.0 { axis.get_positive() } else { axis.get_negative() };
-        let (first_dir, second_dir, third_dir) = (visit_dir(axes[0]), visit_dir(axes[1]), visit_dir(axes[2]));
+        let visit_dir = |axis: Axis| {
+            if direction.get(axis) >= 0.0 {
+                axis.get_positive()
+            } else {
+                axis.get_negative()
+            }
+        };
+        let (first_dir, second_dir, third_dir) =
+            (visit_dir(axes[0]), visit_dir(axes[1]), visit_dir(axes[2]));
         let first_max = axes[0].choose(diff_x, diff_y, diff_z);
         let second_max = axes[1].choose(diff_x, diff_y, diff_z);
         let third_max = axes[2].choose(diff_x, diff_y, diff_z);
@@ -558,7 +691,10 @@ impl BlockPos {
                 return None;
             }
             let along = |step: fn(Direction) -> i32| {
-                step(first_dir).wrapping_mul(first_index).wrapping_add(step(second_dir).wrapping_mul(second_index)).wrapping_add(step(third_dir).wrapping_mul(third_index))
+                step(first_dir)
+                    .wrapping_mul(first_index)
+                    .wrapping_add(step(second_dir).wrapping_mul(second_index))
+                    .wrapping_add(step(third_dir).wrapping_mul(third_index))
             };
             let pos = BlockPos::new(
                 start_x.wrapping_add(along(Direction::get_step_x)),
@@ -634,11 +770,19 @@ impl MutableBlockPos {
     }
 
     pub const fn set_long(&mut self, pos: i64) -> &mut Self {
-        self.set(BlockPos::get_x(pos), BlockPos::get_y(pos), BlockPos::get_z(pos))
+        self.set(
+            BlockPos::get_x(pos),
+            BlockPos::get_y(pos),
+            BlockPos::get_z(pos),
+        )
     }
 
     pub fn set_axis_cycle(&mut self, transform: AxisCycle, x: i32, y: i32, z: i32) -> &mut Self {
-        self.set(transform.cycle_i32(x, y, z, Axis::X), transform.cycle_i32(x, y, z, Axis::Y), transform.cycle_i32(x, y, z, Axis::Z))
+        self.set(
+            transform.cycle_i32(x, y, z, Axis::X),
+            transform.cycle_i32(x, y, z, Axis::Y),
+            transform.cycle_i32(x, y, z, Axis::Z),
+        )
     }
 
     pub fn set_with_offset_direction(&mut self, pos: &Vec3i, direction: Direction) -> &mut Self {
@@ -650,11 +794,19 @@ impl MutableBlockPos {
     }
 
     pub const fn set_with_offset(&mut self, pos: &Vec3i, x: i32, y: i32, z: i32) -> &mut Self {
-        self.set(pos.x.wrapping_add(x), pos.y.wrapping_add(y), pos.z.wrapping_add(z))
+        self.set(
+            pos.x.wrapping_add(x),
+            pos.y.wrapping_add(y),
+            pos.z.wrapping_add(z),
+        )
     }
 
     pub const fn set_with_offset_vec(&mut self, pos: &Vec3i, offset: &Vec3i) -> &mut Self {
-        self.set(pos.x.wrapping_add(offset.x), pos.y.wrapping_add(offset.y), pos.z.wrapping_add(offset.z))
+        self.set(
+            pos.x.wrapping_add(offset.x),
+            pos.y.wrapping_add(offset.y),
+            pos.z.wrapping_add(offset.z),
+        )
     }
 
     /// `move(Direction)`
@@ -665,15 +817,22 @@ impl MutableBlockPos {
     /// `move(Direction, int)`
     pub fn move_dir_n(&mut self, direction: Direction, steps: i32) -> &mut Self {
         self.set(
-            self.x().wrapping_add(direction.get_step_x().wrapping_mul(steps)),
-            self.y().wrapping_add(direction.get_step_y().wrapping_mul(steps)),
-            self.z().wrapping_add(direction.get_step_z().wrapping_mul(steps)),
+            self.x()
+                .wrapping_add(direction.get_step_x().wrapping_mul(steps)),
+            self.y()
+                .wrapping_add(direction.get_step_y().wrapping_mul(steps)),
+            self.z()
+                .wrapping_add(direction.get_step_z().wrapping_mul(steps)),
         )
     }
 
     /// `move(int, int, int)`
     pub const fn move_by(&mut self, x: i32, y: i32, z: i32) -> &mut Self {
-        self.set(self.0.0.x.wrapping_add(x), self.0.0.y.wrapping_add(y), self.0.0.z.wrapping_add(z))
+        self.set(
+            self.0.0.x.wrapping_add(x),
+            self.0.0.y.wrapping_add(y),
+            self.0.0.z.wrapping_add(z),
+        )
     }
 
     /// `move(Vec3i)`

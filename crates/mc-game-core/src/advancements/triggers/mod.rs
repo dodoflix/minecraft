@@ -26,61 +26,64 @@ use crate::world::entity::player::ServerPlayer;
 use crate::world::level::storage::loot::codec_ext::dispatch_optional_value;
 use crate::world::level::storage::loot::parameters::LootContextParamSets;
 use crate::world::level::storage::loot::predicates::ConditionHolder;
-use crate::world::level::storage::loot::validation::{ValidationContextSource, validate_holder_opt};
+use crate::world::level::storage::loot::validation::{
+    ValidationContextSource, validate_holder_opt,
+};
 use crate::world::level::storage::loot::{LootContext, LootParams};
 
 use super::player_advancements::TriggerInstanceKey;
 
-pub mod impossible_trigger;
-pub mod killed_trigger;
-pub mod enter_block_trigger;
-pub mod inventory_change_trigger;
-pub mod recipe_unlocked_trigger;
-pub mod player_hurt_entity_trigger;
-pub mod entity_hurt_player_trigger;
-pub mod enchanted_item_trigger;
-pub mod filled_bucket_trigger;
-pub mod brewed_potion_trigger;
-pub mod construct_beacon_trigger;
-pub mod used_ender_eye_trigger;
-pub mod summoned_entity_trigger;
-pub mod bred_animals_trigger;
-pub mod player_trigger;
-pub mod cured_zombie_villager_trigger;
-pub mod trade_trigger;
-pub mod item_durability_trigger;
-pub mod levitation_trigger;
-pub mod change_dimension_trigger;
-pub mod tame_animal_trigger;
-pub mod item_used_on_location_trigger;
-pub mod consume_item_trigger;
-pub mod effects_changed_trigger;
-pub mod used_totem_trigger;
-pub mod distance_trigger;
-pub mod fishing_rod_hooked_trigger;
-pub mod channeled_lightning_trigger;
-pub mod shot_crossbow_trigger;
-pub mod spear_mobs_trigger;
-pub mod killed_by_arrow_trigger;
-pub mod slide_down_block_trigger;
-pub mod bee_nest_destroyed_trigger;
-pub mod target_block_trigger;
-pub mod default_block_interaction_trigger;
 pub mod any_block_interaction_trigger;
+pub mod bee_nest_destroyed_trigger;
+pub mod bred_animals_trigger;
+pub mod brewed_potion_trigger;
+pub mod change_dimension_trigger;
+pub mod channeled_lightning_trigger;
+pub mod construct_beacon_trigger;
+pub mod consume_item_trigger;
+pub mod cured_zombie_villager_trigger;
+pub mod default_block_interaction_trigger;
+pub mod distance_trigger;
+pub mod effects_changed_trigger;
+pub mod enchanted_item_trigger;
+pub mod enter_block_trigger;
+pub mod entity_hurt_player_trigger;
+pub mod fall_after_explosion_trigger;
+pub mod filled_bucket_trigger;
+pub mod fishing_rod_hooked_trigger;
+pub mod impossible_trigger;
+pub mod inventory_change_trigger;
+pub mod item_durability_trigger;
+pub mod item_used_on_location_trigger;
+pub mod killed_by_arrow_trigger;
+pub mod killed_trigger;
+pub mod levitation_trigger;
+pub mod lightning_strike_trigger;
 pub mod loot_table_trigger;
 pub mod picked_up_item_trigger;
+pub mod player_hurt_entity_trigger;
 pub mod player_interact_trigger;
-pub mod start_riding_trigger;
-pub mod lightning_strike_trigger;
-pub mod using_item_trigger;
+pub mod player_trigger;
 pub mod recipe_crafted_trigger;
-pub mod fall_after_explosion_trigger;
+pub mod recipe_unlocked_trigger;
+pub mod shot_crossbow_trigger;
+pub mod slide_down_block_trigger;
+pub mod spear_mobs_trigger;
+pub mod start_riding_trigger;
+pub mod summoned_entity_trigger;
+pub mod tame_animal_trigger;
+pub mod target_block_trigger;
+pub mod trade_trigger;
+pub mod used_ender_eye_trigger;
+pub mod used_totem_trigger;
+pub mod using_item_trigger;
 
 /// What the trigger modules need (`use super::prelude::*;`).
 #[allow(unused_imports)]
 pub(crate) mod prelude {
     pub use super::{
-        CriteriaTriggers, CriterionTriggerInstance, SimpleInstance, Trigger, TriggerInstance, TriggerMatches, entity_params, holder_matches, new_context,
+        CriteriaTriggers, CriterionTriggerInstance, SimpleInstance, Trigger, TriggerInstance,
+        TriggerMatches, entity_params, holder_matches, new_context,
     };
     pub use crate::server::level::ServerLevel;
     pub use crate::world::damagesource::DamageSource;
@@ -88,7 +91,9 @@ pub(crate) mod prelude {
     pub use crate::world::entity::player::ServerPlayer;
     pub use crate::world::item::ItemStack;
     pub use crate::world::level::storage::loot::LootContext;
-    pub use crate::world::level::storage::loot::predicates::{ConditionHolder, condition_holder_codec};
+    pub use crate::world::level::storage::loot::predicates::{
+        ConditionHolder, condition_holder_codec,
+    };
     pub use mc_core::phys::Vec3;
     pub use mc_core::pos::BlockPos;
     pub use mc_data::block::BlockState;
@@ -181,7 +186,10 @@ pub struct Trigger<I> {
 
 impl<I> Trigger<I> {
     pub const fn new(name: &'static str) -> Trigger<I> {
-        Trigger { name, _instance: PhantomData }
+        Trigger {
+            name,
+            _instance: PhantomData,
+        }
     }
 }
 
@@ -193,14 +201,22 @@ impl<I: TriggerInstance> Trigger<I> {
 
     /// `createCriterion(instance)`.
     pub fn create_criterion(&self, instance: I) -> Criterion {
-        Criterion { trigger: self.name, trigger_instance: Arc::new(instance) }
+        Criterion {
+            trigger: self.name,
+            trigger_instance: Arc::new(instance),
+        }
     }
 }
 
 impl<I: SimpleInstance> Trigger<I> {
     /// `SimpleCriterionTrigger.trigger(player, matcher)` up to awarding: the active listeners of `player` for this
     /// trigger whose instance satisfies `matcher` and whose `player` condition passes.
-    pub fn collect(&self, level: &ServerLevel, player: &ServerPlayer, mut matcher: impl FnMut(&I) -> bool) -> TriggerMatches {
+    pub fn collect(
+        &self,
+        level: &ServerLevel,
+        player: &ServerPlayer,
+        mut matcher: impl FnMut(&I) -> bool,
+    ) -> TriggerMatches {
         let listeners = player.advancements.listeners_for(self.name);
         if listeners.is_empty() {
             return TriggerMatches(Vec::new());
@@ -209,7 +225,9 @@ impl<I: SimpleInstance> Trigger<I> {
         let mut player_context = new_context(&params);
         let mut matched = Vec::new();
         for (key, instance) in listeners {
-            let Some(value) = instance.as_any().downcast_ref::<I>() else { continue };
+            let Some(value) = instance.as_any().downcast_ref::<I>() else {
+                continue;
+            };
             if matcher(value) && holder_matches(value.player(), &mut player_context) {
                 matched.push(key);
             }
@@ -218,7 +236,12 @@ impl<I: SimpleInstance> Trigger<I> {
     }
 
     /// `trigger(player, matcher)`: collect then award.
-    pub fn trigger_with(&self, level: &mut ServerLevel, player: &mut ServerPlayer, matcher: impl FnMut(&I) -> bool) {
+    pub fn trigger_with(
+        &self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        matcher: impl FnMut(&I) -> bool,
+    ) {
         self.collect(level, player, matcher).award(level, player);
     }
 }
@@ -256,14 +279,22 @@ pub struct ErasedTrigger {
 
 impl ErasedTrigger {
     pub const fn of<I: TriggerInstance>(name: &'static str) -> ErasedTrigger {
-        ErasedTrigger { name, codec: erased_codec::<I> }
+        ErasedTrigger {
+            name,
+            codec: erased_codec::<I>,
+        }
     }
 }
 
 pub fn erased_codec<I: TriggerInstance>() -> Codec<Arc<dyn CriterionTriggerInstance>> {
     I::codec().xmap(
         |i: I| Arc::new(i) as Arc<dyn CriterionTriggerInstance>,
-        |a: &Arc<dyn CriterionTriggerInstance>| a.as_any().downcast_ref::<I>().expect("criterion instance matches its trigger").clone(),
+        |a: &Arc<dyn CriterionTriggerInstance>| {
+            a.as_any()
+                .downcast_ref::<I>()
+                .expect("criterion instance matches its trigger")
+                .clone()
+        },
     )
 }
 
@@ -277,10 +308,16 @@ impl Criterion {
                 trigger_type_codec(),
                 |c: &Criterion| c.trigger,
                 |name: &&'static str| {
-                    let entry = TRIGGER_TYPES.iter().find(|t| t.name == *name).expect("registered trigger");
+                    let entry = TRIGGER_TYPES
+                        .iter()
+                        .find(|t| t.name == *name)
+                        .expect("registered trigger");
                     let name: &'static str = entry.name;
                     mc_dfu::DataResult::success((entry.codec)().xmap(
-                        move |instance| Criterion { trigger: name, trigger_instance: instance },
+                        move |instance| Criterion {
+                            trigger: name,
+                            trigger_instance: instance,
+                        },
                         |c: &Criterion| c.trigger_instance.clone(),
                     ))
                 },
@@ -308,8 +345,15 @@ fn trigger_type_codec() -> Codec<&'static str> {
 }
 
 /// `EntityPredicate.createContext(player, entity)` parameters: `entity` as `this_entity`, the player's position as origin.
-pub fn entity_params<'a>(level: &'a ServerLevel, player_position: Vec3, entity: &'a dyn Entity) -> LootParams<'a> {
-    LootParams::builder(level).this_entity(entity).origin(player_position).create(&LootContextParamSets::ADVANCEMENT_ENTITY)
+pub fn entity_params<'a>(
+    level: &'a ServerLevel,
+    player_position: Vec3,
+    entity: &'a dyn Entity,
+) -> LootParams<'a> {
+    LootParams::builder(level)
+        .this_entity(entity)
+        .origin(player_position)
+        .create(&LootContextParamSets::ADVANCEMENT_ENTITY)
 }
 
 /// `new LootContext.Builder(params).create(Optional.empty())`.
@@ -329,8 +373,12 @@ pub fn holder_matches(holder: &Option<ConditionHolder>, context: &mut LootContex
 /// the level because it is the running entity (a victim being hurt, a projectile ticking). `matcher` is `X.matches(..)`.
 /// When the player is not in the level because it is the running entity (a melee attacker), the firing runs when the player
 /// is put back and `entity` is looked up by id then.
-pub fn fire_with_entity<F>(level: &mut ServerLevel, player_id: crate::world::entity::EntityId, entity: &dyn Entity, matcher: F)
-where
+pub fn fire_with_entity<F>(
+    level: &mut ServerLevel,
+    player_id: crate::world::entity::EntityId,
+    entity: &dyn Entity,
+    matcher: F,
+) where
     F: Fn(&ServerLevel, &ServerPlayer, &dyn Entity) -> TriggerMatches + 'static,
 {
     let fired = level.with_player(player_id, |level, player| {
@@ -340,8 +388,12 @@ where
     if fired.is_none() {
         let entity_id = entity.id();
         level.with_entity_or_defer(player_id, move |level, running| {
-            let Some(player) = running.as_any_mut().downcast_mut::<ServerPlayer>() else { return };
-            let Some(entity) = level.get_entity(entity_id) else { return };
+            let Some(player) = running.as_any_mut().downcast_mut::<ServerPlayer>() else {
+                return;
+            };
+            let Some(entity) = level.get_entity(entity_id) else {
+                return;
+            };
             let matches = matcher(&*level, &*player, entity);
             matches.award(level, player);
         });

@@ -8,7 +8,8 @@
 //! `Rc`) to [`ItemCombinerMenuCore::new`].
 
 use super::{
-    AbstractContainerMenu, ContainerKey, MenuBase, MenuPlayer, MenuSimpleContainer, Slot, SlotBehavior, SlotEnv, finish_quick_move,
+    AbstractContainerMenu, ContainerKey, MenuBase, MenuPlayer, MenuSimpleContainer, Slot,
+    SlotBehavior, SlotEnv, finish_quick_move,
 };
 use crate::world::container::Container;
 use crate::world::inventory::ContainerLevelAccess;
@@ -64,13 +65,29 @@ impl ItemCombinerMenuSlotDefinition {
 }
 
 impl ItemCombinerMenuSlotDefinitionBuilder {
-    pub fn with_slot(mut self, slot_index: usize, x: i32, y: i32, may_place: impl Fn(&ItemStack) -> bool + 'static) -> Self {
-        self.input_slots.push(SlotDefinition { slot_index, x, y, may_place: Box::new(may_place) });
+    pub fn with_slot(
+        mut self,
+        slot_index: usize,
+        x: i32,
+        y: i32,
+        may_place: impl Fn(&ItemStack) -> bool + 'static,
+    ) -> Self {
+        self.input_slots.push(SlotDefinition {
+            slot_index,
+            x,
+            y,
+            may_place: Box::new(may_place),
+        });
         self
     }
 
     pub fn with_result_slot(mut self, slot_index: usize, x: i32, y: i32) -> Self {
-        self.result_slot = Some(SlotDefinition { slot_index, x, y, may_place: Box::new(|_| false) });
+        self.result_slot = Some(SlotDefinition {
+            slot_index,
+            x,
+            y,
+            may_place: Box::new(|_| false),
+        });
         self
     }
 
@@ -78,12 +95,21 @@ impl ItemCombinerMenuSlotDefinitionBuilder {
     pub fn build(self) -> ItemCombinerMenuSlotDefinition {
         let input_count = self.input_slots.len();
         for (i, def) in self.input_slots.iter().enumerate() {
-            assert!(def.slot_index == i, "Expected input slots to have continous indexes");
+            assert!(
+                def.slot_index == i,
+                "Expected input slots to have continous indexes"
+            );
         }
         let result = self.result_slot;
-        assert!(result.as_ref().is_none_or(|r| r.slot_index == input_count), "Expected result slot index to follow last input slot");
+        assert!(
+            result.as_ref().is_none_or(|r| r.slot_index == input_count),
+            "Expected result slot index to follow last input slot"
+        );
         match result {
-            Some(result) if input_count > 0 => ItemCombinerMenuSlotDefinition { slots: self.input_slots, result_slot: result },
+            Some(result) if input_count > 0 => ItemCombinerMenuSlotDefinition {
+                slots: self.input_slots,
+                result_slot: result,
+            },
             _ => panic!("Need to define both inputSlots and resultSlot"),
         }
     }
@@ -173,16 +199,36 @@ impl ItemCombinerMenuCore {
         result_behavior: Box<dyn SlotBehavior>,
     ) -> Self {
         let mut base = MenuBase::new(menu_type, container_id);
-        let input_local = base.add_local(Box::new(MenuSimpleContainer::new(definition.get_num_of_input_slots())));
+        let input_local = base.add_local(Box::new(MenuSimpleContainer::new(
+            definition.get_num_of_input_slots(),
+        )));
         let result_local = base.add_local(Box::new(CombinerResultContainer::default()));
         let result_slot_index = definition.get_result_slot_index();
         let ItemCombinerMenuSlotDefinition { slots, result_slot } = definition;
         for def in slots {
-            base.add_slot(Slot::with_behavior(ContainerKey::Local(input_local), def.slot_index, def.x, def.y, Box::new(CombinerInputSlot(def.may_place))));
+            base.add_slot(Slot::with_behavior(
+                ContainerKey::Local(input_local),
+                def.slot_index,
+                def.x,
+                def.y,
+                Box::new(CombinerInputSlot(def.may_place)),
+            ));
         }
-        base.add_slot(Slot::with_behavior(ContainerKey::Local(result_local), result_slot.slot_index, result_slot.x, result_slot.y, result_behavior));
+        base.add_slot(Slot::with_behavior(
+            ContainerKey::Local(result_local),
+            result_slot.slot_index,
+            result_slot.x,
+            result_slot.y,
+            result_behavior,
+        ));
         base.add_standard_inventory_slots(&ContainerKey::PlayerInventory, 8, 84);
-        Self { base, access, input_local, result_local, result_slot_index }
+        Self {
+            base,
+            access,
+            input_local,
+            result_local,
+            result_slot_index,
+        }
     }
 
     /// `getResultSlot()`.
@@ -240,36 +286,59 @@ pub trait ItemCombinerMenu: AbstractContainerMenu {
         match (self.core().access.pos(), player.level_ref()) {
             (Some(pos), Some(level)) => {
                 use crate::world::level::BlockGetter;
-                self.is_valid_block(level.get_block_state(pos)) && player.is_within_block_interaction_range(pos, 4.0)
+                self.is_valid_block(level.get_block_state(pos))
+                    && player.is_within_block_interaction_range(pos, 4.0)
             }
             _ => true,
         }
     }
 
     /// `quickMoveStack(player, slotIndex)`.
-    fn combiner_quick_move_stack(&mut self, player: &mut dyn MenuPlayer, slot_index: usize) -> ItemStack
+    fn combiner_quick_move_stack(
+        &mut self,
+        player: &mut dyn MenuPlayer,
+        slot_index: usize,
+    ) -> ItemStack
     where
         Self: Sized,
     {
-        if !self.core_mut().base.with_slot(player, slot_index, |s, e| s.has_item(e)) {
+        if !self
+            .core_mut()
+            .base
+            .with_slot(player, slot_index, |s, e| s.has_item(e))
+        {
             return ItemStack::empty();
         }
-        let mut stack = self.core_mut().base.with_slot(player, slot_index, |s, e| s.get_item(e));
+        let mut stack = self
+            .core_mut()
+            .base
+            .with_slot(player, slot_index, |s, e| s.get_item(e));
         let clicked = stack.copy();
         let (inventory_start, inventory_end, use_row_start, use_row_end, result_slot) = {
             let c = self.core();
-            (c.inventory_slot_start(), c.inventory_slot_end(), c.use_row_start(), c.use_row_end(), c.get_result_slot())
+            (
+                c.inventory_slot_start(),
+                c.inventory_slot_end(),
+                c.use_row_start(),
+                c.use_row_end(),
+                c.get_result_slot(),
+            )
         };
         if slot_index == result_slot {
             if !self.move_item_stack_to(player, &mut stack, inventory_start, use_row_end, true) {
                 return ItemStack::empty();
             }
-            self.core_mut().base.with_slot(player, slot_index, |s, e| s.on_quick_craft(e, &stack, &clicked));
+            self.core_mut().base.with_slot(player, slot_index, |s, e| {
+                s.on_quick_craft(e, &stack, &clicked)
+            });
         } else if slot_index < result_slot {
             if !self.move_item_stack_to(player, &mut stack, inventory_start, use_row_end, false) {
                 return ItemStack::empty();
             }
-        } else if self.can_move_into_input_slots(&stack) && slot_index >= inventory_start && slot_index < use_row_end {
+        } else if self.can_move_into_input_slots(&stack)
+            && slot_index >= inventory_start
+            && slot_index < use_row_end
+        {
             if !self.move_item_stack_to(player, &mut stack, 0, result_slot, false) {
                 return ItemStack::empty();
             }
@@ -277,7 +346,10 @@ pub trait ItemCombinerMenu: AbstractContainerMenu {
             if !self.move_item_stack_to(player, &mut stack, use_row_start, use_row_end, false) {
                 return ItemStack::empty();
             }
-        } else if slot_index >= use_row_start && slot_index < use_row_end && !self.move_item_stack_to(player, &mut stack, inventory_start, inventory_end, false) {
+        } else if slot_index >= use_row_start
+            && slot_index < use_row_end
+            && !self.move_item_stack_to(player, &mut stack, inventory_start, inventory_end, false)
+        {
             return ItemStack::empty();
         }
         finish_quick_move(self, player, slot_index, stack, &clicked)

@@ -1,10 +1,10 @@
 //! `net.minecraft.world.level.block.CommandBlock`: redstone / auto / chain execution, the chain walk, the editor
 //! hand-off and the comparator output.
 use mc_game_core::register_block_class;
-use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::block_entity::CommandBlockEntity;
 use mc_game_core::world::item::{BlockPlaceContext, InteractionResult};
+use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::world::level::redstone::Orientation;
 use mc_game_core::world::level::signal_getter::has_neighbor_signal;
 use mc_protocol::packets::play::CommandBlockEntityMode as Mode;
@@ -35,11 +35,19 @@ impl CommandBlock {
     }
 
     /// `execute(state, level, pos, baseCommandBlock, commandSet)`.
-    fn execute(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, command_set: bool) {
+    fn execute(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        command_set: bool,
+    ) {
         if command_set {
             CommandBlockEntity::perform_command(level, pos);
         } else {
-            level.with_typed_block_entity::<CommandBlockEntity, _>(pos, |_, be| be.get_command_block_mut().set_success_count(0));
+            level.with_typed_block_entity::<CommandBlockEntity, _>(pos, |_, be| {
+                be.get_command_block_mut().set_success_count(0)
+            });
         }
         execute_chain(level, pos, state.get(props::FACING));
     }
@@ -72,11 +80,19 @@ fn execute_chain(level: &mut ServerLevel, block_pos: BlockPos, mut direction: Di
             break;
         }
         // `(level.getBlockEntity(pos) instanceof CommandBlockEntity) && mode == SEQUENCE`, then `isPowered() || isAutomatic()`
-        let Some(Some(active)) = level.with_typed_block_entity::<CommandBlockEntity, _>(pos, |_, be| (be.get_mode() == Mode::Sequence).then(|| be.is_powered() || be.is_automatic())) else {
+        let Some(Some(active)) = level
+            .with_typed_block_entity::<CommandBlockEntity, _>(pos, |_, be| {
+                (be.get_mode() == Mode::Sequence).then(|| be.is_powered() || be.is_automatic())
+            })
+        else {
             break;
         };
         if active {
-            let condition_met = level.with_typed_block_entity::<CommandBlockEntity, _>(pos, |level, be| be.mark_condition_met(level)).unwrap_or(false);
+            let condition_met = level
+                .with_typed_block_entity::<CommandBlockEntity, _>(pos, |level, be| {
+                    be.mark_condition_met(level)
+                })
+                .unwrap_or(false);
             if condition_met {
                 if !CommandBlockEntity::perform_command(level, pos) {
                     break;
@@ -89,32 +105,58 @@ fn execute_chain(level: &mut ServerLevel, block_pos: BlockPos, mut direction: Di
         direction = state.get(props::FACING);
     }
     if max_iterations <= 0 {
-        log::warn!("Command Block chain tried to execute more than {} steps!", rule.max(0));
+        log::warn!(
+            "Command Block chain tried to execute more than {} steps!",
+            rule.max(0)
+        );
     }
 }
 
 impl BlockBehaviour for CommandBlock {
-    fn neighbor_changed(&self, _state: BlockState, level: &mut ServerLevel, pos: BlockPos, _block: Block, _orientation: Option<Orientation>, _moved_by_piston: bool) {
-        if level.get_block_entity_immediate(pos).is_some_and(|be| be.as_any().is::<CommandBlockEntity>()) {
+    fn neighbor_changed(
+        &self,
+        _state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        _block: Block,
+        _orientation: Option<Orientation>,
+        _moved_by_piston: bool,
+    ) {
+        if level
+            .get_block_entity_immediate(pos)
+            .is_some_and(|be| be.as_any().is::<CommandBlockEntity>())
+        {
             let powered = has_neighbor_signal(&*level, pos);
             self.set_powered_and_update(level, pos, powered);
         }
     }
 
     fn tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
-        let Some((command_set, mode, was_condition_met)) = level.with_typed_block_entity::<CommandBlockEntity, _>(pos, |_, be| {
-            (!be.get_command_block().get_command().is_empty(), be.get_mode(), be.was_condition_met())
-        }) else {
+        let Some((command_set, mode, was_condition_met)) = level
+            .with_typed_block_entity::<CommandBlockEntity, _>(pos, |_, be| {
+                (
+                    !be.get_command_block().get_command().is_empty(),
+                    be.get_mode(),
+                    be.was_condition_met(),
+                )
+            })
+        else {
             return;
         };
         if mode == Mode::Auto {
-            level.with_typed_block_entity::<CommandBlockEntity, _>(pos, |level, be| be.mark_condition_met(level));
+            level.with_typed_block_entity::<CommandBlockEntity, _>(pos, |level, be| {
+                be.mark_condition_met(level)
+            });
             if was_condition_met {
                 self.execute(state, level, pos, command_set);
             } else {
                 reset_success_count_if_conditional(level, pos);
             }
-            let keep_ticking = level.with_typed_block_entity::<CommandBlockEntity, _>(pos, |_, be| be.is_powered() || be.is_automatic()).unwrap_or(false);
+            let keep_ticking = level
+                .with_typed_block_entity::<CommandBlockEntity, _>(pos, |_, be| {
+                    be.is_powered() || be.is_automatic()
+                })
+                .unwrap_or(false);
             if keep_ticking {
                 level.schedule_tick_block(pos, self.block, 1);
             }
@@ -129,28 +171,63 @@ impl BlockBehaviour for CommandBlock {
     }
 
     /// `useWithoutItem`: `player.openCommandBlock(be)` (server side: the entity's custom-only data to the client).
-    fn use_without_item(&self, _state: BlockState, level: &mut ServerLevel, pos: BlockPos, player: &mut mc_game_core::world::entity::ServerPlayer, _hit: &mc_core::phys::BlockHitResult) -> InteractionResult {
-        let Some(be) = level.get_block_entity_immediate(pos) else { return InteractionResult::PASS };
+    fn use_without_item(
+        &self,
+        _state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        player: &mut mc_game_core::world::entity::ServerPlayer,
+        _hit: &mc_core::phys::BlockHitResult,
+    ) -> InteractionResult {
+        let Some(be) = level.get_block_entity_immediate(pos) else {
+            return InteractionResult::PASS;
+        };
         if !be.as_any().is::<CommandBlockEntity>() || !player.can_use_game_master_blocks() {
             return InteractionResult::PASS;
         }
         let mut tag = mc_nbt::CompoundTag::new();
         be.save_additional(&mut tag);
         if let Some(listener) = &player.listener {
-            listener.send(&ClientboundBlockEntityDataPacket { pos, r#type: be.get_type(), tag });
+            listener.send(&ClientboundBlockEntityDataPacket {
+                pos,
+                r#type: be.get_type(),
+                tag,
+            });
         }
         InteractionResult::SUCCESS
     }
 
-    fn get_analog_output_signal(&self, _state: BlockState, level: &ServerLevel, pos: BlockPos, _direction: Direction) -> i32 {
-        level.get_block_entity(pos).and_then(|be| be.as_any().downcast_ref::<CommandBlockEntity>()).map_or(0, |be| be.get_command_block().get_success_count())
+    fn get_analog_output_signal(
+        &self,
+        _state: BlockState,
+        level: &ServerLevel,
+        pos: BlockPos,
+        _direction: Direction,
+    ) -> i32 {
+        level
+            .get_block_entity(pos)
+            .and_then(|be| be.as_any().downcast_ref::<CommandBlockEntity>())
+            .map_or(0, |be| be.get_command_block().get_success_count())
     }
 
-    fn set_placed_by(&self, _state: BlockState, level: &mut ServerLevel, pos: BlockPos, _placer: Option<&mut mc_game_core::world::entity::ServerPlayer>, stack: &mc_game_core::world::item::ItemStack) {
-        if !level.get_block_entity_immediate(pos).is_some_and(|be| be.as_any().is::<CommandBlockEntity>()) {
+    fn set_placed_by(
+        &self,
+        _state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        _placer: Option<&mut mc_game_core::world::entity::ServerPlayer>,
+        stack: &mc_game_core::world::item::ItemStack,
+    ) {
+        if !level
+            .get_block_entity_immediate(pos)
+            .is_some_and(|be| be.as_any().is::<CommandBlockEntity>())
+        {
             return;
         }
-        if stack.get(&mc_protocol::components::BLOCK_ENTITY_DATA).is_none() {
+        if stack
+            .get(&mc_protocol::components::BLOCK_ENTITY_DATA)
+            .is_none()
+        {
             let send_feedback = level.command_rules().send_command_feedback;
             level.with_typed_block_entity::<CommandBlockEntity, _>(pos, |level, be| {
                 be.get_command_block_mut().set_track_output(send_feedback);
@@ -169,9 +246,20 @@ impl BlockBehaviour for CommandBlock {
         helpers::mirror_facing(state, props::FACING, mirror)
     }
 
-    fn get_state_for_placement(&self, block: Block, _level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
-        Some(block.default_state().set(props::FACING, context.get_nearest_looking_direction().get_opposite()))
+    fn get_state_for_placement(
+        &self,
+        block: Block,
+        _level: &mut ServerLevel,
+        context: &BlockPlaceContext,
+    ) -> Option<BlockState> {
+        Some(block.default_state().set(
+            props::FACING,
+            context.get_nearest_looking_direction().get_opposite(),
+        ))
     }
 }
 
-register_block_class!("CommandBlock", |block| Box::new(CommandBlock { block, automatic: block == Block::CHAIN_COMMAND_BLOCK }));
+register_block_class!("CommandBlock", |block| Box::new(CommandBlock {
+    block,
+    automatic: block == Block::CHAIN_COMMAND_BLOCK
+}));

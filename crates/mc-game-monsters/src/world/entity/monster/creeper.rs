@@ -1,28 +1,35 @@
 //! `net.minecraft.world.entity.monster.Creeper`.
 
+use linkme::distributed_slice;
+use mc_core::ident::Identifier;
+use mc_core::math::mth;
+use mc_core::random::RandomSource;
+use mc_data::{EntityType, GameEvent, Item, SoundEvent};
+use mc_game_ai::world::entity::ai::goal::{AvoidEntityGoal, SwellGoal};
 use mc_game_core::define_accessor;
 use mc_game_core::registry::RegistryAccess;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::server::level::level_explode::Explode;
 use mc_game_core::world::damagesource::{DamageEntity, DamageSource};
-use mc_core::ident::Identifier;
 use mc_game_core::world::entity::ServerPlayer;
-use mc_game_core::world::entity::ai::goal::target::{HurtByTargetGoal, NearestAttackableTargetGoal, TargetType};
-use mc_game_ai::world::entity::ai::goal::{AvoidEntityGoal, SwellGoal};
-use mc_game_core::world::entity::ai::goal::{FloatGoal, LookAtPlayerGoal, MeleeAttackGoal, RandomLookAroundGoal, WaterAvoidingRandomStrollGoal};
-use mc_game_core::world::entity::area_effect_cloud::AreaEffectCloud;
+use mc_game_core::world::entity::ai::goal::target::{
+    HurtByTargetGoal, NearestAttackableTargetGoal, TargetType,
+};
+use mc_game_core::world::entity::ai::goal::{
+    FloatGoal, LookAtPlayerGoal, MeleeAttackGoal, RandomLookAroundGoal,
+    WaterAvoidingRandomStrollGoal,
+};
 use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::area_effect_cloud::AreaEffectCloud;
 use mc_game_core::world::entity::effect::MobEffectInstance;
 use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
 use mc_game_core::world::entity::living_entity::util::l;
 use mc_game_core::world::entity::mob::{self, MobData, MobKind};
 use mc_game_core::world::entity::{Entity, EntityId};
-use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStackExt as _, hurt_and_break};
+use mc_game_core::world::item::{
+    InteractionHand, InteractionResult, ItemStackExt as _, hurt_and_break,
+};
 use mc_game_core::world::level::explosion::ExplosionInteraction;
-use linkme::distributed_slice;
-use mc_core::math::mth;
-use mc_core::random::RandomSource;
-use mc_data::{EntityType, GameEvent, Item, SoundEvent};
 use mc_nbt::CompoundTag;
 use std::sync::Arc;
 
@@ -51,7 +58,14 @@ impl Creeper {
             b.define(DATA_IS_POWERED, false);
             b.define(DATA_IS_IGNITED, false);
         });
-        let mut creeper = Creeper { mob, old_swell: 0, swell: 0, max_swell: DEFAULT_MAX_SWELL, explosion_radius: DEFAULT_EXPLOSION_RADIUS, dropped_skulls: false };
+        let mut creeper = Creeper {
+            mob,
+            old_swell: 0,
+            swell: 0,
+            max_swell: DEFAULT_MAX_SWELL,
+            explosion_radius: DEFAULT_EXPLOSION_RADIUS,
+            dropped_skulls: false,
+        };
         let navigation = StandardPathNavigation::ground(&creeper);
         creeper.mob.set_navigation(Box::new(navigation));
         creeper.register_goals();
@@ -65,14 +79,33 @@ impl Creeper {
         let goals = &mut self.mob.goal_selector;
         goals.add_goal(1, Box::new(float));
         goals.add_goal(2, Box::new(SwellGoal::new()));
-        goals.add_goal(3, Box::new(AvoidEntityGoal::new(Arc::new(|e: &dyn Entity| e.get_type() == EntityType::OCELOT), 6.0, 1.0, 1.2)));
-        goals.add_goal(3, Box::new(AvoidEntityGoal::new(Arc::new(|e: &dyn Entity| e.get_type() == EntityType::CAT), 6.0, 1.0, 1.2)));
+        goals.add_goal(
+            3,
+            Box::new(AvoidEntityGoal::new(
+                Arc::new(|e: &dyn Entity| e.get_type() == EntityType::OCELOT),
+                6.0,
+                1.0,
+                1.2,
+            )),
+        );
+        goals.add_goal(
+            3,
+            Box::new(AvoidEntityGoal::new(
+                Arc::new(|e: &dyn Entity| e.get_type() == EntityType::CAT),
+                6.0,
+                1.0,
+                1.2,
+            )),
+        );
         goals.add_goal(4, Box::new(MeleeAttackGoal::new(1.0, false)));
         goals.add_goal(5, Box::new(WaterAvoidingRandomStrollGoal::new(0.8)));
         goals.add_goal(6, Box::new(look_at));
         goals.add_goal(6, Box::new(RandomLookAroundGoal::new()));
         let targets = &mut self.mob.target_selector;
-        targets.add_goal(1, Box::new(NearestAttackableTargetGoal::new(TargetType::Player, true)));
+        targets.add_goal(
+            1,
+            Box::new(NearestAttackableTargetGoal::new(TargetType::Player, true)),
+        );
         targets.add_goal(2, Box::new(HurtByTargetGoal::new(Vec::new())));
     }
 
@@ -93,7 +126,11 @@ impl Creeper {
 
     /// `ignite()`.
     pub fn ignite(&mut self) {
-        self.mob.living.entity.entity_data.set(DATA_IS_IGNITED, true);
+        self.mob
+            .living
+            .entity
+            .entity_data
+            .set(DATA_IS_IGNITED, true);
     }
 
     /// `explodeCreeper()`.
@@ -101,16 +138,31 @@ impl Creeper {
         let explosion_multiplier = if self.is_powered() { 2.0f32 } else { 1.0f32 };
         self.mob.living.dead = true;
         let p = self.position();
-        level.explode(Explode::new(Some(&*self), p.x, p.y, p.z, self.explosion_radius as f32 * explosion_multiplier, ExplosionInteraction::Mob), &mut []);
+        level.explode(
+            Explode::new(
+                Some(&*self),
+                p.x,
+                p.y,
+                p.z,
+                self.explosion_radius as f32 * explosion_multiplier,
+                ExplosionInteraction::Mob,
+            ),
+            &mut [],
+        );
         level.run_deferred_level_ops(self);
         self.spawn_lingering_cloud(level);
-        mc_game_core::world::entity::living_entity::effects::trigger_on_death_mob_effects(self, level, mc_game_core::world::entity::RemovalReason::Killed);
+        mc_game_core::world::entity::living_entity::effects::trigger_on_death_mob_effects(
+            self,
+            level,
+            mc_game_core::world::entity::RemovalReason::Killed,
+        );
         self.discard();
     }
 
     /// `spawnLingeringCloud()`.
     fn spawn_lingering_cloud(&self, level: &mut ServerLevel) {
-        let active_effects: Vec<MobEffectInstance> = l(self).active_effects.values().cloned().collect();
+        let active_effects: Vec<MobEffectInstance> =
+            l(self).active_effects.values().cloned().collect();
         if active_effects.is_empty() {
             return;
         }
@@ -140,8 +192,20 @@ impl Entity for Creeper {
         }
     }
 
-    fn cause_fall_damage(&mut self, level: &mut ServerLevel, fall_distance: f64, damage_modifier: f32, source: &DamageSource) -> bool {
-        let damaged = mc_game_core::world::entity::living_entity::damage::cause_fall_damage(self, level, fall_distance, damage_modifier, source);
+    fn cause_fall_damage(
+        &mut self,
+        level: &mut ServerLevel,
+        fall_distance: f64,
+        damage_modifier: f32,
+        source: &DamageSource,
+    ) -> bool {
+        let damaged = mc_game_core::world::entity::living_entity::damage::cause_fall_damage(
+            self,
+            level,
+            fall_distance,
+            damage_modifier,
+            source,
+        );
         self.swell += (fall_distance * 1.5) as i32;
         if self.swell > self.max_swell - 5 {
             self.swell = self.max_swell - 5;
@@ -159,9 +223,14 @@ impl Entity for Creeper {
 
     fn read_additional_save_data(&mut self, input: &CompoundTag) {
         mob::nbt::read_additional_save_data(self, input);
-        self.mob.living.entity.entity_data.set(DATA_IS_POWERED, input.get_boolean_or("powered", false));
+        self.mob
+            .living
+            .entity
+            .entity_data
+            .set(DATA_IS_POWERED, input.get_boolean_or("powered", false));
         self.max_swell = i32::from(input.get_short_or("Fuse", DEFAULT_MAX_SWELL as i16));
-        self.explosion_radius = i32::from(input.get_byte_or("ExplosionRadius", DEFAULT_EXPLOSION_RADIUS as i8));
+        self.explosion_radius =
+            i32::from(input.get_byte_or("ExplosionRadius", DEFAULT_EXPLOSION_RADIUS as i8));
         if input.get_boolean_or("ignited", false) {
             self.ignite();
         }
@@ -191,7 +260,10 @@ impl Entity for Creeper {
     }
 
     fn set_target(&mut self, level: &ServerLevel, target: Option<EntityId>) {
-        if !target.and_then(|t| level.get_entity(t)).is_some_and(|t| t.get_type() == EntityType::GOAT) {
+        if !target
+            .and_then(|t| level.get_entity(t))
+            .is_some_and(|t| t.get_type() == EntityType::GOAT)
+        {
             mob::tick::set_target(self, level, target);
         }
     }
@@ -204,15 +276,29 @@ impl Entity for Creeper {
         Some(SoundEvent::ENTITY_CREEPER_DEATH)
     }
 
-    fn killed_entity(&mut self, level: &mut ServerLevel, victim: &DamageEntity, source: &DamageSource) -> bool {
+    fn killed_entity(
+        &mut self,
+        level: &mut ServerLevel,
+        victim: &DamageEntity,
+        source: &DamageSource,
+    ) -> bool {
         if self.should_drop_loot(level) && self.is_powered() && !self.dropped_skulls {
-            let Some(table) = Identifier::try_parse("charged_creeper/root") else { return true };
+            let Some(table) = Identifier::try_parse("charged_creeper/root") else {
+                return true;
+            };
             let dropped = level
                 .with_entity(victim.id, |level, entity| {
-                    let items = mc_game_core::world::entity::living_entity::death::loot_table_items(entity, level, source, false, &table);
+                    let items = mc_game_core::world::entity::living_entity::death::loot_table_items(
+                        entity, level, source, false, &table,
+                    );
                     let any = !items.is_empty();
                     for stack in items {
-                        mc_game_core::world::entity::item::spawn_at_location(level, entity, stack, mc_core::phys::Vec3::ZERO);
+                        mc_game_core::world::entity::item::spawn_at_location(
+                            level,
+                            entity,
+                            stack,
+                            mc_core::phys::Vec3::ZERO,
+                        );
                     }
                     any
                 })
@@ -243,13 +329,28 @@ impl Entity for Creeper {
         }
         let source = level.damage_sources().lightning_bolt();
         self.hurt_server(level, &source, 5.0);
-        self.mob.living.entity.entity_data.set(DATA_IS_POWERED, true);
+        self.mob
+            .living
+            .entity
+            .entity_data
+            .set(DATA_IS_POWERED, true);
     }
 
-    fn mob_interact(&mut self, level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) -> InteractionResult {
+    fn mob_interact(
+        &mut self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        hand: InteractionHand,
+    ) -> InteractionResult {
         let item_stack = player.get_item_in_hand(hand);
-        if mc_data::tags::get::<Item>("creeper_igniters").is_some_and(|t| t.contains(item_stack.item())) {
-            let sound = if item_stack.is(Item::FIRE_CHARGE) { SoundEvent::ITEM_FIRECHARGE_USE } else { SoundEvent::ITEM_FLINTANDSTEEL_USE };
+        if mc_data::tags::get::<Item>("creeper_igniters")
+            .is_some_and(|t| t.contains(item_stack.item()))
+        {
+            let sound = if item_stack.is(Item::FIRE_CHARGE) {
+                SoundEvent::ITEM_FIRECHARGE_USE
+            } else {
+                SoundEvent::ITEM_FLINTANDSTEEL_USE
+            };
             let pitch = self.base_mut().random.next_float() * 0.4 + 0.8;
             let p = self.position();
             let source = self.get_sound_source();
@@ -270,4 +371,7 @@ impl Entity for Creeper {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static CREEPER: EntityRegistration = EntityRegistration { entity_type: EntityType::CREEPER, create: |ty, id, registries| Box::new(Creeper::new(ty, id, registries)) };
+static CREEPER: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::CREEPER,
+    create: |ty, id, registries| Box::new(Creeper::new(ty, id, registries)),
+};

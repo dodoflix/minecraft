@@ -39,7 +39,10 @@ pub struct ScenarioDumpCtx<'a> {
 impl ScenarioDumpCtx<'_> {
     /// Scenario name of an entity id, `-` when unknown.
     pub fn name(&self, id: EntityId) -> String {
-        self.names.get(&id).cloned().unwrap_or_else(|| "-".to_string())
+        self.names
+            .get(&id)
+            .cloned()
+            .unwrap_or_else(|| "-".to_string())
     }
 
     pub fn name_opt(&self, id: Option<EntityId>) -> String {
@@ -50,7 +53,10 @@ impl ScenarioDumpCtx<'_> {
     pub fn name_uuid(&self, uuid: Option<Uuid>) -> String {
         match uuid {
             None => "-".to_string(),
-            Some(u) => self.uuids.get(&u).map_or_else(|| u.to_string(), |i| self.name(*i)),
+            Some(u) => self
+                .uuids
+                .get(&u)
+                .map_or_else(|| u.to_string(), |i| self.name(*i)),
         }
     }
 }
@@ -68,7 +74,11 @@ pub static SCENARIO_DUMP_EXTRA: [ScenarioDumpExtra];
 /// creates, before it is added to the level; a hook ignores entities it does not handle). The mob spine registers the real
 /// `finalize_spawn` pipeline here.
 #[distributed_slice]
-pub static SCENARIO_FINALIZE_SPAWN: [fn(&mut ServerLevel, &mut dyn Entity, mc_data::enums::EntitySpawnReason)];
+pub static SCENARIO_FINALIZE_SPAWN: [fn(
+    &mut ServerLevel,
+    &mut dyn Entity,
+    mc_data::enums::EntitySpawnReason,
+)];
 
 // ==== [MobOracle] shared formatters of the oracle's value grammar (driver header, "Rich mob E line") ====
 //
@@ -85,16 +95,28 @@ pub fn goal_flags_text(flags: super::ai::goal::GoalFlags) -> String {
             super::ai::goal::Flag::Target => "TARGET",
         })
         .collect();
-    if l.is_empty() { "none".to_string() } else { l.join("+") }
+    if l.is_empty() {
+        "none".to_string()
+    } else {
+        l.join("+")
+    }
 }
 
 /// `G NAME goal|target PRIO ClassName flags=.. running=0|1` for every registered goal of both selectors (driver `goalsDump`).
 pub fn goal_lines(name: &str, mob: &dyn Entity) -> Vec<String> {
-    let Some(m) = mob.mob() else { return Vec::new() };
+    let Some(m) = mob.mob() else {
+        return Vec::new();
+    };
     let mut out = Vec::new();
     for (kind, sel) in [("goal", &m.goal_selector), ("target", &m.target_selector)] {
         for g in sel.get_available_goals() {
-            out.push(format!("G {name} {kind} {} {} flags={} running={}", g.priority(), g.goal().name(), goal_flags_text(g.goal().flags()), u8::from(g.is_running())));
+            out.push(format!(
+                "G {name} {kind} {} {} flags={} running={}",
+                g.priority(),
+                g.goal().name(),
+                goal_flags_text(g.goal().flags()),
+                u8::from(g.is_running())
+            ));
         }
     }
     out
@@ -107,7 +129,9 @@ fn pos_text(p: mc_core::pos::BlockPos) -> String {
 /// `PATH NAME ...` + `PN NAME i pos= type= malus= walked=` lines of a path (driver `printPath`).
 pub fn path_lines(name: &str, path: Option<&crate::world::level::pathfinder::Path>) -> Vec<String> {
     use mc_core::math::java::java_float_to_string as jf;
-    let Some(p) = path else { return vec![format!("PATH {name} none")] };
+    let Some(p) = path else {
+        return vec![format!("PATH {name} none")];
+    };
     let mut out = vec![format!(
         "PATH {name} next={} count={} reached={} target={} dist={}",
         p.get_next_node_index(),
@@ -118,13 +142,25 @@ pub fn path_lines(name: &str, path: Option<&crate::world::level::pathfinder::Pat
     )];
     for i in 0..p.get_node_count() {
         let n = p.get_node(i as usize);
-        out.push(format!("PN {name} {i} pos={},{},{} type={} malus={} walked={}", n.x, n.y, n.z, n.ty.name(), jf(n.cost_malus), jf(n.walked_distance)));
+        out.push(format!(
+            "PN {name} {i} pos={},{},{} type={} malus={} walked={}",
+            n.x,
+            n.y,
+            n.z,
+            n.ty.name(),
+            jf(n.cost_malus),
+            jf(n.walked_distance)
+        ));
     }
     out
 }
 
 /// The driver's `memval(Object)` for a brain memory value.
-pub fn memory_value_text(v: &super::ai::memory::value::MemoryValue, level: &ServerLevel, ctx: &ScenarioDumpCtx<'_>) -> String {
+pub fn memory_value_text(
+    v: &super::ai::memory::value::MemoryValue,
+    level: &ServerLevel,
+    ctx: &ScenarioDumpCtx<'_>,
+) -> String {
     use super::ai::behavior::position_tracker::PositionTracker;
     use super::ai::memory::value::MemoryValue as V;
     use mc_core::math::java::{java_double_to_string as jd, java_float_to_string as jf};
@@ -153,24 +189,43 @@ pub fn memory_value_text(v: &super::ai::memory::value::MemoryValue, level: &Serv
         V::Entity(e) => ctx.name(e.0),
         V::EntityList(l) => list(l.iter().map(|e| ctx.name(e.0)).collect()),
         V::DamageSource(d) => format!("damage({})", d.0.get_msg_id()),
-        V::WalkTarget(w) => format!("walk({};{};{})", tracker(w.get_target()), jf(w.get_speed_modifier()), w.get_close_enough_dist()),
+        V::WalkTarget(w) => format!(
+            "walk({};{};{})",
+            tracker(w.get_target()),
+            jf(w.get_speed_modifier()),
+            w.get_close_enough_dist()
+        ),
         V::PositionTracker(t) => tracker(t),
         V::Path(p) => format!("path({};{})", p.get_next_node_index(), p.get_node_count()),
-        V::NearestVisibleLivingEntities(n) => list(n.nearby_entities().iter().map(|e| ctx.name(e.0)).collect()),
+        V::NearestVisibleLivingEntities(n) => {
+            list(n.nearby_entities().iter().map(|e| ctx.name(e.0)).collect())
+        }
         V::SpearStatus(s) => format!("{s:?}").to_uppercase(),
     }
 }
 
 /// `(name, value, ttl|inf)` of every memory with a value, sorted by name (driver `memoryEntries`).
-pub fn memory_entries(e: &dyn Entity, level: &ServerLevel, ctx: &ScenarioDumpCtx<'_>) -> Vec<[String; 3]> {
+pub fn memory_entries(
+    e: &dyn Entity,
+    level: &ServerLevel,
+    ctx: &ScenarioDumpCtx<'_>,
+) -> Vec<[String; 3]> {
     let mut out: Vec<[String; 3]> = Vec::new();
     if e.living().is_none() {
         return out;
     }
     e.brain().for_each(|id, value| {
         if let Some((v, ttl)) = value {
-            let name = id.name().strip_prefix("minecraft:").unwrap_or(id.name()).to_string();
-            out.push([name, memory_value_text(v, level, ctx), ttl.map_or_else(|| "inf".to_string(), |t| t.to_string())]);
+            let name = id
+                .name()
+                .strip_prefix("minecraft:")
+                .unwrap_or(id.name())
+                .to_string();
+            out.push([
+                name,
+                memory_value_text(v, level, ctx),
+                ttl.map_or_else(|| "inf".to_string(), |t| t.to_string()),
+            ]);
         }
     });
     out.sort_by(|a, b| a[0].cmp(&b[0]));
@@ -178,10 +233,27 @@ pub fn memory_entries(e: &dyn Entity, level: &ServerLevel, ctx: &ScenarioDumpCtx
 }
 
 /// `BRAIN NAME acts=..`, one `BM NAME type= value= ttl=` per memory and `BR NAME debugString` per running behavior (driver `brainDump`).
-pub fn brain_lines(name: &str, e: &dyn Entity, level: &ServerLevel, ctx: &ScenarioDumpCtx<'_>) -> Vec<String> {
-    let mut acts: Vec<&str> = e.brain().get_active_activities().iter().map(|a| a.get_name()).collect();
+pub fn brain_lines(
+    name: &str,
+    e: &dyn Entity,
+    level: &ServerLevel,
+    ctx: &ScenarioDumpCtx<'_>,
+) -> Vec<String> {
+    let mut acts: Vec<&str> = e
+        .brain()
+        .get_active_activities()
+        .iter()
+        .map(|a| a.get_name())
+        .collect();
     acts.sort_unstable();
-    let mut out = vec![format!("BRAIN {name} acts={}", if acts.is_empty() { "-".to_string() } else { acts.join(";") })];
+    let mut out = vec![format!(
+        "BRAIN {name} acts={}",
+        if acts.is_empty() {
+            "-".to_string()
+        } else {
+            acts.join(";")
+        }
+    )];
     for [t, v, ttl] in memory_entries(e, level, ctx) {
         out.push(format!("BM {name} type={t} value={v} ttl={ttl}"));
     }

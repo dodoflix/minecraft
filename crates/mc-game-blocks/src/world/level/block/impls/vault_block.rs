@@ -1,11 +1,11 @@
 //! `net.minecraft.world.level.block.VaultBlock`: key insertion, placement facing, `rotate` / `mirror`.
-use mc_game_core::register_block_class;
-use mc_game_core::world::level::block::impls::prelude::*;
-use mc_game_core::server::level::ServerLevel;
 use crate::world::block_entity::vault::VaultConfig;
 use crate::world::block_entity::vault_block_entity::{VaultBlockEntity, try_insert_key};
-use mc_game_core::world::item::{BlockPlaceContext, InteractionHand, InteractionResult, ItemStack};
 use mc_data::enums::VaultState;
+use mc_game_core::register_block_class;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::item::{BlockPlaceContext, InteractionHand, InteractionResult, ItemStack};
+use mc_game_core::world::level::block::impls::prelude::*;
 
 pub struct VaultBlock;
 
@@ -26,10 +26,26 @@ impl BlockBehaviour for VaultBlock {
         // the held stack is the player's own object in vanilla: the consumed copy is written back
         let mut held = stack.clone();
         let handled = level.with_block_entity(pos, |level, be| {
-            let Some(vault) = be.as_any_mut().downcast_mut::<VaultBlockEntity>() else { return false };
-            let VaultBlockEntity { server_data, shared_data, config, .. } = vault;
+            let Some(vault) = be.as_any_mut().downcast_mut::<VaultBlockEntity>() else {
+                return false;
+            };
+            let VaultBlockEntity {
+                server_data,
+                shared_data,
+                config,
+                ..
+            } = vault;
             let config: &VaultConfig = config;
-            try_insert_key(level, pos, state, config, server_data, shared_data, player, &mut held);
+            try_insert_key(
+                level,
+                pos,
+                state,
+                config,
+                server_data,
+                shared_data,
+                player,
+                &mut held,
+            );
             true
         });
         if handled != Some(true) {
@@ -41,8 +57,16 @@ impl BlockBehaviour for VaultBlock {
         InteractionResult::SUCCESS_SERVER
     }
 
-    fn get_state_for_placement(&self, block: Block, _level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
-        Some(block.default_state().set(props::HORIZONTAL_FACING, context.get_horizontal_direction().get_opposite()))
+    fn get_state_for_placement(
+        &self,
+        block: Block,
+        _level: &mut ServerLevel,
+        context: &BlockPlaceContext,
+    ) -> Option<BlockState> {
+        Some(block.default_state().set(
+            props::HORIZONTAL_FACING,
+            context.get_horizontal_direction().get_opposite(),
+        ))
     }
 
     fn rotate(&self, state: BlockState, rotation: Rotation) -> BlockState {

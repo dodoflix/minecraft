@@ -16,7 +16,11 @@ pub struct JavaPriorityQueue<E> {
 
 impl<E> JavaPriorityQueue<E> {
     pub fn new(cmp: fn(&E, &E) -> Ordering) -> Self {
-        Self { items: Vec::new(), next_uid: 0, cmp }
+        Self {
+            items: Vec::new(),
+            next_uid: 0,
+            cmp,
+        }
     }
 
     pub fn len(&self) -> usize {
@@ -76,7 +80,9 @@ impl<E> JavaPriorityQueue<E> {
         while k < half {
             let mut child = (k << 1) + 1;
             let right = child + 1;
-            if right < n && (self.cmp)(&self.items[child].1, &self.items[right].1) == Ordering::Greater {
+            if right < n
+                && (self.cmp)(&self.items[child].1, &self.items[right].1) == Ordering::Greater
+            {
                 child = right;
             }
             if (self.cmp)(&self.items[k].1, &self.items[child].1) != Ordering::Greater {
@@ -121,7 +127,9 @@ impl<E> JavaPriorityQueue<E> {
                 cursor += 1;
             } else if let Some(u) = forget_me_not.pop_front() {
                 last_ret = None;
-                let Some(i) = self.items.iter().position(|(x, _)| *x == u) else { continue };
+                let Some(i) = self.items.iter().position(|(x, _)| *x == u) else {
+                    continue;
+                };
                 idx = i;
             } else {
                 break;
@@ -152,7 +160,11 @@ fn mix(x: i64) -> i32 {
 }
 
 fn next_power_of_two(x: u64) -> u64 {
-    if x == 0 { 1 } else { (x - 1).next_power_of_two().max(1) }
+    if x == 0 {
+        1
+    } else {
+        (x - 1).next_power_of_two().max(1)
+    }
 }
 
 /// `HashCommon.arraySize(expected, 0.75f)`.
@@ -182,14 +194,27 @@ pub struct Long2LongOpenHashMap {
 impl Default for Long2LongOpenHashMap {
     fn default() -> Self {
         let n = array_size(DEFAULT_INITIAL_SIZE);
-        Self { key: vec![0; n + 1], value: vec![0; n + 1], mask: n - 1, contains_null_key: false, n, min_n: n, max_fill: max_fill(n), size: 0 }
+        Self {
+            key: vec![0; n + 1],
+            value: vec![0; n + 1],
+            mask: n - 1,
+            contains_null_key: false,
+            n,
+            min_n: n,
+            max_fill: max_fill(n),
+            size: 0,
+        }
     }
 }
 
 impl Long2LongOpenHashMap {
     fn find(&self, k: i64) -> Result<usize, usize> {
         if k == 0 {
-            return if self.contains_null_key { Ok(self.n) } else { Err(self.n) };
+            return if self.contains_null_key {
+                Ok(self.n)
+            } else {
+                Err(self.n)
+            };
         }
         let mut pos = mix(k) as usize & self.mask;
         loop {
@@ -258,7 +283,11 @@ impl Long2LongOpenHashMap {
                     return;
                 }
                 let slot = mix(c) as usize & self.mask;
-                let stays = if last <= pos { last >= slot || slot > pos } else { last >= slot && slot > pos };
+                let stays = if last <= pos {
+                    last >= slot || slot > pos
+                } else {
+                    last >= slot && slot > pos
+                };
                 if stays {
                     curr = c;
                     break;
@@ -280,7 +309,11 @@ impl Long2LongOpenHashMap {
         let mut new_key = vec![0i64; new_n + 1];
         let mut new_value = vec![0i64; new_n + 1];
         let mut i = self.n;
-        let mut j = if self.contains_null_key { self.size - 1 } else { self.size };
+        let mut j = if self.contains_null_key {
+            self.size - 1
+        } else {
+            self.size
+        };
         while j > 0 {
             j -= 1;
             loop {

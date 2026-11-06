@@ -1,9 +1,11 @@
 //! `VolumeMatchPredicate` (`volume_match`).
 
-use mc_game_core::world::level::levelgen::blockpredicates::{BLOCK_PREDICATE_TYPES, BlockPredicate, decode};
-use mc_game_core::world::level::LevelAccessor;
-use mc_game_core::world::level::levelgen::codec::{LoadError, TypeEntry, parse_vec3i_offset};
 use mc_core::pos::{BlockPos, Vec3i};
+use mc_game_core::world::level::LevelAccessor;
+use mc_game_core::world::level::levelgen::blockpredicates::{
+    BLOCK_PREDICATE_TYPES, BlockPredicate, decode,
+};
+use mc_game_core::world::level::levelgen::codec::{LoadError, TypeEntry, parse_vec3i_offset};
 use std::sync::Arc;
 
 pub struct VolumeMatchPredicate {

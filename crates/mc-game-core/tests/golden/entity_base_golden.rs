@@ -15,7 +15,13 @@ fn view_vector_matches_vanilla() {
         let v = calculate_view_vector(x, y);
         let got = [v.x, v.y, v.z];
         for k in 0..3 {
-            assert_eq!(got[k].to_bits(), expect[k].to_bits(), "xRot={x} yRot={y} component {k}: {} vs {}", got[k], expect[k]);
+            assert_eq!(
+                got[k].to_bits(),
+                expect[k].to_bits(),
+                "xRot={x} yRot={y} component {k}: {} vs {}",
+                got[k],
+                expect[k]
+            );
         }
         n += 1;
     }

@@ -28,7 +28,9 @@ pub struct RsaSha256Validator {
 impl RsaSha256Validator {
     /// `der` is the X.509 SubjectPublicKeyInfo (`ProfilePublicKey.Data.key.getEncoded()`).
     pub fn from_der(der: &[u8]) -> Option<Self> {
-        RsaPublicKey::from_public_key_der(der).ok().map(|key| Self { key: VerifyingKey::new(key) })
+        RsaPublicKey::from_public_key_der(der).ok().map(|key| Self {
+            key: VerifyingKey::new(key),
+        })
     }
 }
 

@@ -15,8 +15,11 @@ impl AboveRootPlacement {
     pub fn decode(value: &Value, ctx: &DecodeCtx<'_>) -> LoadResult<AboveRootPlacement> {
         let fields = Fields::new(value)?;
         Ok(AboveRootPlacement {
-            above_root_provider: fields.required("above_root_provider", |v| ctx.block_state_provider(v))?,
-            above_root_placement_chance: fields.required("above_root_placement_chance", |v| parse_float_range(v, 0.0, 1.0))?,
+            above_root_provider: fields
+                .required("above_root_provider", |v| ctx.block_state_provider(v))?,
+            above_root_placement_chance: fields.required("above_root_placement_chance", |v| {
+                parse_float_range(v, 0.0, 1.0)
+            })?,
         })
     }
 }

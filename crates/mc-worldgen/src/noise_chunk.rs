@@ -10,7 +10,8 @@ use crate::aquifer::{self, Aquifer, FluidPicker};
 use crate::beardifier::Beardifier;
 use crate::blending::Blender;
 use crate::densityfunction::sampler::{
-    BEARDIFIER_KEY, BLENDER_ALPHA_KEY, BLENDER_KEY, BLENDER_OFFSET_KEY, SharedBlender, SharedSampler,
+    BEARDIFIER_KEY, BLENDER_ALPHA_KEY, BLENDER_KEY, BLENDER_OFFSET_KEY, SharedBlender,
+    SharedSampler,
 };
 use crate::densityfunction::{ContextMap, DensityVolume, SamplerContext};
 use crate::noise_settings::NoiseGeneratorSettings;
@@ -35,7 +36,8 @@ impl NoiseChunk {
     ) -> NoiseChunk {
         let mut sampler_user_fields = ContextMap::new();
         if let Some(beardifier) = beardifier {
-            sampler_user_fields = sampler_user_fields.with(BEARDIFIER_KEY, Arc::new(beardifier) as SharedSampler);
+            sampler_user_fields =
+                sampler_user_fields.with(BEARDIFIER_KEY, Arc::new(beardifier) as SharedSampler);
         }
         if !blender.is_empty() {
             let blend_buffer = blender.blend_offset_and_factor(&volume);
@@ -46,19 +48,29 @@ impl NoiseChunk {
         }
 
         let caching_samplers = Rc::new(
-            random_state
-                .samplers_with_context(SamplerContext::builder().set_user_fields(sampler_user_fields).enable_caches().build()),
+            random_state.samplers_with_context(
+                SamplerContext::builder()
+                    .set_user_fields(sampler_user_fields)
+                    .enable_caches()
+                    .build(),
+            ),
         );
         let aquifer: Box<dyn Aquifer> = match &settings.aquifers {
             Some(config) => Box::new(config.create(
                 caching_samplers.clone(),
-                random_state.get_or_create_random_factory(&Identifier::with_default_namespace("aquifer").expect("valid id")),
+                random_state.get_or_create_random_factory(
+                    &Identifier::with_default_namespace("aquifer").expect("valid id"),
+                ),
                 &volume,
                 global_fluid_picker,
             )),
             None => aquifer::create_disabled(global_fluid_picker),
         };
-        NoiseChunk { volume, aquifer, caching_samplers }
+        NoiseChunk {
+            volume,
+            aquifer,
+            caching_samplers,
+        }
     }
 
     pub fn volume(&self) -> &DensityVolume {

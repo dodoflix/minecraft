@@ -1,7 +1,9 @@
 //! `net.minecraft.world.entity.animal.axolotl.ValidatePlayDead`.
 
 use mc_game_core::world::entity::ai::behavior::{BehaviorBuilder, OneShot};
-use mc_game_core::world::entity::ai::memory::memory_module_type::{HURT_BY_ENTITY, PLAY_DEAD_TICKS};
+use mc_game_core::world::entity::ai::memory::memory_module_type::{
+    HURT_BY_ENTITY, PLAY_DEAD_TICKS,
+};
 
 /// `ValidatePlayDead.create()`: counts `PLAY_DEAD_TICKS` down, ends the act at 0.
 pub fn create() -> OneShot {

@@ -1,8 +1,8 @@
 //! `SetHiddenState`.
 
+use super::OneShot;
 use super::declarative::BehaviorBuilder;
 use super::update_activity_from_schedule;
-use super::OneShot;
 use crate::world::entity::ai::memory::memory_module_type::{HEARD_BELL_TIME, HIDING_PLACE};
 
 /// `HIDE_TIMEOUT`.

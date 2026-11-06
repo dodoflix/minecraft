@@ -25,7 +25,10 @@ fn copy_dir(from: &std::path::Path, to: &std::path::Path) {
 /// Saves a world with two teams, three objectives on the list/sidebar/below-name slots with a score each, a custom boss
 /// bar shown to `Bot` and a world border in `dir` (the vanilla server runs there).
 async fn vanilla_seed_world(dir: &std::path::Path) {
-    let server = vanilla(12345, "survival", &[]).dir(dir).start().expect("start vanilla");
+    let server = vanilla(12345, "survival", &[])
+        .dir(dir)
+        .start()
+        .expect("start vanilla");
     let bot = join("127.0.0.1", server.port, "Bot").await;
     for command in [
         "team add red",
@@ -57,7 +60,11 @@ async fn join_with_scoreboard_boss_bar_and_border() {
     let bin = env!("CARGO_BIN_EXE_mc-server");
     let seed = tempfile::tempdir().expect("temp dir");
     vanilla_seed_world(seed.path()).await;
-    let port = std::net::TcpListener::bind("127.0.0.1:0").unwrap().local_addr().unwrap().port();
+    let port = std::net::TcpListener::bind("127.0.0.1:0")
+        .unwrap()
+        .local_addr()
+        .unwrap()
+        .port();
     let dir = std::env::temp_dir().join(format!("mc-join-state-{}-{port}", std::process::id()));
     copy_dir(&seed.path().join("world"), &dir.join("world"));
     std::fs::write(dir.join("eula.txt"), "eula=true\n").unwrap();
@@ -66,7 +73,14 @@ async fn join_with_scoreboard_boss_bar_and_border() {
         format!("online-mode=false\nwhite-list=false\nserver-port={port}\nserver-ip=127.0.0.1\ngenerate-structures=false\nspawn-protection=0\nmax-tick-time=-1\nview-distance=2\nsimulation-distance=2\nenable-rcon=false\nenable-query=false\nrate-limit=0\nlevel-seed=12345\n"),
     )
     .unwrap();
-    let mut child = Command::new(bin).arg("nogui").current_dir(&dir).stdin(Stdio::piped()).stdout(Stdio::piped()).stderr(Stdio::inherit()).spawn().unwrap();
+    let mut child = Command::new(bin)
+        .arg("nogui")
+        .current_dir(&dir)
+        .stdin(Stdio::piped())
+        .stdout(Stdio::piped())
+        .stderr(Stdio::inherit())
+        .spawn()
+        .unwrap();
     let stdout = child.stdout.take().unwrap();
     let (tx, rx) = std::sync::mpsc::channel();
     std::thread::spawn(move || {
@@ -80,30 +94,57 @@ async fn join_with_scoreboard_boss_bar_and_border() {
             }
         }
     });
-    rx.recv_timeout(Duration::from_secs(240)).expect("server start");
+    rx.recv_timeout(Duration::from_secs(240))
+        .expect("server start");
     tokio::time::sleep(Duration::from_secs(1)).await;
 
     let opts = BotOptions::new("127.0.0.1", port, "Bot");
     let log = Arc::new(Mutex::new(PacketLog::new()));
     let mut conn = open(&opts, log.clone()).await.unwrap();
-    login_and_configure(&mut conn, &opts).await.expect("configuration");
+    login_and_configure(&mut conn, &opts)
+        .await
+        .expect("configuration");
     let mut names: Vec<String> = Vec::new();
     let mut details = String::new();
     let deadline = tokio::time::Instant::now() + Duration::from_secs(8);
     while tokio::time::Instant::now() < deadline {
-        let Ok(Ok(payload)) = tokio::time::timeout(Duration::from_millis(500), conn.reader.read_payload()).await else { continue };
+        let Ok(Ok(payload)) =
+            tokio::time::timeout(Duration::from_millis(500), conn.reader.read_payload()).await
+        else {
+            continue;
+        };
         let id = mc_protocol::codec::read_varint(&mut &payload[..]).unwrap();
-        let name = mc_protocol::packet::packet_name(mc_protocol::packet::ConnectionState::Play, mc_protocol::packet::PacketFlow::Clientbound, id).unwrap_or("?");
-        details.push_str(&format!("{name} {}\n", payload.iter().take(60).map(|b| format!("{b:02x}")).collect::<String>()));
+        let name = mc_protocol::packet::packet_name(
+            mc_protocol::packet::ConnectionState::Play,
+            mc_protocol::packet::PacketFlow::Clientbound,
+            id,
+        )
+        .unwrap_or("?");
+        details.push_str(&format!(
+            "{name} {}\n",
+            payload
+                .iter()
+                .take(60)
+                .map(|b| format!("{b:02x}"))
+                .collect::<String>()
+        ));
         names.push(name.trim_start_matches("minecraft:").to_string());
     }
     std::fs::write("/tmp/ours_state_join.txt", &details).unwrap();
     let _ = child.kill();
     let count = |n: &str| names.iter().filter(|x| x.as_str() == n).count();
     assert_eq!(count("set_player_team"), 2, "{names:?}");
-    assert!(count("set_objective") >= 3 && count("set_display_objective") >= 3 && count("set_score") >= 3, "{names:?}");
+    assert!(
+        count("set_objective") >= 3
+            && count("set_display_objective") >= 3
+            && count("set_score") >= 3,
+        "{names:?}"
+    );
     assert_eq!(count("boss_event"), 1, "{names:?}");
     assert_eq!(count("initialize_border"), 1);
     let pos = |n: &str| names.iter().position(|x| x == n).unwrap();
-    assert!(pos("initialize_border") > pos("set_player_team"), "scoreboard packets precede the border");
+    assert!(
+        pos("initialize_border") > pos("set_player_team"),
+        "scoreboard packets precede the border"
+    );
 }

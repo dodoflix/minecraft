@@ -7,13 +7,21 @@
 //! so the reversal is returned without the sound; upgrade with a level-aware deflection hook.
 
 use super::breeze_ai;
+use linkme::distributed_slice;
+use mc_core::phys::Vec3;
+use mc_core::random::RandomSource;
+use mc_data::enums::Pose;
+use mc_data::{EntityType, SoundEvent};
 use mc_game_core::registry::RegistryAccess;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::damagesource::DamageSource;
 use mc_game_core::world::entity::ai::brain::{Brain, Provider};
 use mc_game_core::world::entity::ai::memory::BrainPacked;
 use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
-use mc_game_core::world::entity::ai::sensing::sensor_type::{BREEZE_ATTACK_ENTITY_SENSOR, HURT_BY as HURT_BY_SENSOR, NEAREST_LIVING_ENTITIES, NEAREST_PLAYERS};
+use mc_game_core::world::entity::ai::sensing::sensor_type::{
+    BREEZE_ATTACK_ENTITY_SENSOR, HURT_BY as HURT_BY_SENSOR, NEAREST_LIVING_ENTITIES,
+    NEAREST_PLAYERS,
+};
 use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
 use mc_game_core::world::entity::living_entity::damage;
 use mc_game_core::world::entity::mob::{self, MobData, MobKind};
@@ -21,18 +29,21 @@ use mc_game_core::world::entity::projectile::{Projectile, ProjectileDeflection};
 use mc_game_core::world::entity::schedule::Activity;
 use mc_game_core::world::entity::{Entity, EntityId, MovementEmission};
 use mc_game_core::world::level::pathfinder::PathType;
-use linkme::distributed_slice;
-use mc_core::phys::Vec3;
-use mc_core::random::RandomSource;
-use mc_data::enums::Pose;
-use mc_data::{EntityType, SoundEvent};
 
 const FALL_DISTANCE_SOUND_TRIGGER_THRESHOLD: f64 = 3.0;
 const WHIRL_SOUND_FREQUENCY_MIN: i32 = 1;
 const WHIRL_SOUND_FREQUENCY_MAX: i32 = 80;
 
 /// `BRAIN_PROVIDER`.
-static BRAIN_PROVIDER: Provider = Provider::with_activities(&[&NEAREST_LIVING_ENTITIES, &HURT_BY_SENSOR, &NEAREST_PLAYERS, &BREEZE_ATTACK_ENTITY_SENSOR], breeze_ai::get_activities);
+static BRAIN_PROVIDER: Provider = Provider::with_activities(
+    &[
+        &NEAREST_LIVING_ENTITIES,
+        &HURT_BY_SENSOR,
+        &NEAREST_PLAYERS,
+        &BREEZE_ATTACK_ENTITY_SENSOR,
+    ],
+    breeze_ai::get_activities,
+);
 
 /// `Breeze`.
 pub struct Breeze {
@@ -84,11 +95,20 @@ impl Entity for Breeze {
 
     fn tick(&mut self, level: &mut ServerLevel) {
         // client-only particles aside, the draws of `Breeze.tick()` run on the server too
-        if matches!(self.base().get_pose(), Pose::Shooting | Pose::Inhaling | Pose::Standing) {
+        if matches!(
+            self.base().get_pose(),
+            Pose::Shooting | Pose::Inhaling | Pose::Standing
+        ) {
             // `emitGroundParticles(1 + this.getRandom().nextInt(1))`
             let _ = self.base_mut().random.next_int_bounded(1);
         }
-        self.sound_tick = if self.sound_tick == 0 { self.base_mut().random.next_int_between_inclusive(WHIRL_SOUND_FREQUENCY_MIN, WHIRL_SOUND_FREQUENCY_MAX) } else { self.sound_tick - 1 };
+        self.sound_tick = if self.sound_tick == 0 {
+            self.base_mut()
+                .random
+                .next_int_between_inclusive(WHIRL_SOUND_FREQUENCY_MIN, WHIRL_SOUND_FREQUENCY_MAX)
+        } else {
+            self.sound_tick - 1
+        };
         if self.sound_tick == 0 {
             // `playWhirlSound()`: a local sound (no-op on the server) with two random draws
             let _ = self.base_mut().random.next_float();
@@ -104,7 +124,13 @@ impl Entity for Breeze {
     fn deflection(&self, projectile: &dyn Projectile) -> ProjectileDeflection {
         let ty = projectile.get_type();
         if ty != EntityType::BREEZE_WIND_CHARGE && ty != EntityType::WIND_CHARGE {
-            if mc_data::tags::get::<EntityType>("deflects_projectiles").is_some_and(|t| t.contains(self.get_type())) { ProjectileDeflection::Reverse } else { ProjectileDeflection::None }
+            if mc_data::tags::get::<EntityType>("deflects_projectiles")
+                .is_some_and(|t| t.contains(self.get_type()))
+            {
+                ProjectileDeflection::Reverse
+            } else {
+                ProjectileDeflection::None
+            }
         } else {
             ProjectileDeflection::None
         }
@@ -119,7 +145,11 @@ impl Entity for Breeze {
     }
 
     fn get_ambient_sound(&self) -> Option<SoundEvent> {
-        Some(if self.base().on_ground() { SoundEvent::ENTITY_BREEZE_IDLE_GROUND } else { SoundEvent::ENTITY_BREEZE_IDLE_AIR })
+        Some(if self.base().on_ground() {
+            SoundEvent::ENTITY_BREEZE_IDLE_GROUND
+        } else {
+            SoundEvent::ENTITY_BREEZE_IDLE_AIR
+        })
     }
 
     fn custom_server_ai_step(&mut self, level: &mut ServerLevel) {
@@ -129,7 +159,8 @@ impl Entity for Breeze {
 
     fn can_attack(&self, level: &ServerLevel, target: &dyn Entity) -> bool {
         (target.get_type() == EntityType::PLAYER || target.get_type() == EntityType::IRON_GOLEM)
-            && !(target.is_player() && level.difficulty() == mc_world::level_storage::Difficulty::Peaceful)
+            && !(target.is_player()
+                && level.difficulty() == mc_world::level_storage::Difficulty::Peaceful)
             && target.can_be_seen_as_enemy()
     }
 
@@ -142,14 +173,23 @@ impl Entity for Breeze {
     }
 
     fn is_invulnerable_to(&mut self, level: &mut ServerLevel, source: &DamageSource) -> bool {
-        source.causing_info().is_some_and(|c| c.entity_type == EntityType::BREEZE) || damage::is_invulnerable_to(self, level, source)
+        source
+            .causing_info()
+            .is_some_and(|c| c.entity_type == EntityType::BREEZE)
+            || damage::is_invulnerable_to(self, level, source)
     }
 
     fn get_fluid_jump_threshold(&self) -> f64 {
         f64::from(self.base().eye_height)
     }
 
-    fn cause_fall_damage(&mut self, level: &mut ServerLevel, fall_distance: f64, damage_modifier: f32, source: &DamageSource) -> bool {
+    fn cause_fall_damage(
+        &mut self,
+        level: &mut ServerLevel,
+        fall_distance: f64,
+        damage_modifier: f32,
+        source: &DamageSource,
+    ) -> bool {
         if fall_distance > FALL_DISTANCE_SOUND_TRIGGER_THRESHOLD {
             self.play_sound(level, SoundEvent::ENTITY_BREEZE_LAND, 1.0, 1.0);
         }
@@ -161,7 +201,9 @@ impl Entity for Breeze {
     }
 
     fn get_target(&self) -> Option<EntityId> {
-        self.brain().get_memory(&mc_game_core::world::entity::ai::memory::memory_module_type::ATTACK_TARGET).map(|r| r.0)
+        self.brain()
+            .get_memory(&mc_game_core::world::entity::ai::memory::memory_module_type::ATTACK_TARGET)
+            .map(|r| r.0)
     }
 
     fn get_sound_source(&self) -> mc_protocol::packets::play::SoundSource {
@@ -182,5 +224,7 @@ impl Entity for Breeze {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static BREEZE: EntityRegistration = EntityRegistration { entity_type: EntityType::BREEZE, create: |ty, id, registries| Box::new(Breeze::new(ty, id, registries)) };
-
+static BREEZE: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::BREEZE,
+    create: |ty, id, registries| Box::new(Breeze::new(ty, id, registries)),
+};

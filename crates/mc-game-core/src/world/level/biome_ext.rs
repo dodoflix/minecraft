@@ -21,18 +21,29 @@ pub fn should_freeze(biome: &Biome, level: &dyn LevelReader, pos: BlockPos) -> b
 }
 
 /// `Biome.shouldFreeze(level, pos, checkNeighbors)`.
-pub fn should_freeze_checked(biome: &Biome, level: &dyn LevelReader, pos: BlockPos, check_neighbors: bool) -> bool {
+pub fn should_freeze_checked(
+    biome: &Biome,
+    level: &dyn LevelReader,
+    pos: BlockPos,
+    check_neighbors: bool,
+) -> bool {
     if biome.warm_enough_to_rain(pos, level.get_sea_level()) {
         return false;
     }
-    if !level.is_outside_build_height(pos.y()) && level.get_brightness(LightLayer::Block, pos) < 10 {
+    if !level.is_outside_build_height(pos.y()) && level.get_brightness(LightLayer::Block, pos) < 10
+    {
         let block_state = level.get_block_state(pos);
         let fluid_state = level.get_fluid_state(pos);
-        if fluid_state.fluid() == Fluid::WATER && block_state.block().data().classes.contains(&"LiquidBlock") {
+        if fluid_state.fluid() == Fluid::WATER
+            && block_state.block().data().classes.contains(&"LiquidBlock")
+        {
             if !check_neighbors {
                 return true;
             }
-            let surrounded_by_water = is_water_at(level, pos.west()) && is_water_at(level, pos.east()) && is_water_at(level, pos.north()) && is_water_at(level, pos.south());
+            let surrounded_by_water = is_water_at(level, pos.west())
+                && is_water_at(level, pos.east())
+                && is_water_at(level, pos.north())
+                && is_water_at(level, pos.south());
             if !surrounded_by_water {
                 return true;
             }
@@ -46,9 +57,12 @@ pub fn should_snow(biome: &Biome, level: &dyn LevelReader, pos: BlockPos) -> boo
     if biome.get_precipitation_at(pos, level.get_sea_level()) != Precipitation::Snow {
         return false;
     }
-    if !level.is_outside_build_height(pos.y()) && level.get_brightness(LightLayer::Block, pos) < 10 {
+    if !level.is_outside_build_height(pos.y()) && level.get_brightness(LightLayer::Block, pos) < 10
+    {
         let state = level.get_block_state(pos);
-        if (state.is_air() || state.block() == Block::SNOW) && Block::SNOW.default_state().can_survive(level, pos) {
+        if (state.is_air() || state.block() == Block::SNOW)
+            && Block::SNOW.default_state().can_survive(level, pos)
+        {
             return true;
         }
     }

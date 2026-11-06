@@ -13,11 +13,15 @@ use mc_data::{Attribute, MobEffect};
 use std::sync::LazyLock;
 
 /// `SPEED_MODIFIER_POWDER_SNOW_ID`.
-static SPEED_MODIFIER_POWDER_SNOW_ID: LazyLock<Identifier> = LazyLock::new(|| Identifier::new("minecraft", "powder_snow").expect("valid id"));
+static SPEED_MODIFIER_POWDER_SNOW_ID: LazyLock<Identifier> =
+    LazyLock::new(|| Identifier::new("minecraft", "powder_snow").expect("valid id"));
 
 /// `removeFrost()`.
 fn remove_frost(entity: &mut dyn Entity) {
-    if let Some(speed) = lm(entity).attributes.get_instance(Attribute::MOVEMENT_SPEED) {
+    if let Some(speed) = lm(entity)
+        .attributes
+        .get_instance(Attribute::MOVEMENT_SPEED)
+    {
         if speed.get_modifier(&SPEED_MODIFIER_POWDER_SNOW_ID).is_some() {
             speed.remove_modifier(&SPEED_MODIFIER_POWDER_SNOW_ID);
         }
@@ -26,7 +30,10 @@ fn remove_frost(entity: &mut dyn Entity) {
 
 /// `tryAddFrost()`.
 fn try_add_frost(entity: &mut dyn Entity, level: &ServerLevel) {
-    if level.get_block_state(movement::get_on_pos_legacy(entity, level)).is_air() {
+    if level
+        .get_block_state(movement::get_on_pos_legacy(entity, level))
+        .is_air()
+    {
         return;
     }
     let ticks_frozen = entity.base().get_ticks_frozen();
@@ -34,7 +41,12 @@ fn try_add_frost(entity: &mut dyn Entity, level: &ServerLevel) {
         let required = entity.get_ticks_required_to_freeze();
         let percent_frozen = ticks_frozen.min(required) as f32 / required as f32;
         let slow_amount = -0.05f32 * percent_frozen;
-        let Some(speed) = lm(entity).attributes.get_instance(Attribute::MOVEMENT_SPEED) else { return };
+        let Some(speed) = lm(entity)
+            .attributes
+            .get_instance(Attribute::MOVEMENT_SPEED)
+        else {
+            return;
+        };
         speed.add_transient_modifier(AttributeModifier {
             id: SPEED_MODIFIER_POWDER_SNOW_ID.clone(),
             amount: f64::from(slow_amount),
@@ -44,14 +56,21 @@ fn try_add_frost(entity: &mut dyn Entity, level: &ServerLevel) {
 }
 
 /// `checkAutoSpinAttack(old, current)`.
-fn check_auto_spin_attack(entity: &mut dyn Entity, level: &mut ServerLevel, old: &mc_core::phys::AABB, current: &mc_core::phys::AABB) {
+fn check_auto_spin_attack(
+    entity: &mut dyn Entity,
+    level: &mut ServerLevel,
+    old: &mc_core::phys::AABB,
+    current: &mc_core::phys::AABB,
+) {
     let minmax = old.minmax(current);
     let entities = level.get_entities(Some(entity.id()), &minmax, |_| true);
     if !entities.is_empty() {
         for id in entities {
             let is_living = level.get_entity(id).is_some_and(|e| e.living().is_some());
             if is_living {
-                level.with_entity(id, |level, other| entity.do_auto_attack_on_touch(level, other));
+                level.with_entity(id, |level, other| {
+                    entity.do_auto_attack_on_touch(level, other)
+                });
                 lm(entity).auto_spin_attack_ticks = 0;
                 let dm = entity.base().delta_movement().scale(-0.2);
                 entity.base_mut().set_delta_movement(dm);
@@ -82,7 +101,11 @@ pub fn ai_step(entity: &mut dyn Entity, level: &mut ServerLevel) {
     if l(entity).lerp_head_steps > 0 {
         let living = lm(entity);
         // `lerpHeadRotationStep(steps, target)`
-        living.y_head_rot = mth::rot_lerp_f64(1.0 / f64::from(living.lerp_head_steps), f64::from(living.y_head_rot), living.lerp_y_head_rot) as f32;
+        living.y_head_rot = mth::rot_lerp_f64(
+            1.0 / f64::from(living.lerp_head_steps),
+            f64::from(living.y_head_rot),
+            living.lerp_y_head_rot,
+        ) as f32;
         living.lerp_head_steps -= 1;
     }
     entity.tick_equipment(level);
@@ -116,13 +139,20 @@ pub fn ai_step(entity: &mut dyn Entity, level: &mut ServerLevel) {
     }
     // jump
     if l(entity).jumping && entity.is_affected_by_fluids() {
-        let fluid_height = if is_in_lava(entity) { util::get_fluid_height(entity, FluidKind::Lava) } else { util::get_fluid_height(entity, FluidKind::Water) };
+        let fluid_height = if is_in_lava(entity) {
+            util::get_fluid_height(entity, FluidKind::Lava)
+        } else {
+            util::get_fluid_height(entity, FluidKind::Water)
+        };
         let in_water_and_has_fluid_height = is_in_water(entity) && fluid_height > 0.0;
         let fluid_jump_threshold = entity.get_fluid_jump_threshold();
         let on_ground = entity.base().on_ground();
         if !in_water_and_has_fluid_height || on_ground && !(fluid_height > fluid_jump_threshold) {
             if !is_in_lava(entity) || on_ground && is_in_shallow_fluid(entity, FluidKind::Lava) {
-                if (on_ground || in_water_and_has_fluid_height && fluid_height <= fluid_jump_threshold) && l(entity).no_jump_delay == 0 {
+                if (on_ground
+                    || in_water_and_has_fluid_height && fluid_height <= fluid_jump_threshold)
+                    && l(entity).no_jump_delay == 0
+                {
                     entity.jump_from_ground(level);
                     lm(entity).no_jump_delay = 10;
                 }
@@ -140,11 +170,17 @@ pub fn ai_step(entity: &mut dyn Entity, level: &mut ServerLevel) {
         entity.update_fall_flying(level);
     }
     let before_travel_box = entity.base().bounding_box();
-    let input = Vec3::new(f64::from(l(entity).xxa), f64::from(l(entity).yya), f64::from(l(entity).zza));
+    let input = Vec3::new(
+        f64::from(l(entity).xxa),
+        f64::from(l(entity).yya),
+        f64::from(l(entity).zza),
+    );
     if has_effect(entity, MobEffect::SLOW_FALLING) || has_effect(entity, MobEffect::LEVITATION) {
         entity.reset_fall_distance();
     }
-    let controller = entity.get_controlling_passenger().filter(|&id| level.get_entity(id).is_some_and(|e| e.is_player()));
+    let controller = entity
+        .get_controlling_passenger()
+        .filter(|&id| level.get_entity(id).is_some_and(|e| e.is_player()));
     if let (Some(controller), true) = (controller, entity.is_alive()) {
         travel_ridden(entity, level, controller, input);
     } else if entity.can_simulate_movement() && entity.is_effective_ai() {
@@ -158,7 +194,10 @@ pub fn ai_step(entity: &mut dyn Entity, level: &mut ServerLevel) {
     }
     remove_frost(entity);
     try_add_frost(entity, level);
-    if entity.base().tick_count % 40 == 0 && entity.base().get_ticks_frozen() >= entity.get_ticks_required_to_freeze() && entity.can_freeze() {
+    if entity.base().tick_count % 40 == 0
+        && entity.base().get_ticks_frozen() >= entity.get_ticks_required_to_freeze()
+        && entity.can_freeze()
+    {
         util::hurt(level, entity, |sources| sources.freeze(), 1.0);
     }
     // push

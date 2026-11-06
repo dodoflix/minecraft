@@ -1,7 +1,7 @@
 //! Primitive codecs: numbers, strings, options, collections.
 use super::{
-    read_count, read_varint, take, take_array, write_varint, Decode, DecodeBounded, DecodeError, DecodeResult, Encode,
-    EncodeBounded, EncodeError, EncodeResult,
+    Decode, DecodeBounded, DecodeError, DecodeResult, Encode, EncodeBounded, EncodeError,
+    EncodeResult, read_count, read_varint, take, take_array, write_varint,
 };
 
 macro_rules! be_num {
@@ -31,7 +31,10 @@ impl Encode for u8 {
     /// `ByteBufCodecs.byteArray(max)` encode: the check, then `FriendlyByteBuf.writeByteArray`.
     fn encode_vec_bounded(items: &[Self], out: &mut Vec<u8>, max: usize) -> EncodeResult<()> {
         if items.len() > max {
-            return Err(EncodeError(format!("ByteArray with size {} is bigger than allowed {max}", items.len())));
+            return Err(EncodeError(format!(
+                "ByteArray with size {} is bigger than allowed {max}",
+                items.len()
+            )));
         }
         write_varint(out, items.len() as i32);
         out.extend_from_slice(items);
@@ -45,13 +48,19 @@ impl Decode for u8 {
     }
     /// `FriendlyByteBuf.readByteArray(buf, max)`.
     fn decode_vec(input: &mut &[u8], max: usize) -> DecodeResult<Vec<Self>> {
-        let max = if max == i32::MAX as usize { input.len() } else { max };
+        let max = if max == i32::MAX as usize {
+            input.len()
+        } else {
+            max
+        };
         let size = read_varint(input)?;
         if size < 0 {
             return Err(DecodeError::Message(size.to_string())); // NegativeArraySizeException
         }
         if size as usize > max {
-            return Err(DecodeError::Message(format!("ByteArray with size {size} is bigger than allowed {max}")));
+            return Err(DecodeError::Message(format!(
+                "ByteArray with size {size} is bigger than allowed {max}"
+            )));
         }
         Ok(take(input, size as usize)?.to_vec())
     }
@@ -123,11 +132,16 @@ pub fn utf16_len(s: &str) -> usize {
 pub fn write_utf(out: &mut Vec<u8>, s: &str, max_length: usize) -> EncodeResult<()> {
     let chars = utf16_len(s);
     if chars > max_length {
-        return Err(EncodeError(format!("String too big (was {chars} characters, max {max_length})")));
+        return Err(EncodeError(format!(
+            "String too big (was {chars} characters, max {max_length})"
+        )));
     }
     let max_encoded = max_length as i64 * 3;
     if s.len() as i64 > max_encoded {
-        return Err(EncodeError(format!("String too big (was {} bytes encoded, max {max_encoded})", s.len())));
+        return Err(EncodeError(format!(
+            "String too big (was {} bytes encoded, max {max_encoded})",
+            s.len()
+        )));
     }
     write_varint(out, s.len() as i32);
     out.extend_from_slice(s.as_bytes());
@@ -137,7 +151,9 @@ pub fn write_utf(out: &mut Vec<u8>, s: &str, max_length: usize) -> EncodeResult<
 /// `ByteBufCodecs.writeCount`: VarInt element count, rejected when above `max`.
 pub fn write_count(out: &mut Vec<u8>, count: usize, max: usize) -> EncodeResult<()> {
     if count > max {
-        return Err(EncodeError(format!("{count} elements exceeded max size of: {max}")));
+        return Err(EncodeError(format!(
+            "{count} elements exceeded max size of: {max}"
+        )));
     }
     write_varint(out, count as i32);
     Ok(())
@@ -153,11 +169,15 @@ pub fn read_utf(input: &mut &[u8], max_length: usize) -> DecodeResult<String> {
         )));
     }
     if len < 0 {
-        return Err(DecodeError::msg("The received encoded string buffer length is less than zero! Weird string!"));
+        return Err(DecodeError::msg(
+            "The received encoded string buffer length is less than zero! Weird string!",
+        ));
     }
     let available = input.len();
     if len as usize > available {
-        return Err(DecodeError::Message(format!("Not enough bytes in buffer, expected {len}, but got {available}")));
+        return Err(DecodeError::Message(format!(
+            "Not enough bytes in buffer, expected {len}, but got {available}"
+        )));
     }
     let s = String::from_utf8_lossy(take(input, len as usize)?).into_owned();
     let chars = utf16_len(&s);
@@ -232,12 +252,20 @@ impl<T: EncodeBounded> EncodeBounded for Option<T> {
 }
 impl<T: Decode> Decode for Option<T> {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
-        if bool::decode(input)? { T::decode(input).map(Some) } else { Ok(None) }
+        if bool::decode(input)? {
+            T::decode(input).map(Some)
+        } else {
+            Ok(None)
+        }
     }
 }
 impl<T: DecodeBounded> DecodeBounded for Option<T> {
     fn decode_bounded(input: &mut &[u8], max: usize) -> DecodeResult<Self> {
-        if bool::decode(input)? { T::decode_bounded(input, max).map(Some) } else { Ok(None) }
+        if bool::decode(input)? {
+            T::decode_bounded(input, max).map(Some)
+        } else {
+            Ok(None)
+        }
     }
 }
 
@@ -285,7 +313,8 @@ impl<T: Decode, const N: usize> Decode for [T; N] {
         for _ in 0..N {
             v.push(T::decode(input)?);
         }
-        Ok(v.try_into().unwrap_or_else(|_| unreachable!("exactly N elements")))
+        Ok(v.try_into()
+            .unwrap_or_else(|_| unreachable!("exactly N elements")))
     }
 }
 
@@ -307,9 +336,14 @@ impl Decode for LongArray {
         let size = read_count(input, i32::MAX as usize)?;
         let max = input.len() / 8;
         if size > max {
-            return Err(DecodeError::Message(format!("LongArray with size {size} is bigger than allowed {max}")));
+            return Err(DecodeError::Message(format!(
+                "LongArray with size {size} is bigger than allowed {max}"
+            )));
         }
-        (0..size).map(|_| i64::decode(input)).collect::<DecodeResult<_>>().map(LongArray)
+        (0..size)
+            .map(|_| i64::decode(input))
+            .collect::<DecodeResult<_>>()
+            .map(LongArray)
     }
 }
 
@@ -327,19 +361,27 @@ mod tests {
         assert_eq!(read_utf(&mut &b[..], 4).unwrap(), s);
         assert_eq!(
             read_utf(&mut &b[..], 3),
-            Err(DecodeError::msg("The received string length is longer than maximum allowed (4 > 3)"))
+            Err(DecodeError::msg(
+                "The received string length is longer than maximum allowed (4 > 3)"
+            ))
         );
         assert_eq!(
             read_utf(&mut &b[..], 2),
-            Err(DecodeError::msg("The received encoded string buffer length is longer than maximum allowed (8 > 6)"))
+            Err(DecodeError::msg(
+                "The received encoded string buffer length is longer than maximum allowed (8 > 6)"
+            ))
         );
         assert_eq!(
             read_utf(&mut &[0x05u8, b'a'][..], 10),
-            Err(DecodeError::msg("Not enough bytes in buffer, expected 5, but got 1"))
+            Err(DecodeError::msg(
+                "Not enough bytes in buffer, expected 5, but got 1"
+            ))
         );
         assert_eq!(
             read_utf(&mut &[0xffu8, 0xff, 0xff, 0xff, 0x0f][..], 10),
-            Err(DecodeError::msg("The received encoded string buffer length is less than zero! Weird string!"))
+            Err(DecodeError::msg(
+                "The received encoded string buffer length is less than zero! Weird string!"
+            ))
         );
     }
 
@@ -350,7 +392,9 @@ mod tests {
         assert_eq!(from_bytes::<Vec<u8>>(&[3, 1, 2, 3]).unwrap(), v);
         assert_eq!(
             <Vec<u8>>::decode_bounded(&mut &[3u8, 1, 2, 3][..], 2),
-            Err(DecodeError::msg("ByteArray with size 3 is bigger than allowed 2"))
+            Err(DecodeError::msg(
+                "ByteArray with size 3 is bigger than allowed 2"
+            ))
         );
         assert_eq!(
             <Vec<i32>>::decode_bounded(&mut &[3u8, 0, 0, 0, 1][..], 2),

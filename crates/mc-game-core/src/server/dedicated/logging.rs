@@ -17,8 +17,19 @@ use parking_lot::Mutex;
 const MAX_ROLLED_FILES: u32 = 7;
 
 /// `%d{HH:mm:ss} ... %t/%level` line, one record, including the trailing newline.
-pub fn format_line(time: &DateTime<Local>, thread: &str, level: log::Level, message: &str) -> String {
-    format!("[{}] [{}/{}]: {}\n", time.format("%H:%M:%S"), thread, level_name(level), message)
+pub fn format_line(
+    time: &DateTime<Local>,
+    thread: &str,
+    level: log::Level,
+    message: &str,
+) -> String {
+    format!(
+        "[{}] [{}/{}]: {}\n",
+        time.format("%H:%M:%S"),
+        thread,
+        level_name(level),
+        message
+    )
 }
 
 fn level_name(level: log::Level) -> &'static str {
@@ -60,7 +71,9 @@ pub fn roll_latest_log(dir: &Path, date_override: Option<NaiveDate>) -> io::Resu
         Some(d) => d,
         None => DateTime::<Local>::from(meta.modified()?).date_naive(),
     };
-    let existing: Vec<u32> = (1..=MAX_ROLLED_FILES).filter(|i| dir.join(rolled_name(date, *i)).exists()).collect();
+    let existing: Vec<u32> = (1..=MAX_ROLLED_FILES)
+        .filter(|i| dir.join(rolled_name(date, *i)).exists())
+        .collect();
     let target = match existing.last() {
         None => 1,
         Some(&highest) if highest < MAX_ROLLED_FILES => highest + 1,
@@ -68,12 +81,18 @@ pub fn roll_latest_log(dir: &Path, date_override: Option<NaiveDate>) -> io::Resu
             let lowest = existing[0];
             fs::remove_file(dir.join(rolled_name(date, lowest)))?;
             for &i in existing.iter().filter(|&&i| i != lowest) {
-                fs::rename(dir.join(rolled_name(date, i)), dir.join(rolled_name(date, i - 1)))?;
+                fs::rename(
+                    dir.join(rolled_name(date, i)),
+                    dir.join(rolled_name(date, i - 1)),
+                )?;
             }
             MAX_ROLLED_FILES
         }
     };
-    let mut encoder = GzEncoder::new(File::create(dir.join(rolled_name(date, target)))?, Compression::default());
+    let mut encoder = GzEncoder::new(
+        File::create(dir.join(rolled_name(date, target)))?,
+        Compression::default(),
+    );
     io::copy(&mut File::open(&latest)?, &mut encoder)?;
     encoder.finish()?;
     fs::remove_file(&latest)
@@ -100,13 +119,22 @@ impl Log for VanillaLogger {
             return;
         }
         let now = Local::now();
-        let line = format_line(&now, &current_thread_name(), record.level(), &record.args().to_string());
+        let line = format_line(
+            &now,
+            &current_thread_name(),
+            record.level(),
+            &record.args().to_string(),
+        );
         let mut sink = self.sink.lock();
         if now.date_naive() != sink.day {
             // `TimeBasedTriggeringPolicy`: a new day starts a new file
             let previous = sink.day;
             if roll_latest_log(&sink.dir, Some(previous)).is_ok() {
-                if let Ok(file) = OpenOptions::new().create(true).append(true).open(sink.dir.join("latest.log")) {
+                if let Ok(file) = OpenOptions::new()
+                    .create(true)
+                    .append(true)
+                    .open(sink.dir.join("latest.log"))
+                {
                     sink.file = file;
                 }
             }
@@ -130,8 +158,18 @@ pub fn init(logs_dir: impl AsRef<Path>, level: LevelFilter) -> io::Result<()> {
     let dir = logs_dir.as_ref().to_owned();
     fs::create_dir_all(&dir)?;
     roll_latest_log(&dir, None)?;
-    let file = OpenOptions::new().create(true).append(true).open(dir.join("latest.log"))?;
-    let logger = VanillaLogger { level, sink: Mutex::new(Sink { dir, file, day: Local::now().date_naive() }) };
+    let file = OpenOptions::new()
+        .create(true)
+        .append(true)
+        .open(dir.join("latest.log"))?;
+    let logger = VanillaLogger {
+        level,
+        sink: Mutex::new(Sink {
+            dir,
+            file,
+            day: Local::now().date_naive(),
+        }),
+    };
     log::set_logger(Box::leak(Box::new(logger))).map_err(|e| io::Error::other(e.to_string()))?;
     log::set_max_level(level);
     Ok(())
@@ -146,14 +184,26 @@ mod tests {
     #[test]
     fn line_format() {
         let t = Local.with_ymd_and_hms(2026, 11, 4, 9, 5, 7).unwrap();
-        assert_eq!(format_line(&t, "Server thread", log::Level::Info, "Done (1.2s)! For help, type \"help\""),
-            "[09:05:07] [Server thread/INFO]: Done (1.2s)! For help, type \"help\"\n");
-        assert_eq!(format_line(&t, "Worker-Main-1", log::Level::Warn, "x"), "[09:05:07] [Worker-Main-1/WARN]: x\n");
+        assert_eq!(
+            format_line(
+                &t,
+                "Server thread",
+                log::Level::Info,
+                "Done (1.2s)! For help, type \"help\""
+            ),
+            "[09:05:07] [Server thread/INFO]: Done (1.2s)! For help, type \"help\"\n"
+        );
+        assert_eq!(
+            format_line(&t, "Worker-Main-1", log::Level::Warn, "x"),
+            "[09:05:07] [Worker-Main-1/WARN]: x\n"
+        );
     }
 
     fn gunzip(path: &Path) -> String {
         let mut s = String::new();
-        flate2::read::GzDecoder::new(File::open(path).unwrap()).read_to_string(&mut s).unwrap();
+        flate2::read::GzDecoder::new(File::open(path).unwrap())
+            .read_to_string(&mut s)
+            .unwrap();
         s
     }
 
@@ -168,7 +218,10 @@ mod tests {
         }
         // 9 rolls with 7 slots: the newest is index 7, the oldest kept is run 3
         for i in 1..=7 {
-            assert_eq!(gunzip(&dir.path().join(format!("2026-11-04-{i}.log.gz"))), format!("run {}\n", i + 2));
+            assert_eq!(
+                gunzip(&dir.path().join(format!("2026-11-04-{i}.log.gz"))),
+                format!("run {}\n", i + 2)
+            );
         }
         // empty / missing latest.log is left alone
         roll_latest_log(dir.path(), Some(d)).unwrap();

@@ -41,12 +41,17 @@ impl PackedObjective {
             name: codec::string(codec::field(m, "Name")?)?.to_string(),
             criteria: codec::optional(m, "CriteriaName", |t| {
                 let n = codec::string(t)?;
-                ObjectiveCriteria::by_name(n).ok_or_else(|| format!("No scoreboard criteria with name: {n}"))
+                ObjectiveCriteria::by_name(n)
+                    .ok_or_else(|| format!("No scoreboard criteria with name: {n}"))
             })?
             .unwrap_or(ObjectiveCriteria::DUMMY),
             display_name: component(codec::field(m, "DisplayName")?)?,
-            render_type: codec::optional(m, "RenderType", |t| enum_by_name(t, RenderType::by_name))?.unwrap_or(RenderType::Integer),
-            display_auto_update: codec::optional(m, "display_auto_update", codec::boolean)?.unwrap_or(false),
+            render_type: codec::optional(m, "RenderType", |t| {
+                enum_by_name(t, RenderType::by_name)
+            })?
+            .unwrap_or(RenderType::Integer),
+            display_auto_update: codec::optional(m, "display_auto_update", codec::boolean)?
+                .unwrap_or(false),
             number_format: codec::optional(m, "format", NumberFormat::decode)?,
         })
     }
@@ -57,7 +62,10 @@ impl PackedObjective {
         if self.criteria != ObjectiveCriteria::DUMMY {
             m.put_string("CriteriaName", self.criteria.get_name());
         }
-        m.put("DisplayName", self.display_name.to_nbt().map_err(|e| e.to_string())?);
+        m.put(
+            "DisplayName",
+            self.display_name.to_nbt().map_err(|e| e.to_string())?,
+        );
         if self.render_type != RenderType::Integer {
             m.put_string("RenderType", self.render_type.get_id());
         }
@@ -122,15 +130,32 @@ impl PackedTeam {
             name: codec::string(codec::field(m, "Name")?)?.to_string(),
             display_name: codec::optional(m, "DisplayName", component)?,
             color: codec::optional(m, "TeamColor", |t| enum_by_name(t, TeamColor::by_name))?,
-            allow_friendly_fire: codec::optional(m, "AllowFriendlyFire", codec::boolean)?.unwrap_or(true),
-            see_friendly_invisibles: codec::optional(m, "SeeFriendlyInvisibles", codec::boolean)?.unwrap_or(true),
-            member_name_prefix: codec::optional(m, "MemberNamePrefix", component)?.unwrap_or_else(|| empty.clone()),
+            allow_friendly_fire: codec::optional(m, "AllowFriendlyFire", codec::boolean)?
+                .unwrap_or(true),
+            see_friendly_invisibles: codec::optional(m, "SeeFriendlyInvisibles", codec::boolean)?
+                .unwrap_or(true),
+            member_name_prefix: codec::optional(m, "MemberNamePrefix", component)?
+                .unwrap_or_else(|| empty.clone()),
             member_name_suffix: codec::optional(m, "MemberNameSuffix", component)?.unwrap_or(empty),
-            name_tag_visibility: codec::optional(m, "NameTagVisibility", |t| enum_by_name(t, Visibility::by_name))?.unwrap_or(Visibility::Always),
-            death_message_visibility: codec::optional(m, "DeathMessageVisibility", |t| enum_by_name(t, Visibility::by_name))?.unwrap_or(Visibility::Always),
-            collision_rule: codec::optional(m, "CollisionRule", |t| enum_by_name(t, CollisionRule::by_name))?.unwrap_or(CollisionRule::Always),
-            players: codec::optional(m, "Players", |t| codec::list(t)?.iter().map(|e| codec::string(e).map(str::to_string)).collect::<DataResult<Vec<_>>>())?
-                .unwrap_or_default(),
+            name_tag_visibility: codec::optional(m, "NameTagVisibility", |t| {
+                enum_by_name(t, Visibility::by_name)
+            })?
+            .unwrap_or(Visibility::Always),
+            death_message_visibility: codec::optional(m, "DeathMessageVisibility", |t| {
+                enum_by_name(t, Visibility::by_name)
+            })?
+            .unwrap_or(Visibility::Always),
+            collision_rule: codec::optional(m, "CollisionRule", |t| {
+                enum_by_name(t, CollisionRule::by_name)
+            })?
+            .unwrap_or(CollisionRule::Always),
+            players: codec::optional(m, "Players", |t| {
+                codec::list(t)?
+                    .iter()
+                    .map(|e| codec::string(e).map(str::to_string))
+                    .collect::<DataResult<Vec<_>>>()
+            })?
+            .unwrap_or_default(),
         })
     }
 
@@ -151,16 +176,32 @@ impl PackedTeam {
         }
         let empty = Component::empty();
         if self.member_name_prefix != empty {
-            m.put("MemberNamePrefix", self.member_name_prefix.to_nbt().map_err(|e| e.to_string())?);
+            m.put(
+                "MemberNamePrefix",
+                self.member_name_prefix
+                    .to_nbt()
+                    .map_err(|e| e.to_string())?,
+            );
         }
         if self.member_name_suffix != empty {
-            m.put("MemberNameSuffix", self.member_name_suffix.to_nbt().map_err(|e| e.to_string())?);
+            m.put(
+                "MemberNameSuffix",
+                self.member_name_suffix
+                    .to_nbt()
+                    .map_err(|e| e.to_string())?,
+            );
         }
         if self.name_tag_visibility != Visibility::Always {
-            m.put_string("NameTagVisibility", self.name_tag_visibility.get_serialized_name());
+            m.put_string(
+                "NameTagVisibility",
+                self.name_tag_visibility.get_serialized_name(),
+            );
         }
         if self.death_message_visibility != Visibility::Always {
-            m.put_string("DeathMessageVisibility", self.death_message_visibility.get_serialized_name());
+            m.put_string(
+                "DeathMessageVisibility",
+                self.death_message_visibility.get_serialized_name(),
+            );
         }
         if self.collision_rule != CollisionRule::Always {
             m.put_string("CollisionRule", self.collision_rule.get_serialized_name());
@@ -186,8 +227,15 @@ pub struct ScoreboardSaveDataPacked {
 }
 
 /// `listOf()` decode with vanilla's partial semantics: bad elements are dropped and reported.
-fn decode_list<T>(m: &CompoundTag, name: &str, element: fn(&Tag) -> DataResult<T>, errors: &mut Vec<String>) -> DataResult<Vec<T>> {
-    let Some(tag) = m.get(name) else { return Ok(Vec::new()) };
+fn decode_list<T>(
+    m: &CompoundTag,
+    name: &str,
+    element: fn(&Tag) -> DataResult<T>,
+    errors: &mut Vec<String>,
+) -> DataResult<Vec<T>> {
+    let Some(tag) = m.get(name) else {
+        return Ok(Vec::new());
+    };
     let mut out = Vec::new();
     for e in codec::list(tag)? {
         match element(&e) {
@@ -198,7 +246,12 @@ fn decode_list<T>(m: &CompoundTag, name: &str, element: fn(&Tag) -> DataResult<T
     Ok(out)
 }
 
-fn encode_list<T>(m: &mut CompoundTag, name: &str, items: &[T], element: fn(&T) -> DataResult<Tag>) -> DataResult<()> {
+fn encode_list<T>(
+    m: &mut CompoundTag,
+    name: &str,
+    items: &[T],
+    element: fn(&T) -> DataResult<Tag>,
+) -> DataResult<()> {
     if !items.is_empty() {
         let mut list = ListTag::new();
         for i in items {
@@ -218,7 +271,11 @@ impl ScoreboardSaveDataPacked {
         let teams = decode_list(m, "Teams", PackedTeam::decode, &mut errors)?;
         let mut display_slots = BTreeMap::new();
         if let Some(t) = m.get("DisplaySlots") {
-            let slots = codec::unbounded_map(t, |k| DisplaySlot::by_name(k).ok_or_else(|| format!("Unknown element name:{k}")), |v| codec::string(v).map(str::to_string));
+            let slots = codec::unbounded_map(
+                t,
+                |k| DisplaySlot::by_name(k).ok_or_else(|| format!("Unknown element name:{k}")),
+                |v| codec::string(v).map(str::to_string),
+            );
             match slots {
                 Ok(s) => display_slots.extend(s),
                 Err(Partial { value, error }) => {
@@ -227,13 +284,30 @@ impl ScoreboardSaveDataPacked {
                 }
             }
         }
-        let packed = ScoreboardSaveDataPacked { objectives, scores, display_slots, teams };
-        if errors.is_empty() { Ok(packed) } else { Err(Partial { value: Some(packed), error: errors.join("; ") }) }
+        let packed = ScoreboardSaveDataPacked {
+            objectives,
+            scores,
+            display_slots,
+            teams,
+        };
+        if errors.is_empty() {
+            Ok(packed)
+        } else {
+            Err(Partial {
+                value: Some(packed),
+                error: errors.join("; "),
+            })
+        }
     }
 
     pub fn encode(&self) -> DataResult<Tag> {
         let mut m = CompoundTag::new();
-        encode_list(&mut m, "Objectives", &self.objectives, PackedObjective::encode)?;
+        encode_list(
+            &mut m,
+            "Objectives",
+            &self.objectives,
+            PackedObjective::encode,
+        )?;
         encode_list(&mut m, "PlayerScores", &self.scores, PackedScore::encode)?;
         if !self.display_slots.is_empty() {
             let mut slots = CompoundTag::new();

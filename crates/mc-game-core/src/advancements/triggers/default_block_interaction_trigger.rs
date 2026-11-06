@@ -2,8 +2,8 @@
 
 use super::prelude::*;
 use crate::world::level::BlockGetter;
-use crate::world::level::storage::loot::parameters::LootContextParamSets;
 use crate::world::level::storage::loot::LootParams;
+use crate::world::level::storage::loot::parameters::LootContextParamSets;
 use crate::world::level::storage::loot::validation::validate_holder_opt;
 
 /// `DefaultBlockInteractionTrigger.TriggerInstance`.
@@ -15,13 +15,14 @@ pub struct DefaultBlockInteractionTriggerInstance {
 
 impl TriggerInstance for DefaultBlockInteractionTriggerInstance {
     fn codec() -> Codec<Self> {
-        static C: std::sync::LazyLock<Codec<DefaultBlockInteractionTriggerInstance>> = std::sync::LazyLock::new(|| {
-            mc_dfu::record!(DefaultBlockInteractionTriggerInstance {
-                player: condition_holder_codec().optional_field_of("player"),
-                location: condition_holder_codec().optional_field_of("location"),
-            })
-            .codec()
-        });
+        static C: std::sync::LazyLock<Codec<DefaultBlockInteractionTriggerInstance>> =
+            std::sync::LazyLock::new(|| {
+                mc_dfu::record!(DefaultBlockInteractionTriggerInstance {
+                    player: condition_holder_codec().optional_field_of("player"),
+                    location: condition_holder_codec().optional_field_of("location"),
+                })
+                .codec()
+            });
         C.clone()
     }
 }
@@ -33,7 +34,11 @@ impl SimpleInstance for DefaultBlockInteractionTriggerInstance {
 }
 
 crate::simple_instance!(DefaultBlockInteractionTriggerInstance, |this, validator| {
-    validate_holder_opt(&validator.context(LootContextParamSets::BLOCK_USE), "location", &this.location);
+    validate_holder_opt(
+        &validator.context(LootContextParamSets::BLOCK_USE),
+        "location",
+        &this.location,
+    );
 });
 
 crate::register_triggers!(DefaultBlockInteractionTriggerInstance {
@@ -55,14 +60,17 @@ impl Trigger<DefaultBlockInteractionTriggerInstance> {
     }
 
     /// The listeners that match; nothing is mutated.
-    pub fn matches(&self, level: &ServerLevel, player: &ServerPlayer, pos: BlockPos) -> TriggerMatches {
+    pub fn matches(
+        &self,
+        level: &ServerLevel,
+        player: &ServerPlayer,
+        pos: BlockPos,
+    ) -> TriggerMatches {
         let state = level.get_block_state(pos);
         let params = LootParams::builder(level)
             .origin(Vec3::at_center_of(&pos))
             .this_entity(player)
             .block_state(state)
-            
-            
             .create(&LootContextParamSets::BLOCK_USE);
         let mut context = new_context(&params);
         self.collect(level, player, |t| t.matches(&mut context))

@@ -24,13 +24,21 @@ pub struct RconClient {
 
 impl RconClient {
     /// Start serving `stream`. The thread is named `RCON Client /<peer ip> #<n>`.
-    pub fn start(runner: Arc<dyn RconCommandRunner>, password: String, stream: TcpStream) -> Option<RconClient> {
-        let peer = stream.peer_addr().map(|a| format!("/{}", a.ip())).unwrap_or_else(|_| "/?".to_owned());
+    pub fn start(
+        runner: Arc<dyn RconCommandRunner>,
+        password: String,
+        stream: TcpStream,
+    ) -> Option<RconClient> {
+        let peer = stream
+            .peer_addr()
+            .map(|a| format!("/{}", a.ip()))
+            .unwrap_or_else(|_| "/?".to_owned());
         let name = format!("RCON Client {peer}");
         stream.set_read_timeout(None).ok()?;
         let worker_stream = stream.try_clone().ok()?;
         let mut thread = GenericThread::new(name.clone());
-        let started = thread.start(move |running| serve(runner, &password, worker_stream, &running, &name));
+        let started =
+            thread.start(move |running| serve(runner, &password, worker_stream, &running, &name));
         started.then_some(RconClient { thread, stream })
     }
 
@@ -58,17 +66,31 @@ fn send(stream: &mut TcpStream, request_id: i32, cmd: i32, text: &str) -> std::i
 }
 
 fn send_auth_failure(stream: &mut TcpStream) -> std::io::Result<()> {
-    send(stream, SERVERDATA_AUTH_FAILURE, SERVERDATA_AUTH_RESPONSE, "")
+    send(
+        stream,
+        SERVERDATA_AUTH_FAILURE,
+        SERVERDATA_AUTH_RESPONSE,
+        "",
+    )
 }
 
 /// `sendCmdResponse`: split into chunks of 4096 UTF-16 code units; an empty response still sends one packet.
-fn send_cmd_response(stream: &mut TcpStream, request_id: i32, response: &str) -> std::io::Result<()> {
+fn send_cmd_response(
+    stream: &mut TcpStream,
+    request_id: i32,
+    response: &str,
+) -> std::io::Result<()> {
     let units: Vec<u16> = response.encode_utf16().collect();
     let mut rest = &units[..];
     loop {
         let n = rest.len().min(4096);
         // Java `substring` happily splits surrogate pairs; the lossy conversion matches how they would be encoded
-        send(stream, request_id, SERVERDATA_RESPONSE_VALUE, &String::from_utf16_lossy(&rest[..n]))?;
+        send(
+            stream,
+            request_id,
+            SERVERDATA_RESPONSE_VALUE,
+            &String::from_utf16_lossy(&rest[..n]),
+        )?;
         rest = &rest[n..];
         if rest.is_empty() {
             return Ok(());
@@ -76,7 +98,13 @@ fn send_cmd_response(stream: &mut TcpStream, request_id: i32, response: &str) ->
     }
 }
 
-fn serve(runner: Arc<dyn RconCommandRunner>, password: &str, mut stream: TcpStream, running: &AtomicBool, name: &str) {
+fn serve(
+    runner: Arc<dyn RconCommandRunner>,
+    password: &str,
+    mut stream: TcpStream,
+    running: &AtomicBool,
+    name: &str,
+) {
     let mut authed = false;
     let mut buf = [0u8; MAX_PACKET_SIZE];
     let result: std::io::Result<()> = (|| {
@@ -117,7 +145,11 @@ fn serve(runner: Arc<dyn RconCommandRunner>, password: &str, mut stream: TcpStre
                         send_auth_failure(&mut stream)?;
                     }
                 }
-                other => send_cmd_response(&mut stream, request_id, &format!("Unknown request {:x}", other))?,
+                other => send_cmd_response(
+                    &mut stream,
+                    request_id,
+                    &format!("Unknown request {:x}", other),
+                )?,
             }
         }
         Ok(())
@@ -136,8 +168,17 @@ pub struct RconThread {
 
 impl RconThread {
     /// `RconThread.create`: `None` (after logging) for an invalid port, a missing password or a bind failure.
-    pub fn create(runner: Arc<dyn RconCommandRunner>, server_ip: &str, port: i32, password: &str) -> Option<RconThread> {
-        let server_ip = if server_ip.is_empty() { "0.0.0.0" } else { server_ip };
+    pub fn create(
+        runner: Arc<dyn RconCommandRunner>,
+        server_ip: &str,
+        port: i32,
+        password: &str,
+    ) -> Option<RconThread> {
+        let server_ip = if server_ip.is_empty() {
+            "0.0.0.0"
+        } else {
+            server_ip
+        };
         if !(0 < port && port <= 65535) {
             log::warn!("Invalid rcon port {port} found in server.properties, rcon disabled!");
             return None;
@@ -148,7 +189,10 @@ impl RconThread {
         }
         let bound = (server_ip, port as u16)
             .to_socket_addrs()
-            .and_then(|mut a| a.next().ok_or_else(|| std::io::Error::new(ErrorKind::NotFound, "no address")))
+            .and_then(|mut a| {
+                a.next()
+                    .ok_or_else(|| std::io::Error::new(ErrorKind::NotFound, "no address"))
+            })
             .and_then(TcpListener::bind)
             .and_then(|l| l.set_nonblocking(true).map(|()| l));
         let listener = match bound {
@@ -161,7 +205,15 @@ impl RconThread {
         let clients: Arc<parking_lot::Mutex<Vec<RconClient>>> = Arc::default();
         let mut thread = GenericThread::new("RCON Listener");
         let (worker_clients, password_owned) = (clients.clone(), password.to_owned());
-        if !thread.start(move |running| listen(&listener, &running, runner, &password_owned, &worker_clients)) {
+        if !thread.start(move |running| {
+            listen(
+                &listener,
+                &running,
+                runner,
+                &password_owned,
+                &worker_clients,
+            )
+        }) {
             return None;
         }
         log::info!("RCON running on {server_ip}:{port}");
@@ -195,7 +247,8 @@ fn listen(
         match listener.accept() {
             Ok((stream, _)) => {
                 let _ = stream.set_nonblocking(false);
-                if let Some(client) = RconClient::start(runner.clone(), password.to_owned(), stream) {
+                if let Some(client) = RconClient::start(runner.clone(), password.to_owned(), stream)
+                {
                     clients.lock().push(client);
                 }
                 clients.lock().retain(RconClient::is_running);
@@ -222,7 +275,11 @@ mod tests {
     struct Echo;
     impl RconCommandRunner for Echo {
         fn run(&self, cmd: &str) -> String {
-            if cmd == "long" { "x".repeat(5000) } else { format!("ran: {cmd}") }
+            if cmd == "long" {
+                "x".repeat(5000)
+            } else {
+                format!("ran: {cmd}")
+            }
         }
     }
 
@@ -244,7 +301,11 @@ mod tests {
         s.read_exact(&mut rest).unwrap();
         let id = i32::from_le_bytes(head[4..8].try_into().unwrap());
         let ty = i32::from_le_bytes(head[8..12].try_into().unwrap());
-        (id, ty, String::from_utf8(rest[..rest.len() - 2].to_vec()).unwrap())
+        (
+            id,
+            ty,
+            String::from_utf8(rest[..rest.len() - 2].to_vec()).unwrap(),
+        )
     }
 
     #[test]
@@ -253,21 +314,28 @@ mod tests {
             let l = TcpListener::bind("127.0.0.1:0").unwrap();
             l.local_addr().unwrap().port()
         };
-        let mut rcon = RconThread::create(Arc::new(Echo), "127.0.0.1", port as i32, "secret").expect("rcon starts");
+        let mut rcon = RconThread::create(Arc::new(Echo), "127.0.0.1", port as i32, "secret")
+            .expect("rcon starts");
         let mut c = TcpStream::connect(("127.0.0.1", port)).unwrap();
-        c.write_all(&packet(7, SERVERDATA_EXECCOMMAND, "say hi")).unwrap();
+        c.write_all(&packet(7, SERVERDATA_EXECCOMMAND, "say hi"))
+            .unwrap();
         assert_eq!(read_packet(&mut c), (-1, 2, String::new()));
         c.write_all(&packet(8, SERVERDATA_AUTH, "wrong")).unwrap();
         assert_eq!(read_packet(&mut c), (-1, 2, String::new()));
         c.write_all(&packet(9, SERVERDATA_AUTH, "secret")).unwrap();
         assert_eq!(read_packet(&mut c), (9, 2, String::new()));
-        c.write_all(&packet(10, SERVERDATA_EXECCOMMAND, "list")).unwrap();
+        c.write_all(&packet(10, SERVERDATA_EXECCOMMAND, "list"))
+            .unwrap();
         assert_eq!(read_packet(&mut c), (10, 0, "ran: list".to_owned()));
-        c.write_all(&packet(11, SERVERDATA_EXECCOMMAND, "long")).unwrap();
+        c.write_all(&packet(11, SERVERDATA_EXECCOMMAND, "long"))
+            .unwrap();
         assert_eq!(read_packet(&mut c).2.len(), 4096);
         assert_eq!(read_packet(&mut c).2.len(), 904);
         c.write_all(&packet(12, 99, "")).unwrap();
-        assert_eq!(read_packet(&mut c), (12, 0, "Unknown request 63".to_owned()));
+        assert_eq!(
+            read_packet(&mut c),
+            (12, 0, "Unknown request 63".to_owned())
+        );
         rcon.stop();
     }
 

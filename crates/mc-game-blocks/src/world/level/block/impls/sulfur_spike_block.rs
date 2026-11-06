@@ -1,7 +1,7 @@
 //! `net.minecraft.world.level.block.SulfurSpikeBlock` (extends `SpeleothemBlock`).
+use super::speleothem_block::{Speleothem, SpeleothemClass};
 use mc_game_core::register_block_class;
 use mc_game_core::world::level::block::impls::prelude::*;
-use super::speleothem_block::{Speleothem, SpeleothemClass};
 
 const MAX_GROWING_LENGTH: i32 = 2;
 
@@ -19,4 +19,7 @@ impl SpeleothemClass for SulfurSpikeBlock {
     }
 }
 
-register_block_class!("SulfurSpikeBlock", |block| Box::new(Speleothem { block, class: SulfurSpikeBlock }));
+register_block_class!("SulfurSpikeBlock", |block| Box::new(Speleothem {
+    block,
+    class: SulfurSpikeBlock
+}));

@@ -1,22 +1,29 @@
 //! `MonsterRoomFeature` (`monster_room`): dungeons.
 
-use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature, safe_set_block};
-use mc_game_core::world::level::block::BlockStateExt;
-use mc_game_core::world::level::levelgen::GenEnv;
-use mc_game_core::world::level::levelgen::WorldGenLevel;
-use mc_game_core::world::level::levelgen::block_entity_data::{get_block_entity_nbt, set_block_entity_loot_table, spawner_tag};
-use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry};
-use mc_game_core::world::level::levelgen::registries::DecodeCtx;
-use mc_game_core::world::level::BlockGetter;
 use mc_core::direction::{Direction, Plane};
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::{Block, BlockState};
 use mc_data::props;
+use mc_game_core::world::level::BlockGetter;
+use mc_game_core::world::level::block::BlockStateExt;
+use mc_game_core::world::level::levelgen::GenEnv;
+use mc_game_core::world::level::levelgen::WorldGenLevel;
+use mc_game_core::world::level::levelgen::block_entity_data::{
+    get_block_entity_nbt, set_block_entity_loot_table, spawner_tag,
+};
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry};
+use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature, safe_set_block};
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use std::sync::Arc;
 
 /// `MOBS`.
-const MOBS: [&str; 4] = ["minecraft:skeleton", "minecraft:zombie", "minecraft:zombie", "minecraft:spider"];
+const MOBS: [&str; 4] = [
+    "minecraft:skeleton",
+    "minecraft:zombie",
+    "minecraft:zombie",
+    "minecraft:spider",
+];
 
 pub struct MonsterRoomFeature;
 
@@ -62,7 +69,13 @@ fn reorient(level: &dyn BlockGetter, block_pos: BlockPos, block_state: BlockStat
 }
 
 impl Feature for MonsterRoomFeature {
-    fn place(&self, level: &mut dyn WorldGenLevel, _generator: &GenEnv, random: &mut dyn RandomSource, origin: BlockPos) -> bool {
+    fn place(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        _generator: &GenEnv,
+        random: &mut dyn RandomSource,
+        origin: BlockPos,
+    ) -> bool {
         let air = Block::CAVE_AIR.default_state();
         let replaceable_tag = |s: BlockState| !s.is_tag("features_cannot_replace");
         let xr = random.next_int_bounded(2) + 2;
@@ -84,7 +97,11 @@ impl Feature for MonsterRoomFeature {
                     if dy == 4 && !solid {
                         return false;
                     }
-                    if (dx == min_x || dx == max_x || dz == min_z || dz == max_z) && dy == 0 && level.is_empty_block(hole_pos) && level.is_empty_block(hole_pos.above()) {
+                    if (dx == min_x || dx == max_x || dz == min_z || dz == max_z)
+                        && dy == 0
+                        && level.is_empty_block(hole_pos)
+                        && level.is_empty_block(hole_pos.above())
+                    {
                         hole_count += 1;
                     }
                 }
@@ -100,17 +117,37 @@ impl Feature for MonsterRoomFeature {
                 for dz in min_z..=max_z {
                     let wall_block = origin.offset(dx, dy, dz);
                     let wall_state = level.get_block_state(wall_block);
-                    if dx == min_x || dy == -1 || dz == min_z || dx == max_x || dy == 4 || dz == max_z {
-                        if wall_block.y() >= level.get_min_y() && !level.get_block_state(wall_block.below()).is_solid() {
+                    if dx == min_x
+                        || dy == -1
+                        || dz == min_z
+                        || dx == max_x
+                        || dy == 4
+                        || dz == max_z
+                    {
+                        if wall_block.y() >= level.get_min_y()
+                            && !level.get_block_state(wall_block.below()).is_solid()
+                        {
                             level.set_block(wall_block, air, 2, 512);
                         } else if wall_state.is_solid() && !wall_state.is_block(Block::CHEST) {
                             if dy == -1 && random.next_int_bounded(4) != 0 {
-                                safe_set_block(level, wall_block, Block::MOSSY_COBBLESTONE.default_state(), replaceable_tag);
+                                safe_set_block(
+                                    level,
+                                    wall_block,
+                                    Block::MOSSY_COBBLESTONE.default_state(),
+                                    replaceable_tag,
+                                );
                             } else {
-                                safe_set_block(level, wall_block, Block::COBBLESTONE.default_state(), replaceable_tag);
+                                safe_set_block(
+                                    level,
+                                    wall_block,
+                                    Block::COBBLESTONE.default_state(),
+                                    replaceable_tag,
+                                );
                             }
                         }
-                    } else if !wall_state.is_block(Block::CHEST) && !wall_state.is_block(Block::SPAWNER) {
+                    } else if !wall_state.is_block(Block::CHEST)
+                        && !wall_state.is_block(Block::SPAWNER)
+                    {
                         safe_set_block(level, wall_block, air, replaceable_tag);
                     }
                 }
@@ -126,22 +163,37 @@ impl Feature for MonsterRoomFeature {
                 if level.is_empty_block(chest_pos) {
                     let mut wall_count = 0;
                     for direction in Plane::Horizontal {
-                        if level.get_block_state(chest_pos.relative(direction)).is_solid() {
+                        if level
+                            .get_block_state(chest_pos.relative(direction))
+                            .is_solid()
+                        {
                             wall_count += 1;
                         }
                     }
                     if wall_count == 1 {
                         let chest = reorient(level, chest_pos, Block::CHEST.default_state());
                         safe_set_block(level, chest_pos, chest, replaceable_tag);
-                        set_block_entity_loot_table(level, random, chest_pos, "minecraft:chests/simple_dungeon");
+                        set_block_entity_loot_table(
+                            level,
+                            random,
+                            chest_pos,
+                            "minecraft:chests/simple_dungeon",
+                        );
                         break;
                     }
                 }
             }
         }
 
-        safe_set_block(level, origin, Block::SPAWNER.default_state(), replaceable_tag);
-        if get_block_entity_nbt(level, origin).is_some_and(|tag| tag.get_string("id") == Some("minecraft:mob_spawner")) {
+        safe_set_block(
+            level,
+            origin,
+            Block::SPAWNER.default_state(),
+            replaceable_tag,
+        );
+        if get_block_entity_nbt(level, origin)
+            .is_some_and(|tag| tag.get_string("id") == Some("minecraft:mob_spawner"))
+        {
             let entity = MOBS[random.next_int_bounded(MOBS.len() as i32) as usize];
             level.set_block_entity_nbt(spawner_tag(origin, entity));
         }
@@ -150,4 +202,7 @@ impl Feature for MonsterRoomFeature {
 }
 
 #[linkme::distributed_slice(FEATURE_TYPES)]
-static MONSTER_ROOM: TypeEntry<dyn Feature> = TypeEntry { name: "monster_room", decode: MonsterRoomFeature::decode };
+static MONSTER_ROOM: TypeEntry<dyn Feature> = TypeEntry {
+    name: "monster_room",
+    decode: MonsterRoomFeature::decode,
+};

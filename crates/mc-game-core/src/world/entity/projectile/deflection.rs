@@ -22,13 +22,22 @@ pub enum ProjectileDeflection {
 
 impl ProjectileDeflection {
     /// `deflect(projectile, entity, random, power)` (the random is the projectile's own).
-    pub fn deflect(self, projectile: &mut dyn Projectile, deflector: Option<&Deflector>, power: Vec3) {
+    pub fn deflect(
+        self,
+        projectile: &mut dyn Projectile,
+        deflector: Option<&Deflector>,
+        power: Vec3,
+    ) {
         match self {
             ProjectileDeflection::None => {}
             ProjectileDeflection::Reverse => {
                 let rotation = 170.0 + projectile.base_mut().random.next_float() * 20.0;
                 let b = projectile.base_mut();
-                b.set_delta_movement(b.delta_movement().multiply_xyz(-power.x * 0.5, -power.y * 0.5, -power.z * 0.5));
+                b.set_delta_movement(b.delta_movement().multiply_xyz(
+                    -power.x * 0.5,
+                    -power.y * 0.5,
+                    -power.z * 0.5,
+                ));
                 let y_rot = b.y_rot() + rotation;
                 b.set_y_rot(y_rot);
                 b.y_rot_o += rotation;

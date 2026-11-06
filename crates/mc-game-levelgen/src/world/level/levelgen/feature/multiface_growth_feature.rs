@@ -1,18 +1,23 @@
 //! `MultifaceGrowthFeature` (`multiface_growth`): glow lichen / sculk vein patches.
 
-use mc_game_core::world::level::levelgen::feature::tree::shuffle;
-use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature};
-use mc_game_core::world::level::block::BlockStateExt;
-use mc_game_core::world::level::block::impls::multiface_block;
-use mc_game_core::world::level::block::impls::multiface_spreadeable_block::{get_spreader, is_multiface_spreadeable};
-use mc_game_core::world::level::levelgen::codec::{BlockSet, Fields, LoadError, LoadResult, TypeEntry, parse_block, parse_bool, parse_float_range, parse_int_range};
-use mc_game_core::world::level::levelgen::env::GenEnv;
-use mc_game_core::world::level::levelgen::registries::DecodeCtx;
-use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::{Block, BlockState};
+use mc_game_core::world::level::block::BlockStateExt;
+use mc_game_core::world::level::block::impls::multiface_block;
+use mc_game_core::world::level::block::impls::multiface_spreadeable_block::{
+    get_spreader, is_multiface_spreadeable,
+};
+use mc_game_core::world::level::levelgen::codec::{
+    BlockSet, Fields, LoadError, LoadResult, TypeEntry, parse_block, parse_bool, parse_float_range,
+    parse_int_range,
+};
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::feature::tree::shuffle;
+use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature};
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use std::sync::Arc;
 
 pub struct MultifaceGrowthFeature {
@@ -29,15 +34,31 @@ impl MultifaceGrowthFeature {
     fn decode(fields: &Fields<'_>, _ctx: &DecodeCtx<'_>) -> LoadResult<Arc<dyn Feature>> {
         let place_block = fields.required("block", |v| {
             let block = parse_block(v)?;
-            if is_multiface_spreadeable(block) { Ok(block) } else { Err(LoadError::new("Growth block should be a multiface spreadeable block")) }
+            if is_multiface_spreadeable(block) {
+                Ok(block)
+            } else {
+                Err(LoadError::new(
+                    "Growth block should be a multiface spreadeable block",
+                ))
+            }
         })?;
         Ok(Arc::new(MultifaceGrowthFeature {
             place_block,
-            search_range: fields.optional("search_range", |v| parse_int_range(v, 1, 64))?.unwrap_or(10),
-            can_place_on_floor: fields.optional("can_place_on_floor", parse_bool)?.unwrap_or(false),
-            can_place_on_ceiling: fields.optional("can_place_on_ceiling", parse_bool)?.unwrap_or(false),
-            can_place_on_wall: fields.optional("can_place_on_wall", parse_bool)?.unwrap_or(false),
-            chance_of_spreading: fields.optional("chance_of_spreading", |v| parse_float_range(v, 0.0, 1.0))?.unwrap_or(0.5),
+            search_range: fields
+                .optional("search_range", |v| parse_int_range(v, 1, 64))?
+                .unwrap_or(10),
+            can_place_on_floor: fields
+                .optional("can_place_on_floor", parse_bool)?
+                .unwrap_or(false),
+            can_place_on_ceiling: fields
+                .optional("can_place_on_ceiling", parse_bool)?
+                .unwrap_or(false),
+            can_place_on_wall: fields
+                .optional("can_place_on_wall", parse_bool)?
+                .unwrap_or(false),
+            chance_of_spreading: fields
+                .optional("chance_of_spreading", |v| parse_float_range(v, 0.0, 1.0))?
+                .unwrap_or(0.5),
             can_be_placed_on: fields.required("can_be_placed_on", BlockSet::from_json)?,
         }))
     }
@@ -58,8 +79,16 @@ impl MultifaceGrowthFeature {
     }
 
     /// `getShuffledDirectionsExcept(random, excludeDirection)`.
-    fn get_shuffled_directions_except(&self, random: &mut dyn RandomSource, exclude: Direction) -> Vec<Direction> {
-        let mut directions: Vec<Direction> = self.valid_directions().into_iter().filter(|d| *d != exclude).collect();
+    fn get_shuffled_directions_except(
+        &self,
+        random: &mut dyn RandomSource,
+        exclude: Direction,
+    ) -> Vec<Direction> {
+        let mut directions: Vec<Direction> = self
+            .valid_directions()
+            .into_iter()
+            .filter(|d| *d != exclude)
+            .collect();
         shuffle(&mut directions, random);
         directions
     }
@@ -83,7 +112,13 @@ impl MultifaceGrowthFeature {
         for &placement_direction in placement_directions {
             let neighbour_state = level.get_block_state(pos.relative(placement_direction));
             if self.can_be_placed_on.contains(neighbour_state.block()) {
-                let Some(new_state) = multiface_block::get_state_for_placement(self.place_block, old_state, &*level, pos, placement_direction) else {
+                let Some(new_state) = multiface_block::get_state_for_placement(
+                    self.place_block,
+                    old_state,
+                    &*level,
+                    pos,
+                    placement_direction,
+                ) else {
                     return false;
                 };
                 level.set_block_and_update(pos, new_state);
@@ -91,7 +126,14 @@ impl MultifaceGrowthFeature {
                 if random.next_float() < self.chance_of_spreading {
                     // `placeBlock instanceof MultifaceSpreadeableBlock` is checked by the codec
                     if let Some(spreader) = get_spreader(self.place_block) {
-                        spreader.spread_from_face_toward_random_direction(new_state, level, pos, placement_direction, random, true);
+                        spreader.spread_from_face_toward_random_direction(
+                            new_state,
+                            level,
+                            pos,
+                            placement_direction,
+                            random,
+                            true,
+                        );
                     }
                 }
                 return true;
@@ -107,10 +149,19 @@ fn is_air_or_water(state: BlockState) -> bool {
 }
 
 #[linkme::distributed_slice(FEATURE_TYPES)]
-static MULTIFACE_GROWTH: TypeEntry<dyn Feature> = TypeEntry { name: "multiface_growth", decode: MultifaceGrowthFeature::decode };
+static MULTIFACE_GROWTH: TypeEntry<dyn Feature> = TypeEntry {
+    name: "multiface_growth",
+    decode: MultifaceGrowthFeature::decode,
+};
 
 impl Feature for MultifaceGrowthFeature {
-    fn place(&self, level: &mut dyn WorldGenLevel, _generator: &GenEnv, random: &mut dyn RandomSource, origin: BlockPos) -> bool {
+    fn place(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        _generator: &GenEnv,
+        random: &mut dyn RandomSource,
+        origin: BlockPos,
+    ) -> bool {
         if !is_air_or_water(level.get_block_state(origin)) {
             return false;
         }
@@ -120,7 +171,8 @@ impl Feature for MultifaceGrowthFeature {
             return true;
         }
         for &search_direction in &directions {
-            let placement_directions = self.get_shuffled_directions_except(random, search_direction.get_opposite());
+            let placement_directions =
+                self.get_shuffled_directions_except(random, search_direction.get_opposite());
             for _ in 0..self.search_range {
                 // vanilla offsets from `origin` on every iteration (the search never moves further than one block)
                 let pos = origin.relative(search_direction);

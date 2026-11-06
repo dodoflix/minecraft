@@ -12,14 +12,15 @@ pub struct PlayerInteractTriggerInstance {
 
 impl TriggerInstance for PlayerInteractTriggerInstance {
     fn codec() -> Codec<Self> {
-        static C: std::sync::LazyLock<Codec<PlayerInteractTriggerInstance>> = std::sync::LazyLock::new(|| {
-            mc_dfu::record!(PlayerInteractTriggerInstance {
-                player: condition_holder_codec().optional_field_of("player"),
-                item: ItemPredicate::codec().optional_field_of("item"),
-                entity: condition_holder_codec().optional_field_of("entity"),
-            })
-            .codec()
-        });
+        static C: std::sync::LazyLock<Codec<PlayerInteractTriggerInstance>> =
+            std::sync::LazyLock::new(|| {
+                mc_dfu::record!(PlayerInteractTriggerInstance {
+                    player: condition_holder_codec().optional_field_of("player"),
+                    item: ItemPredicate::codec().optional_field_of("item"),
+                    entity: condition_holder_codec().optional_field_of("entity"),
+                })
+                .codec()
+            });
         C.clone()
     }
 }
@@ -31,7 +32,11 @@ impl SimpleInstance for PlayerInteractTriggerInstance {
 }
 
 crate::simple_instance!(PlayerInteractTriggerInstance, |this, validator| {
-    crate::world::level::storage::loot::validation::validate_holder_opt(&validator.entity_context(), "entity", &this.entity);
+    crate::world::level::storage::loot::validation::validate_holder_opt(
+        &validator.entity_context(),
+        "entity",
+        &this.entity,
+    );
 });
 
 crate::register_triggers!(PlayerInteractTriggerInstance {
@@ -42,19 +47,32 @@ crate::register_triggers!(PlayerInteractTriggerInstance {
 impl PlayerInteractTriggerInstance {
     /// `matches(itemStack, entityContext)`.
     pub fn matches(&self, item_stack: &ItemStack, entity: &mut LootContext) -> bool {
-        self.item.as_ref().is_none_or(|p| p.test(item_stack)) && holder_matches(&self.entity, entity)
+        self.item.as_ref().is_none_or(|p| p.test(item_stack))
+            && holder_matches(&self.entity, entity)
     }
 }
 
 impl Trigger<PlayerInteractTriggerInstance> {
     /// `trigger(player, itemStack, interactedWith)`.
-    pub fn trigger(&self, level: &mut ServerLevel, player: &mut ServerPlayer, item_stack: &ItemStack, entity: &dyn Entity) {
+    pub fn trigger(
+        &self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        item_stack: &ItemStack,
+        entity: &dyn Entity,
+    ) {
         let matches = self.matches(&*level, &*player, item_stack, entity);
         matches.award(level, player);
     }
 
     /// The listeners that match; nothing is mutated.
-    pub fn matches(&self, level: &ServerLevel, player: &ServerPlayer, item_stack: &ItemStack, entity: &dyn Entity) -> TriggerMatches {
+    pub fn matches(
+        &self,
+        level: &ServerLevel,
+        player: &ServerPlayer,
+        item_stack: &ItemStack,
+        entity: &dyn Entity,
+    ) -> TriggerMatches {
         let params = entity_params(level, player.position(), entity);
         let mut context = new_context(&params);
         self.collect(level, player, |t| t.matches(item_stack, &mut context))

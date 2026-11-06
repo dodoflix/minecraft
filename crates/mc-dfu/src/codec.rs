@@ -44,7 +44,11 @@ impl Dynamic {
     }
     /// `Dynamic.convert(outOps)` as the raw value (the `Dynamic`-returning form is `convert` in `dynamic_like.rs`).
     pub fn convert_value(&self, out: &Ops) -> Dyn {
-        if self.ops == *out { self.value.clone() } else { self.ops.convert_to(out, &self.value) }
+        if self.ops == *out {
+            self.value.clone()
+        } else {
+            self.ops.convert_to(out, &self.value)
+        }
     }
 }
 
@@ -127,13 +131,21 @@ impl<A: 'static> Codec<A> {
         }
         impl<A: 'static> CodecImpl<A> for Rec<A> {
             fn encode(&self, ops: &Ops, input: &A, prefix: Dyn) -> DataResult<Dyn> {
-                self.cell.get().expect("recursive codec used before it was built").encode(ops, input, prefix)
+                self.cell
+                    .get()
+                    .expect("recursive codec used before it was built")
+                    .encode(ops, input, prefix)
             }
             fn decode(&self, ops: &Ops, input: &Dyn) -> DataResult<(A, Dyn)> {
-                self.cell.get().expect("recursive codec used before it was built").decode(ops, input)
+                self.cell
+                    .get()
+                    .expect("recursive codec used before it was built")
+                    .decode(ops, input)
             }
         }
-        let rec = Arc::new(Rec { cell: OnceLock::new() });
+        let rec = Arc::new(Rec {
+            cell: OnceLock::new(),
+        });
         struct Shared<A: 'static>(Arc<Rec<A>>);
         impl<A: 'static> CodecImpl<A> for Shared<A> {
             fn encode(&self, ops: &Ops, input: &A, prefix: Dyn) -> DataResult<Dyn> {
@@ -168,7 +180,10 @@ impl<A: 'static> Codec<A> {
                 self.get().decode(ops, input)
             }
         }
-        Codec::new(Lazy { f: delegate, cell: OnceLock::new() })
+        Codec::new(Lazy {
+            f: delegate,
+            cell: OnceLock::new(),
+        })
     }
 
     // ---- mapping ---------------------------------------------------------------------------------------------
@@ -195,7 +210,10 @@ impl<A: 'static> Codec<A> {
         let (e, d) = (self.clone(), self.clone());
         Codec::from_fns(
             move |ops, s, prefix| from(s).flat_map(|a| e.encode(ops, &a, prefix)),
-            move |ops, input| d.decode(ops, input).flat_map(|(a, rest)| to(a).map(|s| (s, rest))),
+            move |ops, input| {
+                d.decode(ops, input)
+                    .flat_map(|(a, rest)| to(a).map(|s| (s, rest)))
+            },
         )
     }
 
@@ -218,7 +236,10 @@ impl<A: 'static> Codec<A> {
     }
 
     /// `validate(checker)` (`flatXmap(checker, checker)`).
-    pub fn validate(&self, checker: impl Fn(A) -> DataResult<A> + Send + Sync + Clone + 'static) -> Codec<A>
+    pub fn validate(
+        &self,
+        checker: impl Fn(A) -> DataResult<A> + Send + Sync + Clone + 'static,
+    ) -> Codec<A>
     where
         A: Clone,
     {
@@ -232,7 +253,10 @@ impl<A: 'static> Codec<A> {
         f: impl Fn(&Ops, &Dyn, DataResult<(A, Dyn)>) -> DataResult<(A, Dyn)> + Send + Sync + 'static,
     ) -> Codec<A> {
         let (e, d) = (self.clone(), self.clone());
-        Codec::from_fns(move |ops, a, prefix| e.encode(ops, a, prefix), move |ops, input| f(ops, input, d.decode(ops, input)))
+        Codec::from_fns(
+            move |ops, a, prefix| e.encode(ops, a, prefix),
+            move |ops, input| f(ops, input, d.decode(ops, input)),
+        )
     }
 
     /// `orElse(value)`: any decode failure yields `value` (consuming no input).
@@ -255,7 +279,11 @@ impl<A: 'static> Codec<A> {
     }
 
     /// `orElse(onError, value)`: like [`or_else`] but reports the message.
-    pub fn or_else_report(&self, on_error: impl Fn(&str) + Send + Sync + 'static, value: A) -> Codec<A>
+    pub fn or_else_report(
+        &self,
+        on_error: impl Fn(&str) + Send + Sync + 'static,
+        value: A,
+    ) -> Codec<A>
     where
         A: Clone + Send + Sync,
     {
@@ -292,11 +320,15 @@ impl<A: 'static> Codec<A> {
             move |ops, input: &Vec<A>, prefix| {
                 if input.len() < min {
                     let size = input.len();
-                    return DataResult::error(move || format!("List is too short: {size}, expected range [{min}-{max}]"));
+                    return DataResult::error(move || {
+                        format!("List is too short: {size}, expected range [{min}-{max}]")
+                    });
                 }
                 if input.len() > max {
                     let size = input.len();
-                    return DataResult::error(move || format!("List is too long: {size}, expected range [{min}-{max}]"));
+                    return DataResult::error(move || {
+                        format!("List is too long: {size}, expected range [{min}-{max}]")
+                    });
                 }
                 let mut b = ops.list_builder();
                 for el in input {
@@ -307,7 +339,9 @@ impl<A: 'static> Codec<A> {
             move |ops, input| {
                 let list = match ops.get_list(input) {
                     DataResult::Success(l) => l,
-                    DataResult::Error { message, .. } => return DataResult::error_msg(message, None),
+                    DataResult::Error { message, .. } => {
+                        return DataResult::error_msg(message, None);
+                    }
                 };
                 let mut elements: Vec<A> = Vec::new();
                 let mut failed: Vec<Dyn> = Vec::new();
@@ -333,15 +367,21 @@ impl<A: 'static> Codec<A> {
                 }
                 if elements.len() < min {
                     let size = elements.len();
-                    return DataResult::error(move || format!("List is too short: {size}, expected range [{min}-{max}]"));
+                    return DataResult::error(move || {
+                        format!("List is too short: {size}, expected range [{min}-{max}]")
+                    });
                 }
                 let errors = ops.create_list(failed);
                 if total > max {
-                    result = DataResult::error(move || format!("List is too long: {total}, expected range [{min}-{max}]"));
+                    result = DataResult::error(move || {
+                        format!("List is too long: {total}, expected range [{min}-{max}]")
+                    });
                 }
                 match result {
                     DataResult::Success(()) => DataResult::success((elements, errors)),
-                    DataResult::Error { message, .. } => DataResult::error_msg(message, Some((elements, errors))),
+                    DataResult::Error { message, .. } => {
+                        DataResult::error_msg(message, Some((elements, errors)))
+                    }
                 }
             },
         )
@@ -377,7 +417,9 @@ impl<A: 'static> Codec<A> {
                             failed.push((k.clone(), v.clone()));
                             let key_text = k.clone();
                             result = result.apply2(
-                                DataResult::error(move || format!("Duplicate entry for key: '{key_text}'")),
+                                DataResult::error(move || {
+                                    format!("Duplicate entry for key: '{key_text}'")
+                                }),
                                 |_, _: ()| (),
                             );
                             continue;
@@ -393,7 +435,9 @@ impl<A: 'static> Codec<A> {
                 match result {
                     DataResult::Success(()) => DataResult::success(read),
                     DataResult::Error { message, .. } => DataResult::error_msg(
-                        crate::result::Msg::new(move || format!("{} missed input: {}", message.get(), errors)),
+                        crate::result::Msg::new(move || {
+                            format!("{} missed input: {}", message.get(), errors)
+                        }),
                         Some(read),
                     ),
                 }
@@ -407,9 +451,12 @@ impl<A: 'static> Codec<A> {
     pub fn pair<B: 'static>(&self, second: &Codec<B>) -> Codec<(A, B)> {
         let (f1, s1, f2, s2) = (self.clone(), second.clone(), self.clone(), second.clone());
         Codec::from_fns(
-            move |ops, (a, b): &(A, B), rest| s1.encode(ops, b, rest).flat_map(|r| f1.encode(ops, a, r)),
+            move |ops, (a, b): &(A, B), rest| {
+                s1.encode(ops, b, rest).flat_map(|r| f1.encode(ops, a, r))
+            },
             move |ops, input| {
-                f2.decode(ops, input).flat_map(|(a, rest)| s2.decode(ops, &rest).map(|(b, rest2)| ((a, b), rest2)))
+                f2.decode(ops, input)
+                    .flat_map(|(a, rest)| s2.decode(ops, &rest).map(|(b, rest2)| ((a, b), rest2)))
             },
         )
     }
@@ -437,8 +484,17 @@ impl<A: 'static> Codec<A> {
                 if second.has_result_or_partial() {
                     return second;
                 }
-                let (m1, m2) = (first.error_msg_ref().cloned().unwrap(), second.error_msg_ref().cloned().unwrap());
-                DataResult::error(move || format!("Failed to parse either. First: {}; Second: {}", m1.get(), m2.get()))
+                let (m1, m2) = (
+                    first.error_msg_ref().cloned().unwrap(),
+                    second.error_msg_ref().cloned().unwrap(),
+                );
+                DataResult::error(move || {
+                    format!(
+                        "Failed to parse either. First: {}; Second: {}",
+                        m1.get(),
+                        m2.get()
+                    )
+                })
             },
         )
     }
@@ -446,25 +502,37 @@ impl<A: 'static> Codec<A> {
     /// `withAlternative(alternative)`: tries `self`, then `alternative` (same value type); encodes with `self`.
     pub fn with_alternative(&self, alternative: &Codec<A>) -> Codec<A> {
         let (e, d, alt) = (self.clone(), self.clone(), alternative.clone());
-        Codec::from_fns(move |ops, a, prefix| e.encode(ops, a, prefix), move |ops, input| {
-            // either(this, alt).xmap(unwrap, left)
-            let first = d.decode(ops, input);
-            if first.is_success() {
-                return first;
-            }
-            let second = alt.decode(ops, input);
-            if second.is_success() {
-                return second;
-            }
-            if first.has_result_or_partial() {
-                return first;
-            }
-            if second.has_result_or_partial() {
-                return second;
-            }
-            let (m1, m2) = (first.error_msg_ref().cloned().unwrap(), second.error_msg_ref().cloned().unwrap());
-            DataResult::error(move || format!("Failed to parse either. First: {}; Second: {}", m1.get(), m2.get()))
-        })
+        Codec::from_fns(
+            move |ops, a, prefix| e.encode(ops, a, prefix),
+            move |ops, input| {
+                // either(this, alt).xmap(unwrap, left)
+                let first = d.decode(ops, input);
+                if first.is_success() {
+                    return first;
+                }
+                let second = alt.decode(ops, input);
+                if second.is_success() {
+                    return second;
+                }
+                if first.has_result_or_partial() {
+                    return first;
+                }
+                if second.has_result_or_partial() {
+                    return second;
+                }
+                let (m1, m2) = (
+                    first.error_msg_ref().cloned().unwrap(),
+                    second.error_msg_ref().cloned().unwrap(),
+                );
+                DataResult::error(move || {
+                    format!(
+                        "Failed to parse either. First: {}; Second: {}",
+                        m1.get(),
+                        m2.get()
+                    )
+                })
+            },
+        )
     }
 
     /// `withAlternative(alternative, converter)`: the alternative's value is converted; encodes with `self`.
@@ -474,30 +542,45 @@ impl<A: 'static> Codec<A> {
         converter: impl Fn(U) -> A + Send + Sync + 'static,
     ) -> Codec<A> {
         let (e, d, alt) = (self.clone(), self.clone(), alternative.clone());
-        Codec::from_fns(move |ops, a, prefix| e.encode(ops, a, prefix), move |ops, input| {
-            let first = d.decode(ops, input);
-            if first.is_success() {
-                return first;
-            }
-            let second = alt.decode(ops, input).map(|(u, r)| (converter(u), r));
-            if second.is_success() {
-                return second;
-            }
-            if first.has_result_or_partial() {
-                return first;
-            }
-            if second.has_result_or_partial() {
-                return second;
-            }
-            let (m1, m2) = (first.error_msg_ref().cloned().unwrap(), second.error_msg_ref().cloned().unwrap());
-            DataResult::error(move || format!("Failed to parse either. First: {}; Second: {}", m1.get(), m2.get()))
-        })
+        Codec::from_fns(
+            move |ops, a, prefix| e.encode(ops, a, prefix),
+            move |ops, input| {
+                let first = d.decode(ops, input);
+                if first.is_success() {
+                    return first;
+                }
+                let second = alt.decode(ops, input).map(|(u, r)| (converter(u), r));
+                if second.is_success() {
+                    return second;
+                }
+                if first.has_result_or_partial() {
+                    return first;
+                }
+                if second.has_result_or_partial() {
+                    return second;
+                }
+                let (m1, m2) = (
+                    first.error_msg_ref().cloned().unwrap(),
+                    second.error_msg_ref().cloned().unwrap(),
+                );
+                DataResult::error(move || {
+                    format!(
+                        "Failed to parse either. First: {}; Second: {}",
+                        m1.get(),
+                        m2.get()
+                    )
+                })
+            },
+        )
     }
 
     /// Replace the encoder side with `enc`'s (used where vanilla's `xmap` back-conversion is trivial).
     pub fn with_encoder(&self, enc: &Codec<A>) -> Codec<A> {
         let (e, d) = (enc.clone(), self.clone());
-        Codec::from_fns(move |ops, a, prefix| e.encode(ops, a, prefix), move |ops, input| d.decode(ops, input))
+        Codec::from_fns(
+            move |ops, a, prefix| e.encode(ops, a, prefix),
+            move |ops, input| d.decode(ops, input),
+        )
     }
 
     /// `fieldOf(name)`.
@@ -546,7 +629,9 @@ impl<A: 'static> Codec<A> {
                     }
                     match parsed {
                         DataResult::Success(a) => DataResult::success(Some(a)),
-                        DataResult::Error { message, partial } => DataResult::error_msg(message, Some(partial.map(Some).unwrap_or(None))),
+                        DataResult::Error { message, partial } => {
+                            DataResult::error_msg(message, Some(partial.map(Some).unwrap_or(None)))
+                        }
                     }
                 }
             },
@@ -560,8 +645,10 @@ impl<A: 'static> Codec<A> {
         A: Clone + PartialEq + Send + Sync,
     {
         let d2 = default.clone();
-        self.optional_field(name, false)
-            .xmap(move |o| o.unwrap_or_else(|| default.clone()), move |a: &A| if *a == d2 { None } else { Some(a.clone()) })
+        self.optional_field(name, false).xmap(
+            move |o| o.unwrap_or_else(|| default.clone()),
+            move |a: &A| if *a == d2 { None } else { Some(a.clone()) },
+        )
     }
     /// `lenientOptionalFieldOf(name, default)`.
     pub fn lenient_optional_field_of_default(&self, name: &str, default: A) -> MapCodec<A>
@@ -569,8 +656,10 @@ impl<A: 'static> Codec<A> {
         A: Clone + PartialEq + Send + Sync,
     {
         let d2 = default.clone();
-        self.optional_field(name, true)
-            .xmap(move |o| o.unwrap_or_else(|| default.clone()), move |a: &A| if *a == d2 { None } else { Some(a.clone()) })
+        self.optional_field(name, true).xmap(
+            move |o| o.unwrap_or_else(|| default.clone()),
+            move |a: &A| if *a == d2 { None } else { Some(a.clone()) },
+        )
     }
 
     /// `dispatch(typeKey, type, codec)` with an infallible type function.
@@ -593,7 +682,11 @@ impl<A: 'static> Codec<A> {
         type_of: impl Fn(&E) -> A + Send + Sync + 'static,
         codec_of: impl Fn(&A) -> MapCodec<E> + Send + Sync + 'static,
     ) -> MapCodec<E> {
-        self.partial_dispatch_map(type_key, move |e| DataResult::success(type_of(e)), move |k| DataResult::success(codec_of(k)))
+        self.partial_dispatch_map(
+            type_key,
+            move |e| DataResult::success(type_of(e)),
+            move |k| DataResult::success(codec_of(k)),
+        )
     }
 
     /// `partialDispatch(typeKey, type, codec)`.
@@ -603,7 +696,8 @@ impl<A: 'static> Codec<A> {
         type_of: impl Fn(&E) -> DataResult<A> + Send + Sync + 'static,
         codec_of: impl Fn(&A) -> DataResult<MapCodec<E>> + Send + Sync + 'static,
     ) -> Codec<E> {
-        self.partial_dispatch_map(type_key, type_of, codec_of).codec()
+        self.partial_dispatch_map(type_key, type_of, codec_of)
+            .codec()
     }
 
     /// `partialDispatchMap`-style `KeyDispatchCodec`.
@@ -634,7 +728,8 @@ impl<A: 'static> Codec<A> {
                 kc1.encode(ops, &k, b);
             },
             move |ops, input| {
-                kc2.decode(ops, input).flat_map(|k| co2(&k).flat_map(|c| c.decode(ops, input)))
+                kc2.decode(ops, input)
+                    .flat_map(|k| co2(&k).flat_map(|c| c.decode(ops, input)))
             },
             move || {
                 let mut k = kc3.keys(&crate::NBT);
@@ -723,7 +818,11 @@ impl<A: 'static> MapCodec<A> {
     where
         A: Clone + Send + Sync,
     {
-        MapCodec::from_fns(|_, _, _| {}, move |_, _| DataResult::success(value.clone()), Vec::new)
+        MapCodec::from_fns(
+            |_, _, _| {},
+            move |_, _| DataResult::success(value.clone()),
+            Vec::new,
+        )
     }
 
     /// `MapCodec.codec()`.
@@ -793,7 +892,10 @@ impl<A: 'static> MapCodec<A> {
     }
 
     /// `MapCodec.validate`.
-    pub fn validate(&self, checker: impl Fn(A) -> DataResult<A> + Send + Sync + Clone + 'static) -> MapCodec<A>
+    pub fn validate(
+        &self,
+        checker: impl Fn(A) -> DataResult<A> + Send + Sync + Clone + 'static,
+    ) -> MapCodec<A>
     where
         A: Clone,
     {
@@ -816,7 +918,14 @@ impl<A: 'static> MapCodec<A> {
 
     /// `Codec.mapEither(this, other)`.
     pub fn either<B: 'static>(&self, second: &MapCodec<B>) -> MapCodec<Either<A, B>> {
-        let (f1, s1, f2, s2, k1, k2) = (self.clone(), second.clone(), self.clone(), second.clone(), self.clone(), second.clone());
+        let (f1, s1, f2, s2, k1, k2) = (
+            self.clone(),
+            second.clone(),
+            self.clone(),
+            second.clone(),
+            self.clone(),
+            second.clone(),
+        );
         MapCodec::from_fns(
             move |ops, input: &Either<A, B>, b| match input {
                 Either::Left(a) => f1.encode(ops, a, b),
@@ -843,13 +952,23 @@ impl<A: 'static> MapCodec<A> {
 
     /// `Codec.mapPair(this, other)`.
     pub fn pair<B: 'static>(&self, second: &MapCodec<B>) -> MapCodec<(A, B)> {
-        let (f1, s1, f2, s2, k1, k2) = (self.clone(), second.clone(), self.clone(), second.clone(), self.clone(), second.clone());
+        let (f1, s1, f2, s2, k1, k2) = (
+            self.clone(),
+            second.clone(),
+            self.clone(),
+            second.clone(),
+            self.clone(),
+            second.clone(),
+        );
         MapCodec::from_fns(
             move |ops, (a, b): &(A, B), builder| {
                 f1.encode(ops, a, builder);
                 s1.encode(ops, b, builder);
             },
-            move |ops, m| f2.decode(ops, m).flat_map(|a| s2.decode(ops, m).map(|b| (a, b))),
+            move |ops, m| {
+                f2.decode(ops, m)
+                    .flat_map(|a| s2.decode(ops, m).map(|b| (a, b)))
+            },
             move || {
                 let mut k = k1.keys(&crate::NBT);
                 k.extend(k2.keys(&crate::NBT));

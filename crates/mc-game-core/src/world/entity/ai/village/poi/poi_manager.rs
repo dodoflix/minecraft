@@ -73,7 +73,11 @@ impl SectionTrackerView<'_> {
         match self.sections.get(&to) {
             Some(Some(section)) => {
                 let mask = self.village_types;
-                if section.has_record(&|t| is_village_type(mask, t), Occupancy::IsOccupied) { 0 } else { 7 }
+                if section.has_record(&|t| is_village_type(mask, t), Occupancy::IsOccupied) {
+                    0
+                } else {
+                    7
+                }
             }
             _ => 7,
         }
@@ -85,7 +89,13 @@ impl GraphBehavior for SectionTrackerView<'_> {
         node == i64::MAX
     }
 
-    fn get_computed_level(&mut self, _st: &GraphState, node: i64, known_parent: i64, known_level_from_parent: i32) -> i32 {
+    fn get_computed_level(
+        &mut self,
+        _st: &GraphState,
+        node: i64,
+        known_parent: i64,
+        known_level_from_parent: i32,
+    ) -> i32 {
         let mut computed_level = known_level_from_parent;
         for offset_x in -1..=1 {
             for offset_y in -1..=1 {
@@ -96,7 +106,8 @@ impl GraphBehavior for SectionTrackerView<'_> {
                     }
                     if neighbor != known_parent {
                         let level = self.get_level(neighbor);
-                        let cost_from_neighbor = self.compute_level_from_neighbor(neighbor, node, level);
+                        let cost_from_neighbor =
+                            self.compute_level_from_neighbor(neighbor, node, level);
                         if computed_level > cost_from_neighbor {
                             computed_level = cost_from_neighbor;
                         }
@@ -110,7 +121,13 @@ impl GraphBehavior for SectionTrackerView<'_> {
         computed_level
     }
 
-    fn check_neighbors_after_update(&mut self, st: &mut GraphState, node: i64, level: i32, only_decrease: bool) {
+    fn check_neighbors_after_update(
+        &mut self,
+        st: &mut GraphState,
+        node: i64,
+        level: i32,
+        only_decrease: bool,
+    ) {
         if !only_decrease || level < st.level_count - 2 {
             for offset_x in -1..=1 {
                 for offset_y in -1..=1 {
@@ -138,7 +155,11 @@ impl GraphBehavior for SectionTrackerView<'_> {
     }
 
     fn compute_level_from_neighbor(&mut self, from: i64, to: i64, from_level: i32) -> i32 {
-        if self.is_source(from) { self.level_from_source(to) } else { from_level + 1 }
+        if self.is_source(from) {
+            self.level_from_source(to)
+        } else {
+            from_level + 1
+        }
     }
 }
 
@@ -180,7 +201,10 @@ impl Storage {
     /// `getOrCreate(sectionPos)`; `None` (logged) outside the build height, where vanilla throws.
     fn get_or_create(&mut self, section_pos: i64) -> Option<&mut PoiSection> {
         if self.outside_stored_range(section_pos) {
-            log::error!("Error executing task: sectionPos out of bounds ({:?})", SectionPos::of_long(section_pos));
+            log::error!(
+                "Error executing task: sectionPos out of bounds ({:?})",
+                SectionPos::of_long(section_pos)
+            );
             return None;
         }
         if self.get_or_load(section_pos).is_none() {
@@ -201,25 +225,43 @@ impl Storage {
                 None
             }
         };
-        let packed = tag.map(|tag| poi_codec::decode_chunk(&tag, self.level_height.min_section_y(), self.level_height.max_section_y()));
+        let packed = tag.map(|tag| {
+            poi_codec::decode_chunk(
+                &tag,
+                self.level_height.min_section_y(),
+                self.level_height.max_section_y(),
+            )
+        });
         self.unpack_packed(chunk_pos, packed);
     }
 
     /// `unpackChunk(pos, packedChunk)`. `versionChanged` is always `true` in vanilla (`upgradeChunkTag(Dynamic)` returns a
     /// new object, compared by reference), so every loaded section is marked dirty.
-    fn unpack_packed(&mut self, chunk_pos: ChunkPos, packed: Option<Vec<(i32, (bool, Vec<PoiRecord>))>>) {
-        let (min_y, max_y) = (self.level_height.min_section_y(), self.level_height.max_section_y());
+    fn unpack_packed(
+        &mut self,
+        chunk_pos: ChunkPos,
+        packed: Option<Vec<(i32, (bool, Vec<PoiRecord>))>>,
+    ) {
+        let (min_y, max_y) = (
+            self.level_height.min_section_y(),
+            self.level_height.max_section_y(),
+        );
         match packed {
             None => {
                 for section_y in min_y..=max_y {
-                    self.sections.insert(SectionPos::as_long_xyz(chunk_pos.x, section_y, chunk_pos.z), None);
+                    self.sections.insert(
+                        SectionPos::as_long_xyz(chunk_pos.x, section_y, chunk_pos.z),
+                        None,
+                    );
                 }
             }
             Some(packed) => {
                 let mut by_y: HashMap<i32, (bool, Vec<PoiRecord>)> = packed.into_iter().collect();
                 for section_y in min_y..=max_y {
                     let key = SectionPos::as_long_xyz(chunk_pos.x, section_y, chunk_pos.z);
-                    let section = by_y.remove(&section_y).map(|(valid, records)| PoiSection::unpack(valid, records));
+                    let section = by_y
+                        .remove(&section_y)
+                        .map(|(valid, records)| PoiSection::unpack(valid, records));
                     let present = section.is_some();
                     self.sections.insert(key, section);
                     if present {
@@ -252,17 +294,33 @@ impl Storage {
     /// `setDirty(sectionPos)` (`PoiManager`: also refreshes the village distance).
     fn set_dirty(&mut self, section_pos: i64) {
         if matches!(self.sections.get(&section_pos), Some(Some(_))) {
-            self.dirty_chunks.insert(ChunkPos::pack_xz(SectionPos::x_from_long(section_pos), SectionPos::z_from_long(section_pos)));
+            self.dirty_chunks.insert(ChunkPos::pack_xz(
+                SectionPos::x_from_long(section_pos),
+                SectionPos::z_from_long(section_pos),
+            ));
         } else {
-            log::warn!("No data for position: {:?}", SectionPos::of_long(section_pos));
+            log::warn!(
+                "No data for position: {:?}",
+                SectionPos::of_long(section_pos)
+            );
         }
         self.update_tracker(section_pos);
     }
 
     /// `distanceTracker.update(sectionPos, getLevelFromSource(sectionPos), false)`.
     fn update_tracker(&mut self, section_pos: i64) {
-        let Self { tracker_state, tracker_levels, sections, village_types, .. } = self;
-        let mut view = SectionTrackerView { levels: tracker_levels, sections, village_types: *village_types };
+        let Self {
+            tracker_state,
+            tracker_levels,
+            sections,
+            village_types,
+            ..
+        } = self;
+        let mut view = SectionTrackerView {
+            levels: tracker_levels,
+            sections,
+            village_types: *village_types,
+        };
         let level = view.level_from_source(section_pos);
         tracker_state.check_edge(&mut view, i64::MAX, section_pos, level, false);
     }
@@ -273,8 +331,18 @@ impl Storage {
 
     /// `distanceTracker.runAllUpdates()`.
     fn run_all_updates(&mut self) {
-        let Self { tracker_state, tracker_levels, sections, village_types, .. } = self;
-        let mut view = SectionTrackerView { levels: tracker_levels, sections, village_types: *village_types };
+        let Self {
+            tracker_state,
+            tracker_levels,
+            sections,
+            village_types,
+            ..
+        } = self;
+        let mut view = SectionTrackerView {
+            levels: tracker_levels,
+            sections,
+            village_types: *village_types,
+        };
         tracker_state.run_updates(&mut view, i32::MAX);
     }
 
@@ -283,7 +351,12 @@ impl Storage {
     }
 
     /// Records of one section matching `mask` (types by index) and `occupancy`, in query order, with their section ids.
-    fn section_records(&mut self, section_pos: i64, mask: &[bool], occupancy: Occupancy) -> Vec<(u32, PoiRecord)> {
+    fn section_records(
+        &mut self,
+        section_pos: i64,
+        mask: &[bool],
+        occupancy: Occupancy,
+    ) -> Vec<(u32, PoiRecord)> {
         let mut out = Vec::new();
         if let Some(section) = self.get_or_load(section_pos) {
             section.for_each_record(&|t| mask[t.index()], occupancy, &mut |id, record| {
@@ -301,7 +374,14 @@ fn range_closed(from: ChunkPos, to: ChunkPos) -> impl Iterator<Item = ChunkPos> 
     let z_size = (i64::from(from.z) - i64::from(to.z)).abs() + 1;
     let x_diff: i32 = if from.x < to.x { 1 } else { -1 };
     let z_diff: i32 = if from.z < to.z { 1 } else { -1 };
-    (0..z_size).flat_map(move |dz| (0..x_size).map(move |dx| ChunkPos::new(from.x.wrapping_add(dx as i32 * x_diff), from.z.wrapping_add(dz as i32 * z_diff))))
+    (0..z_size).flat_map(move |dz| {
+        (0..x_size).map(move |dx| {
+            ChunkPos::new(
+                from.x.wrapping_add(dx as i32 * x_diff),
+                from.z.wrapping_add(dz as i32 * z_diff),
+            )
+        })
+    })
 }
 
 pub struct PoiManager {
@@ -312,12 +392,19 @@ pub struct PoiManager {
 pub type PoiTypePredicate<'a> = &'a dyn Fn(PoiTypeHolder) -> bool;
 
 fn type_mask(predicate: PoiTypePredicate) -> Vec<bool> {
-    (0..POI_TYPES.len()).map(|i| PoiTypeHolder::from_index(i).is_some_and(predicate)).collect()
+    (0..POI_TYPES.len())
+        .map(|i| PoiTypeHolder::from_index(i).is_some_and(predicate))
+        .collect()
 }
 
 impl PoiManager {
     /// `new PoiManager(info, folder, ...)`.
-    pub fn new(info: RegionStorageInfo, folder: impl Into<PathBuf>, sync_writes: bool, level_height: LevelHeight) -> Self {
+    pub fn new(
+        info: RegionStorageInfo,
+        folder: impl Into<PathBuf>,
+        sync_writes: bool,
+        level_height: LevelHeight,
+    ) -> Self {
         Self {
             inner: RefCell::new(Storage {
                 storage: SimpleRegionStorage::new(info, folder, sync_writes),
@@ -352,7 +439,12 @@ impl PoiManager {
     }
 
     /// The deferred body of `ServerLevel.updatePOIOnBlockStateChange`: the removal task, then the registration task.
-    pub fn apply_block_state_change(&self, pos: BlockPos, old_type: Option<PoiTypeHolder>, new_type: Option<PoiTypeHolder>) {
+    pub fn apply_block_state_change(
+        &self,
+        pos: BlockPos,
+        old_type: Option<PoiTypeHolder>,
+        new_type: Option<PoiTypeHolder>,
+    ) {
         if old_type.is_some() {
             self.remove(pos);
         }
@@ -365,7 +457,9 @@ impl PoiManager {
     pub fn remove(&self, pos: BlockPos) {
         let mut s = self.inner.borrow_mut();
         let key = SectionPos::as_long_block_pos(&pos);
-        if s.get_or_load(key).is_some_and(|section| section.remove(pos)) {
+        if s.get_or_load(key)
+            .is_some_and(|section| section.remove(pos))
+        {
             s.set_dirty(key);
         }
     }
@@ -374,13 +468,20 @@ impl PoiManager {
     pub fn release(&self, pos: BlockPos) -> Result<bool, PoiNeverRegistered> {
         let mut s = self.inner.borrow_mut();
         let key = SectionPos::as_long_block_pos(&pos);
-        let success = s.get_or_load(key).ok_or(PoiNeverRegistered(pos))?.release(pos)?;
+        let success = s
+            .get_or_load(key)
+            .ok_or(PoiNeverRegistered(pos))?
+            .release(pos)?;
         s.set_dirty(key);
         Ok(success)
     }
 
     /// `PoiManager.checkConsistencyWithBlocks(sectionPos, blockSection)`.
-    pub fn check_consistency_with_blocks(&self, section_pos: SectionPos, block_section: &LevelChunkSection) {
+    pub fn check_consistency_with_blocks(
+        &self,
+        section_pos: SectionPos,
+        block_section: &LevelChunkSection,
+    ) {
         let mut s = self.inner.borrow_mut();
         let key = section_pos.as_long();
         let may_have_poi = block_section.maybe_has(PoiTypes::has_poi);
@@ -407,14 +508,26 @@ impl PoiManager {
 
     /// Visits the records of one chunk (`getInChunk`): sections bottom to top, each loaded when reached. `f` returns
     /// `false` to stop; the result says whether the walk ran to the end.
-    fn walk_chunk(&self, mask: &[bool], chunk_pos: ChunkPos, occupancy: Occupancy, f: &mut dyn FnMut(i64, u32, &PoiRecord) -> bool) -> bool {
+    fn walk_chunk(
+        &self,
+        mask: &[bool],
+        chunk_pos: ChunkPos,
+        occupancy: Occupancy,
+        f: &mut dyn FnMut(i64, u32, &PoiRecord) -> bool,
+    ) -> bool {
         let (min_y, max_y) = {
             let s = self.inner.borrow();
-            (s.level_height.min_section_y(), s.level_height.max_section_y())
+            (
+                s.level_height.min_section_y(),
+                s.level_height.max_section_y(),
+            )
         };
         for section_y in min_y..=max_y {
             let key = SectionPos::of_chunk(&chunk_pos, section_y).as_long();
-            let hits = self.inner.borrow_mut().section_records(key, mask, occupancy);
+            let hits = self
+                .inner
+                .borrow_mut()
+                .section_records(key, mask, occupancy);
             for (id, record) in &hits {
                 if !f(key, *id, record) {
                     return false;
@@ -425,15 +538,30 @@ impl PoiManager {
     }
 
     /// `getInSquare` walk.
-    fn walk_square(&self, mask: &[bool], center: BlockPos, radius: i32, occupancy: Occupancy, f: &mut dyn FnMut(i64, u32, &PoiRecord) -> bool) {
+    fn walk_square(
+        &self,
+        mask: &[bool],
+        center: BlockPos,
+        radius: i32,
+        occupancy: Occupancy,
+        f: &mut dyn FnMut(i64, u32, &PoiRecord) -> bool,
+    ) {
         let chunk_radius = radius.div_euclid(16).wrapping_add(1);
         let c = ChunkPos::containing(&center);
-        let from = ChunkPos::new(c.x.wrapping_sub(chunk_radius), c.z.wrapping_sub(chunk_radius));
-        let to = ChunkPos::new(c.x.wrapping_add(chunk_radius), c.z.wrapping_add(chunk_radius));
+        let from = ChunkPos::new(
+            c.x.wrapping_sub(chunk_radius),
+            c.z.wrapping_sub(chunk_radius),
+        );
+        let to = ChunkPos::new(
+            c.x.wrapping_add(chunk_radius),
+            c.z.wrapping_add(chunk_radius),
+        );
         for chunk_pos in range_closed(from, to) {
             let keep_going = self.walk_chunk(mask, chunk_pos, occupancy, &mut |key, id, record| {
                 let pos = record.get_pos();
-                if pos.x().wrapping_sub(center.x()).wrapping_abs() <= radius && pos.z().wrapping_sub(center.z()).wrapping_abs() <= radius {
+                if pos.x().wrapping_sub(center.x()).wrapping_abs() <= radius
+                    && pos.z().wrapping_sub(center.z()).wrapping_abs() <= radius
+                {
                     f(key, id, record)
                 } else {
                     true
@@ -446,20 +574,43 @@ impl PoiManager {
     }
 
     /// `getInRange` walk.
-    fn walk_range(&self, mask: &[bool], center: BlockPos, radius: i32, occupancy: Occupancy, f: &mut dyn FnMut(i64, u32, &PoiRecord) -> bool) {
+    fn walk_range(
+        &self,
+        mask: &[bool],
+        center: BlockPos,
+        radius: i32,
+        occupancy: Occupancy,
+        f: &mut dyn FnMut(i64, u32, &PoiRecord) -> bool,
+    ) {
         let radius_sqr = radius.wrapping_mul(radius);
         self.walk_square(mask, center, radius, occupancy, &mut |key, id, record| {
-            if record.get_pos().dist_sqr(&center) <= f64::from(radius_sqr) { f(key, id, record) } else { true }
+            if record.get_pos().dist_sqr(&center) <= f64::from(radius_sqr) {
+                f(key, id, record)
+            } else {
+                true
+            }
         });
     }
 
     /// `getCountInRange(predicate, center, radius, occupancy)`.
-    pub fn get_count_in_range(&self, predicate: PoiTypePredicate, center: BlockPos, radius: i32, occupancy: Occupancy) -> i64 {
+    pub fn get_count_in_range(
+        &self,
+        predicate: PoiTypePredicate,
+        center: BlockPos,
+        radius: i32,
+        occupancy: Occupancy,
+    ) -> i64 {
         let mut count = 0;
-        self.walk_range(&type_mask(predicate), center, radius, occupancy, &mut |_, _, _| {
-            count += 1;
-            true
-        });
+        self.walk_range(
+            &type_mask(predicate),
+            center,
+            radius,
+            occupancy,
+            &mut |_, _, _| {
+                count += 1;
+                true
+            },
+        );
         count
     }
 
@@ -469,44 +620,91 @@ impl PoiManager {
     }
 
     /// `getInSquare(predicate, center, radius, occupancy)`.
-    pub fn get_in_square(&self, predicate: PoiTypePredicate, center: BlockPos, radius: i32, occupancy: Occupancy) -> Vec<PoiRecord> {
+    pub fn get_in_square(
+        &self,
+        predicate: PoiTypePredicate,
+        center: BlockPos,
+        radius: i32,
+        occupancy: Occupancy,
+    ) -> Vec<PoiRecord> {
         let mut out = Vec::new();
-        self.walk_square(&type_mask(predicate), center, radius, occupancy, &mut |_, _, record| {
-            out.push(*record);
-            true
-        });
+        self.walk_square(
+            &type_mask(predicate),
+            center,
+            radius,
+            occupancy,
+            &mut |_, _, record| {
+                out.push(*record);
+                true
+            },
+        );
         out
     }
 
     /// `getInRange(predicate, center, radius, occupancy)`.
-    pub fn get_in_range(&self, predicate: PoiTypePredicate, center: BlockPos, radius: i32, occupancy: Occupancy) -> Vec<PoiRecord> {
+    pub fn get_in_range(
+        &self,
+        predicate: PoiTypePredicate,
+        center: BlockPos,
+        radius: i32,
+        occupancy: Occupancy,
+    ) -> Vec<PoiRecord> {
         let mut out = Vec::new();
-        self.walk_range(&type_mask(predicate), center, radius, occupancy, &mut |_, _, record| {
-            out.push(*record);
-            true
-        });
+        self.walk_range(
+            &type_mask(predicate),
+            center,
+            radius,
+            occupancy,
+            &mut |_, _, record| {
+                out.push(*record);
+                true
+            },
+        );
         out
     }
 
     /// `getInChunk(predicate, chunkPos, occupancy)`.
-    pub fn get_in_chunk(&self, predicate: PoiTypePredicate, chunk_pos: ChunkPos, occupancy: Occupancy) -> Vec<PoiRecord> {
+    pub fn get_in_chunk(
+        &self,
+        predicate: PoiTypePredicate,
+        chunk_pos: ChunkPos,
+        occupancy: Occupancy,
+    ) -> Vec<PoiRecord> {
         let mut out = Vec::new();
-        self.walk_chunk(&type_mask(predicate), chunk_pos, occupancy, &mut |_, _, record| {
-            out.push(*record);
-            true
-        });
+        self.walk_chunk(
+            &type_mask(predicate),
+            chunk_pos,
+            occupancy,
+            &mut |_, _, record| {
+                out.push(*record);
+                true
+            },
+        );
         out
     }
 
     /// `findAll(predicate, filter, center, radius, occupancy)`.
-    pub fn find_all(&self, predicate: PoiTypePredicate, filter: &dyn Fn(BlockPos) -> bool, center: BlockPos, radius: i32, occupancy: Occupancy) -> Vec<BlockPos> {
+    pub fn find_all(
+        &self,
+        predicate: PoiTypePredicate,
+        filter: &dyn Fn(BlockPos) -> bool,
+        center: BlockPos,
+        radius: i32,
+        occupancy: Occupancy,
+    ) -> Vec<BlockPos> {
         let mut out = Vec::new();
-        self.walk_range(&type_mask(predicate), center, radius, occupancy, &mut |_, _, record| {
-            if filter(record.get_pos()) {
-                out.push(record.get_pos());
-            }
-            true
-        });
+        self.walk_range(
+            &type_mask(predicate),
+            center,
+            radius,
+            occupancy,
+            &mut |_, _, record| {
+                if filter(record.get_pos()) {
+                    out.push(record.get_pos());
+                }
+                true
+            },
+        );
         out
     }
 
@@ -520,12 +718,18 @@ impl PoiManager {
         occupancy: Occupancy,
     ) -> Vec<(PoiTypeHolder, BlockPos)> {
         let mut out = Vec::new();
-        self.walk_range(&type_mask(predicate), center, radius, occupancy, &mut |_, _, record| {
-            if filter(record.get_pos()) {
-                out.push((record.get_poi_type(), record.get_pos()));
-            }
-            true
-        });
+        self.walk_range(
+            &type_mask(predicate),
+            center,
+            radius,
+            occupancy,
+            &mut |_, _, record| {
+                if filter(record.get_pos()) {
+                    out.push((record.get_poi_type(), record.get_pos()));
+                }
+                true
+            },
+        );
         out
     }
 
@@ -544,42 +748,82 @@ impl PoiManager {
     }
 
     /// `find(predicate, filter, center, radius, occupancy)`: the first match (loads sections only up to it).
-    pub fn find(&self, predicate: PoiTypePredicate, filter: &dyn Fn(BlockPos) -> bool, center: BlockPos, radius: i32, occupancy: Occupancy) -> Option<BlockPos> {
+    pub fn find(
+        &self,
+        predicate: PoiTypePredicate,
+        filter: &dyn Fn(BlockPos) -> bool,
+        center: BlockPos,
+        radius: i32,
+        occupancy: Occupancy,
+    ) -> Option<BlockPos> {
         let mut found = None;
-        self.walk_range(&type_mask(predicate), center, radius, occupancy, &mut |_, _, record| {
-            if filter(record.get_pos()) {
-                found = Some(record.get_pos());
-                false
-            } else {
-                true
-            }
-        });
+        self.walk_range(
+            &type_mask(predicate),
+            center,
+            radius,
+            occupancy,
+            &mut |_, _, record| {
+                if filter(record.get_pos()) {
+                    found = Some(record.get_pos());
+                    false
+                } else {
+                    true
+                }
+            },
+        );
         found
     }
 
     /// `min(Comparator.comparingDouble(distSqr))` over the range: the first of equally close records wins.
-    fn closest(&self, predicate: PoiTypePredicate, filter: &dyn Fn(&PoiRecord) -> bool, center: BlockPos, radius: i32, occupancy: Occupancy) -> Option<PoiRecord> {
+    fn closest(
+        &self,
+        predicate: PoiTypePredicate,
+        filter: &dyn Fn(&PoiRecord) -> bool,
+        center: BlockPos,
+        radius: i32,
+        occupancy: Occupancy,
+    ) -> Option<PoiRecord> {
         let mut best: Option<(f64, PoiRecord)> = None;
-        self.walk_range(&type_mask(predicate), center, radius, occupancy, &mut |_, _, record| {
-            if filter(record) {
-                let dist = record.get_pos().dist_sqr(&center);
-                if best.is_none_or(|(d, _)| d.total_cmp(&dist).is_gt()) {
-                    best = Some((dist, *record));
+        self.walk_range(
+            &type_mask(predicate),
+            center,
+            radius,
+            occupancy,
+            &mut |_, _, record| {
+                if filter(record) {
+                    let dist = record.get_pos().dist_sqr(&center);
+                    if best.is_none_or(|(d, _)| d.total_cmp(&dist).is_gt()) {
+                        best = Some((dist, *record));
+                    }
                 }
-            }
-            true
-        });
+                true
+            },
+        );
         best.map(|(_, record)| record)
     }
 
     /// `findClosest(predicate, center, radius, occupancy)`.
-    pub fn find_closest(&self, predicate: PoiTypePredicate, center: BlockPos, radius: i32, occupancy: Occupancy) -> Option<BlockPos> {
-        self.closest(predicate, &|_| true, center, radius, occupancy).map(|r| r.get_pos())
+    pub fn find_closest(
+        &self,
+        predicate: PoiTypePredicate,
+        center: BlockPos,
+        radius: i32,
+        occupancy: Occupancy,
+    ) -> Option<BlockPos> {
+        self.closest(predicate, &|_| true, center, radius, occupancy)
+            .map(|r| r.get_pos())
     }
 
     /// `findClosestWithType(predicate, center, radius, occupancy)`.
-    pub fn find_closest_with_type(&self, predicate: PoiTypePredicate, center: BlockPos, radius: i32, occupancy: Occupancy) -> Option<(PoiTypeHolder, BlockPos)> {
-        self.closest(predicate, &|_| true, center, radius, occupancy).map(|r| (r.get_poi_type(), r.get_pos()))
+    pub fn find_closest_with_type(
+        &self,
+        predicate: PoiTypePredicate,
+        center: BlockPos,
+        radius: i32,
+        occupancy: Occupancy,
+    ) -> Option<(PoiTypeHolder, BlockPos)> {
+        self.closest(predicate, &|_| true, center, radius, occupancy)
+            .map(|r| (r.get_poi_type(), r.get_pos()))
     }
 
     /// `findClosest(predicate, filter, center, radius, occupancy)`.
@@ -591,23 +835,44 @@ impl PoiManager {
         radius: i32,
         occupancy: Occupancy,
     ) -> Option<BlockPos> {
-        self.closest(predicate, &|r| filter(r.get_pos()), center, radius, occupancy).map(|r| r.get_pos())
+        self.closest(
+            predicate,
+            &|r| filter(r.get_pos()),
+            center,
+            radius,
+            occupancy,
+        )
+        .map(|r| r.get_pos())
     }
 
     /// `take(predicate, filter, center, radius)`: acquires a ticket of the first `HAS_SPACE` record the filter accepts.
-    pub fn take(&self, predicate: PoiTypePredicate, filter: &dyn Fn(PoiTypeHolder, BlockPos) -> bool, center: BlockPos, radius: i32) -> Option<BlockPos> {
+    pub fn take(
+        &self,
+        predicate: PoiTypePredicate,
+        filter: &dyn Fn(PoiTypeHolder, BlockPos) -> bool,
+        center: BlockPos,
+        radius: i32,
+    ) -> Option<BlockPos> {
         let mut found = None;
-        self.walk_range(&type_mask(predicate), center, radius, Occupancy::HasSpace, &mut |key, id, record| {
-            if filter(record.get_poi_type(), record.get_pos()) {
-                found = Some((key, id, record.get_pos()));
-                false
-            } else {
-                true
-            }
-        });
+        self.walk_range(
+            &type_mask(predicate),
+            center,
+            radius,
+            Occupancy::HasSpace,
+            &mut |key, id, record| {
+                if filter(record.get_poi_type(), record.get_pos()) {
+                    found = Some((key, id, record.get_pos()));
+                    false
+                } else {
+                    true
+                }
+            },
+        );
         let (key, id, pos) = found?;
         let mut s = self.inner.borrow_mut();
-        if s.get_or_load(key).is_some_and(|section| section.acquire_ticket(id)) {
+        if s.get_or_load(key)
+            .is_some_and(|section| section.acquire_ticket(id))
+        {
             s.set_dirty(key);
         }
         Some(pos)
@@ -628,7 +893,9 @@ impl PoiManager {
             let swap_to = random.next_int_bounded(i as i32) as usize;
             list.swap(i - 1, swap_to);
         }
-        list.iter().find(|r| filter(r.get_pos())).map(|r| r.get_pos())
+        list.iter()
+            .find(|r| filter(r.get_pos()))
+            .map(|r| r.get_pos())
     }
 
     /// `exists(pos, predicate)`.
@@ -639,12 +906,18 @@ impl PoiManager {
 
     /// `getType(pos)`.
     pub fn get_type(&self, pos: BlockPos) -> Option<PoiTypeHolder> {
-        self.inner.borrow_mut().get_or_load(SectionPos::as_long_block_pos(&pos)).and_then(|section| section.get_type(pos))
+        self.inner
+            .borrow_mut()
+            .get_or_load(SectionPos::as_long_block_pos(&pos))
+            .and_then(|section| section.get_type(pos))
     }
 
     /// `getDebugPoiInfo(pos)`: the record at `pos` (`DebugPoiInfo` is built from it).
     pub fn get_debug_poi_info(&self, pos: BlockPos) -> Option<PoiRecord> {
-        self.inner.borrow_mut().get_or_load(SectionPos::as_long_block_pos(&pos)).and_then(|section| section.get_poi_record(pos))
+        self.inner
+            .borrow_mut()
+            .get_or_load(SectionPos::as_long_block_pos(&pos))
+            .and_then(|section| section.get_poi_record(pos))
     }
 
     /// `sectionsToVillage(sectionPos)`.
@@ -657,19 +930,34 @@ impl PoiManager {
     // ------------------------------------------------------------------ ensureLoadedAndValid
 
     /// The sections `ensureLoadedAndValid` visits: `SectionPos.aroundChunk(chunk(center), floorDiv(radius, 16), min, max)`.
-    pub fn sections_around(&self, center: BlockPos, radius: i32) -> impl Iterator<Item = SectionPos> + use<> {
+    pub fn sections_around(
+        &self,
+        center: BlockPos,
+        radius: i32,
+    ) -> impl Iterator<Item = SectionPos> + use<> {
         let height = self.inner.borrow().level_height;
-        SectionPos::around_chunk(&ChunkPos::containing(&center), radius.div_euclid(16), height.min_section_y(), height.max_section_y())
+        SectionPos::around_chunk(
+            &ChunkPos::containing(&center),
+            radius.div_euclid(16),
+            height.min_section_y(),
+            height.max_section_y(),
+        )
     }
 
     /// `getOrLoad(section).map(isValid).orElse(false)`.
     pub fn is_section_valid(&self, section_pos: SectionPos) -> bool {
-        self.inner.borrow_mut().get_or_load(section_pos.as_long()).is_some_and(|s| s.is_valid())
+        self.inner
+            .borrow_mut()
+            .get_or_load(section_pos.as_long())
+            .is_some_and(|s| s.is_valid())
     }
 
     /// `loadedChunks.add(chunk.pack())` of `ensureLoadedAndValid`: whether the chunk was not requested yet.
     pub fn mark_chunk_ensured(&self, chunk_pos: ChunkPos) -> bool {
-        self.inner.borrow_mut().ensured_chunks.insert(chunk_pos.pack())
+        self.inner
+            .borrow_mut()
+            .ensured_chunks
+            .insert(chunk_pos.pack())
     }
 
     // ------------------------------------------------------------------ persistence / ticking
@@ -678,7 +966,9 @@ impl PoiManager {
     pub fn tick(&self, have_time: &dyn Fn() -> bool) {
         let mut s = self.inner.borrow_mut();
         while !s.dirty_chunks.is_empty() && have_time() {
-            let Some(key) = s.dirty_chunks.shift_remove_index(0) else { break };
+            let Some(key) = s.dirty_chunks.shift_remove_index(0) else {
+                break;
+            };
             s.write_chunk(ChunkPos::unpack(key));
         }
         s.run_all_updates();
@@ -717,7 +1007,11 @@ impl PoiManager {
 }
 
 /// `updateFromSection`: every block of the section that is a point of interest, in `blocksInside` order.
-fn update_from_section(block_section: &LevelChunkSection, pos: SectionPos, output: &mut dyn FnMut(BlockPos, PoiTypeHolder)) {
+fn update_from_section(
+    block_section: &LevelChunkSection,
+    pos: SectionPos,
+    output: &mut dyn FnMut(BlockPos, PoiTypeHolder),
+) {
     for block_pos in pos.blocks_inside() {
         let state = block_section.get_block_state(
             SectionPos::section_relative(block_pos.x()),

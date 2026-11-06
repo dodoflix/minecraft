@@ -2,8 +2,8 @@
 //! for `super.xyz()`).
 
 use crate::server::level::ServerLevel;
-use crate::world::entity::mob::navigation;
 use crate::world::entity::Entity;
+use crate::world::entity::mob::navigation;
 use crate::world::level::BlockGetter;
 use crate::world::level::block::helpers::is_instance_of;
 use crate::world::level::block::impls::door_block;
@@ -26,8 +26,19 @@ impl DoorInteractData {
     /// # Panics
     /// `IllegalArgumentException("Unsupported mob type for DoorInteractGoal")` when the navigation is not a ground navigation.
     pub fn new(mob: &dyn Entity) -> Self {
-        assert!(mob.mob().and_then(|m| m.navigation.as_deref()).is_some_and(|n| n.can_navigate_ground()), "Unsupported mob type for DoorInteractGoal");
-        Self { door_pos: BlockPos::ZERO, has_door: false, passed: false, door_open_dir_x: 0.0, door_open_dir_z: 0.0 }
+        assert!(
+            mob.mob()
+                .and_then(|m| m.navigation.as_deref())
+                .is_some_and(|n| n.can_navigate_ground()),
+            "Unsupported mob type for DoorInteractGoal"
+        );
+        Self {
+            door_pos: BlockPos::ZERO,
+            has_door: false,
+            passed: false,
+            door_open_dir_x: 0.0,
+            door_open_dir_z: 0.0,
+        }
     }
 
     /// `isOpen()`.
@@ -63,7 +74,10 @@ impl DoorInteractData {
         if !mob.base().horizontal_collision {
             return false;
         }
-        let Some(path) = navigation::with_navigation_ref(mob, level, |n| n.get_path()).flatten() else { return false };
+        let Some(path) = navigation::with_navigation_ref(mob, level, |n| n.get_path()).flatten()
+        else {
+            return false;
+        };
         if path.is_done() {
             return false;
         }
@@ -71,7 +85,12 @@ impl DoorInteractData {
         for i in 0..limit {
             let node = path.get_node(i);
             self.door_pos = BlockPos::new(node.x, node.y + 1, node.z);
-            if !(mob.base().distance_to_sqr_xyz(f64::from(self.door_pos.x()), mob.base().y(), f64::from(self.door_pos.z())) > 2.25) {
+            if !(mob.base().distance_to_sqr_xyz(
+                f64::from(self.door_pos.x()),
+                mob.base().y(),
+                f64::from(self.door_pos.z()),
+            ) > 2.25)
+            {
                 self.has_door = door_block::is_wooden_door(level.get_block_state(self.door_pos));
                 if self.has_door {
                     return true;

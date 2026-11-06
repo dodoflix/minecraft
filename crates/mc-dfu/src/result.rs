@@ -40,14 +40,23 @@ impl<A> DataResult<A> {
     }
     /// `DataResult.error(() -> message)`.
     pub fn error(message: impl Fn() -> String + Send + Sync + 'static) -> Self {
-        Error { message: Msg::new(message), partial: None }
+        Error {
+            message: Msg::new(message),
+            partial: None,
+        }
     }
     /// Error with a constant message.
     pub fn error_str(message: impl Into<String>) -> Self {
-        Error { message: Msg::lit(message), partial: None }
+        Error {
+            message: Msg::lit(message),
+            partial: None,
+        }
     }
     pub fn error_partial(message: impl Fn() -> String + Send + Sync + 'static, partial: A) -> Self {
-        Error { message: Msg::new(message), partial: Some(partial) }
+        Error {
+            message: Msg::new(message),
+            partial: Some(partial),
+        }
     }
     pub fn error_msg(message: Msg, partial: Option<A>) -> Self {
         Error { message, partial }
@@ -115,7 +124,9 @@ impl<A> DataResult<A> {
     pub fn into_partial_result(self) -> Result<A, String> {
         match self {
             Success(a) => Ok(a),
-            Error { partial: Some(a), .. } => Ok(a),
+            Error {
+                partial: Some(a), ..
+            } => Ok(a),
             Error { message, .. } => Err(message.get()),
         }
     }
@@ -130,7 +141,10 @@ impl<A> DataResult<A> {
     pub fn map<B>(self, f: impl FnOnce(A) -> B) -> DataResult<B> {
         match self {
             Success(a) => Success(f(a)),
-            Error { message, partial } => Error { message, partial: partial.map(f) },
+            Error { message, partial } => Error {
+                message,
+                partial: partial.map(f),
+            },
         }
     }
 
@@ -139,12 +153,28 @@ impl<A> DataResult<A> {
     pub fn flat_map<B>(self, f: impl FnOnce(A) -> DataResult<B>) -> DataResult<B> {
         match self {
             Success(a) => f(a),
-            Error { message, partial: None } => Error { message, partial: None },
-            Error { message, partial: Some(p) } => match f(p) {
-                Success(b) => Error { message, partial: Some(b) },
-                Error { message: m2, partial: p2 } => {
-                    Error { message: Msg::new(move || format!("{}; {}", message.get(), m2.get())), partial: p2 }
-                }
+            Error {
+                message,
+                partial: None,
+            } => Error {
+                message,
+                partial: None,
+            },
+            Error {
+                message,
+                partial: Some(p),
+            } => match f(p) {
+                Success(b) => Error {
+                    message,
+                    partial: Some(b),
+                },
+                Error {
+                    message: m2,
+                    partial: p2,
+                } => Error {
+                    message: Msg::new(move || format!("{}; {}", message.get(), m2.get())),
+                    partial: p2,
+                },
             },
         }
     }
@@ -154,9 +184,24 @@ impl<A> DataResult<A> {
     pub fn apply2<B, C>(self, second: DataResult<B>, f: impl FnOnce(A, B) -> C) -> DataResult<C> {
         match (self, second) {
             (Success(a), Success(b)) => Success(f(a, b)),
-            (Error { message, partial }, Success(b)) => Error { message, partial: partial.map(|a| f(a, b)) },
-            (Success(a), Error { message, partial }) => Error { message, partial: partial.map(|b| f(a, b)) },
-            (Error { message: m1, partial: p1 }, Error { message: m2, partial: p2 }) => Error {
+            (Error { message, partial }, Success(b)) => Error {
+                message,
+                partial: partial.map(|a| f(a, b)),
+            },
+            (Success(a), Error { message, partial }) => Error {
+                message,
+                partial: partial.map(|b| f(a, b)),
+            },
+            (
+                Error {
+                    message: m1,
+                    partial: p1,
+                },
+                Error {
+                    message: m2,
+                    partial: p2,
+                },
+            ) => Error {
                 message: Msg::new(move || format!("{}; {}", m2.get(), m1.get())),
                 partial: match (p1, p2) {
                     (Some(a), Some(b)) => Some(f(a, b)),
@@ -170,7 +215,10 @@ impl<A> DataResult<A> {
     pub fn set_partial(self, partial: A) -> DataResult<A> {
         match self {
             Success(a) => Success(a),
-            Error { message, .. } => Error { message, partial: Some(partial) },
+            Error { message, .. } => Error {
+                message,
+                partial: Some(partial),
+            },
         }
     }
     pub fn set_partial_opt(self, partial: Option<A>) -> DataResult<A> {
@@ -183,7 +231,10 @@ impl<A> DataResult<A> {
     pub fn map_error(self, f: impl Fn(String) -> String + Send + Sync + 'static) -> DataResult<A> {
         match self {
             Success(a) => Success(a),
-            Error { message, partial } => Error { message: Msg::new(move || f(message.get())), partial },
+            Error { message, partial } => Error {
+                message: Msg::new(move || f(message.get())),
+                partial,
+            },
         }
     }
 
@@ -191,7 +242,10 @@ impl<A> DataResult<A> {
     pub fn promote_partial(self, on_error: impl FnOnce(&str)) -> DataResult<A> {
         match self {
             Success(a) => Success(a),
-            Error { message, partial: Some(p) } => {
+            Error {
+                message,
+                partial: Some(p),
+            } => {
                 on_error(&message.get());
                 Success(p)
             }
@@ -202,14 +256,20 @@ impl<A> DataResult<A> {
     pub fn as_ref(&self) -> DataResult<&A> {
         match self {
             Success(a) => Success(a),
-            Error { message, partial } => Error { message: message.clone(), partial: partial.as_ref() },
+            Error { message, partial } => Error {
+                message: message.clone(),
+                partial: partial.as_ref(),
+            },
         }
     }
 
     /// Same error (message, no partial) with another value type.
     pub fn cast_error<B>(self) -> DataResult<B> {
         match self {
-            Error { message, .. } => Error { message, partial: None },
+            Error { message, .. } => Error {
+                message,
+                partial: None,
+            },
             Success(_) => panic!("cast_error on a success"),
         }
     }

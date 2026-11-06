@@ -1,10 +1,10 @@
 //! `net.minecraft.world.level.block.ConcretePowderBlock` (extends `FallingBlock`).
-use mc_game_core::{register_block_class, update_shape};
-use mc_game_core::world::level::block::impls::prelude::*;
-use mc_game_core::world::level::block::impls::falling_block;
 use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::item::BlockPlaceContext;
 use mc_game_core::world::entity::falling_block_entity::FallingBlockEntity;
+use mc_game_core::world::item::BlockPlaceContext;
+use mc_game_core::world::level::block::impls::falling_block;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::{register_block_class, update_shape};
 
 pub struct ConcretePowderBlock;
 
@@ -27,7 +27,9 @@ fn touches_liquid(level: &dyn BlockGetter, pos: BlockPos) -> bool {
         if direction != Direction::Down || can_solidify(block_state) {
             test_pos = pos.relative(direction);
             block_state = level.get_block_state(test_pos);
-            if can_solidify(block_state) && !block_state.is_face_sturdy_at(level, pos, direction.get_opposite()) {
+            if can_solidify(block_state)
+                && !block_state.is_face_sturdy_at(level, pos, direction.get_opposite())
+            {
                 touches = true;
                 break;
             }
@@ -37,29 +39,54 @@ fn touches_liquid(level: &dyn BlockGetter, pos: BlockPos) -> bool {
 }
 
 impl BlockBehaviour for ConcretePowderBlock {
-    fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
+    fn get_state_for_placement(
+        &self,
+        block: Block,
+        level: &mut ServerLevel,
+        context: &BlockPlaceContext,
+    ) -> Option<BlockState> {
         let pos = context.get_clicked_pos();
         let replaced_block = level.get_block_state(pos);
-        if should_solidify(&*level, pos, replaced_block) { Some(concrete_of(block).default_state()) } else { Some(block.default_state()) }
+        if should_solidify(&*level, pos, replaced_block) {
+            Some(concrete_of(block).default_state())
+        } else {
+            Some(block.default_state())
+        }
     }
-    fn on_place(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, _old_state: BlockState, _moved_by_piston: bool) {
+    fn on_place(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        _old_state: BlockState,
+        _moved_by_piston: bool,
+    ) {
         falling_block::on_place(state, level, pos, 2);
     }
     fn tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         falling_block::tick(state, level, pos);
     }
-    fn on_land(&self, level: &mut ServerLevel, pos: BlockPos, state: BlockState, replaced: BlockState, _entity: &FallingBlockEntity) {
+    fn on_land(
+        &self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        state: BlockState,
+        replaced: BlockState,
+        _entity: &FallingBlockEntity,
+    ) {
         if should_solidify(&*level, pos, replaced) {
             level.set_block_and_update(pos, concrete_of(state.block()).default_state());
         }
     }
-    update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
-        if touches_liquid(&*level, pos) {
-            concrete_of(state.block()).default_state()
-        } else {
-            falling_block::update_shape(state, level, pos, 2)
+    update_shape!(
+        |self, state, level, pos, direction, neighbour_pos, neighbour_state| {
+            if touches_liquid(&*level, pos) {
+                concrete_of(state.block()).default_state()
+            } else {
+                falling_block::update_shape(state, level, pos, 2)
+            }
         }
-    });
+    );
 }
 
 /// The `concrete` block of a concrete powder (`white_concrete_powder` -> `white_concrete`).

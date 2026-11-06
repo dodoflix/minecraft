@@ -1,18 +1,20 @@
 //! `OperationArgument`.
 
+use crate::commands::CommandSourceStack;
 use crate::commands::message::simple_translatable;
 use crate::commands::shared_suggestion_provider::suggest;
-use crate::commands::CommandSourceStack;
 use mc_brigadier::arguments::value;
 use mc_brigadier::{
-    ArgumentType, CommandContext, CommandSyntaxException, ImmutableStringReader, ParsedValue, SimpleCommandExceptionType, StringReader,
-    Suggestions, SuggestionsBuilder,
+    ArgumentType, CommandContext, CommandSyntaxException, ImmutableStringReader, ParsedValue,
+    SimpleCommandExceptionType, StringReader, Suggestions, SuggestionsBuilder,
 };
 use mc_core::math::java::{floor_div_i32, floor_mod_i32};
 use std::sync::LazyLock;
 
-static ERROR_INVALID_OPERATION: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| simple_translatable("arguments.operation.invalid"));
-static ERROR_DIVIDE_BY_ZERO: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| simple_translatable("arguments.operation.div0"));
+static ERROR_INVALID_OPERATION: LazyLock<SimpleCommandExceptionType> =
+    LazyLock::new(|| simple_translatable("arguments.operation.invalid"));
+static ERROR_DIVIDE_BY_ZERO: LazyLock<SimpleCommandExceptionType> =
+    LazyLock::new(|| simple_translatable("arguments.operation.div0"));
 
 /// `OperationArgument.Operation`: the operation on two scores (`a op= b`; `><` swaps).
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
@@ -93,10 +95,19 @@ impl ArgumentType<CommandSourceStack> for OperationArgument {
         while reader.can_read() && reader.peek() != ' ' {
             reader.skip();
         }
-        Operation::by_symbol(&mc_brigadier::utf16::substring(reader.get_string(), start, reader.get_cursor())).map(value)
+        Operation::by_symbol(&mc_brigadier::utf16::substring(
+            reader.get_string(),
+            start,
+            reader.get_cursor(),
+        ))
+        .map(value)
     }
 
-    fn list_suggestions(&self, _context: &CommandContext<CommandSourceStack>, builder: SuggestionsBuilder) -> Suggestions {
+    fn list_suggestions(
+        &self,
+        _context: &CommandContext<CommandSourceStack>,
+        builder: SuggestionsBuilder,
+    ) -> Suggestions {
         suggest(["=", "+=", "-=", "*=", "/=", "%=", "<", ">", "><"], builder)
     }
 
@@ -109,4 +120,6 @@ impl ArgumentType<CommandSourceStack> for OperationArgument {
     }
 }
 
-crate::register_argument_type!(OperationArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::Operation);
+crate::register_argument_type!(OperationArgument, |_a| {
+    mc_protocol::packets::play::ArgumentTypeTemplate::Operation
+});

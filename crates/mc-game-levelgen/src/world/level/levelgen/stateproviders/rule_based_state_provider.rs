@@ -1,13 +1,15 @@
 //! `RuleBasedStateProvider` (`rule_based`).
 
-use mc_game_core::world::level::levelgen::stateproviders::{BLOCK_STATE_PROVIDER_TYPES, BlockStateProvider};
-use mc_game_core::world::level::levelgen::Holder;
-use mc_game_core::world::level::levelgen::blockpredicates::{self, BlockPredicate};
-use mc_game_core::world::level::levelgen::codec::{Fields, TypeEntry, parse_list};
-use mc_game_core::world::level::LevelAccessor;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::BlockState;
+use mc_game_core::world::level::LevelAccessor;
+use mc_game_core::world::level::levelgen::Holder;
+use mc_game_core::world::level::levelgen::blockpredicates::{self, BlockPredicate};
+use mc_game_core::world::level::levelgen::codec::{Fields, TypeEntry, parse_list};
+use mc_game_core::world::level::levelgen::stateproviders::{
+    BLOCK_STATE_PROVIDER_TYPES, BlockStateProvider,
+};
 use std::sync::Arc;
 
 /// `RuleBasedStateProvider.Rule`.
@@ -22,11 +24,22 @@ pub struct RuleBasedStateProvider {
 }
 
 impl BlockStateProvider for RuleBasedStateProvider {
-    fn get_state(&self, level: &dyn LevelAccessor, random: &mut dyn RandomSource, pos: BlockPos) -> BlockState {
-        self.get_optional_state(level, random, pos).unwrap_or_else(|| level.get_block_state(pos))
+    fn get_state(
+        &self,
+        level: &dyn LevelAccessor,
+        random: &mut dyn RandomSource,
+        pos: BlockPos,
+    ) -> BlockState {
+        self.get_optional_state(level, random, pos)
+            .unwrap_or_else(|| level.get_block_state(pos))
     }
 
-    fn get_optional_state(&self, level: &dyn LevelAccessor, random: &mut dyn RandomSource, pos: BlockPos) -> Option<BlockState> {
+    fn get_optional_state(
+        &self,
+        level: &dyn LevelAccessor,
+        random: &mut dyn RandomSource,
+        pos: BlockPos,
+    ) -> Option<BlockState> {
         for rule in &self.rules {
             if rule.if_true.test(level, pos)
                 && let Some(state) = rule.then.value().get_optional_state(level, random, pos)
@@ -34,7 +47,9 @@ impl BlockStateProvider for RuleBasedStateProvider {
                 return Some(state);
             }
         }
-        self.fallback.as_ref().and_then(|fallback| fallback.value().get_optional_state(level, random, pos))
+        self.fallback
+            .as_ref()
+            .and_then(|fallback| fallback.value().get_optional_state(level, random, pos))
     }
 }
 

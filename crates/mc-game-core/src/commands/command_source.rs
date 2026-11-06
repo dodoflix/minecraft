@@ -46,6 +46,7 @@ impl CommandSource for NullCommandSource {
 
 /// `CommandSource.NULL` as a shared handle.
 pub fn null_source() -> Arc<dyn CommandSource> {
-    static NULL: std::sync::LazyLock<Arc<dyn CommandSource>> = std::sync::LazyLock::new(|| Arc::new(NullCommandSource));
+    static NULL: std::sync::LazyLock<Arc<dyn CommandSource>> =
+        std::sync::LazyLock::new(|| Arc::new(NullCommandSource));
     NULL.clone()
 }

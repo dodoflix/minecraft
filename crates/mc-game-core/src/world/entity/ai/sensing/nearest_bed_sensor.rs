@@ -21,7 +21,11 @@ pub struct NearestBedSensor {
 
 impl NearestBedSensor {
     pub fn new() -> Self {
-        Self { batch_cache: HashMap::new(), tried_count: 0, last_update: 0 }
+        Self {
+            batch_cache: HashMap::new(),
+            tried_count: 0,
+            last_update: 0,
+        }
     }
 }
 
@@ -48,7 +52,13 @@ impl Sensor for NearestBedSensor {
         self.tried_count = 0;
         self.last_update = level.game_time() + i64::from(level.random().next_int_bounded(20));
         let body_pos = body.block_position();
-        let candidates = level.poi_manager().find_all_with_type(&|p| p.is(PoiTypes::HOME), &|_| true, body_pos, 48, Occupancy::Any);
+        let candidates = level.poi_manager().find_all_with_type(
+            &|p| p.is(PoiTypes::HOME),
+            &|_| true,
+            body_pos,
+            48,
+            Occupancy::Any,
+        );
         let mut pois = Vec::new();
         for (ty, pos) in candidates {
             let key = pos.as_long();
@@ -59,7 +69,8 @@ impl Sensor for NearestBedSensor {
             if self.tried_count >= BATCH_SIZE {
                 continue;
             }
-            self.batch_cache.insert(key, self.last_update + CACHE_TIMEOUT);
+            self.batch_cache
+                .insert(key, self.last_update + CACHE_TIMEOUT);
             pois.push((ty, pos));
         }
         let path = find_path_to_pois(body, level, &pois);

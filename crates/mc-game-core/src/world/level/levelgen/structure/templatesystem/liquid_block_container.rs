@@ -9,7 +9,12 @@ use mc_data::block::BlockState;
 use mc_data::fluid::{Fluid, FluidState};
 use mc_world::ticks::TickPriority;
 
-const NEVER_WATERLOGGED: [&str; 4] = ["KelpBlock", "KelpPlantBlock", "SeagrassBlock", "TallSeagrassBlock"];
+const NEVER_WATERLOGGED: [&str; 4] = [
+    "KelpBlock",
+    "KelpPlantBlock",
+    "SeagrassBlock",
+    "TallSeagrassBlock",
+];
 
 fn has_class(state: BlockState, class: &str) -> bool {
     state.block().data().classes.contains(&class)
@@ -17,26 +22,47 @@ fn has_class(state: BlockState, class: &str) -> bool {
 
 /// `state.getBlock() instanceof LiquidBlockContainer`.
 pub fn is_liquid_block_container(state: BlockState) -> bool {
-    state.get_property_str("waterlogged").is_some() || NEVER_WATERLOGGED.iter().any(|c| has_class(state, c))
+    state.get_property_str("waterlogged").is_some()
+        || NEVER_WATERLOGGED.iter().any(|c| has_class(state, c))
 }
 
 /// `((LiquidBlockContainer) state.getBlock()).placeLiquid(level, pos, state, fluidState)`.
-pub fn place_liquid(level: &mut dyn LevelAccessor, pos: BlockPos, state: BlockState, fluid_state: FluidState) -> bool {
+pub fn place_liquid(
+    level: &mut dyn LevelAccessor,
+    pos: BlockPos,
+    state: BlockState,
+    fluid_state: FluidState,
+) -> bool {
     if NEVER_WATERLOGGED.iter().any(|c| has_class(state, c)) {
         return false;
     }
     if has_class(state, "SlabBlock") && state.get_property_str("type") == Some("double") {
         return false;
     }
-    if state.get_property_str("waterlogged") != Some("false") || fluid_state.fluid() != Fluid::WATER {
+    if state.get_property_str("waterlogged") != Some("false") || fluid_state.fluid() != Fluid::WATER
+    {
         return false;
     }
-    let waterlogged = state.with_property_str("waterlogged", "true").expect("waterlogged property");
+    let waterlogged = state
+        .with_property_str("waterlogged", "true")
+        .expect("waterlogged property");
     if has_class(state, "CandleBlock") && state.get_property_str("lit") == Some("true") {
         // `extinguish(null, newState, level, pos)`: `setBlock(pos, newState.setValue(LIT, false), 11)`
-        level.set_block(pos, waterlogged.with_property_str("lit", "false").expect("lit property"), 11, 512);
+        level.set_block(
+            pos,
+            waterlogged
+                .with_property_str("lit", "false")
+                .expect("lit property"),
+            11,
+            512,
+        );
     } else if has_class(state, "CampfireBlock") {
-        level.set_block_and_update(pos, waterlogged.with_property_str("lit", "false").expect("lit property"));
+        level.set_block_and_update(
+            pos,
+            waterlogged
+                .with_property_str("lit", "false")
+                .expect("lit property"),
+        );
     } else {
         level.set_block_and_update(pos, waterlogged);
     }

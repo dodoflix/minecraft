@@ -36,7 +36,14 @@ pub fn mob_add_additional_save_data(e: &dyn Entity, out: &mut CompoundTag) {
     leashable::write_leash_data(e, out);
     if m.has_home() {
         out.put_int("home_radius", m.home_radius);
-        out.put_int_array("home_pos", vec![m.home_position.x(), m.home_position.y(), m.home_position.z()]);
+        out.put_int_array(
+            "home_pos",
+            vec![
+                m.home_position.x(),
+                m.home_position.y(),
+                m.home_position.z(),
+            ],
+        );
     }
     out.put_boolean("LeftHanded", m.is_left_handed());
     if let Some(table) = &m.loot_table {
@@ -78,13 +85,19 @@ pub fn mob_read_additional_save_data(e: &mut dyn Entity, input: &CompoundTag) {
     leashable::read_leash_data(e, None, input);
     let m = e.mob_mut().expect("mob");
     m.persistence_required = input.get_boolean_or("PersistenceRequired", false);
-    m.drop_chances = input.get("drop_chances").and_then(DropChances::load).unwrap_or(DropChances::DEFAULT);
+    m.drop_chances = input
+        .get("drop_chances")
+        .and_then(DropChances::load)
+        .unwrap_or(DropChances::DEFAULT);
     m.home_radius = input.get_int_or("home_radius", -1);
     if m.home_radius >= 0 {
-        m.home_position = living::read_block_pos(input.get("home_pos")).unwrap_or(mc_core::pos::BlockPos::ZERO);
+        m.home_position =
+            living::read_block_pos(input.get("home_pos")).unwrap_or(mc_core::pos::BlockPos::ZERO);
     }
     m.set_left_handed(input.get_boolean_or("LeftHanded", false));
-    m.loot_table = input.get_string("DeathLootTable").and_then(|s| Identifier::try_parse(s));
+    m.loot_table = input
+        .get_string("DeathLootTable")
+        .and_then(|s| Identifier::try_parse(s));
     m.loot_table_seed = input.get_long_or("DeathLootTableSeed", 0);
     m.set_no_ai(input.get_boolean_or("NoAI", false));
 }

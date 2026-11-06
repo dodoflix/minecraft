@@ -14,10 +14,18 @@ pub struct RegionStorageInfo {
 
 impl RegionStorageInfo {
     pub fn new(level: impl Into<String>, dimension: Identifier, r#type: impl Into<String>) -> Self {
-        Self { level: level.into(), dimension, r#type: r#type.into() }
+        Self {
+            level: level.into(),
+            dimension,
+            r#type: r#type.into(),
+        }
     }
 
     pub fn with_type_suffix(&self, suffix: &str) -> Self {
-        Self { level: self.level.clone(), dimension: self.dimension.clone(), r#type: format!("{}{}", self.r#type, suffix) }
+        Self {
+            level: self.level.clone(),
+            dimension: self.dimension.clone(),
+            r#type: format!("{}{}", self.r#type, suffix),
+        }
     }
 }

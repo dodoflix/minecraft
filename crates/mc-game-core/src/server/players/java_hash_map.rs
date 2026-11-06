@@ -20,7 +20,11 @@ pub struct JavaHashMap<V> {
 
 impl<V> Default for JavaHashMap<V> {
     fn default() -> Self {
-        JavaHashMap { table: Vec::new(), size: 0, threshold: 0 }
+        JavaHashMap {
+            table: Vec::new(),
+            size: 0,
+            threshold: 0,
+        }
     }
 }
 
@@ -51,7 +55,10 @@ impl<V> JavaHashMap<V> {
             return None;
         }
         let hash = spread(key);
-        self.table[self.index(hash)].iter().find(|n| n.hash == hash && n.key == key).map(|n| &n.value)
+        self.table[self.index(hash)]
+            .iter()
+            .find(|n| n.hash == hash && n.key == key)
+            .map(|n| &n.value)
     }
 
     pub fn contains_key(&self, key: &str) -> bool {
@@ -65,7 +72,10 @@ impl<V> JavaHashMap<V> {
         }
         let hash = spread(&key);
         let idx = self.index(hash);
-        if let Some(node) = self.table[idx].iter_mut().find(|n| n.hash == hash && n.key == key) {
+        if let Some(node) = self.table[idx]
+            .iter_mut()
+            .find(|n| n.hash == hash && n.key == key)
+        {
             return Some(std::mem::replace(&mut node.value, value));
         }
         self.table[idx].push(Node { hash, key, value });
@@ -82,7 +92,9 @@ impl<V> JavaHashMap<V> {
         }
         let hash = spread(key);
         let idx = self.index(hash);
-        let pos = self.table[idx].iter().position(|n| n.hash == hash && n.key == key)?;
+        let pos = self.table[idx]
+            .iter()
+            .position(|n| n.hash == hash && n.key == key)?;
         self.size -= 1;
         Some(self.table[idx].remove(pos).value)
     }
@@ -96,7 +108,11 @@ impl<V> JavaHashMap<V> {
     }
 
     fn resize(&mut self) {
-        let new_cap = if self.table.is_empty() { 16 } else { self.table.len() * 2 };
+        let new_cap = if self.table.is_empty() {
+            16
+        } else {
+            self.table.len() * 2
+        };
         self.threshold = new_cap / 4 * 3;
         let old = std::mem::take(&mut self.table);
         self.table = (0..new_cap).map(|_| Vec::new()).collect();
@@ -109,7 +125,10 @@ impl<V> JavaHashMap<V> {
 
     /// Entries in Java iteration order.
     pub fn iter(&self) -> impl Iterator<Item = (&str, &V)> {
-        self.table.iter().flatten().map(|n| (n.key.as_str(), &n.value))
+        self.table
+            .iter()
+            .flatten()
+            .map(|n| (n.key.as_str(), &n.value))
     }
 
     pub fn values(&self) -> impl Iterator<Item = &V> {

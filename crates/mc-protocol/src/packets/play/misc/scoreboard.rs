@@ -57,7 +57,9 @@ impl Encode for NumberFormat {
             Self::Blank => write_varint(out, 0),
             Self::Styled(style) => {
                 write_varint(out, 1);
-                let tag = style.to_nbt().map_err(|e| crate::codec::EncodeError(format!("Failed to encode: {e} {style}")))?;
+                let tag = style.to_nbt().map_err(|e| {
+                    crate::codec::EncodeError(format!("Failed to encode: {e} {style}"))
+                })?;
                 encode_tag(&tag, out)?;
             }
             Self::Fixed(value) => {

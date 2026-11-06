@@ -3,10 +3,10 @@ use crate::common::*;
 use mc_core::ident::Identifier;
 use mc_core::phys::vec3::Vec3;
 use mc_data::{Attribute, Item, MobEffect};
-use mc_protocol::components::{ItemStack, DAMAGE, MAX_DAMAGE, MAX_STACK_SIZE, UNBREAKABLE};
-use mc_protocol::{Decode, Packet};
 use mc_protocol::codec::*;
+use mc_protocol::components::{DAMAGE, ItemStack, MAX_DAMAGE, MAX_STACK_SIZE, UNBREAKABLE};
 use mc_protocol::packets::play::*;
+use mc_protocol::{Decode, Packet};
 
 const IDS: [i32; 15] = [
     1,
@@ -258,7 +258,8 @@ fn swing_and_damage(g: &Golden) {
         source_cause_id: -1,
         source_direct_id: -1,
         source_position: None,
-    }).unwrap();
+    })
+    .unwrap();
     assert_eq!(b, [1, 0, 0, 0, 0]);
     b[3] = 0x80; // truncated VarInt
     assert!(from_bytes::<ClientboundDamageEventPacket>(&b).is_err());
@@ -650,8 +651,17 @@ fn mob_effects(g: &Golden) {
         },
     );
     // the wire field itself is a plain VarInt
-    let neg = ClientboundUpdateMobEffectPacket { entity_id: 3, effect: MobEffect::SPEED, effect_amplifier: -5, effect_duration_ticks: 20, flags: 6 };
-    assert_eq!(from_bytes::<ClientboundUpdateMobEffectPacket>(&to_bytes(&neg).unwrap()).unwrap(), neg);
+    let neg = ClientboundUpdateMobEffectPacket {
+        entity_id: 3,
+        effect: MobEffect::SPEED,
+        effect_amplifier: -5,
+        effect_duration_ticks: 20,
+        flags: 6,
+    };
+    assert_eq!(
+        from_bytes::<ClientboundUpdateMobEffectPacket>(&to_bytes(&neg).unwrap()).unwrap(),
+        neg
+    );
     // unknown flag bits are carried through (vanilla stores the raw byte)
     let p = ClientboundUpdateMobEffectPacket {
         entity_id: 1,
@@ -695,7 +705,11 @@ fn attributes(g: &Golden) {
                 base: DOUBLES[i % 11],
                 modifiers: (0..i)
                     .map(|m| AttributeModifier {
-                        id: id(&if m % 2 == 0 { "minecraft:effect.speed".to_string() } else { format!("mymod:mod/{m}") }),
+                        id: id(&if m % 2 == 0 {
+                            "minecraft:effect.speed".to_string()
+                        } else {
+                            format!("mymod:mod/{m}")
+                        }),
                         amount: DOUBLES[(m + i) % 11],
                         operation: ops[m % 3],
                     })
@@ -741,10 +755,20 @@ fn attributes(g: &Golden) {
         modifiers: vec![],
     });
     // `ByteBufCodecs.list(128)`: the encoder refuses 129 attributes...
-    let too_many = ClientboundUpdateAttributesPacket { entity_id: 1, attributes: over.clone() };
-    assert_eq!(to_bytes(&too_many).unwrap_err().to_string(), "129 elements exceeded max size of: 128");
+    let too_many = ClientboundUpdateAttributesPacket {
+        entity_id: 1,
+        attributes: over.clone(),
+    };
+    assert_eq!(
+        to_bytes(&too_many).unwrap_err().to_string(),
+        "129 elements exceeded max size of: 128"
+    );
     // ...and the decoder rejects a stream that carries them anyway: patch the count of the 128 element packet
-    let mut raw = to_bytes(&ClientboundUpdateAttributesPacket { entity_id: 1, attributes: over[..128].to_vec() }).unwrap();
+    let mut raw = to_bytes(&ClientboundUpdateAttributesPacket {
+        entity_id: 1,
+        attributes: over[..128].to_vec(),
+    })
+    .unwrap();
     raw.splice(1..3, [0x81, 0x01]); // VarInt entity id (1 byte), then the VarInt count 128 -> 129
     raw.extend(to_bytes(&over[128]).unwrap());
     assert_eq!(
@@ -865,23 +889,70 @@ fn equipment(g: &Golden) {
     stacks[7].set(MAX_DAMAGE, 2000);
     stacks[7].set(DAMAGE, 7);
     for i in 0..8 {
-        g.check(&format!("set_equipment/single{i}"), &ClientboundSetEquipmentPacket { entity: IDS[i], slots: vec![(slots[i], stacks[i].clone())] });
-        g.check(&format!("set_equipment/empty{i}"), &ClientboundSetEquipmentPacket { entity: IDS[i + 3], slots: vec![(slots[i], ItemStack::empty())] });
+        g.check(
+            &format!("set_equipment/single{i}"),
+            &ClientboundSetEquipmentPacket {
+                entity: IDS[i],
+                slots: vec![(slots[i], stacks[i].clone())],
+            },
+        );
+        g.check(
+            &format!("set_equipment/empty{i}"),
+            &ClientboundSetEquipmentPacket {
+                entity: IDS[i + 3],
+                slots: vec![(slots[i], ItemStack::empty())],
+            },
+        );
     }
     let all: Vec<_> = slots.into_iter().zip(stacks.iter().cloned()).collect();
-    g.check("set_equipment/all", &ClientboundSetEquipmentPacket { entity: 77, slots: all.clone() });
-    g.check("set_equipment/reversed", &ClientboundSetEquipmentPacket { entity: -77, slots: all.iter().rev().cloned().collect() });
-    g.check("set_equipment/two", &ClientboundSetEquipmentPacket { entity: 0, slots: vec![(Head, stacks[5].clone()), (MainHand, stacks[0].clone())] });
+    g.check(
+        "set_equipment/all",
+        &ClientboundSetEquipmentPacket {
+            entity: 77,
+            slots: all.clone(),
+        },
+    );
+    g.check(
+        "set_equipment/reversed",
+        &ClientboundSetEquipmentPacket {
+            entity: -77,
+            slots: all.iter().rev().cloned().collect(),
+        },
+    );
+    g.check(
+        "set_equipment/two",
+        &ClientboundSetEquipmentPacket {
+            entity: 0,
+            slots: vec![(Head, stacks[5].clone()), (MainHand, stacks[0].clone())],
+        },
+    );
     g.check(
         "set_equipment/dup",
-        &ClientboundSetEquipmentPacket { entity: 5, slots: vec![(Saddle, stacks[1].clone()), (Saddle, stacks[2].clone()), (Saddle, stacks[3].clone())] },
+        &ClientboundSetEquipmentPacket {
+            entity: 5,
+            slots: vec![
+                (Saddle, stacks[1].clone()),
+                (Saddle, stacks[2].clone()),
+                (Saddle, stacks[3].clone()),
+            ],
+        },
     );
     // An empty list writes only the entity id; vanilla's do/while cannot read it back: encode-only comparison.
     let mut ours = Vec::new();
     write_varint(&mut ours, ClientboundSetEquipmentPacket::ID);
-    mc_protocol::Encode::encode(&ClientboundSetEquipmentPacket { entity: 5, slots: vec![] }, &mut ours).unwrap();
+    mc_protocol::Encode::encode(
+        &ClientboundSetEquipmentPacket {
+            entity: 5,
+            slots: vec![],
+        },
+        &mut ours,
+    )
+    .unwrap();
     assert_eq!(hex(&ours), hex(g.bytes("set_equipment/none")));
-    assert!(matches!(ClientboundSetEquipmentPacket::decode(&mut &[5u8][..]), Err(DecodeError::Eof { .. })));
+    assert!(matches!(
+        ClientboundSetEquipmentPacket::decode(&mut &[5u8][..]),
+        Err(DecodeError::Eof { .. })
+    ));
     // slot ordinals 8..=127 index past `EquipmentSlot.VALUES`; bit 7 only means "continue"
     assert_eq!(
         ClientboundSetEquipmentPacket::decode(&mut &[1u8, 8, 0][..]),
@@ -892,7 +963,13 @@ fn equipment(g: &Golden) {
         Err(DecodeError::msg("Index 127 out of bounds for length 8"))
     );
     let two = ClientboundSetEquipmentPacket::decode(&mut &[1u8, 0x80, 0, 0x01, 0][..]).unwrap();
-    assert_eq!(two.slots, vec![(MainHand, ItemStack::empty()), (OffHand, ItemStack::empty())]);
+    assert_eq!(
+        two.slots,
+        vec![
+            (MainHand, ItemStack::empty()),
+            (OffHand, ItemStack::empty())
+        ]
+    );
 }
 
 #[test]

@@ -23,7 +23,9 @@ pub use memory_map::{BrainPacked, MemoryMap};
 pub use memory_module_type::{MemoryModuleType, MemoryTypeId};
 pub use nearest_visible_living_entities::NearestVisibleLivingEntities;
 pub use slot::MemorySlot;
-pub use value::{EntityRef, GlobalPosSet, MemoryData, MemoryValue, SharedDamageSource, SpearStatus, Unit, Void};
+pub use value::{
+    EntityRef, GlobalPosSet, MemoryData, MemoryValue, SharedDamageSource, SpearStatus, Unit, Void,
+};
 pub use walk_target::WalkTarget;
 
 pub use crate::world::entity::ai::behavior::position_tracker::PositionTracker;
@@ -46,11 +48,17 @@ pub struct ExpirableValue<T> {
 impl<T> ExpirableValue<T> {
     /// `ExpirableValue.of(value)`.
     pub fn of(value: T) -> Self {
-        Self { value, time_to_live: None }
+        Self {
+            value,
+            time_to_live: None,
+        }
     }
 
     /// `ExpirableValue.of(value, ticksUntilExpiry)`.
     pub fn with_ttl(value: T, ticks_until_expiry: i64) -> Self {
-        Self { value, time_to_live: Some(ticks_until_expiry) }
+        Self {
+            value,
+            time_to_live: Some(ticks_until_expiry),
+        }
     }
 }

@@ -16,16 +16,30 @@ fn golden() -> HashMap<String, Vec<u8>> {
         .lines()
         .map(|l| {
             let (label, hex) = l.split_once(':').unwrap();
-            (label.to_owned(), (0..hex.len()).step_by(2).map(|i| u8::from_str_radix(&hex[i..i + 2], 16).unwrap()).collect())
+            (
+                label.to_owned(),
+                (0..hex.len())
+                    .step_by(2)
+                    .map(|i| u8::from_str_radix(&hex[i..i + 2], 16).unwrap())
+                    .collect(),
+            )
         })
         .collect()
 }
 
 /// Encode `v`, compare with vanilla's bytes, decode vanilla's bytes back and compare with `v`.
-fn check<T: Encode + Decode + PartialEq + std::fmt::Debug>(g: &HashMap<String, Vec<u8>>, label: &str, v: T) {
+fn check<T: Encode + Decode + PartialEq + std::fmt::Debug>(
+    g: &HashMap<String, Vec<u8>>,
+    label: &str,
+    v: T,
+) {
     let expected = &g[label];
     assert_eq!(to_bytes(&v).unwrap(), *expected, "encode {label}");
-    assert_eq!(from_bytes::<T>(expected).unwrap_or_else(|e| panic!("decode {label}: {e}")), v, "decode {label}");
+    assert_eq!(
+        from_bytes::<T>(expected).unwrap_or_else(|e| panic!("decode {label}: {e}")),
+        v,
+        "decode {label}"
+    );
 }
 
 fn id(s: &str) -> Identifier {
@@ -53,11 +67,18 @@ fn lp_vec3() {
     ];
     for (i, v) in inputs.iter().enumerate() {
         let bytes = &g[&format!("lpvec3/{i}")];
-        assert_eq!(to_bytes(&LpVec3(Vec3::new(v[0], v[1], v[2]))).unwrap(), *bytes, "encode {i}");
+        assert_eq!(
+            to_bytes(&LpVec3(Vec3::new(v[0], v[1], v[2]))).unwrap(),
+            *bytes,
+            "encode {i}"
+        );
         // the decoded doubles, bit for bit
         let d = from_bytes::<LpVec3>(bytes).unwrap().0;
         let want = &g[&format!("lpvec3_decoded/{i}")];
-        let got: Vec<u8> = [d.x, d.y, d.z].iter().flat_map(|x| x.to_bits().to_be_bytes()).collect();
+        let got: Vec<u8> = [d.x, d.y, d.z]
+            .iter()
+            .flat_map(|x| x.to_bits().to_be_bytes())
+            .collect();
         assert_eq!(got, *want, "decode {i}");
     }
 }
@@ -66,20 +87,52 @@ fn lp_vec3() {
 fn positions() {
     let g = golden();
     check(&g, "vec3/0", Vec3::new(1.5, -2.25, 1e300));
-    check(&g, "vec3i/0", Vec3i { x: 1, y: -1, z: 300000 });
-    let bp = [[0, 0, 0], [1, 2, 3], [-1, -1, -1], [33554431, 2047, -33554432], [-33554432, -2048, 33554431], [123456, -64, -654321]];
+    check(
+        &g,
+        "vec3i/0",
+        Vec3i {
+            x: 1,
+            y: -1,
+            z: 300000,
+        },
+    );
+    let bp = [
+        [0, 0, 0],
+        [1, 2, 3],
+        [-1, -1, -1],
+        [33554431, 2047, -33554432],
+        [-33554432, -2048, 33554431],
+        [123456, -64, -654321],
+    ];
     for (i, p) in bp.iter().enumerate() {
-        check(&g, &format!("blockpos/{i}"), BlockPos::new(p[0], p[1], p[2]));
-        check(&g, &format!("sectionpos/{i}"), SectionPos::of(p[0] >> 4, p[1] >> 4, p[2] >> 4));
+        check(
+            &g,
+            &format!("blockpos/{i}"),
+            BlockPos::new(p[0], p[1], p[2]),
+        );
+        check(
+            &g,
+            &format!("sectionpos/{i}"),
+            SectionPos::of(p[0] >> 4, p[1] >> 4, p[2] >> 4),
+        );
         check(&g, &format!("chunkpos/{i}"), ChunkPos { x: p[0], z: p[2] });
     }
-    check(&g, "globalpos/0", GlobalPos { dimension: id("minecraft:the_nether"), pos: BlockPos::new(-5, 70, 12) });
+    check(
+        &g,
+        "globalpos/0",
+        GlobalPos {
+            dimension: id("minecraft:the_nether"),
+            pos: BlockPos::new(-5, 70, 12),
+        },
+    );
 }
 
 #[test]
 fn angles() {
     let g = golden();
-    let ang = [0.0f32, 90.0, -90.0, 180.0, 359.9, 360.0, -0.1, 1000.0, 1.4, -720.5];
+    let ang = [
+        0.0f32, 90.0, -90.0, 180.0, 359.9, 360.0, -0.1, 1000.0, 1.4, -720.5,
+    ];
     for (i, a) in ang.iter().enumerate() {
         let bytes = &g[&format!("angle/{i}")];
         assert_eq!(to_bytes(&Angle(*a)).unwrap(), *bytes, "encode {a}");
@@ -91,13 +144,28 @@ fn angles() {
 #[test]
 fn varints_and_strings() {
     let g = golden();
-    for (i, v) in [0, 1, 127, 128, 255, 25565, 2097151, i32::MAX, -1, i32::MIN].iter().enumerate() {
+    for (i, v) in [0, 1, 127, 128, 255, 25565, 2097151, i32::MAX, -1, i32::MIN]
+        .iter()
+        .enumerate()
+    {
         check(&g, &format!("varint/{i}"), VarInt(*v));
     }
-    for (i, v) in [0, 1, 127, 128, i64::MAX, -1, i64::MIN, 1 << 35].iter().enumerate() {
+    for (i, v) in [0, 1, 127, 128, i64::MAX, -1, i64::MIN, 1 << 35]
+        .iter()
+        .enumerate()
+    {
         check(&g, &format!("varlong/{i}"), VarLong(*v));
     }
-    for (i, s) in ["", "abc", "h\u{e9}llo \u{20ac}", "\u{1F600} emoji", "\u{0}nul"].iter().enumerate() {
+    for (i, s) in [
+        "",
+        "abc",
+        "h\u{e9}llo \u{20ac}",
+        "\u{1F600} emoji",
+        "\u{0}nul",
+    ]
+    .iter()
+    .enumerate()
+    {
         check(&g, &format!("string/{i}"), s.to_string());
     }
     check(&g, "optvarint/none", OptionalVarInt(None));
@@ -105,7 +173,11 @@ fn varints_and_strings() {
     check(&g, "optvarint/max", OptionalVarInt(Some(i32::MAX)));
     check(&g, "rgb/0", RgbColor(0xFF336699u32 as i32));
     check(&g, "instant/0", Instant(1700000000123));
-    check(&g, "uuid/0", Uuid::parse_str("069a79f4-44e9-4726-a5be-fca90e38aaf5").unwrap());
+    check(
+        &g,
+        "uuid/0",
+        Uuid::parse_str("069a79f4-44e9-4726-a5be-fca90e38aaf5").unwrap(),
+    );
 }
 
 #[test]
@@ -134,7 +206,11 @@ fn collections() {
         }
     }
     // SUPPORT = 2, ANNOUNCEMENTS = 9
-    check(&g, "enumset/0", [Link(2), Link(9)].into_iter().collect::<EnumSet<Link>>());
+    check(
+        &g,
+        "enumset/0",
+        [Link(2), Link(9)].into_iter().collect::<EnumSet<Link>>(),
+    );
     check(&g, "longarray/0", LongArray(vec![1, -2, i64::MAX]));
     check(&g, "bytearray/0", vec![1u8, 2, 3]);
     check(&g, "list/0", vec![VarInt(1), VarInt(300), VarInt(-1)]);

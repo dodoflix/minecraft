@@ -12,7 +12,9 @@ use mc_core::random::{LegacyRandomSource, WorldgenRandom};
 use mc_game::world::level::levelgen::holder::Holder;
 use mc_game::world::level::levelgen::registries::{Cells, DecodeCtx};
 use mc_game::world::level::levelgen::structure::piece::StructurePieceSerializationContext;
-use mc_game::world::level::levelgen::structure::structure::{GenerationContext, Structure, decode_direct};
+use mc_game::world::level::levelgen::structure::structure::{
+    GenerationContext, Structure, decode_direct,
+};
 use mc_game::world::level::levelgen::structure::{StructureManager, StructureStart};
 use mc_nbt::Tag;
 use mc_world::chunk::LevelHeight;
@@ -28,10 +30,18 @@ const UNDERGROUND_DECORATION: i32 = 6;
 /// are not ported yet).
 pub fn structure(name: &str) -> Holder<dyn Structure> {
     let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../ref/src/data");
-    let json: serde_json::Value = serde_json::from_slice(&std::fs::read(root.join(format!("minecraft/worldgen/structure/{name}.json"))).expect("structure json")).unwrap();
+    let json: serde_json::Value = serde_json::from_slice(
+        &std::fs::read(root.join(format!("minecraft/worldgen/structure/{name}.json")))
+            .expect("structure json"),
+    )
+    .unwrap();
     let source: Arc<dyn WorldgenDataSource> = Arc::new(FsDataSource::new(root));
     let cells = Cells::new(source);
-    let ctx = DecodeCtx { worldgen: &WORLD.worldgen, biomes: &WORLD.biomes, cells: &cells };
+    let ctx = DecodeCtx {
+        worldgen: &WORLD.worldgen,
+        biomes: &WORLD.biomes,
+        cells: &cells,
+    };
     Holder::direct(decode_direct(&json, &ctx).unwrap_or_else(|e| panic!("{name}.json: {e:?}")))
 }
 
@@ -63,7 +73,10 @@ fn fold(lines: Vec<String>) -> Vec<String> {
     for line in lines {
         if line.starts_with("B ") {
             let t: Vec<&str> = line.split(' ').collect();
-            let (x, z) = (t[1].parse::<i32>().unwrap().div_euclid(16), t[3].parse::<i32>().unwrap().div_euclid(16));
+            let (x, z) = (
+                t[1].parse::<i32>().unwrap().div_euclid(16),
+                t[3].parse::<i32>().unwrap().div_euclid(16),
+            );
             if group.as_ref().is_some_and(|g| (g.0, g.1) != (x, z)) {
                 flush(&mut group, &mut out);
             }
@@ -85,7 +98,10 @@ pub fn generate(structure: &Holder<dyn Structure>, seed: i64, cx: i32, cz: i32) 
     let valid = |_: BiomeId| true;
     let height: LevelHeight = level_height();
     let mut context = GenerationContext::new(&env, seed, ChunkPos::new(cx, cz), height, &valid);
-    let stub = structure.value().find_valid_generation_point(&mut context).expect("the structure always has a generation point");
+    let stub = structure
+        .value()
+        .find_valid_generation_point(&mut context)
+        .expect("the structure always has a generation point");
     let builder = stub.get_pieces_builder(&mut context);
     StructureStart::new(structure.clone(), ChunkPos::new(cx, cz), 0, builder.build())
 }
@@ -109,14 +125,26 @@ pub struct Stats {
 /// ones such as the spawn data's entity sort before it).
 fn snbt_string<'a>(line: &'a str, key: &str, last: bool) -> Option<&'a str> {
     let marker = format!("{key}:\"");
-    let from = if last { line.rfind(&marker)? } else { line.find(&marker)? } + marker.len();
+    let from = if last {
+        line.rfind(&marker)?
+    } else {
+        line.find(&marker)?
+    } + marker.len();
     Some(&line[from..from + line[from..].find('"')?])
 }
 
 /// Runs the whole fixture; panics listing every difference.
 /// `structure_of(i)` is the structure the oracle generated start number `i` (fixture order) with.
-pub fn run_fixture<'a>(fixture_name: &str, structure_of: &dyn Fn(usize) -> &'a Holder<dyn Structure>) -> Stats {
-    let path = std::env::var("FIXTURE").unwrap_or_else(|_| format!("{}/../mc-game/tests/fixtures/{fixture_name}", env!("CARGO_MANIFEST_DIR")));
+pub fn run_fixture<'a>(
+    fixture_name: &str,
+    structure_of: &dyn Fn(usize) -> &'a Holder<dyn Structure>,
+) -> Stats {
+    let path = std::env::var("FIXTURE").unwrap_or_else(|_| {
+        format!(
+            "{}/../mc-game/tests/fixtures/{fixture_name}",
+            env!("CARGO_MANIFEST_DIR")
+        )
+    });
     let fixture = std::fs::read_to_string(&path).unwrap_or_else(|e| panic!("fixture {path}: {e}"));
     let mut lines = fixture.lines().peekable();
     let mut stats = Stats::default();
@@ -124,21 +152,41 @@ pub fn run_fixture<'a>(fixture_name: &str, structure_of: &dyn Fn(usize) -> &'a H
     while let Some(header) = lines.next() {
         let h: Vec<&str> = header.split(' ').collect();
         assert_eq!(h[0], "START", "{header}");
-        let (seed, cx, cz, count) = (h[1].parse::<i64>().unwrap(), h[2].parse::<i32>().unwrap(), h[3].parse::<i32>().unwrap(), h[4].parse::<usize>().unwrap());
+        let (seed, cx, cz, count) = (
+            h[1].parse::<i64>().unwrap(),
+            h[2].parse::<i32>().unwrap(),
+            h[3].parse::<i32>().unwrap(),
+            h[4].parse::<usize>().unwrap(),
+        );
         let mut want_pieces = Vec::new();
         for _ in 0..count {
-            let line = lines.next().and_then(|l| l.strip_prefix("P ")).expect("piece line");
-            *stats.piece_ids.entry(snbt_string(line, "id", false).unwrap_or("?").to_owned()).or_default() += 1;
+            let line = lines
+                .next()
+                .and_then(|l| l.strip_prefix("P "))
+                .expect("piece line");
+            *stats
+                .piece_ids
+                .entry(snbt_string(line, "id", false).unwrap_or("?").to_owned())
+                .or_default() += 1;
             want_pieces.push(line.to_owned());
         }
         let mut start = generate(structure_of(stats.starts), seed, cx, cz);
         let env = gen_env(seed);
         let context = StructurePieceSerializationContext { env: &env };
-        let got_pieces: Vec<String> = start.piece_container.pieces.iter().map(|p| Tag::Compound(p.create_tag(&context)).to_string()).collect();
+        let got_pieces: Vec<String> = start
+            .piece_container
+            .pieces
+            .iter()
+            .map(|p| Tag::Compound(p.create_tag(&context)).to_string())
+            .collect();
         stats.pieces += count;
         stats.starts += 1;
         if got_pieces != want_pieces {
-            let first = got_pieces.iter().zip(&want_pieces).position(|(a, b)| a != b).unwrap_or(got_pieces.len().min(want_pieces.len()));
+            let first = got_pieces
+                .iter()
+                .zip(&want_pieces)
+                .position(|(a, b)| a != b)
+                .unwrap_or(got_pieces.len().min(want_pieces.len()));
             failures.push(format!(
                 "start {seed} {cx} {cz}: pieces differ at {first}: ours `{}`, vanilla `{}` ({} vs {} pieces)",
                 got_pieces.get(first).map_or("<none>", String::as_str),
@@ -154,7 +202,10 @@ pub fn run_fixture<'a>(fixture_name: &str, structure_of: &dyn Fn(usize) -> &'a H
         }
         while lines.peek().is_some_and(|l| l.starts_with("PLACE")) {
             let place: Vec<&str> = lines.next().unwrap().split(' ').collect();
-            let (px, pz) = (place[1].parse::<i32>().unwrap(), place[2].parse::<i32>().unwrap());
+            let (px, pz) = (
+                place[1].parse::<i32>().unwrap(),
+                place[2].parse::<i32>().unwrap(),
+            );
             let mut expected = Vec::new();
             for line in lines.by_ref() {
                 if line == "END" {
@@ -170,20 +221,40 @@ pub fn run_fixture<'a>(fixture_name: &str, structure_of: &dyn Fn(usize) -> &'a H
             let decoration_seed = random.set_decoration_seed(seed, px * 16, pz * 16);
             random.set_feature_seed(decoration_seed, 0, UNDERGROUND_DECORATION);
             let (min_x, min_z) = (px * 16, pz * 16);
-            let writable = BoundingBox::new(min_x, MIN_Y + 1, min_z, min_x + 15, MIN_Y + HEIGHT - 1, min_z + 15);
+            let writable = BoundingBox::new(
+                min_x,
+                MIN_Y + 1,
+                min_z,
+                min_x + 15,
+                MIN_Y + HEIGHT - 1,
+                min_z + 15,
+            );
             let manager = StructureManager::new(&env);
-            start.place_in_chunk(&mut level, &manager, &env, &mut random, &writable, ChunkPos::new(px, pz));
+            start.place_in_chunk(
+                &mut level,
+                &manager,
+                &env,
+                &mut random,
+                &writable,
+                ChunkPos::new(px, pz),
+            );
             let got = fold(dump(&mut level, &before));
             stats.placements += 1;
             stats.dump_lines += expected.len();
             for line in expected.iter().filter(|l| l.starts_with("E ")) {
-                *stats.block_entity_ids.entry(snbt_string(line, "id", true).unwrap_or("?").to_owned()).or_default() += 1;
+                *stats
+                    .block_entity_ids
+                    .entry(snbt_string(line, "id", true).unwrap_or("?").to_owned())
+                    .or_default() += 1;
                 if let Some(table) = snbt_string(line, "LootTable", false) {
                     *stats.loot_tables.entry(table.to_owned()).or_default() += 1;
                 }
             }
             for line in expected.iter().filter(|l| l.starts_with("N ")) {
-                *stats.entity_ids.entry(snbt_string(line, "id", true).unwrap_or("?").to_owned()).or_default() += 1;
+                *stats
+                    .entity_ids
+                    .entry(snbt_string(line, "id", true).unwrap_or("?").to_owned())
+                    .or_default() += 1;
                 if let Some(table) = snbt_string(line, "LootTable", false) {
                     *stats.loot_tables.entry(table.to_owned()).or_default() += 1;
                 }
@@ -194,7 +265,11 @@ pub fn run_fixture<'a>(fixture_name: &str, structure_of: &dyn Fn(usize) -> &'a H
                     .zip(&expected)
                     .enumerate()
                     .filter(|(_, (a, b))| a != b)
-                    .take(if std::env::var_os("NOFOLD").is_some() { 8 } else { 1 })
+                    .take(if std::env::var_os("NOFOLD").is_some() {
+                        8
+                    } else {
+                        1
+                    })
                     .map(|(i, (a, b))| format!("line {i}: ours `{a}`, vanilla `{b}`"))
                     .collect();
                 failures.push(format!(
@@ -206,6 +281,14 @@ pub fn run_fixture<'a>(fixture_name: &str, structure_of: &dyn Fn(usize) -> &'a H
             }
         }
     }
-    assert!(failures.is_empty(), "{} starts, {} pieces, {} placements, {} failures:\n{}", stats.starts, stats.pieces, stats.placements, failures.len(), failures.join("\n"));
+    assert!(
+        failures.is_empty(),
+        "{} starts, {} pieces, {} placements, {} failures:\n{}",
+        stats.starts,
+        stats.pieces,
+        stats.placements,
+        failures.len(),
+        failures.join("\n")
+    );
     stats
 }

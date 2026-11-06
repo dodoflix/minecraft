@@ -1,7 +1,7 @@
 //! `net.minecraft.world.level.block.StairBlock`.
+use mc_data::enums::StairsShape;
 use mc_game_core::register_block_class;
 use mc_game_core::world::level::block::impls::prelude::*;
-use mc_data::enums::StairsShape;
 
 pub struct StairBlock;
 
@@ -10,7 +10,12 @@ pub fn is_stairs(state: BlockState) -> bool {
     helpers::is_instance_of(state, "StairBlock")
 }
 
-fn can_take_shape(state: BlockState, level: &dyn BlockGetter, pos: BlockPos, neighbour: Direction) -> bool {
+fn can_take_shape(
+    state: BlockState,
+    level: &dyn BlockGetter,
+    pos: BlockPos,
+    neighbour: Direction,
+) -> bool {
     let neighbor_state = level.get_block_state(pos.relative(neighbour));
     !is_stairs(neighbor_state)
         || neighbor_state.get(props::HORIZONTAL_FACING) != state.get(props::HORIZONTAL_FACING)
@@ -35,7 +40,9 @@ pub fn get_stairs_shape(state: BlockState, level: &dyn BlockGetter, pos: BlockPo
     let front_state = level.get_block_state(pos.relative(facing.get_opposite()));
     if is_stairs(front_state) && state.get(props::HALF) == front_state.get(props::HALF) {
         let front_facing = front_state.get(props::HORIZONTAL_FACING);
-        if front_facing.get_axis() != state.get(props::HORIZONTAL_FACING).get_axis() && can_take_shape(state, level, pos, front_facing) {
+        if front_facing.get_axis() != state.get(props::HORIZONTAL_FACING).get_axis()
+            && can_take_shape(state, level, pos, front_facing)
+        {
             if front_facing == facing.get_counter_clockwise() {
                 return StairsShape::InnerLeft;
             }
@@ -47,19 +54,40 @@ pub fn get_stairs_shape(state: BlockState, level: &dyn BlockGetter, pos: BlockPo
 
 impl BlockBehaviour for StairBlock {
     mc_game_core::simple_waterlogged!();
-    fn is_pathfindable(&self, _state: BlockState, _ty: mc_data::block::PathComputationType) -> bool {
+    fn is_pathfindable(
+        &self,
+        _state: BlockState,
+        _ty: mc_data::block::PathComputationType,
+    ) -> bool {
         false
     }
-    fn get_state_for_placement(&self, block: Block, level: &mut mc_game_core::server::level::ServerLevel, context: &mc_game_core::world::item::BlockPlaceContext) -> Option<BlockState> {
+    fn get_state_for_placement(
+        &self,
+        block: Block,
+        level: &mut mc_game_core::server::level::ServerLevel,
+        context: &mc_game_core::world::item::BlockPlaceContext,
+    ) -> Option<BlockState> {
         let clicked_face = context.get_clicked_face();
         let pos = context.get_clicked_pos();
         let replaced_fluid_state = level.get_fluid_state(pos);
-        let bottom = clicked_face != Direction::Down && (clicked_face == Direction::Up || context.use_on.get_click_location().y - pos.y() as f64 <= 0.5);
+        let bottom = clicked_face != Direction::Down
+            && (clicked_face == Direction::Up
+                || context.use_on.get_click_location().y - pos.y() as f64 <= 0.5);
         let state = block
             .default_state()
             .set(props::HORIZONTAL_FACING, context.get_horizontal_direction())
-            .set(props::HALF, if bottom { mc_data::enums::Half::Bottom } else { mc_data::enums::Half::Top })
-            .set(props::WATERLOGGED, replaced_fluid_state.get_type() == mc_data::fluid::Fluid::WATER);
+            .set(
+                props::HALF,
+                if bottom {
+                    mc_data::enums::Half::Bottom
+                } else {
+                    mc_data::enums::Half::Top
+                },
+            )
+            .set(
+                props::WATERLOGGED,
+                replaced_fluid_state.get_type() == mc_data::fluid::Fluid::WATER,
+            );
         Some(state.set(props::STAIRS_SHAPE, get_stairs_shape(state, &*level, pos)))
     }
     fn update_shape(
@@ -98,7 +126,9 @@ impl BlockBehaviour for StairBlock {
             Mirror::FrontBack if direction.get_axis() == Axis::X => match shape {
                 StairsShape::Straight => rotated,
                 StairsShape::OuterLeft => rotated.set(props::STAIRS_SHAPE, StairsShape::OuterRight),
-                StairsShape::InnerRight => rotated.set(props::STAIRS_SHAPE, StairsShape::InnerRight),
+                StairsShape::InnerRight => {
+                    rotated.set(props::STAIRS_SHAPE, StairsShape::InnerRight)
+                }
                 StairsShape::InnerLeft => rotated.set(props::STAIRS_SHAPE, StairsShape::InnerLeft),
                 StairsShape::OuterRight => rotated.set(props::STAIRS_SHAPE, StairsShape::OuterLeft),
             },

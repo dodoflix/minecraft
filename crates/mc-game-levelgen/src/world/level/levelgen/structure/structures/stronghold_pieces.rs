@@ -6,16 +6,6 @@
 //! the [`StartPiece`]; pieces reach it through the `startPiece` argument of `addChildren`. `pendingChildren` holds the
 //! builder indices of the pieces still to expand.
 
-use mc_game_core::world::level::block::BlockStateExt;
-use mc_game_core::world::level::levelgen::block_entity_data::spawner_tag;
-use mc_game_core::world::level::levelgen::env::GenEnv;
-use mc_game_core::world::level::levelgen::structure::manager::StructureManager;
-use mc_game_core::world::level::levelgen::structure::piece::{
-    BlockSelector, PieceBase, STRUCTURE_PIECE_TYPES, StructurePiece, StructurePieceSerializationContext, StructurePieceType, cave_air, get_random_horizontal_direction,
-    make_bounding_box,
-};
-use mc_game_core::world::level::levelgen::structure::pieces::StructurePiecesBuilder;
-use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::bounding_box::BoundingBox;
 use mc_core::direction::Direction;
 use mc_core::pos::{BlockPos, ChunkPos};
@@ -23,6 +13,17 @@ use mc_core::random::RandomSource;
 use mc_data::block::{Block, BlockState};
 use mc_data::enums::{DoubleBlockHalf, SlabType};
 use mc_data::props;
+use mc_game_core::world::level::block::BlockStateExt;
+use mc_game_core::world::level::levelgen::block_entity_data::spawner_tag;
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::structure::manager::StructureManager;
+use mc_game_core::world::level::levelgen::structure::piece::{
+    BlockSelector, PieceBase, STRUCTURE_PIECE_TYPES, StructurePiece,
+    StructurePieceSerializationContext, StructurePieceType, cave_air,
+    get_random_horizontal_direction, make_bounding_box,
+};
+use mc_game_core::world::level::levelgen::structure::pieces::StructurePiecesBuilder;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_nbt::CompoundTag;
 
 const MAX_DEPTH: i32 = 50;
@@ -76,17 +77,72 @@ impl PieceWeight {
 
 /// `STRONGHOLD_PIECE_WEIGHTS`.
 const STRONGHOLD_PIECE_WEIGHTS: [PieceWeight; 11] = [
-    PieceWeight { piece_class: PieceClass::Straight, weight: 40, place_count: 0, max_place_count: 0 },
-    PieceWeight { piece_class: PieceClass::PrisonHall, weight: 5, place_count: 0, max_place_count: 5 },
-    PieceWeight { piece_class: PieceClass::LeftTurn, weight: 20, place_count: 0, max_place_count: 0 },
-    PieceWeight { piece_class: PieceClass::RightTurn, weight: 20, place_count: 0, max_place_count: 0 },
-    PieceWeight { piece_class: PieceClass::RoomCrossing, weight: 10, place_count: 0, max_place_count: 6 },
-    PieceWeight { piece_class: PieceClass::StraightStairsDown, weight: 5, place_count: 0, max_place_count: 5 },
-    PieceWeight { piece_class: PieceClass::StairsDown, weight: 5, place_count: 0, max_place_count: 5 },
-    PieceWeight { piece_class: PieceClass::FiveCrossing, weight: 5, place_count: 0, max_place_count: 4 },
-    PieceWeight { piece_class: PieceClass::ChestCorridor, weight: 5, place_count: 0, max_place_count: 4 },
-    PieceWeight { piece_class: PieceClass::Library, weight: 10, place_count: 0, max_place_count: 2 },
-    PieceWeight { piece_class: PieceClass::PortalRoom, weight: 20, place_count: 0, max_place_count: 1 },
+    PieceWeight {
+        piece_class: PieceClass::Straight,
+        weight: 40,
+        place_count: 0,
+        max_place_count: 0,
+    },
+    PieceWeight {
+        piece_class: PieceClass::PrisonHall,
+        weight: 5,
+        place_count: 0,
+        max_place_count: 5,
+    },
+    PieceWeight {
+        piece_class: PieceClass::LeftTurn,
+        weight: 20,
+        place_count: 0,
+        max_place_count: 0,
+    },
+    PieceWeight {
+        piece_class: PieceClass::RightTurn,
+        weight: 20,
+        place_count: 0,
+        max_place_count: 0,
+    },
+    PieceWeight {
+        piece_class: PieceClass::RoomCrossing,
+        weight: 10,
+        place_count: 0,
+        max_place_count: 6,
+    },
+    PieceWeight {
+        piece_class: PieceClass::StraightStairsDown,
+        weight: 5,
+        place_count: 0,
+        max_place_count: 5,
+    },
+    PieceWeight {
+        piece_class: PieceClass::StairsDown,
+        weight: 5,
+        place_count: 0,
+        max_place_count: 5,
+    },
+    PieceWeight {
+        piece_class: PieceClass::FiveCrossing,
+        weight: 5,
+        place_count: 0,
+        max_place_count: 4,
+    },
+    PieceWeight {
+        piece_class: PieceClass::ChestCorridor,
+        weight: 5,
+        place_count: 0,
+        max_place_count: 4,
+    },
+    PieceWeight {
+        piece_class: PieceClass::Library,
+        weight: 10,
+        place_count: 0,
+        max_place_count: 2,
+    },
+    PieceWeight {
+        piece_class: PieceClass::PortalRoom,
+        weight: 20,
+        place_count: 0,
+        max_place_count: 1,
+    },
 ];
 
 /// The generation state of one stronghold attempt: vanilla's statics (reset per attempt by `resetPieces`) plus the
@@ -157,7 +213,10 @@ impl StrongholdGenState {
 
 /// The start piece's generation state (`(StartPiece) startPiece` cast of the pieces' `addChildren`).
 fn gen_state(start_piece: Option<&mut dyn StructurePiece>) -> &mut StrongholdGenState {
-    &mut start_piece.and_then(|piece| piece.downcast_mut::<StartPiece>()).expect("stronghold pieces are expanded with the StartPiece").state
+    &mut start_piece
+        .and_then(|piece| piece.downcast_mut::<StartPiece>())
+        .expect("stronghold pieces are expanded with the StartPiece")
+        .state
 }
 
 /// `findAndCreatePieceFactory(pieceClass, builder, random, footX, footY, footZ, direction, depth)`.
@@ -174,17 +233,28 @@ fn find_and_create_piece_factory(
 ) -> Option<Box<dyn StructurePiece>> {
     let (b, r, x, y, z, d, g) = (builder, random, foot_x, foot_y, foot_z, direction, depth);
     match piece_class {
-        PieceClass::Straight => Straight::create_piece(b, r, x, y, z, d, g).map(|p| Box::new(p) as Box<dyn StructurePiece>),
-        PieceClass::PrisonHall => PrisonHall::create_piece(b, r, x, y, z, d, g).map(|p| Box::new(p) as Box<dyn StructurePiece>),
-        PieceClass::LeftTurn => LeftTurn::create_piece(b, r, x, y, z, d, g).map(|p| Box::new(p) as Box<dyn StructurePiece>),
-        PieceClass::RightTurn => RightTurn::create_piece(b, r, x, y, z, d, g).map(|p| Box::new(p) as Box<dyn StructurePiece>),
-        PieceClass::RoomCrossing => RoomCrossing::create_piece(b, r, x, y, z, d, g).map(|p| Box::new(p) as Box<dyn StructurePiece>),
-        PieceClass::StraightStairsDown => StraightStairsDown::create_piece(b, r, x, y, z, d, g).map(|p| Box::new(p) as Box<dyn StructurePiece>),
-        PieceClass::StairsDown => StairsDown::create_piece(b, r, x, y, z, d, g).map(|p| Box::new(p) as Box<dyn StructurePiece>),
-        PieceClass::FiveCrossing => FiveCrossing::create_piece(b, r, x, y, z, d, g).map(|p| Box::new(p) as Box<dyn StructurePiece>),
-        PieceClass::ChestCorridor => ChestCorridor::create_piece(b, r, x, y, z, d, g).map(|p| Box::new(p) as Box<dyn StructurePiece>),
-        PieceClass::Library => Library::create_piece(b, r, x, y, z, d, g).map(|p| Box::new(p) as Box<dyn StructurePiece>),
-        PieceClass::PortalRoom => PortalRoom::create_piece(b, x, y, z, d, g).map(|p| Box::new(p) as Box<dyn StructurePiece>),
+        PieceClass::Straight => Straight::create_piece(b, r, x, y, z, d, g)
+            .map(|p| Box::new(p) as Box<dyn StructurePiece>),
+        PieceClass::PrisonHall => PrisonHall::create_piece(b, r, x, y, z, d, g)
+            .map(|p| Box::new(p) as Box<dyn StructurePiece>),
+        PieceClass::LeftTurn => LeftTurn::create_piece(b, r, x, y, z, d, g)
+            .map(|p| Box::new(p) as Box<dyn StructurePiece>),
+        PieceClass::RightTurn => RightTurn::create_piece(b, r, x, y, z, d, g)
+            .map(|p| Box::new(p) as Box<dyn StructurePiece>),
+        PieceClass::RoomCrossing => RoomCrossing::create_piece(b, r, x, y, z, d, g)
+            .map(|p| Box::new(p) as Box<dyn StructurePiece>),
+        PieceClass::StraightStairsDown => StraightStairsDown::create_piece(b, r, x, y, z, d, g)
+            .map(|p| Box::new(p) as Box<dyn StructurePiece>),
+        PieceClass::StairsDown => StairsDown::create_piece(b, r, x, y, z, d, g)
+            .map(|p| Box::new(p) as Box<dyn StructurePiece>),
+        PieceClass::FiveCrossing => FiveCrossing::create_piece(b, r, x, y, z, d, g)
+            .map(|p| Box::new(p) as Box<dyn StructurePiece>),
+        PieceClass::ChestCorridor => ChestCorridor::create_piece(b, r, x, y, z, d, g)
+            .map(|p| Box::new(p) as Box<dyn StructurePiece>),
+        PieceClass::Library => Library::create_piece(b, r, x, y, z, d, g)
+            .map(|p| Box::new(p) as Box<dyn StructurePiece>),
+        PieceClass::PortalRoom => PortalRoom::create_piece(b, x, y, z, d, g)
+            .map(|p| Box::new(p) as Box<dyn StructurePiece>),
     }
 }
 
@@ -204,7 +274,9 @@ fn generate_piece_from_small_door(
         return None;
     }
     if let Some(imposed) = state.imposed_piece {
-        let piece = find_and_create_piece_factory(imposed, builder, random, foot_x, foot_y, foot_z, direction, depth);
+        let piece = find_and_create_piece_factory(
+            imposed, builder, random, foot_x, foot_y, foot_z, direction, depth,
+        );
         state.imposed_piece = None;
         if piece.is_some() {
             return piece;
@@ -224,7 +296,16 @@ fn generate_piece_from_small_door(
                 if !piece.do_place(depth) || Some(piece.piece_class) == state.previous_piece {
                     break;
                 }
-                let stronghold_piece = find_and_create_piece_factory(piece.piece_class, builder, random, foot_x, foot_y, foot_z, direction, depth);
+                let stronghold_piece = find_and_create_piece_factory(
+                    piece.piece_class,
+                    builder,
+                    random,
+                    foot_x,
+                    foot_y,
+                    foot_z,
+                    direction,
+                    depth,
+                );
                 if stronghold_piece.is_some() {
                     state.current_pieces[i].place_count += 1;
                     state.previous_piece = Some(piece.piece_class);
@@ -237,7 +318,8 @@ fn generate_piece_from_small_door(
         }
     }
 
-    let bounding_box = FillerCorridor::find_piece_box(builder, random, foot_x, foot_y, foot_z, direction);
+    let bounding_box =
+        FillerCorridor::find_piece_box(builder, random, foot_x, foot_y, foot_z, direction);
     match bounding_box {
         Some(bb) if bb.min_y() > 1 => Some(Box::new(FillerCorridor::new(depth, bb, direction))),
         _ => None,
@@ -260,8 +342,19 @@ fn generate_and_add_piece(
     if depth > MAX_DEPTH {
         return false;
     }
-    if foot_x.wrapping_sub(state.start_min_x).wrapping_abs() <= 112 && foot_z.wrapping_sub(state.start_min_z).wrapping_abs() <= 112 {
-        let new_piece = generate_piece_from_small_door(state, builder, random, foot_x, foot_y, foot_z, direction, depth + 1);
+    if foot_x.wrapping_sub(state.start_min_x).wrapping_abs() <= 112
+        && foot_z.wrapping_sub(state.start_min_z).wrapping_abs() <= 112
+    {
+        let new_piece = generate_piece_from_small_door(
+            state,
+            builder,
+            random,
+            foot_x,
+            foot_y,
+            foot_z,
+            direction,
+            depth + 1,
+        );
         if let Some(new_piece) = new_piece {
             state.pending_children.push(builder.len());
             builder.add_piece(new_piece);
@@ -311,19 +404,34 @@ struct StrongholdPieceData {
 }
 
 impl StrongholdPieceData {
-    fn new(piece_type: &'static StructurePieceType, gen_depth: i32, bounding_box: BoundingBox) -> StrongholdPieceData {
-        StrongholdPieceData { base: PieceBase::new(piece_type, gen_depth, bounding_box), entry_door: SmallDoorType::Opening }
+    fn new(
+        piece_type: &'static StructurePieceType,
+        gen_depth: i32,
+        bounding_box: BoundingBox,
+    ) -> StrongholdPieceData {
+        StrongholdPieceData {
+            base: PieceBase::new(piece_type, gen_depth, bounding_box),
+            entry_door: SmallDoorType::Opening,
+        }
     }
 
     /// `StrongholdPiece(type, direction...)` + `setOrientation(direction)`.
-    fn oriented(piece_type: &'static StructurePieceType, gen_depth: i32, bounding_box: BoundingBox, direction: Direction) -> StrongholdPieceData {
+    fn oriented(
+        piece_type: &'static StructurePieceType,
+        gen_depth: i32,
+        bounding_box: BoundingBox,
+        direction: Direction,
+    ) -> StrongholdPieceData {
         let mut data = StrongholdPieceData::new(piece_type, gen_depth, bounding_box);
         data.base.set_orientation(Some(direction));
         data
     }
 
     /// `StrongholdPiece(type, tag)`: `EntryDoor` is required.
-    fn load(piece_type: &'static StructurePieceType, tag: &CompoundTag) -> Result<StrongholdPieceData, String> {
+    fn load(
+        piece_type: &'static StructurePieceType,
+        tag: &CompoundTag,
+    ) -> Result<StrongholdPieceData, String> {
         let base = PieceBase::load(piece_type, tag)?;
         let entry_door = tag
             .get_string("EntryDoor")
@@ -357,12 +465,32 @@ fn is_ok_box(bounding_box: &BoundingBox) -> bool {
 trait StrongholdPiece: StructurePiece {
     /// `generateSmallDoor(level, random, chunkBB, doorType, footX, footY, footZ)` (the `random` is unused).
     #[allow(clippy::too_many_arguments)]
-    fn generate_small_door(&self, level: &mut dyn WorldGenLevel, chunk_bb: &BoundingBox, door_type: SmallDoorType, foot_x: i32, foot_y: i32, foot_z: i32) {
+    fn generate_small_door(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        chunk_bb: &BoundingBox,
+        door_type: SmallDoorType,
+        foot_x: i32,
+        foot_y: i32,
+        foot_z: i32,
+    ) {
         let (x, y, z) = (foot_x, foot_y, foot_z);
         let stone_bricks = Block::STONE_BRICKS.default_state();
         match door_type {
             SmallDoorType::Opening => {
-                self.generate_box(level, chunk_bb, x, y, z, x + 3 - 1, y + 3 - 1, z, cave_air(), cave_air(), false);
+                self.generate_box(
+                    level,
+                    chunk_bb,
+                    x,
+                    y,
+                    z,
+                    x + 3 - 1,
+                    y + 3 - 1,
+                    z,
+                    cave_air(),
+                    cave_air(),
+                    false,
+                );
             }
             SmallDoorType::WoodDoor => {
                 self.place_block(level, stone_bricks, x, y, z, chunk_bb);
@@ -372,8 +500,24 @@ trait StrongholdPiece: StructurePiece {
                 self.place_block(level, stone_bricks, x + 2, y + 2, z, chunk_bb);
                 self.place_block(level, stone_bricks, x + 2, y + 1, z, chunk_bb);
                 self.place_block(level, stone_bricks, x + 2, y, z, chunk_bb);
-                self.place_block(level, Block::OAK_DOOR.default_state(), x + 1, y, z, chunk_bb);
-                self.place_block(level, Block::OAK_DOOR.default_state().set(props::DOUBLE_BLOCK_HALF, DoubleBlockHalf::Upper), x + 1, y + 1, z, chunk_bb);
+                self.place_block(
+                    level,
+                    Block::OAK_DOOR.default_state(),
+                    x + 1,
+                    y,
+                    z,
+                    chunk_bb,
+                );
+                self.place_block(
+                    level,
+                    Block::OAK_DOOR
+                        .default_state()
+                        .set(props::DOUBLE_BLOCK_HALF, DoubleBlockHalf::Upper),
+                    x + 1,
+                    y + 1,
+                    z,
+                    chunk_bb,
+                );
             }
             SmallDoorType::Grates => {
                 self.place_block(level, cave_air(), x + 1, y, z, chunk_bb);
@@ -385,7 +529,14 @@ trait StrongholdPiece: StructurePiece {
                 self.place_block(level, bars_we, x, y + 2, z, chunk_bb);
                 self.place_block(level, bars_we, x + 1, y + 2, z, chunk_bb);
                 self.place_block(level, bars_we, x + 2, y + 2, z, chunk_bb);
-                self.place_block(level, bars.set(props::EAST, true), x + 2, y + 1, z, chunk_bb);
+                self.place_block(
+                    level,
+                    bars.set(props::EAST, true),
+                    x + 2,
+                    y + 1,
+                    z,
+                    chunk_bb,
+                );
                 self.place_block(level, bars.set(props::EAST, true), x + 2, y, z, chunk_bb);
             }
             SmallDoorType::IronDoor => {
@@ -396,16 +547,57 @@ trait StrongholdPiece: StructurePiece {
                 self.place_block(level, stone_bricks, x + 2, y + 2, z, chunk_bb);
                 self.place_block(level, stone_bricks, x + 2, y + 1, z, chunk_bb);
                 self.place_block(level, stone_bricks, x + 2, y, z, chunk_bb);
-                self.place_block(level, Block::IRON_DOOR.default_state(), x + 1, y, z, chunk_bb);
-                self.place_block(level, Block::IRON_DOOR.default_state().set(props::DOUBLE_BLOCK_HALF, DoubleBlockHalf::Upper), x + 1, y + 1, z, chunk_bb);
-                self.place_block(level, Block::STONE_BUTTON.default_state().set(props::HORIZONTAL_FACING, Direction::North), x + 2, y + 1, z + 1, chunk_bb);
-                self.place_block(level, Block::STONE_BUTTON.default_state().set(props::HORIZONTAL_FACING, Direction::South), x + 2, y + 1, z - 1, chunk_bb);
+                self.place_block(
+                    level,
+                    Block::IRON_DOOR.default_state(),
+                    x + 1,
+                    y,
+                    z,
+                    chunk_bb,
+                );
+                self.place_block(
+                    level,
+                    Block::IRON_DOOR
+                        .default_state()
+                        .set(props::DOUBLE_BLOCK_HALF, DoubleBlockHalf::Upper),
+                    x + 1,
+                    y + 1,
+                    z,
+                    chunk_bb,
+                );
+                self.place_block(
+                    level,
+                    Block::STONE_BUTTON
+                        .default_state()
+                        .set(props::HORIZONTAL_FACING, Direction::North),
+                    x + 2,
+                    y + 1,
+                    z + 1,
+                    chunk_bb,
+                );
+                self.place_block(
+                    level,
+                    Block::STONE_BUTTON
+                        .default_state()
+                        .set(props::HORIZONTAL_FACING, Direction::South),
+                    x + 2,
+                    y + 1,
+                    z - 1,
+                    chunk_bb,
+                );
             }
         }
     }
 
     /// `generateSmallDoorChildForward(startPiece, builder, random, xOff, yOff)`.
-    fn generate_small_door_child_forward(&self, state: &mut StrongholdGenState, builder: &mut StructurePiecesBuilder, random: &mut dyn RandomSource, x_off: i32, y_off: i32) {
+    fn generate_small_door_child_forward(
+        &self,
+        state: &mut StrongholdGenState,
+        builder: &mut StructurePiecesBuilder,
+        random: &mut dyn RandomSource,
+        x_off: i32,
+        y_off: i32,
+    ) {
         let base = self.base();
         let bb = base.bounding_box;
         let gen_depth = base.gen_depth;
@@ -416,33 +608,82 @@ trait StrongholdPiece: StructurePiece {
             Some(Direction::East) => (bb.max_x() + 1, bb.min_z() + x_off, Direction::East),
             _ => return,
         };
-        generate_and_add_piece(state, builder, random, x, bb.min_y() + y_off, z, direction, gen_depth);
+        generate_and_add_piece(
+            state,
+            builder,
+            random,
+            x,
+            bb.min_y() + y_off,
+            z,
+            direction,
+            gen_depth,
+        );
     }
 
     /// `generateSmallDoorChildLeft(startPiece, builder, random, yOff, zOff)`.
-    fn generate_small_door_child_left(&self, state: &mut StrongholdGenState, builder: &mut StructurePiecesBuilder, random: &mut dyn RandomSource, y_off: i32, z_off: i32) {
+    fn generate_small_door_child_left(
+        &self,
+        state: &mut StrongholdGenState,
+        builder: &mut StructurePiecesBuilder,
+        random: &mut dyn RandomSource,
+        y_off: i32,
+        z_off: i32,
+    ) {
         let base = self.base();
         let bb = base.bounding_box;
         let gen_depth = base.gen_depth;
         let (x, z, direction) = match base.orientation() {
-            Some(Direction::North | Direction::South) => (bb.min_x() - 1, bb.min_z() + z_off, Direction::West),
-            Some(Direction::West | Direction::East) => (bb.min_x() + z_off, bb.min_z() - 1, Direction::North),
+            Some(Direction::North | Direction::South) => {
+                (bb.min_x() - 1, bb.min_z() + z_off, Direction::West)
+            }
+            Some(Direction::West | Direction::East) => {
+                (bb.min_x() + z_off, bb.min_z() - 1, Direction::North)
+            }
             _ => return,
         };
-        generate_and_add_piece(state, builder, random, x, bb.min_y() + y_off, z, direction, gen_depth);
+        generate_and_add_piece(
+            state,
+            builder,
+            random,
+            x,
+            bb.min_y() + y_off,
+            z,
+            direction,
+            gen_depth,
+        );
     }
 
     /// `generateSmallDoorChildRight(startPiece, builder, random, yOff, zOff)`.
-    fn generate_small_door_child_right(&self, state: &mut StrongholdGenState, builder: &mut StructurePiecesBuilder, random: &mut dyn RandomSource, y_off: i32, z_off: i32) {
+    fn generate_small_door_child_right(
+        &self,
+        state: &mut StrongholdGenState,
+        builder: &mut StructurePiecesBuilder,
+        random: &mut dyn RandomSource,
+        y_off: i32,
+        z_off: i32,
+    ) {
         let base = self.base();
         let bb = base.bounding_box;
         let gen_depth = base.gen_depth;
         let (x, z, direction) = match base.orientation() {
-            Some(Direction::North | Direction::South) => (bb.max_x() + 1, bb.min_z() + z_off, Direction::East),
-            Some(Direction::West | Direction::East) => (bb.min_x() + z_off, bb.max_z() + 1, Direction::South),
+            Some(Direction::North | Direction::South) => {
+                (bb.max_x() + 1, bb.min_z() + z_off, Direction::East)
+            }
+            Some(Direction::West | Direction::East) => {
+                (bb.min_x() + z_off, bb.max_z() + 1, Direction::South)
+            }
             _ => return,
         };
-        generate_and_add_piece(state, builder, random, x, bb.min_y() + y_off, z, direction, gen_depth);
+        generate_and_add_piece(
+            state,
+            builder,
+            random,
+            x,
+            bb.min_y() + y_off,
+            z,
+            direction,
+            gen_depth,
+        );
     }
 }
 
@@ -453,7 +694,14 @@ struct SmoothStoneSelector {
 }
 
 impl BlockSelector for SmoothStoneSelector {
-    fn next(&mut self, random: &mut dyn RandomSource, _world_x: i32, _world_y: i32, _world_z: i32, is_edge: bool) {
+    fn next(
+        &mut self,
+        random: &mut dyn RandomSource,
+        _world_x: i32,
+        _world_y: i32,
+        _world_z: i32,
+        is_edge: bool,
+    ) {
         self.next = Some(if is_edge {
             let selection = random.next_float();
             if selection < 0.2 {
@@ -501,26 +749,55 @@ macro_rules! piece_type {
         pub static $name: StructurePieceType = StructurePieceType {
             id: $id,
             load: |_context, tag| {
-                let load: fn(&'static StructurePieceType, &CompoundTag) -> Result<Box<dyn StructurePiece>, String> = $load;
+                let load: fn(
+                    &'static StructurePieceType,
+                    &CompoundTag,
+                ) -> Result<Box<dyn StructurePiece>, String> = $load;
                 load(&$name, tag)
             },
         };
     };
 }
 
-piece_type!(STRONGHOLD_CHEST_CORRIDOR, "shcc", |t, tag| Ok(Box::new(ChestCorridor::load(t, tag)?)));
-piece_type!(STRONGHOLD_FILLER_CORRIDOR, "shfc", |t, tag| Ok(Box::new(FillerCorridor::load(t, tag)?)));
-piece_type!(STRONGHOLD_FIVE_CROSSING, "sh5c", |t, tag| Ok(Box::new(FiveCrossing::load(t, tag)?)));
-piece_type!(STRONGHOLD_LEFT_TURN, "shlt", |t, tag| Ok(Box::new(LeftTurn::load(t, tag)?)));
-piece_type!(STRONGHOLD_LIBRARY, "shli", |t, tag| Ok(Box::new(Library::load(t, tag)?)));
-piece_type!(STRONGHOLD_PORTAL_ROOM, "shpr", |t, tag| Ok(Box::new(PortalRoom::load(t, tag)?)));
-piece_type!(STRONGHOLD_PRISON_HALL, "shph", |t, tag| Ok(Box::new(PrisonHall::load(t, tag)?)));
-piece_type!(STRONGHOLD_RIGHT_TURN, "shrt", |t, tag| Ok(Box::new(RightTurn::load(t, tag)?)));
-piece_type!(STRONGHOLD_ROOM_CROSSING, "shrc", |t, tag| Ok(Box::new(RoomCrossing::load(t, tag)?)));
-piece_type!(STRONGHOLD_STAIRS_DOWN, "shsd", |t, tag| Ok(Box::new(StairsDown::load(t, tag)?)));
-piece_type!(STRONGHOLD_START, "shstart", |t, tag| Ok(Box::new(StartPiece::load(t, tag)?)));
-piece_type!(STRONGHOLD_STRAIGHT, "shs", |t, tag| Ok(Box::new(Straight::load(t, tag)?)));
-piece_type!(STRONGHOLD_STRAIGHT_STAIRS_DOWN, "shssd", |t, tag| Ok(Box::new(StraightStairsDown::load(t, tag)?)));
+piece_type!(STRONGHOLD_CHEST_CORRIDOR, "shcc", |t, tag| Ok(Box::new(
+    ChestCorridor::load(t, tag)?
+)));
+piece_type!(STRONGHOLD_FILLER_CORRIDOR, "shfc", |t, tag| Ok(Box::new(
+    FillerCorridor::load(t, tag)?
+)));
+piece_type!(STRONGHOLD_FIVE_CROSSING, "sh5c", |t, tag| Ok(Box::new(
+    FiveCrossing::load(t, tag)?
+)));
+piece_type!(STRONGHOLD_LEFT_TURN, "shlt", |t, tag| Ok(Box::new(
+    LeftTurn::load(t, tag)?
+)));
+piece_type!(STRONGHOLD_LIBRARY, "shli", |t, tag| Ok(Box::new(
+    Library::load(t, tag)?
+)));
+piece_type!(STRONGHOLD_PORTAL_ROOM, "shpr", |t, tag| Ok(Box::new(
+    PortalRoom::load(t, tag)?
+)));
+piece_type!(STRONGHOLD_PRISON_HALL, "shph", |t, tag| Ok(Box::new(
+    PrisonHall::load(t, tag)?
+)));
+piece_type!(STRONGHOLD_RIGHT_TURN, "shrt", |t, tag| Ok(Box::new(
+    RightTurn::load(t, tag)?
+)));
+piece_type!(STRONGHOLD_ROOM_CROSSING, "shrc", |t, tag| Ok(Box::new(
+    RoomCrossing::load(t, tag)?
+)));
+piece_type!(STRONGHOLD_STAIRS_DOWN, "shsd", |t, tag| Ok(Box::new(
+    StairsDown::load(t, tag)?
+)));
+piece_type!(STRONGHOLD_START, "shstart", |t, tag| Ok(Box::new(
+    StartPiece::load(t, tag)?
+)));
+piece_type!(STRONGHOLD_STRAIGHT, "shs", |t, tag| Ok(Box::new(
+    Straight::load(t, tag)?
+)));
+piece_type!(STRONGHOLD_STRAIGHT_STAIRS_DOWN, "shssd", |t, tag| Ok(
+    Box::new(StraightStairsDown::load(t, tag)?)
+));
 
 // ---------------------------------------------------------------------------------------------------------------------
 
@@ -533,31 +810,68 @@ pub struct ChestCorridor {
 stronghold_piece!(ChestCorridor);
 
 impl ChestCorridor {
-    fn new(gen_depth: i32, random: &mut dyn RandomSource, bounding_box: BoundingBox, direction: Direction) -> ChestCorridor {
-        let mut sh = StrongholdPieceData::oriented(&STRONGHOLD_CHEST_CORRIDOR, gen_depth, bounding_box, direction);
+    fn new(
+        gen_depth: i32,
+        random: &mut dyn RandomSource,
+        bounding_box: BoundingBox,
+        direction: Direction,
+    ) -> ChestCorridor {
+        let mut sh = StrongholdPieceData::oriented(
+            &STRONGHOLD_CHEST_CORRIDOR,
+            gen_depth,
+            bounding_box,
+            direction,
+        );
         sh.entry_door = random_small_door(random);
-        ChestCorridor { sh, has_placed_chest: false }
+        ChestCorridor {
+            sh,
+            has_placed_chest: false,
+        }
     }
 
-    fn load(piece_type: &'static StructurePieceType, tag: &CompoundTag) -> Result<ChestCorridor, String> {
-        Ok(ChestCorridor { sh: StrongholdPieceData::load(piece_type, tag)?, has_placed_chest: tag.get_boolean_or("Chest", false) })
+    fn load(
+        piece_type: &'static StructurePieceType,
+        tag: &CompoundTag,
+    ) -> Result<ChestCorridor, String> {
+        Ok(ChestCorridor {
+            sh: StrongholdPieceData::load(piece_type, tag)?,
+            has_placed_chest: tag.get_boolean_or("Chest", false),
+        })
     }
 
-    fn create_piece(builder: &StructurePiecesBuilder, random: &mut dyn RandomSource, foot_x: i32, foot_y: i32, foot_z: i32, direction: Direction, gen_depth: i32) -> Option<ChestCorridor> {
+    fn create_piece(
+        builder: &StructurePiecesBuilder,
+        random: &mut dyn RandomSource,
+        foot_x: i32,
+        foot_y: i32,
+        foot_z: i32,
+        direction: Direction,
+        gen_depth: i32,
+    ) -> Option<ChestCorridor> {
         let bb = BoundingBox::orient_box(foot_x, foot_y, foot_z, -1, -1, 0, 5, 5, 7, direction);
-        (is_ok_box(&bb) && builder.find_collision_piece(&bb).is_none()).then(|| ChestCorridor::new(gen_depth, random, bb, direction))
+        (is_ok_box(&bb) && builder.find_collision_piece(&bb).is_none())
+            .then(|| ChestCorridor::new(gen_depth, random, bb, direction))
     }
 }
 
 impl StructurePiece for ChestCorridor {
     base_accessors!();
 
-    fn add_additional_save_data(&self, _context: &StructurePieceSerializationContext<'_>, tag: &mut CompoundTag) {
+    fn add_additional_save_data(
+        &self,
+        _context: &StructurePieceSerializationContext<'_>,
+        tag: &mut CompoundTag,
+    ) {
         self.sh.save(tag);
         tag.put_boolean("Chest", self.has_placed_chest);
     }
 
-    fn add_children(&mut self, start_piece: Option<&mut dyn StructurePiece>, builder: &mut StructurePiecesBuilder, random: &mut dyn RandomSource) {
+    fn add_children(
+        &mut self,
+        start_piece: Option<&mut dyn StructurePiece>,
+        builder: &mut StructurePiecesBuilder,
+        random: &mut dyn RandomSource,
+    ) {
         self.generate_small_door_child_forward(gen_state(start_piece), builder, random, 1, 1);
     }
 
@@ -571,11 +885,35 @@ impl StructurePiece for ChestCorridor {
         _chunk_pos: ChunkPos,
         _reference_pos: BlockPos,
     ) {
-        self.generate_box_selector(level, chunk_bb, 0, 0, 0, 4, 4, 6, true, random, &mut SmoothStoneSelector::default());
+        self.generate_box_selector(
+            level,
+            chunk_bb,
+            0,
+            0,
+            0,
+            4,
+            4,
+            6,
+            true,
+            random,
+            &mut SmoothStoneSelector::default(),
+        );
         self.generate_small_door(level, chunk_bb, self.sh.entry_door, 1, 1, 0);
         self.generate_small_door(level, chunk_bb, SmallDoorType::Opening, 1, 1, 6);
         let stone_bricks = Block::STONE_BRICKS.default_state();
-        self.generate_box(level, chunk_bb, 3, 1, 2, 3, 1, 4, stone_bricks, stone_bricks, false);
+        self.generate_box(
+            level,
+            chunk_bb,
+            3,
+            1,
+            2,
+            3,
+            1,
+            4,
+            stone_bricks,
+            stone_bricks,
+            false,
+        );
         let slab = Block::STONE_BRICK_SLAB.default_state();
         self.place_block(level, slab, 3, 1, 1, chunk_bb);
         self.place_block(level, slab, 3, 1, 5, chunk_bb);
@@ -601,25 +939,60 @@ stronghold_piece!(FillerCorridor);
 
 impl FillerCorridor {
     fn new(gen_depth: i32, bounding_box: BoundingBox, direction: Direction) -> FillerCorridor {
-        let sh = StrongholdPieceData::oriented(&STRONGHOLD_FILLER_CORRIDOR, gen_depth, bounding_box, direction);
-        let steps = if direction != Direction::North && direction != Direction::South { bounding_box.get_x_span() } else { bounding_box.get_z_span() };
+        let sh = StrongholdPieceData::oriented(
+            &STRONGHOLD_FILLER_CORRIDOR,
+            gen_depth,
+            bounding_box,
+            direction,
+        );
+        let steps = if direction != Direction::North && direction != Direction::South {
+            bounding_box.get_x_span()
+        } else {
+            bounding_box.get_z_span()
+        };
         FillerCorridor { sh, steps }
     }
 
-    fn load(piece_type: &'static StructurePieceType, tag: &CompoundTag) -> Result<FillerCorridor, String> {
-        Ok(FillerCorridor { sh: StrongholdPieceData::load(piece_type, tag)?, steps: tag.get_int_or("Steps", 0) })
+    fn load(
+        piece_type: &'static StructurePieceType,
+        tag: &CompoundTag,
+    ) -> Result<FillerCorridor, String> {
+        Ok(FillerCorridor {
+            sh: StrongholdPieceData::load(piece_type, tag)?,
+            steps: tag.get_int_or("Steps", 0),
+        })
     }
 
     /// `findPieceBox(builder, random, footX, footY, footZ, direction)` (the `random` is unused).
-    fn find_piece_box(builder: &StructurePiecesBuilder, _random: &mut dyn RandomSource, foot_x: i32, foot_y: i32, foot_z: i32, direction: Direction) -> Option<BoundingBox> {
+    fn find_piece_box(
+        builder: &StructurePiecesBuilder,
+        _random: &mut dyn RandomSource,
+        foot_x: i32,
+        foot_y: i32,
+        foot_z: i32,
+        direction: Direction,
+    ) -> Option<BoundingBox> {
         let bb = BoundingBox::orient_box(foot_x, foot_y, foot_z, -1, -1, 0, 5, 5, 4, direction);
         let collision_piece = builder.find_collision_piece(&bb)?;
         let collision_box = collision_piece.get_bounding_box();
         if collision_box.min_y() == bb.min_y() {
             for depth in (1..=2).rev() {
-                let bb = BoundingBox::orient_box(foot_x, foot_y, foot_z, -1, -1, 0, 5, 5, depth, direction);
+                let bb = BoundingBox::orient_box(
+                    foot_x, foot_y, foot_z, -1, -1, 0, 5, 5, depth, direction,
+                );
                 if !collision_box.intersects(&bb) {
-                    return Some(BoundingBox::orient_box(foot_x, foot_y, foot_z, -1, -1, 0, 5, 5, depth + 1, direction));
+                    return Some(BoundingBox::orient_box(
+                        foot_x,
+                        foot_y,
+                        foot_z,
+                        -1,
+                        -1,
+                        0,
+                        5,
+                        5,
+                        depth + 1,
+                        direction,
+                    ));
                 }
             }
         }
@@ -630,7 +1003,11 @@ impl FillerCorridor {
 impl StructurePiece for FillerCorridor {
     base_accessors!();
 
-    fn add_additional_save_data(&self, _context: &StructurePieceSerializationContext<'_>, tag: &mut CompoundTag) {
+    fn add_additional_save_data(
+        &self,
+        _context: &StructurePieceSerializationContext<'_>,
+        tag: &mut CompoundTag,
+    ) {
         self.sh.save(tag);
         tag.put_int("Steps", self.steps);
     }
@@ -676,17 +1053,36 @@ pub struct FiveCrossing {
 stronghold_piece!(FiveCrossing);
 
 impl FiveCrossing {
-    fn new(gen_depth: i32, random: &mut dyn RandomSource, bounding_box: BoundingBox, direction: Direction) -> FiveCrossing {
-        let mut sh = StrongholdPieceData::oriented(&STRONGHOLD_FIVE_CROSSING, gen_depth, bounding_box, direction);
+    fn new(
+        gen_depth: i32,
+        random: &mut dyn RandomSource,
+        bounding_box: BoundingBox,
+        direction: Direction,
+    ) -> FiveCrossing {
+        let mut sh = StrongholdPieceData::oriented(
+            &STRONGHOLD_FIVE_CROSSING,
+            gen_depth,
+            bounding_box,
+            direction,
+        );
         sh.entry_door = random_small_door(random);
         let left_low = random.next_boolean();
         let left_high = random.next_boolean();
         let right_low = random.next_boolean();
         let right_high = random.next_int_bounded(3) > 0;
-        FiveCrossing { sh, left_low, left_high, right_low, right_high }
+        FiveCrossing {
+            sh,
+            left_low,
+            left_high,
+            right_low,
+            right_high,
+        }
     }
 
-    fn load(piece_type: &'static StructurePieceType, tag: &CompoundTag) -> Result<FiveCrossing, String> {
+    fn load(
+        piece_type: &'static StructurePieceType,
+        tag: &CompoundTag,
+    ) -> Result<FiveCrossing, String> {
         Ok(FiveCrossing {
             sh: StrongholdPieceData::load(piece_type, tag)?,
             left_low: tag.get_boolean_or("leftLow", false),
@@ -696,16 +1092,29 @@ impl FiveCrossing {
         })
     }
 
-    fn create_piece(builder: &StructurePiecesBuilder, random: &mut dyn RandomSource, foot_x: i32, foot_y: i32, foot_z: i32, direction: Direction, gen_depth: i32) -> Option<FiveCrossing> {
+    fn create_piece(
+        builder: &StructurePiecesBuilder,
+        random: &mut dyn RandomSource,
+        foot_x: i32,
+        foot_y: i32,
+        foot_z: i32,
+        direction: Direction,
+        gen_depth: i32,
+    ) -> Option<FiveCrossing> {
         let bb = BoundingBox::orient_box(foot_x, foot_y, foot_z, -4, -3, 0, 10, 9, 11, direction);
-        (is_ok_box(&bb) && builder.find_collision_piece(&bb).is_none()).then(|| FiveCrossing::new(gen_depth, random, bb, direction))
+        (is_ok_box(&bb) && builder.find_collision_piece(&bb).is_none())
+            .then(|| FiveCrossing::new(gen_depth, random, bb, direction))
     }
 }
 
 impl StructurePiece for FiveCrossing {
     base_accessors!();
 
-    fn add_additional_save_data(&self, _context: &StructurePieceSerializationContext<'_>, tag: &mut CompoundTag) {
+    fn add_additional_save_data(
+        &self,
+        _context: &StructurePieceSerializationContext<'_>,
+        tag: &mut CompoundTag,
+    ) {
         self.sh.save(tag);
         tag.put_boolean("leftLow", self.left_low);
         tag.put_boolean("leftHigh", self.left_high);
@@ -713,7 +1122,12 @@ impl StructurePiece for FiveCrossing {
         tag.put_boolean("rightHigh", self.right_high);
     }
 
-    fn add_children(&mut self, start_piece: Option<&mut dyn StructurePiece>, builder: &mut StructurePiecesBuilder, random: &mut dyn RandomSource) {
+    fn add_children(
+        &mut self,
+        start_piece: Option<&mut dyn StructurePiece>,
+        builder: &mut StructurePiecesBuilder,
+        random: &mut dyn RandomSource,
+    ) {
         let state = gen_state(start_piece);
         let mut z_off_a = 3;
         let mut z_off_b = 5;
@@ -748,7 +1162,19 @@ impl StructurePiece for FiveCrossing {
         _reference_pos: BlockPos,
     ) {
         let air = cave_air();
-        self.generate_box_selector(level, chunk_bb, 0, 0, 0, 9, 8, 10, true, random, &mut SmoothStoneSelector::default());
+        self.generate_box_selector(
+            level,
+            chunk_bb,
+            0,
+            0,
+            0,
+            9,
+            8,
+            10,
+            true,
+            random,
+            &mut SmoothStoneSelector::default(),
+        );
         self.generate_small_door(level, chunk_bb, self.sh.entry_door, 4, 3, 0);
         if self.left_low {
             self.generate_box(level, chunk_bb, 0, 3, 1, 0, 5, 3, air, air, false);
@@ -764,22 +1190,115 @@ impl StructurePiece for FiveCrossing {
         }
         self.generate_box(level, chunk_bb, 5, 1, 10, 7, 3, 10, air, air, false);
         let mut selector = SmoothStoneSelector::default();
-        self.generate_box_selector(level, chunk_bb, 1, 2, 1, 8, 2, 6, false, random, &mut selector);
-        self.generate_box_selector(level, chunk_bb, 4, 1, 5, 4, 4, 9, false, random, &mut selector);
-        self.generate_box_selector(level, chunk_bb, 8, 1, 5, 8, 4, 9, false, random, &mut selector);
-        self.generate_box_selector(level, chunk_bb, 1, 4, 7, 3, 4, 9, false, random, &mut selector);
-        self.generate_box_selector(level, chunk_bb, 1, 3, 5, 3, 3, 6, false, random, &mut selector);
+        self.generate_box_selector(
+            level,
+            chunk_bb,
+            1,
+            2,
+            1,
+            8,
+            2,
+            6,
+            false,
+            random,
+            &mut selector,
+        );
+        self.generate_box_selector(
+            level,
+            chunk_bb,
+            4,
+            1,
+            5,
+            4,
+            4,
+            9,
+            false,
+            random,
+            &mut selector,
+        );
+        self.generate_box_selector(
+            level,
+            chunk_bb,
+            8,
+            1,
+            5,
+            8,
+            4,
+            9,
+            false,
+            random,
+            &mut selector,
+        );
+        self.generate_box_selector(
+            level,
+            chunk_bb,
+            1,
+            4,
+            7,
+            3,
+            4,
+            9,
+            false,
+            random,
+            &mut selector,
+        );
+        self.generate_box_selector(
+            level,
+            chunk_bb,
+            1,
+            3,
+            5,
+            3,
+            3,
+            6,
+            false,
+            random,
+            &mut selector,
+        );
         let slab = Block::SMOOTH_STONE_SLAB.default_state();
         self.generate_box(level, chunk_bb, 1, 3, 4, 3, 3, 4, slab, slab, false);
         self.generate_box(level, chunk_bb, 1, 4, 6, 3, 4, 6, slab, slab, false);
-        self.generate_box_selector(level, chunk_bb, 5, 1, 7, 7, 1, 8, false, random, &mut selector);
+        self.generate_box_selector(
+            level,
+            chunk_bb,
+            5,
+            1,
+            7,
+            7,
+            1,
+            8,
+            false,
+            random,
+            &mut selector,
+        );
         self.generate_box(level, chunk_bb, 5, 1, 9, 7, 1, 9, slab, slab, false);
         self.generate_box(level, chunk_bb, 5, 2, 7, 7, 2, 7, slab, slab, false);
         self.generate_box(level, chunk_bb, 4, 5, 7, 4, 5, 9, slab, slab, false);
         self.generate_box(level, chunk_bb, 8, 5, 7, 8, 5, 9, slab, slab, false);
         let double_slab = slab.set(props::SLAB_TYPE, SlabType::Double);
-        self.generate_box(level, chunk_bb, 5, 5, 7, 7, 5, 9, double_slab, double_slab, false);
-        self.place_block(level, Block::WALL_TORCH.default_state().set(props::HORIZONTAL_FACING, Direction::South), 6, 5, 6, chunk_bb);
+        self.generate_box(
+            level,
+            chunk_bb,
+            5,
+            5,
+            7,
+            7,
+            5,
+            9,
+            double_slab,
+            double_slab,
+            false,
+        );
+        self.place_block(
+            level,
+            Block::WALL_TORCH
+                .default_state()
+                .set(props::HORIZONTAL_FACING, Direction::South),
+            6,
+            5,
+            6,
+            chunk_bb,
+        );
     }
 }
 
@@ -791,30 +1310,63 @@ pub struct LeftTurn {
 stronghold_piece!(LeftTurn);
 
 impl LeftTurn {
-    fn new(gen_depth: i32, random: &mut dyn RandomSource, bounding_box: BoundingBox, direction: Direction) -> LeftTurn {
-        let mut sh = StrongholdPieceData::oriented(&STRONGHOLD_LEFT_TURN, gen_depth, bounding_box, direction);
+    fn new(
+        gen_depth: i32,
+        random: &mut dyn RandomSource,
+        bounding_box: BoundingBox,
+        direction: Direction,
+    ) -> LeftTurn {
+        let mut sh = StrongholdPieceData::oriented(
+            &STRONGHOLD_LEFT_TURN,
+            gen_depth,
+            bounding_box,
+            direction,
+        );
         sh.entry_door = random_small_door(random);
         LeftTurn { sh }
     }
 
-    fn load(piece_type: &'static StructurePieceType, tag: &CompoundTag) -> Result<LeftTurn, String> {
-        Ok(LeftTurn { sh: StrongholdPieceData::load(piece_type, tag)? })
+    fn load(
+        piece_type: &'static StructurePieceType,
+        tag: &CompoundTag,
+    ) -> Result<LeftTurn, String> {
+        Ok(LeftTurn {
+            sh: StrongholdPieceData::load(piece_type, tag)?,
+        })
     }
 
-    fn create_piece(builder: &StructurePiecesBuilder, random: &mut dyn RandomSource, foot_x: i32, foot_y: i32, foot_z: i32, direction: Direction, gen_depth: i32) -> Option<LeftTurn> {
+    fn create_piece(
+        builder: &StructurePiecesBuilder,
+        random: &mut dyn RandomSource,
+        foot_x: i32,
+        foot_y: i32,
+        foot_z: i32,
+        direction: Direction,
+        gen_depth: i32,
+    ) -> Option<LeftTurn> {
         let bb = BoundingBox::orient_box(foot_x, foot_y, foot_z, -1, -1, 0, 5, 5, 5, direction);
-        (is_ok_box(&bb) && builder.find_collision_piece(&bb).is_none()).then(|| LeftTurn::new(gen_depth, random, bb, direction))
+        (is_ok_box(&bb) && builder.find_collision_piece(&bb).is_none())
+            .then(|| LeftTurn::new(gen_depth, random, bb, direction))
     }
 }
 
 impl StructurePiece for LeftTurn {
     base_accessors!();
 
-    fn add_additional_save_data(&self, _context: &StructurePieceSerializationContext<'_>, tag: &mut CompoundTag) {
+    fn add_additional_save_data(
+        &self,
+        _context: &StructurePieceSerializationContext<'_>,
+        tag: &mut CompoundTag,
+    ) {
         self.sh.save(tag);
     }
 
-    fn add_children(&mut self, start_piece: Option<&mut dyn StructurePiece>, builder: &mut StructurePiecesBuilder, random: &mut dyn RandomSource) {
+    fn add_children(
+        &mut self,
+        start_piece: Option<&mut dyn StructurePiece>,
+        builder: &mut StructurePiecesBuilder,
+        random: &mut dyn RandomSource,
+    ) {
         let state = gen_state(start_piece);
         let orientation = self.get_orientation();
         if orientation != Some(Direction::North) && orientation != Some(Direction::East) {
@@ -834,13 +1386,49 @@ impl StructurePiece for LeftTurn {
         _chunk_pos: ChunkPos,
         _reference_pos: BlockPos,
     ) {
-        self.generate_box_selector(level, chunk_bb, 0, 0, 0, 4, 4, 4, true, random, &mut SmoothStoneSelector::default());
+        self.generate_box_selector(
+            level,
+            chunk_bb,
+            0,
+            0,
+            0,
+            4,
+            4,
+            4,
+            true,
+            random,
+            &mut SmoothStoneSelector::default(),
+        );
         self.generate_small_door(level, chunk_bb, self.sh.entry_door, 1, 1, 0);
         let orientation = self.get_orientation();
         if orientation != Some(Direction::North) && orientation != Some(Direction::East) {
-            self.generate_box(level, chunk_bb, 4, 1, 1, 4, 3, 3, cave_air(), cave_air(), false);
+            self.generate_box(
+                level,
+                chunk_bb,
+                4,
+                1,
+                1,
+                4,
+                3,
+                3,
+                cave_air(),
+                cave_air(),
+                false,
+            );
         } else {
-            self.generate_box(level, chunk_bb, 0, 1, 1, 0, 3, 3, cave_air(), cave_air(), false);
+            self.generate_box(
+                level,
+                chunk_bb,
+                0,
+                1,
+                1,
+                0,
+                3,
+                3,
+                cave_air(),
+                cave_air(),
+                false,
+            );
         }
     }
 }
@@ -854,18 +1442,39 @@ pub struct Library {
 stronghold_piece!(Library);
 
 impl Library {
-    fn new(gen_depth: i32, random: &mut dyn RandomSource, bounding_box: BoundingBox, direction: Direction) -> Library {
-        let mut sh = StrongholdPieceData::oriented(&STRONGHOLD_LIBRARY, gen_depth, bounding_box, direction);
+    fn new(
+        gen_depth: i32,
+        random: &mut dyn RandomSource,
+        bounding_box: BoundingBox,
+        direction: Direction,
+    ) -> Library {
+        let mut sh =
+            StrongholdPieceData::oriented(&STRONGHOLD_LIBRARY, gen_depth, bounding_box, direction);
         sh.entry_door = random_small_door(random);
-        Library { sh, is_tall: bounding_box.get_y_span() > 6 }
+        Library {
+            sh,
+            is_tall: bounding_box.get_y_span() > 6,
+        }
     }
 
     fn load(piece_type: &'static StructurePieceType, tag: &CompoundTag) -> Result<Library, String> {
-        Ok(Library { sh: StrongholdPieceData::load(piece_type, tag)?, is_tall: tag.get_boolean_or("Tall", false) })
+        Ok(Library {
+            sh: StrongholdPieceData::load(piece_type, tag)?,
+            is_tall: tag.get_boolean_or("Tall", false),
+        })
     }
 
-    fn create_piece(builder: &StructurePiecesBuilder, random: &mut dyn RandomSource, foot_x: i32, foot_y: i32, foot_z: i32, direction: Direction, gen_depth: i32) -> Option<Library> {
-        let mut bb = BoundingBox::orient_box(foot_x, foot_y, foot_z, -4, -1, 0, 14, 11, 15, direction);
+    fn create_piece(
+        builder: &StructurePiecesBuilder,
+        random: &mut dyn RandomSource,
+        foot_x: i32,
+        foot_y: i32,
+        foot_z: i32,
+        direction: Direction,
+        gen_depth: i32,
+    ) -> Option<Library> {
+        let mut bb =
+            BoundingBox::orient_box(foot_x, foot_y, foot_z, -4, -1, 0, 14, 11, 15, direction);
         if !is_ok_box(&bb) || builder.find_collision_piece(&bb).is_some() {
             bb = BoundingBox::orient_box(foot_x, foot_y, foot_z, -4, -1, 0, 14, 6, 15, direction);
             if !is_ok_box(&bb) || builder.find_collision_piece(&bb).is_some() {
@@ -879,7 +1488,11 @@ impl Library {
 impl StructurePiece for Library {
     base_accessors!();
 
-    fn add_additional_save_data(&self, _context: &StructurePieceSerializationContext<'_>, tag: &mut CompoundTag) {
+    fn add_additional_save_data(
+        &self,
+        _context: &StructurePieceSerializationContext<'_>,
+        tag: &mut CompoundTag,
+    ) {
         self.sh.save(tag);
         tag.put_boolean("Tall", self.is_tall);
     }
@@ -895,36 +1508,82 @@ impl StructurePiece for Library {
         _reference_pos: BlockPos,
     ) {
         let current_height = if self.is_tall { 11 } else { 6 };
-        self.generate_box_selector(level, chunk_bb, 0, 0, 0, 13, current_height - 1, 14, true, random, &mut SmoothStoneSelector::default());
+        self.generate_box_selector(
+            level,
+            chunk_bb,
+            0,
+            0,
+            0,
+            13,
+            current_height - 1,
+            14,
+            true,
+            random,
+            &mut SmoothStoneSelector::default(),
+        );
         self.generate_small_door(level, chunk_bb, self.sh.entry_door, 4, 1, 0);
         let cobweb = Block::COBWEB.default_state();
-        self.generate_maybe_box(level, chunk_bb, random, 0.07, 2, 1, 1, 11, 4, 13, cobweb, cobweb, false, false);
+        self.generate_maybe_box(
+            level, chunk_bb, random, 0.07, 2, 1, 1, 11, 4, 13, cobweb, cobweb, false, false,
+        );
         let planks = Block::OAK_PLANKS.default_state();
         let bookshelf = Block::BOOKSHELF.default_state();
         for d in 1..=13 {
             if (d - 1) % 4 == 0 {
                 self.generate_box(level, chunk_bb, 1, 1, d, 1, 4, d, planks, planks, false);
                 self.generate_box(level, chunk_bb, 12, 1, d, 12, 4, d, planks, planks, false);
-                self.place_block(level, Block::WALL_TORCH.default_state().set(props::HORIZONTAL_FACING, Direction::East), 2, 3, d, chunk_bb);
-                self.place_block(level, Block::WALL_TORCH.default_state().set(props::HORIZONTAL_FACING, Direction::West), 11, 3, d, chunk_bb);
+                self.place_block(
+                    level,
+                    Block::WALL_TORCH
+                        .default_state()
+                        .set(props::HORIZONTAL_FACING, Direction::East),
+                    2,
+                    3,
+                    d,
+                    chunk_bb,
+                );
+                self.place_block(
+                    level,
+                    Block::WALL_TORCH
+                        .default_state()
+                        .set(props::HORIZONTAL_FACING, Direction::West),
+                    11,
+                    3,
+                    d,
+                    chunk_bb,
+                );
                 if self.is_tall {
                     self.generate_box(level, chunk_bb, 1, 6, d, 1, 9, d, planks, planks, false);
                     self.generate_box(level, chunk_bb, 12, 6, d, 12, 9, d, planks, planks, false);
                 }
             } else {
-                self.generate_box(level, chunk_bb, 1, 1, d, 1, 4, d, bookshelf, bookshelf, false);
-                self.generate_box(level, chunk_bb, 12, 1, d, 12, 4, d, bookshelf, bookshelf, false);
+                self.generate_box(
+                    level, chunk_bb, 1, 1, d, 1, 4, d, bookshelf, bookshelf, false,
+                );
+                self.generate_box(
+                    level, chunk_bb, 12, 1, d, 12, 4, d, bookshelf, bookshelf, false,
+                );
                 if self.is_tall {
-                    self.generate_box(level, chunk_bb, 1, 6, d, 1, 9, d, bookshelf, bookshelf, false);
-                    self.generate_box(level, chunk_bb, 12, 6, d, 12, 9, d, bookshelf, bookshelf, false);
+                    self.generate_box(
+                        level, chunk_bb, 1, 6, d, 1, 9, d, bookshelf, bookshelf, false,
+                    );
+                    self.generate_box(
+                        level, chunk_bb, 12, 6, d, 12, 9, d, bookshelf, bookshelf, false,
+                    );
                 }
             }
         }
         let mut dx = 3;
         while dx < 12 {
-            self.generate_box(level, chunk_bb, 3, 1, dx, 4, 3, dx, bookshelf, bookshelf, false);
-            self.generate_box(level, chunk_bb, 6, 1, dx, 7, 3, dx, bookshelf, bookshelf, false);
-            self.generate_box(level, chunk_bb, 9, 1, dx, 10, 3, dx, bookshelf, bookshelf, false);
+            self.generate_box(
+                level, chunk_bb, 3, 1, dx, 4, 3, dx, bookshelf, bookshelf, false,
+            );
+            self.generate_box(
+                level, chunk_bb, 6, 1, dx, 7, 3, dx, bookshelf, bookshelf, false,
+            );
+            self.generate_box(
+                level, chunk_bb, 9, 1, dx, 10, 3, dx, bookshelf, bookshelf, false,
+            );
             dx += 2;
         }
         if self.is_tall {
@@ -938,20 +1597,63 @@ impl StructurePiece for Library {
             let fence = Block::OAK_FENCE.default_state();
             let we_fence = fence.set(props::WEST, true).set(props::EAST, true);
             let ns_fence = fence.set(props::NORTH, true).set(props::SOUTH, true);
-            self.generate_box(level, chunk_bb, 3, 6, 3, 3, 6, 11, ns_fence, ns_fence, false);
-            self.generate_box(level, chunk_bb, 10, 6, 3, 10, 6, 9, ns_fence, ns_fence, false);
+            self.generate_box(
+                level, chunk_bb, 3, 6, 3, 3, 6, 11, ns_fence, ns_fence, false,
+            );
+            self.generate_box(
+                level, chunk_bb, 10, 6, 3, 10, 6, 9, ns_fence, ns_fence, false,
+            );
             self.generate_box(level, chunk_bb, 4, 6, 2, 9, 6, 2, we_fence, we_fence, false);
-            self.generate_box(level, chunk_bb, 4, 6, 12, 7, 6, 12, we_fence, we_fence, false);
-            self.place_block(level, fence.set(props::NORTH, true).set(props::EAST, true), 3, 6, 2, chunk_bb);
-            self.place_block(level, fence.set(props::SOUTH, true).set(props::EAST, true), 3, 6, 12, chunk_bb);
-            self.place_block(level, fence.set(props::NORTH, true).set(props::WEST, true), 10, 6, 2, chunk_bb);
+            self.generate_box(
+                level, chunk_bb, 4, 6, 12, 7, 6, 12, we_fence, we_fence, false,
+            );
+            self.place_block(
+                level,
+                fence.set(props::NORTH, true).set(props::EAST, true),
+                3,
+                6,
+                2,
+                chunk_bb,
+            );
+            self.place_block(
+                level,
+                fence.set(props::SOUTH, true).set(props::EAST, true),
+                3,
+                6,
+                12,
+                chunk_bb,
+            );
+            self.place_block(
+                level,
+                fence.set(props::NORTH, true).set(props::WEST, true),
+                10,
+                6,
+                2,
+                chunk_bb,
+            );
             for i in 0..=2 {
-                self.place_block(level, fence.set(props::SOUTH, true).set(props::WEST, true), 8 + i, 6, 12 - i, chunk_bb);
+                self.place_block(
+                    level,
+                    fence.set(props::SOUTH, true).set(props::WEST, true),
+                    8 + i,
+                    6,
+                    12 - i,
+                    chunk_bb,
+                );
                 if i != 2 {
-                    self.place_block(level, fence.set(props::NORTH, true).set(props::EAST, true), 8 + i, 6, 11 - i, chunk_bb);
+                    self.place_block(
+                        level,
+                        fence.set(props::NORTH, true).set(props::EAST, true),
+                        8 + i,
+                        6,
+                        11 - i,
+                        chunk_bb,
+                    );
                 }
             }
-            let ladder = Block::LADDER.default_state().set(props::HORIZONTAL_FACING, Direction::South);
+            let ladder = Block::LADDER
+                .default_state()
+                .set(props::HORIZONTAL_FACING, Direction::South);
             for y in 1..=7 {
                 self.place_block(level, ladder, 10, y, 13, chunk_bb);
             }
@@ -996,28 +1698,59 @@ stronghold_piece!(PortalRoom);
 
 impl PortalRoom {
     fn new(gen_depth: i32, bounding_box: BoundingBox, direction: Direction) -> PortalRoom {
-        PortalRoom { sh: StrongholdPieceData::oriented(&STRONGHOLD_PORTAL_ROOM, gen_depth, bounding_box, direction), has_placed_spawner: false }
+        PortalRoom {
+            sh: StrongholdPieceData::oriented(
+                &STRONGHOLD_PORTAL_ROOM,
+                gen_depth,
+                bounding_box,
+                direction,
+            ),
+            has_placed_spawner: false,
+        }
     }
 
-    fn load(piece_type: &'static StructurePieceType, tag: &CompoundTag) -> Result<PortalRoom, String> {
-        Ok(PortalRoom { sh: StrongholdPieceData::load(piece_type, tag)?, has_placed_spawner: tag.get_boolean_or("Mob", false) })
+    fn load(
+        piece_type: &'static StructurePieceType,
+        tag: &CompoundTag,
+    ) -> Result<PortalRoom, String> {
+        Ok(PortalRoom {
+            sh: StrongholdPieceData::load(piece_type, tag)?,
+            has_placed_spawner: tag.get_boolean_or("Mob", false),
+        })
     }
 
-    fn create_piece(builder: &StructurePiecesBuilder, foot_x: i32, foot_y: i32, foot_z: i32, direction: Direction, gen_depth: i32) -> Option<PortalRoom> {
+    fn create_piece(
+        builder: &StructurePiecesBuilder,
+        foot_x: i32,
+        foot_y: i32,
+        foot_z: i32,
+        direction: Direction,
+        gen_depth: i32,
+    ) -> Option<PortalRoom> {
         let bb = BoundingBox::orient_box(foot_x, foot_y, foot_z, -4, -1, 0, 11, 8, 16, direction);
-        (is_ok_box(&bb) && builder.find_collision_piece(&bb).is_none()).then(|| PortalRoom::new(gen_depth, bb, direction))
+        (is_ok_box(&bb) && builder.find_collision_piece(&bb).is_none())
+            .then(|| PortalRoom::new(gen_depth, bb, direction))
     }
 }
 
 impl StructurePiece for PortalRoom {
     base_accessors!();
 
-    fn add_additional_save_data(&self, _context: &StructurePieceSerializationContext<'_>, tag: &mut CompoundTag) {
+    fn add_additional_save_data(
+        &self,
+        _context: &StructurePieceSerializationContext<'_>,
+        tag: &mut CompoundTag,
+    ) {
         self.sh.save(tag);
         tag.put_boolean("Mob", self.has_placed_spawner);
     }
 
-    fn add_children(&mut self, start_piece: Option<&mut dyn StructurePiece>, _builder: &mut StructurePiecesBuilder, _random: &mut dyn RandomSource) {
+    fn add_children(
+        &mut self,
+        start_piece: Option<&mut dyn StructurePiece>,
+        _builder: &mut StructurePiecesBuilder,
+        _random: &mut dyn RandomSource,
+    ) {
         if start_piece.is_some() {
             gen_state(start_piece).portal_room_locator = Some(self.get_locator_position());
         }
@@ -1034,21 +1767,123 @@ impl StructurePiece for PortalRoom {
         _reference_pos: BlockPos,
     ) {
         let mut selector = SmoothStoneSelector::default();
-        self.generate_box_selector(level, chunk_bb, 0, 0, 0, 10, 7, 15, false, random, &mut selector);
+        self.generate_box_selector(
+            level,
+            chunk_bb,
+            0,
+            0,
+            0,
+            10,
+            7,
+            15,
+            false,
+            random,
+            &mut selector,
+        );
         self.generate_small_door(level, chunk_bb, SmallDoorType::Grates, 4, 1, 0);
-        self.generate_box_selector(level, chunk_bb, 1, 6, 1, 1, 6, 14, false, random, &mut selector);
-        self.generate_box_selector(level, chunk_bb, 9, 6, 1, 9, 6, 14, false, random, &mut selector);
-        self.generate_box_selector(level, chunk_bb, 2, 6, 1, 8, 6, 2, false, random, &mut selector);
-        self.generate_box_selector(level, chunk_bb, 2, 6, 14, 8, 6, 14, false, random, &mut selector);
-        self.generate_box_selector(level, chunk_bb, 1, 1, 1, 2, 1, 4, false, random, &mut selector);
-        self.generate_box_selector(level, chunk_bb, 8, 1, 1, 9, 1, 4, false, random, &mut selector);
+        self.generate_box_selector(
+            level,
+            chunk_bb,
+            1,
+            6,
+            1,
+            1,
+            6,
+            14,
+            false,
+            random,
+            &mut selector,
+        );
+        self.generate_box_selector(
+            level,
+            chunk_bb,
+            9,
+            6,
+            1,
+            9,
+            6,
+            14,
+            false,
+            random,
+            &mut selector,
+        );
+        self.generate_box_selector(
+            level,
+            chunk_bb,
+            2,
+            6,
+            1,
+            8,
+            6,
+            2,
+            false,
+            random,
+            &mut selector,
+        );
+        self.generate_box_selector(
+            level,
+            chunk_bb,
+            2,
+            6,
+            14,
+            8,
+            6,
+            14,
+            false,
+            random,
+            &mut selector,
+        );
+        self.generate_box_selector(
+            level,
+            chunk_bb,
+            1,
+            1,
+            1,
+            2,
+            1,
+            4,
+            false,
+            random,
+            &mut selector,
+        );
+        self.generate_box_selector(
+            level,
+            chunk_bb,
+            8,
+            1,
+            1,
+            9,
+            1,
+            4,
+            false,
+            random,
+            &mut selector,
+        );
         let lava = Block::LAVA.default_state();
         self.generate_box(level, chunk_bb, 1, 1, 1, 1, 1, 3, lava, lava, false);
         self.generate_box(level, chunk_bb, 9, 1, 1, 9, 1, 3, lava, lava, false);
-        self.generate_box_selector(level, chunk_bb, 3, 1, 8, 7, 1, 12, false, random, &mut selector);
+        self.generate_box_selector(
+            level,
+            chunk_bb,
+            3,
+            1,
+            8,
+            7,
+            1,
+            12,
+            false,
+            random,
+            &mut selector,
+        );
         self.generate_box(level, chunk_bb, 4, 1, 9, 6, 1, 11, lava, lava, false);
-        let ns_bars = Block::IRON_BARS.default_state().set(props::NORTH, true).set(props::SOUTH, true);
-        let we_bars = Block::IRON_BARS.default_state().set(props::WEST, true).set(props::EAST, true);
+        let ns_bars = Block::IRON_BARS
+            .default_state()
+            .set(props::NORTH, true)
+            .set(props::SOUTH, true);
+        let we_bars = Block::IRON_BARS
+            .default_state()
+            .set(props::WEST, true)
+            .set(props::EAST, true);
         let mut z = 3;
         while z < 14 {
             self.generate_box(level, chunk_bb, 0, 3, z, 0, 4, z, ns_bars, ns_bars, false);
@@ -1060,10 +1895,48 @@ impl StructurePiece for PortalRoom {
             self.generate_box(level, chunk_bb, x, 3, 15, x, 4, 15, we_bars, we_bars, false);
             x += 2;
         }
-        let stairs = Block::STONE_BRICK_STAIRS.default_state().set(props::HORIZONTAL_FACING, Direction::North);
-        self.generate_box_selector(level, chunk_bb, 4, 1, 5, 6, 1, 7, false, random, &mut selector);
-        self.generate_box_selector(level, chunk_bb, 4, 2, 6, 6, 2, 7, false, random, &mut selector);
-        self.generate_box_selector(level, chunk_bb, 4, 3, 7, 6, 3, 7, false, random, &mut selector);
+        let stairs = Block::STONE_BRICK_STAIRS
+            .default_state()
+            .set(props::HORIZONTAL_FACING, Direction::North);
+        self.generate_box_selector(
+            level,
+            chunk_bb,
+            4,
+            1,
+            5,
+            6,
+            1,
+            7,
+            false,
+            random,
+            &mut selector,
+        );
+        self.generate_box_selector(
+            level,
+            chunk_bb,
+            4,
+            2,
+            6,
+            6,
+            2,
+            7,
+            false,
+            random,
+            &mut selector,
+        );
+        self.generate_box_selector(
+            level,
+            chunk_bb,
+            4,
+            3,
+            7,
+            6,
+            3,
+            7,
+            false,
+            random,
+            &mut selector,
+        );
         for x in 4..=6 {
             self.place_block(level, stairs, x, 1, 4, chunk_bb);
             self.place_block(level, stairs, x, 2, 5, chunk_bb);
@@ -1080,18 +1953,102 @@ impl StructurePiece for PortalRoom {
             *eye = random.next_float() > 0.9;
             all_eyes &= *eye;
         }
-        self.place_block(level, north_frame.set(props::EYE, eyes[0]), 4, 3, 8, chunk_bb);
-        self.place_block(level, north_frame.set(props::EYE, eyes[1]), 5, 3, 8, chunk_bb);
-        self.place_block(level, north_frame.set(props::EYE, eyes[2]), 6, 3, 8, chunk_bb);
-        self.place_block(level, south_frame.set(props::EYE, eyes[3]), 4, 3, 12, chunk_bb);
-        self.place_block(level, south_frame.set(props::EYE, eyes[4]), 5, 3, 12, chunk_bb);
-        self.place_block(level, south_frame.set(props::EYE, eyes[5]), 6, 3, 12, chunk_bb);
-        self.place_block(level, east_frame.set(props::EYE, eyes[6]), 3, 3, 9, chunk_bb);
-        self.place_block(level, east_frame.set(props::EYE, eyes[7]), 3, 3, 10, chunk_bb);
-        self.place_block(level, east_frame.set(props::EYE, eyes[8]), 3, 3, 11, chunk_bb);
-        self.place_block(level, west_frame.set(props::EYE, eyes[9]), 7, 3, 9, chunk_bb);
-        self.place_block(level, west_frame.set(props::EYE, eyes[10]), 7, 3, 10, chunk_bb);
-        self.place_block(level, west_frame.set(props::EYE, eyes[11]), 7, 3, 11, chunk_bb);
+        self.place_block(
+            level,
+            north_frame.set(props::EYE, eyes[0]),
+            4,
+            3,
+            8,
+            chunk_bb,
+        );
+        self.place_block(
+            level,
+            north_frame.set(props::EYE, eyes[1]),
+            5,
+            3,
+            8,
+            chunk_bb,
+        );
+        self.place_block(
+            level,
+            north_frame.set(props::EYE, eyes[2]),
+            6,
+            3,
+            8,
+            chunk_bb,
+        );
+        self.place_block(
+            level,
+            south_frame.set(props::EYE, eyes[3]),
+            4,
+            3,
+            12,
+            chunk_bb,
+        );
+        self.place_block(
+            level,
+            south_frame.set(props::EYE, eyes[4]),
+            5,
+            3,
+            12,
+            chunk_bb,
+        );
+        self.place_block(
+            level,
+            south_frame.set(props::EYE, eyes[5]),
+            6,
+            3,
+            12,
+            chunk_bb,
+        );
+        self.place_block(
+            level,
+            east_frame.set(props::EYE, eyes[6]),
+            3,
+            3,
+            9,
+            chunk_bb,
+        );
+        self.place_block(
+            level,
+            east_frame.set(props::EYE, eyes[7]),
+            3,
+            3,
+            10,
+            chunk_bb,
+        );
+        self.place_block(
+            level,
+            east_frame.set(props::EYE, eyes[8]),
+            3,
+            3,
+            11,
+            chunk_bb,
+        );
+        self.place_block(
+            level,
+            west_frame.set(props::EYE, eyes[9]),
+            7,
+            3,
+            9,
+            chunk_bb,
+        );
+        self.place_block(
+            level,
+            west_frame.set(props::EYE, eyes[10]),
+            7,
+            3,
+            10,
+            chunk_bb,
+        );
+        self.place_block(
+            level,
+            west_frame.set(props::EYE, eyes[11]),
+            7,
+            3,
+            11,
+            chunk_bb,
+        );
         if all_eyes {
             let portal = Block::END_PORTAL.default_state();
             for portal_z in 9..=11 {
@@ -1121,30 +2078,63 @@ pub struct PrisonHall {
 stronghold_piece!(PrisonHall);
 
 impl PrisonHall {
-    fn new(gen_depth: i32, random: &mut dyn RandomSource, bounding_box: BoundingBox, direction: Direction) -> PrisonHall {
-        let mut sh = StrongholdPieceData::oriented(&STRONGHOLD_PRISON_HALL, gen_depth, bounding_box, direction);
+    fn new(
+        gen_depth: i32,
+        random: &mut dyn RandomSource,
+        bounding_box: BoundingBox,
+        direction: Direction,
+    ) -> PrisonHall {
+        let mut sh = StrongholdPieceData::oriented(
+            &STRONGHOLD_PRISON_HALL,
+            gen_depth,
+            bounding_box,
+            direction,
+        );
         sh.entry_door = random_small_door(random);
         PrisonHall { sh }
     }
 
-    fn load(piece_type: &'static StructurePieceType, tag: &CompoundTag) -> Result<PrisonHall, String> {
-        Ok(PrisonHall { sh: StrongholdPieceData::load(piece_type, tag)? })
+    fn load(
+        piece_type: &'static StructurePieceType,
+        tag: &CompoundTag,
+    ) -> Result<PrisonHall, String> {
+        Ok(PrisonHall {
+            sh: StrongholdPieceData::load(piece_type, tag)?,
+        })
     }
 
-    fn create_piece(builder: &StructurePiecesBuilder, random: &mut dyn RandomSource, foot_x: i32, foot_y: i32, foot_z: i32, direction: Direction, gen_depth: i32) -> Option<PrisonHall> {
+    fn create_piece(
+        builder: &StructurePiecesBuilder,
+        random: &mut dyn RandomSource,
+        foot_x: i32,
+        foot_y: i32,
+        foot_z: i32,
+        direction: Direction,
+        gen_depth: i32,
+    ) -> Option<PrisonHall> {
         let bb = BoundingBox::orient_box(foot_x, foot_y, foot_z, -1, -1, 0, 9, 5, 11, direction);
-        (is_ok_box(&bb) && builder.find_collision_piece(&bb).is_none()).then(|| PrisonHall::new(gen_depth, random, bb, direction))
+        (is_ok_box(&bb) && builder.find_collision_piece(&bb).is_none())
+            .then(|| PrisonHall::new(gen_depth, random, bb, direction))
     }
 }
 
 impl StructurePiece for PrisonHall {
     base_accessors!();
 
-    fn add_additional_save_data(&self, _context: &StructurePieceSerializationContext<'_>, tag: &mut CompoundTag) {
+    fn add_additional_save_data(
+        &self,
+        _context: &StructurePieceSerializationContext<'_>,
+        tag: &mut CompoundTag,
+    ) {
         self.sh.save(tag);
     }
 
-    fn add_children(&mut self, start_piece: Option<&mut dyn StructurePiece>, builder: &mut StructurePiecesBuilder, random: &mut dyn RandomSource) {
+    fn add_children(
+        &mut self,
+        start_piece: Option<&mut dyn StructurePiece>,
+        builder: &mut StructurePiecesBuilder,
+        random: &mut dyn RandomSource,
+    ) {
         self.generate_small_door_child_forward(gen_state(start_piece), builder, random, 1, 1);
     }
 
@@ -1159,13 +2149,85 @@ impl StructurePiece for PrisonHall {
         _reference_pos: BlockPos,
     ) {
         let mut selector = SmoothStoneSelector::default();
-        self.generate_box_selector(level, chunk_bb, 0, 0, 0, 8, 4, 10, true, random, &mut selector);
+        self.generate_box_selector(
+            level,
+            chunk_bb,
+            0,
+            0,
+            0,
+            8,
+            4,
+            10,
+            true,
+            random,
+            &mut selector,
+        );
         self.generate_small_door(level, chunk_bb, self.sh.entry_door, 1, 1, 0);
-        self.generate_box(level, chunk_bb, 1, 1, 10, 3, 3, 10, cave_air(), cave_air(), false);
-        self.generate_box_selector(level, chunk_bb, 4, 1, 1, 4, 3, 1, false, random, &mut selector);
-        self.generate_box_selector(level, chunk_bb, 4, 1, 3, 4, 3, 3, false, random, &mut selector);
-        self.generate_box_selector(level, chunk_bb, 4, 1, 7, 4, 3, 7, false, random, &mut selector);
-        self.generate_box_selector(level, chunk_bb, 4, 1, 9, 4, 3, 9, false, random, &mut selector);
+        self.generate_box(
+            level,
+            chunk_bb,
+            1,
+            1,
+            10,
+            3,
+            3,
+            10,
+            cave_air(),
+            cave_air(),
+            false,
+        );
+        self.generate_box_selector(
+            level,
+            chunk_bb,
+            4,
+            1,
+            1,
+            4,
+            3,
+            1,
+            false,
+            random,
+            &mut selector,
+        );
+        self.generate_box_selector(
+            level,
+            chunk_bb,
+            4,
+            1,
+            3,
+            4,
+            3,
+            3,
+            false,
+            random,
+            &mut selector,
+        );
+        self.generate_box_selector(
+            level,
+            chunk_bb,
+            4,
+            1,
+            7,
+            4,
+            3,
+            7,
+            false,
+            random,
+            &mut selector,
+        );
+        self.generate_box_selector(
+            level,
+            chunk_bb,
+            4,
+            1,
+            9,
+            4,
+            3,
+            9,
+            false,
+            random,
+            &mut selector,
+        );
         let bars = Block::IRON_BARS.default_state();
         let ns_bars = bars.set(props::NORTH, true).set(props::SOUTH, true);
         let we_bars = bars.set(props::WEST, true).set(props::EAST, true);
@@ -1179,7 +2241,9 @@ impl StructurePiece for PrisonHall {
         }
         self.place_block(level, ns_bars, 4, 3, 2, chunk_bb);
         self.place_block(level, ns_bars, 4, 3, 8, chunk_bb);
-        let door_bottom = Block::IRON_DOOR.default_state().set(props::HORIZONTAL_FACING, Direction::West);
+        let door_bottom = Block::IRON_DOOR
+            .default_state()
+            .set(props::HORIZONTAL_FACING, Direction::West);
         let door_top = door_bottom.set(props::DOUBLE_BLOCK_HALF, DoubleBlockHalf::Upper);
         self.place_block(level, door_bottom, 4, 1, 2, chunk_bb);
         self.place_block(level, door_top, 4, 2, 2, chunk_bb);
@@ -1196,30 +2260,63 @@ pub struct RightTurn {
 stronghold_piece!(RightTurn);
 
 impl RightTurn {
-    fn new(gen_depth: i32, random: &mut dyn RandomSource, bounding_box: BoundingBox, direction: Direction) -> RightTurn {
-        let mut sh = StrongholdPieceData::oriented(&STRONGHOLD_RIGHT_TURN, gen_depth, bounding_box, direction);
+    fn new(
+        gen_depth: i32,
+        random: &mut dyn RandomSource,
+        bounding_box: BoundingBox,
+        direction: Direction,
+    ) -> RightTurn {
+        let mut sh = StrongholdPieceData::oriented(
+            &STRONGHOLD_RIGHT_TURN,
+            gen_depth,
+            bounding_box,
+            direction,
+        );
         sh.entry_door = random_small_door(random);
         RightTurn { sh }
     }
 
-    fn load(piece_type: &'static StructurePieceType, tag: &CompoundTag) -> Result<RightTurn, String> {
-        Ok(RightTurn { sh: StrongholdPieceData::load(piece_type, tag)? })
+    fn load(
+        piece_type: &'static StructurePieceType,
+        tag: &CompoundTag,
+    ) -> Result<RightTurn, String> {
+        Ok(RightTurn {
+            sh: StrongholdPieceData::load(piece_type, tag)?,
+        })
     }
 
-    fn create_piece(builder: &StructurePiecesBuilder, random: &mut dyn RandomSource, foot_x: i32, foot_y: i32, foot_z: i32, direction: Direction, gen_depth: i32) -> Option<RightTurn> {
+    fn create_piece(
+        builder: &StructurePiecesBuilder,
+        random: &mut dyn RandomSource,
+        foot_x: i32,
+        foot_y: i32,
+        foot_z: i32,
+        direction: Direction,
+        gen_depth: i32,
+    ) -> Option<RightTurn> {
         let bb = BoundingBox::orient_box(foot_x, foot_y, foot_z, -1, -1, 0, 5, 5, 5, direction);
-        (is_ok_box(&bb) && builder.find_collision_piece(&bb).is_none()).then(|| RightTurn::new(gen_depth, random, bb, direction))
+        (is_ok_box(&bb) && builder.find_collision_piece(&bb).is_none())
+            .then(|| RightTurn::new(gen_depth, random, bb, direction))
     }
 }
 
 impl StructurePiece for RightTurn {
     base_accessors!();
 
-    fn add_additional_save_data(&self, _context: &StructurePieceSerializationContext<'_>, tag: &mut CompoundTag) {
+    fn add_additional_save_data(
+        &self,
+        _context: &StructurePieceSerializationContext<'_>,
+        tag: &mut CompoundTag,
+    ) {
         self.sh.save(tag);
     }
 
-    fn add_children(&mut self, start_piece: Option<&mut dyn StructurePiece>, builder: &mut StructurePiecesBuilder, random: &mut dyn RandomSource) {
+    fn add_children(
+        &mut self,
+        start_piece: Option<&mut dyn StructurePiece>,
+        builder: &mut StructurePiecesBuilder,
+        random: &mut dyn RandomSource,
+    ) {
         let state = gen_state(start_piece);
         let orientation = self.get_orientation();
         if orientation != Some(Direction::North) && orientation != Some(Direction::East) {
@@ -1239,13 +2336,49 @@ impl StructurePiece for RightTurn {
         _chunk_pos: ChunkPos,
         _reference_pos: BlockPos,
     ) {
-        self.generate_box_selector(level, chunk_bb, 0, 0, 0, 4, 4, 4, true, random, &mut SmoothStoneSelector::default());
+        self.generate_box_selector(
+            level,
+            chunk_bb,
+            0,
+            0,
+            0,
+            4,
+            4,
+            4,
+            true,
+            random,
+            &mut SmoothStoneSelector::default(),
+        );
         self.generate_small_door(level, chunk_bb, self.sh.entry_door, 1, 1, 0);
         let orientation = self.get_orientation();
         if orientation != Some(Direction::North) && orientation != Some(Direction::East) {
-            self.generate_box(level, chunk_bb, 0, 1, 1, 0, 3, 3, cave_air(), cave_air(), false);
+            self.generate_box(
+                level,
+                chunk_bb,
+                0,
+                1,
+                1,
+                0,
+                3,
+                3,
+                cave_air(),
+                cave_air(),
+                false,
+            );
         } else {
-            self.generate_box(level, chunk_bb, 4, 1, 1, 4, 3, 3, cave_air(), cave_air(), false);
+            self.generate_box(
+                level,
+                chunk_bb,
+                4,
+                1,
+                1,
+                4,
+                3,
+                3,
+                cave_air(),
+                cave_air(),
+                false,
+            );
         }
     }
 }
@@ -1259,31 +2392,68 @@ pub struct RoomCrossing {
 stronghold_piece!(RoomCrossing);
 
 impl RoomCrossing {
-    fn new(gen_depth: i32, random: &mut dyn RandomSource, bounding_box: BoundingBox, direction: Direction) -> RoomCrossing {
-        let mut sh = StrongholdPieceData::oriented(&STRONGHOLD_ROOM_CROSSING, gen_depth, bounding_box, direction);
+    fn new(
+        gen_depth: i32,
+        random: &mut dyn RandomSource,
+        bounding_box: BoundingBox,
+        direction: Direction,
+    ) -> RoomCrossing {
+        let mut sh = StrongholdPieceData::oriented(
+            &STRONGHOLD_ROOM_CROSSING,
+            gen_depth,
+            bounding_box,
+            direction,
+        );
         sh.entry_door = random_small_door(random);
-        RoomCrossing { sh, type_: random.next_int_bounded(5) }
+        RoomCrossing {
+            sh,
+            type_: random.next_int_bounded(5),
+        }
     }
 
-    fn load(piece_type: &'static StructurePieceType, tag: &CompoundTag) -> Result<RoomCrossing, String> {
-        Ok(RoomCrossing { sh: StrongholdPieceData::load(piece_type, tag)?, type_: tag.get_int_or("Type", 0) })
+    fn load(
+        piece_type: &'static StructurePieceType,
+        tag: &CompoundTag,
+    ) -> Result<RoomCrossing, String> {
+        Ok(RoomCrossing {
+            sh: StrongholdPieceData::load(piece_type, tag)?,
+            type_: tag.get_int_or("Type", 0),
+        })
     }
 
-    fn create_piece(builder: &StructurePiecesBuilder, random: &mut dyn RandomSource, foot_x: i32, foot_y: i32, foot_z: i32, direction: Direction, gen_depth: i32) -> Option<RoomCrossing> {
+    fn create_piece(
+        builder: &StructurePiecesBuilder,
+        random: &mut dyn RandomSource,
+        foot_x: i32,
+        foot_y: i32,
+        foot_z: i32,
+        direction: Direction,
+        gen_depth: i32,
+    ) -> Option<RoomCrossing> {
         let bb = BoundingBox::orient_box(foot_x, foot_y, foot_z, -4, -1, 0, 11, 7, 11, direction);
-        (is_ok_box(&bb) && builder.find_collision_piece(&bb).is_none()).then(|| RoomCrossing::new(gen_depth, random, bb, direction))
+        (is_ok_box(&bb) && builder.find_collision_piece(&bb).is_none())
+            .then(|| RoomCrossing::new(gen_depth, random, bb, direction))
     }
 }
 
 impl StructurePiece for RoomCrossing {
     base_accessors!();
 
-    fn add_additional_save_data(&self, _context: &StructurePieceSerializationContext<'_>, tag: &mut CompoundTag) {
+    fn add_additional_save_data(
+        &self,
+        _context: &StructurePieceSerializationContext<'_>,
+        tag: &mut CompoundTag,
+    ) {
         self.sh.save(tag);
         tag.put_int("Type", self.type_);
     }
 
-    fn add_children(&mut self, start_piece: Option<&mut dyn StructurePiece>, builder: &mut StructurePiecesBuilder, random: &mut dyn RandomSource) {
+    fn add_children(
+        &mut self,
+        start_piece: Option<&mut dyn StructurePiece>,
+        builder: &mut StructurePiecesBuilder,
+        random: &mut dyn RandomSource,
+    ) {
         let state = gen_state(start_piece);
         self.generate_small_door_child_forward(state, builder, random, 4, 1);
         self.generate_small_door_child_left(state, builder, random, 1, 4);
@@ -1300,11 +2470,59 @@ impl StructurePiece for RoomCrossing {
         _chunk_pos: ChunkPos,
         _reference_pos: BlockPos,
     ) {
-        self.generate_box_selector(level, chunk_bb, 0, 0, 0, 10, 6, 10, true, random, &mut SmoothStoneSelector::default());
+        self.generate_box_selector(
+            level,
+            chunk_bb,
+            0,
+            0,
+            0,
+            10,
+            6,
+            10,
+            true,
+            random,
+            &mut SmoothStoneSelector::default(),
+        );
         self.generate_small_door(level, chunk_bb, self.sh.entry_door, 4, 1, 0);
-        self.generate_box(level, chunk_bb, 4, 1, 10, 6, 3, 10, cave_air(), cave_air(), false);
-        self.generate_box(level, chunk_bb, 0, 1, 4, 0, 3, 6, cave_air(), cave_air(), false);
-        self.generate_box(level, chunk_bb, 10, 1, 4, 10, 3, 6, cave_air(), cave_air(), false);
+        self.generate_box(
+            level,
+            chunk_bb,
+            4,
+            1,
+            10,
+            6,
+            3,
+            10,
+            cave_air(),
+            cave_air(),
+            false,
+        );
+        self.generate_box(
+            level,
+            chunk_bb,
+            0,
+            1,
+            4,
+            0,
+            3,
+            6,
+            cave_air(),
+            cave_air(),
+            false,
+        );
+        self.generate_box(
+            level,
+            chunk_bb,
+            10,
+            1,
+            4,
+            10,
+            3,
+            6,
+            cave_air(),
+            cave_air(),
+            false,
+        );
         let stone_bricks = Block::STONE_BRICKS.default_state();
         let cobblestone = Block::COBBLESTONE.default_state();
         let planks = Block::OAK_PLANKS.default_state();
@@ -1314,10 +2532,38 @@ impl StructurePiece for RoomCrossing {
                 self.place_block(level, stone_bricks, 5, 1, 5, chunk_bb);
                 self.place_block(level, stone_bricks, 5, 2, 5, chunk_bb);
                 self.place_block(level, stone_bricks, 5, 3, 5, chunk_bb);
-                self.place_block(level, wall_torch.set(props::HORIZONTAL_FACING, Direction::West), 4, 3, 5, chunk_bb);
-                self.place_block(level, wall_torch.set(props::HORIZONTAL_FACING, Direction::East), 6, 3, 5, chunk_bb);
-                self.place_block(level, wall_torch.set(props::HORIZONTAL_FACING, Direction::South), 5, 3, 4, chunk_bb);
-                self.place_block(level, wall_torch.set(props::HORIZONTAL_FACING, Direction::North), 5, 3, 6, chunk_bb);
+                self.place_block(
+                    level,
+                    wall_torch.set(props::HORIZONTAL_FACING, Direction::West),
+                    4,
+                    3,
+                    5,
+                    chunk_bb,
+                );
+                self.place_block(
+                    level,
+                    wall_torch.set(props::HORIZONTAL_FACING, Direction::East),
+                    6,
+                    3,
+                    5,
+                    chunk_bb,
+                );
+                self.place_block(
+                    level,
+                    wall_torch.set(props::HORIZONTAL_FACING, Direction::South),
+                    5,
+                    3,
+                    4,
+                    chunk_bb,
+                );
+                self.place_block(
+                    level,
+                    wall_torch.set(props::HORIZONTAL_FACING, Direction::North),
+                    5,
+                    3,
+                    6,
+                    chunk_bb,
+                );
                 let slab = Block::SMOOTH_STONE_SLAB.default_state();
                 self.place_block(level, slab, 4, 1, 4, chunk_bb);
                 self.place_block(level, slab, 4, 1, 5, chunk_bb);
@@ -1375,7 +2621,9 @@ impl StructurePiece for RoomCrossing {
                     self.place_block(level, planks, 7, 3, z, chunk_bb);
                     self.place_block(level, planks, 8, 3, z, chunk_bb);
                 }
-                let ladder = Block::LADDER.default_state().set(props::HORIZONTAL_FACING, Direction::West);
+                let ladder = Block::LADDER
+                    .default_state()
+                    .set(props::HORIZONTAL_FACING, Direction::West);
                 self.place_block(level, ladder, 9, 1, 3, chunk_bb);
                 self.place_block(level, ladder, 9, 2, 3, chunk_bb);
                 self.place_block(level, ladder, 9, 3, 3, chunk_bb);
@@ -1396,24 +2644,66 @@ stronghold_piece!(StairsDown);
 
 impl StairsDown {
     /// `StairsDown(type, genDepth, west, north, direction)`: the source (start) staircase.
-    fn new_source(piece_type: &'static StructurePieceType, gen_depth: i32, west: i32, north: i32, direction: Direction) -> StairsDown {
-        let sh = StrongholdPieceData::oriented(piece_type, gen_depth, make_bounding_box(west, MAGIC_START_Y, north, direction, 5, 11, 5), direction);
-        StairsDown { sh, is_source: true }
+    fn new_source(
+        piece_type: &'static StructurePieceType,
+        gen_depth: i32,
+        west: i32,
+        north: i32,
+        direction: Direction,
+    ) -> StairsDown {
+        let sh = StrongholdPieceData::oriented(
+            piece_type,
+            gen_depth,
+            make_bounding_box(west, MAGIC_START_Y, north, direction, 5, 11, 5),
+            direction,
+        );
+        StairsDown {
+            sh,
+            is_source: true,
+        }
     }
 
-    fn new(gen_depth: i32, random: &mut dyn RandomSource, bounding_box: BoundingBox, direction: Direction) -> StairsDown {
-        let mut sh = StrongholdPieceData::oriented(&STRONGHOLD_STAIRS_DOWN, gen_depth, bounding_box, direction);
+    fn new(
+        gen_depth: i32,
+        random: &mut dyn RandomSource,
+        bounding_box: BoundingBox,
+        direction: Direction,
+    ) -> StairsDown {
+        let mut sh = StrongholdPieceData::oriented(
+            &STRONGHOLD_STAIRS_DOWN,
+            gen_depth,
+            bounding_box,
+            direction,
+        );
         sh.entry_door = random_small_door(random);
-        StairsDown { sh, is_source: false }
+        StairsDown {
+            sh,
+            is_source: false,
+        }
     }
 
-    fn load(piece_type: &'static StructurePieceType, tag: &CompoundTag) -> Result<StairsDown, String> {
-        Ok(StairsDown { sh: StrongholdPieceData::load(piece_type, tag)?, is_source: tag.get_boolean_or("Source", false) })
+    fn load(
+        piece_type: &'static StructurePieceType,
+        tag: &CompoundTag,
+    ) -> Result<StairsDown, String> {
+        Ok(StairsDown {
+            sh: StrongholdPieceData::load(piece_type, tag)?,
+            is_source: tag.get_boolean_or("Source", false),
+        })
     }
 
-    fn create_piece(builder: &StructurePiecesBuilder, random: &mut dyn RandomSource, foot_x: i32, foot_y: i32, foot_z: i32, direction: Direction, gen_depth: i32) -> Option<StairsDown> {
+    fn create_piece(
+        builder: &StructurePiecesBuilder,
+        random: &mut dyn RandomSource,
+        foot_x: i32,
+        foot_y: i32,
+        foot_z: i32,
+        direction: Direction,
+        gen_depth: i32,
+    ) -> Option<StairsDown> {
         let bb = BoundingBox::orient_box(foot_x, foot_y, foot_z, -1, -7, 0, 5, 11, 5, direction);
-        (is_ok_box(&bb) && builder.find_collision_piece(&bb).is_none()).then(|| StairsDown::new(gen_depth, random, bb, direction))
+        (is_ok_box(&bb) && builder.find_collision_piece(&bb).is_none())
+            .then(|| StairsDown::new(gen_depth, random, bb, direction))
     }
 
     fn save(&self, tag: &mut CompoundTag) {
@@ -1422,15 +2712,37 @@ impl StairsDown {
     }
 
     /// `addChildren` with the start piece's state at hand.
-    fn add_children_with(&self, state: &mut StrongholdGenState, builder: &mut StructurePiecesBuilder, random: &mut dyn RandomSource) {
+    fn add_children_with(
+        &self,
+        state: &mut StrongholdGenState,
+        builder: &mut StructurePiecesBuilder,
+        random: &mut dyn RandomSource,
+    ) {
         if self.is_source {
             state.imposed_piece = Some(PieceClass::FiveCrossing);
         }
         self.generate_small_door_child_forward(state, builder, random, 1, 1);
     }
 
-    fn post_process_stairs(&self, level: &mut dyn WorldGenLevel, random: &mut dyn RandomSource, chunk_bb: &BoundingBox) {
-        self.generate_box_selector(level, chunk_bb, 0, 0, 0, 4, 10, 4, true, random, &mut SmoothStoneSelector::default());
+    fn post_process_stairs(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        random: &mut dyn RandomSource,
+        chunk_bb: &BoundingBox,
+    ) {
+        self.generate_box_selector(
+            level,
+            chunk_bb,
+            0,
+            0,
+            0,
+            4,
+            10,
+            4,
+            true,
+            random,
+            &mut SmoothStoneSelector::default(),
+        );
         self.generate_small_door(level, chunk_bb, self.sh.entry_door, 1, 7, 0);
         self.generate_small_door(level, chunk_bb, SmallDoorType::Opening, 1, 1, 4);
         let stone_bricks = Block::STONE_BRICKS.default_state();
@@ -1458,11 +2770,20 @@ impl StairsDown {
 impl StructurePiece for StairsDown {
     base_accessors!();
 
-    fn add_additional_save_data(&self, _context: &StructurePieceSerializationContext<'_>, tag: &mut CompoundTag) {
+    fn add_additional_save_data(
+        &self,
+        _context: &StructurePieceSerializationContext<'_>,
+        tag: &mut CompoundTag,
+    ) {
         self.save(tag);
     }
 
-    fn add_children(&mut self, start_piece: Option<&mut dyn StructurePiece>, builder: &mut StructurePiecesBuilder, random: &mut dyn RandomSource) {
+    fn add_children(
+        &mut self,
+        start_piece: Option<&mut dyn StructurePiece>,
+        builder: &mut StructurePiecesBuilder,
+        random: &mut dyn RandomSource,
+    ) {
         self.add_children_with(gen_state(start_piece), builder, random);
     }
 
@@ -1491,13 +2812,22 @@ impl StartPiece {
     pub fn new(random: &mut dyn RandomSource, west: i32, north: i32) -> StartPiece {
         let direction = get_random_horizontal_direction(random);
         let stairs = StairsDown::new_source(&STRONGHOLD_START, 0, west, north, direction);
-        let state = StrongholdGenState::new(stairs.sh.base.bounding_box.min_x(), stairs.sh.base.bounding_box.min_z());
+        let state = StrongholdGenState::new(
+            stairs.sh.base.bounding_box.min_x(),
+            stairs.sh.base.bounding_box.min_z(),
+        );
         StartPiece { stairs, state }
     }
 
-    fn load(piece_type: &'static StructurePieceType, tag: &CompoundTag) -> Result<StartPiece, String> {
+    fn load(
+        piece_type: &'static StructurePieceType,
+        tag: &CompoundTag,
+    ) -> Result<StartPiece, String> {
         let stairs = StairsDown::load(piece_type, tag)?;
-        let state = StrongholdGenState::new(stairs.sh.base.bounding_box.min_x(), stairs.sh.base.bounding_box.min_z());
+        let state = StrongholdGenState::new(
+            stairs.sh.base.bounding_box.min_x(),
+            stairs.sh.base.bounding_box.min_z(),
+        );
         Ok(StartPiece { stairs, state })
     }
 }
@@ -1511,13 +2841,23 @@ impl StructurePiece for StartPiece {
         &mut self.stairs.sh.base
     }
 
-    fn add_additional_save_data(&self, _context: &StructurePieceSerializationContext<'_>, tag: &mut CompoundTag) {
+    fn add_additional_save_data(
+        &self,
+        _context: &StructurePieceSerializationContext<'_>,
+        tag: &mut CompoundTag,
+    ) {
         self.stairs.save(tag);
     }
 
     /// The start piece expands itself (vanilla passes it as its own `startPiece`).
-    fn add_children(&mut self, _start_piece: Option<&mut dyn StructurePiece>, builder: &mut StructurePiecesBuilder, random: &mut dyn RandomSource) {
-        self.stairs.add_children_with(&mut self.state, builder, random);
+    fn add_children(
+        &mut self,
+        _start_piece: Option<&mut dyn StructurePiece>,
+        builder: &mut StructurePiecesBuilder,
+        random: &mut dyn RandomSource,
+    ) {
+        self.stairs
+            .add_children_with(&mut self.state, builder, random);
     }
 
     fn post_process(
@@ -1535,7 +2875,9 @@ impl StructurePiece for StartPiece {
 
     /// `portalRoomPiece != null ? portalRoomPiece.getLocatorPosition() : super.getLocatorPosition()`.
     fn get_locator_position(&self) -> BlockPos {
-        self.state.portal_room_locator.unwrap_or_else(|| self.stairs.base().bounding_box.get_center())
+        self.state
+            .portal_room_locator
+            .unwrap_or_else(|| self.stairs.base().bounding_box.get_center())
     }
 
     fn move_by(&mut self, dx: i32, dy: i32, dz: i32) {
@@ -1556,34 +2898,69 @@ pub struct Straight {
 stronghold_piece!(Straight);
 
 impl Straight {
-    fn new(gen_depth: i32, random: &mut dyn RandomSource, bounding_box: BoundingBox, direction: Direction) -> Straight {
-        let mut sh = StrongholdPieceData::oriented(&STRONGHOLD_STRAIGHT, gen_depth, bounding_box, direction);
+    fn new(
+        gen_depth: i32,
+        random: &mut dyn RandomSource,
+        bounding_box: BoundingBox,
+        direction: Direction,
+    ) -> Straight {
+        let mut sh =
+            StrongholdPieceData::oriented(&STRONGHOLD_STRAIGHT, gen_depth, bounding_box, direction);
         sh.entry_door = random_small_door(random);
         let left_child = random.next_int_bounded(2) == 0;
         let right_child = random.next_int_bounded(2) == 0;
-        Straight { sh, left_child, right_child }
+        Straight {
+            sh,
+            left_child,
+            right_child,
+        }
     }
 
-    fn load(piece_type: &'static StructurePieceType, tag: &CompoundTag) -> Result<Straight, String> {
-        Ok(Straight { sh: StrongholdPieceData::load(piece_type, tag)?, left_child: tag.get_boolean_or("Left", false), right_child: tag.get_boolean_or("Right", false) })
+    fn load(
+        piece_type: &'static StructurePieceType,
+        tag: &CompoundTag,
+    ) -> Result<Straight, String> {
+        Ok(Straight {
+            sh: StrongholdPieceData::load(piece_type, tag)?,
+            left_child: tag.get_boolean_or("Left", false),
+            right_child: tag.get_boolean_or("Right", false),
+        })
     }
 
-    fn create_piece(builder: &StructurePiecesBuilder, random: &mut dyn RandomSource, foot_x: i32, foot_y: i32, foot_z: i32, direction: Direction, gen_depth: i32) -> Option<Straight> {
+    fn create_piece(
+        builder: &StructurePiecesBuilder,
+        random: &mut dyn RandomSource,
+        foot_x: i32,
+        foot_y: i32,
+        foot_z: i32,
+        direction: Direction,
+        gen_depth: i32,
+    ) -> Option<Straight> {
         let bb = BoundingBox::orient_box(foot_x, foot_y, foot_z, -1, -1, 0, 5, 5, 7, direction);
-        (is_ok_box(&bb) && builder.find_collision_piece(&bb).is_none()).then(|| Straight::new(gen_depth, random, bb, direction))
+        (is_ok_box(&bb) && builder.find_collision_piece(&bb).is_none())
+            .then(|| Straight::new(gen_depth, random, bb, direction))
     }
 }
 
 impl StructurePiece for Straight {
     base_accessors!();
 
-    fn add_additional_save_data(&self, _context: &StructurePieceSerializationContext<'_>, tag: &mut CompoundTag) {
+    fn add_additional_save_data(
+        &self,
+        _context: &StructurePieceSerializationContext<'_>,
+        tag: &mut CompoundTag,
+    ) {
         self.sh.save(tag);
         tag.put_boolean("Left", self.left_child);
         tag.put_boolean("Right", self.right_child);
     }
 
-    fn add_children(&mut self, start_piece: Option<&mut dyn StructurePiece>, builder: &mut StructurePiecesBuilder, random: &mut dyn RandomSource) {
+    fn add_children(
+        &mut self,
+        start_piece: Option<&mut dyn StructurePiece>,
+        builder: &mut StructurePiecesBuilder,
+        random: &mut dyn RandomSource,
+    ) {
         let state = gen_state(start_piece);
         self.generate_small_door_child_forward(state, builder, random, 1, 1);
         if self.left_child {
@@ -1604,20 +2981,60 @@ impl StructurePiece for Straight {
         _chunk_pos: ChunkPos,
         _reference_pos: BlockPos,
     ) {
-        self.generate_box_selector(level, chunk_bb, 0, 0, 0, 4, 4, 6, true, random, &mut SmoothStoneSelector::default());
+        self.generate_box_selector(
+            level,
+            chunk_bb,
+            0,
+            0,
+            0,
+            4,
+            4,
+            6,
+            true,
+            random,
+            &mut SmoothStoneSelector::default(),
+        );
         self.generate_small_door(level, chunk_bb, self.sh.entry_door, 1, 1, 0);
         self.generate_small_door(level, chunk_bb, SmallDoorType::Opening, 1, 1, 6);
-        let east_torch = Block::WALL_TORCH.default_state().set(props::HORIZONTAL_FACING, Direction::East);
-        let west_torch = Block::WALL_TORCH.default_state().set(props::HORIZONTAL_FACING, Direction::West);
+        let east_torch = Block::WALL_TORCH
+            .default_state()
+            .set(props::HORIZONTAL_FACING, Direction::East);
+        let west_torch = Block::WALL_TORCH
+            .default_state()
+            .set(props::HORIZONTAL_FACING, Direction::West);
         self.maybe_generate_block(level, chunk_bb, random, 0.1, 1, 2, 1, east_torch);
         self.maybe_generate_block(level, chunk_bb, random, 0.1, 3, 2, 1, west_torch);
         self.maybe_generate_block(level, chunk_bb, random, 0.1, 1, 2, 5, east_torch);
         self.maybe_generate_block(level, chunk_bb, random, 0.1, 3, 2, 5, west_torch);
         if self.left_child {
-            self.generate_box(level, chunk_bb, 0, 1, 2, 0, 3, 4, cave_air(), cave_air(), false);
+            self.generate_box(
+                level,
+                chunk_bb,
+                0,
+                1,
+                2,
+                0,
+                3,
+                4,
+                cave_air(),
+                cave_air(),
+                false,
+            );
         }
         if self.right_child {
-            self.generate_box(level, chunk_bb, 4, 1, 2, 4, 3, 4, cave_air(), cave_air(), false);
+            self.generate_box(
+                level,
+                chunk_bb,
+                4,
+                1,
+                2,
+                4,
+                3,
+                4,
+                cave_air(),
+                cave_air(),
+                false,
+            );
         }
     }
 }
@@ -1630,30 +3047,63 @@ pub struct StraightStairsDown {
 stronghold_piece!(StraightStairsDown);
 
 impl StraightStairsDown {
-    fn new(gen_depth: i32, random: &mut dyn RandomSource, bounding_box: BoundingBox, direction: Direction) -> StraightStairsDown {
-        let mut sh = StrongholdPieceData::oriented(&STRONGHOLD_STRAIGHT_STAIRS_DOWN, gen_depth, bounding_box, direction);
+    fn new(
+        gen_depth: i32,
+        random: &mut dyn RandomSource,
+        bounding_box: BoundingBox,
+        direction: Direction,
+    ) -> StraightStairsDown {
+        let mut sh = StrongholdPieceData::oriented(
+            &STRONGHOLD_STRAIGHT_STAIRS_DOWN,
+            gen_depth,
+            bounding_box,
+            direction,
+        );
         sh.entry_door = random_small_door(random);
         StraightStairsDown { sh }
     }
 
-    fn load(piece_type: &'static StructurePieceType, tag: &CompoundTag) -> Result<StraightStairsDown, String> {
-        Ok(StraightStairsDown { sh: StrongholdPieceData::load(piece_type, tag)? })
+    fn load(
+        piece_type: &'static StructurePieceType,
+        tag: &CompoundTag,
+    ) -> Result<StraightStairsDown, String> {
+        Ok(StraightStairsDown {
+            sh: StrongholdPieceData::load(piece_type, tag)?,
+        })
     }
 
-    fn create_piece(builder: &StructurePiecesBuilder, random: &mut dyn RandomSource, foot_x: i32, foot_y: i32, foot_z: i32, direction: Direction, gen_depth: i32) -> Option<StraightStairsDown> {
+    fn create_piece(
+        builder: &StructurePiecesBuilder,
+        random: &mut dyn RandomSource,
+        foot_x: i32,
+        foot_y: i32,
+        foot_z: i32,
+        direction: Direction,
+        gen_depth: i32,
+    ) -> Option<StraightStairsDown> {
         let bb = BoundingBox::orient_box(foot_x, foot_y, foot_z, -1, -7, 0, 5, 11, 8, direction);
-        (is_ok_box(&bb) && builder.find_collision_piece(&bb).is_none()).then(|| StraightStairsDown::new(gen_depth, random, bb, direction))
+        (is_ok_box(&bb) && builder.find_collision_piece(&bb).is_none())
+            .then(|| StraightStairsDown::new(gen_depth, random, bb, direction))
     }
 }
 
 impl StructurePiece for StraightStairsDown {
     base_accessors!();
 
-    fn add_additional_save_data(&self, _context: &StructurePieceSerializationContext<'_>, tag: &mut CompoundTag) {
+    fn add_additional_save_data(
+        &self,
+        _context: &StructurePieceSerializationContext<'_>,
+        tag: &mut CompoundTag,
+    ) {
         self.sh.save(tag);
     }
 
-    fn add_children(&mut self, start_piece: Option<&mut dyn StructurePiece>, builder: &mut StructurePiecesBuilder, random: &mut dyn RandomSource) {
+    fn add_children(
+        &mut self,
+        start_piece: Option<&mut dyn StructurePiece>,
+        builder: &mut StructurePiecesBuilder,
+        random: &mut dyn RandomSource,
+    ) {
         self.generate_small_door_child_forward(gen_state(start_piece), builder, random, 1, 1);
     }
 
@@ -1667,10 +3117,24 @@ impl StructurePiece for StraightStairsDown {
         _chunk_pos: ChunkPos,
         _reference_pos: BlockPos,
     ) {
-        self.generate_box_selector(level, chunk_bb, 0, 0, 0, 4, 10, 7, true, random, &mut SmoothStoneSelector::default());
+        self.generate_box_selector(
+            level,
+            chunk_bb,
+            0,
+            0,
+            0,
+            4,
+            10,
+            7,
+            true,
+            random,
+            &mut SmoothStoneSelector::default(),
+        );
         self.generate_small_door(level, chunk_bb, self.sh.entry_door, 1, 7, 0);
         self.generate_small_door(level, chunk_bb, SmallDoorType::Opening, 1, 1, 7);
-        let stairs = Block::COBBLESTONE_STAIRS.default_state().set(props::HORIZONTAL_FACING, Direction::South);
+        let stairs = Block::COBBLESTONE_STAIRS
+            .default_state()
+            .set(props::HORIZONTAL_FACING, Direction::South);
         let stone_bricks = Block::STONE_BRICKS.default_state();
         for i in 0..6 {
             self.place_block(level, stairs, 1, 6 - i, 1 + i, chunk_bb);

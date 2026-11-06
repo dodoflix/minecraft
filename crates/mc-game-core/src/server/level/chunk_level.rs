@@ -1,6 +1,6 @@
 //! `ChunkLevel`: the ticket-level <-> chunk status mapping (lower level = more loaded).
 use super::FullChunkStatus;
-use crate::world::level::chunk::status::{GENERATION_PYRAMID, ChunkStep};
+use crate::world::level::chunk::status::{ChunkStep, GENERATION_PYRAMID};
 use mc_world::status::ChunkStatus;
 use std::sync::LazyLock;
 
@@ -13,9 +13,11 @@ fn full_chunk_step() -> &'static ChunkStep {
 }
 
 /// `ChunkLevel.RADIUS_AROUND_FULL_CHUNK`.
-pub static RADIUS_AROUND_FULL_CHUNK: LazyLock<i32> = LazyLock::new(|| full_chunk_step().accumulated_dependencies.get_radius());
+pub static RADIUS_AROUND_FULL_CHUNK: LazyLock<i32> =
+    LazyLock::new(|| full_chunk_step().accumulated_dependencies.get_radius());
 /// `ChunkLevel.MAX_LEVEL`.
-pub static MAX_LEVEL: LazyLock<i32> = LazyLock::new(|| FULL_CHUNK_LEVEL + *RADIUS_AROUND_FULL_CHUNK);
+pub static MAX_LEVEL: LazyLock<i32> =
+    LazyLock::new(|| FULL_CHUNK_LEVEL + *RADIUS_AROUND_FULL_CHUNK);
 
 pub fn max_level() -> i32 {
     *MAX_LEVEL
@@ -32,7 +34,11 @@ fn get_status_around_full_chunk_opt(distance_to_full_chunk: i32) -> Option<Chunk
     } else if distance_to_full_chunk <= 0 {
         Some(ChunkStatus::Full)
     } else {
-        Some(full_chunk_step().accumulated_dependencies.get(distance_to_full_chunk))
+        Some(
+            full_chunk_step()
+                .accumulated_dependencies
+                .get(distance_to_full_chunk),
+        )
     }
 }
 

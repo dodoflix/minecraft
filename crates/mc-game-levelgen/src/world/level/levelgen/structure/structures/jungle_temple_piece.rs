@@ -1,12 +1,6 @@
 //! `JungleTemplePiece`.
 
-use mc_game_core::world::level::levelgen::env::GenEnv;
-use mc_game_core::world::level::levelgen::structure::manager::StructureManager;
-use mc_game_core::world::level::levelgen::structure::piece::{
-    BlockSelector, PieceBase, STRUCTURE_PIECE_TYPES, StructurePiece, StructurePieceSerializationContext, StructurePieceType, get_random_horizontal_direction,
-};
 use crate::world::level::levelgen::structure::scattered_feature_piece::ScatteredFeaturePieceData;
-use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use linkme::distributed_slice;
 use mc_core::bounding_box::BoundingBox;
 use mc_core::direction::Direction;
@@ -15,6 +9,13 @@ use mc_core::random::RandomSource;
 use mc_data::block::{Block, BlockState};
 use mc_data::enums::{AttachFace, RedstoneSide};
 use mc_data::props;
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::structure::manager::StructureManager;
+use mc_game_core::world::level::levelgen::structure::piece::{
+    BlockSelector, PieceBase, STRUCTURE_PIECE_TYPES, StructurePiece,
+    StructurePieceSerializationContext, StructurePieceType, get_random_horizontal_direction,
+};
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_nbt::CompoundTag;
 
 pub const WIDTH: i32 = 12;
@@ -41,8 +42,19 @@ struct MossStoneSelector {
 }
 
 impl BlockSelector for MossStoneSelector {
-    fn next(&mut self, random: &mut dyn RandomSource, _world_x: i32, _world_y: i32, _world_z: i32, _is_edge: bool) {
-        self.next = if random.next_float() < 0.4f32 { Block::COBBLESTONE.default_state() } else { Block::MOSSY_COBBLESTONE.default_state() };
+    fn next(
+        &mut self,
+        random: &mut dyn RandomSource,
+        _world_x: i32,
+        _world_y: i32,
+        _world_z: i32,
+        _is_edge: bool,
+    ) {
+        self.next = if random.next_float() < 0.4f32 {
+            Block::COBBLESTONE.default_state()
+        } else {
+            Block::MOSSY_COBBLESTONE.default_state()
+        };
     }
 
     fn get_next(&self) -> BlockState {
@@ -55,7 +67,16 @@ impl JungleTemplePiece {
     pub fn new(random: &mut dyn RandomSource, west: i32, north: i32) -> JungleTemplePiece {
         let direction = get_random_horizontal_direction(random);
         JungleTemplePiece {
-            data: ScatteredFeaturePieceData::new(&JUNGLE_PYRAMID_PIECE, west, 64, north, 12, 10, 15, direction),
+            data: ScatteredFeaturePieceData::new(
+                &JUNGLE_PYRAMID_PIECE,
+                west,
+                64,
+                north,
+                12,
+                10,
+                15,
+                direction,
+            ),
             placed_main_chest: false,
             placed_hidden_chest: false,
             placed_trap_1: false,
@@ -84,7 +105,11 @@ impl StructurePiece for JungleTemplePiece {
         &mut self.data.base
     }
 
-    fn add_additional_save_data(&self, context: &StructurePieceSerializationContext<'_>, tag: &mut CompoundTag) {
+    fn add_additional_save_data(
+        &self,
+        context: &StructurePieceSerializationContext<'_>,
+        tag: &mut CompoundTag,
+    ) {
         self.data.add_additional_save_data(context, tag);
         tag.put_boolean("placedMainChest", self.placed_main_chest);
         tag.put_boolean("placedHiddenChest", self.placed_hidden_chest);
@@ -107,10 +132,24 @@ impl StructurePiece for JungleTemplePiece {
         }
         let (width, depth) = (self.data.width, self.data.depth);
         let bb = chunk_bb;
-        let mut selector = MossStoneSelector { next: Block::AIR.default_state() };
+        let mut selector = MossStoneSelector {
+            next: Block::AIR.default_state(),
+        };
         macro_rules! sel {
             ($x0:expr, $y0:expr, $z0:expr, $x1:expr, $y1:expr, $z1:expr) => {
-                self.generate_box_selector(level, bb, $x0, $y0, $z0, $x1, $y1, $z1, false, random, &mut selector)
+                self.generate_box_selector(
+                    level,
+                    bb,
+                    $x0,
+                    $y0,
+                    $z0,
+                    $x1,
+                    $y1,
+                    $z1,
+                    false,
+                    random,
+                    &mut selector,
+                )
             };
         }
         macro_rules! air_box {
@@ -150,18 +189,18 @@ impl StructurePiece for JungleTemplePiece {
         put!(Block::AIR.default_state(), 1, 5, 9);
         put!(Block::AIR.default_state(), 10, 5, 9);
         for z in (0..=14).step_by(14) {
-        sel!(2, 4, z, 2, 5, z);
-        sel!(4, 4, z, 4, 5, z);
-        sel!(7, 4, z, 7, 5, z);
-        sel!(9, 4, z, 9, 5, z);
+            sel!(2, 4, z, 2, 5, z);
+            sel!(4, 4, z, 4, 5, z);
+            sel!(7, 4, z, 7, 5, z);
+            sel!(9, 4, z, 9, 5, z);
         }
         sel!(5, 6, 0, 6, 6, 0);
         for x in (0..=11).step_by(11) {
-        for z in (2..=12).step_by(2) {
-        sel!(x, 4, z, x, 5, z);
-        }
-        sel!(x, 6, 5, x, 6, 5);
-        sel!(x, 6, 9, x, 6, 9);
+            for z in (2..=12).step_by(2) {
+                sel!(x, 4, z, x, 5, z);
+            }
+            sel!(x, 6, 5, x, 6, 5);
+            sel!(x, 6, 9, x, 6, 9);
         }
         sel!(2, 7, 2, 2, 9, 2);
         sel!(9, 7, 2, 9, 9, 2);
@@ -172,10 +211,18 @@ impl StructurePiece for JungleTemplePiece {
         sel!(4, 9, 10, 4, 9, 10);
         sel!(7, 9, 10, 7, 9, 10);
         sel!(5, 9, 7, 6, 9, 7);
-        let eastStairs = Block::COBBLESTONE_STAIRS.default_state().set(props::HORIZONTAL_FACING, Direction::East);
-        let westStairs = Block::COBBLESTONE_STAIRS.default_state().set(props::HORIZONTAL_FACING, Direction::West);
-        let southStairs = Block::COBBLESTONE_STAIRS.default_state().set(props::HORIZONTAL_FACING, Direction::South);
-        let northStairs = Block::COBBLESTONE_STAIRS.default_state().set(props::HORIZONTAL_FACING, Direction::North);
+        let eastStairs = Block::COBBLESTONE_STAIRS
+            .default_state()
+            .set(props::HORIZONTAL_FACING, Direction::East);
+        let westStairs = Block::COBBLESTONE_STAIRS
+            .default_state()
+            .set(props::HORIZONTAL_FACING, Direction::West);
+        let southStairs = Block::COBBLESTONE_STAIRS
+            .default_state()
+            .set(props::HORIZONTAL_FACING, Direction::South);
+        let northStairs = Block::COBBLESTONE_STAIRS
+            .default_state()
+            .set(props::HORIZONTAL_FACING, Direction::North);
         put!(northStairs, 5, 9, 6);
         put!(northStairs, 6, 9, 6);
         put!(southStairs, 5, 9, 8);
@@ -197,58 +244,209 @@ impl StructurePiece for JungleTemplePiece {
         put!(eastStairs, 4, 4, 5);
         put!(westStairs, 7, 4, 5);
         for i in 0..4 {
-        put!(southStairs, 5, 0 - i, 6 + i);
-        put!(southStairs, 6, 0 - i, 6 + i);
-        air_box!(5, 0 - i, 7 + i, 6, 0 - i, 9 + i);
+            put!(southStairs, 5, 0 - i, 6 + i);
+            put!(southStairs, 6, 0 - i, 6 + i);
+            air_box!(5, 0 - i, 7 + i, 6, 0 - i, 9 + i);
         }
         air_box!(1, -3, 12, 10, -1, 13);
         air_box!(1, -3, 1, 3, -1, 13);
         air_box!(1, -3, 1, 9, -1, 5);
         for z in (1..=13).step_by(2) {
-        sel!(1, -3, z, 1, -2, z);
+            sel!(1, -3, z, 1, -2, z);
         }
         for z in (2..=12).step_by(2) {
-        sel!(1, -1, z, 3, -1, z);
+            sel!(1, -1, z, 3, -1, z);
         }
         sel!(2, -2, 1, 5, -2, 1);
         sel!(7, -2, 1, 9, -2, 1);
         sel!(6, -3, 1, 6, -3, 1);
         sel!(6, -1, 1, 6, -1, 1);
-        put!(Block::TRIPWIRE_HOOK.default_state().set(props::HORIZONTAL_FACING, Direction::East).set(props::ATTACHED, true), 1, -3, 8);
-        put!(Block::TRIPWIRE_HOOK.default_state().set(props::HORIZONTAL_FACING, Direction::West).set(props::ATTACHED, true), 4, -3, 8);
-        put!(Block::TRIPWIRE.default_state().set(props::EAST, true).set(props::WEST, true).set(props::ATTACHED, true), 2, -3, 8);
-        put!(Block::TRIPWIRE.default_state().set(props::EAST, true).set(props::WEST, true).set(props::ATTACHED, true), 3, -3, 8);
-        let redstoneWireNS = Block::REDSTONE_WIRE.default_state().set(props::NORTH_REDSTONE, RedstoneSide::Side).set(props::SOUTH_REDSTONE, RedstoneSide::Side);
+        put!(
+            Block::TRIPWIRE_HOOK
+                .default_state()
+                .set(props::HORIZONTAL_FACING, Direction::East)
+                .set(props::ATTACHED, true),
+            1,
+            -3,
+            8
+        );
+        put!(
+            Block::TRIPWIRE_HOOK
+                .default_state()
+                .set(props::HORIZONTAL_FACING, Direction::West)
+                .set(props::ATTACHED, true),
+            4,
+            -3,
+            8
+        );
+        put!(
+            Block::TRIPWIRE
+                .default_state()
+                .set(props::EAST, true)
+                .set(props::WEST, true)
+                .set(props::ATTACHED, true),
+            2,
+            -3,
+            8
+        );
+        put!(
+            Block::TRIPWIRE
+                .default_state()
+                .set(props::EAST, true)
+                .set(props::WEST, true)
+                .set(props::ATTACHED, true),
+            3,
+            -3,
+            8
+        );
+        let redstoneWireNS = Block::REDSTONE_WIRE
+            .default_state()
+            .set(props::NORTH_REDSTONE, RedstoneSide::Side)
+            .set(props::SOUTH_REDSTONE, RedstoneSide::Side);
         put!(redstoneWireNS, 5, -3, 7);
         put!(redstoneWireNS, 5, -3, 6);
         put!(redstoneWireNS, 5, -3, 5);
         put!(redstoneWireNS, 5, -3, 4);
         put!(redstoneWireNS, 5, -3, 3);
         put!(redstoneWireNS, 5, -3, 2);
-        put!(Block::REDSTONE_WIRE.default_state().set(props::NORTH_REDSTONE, RedstoneSide::Side).set(props::WEST_REDSTONE, RedstoneSide::Side), 5, -3, 1);
-        put!(Block::REDSTONE_WIRE.default_state().set(props::EAST_REDSTONE, RedstoneSide::Side).set(props::WEST_REDSTONE, RedstoneSide::Side), 4, -3, 1);
+        put!(
+            Block::REDSTONE_WIRE
+                .default_state()
+                .set(props::NORTH_REDSTONE, RedstoneSide::Side)
+                .set(props::WEST_REDSTONE, RedstoneSide::Side),
+            5,
+            -3,
+            1
+        );
+        put!(
+            Block::REDSTONE_WIRE
+                .default_state()
+                .set(props::EAST_REDSTONE, RedstoneSide::Side)
+                .set(props::WEST_REDSTONE, RedstoneSide::Side),
+            4,
+            -3,
+            1
+        );
         put!(Block::MOSSY_COBBLESTONE.default_state(), 3, -3, 1);
         if !self.placed_trap_1 {
-        self.placed_trap_1 = self.create_dispenser(level, bb, random, 3, -2, 1, Direction::North, "minecraft:chests/jungle_temple_dispenser");
+            self.placed_trap_1 = self.create_dispenser(
+                level,
+                bb,
+                random,
+                3,
+                -2,
+                1,
+                Direction::North,
+                "minecraft:chests/jungle_temple_dispenser",
+            );
         }
-        put!(Block::VINE.default_state().set(props::SOUTH, true), 3, -2, 2);
-        put!(Block::TRIPWIRE_HOOK.default_state().set(props::HORIZONTAL_FACING, Direction::North).set(props::ATTACHED, true), 7, -3, 1);
-        put!(Block::TRIPWIRE_HOOK.default_state().set(props::HORIZONTAL_FACING, Direction::South).set(props::ATTACHED, true), 7, -3, 5);
-        put!(Block::TRIPWIRE.default_state().set(props::NORTH, true).set(props::SOUTH, true).set(props::ATTACHED, true), 7, -3, 2);
-        put!(Block::TRIPWIRE.default_state().set(props::NORTH, true).set(props::SOUTH, true).set(props::ATTACHED, true), 7, -3, 3);
-        put!(Block::TRIPWIRE.default_state().set(props::NORTH, true).set(props::SOUTH, true).set(props::ATTACHED, true), 7, -3, 4);
-        put!(Block::REDSTONE_WIRE.default_state().set(props::EAST_REDSTONE, RedstoneSide::Side).set(props::WEST_REDSTONE, RedstoneSide::Side), 8, -3, 6);
-        put!(Block::REDSTONE_WIRE.default_state().set(props::WEST_REDSTONE, RedstoneSide::Side).set(props::SOUTH_REDSTONE, RedstoneSide::Side), 9, -3, 6);
-        put!(Block::REDSTONE_WIRE.default_state().set(props::NORTH_REDSTONE, RedstoneSide::Side).set(props::SOUTH_REDSTONE, RedstoneSide::Up), 9, -3, 5);
+        put!(
+            Block::VINE.default_state().set(props::SOUTH, true),
+            3,
+            -2,
+            2
+        );
+        put!(
+            Block::TRIPWIRE_HOOK
+                .default_state()
+                .set(props::HORIZONTAL_FACING, Direction::North)
+                .set(props::ATTACHED, true),
+            7,
+            -3,
+            1
+        );
+        put!(
+            Block::TRIPWIRE_HOOK
+                .default_state()
+                .set(props::HORIZONTAL_FACING, Direction::South)
+                .set(props::ATTACHED, true),
+            7,
+            -3,
+            5
+        );
+        put!(
+            Block::TRIPWIRE
+                .default_state()
+                .set(props::NORTH, true)
+                .set(props::SOUTH, true)
+                .set(props::ATTACHED, true),
+            7,
+            -3,
+            2
+        );
+        put!(
+            Block::TRIPWIRE
+                .default_state()
+                .set(props::NORTH, true)
+                .set(props::SOUTH, true)
+                .set(props::ATTACHED, true),
+            7,
+            -3,
+            3
+        );
+        put!(
+            Block::TRIPWIRE
+                .default_state()
+                .set(props::NORTH, true)
+                .set(props::SOUTH, true)
+                .set(props::ATTACHED, true),
+            7,
+            -3,
+            4
+        );
+        put!(
+            Block::REDSTONE_WIRE
+                .default_state()
+                .set(props::EAST_REDSTONE, RedstoneSide::Side)
+                .set(props::WEST_REDSTONE, RedstoneSide::Side),
+            8,
+            -3,
+            6
+        );
+        put!(
+            Block::REDSTONE_WIRE
+                .default_state()
+                .set(props::WEST_REDSTONE, RedstoneSide::Side)
+                .set(props::SOUTH_REDSTONE, RedstoneSide::Side),
+            9,
+            -3,
+            6
+        );
+        put!(
+            Block::REDSTONE_WIRE
+                .default_state()
+                .set(props::NORTH_REDSTONE, RedstoneSide::Side)
+                .set(props::SOUTH_REDSTONE, RedstoneSide::Up),
+            9,
+            -3,
+            5
+        );
         put!(Block::MOSSY_COBBLESTONE.default_state(), 9, -3, 4);
         put!(redstoneWireNS, 9, -2, 4);
         if !self.placed_trap_2 {
-        self.placed_trap_2 = self.create_dispenser(level, bb, random, 9, -2, 3, Direction::West, "minecraft:chests/jungle_temple_dispenser");
+            self.placed_trap_2 = self.create_dispenser(
+                level,
+                bb,
+                random,
+                9,
+                -2,
+                3,
+                Direction::West,
+                "minecraft:chests/jungle_temple_dispenser",
+            );
         }
         put!(Block::VINE.default_state().set(props::EAST, true), 8, -1, 3);
         put!(Block::VINE.default_state().set(props::EAST, true), 8, -2, 3);
         if !self.placed_main_chest {
-        self.placed_main_chest = self.create_chest(level, bb, random, 8, -3, 3, "minecraft:chests/jungle_temple");
+            self.placed_main_chest = self.create_chest(
+                level,
+                bb,
+                random,
+                8,
+                -3,
+                3,
+                "minecraft:chests/jungle_temple",
+            );
         }
         put!(Block::MOSSY_COBBLESTONE.default_state(), 9, -3, 2);
         put!(Block::MOSSY_COBBLESTONE.default_state(), 8, -3, 1);
@@ -264,7 +462,10 @@ impl StructurePiece for JungleTemplePiece {
         put!(Block::CHISELED_STONE_BRICKS.default_state(), 8, -2, 11);
         put!(Block::CHISELED_STONE_BRICKS.default_state(), 9, -2, 11);
         put!(Block::CHISELED_STONE_BRICKS.default_state(), 10, -2, 11);
-        let lever = Block::LEVER.default_state().set(props::HORIZONTAL_FACING, Direction::North).set(props::ATTACH_FACE, AttachFace::Wall);
+        let lever = Block::LEVER
+            .default_state()
+            .set(props::HORIZONTAL_FACING, Direction::North)
+            .set(props::ATTACH_FACE, AttachFace::Wall);
         put!(lever, 8, -2, 12);
         put!(lever, 9, -2, 12);
         put!(lever, 10, -2, 12);
@@ -273,13 +474,59 @@ impl StructurePiece for JungleTemplePiece {
         put!(Block::MOSSY_COBBLESTONE.default_state(), 10, -2, 9);
         put!(redstoneWireNS, 8, -2, 9);
         put!(redstoneWireNS, 8, -2, 10);
-        put!(Block::REDSTONE_WIRE.default_state().set(props::NORTH_REDSTONE, RedstoneSide::Side).set(props::SOUTH_REDSTONE, RedstoneSide::Side).set(props::EAST_REDSTONE, RedstoneSide::Side).set(props::WEST_REDSTONE, RedstoneSide::Side), 10, -1, 9);
-        put!(Block::STICKY_PISTON.default_state().set(props::FACING, Direction::Up), 9, -2, 8);
-        put!(Block::STICKY_PISTON.default_state().set(props::FACING, Direction::West), 10, -2, 8);
-        put!(Block::STICKY_PISTON.default_state().set(props::FACING, Direction::West), 10, -1, 8);
-        put!(Block::REPEATER.default_state().set(props::HORIZONTAL_FACING, Direction::North), 10, -2, 10);
+        put!(
+            Block::REDSTONE_WIRE
+                .default_state()
+                .set(props::NORTH_REDSTONE, RedstoneSide::Side)
+                .set(props::SOUTH_REDSTONE, RedstoneSide::Side)
+                .set(props::EAST_REDSTONE, RedstoneSide::Side)
+                .set(props::WEST_REDSTONE, RedstoneSide::Side),
+            10,
+            -1,
+            9
+        );
+        put!(
+            Block::STICKY_PISTON
+                .default_state()
+                .set(props::FACING, Direction::Up),
+            9,
+            -2,
+            8
+        );
+        put!(
+            Block::STICKY_PISTON
+                .default_state()
+                .set(props::FACING, Direction::West),
+            10,
+            -2,
+            8
+        );
+        put!(
+            Block::STICKY_PISTON
+                .default_state()
+                .set(props::FACING, Direction::West),
+            10,
+            -1,
+            8
+        );
+        put!(
+            Block::REPEATER
+                .default_state()
+                .set(props::HORIZONTAL_FACING, Direction::North),
+            10,
+            -2,
+            10
+        );
         if !self.placed_hidden_chest {
-        self.placed_hidden_chest = self.create_chest(level, bb, random, 9, -3, 10, "minecraft:chests/jungle_temple");
+            self.placed_hidden_chest = self.create_chest(
+                level,
+                bb,
+                random,
+                9,
+                -3,
+                10,
+                "minecraft:chests/jungle_temple",
+            );
         }
     }
 }

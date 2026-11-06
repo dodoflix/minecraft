@@ -150,10 +150,10 @@ pub use gate_behavior::{GateBehavior, OrderPolicy, RunOne, RunningPolicy};
 pub use one_shot::{OneShot, Trigger};
 pub use shuffling_list::ShufflingList;
 
-use mc_core::random::RandomSource;
 use crate::server::level::ServerLevel;
 use crate::world::entity::ai::memory::{MemoryStatus, MemoryTypeId};
 use crate::world::entity::entity::Entity;
+use mc_core::random::RandomSource;
 
 /// `Behavior.Status`.
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
@@ -166,7 +166,8 @@ pub enum Status {
 pub trait BehaviorControl: 'static {
     fn get_status(&self) -> Status;
     fn get_required_memories(&self) -> Vec<MemoryTypeId>;
-    fn try_start(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, timestamp: i64) -> bool;
+    fn try_start(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, timestamp: i64)
+    -> bool;
     fn tick_or_stop(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, timestamp: i64);
     fn do_stop(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, timestamp: i64);
     fn debug_string(&self) -> String;
@@ -182,7 +183,12 @@ pub trait Behavior: 'static {
     /// `stop(level, body, timestamp)`.
     fn stop(&mut self, _level: &mut ServerLevel, _body: &mut dyn Entity, _timestamp: i64) {}
     /// `canStillUse(level, body, timestamp)`.
-    fn can_still_use(&mut self, _level: &mut ServerLevel, _body: &mut dyn Entity, _timestamp: i64) -> bool {
+    fn can_still_use(
+        &mut self,
+        _level: &mut ServerLevel,
+        _body: &mut dyn Entity,
+        _timestamp: i64,
+    ) -> bool {
         false
     }
     /// `timedOut(timestamp)`; `end_timestamp` is the base class field `endTimestamp`.
@@ -190,7 +196,11 @@ pub trait Behavior: 'static {
         timestamp > end_timestamp
     }
     /// `checkExtraStartConditions(level, body)`.
-    fn check_extra_start_conditions(&mut self, _level: &mut ServerLevel, _body: &mut dyn Entity) -> bool {
+    fn check_extra_start_conditions(
+        &mut self,
+        _level: &mut ServerLevel,
+        _body: &mut dyn Entity,
+    ) -> bool {
         true
     }
     /// `getClass().getSimpleName()` for `debugString()`.
@@ -221,18 +231,36 @@ impl<B: Behavior> BehaviorBase<B> {
     }
 
     /// `Behavior(entryCondition, timeOutDuration)`.
-    pub fn with_timeout(entry_condition: Vec<(MemoryTypeId, MemoryStatus)>, time_out_duration: i32, inner: B) -> Self {
+    pub fn with_timeout(
+        entry_condition: Vec<(MemoryTypeId, MemoryStatus)>,
+        time_out_duration: i32,
+        inner: B,
+    ) -> Self {
         Self::with_duration(entry_condition, time_out_duration, time_out_duration, inner)
     }
 
     /// `Behavior(entryCondition, minDuration, maxDuration)`.
-    pub fn with_duration(entry_condition: Vec<(MemoryTypeId, MemoryStatus)>, min_duration: i32, max_duration: i32, inner: B) -> Self {
-        Self { entry_condition, status: Status::Stopped, end_timestamp: 0, min_duration, max_duration, inner }
+    pub fn with_duration(
+        entry_condition: Vec<(MemoryTypeId, MemoryStatus)>,
+        min_duration: i32,
+        max_duration: i32,
+        inner: B,
+    ) -> Self {
+        Self {
+            entry_condition,
+            status: Status::Stopped,
+            end_timestamp: 0,
+            min_duration,
+            max_duration,
+            inner,
+        }
     }
 
     /// `hasRequiredMemories(body)`.
     pub fn has_required_memories(&self, body: &dyn Entity) -> bool {
-        self.entry_condition.iter().all(|&(t, s)| body.brain().check_memory(t, s))
+        self.entry_condition
+            .iter()
+            .all(|&(t, s)| body.brain().check_memory(t, s))
     }
 }
 
@@ -245,11 +273,25 @@ impl<B: Behavior> BehaviorControl for BehaviorBase<B> {
         self.entry_condition.iter().map(|&(t, _)| t).collect()
     }
 
-    fn try_start(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, timestamp: i64) -> bool {
-        if self.has_required_memories(body) && self.inner.check_extra_start_conditions(level, body) {
+    fn try_start(
+        &mut self,
+        level: &mut ServerLevel,
+        body: &mut dyn Entity,
+        timestamp: i64,
+    ) -> bool {
+        if self.has_required_memories(body) && self.inner.check_extra_start_conditions(level, body)
+        {
             self.status = Status::Running;
-            let bound = self.max_duration.wrapping_add(1).wrapping_sub(self.min_duration);
-            let duration = self.min_duration.wrapping_add(mc_core::random::RandomSource::next_int_bounded(&mut level.tick_state.random, bound));
+            let bound = self
+                .max_duration
+                .wrapping_add(1)
+                .wrapping_sub(self.min_duration);
+            let duration =
+                self.min_duration
+                    .wrapping_add(mc_core::random::RandomSource::next_int_bounded(
+                        &mut level.tick_state.random,
+                        bound,
+                    ));
             self.end_timestamp = timestamp + i64::from(duration);
             self.inner.start(level, body, timestamp);
             true
@@ -259,7 +301,9 @@ impl<B: Behavior> BehaviorControl for BehaviorBase<B> {
     }
 
     fn tick_or_stop(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, timestamp: i64) {
-        if !self.inner.timed_out(timestamp, self.end_timestamp) && self.inner.can_still_use(level, body, timestamp) {
+        if !self.inner.timed_out(timestamp, self.end_timestamp)
+            && self.inner.can_still_use(level, body, timestamp)
+        {
             self.inner.tick(level, body, timestamp);
         } else {
             self.do_stop(level, body, timestamp);

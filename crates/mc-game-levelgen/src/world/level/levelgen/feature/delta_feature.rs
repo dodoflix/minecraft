@@ -1,21 +1,30 @@
 //! `DeltaFeature`.
 
-use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature};
-use mc_game_core::world::level::block::BlockStateExt;
-use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry, parse_block_state};
-use mc_game_core::world::level::levelgen::env::GenEnv;
-use mc_game_core::world::level::levelgen::registries::DecodeCtx;
-use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
-use mc_game_core::world::level::{LevelAccessor};
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::{Block, BlockState};
+use mc_game_core::world::level::LevelAccessor;
+use mc_game_core::world::level::block::BlockStateExt;
+use mc_game_core::world::level::levelgen::codec::{
+    Fields, LoadResult, TypeEntry, parse_block_state,
+};
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature};
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_worldgen::provider::IntProvider;
 use std::sync::Arc;
 
-const CANNOT_REPLACE: [Block; 7] =
-    [Block::BEDROCK, Block::NETHER_BRICKS, Block::NETHER_BRICK_FENCE, Block::NETHER_BRICK_STAIRS, Block::NETHER_WART, Block::CHEST, Block::SPAWNER];
+const CANNOT_REPLACE: [Block; 7] = [
+    Block::BEDROCK,
+    Block::NETHER_BRICKS,
+    Block::NETHER_BRICK_FENCE,
+    Block::NETHER_BRICK_STAIRS,
+    Block::NETHER_WART,
+    Block::CHEST,
+    Block::SPAWNER,
+];
 const RIM_SPAWN_CHANCE: f64 = 0.9;
 
 pub struct DeltaFeature {
@@ -54,14 +63,31 @@ impl DeltaFeature {
 }
 
 #[linkme::distributed_slice(FEATURE_TYPES)]
-static DELTA_FEATURE: TypeEntry<dyn Feature> = TypeEntry { name: "delta_feature", decode: DeltaFeature::decode };
+static DELTA_FEATURE: TypeEntry<dyn Feature> = TypeEntry {
+    name: "delta_feature",
+    decode: DeltaFeature::decode,
+};
 
 impl Feature for DeltaFeature {
-    fn place(&self, level: &mut dyn WorldGenLevel, _generator: &GenEnv, random: &mut dyn RandomSource, origin: BlockPos) -> bool {
+    fn place(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        _generator: &GenEnv,
+        random: &mut dyn RandomSource,
+        origin: BlockPos,
+    ) -> bool {
         let mut any_placed = false;
         let spawn_rim = random.next_double() < RIM_SPAWN_CHANCE;
-        let rim_x = if spawn_rim { self.rim_size.sample(random) } else { 0 };
-        let rim_z = if spawn_rim { self.rim_size.sample(random) } else { 0 };
+        let rim_x = if spawn_rim {
+            self.rim_size.sample(random)
+        } else {
+            0
+        };
+        let rim_z = if spawn_rim {
+            self.rim_size.sample(random)
+        } else {
+            0
+        };
         let has_rim = spawn_rim && rim_x != 0 && rim_z != 0;
         let radius_x = self.size.sample(random);
         let radius_z = self.size.sample(random);

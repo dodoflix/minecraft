@@ -18,7 +18,14 @@ fn item_tag(tag: &str, stack: &ItemStack) -> bool {
 
 /// `PiglinAi.isWearingSafeArmor(entity)`.
 pub fn is_wearing_safe_armor(entity: &dyn Entity) -> bool {
-    [EquipmentSlot::Feet, EquipmentSlot::Legs, EquipmentSlot::Chest, EquipmentSlot::Head].into_iter().any(|slot| item_tag("piglin_safe_armor", &entity.get_item_by_slot(slot)))
+    [
+        EquipmentSlot::Feet,
+        EquipmentSlot::Legs,
+        EquipmentSlot::Chest,
+        EquipmentSlot::Head,
+    ]
+    .into_iter()
+    .any(|slot| item_tag("piglin_safe_armor", &entity.get_item_by_slot(slot)))
 }
 
 /// `PiglinAi.isLovedItem(stack)`.
@@ -28,12 +35,18 @@ pub fn is_loved_item(stack: &ItemStack) -> bool {
 
 /// `PiglinAi.isPlayerHoldingLovedItem(entity)`: `entity.is(PLAYER) && entity.isHolding(PiglinAi::isLovedItem)`.
 pub fn is_player_holding_loved_item(entity: &dyn Entity) -> bool {
-    entity.get_type() == EntityType::PLAYER && [EquipmentSlot::MainHand, EquipmentSlot::OffHand].into_iter().any(|slot| is_loved_item(&entity.get_item_by_slot(slot)))
+    entity.get_type() == EntityType::PLAYER
+        && [EquipmentSlot::MainHand, EquipmentSlot::OffHand]
+            .into_iter()
+            .any(|slot| is_loved_item(&entity.get_item_by_slot(slot)))
 }
 
 /// `PiglinAi.isZombified(entity)`.
 pub fn is_zombified(entity: &dyn Entity) -> bool {
-    matches!(entity.get_type(), EntityType::ZOMBIFIED_PIGLIN | EntityType::ZOGLIN)
+    matches!(
+        entity.get_type(),
+        EntityType::ZOMBIFIED_PIGLIN | EntityType::ZOGLIN
+    )
 }
 
 fn is_abstract_piglin(t: EntityType) -> bool {
@@ -42,21 +55,40 @@ fn is_abstract_piglin(t: EntityType) -> bool {
 
 /// `PiglinAi.findNearbyAdultPiglins(brain)`.
 pub fn find_nearby_adult_piglins(level: &ServerLevel, body: &dyn Entity) -> Vec<EntityRef> {
-    let Some(entities) = body.brain().get_memory(&NEAREST_LIVING_ENTITIES) else { return Vec::new() };
-    entities.iter().copied().filter(|r| level.get_entity(r.0).is_some_and(|e| is_abstract_piglin(e.get_type()) && !e.is_baby())).collect()
+    let Some(entities) = body.brain().get_memory(&NEAREST_LIVING_ENTITIES) else {
+        return Vec::new();
+    };
+    entities
+        .iter()
+        .copied()
+        .filter(|r| {
+            level
+                .get_entity(r.0)
+                .is_some_and(|e| is_abstract_piglin(e.get_type()) && !e.is_baby())
+        })
+        .collect()
 }
 
 fn visible_entities(body: &dyn Entity) -> NearestVisibleLivingEntities {
-    body.brain().get_memory(&NEAREST_VISIBLE_LIVING_ENTITIES).cloned().unwrap_or_else(NearestVisibleLivingEntities::empty)
+    body.brain()
+        .get_memory(&NEAREST_VISIBLE_LIVING_ENTITIES)
+        .cloned()
+        .unwrap_or_else(NearestVisibleLivingEntities::empty)
 }
 
 /// `level.findBlocksInBoxByManhattanDistance(pos, 8, 4).filterState(test).findFirst()`.
-fn find_nearest_block(level: &ServerLevel, origin: BlockPos, test: impl Fn(mc_data::block::BlockState) -> bool) -> Option<BlockPos> {
-    BlockPos::within_box_by_manhattan_distance(&origin, 8, 4, 8).find(|p| test(level.get_block_state(*p)))
+fn find_nearest_block(
+    level: &ServerLevel,
+    origin: BlockPos,
+    test: impl Fn(mc_data::block::BlockState) -> bool,
+) -> Option<BlockPos> {
+    BlockPos::within_box_by_manhattan_distance(&origin, 8, 4, 8)
+        .find(|p| test(level.get_block_state(*p)))
 }
 
 fn is_valid_piglin_repellent(state: mc_data::block::BlockState) -> bool {
-    let is_repellent = mc_data::tags::get::<Block>("piglin_repellents").is_some_and(|t| t.contains(state.block()));
+    let is_repellent =
+        mc_data::tags::get::<Block>("piglin_repellents").is_some_and(|t| t.contains(state.block()));
     if is_repellent && state.block() == Block::SOUL_CAMPFIRE {
         crate::world::level::block::impls::campfire_block::CampfireBlock::is_lit_campfire(state)
     } else {
@@ -86,14 +118,24 @@ impl Sensor for PiglinSpecificSensor {
 
     fn do_tick(&mut self, level: &mut ServerLevel, body: &mut dyn Entity) {
         let repellent = find_nearest_block(level, body.block_position(), is_valid_piglin_repellent);
-        body.brain_mut().set_memory_opt(&NEAREST_REPELLENT, repellent);
-        let (mut nemesis, mut huntable_hoglin, mut baby_hoglin, mut baby_piglin, mut zombified): (Option<EntityRef>, Option<EntityRef>, Option<EntityRef>, Option<EntityRef>, Option<EntityRef>) = (None, None, None, None, None);
-        let (mut player_not_wearing_gold, mut player_holding_wanted_item) = (None::<EntityRef>, None::<EntityRef>);
+        body.brain_mut()
+            .set_memory_opt(&NEAREST_REPELLENT, repellent);
+        let (mut nemesis, mut huntable_hoglin, mut baby_hoglin, mut baby_piglin, mut zombified): (
+            Option<EntityRef>,
+            Option<EntityRef>,
+            Option<EntityRef>,
+            Option<EntityRef>,
+            Option<EntityRef>,
+        ) = (None, None, None, None, None);
+        let (mut player_not_wearing_gold, mut player_holding_wanted_item) =
+            (None::<EntityRef>, None::<EntityRef>);
         let mut visible_adult_hoglin_count = 0i32;
         let mut visible_adult_piglins: Vec<EntityRef> = Vec::new();
         let visible = visible_entities(&*body);
         for r in visible.find_all(level, &*body, |_| true) {
-            let Some(entity) = level.get_entity(r.0) else { continue };
+            let Some(entity) = level.get_entity(r.0) else {
+                continue;
+            };
             let t = entity.get_type();
             if t == EntityType::HOGLIN {
                 if entity.is_baby() && baby_hoglin.is_none() {
@@ -113,13 +155,21 @@ impl Sensor for PiglinSpecificSensor {
                     visible_adult_piglins.push(r);
                 }
             } else if t == EntityType::PLAYER {
-                if player_not_wearing_gold.is_none() && !is_wearing_safe_armor(entity) && body.can_attack(level, entity) {
+                if player_not_wearing_gold.is_none()
+                    && !is_wearing_safe_armor(entity)
+                    && body.can_attack(level, entity)
+                {
                     player_not_wearing_gold = Some(r);
                 }
-                if player_holding_wanted_item.is_none() && !entity.is_spectator() && is_player_holding_loved_item(entity) {
+                if player_holding_wanted_item.is_none()
+                    && !entity.is_spectator()
+                    && is_player_holding_loved_item(entity)
+                {
                     player_holding_wanted_item = Some(r);
                 }
-            } else if !nemesis.is_none() || !matches!(t, EntityType::WITHER_SKELETON | EntityType::WITHER) {
+            } else if !nemesis.is_none()
+                || !matches!(t, EntityType::WITHER_SKELETON | EntityType::WITHER)
+            {
                 if zombified.is_none() && is_zombified(entity) {
                     zombified = Some(r);
                 }
@@ -133,8 +183,14 @@ impl Sensor for PiglinSpecificSensor {
         brain.set_memory_opt(&NEAREST_VISIBLE_HUNTABLE_HOGLIN, huntable_hoglin);
         brain.set_memory_opt(&NEAREST_VISIBLE_BABY_HOGLIN, baby_hoglin);
         brain.set_memory_opt(&NEAREST_VISIBLE_ZOMBIFIED, zombified);
-        brain.set_memory_opt(&NEAREST_TARGETABLE_PLAYER_NOT_WEARING_GOLD, player_not_wearing_gold);
-        brain.set_memory_opt(&NEAREST_PLAYER_HOLDING_WANTED_ITEM, player_holding_wanted_item);
+        brain.set_memory_opt(
+            &NEAREST_TARGETABLE_PLAYER_NOT_WEARING_GOLD,
+            player_not_wearing_gold,
+        );
+        brain.set_memory_opt(
+            &NEAREST_PLAYER_HOLDING_WANTED_ITEM,
+            player_holding_wanted_item,
+        );
         brain.set_memory(&NEARBY_ADULT_PIGLINS, adult_piglins);
         let count = visible_adult_piglins.len() as i32;
         brain.set_memory(&NEAREST_VISIBLE_ADULT_PIGLINS, visible_adult_piglins);
@@ -147,12 +203,21 @@ pub struct PiglinBruteSpecificSensor;
 
 impl Sensor for PiglinBruteSpecificSensor {
     fn requires(&self) -> Vec<MemoryTypeId> {
-        vec![NEAREST_VISIBLE_LIVING_ENTITIES.id(), NEAREST_VISIBLE_NEMESIS.id(), NEARBY_ADULT_PIGLINS.id()]
+        vec![
+            NEAREST_VISIBLE_LIVING_ENTITIES.id(),
+            NEAREST_VISIBLE_NEMESIS.id(),
+            NEARBY_ADULT_PIGLINS.id(),
+        ]
     }
 
     fn do_tick(&mut self, level: &mut ServerLevel, body: &mut dyn Entity) {
         let visible = visible_entities(&*body);
-        let nemesis = visible.find_closest(level, &*body, |e| matches!(e.get_type(), EntityType::WITHER_SKELETON | EntityType::WITHER));
+        let nemesis = visible.find_closest(level, &*body, |e| {
+            matches!(
+                e.get_type(),
+                EntityType::WITHER_SKELETON | EntityType::WITHER
+            )
+        });
         let adult_piglins = find_nearby_adult_piglins(level, &*body);
         let brain = body.brain_mut();
         brain.set_memory_opt(&NEAREST_VISIBLE_NEMESIS, nemesis);
@@ -175,13 +240,18 @@ impl Sensor for HoglinSpecificSensor {
     }
 
     fn do_tick(&mut self, level: &mut ServerLevel, body: &mut dyn Entity) {
-        let repellent = find_nearest_block(level, body.block_position(), |s| mc_data::tags::get::<Block>("hoglin_repellents").is_some_and(|t| t.contains(s.block())));
-        body.brain_mut().set_memory_opt(&NEAREST_REPELLENT, repellent);
+        let repellent = find_nearest_block(level, body.block_position(), |s| {
+            mc_data::tags::get::<Block>("hoglin_repellents").is_some_and(|t| t.contains(s.block()))
+        });
+        body.brain_mut()
+            .set_memory_opt(&NEAREST_REPELLENT, repellent);
         let mut adult_piglin: Option<EntityRef> = None;
         let mut adult_piglin_count = 0i32;
         let mut adult_hoglins: Vec<EntityRef> = Vec::new();
         let visible = visible_entities(&*body);
-        let matching = visible.find_all(level, &*body, |e| !e.is_baby() && matches!(e.get_type(), EntityType::PIGLIN | EntityType::HOGLIN));
+        let matching = visible.find_all(level, &*body, |e| {
+            !e.is_baby() && matches!(e.get_type(), EntityType::PIGLIN | EntityType::HOGLIN)
+        });
         for r in matching {
             match level.get_entity(r.0).map(|e| e.get_type()) {
                 Some(EntityType::PIGLIN) => {

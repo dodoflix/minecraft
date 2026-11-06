@@ -15,7 +15,11 @@ impl ForceUnmount {
 }
 
 impl Behavior for ForceUnmount {
-    fn check_extra_start_conditions(&mut self, _level: &mut ServerLevel, body: &mut dyn Entity) -> bool {
+    fn check_extra_start_conditions(
+        &mut self,
+        _level: &mut ServerLevel,
+        body: &mut dyn Entity,
+    ) -> bool {
         body.base().is_passenger()
     }
 

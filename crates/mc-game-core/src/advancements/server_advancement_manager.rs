@@ -14,7 +14,9 @@ use super::advancement_tree::AdvancementTree;
 use crate::registry::codec::RegistryDecodeContext;
 use crate::registry::decoders::{DYNAMIC_REGISTRY_DECODERS, DecodedEntry, DynamicRegistryDecoder};
 use crate::registry::keys;
-use crate::server::reloadable_resources::{ReloadContext, ReloadListener, ReloadListenerRegistration, RELOAD_LISTENERS};
+use crate::server::reloadable_resources::{
+    RELOAD_LISTENERS, ReloadContext, ReloadListener, ReloadListenerRegistration,
+};
 use crate::world::level::storage::loot::holder::with_decode_context;
 
 /// Position in `ReloadableServerResources` (after recipes, which vanilla builds before the advancements).
@@ -29,16 +31,27 @@ pub struct ServerAdvancementManager {
 
 impl ServerAdvancementManager {
     /// `new ServerAdvancementManager(registries)`.
-    pub fn from_registries(registries: &crate::registry::RegistryAccess) -> ServerAdvancementManager {
+    pub fn from_registries(
+        registries: &crate::registry::RegistryAccess,
+    ) -> ServerAdvancementManager {
         let mut advancements = Vec::new();
         let mut by_id = HashMap::new();
         if let Some(registry) = registries.registry(keys::ADVANCEMENT) {
             for entry in registry.entries() {
-                let Some(value) = registry.get::<Arc<Advancement>>(&entry.id) else { continue };
+                let Some(value) = registry.get::<Arc<Advancement>>(&entry.id) else {
+                    continue;
+                };
                 let problems = value.validate(registries);
                 if !problems.is_empty() {
-                    let report = problems.iter().map(|(path, d)| format!(" at {path}: {d}")).collect::<Vec<_>>().join("\n");
-                    log::warn!("Found validation problems in advancement {}: \n{report}", entry.id);
+                    let report = problems
+                        .iter()
+                        .map(|(path, d)| format!(" at {path}: {d}"))
+                        .collect::<Vec<_>>()
+                        .join("\n");
+                    log::warn!(
+                        "Found validation problems in advancement {}: \n{report}",
+                        entry.id
+                    );
                 }
                 by_id.insert(entry.id.clone(), advancements.len());
                 advancements.push(AdvancementHolder::new(entry.id.clone(), value.clone()));
@@ -47,7 +60,11 @@ impl ServerAdvancementManager {
         let mut tree = AdvancementTree::new();
         tree.add_all(advancements.iter().cloned());
         tree.reposition_nodes();
-        ServerAdvancementManager { advancements, by_id, tree: Arc::new(tree) }
+        ServerAdvancementManager {
+            advancements,
+            by_id,
+            tree: Arc::new(tree),
+        }
     }
 
     /// `get(id)`.
@@ -86,11 +103,15 @@ impl ReloadListener for ServerAdvancementManager {
 }
 
 #[linkme::distributed_slice(RELOAD_LISTENERS)]
-static ADVANCEMENT_MANAGER: ReloadListenerRegistration =
-    ReloadListenerRegistration { name: "advancements", order: ORDER_ADVANCEMENTS, create: || Box::new(ServerAdvancementManager::default()) };
+static ADVANCEMENT_MANAGER: ReloadListenerRegistration = ReloadListenerRegistration {
+    name: "advancements",
+    order: ORDER_ADVANCEMENTS,
+    create: || Box::new(ServerAdvancementManager::default()),
+};
 
 fn decode_advancement(json: &Value, ctx: &RegistryDecodeContext) -> Result<DecodedEntry, String> {
-    let dyn_value = Dyn::from_json_str(&json.to_string()).map_err(|e| format!("Failed to parse JSON: {e}"))?;
+    let dyn_value =
+        Dyn::from_json_str(&json.to_string()).map_err(|e| format!("Failed to parse JSON: {e}"))?;
     match with_decode_context(ctx, || Advancement::codec().parse(&JSON, &dyn_value)) {
         DataResult::Success(v) => Ok(DecodedEntry::new(Arc::new(v))),
         DataResult::Error { message, .. } => Err(message.get()),
@@ -98,12 +119,18 @@ fn decode_advancement(json: &Value, ctx: &RegistryDecodeContext) -> Result<Decod
 }
 
 #[linkme::distributed_slice(DYNAMIC_REGISTRY_DECODERS)]
-static ADVANCEMENT_DECODER: DynamicRegistryDecoder = DynamicRegistryDecoder { registry: keys::ADVANCEMENT, decode: decode_advancement };
+static ADVANCEMENT_DECODER: DynamicRegistryDecoder = DynamicRegistryDecoder {
+    registry: keys::ADVANCEMENT,
+    decode: decode_advancement,
+};
 
 impl crate::server::MinecraftServer {
     /// `getAdvancements()`.
     pub fn advancements(&self) -> &ServerAdvancementManager {
-        self.resources.managers.listener::<ServerAdvancementManager>().expect("the advancement manager is registered")
+        self.resources
+            .managers
+            .listener::<ServerAdvancementManager>()
+            .expect("the advancement manager is registered")
     }
 }
 
@@ -111,14 +138,22 @@ impl crate::server::MinecraftServer {
 struct AdvancementPackets;
 
 impl crate::server::network::game_packets::hooks::PlayHandlers for AdvancementPackets {
-    fn handle_seen_advancements(&self, ctx: &mut crate::server::network::game_packets::PlayCtx, packet: &mc_protocol::packets::play::ServerboundSeenAdvancementsPacket) {
-        if let mc_protocol::packets::play::ServerboundSeenAdvancementsPacket::OpenedTab(id) = packet {
+    fn handle_seen_advancements(
+        &self,
+        ctx: &mut crate::server::network::game_packets::PlayCtx,
+        packet: &mc_protocol::packets::play::ServerboundSeenAdvancementsPacket,
+    ) {
+        if let mc_protocol::packets::play::ServerboundSeenAdvancementsPacket::OpenedTab(id) = packet
+        {
             if let Some(advancement) = ctx.server.advancements().get(id).cloned() {
-                ctx.player.advancements.set_selected_tab(ctx.player, Some(&advancement));
+                ctx.player
+                    .advancements
+                    .set_selected_tab(ctx.player, Some(&advancement));
             }
         }
     }
 }
 
 #[linkme::distributed_slice(crate::server::network::game_packets::hooks::PLAY_HANDLERS)]
-static ADVANCEMENT_PACKETS: &dyn crate::server::network::game_packets::hooks::PlayHandlers = &AdvancementPackets;
+static ADVANCEMENT_PACKETS: &dyn crate::server::network::game_packets::hooks::PlayHandlers =
+    &AdvancementPackets;

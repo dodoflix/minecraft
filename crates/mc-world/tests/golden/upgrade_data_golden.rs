@@ -23,7 +23,10 @@ fn compound(s: &str) -> CompoundTag {
 #[test]
 fn upgrade_data_nbt_matches_vanilla() {
     let mut checked = 0;
-    for line in SAVED_TICK_GOLDEN.lines().filter(|l| l.starts_with("UPGRADE\t")) {
+    for line in SAVED_TICK_GOLDEN
+        .lines()
+        .filter(|l| l.starts_with("UPGRADE\t"))
+    {
         let f: Vec<&str> = line.split('\t').collect();
         let (min_y, height): (i32, i32) = (f[1].parse().unwrap(), f[2].parse().unwrap());
         let data = UpgradeData::parse(&compound(f[3]), min_y >> 4, (min_y + height - 1) >> 4);
@@ -100,34 +103,81 @@ impl UpgradeChunk for Mock {
         self.section_states.get(&(section_index, index)).copied()
     }
     fn get_block_state(&self, pos: &BlockPos) -> BlockState {
-        self.states.get(pos).copied().or(self.default_state).unwrap_or(Block::AIR.default_state())
+        self.states
+            .get(pos)
+            .copied()
+            .or(self.default_state)
+            .unwrap_or(Block::AIR.default_state())
     }
     fn get_fluid_type(&self, pos: &BlockPos) -> Fluid {
         self.fluids.get(pos).copied().unwrap_or(Fluid::EMPTY)
     }
-    fn set_block(&mut self, pos: &BlockPos, state: BlockState, flags: i32, update_limit: i32) -> bool {
+    fn set_block(
+        &mut self,
+        pos: &BlockPos,
+        state: BlockState,
+        flags: i32,
+        update_limit: i32,
+    ) -> bool {
         assert_eq!(update_limit, 512);
-        self.events.push(format!("setBlock({},{},{},{state},{flags})", pos.x(), pos.y(), pos.z()));
+        self.events.push(format!(
+            "setBlock({},{},{},{state},{flags})",
+            pos.x(),
+            pos.y(),
+            pos.z()
+        ));
         self.states.insert(*pos, state);
         true
     }
     fn destroy_block(&mut self, pos: &BlockPos, drop_resources: bool, update_limit: i32) -> bool {
         assert_eq!(update_limit, 512);
-        self.events.push(format!("destroyBlock({},{},{},{drop_resources})", pos.x(), pos.y(), pos.z()));
+        self.events.push(format!(
+            "destroyBlock({},{},{},{drop_resources})",
+            pos.x(),
+            pos.y(),
+            pos.z()
+        ));
         self.states.insert(*pos, Block::AIR.default_state());
         true
     }
-    fn update_shape(&mut self, state: BlockState, direction: Direction, pos: &BlockPos, _n: &BlockPos, _ns: BlockState) -> BlockState {
+    fn update_shape(
+        &mut self,
+        state: BlockState,
+        direction: Direction,
+        pos: &BlockPos,
+        _n: &BlockPos,
+        _ns: BlockState,
+    ) -> BlockState {
         self.shape_calls.push((*pos, direction));
         self.replace.map_or(state, |f| f(state, direction))
     }
     fn swap_chest_contents(&mut self, a: &BlockPos, b: &BlockPos) {
-        self.events.push(format!("getBE({},{},{});getBE({},{},{})", a.x(), a.y(), a.z(), b.x(), b.y(), b.z()));
+        self.events.push(format!(
+            "getBE({},{},{});getBE({},{},{})",
+            a.x(),
+            a.y(),
+            a.z(),
+            b.x(),
+            b.y(),
+            b.z()
+        ));
     }
-    fn schedule_block_tick(&mut self, pos: &BlockPos, block: Block, delay: i32, priority: TickPriority) {
+    fn schedule_block_tick(
+        &mut self,
+        pos: &BlockPos,
+        block: Block,
+        delay: i32,
+        priority: TickPriority,
+    ) {
         self.block_ticks.push((*pos, block, delay, priority));
     }
-    fn schedule_fluid_tick(&mut self, pos: &BlockPos, fluid: Fluid, delay: i32, priority: TickPriority) {
+    fn schedule_fluid_tick(
+        &mut self,
+        pos: &BlockPos,
+        fluid: Fluid,
+        delay: i32,
+        priority: TickPriority,
+    ) {
         self.fluid_ticks.push((*pos, fluid, delay, priority));
     }
 }
@@ -137,18 +187,39 @@ fn chest_and_stem_fixers_match_vanilla() {
     // Vanilla lists only the (state, direction, neighbour) combinations where the result differs, events were
     // recorded or an exception was thrown; every other combination must be a no-op with no events.
     let mut expected: HashMap<(String, String, String), (String, String)> = HashMap::new();
-    for line in FIXER_GOLDEN.lines().filter(|l| l.starts_with("CHEST\t") || l.starts_with("STEM\t")) {
+    for line in FIXER_GOLDEN
+        .lines()
+        .filter(|l| l.starts_with("CHEST\t") || l.starts_with("STEM\t"))
+    {
         let f: Vec<&str> = line.split('\t').collect();
-        expected.insert((f[1].into(), f[2].into(), f[3].into()), (f[4].into(), f[5].into()));
+        expected.insert(
+            (f[1].into(), f[2].into(), f[3].into()),
+            (f[4].into(), f[5].into()),
+        );
     }
     let pos = BlockPos::new(5, 64, 5);
-    let others: Vec<BlockState> =
-        [Block::STONE, Block::PUMPKIN, Block::MELON, Block::CARVED_PUMPKIN, Block::ATTACHED_PUMPKIN_STEM, Block::AIR].map(|b| b.default_state()).to_vec();
+    let others: Vec<BlockState> = [
+        Block::STONE,
+        Block::PUMPKIN,
+        Block::MELON,
+        Block::CARVED_PUMPKIN,
+        Block::ATTACHED_PUMPKIN_STEM,
+        Block::AIR,
+    ]
+    .map(|b| b.default_state())
+    .to_vec();
     let mut seen = 0;
-    for (which, blocks) in [("CHEST", [Block::CHEST, Block::TRAPPED_CHEST]), ("STEM", [Block::PUMPKIN_STEM, Block::MELON_STEM])] {
+    for (which, blocks) in [
+        ("CHEST", [Block::CHEST, Block::TRAPPED_CHEST]),
+        ("STEM", [Block::PUMPKIN_STEM, Block::MELON_STEM]),
+    ] {
         let states: Vec<BlockState> = blocks.iter().flat_map(|b| b.states()).collect();
         let mut neighbours: Vec<BlockState> = if which == "CHEST" {
-            states.iter().copied().filter(|s| !s.to_string().contains("waterlogged=true")).collect()
+            states
+                .iter()
+                .copied()
+                .filter(|s| !s.to_string().contains("waterlogged=true"))
+                .collect()
         } else {
             vec![]
         };
@@ -162,18 +233,33 @@ fn chest_and_stem_fixers_match_vanilla() {
                     let mut mock = Mock::default();
                     let npos = pos.relative(d);
                     let mut leaves = LeavesQueue::default();
-                    let res = BlockFixer::for_block(state.block()).update_shape(state, d, nb, &mut mock, &pos, &npos, &mut leaves);
+                    let res = BlockFixer::for_block(state.block()).update_shape(
+                        state,
+                        d,
+                        nb,
+                        &mut mock,
+                        &pos,
+                        &npos,
+                        &mut leaves,
+                    );
                     let key = (state.to_string(), d.get_name().to_string(), nb.to_string());
                     let actual = match &res {
                         Ok(s) => (s.to_string(), mock.events.join(";")),
-                        Err(_) => ("EXC:java.lang.IllegalArgumentException".to_string(), String::new()),
+                        Err(_) => (
+                            "EXC:java.lang.IllegalArgumentException".to_string(),
+                            String::new(),
+                        ),
                     };
                     match expected.get(&key) {
                         Some(e) => {
                             assert_eq!(&actual, e, "{key:?}");
                             seen += 1;
                         }
-                        None => assert_eq!(actual, (state.to_string(), String::new()), "unlisted combination must be a no-op: {key:?}"),
+                        None => assert_eq!(
+                            actual,
+                            (state.to_string(), String::new()),
+                            "unlisted combination must be a no-op: {key:?}"
+                        ),
                     }
                 }
             }
@@ -187,7 +273,13 @@ fn stone() -> BlockState {
 }
 
 fn mock(chunk: ChunkPos) -> Mock {
-    Mock { default_state: Some(stone()), min_y: 0, max_y: 15, chunk, ..Default::default() }
+    Mock {
+        default_state: Some(stone()),
+        min_y: 0,
+        max_y: 15,
+        chunk,
+        ..Default::default()
+    }
 }
 
 fn side_data(sides: &[Direction8]) -> UpgradeData {
@@ -214,11 +306,20 @@ fn upgrade_sides_visit_vanilla_regions() {
         assert_eq!(data.sides(), vec![d]);
         data.upgrade(&mut m).unwrap();
         assert!(data.is_empty(), "{d:?}: side consumed");
-        let visited: BTreeSet<(i32, i32, i32)> = m.shape_calls.iter().map(|(p, _)| (p.x(), p.y(), p.z())).collect();
-        let want: BTreeSet<(i32, i32, i32)> =
-            (x0..=x1).flat_map(|x| (0..=15).flat_map(move |y| (z0..=z1).map(move |z| (x, y, z)))).collect();
+        let visited: BTreeSet<(i32, i32, i32)> = m
+            .shape_calls
+            .iter()
+            .map(|(p, _)| (p.x(), p.y(), p.z()))
+            .collect();
+        let want: BTreeSet<(i32, i32, i32)> = (x0..=x1)
+            .flat_map(|x| (0..=15).flat_map(move |y| (z0..=z1).map(move |z| (x, y, z))))
+            .collect();
         assert_eq!(visited, want, "{d:?}");
-        assert_eq!(m.shape_calls.len(), want.len() * 6, "{d:?}: every position is updated from all 6 directions");
+        assert_eq!(
+            m.shape_calls.len(),
+            want.len() * 6,
+            "{d:?}: every position is updated from all 6 directions"
+        );
         // order: x fastest, then y, then z (BlockPos.betweenClosed); directions in Direction.values() order
         let first: Vec<Direction> = m.shape_calls[..6].iter().map(|(_, d)| *d).collect();
         assert_eq!(first, Direction::ALL);
@@ -237,7 +338,13 @@ fn upgrade_inside_decodes_indices_and_updates_or_destroys() {
         m.section_states.insert((1, c), stone());
     }
     // the middle block becomes air (destroyed with drops), the others dirt (setBlock 18)
-    m.replace = Some(|s, d| if d == Direction::Down { Block::DIRT.default_state() } else { s });
+    m.replace = Some(|s, d| {
+        if d == Direction::Down {
+            Block::DIRT.default_state()
+        } else {
+            s
+        }
+    });
     data.upgrade(&mut m).unwrap();
     assert!(data.is_empty());
     let mut centres: Vec<(i32, i32, i32)> = vec![];
@@ -249,7 +356,10 @@ fn upgrade_inside_decodes_indices_and_updates_or_destroys() {
     // 4095: x=15,y=15,z=15; 291 = 0x123: y=1, z=2, x=3
     assert_eq!(centres, vec![(-16, 16, 48), (-1, 31, 63), (-13, 17, 50)]);
     assert_eq!(m.events.len(), 3);
-    assert_eq!(m.events[0], format!("setBlock(-16,16,48,{},18)", Block::DIRT.default_state()));
+    assert_eq!(
+        m.events[0],
+        format!("setBlock(-16,16,48,{},18)", Block::DIRT.default_state())
+    );
 
     // new state is air: destroyBlock(pos, true, null, 512)
     let mut data = UpgradeData::parse(&compound("{Indices:{\"0\":[I;5]}}"), 0, 0);
@@ -274,21 +384,33 @@ fn upgrade_schedules_neighbor_ticks_resolving_air_and_empty() {
          neighbor_fluid_ticks:[{i:\"minecraft:empty\",x:1,y:2,z:3,t:4,p:1},{i:\"minecraft:lava\",x:5,y:6,z:7,t:8,p:0}]}",
     );
     let mut data = UpgradeData::parse(&tag, 0, 0);
-    assert!(data.is_empty(), "ticks alone do not make UpgradeData non-empty");
+    assert!(
+        data.is_empty(),
+        "ticks alone do not make UpgradeData non-empty"
+    );
     let mut m = mock(ChunkPos::new(0, 0));
-    m.states.insert(BlockPos::new(1, 2, 3), Block::SAND.default_state());
+    m.states
+        .insert(BlockPos::new(1, 2, 3), Block::SAND.default_state());
     m.fluids.insert(BlockPos::new(1, 2, 3), Fluid::WATER);
     data.upgrade(&mut m).unwrap();
     assert_eq!(
         m.block_ticks,
         vec![
             (BlockPos::new(1, 2, 3), Block::SAND, 4, TickPriority::High),
-            (BlockPos::new(5, 6, 7), Block::DIRT, 8, TickPriority::ExtremelyLow)
+            (
+                BlockPos::new(5, 6, 7),
+                Block::DIRT,
+                8,
+                TickPriority::ExtremelyLow
+            )
         ]
     );
     assert_eq!(
         m.fluid_ticks,
-        vec![(BlockPos::new(1, 2, 3), Fluid::WATER, 4, TickPriority::Low), (BlockPos::new(5, 6, 7), Fluid::LAVA, 8, TickPriority::Normal)]
+        vec![
+            (BlockPos::new(1, 2, 3), Fluid::WATER, 4, TickPriority::Low),
+            (BlockPos::new(5, 6, 7), Fluid::LAVA, 8, TickPriority::Normal)
+        ]
     );
     // upgrade does not consume the ticks
     assert_eq!(data.neighbor_block_ticks().len(), 2);
@@ -305,7 +427,10 @@ fn blacklisted_blocks_are_not_updated_and_default_fixer_calls_update_shape() {
     let mut data = UpgradeData::parse(&compound("{Indices:{\"0\":[I;0]}}"), 0, 0);
     m.section_states.insert((0, 0), stone());
     data.upgrade(&mut m).unwrap();
-    assert_eq!(m.shape_calls.iter().map(|(_, d)| *d).collect::<Vec<_>>(), Direction::ALL);
+    assert_eq!(
+        m.shape_calls.iter().map(|(_, d)| *d).collect::<Vec<_>>(),
+        Direction::ALL
+    );
 }
 
 #[test]
@@ -330,10 +455,26 @@ fn leaves_fixer_queues_changed_shapes_and_propagates_distance() {
     let mut m = mock(ChunkPos::new(0, 0));
     m.default_state = Some(leaves);
     m.section_states.insert((0, 0), leaves);
-    m.replace = Some(|s, d| if d == Direction::Down { s.set(mc_data::props::DISTANCE, 3) } else { s });
+    m.replace = Some(|s, d| {
+        if d == Direction::Down {
+            s.set(mc_data::props::DISTANCE, 3)
+        } else {
+            s
+        }
+    });
     data.upgrade(&mut m).unwrap();
     // `updateShape` returned the unchanged state: nothing set; the queued position (distance 3) is then lowered to 3
-    assert_eq!(m.events[0], format!("setBlock(0,0,0,{},18)", leaves.set(mc_data::props::DISTANCE, 3)));
-    assert!(m.events.iter().any(|e| e.contains("distance=5")), "{:?}", m.events);
+    assert_eq!(
+        m.events[0],
+        format!(
+            "setBlock(0,0,0,{},18)",
+            leaves.set(mc_data::props::DISTANCE, 3)
+        )
+    );
+    assert!(
+        m.events.iter().any(|e| e.contains("distance=5")),
+        "{:?}",
+        m.events
+    );
     assert!(m.events.iter().all(|e| e.ends_with(",18)")));
 }

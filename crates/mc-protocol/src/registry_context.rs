@@ -21,7 +21,11 @@ pub struct RegistryTable {
 
 impl RegistryTable {
     pub fn new(names: Vec<Identifier>) -> Self {
-        let ids = names.iter().enumerate().map(|(i, n)| (n.clone(), i as i32)).collect();
+        let ids = names
+            .iter()
+            .enumerate()
+            .map(|(i, n)| (n.clone(), i as i32))
+            .collect();
         RegistryTable { names, ids }
     }
     pub fn id_of(&self, name: &Identifier) -> Option<i32> {
@@ -54,11 +58,15 @@ pub struct RegistryContext {
 
 impl RegistryContext {
     pub fn new() -> Self {
-        RegistryContext { registries: HashMap::new(), tag_exists: None }
+        RegistryContext {
+            registries: HashMap::new(),
+            tag_exists: None,
+        }
     }
     /// Add a data-driven registry (`key` like `minecraft:enchantment`) with its entries in protocol-id order.
     pub fn with_registry(mut self, key: &str, names: Vec<Identifier>) -> Self {
-        self.registries.insert(key.to_string(), RegistryTable::new(names));
+        self.registries
+            .insert(key.to_string(), RegistryTable::new(names));
         self
     }
     /// Install the predicate used to check that a tag exists (default: tags of the embedded vanilla data pack).
@@ -86,7 +94,11 @@ impl RegistryContext {
             let (key, path) = (format!("minecraft:{dir}"), format!("data/minecraft/{dir}/"));
             let prefix: &'static str = Box::leak(path.into_boxed_str());
             let mut names: Vec<Identifier> = mc_data::datapack::list(prefix)
-                .filter_map(|p| p.strip_prefix(prefix)?.strip_suffix(".json").map(|n| format!("minecraft:{n}")))
+                .filter_map(|p| {
+                    p.strip_prefix(prefix)?
+                        .strip_suffix(".json")
+                        .map(|n| format!("minecraft:{n}"))
+                })
                 .filter_map(|n| Identifier::parse(&n).ok())
                 .collect();
             names.sort_by_key(|n| n.to_string());
@@ -162,7 +174,9 @@ pub const DATA_DRIVEN_REGISTRIES: &[&str] = &[
 fn vanilla_tag_exists(registry: &str, tag: &Identifier) -> bool {
     let dir = registry.strip_prefix("minecraft:").unwrap_or(registry);
     // built-in registries use their typed tag dirs; data-driven ones their data-pack dir
-    let dir = mc_data::registry::by_name(registry).map(|r| r.tag_dir()).unwrap_or(dir);
+    let dir = mc_data::registry::by_name(registry)
+        .map(|r| r.tag_dir())
+        .unwrap_or(dir);
     mc_data::tags::names(dir, &tag.to_string()).is_some()
 }
 
@@ -190,7 +204,10 @@ pub fn registry_id(registry: &str, name: &Identifier) -> Option<i32> {
 /// Name of entry `id` in registry `registry`.
 pub fn registry_name(registry: &str, id: i32) -> Option<Identifier> {
     if let Some(r) = mc_data::registry::by_name(registry) {
-        return u32::try_from(id).ok().and_then(|i| r.name_of(i)).and_then(|n| Identifier::parse(n).ok());
+        return u32::try_from(id)
+            .ok()
+            .and_then(|i| r.name_of(i))
+            .and_then(|n| Identifier::parse(n).ok());
     }
     get().registry(registry)?.name_of(id).cloned()
 }
@@ -235,7 +252,8 @@ pub fn with_scoped_lookup<R>(lookup: &dyn ScopedLookup, f: impl FnOnce() -> R) -
         }
     }
     // SAFETY: only the lifetime is erased; `Reset` clears the slot before `lookup`'s borrow ends.
-    let erased: *const (dyn ScopedLookup + 'static) = unsafe { std::mem::transmute::<&dyn ScopedLookup, &'static dyn ScopedLookup>(lookup) };
+    let erased: *const (dyn ScopedLookup + 'static) =
+        unsafe { std::mem::transmute::<&dyn ScopedLookup, &'static dyn ScopedLookup>(lookup) };
     let _reset = Reset(SCOPED.with(|s| s.replace(Some(erased))));
     f()
 }

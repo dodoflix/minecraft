@@ -11,7 +11,9 @@ impl RegionBitmap {
     }
 
     fn is_set(&self, bit: usize) -> bool {
-        self.words.get(bit / 64).is_some_and(|w| w >> (bit % 64) & 1 != 0)
+        self.words
+            .get(bit / 64)
+            .is_some_and(|w| w >> (bit % 64) & 1 != 0)
     }
 
     /// `BitSet.nextClearBit`
@@ -61,7 +63,9 @@ impl RegionBitmap {
 
     /// `getUsed()`: set sector indices, ascending.
     pub fn get_used(&self) -> Vec<usize> {
-        (0..self.words.len() * 64).filter(|&b| self.is_set(b)).collect()
+        (0..self.words.len() * 64)
+            .filter(|&b| self.is_set(b))
+            .collect()
     }
 }
 

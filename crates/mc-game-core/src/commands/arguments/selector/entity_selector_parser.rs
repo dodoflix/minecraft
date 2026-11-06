@@ -3,14 +3,14 @@
 use super::entity_selector::{EntityPredicate, EntitySelector, Order};
 use super::entity_selector_options::{self, EntitySelectorOptions};
 use super::option_state::{InvertableSetOptionState, SetOnceOptionState};
+use crate::commands::CommandSourceStack;
 use crate::commands::arguments::min_max_bounds::{Doubles, FloatDegrees, Ints};
 use crate::commands::message::{dynamic_translatable, simple_translatable};
 use crate::commands::shared_suggestion_provider::suggest;
-use crate::commands::CommandSourceStack;
 use crate::server::permissions::permissions;
 use mc_brigadier::{
-    CommandSyntaxException, DynamicCommandExceptionType, ImmutableStringReader, SimpleCommandExceptionType, StringReader, Suggestions,
-    SuggestionsBuilder,
+    CommandSyntaxException, DynamicCommandExceptionType, ImmutableStringReader,
+    SimpleCommandExceptionType, StringReader, Suggestions, SuggestionsBuilder,
 };
 use mc_core::math::mth;
 use mc_core::phys::AABB;
@@ -18,12 +18,18 @@ use mc_data::EntityType;
 use std::sync::{Arc, LazyLock};
 use uuid::Uuid;
 
-pub static ERROR_INVALID_NAME_OR_UUID: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| simple_translatable("argument.entity.invalid"));
-pub static ERROR_UNKNOWN_SELECTOR_TYPE: LazyLock<DynamicCommandExceptionType<String>> = LazyLock::new(|| dynamic_translatable("argument.entity.selector.unknown"));
-pub static ERROR_SELECTORS_NOT_ALLOWED: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| simple_translatable("argument.entity.selector.not_allowed"));
-pub static ERROR_MISSING_SELECTOR_TYPE: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| simple_translatable("argument.entity.selector.missing"));
-pub static ERROR_EXPECTED_END_OF_OPTIONS: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| simple_translatable("argument.entity.options.unterminated"));
-pub static ERROR_EXPECTED_OPTION_VALUE: LazyLock<DynamicCommandExceptionType<String>> = LazyLock::new(|| dynamic_translatable("argument.entity.options.valueless"));
+pub static ERROR_INVALID_NAME_OR_UUID: LazyLock<SimpleCommandExceptionType> =
+    LazyLock::new(|| simple_translatable("argument.entity.invalid"));
+pub static ERROR_UNKNOWN_SELECTOR_TYPE: LazyLock<DynamicCommandExceptionType<String>> =
+    LazyLock::new(|| dynamic_translatable("argument.entity.selector.unknown"));
+pub static ERROR_SELECTORS_NOT_ALLOWED: LazyLock<SimpleCommandExceptionType> =
+    LazyLock::new(|| simple_translatable("argument.entity.selector.not_allowed"));
+pub static ERROR_MISSING_SELECTOR_TYPE: LazyLock<SimpleCommandExceptionType> =
+    LazyLock::new(|| simple_translatable("argument.entity.selector.missing"));
+pub static ERROR_EXPECTED_END_OF_OPTIONS: LazyLock<SimpleCommandExceptionType> =
+    LazyLock::new(|| simple_translatable("argument.entity.options.unterminated"));
+pub static ERROR_EXPECTED_OPTION_VALUE: LazyLock<DynamicCommandExceptionType<String>> =
+    LazyLock::new(|| dynamic_translatable("argument.entity.options.valueless"));
 
 /// A suggestion step: `BiFunction<SuggestionsBuilder, Consumer<SuggestionsBuilder>, CompletableFuture<Suggestions>>`.
 #[derive(Clone)]
@@ -115,14 +121,29 @@ impl<'a> EntitySelectorParser<'a> {
 
     /// `allowSelectors(source)`.
     pub fn allow_selectors(source: &CommandSourceStack) -> bool {
-        source.permissions().has_permission(&permissions::COMMANDS_ENTITY_SELECTORS)
+        source
+            .permissions()
+            .has_permission(&permissions::COMMANDS_ENTITY_SELECTORS)
     }
 
     pub fn get_selector(&self) -> EntitySelector {
         let aabb = if self.delta_x.is_none() && self.delta_y.is_none() && self.delta_z.is_none() {
-            self.distance.and_then(|d| d.bounds.max).map(|max_range| AABB::new(-max_range, -max_range, -max_range, max_range + 1.0, max_range + 1.0, max_range + 1.0))
+            self.distance.and_then(|d| d.bounds.max).map(|max_range| {
+                AABB::new(
+                    -max_range,
+                    -max_range,
+                    -max_range,
+                    max_range + 1.0,
+                    max_range + 1.0,
+                    max_range + 1.0,
+                )
+            })
         } else {
-            Some(Self::create_aabb(self.delta_x.unwrap_or(0.0), self.delta_y.unwrap_or(0.0), self.delta_z.unwrap_or(0.0)))
+            Some(Self::create_aabb(
+                self.delta_x.unwrap_or(0.0),
+                self.delta_y.unwrap_or(0.0),
+                self.delta_z.unwrap_or(0.0),
+            ))
         };
         EntitySelector::new(
             self.max_results,
@@ -154,23 +175,33 @@ impl<'a> EntitySelectorParser<'a> {
 
     fn finalize_predicates(&mut self) {
         if let Some(rot_x) = self.rot_x {
-            self.predicates.push(Self::create_rotation_predicate(rot_x, |e| e.base().x_rot()));
+            self.predicates
+                .push(Self::create_rotation_predicate(rot_x, |e| e.base().x_rot()));
         }
         if let Some(rot_y) = self.rot_y {
-            self.predicates.push(Self::create_rotation_predicate(rot_y, |e| e.base().y_rot()));
+            self.predicates
+                .push(Self::create_rotation_predicate(rot_y, |e| e.base().y_rot()));
         }
         if let Some(level) = self.level {
-            self.predicates
-                .push(Arc::new(move |_, e| crate::commands::host::player_experience_level(e).is_some_and(|l| level.matches(l))));
+            self.predicates.push(Arc::new(move |_, e| {
+                crate::commands::host::player_experience_level(e).is_some_and(|l| level.matches(l))
+            }));
         }
     }
 
-    fn create_rotation_predicate(range: FloatDegrees, function: impl Fn(&dyn crate::world::entity::Entity) -> f32 + Send + Sync + 'static) -> EntityPredicate {
+    fn create_rotation_predicate(
+        range: FloatDegrees,
+        function: impl Fn(&dyn crate::world::entity::Entity) -> f32 + Send + Sync + 'static,
+    ) -> EntityPredicate {
         let min = mth::wrap_degrees_f32(range.bounds.min.unwrap_or(0.0));
         let max = mth::wrap_degrees_f32(range.bounds.max.unwrap_or(359.0));
         Arc::new(move |_, e| {
             let rotation = mth::wrap_degrees_f32(function(e));
-            if min > max { rotation >= min || rotation <= max } else { rotation >= min && rotation <= max }
+            if min > max {
+                rotation >= min || rotation <= max
+            } else {
+                rotation >= min && rotation <= max
+            }
         })
     }
 
@@ -224,7 +255,8 @@ impl<'a> EntitySelectorParser<'a> {
             }
             other => {
                 self.reader.set_cursor(start);
-                return Err(ERROR_UNKNOWN_SELECTOR_TYPE.create_with_context(self.reader, format!("@{other}")));
+                return Err(ERROR_UNKNOWN_SELECTOR_TYPE
+                    .create_with_context(self.reader, format!("@{other}")));
             }
         };
         if add_alive {
@@ -532,12 +564,19 @@ impl<'a> EntitySelectorParser<'a> {
             ("@e", "argument.entity.selector.allEntities"),
             ("@n", "argument.entity.selector.nearestEntity"),
         ] {
-            builder.suggest_with_tooltip(text, Some(message(Component::translatable(key, Vec::new()))));
+            builder.suggest_with_tooltip(
+                text,
+                Some(message(Component::translatable(key, Vec::new()))),
+            );
         }
     }
 
     /// `fillSuggestions(builder, names)`: `names` adds player/entity names.
-    pub fn fill_suggestions(&self, builder: SuggestionsBuilder, names: &dyn Fn(&mut SuggestionsBuilder)) -> Suggestions {
+    pub fn fill_suggestions(
+        &self,
+        builder: SuggestionsBuilder,
+        names: &dyn Fn(&mut SuggestionsBuilder),
+    ) -> Suggestions {
         let mut builder = builder.create_offset(self.reader.get_cursor());
         match &self.suggestions {
             Suggest::Nothing => builder.build(),
@@ -582,4 +621,3 @@ impl<'a> EntitySelectorParser<'a> {
         }
     }
 }
-

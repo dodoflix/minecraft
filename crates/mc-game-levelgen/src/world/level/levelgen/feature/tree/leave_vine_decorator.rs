@@ -2,9 +2,9 @@
 
 use super::TREE_DECORATOR_TYPES;
 use super::tree_decorator::{Context, TreeDecorator};
-use mc_game_core::world::level::levelgen::codec::{TypeEntry, parse_float_range};
 use mc_core::pos::BlockPos;
 use mc_data::props::{self, BooleanProperty};
+use mc_game_core::world::level::levelgen::codec::{TypeEntry, parse_float_range};
 use std::sync::Arc;
 
 pub struct LeaveVineDecorator {
@@ -56,5 +56,9 @@ impl TreeDecorator for LeaveVineDecorator {
 #[linkme::distributed_slice(TREE_DECORATOR_TYPES)]
 static LEAVE_VINE: TypeEntry<dyn TreeDecorator> = TypeEntry {
     name: "leave_vine",
-    decode: |fields, _| Ok(Arc::new(LeaveVineDecorator { probability: fields.required("probability", |v| parse_float_range(v, 0.0, 1.0))? })),
+    decode: |fields, _| {
+        Ok(Arc::new(LeaveVineDecorator {
+            probability: fields.required("probability", |v| parse_float_range(v, 0.0, 1.0))?,
+        }))
+    },
 };

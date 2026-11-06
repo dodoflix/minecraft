@@ -72,7 +72,13 @@ impl AdvancementTree {
             None => None,
         };
         let id = NodeId(self.nodes.len());
-        self.nodes.push(AdvancementNode { holder: holder.clone(), parent, children: Vec::new(), x: 0.0, y: 0.0 });
+        self.nodes.push(AdvancementNode {
+            holder: holder.clone(),
+            parent,
+            children: Vec::new(),
+            x: 0.0,
+            y: 0.0,
+        });
         if let Some(p) = parent {
             self.nodes[p.0].children.push(id);
         }
@@ -98,12 +104,16 @@ impl AdvancementTree {
 
     /// `roots()`.
     pub fn roots(&self) -> impl Iterator<Item = NodeId> + '_ {
-        (0..self.nodes.len()).map(NodeId).filter(|n| self.nodes[n.0].is_root())
+        (0..self.nodes.len())
+            .map(NodeId)
+            .filter(|n| self.nodes[n.0].is_root())
     }
 
     /// `tasks()`.
     pub fn tasks(&self) -> impl Iterator<Item = NodeId> + '_ {
-        (0..self.nodes.len()).map(NodeId).filter(|n| self.nodes[n.0].is_task())
+        (0..self.nodes.len())
+            .map(NodeId)
+            .filter(|n| self.nodes[n.0].is_task())
     }
 
     /// `get(id)`.

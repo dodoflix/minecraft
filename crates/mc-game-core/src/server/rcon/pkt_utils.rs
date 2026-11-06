@@ -46,7 +46,9 @@ pub struct NetworkDataOutputStream {
 
 impl NetworkDataOutputStream {
     pub fn new(size: usize) -> Self {
-        NetworkDataOutputStream { buf: Vec::with_capacity(size) }
+        NetworkDataOutputStream {
+            buf: Vec::with_capacity(size),
+        }
     }
 
     pub fn write_bytes(&mut self, data: &[u8]) {
@@ -94,8 +96,14 @@ mod tests {
         assert_eq!(int_from_byte_array(&[1, 0, 0], 0, 3), 0);
         assert_eq!(int_from_byte_array(&[0xff, 0xff, 0xff, 0xff], 0, 4), -1);
         assert_eq!(int_from_network_byte_array(&[0, 0, 1, 0], 0, 4), 256);
-        assert_eq!(string_from_byte_array(b"ab\0cd", 0, 5).as_deref(), Some("ab"));
-        assert_eq!(string_from_byte_array(b"abcd", 0, 4).as_deref(), Some("abc")); // `i < length - 1`
+        assert_eq!(
+            string_from_byte_array(b"ab\0cd", 0, 5).as_deref(),
+            Some("ab")
+        );
+        assert_eq!(
+            string_from_byte_array(b"abcd", 0, 4).as_deref(),
+            Some("abc")
+        ); // `i < length - 1`
         assert_eq!(string_from_byte_array(b"\0\0", 0, 2).as_deref(), Some(""));
         assert_eq!(string_from_byte_array(b"abcd", 5, 4), None);
         assert_eq!(to_hex_string(0x0a), "0a");
@@ -108,6 +116,9 @@ mod tests {
         o.write_string("hi");
         o.write_short(0x1234);
         o.write_int(1);
-        assert_eq!(o.to_byte_array(), [0, b'h', b'i', 0, 0x34, 0x12, 1, 0, 0, 0]);
+        assert_eq!(
+            o.to_byte_array(),
+            [0, b'h', b'i', 0, 0x34, 0x12, 1, 0, 0, 0]
+        );
     }
 }

@@ -27,10 +27,14 @@ fn data_root() -> PathBuf {
 }
 
 fn fixture(name: &str) -> String {
-    let path = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures").join(name);
+    let path = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+        .join("tests/fixtures")
+        .join(name);
     let bytes = std::fs::read(&path).unwrap_or_else(|e| panic!("{}: {e}", path.display()));
     let mut text = String::new();
-    flate2::read::GzDecoder::new(&bytes[..]).read_to_string(&mut text).expect("gzip fixture");
+    flate2::read::GzDecoder::new(&bytes[..])
+        .read_to_string(&mut text)
+        .expect("gzip fixture");
     text
 }
 
@@ -74,7 +78,10 @@ fn ints<T: std::str::FromStr>(tokens: &[&str]) -> Vec<T>
 where
     T::Err: std::fmt::Debug,
 {
-    tokens.iter().map(|t| t.parse().expect("int token")).collect()
+    tokens
+        .iter()
+        .map(|t| t.parse().expect("int token"))
+        .collect()
 }
 
 struct Bands {
@@ -105,24 +112,47 @@ fn parse(text: &str) -> (Vec<Case>, Vec<Bands>) {
                     ..Case::default()
                 })
             }
-            "PAL" => current.as_mut().unwrap().palette = t[2..].iter().map(|s| s.to_string()).collect(),
+            "PAL" => {
+                current.as_mut().unwrap().palette = t[2..].iter().map(|s| s.to_string()).collect()
+            }
             "Q" => {
                 let c = current.as_mut().unwrap();
                 let h: Vec<i32> = ints(&t[1..7]);
                 c.quarts = (h[0], h[1], h[2], h[3], h[4], h[5]);
                 for (idx, count) in rle(&t[7..]) {
-                    c.quart_data.extend(std::iter::repeat_n(idx as u8, count as usize));
+                    c.quart_data
+                        .extend(std::iter::repeat_n(idx as u8, count as usize));
                 }
             }
             "POSS" => current.as_mut().unwrap().possible = ints(&t[2..]),
-            "S" => current.as_mut().unwrap().sections.push((t[1].parse().unwrap(), rle(&t[2..]))),
-            "PB" => current.as_mut().unwrap().pp_before.push((t[1].parse().unwrap(), ints(&t[2..]))),
-            "PA" => current.as_mut().unwrap().pp_after.push((t[1].parse().unwrap(), ints(&t[2..]))),
+            "S" => current
+                .as_mut()
+                .unwrap()
+                .sections
+                .push((t[1].parse().unwrap(), rle(&t[2..]))),
+            "PB" => current
+                .as_mut()
+                .unwrap()
+                .pp_before
+                .push((t[1].parse().unwrap(), ints(&t[2..]))),
+            "PA" => current
+                .as_mut()
+                .unwrap()
+                .pp_after
+                .push((t[1].parse().unwrap(), ints(&t[2..]))),
             "HB" => {
-                current.as_mut().unwrap().hm_before.insert(t[1].to_owned(), ints(&t[3..]));
+                current
+                    .as_mut()
+                    .unwrap()
+                    .hm_before
+                    .insert(t[1].to_owned(), ints(&t[3..]));
             }
             "HA" => {
-                current.as_mut().unwrap().hm_after.insert(t[1].to_owned(), ints(&t[3..]));
+                current
+                    .as_mut()
+                    .unwrap()
+                    .hm_after
+                    .insert(t[1].to_owned(), ints(&t[3..]));
             }
             "T" => current.as_mut().unwrap().tops.push((
                 t[1].parse().unwrap(),
@@ -135,7 +165,12 @@ fn parse(text: &str) -> (Vec<Case>, Vec<Bands>) {
                 let c = current.as_mut().unwrap();
                 for e in &t[2..] {
                     let v: Vec<&str> = e.split(',').collect();
-                    c.diff.push((v[0].parse().unwrap(), v[1].parse().unwrap(), v[2].parse().unwrap(), v[3].parse().unwrap()));
+                    c.diff.push((
+                        v[0].parse().unwrap(),
+                        v[1].parse().unwrap(),
+                        v[2].parse().unwrap(),
+                        v[3].parse().unwrap(),
+                    ));
                 }
             }
             "END" => cases.push(current.take().unwrap()),
@@ -153,12 +188,16 @@ fn parse(text: &str) -> (Vec<Case>, Vec<Bands>) {
                 t[5].parse().unwrap(),
                 t[6].parse().unwrap(),
             )),
-            "SD" => bands.last_mut().unwrap().depth_samples.push((t[3].parse().unwrap(), t[4].parse().unwrap(), t[5].parse().unwrap())),
-            "SS" => bands
-                .last_mut()
-                .unwrap()
-                .secondary_samples
-                .push((t[3].parse().unwrap(), t[4].parse().unwrap(), u64::from_str_radix(t[5], 16).unwrap())),
+            "SD" => bands.last_mut().unwrap().depth_samples.push((
+                t[3].parse().unwrap(),
+                t[4].parse().unwrap(),
+                t[5].parse().unwrap(),
+            )),
+            "SS" => bands.last_mut().unwrap().secondary_samples.push((
+                t[3].parse().unwrap(),
+                t[4].parse().unwrap(),
+                u64::from_str_radix(t[5], 16).unwrap(),
+            )),
             other => panic!("unknown fixture line {other}"),
         }
     }
@@ -176,10 +215,20 @@ struct World {
 
 impl World {
     fn new() -> World {
-        let registries = Arc::new(WorldgenRegistries::new(Arc::new(FsDataSource::new(data_root()))));
+        let registries = Arc::new(WorldgenRegistries::new(Arc::new(FsDataSource::new(
+            data_root(),
+        ))));
         let biomes = BiomeRegistry::load(&registries).expect("biomes load");
-        let factory = PalettedContainerFactory::create(WorldBiomeRegistry::new(biomes.names())).expect("plains");
-        World { registries, biomes, factory, settings: HashMap::new(), rules: HashMap::new(), states: HashMap::new() }
+        let factory = PalettedContainerFactory::create(WorldBiomeRegistry::new(biomes.names()))
+            .expect("plains");
+        World {
+            registries,
+            biomes,
+            factory,
+            settings: HashMap::new(),
+            rules: HashMap::new(),
+            states: HashMap::new(),
+        }
     }
 
     fn settings(&mut self, name: &str) -> Arc<NoiseGeneratorSettings> {
@@ -187,7 +236,11 @@ impl World {
         self.settings
             .entry(name.to_owned())
             .or_insert_with(|| {
-                Arc::new(registries.noise_settings(&Identifier::with_default_namespace(name).unwrap()).expect("settings"))
+                Arc::new(
+                    registries
+                        .noise_settings(&Identifier::with_default_namespace(name).unwrap())
+                        .expect("settings"),
+                )
             })
             .clone()
     }
@@ -198,7 +251,10 @@ impl World {
         self.rules
             .entry(name.to_owned())
             .or_insert_with(|| {
-                Arc::new(MaterialRule::from_json(&settings.material_rule, &registries, biomes).expect("material rule"))
+                Arc::new(
+                    MaterialRule::from_json(&settings.material_rule, &registries, biomes)
+                        .expect("material rule"),
+                )
             })
             .clone()
     }
@@ -216,7 +272,13 @@ impl World {
 /// Loads `doFill`'s output like `NoiseBasedChunkGenerator.doFill` writes it.
 fn load_chunk(world: &World, case: &Case) -> ProtoChunk {
     let level_height = LevelHeight::new(case.min_y, case.height);
-    let mut chunk = ProtoChunk::new(ChunkPos::new(case.cx, case.cz), UpgradeData::EMPTY, level_height, &world.factory, None);
+    let mut chunk = ProtoChunk::new(
+        ChunkPos::new(case.cx, case.cz),
+        UpgradeData::EMPTY,
+        level_height,
+        &world.factory,
+        None,
+    );
     let access = &mut chunk.access;
     access.get_or_create_heightmap_unprimed(HeightmapType::OceanFloorWg);
     access.get_or_create_heightmap_unprimed(HeightmapType::WorldSurfaceWg);
@@ -236,14 +298,26 @@ fn load_chunk(world: &World, case: &Case) -> ProtoChunk {
             for y in (0..case.height).rev() {
                 let block_y = case.min_y + y;
                 let section_index = level_height.section_index(block_y) as usize;
-                let Some(states) = dense.get(&section_index) else { continue };
+                let Some(states) = dense.get(&section_index) else {
+                    continue;
+                };
                 let s = states[(((block_y & 15) * 16 + z) * 16 + x) as usize];
                 if s != air {
                     let access = &mut chunk.access;
-                    access.get_section_mut(section_index).set_block_state(x, block_y & 15, z, s);
-                    let view = SectionsView { level_height, sections: &access.sections, void_air_outside: true };
+                    access
+                        .get_section_mut(section_index)
+                        .set_block_state(x, block_y & 15, z, s);
+                    let view = SectionsView {
+                        level_height,
+                        sections: &access.sections,
+                        void_air_outside: true,
+                    };
                     for ty in [HeightmapType::OceanFloorWg, HeightmapType::WorldSurfaceWg] {
-                        access.heightmaps.get_mut(&ty).unwrap().update(x, block_y, z, s, &view);
+                        access
+                            .heightmaps
+                            .get_mut(&ty)
+                            .unwrap()
+                            .update(x, block_y, z, s, &view);
                     }
                 }
             }
@@ -259,7 +333,13 @@ fn snapshot(chunk: &ProtoChunk) -> Vec<BlockState> {
     let h = chunk.access.level_height;
     let (min_x, min_z) = (chunk.pos().get_min_block_x(), chunk.pos().get_min_block_z());
     (0..h.height * 256)
-        .map(|i| chunk.get_block_state(BlockPos::new(min_x + (i & 15), h.min_y + i / 256, min_z + ((i / 16) & 15))))
+        .map(|i| {
+            chunk.get_block_state(BlockPos::new(
+                min_x + (i & 15),
+                h.min_y + i / 256,
+                min_z + ((i / 16) & 15),
+            ))
+        })
         .collect()
 }
 
@@ -285,25 +365,44 @@ fn post_process(chunk: &ProtoChunk) -> Vec<(usize, Vec<i16>)> {
 
 /// Runs one case; returns the set of block states `buildSurface` produced (for coverage accounting).
 fn run_case(world: &mut World, case: &Case, possible_mode: bool) -> BTreeSet<u32> {
-    let desc = format!("{} seed {} chunk ({}, {}) [{}]", case.name, case.seed, case.cx, case.cz, case.label);
+    let desc = format!(
+        "{} seed {} chunk ({}, {}) [{}]",
+        case.name, case.seed, case.cx, case.cz, case.label
+    );
     let settings = world.settings(&case.name);
     let rule = world.rule(&case.name);
     let rs = world.state(&case.name, case.seed);
     let mut chunk = load_chunk(world, case);
 
-    assert_eq!(heights(&mut chunk, HeightmapType::WorldSurfaceWg), case.hm_before["ws"], "{desc}: loaded WORLD_SURFACE_WG");
-    assert_eq!(heights(&mut chunk, HeightmapType::OceanFloorWg), case.hm_before["ofl"], "{desc}: loaded OCEAN_FLOOR_WG");
+    assert_eq!(
+        heights(&mut chunk, HeightmapType::WorldSurfaceWg),
+        case.hm_before["ws"],
+        "{desc}: loaded WORLD_SURFACE_WG"
+    );
+    assert_eq!(
+        heights(&mut chunk, HeightmapType::OceanFloorWg),
+        case.hm_before["ofl"],
+        "{desc}: loaded OCEAN_FLOOR_WG"
+    );
 
     // biome table -> resolver
     let (qx0, qy0, qz0, sx, sy, sz) = case.quarts;
     let biome_ids: Vec<BiomeId> = case
         .palette
         .iter()
-        .map(|n| world.biomes.id_of(&Identifier::parse(n).unwrap()).unwrap_or_else(|| panic!("biome {n}")))
+        .map(|n| {
+            world
+                .biomes
+                .id_of(&Identifier::parse(n).unwrap())
+                .unwrap_or_else(|| panic!("biome {n}"))
+        })
         .collect();
     let resolver = |qx: i32, qy: i32, qz: i32| -> BiomeId {
         let qy = qy.clamp(qy0, qy0 + sy - 1);
-        assert!((qx0..qx0 + sx).contains(&qx) && (qz0..qz0 + sz).contains(&qz), "{desc}: biome read outside table {qx} {qz}");
+        assert!(
+            (qx0..qx0 + sx).contains(&qx) && (qz0..qz0 + sz).contains(&qz),
+            "{desc}: biome read outside table {qx} {qz}"
+        );
         let i = (((qy - qy0) * sz + (qz - qz0)) * sx + (qx - qx0)) as usize;
         biome_ids[case.quart_data[i] as usize]
     };
@@ -325,7 +424,17 @@ fn run_case(world: &mut World, case: &Case, possible_mode: bool) -> BTreeSet<u32
         for &(x, y, z, fluid, expected) in &case.tops {
             let got = rs
                 .surface_system()
-                .top_material(&rule, &rs, &ctx, &world.biomes, &biome_getter, &mut chunk, &samplers, BlockPos::new(x, y, z), fluid)
+                .top_material(
+                    &rule,
+                    &rs,
+                    &ctx,
+                    &world.biomes,
+                    &biome_getter,
+                    &mut chunk,
+                    &samplers,
+                    BlockPos::new(x, y, z),
+                    fluid,
+                )
                 .map_or(-1, |s| i64::from(s.id()));
             assert_eq!(got, expected, "{desc}: topMaterial({x}, {y}, {z}, {fluid})");
         }
@@ -333,7 +442,17 @@ fn run_case(world: &mut World, case: &Case, possible_mode: bool) -> BTreeSet<u32
 
     let before = snapshot(&chunk);
     let possible_arg = possible_mode.then_some(&possible[..]);
-    rs.surface_system().build_surface(&rs, &manager, &ctx, &world.biomes, &mut chunk, &volume, &samplers, &rule, possible_arg);
+    rs.surface_system().build_surface(
+        &rs,
+        &manager,
+        &ctx,
+        &world.biomes,
+        &mut chunk,
+        &volume,
+        &samplers,
+        &rule,
+        possible_arg,
+    );
     let after = snapshot(&chunk);
 
     let mut expected = before.clone();
@@ -347,14 +466,36 @@ fn run_case(world: &mut World, case: &Case, possible_mode: bool) -> BTreeSet<u32
             .filter(|&i| expected[i] != after[i])
             .take(10)
             .map(|i| {
-                format!("({}, {}, {}) expected {} got {}", i & 15, case.min_y + (i / 256) as i32, (i / 16) & 15, expected[i], after[i])
+                format!(
+                    "({}, {}, {}) expected {} got {}",
+                    i & 15,
+                    case.min_y + (i / 256) as i32,
+                    (i / 16) & 15,
+                    expected[i],
+                    after[i]
+                )
             })
             .collect();
-        panic!("{desc}: block mismatch (possible_biomes={possible_mode}): {}", bad.join("; "));
+        panic!(
+            "{desc}: block mismatch (possible_biomes={possible_mode}): {}",
+            bad.join("; ")
+        );
     }
-    assert_eq!(post_process(&chunk), case.pp_after, "{desc}: post-process marks");
-    assert_eq!(heights(&mut chunk, HeightmapType::WorldSurfaceWg), case.hm_after["ws"], "{desc}: WORLD_SURFACE_WG after");
-    assert_eq!(heights(&mut chunk, HeightmapType::OceanFloorWg), case.hm_after["ofl"], "{desc}: OCEAN_FLOOR_WG after");
+    assert_eq!(
+        post_process(&chunk),
+        case.pp_after,
+        "{desc}: post-process marks"
+    );
+    assert_eq!(
+        heights(&mut chunk, HeightmapType::WorldSurfaceWg),
+        case.hm_after["ws"],
+        "{desc}: WORLD_SURFACE_WG after"
+    );
+    assert_eq!(
+        heights(&mut chunk, HeightmapType::OceanFloorWg),
+        case.hm_after["ofl"],
+        "{desc}: OCEAN_FLOOR_WG after"
+    );
     produced
 }
 
@@ -373,12 +514,28 @@ fn build_surface_matches_vanilla() {
     for case in cases.iter().step_by(3) {
         run_case(&mut world, case, false);
     }
-    eprintln!("{} chunks, {} changed blocks, {} distinct produced states", cases.len(), total_diff, produced.len());
-    assert!(total_diff > 10_000, "surface rules must have changed blocks");
+    eprintln!(
+        "{} chunks, {} changed blocks, {} distinct produced states",
+        cases.len(),
+        total_diff,
+        produced.len()
+    );
+    assert!(
+        total_diff > 10_000,
+        "surface rules must have changed blocks"
+    );
 
     // Coverage accounting: every block state a vanilla surface rule can place must appear in some chunk diff.
     let mut reachable = BTreeSet::new();
-    for name in ["overworld", "large_biomes", "amplified", "nether", "end", "caves", "floating_islands"] {
+    for name in [
+        "overworld",
+        "large_biomes",
+        "amplified",
+        "nether",
+        "end",
+        "caves",
+        "floating_islands",
+    ] {
         let rule = world.settings(name).material_rule.clone();
         collect_result_states(&rule, &world.registries, &mut reachable);
     }
@@ -388,8 +545,14 @@ fn build_surface_matches_vanilla() {
         .map(|&id| state(id).to_string())
         .collect();
     eprintln!("rule result states never produced by the fixture chunks: {missing:?}");
-    let unexpected: Vec<&String> = missing.iter().filter(|m| !UNCOVERED.contains(&m.as_str())).collect();
-    assert!(unexpected.is_empty(), "rule results not covered by any fixture chunk: {unexpected:?}");
+    let unexpected: Vec<&String> = missing
+        .iter()
+        .filter(|m| !UNCOVERED.contains(&m.as_str()))
+        .collect();
+    assert!(
+        unexpected.is_empty(),
+        "rule results not covered by any fixture chunk: {unexpected:?}"
+    );
 }
 
 /// Rule result states the fixture chunks do not show in a diff: placements onto an identical state (netherrack /
@@ -406,35 +569,42 @@ const UNCOVERED: [&str; 8] = [
     "minecraft:calcite",
 ];
 
-fn collect_result_states(rule: &serde_json::Value, registries: &WorldgenRegistries, out: &mut BTreeSet<u32>) {
+fn collect_result_states(
+    rule: &serde_json::Value,
+    registries: &WorldgenRegistries,
+    out: &mut BTreeSet<u32>,
+) {
     use serde_json::Value;
     match rule {
         Value::String(name) => {
-            if let Some(json) = registries.raw("worldgen/material_rule", &Identifier::parse(name).unwrap()) {
+            if let Some(json) =
+                registries.raw("worldgen/material_rule", &Identifier::parse(name).unwrap())
+            {
                 collect_result_states(&json, registries, out);
             }
         }
-        Value::Object(map) => {
-            match map.get("type").and_then(Value::as_str) {
-                Some("minecraft:block") => {
-                    let spec = mc_worldgen::noise_settings::BlockStateSpec::from_json(&map["result_state"]).unwrap();
+        Value::Object(map) => match map.get("type").and_then(Value::as_str) {
+            Some("minecraft:block") => {
+                let spec =
+                    mc_worldgen::noise_settings::BlockStateSpec::from_json(&map["result_state"])
+                        .unwrap();
+                out.insert(spec.resolve().unwrap().id());
+            }
+            Some("minecraft:ore_vein") => {
+                for key in ["ore_block", "raw_ore_block", "filler_block"] {
+                    let spec =
+                        mc_worldgen::noise_settings::BlockStateSpec::from_json(&map[key]).unwrap();
                     out.insert(spec.resolve().unwrap().id());
                 }
-                Some("minecraft:ore_vein") => {
-                    for key in ["ore_block", "raw_ore_block", "filler_block"] {
-                        let spec = mc_worldgen::noise_settings::BlockStateSpec::from_json(&map[key]).unwrap();
-                        out.insert(spec.resolve().unwrap().id());
-                    }
-                }
-                Some("minecraft:sequence") => {
-                    for r in map["sequence"].as_array().unwrap() {
-                        collect_result_states(r, registries, out);
-                    }
-                }
-                Some("minecraft:condition") => collect_result_states(&map["then_run"], registries, out),
-                _ => {}
             }
-        }
+            Some("minecraft:sequence") => {
+                for r in map["sequence"].as_array().unwrap() {
+                    collect_result_states(r, registries, out);
+                }
+            }
+            Some("minecraft:condition") => collect_result_states(&map["then_run"], registries, out),
+            _ => {}
+        },
         _ => {}
     }
 }
@@ -450,13 +620,31 @@ fn bands_surface_depth_and_secondary_match_vanilla() {
         let got: Vec<u32> = system.clay_bands().iter().map(|s| s.id()).collect();
         assert_eq!(got, b.bands, "{} {} clay bands", b.name, b.seed);
         for &(x, y, z, id) in &b.band_samples {
-            assert_eq!(system.get_band(x, y, z).id(), id, "{} {} band({x},{y},{z})", b.name, b.seed);
+            assert_eq!(
+                system.get_band(x, y, z).id(),
+                id,
+                "{} {} band({x},{y},{z})",
+                b.name,
+                b.seed
+            );
         }
         for &(x, z, depth) in &b.depth_samples {
-            assert_eq!(system.get_surface_depth(x, z), depth, "{} {} surface depth({x},{z})", b.name, b.seed);
+            assert_eq!(
+                system.get_surface_depth(x, z),
+                depth,
+                "{} {} surface depth({x},{z})",
+                b.name,
+                b.seed
+            );
         }
         for &(x, z, bits) in &b.secondary_samples {
-            assert_eq!(system.get_surface_secondary(x, z).to_bits(), bits, "{} {} secondary({x},{z})", b.name, b.seed);
+            assert_eq!(
+                system.get_surface_secondary(x, z).to_bits(),
+                bits,
+                "{} {} secondary({x},{z})",
+                b.name,
+                b.seed
+            );
         }
     }
 }

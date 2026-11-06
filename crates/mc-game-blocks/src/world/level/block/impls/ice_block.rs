@@ -2,20 +2,20 @@
 //!
 //! `FrostedIceBlock.getCloneItemStack` is empty. Frost Walker (`ReplaceDisk`) only places the block and schedules its tick
 //! like vanilla, nothing of it lives here.
+use mc_core::ident::Identifier;
+use mc_core::math::mth;
+use mc_data::GameEvent;
 use mc_game_core::register_block_class;
-use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::server::level::block_break;
 use mc_game_core::world::block_entity::BlockEntity;
 use mc_game_core::world::entity::ServerPlayer;
 use mc_game_core::world::item::enchantment::enchantment_tags;
 use mc_game_core::world::item::{ItemStack, enchantment_helper};
-use mc_core::ident::Identifier;
 use mc_game_core::world::level::LightLayer;
+use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_game_core::world::level::redstone::Orientation;
-use mc_core::math::mth;
-use mc_data::GameEvent;
 
 pub struct IceBlock;
 pub struct FrostedIceBlock;
@@ -27,7 +27,10 @@ fn melts_into() -> BlockState {
 
 /// `environmentAttributes().getValue(WATER_EVAPORATES, pos)`.
 fn water_evaporates(level: &ServerLevel, pos: BlockPos) -> bool {
-    level.attribute_bool(mc_game_core::world::attribute::attributes::WATER_EVAPORATES, pos)
+    level.attribute_bool(
+        mc_game_core::world::attribute::attributes::WATER_EVAPORATES,
+        pos,
+    )
 }
 
 /// `IceBlock.melt(state, level, pos)`.
@@ -37,12 +40,23 @@ pub fn melt(state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
     } else {
         level.set_block_and_update(pos, melts_into());
         level.neighbor_changed(pos, melts_into().block(), None);
-        level.game_event_at_block(GameEvent::BLOCK_DESTROY, pos, &GameEventContext::of_state(Some(state)));
+        level.game_event_at_block(
+            GameEvent::BLOCK_DESTROY,
+            pos,
+            &GameEventContext::of_state(Some(state)),
+        );
     }
 }
 
 /// `IceBlock.playerDestroy`.
-fn player_destroy(level: &mut ServerLevel, player: &mut ServerPlayer, pos: BlockPos, state: BlockState, block_entity: Option<&dyn BlockEntity>, destroyed_with: &ItemStack) {
+fn player_destroy(
+    level: &mut ServerLevel,
+    player: &mut ServerPlayer,
+    pos: BlockPos,
+    state: BlockState,
+    block_entity: Option<&dyn BlockEntity>,
+    destroyed_with: &ItemStack,
+) {
     block_break::player_destroy(level, player, pos, state, block_entity, destroyed_with);
     let tag = Identifier::parse(enchantment_tags::PREVENTS_ICE_MELTING).expect("valid tag id");
     if enchantment_helper::has_tag(&level.registries, destroyed_with, &tag) {
@@ -59,7 +73,15 @@ fn player_destroy(level: &mut ServerLevel, player: &mut ServerPlayer, pos: Block
 }
 
 impl BlockBehaviour for IceBlock {
-    fn player_destroy(&self, level: &mut ServerLevel, player: &mut ServerPlayer, pos: BlockPos, state: BlockState, block_entity: Option<&dyn BlockEntity>, destroyed_with: &ItemStack) {
+    fn player_destroy(
+        &self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        pos: BlockPos,
+        state: BlockState,
+        block_entity: Option<&dyn BlockEntity>,
+        destroyed_with: &ItemStack,
+    ) {
         player_destroy(level, player, pos, state, block_entity, destroyed_with);
     }
     fn random_tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
@@ -77,7 +99,10 @@ fn ice_random_tick(state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
 fn fewer_neighbours_than(level: &dyn BlockGetter, this: Block, pos: BlockPos, limit: i32) -> bool {
     let mut result = 0;
     for direction in Direction::ALL {
-        if level.get_block_state(pos.relative(direction)).is_block(this) {
+        if level
+            .get_block_state(pos.relative(direction))
+            .is_block(this)
+        {
             result += 1;
             if result >= limit {
                 return false;
@@ -100,25 +125,44 @@ fn slightly_melt(state: BlockState, level: &mut ServerLevel, pos: BlockPos) -> b
 }
 
 impl BlockBehaviour for FrostedIceBlock {
-    fn player_destroy(&self, level: &mut ServerLevel, player: &mut ServerPlayer, pos: BlockPos, state: BlockState, block_entity: Option<&dyn BlockEntity>, destroyed_with: &ItemStack) {
+    fn player_destroy(
+        &self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        pos: BlockPos,
+        state: BlockState,
+        block_entity: Option<&dyn BlockEntity>,
+        destroyed_with: &ItemStack,
+    ) {
         player_destroy(level, player, pos, state, block_entity, destroyed_with);
     }
     fn random_tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         ice_random_tick(state, level, pos);
     }
-    fn on_place(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, _old_state: BlockState, _moved_by_piston: bool) {
+    fn on_place(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        _old_state: BlockState,
+        _moved_by_piston: bool,
+    ) {
         let delay = mth::next_int(level.random(), 60, 120);
         level.schedule_tick_block(pos, state.block(), delay);
     }
     fn tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         let this = state.block();
         if level.random().next_int_bounded(3) == 0 || fewer_neighbours_than(&*level, this, pos, 4) {
-            let brightness = if level.dimension == mc_core::ident::Identifier::with_default_namespace("the_end").expect("valid id") {
+            let brightness = if level.dimension
+                == mc_core::ident::Identifier::with_default_namespace("the_end").expect("valid id")
+            {
                 level.get_brightness(LightLayer::Block, pos)
             } else {
                 level.get_max_local_raw_brightness(pos)
             };
-            if brightness > 11 - state.get(props::AGE_3) - i32::from(state.get_light_block()) && slightly_melt(state, level, pos) {
+            if brightness > 11 - state.get(props::AGE_3) - i32::from(state.get_light_block())
+                && slightly_melt(state, level, pos)
+            {
                 for direction in Direction::ALL {
                     let neighbour_pos = pos.relative(direction);
                     let neighbour = level.get_block_state(neighbour_pos);
@@ -133,12 +177,26 @@ impl BlockBehaviour for FrostedIceBlock {
         let delay = mth::next_int(level.random(), 20, 40);
         level.schedule_tick_block(pos, this, delay);
     }
-    fn neighbor_changed(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, block: Block, _orientation: Option<Orientation>, _moved_by_piston: bool) {
+    fn neighbor_changed(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        block: Block,
+        _orientation: Option<Orientation>,
+        _moved_by_piston: bool,
+    ) {
         if block == state.block() && fewer_neighbours_than(&*level, state.block(), pos, 2) {
             melt(state, level, pos);
         }
     }
-    fn get_clone_item_stack(&self, _state: BlockState, _level: &ServerLevel, _pos: BlockPos, _include_data: bool) -> ItemStack {
+    fn get_clone_item_stack(
+        &self,
+        _state: BlockState,
+        _level: &ServerLevel,
+        _pos: BlockPos,
+        _include_data: bool,
+    ) -> ItemStack {
         ItemStack::empty()
     }
 }

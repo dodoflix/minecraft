@@ -11,13 +11,14 @@ pub struct SpearMobsTriggerInstance {
 
 impl TriggerInstance for SpearMobsTriggerInstance {
     fn codec() -> Codec<Self> {
-        static C: std::sync::LazyLock<Codec<SpearMobsTriggerInstance>> = std::sync::LazyLock::new(|| {
-            mc_dfu::record!(SpearMobsTriggerInstance {
-                player: condition_holder_codec().optional_field_of("player"),
-                count: mc_dfu::extra::POSITIVE_INT.optional_field_of("count"),
-            })
-            .codec()
-        });
+        static C: std::sync::LazyLock<Codec<SpearMobsTriggerInstance>> =
+            std::sync::LazyLock::new(|| {
+                mc_dfu::record!(SpearMobsTriggerInstance {
+                    player: condition_holder_codec().optional_field_of("player"),
+                    count: mc_dfu::extra::POSITIVE_INT.optional_field_of("count"),
+                })
+                .codec()
+            });
         C.clone()
     }
 }

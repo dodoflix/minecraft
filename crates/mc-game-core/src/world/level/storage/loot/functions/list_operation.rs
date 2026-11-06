@@ -48,25 +48,45 @@ impl ListOperation {
                     Mode::Append => MapCodec::unit(ListOperation::Append),
                     Mode::Insert => NON_NEGATIVE_INT
                         .optional_field_of_default("offset", 0)
-                        .xmap(|offset| ListOperation::Insert { offset }, |op: &ListOperation| match op {
-                            ListOperation::Insert { offset } => *offset,
-                            _ => 0,
-                        }),
+                        .xmap(
+                            |offset| ListOperation::Insert { offset },
+                            |op: &ListOperation| match op {
+                                ListOperation::Insert { offset } => *offset,
+                                _ => 0,
+                            },
+                        ),
                     Mode::ReplaceSection => record!(Section {
                         offset: NON_NEGATIVE_INT.optional_field_of_default("offset", 0),
                         size: NON_NEGATIVE_INT.optional_field_of("size"),
                     })
-                    .xmap(|s| ListOperation::ReplaceSection { offset: s.offset, size: s.size }, |op: &ListOperation| match op {
-                        ListOperation::ReplaceSection { offset, size } => Section { offset: *offset, size: *size },
-                        _ => Section { offset: 0, size: None },
-                    }),
+                    .xmap(
+                        |s| ListOperation::ReplaceSection {
+                            offset: s.offset,
+                            size: s.size,
+                        },
+                        |op: &ListOperation| match op {
+                            ListOperation::ReplaceSection { offset, size } => Section {
+                                offset: *offset,
+                                size: *size,
+                            },
+                            _ => Section {
+                                offset: 0,
+                                size: None,
+                            },
+                        },
+                    ),
                 },
             )
             .validate(move |op| {
-                if let ListOperation::ReplaceSection { size: Some(size), .. } = &op {
+                if let ListOperation::ReplaceSection {
+                    size: Some(size), ..
+                } = &op
+                {
                     if *size as i64 > max_size as i64 {
                         let (size, max) = (*size, max_size);
-                        return DataResult::error(move || format!("Size value too large: {size}, max size is {max}"));
+                        return DataResult::error(move || {
+                            format!("Size value too large: {size}, max size is {max}")
+                        });
                     }
                 }
                 DataResult::success(op)

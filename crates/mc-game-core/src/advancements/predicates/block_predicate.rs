@@ -25,6 +25,10 @@ impl BlockPredicateLevelExt for BlockPredicate {
     // adds components (custom name, container contents, ...) are not reflected, upgrade with the block entity code.
     fn matches_block_entity_of(&self, block_entity: Option<&dyn BlockEntity>) -> bool {
         let tag = block_entity.map(|e| e.save_with_full_metadata());
-        self.matches_block_entity(block_entity.zip(tag.as_ref()).map(|(e, t)| (t, &e.base().components)))
+        self.matches_block_entity(
+            block_entity
+                .zip(tag.as_ref())
+                .map(|(e, t)| (t, &e.base().components)),
+        )
     }
 }

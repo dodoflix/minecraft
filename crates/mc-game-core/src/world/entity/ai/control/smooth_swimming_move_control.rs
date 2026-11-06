@@ -22,13 +22,31 @@ pub struct SmoothSwimmingMoveControl {
 }
 
 impl SmoothSwimmingMoveControl {
-    pub fn new(max_turn_x: i32, max_turn_y: i32, in_water_speed_modifier: f32, outside_water_speed_modifier: f32, apply_gravity: bool) -> Self {
-        Self { base: MoveControlBase::default(), max_turn_x, max_turn_y, in_water_speed_modifier, outside_water_speed_modifier, apply_gravity }
+    pub fn new(
+        max_turn_x: i32,
+        max_turn_y: i32,
+        in_water_speed_modifier: f32,
+        outside_water_speed_modifier: f32,
+        apply_gravity: bool,
+    ) -> Self {
+        Self {
+            base: MoveControlBase::default(),
+            max_turn_x,
+            max_turn_y,
+            in_water_speed_modifier,
+            outside_water_speed_modifier,
+            apply_gravity,
+        }
     }
 }
 
 fn turning_speed_factor(left_to_turn: f32) -> f32 {
-    1.0 - mth::clamp_f32((left_to_turn - FULL_SPEED_TURN_THRESHOLD) / (STOP_TURN_THRESHOLD - FULL_SPEED_TURN_THRESHOLD), 0.0, 1.0)
+    1.0 - mth::clamp_f32(
+        (left_to_turn - FULL_SPEED_TURN_THRESHOLD)
+            / (STOP_TURN_THRESHOLD - FULL_SPEED_TURN_THRESHOLD),
+        0.0,
+        1.0,
+    )
 }
 
 impl MoveControl for SmoothSwimmingMoveControl {
@@ -53,7 +71,9 @@ impl MoveControl for SmoothSwimmingMoveControl {
             if dd < f64::from(2.5000003E-7f32) {
                 mob::set_zza(mob, 0.0);
             } else {
-                let y_rot_d = (mth::atan2(zd, xd) * f64::from(180.0f32) / f64::from(std::f32::consts::PI)) as f32 - 90.0;
+                let y_rot_d = (mth::atan2(zd, xd) * f64::from(180.0f32)
+                    / f64::from(std::f32::consts::PI)) as f32
+                    - 90.0;
                 let new_y_rot = b.rotlerp(mob.base().y_rot(), y_rot_d, self.max_turn_y as f32);
                 mob.set_y_rot(new_y_rot);
                 {
@@ -61,13 +81,21 @@ impl MoveControl for SmoothSwimmingMoveControl {
                     l.y_body_rot = new_y_rot;
                     l.y_head_rot = new_y_rot;
                 }
-                let speed = (b.speed_modifier * mob::attribute_value(mob, Attribute::MOVEMENT_SPEED)) as f32;
+                let speed = (b.speed_modifier
+                    * mob::attribute_value(mob, Attribute::MOVEMENT_SPEED))
+                    as f32;
                 if mob.is_in_water() {
                     mob.set_speed(speed * self.in_water_speed_modifier);
                     let sqrt = (xd * xd + zd * zd).sqrt();
                     if yd.abs() > f64::from(1.0E-5f32) || sqrt.abs() > f64::from(1.0E-5f32) {
-                        let mut x_rot_d = -((mth::atan2(yd, sqrt) * f64::from(180.0f32) / f64::from(std::f32::consts::PI)) as f32);
-                        x_rot_d = mth::clamp_f32(mth::wrap_degrees_f32(x_rot_d), -(self.max_turn_x as f32), self.max_turn_x as f32);
+                        let mut x_rot_d = -((mth::atan2(yd, sqrt) * f64::from(180.0f32)
+                            / f64::from(std::f32::consts::PI))
+                            as f32);
+                        x_rot_d = mth::clamp_f32(
+                            mth::wrap_degrees_f32(x_rot_d),
+                            -(self.max_turn_x as f32),
+                            self.max_turn_x as f32,
+                        );
                         let new_x_rot = rotate_towards(mob.base().x_rot(), x_rot_d, 5.0);
                         mob.set_x_rot(new_x_rot);
                     }

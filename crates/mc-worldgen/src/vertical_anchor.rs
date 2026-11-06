@@ -43,10 +43,11 @@ impl VerticalAnchor {
     pub fn from_json(value: &Value) -> LoadResult<VerticalAnchor> {
         let fields = Fields::new(value)?;
         let range = |v: &Value| parse_int_range(v, DIMENSION_MIN_Y, DIMENSION_MAX_Y);
-        let alternative = |name: &str, make: fn(i32) -> VerticalAnchor| {
-            fields.required(name, range).map(make)
-        };
-        let xor = |left: LoadResult<VerticalAnchor>, right: LoadResult<VerticalAnchor>| match (left, right) {
+        let alternative =
+            |name: &str, make: fn(i32) -> VerticalAnchor| fields.required(name, range).map(make);
+        let xor = |left: LoadResult<VerticalAnchor>, right: LoadResult<VerticalAnchor>| match (
+            left, right,
+        ) {
             (Ok(_), Ok(_)) => Err(LoadError::new("Both alternatives read successfully")),
             (Ok(anchor), Err(_)) | (Err(_), Ok(anchor)) => Ok(anchor),
             (Err(e), Err(_)) => Err(e),
@@ -55,7 +56,10 @@ impl VerticalAnchor {
             alternative("below_top", VerticalAnchor::BelowTop),
             alternative("relative_to_sea_level", VerticalAnchor::RelativeToSeaLevel),
         );
-        let inner = xor(alternative("above_bottom", VerticalAnchor::AboveBottom), inner);
+        let inner = xor(
+            alternative("above_bottom", VerticalAnchor::AboveBottom),
+            inner,
+        );
         xor(alternative("absolute", VerticalAnchor::Absolute), inner)
     }
 }

@@ -1,13 +1,15 @@
 //! `ListPlayersCommand`.
-use mc_game_core::commands::{CommandSourceStack, host, literal};
 use mc_brigadier::ArgumentBuilder;
+use mc_game_core::commands::{CommandSourceStack, host, literal};
 use mc_game_core::{register_command, translatable};
 use mc_text::Component;
 use mc_text::util::{default_separator, format_list};
 
 register_command!("ListPlayersCommand", |ctx| {
     ctx.dispatcher.register(
-        literal("list").executes(|c| Ok(list_players(c.get_source()))).then(literal("uuids").executes(|c| Ok(list_players_with_uuids(c.get_source())))),
+        literal("list")
+            .executes(|c| Ok(list_players(c.get_source())))
+            .then(literal("uuids").executes(|c| Ok(list_players_with_uuids(c.get_source())))),
     );
 });
 
@@ -17,17 +19,36 @@ fn list_players(source: &CommandSourceStack) -> i32 {
 
 fn list_players_with_uuids(source: &CommandSourceStack) -> i32 {
     format(source, |_, p| {
-        translatable!("commands.list.nameAndId", Component::literal(p.name().to_owned()), Component::literal(p.uuid.to_string()))
+        translatable!(
+            "commands.list.nameAndId",
+            Component::literal(p.name().to_owned()),
+            Component::literal(p.uuid.to_string())
+        )
     })
 }
 
-fn format(source: &CommandSourceStack, formatter: impl Fn(&mc_game_core::server::MinecraftServer, &mc_game_core::server::players::player_handle::PlayerHandle) -> Component) -> i32 {
+fn format(
+    source: &CommandSourceStack,
+    formatter: impl Fn(
+        &mc_game_core::server::MinecraftServer,
+        &mc_game_core::server::players::player_handle::PlayerHandle,
+    ) -> Component,
+) -> i32 {
     let (components, max_players) = source.with_server(|server| {
         let players = server.player_list.get_players();
-        (players.iter().map(|p| formatter(server, p)).collect::<Vec<_>>(), server.player_list.get_max_players())
+        (
+            players
+                .iter()
+                .map(|p| formatter(server, p))
+                .collect::<Vec<_>>(),
+            server.player_list.get_max_players(),
+        )
     });
     let count = components.len();
     let list = format_list(components, &default_separator(), |c| c);
-    source.send_success(|| translatable!("commands.list.players", count as i32, max_players, list), false);
+    source.send_success(
+        || translatable!("commands.list.players", count as i32, max_players, list),
+        false,
+    );
     count as i32
 }

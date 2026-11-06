@@ -4,7 +4,9 @@ use crate::common::*;
 #[tokio::test(flavor = "multi_thread")]
 #[ignore = "oracle: starts the vanilla server"]
 async fn bot_plays_on_vanilla() {
-    let server = mc_testbot::harness::vanilla(12345, "creative", &[]).start().expect("start vanilla");
+    let server = mc_testbot::harness::vanilla(12345, "creative", &[])
+        .start()
+        .expect("start vanilla");
     let bot = join("127.0.0.1", server.port, "Bot").await;
     server.cmd("op Bot");
     server.wait_log("Made Bot a server operator", 20);

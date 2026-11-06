@@ -59,12 +59,24 @@ pub struct Registry {
 impl Registry {
     /// A registry backed by `mc_data` (no tags yet).
     pub fn from_static(registry: &'static mc_data::registry::Registry) -> Registry {
-        Registry { key: registry.name().to_owned(), store: Store::Static(registry), tags: HashMap::new() }
+        Registry {
+            key: registry.name().to_owned(),
+            store: Store::Static(registry),
+            tags: HashMap::new(),
+        }
     }
 
     pub(crate) fn dynamic(key: &str, entries: Vec<RegistryEntry>) -> Registry {
-        let by_id = entries.iter().enumerate().map(|(i, e)| (e.id.clone(), i as u32)).collect();
-        Registry { key: key.to_owned(), store: Store::Dynamic(Arc::new(DynamicStore { entries, by_id })), tags: HashMap::new() }
+        let by_id = entries
+            .iter()
+            .enumerate()
+            .map(|(i, e)| (e.id.clone(), i as u32))
+            .collect();
+        Registry {
+            key: key.to_owned(),
+            store: Store::Dynamic(Arc::new(DynamicStore { entries, by_id })),
+            tags: HashMap::new(),
+        }
     }
 
     /// Same registry with its tags replaced (`Registry.prepareTagReload` + apply).
@@ -114,7 +126,9 @@ impl Registry {
 
     /// All entry names in id order.
     pub fn names(&self) -> Vec<Identifier> {
-        (0..self.len() as u32).filter_map(|i| self.name_of(i)).collect()
+        (0..self.len() as u32)
+            .filter_map(|i| self.name_of(i))
+            .collect()
     }
 
     /// The raw entry of a dynamic registry.
@@ -183,11 +197,20 @@ impl RegistryAccess {
     }
 
     pub fn from_registries(registries: impl IntoIterator<Item = Registry>) -> RegistryAccess {
-        RegistryAccess { registries: Arc::new(registries.into_iter().map(|r| (r.key.clone(), Arc::new(r))).collect()) }
+        RegistryAccess {
+            registries: Arc::new(
+                registries
+                    .into_iter()
+                    .map(|r| (r.key.clone(), Arc::new(r)))
+                    .collect(),
+            ),
+        }
     }
 
     pub(crate) fn from_arcs(registries: impl IntoIterator<Item = Arc<Registry>>) -> RegistryAccess {
-        RegistryAccess { registries: Arc::new(registries.into_iter().map(|r| (r.key.clone(), r)).collect()) }
+        RegistryAccess {
+            registries: Arc::new(registries.into_iter().map(|r| (r.key.clone(), r)).collect()),
+        }
     }
 
     /// `lookup(registryKey)`.
@@ -197,7 +220,8 @@ impl RegistryAccess {
 
     /// `lookupOrThrow(registryKey)`.
     pub fn registry_or_throw(&self, key: &str) -> &Arc<Registry> {
-        self.registry(key).unwrap_or_else(|| panic!("Missing registry: ResourceKey[minecraft:root / {key}]"))
+        self.registry(key)
+            .unwrap_or_else(|| panic!("Missing registry: ResourceKey[minecraft:root / {key}]"))
     }
 
     /// `registries()`.
@@ -221,7 +245,8 @@ impl RegistryAccess {
 
     /// `holder.is(tag)` for the entry `entry` of `registry`.
     pub fn is_in_tag(&self, registry: &str, entry: &Identifier, tag: &Identifier) -> bool {
-        self.registry(registry).is_some_and(|r| r.id_of(entry).is_some_and(|id| r.is_in_tag(id, tag)))
+        self.registry(registry)
+            .is_some_and(|r| r.id_of(entry).is_some_and(|id| r.is_in_tag(id, tag)))
     }
 }
 
@@ -241,11 +266,18 @@ impl<L: Copy + PartialEq + std::fmt::Debug> LayeredRegistryAccess<L> {
 
     fn build(keys: Vec<L>, values: Vec<RegistryAccess>) -> LayeredRegistryAccess<L> {
         let composite = RegistryAccess::from_arcs(collect_registries(&values));
-        LayeredRegistryAccess { keys, values, composite }
+        LayeredRegistryAccess {
+            keys,
+            values,
+            composite,
+        }
     }
 
     fn index_or_throw(&self, layer: L) -> usize {
-        self.keys.iter().position(|k| *k == layer).unwrap_or_else(|| panic!("Can't find {layer:?} inside {:?}", self.keys))
+        self.keys
+            .iter()
+            .position(|k| *k == layer)
+            .unwrap_or_else(|| panic!("Can't find {layer:?} inside {:?}", self.keys))
     }
 
     pub fn get_layer(&self, layer: L) -> &RegistryAccess {
@@ -265,9 +297,16 @@ impl<L: Copy + PartialEq + std::fmt::Debug> LayeredRegistryAccess<L> {
     }
 
     /// `replaceFrom(fromLayer, layers...)`: replaces `fromLayer` and the following layers (missing ones become empty).
-    pub fn replace_from(&self, from_layer: L, layers: Vec<RegistryAccess>) -> LayeredRegistryAccess<L> {
+    pub fn replace_from(
+        &self,
+        from_layer: L,
+        layers: Vec<RegistryAccess>,
+    ) -> LayeredRegistryAccess<L> {
         let index = self.index_or_throw(from_layer);
-        assert!(layers.len() <= self.values.len() - index, "Too many values to replace");
+        assert!(
+            layers.len() <= self.values.len() - index,
+            "Too many values to replace"
+        );
         let mut new_values: Vec<RegistryAccess> = self.values[..index].to_vec();
         new_values.extend(layers);
         new_values.resize(self.values.len(), RegistryAccess::empty());
@@ -284,7 +323,11 @@ fn collect_registries(layers: &[RegistryAccess]) -> Vec<Arc<Registry>> {
     let mut out = Vec::new();
     for access in layers {
         for r in access.registries() {
-            assert!(seen.insert(r.key().to_owned()), "Duplicated registry ResourceKey[minecraft:root / {}]", r.key());
+            assert!(
+                seen.insert(r.key().to_owned()),
+                "Duplicated registry ResourceKey[minecraft:root / {}]",
+                r.key()
+            );
             out.push(r.clone());
         }
     }

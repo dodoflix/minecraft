@@ -6,12 +6,23 @@ use std::rc::Rc;
 
 /// `LogTestReporter.onTestFailed`.
 pub fn on_test_failed(test_info: &Rc<GameTestInfo>) {
-    let test_position = test_info.get_test_block_pos().map(|p| p.to_short_string()).unwrap_or_default();
-    let error = test_info.get_error().map(|e| e.get_message()).unwrap_or_default();
+    let test_position = test_info
+        .get_test_block_pos()
+        .map(|p| p.to_short_string())
+        .unwrap_or_default();
+    let error = test_info
+        .get_error()
+        .map(|e| e.get_message())
+        .unwrap_or_default();
     if test_info.is_required() {
         log::error!("{} failed at {}! {}", test_info.id(), test_position, error);
     } else {
-        log::warn!("(optional) {} failed at {}. {}", test_info.id(), test_position, error);
+        log::warn!(
+            "(optional) {} failed at {}. {}",
+            test_info.id(),
+            test_position,
+            error
+        );
     }
 }
 

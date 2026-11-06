@@ -24,7 +24,12 @@ impl ServerLevel {
         self.spawning.overworld_clock_time = env.overworld_clock_time();
         self.spawning.moon_brightness = self.get_moon_brightness(BlockPos::ZERO);
         let spawn_mobs = self.spawn_mobs();
-        self.spawning.gen_live.publish(self.difficulty(), spawn_mobs, self.spawning.overworld_clock_time, self.spawning.moon_brightness);
+        self.spawning.gen_live.publish(
+            self.difficulty(),
+            spawn_mobs,
+            self.spawning.overworld_clock_time,
+            self.spawning.moon_brightness,
+        );
     }
 }
 
@@ -39,7 +44,12 @@ impl ServerLevelAccessor for ServerLevel {
             local_time = chunk.data.access.inhabited_time();
             moon_brightness = self.spawning.moon_brightness;
         }
-        DifficultyInstance::new(self.difficulty(), self.spawning.overworld_clock_time, local_time, moon_brightness)
+        DifficultyInstance::new(
+            self.difficulty(),
+            self.spawning.overworld_clock_time,
+            local_time,
+            moon_brightness,
+        )
     }
 
     fn is_thundering(&self) -> bool {
@@ -56,14 +66,26 @@ impl ServerLevelAccessor for ServerLevel {
 
     fn monster_spawn_light_test(&self, random: &mut dyn RandomSource) -> i32 {
         match &self.spawning.dimension_type {
-            Some(dimension_type) => crate::world::level::server_level_accessor::sample_int_provider(dimension_type.monster_spawn_light_test(), random),
+            Some(dimension_type) => {
+                crate::world::level::server_level_accessor::sample_int_provider(
+                    dimension_type.monster_spawn_light_test(),
+                    random,
+                )
+            }
             // the overworld's `uniform(0, 7)` for levels without a dimension type (detached test levels)
-            None => IntProvider::Uniform { min_inclusive: 0, max_inclusive: 7 }.sample(random),
+            None => IntProvider::Uniform {
+                min_inclusive: 0,
+                max_inclusive: 7,
+            }
+            .sample(random),
         }
     }
 
     fn monster_spawn_block_light_limit(&self) -> i32 {
-        self.spawning.dimension_type.as_ref().map_or(0, |d| d.monster_spawn_block_light_limit())
+        self.spawning
+            .dimension_type
+            .as_ref()
+            .map_or(0, |d| d.monster_spawn_block_light_limit())
     }
 
     fn add_fresh_entity_with_passengers(&mut self, entity: Box<dyn Entity>) -> bool {
@@ -75,7 +97,10 @@ impl ServerLevelAccessor for ServerLevel {
     }
 
     fn is_unobstructed_entity(&self, entity: &dyn Entity) -> bool {
-        self.is_unobstructed(Some(entity.id()), &mc_core::phys::shapes::Shapes::create(entity.get_bounding_box()))
+        self.is_unobstructed(
+            Some(entity.id()),
+            &mc_core::phys::shapes::Shapes::create(entity.get_bounding_box()),
+        )
     }
 
     fn is_within_world_border(&self, pos: BlockPos) -> bool {
@@ -102,11 +127,18 @@ impl ServerLevelAccessor for ServerLevel {
         self.spawn_mobs()
     }
 
-    fn create_entity(&self, ty: EntityType, request: EntitySpawnRequest) -> Option<Box<dyn Entity>> {
+    fn create_entity(
+        &self,
+        ty: EntityType,
+        request: EntitySpawnRequest,
+    ) -> Option<Box<dyn Entity>> {
         factory::create(ty, self, request)
     }
 
-    fn with_random_taken(&mut self, f: &mut dyn FnMut(&dyn ServerLevelAccessor, &mut dyn RandomSource) -> bool) -> bool {
+    fn with_random_taken(
+        &mut self,
+        f: &mut dyn FnMut(&dyn ServerLevelAccessor, &mut dyn RandomSource) -> bool,
+    ) -> bool {
         // `Level.random` is a shared handle: draws through the clone are draws of the level's random
         let mut random = self.tick_state.random.clone();
         f(&*self, &mut random)
@@ -123,7 +155,9 @@ impl ServerLevelAccessor for ServerLevel {
     fn creature_world_gen_spawn_probability_at(&self, pos: BlockPos) -> f32 {
         let biome = self.get_biome_id(pos);
         match self.spawning.biome_table(self.tick_state.biomes.as_ref()) {
-            Some(table) => table.creature_world_gen_spawn_probability(&self.spawning.dimension_base, biome),
+            Some(table) => {
+                table.creature_world_gen_spawn_probability(&self.spawning.dimension_base, biome)
+            }
             None => self.spawning.dimension_base.creature_probability,
         }
     }

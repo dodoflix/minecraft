@@ -20,8 +20,16 @@ pub struct Frame {
 }
 
 impl Frame {
-    pub fn new(depth: i32, return_value_consumer: CommandResultCallback, frame_control: FrameControl) -> Frame {
-        Frame { depth, return_value_consumer, frame_control }
+    pub fn new(
+        depth: i32,
+        return_value_consumer: CommandResultCallback,
+        frame_control: FrameControl,
+    ) -> Frame {
+        Frame {
+            depth,
+            return_value_consumer,
+            frame_control,
+        }
     }
 
     pub fn depth(&self) -> i32 {

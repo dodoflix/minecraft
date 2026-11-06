@@ -18,7 +18,14 @@ pub struct BoundingBox {
 
 impl BoundingBox {
     /// `new BoundingBox(int x6)`: inverted axes are swapped.
-    pub const fn new(min_x: i32, min_y: i32, min_z: i32, max_x: i32, max_y: i32, max_z: i32) -> BoundingBox {
+    pub const fn new(
+        min_x: i32,
+        min_y: i32,
+        min_z: i32,
+        max_x: i32,
+        max_y: i32,
+        max_z: i32,
+    ) -> BoundingBox {
         if max_x < min_x || max_y < min_y || max_z < min_z {
             BoundingBox {
                 min_x: if min_x < max_x { min_x } else { max_x },
@@ -29,17 +36,38 @@ impl BoundingBox {
                 max_z: if min_z > max_z { min_z } else { max_z },
             }
         } else {
-            BoundingBox { min_x, min_y, min_z, max_x, max_y, max_z }
+            BoundingBox {
+                min_x,
+                min_y,
+                min_z,
+                max_x,
+                max_y,
+                max_z,
+            }
         }
     }
 
     /// `new BoundingBox(BlockPos)`
     pub const fn from_block_pos(content: &BlockPos) -> BoundingBox {
-        BoundingBox::new(content.x(), content.y(), content.z(), content.x(), content.y(), content.z())
+        BoundingBox::new(
+            content.x(),
+            content.y(),
+            content.z(),
+            content.x(),
+            content.y(),
+            content.z(),
+        )
     }
 
     pub fn from_corners(pos0: &Vec3i, pos1: &Vec3i) -> BoundingBox {
-        BoundingBox::new(pos0.x.min(pos1.x), pos0.y.min(pos1.y), pos0.z.min(pos1.z), pos0.x.max(pos1.x), pos0.y.max(pos1.y), pos0.z.max(pos1.z))
+        BoundingBox::new(
+            pos0.x.min(pos1.x),
+            pos0.y.min(pos1.y),
+            pos0.z.min(pos1.z),
+            pos0.x.max(pos1.x),
+            pos0.y.max(pos1.y),
+            pos0.z.max(pos1.z),
+        )
     }
 
     pub const fn infinite() -> BoundingBox {
@@ -64,34 +92,70 @@ impl BoundingBox {
             Direction::North => BoundingBox::new(
                 foot_x.wrapping_add(off_x),
                 foot_y.wrapping_add(off_y),
-                foot_z.wrapping_sub(depth).wrapping_add(1).wrapping_add(off_z),
-                foot_x.wrapping_add(width).wrapping_sub(1).wrapping_add(off_x),
-                foot_y.wrapping_add(height).wrapping_sub(1).wrapping_add(off_y),
+                foot_z
+                    .wrapping_sub(depth)
+                    .wrapping_add(1)
+                    .wrapping_add(off_z),
+                foot_x
+                    .wrapping_add(width)
+                    .wrapping_sub(1)
+                    .wrapping_add(off_x),
+                foot_y
+                    .wrapping_add(height)
+                    .wrapping_sub(1)
+                    .wrapping_add(off_y),
                 foot_z.wrapping_add(off_z),
             ),
             Direction::West => BoundingBox::new(
-                foot_x.wrapping_sub(depth).wrapping_add(1).wrapping_add(off_z),
+                foot_x
+                    .wrapping_sub(depth)
+                    .wrapping_add(1)
+                    .wrapping_add(off_z),
                 foot_y.wrapping_add(off_y),
                 foot_z.wrapping_add(off_x),
                 foot_x.wrapping_add(off_z),
-                foot_y.wrapping_add(height).wrapping_sub(1).wrapping_add(off_y),
-                foot_z.wrapping_add(width).wrapping_sub(1).wrapping_add(off_x),
+                foot_y
+                    .wrapping_add(height)
+                    .wrapping_sub(1)
+                    .wrapping_add(off_y),
+                foot_z
+                    .wrapping_add(width)
+                    .wrapping_sub(1)
+                    .wrapping_add(off_x),
             ),
             Direction::East => BoundingBox::new(
                 foot_x.wrapping_add(off_z),
                 foot_y.wrapping_add(off_y),
                 foot_z.wrapping_add(off_x),
-                foot_x.wrapping_add(depth).wrapping_sub(1).wrapping_add(off_z),
-                foot_y.wrapping_add(height).wrapping_sub(1).wrapping_add(off_y),
-                foot_z.wrapping_add(width).wrapping_sub(1).wrapping_add(off_x),
+                foot_x
+                    .wrapping_add(depth)
+                    .wrapping_sub(1)
+                    .wrapping_add(off_z),
+                foot_y
+                    .wrapping_add(height)
+                    .wrapping_sub(1)
+                    .wrapping_add(off_y),
+                foot_z
+                    .wrapping_add(width)
+                    .wrapping_sub(1)
+                    .wrapping_add(off_x),
             ),
             _ => BoundingBox::new(
                 foot_x.wrapping_add(off_x),
                 foot_y.wrapping_add(off_y),
                 foot_z.wrapping_add(off_z),
-                foot_x.wrapping_add(width).wrapping_sub(1).wrapping_add(off_x),
-                foot_y.wrapping_add(height).wrapping_sub(1).wrapping_add(off_y),
-                foot_z.wrapping_add(depth).wrapping_sub(1).wrapping_add(off_z),
+                foot_x
+                    .wrapping_add(width)
+                    .wrapping_sub(1)
+                    .wrapping_add(off_x),
+                foot_y
+                    .wrapping_add(height)
+                    .wrapping_sub(1)
+                    .wrapping_add(off_y),
+                foot_z
+                    .wrapping_add(depth)
+                    .wrapping_sub(1)
+                    .wrapping_add(off_z),
             ),
         }
     }
@@ -101,16 +165,39 @@ impl BoundingBox {
         let min_chunk_z = SectionPos::block_to_section_coord_i32(self.min_z);
         let max_chunk_x = SectionPos::block_to_section_coord_i32(self.max_x);
         let max_chunk_z = SectionPos::block_to_section_coord_i32(self.max_z);
-        ChunkPos::range_closed_between(&ChunkPos::new(min_chunk_x, min_chunk_z), &ChunkPos::new(max_chunk_x, max_chunk_z))
+        ChunkPos::range_closed_between(
+            &ChunkPos::new(min_chunk_x, min_chunk_z),
+            &ChunkPos::new(max_chunk_x, max_chunk_z),
+        )
     }
 
     pub const fn intersects(&self, other: &BoundingBox) -> bool {
-        self.intersects_xyz(other.min_x, other.min_y, other.min_z, other.max_x, other.max_y, other.max_z)
+        self.intersects_xyz(
+            other.min_x,
+            other.min_y,
+            other.min_z,
+            other.max_x,
+            other.max_y,
+            other.max_z,
+        )
     }
 
     /// `intersects(int x6)`
-    pub const fn intersects_xyz(&self, min_x: i32, min_y: i32, min_z: i32, max_x: i32, max_y: i32, max_z: i32) -> bool {
-        self.max_x >= min_x && self.min_x <= max_x && self.max_z >= min_z && self.min_z <= max_z && self.max_y >= min_y && self.min_y <= max_y
+    pub const fn intersects_xyz(
+        &self,
+        min_x: i32,
+        min_y: i32,
+        min_z: i32,
+        max_x: i32,
+        max_y: i32,
+        max_z: i32,
+    ) -> bool {
+        self.max_x >= min_x
+            && self.min_x <= max_x
+            && self.max_z >= min_z
+            && self.min_z <= max_z
+            && self.max_y >= min_y
+            && self.min_y <= max_y
     }
 
     /// `intersects(int minX, int minZ, int maxX, int maxZ)`
@@ -118,7 +205,9 @@ impl BoundingBox {
         self.max_x >= min_x && self.min_x <= max_x && self.max_z >= min_z && self.min_z <= max_z
     }
 
-    pub fn encapsulating_positions(positions: impl IntoIterator<Item = BlockPos>) -> Option<BoundingBox> {
+    pub fn encapsulating_positions(
+        positions: impl IntoIterator<Item = BlockPos>,
+    ) -> Option<BoundingBox> {
         let mut iter = positions.into_iter();
         let mut result = BoundingBox::from_block_pos(&iter.next()?);
         iter.for_each(|pos| {
@@ -127,7 +216,9 @@ impl BoundingBox {
         Some(result)
     }
 
-    pub fn encapsulating_boxes(boxes: impl IntoIterator<Item = BoundingBox>) -> Option<BoundingBox> {
+    pub fn encapsulating_boxes(
+        boxes: impl IntoIterator<Item = BoundingBox>,
+    ) -> Option<BoundingBox> {
         let mut iter = boxes.into_iter();
         let mut result = iter.next()?;
         iter.for_each(|b| {
@@ -149,7 +240,14 @@ impl BoundingBox {
 
     /// `BoundingBox.encapsulating(a, b)`
     pub fn encapsulating(a: &BoundingBox, b: &BoundingBox) -> BoundingBox {
-        BoundingBox::new(a.min_x.min(b.min_x), a.min_y.min(b.min_y), a.min_z.min(b.min_z), a.max_x.max(b.max_x), a.max_y.max(b.max_y), a.max_z.max(b.max_z))
+        BoundingBox::new(
+            a.min_x.min(b.min_x),
+            a.min_y.min(b.min_y),
+            a.min_z.min(b.min_z),
+            a.max_x.max(b.max_x),
+            a.max_y.max(b.max_y),
+            a.max_z.max(b.max_z),
+        )
     }
 
     /// `encapsulate(BlockPos)`: grows `self` in place.
@@ -191,11 +289,20 @@ impl BoundingBox {
     }
 
     pub const fn inflated_by(&self, amount_to_add_all_directions: i32) -> BoundingBox {
-        self.inflated_by_xyz(amount_to_add_all_directions, amount_to_add_all_directions, amount_to_add_all_directions)
+        self.inflated_by_xyz(
+            amount_to_add_all_directions,
+            amount_to_add_all_directions,
+            amount_to_add_all_directions,
+        )
     }
 
     /// `inflatedBy(int, int, int)`
-    pub const fn inflated_by_xyz(&self, inflate_x: i32, inflate_y: i32, inflate_z: i32) -> BoundingBox {
+    pub const fn inflated_by_xyz(
+        &self,
+        inflate_x: i32,
+        inflate_y: i32,
+        inflate_z: i32,
+    ) -> BoundingBox {
         BoundingBox::new(
             self.min_x.wrapping_sub(inflate_x),
             self.min_y.wrapping_sub(inflate_y),
@@ -212,11 +319,20 @@ impl BoundingBox {
 
     /// `isInside(int, int, int)`
     pub const fn is_inside_xyz(&self, x: i32, y: i32, z: i32) -> bool {
-        x >= self.min_x && x <= self.max_x && z >= self.min_z && z <= self.max_z && y >= self.min_y && y <= self.max_y
+        x >= self.min_x
+            && x <= self.max_x
+            && z >= self.min_z
+            && z <= self.max_z
+            && y >= self.min_y
+            && y <= self.max_y
     }
 
     pub const fn get_length(&self) -> Vec3i {
-        Vec3i::new(self.max_x.wrapping_sub(self.min_x), self.max_y.wrapping_sub(self.min_y), self.max_z.wrapping_sub(self.min_z))
+        Vec3i::new(
+            self.max_x.wrapping_sub(self.min_x),
+            self.max_y.wrapping_sub(self.min_y),
+            self.max_z.wrapping_sub(self.min_z),
+        )
     }
 
     pub const fn get_x_span(&self) -> i32 {
@@ -278,7 +394,9 @@ impl BoundingBox {
     /// `Objects.hash(minX, minY, minZ, maxX, maxY, maxZ)`
     pub const fn hash_code(&self) -> i32 {
         let mut h = 1i32;
-        let fields = [self.min_x, self.min_y, self.min_z, self.max_x, self.max_y, self.max_z];
+        let fields = [
+            self.min_x, self.min_y, self.min_z, self.max_x, self.max_y, self.max_z,
+        ];
         let mut i = 0;
         while i < fields.len() {
             h = h.wrapping_mul(31).wrapping_add(fields[i]);

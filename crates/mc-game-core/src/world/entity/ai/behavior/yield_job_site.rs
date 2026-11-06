@@ -2,7 +2,9 @@
 
 use super::behavior_utils::set_walk_and_look_target_memories_pos;
 use super::{BehaviorBuilder, OneShot};
-use crate::world::entity::ai::memory::memory_module_type::{JOB_SITE, LOOK_TARGET, NEAREST_LIVING_ENTITIES, POTENTIAL_JOB_SITE, WALK_TARGET};
+use crate::world::entity::ai::memory::memory_module_type::{
+    JOB_SITE, LOOK_TARGET, NEAREST_LIVING_ENTITIES, POTENTIAL_JOB_SITE, WALK_TARGET,
+};
 use crate::world::entity::ai::village::poi::PoiTypeHolder;
 use crate::world::entity::mob::navigation as nav;
 use crate::world::entity::npc::villager::villager_profession as profession_data;
@@ -28,7 +30,9 @@ pub fn create(speed_modifier: f32) -> OneShot {
             return false;
         }
         let poi_pos = c.get(&potential_job).pos;
-        let Some(poi_type) = c.level.poi_manager().get_type(poi_pos) else { return true };
+        let Some(poi_type) = c.level.poi_manager().get_type(poi_pos) else {
+            return true;
+        };
         let me = c.body().id();
         let nearby: Vec<EntityId> = c.get(&nearest_entities).iter().map(|r| r.0).collect();
         // `.filter(v instanceof Villager && v != body).filter(isAlive).filter(nearbyWantsJobsite).findFirst()`
@@ -37,13 +41,25 @@ pub fn create(speed_modifier: f32) -> OneShot {
             if id == me {
                 continue;
             }
-            let Some(v) = c.level.get_entity(id).filter(|e| e.is_alive()).and_then(villager_ref) else { continue };
+            let Some(v) = c
+                .level
+                .get_entity(id)
+                .filter(|e| e.is_alive())
+                .and_then(villager_ref)
+            else {
+                continue;
+            };
             let wants = match nearby_wants_jobsite(poi_type, v, poi_pos) {
                 Wants::No => false,
                 Wants::Yes => true,
                 Wants::IfReachable => {
                     let range = poi_type.value().valid_range;
-                    c.level.with_entity(id, |level, v| nav::create_path_pos(v, level, poi_pos, range)).flatten().is_some_and(|p| p.can_reach())
+                    c.level
+                        .with_entity(id, |level, v| {
+                            nav::create_path_pos(v, level, poi_pos, range)
+                        })
+                        .flatten()
+                        .is_some_and(|p| p.can_reach())
                 }
             };
             if wants {
@@ -59,7 +75,13 @@ pub fn create(speed_modifier: f32) -> OneShot {
             c.level.with_entity(nearby_villager, |_, v| {
                 if v.brain().get_memory(&JOB_SITE).is_none() {
                     set_walk_and_look_target_memories_pos(v, poi_pos, speed_modifier, 1);
-                    v.brain_mut().set_memory(&POTENTIAL_JOB_SITE, GlobalPos { dimension, pos: poi_pos });
+                    v.brain_mut().set_memory(
+                        &POTENTIAL_JOB_SITE,
+                        GlobalPos {
+                            dimension,
+                            pos: poi_pos,
+                        },
+                    );
                 }
             });
         }
@@ -74,13 +96,24 @@ enum Wants {
 }
 
 /// `nearbyWantsJobsite(type, nearbyVillager, poiPos)` (the `canReachPos` pathfinding is left to the caller).
-fn nearby_wants_jobsite(poi_type: PoiTypeHolder, nearby_villager: &Villager, poi_pos: BlockPos) -> Wants {
-    if nearby_villager.brain().get_memory(&POTENTIAL_JOB_SITE).is_some() {
+fn nearby_wants_jobsite(
+    poi_type: PoiTypeHolder,
+    nearby_villager: &Villager,
+    poi_pos: BlockPos,
+) -> Wants {
+    if nearby_villager
+        .brain()
+        .get_memory(&POTENTIAL_JOB_SITE)
+        .is_some()
+    {
         return Wants::No;
     }
     let nearby_job_site = nearby_villager.brain().get_memory(&JOB_SITE);
     let profession = nearby_villager.get_villager_data().profession;
-    if profession_data::data(profession).held_job_site.test(poi_type) {
+    if profession_data::data(profession)
+        .held_job_site
+        .test(poi_type)
+    {
         match nearby_job_site {
             None => Wants::IfReachable,
             Some(site) if site.pos == poi_pos => Wants::Yes,

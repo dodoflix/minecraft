@@ -1,6 +1,6 @@
 //! `net.minecraft.advancements.predicates.InputPredicate`.
 
-use mc_dfu::{Codec, BOOL};
+use mc_dfu::{BOOL, Codec};
 use mc_protocol::packets::play::Input;
 use std::sync::LazyLock;
 

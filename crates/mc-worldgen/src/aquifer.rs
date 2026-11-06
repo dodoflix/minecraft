@@ -30,12 +30,19 @@ pub struct FluidStatus {
 
 impl FluidStatus {
     pub fn new(fluid_level: i32, fluid_type: BlockState) -> FluidStatus {
-        FluidStatus { fluid_level, fluid_type }
+        FluidStatus {
+            fluid_level,
+            fluid_type,
+        }
     }
 
     /// `at(blockY)`.
     pub fn at(&self, block_y: i32) -> BlockState {
-        if block_y < self.fluid_level { self.fluid_type } else { Block::AIR.default_state() }
+        if block_y < self.fluid_level {
+            self.fluid_type
+        } else {
+            Block::AIR.default_state()
+        }
     }
 }
 
@@ -45,7 +52,13 @@ pub type FluidPicker = Arc<dyn Fn(i32, i32, i32) -> FluidStatus + Send + Sync>;
 /// `Aquifer`. Implementations are stateful (`shouldScheduleFluidUpdate` describes the last `compute_substance`).
 pub trait Aquifer {
     /// `computeSubstance(blockX, blockY, blockZ, density)`: `None` = keep the default block (stone).
-    fn compute_substance(&mut self, block_x: i32, block_y: i32, block_z: i32, density: f64) -> Option<BlockState>;
+    fn compute_substance(
+        &mut self,
+        block_x: i32,
+        block_y: i32,
+        block_z: i32,
+        density: f64,
+    ) -> Option<BlockState>;
 
     fn should_schedule_fluid_update(&self) -> bool;
 }
@@ -60,8 +73,18 @@ struct DisabledAquifer {
 }
 
 impl Aquifer for DisabledAquifer {
-    fn compute_substance(&mut self, block_x: i32, block_y: i32, block_z: i32, density: f64) -> Option<BlockState> {
-        if density > 0.0 { None } else { Some((self.fluid_rule)(block_x, block_y, block_z).at(block_y)) }
+    fn compute_substance(
+        &mut self,
+        block_x: i32,
+        block_y: i32,
+        block_z: i32,
+        density: f64,
+    ) -> Option<BlockState> {
+        if density > 0.0 {
+            None
+        } else {
+            Some((self.fluid_rule)(block_x, block_y, block_z).at(block_y))
+        }
     }
 
     fn should_schedule_fluid_update(&self) -> bool {
@@ -78,7 +101,13 @@ impl AquiferConfig {
         volume: &DensityVolume,
         fluid_rule: FluidPicker,
     ) -> NoiseBasedAquifer {
-        NoiseBasedAquifer::new(caching_samplers, self, positional_random_factory, volume, fluid_rule)
+        NoiseBasedAquifer::new(
+            caching_samplers,
+            self,
+            positional_random_factory,
+            volume,
+            fluid_rule,
+        )
     }
 }
 
@@ -90,7 +119,10 @@ struct Bound {
 
 impl Bound {
     fn new(samplers: &Rc<DensitySamplerSet>, function: &DensityFunction) -> Bound {
-        Bound { sampler: samplers.random_state().get_sampler(function), samplers: samplers.clone() }
+        Bound {
+            sampler: samplers.random_state().get_sampler(function),
+            samplers: samplers.clone(),
+        }
     }
 
     fn sample_value(&self, x: i32, y: i32, z: i32) -> f32 {
@@ -166,7 +198,10 @@ impl NoiseBasedAquifer {
         let total_grid_size = (grid_size_x * grid_size_y * grid_size_z) as usize;
         let mut aquifer = NoiseBasedAquifer {
             barrier_noise: Bound::new(&caching_samplers, &config.barrier),
-            fluid_level_floodedness_noise: Bound::new(&caching_samplers, &config.fluid_level_floodedness),
+            fluid_level_floodedness_noise: Bound::new(
+                &caching_samplers,
+                &config.fluid_level_floodedness,
+            ),
             fluid_level_spread_noise: Bound::new(&caching_samplers, &config.fluid_level_spread),
             lava_noise: Bound::new(&caching_samplers, &config.lava),
             exclusion: Bound::new(&caching_samplers, &config.exclusion),
@@ -204,12 +239,22 @@ impl NoiseBasedAquifer {
         if let Some(&level) = self.surface_level_cache.get(&key) {
             return level;
         }
-        let level = mth::floor_f64(f64::from(self.surface_level.sample_value(quantized_x, 0, quantized_z)));
+        let level = mth::floor_f64(f64::from(self.surface_level.sample_value(
+            quantized_x,
+            0,
+            quantized_z,
+        )));
         self.surface_level_cache.insert(key, level);
         level
     }
 
-    fn max_surface_level(&mut self, min_block_x: i32, min_block_z: i32, max_block_x: i32, max_block_z: i32) -> i32 {
+    fn max_surface_level(
+        &mut self,
+        min_block_x: i32,
+        min_block_z: i32,
+        max_block_x: i32,
+        max_block_z: i32,
+    ) -> i32 {
         let min_quart_x = quart_pos::from_block(min_block_x);
         let max_quart_x = quart_pos::from_block(max_block_x);
         let min_quart_z = quart_pos::from_block(min_block_z);
@@ -227,13 +272,17 @@ impl NoiseBasedAquifer {
         );
         let context = self.surface_level.samplers.context();
         let mut buffer = context.acquire_buffer(&volume);
-        self.surface_level.sampler.sample_volume(context, &mut buffer, &volume);
+        self.surface_level
+            .sampler
+            .sample_volume(context, &mut buffer, &volume);
         let mut max_y = i32::MIN;
         for z in 0..volume.size_z {
             for x in 0..volume.size_x {
                 let surface_level = mth::floor_f32(buffer.get(volume.index_unchecked(x, 0, z)));
-                self.surface_level_cache
-                    .insert(ChunkPos::pack_xz(volume.block_x(x), volume.block_z(z)), surface_level);
+                self.surface_level_cache.insert(
+                    ChunkPos::pack_xz(volume.block_x(x), volume.block_z(z)),
+                    surface_level,
+                );
                 if surface_level > max_y {
                     max_y = surface_level;
                 }
@@ -268,28 +317,48 @@ impl NoiseBasedAquifer {
     ) -> f64 {
         let type1 = status_closest1.at(block_y);
         let type2 = status_closest2.at(block_y);
-        if (!self.is_lava(type1) || !self.is_water(type2)) && (!self.is_water(type1) || !self.is_lava(type2)) {
-            let fluid_y_diff = status_closest1.fluid_level.wrapping_sub(status_closest2.fluid_level).wrapping_abs();
+        if (!self.is_lava(type1) || !self.is_water(type2))
+            && (!self.is_water(type1) || !self.is_lava(type2))
+        {
+            let fluid_y_diff = status_closest1
+                .fluid_level
+                .wrapping_sub(status_closest2.fluid_level)
+                .wrapping_abs();
             if fluid_y_diff == 0 {
                 0.0
             } else {
-                let average_fluid_y = 0.5 * f64::from(status_closest1.fluid_level.wrapping_add(status_closest2.fluid_level));
+                let average_fluid_y = 0.5
+                    * f64::from(
+                        status_closest1
+                            .fluid_level
+                            .wrapping_add(status_closest2.fluid_level),
+                    );
                 let how_far_above_average_fluid_point = f64::from(block_y) + 0.5 - average_fluid_y;
                 let base_value = f64::from(fluid_y_diff) / 2.0;
-                let distance_from_barrier_edge_towards_middle = base_value - how_far_above_average_fluid_point.abs();
+                let distance_from_barrier_edge_towards_middle =
+                    base_value - how_far_above_average_fluid_point.abs();
                 let gradient = if how_far_above_average_fluid_point > 0.0 {
                     let center_point = 0.0 + distance_from_barrier_edge_towards_middle;
-                    if center_point > 0.0 { center_point / 1.5 } else { center_point / 2.5 }
+                    if center_point > 0.0 {
+                        center_point / 1.5
+                    } else {
+                        center_point / 2.5
+                    }
                 } else {
                     let center_point = 3.0 + distance_from_barrier_edge_towards_middle;
-                    if center_point > 0.0 { center_point / 3.0 } else { center_point / 10.0 }
+                    if center_point > 0.0 {
+                        center_point / 3.0
+                    } else {
+                        center_point / 10.0
+                    }
                 };
                 // Negated comparisons keep Java's NaN behavior (NaN counts as inside the range).
                 #[allow(clippy::neg_cmp_op_on_partial_ord)]
                 let noise_value = if !(gradient < -2.0) && !(gradient > 2.0) {
                     let current_noise_value = *barrier_noise_value;
                     if current_noise_value.is_nan() {
-                        let barrier_noise = f64::from(self.barrier_noise.sample_value(block_x, block_y, block_z));
+                        let barrier_noise =
+                            f64::from(self.barrier_noise.sample_value(block_x, block_y, block_z));
                         *barrier_noise_value = barrier_noise;
                         barrier_noise
                     } else {
@@ -310,7 +379,11 @@ impl NoiseBasedAquifer {
             return old_status;
         }
         let location = self.aquifer_location_cache[index];
-        let status = self.compute_fluid(BlockPos::get_x(location), BlockPos::get_y(location), BlockPos::get_z(location));
+        let status = self.compute_fluid(
+            BlockPos::get_x(location),
+            BlockPos::get_y(location),
+            BlockPos::get_z(location),
+        );
         self.aquifer_cache[index] = Some(status);
         status
     }
@@ -332,9 +405,11 @@ impl NoiseBasedAquifer {
                 return global_fluid;
             }
 
-            let top_of_aquifer_cell_pokes_above_surface = top_of_aquifer_cell > adjusted_surface_level;
+            let top_of_aquifer_cell_pokes_above_surface =
+                top_of_aquifer_cell > adjusted_surface_level;
             if top_of_aquifer_cell_pokes_above_surface || start {
-                let global_fluid_at_surface = (self.global_fluid_picker)(sample_x, adjusted_surface_level, sample_z);
+                let global_fluid_at_surface =
+                    (self.global_fluid_picker)(sample_x, adjusted_surface_level, sample_z);
                 if !global_fluid_at_surface.at(adjusted_surface_level).is_air() {
                     if start {
                         surface_at_center_is_under_global_fluid_level = true;
@@ -356,7 +431,10 @@ impl NoiseBasedAquifer {
             lowest_preliminary_surface,
             surface_at_center_is_under_global_fluid_level,
         );
-        FluidStatus::new(fluid_surface_level, self.compute_fluid_type(x, y, z, &global_fluid, fluid_surface_level))
+        FluidStatus::new(
+            fluid_surface_level,
+            self.compute_fluid_type(x, y, z, &global_fluid, fluid_surface_level),
+        )
     }
 
     fn adjust_surface_level(preliminary_surface_level: i32) -> i32 {
@@ -383,8 +461,11 @@ impl NoiseBasedAquifer {
             } else {
                 0.0
             };
-            let floodedness_noise_value =
-                mth::clamp_f64(f64::from(self.fluid_level_floodedness_noise.sample_value(x, y, z)), -1.0, 1.0);
+            let floodedness_noise_value = mth::clamp_f64(
+                f64::from(self.fluid_level_floodedness_noise.sample_value(x, y, z)),
+                -1.0,
+                1.0,
+            );
             let fully_flooded_threshold = mth::map_f64(flooded_factor, 1.0, 0.0, -0.3, 0.8);
             let partially_flooded_threshold = mth::map_f64(flooded_factor, 1.0, 0.0, -0.8, 0.4);
             partially_floodedness = floodedness_noise_value - partially_flooded_threshold;
@@ -400,28 +481,51 @@ impl NoiseBasedAquifer {
         }
     }
 
-    fn compute_randomized_fluid_surface_level(&self, x: i32, y: i32, z: i32, lowest_surface_level: i32) -> i32 {
+    fn compute_randomized_fluid_surface_level(
+        &self,
+        x: i32,
+        y: i32,
+        z: i32,
+        lowest_surface_level: i32,
+    ) -> i32 {
         let fluid_level_cell_x = mth::floor_div(x, 16);
         let fluid_level_cell_y = mth::floor_div(y, 40);
         let fluid_level_cell_z = mth::floor_div(z, 16);
         let fluid_cell_middle_y = fluid_level_cell_y * 40 + 20;
         // `float * 10.0F` is a float multiplication widened to double afterwards.
         let fluid_level_spread = f64::from(
-            self.fluid_level_spread_noise.sample_value(fluid_level_cell_x, fluid_level_cell_y, fluid_level_cell_z) * 10.0f32,
+            self.fluid_level_spread_noise.sample_value(
+                fluid_level_cell_x,
+                fluid_level_cell_y,
+                fluid_level_cell_z,
+            ) * 10.0f32,
         );
         let fluid_level_spread_quantized = mth::quantize(fluid_level_spread, 3);
         let target_fluid_surface_level = fluid_cell_middle_y + fluid_level_spread_quantized;
         lowest_surface_level.min(target_fluid_surface_level)
     }
 
-    fn compute_fluid_type(&self, x: i32, y: i32, z: i32, global_fluid: &FluidStatus, fluid_surface_level: i32) -> BlockState {
+    fn compute_fluid_type(
+        &self,
+        x: i32,
+        y: i32,
+        z: i32,
+        global_fluid: &FluidStatus,
+        fluid_surface_level: i32,
+    ) -> BlockState {
         let mut fluid_type = global_fluid.fluid_type;
-        if fluid_surface_level <= -10 && fluid_surface_level != WAY_BELOW_MIN_Y && global_fluid.fluid_type != self.lava {
+        if fluid_surface_level <= -10
+            && fluid_surface_level != WAY_BELOW_MIN_Y
+            && global_fluid.fluid_type != self.lava
+        {
             let fluid_type_cell_x = mth::floor_div(x, 64);
             let fluid_type_cell_y = mth::floor_div(y, 40);
             let fluid_type_cell_z = mth::floor_div(z, 64);
-            let lava_noise_value =
-                f64::from(self.lava_noise.sample_value(fluid_type_cell_x, fluid_type_cell_y, fluid_type_cell_z));
+            let lava_noise_value = f64::from(self.lava_noise.sample_value(
+                fluid_type_cell_x,
+                fluid_type_cell_y,
+                fluid_type_cell_z,
+            ));
             if lava_noise_value.abs() > 0.3 {
                 fluid_type = self.lava;
             }
@@ -431,7 +535,13 @@ impl NoiseBasedAquifer {
 }
 
 impl Aquifer for NoiseBasedAquifer {
-    fn compute_substance(&mut self, block_x: i32, block_y: i32, block_z: i32, density: f64) -> Option<BlockState> {
+    fn compute_substance(
+        &mut self,
+        block_x: i32,
+        block_y: i32,
+        block_z: i32,
+        density: f64,
+    ) -> Option<BlockState> {
         if density > 0.0 {
             self.should_schedule_fluid_update = false;
             return None;
@@ -469,7 +579,11 @@ impl Aquifer for NoiseBasedAquifer {
                     let location = if existing_location != i64::MAX {
                         existing_location
                     } else {
-                        let mut random = self.positional_random_factory.at(spaced_grid_x, spaced_grid_y, spaced_grid_z);
+                        let mut random = self.positional_random_factory.at(
+                            spaced_grid_x,
+                            spaced_grid_y,
+                            spaced_grid_z,
+                        );
                         let location = BlockPos::as_long_xyz(
                             from_grid_x(spaced_grid_x, random.next_int_bounded(X_RANGE)),
                             from_grid_y(spaced_grid_y, random.next_int_bounded(Y_RANGE)),
@@ -482,7 +596,10 @@ impl Aquifer for NoiseBasedAquifer {
                     let dx = BlockPos::get_x(location) - block_x;
                     let dy = BlockPos::get_y(location) - block_y;
                     let dz = BlockPos::get_z(location) - block_z;
-                    let new_distance = dx.wrapping_mul(dx).wrapping_add(dy.wrapping_mul(dy)).wrapping_add(dz.wrapping_mul(dz));
+                    let new_distance = dx
+                        .wrapping_mul(dx)
+                        .wrapping_add(dy.wrapping_mul(dy))
+                        .wrapping_add(dz.wrapping_mul(dz));
                     if distance_sqr1 >= new_distance {
                         closest_index4 = closest_index3;
                         closest_index3 = closest_index2;
@@ -526,7 +643,8 @@ impl Aquifer for NoiseBasedAquifer {
             return Some(actual_fluid_state);
         }
         if self.is_water(fluid_state)
-            && self.is_lava((self.global_fluid_picker)(block_x, block_y - 1, block_z).at(block_y - 1))
+            && self
+                .is_lava((self.global_fluid_picker)(block_x, block_y - 1, block_z).at(block_y - 1))
         {
             self.should_schedule_fluid_update = true;
             return Some(actual_fluid_state);
@@ -535,7 +653,14 @@ impl Aquifer for NoiseBasedAquifer {
         let mut barrier_noise_value = f64::NAN;
         let closest_status2 = self.get_aquifer_status(closest_index2);
         let barrier12 = similarity12
-            * self.calculate_pressure(block_x, block_y, block_z, &mut barrier_noise_value, &closest_status1, &closest_status2);
+            * self.calculate_pressure(
+                block_x,
+                block_y,
+                block_z,
+                &mut barrier_noise_value,
+                &closest_status1,
+                &closest_status2,
+            );
         if density + barrier12 > 0.0 {
             self.should_schedule_fluid_update = false;
             return None;
@@ -546,7 +671,14 @@ impl Aquifer for NoiseBasedAquifer {
         if similarity13 > 0.0 {
             let barrier13 = similarity12
                 * similarity13
-                * self.calculate_pressure(block_x, block_y, block_z, &mut barrier_noise_value, &closest_status1, &closest_status3);
+                * self.calculate_pressure(
+                    block_x,
+                    block_y,
+                    block_z,
+                    &mut barrier_noise_value,
+                    &closest_status1,
+                    &closest_status3,
+                );
             if density + barrier13 > 0.0 {
                 self.should_schedule_fluid_update = false;
                 return None;
@@ -557,7 +689,14 @@ impl Aquifer for NoiseBasedAquifer {
         if similarity23 > 0.0 {
             let barrier23 = similarity12
                 * similarity23
-                * self.calculate_pressure(block_x, block_y, block_z, &mut barrier_noise_value, &closest_status2, &closest_status3);
+                * self.calculate_pressure(
+                    block_x,
+                    block_y,
+                    block_z,
+                    &mut barrier_noise_value,
+                    &closest_status2,
+                    &closest_status3,
+                );
             if density + barrier23 > 0.0 {
                 self.should_schedule_fluid_update = false;
                 return None;

@@ -1,6 +1,5 @@
 //! `AcquirePoi`: find a free point of interest of a type, path to it, take a ticket and remember it.
 
-use mc_core::random::RandomSource;
 use super::village_util::{PoiPredicate, ValidPoi, java_block_pos_set_order};
 use super::{BehaviorBuilder, OneShot};
 use crate::server::level::ServerLevel;
@@ -11,6 +10,7 @@ use crate::world::entity::mob::navigation as nav;
 use crate::world::level::LevelAccessor as _;
 use crate::world::level::pathfinder::Path;
 use mc_core::pos::BlockPos;
+use mc_core::random::RandomSource;
 use mc_protocol::codec::GlobalPos;
 use std::collections::HashMap;
 use std::sync::Arc;
@@ -18,13 +18,37 @@ use std::sync::Arc;
 pub const SCAN_RANGE: i32 = 48;
 
 /// `create(poiType, memoryToAcquire, onlyIfAdult, onPoiAcquisitionEvent, validPoi)`.
-pub fn create(poi_type: PoiPredicate, memory_to_acquire: MemoryModuleType<GlobalPos>, only_if_adult: bool, on_poi_acquisition_event: Option<i8>, valid_poi: ValidPoi) -> OneShot {
-    create_validated(poi_type, memory_to_acquire, memory_to_acquire, only_if_adult, on_poi_acquisition_event, valid_poi)
+pub fn create(
+    poi_type: PoiPredicate,
+    memory_to_acquire: MemoryModuleType<GlobalPos>,
+    only_if_adult: bool,
+    on_poi_acquisition_event: Option<i8>,
+    valid_poi: ValidPoi,
+) -> OneShot {
+    create_validated(
+        poi_type,
+        memory_to_acquire,
+        memory_to_acquire,
+        only_if_adult,
+        on_poi_acquisition_event,
+        valid_poi,
+    )
 }
 
 /// `create(poiType, memoryToAcquire, onlyIfAdult, onPoiAcquisitionEvent)`.
-pub fn create_simple(poi_type: PoiPredicate, memory_to_acquire: MemoryModuleType<GlobalPos>, only_if_adult: bool, on_poi_acquisition_event: Option<i8>) -> OneShot {
-    create(poi_type, memory_to_acquire, only_if_adult, on_poi_acquisition_event, Arc::new(|_, _| true))
+pub fn create_simple(
+    poi_type: PoiPredicate,
+    memory_to_acquire: MemoryModuleType<GlobalPos>,
+    only_if_adult: bool,
+    on_poi_acquisition_event: Option<i8>,
+) -> OneShot {
+    create(
+        poi_type,
+        memory_to_acquire,
+        only_if_adult,
+        on_poi_acquisition_event,
+        Arc::new(|_, _| true),
+    )
 }
 
 /// `create(poiType, memoryToValidate, memoryToAcquire, onlyIfAdult, onPoiAcquisitionEvent, validPoi)`.
@@ -47,7 +71,8 @@ pub fn create_validated(
         let timestamp = c.timestamp;
         let level: &mut ServerLevel = c.level;
         if next_scheduled_start == 0 {
-            next_scheduled_start = level.game_time() + i64::from(level.random().next_int_bounded(20));
+            next_scheduled_start =
+                level.game_time() + i64::from(level.random().next_int_bounded(20));
             return false;
         } else if level.game_time() < next_scheduled_start {
             return false;
@@ -57,7 +82,13 @@ pub fn create_validated(
         let body_pos = c.body.block_position();
         // `findAllClosestFirstWithType(poiType, cacheTest, ...)`: the cache test runs over the whole range in walk order (it may
         // roll the retry delay), then the matches are sorted by distance (stable), limited to 5 and validated
-        let candidates = level.poi_manager().find_all_with_type(&*poi_type, &|_| true, body_pos, SCAN_RANGE, Occupancy::HasSpace);
+        let candidates = level.poi_manager().find_all_with_type(
+            &*poi_type,
+            &|_| true,
+            body_pos,
+            SCAN_RANGE,
+            Occupancy::HasSpace,
+        );
         let mut matches: Vec<(PoiTypeHolder, BlockPos)> = Vec::new();
         for (ty, pos) in candidates {
             let pass = match batch_cache.get_mut(&pos.as_long()) {
@@ -73,14 +104,26 @@ pub fn create_validated(
             }
         }
         matches.sort_by(|a, b| a.1.dist_sqr(&body_pos).total_cmp(&b.1.dist_sqr(&body_pos)));
-        let poi_positions: Vec<(PoiTypeHolder, BlockPos)> = matches.into_iter().take(5).filter(|(_, pos)| valid_poi(level, *pos)).collect();
+        let poi_positions: Vec<(PoiTypeHolder, BlockPos)> = matches
+            .into_iter()
+            .take(5)
+            .filter(|(_, pos)| valid_poi(level, *pos))
+            .collect();
         let path = find_path_to_pois(c.body, level, &poi_positions);
         match path.filter(|p| p.can_reach()) {
             Some(path) => {
                 let target_pos = path.get_target();
                 if level.poi_manager().get_type(target_pos).is_some() {
-                    level.poi_manager().take(&*poi_type, &|_, poi_pos| poi_pos == target_pos, target_pos, 1);
-                    let global = GlobalPos { dimension: level.dimension.clone(), pos: target_pos };
+                    level.poi_manager().take(
+                        &*poi_type,
+                        &|_, poi_pos| poi_pos == target_pos,
+                        target_pos,
+                        1,
+                    );
+                    let global = GlobalPos {
+                        dimension: level.dimension.clone(),
+                        pos: target_pos,
+                    };
                     c.body.brain_mut().set_memory(&memory_to_acquire, global);
                     if let Some(event) = on_poi_acquisition_event {
                         level.broadcast_entity_event(c.body.id(), event);
@@ -110,7 +153,11 @@ pub fn create_validated(
 }
 
 /// `findPathToPois(body, pois)`.
-pub fn find_path_to_pois(body: &mut dyn Entity, level: &mut ServerLevel, pois: &[(PoiTypeHolder, BlockPos)]) -> Option<Path> {
+pub fn find_path_to_pois(
+    body: &mut dyn Entity,
+    level: &mut ServerLevel,
+    pois: &[(PoiTypeHolder, BlockPos)],
+) -> Option<Path> {
     if pois.is_empty() {
         return None;
     }
@@ -121,7 +168,10 @@ pub fn find_path_to_pois(body: &mut dyn Entity, level: &mut ServerLevel, pois: &
         targets.push(*pos);
     }
     let targets = java_block_pos_set_order(&targets);
-    nav::with_navigation(body, level, |navigation, body, level| navigation.create_path_set(body, level, &targets, max_range)).flatten()
+    nav::with_navigation(body, level, |navigation, body, level| {
+        navigation.create_path_set(body, level, &targets, max_range)
+    })
+    .flatten()
 }
 
 /// `AcquirePoi.JitteredLinearRetry`.
@@ -133,7 +183,11 @@ struct JitteredLinearRetry {
 
 impl JitteredLinearRetry {
     fn new(random: &mut dyn mc_core::random::RandomSource, first_attempt_timestamp: i64) -> Self {
-        let mut marker = Self { previous_attempt_timestamp: 0, next_scheduled_attempt_timestamp: 0, current_delay: 0 };
+        let mut marker = Self {
+            previous_attempt_timestamp: 0,
+            next_scheduled_attempt_timestamp: 0,
+            current_delay: 0,
+        };
         marker.mark_attempt(first_attempt_timestamp, random);
         marker
     }

@@ -21,7 +21,9 @@ pub(crate) fn as_long(tag: Option<&Tag>, default: i64) -> i64 {
 
 /// `Dynamic.asBoolean(default)`: `NbtOps.getBooleanValue` is `doubleValue() != 0.0`.
 pub(crate) fn as_boolean(tag: Option<&Tag>, default: bool) -> bool {
-    tag.and_then(Tag::as_number).map(|n| n.double_value() != 0.0).unwrap_or(default)
+    tag.and_then(Tag::as_number)
+        .map(|n| n.double_value() != 0.0)
+        .unwrap_or(default)
 }
 
 /// `Dynamic.asString(default)`: only string tags.
@@ -42,13 +44,20 @@ pub(crate) fn stream(tag: &Tag) -> Option<Vec<Tag>> {
 
 /// `Codec.STRING.listOf()` decode: a collection of strings, any other element makes the whole decode fail.
 pub(crate) fn string_list(tag: &Tag) -> Option<Vec<String>> {
-    stream(tag)?.iter().map(|t| t.as_string().map(str::to_owned)).collect()
+    stream(tag)?
+        .iter()
+        .map(|t| t.as_string().map(str::to_owned))
+        .collect()
 }
 
 /// `dynamic.asStream().flatMap(e -> e.asString().result().stream())`: the string elements, others skipped.
 pub(crate) fn lenient_strings(tag: Option<&Tag>) -> Vec<String> {
     tag.and_then(stream)
-        .map(|v| v.iter().filter_map(|t| t.as_string().map(str::to_owned)).collect())
+        .map(|v| {
+            v.iter()
+                .filter_map(|t| t.as_string().map(str::to_owned))
+                .collect()
+        })
         .unwrap_or_default()
 }
 
@@ -86,20 +95,32 @@ pub(crate) fn java_hash_set_order<T: PartialEq>(items: Vec<(i32, T)>) -> Vec<T> 
             unique.push((hash, item));
         }
     }
-    mc_core::java_collections::hash_map_ordered(unique, |e| e.0, mc_core::java_collections::HASH_MAP_DEFAULT_CAPACITY)
-        .into_iter()
-        .map(|(_, item)| item)
-        .collect()
+    mc_core::java_collections::hash_map_ordered(
+        unique,
+        |e| e.0,
+        mc_core::java_collections::HASH_MAP_DEFAULT_CAPACITY,
+    )
+    .into_iter()
+    .map(|(_, item)| item)
+    .collect()
 }
 
 /// [`java_hash_set_order`] for `HashSet<String>`.
 pub(crate) fn java_string_set_order(items: &[String]) -> Vec<String> {
-    java_hash_set_order(items.iter().map(|s| (java_string_hash(s), s.clone())).collect())
+    java_hash_set_order(
+        items
+            .iter()
+            .map(|s| (java_string_hash(s), s.clone()))
+            .collect(),
+    )
 }
 
 /// Copy of `tag` without the keys listed in `known` (what vanilla's parse does not consume).
 pub(crate) fn without_keys(tag: &CompoundTag, known: &[&str]) -> CompoundTag {
-    tag.iter().filter(|(k, _)| !known.contains(&k.as_str())).map(|(k, v)| (k.clone(), v.clone())).collect()
+    tag.iter()
+        .filter(|(k, _)| !known.contains(&k.as_str()))
+        .map(|(k, v)| (k.clone(), v.clone()))
+        .collect()
 }
 
 #[cfg(test)]

@@ -11,7 +11,13 @@ pub enum Markings {
 }
 
 impl Markings {
-    pub const ALL: [Markings; 5] = [Markings::None, Markings::White, Markings::WhiteField, Markings::WhiteDots, Markings::BlackDots];
+    pub const ALL: [Markings; 5] = [
+        Markings::None,
+        Markings::White,
+        Markings::WhiteField,
+        Markings::WhiteDots,
+        Markings::BlackDots,
+    ];
 
     /// `getId()`.
     pub fn id(self) -> i32 {

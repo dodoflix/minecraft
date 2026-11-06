@@ -29,15 +29,31 @@ pub struct EvokerFangs {
 impl EvokerFangs {
     /// `EvokerFangs(type, level)`.
     pub fn new(ty: EntityType, id: EntityId) -> Self {
-        Self { base: EntityData::new(ty, id, entity::TOTAL_AIR_SUPPLY, |_| {}), warmup_delay_ticks: 0, sent_spike_event: false, life_ticks: 22, owner: None }
+        Self {
+            base: EntityData::new(ty, id, entity::TOTAL_AIR_SUPPLY, |_| {}),
+            warmup_delay_ticks: 0,
+            sent_spike_event: false,
+            life_ticks: 22,
+            owner: None,
+        }
     }
 
     /// `EvokerFangs(level, x, y, z, rotationRadians, warmupDelayTicks, owner)`.
-    pub fn at(level: &ServerLevel, x: f64, y: f64, z: f64, rotation_radians: f32, warmup_delay_ticks: i32, owner: &dyn Entity) -> Self {
+    pub fn at(
+        level: &ServerLevel,
+        x: f64,
+        y: f64,
+        z: f64,
+        rotation_radians: f32,
+        warmup_delay_ticks: i32,
+        owner: &dyn Entity,
+    ) -> Self {
         let mut fangs = Self::new(EntityType::EVOKER_FANGS, level.next_entity_id());
         fangs.warmup_delay_ticks = warmup_delay_ticks;
         fangs.set_owner(Some(owner));
-        fangs.base.set_y_rot(rotation_radians * (180.0f32 / std::f32::consts::PI));
+        fangs
+            .base
+            .set_y_rot(rotation_radians * (180.0f32 / std::f32::consts::PI));
         fangs.set_pos(x, y, z);
         fangs
     }
@@ -49,13 +65,17 @@ impl EvokerFangs {
 
     /// `getOwner()`.
     pub fn get_owner<'l>(&self, level: &'l ServerLevel) -> Option<&'l dyn Entity> {
-        level.get_entity_by_uuid(self.owner?).filter(|e| e.living().is_some())
+        level
+            .get_entity_by_uuid(self.owner?)
+            .filter(|e| e.living().is_some())
     }
 
     /// `dealDamageTo(entity)`.
     fn deal_damage_to(&mut self, level: &mut ServerLevel, victim: EntityId) {
         let owner_id = self.get_owner(level).map(|o| o.id());
-        let Some(target) = level.get_entity(victim) else { return };
+        let Some(target) = level.get_entity(victim) else {
+            return;
+        };
         if !(target.is_alive() && !target.is_invulnerable() && Some(victim) != owner_id) {
             return;
         }
@@ -68,10 +88,17 @@ impl EvokerFangs {
                 if crate::world::entity::mob::ext::is_allied_to(level, owner, target) {
                     return;
                 }
-                let source = level.damage_sources().indirect_magic(self.as_dyn(), Some(owner));
+                let source = level
+                    .damage_sources()
+                    .indirect_magic(self.as_dyn(), Some(owner));
                 level.with_entity(victim, |level, t| {
                     if t.hurt_server(level, &source, 6.0) {
-                        crate::world::item::enchantment_helper::do_post_attack_effects(level, &mut Actors::of(&mut *t), victim, &source);
+                        crate::world::item::enchantment_helper::do_post_attack_effects(
+                            level,
+                            &mut Actors::of(&mut *t),
+                            victim,
+                            &source,
+                        );
                     }
                 });
             }
@@ -120,14 +147,22 @@ impl Entity for EvokerFangs {
         }
     }
 
-    fn hurt_server(&mut self, _level: &mut ServerLevel, _source: &DamageSource, _amount: f32) -> bool {
+    fn hurt_server(
+        &mut self,
+        _level: &mut ServerLevel,
+        _source: &DamageSource,
+        _amount: f32,
+    ) -> bool {
         false
     }
 
     fn add_additional_save_data(&self, out: &mut CompoundTag) {
         out.put_int("Warmup", self.warmup_delay_ticks);
         if let Some(owner) = self.owner {
-            out.put_int_array("Owner", mc_core::uuid_util::uuid_to_int_array(&owner).to_vec());
+            out.put_int_array(
+                "Owner",
+                mc_core::uuid_util::uuid_to_int_array(&owner).to_vec(),
+            );
         }
     }
 
@@ -138,4 +173,7 @@ impl Entity for EvokerFangs {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static EVOKER_FANGS_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::EVOKER_FANGS, create: |ty, id, _registries| Box::new(EvokerFangs::new(ty, id)) };
+static EVOKER_FANGS_FACTORY: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::EVOKER_FANGS,
+    create: |ty, id, _registries| Box::new(EvokerFangs::new(ty, id)),
+};

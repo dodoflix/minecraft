@@ -34,8 +34,18 @@ pub fn get_pos(
             z_dir,
             f64::from(max_xz_radians_difference),
         )?;
-        let pos = land_random_pos::generate_random_pos_toward_direction(mob, level, f64::from(horizontal_dist), restrict, direction)?;
-        let above = mob.base_mut().random.next_int_bounded(hover_max_height - hover_min_height + 1) + hover_min_height;
+        let pos = land_random_pos::generate_random_pos_toward_direction(
+            mob,
+            level,
+            f64::from(horizontal_dist),
+            restrict,
+            direction,
+        )?;
+        let above = mob
+            .base_mut()
+            .random
+            .next_int_bounded(hover_max_height - hover_min_height + 1)
+            + hover_min_height;
         let max_y = level.get_max_y();
         let pos = random_pos::move_up_to_above_solid(pos, above, max_y, |p| gu::is_solid(level, p));
         (!gu::is_water(level, pos) && !gu::has_malus(mob, level, pos)).then_some(pos)

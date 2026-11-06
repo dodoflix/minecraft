@@ -165,8 +165,12 @@ impl RandomState {
     }
 
     /// `createClimateSampler(context)`.
-    pub fn create_climate_sampler(self: &Arc<Self>, context: SamplerContext) -> crate::biome::climate::Sampler {
-        self.router.create_climate_sampler(self.samplers_with_context(context))
+    pub fn create_climate_sampler(
+        self: &Arc<Self>,
+        context: SamplerContext,
+    ) -> crate::biome::climate::Sampler {
+        self.router
+            .create_climate_sampler(self.samplers_with_context(context))
     }
 
     /// `surfaceSystem()`: the `MaterialSystem` of this state (vanilla builds it in the constructor from the
@@ -301,7 +305,8 @@ impl<'a> BoundSampler<'a> {
     /// `sampleVolume(volume)`: samples into a buffer borrowed from the context's pool.
     pub fn sample_volume_scoped(&self, volume: &DensityVolume) -> ScopedDensityBuffer<'_> {
         let mut buffer = self.context.acquire_buffer(volume);
-        self.sampler.sample_volume(self.context, &mut buffer, volume);
+        self.sampler
+            .sample_volume(self.context, &mut buffer, volume);
         buffer
     }
 

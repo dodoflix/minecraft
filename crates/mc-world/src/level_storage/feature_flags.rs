@@ -7,7 +7,12 @@ use mc_nbt::{ListTag, Tag};
 use super::dynamic::{java_hash_set_order, string_list};
 
 /// Registry order == flag id (bit index) in vanilla's `FeatureFlags` static initializer.
-const NAMES: [&str; 4] = ["vanilla", "trade_rebalance", "redstone_experiments", "minecart_improvements"];
+const NAMES: [&str; 4] = [
+    "vanilla",
+    "trade_rebalance",
+    "redstone_experiments",
+    "minecart_improvements",
+];
 
 #[derive(Clone, Copy, PartialEq, Eq, Hash, Debug)]
 pub struct FeatureFlagSet(u64);
@@ -44,10 +49,16 @@ impl FeatureFlagSet {
     }
 
     /// `FeatureFlagRegistry.fromNames(ids, unknown)`: unknown ids are reported through `unknown`.
-    pub fn from_names<'a>(ids: impl IntoIterator<Item = &'a Identifier>, mut unknown: impl FnMut(&Identifier)) -> Self {
+    pub fn from_names<'a>(
+        ids: impl IntoIterator<Item = &'a Identifier>,
+        mut unknown: impl FnMut(&Identifier),
+    ) -> Self {
         let mut bits = 0;
         for id in ids {
-            match (id.namespace() == "minecraft").then(|| NAMES.iter().position(|n| *n == id.path())).flatten() {
+            match (id.namespace() == "minecraft")
+                .then(|| NAMES.iter().position(|n| *n == id.path()))
+                .flatten()
+            {
                 Some(bit) => bits |= 1 << bit,
                 None => unknown(id),
             }
@@ -73,10 +84,17 @@ impl FeatureFlagSet {
     /// `FeatureFlags.CODEC` decode: a list of identifiers, unknown/invalid ids make it fail (`Err` message).
     pub fn decode(tag: &Tag) -> Result<FeatureFlagSet, String> {
         let strings = string_list(tag).ok_or_else(|| "Not a list of strings".to_owned())?;
-        let ids = strings.iter().map(|s| Identifier::read(s)).collect::<Result<Vec<_>, _>>()?;
+        let ids = strings
+            .iter()
+            .map(|s| Identifier::read(s))
+            .collect::<Result<Vec<_>, _>>()?;
         let mut unknown = Vec::new();
         let set = FeatureFlagSet::from_names(&ids, |id| unknown.push(id.to_string()));
-        if unknown.is_empty() { Ok(set) } else { Err(format!("Unknown feature ids: {unknown:?}")) }
+        if unknown.is_empty() {
+            Ok(set)
+        } else {
+            Err(format!("Unknown feature ids: {unknown:?}"))
+        }
     }
 
     /// `FeatureFlags.CODEC` encode.

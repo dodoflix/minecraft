@@ -36,7 +36,10 @@ impl CommandResultCallback {
     }
 
     /// `CommandResultCallback.chain`: `first` runs, then `second`.
-    pub fn chain(first: CommandResultCallback, second: CommandResultCallback) -> CommandResultCallback {
+    pub fn chain(
+        first: CommandResultCallback,
+        second: CommandResultCallback,
+    ) -> CommandResultCallback {
         match (first, second) {
             (Self::Empty, second) => second,
             (first, Self::Empty) => first,

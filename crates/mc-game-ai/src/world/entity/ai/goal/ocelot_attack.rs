@@ -1,9 +1,9 @@
 //! `OcelotAttackGoal` (cats and ocelots stalk, rush and bite their target).
 
-use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags};
 use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::entity::mob::{self, combat};
+use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags};
 use mc_game_core::world::entity::mob::navigation;
+use mc_game_core::world::entity::mob::{self, combat};
 use mc_game_core::world::entity::{Entity, EntityId};
 
 pub struct OcelotAttackGoal {
@@ -13,7 +13,10 @@ pub struct OcelotAttackGoal {
 
 impl OcelotAttackGoal {
     pub fn new() -> Self {
-        Self { target: None, attack_time: 0 }
+        Self {
+            target: None,
+            attack_time: 0,
+        }
     }
 }
 
@@ -29,7 +32,9 @@ impl Goal for OcelotAttackGoal {
     }
 
     fn can_continue_to_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        let Some(target) = self.target.and_then(|t| level.get_entity(t)) else { return false };
+        let Some(target) = self.target.and_then(|t| level.get_entity(t)) else {
+            return false;
+        };
         if !target.is_alive() {
             return false;
         }
@@ -50,13 +55,17 @@ impl Goal for OcelotAttackGoal {
 
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         let Some(target_id) = self.target else { return };
-        let Some(target) = level.get_entity(target_id) else { return };
+        let Some(target) = level.get_entity(target_id) else {
+            return;
+        };
         mob::look_at_entity_full(mob, target, 30.0, 30.0);
         let width = mob.base().get_bb_width();
         let melee_radius_sqr = f64::from(width * 2.0 * (width * 2.0));
         let target_pos = target.position();
         let target_block_pos = target.block_position();
-        let dist_sqr = mob.base().distance_to_sqr_xyz(target_pos.x, target_pos.y, target_pos.z);
+        let dist_sqr = mob
+            .base()
+            .distance_to_sqr_xyz(target_pos.x, target_pos.y, target_pos.z);
         let mut speed_modifier = 0.8;
         if dist_sqr > melee_radius_sqr && dist_sqr < 16.0 {
             speed_modifier = 1.33;

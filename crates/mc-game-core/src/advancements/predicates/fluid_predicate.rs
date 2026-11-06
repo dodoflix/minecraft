@@ -16,9 +16,21 @@ pub struct FluidPredicate {
 }
 
 /// `FlowingFluid.FALLING`.
-static FALLING: PropertyDef = PropertyDef { name: "falling", kind: PropertyKind::Boolean, values: &["true", "false"], min: 0, enum_class: None };
+static FALLING: PropertyDef = PropertyDef {
+    name: "falling",
+    kind: PropertyKind::Boolean,
+    values: &["true", "false"],
+    min: 0,
+    enum_class: None,
+};
 /// `FlowingFluid.LEVEL` (`BlockStateProperties.LEVEL_FLOWING`).
-static LEVEL: PropertyDef = PropertyDef { name: "level", kind: PropertyKind::Integer, values: &["1", "2", "3", "4", "5", "6", "7", "8"], min: 1, enum_class: None };
+static LEVEL: PropertyDef = PropertyDef {
+    name: "level",
+    kind: PropertyKind::Integer,
+    values: &["1", "2", "3", "4", "5", "6", "7", "8"],
+    min: 1,
+    enum_class: None,
+};
 
 /// `StatePropertiesPredicate.matches(FluidState)`: a name that is not a property of the fluid never matches.
 pub trait StatePropertiesPredicateFluidExt {
@@ -28,9 +40,21 @@ pub trait StatePropertiesPredicateFluidExt {
 impl StatePropertiesPredicateFluidExt for StatePropertiesPredicate {
     fn matches_fluid(&self, state: FluidState) -> bool {
         self.properties.iter().all(|matcher| {
-            let Some((_, value)) = state.data().properties.iter().find(|(name, _)| *name == matcher.name) else { return false };
-            let def: &PropertyDef = if matcher.name == "falling" { &FALLING } else { &LEVEL };
-            def.value_index(value).is_some_and(|index| matcher.value_matcher.matches(def, index))
+            let Some((_, value)) = state
+                .data()
+                .properties
+                .iter()
+                .find(|(name, _)| *name == matcher.name)
+            else {
+                return false;
+            };
+            let def: &PropertyDef = if matcher.name == "falling" {
+                &FALLING
+            } else {
+                &LEVEL
+            };
+            def.value_index(value)
+                .is_some_and(|index| matcher.value_matcher.matches(def, index))
         })
     }
 }
@@ -52,6 +76,12 @@ impl FluidPredicate {
             return false;
         }
         let state = level.get_fluid_state(pos);
-        self.fluids.as_ref().is_none_or(|f| f.contains(state.fluid())) && self.properties.as_ref().is_none_or(|p| p.matches_fluid(state))
+        self.fluids
+            .as_ref()
+            .is_none_or(|f| f.contains(state.fluid()))
+            && self
+                .properties
+                .as_ref()
+                .is_none_or(|p| p.matches_fluid(state))
     }
 }

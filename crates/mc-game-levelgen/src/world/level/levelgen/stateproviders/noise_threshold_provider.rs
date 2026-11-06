@@ -2,12 +2,16 @@
 
 use super::noise_based_state_provider::NoiseBasedStateProvider;
 use super::noise_provider::non_empty_states;
-use mc_game_core::world::level::levelgen::stateproviders::{BLOCK_STATE_PROVIDER_TYPES, BlockStateProvider};
-use mc_game_core::world::level::LevelAccessor;
-use mc_game_core::world::level::levelgen::codec::{TypeEntry, parse_block_state, parse_float_range};
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::BlockState;
+use mc_game_core::world::level::LevelAccessor;
+use mc_game_core::world::level::levelgen::codec::{
+    TypeEntry, parse_block_state, parse_float_range,
+};
+use mc_game_core::world::level::levelgen::stateproviders::{
+    BLOCK_STATE_PROVIDER_TYPES, BlockStateProvider,
+};
 use std::sync::Arc;
 
 pub struct NoiseThresholdProvider {
@@ -25,7 +29,12 @@ fn get_random(list: &[BlockState], random: &mut dyn RandomSource) -> BlockState 
 }
 
 impl BlockStateProvider for NoiseThresholdProvider {
-    fn get_state(&self, _level: &dyn LevelAccessor, random: &mut dyn RandomSource, pos: BlockPos) -> BlockState {
+    fn get_state(
+        &self,
+        _level: &dyn LevelAccessor,
+        random: &mut dyn RandomSource,
+        pos: BlockPos,
+    ) -> BlockState {
         let local_value = f64::from(self.base.get_noise_value(pos, f64::from(self.base.scale)));
         if local_value < f64::from(self.threshold) {
             get_random(&self.low_states, random)

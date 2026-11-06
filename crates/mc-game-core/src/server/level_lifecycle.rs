@@ -2,44 +2,44 @@
 //! children (`tickChildren`), saving and the stop sequence.
 
 use super::MinecraftServer;
-use super::notifications::NotificationService;
 use super::level_load_listener::Stage;
 use super::level_tick_env::ServerTickEnv;
+use super::notifications::NotificationService;
 use super::shared::get_nanos;
 use super::tick_pacing::{self, PREPARE_LEVELS_DEFAULT_DELAY_NANOS};
 use super::world_dimensions::{LevelStem, overworld_key};
 use crate::crash_report::{CrashReport, ReportedException};
+use crate::registry::data_loader::RegistryWorldgenSource;
 use crate::registry::keys;
 use crate::registry::typed::dimension_type::DimensionType;
 use crate::server::level::chunk_load_counter::ChunkLoadCounter;
 use crate::server::level::level_data::{DerivedLevelData, PrimaryServerLevelData, ServerLevelData};
+use crate::server::level::world_gen::WorldGenHooks;
 use crate::server::level::worldgen_adapter::NoiseWorldGenerator;
 use crate::server::level::{ServerLevel, ServerLevelParams};
+use crate::server::packs::{MultiPackResourceManager, PackType, ResourceManager};
 use crate::world::level::DimensionKey;
 use crate::world::level::gamerules::GameRules;
-use mc_core::ident::Identifier;
-use mc_world::chunk::LevelHeight;
-use mc_world::level_storage::{Difficulty, GameType, RespawnData};
-use mc_world::palette::PalettedContainerFactory;
-use mc_worldgen::biome::{BiomeManager, BiomeRegistry};
-use mc_worldgen::data::WorldgenRegistries;
-use mc_worldgen::generator::ChunkGenerator;
-use mc_worldgen::world_preset::LevelGenerator;
-use mc_worldgen::noise_settings::NoiseGeneratorSettings;
-use mc_worldgen::random_state::RandomState;
-use crate::registry::data_loader::RegistryWorldgenSource;
-use crate::server::level::world_gen::WorldGenHooks;
+use crate::world::level::levelgen::GenEnv;
 use crate::world::level::levelgen::hooks::VanillaWorldGenHooks;
 use crate::world::level::levelgen::registries::GenRegistries;
-use crate::world::level::levelgen::GenEnv;
 use crate::world::level::levelgen::structure::check::{NoChunkScan, StructureCheck};
 use crate::world::level::levelgen::structure::generation::create_structure_state;
 use crate::world::level::levelgen::structure::registries::{StartCache, StructureRegistries};
 use crate::world::level::levelgen::structure::templatesystem::StructureTemplateManager;
-use crate::server::packs::{MultiPackResourceManager, PackType, ResourceManager};
+use mc_core::ident::Identifier;
+use mc_world::chunk::LevelHeight;
 use mc_world::level_storage::LevelResource;
+use mc_world::level_storage::{Difficulty, GameType, RespawnData};
+use mc_world::palette::PalettedContainerFactory;
 use mc_worldgen::biome::BiomeSource;
+use mc_worldgen::biome::{BiomeManager, BiomeRegistry};
+use mc_worldgen::data::WorldgenRegistries;
 use mc_worldgen::flat::settings::StructureSetHolderSet;
+use mc_worldgen::generator::ChunkGenerator;
+use mc_worldgen::noise_settings::NoiseGeneratorSettings;
+use mc_worldgen::random_state::RandomState;
+use mc_worldgen::world_preset::LevelGenerator;
 use std::panic::{self, AssertUnwindSafe};
 use std::sync::Arc;
 
@@ -67,17 +67,32 @@ struct BuiltGenerator {
 }
 
 /// The chunk generator the typed stem was baked with, plus what its level is created from.
-fn built_generator(generator: &LevelGenerator, factory: &LevelFactory) -> Result<BuiltGenerator, String> {
+fn built_generator(
+    generator: &LevelGenerator,
+    factory: &LevelFactory,
+) -> Result<BuiltGenerator, String> {
     let overworld_settings = || -> Result<Arc<NoiseGeneratorSettings>, String> {
         let id = Identifier::with_default_namespace("overworld").expect("valid id");
-        factory.worldgen.noise_settings(&id).map(Arc::new).map_err(|e| e.to_string())
+        factory
+            .worldgen
+            .noise_settings(&id)
+            .map(Arc::new)
+            .map_err(|e| e.to_string())
     };
     let (noise_settings, flat_structure_overrides) = match generator {
         LevelGenerator::Noise(noise) => (noise.generator.settings().clone(), None),
-        LevelGenerator::Flat(flat) => (overworld_settings()?, Some(flat.settings().structure_overrides().cloned())),
+        LevelGenerator::Flat(flat) => (
+            overworld_settings()?,
+            Some(flat.settings().structure_overrides().cloned()),
+        ),
         LevelGenerator::Debug(_) => (overworld_settings()?, None),
     };
-    Ok(BuiltGenerator { generator: generator.chunk_generator(), noise_settings, biome_source: generator.biome_source(), flat_structure_overrides })
+    Ok(BuiltGenerator {
+        generator: generator.chunk_generator(),
+        noise_settings,
+        biome_source: generator.biome_source(),
+        flat_structure_overrides,
+    })
 }
 
 impl MinecraftServer {
@@ -93,39 +108,84 @@ impl MinecraftServer {
     fn level_factory(&self) -> LevelFactory {
         let access = self.registries.composite_access();
         let worldgen = Arc::new(access.worldgen_registries());
-        let biomes = Arc::new(BiomeRegistry::load(&worldgen).unwrap_or_else(|e| panic!("Failed to load the biome registry: {e}")));
-        let factory = Arc::new(
-            PalettedContainerFactory::create(mc_world::palette::BiomeRegistry::new(biomes.names())).expect("the biome registry is not empty"),
+        let biomes = Arc::new(
+            BiomeRegistry::load(&worldgen)
+                .unwrap_or_else(|e| panic!("Failed to load the biome registry: {e}")),
         );
-        let structures: std::collections::HashSet<String> =
-            access.registry(keys::STRUCTURE).map(|r| r.names().iter().map(ToString::to_string).collect()).unwrap_or_default();
+        let factory = Arc::new(
+            PalettedContainerFactory::create(mc_world::palette::BiomeRegistry::new(biomes.names()))
+                .expect("the biome registry is not empty"),
+        );
+        let structures: std::collections::HashSet<String> = access
+            .registry(keys::STRUCTURE)
+            .map(|r| r.names().iter().map(ToString::to_string).collect())
+            .unwrap_or_default();
         // `data_loader::load` already decoded the feature layer: a failure never reaches the levels.
         let source = Arc::new(RegistryWorldgenSource(access.clone()));
-        let features = GenRegistries::load(source.clone(), &worldgen, &biomes).unwrap_or_else(|e| panic!("Failed to load registries due to errors\n{e}"));
-        let structure_registries = StructureRegistries::load(source, &worldgen, &biomes).unwrap_or_else(|e| panic!("Failed to load registries due to errors\n{e}"));
+        let features = GenRegistries::load(source.clone(), &worldgen, &biomes)
+            .unwrap_or_else(|e| panic!("Failed to load registries due to errors\n{e}"));
+        let structure_registries = StructureRegistries::load(source, &worldgen, &biomes)
+            .unwrap_or_else(|e| panic!("Failed to load registries due to errors\n{e}"));
         if !structure_registries.unported.is_empty() {
             // debug, not warn: the startup log must stay vanilla's
-            log::debug!("Structure types not implemented yet, these structures will not generate: {:?}", structure_registries.unported);
+            log::debug!(
+                "Structure types not implemented yet, these structures will not generate: {:?}",
+                structure_registries.unported
+            );
         }
         let gen_registries = (Arc::new(features), Arc::new(structure_registries));
         let template_manager = Arc::new(StructureTemplateManager::new(
-            Arc::new(MultiPackResourceManager::new(PackType::ServerData, self.resources.resource_manager.list_packs())),
-            self.storage_source.get_level_path(LevelResource::GENERATED_DIR),
+            Arc::new(MultiPackResourceManager::new(
+                PackType::ServerData,
+                self.resources.resource_manager.list_packs(),
+            )),
+            self.storage_source
+                .get_level_path(LevelResource::GENERATED_DIR),
         ));
-        LevelFactory { worldgen, biomes, factory, known_structures: Arc::new(move |id| structures.contains(id)), gen_registries, template_manager }
+        LevelFactory {
+            worldgen,
+            biomes,
+            factory,
+            known_structures: Arc::new(move |id| structures.contains(id)),
+            gen_registries,
+            template_manager,
+        }
     }
 
     /// `new ServerLevel(...)` for one `LevelStem`.
-    fn create_level(&self, factory: &LevelFactory, dimension: &DimensionKey, stem: &LevelStem, is_debug: bool) -> ServerLevel {
+    fn create_level(
+        &self,
+        factory: &LevelFactory,
+        dimension: &DimensionKey,
+        stem: &LevelStem,
+        is_debug: bool,
+    ) -> ServerLevel {
         let access = self.registries.composite_access();
         let dimension_type: Arc<DimensionType> = stem.dimension_type.value().clone();
         let seed = self.world_gen_settings.options.seed;
-        let BuiltGenerator { generator: chunk_generator, noise_settings, biome_source, flat_structure_overrides } =
-            built_generator(&stem.generator, factory).unwrap_or_else(|e| panic!("Failed to create the chunk generator of {dimension}: {e}"));
-        let random_state = Arc::new(RandomState::create(factory.worldgen.clone(), seed, &noise_settings));
+        let BuiltGenerator {
+            generator: chunk_generator,
+            noise_settings,
+            biome_source,
+            flat_structure_overrides,
+        } = built_generator(&stem.generator, factory)
+            .unwrap_or_else(|e| panic!("Failed to create the chunk generator of {dimension}: {e}"));
+        let random_state = Arc::new(RandomState::create(
+            factory.worldgen.clone(),
+            seed,
+            &noise_settings,
+        ));
         let sea_level = chunk_generator.get_sea_level();
-        let level_height = LevelHeight { min_y: dimension_type.min_y, height: dimension_type.height };
-        let backend = Arc::new(NoiseWorldGenerator::new(chunk_generator.clone(), random_state.clone(), seed, Some(stem.generator.type_name())));
+        let level_height = LevelHeight {
+            min_y: dimension_type.min_y,
+            height: dimension_type.height,
+        };
+        let backend = Arc::new(NoiseWorldGenerator::new(
+            chunk_generator.clone(),
+            random_state.clone(),
+            seed,
+            Some(stem.generator.type_name()),
+        ));
         let (registries, structures) = &factory.gen_registries;
         // `ChunkGenerator.createState(..)`
         let structure_state = create_structure_state(
@@ -155,25 +215,41 @@ impl MinecraftServer {
         });
         backend.set_gen_env(env.clone());
         let gen_env = env.clone();
-        let hooks: Arc<dyn WorldGenHooks> = Arc::new(VanillaWorldGenHooks::new(env).with_mob_spawner(Arc::new(crate::world::level::spawner::chunk_gen::NaturalOriginalMobs)));
+        let hooks: Arc<dyn WorldGenHooks> =
+            Arc::new(VanillaWorldGenHooks::new(env).with_mob_spawner(Arc::new(
+                crate::world::level::spawner::chunk_gen::NaturalOriginalMobs,
+            )));
         let dimension_dir = self
             .storage_source
             .get_dimension_path(dimension)
-            .unwrap_or_else(|e| panic!("Failed to resolve the folder of dimension {dimension}: {e}"));
+            .unwrap_or_else(|e| {
+                panic!("Failed to resolve the folder of dimension {dimension}: {e}")
+            });
         let is_overworld = *dimension == overworld_key();
         let level_data: Box<dyn ServerLevelData> = if is_overworld {
             Box::new(PrimaryServerLevelData(self.world_data.clone()))
         } else {
-            Box::new(DerivedLevelData::new(self.world_data.clone(), Box::new(PrimaryServerLevelData(self.world_data.clone()))))
+            Box::new(DerivedLevelData::new(
+                self.world_data.clone(),
+                Box::new(PrimaryServerLevelData(self.world_data.clone())),
+            ))
         };
         let properties = self.properties();
-        let enabled_features = self.world_data.lock().settings.data_configuration.enabled_features;
+        let enabled_features = self
+            .world_data
+            .lock()
+            .settings
+            .data_configuration
+            .enabled_features;
         let mut level = ServerLevel::new(ServerLevelParams {
             shared: self.shared.clone(),
             dimension: dimension.clone(),
             level_id: self.storage_source.get_level_id().to_owned(),
             dimension_dir,
-            level_height: LevelHeight { min_y: dimension_type.min_y, height: dimension_type.height },
+            level_height: LevelHeight {
+                min_y: dimension_type.min_y,
+                height: dimension_type.height,
+            },
             sea_level,
             has_sky_light: dimension_type.has_sky_light,
             factory: factory.factory.clone(),
@@ -203,31 +279,56 @@ impl MinecraftServer {
         level.has_ceiling = dimension_type.has_ceiling;
         level.dimension_type = Some(dimension_type.clone());
         level.tick_state.tick_time = is_overworld;
-        level.tick_state.can_have_weather = dimension_type.has_sky_light && !dimension_type.has_ceiling && dimension.to_string() != "minecraft:the_end";
+        level.tick_state.can_have_weather = dimension_type.has_sky_light
+            && !dimension_type.has_ceiling
+            && dimension.to_string() != "minecraft:the_end";
         level.tick_state.enabled_features = enabled_features;
         level.tick_state.biomes = Some(factory.biomes.clone());
         level.tick_state.biome_zoom_seed = BiomeManager::obfuscate_seed(seed);
         level.tick_state.has_fixed_time = dimension_type.has_fixed_time;
         level.tick_state.infiniburn = dimension_type.infiniburn.clone();
         level.tick_state.ambient_light = dimension_type.ambient_light;
-        level.tick_state.attributes = self.build_attribute_system(&dimension_type, &factory.biomes, level.tick_state.can_have_weather);
+        level.tick_state.attributes = self.build_attribute_system(
+            &dimension_type,
+            &factory.biomes,
+            level.tick_state.can_have_weather,
+        );
         // ==== spawn framework additions (level creation) ====
-        level.spawning.install_dimension_type(dimension_type.clone());
-        level.spawning.gen_live.install(level.registries.clone(), dimension_type.clone());
+        level
+            .spawning
+            .install_dimension_type(dimension_type.clone());
+        level
+            .spawning
+            .gen_live
+            .install(level.registries.clone(), dimension_type.clone());
         level.install_custom_spawners();
-        level.spawning.gen_live.publish(level.difficulty(), true, 0, 0.0);
+        level
+            .spawning
+            .gen_live
+            .publish(level.difficulty(), true, 0, 0.0);
         level
     }
 
     /// `EnvironmentAttributeSystem.builder().addDefaultLayers(level)` for a dimension type: its constant attributes, its
     /// timelines (the `timelines` holder set resolved against the timeline registry) and the weather layers.
-    fn build_attribute_system(&self, dimension_type: &DimensionType, biomes: &mc_worldgen::biome::BiomeRegistry, can_have_weather: bool) -> crate::world::attribute::EnvironmentAttributeSystem {
+    fn build_attribute_system(
+        &self,
+        dimension_type: &DimensionType,
+        biomes: &mc_worldgen::biome::BiomeRegistry,
+        can_have_weather: bool,
+    ) -> crate::world::attribute::EnvironmentAttributeSystem {
         self.build_attribute_system_with(dimension_type, biomes, can_have_weather, &[])
     }
 
     /// `builder().addDefaultLayers(level)` followed by `addTimelineLayer(timeline, clockManager)` for each of `extra_timelines`
     /// (the `timeline_attributes` game test environment).
-    fn build_attribute_system_with(&self, dimension_type: &DimensionType, biomes: &mc_worldgen::biome::BiomeRegistry, can_have_weather: bool, extra_timelines: &[Identifier]) -> crate::world::attribute::EnvironmentAttributeSystem {
+    fn build_attribute_system_with(
+        &self,
+        dimension_type: &DimensionType,
+        biomes: &mc_worldgen::biome::BiomeRegistry,
+        can_have_weather: bool,
+        extra_timelines: &[Identifier],
+    ) -> crate::world::attribute::EnvironmentAttributeSystem {
         use crate::registry::typed::HolderSetRef;
         use crate::world::attribute::Timeline;
         let access = self.registries.composite_access();
@@ -236,54 +337,105 @@ impl MinecraftServer {
             Some(registry) => {
                 let ids: Vec<Identifier> = match &dimension_type.timelines {
                     HolderSetRef::Elements(ids) => ids.clone(),
-                    HolderSetRef::Tag(tag) => registry.tag(tag).map(|ids| ids.iter().filter_map(|id| registry.name_of(*id)).collect()).unwrap_or_default(),
+                    HolderSetRef::Tag(tag) => registry
+                        .tag(tag)
+                        .map(|ids| ids.iter().filter_map(|id| registry.name_of(*id)).collect())
+                        .unwrap_or_default(),
                 };
-                ids.iter().filter_map(|id| registry.entry_by_key(id)).filter_map(|entry| Timeline::from_json(&entry.json)).collect()
+                ids.iter()
+                    .filter_map(|id| registry.entry_by_key(id))
+                    .filter_map(|entry| Timeline::from_json(&entry.json))
+                    .collect()
             }
         };
         let mut timelines = timelines;
         if let Some(registry) = access.registry(keys::TIMELINE) {
-            timelines.extend(extra_timelines.iter().filter_map(|id| registry.entry_by_key(id)).filter_map(|entry| Timeline::from_json(&entry.json)));
+            timelines.extend(
+                extra_timelines
+                    .iter()
+                    .filter_map(|id| registry.entry_by_key(id))
+                    .filter_map(|entry| Timeline::from_json(&entry.json)),
+            );
         }
         let mut biome_attributes: Vec<Option<&serde_json::Value>> = vec![None; biomes.len()];
         for id in biomes.ids() {
             biome_attributes[id.0 as usize] = biomes.get(id).attributes.as_ref();
         }
-        crate::world::attribute::EnvironmentAttributeSystem::build(&dimension_type.attributes, &biome_attributes, &timelines, can_have_weather, self.clock_manager().totals())
+        crate::world::attribute::EnvironmentAttributeSystem::build(
+            &dimension_type.attributes,
+            &biome_attributes,
+            &timelines,
+            can_have_weather,
+            self.clock_manager().totals(),
+        )
     }
 
     /// The environment attribute system of `dimension` with `extra_timelines` layered on top of its default layers.
-    pub fn build_attribute_system_for(&self, dimension: &DimensionKey, extra_timelines: &[Identifier]) -> crate::world::attribute::EnvironmentAttributeSystem {
+    pub fn build_attribute_system_for(
+        &self,
+        dimension: &DimensionKey,
+        extra_timelines: &[Identifier],
+    ) -> crate::world::attribute::EnvironmentAttributeSystem {
         let access = self.registries.composite_access();
-        let stem = access.level_stem(dimension).unwrap_or_else(|| panic!("Unknown dimension {dimension}"));
+        let stem = access
+            .level_stem(dimension)
+            .unwrap_or_else(|| panic!("Unknown dimension {dimension}"));
         let dimension_type: Arc<DimensionType> = stem.dimension_type.value().clone();
-        let biomes = self.level(dimension).and_then(|level| level.tick_state.biomes.clone()).unwrap_or_else(|| panic!("The level {dimension} has no biomes"));
-        let can_have_weather = self.level(dimension).is_some_and(|level| level.tick_state.can_have_weather);
-        self.build_attribute_system_with(&dimension_type, &biomes, can_have_weather, extra_timelines)
+        let biomes = self
+            .level(dimension)
+            .and_then(|level| level.tick_state.biomes.clone())
+            .unwrap_or_else(|| panic!("The level {dimension} has no biomes"));
+        let can_have_weather = self
+            .level(dimension)
+            .is_some_and(|level| level.tick_state.can_have_weather);
+        self.build_attribute_system_with(
+            &dimension_type,
+            &biomes,
+            can_have_weather,
+            extra_timelines,
+        )
     }
 
     /// `createLevels`.
     fn create_levels(&mut self) {
         let is_debug = self.world_data.lock().is_debug_world();
         let stems: Vec<(Identifier, Arc<LevelStem>)> = {
-            let registry = self.registries.composite_access().registry_or_throw(keys::LEVEL_STEM);
+            let registry = self
+                .registries
+                .composite_access()
+                .registry_or_throw(keys::LEVEL_STEM);
             registry
                 .entries()
                 .iter()
-                .filter_map(|entry| entry.value.as_ref().and_then(|v| v.clone().downcast::<LevelStem>().ok()).map(|stem| (entry.id.clone(), stem)))
+                .filter_map(|entry| {
+                    entry
+                        .value
+                        .as_ref()
+                        .and_then(|v| v.clone().downcast::<LevelStem>().ok())
+                        .map(|stem| (entry.id.clone(), stem))
+                })
                 .collect()
         };
         let overworld_key = overworld_key();
         let factory = self.level_factory();
-        let overworld_stem = stems.iter().find(|(k, _)| *k == overworld_key).map(|(_, s)| s.clone()).expect("checked by MinecraftServer::new");
+        let overworld_stem = stems
+            .iter()
+            .find(|(k, _)| *k == overworld_key)
+            .map(|(_, s)| s.clone())
+            .expect("checked by MinecraftServer::new");
         let mut overworld = self.create_level(&factory, &overworld_key, &overworld_stem, is_debug);
         let initialized = self.world_data.lock().initialized;
         if !initialized {
             let spawn_bonus_chest = self.world_gen_settings.options.generate_bonus_chest;
-            let result = panic::catch_unwind(AssertUnwindSafe(|| self.set_initial_spawn(&mut overworld, spawn_bonus_chest, is_debug)));
+            let result = panic::catch_unwind(AssertUnwindSafe(|| {
+                self.set_initial_spawn(&mut overworld, spawn_bonus_chest, is_debug)
+            }));
             if let Err(payload) = result {
-                let mut report = CrashReport::for_throwable(payload, "Exception initializing level");
-                report.add_category("Level").set_detail("Dimension", &overworld_key);
+                let mut report =
+                    CrashReport::for_throwable(payload, "Exception initializing level");
+                report
+                    .add_category("Level")
+                    .set_detail("Dimension", &overworld_key);
                 ReportedException::throw(report);
             }
             self.world_data.lock().initialized = true;
@@ -292,7 +444,10 @@ impl MinecraftServer {
             }
         }
         let focus = self.world_data.lock().respawn_data.clone();
-        self.level_load_listener.update_focus(&focus.dimension, mc_core::pos::ChunkPos::new(focus.pos.x() >> 4, focus.pos.z() >> 4));
+        self.level_load_listener.update_focus(
+            &focus.dimension,
+            mc_core::pos::ChunkPos::new(focus.pos.x() >> 4, focus.pos.z() >> 4),
+        );
         self.add_level(overworld);
 
         for (key, stem) in &stems {
@@ -323,11 +478,16 @@ impl MinecraftServer {
         let mut counters: Vec<(DimensionKey, ChunkLoadCounter)> = Vec::new();
         for dimension in self.level_keys() {
             let mut counter = ChunkLoadCounter::new();
-            self.with_level(&dimension, |_server, level| counter.track(level, |level| level.chunk_source.activate_all_deactivated_tickets()));
+            self.with_level(&dimension, |_server, level| {
+                counter.track(level, |level| {
+                    level.chunk_source.activate_all_deactivated_tickets()
+                })
+            });
             counters.push((dimension, counter));
         }
         let total: i32 = counters.iter().map(|(_, c)| c.total_chunks()).sum();
-        self.level_load_listener.start(Stage::LoadInitialChunks, total);
+        self.level_load_listener
+            .start(Stage::LoadInitialChunks, total);
         loop {
             let mut ready = 0;
             let mut pending = 0;
@@ -337,7 +497,8 @@ impl MinecraftServer {
                     pending += counter.pending_chunks(level);
                 }
             }
-            self.level_load_listener.update(Stage::LoadInitialChunks, ready, total);
+            self.level_load_listener
+                .update(Stage::LoadInitialChunks, ready, total);
             self.set_next_tick_time(get_nanos() + PREPARE_LEVELS_DEFAULT_DELAY_NANOS);
             self.wait_until_next_tick();
             if pending == 0 {
@@ -351,7 +512,13 @@ impl MinecraftServer {
 
     /// `updateMobSpawningFlags`: `level.setSpawnSettings(level.isSpawningMonsters())`.
     pub fn update_mob_spawning_flags(&mut self) {
-        let peaceful = self.world_data.lock().settings.difficulty_settings.difficulty == Difficulty::Peaceful;
+        let peaceful = self
+            .world_data
+            .lock()
+            .settings
+            .difficulty_settings
+            .difficulty
+            == Difficulty::Peaceful;
         let spawning_monsters = !peaceful && self.game_rule(GameRules::SPAWN_MONSTERS);
         for level in self.all_levels_mut() {
             level.chunk_source.set_spawn_settings(spawning_monsters);
@@ -362,10 +529,21 @@ impl MinecraftServer {
     pub fn set_difficulty(&mut self, difficulty: Difficulty, ignore_lock: bool) {
         let (locked, hardcore) = {
             let data = self.world_data.lock();
-            (data.settings.difficulty_settings.locked, data.settings.difficulty_settings.hardcore)
+            (
+                data.settings.difficulty_settings.locked,
+                data.settings.difficulty_settings.hardcore,
+            )
         };
         if ignore_lock || !locked {
-            self.world_data.lock().settings.difficulty_settings.difficulty = if hardcore { Difficulty::Hard } else { difficulty };
+            self.world_data
+                .lock()
+                .settings
+                .difficulty_settings
+                .difficulty = if hardcore {
+                Difficulty::Hard
+            } else {
+                difficulty
+            };
             self.update_mob_spawning_flags();
             self.send_difficulty_update_to_all();
         }
@@ -380,9 +558,17 @@ impl MinecraftServer {
     fn send_difficulty_update_to_all(&self) {
         let (difficulty, locked) = {
             let data = self.world_data.lock();
-            (data.settings.difficulty_settings.difficulty, data.settings.difficulty_settings.locked)
+            (
+                data.settings.difficulty_settings.difficulty,
+                data.settings.difficulty_settings.locked,
+            )
         };
-        self.player_list.broadcast_all(&mc_protocol::packets::play::ClientboundChangeDifficultyPacket { difficulty: mc_protocol::packets::play::Difficulty::by_id(difficulty.get_id()), locked });
+        self.player_list.broadcast_all(
+            &mc_protocol::packets::play::ClientboundChangeDifficultyPacket {
+                difficulty: mc_protocol::packets::play::Difficulty::by_id(difficulty.get_id()),
+                locked,
+            },
+        );
     }
 
     /// `updateEffectiveRespawnData`: the overworld level data's respawn adjusted to the respawn level's world border.
@@ -398,12 +584,18 @@ impl MinecraftServer {
     /// `findRespawnDimension`: the dimension of the overworld level data's respawn, else the overworld.
     pub fn find_respawn_dimension(&self) -> DimensionKey {
         let dimension = self.world_data.lock().respawn_data.dimension.clone();
-        if self.level(&dimension).is_some() { dimension } else { overworld_key() }
+        if self.level(&dimension).is_some() {
+            dimension
+        } else {
+            overworld_key()
+        }
     }
 
     /// `getRespawnData`.
     pub fn get_respawn_data(&self) -> RespawnData {
-        self.effective_respawn_data.clone().unwrap_or_else(|| self.world_data.lock().respawn_data.clone())
+        self.effective_respawn_data
+            .clone()
+            .unwrap_or_else(|| self.world_data.lock().respawn_data.clone())
     }
 
     /// `setRespawnData`.
@@ -411,9 +603,18 @@ impl MinecraftServer {
         let changed = self.world_data.lock().respawn_data != respawn_data;
         if changed {
             self.world_data.lock().respawn_data = respawn_data.clone();
-            self.player_list.broadcast_all(&mc_protocol::packets::play::ClientboundSetDefaultSpawnPositionPacket {
-                respawn_data: mc_protocol::packets::play::RespawnData { global_pos: mc_protocol::codec::GlobalPos { dimension: respawn_data.dimension, pos: respawn_data.pos }, yaw: respawn_data.yaw, pitch: respawn_data.pitch },
-            });
+            self.player_list.broadcast_all(
+                &mc_protocol::packets::play::ClientboundSetDefaultSpawnPositionPacket {
+                    respawn_data: mc_protocol::packets::play::RespawnData {
+                        global_pos: mc_protocol::codec::GlobalPos {
+                            dimension: respawn_data.dimension,
+                            pos: respawn_data.pos,
+                        },
+                        yaw: respawn_data.yaw,
+                        pitch: respawn_data.pitch,
+                    },
+                },
+            );
             self.update_effective_respawn_data();
         }
     }
@@ -446,18 +647,36 @@ impl MinecraftServer {
                 respawn: Some(self.get_respawn_data()),
                 radius: self.spawn_protection_radius(),
                 ops_empty: self.player_list.ops.is_empty(),
-                op_players: self.player_list.players().iter().filter(|p| self.player_list.is_op(&p.name_and_id())).map(|p| p.uuid).collect(),
+                op_players: self
+                    .player_list
+                    .players()
+                    .iter()
+                    .filter(|p| self.player_list.is_op(&p.name_and_id()))
+                    .map(|p| p.uuid)
+                    .collect(),
             };
-            push_with(|| format!("ServerLevel[{}] {dimension}", self.world_data.lock().settings.level_name));
+            push_with(|| {
+                format!(
+                    "ServerLevel[{}] {dimension}",
+                    self.world_data.lock().settings.level_name
+                )
+            });
             push("tick");
             let result = self.with_level(&dimension, |server, level| {
                 level.server_state.spawn_protection = spawn_protection;
-                let mut env = ServerTickEnv { server, dimension: dimension.clone() };
-                panic::catch_unwind(AssertUnwindSafe(|| level.tick(&mut env, &mut *have_time))).map_err(|payload| {
-                    let mut report = CrashReport::for_throwable(payload, "Exception ticking world");
-                    report.add_category("Level").set_detail("Dimension", &dimension);
-                    report
-                })
+                let mut env = ServerTickEnv {
+                    server,
+                    dimension: dimension.clone(),
+                };
+                panic::catch_unwind(AssertUnwindSafe(|| level.tick(&mut env, &mut *have_time)))
+                    .map_err(|payload| {
+                        let mut report =
+                            CrashReport::for_throwable(payload, "Exception ticking world");
+                        report
+                            .add_category("Level")
+                            .set_detail("Dimension", &dimension);
+                        report
+                    })
             });
             pop();
             pop();
@@ -485,13 +704,19 @@ impl MinecraftServer {
     /// `forceGameTimeSynchronization`.
     pub fn force_game_time_synchronization(&mut self) {
         let game_time = self.world_data.lock().game_time;
-        self.player_list.broadcast_all(&mc_protocol::packets::play::ClientboundSetTimePacket { game_time, clock_updates: Vec::new() });
+        self.player_list
+            .broadcast_all(&mc_protocol::packets::play::ClientboundSetTimePacket {
+                game_time,
+                clock_updates: Vec::new(),
+            });
     }
 
     // ------------------------------------------------------------------ saving
 
     /// The server data loot reads, shared with a level when it is created.
-    pub(super) fn loot_services(&self) -> crate::world::level::storage::loot::server_access::LootServices {
+    pub(super) fn loot_services(
+        &self,
+    ) -> crate::world::level::storage::loot::server_access::LootServices {
         crate::world::level::storage::loot::server_access::LootServices {
             random_sequences: self.loot_random_sequences.clone(),
             world_seed: self.world_gen_settings.options.seed,
@@ -508,7 +733,9 @@ impl MinecraftServer {
         use crate::world::level::saveddata::SavedData;
         let mut live = self.loot_random_sequences.lock();
         if live.is_dirty() {
-            *self.saved_data.compute_if_absent(&self.saved_types.random_sequences) = live.clone();
+            *self
+                .saved_data
+                .compute_if_absent(&self.saved_types.random_sequences) = live.clone();
             live.set_dirty_to(false);
         }
     }
@@ -523,7 +750,10 @@ impl MinecraftServer {
         let mut result = false;
         for level in self.all_levels_mut() {
             if !silent {
-                log::info!("Saving chunks for level 'ServerLevel[{level_name}]'/{}", level.dimension);
+                log::info!(
+                    "Saving chunks for level 'ServerLevel[{level_name}]'/{}",
+                    level.dimension
+                );
             }
             if !(level.no_save && !force) {
                 level.save_chunks(flush);
@@ -535,11 +765,16 @@ impl MinecraftServer {
             (data.clone(), data.single_player_uuid)
         };
         if let Err(e) = self.storage_source.save_data_tag(&data, uuid) {
-            log::error!("Failed to save level {}: {e}", self.storage_source.get_level_id());
+            log::error!(
+                "Failed to save level {}: {e}",
+                self.storage_source.get_level_id()
+            );
         }
         if self.world_gen_settings_dirty {
             self.world_gen_settings_dirty = false;
-            let root = self.storage_source.get_level_path(mc_world::level_storage::LevelResource::ROOT);
+            let root = self
+                .storage_source
+                .get_level_path(mc_world::level_storage::LevelResource::ROOT);
             if let Err(e) = self.world_gen_settings.write(&root) {
                 log::error!("Could not save data world_gen_settings: {e}");
             }
@@ -549,7 +784,10 @@ impl MinecraftServer {
         } else {
             let pending = self.saved_data.schedule_save();
             if !pending.is_empty() {
-                std::thread::Builder::new().name("IO-Worker".to_owned()).spawn(move || pending.write()).ok();
+                std::thread::Builder::new()
+                    .name("IO-Worker".to_owned())
+                    .spawn(move || pending.write())
+                    .ok();
             }
         }
         self.shared.map_storage.save(flush);
@@ -600,7 +838,9 @@ impl MinecraftServer {
         log::warn!("Low disk space! Might not be able to save the world.");
         for player in self.player_list.get_players() {
             if self.player_list.is_op(&player.name_and_id()) {
-                player.connection.send(&mc_protocol::packets::play::ClientboundLowDiskSpaceWarningPacket);
+                player
+                    .connection
+                    .send(&mc_protocol::packets::play::ClientboundLowDiskSpaceWarningPacket);
             }
         }
     }
@@ -627,7 +867,10 @@ impl MinecraftServer {
             level.chunk_source.chunk_map.settings.no_save = false;
         }
 
-        while self.all_levels().any(|level| level.chunk_source.chunk_map.has_work()) {
+        while self
+            .all_levels()
+            .any(|level| level.chunk_source.chunk_map.has_work())
+        {
             self.set_next_tick_time(get_nanos() + tick_pacing::NANOSECONDS_PER_MILLISECOND);
             let runs_normally = self.tick_rate_manager.runs_normally();
             for level in self.all_levels_mut() {
@@ -649,7 +892,10 @@ impl MinecraftServer {
         self.shared.map_storage.close();
         self.resources.resource_manager.close();
         if let Err(e) = self.storage_source.close() {
-            log::error!("Failed to unlock level {}\n{e}", self.storage_source.get_level_id());
+            log::error!(
+                "Failed to unlock level {}\n{e}",
+                self.storage_source.get_level_id()
+            );
         }
     }
 }

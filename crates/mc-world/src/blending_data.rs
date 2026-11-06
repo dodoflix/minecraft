@@ -35,7 +35,9 @@ impl BlendingDataPacked {
     /// `BlendingData.Packed.validateArraySize`.
     fn validate(&self) -> Result<(), String> {
         match &self.heights {
-            Some(h) if h.len() != CELL_COLUMN_COUNT => Err(format!("heights has to be of length {CELL_COLUMN_COUNT}")),
+            Some(h) if h.len() != CELL_COLUMN_COUNT => {
+                Err(format!("heights has to be of length {CELL_COLUMN_COUNT}"))
+            }
             _ => Ok(()),
         }
     }
@@ -112,7 +114,10 @@ impl BlendingData {
     /// `pack()`.
     pub fn pack(&self) -> BlendingDataPacked {
         let has_height = self.heights.iter().any(|&h| h != NO_VALUE);
-        let max_y = self.area_min_y.wrapping_add(self.area_height).wrapping_sub(1);
+        let max_y = self
+            .area_min_y
+            .wrapping_add(self.area_height)
+            .wrapping_sub(1);
         BlendingDataPacked {
             min_section: self.area_min_y >> 4,
             max_section: (max_y >> 4).wrapping_add(1),

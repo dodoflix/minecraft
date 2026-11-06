@@ -5,15 +5,17 @@
 //! Gaps: `OozingMobEffect`/`InfestedMobEffect` spawn `Slime`/`Silverfish`, which only happens once those classes
 //! register an entity factory; `BadOmenMobEffect`/`RaidOmenMobEffect` do nothing (no raid manager or POI manager).
 
+use super::reactions;
 use crate::server::level::ServerLevel;
-use crate::world::entity::attributes::{AttributeMap, AttributeModifier, AttributeModifierOperation};
+use crate::world::entity::attributes::{
+    AttributeMap, AttributeModifier, AttributeModifierOperation,
+};
 use crate::world::entity::effect::MobEffectInstance;
 use crate::world::entity::{Entity, RemovalReason};
 use mc_core::random::RandomSource;
 use mc_data::enums::{AttributeModifierOperation as DataOperation, MobEffectCategory};
 use mc_data::{Attribute, MobEffect, ParticleType};
 use mc_protocol::packets::play::{ParticleOptions, SoundSource};
-use super::reactions;
 
 /// `AMBIENT_ALPHA = Mth.floor(38.25F)`.
 const AMBIENT_ALPHA: i32 = 38;
@@ -45,7 +47,11 @@ fn shr(value: i32, n: i32) -> i32 {
 /// Tick interval effects (`poison`, `wither`, `regeneration`): `interval = base >> amplification`.
 fn interval_elapsed(base: i32, tick_count: i32, amplification: i32) -> bool {
     let interval = shr(base, amplification);
-    if interval > 0 { tick_count.wrapping_rem(interval) == 0 } else { true }
+    if interval > 0 {
+        tick_count.wrapping_rem(interval) == 0
+    } else {
+        true
+    }
 }
 
 pub trait MobEffectExt: Copy {
@@ -67,7 +73,12 @@ pub trait MobEffectExt: Copy {
     /// `shouldApplyEffectTickThisTick(tickCount, amplification)`.
     fn should_apply_effect_tick_this_tick(self, tick_count: i32, amplification: i32) -> bool;
     /// `applyEffectTick(level, mob, amplification)`: false removes the effect.
-    fn apply_effect_tick(self, level: &mut ServerLevel, mob: &mut dyn Entity, amplification: i32) -> bool;
+    fn apply_effect_tick(
+        self,
+        level: &mut ServerLevel,
+        mob: &mut dyn Entity,
+        amplification: i32,
+    ) -> bool;
     /// `applyInstantaneousEffect(level, source, owner, mob, amplification, scale)`.
     fn apply_instantaneous_effect(
         self,
@@ -83,7 +94,13 @@ pub trait MobEffectExt: Copy {
     /// `onEffectAdded(mob, amplifier)`.
     fn on_effect_added(self, level: &mut ServerLevel, mob: &mut dyn Entity, amplifier: i32);
     /// `onMobRemoved(level, mob, amplifier, reason)`.
-    fn on_mob_removed(self, level: &mut ServerLevel, mob: &mut dyn Entity, amplifier: i32, reason: RemovalReason);
+    fn on_mob_removed(
+        self,
+        level: &mut ServerLevel,
+        mob: &mut dyn Entity,
+        amplifier: i32,
+        reason: RemovalReason,
+    );
     /// `onMobHurt(level, mob, amplifier, source, damage)`.
     fn on_mob_hurt(self, level: &mut ServerLevel, mob: &mut dyn Entity, amplifier: i32);
 }
@@ -124,7 +141,14 @@ impl MobEffectExt for MobEffect {
             .map(|t| {
                 // `AttributeTemplate.create`: `amount * (amplifier + 1)`
                 let id = mc_core::ident::Identifier::parse(t.id).expect("valid modifier id");
-                (t.attribute, AttributeModifier { id, amount: t.amount * f64::from(amplifier + 1), operation: data_operation(t.operation) })
+                (
+                    t.attribute,
+                    AttributeModifier {
+                        id,
+                        amount: t.amount * f64::from(amplifier + 1),
+                        operation: data_operation(t.operation),
+                    },
+                )
             })
             .collect()
     }
@@ -141,7 +165,9 @@ impl MobEffectExt for MobEffect {
     fn remove_attribute_modifiers(self, attributes: &mut AttributeMap) {
         for t in self.data().attribute_modifiers {
             if let Some(instance) = attributes.get_instance(t.attribute) {
-                instance.remove_modifier(&mc_core::ident::Identifier::parse(t.id).expect("valid modifier id"));
+                instance.remove_modifier(
+                    &mc_core::ident::Identifier::parse(t.id).expect("valid modifier id"),
+                );
             }
         }
     }
@@ -161,7 +187,10 @@ impl MobEffectExt for MobEffect {
             None => {
                 // `ColorParticleOption.create(ENTITY_EFFECT, ARGB.color(alpha, color))`
                 let alpha = if instance.ambient { AMBIENT_ALPHA } else { 255 };
-                ParticleOptions::Color { particle_type: ParticleType::ENTITY_EFFECT, color: (alpha << 24) | (self.data().color & 0xFF_FFFF) }
+                ParticleOptions::Color {
+                    particle_type: ParticleType::ENTITY_EFFECT,
+                    color: (alpha << 24) | (self.data().color & 0xFF_FFFF),
+                }
             }
         }
     }
@@ -179,7 +208,12 @@ impl MobEffectExt for MobEffect {
         }
     }
 
-    fn apply_effect_tick(self, level: &mut ServerLevel, mob: &mut dyn Entity, amplification: i32) -> bool {
+    fn apply_effect_tick(
+        self,
+        level: &mut ServerLevel,
+        mob: &mut dyn Entity,
+        amplification: i32,
+    ) -> bool {
         match self.class() {
             "HealOrHarmMobEffect" => {
                 let is_harm = self == MobEffect::INSTANT_DAMAGE;
@@ -204,7 +238,10 @@ impl MobEffectExt for MobEffect {
                 true
             }
             "RegenerationMobEffect" => {
-                if mob.living().is_some_and(|l| l.get_health() < l.get_max_health()) {
+                if mob
+                    .living()
+                    .is_some_and(|l| l.get_health() < l.get_max_health())
+                {
                     mob.heal(level, 1.0);
                 }
                 true
@@ -212,7 +249,9 @@ impl MobEffectExt for MobEffect {
             "HungerMobEffect" => {
                 // `Player.causeFoodExhaustion`
                 if let Some(player) = mob.player_mut().filter(|p| !p.abilities.invulnerable) {
-                    player.food_data.add_exhaustion(0.005 * (amplification + 1) as f32);
+                    player
+                        .food_data
+                        .add_exhaustion(0.005 * (amplification + 1) as f32);
                 }
                 true
             }
@@ -257,7 +296,10 @@ impl MobEffectExt for MobEffect {
                             EffectCause::Entity(e) => e,
                         }
                     }
-                    level.damage_sources().indirect_magic(resolve(mob_ref, source), owner.map(|o| resolve(mob_ref, o)))
+                    level.damage_sources().indirect_magic(
+                        resolve(mob_ref, source),
+                        owner.map(|o| resolve(mob_ref, o)),
+                    )
                 }
             };
             mob.hurt_server(level, &damage_source, amount as f32);
@@ -266,7 +308,9 @@ impl MobEffectExt for MobEffect {
 
     fn on_effect_started(self, mob: &mut dyn Entity, amplifier: i32) {
         if self.class() == "AbsorptionMobEffect" {
-            let amount = mob.get_absorption_amount().max((4 * (1 + amplifier)) as f32);
+            let amount = mob
+                .get_absorption_amount()
+                .max((4 * (1 + amplifier)) as f32);
             mob.set_absorption_amount(amount);
         }
     }
@@ -274,12 +318,22 @@ impl MobEffectExt for MobEffect {
     fn on_effect_added(self, level: &mut ServerLevel, mob: &mut dyn Entity, _amplifier: i32) {
         if let Some(sound) = self.data().sound_on_added {
             let p = mob.position();
-            let source = if mob.is_player() { SoundSource::Players } else { SoundSource::Neutral };
+            let source = if mob.is_player() {
+                SoundSource::Players
+            } else {
+                SoundSource::Neutral
+            };
             level.play_sound_at(None, p.x, p.y, p.z, sound, source, 1.0, 1.0);
         }
     }
 
-    fn on_mob_removed(self, level: &mut ServerLevel, mob: &mut dyn Entity, _amplifier: i32, reason: RemovalReason) {
+    fn on_mob_removed(
+        self,
+        level: &mut ServerLevel,
+        mob: &mut dyn Entity,
+        _amplifier: i32,
+        reason: RemovalReason,
+    ) {
         if reason != RemovalReason::Killed {
             return;
         }
@@ -296,4 +350,3 @@ impl MobEffectExt for MobEffect {
         }
     }
 }
-

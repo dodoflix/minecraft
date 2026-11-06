@@ -70,7 +70,11 @@ impl RaidBossBar {
     }
 
     fn properties(&self) -> wire::BossEventProperties {
-        wire::BossEventProperties { darken_screen: self.darken_screen, play_music: self.play_boss_music, create_world_fog: self.create_world_fog }
+        wire::BossEventProperties {
+            darken_screen: self.darken_screen,
+            play_music: self.play_boss_music,
+            create_world_fog: self.create_world_fog,
+        }
     }
 
     /// `ClientboundBossEventPacket.createAddPacket`.
@@ -89,7 +93,10 @@ impl RaidBossBar {
 
     fn broadcast(&self, operation: wire::BossEventOperation) {
         if self.visible {
-            let packet = wire::ClientboundBossEventPacket { id: self.id, operation };
+            let packet = wire::ClientboundBossEventPacket {
+                id: self.id,
+                operation,
+            };
             for player in &self.players {
                 player.connection.send(&packet);
             }
@@ -106,21 +113,29 @@ impl RaidBossBar {
     pub fn set_color(&mut self, color: BossBarColor) {
         if color != self.color {
             self.color = color;
-            self.broadcast(wire::BossEventOperation::UpdateStyle { color: wire_color(color), overlay: wire_overlay(self.overlay) });
+            self.broadcast(wire::BossEventOperation::UpdateStyle {
+                color: wire_color(color),
+                overlay: wire_overlay(self.overlay),
+            });
         }
     }
 
     pub fn set_overlay(&mut self, overlay: BossBarOverlay) {
         if overlay != self.overlay {
             self.overlay = overlay;
-            self.broadcast(wire::BossEventOperation::UpdateStyle { color: wire_color(self.color), overlay: wire_overlay(overlay) });
+            self.broadcast(wire::BossEventOperation::UpdateStyle {
+                color: wire_color(self.color),
+                overlay: wire_overlay(overlay),
+            });
         }
     }
 
     pub fn set_darken_screen(&mut self, darken_screen: bool) -> &mut Self {
         if darken_screen != self.darken_screen {
             self.darken_screen = darken_screen;
-            self.broadcast(wire::BossEventOperation::UpdateProperties { properties: self.properties() });
+            self.broadcast(wire::BossEventOperation::UpdateProperties {
+                properties: self.properties(),
+            });
         }
         self
     }
@@ -128,7 +143,9 @@ impl RaidBossBar {
     pub fn set_play_boss_music(&mut self, play_boss_music: bool) -> &mut Self {
         if play_boss_music != self.play_boss_music {
             self.play_boss_music = play_boss_music;
-            self.broadcast(wire::BossEventOperation::UpdateProperties { properties: self.properties() });
+            self.broadcast(wire::BossEventOperation::UpdateProperties {
+                properties: self.properties(),
+            });
         }
         self
     }
@@ -136,7 +153,9 @@ impl RaidBossBar {
     pub fn set_create_world_fog(&mut self, create_world_fog: bool) -> &mut Self {
         if create_world_fog != self.create_world_fog {
             self.create_world_fog = create_world_fog;
-            self.broadcast(wire::BossEventOperation::UpdateProperties { properties: self.properties() });
+            self.broadcast(wire::BossEventOperation::UpdateProperties {
+                properties: self.properties(),
+            });
         }
         self
     }
@@ -163,7 +182,10 @@ impl RaidBossBar {
         if let Some(i) = self.players.iter().position(|p| p.same_player(player)) {
             self.players.remove(i);
             if self.visible {
-                player.connection.send(&wire::ClientboundBossEventPacket { id: self.id, operation: wire::BossEventOperation::Remove });
+                player.connection.send(&wire::ClientboundBossEventPacket {
+                    id: self.id,
+                    operation: wire::BossEventOperation::Remove,
+                });
             }
         }
     }
@@ -183,7 +205,10 @@ impl RaidBossBar {
                 if visible {
                     player.connection.send(&self.create_add_packet());
                 } else {
-                    player.connection.send(&wire::ClientboundBossEventPacket { id: self.id, operation: wire::BossEventOperation::Remove });
+                    player.connection.send(&wire::ClientboundBossEventPacket {
+                        id: self.id,
+                        operation: wire::BossEventOperation::Remove,
+                    });
                 }
             }
         }

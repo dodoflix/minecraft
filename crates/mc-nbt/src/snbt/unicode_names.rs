@@ -16,8 +16,14 @@ struct Tables {
 
 static TABLES: LazyLock<Tables> = LazyLock::new(|| {
     let mut text = String::new();
-    GzDecoder::new(&include_bytes!("unicode_names.tsv.gz")[..]).read_to_string(&mut text).expect("embedded gzip table");
-    let mut t = Tables { names: HashMap::new(), named: HashSet::new(), blocks: Vec::new() };
+    GzDecoder::new(&include_bytes!("unicode_names.tsv.gz")[..])
+        .read_to_string(&mut text)
+        .expect("embedded gzip table");
+    let mut t = Tables {
+        names: HashMap::new(),
+        named: HashSet::new(),
+        blocks: Vec::new(),
+    };
     for line in text.lines() {
         let mut f = line.split('\t');
         match f.next() {
@@ -46,7 +52,9 @@ pub(crate) fn code_point_of(name: &str) -> Option<u32> {
         return Some(cp);
     }
     let (_, hex) = name.rsplit_once(' ')?;
-    let cp = u32::from_str_radix(hex, 16).ok().filter(|&cp| cp <= 0x10FFFF)?;
+    let cp = u32::from_str_radix(hex, 16)
+        .ok()
+        .filter(|&cp| cp <= 0x10FFFF)?;
     if t.named.contains(&cp) {
         return None;
     }

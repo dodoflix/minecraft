@@ -18,8 +18,14 @@ pub struct EnchantmentAttributeEffect {
 
 static OPERATIONS: [(AttributeModifierOperation, &str); 3] = [
     (AttributeModifierOperation::AddValue, "add_value"),
-    (AttributeModifierOperation::AddMultipliedBase, "add_multiplied_base"),
-    (AttributeModifierOperation::AddMultipliedTotal, "add_multiplied_total"),
+    (
+        AttributeModifierOperation::AddMultipliedBase,
+        "add_multiplied_base",
+    ),
+    (
+        AttributeModifierOperation::AddMultipliedTotal,
+        "add_multiplied_total",
+    ),
 ];
 
 impl EnchantmentAttributeEffect {
@@ -36,7 +42,10 @@ impl EnchantmentAttributeEffect {
     /// `getModifier(level, slot)`: the modifier id is `<id>/<slot name>`.
     pub fn get_modifier(&self, level: i32, slot_name: &str) -> AttributeModifier {
         AttributeModifier {
-            id: self.id.with_suffix(&format!("/{slot_name}")).expect("valid attribute effect id"),
+            id: self
+                .id
+                .with_suffix(&format!("/{slot_name}"))
+                .expect("valid attribute effect id"),
             amount: self.amount.calculate(level) as f64,
             operation: self.operation,
         }

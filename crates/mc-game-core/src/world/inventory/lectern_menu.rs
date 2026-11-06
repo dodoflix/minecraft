@@ -1,6 +1,9 @@
 //! `LecternMenu`: the book slot and the current page (the lectern block entity's `ContainerData`).
 
-use super::{AbstractContainerMenu, ContainerKey, ContainerRef, MenuBase, MenuPlayer, Prediction, Slot, with_player_container};
+use super::{
+    AbstractContainerMenu, ContainerKey, ContainerRef, MenuBase, MenuPlayer, Prediction, Slot,
+    with_player_container,
+};
 use crate::world::item::ItemStack;
 use mc_core::pos::BlockPos;
 use mc_data::MenuType;
@@ -26,19 +29,31 @@ impl LecternMenu {
         base.add_block_entity_data_slots(pos, 1);
         let container = ContainerRef::block_entity(pos, 1);
         container.start_open(player);
-        Self { base, pos, container }
+        Self {
+            base,
+            pos,
+            container,
+        }
     }
 
     /// `getPage()`.
     pub fn get_page(&self, player: &dyn MenuPlayer) -> i32 {
         use crate::world::level::BlockGetter;
-        player.level_ref().and_then(|l| l.get_block_entity(self.pos)).and_then(|be| be.container_data()).map_or(0, |d| d.get(0))
+        player
+            .level_ref()
+            .and_then(|l| l.get_block_entity(self.pos))
+            .and_then(|be| be.container_data())
+            .map_or(0, |d| d.get(0))
     }
 
     /// `getBook()`.
     pub fn get_book(&self, player: &dyn MenuPlayer) -> ItemStack {
         use crate::world::level::BlockGetter;
-        player.level_ref().and_then(|l| l.get_block_entity(self.pos)).and_then(|be| be.as_container()).map_or_else(ItemStack::empty, |c| c.get_item(0).clone())
+        player
+            .level_ref()
+            .and_then(|l| l.get_block_entity(self.pos))
+            .and_then(|be| be.as_container())
+            .map_or_else(ItemStack::empty, |c| c.get_item(0).clone())
     }
 
     /// `setData(0, page)`: through the lectern's `dataAccess` (`setPage` clamps and signals the page change), then

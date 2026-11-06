@@ -1,7 +1,10 @@
 //! `ChestMenu`, `ShulkerBoxMenu` (+`ShulkerBoxSlot`), `HopperMenu`, `DispenserMenu`: menus that show one container
 //! above the player's inventory. The container is a [`ContainerRef`] (block entity / entity / ender chest / compound).
 
-use super::{AbstractContainerMenu, ContainerKey, ContainerRef, MenuBase, MenuPlayer, Slot, SlotBehavior, SlotEnv};
+use super::{
+    AbstractContainerMenu, ContainerKey, ContainerRef, MenuBase, MenuPlayer, Slot, SlotBehavior,
+    SlotEnv,
+};
 use crate::world::item::{ItemStack, behaviour};
 use mc_data::MenuType;
 use std::any::Any;
@@ -18,12 +21,16 @@ fn quick_move_container(
     dispenser_checks: bool,
 ) -> ItemStack {
     let mut clicked = ItemStack::empty();
-    let has = menu.base_mut().with_slot(player, slot_index, |s, e| s.has_item(e));
+    let has = menu
+        .base_mut()
+        .with_slot(player, slot_index, |s, e| s.has_item(e));
     if !has {
         return clicked;
     }
     // Work on a copy of the slot's stack; the remainder is written back below (see `InventoryMenu::quick_move_stack`).
-    let mut stack = menu.base_mut().with_slot(player, slot_index, |s, e| s.get_item(e));
+    let mut stack = menu
+        .base_mut()
+        .with_slot(player, slot_index, |s, e| s.get_item(e));
     clicked = stack.copy();
     let moved = if slot_index < container_size {
         menu.move_item_stack_to(player, &mut stack, container_size, total_slots, true)
@@ -34,7 +41,9 @@ fn quick_move_container(
         return ItemStack::empty();
     }
     if stack.is_empty() {
-        menu.base_mut().with_slot(player, slot_index, |s, e| s.set_by_player_with(e, ItemStack::empty(), &clicked));
+        menu.base_mut().with_slot(player, slot_index, |s, e| {
+            s.set_by_player_with(e, ItemStack::empty(), &clicked)
+        });
     } else {
         let rest = stack.clone();
         menu.base_mut().with_slot(player, slot_index, |s, e| {
@@ -46,7 +55,8 @@ fn quick_move_container(
         if stack.count() == clicked.count() {
             return ItemStack::empty();
         }
-        menu.base_mut().with_slot(player, slot_index, |s, e| s.on_take(e, &stack));
+        menu.base_mut()
+            .with_slot(player, slot_index, |s, e| s.on_take(e, &stack));
     }
     menu.flush_container_events(player);
     clicked
@@ -76,7 +86,15 @@ macro_rules! container_menu_boilerplate {
     };
 }
 
-fn add_container_slots(base: &mut MenuBase, container: &ContainerRef, size: usize, columns: usize, left: i32, top: i32, behavior: impl Fn() -> Option<Box<dyn SlotBehavior>>) {
+fn add_container_slots(
+    base: &mut MenuBase,
+    container: &ContainerRef,
+    size: usize,
+    columns: usize,
+    left: i32,
+    top: i32,
+    behavior: impl Fn() -> Option<Box<dyn SlotBehavior>>,
+) {
     for i in 0..size {
         let (x, y) = ((i % columns) as i32, (i / columns) as i32);
         let (key, index) = container.locate(i);
@@ -97,34 +115,68 @@ pub struct ChestMenu {
 
 impl ChestMenu {
     /// `ChestMenu(menuType, containerId, inventory, container, rows)`.
-    pub fn new(menu_type: MenuType, container_id: i32, player: &mut dyn MenuPlayer, container: ContainerRef, rows: usize) -> Self {
+    pub fn new(
+        menu_type: MenuType,
+        container_id: i32,
+        player: &mut dyn MenuPlayer,
+        container: ContainerRef,
+        rows: usize,
+    ) -> Self {
         let mut base = MenuBase::new(Some(menu_type), container_id);
         container.check_size(rows * 9);
         container.start_open(player);
         add_container_slots(&mut base, &container, rows * 9, 9, 8, 18, || None);
         let inventory_top = 18 + rows as i32 * 18 + 13;
         base.add_standard_inventory_slots(&ContainerKey::PlayerInventory, 8, inventory_top);
-        Self { base, container, container_rows: rows }
+        Self {
+            base,
+            container,
+            container_rows: rows,
+        }
     }
 
-    pub fn one_row(container_id: i32, player: &mut dyn MenuPlayer, container: ContainerRef) -> Self {
+    pub fn one_row(
+        container_id: i32,
+        player: &mut dyn MenuPlayer,
+        container: ContainerRef,
+    ) -> Self {
         Self::new(MenuType::GENERIC_9X1, container_id, player, container, 1)
     }
-    pub fn two_rows(container_id: i32, player: &mut dyn MenuPlayer, container: ContainerRef) -> Self {
+    pub fn two_rows(
+        container_id: i32,
+        player: &mut dyn MenuPlayer,
+        container: ContainerRef,
+    ) -> Self {
         Self::new(MenuType::GENERIC_9X2, container_id, player, container, 2)
     }
     /// `ChestMenu.threeRows(containerId, inventory, container)`.
-    pub fn three_rows(container_id: i32, player: &mut dyn MenuPlayer, container: ContainerRef) -> Self {
+    pub fn three_rows(
+        container_id: i32,
+        player: &mut dyn MenuPlayer,
+        container: ContainerRef,
+    ) -> Self {
         Self::new(MenuType::GENERIC_9X3, container_id, player, container, 3)
     }
-    pub fn four_rows(container_id: i32, player: &mut dyn MenuPlayer, container: ContainerRef) -> Self {
+    pub fn four_rows(
+        container_id: i32,
+        player: &mut dyn MenuPlayer,
+        container: ContainerRef,
+    ) -> Self {
         Self::new(MenuType::GENERIC_9X4, container_id, player, container, 4)
     }
-    pub fn five_rows(container_id: i32, player: &mut dyn MenuPlayer, container: ContainerRef) -> Self {
+    pub fn five_rows(
+        container_id: i32,
+        player: &mut dyn MenuPlayer,
+        container: ContainerRef,
+    ) -> Self {
         Self::new(MenuType::GENERIC_9X5, container_id, player, container, 5)
     }
     /// `ChestMenu.sixRows(containerId, inventory, container)` (double chest).
-    pub fn six_rows(container_id: i32, player: &mut dyn MenuPlayer, container: ContainerRef) -> Self {
+    pub fn six_rows(
+        container_id: i32,
+        player: &mut dyn MenuPlayer,
+        container: ContainerRef,
+    ) -> Self {
         Self::new(MenuType::GENERIC_9X6, container_id, player, container, 6)
     }
 
@@ -166,7 +218,9 @@ impl ShulkerBoxMenu {
         let mut base = MenuBase::new(Some(MenuType::SHULKER_BOX), container_id);
         container.check_size(27);
         container.start_open(player);
-        add_container_slots(&mut base, &container, 27, 9, 8, 18, || Some(Box::new(ShulkerBoxSlot)));
+        add_container_slots(&mut base, &container, 27, 9, 8, 18, || {
+            Some(Box::new(ShulkerBoxSlot))
+        });
         base.add_standard_inventory_slots(&ContainerKey::PlayerInventory, 8, 84);
         Self { base, container }
     }
@@ -196,7 +250,10 @@ impl HopperMenu {
         hopper.start_open(player);
         add_container_slots(&mut base, &hopper, 5, 5, 44, 20, || None);
         base.add_standard_inventory_slots(&ContainerKey::PlayerInventory, 8, 51);
-        Self { base, container: hopper }
+        Self {
+            base,
+            container: hopper,
+        }
     }
 }
 
@@ -222,7 +279,10 @@ impl DispenserMenu {
         dispenser.start_open(player);
         add_container_slots(&mut base, &dispenser, 9, 3, 62, 17, || None);
         base.add_standard_inventory_slots(&ContainerKey::PlayerInventory, 8, 84);
-        Self { base, container: dispenser }
+        Self {
+            base,
+            container: dispenser,
+        }
     }
 }
 

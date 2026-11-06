@@ -18,16 +18,17 @@ use linkme::distributed_slice;
 use mc_core::direction::Direction;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
+use mc_data::Item;
 use mc_data::block::BlockState;
 use mc_data::props;
-use mc_data::Item;
 use std::collections::HashMap;
 use std::sync::OnceLock;
 
 mod behaviors;
 mod default_behavior;
 pub use default_behavior::{
-    DefaultDispense, OptionalState, consume_with_remainder, default_execute, play_default_animation, play_default_sound, play_optional_sound, spawn_item,
+    DefaultDispense, OptionalState, consume_with_remainder, default_execute,
+    play_default_animation, play_default_sound, play_optional_sound, spawn_item,
 };
 
 /// `BlockSource(level, pos, state, blockEntity)`.
@@ -117,7 +118,11 @@ macro_rules! register_dispense_behavior {
         const _: () = {
             #[::linkme::distributed_slice($crate::world::dispenser::DISPENSE_BEHAVIORS)]
             static REG: $crate::world::dispenser::DispenseRegistration =
-                $crate::world::dispenser::DispenseRegistration { items: $items, per_item: false, create: $create };
+                $crate::world::dispenser::DispenseRegistration {
+                    items: $items,
+                    per_item: false,
+                    create: $create,
+                };
         };
     };
 }
@@ -128,7 +133,11 @@ macro_rules! register_dispense_behavior_per_item {
         const _: () = {
             #[::linkme::distributed_slice($crate::world::dispenser::DISPENSE_BEHAVIORS)]
             static REG: $crate::world::dispenser::DispenseRegistration =
-                $crate::world::dispenser::DispenseRegistration { items: $items, per_item: true, create: $create };
+                $crate::world::dispenser::DispenseRegistration {
+                    items: $items,
+                    per_item: true,
+                    create: $create,
+                };
         };
     };
 }
@@ -170,7 +179,10 @@ pub fn default_behavior() -> &'static dyn DispenseItemBehavior {
 }
 
 /// `DispenserBlock.getDispenseMethod(level, itemStack)`.
-pub fn get_dispense_method(level: &ServerLevel, stack: &ItemStack) -> &'static dyn DispenseItemBehavior {
+pub fn get_dispense_method(
+    level: &ServerLevel,
+    stack: &ItemStack,
+) -> &'static dyn DispenseItemBehavior {
     use crate::world::level::LevelReader;
     if !crate::world::item::is_item_enabled(stack, level.enabled_features()) {
         return default_behavior();

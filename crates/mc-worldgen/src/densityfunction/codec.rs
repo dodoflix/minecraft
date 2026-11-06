@@ -83,7 +83,11 @@ pub fn parse_int(value: &Value) -> LoadResult<i32> {
 
 fn f64_int_value(v: f64) -> i32 {
     // |v| >= 2^100 is a multiple of 2^48, so its low 32 bits are zero (also keeps `as i128` exact).
-    if v.abs() >= 2f64.powi(100) { 0 } else { v.trunc() as i128 as i32 }
+    if v.abs() >= 2f64.powi(100) {
+        0
+    } else {
+        v.trunc() as i128 as i32
+    }
 }
 
 /// `Codec.intRange(min, max)`.
@@ -128,7 +132,12 @@ pub fn with_numeric_booleans<R>(f: impl FnOnce() -> R) -> R {
 pub fn parse_bool(value: &Value) -> LoadResult<bool> {
     value
         .as_bool()
-        .or_else(|| NUMERIC_BOOLEANS.get().then(|| value.as_f64().map(|n| n != 0.0)).flatten())
+        .or_else(|| {
+            NUMERIC_BOOLEANS
+                .get()
+                .then(|| value.as_f64().map(|n| n != 0.0))
+                .flatten()
+        })
         .ok_or_else(|| LoadError::new("expected boolean"))
 }
 

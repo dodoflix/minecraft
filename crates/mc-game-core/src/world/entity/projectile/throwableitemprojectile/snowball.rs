@@ -23,7 +23,10 @@ impl Snowball {
         let base = EntityData::new(ty, id, TOTAL_AIR_SUPPLY, |b| {
             b.define(DATA_ITEM_STACK, ItemStack::new(Item::SNOWBALL));
         });
-        Self { base, projectile: ProjectileData::default() }
+        Self {
+            base,
+            projectile: ProjectileData::default(),
+        }
     }
 
     /// `Snowball(level, mob, itemStack)`.
@@ -48,8 +51,17 @@ impl Projectile for Snowball {
     impl_throwable_projectile!();
 
     fn on_hit_entity(&mut self, level: &mut ServerLevel, hit: &EntityHitResult) {
-        let damage = if level.get_entity(hit.entity).is_some_and(|e| e.get_type() == EntityType::BLAZE) { 3.0 } else { 0.0 };
-        let source = level.damage_sources().thrown(self.as_dyn(), self.get_owner(level));
+        let damage = if level
+            .get_entity(hit.entity)
+            .is_some_and(|e| e.get_type() == EntityType::BLAZE)
+        {
+            3.0
+        } else {
+            0.0
+        };
+        let source = level
+            .damage_sources()
+            .thrown(self.as_dyn(), self.get_owner(level));
         level.with_entity(hit.entity, |level, e| e.hurt_server(level, &source, damage));
     }
 
@@ -73,4 +85,7 @@ impl Entity for Snowball {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static SNOWBALL_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::SNOWBALL, create: |ty, id, _| Box::new(Snowball::new(ty, id)) };
+static SNOWBALL_FACTORY: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::SNOWBALL,
+    create: |ty, id, _| Box::new(Snowball::new(ty, id)),
+};

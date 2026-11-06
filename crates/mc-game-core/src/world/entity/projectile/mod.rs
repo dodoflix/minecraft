@@ -161,7 +161,15 @@ pub trait Projectile: Entity {
         power: Vec3,
     ) -> bool {
         match self.as_projectile_mut() {
-            Some(this) => deflect_base(this, level, deflection, deflecting_entity, new_owner, by_attack, power),
+            Some(this) => deflect_base(
+                this,
+                level,
+                deflection,
+                deflecting_entity,
+                new_owner,
+                by_attack,
+                power,
+            ),
             None => false,
         }
     }
@@ -173,7 +181,8 @@ pub trait Projectile: Entity {
     fn on_hit_block(&mut self, level: &mut ServerLevel, hit: &BlockHitResult) {
         let state = level.get_block_state(hit.block_pos);
         if let Some(this) = self.as_projectile_mut() {
-            crate::world::level::block::behaviour(state.block()).on_projectile_hit(level, state, hit, this);
+            crate::world::level::block::behaviour(state.block())
+                .on_projectile_hit(level, state, hit, this);
         }
     }
 
@@ -183,7 +192,14 @@ pub trait Projectile: Entity {
         let owner_id = self.get_owner(level).map(|o| o.id());
         level.with_entity(hit_projectile, |level, e| {
             if let Some(p) = e.as_projectile_mut() {
-                p.deflect(level, ProjectileDeflection::AimDeflect, owner_id, owner, true, Vec3::new(1.0, 1.0, 1.0));
+                p.deflect(
+                    level,
+                    ProjectileDeflection::AimDeflect,
+                    owner_id,
+                    owner,
+                    true,
+                    Vec3::new(1.0, 1.0, 1.0),
+                );
             }
         });
     }
@@ -194,11 +210,20 @@ pub trait Projectile: Entity {
             return false;
         }
         let owner = self.get_owner(level);
-        owner.is_none_or(|o| self.projectile_data().left_owner || !level.is_passenger_of_same_vehicle(o, entity))
+        owner.is_none_or(|o| {
+            self.projectile_data().left_owner || !level.is_passenger_of_same_vehicle(o, entity)
+        })
     }
 
     /// `getMovementToShoot(xd, yd, zd, pow, uncertainty)`.
-    fn get_movement_to_shoot(&mut self, xd: f64, yd: f64, zd: f64, pow: f32, uncertainty: f32) -> Vec3 {
+    fn get_movement_to_shoot(
+        &mut self,
+        xd: f64,
+        yd: f64,
+        zd: f64,
+        pow: f32,
+        uncertainty: f32,
+    ) -> Vec3 {
         let spread = 0.0172275 * f64::from(uncertainty);
         let normalized = Vec3::new(xd, yd, zd).normalize();
         let random = &mut self.base_mut().random;
@@ -211,12 +236,20 @@ pub trait Projectile: Entity {
     /// `canBreakBlockInAdventureMode(level, blockInWorld)` at `pos`.
     fn can_break_block_in_adventure_mode(&self, level: &ServerLevel, pos: BlockPos) -> bool {
         let owner = self.get_owner(level);
-        let world_game_mode_is_adventure = level.level_data.get_game_type() == mc_world::level_storage::GameType::Adventure;
+        let world_game_mode_is_adventure =
+            level.level_data.get_game_type() == mc_world::level_storage::GameType::Adventure;
         let owner_not_adventure_player = owner.is_some_and(|o| {
-            o.as_any().downcast_ref::<crate::world::entity::ServerPlayer>().is_some_and(|p| p.game_mode.game_mode_for_player != mc_data::enums::GameType::Adventure)
+            o.as_any()
+                .downcast_ref::<crate::world::entity::ServerPlayer>()
+                .is_some_and(|p| {
+                    p.game_mode.game_mode_for_player != mc_data::enums::GameType::Adventure
+                })
         });
         if (owner.is_some() || world_game_mode_is_adventure) && !owner_not_adventure_player {
-            self.projectile_data().can_break.as_ref().is_some_and(|p| crate::world::item::adventure_predicate_test(p, level, pos))
+            self.projectile_data()
+                .can_break
+                .as_ref()
+                .is_some_and(|p| crate::world::item::adventure_predicate_test(p, level, pos))
         } else {
             true
         }
@@ -232,7 +265,8 @@ pub trait Projectile: Entity {
 
     /// `mayBreak(level, pos)`.
     fn may_break(&self, level: &ServerLevel, pos: BlockPos) -> bool {
-        mc_data::tags::get::<mc_data::EntityType>("impact_projectiles").is_some_and(|t| t.contains(self.get_type()))
+        mc_data::tags::get::<mc_data::EntityType>("impact_projectiles")
+            .is_some_and(|t| t.contains(self.get_type()))
             && level.projectiles_can_break_blocks()
             && self.can_break_block_in_adventure_mode(level, pos)
     }
@@ -344,11 +378,17 @@ macro_rules! impl_projectile_entity {
 
 /// `Projectile.isPickable()`: `is(EntityTypeTags.REDIRECTABLE_PROJECTILE)`.
 pub fn is_pickable(ty: mc_data::EntityType) -> bool {
-    mc_data::tags::get::<mc_data::EntityType>("redirectable_projectile").is_some_and(|t| t.contains(ty))
+    mc_data::tags::get::<mc_data::EntityType>("redirectable_projectile")
+        .is_some_and(|t| t.contains(ty))
 }
 
 /// `Projectile.onAboveBubbleColumn(dragDown, pos)`.
-pub fn on_above_bubble_column(projectile: &mut dyn Entity, level: &mut ServerLevel, drag_down: bool, pos: BlockPos) {
+pub fn on_above_bubble_column(
+    projectile: &mut dyn Entity,
+    level: &mut ServerLevel,
+    drag_down: bool,
+    pos: BlockPos,
+) {
     let yd = if drag_down { -0.03 } else { 0.1 };
     let b = projectile.base_mut();
     b.set_delta_movement(b.delta_movement().add_xyz(0.0, yd, 0.0));
@@ -388,23 +428,45 @@ pub fn check_left_owner(projectile: &mut dyn Projectile, level: &ServerLevel) {
 }
 
 fn is_outside_owner_collision_range(projectile: &dyn Projectile, level: &ServerLevel) -> bool {
-    let Some(owner) = projectile.get_owner(level) else { return true };
-    let aabb = projectile.get_bounding_box().expand_towards_vec3(projectile.base().delta_movement()).inflate_scalar(1.0);
+    let Some(owner) = projectile.get_owner(level) else {
+        return true;
+    };
+    let aabb = projectile
+        .get_bounding_box()
+        .expand_towards_vec3(projectile.base().delta_movement())
+        .inflate_scalar(1.0);
     let root = owner.get_root_vehicle(level);
     let members = match level.get_entity(root) {
         Some(root) => root.get_self_and_passengers(level),
         None => vec![owner.id()],
     };
-    !members.into_iter().filter_map(|id| level.get_entity(id).or((id == owner.id()).then_some(owner))).any(|e| e.is_pickable() && aabb.intersects_aabb(&e.get_bounding_box()))
+    !members
+        .into_iter()
+        .filter_map(|id| level.get_entity(id).or((id == owner.id()).then_some(owner)))
+        .any(|e| e.is_pickable() && aabb.intersects_aabb(&e.get_bounding_box()))
 }
 
 /// `shoot(xd, yd, zd, pow, uncertainty)`: the (overridable) `Projectile.shoot`.
-pub fn shoot(projectile: &mut dyn Projectile, xd: f64, yd: f64, zd: f64, pow: f32, uncertainty: f32) {
+pub fn shoot(
+    projectile: &mut dyn Projectile,
+    xd: f64,
+    yd: f64,
+    zd: f64,
+    pow: f32,
+    uncertainty: f32,
+) {
     projectile.shoot(xd, yd, zd, pow, uncertainty);
 }
 
 /// `Projectile.shoot` itself.
-pub fn shoot_base(projectile: &mut dyn Projectile, xd: f64, yd: f64, zd: f64, pow: f32, uncertainty: f32) {
+pub fn shoot_base(
+    projectile: &mut dyn Projectile,
+    xd: f64,
+    yd: f64,
+    zd: f64,
+    pow: f32,
+    uncertainty: f32,
+) {
     let movement = projectile.get_movement_to_shoot(xd, yd, zd, pow, uncertainty);
     let b = projectile.base_mut();
     b.set_delta_movement(movement);
@@ -432,9 +494,24 @@ pub fn shoot_from_rotation(
     let xd = -mth::sin(f64::from(y_rot * deg_to_rad)) * mth::cos(f64::from(x_rot * deg_to_rad));
     let yd = -mth::sin(f64::from((x_rot + y_offset) * deg_to_rad));
     let zd = mth::cos(f64::from(y_rot * deg_to_rad)) * mth::cos(f64::from(x_rot * deg_to_rad));
-    shoot(projectile, f64::from(xd), f64::from(yd), f64::from(zd), pow, uncertainty);
+    shoot(
+        projectile,
+        f64::from(xd),
+        f64::from(yd),
+        f64::from(zd),
+        pow,
+        uncertainty,
+    );
     let b = projectile.base_mut();
-    b.set_delta_movement(b.delta_movement().add_xyz(source_movement.x, if source_on_ground { 0.0 } else { source_movement.y }, source_movement.z));
+    b.set_delta_movement(b.delta_movement().add_xyz(
+        source_movement.x,
+        if source_on_ground {
+            0.0
+        } else {
+            source_movement.y
+        },
+        source_movement.z,
+    ));
 }
 
 /// `deflect(deflection, deflectingEntity, newOwner, byAttack, power)`: `Projectile`'s implementation.
@@ -447,8 +524,15 @@ pub fn deflect_base(
     by_attack: bool,
     power: Vec3,
 ) -> bool {
-    let deflector = deflecting_entity.and_then(|id| level.get_entity(id)).map(|e| Deflector { look_angle: e.get_look_angle(), known_speed: e.get_known_speed(level) });
-    deflect_by(projectile, level, deflection, deflector, new_owner, by_attack, power)
+    let deflector = deflecting_entity
+        .and_then(|id| level.get_entity(id))
+        .map(|e| Deflector {
+            look_angle: e.get_look_angle(),
+            known_speed: e.get_known_speed(level),
+        });
+    deflect_by(
+        projectile, level, deflection, deflector, new_owner, by_attack, power,
+    )
 }
 
 /// `deflect(...)` for a deflecting entity that is out of the level (the attacking player): its view and speed are passed in.
@@ -468,14 +552,29 @@ pub fn deflect_by(
 }
 
 /// `hitTargetOrDeflectSelf(hitResult)`.
-pub fn hit_target_or_deflect_self(projectile: &mut dyn Projectile, level: &mut ServerLevel, hit: &HitResult) -> ProjectileDeflection {
+pub fn hit_target_or_deflect_self(
+    projectile: &mut dyn Projectile,
+    level: &mut ServerLevel,
+    hit: &HitResult,
+) -> ProjectileDeflection {
     match hit {
         HitResult::Entity(entity_hit) => {
             let id = entity_hit.entity;
-            let deflection = level.get_entity(id).map_or(ProjectileDeflection::None, |e| e.deflection(&*projectile));
+            let deflection = level
+                .get_entity(id)
+                .map_or(ProjectileDeflection::None, |e| e.deflection(&*projectile));
             if deflection != ProjectileDeflection::None {
                 let owner = projectile.projectile_data().owner;
-                if projectile.projectile_data().last_deflected_by != Some(id) && projectile.deflect(level, deflection, Some(id), owner, false, Vec3::new(1.0, 1.0, 1.0)) {
+                if projectile.projectile_data().last_deflected_by != Some(id)
+                    && projectile.deflect(
+                        level,
+                        deflection,
+                        Some(id),
+                        owner,
+                        false,
+                        Vec3::new(1.0, 1.0, 1.0),
+                    )
+                {
                     projectile.projectile_data_mut().last_deflected_by = Some(id);
                 }
                 return deflection;
@@ -489,7 +588,14 @@ pub fn hit_target_or_deflect_self(projectile: &mut dyn Projectile, level: &mut S
             } else if projectile.should_bounce_on_world_border() {
                 let deflection = ProjectileDeflection::Reverse;
                 let owner = projectile.projectile_data().owner;
-                if projectile.deflect(level, deflection, None, owner, false, Vec3::new(0.2, 0.2, 0.2)) {
+                if projectile.deflect(
+                    level,
+                    deflection,
+                    None,
+                    owner,
+                    false,
+                    Vec3::new(0.2, 0.2, 0.2),
+                ) {
                     return deflection;
                 }
             }
@@ -504,29 +610,44 @@ pub fn on_hit_base(projectile: &mut dyn Projectile, level: &mut ServerLevel, hit
     match hit {
         HitResult::Entity(entity_hit) => {
             let id = entity_hit.entity;
-            let redirectable = level
-                .get_entity(id)
-                .is_some_and(|e| e.as_projectile().is_some() && mc_data::tags::get::<mc_data::EntityType>("redirectable_projectile").is_some_and(|t| t.contains(e.get_type())));
+            let redirectable = level.get_entity(id).is_some_and(|e| {
+                e.as_projectile().is_some()
+                    && mc_data::tags::get::<mc_data::EntityType>("redirectable_projectile")
+                        .is_some_and(|t| t.contains(e.get_type()))
+            });
             if redirectable {
                 projectile.on_redirect_projectile(level, id);
             }
             projectile.on_hit_entity(level, entity_hit);
-            level.post_game_event(GameEvent::PROJECTILE_LAND, entity_hit.location, &GameEventContext::of(Some(projectile.id()), None));
+            level.post_game_event(
+                GameEvent::PROJECTILE_LAND,
+                entity_hit.location,
+                &GameEventContext::of(Some(projectile.id()), None),
+            );
         }
         HitResult::Block(block_hit) if !block_hit.miss => {
             projectile.on_hit_block(level, block_hit);
             let target = block_hit.block_pos;
             let state = level.get_block_state(target);
-            level.game_event_at_block(GameEvent::PROJECTILE_LAND, target, &GameEventContext::of(Some(projectile.id()), Some(state)));
+            level.game_event_at_block(
+                GameEvent::PROJECTILE_LAND,
+                target,
+                &GameEventContext::of(Some(projectile.id()), Some(state)),
+            );
         }
         HitResult::Block(_) => {}
     }
 }
 
 /// `Projectile.onHitBlock(hitResult)`: `state.onProjectileHit(level, state, hitResult, this)`.
-pub fn on_hit_block_base(projectile: &mut dyn Projectile, level: &mut ServerLevel, hit: &BlockHitResult) {
+pub fn on_hit_block_base(
+    projectile: &mut dyn Projectile,
+    level: &mut ServerLevel,
+    hit: &BlockHitResult,
+) {
     let state = level.get_block_state(hit.block_pos);
-    crate::world::level::block::behaviour(state.block()).on_projectile_hit(level, state, hit, projectile);
+    crate::world::level::block::behaviour(state.block())
+        .on_projectile_hit(level, state, hit, projectile);
 }
 
 /// `updateRotation()`.
@@ -535,7 +656,10 @@ pub fn update_rotation(projectile: &mut dyn Projectile) {
     let movement = b.delta_movement();
     let sd = movement.horizontal_distance();
     let x = lerp_rotation(b.x_rot_o, (mth::atan2(movement.y, sd) * RAD_TO_DEG) as f32);
-    let y = lerp_rotation(b.y_rot_o, (mth::atan2(movement.x, movement.z) * RAD_TO_DEG) as f32);
+    let y = lerp_rotation(
+        b.y_rot_o,
+        (mth::atan2(movement.x, movement.z) * RAD_TO_DEG) as f32,
+    );
     b.set_x_rot(x);
     b.set_y_rot(y);
 }
@@ -555,14 +679,18 @@ pub fn lerp_rotation(mut rot_o: f32, rot: f32) -> f32 {
 pub fn add_additional_save_data(projectile: &dyn Projectile, out: &mut mc_nbt::CompoundTag) {
     let d = projectile.projectile_data();
     if let Some(owner) = d.owner {
-        out.put_int_array("Owner", mc_core::uuid_util::uuid_to_int_array(&owner).to_vec());
+        out.put_int_array(
+            "Owner",
+            mc_core::uuid_util::uuid_to_int_array(&owner).to_vec(),
+        );
     }
     if d.left_owner {
         out.put_boolean("LeftOwner", true);
     }
     out.put_boolean("HasBeenShot", d.has_been_shot);
     if let Some(can_break) = &d.can_break
-        && let Ok(tag) = mc_dfu::encode_nbt(&AdventureModePredicate::codec(), can_break).into_result()
+        && let Ok(tag) =
+            mc_dfu::encode_nbt(&AdventureModePredicate::codec(), can_break).into_result()
     {
         out.put("can_break", tag);
     }
@@ -575,5 +703,9 @@ pub fn read_additional_save_data(projectile: &mut dyn Projectile, input: &mc_nbt
     d.owner_id = None;
     d.left_owner = input.get_boolean_or("LeftOwner", false);
     d.has_been_shot = input.get_boolean_or("HasBeenShot", false);
-    d.can_break = input.get("can_break").and_then(|t| mc_dfu::parse_nbt(&AdventureModePredicate::codec(), t).into_result().ok());
+    d.can_break = input.get("can_break").and_then(|t| {
+        mc_dfu::parse_nbt(&AdventureModePredicate::codec(), t)
+            .into_result()
+            .ok()
+    });
 }

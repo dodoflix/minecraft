@@ -10,12 +10,13 @@ pub struct StartRidingTriggerInstance {
 
 impl TriggerInstance for StartRidingTriggerInstance {
     fn codec() -> Codec<Self> {
-        static C: std::sync::LazyLock<Codec<StartRidingTriggerInstance>> = std::sync::LazyLock::new(|| {
-            mc_dfu::record!(StartRidingTriggerInstance {
-                player: condition_holder_codec().optional_field_of("player"),
-            })
-            .codec()
-        });
+        static C: std::sync::LazyLock<Codec<StartRidingTriggerInstance>> =
+            std::sync::LazyLock::new(|| {
+                mc_dfu::record!(StartRidingTriggerInstance {
+                    player: condition_holder_codec().optional_field_of("player"),
+                })
+                .codec()
+            });
         C.clone()
     }
 }

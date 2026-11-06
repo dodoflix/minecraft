@@ -8,16 +8,25 @@ use mc_dfu::extra::non_empty_list;
 use mc_dfu::{BOOL, DataResult, FLOAT, INT, LONG, MapCodec, STRING, float_range, record};
 use mc_protocol::components::values::predicates::{BlockPredicate, ItemPredicate};
 
-use super::{ConditionHolder, ConditionHolderSet, ConditionRef, LootItemCondition, condition_holder_codec, condition_list_codec};
+use super::{
+    ConditionHolder, ConditionHolderSet, ConditionRef, LootItemCondition, condition_holder_codec,
+    condition_list_codec,
+};
 use crate::registry::keys;
+use crate::world::item::enchantment::level_based_value::LevelBasedValue;
 use crate::world::level::storage::loot::context::{ContextKey, EntityTarget, LootContext};
 use crate::world::level::storage::loot::holder::{TypeTable, lift, registry_ref_codec};
-use crate::world::level::storage::loot::predicate_api::{DamageSourcePredicate, EntityPredicate, LocationPredicate};
-use crate::world::level::storage::loot::providers::number::{FloatHolder, IntHolder, float_holder_codec, int_holder_codec};
+use crate::world::level::storage::loot::predicate_api::{
+    DamageSourcePredicate, EntityPredicate, LocationPredicate,
+};
+use crate::world::level::storage::loot::providers::number::{
+    FloatHolder, IntHolder, float_holder_codec, int_holder_codec,
+};
 use crate::world::level::storage::loot::range::{FloatRangePredicate, IntRangePredicate};
 use crate::world::level::storage::loot::server_access;
-use crate::world::level::storage::loot::validation::{ValidationContext, validate_holder_field, validate_holder_set};
-use crate::world::item::enchantment::level_based_value::LevelBasedValue;
+use crate::world::level::storage::loot::validation::{
+    ValidationContext, validate_holder_field, validate_holder_set,
+};
 
 macro_rules! condition_basics {
     ($name:literal) => {
@@ -117,10 +126,20 @@ impl LootItemCondition for LootItemRandomChanceWithEnchantedBonusCondition {
     }
     fn test(&self, context: &mut LootContext) -> bool {
         let level = match context.params().attacking_entity {
-            Some(killer) if killer.living().is_some() => crate::world::item::enchantment_helper::get_enchantment_level(context.get_resolver(), &self.enchantment, killer),
+            Some(killer) if killer.living().is_some() => {
+                crate::world::item::enchantment_helper::get_enchantment_level(
+                    context.get_resolver(),
+                    &self.enchantment,
+                    killer,
+                )
+            }
             _ => 0,
         };
-        let chance = if level > 0 { self.enchanted_chance.calculate(level) } else { self.unenchanted_chance };
+        let chance = if level > 0 {
+            self.enchanted_chance.calculate(level)
+        } else {
+            self.unenchanted_chance
+        };
         context.get_random().next_float() < chance
     }
 }
@@ -138,7 +157,9 @@ impl LootItemCondition for BonusLevelTableCondition {
         vec![ContextKey::Tool]
     }
     fn test(&self, context: &mut LootContext) -> bool {
-        let level = context.params().tool.as_ref().map_or(0, |t| crate::world::item::enchantment_helper::get_item_enchantment_level(&self.enchantment, t));
+        let level = context.params().tool.as_ref().map_or(0, |t| {
+            crate::world::item::enchantment_helper::get_item_enchantment_level(&self.enchantment, t)
+        });
         let chance = self.values[(level.max(0) as usize).min(self.values.len() - 1)];
         // `values.get(Math.min(level, size - 1))`: a negative level is impossible for item enchantments
         context.get_random().next_float() < chance
@@ -216,7 +237,10 @@ impl LootItemCondition for DamageSourceCondition {
     }
     fn test(&self, context: &mut LootContext) -> bool {
         match (context.params().damage_source, context.params().origin) {
-            (Some(source), Some(pos)) => self.predicate.as_ref().is_none_or(|p| p.matches(context.get_level(), pos, source)),
+            (Some(source), Some(pos)) => self
+                .predicate
+                .as_ref()
+                .is_none_or(|p| p.matches(context.get_level(), pos, source)),
             _ => false,
         }
     }
@@ -242,9 +266,16 @@ impl LootItemCondition for LocationCheck {
         vec![ContextKey::Origin]
     }
     fn test(&self, context: &mut LootContext) -> bool {
-        let Some(pos) = context.params().origin else { return false };
+        let Some(pos) = context.params().origin else {
+            return false;
+        };
         self.predicate.as_ref().is_none_or(|p| {
-            p.matches(context.get_level(), pos.x + f64::from(self.offset.x), pos.y + f64::from(self.offset.y), pos.z + f64::from(self.offset.z))
+            p.matches(
+                context.get_level(),
+                pos.x + f64::from(self.offset.x),
+                pos.y + f64::from(self.offset.y),
+                pos.z + f64::from(self.offset.z),
+            )
         })
     }
 }
@@ -268,7 +299,9 @@ impl LootItemCondition for EntityHasScoreCondition {
         }
     }
     fn test(&self, context: &mut LootContext) -> bool {
-        let Some(entity) = self.entity_target.get(context) else { return false };
+        let Some(entity) = self.entity_target.get(context) else {
+            return false;
+        };
         let name = entity.get_scoreboard_name();
         for (objective, range) in &self.scores {
             match server_access::score(context.get_level(), &name, objective) {
@@ -298,7 +331,9 @@ impl LootItemCondition for MatchBlock {
         }
     }
     fn test(&self, context: &mut LootContext) -> bool {
-        let Some(state) = context.params().block_state else { return false };
+        let Some(state) = context.params().block_state else {
+            return false;
+        };
         if !self.predicate.matches_state(state) {
             return false;
         }
@@ -306,7 +341,8 @@ impl LootItemCondition for MatchBlock {
             Some(be) => {
                 let tag = be.save_with_full_metadata();
                 let components = be.collect_components();
-                self.predicate.matches_block_entity(Some((&tag, &components)))
+                self.predicate
+                    .matches_block_entity(Some((&tag, &components)))
             }
             None => self.predicate.matches_block_entity(None),
         }
@@ -348,7 +384,8 @@ impl LootItemCondition for WeatherCheck {
         if self.is_raining.is_some_and(|r| r != level.is_raining()) {
             return false;
         }
-        self.is_thundering.is_none_or(|t| t == level.is_thundering())
+        self.is_thundering
+            .is_none_or(|t| t == level.is_thundering())
     }
 }
 
@@ -442,10 +479,19 @@ pub struct EnvironmentAttributeCheck {
 impl LootItemCondition for EnvironmentAttributeCheck {
     condition_basics!("environment_attribute_check");
     fn referenced_params(&self) -> Vec<ContextKey> {
-        if server_access::environment_attribute_is_positional(&self.attribute) { vec![ContextKey::Origin] } else { vec![] }
+        if server_access::environment_attribute_is_positional(&self.attribute) {
+            vec![ContextKey::Origin]
+        } else {
+            vec![]
+        }
     }
     fn test(&self, context: &mut LootContext) -> bool {
-        server_access::environment_attribute_matches(context, &self.attribute, &self.value, context.params().origin)
+        server_access::environment_attribute_matches(
+            context,
+            &self.attribute,
+            &self.value,
+            context.params().origin,
+        )
     }
 }
 
@@ -459,24 +505,32 @@ pub(super) fn type_table() -> Arc<TypeTable<dyn LootItemCondition>> {
     TypeTable::new(
         "minecraft:loot_condition_type",
         vec![
-            ("inverted", entry(record!(InvertedLootItemCondition { term: condition_holder_codec().field_of("term") }))),
+            (
+                "inverted",
+                entry(record!(InvertedLootItemCondition {
+                    term: condition_holder_codec().field_of("term")
+                })),
+            ),
             (
                 "any_of",
-                entry(
-                    condition_list_codec()
-                        .field_of("terms")
-                        .xmap(|terms| CompositeLootItemCondition { all: false, terms }, |c: &CompositeLootItemCondition| c.terms.clone()),
-                ),
+                entry(condition_list_codec().field_of("terms").xmap(
+                    |terms| CompositeLootItemCondition { all: false, terms },
+                    |c: &CompositeLootItemCondition| c.terms.clone(),
+                )),
             ),
             (
                 "all_of",
-                entry(
-                    condition_list_codec()
-                        .field_of("terms")
-                        .xmap(|terms| CompositeLootItemCondition { all: true, terms }, |c: &CompositeLootItemCondition| c.terms.clone()),
-                ),
+                entry(condition_list_codec().field_of("terms").xmap(
+                    |terms| CompositeLootItemCondition { all: true, terms },
+                    |c: &CompositeLootItemCondition| c.terms.clone(),
+                )),
             ),
-            ("random_chance", entry(record!(LootItemRandomChanceCondition { chance: float_h().field_of("chance") }))),
+            (
+                "random_chance",
+                entry(record!(LootItemRandomChanceCondition {
+                    chance: float_h().field_of("chance")
+                })),
+            ),
             (
                 "random_chance_with_enchanted_bonus",
                 entry(record!(LootItemRandomChanceWithEnchantedBonusCondition {
@@ -492,16 +546,32 @@ pub(super) fn type_table() -> Arc<TypeTable<dyn LootItemCondition>> {
                     entity_target: EntityTarget::codec().field_of("entity"),
                 })),
             ),
-            ("killed_by_player", entry(MapCodec::unit(LootItemKilledByPlayerCondition))),
+            (
+                "killed_by_player",
+                entry(MapCodec::unit(LootItemKilledByPlayerCondition)),
+            ),
             (
                 "entity_scores",
                 entry(record!(EntityHasScoreCondition {
-                    scores: STRING.unbounded_map(&IntRangePredicate::codec()).field_of("scores"),
+                    scores: STRING
+                        .unbounded_map(&IntRangePredicate::codec())
+                        .field_of("scores"),
                     entity_target: EntityTarget::codec().field_of("entity"),
                 })),
             ),
-            ("match_block", entry(BlockPredicate::map_codec().xmap(|predicate| MatchBlock { predicate }, |m: &MatchBlock| m.predicate.clone()))),
-            ("match_tool", entry(record!(MatchTool { predicate: ItemPredicate::codec().optional_field_of("predicate") }))),
+            (
+                "match_block",
+                entry(BlockPredicate::map_codec().xmap(
+                    |predicate| MatchBlock { predicate },
+                    |m: &MatchBlock| m.predicate.clone(),
+                )),
+            ),
+            (
+                "match_tool",
+                entry(record!(MatchTool {
+                    predicate: ItemPredicate::codec().optional_field_of("predicate")
+                })),
+            ),
             (
                 "table_bonus",
                 entry(record!(BonusLevelTableCondition {
@@ -509,8 +579,16 @@ pub(super) fn type_table() -> Arc<TypeTable<dyn LootItemCondition>> {
                     values: non_empty_list(&FLOAT.list_of()).field_of("chances"),
                 })),
             ),
-            ("survives_explosion", entry(MapCodec::unit(ExplosionCondition))),
-            ("damage_source_properties", entry(record!(DamageSourceCondition { predicate: DamageSourcePredicate::codec().optional_field_of("predicate") }))),
+            (
+                "survives_explosion",
+                entry(MapCodec::unit(ExplosionCondition)),
+            ),
+            (
+                "damage_source_properties",
+                entry(record!(DamageSourceCondition {
+                    predicate: DamageSourcePredicate::codec().optional_field_of("predicate")
+                })),
+            ),
             (
                 "location_check",
                 entry(record!(LocationCheck {
@@ -524,7 +602,10 @@ pub(super) fn type_table() -> Arc<TypeTable<dyn LootItemCondition>> {
             ),
             (
                 "weather_check",
-                entry(record!(WeatherCheck { is_raining: BOOL.optional_field_of("raining"), is_thundering: BOOL.optional_field_of("thundering") })),
+                entry(record!(WeatherCheck {
+                    is_raining: BOOL.optional_field_of("raining"),
+                    is_thundering: BOOL.optional_field_of("thundering")
+                })),
             ),
             (
                 "time_check",
@@ -536,14 +617,28 @@ pub(super) fn type_table() -> Arc<TypeTable<dyn LootItemCondition>> {
             ),
             (
                 "int_value_check",
-                entry(record!(IntValueCheck { value: int_holder_codec().field_of("value"), range: IntRangePredicate::codec().field_of("test") })),
+                entry(record!(IntValueCheck {
+                    value: int_holder_codec().field_of("value"),
+                    range: IntRangePredicate::codec().field_of("test")
+                })),
             ),
             (
                 "float_value_check",
-                entry(record!(FloatValueCheck { value: float_h().field_of("value"), range: FloatRangePredicate::codec().field_of("test") })),
+                entry(record!(FloatValueCheck {
+                    value: float_h().field_of("value"),
+                    range: FloatRangePredicate::codec().field_of("test")
+                })),
             ),
-            ("enchantment_active_check", entry(record!(EnchantmentActiveCheck { active: BOOL.field_of("active") }))),
-            ("environment_attribute_check", entry(environment_attribute_check_codec())),
+            (
+                "enchantment_active_check",
+                entry(record!(EnchantmentActiveCheck {
+                    active: BOOL.field_of("active")
+                })),
+            ),
+            (
+                "environment_attribute_check",
+                entry(environment_attribute_check_codec()),
+            ),
         ],
     )
 }
@@ -556,7 +651,10 @@ fn environment_attribute_check_codec() -> MapCodec<EnvironmentAttributeCheck> {
             Some(value_codec) => {
                 let a = attribute.clone();
                 DataResult::success(value_codec.field_of("value").xmap(
-                    move |value| EnvironmentAttributeCheck { attribute: a.clone(), value },
+                    move |value| EnvironmentAttributeCheck {
+                        attribute: a.clone(),
+                        value,
+                    },
                     |c: &EnvironmentAttributeCheck| c.value.clone(),
                 ))
             }

@@ -13,21 +13,34 @@ use mc_core::math::mth;
 #[derive(Clone)]
 pub enum IntRangePredicate {
     Point(IntHolder),
-    Line { min: Option<IntHolder>, max: Option<IntHolder> },
+    Line {
+        min: Option<IntHolder>,
+        max: Option<IntHolder>,
+    },
 }
 
 impl IntRangePredicate {
     /// `CODEC`: a provider (exact value) or `{min?, max?}`.
     pub fn codec() -> Codec<IntRangePredicate> {
-        let line = record!(IntLine { min: int_holder_codec().optional_field_of("min"), max: int_holder_codec().optional_field_of("max") }).codec();
+        let line = record!(IntLine {
+            min: int_holder_codec().optional_field_of("min"),
+            max: int_holder_codec().optional_field_of("max")
+        })
+        .codec();
         int_holder_codec().either(&line).xmap(
             |e| match e {
                 Either::Left(h) => IntRangePredicate::Point(h),
-                Either::Right(l) => IntRangePredicate::Line { min: l.min, max: l.max },
+                Either::Right(l) => IntRangePredicate::Line {
+                    min: l.min,
+                    max: l.max,
+                },
             },
             |r: &IntRangePredicate| match r {
                 IntRangePredicate::Point(h) => Either::Left(h.clone()),
-                IntRangePredicate::Line { min, max } => Either::Right(IntLine { min: min.clone(), max: max.clone() }),
+                IntRangePredicate::Line { min, max } => Either::Right(IntLine {
+                    min: min.clone(),
+                    max: max.clone(),
+                }),
             },
         )
     }
@@ -39,7 +52,9 @@ impl IntRangePredicate {
     /// `test(context, input)`.
     pub fn test(&self, context: &mut LootContext, input: i32) -> bool {
         match self {
-            IntRangePredicate::Point(h) => h.value(context.get_resolver()).get_int(context) == input,
+            IntRangePredicate::Point(h) => {
+                h.value(context.get_resolver()).get_int(context) == input
+            }
             IntRangePredicate::Line { min, max } => {
                 if let Some(min) = min {
                     if input < min.value(context.get_resolver()).get_int(context) {
@@ -83,7 +98,10 @@ struct IntLine {
 #[derive(Clone)]
 pub enum FloatRangePredicate {
     Point(FloatHolder),
-    Line { min: Option<FloatHolder>, max: Option<FloatHolder> },
+    Line {
+        min: Option<FloatHolder>,
+        max: Option<FloatHolder>,
+    },
 }
 
 #[derive(Clone)]
@@ -102,11 +120,17 @@ impl FloatRangePredicate {
         float_holder_codec().either(&line).xmap(
             |e| match e {
                 Either::Left(h) => FloatRangePredicate::Point(h),
-                Either::Right(l) => FloatRangePredicate::Line { min: l.min, max: l.max },
+                Either::Right(l) => FloatRangePredicate::Line {
+                    min: l.min,
+                    max: l.max,
+                },
             },
             |r: &FloatRangePredicate| match r {
                 FloatRangePredicate::Point(h) => Either::Left(h.clone()),
-                FloatRangePredicate::Line { min, max } => Either::Right(FloatLine { min: min.clone(), max: max.clone() }),
+                FloatRangePredicate::Line { min, max } => Either::Right(FloatLine {
+                    min: min.clone(),
+                    max: max.clone(),
+                }),
             },
         )
     }
@@ -117,7 +141,9 @@ impl FloatRangePredicate {
 
     pub fn test(&self, context: &mut LootContext, input: f32) -> bool {
         match self {
-            FloatRangePredicate::Point(h) => h.value(context.get_resolver()).get_float(context) == input,
+            FloatRangePredicate::Point(h) => {
+                h.value(context.get_resolver()).get_float(context) == input
+            }
             FloatRangePredicate::Line { min, max } => {
                 if let Some(min) = min {
                     if !(input >= min.value(context.get_resolver()).get_float(context)) {
@@ -163,15 +189,24 @@ impl IntLimit {
     }
 
     fn map_codec() -> MapCodec<IntLimit> {
-        record!(IntLimit { min: int_holder_codec().optional_field_of("min"), max: int_holder_codec().optional_field_of("max") })
+        record!(IntLimit {
+            min: int_holder_codec().optional_field_of("min"),
+            max: int_holder_codec().optional_field_of("max")
+        })
     }
 
     /// `clamp(context, input)`.
     pub fn clamp(&self, context: &mut LootContext, input: i32) -> i32 {
         match (&self.min, &self.max) {
             (None, None) => input,
-            (None, Some(max)) => max.value(context.get_resolver()).get_int(context).min(input),
-            (Some(min), None) => min.value(context.get_resolver()).get_int(context).max(input),
+            (None, Some(max)) => max
+                .value(context.get_resolver())
+                .get_int(context)
+                .min(input),
+            (Some(min), None) => min
+                .value(context.get_resolver())
+                .get_int(context)
+                .max(input),
             (Some(min), Some(max)) => {
                 let lo = min.value(context.get_resolver()).get_int(context);
                 let hi = max.value(context.get_resolver()).get_int(context);

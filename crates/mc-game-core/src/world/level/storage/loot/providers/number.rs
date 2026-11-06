@@ -11,15 +11,20 @@ use mc_dfu::{BOOL, Codec, DataResult, Either, FLOAT, INT, MapCodec, record};
 use mc_nbt::{Number, Tag};
 
 use crate::registry::keys;
-use crate::world::level::storage::loot::context::{ContextKey, EntityTarget, LootContext};
-use crate::world::level::storage::loot::holder::{Holder, HolderSet, TypeTable, holder_codec, holder_set_codec, lift};
-use crate::world::level::storage::loot::predicates::{ConditionHolder, condition_holder_codec};
-use crate::world::level::storage::loot::providers::score::{ScoreboardNameProvider, scoreboard_name_provider_codec};
-use crate::world::level::storage::loot::validation::{
-    Validatable, ValidatableData, ValidationContext, validate_holder, validate_holder_field, validate_holder_list, validate_holder_set_min,
-};
 use crate::world::level::storage::loot::codec_ext::OptionalDefaultWith;
+use crate::world::level::storage::loot::context::{ContextKey, EntityTarget, LootContext};
+use crate::world::level::storage::loot::holder::{
+    Holder, HolderSet, TypeTable, holder_codec, holder_set_codec, lift,
+};
+use crate::world::level::storage::loot::predicates::{ConditionHolder, condition_holder_codec};
+use crate::world::level::storage::loot::providers::score::{
+    ScoreboardNameProvider, scoreboard_name_provider_codec,
+};
 use crate::world::level::storage::loot::server_access;
+use crate::world::level::storage::loot::validation::{
+    Validatable, ValidatableData, ValidationContext, validate_holder, validate_holder_field,
+    validate_holder_list, validate_holder_set_min,
+};
 
 /// `java.lang.ArithmeticException`.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -75,7 +80,11 @@ impl dyn ContextFloatProvider {
     /// `getFloatOrThrow(context)`.
     pub fn get_float_or_throw(&self, context: &mut LootContext) -> FloatResult {
         let v = self.get_float_unsafe(context)?;
-        if v.is_finite() { Ok(v) } else { Err(ArithmeticException) }
+        if v.is_finite() {
+            Ok(v)
+        } else {
+            Err(ArithmeticException)
+        }
     }
 }
 
@@ -103,12 +112,20 @@ pub type FloatHolderSet = HolderSet<dyn ContextFloatProvider>;
 /// `ContextIntProvider.longToIntSafe`.
 pub fn long_to_int_safe(value: i64) -> IntResult {
     let result = value as i32;
-    if i64::from(result) != value { Err(ArithmeticException) } else { Ok(result) }
+    if i64::from(result) != value {
+        Err(ArithmeticException)
+    } else {
+        Ok(result)
+    }
 }
 
 /// `ContextIntProvider.floatToIntSafe`.
 pub fn float_to_int_safe(value: f32) -> IntResult {
-    if !value.is_finite() { Err(ArithmeticException) } else { long_to_int_safe(value as i64) }
+    if !value.is_finite() {
+        Err(ArithmeticException)
+    } else {
+        long_to_int_safe(value as i64)
+    }
 }
 
 // ---- codecs (ContextIntProviders / ContextFloatProviders) -----------------------------------------------------------
@@ -118,7 +135,8 @@ macro_rules! provider_codecs {
         $trait:ident, $registry:expr, $direct:ident, $holder:ident, $set:ident, $table:ident, $const_ty:ident, $holder_ty:ident,
         $load_registry_name:literal
     ) => {
-        static $table: LazyLock<Arc<TypeTable<dyn $trait>>> = LazyLock::new(types_for::<dyn $trait>);
+        static $table: LazyLock<Arc<TypeTable<dyn $trait>>> =
+            LazyLock::new(types_for::<dyn $trait>);
 
         /// `DIRECT_CODEC`.
         pub fn $direct() -> Codec<Arc<dyn $trait>> {
@@ -161,7 +179,17 @@ fn types_for<T: ?Sized + ProviderTypes + 'static>() -> Arc<TypeTable<T>> {
     T::table()
 }
 
-provider_codecs!(ContextIntProvider, keys::CONTEXT_INT_PROVIDER, int_provider_codec, int_holder_codec, int_list_codec, INT_TABLE, IntConstant, IntHolder, "int");
+provider_codecs!(
+    ContextIntProvider,
+    keys::CONTEXT_INT_PROVIDER,
+    int_provider_codec,
+    int_holder_codec,
+    int_list_codec,
+    INT_TABLE,
+    IntConstant,
+    IntHolder,
+    "int"
+);
 provider_codecs!(
     ContextFloatProvider,
     keys::CONTEXT_FLOAT_PROVIDER,
@@ -194,7 +222,9 @@ pub struct IntConstant {
 
 impl IntConstant {
     fn map_codec() -> MapCodec<IntConstant> {
-        record!(IntConstant { value: INT.field_of("value") })
+        record!(IntConstant {
+            value: INT.field_of("value")
+        })
     }
     fn inline_codec() -> Codec<IntConstant> {
         INT.xmap(|value| IntConstant { value }, |c: &IntConstant| c.value)
@@ -221,7 +251,9 @@ pub struct FloatConstant {
 
 impl FloatConstant {
     fn map_codec() -> MapCodec<FloatConstant> {
-        record!(FloatConstant { value: FLOAT.field_of("value") })
+        record!(FloatConstant {
+            value: FLOAT.field_of("value")
+        })
     }
     fn inline_codec() -> Codec<FloatConstant> {
         FLOAT.xmap(|value| FloatConstant { value }, |c: &FloatConstant| c.value)
@@ -262,35 +294,74 @@ pub struct Aggregate<S: Clone + 'static> {
     pub inputs: S,
 }
 
-fn unary_map_codec<H: Clone + Send + Sync + 'static>(kind: &'static str, value: Codec<H>) -> MapCodec<Unary<H>> {
-    value.field_of("input").xmap(move |input| Unary { kind, input }, |u: &Unary<H>| u.input.clone())
+fn unary_map_codec<H: Clone + Send + Sync + 'static>(
+    kind: &'static str,
+    value: Codec<H>,
+) -> MapCodec<Unary<H>> {
+    value.field_of("input").xmap(
+        move |input| Unary { kind, input },
+        |u: &Unary<H>| u.input.clone(),
+    )
 }
 
-fn binary_map_codec<H: Clone + Send + Sync + 'static>(kind: &'static str, value: Codec<H>) -> MapCodec<Binary<H>> {
+fn binary_map_codec<H: Clone + Send + Sync + 'static>(
+    kind: &'static str,
+    value: Codec<H>,
+) -> MapCodec<Binary<H>> {
     record!(Binary<H> { kind: MapCodec::unit(kind), left: value.field_of("left"), right: value.field_of("right") })
 }
 
-fn aggregate_map_codec<S: Clone + Send + Sync + 'static>(kind: &'static str, set: Codec<S>) -> MapCodec<Aggregate<S>> {
-    set.field_of("inputs").xmap(move |inputs| Aggregate { kind, inputs }, |a: &Aggregate<S>| a.inputs.clone())
+fn aggregate_map_codec<S: Clone + Send + Sync + 'static>(
+    kind: &'static str,
+    set: Codec<S>,
+) -> MapCodec<Aggregate<S>> {
+    set.field_of("inputs").xmap(
+        move |inputs| Aggregate { kind, inputs },
+        |a: &Aggregate<S>| a.inputs.clone(),
+    )
 }
 
 fn int_unary(kind: &'static str) -> MapCodec<Arc<dyn ContextIntProvider>> {
-    lift(unary_map_codec(kind, int_holder_codec()), |u| Arc::new(u) as IntProviderRef, |t| t.as_any().downcast_ref::<Unary<IntHolder>>())
+    lift(
+        unary_map_codec(kind, int_holder_codec()),
+        |u| Arc::new(u) as IntProviderRef,
+        |t| t.as_any().downcast_ref::<Unary<IntHolder>>(),
+    )
 }
 fn int_binary(kind: &'static str) -> MapCodec<Arc<dyn ContextIntProvider>> {
-    lift(binary_map_codec(kind, int_holder_codec()), |u| Arc::new(u) as IntProviderRef, |t| t.as_any().downcast_ref::<Binary<IntHolder>>())
+    lift(
+        binary_map_codec(kind, int_holder_codec()),
+        |u| Arc::new(u) as IntProviderRef,
+        |t| t.as_any().downcast_ref::<Binary<IntHolder>>(),
+    )
 }
 fn int_aggregate(kind: &'static str) -> MapCodec<Arc<dyn ContextIntProvider>> {
-    lift(aggregate_map_codec(kind, int_list_codec()), |u| Arc::new(u) as IntProviderRef, |t| t.as_any().downcast_ref::<Aggregate<IntHolderSet>>())
+    lift(
+        aggregate_map_codec(kind, int_list_codec()),
+        |u| Arc::new(u) as IntProviderRef,
+        |t| t.as_any().downcast_ref::<Aggregate<IntHolderSet>>(),
+    )
 }
 fn float_unary(kind: &'static str) -> MapCodec<Arc<dyn ContextFloatProvider>> {
-    lift(unary_map_codec(kind, float_holder_codec()), |u| Arc::new(u) as FloatProviderRef, |t| t.as_any().downcast_ref::<Unary<FloatHolder>>())
+    lift(
+        unary_map_codec(kind, float_holder_codec()),
+        |u| Arc::new(u) as FloatProviderRef,
+        |t| t.as_any().downcast_ref::<Unary<FloatHolder>>(),
+    )
 }
 fn float_binary(kind: &'static str) -> MapCodec<Arc<dyn ContextFloatProvider>> {
-    lift(binary_map_codec(kind, float_holder_codec()), |u| Arc::new(u) as FloatProviderRef, |t| t.as_any().downcast_ref::<Binary<FloatHolder>>())
+    lift(
+        binary_map_codec(kind, float_holder_codec()),
+        |u| Arc::new(u) as FloatProviderRef,
+        |t| t.as_any().downcast_ref::<Binary<FloatHolder>>(),
+    )
 }
 fn float_aggregate(kind: &'static str) -> MapCodec<Arc<dyn ContextFloatProvider>> {
-    lift(aggregate_map_codec(kind, float_list_codec()), |u| Arc::new(u) as FloatProviderRef, |t| t.as_any().downcast_ref::<Aggregate<FloatHolderSet>>())
+    lift(
+        aggregate_map_codec(kind, float_list_codec()),
+        |u| Arc::new(u) as FloatProviderRef,
+        |t| t.as_any().downcast_ref::<Aggregate<FloatHolderSet>>(),
+    )
 }
 
 impl Validatable for Unary<IntHolder> {
@@ -375,7 +446,10 @@ impl ContextIntProvider for Binary<IntHolder> {
                     return Err(ArithmeticException);
                 }
                 // `Math.powExact`
-                u32::try_from(r).ok().and_then(|n| l.checked_pow(n)).ok_or(ArithmeticException)
+                u32::try_from(r)
+                    .ok()
+                    .and_then(|n| l.checked_pow(n))
+                    .ok_or(ArithmeticException)
             }
             _ => unreachable!(),
         }
@@ -531,7 +605,11 @@ impl ContextFloatProvider for Binary<FloatHolder> {
 
 /// `Math.pow` special cases that differ from Rust's `powf` (`pow(±1, ±∞)` is NaN in Java).
 fn java_pow(a: f64, b: f64) -> f64 {
-    if b.is_infinite() && a.abs() == 1.0 { f64::NAN } else { a.powf(b) }
+    if b.is_infinite() && a.abs() == 1.0 {
+        f64::NAN
+    } else {
+        a.powf(b)
+    }
 }
 
 impl ContextFloatProvider for Aggregate<FloatHolderSet> {
@@ -642,7 +720,10 @@ pub struct NumberDispatcher<H: Clone + 'static> {
     pub default_value: H,
 }
 
-fn dispatcher_codec<H: Clone + Send + Sync + 'static>(value: Codec<H>, default_case: H) -> MapCodec<NumberDispatcher<H>> {
+fn dispatcher_codec<H: Clone + Send + Sync + 'static>(
+    value: Codec<H>,
+    default_case: H,
+) -> MapCodec<NumberDispatcher<H>> {
     record!(NumberDispatcher<H> {
         cases: case_codec(value.clone()).list_of().field_of("cases"),
         default_value: value.optional_field_of_default_with("default", default_case),
@@ -657,7 +738,10 @@ pub struct Conditional<H: Clone + 'static> {
     pub on_false: H,
 }
 
-fn conditional_codec<H: Clone + Send + Sync + 'static>(value: Codec<H>, default_if_false: H) -> MapCodec<Conditional<H>> {
+fn conditional_codec<H: Clone + Send + Sync + 'static>(
+    value: Codec<H>,
+    default_if_false: H,
+) -> MapCodec<Conditional<H>> {
     record!(Conditional<H> {
         condition: condition_holder_codec().field_of("condition"),
         on_true: value.field_of("on_true"),
@@ -763,7 +847,10 @@ pub struct WeightedList<E: Clone> {
 impl<E: Clone> WeightedList<E> {
     pub fn of(items: Vec<(E, i32)>) -> WeightedList<E> {
         let total_weight = items.iter().fold(0i32, |a, (_, w)| a.wrapping_add(*w));
-        WeightedList { items, total_weight }
+        WeightedList {
+            items,
+            total_weight,
+        }
     }
     pub fn is_empty(&self) -> bool {
         self.total_weight == 0
@@ -791,12 +878,23 @@ impl<E: Clone> WeightedList<E> {
         let entry = record!(WeightedEntry<E> { data: element.field_of("data"), weight: NON_NEGATIVE_INT.field_of("weight") }).codec();
         entry
             .list_of()
-            .xmap(|l| WeightedList::of(l.into_iter().map(|e| (e.data, e.weight)).collect()), |w: &WeightedList<E>| {
-                w.items.iter().map(|(d, wt)| WeightedEntry { data: d.clone(), weight: *wt }).collect()
-            })
+            .xmap(
+                |l| WeightedList::of(l.into_iter().map(|e| (e.data, e.weight)).collect()),
+                |w: &WeightedList<E>| {
+                    w.items
+                        .iter()
+                        .map(|(d, wt)| WeightedEntry {
+                            data: d.clone(),
+                            weight: *wt,
+                        })
+                        .collect()
+                },
+            )
             .validate(|list| {
                 if list.is_empty() {
-                    DataResult::error_str("Weighted list must contain at least one entry with non-zero weight")
+                    DataResult::error_str(
+                        "Weighted list must contain at least one entry with non-zero weight",
+                    )
                 } else {
                     DataResult::success(list)
                 }
@@ -815,7 +913,9 @@ pub struct WeightedListValue<H: Clone + 'static> {
     pub distribution: WeightedList<H>,
 }
 
-fn weighted_codec<H: Clone + Send + Sync + 'static>(value: Codec<H>) -> MapCodec<WeightedListValue<H>> {
+fn weighted_codec<H: Clone + Send + Sync + 'static>(
+    value: Codec<H>,
+) -> MapCodec<WeightedListValue<H>> {
     record!(WeightedListValue<H> { distribution: WeightedList::non_empty_codec(&value).field_of("distribution") })
 }
 
@@ -827,11 +927,19 @@ impl ContextIntProvider for WeightedListValue<IntHolder> {
         self
     }
     fn get_int_unsafe(&self, context: &mut LootContext) -> IntResult {
-        let chosen = self.distribution.get_random_or_throw(context.get_random()).clone();
+        let chosen = self
+            .distribution
+            .get_random_or_throw(context.get_random())
+            .clone();
         int_in(&chosen, context)
     }
     fn validate(&self, context: &ValidationContext) {
-        let list: Vec<IntHolder> = self.distribution.unwrap().iter().map(|(h, _)| h.clone()).collect();
+        let list: Vec<IntHolder> = self
+            .distribution
+            .unwrap()
+            .iter()
+            .map(|(h, _)| h.clone())
+            .collect();
         validate_holder_list(context, "distribution", &list);
     }
 }
@@ -844,11 +952,19 @@ impl ContextFloatProvider for WeightedListValue<FloatHolder> {
         self
     }
     fn get_float_unsafe(&self, context: &mut LootContext) -> FloatResult {
-        let chosen = self.distribution.get_random_or_throw(context.get_random()).clone();
+        let chosen = self
+            .distribution
+            .get_random_or_throw(context.get_random())
+            .clone();
         float_in(&chosen, context)
     }
     fn validate(&self, context: &ValidationContext) {
-        let list: Vec<FloatHolder> = self.distribution.unwrap().iter().map(|(h, _)| h.clone()).collect();
+        let list: Vec<FloatHolder> = self
+            .distribution
+            .unwrap()
+            .iter()
+            .map(|(h, _)| h.clone())
+            .collect();
         validate_holder_list(context, "distribution", &list);
     }
 }
@@ -897,7 +1013,11 @@ impl ContextFloatProvider for FloatUniform {
     fn get_float_unsafe(&self, context: &mut LootContext) -> FloatResult {
         let min = float_in(&self.min, context)?;
         let max = float_in(&self.max, context)?;
-        Ok(mc_core::math::mth::next_float(context.get_random(), min, max))
+        Ok(mc_core::math::mth::next_float(
+            context.get_random(),
+            min,
+            max,
+        ))
     }
     fn validate(&self, context: &ValidationContext) {
         validate_holder_field(context, "min", &self.min);
@@ -921,7 +1041,10 @@ impl ContextIntProvider for Binomial {
     }
     fn get_int_unsafe(&self, context: &mut LootContext) -> IntResult {
         let n = int_in(&self.n, context)?;
-        let p = self.p.value(context.get_resolver()).get_float_or_throw(context)?;
+        let p = self
+            .p
+            .value(context.get_resolver())
+            .get_float_or_throw(context)?;
         let random = context.get_random();
         let mut result = 0;
         for _ in 0..n {
@@ -1000,7 +1123,10 @@ impl ContextIntProvider for ScoreboardValue {
         self.target.referenced_params()
     }
     fn get_int_unsafe(&self, context: &mut LootContext) -> IntResult {
-        let score = self.target.get_score_holder(context).and_then(|name| server_access::score(context.get_level(), &name, &self.score));
+        let score = self
+            .target
+            .get_score_holder(context)
+            .and_then(|name| server_access::score(context.get_level(), &name, &self.score));
         match score {
             Some(v) => Ok(v),
             None => int_in(&self.fallback, context),
@@ -1031,7 +1157,11 @@ impl StoredNumberAccess {
     pub fn get_numeric_tag(&self, context: &LootContext) -> Option<Number> {
         let value = server_access::command_storage(context.get_level(), &self.storage);
         let selected = self.path.get(&Tag::Compound(value)).ok()?;
-        if selected.len() == 1 { selected[0].as_number() } else { None }
+        if selected.len() == 1 {
+            selected[0].as_number()
+        } else {
+            None
+        }
     }
 }
 
@@ -1102,7 +1232,9 @@ impl ContextFloatProvider for EnchantmentLevelProvider {
         vec![ContextKey::EnchantmentLevel]
     }
     fn get_float_unsafe(&self, context: &mut LootContext) -> FloatResult {
-        Ok(self.amount.calculate(context.params().enchantment_level.unwrap_or(0)))
+        Ok(self
+            .amount
+            .calculate(context.params().enchantment_level.unwrap_or(0)))
     }
     fn validate(&self, context: &ValidationContext) {
         context.validate_context_usage(&self.referenced_params());
@@ -1130,10 +1262,15 @@ impl ContextIntProvider for EnvironmentAttributeValue {
         self
     }
     fn referenced_params(&self) -> Vec<ContextKey> {
-        if self.is_positional() { vec![ContextKey::Origin] } else { vec![] }
+        if self.is_positional() {
+            vec![ContextKey::Origin]
+        } else {
+            vec![]
+        }
     }
     fn get_int_unsafe(&self, context: &mut LootContext) -> IntResult {
-        server_access::environment_attribute_int(context, &self.attribute).ok_or(ArithmeticException)
+        server_access::environment_attribute_int(context, &self.attribute)
+            .ok_or(ArithmeticException)
     }
     fn validate(&self, context: &ValidationContext) {
         context.validate_context_usage(&ContextIntProvider::referenced_params(self));
@@ -1148,10 +1285,15 @@ impl ContextFloatProvider for EnvironmentAttributeValue {
         self
     }
     fn referenced_params(&self) -> Vec<ContextKey> {
-        if self.is_positional() { vec![ContextKey::Origin] } else { vec![] }
+        if self.is_positional() {
+            vec![ContextKey::Origin]
+        } else {
+            vec![]
+        }
     }
     fn get_float_unsafe(&self, context: &mut LootContext) -> FloatResult {
-        server_access::environment_attribute_float(context, &self.attribute).ok_or(ArithmeticException)
+        server_access::environment_attribute_float(context, &self.attribute)
+            .ok_or(ArithmeticException)
     }
     fn validate(&self, context: &ValidationContext) {
         context.validate_context_usage(&ContextFloatProvider::referenced_params(self));
@@ -1161,17 +1303,39 @@ impl ContextFloatProvider for EnvironmentAttributeValue {
 // ---- type tables ------------------------------------------------------------------------------------------------------
 
 fn int_attribute_codec() -> MapCodec<Arc<dyn ContextIntProvider>> {
-    server_access::environment_attribute_codec(false)
-        .xmap(|attribute| Arc::new(EnvironmentAttributeValue { attribute, as_float: false }) as IntProviderRef, |p: &IntProviderRef| {
-            p.as_any().downcast_ref::<EnvironmentAttributeValue>().expect("attribute provider").attribute.clone()
-        })
+    server_access::environment_attribute_codec(false).xmap(
+        |attribute| {
+            Arc::new(EnvironmentAttributeValue {
+                attribute,
+                as_float: false,
+            }) as IntProviderRef
+        },
+        |p: &IntProviderRef| {
+            p.as_any()
+                .downcast_ref::<EnvironmentAttributeValue>()
+                .expect("attribute provider")
+                .attribute
+                .clone()
+        },
+    )
 }
 
 fn float_attribute_codec() -> MapCodec<Arc<dyn ContextFloatProvider>> {
-    server_access::environment_attribute_codec(true)
-        .xmap(|attribute| Arc::new(EnvironmentAttributeValue { attribute, as_float: true }) as FloatProviderRef, |p: &FloatProviderRef| {
-            p.as_any().downcast_ref::<EnvironmentAttributeValue>().expect("attribute provider").attribute.clone()
-        })
+    server_access::environment_attribute_codec(true).xmap(
+        |attribute| {
+            Arc::new(EnvironmentAttributeValue {
+                attribute,
+                as_float: true,
+            }) as FloatProviderRef
+        },
+        |p: &FloatProviderRef| {
+            p.as_any()
+                .downcast_ref::<EnvironmentAttributeValue>()
+                .expect("attribute provider")
+                .attribute
+                .clone()
+        },
+    )
 }
 
 impl ProviderTypes for dyn ContextIntProvider {
@@ -1185,7 +1349,10 @@ impl ProviderTypes for dyn ContextIntProvider {
                 (
                     "binomial",
                     lift(
-                        record!(Binomial { n: h().field_of("n"), p: float_holder_codec().field_of("p") }),
+                        record!(Binomial {
+                            n: h().field_of("n"),
+                            p: float_holder_codec().field_of("p")
+                        }),
                         |v| Arc::new(v) as IntProviderRef,
                         |t| t.as_any().downcast_ref::<Binomial>(),
                     ),
@@ -1200,14 +1367,20 @@ impl ProviderTypes for dyn ContextIntProvider {
                 ),
                 (
                     "constant",
-                    lift(IntConstant::map_codec(), |v| Arc::new(v) as IntProviderRef, |t| t.as_any().downcast_ref::<IntConstant>()),
+                    lift(
+                        IntConstant::map_codec(),
+                        |v| Arc::new(v) as IntProviderRef,
+                        |t| t.as_any().downcast_ref::<IntConstant>(),
+                    ),
                 ),
                 ("sub", int_binary("sub")),
                 ("environment_attribute", int_attribute_codec()),
                 (
                     "from_float",
                     lift(
-                        float_holder_codec().field_of("input").xmap(|input| FromFloat { input }, |f: &FromFloat| f.input.clone()),
+                        float_holder_codec()
+                            .field_of("input")
+                            .xmap(|input| FromFloat { input }, |f: &FromFloat| f.input.clone()),
                         |v| Arc::new(v) as IntProviderRef,
                         |t| t.as_any().downcast_ref::<FromFloat>(),
                     ),
@@ -1229,7 +1402,11 @@ impl ProviderTypes for dyn ContextIntProvider {
                 ),
                 ("pow", {
                     let c = record!(Binary<IntHolder> { kind: MapCodec::unit("pow"), left: h().field_of("base"), right: h().field_of("exponent") });
-                    lift(c, |v| Arc::new(v) as IntProviderRef, |t| t.as_any().downcast_ref::<Binary<IntHolder>>())
+                    lift(
+                        c,
+                        |v| Arc::new(v) as IntProviderRef,
+                        |t| t.as_any().downcast_ref::<Binary<IntHolder>>(),
+                    )
                 }),
                 ("mul", int_aggregate("mul")),
                 (
@@ -1238,7 +1415,8 @@ impl ProviderTypes for dyn ContextIntProvider {
                         record!(ScoreboardValue {
                             target: scoreboard_name_provider_codec().field_of("target"),
                             score: mc_dfu::STRING.field_of("score"),
-                            fallback: h().optional_field_of_default_with("fallback", int_exactly(0)),
+                            fallback: h()
+                                .optional_field_of_default_with("fallback", int_exactly(0)),
                         }),
                         |v| Arc::new(v) as IntProviderRef,
                         |t| t.as_any().downcast_ref::<ScoreboardValue>(),
@@ -1249,7 +1427,8 @@ impl ProviderTypes for dyn ContextIntProvider {
                     lift(
                         record!(IntStorageValue {
                             access: StoredNumberAccess::map_codec(),
-                            fallback: h().optional_field_of_default_with("fallback", int_exactly(0)),
+                            fallback: h()
+                                .optional_field_of_default_with("fallback", int_exactly(0)),
                         }),
                         |v| Arc::new(v) as IntProviderRef,
                         |t| t.as_any().downcast_ref::<IntStorageValue>(),
@@ -1259,14 +1438,21 @@ impl ProviderTypes for dyn ContextIntProvider {
                 (
                     "uniform",
                     lift(
-                        record!(IntUniform { min: h().field_of("min"), max: h().field_of("max") }),
+                        record!(IntUniform {
+                            min: h().field_of("min"),
+                            max: h().field_of("max")
+                        }),
                         |v| Arc::new(v) as IntProviderRef,
                         |t| t.as_any().downcast_ref::<IntUniform>(),
                     ),
                 ),
                 (
                     "weighted_list",
-                    lift(weighted_codec(h()), |v| Arc::new(v) as IntProviderRef, |t| t.as_any().downcast_ref::<WeightedListValue<IntHolder>>()),
+                    lift(
+                        weighted_codec(h()),
+                        |v| Arc::new(v) as IntProviderRef,
+                        |t| t.as_any().downcast_ref::<WeightedListValue<IntHolder>>(),
+                    ),
                 ),
             ],
         )
@@ -1292,16 +1478,24 @@ impl ProviderTypes for dyn ContextFloatProvider {
                 ),
                 (
                     "constant",
-                    lift(FloatConstant::map_codec(), |v| Arc::new(v) as FloatProviderRef, |t| t.as_any().downcast_ref::<FloatConstant>()),
+                    lift(
+                        FloatConstant::map_codec(),
+                        |v| Arc::new(v) as FloatProviderRef,
+                        |t| t.as_any().downcast_ref::<FloatConstant>(),
+                    ),
                 ),
                 ("cos", float_unary("cos")),
                 ("sub", float_binary("sub")),
                 (
                     "enchantment_level",
                     lift(
-                        crate::world::item::enchantment::level_based_value::LevelBasedValue::codec()
-                            .field_of("amount")
-                            .xmap(|amount| EnchantmentLevelProvider { amount }, |p: &EnchantmentLevelProvider| p.amount.clone()),
+                        crate::world::item::enchantment::level_based_value::LevelBasedValue::codec(
+                        )
+                        .field_of("amount")
+                        .xmap(
+                            |amount| EnchantmentLevelProvider { amount },
+                            |p: &EnchantmentLevelProvider| p.amount.clone(),
+                        ),
                         |v| Arc::new(v) as FloatProviderRef,
                         |t| t.as_any().downcast_ref::<EnchantmentLevelProvider>(),
                     ),
@@ -1311,7 +1505,9 @@ impl ProviderTypes for dyn ContextFloatProvider {
                 (
                     "from_int",
                     lift(
-                        int_holder_codec().field_of("input").xmap(|input| FromInt { input }, |f: &FromInt| f.input.clone()),
+                        int_holder_codec()
+                            .field_of("input")
+                            .xmap(|input| FromInt { input }, |f: &FromInt| f.input.clone()),
                         |v| Arc::new(v) as FloatProviderRef,
                         |t| t.as_any().downcast_ref::<FromInt>(),
                     ),
@@ -1331,7 +1527,11 @@ impl ProviderTypes for dyn ContextFloatProvider {
                 ),
                 ("pow", {
                     let c = record!(Binary<FloatHolder> { kind: MapCodec::unit("pow"), left: h().field_of("base"), right: h().field_of("exponent") });
-                    lift(c, |v| Arc::new(v) as FloatProviderRef, |t| t.as_any().downcast_ref::<Binary<FloatHolder>>())
+                    lift(
+                        c,
+                        |v| Arc::new(v) as FloatProviderRef,
+                        |t| t.as_any().downcast_ref::<Binary<FloatHolder>>(),
+                    )
                 }),
                 ("mul", float_aggregate("mul")),
                 ("div", float_binary("div")),
@@ -1343,7 +1543,8 @@ impl ProviderTypes for dyn ContextFloatProvider {
                     lift(
                         record!(FloatStorageValue {
                             access: StoredNumberAccess::map_codec(),
-                            fallback: h().optional_field_of_default_with("fallback", float_exactly(0.0)),
+                            fallback: h()
+                                .optional_field_of_default_with("fallback", float_exactly(0.0)),
                         }),
                         |v| Arc::new(v) as FloatProviderRef,
                         |t| t.as_any().downcast_ref::<FloatStorageValue>(),
@@ -1354,14 +1555,21 @@ impl ProviderTypes for dyn ContextFloatProvider {
                 (
                     "uniform",
                     lift(
-                        record!(FloatUniform { min: h().field_of("min"), max: h().field_of("max") }),
+                        record!(FloatUniform {
+                            min: h().field_of("min"),
+                            max: h().field_of("max")
+                        }),
                         |v| Arc::new(v) as FloatProviderRef,
                         |t| t.as_any().downcast_ref::<FloatUniform>(),
                     ),
                 ),
                 (
                     "weighted_list",
-                    lift(weighted_codec(h()), |v| Arc::new(v) as FloatProviderRef, |t| t.as_any().downcast_ref::<WeightedListValue<FloatHolder>>()),
+                    lift(
+                        weighted_codec(h()),
+                        |v| Arc::new(v) as FloatProviderRef,
+                        |t| t.as_any().downcast_ref::<WeightedListValue<FloatHolder>>(),
+                    ),
                 ),
             ],
         )
@@ -1396,7 +1604,11 @@ impl ResolvableInt {
     pub fn get(&self, context: &mut LootContext, default_value: i32) -> i32 {
         match self {
             ResolvableInt::Constant(v) => *v,
-            ResolvableInt::Reference(key) => match context.get_resolver().get::<IntProviderRef>(keys::CONTEXT_INT_PROVIDER, key).cloned() {
+            ResolvableInt::Reference(key) => match context
+                .get_resolver()
+                .get::<IntProviderRef>(keys::CONTEXT_INT_PROVIDER, key)
+                .cloned()
+            {
                 Some(p) => p.get_int(context),
                 None => default_value,
             },
@@ -1428,7 +1640,11 @@ impl ResolvableFloat {
     pub fn get(&self, context: &mut LootContext, default_value: f32) -> f32 {
         match self {
             ResolvableFloat::Constant(v) => *v,
-            ResolvableFloat::Reference(key) => match context.get_resolver().get::<FloatProviderRef>(keys::CONTEXT_FLOAT_PROVIDER, key).cloned() {
+            ResolvableFloat::Reference(key) => match context
+                .get_resolver()
+                .get::<FloatProviderRef>(keys::CONTEXT_FLOAT_PROVIDER, key)
+                .cloned()
+            {
                 Some(p) => p.get_float(context),
                 None => default_value,
             },

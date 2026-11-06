@@ -1,5 +1,12 @@
 //! `Bat` (`AmbientCreature`).
 
+use linkme::distributed_slice;
+use mc_core::math::mth;
+use mc_core::phys::Vec3;
+use mc_core::pos::BlockPos;
+use mc_core::random::RandomSource;
+use mc_data::enums::EntitySpawnReason;
+use mc_data::{EntityType, SoundEvent};
 use mc_game_core::define_accessor;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::damagesource::DamageSource;
@@ -12,13 +19,6 @@ use mc_game_core::world::entity::{Entity, EntityId, MovementEmission};
 use mc_game_core::world::level::block::BlockStateExt as _;
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_game_core::world::level::{BlockGetter as _, LevelAccessor as _, LevelReader as _};
-use linkme::distributed_slice;
-use mc_core::math::mth;
-use mc_core::phys::Vec3;
-use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
-use mc_data::enums::EntitySpawnReason;
-use mc_data::{EntityType, SoundEvent};
 use mc_nbt::CompoundTag;
 use mc_world::heightmap::HeightmapType;
 use std::sync::LazyLock;
@@ -30,7 +30,8 @@ pub const TICKS_PER_FLAP: f32 = 10.0;
 const FLAG_RESTING: i8 = 1;
 
 /// `BAT_RESTING_TARGETING`.
-static BAT_RESTING_TARGETING: LazyLock<TargetingConditions> = LazyLock::new(|| TargetingConditions::for_non_combat().range(4.0));
+static BAT_RESTING_TARGETING: LazyLock<TargetingConditions> =
+    LazyLock::new(|| TargetingConditions::for_non_combat().range(4.0));
 
 /// `Bat`.
 pub struct Bat {
@@ -40,7 +41,11 @@ pub struct Bat {
 
 /// `Math.signum(double)`: zeros and NaN are returned unchanged.
 fn signum(d: f64) -> f64 {
-    if d == 0.0 || d.is_nan() { d } else { d.signum() }
+    if d == 0.0 || d.is_nan() {
+        d
+    } else {
+        d.signum()
+    }
 }
 
 impl Bat {
@@ -49,7 +54,10 @@ impl Bat {
         let mob = MobData::new(ty, id, MobKind::Mob, |b| {
             b.define(DATA_ID_FLAGS, 0);
         });
-        let mut bat = Bat { mob, target_position: None };
+        let mut bat = Bat {
+            mob,
+            target_position: None,
+        };
         let navigation = StandardPathNavigation::ground(&bat);
         bat.mob.set_navigation(Box::new(navigation));
         bat.set_resting(true);
@@ -64,7 +72,10 @@ impl Bat {
     /// `setResting(value)`.
     pub fn set_resting(&mut self, value: bool) {
         let current = self.mob.living.entity.entity_data.get(DATA_ID_FLAGS);
-        self.mob.living.entity.entity_data.set(DATA_ID_FLAGS, if value { current | 1 } else { current & -2 });
+        self.mob.living.entity.entity_data.set(
+            DATA_ID_FLAGS,
+            if value { current | 1 } else { current & -2 },
+        );
     }
 }
 
@@ -96,7 +107,11 @@ impl Entity for Bat {
         if self.is_resting() && self.base_mut().random.next_int_bounded(4) != 0 {
             return;
         }
-        mc_game_core::world::entity::living_entity::damage::make_sound(self, level, SoundEvent::ENTITY_BAT_AMBIENT);
+        mc_game_core::world::entity::living_entity::damage::make_sound(
+            self,
+            level,
+            SoundEvent::ENTITY_BAT_AMBIENT,
+        );
     }
 
     fn get_hurt_sound(&self, _source: &DamageSource) -> Option<SoundEvent> {
@@ -124,12 +139,14 @@ impl Entity for Bat {
         mob::tick::tick(self, level);
         if self.is_resting() {
             self.base_mut().set_delta_movement(Vec3::ZERO);
-            let y = f64::from(mth::floor_f64(self.base().y())) + 1.0 - f64::from(self.base().get_bb_height());
+            let y = f64::from(mth::floor_f64(self.base().y())) + 1.0
+                - f64::from(self.base().get_bb_height());
             let (x, z) = (self.base().x(), self.base().z());
             self.base_mut().set_pos_raw(x, y, z);
         } else {
             let movement = self.base().delta_movement();
-            self.base_mut().set_delta_movement(movement.multiply_xyz(1.0, 0.6, 1.0));
+            self.base_mut()
+                .set_delta_movement(movement.multiply_xyz(1.0, 0.6, 1.0));
         }
     }
 
@@ -144,7 +161,9 @@ impl Entity for Bat {
                     lm(self).y_head_rot = yaw;
                 }
                 let p = self.base().position();
-                if mob::ext::get_nearest_player(level, &BAT_RESTING_TARGETING, self, p.x, p.y, p.z).is_some() {
+                if mob::ext::get_nearest_player(level, &BAT_RESTING_TARGETING, self, p.x, p.y, p.z)
+                    .is_some()
+                {
                     self.set_resting(false);
                     if !is_silent {
                         level.level_event_impl(None, 1025, pos, 0);
@@ -165,13 +184,18 @@ impl Entity for Bat {
             let position = self.base().position();
             let needs_new_target = match self.target_position {
                 None => true,
-                Some(target) => self.base_mut().random.next_int_bounded(30) == 0 || target.closer_to_center_than(&position, 2.0),
+                Some(target) => {
+                    self.base_mut().random.next_int_bounded(30) == 0
+                        || target.closer_to_center_than(&position, 2.0)
+                }
             };
             if needs_new_target {
                 let random = &mut self.base_mut().random;
-                let x = position.x + f64::from(random.next_int_bounded(7)) - f64::from(random.next_int_bounded(7));
+                let x = position.x + f64::from(random.next_int_bounded(7))
+                    - f64::from(random.next_int_bounded(7));
                 let y = position.y + f64::from(random.next_int_bounded(6)) - 2.0;
-                let z = position.z + f64::from(random.next_int_bounded(7)) - f64::from(random.next_int_bounded(7));
+                let z = position.z + f64::from(random.next_int_bounded(7))
+                    - f64::from(random.next_int_bounded(7));
                 self.target_position = Some(BlockPos::containing(x, y, z));
             }
             let target = self.target_position.expect("target position was just set");
@@ -186,12 +210,16 @@ impl Entity for Bat {
                 (signum(dz) * 0.5 - movement.z) * f64::from(0.1f32),
             );
             self.base_mut().set_delta_movement(new_movement);
-            let y_rot_d = (mth::atan2(new_movement.z, new_movement.x) * f64::from(180.0f32) / f64::from(std::f32::consts::PI)) as f32 - 90.0;
+            let y_rot_d = (mth::atan2(new_movement.z, new_movement.x) * f64::from(180.0f32)
+                / f64::from(std::f32::consts::PI)) as f32
+                - 90.0;
             let rot_diff = mth::wrap_degrees_f32(y_rot_d - self.base().y_rot());
             lm(self).zza = 0.5;
             let y_rot = self.base().y_rot() + rot_diff;
             self.set_y_rot(y_rot);
-            if self.base_mut().random.next_int_bounded(100) == 0 && level.get_block_state(above).is_redstone_conductor() {
+            if self.base_mut().random.next_int_bounded(100) == 0
+                && level.get_block_state(above).is_redstone_conductor()
+            {
                 self.set_resting(true);
             }
         }
@@ -201,7 +229,15 @@ impl Entity for Bat {
         MovementEmission::Events
     }
 
-    fn check_fall_damage(&mut self, _level: &mut ServerLevel, _ya: f64, _on_ground: bool, _on_state: mc_data::block::BlockState, _pos: BlockPos) {}
+    fn check_fall_damage(
+        &mut self,
+        _level: &mut ServerLevel,
+        _ya: f64,
+        _on_ground: bool,
+        _on_state: mc_data::block::BlockState,
+        _pos: BlockPos,
+    ) {
+    }
 
     fn is_ignoring_block_triggers(&self) -> bool {
         true
@@ -219,31 +255,52 @@ impl Entity for Bat {
 
     fn add_additional_save_data(&self, out: &mut CompoundTag) {
         mob::nbt::add_additional_save_data(self, out);
-        out.put_byte("BatFlags", self.mob.living.entity.entity_data.get(DATA_ID_FLAGS));
+        out.put_byte(
+            "BatFlags",
+            self.mob.living.entity.entity_data.get(DATA_ID_FLAGS),
+        );
     }
 
     fn read_additional_save_data(&mut self, input: &CompoundTag) {
         mob::nbt::read_additional_save_data(self, input);
-        self.mob.living.entity.entity_data.set(DATA_ID_FLAGS, input.get_byte_or("BatFlags", 0));
+        self.mob
+            .living
+            .entity
+            .entity_data
+            .set(DATA_ID_FLAGS, input.get_byte_or("BatFlags", 0));
     }
 }
 
 /// `Bat.checkBatSpawnRules(type, level, spawnReason, pos, random)`.
-pub fn check_bat_spawn_rules(ty: EntityType, level: &dyn ServerLevelAccessor, reason: EntitySpawnReason, pos: BlockPos, random: &mut dyn RandomSource) -> bool {
+pub fn check_bat_spawn_rules(
+    ty: EntityType,
+    level: &dyn ServerLevelAccessor,
+    reason: EntitySpawnReason,
+    pos: BlockPos,
+    random: &mut dyn RandomSource,
+) -> bool {
     if pos.y() >= level.get_height_at(HeightmapType::WorldSurface, pos.x(), pos.z()) {
         false
     } else if random.next_boolean() {
         false
     } else if level.get_max_local_raw_brightness(pos) > random.next_int_bounded(4) {
         false
-    } else if !level.get_block_state(pos.below()).is_tag("bats_spawnable_on") {
+    } else if !level
+        .get_block_state(pos.below())
+        .is_tag("bats_spawnable_on")
+    {
         false
     } else {
-        mc_game_core::world::entity::spawn_predicates::check_mob_spawn_rules(ty, level, reason, pos, random)
+        mc_game_core::world::entity::spawn_predicates::check_mob_spawn_rules(
+            ty, level, reason, pos, random,
+        )
     }
 }
 
 mc_game_core::register_spawn_placement!(EntityType::BAT, check_bat_spawn_rules);
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static BAT: EntityRegistration = EntityRegistration { entity_type: EntityType::BAT, create: |ty, id, _registries| Box::new(Bat::new(ty, id)) };
+static BAT: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::BAT,
+    create: |ty, id, _registries| Box::new(Bat::new(ty, id)),
+};

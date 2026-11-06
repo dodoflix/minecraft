@@ -2,11 +2,11 @@
 //! `toVector3f`) and `Position` (only `Vec3` implements it) are not ported.
 
 use crate::direction::{Axis, Direction};
+use crate::math::java::java_double_to_string;
 use crate::math::mth;
 use crate::phys::Vec2;
 use crate::pos::Vec3i;
 use crate::random::RandomSource;
-use crate::math::java::java_double_to_string;
 use std::fmt;
 use std::hash::{Hash, Hasher};
 use std::ops::{Add, Mul, Neg, Sub};
@@ -18,7 +18,11 @@ const RAD_TO_DEG_F32: f32 = 180.0 / (std::f64::consts::PI as f32);
 
 /// `Double.doubleToLongBits` (all NaNs canonicalised).
 pub(crate) fn double_to_long_bits(v: f64) -> u64 {
-    if v.is_nan() { 0x7ff8_0000_0000_0000 } else { v.to_bits() }
+    if v.is_nan() {
+        0x7ff8_0000_0000_0000
+    } else {
+        v.to_bits()
+    }
 }
 
 /// `(int)(temp ^ temp >>> 32)` of `Double.doubleToLongBits`.
@@ -107,7 +111,11 @@ impl Vec3 {
 
     pub fn normalize(&self) -> Vec3 {
         let dist = (self.x * self.x + self.y * self.y + self.z * self.z).sqrt();
-        if dist < 1.0E-5_f32 as f64 { Vec3::ZERO } else { Vec3::new(self.x / dist, self.y / dist, self.z / dist) }
+        if dist < 1.0E-5_f32 as f64 {
+            Vec3::ZERO
+        } else {
+            Vec3::new(self.x / dist, self.y / dist, self.z / dist)
+        }
     }
 
     pub fn dot(&self, vec: Vec3) -> f64 {
@@ -115,7 +123,11 @@ impl Vec3 {
     }
 
     pub fn cross(&self, vec: Vec3) -> Vec3 {
-        Vec3::new(self.y * vec.z - self.z * vec.y, self.z * vec.x - self.x * vec.z, self.x * vec.y - self.y * vec.x)
+        Vec3::new(
+            self.y * vec.z - self.z * vec.y,
+            self.z * vec.x - self.x * vec.z,
+            self.x * vec.y - self.y * vec.x,
+        )
     }
 
     pub fn subtract(&self, vec: Vec3) -> Vec3 {
@@ -231,7 +243,11 @@ impl Vec3 {
     }
 
     pub fn lerp(&self, vec: Vec3, a: f64) -> Vec3 {
-        Vec3::new(mth::lerp_f64(a, self.x, vec.x), mth::lerp_f64(a, self.y, vec.y), mth::lerp_f64(a, self.z, vec.z))
+        Vec3::new(
+            mth::lerp_f64(a, self.x, vec.x),
+            mth::lerp_f64(a, self.y, vec.y),
+            mth::lerp_f64(a, self.z, vec.z),
+        )
     }
 
     pub fn x_rot(&self, radians: f32) -> Vec3 {
@@ -282,15 +298,29 @@ impl Vec3 {
     /// `rotation()`: `(pitch, yaw)` in degrees.
     pub fn rotation(&self) -> Vec2 {
         let yaw = ((-self.x).atan2(self.z) as f32) * RAD_TO_DEG_F32;
-        let pitch = ((-self.y / (self.x * self.x + self.y * self.y + self.z * self.z).sqrt()).asin() as f32) * RAD_TO_DEG_F32;
+        let pitch = ((-self.y / (self.x * self.x + self.y * self.y + self.z * self.z).sqrt()).asin()
+            as f32)
+            * RAD_TO_DEG_F32;
         Vec2::new(pitch, yaw)
     }
 
     /// `align(EnumSet<Axis>)`
     pub fn align(&self, axes: &[Axis]) -> Vec3 {
-        let x = if axes.contains(&Axis::X) { mth::floor_f64(self.x) as f64 } else { self.x };
-        let y = if axes.contains(&Axis::Y) { mth::floor_f64(self.y) as f64 } else { self.y };
-        let z = if axes.contains(&Axis::Z) { mth::floor_f64(self.z) as f64 } else { self.z };
+        let x = if axes.contains(&Axis::X) {
+            mth::floor_f64(self.x) as f64
+        } else {
+            self.x
+        };
+        let y = if axes.contains(&Axis::Y) {
+            mth::floor_f64(self.y) as f64
+        } else {
+            self.y
+        };
+        let z = if axes.contains(&Axis::Z) {
+            mth::floor_f64(self.z) as f64
+        } else {
+            self.z
+        };
         Vec3::new(x, y, z)
     }
 
@@ -316,7 +346,11 @@ impl Vec3 {
     }
 
     pub fn projected_on(&self, onto: Vec3) -> Vec3 {
-        if onto.length_sqr() == 0.0 { onto } else { onto.scale(self.dot(onto)).scale(1.0 / onto.length_sqr()) }
+        if onto.length_sqr() == 0.0 {
+            onto
+        } else {
+            onto.scale(self.dot(onto)).scale(1.0 / onto.length_sqr())
+        }
     }
 
     pub fn is_finite(&self) -> bool {

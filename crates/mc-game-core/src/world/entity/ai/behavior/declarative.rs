@@ -63,7 +63,10 @@ impl<U: MemoryData> MemoryAccessor<U> for Registered<U> {
 }
 
 enum Condition {
-    Memory { id: MemoryTypeId, kind: Kind },
+    Memory {
+        id: MemoryTypeId,
+        kind: Kind,
+    },
     /// `i.ifTriggered(trigger)`.
     Gate(Box<dyn Trigger>),
 }
@@ -98,7 +101,10 @@ impl<'a> TriggerContext<'a> {
 
     /// `i.get(present)`.
     pub fn get<U: MemoryData>(&self, handle: &Present<U>) -> &U {
-        self.values[handle.index].as_ref().and_then(U::from_value).expect("present memory holds its value")
+        self.values[handle.index]
+            .as_ref()
+            .and_then(U::from_value)
+            .expect("present memory holds its value")
     }
 
     /// `i.tryGet(registered)`.
@@ -108,7 +114,9 @@ impl<'a> TriggerContext<'a> {
 
     /// `i.get(present)` of an untyped memory.
     pub fn get_value(&self, handle: &PresentUntyped) -> &MemoryValue {
-        self.values[handle.index].as_ref().expect("present memory holds its value")
+        self.values[handle.index]
+            .as_ref()
+            .expect("present memory holds its value")
     }
 
     /// `accessor.erase()` of an untyped memory.
@@ -118,17 +126,32 @@ impl<'a> TriggerContext<'a> {
 
     /// `accessor.set(value)`.
     pub fn set<U: MemoryData>(&mut self, handle: &impl MemoryAccessor<U>, value: U) {
-        self.body.brain_mut().set_memory(handle.memory_type(), value);
+        self.body
+            .brain_mut()
+            .set_memory(handle.memory_type(), value);
     }
 
     /// `accessor.setOrErase(value)`.
-    pub fn set_or_erase<U: MemoryData>(&mut self, handle: &impl MemoryAccessor<U>, value: Option<U>) {
-        self.body.brain_mut().set_memory_opt(handle.memory_type(), value);
+    pub fn set_or_erase<U: MemoryData>(
+        &mut self,
+        handle: &impl MemoryAccessor<U>,
+        value: Option<U>,
+    ) {
+        self.body
+            .brain_mut()
+            .set_memory_opt(handle.memory_type(), value);
     }
 
     /// `accessor.setWithExpiry(value, timeToLive)`.
-    pub fn set_with_expiry<U: MemoryData>(&mut self, handle: &impl MemoryAccessor<U>, value: U, time_to_live: i64) {
-        self.body.brain_mut().set_memory_with_expiry(handle.memory_type(), value, time_to_live);
+    pub fn set_with_expiry<U: MemoryData>(
+        &mut self,
+        handle: &impl MemoryAccessor<U>,
+        value: U,
+        time_to_live: i64,
+    ) {
+        self.body
+            .brain_mut()
+            .set_memory_with_expiry(handle.memory_type(), value, time_to_live);
     }
 
     /// `accessor.erase()`.
@@ -152,22 +175,34 @@ impl BehaviorBuilder {
 
     /// `i.present(memory)`.
     pub fn present<U: MemoryData>(&mut self, memory: &MemoryModuleType<U>) -> Present<U> {
-        Present { index: self.add_memory(memory.id(), Kind::Present), memory: *memory }
+        Present {
+            index: self.add_memory(memory.id(), Kind::Present),
+            memory: *memory,
+        }
     }
 
     /// `i.present(memory)` for an untyped memory type.
     pub fn present_untyped(&mut self, id: MemoryTypeId) -> PresentUntyped {
-        PresentUntyped { index: self.add_memory(id, Kind::Present), id }
+        PresentUntyped {
+            index: self.add_memory(id, Kind::Present),
+            id,
+        }
     }
 
     /// `i.absent(memory)`.
     pub fn absent<U: MemoryData>(&mut self, memory: &MemoryModuleType<U>) -> Absent<U> {
-        Absent { index: self.add_memory(memory.id(), Kind::Absent), memory: *memory }
+        Absent {
+            index: self.add_memory(memory.id(), Kind::Absent),
+            memory: *memory,
+        }
     }
 
     /// `i.registered(memory)`.
     pub fn registered<U: MemoryData>(&mut self, memory: &MemoryModuleType<U>) -> Registered<U> {
-        Registered { index: self.add_memory(memory.id(), Kind::Registered), memory: *memory }
+        Registered {
+            index: self.add_memory(memory.id(), Kind::Registered),
+            memory: *memory,
+        }
     }
 
     /// `i.ifTriggered(trigger)`: the gate runs (and may have side effects) at this position of the evaluation.
@@ -176,8 +211,14 @@ impl BehaviorBuilder {
     }
 
     /// `BehaviorBuilder.create(i -> i.group(...).apply(i, (...) -> trigger))` for the conditions declared so far.
-    pub fn create(self, mut trigger: impl FnMut(&mut TriggerContext<'_>) -> bool + 'static) -> OneShot {
-        let BehaviorBuilder { mut conditions, memory_values } = self;
+    pub fn create(
+        self,
+        mut trigger: impl FnMut(&mut TriggerContext<'_>) -> bool + 'static,
+    ) -> OneShot {
+        let BehaviorBuilder {
+            mut conditions,
+            memory_values,
+        } = self;
         let required: Vec<MemoryTypeId> = conditions
             .iter()
             .filter_map(|c| match c {
@@ -185,33 +226,48 @@ impl BehaviorBuilder {
                 Condition::Gate(_) => None,
             })
             .collect();
-        let debug = format!("OneShot[{}]", required.iter().map(|m| format!("M[{m}]")).collect::<Vec<_>>().join(" * "));
-        let evaluate = move |level: &mut ServerLevel, body: &mut dyn Entity, timestamp: i64| -> bool {
-            let mut values: Vec<Option<MemoryValue>> = Vec::with_capacity(memory_values);
-            for condition in conditions.iter_mut() {
-                match condition {
-                    Condition::Memory { id, kind } => {
-                        // `Brain.getMemoryInternal`: null when the memory is not registered
-                        let Some(slot) = body.brain().get_memory_value(*id) else { return false };
-                        let ok = match kind {
-                            Kind::Present => slot.is_some(),
-                            Kind::Absent => slot.is_none(),
-                            Kind::Registered => true,
-                        };
-                        if !ok {
-                            return false;
+        let debug = format!(
+            "OneShot[{}]",
+            required
+                .iter()
+                .map(|m| format!("M[{m}]"))
+                .collect::<Vec<_>>()
+                .join(" * ")
+        );
+        let evaluate =
+            move |level: &mut ServerLevel, body: &mut dyn Entity, timestamp: i64| -> bool {
+                let mut values: Vec<Option<MemoryValue>> = Vec::with_capacity(memory_values);
+                for condition in conditions.iter_mut() {
+                    match condition {
+                        Condition::Memory { id, kind } => {
+                            // `Brain.getMemoryInternal`: null when the memory is not registered
+                            let Some(slot) = body.brain().get_memory_value(*id) else {
+                                return false;
+                            };
+                            let ok = match kind {
+                                Kind::Present => slot.is_some(),
+                                Kind::Absent => slot.is_none(),
+                                Kind::Registered => true,
+                            };
+                            if !ok {
+                                return false;
+                            }
+                            values.push(slot.cloned());
                         }
-                        values.push(slot.cloned());
-                    }
-                    Condition::Gate(gate) => {
-                        if !gate.trigger(level, body, timestamp) {
-                            return false;
+                        Condition::Gate(gate) => {
+                            if !gate.trigger(level, body, timestamp) {
+                                return false;
+                            }
                         }
                     }
                 }
-            }
-            trigger(&mut TriggerContext { level, body, timestamp, values })
-        };
+                trigger(&mut TriggerContext {
+                    level,
+                    body,
+                    timestamp,
+                    values,
+                })
+            };
         OneShot::new(evaluate, required, debug)
     }
 
@@ -225,15 +281,23 @@ impl BehaviorBuilder {
         use super::BehaviorControl;
         let required = second.get_required_memories();
         OneShot::new(
-            move |level: &mut ServerLevel, body: &mut dyn Entity, timestamp: i64| first.trigger(level, body, timestamp) && second.trigger(level, body, timestamp),
+            move |level: &mut ServerLevel, body: &mut dyn Entity, timestamp: i64| {
+                first.trigger(level, body, timestamp) && second.trigger(level, body, timestamp)
+            },
             required,
             "OneShot[stuff]".to_string(),
         )
     }
 
     /// `BehaviorBuilder.triggerIf(predicate, behavior)`.
-    pub fn trigger_if(mut predicate: impl FnMut(&dyn Entity) -> bool + 'static, behavior: OneShot) -> OneShot {
-        Self::sequence(move |_: &mut ServerLevel, body: &mut dyn Entity, _: i64| predicate(&*body), behavior)
+    pub fn trigger_if(
+        mut predicate: impl FnMut(&dyn Entity) -> bool + 'static,
+        behavior: OneShot,
+    ) -> OneShot {
+        Self::sequence(
+            move |_: &mut ServerLevel, body: &mut dyn Entity, _: i64| predicate(&*body),
+            behavior,
+        )
     }
 
     /// `BehaviorBuilder.triggerIf(predicate)` (`Predicate<E>`).
@@ -242,7 +306,11 @@ impl BehaviorBuilder {
     }
 
     /// `BehaviorBuilder.triggerIf(BiPredicate<ServerLevel, E>)`.
-    pub fn trigger_if_level(mut predicate: impl FnMut(&mut ServerLevel, &dyn Entity) -> bool + 'static) -> OneShot {
-        Self::point(move |level: &mut ServerLevel, body: &mut dyn Entity, _: i64| predicate(level, &*body))
+    pub fn trigger_if_level(
+        mut predicate: impl FnMut(&mut ServerLevel, &dyn Entity) -> bool + 'static,
+    ) -> OneShot {
+        Self::point(
+            move |level: &mut ServerLevel, body: &mut dyn Entity, _: i64| predicate(level, &*body),
+        )
     }
 }

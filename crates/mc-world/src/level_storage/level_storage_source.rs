@@ -24,16 +24,20 @@ use mc_nbt::{CompoundTag, NbtAccounter};
 use super::directory_lock::DirectoryLock;
 use super::feature_flags::FeatureFlagSet;
 use super::file_util::{
-    create_directories_safe, create_temp_file, format_file_name_date_now, read_compressed, safe_replace_file, safe_replace_or_move_file,
-    write_compressed,
+    create_directories_safe, create_temp_file, format_file_name_date_now, read_compressed,
+    safe_replace_file, safe_replace_or_move_file, write_compressed,
 };
-use super::level_data::{LevelSettings, LevelVersion, PrimaryLevelData, SpecialWorldProperty, WorldDataConfiguration};
+use super::level_data::{
+    LevelSettings, LevelVersion, PrimaryLevelData, SpecialWorldProperty, WorldDataConfiguration,
+};
 use super::level_resource::LevelResource;
 use super::level_summary::{LevelSummary, LevelSummaryKind};
 use super::player_data_storage::PlayerDataStorage;
 use super::saved_data_storage::resolve_against;
 use super::validation::{ContentValidationException, DirectoryValidator, PathAllowList};
-use super::version::{ANVIL_VERSION_ID, MCREGION_VERSION_ID, get_data_version, requires_file_fixing};
+use super::version::{
+    ANVIL_VERSION_ID, MCREGION_VERSION_ID, get_data_version, requires_file_fixing,
+};
 use super::world_gen_settings::WorldGenSettings;
 
 /// `LevelStorageSource.TAG_DATA`.
@@ -60,7 +64,11 @@ pub struct LevelStorageException {
 impl LevelStorageException {
     fn load_folder_access(cause: Option<io::Error>) -> LevelStorageException {
         let key = "selectWorld.load_folder_access";
-        LevelStorageException { translation_key: key, message: mc_data::lang::translate(key).unwrap_or(key).to_owned(), cause }
+        LevelStorageException {
+            translation_key: key,
+            message: mc_data::lang::translate(key).unwrap_or(key).to_owned(),
+            cause,
+        }
     }
 }
 
@@ -122,7 +130,10 @@ impl LevelDirectory {
     }
 
     pub fn directory_name(&self) -> String {
-        self.path.file_name().map(|n| n.to_string_lossy().into_owned()).unwrap_or_default()
+        self.path
+            .file_name()
+            .map(|n| n.to_string_lossy().into_owned())
+            .unwrap_or_default()
     }
 
     pub fn data_file(&self) -> PathBuf {
@@ -135,12 +146,18 @@ impl LevelDirectory {
 
     /// `corruptedDataFile(time)`: `time` formatted with `FileNameDateFormatter` (see [`format_file_name_date_now`]).
     pub fn corrupted_data_file(&self, formatted_time: &str) -> PathBuf {
-        self.path.join(format!("{}_corrupted_{formatted_time}", LevelResource::LEVEL_DATA_FILE.id()))
+        self.path.join(format!(
+            "{}_corrupted_{formatted_time}",
+            LevelResource::LEVEL_DATA_FILE.id()
+        ))
     }
 
     /// `rawDataFile(time)`.
     pub fn raw_data_file(&self, formatted_time: &str) -> PathBuf {
-        self.path.join(format!("{}_raw_{formatted_time}", LevelResource::LEVEL_DATA_FILE.id()))
+        self.path.join(format!(
+            "{}_raw_{formatted_time}",
+            LevelResource::LEVEL_DATA_FILE.id()
+        ))
     }
 
     pub fn icon_file(&self) -> PathBuf {
@@ -186,19 +203,32 @@ pub struct LevelStorageSource {
 
 impl LevelStorageSource {
     /// `new LevelStorageSource(baseDir, backupDir, validator, fixer)` (no datafixer here).
-    pub fn new(base_dir: impl Into<PathBuf>, backup_dir: impl Into<PathBuf>, world_dir_validator: DirectoryValidator) -> io::Result<LevelStorageSource> {
+    pub fn new(
+        base_dir: impl Into<PathBuf>,
+        backup_dir: impl Into<PathBuf>,
+        world_dir_validator: DirectoryValidator,
+    ) -> io::Result<LevelStorageSource> {
         let base_dir = base_dir.into();
         create_directories_safe(&base_dir)?;
-        Ok(LevelStorageSource { base_dir, backup_dir: backup_dir.into(), world_dir_validator })
+        Ok(LevelStorageSource {
+            base_dir,
+            backup_dir: backup_dir.into(),
+            world_dir_validator,
+        })
     }
 
     /// `LevelStorageSource.parseValidator`: a missing file or any parse failure disallows all symlinks
     /// (a parse failure is logged).
     pub fn parse_validator(config_path: &Path) -> DirectoryValidator {
         if config_path.exists() {
-            match fs::read_to_string(config_path).map_err(|e| e.to_string()).and_then(|t| PathAllowList::read_plain(&t)) {
+            match fs::read_to_string(config_path)
+                .map_err(|e| e.to_string())
+                .and_then(|t| PathAllowList::read_plain(&t))
+            {
                 Ok(list) => return DirectoryValidator::new(list.matcher()),
-                Err(e) => log::error!("Failed to parse {ALLOWED_SYMLINKS_CONFIG_NAME}, disallowing all symbolic links: {e}"),
+                Err(e) => log::error!(
+                    "Failed to parse {ALLOWED_SYMLINKS_CONFIG_NAME}, disallowing all symbolic links: {e}"
+                ),
             }
         }
         DirectoryValidator::no_symlinks_allowed()
@@ -207,7 +237,8 @@ impl LevelStorageSource {
     /// `LevelStorageSource.createDefault`: backups in `<path>/../backups`.
     pub fn create_default(path: impl Into<PathBuf>) -> io::Result<LevelStorageSource> {
         let path = path.into();
-        let validator = LevelStorageSource::parse_validator(&path.join(ALLOWED_SYMLINKS_CONFIG_NAME));
+        let validator =
+            LevelStorageSource::parse_validator(&path.join(ALLOWED_SYMLINKS_CONFIG_NAME));
         let backup_dir = path.join("../backups");
         LevelStorageSource::new(path, backup_dir, validator)
     }
@@ -227,10 +258,17 @@ impl LevelStorageSource {
         if requires_file_fixing(get_data_version(level_data_tag)) {
             return Err("Cannot get level data without file fixing first".to_owned());
         }
-        let world_gen_settings = WorldGenSettings::read_existing(&world_access.get_level_path(LevelResource::ROOT));
-        let special = world_gen_settings.as_ref().map(WorldGenSettings::special_world_property).unwrap_or(SpecialWorldProperty::None);
+        let world_gen_settings =
+            WorldGenSettings::read_existing(&world_access.get_level_path(LevelResource::ROOT));
+        let special = world_gen_settings
+            .as_ref()
+            .map(WorldGenSettings::special_world_property)
+            .unwrap_or(SpecialWorldProperty::None);
         let settings = LevelSettings::parse(level_data_tag, data_configuration);
-        Ok(LevelDataAndDimensions { world_data: PrimaryLevelData::parse_with(level_data_tag, settings, special), world_gen_settings })
+        Ok(LevelDataAndDimensions {
+            world_data: PrimaryLevelData::parse_with(level_data_tag, settings, special),
+            world_gen_settings,
+        })
     }
 
     pub fn get_name(&self) -> &'static str {
@@ -240,14 +278,18 @@ impl LevelStorageSource {
     /// `findLevelCandidates`.
     pub fn find_level_candidates(&self) -> Result<LevelCandidates, LevelStorageException> {
         if !self.base_dir.exists() {
-            fs::create_dir(&self.base_dir).map_err(|e| LevelStorageException::load_folder_access(Some(e)))?;
+            fs::create_dir(&self.base_dir)
+                .map_err(|e| LevelStorageException::load_folder_access(Some(e)))?;
         } else if !self.base_dir.is_dir() {
             return Err(LevelStorageException::load_folder_access(None));
         }
-        let entries = fs::read_dir(&self.base_dir).map_err(|_| LevelStorageException::load_folder_access(None))?;
+        let entries = fs::read_dir(&self.base_dir)
+            .map_err(|_| LevelStorageException::load_folder_access(None))?;
         let mut levels = Vec::new();
         for entry in entries {
-            let path = entry.map_err(|_| LevelStorageException::load_folder_access(None))?.path();
+            let path = entry
+                .map_err(|_| LevelStorageException::load_folder_access(None))?
+                .path();
             if !path.is_dir() {
                 continue;
             }
@@ -285,10 +327,19 @@ impl LevelStorageSource {
         let data_file = level.data_file();
         if data_file.exists() {
             let result: Result<Option<LevelSummary>, String> = (|| {
-                if fs::symlink_metadata(&data_file).map(|m| m.file_type().is_symlink()).unwrap_or(false) {
-                    let issues = self.world_dir_validator.validate_symlink(&data_file).map_err(|e| e.to_string())?;
+                if fs::symlink_metadata(&data_file)
+                    .map(|m| m.file_type().is_symlink())
+                    .unwrap_or(false)
+                {
+                    let issues = self
+                        .world_dir_validator
+                        .validate_symlink(&data_file)
+                        .map_err(|e| e.to_string())?;
                     if !issues.is_empty() {
-                        log::warn!("{}", ContentValidationException::message(&data_file, &issues));
+                        log::warn!(
+                            "{}",
+                            ContentValidationException::message(&data_file, &issues)
+                        );
                         return Ok(Some(LevelSummary {
                             level_id: level.directory_name(),
                             icon: level.icon_file(),
@@ -300,7 +351,8 @@ impl LevelStorageSource {
                         }));
                     }
                 }
-                let root = LevelStorageSource::read_level_data_tag_raw(&data_file).map_err(|e| e.to_string())?;
+                let root = LevelStorageSource::read_level_data_tag_raw(&data_file)
+                    .map_err(|e| e.to_string())?;
                 let tag = root.get_compound_or_empty(TAG_DATA);
                 let data_version = get_data_version(tag);
                 LevelStorageSource::make_level_summary(tag, level, locked, data_version).map(Some)
@@ -318,7 +370,9 @@ impl LevelStorageSource {
             requires_file_fixing: false,
             locked: false,
             experimental: false,
-            kind: LevelSummaryKind::Corrupted { last_played: LevelStorageSource::level_file_modification_millis(level) },
+            kind: LevelSummaryKind::Corrupted {
+                last_played: LevelStorageSource::level_file_modification_millis(level),
+            },
         }
     }
 
@@ -326,7 +380,11 @@ impl LevelStorageSource {
     fn level_file_modification_millis(level: &LevelDirectory) -> i64 {
         LevelStorageSource::get_file_modification_time(&level.data_file())
             .or_else(|| LevelStorageSource::get_file_modification_time(&level.old_data_file()))
-            .map(|t| t.duration_since(SystemTime::UNIX_EPOCH).map(|d| d.as_millis() as i64).unwrap_or_else(|e| -(e.duration().as_millis() as i64)))
+            .map(|t| {
+                t.duration_since(SystemTime::UNIX_EPOCH)
+                    .map(|d| d.as_millis() as i64)
+                    .unwrap_or_else(|e| -(e.duration().as_millis() as i64))
+            })
             .unwrap_or(-1)
     }
 
@@ -337,11 +395,19 @@ impl LevelStorageSource {
 
     /// `makeLevelSummary` (over the datafixed `Data` tag — the datafixer step is not implemented). `Err` is the
     /// `NbtFormatException("Unknown data version: ...")`.
-    pub fn make_level_summary(data_tag: &CompoundTag, level_directory: &LevelDirectory, locked: bool, data_version: i32) -> Result<LevelSummary, String> {
+    pub fn make_level_summary(
+        data_tag: &CompoundTag,
+        level_directory: &LevelDirectory,
+        locked: bool,
+        data_version: i32,
+    ) -> Result<LevelSummary, String> {
         let level_version = LevelVersion::parse(data_tag);
         let level_data_version = level_version.level_data_version;
         if level_data_version != MCREGION_VERSION_ID && level_data_version != ANVIL_VERSION_ID {
-            return Err(format!("Unknown data version: {:x}", level_data_version as u32));
+            return Err(format!(
+                "Unknown data version: {:x}",
+                level_data_version as u32
+            ));
         }
         let requires_manual_conversion = level_data_version != ANVIL_VERSION_ID;
         let data_configuration = LevelStorageSource::read_data_config(data_tag);
@@ -354,23 +420,30 @@ impl LevelStorageSource {
             requires_file_fixing: requires_file_fixing(data_version),
             locked,
             experimental: enabled_feature_flags.is_experimental(),
-            kind: LevelSummaryKind::Normal { settings, level_version },
+            kind: LevelSummaryKind::Normal {
+                settings,
+                level_version,
+            },
         })
     }
 
     /// `parseFeatureFlagsFromSummary`: unknown / malformed ids are ignored.
     fn parse_feature_flags_from_summary(tag: &CompoundTag) -> FeatureFlagSet {
-        let ids: Vec<Identifier> = super::dynamic::lenient_strings(tag.get("enabled_features")).iter().filter_map(|s| Identifier::try_parse(s)).collect();
+        let ids: Vec<Identifier> = super::dynamic::lenient_strings(tag.get("enabled_features"))
+            .iter()
+            .filter_map(|s| Identifier::try_parse(s))
+            .collect();
         FeatureFlagSet::from_names(&ids, |_| {})
     }
 
     /// `isNewLevelIdAcceptable`: the folder can be created (and is removed again).
     pub fn is_new_level_id_acceptable(&self, level_id: &str) -> bool {
         let full_path = self.get_level_path(level_id);
-        fs::create_dir(&full_path).is_ok() && match fs::remove_dir(&full_path) {
-            Ok(()) => true,
-            Err(e) => e.kind() == io::ErrorKind::NotFound,
-        }
+        fs::create_dir(&full_path).is_ok()
+            && match fs::remove_dir(&full_path) {
+                Ok(()) => true,
+                Err(e) => e.kind() == io::ErrorKind::NotFound,
+            }
     }
 
     pub fn level_exists(&self, level_id: &str) -> bool {
@@ -390,11 +463,19 @@ impl LevelStorageSource {
     }
 
     /// `validateAndCreateAccess`: refuses worlds containing forbidden symlinks, then locks the world.
-    pub fn validate_and_create_access(&self, level_id: &str) -> Result<LevelStorageAccess, AccessError> {
+    pub fn validate_and_create_access(
+        &self,
+        level_id: &str,
+    ) -> Result<LevelStorageAccess, AccessError> {
         let level_path = self.get_level_path(level_id);
-        let validation_results = self.world_dir_validator.validate_directory(&level_path, true)?;
+        let validation_results = self
+            .world_dir_validator
+            .validate_directory(&level_path, true)?;
         if !validation_results.is_empty() {
-            return Err(AccessError::ContentValidation(ContentValidationException { directory: level_path, entries: validation_results }));
+            return Err(AccessError::ContentValidation(ContentValidationException {
+                directory: level_path,
+                entries: validation_results,
+            }));
         }
         Ok(LevelStorageAccess::new(level_id, level_path)?)
     }
@@ -423,7 +504,11 @@ fn lock_no_longer_valid() -> io::Error {
 impl LevelStorageAccess {
     fn new(level_id: &str, path: PathBuf) -> io::Result<LevelStorageAccess> {
         let lock = DirectoryLock::create(&path)?;
-        Ok(LevelStorageAccess { lock, level_directory: LevelDirectory::new(path), level_id: level_id.to_owned() })
+        Ok(LevelStorageAccess {
+            lock,
+            level_directory: LevelDirectory::new(path),
+            level_id: level_id.to_owned(),
+        })
     }
 
     fn create_lock(&mut self) -> io::Result<()> {
@@ -432,7 +517,10 @@ impl LevelStorageAccess {
     }
 
     /// `releaseTemporarilyAndRun`: unlock, run, lock again (even when `f` failed).
-    pub fn release_temporarily_and_run(&mut self, f: impl FnOnce() -> io::Result<()>) -> io::Result<()> {
+    pub fn release_temporarily_and_run(
+        &mut self,
+        f: impl FnOnce() -> io::Result<()>,
+    ) -> io::Result<()> {
         self.close()?;
         let result = f();
         let relock = self.create_lock();
@@ -444,7 +532,9 @@ impl LevelStorageAccess {
         #[cfg(unix)]
         {
             use std::os::unix::ffi::OsStrExt;
-            if let Ok(path) = std::ffi::CString::new(self.level_directory.path.as_os_str().as_bytes()) {
+            if let Ok(path) =
+                std::ffi::CString::new(self.level_directory.path.as_os_str().as_bytes())
+            {
                 // SAFETY: `statvfs` is plain data and `path` is a valid NUL-terminated string.
                 let mut stat: libc::statvfs = unsafe { std::mem::zeroed() };
                 if unsafe { libc::statvfs(path.as_ptr(), &mut stat) } == 0 {
@@ -484,13 +574,19 @@ impl LevelStorageAccess {
     }
 
     fn check_lock(&self) -> io::Result<()> {
-        if self.lock.is_valid() { Ok(()) } else { Err(lock_no_longer_valid()) }
+        if self.lock.is_valid() {
+            Ok(())
+        } else {
+            Err(lock_no_longer_valid())
+        }
     }
 
     /// `createPlayerStorage`.
     pub fn create_player_storage(&self) -> io::Result<PlayerDataStorage> {
         self.check_lock()?;
-        Ok(PlayerDataStorage::new(self.get_level_path(LevelResource::PLAYER_DATA_DIR)))
+        Ok(PlayerDataStorage::new(
+            self.get_level_path(LevelResource::PLAYER_DATA_DIR),
+        ))
     }
 
     /// `collectIssues`: parse the level data as the world list would (datafixer step omitted).
@@ -498,10 +594,15 @@ impl LevelStorageAccess {
         self.check_lock()?;
         let unfixed = self.get_unfixed_data_tag(use_fallback)?;
         let data_version = get_data_version(&unfixed);
-        self.make_level_summary_checked(&unfixed, data_version).map(|_| ())
+        self.make_level_summary_checked(&unfixed, data_version)
+            .map(|_| ())
     }
 
-    fn make_level_summary_checked(&self, data_tag: &CompoundTag, data_version: i32) -> io::Result<LevelSummary> {
+    fn make_level_summary_checked(
+        &self,
+        data_tag: &CompoundTag,
+        data_version: i32,
+    ) -> io::Result<LevelSummary> {
         LevelStorageSource::make_level_summary(data_tag, &self.level_directory, false, data_version)
             .map_err(|e| io::Error::new(io::ErrorKind::InvalidData, e))
     }
@@ -525,8 +626,14 @@ impl LevelStorageAccess {
         match self.get_unfixed_data_tag(false) {
             Ok(tag) => Ok(tag),
             Err(e) => {
-                log::warn!("Failed to load world data from {}: {e}", self.level_directory.data_file().display());
-                log::info!("Attempting to use fallback {}", self.level_directory.old_data_file().display());
+                log::warn!(
+                    "Failed to load world data from {}: {e}",
+                    self.level_directory.data_file().display()
+                );
+                log::info!(
+                    "Attempting to use fallback {}",
+                    self.level_directory.old_data_file().display()
+                );
                 let tag = self.get_unfixed_data_tag(true)?;
                 self.restore_level_data_from_old();
                 Ok(tag)
@@ -542,11 +649,19 @@ impl LevelStorageAccess {
     }
 
     fn get_data_file(&self, use_fallback: bool) -> PathBuf {
-        if use_fallback { self.level_directory.old_data_file() } else { self.level_directory.data_file() }
+        if use_fallback {
+            self.level_directory.old_data_file()
+        } else {
+            self.level_directory.data_file()
+        }
     }
 
     /// `saveDataTag(levelData)` / `saveDataTag(levelData, singleplayerUUID)`.
-    pub fn save_data_tag(&self, level_data: &PrimaryLevelData, singleplayer_uuid: Option<uuid::Uuid>) -> io::Result<()> {
+    pub fn save_data_tag(
+        &self,
+        level_data: &PrimaryLevelData,
+        singleplayer_uuid: Option<uuid::Uuid>,
+    ) -> io::Result<()> {
         self.save_level_data_tag(level_data.to_tag_with_player(singleplayer_uuid))
     }
 
@@ -565,7 +680,11 @@ impl LevelStorageAccess {
         let result = (|| {
             let data_file = create_temp_file(world_dir, "level", ".dat")?;
             write_compressed(root, &data_file)?;
-            safe_replace_file(&self.level_directory.data_file(), &data_file, &self.level_directory.old_data_file());
+            safe_replace_file(
+                &self.level_directory.data_file(),
+                &data_file,
+                &self.level_directory.old_data_file(),
+            );
             Ok(())
         })();
         if let Err(e) = &result {
@@ -576,7 +695,9 @@ impl LevelStorageAccess {
 
     /// `getIconFile`.
     pub fn get_icon_file(&self) -> Option<PathBuf> {
-        self.lock.is_valid().then(|| self.level_directory.icon_file())
+        self.lock
+            .is_valid()
+            .then(|| self.level_directory.icon_file())
     }
 
     /// `deleteLevel`: up to 5 attempts (500 ms apart); the lock file is removed last.
@@ -630,7 +751,9 @@ impl LevelStorageAccess {
 
     /// `renameLevel`: rewrites `Data.LevelName` of level.dat (`String.trim()`), without touching anything else.
     pub fn rename_level(&self, new_name: &str) -> io::Result<()> {
-        self.modify_level_data_without_datafix(|tag| tag.put_string("LevelName", java_trim(new_name)))
+        self.modify_level_data_without_datafix(|tag| {
+            tag.put_string("LevelName", java_trim(new_name))
+        })
     }
 
     /// `renameAndDropPlayer`.
@@ -641,9 +764,13 @@ impl LevelStorageAccess {
         })
     }
 
-    fn modify_level_data_without_datafix(&self, updater: impl FnOnce(&mut CompoundTag)) -> io::Result<()> {
+    fn modify_level_data_without_datafix(
+        &self,
+        updater: impl FnOnce(&mut CompoundTag),
+    ) -> io::Result<()> {
         self.check_lock()?;
-        let mut root = LevelStorageSource::read_level_data_tag_raw(&self.level_directory.data_file())?;
+        let mut root =
+            LevelStorageSource::read_level_data_tag_raw(&self.level_directory.data_file())?;
         if let Some(data) = root.get_compound_mut(TAG_DATA) {
             updater(data);
         }
@@ -665,7 +792,9 @@ impl LevelStorageAccess {
         safe_replace_or_move_file(
             &self.level_directory.data_file(),
             &self.level_directory.old_data_file(),
-            &self.level_directory.corrupted_data_file(&format_file_name_date_now()),
+            &self
+                .level_directory
+                .corrupted_data_file(&format_file_name_date_now()),
             true,
         )
     }
@@ -677,7 +806,10 @@ impl LevelStorageAccess {
 }
 
 /// `DimensionType.getStorageFolder`.
-pub fn get_dimension_storage_folder(dimension: &Identifier, base_folder: &Path) -> io::Result<PathBuf> {
+pub fn get_dimension_storage_folder(
+    dimension: &Identifier,
+    base_folder: &Path,
+) -> io::Result<PathBuf> {
     resolve_against(dimension, &base_folder.join(DIMENSIONS_DIR))
 }
 

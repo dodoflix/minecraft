@@ -73,6 +73,9 @@ impl EntityType {
 
 impl MobCategory {
     pub fn data(self) -> &'static MobCategoryData {
-        MOB_CATEGORIES.iter().find(|d| d.category == self).expect("every MobCategory has data")
+        MOB_CATEGORIES
+            .iter()
+            .find(|d| d.category == self)
+            .expect("every MobCategory has data")
     }
 }

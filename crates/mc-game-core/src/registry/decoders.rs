@@ -35,11 +35,17 @@ pub struct DecodedEntry {
 
 impl DecodedEntry {
     pub fn new<T: Any + Send + Sync>(value: T) -> DecodedEntry {
-        DecodedEntry { value: Arc::new(value), network: None }
+        DecodedEntry {
+            value: Arc::new(value),
+            network: None,
+        }
     }
 
     pub fn with_network<T: Any + Send + Sync>(value: T, network: Tag) -> DecodedEntry {
-        DecodedEntry { value: Arc::new(value), network: Some(network) }
+        DecodedEntry {
+            value: Arc::new(value),
+            network: Some(network),
+        }
     }
 }
 
@@ -55,5 +61,7 @@ pub static DYNAMIC_REGISTRY_DECODERS: [DynamicRegistryDecoder];
 
 /// The decoder registered for `registry`, if any.
 pub fn decoder_for(registry: &str) -> Option<&'static DynamicRegistryDecoder> {
-    DYNAMIC_REGISTRY_DECODERS.iter().find(|d| d.registry == registry)
+    DYNAMIC_REGISTRY_DECODERS
+        .iter()
+        .find(|d| d.registry == registry)
 }

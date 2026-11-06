@@ -1,6 +1,5 @@
 //! `StringTemplate`: a macro line split at `$(variable)`.
 
-
 #[derive(Clone, Debug, PartialEq)]
 pub struct StringTemplate {
     pub segments: Vec<String>,
@@ -24,7 +23,11 @@ impl StringTemplate {
         while let Some(i) = index {
             if i != length - 1 && chars[i + 1] == '(' {
                 segments.push(sub(start, i));
-                let Some(variable_end) = chars[i + 1..].iter().position(|c| *c == ')').map(|p| p + i + 1) else {
+                let Some(variable_end) = chars[i + 1..]
+                    .iter()
+                    .position(|c| *c == ')')
+                    .map(|p| p + i + 1)
+                else {
                     return Err("Unterminated macro variable".to_owned());
                 };
                 let variable = sub(i + 2, variable_end);
@@ -33,9 +36,15 @@ impl StringTemplate {
                 }
                 variables.push(variable);
                 start = variable_end + 1;
-                index = chars[start..].iter().position(|c| *c == '$').map(|p| p + start);
+                index = chars[start..]
+                    .iter()
+                    .position(|c| *c == '$')
+                    .map(|p| p + start);
             } else {
-                index = chars[i + 1..].iter().position(|c| *c == '$').map(|p| p + i + 1);
+                index = chars[i + 1..]
+                    .iter()
+                    .position(|c| *c == '$')
+                    .map(|p| p + i + 1);
             }
         }
         if start == 0 {
@@ -44,7 +53,10 @@ impl StringTemplate {
         if start != length {
             segments.push(sub(start, length));
         }
-        Ok(StringTemplate { segments, variables })
+        Ok(StringTemplate {
+            segments,
+            variables,
+        })
     }
 
     /// `substitute(arguments)`.
@@ -62,4 +74,3 @@ impl StringTemplate {
         Ok(builder)
     }
 }
-

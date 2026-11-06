@@ -66,7 +66,11 @@ fn decode_block_pos(tag: &Tag) -> Result<BlockPos, String> {
         Tag::IntArray(v) => v.clone(),
         Tag::ByteArray(v) => v.iter().map(|&b| i32::from(b)).collect(),
         Tag::LongArray(v) => v.iter().map(|&l| l as i32).collect(),
-        Tag::List(list) => list.iter().map(int_of).collect::<Option<_>>().ok_or("Not a list of numbers")?,
+        Tag::List(list) => list
+            .iter()
+            .map(int_of)
+            .collect::<Option<_>>()
+            .ok_or("Not a list of numbers")?,
         _ => return Err("Not a list".to_owned()),
     };
     match ints[..] {
@@ -79,9 +83,15 @@ fn decode_block_pos(tag: &Tag) -> Result<BlockPos, String> {
 fn decode_record(tag: &Tag) -> Result<PoiRecord, String> {
     let compound = tag.as_compound().ok_or("Not a map")?;
     let pos = decode_block_pos(compound.get("pos").ok_or("No key pos in MapLike")?)?;
-    let type_name = compound.get("type").ok_or("No key type in MapLike")?.as_string().ok_or("Not a string")?;
-    let identifier = Identifier::try_parse(type_name).ok_or_else(|| format!("Not a valid resource location: {type_name}"))?;
-    let poi_type = PoiTypeHolder::by_name(&identifier.to_string()).ok_or_else(|| format!("Unknown registry element {identifier}"))?;
+    let type_name = compound
+        .get("type")
+        .ok_or("No key type in MapLike")?
+        .as_string()
+        .ok_or("Not a string")?;
+    let identifier = Identifier::try_parse(type_name)
+        .ok_or_else(|| format!("Not a valid resource location: {type_name}"))?;
+    let poi_type = PoiTypeHolder::by_name(&identifier.to_string())
+        .ok_or_else(|| format!("Unknown registry element {identifier}"))?;
     let free_tickets = match compound.get("free_tickets") {
         None => 0,
         Some(tag) => int_of(tag).ok_or("Not a number")?,
@@ -93,7 +103,10 @@ fn decode_record(tag: &Tag) -> Result<PoiRecord, String> {
 /// (the partial list), a missing/invalid `Records` loses the section (`None`).
 pub fn decode_section(tag: &Tag) -> Option<(bool, Vec<PoiRecord>)> {
     let compound = tag.as_compound()?;
-    let is_valid = compound.get("Valid").and_then(Tag::as_number).is_some_and(|n| n.int_value() as i8 != 0);
+    let is_valid = compound
+        .get("Valid")
+        .and_then(Tag::as_number)
+        .is_some_and(|n| n.int_value() as i8 != 0);
     let records = match compound.get("Records") {
         Some(Tag::List(list)) => {
             let mut records = Vec::with_capacity(list.len());
@@ -115,9 +128,20 @@ pub fn decode_section(tag: &Tag) -> Option<(bool, Vec<PoiRecord>)> {
 }
 
 /// `PackedChunk.parse`: the decoded sections of `min_section_y..=max_section_y` by section y.
-pub fn decode_chunk(tag: &CompoundTag, min_section_y: i32, max_section_y: i32) -> Vec<(i32, (bool, Vec<PoiRecord>))> {
-    let Some(sections) = tag.get_compound(SECTIONS_TAG) else { return Vec::new() };
+pub fn decode_chunk(
+    tag: &CompoundTag,
+    min_section_y: i32,
+    max_section_y: i32,
+) -> Vec<(i32, (bool, Vec<PoiRecord>))> {
+    let Some(sections) = tag.get_compound(SECTIONS_TAG) else {
+        return Vec::new();
+    };
     (min_section_y..=max_section_y)
-        .filter_map(|y| sections.get(&y.to_string()).and_then(decode_section).map(|section| (y, section)))
+        .filter_map(|y| {
+            sections
+                .get(&y.to_string())
+                .and_then(decode_section)
+                .map(|section| (y, section))
+        })
         .collect()
 }

@@ -37,12 +37,36 @@ const CLIENT_FLAG_SHOW_ARMS: i8 = 4;
 const CLIENT_FLAG_NO_BASEPLATE: i8 = 8;
 const CLIENT_FLAG_MARKER: i8 = 16;
 
-pub const DEFAULT_HEAD_POSE: Rotations = Rotations { x: 0.0, y: 0.0, z: 0.0 };
-pub const DEFAULT_BODY_POSE: Rotations = Rotations { x: 0.0, y: 0.0, z: 0.0 };
-pub const DEFAULT_LEFT_ARM_POSE: Rotations = Rotations { x: -10.0, y: 0.0, z: -10.0 };
-pub const DEFAULT_RIGHT_ARM_POSE: Rotations = Rotations { x: -15.0, y: 0.0, z: 10.0 };
-pub const DEFAULT_LEFT_LEG_POSE: Rotations = Rotations { x: -1.0, y: 0.0, z: -1.0 };
-pub const DEFAULT_RIGHT_LEG_POSE: Rotations = Rotations { x: 1.0, y: 0.0, z: 1.0 };
+pub const DEFAULT_HEAD_POSE: Rotations = Rotations {
+    x: 0.0,
+    y: 0.0,
+    z: 0.0,
+};
+pub const DEFAULT_BODY_POSE: Rotations = Rotations {
+    x: 0.0,
+    y: 0.0,
+    z: 0.0,
+};
+pub const DEFAULT_LEFT_ARM_POSE: Rotations = Rotations {
+    x: -10.0,
+    y: 0.0,
+    z: -10.0,
+};
+pub const DEFAULT_RIGHT_ARM_POSE: Rotations = Rotations {
+    x: -15.0,
+    y: 0.0,
+    z: 10.0,
+};
+pub const DEFAULT_LEFT_LEG_POSE: Rotations = Rotations {
+    x: -1.0,
+    y: 0.0,
+    z: -1.0,
+};
+pub const DEFAULT_RIGHT_LEG_POSE: Rotations = Rotations {
+    x: 1.0,
+    y: 0.0,
+    z: 1.0,
+};
 
 pub struct ArmorStand {
     living: LivingEntityData,
@@ -64,7 +88,12 @@ impl ArmorStand {
             b.define(DATA_LEFT_LEG_POSE, DEFAULT_LEFT_LEG_POSE);
             b.define(DATA_RIGHT_LEG_POSE, DEFAULT_RIGHT_LEG_POSE);
         });
-        Self { living, invisible: false, last_hit: 0, disabled_slots: 0 }
+        Self {
+            living,
+            invisible: false,
+            last_hit: 0,
+            disabled_slots: 0,
+        }
     }
 
     /// `ArmorStand(level, x, y, z)`.
@@ -125,7 +154,9 @@ impl ArmorStand {
     /// `setInvisible(invisible)`.
     pub fn set_invisible(&mut self, invisible: bool) {
         self.invisible = invisible;
-        self.living.entity.set_shared_flag(FLAG_INVISIBLE, invisible);
+        self.living
+            .entity
+            .set_shared_flag(FLAG_INVISIBLE, invisible);
     }
 
     fn has_physics(&self) -> bool {
@@ -160,13 +191,19 @@ impl ArmorStand {
         self.living.entity.entity_data.set(DATA_LEFT_ARM_POSE, pose);
     }
     pub fn set_right_arm_pose(&mut self, pose: Rotations) {
-        self.living.entity.entity_data.set(DATA_RIGHT_ARM_POSE, pose);
+        self.living
+            .entity
+            .entity_data
+            .set(DATA_RIGHT_ARM_POSE, pose);
     }
     pub fn set_left_leg_pose(&mut self, pose: Rotations) {
         self.living.entity.entity_data.set(DATA_LEFT_LEG_POSE, pose);
     }
     pub fn set_right_leg_pose(&mut self, pose: Rotations) {
-        self.living.entity.entity_data.set(DATA_RIGHT_LEG_POSE, pose);
+        self.living
+            .entity
+            .entity_data
+            .set(DATA_RIGHT_LEG_POSE, pose);
     }
 
     /// `setArmorStandPose(pose)` (`ArmorStandPose.CODEC`).
@@ -187,7 +224,11 @@ impl ArmorStand {
     /// `LivingEntity.getEquipmentSlotForItem(stack)`.
     fn get_equipment_slot_for_item(&self, stack: &ItemStack) -> EquipmentSlot {
         match stack.get(&EQUIPPABLE) {
-            Some(equippable) if self.can_use_slot(EquipmentSlot::from_protocol(equippable.slot)) => EquipmentSlot::from_protocol(equippable.slot),
+            Some(equippable)
+                if self.can_use_slot(EquipmentSlot::from_protocol(equippable.slot)) =>
+            {
+                EquipmentSlot::from_protocol(equippable.slot)
+            }
             _ => EquipmentSlot::MainHand,
         }
     }
@@ -203,7 +244,8 @@ impl ArmorStand {
     }
 
     fn is_disabled(&self, slot: EquipmentSlot) -> bool {
-        (self.disabled_slots & (1 << slot.get_id())) != 0 || (slot.get_type() == EquipmentSlotType::Hand && !self.show_arms())
+        (self.disabled_slots & (1 << slot.get_id())) != 0
+            || (slot.get_type() == EquipmentSlotType::Hand && !self.show_arms())
     }
 
     /// `getScale() * getAgeScale()` (`SCALE` attribute; armor stands are not ageable).
@@ -217,28 +259,53 @@ impl ArmorStand {
         let small = self.is_small();
         // `location.y / (getScale() * getAgeScale())`: float product widened to double
         let click_y = location.y / f64::from(self.scale() * 1.0f32);
-        if click_y >= 0.1 && click_y < 0.1 + if small { 0.8 } else { 0.45 } && self.has_item_in_slot(EquipmentSlot::Feet) {
+        if click_y >= 0.1
+            && click_y < 0.1 + if small { 0.8 } else { 0.45 }
+            && self.has_item_in_slot(EquipmentSlot::Feet)
+        {
             slot_clicked = EquipmentSlot::Feet;
-        } else if click_y >= 0.9 + if small { 0.3 } else { 0.0 } && click_y < 0.9 + if small { 1.0 } else { 0.7 } && self.has_item_in_slot(EquipmentSlot::Chest) {
+        } else if click_y >= 0.9 + if small { 0.3 } else { 0.0 }
+            && click_y < 0.9 + if small { 1.0 } else { 0.7 }
+            && self.has_item_in_slot(EquipmentSlot::Chest)
+        {
             slot_clicked = EquipmentSlot::Chest;
-        } else if click_y >= 0.4 && click_y < 0.4 + if small { 1.0 } else { 0.8 } && self.has_item_in_slot(EquipmentSlot::Legs) {
+        } else if click_y >= 0.4
+            && click_y < 0.4 + if small { 1.0 } else { 0.8 }
+            && self.has_item_in_slot(EquipmentSlot::Legs)
+        {
             slot_clicked = EquipmentSlot::Legs;
         } else if click_y >= 1.6 && self.has_item_in_slot(EquipmentSlot::Head) {
             slot_clicked = EquipmentSlot::Head;
-        } else if !self.has_item_in_slot(EquipmentSlot::MainHand) && self.has_item_in_slot(EquipmentSlot::OffHand) {
+        } else if !self.has_item_in_slot(EquipmentSlot::MainHand)
+            && self.has_item_in_slot(EquipmentSlot::OffHand)
+        {
             slot_clicked = EquipmentSlot::OffHand;
         }
         slot_clicked
     }
 
     /// `swapItem(player, slot, playerItemStack, hand)`.
-    fn swap_item(&mut self, level: &mut ServerLevel, player: &mut ServerPlayer, slot: EquipmentSlot, mut player_stack: ItemStack, hand: InteractionHand) -> bool {
+    fn swap_item(
+        &mut self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        slot: EquipmentSlot,
+        mut player_stack: ItemStack,
+        hand: InteractionHand,
+    ) -> bool {
         let item_stack = self.living.equipment.get(slot).clone();
-        if !item_stack.is_empty() && (self.disabled_slots & (1 << slot.get_id() + DISABLE_TAKING_OFFSET)) != 0 {
+        if !item_stack.is_empty()
+            && (self.disabled_slots & (1 << slot.get_id() + DISABLE_TAKING_OFFSET)) != 0
+        {
             false
-        } else if item_stack.is_empty() && (self.disabled_slots & (1 << slot.get_id() + DISABLE_PUTTING_OFFSET)) != 0 {
+        } else if item_stack.is_empty()
+            && (self.disabled_slots & (1 << slot.get_id() + DISABLE_PUTTING_OFFSET)) != 0
+        {
             false
-        } else if player.has_infinite_materials() && item_stack.is_empty() && !player_stack.is_empty() {
+        } else if player.has_infinite_materials()
+            && item_stack.is_empty()
+            && !player_stack.is_empty()
+        {
             self.set_item_slot(level, slot, player_stack.copy_with_count(1));
             true
         } else if player_stack.is_empty() || player_stack.count() <= 1 {
@@ -260,7 +327,10 @@ impl ArmorStand {
         let state = mc_data::block::Block::OAK_PLANKS.default_state();
         let p = self.data().position();
         level.send_particles(
-            ParticleOptions::Block { particle_type: mc_data::ParticleType::BLOCK, state },
+            ParticleOptions::Block {
+                particle_type: mc_data::ParticleType::BLOCK,
+                state,
+            },
             p.x,
             self.data().get_y_progress(0.6666666666666666),
             p.z,
@@ -280,7 +350,11 @@ impl ArmorStand {
             self.kill_attributed(level, source.get_entity());
         } else {
             self.living.set_health(health);
-            level.game_event_from_entity(source.get_entity(), GameEvent::ENTITY_DAMAGE, self.data().position());
+            level.game_event_from_entity(
+                source.get_entity(),
+                GameEvent::ENTITY_DAMAGE,
+                self.data().position(),
+            );
         }
     }
 
@@ -290,7 +364,11 @@ impl ArmorStand {
         if let Some(name) = self.data().get_custom_name() {
             result.set(CUSTOM_NAME, name);
         }
-        crate::world::level::block::helpers::pop_resource(level, self.data().block_position(), result);
+        crate::world::level::block::helpers::pop_resource(
+            level,
+            self.data().block_position(),
+            result,
+        );
         self.broken_by_anything(level, source);
     }
 
@@ -314,20 +392,35 @@ impl ArmorStand {
 
     fn play_broken_sound(&self, level: &mut ServerLevel) {
         let p = self.data().position();
-        level.play_sound_at(None, p.x, p.y, p.z, SoundEvent::ENTITY_ARMOR_STAND_BREAK, self.get_sound_source(), 1.0, 1.0);
+        level.play_sound_at(
+            None,
+            p.x,
+            p.y,
+            p.z,
+            SoundEvent::ENTITY_ARMOR_STAND_BREAK,
+            self.get_sound_source(),
+            1.0,
+            1.0,
+        );
     }
 
     /// `kill(level, attributedTo)`.
     pub fn kill_attributed(&mut self, level: &mut ServerLevel, attributed_to: Option<EntityId>) {
         self.remove(RemovalReason::Killed);
-        level.game_event_from_entity(Some(attributed_to.unwrap_or(self.data().id)), GameEvent::ENTITY_DIE, self.data().position());
+        level.game_event_from_entity(
+            Some(attributed_to.unwrap_or(self.data().id)),
+            GameEvent::ENTITY_DIE,
+            self.data().position(),
+        );
     }
 
     fn dimensions_marker(&self, is_marker: bool) -> EntityDimensions {
         if is_marker {
             EntityDimensions::fixed(0.0, 0.0)
         } else if self.is_small() {
-            EntityDimensions::of_type(EntityType::ARMOR_STAND).scale(0.5).with_eye_height(0.9875)
+            EntityDimensions::of_type(EntityType::ARMOR_STAND)
+                .scale(0.5)
+                .with_eye_height(0.9875)
         } else {
             EntityDimensions::of_type(EntityType::ARMOR_STAND)
         }
@@ -348,7 +441,11 @@ fn rotations_from_nbt(tag: Option<&Tag>) -> Option<Rotations> {
     if list.len() != 3 {
         return None;
     }
-    let n = |i: usize| list.get(i).and_then(|t| t.as_number()).map(|n| n.float_value());
+    let n = |i: usize| {
+        list.get(i)
+            .and_then(|t| t.as_number())
+            .map(|n| n.float_value())
+    };
     Some(Rotations::new(n(0)?, n(1)?, n(2)?))
 }
 
@@ -402,7 +499,9 @@ impl Entity for ArmorStand {
         let bb = self.data().bounding_box();
         let id = self.data().id;
         for target in level.get_entities(Some(id), &bb, |e| e.is_rideable_minecart()) {
-            let dist = level.get_entity(target).map(|e| self.data().distance_to_sqr_vec(e.base().position()));
+            let dist = level
+                .get_entity(target)
+                .map(|e| self.data().distance_to_sqr_vec(e.base().position()));
             if dist.is_some_and(|d| d <= 0.2) {
                 level.with_entity(target, |level, e| e.push_entity(level, self));
             }
@@ -410,7 +509,13 @@ impl Entity for ArmorStand {
     }
 
     /// `interact(player, hand, location)`.
-    fn interact(&mut self, level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand, location: Vec3) -> InteractionResult {
+    fn interact(
+        &mut self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        hand: InteractionHand,
+        location: Vec3,
+    ) -> InteractionResult {
         let item_stack = player.get_item_in_hand(hand);
         if self.is_marker() || item_stack.is(Item::NAME_TAG) {
             return InteractionResult::PASS;
@@ -421,8 +526,14 @@ impl Entity for ArmorStand {
         let item_in_hand_slot = self.get_equipment_slot_for_item(&item_stack);
         if item_stack.is_empty() {
             let clicked_slot = self.get_clicked_slot(location);
-            let target_slot = if self.is_disabled(clicked_slot) { item_in_hand_slot } else { clicked_slot };
-            if self.has_item_in_slot(target_slot) && self.swap_item(level, player, target_slot, item_stack.clone(), hand) {
+            let target_slot = if self.is_disabled(clicked_slot) {
+                item_in_hand_slot
+            } else {
+                clicked_slot
+            };
+            if self.has_item_in_slot(target_slot)
+                && self.swap_item(level, player, target_slot, item_stack.clone(), hand)
+            {
                 return InteractionResult::SUCCESS_SERVER;
             }
         } else {
@@ -439,7 +550,12 @@ impl Entity for ArmorStand {
         InteractionResult::PASS
     }
 
-    fn hurt_server(&mut self, level: &mut ServerLevel, source: &DamageSource, _damage: f32) -> bool {
+    fn hurt_server(
+        &mut self,
+        level: &mut ServerLevel,
+        source: &DamageSource,
+        _damage: f32,
+    ) -> bool {
         if self.is_removed() {
             return false;
         }
@@ -466,16 +582,22 @@ impl Entity for ArmorStand {
             }
             return false;
         }
-        if source.is_tag(level, DamageTypeTags::BURNS_ARMOR_STANDS) && self.living.get_health() > 0.5 {
+        if source.is_tag(level, DamageTypeTags::BURNS_ARMOR_STANDS)
+            && self.living.get_health() > 0.5
+        {
             self.cause_damage(level, source, 4.0);
             return false;
         }
-        let allow_incremental_breaking = source.is_tag(level, DamageTypeTags::CAN_BREAK_ARMOR_STAND);
+        let allow_incremental_breaking =
+            source.is_tag(level, DamageTypeTags::CAN_BREAK_ARMOR_STAND);
         let should_kill = source.is_tag(level, DamageTypeTags::ALWAYS_KILLS_ARMOR_STANDS);
         if !allow_incremental_breaking && !should_kill {
             return false;
         }
-        if source.causing_info().is_some_and(|c| c.is_player && !c.may_build) {
+        if source
+            .causing_info()
+            .is_some_and(|c| c.is_player && !c.may_build)
+        {
             return false;
         }
         if source.is_creative_player() {
@@ -486,8 +608,16 @@ impl Entity for ArmorStand {
         }
         let time = level.game_time();
         if time - self.last_hit > 5 && !should_kill {
-            crate::world::entity::living_entity::util::broadcast_entity_event(level, self.data().id, 32);
-            level.game_event_from_entity(source.get_entity(), GameEvent::ENTITY_DAMAGE, self.data().position());
+            crate::world::entity::living_entity::util::broadcast_entity_event(
+                level,
+                self.data().id,
+                32,
+            );
+            level.game_event_from_entity(
+                source.get_entity(),
+                GameEvent::ENTITY_DAMAGE,
+                self.data().position(),
+            );
             self.last_hit = time;
         } else {
             self.broken_by_player(level, source);
@@ -533,11 +663,19 @@ impl Entity for ArmorStand {
     }
 
     fn ignore_explosion(&self, explosion: &dyn crate::world::level::explosion::Explosion) -> bool {
-        if explosion.should_affect_blocklike_entities() { self.is_invisible() } else { true }
+        if explosion.should_affect_blocklike_entities() {
+            self.is_invisible()
+        } else {
+            true
+        }
     }
 
     fn get_piston_push_reaction(&self) -> PushReaction {
-        if self.is_marker() { PushReaction::IgnoreEntity } else { PushReaction::PushPull }
+        if self.is_marker() {
+            PushReaction::IgnoreEntity
+        } else {
+            PushReaction::PushPull
+        }
     }
 
     fn is_ignoring_block_triggers(&self) -> bool {
@@ -549,11 +687,15 @@ impl Entity for ArmorStand {
     }
 
     fn skip_attack_interaction(&mut self, level: &mut ServerLevel, source: &dyn Entity) -> bool {
-        source.is_player() && !level.may_interact_player_uuid(source.uuid(), self.data().block_position())
+        source.is_player()
+            && !level.may_interact_player_uuid(source.uuid(), self.data().block_position())
     }
 
     fn get_fall_sounds(&self) -> (SoundEvent, SoundEvent) {
-        (SoundEvent::ENTITY_ARMOR_STAND_FALL, SoundEvent::ENTITY_ARMOR_STAND_FALL)
+        (
+            SoundEvent::ENTITY_ARMOR_STAND_FALL,
+            SoundEvent::ENTITY_ARMOR_STAND_FALL,
+        )
     }
     fn get_hurt_sound(&self, _source: &DamageSource) -> Option<SoundEvent> {
         Some(SoundEvent::ENTITY_ARMOR_STAND_HIT)
@@ -598,7 +740,12 @@ impl Entity for ArmorStand {
     }
 
     fn add_additional_save_data(&self, out: &mut CompoundTag) {
-        living::add_additional_save_data(&self.living, self.living.absorption_amount, &self.living.equipment, out);
+        living::add_additional_save_data(
+            &self.living,
+            self.living.absorption_amount,
+            &self.living.equipment,
+            out,
+        );
         out.put_boolean("Invisible", self.is_invisible());
         out.put_boolean("Small", self.is_small());
         out.put_boolean("ShowArms", self.show_arms());
@@ -629,7 +776,9 @@ impl Entity for ArmorStand {
         self.set_marker(input.get_boolean_or("Marker", false));
         self.living.entity.no_physics = !self.has_physics();
         if let Some(pose) = input.get_compound("Pose") {
-            let read = |key: &str, default: Rotations| rotations_from_nbt(pose.get(key)).unwrap_or(default);
+            let read = |key: &str, default: Rotations| {
+                rotations_from_nbt(pose.get(key)).unwrap_or(default)
+            };
             self.set_armor_stand_pose([
                 read("Head", DEFAULT_HEAD_POSE),
                 read("Body", DEFAULT_BODY_POSE),
@@ -643,4 +792,7 @@ impl Entity for ArmorStand {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static ARMOR_STAND_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::ARMOR_STAND, create: |ty, id, _registries| Box::new(ArmorStand::new(ty, id)) };
+static ARMOR_STAND_FACTORY: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::ARMOR_STAND,
+    create: |ty, id, _registries| Box::new(ArmorStand::new(ty, id)),
+};

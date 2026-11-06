@@ -1,11 +1,11 @@
 //! `net.minecraft.world.level.block.BubbleColumnBlock`.
-use mc_game_core::{register_block_class, update_shape};
-use mc_game_core::world::level::block::impls::prelude::*;
+use mc_data::fluid::Fluid;
+use mc_data::{Item, SoundEvent};
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::entity::Entity;
 use mc_game_core::world::item::ItemStack;
-use mc_data::fluid::Fluid;
-use mc_data::{Item, SoundEvent};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::{register_block_class, update_shape};
 
 pub struct BubbleColumnBlock;
 
@@ -23,7 +23,11 @@ fn can_occupy(bubble_column: Block, occupy_state: BlockState) -> bool {
 }
 
 /// `getColumnState`.
-fn get_column_state(bubble_column: Block, below_state: BlockState, occupy_state: BlockState) -> BlockState {
+fn get_column_state(
+    bubble_column: Block,
+    below_state: BlockState,
+    occupy_state: BlockState,
+) -> BlockState {
     if below_state.is_block(bubble_column) {
         below_state
     } else if below_state.is_tag("enables_bubble_column_push_up") {
@@ -38,13 +42,24 @@ fn get_column_state(bubble_column: Block, below_state: BlockState, occupy_state:
 }
 
 /// `updateColumn(bubbleColumn, level, occupyAt, belowState)`.
-pub fn update_column(bubble_column: Block, level: &mut dyn LevelAccessor, occupy_at: BlockPos, below_state: BlockState) {
+pub fn update_column(
+    bubble_column: Block,
+    level: &mut dyn LevelAccessor,
+    occupy_at: BlockPos,
+    below_state: BlockState,
+) {
     let occupy_state = level.get_block_state(occupy_at);
     update_column_with_state(bubble_column, level, occupy_at, occupy_state, below_state);
 }
 
 /// `updateColumn(bubbleColumn, level, occupyAt, occupyState, belowState)`.
-pub fn update_column_with_state(bubble_column: Block, level: &mut dyn LevelAccessor, occupy_at: BlockPos, occupy_state: BlockState, below_state: BlockState) {
+pub fn update_column_with_state(
+    bubble_column: Block,
+    level: &mut dyn LevelAccessor,
+    occupy_at: BlockPos,
+    occupy_state: BlockState,
+    below_state: BlockState,
+) {
     if can_occupy(bubble_column, occupy_state) {
         let column_state = get_column_state(bubble_column, below_state, occupy_state);
         level.set_block_flags(occupy_at, column_state, 2);
@@ -66,7 +81,13 @@ impl BlockBehaviour for BubbleColumnBlock {
     fn is_bucket_pickup(&self) -> bool {
         true
     }
-    fn pickup_block(&self, _user: Option<&dyn Entity>, level: &mut dyn LevelAccessor, pos: BlockPos, _state: BlockState) -> ItemStack {
+    fn pickup_block(
+        &self,
+        _user: Option<&dyn Entity>,
+        level: &mut dyn LevelAccessor,
+        pos: BlockPos,
+        _state: BlockState,
+    ) -> ItemStack {
         level.set_block_flags(pos, air(), 11);
         ItemStack::new(Item::WATER_BUCKET)
     }
@@ -84,7 +105,8 @@ impl BlockBehaviour for BubbleColumnBlock {
     ) {
         if is_precise {
             let state_above = level.get_block_state(pos.above());
-            let nothing_above = state_above.get_collision_shape(&*level, pos).is_empty() && state_above.get_fluid_state().is_empty();
+            let nothing_above = state_above.get_collision_shape(&*level, pos).is_empty()
+                && state_above.get_fluid_state().is_empty();
             let drag_down = state.get(props::DRAG);
             if nothing_above {
                 entity.on_above_bubble_column(level, drag_down, pos);
@@ -95,18 +117,24 @@ impl BlockBehaviour for BubbleColumnBlock {
     }
     fn can_survive(&self, state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         let below_state = level.get_block_state(pos.below());
-        below_state.is_block(state.block()) || below_state.is_tag("enables_bubble_column_push_up") || below_state.is_tag("enables_bubble_column_drag_down")
+        below_state.is_block(state.block())
+            || below_state.is_tag("enables_bubble_column_push_up")
+            || below_state.is_tag("enables_bubble_column_drag_down")
     }
-    update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
-        helpers::schedule_water_tick(level, pos);
-        if !state.can_survive(&*level, pos)
-            || direction == Direction::Down
-            || (direction == Direction::Up && !neighbour_state.is_block(state.block()) && can_occupy(state.block(), neighbour_state))
-        {
-            helpers::schedule_block_tick(level, pos, state.block(), 5);
+    update_shape!(
+        |self, state, level, pos, direction, neighbour_pos, neighbour_state| {
+            helpers::schedule_water_tick(level, pos);
+            if !state.can_survive(&*level, pos)
+                || direction == Direction::Down
+                || (direction == Direction::Up
+                    && !neighbour_state.is_block(state.block())
+                    && can_occupy(state.block(), neighbour_state))
+            {
+                helpers::schedule_block_tick(level, pos, state.block(), 5);
+            }
+            state
         }
-        state
-    });
+    );
 }
 
 register_block_class!("BubbleColumnBlock", |_| Box::new(BubbleColumnBlock));

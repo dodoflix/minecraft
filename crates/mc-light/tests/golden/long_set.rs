@@ -5,7 +5,10 @@ use std::path::Path;
 
 #[test]
 fn iteration_order_matches_fastutil() {
-    let text = std::fs::read_to_string(Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/set_golden.txt")).unwrap();
+    let text = std::fs::read_to_string(
+        Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/set_golden.txt"),
+    )
+    .unwrap();
     let mut set = LongOpenHashSet::default();
     let mut light = false;
     let mut orders = 0;
@@ -15,7 +18,11 @@ fn iteration_order_matches_fastutil() {
             "NEW" => {
                 if f[2] == "0" {
                     light = f[1] == "512";
-                    set = if light { LongOpenHashSet::with_capacity(512, 0.5) } else { LongOpenHashSet::default() };
+                    set = if light {
+                        LongOpenHashSet::with_capacity(512, 0.5)
+                    } else {
+                        LongOpenHashSet::default()
+                    };
                 }
             }
             "ADD" => assert_eq!(set.add(f[1].parse().unwrap()), f[2] == "true", "{line}"),

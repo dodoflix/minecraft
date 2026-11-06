@@ -25,7 +25,9 @@ pub trait LevelLoadListener: Send {
 /// `LevelLoadListener.compose`.
 pub struct ComposedLevelLoadListener<A, B>(pub A, pub B);
 
-impl<A: LevelLoadListener, B: LevelLoadListener> LevelLoadListener for ComposedLevelLoadListener<A, B> {
+impl<A: LevelLoadListener, B: LevelLoadListener> LevelLoadListener
+    for ComposedLevelLoadListener<A, B>
+{
     fn start(&mut self, stage: Stage, total_chunks: i32) {
         self.0.start(stage, total_chunks);
         self.1.start(stage, total_chunks);
@@ -59,7 +61,14 @@ const EXPECTED_PLAYER_CHUNKS: i32 = 49;
 
 impl LevelLoadProgressTracker {
     pub fn new(include_player_chunks: bool) -> Self {
-        Self { include_player_chunks, total_weight: 0, finalized_weight: 0, segment_weight: 0, segment_fraction: 0.0, progress: 0.0 }
+        Self {
+            include_player_chunks,
+            total_weight: 0,
+            finalized_weight: 0,
+            segment_weight: 0,
+            segment_fraction: 0.0,
+            progress: 0.0,
+        }
     }
 
     pub fn get(&self) -> f32 {
@@ -90,7 +99,8 @@ impl LevelLoadProgressTracker {
         self.progress = if self.total_weight == 0 {
             0.0
         } else {
-            let current_weight = self.finalized_weight as f32 + self.segment_fraction * self.segment_weight as f32;
+            let current_weight =
+                self.finalized_weight as f32 + self.segment_fraction * self.segment_weight as f32;
             current_weight / self.total_weight as f32
         };
     }
@@ -103,8 +113,14 @@ impl LevelLoadListener for LevelLoadProgressTracker {
         }
         match stage {
             Stage::LoadInitialChunks => {
-                let player_chunks_weight = if self.include_player_chunks { EXPECTED_PLAYER_CHUNKS } else { 0 };
-                self.total_weight = 10i32.wrapping_add(total_chunks).wrapping_add(player_chunks_weight);
+                let player_chunks_weight = if self.include_player_chunks {
+                    EXPECTED_PLAYER_CHUNKS
+                } else {
+                    0
+                };
+                self.total_weight = 10i32
+                    .wrapping_add(total_chunks)
+                    .wrapping_add(player_chunks_weight);
                 self.begin_segment(10);
                 self.finish_segment();
                 self.begin_segment(total_chunks);
@@ -116,7 +132,11 @@ impl LevelLoadListener for LevelLoadProgressTracker {
 
     fn update(&mut self, stage: Stage, current_chunks: i32, total_chunks: i32) {
         if self.tracks_stage(stage) {
-            self.segment_fraction = if total_chunks == 0 { 0.0 } else { current_chunks as f32 / total_chunks as f32 };
+            self.segment_fraction = if total_chunks == 0 {
+                0.0
+            } else {
+                current_chunks as f32 / total_chunks as f32
+            };
             self.update_progress();
         }
     }
@@ -177,7 +197,9 @@ impl LevelLoadListener for LoggingLevelLoadListener {
         match stage {
             Stage::PrepareGlobalSpawn => log::info!("Selecting global world spawn..."),
             Stage::LoadInitialChunks => log::info!("Loading {total_chunks} persistent chunks..."),
-            Stage::LoadPlayerChunks => log::info!("Loading {total_chunks} chunks for player spawn..."),
+            Stage::LoadPlayerChunks => {
+                log::info!("Loading {total_chunks} chunks for player spawn...")
+            }
             Stage::StartServer => {}
         }
     }
@@ -186,11 +208,15 @@ impl LevelLoadListener for LoggingLevelLoadListener {
         if self.closed {
             return;
         }
-        self.progress_tracker.update(stage, current_chunks, total_chunks);
+        self.progress_tracker
+            .update(stage, current_chunks, total_chunks);
         if get_millis() > self.next_log_time {
             self.next_log_time += 500;
             let percent = mth::floor_f32(self.progress_tracker.get() * 100.0);
-            log::info!("{}", Component::translatable("menu.preparingSpawn", vec![percent.into()]).get_string());
+            log::info!(
+                "{}",
+                Component::translatable("menu.preparingSpawn", vec![percent.into()]).get_string()
+            );
         }
     }
 
@@ -199,7 +225,11 @@ impl LevelLoadListener for LoggingLevelLoadListener {
             return;
         }
         self.progress_tracker.finish(stage);
-        let final_stage = if self.include_player_chunks { Stage::LoadPlayerChunks } else { Stage::LoadInitialChunks };
+        let final_stage = if self.include_player_chunks {
+            Stage::LoadPlayerChunks
+        } else {
+            Stage::LoadInitialChunks
+        };
         if stage == final_stage {
             log::info!("Time elapsed: {} ms", get_millis() - self.start_time);
             self.next_log_time = i64::MAX;
@@ -237,6 +267,9 @@ mod tests {
 
     #[test]
     fn progress_message_text() {
-        assert_eq!(Component::translatable("menu.preparingSpawn", vec![100.into()]).get_string(), "Preparing spawn area: 100%");
+        assert_eq!(
+            Component::translatable("menu.preparingSpawn", vec![100.into()]).get_string(),
+            "Preparing spawn area: 100%"
+        );
     }
 }

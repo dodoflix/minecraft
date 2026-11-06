@@ -16,21 +16,38 @@ pub struct GoToPotentialJobSite {
 
 impl GoToPotentialJobSite {
     pub fn new(speed_modifier: f32) -> BehaviorBase<GoToPotentialJobSite> {
-        BehaviorBase::with_timeout(entry_condition![POTENTIAL_JOB_SITE => ValuePresent], TICKS_UNTIL_TIMEOUT, GoToPotentialJobSite { speed_modifier })
+        BehaviorBase::with_timeout(
+            entry_condition![POTENTIAL_JOB_SITE => ValuePresent],
+            TICKS_UNTIL_TIMEOUT,
+            GoToPotentialJobSite { speed_modifier },
+        )
     }
 }
 
 impl Behavior for GoToPotentialJobSite {
-    fn check_extra_start_conditions(&mut self, _level: &mut ServerLevel, body: &mut dyn Entity) -> bool {
-        body.brain().get_active_non_core_activity().is_none_or(|a| a == Activity::IDLE || a == Activity::WORK || a == Activity::PLAY)
+    fn check_extra_start_conditions(
+        &mut self,
+        _level: &mut ServerLevel,
+        body: &mut dyn Entity,
+    ) -> bool {
+        body.brain()
+            .get_active_non_core_activity()
+            .is_none_or(|a| a == Activity::IDLE || a == Activity::WORK || a == Activity::PLAY)
     }
 
-    fn can_still_use(&mut self, _level: &mut ServerLevel, body: &mut dyn Entity, _timestamp: i64) -> bool {
+    fn can_still_use(
+        &mut self,
+        _level: &mut ServerLevel,
+        body: &mut dyn Entity,
+        _timestamp: i64,
+    ) -> bool {
         body.brain().has_memory_value(POTENTIAL_JOB_SITE.id())
     }
 
     fn tick(&mut self, _level: &mut ServerLevel, body: &mut dyn Entity, _timestamp: i64) {
-        let Some(pos) = body.brain().get_memory(&POTENTIAL_JOB_SITE).map(|g| g.pos) else { return };
+        let Some(pos) = body.brain().get_memory(&POTENTIAL_JOB_SITE).map(|g| g.pos) else {
+            return;
+        };
         set_walk_and_look_target_memories_pos(body, pos, self.speed_modifier, 1);
     }
 

@@ -10,7 +10,9 @@ use super::retry_options::RetryOptions;
 use super::structure_utils;
 use crate::server::MinecraftServer;
 use crate::translatable;
-use crate::world::block_entity::test_instance_block_entity::{self, Data, Status, TestInstanceView};
+use crate::world::block_entity::test_instance_block_entity::{
+    self, Data, Status, TestInstanceView,
+};
 use crate::world::level::{BlockGetter, DimensionKey, LevelAccessor};
 use mc_core::ident::Identifier;
 use mc_core::phys::AABB;
@@ -51,7 +53,12 @@ pub struct GameTestInfo {
 }
 
 impl GameTestInfo {
-    pub fn new(test: TestHolder, extra_rotation: Rotation, level: DimensionKey, retry_options: RetryOptions) -> Rc<GameTestInfo> {
+    pub fn new(
+        test: TestHolder,
+        extra_rotation: Rotation,
+        level: DimensionKey,
+        retry_options: RetryOptions,
+    ) -> Rc<GameTestInfo> {
         let timeout_ticks = test.value.max_ticks();
         Rc::new(GameTestInfo {
             test,
@@ -83,7 +90,8 @@ impl GameTestInfo {
 
     /// `startExecution(tickDelay)`.
     pub fn start_execution(self: &Rc<Self>, tick_delay: i32) -> Rc<Self> {
-        self.tick_count.set(-(self.test.value.setup_ticks() + tick_delay + 1));
+        self.tick_count
+            .set(-(self.test.value.setup_ticks() + tick_delay + 1));
         self.clone()
     }
 
@@ -92,9 +100,13 @@ impl GameTestInfo {
         if self.placed_structure.get() {
             return;
         }
-        let Some(pos) = self.test_block_pos.get() else { return };
+        let Some(pos) = self.test_block_pos.get() else {
+            return;
+        };
         if !test_instance_block_entity::place_structure(server, &self.level, pos) {
-            let name = TestInstanceView::read(server, &self.level, pos).map(|v| v.get_test_name().get_string()).unwrap_or_default();
+            let name = TestInstanceView::read(server, &self.level, pos)
+                .map(|v| v.get_test_name().get_string())
+                .unwrap_or_default();
             self.fail(translatable!("test.error.structure.failure", name));
         }
         self.placed_structure.set(true);
@@ -125,9 +137,15 @@ impl GameTestInfo {
             self.finish();
         } else {
             if !self.chunks_loaded.get() {
-                let view = self.test_block_pos.get().and_then(|pos| TestInstanceView::read(server, &self.level, pos));
+                let view = self
+                    .test_block_pos
+                    .get()
+                    .and_then(|pos| TestInstanceView::read(server, &self.level, pos));
                 let all_active = match (&view, server.level(&self.level)) {
-                    (Some(view), Some(level)) => view.get_structure_bounding_box().intersecting_chunks().all(|chunk| level.are_entities_actually_loaded_and_ticking(chunk)),
+                    (Some(view), Some(level)) => view
+                        .get_structure_bounding_box()
+                        .intersecting_chunks()
+                        .all(|chunk| level.are_entities_actually_loaded_and_ticking(chunk)),
                     _ => true,
                 };
                 if !all_active {
@@ -158,7 +176,10 @@ impl GameTestInfo {
         }
         // `runAtTickTimeMap`: every due entry runs once and is removed
         let tick = i64::from(self.tick_count.get());
-        let (due, pending): (Vec<_>, Vec<_>) = std::mem::take(&mut *self.run_at_tick_time_map.borrow_mut()).into_iter().partition(|(time, _)| *time <= tick);
+        let (due, pending): (Vec<_>, Vec<_>) =
+            std::mem::take(&mut *self.run_at_tick_time_map.borrow_mut())
+                .into_iter()
+                .partition(|(time, _)| *time <= tick);
         *self.run_at_tick_time_map.borrow_mut() = pending;
         for (_, runnable) in due {
             let result = self.run_guarded(server, |helper| runnable(helper));
@@ -169,13 +190,23 @@ impl GameTestInfo {
         if self.tick_count.get() > self.timeout_ticks {
             let sequences: Vec<Rc<GameTestSequence>> = self.sequences.borrow().clone();
             if sequences.is_empty() {
-                self.fail_with(GameTestException::Timeout { message: translatable!("test.error.timeout.no_result", self.test.value.max_ticks()) });
+                self.fail_with(GameTestException::Timeout {
+                    message: translatable!(
+                        "test.error.timeout.no_result",
+                        self.test.value.max_ticks()
+                    ),
+                });
             } else {
                 for sequence in &sequences {
                     sequence.tick_and_fail_if_not_complete(server, self, self.tick_count.get());
                 }
                 if self.error.borrow().is_none() {
-                    self.fail_with(GameTestException::Timeout { message: translatable!("test.error.timeout.no_sequences_finished", self.test.value.max_ticks()) });
+                    self.fail_with(GameTestException::Timeout {
+                        message: translatable!(
+                            "test.error.timeout.no_sequences_finished",
+                            self.test.value.max_ticks()
+                        ),
+                    });
                 }
             }
         } else {
@@ -188,7 +219,11 @@ impl GameTestInfo {
 
     /// Runs `runnable` with a helper, turning a panic into the `UnknownGameTestException` vanilla wraps a thrown
     /// `Exception` in.
-    pub(super) fn run_guarded<F>(self: &Rc<Self>, server: &mut MinecraftServer, f: F) -> Result<(), GameTestException>
+    pub(super) fn run_guarded<F>(
+        self: &Rc<Self>,
+        server: &mut MinecraftServer,
+        f: F,
+    ) -> Result<(), GameTestException>
     where
         F: FnOnce(&mut GameTestHelper<'_>) -> Result<(), GameTestException>,
     {
@@ -197,7 +232,11 @@ impl GameTestInfo {
             let mut helper = GameTestHelper::new(server, &this);
             f(&mut helper)
         }));
-        result.unwrap_or_else(|payload| Err(GameTestException::Unknown { reason: panic_message(payload) }))
+        result.unwrap_or_else(|payload| {
+            Err(GameTestException::Unknown {
+                reason: panic_message(payload),
+            })
+        })
     }
 
     fn start_test(self: &Rc<Self>, server: &mut MinecraftServer) {
@@ -218,7 +257,9 @@ impl GameTestInfo {
 
     /// `setRunAtTickTime(time, assertAtTickTime)`.
     pub fn set_run_at_tick_time(&self, time: i64, assert_at_tick_time: Runnable) {
-        self.run_at_tick_time_map.borrow_mut().push((time, assert_at_tick_time));
+        self.run_at_tick_time_map
+            .borrow_mut()
+            .push((time, assert_at_tick_time));
     }
 
     /// `id()`.
@@ -244,7 +285,9 @@ impl GameTestInfo {
 
     /// `getTestOrigin()`: `testInstanceBlockEntity.getStartCorner()`.
     pub fn get_test_origin(&self, server: &MinecraftServer) -> BlockPos {
-        self.get_test_instance_view(server).map(|v| v.get_start_corner()).unwrap_or(BlockPos::ZERO)
+        self.get_test_instance_view(server)
+            .map(|v| v.get_start_corner())
+            .unwrap_or(BlockPos::ZERO)
     }
 
     /// `getStructureBounds()`.
@@ -273,7 +316,11 @@ impl GameTestInfo {
 
     /// `getRunTime()`: milliseconds.
     pub fn get_run_time(&self) -> u128 {
-        let running = self.timer_start.get().map(|s| s.elapsed()).unwrap_or(Duration::ZERO);
+        let running = self
+            .timer_start
+            .get()
+            .map(|s| s.elapsed())
+            .unwrap_or(Duration::ZERO);
         (self.timer_elapsed.get() + running).as_millis()
     }
 
@@ -281,7 +328,8 @@ impl GameTestInfo {
         if !self.done.get() {
             self.done.set(true);
             if let Some(start) = self.timer_start.take() {
-                self.timer_elapsed.set(self.timer_elapsed.get() + start.elapsed());
+                self.timer_elapsed
+                    .set(self.timer_elapsed.get() + start.elapsed());
             }
         }
     }
@@ -319,8 +367,14 @@ impl GameTestInfo {
     }
 
     /// `prepareTestStructure()`.
-    pub fn prepare_test_structure(self: &Rc<Self>, server: &mut MinecraftServer) -> Option<Rc<GameTestInfo>> {
-        let pos = self.test_block_pos.get().expect("a test block position was set");
+    pub fn prepare_test_structure(
+        self: &Rc<Self>,
+        server: &mut MinecraftServer,
+    ) -> Option<Rc<GameTestInfo>> {
+        let pos = self
+            .test_block_pos
+            .get()
+            .expect("a test block position was set");
         if self.create_test_instance_block(server, pos, self.extra_rotation) {
             self.has_block_entity.set(true);
             self.place_structure(server);
@@ -331,19 +385,34 @@ impl GameTestInfo {
     }
 
     /// `createTestInstanceBlock(testPos, rotation, level)`.
-    fn create_test_instance_block(&self, server: &mut MinecraftServer, test_pos: BlockPos, rotation: Rotation) -> bool {
-        let Some(level) = server.level_mut(&self.level) else { return false };
+    fn create_test_instance_block(
+        &self,
+        server: &mut MinecraftServer,
+        test_pos: BlockPos,
+        rotation: Rotation,
+    ) -> bool {
+        let Some(level) = server.level_mut(&self.level) else {
+            return false;
+        };
         level.set_block_and_update(test_pos, Block::TEST_INSTANCE_BLOCK.default_state());
         if TestInstanceView::read(server, &self.level, test_pos).is_none() {
             return false;
         }
         let key = self.test.key.clone();
-        let size = test_instance_block_entity::get_structure_size(server, &self.level, &key).unwrap_or(Vec3i::new(1, 1, 1));
+        let size = test_instance_block_entity::get_structure_size(server, &self.level, &key)
+            .unwrap_or(Vec3i::new(1, 1, 1));
         test_instance_block_entity::set(
             server,
             &self.level,
             test_pos,
-            Data { test: Some(key), size, rotation, ignore_entities: false, status: Status::Cleared, error_message: None },
+            Data {
+                test: Some(key),
+                size,
+                rotation,
+                ignore_entities: false,
+                status: Status::Cleared,
+                error_message: None,
+            },
         );
         true
     }
@@ -374,7 +443,11 @@ impl GameTestInfo {
 
     /// `getRotation()`.
     pub fn get_rotation(&self) -> Rotation {
-        self.test.value.info().rotation.get_rotated(self.extra_rotation)
+        self.test
+            .value
+            .info()
+            .rotation
+            .get_rotated(self.extra_rotation)
     }
 
     pub fn get_test(&self) -> &GameTestInstance {
@@ -412,7 +485,12 @@ impl GameTestInfo {
 
     /// `copyReset()`.
     pub fn copy_reset(&self) -> Rc<GameTestInfo> {
-        let copy = GameTestInfo::new(self.test.clone(), self.extra_rotation, self.level.clone(), self.retry_options);
+        let copy = GameTestInfo::new(
+            self.test.clone(),
+            self.extra_rotation,
+            self.level.clone(),
+            self.retry_options,
+        );
         if let Some(pos) = self.test_block_pos.get() {
             copy.set_test_block_pos(Some(pos));
         }
@@ -429,6 +507,9 @@ impl std::fmt::Display for GameTestInfo {
 fn panic_message(payload: Box<dyn std::any::Any + Send>) -> String {
     match payload.downcast::<String>() {
         Ok(s) => *s,
-        Err(payload) => payload.downcast::<&'static str>().map(|s| (*s).to_owned()).unwrap_or_else(|_| "panic".to_owned()),
+        Err(payload) => payload
+            .downcast::<&'static str>()
+            .map(|s| (*s).to_owned())
+            .unwrap_or_else(|_| "panic".to_owned()),
     }
 }

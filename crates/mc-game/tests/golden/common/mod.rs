@@ -1,5 +1,8 @@
 //! Shared helpers: run the world-load pipeline against a world directory and capture log output.
-#![allow(dead_code, reason = "each test target uses a subset of the shared helpers")]
+#![allow(
+    dead_code,
+    reason = "each test target uses a subset of the shared helpers"
+)]
 
 use std::path::Path;
 use std::sync::Mutex;
@@ -22,7 +25,10 @@ impl log::Log for TestLogger {
         true
     }
     fn log(&self, r: &log::Record) {
-        LOGS.lock().unwrap().push((std::thread::current().id(), format!("{}: {}", r.level(), r.args())));
+        LOGS.lock().unwrap().push((
+            std::thread::current().id(),
+            format!("{}: {}", r.level(), r.args()),
+        ));
     }
     fn flush(&self) {}
 }
@@ -39,24 +45,43 @@ pub fn init_logger() {
 pub fn take_logs() -> Vec<String> {
     let me = std::thread::current().id();
     let mut all = LOGS.lock().unwrap();
-    let (mine, others): (Vec<_>, Vec<_>) = std::mem::take(&mut *all).into_iter().partition(|(id, _)| *id == me);
+    let (mine, others): (Vec<_>, Vec<_>) = std::mem::take(&mut *all)
+        .into_iter()
+        .partition(|(id, _)| *id == me);
     *all = others;
     mine.into_iter().map(|(_, line)| line).collect()
 }
 
-pub fn load_world(world: &Path, config: WorldDataConfiguration, init_mode: bool) -> Result<(WorldDataConfiguration, WorldStem<()>), world_loader::WorldLoadError> {
-    let mut repo = ServerPacksSource::create_pack_repository(world.join("datapacks"), DirectoryValidator::no_symlinks_allowed());
-    let mut pc = PackConfig { pack_repository: &mut repo, initial_data_config: config, safe_mode: false, init_mode, function_compilation_permissions: mc_game::server::permissions::LevelBasedPermissionSet::GAMEMASTER.into() };
+pub fn load_world(
+    world: &Path,
+    config: WorldDataConfiguration,
+    init_mode: bool,
+) -> Result<(WorldDataConfiguration, WorldStem<()>), world_loader::WorldLoadError> {
+    let mut repo = ServerPacksSource::create_pack_repository(
+        world.join("datapacks"),
+        DirectoryValidator::no_symlinks_allowed(),
+    );
+    let mut pc = PackConfig {
+        pack_repository: &mut repo,
+        initial_data_config: config,
+        safe_mode: false,
+        init_mode,
+        function_compilation_permissions:
+            mc_game::server::permissions::LevelBasedPermissionSet::GAMEMASTER.into(),
+    };
     world_loader::load(
         &mut pc,
-        |_ctx| DataLoadOutput { cookie: (), final_dimensions: RegistryAccess::empty() },
+        |_ctx| DataLoadOutput {
+            cookie: (),
+            final_dimensions: RegistryAccess::empty(),
+        },
         |rm, managers, layers, cookie| WorldStem::new(rm, managers, layers, cookie),
     )
 }
 
+pub mod block_scenario;
 pub mod entity_oracle;
 pub mod entity_scenario;
 pub mod feature_harness;
 pub mod structure_golden;
-pub mod block_scenario;
 pub mod test_packs;

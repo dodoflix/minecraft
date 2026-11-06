@@ -109,7 +109,9 @@ impl DSL {
     /// `DSL.and(first, rest...)` / `DSL.and(List)`: right-nested products of at least one template.
     pub fn and_list(types: &[Template]) -> Template {
         let (last, init) = types.split_last().expect("Must have at least one type");
-        init.iter().rev().fold(last.clone(), |acc, t| DSL::and(t, &acc))
+        init.iter()
+            .rev()
+            .fold(last.clone(), |acc, t| DSL::and(t, &acc))
     }
     /// `DSL.allWithRemainder(first, rest...)`.
     pub fn all_with_remainder(first: &Template, rest: &[Template]) -> Template {
@@ -133,7 +135,9 @@ impl DSL {
     }
     /// `DSL.fields(n1, t1, n2, t2, ...)`: the fields followed by the remainder.
     pub fn fields(fields: &[(&str, Template)]) -> Template {
-        let (first, rest) = fields.split_first().expect("fields needs at least one field");
+        let (first, rest) = fields
+            .split_first()
+            .expect("fields needs at least one field");
         let first = DSL::field(first.0, &first.1);
         let rest: Vec<Template> = rest.iter().map(|(n, t)| DSL::field(n, t)).collect();
         DSL::all_with_remainder(&first, &rest)
@@ -146,13 +150,19 @@ impl DSL {
     }
     /// `DSL.optionalFields(n1, t1, n2, t2, ...)`: optional fields followed by the remainder.
     pub fn optional_fields(fields: &[(&str, Template)]) -> Template {
-        let mut all: Vec<Template> = fields.iter().map(|(n, t)| DSL::optional(&DSL::field(n, t))).collect();
+        let mut all: Vec<Template> = fields
+            .iter()
+            .map(|(n, t)| DSL::optional(&DSL::field(n, t)))
+            .collect();
         all.push(DSL::remainder());
         DSL::and_list(&all)
     }
     /// `DSL.optionalFields(n1, t1, ..., rest)`: optional fields followed by the explicit `rest` template.
     pub fn optional_fields_with_rest(fields: &[(&str, Template)], rest: &Template) -> Template {
-        let mut all: Vec<Template> = fields.iter().map(|(n, t)| DSL::optional(&DSL::field(n, t))).collect();
+        let mut all: Vec<Template> = fields
+            .iter()
+            .map(|(n, t)| DSL::optional(&DSL::field(n, t)))
+            .collect();
         all.push(rest.clone());
         DSL::and_list(&all)
     }
@@ -167,13 +177,26 @@ impl DSL {
         DSL::and_list(&all)
     }
     /// `DSL.taggedChoice(name, keyType, templates)`; `templates` in the iteration order of the Java map.
-    pub fn tagged_choice(name: &str, key_type: &Type, templates: Vec<(String, Template)>) -> Template {
+    pub fn tagged_choice(
+        name: &str,
+        key_type: &Type,
+        templates: Vec<(String, Template)>,
+    ) -> Template {
         Template::tagged_choice(name, key_type, templates)
     }
     /// `DSL.taggedChoiceLazy(name, keyType, Map<K, Supplier<TypeTemplate>>)`.
-    pub fn tagged_choice_lazy(name: &str, key_type: &Type, templates: &TemplateMap, schema: &Schema) -> Template {
+    pub fn tagged_choice_lazy(
+        name: &str,
+        key_type: &Type,
+        templates: &TemplateMap,
+        schema: &Schema,
+    ) -> Template {
         // `Collectors.toMap` collects into a new `HashMap` in the source map's iteration order
-        let evaluated: Vec<(String, Template)> = templates.iter_java_order().into_iter().map(|(k, s)| (k, s(schema))).collect();
+        let evaluated: Vec<(String, Template)> = templates
+            .iter_java_order()
+            .into_iter()
+            .map(|(k, s)| (k, s(schema)))
+            .collect();
         let reordered = mc_core::java_collections::hash_map_ordered(
             evaluated,
             |e| mc_core::math::java::java_string_hash(&e.0),

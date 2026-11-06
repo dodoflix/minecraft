@@ -27,17 +27,29 @@ impl PaintingVariant {
 
     /// `DIRECT_STREAM_CODEC` value (what `ClientboundSetEntityData` carries for a direct holder).
     pub fn to_protocol(&self) -> mc_protocol::packets::play::PaintingVariant {
-        mc_protocol::packets::play::PaintingVariant { width: self.width, height: self.height, asset_id: self.asset_id.clone(), title: self.title.clone(), author: self.author.clone() }
+        mc_protocol::packets::play::PaintingVariant {
+            width: self.width,
+            height: self.height,
+            asset_id: self.asset_id.clone(),
+            title: self.title.clone(),
+            author: self.author.clone(),
+        }
     }
 }
 
 fn decode(json: &Value, ctx: &RegistryDecodeContext) -> Result<DecodedEntry, String> {
-    let network = super::network::network_schema(keys::PAINTING_VARIANT).ok_or("missing painting variant schema")?.convert(json, ctx)?;
+    let network = super::network::network_schema(keys::PAINTING_VARIANT)
+        .ok_or("missing painting variant schema")?
+        .convert(json, ctx)?;
     let text = |key: &str| json.get(key).and_then(|v| Component::from_json(v).ok());
     let value = PaintingVariant {
         width: get_i32(json, "width").unwrap_or(1),
         height: get_i32(json, "height").unwrap_or(1),
-        asset_id: json.get("asset_id").and_then(Value::as_str).and_then(Identifier::try_parse).ok_or("invalid asset_id")?,
+        asset_id: json
+            .get("asset_id")
+            .and_then(Value::as_str)
+            .and_then(Identifier::try_parse)
+            .ok_or("invalid asset_id")?,
         title: text("title"),
         author: text("author"),
     };
@@ -45,4 +57,7 @@ fn decode(json: &Value, ctx: &RegistryDecodeContext) -> Result<DecodedEntry, Str
 }
 
 #[linkme::distributed_slice(DYNAMIC_REGISTRY_DECODERS)]
-static DECODER: DynamicRegistryDecoder = DynamicRegistryDecoder { registry: keys::PAINTING_VARIANT, decode };
+static DECODER: DynamicRegistryDecoder = DynamicRegistryDecoder {
+    registry: keys::PAINTING_VARIANT,
+    decode,
+};

@@ -51,7 +51,11 @@ impl Properties {
 
     /// Entries in `String.compareTo` (UTF-16 code unit) key order, as `store` writes them.
     pub fn sorted_entries(&self) -> Vec<(&str, &str)> {
-        let mut entries: Vec<(&str, &str)> = self.map.iter().map(|(k, v)| (k.as_str(), v.as_str())).collect();
+        let mut entries: Vec<(&str, &str)> = self
+            .map
+            .iter()
+            .map(|(k, v)| (k.as_str(), v.as_str()))
+            .collect();
         entries.sort_by(|a, b| a.0.encode_utf16().cmp(b.0.encode_utf16()));
         entries
     }
@@ -59,7 +63,10 @@ impl Properties {
     /// `Properties.load(Reader)` over already-decoded text.
     pub fn load(text: &str) -> Result<Properties, MalformedUnicodeEscape> {
         let chars: Vec<char> = text.chars().collect();
-        let mut reader = LineReader { chars: &chars, pos: 0 };
+        let mut reader = LineReader {
+            chars: &chars,
+            pos: 0,
+        };
         let mut props = Properties::new();
         let mut line = Vec::new();
         while reader.read_line(&mut line) {
@@ -113,7 +120,10 @@ impl Properties {
     /// `Properties.store(OutputStream, comments)` as ISO-8859-1 bytes (anything above `~` is `\uXXXX`-escaped).
     pub fn store_latin1(&self, comments: Option<&str>) -> Vec<u8> {
         // every char of the output is <= 0xFF by construction (escUnicode), so this is lossless
-        self.store0(comments, true).chars().map(|c| c as u32 as u8).collect()
+        self.store0(comments, true)
+            .chars()
+            .map(|c| c as u32 as u8)
+            .collect()
     }
 
     fn store0(&self, comments: Option<&str>, esc_unicode: bool) -> String {
@@ -246,7 +256,10 @@ fn load_convert(input: &[char]) -> Result<String, MalformedUnicodeEscape> {
             'u' => {
                 let mut value: u32 = 0;
                 for _ in 0..4 {
-                    let digit = input.get(i).and_then(|c| c.to_digit(16)).ok_or(MalformedUnicodeEscape)?;
+                    let digit = input
+                        .get(i)
+                        .and_then(|c| c.to_digit(16))
+                        .ok_or(MalformedUnicodeEscape)?;
                     i += 1;
                     value = (value << 4) + digit;
                 }
@@ -327,7 +340,9 @@ fn write_comments(out: &mut String, comments: &str) {
                 if c == '\r' && current != chars.len() - 1 && chars[current + 1] == '\n' {
                     current += 1;
                 }
-                if current == chars.len() - 1 || (chars[current + 1] != '#' && chars[current + 1] != '!') {
+                if current == chars.len() - 1
+                    || (chars[current + 1] != '#' && chars[current + 1] != '!')
+                {
                     out.push('#');
                 }
             }
@@ -350,7 +365,9 @@ pub fn java_date_string() -> String {
 
 fn java_date_string_of<Tz: chrono::TimeZone>(now: chrono::DateTime<Tz>) -> String {
     const DAYS: [&str; 7] = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-    const MONTHS: [&str; 12] = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const MONTHS: [&str; 12] = [
+        "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+    ];
     let offset = now.offset().fix().local_minus_utc();
     let zone = if offset == 0 {
         "UTC".to_owned()
@@ -413,7 +430,10 @@ mod tests {
         assert_eq!(lines[0], "#hello");
         assert_eq!(lines[1], "#world");
         assert!(lines[2].starts_with('#'));
-        assert_eq!(&lines[3..], &["Z=", "a\\ b=é😀", "b=\\ lead\\=x\\:y\\#z\\!w\\\\ q\\t"]);
+        assert_eq!(
+            &lines[3..],
+            &["Z=", "a\\ b=é😀", "b=\\ lead\\=x\\:y\\#z\\!w\\\\ q\\t"]
+        );
         let latin = String::from_utf8(p.store_latin1(None)).unwrap();
         assert!(latin.contains("a\\ b=\\u00E9\\uD83D\\uDE00"));
         assert_eq!(Properties::load(&text).unwrap(), p);
@@ -422,8 +442,17 @@ mod tests {
     #[test]
     fn date_format() {
         use chrono::TimeZone;
-        let dt = chrono::FixedOffset::east_opt(3 * 3600).unwrap().with_ymd_and_hms(2026, 11, 4, 14, 13, 59).unwrap();
-        assert_eq!(java_date_string_of(dt), "Wed Nov 04 14:13:59 GMT+03:00 2026");
-        assert_eq!(java_date_string_of(chrono::Utc.with_ymd_and_hms(2026, 11, 4, 12, 0, 0).unwrap()), "Wed Nov 04 12:00:00 UTC 2026");
+        let dt = chrono::FixedOffset::east_opt(3 * 3600)
+            .unwrap()
+            .with_ymd_and_hms(2026, 11, 4, 14, 13, 59)
+            .unwrap();
+        assert_eq!(
+            java_date_string_of(dt),
+            "Wed Nov 04 14:13:59 GMT+03:00 2026"
+        );
+        assert_eq!(
+            java_date_string_of(chrono::Utc.with_ymd_and_hms(2026, 11, 4, 12, 0, 0).unwrap()),
+            "Wed Nov 04 12:00:00 UTC 2026"
+        );
     }
 }

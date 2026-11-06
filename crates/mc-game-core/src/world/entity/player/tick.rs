@@ -1,17 +1,17 @@
 //! `ServerPlayer.tick` / `doTick` and the `Player.tick` bases (health/food/xp sync, menu broadcast, level-driven
 //! counters).
 
-use crate::stats::stats::Stats;
-use crate::world::scores::ObjectiveCriteria;
-use super::menu_ctx::{PlayerCtx, ServerPlayerMenuInit};
-use crate::world::entity::attributes::{AttributeModifier, AttributeModifierOperation};
-use mc_core::ident::Identifier;
 use super::ServerPlayer;
+use super::menu_ctx::{PlayerCtx, ServerPlayerMenuInit};
 use crate::advancements::triggers::CriteriaTriggers;
 use crate::server::level::ServerLevel;
-use crate::world::entity::{living_entity, movement};
+use crate::stats::stats::Stats;
+use crate::world::entity::attributes::{AttributeModifier, AttributeModifierOperation};
 use crate::world::entity::{Entity, EntityId};
+use crate::world::entity::{living_entity, movement};
 use crate::world::inventory::PlayerMenus;
+use crate::world::scores::ObjectiveCriteria;
+use mc_core::ident::Identifier;
 use mc_core::math::mth;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
@@ -20,9 +20,14 @@ use mc_protocol::packets::play::{ClientboundSetExperiencePacket, ClientboundSetH
 impl ServerPlayer {
     /// `initInventoryMenu()` for this player's connection (no-op without one).
     pub fn init_inventory_menu(&mut self, level: &mut ServerLevel) {
-        let Some(connection) = self.connection.clone() else { return };
+        let Some(connection) = self.connection.clone() else {
+            return;
+        };
         let init = ServerPlayerMenuInit { connection };
-        let mut ctx = PlayerCtx { player: self, level };
+        let mut ctx = PlayerCtx {
+            player: self,
+            level,
+        };
         let mut menus = std::mem::replace(&mut ctx.player.player.menus, PlayerMenus::new());
         menus.init_inventory_menu(&init, &mut ctx);
         ctx.player.player.menus = menus;
@@ -30,28 +35,53 @@ impl ServerPlayer {
 
     /// `containerMenu.broadcastChanges()`.
     pub fn broadcast_menu_changes(&mut self, level: &mut ServerLevel) {
-        let mut ctx = PlayerCtx { player: self, level };
-        PlayerMenus::with_current(&mut ctx, |c| &mut c.player.player.menus, |menu, c| menu.broadcast_changes(c));
+        let mut ctx = PlayerCtx {
+            player: self,
+            level,
+        };
+        PlayerMenus::with_current(
+            &mut ctx,
+            |c| &mut c.player.player.menus,
+            |menu, c| menu.broadcast_changes(c),
+        );
     }
 
     /// `inventoryMenu.slotsChanged(inventory)`.
     pub fn inventory_menu_slots_changed(&mut self, level: &mut ServerLevel) {
-        let mut ctx = PlayerCtx { player: self, level };
+        let mut ctx = PlayerCtx {
+            player: self,
+            level,
+        };
         let mut menus = std::mem::replace(&mut ctx.player.player.menus, PlayerMenus::new());
-        menus.inventory_menu_mut().slots_changed(&mut ctx, &crate::world::inventory::ContainerKey::PlayerInventory);
+        menus.inventory_menu_mut().slots_changed(
+            &mut ctx,
+            &crate::world::inventory::ContainerKey::PlayerInventory,
+        );
         ctx.player.player.menus = menus;
     }
 
     /// `isWithinBlockInteractionRange(pos, buffer)`: `BLOCK_INTERACTION_RANGE` attribute + `buffer`.
     pub fn is_within_block_interaction_range(&self, pos: BlockPos, buffer: f64) -> bool {
-        let range = self.player.living.get_attribute_value(mc_data::Attribute::BLOCK_INTERACTION_RANGE) + buffer;
+        let range = self
+            .player
+            .living
+            .get_attribute_value(mc_data::Attribute::BLOCK_INTERACTION_RANGE)
+            + buffer;
         let bb = mc_core::phys::AABB::from_block_pos(&pos);
         bb.distance_to_sqr(self.base().get_eye_position()) < range * range
     }
 
     /// `isWithinEntityInteractionRange(bb, buffer)`.
-    pub fn is_within_entity_interaction_range(&self, target: &mc_core::phys::AABB, buffer: f64) -> bool {
-        let range = self.player.living.get_attribute_value(mc_data::Attribute::ENTITY_INTERACTION_RANGE) + buffer;
+    pub fn is_within_entity_interaction_range(
+        &self,
+        target: &mc_core::phys::AABB,
+        buffer: f64,
+    ) -> bool {
+        let range = self
+            .player
+            .living
+            .get_attribute_value(mc_data::Attribute::ENTITY_INTERACTION_RANGE)
+            + buffer;
         target.distance_to_sqr(self.base().get_eye_position()) < range * range
     }
 
@@ -62,11 +92,12 @@ impl ServerPlayer {
         use mc_data::enums::Pose;
         let creative = self.is_creative();
         let crouching = self.base().get_pose() == Pose::Crouching;
-        let modifier = |path: &str, amount: f64, operation: AttributeModifierOperation| AttributeModifier {
-            id: Identifier::new("minecraft", path).expect("valid id"),
-            amount,
-            operation,
-        };
+        let modifier =
+            |path: &str, amount: f64, operation: AttributeModifierOperation| AttributeModifier {
+                id: Identifier::new("minecraft", path).expect("valid id"),
+                amount,
+                operation,
+            };
         let attributes = &mut self.player.living.attributes;
         let mut update = |attribute: Attribute, modifier: AttributeModifier, active: bool| {
             if let Some(instance) = attributes.get_instance(attribute) {
@@ -77,11 +108,31 @@ impl ServerPlayer {
                 }
             }
         };
-        update(Attribute::BLOCK_INTERACTION_RANGE, modifier("creative_mode_block_range", 0.5, AttributeModifierOperation::AddValue), creative);
-        update(Attribute::ENTITY_INTERACTION_RANGE, modifier("creative_mode_entity_range", 2.0, AttributeModifierOperation::AddValue), creative);
+        update(
+            Attribute::BLOCK_INTERACTION_RANGE,
+            modifier(
+                "creative_mode_block_range",
+                0.5,
+                AttributeModifierOperation::AddValue,
+            ),
+            creative,
+        );
+        update(
+            Attribute::ENTITY_INTERACTION_RANGE,
+            modifier(
+                "creative_mode_entity_range",
+                2.0,
+                AttributeModifierOperation::AddValue,
+            ),
+            creative,
+        );
         update(
             Attribute::WAYPOINT_TRANSMIT_RANGE,
-            modifier("waypoint_transmit_range_crouch", -1.0, AttributeModifierOperation::AddMultipliedTotal),
+            modifier(
+                "waypoint_transmit_range_crouch",
+                -1.0,
+                AttributeModifierOperation::AddMultipliedTotal,
+            ),
             crouching,
         );
     }
@@ -121,9 +172,15 @@ impl ServerPlayer {
         if self.base().fall_distance > 0.0 && self.starting_to_fall_position.is_none() {
             let position = self.base().position();
             self.starting_to_fall_position = Some(position);
-            if let Some(impact) = self.current_explosion_impact_pos.filter(|p| p.y <= position.y) {
-                let cause = self.current_explosion_cause.and_then(|id| level.get_entity(id));
-                let matches = CriteriaTriggers::FALL_AFTER_EXPLOSION.matches(&*level, &*self, impact, cause);
+            if let Some(impact) = self
+                .current_explosion_impact_pos
+                .filter(|p| p.y <= position.y)
+            {
+                let cause = self
+                    .current_explosion_cause
+                    .and_then(|id| level.get_entity(id));
+                let matches =
+                    CriteriaTriggers::FALL_AFTER_EXPLOSION.matches(&*level, &*self, impact, cause);
                 matches.award(level, self);
             }
             self.current_explosion_impact_pos = None;
@@ -133,16 +190,21 @@ impl ServerPlayer {
 
     /// `trackEnteredOrExitedLavaOnVehicle()`.
     pub fn track_entered_or_exited_lava_on_vehicle(&mut self, level: &mut ServerLevel) {
-        let in_lava = |level: &ServerLevel, id| level.get_entity(id).is_some_and(|v| v.is_in_lava());
+        let in_lava =
+            |level: &ServerLevel, id| level.get_entity(id).is_some_and(|v| v.is_in_lava());
         let vehicle = self.base().vehicle;
         if vehicle.is_some_and(|v| in_lava(level, v)) {
             match self.entered_lava_on_vehicle_position {
                 None => self.entered_lava_on_vehicle_position = Some(self.base().position()),
-                Some(entered) => CriteriaTriggers::RIDE_ENTITY_IN_LAVA_TRIGGER.trigger(level, self, entered),
+                Some(entered) => {
+                    CriteriaTriggers::RIDE_ENTITY_IN_LAVA_TRIGGER.trigger(level, self, entered)
+                }
             }
         }
         let vehicle = self.base().vehicle;
-        if self.entered_lava_on_vehicle_position.is_some() && !vehicle.is_some_and(|v| in_lava(level, v)) {
+        if self.entered_lava_on_vehicle_position.is_some()
+            && !vehicle.is_some_and(|v| in_lava(level, v))
+        {
             self.entered_lava_on_vehicle_position = None;
         }
     }
@@ -169,23 +231,40 @@ impl ServerPlayer {
         self.player.was_underwater = self.base().eye_in_fluid[0];
         living_entity::tick::tick(self, level);
         let (x, z) = (self.base().x(), self.base().z());
-        let (nx, nz) = (mth::clamp_f64(x, -2.9999999E7, 2.9999999E7), mth::clamp_f64(z, -2.9999999E7, 2.9999999E7));
+        let (nx, nz) = (
+            mth::clamp_f64(x, -2.9999999E7, 2.9999999E7),
+            mth::clamp_f64(z, -2.9999999E7, 2.9999999E7),
+        );
         if nx != x || nz != z {
             let y = self.base().y();
             self.set_pos(nx, y, nz);
         }
         self.player.living.attack_strength_ticker += 1;
         self.player.living.item_swap_ticker += 1;
-        let main_hand = self.get_item_by_slot(crate::world::entity::equipment::EquipmentSlot::MainHand);
+        let main_hand =
+            self.get_item_by_slot(crate::world::entity::equipment::EquipmentSlot::MainHand);
         if !crate::world::item::ItemStack::matches(&self.last_item_in_main_hand, &main_hand) {
-            if !crate::world::item::ItemStack::is_same_item(&self.last_item_in_main_hand, &main_hand) {
+            if !crate::world::item::ItemStack::is_same_item(
+                &self.last_item_in_main_hand,
+                &main_hand,
+            ) {
                 self.reset_attack_strength_ticker();
             }
             self.last_item_in_main_hand = main_hand.copy();
         }
-        if !self.is_eye_in_fluid(crate::world::entity::fluid_interaction::TAG_WATER) && self.is_equipped(mc_data::Item::TURTLE_HELMET) {
+        if !self.is_eye_in_fluid(crate::world::entity::fluid_interaction::TAG_WATER)
+            && self.is_equipped(mc_data::Item::TURTLE_HELMET)
+        {
             // `turtleHelmetTick()`
-            let effect = crate::world::entity::effect::MobEffectInstance::new(mc_data::MobEffect::WATER_BREATHING, 200, 0, false, false, true, None);
+            let effect = crate::world::entity::effect::MobEffectInstance::new(
+                mc_data::MobEffect::WATER_BREATHING,
+                200,
+                0,
+                false,
+                false,
+                true,
+                None,
+            );
             self.add_effect(level, effect, None);
         }
         self.player.cooldowns.tick();
@@ -206,7 +285,10 @@ impl ServerPlayer {
         living_entity::ai_step::ai_step(self, level);
         let y_rot = self.base().y_rot();
         self.player.living.y_head_rot = y_rot;
-        let speed = self.player.living.get_attribute_value(mc_data::Attribute::MOVEMENT_SPEED) as f32;
+        let speed = self
+            .player
+            .living
+            .get_attribute_value(mc_data::Attribute::MOVEMENT_SPEED) as f32;
         self.set_speed(speed);
         self.touch_nearby_entities(level);
     }
@@ -219,13 +301,18 @@ impl ServerPlayer {
         }
         let bb = self.base().bounding_box();
         let area = match self.base().vehicle.and_then(|v| level.get_entity(v)) {
-            Some(vehicle) if !vehicle.is_removed() => bb.minmax(&vehicle.get_bounding_box()).inflate(1.0, 0.0, 1.0),
+            Some(vehicle) if !vehicle.is_removed() => bb
+                .minmax(&vehicle.get_bounding_box())
+                .inflate(1.0, 0.0, 1.0),
             _ => bb.inflate(1.0, 0.5, 1.0),
         };
         let ids = level.get_entities(Some(self.base_id()), &area, |_| true);
         let mut orbs = Vec::new();
         for id in ids {
-            if level.get_entity(id).is_some_and(|e| e.get_type() == mc_data::EntityType::EXPERIENCE_ORB) {
+            if level
+                .get_entity(id)
+                .is_some_and(|e| e.get_type() == mc_data::EntityType::EXPERIENCE_ORB)
+            {
                 orbs.push(id);
             } else {
                 level.with_entity(id, |level, e| {
@@ -246,7 +333,10 @@ impl ServerPlayer {
         use crate::world::entity::equipment::EquipmentSlot;
         EquipmentSlot::VALUES.into_iter().any(|slot| {
             let stack = self.get_item_by_slot(slot);
-            stack.item() == item && stack.get(&mc_protocol::components::EQUIPPABLE).is_some_and(|e| EquipmentSlot::from_protocol(e.slot) == slot)
+            stack.item() == item
+                && stack
+                    .get(&mc_protocol::components::EQUIPPABLE)
+                    .is_some_and(|e| EquipmentSlot::from_protocol(e.slot) == slot)
         })
     }
 
@@ -255,7 +345,10 @@ impl ServerPlayer {
         use mc_data::enums::Pose;
         if self.can_player_fit_within_blocks_and_entities_when(level, Pose::Swimming) {
             let desired_pose = self.get_desired_pose();
-            let actual_pose = if self.is_spectator() || self.base().is_passenger() || self.can_player_fit_within_blocks_and_entities_when(level, desired_pose) {
+            let actual_pose = if self.is_spectator()
+                || self.base().is_passenger()
+                || self.can_player_fit_within_blocks_and_entities_when(level, desired_pose)
+            {
                 desired_pose
             } else if self.can_player_fit_within_blocks_and_entities_when(level, Pose::Crouching) {
                 Pose::Crouching
@@ -275,7 +368,11 @@ impl ServerPlayer {
             Pose::Swimming
         } else if self.player.living.is_fall_flying() {
             Pose::FallFlying
-        } else if self.player.living.get_living_entity_flag(crate::world::entity::living::LIVING_ENTITY_FLAG_SPIN_ATTACK) {
+        } else if self
+            .player
+            .living
+            .get_living_entity_flag(crate::world::entity::living::LIVING_ENTITY_FLAG_SPIN_ATTACK)
+        {
             Pose::SpinAttack
         } else if self.is_shift_key_down() && !self.player.abilities.flying {
             Pose::Crouching
@@ -285,9 +382,18 @@ impl ServerPlayer {
     }
 
     /// `canPlayerFitWithinBlocksAndEntitiesWhen(pose)`.
-    fn can_player_fit_within_blocks_and_entities_when(&self, level: &ServerLevel, pose: mc_data::enums::Pose) -> bool {
-        let aabb = self.get_dimensions(pose).make_bounding_box_vec(self.base().position()).deflate_scalar(1.0E-7);
-        movement::collect_all_colliders(self, level, &aabb).iter().all(|shape| shape.is_empty())
+    fn can_player_fit_within_blocks_and_entities_when(
+        &self,
+        level: &ServerLevel,
+        pose: mc_data::enums::Pose,
+    ) -> bool {
+        let aabb = self
+            .get_dimensions(pose)
+            .make_bounding_box_vec(self.base().position())
+            .deflate_scalar(1.0E-7);
+        movement::collect_all_colliders(self, level, &aabb)
+            .iter()
+            .all(|shape| shape.is_empty())
     }
 
     /// `ServerPlayer.doTick()`.
@@ -319,8 +425,15 @@ impl ServerPlayer {
         let health = self.player.living.get_health();
         let food = self.player.food_data.food_level;
         let saturation = self.player.food_data.saturation_level;
-        if health != self.last_sent_health || self.last_sent_food != food || (saturation == 0.0) != self.last_food_saturation_zero {
-            self.send(&ClientboundSetHealthPacket { health, food, saturation });
+        if health != self.last_sent_health
+            || self.last_sent_food != food
+            || (saturation == 0.0) != self.last_food_saturation_zero
+        {
+            self.send(&ClientboundSetHealthPacket {
+                health,
+                food,
+                saturation,
+            });
             self.last_sent_health = health;
             self.last_sent_food = food;
             self.last_food_saturation_zero = saturation == 0.0;
@@ -328,31 +441,59 @@ impl ServerPlayer {
         let health_and_absorption = health + self.player.get_absorption_amount();
         if health_and_absorption != self.last_recorded_health_and_absorption {
             self.last_recorded_health_and_absorption = health_and_absorption;
-            self.update_score_for_criteria(level, &ObjectiveCriteria::HEALTH, mth::ceil_f32(health_and_absorption));
+            self.update_score_for_criteria(
+                level,
+                &ObjectiveCriteria::HEALTH,
+                mth::ceil_f32(health_and_absorption),
+            );
         }
         if food != self.last_recorded_food_level {
             self.last_recorded_food_level = food;
-            self.update_score_for_criteria(level, &ObjectiveCriteria::FOOD, mth::ceil_f32(food as f32));
+            self.update_score_for_criteria(
+                level,
+                &ObjectiveCriteria::FOOD,
+                mth::ceil_f32(food as f32),
+            );
         }
         let air = self.base().get_air_supply();
         if air != self.last_recorded_air_level {
             self.last_recorded_air_level = air;
-            self.update_score_for_criteria(level, &ObjectiveCriteria::AIR, mth::ceil_f32(air as f32));
+            self.update_score_for_criteria(
+                level,
+                &ObjectiveCriteria::AIR,
+                mth::ceil_f32(air as f32),
+            );
         }
-        let armor = mth::floor_f64(self.player.living.get_attribute_value(mc_data::Attribute::ARMOR));
+        let armor = mth::floor_f64(
+            self.player
+                .living
+                .get_attribute_value(mc_data::Attribute::ARMOR),
+        );
         if armor != self.last_recorded_armor {
             self.last_recorded_armor = armor;
-            self.update_score_for_criteria(level, &ObjectiveCriteria::ARMOR, mth::ceil_f32(armor as f32));
+            self.update_score_for_criteria(
+                level,
+                &ObjectiveCriteria::ARMOR,
+                mth::ceil_f32(armor as f32),
+            );
         }
         let total_experience = self.player.total_experience;
         if total_experience != self.last_recorded_experience {
             self.last_recorded_experience = total_experience;
-            self.update_score_for_criteria(level, &ObjectiveCriteria::EXPERIENCE, mth::ceil_f32(total_experience as f32));
+            self.update_score_for_criteria(
+                level,
+                &ObjectiveCriteria::EXPERIENCE,
+                mth::ceil_f32(total_experience as f32),
+            );
         }
         let experience_level = self.player.experience_level;
         if experience_level != self.last_recorded_level {
             self.last_recorded_level = experience_level;
-            self.update_score_for_criteria(level, &ObjectiveCriteria::LEVEL, mth::ceil_f32(experience_level as f32));
+            self.update_score_for_criteria(
+                level,
+                &ObjectiveCriteria::LEVEL,
+                mth::ceil_f32(experience_level as f32),
+            );
         }
         if total_experience != self.last_sent_exp {
             self.last_sent_exp = total_experience;

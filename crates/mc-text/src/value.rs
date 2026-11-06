@@ -23,7 +23,11 @@ impl Num {
         let exact_long = match (n.as_i64(), n.as_u64(), n.as_f64()) {
             (Some(l), _, _) => Some(l),
             (None, Some(_), _) => None,
-            (None, None, Some(f)) if f.fract() == 0.0 && (-(2f64.powi(63))..2f64.powi(63)).contains(&f) => Some(f as i64),
+            (None, None, Some(f))
+                if f.fract() == 0.0 && (-(2f64.powi(63))..2f64.powi(63)).contains(&f) =>
+            {
+                Some(f as i64)
+            }
             _ => None,
         };
         match exact_long {
@@ -33,7 +37,11 @@ impl Num {
             Some(l) => Num::Long(l),
             None => {
                 let d = n.as_f64().unwrap_or(0.0);
-                if d as f32 as f64 == d { Num::Float(d as f32) } else { Num::Double(d) }
+                if d as f32 as f64 == d {
+                    Num::Float(d as f32)
+                } else {
+                    Num::Double(d)
+                }
             }
         }
     }
@@ -101,16 +109,37 @@ impl fmt::Display for Num {
 
 /// `Double.toString(double)` (JDK 19+ shortest-repr algorithm).
 pub fn java_double_to_string(v: f64) -> String {
-    java_fp_to_string(v.is_nan(), v.is_infinite(), v.is_sign_negative(), v == 0.0, v.abs() < 1e-3 || v.abs() >= 1e7, &format!("{:e}", v.abs()))
+    java_fp_to_string(
+        v.is_nan(),
+        v.is_infinite(),
+        v.is_sign_negative(),
+        v == 0.0,
+        v.abs() < 1e-3 || v.abs() >= 1e7,
+        &format!("{:e}", v.abs()),
+    )
 }
 
 /// `Float.toString(float)`.
 pub fn java_float_to_string(v: f32) -> String {
-    java_fp_to_string(v.is_nan(), v.is_infinite(), v.is_sign_negative(), v == 0.0, v.abs() < 1e-3 || v.abs() >= 1e7, &format!("{:e}", v.abs()))
+    java_fp_to_string(
+        v.is_nan(),
+        v.is_infinite(),
+        v.is_sign_negative(),
+        v == 0.0,
+        v.abs() < 1e-3 || v.abs() >= 1e7,
+        &format!("{:e}", v.abs()),
+    )
 }
 
 /// `sci` is Rust's shortest round-trip scientific form of `|v|` (`1.2345e-5`).
-fn java_fp_to_string(nan: bool, inf: bool, neg: bool, zero: bool, use_sci: bool, sci: &str) -> String {
+fn java_fp_to_string(
+    nan: bool,
+    inf: bool,
+    neg: bool,
+    zero: bool,
+    use_sci: bool,
+    sci: &str,
+) -> String {
     if nan {
         return "NaN".into();
     }

@@ -44,7 +44,11 @@ impl ServerPlayer {
             }
         } else if self.on_climbable(level) {
             if dy > 0.0 {
-                self.award_stat(level, Stats::CLIMB_ONE_CM, java::round_f64(dy * 100.0) as i32);
+                self.award_stat(
+                    level,
+                    Stats::CLIMB_ONE_CM,
+                    java::round_f64(dy * 100.0) as i32,
+                );
             }
         } else if self.base().on_ground() {
             let horizontal = distance_cm(dx * dx + dz * dz);
@@ -79,7 +83,9 @@ impl ServerPlayer {
             return;
         }
         let distance = distance_cm(dx * dx + dy * dy + dz * dz);
-        let Some(vehicle) = self.base().vehicle.and_then(|v| level.get_entity(v)) else { return };
+        let Some(vehicle) = self.base().vehicle.and_then(|v| level.get_entity(v)) else {
+            return;
+        };
         let name = vehicle.get_type().name();
         let path = name.strip_prefix("minecraft:").unwrap_or(name);
         let stat = if path.ends_with("minecart") {
@@ -88,7 +94,18 @@ impl ServerPlayer {
             Stats::BOAT_ONE_CM
         } else if path == "pig" {
             Stats::PIG_ONE_CM
-        } else if matches!(path, "horse" | "donkey" | "mule" | "skeleton_horse" | "zombie_horse" | "camel" | "camel_husk" | "llama" | "trader_llama") {
+        } else if matches!(
+            path,
+            "horse"
+                | "donkey"
+                | "mule"
+                | "skeleton_horse"
+                | "zombie_horse"
+                | "camel"
+                | "camel_husk"
+                | "llama"
+                | "trader_llama"
+        ) {
             Stats::HORSE_ONE_CM
         } else if path == "strider" {
             Stats::STRIDER_ONE_CM

@@ -13,7 +13,9 @@ use mc_core::pos::BlockPos;
 use mc_data::block::{Block, BlockState};
 use mc_data::enums::{GameType, Pose};
 use mc_data::{EntityType, MobEffect};
-use mc_game::advancements::predicates::{DamagePredicate, DamageSourcePredicate, EntityPredicate, LocationPredicate};
+use mc_game::advancements::predicates::{
+    DamagePredicate, DamageSourcePredicate, EntityPredicate, LocationPredicate,
+};
 use mc_game::server::level::ServerLevel;
 use mc_game::world::entity::effect::MobEffectInstance;
 use mc_game::world::entity::equipment::EquipmentSlot;
@@ -90,7 +92,17 @@ impl Entity for TestMob {
 }
 
 /// Types the oracle spawns as living entities (everything else is a non-living `PlainEntity`).
-const LIVING: &[&str] = &["pig", "cow", "sheep", "zombie", "slime", "pillager", "villager", "skeleton", "armor_stand"];
+const LIVING: &[&str] = &[
+    "pig",
+    "cow",
+    "sheep",
+    "zombie",
+    "slime",
+    "pillager",
+    "villager",
+    "skeleton",
+    "armor_stand",
+];
 
 // ---------------------------------------------------------------------------------------------------- world
 
@@ -132,7 +144,15 @@ fn num(s: &str) -> f64 {
 }
 
 fn id(s: &str) -> Identifier {
-    Identifier::parse(if s.contains(':') { s.to_owned() } else { format!("minecraft:{s}") }.as_str()).unwrap()
+    Identifier::parse(
+        if s.contains(':') {
+            s.to_owned()
+        } else {
+            format!("minecraft:{s}")
+        }
+        .as_str(),
+    )
+    .unwrap()
 }
 
 fn parse_state(text: &str) -> BlockState {
@@ -141,15 +161,22 @@ fn parse_state(text: &str) -> BlockState {
         None => (text, None),
     };
     let block = Block::by_name(name).unwrap_or_else(|| panic!("block {name}"));
-    let props: Vec<(&str, &str)> = props.map(|p| p.split(',').filter_map(|kv| kv.split_once('=')).collect()).unwrap_or_default();
-    block.state_from_properties(props).expect("valid properties")
+    let props: Vec<(&str, &str)> = props
+        .map(|p| p.split(',').filter_map(|kv| kv.split_once('=')).collect())
+        .unwrap_or_default();
+    block
+        .state_from_properties(props)
+        .expect("valid properties")
 }
 
 fn parse_stack(spec: &str, count: i32) -> ItemStack {
-    use mc_game::commands::command_build_context::StaticRegistries;
     use mc_game::commands::CommandBuildContext;
+    use mc_game::commands::command_build_context::StaticRegistries;
     use std::sync::Arc;
-    let context = CommandBuildContext::simple(Arc::new(StaticRegistries), mc_world::level_storage::FeatureFlagSet::ALL);
+    let context = CommandBuildContext::simple(
+        Arc::new(StaticRegistries),
+        mc_world::level_storage::FeatureFlagSet::ALL,
+    );
     let mut reader = mc_brigadier::StringReader::new(spec);
     mc_game::commands::arguments::item::item_parser::ItemParser::new(&context)
         .parse(&mut reader)
@@ -167,16 +194,26 @@ impl World {
         let mut level = ServerLevel::detached(id("overworld"));
         level.chunk_source.set_view_distance(4);
         level.chunk_source.set_simulation_distance(4);
-        World { level, refs: HashMap::new(), lines: Vec::new() }
+        World {
+            level,
+            refs: HashMap::new(),
+            lines: Vec::new(),
+        }
     }
 
     fn entity(&self, name: &str) -> &dyn Entity {
-        let id = *self.refs.get(name).unwrap_or_else(|| panic!("unknown ref {name}"));
+        let id = *self
+            .refs
+            .get(name)
+            .unwrap_or_else(|| panic!("unknown ref {name}"));
         self.level.get_entity(id).expect("entity in level")
     }
 
     fn entity_mut(&mut self, name: &str) -> &mut dyn Entity {
-        let id = *self.refs.get(name).unwrap_or_else(|| panic!("unknown ref {name}"));
+        let id = *self
+            .refs
+            .get(name)
+            .unwrap_or_else(|| panic!("unknown ref {name}"));
         self.level.get_entity_mut(id).expect("entity in level")
     }
 
@@ -200,24 +237,49 @@ impl World {
     fn spawn_player(&mut self, a: &[String]) {
         let id = self.level.next_entity_id();
         let uuid = Uuid::from_u128(0x1000 + id as u128);
-        let mut p = ServerPlayer::new(id, self.level.dimension.clone(), GameProfile { id: uuid, name: a[1].clone(), properties: vec![] }, Default::default());
+        let mut p = ServerPlayer::new(
+            id,
+            self.level.dimension.clone(),
+            GameProfile {
+                id: uuid,
+                name: a[1].clone(),
+                properties: vec![],
+            },
+            Default::default(),
+        );
         p.set_game_mode_for_player(game_type(&a[2]), None);
         p.set_pos(num(&a[3]), num(&a[4]), num(&a[5]));
-        let (yaw, pitch) = (a.get(6).map_or(0.0, |s| num(s) as f32), a.get(7).map_or(0.0, |s| num(s) as f32));
+        let (yaw, pitch) = (
+            a.get(6).map_or(0.0, |s| num(s) as f32),
+            a.get(7).map_or(0.0, |s| num(s) as f32),
+        );
         p.set_rot(yaw, pitch);
         p.set_y_head_rot(yaw);
         self.load_chunk_at(p.base().block_position());
         self.level.add_player(Box::new(p));
-        let id = self.level.players().iter().copied().last().expect("player added");
+        let id = self
+            .level
+            .players()
+            .iter()
+            .copied()
+            .last()
+            .expect("player added");
         self.refs.insert(a[1].clone(), id);
     }
 
     fn spawn(&mut self, a: &[String]) {
-        let ty = EntityType::by_name(&id(&a[2]).to_string()).unwrap_or_else(|| panic!("entity type {}", a[2]));
-        let nbt = a.last().filter(|s| s.starts_with('{')).map(|s| mc_nbt::snbt::parse_compound(s).expect("snbt")).unwrap_or_default();
+        let ty = EntityType::by_name(&id(&a[2]).to_string())
+            .unwrap_or_else(|| panic!("entity type {}", a[2]));
+        let nbt = a
+            .last()
+            .filter(|s| s.starts_with('{'))
+            .map(|s| mc_nbt::snbt::parse_compound(s).expect("snbt"))
+            .unwrap_or_default();
         let numeric = a.len() - 1 - usize::from(a.last().is_some_and(|s| s.starts_with('{')));
         let id_ = self.level.next_entity_id();
-        let mut entity: Box<dyn Entity> = if LIVING.contains(&ty.name().trim_start_matches("minecraft:")) {
+        let mut entity: Box<dyn Entity> = if LIVING
+            .contains(&ty.name().trim_start_matches("minecraft:"))
+        {
             let age = nbt.get_int_or("Age", 0);
             Box::new(TestMob {
                 living: LivingEntityData::new(ty, id_, 300, |_| {}),
@@ -236,8 +298,14 @@ impl World {
         };
         if entity.raider().is_some_and(|r| r.patrol.patrol_leader) {
             // `PatrollingMonster.finalizeSpawn`: a patrol leader wears the ominous banner
-            let banner = mc_game::world::entity::raid::raid::Raid::get_ominous_banner_instance(&self.level.registries);
-            entity.living_mut().expect("living").equipment.set(EquipmentSlot::Head, banner);
+            let banner = mc_game::world::entity::raid::raid::Raid::get_ominous_banner_instance(
+                &self.level.registries,
+            );
+            entity
+                .living_mut()
+                .expect("living")
+                .equipment
+                .set(EquipmentSlot::Head, banner);
         }
         entity.set_pos(num(&a[3]), num(&a[4]), num(&a[5]));
         if numeric > 7 {
@@ -256,7 +324,16 @@ impl World {
 
     fn spawn_item(&mut self, a: &[String]) {
         let stack = parse_stack(&a[2], 1);
-        let item = ItemEntity::with_stack_and_motion(&self.level, num(&a[3]), num(&a[4]), num(&a[5]), stack, 0.0, 0.0, 0.0);
+        let item = ItemEntity::with_stack_and_motion(
+            &self.level,
+            num(&a[3]),
+            num(&a[4]),
+            num(&a[5]),
+            stack,
+            0.0,
+            0.0,
+            0.0,
+        );
         self.place(Box::new(item), &a[1]);
     }
 
@@ -279,20 +356,40 @@ impl World {
                     player.inventory.equipment_set(s, stack);
                 }
                 None => {
-                    let n: usize = slot.strip_prefix("hotbar").expect("hotbarN").parse().unwrap();
+                    let n: usize = slot
+                        .strip_prefix("hotbar")
+                        .expect("hotbarN")
+                        .parse()
+                        .unwrap();
                     player.inventory.get_non_equipment_items_mut()[n] = stack;
                 }
             }
         } else {
-            e.living_mut().expect("living").equipment.set(named.expect("named slot"), stack);
+            e.living_mut()
+                .expect("living")
+                .equipment
+                .set(named.expect("named slot"), stack);
         }
     }
 
     fn effect(&mut self, a: &[String]) {
-        let effect = MobEffect::by_name(&id(&a[2]).to_string()).unwrap_or_else(|| panic!("effect {}", a[2]));
+        let effect =
+            MobEffect::by_name(&id(&a[2]).to_string()).unwrap_or_else(|| panic!("effect {}", a[2]));
         let hidden = a.iter().any(|s| s == "hidden");
-        let instance = MobEffectInstance::new(effect, a[4].parse().unwrap(), a[3].parse().unwrap(), false, !hidden, !hidden, None);
-        self.entity_mut(&a[1]).living_mut().expect("living").active_effects.insert(effect, instance);
+        let instance = MobEffectInstance::new(
+            effect,
+            a[4].parse().unwrap(),
+            a[3].parse().unwrap(),
+            false,
+            !hidden,
+            !hidden,
+            None,
+        );
+        self.entity_mut(&a[1])
+            .living_mut()
+            .expect("living")
+            .active_effects
+            .insert(effect, instance);
     }
 
     fn set(&mut self, a: &[String]) {
@@ -301,7 +398,9 @@ impl World {
         match a[2].as_str() {
             "health" => e.living_mut().unwrap().set_health(value.parse().unwrap()),
             "food" => e.player_mut().unwrap().food_data.food_level = value.parse().unwrap(),
-            "saturation" => e.player_mut().unwrap().food_data.saturation_level = value.parse().unwrap(),
+            "saturation" => {
+                e.player_mut().unwrap().food_data.saturation_level = value.parse().unwrap()
+            }
             "xp_level" => e.player_mut().unwrap().experience_level = value.parse().unwrap(),
             "air" => e.base_mut().set_air_supply(value.parse().unwrap()),
             "fire" => e.base_mut().remaining_fire_ticks = value.parse().unwrap(),
@@ -318,25 +417,58 @@ impl World {
         match a[0].as_str() {
             "onground" => self.entity_mut(&a[1]).base_mut().set_on_ground_raw(flag(2)),
             "pose" => {
-                let pose = Pose::ALL.iter().copied().find(|p| p.name().eq_ignore_ascii_case(&a[2])).unwrap_or_else(|| panic!("pose {}", a[2]));
+                let pose = Pose::ALL
+                    .iter()
+                    .copied()
+                    .find(|p| p.name().eq_ignore_ascii_case(&a[2]))
+                    .unwrap_or_else(|| panic!("pose {}", a[2]));
                 self.entity_mut(&a[1]).set_pose(pose)
             }
-            "sprint" => self.entity_mut(&a[1]).base_mut().set_shared_flag(mc_game::world::entity::entity::FLAG_SPRINTING, flag(2)),
-            "swimming" => self.entity_mut(&a[1]).base_mut().set_shared_flag(mc_game::world::entity::entity::FLAG_SWIMMING, flag(2)),
-            "fallflying" => self.entity_mut(&a[1]).base_mut().set_shared_flag(mc_game::world::entity::entity::FLAG_FALL_FLYING, flag(2)),
-            "flying" => self.entity_mut(&a[1]).player_mut().unwrap().abilities.flying = flag(2),
+            "sprint" => self
+                .entity_mut(&a[1])
+                .base_mut()
+                .set_shared_flag(mc_game::world::entity::entity::FLAG_SPRINTING, flag(2)),
+            "swimming" => self
+                .entity_mut(&a[1])
+                .base_mut()
+                .set_shared_flag(mc_game::world::entity::entity::FLAG_SWIMMING, flag(2)),
+            "fallflying" => self
+                .entity_mut(&a[1])
+                .base_mut()
+                .set_shared_flag(mc_game::world::entity::entity::FLAG_FALL_FLYING, flag(2)),
+            "flying" => {
+                self.entity_mut(&a[1])
+                    .player_mut()
+                    .unwrap()
+                    .abilities
+                    .flying = flag(2)
+            }
             "tickcount" => self.entity_mut(&a[1]).base_mut().tick_count = a[2].parse().unwrap(),
             "ride" => {
                 let (passenger, vehicle) = (self.refs[&a[1]], self.refs[&a[2]]);
-                let ok = self.level.with_entity(passenger, |level, e| level.start_riding(e, vehicle, true, false)).expect("passenger");
+                let ok = self
+                    .level
+                    .with_entity(passenger, |level, e| {
+                        level.start_riding(e, vehicle, true, false)
+                    })
+                    .expect("passenger");
                 assert!(ok, "ride {} {}", a[1], a[2]);
             }
             "target" => {
                 // `Mob.asValidTarget`: creative and spectator players are never targets
                 let target = self.refs[&a[2]];
-                let invalid = self.entity(&a[2]).player().is_some() && (self.entity(&a[2]).is_spectator() || self.entity(&a[2]).player().is_some_and(|p| p.abilities.instabuild));
+                let invalid = self.entity(&a[2]).player().is_some()
+                    && (self.entity(&a[2]).is_spectator()
+                        || self
+                            .entity(&a[2])
+                            .player()
+                            .is_some_and(|p| p.abilities.instabuild));
                 let target = (!invalid).then_some(target);
-                self.entity_mut(&a[1]).as_any_mut().downcast_mut::<TestMob>().expect("TestMob").target = target;
+                self.entity_mut(&a[1])
+                    .as_any_mut()
+                    .downcast_mut::<TestMob>()
+                    .expect("TestMob")
+                    .target = target;
             }
             "team_join" => {
                 let name = self.entity(&a[1]).get_scoreboard_name();
@@ -349,18 +481,42 @@ impl World {
             "pinput" => {
                 let flags: Vec<&str> = a[2].split(',').collect();
                 let f = |n: &str| flags.contains(&n);
-                let input = Input { forward: f("forward"), backward: f("back"), left: f("left"), right: f("right"), jump: f("jump"), shift: f("sneak"), sprint: f("sprint") };
-                self.entity_mut(&a[1]).as_any_mut().downcast_mut::<ServerPlayer>().unwrap().last_client_input = input;
+                let input = Input {
+                    forward: f("forward"),
+                    backward: f("back"),
+                    left: f("left"),
+                    right: f("right"),
+                    jump: f("jump"),
+                    shift: f("sneak"),
+                    sprint: f("sprint"),
+                };
+                self.entity_mut(&a[1])
+                    .as_any_mut()
+                    .downcast_mut::<ServerPlayer>()
+                    .unwrap()
+                    .last_client_input = input;
             }
             "known_movement" => {
-                self.entity_mut(&a[1]).as_any_mut().downcast_mut::<ServerPlayer>().unwrap().last_known_client_movement = Vec3::new(num(&a[2]), num(&a[3]), num(&a[4]));
+                self.entity_mut(&a[1])
+                    .as_any_mut()
+                    .downcast_mut::<ServerPlayer>()
+                    .unwrap()
+                    .last_known_client_movement = Vec3::new(num(&a[2]), num(&a[3]), num(&a[4]));
             }
             "ominous_banner" => {
                 let banner = parse_stack("minecraft:white_banner", 1);
-                self.entity_mut(&a[1]).living_mut().expect("living").equipment.set(EquipmentSlot::Head, banner);
+                self.entity_mut(&a[1])
+                    .living_mut()
+                    .expect("living")
+                    .equipment
+                    .set(EquipmentSlot::Head, banner);
             }
             "recipe" => {
-                let p = self.entity_mut(&a[1]).as_any_mut().downcast_mut::<ServerPlayer>().unwrap();
+                let p = self
+                    .entity_mut(&a[1])
+                    .as_any_mut()
+                    .downcast_mut::<ServerPlayer>()
+                    .unwrap();
                 p.recipe_book.add(id(&a[2]));
             }
             _ => return false,
@@ -380,13 +536,24 @@ impl World {
     }
 
     /// `R id result` + `J id json` for one decoded predicate.
-    fn report<A: 'static>(&mut self, id: &str, codec: &mc_dfu::Codec<A>, json: &str, eval: impl FnOnce(&World, &A) -> bool) {
+    fn report<A: 'static>(
+        &mut self,
+        id: &str,
+        codec: &mc_dfu::Codec<A>,
+        json: &str,
+        eval: impl FnOnce(&World, &A) -> bool,
+    ) {
         match mc_dfu::parse_json(codec, json).into_result() {
             Err(_) => self.lines.push(format!("R {id} ERR")),
             Ok(p) => {
                 let result = eval(self, &p);
                 self.lines.push(format!("R {id} {result}"));
-                self.lines.push(format!("J {id} {}", mc_dfu::encode_json(codec, &p).into_result().expect("encodes")));
+                self.lines.push(format!(
+                    "J {id} {}",
+                    mc_dfu::encode_json(codec, &p)
+                        .into_result()
+                        .expect("encodes")
+                ));
             }
         }
     }
@@ -395,26 +562,51 @@ impl World {
         match a[0].as_str() {
             "pred_entity" => {
                 let origin = self.origin(&a[3]);
-                self.report(&a[1], &EntityPredicate::codec(), &a[4], |w, p| p.matches(&w.level, origin, w.entity(&a[2])));
+                self.report(&a[1], &EntityPredicate::codec(), &a[4], |w, p| {
+                    p.matches(&w.level, origin, w.entity(&a[2]))
+                });
             }
             "pred_location" => {
                 let (x, y, z) = (num(&a[2]), num(&a[3]), num(&a[4]));
-                self.report(&a[1], &LocationPredicate::codec(), &a[5], |w, p| p.matches(&w.level, x, y, z));
+                self.report(&a[1], &LocationPredicate::codec(), &a[5], |w, p| {
+                    p.matches(&w.level, x, y, z)
+                });
             }
             "pred_damage" => {
                 let origin = self.origin(&a[3]).expect("origin");
                 let (direct, causing) = self.source_entities(&a[5..]);
                 let ty = id(&a[2]);
                 self.report(&a[1], &DamageSourcePredicate::codec(), &a[4], |w, p| {
-                    p.matches_parts(&w.level, origin, &ty, direct.as_deref().map(|n| w.entity(n)), causing.as_deref().map(|n| w.entity(n)), direct == causing)
+                    p.matches_parts(
+                        &w.level,
+                        origin,
+                        &ty,
+                        direct.as_deref().map(|n| w.entity(n)),
+                        causing.as_deref().map(|n| w.entity(n)),
+                        direct == causing,
+                    )
                 });
             }
             "pred_damage_taken" => {
                 let (direct, causing) = self.source_entities(&a[8..]);
                 let ty = id(&a[3]);
-                let (dealt, taken, blocked) = (a[5].parse::<f32>().unwrap(), a[6].parse::<f32>().unwrap(), a[7] == "true");
+                let (dealt, taken, blocked) = (
+                    a[5].parse::<f32>().unwrap(),
+                    a[6].parse::<f32>().unwrap(),
+                    a[7] == "true",
+                );
                 self.report(&a[1], &DamagePredicate::codec(), &a[4], |w, p| {
-                    p.matches_parts(&w.level, w.entity(&a[2]), &ty, direct.as_deref().map(|n| w.entity(n)), causing.as_deref().map(|n| w.entity(n)), direct == causing, dealt, taken, blocked)
+                    p.matches_parts(
+                        &w.level,
+                        w.entity(&a[2]),
+                        &ty,
+                        direct.as_deref().map(|n| w.entity(n)),
+                        causing.as_deref().map(|n| w.entity(n)),
+                        direct == causing,
+                        dealt,
+                        taken,
+                        blocked,
+                    )
                 });
             }
             _ => return false,
@@ -423,14 +615,25 @@ impl World {
     }
 
     fn source_entities(&self, kv: &[String]) -> (Option<String>, Option<String>) {
-        let get = |key: &str| kv.iter().find_map(|s| s.strip_prefix(&format!("{key}=")).map(str::to_owned));
+        let get = |key: &str| {
+            kv.iter()
+                .find_map(|s| s.strip_prefix(&format!("{key}=")).map(str::to_owned))
+        };
         (get("direct"), get("by"))
     }
 
     fn run(&mut self, a: &[String]) {
         match a[0].as_str() {
-            "level" | "seed" | "difficulty" | "preload" | "note" | "gamerule" | "time" | "reseed" | "entity_seed" => {}
-            "block" => self.set_block(BlockPos::new(a[1].parse().unwrap(), a[2].parse().unwrap(), a[3].parse().unwrap()), parse_state(&a[4])),
+            "level" | "seed" | "difficulty" | "preload" | "note" | "gamerule" | "time"
+            | "reseed" | "entity_seed" => {}
+            "block" => self.set_block(
+                BlockPos::new(
+                    a[1].parse().unwrap(),
+                    a[2].parse().unwrap(),
+                    a[3].parse().unwrap(),
+                ),
+                parse_state(&a[4]),
+            ),
             "fill" => {
                 let n: Vec<i32> = a[1..7].iter().map(|s| s.parse().unwrap()).collect();
                 let state = parse_state(&a[7]);
@@ -474,10 +677,16 @@ fn normalize(v: serde_json::Value) -> serde_json::Value {
 
 fn run_scenario(name: &str) {
     let dir = concat!(env!("CARGO_MANIFEST_DIR"), "/tests");
-    let script = std::fs::read_to_string(format!("{dir}/oracle/scenarios/predicates/{name}.txt")).expect("scenario");
-    let fixture = std::fs::read_to_string(format!("{dir}/fixtures/predicate_oracle/{name}.txt")).expect("fixture (run scripts/predicate-oracle.sh)");
+    let script = std::fs::read_to_string(format!("{dir}/oracle/scenarios/predicates/{name}.txt"))
+        .expect("scenario");
+    let fixture = std::fs::read_to_string(format!("{dir}/fixtures/predicate_oracle/{name}.txt"))
+        .expect("fixture (run scripts/predicate-oracle.sh)");
     let mut world = World::new();
-    for line in script.lines().map(str::trim).filter(|l| !l.is_empty() && !l.starts_with('#')) {
+    for line in script
+        .lines()
+        .map(str::trim)
+        .filter(|l| !l.is_empty() && !l.starts_with('#'))
+    {
         world.run(&tokens(line));
     }
     // `R id result` / `J id json` per case id
@@ -487,7 +696,12 @@ fn run_scenario(name: &str) {
             let parts: Vec<&str> = l.splitn(3, ' ').collect();
             match parts[0] {
                 "R" => m.push((parts[1].to_owned(), parts[2].to_owned(), None)),
-                "J" => m.last_mut().filter(|e| e.0 == parts[1]).expect("J after R").2 = Some(normalize(serde_json::from_str(parts[2]).expect("json"))),
+                "J" => {
+                    m.last_mut()
+                        .filter(|e| e.0 == parts[1])
+                        .expect("J after R")
+                        .2 = Some(normalize(serde_json::from_str(parts[2]).expect("json")))
+                }
                 _ => {}
             }
         }
@@ -499,14 +713,22 @@ fn run_scenario(name: &str) {
     for (id, result, json) in &expected {
         match actual.iter().find(|(i, ..)| i == id) {
             None => failures.push(format!("  {id}: vanilla {result}, ours: no result")),
-            Some((_, r, j)) if r != result || j != json => {
-                failures.push(format!("  {id}: vanilla {result} {}\n  {id}: ours    {r} {}", json.as_ref().map_or(String::new(), |j| j.to_string()), j.as_ref().map_or(String::new(), |j| j.to_string())))
-            }
+            Some((_, r, j)) if r != result || j != json => failures.push(format!(
+                "  {id}: vanilla {result} {}\n  {id}: ours    {r} {}",
+                json.as_ref().map_or(String::new(), |j| j.to_string()),
+                j.as_ref().map_or(String::new(), |j| j.to_string())
+            )),
             _ => {}
         }
     }
     assert_eq!(expected.len(), actual.len(), "{name}: case count");
-    assert!(failures.is_empty(), "{name}: {} of {} cases differ:\n{}", failures.len(), expected.len(), failures.join("\n"));
+    assert!(
+        failures.is_empty(),
+        "{name}: {} of {} cases differ:\n{}",
+        failures.len(),
+        expected.len(),
+        failures.join("\n")
+    );
 }
 
 #[test]

@@ -2,8 +2,8 @@
 
 use super::{Flag, Goal, GoalFlags};
 use crate::server::level::ServerLevel;
-use crate::world::entity::mob::{combat, navigation, tamable};
 use crate::world::entity::Entity;
+use crate::world::entity::mob::{combat, navigation, tamable};
 
 pub struct SitWhenOrderedToGoal;
 
@@ -35,8 +35,12 @@ impl Goal for SitWhenOrderedToGoal {
         if !mob.base().on_ground() {
             return false;
         }
-        let Some(owner) = tamable::get_owner(mob, level).and_then(|o| level.get_entity(o)) else { return true };
-        if mob.base().distance_to_sqr_vec(owner.position()) < 144.0 && combat::get_last_hurt_by_mob(owner, level).is_some() {
+        let Some(owner) = tamable::get_owner(mob, level).and_then(|o| level.get_entity(o)) else {
+            return true;
+        };
+        if mob.base().distance_to_sqr_vec(owner.position()) < 144.0
+            && combat::get_last_hurt_by_mob(owner, level).is_some()
+        {
             return false;
         }
         ordered_to_sit

@@ -1,8 +1,8 @@
 //! `net.minecraft.nbt.ListTag`: heterogeneous list (26.x), wrapping non-compound elements into
 //! `{"": element}` compounds on disk when the element types differ.
 
-use crate::tag::Tag;
 use crate::CompoundTag;
+use crate::tag::Tag;
 use std::ops::Deref;
 
 #[derive(Debug, Clone, Default, PartialEq)]
@@ -28,7 +28,9 @@ impl ListTag {
     }
 
     pub fn with_capacity(capacity: usize) -> Self {
-        Self { list: Vec::with_capacity(capacity) }
+        Self {
+            list: Vec::with_capacity(capacity),
+        }
     }
 
     pub(crate) fn size_in_bytes(&self) -> i32 {
@@ -154,7 +156,9 @@ impl From<Vec<Tag>> for ListTag {
 
 impl FromIterator<Tag> for ListTag {
     fn from_iter<I: IntoIterator<Item = Tag>>(iter: I) -> Self {
-        Self { list: iter.into_iter().collect() }
+        Self {
+            list: iter.into_iter().collect(),
+        }
     }
 }
 

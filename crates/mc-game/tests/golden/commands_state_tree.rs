@@ -9,11 +9,25 @@ use mc_protocol::packets::play::ClientboundCommandsPacket;
 
 use crate::command_common::vanilla_commands;
 
-const SUBSET: &[&str] =
-    &["bossbar", "title", "stopwatch", "random", "defaultgamemode", "setidletimeout", "version", "transfer", "perf", "fetchprofile", "jfr"];
+const SUBSET: &[&str] = &[
+    "bossbar",
+    "title",
+    "stopwatch",
+    "random",
+    "defaultgamemode",
+    "setidletimeout",
+    "version",
+    "transfer",
+    "perf",
+    "fetchprofile",
+    "jfr",
+];
 
 fn unhex(s: &str) -> Vec<u8> {
-    (0..s.len()).step_by(2).map(|i| u8::from_str_radix(&s[i..i + 2], 16).unwrap()).collect()
+    (0..s.len())
+        .step_by(2)
+        .map(|i| u8::from_str_radix(&s[i..i + 2], 16).unwrap())
+        .collect()
 }
 
 #[test]
@@ -31,19 +45,35 @@ fn state_command_trees_match_vanilla() {
     let mut checked = 0;
     for line in include_str!("../fixtures/commands/tree_golden_state.txt").lines() {
         let mut it = line.split(' ');
-        let (_sel, level, _kind, hex) = (it.next().unwrap(), it.next().unwrap(), it.next().unwrap(), it.next().unwrap());
+        let (_sel, level, _kind, hex) = (
+            it.next().unwrap(),
+            it.next().unwrap(),
+            it.next().unwrap(),
+            it.next().unwrap(),
+        );
         let level: i32 = level.parse().unwrap();
-        let permissions = PermissionSet::from(LevelBasedPermissionSet::for_level(PermissionLevel::by_id(level)));
-        let root = command_tree::usable_root(&subset_root, &CommandSourceStack::compilation_context(permissions));
+        let permissions = PermissionSet::from(LevelBasedPermissionSet::for_level(
+            PermissionLevel::by_id(level),
+        ));
+        let root = command_tree::usable_root(
+            &subset_root,
+            &CommandSourceStack::compilation_context(permissions),
+        );
         let mut out = Vec::new();
-        command_tree::commands_packet(&root).encode(&mut out).unwrap();
+        command_tree::commands_packet(&root)
+            .encode(&mut out)
+            .unwrap();
         let bytes = unhex(hex);
         let ours = ClientboundCommandsPacket::decode(&mut out.as_slice()).unwrap();
         let theirs = ClientboundCommandsPacket::decode(&mut bytes.as_slice()).unwrap();
         for (i, (a, b)) in ours.entries.iter().zip(&theirs.entries).enumerate() {
             assert_eq!(a, b, "permission level {level}: node {i}");
         }
-        assert_eq!(ours.entries.len(), theirs.entries.len(), "permission level {level}: node count");
+        assert_eq!(
+            ours.entries.len(),
+            theirs.entries.len(),
+            "permission level {level}: node count"
+        );
         assert_eq!(out, bytes, "permission level {level}");
         checked += 1;
     }

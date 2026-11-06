@@ -40,7 +40,14 @@ impl<'a> PathNavigationRegion<'a> {
                 loaded.push(level.chunk_now(xc, zc).is_some());
             }
         }
-        PathNavigationRegion { level, center_x, center_z, loaded, width, depth }
+        PathNavigationRegion {
+            level,
+            center_x,
+            center_z,
+            loaded,
+            width,
+            depth,
+        }
     }
 
     /// The level's path type cache (`serverLevel.getPathTypeCache()`).
@@ -55,7 +62,11 @@ impl<'a> PathNavigationRegion<'a> {
     /// Whether the chunk at `(chunk_x, chunk_z)` is a real (loaded) chunk of this region.
     fn chunk_loaded(&self, chunk_x: i32, chunk_z: i32) -> bool {
         let (xc, zc) = (chunk_x - self.center_x, chunk_z - self.center_z);
-        xc >= 0 && xc < self.width && zc >= 0 && zc < self.depth && self.loaded[(xc * self.depth + zc) as usize]
+        xc >= 0
+            && xc < self.width
+            && zc >= 0
+            && zc < self.depth
+            && self.loaded[(xc * self.depth + zc) as usize]
     }
 }
 
@@ -80,7 +91,11 @@ impl BlockGetter for PathNavigationRegion<'_> {
     }
 
     fn get_block_entity(&self, pos: BlockPos) -> Option<&dyn BlockEntity> {
-        if self.chunk_loaded(pos.x() >> 4, pos.z() >> 4) { self.level.get_block_entity(pos) } else { None }
+        if self.chunk_loaded(pos.x() >> 4, pos.z() >> 4) {
+            self.level.get_block_entity(pos)
+        } else {
+            None
+        }
     }
 
     fn level_height(&self) -> LevelHeight {
@@ -120,18 +135,20 @@ impl PathLevel for PathNavigationRegion<'_> {
 impl PathLevel for ServerLevel {
     fn no_collision(&self, mob: &dyn PathfindingMob, aabb: &AABB) -> bool {
         let context = mob.collision_context();
-        self.no_block_collision(Some(&context), aabb) && self.no_entity_collision(Some(mob.id()), aabb) && {
-            match self.world_border_ref() {
-                Some(border) if border.is_inside_close_to_border(mob.x(), mob.z(), aabb) => {
-                    !mc_core::phys::shapes::Shapes::join_is_not_empty(
-                        &border.get_collision_shape(),
-                        &mc_core::phys::shapes::Shapes::create(*aabb),
-                        mc_core::phys::shapes::BooleanOp::AND,
-                    )
+        self.no_block_collision(Some(&context), aabb)
+            && self.no_entity_collision(Some(mob.id()), aabb)
+            && {
+                match self.world_border_ref() {
+                    Some(border) if border.is_inside_close_to_border(mob.x(), mob.z(), aabb) => {
+                        !mc_core::phys::shapes::Shapes::join_is_not_empty(
+                            &border.get_collision_shape(),
+                            &mc_core::phys::shapes::Shapes::create(*aabb),
+                            mc_core::phys::shapes::BooleanOp::AND,
+                        )
+                    }
+                    _ => true,
                 }
-                _ => true,
             }
-        }
     }
 
     fn sea_level(&self) -> i32 {

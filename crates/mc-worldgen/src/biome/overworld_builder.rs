@@ -18,40 +18,130 @@ fn span(range: (f32, f32)) -> Parameter {
 }
 
 const OCEANS: [[BiomeKey; 5]; 2] = [
-    ["deep_frozen_ocean", "deep_cold_ocean", "deep_ocean", "deep_lukewarm_ocean", "warm_ocean"],
-    ["frozen_ocean", "cold_ocean", "ocean", "lukewarm_ocean", "warm_ocean"],
+    [
+        "deep_frozen_ocean",
+        "deep_cold_ocean",
+        "deep_ocean",
+        "deep_lukewarm_ocean",
+        "warm_ocean",
+    ],
+    [
+        "frozen_ocean",
+        "cold_ocean",
+        "ocean",
+        "lukewarm_ocean",
+        "warm_ocean",
+    ],
 ];
 
 const MIDDLE_BIOMES: [[BiomeKey; 5]; 5] = [
-    ["snowy_plains", "snowy_plains", "snowy_plains", "snowy_taiga", "taiga"],
-    ["plains", "plains", "forest", "taiga", "old_growth_spruce_taiga"],
-    ["flower_forest", "plains", "forest", "birch_forest", "dark_forest"],
+    [
+        "snowy_plains",
+        "snowy_plains",
+        "snowy_plains",
+        "snowy_taiga",
+        "taiga",
+    ],
+    [
+        "plains",
+        "plains",
+        "forest",
+        "taiga",
+        "old_growth_spruce_taiga",
+    ],
+    [
+        "flower_forest",
+        "plains",
+        "forest",
+        "birch_forest",
+        "dark_forest",
+    ],
     ["savanna", "savanna", "forest", "jungle", "jungle"],
     ["desert", "desert", "desert", "desert", "desert"],
 ];
 
 const MIDDLE_BIOMES_VARIANT: [[Option<BiomeKey>; 5]; 5] = [
     [Some("ice_spikes"), None, Some("snowy_taiga"), None, None],
-    [Some("dappled_forest"), None, None, None, Some("old_growth_pine_taiga")],
-    [Some("sunflower_plains"), None, None, Some("old_growth_birch_forest"), None],
-    [None, None, Some("plains"), Some("sparse_jungle"), Some("bamboo_jungle")],
+    [
+        Some("dappled_forest"),
+        None,
+        None,
+        None,
+        Some("old_growth_pine_taiga"),
+    ],
+    [
+        Some("sunflower_plains"),
+        None,
+        None,
+        Some("old_growth_birch_forest"),
+        None,
+    ],
+    [
+        None,
+        None,
+        Some("plains"),
+        Some("sparse_jungle"),
+        Some("bamboo_jungle"),
+    ],
     [None, None, None, None, None],
 ];
 
 const PLATEAU_BIOMES: [[BiomeKey; 5]; 5] = [
-    ["snowy_plains", "snowy_plains", "snowy_plains", "snowy_taiga", "snowy_taiga"],
-    ["meadow", "meadow", "forest", "taiga", "old_growth_spruce_taiga"],
+    [
+        "snowy_plains",
+        "snowy_plains",
+        "snowy_plains",
+        "snowy_taiga",
+        "snowy_taiga",
+    ],
+    [
+        "meadow",
+        "meadow",
+        "forest",
+        "taiga",
+        "old_growth_spruce_taiga",
+    ],
     ["meadow", "meadow", "meadow", "meadow", "pale_garden"],
-    ["savanna_plateau", "savanna_plateau", "forest", "forest", "jungle"],
-    ["badlands", "badlands", "badlands", "wooded_badlands", "wooded_badlands"],
+    [
+        "savanna_plateau",
+        "savanna_plateau",
+        "forest",
+        "forest",
+        "jungle",
+    ],
+    [
+        "badlands",
+        "badlands",
+        "badlands",
+        "wooded_badlands",
+        "wooded_badlands",
+    ],
 ];
 
 const PLATEAU_BIOMES_VARIANT: [[Option<BiomeKey>; 5]; 5] = [
     [Some("ice_spikes"), None, None, None, None],
-    [Some("cherry_grove"), None, Some("meadow"), Some("meadow"), Some("old_growth_pine_taiga")],
-    [Some("cherry_grove"), Some("cherry_grove"), Some("forest"), Some("birch_forest"), None],
+    [
+        Some("cherry_grove"),
+        None,
+        Some("meadow"),
+        Some("meadow"),
+        Some("old_growth_pine_taiga"),
+    ],
+    [
+        Some("cherry_grove"),
+        Some("cherry_grove"),
+        Some("forest"),
+        Some("birch_forest"),
+        None,
+    ],
     [None, None, None, None, None],
-    [Some("eroded_badlands"), Some("eroded_badlands"), None, None, None],
+    [
+        Some("eroded_badlands"),
+        Some("eroded_badlands"),
+        None,
+        None,
+        None,
+    ],
 ];
 
 const SHATTERED_BIOMES: [[Option<BiomeKey>; 5]; 5] = [
@@ -209,7 +299,8 @@ impl OverworldBiomeBuilder {
                 let humidity = self.humidities[humidity_index];
                 let (ti, hi) = (temperature_index, humidity_index);
                 let middle_biome = self.pick_middle_biome(ti, hi, weirdness);
-                let middle_biome_or_badlands_if_hot = self.pick_middle_biome_or_badlands_if_hot(ti, hi, weirdness);
+                let middle_biome_or_badlands_if_hot =
+                    self.pick_middle_biome_or_badlands_if_hot(ti, hi, weirdness);
                 let middle_biome_or_badlands_if_hot_or_slope_if_cold =
                     self.pick_middle_biome_or_badlands_if_hot_or_slope_if_cold(ti, hi, weirdness);
                 let plateau_biome = self.pick_plateau_biome(ti, hi, weirdness);
@@ -222,7 +313,16 @@ impl OverworldBiomeBuilder {
                 let mid = self.mid_inland_continentalness;
                 let far = self.far_inland_continentalness;
                 let e = &self.erosions;
-                self.add_surface_biome(biomes, temperature, humidity, Parameter::span_of(coast, far), e[0], weirdness, 0.0, peak_biome);
+                self.add_surface_biome(
+                    biomes,
+                    temperature,
+                    humidity,
+                    Parameter::span_of(coast, far),
+                    e[0],
+                    weirdness,
+                    0.0,
+                    peak_biome,
+                );
                 self.add_surface_biome(
                     biomes,
                     temperature,
@@ -233,7 +333,16 @@ impl OverworldBiomeBuilder {
                     0.0,
                     middle_biome_or_badlands_if_hot_or_slope_if_cold,
                 );
-                self.add_surface_biome(biomes, temperature, humidity, Parameter::span_of(mid, far), e[1], weirdness, 0.0, peak_biome);
+                self.add_surface_biome(
+                    biomes,
+                    temperature,
+                    humidity,
+                    Parameter::span_of(mid, far),
+                    e[1],
+                    weirdness,
+                    0.0,
+                    peak_biome,
+                );
                 self.add_surface_biome(
                     biomes,
                     temperature,
@@ -244,10 +353,46 @@ impl OverworldBiomeBuilder {
                     0.0,
                     middle_biome,
                 );
-                self.add_surface_biome(biomes, temperature, humidity, Parameter::span_of(mid, far), e[2], weirdness, 0.0, plateau_biome);
-                self.add_surface_biome(biomes, temperature, humidity, mid, e[3], weirdness, 0.0, middle_biome_or_badlands_if_hot);
-                self.add_surface_biome(biomes, temperature, humidity, far, e[3], weirdness, 0.0, plateau_biome);
-                self.add_surface_biome(biomes, temperature, humidity, Parameter::span_of(coast, far), e[4], weirdness, 0.0, middle_biome);
+                self.add_surface_biome(
+                    biomes,
+                    temperature,
+                    humidity,
+                    Parameter::span_of(mid, far),
+                    e[2],
+                    weirdness,
+                    0.0,
+                    plateau_biome,
+                );
+                self.add_surface_biome(
+                    biomes,
+                    temperature,
+                    humidity,
+                    mid,
+                    e[3],
+                    weirdness,
+                    0.0,
+                    middle_biome_or_badlands_if_hot,
+                );
+                self.add_surface_biome(
+                    biomes,
+                    temperature,
+                    humidity,
+                    far,
+                    e[3],
+                    weirdness,
+                    0.0,
+                    plateau_biome,
+                );
+                self.add_surface_biome(
+                    biomes,
+                    temperature,
+                    humidity,
+                    Parameter::span_of(coast, far),
+                    e[4],
+                    weirdness,
+                    0.0,
+                    middle_biome,
+                );
                 self.add_surface_biome(
                     biomes,
                     temperature,
@@ -258,8 +403,26 @@ impl OverworldBiomeBuilder {
                     0.0,
                     shattered_biome_or_windswept_savanna,
                 );
-                self.add_surface_biome(biomes, temperature, humidity, Parameter::span_of(mid, far), e[5], weirdness, 0.0, shattered_biome);
-                self.add_surface_biome(biomes, temperature, humidity, Parameter::span_of(coast, far), e[6], weirdness, 0.0, middle_biome);
+                self.add_surface_biome(
+                    biomes,
+                    temperature,
+                    humidity,
+                    Parameter::span_of(mid, far),
+                    e[5],
+                    weirdness,
+                    0.0,
+                    shattered_biome,
+                );
+                self.add_surface_biome(
+                    biomes,
+                    temperature,
+                    humidity,
+                    Parameter::span_of(coast, far),
+                    e[6],
+                    weirdness,
+                    0.0,
+                    middle_biome,
+                );
             }
         }
     }
@@ -271,7 +434,8 @@ impl OverworldBiomeBuilder {
                 let humidity = self.humidities[humidity_index];
                 let (ti, hi) = (temperature_index, humidity_index);
                 let middle_biome = self.pick_middle_biome(ti, hi, weirdness);
-                let middle_biome_or_badlands_if_hot = self.pick_middle_biome_or_badlands_if_hot(ti, hi, weirdness);
+                let middle_biome_or_badlands_if_hot =
+                    self.pick_middle_biome_or_badlands_if_hot(ti, hi, weirdness);
                 let middle_biome_or_badlands_if_hot_or_slope_if_cold =
                     self.pick_middle_biome_or_badlands_if_hot_or_slope_if_cold(ti, hi, weirdness);
                 let plateau_biome = self.pick_plateau_biome(ti, hi, weirdness);
@@ -295,8 +459,26 @@ impl OverworldBiomeBuilder {
                     0.0,
                     middle_biome,
                 );
-                self.add_surface_biome(biomes, temperature, humidity, near, e[0], weirdness, 0.0, slope_biome);
-                self.add_surface_biome(biomes, temperature, humidity, Parameter::span_of(mid, far), e[0], weirdness, 0.0, peak_biome);
+                self.add_surface_biome(
+                    biomes,
+                    temperature,
+                    humidity,
+                    near,
+                    e[0],
+                    weirdness,
+                    0.0,
+                    slope_biome,
+                );
+                self.add_surface_biome(
+                    biomes,
+                    temperature,
+                    humidity,
+                    Parameter::span_of(mid, far),
+                    e[0],
+                    weirdness,
+                    0.0,
+                    peak_biome,
+                );
                 self.add_surface_biome(
                     biomes,
                     temperature,
@@ -307,7 +489,16 @@ impl OverworldBiomeBuilder {
                     0.0,
                     middle_biome_or_badlands_if_hot_or_slope_if_cold,
                 );
-                self.add_surface_biome(biomes, temperature, humidity, Parameter::span_of(mid, far), e[1], weirdness, 0.0, slope_biome);
+                self.add_surface_biome(
+                    biomes,
+                    temperature,
+                    humidity,
+                    Parameter::span_of(mid, far),
+                    e[1],
+                    weirdness,
+                    0.0,
+                    slope_biome,
+                );
                 self.add_surface_biome(
                     biomes,
                     temperature,
@@ -318,10 +509,46 @@ impl OverworldBiomeBuilder {
                     0.0,
                     middle_biome,
                 );
-                self.add_surface_biome(biomes, temperature, humidity, Parameter::span_of(mid, far), e[2], weirdness, 0.0, plateau_biome);
-                self.add_surface_biome(biomes, temperature, humidity, mid, e[3], weirdness, 0.0, middle_biome_or_badlands_if_hot);
-                self.add_surface_biome(biomes, temperature, humidity, far, e[3], weirdness, 0.0, plateau_biome);
-                self.add_surface_biome(biomes, temperature, humidity, Parameter::span_of(coast, far), e[4], weirdness, 0.0, middle_biome);
+                self.add_surface_biome(
+                    biomes,
+                    temperature,
+                    humidity,
+                    Parameter::span_of(mid, far),
+                    e[2],
+                    weirdness,
+                    0.0,
+                    plateau_biome,
+                );
+                self.add_surface_biome(
+                    biomes,
+                    temperature,
+                    humidity,
+                    mid,
+                    e[3],
+                    weirdness,
+                    0.0,
+                    middle_biome_or_badlands_if_hot,
+                );
+                self.add_surface_biome(
+                    biomes,
+                    temperature,
+                    humidity,
+                    far,
+                    e[3],
+                    weirdness,
+                    0.0,
+                    plateau_biome,
+                );
+                self.add_surface_biome(
+                    biomes,
+                    temperature,
+                    humidity,
+                    Parameter::span_of(coast, far),
+                    e[4],
+                    weirdness,
+                    0.0,
+                    middle_biome,
+                );
                 self.add_surface_biome(
                     biomes,
                     temperature,
@@ -332,8 +559,26 @@ impl OverworldBiomeBuilder {
                     0.0,
                     middle_biome_or_windswept_savanna,
                 );
-                self.add_surface_biome(biomes, temperature, humidity, Parameter::span_of(mid, far), e[5], weirdness, 0.0, shattered_biome);
-                self.add_surface_biome(biomes, temperature, humidity, Parameter::span_of(coast, far), e[6], weirdness, 0.0, middle_biome);
+                self.add_surface_biome(
+                    biomes,
+                    temperature,
+                    humidity,
+                    Parameter::span_of(mid, far),
+                    e[5],
+                    weirdness,
+                    0.0,
+                    shattered_biome,
+                );
+                self.add_surface_biome(
+                    biomes,
+                    temperature,
+                    humidity,
+                    Parameter::span_of(coast, far),
+                    e[6],
+                    weirdness,
+                    0.0,
+                    middle_biome,
+                );
             }
         }
     }
@@ -381,7 +626,8 @@ impl OverworldBiomeBuilder {
                 let humidity = self.humidities[humidity_index];
                 let (ti, hi) = (temperature_index, humidity_index);
                 let middle_biome = self.pick_middle_biome(ti, hi, weirdness);
-                let middle_biome_or_badlands_if_hot = self.pick_middle_biome_or_badlands_if_hot(ti, hi, weirdness);
+                let middle_biome_or_badlands_if_hot =
+                    self.pick_middle_biome_or_badlands_if_hot(ti, hi, weirdness);
                 let middle_biome_or_badlands_if_hot_or_slope_if_cold =
                     self.pick_middle_biome_or_badlands_if_hot_or_slope_if_cold(ti, hi, weirdness);
                 let shattered_biome = self.pick_shattered_biome(ti, hi, weirdness);
@@ -391,7 +637,16 @@ impl OverworldBiomeBuilder {
                     self.maybe_pick_windswept_savanna_biome(ti, hi, weirdness, middle_biome);
                 let shattered_coast_biome = self.pick_shattered_coast_biome(ti, hi, weirdness);
                 let slope_biome = self.pick_slope_biome(ti, hi, weirdness);
-                self.add_surface_biome(biomes, temperature, humidity, Parameter::span_of(near, far), e[0], weirdness, 0.0, slope_biome);
+                self.add_surface_biome(
+                    biomes,
+                    temperature,
+                    humidity,
+                    Parameter::span_of(near, far),
+                    e[0],
+                    weirdness,
+                    0.0,
+                    slope_biome,
+                );
                 self.add_surface_biome(
                     biomes,
                     temperature,
@@ -410,12 +665,52 @@ impl OverworldBiomeBuilder {
                     e[1],
                     weirdness,
                     0.0,
-                    if temperature_index == 0 { slope_biome } else { plateau_biome },
+                    if temperature_index == 0 {
+                        slope_biome
+                    } else {
+                        plateau_biome
+                    },
                 );
-                self.add_surface_biome(biomes, temperature, humidity, near, e[2], weirdness, 0.0, middle_biome);
-                self.add_surface_biome(biomes, temperature, humidity, mid, e[2], weirdness, 0.0, middle_biome_or_badlands_if_hot);
-                self.add_surface_biome(biomes, temperature, humidity, far, e[2], weirdness, 0.0, plateau_biome);
-                self.add_surface_biome(biomes, temperature, humidity, Parameter::span_of(coast, near), e[3], weirdness, 0.0, middle_biome);
+                self.add_surface_biome(
+                    biomes,
+                    temperature,
+                    humidity,
+                    near,
+                    e[2],
+                    weirdness,
+                    0.0,
+                    middle_biome,
+                );
+                self.add_surface_biome(
+                    biomes,
+                    temperature,
+                    humidity,
+                    mid,
+                    e[2],
+                    weirdness,
+                    0.0,
+                    middle_biome_or_badlands_if_hot,
+                );
+                self.add_surface_biome(
+                    biomes,
+                    temperature,
+                    humidity,
+                    far,
+                    e[2],
+                    weirdness,
+                    0.0,
+                    plateau_biome,
+                );
+                self.add_surface_biome(
+                    biomes,
+                    temperature,
+                    humidity,
+                    Parameter::span_of(coast, near),
+                    e[3],
+                    weirdness,
+                    0.0,
+                    middle_biome,
+                );
                 self.add_surface_biome(
                     biomes,
                     temperature,
@@ -427,21 +722,102 @@ impl OverworldBiomeBuilder {
                     middle_biome_or_badlands_if_hot,
                 );
                 if weirdness.max < 0 {
-                    self.add_surface_biome(biomes, temperature, humidity, coast, e[4], weirdness, 0.0, beach_biome);
-                    self.add_surface_biome(biomes, temperature, humidity, Parameter::span_of(near, far), e[4], weirdness, 0.0, middle_biome);
+                    self.add_surface_biome(
+                        biomes,
+                        temperature,
+                        humidity,
+                        coast,
+                        e[4],
+                        weirdness,
+                        0.0,
+                        beach_biome,
+                    );
+                    self.add_surface_biome(
+                        biomes,
+                        temperature,
+                        humidity,
+                        Parameter::span_of(near, far),
+                        e[4],
+                        weirdness,
+                        0.0,
+                        middle_biome,
+                    );
                 } else {
-                    self.add_surface_biome(biomes, temperature, humidity, Parameter::span_of(coast, far), e[4], weirdness, 0.0, middle_biome);
+                    self.add_surface_biome(
+                        biomes,
+                        temperature,
+                        humidity,
+                        Parameter::span_of(coast, far),
+                        e[4],
+                        weirdness,
+                        0.0,
+                        middle_biome,
+                    );
                 }
-                self.add_surface_biome(biomes, temperature, humidity, coast, e[5], weirdness, 0.0, shattered_coast_biome);
-                self.add_surface_biome(biomes, temperature, humidity, near, e[5], weirdness, 0.0, middle_biome_or_windswept_savanna);
-                self.add_surface_biome(biomes, temperature, humidity, Parameter::span_of(mid, far), e[5], weirdness, 0.0, shattered_biome);
+                self.add_surface_biome(
+                    biomes,
+                    temperature,
+                    humidity,
+                    coast,
+                    e[5],
+                    weirdness,
+                    0.0,
+                    shattered_coast_biome,
+                );
+                self.add_surface_biome(
+                    biomes,
+                    temperature,
+                    humidity,
+                    near,
+                    e[5],
+                    weirdness,
+                    0.0,
+                    middle_biome_or_windswept_savanna,
+                );
+                self.add_surface_biome(
+                    biomes,
+                    temperature,
+                    humidity,
+                    Parameter::span_of(mid, far),
+                    e[5],
+                    weirdness,
+                    0.0,
+                    shattered_biome,
+                );
                 if weirdness.max < 0 {
-                    self.add_surface_biome(biomes, temperature, humidity, coast, e[6], weirdness, 0.0, beach_biome);
+                    self.add_surface_biome(
+                        biomes,
+                        temperature,
+                        humidity,
+                        coast,
+                        e[6],
+                        weirdness,
+                        0.0,
+                        beach_biome,
+                    );
                 } else {
-                    self.add_surface_biome(biomes, temperature, humidity, coast, e[6], weirdness, 0.0, middle_biome);
+                    self.add_surface_biome(
+                        biomes,
+                        temperature,
+                        humidity,
+                        coast,
+                        e[6],
+                        weirdness,
+                        0.0,
+                        middle_biome,
+                    );
                 }
                 if temperature_index == 0 {
-                    self.add_surface_biome(biomes, temperature, humidity, Parameter::span_of(near, far), e[6], weirdness, 0.0, middle_biome);
+                    self.add_surface_biome(
+                        biomes,
+                        temperature,
+                        humidity,
+                        Parameter::span_of(near, far),
+                        e[6],
+                        weirdness,
+                        0.0,
+                        middle_biome,
+                    );
                 }
             }
         }
@@ -490,7 +866,8 @@ impl OverworldBiomeBuilder {
                 let humidity = self.humidities[humidity_index];
                 let (ti, hi) = (temperature_index, humidity_index);
                 let middle_biome = self.pick_middle_biome(ti, hi, weirdness);
-                let middle_biome_or_badlands_if_hot = self.pick_middle_biome_or_badlands_if_hot(ti, hi, weirdness);
+                let middle_biome_or_badlands_if_hot =
+                    self.pick_middle_biome_or_badlands_if_hot(ti, hi, weirdness);
                 let middle_biome_or_badlands_if_hot_or_slope_if_cold =
                     self.pick_middle_biome_or_badlands_if_hot_or_slope_if_cold(ti, hi, weirdness);
                 let beach_biome = self.pick_beach_biome(ti, hi);
@@ -547,13 +924,67 @@ impl OverworldBiomeBuilder {
                     0.0,
                     beach_biome,
                 );
-                self.add_surface_biome(biomes, temperature, humidity, Parameter::span_of(near, far), e[4], weirdness, 0.0, middle_biome);
-                self.add_surface_biome(biomes, temperature, humidity, coast, e[5], weirdness, 0.0, shattered_coast_biome);
-                self.add_surface_biome(biomes, temperature, humidity, near, e[5], weirdness, 0.0, middle_biome_or_windswept_savanna);
-                self.add_surface_biome(biomes, temperature, humidity, Parameter::span_of(mid, far), e[5], weirdness, 0.0, middle_biome);
-                self.add_surface_biome(biomes, temperature, humidity, coast, e[6], weirdness, 0.0, beach_biome);
+                self.add_surface_biome(
+                    biomes,
+                    temperature,
+                    humidity,
+                    Parameter::span_of(near, far),
+                    e[4],
+                    weirdness,
+                    0.0,
+                    middle_biome,
+                );
+                self.add_surface_biome(
+                    biomes,
+                    temperature,
+                    humidity,
+                    coast,
+                    e[5],
+                    weirdness,
+                    0.0,
+                    shattered_coast_biome,
+                );
+                self.add_surface_biome(
+                    biomes,
+                    temperature,
+                    humidity,
+                    near,
+                    e[5],
+                    weirdness,
+                    0.0,
+                    middle_biome_or_windswept_savanna,
+                );
+                self.add_surface_biome(
+                    biomes,
+                    temperature,
+                    humidity,
+                    Parameter::span_of(mid, far),
+                    e[5],
+                    weirdness,
+                    0.0,
+                    middle_biome,
+                );
+                self.add_surface_biome(
+                    biomes,
+                    temperature,
+                    humidity,
+                    coast,
+                    e[6],
+                    weirdness,
+                    0.0,
+                    beach_biome,
+                );
                 if temperature_index == 0 {
-                    self.add_surface_biome(biomes, temperature, humidity, Parameter::span_of(near, far), e[6], weirdness, 0.0, middle_biome);
+                    self.add_surface_biome(
+                        biomes,
+                        temperature,
+                        humidity,
+                        Parameter::span_of(near, far),
+                        e[6],
+                        weirdness,
+                        0.0,
+                        middle_biome,
+                    );
                 }
             }
         }
@@ -577,7 +1008,11 @@ impl OverworldBiomeBuilder {
             Parameter::span_of(e[0], e[1]),
             weirdness,
             0.0,
-            if negative { "stony_shore" } else { "frozen_river" },
+            if negative {
+                "stony_shore"
+            } else {
+                "frozen_river"
+            },
         );
         self.add_surface_biome(
             biomes,
@@ -629,8 +1064,26 @@ impl OverworldBiomeBuilder {
             0.0,
             "river",
         );
-        self.add_surface_biome(biomes, self.frozen_range, full, coast, e[6], weirdness, 0.0, "frozen_river");
-        self.add_surface_biome(biomes, self.unfrozen_range, full, coast, e[6], weirdness, 0.0, "river");
+        self.add_surface_biome(
+            biomes,
+            self.frozen_range,
+            full,
+            coast,
+            e[6],
+            weirdness,
+            0.0,
+            "frozen_river",
+        );
+        self.add_surface_biome(
+            biomes,
+            self.unfrozen_range,
+            full,
+            coast,
+            e[6],
+            weirdness,
+            0.0,
+            "river",
+        );
         self.add_surface_biome(
             biomes,
             Parameter::span_of(t[1], t[2]),
@@ -665,8 +1118,11 @@ impl OverworldBiomeBuilder {
             let temperature = self.temperatures[temperature_index];
             for humidity_index in 0..self.humidities.len() {
                 let humidity = self.humidities[humidity_index];
-                let middle_biome_or_badlands_if_hot =
-                    self.pick_middle_biome_or_badlands_if_hot(temperature_index, humidity_index, weirdness);
+                let middle_biome_or_badlands_if_hot = self.pick_middle_biome_or_badlands_if_hot(
+                    temperature_index,
+                    humidity_index,
+                    weirdness,
+                );
                 self.add_surface_biome(
                     biomes,
                     temperature,
@@ -724,7 +1180,12 @@ impl OverworldBiomeBuilder {
         );
     }
 
-    fn pick_middle_biome(&self, temperature_index: usize, humidity_index: usize, weirdness: Parameter) -> BiomeKey {
+    fn pick_middle_biome(
+        &self,
+        temperature_index: usize,
+        humidity_index: usize,
+        weirdness: Parameter,
+    ) -> BiomeKey {
         if weirdness.max < 0 {
             MIDDLE_BIOMES[temperature_index][humidity_index]
         } else {
@@ -773,13 +1234,23 @@ impl OverworldBiomeBuilder {
         }
     }
 
-    fn pick_shattered_coast_biome(&self, temperature_index: usize, humidity_index: usize, weirdness: Parameter) -> BiomeKey {
+    fn pick_shattered_coast_biome(
+        &self,
+        temperature_index: usize,
+        humidity_index: usize,
+        weirdness: Parameter,
+    ) -> BiomeKey {
         let beach_or_middle_biome = if weirdness.max >= 0 {
             self.pick_middle_biome(temperature_index, humidity_index, weirdness)
         } else {
             self.pick_beach_biome(temperature_index, humidity_index)
         };
-        self.maybe_pick_windswept_savanna_biome(temperature_index, humidity_index, weirdness, beach_or_middle_biome)
+        self.maybe_pick_windswept_savanna_biome(
+            temperature_index,
+            humidity_index,
+            weirdness,
+            beach_or_middle_biome,
+        )
     }
 
     fn pick_beach_biome(&self, temperature_index: usize, _humidity_index: usize) -> BiomeKey {
@@ -794,7 +1265,11 @@ impl OverworldBiomeBuilder {
 
     fn pick_badlands_biome(&self, humidity_index: usize, weirdness: Parameter) -> BiomeKey {
         if humidity_index < 2 {
-            if weirdness.max < 0 { "badlands" } else { "eroded_badlands" }
+            if weirdness.max < 0 {
+                "badlands"
+            } else {
+                "eroded_badlands"
+            }
         } else if humidity_index < 3 {
             "badlands"
         } else {
@@ -802,7 +1277,12 @@ impl OverworldBiomeBuilder {
         }
     }
 
-    fn pick_plateau_biome(&self, temperature_index: usize, humidity_index: usize, weirdness: Parameter) -> BiomeKey {
+    fn pick_plateau_biome(
+        &self,
+        temperature_index: usize,
+        humidity_index: usize,
+        weirdness: Parameter,
+    ) -> BiomeKey {
         if weirdness.max >= 0
             && let Some(variant) = PLATEAU_BIOMES_VARIANT[temperature_index][humidity_index]
         {
@@ -811,9 +1291,18 @@ impl OverworldBiomeBuilder {
         PLATEAU_BIOMES[temperature_index][humidity_index]
     }
 
-    fn pick_peak_biome(&self, temperature_index: usize, humidity_index: usize, weirdness: Parameter) -> BiomeKey {
+    fn pick_peak_biome(
+        &self,
+        temperature_index: usize,
+        humidity_index: usize,
+        weirdness: Parameter,
+    ) -> BiomeKey {
         if temperature_index <= 2 {
-            if weirdness.max < 0 { "jagged_peaks" } else { "frozen_peaks" }
+            if weirdness.max < 0 {
+                "jagged_peaks"
+            } else {
+                "frozen_peaks"
+            }
         } else if temperature_index == 3 {
             "stony_peaks"
         } else {
@@ -821,7 +1310,12 @@ impl OverworldBiomeBuilder {
         }
     }
 
-    fn pick_slope_biome(&self, temperature_index: usize, humidity_index: usize, weirdness: Parameter) -> BiomeKey {
+    fn pick_slope_biome(
+        &self,
+        temperature_index: usize,
+        humidity_index: usize,
+        weirdness: Parameter,
+    ) -> BiomeKey {
         if temperature_index >= 3 {
             self.pick_plateau_biome(temperature_index, humidity_index, weirdness)
         } else if humidity_index <= 1 {
@@ -831,7 +1325,12 @@ impl OverworldBiomeBuilder {
         }
     }
 
-    fn pick_shattered_biome(&self, temperature_index: usize, humidity_index: usize, weirdness: Parameter) -> BiomeKey {
+    fn pick_shattered_biome(
+        &self,
+        temperature_index: usize,
+        humidity_index: usize,
+        weirdness: Parameter,
+    ) -> BiomeKey {
         SHATTERED_BIOMES[temperature_index][humidity_index]
             .unwrap_or_else(|| self.pick_middle_biome(temperature_index, humidity_index, weirdness))
     }
@@ -849,11 +1348,27 @@ impl OverworldBiomeBuilder {
         biome: BiomeKey,
     ) {
         biomes(
-            climate::parameters(temperature, humidity, continentalness, erosion, Parameter::point(0.0), weirdness, offset),
+            climate::parameters(
+                temperature,
+                humidity,
+                continentalness,
+                erosion,
+                Parameter::point(0.0),
+                weirdness,
+                offset,
+            ),
             biome,
         );
         biomes(
-            climate::parameters(temperature, humidity, continentalness, erosion, Parameter::point(1.0), weirdness, offset),
+            climate::parameters(
+                temperature,
+                humidity,
+                continentalness,
+                erosion,
+                Parameter::point(1.0),
+                weirdness,
+                offset,
+            ),
             biome,
         );
     }
@@ -871,7 +1386,15 @@ impl OverworldBiomeBuilder {
         biome: BiomeKey,
     ) {
         biomes(
-            climate::parameters(temperature, humidity, continentalness, erosion, Parameter::span(0.2, 0.9), weirdness, offset),
+            climate::parameters(
+                temperature,
+                humidity,
+                continentalness,
+                erosion,
+                Parameter::span(0.2, 0.9),
+                weirdness,
+                offset,
+            ),
             biome,
         );
     }
@@ -889,7 +1412,15 @@ impl OverworldBiomeBuilder {
         biome: BiomeKey,
     ) {
         biomes(
-            climate::parameters(temperature, humidity, continentalness, erosion, Parameter::point(1.1), weirdness, offset),
+            climate::parameters(
+                temperature,
+                humidity,
+                continentalness,
+                erosion,
+                Parameter::point(1.1),
+                weirdness,
+                offset,
+            ),
             biome,
         );
     }

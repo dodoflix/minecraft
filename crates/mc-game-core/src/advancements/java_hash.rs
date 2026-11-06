@@ -20,7 +20,9 @@ impl JavaHash for String {
 impl JavaHash for Identifier {
     /// `31 * namespace.hashCode() + path.hashCode()`.
     fn java_hash(&self) -> i32 {
-        java_string_hash(self.namespace()).wrapping_mul(31).wrapping_add(java_string_hash(self.path()))
+        java_string_hash(self.namespace())
+            .wrapping_mul(31)
+            .wrapping_add(java_string_hash(self.path()))
     }
 }
 
@@ -42,7 +44,12 @@ pub struct JavaHashMap<K, V> {
 
 impl<K, V> Default for JavaHashMap<K, V> {
     fn default() -> Self {
-        JavaHashMap { table: Vec::new(), size: 0, threshold: 0, initial: 0 }
+        JavaHashMap {
+            table: Vec::new(),
+            size: 0,
+            threshold: 0,
+            initial: 0,
+        }
     }
 }
 
@@ -67,13 +74,20 @@ impl<K: JavaHash, V> JavaHashMap<K, V> {
 
     /// `new HashMap<>(initialCapacity)`.
     pub fn with_initial_capacity(capacity: usize) -> Self {
-        JavaHashMap { initial: table_size_for(capacity), ..Self::default() }
+        JavaHashMap {
+            initial: table_size_for(capacity),
+            ..Self::default()
+        }
     }
 
     /// `new HashMap<>(source)` for a source of `size` entries given in its iteration order (the copy constructor
     /// presizes the table from the source's size).
     pub fn copy_of(entries: impl IntoIterator<Item = (K, V)>, size: usize) -> Self {
-        let mut m = if size == 0 { Self::new() } else { Self::with_initial_capacity(((size as f32 / 0.75f32) + 1.0f32) as usize) };
+        let mut m = if size == 0 {
+            Self::new()
+        } else {
+            Self::with_initial_capacity(((size as f32 / 0.75f32) + 1.0f32) as usize)
+        };
         for (k, v) in entries {
             m.insert(k, v);
         }
@@ -93,7 +107,10 @@ impl<K: JavaHash, V> JavaHashMap<K, V> {
             return None;
         }
         let hash = Self::spread(key);
-        self.table[self.index(hash)].iter().find(|n| n.hash == hash && n.key == *key).map(|n| &n.value)
+        self.table[self.index(hash)]
+            .iter()
+            .find(|n| n.hash == hash && n.key == *key)
+            .map(|n| &n.value)
     }
 
     pub fn get_mut(&mut self, key: &K) -> Option<&mut V> {
@@ -102,7 +119,10 @@ impl<K: JavaHash, V> JavaHashMap<K, V> {
         }
         let hash = Self::spread(key);
         let idx = self.index(hash);
-        self.table[idx].iter_mut().find(|n| n.hash == hash && n.key == *key).map(|n| &mut n.value)
+        self.table[idx]
+            .iter_mut()
+            .find(|n| n.hash == hash && n.key == *key)
+            .map(|n| &mut n.value)
     }
 
     pub fn contains_key(&self, key: &K) -> bool {
@@ -116,7 +136,10 @@ impl<K: JavaHash, V> JavaHashMap<K, V> {
         }
         let hash = Self::spread(&key);
         let idx = self.index(hash);
-        if let Some(node) = self.table[idx].iter_mut().find(|n| n.hash == hash && n.key == key) {
+        if let Some(node) = self.table[idx]
+            .iter_mut()
+            .find(|n| n.hash == hash && n.key == key)
+        {
             return Some(std::mem::replace(&mut node.value, value));
         }
         self.table[idx].push(Node { hash, key, value });
@@ -133,7 +156,9 @@ impl<K: JavaHash, V> JavaHashMap<K, V> {
         }
         let hash = Self::spread(key);
         let idx = self.index(hash);
-        let pos = self.table[idx].iter().position(|n| n.hash == hash && n.key == *key)?;
+        let pos = self.table[idx]
+            .iter()
+            .position(|n| n.hash == hash && n.key == *key)?;
         self.size -= 1;
         Some(self.table[idx].remove(pos).value)
     }
@@ -235,7 +260,10 @@ mod tests {
         for k in ["q", "b", "a"] {
             m.insert(k.to_owned(), ());
         }
-        assert_eq!(m.keys().map(String::as_str).collect::<Vec<_>>(), ["q", "a", "b"]);
+        assert_eq!(
+            m.keys().map(String::as_str).collect::<Vec<_>>(),
+            ["q", "a", "b"]
+        );
     }
 
     #[test]

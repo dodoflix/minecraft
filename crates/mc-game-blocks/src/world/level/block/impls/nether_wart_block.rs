@@ -1,9 +1,11 @@
 //! `net.minecraft.world.level.block.NetherWartBlock` (extends `VegetationBlock`).
 use mc_game_core::register_block_class;
-use mc_game_core::world::level::block::impls::prelude::*;
-use mc_game_core::world::level::block::impls::vegetation_block::{MayPlaceOn, vegetation_behaviour_methods};
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::item::ItemStack;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::world::level::block::impls::vegetation_block::{
+    MayPlaceOn, vegetation_behaviour_methods,
+};
 
 pub struct NetherWartBlock;
 
@@ -21,7 +23,13 @@ impl BlockBehaviour for NetherWartBlock {
             level.set_block_flags(pos, state.set(props::AGE_3, age + 1), 2);
         }
     }
-    fn get_clone_item_stack(&self, _state: BlockState, _level: &ServerLevel, _pos: BlockPos, _include_data: bool) -> ItemStack {
+    fn get_clone_item_stack(
+        &self,
+        _state: BlockState,
+        _level: &ServerLevel,
+        _pos: BlockPos,
+        _include_data: bool,
+    ) -> ItemStack {
         ItemStack::new(mc_data::Item::NETHER_WART)
     }
 }

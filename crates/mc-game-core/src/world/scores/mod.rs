@@ -15,6 +15,9 @@ pub mod team;
 pub use number_format::NumberFormat;
 pub use objective_criteria::{ObjectiveCriteria, RenderType};
 pub use score::{PlayerScoreEntry, Score, ScoreHolder};
-pub use scoreboard::{DetachedScoreAccess, Objective, PlayerTeam, ScoreAccess, Scoreboard, ScoreboardError, ServerScoreboard, TeamMut};
+pub use scoreboard::{
+    DetachedScoreAccess, Objective, PlayerTeam, ScoreAccess, Scoreboard, ScoreboardError,
+    ServerScoreboard, TeamMut,
+};
 pub use scoreboard_save_data::ScoreboardSaveData;
 pub use team::{CollisionRule, DisplaySlot, TeamColor, Visibility};

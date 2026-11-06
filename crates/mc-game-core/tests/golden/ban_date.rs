@@ -8,7 +8,11 @@ fn ban_date_format_matches_java_in_every_zone() {
     let mut checked = 0;
     for line in include_str!("../../../mc-game/tests/fixtures/ban_date_golden.txt").lines() {
         let mut parts = line.splitn(3, '|');
-        let (zone, epoch, expected) = (parts.next().unwrap(), parts.next().unwrap(), parts.next().unwrap());
+        let (zone, epoch, expected) = (
+            parts.next().unwrap(),
+            parts.next().unwrap(),
+            parts.next().unwrap(),
+        );
         // Java's tz data names the zero-offset-but-+1h London of 1970 "GMT"; glibc knows it as BST (+01:00)
         if zone == "Europe/London" && epoch == "0" {
             continue;

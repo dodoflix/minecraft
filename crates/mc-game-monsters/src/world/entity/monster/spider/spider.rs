@@ -1,22 +1,6 @@
 //! `net.minecraft.world.entity.monster.spider.Spider` and `CaveSpider` (a `Spider` subclass that only overrides
 //! `doHurtTarget`, `finalizeSpawn` and the vehicle attachment point, so one struct serves both entity types).
 
-use mc_game_core::define_accessor;
-use mc_game_core::impl_spawn_group_data;
-use mc_game_core::registry::RegistryAccess;
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::damagesource::DamageSource;
-use mc_game_core::world::difficulty_instance::DifficultyInstance;
-use mc_game_core::world::entity::ai::goal::target::{EntityClass, HurtByTargetGoal, NearestAttackableTargetGoal, TargetType, class_of_type};
-use mc_game_ai::world::entity::ai::goal::{AvoidEntityGoal, LeapAtTargetGoal};
-use mc_game_core::world::entity::ai::goal::{FloatGoal, Goal, GoalFlags, LookAtPlayerGoal, MeleeAttackGoal, RandomLookAroundGoal, WaterAvoidingRandomStrollGoal};
-use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
-use mc_game_core::world::entity::effect::MobEffectInstance;
-use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
-use mc_game_core::world::entity::mob::{self, MobData, MobKind};
-use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
-use mc_game_core::world::entity::{Entity, EntityId};
-use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
@@ -24,6 +8,29 @@ use mc_core::random::RandomSource;
 use mc_data::block::Block;
 use mc_data::enums::EntitySpawnReason;
 use mc_data::{Attribute, EntityType, MobEffect, SoundEvent};
+use mc_game_ai::world::entity::ai::goal::{AvoidEntityGoal, LeapAtTargetGoal};
+use mc_game_core::define_accessor;
+use mc_game_core::impl_spawn_group_data;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::goal::target::{
+    EntityClass, HurtByTargetGoal, NearestAttackableTargetGoal, TargetType, class_of_type,
+};
+use mc_game_core::world::entity::ai::goal::{
+    FloatGoal, Goal, GoalFlags, LookAtPlayerGoal, MeleeAttackGoal, RandomLookAroundGoal,
+    WaterAvoidingRandomStrollGoal,
+};
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::effect::MobEffectInstance;
+use mc_game_core::world::entity::factory::{
+    ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest,
+};
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use std::sync::Arc;
 
 define_accessor!(pub DATA_FLAGS_ID: Byte = Spider);
@@ -79,7 +86,16 @@ impl Spider {
         let armadillo: EntityClass = class_of_type(EntityType::ARMADILLO);
         let goals = &mut self.mob.goal_selector;
         goals.add_goal(1, Box::new(float));
-        goals.add_goal(2, Box::new(AvoidEntityGoal::with_predicate_on_avoid_entity(armadillo, 6.0, 1.0, 1.2, Arc::new(|e: &dyn Entity| !e.armadillo_is_scared()))));
+        goals.add_goal(
+            2,
+            Box::new(AvoidEntityGoal::with_predicate_on_avoid_entity(
+                armadillo,
+                6.0,
+                1.0,
+                1.2,
+                Arc::new(|e: &dyn Entity| !e.armadillo_is_scared()),
+            )),
+        );
         goals.add_goal(3, Box::new(LeapAtTargetGoal::new(0.4)));
         goals.add_goal(4, Box::new(SpiderAttackGoal::new()));
         goals.add_goal(5, Box::new(WaterAvoidingRandomStrollGoal::new(0.8)));
@@ -88,7 +104,12 @@ impl Spider {
         let targets = &mut self.mob.target_selector;
         targets.add_goal(1, Box::new(HurtByTargetGoal::new(Vec::new())));
         targets.add_goal(2, Box::new(SpiderTargetGoal::new(TargetType::Player)));
-        targets.add_goal(3, Box::new(SpiderTargetGoal::new(TargetType::of_type(EntityType::IRON_GOLEM))));
+        targets.add_goal(
+            3,
+            Box::new(SpiderTargetGoal::new(TargetType::of_type(
+                EntityType::IRON_GOLEM,
+            ))),
+        );
     }
 
     fn is_cave_spider(&self) -> bool {
@@ -132,7 +153,12 @@ impl Entity for Spider {
         Some(SoundEvent::ENTITY_SPIDER_DEATH)
     }
 
-    fn play_step_sound(&mut self, level: &mut ServerLevel, _pos: BlockPos, _state: mc_data::block::BlockState) {
+    fn play_step_sound(
+        &mut self,
+        level: &mut ServerLevel,
+        _pos: BlockPos,
+        _state: mc_data::block::BlockState,
+    ) {
         self.play_sound(level, SoundEvent::ENTITY_SPIDER_STEP, 0.15, 1.0);
     }
 
@@ -148,11 +174,19 @@ impl Entity for Spider {
     }
 
     fn can_be_affected(&self, level: &ServerLevel, effect: &MobEffectInstance) -> bool {
-        if effect.effect == MobEffect::POISON { false } else { mc_game_core::world::entity::living_entity::effects::can_be_affected(self, level, effect) }
+        if effect.effect == MobEffect::POISON {
+            false
+        } else {
+            mc_game_core::world::entity::living_entity::effects::can_be_affected(
+                self, level, effect,
+            )
+        }
     }
 
     fn do_hurt_target(&mut self, level: &mut ServerLevel, target: &mut dyn Entity) -> bool {
-        if !mc_game_core::world::entity::living_entity::combat::mob_do_hurt_target(self, level, target) {
+        if !mc_game_core::world::entity::living_entity::combat::mob_do_hurt_target(
+            self, level, target,
+        ) {
             return false;
         }
         if self.is_cave_spider() && target.living().is_some() {
@@ -163,7 +197,11 @@ impl Entity for Spider {
             };
             if poison_time > 0 {
                 let id = self.id();
-                target.add_effect(level, MobEffectInstance::of(MobEffect::POISON, poison_time * 20, 0), Some(id));
+                target.add_effect(
+                    level,
+                    MobEffectInstance::of(MobEffect::POISON, poison_time * 20, 0),
+                    Some(id),
+                );
             }
         }
         true
@@ -179,25 +217,41 @@ impl Entity for Spider {
         if self.is_cave_spider() {
             return group_data;
         }
-        let mut group_data = mob::spawn::finalize_spawn(self, level, difficulty, reason, group_data);
+        let mut group_data =
+            mob::spawn::finalize_spawn(self, level, difficulty, reason, group_data);
         if level.random().next_int_bounded(100) == 0 {
-            if let Some(mut skeleton) = level.create_entity(EntityType::SKELETON, EntitySpawnRequest { reason: EntitySpawnReason::Jockey, ignore_checks: false }) {
+            if let Some(mut skeleton) = level.create_entity(
+                EntityType::SKELETON,
+                EntitySpawnRequest {
+                    reason: EntitySpawnReason::Jockey,
+                    ignore_checks: false,
+                },
+            ) {
                 let b = self.base();
                 skeleton.snap_to(b.x(), b.y(), b.z(), b.y_rot(), 0.0);
                 skeleton.finalize_spawn(level, difficulty, reason, None);
-                if mc_game_core::world::entity::monster::start_riding_unadded(skeleton.as_mut(), self) {
+                if mc_game_core::world::entity::monster::start_riding_unadded(
+                    skeleton.as_mut(),
+                    self,
+                ) {
                     self.mob.pending_passengers.push(skeleton);
                 }
             }
         }
         if group_data.is_none() {
             let mut data = SpiderEffectsGroupData::default();
-            if level.get_difficulty() == mc_world::level_storage::Difficulty::Hard && level.random().next_float() < SPIDER_SPECIAL_EFFECT_CHANCE * difficulty.get_special_multiplier() {
+            if level.get_difficulty() == mc_world::level_storage::Difficulty::Hard
+                && level.random().next_float()
+                    < SPIDER_SPECIAL_EFFECT_CHANCE * difficulty.get_special_multiplier()
+            {
                 data.set_random_effect(level.random());
             }
             group_data = Some(Box::new(data));
         }
-        let effect = group_data.as_ref().and_then(|g| g.as_any().downcast_ref::<SpiderEffectsGroupData>()).and_then(|d| d.effect);
+        let effect = group_data
+            .as_ref()
+            .and_then(|g| g.as_any().downcast_ref::<SpiderEffectsGroupData>())
+            .and_then(|d| d.effect);
         if let (Some(effect), Some(server_level)) = (effect, level.as_server_level_mut()) {
             self.add_effect(server_level, MobEffectInstance::of(effect, -1, 0), None);
         }
@@ -207,10 +261,18 @@ impl Entity for Spider {
     fn get_vehicle_attachment_point(&self, vehicle: &dyn Entity) -> Vec3 {
         if vehicle.base().get_bb_width() <= self.base().get_bb_width() {
             let scale = self.mob.living.get_attribute_value(Attribute::SCALE) as f32;
-            let y = if self.is_cave_spider() { 0.21875 } else { 0.3125 };
+            let y = if self.is_cave_spider() {
+                0.21875
+            } else {
+                0.3125
+            };
             Vec3::new(0.0, y * f64::from(scale), 0.0)
         } else {
-            self.get_attachments().get(mc_game_core::world::entity::dimensions::EntityAttachment::Vehicle, 0, self.base().y_rot())
+            self.get_attachments().get(
+                mc_game_core::world::entity::dimensions::EntityAttachment::Vehicle,
+                0,
+                self.base().y_rot(),
+            )
         }
     }
 }
@@ -222,7 +284,9 @@ struct SpiderAttackGoal {
 
 impl SpiderAttackGoal {
     fn new() -> Self {
-        Self { melee: MeleeAttackGoal::new(1.0, true) }
+        Self {
+            melee: MeleeAttackGoal::new(1.0, true),
+        }
     }
 }
 
@@ -269,14 +333,20 @@ struct SpiderTargetGoal {
 
 impl SpiderTargetGoal {
     fn new(target_type: TargetType) -> Self {
-        Self { target: NearestAttackableTargetGoal::new(target_type, true) }
+        Self {
+            target: NearestAttackableTargetGoal::new(target_type, true),
+        }
     }
 }
 
 impl Goal for SpiderTargetGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         let br = mob.get_light_level_dependent_magic_value(level);
-        if br >= 0.5 { false } else { self.target.can_use_impl(mob, level) }
+        if br >= 0.5 {
+            false
+        } else {
+            self.target.can_use_impl(mob, level)
+        }
     }
 
     fn can_continue_to_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
@@ -297,7 +367,13 @@ impl Goal for SpiderTargetGoal {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static SPIDER: EntityRegistration = EntityRegistration { entity_type: EntityType::SPIDER, create: |ty, id, registries| Box::new(Spider::new(ty, id, registries)) };
+static SPIDER: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::SPIDER,
+    create: |ty, id, registries| Box::new(Spider::new(ty, id, registries)),
+};
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static CAVE_SPIDER: EntityRegistration = EntityRegistration { entity_type: EntityType::CAVE_SPIDER, create: |ty, id, registries| Box::new(Spider::new(ty, id, registries)) };
+static CAVE_SPIDER: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::CAVE_SPIDER,
+    create: |ty, id, registries| Box::new(Spider::new(ty, id, registries)),
+};

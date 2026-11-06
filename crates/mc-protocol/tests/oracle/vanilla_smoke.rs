@@ -3,10 +3,10 @@
 //! Run with `-- --nocapture` to see the packet-id log.
 
 use crate::common::*;
+use mc_protocol::PROTOCOL_VERSION;
 use mc_protocol::auth::{digest_server_id, encrypt_with_public_key, generate_secret};
 use mc_protocol::packet::ConnectionState;
 use mc_protocol::packets::{configuration::*, handshake::*, login::*, status::*};
-use mc_protocol::PROTOCOL_VERSION;
 use uuid::Uuid;
 
 #[tokio::test(flavor = "multi_thread")]
@@ -18,21 +18,36 @@ async fn status_and_offline_login_to_configuration() {
     // ---- status
     let mut c = connect(port).await;
     handshake(&mut c, port, ClientIntent::Status).await;
-    send!(c, ServerboundStatusPacket::StatusRequest(ServerboundStatusRequestPacket));
+    send!(
+        c,
+        ServerboundStatusPacket::StatusRequest(ServerboundStatusRequestPacket)
+    );
     let payload = read(&mut c).await;
     log_id(ConnectionState::Status, &payload);
-    let ClientboundStatusPacket::StatusResponse(resp) = ClientboundStatusPacket::decode_payload(&payload).unwrap() else {
+    let ClientboundStatusPacket::StatusResponse(resp) =
+        ClientboundStatusPacket::decode_payload(&payload).unwrap()
+    else {
         panic!("expected status response")
     };
     println!("status: {}", resp.status.to_json_string().unwrap());
-    assert_eq!(resp.status.version.as_ref().unwrap().protocol, PROTOCOL_VERSION);
+    assert_eq!(
+        resp.status.version.as_ref().unwrap().protocol,
+        PROTOCOL_VERSION
+    );
     assert_eq!(resp.status.players.as_ref().unwrap().online, 0);
-    send!(c, ServerboundStatusPacket::PingRequest(ServerboundPingRequestPacket { time: 0x1234_5678_9abc }));
+    send!(
+        c,
+        ServerboundStatusPacket::PingRequest(ServerboundPingRequestPacket {
+            time: 0x1234_5678_9abc
+        })
+    );
     let payload = read(&mut c).await;
     log_id(ConnectionState::Status, &payload);
     assert_eq!(
         ClientboundStatusPacket::decode_payload(&payload).unwrap(),
-        ClientboundStatusPacket::PongResponse(ClientboundPongResponsePacket { time: 0x1234_5678_9abc })
+        ClientboundStatusPacket::PongResponse(ClientboundPongResponsePacket {
+            time: 0x1234_5678_9abc
+        })
     );
 
     // ---- login (offline) -> configuration
@@ -40,7 +55,13 @@ async fn status_and_offline_login_to_configuration() {
     handshake(&mut c, port, ClientIntent::Login).await;
     let name = "SmokeBot";
     let uuid = Uuid::from_u128(0x1234_5678_9abc_def0_1234_5678_9abc_def0);
-    send!(c, ServerboundLoginPacket::Hello(ServerboundHelloPacket { name: name.into(), profile_id: uuid }));
+    send!(
+        c,
+        ServerboundLoginPacket::Hello(ServerboundHelloPacket {
+            name: name.into(),
+            profile_id: uuid
+        })
+    );
     let profile = loop {
         let payload = read(&mut c).await;
         log_id(ConnectionState::Login, &payload);
@@ -54,11 +75,16 @@ async fn status_and_offline_login_to_configuration() {
         }
     };
     assert_eq!(profile.name, name);
-    send!(c, ServerboundLoginPacket::LoginAcknowledged(ServerboundLoginAcknowledgedPacket));
+    send!(
+        c,
+        ServerboundLoginPacket::LoginAcknowledged(ServerboundLoginAcknowledgedPacket)
+    );
 
     send!(
         c,
-        ServerboundConfigurationPacket::ClientInformation(ServerboundClientInformationPacket { information: Default::default() })
+        ServerboundConfigurationPacket::ClientInformation(ServerboundClientInformationPacket {
+            information: Default::default()
+        })
     );
     let mut seen = Vec::new();
     loop {
@@ -68,28 +94,57 @@ async fn status_and_offline_login_to_configuration() {
         seen.push(packet.name());
         match packet {
             ClientboundConfigurationPacket::SelectKnownPacks(_) => {
-                send!(c, ServerboundConfigurationPacket::SelectKnownPacks(ServerboundSelectKnownPacks { known_packs: vec![] }))
+                send!(
+                    c,
+                    ServerboundConfigurationPacket::SelectKnownPacks(ServerboundSelectKnownPacks {
+                        known_packs: vec![]
+                    })
+                )
             }
             ClientboundConfigurationPacket::KeepAlive(p) => {
-                send!(c, ServerboundConfigurationPacket::KeepAlive(ServerboundKeepAlivePacket { id: p.id }))
+                send!(
+                    c,
+                    ServerboundConfigurationPacket::KeepAlive(ServerboundKeepAlivePacket {
+                        id: p.id
+                    })
+                )
             }
             ClientboundConfigurationPacket::Ping(p) => {
-                send!(c, ServerboundConfigurationPacket::Pong(ServerboundPongPacket { id: p.id }))
+                send!(
+                    c,
+                    ServerboundConfigurationPacket::Pong(ServerboundPongPacket { id: p.id })
+                )
             }
             ClientboundConfigurationPacket::FinishConfiguration(_) => {
-                send!(c, ServerboundConfigurationPacket::FinishConfiguration(ServerboundFinishConfigurationPacket));
+                send!(
+                    c,
+                    ServerboundConfigurationPacket::FinishConfiguration(
+                        ServerboundFinishConfigurationPacket
+                    )
+                );
                 break;
             }
             _ => {}
         }
     }
-    for expected in ["minecraft:custom_payload", "minecraft:registry_data", "minecraft:update_tags", "minecraft:select_known_packs"] {
-        assert!(seen.contains(&expected), "never received {expected}; got {seen:?}");
+    for expected in [
+        "minecraft:custom_payload",
+        "minecraft:registry_data",
+        "minecraft:update_tags",
+        "minecraft:select_known_packs",
+    ] {
+        assert!(
+            seen.contains(&expected),
+            "never received {expected}; got {seen:?}"
+        );
     }
     // The next packet is the first play packet (`login`, id 50).
     let payload = read(&mut c).await;
     log_id(ConnectionState::Play, &payload);
-    assert_eq!(mc_protocol::codec::read_varint(&mut &payload[..]).unwrap(), 50);
+    assert_eq!(
+        mc_protocol::codec::read_varint(&mut &payload[..]).unwrap(),
+        50
+    );
 }
 
 #[tokio::test(flavor = "multi_thread")]
@@ -99,13 +154,26 @@ async fn online_mode_encryption_handshake() {
     let port = server.port;
     let mut c = connect(port).await;
     handshake(&mut c, port, ClientIntent::Login).await;
-    send!(c, ServerboundLoginPacket::Hello(ServerboundHelloPacket { name: "SmokeBot".into(), profile_id: Uuid::nil() }));
+    send!(
+        c,
+        ServerboundLoginPacket::Hello(ServerboundHelloPacket {
+            name: "SmokeBot".into(),
+            profile_id: Uuid::nil()
+        })
+    );
     let payload = read(&mut c).await;
     log_id(ConnectionState::Login, &payload);
-    let ClientboundLoginPacket::Hello(hello) = ClientboundLoginPacket::decode_payload(&payload).unwrap() else { panic!("expected hello") };
+    let ClientboundLoginPacket::Hello(hello) =
+        ClientboundLoginPacket::decode_payload(&payload).unwrap()
+    else {
+        panic!("expected hello")
+    };
     assert!(hello.should_authenticate);
     let secret = generate_secret();
-    println!("server hash would be {}", digest_server_id(&hello.server_id, &secret, &hello.public_key));
+    println!(
+        "server hash would be {}",
+        digest_server_id(&hello.server_id, &secret, &hello.public_key)
+    );
     let key = ServerboundKeyPacket {
         keybytes: encrypt_with_public_key(&hello.public_key, &secret).unwrap(),
         encrypted_challenge: encrypt_with_public_key(&hello.public_key, &hello.challenge).unwrap(),
@@ -118,8 +186,12 @@ async fn online_mode_encryption_handshake() {
     let payload = read(&mut c).await;
     log_id(ConnectionState::Login, &payload);
     match ClientboundLoginPacket::decode_payload(&payload).unwrap() {
-        ClientboundLoginPacket::LoginDisconnect(d) => println!("disconnect: {}", d.reason.0.get_string()),
-        ClientboundLoginPacket::LoginCompression(_) => println!("(server proceeded without authentication failure)"),
+        ClientboundLoginPacket::LoginDisconnect(d) => {
+            println!("disconnect: {}", d.reason.0.get_string())
+        }
+        ClientboundLoginPacket::LoginCompression(_) => {
+            println!("(server proceeded without authentication failure)")
+        }
         other => panic!("unexpected {other:?}"),
     }
 }

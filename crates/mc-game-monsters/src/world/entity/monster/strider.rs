@@ -1,20 +1,36 @@
 //! `net.minecraft.world.entity.monster.Strider` (+ `StriderGoToLavaGoal`, `StriderPathNavigation`).
 
+use linkme::distributed_slice;
+use mc_core::direction::Direction;
+use mc_core::ident::Identifier;
+use mc_core::phys::Vec3;
+use mc_core::phys::shapes::{Shapes, VoxelShape};
+use mc_core::pos::BlockPos;
+use mc_core::random::RandomSource;
+use mc_data::block::{Block, BlockState, PathComputationType};
+use mc_data::enums::{EntitySpawnReason, Pose};
+use mc_data::fluid::Fluid;
+use mc_data::{Attribute, EntityType, Item, SoundEvent};
 use mc_game_core::define_accessor;
 use mc_game_core::register_spawn_placement;
 use mc_game_core::registry::RegistryAccess;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::damagesource::DamageSource;
 use mc_game_core::world::difficulty_instance::DifficultyInstance;
-use mc_game_core::world::entity::ai::goal::move_to_block::{self, MoveToBlock, MoveToBlockData};
 use mc_game_core::world::entity::ai::goal::look_at_player::LookAtType;
-use mc_game_core::world::entity::ai::goal::{BreedGoal, FollowParentGoal, Goal, GoalFlags, LookAtPlayerGoal, PanicGoal, RandomLookAroundGoal, RandomStrollGoal, TemptGoal, Flag};
+use mc_game_core::world::entity::ai::goal::move_to_block::{self, MoveToBlock, MoveToBlockData};
+use mc_game_core::world::entity::ai::goal::{
+    BreedGoal, Flag, FollowParentGoal, Goal, GoalFlags, LookAtPlayerGoal, PanicGoal,
+    RandomLookAroundGoal, RandomStrollGoal, TemptGoal,
+};
 use mc_game_core::world::entity::ai::navigation::{NavClass, NavigationData, PathNavigation};
 use mc_game_core::world::entity::attributes::{AttributeModifier, AttributeModifierOperation};
 use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
 use mc_game_core::world::entity::dismount_helper;
 use mc_game_core::world::entity::equipment::EquipmentSlot;
-use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
+use mc_game_core::world::entity::factory::{
+    ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest,
+};
 use mc_game_core::world::entity::item_based_steering::ItemBasedSteering;
 use mc_game_core::world::entity::living_entity::util::lm;
 use mc_game_core::world::entity::mob::spawn::AgeableMobGroupData;
@@ -30,33 +46,32 @@ use mc_game_core::world::level::pathfinder::node_evaluator::{EvaluatorState, Nod
 use mc_game_core::world::level::pathfinder::{PathFinder, PathType};
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_game_core::world::level::{BlockGetter, LevelAccessor, LevelReader};
-use linkme::distributed_slice;
-use mc_core::direction::Direction;
-use mc_core::ident::Identifier;
-use mc_core::phys::shapes::{Shapes, VoxelShape};
-use mc_core::phys::Vec3;
-use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
-use mc_data::block::{Block, BlockState, PathComputationType};
-use mc_data::enums::{EntitySpawnReason, Pose};
-use mc_data::fluid::Fluid;
-use mc_data::{Attribute, EntityType, Item, SoundEvent};
 use std::sync::{Arc, LazyLock};
 
 define_accessor!(pub DATA_BOOST_TIME: Int = Strider);
 define_accessor!(pub DATA_SUFFOCATING: Boolean = Strider);
 
-static SUFFOCATING_MODIFIER_ID: LazyLock<Identifier> = LazyLock::new(|| Identifier::with_default_namespace("suffocating").expect("valid id"));
+static SUFFOCATING_MODIFIER_ID: LazyLock<Identifier> =
+    LazyLock::new(|| Identifier::with_default_namespace("suffocating").expect("valid id"));
 const SUFFOCATE_STEERING_MODIFIER: f32 = 0.35;
 const STEERING_MODIFIER: f32 = 0.55;
 
 fn suffocating_modifier() -> AttributeModifier {
-    AttributeModifier { id: SUFFOCATING_MODIFIER_ID.clone(), amount: f64::from(-0.34f32), operation: AttributeModifierOperation::AddMultipliedBase }
+    AttributeModifier {
+        id: SUFFOCATING_MODIFIER_ID.clone(),
+        amount: f64::from(-0.34f32),
+        operation: AttributeModifierOperation::AddMultipliedBase,
+    }
 }
 
 /// `BABY_DIMENSIONS`.
 fn baby_dimensions() -> EntityDimensions {
-    EntityDimensions::scalable(0.45, 0.85).with_eye_height(0.4375).with_attachments(EntityAttachments::create_default(0.45, 0.85).with_passenger(Vec3::new(0.0, 0.65625, 0.0)))
+    EntityDimensions::scalable(0.45, 0.85)
+        .with_eye_height(0.4375)
+        .with_attachments(
+            EntityAttachments::create_default(0.45, 0.85)
+                .with_passenger(Vec3::new(0.0, 0.65625, 0.0)),
+        )
 }
 
 fn is_tag_item(stack: &ItemStack, tag: &str) -> bool {
@@ -68,7 +83,13 @@ fn is_lava(fluid: Fluid) -> bool {
 }
 
 /// `Strider.checkStriderSpawnRules`.
-fn check_strider_spawn_rules(_ty: EntityType, level: &dyn ServerLevelAccessor, _reason: EntitySpawnReason, pos: BlockPos, _random: &mut dyn RandomSource) -> bool {
+fn check_strider_spawn_rules(
+    _ty: EntityType,
+    level: &dyn ServerLevelAccessor,
+    _reason: EntitySpawnReason,
+    pos: BlockPos,
+    _random: &mut dyn RandomSource,
+) -> bool {
     let mut check_pos = pos;
     loop {
         check_pos = check_pos.relative(Direction::Up);
@@ -97,14 +118,20 @@ impl Strider {
             b.define(DATA_BOOST_TIME, 0);
             b.define(DATA_SUFFOCATING, false);
         });
-        let mut strider = Strider { mob, steering: ItemBasedSteering::new(DATA_BOOST_TIME), controller: None };
+        let mut strider = Strider {
+            mob,
+            steering: ItemBasedSteering::new(DATA_BOOST_TIME),
+            controller: None,
+        };
         strider.mob.living.entity.blocks_building = true;
         let navigation = StriderPathNavigation::new(&strider);
         strider.mob.set_navigation(Box::new(navigation));
         strider.register_goals();
         strider.mob.set_pathfinding_malus(PathType::Water, -1.0);
         strider.mob.set_pathfinding_malus(PathType::Lava, 0.0);
-        strider.mob.set_pathfinding_malus(PathType::FireInNeighbor, 0.0);
+        strider
+            .mob
+            .set_pathfinding_malus(PathType::FireInNeighbor, 0.0);
         strider.mob.set_pathfinding_malus(PathType::Fire, 0.0);
         strider
     }
@@ -114,11 +141,24 @@ impl Strider {
         let breed = BreedGoal::new(self, 1.0);
         let follow_parent = FollowParentGoal::new(self, 1.0);
         let look_at = LookAtPlayerGoal::new_player(self, 8.0);
-        let look_at_strider = LookAtPlayerGoal::new(self, LookAtType::Class(Arc::new(|e: &dyn Entity| e.get_type() == EntityType::STRIDER)), 8.0);
+        let look_at_strider = LookAtPlayerGoal::new(
+            self,
+            LookAtType::Class(Arc::new(|e: &dyn Entity| {
+                e.get_type() == EntityType::STRIDER
+            })),
+            8.0,
+        );
         let goals = &mut self.mob.goal_selector;
         goals.add_goal(1, Box::new(PanicGoal::new(1.65)));
         goals.add_goal(2, Box::new(breed));
-        goals.add_goal(3, Box::new(TemptGoal::new(1.4, Arc::new(|i: &ItemStack| is_tag_item(i, "strider_tempt_items")), false)));
+        goals.add_goal(
+            3,
+            Box::new(TemptGoal::new(
+                1.4,
+                Arc::new(|i: &ItemStack| is_tag_item(i, "strider_tempt_items")),
+                false,
+            )),
+        );
         goals.add_goal(4, Box::new(StriderGoToLavaGoal::new(1.0)));
         goals.add_goal(5, Box::new(follow_parent));
         goals.add_goal(7, Box::new(RandomStrollGoal::with_interval(1.0, 60)));
@@ -129,7 +169,11 @@ impl Strider {
 
     /// `setSuffocating(flag)`.
     pub fn set_suffocating(&mut self, flag: bool) {
-        self.mob.living.entity.entity_data.set(DATA_SUFFOCATING, flag);
+        self.mob
+            .living
+            .entity
+            .entity_data
+            .set(DATA_SUFFOCATING, flag);
         if let Some(attribute) = lm(self).attributes.get_instance(Attribute::MOVEMENT_SPEED) {
             if flag {
                 attribute.add_or_update_transient_modifier(suffocating_modifier());
@@ -151,12 +195,19 @@ impl Strider {
 
     /// `isBeingTempted()`.
     fn is_being_tempted(&self) -> bool {
-        self.mob.goal_selector.find_goal::<TemptGoal>().is_some_and(TemptGoal::is_running)
+        self.mob
+            .goal_selector
+            .find_goal::<TemptGoal>()
+            .is_some_and(TemptGoal::is_running)
     }
 
     fn refresh_controller(&mut self, level: &ServerLevel) {
         let first = self.base().passengers.first().copied();
-        self.controller = first.filter(|_| self.is_saddled()).and_then(|id| level.get_entity(id)).filter(|p| holds_warped_fungus_on_a_stick(*p)).map(|p| p.id());
+        self.controller = first
+            .filter(|_| self.is_saddled())
+            .and_then(|id| level.get_entity(id))
+            .filter(|p| holds_warped_fungus_on_a_stick(*p))
+            .map(|p| p.id());
     }
 
     /// `floatStrider()`.
@@ -164,11 +215,14 @@ impl Strider {
         if self.is_in_lava() {
             let context = mc_game_core::world::entity::movement::collision_context(self);
             let pos = self.block_position();
-            if context.is_above(&self.get_liquid_collision_shape(), pos, true) && !level.get_fluid_state(pos.above()).is_tag("lava") {
+            if context.is_above(&self.get_liquid_collision_shape(), pos, true)
+                && !level.get_fluid_state(pos.above()).is_tag("lava")
+            {
                 mc_game_core::world::entity::movement::set_on_ground(self, &*level, true);
             } else {
                 let m = self.base().delta_movement();
-                self.base_mut().set_delta_movement(m.scale(0.5).add_xyz(0.0, 0.05, 0.0));
+                self.base_mut()
+                    .set_delta_movement(m.scale(0.5).add_xyz(0.0, 0.05, 0.0));
             }
         }
     }
@@ -184,7 +238,12 @@ impl Strider {
     ) -> Option<Box<dyn SpawnGroupData>> {
         let b = self.base();
         jockey.snap_to(b.x(), b.y(), b.z(), b.y_rot(), 0.0);
-        jockey.finalize_spawn(level, difficulty, EntitySpawnReason::Jockey, jockey_group_data);
+        jockey.finalize_spawn(
+            level,
+            difficulty,
+            EntitySpawnReason::Jockey,
+            jockey_group_data,
+        );
         if let Some(stack) = jockey_main_hand {
             mob::equipment::set_item_slot_spawn(jockey.as_mut(), EquipmentSlot::MainHand, stack);
         }
@@ -198,26 +257,41 @@ impl Strider {
 /// `player.isHolding(Items.WARPED_FUNGUS_ON_A_STICK)` for a player entity.
 fn holds_warped_fungus_on_a_stick(entity: &dyn Entity) -> bool {
     entity.is_player()
-        && (entity.get_item_by_slot(EquipmentSlot::MainHand).is(Item::WARPED_FUNGUS_ON_A_STICK) || entity.get_item_by_slot(EquipmentSlot::OffHand).is(Item::WARPED_FUNGUS_ON_A_STICK))
+        && (entity
+            .get_item_by_slot(EquipmentSlot::MainHand)
+            .is(Item::WARPED_FUNGUS_ON_A_STICK)
+            || entity
+                .get_item_by_slot(EquipmentSlot::OffHand)
+                .is(Item::WARPED_FUNGUS_ON_A_STICK))
 }
 
 impl Entity for Strider {
     mc_game_core::mob_entity_accessors!(mob);
 
     fn can_use_slot(&self, slot: EquipmentSlot) -> bool {
-        if slot != EquipmentSlot::Saddle { true } else { self.is_alive() && !self.is_baby() }
+        if slot != EquipmentSlot::Saddle {
+            true
+        } else {
+            self.is_alive() && !self.is_baby()
+        }
     }
 
     fn get_equip_sound_override(&self, slot: EquipmentSlot) -> Option<SoundEvent> {
         (slot == EquipmentSlot::Saddle).then_some(SoundEvent::ENTITY_STRIDER_SADDLE)
     }
 
-    fn can_stand_on_fluid_fn(&self) -> Option<mc_game_core::world::level::collision::CanStandOnFluid> {
+    fn can_stand_on_fluid_fn(
+        &self,
+    ) -> Option<mc_game_core::world::level::collision::CanStandOnFluid> {
         Some(is_lava)
     }
 
     fn get_dimensions(&self, _pose: Pose) -> EntityDimensions {
-        if self.is_baby() { baby_dimensions() } else { EntityDimensions::of_type(self.mob.living.entity.entity_type) }
+        if self.is_baby() {
+            baby_dimensions()
+        } else {
+            EntityDimensions::of_type(self.mob.living.entity.entity_type)
+        }
     }
 
     fn check_spawn_obstruction(&self, level: &dyn ServerLevelAccessor) -> bool {
@@ -246,20 +320,52 @@ impl Entity for Strider {
         self.refresh_controller(level);
     }
 
-    fn get_dismount_location_for_passenger(&self, level: &ServerLevel, passenger: &dyn Entity) -> Vec3 {
-        let (bb_width, passenger_width, y_rot) = (self.base().get_bb_width(), passenger.base().get_bb_width(), passenger.base().y_rot());
+    fn get_dismount_location_for_passenger(
+        &self,
+        level: &ServerLevel,
+        passenger: &dyn Entity,
+    ) -> Vec3 {
+        let (bb_width, passenger_width, y_rot) = (
+            self.base().get_bb_width(),
+            passenger.base().get_bb_width(),
+            passenger.base().y_rot(),
+        );
         let directions = [
-            dismount_helper::get_collision_horizontal_escape_vector(bb_width, passenger_width, y_rot),
-            dismount_helper::get_collision_horizontal_escape_vector(bb_width, passenger_width, y_rot - 22.5),
-            dismount_helper::get_collision_horizontal_escape_vector(bb_width, passenger_width, y_rot + 22.5),
-            dismount_helper::get_collision_horizontal_escape_vector(bb_width, passenger_width, y_rot - 45.0),
-            dismount_helper::get_collision_horizontal_escape_vector(bb_width, passenger_width, y_rot + 45.0),
+            dismount_helper::get_collision_horizontal_escape_vector(
+                bb_width,
+                passenger_width,
+                y_rot,
+            ),
+            dismount_helper::get_collision_horizontal_escape_vector(
+                bb_width,
+                passenger_width,
+                y_rot - 22.5,
+            ),
+            dismount_helper::get_collision_horizontal_escape_vector(
+                bb_width,
+                passenger_width,
+                y_rot + 22.5,
+            ),
+            dismount_helper::get_collision_horizontal_escape_vector(
+                bb_width,
+                passenger_width,
+                y_rot - 45.0,
+            ),
+            dismount_helper::get_collision_horizontal_escape_vector(
+                bb_width,
+                passenger_width,
+                y_rot + 45.0,
+            ),
         ];
         let mut target_block_positions: Vec<BlockPos> = Vec::new();
         let collider_top = self.base().bounding_box().max_y;
         let collider_bottom = self.base().bounding_box().min_y - 0.5;
         for direction in directions {
-            let mut block_pos = BlockPos::containing(self.base().x() + direction.x, collider_top, self.base().z() + direction.z);
+            let mut block_pos = BlockPos::containing(
+                self.base().x() + direction.x,
+                collider_top,
+                self.base().z() + direction.z,
+            );
             let mut y = collider_top;
             while y > collider_bottom {
                 if !target_block_positions.contains(&block_pos) {
@@ -273,36 +379,66 @@ impl Entity for Strider {
             if !level.get_fluid_state(target_block_pos).is_tag("lava") {
                 let block_floor_height = level.get_block_floor_height(target_block_pos);
                 if dismount_helper::is_block_floor_valid(block_floor_height) {
-                    let location = Vec3::up_from_bottom_center_of(&target_block_pos, block_floor_height);
+                    let location =
+                        Vec3::up_from_bottom_center_of(&target_block_pos, block_floor_height);
                     for dismount_pose in dismount_helper::get_dismount_poses(passenger) {
-                        let pose_collision_box = dismount_helper::get_local_bounds_for_pose(passenger, *dismount_pose);
-                        if dismount_helper::can_dismount_to(level, passenger, &pose_collision_box.move_vec(location)) {
+                        let pose_collision_box =
+                            dismount_helper::get_local_bounds_for_pose(passenger, *dismount_pose);
+                        if dismount_helper::can_dismount_to(
+                            level,
+                            passenger,
+                            &pose_collision_box.move_vec(location),
+                        ) {
                             return location;
                         }
                     }
                 }
             }
         }
-        Vec3::new(self.base().x(), self.base().bounding_box().max_y, self.base().z())
+        Vec3::new(
+            self.base().x(),
+            self.base().bounding_box().max_y,
+            self.base().z(),
+        )
     }
 
     fn tick_ridden(&mut self, level: &mut ServerLevel, controller: EntityId, _ridden_input: Vec3) {
-        let Some((y_rot, x_rot)) = level.get_entity(controller).map(|c| (c.base().y_rot(), c.base().x_rot())) else { return };
+        let Some((y_rot, x_rot)) = level
+            .get_entity(controller)
+            .map(|c| (c.base().y_rot(), c.base().x_rot()))
+        else {
+            return;
+        };
         self.set_rot(y_rot, x_rot * 0.5);
         let y = self.base().y_rot();
         self.base_mut().y_rot_o = y;
         self.mob.living.y_body_rot = y;
         self.set_y_head_rot(y);
-        self.steering.tick_boost(&self.mob.living.entity.entity_data);
+        self.steering
+            .tick_boost(&self.mob.living.entity.entity_data);
     }
 
-    fn get_ridden_input(&self, _level: &ServerLevel, _controller: EntityId, _self_input: Vec3) -> Vec3 {
+    fn get_ridden_input(
+        &self,
+        _level: &ServerLevel,
+        _controller: EntityId,
+        _self_input: Vec3,
+    ) -> Vec3 {
         Vec3::new(0.0, 0.0, 1.0)
     }
 
     fn get_ridden_speed(&self, _level: &ServerLevel, _controller: EntityId) -> f32 {
-        let steering = if self.is_suffocating() { SUFFOCATE_STEERING_MODIFIER } else { STEERING_MODIFIER };
-        (mob::attribute_value(self, Attribute::MOVEMENT_SPEED) * f64::from(steering) * f64::from(self.steering.boost_factor(&self.mob.living.entity.entity_data))) as f32
+        let steering = if self.is_suffocating() {
+            SUFFOCATE_STEERING_MODIFIER
+        } else {
+            STEERING_MODIFIER
+        };
+        (mob::attribute_value(self, Attribute::MOVEMENT_SPEED)
+            * f64::from(steering)
+            * f64::from(
+                self.steering
+                    .boost_factor(&self.mob.living.entity.entity_data),
+            )) as f32
     }
 
     fn next_step(&self) -> f32 {
@@ -310,35 +446,68 @@ impl Entity for Strider {
     }
 
     fn play_step_sound(&mut self, level: &mut ServerLevel, _pos: BlockPos, _state: BlockState) {
-        let sound = if self.is_in_lava() { SoundEvent::ENTITY_STRIDER_STEP_LAVA } else { SoundEvent::ENTITY_STRIDER_STEP };
+        let sound = if self.is_in_lava() {
+            SoundEvent::ENTITY_STRIDER_STEP_LAVA
+        } else {
+            SoundEvent::ENTITY_STRIDER_STEP
+        };
         self.play_sound(level, sound, 1.0, 1.0);
     }
 
     fn boost(&mut self) -> bool {
         let data = &mut self.mob.living.entity.entity_data;
-        self.steering.boost(data, &mut self.mob.living.entity.random)
+        self.steering
+            .boost(data, &mut self.mob.living.entity.random)
     }
 
-    fn check_fall_damage(&mut self, level: &mut ServerLevel, ya: f64, on_ground: bool, on_state: BlockState, pos: BlockPos) {
+    fn check_fall_damage(
+        &mut self,
+        level: &mut ServerLevel,
+        ya: f64,
+        on_ground: bool,
+        on_state: BlockState,
+        pos: BlockPos,
+    ) {
         if self.is_in_lava() {
             self.reset_fall_distance();
         } else {
-            mc_game_core::world::entity::entity::check_fall_damage_base(self, level, ya, on_ground, on_state, pos);
+            mc_game_core::world::entity::entity::check_fall_damage_base(
+                self, level, ya, on_ground, on_state, pos,
+            );
         }
     }
 
     fn tick(&mut self, level: &mut ServerLevel) {
         self.refresh_controller(level);
         if self.is_being_tempted() && self.base_mut().random.next_int_bounded(140) == 0 {
-            mc_game_core::world::entity::living_entity::damage::make_sound(self, level, SoundEvent::ENTITY_STRIDER_HAPPY);
-        } else if mob::pathfinder::is_panicking(self) && self.base_mut().random.next_int_bounded(60) == 0 {
-            mc_game_core::world::entity::living_entity::damage::make_sound(self, level, SoundEvent::ENTITY_STRIDER_RETREAT);
+            mc_game_core::world::entity::living_entity::damage::make_sound(
+                self,
+                level,
+                SoundEvent::ENTITY_STRIDER_HAPPY,
+            );
+        } else if mob::pathfinder::is_panicking(self)
+            && self.base_mut().random.next_int_bounded(60) == 0
+        {
+            mc_game_core::world::entity::living_entity::damage::make_sound(
+                self,
+                level,
+                SoundEvent::ENTITY_STRIDER_RETREAT,
+            );
         }
         if !self.mob.is_no_ai() {
             let state_inside = level.get_block_state(self.base().block_position());
-            let state_on = level.get_block_state(mc_game_core::world::entity::movement::get_on_pos_legacy(self, level));
-            let in_warm_blocks = state_inside.block().is_in_tag("strider_warm_blocks") || state_on.block().is_in_tag("strider_warm_blocks") || self.get_fluid_height("lava") > 0.0;
-            let on_warm_strider = self.base().vehicle.and_then(|v| level.get_entity(v)).and_then(|v| v.as_any().downcast_ref::<Strider>()).is_some_and(|s| !s.is_suffocating());
+            let state_on = level.get_block_state(
+                mc_game_core::world::entity::movement::get_on_pos_legacy(self, level),
+            );
+            let in_warm_blocks = state_inside.block().is_in_tag("strider_warm_blocks")
+                || state_on.block().is_in_tag("strider_warm_blocks")
+                || self.get_fluid_height("lava") > 0.0;
+            let on_warm_strider = self
+                .base()
+                .vehicle
+                .and_then(|v| level.get_entity(v))
+                .and_then(|v| v.as_any().downcast_ref::<Strider>())
+                .is_some_and(|s| !s.is_suffocating());
             self.set_suffocating(!in_warm_blocks && !on_warm_strider);
         }
         mob::tick::tick(self, level);
@@ -355,7 +524,11 @@ impl Entity for Strider {
     }
 
     fn get_ambient_sound(&self) -> Option<SoundEvent> {
-        if !mob::pathfinder::is_panicking(self) && !self.is_being_tempted() { Some(SoundEvent::ENTITY_STRIDER_AMBIENT) } else { None }
+        if !mob::pathfinder::is_panicking(self) && !self.is_being_tempted() {
+            Some(SoundEvent::ENTITY_STRIDER_AMBIENT)
+        } else {
+            None
+        }
     }
 
     fn get_hurt_sound(&self, _source: &DamageSource) -> Option<SoundEvent> {
@@ -388,17 +561,37 @@ impl Entity for Strider {
         }
     }
 
-    fn get_breed_offspring(&mut self, level: &mut ServerLevel, _partner: EntityId) -> Option<Box<dyn Entity>> {
-        mc_game_core::world::entity::factory::create(EntityType::STRIDER, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })
+    fn get_breed_offspring(
+        &mut self,
+        level: &mut ServerLevel,
+        _partner: EntityId,
+    ) -> Option<Box<dyn Entity>> {
+        mc_game_core::world::entity::factory::create(
+            EntityType::STRIDER,
+            level,
+            EntitySpawnRequest {
+                reason: EntitySpawnReason::Breeding,
+                ignore_checks: false,
+            },
+        )
     }
 
     fn is_food(&self, stack: &ItemStack) -> bool {
         is_tag_item(stack, "strider_food")
     }
 
-    fn mob_interact(&mut self, level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) -> InteractionResult {
+    fn mob_interact(
+        &mut self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        hand: InteractionHand,
+    ) -> InteractionResult {
         let has_food = self.is_food(&player.get_item_in_hand(hand));
-        if !has_food && self.is_saddled() && !self.base().is_vehicle() && !player.is_shift_key_down() {
+        if !has_food
+            && self.is_saddled()
+            && !self.base().is_vehicle()
+            && !player.is_shift_key_down()
+        {
             level.start_riding_held(player, self, false, true);
             return InteractionResult::SUCCESS;
         }
@@ -406,7 +599,15 @@ impl Entity for Strider {
         if !result.consumes_action() {
             let item_stack = player.get_item_in_hand(hand);
             if self.is_equippable_in_slot(&item_stack, EquipmentSlot::Saddle) {
-                mob::interact::with_hand_stack(player, hand, |s, p| mc_game_core::world::item::interact_living_entity(level, s, p, self.as_dyn_mut(), hand))
+                mob::interact::with_hand_stack(player, hand, |s, p| {
+                    mc_game_core::world::item::interact_living_entity(
+                        level,
+                        s,
+                        p,
+                        self.as_dyn_mut(),
+                        hand,
+                    )
+                })
             } else {
                 InteractionResult::PASS
             }
@@ -414,8 +615,19 @@ impl Entity for Strider {
             if has_food && !self.base().is_silent() {
                 let p = self.position();
                 let source = self.get_sound_source();
-                let pitch = 1.0 + (self.base_mut().random.next_float() - self.base_mut().random.next_float()) * 0.2;
-                level.play_sound_at(None, p.x, p.y, p.z, SoundEvent::ENTITY_STRIDER_EAT, source, 1.0, pitch);
+                let pitch = 1.0
+                    + (self.base_mut().random.next_float() - self.base_mut().random.next_float())
+                        * 0.2;
+                level.play_sound_at(
+                    None,
+                    p.x,
+                    p.y,
+                    p.z,
+                    SoundEvent::ENTITY_STRIDER_EAT,
+                    source,
+                    1.0,
+                    pitch,
+                );
             }
             result
         }
@@ -432,16 +644,40 @@ impl Entity for Strider {
             return mob::spawn::finalize_spawn(self, level, difficulty, reason, group_data);
         }
         let mut group_data = group_data;
-        let spawning_monsters = level.as_server_level().is_some_and(ServerLevel::is_spawning_monsters);
+        let spawning_monsters = level
+            .as_server_level()
+            .is_some_and(ServerLevel::is_spawning_monsters);
         if level.random().next_int_bounded(30) == 0 && spawning_monsters {
-            if let Some(jockey) = level.create_entity(EntityType::ZOMBIFIED_PIGLIN, EntitySpawnRequest { reason: EntitySpawnReason::Jockey, ignore_checks: false }) {
+            if let Some(jockey) = level.create_entity(
+                EntityType::ZOMBIFIED_PIGLIN,
+                EntitySpawnRequest {
+                    reason: EntitySpawnReason::Jockey,
+                    ignore_checks: false,
+                },
+            ) {
                 let baby = get_spawn_as_baby_odds(level.random());
-                group_data = self.spawn_jockey(level, difficulty.clone(), jockey, Some(Box::new(ZombieGroupData::new(baby, false))), Some(ItemStack::new(Item::WARPED_FUNGUS_ON_A_STICK)));
-                mob::equipment::set_item_slot_spawn(self, EquipmentSlot::Saddle, ItemStack::new(Item::SADDLE));
+                group_data = self.spawn_jockey(
+                    level,
+                    difficulty.clone(),
+                    jockey,
+                    Some(Box::new(ZombieGroupData::new(baby, false))),
+                    Some(ItemStack::new(Item::WARPED_FUNGUS_ON_A_STICK)),
+                );
+                mob::equipment::set_item_slot_spawn(
+                    self,
+                    EquipmentSlot::Saddle,
+                    ItemStack::new(Item::SADDLE),
+                );
                 mob::equipment::set_guaranteed_drop(self, EquipmentSlot::Saddle);
             }
         } else if level.random().next_int_bounded(10) == 0 {
-            if let Some(mut jockey) = level.create_entity(EntityType::STRIDER, EntitySpawnRequest { reason: EntitySpawnReason::Jockey, ignore_checks: false }) {
+            if let Some(mut jockey) = level.create_entity(
+                EntityType::STRIDER,
+                EntitySpawnRequest {
+                    reason: EntitySpawnReason::Jockey,
+                    ignore_checks: false,
+                },
+            ) {
                 mob::ageable::set_age(jockey.as_mut(), -24000);
                 group_data = self.spawn_jockey(level, difficulty.clone(), jockey, None, None);
             }
@@ -459,7 +695,9 @@ struct StriderGoToLavaGoal {
 
 impl StriderGoToLavaGoal {
     fn new(speed_modifier: f64) -> Self {
-        Self { data: MoveToBlockData::with_vertical(speed_modifier, 8, 2) }
+        Self {
+            data: MoveToBlockData::with_vertical(speed_modifier, 8, 2),
+        }
     }
 }
 
@@ -481,7 +719,10 @@ impl MoveToBlock for StriderGoToLavaGoal {
     }
 
     fn is_valid_target(&self, _mob: &dyn Entity, level: &ServerLevel, pos: BlockPos) -> bool {
-        level.get_block_state(pos).block() == Block::LAVA && level.get_block_state(pos.above()).is_pathfindable_by(PathComputationType::Land)
+        level.get_block_state(pos).block() == Block::LAVA
+            && level
+                .get_block_state(pos.above())
+                .is_pathfindable_by(PathComputationType::Land)
     }
 }
 
@@ -545,9 +786,15 @@ impl PathNavigation for StriderPathNavigation {
     }
 
     fn is_stable_destination(&self, mob: &dyn Entity, level: &ServerLevel, pos: BlockPos) -> bool {
-        level.get_block_state(pos).block() == Block::LAVA || mc_game_core::world::entity::ai::navigation::default_is_stable_destination(self, mob, level, pos)
+        level.get_block_state(pos).block() == Block::LAVA
+            || mc_game_core::world::entity::ai::navigation::default_is_stable_destination(
+                self, mob, level, pos,
+            )
     }
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static STRIDER: EntityRegistration = EntityRegistration { entity_type: EntityType::STRIDER, create: |ty, id, registries| Box::new(Strider::new(ty, id, registries)) };
+static STRIDER: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::STRIDER,
+    create: |ty, id, registries| Box::new(Strider::new(ty, id, registries)),
+};

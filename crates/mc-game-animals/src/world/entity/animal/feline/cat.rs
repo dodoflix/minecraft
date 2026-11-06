@@ -2,23 +2,39 @@
 
 use super::cat_sound_variant::{CatSoundSet, CatSoundVariant};
 use super::cat_variant::CatVariant;
+use crate::world::entity::animal::turtle;
+use linkme::distributed_slice;
+use mc_core::ident::Identifier;
+use mc_core::math::mth;
+use mc_core::phys::{AABB, Vec3};
+use mc_core::pos::BlockPos;
+use mc_core::random::RandomSource;
+use mc_data::block::{Block, BlockState};
+use mc_data::enums::{BedPart, EntitySpawnReason, Pose};
+use mc_data::props;
+use mc_data::{EntityType, Item, SoundEvent};
+use mc_game_ai::world::entity::ai::goal::OcelotAttackGoal;
+use mc_game_ai::world::entity::ai::goal::target::NonTameRandomTargetGoal;
+use mc_game_ai::world::entity::ai::goal::{AvoidEntityGoal, LeapAtTargetGoal};
 use mc_game_core::define_accessor;
 use mc_game_core::registry::RegistryAccess;
 use mc_game_core::registry::keys;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::damagesource::DamageSource;
 use mc_game_core::world::difficulty_instance::DifficultyInstance;
-use mc_game_ai::world::entity::ai::goal::OcelotAttackGoal;
-use mc_game_core::world::entity::ai::goal::move_to_block;
-use mc_game_ai::world::entity::ai::goal::{AvoidEntityGoal, LeapAtTargetGoal};
-use mc_game_core::world::entity::ai::goal::{BreedGoal, FloatGoal, FollowOwnerGoal, Goal, GoalFlags, LookAtPlayerGoal, MoveToBlock, MoveToBlockData, SitWhenOrderedToGoal, TamableAnimalPanicGoal, TemptGoal, WaterAvoidingRandomStrollGoal};
 use mc_game_core::world::entity::ai::goal::Flag;
-use mc_game_ai::world::entity::ai::goal::target::NonTameRandomTargetGoal;
+use mc_game_core::world::entity::ai::goal::move_to_block;
 use mc_game_core::world::entity::ai::goal::target::TargetType;
+use mc_game_core::world::entity::ai::goal::{
+    BreedGoal, FloatGoal, FollowOwnerGoal, Goal, GoalFlags, LookAtPlayerGoal, MoveToBlock,
+    MoveToBlockData, SitWhenOrderedToGoal, TamableAnimalPanicGoal, TemptGoal,
+    WaterAvoidingRandomStrollGoal,
+};
 use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::animal::turtle;
 use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
-use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
+use mc_game_core::world::entity::factory::{
+    ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest,
+};
 use mc_game_core::world::entity::item::ItemEntity;
 use mc_game_core::world::entity::living_entity::util::broadcast_entity_event;
 use mc_game_core::world::entity::mob::{self, MobData, MobKind, ext, interact, leashable, tamable};
@@ -31,16 +47,6 @@ use mc_game_core::world::level::block::BlockStateExt as _;
 use mc_game_core::world::level::level_access::LevelAccessor as _;
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_game_core::world::level::{BlockGetter as _, LevelReader as _};
-use linkme::distributed_slice;
-use mc_core::ident::Identifier;
-use mc_core::math::mth;
-use mc_core::phys::{AABB, Vec3};
-use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
-use mc_data::block::{Block, BlockState};
-use mc_data::enums::{BedPart, EntitySpawnReason, Pose};
-use mc_data::props;
-use mc_data::{EntityType, Item, SoundEvent};
 use mc_nbt::CompoundTag;
 use mc_protocol::components::{DYE, DyeColor};
 use std::any::Any;
@@ -57,7 +63,9 @@ const DEFAULT_COLLAR_COLOR: DyeColor = DyeColor::Red;
 /// `BABY_DIMENSIONS`.
 fn baby_dimensions() -> EntityDimensions {
     let dims = EntityDimensions::scalable(0.3, 0.35).with_eye_height(0.34375);
-    dims.with_attachments(EntityAttachments::create_default(0.3, 0.35).with_passenger(Vec3::new(0.0, 0.3125, 0.0)))
+    dims.with_attachments(
+        EntityAttachments::create_default(0.3, 0.35).with_passenger(Vec3::new(0.0, 0.3125, 0.0)),
+    )
 }
 
 fn is_cat_food(stack: &ItemStack) -> bool {
@@ -75,7 +83,9 @@ pub struct CatAvoidEntityGoal {
 
 impl CatAvoidEntityGoal {
     pub fn new() -> Self {
-        Self { avoid: AvoidEntityGoal::new(Arc::new(|e| e.is_player()), 16.0, 0.8, 1.33) }
+        Self {
+            avoid: AvoidEntityGoal::new(Arc::new(|e| e.is_player()), 16.0, 0.8, 1.33),
+        }
     }
 }
 
@@ -108,7 +118,10 @@ pub struct CatTemptGoal {
 
 impl CatTemptGoal {
     pub fn new() -> Self {
-        Self { tempt: TemptGoal::new(0.6, Arc::new(|stack: &ItemStack| is_cat_food(stack)), true), selected_player: None }
+        Self {
+            tempt: TemptGoal::new(0.6, Arc::new(|stack: &ItemStack| is_cat_food(stack)), true),
+            selected_player: None,
+        }
     }
 
     pub fn is_running(&self) -> bool {
@@ -121,7 +134,12 @@ impl Goal for CatTemptGoal {
         self.tempt.can_use(mob, level) && !tamable::is_tame(mob)
     }
     fn can_continue_to_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        let can_scare = if self.selected_player.is_some() && self.selected_player == self.tempt.player() { false } else { self.tempt.can_scare() };
+        let can_scare =
+            if self.selected_player.is_some() && self.selected_player == self.tempt.player() {
+                false
+            } else {
+                self.tempt.can_scare()
+            };
         self.tempt.scare_check(mob, level, can_scare) && self.can_use(mob, level)
     }
     fn start(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
@@ -132,9 +150,20 @@ impl Goal for CatTemptGoal {
     }
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         self.tempt.tick(mob, level);
-        if self.selected_player.is_none() && mob.base_mut().random.next_int_bounded(self.adjusted_tick_delay(600)) == 0 {
+        if self.selected_player.is_none()
+            && mob
+                .base_mut()
+                .random
+                .next_int_bounded(self.adjusted_tick_delay(600))
+                == 0
+        {
             self.selected_player = self.tempt.player();
-        } else if mob.base_mut().random.next_int_bounded(self.adjusted_tick_delay(500)) == 0 {
+        } else if mob
+            .base_mut()
+            .random
+            .next_int_bounded(self.adjusted_tick_delay(500))
+            == 0
+        {
             self.selected_player = None;
         }
     }
@@ -152,11 +181,17 @@ pub struct CatRelaxOnOwnerGoal {
 
 impl CatRelaxOnOwnerGoal {
     pub fn new() -> Self {
-        Self { owner_player: None, goal_pos: None, on_bed_ticks: 0 }
+        Self {
+            owner_player: None,
+            goal_pos: None,
+            on_bed_ticks: 0,
+        }
     }
 
     fn space_is_occupied(&self, cat: &dyn Entity, level: &ServerLevel) -> bool {
-        let Some(goal_pos) = self.goal_pos else { return false };
+        let Some(goal_pos) = self.goal_pos else {
+            return false;
+        };
         let bb = AABB::from_block_pos(&goal_pos).inflate_scalar(2.0);
         level
             .get_entities_of_class(&bb, |e| e.as_any().is::<Cat>(), |_| true)
@@ -175,7 +210,9 @@ impl Goal for CatRelaxOnOwnerGoal {
         if !tamable::is_tame(cat) || tamable::is_ordered_to_sit(cat) {
             return false;
         }
-        let Some(owner) = tamable::get_owner(cat, level).and_then(|o| level.get_entity(o)) else { return false };
+        let Some(owner) = tamable::get_owner(cat, level).and_then(|o| level.get_entity(o)) else {
+            return false;
+        };
         if !owner.is_player() {
             return false;
         }
@@ -201,7 +238,10 @@ impl Goal for CatRelaxOnOwnerGoal {
     fn can_continue_to_use(&mut self, cat: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         tamable::is_tame(cat)
             && !tamable::is_ordered_to_sit(cat)
-            && self.owner_player.and_then(|p| level.get_entity(p)).is_some_and(|p| p.living().is_some_and(|l| l.is_sleeping()))
+            && self
+                .owner_player
+                .and_then(|p| level.get_entity(p))
+                .is_some_and(|p| p.living().is_some_and(|l| l.is_sleeping()))
             && self.goal_pos.is_some()
             && !self.space_is_occupied(cat, level)
     }
@@ -209,7 +249,14 @@ impl Goal for CatRelaxOnOwnerGoal {
     fn start(&mut self, cat: &mut dyn Entity, level: &mut ServerLevel) {
         if let Some(goal_pos) = self.goal_pos {
             tamable::set_in_sitting_pose(cat, false);
-            mob::navigation::move_to(cat, level, f64::from(goal_pos.x()), f64::from(goal_pos.y()), f64::from(goal_pos.z()), f64::from(1.1f32));
+            mob::navigation::move_to(
+                cat,
+                level,
+                f64::from(goal_pos.x()),
+                f64::from(goal_pos.y()),
+                f64::from(goal_pos.z()),
+                f64::from(1.1f32),
+            );
         }
     }
 
@@ -217,9 +264,18 @@ impl Goal for CatRelaxOnOwnerGoal {
         if let Some(c) = cat.as_any_mut().downcast_mut::<Cat>() {
             c.set_lying(false);
         }
-        let sleep_timer = self.owner_player.and_then(|p| level.get_entity(p)).and_then(|p| p.as_any().downcast_ref::<ServerPlayer>()).map_or(0, |p| p.player.sleep_counter);
+        let sleep_timer = self
+            .owner_player
+            .and_then(|p| level.get_entity(p))
+            .and_then(|p| p.as_any().downcast_ref::<ServerPlayer>())
+            .map_or(0, |p| p.player.sleep_counter);
         if sleep_timer >= 100 {
-            let chance = level.environment_value(mc_game_core::world::attribute::attributes::CAT_WAKING_UP_GIFT_CHANCE, &cat.position()).as_float();
+            let chance = level
+                .environment_value(
+                    mc_game_core::world::attribute::attributes::CAT_WAKING_UP_GIFT_CHANCE,
+                    &cat.position(),
+                )
+                .as_float();
             if level.random().next_float() < chance {
                 self.give_morning_gift(cat, level);
             }
@@ -232,10 +288,21 @@ impl Goal for CatRelaxOnOwnerGoal {
     }
 
     fn tick(&mut self, cat: &mut dyn Entity, level: &mut ServerLevel) {
-        let (Some(owner_id), Some(goal_pos)) = (self.owner_player, self.goal_pos) else { return };
+        let (Some(owner_id), Some(goal_pos)) = (self.owner_player, self.goal_pos) else {
+            return;
+        };
         tamable::set_in_sitting_pose(cat, false);
-        mob::navigation::move_to(cat, level, f64::from(goal_pos.x()), f64::from(goal_pos.y()), f64::from(goal_pos.z()), f64::from(1.1f32));
-        let Some(owner) = level.get_entity(owner_id) else { return };
+        mob::navigation::move_to(
+            cat,
+            level,
+            f64::from(goal_pos.x()),
+            f64::from(goal_pos.y()),
+            f64::from(goal_pos.z()),
+            f64::from(1.1f32),
+        );
+        let Some(owner) = level.get_entity(owner_id) else {
+            return;
+        };
         if cat.base().distance_to_sqr_vec(owner.position()) < 2.5 {
             self.on_bed_ticks += 1;
             if self.on_bed_ticks > self.adjusted_tick_delay(16) {
@@ -244,10 +311,16 @@ impl Goal for CatRelaxOnOwnerGoal {
                 c.set_relax_state_one(false);
             } else {
                 ext::mob_look_at(cat, owner, 45.0, 45.0);
-                cat.as_any_mut().downcast_mut::<Cat>().expect("Cat").set_relax_state_one(true);
+                cat.as_any_mut()
+                    .downcast_mut::<Cat>()
+                    .expect("Cat")
+                    .set_relax_state_one(true);
             }
         } else {
-            cat.as_any_mut().downcast_mut::<Cat>().expect("Cat").set_lying(false);
+            cat.as_any_mut()
+                .downcast_mut::<Cat>()
+                .expect("Cat")
+                .set_lying(false);
         }
     }
 
@@ -264,15 +337,37 @@ impl CatRelaxOnOwnerGoal {
             None => cat.block_position(),
         };
         let random = &mut cat.base_mut().random;
-        let (dx, dy, dz) = (random.next_int_bounded(11) - 5, random.next_int_bounded(5) - 2, random.next_int_bounded(11) - 5);
-        cat.random_teleport(level, f64::from(base.x() + dx), f64::from(base.y() + dy), f64::from(base.z() + dz), false, "cat_does_not_teleport_to");
+        let (dx, dy, dz) = (
+            random.next_int_bounded(11) - 5,
+            random.next_int_bounded(5) - 2,
+            random.next_int_bounded(11) - 5,
+        );
+        cat.random_teleport(
+            level,
+            f64::from(base.x() + dx),
+            f64::from(base.y() + dy),
+            f64::from(base.z() + dz),
+            false,
+            "cat_does_not_teleport_to",
+        );
         let cat_pos = cat.block_position();
         let y_body_rot = cat.living().map_or(0.0, |l| l.y_body_rot);
         let radians = y_body_rot * (std::f64::consts::PI / 180.0) as f32;
-        ext::drop_from_gift_loot_table(level, cat, &Identifier::parse("minecraft:gameplay/cat_morning_gift").expect("valid id"), |level, _cat, stack| {
-            let entity = ItemEntity::with_stack(level, f64::from(cat_pos.x()) - f64::from(mth::sin(f64::from(radians))), f64::from(cat_pos.y()), f64::from(cat_pos.z()) + f64::from(mth::cos(f64::from(radians))), stack);
-            level.add_fresh_entity(Box::new(entity));
-        });
+        ext::drop_from_gift_loot_table(
+            level,
+            cat,
+            &Identifier::parse("minecraft:gameplay/cat_morning_gift").expect("valid id"),
+            |level, _cat, stack| {
+                let entity = ItemEntity::with_stack(
+                    level,
+                    f64::from(cat_pos.x()) - f64::from(mth::sin(f64::from(radians))),
+                    f64::from(cat_pos.y()),
+                    f64::from(cat_pos.z()) + f64::from(mth::cos(f64::from(radians))),
+                    stack,
+                );
+                level.add_fresh_entity(Box::new(entity));
+            },
+        );
     }
 }
 
@@ -306,7 +401,10 @@ impl MoveToBlock for CatLieOnBlockGoal {
 
 impl Goal for CatLieOnBlockGoal {
     fn can_use(&mut self, cat: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        tamable::is_tame(cat) && !tamable::is_ordered_to_sit(cat) && !cat_of(cat).is_lying() && move_to_block::can_use(self, cat, level)
+        tamable::is_tame(cat)
+            && !tamable::is_ordered_to_sit(cat)
+            && !cat_of(cat).is_lying()
+            && move_to_block::can_use(self, cat, level)
     }
     fn can_continue_to_use(&mut self, cat: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         move_to_block::can_continue_to_use(self, cat, level)
@@ -316,7 +414,10 @@ impl Goal for CatLieOnBlockGoal {
         tamable::set_in_sitting_pose(cat, false);
     }
     fn stop(&mut self, cat: &mut dyn Entity, _level: &mut ServerLevel) {
-        cat.as_any_mut().downcast_mut::<Cat>().expect("Cat").set_lying(false);
+        cat.as_any_mut()
+            .downcast_mut::<Cat>()
+            .expect("Cat")
+            .set_lying(false);
     }
     fn requires_update_every_tick(&self) -> bool {
         true
@@ -344,7 +445,9 @@ pub struct CatSitOnBlockGoal {
 
 impl CatSitOnBlockGoal {
     pub fn new(speed_modifier: f64) -> Self {
-        Self { mtb: MoveToBlockData::new(speed_modifier, 8) }
+        Self {
+            mtb: MoveToBlockData::new(speed_modifier, 8),
+        }
     }
 }
 
@@ -371,7 +474,9 @@ impl MoveToBlock for CatSitOnBlockGoal {
             return state.get(props::LIT);
         }
         if state.is_tag("beds") {
-            return state.try_get(props::BED_PART).is_none_or(|part| part != BedPart::Head);
+            return state
+                .try_get(props::BED_PART)
+                .is_none_or(|part| part != BedPart::Head);
         }
         true
     }
@@ -379,7 +484,9 @@ impl MoveToBlock for CatSitOnBlockGoal {
 
 impl Goal for CatSitOnBlockGoal {
     fn can_use(&mut self, cat: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        tamable::is_tame(cat) && !tamable::is_ordered_to_sit(cat) && move_to_block::can_use(self, cat, level)
+        tamable::is_tame(cat)
+            && !tamable::is_ordered_to_sit(cat)
+            && move_to_block::can_use(self, cat, level)
     }
     fn can_continue_to_use(&mut self, cat: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         move_to_block::can_continue_to_use(self, cat, level)
@@ -423,9 +530,15 @@ pub struct Cat {
 
 impl Cat {
     pub fn new(ty: EntityType, id: EntityId, registries: &RegistryAccess) -> Self {
-        let default_variant = variant::get_default_or_any(registries, keys::CAT_VARIANT, &Identifier::parse("minecraft:black").expect("valid id"));
+        let default_variant = variant::get_default_or_any(
+            registries,
+            keys::CAT_VARIANT,
+            &Identifier::parse("minecraft:black").expect("valid id"),
+        );
         let sound_registry = registries.registry_or_throw(keys::CAT_SOUND_VARIANT);
-        let default_sound = sound_registry.id_of(&Identifier::parse("minecraft:classic").expect("valid id")).unwrap_or(0);
+        let default_sound = sound_registry
+            .id_of(&Identifier::parse("minecraft:classic").expect("valid id"))
+            .unwrap_or(0);
         let mob = MobData::new(ty, id, MobKind::TamableAnimal, |b| {
             b.define(DATA_VARIANT_ID, default_variant as i32);
             b.define(DATA_SOUND_VARIANT_ID, default_sound as i32);
@@ -433,9 +546,16 @@ impl Cat {
             b.define(RELAX_STATE_ONE, false);
             b.define(DATA_COLLAR_COLOR, i32::from(DEFAULT_COLLAR_COLOR.id()));
         });
-        let variant_key = registries.registry_or_throw(keys::CAT_VARIANT).name_of(default_variant).expect("variant entry");
-        let sound_variant_key = sound_registry.name_of(default_sound).expect("sound variant entry");
-        let sound_variant = *registries.get::<CatSoundVariant>(keys::CAT_SOUND_VARIANT, &sound_variant_key).expect("typed cat sound variant");
+        let variant_key = registries
+            .registry_or_throw(keys::CAT_VARIANT)
+            .name_of(default_variant)
+            .expect("variant entry");
+        let sound_variant_key = sound_registry
+            .name_of(default_sound)
+            .expect("sound variant entry");
+        let sound_variant = *registries
+            .get::<CatSoundVariant>(keys::CAT_SOUND_VARIANT, &sound_variant_key)
+            .expect("typed cat sound variant");
         let mut cat = Cat {
             mob,
             lie_down_amount: 0.0,
@@ -474,11 +594,31 @@ impl Cat {
         goals.add_goal(8, Box::new(LeapAtTargetGoal::new(0.3)));
         goals.add_goal(9, Box::new(OcelotAttackGoal::new()));
         goals.add_goal(10, Box::new(breed));
-        goals.add_goal(11, Box::new(WaterAvoidingRandomStrollGoal::with_probability(0.8, 1.0000001E-5)));
+        goals.add_goal(
+            11,
+            Box::new(WaterAvoidingRandomStrollGoal::with_probability(
+                0.8,
+                1.0000001E-5,
+            )),
+        );
         goals.add_goal(12, Box::new(look_at));
         let targets = &mut self.mob.target_selector;
-        targets.add_goal(1, Box::new(NonTameRandomTargetGoal::new(TargetType::of_type(EntityType::RABBIT), false, None)));
-        targets.add_goal(1, Box::new(NonTameRandomTargetGoal::new(TargetType::of_type(EntityType::TURTLE), false, Some(Arc::new(turtle::baby_on_land_selector)))));
+        targets.add_goal(
+            1,
+            Box::new(NonTameRandomTargetGoal::new(
+                TargetType::of_type(EntityType::RABBIT),
+                false,
+                None,
+            )),
+        );
+        targets.add_goal(
+            1,
+            Box::new(NonTameRandomTargetGoal::new(
+                TargetType::of_type(EntityType::TURTLE),
+                false,
+                Some(Arc::new(turtle::baby_on_land_selector)),
+            )),
+        );
     }
 
     /// `reassessTameGoals()`: the avoid-players goal exists exactly while the cat is not tame.
@@ -496,12 +636,23 @@ impl Cat {
     }
 
     fn get_sound_set(&self) -> &CatSoundSet {
-        if self.is_baby() { &self.sound_variant.baby_sounds } else { &self.sound_variant.adult_sounds }
+        if self.is_baby() {
+            &self.sound_variant.baby_sounds
+        } else {
+            &self.sound_variant.adult_sounds
+        }
     }
 
     pub fn set_variant(&mut self, registries: &RegistryAccess, id: u32) {
-        self.mob.living.entity.entity_data.set(DATA_VARIANT_ID, id as i32);
-        if let Some(name) = registries.registry(keys::CAT_VARIANT).and_then(|r| r.name_of(id)) {
+        self.mob
+            .living
+            .entity
+            .entity_data
+            .set(DATA_VARIANT_ID, id as i32);
+        if let Some(name) = registries
+            .registry(keys::CAT_VARIANT)
+            .and_then(|r| r.name_of(id))
+        {
             self.variant_key = name;
         }
     }
@@ -511,8 +662,15 @@ impl Cat {
     }
 
     pub fn set_sound_variant(&mut self, registries: &RegistryAccess, id: u32) {
-        self.mob.living.entity.entity_data.set(DATA_SOUND_VARIANT_ID, id as i32);
-        if let Some(name) = registries.registry(keys::CAT_SOUND_VARIANT).and_then(|r| r.name_of(id)) {
+        self.mob
+            .living
+            .entity
+            .entity_data
+            .set(DATA_SOUND_VARIANT_ID, id as i32);
+        if let Some(name) = registries
+            .registry(keys::CAT_SOUND_VARIANT)
+            .and_then(|r| r.name_of(id))
+        {
             if let Some(v) = registries.get::<CatSoundVariant>(keys::CAT_SOUND_VARIANT, &name) {
                 self.sound_variant = *v;
             }
@@ -529,7 +687,11 @@ impl Cat {
     }
 
     pub fn set_relax_state_one(&mut self, value: bool) {
-        self.mob.living.entity.entity_data.set(RELAX_STATE_ONE, value);
+        self.mob
+            .living
+            .entity
+            .entity_data
+            .set(RELAX_STATE_ONE, value);
     }
 
     pub fn is_relax_state_one(&self) -> bool {
@@ -541,7 +703,11 @@ impl Cat {
     }
 
     pub fn set_collar_color(&mut self, color: DyeColor) {
-        self.mob.living.entity.entity_data.set(DATA_COLLAR_COLOR, i32::from(color.id()));
+        self.mob
+            .living
+            .entity
+            .entity_data
+            .set(DATA_COLLAR_COLOR, i32::from(color.id()));
     }
 
     pub fn is_lying_on_top_of_sleeping_player(&self) -> bool {
@@ -557,7 +723,8 @@ impl Cat {
     /// `handleLieDown()`.
     fn handle_lie_down(&mut self, level: &mut ServerLevel) {
         if (self.is_lying() || self.is_relax_state_one()) && self.base().tick_count % 5 == 0 {
-            let volume = 0.6 + 0.4 * (self.base_mut().random.next_float() - self.base_mut().random.next_float());
+            let volume = 0.6
+                + 0.4 * (self.base_mut().random.next_float() - self.base_mut().random.next_float());
             let sound = self.get_sound_set().purr_sound;
             self.play_sound(level, sound, volume, 1.0);
         }
@@ -569,7 +736,10 @@ impl Cat {
             let bb = AABB::from_block_pos(&cat_pos).inflate(2.0, 2.0, 2.0);
             let players = level.get_entities_of_class(&bb, |e| e.is_player(), |_| true);
             for id in players {
-                if level.get_entity(id).is_some_and(|p| p.living().is_some_and(|l| l.is_sleeping())) {
+                if level
+                    .get_entity(id)
+                    .is_some_and(|p| p.living().is_some_and(|l| l.is_sleeping()))
+                {
                     self.is_lying_on_top_of_sleeping_player = true;
                     break;
                 }
@@ -622,7 +792,11 @@ impl Entity for Cat {
     }
 
     fn get_dimensions(&self, _pose: Pose) -> EntityDimensions {
-        if self.is_baby() { baby_dimensions() } else { EntityDimensions::of_type(self.mob.living.entity.entity_type) }
+        if self.is_baby() {
+            baby_dimensions()
+        } else {
+            EntityDimensions::of_type(self.mob.living.entity.entity_type)
+        }
     }
 
     fn add_additional_save_data(&self, out: &mut CompoundTag) {
@@ -635,19 +809,31 @@ impl Entity for Cat {
     fn read_additional_save_data(&mut self, input: &CompoundTag) {
         mob::nbt::read_additional_save_data(self, input);
         self.pending_variant = variant::read_variant_key(input);
-        self.pending_sound_variant = input.get_string("sound_variant").and_then(Identifier::try_parse);
-        let collar = if input.contains("CollarColor") { dye_color::by_id(i32::from(input.get_byte_or("CollarColor", 0))) } else { DEFAULT_COLLAR_COLOR };
+        self.pending_sound_variant = input
+            .get_string("sound_variant")
+            .and_then(Identifier::try_parse);
+        let collar = if input.contains("CollarColor") {
+            dye_color::by_id(i32::from(input.get_byte_or("CollarColor", 0)))
+        } else {
+            DEFAULT_COLLAR_COLOR
+        };
         self.set_collar_color(collar);
     }
 
     fn resolve_registry_refs(&mut self, registries: &RegistryAccess) {
         if let Some(key) = self.pending_variant.take() {
-            if let Some(id) = registries.registry(keys::CAT_VARIANT).and_then(|r| r.id_of(&key)) {
+            if let Some(id) = registries
+                .registry(keys::CAT_VARIANT)
+                .and_then(|r| r.id_of(&key))
+            {
                 self.set_variant(registries, id);
             }
         }
         if let Some(key) = self.pending_sound_variant.take() {
-            if let Some(id) = registries.registry(keys::CAT_SOUND_VARIANT).and_then(|r| r.id_of(&key)) {
+            if let Some(id) = registries
+                .registry(keys::CAT_SOUND_VARIANT)
+                .and_then(|r| r.id_of(&key))
+            {
                 self.set_sound_variant(registries, id);
             }
         }
@@ -690,7 +876,11 @@ impl Entity for Cat {
 
     fn tick(&mut self, level: &mut ServerLevel) {
         mob::tick::tick(self, level);
-        let tempting = self.mob.goal_selector.find_goal::<CatTemptGoal>().is_some_and(CatTemptGoal::is_running);
+        let tempting = self
+            .mob
+            .goal_selector
+            .find_goal::<CatTemptGoal>()
+            .is_some_and(CatTemptGoal::is_running);
         if tempting && !tamable::is_tame(self) && self.base().tick_count % 100 == 0 {
             let sound = self.get_sound_set().beg_for_food_sound;
             self.play_sound(level, sound, 1.0, 1.0);
@@ -698,18 +888,39 @@ impl Entity for Cat {
         self.handle_lie_down(level);
     }
 
-    fn get_breed_offspring(&mut self, level: &mut ServerLevel, partner: EntityId) -> Option<Box<dyn Entity>> {
-        let mut baby = mc_game_core::world::entity::factory::create(EntityType::CAT, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })?;
-        let partner_info = level.get_entity(partner).and_then(|p| p.as_any().downcast_ref::<Cat>()).map(|p| (p.get_variant(), p.get_collar_color()));
-        if let (Some((partner_variant, partner_collar)), Some(cat)) = (partner_info, baby.as_any_mut().downcast_mut::<Cat>()) {
+    fn get_breed_offspring(
+        &mut self,
+        level: &mut ServerLevel,
+        partner: EntityId,
+    ) -> Option<Box<dyn Entity>> {
+        let mut baby = mc_game_core::world::entity::factory::create(
+            EntityType::CAT,
+            level,
+            EntitySpawnRequest {
+                reason: EntitySpawnReason::Breeding,
+                ignore_checks: false,
+            },
+        )?;
+        let partner_info = level
+            .get_entity(partner)
+            .and_then(|p| p.as_any().downcast_ref::<Cat>())
+            .map(|p| (p.get_variant(), p.get_collar_color()));
+        if let (Some((partner_variant, partner_collar)), Some(cat)) =
+            (partner_info, baby.as_any_mut().downcast_mut::<Cat>())
+        {
             let registries = level.registries.clone();
             let own_variant = self.get_variant();
-            let pick = if self.base_mut().random.next_boolean() { own_variant } else { partner_variant };
+            let pick = if self.base_mut().random.next_boolean() {
+                own_variant
+            } else {
+                partner_variant
+            };
             cat.set_variant(&registries, pick as u32);
             if tamable::is_tame(self) {
                 tamable::set_owner_reference(cat, tamable::get_owner_reference(self));
                 cat.set_tame(None, true, true);
-                let mixed = dye_color::get_mixed_color(level, self.get_collar_color(), partner_collar);
+                let mixed =
+                    dye_color::get_mixed_color(level, self.get_collar_color(), partner_collar);
                 cat.set_collar_color(mixed);
             }
         }
@@ -739,38 +950,57 @@ impl Entity for Cat {
         let mut selected: Option<Identifier> = None;
         level.with_random_taken(&mut |level, random| {
             let context = SpawnContext::create(level, pos);
-            selected = variant::select_variant_to_spawn::<CatVariant>(&context, keys::CAT_VARIANT, random);
+            selected =
+                variant::select_variant_to_spawn::<CatVariant>(&context, keys::CAT_VARIANT, random);
             true
         });
         if let Some(key) = selected {
-            if let Some(id) = registries.registry(keys::CAT_VARIANT).and_then(|r| r.id_of(&key)) {
+            if let Some(id) = registries
+                .registry(keys::CAT_VARIANT)
+                .and_then(|r| r.id_of(&key))
+            {
                 self.set_variant(&registries, id);
             }
         }
-        if let Some(key) = variant::pick_random_entry(&registries, keys::CAT_SOUND_VARIANT, level.random()) {
-            if let Some(id) = registries.registry(keys::CAT_SOUND_VARIANT).and_then(|r| r.id_of(&key)) {
+        if let Some(key) =
+            variant::pick_random_entry(&registries, keys::CAT_SOUND_VARIANT, level.random())
+        {
+            if let Some(id) = registries
+                .registry(keys::CAT_SOUND_VARIANT)
+                .and_then(|r| r.id_of(&key))
+            {
                 self.set_sound_variant(&registries, id);
             }
         }
         group_data
     }
 
-    fn mob_interact(&mut self, level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) -> InteractionResult {
+    fn mob_interact(
+        &mut self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        hand: InteractionHand,
+    ) -> InteractionResult {
         let item_stack = player.get_item_in_hand(hand);
         let infinite = player.player.abilities.instabuild;
         if tamable::is_tame(self) {
             if self.is_owned_by_player(player) {
-                let is_collar_dye = mc_data::tags::get::<Item>("cat_collar_dyes").is_some_and(|t| t.contains(item_stack.item()));
+                let is_collar_dye = mc_data::tags::get::<Item>("cat_collar_dyes")
+                    .is_some_and(|t| t.contains(item_stack.item()));
                 if is_collar_dye {
                     if let Some(color) = item_stack.get(&DYE).copied() {
                         if color != self.get_collar_color() {
                             self.set_collar_color(color);
-                            interact::with_hand_stack(player, hand, |stack, _| stack.consume(1, infinite));
+                            interact::with_hand_stack(player, hand, |stack, _| {
+                                stack.consume(1, infinite)
+                            });
                             self.set_persistence_required();
                             return InteractionResult::SUCCESS;
                         }
                     }
-                } else if self.is_food(&item_stack) && self.get_health() < self.mob.living.get_max_health() {
+                } else if self.is_food(&item_stack)
+                    && self.get_health() < self.mob.living.get_max_health()
+                {
                     tamable::feed(self, level, player, hand, &item_stack, 1.0, 1.0);
                     return InteractionResult::SUCCESS;
                 }
@@ -804,7 +1034,12 @@ impl Entity for Cat {
         !tamable::is_tame(self) && self.base().tick_count > 2400
     }
 
-    fn set_tame(&mut self, level: Option<&mut ServerLevel>, is_tame: bool, include_side_effects: bool) {
+    fn set_tame(
+        &mut self,
+        level: Option<&mut ServerLevel>,
+        is_tame: bool,
+        include_side_effects: bool,
+    ) {
         tamable::set_tame(self, is_tame, include_side_effects);
         self.reassess_tame_goals(level);
     }
@@ -815,4 +1050,7 @@ impl Entity for Cat {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static CAT: EntityRegistration = EntityRegistration { entity_type: EntityType::CAT, create: |ty, id, registries| Box::new(Cat::new(ty, id, registries)) };
+static CAT: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::CAT,
+    create: |ty, id, registries| Box::new(Cat::new(ty, id, registries)),
+};

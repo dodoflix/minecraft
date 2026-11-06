@@ -1,12 +1,14 @@
 //! `CappedProcessor` (`capped`): applies its delegate to at most `limit` randomly chosen blocks.
 
-use mc_game_core::world::level::levelgen::structure::templatesystem::structure_place_settings::StructurePlaceSettings;
-use mc_game_core::world::level::levelgen::structure::templatesystem::structure_processor::{STRUCTURE_PROCESSOR_TYPES, StructureProcessor, decode_single};
-use mc_game_core::world::level::levelgen::structure::templatesystem::structure_template::StructureBlockInfo;
-use mc_game_core::world::level::levelgen::codec::*;
-use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::pos::BlockPos;
 use mc_core::random::{self, RandomSource};
+use mc_game_core::world::level::levelgen::codec::*;
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_place_settings::StructurePlaceSettings;
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_processor::{
+    STRUCTURE_PROCESSOR_TYPES, StructureProcessor, decode_single,
+};
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_template::StructureBlockInfo;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_worldgen::provider::IntProvider;
 use std::sync::Arc;
 
@@ -46,8 +48,13 @@ impl StructureProcessor for CappedProcessor {
             );
             return processed_block_info_list;
         }
-        let mut random = random::create_thread_local_instance(level.get_seed()).fork_positional().at_pos(position);
-        let max_to_replace = self.limit.sample(&mut *random).min(processed_block_info_list.len() as i32);
+        let mut random = random::create_thread_local_instance(level.get_seed())
+            .fork_positional()
+            .at_pos(position);
+        let max_to_replace = self
+            .limit
+            .sample(&mut *random)
+            .min(processed_block_info_list.len() as i32);
         if max_to_replace < 1 {
             return processed_block_info_list;
         }
@@ -59,7 +66,14 @@ impl StructureProcessor for CappedProcessor {
             }
             let original = &original_block_info_list[index];
             let processed = &processed_block_info_list[index];
-            let maybe_altered = self.delegate.process_block(level, position, reference_pos, original.pos, processed.clone(), settings);
+            let maybe_altered = self.delegate.process_block(
+                level,
+                position,
+                reference_pos,
+                original.pos,
+                processed.clone(),
+                settings,
+            );
             if let Some(altered) = maybe_altered
                 && *processed != altered
             {

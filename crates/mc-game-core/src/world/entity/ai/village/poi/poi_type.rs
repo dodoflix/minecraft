@@ -17,7 +17,10 @@ impl PoiTypeHolder {
 
     /// The holder registered under `name` (`minecraft:home`).
     pub fn by_name(name: &str) -> Option<PoiTypeHolder> {
-        POI_TYPES.iter().position(|t| t.name == name).map(|i| PoiTypeHolder(i as u8))
+        POI_TYPES
+            .iter()
+            .position(|t| t.name == name)
+            .map(|i| PoiTypeHolder(i as u8))
     }
 
     pub fn index(self) -> usize {
@@ -46,7 +49,10 @@ impl PoiTypeHolder {
 
     /// `PoiType.is(state)`.
     pub fn matches_state(self, state: BlockState) -> bool {
-        self.value().matching_states.binary_search(&(state.id() as u16)).is_ok()
+        self.value()
+            .matching_states
+            .binary_search(&(state.id() as u16))
+            .is_ok()
     }
 }
 
@@ -80,12 +86,19 @@ impl PoiTypes {
     fn type_by_state() -> &'static [u8] {
         static TABLE: OnceLock<Vec<u8>> = OnceLock::new();
         TABLE.get_or_init(|| {
-            let max = POI_TYPES.iter().flat_map(|t| t.matching_states.iter().copied()).max().map_or(0, |m| usize::from(m) + 1);
+            let max = POI_TYPES
+                .iter()
+                .flat_map(|t| t.matching_states.iter().copied())
+                .max()
+                .map_or(0, |m| usize::from(m) + 1);
             let mut table = vec![u8::MAX; max];
             for (index, ty) in POI_TYPES.iter().enumerate() {
                 for &state in ty.matching_states {
                     // vanilla: "%s is defined in more than one PoI type" (IllegalStateException)
-                    assert!(table[usize::from(state)] == u8::MAX, "state {state} is defined in more than one PoI type");
+                    assert!(
+                        table[usize::from(state)] == u8::MAX,
+                        "state {state} is defined in more than one PoI type"
+                    );
                     table[usize::from(state)] = index as u8;
                 }
             }

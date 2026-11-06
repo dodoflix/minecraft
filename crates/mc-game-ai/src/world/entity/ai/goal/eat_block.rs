@@ -1,13 +1,13 @@
 //! `EatBlockGoal`.
 
-use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags};
+use mc_core::random::RandomSource;
+use mc_data::block::Block;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags};
 use mc_game_core::world::entity::mob::{ageable, navigation};
 use mc_game_core::world::level::block::state::BlockStateExt;
 use mc_game_core::world::level::level_access::{BlockGetter, LevelAccessor};
-use mc_core::random::RandomSource;
-use mc_data::block::Block;
 
 const EAT_ANIMATION_TICKS: i32 = 40;
 
@@ -18,7 +18,9 @@ pub struct EatBlockGoal {
 impl EatBlockGoal {
     /// `EatBlockGoal(mob)`.
     pub fn new() -> Self {
-        Self { eat_animation_tick: 0 }
+        Self {
+            eat_animation_tick: 0,
+        }
     }
 
     /// `getEatAnimationTick()`.
@@ -40,7 +42,8 @@ impl Goal for EatBlockGoal {
             return false;
         }
         let pos = mob.block_position();
-        level.get_block_state(pos).is_tag("edible_for_sheep") || level.get_block_state(pos.below()).block() == Block::GRASS_BLOCK
+        level.get_block_state(pos).is_tag("edible_for_sheep")
+            || level.get_block_state(pos.below()).block() == Block::GRASS_BLOCK
     }
 
     fn start(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {

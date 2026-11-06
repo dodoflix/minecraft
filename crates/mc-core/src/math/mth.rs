@@ -4,7 +4,9 @@ use std::sync::LazyLock;
 use uuid::Uuid;
 
 use crate::math::atan_tables::{ASIN_TAB_BITS, COS_TAB_BITS};
-use crate::math::java::{self, floor_div_i32, floor_div_i64, floor_mod_i32, max_f32, max_f64, min_f32, min_f64};
+use crate::math::java::{
+    self, floor_div_i32, floor_div_i64, floor_mod_i32, max_f32, max_f64, min_f32, min_f64,
+};
 use crate::phys::{AABB, Vec3};
 use crate::pos::Vec3i;
 use crate::random::RandomSource;
@@ -24,14 +26,24 @@ const COS_OFFSET: f64 = 16384.0;
 const SIN_SCALE: f64 = 10430.378350470453;
 const FRAC_BIAS: f64 = f64::from_bits(4805340802404319232);
 
-static SIN: LazyLock<Box<[f32]>> = LazyLock::new(|| (0..65536).map(|i| (f64::from(i) / SIN_SCALE).sin() as f32).collect());
+static SIN: LazyLock<Box<[f32]>> = LazyLock::new(|| {
+    (0..65536)
+        .map(|i| (f64::from(i) / SIN_SCALE).sin() as f32)
+        .collect()
+});
 
-const MULTIPLY_DE_BRUIJN_BIT_POSITION: [i32; 32] =
-    [0, 1, 28, 2, 29, 14, 24, 3, 30, 22, 20, 15, 25, 17, 4, 8, 31, 27, 13, 23, 21, 19, 16, 7, 26, 12, 18, 6, 11, 5, 10, 9];
+const MULTIPLY_DE_BRUIJN_BIT_POSITION: [i32; 32] = [
+    0, 1, 28, 2, 29, 14, 24, 3, 30, 22, 20, 15, 25, 17, 4, 8, 31, 27, 13, 23, 21, 19, 16, 7, 26,
+    12, 18, 6, 11, 5, 10, 9,
+];
 
 /// (ASIN_TAB, COS_TAB)
 static ATAN_TABLES: LazyLock<(Box<[f64]>, Box<[f64]>)> = LazyLock::new(|| {
-    let conv = |bits: &[u64; 257]| bits.iter().map(|b| f64::from_bits(*b)).collect::<Box<[f64]>>();
+    let conv = |bits: &[u64; 257]| {
+        bits.iter()
+            .map(|b| f64::from_bits(*b))
+            .collect::<Box<[f64]>>()
+    };
     (conv(&ASIN_TAB_BITS), conv(&COS_TAB_BITS))
 });
 
@@ -88,11 +100,19 @@ pub fn clamp_i64(value: i64, min: i64, max: i64) -> i64 {
 }
 
 pub fn clamp_f32(value: f32, min: f32, max: f32) -> f32 {
-    if value < min { min } else { min_f32(value, max) }
+    if value < min {
+        min
+    } else {
+        min_f32(value, max)
+    }
 }
 
 pub fn clamp_f64(value: f64, min: f64, max: f64) -> f64 {
-    if value < min { min } else { min_f64(value, max) }
+    if value < min {
+        min
+    } else {
+        min_f64(value, max)
+    }
 }
 
 pub fn clamped_lerp_f64(factor: f64, min: f64, max: f64) -> f64 {
@@ -140,16 +160,26 @@ pub fn next_int(random: &mut dyn RandomSource, min_inclusive: i32, max_inclusive
     if min_inclusive >= max_inclusive {
         min_inclusive
     } else {
-        random.next_int_bounded(max_inclusive.wrapping_sub(min_inclusive).wrapping_add(1)).wrapping_add(min_inclusive)
+        random
+            .next_int_bounded(max_inclusive.wrapping_sub(min_inclusive).wrapping_add(1))
+            .wrapping_add(min_inclusive)
     }
 }
 
 pub fn next_float(random: &mut dyn RandomSource, min: f32, max: f32) -> f32 {
-    if min >= max { min } else { random.next_float() * (max - min) + min }
+    if min >= max {
+        min
+    } else {
+        random.next_float() * (max - min) + min
+    }
 }
 
 pub fn next_double(random: &mut dyn RandomSource, min: f64, max: f64) -> f64 {
-    if min >= max { min } else { random.next_double() * (max - min) + min }
+    if min >= max {
+        min
+    } else {
+        random.next_double() * (max - min) + min
+    }
 }
 
 pub fn equal_f32(a: f32, b: f32) -> bool {
@@ -284,7 +314,10 @@ pub fn smallest_encompassing_power_of_two(input: i32) -> i32 {
 
 /// Panics (vanilla: `IllegalArgumentException`) on negative `item_count`.
 pub fn smallest_square_side(item_count: i32) -> i32 {
-    assert!(item_count >= 0, "itemCount must be greater than or equal to zero");
+    assert!(
+        item_count >= 0,
+        "itemCount must be greater than or equal to zero"
+    );
     ceil_f64(f64::from(item_count).sqrt())
 }
 
@@ -297,7 +330,11 @@ pub fn is_power_of_two_i64(input: i64) -> bool {
 }
 
 pub fn ceillog2(input: i32) -> i32 {
-    let input = if is_power_of_two_i32(input) { input } else { smallest_encompassing_power_of_two(input) };
+    let input = if is_power_of_two_i32(input) {
+        input
+    } else {
+        smallest_encompassing_power_of_two(input)
+    };
     MULTIPLY_DE_BRUIJN_BIT_POSITION[((i64::from(input) * 125613361 >> 27) as i32 & 31) as usize]
 }
 
@@ -320,8 +357,12 @@ pub fn get_seed(vec: &Vec3i) -> i64 {
 
 /// `Mth.getSeed(int, int, int)` (deprecated in vanilla).
 pub fn get_seed_xyz(x: i32, y: i32, z: i32) -> i64 {
-    let mut seed = i64::from(x.wrapping_mul(3129871)) ^ i64::from(z).wrapping_mul(116129781) ^ i64::from(y);
-    seed = seed.wrapping_mul(seed).wrapping_mul(42317861).wrapping_add(seed.wrapping_mul(11));
+    let mut seed =
+        i64::from(x.wrapping_mul(3129871)) ^ i64::from(z).wrapping_mul(116129781) ^ i64::from(y);
+    seed = seed
+        .wrapping_mul(seed)
+        .wrapping_mul(42317861)
+        .wrapping_add(seed.wrapping_mul(11));
     seed >> 16
 }
 
@@ -456,7 +497,9 @@ pub fn hsv_to_argb(hue: f32, saturation: f32, value: f32, alpha: i32) -> i32 {
         3 => (p, q, value),
         4 => (t, p, value),
         5 => (value, p, q),
-        _ => panic!("Something went wrong when converting from HSV to RGB. Input was {hue}, {saturation}, {value}"),
+        _ => panic!(
+            "Something went wrong when converting from HSV to RGB. Input was {hue}, {saturation}, {value}"
+        ),
     };
     let c = |v: f32| clamp_i32((v * 255.0) as i32, 0, 255);
     // ARGB.color(alpha, r, g, b)
@@ -493,7 +536,8 @@ pub fn lerp_int(alpha1: f32, p0: i32, p1: i32) -> i32 {
 
 pub fn lerp_discrete(alpha1: f32, p0: i32, p1: i32) -> i32 {
     let delta = p1.wrapping_sub(p0);
-    p0.wrapping_add(floor_f32(alpha1 * delta.wrapping_sub(1) as f32)).wrapping_add(i32::from(alpha1 > 0.0))
+    p0.wrapping_add(floor_f32(alpha1 * delta.wrapping_sub(1) as f32))
+        .wrapping_add(i32::from(alpha1 > 0.0))
 }
 
 pub fn lerp_f32(alpha1: f32, p0: f32, p1: f32) -> f32 {
@@ -501,12 +545,26 @@ pub fn lerp_f32(alpha1: f32, p0: f32, p1: f32) -> f32 {
 }
 
 pub fn lerp2_f32(alpha1: f32, alpha2: f32, x00: f32, x10: f32, x01: f32, x11: f32) -> f32 {
-    lerp_f32(alpha2, lerp_f32(alpha1, x00, x10), lerp_f32(alpha1, x01, x11))
+    lerp_f32(
+        alpha2,
+        lerp_f32(alpha1, x00, x10),
+        lerp_f32(alpha1, x01, x11),
+    )
 }
 
 #[allow(clippy::too_many_arguments)]
 pub fn lerp3_f32(
-    alpha1: f32, alpha2: f32, alpha3: f32, x000: f32, x100: f32, x010: f32, x110: f32, x001: f32, x101: f32, x011: f32, x111: f32,
+    alpha1: f32,
+    alpha2: f32,
+    alpha3: f32,
+    x000: f32,
+    x100: f32,
+    x010: f32,
+    x110: f32,
+    x001: f32,
+    x101: f32,
+    x011: f32,
+    x111: f32,
 ) -> f32 {
     lerp_f32(
         alpha3,
@@ -516,7 +574,11 @@ pub fn lerp3_f32(
 }
 
 pub fn lerp_vec3(alpha: f64, p1: &Vec3, p2: &Vec3) -> Vec3 {
-    Vec3 { x: lerp_f64(alpha, p1.x, p2.x), y: lerp_f64(alpha, p1.y, p2.y), z: lerp_f64(alpha, p1.z, p2.z) }
+    Vec3 {
+        x: lerp_f64(alpha, p1.x, p2.x),
+        y: lerp_f64(alpha, p1.y, p2.y),
+        z: lerp_f64(alpha, p1.z, p2.z),
+    }
 }
 
 pub fn lerp_f64(alpha1: f64, p0: f64, p1: f64) -> f64 {
@@ -524,12 +586,26 @@ pub fn lerp_f64(alpha1: f64, p0: f64, p1: f64) -> f64 {
 }
 
 pub fn lerp2_f64(alpha1: f64, alpha2: f64, x00: f64, x10: f64, x01: f64, x11: f64) -> f64 {
-    lerp_f64(alpha2, lerp_f64(alpha1, x00, x10), lerp_f64(alpha1, x01, x11))
+    lerp_f64(
+        alpha2,
+        lerp_f64(alpha1, x00, x10),
+        lerp_f64(alpha1, x01, x11),
+    )
 }
 
 #[allow(clippy::too_many_arguments)]
 pub fn lerp3_f64(
-    alpha1: f64, alpha2: f64, alpha3: f64, x000: f64, x100: f64, x010: f64, x110: f64, x001: f64, x101: f64, x011: f64, x111: f64,
+    alpha1: f64,
+    alpha2: f64,
+    alpha3: f64,
+    x000: f64,
+    x100: f64,
+    x010: f64,
+    x110: f64,
+    x001: f64,
+    x101: f64,
+    x011: f64,
+    x111: f64,
 ) -> f64 {
     lerp_f64(
         alpha3,
@@ -638,8 +714,14 @@ pub fn positive_ceil_div_i64(input: i64, divisor: i64) -> i64 {
     floor_div_i64(input.wrapping_neg(), divisor).wrapping_neg()
 }
 
-pub fn random_between_inclusive(random: &mut dyn RandomSource, min: i32, max_inclusive: i32) -> i32 {
-    random.next_int_bounded(max_inclusive.wrapping_sub(min).wrapping_add(1)).wrapping_add(min)
+pub fn random_between_inclusive(
+    random: &mut dyn RandomSource,
+    min: i32,
+    max_inclusive: i32,
+) -> i32 {
+    random
+        .next_int_bounded(max_inclusive.wrapping_sub(min).wrapping_add(1))
+        .wrapping_add(min)
 }
 
 pub fn random_between(random: &mut dyn RandomSource, min: f32, max_exclusive: f32) -> f32 {
@@ -692,9 +774,20 @@ pub fn out_from_origin(origin: i32, lower_bound: i32, upper_bound: i32) -> Vec<i
 
 /// `Mth.outFromOrigin(origin, lowerBound, upperBound, stepSize)` collected eagerly.
 /// Panics (vanilla: `IllegalArgumentException`) on invalid bounds / step.
-pub fn out_from_origin_step(origin: i32, lower_bound: i32, upper_bound: i32, step_size: i32) -> Vec<i32> {
-    assert!(lower_bound <= upper_bound, "upperBound {upper_bound} expected to be > lowerBound {lower_bound}");
-    assert!(step_size >= 1, "step size expected to be >= 1, was {step_size}");
+pub fn out_from_origin_step(
+    origin: i32,
+    lower_bound: i32,
+    upper_bound: i32,
+    step_size: i32,
+) -> Vec<i32> {
+    assert!(
+        lower_bound <= upper_bound,
+        "upperBound {upper_bound} expected to be > lowerBound {lower_bound}"
+    );
+    assert!(
+        step_size >= 1,
+        "step size expected to be >= 1, was {step_size}"
+    );
     let o = clamp_i32(origin, lower_bound, upper_bound);
     let has_next = |cursor: i32| {
         let d = o.wrapping_sub(cursor).wrapping_abs();
@@ -705,7 +798,9 @@ pub fn out_from_origin_step(origin: i32, lower_bound: i32, upper_bound: i32, ste
         let d = o.wrapping_sub(cursor).wrapping_abs();
         let can_move_positive = o.wrapping_add(d).wrapping_add(step_size) <= upper_bound;
         if !prev_neg || !can_move_positive {
-            let attempted = o.wrapping_sub(d).wrapping_sub(if prev_neg { step_size } else { 0 });
+            let attempted = o
+                .wrapping_sub(d)
+                .wrapping_sub(if prev_neg { step_size } else { 0 });
             if attempted >= lower_bound {
                 return attempted;
             }
@@ -722,6 +817,7 @@ pub fn out_from_origin_step(origin: i32, lower_bound: i32, upper_bound: i32, ste
 }
 
 pub fn wobble(coord: f64) -> f64 {
-    let mut random = crate::random::SingleThreadedRandomSource::new(floor_f64(coord * 3000.0) as i64);
+    let mut random =
+        crate::random::SingleThreadedRandomSource::new(floor_f64(coord * 3000.0) as i64);
     coord + (2.0 * random.next_double() - 1.0) * 1.0E-7 / 2.0
 }

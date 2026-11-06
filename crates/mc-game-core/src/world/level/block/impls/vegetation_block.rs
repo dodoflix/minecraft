@@ -19,7 +19,11 @@ pub fn can_survive(this: &dyn MayPlaceOn, level: &dyn LevelReader, pos: BlockPos
 
 /// `VegetationBlock.updateShape`.
 pub fn update_shape(state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> BlockState {
-    if !state.can_survive(level, pos) { air() } else { state }
+    if !state.can_survive(level, pos) {
+        air()
+    } else {
+        state
+    }
 }
 
 /// The `canSurvive` / `updateShape` methods of `VegetationBlock` for a subclass that only overrides `mayPlaceOn`
@@ -80,7 +84,11 @@ macro_rules! spreading_bonemeal_methods {
             state: BlockState,
             _source: $crate::world::level::block::bonemeal::BonemealSource,
         ) {
-            if let Some(target) = $crate::world::level::block::bonemeal::find_spreadable_neighbour_pos(level, pos, state) {
+            if let Some(target) =
+                $crate::world::level::block::bonemeal::find_spreadable_neighbour_pos(
+                    level, pos, state,
+                )
+            {
                 level.set_block_and_update(target, state.block().default_state());
             }
         }
@@ -95,7 +103,11 @@ vegetation_behaviour!(VegetationBlock);
 register_block_class!("VegetationBlock", |_| Box::new(VegetationBlock));
 
 /// The `entityInside` of `CropBlock` / `PitcherCropBlock`: a ravager destroys the crop (`mobGriefing`).
-pub fn ravager_destroys_crop(level: &mut crate::server::level::ServerLevel, pos: BlockPos, entity: &dyn crate::world::entity::Entity) {
+pub fn ravager_destroys_crop(
+    level: &mut crate::server::level::ServerLevel,
+    pos: BlockPos,
+    entity: &dyn crate::world::entity::Entity,
+) {
     if entity.get_type() == mc_data::EntityType::RAVAGER && level.mob_griefing() {
         level.destroy_block(pos, true, Some(entity.id()), 512);
     }

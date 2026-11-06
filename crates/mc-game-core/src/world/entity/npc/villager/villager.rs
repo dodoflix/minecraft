@@ -8,8 +8,6 @@
 //! * The brain's schedule is bound to the level's environment attributes when the brain is made; the constructor has no level, so
 //!   the construction-time `updateActivityFromSchedule` of vanilla runs at the first AI step (`schedule_init_pending`).
 
-use mc_core::random::RandomSource;
-use crate::world::container::Container;
 use super::abstract_villager::{self, AbstractVillagerData, DATA_UNHAPPY_COUNTER};
 use super::villager_data::{self, VillagerData, VillagerDataExt};
 use super::villager_profession as profession_data;
@@ -18,12 +16,15 @@ use crate::define_accessor;
 use crate::registry::RegistryAccess;
 use crate::registry::keys;
 use crate::server::level::ServerLevel;
+use crate::world::container::Container;
 use crate::world::damagesource::DamageSource;
 use crate::world::difficulty_instance::DifficultyInstance;
 use crate::world::entity::ai::behavior::villager_goal_packages as packages;
 use crate::world::entity::ai::brain::{ActivityData, Brain, Provider};
 use crate::world::entity::ai::gossip::{GossipContainer, GossipType};
-use crate::world::entity::ai::memory::memory_module_type::{self as mem, HOME, JOB_SITE, LAST_SLEPT, LAST_WOKEN, MEETING_POINT, POTENTIAL_JOB_SITE};
+use crate::world::entity::ai::memory::memory_module_type::{
+    self as mem, HOME, JOB_SITE, LAST_SLEPT, LAST_WOKEN, MEETING_POINT, POTENTIAL_JOB_SITE,
+};
 use crate::world::entity::ai::memory::{BrainPacked, MemoryModuleType, MemoryStatus};
 use crate::world::entity::ai::navigation::{PathNavigation, StandardPathNavigation};
 use crate::world::entity::ai::sensing::sensor_type as sensors;
@@ -45,6 +46,7 @@ use linkme::distributed_slice;
 use mc_core::math::mth;
 use mc_core::phys::AABB;
 use mc_core::pos::BlockPos;
+use mc_core::random::RandomSource;
 use mc_data::enums::{EntitySpawnReason, Pose};
 use mc_data::{EntityType, Item, MobEffect, SoundEvent, VillagerProfession};
 use mc_nbt::CompoundTag;
@@ -110,7 +112,10 @@ fn brain_activities(body: &dyn Entity) -> Vec<ActivityData> {
     let profession = body.base().entity_data.get(DATA_VILLAGER_DATA).profession;
     let mut activities = Vec::new();
     if body.is_baby() {
-        activities.push(ActivityData::create_pairs(Activity::PLAY, packages::get_play_package(0.5)));
+        activities.push(ActivityData::create_pairs(
+            Activity::PLAY,
+            packages::get_play_package(0.5),
+        ));
     } else {
         activities.push(ActivityData::create_pairs_with_conditions(
             Activity::WORK,
@@ -118,30 +123,57 @@ fn brain_activities(body: &dyn Entity) -> Vec<ActivityData> {
             vec![(JOB_SITE.id(), MemoryStatus::ValuePresent)],
         ));
     }
-    activities.push(ActivityData::create_pairs(Activity::CORE, packages::get_core_package(profession, 0.5)));
+    activities.push(ActivityData::create_pairs(
+        Activity::CORE,
+        packages::get_core_package(profession, 0.5),
+    ));
     activities.push(ActivityData::create_pairs_with_conditions(
         Activity::MEET,
         packages::get_meet_package(0.5),
         vec![(MEETING_POINT.id(), MemoryStatus::ValuePresent)],
     ));
-    activities.push(ActivityData::create_pairs(Activity::REST, packages::get_rest_package(0.5)));
-    activities.push(ActivityData::create_pairs(Activity::IDLE, packages::get_idle_package(0.5)));
-    activities.push(ActivityData::create_pairs(Activity::PANIC, packages::get_panic_package(0.5)));
-    activities.push(ActivityData::create_pairs(Activity::PRE_RAID, packages::get_pre_raid_package(0.5)));
-    activities.push(ActivityData::create_pairs(Activity::RAID, packages::get_raid_package(0.5)));
-    activities.push(ActivityData::create_pairs(Activity::HIDE, packages::get_hide_package(0.5)));
+    activities.push(ActivityData::create_pairs(
+        Activity::REST,
+        packages::get_rest_package(0.5),
+    ));
+    activities.push(ActivityData::create_pairs(
+        Activity::IDLE,
+        packages::get_idle_package(0.5),
+    ));
+    activities.push(ActivityData::create_pairs(
+        Activity::PANIC,
+        packages::get_panic_package(0.5),
+    ));
+    activities.push(ActivityData::create_pairs(
+        Activity::PRE_RAID,
+        packages::get_pre_raid_package(0.5),
+    ));
+    activities.push(ActivityData::create_pairs(
+        Activity::RAID,
+        packages::get_raid_package(0.5),
+    ));
+    activities.push(ActivityData::create_pairs(
+        Activity::HIDE,
+        packages::get_hide_package(0.5),
+    ));
     activities
 }
 
 static BRAIN_PROVIDER: Provider = Provider::with_activities(BRAIN_SENSORS, brain_activities);
 
 /// `POI_MEMORIES` predicate of `memory`: does the POI type `poi_type` belong to this memory for `villager`?
-pub fn poi_memory_matches(villager_data: &VillagerData, memory: MemoryModuleType<GlobalPos>, poi_type: crate::world::entity::ai::village::poi::PoiTypeHolder) -> bool {
+pub fn poi_memory_matches(
+    villager_data: &VillagerData,
+    memory: MemoryModuleType<GlobalPos>,
+    poi_type: crate::world::entity::ai::village::poi::PoiTypeHolder,
+) -> bool {
     use crate::world::entity::ai::village::poi::PoiTypes;
     if memory == HOME {
         poi_type.is(PoiTypes::HOME)
     } else if memory == JOB_SITE {
-        profession_data::data(villager_data.profession).held_job_site.test(poi_type)
+        profession_data::data(villager_data.profession)
+            .held_job_site
+            .test(poi_type)
     } else if memory == POTENTIAL_JOB_SITE {
         profession_data::is_acquirable_job_site(poi_type)
     } else if memory == MEETING_POINT {
@@ -205,21 +237,36 @@ impl Villager {
         if current.profession != data.profession {
             self.av.offers = None;
         }
-        self.mob.living.entity.entity_data.set(DATA_VILLAGER_DATA, data);
+        self.mob
+            .living
+            .entity
+            .entity_data
+            .set(DATA_VILLAGER_DATA, data);
     }
 
     pub fn get_villager_data_finalized(&self) -> bool {
-        self.mob.living.entity.entity_data.get(DATA_VILLAGER_DATA_FINALIZED)
+        self.mob
+            .living
+            .entity
+            .entity_data
+            .get(DATA_VILLAGER_DATA_FINALIZED)
     }
 
     pub fn set_villager_data_finalized(&mut self, finalized: bool) {
-        self.mob.living.entity.entity_data.set(DATA_VILLAGER_DATA_FINALIZED, finalized);
+        self.mob
+            .living
+            .entity
+            .entity_data
+            .set(DATA_VILLAGER_DATA_FINALIZED, finalized);
     }
 
     /// `VillagerDataHolder.finalizeVillagerType(level, pos)`.
     pub fn finalize_villager_type(&mut self, level: &dyn ServerLevelAccessor, pos: BlockPos) {
         if !self.get_villager_data_finalized() {
-            let biome = level.get_biome_id(pos).and_then(|id| level.registry_access().registry(keys::BIOME)?.name_of(id.0)).map(|n| n.to_string());
+            let biome = level
+                .get_biome_id(pos)
+                .and_then(|id| level.registry_access().registry(keys::BIOME)?.name_of(id.0))
+                .map(|n| n.to_string());
             let ty = villager_type::by_biome(biome.as_deref());
             self.set_villager_data(self.get_villager_data().with_type(ty));
             self.set_villager_data_finalized(true);
@@ -262,7 +309,11 @@ impl Villager {
 
     /// `registerBrainGoals(brain)`.
     fn register_brain_goals(&mut self, level: &ServerLevel) {
-        let schedule = if self.is_baby() { crate::world::attribute::attributes::BABY_VILLAGER_ACTIVITY } else { crate::world::attribute::attributes::VILLAGER_ACTIVITY };
+        let schedule = if self.is_baby() {
+            crate::world::attribute::attributes::BABY_VILLAGER_ACTIVITY
+        } else {
+            crate::world::attribute::attributes::VILLAGER_ACTIVITY
+        };
         let pos = self.position();
         let game_time = level.game_time();
         let brain = self.brain_mut();
@@ -309,12 +360,26 @@ impl Villager {
 
     /// `Merchant.openTradingScreen(player, title, level)` for a villager that is itself out of the level (the stock helper
     /// looks the merchant up in the level).
-    fn open_trading_screen(&mut self, level: &mut ServerLevel, player: &mut ServerPlayer, title: mc_text::Component, merchant_level: i32) {
+    fn open_trading_screen(
+        &mut self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        title: mc_text::Component,
+        merchant_level: i32,
+    ) {
         use crate::world::inventory::{AbstractContainerMenu, MerchantMenu, SimpleMenuProvider};
         let me = self.id();
-        let provider = SimpleMenuProvider::new(title, move |id, _player| Some(Box::new(MerchantMenu::new(id, me)) as Box<dyn AbstractContainerMenu>));
-        let Some(container_id) = player.open_menu(level, &provider) else { return };
-        let (xp, show, restock) = (self.villager_xp, self.show_progress_bar(), self.can_restock());
+        let provider = SimpleMenuProvider::new(title, move |id, _player| {
+            Some(Box::new(MerchantMenu::new(id, me)) as Box<dyn AbstractContainerMenu>)
+        });
+        let Some(container_id) = player.open_menu(level, &provider) else {
+            return;
+        };
+        let (xp, show, restock) = (
+            self.villager_xp,
+            self.show_progress_bar(),
+            self.can_restock(),
+        );
         let offers = self.get_offers(level);
         if !offers.is_empty() {
             let offers = offers.clone();
@@ -336,11 +401,16 @@ impl Villager {
     }
 
     fn needs_to_restock(&mut self, level: &mut ServerLevel) -> bool {
-        self.get_offers(level).0.iter().any(MerchantOffer::needs_restock)
+        self.get_offers(level)
+            .0
+            .iter()
+            .any(MerchantOffer::needs_restock)
     }
 
     fn allowed_to_restock(&self, level: &ServerLevel) -> bool {
-        self.number_of_restocks_today == 0 || self.number_of_restocks_today < 2 && level.game_time() > self.last_restock_game_time + 2400
+        self.number_of_restocks_today == 0
+            || self.number_of_restocks_today < 2
+                && level.game_time() > self.last_restock_game_time + 2400
     }
 
     /// `shouldRestock(level)`.
@@ -401,17 +471,22 @@ impl Villager {
     fn update_special_prices(&mut self, level: &mut ServerLevel, player: &mut ServerPlayer) {
         self.reset_special_prices(level);
         let reputation = self.get_player_reputation(&player.uuid());
-        let hero = player.get_effect(MobEffect::HERO_OF_THE_VILLAGE).map(|e| e.amplifier);
+        let hero = player
+            .get_effect(MobEffect::HERO_OF_THE_VILLAGE)
+            .map(|e| e.amplifier);
         let hero_modifier = match hero {
             None => 0.0,
             Some(amplifier) => f64::from(0.3f32 + 0.0625f32 * amplifier as f32),
         };
         for offer in self.get_offers(level).0.iter_mut() {
             if reputation != 0 {
-                offer.add_to_special_price_diff(-mth::floor_f32(reputation as f32 * offer.get_price_multiplier()));
+                offer.add_to_special_price_diff(-mth::floor_f32(
+                    reputation as f32 * offer.get_price_multiplier(),
+                ));
             }
             if hero_modifier > 0.0 {
-                let cost_reduction = (hero_modifier * f64::from(offer.get_base_cost_a().count())).floor() as i32;
+                let cost_reduction =
+                    (hero_modifier * f64::from(offer.get_base_cost_a().count())).floor() as i32;
                 offer.add_to_special_price_diff(-cost_reduction.max(1));
             }
         }
@@ -419,7 +494,14 @@ impl Villager {
             self.refresh_trading_menu(level, player);
             let offers = self.get_offers(level).clone();
             let container_id = player.player.menus.current_container_id();
-            player.send_merchant_offers(container_id, &offers, self.get_villager_data().level, self.villager_xp, self.show_progress_bar(), self.can_restock());
+            player.send_merchant_offers(
+                container_id,
+                &offers,
+                self.get_villager_data().level,
+                self.villager_xp,
+                self.show_progress_bar(),
+                self.can_restock(),
+            );
         }
     }
 
@@ -430,9 +512,15 @@ impl Villager {
         let mut offers = self.get_offers(level).clone();
         let notified = {
             let mut ctx = PlayerCtx { player, level };
-            PlayerMenus::with_current(&mut ctx, |c| &mut c.player.player.menus, |menu, c| {
-                menu.as_any_mut().downcast_mut::<MerchantMenu>().and_then(|m| m.update_sell_item_with_offers(c, &mut offers))
-            })
+            PlayerMenus::with_current(
+                &mut ctx,
+                |c| &mut c.player.player.menus,
+                |menu, c| {
+                    menu.as_any_mut()
+                        .downcast_mut::<MerchantMenu>()
+                        .and_then(|m| m.update_sell_item_with_offers(c, &mut offers))
+                },
+            )
         };
         if let Some(result) = notified {
             self.notify_trade_updated(level, &result);
@@ -441,14 +529,18 @@ impl Villager {
 
     /// `updateSpecialPrices(tradingPlayer)` when the trading player is looked up through the level; defers when it cannot be reached.
     fn request_special_prices_update(&mut self, level: &mut ServerLevel) {
-        let Some(player_id) = self.av.trading_player else { return };
+        let Some(player_id) = self.av.trading_player else {
+            return;
+        };
         let reached = level
-            .with_entity(player_id, |level, e| match e.as_any_mut().downcast_mut::<ServerPlayer>() {
-                Some(player) => {
-                    self.update_special_prices(level, player);
-                    true
+            .with_entity(player_id, |level, e| {
+                match e.as_any_mut().downcast_mut::<ServerPlayer>() {
+                    Some(player) => {
+                        self.update_special_prices(level, player);
+                        true
+                    }
+                    None => false,
                 }
-                None => false,
             })
             .unwrap_or(false);
         if !reached {
@@ -472,7 +564,8 @@ impl Villager {
     /// `shouldIncreaseLevel()`.
     fn should_increase_level(&self) -> bool {
         let current_level = self.get_villager_data().level;
-        villager_data::can_level_up(current_level) && self.villager_xp >= villager_data::get_max_xp_per_level(current_level)
+        villager_data::can_level_up(current_level)
+            && self.villager_xp >= villager_data::get_max_xp_per_level(current_level)
     }
 
     /// `increaseMerchantCareer(level)`.
@@ -494,12 +587,22 @@ impl Villager {
         self.last_traded_player_uuid = self.trading_player_uuid;
         if self.should_increase_level() {
             self.increase_merchant_career(level);
-            self.add_effect(level, MobEffectInstance::of(MobEffect::REGENERATION, 200, 0), None);
+            self.add_effect(
+                level,
+                MobEffectInstance::of(MobEffect::REGENERATION, 200, 0),
+                None,
+            );
             pop_xp += 5;
         }
         if reward_exp {
             let pos = self.position();
-            level.add_fresh_entity(Box::new(ExperienceOrb::at(level, pos.x, pos.y + 0.5, pos.z, pop_xp)));
+            level.add_fresh_entity(Box::new(ExperienceOrb::at(
+                level,
+                pos.x,
+                pos.y + 0.5,
+                pos.z,
+                pop_xp,
+            )));
         }
     }
 
@@ -567,20 +670,34 @@ impl Villager {
     /// `hasFarmSeeds()`.
     pub fn has_farm_seeds(&self) -> bool {
         let tag = mc_data::tags::get::<Item>("villager_plantable_seeds");
-        self.av.inventory.get_items().iter().any(|s| tag.is_some_and(|t| t.contains(s.item())) && !s.is_empty())
+        self.av
+            .inventory
+            .get_items()
+            .iter()
+            .any(|s| tag.is_some_and(|t| t.contains(s.item())) && !s.is_empty())
     }
 
     // ---- gossip / golems -----------------------------------------------------------------------------------------------
 
     /// `gossip(level, target, timestamp)`.
     pub fn gossip(&mut self, level: &mut ServerLevel, target: &mut Villager, timestamp: i64) {
-        if (timestamp < self.last_gossip_time || timestamp >= self.last_gossip_time + GOSSIP_COOLDOWN)
-            && (timestamp < target.last_gossip_time || timestamp >= target.last_gossip_time + GOSSIP_COOLDOWN)
+        if (timestamp < self.last_gossip_time
+            || timestamp >= self.last_gossip_time + GOSSIP_COOLDOWN)
+            && (timestamp < target.last_gossip_time
+                || timestamp >= target.last_gossip_time + GOSSIP_COOLDOWN)
         {
-            let new_gossip = self.gossips.transfer_from(&target.gossips, &mut self.mob.living.entity.random, MAX_GOSSIP_TOPICS);
+            let new_gossip = self.gossips.transfer_from(
+                &target.gossips,
+                &mut self.mob.living.entity.random,
+                MAX_GOSSIP_TOPICS,
+            );
             self.last_gossip_time = timestamp;
             target.last_gossip_time = timestamp;
-            self.spawn_golem_if_needed(level, timestamp, HOW_MANY_VILLAGERS_NEED_TO_AGREE_TO_SPAWN_A_GOLEM);
+            self.spawn_golem_if_needed(
+                level,
+                timestamp,
+                HOW_MANY_VILLAGERS_NEED_TO_AGREE_TO_SPAWN_A_GOLEM,
+            );
             if self.av.trading_player.is_some() && new_gossip > 0 {
                 self.request_special_prices_update(level);
             }
@@ -599,14 +716,33 @@ impl Villager {
     }
 
     /// `spawnGolemIfNeeded(level, timestamp, villagersNeededToAgree)`.
-    pub fn spawn_golem_if_needed(&mut self, level: &mut ServerLevel, timestamp: i64, villagers_needed_to_agree: i32) {
+    pub fn spawn_golem_if_needed(
+        &mut self,
+        level: &mut ServerLevel,
+        timestamp: i64,
+        villagers_needed_to_agree: i32,
+    ) {
         if self.wants_to_spawn_golem_at(level, timestamp) {
-            let search_box = self.base().bounding_box().inflate(HOW_FAR_AWAY_TO_TALK_TO_OTHER_VILLAGERS_ABOUT_GOLEMS, HOW_FAR_AWAY_TO_TALK_TO_OTHER_VILLAGERS_ABOUT_GOLEMS, HOW_FAR_AWAY_TO_TALK_TO_OTHER_VILLAGERS_ABOUT_GOLEMS);
+            let search_box = self.base().bounding_box().inflate(
+                HOW_FAR_AWAY_TO_TALK_TO_OTHER_VILLAGERS_ABOUT_GOLEMS,
+                HOW_FAR_AWAY_TO_TALK_TO_OTHER_VILLAGERS_ABOUT_GOLEMS,
+                HOW_FAR_AWAY_TO_TALK_TO_OTHER_VILLAGERS_ABOUT_GOLEMS,
+            );
             let nearby = nearby_villagers(level, &search_box);
-            let wanting: Vec<EntityId> =
-                nearby.iter().copied().filter(|&v| level.get_entity(v).and_then(|e| e.as_any().downcast_ref::<Villager>()).is_some_and(|v| v.wants_to_spawn_golem_at(level, timestamp))).take(5).collect();
+            let wanting: Vec<EntityId> = nearby
+                .iter()
+                .copied()
+                .filter(|&v| {
+                    level
+                        .get_entity(v)
+                        .and_then(|e| e.as_any().downcast_ref::<Villager>())
+                        .is_some_and(|v| v.wants_to_spawn_golem_at(level, timestamp))
+                })
+                .take(5)
+                .collect();
             // `this` is out of the level: it is part of the box but not found there, so it counts itself
-            let me_counts = search_box.intersects_aabb(&self.base().bounding_box()) && self.wants_to_spawn_golem_at(level, timestamp);
+            let me_counts = search_box.intersects_aabb(&self.base().bounding_box())
+                && self.wants_to_spawn_golem_at(level, timestamp);
             let agreeing = wanting.len() as i32 + i32::from(me_counts && wanting.len() < 5);
             if agreeing >= villagers_needed_to_agree {
                 let pos = self.block_position();
@@ -624,7 +760,9 @@ impl Villager {
                 .is_some()
                 {
                     for v in nearby {
-                        level.with_entity(v, |_, e| crate::world::entity::ai::sensing::golem_sensor::golem_detected(e));
+                        level.with_entity(v, |_, e| {
+                            crate::world::entity::ai::sensing::golem_sensor::golem_detected(e)
+                        });
                     }
                     if me_counts {
                         crate::world::entity::ai::sensing::golem_sensor::golem_detected(self);
@@ -636,12 +774,17 @@ impl Villager {
 
     /// `wantsToSpawnGolem(timestamp)`.
     pub fn wants_to_spawn_golem_at(&self, level: &ServerLevel, _timestamp: i64) -> bool {
-        self.golem_spawn_conditions_met(level.game_time()) && !self.brain().has_memory_value(mem::GOLEM_DETECTED_RECENTLY.id())
+        self.golem_spawn_conditions_met(level.game_time())
+            && !self
+                .brain()
+                .has_memory_value(mem::GOLEM_DETECTED_RECENTLY.id())
     }
 
     /// `golemSpawnConditionsMet(gameTime)`.
     fn golem_spawn_conditions_met(&self, game_time: i64) -> bool {
-        self.brain().get_memory(&LAST_SLEPT).is_some_and(|slept| game_time - *slept < TIME_SINCE_SLEEPING_FOR_GOLEM_SPAWNING)
+        self.brain()
+            .get_memory(&LAST_SLEPT)
+            .is_some_and(|slept| game_time - *slept < TIME_SINCE_SLEEPING_FOR_GOLEM_SPAWNING)
     }
 
     // ---- POIs ----------------------------------------------------------------------------------------------------------
@@ -656,7 +799,9 @@ impl Villager {
 
     /// `releasePoi(memoryType)`.
     pub fn release_poi(&mut self, level: &mut ServerLevel, memory: MemoryModuleType<GlobalPos>) {
-        let Some(global) = self.brain().get_memory(&memory).cloned() else { return };
+        let Some(global) = self.brain().get_memory(&memory).cloned() else {
+            return;
+        };
         let data = self.get_villager_data();
         let release = |poi_level: &mut ServerLevel| {
             let manager = poi_level.poi_manager();
@@ -676,10 +821,22 @@ impl Villager {
         let witnesses: Vec<EntityId> = self
             .brain()
             .get_memory(&mem::NEAREST_VISIBLE_LIVING_ENTITIES)
-            .map(|w| w.nearby_entities().iter().map(|r| r.0).filter(|&id| level.get_entity(id).is_some_and(|e| e.is_reputation_event_handler())).collect())
+            .map(|w| {
+                w.nearby_entities()
+                    .iter()
+                    .map(|r| r.0)
+                    .filter(|&id| {
+                        level
+                            .get_entity(id)
+                            .is_some_and(|e| e.is_reputation_event_handler())
+                    })
+                    .collect()
+            })
             .unwrap_or_default();
         for witness in witnesses {
-            level.with_entity(witness, |level, w| w.on_reputation_event_from(level, ReputationEventType::VILLAGER_KILLED, murderer));
+            level.with_entity(witness, |level, w| {
+                w.on_reputation_event_from(level, ReputationEventType::VILLAGER_KILLED, murderer)
+            });
         }
     }
 }
@@ -701,7 +858,11 @@ impl InventoryCarrier for Villager {
 impl Merchant for Villager {
     fn set_trading_player(&mut self, player: Option<EntityId>) {
         // the UUID is only known to the caller that has the player; ids that are cleared clear both
-        let uuid = if player.is_some() { self.trading_player_uuid } else { None };
+        let uuid = if player.is_some() {
+            self.trading_player_uuid
+        } else {
+            None
+        };
         self.set_trading_player_id(player, uuid);
     }
 
@@ -720,7 +881,12 @@ impl Merchant for Villager {
     fn override_offers(&mut self, _offers: MerchantOffers) {}
 
     fn notify_trade(&mut self, level: &mut ServerLevel, offer_index: usize) {
-        if let Some(offer) = self.av.offers.as_mut().and_then(|o| o.0.get_mut(offer_index)) {
+        if let Some(offer) = self
+            .av
+            .offers
+            .as_mut()
+            .and_then(|o| o.0.get_mut(offer_index))
+        {
             offer.increase_uses();
         }
         abstract_villager::reset_ambient_sound_time(self);
@@ -732,7 +898,14 @@ impl Merchant for Villager {
         let interval = self.get_ambient_sound_interval();
         if self.mob.ambient_sound_time > -interval + 20 {
             self.mob.ambient_sound_time = -interval;
-            self.make_sound(level, if stack.is_empty() { SoundEvent::ENTITY_VILLAGER_NO } else { SoundEvent::ENTITY_VILLAGER_YES });
+            self.make_sound(
+                level,
+                if stack.is_empty() {
+                    SoundEvent::ENTITY_VILLAGER_NO
+                } else {
+                    SoundEvent::ENTITY_VILLAGER_YES
+                },
+            );
         }
     }
 
@@ -777,7 +950,11 @@ impl Entity for Villager {
     }
 
     fn get_dimensions(&self, _pose: Pose) -> EntityDimensions {
-        if self.is_baby() { baby_dimensions() } else { EntityDimensions::of_type(self.mob.living.entity.entity_type) }
+        if self.is_baby() {
+            baby_dimensions()
+        } else {
+            EntityDimensions::of_type(self.mob.living.entity.entity_type)
+        }
     }
 
     fn make_brain(&mut self, packed: &BrainPacked) -> Brain {
@@ -808,7 +985,9 @@ impl Entity for Villager {
             level.broadcast_entity_event(self.id(), 14);
         }
         if !self.mob.is_no_ai() && self.base_mut().random.next_int_bounded(100) == 0 {
-            let raid_active = level.get_raid_at(self.block_position()).is_some_and(|r| r.is_active() && !r.is_over());
+            let raid_active = level
+                .get_raid_at(self.block_position())
+                .is_some_and(|r| r.is_active() && !r.is_over());
             if raid_active {
                 level.broadcast_entity_event(self.id(), 42);
             }
@@ -827,9 +1006,18 @@ impl Entity for Villager {
         self.maybe_decay_gossip(level);
     }
 
-    fn mob_interact(&mut self, level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) -> InteractionResult {
+    fn mob_interact(
+        &mut self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        hand: InteractionHand,
+    ) -> InteractionResult {
         let item_stack = player.get_item_in_hand(hand);
-        if item_stack.item() == Item::VILLAGER_SPAWN_EGG || !self.is_alive() || self.is_trading() || self.is_sleeping() {
+        if item_stack.item() == Item::VILLAGER_SPAWN_EGG
+            || !self.is_alive()
+            || self.is_trading()
+            || self.is_sleeping()
+        {
             return mob::interact::mob_interact(self, level, player, hand);
         }
         if self.is_baby() {
@@ -851,7 +1039,9 @@ impl Entity for Villager {
     }
 
     fn can_breed(&self) -> bool {
-        self.food_level + self.count_food_points_in_inventory() >= 12 && !self.is_sleeping() && mob::ageable::get_age(self) == 0
+        self.food_level + self.count_food_points_in_inventory() >= 12
+            && !self.is_sleeping()
+            && mob::ageable::get_age(self) == 0
     }
 
     fn post_data_manipulated(&mut self) {
@@ -887,7 +1077,12 @@ impl Entity for Villager {
         true
     }
 
-    fn on_set_last_hurt_by_mob(&mut self, level: &mut ServerLevel, hurt_by: Uuid, hurt_by_is_player: bool) {
+    fn on_set_last_hurt_by_mob(
+        &mut self,
+        level: &mut ServerLevel,
+        hurt_by: Uuid,
+        hurt_by_is_player: bool,
+    ) {
         self.on_reputation_event_from(level, ReputationEventType::VILLAGER_HURT, hurt_by);
         if self.is_alive() && hurt_by_is_player {
             level.broadcast_entity_event(self.id(), 13);
@@ -910,7 +1105,8 @@ impl Entity for Villager {
 
     fn set_heard_bell_time(&mut self, game_time: i64) {
         if self.brain().has_memory_value(mem::HEARD_BELL_TIME.id()) || true {
-            self.brain_mut().set_memory(&mem::HEARD_BELL_TIME, game_time);
+            self.brain_mut()
+                .set_memory(&mem::HEARD_BELL_TIME, game_time);
         }
     }
 
@@ -928,20 +1124,34 @@ impl Entity for Villager {
         group_data: Option<Box<dyn SpawnGroupData>>,
     ) -> Option<Box<dyn SpawnGroupData>> {
         if reason == EntitySpawnReason::Breeding {
-            self.set_villager_data(self.get_villager_data().with_profession(VillagerProfession::NONE));
+            self.set_villager_data(
+                self.get_villager_data()
+                    .with_profession(VillagerProfession::NONE),
+            );
         }
         let pos = self.block_position();
         self.finalize_villager_type(&*level, pos);
         // `AbstractVillager.finalizeSpawn`: a default group data that never spawns babies
-        let group_data = group_data.or_else(|| Some(Box::new(mob::spawn::AgeableMobGroupData::with_baby(false))));
+        let group_data = group_data
+            .or_else(|| Some(Box::new(mob::spawn::AgeableMobGroupData::with_baby(false))));
         mob::spawn::finalize_spawn(self, level, difficulty, reason, group_data)
     }
 
-    fn get_breed_offspring(&mut self, level: &mut ServerLevel, partner: EntityId) -> Option<Box<dyn Entity>> {
+    fn get_breed_offspring(
+        &mut self,
+        level: &mut ServerLevel,
+        partner: EntityId,
+    ) -> Option<Box<dyn Entity>> {
         let biome_roll = self.base_mut().random.next_double();
-        let partner_type = level.get_entity(partner).and_then(|p| p.as_any().downcast_ref::<Villager>()).map(|p| p.get_villager_data().r#type);
+        let partner_type = level
+            .get_entity(partner)
+            .and_then(|p| p.as_any().downcast_ref::<Villager>())
+            .map(|p| p.get_villager_data().r#type);
         let ty = if biome_roll < 0.5 {
-            let biome = level.get_biome_id(self.block_position()).and_then(|id| level.registries.registry(keys::BIOME)?.name_of(id.0)).map(|n| n.to_string());
+            let biome = level
+                .get_biome_id(self.block_position())
+                .and_then(|id| level.registries.registry(keys::BIOME)?.name_of(id.0))
+                .map(|n| n.to_string());
             villager_type::by_biome(biome.as_deref())
         } else if biome_roll < 0.75 {
             self.get_villager_data().r#type
@@ -951,10 +1161,16 @@ impl Entity for Villager {
         let mut baby = crate::world::entity::factory::create(
             EntityType::VILLAGER,
             level,
-            crate::world::entity::factory::EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false },
+            crate::world::entity::factory::EntitySpawnRequest {
+                reason: EntitySpawnReason::Breeding,
+                ignore_checks: false,
+            },
         )?;
         let villager = baby.as_any_mut().downcast_mut::<Villager>()?;
-        let data = villager.get_villager_data().with_type(ty).with_profession(VillagerProfession::NONE);
+        let data = villager
+            .get_villager_data()
+            .with_type(ty)
+            .with_profession(VillagerProfession::NONE);
         villager.set_villager_data(data);
         villager.set_villager_data_finalized(true);
         Some(baby)
@@ -965,12 +1181,19 @@ impl Entity for Villager {
         if level.difficulty() != mc_world::level_storage::Difficulty::Peaceful {
             log::info!("Villager {} was struck by lightning.", self.uuid());
             let params = ConversionParams::single(self, level, false, false);
-            let converted = convert_to(self, level, EntityType::WITCH, &params, EntitySpawnReason::Conversion, |witch, level| {
-                let pos = witch.block_position();
-                let difficulty = ServerLevelAccessor::get_current_difficulty_at(level, pos);
-                witch.finalize_spawn(level, difficulty, EntitySpawnReason::Conversion, None);
-                witch.set_persistence_required();
-            });
+            let converted = convert_to(
+                self,
+                level,
+                EntityType::WITCH,
+                &params,
+                EntitySpawnReason::Conversion,
+                |witch, level| {
+                    let pos = witch.block_position();
+                    let difficulty = ServerLevelAccessor::get_current_difficulty_at(level, pos);
+                    witch.finalize_spawn(level, difficulty, EntitySpawnReason::Conversion, None);
+                    witch.set_persistence_required();
+                },
+            );
             if converted.is_some() {
                 self.release_all_pois(level);
                 return;
@@ -987,8 +1210,13 @@ impl Entity for Villager {
 
     fn wants_to_pick_up(&self, _level: &ServerLevel, stack: &ItemStack) -> bool {
         let item = stack.item();
-        let picks_up = mc_data::tags::get::<Item>("villager_picks_up").is_some_and(|t| t.contains(item));
-        (picks_up || stack.get(&VILLAGER_FOOD).is_some() || profession_data::data(self.get_villager_data().profession).requested_items.contains(&item))
+        let picks_up =
+            mc_data::tags::get::<Item>("villager_picks_up").is_some_and(|t| t.contains(item));
+        (picks_up
+            || stack.get(&VILLAGER_FOOD).is_some()
+            || profession_data::data(self.get_villager_data().profession)
+                .requested_items
+                .contains(&item))
             && self.av.inventory.can_add_item(stack)
     }
 
@@ -997,10 +1225,18 @@ impl Entity for Villager {
     }
 
     fn get_type_name(&self) -> mc_text::Component {
-        mc_text::Component::translatable(profession_data::name_key(self.get_villager_data().profession), Vec::new())
+        mc_text::Component::translatable(
+            profession_data::name_key(self.get_villager_data().profession),
+            Vec::new(),
+        )
     }
 
-    fn on_reputation_event_from(&mut self, level: &mut ServerLevel, ty: ReputationEventType, source: Uuid) {
+    fn on_reputation_event_from(
+        &mut self,
+        level: &mut ServerLevel,
+        ty: ReputationEventType,
+        source: Uuid,
+    ) {
         if ty == ReputationEventType::ZOMBIE_VILLAGER_CURED {
             self.gossips.add(source, GossipType::MajorPositive, 20);
             self.gossips.add(source, GossipType::MinorPositive, 25);
@@ -1017,14 +1253,26 @@ impl Entity for Villager {
     }
 
     fn entity_components(&self) -> mc_protocol::components::DataComponentMap {
-        let base = crate::advancements::predicates::entity::support::base_entity_components(self.base());
-        mc_protocol::components::DataComponentMap::builder().add_all(&base).set(mc_protocol::components::values::entity::VILLAGER_VARIANT, mc_protocol::components::holder::Holder::Reference(self.get_villager_data().r#type.identifier())).build()
+        let base =
+            crate::advancements::predicates::entity::support::base_entity_components(self.base());
+        mc_protocol::components::DataComponentMap::builder()
+            .add_all(&base)
+            .set(
+                mc_protocol::components::values::entity::VILLAGER_VARIANT,
+                mc_protocol::components::holder::Holder::Reference(
+                    self.get_villager_data().r#type.identifier(),
+                ),
+            )
+            .build()
     }
 
     fn add_additional_save_data(&self, out: &mut CompoundTag) {
         mob::nbt::add_additional_save_data(self, out);
         abstract_villager::add_additional_save_data(&self.av, out);
-        out.put("VillagerData", mc_nbt::Tag::Compound(self.get_villager_data().save()));
+        out.put(
+            "VillagerData",
+            mc_nbt::Tag::Compound(self.get_villager_data().save()),
+        );
         out.put_boolean("VillagerDataFinalized", self.get_villager_data_finalized());
         out.put_byte("FoodLevel", self.food_level as i8);
         out.put("Gossips", mc_nbt::Tag::List(self.gossips.to_nbt()));
@@ -1041,7 +1289,11 @@ impl Entity for Villager {
         if input.get_boolean_or("VillagerDataFinalized", false) || data.is_some() {
             self.set_villager_data_finalized(true);
             let data = data.unwrap_or_else(create_default_villager_data);
-            self.mob.living.entity.entity_data.set(DATA_VILLAGER_DATA, data);
+            self.mob
+                .living
+                .entity
+                .entity_data
+                .set(DATA_VILLAGER_DATA, data);
         }
         self.food_level = i32::from(input.get_byte_or("FoodLevel", 0));
         self.gossips.clear();
@@ -1062,4 +1314,7 @@ impl Entity for Villager {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static VILLAGER: EntityRegistration = EntityRegistration { entity_type: EntityType::VILLAGER, create: |ty, id, registries| Box::new(Villager::new(ty, id, registries)) };
+static VILLAGER: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::VILLAGER,
+    create: |ty, id, registries| Box::new(Villager::new(ty, id, registries)),
+};

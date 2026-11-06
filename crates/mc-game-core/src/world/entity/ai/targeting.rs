@@ -9,7 +9,8 @@ use std::sync::Arc;
 pub type TargetSelector = Arc<dyn Fn(&dyn Entity, &ServerLevel) -> bool + Send + Sync>;
 
 /// A `Selector` lambda that reads the targeting mob (`(entity, level) -> bee.isAngryAt(entity, level)`): `test(source, target, level)`.
-pub type SourceTargetSelector = Arc<dyn Fn(&dyn Entity, &dyn Entity, &ServerLevel) -> bool + Send + Sync>;
+pub type SourceTargetSelector =
+    Arc<dyn Fn(&dyn Entity, &dyn Entity, &ServerLevel) -> bool + Send + Sync>;
 
 #[derive(Clone)]
 pub struct TargetingConditions {
@@ -23,7 +24,14 @@ pub struct TargetingConditions {
 
 impl TargetingConditions {
     fn new(is_combat: bool) -> Self {
-        Self { is_combat, range: -1.0, check_line_of_sight: true, test_invisible: true, selector: None, source_selector: None }
+        Self {
+            is_combat,
+            range: -1.0,
+            check_line_of_sight: true,
+            test_invisible: true,
+            selector: None,
+            source_selector: None,
+        }
     }
 
     /// `forCombat()` (also `DEFAULT`).
@@ -62,7 +70,12 @@ impl TargetingConditions {
     }
 
     /// `test(level, targeter, target)`: `targeter` is the mob doing the targeting (`None` = no source).
-    pub fn test(&self, level: &ServerLevel, targeter: Option<&dyn Entity>, target: &dyn Entity) -> bool {
+    pub fn test(
+        &self,
+        level: &ServerLevel,
+        targeter: Option<&dyn Entity>,
+        target: &dyn Entity,
+    ) -> bool {
         if targeter.is_some_and(|t| t.id() == target.id()) {
             return false;
         }
@@ -79,18 +92,32 @@ impl TargetingConditions {
         }
         match targeter {
             None => {
-                if self.is_combat && (!target.can_be_seen_as_enemy() || level.difficulty() == Difficulty::Peaceful) {
+                if self.is_combat
+                    && (!target.can_be_seen_as_enemy()
+                        || level.difficulty() == Difficulty::Peaceful)
+                {
                     return false;
                 }
             }
             Some(targeter) => {
-                if self.is_combat && (!targeter.can_attack(level, target) || crate::world::entity::mob::ext::is_allied_to(level, targeter, target)) {
+                if self.is_combat
+                    && (!targeter.can_attack(level, target)
+                        || crate::world::entity::mob::ext::is_allied_to(level, targeter, target))
+                {
                     return false;
                 }
                 if self.range > 0.0 {
-                    let modifier = if self.test_invisible { target.get_visibility_percent(level, Some(targeter)) } else { 1.0 };
+                    let modifier = if self.test_invisible {
+                        target.get_visibility_percent(level, Some(targeter))
+                    } else {
+                        1.0
+                    };
                     let visibility_distance = (self.range * modifier).max(2.0);
-                    let distance_to_sqr = targeter.base().distance_to_sqr_xyz(target.base().x(), target.base().y(), target.base().z());
+                    let distance_to_sqr = targeter.base().distance_to_sqr_xyz(
+                        target.base().x(),
+                        target.base().y(),
+                        target.base().z(),
+                    );
                     if distance_to_sqr > visibility_distance * visibility_distance {
                         return false;
                     }

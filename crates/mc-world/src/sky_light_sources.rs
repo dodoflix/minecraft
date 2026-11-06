@@ -20,7 +20,11 @@ pub fn is_empty_shape(state: BlockState) -> bool {
 
 /// `LightEngine.getOcclusionShape(state, direction)`.
 pub fn get_occlusion_shape(state: BlockState, direction: Direction) -> VoxelShape {
-    if is_empty_shape(state) { Shapes::empty() } else { state.face_occlusion_shape(direction) }
+    if is_empty_shape(state) {
+        Shapes::empty()
+    } else {
+        state.face_occlusion_shape(direction)
+    }
 }
 
 #[derive(Clone, Debug)]
@@ -35,7 +39,10 @@ impl ChunkSkyLightSources {
         let min_y = level_min_y - 1;
         let max_y = level_min_y + level_height - 1 + 1;
         let bits = mth::ceillog2(max_y - min_y + 1);
-        ChunkSkyLightSources { min_y, heightmap: SimpleBitStorage::new(bits, 256) }
+        ChunkSkyLightSources {
+            min_y,
+            heightmap: SimpleBitStorage::new(bits, 256),
+        }
     }
 
     /// `fillFrom(chunk)` for a chunk given as its sections (`level_min_section_y` = `getMinSectionY`).
@@ -45,7 +52,15 @@ impl ChunkSkyLightSources {
             Some(max_section_index) => {
                 for z in 0..16 {
                     for x in 0..16 {
-                        let initial_edge_y = self.find_lowest_source_y(level_min_section_y, sections, max_section_index, x, z).max(self.min_y);
+                        let initial_edge_y = self
+                            .find_lowest_source_y(
+                                level_min_section_y,
+                                sections,
+                                max_section_index,
+                                x,
+                                z,
+                            )
+                            .max(self.min_y);
                         self.set(Self::index(x, z), initial_edge_y);
                     }
                 }
@@ -53,14 +68,23 @@ impl ChunkSkyLightSources {
         }
     }
 
-    fn find_lowest_source_y(&self, level_min_section_y: i32, sections: &[LevelChunkSection], top_section_index: usize, x: i32, z: i32) -> i32 {
-        let mut top_y = SectionPos::section_to_block_coord(level_min_section_y + top_section_index as i32 + 1);
+    fn find_lowest_source_y(
+        &self,
+        level_min_section_y: i32,
+        sections: &[LevelChunkSection],
+        top_section_index: usize,
+        x: i32,
+        z: i32,
+    ) -> i32 {
+        let mut top_y =
+            SectionPos::section_to_block_coord(level_min_section_y + top_section_index as i32 + 1);
         let mut top_state = mc_data::block::Block::AIR.default_state();
         for section_index in (0..=top_section_index).rev() {
             let section = &sections[section_index];
             if section.has_only_air() {
                 top_state = mc_data::block::Block::AIR.default_state();
-                top_y = SectionPos::section_to_block_coord(level_min_section_y + section_index as i32);
+                top_y =
+                    SectionPos::section_to_block_coord(level_min_section_y + section_index as i32);
             } else {
                 for y in (0..=15).rev() {
                     let bottom_state = section.get_block_state(x, y, z);
@@ -85,11 +109,27 @@ impl ChunkSkyLightSources {
         }
         let top_state = level.get_block_state(x, y + 1, z);
         let middle_state = level.get_block_state(x, y, z);
-        if self.update_edge(level, index, current_lowest_source_y, (x, y + 1, z), top_state, (x, y, z), middle_state) {
+        if self.update_edge(
+            level,
+            index,
+            current_lowest_source_y,
+            (x, y + 1, z),
+            top_state,
+            (x, y, z),
+            middle_state,
+        ) {
             return true;
         }
         let bottom_state = level.get_block_state(x, y - 1, z);
-        self.update_edge(level, index, current_lowest_source_y, (x, y, z), middle_state, (x, y - 1, z), bottom_state)
+        self.update_edge(
+            level,
+            index,
+            current_lowest_source_y,
+            (x, y, z),
+            middle_state,
+            (x, y - 1, z),
+            bottom_state,
+        )
     }
 
     #[allow(clippy::too_many_arguments)]
@@ -117,7 +157,12 @@ impl ChunkSkyLightSources {
         false
     }
 
-    fn find_lowest_source_below(&self, level: &impl HeightmapChunk, start_pos: (i32, i32, i32), start_state: BlockState) -> i32 {
+    fn find_lowest_source_below(
+        &self,
+        level: &impl HeightmapChunk,
+        start_pos: (i32, i32, i32),
+        start_state: BlockState,
+    ) -> i32 {
         let (x, start_y, z) = start_pos;
         let mut top_y = start_y;
         let mut bottom_y = start_y - 1;
@@ -139,7 +184,9 @@ impl ChunkSkyLightSources {
     }
 
     pub fn get_highest_lowest_source_y(&self) -> i32 {
-        let max_value = (0..self.heightmap.get_size()).map(|i| self.heightmap.get(i)).fold(i32::MIN, i32::max);
+        let max_value = (0..self.heightmap.get_size())
+            .map(|i| self.heightmap.get(i))
+            .fold(i32::MIN, i32::max);
         self.extend_sources_below_world(max_value.wrapping_add(self.min_y))
     }
 
@@ -159,7 +206,11 @@ impl ChunkSkyLightSources {
     }
 
     fn extend_sources_below_world(&self, value: i32) -> i32 {
-        if value == self.min_y { NEGATIVE_INFINITY } else { value }
+        if value == self.min_y {
+            NEGATIVE_INFINITY
+        } else {
+            value
+        }
     }
 
     fn index(x: i32, z: i32) -> usize {

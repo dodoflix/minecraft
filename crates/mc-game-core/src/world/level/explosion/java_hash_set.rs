@@ -36,7 +36,11 @@ pub struct JavaBlockPosHashSet {
 
 /// `HashMap.hash(key)` of `Vec3i.hashCode()`.
 fn spread(pos: &BlockPos) -> i32 {
-    let h = pos.y().wrapping_add(pos.z().wrapping_mul(31)).wrapping_mul(31).wrapping_add(pos.x());
+    let h = pos
+        .y()
+        .wrapping_add(pos.z().wrapping_mul(31))
+        .wrapping_mul(31)
+        .wrapping_add(pos.x());
     h ^ ((h as u32) >> 16) as i32
 }
 
@@ -48,7 +52,13 @@ impl Default for JavaBlockPosHashSet {
 
 impl JavaBlockPosHashSet {
     pub fn new() -> Self {
-        Self { nodes: Vec::new(), table: Vec::new(), tree: Vec::new(), size: 0, threshold: 0 }
+        Self {
+            nodes: Vec::new(),
+            table: Vec::new(),
+            tree: Vec::new(),
+            size: 0,
+            threshold: 0,
+        }
     }
 
     pub fn len(&self) -> usize {
@@ -75,7 +85,16 @@ impl JavaBlockPosHashSet {
     }
 
     fn new_node(&mut self, hash: i32, key: BlockPos, next: usize) -> usize {
-        self.nodes.push(Node { hash, key, next, prev: NIL, parent: NIL, left: NIL, right: NIL, red: false });
+        self.nodes.push(Node {
+            hash,
+            key,
+            next,
+            prev: NIL,
+            parent: NIL,
+            left: NIL,
+            right: NIL,
+            red: false,
+        });
         self.nodes.len() - 1
     }
 
@@ -151,10 +170,18 @@ impl JavaBlockPosHashSet {
             while e != NIL {
                 let next = self.nodes[e].next;
                 if self.nodes[e].hash as u32 as usize & old_cap == 0 {
-                    if lo_tail == NIL { lo_head = e } else { self.nodes[lo_tail].next = e }
+                    if lo_tail == NIL {
+                        lo_head = e
+                    } else {
+                        self.nodes[lo_tail].next = e
+                    }
                     lo_tail = e;
                 } else {
-                    if hi_tail == NIL { hi_head = e } else { self.nodes[hi_tail].next = e }
+                    if hi_tail == NIL {
+                        hi_head = e
+                    } else {
+                        self.nodes[hi_tail].next = e
+                    }
                     hi_tail = e;
                 }
                 e = next;
@@ -214,13 +241,23 @@ impl JavaBlockPosHashSet {
                     } else if ph < h {
                         1
                     } else {
-                        panic!("HashSet<BlockPos>: equal hash codes in one treeified bin (tieBreakOrder is nondeterministic in Java)");
+                        panic!(
+                            "HashSet<BlockPos>: equal hash codes in one treeified bin (tieBreakOrder is nondeterministic in Java)"
+                        );
                     };
                     let xp = p;
-                    p = if dir <= 0 { self.nodes[p].left } else { self.nodes[p].right };
+                    p = if dir <= 0 {
+                        self.nodes[p].left
+                    } else {
+                        self.nodes[p].right
+                    };
                     if p == NIL {
                         self.nodes[x].parent = xp;
-                        if dir <= 0 { self.nodes[xp].left = x } else { self.nodes[xp].right = x }
+                        if dir <= 0 {
+                            self.nodes[xp].left = x
+                        } else {
+                            self.nodes[xp].right = x
+                        }
                         root = self.balance_insertion(root, x);
                         break;
                     }
@@ -247,14 +284,24 @@ impl JavaBlockPosHashSet {
             } else if self.nodes[p].key == k {
                 return false;
             } else {
-                panic!("HashSet<BlockPos>: equal hash codes in one treeified bin (tieBreakOrder is nondeterministic in Java)");
+                panic!(
+                    "HashSet<BlockPos>: equal hash codes in one treeified bin (tieBreakOrder is nondeterministic in Java)"
+                );
             };
             let xp = p;
-            p = if dir <= 0 { self.nodes[p].left } else { self.nodes[p].right };
+            p = if dir <= 0 {
+                self.nodes[p].left
+            } else {
+                self.nodes[p].right
+            };
             if p == NIL {
                 let xpn = self.nodes[xp].next;
                 let x = self.new_node(h, k, xpn);
-                if dir <= 0 { self.nodes[xp].left = x } else { self.nodes[xp].right = x }
+                if dir <= 0 {
+                    self.nodes[xp].left = x
+                } else {
+                    self.nodes[xp].right = x
+                }
                 self.nodes[xp].next = x;
                 self.nodes[x].parent = xp;
                 self.nodes[x].prev = xp;
@@ -303,12 +350,20 @@ impl JavaBlockPosHashSet {
             self.nodes[e].next = NIL;
             if self.nodes[e].hash as u32 as usize & bit == 0 {
                 self.nodes[e].prev = lo_tail;
-                if lo_tail == NIL { lo_head = e } else { self.nodes[lo_tail].next = e }
+                if lo_tail == NIL {
+                    lo_head = e
+                } else {
+                    self.nodes[lo_tail].next = e
+                }
                 lo_tail = e;
                 lc += 1;
             } else {
                 self.nodes[e].prev = hi_tail;
-                if hi_tail == NIL { hi_head = e } else { self.nodes[hi_tail].next = e }
+                if hi_tail == NIL {
+                    hi_head = e
+                } else {
+                    self.nodes[hi_tail].next = e
+                }
                 hi_tail = e;
                 hc += 1;
             }
@@ -416,7 +471,11 @@ impl JavaBlockPosHashSet {
                         x = xp;
                         root = self.rotate_left(root, x);
                         xp = self.nodes[x].parent;
-                        xpp = if xp == NIL { NIL } else { self.nodes[xp].parent };
+                        xpp = if xp == NIL {
+                            NIL
+                        } else {
+                            self.nodes[xp].parent
+                        };
                     }
                     if xp != NIL {
                         self.nodes[xp].red = false;
@@ -436,7 +495,11 @@ impl JavaBlockPosHashSet {
                     x = xp;
                     root = self.rotate_right(root, x);
                     xp = self.nodes[x].parent;
-                    xpp = if xp == NIL { NIL } else { self.nodes[xp].parent };
+                    xpp = if xp == NIL {
+                        NIL
+                    } else {
+                        self.nodes[xp].parent
+                    };
                 }
                 if xp != NIL {
                     self.nodes[xp].red = false;

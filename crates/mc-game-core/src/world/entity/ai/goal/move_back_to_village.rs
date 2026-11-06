@@ -2,8 +2,8 @@
 
 use super::{Goal, GoalFlags, RandomStrollGoal};
 use crate::server::level::ServerLevel;
-use crate::world::entity::ai::util::default_random_pos;
 use crate::world::entity::Entity;
+use crate::world::entity::ai::util::default_random_pos;
 use mc_core::phys::Vec3;
 use mc_core::pos::SectionPos;
 
@@ -11,7 +11,11 @@ pub const MAX_XZ_DIST: i32 = 10;
 pub const MAX_Y_DIST: i32 = 7;
 
 /// `BehaviorUtils.findSectionClosestToVillage(level, center, radius)`.
-pub fn find_section_closest_to_village(level: &ServerLevel, center: SectionPos, radius: i32) -> SectionPos {
+pub fn find_section_closest_to_village(
+    level: &ServerLevel,
+    center: SectionPos,
+    radius: i32,
+) -> SectionPos {
     let dist_to_village = level.sections_to_village(center);
     SectionPos::cube(&center, radius)
         .filter(|s| level.sections_to_village(*s) < dist_to_village)
@@ -33,7 +37,9 @@ pub struct MoveBackToVillageGoal {
 impl MoveBackToVillageGoal {
     /// `MoveBackToVillageGoal(mob, speedModifier, checkNoActionTime)`.
     pub fn new(speed_modifier: f64, check_no_action_time: bool) -> Self {
-        Self { base: RandomStrollGoal::with_check(speed_modifier, 10, check_no_action_time) }
+        Self {
+            base: RandomStrollGoal::with_check(speed_modifier, 10, check_no_action_time),
+        }
     }
 
     /// `getPosition()`.
@@ -42,7 +48,14 @@ impl MoveBackToVillageGoal {
         let section_pos = SectionPos::of_block_pos(&pos);
         let optimal = find_section_closest_to_village(level, section_pos, 2);
         if optimal != section_pos {
-            default_random_pos::get_pos_towards(mob, level, MAX_XZ_DIST, MAX_Y_DIST, Vec3::at_bottom_center_of(&optimal.center()), f64::from((std::f64::consts::PI / 2.0) as f32))
+            default_random_pos::get_pos_towards(
+                mob,
+                level,
+                MAX_XZ_DIST,
+                MAX_Y_DIST,
+                Vec3::at_bottom_center_of(&optimal.center()),
+                f64::from((std::f64::consts::PI / 2.0) as f32),
+            )
         } else {
             None
         }

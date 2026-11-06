@@ -16,12 +16,15 @@ mod varint;
 
 pub use bits::{BitSet, BitSetBytes, EnumSet, EnumValues, FixedBitSet};
 pub use misc::*;
-pub use nbt::{decode_tag, decode_tag_with, encode_tag, NbtLimit};
-pub use prim::{read_utf, utf16_len, write_count, write_utf, LongArray, MAX_STRING_LENGTH};
+pub use nbt::{NbtLimit, decode_tag, decode_tag_with, encode_tag};
+pub use prim::{LongArray, MAX_STRING_LENGTH, read_utf, utf16_len, write_count, write_utf};
 pub use registry::{read_registry_id, read_registry_value};
 pub use text::JsonComponent;
 pub use types::*;
-pub use varint::{read_varint, read_varlong, varint_size, varlong_size, write_varint, write_varlong, VarInt, VarLong};
+pub use varint::{
+    VarInt, VarLong, read_varint, read_varlong, varint_size, varlong_size, write_varint,
+    write_varlong,
+};
 
 /// Error while decoding. `Message` carries the text of the vanilla `DecoderException`.
 #[derive(Debug, Clone, PartialEq, Eq, thiserror::Error)]
@@ -137,7 +140,10 @@ impl<T: Decode> Decode for Box<T> {
 #[inline]
 pub fn take<'a>(input: &mut &'a [u8], n: usize) -> DecodeResult<&'a [u8]> {
     if input.len() < n {
-        return Err(DecodeError::Eof { needed: n, available: input.len() });
+        return Err(DecodeError::Eof {
+            needed: n,
+            available: input.len(),
+        });
     }
     let (head, tail) = input.split_at(n);
     *input = tail;
@@ -155,7 +161,9 @@ pub fn take_array<const N: usize>(input: &mut &[u8]) -> DecodeResult<[u8; N]> {
 pub fn read_count(input: &mut &[u8], max: usize) -> DecodeResult<usize> {
     let count = read_varint(input)?;
     if count >= 0 && count as usize > max {
-        return Err(DecodeError::Message(format!("{count} elements exceeded max size of: {max}")));
+        return Err(DecodeError::Message(format!(
+            "{count} elements exceeded max size of: {max}"
+        )));
     }
     usize::try_from(count).map_err(|_| DecodeError::Message(format!("Illegal Capacity: {count}")))
 }
@@ -195,7 +203,10 @@ pub fn collapse_set<T: PartialEq>(items: Vec<T>) -> Vec<T> {
 pub fn from_bytes<T: Decode>(mut bytes: &[u8]) -> DecodeResult<T> {
     let v = T::decode(&mut bytes)?;
     if !bytes.is_empty() {
-        return Err(DecodeError::Message(format!("{} extra bytes after decoding", bytes.len())));
+        return Err(DecodeError::Message(format!(
+            "{} extra bytes after decoding",
+            bytes.len()
+        )));
     }
     Ok(v)
 }

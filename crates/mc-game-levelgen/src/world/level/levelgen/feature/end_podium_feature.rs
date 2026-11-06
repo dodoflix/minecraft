@@ -1,16 +1,16 @@
 //! `EndPodiumFeature` (`end_podium`): the exit portal podium.
 
-use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature, set_block};
-use mc_game_core::world::level::block::BlockStateExt;
-use mc_game_core::world::level::levelgen::GenEnv;
-use mc_game_core::world::level::levelgen::WorldGenLevel;
-use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry, parse_bool};
-use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_core::direction::Plane;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::Block;
 use mc_data::props;
+use mc_game_core::world::level::block::BlockStateExt;
+use mc_game_core::world::level::levelgen::GenEnv;
+use mc_game_core::world::level::levelgen::WorldGenLevel;
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry, parse_bool};
+use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature, set_block};
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use std::sync::Arc;
 
 pub struct EndPodiumFeature {
@@ -19,7 +19,9 @@ pub struct EndPodiumFeature {
 
 impl EndPodiumFeature {
     pub fn decode(fields: &Fields<'_>, _ctx: &DecodeCtx<'_>) -> LoadResult<Arc<dyn Feature>> {
-        Ok(Arc::new(EndPodiumFeature { active: fields.optional("active", parse_bool)?.unwrap_or(false) }))
+        Ok(Arc::new(EndPodiumFeature {
+            active: fields.optional("active", parse_bool)?.unwrap_or(false),
+        }))
     }
 
     /// `dropPreviousAndSetBlock(level, pos, block)`.
@@ -32,7 +34,13 @@ impl EndPodiumFeature {
 }
 
 impl Feature for EndPodiumFeature {
-    fn place(&self, level: &mut dyn WorldGenLevel, _generator: &GenEnv, _random: &mut dyn RandomSource, origin: BlockPos) -> bool {
+    fn place(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        _generator: &GenEnv,
+        _random: &mut dyn RandomSource,
+        origin: BlockPos,
+    ) -> bool {
         for pos in BlockPos::between_closed(
             &BlockPos::new(origin.x() - 4, origin.y() - 1, origin.z() - 4),
             &BlockPos::new(origin.x() + 4, origin.y() + 32, origin.z() + 4),
@@ -68,11 +76,20 @@ impl Feature for EndPodiumFeature {
         }
         let center_of_pillar = origin.above_n(2);
         for face in Plane::Horizontal {
-            set_block(level, center_of_pillar.relative(face), Block::WALL_TORCH.default_state().set(props::HORIZONTAL_FACING, face));
+            set_block(
+                level,
+                center_of_pillar.relative(face),
+                Block::WALL_TORCH
+                    .default_state()
+                    .set(props::HORIZONTAL_FACING, face),
+            );
         }
         true
     }
 }
 
 #[linkme::distributed_slice(FEATURE_TYPES)]
-static END_PODIUM: TypeEntry<dyn Feature> = TypeEntry { name: "end_podium", decode: EndPodiumFeature::decode };
+static END_PODIUM: TypeEntry<dyn Feature> = TypeEntry {
+    name: "end_podium",
+    decode: EndPodiumFeature::decode,
+};

@@ -51,10 +51,17 @@ pub fn get_biome_resolver<'a>(
     if !proto_chunk.is_upgrading() {
         return biome_resolver;
     }
-    let chunk_biomes: [BiomeId; 16] =
-        std::array::from_fn(|i| proto_chunk.access.get_noise_biome((i & 3) as i32, 0, (i >> 2) as i32));
+    let chunk_biomes: [BiomeId; 16] = std::array::from_fn(|i| {
+        proto_chunk
+            .access
+            .get_noise_biome((i & 3) as i32, 0, (i >> 2) as i32)
+    });
     Box::new(move |quart_x, quart_y, quart_z| {
         let noise_biome = biome_resolver(quart_x, quart_y, quart_z);
-        if is_retained(noise_biome) { noise_biome } else { chunk_biomes[((quart_z & 3) * 4 + (quart_x & 3)) as usize] }
+        if is_retained(noise_biome) {
+            noise_biome
+        } else {
+            chunk_biomes[((quart_z & 3) * 4 + (quart_x & 3)) as usize]
+        }
     })
 }

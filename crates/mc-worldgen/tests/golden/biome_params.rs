@@ -8,13 +8,14 @@ use std::sync::Arc;
 
 use mc_core::pos::block_pos::BlockPos;
 use mc_core::random::{LegacyRandomSource, RandomSource};
+use mc_world::palette::BiomeId;
 use mc_worldgen::biome::climate::{Parameter, ParameterList, ParameterPoint, TargetPoint};
 use mc_worldgen::biome::{BiomeManager, BiomeRegistry, Preset};
 use mc_worldgen::data::{McDataSource, WorldgenRegistries};
-use mc_world::palette::BiomeId;
 
 fn fixture() -> Vec<String> {
-    let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/biome_params.txt.gz");
+    let path =
+        std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/biome_params.txt.gz");
     let mut text = String::new();
     flate2::read::GzDecoder::new(std::fs::File::open(path).expect("fixture"))
         .read_to_string(&mut text)
@@ -49,7 +50,10 @@ fn registry_order_and_preset_lists_match_vanilla() {
     for line in lines.iter().filter(|l| l.starts_with("L ")) {
         let f: Vec<&str> = line.split(' ').collect();
         assert_eq!(num(f[2]) as usize, expected.entry(f[1]).or_default().len());
-        expected.entry(f[1]).or_default().push(f[3..].iter().map(|v| num(v)).collect());
+        expected
+            .entry(f[1])
+            .or_default()
+            .push(f[3..].iter().map(|v| num(v)).collect());
     }
     for (name, preset) in [("nether", Preset::Nether), ("overworld", Preset::Overworld)] {
         let want = &expected[name];
@@ -58,12 +62,18 @@ fn registry_order_and_preset_lists_match_vanilla() {
         for (i, ((point, biome), want)) in list.values().iter().zip(want).enumerate() {
             let got = [
                 i64::from(biome.0),
-                point.temperature.min, point.temperature.max,
-                point.humidity.min, point.humidity.max,
-                point.continentalness.min, point.continentalness.max,
-                point.erosion.min, point.erosion.max,
-                point.depth.min, point.depth.max,
-                point.weirdness.min, point.weirdness.max,
+                point.temperature.min,
+                point.temperature.max,
+                point.humidity.min,
+                point.humidity.max,
+                point.continentalness.min,
+                point.continentalness.max,
+                point.erosion.min,
+                point.erosion.max,
+                point.depth.min,
+                point.depth.max,
+                point.weirdness.min,
+                point.weirdness.max,
                 point.offset,
             ];
             assert_eq!(got.as_slice(), want.as_slice(), "{name} entry {i}");
@@ -73,7 +83,10 @@ fn registry_order_and_preset_lists_match_vanilla() {
     assert!(Preset::Overworld.used_biomes().len() > 40);
 }
 
-fn synthetic_list(count: usize, children_per_node: usize) -> (ParameterList<usize>, LegacyRandomSource) {
+fn synthetic_list(
+    count: usize,
+    children_per_node: usize,
+) -> (ParameterList<usize>, LegacyRandomSource) {
     let mut r = LegacyRandomSource::new(5 + count as i64);
     let mut values = Vec::new();
     for i in 0..count {
@@ -97,7 +110,10 @@ fn synthetic_list(count: usize, children_per_node: usize) -> (ParameterList<usiz
             i,
         ));
     }
-    (ParameterList::new(values).rebuild_with_children_per_node(children_per_node), r)
+    (
+        ParameterList::new(values).rebuild_with_children_per_node(children_per_node),
+        r,
+    )
 }
 
 #[test]
@@ -115,14 +131,26 @@ fn rtree_searches_match_vanilla() {
                 "nether" => Preset::Nether.parameter_list(|k| k.len()),
                 "overworld" => Preset::Overworld.parameter_list(|k| k.len()),
                 other => {
-                    let count: usize = other.trim_start_matches("synthetic").parse().expect("count");
+                    let count: usize = other
+                        .trim_start_matches("synthetic")
+                        .parse()
+                        .expect("count");
                     return synthetic_list(count, cpn).0;
                 }
             };
             // the preset lists store the entry index as value
-            let values = list.values().iter().enumerate().map(|(i, (p, _))| (*p, i)).collect();
+            let values = list
+                .values()
+                .iter()
+                .enumerate()
+                .map(|(i, (p, _))| (*p, i))
+                .collect();
             let list = ParameterList::new(values);
-            if cpn == 19 { list } else { list.rebuild_with_children_per_node(cpn) }
+            if cpn == 19 {
+                list
+            } else {
+                list.rebuild_with_children_per_node(cpn)
+            }
         });
         let t: Vec<i64> = f[3..9].iter().map(|v| num(v)).collect();
         let target = TargetPoint {
@@ -145,7 +173,12 @@ fn obfuscate_seed_matches_vanilla() {
     let mut n = 0;
     for line in fixture().iter().filter(|l| l.starts_with("O ")) {
         let f: Vec<&str> = line.split(' ').collect();
-        assert_eq!(BiomeManager::obfuscate_seed(num(f[1])), num(f[2]), "seed {}", f[1]);
+        assert_eq!(
+            BiomeManager::obfuscate_seed(num(f[1])),
+            num(f[2]),
+            "seed {}",
+            f[1]
+        );
         n += 1;
     }
     assert!(n > 40);
@@ -165,8 +198,16 @@ fn biome_temperature_queries_match_vanilla() {
         assert_eq!(format!("{:x}", temp.to_bits()), f[6], "{line}");
         assert_eq!(biome.cold_enough_to_snow(pos, sea), f[7] == "1", "{line}");
         assert_eq!(biome.warm_enough_to_rain(pos, sea), f[8] == "1", "{line}");
-        assert_eq!(biome.should_melt_frozen_ocean_iceberg_slightly(pos, sea), f[9] == "1", "{line}");
-        assert_eq!(biome.get_precipitation_at(pos, sea) as i32, f[10].parse::<i32>().expect("ordinal"), "{line}");
+        assert_eq!(
+            biome.should_melt_frozen_ocean_iceberg_slightly(pos, sea),
+            f[9] == "1",
+            "{line}"
+        );
+        assert_eq!(
+            biome.get_precipitation_at(pos, sea) as i32,
+            f[10].parse::<i32>().expect("ordinal"),
+            "{line}"
+        );
         n += 1;
     }
     assert!(n > 3000);

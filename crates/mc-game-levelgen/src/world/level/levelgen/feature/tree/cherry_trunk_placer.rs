@@ -4,11 +4,13 @@ use super::TRUNK_PLACER_TYPES;
 use super::foliage_placer::FoliageAttachment;
 use super::tree_feature::{TreeFeature, TreeSetter};
 use super::trunk_placer::{TrunkBase, TrunkPlacer, place_below_trunk_block, with_axis};
-use mc_game_core::world::level::levelgen::codec::{Fields, LoadError, LoadResult, TypeEntry, parse_int};
-use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::direction::{Direction, Plane};
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
+use mc_game_core::world::level::levelgen::codec::{
+    Fields, LoadError, LoadResult, TypeEntry, parse_int,
+};
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_worldgen::provider::IntProvider;
 use serde_json::Value;
 use std::sync::Arc;
@@ -29,16 +31,24 @@ fn parse_branch_start(value: &Value) -> LoadResult<(i32, i32)> {
     let min = fields.required("min_inclusive", parse_int)?;
     let max = fields.required("max_inclusive", parse_int)?;
     if max < min {
-        return Err(LoadError::new(format!("Max must be at least min, min_inclusive: {min}, max_inclusive: {max}")));
+        return Err(LoadError::new(format!(
+            "Max must be at least min, min_inclusive: {min}, max_inclusive: {max}"
+        )));
     }
     if max.wrapping_sub(min) < 1 {
-        return Err(LoadError::new("Need at least 2 blocks variation for the branch starts to fit both branches"));
+        return Err(LoadError::new(
+            "Need at least 2 blocks variation for the branch starts to fit both branches",
+        ));
     }
     if min < -16 {
-        return Err(LoadError::new(format!("Value provider too low: -16 [{min}-{max}]")));
+        return Err(LoadError::new(format!(
+            "Value provider too low: -16 [{min}-{max}]"
+        )));
     }
     if max > 0 {
-        return Err(LoadError::new(format!("Value provider too high: 0 [{min}-{max}]")));
+        return Err(LoadError::new(format!(
+            "Value provider too high: 0 [{min}-{max}]"
+        )));
     }
     Ok((min, max))
 }
@@ -59,10 +69,15 @@ impl CherryTrunkPlacer {
         middle_continues_upwards: bool,
     ) -> FoliageAttachment {
         let mut log_pos = origin.relative_n(Direction::Up, offset_from_origin);
-        let branch_end_pos_offset_from_origin = tree_height - 1 + self.branch_end_offset_from_top.sample(random);
-        let extend_branch_away_from_trunk = middle_continues_upwards || branch_end_pos_offset_from_origin < offset_from_origin;
-        let distance_to_trunk = self.branch_horizontal_length.sample(random) + i32::from(extend_branch_away_from_trunk);
-        let branch_end_pos = origin.relative_n(branch_direction, distance_to_trunk).above_n(branch_end_pos_offset_from_origin);
+        let branch_end_pos_offset_from_origin =
+            tree_height - 1 + self.branch_end_offset_from_top.sample(random);
+        let extend_branch_away_from_trunk =
+            middle_continues_upwards || branch_end_pos_offset_from_origin < offset_from_origin;
+        let distance_to_trunk =
+            self.branch_horizontal_length.sample(random) + i32::from(extend_branch_away_from_trunk);
+        let branch_end_pos = origin
+            .relative_n(branch_direction, distance_to_trunk)
+            .above_n(branch_end_pos_offset_from_origin);
         let steps_horizontally = if extend_branch_away_from_trunk { 2 } else { 1 };
 
         for _ in 0..steps_horizontally {
@@ -70,15 +85,24 @@ impl CherryTrunkPlacer {
             self.place_log_with(level, trunk_setter, random, log_pos, tree, sideways);
         }
 
-        let vertical_direction = if branch_end_pos.y() > log_pos.y() { Direction::Up } else { Direction::Down };
+        let vertical_direction = if branch_end_pos.y() > log_pos.y() {
+            Direction::Up
+        } else {
+            Direction::Down
+        };
         loop {
             let distance = log_pos.dist_manhattan(&branch_end_pos);
             if distance == 0 {
                 return FoliageAttachment::new(branch_end_pos.above(), 0, false);
             }
-            let chance_to_grow_vertically = (branch_end_pos.y() - log_pos.y()).abs() as f32 / distance as f32;
+            let chance_to_grow_vertically =
+                (branch_end_pos.y() - log_pos.y()).abs() as f32 / distance as f32;
             let grow_vertically = random.next_float() < chance_to_grow_vertically;
-            log_pos = log_pos.relative(if grow_vertically { vertical_direction } else { branch_direction });
+            log_pos = log_pos.relative(if grow_vertically {
+                vertical_direction
+            } else {
+                branch_direction
+            });
             if grow_vertically {
                 self.place_log(level, trunk_setter, random, log_pos, tree);
             } else {
@@ -103,8 +127,10 @@ impl TrunkPlacer for CherryTrunkPlacer {
         tree: &TreeFeature,
     ) -> Vec<FoliageAttachment> {
         place_below_trunk_block(level, trunk_setter, random, origin.below(), tree);
-        let first_branch_offset_from_origin = 0.max(tree_height - 1 + self.branch_start_offset_from_top.sample(random));
-        let mut second_branch_offset_from_origin = 0.max(tree_height - 1 + self.second_branch_start_offset_from_top.sample(random));
+        let first_branch_offset_from_origin =
+            0.max(tree_height - 1 + self.branch_start_offset_from_top.sample(random));
+        let mut second_branch_offset_from_origin =
+            0.max(tree_height - 1 + self.second_branch_start_offset_from_top.sample(random));
         if second_branch_offset_from_origin >= first_branch_offset_from_origin {
             second_branch_offset_from_origin += 1;
         }
@@ -126,7 +152,11 @@ impl TrunkPlacer for CherryTrunkPlacer {
 
         let mut attachments = Vec::new();
         if has_middle_branch {
-            attachments.push(FoliageAttachment::new(origin.above_n(trunk_height), 0, false));
+            attachments.push(FoliageAttachment::new(
+                origin.above_n(trunk_height),
+                0,
+                false,
+            ));
         }
 
         let tree_direction = Plane::Horizontal.get_random_direction(random);
@@ -167,16 +197,28 @@ static CHERRY_TRUNK_PLACER: TypeEntry<dyn TrunkPlacer> = TypeEntry {
     name: "cherry_trunk_placer",
     decode: |fields, _| {
         let base = TrunkBase::decode(fields)?;
-        let branch_count = fields.required("branch_count", |v| IntProvider::from_json_range(v, 1, 3))?;
-        let branch_horizontal_length = fields.required("branch_horizontal_length", |v| IntProvider::from_json_range(v, 2, 16))?;
-        let (start_min, start_max) = fields.required("branch_start_offset_from_top", parse_branch_start)?;
-        let branch_end_offset_from_top = fields.required("branch_end_offset_from_top", |v| IntProvider::from_json_range(v, -16, 16))?;
+        let branch_count =
+            fields.required("branch_count", |v| IntProvider::from_json_range(v, 1, 3))?;
+        let branch_horizontal_length = fields.required("branch_horizontal_length", |v| {
+            IntProvider::from_json_range(v, 2, 16)
+        })?;
+        let (start_min, start_max) =
+            fields.required("branch_start_offset_from_top", parse_branch_start)?;
+        let branch_end_offset_from_top = fields.required("branch_end_offset_from_top", |v| {
+            IntProvider::from_json_range(v, -16, 16)
+        })?;
         Ok(Arc::new(CherryTrunkPlacer {
             base,
             branch_count,
             branch_horizontal_length,
-            branch_start_offset_from_top: IntProvider::Uniform { min_inclusive: start_min, max_inclusive: start_max },
-            second_branch_start_offset_from_top: IntProvider::Uniform { min_inclusive: start_min, max_inclusive: start_max - 1 },
+            branch_start_offset_from_top: IntProvider::Uniform {
+                min_inclusive: start_min,
+                max_inclusive: start_max,
+            },
+            second_branch_start_offset_from_top: IntProvider::Uniform {
+                min_inclusive: start_min,
+                max_inclusive: start_max - 1,
+            },
             branch_end_offset_from_top,
         }))
     },

@@ -6,7 +6,6 @@ pub mod java_hash_set;
 
 use mc_core::random::RandomSource;
 
-
 /// `Util.shuffle(list, random)`.
 pub fn shuffle<T>(list: &mut [T], random: &mut dyn RandomSource) {
     let mut i = list.len();

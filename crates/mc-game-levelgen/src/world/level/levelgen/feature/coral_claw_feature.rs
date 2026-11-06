@@ -1,16 +1,16 @@
 //! `CoralClawFeature`.
 
-use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature};
-use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry};
-use mc_game_core::world::level::levelgen::env::GenEnv;
-use mc_game_core::world::level::levelgen::holder::Holder;
-use mc_game_core::world::level::levelgen::feature::tree::shuffle;
-use mc_game_core::world::level::levelgen::placement::PlacedFeature;
-use mc_game_core::world::level::levelgen::registries::DecodeCtx;
-use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::direction::{Direction, Plane};
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry};
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::feature::tree::shuffle;
+use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature};
+use mc_game_core::world::level::levelgen::holder::Holder;
+use mc_game_core::world::level::levelgen::placement::PlacedFeature;
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use std::sync::Arc;
 
 pub struct CoralClawFeature {
@@ -19,22 +19,37 @@ pub struct CoralClawFeature {
 
 impl CoralClawFeature {
     fn decode(fields: &Fields<'_>, ctx: &DecodeCtx<'_>) -> LoadResult<Arc<dyn Feature>> {
-        Ok(Arc::new(CoralClawFeature { feature: fields.required("feature", |v| ctx.placed_feature(v))? }))
+        Ok(Arc::new(CoralClawFeature {
+            feature: fields.required("feature", |v| ctx.placed_feature(v))?,
+        }))
     }
 }
 
 #[linkme::distributed_slice(FEATURE_TYPES)]
-static CORAL_CLAW: TypeEntry<dyn Feature> = TypeEntry { name: "coral_claw", decode: CoralClawFeature::decode };
+static CORAL_CLAW: TypeEntry<dyn Feature> = TypeEntry {
+    name: "coral_claw",
+    decode: CoralClawFeature::decode,
+};
 
 impl Feature for CoralClawFeature {
-    fn place(&self, level: &mut dyn WorldGenLevel, generator: &GenEnv, random: &mut dyn RandomSource, origin: BlockPos) -> bool {
+    fn place(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        generator: &GenEnv,
+        random: &mut dyn RandomSource,
+        origin: BlockPos,
+    ) -> bool {
         let feature = self.feature.value();
         if !feature.place(level, generator, random, origin) {
             return false;
         }
         let claw_direction = Plane::Horizontal.get_random_direction(random);
         let n_branches = random.next_int_bounded(2) + 2;
-        let mut possible_directions = [claw_direction, claw_direction.get_clockwise(), claw_direction.get_counter_clockwise()];
+        let mut possible_directions = [
+            claw_direction,
+            claw_direction.get_clockwise(),
+            claw_direction.get_counter_clockwise(),
+        ];
         shuffle(&mut possible_directions, random);
 
         for &branch_direction in &possible_directions[..n_branches as usize] {
@@ -49,7 +64,8 @@ impl Feature for CoralClawFeature {
             } else {
                 mut_pos = mut_pos.relative(Direction::Up);
                 let segment_possible_directions = [branch_direction, Direction::Up];
-                segment_direction = segment_possible_directions[random.next_int_bounded(2) as usize];
+                segment_direction =
+                    segment_possible_directions[random.next_int_bounded(2) as usize];
                 inway_length = random.next_int_bounded(3) + 3;
             }
 

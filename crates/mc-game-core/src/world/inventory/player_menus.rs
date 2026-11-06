@@ -5,7 +5,10 @@
 //! The player embeds a [`PlayerMenus`]; the menu in use is *taken out* while it runs so it can receive the player
 //! itself as `&mut dyn MenuPlayer`.
 
-use super::{AbstractContainerMenu, ContainerListener, ContainerSynchronizer, InventoryMenu, MenuClickError, MenuPlayer};
+use super::{
+    AbstractContainerMenu, ContainerListener, ContainerSynchronizer, InventoryMenu, MenuClickError,
+    MenuPlayer,
+};
 use crate::world::item::ItemStack;
 use mc_protocol::packets::play::ServerboundContainerClickPacket;
 
@@ -26,7 +29,11 @@ pub struct PlayerMenus {
 
 impl PlayerMenus {
     pub fn new() -> Self {
-        Self { inventory_menu: Some(Box::new(InventoryMenu::new(true))), container_menu: None, container_counter: 0 }
+        Self {
+            inventory_menu: Some(Box::new(InventoryMenu::new(true))),
+            container_menu: None,
+            container_counter: 0,
+        }
     }
 
     /// `containerMenu != inventoryMenu` (`hasContainerOpen`).
@@ -53,11 +60,15 @@ impl PlayerMenus {
     }
 
     pub fn inventory_menu(&self) -> &dyn AbstractContainerMenu {
-        self.inventory_menu.as_deref().expect("inventory menu is in use")
+        self.inventory_menu
+            .as_deref()
+            .expect("inventory menu is in use")
     }
 
     pub fn inventory_menu_mut(&mut self) -> &mut dyn AbstractContainerMenu {
-        self.inventory_menu.as_deref_mut().expect("inventory menu is in use")
+        self.inventory_menu
+            .as_deref_mut()
+            .expect("inventory menu is in use")
     }
 
     pub fn current(&self) -> &dyn AbstractContainerMenu {
@@ -70,7 +81,10 @@ impl PlayerMenus {
     pub fn current_mut(&mut self) -> &mut dyn AbstractContainerMenu {
         match &mut self.container_menu {
             Some(m) => m.as_mut(),
-            None => self.inventory_menu.as_deref_mut().expect("inventory menu is in use"),
+            None => self
+                .inventory_menu
+                .as_deref_mut()
+                .expect("inventory menu is in use"),
         }
     }
 
@@ -78,7 +92,12 @@ impl PlayerMenus {
     fn take_current(&mut self) -> (Box<dyn AbstractContainerMenu>, bool) {
         match self.container_menu.take() {
             Some(m) => (m, false),
-            None => (self.inventory_menu.take().expect("inventory menu is in use"), true),
+            None => (
+                self.inventory_menu
+                    .take()
+                    .expect("inventory menu is in use"),
+                true,
+            ),
         }
     }
 
@@ -105,9 +124,15 @@ impl PlayerMenus {
 
     /// `initMenu(menu)` + `containerMenu = menu` for a menu already built with `next_container_counter()`'s id.
     /// (The caller sends `ClientboundOpenScreenPacket` first, like `ServerPlayer.openMenu`.)
-    pub fn set_container_menu(&mut self, mut menu: Box<dyn AbstractContainerMenu>, init: &dyn MenuInit, player: &mut dyn MenuPlayer) {
+    pub fn set_container_menu(
+        &mut self,
+        mut menu: Box<dyn AbstractContainerMenu>,
+        init: &dyn MenuInit,
+        player: &mut dyn MenuPlayer,
+    ) {
         menu.add_slot_listener(init.container_listener(), player);
-        menu.base_mut().set_synchronizer(init.container_synchronizer(), player);
+        menu.base_mut()
+            .set_synchronizer(init.container_synchronizer(), player);
         self.container_menu = Some(menu);
     }
 
@@ -120,7 +145,8 @@ impl PlayerMenus {
     pub fn init_inventory_menu(&mut self, init: &dyn MenuInit, player: &mut dyn MenuPlayer) {
         let menu = self.inventory_menu_mut();
         menu.add_slot_listener(init.container_listener(), player);
-        menu.base_mut().set_synchronizer(init.container_synchronizer(), player);
+        menu.base_mut()
+            .set_synchronizer(init.container_synchronizer(), player);
     }
 
     /// `doCloseContainer()`: `containerMenu.removed(player)`; `inventoryMenu.transferState(containerMenu)`;
@@ -130,11 +156,17 @@ impl PlayerMenus {
         match self.container_menu.take() {
             Some(mut menu) => {
                 menu.removed(player);
-                let inv = self.inventory_menu.as_deref_mut().expect("inventory menu is in use");
+                let inv = self
+                    .inventory_menu
+                    .as_deref_mut()
+                    .expect("inventory menu is in use");
                 inv.base_mut().transfer_state(menu.base());
             }
             None => {
-                let inv = self.inventory_menu.as_deref_mut().expect("inventory menu is in use");
+                let inv = self
+                    .inventory_menu
+                    .as_deref_mut()
+                    .expect("inventory menu is in use");
                 inv.removed(player);
                 // transferState(self) is a no-op on identical remote state.
             }
@@ -150,7 +182,12 @@ impl Default for PlayerMenus {
 
 /// `handleContainerClick`'s menu part (the caller has already done `resetLastActionTime`). `is_dead_or_dying` =
 /// `player.isDeadOrDying()`. Returns `Err` for the index-out-of-bounds exception vanilla would throw from `clicked`.
-pub fn handle_container_click(menu: &mut dyn AbstractContainerMenu, player: &mut dyn MenuPlayer, packet: &ServerboundContainerClickPacket, is_dead_or_dying: bool) -> Result<(), MenuClickError> {
+pub fn handle_container_click(
+    menu: &mut dyn AbstractContainerMenu,
+    player: &mut dyn MenuPlayer,
+    packet: &ServerboundContainerClickPacket,
+    is_dead_or_dying: bool,
+) -> Result<(), MenuClickError> {
     if menu.base().container_id != packet.container_id {
         return Ok(());
     }
@@ -160,15 +197,27 @@ pub fn handle_container_click(menu: &mut dyn AbstractContainerMenu, player: &mut
     } else if !menu.still_valid(player) {
         log::debug!("Player {} interacted with invalid menu", player.entity_id());
     } else if !menu.base().is_valid_slot_index(slot_index) {
-        log::debug!("Player {} clicked invalid slot index: {}, available slots: {}", player.entity_id(), slot_index, menu.base().slots.len());
+        log::debug!(
+            "Player {} clicked invalid slot index: {}, available slots: {}",
+            player.entity_id(),
+            slot_index,
+            menu.base().slots.len()
+        );
     } else {
         let full_resync_needed = packet.state_id != menu.base().get_state_id();
         menu.base_mut().suppress_remote_updates();
-        let result = menu.clicked(slot_index, packet.button_num as i32, packet.container_input, player);
+        let result = menu.clicked(
+            slot_index,
+            packet.button_num as i32,
+            packet.container_input,
+            player,
+        );
         for (slot, stack) in &packet.changed_slots {
-            menu.base_mut().set_remote_slot_unsafe(*slot as i32, stack.clone());
+            menu.base_mut()
+                .set_remote_slot_unsafe(*slot as i32, stack.clone());
         }
-        menu.base_mut().set_remote_carried(packet.carried_item.clone());
+        menu.base_mut()
+            .set_remote_carried(packet.carried_item.clone());
         menu.base_mut().resume_remote_updates();
         result?;
         if full_resync_needed {
@@ -181,7 +230,12 @@ pub fn handle_container_click(menu: &mut dyn AbstractContainerMenu, player: &mut
 }
 
 /// `handleContainerButtonClick`.
-pub fn handle_container_button_click(menu: &mut dyn AbstractContainerMenu, player: &mut dyn MenuPlayer, container_id: i32, button_id: i32) {
+pub fn handle_container_button_click(
+    menu: &mut dyn AbstractContainerMenu,
+    player: &mut dyn MenuPlayer,
+    container_id: i32,
+    button_id: i32,
+) {
     if menu.base().container_id == container_id && !player.is_spectator() {
         if !menu.still_valid(player) {
             log::debug!("Player {} interacted with invalid menu", player.entity_id());
@@ -204,7 +258,13 @@ pub enum CreativeSlotResult {
     Throttled,
 }
 
-pub fn handle_set_creative_mode_slot(inventory_menu: &mut dyn AbstractContainerMenu, player: &mut dyn MenuPlayer, slot_num: i32, stack: ItemStack, drop_throttle_ok: bool) -> CreativeSlotResult {
+pub fn handle_set_creative_mode_slot(
+    inventory_menu: &mut dyn AbstractContainerMenu,
+    player: &mut dyn MenuPlayer,
+    slot_num: i32,
+    stack: ItemStack,
+    drop_throttle_ok: bool,
+) -> CreativeSlotResult {
     if !player.has_infinite_materials() {
         return CreativeSlotResult::Ignored;
     }

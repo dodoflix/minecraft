@@ -1,7 +1,7 @@
 //! `net.minecraft.world.level.block.WebBlock`.
+use mc_core::phys::Vec3;
 use mc_game_core::register_block_class;
 use mc_game_core::world::level::block::impls::prelude::*;
-use mc_core::phys::Vec3;
 
 pub struct WebBlock;
 

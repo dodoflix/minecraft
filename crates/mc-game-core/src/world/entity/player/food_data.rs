@@ -1,7 +1,7 @@
 //! `net.minecraft.world.food.FoodData` (state, NBT and the food tick; the player side effects are in `food.rs`).
 use mc_core::math::{java, mth};
-use mc_world::level_storage::Difficulty;
 use mc_nbt::CompoundTag;
+use mc_world::level_storage::Difficulty;
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct FoodData {
@@ -13,14 +13,23 @@ pub struct FoodData {
 
 impl Default for FoodData {
     fn default() -> Self {
-        Self { food_level: 20, saturation_level: 5.0, exhaustion_level: 0.0, tick_timer: 0 }
+        Self {
+            food_level: 20,
+            saturation_level: 5.0,
+            exhaustion_level: 0.0,
+            tick_timer: 0,
+        }
     }
 }
 
 impl FoodData {
     fn add(&mut self, food: i32, saturation: f32) {
         self.food_level = mth::clamp_i32(food.wrapping_add(self.food_level), 0, 20);
-        self.saturation_level = mth::clamp_f32(saturation + self.saturation_level, 0.0, self.food_level as f32);
+        self.saturation_level = mth::clamp_f32(
+            saturation + self.saturation_level,
+            0.0,
+            self.food_level as f32,
+        );
     }
 
     /// `eat(food, saturationModifier)` (`FoodConstants.saturationByModifier`).
@@ -88,7 +97,13 @@ impl FoodData {
     /// `tick(player)` up to the player side effects: `health`/`max_health` are the player's (`isHurt()` =
     /// `health > 0 && health < maxHealth`); `heal` is applied after the timer update exactly where vanilla calls it
     /// (nothing in the rest of the tick reads the health).
-    pub fn tick(&mut self, difficulty: Difficulty, natural_regeneration: bool, health: f32, max_health: f32) -> FoodTickResult {
+    pub fn tick(
+        &mut self,
+        difficulty: Difficulty,
+        natural_regeneration: bool,
+        health: f32,
+        max_health: f32,
+    ) -> FoodTickResult {
         let mut result = FoodTickResult::default();
         let hurt = health > 0.0 && health < max_health;
         if self.exhaustion_level > 4.0 {
@@ -117,7 +132,10 @@ impl FoodData {
         } else if self.food_level <= 0 {
             self.tick_timer += 1;
             if self.tick_timer >= 80 {
-                if health > 10.0 || difficulty == Difficulty::Hard || (health > 1.0 && difficulty == Difficulty::Normal) {
+                if health > 10.0
+                    || difficulty == Difficulty::Hard
+                    || (health > 1.0 && difficulty == Difficulty::Normal)
+                {
                     result.starve = true;
                 }
                 self.tick_timer = 0;

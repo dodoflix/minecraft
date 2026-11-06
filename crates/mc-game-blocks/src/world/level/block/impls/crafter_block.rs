@@ -10,15 +10,30 @@ fn core_orientation(state: BlockState) -> mc_core::direction::FrontAndTop {
 }
 
 fn with_orientation(state: BlockState, orientation: mc_core::direction::FrontAndTop) -> BlockState {
-    state.set(props::ORIENTATION, mc_data::enums::FrontAndTop::ALL[orientation.ordinal()])
+    state.set(
+        props::ORIENTATION,
+        mc_data::enums::FrontAndTop::ALL[orientation.ordinal()],
+    )
 }
 
 impl BlockBehaviour for CrafterBlock {
     fn rotate(&self, state: BlockState, rotation: Rotation) -> BlockState {
-        with_orientation(state, rotation.rotation().rotate_front_and_top(core_orientation(state)).expect("rotated jigsaw orientation"))
+        with_orientation(
+            state,
+            rotation
+                .rotation()
+                .rotate_front_and_top(core_orientation(state))
+                .expect("rotated jigsaw orientation"),
+        )
     }
     fn mirror(&self, state: BlockState, mirror: Mirror) -> BlockState {
-        with_orientation(state, mirror.rotation().rotate_front_and_top(core_orientation(state)).expect("mirrored jigsaw orientation"))
+        with_orientation(
+            state,
+            mirror
+                .rotation()
+                .rotate_front_and_top(core_orientation(state))
+                .expect("mirrored jigsaw orientation"),
+        )
     }
 }
 

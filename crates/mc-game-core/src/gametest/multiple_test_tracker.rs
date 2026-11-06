@@ -21,7 +21,10 @@ impl MultipleTestTracker {
 
     /// `new MultipleTestTracker(tests)`.
     pub fn with_tests(tests: Vec<Rc<GameTestInfo>>) -> Rc<Self> {
-        Rc::new(Self { tests: RefCell::new(tests), listeners: RefCell::new(Vec::new()) })
+        Rc::new(Self {
+            tests: RefCell::new(tests),
+            listeners: RefCell::new(Vec::new()),
+        })
     }
 
     /// `addTestToTrack(testInfo)`.
@@ -53,11 +56,19 @@ impl MultipleTestTracker {
     }
 
     pub fn get_failed_required_count(&self) -> i32 {
-        self.tests.borrow().iter().filter(|t| t.has_failed() && t.is_required()).count() as i32
+        self.tests
+            .borrow()
+            .iter()
+            .filter(|t| t.has_failed() && t.is_required())
+            .count() as i32
     }
 
     pub fn get_failed_optional_count(&self) -> i32 {
-        self.tests.borrow().iter().filter(|t| t.has_failed() && t.is_optional()).count() as i32
+        self.tests
+            .borrow()
+            .iter()
+            .filter(|t| t.has_failed() && t.is_optional())
+            .count() as i32
     }
 
     pub fn get_done_count(&self) -> i32 {
@@ -73,11 +84,21 @@ impl MultipleTestTracker {
     }
 
     pub fn get_failed_required(&self) -> Vec<Rc<GameTestInfo>> {
-        self.tests.borrow().iter().filter(|t| t.has_failed() && t.is_required()).cloned().collect()
+        self.tests
+            .borrow()
+            .iter()
+            .filter(|t| t.has_failed() && t.is_required())
+            .cloned()
+            .collect()
     }
 
     pub fn get_failed_optional(&self) -> Vec<Rc<GameTestInfo>> {
-        self.tests.borrow().iter().filter(|t| t.has_failed() && t.is_optional()).cloned().collect()
+        self.tests
+            .borrow()
+            .iter()
+            .filter(|t| t.has_failed() && t.is_optional())
+            .cloned()
+            .collect()
     }
 
     pub fn get_total_count(&self) -> i32 {
@@ -116,7 +137,12 @@ impl MultipleTestTracker {
 
     /// The tests that failed, as registry holders (`FailedTestTracker` input).
     pub fn failed_holders(&self) -> Vec<TestHolder> {
-        self.tests.borrow().iter().filter(|t| t.has_failed()).map(|t| t.get_test_holder().clone()).collect()
+        self.tests
+            .borrow()
+            .iter()
+            .filter(|t| t.has_failed())
+            .map(|t| t.get_test_holder().clone())
+            .collect()
     }
 }
 
@@ -125,9 +151,20 @@ struct FailureListener(Box<dyn Fn(&Rc<GameTestInfo>)>);
 impl GameTestListener for FailureListener {
     fn test_structure_loaded(&self, _server: &mut MinecraftServer, _test_info: &Rc<GameTestInfo>) {}
 
-    fn test_passed(&self, _server: &mut MinecraftServer, _test_info: &Rc<GameTestInfo>, _runner: &Rc<GameTestRunner>) {}
+    fn test_passed(
+        &self,
+        _server: &mut MinecraftServer,
+        _test_info: &Rc<GameTestInfo>,
+        _runner: &Rc<GameTestRunner>,
+    ) {
+    }
 
-    fn test_failed(&self, _server: &mut MinecraftServer, test_info: &Rc<GameTestInfo>, _runner: &Rc<GameTestRunner>) {
+    fn test_failed(
+        &self,
+        _server: &mut MinecraftServer,
+        test_info: &Rc<GameTestInfo>,
+        _runner: &Rc<GameTestRunner>,
+    ) {
         (self.0)(test_info);
     }
 

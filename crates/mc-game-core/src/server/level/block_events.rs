@@ -85,7 +85,12 @@ mod tests {
     use super::*;
 
     fn ev(x: i32, a: i32) -> BlockEventData {
-        BlockEventData { pos: BlockPos::new(x, 64, 0), block: Block::NOTE_BLOCK, param_a: a, param_b: 0 }
+        BlockEventData {
+            pos: BlockPos::new(x, 64, 0),
+            block: Block::NOTE_BLOCK,
+            param_a: a,
+            param_b: 0,
+        }
     }
 
     #[test]

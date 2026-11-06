@@ -2,8 +2,8 @@
 
 use super::TREE_DECORATOR_TYPES;
 use super::tree_decorator::{Context, TreeDecorator};
-use mc_game_core::world::level::levelgen::codec::TypeEntry;
 use mc_data::props;
+use mc_game_core::world::level::levelgen::codec::TypeEntry;
 use std::sync::Arc;
 
 pub struct TrunkVineDecorator;
@@ -40,4 +40,7 @@ impl TreeDecorator for TrunkVineDecorator {
 }
 
 #[linkme::distributed_slice(TREE_DECORATOR_TYPES)]
-static TRUNK_VINE: TypeEntry<dyn TreeDecorator> = TypeEntry { name: "trunk_vine", decode: |_, _| Ok(Arc::new(TrunkVineDecorator)) };
+static TRUNK_VINE: TypeEntry<dyn TreeDecorator> = TypeEntry {
+    name: "trunk_vine",
+    decode: |_, _| Ok(Arc::new(TrunkVineDecorator)),
+};

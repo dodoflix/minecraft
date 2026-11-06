@@ -13,14 +13,15 @@ pub struct LevitationTriggerInstance {
 
 impl TriggerInstance for LevitationTriggerInstance {
     fn codec() -> Codec<Self> {
-        static C: std::sync::LazyLock<Codec<LevitationTriggerInstance>> = std::sync::LazyLock::new(|| {
-            mc_dfu::record!(LevitationTriggerInstance {
-                player: condition_holder_codec().optional_field_of("player"),
-                distance: DistancePredicate::codec().optional_field_of("distance"),
-                duration: Ints::codec().optional_field_of_default("duration", Ints::any()),
-            })
-            .codec()
-        });
+        static C: std::sync::LazyLock<Codec<LevitationTriggerInstance>> =
+            std::sync::LazyLock::new(|| {
+                mc_dfu::record!(LevitationTriggerInstance {
+                    player: condition_holder_codec().optional_field_of("player"),
+                    distance: DistancePredicate::codec().optional_field_of("distance"),
+                    duration: Ints::codec().optional_field_of_default("duration", Ints::any()),
+                })
+                .codec()
+            });
         C.clone()
     }
 }
@@ -52,7 +53,13 @@ impl LevitationTriggerInstance {
 
 impl Trigger<LevitationTriggerInstance> {
     /// `trigger(player, start, duration)`.
-    pub fn trigger(&self, level: &mut ServerLevel, player: &mut ServerPlayer, start: Vec3, duration: i32) {
+    pub fn trigger(
+        &self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        start: Vec3,
+        duration: i32,
+    ) {
         let matches = self.collect(&*level, &*player, |t| t.matches(player, start, duration));
         matches.award(level, player);
     }

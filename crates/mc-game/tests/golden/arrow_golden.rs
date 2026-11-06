@@ -14,7 +14,9 @@ use mc_data::block::{Block, BlockState};
 use mc_game::server::level::ServerLevel;
 use mc_game::world::entity::EntityId;
 use mc_game::world::entity::entity::{Entity, common_tick};
-use mc_game::world::entity::projectile::arrow::{AbstractArrow, Arrow, SpectralArrow, ThrownTrident};
+use mc_game::world::entity::projectile::arrow::{
+    AbstractArrow, Arrow, SpectralArrow, ThrownTrident,
+};
 use mc_game::world::level::LevelAccessor;
 
 fn parse_state(text: &str) -> BlockState {
@@ -23,16 +25,28 @@ fn parse_state(text: &str) -> BlockState {
         None => (text, ""),
     };
     let block = Block::by_name(name).unwrap_or_else(|| panic!("unknown block {name}"));
-    let pairs: Vec<(&str, &str)> = props.split(',').filter(|s| !s.is_empty()).map(|kv| kv.split_once('=').expect("k=v")).collect();
-    block.state_from_properties(pairs).unwrap_or_else(|| panic!("bad state {text}"))
+    let pairs: Vec<(&str, &str)> = props
+        .split(',')
+        .filter(|s| !s.is_empty())
+        .map(|kv| kv.split_once('=').expect("k=v"))
+        .collect();
+    block
+        .state_from_properties(pairs)
+        .unwrap_or_else(|| panic!("bad state {text}"))
 }
 
-static ACCESS: std::sync::LazyLock<mc_game::registry::RegistryAccess> = std::sync::LazyLock::new(|| {
-    let _serial = common::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
-    let dir = tempfile::tempdir().unwrap();
-    let (_, stem) = common::load_world(dir.path(), mc_world::level_storage::WorldDataConfiguration::DEFAULT, true).expect("default world loads");
-    stem.registries.composite_access().clone()
-});
+static ACCESS: std::sync::LazyLock<mc_game::registry::RegistryAccess> =
+    std::sync::LazyLock::new(|| {
+        let _serial = common::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
+        let dir = tempfile::tempdir().unwrap();
+        let (_, stem) = common::load_world(
+            dir.path(),
+            mc_world::level_storage::WorldDataConfiguration::DEFAULT,
+            true,
+        )
+        .expect("default world loads");
+        stem.registries.composite_access().clone()
+    });
 
 fn registries() -> mc_game::registry::RegistryAccess {
     ACCESS.clone()
@@ -73,31 +87,62 @@ fn replay(scenario: &str) -> Vec<String> {
     level.registries = registries();
     for x in -48..=64 {
         for z in -16..=48 {
-            level.set_block(BlockPos::new(x, -61, z), Block::GRASS_BLOCK.default_state(), 3, 512);
+            level.set_block(
+                BlockPos::new(x, -61, z),
+                Block::GRASS_BLOCK.default_state(),
+                3,
+                512,
+            );
         }
     }
     for cx in -4..=4 {
         for cz in -2..=4 {
-            level.entity_manager.update_chunk_status(mc_core::pos::ChunkPos::new(cx, cz), mc_game::world::level::entity::Visibility::Ticking);
+            level.entity_manager.update_chunk_status(
+                mc_core::pos::ChunkPos::new(cx, cz),
+                mc_game::world::level::entity::Visibility::Ticking,
+            );
         }
     }
     let mut refs: Vec<(String, EntityId)> = Vec::new();
     let mut out = Vec::new();
     let mut tick = 0;
-    for line in text.lines().map(str::trim).filter(|l| !l.is_empty() && !l.starts_with('#')) {
+    for line in text
+        .lines()
+        .map(str::trim)
+        .filter(|l| !l.is_empty() && !l.starts_with('#'))
+    {
         let t: Vec<&str> = line.split_whitespace().collect();
         let num = |i: usize| t[i].parse::<f64>().unwrap();
-        let id_of = |name: &str, refs: &[(String, EntityId)]| refs.iter().find(|(n, _)| n == name).unwrap_or_else(|| panic!("no ref {name}")).1;
+        let id_of = |name: &str, refs: &[(String, EntityId)]| {
+            refs.iter()
+                .find(|(n, _)| n == name)
+                .unwrap_or_else(|| panic!("no ref {name}"))
+                .1
+        };
         match t[0] {
             "level" | "watch" | "difficulty" | "preload" | "seed" | "gamerule" => {}
             "block" => {
-                level.set_block(BlockPos::new(num(1) as i32, num(2) as i32, num(3) as i32), parse_state(t[4]), 3, 512);
+                level.set_block(
+                    BlockPos::new(num(1) as i32, num(2) as i32, num(3) as i32),
+                    parse_state(t[4]),
+                    3,
+                    512,
+                );
             }
             "fill" => {
                 let state = parse_state(t[7]);
-                let (x0, x1) = ((num(1) as i32).min(num(4) as i32), (num(1) as i32).max(num(4) as i32));
-                let (y0, y1) = ((num(2) as i32).min(num(5) as i32), (num(2) as i32).max(num(5) as i32));
-                let (z0, z1) = ((num(3) as i32).min(num(6) as i32), (num(3) as i32).max(num(6) as i32));
+                let (x0, x1) = (
+                    (num(1) as i32).min(num(4) as i32),
+                    (num(1) as i32).max(num(4) as i32),
+                );
+                let (y0, y1) = (
+                    (num(2) as i32).min(num(5) as i32),
+                    (num(2) as i32).max(num(5) as i32),
+                );
+                let (z0, z1) = (
+                    (num(3) as i32).min(num(6) as i32),
+                    (num(3) as i32).max(num(6) as i32),
+                );
                 for x in x0..=x1 {
                     for y in y0..=y1 {
                         for z in z0..=z1 {
@@ -107,7 +152,8 @@ fn replay(scenario: &str) -> Vec<String> {
                 }
             }
             "spawn" => {
-                let ty = EntityType::by_name(t[2]).unwrap_or_else(|| panic!("entity type {}", t[2]));
+                let ty =
+                    EntityType::by_name(t[2]).unwrap_or_else(|| panic!("entity type {}", t[2]));
                 let eid = level.next_entity_id();
                 let mut e: Box<dyn Entity> = match ty {
                     EntityType::ARROW => Box::new(Arrow::new(ty, eid)),
@@ -115,7 +161,11 @@ fn replay(scenario: &str) -> Vec<String> {
                     EntityType::TRIDENT => Box::new(ThrownTrident::new(ty, eid)),
                     other => panic!("unsupported entity {other}"),
                 };
-                let (yaw, pitch) = if t.len() > 7 && !t[6].starts_with('{') { (num(6) as f32, num(7) as f32) } else { (0.0, 0.0) };
+                let (yaw, pitch) = if t.len() > 7 && !t[6].starts_with('{') {
+                    (num(6) as f32, num(7) as f32)
+                } else {
+                    (0.0, 0.0)
+                };
                 e.snap_to(num(3), num(4), num(5), yaw, pitch);
                 if let Some(snbt) = t.last().filter(|s| s.starts_with('{')) {
                     let tag = mc_nbt::snbt::parse_compound(snbt).expect("snbt");
@@ -131,7 +181,13 @@ fn replay(scenario: &str) -> Vec<String> {
             }
             "velocity" => {
                 let id = id_of(t[1], &refs);
-                level.with_entity(id, |_, e| e.base_mut().set_delta_movement(mc_core::phys::Vec3::new(num(2), num(3), num(4))));
+                level.with_entity(id, |_, e| {
+                    e.base_mut().set_delta_movement(mc_core::phys::Vec3::new(
+                        num(2),
+                        num(3),
+                        num(4),
+                    ))
+                });
             }
             "tick" => {
                 for _ in 0..t.get(1).map_or(1, |n| n.parse().unwrap()) {
@@ -147,7 +203,9 @@ fn replay(scenario: &str) -> Vec<String> {
                     tick += 1;
                     out.push(format!("T {tick}"));
                     for (name, id) in &refs {
-                        let Some(e) = level.get_entity(*id) else { continue };
+                        let Some(e) = level.get_entity(*id) else {
+                            continue;
+                        };
                         let b = e.base();
                         out.push(format!(
                             "E {name} {} pos={} delta={} rot={},{} og={} fall={:?} fire={} air={} alive={} pose=standing{}",
@@ -175,7 +233,11 @@ fn replay(scenario: &str) -> Vec<String> {
 fn compare_scenario(name: &str) {
     let fixture = Fixture::load(name);
     let actual = replay(name);
-    let opts = Options { ignore_fields: vec!["pose"], ignore_kinds: vec!["#", "C", "PKT"], ..Default::default() };
+    let opts = Options {
+        ignore_fields: vec!["pose"],
+        ignore_kinds: vec!["#", "C", "PKT"],
+        ..Default::default()
+    };
     fixture.assert_matches(&actual, &opts);
 }
 
@@ -187,5 +249,11 @@ fn arrow_flight_matches_vanilla() {
 /// Arrows hitting players, run through the generic scenario harness (`tests/common/entity_scenario.rs`).
 #[test]
 fn arrow_hits_match_vanilla() {
-    common::entity_scenario::run_scenario_test_with("arrow_hit", &Options { ignore_fields: vec!["og", "fire", "pos", "delta"], ..Default::default() });
+    common::entity_scenario::run_scenario_test_with(
+        "arrow_hit",
+        &Options {
+            ignore_fields: vec!["og", "fire", "pos", "delta"],
+            ..Default::default()
+        },
+    );
 }

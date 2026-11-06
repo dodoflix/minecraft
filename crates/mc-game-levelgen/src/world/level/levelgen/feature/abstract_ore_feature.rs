@@ -2,12 +2,14 @@
 //! plus the placement test (`canPlaceOre`).
 
 use super::block_replacement::BlockReplacement;
-use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, parse_float_range, parse_int_range, parse_list};
-use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::BlockState;
+use mc_game_core::world::level::levelgen::codec::{
+    Fields, LoadResult, parse_float_range, parse_int_range, parse_list,
+};
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 
 pub struct AbstractOreFeature {
     pub target_states: Vec<BlockReplacement>,
@@ -19,9 +21,14 @@ impl AbstractOreFeature {
     /// `AbstractOreFeature.makeCodec`.
     pub fn decode(fields: &Fields<'_>, ctx: &DecodeCtx<'_>) -> LoadResult<AbstractOreFeature> {
         Ok(AbstractOreFeature {
-            target_states: fields.required("targets", |v| parse_list(v, |e| BlockReplacement::decode(e, ctx)))?,
+            target_states: fields.required("targets", |v| {
+                parse_list(v, |e| BlockReplacement::decode(e, ctx))
+            })?,
             size: fields.required("size", |v| parse_int_range(v, 0, 64))?,
-            discard_chance_on_air_exposure: fields.required("discard_chance_on_air_exposure", |v| parse_float_range(v, 0.0, 1.0))?,
+            discard_chance_on_air_exposure: fields
+                .required("discard_chance_on_air_exposure", |v| {
+                    parse_float_range(v, 0.0, 1.0)
+                })?,
         })
     }
 
@@ -37,7 +44,8 @@ impl AbstractOreFeature {
         if !target_state.target.test(state, ore_pos, random) {
             return false;
         }
-        should_skip_air_check(random, self.discard_chance_on_air_exposure) || !is_adjacent_to_air(block_getter, ore_pos)
+        should_skip_air_check(random, self.discard_chance_on_air_exposure)
+            || !is_adjacent_to_air(block_getter, ore_pos)
     }
 }
 
@@ -47,11 +55,20 @@ pub fn is_adjacent_to_air(block_getter: &dyn Fn(BlockPos) -> BlockState, pos: Bl
 }
 
 /// `checkNeighbors(blockGetter, pos, predicate)`.
-pub fn check_neighbors(block_getter: &dyn Fn(BlockPos) -> BlockState, pos: BlockPos, predicate: impl Fn(BlockState) -> bool) -> bool {
-    Direction::ALL.into_iter().any(|direction| predicate(block_getter(pos.relative(direction))))
+pub fn check_neighbors(
+    block_getter: &dyn Fn(BlockPos) -> BlockState,
+    pos: BlockPos,
+    predicate: impl Fn(BlockState) -> bool,
+) -> bool {
+    Direction::ALL
+        .into_iter()
+        .any(|direction| predicate(block_getter(pos.relative(direction))))
 }
 
-fn should_skip_air_check(random: &mut dyn RandomSource, discard_chance_on_air_exposure: f32) -> bool {
+fn should_skip_air_check(
+    random: &mut dyn RandomSource,
+    discard_chance_on_air_exposure: f32,
+) -> bool {
     if discard_chance_on_air_exposure <= 0.0 {
         true
     } else if discard_chance_on_air_exposure >= 1.0 {

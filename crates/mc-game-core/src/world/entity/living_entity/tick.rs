@@ -40,7 +40,10 @@ pub fn tick(entity: &mut dyn Entity, level: &mut ServerLevel) {
         }
         living.remove_arrow_time -= 1;
         if living.remove_arrow_time <= 0 {
-            entity.base_mut().entity_data.set(DATA_ARROW_COUNT_ID, arrow_count - 1);
+            entity
+                .base_mut()
+                .entity_data
+                .set(DATA_ARROW_COUNT_ID, arrow_count - 1);
         }
     }
     let stinger_count = entity.base().entity_data.get(DATA_STINGER_COUNT_ID);
@@ -51,14 +54,19 @@ pub fn tick(entity: &mut dyn Entity, level: &mut ServerLevel) {
         }
         living.remove_stinger_time -= 1;
         if living.remove_stinger_time <= 0 {
-            entity.base_mut().entity_data.set(DATA_STINGER_COUNT_ID, stinger_count - 1);
+            entity
+                .base_mut()
+                .entity_data
+                .set(DATA_STINGER_COUNT_ID, stinger_count - 1);
         }
     }
     super::equipment_changes::detect_equipment_updates(entity, level);
     if entity.base().tick_count % 20 == 0 {
         super::combat::recheck_status(entity, level);
     }
-    if entity.is_sleeping() && (!entity.can_interact_with_level() || !super::sleeping::check_bed_exists(entity, level)) {
+    if entity.is_sleeping()
+        && (!entity.can_interact_with_level() || !super::sleeping::check_bed_exists(entity, level))
+    {
         super::sleeping::stop_sleeping(entity, level);
     }
     if !entity.is_removed() {
@@ -69,9 +77,17 @@ pub fn tick(entity: &mut dyn Entity, level: &mut ServerLevel) {
     let side_dist = (xd * xd + zd * zd) as f32;
     let mut y_body_rot_t = l(entity).y_body_rot;
     if side_dist > 0.0025000002 {
-        let walk_direction = mth::atan2(zd, xd) as f32 * (180.0 / std::f64::consts::PI as f32) - 90.0;
-        let diff_between_direction_and_facing = mth::abs_f32(mth::wrap_degrees_f32(entity.base().y_rot()) - walk_direction);
-        y_body_rot_t = if 95.0 < diff_between_direction_and_facing && diff_between_direction_and_facing < 265.0 { walk_direction - 180.0 } else { walk_direction };
+        let walk_direction =
+            mth::atan2(zd, xd) as f32 * (180.0 / std::f64::consts::PI as f32) - 90.0;
+        let diff_between_direction_and_facing =
+            mth::abs_f32(mth::wrap_degrees_f32(entity.base().y_rot()) - walk_direction);
+        y_body_rot_t = if 95.0 < diff_between_direction_and_facing
+            && diff_between_direction_and_facing < 265.0
+        {
+            walk_direction - 180.0
+        } else {
+            walk_direction
+        };
     }
     if l(entity).swing_state.animation() > 0.0 {
         y_body_rot_t = entity.base().y_rot();
@@ -127,6 +143,7 @@ pub fn tick_head_turn(entity: &mut dyn Entity, y_body_rot_t: f32) {
     let head_diff = mth::wrap_degrees_f32(entity.base().y_rot() - l(entity).y_body_rot);
     let max_head_rotation = entity.get_max_head_rotation_relative_to_body();
     if head_diff.abs() > max_head_rotation {
-        lm(entity).y_body_rot += head_diff - mth::sign(f64::from(head_diff)) as f32 * max_head_rotation;
+        lm(entity).y_body_rot +=
+            head_diff - mth::sign(f64::from(head_diff)) as f32 * max_head_rotation;
     }
 }

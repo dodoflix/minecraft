@@ -9,25 +9,26 @@
 //! `STRUCTURE_TEMPLATE_STRIDE=n` runs every n-th scenario only (default 1 = all), `STRUCTURE_TEMPLATE_ONLY=id` one scenario
 //! and prints its dump (compare with `scripts/vanilla-java.sh .../StructureTemplateOracle.java out.txt <template> <id>`).
 
-
 use crate::common::feature_harness::*;
+use mc_core::bounding_box::BoundingBox;
 use mc_core::math::mth;
 use mc_core::mirror::Mirror;
 use mc_core::phys::Vec3;
 use mc_core::pos::{BlockPos, Vec3i};
 use mc_core::random::{self, RandomSource};
 use mc_core::rotation::Rotation;
+use mc_data::block::Block;
 use mc_game::world::level::levelgen::registries::{Cells, DecodeCtx};
 use mc_game::world::level::levelgen::structure::templatesystem::LiquidSettings;
+use mc_game::world::level::levelgen::structure::templatesystem::StructurePlaceSettings;
 use mc_game::world::level::levelgen::structure::templatesystem::structure_place_settings::SharedRandom;
 use mc_game::world::level::levelgen::structure::templatesystem::structure_processor::decode_single;
 use mc_game::world::level::levelgen::structure::templatesystem::structure_processor_list::load_processor_lists;
-use mc_game::world::level::levelgen::structure::templatesystem::structure_template::{self, JigsawBlockInfo, StructureBlockInfo, StructureTemplate};
-use mc_game::world::level::levelgen::structure::templatesystem::StructurePlaceSettings;
-use mc_core::bounding_box::BoundingBox;
-use mc_data::block::Block;
-use mc_worldgen::data::{FsDataSource, WorldgenDataSource};
+use mc_game::world::level::levelgen::structure::templatesystem::structure_template::{
+    self, JigsawBlockInfo, StructureBlockInfo, StructureTemplate,
+};
 use mc_world::status::ChunkStatus;
+use mc_worldgen::data::{FsDataSource, WorldgenDataSource};
 use std::collections::HashMap;
 use std::io::Read;
 use std::panic::{AssertUnwindSafe, catch_unwind};
@@ -36,9 +37,15 @@ use std::sync::Arc;
 
 fn read_fixture() -> String {
     let mut text = String::new();
-    flate2::read::GzDecoder::new(std::fs::File::open(concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures/structure_template_place.txt.gz")).expect("fixture present"))
-        .read_to_string(&mut text)
-        .expect("fixture is gzip");
+    flate2::read::GzDecoder::new(
+        std::fs::File::open(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/tests/fixtures/structure_template_place.txt.gz"
+        ))
+        .expect("fixture present"),
+    )
+    .read_to_string(&mut text)
+    .expect("fixture is gzip");
     text
 }
 
@@ -78,8 +85,12 @@ fn data_root() -> PathBuf {
 }
 
 fn load_template(name: &str) -> StructureTemplate {
-    let path = data_root().join("minecraft/structure").join(format!("{}.nbt", name.strip_prefix("minecraft:").unwrap()));
-    let tag = mc_nbt::nbt_io::read_compressed_file(&path, &mut mc_nbt::NbtAccounter::unlimited_heap()).unwrap_or_else(|e| panic!("{name}: {e}"));
+    let path = data_root()
+        .join("minecraft/structure")
+        .join(format!("{}.nbt", name.strip_prefix("minecraft:").unwrap()));
+    let tag =
+        mc_nbt::nbt_io::read_compressed_file(&path, &mut mc_nbt::NbtAccounter::unlimited_heap())
+            .unwrap_or_else(|e| panic!("{name}: {e}"));
     let mut template = StructureTemplate::new();
     template.load(&tag);
     template
@@ -88,8 +99,16 @@ fn load_template(name: &str) -> StructureTemplate {
 fn info_digest(infos: &[StructureBlockInfo]) -> String {
     let mut f = Fnv::default();
     for i in infos {
-        let nbt = i.nbt.as_ref().map_or("null".to_string(), |t| mc_nbt::Tag::Compound(t.clone()).to_string());
-        f.s(&format!("{} {} {} {} {nbt}", i.pos.x(), i.pos.y(), i.pos.z(), state_string(i.state)));
+        let nbt = i.nbt.as_ref().map_or("null".to_string(), |t| {
+            mc_nbt::Tag::Compound(t.clone()).to_string()
+        });
+        f.s(&format!(
+            "{} {} {} {} {nbt}",
+            i.pos.x(),
+            i.pos.y(),
+            i.pos.z(),
+            state_string(i.state)
+        ));
     }
     format!("{}/{}", f.hex(), f.count)
 }
@@ -115,7 +134,17 @@ fn jigsaw_digest(infos: &[JigsawBlockInfo]) -> String {
 }
 
 fn bb_string(bb: Option<BoundingBox>) -> String {
-    bb.map_or("-".into(), |b| format!("{},{},{},{},{},{}", b.min_x(), b.min_y(), b.min_z(), b.max_x(), b.max_y(), b.max_z()))
+    bb.map_or("-".into(), |b| {
+        format!(
+            "{},{},{},{},{},{}",
+            b.min_x(),
+            b.min_y(),
+            b.min_z(),
+            b.max_x(),
+            b.max_y(),
+            b.max_z()
+        )
+    })
 }
 
 fn fnv_lines(lines: &[String], kind: char) -> String {
@@ -139,17 +168,50 @@ fn static_transform_math_matches_vanilla() {
         let t: Vec<&str> = line.split(' ').collect();
         match t[1] {
             "pos" => {
-                let got = structure_template::transform(BlockPos::new(int(t[2]), int(t[3]), int(t[4])), mirror(t[5]), rotation(t[6]), BlockPos::new(int(t[7]), 0, int(t[8])));
-                assert_eq!(format!("{} {} {}", got.x(), got.y(), got.z()), t[9..12].join(" "), "{line}");
+                let got = structure_template::transform(
+                    BlockPos::new(int(t[2]), int(t[3]), int(t[4])),
+                    mirror(t[5]),
+                    rotation(t[6]),
+                    BlockPos::new(int(t[7]), 0, int(t[8])),
+                );
+                assert_eq!(
+                    format!("{} {} {}", got.x(), got.y(), got.z()),
+                    t[9..12].join(" "),
+                    "{line}"
+                );
             }
             "vec" => {
                 let v = Vec3::new(hex_f64(t[2]), hex_f64(t[3]), hex_f64(t[4]));
-                let got = structure_template::transform_vec3(v, mirror(t[5]), rotation(t[6]), BlockPos::new(int(t[7]), 0, int(t[8])));
-                assert_eq!(format!("{} {} {}", bits_hex(got.x), bits_hex(got.y), bits_hex(got.z)), t[9..12].join(" "), "{line}");
+                let got = structure_template::transform_vec3(
+                    v,
+                    mirror(t[5]),
+                    rotation(t[6]),
+                    BlockPos::new(int(t[7]), 0, int(t[8])),
+                );
+                assert_eq!(
+                    format!(
+                        "{} {} {}",
+                        bits_hex(got.x),
+                        bits_hex(got.y),
+                        bits_hex(got.z)
+                    ),
+                    t[9..12].join(" "),
+                    "{line}"
+                );
             }
             "zero" => {
-                let got = structure_template::get_zero_position_with_transform(BlockPos::new(int(t[2]), int(t[3]), int(t[4])), mirror(t[5]), rotation(t[6]), int(t[7]), int(t[8]));
-                assert_eq!(format!("{} {} {}", got.x(), got.y(), got.z()), t[9..12].join(" "), "{line}");
+                let got = structure_template::get_zero_position_with_transform(
+                    BlockPos::new(int(t[2]), int(t[3]), int(t[4])),
+                    mirror(t[5]),
+                    rotation(t[6]),
+                    int(t[7]),
+                    int(t[8]),
+                );
+                assert_eq!(
+                    format!("{} {} {}", got.x(), got.y(), got.z()),
+                    t[9..12].join(" "),
+                    "{line}"
+                );
             }
             other => panic!("unknown X line {other}"),
         }
@@ -161,12 +223,21 @@ fn static_transform_math_matches_vanilla() {
 #[test]
 fn place_in_world_matches_vanilla() {
     let fixture = read_fixture();
-    let stride: usize = std::env::var("STRUCTURE_TEMPLATE_STRIDE").ok().and_then(|s| s.parse().ok()).unwrap_or(1);
-    let only: Option<usize> = std::env::var("STRUCTURE_TEMPLATE_ONLY").ok().and_then(|s| s.parse().ok());
+    let stride: usize = std::env::var("STRUCTURE_TEMPLATE_STRIDE")
+        .ok()
+        .and_then(|s| s.parse().ok())
+        .unwrap_or(1);
+    let only: Option<usize> = std::env::var("STRUCTURE_TEMPLATE_ONLY")
+        .ok()
+        .and_then(|s| s.parse().ok());
 
     let source: Arc<dyn WorldgenDataSource> = Arc::new(FsDataSource::new(data_root()));
     let cells = Cells::new(source);
-    let ctx = DecodeCtx { worldgen: &WORLD.worldgen, biomes: &WORLD.biomes, cells: &cells };
+    let ctx = DecodeCtx {
+        worldgen: &WORLD.worldgen,
+        biomes: &WORLD.biomes,
+        cells: &cells,
+    };
     let lists = load_processor_lists(&ctx).expect("vanilla processor lists");
 
     let mut templates: HashMap<String, Arc<StructureTemplate>> = HashMap::new();
@@ -195,14 +266,29 @@ fn place_in_world_matches_vanilla() {
         let pos = BlockPos::new(int(h[10]), int(h[11]), int(h[12]));
         let reference = BlockPos::new(int(h[13]), int(h[14]), int(h[15]));
         let (ignore_entities, known_shape) = (h[16] == "true", h[17] == "true");
-        let liquid = if h[18] == "IGNORE_WATERLOGGING" { LiquidSettings::IgnoreWaterlogging } else { LiquidSettings::ApplyWaterlogging };
+        let liquid = if h[18] == "IGNORE_WATERLOGGING" {
+            LiquidSettings::IgnoreWaterlogging
+        } else {
+            LiquidSettings::ApplyWaterlogging
+        };
         let (flags, rng_seed) = (int(h[22]) as u32, h[23].parse::<i64>().unwrap());
 
-        let template = templates.entry(name.to_string()).or_insert_with(|| Arc::new(load_template(name))).clone();
+        let template = templates
+            .entry(name.to_string())
+            .or_insert_with(|| Arc::new(load_template(name)))
+            .clone();
         let mut settings = StructurePlaceSettings::new();
-        settings.set_rotation(rot).set_mirror(mir).set_rotation_pivot(pivot).set_ignore_entities(ignore_entities).set_known_shape(known_shape).set_liquid_settings(liquid);
+        settings
+            .set_rotation(rot)
+            .set_mirror(mir)
+            .set_rotation_pivot(pivot)
+            .set_ignore_entities(ignore_entities)
+            .set_known_shape(known_shape)
+            .set_liquid_settings(liquid);
         let mut q = StructurePlaceSettings::new();
-        q.set_rotation(rot).set_mirror(mir).set_rotation_pivot(pivot);
+        q.set_rotation(rot)
+            .set_mirror(mir)
+            .set_rotation_pivot(pivot);
         if h[19] != "-" {
             let b: Vec<i32> = h[19].split(',').map(int).collect();
             let bb = BoundingBox::new(b[0], b[1], b[2], b[3], b[4], b[5]);
@@ -210,24 +296,35 @@ fn place_in_world_matches_vanilla() {
             q.set_bounding_box(bb);
         }
         if h[20] != "-" {
-            settings.set_random(Some(SharedRandom::new(Box::new(random::create(h[20].parse().unwrap())))));
+            settings.set_random(Some(SharedRandom::new(Box::new(random::create(
+                h[20].parse().unwrap(),
+            )))));
         }
         if h[21] != "-" {
             for spec in h[21].split(';') {
                 if let Some(list) = spec.strip_prefix("list:") {
-                    let holder = lists.get(&mc_core::ident::Identifier::parse(list).unwrap()).unwrap_or_else(|| panic!("processor list {list}"));
+                    let holder = lists
+                        .get(&mc_core::ident::Identifier::parse(list).unwrap())
+                        .unwrap_or_else(|| panic!("processor list {list}"));
                     for p in holder.value().list() {
                         settings.add_processor(p.clone());
                     }
                 } else {
-                    let json: serde_json::Value = serde_json::from_str(spec.strip_prefix("json:").expect("json spec")).unwrap();
-                    settings.add_processor(decode_single(&json, &ctx).unwrap_or_else(|e| panic!("{spec}: {e}")));
+                    let json: serde_json::Value =
+                        serde_json::from_str(spec.strip_prefix("json:").expect("json spec"))
+                            .unwrap();
+                    settings.add_processor(
+                        decode_single(&json, &ctx).unwrap_or_else(|e| panic!("{spec}: {e}")),
+                    );
                 }
             }
         }
 
         // vanilla's harness cannot load some block entities (`Components not bound yet` for the vault): not comparable
-        if expected.first().is_some_and(|r| r.starts_with("R EXC:ExceptionInInitializerError") || r.starts_with("R EXC:NoClassDefFoundError")) {
+        if expected.first().is_some_and(|r| {
+            r.starts_with("R EXC:ExceptionInInitializerError")
+                || r.starts_with("R EXC:NoClassDefFoundError")
+        }) {
             harness_limited += 1;
             continue;
         }
@@ -236,7 +333,9 @@ fn place_in_world_matches_vanilla() {
         let mut level = synth.level();
         let mut rng = random::create(rng_seed);
         // a read outside the region throws in vanilla (`IllegalArgumentException`: StaticCache2D out of range) and panics here
-        let result = match catch_unwind(AssertUnwindSafe(|| template.place_in_world(&mut level, pos, reference, &settings, &mut rng, flags))) {
+        let result = match catch_unwind(AssertUnwindSafe(|| {
+            template.place_in_world(&mut level, pos, reference, &settings, &mut rng, flags)
+        })) {
             Ok(placed) => placed.to_string(),
             Err(_) => "EXC".to_string(),
         };
@@ -248,11 +347,28 @@ fn place_in_world_matches_vanilla() {
             size.z,
             bb_string(Some(template.get_bounding_box(&q, pos))),
             jigsaw_digest(&template.get_jigsaws(pos, rot)),
-            info_digest(&template.filter_blocks(pos, &q, Block::by_name("minecraft:chest").unwrap())),
-            info_digest(&template.filter_blocks_abs(pos, &q, Block::by_name("minecraft:jigsaw").unwrap(), false)),
+            info_digest(&template.filter_blocks(
+                pos,
+                &q,
+                Block::by_name("minecraft:chest").unwrap()
+            )),
+            info_digest(&template.filter_blocks_abs(
+                pos,
+                &q,
+                Block::by_name("minecraft:jigsaw").unwrap(),
+                false
+            )),
         );
         let dump_lines = dump(&mut level, &before);
-        let mut got: Vec<String> = vec![if result == "EXC" && expected[0].starts_with("R EXC:") { expected[0].to_string() } else { format!("R {result}") }, queries, format!("RNG {}", rng.next_long())];
+        let mut got: Vec<String> = vec![
+            if result == "EXC" && expected[0].starts_with("R EXC:") {
+                expected[0].to_string()
+            } else {
+                format!("R {result}")
+            },
+            queries,
+            format!("RNG {}", rng.next_long()),
+        ];
         for k in ['B', 'E', 'H', 'P', 'K', 'G'] {
             got.push(format!("DG {k} {}", fnv_lines(&dump_lines, k)));
         }
@@ -265,13 +381,27 @@ fn place_in_world_matches_vanilla() {
         }
         run += 1;
         if got.iter().map(String::as_str).ne(expected.iter().copied()) {
-            let first = got.iter().zip(&expected).position(|(a, b)| a != b).unwrap_or(0);
+            let first = got
+                .iter()
+                .zip(&expected)
+                .position(|(a, b)| a != b)
+                .unwrap_or(0);
             if failures.len() < 40 {
-                failures.push(format!("scenario {id} `{}`: line {first}: ours `{}`, vanilla `{}`", header, got.get(first).map_or("", String::as_str), expected.get(first).unwrap_or(&"")));
+                failures.push(format!(
+                    "scenario {id} `{}`: line {first}: ours `{}`, vanilla `{}`",
+                    header,
+                    got.get(first).map_or("", String::as_str),
+                    expected.get(first).unwrap_or(&"")
+                ));
             }
         }
         let _ = (Vec3i::ZERO, mth::get_seed_xyz(0, 0, 0));
     }
-    assert!(failures.is_empty(), "{run} scenarios run ({skipped} skipped, {harness_limited} vanilla-harness limited), {} failures:\n{}", failures.len(), failures.join("\n"));
+    assert!(
+        failures.is_empty(),
+        "{run} scenarios run ({skipped} skipped, {harness_limited} vanilla-harness limited), {} failures:\n{}",
+        failures.len(),
+        failures.join("\n")
+    );
     assert!(run > 0, "no scenario ran");
 }

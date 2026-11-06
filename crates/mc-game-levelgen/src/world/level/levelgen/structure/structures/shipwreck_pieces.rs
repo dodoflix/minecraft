@@ -1,23 +1,26 @@
 //! `ShipwreckPieces`: the shipwreck template piece (beached / ocean variants, loot through the data markers).
 
-use mc_game_core::world::level::levelgen::block_entity_data::set_block_entity_loot_table;
-use mc_game_core::world::level::levelgen::env::GenEnv;
-use mc_game_core::world::level::levelgen::structure::manager::StructureManager;
-use mc_game_core::world::level::levelgen::structure::piece::{
-    PieceBase, STRUCTURE_PIECE_TYPES, StructurePiece, StructurePieceSerializationContext, StructurePieceType,
-};
-use mc_game_core::world::level::levelgen::structure::pieces::StructurePiecesBuilder;
 use crate::world::level::levelgen::structure::template_structure_piece::{
     TemplateStructurePieceData, read_rotation, rotation_legacy_name,
 };
 use crate::world::level::levelgen::structure::templatesystem::block_ignore_processor::STRUCTURE_AND_AIR;
-use mc_game_core::world::level::levelgen::structure::templatesystem::{StructurePlaceSettings, StructureTemplateManager};
 use mc_core::bounding_box::BoundingBox;
 use mc_core::ident::Identifier;
 use mc_core::mirror::Mirror;
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_core::random::RandomSource;
 use mc_core::rotation::Rotation;
+use mc_game_core::world::level::levelgen::block_entity_data::set_block_entity_loot_table;
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::structure::manager::StructureManager;
+use mc_game_core::world::level::levelgen::structure::piece::{
+    PieceBase, STRUCTURE_PIECE_TYPES, StructurePiece, StructurePieceSerializationContext,
+    StructurePieceType,
+};
+use mc_game_core::world::level::levelgen::structure::pieces::StructurePiecesBuilder;
+use mc_game_core::world::level::levelgen::structure::templatesystem::{
+    StructurePlaceSettings, StructureTemplateManager,
+};
 use mc_nbt::CompoundTag;
 use mc_world::heightmap::HeightmapType;
 
@@ -72,10 +75,19 @@ fn marker_loot_table(marker_id: &str) -> Option<&'static str> {
 }
 
 #[linkme::distributed_slice(STRUCTURE_PIECE_TYPES)]
-pub static SHIPWRECK_PIECE: StructurePieceType = StructurePieceType { id: "shipwreck", load: load_piece };
+pub static SHIPWRECK_PIECE: StructurePieceType = StructurePieceType {
+    id: "shipwreck",
+    load: load_piece,
+};
 
-fn load_piece(context: &StructurePieceSerializationContext<'_>, tag: &CompoundTag) -> Result<Box<dyn StructurePiece>, String> {
-    Ok(Box::new(ShipwreckPiece::load(&context.env.structure_template_manager, tag)?))
+fn load_piece(
+    context: &StructurePieceSerializationContext<'_>,
+    tag: &CompoundTag,
+) -> Result<Box<dyn StructurePiece>, String> {
+    Ok(Box::new(ShipwreckPiece::load(
+        &context.env.structure_template_manager,
+        tag,
+    )?))
 }
 
 /// `ShipwreckPieces.addRandomPiece(manager, position, rotation, builder, random, isBeached)`: returns the index of the
@@ -88,10 +100,23 @@ pub fn add_random_piece(
     random: &mut dyn RandomSource,
     is_beached: bool,
 ) -> usize {
-    let locations: &[&str] = if is_beached { &STRUCTURE_LOCATION_BEACHED } else { &STRUCTURE_LOCATION_OCEAN };
+    let locations: &[&str] = if is_beached {
+        &STRUCTURE_LOCATION_BEACHED
+    } else {
+        &STRUCTURE_LOCATION_OCEAN
+    };
     // `Util.getRandom(array, random)`
-    let identifier = Identifier::with_default_namespace(locations[random.next_int_bounded(locations.len() as i32) as usize]).expect("valid shipwreck template id");
-    let piece = ShipwreckPiece::new(structure_template_manager, &identifier, position, rotation, is_beached);
+    let identifier = Identifier::with_default_namespace(
+        locations[random.next_int_bounded(locations.len() as i32) as usize],
+    )
+    .expect("valid shipwreck template id");
+    let piece = ShipwreckPiece::new(
+        structure_template_manager,
+        &identifier,
+        position,
+        rotation,
+        is_beached,
+    );
     builder.add_piece(Box::new(piece));
     builder.len() - 1
 }
@@ -125,15 +150,28 @@ impl ShipwreckPiece {
         }
     }
 
-    pub fn load(structure_template_manager: &StructureTemplateManager, tag: &CompoundTag) -> Result<ShipwreckPiece, String> {
-        let data = TemplateStructurePieceData::load(&SHIPWRECK_PIECE, tag, structure_template_manager, |_| Ok(make_settings(read_rotation(tag, "Rot")?)))?;
-        Ok(ShipwreckPiece { data, is_beached: tag.get_boolean_or("isBeached", false), height_adjusted: tag.get_boolean_or("height_adjusted", false) })
+    pub fn load(
+        structure_template_manager: &StructureTemplateManager,
+        tag: &CompoundTag,
+    ) -> Result<ShipwreckPiece, String> {
+        let data = TemplateStructurePieceData::load(
+            &SHIPWRECK_PIECE,
+            tag,
+            structure_template_manager,
+            |_| Ok(make_settings(read_rotation(tag, "Rot")?)),
+        )?;
+        Ok(ShipwreckPiece {
+            data,
+            is_beached: tag.get_boolean_or("isBeached", false),
+            height_adjusted: tag.get_boolean_or("height_adjusted", false),
+        })
     }
 
     /// `isTooBigToFitInWorldGenRegion()`.
     pub fn is_too_big_to_fit_in_world_gen_region(&self) -> bool {
         let size = self.data.template.get_size();
-        size.x > NUMBER_OF_BLOCKS_ALLOWED_IN_WORLD_GEN_REGION || size.y > NUMBER_OF_BLOCKS_ALLOWED_IN_WORLD_GEN_REGION
+        size.x > NUMBER_OF_BLOCKS_ALLOWED_IN_WORLD_GEN_REGION
+            || size.y > NUMBER_OF_BLOCKS_ALLOWED_IN_WORLD_GEN_REGION
     }
 
     /// `calculateBeachedPosition(minY, random)`.
@@ -144,14 +182,22 @@ impl ShipwreckPiece {
     /// `adjustPositionHeight(newHeight)`.
     pub fn adjust_position_height(&mut self, new_height: i32) {
         self.height_adjusted = true;
-        self.data.template_position = BlockPos::new(self.data.template_position.x(), new_height, self.data.template_position.z());
+        self.data.template_position = BlockPos::new(
+            self.data.template_position.x(),
+            new_height,
+            self.data.template_position.z(),
+        );
     }
 }
 
 /// `makeSettings(rotation)`.
 fn make_settings(rotation: Rotation) -> StructurePlaceSettings {
     let mut settings = StructurePlaceSettings::new();
-    settings.set_rotation(rotation).set_mirror(Mirror::None).set_rotation_pivot(PIVOT).add_processor(STRUCTURE_AND_AIR.clone());
+    settings
+        .set_rotation(rotation)
+        .set_mirror(Mirror::None)
+        .set_rotation_pivot(PIVOT)
+        .add_processor(STRUCTURE_AND_AIR.clone());
     settings
 }
 
@@ -164,10 +210,17 @@ impl StructurePiece for ShipwreckPiece {
         &mut self.data.base
     }
 
-    fn add_additional_save_data(&self, context: &StructurePieceSerializationContext<'_>, tag: &mut CompoundTag) {
+    fn add_additional_save_data(
+        &self,
+        context: &StructurePieceSerializationContext<'_>,
+        tag: &mut CompoundTag,
+    ) {
         self.data.add_additional_save_data(context, tag);
         tag.put_boolean("isBeached", self.is_beached);
-        tag.put_string("Rot", rotation_legacy_name(self.data.place_settings.get_rotation()));
+        tag.put_string(
+            "Rot",
+            rotation_legacy_name(self.data.place_settings.get_rotation()),
+        );
         tag.put_boolean("height_adjusted", self.height_adjusted);
     }
 
@@ -193,11 +246,19 @@ impl StructurePiece for ShipwreckPiece {
             let mut min_y = level.get_max_y() + 1;
             let mut mean = 0i32;
             let template_size = self.data.template.get_size();
-            let heightmap_type = if self.is_beached { HeightmapType::WorldSurfaceWg } else { HeightmapType::OceanFloorWg };
+            let heightmap_type = if self.is_beached {
+                HeightmapType::WorldSurfaceWg
+            } else {
+                HeightmapType::OceanFloorWg
+            };
             let base_size = template_size.x * template_size.z;
             let template_position = self.data.template_position;
             if base_size == 0 {
-                mean = level.get_height_at(heightmap_type, template_position.x(), template_position.z());
+                mean = level.get_height_at(
+                    heightmap_type,
+                    template_position.x(),
+                    template_position.z(),
+                );
             } else {
                 let corner = template_position.offset(template_size.x - 1, 0, template_size.z - 1);
                 for p in BlockPos::between_closed(&template_position, &corner) {
@@ -207,13 +268,23 @@ impl StructurePiece for ShipwreckPiece {
                 }
                 mean /= base_size;
             }
-            let new_height = if self.is_beached { self.calculate_beached_position(min_y, random) } else { mean };
+            let new_height = if self.is_beached {
+                self.calculate_beached_position(min_y, random)
+            } else {
+                mean
+            };
             self.adjust_position_height(new_height);
         }
-        self.data.post_process(level, random, chunk_bb, reference_pos, &mut |marker_id, position, level, random, _chunk_bb| {
-            if let Some(loot_table) = marker_loot_table(marker_id) {
-                set_block_entity_loot_table(level, random, position.below(), loot_table);
-            }
-        });
+        self.data.post_process(
+            level,
+            random,
+            chunk_bb,
+            reference_pos,
+            &mut |marker_id, position, level, random, _chunk_bb| {
+                if let Some(loot_table) = marker_loot_table(marker_id) {
+                    set_block_entity_loot_table(level, random, position.below(), loot_table);
+                }
+            },
+        );
     }
 }

@@ -50,15 +50,31 @@ impl Preset {
     pub fn entries(self) -> Vec<(ParameterPoint, &'static str)> {
         match self {
             Preset::Nether => vec![
-                (climate::parameters_point(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0), "nether_wastes"),
-                (climate::parameters_point(0.0, -0.5, 0.0, 0.0, 0.0, 0.0, 0.0), "soul_sand_valley"),
-                (climate::parameters_point(0.4, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0), "crimson_forest"),
-                (climate::parameters_point(0.0, 0.5, 0.0, 0.0, 0.0, 0.0, 0.375), "warped_forest"),
-                (climate::parameters_point(-0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.175), "basalt_deltas"),
+                (
+                    climate::parameters_point(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0),
+                    "nether_wastes",
+                ),
+                (
+                    climate::parameters_point(0.0, -0.5, 0.0, 0.0, 0.0, 0.0, 0.0),
+                    "soul_sand_valley",
+                ),
+                (
+                    climate::parameters_point(0.4, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0),
+                    "crimson_forest",
+                ),
+                (
+                    climate::parameters_point(0.0, 0.5, 0.0, 0.0, 0.0, 0.0, 0.375),
+                    "warped_forest",
+                ),
+                (
+                    climate::parameters_point(-0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.175),
+                    "basalt_deltas",
+                ),
             ],
             Preset::Overworld => {
                 let mut entries = Vec::new();
-                OverworldBiomeBuilder::new().add_biomes(&mut |point, biome| entries.push((point, biome)));
+                OverworldBiomeBuilder::new()
+                    .add_biomes(&mut |point, biome| entries.push((point, biome)));
                 entries
             }
         }
@@ -153,7 +169,10 @@ impl MultiNoiseBiomeSource {
             Parameters::Preset(_, preset) => preset.parameters(),
         };
         let possible = distinct_biomes(list.values().iter().map(|(_, biome)| *biome));
-        MultiNoiseBiomeSource { parameters, possible }
+        MultiNoiseBiomeSource {
+            parameters,
+            possible,
+        }
     }
 
     /// `createFromList(parameters)`.
@@ -194,7 +213,10 @@ impl MultiNoiseBiomeSource {
                 )?;
                 Ok((Some(id), list))
             }
-            _ => Ok((None, Arc::new(MultiNoiseBiomeSourceParameterList::from_json(v, biomes)?))),
+            _ => Ok((
+                None,
+                Arc::new(MultiNoiseBiomeSourceParameterList::from_json(v, biomes)?),
+            )),
         })?;
         Ok(Self::create_from_preset(key, preset))
     }
@@ -260,9 +282,13 @@ impl BiomeSource for MultiNoiseBiomeSource {
         let mut erosion = DensityBuffer::create_unpooled(volume.size());
         let mut depth = DensityBuffer::create_unpooled(volume.size());
         let mut ridges = DensityBuffer::create_unpooled(volume.size());
-        sampler.temperature().sample_volume(&mut temperature, &volume);
+        sampler
+            .temperature()
+            .sample_volume(&mut temperature, &volume);
         sampler.humidity().sample_volume(&mut vegetation, &volume);
-        sampler.continentalness().sample_volume(&mut continents, &volume);
+        sampler
+            .continentalness()
+            .sample_volume(&mut continents, &volume);
         sampler.erosion().sample_volume(&mut erosion, &volume);
         sampler.depth().sample_volume(&mut depth, &volume);
         sampler.weirdness().sample_volume(&mut ridges, &volume);

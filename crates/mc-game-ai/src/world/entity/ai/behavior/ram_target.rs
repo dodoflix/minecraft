@@ -1,11 +1,18 @@
 //! `RamTarget` (a `Goat` behavior; the horn dropping of `Goat.dropHorn()` is the `drop_horn` callback).
 
-use mc_game_core::world::entity::ai::behavior::behavior_utils;
-use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase};
+use mc_core::math::mth;
+use mc_core::phys::Vec3;
+use mc_core::pos::BlockPos;
+use mc_core::random::RandomSource;
+use mc_data::{Attribute, MobEffect, SoundEvent};
 use mc_game_core::entry_condition;
 use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::entity::ai::memory::memory_module_type::{RAM_COOLDOWN_TICKS, RAM_TARGET, WALK_TARGET};
+use mc_game_core::world::entity::ai::behavior::behavior_utils;
+use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase};
 use mc_game_core::world::entity::ai::memory::WalkTarget;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{
+    RAM_COOLDOWN_TICKS, RAM_TARGET, WALK_TARGET,
+};
 use mc_game_core::world::entity::ai::targeting::TargetingConditions;
 use mc_game_core::world::entity::entity::Entity;
 use mc_game_core::world::entity::mob::ext;
@@ -13,11 +20,6 @@ use mc_game_core::world::item::enchantment::actors::Actors;
 use mc_game_core::world::item::enchantment_helper;
 use mc_game_core::world::level::BlockGetter;
 use mc_game_core::world::level::block::state::BlockStateExt;
-use mc_core::math::mth;
-use mc_core::phys::Vec3;
-use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
-use mc_data::{Attribute, MobEffect, SoundEvent};
 use mc_protocol::packets::play::SoundSource;
 
 /// `TIME_OUT_DURATION`.
@@ -65,10 +67,19 @@ impl RamTarget {
     }
 
     fn has_rammed_horn_breaking_block(level: &ServerLevel, body: &dyn Entity) -> bool {
-        let horizontal_movement_normalized = body.base().delta_movement().multiply_xyz(1.0, 0.0, 1.0).normalize();
+        let horizontal_movement_normalized = body
+            .base()
+            .delta_movement()
+            .multiply_xyz(1.0, 0.0, 1.0)
+            .normalize();
         let p = body.position().add(horizontal_movement_normalized);
         let facing_block_position = BlockPos::containing(p.x, p.y, p.z);
-        level.get_block_state(facing_block_position).is_tag("snaps_goat_horn") || level.get_block_state(facing_block_position.above()).is_tag("snaps_goat_horn")
+        level
+            .get_block_state(facing_block_position)
+            .is_tag("snaps_goat_horn")
+            || level
+                .get_block_state(facing_block_position.above())
+                .is_tag("snaps_goat_horn")
     }
 
     fn finish_ram(&self, level: &mut ServerLevel, body: &mut dyn Entity) {
@@ -85,49 +96,114 @@ impl RamTarget {
 }
 
 impl Behavior for RamTarget {
-    fn check_extra_start_conditions(&mut self, _level: &mut ServerLevel, body: &mut dyn Entity) -> bool {
+    fn check_extra_start_conditions(
+        &mut self,
+        _level: &mut ServerLevel,
+        body: &mut dyn Entity,
+    ) -> bool {
         body.brain().has_memory_value(RAM_TARGET)
     }
 
-    fn can_still_use(&mut self, _level: &mut ServerLevel, body: &mut dyn Entity, _timestamp: i64) -> bool {
+    fn can_still_use(
+        &mut self,
+        _level: &mut ServerLevel,
+        body: &mut dyn Entity,
+        _timestamp: i64,
+    ) -> bool {
         body.brain().has_memory_value(RAM_TARGET)
     }
 
     fn start(&mut self, _level: &mut ServerLevel, body: &mut dyn Entity, _timestamp: i64) {
         let cur_pos = body.block_position();
-        let ram_target_pos = *body.brain().get_memory(&RAM_TARGET).expect("ram target present");
-        self.ram_direction = Vec3::new(f64::from(cur_pos.x()) - ram_target_pos.x, 0.0, f64::from(cur_pos.z()) - ram_target_pos.z).normalize();
-        body.brain_mut().set_memory(&WALK_TARGET, WalkTarget::from_vec3(ram_target_pos, self.speed, 0));
+        let ram_target_pos = *body
+            .brain()
+            .get_memory(&RAM_TARGET)
+            .expect("ram target present");
+        self.ram_direction = Vec3::new(
+            f64::from(cur_pos.x()) - ram_target_pos.x,
+            0.0,
+            f64::from(cur_pos.z()) - ram_target_pos.z,
+        )
+        .normalize();
+        body.brain_mut().set_memory(
+            &WALK_TARGET,
+            WalkTarget::from_vec3(ram_target_pos, self.speed, 0),
+        );
     }
 
     fn tick(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, _timestamp: i64) {
         let bb = body.get_bounding_box();
-        let nearby_entities = ext::get_nearby_entities(level, |_| true, &self.ram_targeting, &*body, &bb);
+        let nearby_entities =
+            ext::get_nearby_entities(level, |_| true, &self.ram_targeting, &*body, &bb);
         if let Some(&ram_target) = nearby_entities.first() {
             let damage_source = level.damage_sources().no_aggro_mob_attack(&*body);
-            let damage = body.living().expect("living").get_attribute_value(Attribute::ATTACK_DAMAGE) as f32;
+            let damage = body
+                .living()
+                .expect("living")
+                .get_attribute_value(Attribute::ATTACK_DAMAGE) as f32;
             let movement_speed_level = Self::amplifier_level(&*body, MobEffect::SPEED);
             let movement_slowdown_level = Self::amplifier_level(&*body, MobEffect::SLOWNESS);
             let speed_boost_power = 0.25 * (movement_speed_level - movement_slowdown_level) as f32;
-            let speed_factor = mth::clamp_f32(body.get_speed() * RAM_SPEED_FORCE_FACTOR, 0.2, 3.0) + speed_boost_power;
+            let speed_factor = mth::clamp_f32(body.get_speed() * RAM_SPEED_FORCE_FACTOR, 0.2, 3.0)
+                + speed_boost_power;
             let knockback_force = (self.get_knockback_force)(&*body);
             let ram_direction = self.ram_direction;
             let source = level.damage_sources().mob_attack(&*body);
             level.with_entity(ram_target, |level, target| {
                 if target.hurt_server(level, &damage_source, damage) {
-                    enchantment_helper::do_post_attack_effects(level, &mut Actors::of(body).and(target), ram_target, &damage_source);
+                    enchantment_helper::do_post_attack_effects(
+                        level,
+                        &mut Actors::of(body).and(target),
+                        ram_target,
+                        &damage_source,
+                    );
                 }
-                let blocked_damage = mc_game_core::world::entity::living_entity::blocking::apply_item_blocking(target, level, &source, damage);
-                let blocking_factor = if blocked_damage > 0.0 { 0.5_f32 } else { 1.0_f32 };
-                target.knockback(f64::from(blocking_factor * speed_factor) * knockback_force, ram_direction.x, ram_direction.z, &source, damage, false);
+                let blocked_damage =
+                    mc_game_core::world::entity::living_entity::blocking::apply_item_blocking(
+                        target, level, &source, damage,
+                    );
+                let blocking_factor = if blocked_damage > 0.0 {
+                    0.5_f32
+                } else {
+                    1.0_f32
+                };
+                target.knockback(
+                    f64::from(blocking_factor * speed_factor) * knockback_force,
+                    ram_direction.x,
+                    ram_direction.z,
+                    &source,
+                    damage,
+                    false,
+                );
             });
             self.finish_ram(level, body);
-            behavior_utils::play_sound_from_entity(level, body.id(), (self.get_impact_sound)(&*body), SoundSource::Neutral, 1.0, 1.0);
+            behavior_utils::play_sound_from_entity(
+                level,
+                body.id(),
+                (self.get_impact_sound)(&*body),
+                SoundSource::Neutral,
+                1.0,
+                1.0,
+            );
         } else if Self::has_rammed_horn_breaking_block(level, &*body) {
-            behavior_utils::play_sound_from_entity(level, body.id(), (self.get_impact_sound)(&*body), SoundSource::Neutral, 1.0, 1.0);
+            behavior_utils::play_sound_from_entity(
+                level,
+                body.id(),
+                (self.get_impact_sound)(&*body),
+                SoundSource::Neutral,
+                1.0,
+                1.0,
+            );
             let dropped = (self.drop_horn)(level, body);
             if dropped {
-                behavior_utils::play_sound_from_entity(level, body.id(), (self.get_horn_break_sound)(&*body), SoundSource::Neutral, 1.0, 1.0);
+                behavior_utils::play_sound_from_entity(
+                    level,
+                    body.id(),
+                    (self.get_horn_break_sound)(&*body),
+                    SoundSource::Neutral,
+                    1.0,
+                    1.0,
+                );
             }
             self.finish_ram(level, body);
         } else {

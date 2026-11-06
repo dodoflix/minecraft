@@ -1,28 +1,37 @@
 //! `DebugCommand`: `/debug start|stop|function <name>`.
 use super::function_command::translation_arg;
+use crate::server::commands::function_command::suggest_function;
+use mc_brigadier::{
+    ArgumentBuilder, CommandSyntaxException, ContextChain, SimpleCommandExceptionType,
+};
+use mc_core::ident::Identifier;
 use mc_game_core::commands::arguments::function_argument::FunctionArgument;
 use mc_game_core::commands::execution::tasks::call_function::CallFunction;
 use mc_game_core::commands::execution::{
-    ChainModifiers, CustomCommandExecutor, ExecutionContext, ExecutionControl, Frame, TraceCallbacks, UnboundEntryAction, bind, custom_command,
-    run_with_error_handling,
+    ChainModifiers, CustomCommandExecutor, ExecutionContext, ExecutionControl, Frame,
+    TraceCallbacks, UnboundEntryAction, bind, custom_command, run_with_error_handling,
 };
 use mc_game_core::commands::message::simple_translatable;
-use mc_game_core::commands::{CommandResultCallback, CommandSource, CommandSourceStack, LEVEL_ADMINS, argument, has_permission, literal};
-use crate::server::commands::function_command::suggest_function;
+use mc_game_core::commands::{
+    CommandResultCallback, CommandSource, CommandSourceStack, LEVEL_ADMINS, argument,
+    has_permission, literal,
+};
 use mc_game_core::server::permissions::LevelBasedPermissionSet;
 use mc_game_core::util::java_format::format_fixed;
 use mc_game_core::{register_command, translatable};
-use mc_brigadier::{ArgumentBuilder, CommandSyntaxException, ContextChain, SimpleCommandExceptionType};
-use mc_core::ident::Identifier;
 use mc_text::Component;
 use std::fs::File;
 use std::io::{BufWriter, Write};
 use std::sync::{Arc, LazyLock, Mutex};
 
-static ERROR_NOT_RUNNING: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| simple_translatable("commands.debug.notRunning"));
-static ERROR_ALREADY_RUNNING: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| simple_translatable("commands.debug.alreadyRunning"));
-static NO_RECURSIVE_TRACES: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| simple_translatable("commands.debug.function.noRecursion"));
-static NO_RETURN_RUN: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| simple_translatable("commands.debug.function.noReturnRun"));
+static ERROR_NOT_RUNNING: LazyLock<SimpleCommandExceptionType> =
+    LazyLock::new(|| simple_translatable("commands.debug.notRunning"));
+static ERROR_ALREADY_RUNNING: LazyLock<SimpleCommandExceptionType> =
+    LazyLock::new(|| simple_translatable("commands.debug.alreadyRunning"));
+static NO_RECURSIVE_TRACES: LazyLock<SimpleCommandExceptionType> =
+    LazyLock::new(|| simple_translatable("commands.debug.function.noRecursion"));
+static NO_RETURN_RUN: LazyLock<SimpleCommandExceptionType> =
+    LazyLock::new(|| simple_translatable("commands.debug.function.noReturnRun"));
 
 register_command!("DebugCommand", |ctx| {
     ctx.dispatcher.register(
@@ -31,9 +40,13 @@ register_command!("DebugCommand", |ctx| {
             .then(literal("start").executes(|c| start(c.get_source())))
             .then(literal("stop").executes(|c| stop(c.get_source())))
             .then(
-                literal("function").requires(has_permission(LEVEL_ADMINS)).then(
-                    argument("name", FunctionArgument::functions()).suggests(suggest_function).executes_command(custom_command(TraceCustomExecutor)),
-                ),
+                literal("function")
+                    .requires(has_permission(LEVEL_ADMINS))
+                    .then(
+                        argument("name", FunctionArgument::functions())
+                            .suggests(suggest_function)
+                            .executes_command(custom_command(TraceCustomExecutor)),
+                    ),
             ),
     );
 });
@@ -55,8 +68,24 @@ fn stop(source: &CommandSourceStack) -> Result<i32, CommandSyntaxException> {
     let seconds = nano_duration as f64 / 1_000_000_000.0;
     let tps = f64::from(tick_duration) / seconds;
     // `String.format("%.2f", NaN)` (an empty profile: 0 ticks over 0 seconds).
-    let fixed = |v: f64| if v.is_nan() { "NaN".to_owned() } else { format_fixed(v, 2) };
-    source.send_success(|| translatable!("commands.debug.stopped", fixed(seconds), tick_duration, fixed(tps)), true);
+    let fixed = |v: f64| {
+        if v.is_nan() {
+            "NaN".to_owned()
+        } else {
+            format_fixed(v, 2)
+        }
+    };
+    source.send_success(
+        || {
+            translatable!(
+                "commands.debug.stopped",
+                fixed(seconds),
+                tick_duration,
+                fixed(tps)
+            )
+        },
+        true,
+    );
     Ok(tps as i32)
 }
 
@@ -179,7 +208,13 @@ impl UnboundEntryAction for PrintingCallFunction {
 struct TraceCustomExecutor;
 
 impl CustomCommandExecutor for TraceCustomExecutor {
-    fn run(&self, source: &CommandSourceStack, current_step: &ContextChain<CommandSourceStack>, modifiers: ChainModifiers, context: &mut ExecutionControl<'_>) {
+    fn run(
+        &self,
+        source: &CommandSourceStack,
+        current_step: &ContextChain<CommandSourceStack>,
+        modifiers: ChainModifiers,
+        context: &mut ExecutionControl<'_>,
+    ) {
         run_with_error_handling(source, modifiers, context, |context| {
             if modifiers.is_return() {
                 return Err(NO_RETURN_RUN.create());
@@ -187,9 +222,14 @@ impl CustomCommandExecutor for TraceCustomExecutor {
             if context.tracer().is_some() {
                 return Err(NO_RECURSIVE_TRACES.create());
             }
-            let functions = FunctionArgument::get_functions(current_step.get_top_context(), "name")?;
-            let output_name = format!("debug-trace-{}.txt", mc_game_core::crash_report::filename_formatted_date_time());
-            let (commands, debug_dir) = source.with_server(|server| (server.function_commands(), server.get_file("debug")));
+            let functions =
+                FunctionArgument::get_functions(current_step.get_top_context(), "name")?;
+            let output_name = format!(
+                "debug-trace-{}.txt",
+                mc_game_core::crash_report::filename_formatted_date_time()
+            );
+            let (commands, debug_dir) =
+                source.with_server(|server| (server.function_commands(), server.get_file("debug")));
             // `CommandResponseTracker.track`: element count, sum of the sizes, the element when there is exactly one.
             let (mut element_count, mut total_value, mut only_element) = (0, 0i32, None);
             let traced = (|| -> std::io::Result<()> {
@@ -201,19 +241,29 @@ impl CustomCommandExecutor for TraceCustomExecutor {
                 })));
                 context.set_tracer(Some(Box::new(tracer.clone())));
                 for function in &functions {
-                    let function_source = source.with_source(Arc::new(tracer.clone())).with_maximum_permission(&LevelBasedPermissionSet::GAMEMASTER.into());
+                    let function_source = source
+                        .with_source(Arc::new(tracer.clone()))
+                        .with_maximum_permission(&LevelBasedPermissionSet::GAMEMASTER.into());
                     match function.instantiate(None, commands.get_dispatcher()) {
                         Ok(instantiated) => {
                             let size = instantiated.entries.len() as i32;
                             let action = PrintingCallFunction {
-                                inner: CallFunction::new(instantiated, CommandResultCallback::EMPTY, false),
+                                inner: CallFunction::new(
+                                    instantiated,
+                                    CommandResultCallback::EMPTY,
+                                    false,
+                                ),
                                 tracer: tracer.clone(),
                                 id: function.id().clone(),
                             };
                             context.queue_next(bind(Arc::new(action), function_source));
                             total_value = total_value.wrapping_add(size);
                             element_count += 1;
-                            only_element = if element_count == 1 { Some(function.id().clone()) } else { None };
+                            only_element = if element_count == 1 {
+                                Some(function.id().clone())
+                            } else {
+                                None
+                            };
                         }
                         Err(e) => source.send_failure(e.message_component),
                     }
@@ -221,15 +271,31 @@ impl CustomCommandExecutor for TraceCustomExecutor {
                 Ok(())
             })();
             if let Err(e) = traced {
-                log::warn!("Tracing failed\n{}", mc_game_core::server::packs::throwable("java.io.UncheckedIOException", &e.to_string()));
+                log::warn!(
+                    "Tracing failed\n{}",
+                    mc_game_core::server::packs::throwable(
+                        "java.io.UncheckedIOException",
+                        &e.to_string()
+                    )
+                );
                 source.send_failure(translatable!("commands.debug.function.traceFailed"));
             }
             let source = source.clone();
             context.queue_next(Box::new(move |_context, _frame| {
                 source.send_success(
                     || match &only_element {
-                        Some(id) => translatable!("commands.debug.function.success.single", total_value, translation_arg(id), output_name.clone()),
-                        None => translatable!("commands.debug.function.success.multiple", total_value, element_count, output_name.clone()),
+                        Some(id) => translatable!(
+                            "commands.debug.function.success.single",
+                            total_value,
+                            translation_arg(id),
+                            output_name.clone()
+                        ),
+                        None => translatable!(
+                            "commands.debug.function.success.multiple",
+                            total_value,
+                            element_count,
+                            output_name.clone()
+                        ),
                     },
                     true,
                 );

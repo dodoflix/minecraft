@@ -26,7 +26,12 @@ impl ServerLevel {
 
 impl<'a> DamageSources<'a> {
     /// `source(key, direct, causing)`: `damageTypes.getOrThrow(key)`.
-    pub fn source(&self, key: &str, direct: Option<&dyn Entity>, causing: Option<&dyn Entity>) -> DamageSource {
+    pub fn source(
+        &self,
+        key: &str,
+        direct: Option<&dyn Entity>,
+        causing: Option<&dyn Entity>,
+    ) -> DamageSource {
         let (id, data) = self.resolve(key);
         DamageSource::new(id, data, direct, causing, None)
     }
@@ -219,7 +224,11 @@ impl<'a> DamageSources<'a> {
     /// `fireball(fireball, owner)`: `UNATTRIBUTED_FIREBALL` without an owner.
     pub fn fireball(&self, fireball: &dyn Entity, owner: Option<&dyn Entity>) -> DamageSource {
         match owner {
-            None => self.source(DamageTypes::UNATTRIBUTED_FIREBALL, Some(fireball), Some(fireball)),
+            None => self.source(
+                DamageTypes::UNATTRIBUTED_FIREBALL,
+                Some(fireball),
+                Some(fireball),
+            ),
             Some(_) => self.source(DamageTypes::FIREBALL, Some(fireball), owner),
         }
     }
@@ -230,8 +239,16 @@ impl<'a> DamageSources<'a> {
 
     /// `explosion(entity, cause)`: `PLAYER_EXPLOSION` when both are present (`explosion(Explosion)` passes
     /// `getDirectSourceEntity()` / `getIndirectSourceEntity()`).
-    pub fn explosion(&self, entity: Option<&dyn Entity>, cause: Option<&dyn Entity>) -> DamageSource {
-        let key = if cause.is_some() && entity.is_some() { DamageTypes::PLAYER_EXPLOSION } else { DamageTypes::EXPLOSION };
+    pub fn explosion(
+        &self,
+        entity: Option<&dyn Entity>,
+        cause: Option<&dyn Entity>,
+    ) -> DamageSource {
+        let key = if cause.is_some() && entity.is_some() {
+            DamageTypes::PLAYER_EXPLOSION
+        } else {
+            DamageTypes::EXPLOSION
+        };
         self.source(key, entity, cause)
     }
 

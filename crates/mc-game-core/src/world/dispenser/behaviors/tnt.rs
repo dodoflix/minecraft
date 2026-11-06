@@ -1,6 +1,8 @@
 //! `Blocks.TNT` (`OptionalDispenseItemBehavior` of `DispenseItemBehavior.bootStrap`).
 
-use crate::world::dispenser::{BlockSource, DispenseTemplate, OptionalState, Templated, play_optional_sound};
+use crate::world::dispenser::{
+    BlockSource, DispenseTemplate, OptionalState, Templated, play_optional_sound,
+};
 use crate::world::entity::Entity;
 use crate::world::entity::item::primed_tnt::PrimedTnt;
 use crate::world::item::ItemStack;
@@ -18,11 +20,30 @@ impl DispenseTemplate for TntDispense {
         }
         let target = source.pos.relative(source.facing());
         // `SulfurCubeBlockDispenseItemBehavior.dispenseBlock(level, target, dispensed)`: no sulfur cube entity exists yet
-        let tnt = PrimedTnt::at(source.level, f64::from(target.x()) + 0.5, f64::from(target.y()), f64::from(target.z()) + 0.5, None);
+        let tnt = PrimedTnt::at(
+            source.level,
+            f64::from(target.x()) + 0.5,
+            f64::from(target.y()),
+            f64::from(target.z()) + 0.5,
+            None,
+        );
         let at = tnt.position();
         source.level.add_fresh_entity(Box::new(tnt));
-        source.level.play_sound_at(None, at.x, at.y, at.z, SoundEvent::ENTITY_TNT_PRIMED, SoundSource::Blocks, 1.0, 1.0);
-        source.level.game_event_at_block(GameEvent::ENTITY_PLACE, target, &GameEventContext::of_entity(None));
+        source.level.play_sound_at(
+            None,
+            at.x,
+            at.y,
+            at.z,
+            SoundEvent::ENTITY_TNT_PRIMED,
+            SoundSource::Blocks,
+            1.0,
+            1.0,
+        );
+        source.level.game_event_at_block(
+            GameEvent::ENTITY_PLACE,
+            target,
+            &GameEventContext::of_entity(None),
+        );
         dispensed.shrink(1);
         self.0.set_success(true);
         dispensed
@@ -33,4 +54,6 @@ impl DispenseTemplate for TntDispense {
     }
 }
 
-crate::register_dispense_behavior!(&["minecraft:tnt"], |_| Box::new(Templated(TntDispense(OptionalState::new()))));
+crate::register_dispense_behavior!(&["minecraft:tnt"], |_| Box::new(Templated(TntDispense(
+    OptionalState::new()
+))));

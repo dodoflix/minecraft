@@ -11,20 +11,36 @@ use crate::world::entity::living::{LIVING_ENTITY_FLAG_IS_USING, LIVING_ENTITY_FL
 use crate::world::item::{InteractionHand, ItemStack, behaviour};
 use mc_data::{GameEvent, SoundEvent};
 use mc_protocol::components::{EQUIPPABLE, USE_EFFECTS};
-use mc_protocol::packets::play::{ClientboundCooldownPacket, ClientboundSetEquipmentPacket, SoundSource, SwingAnimation, SwingAnimationType};
+use mc_protocol::packets::play::{
+    ClientboundCooldownPacket, ClientboundSetEquipmentPacket, SoundSource, SwingAnimation,
+    SwingAnimationType,
+};
 
 /// `SwingAnimation.DEFAULT`.
-pub const SWING_ANIMATION_DEFAULT: SwingAnimation = SwingAnimation { kind: SwingAnimationType::Whack, duration: 6 };
+pub const SWING_ANIMATION_DEFAULT: SwingAnimation = SwingAnimation {
+    kind: SwingAnimationType::Whack,
+    duration: 6,
+};
 
 impl ServerPlayer {
     /// `isUsingItem()`.
     pub fn is_using_item(&self) -> bool {
-        self.player.living.get_living_entity_flag(LIVING_ENTITY_FLAG_IS_USING)
+        self.player
+            .living
+            .get_living_entity_flag(LIVING_ENTITY_FLAG_IS_USING)
     }
 
     /// `getUsedItemHand()`.
     pub fn get_used_item_hand(&self) -> InteractionHand {
-        if self.player.living.get_living_entity_flag(LIVING_ENTITY_FLAG_OFF_HAND) { InteractionHand::OffHand } else { InteractionHand::MainHand }
+        if self
+            .player
+            .living
+            .get_living_entity_flag(LIVING_ENTITY_FLAG_OFF_HAND)
+        {
+            InteractionHand::OffHand
+        } else {
+            InteractionHand::MainHand
+        }
     }
 
     /// `getUseItem()` (a copy of the stack in use).
@@ -39,23 +55,43 @@ impl ServerPlayer {
     /// `getTicksUsingItem()`.
     pub fn get_ticks_using_item(&self) -> i32 {
         if self.is_using_item() {
-            behaviour(self.player.living.use_item.item()).get_use_duration(&self.player.living.use_item) - self.player.living.use_item_remaining
+            behaviour(self.player.living.use_item.item())
+                .get_use_duration(&self.player.living.use_item)
+                - self.player.living.use_item_remaining
         } else {
             0
         }
     }
 
     /// `ItemStack.causeUseVibration(causer, event)`.
-    pub(crate) fn cause_use_vibration(&self, level: &mut ServerLevel, stack: &ItemStack, event: GameEvent) {
-        if stack.get(&USE_EFFECTS).is_some_and(|e| e.interact_vibrations) {
+    pub(crate) fn cause_use_vibration(
+        &self,
+        level: &mut ServerLevel,
+        stack: &ItemStack,
+        event: GameEvent,
+    ) {
+        if stack
+            .get(&USE_EFFECTS)
+            .is_some_and(|e| e.interact_vibrations)
+        {
             level.game_event_from_entity_ref(self, event, self.base().position());
         }
     }
 
     /// `LivingEntity.updatePlayersWithNewEquipment`: `ClientboundSetEquipmentPacket` to the players tracking this one.
-    fn update_players_with_new_equipment(&self, level: &mut ServerLevel, slot: EquipmentSlot, stack: &ItemStack) {
-        let packet = ClientboundSetEquipmentPacket { entity: self.base_id(), slots: vec![(slot.to_protocol(), stack.clone())] };
-        level.entity_tracker.send_to_tracking_players(self.base_id(), &encode_packet(&packet));
+    fn update_players_with_new_equipment(
+        &self,
+        level: &mut ServerLevel,
+        slot: EquipmentSlot,
+        stack: &ItemStack,
+    ) {
+        let packet = ClientboundSetEquipmentPacket {
+            entity: self.base_id(),
+            slots: vec![(slot.to_protocol(), stack.clone())],
+        };
+        level
+            .entity_tracker
+            .send_to_tracking_players(self.base_id(), &encode_packet(&packet));
     }
 
     /// `startUsingItem(hand)`.
@@ -63,10 +99,16 @@ impl ServerPlayer {
         let stack = self.get_item_in_hand(hand);
         if !stack.is_empty() && !self.is_using_item() {
             self.player.living.use_item = stack.clone();
-            self.player.living.use_item_remaining = behaviour(stack.item()).get_use_duration(&stack);
+            self.player.living.use_item_remaining =
+                behaviour(stack.item()).get_use_duration(&stack);
             self.update_players_with_new_equipment(level, hand.as_equipment_slot(), &stack);
-            self.player.living.set_living_entity_flag(LIVING_ENTITY_FLAG_IS_USING, true);
-            self.player.living.set_living_entity_flag(LIVING_ENTITY_FLAG_OFF_HAND, hand == InteractionHand::OffHand);
+            self.player
+                .living
+                .set_living_entity_flag(LIVING_ENTITY_FLAG_IS_USING, true);
+            self.player.living.set_living_entity_flag(
+                LIVING_ENTITY_FLAG_OFF_HAND,
+                hand == InteractionHand::OffHand,
+            );
             self.cause_use_vibration(level, &stack, GameEvent::ITEM_INTERACT_START);
         }
     }
@@ -74,7 +116,9 @@ impl ServerPlayer {
     /// `stopUsingItem()`.
     pub fn stop_using_item(&mut self, level: &mut ServerLevel) {
         let was_using = self.is_using_item();
-        self.player.living.set_living_entity_flag(LIVING_ENTITY_FLAG_IS_USING, false);
+        self.player
+            .living
+            .set_living_entity_flag(LIVING_ENTITY_FLAG_IS_USING, false);
         if was_using {
             let stack = self.player.living.use_item.clone();
             self.cause_use_vibration(level, &stack, GameEvent::ITEM_INTERACT_FINISH);
@@ -87,20 +131,29 @@ impl ServerPlayer {
     pub fn release_using_item(&mut self, level: &mut ServerLevel) {
         let hand = self.get_used_item_hand();
         let in_hand = self.get_item_in_hand(hand);
-        if !self.player.living.use_item.is_empty() && ItemStack::is_same_item(&in_hand, &self.player.living.use_item) {
+        if !self.player.living.use_item.is_empty()
+            && ItemStack::is_same_item(&in_hand, &self.player.living.use_item)
+        {
             let remaining = self.player.living.use_item_remaining;
             let mut stack = in_hand;
             self.player.living.use_item = stack.clone();
             let before = stack.copy();
-            let released = behaviour(stack.item()).release_using(&mut stack, level, self, remaining);
+            let released =
+                behaviour(stack.item()).release_using(&mut stack, level, self, remaining);
             if released {
-                let with_side_effects = crate::world::item::apply_after_use_component_side_effects(level, stack.clone(), self, &before);
+                let with_side_effects = crate::world::item::apply_after_use_component_side_effects(
+                    level,
+                    stack.clone(),
+                    self,
+                    &before,
+                );
                 self.set_item_in_hand_slot(level, hand, with_side_effects);
             } else {
                 self.set_item_in_hand_slot(level, hand, stack.clone());
             }
             self.player.living.use_item = self.get_item_in_hand(hand);
-            let use_on_release = behaviour(self.player.living.use_item.item()).use_on_release(&self.player.living.use_item);
+            let use_on_release = behaviour(self.player.living.use_item.item())
+                .use_on_release(&self.player.living.use_item);
             if use_on_release {
                 self.updating_using_item(level);
             }
@@ -135,7 +188,9 @@ impl ServerPlayer {
         }
         self.player.living.use_item = stack.clone();
         self.player.living.use_item_remaining -= 1;
-        if self.player.living.use_item_remaining == 0 && !behaviour(stack.item()).use_on_release(&stack) {
+        if self.player.living.use_item_remaining == 0
+            && !behaviour(stack.item()).use_on_release(&stack)
+        {
             self.complete_using_item(level);
         }
     }
@@ -156,12 +211,22 @@ impl ServerPlayer {
     }
 
     /// `setItemInHand(hand, stack)` = `setItemSlot(slot, stack)` with `onEquipItem`.
-    pub fn set_item_in_hand_slot(&mut self, level: &mut ServerLevel, hand: InteractionHand, stack: ItemStack) {
+    pub fn set_item_in_hand_slot(
+        &mut self,
+        level: &mut ServerLevel,
+        hand: InteractionHand,
+        stack: ItemStack,
+    ) {
         self.set_item_slot(level, hand.as_equipment_slot(), stack);
     }
 
     /// `LivingEntity.setItemSlot(slot, stack)`.
-    pub fn set_item_slot(&mut self, level: &mut ServerLevel, slot: EquipmentSlot, stack: ItemStack) {
+    pub fn set_item_slot(
+        &mut self,
+        level: &mut ServerLevel,
+        slot: EquipmentSlot,
+        stack: ItemStack,
+    ) {
         let old = self.player.inventory.equipment_set(slot, stack.clone());
         self.on_equip_item(level, slot, &old, &stack);
     }
@@ -169,15 +234,33 @@ impl ServerPlayer {
     /// `doCloseContainer()`.
     pub fn do_close_container(&mut self, level: &mut ServerLevel) {
         use super::menu_ctx::PlayerCtx;
-        let mut ctx = PlayerCtx { player: self, level };
-        let mut menus = std::mem::replace(&mut ctx.player.player.menus, crate::world::inventory::PlayerMenus::new());
+        let mut ctx = PlayerCtx {
+            player: self,
+            level,
+        };
+        let mut menus = std::mem::replace(
+            &mut ctx.player.player.menus,
+            crate::world::inventory::PlayerMenus::new(),
+        );
         menus.do_close_container(&mut ctx);
         ctx.player.player.menus = menus;
     }
 
     /// `swing(hand, animation, sendToSwingingEntity)` (`LivingEntity.swing`).
-    pub fn swing(&mut self, level: &mut ServerLevel, hand: InteractionHand, animation: SwingAnimation, send_to_swinging_entity: bool) -> bool {
-        crate::world::entity::living_entity::swing::swing(self, level, hand, animation, send_to_swinging_entity)
+    pub fn swing(
+        &mut self,
+        level: &mut ServerLevel,
+        hand: InteractionHand,
+        animation: SwingAnimation,
+        send_to_swinging_entity: bool,
+    ) -> bool {
+        crate::world::entity::living_entity::swing::swing(
+            self,
+            level,
+            hand,
+            animation,
+            send_to_swinging_entity,
+        )
     }
 
     /// `Inventory.tick()`: `Item.inventoryTick` for every inventory stack (taken out of its slot while it runs;
@@ -185,9 +268,14 @@ impl ServerPlayer {
     pub fn tick_inventory_items(&mut self, level: &mut ServerLevel) {
         let selected = self.player.inventory.get_selected_slot() as usize;
         for i in 0..self.player.inventory.get_non_equipment_items().len() {
-            let mut stack = std::mem::take(&mut self.player.inventory.get_non_equipment_items_mut()[i]);
+            let mut stack =
+                std::mem::take(&mut self.player.inventory.get_non_equipment_items_mut()[i]);
             if !stack.is_empty() {
-                let slot = if i == selected { Some(EquipmentSlot::MainHand) } else { None };
+                let slot = if i == selected {
+                    Some(EquipmentSlot::MainHand)
+                } else {
+                    None
+                };
                 behaviour(stack.item()).inventory_tick(&mut stack, level, self, slot);
             }
             self.player.inventory.get_non_equipment_items_mut()[i] = stack;
@@ -211,7 +299,10 @@ impl ServerPlayer {
     /// `ServerItemCooldowns`: sends the queued `ClientboundCooldownPacket`s.
     pub fn flush_item_cooldown_packets(&mut self) {
         for (group, duration) in self.player.cooldowns.take_outbox() {
-            self.send(&ClientboundCooldownPacket { cooldown_group: group, duration });
+            self.send(&ClientboundCooldownPacket {
+                cooldown_group: group,
+                duration,
+            });
         }
     }
 

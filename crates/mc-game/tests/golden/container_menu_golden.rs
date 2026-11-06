@@ -16,11 +16,23 @@ fn st(s: &ItemStack) -> String {
         return "-".into();
     }
     let n = s.item().name().trim_start_matches("minecraft:");
-    let mut out = format!("{n}x{}{}", s.count(), if s.is_damaged() { format!("d{}", s.get_damage_value()) } else { String::new() });
+    let mut out = format!(
+        "{n}x{}{}",
+        s.count(),
+        if s.is_damaged() {
+            format!("d{}", s.get_damage_value())
+        } else {
+            String::new()
+        }
+    );
     if let Some(bc) = s.get(&mc_protocol::components::BUNDLE_CONTENTS) {
         out.push('{');
         for t in bc.items() {
-            out += &format!("{}x{},", t.item.name().trim_start_matches("minecraft:"), t.count);
+            out += &format!(
+                "{}x{},",
+                t.item.name().trim_start_matches("minecraft:"),
+                t.count
+            );
         }
         out += &format!(";{}}}", bc.selected_item_index());
     }
@@ -58,31 +70,54 @@ impl MenuPlayer for TestPlayer {
         false
     }
     fn drop(&mut self, stack: ItemStack, thrown: bool, prediction: Prediction) {
-        let p = if prediction == Prediction::Predicted { "PREDICTED" } else { "SERVER_ONLY" };
-        self.events.push(format!("DROP {} {thrown} {p}", st(&stack)));
+        let p = if prediction == Prediction::Predicted {
+            "PREDICTED"
+        } else {
+            "SERVER_ONLY"
+        };
+        self.events
+            .push(format!("DROP {} {thrown} {p}", st(&stack)));
     }
     fn on_equip_item(&mut self, slot: EquipmentSlot, old: &ItemStack, new: &ItemStack) {
-        self.events.push(format!("EQUIP {} {} {}", slot.get_name(), st(old), st(new)));
+        self.events
+            .push(format!("EQUIP {} {} {}", slot.get_name(), st(old), st(new)));
     }
-    fn is_within_block_interaction_range(&self, _pos: mc_core::pos::BlockPos, _buffer: f64) -> bool {
+    fn is_within_block_interaction_range(
+        &self,
+        _pos: mc_core::pos::BlockPos,
+        _buffer: f64,
+    ) -> bool {
         false
     }
     fn play_player_sound(&mut self, sound: mc_data::SoundEvent, volume: f32, pitch: f32) {
-        self.events.push(format!("SOUND {} {} {}", sound.name().trim_start_matches("minecraft:"), volume.to_bits() as i32, pitch.to_bits() as i32));
+        self.events.push(format!(
+            "SOUND {} {} {}",
+            sound.name().trim_start_matches("minecraft:"),
+            volume.to_bits() as i32,
+            pitch.to_bits() as i32
+        ));
     }
     fn level_random_next_float(&mut self) -> f32 {
         use mc_core::random::RandomSource;
         self.rng.next_float()
     }
     fn send_inventory_slot_update(&mut self, slot: usize, stack: ItemStack) {
-        self.events.push(format!("PKT set_player_inventory {slot} {}", st(&stack)));
+        self.events
+            .push(format!("PKT set_player_inventory {slot} {}", st(&stack)));
     }
 }
 
 struct Sync(Rc<RefCell<Vec<String>>>);
 
 impl ContainerSynchronizer for Sync {
-    fn send_initial_data(&mut self, _id: i32, state_id: i32, items: Vec<ItemStack>, carried: ItemStack, _data: &[i32]) {
+    fn send_initial_data(
+        &mut self,
+        _id: i32,
+        state_id: i32,
+        items: Vec<ItemStack>,
+        carried: ItemStack,
+        _data: &[i32],
+    ) {
         let mut b = format!("SYNC init {state_id} {}", st(&carried));
         for (i, s) in items.iter().enumerate() {
             if !s.is_empty() {
@@ -92,10 +127,14 @@ impl ContainerSynchronizer for Sync {
         self.0.borrow_mut().push(b);
     }
     fn send_slot_change(&mut self, _id: i32, state_id: i32, slot: usize, stack: ItemStack) {
-        self.0.borrow_mut().push(format!("SYNC slot {state_id} {slot} {}", st(&stack)));
+        self.0
+            .borrow_mut()
+            .push(format!("SYNC slot {state_id} {slot} {}", st(&stack)));
     }
     fn send_carried_change(&mut self, stack: ItemStack) {
-        self.0.borrow_mut().push(format!("SYNC carried {}", st(&stack)));
+        self.0
+            .borrow_mut()
+            .push(format!("SYNC carried {}", st(&stack)));
     }
     fn send_data_change(&mut self, _id: i32, id_: usize, v: i32) {
         self.0.borrow_mut().push(format!("SYNC data {id_} {v}"));
@@ -106,14 +145,21 @@ impl ContainerSynchronizer for Sync {
 }
 
 fn mk(name: &str, count: i32, dmg: i32) -> ItemStack {
-    let mut s = ItemStack::with_count(Item::by_name(name).unwrap_or_else(|| panic!("item {name}")), count);
+    let mut s = ItemStack::with_count(
+        Item::by_name(name).unwrap_or_else(|| panic!("item {name}")),
+        count,
+    );
     if dmg > 0 {
         s.set_damage_value(dmg);
     }
     s
 }
 
-fn dump(menu: &mut dyn AbstractContainerMenu, p: &mut TestPlayer, sync: &Rc<RefCell<Vec<String>>>) -> Vec<String> {
+fn dump(
+    menu: &mut dyn AbstractContainerMenu,
+    p: &mut TestPlayer,
+    sync: &Rc<RefCell<Vec<String>>>,
+) -> Vec<String> {
     let mut out = vec![format!("C {}", st(menu.base().get_carried()))];
     let mut s = String::from("S");
     for i in 0..menu.base().slots.len() {
@@ -150,8 +196,11 @@ fn input(name: &str) -> ContainerInput {
     }
 }
 
-
-fn build(kind: i64, p: &mut TestPlayer, parts: &mut Vec<Rc<RefCell<SimpleContainer>>>) -> Box<dyn AbstractContainerMenu> {
+fn build(
+    kind: i64,
+    p: &mut TestPlayer,
+    parts: &mut Vec<Rc<RefCell<SimpleContainer>>>,
+) -> Box<dyn AbstractContainerMenu> {
     let mut shared = |n: usize| {
         let c = Rc::new(RefCell::new(SimpleContainer::new(n)));
         parts.push(c.clone());
@@ -171,7 +220,11 @@ fn build(kind: i64, p: &mut TestPlayer, parts: &mut Vec<Rc<RefCell<SimpleContain
 
 #[test]
 fn container_menu_click_golden() {
-    let text = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures/container_menu_golden.txt")).expect("fixture");
+    let text = std::fs::read_to_string(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/tests/fixtures/container_menu_golden.txt"
+    ))
+    .expect("fixture");
     let sync = Rc::new(RefCell::new(Vec::new()));
     let mut player: Option<TestPlayer> = None;
     let mut menu: Option<Box<dyn AbstractContainerMenu>> = None;
@@ -182,13 +235,18 @@ fn container_menu_click_golden() {
     let mut ops = 0;
     let mut history: Vec<String> = Vec::new();
 
-    let finish = |op: &str, actual: &mut Vec<String>, expected: &mut Vec<&str>, history: &[String]| {
-        for i in 0..actual.len().max(expected.len()) {
-            assert_eq!(actual.get(i).map(String::as_str), expected.get(i).copied(), "after op `{op}`, line {i}; recent ops {history:?} actual={actual:?}");
-        }
-        actual.clear();
-        expected.clear();
-    };
+    let finish =
+        |op: &str, actual: &mut Vec<String>, expected: &mut Vec<&str>, history: &[String]| {
+            for i in 0..actual.len().max(expected.len()) {
+                assert_eq!(
+                    actual.get(i).map(String::as_str),
+                    expected.get(i).copied(),
+                    "after op `{op}`, line {i}; recent ops {history:?} actual={actual:?}"
+                );
+            }
+            actual.clear();
+            expected.clear();
+        };
 
     for line in text.lines() {
         if let Some(out) = line.strip_prefix("OUT ") {
@@ -212,7 +270,12 @@ fn container_menu_click_golden() {
         }
         let op = line.strip_prefix("OP ").expect("op line");
         if !op_line.is_empty() {
-            finish(&op_line, &mut actual, &mut expected, &history[..history.len().saturating_sub(1)]);
+            finish(
+                &op_line,
+                &mut actual,
+                &mut expected,
+                &history[..history.len().saturating_sub(1)],
+            );
         }
         op_line = op.to_string();
         ops += 1;
@@ -228,17 +291,33 @@ fn container_menu_click_golden() {
                 let creative = parts_[3] == "creative=true";
                 sync.borrow_mut().clear();
                 parts.clear();
-                let mut p = TestPlayer { inv: Inventory::new(), creative, events: Vec::new(), rng: mc_core::random::LegacyRandomSource::new(42 + scenario) };
+                let mut p = TestPlayer {
+                    inv: Inventory::new(),
+                    creative,
+                    events: Vec::new(),
+                    rng: mc_core::random::LegacyRandomSource::new(42 + scenario),
+                };
                 menu = Some(build(kind, &mut p, &mut parts));
                 player = Some(p);
             }
             "inv" => {
                 let slot: usize = parts_[1].parse().unwrap();
-                player.as_mut().unwrap().inv.set_item(slot, mk(parts_[2], parts_[3].parse().unwrap(), parts_[4].parse().unwrap()));
+                player.as_mut().unwrap().inv.set_item(
+                    slot,
+                    mk(
+                        parts_[2],
+                        parts_[3].parse().unwrap(),
+                        parts_[4].parse().unwrap(),
+                    ),
+                );
             }
             "cont" => {
                 let mut slot: usize = parts_[1].parse().unwrap();
-                let stack = mk(parts_[2], parts_[3].parse().unwrap(), parts_[4].parse().unwrap());
+                let stack = mk(
+                    parts_[2],
+                    parts_[3].parse().unwrap(),
+                    parts_[4].parse().unwrap(),
+                );
                 for part in &parts {
                     let n = part.borrow().get_container_size();
                     if slot < n {
@@ -250,12 +329,19 @@ fn container_menu_click_golden() {
             }
             "sync" => {
                 let (p, m) = (player.as_mut().unwrap(), menu.as_mut().unwrap());
-                m.base_mut().set_synchronizer(Box::new(Sync(sync.clone())), p);
+                m.base_mut()
+                    .set_synchronizer(Box::new(Sync(sync.clone())), p);
                 actual = dump(m.as_mut(), p, &sync);
             }
             "click" => {
                 let (p, m) = (player.as_mut().unwrap(), menu.as_mut().unwrap());
-                m.clicked(parts_[1].parse().unwrap(), parts_[2].parse().unwrap(), input(parts_[3]), p).expect("click");
+                m.clicked(
+                    parts_[1].parse().unwrap(),
+                    parts_[2].parse().unwrap(),
+                    input(parts_[3]),
+                    p,
+                )
+                .expect("click");
                 m.broadcast_changes(p);
                 actual = dump(m.as_mut(), p, &sync);
             }
@@ -268,6 +354,11 @@ fn container_menu_click_golden() {
             other => panic!("unknown op {other}"),
         }
     }
-    finish(&op_line, &mut actual, &mut expected, &history[..history.len().saturating_sub(1)]);
+    finish(
+        &op_line,
+        &mut actual,
+        &mut expected,
+        &history[..history.len().saturating_sub(1)],
+    );
     assert!(ops > 1500, "fixture too small: {ops} ops");
 }

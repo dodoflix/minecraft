@@ -31,7 +31,10 @@ impl ChunkPos {
     }
 
     pub const fn containing(pos: &BlockPos) -> ChunkPos {
-        ChunkPos::new(SectionPos::block_to_section_coord_i32(pos.x()), SectionPos::block_to_section_coord_i32(pos.z()))
+        ChunkPos::new(
+            SectionPos::block_to_section_coord_i32(pos.x()),
+            SectionPos::block_to_section_coord_i32(pos.z()),
+        )
     }
 
     /// `ChunkPos.unpack(long)`
@@ -44,7 +47,10 @@ impl ChunkPos {
     }
 
     pub const fn max_from_region(region_x: i32, region_z: i32) -> ChunkPos {
-        ChunkPos::new((region_x << REGION_BITS).wrapping_add(31), (region_z << REGION_BITS).wrapping_add(31))
+        ChunkPos::new(
+            (region_x << REGION_BITS).wrapping_add(31),
+            (region_z << REGION_BITS).wrapping_add(31),
+        )
     }
 
     pub fn is_valid(&self) -> bool {
@@ -66,12 +72,18 @@ impl ChunkPos {
     }
 
     pub const fn from_section_node(section_node: i64) -> i64 {
-        Self::pack_xz(SectionPos::x_from_long(section_node), SectionPos::z_from_long(section_node))
+        Self::pack_xz(
+            SectionPos::x_from_long(section_node),
+            SectionPos::z_from_long(section_node),
+        )
     }
 
     /// `ChunkPos.pack(BlockPos)`
     pub const fn pack_block_pos(pos: &BlockPos) -> i64 {
-        Self::pack_xz(SectionPos::block_to_section_coord_i32(pos.x()), SectionPos::block_to_section_coord_i32(pos.z()))
+        Self::pack_xz(
+            SectionPos::block_to_section_coord_i32(pos.x()),
+            SectionPos::block_to_section_coord_i32(pos.z()),
+        )
     }
 
     /// `ChunkPos.getX(long)`
@@ -192,7 +204,9 @@ impl ChunkPos {
     const fn distance_squared_xz(&self, x: i32, z: i32) -> i32 {
         let delta_x = x.wrapping_sub(self.x);
         let delta_z = z.wrapping_sub(self.z);
-        delta_x.wrapping_mul(delta_x).wrapping_add(delta_z.wrapping_mul(delta_z))
+        delta_x
+            .wrapping_mul(delta_x)
+            .wrapping_add(delta_z.wrapping_mul(delta_z))
     }
 
     /// `rangeClosed(ChunkPos center, int radius)`
@@ -204,7 +218,10 @@ impl ChunkPos {
     }
 
     /// `rangeClosed(ChunkPos from, ChunkPos to)`: x fastest, then z.
-    pub fn range_closed_between(from: &ChunkPos, to: &ChunkPos) -> impl Iterator<Item = ChunkPos> + use<> {
+    pub fn range_closed_between(
+        from: &ChunkPos,
+        to: &ChunkPos,
+    ) -> impl Iterator<Item = ChunkPos> + use<> {
         let (from, to) = (*from, *to);
         let x_diff = if from.x < to.x { 1 } else { -1 };
         let z_diff = if from.z < to.z { 1 } else { -1 };

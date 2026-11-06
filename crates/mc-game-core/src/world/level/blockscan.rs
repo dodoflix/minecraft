@@ -15,8 +15,16 @@ pub fn find_blocks(
     predicate: &dyn Fn(BlockState) -> bool,
     consumer: &mut dyn FnMut(BlockPos, BlockState) -> bool,
 ) -> bool {
-    let (min_x, min_y, min_z) = (from.x().min(to.x()), from.y().min(to.y()), from.z().min(to.z()));
-    let (max_x, max_y, max_z) = (from.x().max(to.x()), from.y().max(to.y()), from.z().max(to.z()));
+    let (min_x, min_y, min_z) = (
+        from.x().min(to.x()),
+        from.y().min(to.y()),
+        from.z().min(to.z()),
+    );
+    let (max_x, max_y, max_z) = (
+        from.x().max(to.x()),
+        from.y().max(to.y()),
+        from.z().max(to.z()),
+    );
     let (world_min_y, world_max_y) = (level.get_min_y(), level.get_max_y());
     let min_section_y = (world_min_y >> 4).max(min_y >> 4);
     let max_section_y = (world_max_y >> 4).min(max_y >> 4);
@@ -45,7 +53,10 @@ pub fn find_blocks(
     }
     let air = Block::AIR.default_state();
     if (min_y < world_min_y || max_y > world_max_y) && predicate(air) {
-        let outside = [(min_y < world_min_y).then_some((min_y, world_min_y - 1)), (max_y > world_max_y).then_some((world_max_y + 1, max_y))];
+        let outside = [
+            (min_y < world_min_y).then_some((min_y, world_min_y - 1)),
+            (max_y > world_max_y).then_some((world_max_y + 1, max_y)),
+        ];
         for (low, high) in outside.into_iter().flatten() {
             for z in min_z..=max_z {
                 for y in low..=high {
@@ -62,7 +73,13 @@ pub fn find_blocks(
 }
 
 /// `findBlocksIn(from, to).filterState(predicate).atLeastMatched(n)`.
-pub fn at_least_matched(level: &dyn LevelReader, from: BlockPos, to: BlockPos, predicate: &dyn Fn(BlockState) -> bool, n: i32) -> bool {
+pub fn at_least_matched(
+    level: &dyn LevelReader,
+    from: BlockPos,
+    to: BlockPos,
+    predicate: &dyn Fn(BlockState) -> bool,
+    n: i32,
+) -> bool {
     let mut count = 0;
     find_blocks(level, from, to, predicate, &mut |_, _| {
         count += 1;
@@ -71,11 +88,22 @@ pub fn at_least_matched(level: &dyn LevelReader, from: BlockPos, to: BlockPos, p
 }
 
 /// `findBlocksIn(from, to).filterState(predicate).atMostMatched(n)`.
-pub fn at_most_matched(level: &dyn LevelReader, from: BlockPos, to: BlockPos, predicate: &dyn Fn(BlockState) -> bool, n: i32) -> bool {
+pub fn at_most_matched(
+    level: &dyn LevelReader,
+    from: BlockPos,
+    to: BlockPos,
+    predicate: &dyn Fn(BlockState) -> bool,
+    n: i32,
+) -> bool {
     !at_least_matched(level, from, to, predicate, n + 1)
 }
 
 /// `findBlocksIn(from, to).filterState(predicate).anyMatched()`.
-pub fn any_matched(level: &dyn LevelReader, from: BlockPos, to: BlockPos, predicate: &dyn Fn(BlockState) -> bool) -> bool {
+pub fn any_matched(
+    level: &dyn LevelReader,
+    from: BlockPos,
+    to: BlockPos,
+    predicate: &dyn Fn(BlockState) -> bool,
+) -> bool {
     find_blocks(level, from, to, predicate, &mut |_, _| true)
 }

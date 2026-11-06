@@ -80,7 +80,12 @@ fn check_fixture(file: &str, min_samples: usize) {
         data_root(),
     ))));
 
-    type State = ((String, i64), RandomState, BTreeMap<String, DensityFunction>, SamplerContext);
+    type State = (
+        (String, i64),
+        RandomState,
+        BTreeMap<String, DensityFunction>,
+        SamplerContext,
+    );
     let mut state: Option<State> = None;
     let (mut checked, mut mismatches) = (0usize, Vec::new());
 

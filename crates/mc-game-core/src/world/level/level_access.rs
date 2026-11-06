@@ -63,7 +63,15 @@ pub trait LevelReader: BlockGetter {
     }
     /// `getMaxLocalRawBrightness(pos, skyDarkening)`.
     fn get_max_local_raw_brightness_with(&self, pos: BlockPos, sky_darkening: i32) -> i32 {
-        if pos.x() >= -30_000_000 && pos.z() >= -30_000_000 && pos.x() < 30_000_000 && pos.z() < 30_000_000 { self.get_raw_brightness(pos, sky_darkening) } else { 15 }
+        if pos.x() >= -30_000_000
+            && pos.z() >= -30_000_000
+            && pos.x() < 30_000_000
+            && pos.z() < 30_000_000
+        {
+            self.get_raw_brightness(pos, sky_darkening)
+        } else {
+            15
+        }
     }
     fn is_empty_block(&self, pos: BlockPos) -> bool {
         self.get_block_state(pos).is_air()
@@ -87,7 +95,11 @@ pub trait LevelReader: BlockGetter {
     }
     /// `getLightLevelDependentMagicValue(pos)`.
     fn get_light_level_dependent_magic_value(&self, pos: BlockPos) -> f32 {
-        let raw = if pos.x() >= -30_000_000 && pos.z() >= -30_000_000 && pos.x() < 30_000_000 && pos.z() < 30_000_000 {
+        let raw = if pos.x() >= -30_000_000
+            && pos.z() >= -30_000_000
+            && pos.x() < 30_000_000
+            && pos.z() < 30_000_000
+        {
             self.get_raw_brightness(pos, self.get_sky_darken())
         } else {
             15
@@ -120,22 +132,51 @@ pub trait LevelAccessor: LevelReader {
         true
     }
     /// `setBlock(pos, state, flags, updateLimit)`; returns whether the block changed.
-    fn set_block(&mut self, pos: BlockPos, state: BlockState, flags: u32, update_limit: i32) -> bool;
+    fn set_block(
+        &mut self,
+        pos: BlockPos,
+        state: BlockState,
+        flags: u32,
+        update_limit: i32,
+    ) -> bool;
     fn remove_block(&mut self, pos: BlockPos, moved_by_piston: bool) -> bool;
     /// `destroyBlock(pos, dropBlock, breaker, updateLimit)` (breaker = entity id when known).
-    fn destroy_block(&mut self, pos: BlockPos, drop_block: bool, breaker: Option<i32>, update_limit: i32) -> bool;
+    fn destroy_block(
+        &mut self,
+        pos: BlockPos,
+        drop_block: bool,
+        breaker: Option<i32>,
+        update_limit: i32,
+    ) -> bool;
     fn get_game_time(&self) -> i64;
     fn next_sub_tick_count(&mut self) -> i64;
     fn random(&mut self) -> &mut dyn RandomSource;
     /// `ScheduledTickAccess.scheduleTick(pos, block, delay, priority)`.
-    fn schedule_block_tick(&mut self, pos: BlockPos, block: Block, delay: i32, priority: TickPriority);
-    fn schedule_fluid_tick(&mut self, pos: BlockPos, fluid: Fluid, delay: i32, priority: TickPriority);
+    fn schedule_block_tick(
+        &mut self,
+        pos: BlockPos,
+        block: Block,
+        delay: i32,
+        priority: TickPriority,
+    );
+    fn schedule_fluid_tick(
+        &mut self,
+        pos: BlockPos,
+        fluid: Fluid,
+        delay: i32,
+        priority: TickPriority,
+    );
     fn has_scheduled_block_tick(&self, pos: BlockPos, block: Block) -> bool;
     fn has_scheduled_fluid_tick(&self, pos: BlockPos, fluid: Fluid) -> bool;
     /// `updateNeighborsAt(pos, sourceBlock)`.
     fn update_neighbors_at(&mut self, pos: BlockPos, source_block: Block);
     /// `updateNeighborsAt(pos, sourceBlock, orientation)`.
-    fn update_neighbors_at_with_orientation(&mut self, pos: BlockPos, source_block: Block, _orientation: Option<Orientation>) {
+    fn update_neighbors_at_with_orientation(
+        &mut self,
+        pos: BlockPos,
+        source_block: Block,
+        _orientation: Option<Orientation>,
+    ) {
         self.update_neighbors_at(pos, source_block);
     }
     /// `neighborShapeChanged(direction, pos, neighborPos, neighborState, flags, limit)` (no-op for levels without
@@ -169,10 +210,26 @@ pub trait LevelAccessor: LevelReader {
     /// regions record it, a server level ignores it.
     fn mark_for_post_processing(&mut self, _pos: BlockPos) {}
     /// `levelEvent(source, type, pos, data)` (no-op outside server levels).
-    fn level_event(&mut self, _source: Option<EntityId>, _event_type: i32, _pos: BlockPos, _data: i32) {}
+    fn level_event(
+        &mut self,
+        _source: Option<EntityId>,
+        _event_type: i32,
+        _pos: BlockPos,
+        _data: i32,
+    ) {
+    }
     /// `playSound(except, pos, sound, source, volume, pitch)` (no-op outside server levels; a world generation region
     /// never plays sounds).
-    fn play_sound(&mut self, _except: Option<EntityId>, _pos: BlockPos, _sound: mc_data::SoundEvent, _source: mc_protocol::packets::play::level::SoundSource, _volume: f32, _pitch: f32) {}
+    fn play_sound(
+        &mut self,
+        _except: Option<EntityId>,
+        _pos: BlockPos,
+        _sound: mc_data::SoundEvent,
+        _source: mc_protocol::packets::play::level::SoundSource,
+        _volume: f32,
+        _pitch: f32,
+    ) {
+    }
     /// `Block.pushEntitiesUp(state, newState, level, pos)`: lifts the entities in the way of a growing block (a
     /// `WorldGenRegion` has no entities).
     fn push_entities_up(&mut self, _state: BlockState, _new_state: BlockState, _pos: BlockPos) {}

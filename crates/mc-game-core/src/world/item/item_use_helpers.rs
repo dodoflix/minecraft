@@ -14,7 +14,13 @@ pub fn may_interact(level: &ServerLevel, player: &ServerPlayer, pos: BlockPos) -
 }
 
 /// `Player.mayUseItemAt(pos, direction, itemStack)`.
-pub fn may_use_item_at(level: &ServerLevel, player: &ServerPlayer, pos: BlockPos, direction: Direction, stack: &ItemStack) -> bool {
+pub fn may_use_item_at(
+    level: &ServerLevel,
+    player: &ServerPlayer,
+    pos: BlockPos,
+    direction: Direction,
+    stack: &ItemStack,
+) -> bool {
     if player.player.abilities.may_build {
         return true;
     }
@@ -23,7 +29,22 @@ pub fn may_use_item_at(level: &ServerLevel, player: &ServerPlayer, pos: BlockPos
 }
 
 /// `Player.playSound(sound, volume, pitch)`: heard by everyone but the player (the client plays it itself).
-pub fn player_play_sound(level: &mut ServerLevel, player: &ServerPlayer, sound: SoundEvent, volume: f32, pitch: f32) {
+pub fn player_play_sound(
+    level: &mut ServerLevel,
+    player: &ServerPlayer,
+    sound: SoundEvent,
+    volume: f32,
+    pitch: f32,
+) {
     let p = player.position();
-    level.play_sound_at(Some(player.base_id()), p.x, p.y, p.z, sound, SoundSource::Players, volume, pitch);
+    level.play_sound_at(
+        Some(player.base_id()),
+        p.x,
+        p.y,
+        p.z,
+        sound,
+        SoundSource::Players,
+        volume,
+        pitch,
+    );
 }

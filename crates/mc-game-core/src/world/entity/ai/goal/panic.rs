@@ -2,9 +2,9 @@
 
 use super::{Flag, Goal, GoalFlags};
 use crate::server::level::ServerLevel;
+use crate::world::entity::Entity;
 use crate::world::entity::ai::util::default_random_pos;
 use crate::world::entity::mob::navigation;
-use crate::world::entity::Entity;
 use crate::world::level::BlockGetter;
 use crate::world::level::block::state::BlockStateExt;
 use mc_core::pos::BlockPos;
@@ -32,22 +32,52 @@ enum PanicTag {
 impl PanicGoal {
     /// `PanicGoal(mob, speedModifier)`.
     pub fn new(speed_modifier: f64) -> Self {
-        Self::with_tag(speed_modifier, crate::world::damagesource::DamageTypeTags::PANIC_CAUSES)
+        Self::with_tag(
+            speed_modifier,
+            crate::world::damagesource::DamageTypeTags::PANIC_CAUSES,
+        )
     }
 
     /// `PanicGoal(mob, speedModifier, panicCausingDamageTypes)`.
     pub fn with_tag(speed_modifier: f64, panic_causing_damage_types: &'static str) -> Self {
-        Self { speed_modifier, pos_x: 0.0, pos_y: 0.0, pos_z: 0.0, is_running: false, panic_causing_damage_types: PanicTag::Fixed(panic_causing_damage_types) }
+        Self {
+            speed_modifier,
+            pos_x: 0.0,
+            pos_y: 0.0,
+            pos_z: 0.0,
+            is_running: false,
+            panic_causing_damage_types: PanicTag::Fixed(panic_causing_damage_types),
+        }
     }
 
     /// `PanicGoal(mob, speedModifier, Function<PathfinderMob, TagKey<DamageType>>)` (`PolarBear`).
-    pub fn with_tag_fn(speed_modifier: f64, panic_causing_damage_types: fn(&dyn Entity) -> &'static str) -> Self {
-        Self { speed_modifier, pos_x: 0.0, pos_y: 0.0, pos_z: 0.0, is_running: false, panic_causing_damage_types: PanicTag::Func(panic_causing_damage_types) }
+    pub fn with_tag_fn(
+        speed_modifier: f64,
+        panic_causing_damage_types: fn(&dyn Entity) -> &'static str,
+    ) -> Self {
+        Self {
+            speed_modifier,
+            pos_x: 0.0,
+            pos_y: 0.0,
+            pos_z: 0.0,
+            is_running: false,
+            panic_causing_damage_types: PanicTag::Func(panic_causing_damage_types),
+        }
     }
 
     /// `shouldPanic()`.
     pub fn should_panic(&self, mob: &dyn Entity, level: &ServerLevel) -> bool {
-        mob.living().and_then(|l| l.last_damage_source.as_ref()).is_some_and(|s| s.is_tag(level, match self.panic_causing_damage_types { PanicTag::Fixed(t) => t, PanicTag::Func(f) => f(mob) }))
+        mob.living()
+            .and_then(|l| l.last_damage_source.as_ref())
+            .is_some_and(|s| {
+                s.is_tag(
+                    level,
+                    match self.panic_causing_damage_types {
+                        PanicTag::Fixed(t) => t,
+                        PanicTag::Func(f) => f(mob),
+                    },
+                )
+            })
     }
 
     /// `findRandomPosition()`.
@@ -71,12 +101,21 @@ impl PanicGoal {
     /// `lookForWater(level, mob, xzDist)`.
     pub fn look_for_water(level: &ServerLevel, mob: &dyn Entity, xz_dist: i32) -> Option<BlockPos> {
         let mob_position = mob.block_position();
-        if !level.get_block_state(mob_position).get_collision_shape(level, mob_position).is_empty() {
+        if !level
+            .get_block_state(mob_position)
+            .get_collision_shape(level, mob_position)
+            .is_empty()
+        {
             return None;
         }
         let water = mc_data::tags::get::<Fluid>("water");
-        BlockPos::within_box_by_manhattan_distance(&mob_position, xz_dist, WATER_CHECK_DISTANCE_VERTICAL, xz_dist)
-            .find(|p| water.is_some_and(|t| t.contains(level.get_fluid_state(*p).fluid())))
+        BlockPos::within_box_by_manhattan_distance(
+            &mob_position,
+            xz_dist,
+            WATER_CHECK_DISTANCE_VERTICAL,
+            xz_dist,
+        )
+        .find(|p| water.is_some_and(|t| t.contains(level.get_fluid_state(*p).fluid())))
     }
 
     /// The goal's `canUse` body, reusable by subclasses (`TamableAnimalPanicGoal`, ...).
@@ -87,7 +126,13 @@ impl PanicGoal {
 
     /// `canUse()` with `shouldPanic()` supplied by the subclass (`MountPanicGoal`, `FoxPanicGoal`: `!x && super.shouldPanic()`)
     /// and the `lookForWater` range (`TurtlePanicGoal`: 7).
-    pub fn can_use_with(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel, should_panic: bool, water_range: i32) -> bool {
+    pub fn can_use_with(
+        &mut self,
+        mob: &mut dyn Entity,
+        level: &mut ServerLevel,
+        should_panic: bool,
+        water_range: i32,
+    ) -> bool {
         if !should_panic {
             return false;
         }
@@ -103,7 +148,14 @@ impl PanicGoal {
     }
 
     pub fn start_impl(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
-        navigation::move_to(mob, level, self.pos_x, self.pos_y, self.pos_z, self.speed_modifier);
+        navigation::move_to(
+            mob,
+            level,
+            self.pos_x,
+            self.pos_y,
+            self.pos_z,
+            self.speed_modifier,
+        );
         self.is_running = true;
     }
 }

@@ -20,7 +20,10 @@
 //! (`NaN` equals `NaN`, `-0.0 != 0.0`) or, with [`Options::float_tolerance`], within that absolute difference.
 //! Write `f32` fields with `{}` of the f32 (shortest round trip), `f64` with `{}`/`{:?}` of the f64, exactly as the driver prints
 //! the Java `float`/`double`.
-#![allow(dead_code, reason = "each test target uses a subset of the shared helpers")]
+#![allow(
+    dead_code,
+    reason = "each test target uses a subset of the shared helpers"
+)]
 
 use std::collections::BTreeMap;
 use std::path::PathBuf;
@@ -62,9 +65,17 @@ impl Line {
         let rest: Vec<String> = it.map(str::to_string).collect();
         let fields = rest
             .iter()
-            .filter_map(|t| t.split_once('=').map(|(k, v)| (k.to_string(), v.to_string())))
+            .filter_map(|t| {
+                t.split_once('=')
+                    .map(|(k, v)| (k.to_string(), v.to_string()))
+            })
             .collect();
-        Line { kind, name, rest, fields }
+        Line {
+            kind,
+            name,
+            rest,
+            fields,
+        }
     }
 
     /// `f64` of `key=value` (first number if the value is a `,` list).
@@ -78,12 +89,17 @@ impl Line {
             .get(key)
             .unwrap_or_else(|| panic!("line `{} {}` has no field {key}", self.kind, self.name))
             .split(',')
-            .map(|s| s.parse::<f64>().unwrap_or_else(|_| panic!("field {key}={s} is not a number")))
+            .map(|s| {
+                s.parse::<f64>()
+                    .unwrap_or_else(|_| panic!("field {key}={s} is not a number"))
+            })
             .collect()
     }
 
     pub fn str(&self, key: &str) -> &str {
-        self.fields.get(key).unwrap_or_else(|| panic!("line `{} {}` has no field {key}", self.kind, self.name))
+        self.fields
+            .get(key)
+            .unwrap_or_else(|| panic!("line `{} {}` has no field {key}", self.kind, self.name))
     }
 }
 
@@ -103,17 +119,29 @@ pub struct Fixture {
 impl Fixture {
     pub fn load(name: &str) -> Fixture {
         let path = fixture_dir().join(format!("{name}.txt"));
-        let text = std::fs::read_to_string(&path).unwrap_or_else(|e| panic!("fixture {}: {e} (regenerate with scripts/entity-oracle.sh --regen)", path.display()));
+        let text = std::fs::read_to_string(&path).unwrap_or_else(|e| {
+            panic!(
+                "fixture {}: {e} (regenerate with scripts/entity-oracle.sh --regen)",
+                path.display()
+            )
+        });
         Fixture::from_text(name, &text)
     }
 
     pub fn from_text(name: &str, text: &str) -> Fixture {
-        Fixture { name: name.to_string(), lines: text.lines().map(str::to_string).collect() }
+        Fixture {
+            name: name.to_string(),
+            lines: text.lines().map(str::to_string).collect(),
+        }
     }
 
     /// Lines before the first `T n` header (the `dump` output printed before any tick of a `watch`).
     pub fn preamble(&self) -> Vec<String> {
-        self.lines.iter().take_while(|l| !l.starts_with("T ")).cloned().collect()
+        self.lines
+            .iter()
+            .take_while(|l| !l.starts_with("T "))
+            .cloned()
+            .collect()
     }
 
     /// Per-tick blocks (`T n` header + following lines up to the next header).
@@ -121,7 +149,10 @@ impl Fixture {
         let mut out: Vec<TickBlock> = Vec::new();
         for l in &self.lines {
             if let Some(n) = l.strip_prefix("T ") {
-                out.push(TickBlock { tick: n.trim().parse().expect("tick number"), lines: Vec::new() });
+                out.push(TickBlock {
+                    tick: n.trim().parse().expect("tick number"),
+                    lines: Vec::new(),
+                });
             } else if let Some(b) = out.last_mut() {
                 b.lines.push(l.clone());
             }
@@ -156,13 +187,18 @@ fn normalize(line: &str, opts: &Options) -> String {
         return line.to_string();
     }
     line.split(' ')
-        .filter(|t| t.split_once('=').is_none_or(|(k, _)| !opts.ignore_fields.contains(&k)))
+        .filter(|t| {
+            t.split_once('=')
+                .is_none_or(|(k, _)| !opts.ignore_fields.contains(&k))
+        })
         .collect::<Vec<_>>()
         .join(" ")
 }
 
 fn tokens(line: &str) -> Vec<&str> {
-    line.split(|c: char| c.is_whitespace() || ",=;/*:".contains(c)).filter(|t| !t.is_empty()).collect()
+    line.split(|c: char| c.is_whitespace() || ",=;/*:".contains(c))
+        .filter(|t| !t.is_empty())
+        .collect()
 }
 
 fn token_eq(a: &str, b: &str, tol: Option<f64>) -> bool {
@@ -187,7 +223,11 @@ fn token_eq(a: &str, b: &str, tol: Option<f64>) -> bool {
 pub fn lines_match(expected: &str, actual: &str, opts: &Options) -> bool {
     let (e, a) = (normalize(expected, opts), normalize(actual, opts));
     let (te, ta) = (tokens(&e), tokens(&a));
-    te.len() == ta.len() && te.iter().zip(&ta).all(|(x, y)| token_eq(x, y, opts.float_tolerance))
+    te.len() == ta.len()
+        && te
+            .iter()
+            .zip(&ta)
+            .all(|(x, y)| token_eq(x, y, opts.float_tolerance))
 }
 
 /// Compare two line lists; `Err` carries a readable report of the first differences with the surrounding lines.
@@ -207,8 +247,14 @@ pub fn compare(expected: &[String], actual: &[String], opts: &Options) -> Result
                     report.push_str(&format!("      {j:>5}: {}\n", e[j]));
                 }
             }
-            report.push_str(&format!("  exp {i:>5}: {}\n", e.get(i).map_or("<missing>", |s| s.as_str())));
-            report.push_str(&format!("  act {i:>5}: {}\n", a.get(i).map_or("<missing>", |s| s.as_str())));
+            report.push_str(&format!(
+                "  exp {i:>5}: {}\n",
+                e.get(i).map_or("<missing>", |s| s.as_str())
+            ));
+            report.push_str(&format!(
+                "  act {i:>5}: {}\n",
+                a.get(i).map_or("<missing>", |s| s.as_str())
+            ));
             shown += 1;
             if shown >= 5 {
                 report.push_str("  ... (more differences)\n");
@@ -220,7 +266,11 @@ pub fn compare(expected: &[String], actual: &[String], opts: &Options) -> Result
         Ok(())
     } else {
         if shown == 0 {
-            report.push_str(&format!("  line count differs: expected {}, actual {}\n", e.len(), a.len()));
+            report.push_str(&format!(
+                "  line count differs: expected {}, actual {}\n",
+                e.len(),
+                a.len()
+            ));
         }
         Err(report)
     }

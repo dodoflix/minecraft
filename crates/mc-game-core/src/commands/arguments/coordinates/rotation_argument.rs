@@ -1,7 +1,10 @@
 use super::{Coordinates, ERROR_ROTATION_INCOMPLETE, WorldCoordinate, WorldCoordinates};
 use crate::commands::CommandSourceStack;
 use mc_brigadier::arguments::value;
-use mc_brigadier::{ArgumentType, CommandContext, CommandSyntaxException, ImmutableStringReader, ParsedValue, StringReader};
+use mc_brigadier::{
+    ArgumentType, CommandContext, CommandSyntaxException, ImmutableStringReader, ParsedValue,
+    StringReader,
+};
 
 /// `RotationArgument`.
 #[derive(Clone, Copy, Debug, Default)]
@@ -27,7 +30,11 @@ impl ArgumentType<CommandSourceStack> for RotationArgument {
         if reader.can_read() && reader.peek() == ' ' {
             reader.skip();
             let x = WorldCoordinate::parse_double(reader, false)?;
-            Ok(value(Coordinates::World(WorldCoordinates { x, y, z: WorldCoordinate::new(true, 0.0) })))
+            Ok(value(Coordinates::World(WorldCoordinates {
+                x,
+                y,
+                z: WorldCoordinate::new(true, 0.0),
+            })))
         } else {
             reader.set_cursor(start);
             Err(ERROR_ROTATION_INCOMPLETE.create_with_context(reader))
@@ -43,4 +50,6 @@ impl ArgumentType<CommandSourceStack> for RotationArgument {
     }
 }
 
-crate::register_argument_type!(RotationArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::Rotation);
+crate::register_argument_type!(RotationArgument, |_a| {
+    mc_protocol::packets::play::ArgumentTypeTemplate::Rotation
+});

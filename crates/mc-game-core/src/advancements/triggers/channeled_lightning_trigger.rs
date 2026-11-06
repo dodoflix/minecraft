@@ -12,13 +12,16 @@ pub struct ChanneledLightningTriggerInstance {
 
 impl TriggerInstance for ChanneledLightningTriggerInstance {
     fn codec() -> Codec<Self> {
-        static C: std::sync::LazyLock<Codec<ChanneledLightningTriggerInstance>> = std::sync::LazyLock::new(|| {
-            mc_dfu::record!(ChanneledLightningTriggerInstance {
-                player: condition_holder_codec().optional_field_of("player"),
-                victims: condition_holder_codec().list_of().optional_field_of_default_with("victims", Vec::new()),
-            })
-            .codec()
-        });
+        static C: std::sync::LazyLock<Codec<ChanneledLightningTriggerInstance>> =
+            std::sync::LazyLock::new(|| {
+                mc_dfu::record!(ChanneledLightningTriggerInstance {
+                    player: condition_holder_codec().optional_field_of("player"),
+                    victims: condition_holder_codec()
+                        .list_of()
+                        .optional_field_of_default_with("victims", Vec::new()),
+                })
+                .codec()
+            });
         C.clone()
     }
 }
@@ -30,7 +33,11 @@ impl SimpleInstance for ChanneledLightningTriggerInstance {
 }
 
 crate::simple_instance!(ChanneledLightningTriggerInstance, |this, validator| {
-    crate::world::level::storage::loot::validation::validate_holder_list(&validator.entity_context(), "victims", &this.victims);
+    crate::world::level::storage::loot::validation::validate_holder_list(
+        &validator.entity_context(),
+        "victims",
+        &this.victims,
+    );
 });
 
 crate::register_triggers!(ChanneledLightningTriggerInstance {
@@ -49,15 +56,28 @@ impl ChanneledLightningTriggerInstance {
 
 impl Trigger<ChanneledLightningTriggerInstance> {
     /// `trigger(player, victims)`.
-    pub fn trigger(&self, level: &mut ServerLevel, player: &mut ServerPlayer, victims: &[&dyn Entity]) {
+    pub fn trigger(
+        &self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        victims: &[&dyn Entity],
+    ) {
         let matches = self.matches(&*level, &*player, victims);
         matches.award(level, player);
     }
 
     /// The listeners that match; nothing is mutated.
-    pub fn matches(&self, level: &ServerLevel, player: &ServerPlayer, victims: &[&dyn Entity]) -> TriggerMatches {
+    pub fn matches(
+        &self,
+        level: &ServerLevel,
+        player: &ServerPlayer,
+        victims: &[&dyn Entity],
+    ) -> TriggerMatches {
         let position = player.position();
-        let params: Vec<_> = victims.iter().map(|v| entity_params(level, position, *v)).collect();
+        let params: Vec<_> = victims
+            .iter()
+            .map(|v| entity_params(level, position, *v))
+            .collect();
         let mut contexts: Vec<LootContext> = params.iter().map(new_context).collect();
         self.collect(level, player, |t| t.matches(&mut contexts))
     }

@@ -1,9 +1,9 @@
 //! `TradeWithPlayerGoal`.
 
-use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags};
 use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::entity::mob::navigation;
 use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags};
+use mc_game_core::world::entity::mob::navigation;
 
 #[derive(Default)]
 pub struct TradeWithPlayerGoal;
@@ -26,7 +26,11 @@ impl Goal for TradeWithPlayerGoal {
             // `wasHurtRecently()`
             false
         } else {
-            match mob.as_abstract_villager().and_then(|v| v.get_trading_player()).and_then(|p| level.get_entity(p)) {
+            match mob
+                .as_abstract_villager()
+                .and_then(|v| v.get_trading_player())
+                .and_then(|p| level.get_entity(p))
+            {
                 None => false,
                 Some(trader) => !(mob.base().distance_to_sqr_vec(trader.position()) > 16.0),
             }

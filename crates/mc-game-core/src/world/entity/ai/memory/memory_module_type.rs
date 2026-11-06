@@ -1,9 +1,11 @@
 //! `MemoryModuleType<U>`: every vanilla memory type as a typed constant, in registry order
 //! (`BuiltInRegistries.MEMORY_MODULE_TYPE`). Use them as `memory_module_type::HOME`, `&memory_module_type::WALK_TARGET`.
 
-use super::value::{EntityRef, GlobalPosSet, MemoryData, SharedDamageSource, SpearStatus, Unit, Void};
-use super::walk_target::WalkTarget;
 use super::NearestVisibleLivingEntities;
+use super::value::{
+    EntityRef, GlobalPosSet, MemoryData, SharedDamageSource, SpearStatus, Unit, Void,
+};
+use super::walk_target::WalkTarget;
 use crate::world::entity::ai::behavior::position_tracker::PositionTracker;
 use crate::world::level::pathfinder::Path;
 use mc_core::ident::Identifier;
@@ -65,7 +67,10 @@ impl MemoryTypeId {
         if id.namespace() != "minecraft" {
             return None;
         }
-        REGISTRY.iter().position(|i| i.name == id.path()).map(|i| MemoryTypeId(i as u16))
+        REGISTRY
+            .iter()
+            .position(|i| i.name == id.path())
+            .map(|i| MemoryTypeId(i as u16))
     }
 }
 
@@ -101,7 +106,10 @@ impl<U> std::fmt::Debug for MemoryModuleType<U> {
 
 impl<U> MemoryModuleType<U> {
     const fn new(index: u16) -> Self {
-        Self { id: MemoryTypeId(index), _marker: PhantomData }
+        Self {
+            id: MemoryTypeId(index),
+            _marker: PhantomData,
+        }
     }
 
     /// The untyped id (`MemoryModuleType<?>`).

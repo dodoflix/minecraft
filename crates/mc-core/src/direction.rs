@@ -152,7 +152,11 @@ impl Direction {
 
     /// `getUnitVec3`
     pub fn get_unit_vec3(self) -> Vec3 {
-        Vec3::new(self.get_step_x() as f64, self.get_step_y() as f64, self.get_step_z() as f64)
+        Vec3::new(
+            self.get_step_x() as f64,
+            self.get_step_y() as f64,
+            self.get_step_z() as f64,
+        )
     }
 
     /// `Direction.byName` (exact, case-sensitive match of the serialized name).
@@ -482,7 +486,14 @@ impl Direction {
     }
 
     fn make_direction_array(a1: Direction, a2: Direction, a3: Direction) -> [Direction; 6] {
-        [a1, a2, a3, a3.get_opposite(), a2.get_opposite(), a1.get_opposite()]
+        [
+            a1,
+            a2,
+            a3,
+            a3.get_opposite(),
+            a2.get_opposite(),
+            a1.get_opposite(),
+        ]
     }
 }
 
@@ -781,7 +792,11 @@ impl CompositeDirection {
     const fn of(direction: Direction) -> Self {
         Self {
             directions: 1 << direction as u8,
-            step: [direction.get_step_x(), direction.get_step_y(), direction.get_step_z()],
+            step: [
+                direction.get_step_x(),
+                direction.get_step_y(),
+                direction.get_step_z(),
+            ],
         }
     }
 
@@ -808,7 +823,10 @@ impl CompositeDirection {
             return Err("Directions cannot be empty");
         }
         let mask = directions.iter().fold(0u8, |m, d| m | 1 << *d as u8);
-        Ok(Self { directions: mask, step: [step.x(), step.y(), step.z()] })
+        Ok(Self {
+            directions: mask,
+            step: [step.x(), step.y(), step.z()],
+        })
     }
 
     /// Plain union of the sets and sum of the steps (note: `Set.addAll`, not a symmetric merge).
@@ -825,7 +843,10 @@ impl CompositeDirection {
 
     /// `directions()`, in `EnumSet` (ordinal) iteration order.
     pub fn directions(&self) -> Vec<Direction> {
-        Direction::ALL.into_iter().filter(|d| self.directions & (1 << *d as u8) != 0).collect()
+        Direction::ALL
+            .into_iter()
+            .filter(|d| self.directions & (1 << *d as u8) != 0)
+            .collect()
     }
 
     pub fn contains(&self, direction: Direction) -> bool {
@@ -986,12 +1007,16 @@ impl FrontAndTop {
 
     /// `CODEC` lookup by serialized name.
     pub fn by_name(name: &str) -> Option<FrontAndTop> {
-        Self::ALL.into_iter().find(|f| f.get_serialized_name() == name)
+        Self::ALL
+            .into_iter()
+            .find(|f| f.get_serialized_name() == name)
     }
 
     /// `fromFrontAndTop`: `None` where vanilla's lookup table holds `null` (not one of the 12 constants).
     pub fn from_front_and_top(front: Direction, top: Direction) -> Option<FrontAndTop> {
-        Self::ALL.into_iter().find(|f| f.front() == front && f.top() == top)
+        Self::ALL
+            .into_iter()
+            .find(|f| f.front() == front && f.top() == top)
     }
 }
 

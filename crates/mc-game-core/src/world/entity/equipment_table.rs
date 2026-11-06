@@ -17,17 +17,26 @@ pub struct EquipmentTable {
 impl EquipmentTable {
     /// `EquipmentTable(lootTable, dropChance)`: the same chance for every slot.
     pub fn new(loot_table: Identifier, drop_chance: f32) -> Self {
-        Self { loot_table, slot_drop_chances: create_for_all_slots(drop_chance) }
+        Self {
+            loot_table,
+            slot_drop_chances: create_for_all_slots(drop_chance),
+        }
     }
 
     /// `slotDropChances().get(slot)`.
     pub fn drop_chance(&self, slot: EquipmentSlot) -> Option<f32> {
-        self.slot_drop_chances.iter().find(|(s, _)| *s == slot).map(|(_, c)| *c)
+        self.slot_drop_chances
+            .iter()
+            .find(|(s, _)| *s == slot)
+            .map(|(_, c)| *c)
     }
 }
 
 fn create_for_all_slots(drop_chance: f32) -> Vec<(EquipmentSlot, f32)> {
-    EquipmentSlot::VALUES.iter().map(|s| (*s, drop_chance)).collect()
+    EquipmentSlot::VALUES
+        .iter()
+        .map(|s| (*s, drop_chance))
+        .collect()
 }
 
 const SLOT_NAMES: [(EquipmentSlot, &str); 8] = [
@@ -53,7 +62,9 @@ fn drop_chances_codec() -> Codec<Vec<(EquipmentSlot, f32)>> {
         |provider: &Vec<(EquipmentSlot, f32)>| {
             let first = provider.first().map(|(_, v)| v.to_bits());
             let all_same = provider.iter().all(|(_, v)| Some(v.to_bits()) == first);
-            let all_present = EquipmentSlot::VALUES.iter().all(|s| provider.iter().any(|(k, _)| k == s));
+            let all_present = EquipmentSlot::VALUES
+                .iter()
+                .all(|s| provider.iter().any(|(k, _)| k == s));
             if all_same && all_present {
                 Either::Left(provider.first().map(|(_, v)| *v).unwrap_or(0.0))
             } else {
@@ -67,7 +78,8 @@ fn drop_chances_codec() -> Codec<Vec<(EquipmentSlot, f32)>> {
 pub static CODEC: LazyLock<Codec<EquipmentTable>> = LazyLock::new(|| {
     record!(EquipmentTable {
         loot_table: IDENTIFIER.field_of("loot_table"),
-        slot_drop_chances: drop_chances_codec().optional_field_of_default("slot_drop_chances", Vec::new()),
+        slot_drop_chances: drop_chances_codec()
+            .optional_field_of_default("slot_drop_chances", Vec::new()),
     })
     .codec()
 });

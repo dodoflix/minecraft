@@ -6,7 +6,9 @@
 //! `LevelChunk`s, starting ticking, entity visibility, unloading chunks) is reported as a [`ChunkMapEvent`] that
 //! `ServerLevel` handles right after the chunk source call and answers with the `complete_*` methods.
 
-use super::chunk_holder::{ChunkHolder, ChunkSlot, FutureState, PromotionFuture, PromotionKind, Waiter};
+use super::chunk_holder::{
+    ChunkHolder, ChunkSlot, FutureState, PromotionFuture, PromotionKind, Waiter,
+};
 use super::chunk_io::{RegionIo, WorkerMessage, WorkerPool, WorldgenThread};
 use super::chunk_level;
 use super::chunk_task_queue::ChunkTaskPriorityQueue;
@@ -33,9 +35,9 @@ use mc_world::region::RegionStorageInfo;
 use mc_world::status::ChunkStatus;
 use std::collections::{HashMap, VecDeque};
 use std::path::PathBuf;
+use std::sync::Arc;
 use std::sync::atomic::AtomicI32;
 use std::sync::mpsc::{Receiver, Sender, channel};
-use std::sync::Arc;
 use uuid::Uuid;
 
 pub const MIN_VIEW_DISTANCE: i32 = 2;
@@ -60,20 +62,34 @@ pub struct Holders {
 
 impl Holders {
     pub fn holder(&self, key: i64) -> Option<&ChunkHolder> {
-        self.updating.get(&key).or_else(|| self.pending_unloads.get(&key))
+        self.updating
+            .get(&key)
+            .or_else(|| self.pending_unloads.get(&key))
     }
 
     pub fn holder_mut(&mut self, key: i64) -> Option<&mut ChunkHolder> {
-        if self.updating.contains_key(&key) { self.updating.get_mut(&key) } else { self.pending_unloads.get_mut(&key) }
+        if self.updating.contains_key(&key) {
+            self.updating.get_mut(&key)
+        } else {
+            self.pending_unloads.get_mut(&key)
+        }
     }
 
     /// `getVisibleChunkIfPresent(key)`.
     pub fn visible_holder(&self, key: i64) -> Option<&ChunkHolder> {
-        if self.visible.contains(&key) { self.holder(key) } else { None }
+        if self.visible.contains(&key) {
+            self.holder(key)
+        } else {
+            None
+        }
     }
 
     pub fn visible_holder_mut(&mut self, key: i64) -> Option<&mut ChunkHolder> {
-        if self.visible.contains(&key) { self.holder_mut(key) } else { None }
+        if self.visible.contains(&key) {
+            self.holder_mut(key)
+        } else {
+            None
+        }
     }
 }
 
@@ -92,7 +108,10 @@ impl DistanceHost for Holders {
         }
         let exists = self.updating.contains_key(&node);
         if exists {
-            self.updating.get_mut(&node).expect("exists").set_ticket_level(level);
+            self.updating
+                .get_mut(&node)
+                .expect("exists")
+                .set_ticket_level(level);
             if !chunk_level::is_loaded(level) {
                 self.to_drop.add(node);
             } else {
@@ -108,7 +127,8 @@ impl DistanceHost for Holders {
                 None => {
                     let serial = self.next_serial;
                     self.next_serial += 1;
-                    ChunkHolder::new(ChunkPos::unpack(node), level, self.level_height, serial).unwrap_or_else(|e| panic!("{e}"))
+                    ChunkHolder::new(ChunkPos::unpack(node), level, self.level_height, serial)
+                        .unwrap_or_else(|e| panic!("{e}"))
                 }
             };
             self.updating.insert(node, holder);
@@ -265,12 +285,39 @@ pub struct ChunkMap {
 
 impl ChunkMap {
     pub fn new(params: ChunkMapParams) -> Self {
-        let ChunkMapParams { dimension, level_id, region_dir, poi_dir, level_height, has_sky_light, factory, gen_context, is_known_structure, sync_writes, view_distance, tickets } = params;
+        let ChunkMapParams {
+            dimension,
+            level_id,
+            region_dir,
+            poi_dir,
+            level_height,
+            has_sky_light,
+            factory,
+            gen_context,
+            is_known_structure,
+            sync_writes,
+            view_distance,
+            tickets,
+        } = params;
         let (result_tx, results) = channel();
         let storage_info = RegionStorageInfo::new(level_id.clone(), dimension.clone(), "chunk");
-        let poi_manager = PoiManager::new(RegionStorageInfo::new(level_id, dimension.clone(), "poi"), poi_dir, sync_writes, level_height);
-        let io = RegionIo::new(storage_info.clone(), region_dir, sync_writes, result_tx.clone());
-        let pool = WorkerPool::new("Chunk-Pool", std::thread::available_parallelism().map_or(2, |n| n.get().min(4)), result_tx.clone());
+        let poi_manager = PoiManager::new(
+            RegionStorageInfo::new(level_id, dimension.clone(), "poi"),
+            poi_dir,
+            sync_writes,
+            level_height,
+        );
+        let io = RegionIo::new(
+            storage_info.clone(),
+            region_dir,
+            sync_writes,
+            result_tx.clone(),
+        );
+        let pool = WorkerPool::new(
+            "Chunk-Pool",
+            std::thread::available_parallelism().map_or(2, |n| n.get().min(4)),
+            result_tx.clone(),
+        );
         let worldgen = WorldgenThread::new(result_tx.clone());
         let mut map = Self {
             holders: Holders {
@@ -290,8 +337,15 @@ impl ChunkMap {
             factory,
             gen_context,
             is_known_structure,
-            light: ThreadedLevelLightEngine::new(level_height, has_sky_light, super::chunk_task_queue::priority_level_count()),
-            settings: ChunkMapSettings { spectators_generate_chunks: false, no_save: false },
+            light: ThreadedLevelLightEngine::new(
+                level_height,
+                has_sky_light,
+                super::chunk_task_queue::priority_level_count(),
+            ),
+            settings: ChunkMapSettings {
+                spectators_generate_chunks: false,
+                no_save: false,
+            },
             game_time: 0,
             tick_containers: None,
             io,
@@ -304,7 +358,9 @@ impl ChunkMap {
             tasks: HashMap::new(),
             next_task_id: 1,
             pending_generation_tasks: Vec::new(),
-            worldgen_queue: ChunkTaskPriorityQueue::new(super::chunk_task_queue::priority_level_count()),
+            worldgen_queue: ChunkTaskPriorityQueue::new(
+                super::chunk_task_queue::priority_level_count(),
+            ),
             ready: VecDeque::new(),
             main_tasks: VecDeque::new(),
             events: Vec::new(),
@@ -342,13 +398,15 @@ impl ChunkMap {
 
     /// `getLatestStatus(key)`.
     pub fn get_latest_status(&self, key: i64) -> Option<ChunkStatus> {
-        self.get_visible_chunk_if_present(key).and_then(ChunkHolder::get_latest_status)
+        self.get_visible_chunk_if_present(key)
+            .and_then(ChunkHolder::get_latest_status)
     }
 
     /// `getChunkQueueLevel(pos)`.
     pub fn get_chunk_queue_level(&self, pos: i64) -> i32 {
         let max = super::chunk_task_queue::priority_level_count() - 1;
-        self.get_visible_chunk_if_present(pos).map_or(max, |c| c.get_queue_level().min(max))
+        self.get_visible_chunk_if_present(pos)
+            .map_or(max, |c| c.get_queue_level().min(max))
     }
 
     /// `size()`.
@@ -363,7 +421,11 @@ impl ChunkMap {
             .visible
             .iter()
             .copied()
-            .filter(|k| self.holders.holder(*k).is_some_and(|h| h.get_ticket_level() <= level))
+            .filter(|k| {
+                self.holders
+                    .holder(*k)
+                    .is_some_and(|h| h.get_ticket_level() <= level)
+            })
             .collect()
     }
 
@@ -417,7 +479,9 @@ impl ChunkMap {
 
     /// `DistanceManager.runAllUpdates(chunkMap)`.
     pub fn run_all_updates(&mut self) -> bool {
-        let updated = self.distance_manager.run_updates(&mut self.holders, &mut self.tickets);
+        let updated = self
+            .distance_manager
+            .run_updates(&mut self.holders, &mut self.tickets);
         self.queue_distance_tasks();
         if !self.distance_manager.chunks_to_update_futures.is_empty() {
             let keys = self.distance_manager.chunks_to_update_futures.drain();
@@ -433,13 +497,21 @@ impl ChunkMap {
             if !self.distance_manager.tickets_to_release.is_empty() {
                 let positions: Vec<i64> = self.distance_manager.tickets_to_release.iter().collect();
                 for pos in positions {
-                    if self.tickets.get_tickets(pos).iter().any(|t| t.get_type() == TicketType::PLAYER_LOADING) {
-                        let Some(holder) = self.holders.updating.get_mut(&pos) else { panic!("IllegalStateException") };
+                    if self
+                        .tickets
+                        .get_tickets(pos)
+                        .iter()
+                        .any(|t| t.get_type() == TicketType::PLAYER_LOADING)
+                    {
+                        let Some(holder) = self.holders.updating.get_mut(&pos) else {
+                            panic!("IllegalStateException")
+                        };
                         // `entityTickingChunkFuture.thenAccept(c -> execute(() -> release(pos)))`
                         if holder.entity_ticking_chunk_future.is_pending() {
                             holder.release_when_entity_ticking = true;
                         } else {
-                            self.main_tasks.push_back(MainTask::Distance(DistanceTask::ReleaseSlot { pos }));
+                            self.main_tasks
+                                .push_back(MainTask::Distance(DistanceTask::ReleaseSlot { pos }));
                         }
                     }
                 }
@@ -457,13 +529,17 @@ impl ChunkMap {
 
     /// `ChunkHolder.updateHighestAllowedStatus(scheduler)`.
     fn update_highest_allowed_status(&mut self, key: i64) {
-        let Some(holder) = self.holders.holder_mut(key) else { return };
+        let Some(holder) = self.holders.holder_mut(key) else {
+            return;
+        };
         let old_status = holder.highest_allowed_status();
         let new_status = chunk_level::generation_status(holder.get_ticket_level());
         holder.set_highest_allowed_status(new_status);
-        let status_dropped = old_status.is_some_and(|old| new_status.is_none_or(|n| n.is_before(old)));
+        let status_dropped =
+            old_status.is_some_and(|old| new_status.is_none_or(|n| n.is_before(old)));
         if status_dropped {
-            let woken = holder.fail_and_clear_pending_futures_between(new_status, old_status.expect("dropped"));
+            let woken = holder
+                .fail_and_clear_pending_futures_between(new_status, old_status.expect("dropped"));
             let has_task = holder.task.is_some();
             let pending_status = holder.find_highest_status_with_pending_future(new_status);
             self.wake(key, woken);
@@ -481,7 +557,9 @@ impl ChunkMap {
 
     /// `ChunkHolder.updateFutures(scheduler, mainThreadExecutor)`.
     fn update_futures(&mut self, key: i64) {
-        let Some(holder) = self.holders.holder_mut(key) else { return };
+        let Some(holder) = self.holders.holder_mut(key) else {
+            return;
+        };
         let old_full = chunk_level::full_status(holder.old_ticket_level());
         let new_full = chunk_level::full_status(holder.get_ticket_level());
         let was_accessible = old_full.is_or_after(FullChunkStatus::Full);
@@ -508,7 +586,10 @@ impl ChunkMap {
         let was_entity_ticking = old_full.is_or_after(FullChunkStatus::EntityTicking);
         let is_entity_ticking = new_full.is_or_after(FullChunkStatus::EntityTicking);
         if !was_entity_ticking && is_entity_ticking {
-            assert!(holder.entity_ticking_chunk_future == PromotionFuture::Unloaded, "IllegalStateException");
+            assert!(
+                holder.entity_ticking_chunk_future == PromotionFuture::Unloaded,
+                "IllegalStateException"
+            );
             self.prepare_promotion(key, PromotionKind::EntityTicking);
         }
         let holder = self.holders.holder_mut(key).expect("holder");
@@ -516,14 +597,18 @@ impl ChunkMap {
             let release = std::mem::take(&mut holder.release_when_entity_ticking);
             holder.entity_ticking_chunk_future = PromotionFuture::Unloaded;
             if release {
-                self.main_tasks.push_back(MainTask::Distance(DistanceTask::ReleaseSlot { pos: key }));
+                self.main_tasks
+                    .push_back(MainTask::Distance(DistanceTask::ReleaseSlot { pos: key }));
             }
         }
         let holder = self.holders.holder_mut(key).expect("holder");
         if !new_full.is_or_after(old_full) {
             // `demoteFullChunk`: cancel a pending confirmation and report immediately.
             holder.pending_full_state_confirmation = None;
-            self.events.push(ChunkMapEvent::FullStatusChanged(ChunkPos::unpack(key), new_full));
+            self.events.push(ChunkMapEvent::FullStatusChanged(
+                ChunkPos::unpack(key),
+                new_full,
+            ));
         }
         let holder = self.holders.holder_mut(key).expect("holder");
         let ticket_level = holder.get_ticket_level();
@@ -531,7 +616,8 @@ impl ChunkMap {
         holder.set_old_ticket_level(ticket_level);
         // `onLevelChange` -> `worldgenTaskDispatcher.onLevelChange(pos, oldLevel, newLevel, setQueueLevel)`.
         holder.set_queue_level(ticket_level);
-        self.worldgen_queue.resort_chunk_tasks(old_queue, key, ticket_level);
+        self.worldgen_queue
+            .resort_chunk_tasks(old_queue, key, ticket_level);
         self.check_unload_ready(key);
     }
 
@@ -564,7 +650,9 @@ impl ChunkMap {
             match kind {
                 PromotionKind::Full => holder.full_chunk_future = PromotionFuture::Pending,
                 PromotionKind::Ticking => holder.ticking_chunk_future = PromotionFuture::Pending,
-                PromotionKind::EntityTicking => holder.entity_ticking_chunk_future = PromotionFuture::Pending,
+                PromotionKind::EntityTicking => {
+                    holder.entity_ticking_chunk_future = PromotionFuture::Pending
+                }
             }
         }
         // `getChunkRangeFuture`: schedule every chunk of the range.
@@ -600,7 +688,9 @@ impl ChunkMap {
 
     /// Re-check a pending promotion after one of its dependencies changed.
     pub(crate) fn evaluate_promotion(&mut self, key: i64, kind: PromotionKind) {
-        let Some(holder) = self.holders.holder(key) else { return };
+        let Some(holder) = self.holders.holder(key) else {
+            return;
+        };
         let current = match kind {
             PromotionKind::Full => holder.full_chunk_future,
             PromotionKind::Ticking => holder.ticking_chunk_future,
@@ -640,7 +730,11 @@ impl ChunkMap {
         }
         if kind == PromotionKind::Ticking {
             // `thenApplyAsync(..., mainThreadExecutor)`
-            if !self.main_tasks.iter().any(|t| matches!(t, MainTask::TickingReady(k) if *k == key)) {
+            if !self
+                .main_tasks
+                .iter()
+                .any(|t| matches!(t, MainTask::TickingReady(k) if *k == key))
+            {
                 self.main_tasks.push_back(MainTask::TickingReady(key));
             }
         } else {
@@ -650,15 +744,22 @@ impl ChunkMap {
 
     /// Complete a promotion future (success or failure) and fire what waited on it.
     pub(crate) fn finish_promotion(&mut self, key: i64, kind: PromotionKind, success: bool) {
-        let Some(holder) = self.holders.holder_mut(key) else { return };
-        let result = if success { PromotionFuture::Done } else { PromotionFuture::Failed };
+        let Some(holder) = self.holders.holder_mut(key) else {
+            return;
+        };
+        let result = if success {
+            PromotionFuture::Done
+        } else {
+            PromotionFuture::Failed
+        };
         match kind {
             PromotionKind::Full => holder.full_chunk_future = result,
             PromotionKind::Ticking => holder.ticking_chunk_future = result,
             PromotionKind::EntityTicking => {
                 holder.entity_ticking_chunk_future = result;
                 if std::mem::take(&mut holder.release_when_entity_ticking) {
-                    self.main_tasks.push_back(MainTask::Distance(DistanceTask::ReleaseSlot { pos: key }));
+                    self.main_tasks
+                        .push_back(MainTask::Distance(DistanceTask::ReleaseSlot { pos: key }));
                 }
             }
         }
@@ -671,7 +772,8 @@ impl ChunkMap {
             };
             if holder.pending_full_state_confirmation == Some(status) {
                 holder.pending_full_state_confirmation = None;
-                self.main_tasks.push_back(MainTask::StatusChange(ChunkPos::unpack(key), status));
+                self.main_tasks
+                    .push_back(MainTask::StatusChange(ChunkPos::unpack(key), status));
             }
         }
         self.check_unload_ready(key);
@@ -693,9 +795,13 @@ impl ChunkMap {
         let holders = &self.holders;
         let queue_level = |key: i64| {
             let max = super::chunk_task_queue::priority_level_count() - 1;
-            holders.visible_holder(key).map_or(max, |c| c.get_queue_level().min(max))
+            holders
+                .visible_holder(key)
+                .map_or(max, |c| c.get_queue_level().min(max))
         };
-        let result = self.light.run_update(&HolderLightChunks(holders), &queue_level);
+        let result = self
+            .light
+            .run_update(&HolderLightChunks(holders), &queue_level);
         for completion in result.completions {
             self.on_light_event(completion);
         }
@@ -707,7 +813,9 @@ impl ChunkMap {
         self.run_light_updates();
         self.process_ready();
         self.pump_worldgen();
-        let Some(task) = self.main_tasks.pop_front() else { return false };
+        let Some(task) = self.main_tasks.pop_front() else {
+            return false;
+        };
         self.run_main_task(task);
         true
     }
@@ -719,9 +827,15 @@ impl ChunkMap {
                 self.distance_manager.run_main_task(t, &mut self.tickets);
                 self.queue_distance_tasks();
             }
-            MainTask::FullStep(key) => self.events.push(ChunkMapEvent::FullStep(ChunkPos::unpack(key))),
-            MainTask::TickingReady(key) => self.events.push(ChunkMapEvent::StartTicking(ChunkPos::unpack(key))),
-            MainTask::StatusChange(pos, status) => self.events.push(ChunkMapEvent::FullStatusChanged(pos, status)),
+            MainTask::FullStep(key) => self
+                .events
+                .push(ChunkMapEvent::FullStep(ChunkPos::unpack(key))),
+            MainTask::TickingReady(key) => self
+                .events
+                .push(ChunkMapEvent::StartTicking(ChunkPos::unpack(key))),
+            MainTask::StatusChange(pos, status) => self
+                .events
+                .push(ChunkMapEvent::FullStatusChanged(pos, status)),
             MainTask::RunTask(id) => self.run_generation_task_slice(id),
         }
         self.process_ready();
@@ -740,9 +854,14 @@ impl ChunkMap {
     }
 
     pub(crate) fn queue_task_slice(&mut self, id: u64) {
-        let Some(task) = self.tasks.get(&id) else { return };
+        let Some(task) = self.tasks.get(&id) else {
+            return;
+        };
         let center = task.center_key();
-        let level = self.holders.holder(center).map_or(chunk_level::max_level() + 1, ChunkHolder::get_queue_level);
+        let level = self
+            .holders
+            .holder(center)
+            .map_or(chunk_level::max_level() + 1, ChunkHolder::get_queue_level);
         self.worldgen_queue.submit(id, center, level);
     }
 

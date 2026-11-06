@@ -46,35 +46,66 @@ impl<'a> StructureManager<'a> {
     }
 
     /// `getStartForStructure(structure, chunk)`: the parsed start of `structure` in the chunk's data.
-    pub fn get_start_for_structure(&self, chunk_pos: ChunkPos, data: &StructureData, structure: &Holder<dyn Structure>) -> Option<StartHandle> {
+    pub fn get_start_for_structure(
+        &self,
+        chunk_pos: ChunkPos,
+        data: &StructureData,
+        structure: &Holder<dyn Structure>,
+    ) -> Option<StartHandle> {
         let id = structure.id()?.to_string();
         let raw = data.starts.get(&id)?;
-        self.env.start_cache.get_or_parse(self.env, chunk_pos, &id, raw)
+        self.env
+            .start_cache
+            .get_or_parse(self.env, chunk_pos, &id, raw)
     }
 
     /// `startsForStructure(sectionX, sectionZ, matcher)`: the valid starts of every referenced structure the matcher
     /// accepts, in reference order.
-    pub fn starts_for_structure_matching(&self, source: &dyn StructureDataSource, section_x: i32, section_z: i32, matcher: &dyn Fn(&Identifier) -> bool) -> Vec<StartHandle> {
+    pub fn starts_for_structure_matching(
+        &self,
+        source: &dyn StructureDataSource,
+        section_x: i32,
+        section_z: i32,
+        matcher: &dyn Fn(&Identifier) -> bool,
+    ) -> Vec<StartHandle> {
         let mut result = Vec::new();
-        let Some(data) = source.structure_data(ChunkPos::new(section_x, section_z)) else { return result };
+        let Some(data) = source.structure_data(ChunkPos::new(section_x, section_z)) else {
+            return result;
+        };
         for (key, references) in &data.references {
-            let Some(id) = Identifier::try_parse(key) else { continue };
+            let Some(id) = Identifier::try_parse(key) else {
+                continue;
+            };
             if let Some(structure) = self.env.structures.get(&id)
                 && matcher(&id)
             {
-                self.fill_starts_for_structure(source, structure, references, &mut |start| result.push(start));
+                self.fill_starts_for_structure(source, structure, references, &mut |start| {
+                    result.push(start)
+                });
             }
         }
         result
     }
 
     /// `startsForStructure(sectionX, sectionZ, structure)`.
-    pub fn starts_for_structure(&self, source: &dyn StructureDataSource, section_x: i32, section_z: i32, structure: &Holder<dyn Structure>) -> Vec<StartHandle> {
+    pub fn starts_for_structure(
+        &self,
+        source: &dyn StructureDataSource,
+        section_x: i32,
+        section_z: i32,
+        structure: &Holder<dyn Structure>,
+    ) -> Vec<StartHandle> {
         let mut result = Vec::new();
-        let Some(data) = source.structure_data(ChunkPos::new(section_x, section_z)) else { return result };
-        let Some(id) = structure.id() else { return result };
+        let Some(data) = source.structure_data(ChunkPos::new(section_x, section_z)) else {
+            return result;
+        };
+        let Some(id) = structure.id() else {
+            return result;
+        };
         if let Some(references) = data.references.get(&id.to_string()) {
-            self.fill_starts_for_structure(source, structure, references, &mut |start| result.push(start));
+            self.fill_starts_for_structure(source, structure, references, &mut |start| {
+                result.push(start)
+            });
         }
         result
     }
@@ -89,7 +120,9 @@ impl<'a> StructureManager<'a> {
     ) {
         for &key in references_for_structure {
             let chunk_pos = ChunkPos::unpack(key);
-            let Some(data) = source.structure_data(chunk_pos) else { continue };
+            let Some(data) = source.structure_data(chunk_pos) else {
+                continue;
+            };
             if let Some(start) = self.get_start_for_structure(chunk_pos, data, structure)
                 && start.lock().is_valid()
             {
@@ -99,14 +132,26 @@ impl<'a> StructureManager<'a> {
     }
 
     /// `getStructureAt(blockPos, structure)`; `None` is vanilla's `INVALID_START`.
-    pub fn get_structure_at(&self, source: &dyn StructureDataSource, block_pos: BlockPos, structure: &Holder<dyn Structure>) -> Option<StartHandle> {
+    pub fn get_structure_at(
+        &self,
+        source: &dyn StructureDataSource,
+        block_pos: BlockPos,
+        structure: &Holder<dyn Structure>,
+    ) -> Option<StartHandle> {
         let section_x = SectionPos::block_to_section_coord_i32(block_pos.x());
         let section_z = SectionPos::block_to_section_coord_i32(block_pos.z());
-        self.starts_for_structure(source, section_x, section_z, structure).into_iter().find(|start| start.lock().get_bounding_box().is_inside(&block_pos))
+        self.starts_for_structure(source, section_x, section_z, structure)
+            .into_iter()
+            .find(|start| start.lock().get_bounding_box().is_inside(&block_pos))
     }
 
     /// `getStructureAt(blockPos, HolderSet<Structure>)` with the set as a membership test on the structure id.
-    pub fn get_structure_at_set(&self, source: &dyn StructureDataSource, block_pos: BlockPos, structures: &dyn Fn(&Identifier) -> bool) -> Option<StartHandle> {
+    pub fn get_structure_at_set(
+        &self,
+        source: &dyn StructureDataSource,
+        block_pos: BlockPos,
+        structures: &dyn Fn(&Identifier) -> bool,
+    ) -> Option<StartHandle> {
         let section_x = SectionPos::block_to_section_coord_i32(block_pos.x());
         let section_z = SectionPos::block_to_section_coord_i32(block_pos.z());
         self.starts_for_structure_matching(source, section_x, section_z, structures)
@@ -115,7 +160,12 @@ impl<'a> StructureManager<'a> {
     }
 
     /// `getStructureWithPieceAt(blockPos, predicate)` (tag/holder-set variants are the predicate on the structure id).
-    pub fn get_structure_with_piece_at(&self, source: &dyn StructureDataSource, block_pos: BlockPos, predicate: &dyn Fn(&Identifier) -> bool) -> Option<StartHandle> {
+    pub fn get_structure_with_piece_at(
+        &self,
+        source: &dyn StructureDataSource,
+        block_pos: BlockPos,
+        predicate: &dyn Fn(&Identifier) -> bool,
+    ) -> Option<StartHandle> {
         let section_x = SectionPos::block_to_section_coord_i32(block_pos.x());
         let section_z = SectionPos::block_to_section_coord_i32(block_pos.z());
         self.starts_for_structure_matching(source, section_x, section_z, predicate)
@@ -124,7 +174,14 @@ impl<'a> StructureManager<'a> {
     }
 
     /// `getStructureWithPieceAt(x, y, z, structure)`.
-    pub fn get_structure_with_piece_at_structure(&self, source: &dyn StructureDataSource, x: i32, y: i32, z: i32, structure: &Holder<dyn Structure>) -> Option<StartHandle> {
+    pub fn get_structure_with_piece_at_structure(
+        &self,
+        source: &dyn StructureDataSource,
+        x: i32,
+        y: i32,
+        z: i32,
+        structure: &Holder<dyn Structure>,
+    ) -> Option<StartHandle> {
         let section_x = SectionPos::block_to_section_coord_i32(x);
         let section_z = SectionPos::block_to_section_coord_i32(z);
         self.starts_for_structure(source, section_x, section_z, structure)
@@ -133,19 +190,38 @@ impl<'a> StructureManager<'a> {
     }
 
     /// `structureHasPieceAt(blockPos, structureStart)`.
-    pub fn structure_has_piece_at(&self, block_pos: BlockPos, start: &super::structure_start::StructureStart) -> bool {
+    pub fn structure_has_piece_at(
+        &self,
+        block_pos: BlockPos,
+        start: &super::structure_start::StructureStart,
+    ) -> bool {
         Self::structure_has_piece_at_xyz(block_pos.x(), block_pos.y(), block_pos.z(), start)
     }
 
     /// `structureHasPieceAt(x, y, z, structureStart)`.
-    pub fn structure_has_piece_at_xyz(x: i32, y: i32, z: i32, start: &super::structure_start::StructureStart) -> bool {
-        start.piece_container.pieces.iter().any(|p| p.base().bounding_box.is_inside_xyz(x, y, z))
+    pub fn structure_has_piece_at_xyz(
+        x: i32,
+        y: i32,
+        z: i32,
+        start: &super::structure_start::StructureStart,
+    ) -> bool {
+        start
+            .piece_container
+            .pieces
+            .iter()
+            .any(|p| p.base().bounding_box.is_inside_xyz(x, y, z))
     }
 
     /// `getAllStructuresAt(pos)`: the references of the chunk containing `pos`, structure id -> origin chunk keys.
-    pub fn get_all_structures_at<'s>(&self, source: &'s dyn StructureDataSource, pos: BlockPos) -> Option<&'s indexmap::IndexMap<String, IndexSet<i64>>> {
+    pub fn get_all_structures_at<'s>(
+        &self,
+        source: &'s dyn StructureDataSource,
+        pos: BlockPos,
+    ) -> Option<&'s indexmap::IndexMap<String, IndexSet<i64>>> {
         let section_x = SectionPos::block_to_section_coord_i32(pos.x());
         let section_z = SectionPos::block_to_section_coord_i32(pos.z());
-        source.structure_data(ChunkPos::new(section_x, section_z)).map(|d| &d.references)
+        source
+            .structure_data(ChunkPos::new(section_x, section_z))
+            .map(|d| &d.references)
     }
 }

@@ -1,17 +1,19 @@
 //! `GrindstoneMenu`: disenchant (keeping curses), merge two items, refund experience.
 
+use super::anvil_menu::calculate_increased_repair_cost;
 use super::{
-    AbstractContainerMenu, ContainerKey, ContainerLevelAccess, MenuBase, MenuPlayer, MenuSimpleContainer, ResultContainer, Slot, SlotBehavior, SlotEnv,
-    finish_quick_move,
+    AbstractContainerMenu, ContainerKey, ContainerLevelAccess, MenuBase, MenuPlayer,
+    MenuSimpleContainer, ResultContainer, Slot, SlotBehavior, SlotEnv, finish_quick_move,
 };
 use crate::registry::RegistryAccess;
 use crate::registry::keys::ENCHANTMENT as ENCHANTMENT_REGISTRY;
 use crate::world::container::Container;
 use crate::world::entity::experience_orb::ExperienceOrb;
-use super::anvil_menu::calculate_increased_repair_cost;
 use crate::world::item::ItemStack;
 use crate::world::item::enchantment::enchantment_tags;
-use crate::world::item::enchantment_helper::{definition, get_enchantments_for_crafting, has_any_enchantments, update_enchantments};
+use crate::world::item::enchantment_helper::{
+    definition, get_enchantments_for_crafting, has_any_enchantments, update_enchantments,
+};
 use mc_core::phys::Vec3;
 use mc_data::{Block, Item, MenuType};
 use mc_protocol::components::{MAX_DAMAGE, REPAIR_COST};
@@ -54,7 +56,11 @@ fn get_experience_from_item(registries: &RegistryAccess, item: &ItemStack) -> i3
     let mut amount = 0;
     for (enchant, lvl) in get_enchantments_for_crafting(item).entries() {
         let Some(key) = enchant.name() else { continue };
-        if !registries.is_in_tag(ENCHANTMENT_REGISTRY, key, &enchantment_tags::id(enchantment_tags::CURSE)) {
+        if !registries.is_in_tag(
+            ENCHANTMENT_REGISTRY,
+            key,
+            &enchantment_tags::id(enchantment_tags::CURSE),
+        ) {
             if let Some(e) = definition(registries, key) {
                 amount += e.get_min_cost(*lvl);
             }
@@ -71,11 +77,15 @@ impl SlotBehavior for GrindstoneResultSlot {
     fn on_take(&self, _slot: &Slot, env: &mut SlotEnv, _carried: &ItemStack) {
         if let Some(pos) = self.access.pos() {
             // the amount is computed while the awarded orbs are being created: it reads the inputs and draws from the level's random
-            let items = [env.locals[REPAIR_LOCAL].get_item(0).clone(), env.locals[REPAIR_LOCAL].get_item(1).clone()];
+            let items = [
+                env.locals[REPAIR_LOCAL].get_item(0).clone(),
+                env.locals[REPAIR_LOCAL].get_item(1).clone(),
+            ];
             if let Some(level) = env.player.level() {
                 let registries = level.registries.clone();
                 use crate::world::level::LevelAccessor;
-                let mut amount = get_experience_from_item(&registries, &items[0]) + get_experience_from_item(&registries, &items[1]);
+                let mut amount = get_experience_from_item(&registries, &items[0])
+                    + get_experience_from_item(&registries, &items[1]);
                 if amount > 0 {
                     let half_amount = (f64::from(amount) / 2.0).ceil() as i32;
                     amount = half_amount + level.random().next_int_bounded(half_amount);
@@ -93,19 +103,45 @@ impl SlotBehavior for GrindstoneResultSlot {
 
 /// `ItemStack.transmuteCopy(newItem)`.
 fn transmute_copy(stack: &ItemStack, new_item: Item) -> ItemStack {
-    if stack.is_empty() { ItemStack::empty() } else { ItemStack::with_patch(new_item, stack.count(), &stack.get_components_patch()) }
+    if stack.is_empty() {
+        ItemStack::empty()
+    } else {
+        ItemStack::with_patch(new_item, stack.count(), &stack.get_components_patch())
+    }
 }
 
 impl GrindstoneMenu {
     /// `GrindstoneMenu(containerId, inventory, access)`.
-    pub fn new(container_id: i32, _player: &mut dyn MenuPlayer, access: ContainerLevelAccess) -> Self {
+    pub fn new(
+        container_id: i32,
+        _player: &mut dyn MenuPlayer,
+        access: ContainerLevelAccess,
+    ) -> Self {
         let mut base = MenuBase::new(Some(MenuType::GRINDSTONE), container_id);
         let result = base.add_local(Box::new(ResultContainer::new()));
         let repair = base.add_local(Box::new(MenuSimpleContainer::new(2)));
         debug_assert_eq!((result, repair), (RESULT_LOCAL, REPAIR_LOCAL));
-        base.add_slot(Slot::with_behavior(ContainerKey::Local(REPAIR_LOCAL), 0, 49, 19, Box::new(GrindstoneInputSlot)));
-        base.add_slot(Slot::with_behavior(ContainerKey::Local(REPAIR_LOCAL), 1, 49, 40, Box::new(GrindstoneInputSlot)));
-        base.add_slot(Slot::with_behavior(ContainerKey::Local(RESULT_LOCAL), 2, 129, 34, Box::new(GrindstoneResultSlot { access })));
+        base.add_slot(Slot::with_behavior(
+            ContainerKey::Local(REPAIR_LOCAL),
+            0,
+            49,
+            19,
+            Box::new(GrindstoneInputSlot),
+        ));
+        base.add_slot(Slot::with_behavior(
+            ContainerKey::Local(REPAIR_LOCAL),
+            1,
+            49,
+            40,
+            Box::new(GrindstoneInputSlot),
+        ));
+        base.add_slot(Slot::with_behavior(
+            ContainerKey::Local(RESULT_LOCAL),
+            2,
+            129,
+            34,
+            Box::new(GrindstoneResultSlot { access }),
+        ));
         base.add_standard_inventory_slots(&ContainerKey::PlayerInventory, 8, 84);
         Self { base, access }
     }
@@ -122,7 +158,12 @@ impl GrindstoneMenu {
         self.broadcast_changes(player);
     }
 
-    fn compute_result(&self, registries: &RegistryAccess, input: &ItemStack, additional: &ItemStack) -> ItemStack {
+    fn compute_result(
+        &self,
+        registries: &RegistryAccess,
+        input: &ItemStack,
+        additional: &ItemStack,
+    ) -> ItemStack {
         let has_an_item = !input.is_empty() || !additional.is_empty();
         if !has_an_item {
             ItemStack::empty()
@@ -130,7 +171,11 @@ impl GrindstoneMenu {
             let has_both_items = !input.is_empty() && !additional.is_empty();
             if !has_both_items {
                 let item = if !input.is_empty() { input } else { additional };
-                if !has_any_enchantments(item) { ItemStack::empty() } else { Self::remove_non_curses_from(registries, item.copy()) }
+                if !has_any_enchantments(item) {
+                    ItemStack::empty()
+                } else {
+                    Self::remove_non_curses_from(registries, item.copy())
+                }
             } else {
                 Self::merge_items(registries, input, additional)
             }
@@ -139,7 +184,11 @@ impl GrindstoneMenu {
         }
     }
 
-    fn merge_items(registries: &RegistryAccess, input: &ItemStack, additional: &ItemStack) -> ItemStack {
+    fn merge_items(
+        registries: &RegistryAccess,
+        input: &ItemStack,
+        additional: &ItemStack,
+    ) -> ItemStack {
         if !input.is(additional.item()) {
             return ItemStack::empty();
         }
@@ -163,11 +212,17 @@ impl GrindstoneMenu {
         Self::remove_non_curses_from(registries, new_item)
     }
 
-    fn merge_enchants_from(registries: &RegistryAccess, target: &mut ItemStack, source: &ItemStack) {
+    fn merge_enchants_from(
+        registries: &RegistryAccess,
+        target: &mut ItemStack,
+        source: &ItemStack,
+    ) {
         let curse = enchantment_tags::id(enchantment_tags::CURSE);
         update_enchantments(target, |new_enchantments| {
             for (enchant, level) in get_enchantments_for_crafting(source).entries() {
-                let is_curse = enchant.name().is_some_and(|k| registries.is_in_tag(ENCHANTMENT_REGISTRY, k, &curse));
+                let is_curse = enchant
+                    .name()
+                    .is_some_and(|k| registries.is_in_tag(ENCHANTMENT_REGISTRY, k, &curse));
                 if !is_curse || new_enchantments.get_level(enchant) == 0 {
                     new_enchantments.upgrade(enchant, *level);
                 }
@@ -178,7 +233,11 @@ impl GrindstoneMenu {
     fn remove_non_curses_from(registries: &RegistryAccess, mut item: ItemStack) -> ItemStack {
         let curse = enchantment_tags::id(enchantment_tags::CURSE);
         let new_enchantments = update_enchantments(&mut item, |e| {
-            e.remove_if(|enchantment| !enchantment.name().is_some_and(|k| registries.is_in_tag(ENCHANTMENT_REGISTRY, k, &curse)));
+            e.remove_if(|enchantment| {
+                !enchantment
+                    .name()
+                    .is_some_and(|k| registries.is_in_tag(ENCHANTMENT_REGISTRY, k, &curse))
+            });
         });
         if item.is(Item::ENCHANTED_BOOK) && new_enchantments.is_empty() {
             item = transmute_copy(&item, Item::BOOK);
@@ -225,10 +284,15 @@ impl AbstractContainerMenu for GrindstoneMenu {
     }
 
     fn quick_move_stack(&mut self, player: &mut dyn MenuPlayer, slot_index: usize) -> ItemStack {
-        if !self.base.with_slot(player, slot_index, |s, e| s.has_item(e)) {
+        if !self
+            .base
+            .with_slot(player, slot_index, |s, e| s.has_item(e))
+        {
             return ItemStack::empty();
         }
-        let mut item = self.base.with_slot(player, slot_index, |s, e| s.get_item(e));
+        let mut item = self
+            .base
+            .with_slot(player, slot_index, |s, e| s.get_item(e));
         let clicked = item.copy();
         let input = self.repair_stack(0);
         let additional = self.repair_stack(1);
@@ -236,20 +300,42 @@ impl AbstractContainerMenu for GrindstoneMenu {
             if !self.move_item_stack_to(player, &mut item, INV_SLOT_START, USE_ROW_SLOT_END, true) {
                 return ItemStack::empty();
             }
-            self.base.with_slot(player, slot_index, |s, e| s.on_quick_craft(e, &item, &clicked));
+            self.base.with_slot(player, slot_index, |s, e| {
+                s.on_quick_craft(e, &item, &clicked)
+            });
         } else if slot_index != 0 && slot_index != 1 {
             if !input.is_empty() && !additional.is_empty() {
                 if (INV_SLOT_START..INV_SLOT_END).contains(&slot_index) {
-                    if !self.move_item_stack_to(player, &mut item, USE_ROW_SLOT_START, USE_ROW_SLOT_END, false) {
+                    if !self.move_item_stack_to(
+                        player,
+                        &mut item,
+                        USE_ROW_SLOT_START,
+                        USE_ROW_SLOT_END,
+                        false,
+                    ) {
                         return ItemStack::empty();
                     }
-                } else if (USE_ROW_SLOT_START..USE_ROW_SLOT_END).contains(&slot_index) && !self.move_item_stack_to(player, &mut item, INV_SLOT_START, INV_SLOT_END, false) {
+                } else if (USE_ROW_SLOT_START..USE_ROW_SLOT_END).contains(&slot_index)
+                    && !self.move_item_stack_to(
+                        player,
+                        &mut item,
+                        INV_SLOT_START,
+                        INV_SLOT_END,
+                        false,
+                    )
+                {
                     return ItemStack::empty();
                 }
             } else if !self.move_item_stack_to(player, &mut item, 0, 2, false) {
                 return ItemStack::empty();
             }
-        } else if !self.move_item_stack_to(player, &mut item, INV_SLOT_START, USE_ROW_SLOT_END, false) {
+        } else if !self.move_item_stack_to(
+            player,
+            &mut item,
+            INV_SLOT_START,
+            USE_ROW_SLOT_END,
+            false,
+        ) {
             return ItemStack::empty();
         }
         finish_quick_move(self, player, slot_index, item, &clicked)

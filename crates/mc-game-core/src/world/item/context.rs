@@ -32,8 +32,18 @@ pub struct UseOnContext {
 }
 
 impl UseOnContext {
-    pub fn new(player: Option<ContextPlayer>, hand: InteractionHand, item_stack: ItemStack, hit_result: BlockHitResult) -> Self {
-        Self { player, hand, hit_result, item_stack }
+    pub fn new(
+        player: Option<ContextPlayer>,
+        hand: InteractionHand,
+        item_stack: ItemStack,
+        hit_result: BlockHitResult,
+    ) -> Self {
+        Self {
+            player,
+            hand,
+            hit_result,
+            item_stack,
+        }
     }
 
     pub fn get_clicked_pos(&self) -> BlockPos {
@@ -56,7 +66,8 @@ impl UseOnContext {
     }
     /// `getHorizontalDirection()`: `player.getDirection()` = `Direction.fromYRot(yRot)`.
     pub fn get_horizontal_direction(&self) -> Direction {
-        self.player.map_or(Direction::North, |p| Direction::from_y_rot(p.y_rot as f64))
+        self.player
+            .map_or(Direction::North, |p| Direction::from_y_rot(p.y_rot as f64))
     }
     pub fn is_secondary_use_active(&self) -> bool {
         self.player.is_some_and(|p| p.secondary_use_active)
@@ -84,15 +95,31 @@ pub struct BlockPlaceContext {
 impl BlockPlaceContext {
     /// `new BlockPlaceContext(UseOnContext)`: `can_be_replaced` is `level.getBlockState(clicked).canBeReplaced(this)`
     /// evaluated against the context under construction (`replaceClicked == true` while it runs).
-    pub fn new(use_on: UseOnContext, can_be_replaced: impl FnOnce(&BlockPlaceContext) -> bool) -> Self {
-        let relative_pos = use_on.hit_result.block_pos.relative(use_on.hit_result.direction);
-        let mut ctx = Self { use_on, relative_pos, replace_clicked: true, kind: PlaceKind::Normal };
+    pub fn new(
+        use_on: UseOnContext,
+        can_be_replaced: impl FnOnce(&BlockPlaceContext) -> bool,
+    ) -> Self {
+        let relative_pos = use_on
+            .hit_result
+            .block_pos
+            .relative(use_on.hit_result.direction);
+        let mut ctx = Self {
+            use_on,
+            relative_pos,
+            replace_clicked: true,
+            kind: PlaceKind::Normal,
+        };
         ctx.replace_clicked = can_be_replaced(&ctx);
         ctx
     }
 
     /// `BlockPlaceContext.at(context, pos, direction)`.
-    pub fn at(context: &BlockPlaceContext, pos: BlockPos, direction: Direction, can_be_replaced: impl FnOnce(&BlockPlaceContext) -> bool) -> Self {
+    pub fn at(
+        context: &BlockPlaceContext,
+        pos: BlockPos,
+        direction: Direction,
+        can_be_replaced: impl FnOnce(&BlockPlaceContext) -> bool,
+    ) -> Self {
         let hit = BlockHitResult {
             location: Vec3::new(
                 pos.x() as f64 + 0.5 + direction.get_step_x() as f64 * 0.5,
@@ -105,12 +132,22 @@ impl BlockPlaceContext {
             inside: false,
             world_border_hit: false,
         };
-        let use_on = UseOnContext::new(context.use_on.player, context.use_on.hand, context.use_on.item_stack.clone(), hit);
+        let use_on = UseOnContext::new(
+            context.use_on.player,
+            context.use_on.hand,
+            context.use_on.item_stack.clone(),
+            hit,
+        );
         Self::new(use_on, can_be_replaced)
     }
 
     /// `new DirectionalPlaceContext(level, pos, direction, dispensed, clickedFace)`.
-    pub fn directional(pos: BlockPos, direction: Direction, dispensed: ItemStack, clicked_face: Direction) -> Self {
+    pub fn directional(
+        pos: BlockPos,
+        direction: Direction,
+        dispensed: ItemStack,
+        clicked_face: Direction,
+    ) -> Self {
         let hit = BlockHitResult {
             location: Vec3::new(pos.x() as f64 + 0.5, pos.y() as f64, pos.z() as f64 + 0.5),
             direction: clicked_face,
@@ -121,14 +158,23 @@ impl BlockPlaceContext {
         };
         let use_on = UseOnContext::new(None, InteractionHand::MainHand, dispensed, hit);
         let relative_pos = pos.relative(clicked_face);
-        Self { use_on, relative_pos, replace_clicked: true, kind: PlaceKind::Directional(direction) }
+        Self {
+            use_on,
+            relative_pos,
+            replace_clicked: true,
+            kind: PlaceKind::Directional(direction),
+        }
     }
 
     pub fn get_clicked_pos(&self) -> BlockPos {
         match self.kind {
             PlaceKind::Directional(_) => self.use_on.hit_result.block_pos,
             PlaceKind::Normal => {
-                if self.replace_clicked { self.use_on.get_clicked_pos() } else { self.relative_pos }
+                if self.replace_clicked {
+                    self.use_on.get_clicked_pos()
+                } else {
+                    self.relative_pos
+                }
             }
         }
     }
@@ -157,7 +203,11 @@ impl BlockPlaceContext {
     pub fn get_horizontal_direction(&self) -> Direction {
         match self.kind {
             PlaceKind::Directional(d) => {
-                if d.get_axis() == Axis::Y { Direction::North } else { d }
+                if d.get_axis() == Axis::Y {
+                    Direction::North
+                } else {
+                    d
+                }
             }
             PlaceKind::Normal => self.use_on.get_horizontal_direction(),
         }
@@ -178,7 +228,10 @@ impl BlockPlaceContext {
     }
 
     fn ordered_by_nearest(&self) -> [Direction; 6] {
-        let p = self.use_on.player.expect("nearest-looking direction needs a player");
+        let p = self
+            .use_on
+            .player
+            .expect("nearest-looking direction needs a player");
         Direction::ordered_by_nearest(p.x_rot, p.y_rot)
     }
 
@@ -190,7 +243,10 @@ impl BlockPlaceContext {
     }
 
     pub fn get_nearest_looking_vertical_direction(&self) -> Direction {
-        let p = self.use_on.player.expect("nearest-looking direction needs a player");
+        let p = self
+            .use_on
+            .player
+            .expect("nearest-looking direction needs a player");
         Direction::get_facing_axis(Axis::Y, p.x_rot, p.y_rot)
     }
 

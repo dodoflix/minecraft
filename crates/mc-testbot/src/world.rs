@@ -3,9 +3,9 @@
 use std::collections::HashMap;
 
 use mc_core::pos::block_pos::BlockPos;
-use mc_data::block::BlockState;
 use mc_data::Block;
-use mc_protocol::codec::{read_varint, take, DecodeError};
+use mc_data::block::BlockState;
+use mc_protocol::codec::{DecodeError, read_varint, take};
 
 /// Palette strategy of a `PalettedContainer` (vanilla `PalettedContainer.Strategy`).
 #[derive(Clone, Copy)]
@@ -27,7 +27,11 @@ impl Strategy {
 
 /// `Mth.ceillog2`
 fn ceil_log2(n: usize) -> u8 {
-    if n <= 1 { 0 } else { (usize::BITS - (n - 1).leading_zeros()) as u8 }
+    if n <= 1 {
+        0
+    } else {
+        (usize::BITS - (n - 1).leading_zeros()) as u8
+    }
 }
 
 /// A decoded paletted container: either one value or one id per entry.
@@ -78,7 +82,9 @@ fn read_container(input: &mut &[u8], strategy: Strategy) -> Result<Container, De
             if n < 0 {
                 return Err(DecodeError::msg(format!("negative palette size {n}")));
             }
-            (0..n).map(|_| read_varint(input).map(|v| v as u16)).collect::<Result<_, _>>()?
+            (0..n)
+                .map(|_| read_varint(input).map(|v| v as u16))
+                .collect::<Result<_, _>>()?
         }
         _ => Vec::new(),
     };
@@ -91,9 +97,19 @@ fn read_container(input: &mut &[u8], strategy: Strategy) -> Result<Container, De
     let mask = (1u64 << bits) - 1;
     let mut out = vec![0u16; entries];
     for (i, o) in out.iter_mut().enumerate() {
-        let word = u64::from_be_bytes(raw[(i / per_long) * 8..(i / per_long) * 8 + 8].try_into().expect("8 bytes"));
+        let word = u64::from_be_bytes(
+            raw[(i / per_long) * 8..(i / per_long) * 8 + 8]
+                .try_into()
+                .expect("8 bytes"),
+        );
         let v = (word >> ((i % per_long) * bits as usize) & mask) as usize;
-        *o = if palette_kind == 2 { v as u16 } else { *palette.get(v).ok_or_else(|| DecodeError::msg("palette index out of range"))? };
+        *o = if palette_kind == 2 {
+            v as u16
+        } else {
+            *palette
+                .get(v)
+                .ok_or_else(|| DecodeError::msg("palette index out of range"))?
+        };
     }
     Ok(Container::Data(out.into_boxed_slice()))
 }
@@ -122,7 +138,12 @@ pub struct ClientWorld {
 
 impl ClientWorld {
     pub fn new(min_y: i32, height: i32, biome_count: usize) -> Self {
-        Self { min_y, height, biome_count, chunks: HashMap::new() }
+        Self {
+            min_y,
+            height,
+            biome_count,
+            chunks: HashMap::new(),
+        }
     }
 
     pub fn section_count(&self) -> usize {
@@ -135,11 +156,17 @@ impl ClientWorld {
         let global_bits = ceil_log2(self.biome_count);
         let mut sections = Vec::with_capacity(self.section_count());
         for _ in 0..self.section_count() {
-            let non_empty_blocks = i16::from_be_bytes(take(&mut input, 2)?.try_into().expect("2 bytes"));
+            let non_empty_blocks =
+                i16::from_be_bytes(take(&mut input, 2)?.try_into().expect("2 bytes"));
             let fluid_count = i16::from_be_bytes(take(&mut input, 2)?.try_into().expect("2 bytes"));
             let blocks = read_container(&mut input, Strategy::States)?;
             let biomes = read_container(&mut input, Strategy::Biomes { global_bits })?;
-            sections.push(Section { non_empty_blocks, fluid_count, blocks, biomes });
+            sections.push(Section {
+                non_empty_blocks,
+                fluid_count,
+                blocks,
+                biomes,
+            });
         }
         self.chunks.insert((x, z), Chunk { sections });
         Ok(())
@@ -148,8 +175,18 @@ impl ClientWorld {
     /// Store an all-air chunk (synthetic worlds in tests).
     pub fn insert_air_chunk(&mut self, x: i32, z: i32) {
         let air = Block::AIR.default_state().id() as u16;
-        let section = Section { non_empty_blocks: 0, fluid_count: 0, blocks: Container::Single(air), biomes: Container::Single(0) };
-        self.chunks.insert((x, z), Chunk { sections: vec![section; self.section_count()] });
+        let section = Section {
+            non_empty_blocks: 0,
+            fluid_count: 0,
+            blocks: Container::Single(air),
+            biomes: Container::Single(0),
+        };
+        self.chunks.insert(
+            (x, z),
+            Chunk {
+                sections: vec![section; self.section_count()],
+            },
+        );
     }
 
     pub fn unload_chunk(&mut self, x: i32, z: i32) {
@@ -178,7 +215,11 @@ impl ClientWorld {
         if rel_y < 0 || rel_y >= self.height {
             return None;
         }
-        Some((chunk, (rel_y >> 4) as usize, ((y & 15) << 8 | (z & 15) << 4 | (x & 15)) as usize))
+        Some((
+            chunk,
+            (rel_y >> 4) as usize,
+            ((y & 15) << 8 | (z & 15) << 4 | (x & 15)) as usize,
+        ))
     }
 
     /// Global block state id; `None` when the chunk is not loaded. Outside the build height: void air.
@@ -193,7 +234,8 @@ impl ClientWorld {
     }
 
     pub fn block_state(&self, x: i32, y: i32, z: i32) -> Option<BlockState> {
-        self.block_state_id(x, y, z).and_then(|id| BlockState::from_id(id as u32))
+        self.block_state_id(x, y, z)
+            .and_then(|id| BlockState::from_id(id as u32))
     }
 
     pub fn block_state_at(&self, pos: BlockPos) -> Option<BlockState> {
@@ -206,8 +248,13 @@ impl ClientWorld {
         if rel_y < 0 || rel_y >= self.height {
             return false;
         }
-        let (section, index) = ((rel_y >> 4) as usize, ((y & 15) << 8 | (z & 15) << 4 | (x & 15)) as usize);
-        let Some(chunk) = self.chunks.get_mut(&(x >> 4, z >> 4)) else { return false };
+        let (section, index) = (
+            (rel_y >> 4) as usize,
+            ((y & 15) << 8 | (z & 15) << 4 | (x & 15)) as usize,
+        );
+        let Some(chunk) = self.chunks.get_mut(&(x >> 4, z >> 4)) else {
+            return false;
+        };
         chunk.sections[section].blocks.set(index, id, 4096);
         true
     }
@@ -218,7 +265,8 @@ impl ClientWorld {
             return None;
         }
         (self.min_y..self.min_y + self.height).rev().find(|&y| {
-            self.block_state(x, y, z).is_some_and(|s| !s.block().is_air() && !s.collision_shape().is_empty())
+            self.block_state(x, y, z)
+                .is_some_and(|s| !s.block().is_air() && !s.collision_shape().is_empty())
         })
     }
 }
@@ -278,11 +326,17 @@ mod tests {
         // single value
         let mut buf = vec![0u8];
         varint(&mut buf, 77);
-        assert_eq!(read_container(&mut &buf[..], Strategy::States).unwrap(), Container::Single(77));
+        assert_eq!(
+            read_container(&mut &buf[..], Strategy::States).unwrap(),
+            Container::Single(77)
+        );
         // biomes: single and 7-bit global (88 biomes -> 7 bits)
         let mut buf = vec![0u8];
         varint(&mut buf, 3);
-        assert_eq!(read_container(&mut &buf[..], Strategy::Biomes { global_bits: 7 }).unwrap(), Container::Single(3));
+        assert_eq!(
+            read_container(&mut &buf[..], Strategy::Biomes { global_bits: 7 }).unwrap(),
+            Container::Single(3)
+        );
         let bio: Vec<u16> = (0..64).map(|i| i as u16).collect();
         let mut buf = vec![7u8];
         buf.extend(pack(&bio, 7));

@@ -48,16 +48,32 @@ pub struct DamageType {
 fn schema() -> Schema {
     Schema::Record(vec![
         req("message_id", Schema::String),
-        req("scaling", Schema::Enum(&["never", "when_caused_by_living_non_player", "always"])),
+        req(
+            "scaling",
+            Schema::Enum(&["never", "when_caused_by_living_non_player", "always"]),
+        ),
         req("exhaustion", Schema::Float),
-        default("effects", Schema::Enum(&["hurt", "thorns", "drowning", "burning", "poking", "freezing"]), Value::from("hurt")),
-        default("death_message_type", Schema::Enum(&["default", "fall_variants", "intentional_game_design"]), Value::from("default")),
+        default(
+            "effects",
+            Schema::Enum(&[
+                "hurt", "thorns", "drowning", "burning", "poking", "freezing",
+            ]),
+            Value::from("hurt"),
+        ),
+        default(
+            "death_message_type",
+            Schema::Enum(&["default", "fall_variants", "intentional_game_design"]),
+            Value::from("default"),
+        ),
     ])
 }
 
 impl DamageType {
     /// `DIRECT_CODEC` decode of validated JSON; the NBT is the same codec's encoding.
-    pub fn from_json(json: &Value, ctx: &RegistryDecodeContext) -> Result<(DamageType, Tag), String> {
+    pub fn from_json(
+        json: &Value,
+        ctx: &RegistryDecodeContext,
+    ) -> Result<(DamageType, Tag), String> {
         let tag = schema().convert(json, ctx)?;
         let value = DamageType {
             msg_id: get_str(json, "message_id").unwrap_or_default().to_owned(),
@@ -91,4 +107,7 @@ fn decode(json: &Value, ctx: &RegistryDecodeContext) -> Result<DecodedEntry, Str
 }
 
 #[linkme::distributed_slice(DYNAMIC_REGISTRY_DECODERS)]
-static DECODER: DynamicRegistryDecoder = DynamicRegistryDecoder { registry: keys::DAMAGE_TYPE, decode };
+static DECODER: DynamicRegistryDecoder = DynamicRegistryDecoder {
+    registry: keys::DAMAGE_TYPE,
+    decode,
+};

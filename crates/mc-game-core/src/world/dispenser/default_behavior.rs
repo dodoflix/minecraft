@@ -27,7 +27,13 @@ pub fn default_execute(source: &mut BlockSource<'_>, mut dispensed: ItemStack) -
 }
 
 /// `DefaultDispenseItemBehavior.spawnItem(level, itemStack, accuracy, direction, position)`.
-pub fn spawn_item(level: &mut ServerLevel, stack: ItemStack, accuracy: i32, direction: Direction, position: Vec3) {
+pub fn spawn_item(
+    level: &mut ServerLevel,
+    stack: ItemStack,
+    accuracy: i32,
+    direction: Direction,
+    position: Vec3,
+) {
     let spawn_x = position.x;
     let mut spawn_y = position.y;
     let spawn_z = position.z;
@@ -56,12 +62,18 @@ pub fn play_default_sound(source: &mut BlockSource<'_>) {
 /// `playDefaultAnimation(source, direction)`: level event 2000 (smoke particles).
 pub fn play_default_animation(source: &mut BlockSource<'_>, direction: Direction) {
     let pos = source.pos;
-    source.level.level_event(None, 2000, pos, direction.get_3d_data_value() as i32);
+    source
+        .level
+        .level_event(None, 2000, pos, direction.get_3d_data_value() as i32);
 }
 
 /// `consumeWithRemainder(source, dispensed, remainder)`: the remainder replaces a used-up stack, else goes into the
 /// dispenser or is dropped.
-pub fn consume_with_remainder(source: &mut BlockSource<'_>, mut dispensed: ItemStack, remainder: ItemStack) -> ItemStack {
+pub fn consume_with_remainder(
+    source: &mut BlockSource<'_>,
+    mut dispensed: ItemStack,
+    remainder: ItemStack,
+) -> ItemStack {
     dispensed.shrink(1);
     if dispensed.is_empty() {
         return remainder;
@@ -76,7 +88,13 @@ fn add_to_inventory_or_dispense(source: &mut BlockSource<'_>, stack: ItemStack) 
     if !remainder.is_empty() {
         let direction = source.facing();
         let position = get_dispense_position(source);
-        spawn_item(source.level, remainder, DEFAULT_ACCURACY, direction, position);
+        spawn_item(
+            source.level,
+            remainder,
+            DEFAULT_ACCURACY,
+            direction,
+            position,
+        );
         play_default_sound(source);
         play_default_animation(source, direction);
     }
@@ -107,5 +125,7 @@ impl Default for OptionalState {
 /// `OptionalDispenseItemBehavior.playSound`: click (1000) on success, failure click (1001) otherwise.
 pub fn play_optional_sound(source: &mut BlockSource<'_>, success: bool) {
     let pos = source.pos;
-    source.level.level_event(None, if success { 1000 } else { 1001 }, pos, 0);
+    source
+        .level
+        .level_event(None, if success { 1000 } else { 1001 }, pos, 0);
 }

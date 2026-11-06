@@ -2,7 +2,6 @@
 //! `FeaturePlacer` that drives them. Every modifier type lives in its own file and registers itself in
 //! [`PLACEMENT_MODIFIER_TYPES`].
 
-
 use super::codec::{Fields, LoadError, LoadResult, TypeEntry, decode_dispatch, parse_list};
 use super::env::GenEnv;
 use super::feature::Feature;
@@ -28,9 +27,18 @@ pub struct PlacementContext<'a> {
 }
 
 impl<'a> PlacementContext<'a> {
-    pub fn new(level: &'a dyn WorldGenLevel, generator: &'a GenEnv, top_feature: Option<&'a PlacedFeatureRef>) -> Self {
+    pub fn new(
+        level: &'a dyn WorldGenLevel,
+        generator: &'a GenEnv,
+        top_feature: Option<&'a PlacedFeatureRef>,
+    ) -> Self {
         let world_generation_context = generator.world_generation_context(level.level_height());
-        Self { level, generator, top_feature, world_generation_context }
+        Self {
+            level,
+            generator,
+            top_feature,
+            world_generation_context,
+        }
     }
 
     /// `getHeight(type, x, z)`.
@@ -50,17 +58,34 @@ impl<'a> PlacementContext<'a> {
 /// `PlacementModifier`.
 pub trait PlacementModifier: Send + Sync {
     /// `modify(context, random, origin, output)`: pushes the resulting positions to `output` in order.
-    fn modify(&self, context: &PlacementContext<'_>, random: &mut dyn RandomSource, origin: BlockPos, output: &mut Vec<BlockPos>);
+    fn modify(
+        &self,
+        context: &PlacementContext<'_>,
+        random: &mut dyn RandomSource,
+        origin: BlockPos,
+        output: &mut Vec<BlockPos>,
+    );
 }
 
 /// `PlacementFilter`: keeps or drops the position. Implementors also implement [`PlacementModifier`] via
 /// `fn modify(..) { filter_modify(self, ..) }`.
 pub trait PlacementFilter {
-    fn should_place(&self, context: &PlacementContext<'_>, random: &mut dyn RandomSource, pos: BlockPos) -> bool;
+    fn should_place(
+        &self,
+        context: &PlacementContext<'_>,
+        random: &mut dyn RandomSource,
+        pos: BlockPos,
+    ) -> bool;
 }
 
 /// `PlacementFilter.getPositions`.
-pub fn filter_modify(filter: &impl PlacementFilter, context: &PlacementContext<'_>, random: &mut dyn RandomSource, pos: BlockPos, output: &mut Vec<BlockPos>) {
+pub fn filter_modify(
+    filter: &impl PlacementFilter,
+    context: &PlacementContext<'_>,
+    random: &mut dyn RandomSource,
+    pos: BlockPos,
+    output: &mut Vec<BlockPos>,
+) {
     if filter.should_place(context, random, pos) {
         output.push(pos);
     }
@@ -70,7 +95,10 @@ pub fn filter_modify(filter: &impl PlacementFilter, context: &PlacementContext<'
 pub static PLACEMENT_MODIFIER_TYPES: [TypeEntry<dyn PlacementModifier>];
 
 /// `PlacementModifier.CODEC`.
-pub fn decode_modifier(value: &Value, ctx: &DecodeCtx<'_>) -> LoadResult<Arc<dyn PlacementModifier>> {
+pub fn decode_modifier(
+    value: &Value,
+    ctx: &DecodeCtx<'_>,
+) -> LoadResult<Arc<dyn PlacementModifier>> {
     decode_dispatch(value, ctx, &PLACEMENT_MODIFIER_TYPES)
 }
 
@@ -86,12 +114,19 @@ impl PlacedFeature {
         let fields = Fields::new(value)?;
         Ok(PlacedFeature {
             feature: fields.required("feature", |v| ctx.feature(v))?,
-            placement: fields.required("placement", |v| parse_list(v, |m| decode_modifier(m, ctx)))?,
+            placement: fields
+                .required("placement", |v| parse_list(v, |m| decode_modifier(m, ctx)))?,
         })
     }
 
     /// `place(level, generator, random, origin)`.
-    pub fn place(&self, level: &mut dyn WorldGenLevel, generator: &GenEnv, random: &mut dyn RandomSource, origin: BlockPos) -> bool {
+    pub fn place(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        generator: &GenEnv,
+        random: &mut dyn RandomSource,
+        origin: BlockPos,
+    ) -> bool {
         FeaturePlacer::new().place(self, level, generator, random, origin, None)
     }
 
@@ -106,12 +141,18 @@ impl PlacedFeature {
 /// `PlacedFeature.LIST_CODEC` (`HolderSet<PlacedFeature>`): a single element or a list of elements (`ExtraCodecs.compactListCodec`),
 /// each a reference or an inline definition. `non_empty` is `ExtraCodecs.nonEmptyHolderSet`. A `#tag` set is an error: the
 /// data pack has no `placed_feature` tags (the tag registry is not loaded).
-pub fn decode_placed_feature_set(value: &Value, ctx: &DecodeCtx<'_>, non_empty: bool) -> LoadResult<Vec<Holder<PlacedFeature>>> {
+pub fn decode_placed_feature_set(
+    value: &Value,
+    ctx: &DecodeCtx<'_>,
+    non_empty: bool,
+) -> LoadResult<Vec<Holder<PlacedFeature>>> {
     if let Value::String(s) = value
         && let Some(tag) = s.strip_prefix('#')
     {
         let id = mc_core::ident::Identifier::read(tag).map_err(LoadError::new)?;
-        return Err(LoadError::new(format!("Missing tag: '{id}' in 'minecraft:root / minecraft:worldgen/placed_feature'")));
+        return Err(LoadError::new(format!(
+            "Missing tag: '{id}' in 'minecraft:root / minecraft:worldgen/placed_feature'"
+        )));
     }
     let holders = match value {
         Value::Array(_) => parse_list(value, |v| ctx.placed_feature(v))?,
@@ -171,7 +212,12 @@ impl FeaturePlacer {
             let modifier_index = self.modifier_indices.pop().expect("parallel to positions");
             {
                 let context = PlacementContext::new(&*level, generator, top_feature);
-                placement[modifier_index].modify(&context, random, pos, &mut self.modified_positions);
+                placement[modifier_index].modify(
+                    &context,
+                    random,
+                    pos,
+                    &mut self.modified_positions,
+                );
             }
             let next = modifier_index + 1;
             if next < placement.len() {
@@ -181,7 +227,8 @@ impl FeaturePlacer {
                 }
             } else {
                 for i in 0..self.modified_positions.len() {
-                    placed_any |= feature.place(level, generator, random, self.modified_positions[i]);
+                    placed_any |=
+                        feature.place(level, generator, random, self.modified_positions[i]);
                 }
             }
             self.modified_positions.clear();

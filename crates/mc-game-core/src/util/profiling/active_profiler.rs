@@ -22,7 +22,13 @@ struct PathEntry {
 
 impl Default for PathEntry {
     fn default() -> Self {
-        Self { max_duration: i64::MIN, min_duration: i64::MAX, accumulated_duration: 0, count: 0, counters: BTreeMap::new() }
+        Self {
+            max_duration: i64::MIN,
+            min_duration: i64::MAX,
+            accumulated_duration: 0,
+            count: 0,
+            counters: BTreeMap::new(),
+        }
     }
 }
 
@@ -41,7 +47,11 @@ pub struct ActiveProfiler {
 }
 
 impl ActiveProfiler {
-    pub fn new(get_real_time: Arc<dyn Fn() -> i64 + Send + Sync>, get_tick_time: Arc<dyn Fn() -> i32 + Send + Sync>, suppress_warnings: bool) -> Self {
+    pub fn new(
+        get_real_time: Arc<dyn Fn() -> i64 + Send + Sync>,
+        get_tick_time: Arc<dyn Fn() -> i32 + Send + Sync>,
+        suppress_warnings: bool,
+    ) -> Self {
         Self {
             paths: Vec::new(),
             start_times: Vec::new(),
@@ -75,14 +85,19 @@ impl ActiveProfiler {
             self.pop();
             self.started = false;
             if !self.path.is_empty() {
-                log::error!("Profiler tick ended before path was fully popped (remainder: '{}'). Mismatched push/pop?", demangle_path(&self.path));
+                log::error!(
+                    "Profiler tick ended before path was fully popped (remainder: '{}'). Mismatched push/pop?",
+                    demangle_path(&self.path)
+                );
             }
         }
     }
 
     pub fn push(&mut self, name: &str) {
         if !self.started {
-            log::error!("Cannot push '{name}' to profiler if profiler tick hasn't started - missing startTick()?");
+            log::error!(
+                "Cannot push '{name}' to profiler if profiler tick hasn't started - missing startTick()?"
+            );
         } else {
             if !self.path.is_empty() {
                 self.path.push(PATH_SEPARATOR);
@@ -102,7 +117,9 @@ impl ActiveProfiler {
 
     pub fn pop(&mut self) {
         if !self.started {
-            log::error!("Cannot pop from profiler if profiler tick hasn't started - missing startTick()?");
+            log::error!(
+                "Cannot pop from profiler if profiler tick hasn't started - missing startTick()?"
+            );
         } else if self.start_times.is_empty() {
             log::error!("Tried to pop one too many times! Mismatched push() and pop()?");
         } else {
@@ -116,7 +133,11 @@ impl ActiveProfiler {
             entry.max_duration = entry.max_duration.max(time);
             entry.min_duration = entry.min_duration.min(time);
             if time > WARNING_TIME_NANOS && !self.suppress_warnings {
-                log::warn!("Something's taking too long! '{}' took approximately {} ms", demangle_path(&self.path), time as f64 / 1_000_000.0);
+                log::warn!(
+                    "Something's taking too long! '{}' took approximately {} ms",
+                    demangle_path(&self.path),
+                    time as f64 / 1_000_000.0
+                );
             }
             self.path = self.paths.last().cloned().unwrap_or_default();
         }
@@ -128,7 +149,13 @@ impl ActiveProfiler {
     }
 
     pub fn increment_counter(&mut self, name: &str, amount: i32) {
-        *self.entries.entry(self.path.clone()).or_default().counters.entry(name.to_owned()).or_insert(0) += i64::from(amount);
+        *self
+            .entries
+            .entry(self.path.clone())
+            .or_default()
+            .counters
+            .entry(name.to_owned())
+            .or_insert(0) += i64::from(amount);
     }
 
     /// `getResults()`.
@@ -136,7 +163,16 @@ impl ActiveProfiler {
         ProfileResults::Filled(FilledProfileResults::new(
             self.entries
                 .iter()
-                .map(|(k, e)| (k.clone(), PathEntrySnapshot { duration: e.accumulated_duration, count: e.count, counters: e.counters.clone() }))
+                .map(|(k, e)| {
+                    (
+                        k.clone(),
+                        PathEntrySnapshot {
+                            duration: e.accumulated_duration,
+                            count: e.count,
+                            counters: e.counters.clone(),
+                        },
+                    )
+                })
                 .collect(),
             self.start_time_nano,
             self.start_time_ticks,

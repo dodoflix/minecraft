@@ -10,11 +10,16 @@ pub mod selection;
 
 use mc_text::Component;
 
-pub use pack_format::{InclusiveRange, OverlayMetadataSection, PackFormat, PackMetadataSection, ResourceFilterSection};
-pub use repository::{
-    FolderRepositorySource, KnownPack, Pack, PackCompatibility, PackMetadata, PackPosition, PackRepository, PackSource, RepositorySource, ServerPacksSource,
+pub use pack_format::{
+    InclusiveRange, OverlayMetadataSection, PackFormat, PackMetadataSection, ResourceFilterSection,
 };
-pub use resource_manager::{FileToIdConverter, MultiPackResourceManager, Resource, ResourceManager};
+pub use repository::{
+    FolderRepositorySource, KnownPack, Pack, PackCompatibility, PackMetadata, PackPosition,
+    PackRepository, PackSource, RepositorySource, ServerPacksSource,
+};
+pub use resource_manager::{
+    FileToIdConverter, MultiPackResourceManager, Resource, ResourceManager,
+};
 pub use resources::{IoSupplier, PackResources, ResourceMetadata};
 pub use selection::{configure_pack_repository, get_selected_packs};
 
@@ -63,11 +68,21 @@ impl PackLocationInfo {
     /// `createChatLink(enabled, description)`.
     pub fn create_chat_link(&self, enabled: bool, description: &Component) -> Component {
         use mc_text::{ChatFormatting, HoverEvent};
-        let hover = Component::empty().append(self.title.clone()).append_str("\n").append(description.clone());
-        mc_text::util::wrap_in_square_brackets(self.source.decorate(Component::literal(self.id.clone()))).with_style_fn(|s| {
-            s.with_color_formatting(Some(if enabled { ChatFormatting::Green } else { ChatFormatting::Red }))
-                .with_insertion(Some(mc_brigadier::arguments::escape_if_required(&self.id)))
-                .with_hover_event(Some(HoverEvent::show_text(hover)))
+        let hover = Component::empty()
+            .append(self.title.clone())
+            .append_str("\n")
+            .append(description.clone());
+        mc_text::util::wrap_in_square_brackets(
+            self.source.decorate(Component::literal(self.id.clone())),
+        )
+        .with_style_fn(|s| {
+            s.with_color_formatting(Some(if enabled {
+                ChatFormatting::Green
+            } else {
+                ChatFormatting::Red
+            }))
+            .with_insertion(Some(mc_brigadier::arguments::escape_if_required(&self.id)))
+            .with_hover_event(Some(HoverEvent::show_text(hover)))
         })
     }
 }

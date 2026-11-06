@@ -182,7 +182,9 @@ impl<'a> MaterialRuleContext<'a> {
     pub(crate) fn get_surface_secondary(&mut self) -> f64 {
         if self.last_surface_depth2_update != self.last_update_xz {
             self.last_surface_depth2_update = self.last_update_xz;
-            self.surface_secondary = self.system.get_surface_secondary(self.block_x, self.block_z);
+            self.surface_secondary = self
+                .system
+                .get_surface_secondary(self.block_x, self.block_z);
         }
         self.surface_secondary
     }
@@ -192,7 +194,8 @@ impl<'a> MaterialRuleContext<'a> {
         match self.biome {
             Some(biome) => biome,
             None => {
-                let biome = (self.biome_getter)(BlockPos::new(self.block_x, self.block_y, self.block_z));
+                let biome =
+                    (self.biome_getter)(BlockPos::new(self.block_x, self.block_y, self.block_z));
                 self.biome = Some(biome);
                 biome
             }
@@ -214,23 +217,30 @@ impl<'a> MaterialRuleContext<'a> {
         if self.last_min_surface_level_update != self.last_update_xz {
             self.last_min_surface_level_update = self.last_update_xz;
             let function = self.system.preliminary_surface_function();
-            let preliminary_surface_level = match self
-                .preliminary_surface_volume
-                .index_of_block(self.block_x, 0, self.block_z)
-            {
-                Some(index) => {
-                    if self.preliminary_surface_buffer.is_none() {
-                        let mut buffer =
-                            DensityBuffer::create_unpooled(self.preliminary_surface_volume.size());
-                        self.density_samplers
-                            .get(function)
-                            .sample_volume(&mut buffer, &self.preliminary_surface_volume);
-                        self.preliminary_surface_buffer = Some(buffer);
+            let preliminary_surface_level =
+                match self
+                    .preliminary_surface_volume
+                    .index_of_block(self.block_x, 0, self.block_z)
+                {
+                    Some(index) => {
+                        if self.preliminary_surface_buffer.is_none() {
+                            let mut buffer = DensityBuffer::create_unpooled(
+                                self.preliminary_surface_volume.size(),
+                            );
+                            self.density_samplers
+                                .get(function)
+                                .sample_volume(&mut buffer, &self.preliminary_surface_volume);
+                            self.preliminary_surface_buffer = Some(buffer);
+                        }
+                        self.preliminary_surface_buffer
+                            .as_ref()
+                            .map_or(0.0, |b| b.get(index))
                     }
-                    self.preliminary_surface_buffer.as_ref().map_or(0.0, |b| b.get(index))
-                }
-                None => self.density_samplers.sample_value(function, self.block_x, 0, self.block_z),
-            };
+                    None => {
+                        self.density_samplers
+                            .sample_value(function, self.block_x, 0, self.block_z)
+                    }
+                };
             self.min_surface_level = mth::floor_f32(preliminary_surface_level)
                 .wrapping_add(self.surface_depth)
                 .wrapping_sub(HOW_FAR_BELOW_PRELIMINARY_SURFACE_LEVEL_TO_BUILD_SURFACE);
@@ -240,7 +250,11 @@ impl<'a> MaterialRuleContext<'a> {
 
     /// `getNoiseSampler(noiseId, is3d)`: the index of the (shared) sampler, created on first use.
     pub(crate) fn get_noise_sampler(&mut self, noise_id: &Identifier, is_3d: bool) -> usize {
-        let existing = if is_3d { &self.noise_samplers_3d } else { &self.noise_samplers_2d };
+        let existing = if is_3d {
+            &self.noise_samplers_3d
+        } else {
+            &self.noise_samplers_2d
+        };
         if let Some(&index) = existing.get(noise_id) {
             return index;
         }
@@ -248,9 +262,19 @@ impl<'a> MaterialRuleContext<'a> {
             .random_state
             .get_or_create_noise(noise_id)
             .expect("noise referenced by a material condition is registered");
-        let last_update = if is_3d { self.last_update_y } else { self.last_update_xz }.wrapping_sub(1);
+        let last_update = if is_3d {
+            self.last_update_y
+        } else {
+            self.last_update_xz
+        }
+        .wrapping_sub(1);
         let index = self.noise_samplers.len();
-        self.noise_samplers.push(NoiseSampler { noise, is_3d, last_update, last_noise: 0.0 });
+        self.noise_samplers.push(NoiseSampler {
+            noise,
+            is_3d,
+            last_update,
+            last_noise: 0.0,
+        });
         if is_3d {
             self.noise_samplers_3d.insert(noise_id.clone(), index);
         } else {
@@ -261,8 +285,16 @@ impl<'a> MaterialRuleContext<'a> {
 
     /// `DoubleSupplier.getAsDouble()` of a sampler from [`Self::get_noise_sampler`].
     pub(crate) fn noise_sampler_value(&mut self, index: usize) -> f64 {
-        let counter = if self.noise_samplers[index].is_3d { self.last_update_y } else { self.last_update_xz };
-        let (x, y, z) = (f64::from(self.block_x), f64::from(self.block_y), f64::from(self.block_z));
+        let counter = if self.noise_samplers[index].is_3d {
+            self.last_update_y
+        } else {
+            self.last_update_xz
+        };
+        let (x, y, z) = (
+            f64::from(self.block_x),
+            f64::from(self.block_y),
+            f64::from(self.block_z),
+        );
         let sampler = &mut self.noise_samplers[index];
         if sampler.last_update != counter {
             sampler.last_noise = if sampler.is_3d {

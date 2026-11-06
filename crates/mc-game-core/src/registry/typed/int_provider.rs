@@ -12,23 +12,32 @@ use crate::registry::codec::{RegistryDecodeContext, Schema};
 #[derive(Clone, Debug, PartialEq)]
 pub enum IntProvider {
     Constant(i32),
-    Uniform { min_inclusive: i32, max_inclusive: i32 },
+    Uniform {
+        min_inclusive: i32,
+        max_inclusive: i32,
+    },
     /// Any other provider type (`biased_to_bottom`, `clamped`, `weighted_list`, ...): validated JSON and its bounds.
-    Other { json: Value, min_inclusive: i32, max_inclusive: i32 },
+    Other {
+        json: Value,
+        min_inclusive: i32,
+        max_inclusive: i32,
+    },
 }
 
 impl IntProvider {
     pub fn min_inclusive(&self) -> i32 {
         match self {
             IntProvider::Constant(v) => *v,
-            IntProvider::Uniform { min_inclusive, .. } | IntProvider::Other { min_inclusive, .. } => *min_inclusive,
+            IntProvider::Uniform { min_inclusive, .. }
+            | IntProvider::Other { min_inclusive, .. } => *min_inclusive,
         }
     }
 
     pub fn max_inclusive(&self) -> i32 {
         match self {
             IntProvider::Constant(v) => *v,
-            IntProvider::Uniform { max_inclusive, .. } | IntProvider::Other { max_inclusive, .. } => *max_inclusive,
+            IntProvider::Uniform { max_inclusive, .. }
+            | IntProvider::Other { max_inclusive, .. } => *max_inclusive,
         }
     }
 
@@ -37,7 +46,10 @@ impl IntProvider {
         match self {
             IntProvider::Constant(v) => Some(*v),
             // `Mth.randomBetweenInclusive(random, min, max)` = `random.nextInt(max - min + 1) + min`
-            IntProvider::Uniform { min_inclusive, max_inclusive } => Some(random.next_int_between_inclusive(*min_inclusive, *max_inclusive)),
+            IntProvider::Uniform {
+                min_inclusive,
+                max_inclusive,
+            } => Some(random.next_int_between_inclusive(*min_inclusive, *max_inclusive)),
             IntProvider::Other { .. } => None,
         }
     }
@@ -52,14 +64,23 @@ impl IntProvider {
         let ty = o.get("type")?.as_str()?;
         match ty.strip_prefix("minecraft:").unwrap_or(ty) {
             "constant" => Some(IntProvider::Constant(int(o.get("value")?)?)),
-            "uniform" => Some(IntProvider::Uniform { min_inclusive: min, max_inclusive: max }),
-            _ => Some(IntProvider::Other { json: json.clone(), min_inclusive: min, max_inclusive: max }),
+            "uniform" => Some(IntProvider::Uniform {
+                min_inclusive: min,
+                max_inclusive: max,
+            }),
+            _ => Some(IntProvider::Other {
+                json: json.clone(),
+                min_inclusive: min,
+                max_inclusive: max,
+            }),
         }
     }
 }
 
 fn int(v: &Value) -> Option<i32> {
-    v.as_i64().map(|i| i as i32).or_else(|| v.as_f64().map(|f| f as i32))
+    v.as_i64()
+        .map(|i| i as i32)
+        .or_else(|| v.as_f64().map(|f| f as i32))
 }
 
 /// `(minInclusive, maxInclusive)` of a provider object.
@@ -68,7 +89,12 @@ fn bounds(o: &Map<String, Value>) -> Option<(i32, i32)> {
     let field = |name: &str| o.get(name).and_then(int);
     match ty.strip_prefix("minecraft:").unwrap_or(ty) {
         "constant" => field("value").map(|v| (v, v)),
-        "uniform" | "biased_to_bottom" | "very_biased_to_bottom" | "trapezoid" | "clamped_normal" | "clamped" => Some((field("min_inclusive")?, field("max_inclusive")?)),
+        "uniform"
+        | "biased_to_bottom"
+        | "very_biased_to_bottom"
+        | "trapezoid"
+        | "clamped_normal"
+        | "clamped" => Some((field("min_inclusive")?, field("max_inclusive")?)),
         "weighted_list" => {
             let list = o.get("distribution")?.as_array()?;
             let mut min = i32::MAX;
@@ -89,22 +115,61 @@ fn provider_types(ty: &str) -> Option<Schema> {
     Some(match ty.strip_prefix("minecraft:").unwrap_or(ty) {
         "constant" => Schema::Record(vec![req("value", Schema::Int)]),
         "uniform" | "biased_to_bottom" | "very_biased_to_bottom" => Schema::custom(|v, ctx| {
-            let t = Schema::Record(vec![req("min_inclusive", Schema::Int), req("max_inclusive", Schema::Int)]).convert(v, ctx)?;
+            let t = Schema::Record(vec![
+                req("min_inclusive", Schema::Int),
+                req("max_inclusive", Schema::Int),
+            ])
+            .convert(v, ctx)?;
             let o = v.as_object().ok_or("Not a map")?;
-            let (min, max) = (int(&o["min_inclusive"]).unwrap_or(0), int(&o["max_inclusive"]).unwrap_or(0));
-            if max < min { Err(format!("Max must be at least min, min_inclusive: {min}, max_inclusive: {max}")) } else { Ok(t) }
+            let (min, max) = (
+                int(&o["min_inclusive"]).unwrap_or(0),
+                int(&o["max_inclusive"]).unwrap_or(0),
+            );
+            if max < min {
+                Err(format!(
+                    "Max must be at least min, min_inclusive: {min}, max_inclusive: {max}"
+                ))
+            } else {
+                Ok(t)
+            }
         }),
         "trapezoid" => Schema::custom(|v, ctx| {
-            let t = Schema::Record(vec![req("min_inclusive", Schema::Int), req("max_inclusive", Schema::Int), crate::registry::codec::default("plateau", Schema::Int, Value::from(0))]).convert(v, ctx)?;
+            let t = Schema::Record(vec![
+                req("min_inclusive", Schema::Int),
+                req("max_inclusive", Schema::Int),
+                crate::registry::codec::default("plateau", Schema::Int, Value::from(0)),
+            ])
+            .convert(v, ctx)?;
             let o = v.as_object().ok_or("Not a map")?;
-            let (min, max) = (int(&o["min_inclusive"]).unwrap_or(0), int(&o["max_inclusive"]).unwrap_or(0));
-            if max < min { Err(format!("Max must be at least min, min_inclusive: {min}, max_inclusive: {max}")) } else { Ok(t) }
+            let (min, max) = (
+                int(&o["min_inclusive"]).unwrap_or(0),
+                int(&o["max_inclusive"]).unwrap_or(0),
+            );
+            if max < min {
+                Err(format!(
+                    "Max must be at least min, min_inclusive: {min}, max_inclusive: {max}"
+                ))
+            } else {
+                Ok(t)
+            }
         }),
-        "clamped" => Schema::Record(vec![req("source", schema(i32::MIN, i32::MAX)), req("min_inclusive", Schema::Int), req("max_inclusive", Schema::Int)]),
-        "clamped_normal" => Schema::Record(vec![req("mean", Schema::Float), req("deviation", Schema::Float), req("min_inclusive", Schema::Int), req("max_inclusive", Schema::Int)]),
+        "clamped" => Schema::Record(vec![
+            req("source", schema(i32::MIN, i32::MAX)),
+            req("min_inclusive", Schema::Int),
+            req("max_inclusive", Schema::Int),
+        ]),
+        "clamped_normal" => Schema::Record(vec![
+            req("mean", Schema::Float),
+            req("deviation", Schema::Float),
+            req("min_inclusive", Schema::Int),
+            req("max_inclusive", Schema::Int),
+        ]),
         "weighted_list" => Schema::Record(vec![req(
             "distribution",
-            Schema::list_of(Schema::Record(vec![req("data", schema(i32::MIN, i32::MAX)), req("weight", Schema::IntRange(1, i32::MAX))])),
+            Schema::list_of(Schema::Record(vec![
+                req("data", schema(i32::MIN, i32::MAX)),
+                req("weight", Schema::IntRange(1, i32::MAX)),
+            ])),
         )]),
         _ => return None,
     })
@@ -117,21 +182,38 @@ pub fn schema(min_value: i32, max_value: i32) -> Schema {
             Schema::Int.convert(v, ctx)?
         } else {
             let body = match v {
-                Value::Object(_) => Schema::Dispatch { key: "type", resolve: provider_types }.convert(v, ctx)?,
+                Value::Object(_) => Schema::Dispatch {
+                    key: "type",
+                    resolve: provider_types,
+                }
+                .convert(v, ctx)?,
                 _ => return Err(format!("Not a number: {v}")),
             };
             // a `constant` object re-encodes as the bare number
             match (&body, v.get("type").and_then(Value::as_str)) {
-                (Tag::Compound(c), Some(t)) if t.strip_prefix("minecraft:").unwrap_or(t) == "constant" => c.get("value").cloned().unwrap_or(body.clone()),
+                (Tag::Compound(c), Some(t))
+                    if t.strip_prefix("minecraft:").unwrap_or(t) == "constant" =>
+                {
+                    c.get("value").cloned().unwrap_or(body.clone())
+                }
                 _ => body,
             }
         };
-        let provider = IntProvider::from_json(v).ok_or_else(|| "Unsupported value provider".to_owned())?;
+        let provider =
+            IntProvider::from_json(v).ok_or_else(|| "Unsupported value provider".to_owned())?;
         if provider.min_inclusive() < min_value {
-            return Err(format!("Value provider too low: {min_value} [{}-{}]", provider.min_inclusive(), provider.max_inclusive()));
+            return Err(format!(
+                "Value provider too low: {min_value} [{}-{}]",
+                provider.min_inclusive(),
+                provider.max_inclusive()
+            ));
         }
         if provider.max_inclusive() > max_value {
-            return Err(format!("Value provider too high: {max_value} [{}-{}]", provider.min_inclusive(), provider.max_inclusive()));
+            return Err(format!(
+                "Value provider too high: {max_value} [{}-{}]",
+                provider.min_inclusive(),
+                provider.max_inclusive()
+            ));
         }
         Ok(tag)
     })
@@ -162,10 +244,34 @@ mod tests {
     #[test]
     fn providers() {
         assert_eq!(conv(0, 15, json!(7)).unwrap(), Tag::Int(7));
-        assert_eq!(conv(0, 15, json!({"type": "minecraft:constant", "value": 3})).unwrap(), Tag::Int(3));
-        assert!(matches!(conv(0, 15, json!({"type": "minecraft:uniform", "min_inclusive": 0, "max_inclusive": 7})).unwrap(), Tag::Compound(c) if c.len() == 3));
-        assert_eq!(conv(0, 15, json!(16)).unwrap_err(), "Value provider too high: 15 [16-16]");
-        assert_eq!(conv(0, 15, json!({"type": "uniform", "min_inclusive": -1, "max_inclusive": 3})).unwrap_err(), "Value provider too low: 0 [-1-3]");
-        assert!(conv(0, 15, json!({"type": "uniform", "min_inclusive": 5, "max_inclusive": 3})).unwrap_err().starts_with("Max must be at least min"));
+        assert_eq!(
+            conv(0, 15, json!({"type": "minecraft:constant", "value": 3})).unwrap(),
+            Tag::Int(3)
+        );
+        assert!(
+            matches!(conv(0, 15, json!({"type": "minecraft:uniform", "min_inclusive": 0, "max_inclusive": 7})).unwrap(), Tag::Compound(c) if c.len() == 3)
+        );
+        assert_eq!(
+            conv(0, 15, json!(16)).unwrap_err(),
+            "Value provider too high: 15 [16-16]"
+        );
+        assert_eq!(
+            conv(
+                0,
+                15,
+                json!({"type": "uniform", "min_inclusive": -1, "max_inclusive": 3})
+            )
+            .unwrap_err(),
+            "Value provider too low: 0 [-1-3]"
+        );
+        assert!(
+            conv(
+                0,
+                15,
+                json!({"type": "uniform", "min_inclusive": 5, "max_inclusive": 3})
+            )
+            .unwrap_err()
+            .starts_with("Max must be at least min")
+        );
     }
 }

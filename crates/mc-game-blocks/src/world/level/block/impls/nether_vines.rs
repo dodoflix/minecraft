@@ -1,6 +1,6 @@
 //! `net.minecraft.world.level.block.NetherVines` (shared by weeping and twisting vines).
-use mc_game_core::world::level::block::impls::prelude::*;
 use mc_core::random::RandomSource;
+use mc_game_core::world::level::block::impls::prelude::*;
 
 /// `NetherVines.GROW_PER_TICK_PROBABILITY`.
 pub const GROW_PER_TICK_PROBABILITY: f64 = 0.1;

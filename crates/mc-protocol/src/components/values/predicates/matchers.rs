@@ -1,9 +1,9 @@
 //! `DataComponentPredicate` (the `data_component_predicate_type` registry and `AnyValue`) and
 //! `DataComponentMatchers` (`exact` components + `partial` predicates).
 
-use crate::codec::EncodeResult;
 use super::component_predicates::*;
-use crate::codec::{read_count, Decode, DecodeError, DecodeResult, Encode, NbtLimit};
+use crate::codec::EncodeResult;
+use crate::codec::{Decode, DecodeError, DecodeResult, Encode, NbtLimit, read_count};
 use crate::components::holder::registry_by_name_codec;
 use crate::components::map::DataComponentExactPredicate;
 use mc_data::{DataComponentPredicateType as Pt, DataComponentType};
@@ -67,16 +67,18 @@ impl DataComponentPredicate {
 impl PredicateType {
     /// `DataComponentPredicate.Type.CODEC`: a predicate type name, else a component type name.
     pub fn codec() -> Codec<PredicateType> {
-        registry_by_name_codec::<Pt>().either(&registry_by_name_codec::<DataComponentType>()).xmap(
-            |e| match e {
-                Either::Left(t) => PredicateType::Concrete(t),
-                Either::Right(c) => PredicateType::AnyValue(c),
-            },
-            |t: &PredicateType| match t {
-                PredicateType::Concrete(t) => Either::Left(*t),
-                PredicateType::AnyValue(c) => Either::Right(*c),
-            },
-        )
+        registry_by_name_codec::<Pt>()
+            .either(&registry_by_name_codec::<DataComponentType>())
+            .xmap(
+                |e| match e {
+                    Either::Left(t) => PredicateType::Concrete(t),
+                    Either::Right(c) => PredicateType::AnyValue(c),
+                },
+                |t: &PredicateType| match t {
+                    PredicateType::Concrete(t) => Either::Left(*t),
+                    PredicateType::AnyValue(c) => Either::Right(*c),
+                },
+            )
     }
 
     /// The codec of this type's predicate (`Type.codec()`).
@@ -85,23 +87,125 @@ impl PredicateType {
             use DataComponentPredicate as P;
             // registry order of `DataComponentPredicates`
             let codecs = vec![
-                (Pt::DAMAGE, DamagePredicate::codec().xmap(P::Damage, |p: &P| match p { P::Damage(v) => v.clone(), _ => unreachable!() })),
-                (Pt::ENCHANTMENTS, EnchantmentsPredicate::codec().xmap(P::Enchantments, |p: &P| match p { P::Enchantments(v) => v.clone(), _ => unreachable!() })),
-                (Pt::STORED_ENCHANTMENTS, EnchantmentsPredicate::codec().xmap(P::StoredEnchantments, |p: &P| match p { P::StoredEnchantments(v) => v.clone(), _ => unreachable!() })),
-                (Pt::POTION_CONTENTS, PotionsPredicate::codec().xmap(P::PotionContents, |p: &P| match p { P::PotionContents(v) => v.clone(), _ => unreachable!() })),
-                (Pt::CUSTOM_DATA, CustomDataPredicate::codec().xmap(P::CustomData, |p: &P| match p { P::CustomData(v) => v.clone(), _ => unreachable!() })),
-                (Pt::CONTAINER, ContainerPredicate::codec().xmap(P::Container, |p: &P| match p { P::Container(v) => v.clone(), _ => unreachable!() })),
-                (Pt::BUNDLE_CONTENTS, BundlePredicate::codec().xmap(P::BundleContents, |p: &P| match p { P::BundleContents(v) => v.clone(), _ => unreachable!() })),
-                (Pt::FIREWORK_EXPLOSION, FireworkExplosionPredicate::codec().xmap(P::FireworkExplosion, |p: &P| match p { P::FireworkExplosion(v) => v.clone(), _ => unreachable!() })),
-                (Pt::FIREWORKS, FireworksPredicate::codec().xmap(P::Fireworks, |p: &P| match p { P::Fireworks(v) => v.clone(), _ => unreachable!() })),
-                (Pt::WRITABLE_BOOK_CONTENT, WritableBookPredicate::codec().xmap(P::WritableBookContent, |p: &P| match p { P::WritableBookContent(v) => v.clone(), _ => unreachable!() })),
-                (Pt::WRITTEN_BOOK_CONTENT, WrittenBookPredicate::codec().xmap(P::WrittenBookContent, |p: &P| match p { P::WrittenBookContent(v) => v.clone(), _ => unreachable!() })),
-                (Pt::ATTRIBUTE_MODIFIERS, AttributeModifiersPredicate::codec().xmap(P::AttributeModifiers, |p: &P| match p { P::AttributeModifiers(v) => v.clone(), _ => unreachable!() })),
-                (Pt::TRIM, TrimPredicate::codec().xmap(P::Trim, |p: &P| match p { P::Trim(v) => v.clone(), _ => unreachable!() })),
-                (Pt::JUKEBOX_PLAYABLE, JukeboxPlayablePredicate::codec().xmap(P::JukeboxPlayable, |p: &P| match p { P::JukeboxPlayable(v) => v.clone(), _ => unreachable!() })),
-                (Pt::VILLAGER_VARIANT, VillagerTypePredicate::codec().xmap(P::VillagerVariant, |p: &P| match p { P::VillagerVariant(v) => v.clone(), _ => unreachable!() })),
+                (
+                    Pt::DAMAGE,
+                    DamagePredicate::codec().xmap(P::Damage, |p: &P| match p {
+                        P::Damage(v) => v.clone(),
+                        _ => unreachable!(),
+                    }),
+                ),
+                (
+                    Pt::ENCHANTMENTS,
+                    EnchantmentsPredicate::codec().xmap(P::Enchantments, |p: &P| match p {
+                        P::Enchantments(v) => v.clone(),
+                        _ => unreachable!(),
+                    }),
+                ),
+                (
+                    Pt::STORED_ENCHANTMENTS,
+                    EnchantmentsPredicate::codec().xmap(P::StoredEnchantments, |p: &P| match p {
+                        P::StoredEnchantments(v) => v.clone(),
+                        _ => unreachable!(),
+                    }),
+                ),
+                (
+                    Pt::POTION_CONTENTS,
+                    PotionsPredicate::codec().xmap(P::PotionContents, |p: &P| match p {
+                        P::PotionContents(v) => v.clone(),
+                        _ => unreachable!(),
+                    }),
+                ),
+                (
+                    Pt::CUSTOM_DATA,
+                    CustomDataPredicate::codec().xmap(P::CustomData, |p: &P| match p {
+                        P::CustomData(v) => v.clone(),
+                        _ => unreachable!(),
+                    }),
+                ),
+                (
+                    Pt::CONTAINER,
+                    ContainerPredicate::codec().xmap(P::Container, |p: &P| match p {
+                        P::Container(v) => v.clone(),
+                        _ => unreachable!(),
+                    }),
+                ),
+                (
+                    Pt::BUNDLE_CONTENTS,
+                    BundlePredicate::codec().xmap(P::BundleContents, |p: &P| match p {
+                        P::BundleContents(v) => v.clone(),
+                        _ => unreachable!(),
+                    }),
+                ),
+                (
+                    Pt::FIREWORK_EXPLOSION,
+                    FireworkExplosionPredicate::codec().xmap(
+                        P::FireworkExplosion,
+                        |p: &P| match p {
+                            P::FireworkExplosion(v) => v.clone(),
+                            _ => unreachable!(),
+                        },
+                    ),
+                ),
+                (
+                    Pt::FIREWORKS,
+                    FireworksPredicate::codec().xmap(P::Fireworks, |p: &P| match p {
+                        P::Fireworks(v) => v.clone(),
+                        _ => unreachable!(),
+                    }),
+                ),
+                (
+                    Pt::WRITABLE_BOOK_CONTENT,
+                    WritableBookPredicate::codec().xmap(P::WritableBookContent, |p: &P| match p {
+                        P::WritableBookContent(v) => v.clone(),
+                        _ => unreachable!(),
+                    }),
+                ),
+                (
+                    Pt::WRITTEN_BOOK_CONTENT,
+                    WrittenBookPredicate::codec().xmap(P::WrittenBookContent, |p: &P| match p {
+                        P::WrittenBookContent(v) => v.clone(),
+                        _ => unreachable!(),
+                    }),
+                ),
+                (
+                    Pt::ATTRIBUTE_MODIFIERS,
+                    AttributeModifiersPredicate::codec().xmap(
+                        P::AttributeModifiers,
+                        |p: &P| match p {
+                            P::AttributeModifiers(v) => v.clone(),
+                            _ => unreachable!(),
+                        },
+                    ),
+                ),
+                (
+                    Pt::TRIM,
+                    TrimPredicate::codec().xmap(P::Trim, |p: &P| match p {
+                        P::Trim(v) => v.clone(),
+                        _ => unreachable!(),
+                    }),
+                ),
+                (
+                    Pt::JUKEBOX_PLAYABLE,
+                    JukeboxPlayablePredicate::codec().xmap(P::JukeboxPlayable, |p: &P| match p {
+                        P::JukeboxPlayable(v) => v.clone(),
+                        _ => unreachable!(),
+                    }),
+                ),
+                (
+                    Pt::VILLAGER_VARIANT,
+                    VillagerTypePredicate::codec().xmap(P::VillagerVariant, |p: &P| match p {
+                        P::VillagerVariant(v) => v.clone(),
+                        _ => unreachable!(),
+                    }),
+                ),
             ];
-            assert!(codecs.iter().enumerate().all(|(i, (t, _))| t.id() as usize == i), "predicate type order");
+            assert!(
+                codecs
+                    .iter()
+                    .enumerate()
+                    .all(|(i, (t, _))| t.id() as usize == i),
+                "predicate type order"
+            );
             codecs.into_iter().map(|(_, c)| c).collect()
         });
         match self {
@@ -152,7 +256,10 @@ impl DataComponentPredicate {
             .ok_or_else(|| DecodeError::msg("Expected non-null compound tag"))?;
         match mc_dfu::parse_nbt(&ty.value_codec(), &tag) {
             DataResult::Success(p) => Ok(p),
-            e => Err(DecodeError::Message(format!("Failed to decode: {} {tag}", e.error_message().unwrap_or_default()))),
+            e => Err(DecodeError::Message(format!(
+                "Failed to decode: {} {tag}",
+                e.error_message().unwrap_or_default()
+            ))),
         }
     }
 }
@@ -171,9 +278,18 @@ impl PredicateMap {
     /// `DataComponentPredicate.CODEC`: `Codec.dispatchedMap(Type.CODEC, Type::codec)`.
     pub fn codec() -> Codec<PredicateMap> {
         static C: LazyLock<Codec<PredicateMap>> = LazyLock::new(|| {
-            mc_dfu::extra::dispatched_map(&PredicateType::codec(), |t: &PredicateType| DataResult::success(t.value_codec())).xmap(
-                |entries: Vec<(PredicateType, DataComponentPredicate)>| PredicateMap(entries.into_iter().map(|(_, p)| p).collect()),
-                |m: &PredicateMap| m.0.iter().map(|p| (p.predicate_type(), p.clone())).collect(),
+            mc_dfu::extra::dispatched_map(&PredicateType::codec(), |t: &PredicateType| {
+                DataResult::success(t.value_codec())
+            })
+            .xmap(
+                |entries: Vec<(PredicateType, DataComponentPredicate)>| {
+                    PredicateMap(entries.into_iter().map(|(_, p)| p).collect())
+                },
+                |m: &PredicateMap| {
+                    m.0.iter()
+                        .map(|p| (p.predicate_type(), p.clone()))
+                        .collect()
+                },
             )
         });
         C.clone()
@@ -197,8 +313,15 @@ impl Decode for PredicateMap {
         let mut entries: Vec<DataComponentPredicate> = Vec::with_capacity(count);
         for _ in 0..count {
             let p = DataComponentPredicate::decode_single(input)?;
-            if matches!(p.predicate_type(), PredicateType::Concrete(_)) && entries.iter().any(|q| q.predicate_type() == p.predicate_type()) {
-                return Err(DecodeError::Message(format!("Duplicate key {:?}", p.predicate_type())));
+            if matches!(p.predicate_type(), PredicateType::Concrete(_))
+                && entries
+                    .iter()
+                    .any(|q| q.predicate_type() == p.predicate_type())
+            {
+                return Err(DecodeError::Message(format!(
+                    "Duplicate key {:?}",
+                    p.predicate_type()
+                )));
             }
             entries.push(p);
         }
@@ -222,8 +345,10 @@ impl DataComponentMatchers {
     /// `DataComponentMatchers.CODEC` (a `MapCodec`: the `components` and `predicates` fields of the enclosing object).
     pub fn map_codec() -> MapCodec<DataComponentMatchers> {
         mc_dfu::record!(DataComponentMatchers {
-            exact: DataComponentExactPredicate::codec().optional_field_of_default("components", DataComponentExactPredicate::empty()),
-            partial: Codec::lazy(PredicateMap::codec).optional_field_of_default("predicates", PredicateMap::default()),
+            exact: DataComponentExactPredicate::codec()
+                .optional_field_of_default("components", DataComponentExactPredicate::empty()),
+            partial: Codec::lazy(PredicateMap::codec)
+                .optional_field_of_default("predicates", PredicateMap::default()),
         })
     }
 
@@ -241,6 +366,9 @@ impl Encode for DataComponentMatchers {
 }
 impl Decode for DataComponentMatchers {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
-        Ok(DataComponentMatchers { exact: DataComponentExactPredicate::decode(input)?, partial: PredicateMap::decode(input)? })
+        Ok(DataComponentMatchers {
+            exact: DataComponentExactPredicate::decode(input)?,
+            partial: PredicateMap::decode(input)?,
+        })
     }
 }

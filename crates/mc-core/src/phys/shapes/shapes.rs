@@ -8,13 +8,13 @@
 use std::collections::HashMap;
 use std::sync::LazyLock;
 
-use super::coords::{lcm, Coords, IndexMerger};
+use super::coords::{Coords, IndexMerger, lcm};
 use super::discrete::{BitSetDiscreteVoxelShape, DiscreteVoxelShape};
-use super::{fuzzy_equals, BooleanOp, VoxelShape};
+use super::{BooleanOp, VoxelShape, fuzzy_equals};
+use crate::direction::{Axis, AxisDirection, Direction};
 use crate::math::java::round_f64 as java_round;
-use crate::direction::{Axis, Direction, AxisDirection};
 use crate::math::octahedral_group::OctahedralGroup;
-use crate::phys::{Vec3, AABB};
+use crate::phys::{AABB, Vec3};
 
 static BLOCK: LazyLock<VoxelShape> = LazyLock::new(|| {
     let mut shape = BitSetDiscreteVoxelShape::new(1, 1, 1);
@@ -32,11 +32,22 @@ static EMPTY: LazyLock<VoxelShape> = LazyLock::new(|| {
 });
 
 static INFINITY: LazyLock<VoxelShape> = LazyLock::new(|| {
-    Shapes::box_(f64::NEG_INFINITY, f64::NEG_INFINITY, f64::NEG_INFINITY, f64::INFINITY, f64::INFINITY, f64::INFINITY)
+    Shapes::box_(
+        f64::NEG_INFINITY,
+        f64::NEG_INFINITY,
+        f64::NEG_INFINITY,
+        f64::INFINITY,
+        f64::INFINITY,
+        f64::INFINITY,
+    )
 });
 
 /// `Shapes.BLOCK_CENTER`
-const BLOCK_CENTER: Vec3 = Vec3 { x: 0.5, y: 0.5, z: 0.5 };
+const BLOCK_CENTER: Vec3 = Vec3 {
+    x: 0.5,
+    y: 0.5,
+    z: 0.5,
+};
 
 /// `world.level.block.state.properties.AttachFace`
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord)]
@@ -58,7 +69,9 @@ impl AttachFace {
     }
 
     pub fn by_name(name: &str) -> Option<AttachFace> {
-        Self::ALL.into_iter().find(|f| f.get_serialized_name() == name)
+        Self::ALL
+            .into_iter()
+            .find(|f| f.get_serialized_name() == name)
     }
 }
 
@@ -86,7 +99,14 @@ impl Shapes {
     }
 
     /// `Shapes.box`: panics if a min exceeds its max (vanilla throws `IllegalArgumentException`).
-    pub fn box_(min_x: f64, min_y: f64, min_z: f64, max_x: f64, max_y: f64, max_z: f64) -> VoxelShape {
+    pub fn box_(
+        min_x: f64,
+        min_y: f64,
+        min_z: f64,
+        max_x: f64,
+        max_y: f64,
+        max_z: f64,
+    ) -> VoxelShape {
         if !(min_x > max_x) && !(min_y > max_y) && !(min_z > max_z) {
             Self::create_bounds(min_x, min_y, min_z, max_x, max_y, max_z)
         } else {
@@ -95,7 +115,14 @@ impl Shapes {
     }
 
     /// `Shapes.create(double x6)`
-    pub fn create_bounds(min_x: f64, min_y: f64, min_z: f64, max_x: f64, max_y: f64, max_z: f64) -> VoxelShape {
+    pub fn create_bounds(
+        min_x: f64,
+        min_y: f64,
+        min_z: f64,
+        max_x: f64,
+        max_y: f64,
+        max_z: f64,
+    ) -> VoxelShape {
         if !(max_x - min_x < 1.0E-7) && !(max_y - min_y < 1.0E-7) && !(max_z - min_z < 1.0E-7) {
             let x_bits = Self::find_bits(min_x, max_x);
             let y_bits = Self::find_bits(min_y, max_y);
@@ -133,7 +160,9 @@ impl Shapes {
 
     /// `Shapes.create(AABB)`
     pub fn create(aabb: AABB) -> VoxelShape {
-        Self::create_bounds(aabb.min_x, aabb.min_y, aabb.min_z, aabb.max_x, aabb.max_y, aabb.max_z)
+        Self::create_bounds(
+            aabb.min_x, aabb.min_y, aabb.min_z, aabb.max_x, aabb.max_y, aabb.max_z,
+        )
     }
 
     pub fn find_bits(min: f64, max: f64) -> i32 {
@@ -142,8 +171,10 @@ impl Shapes {
                 let intervals = 1 << bits;
                 let sh_min = min * intervals as f64;
                 let sh_max = max * intervals as f64;
-                let found_min = (sh_min - java_round(sh_min) as f64).abs() < 1.0E-7 * intervals as f64;
-                let found_max = (sh_max - java_round(sh_max) as f64).abs() < 1.0E-7 * intervals as f64;
+                let found_min =
+                    (sh_min - java_round(sh_min) as f64).abs() < 1.0E-7 * intervals as f64;
+                let found_max =
+                    (sh_max - java_round(sh_max) as f64).abs() < 1.0E-7 * intervals as f64;
                 if found_min && found_max {
                     return bits;
                 }
@@ -170,22 +201,45 @@ impl Shapes {
     }
 
     pub fn join_unoptimized(first: &VoxelShape, second: &VoxelShape, op: BooleanOp) -> VoxelShape {
-        assert!(!op.apply(false, false), "op.apply(false, false) must be false");
+        assert!(
+            !op.apply(false, false),
+            "op.apply(false, false) must be false"
+        );
         if first.ptr_eq(second) {
-            return if op.apply(true, true) { first.clone() } else { Self::empty() };
+            return if op.apply(true, true) {
+                first.clone()
+            } else {
+                Self::empty()
+            };
         }
         let first_only_matters = op.apply(true, false);
         let second_only_matters = op.apply(false, true);
         if first.is_empty() {
-            return if second_only_matters { second.clone() } else { Self::empty() };
+            return if second_only_matters {
+                second.clone()
+            } else {
+                Self::empty()
+            };
         }
         if second.is_empty() {
-            return if first_only_matters { first.clone() } else { Self::empty() };
+            return if first_only_matters {
+                first.clone()
+            } else {
+                Self::empty()
+            };
         }
-        let (x_merger, y_merger, z_merger) = Self::merge_all(first, second, first_only_matters, second_only_matters);
-        let voxel_shape =
-            BitSetDiscreteVoxelShape::join(first.shape(), second.shape(), &x_merger, &y_merger, &z_merger, op);
-        if x_merger.is_discrete_cube() && y_merger.is_discrete_cube() && z_merger.is_discrete_cube() {
+        let (x_merger, y_merger, z_merger) =
+            Self::merge_all(first, second, first_only_matters, second_only_matters);
+        let voxel_shape = BitSetDiscreteVoxelShape::join(
+            first.shape(),
+            second.shape(),
+            &x_merger,
+            &y_merger,
+            &z_merger,
+            op,
+        );
+        if x_merger.is_discrete_cube() && y_merger.is_discrete_cube() && z_merger.is_discrete_cube()
+        {
             VoxelShape::cube(DiscreteVoxelShape::BitSet(voxel_shape))
         } else {
             VoxelShape::array(
@@ -228,7 +282,10 @@ impl Shapes {
     }
 
     pub fn join_is_not_empty(first: &VoxelShape, second: &VoxelShape, op: BooleanOp) -> bool {
-        assert!(!op.apply(false, false), "op.apply(false, false) must be false");
+        assert!(
+            !op.apply(false, false),
+            "op.apply(false, false) must be false"
+        );
         let first_empty = first.is_empty();
         let second_empty = second.is_empty();
         if first_empty || second_empty {
@@ -247,12 +304,16 @@ impl Shapes {
                 return first_only_matters || second_only_matters;
             }
         }
-        let (x_merger, y_merger, z_merger) = Self::merge_all(first, second, first_only_matters, second_only_matters);
+        let (x_merger, y_merger, z_merger) =
+            Self::merge_all(first, second, first_only_matters, second_only_matters);
         let (first, second) = (first.shape(), second.shape());
         !x_merger.for_merged_indexes(&mut |x1, x2, _| {
             y_merger.for_merged_indexes(&mut |y1, y2, _| {
                 z_merger.for_merged_indexes(&mut |z1, z2, _| {
-                    !op.apply(first.is_full_wide(x1, y1, z1), second.is_full_wide(x2, y2, z2))
+                    !op.apply(
+                        first.is_full_wide(x1, y1, z1),
+                        second.is_full_wide(x2, y2, z2),
+                    )
                 })
             })
         })
@@ -284,7 +345,11 @@ impl Shapes {
         let positive = direction.get_axis_direction() == AxisDirection::Positive;
         let first = if positive { shape } else { occluder };
         let second = if positive { occluder } else { shape };
-        let op = if positive { BooleanOp::ONLY_FIRST } else { BooleanOp::ONLY_SECOND };
+        let op = if positive {
+            BooleanOp::ONLY_FIRST
+        } else {
+            BooleanOp::ONLY_SECOND
+        };
         fuzzy_equals(first.max(axis), 1.0, 1.0E-7)
             && fuzzy_equals(second.min(axis), 0.0, 1.0E-7)
             && !Self::join_is_not_empty(
@@ -294,14 +359,26 @@ impl Shapes {
             )
     }
 
-    pub fn merged_face_occludes(shape: &VoxelShape, occluder: &VoxelShape, direction: Direction) -> bool {
+    pub fn merged_face_occludes(
+        shape: &VoxelShape,
+        occluder: &VoxelShape,
+        direction: Direction,
+    ) -> bool {
         if shape.ptr_eq(&BLOCK) || occluder.ptr_eq(&BLOCK) {
             return true;
         }
         let axis = direction.get_axis();
         let positive = direction.get_axis_direction() == AxisDirection::Positive;
-        let mut first = if positive { shape.clone() } else { occluder.clone() };
-        let mut second = if positive { occluder.clone() } else { shape.clone() };
+        let mut first = if positive {
+            shape.clone()
+        } else {
+            occluder.clone()
+        };
+        let mut second = if positive {
+            occluder.clone()
+        } else {
+            shape.clone()
+        };
         if !fuzzy_equals(first.max(axis), 1.0, 1.0E-7) {
             first = Self::empty();
         }
@@ -325,7 +402,11 @@ impl Shapes {
         } else if shape.is_empty() && occluder.is_empty() {
             false
         } else {
-            !Self::join_is_not_empty(&BLOCK, &Self::join_unoptimized(shape, occluder, BooleanOp::OR), BooleanOp::ONLY_FIRST)
+            !Self::join_is_not_empty(
+                &BLOCK,
+                &Self::join_unoptimized(shape, occluder, BooleanOp::OR),
+                BooleanOp::ONLY_FIRST,
+            )
         }
     }
 
@@ -346,9 +427,17 @@ impl Shapes {
         }
 
         if first.get_double(first_size as usize) < second.get_double(0) - 1.0E-7 {
-            IndexMerger::NonOverlapping { lower: first.clone(), upper: second.clone(), swap: false }
+            IndexMerger::NonOverlapping {
+                lower: first.clone(),
+                upper: second.clone(),
+                swap: false,
+            }
         } else if second.get_double(second_size as usize) < first.get_double(0) - 1.0E-7 {
-            IndexMerger::NonOverlapping { lower: second.clone(), upper: first.clone(), swap: true }
+            IndexMerger::NonOverlapping {
+                lower: second.clone(),
+                upper: first.clone(),
+                swap: true,
+            }
         } else if first_size == second_size && first.list_equals(second) {
             IndexMerger::Identical(first.clone())
         } else {
@@ -356,17 +445,29 @@ impl Shapes {
         }
     }
 
-    pub fn flip_axis_if_needed(new_axis: &Coords, flip: bool, new_relative: f64, old_relative: f64) -> Coords {
+    pub fn flip_axis_if_needed(
+        new_axis: &Coords,
+        flip: bool,
+        new_relative: f64,
+        old_relative: f64,
+    ) -> Coords {
         if !flip && new_relative == old_relative {
             return new_axis.clone();
         }
         let size = new_axis.size();
         if flip {
             Coords::array(
-                (0..size).rev().map(|i| -(new_axis.get_double(i) - new_relative) + old_relative).collect::<Vec<_>>(),
+                (0..size)
+                    .rev()
+                    .map(|i| -(new_axis.get_double(i) - new_relative) + old_relative)
+                    .collect::<Vec<_>>(),
             )
         } else {
-            Coords::array((0..size).map(|i| new_axis.get_double(i) - new_relative + old_relative).collect::<Vec<_>>())
+            Coords::array(
+                (0..size)
+                    .map(|i| new_axis.get_double(i) - new_relative + old_relative)
+                    .collect::<Vec<_>>(),
+            )
         }
     }
 
@@ -380,7 +481,11 @@ impl Shapes {
     }
 
     /// `rotate(shape, rotation, rotationPoint)`
-    pub fn rotate_with_point(shape: &VoxelShape, rotation: OctahedralGroup, rotation_point: &Vec3) -> VoxelShape {
+    pub fn rotate_with_point(
+        shape: &VoxelShape,
+        rotation: OctahedralGroup,
+        rotation_point: &Vec3,
+    ) -> VoxelShape {
         if rotation == OctahedralGroup::Identity {
             return shape.clone();
         }
@@ -392,9 +497,24 @@ impl Shapes {
         let [flip_x, flip_y, flip_z] = Axis::VALUES.map(|a| rotation.inverts(a));
         VoxelShape::array(
             new_discrete_shape,
-            Self::flip_axis_if_needed(shape.get_coords(new_x), flip_x, rotation_point.get(new_x), rotation_point.x),
-            Self::flip_axis_if_needed(shape.get_coords(new_y), flip_y, rotation_point.get(new_y), rotation_point.y),
-            Self::flip_axis_if_needed(shape.get_coords(new_z), flip_z, rotation_point.get(new_z), rotation_point.z),
+            Self::flip_axis_if_needed(
+                shape.get_coords(new_x),
+                flip_x,
+                rotation_point.get(new_x),
+                rotation_point.x,
+            ),
+            Self::flip_axis_if_needed(
+                shape.get_coords(new_y),
+                flip_y,
+                rotation_point.get(new_y),
+                rotation_point.y,
+            ),
+            Self::flip_axis_if_needed(
+                shape.get_coords(new_z),
+                flip_z,
+                rotation_point.get(new_z),
+                rotation_point.z,
+            ),
         )
     }
 
@@ -404,10 +524,16 @@ impl Shapes {
     }
 
     /// `rotateHorizontalAxis(zAxis, rotationCenter)`
-    pub fn rotate_horizontal_axis_with_center(z_axis: &VoxelShape, rotation_center: &Vec3) -> HashMap<Axis, VoxelShape> {
+    pub fn rotate_horizontal_axis_with_center(
+        z_axis: &VoxelShape,
+        rotation_center: &Vec3,
+    ) -> HashMap<Axis, VoxelShape> {
         HashMap::from([
             (Axis::Z, z_axis.clone()),
-            (Axis::X, Self::rotate_with_point(z_axis, OctahedralGroup::BLOCK_ROT_Y_90, rotation_center)),
+            (
+                Axis::X,
+                Self::rotate_with_point(z_axis, OctahedralGroup::BLOCK_ROT_Y_90, rotation_center),
+            ),
         ])
     }
 
@@ -417,11 +543,20 @@ impl Shapes {
     }
 
     /// `rotateAllAxis(north, rotationCenter)`
-    pub fn rotate_all_axis_with_center(north: &VoxelShape, rotation_center: &Vec3) -> HashMap<Axis, VoxelShape> {
+    pub fn rotate_all_axis_with_center(
+        north: &VoxelShape,
+        rotation_center: &Vec3,
+    ) -> HashMap<Axis, VoxelShape> {
         HashMap::from([
             (Axis::Z, north.clone()),
-            (Axis::X, Self::rotate_with_point(north, OctahedralGroup::BLOCK_ROT_Y_90, rotation_center)),
-            (Axis::Y, Self::rotate_with_point(north, OctahedralGroup::BLOCK_ROT_X_90, rotation_center)),
+            (
+                Axis::X,
+                Self::rotate_with_point(north, OctahedralGroup::BLOCK_ROT_Y_90, rotation_center),
+            ),
+            (
+                Axis::Y,
+                Self::rotate_with_point(north, OctahedralGroup::BLOCK_ROT_X_90, rotation_center),
+            ),
         ])
     }
 
@@ -431,7 +566,10 @@ impl Shapes {
     }
 
     /// `rotateHorizontal(north, initial)`
-    pub fn rotate_horizontal_initial(north: &VoxelShape, initial: OctahedralGroup) -> HashMap<Direction, VoxelShape> {
+    pub fn rotate_horizontal_initial(
+        north: &VoxelShape,
+        initial: OctahedralGroup,
+    ) -> HashMap<Direction, VoxelShape> {
         Self::rotate_horizontal_with(north, initial, &BLOCK_CENTER)
     }
 
@@ -444,9 +582,30 @@ impl Shapes {
         HashMap::from([
             // vanilla's NORTH entry rotates about BLOCK_CENTER, ignoring `rotationCenter`
             (Direction::North, Self::rotate(north, initial)),
-            (Direction::East, Self::rotate_with_point(north, OctahedralGroup::BLOCK_ROT_Y_90.compose(initial), rotation_center)),
-            (Direction::South, Self::rotate_with_point(north, OctahedralGroup::BLOCK_ROT_Y_180.compose(initial), rotation_center)),
-            (Direction::West, Self::rotate_with_point(north, OctahedralGroup::BLOCK_ROT_Y_270.compose(initial), rotation_center)),
+            (
+                Direction::East,
+                Self::rotate_with_point(
+                    north,
+                    OctahedralGroup::BLOCK_ROT_Y_90.compose(initial),
+                    rotation_center,
+                ),
+            ),
+            (
+                Direction::South,
+                Self::rotate_with_point(
+                    north,
+                    OctahedralGroup::BLOCK_ROT_Y_180.compose(initial),
+                    rotation_center,
+                ),
+            ),
+            (
+                Direction::West,
+                Self::rotate_with_point(
+                    north,
+                    OctahedralGroup::BLOCK_ROT_Y_270.compose(initial),
+                    rotation_center,
+                ),
+            ),
         ])
     }
 
@@ -456,25 +615,69 @@ impl Shapes {
     }
 
     /// `rotateAll(north, rotationCenter)`
-    pub fn rotate_all_with_center(north: &VoxelShape, rotation_center: &Vec3) -> HashMap<Direction, VoxelShape> {
+    pub fn rotate_all_with_center(
+        north: &VoxelShape,
+        rotation_center: &Vec3,
+    ) -> HashMap<Direction, VoxelShape> {
         Self::rotate_all_with(north, OctahedralGroup::Identity, rotation_center)
     }
 
     /// `rotateAll(north, initial, rotationCenter)`
-    pub fn rotate_all_with(north: &VoxelShape, initial: OctahedralGroup, rotation_center: &Vec3) -> HashMap<Direction, VoxelShape> {
+    pub fn rotate_all_with(
+        north: &VoxelShape,
+        initial: OctahedralGroup,
+        rotation_center: &Vec3,
+    ) -> HashMap<Direction, VoxelShape> {
         HashMap::from([
             // vanilla's NORTH entry rotates about BLOCK_CENTER, ignoring `rotationCenter`
             (Direction::North, Self::rotate(north, initial)),
-            (Direction::East, Self::rotate_with_point(north, OctahedralGroup::BLOCK_ROT_Y_90.compose(initial), rotation_center)),
-            (Direction::South, Self::rotate_with_point(north, OctahedralGroup::BLOCK_ROT_Y_180.compose(initial), rotation_center)),
-            (Direction::West, Self::rotate_with_point(north, OctahedralGroup::BLOCK_ROT_Y_270.compose(initial), rotation_center)),
-            (Direction::Up, Self::rotate_with_point(north, OctahedralGroup::BLOCK_ROT_X_270.compose(initial), rotation_center)),
-            (Direction::Down, Self::rotate_with_point(north, OctahedralGroup::BLOCK_ROT_X_90.compose(initial), rotation_center)),
+            (
+                Direction::East,
+                Self::rotate_with_point(
+                    north,
+                    OctahedralGroup::BLOCK_ROT_Y_90.compose(initial),
+                    rotation_center,
+                ),
+            ),
+            (
+                Direction::South,
+                Self::rotate_with_point(
+                    north,
+                    OctahedralGroup::BLOCK_ROT_Y_180.compose(initial),
+                    rotation_center,
+                ),
+            ),
+            (
+                Direction::West,
+                Self::rotate_with_point(
+                    north,
+                    OctahedralGroup::BLOCK_ROT_Y_270.compose(initial),
+                    rotation_center,
+                ),
+            ),
+            (
+                Direction::Up,
+                Self::rotate_with_point(
+                    north,
+                    OctahedralGroup::BLOCK_ROT_X_270.compose(initial),
+                    rotation_center,
+                ),
+            ),
+            (
+                Direction::Down,
+                Self::rotate_with_point(
+                    north,
+                    OctahedralGroup::BLOCK_ROT_X_90.compose(initial),
+                    rotation_center,
+                ),
+            ),
         ])
     }
 
     /// `rotateAttachFace(north)`
-    pub fn rotate_attach_face(north: &VoxelShape) -> HashMap<AttachFace, HashMap<Direction, VoxelShape>> {
+    pub fn rotate_attach_face(
+        north: &VoxelShape,
+    ) -> HashMap<AttachFace, HashMap<Direction, VoxelShape>> {
         Self::rotate_attach_face_initial(north, OctahedralGroup::Identity)
     }
 
@@ -484,13 +687,24 @@ impl Shapes {
         initial: OctahedralGroup,
     ) -> HashMap<AttachFace, HashMap<Direction, VoxelShape>> {
         HashMap::from([
-            (AttachFace::Wall, Self::rotate_horizontal_initial(north, initial)),
-            (AttachFace::Floor, Self::rotate_horizontal_initial(north, OctahedralGroup::BLOCK_ROT_X_270.compose(initial))),
+            (
+                AttachFace::Wall,
+                Self::rotate_horizontal_initial(north, initial),
+            ),
+            (
+                AttachFace::Floor,
+                Self::rotate_horizontal_initial(
+                    north,
+                    OctahedralGroup::BLOCK_ROT_X_270.compose(initial),
+                ),
+            ),
             (
                 AttachFace::Ceiling,
                 Self::rotate_horizontal_initial(
                     north,
-                    OctahedralGroup::BLOCK_ROT_Y_180.compose(OctahedralGroup::BLOCK_ROT_X_90).compose(initial),
+                    OctahedralGroup::BLOCK_ROT_Y_180
+                        .compose(OctahedralGroup::BLOCK_ROT_X_90)
+                        .compose(initial),
                 ),
             ),
         ])

@@ -91,9 +91,14 @@ impl Ctx {
     /// `MinecraftPlayerListService.getUser(id, name)`.
     fn get_user(&self, dto: &PlayerDto) -> Option<NameAndId> {
         if let Some(id) = dto.id {
-            return self.api.cached_user_by_id(id).or_else(|| self.api.fetch_user_by_id(id));
+            return self
+                .api
+                .cached_user_by_id(id)
+                .or_else(|| self.api.fetch_user_by_id(id));
         }
-        dto.name.as_deref().and_then(|n| self.api.fetch_user_by_name(n))
+        dto.name
+            .as_deref()
+            .and_then(|n| self.api.fetch_user_by_name(n))
     }
 
     /// `MinecraftPlayerListService.getPlayer(Optional id, Optional name)`.
@@ -106,7 +111,11 @@ impl Ctx {
     }
 
     fn players_dto(&self) -> Vec<PlayerDto> {
-        self.api.players().iter().map(|p| PlayerDto::from_name_and_id(&p.profile)).collect()
+        self.api
+            .players()
+            .iter()
+            .map(|p| PlayerDto::from_name_and_id(&p.profile))
+            .collect()
     }
 }
 
@@ -140,7 +149,12 @@ fn is_inet_address(s: &str) -> bool {
 // ---- allowlist ---------------------------------------------------------------------------------------------------
 
 fn allowlist_get(c: &Ctx) -> JsonElement {
-    let users: Vec<NameAndId> = c.api.allowlist_entries().iter().filter_map(|e| crate::server::players::StoredUserEntry::user(e).cloned()).collect();
+    let users: Vec<NameAndId> = c
+        .api
+        .allowlist_entries()
+        .iter()
+        .filter_map(|e| crate::server::players::StoredUserEntry::user(e).cloned())
+        .collect();
     encode_player_list(&users)
 }
 
@@ -162,8 +176,13 @@ fn kick_unlisted(c: &Ctx) {
 fn allowlist_set(c: &Ctx, p: &JsonElement) -> RpcResult {
     let dtos = decode_list_of(p, PlayerDto::decode)?;
     let fin: Vec<NameAndId> = dedup(dtos.iter().filter_map(|d| c.get_user(d)).collect());
-    let current: Vec<NameAndId> =
-        dedup(c.api.allowlist_entries().iter().filter_map(|e| crate::server::players::StoredUserEntry::user(e).cloned()).collect());
+    let current: Vec<NameAndId> = dedup(
+        c.api
+            .allowlist_entries()
+            .iter()
+            .filter_map(|e| crate::server::players::StoredUserEntry::user(e).cloned())
+            .collect(),
+    );
     for user in current.iter().filter(|u| !fin.contains(u)) {
         allowlist_remove_user(c, user);
     }
@@ -177,7 +196,14 @@ fn allowlist_set(c: &Ctx, p: &JsonElement) -> RpcResult {
 // ---- bans -----------------------------------------------------------------------------------------------------------
 
 fn bans_get(c: &Ctx) -> JsonElement {
-    list(c.api.user_ban_entries().iter().filter_map(UserBanDto::from_entry).map(|d| d.encode()).collect())
+    list(
+        c.api
+            .user_ban_entries()
+            .iter()
+            .filter_map(UserBanDto::from_entry)
+            .map(|d| d.encode())
+            .collect(),
+    )
 }
 
 fn add_user_ban(c: &Ctx, ban: &UserBan) {
@@ -196,13 +222,19 @@ fn plain(component: &Component) -> String {
 
 fn ban_disconnect(c: &Ctx, ban: &UserBan) {
     if c.api.player_by_id(ban.player.id).is_some() {
-        c.api.disconnect_player(ban.player.id, Component::translatable("multiplayer.disconnect.banned", vec![]));
+        c.api.disconnect_player(
+            ban.player.id,
+            Component::translatable("multiplayer.disconnect.banned", vec![]),
+        );
     }
 }
 
 fn bans_add(c: &Ctx, p: &JsonElement) -> RpcResult {
     let dtos = decode_list_of(p, UserBanDto::decode)?;
-    let resolved: Vec<UserBan> = dtos.iter().filter_map(|d| c.get_user(&d.player).map(|u| UserBan::from_dto(d, u))).collect();
+    let resolved: Vec<UserBan> = dtos
+        .iter()
+        .filter_map(|d| c.get_user(&d.player).map(|u| UserBan::from_dto(d, u)))
+        .collect();
     for ban in &resolved {
         add_user_ban(c, ban);
         ban_disconnect(c, ban);
@@ -222,8 +254,18 @@ fn bans_remove(c: &Ctx, p: &JsonElement) -> RpcResult {
 
 fn bans_set(c: &Ctx, p: &JsonElement) -> RpcResult {
     let dtos = decode_list_of(p, UserBanDto::decode)?;
-    let fin: Vec<UserBan> = dedup(dtos.iter().filter_map(|d| c.get_user(&d.player).map(|u| UserBan::from_dto(d, u))).collect());
-    let current: Vec<UserBan> = dedup(c.api.user_ban_entries().iter().filter_map(UserBan::from_entry).collect());
+    let fin: Vec<UserBan> = dedup(
+        dtos.iter()
+            .filter_map(|d| c.get_user(&d.player).map(|u| UserBan::from_dto(d, u)))
+            .collect(),
+    );
+    let current: Vec<UserBan> = dedup(
+        c.api
+            .user_ban_entries()
+            .iter()
+            .filter_map(UserBan::from_entry)
+            .collect(),
+    );
     for ban in current.iter().filter(|b| !fin.contains(b)) {
         c.log(format!("Remove player '{}' from banlist", ban.player));
         c.api.remove_user_ban(&ban.player);
@@ -236,7 +278,14 @@ fn bans_set(c: &Ctx, p: &JsonElement) -> RpcResult {
 }
 
 fn ip_bans_get(c: &Ctx) -> JsonElement {
-    list(c.api.ip_ban_entries().iter().filter_map(IpBanDto::from_entry).map(|d| d.encode()).collect())
+    list(
+        c.api
+            .ip_ban_entries()
+            .iter()
+            .filter_map(IpBanDto::from_entry)
+            .map(|d| d.encode())
+            .collect(),
+    )
 }
 
 fn add_ip_ban(c: &Ctx, ban: &IpBan) {
@@ -246,7 +295,10 @@ fn add_ip_ban(c: &Ctx, ban: &IpBan) {
 
 fn ip_banned_kick(c: &Ctx, players: Vec<ManagementPlayer>) {
     for player in players {
-        c.api.disconnect_player(player.profile.id, Component::translatable("multiplayer.disconnect.ip_banned", vec![]));
+        c.api.disconnect_player(
+            player.profile.id,
+            Component::translatable("multiplayer.disconnect.ip_banned", vec![]),
+        );
     }
 }
 
@@ -256,7 +308,11 @@ fn ip_bans_add(c: &Ctx, p: &JsonElement) -> RpcResult {
     for ban in &dtos {
         let ip_ban = match ban.ip.as_deref().filter(|ip| is_inet_address(ip)) {
             Some(ip) => Some(ban.to_ip_ban(ip.to_owned())),
-            None => ban.player.as_ref().and_then(|p| c.get_player(p)).map(|player| ban.to_ip_ban(player.ip_address)),
+            None => ban
+                .player
+                .as_ref()
+                .and_then(|p| c.get_player(p))
+                .map(|player| ban.to_ip_ban(player.ip_address)),
         };
         if let Some(ip_ban) = ip_ban {
             add_ip_ban(c, &ip_ban);
@@ -277,8 +333,19 @@ fn ip_bans_remove(c: &Ctx, p: &JsonElement) -> RpcResult {
 
 fn ip_bans_set(c: &Ctx, p: &JsonElement) -> RpcResult {
     let dtos = decode_list_of(p, IpBanDto::decode)?;
-    let fin: Vec<IpBan> = dedup(dtos.iter().filter(|d| is_inet_address(&d.ip)).map(IpBan::from_dto).collect());
-    let current: Vec<IpBan> = dedup(c.api.ip_ban_entries().iter().filter_map(IpBan::from_entry).collect());
+    let fin: Vec<IpBan> = dedup(
+        dtos.iter()
+            .filter(|d| is_inet_address(&d.ip))
+            .map(IpBan::from_dto)
+            .collect(),
+    );
+    let current: Vec<IpBan> = dedup(
+        c.api
+            .ip_ban_entries()
+            .iter()
+            .filter_map(IpBan::from_entry)
+            .collect(),
+    );
     for ban in current.iter().filter(|b| !fin.contains(b)) {
         c.log(format!("Remove ip '{}' from ban list", ban.ip));
         c.api.remove_ip_ban(&ban.ip);
@@ -297,7 +364,14 @@ fn ip_bans_set(c: &Ctx, p: &JsonElement) -> RpcResult {
 // ---- operators ----------------------------------------------------------------------------------------------------
 
 fn operators_get(c: &Ctx) -> JsonElement {
-    list(c.api.operator_entries().iter().filter_map(OperatorDto::from_entry).map(|d| d.encode()).collect())
+    list(
+        c.api
+            .operator_entries()
+            .iter()
+            .filter_map(OperatorDto::from_entry)
+            .map(|d| d.encode())
+            .collect(),
+    )
 }
 
 #[derive(PartialEq, Eq, Clone)]
@@ -318,7 +392,15 @@ fn deop_user(c: &Ctx, user: &NameAndId) {
 }
 
 fn resolve_ops(c: &Ctx, dtos: &[OperatorDto]) -> Vec<Op> {
-    dtos.iter().filter_map(|d| c.get_user(&d.player).map(|user| Op { user, level: d.permission_level, bypass: d.bypasses_player_limit })).collect()
+    dtos.iter()
+        .filter_map(|d| {
+            c.get_user(&d.player).map(|user| Op {
+                user,
+                level: d.permission_level,
+                bypass: d.bypasses_player_limit,
+            })
+        })
+        .collect()
 }
 
 fn operators_add(c: &Ctx, p: &JsonElement) -> RpcResult {
@@ -345,7 +427,11 @@ fn operators_set(c: &Ctx, p: &JsonElement) -> RpcResult {
             .iter()
             .filter_map(|e| {
                 let user = crate::server::players::StoredUserEntry::user(e)?.clone();
-                Some(Op { user, level: Some(e.permissions().level()), bypass: Some(e.get_bypasses_player_limit()) })
+                Some(Op {
+                    user,
+                    level: Some(e.permissions().level()),
+                    bypass: Some(e.get_bypasses_player_limit()),
+                })
             })
             .collect(),
     );
@@ -375,7 +461,9 @@ fn players_kick(c: &Ctx, p: &JsonElement) -> RpcResult {
                 .message
                 .as_ref()
                 .and_then(|m| m.as_component())
-                .unwrap_or_else(|| Component::translatable("multiplayer.disconnect.kicked", vec![]));
+                .unwrap_or_else(|| {
+                    Component::translatable("multiplayer.disconnect.kicked", vec![])
+                });
             c.api.disconnect_player(player.profile.id, reason);
             kicked.push(kick.player.encode());
         }
@@ -396,7 +484,9 @@ fn server_state(c: &Ctx) -> JsonElement {
 /// `ServerStateService.systemMessage`.
 fn system_message(c: &Ctx, p: &JsonElement) -> RpcResult {
     let msg = SystemMessage::decode(p)?;
-    let Some(component) = msg.message.as_component() else { return Ok(bool_e(false)) };
+    let Some(component) = msg.message.as_component() else {
+        return Ok(bool_e(false));
+    };
     match &msg.receiving_players {
         Some(players) => {
             if players.is_empty() {
@@ -409,12 +499,17 @@ fn system_message(c: &Ctx, p: &JsonElement) -> RpcResult {
                     _ => continue,
                 };
                 if let Some(player) = player {
-                    c.api.send_system_message(&[player.profile.id], component.clone(), msg.overlay);
+                    c.api
+                        .send_system_message(&[player.profile.id], component.clone(), msg.overlay);
                 }
             }
         }
         None => {
-            c.log(format!("Broadcast system message (overlay: {}): '{}'", msg.overlay, plain(&component)));
+            c.log(format!(
+                "Broadcast system message (overlay: {}): '{}'",
+                msg.overlay,
+                plain(&component)
+            ));
             c.api.broadcast_system_message(component, msg.overlay);
         }
     }
@@ -470,38 +565,144 @@ fn decode_setting(kind: Kind, e: &JsonElement) -> Decoded<SettingValue> {
         Kind::Str => SettingValue::Str(decode_string(e)?),
         Kind::Difficulty => {
             let s = decode_string(e)?;
-            SettingValue::Difficulty(Difficulty::by_name(&s).ok_or_else(|| DecodeError(format!("Unknown element name:{s}")))?)
+            SettingValue::Difficulty(
+                Difficulty::by_name(&s)
+                    .ok_or_else(|| DecodeError(format!("Unknown element name:{s}")))?,
+            )
         }
         Kind::GameType => {
             let s = decode_string(e)?;
-            let game_type = [GameType::Survival, GameType::Creative, GameType::Adventure, GameType::Spectator]
-                .into_iter()
-                .find(|g| g.get_name() == s)
-                .ok_or_else(|| DecodeError(format!("Unknown element name:{s}")))?;
+            let game_type = [
+                GameType::Survival,
+                GameType::Creative,
+                GameType::Adventure,
+                GameType::Spectator,
+            ]
+            .into_iter()
+            .find(|g| g.get_name() == s)
+            .ok_or_else(|| DecodeError(format!("Unknown element name:{s}")))?;
             SettingValue::GameType(game_type)
         }
-        Kind::PermissionLevel => SettingValue::PermissionLevel(PermissionLevel::by_id(decode_int(e)?)),
+        Kind::PermissionLevel => {
+            SettingValue::PermissionLevel(PermissionLevel::by_id(decode_int(e)?))
+        }
     })
 }
 
 /// `(method path, setting, value kind, log template with {0}=old, {1}=new, also kick unlisted players afterwards)`.
 const SETTINGS: &[(&str, SettingKey, Kind, &str, bool)] = &[
-    ("autosave", SettingKey::AutoSave, Kind::Bool, "Update autosave from {0} to {1}", false),
-    ("difficulty", SettingKey::Difficulty, Kind::Difficulty, "Update difficulty from '{0}' to '{1}'", false),
-    ("enforce_allowlist", SettingKey::EnforceWhitelist, Kind::Bool, "Update enforce allowlist from {0} to {1}", true),
-    ("use_allowlist", SettingKey::UsingWhitelist, Kind::Bool, "Update using allowlist from {0} to {1}", true),
-    ("max_players", SettingKey::MaxPlayers, Kind::Int, "Update max players from {0} to {1}", false),
-    ("pause_when_empty_seconds", SettingKey::PauseWhenEmptySeconds, Kind::Int, "Update pause when empty from {0} seconds to {1} seconds", false),
-    ("player_idle_timeout", SettingKey::PlayerIdleTimeout, Kind::Int, "Update player idle timeout from {0} minutes to {1} minutes", false),
-    ("allow_flight", SettingKey::AllowFlight, Kind::Bool, "Update allow flight from {0} to {1}", false),
-    ("spawn_protection_radius", SettingKey::SpawnProtectionRadius, Kind::Int, "Update spawn protection radius from {0} to {1}", false),
-    ("motd", SettingKey::Motd, Kind::Str, "Update MOTD from '{0}' to '{1}'", false),
-    ("force_game_mode", SettingKey::ForceGameMode, Kind::Bool, "Update force game mode from {0} to {1}", false),
-    ("game_mode", SettingKey::GameMode, Kind::GameType, "Update game mode from '{0}' to '{1}'", false),
-    ("view_distance", SettingKey::ViewDistance, Kind::Int, "Update view distance from {0} to {1}", false),
-    ("simulation_distance", SettingKey::SimulationDistance, Kind::Int, "Update simulation distance from {0} to {1}", false),
-    ("accept_transfers", SettingKey::AcceptsTransfers, Kind::Bool, "Update accepts transfers from {0} to {1}", false),
-    ("status_heartbeat_interval", SettingKey::StatusHeartbeatInterval, Kind::Int, "", false),
+    (
+        "autosave",
+        SettingKey::AutoSave,
+        Kind::Bool,
+        "Update autosave from {0} to {1}",
+        false,
+    ),
+    (
+        "difficulty",
+        SettingKey::Difficulty,
+        Kind::Difficulty,
+        "Update difficulty from '{0}' to '{1}'",
+        false,
+    ),
+    (
+        "enforce_allowlist",
+        SettingKey::EnforceWhitelist,
+        Kind::Bool,
+        "Update enforce allowlist from {0} to {1}",
+        true,
+    ),
+    (
+        "use_allowlist",
+        SettingKey::UsingWhitelist,
+        Kind::Bool,
+        "Update using allowlist from {0} to {1}",
+        true,
+    ),
+    (
+        "max_players",
+        SettingKey::MaxPlayers,
+        Kind::Int,
+        "Update max players from {0} to {1}",
+        false,
+    ),
+    (
+        "pause_when_empty_seconds",
+        SettingKey::PauseWhenEmptySeconds,
+        Kind::Int,
+        "Update pause when empty from {0} seconds to {1} seconds",
+        false,
+    ),
+    (
+        "player_idle_timeout",
+        SettingKey::PlayerIdleTimeout,
+        Kind::Int,
+        "Update player idle timeout from {0} minutes to {1} minutes",
+        false,
+    ),
+    (
+        "allow_flight",
+        SettingKey::AllowFlight,
+        Kind::Bool,
+        "Update allow flight from {0} to {1}",
+        false,
+    ),
+    (
+        "spawn_protection_radius",
+        SettingKey::SpawnProtectionRadius,
+        Kind::Int,
+        "Update spawn protection radius from {0} to {1}",
+        false,
+    ),
+    (
+        "motd",
+        SettingKey::Motd,
+        Kind::Str,
+        "Update MOTD from '{0}' to '{1}'",
+        false,
+    ),
+    (
+        "force_game_mode",
+        SettingKey::ForceGameMode,
+        Kind::Bool,
+        "Update force game mode from {0} to {1}",
+        false,
+    ),
+    (
+        "game_mode",
+        SettingKey::GameMode,
+        Kind::GameType,
+        "Update game mode from '{0}' to '{1}'",
+        false,
+    ),
+    (
+        "view_distance",
+        SettingKey::ViewDistance,
+        Kind::Int,
+        "Update view distance from {0} to {1}",
+        false,
+    ),
+    (
+        "simulation_distance",
+        SettingKey::SimulationDistance,
+        Kind::Int,
+        "Update simulation distance from {0} to {1}",
+        false,
+    ),
+    (
+        "accept_transfers",
+        SettingKey::AcceptsTransfers,
+        Kind::Bool,
+        "Update accepts transfers from {0} to {1}",
+        false,
+    ),
+    (
+        "status_heartbeat_interval",
+        SettingKey::StatusHeartbeatInterval,
+        Kind::Int,
+        "",
+        false,
+    ),
     (
         "operator_user_permission_level",
         SettingKey::OperatorUserPermissions,
@@ -509,18 +710,47 @@ const SETTINGS: &[(&str, SettingKey, Kind, &str, bool)] = &[
         "Update operator user permission level from permission level: {0} to {1}",
         false,
     ),
-    ("hide_online_players", SettingKey::HidesOnlinePlayers, Kind::Bool, "Update hides online players from {0} to {1}", false),
-    ("status_replies", SettingKey::RepliesToStatus, Kind::Bool, "Update replies to status from {0} to {1}", false),
-    ("entity_broadcast_range", SettingKey::EntityBroadcastRangePercentage, Kind::Int, "Update entity broadcast range percentage from {0}% to {1}%", false),
+    (
+        "hide_online_players",
+        SettingKey::HidesOnlinePlayers,
+        Kind::Bool,
+        "Update hides online players from {0} to {1}",
+        false,
+    ),
+    (
+        "status_replies",
+        SettingKey::RepliesToStatus,
+        Kind::Bool,
+        "Update replies to status from {0} to {1}",
+        false,
+    ),
+    (
+        "entity_broadcast_range",
+        SettingKey::EntityBroadcastRangePercentage,
+        Kind::Int,
+        "Update entity broadcast range percentage from {0}% to {1}%",
+        false,
+    ),
 ];
 
-fn set_setting(c: &Ctx, key: SettingKey, template: &str, kick: bool, value: SettingValue) -> JsonElement {
+fn set_setting(
+    c: &Ctx,
+    key: SettingKey,
+    template: &str,
+    kick: bool,
+    value: SettingValue,
+) -> JsonElement {
     let old = c.api.get_setting(key);
     match key {
         SettingKey::StatusHeartbeatInterval => {
-            let SettingValue::Int(seconds) = value else { unreachable!("kind is Int") };
+            let SettingValue::Int(seconds) = value else {
+                unreachable!("kind is Int")
+            };
             if c.api.set_status_heartbeat_interval(seconds) {
-                c.log(format!("Updated status heartbeat interval from {} to {seconds}", display_setting(&old)));
+                c.log(format!(
+                    "Updated status heartbeat interval from {} to {seconds}",
+                    display_setting(&old)
+                ));
             } else {
                 c.log(format!(
                     "The heartbeat interval was not updated to the new value of {seconds} seconds as the json rpc server is null or a pre-existing heartbeat failed to get canceled"
@@ -543,13 +773,26 @@ fn set_setting(c: &Ctx, key: SettingKey, template: &str, kick: bool, value: Sett
 // ---- game rules ----------------------------------------------------------------------------------------------------------
 
 fn gamerules_get(c: &Ctx) -> JsonElement {
-    list(c.api.game_rules().iter().map(encode_typed_game_rule).collect())
+    list(
+        c.api
+            .game_rules()
+            .iter()
+            .map(encode_typed_game_rule)
+            .collect(),
+    )
 }
 
 fn gamerules_update(c: &Ctx, p: &JsonElement) -> RpcResult {
     let (key, value) = decode_untyped_game_rule(p)?;
-    let old = c.api.game_rules().into_iter().find(|r| r.id == key || r.id.strip_prefix("minecraft:") == Some(key.as_str()));
-    let updated = c.api.update_game_rule(&key, value).map_err(RpcException::InvalidParameter)?;
+    let old = c
+        .api
+        .game_rules()
+        .into_iter()
+        .find(|r| r.id == key || r.id.strip_prefix("minecraft:") == Some(key.as_str()));
+    let updated = c
+        .api
+        .update_game_rule(&key, value)
+        .map_err(RpcException::InvalidParameter)?;
     let show = |v: super::api::GameRuleValue| match v {
         super::api::GameRuleValue::Bool(b) => b.to_string(),
         super::api::GameRuleValue::Int(i) => i.to_string(),
@@ -577,13 +820,17 @@ struct Method {
 
 /// The method names and parameter names exactly as `rpc.discover` reports them.
 static SCHEMA: LazyLock<JsonElement> = LazyLock::new(|| {
-    gson::parse(include_str!("json-rpc-api-schema.json"), false).expect("embedded schema parses").expect("embedded schema is not empty")
+    gson::parse(include_str!("json-rpc-api-schema.json"), false)
+        .expect("embedded schema parses")
+        .expect("embedded schema is not empty")
 });
 
 /// The `rpc.discover` result: `openrpc`, `info`, `methods`, `components` (vanilla's record order). Only the
 /// incoming methods and outgoing notifications flagged discoverable are listed, as in the generated report.
 pub fn discover_result() -> JsonElement {
-    let JsonElement::Object(schema) = &*SCHEMA else { unreachable!("schema is an object") };
+    let JsonElement::Object(schema) = &*SCHEMA else {
+        unreachable!("schema is an object")
+    };
     let mut out = JsonObject::new();
     for key in ["openrpc", "info", "methods", "components"] {
         if let Some(v) = schema.get(key) {
@@ -595,12 +842,26 @@ pub fn discover_result() -> JsonElement {
 
 fn schema_param_names() -> HashMap<String, String> {
     let mut names = HashMap::new();
-    let Some(JsonElement::Array(methods)) = SCHEMA.as_object().and_then(|o| o.get("methods")) else { return names };
+    let Some(JsonElement::Array(methods)) = SCHEMA.as_object().and_then(|o| o.get("methods"))
+    else {
+        return names;
+    };
     for m in methods {
         let Some(m) = m.as_object() else { continue };
-        let (Some(JsonElement::String(name)), Some(JsonElement::Array(params))) = (m.get("name"), m.get("params")) else { continue };
-        if let Some(JsonElement::String(pname)) = params.first().and_then(|p| p.as_object()).and_then(|p| p.get("name")) {
-            names.insert(name.strip_prefix("minecraft:").unwrap_or(name).to_owned(), pname.clone());
+        let (Some(JsonElement::String(name)), Some(JsonElement::Array(params))) =
+            (m.get("name"), m.get("params"))
+        else {
+            continue;
+        };
+        if let Some(JsonElement::String(pname)) = params
+            .first()
+            .and_then(|p| p.as_object())
+            .and_then(|p| p.get("name"))
+        {
+            names.insert(
+                name.strip_prefix("minecraft:").unwrap_or(name).to_owned(),
+                pname.clone(),
+            );
         }
     }
     names
@@ -613,7 +874,15 @@ fn build_methods() -> HashMap<String, Method> {
     let mut map: HashMap<String, Method> = HashMap::new();
     let mut add = |path: &str, handler: Handler| {
         let param = params.get(path).cloned();
-        map.insert(path.to_owned(), Method { param, run_on_main_thread: true, allow_pre_server_init: false, handler });
+        map.insert(
+            path.to_owned(),
+            Method {
+                param,
+                run_on_main_thread: true,
+                allow_pre_server_init: false,
+                handler,
+            },
+        );
     };
     macro_rules! noarg {
         ($path:expr, $f:expr) => {
@@ -670,7 +939,9 @@ fn build_methods() -> HashMap<String, Method> {
         ip_bans_get(c)
     });
 
-    noarg!("players", |c: &Ctx| list(c.players_dto().iter().map(PlayerDto::encode).collect()));
+    noarg!("players", |c: &Ctx| list(
+        c.players_dto().iter().map(PlayerDto::encode).collect()
+    ));
     withparam!("players/kick", players_kick);
 
     noarg!("operators", operators_get);
@@ -686,7 +957,9 @@ fn build_methods() -> HashMap<String, Method> {
     noarg!("server/status", server_state);
     withparam!("server/save", |c: &Ctx, p: &JsonElement| {
         let flush = decode_bool(p)?;
-        c.log(format!("Save everything. SuppressLogs: true, flush: {flush}, force: true"));
+        c.log(format!(
+            "Save everything. SuppressLogs: true, flush: {flush}, force: true"
+        ));
         Ok(bool_e(c.api.save_everything(true, flush, true)))
     });
     noarg!("server/stop", |c: &Ctx| {
@@ -699,7 +972,10 @@ fn build_methods() -> HashMap<String, Method> {
 
     for &(path, key, kind, template, kick) in SETTINGS {
         let get_path = format!("serversettings/{path}");
-        add(&get_path, Box::new(move |c, _| Ok(encode_setting(&c.api.get_setting(key)))));
+        add(
+            &get_path,
+            Box::new(move |c, _| Ok(encode_setting(&c.api.get_setting(key)))),
+        );
         let set_path = format!("serversettings/{path}/set");
         add(
             &set_path,
@@ -716,7 +992,12 @@ fn build_methods() -> HashMap<String, Method> {
     // `rpc.discover`: undiscoverable, allowed before the server exists, not run on the main thread
     map.insert(
         "rpc.discover".to_owned(),
-        Method { param: None, run_on_main_thread: false, allow_pre_server_init: true, handler: Box::new(|_, _| Ok(discover_result())) },
+        Method {
+            param: None,
+            run_on_main_thread: false,
+            allow_pre_server_init: true,
+            handler: Box::new(|_, _| Ok(discover_result())),
+        },
     );
     map
 }
@@ -745,7 +1026,10 @@ pub struct Dispatcher {
 }
 
 fn is_valid_request_id(id: &JsonElement) -> bool {
-    matches!(id, JsonElement::Null | JsonElement::Number(_) | JsonElement::String(_))
+    matches!(
+        id,
+        JsonElement::Null | JsonElement::Number(_) | JsonElement::String(_)
+    )
 }
 
 impl Dispatcher {
@@ -761,7 +1045,12 @@ impl Dispatcher {
             Ok(None) => JsonElement::Null,
             Err(e) => {
                 return Outbound::Reply(
-                    JsonRpcError::ParseError.create(&JsonElement::Null, Some(&format!("com.google.gson.JsonSyntaxException: {e}"))).to_compact_string(),
+                    JsonRpcError::ParseError
+                        .create(
+                            &JsonElement::Null,
+                            Some(&format!("com.google.gson.JsonSyntaxException: {e}")),
+                        )
+                        .to_compact_string(),
                 );
             }
         };
@@ -773,19 +1062,29 @@ impl Dispatcher {
             JsonElement::Array(entries) => {
                 let mut responses = Vec::new();
                 for entry in &entries {
-                    let JsonElement::Object(o) = entry else { return Outbound::Close };
+                    let JsonElement::Object(o) = entry else {
+                        return Outbound::Close;
+                    };
                     if let Some(r) = self.handle_json_object(o, client) {
                         responses.push(r);
                     }
                 }
                 Outbound::Reply(JsonElement::Array(responses).to_compact_string())
             }
-            _ => Outbound::Reply(JsonRpcError::InvalidRequest.create(&JsonElement::Null, None).to_compact_string()),
+            _ => Outbound::Reply(
+                JsonRpcError::InvalidRequest
+                    .create(&JsonElement::Null, None)
+                    .to_compact_string(),
+            ),
         }
     }
 
     /// `Connection.handleJsonObject`.
-    pub fn handle_json_object(&self, object: &JsonObject, client: ClientInfo) -> Option<JsonElement> {
+    pub fn handle_json_object(
+        &self,
+        object: &JsonObject,
+        client: ClientInfo,
+    ) -> Option<JsonElement> {
         let internal = || {
             Some(JsonRpcError::InternalError.create(
                 &JsonElement::Null,
@@ -798,7 +1097,10 @@ impl Dispatcher {
             Some(JsonElement::String(s)) | Some(JsonElement::Number(s)) => Some(s.clone()),
             Some(JsonElement::Bool(b)) => Some(b.to_string()),
             Some(other) => {
-                log::error!("Error while handling rpc request\ncom.google.gson.JsonSyntaxException: Expected method to be a string, was {}", other.to_compact_string());
+                log::error!(
+                    "Error while handling rpc request\ncom.google.gson.JsonSyntaxException: Expected method to be a string, was {}",
+                    other.to_compact_string()
+                );
                 return internal();
             }
         };
@@ -808,7 +1110,10 @@ impl Dispatcher {
             None => None,
             Some(JsonElement::Object(o)) => Some(o),
             Some(other) => {
-                log::error!("Error while handling rpc request\ncom.google.gson.JsonSyntaxException: Expected error to be a JsonObject, was {}", other.to_compact_string());
+                log::error!(
+                    "Error while handling rpc request\ncom.google.gson.JsonSyntaxException: Expected error to be a JsonObject, was {}",
+                    other.to_compact_string()
+                );
                 return internal();
             }
         };
@@ -825,9 +1130,17 @@ impl Dispatcher {
             if let (Some(result), Some(id)) = (result, id) {
                 if matches!(id, JsonElement::Number(_)) {
                     // we never send requests that expect a reply, so no response can match one
-                    log::warn!("Received unknown response (id: {}): {}", id.to_compact_string(), result.to_compact_string());
+                    log::warn!(
+                        "Received unknown response (id: {}): {}",
+                        id.to_compact_string(),
+                        result.to_compact_string()
+                    );
                 } else {
-                    log::warn!("Received respose {} with id {} we did not request", result.to_compact_string(), id.to_compact_string());
+                    log::warn!(
+                        "Received respose {} with id {} we did not request",
+                        result.to_compact_string(),
+                        id.to_compact_string()
+                    );
                 }
                 return None;
             }
@@ -847,7 +1160,13 @@ impl Dispatcher {
     }
 
     /// `Connection.handleIncomingRequest`.
-    fn handle_incoming_request(&self, id: Option<&JsonElement>, method: &str, params: Option<&JsonElement>, client: ClientInfo) -> Option<JsonElement> {
+    fn handle_incoming_request(
+        &self,
+        id: Option<&JsonElement>,
+        method: &str,
+        params: Option<&JsonElement>,
+        client: ClientInfo,
+    ) -> Option<JsonElement> {
         let send_response = id.is_some();
         let outcome = self.dispatch_incoming_request(method, params, client);
         let id_value = id.cloned().unwrap_or(JsonElement::Null);
@@ -867,8 +1186,12 @@ impl Dispatcher {
                 log::error!("Failed to encode json rpc response {method}\n{m}");
                 send_response.then(|| JsonRpcError::InternalError.create(&id_value, Some(&m)))
             }
-            Err(RpcException::InvalidRequest(m)) => send_response.then(|| JsonRpcError::InvalidRequest.create(&id_value, Some(&m))),
-            Err(RpcException::MethodNotFound(m)) => send_response.then(|| JsonRpcError::MethodNotFound.create(&id_value, Some(&m))),
+            Err(RpcException::InvalidRequest(m)) => {
+                send_response.then(|| JsonRpcError::InvalidRequest.create(&id_value, Some(&m)))
+            }
+            Err(RpcException::MethodNotFound(m)) => {
+                send_response.then(|| JsonRpcError::MethodNotFound.create(&id_value, Some(&m)))
+            }
             Err(RpcException::Internal(m)) => {
                 log::error!("Error while dispatching rpc method {method}\n{m}");
                 send_response.then(|| JsonRpcError::InternalError.create(&id_value, None))
@@ -877,25 +1200,49 @@ impl Dispatcher {
     }
 
     /// `Connection.dispatchIncomingRequest` + `IncomingRpcMethod.apply`.
-    pub fn dispatch_incoming_request(&self, method: &str, params: Option<&JsonElement>, client: ClientInfo) -> RpcResult {
+    pub fn dispatch_incoming_request(
+        &self,
+        method: &str,
+        params: Option<&JsonElement>,
+        client: ClientInfo,
+    ) -> RpcResult {
         let Some(identifier) = Identifier::try_parse(method) else {
-            return Err(RpcException::InvalidRequest(format!("Failed to parse method value: {method}")));
+            return Err(RpcException::InvalidRequest(format!(
+                "Failed to parse method value: {method}"
+            )));
         };
-        let entry = (identifier.namespace() == "minecraft").then(|| METHODS.get(identifier.path())).flatten();
-        let Some(entry) = entry else { return Err(RpcException::MethodNotFound(format!("Method not found: {method}"))) };
+        let entry = (identifier.namespace() == "minecraft")
+            .then(|| METHODS.get(identifier.path()))
+            .flatten();
+        let Some(entry) = entry else {
+            return Err(RpcException::MethodNotFound(format!(
+                "Method not found: {method}"
+            )));
+        };
         if !self.api.server_attached() && !entry.allow_pre_server_init {
-            return Err(RpcException::InvalidRequest(format!("Method cannot be dispatched pre server initialization: {method}")));
+            return Err(RpcException::InvalidRequest(format!(
+                "Method cannot be dispatched pre server initialization: {method}"
+            )));
         }
         let param = extract_param(entry, params)?;
-        let ctx = Ctx { api: self.api.clone(), client };
+        let ctx = Ctx {
+            api: self.api.clone(),
+            client,
+        };
         if entry.run_on_main_thread {
             let mut slot: Option<RpcResult> = None;
             {
                 let slot_ref = &mut slot;
                 let (ctx_ref, param_ref, handler) = (&ctx, &param, &entry.handler);
-                self.api.run_on_server_thread(Box::new(move || *slot_ref = Some(handler(ctx_ref, param_ref))));
+                self.api.run_on_server_thread(Box::new(move || {
+                    *slot_ref = Some(handler(ctx_ref, param_ref))
+                }));
             }
-            slot.unwrap_or_else(|| Err(RpcException::Internal("the server thread dropped the task".to_owned())))
+            slot.unwrap_or_else(|| {
+                Err(RpcException::Internal(
+                    "the server thread dropped the task".to_owned(),
+                ))
+            })
         } else {
             (entry.handler)(&ctx, &param)
         }
@@ -903,7 +1250,10 @@ impl Dispatcher {
 }
 
 /// The parameter handling of `Method.apply` / `ParameterlessMethod.apply`.
-fn extract_param(method: &Method, params: Option<&JsonElement>) -> Result<JsonElement, RpcException> {
+fn extract_param(
+    method: &Method,
+    params: Option<&JsonElement>,
+) -> Result<JsonElement, RpcException> {
     let invalid = |m: &str| RpcException::InvalidParameter(m.to_owned());
     match &method.param {
         None => match params {
@@ -912,10 +1262,11 @@ fn extract_param(method: &Method, params: Option<&JsonElement>) -> Result<JsonEl
             Some(_) => Err(invalid("Expected no params, or an empty array")),
         },
         Some(name) => match params {
-            Some(JsonElement::Object(o)) => o
-                .get(name)
-                .cloned()
-                .ok_or_else(|| RpcException::InvalidParameter(format!("Params passed by-name, but expected param [{name}] does not exist"))),
+            Some(JsonElement::Object(o)) => o.get(name).cloned().ok_or_else(|| {
+                RpcException::InvalidParameter(format!(
+                    "Params passed by-name, but expected param [{name}] does not exist"
+                ))
+            }),
             Some(JsonElement::Array(a)) => match a.as_slice() {
                 [one] => Ok(one.clone()),
                 _ => Err(invalid("Expected exactly one element in the params array")),

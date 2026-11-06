@@ -104,7 +104,12 @@ impl RecordSet {
         let mut table: Vec<Vec<SetEntry>> = vec![Vec::new(); new_cap];
         for (j, bin) in std::mem::take(&mut self.table).into_iter().enumerate() {
             for e in bin {
-                table[if e.hash as usize & old_cap == 0 { j } else { j + old_cap }].push(e);
+                table[if e.hash as usize & old_cap == 0 {
+                    j
+                } else {
+                    j + old_cap
+                }]
+                .push(e);
             }
         }
         self.table = table;
@@ -176,7 +181,8 @@ impl PoiSection {
     /// `pack()`: `(isValid, records)` in `records.values()` stream order.
     pub fn pack(&self) -> (bool, Vec<PoiRecord>) {
         let mut out = Vec::with_capacity(self.records.len());
-        self.records.for_each_stream_order(|_, &id| out.push(self.slot(id).record));
+        self.records
+            .for_each_stream_order(|_, &id| out.push(self.slot(id).record));
         (self.is_valid, out)
     }
 
@@ -212,9 +218,16 @@ impl PoiSection {
     }
 
     /// `getRecords(predicate, occupancy)`: calls `f(id, record)` in query order until it returns `false`.
-    pub(super) fn for_each_record(&self, predicate: &dyn Fn(PoiTypeHolder) -> bool, occupancy: Occupancy, f: &mut dyn FnMut(u32, &PoiRecord) -> bool) {
+    pub(super) fn for_each_record(
+        &self,
+        predicate: &dyn Fn(PoiTypeHolder) -> bool,
+        occupancy: Occupancy,
+        f: &mut dyn FnMut(u32, &PoiRecord) -> bool,
+    ) {
         for (index, set) in self.by_type.iter().enumerate() {
-            let Some(holder) = PoiTypeHolder::from_index(index) else { continue };
+            let Some(holder) = PoiTypeHolder::from_index(index) else {
+                continue;
+            };
             if set.size == 0 || !predicate(holder) {
                 continue;
             }
@@ -228,7 +241,11 @@ impl PoiSection {
     }
 
     /// `getRecords(predicate, occupancy).findAny().isPresent()`.
-    pub fn has_record(&self, predicate: &dyn Fn(PoiTypeHolder) -> bool, occupancy: Occupancy) -> bool {
+    pub fn has_record(
+        &self,
+        predicate: &dyn Fn(PoiTypeHolder) -> bool,
+        occupancy: Occupancy,
+    ) -> bool {
         let mut found = false;
         self.for_each_record(predicate, occupancy, &mut |_, _| {
             found = true;
@@ -239,7 +256,11 @@ impl PoiSection {
 
     /// `acquireTicket()` of the record `id` (the manager marks the section dirty on success).
     pub(super) fn acquire_ticket(&mut self, id: u32) -> bool {
-        self.slab[id as usize].as_mut().expect("live record").record.acquire_ticket()
+        self.slab[id as usize]
+            .as_mut()
+            .expect("live record")
+            .record
+            .acquire_ticket()
     }
 
     /// Private `add(record)`: `false` when the position already holds a record of the same type.
@@ -258,7 +279,11 @@ impl PoiSection {
         if let Some(old_id) = self.records.insert(i64::from(key), id) {
             self.dec_ref(old_id);
         }
-        if self.by_type[poi_type.index()].add(SetEntry { hash: spread_hash(&pos), key, id }) {
+        if self.by_type[poi_type.index()].add(SetEntry {
+            hash: spread_hash(&pos),
+            key,
+            id,
+        }) {
             self.inc_ref(id);
         }
         true
@@ -288,7 +313,11 @@ impl PoiSection {
             self.dec_ref(set_id);
         }
         self.dec_ref(id);
-        log::debug!("Removed POI of type {} @ {}", poi_type.registered_name(), pos);
+        log::debug!(
+            "Removed POI of type {} @ {}",
+            poi_type.registered_name(),
+            pos
+        );
         true
     }
 
@@ -299,8 +328,14 @@ impl PoiSection {
 
     /// `release(pos)`: whether a ticket was released. The caller marks the section dirty either way.
     pub fn release(&mut self, pos: BlockPos) -> Result<bool, PoiNeverRegistered> {
-        let Some(&id) = self.records.get(i64::from(relative_key(&pos))) else { return Err(PoiNeverRegistered(pos)) };
-        Ok(self.slab[id as usize].as_mut().expect("live record").record.release_ticket())
+        let Some(&id) = self.records.get(i64::from(relative_key(&pos))) else {
+            return Err(PoiNeverRegistered(pos));
+        };
+        Ok(self.slab[id as usize]
+            .as_mut()
+            .expect("live record")
+            .record
+            .release_ticket())
     }
 
     /// `exists(pos, predicate)`.
@@ -315,19 +350,25 @@ impl PoiSection {
 
     /// `getPoiRecord(pos)` (`getDebugPoiInfo` is built from it).
     pub fn get_poi_record(&self, pos: BlockPos) -> Option<PoiRecord> {
-        self.records.get(i64::from(relative_key(&pos))).map(|&id| self.slot(id).record)
+        self.records
+            .get(i64::from(relative_key(&pos)))
+            .map(|&id| self.slot(id).record)
     }
 
     /// `refresh(updater)`: rebuilds an invalid section from the blocks (`updater` reports every block that is a point
     /// of interest). An old record at the same position is kept, whatever its type. The caller marks the section dirty
     /// when this returns `true`.
-    pub fn refresh(&mut self, updater: impl FnOnce(&mut dyn FnMut(BlockPos, PoiTypeHolder))) -> bool {
+    pub fn refresh(
+        &mut self,
+        updater: impl FnOnce(&mut dyn FnMut(BlockPos, PoiTypeHolder)),
+    ) -> bool {
         if self.is_valid {
             return false;
         }
         // `oldRecords = new Short2ObjectOpenHashMap<>(records)`; `computeIfAbsent` also adds the records it creates
         let mut old_records: Vec<(i16, u32)> = Vec::new();
-        self.records.for_each_stream_order(|key, &id| old_records.push((key as i16, id)));
+        self.records
+            .for_each_stream_order(|key, &id| old_records.push((key as i16, id)));
         for &(_, id) in &old_records {
             self.inc_ref(id);
         }
@@ -335,7 +376,11 @@ impl PoiSection {
         let mut created: Vec<(i16, u32)> = Vec::new();
         updater(&mut |pos, poi_type| {
             let key = relative_key(&pos);
-            let id = match old_records.iter().chain(created.iter()).find(|(k, _)| *k == key) {
+            let id = match old_records
+                .iter()
+                .chain(created.iter())
+                .find(|(k, _)| *k == key)
+            {
                 Some(&(_, id)) => id,
                 None => {
                     let id = self.alloc(PoiRecord::new(pos, poi_type));
@@ -369,7 +414,11 @@ impl PoiSection {
         if let Some(old_id) = self.records.insert(i64::from(key), id) {
             self.dec_ref(old_id);
         }
-        if self.by_type[poi_type.index()].add(SetEntry { hash: spread_hash(&pos), key, id }) {
+        if self.by_type[poi_type.index()].add(SetEntry {
+            hash: spread_hash(&pos),
+            key,
+            id,
+        }) {
             self.inc_ref(id);
         }
     }

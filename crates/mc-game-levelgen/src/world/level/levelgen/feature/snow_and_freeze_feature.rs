@@ -1,25 +1,34 @@
 //! `SnowAndFreezeFeature` (`freeze_top_layer`).
 
-use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature};
-use mc_game_core::world::level::biome_ext::{should_freeze_checked, should_snow};
-use mc_game_core::world::level::levelgen::codec::TypeEntry;
-use mc_game_core::world::level::levelgen::env::GenEnv;
-use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::Block;
 use mc_data::props;
+use mc_game_core::world::level::biome_ext::{should_freeze_checked, should_snow};
+use mc_game_core::world::level::levelgen::codec::TypeEntry;
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature};
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_world::heightmap::HeightmapType;
 use std::sync::Arc;
 
 pub struct SnowAndFreezeFeature;
 
 #[linkme::distributed_slice(FEATURE_TYPES)]
-static FREEZE_TOP_LAYER: TypeEntry<dyn Feature> = TypeEntry { name: "freeze_top_layer", decode: |_, _| Ok(Arc::new(SnowAndFreezeFeature)) };
+static FREEZE_TOP_LAYER: TypeEntry<dyn Feature> = TypeEntry {
+    name: "freeze_top_layer",
+    decode: |_, _| Ok(Arc::new(SnowAndFreezeFeature)),
+};
 
 impl Feature for SnowAndFreezeFeature {
-    fn place(&self, level: &mut dyn WorldGenLevel, generator: &GenEnv, _random: &mut dyn RandomSource, origin: BlockPos) -> bool {
+    fn place(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        generator: &GenEnv,
+        _random: &mut dyn RandomSource,
+        origin: BlockPos,
+    ) -> bool {
         for dx in 0..16 {
             for dz in 0..16 {
                 let x = origin.x() + dx;

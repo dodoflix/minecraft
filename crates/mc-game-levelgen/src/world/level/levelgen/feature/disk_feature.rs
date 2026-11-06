@@ -1,14 +1,14 @@
 //! `DiskFeature`: a flat disc of blocks (sand/clay/gravel patches) replacing the blocks its predicate accepts.
 
-use mc_game_core::world::level::levelgen::feature::{Feature, mark_above_for_post_processing};
+use mc_core::pos::BlockPos;
+use mc_core::random::RandomSource;
 use mc_game_core::world::level::levelgen::blockpredicates::{self, BlockPredicate};
 use mc_game_core::world::level::levelgen::codec::{TypeEntry, parse_int_range};
 use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::feature::{Feature, mark_above_for_post_processing};
 use mc_game_core::world::level::levelgen::holder::Holder;
 use mc_game_core::world::level::levelgen::stateproviders::BlockStateProvider;
 use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
-use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
 use mc_worldgen::provider::IntProvider;
 use std::sync::Arc;
 
@@ -20,14 +20,22 @@ pub struct DiskFeature {
 }
 
 impl Feature for DiskFeature {
-    fn place(&self, level: &mut dyn WorldGenLevel, _generator: &GenEnv, random: &mut dyn RandomSource, origin: BlockPos) -> bool {
+    fn place(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        _generator: &GenEnv,
+        random: &mut dyn RandomSource,
+        origin: BlockPos,
+    ) -> bool {
         let mut placed_any = false;
         let origin_y = origin.y();
         let top = origin_y + self.half_height;
         let bottom = origin_y - self.half_height - 1;
         let r = self.radius.sample(random);
 
-        for column_pos in BlockPos::between_closed(&origin.offset(-r, 0, -r), &origin.offset(r, 0, r)) {
+        for column_pos in
+            BlockPos::between_closed(&origin.offset(-r, 0, -r), &origin.offset(r, 0, r))
+        {
             let xd = column_pos.x() - origin.x();
             let zd = column_pos.z() - origin.z();
             if xd * xd + zd * zd <= r * r {
@@ -39,14 +47,25 @@ impl Feature for DiskFeature {
 }
 
 impl DiskFeature {
-    fn place_column(&self, level: &mut dyn WorldGenLevel, random: &mut dyn RandomSource, top: i32, bottom: i32, column_pos: BlockPos) -> bool {
+    fn place_column(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        random: &mut dyn RandomSource,
+        top: i32,
+        bottom: i32,
+        column_pos: BlockPos,
+    ) -> bool {
         let mut placed_any = false;
         let mut placed_above = false;
 
         for y in (bottom + 1..=top).rev() {
             let pos = column_pos.at_y(y);
             if self.target.test(&*level, pos) {
-                if let Some(state) = self.state_provider.value().get_optional_state(&*level, random, pos) {
+                if let Some(state) = self
+                    .state_provider
+                    .value()
+                    .get_optional_state(&*level, random, pos)
+                {
                     level.set_block_flags(pos, state, 2);
                     if !placed_above {
                         mark_above_for_post_processing(level, pos);

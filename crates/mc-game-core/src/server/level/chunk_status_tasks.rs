@@ -38,7 +38,11 @@ pub struct BatchResult {
     /// `(chunk, status)` pairs whose step finished.
     pub completed: Vec<(i64, ChunkStatus)>,
     /// `WorldGenRegion.setBlock` POI updates of the batch's steps (see `WorldGenRegion::poi_changes`).
-    pub poi_changes: Vec<(mc_core::pos::BlockPos, Option<PoiTypeHolder>, Option<PoiTypeHolder>)>,
+    pub poi_changes: Vec<(
+        mc_core::pos::BlockPos,
+        Option<PoiTypeHolder>,
+        Option<PoiTypeHolder>,
+    )>,
     /// Structure start rewrites for chunks the batch did not lend (`WorldGenRegion::update_structure_start`).
     pub start_updates: Vec<(ChunkPos, String, mc_nbt::CompoundTag)>,
 }
@@ -47,7 +51,12 @@ pub struct BatchResult {
 /// uncaught exception of `ChunkMap.applyStep`: the report ("Exception generating new chunk", or the step's own
 /// `ReportedException` such as "Feature placement") crashes the server through the game thread.
 pub fn run_batch(ctx: &WorldGenContext, batch: GenBatch) -> Result<BatchResult, CrashReport> {
-    let GenBatch { id, jobs, mut chunks, structure_views } = batch;
+    let GenBatch {
+        id,
+        jobs,
+        mut chunks,
+        structure_views,
+    } = batch;
     let mut completed = Vec::with_capacity(jobs.len());
     let mut poi_changes = Vec::new();
     let mut start_updates = Vec::new();
@@ -61,14 +70,21 @@ pub fn run_batch(ctx: &WorldGenContext, batch: GenBatch) -> Result<BatchResult, 
             structure_views.clone(),
             ctx.level_height,
         );
-        if let Err(payload) = panic::catch_unwind(AssertUnwindSafe(|| run_step(ctx, step, &mut region))) {
+        if let Err(payload) =
+            panic::catch_unwind(AssertUnwindSafe(|| run_step(ctx, step, &mut region)))
+        {
             let mut report = CrashReport::for_throwable(payload, "Exception generating new chunk");
             report
                 .add_category("Chunk to be generated")
                 .set_detail("Status being generated", step.target_status.name())
                 .set_detail("Location", format!("{},{}", job.pos.x, job.pos.z))
                 .set_detail("Position hash", job.pos.pack())
-                .set_detail("Generator", ctx.generator.type_name_for_data_fixer().map_or_else(|| "unknown".to_owned(), |id| id.to_string()));
+                .set_detail(
+                    "Generator",
+                    ctx.generator
+                        .type_name_for_data_fixer()
+                        .map_or_else(|| "unknown".to_owned(), |id| id.to_string()),
+                );
             return Err(report);
         }
         poi_changes.append(&mut region.poi_changes);
@@ -83,7 +99,13 @@ pub fn run_batch(ctx: &WorldGenContext, batch: GenBatch) -> Result<BatchResult, 
             GenChunk::Snapshot(_) => None,
         })
         .collect();
-    Ok(BatchResult { id, chunks, completed, poi_changes, start_updates })
+    Ok(BatchResult {
+        id,
+        chunks,
+        completed,
+        poi_changes,
+        start_updates,
+    })
 }
 
 /// `ChunkStep.apply` for a chunk that is still before the target status.
@@ -91,7 +113,9 @@ fn run_step(ctx: &WorldGenContext, step: &ChunkStep, region: &mut WorldGenRegion
     let center = region.get_center();
     match step.task {
         ChunkStatusTask::GenerateStructureStarts => {
-            let chunk = region.get_chunk_mut(center.x, center.z).expect("center chunk is lent");
+            let chunk = region
+                .get_chunk_mut(center.x, center.z)
+                .expect("center chunk is lent");
             if ctx.generate_structures {
                 ctx.hooks.create_structures(ctx, chunk);
             }
@@ -114,7 +138,12 @@ fn run_step(ctx: &WorldGenContext, step: &ChunkStep, region: &mut WorldGenRegion
             }
             chunk.proto_mut().access.prime_heightmaps(
                 true,
-                &[HeightmapType::MotionBlocking, HeightmapType::MotionBlockingNoLeaves, HeightmapType::OceanFloor, HeightmapType::WorldSurface],
+                &[
+                    HeightmapType::MotionBlocking,
+                    HeightmapType::MotionBlockingNoLeaves,
+                    HeightmapType::OceanFloor,
+                    HeightmapType::WorldSurface,
+                ],
             );
             region.put_chunk(center, chunk);
         }
@@ -123,7 +152,9 @@ fn run_step(ctx: &WorldGenContext, step: &ChunkStep, region: &mut WorldGenRegion
             blending::generate_border_ticks(&RegionBlending(RefCell::new(&mut *region)), center);
         }
         ChunkStatusTask::GenerateSpawn => {
-            let upgrading = region.get_chunk(center.x, center.z).is_some_and(ProtoChunk::is_upgrading);
+            let upgrading = region
+                .get_chunk(center.x, center.z)
+                .is_some_and(ProtoChunk::is_upgrading);
             if !upgrading {
                 ctx.hooks.spawn_original_mobs(ctx, region);
             }
@@ -145,12 +176,16 @@ impl BlendingRegion for RegionBlending<'_> {
     }
 
     fn is_old_chunk_around(&self, _pos: ChunkPos, _range: i32) -> bool {
-        unreachable!("only Blender.of asks for old chunks (it is not wired: Blender::empty() everywhere)")
+        unreachable!(
+            "only Blender.of asks for old chunks (it is not wired: Blender::empty() everywhere)"
+        )
     }
 
     fn with_chunk(&self, chunk_x: i32, chunk_z: i32, f: &mut dyn FnMut(&mut dyn BlendingChunk)) {
         let mut region = self.0.borrow_mut();
-        let chunk = region.gen_chunk_mut(chunk_x, chunk_z).unwrap_or_else(|| panic!("Requested chunk unavailable during world generation: {chunk_x},{chunk_z}"));
+        let chunk = region.gen_chunk_mut(chunk_x, chunk_z).unwrap_or_else(|| {
+            panic!("Requested chunk unavailable during world generation: {chunk_x},{chunk_z}")
+        });
         f(chunk);
     }
 }

@@ -35,11 +35,21 @@ static THREE_LAYERS_FEATURE_SIZE: TypeEntry<dyn FeatureSize> = TypeEntry {
     name: "three_layers_feature_size",
     decode: |fields, _| {
         Ok(Arc::new(ThreeLayersFeatureSize {
-            limit: fields.optional("limit", |v| parse_int_range(v, 0, 80))?.unwrap_or(1),
-            upper_limit: fields.optional("upper_limit", |v| parse_int_range(v, 0, 80))?.unwrap_or(1),
-            lower_size: fields.optional("lower_size", |v| parse_int_range(v, 0, 16))?.unwrap_or(0),
-            middle_size: fields.optional("middle_size", |v| parse_int_range(v, 0, 16))?.unwrap_or(1),
-            upper_size: fields.optional("upper_size", |v| parse_int_range(v, 0, 16))?.unwrap_or(1),
+            limit: fields
+                .optional("limit", |v| parse_int_range(v, 0, 80))?
+                .unwrap_or(1),
+            upper_limit: fields
+                .optional("upper_limit", |v| parse_int_range(v, 0, 80))?
+                .unwrap_or(1),
+            lower_size: fields
+                .optional("lower_size", |v| parse_int_range(v, 0, 16))?
+                .unwrap_or(0),
+            middle_size: fields
+                .optional("middle_size", |v| parse_int_range(v, 0, 16))?
+                .unwrap_or(1),
+            upper_size: fields
+                .optional("upper_size", |v| parse_int_range(v, 0, 16))?
+                .unwrap_or(1),
             min_clipped_height: decode_min_clipped_height(fields)?,
         }))
     },

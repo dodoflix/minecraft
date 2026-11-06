@@ -9,7 +9,9 @@ mod packrat;
 mod print;
 mod unicode_names;
 
-pub use print::{escape_without_quotes, print_compact, print_pretty, print_pretty_with, quote_and_escape};
+pub use print::{
+    escape_without_quotes, print_compact, print_pretty, print_pretty_with, quote_and_escape,
+};
 
 use crate::{CompoundTag, Tag};
 use packrat::{Ps, Reason, Val};
@@ -37,7 +39,12 @@ impl SnbtError {
         context.push_str(&String::from_utf16_lossy(&units[c.saturating_sub(10)..c]));
         context.push_str("<--[HERE]");
         let byte_cursor = utf16_to_byte(input, cursor);
-        SnbtError { message, cursor, byte_cursor, context }
+        SnbtError {
+            message,
+            cursor,
+            byte_cursor,
+            context,
+        }
     }
 
     /// The bare message, without position context.
@@ -63,7 +70,11 @@ impl SnbtError {
 
 impl fmt::Display for SnbtError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{} at position {}: {}", self.message, self.cursor, self.context)
+        write!(
+            f,
+            "{} at position {}: {}",
+            self.message, self.cursor, self.context
+        )
     }
 }
 
@@ -104,13 +115,17 @@ fn translate(key: &str, arg: Option<&str>) -> String {
         "snbt.parser.invalid_character_name" => "Invalid Unicode character name",
         "snbt.parser.invalid_codepoint" => "Invalid Unicode character value: %s",
         "snbt.parser.invalid_string_contents" => "Invalid string contents",
-        "snbt.parser.invalid_unquoted_start" => "Unquoted strings can't start with digits 0-9, + or -",
+        "snbt.parser.invalid_unquoted_start" => {
+            "Unquoted strings can't start with digits 0-9, + or -"
+        }
         "snbt.parser.leading_zero_not_allowed" => "Decimal numbers can't start with 0",
         "snbt.parser.no_such_operation" => "No such operation: %s",
         "snbt.parser.number_parse_failure" => "Failed to parse number: %s",
         "argument.nbt.expected.compound" => "Expected compound tag",
         "argument.nbt.trailing" => "Unexpected trailing data",
-        "snbt.parser.underscore_not_allowed" => "Underscore characters are not allowed at the start or end of a number",
+        "snbt.parser.underscore_not_allowed" => {
+            "Underscore characters are not allowed at the start or end of a number"
+        }
         other => other,
     };
     match arg {
@@ -152,7 +167,12 @@ fn nesting_depth(units: &[u16], start: usize) -> usize {
 fn run(input: &str, units: &[u16], start: usize) -> Result<(Tag, usize), SnbtError> {
     let nesting = nesting_depth(units, start);
     if nesting > MAX_NESTING {
-        return Err(SnbtError::new("Failed to parse: nesting too deep".to_string(), input, units, start));
+        return Err(SnbtError::new(
+            "Failed to parse: nesting too deep".to_string(),
+            input,
+            units,
+            start,
+        ));
     }
     // ~4 KiB of stack per nesting level (debug builds); shallow input runs on the caller's stack.
     if nesting <= 32 {
@@ -188,15 +208,30 @@ fn parse_fully_units(input: &str, units: &[u16]) -> Result<(Tag, usize), SnbtErr
         cursor += 1;
     }
     if cursor < units.len() {
-        return Err(SnbtError::new(translate("argument.nbt.trailing", None), input, units, cursor));
+        return Err(SnbtError::new(
+            translate("argument.nbt.trailing", None),
+            input,
+            units,
+            cursor,
+        ));
     }
     Ok((tag, cursor))
 }
 
-fn expect_compound(tag: Tag, input: &str, units: &[u16], cursor: usize) -> Result<CompoundTag, SnbtError> {
+fn expect_compound(
+    tag: Tag,
+    input: &str,
+    units: &[u16],
+    cursor: usize,
+) -> Result<CompoundTag, SnbtError> {
     match tag {
         Tag::Compound(c) => Ok(c),
-        _ => Err(SnbtError::new(translate("argument.nbt.expected.compound", None), input, units, cursor)),
+        _ => Err(SnbtError::new(
+            translate("argument.nbt.expected.compound", None),
+            input,
+            units,
+            cursor,
+        )),
     }
 }
 
@@ -212,7 +247,8 @@ pub fn suggest(input: &str, start: usize) -> Option<(usize, Vec<String>)> {
     let work = || {
         let mut ps = Ps::new(&grammar::GRAMMAR, &units, start);
         ps.parse_top();
-        ps.suggestions().map(|(cursor, values)| (cursor, values.to_vec()))
+        ps.suggestions()
+            .map(|(cursor, values)| (cursor, values.to_vec()))
     };
     if nesting <= 32 {
         return work();
@@ -249,7 +285,10 @@ pub fn parse_as_argument(input: &str, start: usize) -> Result<(Tag, usize), Snbt
 }
 
 /// `TagParser.parseCompoundAsArgument`.
-pub fn parse_compound_as_argument(input: &str, start: usize) -> Result<(CompoundTag, usize), SnbtError> {
+pub fn parse_compound_as_argument(
+    input: &str,
+    start: usize,
+) -> Result<(CompoundTag, usize), SnbtError> {
     let units: Vec<u16> = input.encode_utf16().collect();
     let (tag, end) = run(input, &units, byte_to_utf16(input, start))?;
     let compound = expect_compound(tag, input, &units, end)?;

@@ -40,7 +40,8 @@ impl ContainerKey {
     /// within one menu.
     pub fn same_container(&self, other: &ContainerKey) -> bool {
         match (self, other) {
-            (Self::PlayerInventory, Self::PlayerInventory) | (Self::PlayerEnderChest, Self::PlayerEnderChest) => true,
+            (Self::PlayerInventory, Self::PlayerInventory)
+            | (Self::PlayerEnderChest, Self::PlayerEnderChest) => true,
             (Self::Local(a), Self::Local(b)) => a == b,
             (Self::Shared(a), Self::Shared(b)) => Rc::ptr_eq(a, b),
             (Self::BlockEntity(a), Self::BlockEntity(b)) => a == b,
@@ -60,7 +61,10 @@ impl ContainerKey {
                 .level_ref()
                 .and_then(|l| l.get_block_entity(*pos))
                 .is_some_and(|be| be.as_container().is_some_and(|c| c.still_valid(player))),
-            Self::Entity(id) => player.level_ref().and_then(|l| l.get_entity(*id)).is_some_and(|e| e.as_container().is_some_and(|c| c.still_valid(player))),
+            Self::Entity(id) => player
+                .level_ref()
+                .and_then(|l| l.get_entity(*id))
+                .is_some_and(|e| e.as_container().is_some_and(|c| c.still_valid(player))),
             Self::PlayerEnderChest => player.ender_chest().is_none_or(|c| c.still_valid(player)),
             // `player.getVehicle() == mob || within range`: the mount menus check the range themselves
             Self::EntityEquipment(..) => true,
@@ -79,7 +83,11 @@ pub struct SlotEnv<'a> {
 }
 
 impl SlotEnv<'_> {
-    pub fn with_container<R>(&mut self, key: &ContainerKey, f: impl FnOnce(&mut dyn Container) -> R) -> R {
+    pub fn with_container<R>(
+        &mut self,
+        key: &ContainerKey,
+        f: impl FnOnce(&mut dyn Container) -> R,
+    ) -> R {
         match key {
             ContainerKey::Local(i) => f(self.locals[*i].as_mut()),
             _ => with_player_container(self.player, key, f),
@@ -90,7 +98,11 @@ impl SlotEnv<'_> {
 /// Resolves every `ContainerKey` except `Local` against the player. A container that no longer exists (block entity
 /// removed, entity gone) is replaced by a scratch container: reads are empty and writes are dropped; the menu closes
 /// itself on the next `still_valid` check.
-pub fn with_player_container<R>(player: &mut dyn MenuPlayer, key: &ContainerKey, f: impl FnOnce(&mut dyn Container) -> R) -> R {
+pub fn with_player_container<R>(
+    player: &mut dyn MenuPlayer,
+    key: &ContainerKey,
+    f: impl FnOnce(&mut dyn Container) -> R,
+) -> R {
     match key {
         ContainerKey::PlayerInventory => f(player.inventory_mut()),
         ContainerKey::Local(_) => unreachable!("menu-local containers are resolved by the menu"),
@@ -116,7 +128,15 @@ pub fn with_player_container<R>(player: &mut dyn MenuPlayer, key: &ContainerKey,
         }
         ContainerKey::Entity(id) => {
             let mut f = Some(f);
-            let resolved = player.level().and_then(|l| l.with_entity(*id, |_, e| e.as_container_mut().map(|c| (f.take().expect("called once"))(c)))).flatten();
+            let resolved = player
+                .level()
+                .and_then(|l| {
+                    l.with_entity(*id, |_, e| {
+                        e.as_container_mut()
+                            .map(|c| (f.take().expect("called once"))(c))
+                    })
+                })
+                .flatten();
             match resolved {
                 Some(r) => r,
                 None => (f.take().expect("not consumed"))(&mut SimpleContainer::new(0)),
@@ -127,7 +147,10 @@ pub fn with_player_container<R>(player: &mut dyn MenuPlayer, key: &ContainerKey,
             let resolved = player.level().and_then(|l| {
                 l.with_entity(*id, |_, e| {
                     let mount = e.as_mount_inventory_mut()?;
-                    let mut container = super::mount_menu::EquipmentSlotContainer { stack: mount.get_equipment_slot_item(*equipment), dirty: false };
+                    let mut container = super::mount_menu::EquipmentSlotContainer {
+                        stack: mount.get_equipment_slot_item(*equipment),
+                        dirty: false,
+                    };
                     let result = (f.take().expect("called once"))(&mut container);
                     if container.dirty {
                         mount.set_equipment_slot_item(*equipment, container.stack);
@@ -160,14 +183,26 @@ impl ContainerKey {
 
     fn open_or_close(&self, player: &mut dyn MenuPlayer, open: bool) {
         let user = player.entity_id();
-        let container_user = ContainerUser { id: user, spectator: player.is_spectator(), interaction_range: player.container_interaction_range() };
+        let container_user = ContainerUser {
+            id: user,
+            spectator: player.is_spectator(),
+            interaction_range: player.container_interaction_range(),
+        };
         let notify_be = |player: &mut dyn MenuPlayer, pos: BlockPos| {
             if let Some(level) = player.level() {
-                level.with_block_entity(pos, |level, be| if open { be.start_open(level, &container_user) } else { be.stop_open(level, &container_user) });
+                level.with_block_entity(pos, |level, be| {
+                    if open {
+                        be.start_open(level, &container_user)
+                    } else {
+                        be.stop_open(level, &container_user)
+                    }
+                });
             }
         };
         match self {
-            ContainerKey::PlayerInventory | ContainerKey::Local(_) | ContainerKey::EntityEquipment(..) => {}
+            ContainerKey::PlayerInventory
+            | ContainerKey::Local(_)
+            | ContainerKey::EntityEquipment(..) => {}
             ContainerKey::Shared(c) => {
                 if open {
                     c.borrow_mut().start_open(user)
@@ -216,7 +251,13 @@ pub trait SlotBehavior {
     fn on_take(&self, slot: &Slot, env: &mut SlotEnv, _carried: &ItemStack) {
         slot.set_changed(env);
     }
-    fn set_by_player(&self, slot: &Slot, env: &mut SlotEnv, stack: ItemStack, _previous: &ItemStack) {
+    fn set_by_player(
+        &self,
+        slot: &Slot,
+        env: &mut SlotEnv,
+        stack: ItemStack,
+        _previous: &ItemStack,
+    ) {
         slot.set(env, stack);
     }
     fn on_quick_craft(&self, _slot: &Slot, _env: &mut SlotEnv, _picked: &ItemStack, _count: i32) {}
@@ -248,8 +289,21 @@ impl Slot {
         Self::with_behavior(container, slot, x, y, Box::new(PlainSlot))
     }
 
-    pub fn with_behavior(container: ContainerKey, slot: usize, x: i32, y: i32, behavior: Box<dyn SlotBehavior>) -> Self {
-        Self { container, slot, index: 0, x, y, behavior }
+    pub fn with_behavior(
+        container: ContainerKey,
+        slot: usize,
+        x: i32,
+        y: i32,
+        behavior: Box<dyn SlotBehavior>,
+    ) -> Self {
+        Self {
+            container,
+            slot,
+            index: 0,
+            x,
+            y,
+            behavior,
+        }
     }
 
     /// `getContainerSlot()`.
@@ -335,10 +389,17 @@ impl Slot {
         self.safe_insert_amount(env, stack, amount)
     }
 
-    pub fn safe_insert_amount(&self, env: &mut SlotEnv, mut input: ItemStack, input_amount: i32) -> ItemStack {
+    pub fn safe_insert_amount(
+        &self,
+        env: &mut SlotEnv,
+        mut input: ItemStack,
+        input_amount: i32,
+    ) -> ItemStack {
         if !input.is_empty() && self.may_place(env, &input) {
             let slot_stack = self.get_item(env);
-            let transferable = input_amount.min(input.count()).min(self.get_max_stack_size_for(env, &input) - slot_stack.count());
+            let transferable = input_amount
+                .min(input.count())
+                .min(self.get_max_stack_size_for(env, &input) - slot_stack.count());
             if transferable <= 0 {
                 return input;
             }

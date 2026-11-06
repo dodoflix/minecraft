@@ -80,28 +80,53 @@ static DEFAULT_BORDER: LazyLock<WorldBorder> = LazyLock::new(WorldBorder::defaul
 
 impl ServerLevel {
     /// `DedicatedServer.isUnderSpawnProtection(level, pos, player)`.
-    pub fn is_under_spawn_protection(&self, player: &crate::world::entity::ServerPlayer, pos: mc_core::pos::BlockPos) -> bool {
+    pub fn is_under_spawn_protection(
+        &self,
+        player: &crate::world::entity::ServerPlayer,
+        pos: mc_core::pos::BlockPos,
+    ) -> bool {
         self.is_under_spawn_protection_uuid(crate::world::entity::Entity::uuid(player), pos)
     }
 
     /// `PlayerList.isOp(player)`.
     pub fn is_op_uuid(&self, player: uuid::Uuid) -> bool {
-        self.server_state.spawn_protection.op_players.contains(&player)
+        self.server_state
+            .spawn_protection
+            .op_players
+            .contains(&player)
     }
 
     /// `isUnderSpawnProtection` for a player known by uuid (damage sources only remember their causing entity).
-    pub fn is_under_spawn_protection_uuid(&self, player: uuid::Uuid, pos: mc_core::pos::BlockPos) -> bool {
+    pub fn is_under_spawn_protection_uuid(
+        &self,
+        player: uuid::Uuid,
+        pos: mc_core::pos::BlockPos,
+    ) -> bool {
         let sp = &self.server_state.spawn_protection;
-        let Some(respawn) = &sp.respawn else { return false };
-        if self.dimension != respawn.dimension || sp.ops_empty || sp.op_players.contains(&player) || sp.radius <= 0 {
+        let Some(respawn) = &sp.respawn else {
+            return false;
+        };
+        if self.dimension != respawn.dimension
+            || sp.ops_empty
+            || sp.op_players.contains(&player)
+            || sp.radius <= 0
+        {
             return false;
         }
-        (pos.x() - respawn.pos.x()).abs().max((pos.z() - respawn.pos.z()).abs()) <= sp.radius
+        (pos.x() - respawn.pos.x())
+            .abs()
+            .max((pos.z() - respawn.pos.z()).abs())
+            <= sp.radius
     }
 
     /// `ServerLevel.mayInteract(entity, pos)` for a player (by uuid): not under spawn protection and inside the world border.
-    pub fn may_interact_player_uuid(&self, player: uuid::Uuid, pos: mc_core::pos::BlockPos) -> bool {
-        !(self.is_under_spawn_protection_uuid(player, pos) || !self.world_border().is_within_bounds_block(&pos))
+    pub fn may_interact_player_uuid(
+        &self,
+        player: uuid::Uuid,
+        pos: mc_core::pos::BlockPos,
+    ) -> bool {
+        !(self.is_under_spawn_protection_uuid(player, pos)
+            || !self.world_border().is_within_bounds_block(&pos))
     }
 
     /// `getDifficulty()`.
@@ -136,7 +161,14 @@ impl ServerLevel {
 
     /// `ServerPlayer.connection.send(packet)` for a player (any dimension) by entity id.
     pub fn send_to_player<P: Packet>(&self, id: EntityId, packet: &P) {
-        if let Some(p) = self.server_state.roster.0.read().iter().find(|p| p.id == id) {
+        if let Some(p) = self
+            .server_state
+            .roster
+            .0
+            .read()
+            .iter()
+            .find(|p| p.id == id)
+        {
             p.connection.send(packet);
         }
     }
@@ -161,7 +193,9 @@ impl ServerLevel {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::server::level::level_data::{PrimaryServerLevelData, ServerLevelData, default_world_data};
+    use crate::server::level::level_data::{
+        PrimaryServerLevelData, ServerLevelData, default_world_data,
+    };
 
     /// The accessors read the shared server state at the point of use (vanilla: `/difficulty hard` is visible to the
     /// damage code of the same tick), not a per-tick copy.

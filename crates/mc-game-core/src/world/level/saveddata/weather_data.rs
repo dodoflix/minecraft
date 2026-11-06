@@ -20,8 +20,21 @@ pub struct WeatherData {
 impl_saved_data!(WeatherData);
 
 impl WeatherData {
-    pub fn new(clear_weather_time: i32, rain_time: i32, thunder_time: i32, raining: bool, thundering: bool) -> Self {
-        WeatherData { dirty: false, clear_weather_time, rain_time, thunder_time, raining, thundering }
+    pub fn new(
+        clear_weather_time: i32,
+        rain_time: i32,
+        thunder_time: i32,
+        raining: bool,
+        thundering: bool,
+    ) -> Self {
+        WeatherData {
+            dirty: false,
+            clear_weather_time,
+            rain_time,
+            thunder_time,
+            raining,
+            thundering,
+        }
     }
 
     pub fn get_clear_weather_time(&self) -> i32 {
@@ -85,6 +98,11 @@ impl WeatherData {
 
     /// `WeatherData.TYPE`.
     pub fn type_() -> SavedDataType<WeatherData> {
-        SavedDataType::new(Identifier::parse("minecraft:weather").expect("static id"), WeatherData::default, WeatherData::decode, WeatherData::encode)
+        SavedDataType::new(
+            Identifier::parse("minecraft:weather").expect("static id"),
+            WeatherData::default,
+            WeatherData::decode,
+            WeatherData::encode,
+        )
     }
 }

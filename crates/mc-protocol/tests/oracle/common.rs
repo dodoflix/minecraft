@@ -1,11 +1,14 @@
 //! Starts the real vanilla server (`ref/server.jar`, via `mc-testkit`) and offers raw-connection helpers.
-#![allow(dead_code, reason = "each test target uses a subset of the shared helpers")]
+#![allow(
+    dead_code,
+    reason = "each test target uses a subset of the shared helpers"
+)]
 use std::time::Duration;
 
-use mc_protocol::net::Connection;
-use mc_protocol::packet::{packet_name, ConnectionState, PacketFlow};
-use mc_protocol::packets::handshake::*;
 use mc_protocol::PROTOCOL_VERSION;
+use mc_protocol::net::Connection;
+use mc_protocol::packet::{ConnectionState, PacketFlow, packet_name};
+use mc_protocol::packets::handshake::*;
 use tokio::net::TcpStream;
 use tokio::time::timeout;
 
@@ -55,10 +58,17 @@ pub async fn handshake(conn: &mut Connection<TcpStream>, port: u16, intention: C
 }
 
 pub async fn read(conn: &mut Connection<TcpStream>) -> Vec<u8> {
-    timeout(Duration::from_secs(30), conn.read_payload()).await.expect("read timeout").expect("read")
+    timeout(Duration::from_secs(30), conn.read_payload())
+        .await
+        .expect("read timeout")
+        .expect("read")
 }
 
 pub fn log_id(state: ConnectionState, payload: &[u8]) {
     let id = mc_protocol::codec::read_varint(&mut &payload[..]).unwrap();
-    println!("<- {} clientbound id={id} {}", state.id(), packet_name(state, PacketFlow::Clientbound, id).unwrap_or("?"));
+    println!(
+        "<- {} clientbound id={id} {}",
+        state.id(),
+        packet_name(state, PacketFlow::Clientbound, id).unwrap_or("?")
+    );
 }

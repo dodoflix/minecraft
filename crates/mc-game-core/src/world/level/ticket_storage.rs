@@ -40,7 +40,10 @@ impl TicketStorage {
         Self::with_tickets(LongOpenHashMap::with_expected(4), LongOpenHashMap::new())
     }
 
-    fn with_tickets(tickets: LongOpenHashMap<Vec<Ticket>>, deactivated_tickets: LongOpenHashMap<Vec<Ticket>>) -> Self {
+    fn with_tickets(
+        tickets: LongOpenHashMap<Vec<Ticket>>,
+        deactivated_tickets: LongOpenHashMap<Vec<Ticket>>,
+    ) -> Self {
         let mut storage = Self {
             tickets,
             deactivated_tickets,
@@ -98,23 +101,39 @@ impl TicketStorage {
     /// `TicketStorage.CODEC` decode (`fromPacked`: everything loads as *deactivated* tickets). Malformed entries make
     /// the codec fail; the error text is returned for the saved-data layer to log (vanilla drops the whole value).
     pub fn from_tag(tag: &Tag) -> Result<TicketStorage, String> {
-        let root = tag.as_compound().ok_or_else(|| format!("Not a map: {tag}"))?;
+        let root = tag
+            .as_compound()
+            .ok_or_else(|| format!("Not a map: {tag}"))?;
         let mut deactivated: LongOpenHashMap<Vec<Ticket>> = LongOpenHashMap::new();
         if let Some(list) = root.get("tickets") {
-            let Tag::List(list) = list else { return Err(format!("Not a list: {list}")) };
+            let Tag::List(list) = list else {
+                return Err(format!("Not a list: {list}"));
+            };
             for entry in list.iter() {
-                let entry = entry.as_compound().ok_or_else(|| format!("Not a map: {entry}"))?;
+                let entry = entry
+                    .as_compound()
+                    .ok_or_else(|| format!("Not a map: {entry}"))?;
                 let pos = match entry.get("chunk_pos") {
                     Some(Tag::IntArray(ints)) if ints.len() == 2 => ChunkPos::new(ints[0], ints[1]),
-                    Some(Tag::IntArray(ints)) => return Err(format!("Input is not a list of 2 elements: {} elements", ints.len())),
+                    Some(Tag::IntArray(ints)) => {
+                        return Err(format!(
+                            "Input is not a list of 2 elements: {} elements",
+                            ints.len()
+                        ));
+                    }
                     Some(_) => return Err("Not an int array".to_string()),
                     None => return Err("No key chunk_pos in MapLike[...]".to_string()),
                 };
                 let ticket = Ticket::read_fields(entry)?;
-                deactivated.get_or_insert_with(pos.pack(), || Vec::with_capacity(4)).push(ticket);
+                deactivated
+                    .get_or_insert_with(pos.pack(), || Vec::with_capacity(4))
+                    .push(ticket);
             }
         }
-        Ok(Self::with_tickets(LongOpenHashMap::with_expected(4), deactivated))
+        Ok(Self::with_tickets(
+            LongOpenHashMap::with_expected(4),
+            deactivated,
+        ))
     }
 
     // ---------------------------------------------------------------- queries
@@ -142,7 +161,11 @@ impl TicketStorage {
     }
 
     pub fn should_keep_dimension_active(&self) -> bool {
-        self.tickets.values().any(|group| group.iter().any(|t| t.get_type().should_keep_dimension_active()))
+        self.tickets.values().any(|group| {
+            group
+                .iter()
+                .any(|t| t.get_type().should_keep_dimension_active())
+        })
     }
 
     pub fn get_tickets(&self, key: i64) -> &[Ticket] {
@@ -154,14 +177,17 @@ impl TicketStorage {
     }
 
     fn ticket_level_at(tickets: &[Ticket], simulation: bool) -> i32 {
-        Self::lowest_ticket(tickets, simulation).map_or(chunk_level::max_level() + 1, |t| t.get_ticket_level())
+        Self::lowest_ticket(tickets, simulation)
+            .map_or(chunk_level::max_level() + 1, |t| t.get_ticket_level())
     }
 
     fn lowest_ticket(tickets: &[Ticket], simulation: bool) -> Option<&Ticket> {
         let mut t: Option<&Ticket> = None;
         for ticket in tickets {
             if t.is_none_or(|t| ticket.get_ticket_level() < t.get_ticket_level()) {
-                if (simulation && ticket.get_type().does_simulate()) || (!simulation && ticket.get_type().does_load()) {
+                if (simulation && ticket.get_type().does_simulate())
+                    || (!simulation && ticket.get_type().does_load())
+                {
                     t = Some(ticket);
                 }
             }
@@ -170,7 +196,8 @@ impl TicketStorage {
     }
 
     pub fn get_ticket_debug_string(&self, key: i64, simulation: bool) -> String {
-        Self::lowest_ticket(self.get_tickets(key), simulation).map_or_else(|| "no_ticket".to_string(), |t| t.to_string())
+        Self::lowest_ticket(self.get_tickets(key), simulation)
+            .map_or_else(|| "no_ticket".to_string(), |t| t.to_string())
     }
 
     pub fn get_force_loaded_chunks(&self) -> &LongOpenHashSet {
@@ -194,7 +221,10 @@ impl TicketStorage {
     }
 
     pub fn add_ticket_with_radius(&mut self, ty: TicketType, chunk_pos: ChunkPos, radius: i32) {
-        let ticket = Ticket::new(ty, chunk_level::by_full_status(FullChunkStatus::Full) - radius);
+        let ticket = Ticket::new(
+            ty,
+            chunk_level::by_full_status(FullChunkStatus::Full) - radius,
+        );
         self.add_ticket_at(chunk_pos.pack(), ticket);
     }
 
@@ -204,7 +234,9 @@ impl TicketStorage {
 
     /// `addTicket(long, Ticket)`: whether a new ticket was added (an identical one only has its timeout reset).
     pub fn add_ticket_at(&mut self, key: i64, ticket: Ticket) -> bool {
-        let tickets = self.tickets.get_or_insert_with(key, || Vec::with_capacity(4));
+        let tickets = self
+            .tickets
+            .get_or_insert_with(key, || Vec::with_capacity(4));
         for t in tickets.iter_mut() {
             if is_ticket_same_type_and_level(&ticket, t) {
                 t.reset_ticks_left();
@@ -217,10 +249,18 @@ impl TicketStorage {
         let (ty, level) = (ticket.get_type(), ticket.get_ticket_level());
         tickets.push(ticket);
         if ty.does_simulate() && level < old_simulation {
-            self.simulation_updates.push(ChunkUpdate { node: key, new_level_from: level, only_decreased: true });
+            self.simulation_updates.push(ChunkUpdate {
+                node: key,
+                new_level_from: level,
+                only_decreased: true,
+            });
         }
         if ty.does_load() && level < old_loading {
-            self.loading_updates.push(ChunkUpdate { node: key, new_level_from: level, only_decreased: true });
+            self.loading_updates.push(ChunkUpdate {
+                node: key,
+                new_level_from: level,
+                only_decreased: true,
+            });
         }
         if ty == TicketType::FORCED {
             self.chunks_with_forced_tickets.add(key);
@@ -230,7 +270,10 @@ impl TicketStorage {
     }
 
     pub fn remove_ticket_with_radius(&mut self, ty: TicketType, chunk_pos: ChunkPos, radius: i32) {
-        let ticket = Ticket::new(ty, chunk_level::by_full_status(FullChunkStatus::Full) - radius);
+        let ticket = Ticket::new(
+            ty,
+            chunk_level::by_full_status(FullChunkStatus::Full) - radius,
+        );
         self.remove_ticket_at(chunk_pos.pack(), &ticket);
     }
 
@@ -240,8 +283,15 @@ impl TicketStorage {
 
     /// `removeTicket(long, Ticket)`.
     pub fn remove_ticket_at(&mut self, key: i64, ticket: &Ticket) -> bool {
-        let Some(tickets) = self.tickets.get_mut(key) else { return false };
-        let Some(index) = tickets.iter().position(|t| is_ticket_same_type_and_level(ticket, t)) else { return false };
+        let Some(tickets) = self.tickets.get_mut(key) else {
+            return false;
+        };
+        let Some(index) = tickets
+            .iter()
+            .position(|t| is_ticket_same_type_and_level(ticket, t))
+        else {
+            return false;
+        };
         tickets.remove(index);
         let remaining_simulation = Self::ticket_level_at(tickets, true);
         let remaining_loading = Self::ticket_level_at(tickets, false);
@@ -249,10 +299,18 @@ impl TicketStorage {
             self.tickets.remove(key);
         }
         if ticket.get_type().does_simulate() {
-            self.simulation_updates.push(ChunkUpdate { node: key, new_level_from: remaining_simulation, only_decreased: false });
+            self.simulation_updates.push(ChunkUpdate {
+                node: key,
+                new_level_from: remaining_simulation,
+                only_decreased: false,
+            });
         }
         if ticket.get_type().does_load() {
-            self.loading_updates.push(ChunkUpdate { node: key, new_level_from: remaining_loading, only_decreased: false });
+            self.loading_updates.push(ChunkUpdate {
+                node: key,
+                new_level_from: remaining_loading,
+                only_decreased: false,
+            });
         }
         if ticket.get_type() == TicketType::FORCED {
             self.update_forced_chunks();
@@ -262,7 +320,8 @@ impl TicketStorage {
     }
 
     fn update_forced_chunks(&mut self) {
-        self.chunks_with_forced_tickets = self.get_all_chunks_with_ticket_that(|t| t.get_type() == TicketType::FORCED);
+        self.chunks_with_forced_tickets =
+            self.get_all_chunks_with_ticket_that(|t| t.get_type() == TicketType::FORCED);
     }
 
     /// `purgeStaleTickets(chunkMap)`: `chunk_can_expire(chunkPos)` = `updatingChunk == null || isReadyForSaving()`.
@@ -281,7 +340,11 @@ impl TicketStorage {
         self.set_dirty();
     }
 
-    fn can_ticket_expire(chunk_can_expire: &dyn Fn(i64) -> bool, ticket: &Ticket, chunk_pos: i64) -> bool {
+    fn can_ticket_expire(
+        chunk_can_expire: &dyn Fn(i64) -> bool,
+        ticket: &Ticket,
+        chunk_pos: i64,
+    ) -> bool {
         if !ticket.get_type().has_timeout() {
             false
         } else if ticket.get_type().can_expire_if_unloaded() {
@@ -297,7 +360,11 @@ impl TicketStorage {
     }
 
     /// `removeTicketIf(predicate, removedTickets)`; `move_to_deactivated` = `removedTickets == this.deactivatedTickets`.
-    fn remove_ticket_if(&mut self, mut predicate: impl FnMut(&mut Ticket, i64) -> bool, move_to_deactivated: bool) {
+    fn remove_ticket_if(
+        &mut self,
+        mut predicate: impl FnMut(&mut Ticket, i64) -> bool,
+        move_to_deactivated: bool,
+    ) {
         let mut removed_forced = false;
         let mut removed_for_deactivated: Vec<(i64, Ticket)> = Vec::new();
         let mut loading = Vec::new();
@@ -329,10 +396,18 @@ impl TicketStorage {
             *tickets = kept;
             if removed_loading || removed_simulation {
                 if removed_loading {
-                    loading.push(ChunkUpdate { node: chunk_pos, new_level_from: Self::ticket_level_at(tickets, false), only_decreased: false });
+                    loading.push(ChunkUpdate {
+                        node: chunk_pos,
+                        new_level_from: Self::ticket_level_at(tickets, false),
+                        only_decreased: false,
+                    });
                 }
                 if removed_simulation {
-                    simulation.push(ChunkUpdate { node: chunk_pos, new_level_from: Self::ticket_level_at(tickets, true), only_decreased: false });
+                    simulation.push(ChunkUpdate {
+                        node: chunk_pos,
+                        new_level_from: Self::ticket_level_at(tickets, true),
+                        only_decreased: false,
+                    });
                 }
                 dirty = true;
                 return tickets.is_empty();
@@ -342,7 +417,9 @@ impl TicketStorage {
         self.loading_updates.extend(loading);
         self.simulation_updates.extend(simulation);
         for (pos, ticket) in removed_for_deactivated {
-            self.deactivated_tickets.get_or_insert_with(pos, || Vec::with_capacity(4)).push(ticket);
+            self.deactivated_tickets
+                .get_or_insert_with(pos, || Vec::with_capacity(4))
+                .push(ticket);
         }
         if dirty {
             self.set_dirty();
@@ -371,7 +448,11 @@ impl TicketStorage {
     /// `updateChunkForced(pos, forced)`: whether the forced state changed.
     pub fn update_chunk_forced(&mut self, chunk_pos: ChunkPos, forced: bool) -> bool {
         let ticket = Ticket::new(TicketType::FORCED, chunk_level::ENTITY_TICKING_LEVEL);
-        if forced { self.add_ticket_at(chunk_pos.pack(), ticket) } else { self.remove_ticket_at(chunk_pos.pack(), &ticket) }
+        if forced {
+            self.add_ticket_at(chunk_pos.pack(), ticket)
+        } else {
+            self.remove_ticket_at(chunk_pos.pack(), &ticket)
+        }
     }
 
     fn get_all_chunks_with_ticket_that(&self, check: impl Fn(&Ticket) -> bool) -> LongOpenHashSet {

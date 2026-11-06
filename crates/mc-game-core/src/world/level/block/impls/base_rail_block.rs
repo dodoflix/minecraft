@@ -95,12 +95,22 @@ pub fn is_straight(block: Block) -> bool {
 
 /// `BaseRailBlock.getShapeProperty()`.
 pub fn shape_property(state: BlockState) -> props::EnumProperty<RailShape> {
-    if is_straight(state.block()) { props::RAIL_SHAPE_STRAIGHT } else { props::RAIL_SHAPE }
+    if is_straight(state.block()) {
+        props::RAIL_SHAPE_STRAIGHT
+    } else {
+        props::RAIL_SHAPE
+    }
 }
 
 /// `RailShape.isSlope()`.
 pub fn is_slope(shape: RailShape) -> bool {
-    matches!(shape, RailShape::AscendingEast | RailShape::AscendingWest | RailShape::AscendingNorth | RailShape::AscendingSouth)
+    matches!(
+        shape,
+        RailShape::AscendingEast
+            | RailShape::AscendingWest
+            | RailShape::AscendingNorth
+            | RailShape::AscendingSouth
+    )
 }
 
 /// `BaseRailBlock.canSurvive`.
@@ -117,13 +127,25 @@ pub fn update_shape(state: BlockState, level: &mut dyn LevelAccessor, pos: Block
 }
 
 /// `BaseRailBlock.getStateForPlacement`.
-pub fn get_state_for_placement(block: Block, level: &dyn BlockGetter, context: &BlockPlaceContext) -> BlockState {
-    let is_water_source = level.get_fluid_state(context.get_clicked_pos()).fluid() == mc_data::fluid::Fluid::WATER;
+pub fn get_state_for_placement(
+    block: Block,
+    level: &dyn BlockGetter,
+    context: &BlockPlaceContext,
+) -> BlockState {
+    let is_water_source =
+        level.get_fluid_state(context.get_clicked_pos()).fluid() == mc_data::fluid::Fluid::WATER;
     let direction = context.get_horizontal_direction();
     let is_east_west = direction == Direction::East || direction == Direction::West;
     let state = block.default_state();
     state
-        .set(shape_property(state), if is_east_west { RailShape::EastWest } else { RailShape::NorthSouth })
+        .set(
+            shape_property(state),
+            if is_east_west {
+                RailShape::EastWest
+            } else {
+                RailShape::NorthSouth
+            },
+        )
         .set(props::WATERLOGGED, is_water_source)
 }
 
@@ -142,14 +164,26 @@ fn should_be_removed(pos: BlockPos, level: &dyn BlockGetter, shape: RailShape) -
 }
 
 /// `BaseRailBlock.updateDir`.
-pub fn update_dir(level: &mut ServerLevel, pos: BlockPos, state: BlockState, first: bool) -> BlockState {
+pub fn update_dir(
+    level: &mut ServerLevel,
+    pos: BlockPos,
+    state: BlockState,
+    first: bool,
+) -> BlockState {
     let current = state.get(shape_property(state));
     let has_signal = signal_getter::has_neighbor_signal(&*level, pos);
-    RailState::new(pos, state).place(level, has_signal, first, current).get_state()
+    RailState::new(pos, state)
+        .place(level, has_signal, first, current)
+        .get_state()
 }
 
 /// `BaseRailBlock.updateState(state, level, pos, movedByPiston)`.
-pub fn update_state_moved(state: BlockState, level: &mut ServerLevel, pos: BlockPos, moved_by_piston: bool) -> BlockState {
+pub fn update_state_moved(
+    state: BlockState,
+    level: &mut ServerLevel,
+    pos: BlockPos,
+    moved_by_piston: bool,
+) -> BlockState {
     let state = update_dir(level, pos, state, true);
     if is_straight(state.block()) {
         level.neighbor_changed_with_state(state, pos, state.block(), None, moved_by_piston);
@@ -158,7 +192,13 @@ pub fn update_state_moved(state: BlockState, level: &mut ServerLevel, pos: Block
 }
 
 /// `BaseRailBlock.onPlace`.
-pub fn on_place(state: BlockState, level: &mut ServerLevel, pos: BlockPos, old_state: BlockState, moved_by_piston: bool) {
+pub fn on_place(
+    state: BlockState,
+    level: &mut ServerLevel,
+    pos: BlockPos,
+    old_state: BlockState,
+    moved_by_piston: bool,
+) {
     if old_state.block() != state.block() {
         update_state_moved(state, level, pos, moved_by_piston);
     }
@@ -185,7 +225,12 @@ pub fn neighbor_changed(
 }
 
 /// `BaseRailBlock.affectNeighborsAfterRemoval`.
-pub fn affect_neighbors_after_removal(state: BlockState, level: &mut ServerLevel, pos: BlockPos, moved_by_piston: bool) {
+pub fn affect_neighbors_after_removal(
+    state: BlockState,
+    level: &mut ServerLevel,
+    pos: BlockPos,
+    moved_by_piston: bool,
+) {
     if !moved_by_piston {
         let block = state.block();
         if is_slope(state.get(shape_property(state))) {

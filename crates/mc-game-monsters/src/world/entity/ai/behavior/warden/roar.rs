@@ -1,16 +1,18 @@
 //! `Roar`.
 
 use super::warden_mut;
+use crate::world::entity::monster::warden::warden_ai::ROAR_DURATION;
+use mc_data::SoundEvent;
+use mc_data::enums::Pose;
 use mc_game_core::entry_condition;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::entity::Entity;
 use mc_game_core::world::entity::ai::behavior::behavior_utils;
 use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase};
 use mc_game_core::world::entity::ai::memory::Unit;
-use mc_game_core::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, ROAR_SOUND_COOLDOWN, ROAR_SOUND_DELAY, ROAR_TARGET, WALK_TARGET};
-use crate::world::entity::monster::warden::warden_ai::ROAR_DURATION;
-use mc_data::SoundEvent;
-use mc_data::enums::Pose;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{
+    ATTACK_TARGET, ROAR_SOUND_COOLDOWN, ROAR_SOUND_DELAY, ROAR_TARGET, WALK_TARGET,
+};
 
 const TICKS_BEFORE_PLAYING_ROAR_SOUND: i64 = 25;
 const ROAR_ANGER_INCREASE: i32 = 20;
@@ -31,9 +33,17 @@ impl Roar {
 
 impl Behavior for Roar {
     fn start(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, _timestamp: i64) {
-        body.brain_mut().set_memory_with_expiry(&ROAR_SOUND_DELAY, Unit, TICKS_BEFORE_PLAYING_ROAR_SOUND);
+        body.brain_mut().set_memory_with_expiry(
+            &ROAR_SOUND_DELAY,
+            Unit,
+            TICKS_BEFORE_PLAYING_ROAR_SOUND,
+        );
         body.brain_mut().erase_memory(&WALK_TARGET);
-        let target = body.brain().get_memory(&ROAR_TARGET).expect("roar target present").0;
+        let target = body
+            .brain()
+            .get_memory(&ROAR_TARGET)
+            .expect("roar target present")
+            .0;
         if let Some(target_entity) = level.get_entity(target) {
             behavior_utils::look_at_entity(body, target_entity);
         }
@@ -41,13 +51,24 @@ impl Behavior for Roar {
         warden_mut(body).increase_anger_at(level, Some(target), ROAR_ANGER_INCREASE, false);
     }
 
-    fn can_still_use(&mut self, _level: &mut ServerLevel, _body: &mut dyn Entity, _timestamp: i64) -> bool {
+    fn can_still_use(
+        &mut self,
+        _level: &mut ServerLevel,
+        _body: &mut dyn Entity,
+        _timestamp: i64,
+    ) -> bool {
         true
     }
 
     fn tick(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, _timestamp: i64) {
-        if !body.brain().has_memory_value(ROAR_SOUND_DELAY) && !body.brain().has_memory_value(ROAR_SOUND_COOLDOWN) {
-            body.brain_mut().set_memory_with_expiry(&ROAR_SOUND_COOLDOWN, Unit, i64::from(ROAR_DURATION) - TICKS_BEFORE_PLAYING_ROAR_SOUND);
+        if !body.brain().has_memory_value(ROAR_SOUND_DELAY)
+            && !body.brain().has_memory_value(ROAR_SOUND_COOLDOWN)
+        {
+            body.brain_mut().set_memory_with_expiry(
+                &ROAR_SOUND_COOLDOWN,
+                Unit,
+                i64::from(ROAR_DURATION) - TICKS_BEFORE_PLAYING_ROAR_SOUND,
+            );
             body.play_sound(level, SoundEvent::ENTITY_WARDEN_ROAR, 3.0, 1.0);
         }
     }

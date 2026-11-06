@@ -3,8 +3,8 @@
 //! Also hosts `EnchantingTableBlock.BOOKSHELF_OFFSETS` / `isValidBookShelf` (the power providers around the table).
 
 use super::{
-    AbstractContainerMenu, ContainerKey, ContainerLevelAccess, DataSlot, MenuBase, MenuPlayer, MenuSimpleContainer, Slot, SlotBehavior, SlotEnv,
-    finish_quick_move,
+    AbstractContainerMenu, ContainerKey, ContainerLevelAccess, DataSlot, MenuBase, MenuPlayer,
+    MenuSimpleContainer, Slot, SlotBehavior, SlotEnv, finish_quick_move,
 };
 use crate::registry::RegistryAccess;
 use crate::registry::keys::ENCHANTMENT as ENCHANTMENT_REGISTRY;
@@ -28,13 +28,19 @@ use std::sync::LazyLock;
 
 /// `EnchantingTableBlock.BOOKSHELF_OFFSETS`: `betweenClosedStream(-2, 0, -2, 2, 1, 2)` restricted to the outer ring.
 pub static BOOKSHELF_OFFSETS: LazyLock<Vec<BlockPos>> = LazyLock::new(|| {
-    BlockPos::between_closed_xyz(-2, 0, -2, 2, 1, 2).filter(|p| p.x().abs() == 2 || p.z().abs() == 2).collect()
+    BlockPos::between_closed_xyz(-2, 0, -2, 2, 1, 2)
+        .filter(|p| p.x().abs() == 2 || p.z().abs() == 2)
+        .collect()
 });
 
 /// `EnchantingTableBlock.isValidBookShelf(level, pos, offset)`.
 pub fn is_valid_book_shelf(level: &dyn BlockGetter, pos: BlockPos, offset: BlockPos) -> bool {
-    level.get_block_state(pos.offset(offset.x(), offset.y(), offset.z())).is_tag("minecraft:enchantment_power_provider")
-        && level.get_block_state(pos.offset(offset.x() / 2, offset.y(), offset.z() / 2)).is_tag("minecraft:enchantment_power_transmitter")
+    level
+        .get_block_state(pos.offset(offset.x(), offset.y(), offset.z()))
+        .is_tag("minecraft:enchantment_power_provider")
+        && level
+            .get_block_state(pos.offset(offset.x() / 2, offset.y(), offset.z() / 2))
+            .is_tag("minecraft:enchantment_power_transmitter")
 }
 
 /// `ItemStack.isEnchantable()`: has `enchantable` and an empty `enchantments` component.
@@ -72,12 +78,28 @@ pub struct EnchantmentMenu {
 
 impl EnchantmentMenu {
     /// `EnchantmentMenu(containerId, inventory, access)`.
-    pub fn new(container_id: i32, player: &mut dyn MenuPlayer, access: ContainerLevelAccess) -> Self {
+    pub fn new(
+        container_id: i32,
+        player: &mut dyn MenuPlayer,
+        access: ContainerLevelAccess,
+    ) -> Self {
         let mut base = MenuBase::new(Some(MenuType::ENCHANTMENT), container_id);
         let local = base.add_local(Box::new(MenuSimpleContainer::new(2)));
         debug_assert_eq!(local, ENCHANT_LOCAL);
-        base.add_slot(Slot::with_behavior(ContainerKey::Local(ENCHANT_LOCAL), 0, 15, 47, Box::new(EnchantItemSlot)));
-        base.add_slot(Slot::with_behavior(ContainerKey::Local(ENCHANT_LOCAL), 1, 35, 47, Box::new(LapisSlot)));
+        base.add_slot(Slot::with_behavior(
+            ContainerKey::Local(ENCHANT_LOCAL),
+            0,
+            15,
+            47,
+            Box::new(EnchantItemSlot),
+        ));
+        base.add_slot(Slot::with_behavior(
+            ContainerKey::Local(ENCHANT_LOCAL),
+            1,
+            35,
+            47,
+            Box::new(LapisSlot),
+        ));
         base.add_standard_inventory_slots(&ContainerKey::PlayerInventory, 8, 84);
         let costs = Rc::new(RefCell::new(vec![0; 3]));
         let enchant_clue = Rc::new(RefCell::new(vec![-1; 3]));
@@ -93,7 +115,15 @@ impl EnchantmentMenu {
         for i in 0..3 {
             base.add_data_slot(DataSlot::shared(level_clue.clone(), i));
         }
-        Self { base, access, random: LegacyRandomSource::new(0), enchantment_seed, costs, enchant_clue, level_clue }
+        Self {
+            base,
+            access,
+            random: LegacyRandomSource::new(0),
+            enchantment_seed,
+            costs,
+            enchant_clue,
+            level_clue,
+        }
     }
 
     fn seed(&self) -> i32 {
@@ -101,13 +131,30 @@ impl EnchantmentMenu {
     }
 
     /// `getEnchantmentList(access, itemStack, slot, enchantmentCost)`.
-    fn get_enchantment_list(&mut self, registries: &RegistryAccess, item: &ItemStack, slot: i32, enchantment_cost: i32) -> Vec<EnchantmentInstance> {
-        self.random.set_seed(i64::from(self.seed().wrapping_add(slot)));
-        let Some(registry) = registries.registry(ENCHANTMENT_REGISTRY) else { return Vec::new() };
+    fn get_enchantment_list(
+        &mut self,
+        registries: &RegistryAccess,
+        item: &ItemStack,
+        slot: i32,
+        enchantment_cost: i32,
+    ) -> Vec<EnchantmentInstance> {
+        self.random
+            .set_seed(i64::from(self.seed().wrapping_add(slot)));
+        let Some(registry) = registries.registry(ENCHANTMENT_REGISTRY) else {
+            return Vec::new();
+        };
         let tag = enchantment_tags::id(enchantment_tags::IN_ENCHANTING_TABLE);
-        let Some(ids) = registry.tag(&tag) else { return Vec::new() };
+        let Some(ids) = registry.tag(&tag) else {
+            return Vec::new();
+        };
         let source: Vec<_> = ids.iter().filter_map(|id| registry.name_of(*id)).collect();
-        let mut list = select_enchantment(&mut self.random, item, enchantment_cost, registries, &source);
+        let mut list = select_enchantment(
+            &mut self.random,
+            item,
+            enchantment_cost,
+            registries,
+            &source,
+        );
         if item.is(Item::BOOK) && list.len() > 1 {
             let at = self.random.next_int_bounded(list.len() as i32) as usize;
             list.remove(at);
@@ -157,7 +204,9 @@ impl AbstractContainerMenu for EnchantmentMenu {
         let item = self.base.locals[ENCHANT_LOCAL].get_item(0).clone();
         if !item.is_empty() && is_enchantable(&item) {
             let Some(pos) = self.access.pos() else { return };
-            let Some(level) = player.level_ref() else { return };
+            let Some(level) = player.level_ref() else {
+                return;
+            };
             let registries = level.registries.clone();
             let mut bookcases = 0;
             for offset in BOOKSHELF_OFFSETS.iter() {
@@ -180,8 +229,12 @@ impl AbstractContainerMenu for EnchantmentMenu {
                 if cost > 0 {
                     let list = self.get_enchantment_list(&registries, &item, i as i32, cost);
                     if !list.is_empty() {
-                        let ench = list[self.random.next_int_bounded(list.len() as i32) as usize].clone();
-                        let id = registries.registry(ENCHANTMENT_REGISTRY).and_then(|r| r.id_of(&ench.enchantment)).map_or(-1, |id| id as i32);
+                        let ench =
+                            list[self.random.next_int_bounded(list.len() as i32) as usize].clone();
+                        let id = registries
+                            .registry(ENCHANTMENT_REGISTRY)
+                            .and_then(|r| r.id_of(&ench.enchantment))
+                            .map_or(-1, |id| id as i32);
                         self.enchant_clue.borrow_mut()[i] = id;
                         self.level_clue.borrow_mut()[i] = ench.level;
                     }
@@ -208,32 +261,47 @@ impl AbstractContainerMenu for EnchantmentMenu {
         }
         let cost = self.costs.borrow()[button];
         let level = player.experience_level();
-        if cost <= 0 || item.is_empty() || ((level < enchantment_cost || level < cost) && !infinite) {
+        if cost <= 0 || item.is_empty() || ((level < enchantment_cost || level < cost) && !infinite)
+        {
             return false;
         }
-        let Some(pos) = self.access.pos() else { return true };
+        let Some(pos) = self.access.pos() else {
+            return true;
+        };
         let registries = player.registries();
         let new_enchantment = self.get_enchantment_list(&registries, &item, button_id, cost);
         if !new_enchantment.is_empty() {
             player.on_enchantment_performed(&item, enchantment_cost);
             let mut enchantment_item = item.clone();
             if item.is(Item::BOOK) {
-                enchantment_item = ItemStack::with_patch(Item::ENCHANTED_BOOK, item.count(), &item.get_components_patch());
+                enchantment_item = ItemStack::with_patch(
+                    Item::ENCHANTED_BOOK,
+                    item.count(),
+                    &item.get_components_patch(),
+                );
                 self.base.locals[ENCHANT_LOCAL].set_item(0, enchantment_item);
                 // `setItem` limits the stack to the book's max stack size (1): the live stack is what gets enchanted
                 enchantment_item = self.base.locals[ENCHANT_LOCAL].get_item(0).clone();
                 self.flush_container_events(player);
             }
             for enchantment in &new_enchantment {
-                enchant(&mut enchantment_item, &enchantment.enchantment, enchantment.level);
+                enchant(
+                    &mut enchantment_item,
+                    &enchantment.enchantment,
+                    enchantment.level,
+                );
             }
             // `enchantmentItem` is the live stack of slot 0 (the original stack, or the book that replaced it)
-            *self.base.locals[ENCHANT_LOCAL].get_item_mut(0).expect("slot 0") = enchantment_item.clone();
+            *self.base.locals[ENCHANT_LOCAL]
+                .get_item_mut(0)
+                .expect("slot 0") = enchantment_item.clone();
             let mut currency = currency;
             if !infinite {
                 currency.shrink(enchantment_cost);
             }
-            *self.base.locals[ENCHANT_LOCAL].get_item_mut(1).expect("slot 1") = currency.clone();
+            *self.base.locals[ENCHANT_LOCAL]
+                .get_item_mut(1)
+                .expect("slot 1") = currency.clone();
             if currency.is_empty() {
                 self.base.locals[ENCHANT_LOCAL].set_item(1, ItemStack::empty());
                 self.flush_container_events(player);
@@ -245,7 +313,14 @@ impl AbstractContainerMenu for EnchantmentMenu {
             self.slots_changed(player, &ContainerKey::Local(ENCHANT_LOCAL));
             if let Some(level) = player.level() {
                 let pitch = level.random().next_float() * 0.1 + 0.9;
-                level.play_sound(None, pos, SoundEvent::BLOCK_ENCHANTMENT_TABLE_USE, SoundSource::Blocks, 1.0, pitch);
+                level.play_sound(
+                    None,
+                    pos,
+                    SoundEvent::BLOCK_ENCHANTMENT_TABLE_USE,
+                    SoundSource::Blocks,
+                    1.0,
+                    pitch,
+                );
             }
         }
         true
@@ -263,10 +338,15 @@ impl AbstractContainerMenu for EnchantmentMenu {
     }
 
     fn quick_move_stack(&mut self, player: &mut dyn MenuPlayer, slot_index: usize) -> ItemStack {
-        if !self.base.with_slot(player, slot_index, |s, e| s.has_item(e)) {
+        if !self
+            .base
+            .with_slot(player, slot_index, |s, e| s.has_item(e))
+        {
             return ItemStack::empty();
         }
-        let mut stack = self.base.with_slot(player, slot_index, |s, e| s.get_item(e));
+        let mut stack = self
+            .base
+            .with_slot(player, slot_index, |s, e| s.get_item(e));
         let clicked = stack.copy();
         if slot_index == 0 || slot_index == 1 {
             if !self.move_item_stack_to(player, &mut stack, 2, 38, true) {
@@ -277,13 +357,16 @@ impl AbstractContainerMenu for EnchantmentMenu {
                 return ItemStack::empty();
             }
         } else {
-            let (has, may_place) = self.base.with_slot(player, 0, |s, e| (s.has_item(e), s.may_place(e, &stack)));
+            let (has, may_place) = self
+                .base
+                .with_slot(player, 0, |s, e| (s.has_item(e), s.may_place(e, &stack)));
             if has || !may_place {
                 return ItemStack::empty();
             }
             let single_item = stack.copy_with_count(1);
             stack.shrink(1);
-            self.base.with_slot(player, 0, |s, e| s.set_by_player(e, single_item));
+            self.base
+                .with_slot(player, 0, |s, e| s.set_by_player(e, single_item));
         }
         finish_quick_move(self, player, slot_index, stack, &clicked)
     }

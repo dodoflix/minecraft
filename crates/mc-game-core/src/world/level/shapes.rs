@@ -4,8 +4,10 @@
 //! Vanilla compares shapes by identity in several places (`shape == Shapes.block()`); the cache therefore maps
 //! every id whose geometry is the full cube to the interned `Shapes.block()` and id 0 to `Shapes.empty()`.
 
-use mc_core::phys::shapes::{BitSetDiscreteVoxelShape, BooleanOp, Coords, DiscreteVoxelShape, Shapes, VoxelShape};
 use mc_core::direction::Direction;
+use mc_core::phys::shapes::{
+    BitSetDiscreteVoxelShape, BooleanOp, Coords, DiscreteVoxelShape, Shapes, VoxelShape,
+};
 use mc_data::shape::{ShapeData, ShapeId, ShapeKind, shape_count};
 use std::sync::{Arc, OnceLock};
 
@@ -14,7 +16,11 @@ fn build(data: &ShapeData) -> VoxelShape {
     let words: Vec<u64> = data
         .bits
         .chunks(8)
-        .map(|c| c.iter().enumerate().fold(0u64, |acc, (i, b)| acc | u64::from(*b) << (8 * i)))
+        .map(|c| {
+            c.iter()
+                .enumerate()
+                .fold(0u64, |acc, (i, b)| acc | u64::from(*b) << (8 * i))
+        })
         .collect();
     let discrete = DiscreteVoxelShape::BitSet(BitSetDiscreteVoxelShape::from_raw(
         xs,
@@ -48,7 +54,11 @@ pub fn voxel_shape(id: ShapeId) -> VoxelShape {
                 return Shapes::empty();
             }
             let shape = build(id.data());
-            if is_shape_full_block(&shape) { Shapes::block() } else { shape }
+            if is_shape_full_block(&shape) {
+                Shapes::block()
+            } else {
+                shape
+            }
         })
         .clone()
 }
@@ -65,7 +75,14 @@ pub fn is_face_full(shape: &VoxelShape, direction: Direction) -> bool {
 
 /// `Block.box(minX, minY, minZ, maxX, maxY, maxZ)` (pixel units).
 pub fn box_(min_x: f64, min_y: f64, min_z: f64, max_x: f64, max_y: f64, max_z: f64) -> VoxelShape {
-    Shapes::box_(min_x / 16.0, min_y / 16.0, min_z / 16.0, max_x / 16.0, max_y / 16.0, max_z / 16.0)
+    Shapes::box_(
+        min_x / 16.0,
+        min_y / 16.0,
+        min_z / 16.0,
+        max_x / 16.0,
+        max_y / 16.0,
+        max_z / 16.0,
+    )
 }
 
 /// `Block.column(sizeXZ, minY, maxY)`.
@@ -76,7 +93,14 @@ pub fn column(size_xz: f64, min_y: f64, max_y: f64) -> VoxelShape {
 /// `Block.column(sizeX, sizeZ, minY, maxY)`.
 pub fn column_xz(size_x: f64, size_z: f64, min_y: f64, max_y: f64) -> VoxelShape {
     let (half_x, half_z) = (size_x / 2.0, size_z / 2.0);
-    box_(8.0 - half_x, min_y, 8.0 - half_z, 8.0 + half_x, max_y, 8.0 + half_z)
+    box_(
+        8.0 - half_x,
+        min_y,
+        8.0 - half_z,
+        8.0 + half_x,
+        max_y,
+        8.0 + half_z,
+    )
 }
 
 /// `Block.cube(size)`.

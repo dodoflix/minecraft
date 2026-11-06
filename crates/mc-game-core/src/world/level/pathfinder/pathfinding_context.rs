@@ -27,8 +27,16 @@ pub struct PathfindingContext<'a> {
 
 impl<'a> PathfindingContext<'a> {
     /// `new PathfindingContext(level, mob)`; `cache` is `serverLevel.getPathTypeCache()`.
-    pub fn new(level: &'a dyn PathLevel, cache: Option<&'a Mutex<PathTypeCache>>, mob: &dyn PathfindingMob) -> Self {
-        PathfindingContext { level, cache, mob_position: mob.block_position() }
+    pub fn new(
+        level: &'a dyn PathLevel,
+        cache: Option<&'a Mutex<PathTypeCache>>,
+        mob: &dyn PathfindingMob,
+    ) -> Self {
+        PathfindingContext {
+            level,
+            cache,
+            mob_position: mob.block_position(),
+        }
     }
 
     /// `getPathTypeFromState(x, y, z)`.

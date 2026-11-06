@@ -5,7 +5,7 @@
 //! (`Vec2` has no vanilla `toString` override, so there is nothing to compare.)
 
 use mc_core::math::java::{java_double_to_string, java_float_to_string};
-use mc_core::phys::{Vec3, AABB};
+use mc_core::phys::{AABB, Vec3};
 
 const FIXTURE: &str = include_str!("../fixtures/java_format/java_format.txt");
 
@@ -23,22 +23,34 @@ fn java_format_matches_oracle() {
             "d" => {
                 nd += 1;
                 let h = it.next().unwrap();
-                (java_double_to_string(dbl(h)), it.next().unwrap().to_string())
+                (
+                    java_double_to_string(dbl(h)),
+                    it.next().unwrap().to_string(),
+                )
             }
             "f" => {
                 nf += 1;
                 let h = it.next().unwrap();
-                (java_float_to_string(f32::from_bits(u32::from_str_radix(h, 16).unwrap())), it.next().unwrap().to_string())
+                (
+                    java_float_to_string(f32::from_bits(u32::from_str_radix(h, 16).unwrap())),
+                    it.next().unwrap().to_string(),
+                )
             }
             "v3" => {
                 nv += 1;
                 let [x, y, z] = [(); 3].map(|_| dbl(it.next().unwrap()));
-                (Vec3::new(x, y, z).to_string(), it.collect::<Vec<_>>().join(" "))
+                (
+                    Vec3::new(x, y, z).to_string(),
+                    it.collect::<Vec<_>>().join(" "),
+                )
             }
             "aabb" => {
                 nb += 1;
                 let [a, b, c, d, e, f] = [(); 6].map(|_| dbl(it.next().unwrap()));
-                (AABB::new(a, b, c, d, e, f).to_string(), it.collect::<Vec<_>>().join(" "))
+                (
+                    AABB::new(a, b, c, d, e, f).to_string(),
+                    it.collect::<Vec<_>>().join(" "),
+                )
             }
             k => panic!("unknown fixture kind {k}"),
         };
@@ -46,6 +58,14 @@ fn java_format_matches_oracle() {
             bad.push(format!("{line} | got {got}"));
         }
     }
-    assert!(nd > 20000 && nf > 20000 && nv == 5 && nb == 4, "fixture counts {nd} {nf} {nv} {nb}");
-    assert!(bad.is_empty(), "{} mismatches, first: {:#?}", bad.len(), &bad[..bad.len().min(15)]);
+    assert!(
+        nd > 20000 && nf > 20000 && nv == 5 && nb == 4,
+        "fixture counts {nd} {nf} {nv} {nb}"
+    );
+    assert!(
+        bad.is_empty(),
+        "{} mismatches, first: {:#?}",
+        bad.len(),
+        &bad[..bad.len().min(15)]
+    );
 }

@@ -9,6 +9,9 @@ mod game_rule;
 mod game_rule_map;
 mod game_rules;
 
-pub use game_rule::{AnyGameRule, GameRule, GameRuleCategory, GameRuleType, GameRuleTypeVisitor, GameRuleValue, GameRuleValueType};
+pub use game_rule::{
+    AnyGameRule, GameRule, GameRuleCategory, GameRuleType, GameRuleTypeVisitor, GameRuleValue,
+    GameRuleValueType,
+};
 pub use game_rule_map::{GameRuleMap, GameRuleMapBuilder};
 pub use game_rules::{GameRuleListener, GameRules};

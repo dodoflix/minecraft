@@ -1,5 +1,5 @@
 //! `handshake` state (serverbound only).
-use crate::{packet_enum, Decode, Encode, Packet};
+use crate::{Decode, Encode, Packet, packet_enum};
 
 /// `ClientIntent` (ids 1..=3 on the wire).
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Encode, Decode)]

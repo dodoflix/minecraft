@@ -12,8 +12,16 @@ pub struct BlockInput {
 }
 
 impl BlockInput {
-    pub fn new(state: BlockState, properties: Vec<PropertyValue>, tag: Option<CompoundTag>) -> Self {
-        Self { state, properties, tag }
+    pub fn new(
+        state: BlockState,
+        properties: Vec<PropertyValue>,
+        tag: Option<CompoundTag>,
+    ) -> Self {
+        Self {
+            state,
+            properties,
+            tag,
+        }
     }
 
     pub fn get_state(&self) -> BlockState {
@@ -31,7 +39,9 @@ impl BlockInput {
     /// The state part of `test(BlockInWorld)`: same block and every defined property equal.
     pub fn matches_state(&self, state: BlockState) -> bool {
         state.block() == self.state.block()
-            && self.properties.iter().all(|(property, _)| state.get_property_str(property.name) == self.state.get_property_str(property.name))
+            && self.properties.iter().all(|(property, _)| {
+                state.get_property_str(property.name) == self.state.get_property_str(property.name)
+            })
     }
 
     /// `overwriteWithDefinedProperties(state)`: copies the explicitly written properties onto `state`.
@@ -49,12 +59,19 @@ impl BlockInput {
     }
 
     /// `place(level, pos, flags)`: `setBlock` with the defined properties applied, then the block entity NBT.
-    pub fn place(&self, level: &mut crate::server::level::ServerLevel, pos: mc_core::pos::BlockPos, flags: u32) -> bool {
+    pub fn place(
+        &self,
+        level: &mut crate::server::level::ServerLevel,
+        pos: mc_core::pos::BlockPos,
+        flags: u32,
+    ) -> bool {
         use crate::world::level::LevelAccessor;
         let mut state = if flags & 16 != 0 {
             self.state
         } else {
-            crate::world::level::block::helpers::update_from_neighbour_shapes(self.state, level, pos)
+            crate::world::level::block::helpers::update_from_neighbour_shapes(
+                self.state, level, pos,
+            )
         };
         if state.is_air() {
             state = self.state;

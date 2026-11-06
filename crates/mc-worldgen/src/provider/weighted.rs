@@ -31,7 +31,10 @@ impl<E> Weighted<E> {
             }
             Ok(weight)
         })?;
-        Ok(Weighted { value: data, weight })
+        Ok(Weighted {
+            value: data,
+            weight,
+        })
     }
 }
 
@@ -48,7 +51,10 @@ impl<E> WeightedList<E> {
         let total: i64 = items.iter().map(|item| i64::from(item.weight)).sum();
         let total_weight = i32::try_from(total)
             .map_err(|_| LoadError::new("Sum of weights must be <= 2147483647"))?;
-        Ok(WeightedList { total_weight, items })
+        Ok(WeightedList {
+            total_weight,
+            items,
+        })
     }
 
     pub fn is_empty(&self) -> bool {

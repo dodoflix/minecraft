@@ -20,7 +20,11 @@ impl SleepStatus {
         self.sleeping_players >= self.sleepers_needed(sleep_percentage_needed)
     }
 
-    pub fn are_enough_deep_sleeping(&self, sleep_percentage_needed: i32, players: &[SleepInfo]) -> bool {
+    pub fn are_enough_deep_sleeping(
+        &self,
+        sleep_percentage_needed: i32,
+        players: &[SleepInfo],
+    ) -> bool {
         let deep_sleepers = players.iter().filter(|p| p.sleeping_long_enough).count() as i32;
         deep_sleepers >= self.sleepers_needed(sleep_percentage_needed)
     }
@@ -52,7 +56,8 @@ impl SleepStatus {
                 }
             }
         }
-        (old_sleeping > 0 || self.sleeping_players > 0) && (old_active != self.active_players || old_sleeping != self.sleeping_players)
+        (old_sleeping > 0 || self.sleeping_players > 0)
+            && (old_active != self.active_players || old_sleeping != self.sleeping_players)
     }
 }
 
@@ -61,7 +66,11 @@ mod tests {
     use super::*;
 
     fn p(spectator: bool, sleeping: bool) -> SleepInfo {
-        SleepInfo { spectator, sleeping, sleeping_long_enough: sleeping }
+        SleepInfo {
+            spectator,
+            sleeping,
+            sleeping_long_enough: sleeping,
+        }
     }
 
     #[test]
@@ -78,7 +87,10 @@ mod tests {
     #[test]
     fn spectators_do_not_count_and_update_reports_changes() {
         let mut s = SleepStatus::default();
-        assert!(!s.update(&[p(false, false), p(true, true)]), "nobody sleeping: no announcement");
+        assert!(
+            !s.update(&[p(false, false), p(true, true)]),
+            "nobody sleeping: no announcement"
+        );
         assert!(s.update(&[p(false, true), p(true, true)]));
         assert!(!s.update(&[p(false, true), p(true, true)]), "unchanged");
         assert_eq!(s.amount_sleeping(), 1);

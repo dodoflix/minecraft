@@ -1,16 +1,18 @@
 //! `ChiseledBookShelfBlockEntity` (`ListBackedContainer` of 6 books, one per slot).
 
-use mc_game_core::block_entity_base;
-use mc_game_core::world::block_entity::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration};
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::container::{Container, helper};
-use mc_game_core::world::item::ItemStack;
-use mc_game_core::world::level::block::BlockStateExt;
-use mc_game_core::world::level::gameevent::GameEventContext;
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
 use mc_data::block::BlockState;
 use mc_data::{BlockEntityType, GameEvent, Item, props};
+use mc_game_core::block_entity_base;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::block_entity::{
+    BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration,
+};
+use mc_game_core::world::container::{Container, helper};
+use mc_game_core::world::item::ItemStack;
+use mc_game_core::world::level::block::BlockStateExt;
+use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_nbt::CompoundTag;
 use mc_protocol::components::{CONTAINER, ItemContainerContents, map::DataComponentMapBuilder};
 
@@ -18,7 +20,14 @@ pub const MAX_BOOKS_IN_STORAGE: usize = 6;
 
 /// `ChiseledBookShelfBlock.SLOT_OCCUPIED_PROPERTIES`.
 pub fn slot_occupied_property(slot: usize) -> mc_data::props::BooleanProperty {
-    [props::SLOT_0_OCCUPIED, props::SLOT_1_OCCUPIED, props::SLOT_2_OCCUPIED, props::SLOT_3_OCCUPIED, props::SLOT_4_OCCUPIED, props::SLOT_5_OCCUPIED][slot]
+    [
+        props::SLOT_0_OCCUPIED,
+        props::SLOT_1_OCCUPIED,
+        props::SLOT_2_OCCUPIED,
+        props::SLOT_3_OCCUPIED,
+        props::SLOT_4_OCCUPIED,
+        props::SLOT_5_OCCUPIED,
+    ][slot]
 }
 
 /// `itemStack.is(ItemTags.BOOKSHELF_BOOKS)`.
@@ -36,7 +45,12 @@ pub struct ChiseledBookShelfBlockEntity {
 
 impl ChiseledBookShelfBlockEntity {
     pub fn new(pos: BlockPos, state: BlockState) -> Self {
-        Self { base: BlockEntityData::new(BlockEntityType::CHISELED_BOOKSHELF, pos, state), items: vec![ItemStack::empty(); MAX_BOOKS_IN_STORAGE], last_interacted_slot: -1, pending_slot: None }
+        Self {
+            base: BlockEntityData::new(BlockEntityType::CHISELED_BOOKSHELF, pos, state),
+            items: vec![ItemStack::empty(); MAX_BOOKS_IN_STORAGE],
+            last_interacted_slot: -1,
+            pending_slot: None,
+        }
     }
 
     pub fn get_last_interacted_slot(&self) -> i32 {
@@ -55,9 +69,17 @@ impl ChiseledBookShelfBlockEntity {
             for slot in 0..MAX_BOOKS_IN_STORAGE {
                 updated = updated.set(slot_occupied_property(slot), !self.items[slot].is_empty());
             }
-            mc_game_core::world::level::LevelAccessor::set_block_and_update(level, self.base.pos, updated);
+            mc_game_core::world::level::LevelAccessor::set_block_and_update(
+                level,
+                self.base.pos,
+                updated,
+            );
             self.base.block_state = updated;
-            level.game_event_at_block(GameEvent::BLOCK_CHANGE, self.base.pos, &GameEventContext::of_state(Some(updated)));
+            level.game_event_at_block(
+                GameEvent::BLOCK_CHANGE,
+                self.base.pos,
+                &GameEventContext::of_state(Some(updated)),
+            );
         } else {
             log::error!("Expected slot 0-5, got {interacted_slot}");
         }
@@ -65,7 +87,11 @@ impl ChiseledBookShelfBlockEntity {
 
     /// `removeItem(slot, count)` with the level at hand.
     pub fn remove_item_with_level(&mut self, level: &mut ServerLevel, slot: usize) -> ItemStack {
-        let retrieved = self.items.get_mut(slot).map(std::mem::take).unwrap_or_default();
+        let retrieved = self
+            .items
+            .get_mut(slot)
+            .map(std::mem::take)
+            .unwrap_or_default();
         if !retrieved.is_empty() {
             self.update_state(level, slot);
         }
@@ -97,13 +123,19 @@ impl Container for ChiseledBookShelfBlockEntity {
         self.items.iter().all(|s| s.is_empty())
     }
     fn get_item(&self, slot: usize) -> &ItemStack {
-        self.items.get(slot).unwrap_or_else(|| mc_game_core::world::container::empty_stack())
+        self.items
+            .get(slot)
+            .unwrap_or_else(|| mc_game_core::world::container::empty_stack())
     }
     fn get_item_mut(&mut self, slot: usize) -> Option<&mut ItemStack> {
         self.items.get_mut(slot)
     }
     fn remove_item(&mut self, slot: usize, _count: i32) -> ItemStack {
-        let retrieved = self.items.get_mut(slot).map(std::mem::take).unwrap_or_default();
+        let retrieved = self
+            .items
+            .get_mut(slot)
+            .map(std::mem::take)
+            .unwrap_or_default();
         if !retrieved.is_empty() {
             self.pending_slot = Some(slot);
         }
@@ -135,11 +167,15 @@ impl Container for ChiseledBookShelfBlockEntity {
         1
     }
     fn can_place_item(&self, slot: usize, stack: &ItemStack) -> bool {
-        Self::accepts_item_type(stack) && (self.get_item(slot).is_empty() || self.get_item(slot).count() < self.get_max_stack_size_for(stack))
+        Self::accepts_item_type(stack)
+            && (self.get_item(slot).is_empty()
+                || self.get_item(slot).count() < self.get_max_stack_size_for(stack))
     }
     fn can_take_item(&self, into: &dyn Container, _slot: usize, stack: &ItemStack) -> bool {
         into.has_any_matching(&|to| {
-            to.is_empty() || (ItemStack::is_same_item_same_components(stack, to) && to.count() + stack.count() <= into.get_max_stack_size_for(to))
+            to.is_empty()
+                || (ItemStack::is_same_item_same_components(stack, to)
+                    && to.count() + stack.count() <= into.get_max_stack_size_for(to))
         })
     }
 }
@@ -168,7 +204,10 @@ impl BlockEntity for ChiseledBookShelfBlockEntity {
     }
 
     fn collect_implicit_components(&self, builder: &mut DataComponentMapBuilder) {
-        *builder = std::mem::take(builder).set(CONTAINER, ItemContainerContents::from_item_stacks(&self.items));
+        *builder = std::mem::take(builder).set(
+            CONTAINER,
+            ItemContainerContents::from_item_stacks(&self.items),
+        );
     }
 
     fn as_container(&self) -> Option<&dyn Container> {
@@ -185,18 +224,29 @@ impl BlockEntity for ChiseledBookShelfBlockEntity {
 
     fn container_accessed(&mut self, level: &mut ServerLevel) {
         if std::mem::take(&mut self.base.changed) {
-            mc_game_core::world::block_entity::set_changed(level, self.base.pos, self.base.block_state);
+            mc_game_core::world::block_entity::set_changed(
+                level,
+                self.base.pos,
+                self.base.block_state,
+            );
         }
         if let Some(slot) = self.pending_slot.take() {
             self.update_state(level, slot);
         }
     }
 
-    fn pre_remove_side_effects(&mut self, level: &mut ServerLevel, pos: BlockPos, _state: BlockState) {
+    fn pre_remove_side_effects(
+        &mut self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        _state: BlockState,
+    ) {
         mc_game_core::world::containers::drop_contents_list(level, pos, &self.items);
     }
 }
 
 #[distributed_slice(BLOCK_ENTITY_TYPES)]
-static CHISELED_BOOKSHELF: BlockEntityRegistration =
-    BlockEntityRegistration { ty: BlockEntityType::CHISELED_BOOKSHELF, create: |pos, state| Box::new(ChiseledBookShelfBlockEntity::new(pos, state)) };
+static CHISELED_BOOKSHELF: BlockEntityRegistration = BlockEntityRegistration {
+    ty: BlockEntityType::CHISELED_BOOKSHELF,
+    create: |pos, state| Box::new(ChiseledBookShelfBlockEntity::new(pos, state)),
+};

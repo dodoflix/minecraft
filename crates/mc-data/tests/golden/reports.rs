@@ -42,7 +42,11 @@ fn blocks_and_states_match_report() {
         // property names + value lists (the report lists properties sorted by name, like StateDefinition)
         let props: Vec<_> = block.properties().collect();
         let rp = b.get("properties").and_then(|p| p.as_object());
-        assert_eq!(props.len(), rp.map_or(0, |p| p.len()), "{name}: property count");
+        assert_eq!(
+            props.len(),
+            rp.map_or(0, |p| p.len()),
+            "{name}: property count"
+        );
         if let Some(rp) = rp {
             // StateDefinition orders properties by name; the report's object order depends on serde_json's
             // preserve_order feature (enabled workspace-wide by other crates), so sort explicitly.
@@ -50,7 +54,12 @@ fn blocks_and_states_match_report() {
             rp.sort_by(|a, b| a.0.cmp(b.0));
             for (def, (rname, rvalues)) in props.iter().zip(rp) {
                 assert_eq!(def.name, rname, "{name}");
-                let rv: Vec<&str> = rvalues.as_array().unwrap().iter().map(|v| v.as_str().unwrap()).collect();
+                let rv: Vec<&str> = rvalues
+                    .as_array()
+                    .unwrap()
+                    .iter()
+                    .map(|v| v.as_str().unwrap())
+                    .collect();
                 assert_eq!(def.values, rv.as_slice(), "{name}.{rname}");
             }
         }
@@ -64,12 +73,19 @@ fn blocks_and_states_match_report() {
             if st["default"].as_bool() == Some(true) {
                 assert_eq!(block.default_state(), state, "{name}: default state");
             }
-            let mut got: Vec<(String, String)> = state.values().map(|(d, i)| (d.name.to_string(), d.values[i].to_string())).collect();
+            let mut got: Vec<(String, String)> = state
+                .values()
+                .map(|(d, i)| (d.name.to_string(), d.values[i].to_string()))
+                .collect();
             got.sort();
             let mut want: Vec<(String, String)> = st
                 .get("properties")
                 .and_then(|p| p.as_object())
-                .map(|p| p.iter().map(|(k, v)| (k.clone(), v.as_str().unwrap().to_string())).collect())
+                .map(|p| {
+                    p.iter()
+                        .map(|(k, v)| (k.clone(), v.as_str().unwrap().to_string()))
+                        .collect()
+                })
                 .unwrap_or_default();
             want.sort();
             assert_eq!(got, want, "{name}: state {id}");
@@ -84,9 +100,17 @@ fn typed_ids() {
     assert_eq!(ids::Block::STONE.name(), "minecraft:stone");
     assert_eq!(ids::Block::by_name("stone"), Some(ids::Block::STONE));
     assert_eq!(ids::Block::AIR.default_state().id(), 0);
-    assert_eq!(ids::Item::by_name("minecraft:diamond_pickaxe").unwrap().name(), "minecraft:diamond_pickaxe");
+    assert_eq!(
+        ids::Item::by_name("minecraft:diamond_pickaxe")
+            .unwrap()
+            .name(),
+        "minecraft:diamond_pickaxe"
+    );
     assert_eq!(ids::EntityType::PIG.id(), 101);
     assert_eq!(ids::EntityType::PLAYER.name(), "minecraft:player");
     assert!(ids::Block::by_name("minecraft:nope").is_none());
-    assert_eq!(ids::Block::STONE.identifier().to_string(), "minecraft:stone");
+    assert_eq!(
+        ids::Block::STONE.identifier().to_string(),
+        "minecraft:stone"
+    );
 }

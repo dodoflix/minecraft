@@ -18,7 +18,12 @@ pub struct TaskQueue {
 
 impl TaskQueue {
     pub fn new(rx: Receiver<TickTask>) -> Self {
-        Self { rx, pending: VecDeque::new(), blocking_count: 0, reentrant_count: 0 }
+        Self {
+            rx,
+            pending: VecDeque::new(),
+            blocking_count: 0,
+            reentrant_count: 0,
+        }
     }
 
     fn refill(&mut self) {
@@ -67,12 +72,20 @@ mod tests {
         let mut q = TaskQueue::new(rx);
         assert!(q.peek().is_none());
         for tick in [1, 2, 3] {
-            tx.send(TickTask { tick, run: Box::new(|_| {}) }).unwrap();
+            tx.send(TickTask {
+                tick,
+                run: Box::new(|_| {}),
+            })
+            .unwrap();
         }
         assert_eq!(q.peek().map(|t| t.tick), Some(1));
         assert_eq!(q.len(), 3);
         assert_eq!(q.pop().map(|t| t.tick), Some(1));
-        tx.send(TickTask { tick: 4, run: Box::new(|_| {}) }).unwrap();
+        tx.send(TickTask {
+            tick: 4,
+            run: Box::new(|_| {}),
+        })
+        .unwrap();
         assert_eq!(q.pop().map(|t| t.tick), Some(2));
         assert_eq!(q.pop().map(|t| t.tick), Some(3));
         assert_eq!(q.pop().map(|t| t.tick), Some(4));

@@ -14,7 +14,11 @@ const RANDOM_POS_ATTEMPTS: i32 = 10;
 pub type PosSupplier<'a> = &'a mut dyn FnMut(&mut dyn Entity, &mut ServerLevel) -> Option<BlockPos>;
 
 /// `generateRandomDirection(random, horizontalDist, verticalDist)`.
-pub fn generate_random_direction(random: &mut dyn RandomSource, horizontal_dist: i32, vertical_dist: i32) -> BlockPos {
+pub fn generate_random_direction(
+    random: &mut dyn RandomSource,
+    horizontal_dist: i32,
+    vertical_dist: i32,
+) -> BlockPos {
     let xt = random.next_int_bounded(2 * horizontal_dist + 1) - horizontal_dist;
     let yt = random.next_int_bounded(2 * vertical_dist + 1) - vertical_dist;
     let zt = random.next_int_bounded(2 * horizontal_dist + 1) - horizontal_dist;
@@ -33,9 +37,15 @@ pub fn generate_random_direction_within_radians(
     z_dir: f64,
     max_xz_radians_from_dir: f64,
 ) -> Option<BlockPos> {
-    let y_radians_center = mth::atan2(z_dir, x_dir) - f64::from((std::f64::consts::PI / 2.0) as f32);
-    let y_radians = y_radians_center + f64::from(2.0f32 * random.next_float() - 1.0f32) * max_xz_radians_from_dir;
-    let dist = mth::lerp_f64(random.next_double().sqrt(), min_horizontal_dist, max_horizontal_dist) * f64::from(mth::SQRT_OF_TWO);
+    let y_radians_center =
+        mth::atan2(z_dir, x_dir) - f64::from((std::f64::consts::PI / 2.0) as f32);
+    let y_radians = y_radians_center
+        + f64::from(2.0f32 * random.next_float() - 1.0f32) * max_xz_radians_from_dir;
+    let dist = mth::lerp_f64(
+        random.next_double().sqrt(),
+        min_horizontal_dist,
+        max_horizontal_dist,
+    ) * f64::from(mth::SQRT_OF_TWO);
     let xt = -dist * y_radians.sin();
     let zt = dist * y_radians.cos();
     if !(xt.abs() > max_horizontal_dist) && !(zt.abs() > max_horizontal_dist) {
@@ -47,7 +57,11 @@ pub fn generate_random_direction_within_radians(
 }
 
 /// `moveUpOutOfSolid(pos, maxY, solidityTester)`.
-pub fn move_up_out_of_solid(pos: BlockPos, max_y: i32, mut solidity_tester: impl FnMut(BlockPos) -> bool) -> BlockPos {
+pub fn move_up_out_of_solid(
+    pos: BlockPos,
+    max_y: i32,
+    mut solidity_tester: impl FnMut(BlockPos) -> bool,
+) -> BlockPos {
     if !solidity_tester(pos) {
         return pos;
     }
@@ -59,8 +73,16 @@ pub fn move_up_out_of_solid(pos: BlockPos, max_y: i32, mut solidity_tester: impl
 }
 
 /// `moveUpToAboveSolid(pos, aboveSolidAmount, maxY, solidityTester)`.
-pub fn move_up_to_above_solid(pos: BlockPos, above_solid_amount: i32, max_y: i32, mut solidity_tester: impl FnMut(BlockPos) -> bool) -> BlockPos {
-    assert!(above_solid_amount >= 0, "aboveSolidAmount was {above_solid_amount}, expected >= 0");
+pub fn move_up_to_above_solid(
+    pos: BlockPos,
+    above_solid_amount: i32,
+    max_y: i32,
+    mut solidity_tester: impl FnMut(BlockPos) -> bool,
+) -> BlockPos {
+    assert!(
+        above_solid_amount >= 0,
+        "aboveSolidAmount was {above_solid_amount}, expected >= 0"
+    );
     if !solidity_tester(pos) {
         return pos;
     }
@@ -80,8 +102,14 @@ pub fn move_up_to_above_solid(pos: BlockPos, above_solid_amount: i32, max_y: i32
 }
 
 /// `generateRandomPos(mob, posSupplier)`: weights with `mob.getWalkTargetValue`.
-pub fn generate_random_pos(mob: &mut dyn Entity, level: &mut ServerLevel, supplier: PosSupplier<'_>) -> Option<Vec3> {
-    generate_random_pos_weighted(mob, level, supplier, &mut |mob, level, pos| f64::from(mob.get_walk_target_value(pos, &*level)))
+pub fn generate_random_pos(
+    mob: &mut dyn Entity,
+    level: &mut ServerLevel,
+    supplier: PosSupplier<'_>,
+) -> Option<Vec3> {
+    generate_random_pos_weighted(mob, level, supplier, &mut |mob, level, pos| {
+        f64::from(mob.get_walk_target_value(pos, &*level))
+    })
 }
 
 /// `generateRandomPos(posSupplier, positionWeightFunction)`.
@@ -106,7 +134,11 @@ pub fn generate_random_pos_weighted(
 }
 
 /// `generateRandomPosTowardDirection(mob, xzDist, random, direction)`.
-pub fn generate_random_pos_toward_direction(mob: &mut dyn Entity, xz_dist: f64, direction: BlockPos) -> BlockPos {
+pub fn generate_random_pos_toward_direction(
+    mob: &mut dyn Entity,
+    xz_dist: f64,
+    direction: BlockPos,
+) -> BlockPos {
     let mut xt = f64::from(direction.x());
     let mut zt = f64::from(direction.z());
     let (mx, mz) = (mob.base().x(), mob.base().z());

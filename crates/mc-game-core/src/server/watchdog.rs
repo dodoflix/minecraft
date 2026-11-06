@@ -31,13 +31,25 @@ pub struct WatchdogInfo {
 pub type SharedWatchdogInfo = Arc<Mutex<WatchdogInfo>>;
 
 /// `new Thread(new ServerWatchdog(server), "Server Watchdog")` (daemon).
-pub fn spawn(shared: Arc<ServerShared>, info: SharedWatchdogInfo, max_tick_time_ms: i64, server_directory: PathBuf) -> std::io::Result<()> {
+pub fn spawn(
+    shared: Arc<ServerShared>,
+    info: SharedWatchdogInfo,
+    max_tick_time_ms: i64,
+    server_directory: PathBuf,
+) -> std::io::Result<()> {
     let max_tick_time_nanos = max_tick_time_ms.wrapping_mul(NANOS_PER_MILLISECOND);
-    std::thread::Builder::new().name("Server Watchdog".to_owned()).spawn(move || run(&shared, &info, max_tick_time_nanos, &server_directory))?;
+    std::thread::Builder::new()
+        .name("Server Watchdog".to_owned())
+        .spawn(move || run(&shared, &info, max_tick_time_nanos, &server_directory))?;
     Ok(())
 }
 
-fn run(shared: &ServerShared, info: &Mutex<WatchdogInfo>, max_tick_time_nanos: i64, server_directory: &std::path::Path) {
+fn run(
+    shared: &ServerShared,
+    info: &Mutex<WatchdogInfo>,
+    max_tick_time_nanos: i64,
+    server_directory: &std::path::Path,
+) {
     while shared.is_running() {
         let next_tick_time_nanos = shared.next_tick_time_nanos();
         let current_time_nanos = get_nanos();
@@ -60,15 +72,22 @@ fn run(shared: &ServerShared, info: &Mutex<WatchdogInfo>, max_tick_time_nanos: i
             }
             // Bootstrap.realStdoutPrintln
             println!("Crash report:\n{}", report.get_friendly_report());
-            let file = server_directory.join("crash-reports").join(format!("crash-{}-server.txt", filename_formatted_date_time()));
+            let file = server_directory.join("crash-reports").join(format!(
+                "crash-{}-server.txt",
+                filename_formatted_date_time()
+            ));
             if report.save_to_file(&file) {
-                log::error!("This crash report has been saved to: {}", std::path::absolute(&file).unwrap_or(file).display());
+                log::error!(
+                    "This crash report has been saved to: {}",
+                    std::path::absolute(&file).unwrap_or(file).display()
+                );
             } else {
                 log::error!("We were unable to save this crash report to disk.");
             }
             exit(shared);
         }
-        let sleep_ms = (next_tick_time_nanos + max_tick_time_nanos - current_time_nanos) / NANOS_PER_MILLISECOND;
+        let sleep_ms = (next_tick_time_nanos + max_tick_time_nanos - current_time_nanos)
+            / NANOS_PER_MILLISECOND;
         std::thread::sleep(Duration::from_millis(sleep_ms.max(0) as u64));
     }
 }
@@ -76,7 +95,9 @@ fn run(shared: &ServerShared, info: &Mutex<WatchdogInfo>, max_tick_time_nanos: i
 /// `ServerWatchdog.createWatchdogCrashReport`.
 pub fn create_watchdog_crash_report(message: &str) -> CrashReport {
     let mut report = CrashReport::new(message, format!("java.lang.Error: Watchdog ({message})"));
-    report.add_category("Thread Dump").set_detail("Threads", thread_dump());
+    report
+        .add_category("Thread Dump")
+        .set_detail("Threads", thread_dump());
     report
 }
 
@@ -86,10 +107,16 @@ fn thread_dump() -> String {
     if let Ok(dir) = std::fs::read_dir("/proc/self/task") {
         for entry in dir.flatten() {
             let tid = entry.file_name().to_string_lossy().into_owned();
-            let comm = std::fs::read_to_string(entry.path().join("comm")).unwrap_or_default().trim_end().to_owned();
+            let comm = std::fs::read_to_string(entry.path().join("comm"))
+                .unwrap_or_default()
+                .trim_end()
+                .to_owned();
             let state = std::fs::read_to_string(entry.path().join("stat"))
                 .ok()
-                .and_then(|s| s.rsplit_once(')').and_then(|(_, rest)| rest.split_whitespace().next().map(str::to_owned)))
+                .and_then(|s| {
+                    s.rsplit_once(')')
+                        .and_then(|(_, rest)| rest.split_whitespace().next().map(str::to_owned))
+                })
                 .unwrap_or_else(|| "?".to_owned());
             threads.push((comm, tid, state));
         }

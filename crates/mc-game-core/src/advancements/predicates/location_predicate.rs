@@ -4,14 +4,17 @@ use super::block_predicate::BlockPredicateLevelExt;
 use super::fluid_predicate::FluidPredicate;
 use super::light_predicate::LightPredicate;
 use crate::server::level::ServerLevel;
+use crate::world::level::LevelReader;
 use crate::world::level::block::impls::campfire_block::CampfireBlock;
 use crate::world::level::levelgen::structure::manager::StructureDataSource;
-use crate::world::level::LevelReader;
 use mc_core::ident::Identifier;
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_dfu::extra::IDENTIFIER;
-use mc_dfu::{Codec, BOOL};
-use mc_protocol::components::{data_driven_set_codec, holder_set_contains, BlockPredicate, Doubles, Holder, HolderSet, NoDirect};
+use mc_dfu::{BOOL, Codec};
+use mc_protocol::components::{
+    BlockPredicate, Doubles, Holder, HolderSet, NoDirect, data_driven_set_codec,
+    holder_set_contains,
+};
 use std::sync::LazyLock;
 
 /// `LocationPredicate.PositionPredicate`.
@@ -37,7 +40,11 @@ impl PositionPredicate {
 
     /// `PositionPredicate.of(x, y, z)`: empty when all three are `ANY`.
     pub fn of(x: Doubles, y: Doubles, z: Doubles) -> Option<PositionPredicate> {
-        if x.is_any() && y.is_any() && z.is_any() { None } else { Some(PositionPredicate { x, y, z }) }
+        if x.is_any() && y.is_any() && z.is_any() {
+            None
+        } else {
+            Some(PositionPredicate { x, y, z })
+        }
     }
 
     pub fn matches(&self, x: f64, y: f64, z: f64) -> bool {
@@ -63,13 +70,25 @@ struct LoadedChunks<'a>(&'a ServerLevel);
 
 impl StructureDataSource for LoadedChunks<'_> {
     fn structure_data(&self, pos: ChunkPos) -> Option<&mc_world::chunk::StructureData> {
-        self.0.chunk_now(pos.x, pos.z).map(|chunk| &chunk.data.access.structures)
+        self.0
+            .chunk_now(pos.x, pos.z)
+            .map(|chunk| &chunk.data.access.structures)
     }
 }
 
 /// `level.structureManager().getStructureWithPieceAt(pos, matcher).isValid()` over the loaded chunks of `level`.
-pub fn has_structure_piece_at(level: &ServerLevel, pos: BlockPos, matcher: &dyn Fn(&Identifier) -> bool) -> bool {
-    level.is_loaded(pos) && level.chunk_source.chunk_map.gen_context.hooks.has_structure_piece_at(&LoadedChunks(level), pos, matcher)
+pub fn has_structure_piece_at(
+    level: &ServerLevel,
+    pos: BlockPos,
+    matcher: &dyn Fn(&Identifier) -> bool,
+) -> bool {
+    level.is_loaded(pos)
+        && level
+            .chunk_source
+            .chunk_map
+            .gen_context
+            .hooks
+            .has_structure_piece_at(&LoadedChunks(level), pos, matcher)
 }
 
 impl LocationPredicate {
@@ -77,8 +96,10 @@ impl LocationPredicate {
         static C: LazyLock<Codec<LocationPredicate>> = LazyLock::new(|| {
             mc_dfu::record!(LocationPredicate {
                 position: PositionPredicate::codec().optional_field_of("position"),
-                biomes: data_driven_set_codec("minecraft:worldgen/biome").optional_field_of("biomes"),
-                structures: data_driven_set_codec("minecraft:worldgen/structure").optional_field_of("structures"),
+                biomes: data_driven_set_codec("minecraft:worldgen/biome")
+                    .optional_field_of("biomes"),
+                structures: data_driven_set_codec("minecraft:worldgen/structure")
+                    .optional_field_of("structures"),
                 dimension: IDENTIFIER.optional_field_of("dimension"),
                 smokey: BOOL.optional_field_of("smokey"),
                 light: LightPredicate::codec().optional_field_of("light"),
@@ -95,23 +116,47 @@ impl LocationPredicate {
         if self.position.as_ref().is_some_and(|p| !p.matches(x, y, z)) {
             return false;
         }
-        if self.dimension.as_ref().is_some_and(|d| *d != level.dimension) {
+        if self
+            .dimension
+            .as_ref()
+            .is_some_and(|d| *d != level.dimension)
+        {
             return false;
         }
         let pos = BlockPos::containing(x, y, z);
         let loaded = level.is_loaded(pos);
         if let Some(biomes) = &self.biomes {
             let in_set = loaded
-                && level.get_biome_id(pos).zip(level.tick_state.biomes.as_ref()).is_some_and(|(id, registry)| {
-                    holder_set_contains(biomes, "worldgen/biome", &Holder::<NoDirect>::Reference(registry.key(id).clone()))
-                });
+                && level
+                    .get_biome_id(pos)
+                    .zip(level.tick_state.biomes.as_ref())
+                    .is_some_and(|(id, registry)| {
+                        holder_set_contains(
+                            biomes,
+                            "worldgen/biome",
+                            &Holder::<NoDirect>::Reference(registry.key(id).clone()),
+                        )
+                    });
             if !in_set {
                 return false;
             }
         }
         if let Some(structures) = &self.structures {
-            let matcher = |id: &Identifier| holder_set_contains(structures, "worldgen/structure", &Holder::<NoDirect>::Reference(id.clone()));
-            if !(loaded && level.chunk_source.chunk_map.gen_context.hooks.has_structure_piece_at(&LoadedChunks(level), pos, &matcher)) {
+            let matcher = |id: &Identifier| {
+                holder_set_contains(
+                    structures,
+                    "worldgen/structure",
+                    &Holder::<NoDirect>::Reference(id.clone()),
+                )
+            };
+            if !(loaded
+                && level
+                    .chunk_source
+                    .chunk_map
+                    .gen_context
+                    .hooks
+                    .has_structure_piece_at(&LoadedChunks(level), pos, &matcher))
+            {
                 return false;
             }
         }

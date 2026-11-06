@@ -2,7 +2,7 @@
 //! `writeCompressed(tag, Path)`).
 
 use crate::error::Result;
-use crate::{compress, io, CompoundTag, NbtAccounter};
+use crate::{CompoundTag, NbtAccounter, compress, io};
 use std::io::Write;
 use std::path::Path;
 

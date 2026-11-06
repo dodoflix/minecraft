@@ -55,32 +55,55 @@ fn key<T: ?Sized>(arc: &Arc<T>) -> usize {
 
 /// The `Command` to put on a node (`CommandAdapter`): running it through the dispatcher panics like vanilla's
 /// `UnsupportedOperationException`; the execution engine runs `executor` instead.
-pub fn custom_command(executor: impl CustomCommandExecutor + 'static) -> Command<CommandSourceStack> {
+pub fn custom_command(
+    executor: impl CustomCommandExecutor + 'static,
+) -> Command<CommandSourceStack> {
     let command: Command<CommandSourceStack> = Arc::new(|_| panic!("This function should not run"));
     // The registry keeps the command alive so its address is never reused by another allocation.
     let keep_alive: Arc<dyn Fn() + Send + Sync> = Arc::new({
         let command = command.clone();
         move || drop(command.clone())
     });
-    COMMANDS.lock().unwrap_or_else(|e| e.into_inner()).insert(key(&command), (keep_alive, Arc::new(executor)));
+    COMMANDS
+        .lock()
+        .unwrap_or_else(|e| e.into_inner())
+        .insert(key(&command), (keep_alive, Arc::new(executor)));
     command
 }
 
 /// `ModifierAdapter`: see [`custom_command`].
-pub fn custom_modifier(executor: impl CustomModifierExecutor + 'static) -> RedirectModifier<CommandSourceStack> {
-    let modifier: RedirectModifier<CommandSourceStack> = Arc::new(|_| panic!("This function should not run"));
+pub fn custom_modifier(
+    executor: impl CustomModifierExecutor + 'static,
+) -> RedirectModifier<CommandSourceStack> {
+    let modifier: RedirectModifier<CommandSourceStack> =
+        Arc::new(|_| panic!("This function should not run"));
     let keep_alive: Arc<dyn Fn() + Send + Sync> = Arc::new({
         let modifier = modifier.clone();
         move || drop(modifier.clone())
     });
-    MODIFIERS.lock().unwrap_or_else(|e| e.into_inner()).insert(key(&modifier), (keep_alive, Arc::new(executor)));
+    MODIFIERS
+        .lock()
+        .unwrap_or_else(|e| e.into_inner())
+        .insert(key(&modifier), (keep_alive, Arc::new(executor)));
     modifier
 }
 
-pub fn lookup_custom_command(command: &Command<CommandSourceStack>) -> Option<Arc<dyn CustomCommandExecutor>> {
-    COMMANDS.lock().unwrap_or_else(|e| e.into_inner()).get(&key(command)).map(|(_, e)| e.clone())
+pub fn lookup_custom_command(
+    command: &Command<CommandSourceStack>,
+) -> Option<Arc<dyn CustomCommandExecutor>> {
+    COMMANDS
+        .lock()
+        .unwrap_or_else(|e| e.into_inner())
+        .get(&key(command))
+        .map(|(_, e)| e.clone())
 }
 
-pub fn lookup_custom_modifier(modifier: &RedirectModifier<CommandSourceStack>) -> Option<Arc<dyn CustomModifierExecutor>> {
-    MODIFIERS.lock().unwrap_or_else(|e| e.into_inner()).get(&key(modifier)).map(|(_, e)| e.clone())
+pub fn lookup_custom_modifier(
+    modifier: &RedirectModifier<CommandSourceStack>,
+) -> Option<Arc<dyn CustomModifierExecutor>> {
+    MODIFIERS
+        .lock()
+        .unwrap_or_else(|e| e.into_inner())
+        .get(&key(modifier))
+        .map(|(_, e)| e.clone())
 }

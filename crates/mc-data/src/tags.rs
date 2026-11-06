@@ -34,7 +34,11 @@ impl<T: RegistryId> TagSet<T> {
 }
 
 fn normalize(name: &str) -> String {
-    if name.contains(':') { name.to_string() } else { format!("minecraft:{name}") }
+    if name.contains(':') {
+        name.to_string()
+    } else {
+        format!("minecraft:{name}")
+    }
 }
 
 /// Raw (unresolved) `values` of a tag file.
@@ -46,7 +50,10 @@ fn load_raw(dir: &str, name: &str) -> Option<Vec<(String, bool)>> {
     for v in json.get("values")?.as_array()? {
         match v {
             Value::String(s) => out.push((s.clone(), true)),
-            Value::Object(o) => out.push((o.get("id")?.as_str()?.to_string(), o.get("required").and_then(Value::as_bool).unwrap_or(true))),
+            Value::Object(o) => out.push((
+                o.get("id")?.as_str()?.to_string(),
+                o.get("required").and_then(Value::as_bool).unwrap_or(true),
+            )),
             _ => return None,
         }
     }
@@ -85,7 +92,11 @@ pub fn names(dir: &str, name: &str) -> Option<Vec<String>> {
 pub fn list(dir: &str) -> Vec<String> {
     let prefix: &'static str = Box::leak(format!("data/minecraft/tags/{dir}/").into_boxed_str());
     let mut v: Vec<String> = crate::datapack::list(prefix)
-        .filter_map(|p| p.strip_prefix(prefix)?.strip_suffix(".json").map(|n| format!("minecraft:{n}")))
+        .filter_map(|p| {
+            p.strip_prefix(prefix)?
+                .strip_suffix(".json")
+                .map(|n| format!("minecraft:{n}"))
+        })
         .collect();
     v.sort();
     v
@@ -101,7 +112,10 @@ pub fn get<T: RegistryId>(name: &str) -> Option<&'static TagSet<T>> {
     let mut cache = CACHE.get_or_init(Default::default).lock().unwrap();
     let entry = cache.entry(key.clone()).or_insert_with(|| {
         let names = names(reg.tag_dir(), &key.1)?;
-        let mut ids: Vec<T> = names.iter().filter_map(|n| reg.id_of(n).and_then(T::from_id)).collect();
+        let mut ids: Vec<T> = names
+            .iter()
+            .filter_map(|n| reg.id_of(n).and_then(T::from_id))
+            .collect();
         ids.sort();
         ids.dedup();
         let leaked: &'static TagSet<T> = Box::leak(Box::new(TagSet { ids }));

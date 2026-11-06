@@ -33,7 +33,10 @@ impl ServerLevel {
     pub fn install_custom_spawners(&mut self) {
         let mut registrations: Vec<&CustomSpawnerRegistration> = CUSTOM_SPAWNERS.iter().collect();
         registrations.sort_by_key(|r| r.order);
-        let spawners: Vec<Box<dyn CustomSpawner>> = registrations.into_iter().filter_map(|r| (r.create)(self)).collect();
+        let spawners: Vec<Box<dyn CustomSpawner>> = registrations
+            .into_iter()
+            .filter_map(|r| (r.create)(self))
+            .collect();
         self.spawning.custom_spawners = spawners;
     }
 

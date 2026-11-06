@@ -11,7 +11,9 @@ fn mix(x: i32) -> i32 {
 
 /// fastutil `HashCommon.arraySize(expected, 0.75f)`.
 fn array_size(expected: usize) -> usize {
-    ((expected as f64 / 0.75).ceil() as usize).next_power_of_two().max(2)
+    ((expected as f64 / 0.75).ceil() as usize)
+        .next_power_of_two()
+        .max(2)
 }
 
 /// fastutil `HashCommon.maxFill(n, 0.75f)`.
@@ -22,7 +24,9 @@ fn max_fill(n: usize) -> usize {
 /// fastutil `tryCapacity(capacity)` presize of a `0.75` load factor map whose table has `n` slots:
 /// the table size after `putAll` of `capacity` entries (never shrinks).
 pub fn presized_table(n: usize, capacity: usize) -> usize {
-    let needed = ((capacity as f64 / 0.75).ceil() as usize).next_power_of_two().max(2);
+    let needed = ((capacity as f64 / 0.75).ceil() as usize)
+        .next_power_of_two()
+        .max(2);
     needed.max(n)
 }
 
@@ -81,7 +85,10 @@ impl JavaHashMapSim {
 
     /// `new HashMap<>(initialCapacity)`.
     pub fn with_capacity(initial: usize) -> Self {
-        Self { threshold: initial.max(1).next_power_of_two(), ..Self::default() }
+        Self {
+            threshold: initial.max(1).next_power_of_two(),
+            ..Self::default()
+        }
     }
 
     fn resize(&mut self) {
@@ -144,7 +151,11 @@ impl JavaHashMapSim {
 /// Iteration order (indices into `names`) of a `java.util.HashMap` with these keys (hash = `String.hashCode`)
 /// inserted in this order (`initial_capacity` as the constructor argument; 16 for `new HashMap<>()`).
 pub fn java_hash_map_order(names: &[String], initial_capacity: usize) -> Vec<usize> {
-    let mut map = if initial_capacity == 16 { JavaHashMapSim::new() } else { JavaHashMapSim::with_capacity(initial_capacity) };
+    let mut map = if initial_capacity == 16 {
+        JavaHashMapSim::new()
+    } else {
+        JavaHashMapSim::with_capacity(initial_capacity)
+    };
     for (i, name) in names.iter().enumerate() {
         map.put(i, java_string_hash(name));
     }

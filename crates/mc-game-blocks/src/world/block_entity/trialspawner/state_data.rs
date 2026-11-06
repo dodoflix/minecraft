@@ -1,13 +1,13 @@
 //! `TrialSpawnerStateData`: the mutable run state of a trial spawner (tracked players and mobs, counters, next spawn
 //! data, the ejecting loot table) and its saved form (`Packed`).
 
+use mc_core::ident::Identifier;
+use mc_dfu::extra::IDENTIFIER;
+use mc_dfu::{Codec, LONG, MapCodec, int_range, record};
 use mc_game_core::util::java_uuid_hash_set::UuidHashSet;
 use mc_game_core::util::weighted_list::{Weighted, WeightedList};
 use mc_game_core::world::item::ItemStack;
 use mc_game_core::world::level::spawn_data::SpawnData;
-use mc_core::ident::Identifier;
-use mc_dfu::extra::IDENTIFIER;
-use mc_dfu::{Codec, LONG, MapCodec, int_range, record};
 use mc_protocol::components::uuid_codec;
 use std::sync::LazyLock;
 use uuid::Uuid;
@@ -43,11 +43,13 @@ impl Packed {
     pub fn map_codec() -> MapCodec<Packed> {
         static ITEMS: LazyLock<Codec<Vec<Uuid>>> = LazyLock::new(|| uuid_codec().list_of());
         record!(Packed {
-            detected_players: ITEMS.lenient_optional_field_of_default("registered_players", Vec::new()),
+            detected_players: ITEMS
+                .lenient_optional_field_of_default("registered_players", Vec::new()),
             current_mobs: ITEMS.lenient_optional_field_of_default("current_mobs", Vec::new()),
             cooldown_ends_at: LONG.lenient_optional_field_of_default("cooldown_ends_at", 0),
             next_mob_spawns_at: LONG.lenient_optional_field_of_default("next_mob_spawns_at", 0),
-            total_mobs_spawned: int_range(0, i32::MAX).lenient_optional_field_of_default("total_mobs_spawned", 0),
+            total_mobs_spawned: int_range(0, i32::MAX)
+                .lenient_optional_field_of_default("total_mobs_spawned", 0),
             next_spawn_data: SpawnData::codec().lenient_optional_field_of("spawn_data"),
             ejecting_loot_table: IDENTIFIER.lenient_optional_field_of("ejecting_loot_table"),
         })
@@ -109,8 +111,13 @@ impl TrialSpawnerStateData {
     }
 
     /// `isReadyToSpawnNextMob(level, config, additionalPlayers)`.
-    pub fn is_ready_to_spawn_next_mob(&self, game_time: i64, target_simultaneous_mobs: i32) -> bool {
-        game_time >= self.next_mob_spawns_at && (self.current_mobs.len() as i32) < target_simultaneous_mobs
+    pub fn is_ready_to_spawn_next_mob(
+        &self,
+        game_time: i64,
+        target_simultaneous_mobs: i32,
+    ) -> bool {
+        game_time >= self.next_mob_spawns_at
+            && (self.current_mobs.len() as i32) < target_simultaneous_mobs
     }
 
     /// `countAdditionalPlayers(pos)`.
@@ -119,14 +126,28 @@ impl TrialSpawnerStateData {
     }
 
     /// `isReadyToOpenShutter(level, delayBeforeOpen, targetCooldownLength)`.
-    pub fn is_ready_to_open_shutter(&self, game_time: i64, delay_before_open: f32, target_cooldown_length: i32) -> bool {
-        let cooldown_started_at = self.cooldown_ends_at.wrapping_sub(i64::from(target_cooldown_length));
+    pub fn is_ready_to_open_shutter(
+        &self,
+        game_time: i64,
+        delay_before_open: f32,
+        target_cooldown_length: i32,
+    ) -> bool {
+        let cooldown_started_at = self
+            .cooldown_ends_at
+            .wrapping_sub(i64::from(target_cooldown_length));
         game_time as f32 >= cooldown_started_at as f32 + delay_before_open
     }
 
     /// `isReadyToEjectItems(level, timeBetweenEjections, targetCooldownLength)`.
-    pub fn is_ready_to_eject_items(&self, game_time: i64, time_between_ejections: f32, target_cooldown_length: i32) -> bool {
-        let cooldown_started_at = self.cooldown_ends_at.wrapping_sub(i64::from(target_cooldown_length));
+    pub fn is_ready_to_eject_items(
+        &self,
+        game_time: i64,
+        time_between_ejections: f32,
+        target_cooldown_length: i32,
+    ) -> bool {
+        let cooldown_started_at = self
+            .cooldown_ends_at
+            .wrapping_sub(i64::from(target_cooldown_length));
         // Java `float % float`: the IEEE remainder with the sign of the dividend, like Rust's `%`
         (game_time.wrapping_sub(cooldown_started_at) as f32) % time_between_ejections == 0.0
     }
@@ -155,7 +176,10 @@ impl TrialSpawnerStateData {
 pub fn dispensing_from_drops(drops: Vec<ItemStack>) -> WeightedList<ItemStack> {
     let items = drops
         .into_iter()
-        .map(|drop| Weighted { weight: drop.count(), value: drop.copy_with_count(1) })
+        .map(|drop| Weighted {
+            weight: drop.count(),
+            value: drop.copy_with_count(1),
+        })
         .collect();
     WeightedList::of(items).unwrap_or_default()
 }

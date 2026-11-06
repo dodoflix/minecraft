@@ -1,11 +1,11 @@
 //! `FloatGoal`.
 
-use mc_core::random::RandomSource;
 use super::{Flag, Goal, GoalFlags};
 use crate::server::level::ServerLevel;
-use crate::world::entity::fluid_interaction::{TAG_ENTITY_FLOATABLE};
-use crate::world::entity::mob::{jump_control_jump, navigation};
 use crate::world::entity::Entity;
+use crate::world::entity::fluid_interaction::TAG_ENTITY_FLOATABLE;
+use crate::world::entity::mob::{jump_control_jump, navigation};
+use mc_core::random::RandomSource;
 
 pub struct FloatGoal {
     fluid: &'static str,

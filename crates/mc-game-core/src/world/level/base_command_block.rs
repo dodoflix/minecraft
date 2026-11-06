@@ -51,7 +51,11 @@ impl Default for BaseCommandBlock {
         Self {
             last_execution: -1,
             update_last_execution: true,
-            shared: Arc::new(Shared { success_count: AtomicI32::new(0), last_output: Mutex::new(None), updated: AtomicBool::new(false) }),
+            shared: Arc::new(Shared {
+                success_count: AtomicI32::new(0),
+                last_output: Mutex::new(None),
+                updated: AtomicBool::new(false),
+            }),
             track_output: true,
             command: String::new(),
             custom_name: None,
@@ -69,20 +73,26 @@ struct CloseableCommandBlockSource {
 }
 
 fn live_rule(rule: crate::world::level::gamerules::GameRule<bool>, snapshot: bool) -> bool {
-    if has_server() { with_server(|server| server.game_rules_ref().get(rule)) } else { snapshot }
+    if has_server() {
+        with_server(|server| server.game_rules_ref().get(rule))
+    } else {
+        snapshot
+    }
 }
 
 impl CommandSource for CloseableCommandBlockSource {
     fn send_system_message(&self, message: &Component) {
         if !self.closed.load(Ordering::Relaxed) {
             let stamp = chrono::Local::now().format("%H:%M:%S");
-            *self.shared.last_output.lock() = Some(Component::literal(format!("[{stamp}] ")).append(message.clone()));
+            *self.shared.last_output.lock() =
+                Some(Component::literal(format!("[{stamp}] ")).append(message.clone()));
             self.shared.updated.store(true, Ordering::Relaxed);
         }
     }
 
     fn accepts_success(&self) -> bool {
-        !self.closed.load(Ordering::Relaxed) && live_rule(GameRules::SEND_COMMAND_FEEDBACK, self.send_command_feedback)
+        !self.closed.load(Ordering::Relaxed)
+            && live_rule(GameRules::SEND_COMMAND_FEEDBACK, self.send_command_feedback)
     }
 
     fn accepts_failure(&self) -> bool {
@@ -90,7 +100,8 @@ impl CommandSource for CloseableCommandBlockSource {
     }
 
     fn should_inform_admins(&self) -> bool {
-        !self.closed.load(Ordering::Relaxed) && live_rule(GameRules::COMMAND_BLOCK_OUTPUT, self.command_block_output)
+        !self.closed.load(Ordering::Relaxed)
+            && live_rule(GameRules::COMMAND_BLOCK_OUTPUT, self.command_block_output)
     }
 }
 
@@ -127,12 +138,18 @@ impl BaseCommandBlock {
 
     /// `setSuccessCount(successCount)`.
     pub fn set_success_count(&mut self, success_count: i32) {
-        self.shared.success_count.store(success_count, Ordering::Relaxed);
+        self.shared
+            .success_count
+            .store(success_count, Ordering::Relaxed);
     }
 
     /// `getLastOutput()` (`CommonComponents.EMPTY` when none).
     pub fn get_last_output(&self) -> Component {
-        self.shared.last_output.lock().clone().unwrap_or_else(Component::empty)
+        self.shared
+            .last_output
+            .lock()
+            .clone()
+            .unwrap_or_else(Component::empty)
     }
 
     /// `setLastOutput(lastOutput)`.
@@ -165,10 +182,18 @@ impl BaseCommandBlock {
         self.set_success_count(tag.get_int_or("SuccessCount", 0));
         self.set_custom_name(parse_custom_name_safe(tag, "CustomName"));
         self.track_output = tag.get_boolean_or("TrackOutput", true);
-        let last_output = if self.track_output { parse_custom_name_safe(tag, "LastOutput") } else { None };
+        let last_output = if self.track_output {
+            parse_custom_name_safe(tag, "LastOutput")
+        } else {
+            None
+        };
         self.set_last_output(last_output);
         self.update_last_execution = tag.get_boolean_or("UpdateLastExecution", true);
-        self.last_execution = if self.update_last_execution { tag.get_long_or("LastExecution", -1) } else { -1 };
+        self.last_execution = if self.update_last_execution {
+            tag.get_long_or("LastExecution", -1)
+        } else {
+            -1
+        };
     }
 
     /// `setCommand(command)` (the block entity's override adds `setChanged()`).
@@ -183,7 +208,9 @@ impl BaseCommandBlock {
 
     /// `getName()`.
     pub fn get_name(&self) -> Component {
-        self.custom_name.clone().unwrap_or_else(|| Component::literal("@"))
+        self.custom_name
+            .clone()
+            .unwrap_or_else(|| Component::literal("@"))
     }
 
     pub fn get_custom_name(&self) -> Option<&Component> {
@@ -209,7 +236,11 @@ impl BaseCommandBlock {
 
     /// The first half of `performCommand(level)`: everything up to running the command.
     /// `create_stack(source)` is `createCommandSourceStack(level, source)` of the owner.
-    pub fn begin_perform(&mut self, level: &ServerLevel, create_stack: impl FnOnce(Arc<dyn CommandSource>) -> CommandSourceStack) -> Begin {
+    pub fn begin_perform(
+        &mut self,
+        level: &ServerLevel,
+        create_stack: impl FnOnce(Arc<dyn CommandSource>) -> CommandSourceStack,
+    ) -> Begin {
         let game_time = level.game_time();
         if game_time == self.last_execution {
             return Begin::Done(false);
@@ -236,12 +267,18 @@ impl BaseCommandBlock {
                 None => null_source(),
             };
             let shared = self.shared.clone();
-            let stack = create_stack(effective).with_callback(CommandResultCallback::new(move |success, _| {
-                if success {
-                    shared.success_count.fetch_add(1, Ordering::Relaxed);
-                }
-            }));
-            return Begin::Run(PendingCommand { stack, command: self.command.clone(), source });
+            let stack = create_stack(effective).with_callback(CommandResultCallback::new(
+                move |success, _| {
+                    if success {
+                        shared.success_count.fetch_add(1, Ordering::Relaxed);
+                    }
+                },
+            ));
+            return Begin::Run(PendingCommand {
+                stack,
+                command: self.command.clone(),
+                source,
+            });
         }
         self.finish_perform(game_time);
         Begin::Done(true)
@@ -249,6 +286,10 @@ impl BaseCommandBlock {
 
     /// The tail of `performCommand`: `lastExecution`.
     pub fn finish_perform(&mut self, game_time: i64) {
-        self.last_execution = if self.update_last_execution { game_time } else { -1 };
+        self.last_execution = if self.update_last_execution {
+            game_time
+        } else {
+            -1
+        };
     }
 }

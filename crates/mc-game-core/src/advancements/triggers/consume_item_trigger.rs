@@ -25,13 +25,14 @@ impl ConsumeItemTriggerInstance {
 
 impl TriggerInstance for ConsumeItemTriggerInstance {
     fn codec() -> Codec<Self> {
-        static C: std::sync::LazyLock<Codec<ConsumeItemTriggerInstance>> = std::sync::LazyLock::new(|| {
-            mc_dfu::record!(ConsumeItemTriggerInstance {
-                player: condition_holder_codec().optional_field_of("player"),
-                item: ItemPredicate::codec().optional_field_of("item"),
-            })
-            .codec()
-        });
+        static C: std::sync::LazyLock<Codec<ConsumeItemTriggerInstance>> =
+            std::sync::LazyLock::new(|| {
+                mc_dfu::record!(ConsumeItemTriggerInstance {
+                    player: condition_holder_codec().optional_field_of("player"),
+                    item: ItemPredicate::codec().optional_field_of("item"),
+                })
+                .codec()
+            });
         C.clone()
     }
 }
@@ -48,7 +49,12 @@ crate::register_triggers!(ConsumeItemTriggerInstance { CONSUME_ITEM = "consume_i
 
 impl Trigger<ConsumeItemTriggerInstance> {
     /// `trigger(player, itemStack)`.
-    pub fn trigger(&self, level: &mut ServerLevel, player: &mut ServerPlayer, item_stack: &ItemStack) {
+    pub fn trigger(
+        &self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        item_stack: &ItemStack,
+    ) {
         self.trigger_with(level, player, |t| t.matches(item_stack));
     }
 }

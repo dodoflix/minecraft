@@ -8,7 +8,10 @@ use mc_protocol::auth::encrypt_with_public_key;
 const GOLDEN: &str = include_str!("../fixtures/auth_golden.txt");
 
 fn hex(s: &str) -> Vec<u8> {
-    (0..s.len()).step_by(2).map(|i| u8::from_str_radix(&s[i..i + 2], 16).expect("hex")).collect()
+    (0..s.len())
+        .step_by(2)
+        .map(|i| u8::from_str_radix(&s[i..i + 2], 16).expect("hex"))
+        .collect()
 }
 
 fn to_hex(b: &[u8]) -> String {
@@ -16,7 +19,10 @@ fn to_hex(b: &[u8]) -> String {
 }
 
 fn golden(key: &str) -> Vec<u8> {
-    let line = GOLDEN.lines().find_map(|l| l.strip_prefix(&format!("{key}="))).expect("fixture key");
+    let line = GOLDEN
+        .lines()
+        .find_map(|l| l.strip_prefix(&format!("{key}=")))
+        .expect("fixture key");
     hex(line)
 }
 
@@ -34,7 +40,11 @@ fn vanilla_decrypts_rust_ciphertext() {
             .arg(to_hex(&ct))
             .output()
             .expect("run scripts/vanilla-java.sh (needs ref/ from scripts/setup-ref.sh and java)");
-        assert!(out.status.success(), "{}", String::from_utf8_lossy(&out.stderr));
+        assert!(
+            out.status.success(),
+            "{}",
+            String::from_utf8_lossy(&out.stderr)
+        );
         assert_eq!(String::from_utf8(out.stdout).unwrap().trim(), to_hex(plain));
     }
     // Too long for PKCS#1 v1.5 with a 1024-bit key, like Java's "Data must not be longer than 117 bytes".

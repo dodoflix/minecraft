@@ -17,9 +17,15 @@ fn block_properties() {
     assert!(stone.has(mc_data::block::block_flags::REQUIRES_CORRECT_TOOL_FOR_DROPS));
     assert_eq!(stone.loot_table, Some("minecraft:blocks/stone"));
     assert_eq!(stone.item, Some(Item::STONE));
-    assert_eq!(Block::STONE.sound_type().step_sound, ids::SoundEvent::BLOCK_STONE_STEP);
+    assert_eq!(
+        Block::STONE.sound_type().step_sound,
+        ids::SoundEvent::BLOCK_STONE_STEP
+    );
     assert_eq!(Block::OAK_STAIRS.data().class, "StairBlock");
-    assert_eq!(Block::OAK_STAIRS.data().instrument, NoteBlockInstrument::Bass);
+    assert_eq!(
+        Block::OAK_STAIRS.data().instrument,
+        NoteBlockInstrument::Bass
+    );
     assert_eq!(Block::ICE.data().friction, 0.98);
     assert_eq!(Block::SOUL_SAND.data().speed_factor, 0.4);
     assert_eq!(Block::HONEY_BLOCK.data().jump_factor, 0.5);
@@ -34,7 +40,11 @@ fn block_properties() {
     assert_eq!(Block::AIR.default_state().id(), 0);
     assert_eq!(Block::STONE.default_state().id(), 1);
     assert_eq!(Block::FURNACE.item(), Some(Item::FURNACE));
-    assert!(Block::FURNACE.data().has(mc_data::block::block_flags::HAS_BLOCK_ENTITY));
+    assert!(
+        Block::FURNACE
+            .data()
+            .has(mc_data::block::block_flags::HAS_BLOCK_ENTITY)
+    );
 }
 
 #[test]
@@ -50,9 +60,15 @@ fn state_data() {
     assert!(!Block::GLASS.default_state().is_suffocating());
     assert!(Block::OAK_LEAVES.default_state().is_randomly_ticking());
     assert!(Block::WATER.default_state().liquid());
-    assert_eq!(Block::WATER.default_state().get_fluid_state().fluid(), Fluid::WATER);
+    assert_eq!(
+        Block::WATER.default_state().get_fluid_state().fluid(),
+        Fluid::WATER
+    );
     assert!(Block::WATER.default_state().get_fluid_state().is_source());
-    assert_eq!(Block::LAVA.default_state().get_fluid_state().fluid(), Fluid::LAVA);
+    assert_eq!(
+        Block::LAVA.default_state().get_fluid_state().fluid(),
+        Fluid::LAVA
+    );
     let s = Block::STONE.default_state();
     assert!(s.is_face_sturdy(Direction::Up, mc_data::block::SupportType::Full));
     // full block collision shape
@@ -79,7 +95,10 @@ fn fluids() {
     assert_eq!(w.amount, 8);
     assert_eq!(w.legacy_block_state, Block::WATER.default_state());
     assert_eq!(Fluid::FLOWING_WATER.states().len(), 16);
-    assert_eq!(Fluid::LAVA.default_state().create_legacy_block(), Block::LAVA.default_state());
+    assert_eq!(
+        Fluid::LAVA.default_state().create_legacy_block(),
+        Block::LAVA.default_state()
+    );
     // report: fluid registry has 5 entries
     assert_eq!(Fluid::registry().len(), 5);
 }
@@ -96,7 +115,10 @@ fn items() {
     assert_eq!(Item::DIAMOND.block(), None);
     assert_eq!(Item::registry().len(), 1658);
     assert_eq!(Item::ENDER_PEARL.max_stack_size(), 16);
-    assert_eq!(Item::WATER_BUCKET.data().crafting_remainder, Some(Item::BUCKET));
+    assert_eq!(
+        Item::WATER_BUCKET.data().crafting_remainder,
+        Some(Item::BUCKET)
+    );
     assert_eq!(Item::DIAMOND.data().crafting_remainder, None);
     // report components: every item with non-trivial components exists in the datagen components report
     let report = read_json("ref/generated/reports/minecraft/components/item/diamond_pickaxe.json");
@@ -112,7 +134,11 @@ fn entity_types() {
     assert_eq!((pig.width, pig.height, pig.eye_height), (0.9, 0.9, 0.765));
     assert_eq!(pig.category, MobCategory::Creature);
     assert_eq!(pig.client_tracking_range, 10);
-    assert!(pig.default_attributes.iter().any(|(a, v)| *a == ids::Attribute::MAX_HEALTH && *v == 10.0));
+    assert!(
+        pig.default_attributes
+            .iter()
+            .any(|(a, v)| *a == ids::Attribute::MAX_HEALTH && *v == 10.0)
+    );
     assert!(pig.spawn_placement.is_some());
     let player = EntityType::PLAYER.data();
     assert_eq!((player.width, player.height), (0.6, 1.8));
@@ -126,17 +152,31 @@ fn entity_types() {
 fn registry_data_tables() {
     assert_eq!(ids::Attribute::registry().len(), 40);
     let h = ids::Attribute::MAX_HEALTH.data();
-    assert_eq!((h.default_value, h.min_value, h.max_value), (20.0, Some(1.0), Some(1024.0)));
+    assert_eq!(
+        (h.default_value, h.min_value, h.max_value),
+        (20.0, Some(1.0), Some(1024.0))
+    );
     assert!(h.syncable);
     let speed = ids::MobEffect::SPEED.data();
     assert_eq!(speed.color, 3402751);
     assert_eq!(speed.attribute_modifiers.len(), 1);
-    assert_eq!(ids::GameEvent::BLOCK_ACTIVATE.data().notification_radius, 16);
+    assert_eq!(
+        ids::GameEvent::BLOCK_ACTIVATE.data().notification_radius,
+        16
+    );
     assert_eq!(ids::Potion::AWKWARD.data().effects.len(), 0);
     assert_eq!(ids::Potion::HEALING.data().effects.len(), 1);
-    assert!(ids::BlockEntityType::CHEST.data().valid_blocks.contains(&Block::CHEST));
+    assert!(
+        ids::BlockEntityType::CHEST
+            .data()
+            .valid_blocks
+            .contains(&Block::CHEST)
+    );
     assert!(ids::DataComponentType::MAX_STACK_SIZE.data().persistent);
-    assert_eq!(ids::DataComponentType::MAX_STACK_SIZE.data().const_name, Some("MAX_STACK_SIZE"));
+    assert_eq!(
+        ids::DataComponentType::MAX_STACK_SIZE.data().const_name,
+        Some("MAX_STACK_SIZE")
+    );
     assert_eq!(ids::SoundEvent::registry().len(), 1991);
 }
 
@@ -144,13 +184,33 @@ fn registry_data_tables() {
 fn misc_tables() {
     assert_eq!(misc::fire_odds(Block::OAK_PLANKS), Some((5, 20)));
     assert_eq!(misc::fire_odds(Block::STONE), None);
-    assert_eq!(misc::waxed(Block::COPPER_BLOCK), Some(Block::WAXED_COPPER_BLOCK));
-    assert_eq!(misc::weathering_next(Block::COPPER_BLOCK), Some(Block::EXPOSED_COPPER));
-    assert_eq!(misc::potted_by_content(Block::OAK_SAPLING), Some(Block::POTTED_OAK_SAPLING));
+    assert_eq!(
+        misc::waxed(Block::COPPER_BLOCK),
+        Some(Block::WAXED_COPPER_BLOCK)
+    );
+    assert_eq!(
+        misc::weathering_next(Block::COPPER_BLOCK),
+        Some(Block::EXPOSED_COPPER)
+    );
+    assert_eq!(
+        misc::potted_by_content(Block::OAK_SAPLING),
+        Some(Block::POTTED_OAK_SAPLING)
+    );
     assert_eq!(misc::GAME_RULE_DATA.len(), 59);
     assert_eq!(misc::DYE_COLORS.len(), 16);
     assert_eq!(misc::NOTE_BLOCK_INSTRUMENTS.len(), 27);
     assert_eq!(misc::HEIGHTMAP_TYPES.len(), 6);
-    assert!(misc::ENTITY_DATA_ACCESSORS.iter().any(|a| a.class == "Entity" && a.id == 0));
-    let _ = registry_data::AttributeData { description_id: "", default_value: 0.0, min_value: None, max_value: None, syncable: false, sentiment: mc_data::enums::AttributeSentiment::Positive };
+    assert!(
+        misc::ENTITY_DATA_ACCESSORS
+            .iter()
+            .any(|a| a.class == "Entity" && a.id == 0)
+    );
+    let _ = registry_data::AttributeData {
+        description_id: "",
+        default_value: 0.0,
+        min_value: None,
+        max_value: None,
+        syncable: false,
+        sentiment: mc_data::enums::AttributeSentiment::Positive,
+    };
 }

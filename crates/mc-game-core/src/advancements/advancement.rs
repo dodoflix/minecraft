@@ -43,10 +43,15 @@ struct Raw {
 fn decorate_name(display: &DisplayInfo) -> Component {
     let display_title = display.title.clone();
     let color = display.type_.chat_color();
-    let tooltip = util::merge_styles(display_title.copy(), &Style::EMPTY.with_color_formatting(Some(color)))
-        .append(Component::literal("\n"))
-        .append(display.description.clone());
-    let title = display_title.copy().with_style_fn(|s| s.with_hover_event(Some(HoverEvent::show_text(tooltip))));
+    let tooltip = util::merge_styles(
+        display_title.copy(),
+        &Style::EMPTY.with_color_formatting(Some(color)),
+    )
+    .append(Component::literal("\n"))
+    .append(display.description.clone());
+    let title = display_title
+        .copy()
+        .with_style_fn(|s| s.with_hover_event(Some(HoverEvent::show_text(tooltip))));
     util::wrap_in_square_brackets(title).with_format(color)
 }
 
@@ -61,32 +66,53 @@ impl Advancement {
         sends_telemetry_event: bool,
     ) -> Advancement {
         let name = display.as_ref().map(decorate_name);
-        Advancement { parent, display, rewards, criteria, requirements, sends_telemetry_event, name }
+        Advancement {
+            parent,
+            display,
+            rewards,
+            criteria,
+            requirements,
+            sends_telemetry_event,
+            name,
+        }
     }
 
     /// `Advancement.CODEC` (including `validate`).
     pub fn codec() -> Codec<Advancement> {
         static C: LazyLock<Codec<Advancement>> = LazyLock::new(|| {
-            let criteria_codec = STRING.unbounded_map(&Criterion::codec()).validate(|criteria| {
-                if criteria.is_empty() {
-                    DataResult::error(|| "Advancement criteria cannot be empty".to_owned())
-                } else {
-                    DataResult::success(criteria)
-                }
-            });
+            let criteria_codec = STRING
+                .unbounded_map(&Criterion::codec())
+                .validate(|criteria| {
+                    if criteria.is_empty() {
+                        DataResult::error(|| "Advancement criteria cannot be empty".to_owned())
+                    } else {
+                        DataResult::success(criteria)
+                    }
+                });
             mc_dfu::record!(Raw {
                 parent: IDENTIFIER.optional_field_of("parent"),
                 display: DisplayInfo::codec().optional_field_of("display"),
-                rewards: AdvancementRewards::codec().optional_field_of_default_with("rewards", AdvancementRewards::empty()),
+                rewards: AdvancementRewards::codec()
+                    .optional_field_of_default_with("rewards", AdvancementRewards::empty()),
                 criteria: criteria_codec.field_of("criteria"),
                 requirements: AdvancementRequirements::codec().optional_field_of("requirements"),
-                sends_telemetry_event: BOOL.optional_field_of_default("sends_telemetry_event", false),
+                sends_telemetry_event: BOOL
+                    .optional_field_of_default("sends_telemetry_event", false),
             })
             .codec()
             .xmap(
                 |raw: Raw| {
-                    let requirements = raw.requirements.unwrap_or_else(|| AdvancementRequirements::all_of(raw.criteria.iter().map(|(k, _)| k)));
-                    Advancement::new(raw.parent, raw.display, raw.rewards, raw.criteria, requirements, raw.sends_telemetry_event)
+                    let requirements = raw.requirements.unwrap_or_else(|| {
+                        AdvancementRequirements::all_of(raw.criteria.iter().map(|(k, _)| k))
+                    });
+                    Advancement::new(
+                        raw.parent,
+                        raw.display,
+                        raw.rewards,
+                        raw.criteria,
+                        requirements,
+                        raw.sends_telemetry_event,
+                    )
                 },
                 |a: &Advancement| Raw {
                     parent: a.parent.clone(),
@@ -105,14 +131,23 @@ impl Advancement {
     fn validate_shape(advancement: Advancement) -> DataResult<Advancement> {
         let is_root = advancement.parent.is_none();
         let is_visible = advancement.display.is_some();
-        let has_background = advancement.display.as_ref().is_some_and(|d| d.background.is_some());
+        let has_background = advancement
+            .display
+            .as_ref()
+            .is_some_and(|d| d.background.is_some());
         if is_root && is_visible && !has_background {
-            return DataResult::error(|| "Visible advancement roots must have background".to_owned());
+            return DataResult::error(|| {
+                "Visible advancement roots must have background".to_owned()
+            });
         }
         if !is_root && has_background {
             return DataResult::error(|| "Only advancement roots can have background".to_owned());
         }
-        let keys: Vec<String> = advancement.criteria.iter().map(|(k, _)| k.clone()).collect();
+        let keys: Vec<String> = advancement
+            .criteria
+            .iter()
+            .map(|(k, _)| k.clone())
+            .collect();
         match advancement.requirements.validate(&keys) {
             Ok(()) => DataResult::success(advancement),
             Err(m) => DataResult::error(move || m.clone()),
@@ -129,14 +164,21 @@ impl Advancement {
         let mut found = Vec::new();
         for (name, criterion) in &self.criteria {
             let problems = ProblemCollector::new();
-            criterion.trigger_instance.validate(&ValidationContextSource::new(&problems, loot_data));
-            problems.for_each(|path, problem| found.push((format!("{name}{path}"), problem.description.clone())));
+            criterion
+                .trigger_instance
+                .validate(&ValidationContextSource::new(&problems, loot_data));
+            problems.for_each(|path, problem| {
+                found.push((format!("{name}{path}"), problem.description.clone()))
+            });
         }
         found
     }
 
     pub fn criterion(&self, name: &str) -> Option<&Criterion> {
-        self.criteria.iter().find(|(k, _)| k == name).map(|(_, c)| c)
+        self.criteria
+            .iter()
+            .find(|(k, _)| k == name)
+            .map(|(_, c)| c)
     }
 
     /// `ClientboundUpdateAdvancementsPacket` form (`Advancement.STREAM_CODEC`).
@@ -152,7 +194,11 @@ impl Advancement {
 
 /// `Advancement.name(holder)`.
 pub fn name(holder: &AdvancementHolder) -> Component {
-    holder.value.name.clone().unwrap_or_else(|| Component::literal(holder.id.to_string()))
+    holder
+        .value
+        .name
+        .clone()
+        .unwrap_or_else(|| Component::literal(holder.id.to_string()))
 }
 
 /// `AdvancementHolder`: equality and hash are the id's.

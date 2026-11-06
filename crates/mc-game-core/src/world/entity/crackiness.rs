@@ -18,8 +18,16 @@ pub struct Crackiness {
 }
 
 impl Crackiness {
-    pub const GOLEM: Crackiness = Crackiness { fraction_low: 0.75, fraction_medium: 0.5, fraction_high: 0.25 };
-    pub const WOLF_ARMOR: Crackiness = Crackiness { fraction_low: 0.95, fraction_medium: 0.69, fraction_high: 0.32 };
+    pub const GOLEM: Crackiness = Crackiness {
+        fraction_low: 0.75,
+        fraction_medium: 0.5,
+        fraction_high: 0.25,
+    };
+    pub const WOLF_ARMOR: Crackiness = Crackiness {
+        fraction_low: 0.95,
+        fraction_medium: 0.69,
+        fraction_high: 0.32,
+    };
 
     /// `byFraction(fraction)`.
     pub fn by_fraction(&self, fraction: f32) -> CrackinessLevel {
@@ -36,7 +44,11 @@ impl Crackiness {
 
     /// `byDamage(item)`.
     pub fn by_damage_item(&self, item: &ItemStack) -> CrackinessLevel {
-        if !item.is_damageable_item() { CrackinessLevel::None } else { self.by_damage(item.get_damage_value(), item.get_max_damage()) }
+        if !item.is_damageable_item() {
+            CrackinessLevel::None
+        } else {
+            self.by_damage(item.get_damage_value(), item.get_max_damage())
+        }
     }
 
     /// `byDamage(damage, maxDamage)`.

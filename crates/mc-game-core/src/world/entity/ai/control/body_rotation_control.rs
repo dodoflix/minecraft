@@ -55,9 +55,14 @@ pub fn base_client_tick(b: &mut BodyRotationControlBase, mob: &mut dyn Entity) {
             if b.head_stable_time > DELAY_UNTIL_STARTING_TO_FACE_FORWARD {
                 // rotateHeadTowardsFront
                 let time_since = b.head_stable_time - DELAY_UNTIL_STARTING_TO_FACE_FORWARD;
-                let face_forward_fraction = mth::clamp_f32(time_since as f32 / HOW_LONG_IT_TAKES_TO_FACE_FORWARD as f32, 0.0, 1.0);
+                let face_forward_fraction = mth::clamp_f32(
+                    time_since as f32 / HOW_LONG_IT_TAKES_TO_FACE_FORWARD as f32,
+                    0.0,
+                    1.0,
+                );
                 let angle_remaining = max_head_y_rot * (1.0 - face_forward_fraction);
-                l.y_body_rot = mth::rotate_if_necessary(l.y_body_rot, l.y_head_rot, angle_remaining);
+                l.y_body_rot =
+                    mth::rotate_if_necessary(l.y_body_rot, l.y_head_rot, angle_remaining);
             }
         }
     }

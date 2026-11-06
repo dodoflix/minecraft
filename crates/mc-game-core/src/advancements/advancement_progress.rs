@@ -38,7 +38,9 @@ fn obtained_time_codec() -> Codec<i64> {
     STRING.comap_flat_map(
         |s: String| match DateTime::parse_from_str(&s, OBTAINED_TIME_FORMAT) {
             Ok(t) => DataResult::success(t.timestamp() * 1000),
-            Err(_) => DataResult::error(move || format!("Text '{s}' could not be parsed at index 0")),
+            Err(_) => {
+                DataResult::error(move || format!("Text '{s}' could not be parsed at index 0"))
+            }
         },
         |millis: &i64| {
             Local
@@ -71,43 +73,58 @@ impl AdvancementProgress {
 
     /// `AdvancementProgress.CODEC`: only done criteria are written; `done` is always written and ignored on read.
     pub fn codec() -> Codec<AdvancementProgress> {
-        static C: std::sync::LazyLock<Codec<AdvancementProgress>> = std::sync::LazyLock::new(|| {
-            let criteria = STRING.unbounded_map(&obtained_time_codec());
-            mc_dfu::record!(Raw {
-                criteria: criteria.optional_field_of_default("criteria", Vec::new()),
-                done: BOOL.optional_field_of_default("done", true).xmap(|d| d, |d: &bool| *d),
-            })
-            .codec()
-            .xmap(
-                |raw: Raw| {
-                    // `Util.mapValues` (Collectors.toMap -> HashMap) then `new HashMap<>(criteria)`
-                    let mut staged: JavaHashMap<String, CriterionProgress> = JavaHashMap::new();
-                    for (k, t) in raw.criteria {
-                        staged.insert(k, CriterionProgress { obtained: Some(t) });
-                    }
-                    let size = staged.len();
-                    let entries: Vec<(String, CriterionProgress)> = staged.iter().map(|(k, v)| (k.clone(), *v)).collect();
-                    AdvancementProgress { criteria: JavaHashMap::copy_of(entries, size), requirements: AdvancementRequirements::EMPTY }
-                },
-                |p: &AdvancementProgress| {
-                    // `Collectors.toMap` over the done entries into a fresh HashMap
-                    let mut out: JavaHashMap<String, i64> = JavaHashMap::new();
-                    for (k, v) in p.criteria.iter() {
-                        if let Some(t) = v.obtained {
-                            out.insert(k.clone(), t);
+        static C: std::sync::LazyLock<Codec<AdvancementProgress>> =
+            std::sync::LazyLock::new(|| {
+                let criteria = STRING.unbounded_map(&obtained_time_codec());
+                mc_dfu::record!(Raw {
+                    criteria: criteria.optional_field_of_default("criteria", Vec::new()),
+                    done: BOOL
+                        .optional_field_of_default("done", true)
+                        .xmap(|d| d, |d: &bool| *d),
+                })
+                .codec()
+                .xmap(
+                    |raw: Raw| {
+                        // `Util.mapValues` (Collectors.toMap -> HashMap) then `new HashMap<>(criteria)`
+                        let mut staged: JavaHashMap<String, CriterionProgress> = JavaHashMap::new();
+                        for (k, t) in raw.criteria {
+                            staged.insert(k, CriterionProgress { obtained: Some(t) });
                         }
-                    }
-                    Raw { criteria: out.iter().map(|(k, v)| (k.clone(), *v)).collect(), done: p.is_done() }
-                },
-            )
-        });
+                        let size = staged.len();
+                        let entries: Vec<(String, CriterionProgress)> =
+                            staged.iter().map(|(k, v)| (k.clone(), *v)).collect();
+                        AdvancementProgress {
+                            criteria: JavaHashMap::copy_of(entries, size),
+                            requirements: AdvancementRequirements::EMPTY,
+                        }
+                    },
+                    |p: &AdvancementProgress| {
+                        // `Collectors.toMap` over the done entries into a fresh HashMap
+                        let mut out: JavaHashMap<String, i64> = JavaHashMap::new();
+                        for (k, v) in p.criteria.iter() {
+                            if let Some(t) = v.obtained {
+                                out.insert(k.clone(), t);
+                            }
+                        }
+                        Raw {
+                            criteria: out.iter().map(|(k, v)| (k.clone(), *v)).collect(),
+                            done: p.is_done(),
+                        }
+                    },
+                )
+            });
         C.clone()
     }
 
     /// `update(requirements)`.
     pub fn update(&mut self, requirements: &AdvancementRequirements) {
         let names = requirements.names();
-        let stale: Vec<String> = self.criteria.keys().filter(|k| !names.contains(k)).cloned().collect();
+        let stale: Vec<String> = self
+            .criteria
+            .keys()
+            .filter(|k| !names.contains(k))
+            .cloned()
+            .collect();
         for k in stale {
             self.criteria.remove(&k);
         }
@@ -154,7 +171,8 @@ impl AdvancementProgress {
     }
 
     fn is_criterion_done(&self, criterion: &str) -> bool {
-        self.get_criterion(criterion).is_some_and(CriterionProgress::is_done)
+        self.get_criterion(criterion)
+            .is_some_and(CriterionProgress::is_done)
     }
 
     /// `getPercent()`.
@@ -177,7 +195,13 @@ impl AdvancementProgress {
             return None;
         }
         let complete = self.count_completed_requirements();
-        Some(Component::translatable("advancements.progress", vec![TranslatableArg::Number(Num::Int(complete as i32)), TranslatableArg::Number(Num::Int(total as i32))]))
+        Some(Component::translatable(
+            "advancements.progress",
+            vec![
+                TranslatableArg::Number(Num::Int(complete as i32)),
+                TranslatableArg::Number(Num::Int(total as i32)),
+            ],
+        ))
     }
 
     fn count_completed_requirements(&self) -> usize {
@@ -186,12 +210,20 @@ impl AdvancementProgress {
 
     /// `getRemainingCriteria()`.
     pub fn get_remaining_criteria(&self) -> Vec<String> {
-        self.criteria.iter().filter(|(_, v)| !v.is_done()).map(|(k, _)| k.clone()).collect()
+        self.criteria
+            .iter()
+            .filter(|(_, v)| !v.is_done())
+            .map(|(k, _)| k.clone())
+            .collect()
     }
 
     /// `getCompletedCriteria()`.
     pub fn get_completed_criteria(&self) -> Vec<String> {
-        self.criteria.iter().filter(|(_, v)| v.is_done()).map(|(k, _)| k.clone()).collect()
+        self.criteria
+            .iter()
+            .filter(|(_, v)| v.is_done())
+            .map(|(k, _)| k.clone())
+            .collect()
     }
 
     /// `getFirstProgressDate()`.
@@ -201,7 +233,10 @@ impl AdvancementProgress {
 
     /// `compareTo`: earlier first progress sorts first, no progress last.
     pub fn compare_to(&self, other: &AdvancementProgress) -> Ordering {
-        match (self.get_first_progress_date(), other.get_first_progress_date()) {
+        match (
+            self.get_first_progress_date(),
+            other.get_first_progress_date(),
+        ) {
             (None, Some(_)) => Ordering::Greater,
             (Some(_), None) => Ordering::Less,
             (None, None) => Ordering::Equal,
@@ -215,7 +250,14 @@ impl AdvancementProgress {
             criteria: self
                 .criteria
                 .iter()
-                .map(|(k, v)| (k.clone(), mc_protocol::packets::play::CriterionProgress { obtained: v.obtained.map(Instant) }))
+                .map(|(k, v)| {
+                    (
+                        k.clone(),
+                        mc_protocol::packets::play::CriterionProgress {
+                            obtained: v.obtained.map(Instant),
+                        },
+                    )
+                })
                 .collect(),
         }
     }

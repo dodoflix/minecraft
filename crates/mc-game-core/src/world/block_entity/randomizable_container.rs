@@ -33,7 +33,9 @@ impl RandomizableContainerData {
 
     /// `RandomizableContainer.trySaveLootTable(output)`: whether a loot table was written (items must not be then).
     pub fn try_save_loot_table(&self, tag: &mut CompoundTag) -> bool {
-        let Some(table) = &self.loot_table else { return false };
+        let Some(table) = &self.loot_table else {
+            return false;
+        };
         tag.put_string("LootTable", table.to_string());
         if self.loot_table_seed != 0 {
             tag.put_long("LootTableSeed", self.loot_table_seed);
@@ -56,9 +58,18 @@ impl RandomizableContainerData {
     }
 
     /// `RandomizableContainerBlockEntity.collectImplicitComponents`.
-    pub fn collect_implicit_components(&self, components: DataComponentMapBuilder) -> DataComponentMapBuilder {
+    pub fn collect_implicit_components(
+        &self,
+        components: DataComponentMapBuilder,
+    ) -> DataComponentMapBuilder {
         match &self.loot_table {
-            Some(table) => components.set(CONTAINER_LOOT, SeededContainerLoot { loot_table: table.clone(), seed: self.loot_table_seed }),
+            Some(table) => components.set(
+                CONTAINER_LOOT,
+                SeededContainerLoot {
+                    loot_table: table.clone(),
+                    seed: self.loot_table_seed,
+                },
+            ),
             None => components,
         }
     }
@@ -67,12 +78,22 @@ impl RandomizableContainerData {
 /// `RandomizableContainer.unpackLootTable(player)` for a block entity that is out of its chunk: rolls the table into
 /// the empty slots (`LootTable.fill` with the `chest` parameter set: origin = center of the block, the player's luck
 /// and `this_entity`).
-pub fn unpack_loot_table(level: &ServerLevel, pos: BlockPos, data: &mut RandomizableContainerData, container: &mut dyn Container, player: Option<&dyn Entity>) {
-    let Some(table_key) = data.loot_table.take() else { return };
+pub fn unpack_loot_table(
+    level: &ServerLevel,
+    pos: BlockPos,
+    data: &mut RandomizableContainerData,
+    container: &mut dyn Container,
+    player: Option<&dyn Entity>,
+) {
+    let Some(table_key) = data.loot_table.take() else {
+        return;
+    };
     let table = loading::get_loot_table(&level.registries, &table_key);
     let mut builder = LootParams::builder(level).origin(Vec3::at_center_of(&pos));
     if let Some(player) = player {
-        let luck = player.living().map_or(0.0, |l| l.get_attribute_value(mc_data::Attribute::LUCK) as f32);
+        let luck = player.living().map_or(0.0, |l| {
+            l.get_attribute_value(mc_data::Attribute::LUCK) as f32
+        });
         builder = builder.luck(luck).this_entity(player);
     }
     let params = builder.create(&LootContextParamSets::CHEST);

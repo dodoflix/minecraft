@@ -95,11 +95,17 @@ pub struct RegistryData {
 }
 
 const fn data(key: &'static str) -> RegistryData {
-    RegistryData { key, validator: RegistryValidator::None }
+    RegistryData {
+        key,
+        validator: RegistryValidator::None,
+    }
 }
 
 const fn non_empty(key: &'static str) -> RegistryData {
-    RegistryData { key, validator: RegistryValidator::NonEmpty }
+    RegistryData {
+        key,
+        validator: RegistryValidator::NonEmpty,
+    }
 }
 
 /// `RegistryDataLoader.WORLD_REGISTRIES` (the `WORLDGEN_REGISTRIES` stage), in vanilla's order.

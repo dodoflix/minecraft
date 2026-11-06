@@ -14,14 +14,40 @@ use crate::densityfunction::codec::{LoadResult, parse_f32, parse_int};
 #[derive(Clone, Debug, PartialEq)]
 pub enum IntProvider {
     Constant(i32),
-    Uniform { min_inclusive: i32, max_inclusive: i32 },
-    BiasedToBottom { min_inclusive: i32, max_inclusive: i32 },
-    VeryBiasedToBottom { min_inclusive: i32, max_inclusive: i32 },
-    Clamped { source: Box<IntProvider>, min_inclusive: i32, max_inclusive: i32 },
+    Uniform {
+        min_inclusive: i32,
+        max_inclusive: i32,
+    },
+    BiasedToBottom {
+        min_inclusive: i32,
+        max_inclusive: i32,
+    },
+    VeryBiasedToBottom {
+        min_inclusive: i32,
+        max_inclusive: i32,
+    },
+    Clamped {
+        source: Box<IntProvider>,
+        min_inclusive: i32,
+        max_inclusive: i32,
+    },
     /// `WeightedListInt` (`min`/`max` are the extrema over the entries, computed once).
-    WeightedList { distribution: WeightedList<IntProvider>, min_value: i32, max_value: i32 },
-    ClampedNormal { mean: f32, deviation: f32, min_inclusive: i32, max_inclusive: i32 },
-    Trapezoid { min_inclusive: i32, max_inclusive: i32, plateau: i32 },
+    WeightedList {
+        distribution: WeightedList<IntProvider>,
+        min_value: i32,
+        max_value: i32,
+    },
+    ClampedNormal {
+        mean: f32,
+        deviation: f32,
+        min_inclusive: i32,
+        max_inclusive: i32,
+    },
+    Trapezoid {
+        min_inclusive: i32,
+        max_inclusive: i32,
+        plateau: i32,
+    },
 }
 
 impl IntProvider {
@@ -38,7 +64,11 @@ impl IntProvider {
             min = min.min(entry.value.min_inclusive());
             max = max.max(entry.value.max_inclusive());
         }
-        IntProvider::WeightedList { distribution, min_value: min, max_value: max }
+        IntProvider::WeightedList {
+            distribution,
+            min_value: min,
+            max_value: max,
+        }
     }
 
     /// `ClampedNormalInt.sample(random, mean, deviation, min, max)`.
@@ -49,45 +79,67 @@ impl IntProvider {
         min_inclusive: f32,
         max_inclusive: f32,
     ) -> i32 {
-        mth::clamp_f32(mth::normal(random, mean, deviation), min_inclusive, max_inclusive) as i32
+        mth::clamp_f32(
+            mth::normal(random, mean, deviation),
+            min_inclusive,
+            max_inclusive,
+        ) as i32
     }
 
     pub fn sample(&self, random: &mut dyn RandomSource) -> i32 {
         match self {
             IntProvider::Constant(value) => *value,
-            IntProvider::Uniform { min_inclusive, max_inclusive } => {
-                mth::random_between_inclusive(random, *min_inclusive, *max_inclusive)
-            }
-            IntProvider::BiasedToBottom { min_inclusive, max_inclusive } => {
+            IntProvider::Uniform {
+                min_inclusive,
+                max_inclusive,
+            } => mth::random_between_inclusive(random, *min_inclusive, *max_inclusive),
+            IntProvider::BiasedToBottom {
+                min_inclusive,
+                max_inclusive,
+            } => {
                 let bound = max_inclusive.wrapping_sub(*min_inclusive).wrapping_add(1);
                 let inner = random.next_int_bounded(bound).wrapping_add(1);
                 min_inclusive.wrapping_add(random.next_int_bounded(inner))
             }
-            IntProvider::VeryBiasedToBottom { min_inclusive, max_inclusive } => {
+            IntProvider::VeryBiasedToBottom {
+                min_inclusive,
+                max_inclusive,
+            } => {
                 let bound = max_inclusive.wrapping_sub(*min_inclusive).wrapping_add(1);
                 let a = random.next_int_bounded(bound).wrapping_add(1);
                 let b = random.next_int_bounded(a).wrapping_add(1);
                 min_inclusive.wrapping_add(random.next_int_bounded(b))
             }
-            IntProvider::Clamped { source, min_inclusive, max_inclusive } => {
-                mth::clamp_i32(source.sample(random), *min_inclusive, *max_inclusive)
-            }
+            IntProvider::Clamped {
+                source,
+                min_inclusive,
+                max_inclusive,
+            } => mth::clamp_i32(source.sample(random), *min_inclusive, *max_inclusive),
             IntProvider::WeightedList { distribution, .. } => {
                 distribution.get_random_or_throw(random).sample(random)
             }
-            IntProvider::ClampedNormal { mean, deviation, min_inclusive, max_inclusive } => {
-                IntProvider::sample_clamped_normal(
-                    random,
-                    *mean,
-                    *deviation,
-                    *min_inclusive as f32,
-                    *max_inclusive as f32,
-                )
-            }
-            IntProvider::Trapezoid { min_inclusive, max_inclusive, plateau } => {
+            IntProvider::ClampedNormal {
+                mean,
+                deviation,
+                min_inclusive,
+                max_inclusive,
+            } => IntProvider::sample_clamped_normal(
+                random,
+                *mean,
+                *deviation,
+                *min_inclusive as f32,
+                *max_inclusive as f32,
+            ),
+            IntProvider::Trapezoid {
+                min_inclusive,
+                max_inclusive,
+                plateau,
+            } => {
                 if *plateau == 0 && *max_inclusive == min_inclusive.wrapping_neg() {
                     let bound = max_inclusive.wrapping_add(1);
-                    random.next_int_bounded(bound).wrapping_sub(random.next_int_bounded(bound))
+                    random
+                        .next_int_bounded(bound)
+                        .wrapping_sub(random.next_int_bounded(bound))
                 } else {
                     let range = max_inclusive.wrapping_sub(*min_inclusive);
                     if *plateau == range {
@@ -112,9 +164,11 @@ impl IntProvider {
             | IntProvider::VeryBiasedToBottom { min_inclusive, .. }
             | IntProvider::ClampedNormal { min_inclusive, .. }
             | IntProvider::Trapezoid { min_inclusive, .. } => *min_inclusive,
-            IntProvider::Clamped { source, min_inclusive, .. } => {
-                (*min_inclusive).max(source.min_inclusive())
-            }
+            IntProvider::Clamped {
+                source,
+                min_inclusive,
+                ..
+            } => (*min_inclusive).max(source.min_inclusive()),
             IntProvider::WeightedList { min_value, .. } => *min_value,
         }
     }
@@ -127,9 +181,11 @@ impl IntProvider {
             | IntProvider::VeryBiasedToBottom { max_inclusive, .. }
             | IntProvider::ClampedNormal { max_inclusive, .. }
             | IntProvider::Trapezoid { max_inclusive, .. } => *max_inclusive,
-            IntProvider::Clamped { source, max_inclusive, .. } => {
-                (*max_inclusive).min(source.max_inclusive())
-            }
+            IntProvider::Clamped {
+                source,
+                max_inclusive,
+                ..
+            } => (*max_inclusive).min(source.max_inclusive()),
             IntProvider::WeightedList { max_value, .. } => *max_value,
         }
     }
@@ -165,23 +221,36 @@ impl IntProvider {
             "uniform" => {
                 let (min_inclusive, max_inclusive) = min_max("min_inclusive", "max_inclusive")?;
                 ordered(min_inclusive, max_inclusive)?;
-                Ok(IntProvider::Uniform { min_inclusive, max_inclusive })
+                Ok(IntProvider::Uniform {
+                    min_inclusive,
+                    max_inclusive,
+                })
             }
             "biased_to_bottom" => {
                 let (min_inclusive, max_inclusive) = min_max("min_inclusive", "max_inclusive")?;
                 ordered(min_inclusive, max_inclusive)?;
-                Ok(IntProvider::BiasedToBottom { min_inclusive, max_inclusive })
+                Ok(IntProvider::BiasedToBottom {
+                    min_inclusive,
+                    max_inclusive,
+                })
             }
             "very_biased_to_bottom" => {
                 let (min_inclusive, max_inclusive) = min_max("min_inclusive", "max_inclusive")?;
                 ordered(min_inclusive, max_inclusive)?;
-                Ok(IntProvider::VeryBiasedToBottom { min_inclusive, max_inclusive })
+                Ok(IntProvider::VeryBiasedToBottom {
+                    min_inclusive,
+                    max_inclusive,
+                })
             }
             "clamped" => {
                 let source = f.required("source", IntProvider::from_json)?;
                 let (min_inclusive, max_inclusive) = min_max("min_inclusive", "max_inclusive")?;
                 ordered(min_inclusive, max_inclusive)?;
-                Ok(IntProvider::Clamped { source: Box::new(source), min_inclusive, max_inclusive })
+                Ok(IntProvider::Clamped {
+                    source: Box::new(source),
+                    min_inclusive,
+                    max_inclusive,
+                })
             }
             "weighted_list" => {
                 let distribution = f.required("distribution", |v| {
@@ -198,7 +267,12 @@ impl IntProvider {
                         "Max must be larger than min: [{min_inclusive}, {max_inclusive}]"
                     )));
                 }
-                Ok(IntProvider::ClampedNormal { mean, deviation, min_inclusive, max_inclusive })
+                Ok(IntProvider::ClampedNormal {
+                    mean,
+                    deviation,
+                    min_inclusive,
+                    max_inclusive,
+                })
             }
             "trapezoid" => {
                 let (min_inclusive, max_inclusive) = min_max("min", "max")?;
@@ -214,14 +288,22 @@ impl IntProvider {
                         "Plateau can at most be the full span: [{min_inclusive}, {max_inclusive}]"
                     )));
                 }
-                Ok(IntProvider::Trapezoid { min_inclusive, max_inclusive, plateau })
+                Ok(IntProvider::Trapezoid {
+                    min_inclusive,
+                    max_inclusive,
+                    plateau,
+                })
             }
             other => Err(unknown_type(other)),
         }
     }
 
     /// `IntProviders.codec(minValue, maxValue)`.
-    pub fn from_json_range(value: &Value, min_value: i32, max_value: i32) -> LoadResult<IntProvider> {
+    pub fn from_json_range(
+        value: &Value,
+        min_value: i32,
+        max_value: i32,
+    ) -> LoadResult<IntProvider> {
         let provider = IntProvider::from_json(value)?;
         if provider.min_inclusive() < min_value {
             return Err(LoadError::new(format!(

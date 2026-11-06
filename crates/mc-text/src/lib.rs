@@ -22,12 +22,16 @@ pub mod util;
 pub mod value;
 
 pub use chat_formatting::ChatFormatting;
-pub use codec::{set_payload_hooks, set_validators, CodecError, PayloadHooks, PayloadKind, Validators};
-pub use component::{
-    Component, ComponentContents, DataSource, NbtContents, ObjectContents, ObjectInfo, ScoreContents, ScoreName, SelectorContents,
-    TranslatableArg, TranslatableContents,
+pub use codec::{
+    CodecError, PayloadHooks, PayloadKind, Validators, set_payload_hooks, set_validators,
 };
-pub use events::{ClickAction, ClickEvent, EntityTooltipInfo, HoverAction, HoverEvent, ItemStackTemplate};
+pub use component::{
+    Component, ComponentContents, DataSource, NbtContents, ObjectContents, ObjectInfo,
+    ScoreContents, ScoreName, SelectorContents, TranslatableArg, TranslatableContents,
+};
+pub use events::{
+    ClickAction, ClickEvent, EntityTooltipInfo, HoverAction, HoverEvent, ItemStackTemplate,
+};
 pub use language::Language;
 pub use style::{FontDescription, Style};
 pub use text_color::TextColor;
@@ -77,19 +81,35 @@ impl Component {
 
     /// `ComponentSerialization.flatRestrictedCodec(max_flat_size).parse(NbtOps, tag)`: decoding fails
     /// when the component's compact JSON form is longer than `max_flat_size` characters.
-    pub fn from_nbt_flat_restricted(tag: &Tag, max_flat_size: usize) -> Result<Component, CodecError> {
+    pub fn from_nbt_flat_restricted(
+        tag: &Tag,
+        max_flat_size: usize,
+    ) -> Result<Component, CodecError> {
         let component = Component::from_nbt(tag)?;
-        if component.to_json().is_ok_and(|json| util::encodes_longer_than(&json, max_flat_size)) {
-            return Err(CodecError(format!("Component was too large: greater than max size {max_flat_size}")));
+        if component
+            .to_json()
+            .is_ok_and(|json| util::encodes_longer_than(&json, max_flat_size))
+        {
+            return Err(CodecError(format!(
+                "Component was too large: greater than max size {max_flat_size}"
+            )));
         }
         Ok(component)
     }
 
     /// Same as [`Component::from_nbt_flat_restricted`] for JSON input.
-    pub fn from_json_flat_restricted(json: &Value, max_flat_size: usize) -> Result<Component, CodecError> {
+    pub fn from_json_flat_restricted(
+        json: &Value,
+        max_flat_size: usize,
+    ) -> Result<Component, CodecError> {
         let component = Component::from_json(json)?;
-        if component.to_json().is_ok_and(|encoded| util::encodes_longer_than(&encoded, max_flat_size)) {
-            return Err(CodecError(format!("Component was too large: greater than max size {max_flat_size}")));
+        if component
+            .to_json()
+            .is_ok_and(|encoded| util::encodes_longer_than(&encoded, max_flat_size))
+        {
+            return Err(CodecError(format!(
+                "Component was too large: greater than max size {max_flat_size}"
+            )));
         }
         Ok(component)
     }

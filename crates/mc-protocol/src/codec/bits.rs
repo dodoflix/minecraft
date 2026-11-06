@@ -2,7 +2,7 @@
 use crate::codec::EncodeResult;
 use std::marker::PhantomData;
 
-use super::{take, Decode, DecodeResult, Encode, EncodeError, LongArray};
+use super::{Decode, DecodeResult, Encode, EncodeError, LongArray, take};
 
 /// `java.util.BitSet`. Invariant: the last word is non-zero (so `words` is the `toLongArray()` form).
 #[derive(Debug, Clone, PartialEq, Eq, Default, Hash)]
@@ -39,12 +39,16 @@ impl BitSet {
     }
 
     pub fn get(&self, i: usize) -> bool {
-        self.words.get(i / 64).is_some_and(|w| w >> (i % 64) & 1 != 0)
+        self.words
+            .get(i / 64)
+            .is_some_and(|w| w >> (i % 64) & 1 != 0)
     }
 
     /// Highest set bit + 1 (`BitSet.length()`).
     pub fn length(&self) -> usize {
-        self.words.last().map_or(0, |w| self.words.len() * 64 - w.leading_zeros() as usize)
+        self.words
+            .last()
+            .map_or(0, |w| self.words.len() * 64 - w.leading_zeros() as usize)
     }
 
     pub fn is_empty(&self) -> bool {
@@ -57,7 +61,9 @@ impl BitSet {
 
     /// `BitSet.valueOf(long[])`.
     pub fn from_longs(longs: &[i64]) -> Self {
-        let mut b = Self { words: longs.iter().map(|&l| l as u64).collect() };
+        let mut b = Self {
+            words: longs.iter().map(|&l| l as u64).collect(),
+        };
         b.trim();
         b
     }
@@ -69,7 +75,12 @@ impl BitSet {
 
     /// `BitSet.valueOf(byte[])` (little-endian bit order).
     pub fn from_bytes(bytes: &[u8]) -> Self {
-        let mut b = Self { words: bytes.chunks(8).map(|c| c.iter().rev().fold(0u64, |a, &x| a << 8 | u64::from(x))).collect() };
+        let mut b = Self {
+            words: bytes
+                .chunks(8)
+                .map(|c| c.iter().rev().fold(0u64, |a, &x| a << 8 | u64::from(x)))
+                .collect(),
+        };
         b.trim();
         b
     }
@@ -101,9 +112,16 @@ impl Decode for BitSet {
 }
 
 /// `FriendlyByteBuf.writeFixedBitSet`: `ceil(size/8)` bytes; a set longer than `size` is rejected.
-pub(crate) fn write_fixed_bit_set(out: &mut Vec<u8>, bits: &BitSet, size: usize) -> EncodeResult<()> {
+pub(crate) fn write_fixed_bit_set(
+    out: &mut Vec<u8>,
+    bits: &BitSet,
+    size: usize,
+) -> EncodeResult<()> {
     if bits.length() > size {
-        return Err(EncodeError(format!("BitSet is larger than expected size ({}>{size})", bits.length())));
+        return Err(EncodeError(format!(
+            "BitSet is larger than expected size ({}>{size})",
+            bits.length()
+        )));
     }
     let mut b = bits.to_bytes();
     b.resize(size.div_ceil(8), 0);
@@ -159,7 +177,10 @@ pub struct EnumSet<E: EnumValues> {
 
 impl<E: EnumValues> Default for EnumSet<E> {
     fn default() -> Self {
-        Self { bits: BitSet::new(), _e: PhantomData }
+        Self {
+            bits: BitSet::new(),
+            _e: PhantomData,
+        }
     }
 }
 
@@ -195,7 +216,10 @@ impl<E: EnumValues> Decode for EnumSet<E> {
         for i in E::COUNT..bits.length() {
             bits.set_to(i, false);
         }
-        Ok(Self { bits, _e: PhantomData })
+        Ok(Self {
+            bits,
+            _e: PhantomData,
+        })
     }
 }
 
@@ -210,7 +234,10 @@ mod tests {
         b.set(1);
         b.set(70);
         assert_eq!(b.length(), 71);
-        assert_eq!(to_bytes(&b).unwrap(), [2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0x40]);
+        assert_eq!(
+            to_bytes(&b).unwrap(),
+            [2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0x40]
+        );
         assert_eq!(BitSet::from_bytes(&b.to_bytes()), b);
         assert_eq!(b.to_bytes().len(), 9);
         assert_eq!(from_bytes::<BitSet>(&to_bytes(&b).unwrap()).unwrap(), b);

@@ -27,8 +27,8 @@ mod technical_blocks;
 
 pub mod hooks;
 
-use super::game_listener::ServerGamePacketListenerImpl;
 use super::InboundPacket;
+use super::game_listener::ServerGamePacketListenerImpl;
 use crate::server::MinecraftServer;
 use crate::server::level::ServerLevel;
 use crate::server::players::end_credits::finish_player_step;
@@ -50,7 +50,10 @@ pub struct PlayCtx<'a> {
 impl PlayCtx<'_> {
     /// The listener (`player.connection`). A context only exists for players that have one.
     pub fn lis(&mut self) -> &mut ServerGamePacketListenerImpl {
-        self.player.listener.as_mut().expect("play context without a listener")
+        self.player
+            .listener
+            .as_mut()
+            .expect("play context without a listener")
     }
 
     /// `send(packet)`.
@@ -103,32 +106,60 @@ fn handled_on_netty_thread(packet: &ServerboundPlayPacket) -> bool {
 /// Runs `f` with the context of the player `uuid`: finds the player's level, takes the player out of it
 /// (`ServerLevel::with_player`) and puts it back afterwards. Returns `None` if the player or its level is not
 /// available (not in the player list, level currently ticking).
-pub fn with_player<R>(server: &mut MinecraftServer, uuid: Uuid, f: impl FnOnce(&mut PlayCtx) -> R) -> Option<R> {
+pub fn with_player<R>(
+    server: &mut MinecraftServer,
+    uuid: Uuid,
+    f: impl FnOnce(&mut PlayCtx) -> R,
+) -> Option<R> {
     let (entity_id, dimension) = {
         let handle = server.player_list.get_player(&uuid)?;
         (handle.id, handle.dimension())
     };
     if let Some(mut player) = server.detached_players.remove(&uuid) {
         // removed from the level by `showEndCredits` but still connected: the context's level is the one it left
-        let result = server.with_level(&dimension, |server, level| f(&mut PlayCtx { server, level, player: &mut player }));
+        let result = server.with_level(&dimension, |server, level| {
+            f(&mut PlayCtx {
+                server,
+                level,
+                player: &mut player,
+            })
+        });
         if result.is_none() || !player.disconnected {
             server.detached_players.insert(uuid, player);
         }
         return result;
     }
     server
-        .with_level(&dimension, |server, level| level.with_player(entity_id, |level, player| f(&mut PlayCtx { server, level, player })))
+        .with_level(&dimension, |server, level| {
+            level.with_player(entity_id, |level, player| {
+                f(&mut PlayCtx {
+                    server,
+                    level,
+                    player,
+                })
+            })
+        })
         .flatten()
 }
 
 /// `PacketProcessor.processQueuedPackets()` for every connected player; called at the start of each tick.
 pub fn process_queued_packets(server: &mut MinecraftServer) {
-    let uuids: Vec<Uuid> = server.player_list.players().iter().map(|p| p.uuid).collect();
+    let uuids: Vec<Uuid> = server
+        .player_list
+        .players()
+        .iter()
+        .map(|p| p.uuid)
+        .collect();
     for uuid in uuids {
-        let Some(handle) = server.player_list.get_player(&uuid).cloned() else { continue };
+        let Some(handle) = server.player_list.get_player(&uuid).cloned() else {
+            continue;
+        };
         let Some((pending, deferred)) = with_player(server, uuid, |ctx| {
             ctx.drain_inbound();
-            (ctx.lis().pending_respawn.take(), std::mem::take(&mut ctx.lis().deferred_tasks))
+            (
+                ctx.lis().pending_respawn.take(),
+                std::mem::take(&mut ctx.lis().deferred_tasks),
+            )
         }) else {
             continue;
         };
@@ -144,12 +175,20 @@ pub fn process_queued_packets(server: &mut MinecraftServer) {
 
 /// `MinecraftServer.tickChildren` "send chunks": every player's `chunkSender.sendNextChunks(player)`.
 pub fn send_next_chunks_all(server: &mut MinecraftServer) {
-    let uuids: Vec<Uuid> = server.player_list.players().iter().map(|p| p.uuid).collect();
+    let uuids: Vec<Uuid> = server
+        .player_list
+        .players()
+        .iter()
+        .map(|p| p.uuid)
+        .collect();
     for uuid in uuids {
         with_player(server, uuid, |ctx| {
             let pos = crate::world::entity::Entity::chunk_position(&*ctx.player);
             let sender = ctx.lis().chunk_sender.clone();
-            sender.send_next_chunks(pos, &mut super::player_chunk_sender::LevelChunkSource { level: &*ctx.level });
+            sender.send_next_chunks(
+                pos,
+                &mut super::player_chunk_sender::LevelChunkSource { level: &*ctx.level },
+            );
         });
     }
 }
@@ -186,8 +225,14 @@ impl PlayCtx<'_> {
         let mut main = Vec::new();
         for event in batch {
             match event {
-                InboundPacket::Packet { packet, received_at_ms } if handled_on_netty_thread(&packet) => netty.push((*packet, received_at_ms)),
-                InboundPacket::Packet { packet, received_at_ms } => main.push((*packet, received_at_ms)),
+                InboundPacket::Packet {
+                    packet,
+                    received_at_ms,
+                } if handled_on_netty_thread(&packet) => netty.push((*packet, received_at_ms)),
+                InboundPacket::Packet {
+                    packet,
+                    received_at_ms,
+                } => main.push((*packet, received_at_ms)),
                 InboundPacket::Disconnected(details) => {
                     lis.pending_disconnect.get_or_insert(details.reason.clone());
                 }
@@ -215,7 +260,10 @@ impl PlayCtx<'_> {
     /// offending player instead (documented deviation: a bad packet must not take the server down).
     fn on_packet_error(&mut self, packet_name: &str, error: String) {
         log::error!("Failed to handle packet {packet_name}: {error}");
-        self.disconnect(Component::translatable("disconnect.genericReason", vec![format!("Internal Exception: {error}").into()]));
+        self.disconnect(Component::translatable(
+            "disconnect.genericReason",
+            vec![format!("Internal Exception: {error}").into()],
+        ));
     }
 
     /// `packet.handle(listener)` for every serverbound play packet.
@@ -273,7 +321,11 @@ impl PlayCtx<'_> {
             other => self.dispatch_hook(other),
         }));
         if let Err(panic) = result {
-            let message = panic.downcast_ref::<String>().cloned().or_else(|| panic.downcast_ref::<&str>().map(|s| s.to_string())).unwrap_or_default();
+            let message = panic
+                .downcast_ref::<String>()
+                .cloned()
+                .or_else(|| panic.downcast_ref::<&str>().map(|s| s.to_string()))
+                .unwrap_or_default();
             self.on_packet_error(name, message);
         }
     }
@@ -287,26 +339,46 @@ pub fn start_services_keys_fetch() {
 /// `handleClientCommand` PERFORM_RESPAWN: `this.player = playerList.respawn(this.player, keepAll, reason)` followed by
 /// `resetPosition()`, `restartClientLoadTimerAfterRespawn()` and, for a normal respawn on a hardcore world, the switch
 /// to spectator mode.
-fn perform_respawn(server: &mut MinecraftServer, handle: &crate::server::players::PlayerHandle, won_game: bool) {
+fn perform_respawn(
+    server: &mut MinecraftServer,
+    handle: &crate::server::players::PlayerHandle,
+    won_game: bool,
+) {
     use crate::world::entity::{Entity, RemovalReason};
-    let reason = if won_game { RemovalReason::ChangedDimension } else { RemovalReason::Killed };
-    let hardcore = server.world_data.lock().settings.difficulty_settings.hardcore;
-    crate::server::players::respawn::respawn(server, &handle.dimension(), handle.id, won_game, reason, move |_server, level, player| {
-        let pos = player.position();
-        if let Some(lis) = player.listener.as_mut() {
-            lis.reset_position(pos);
-            lis.restart_client_load_timer_after_respawn();
-        }
-        if won_game {
-            crate::advancements::triggers::CriteriaTriggers::CHANGED_DIMENSION.trigger(
-                level,
-                player,
-                &crate::server::world_dimensions::end_key(),
-                &crate::server::world_dimensions::overworld_key(),
-            );
-        }
-        if !won_game && hardcore {
-            player.set_game_mode(level, mc_data::enums::GameType::Spectator);
-        }
-    });
+    let reason = if won_game {
+        RemovalReason::ChangedDimension
+    } else {
+        RemovalReason::Killed
+    };
+    let hardcore = server
+        .world_data
+        .lock()
+        .settings
+        .difficulty_settings
+        .hardcore;
+    crate::server::players::respawn::respawn(
+        server,
+        &handle.dimension(),
+        handle.id,
+        won_game,
+        reason,
+        move |_server, level, player| {
+            let pos = player.position();
+            if let Some(lis) = player.listener.as_mut() {
+                lis.reset_position(pos);
+                lis.restart_client_load_timer_after_respawn();
+            }
+            if won_game {
+                crate::advancements::triggers::CriteriaTriggers::CHANGED_DIMENSION.trigger(
+                    level,
+                    player,
+                    &crate::server::world_dimensions::end_key(),
+                    &crate::server::world_dimensions::overworld_key(),
+                );
+            }
+            if !won_game && hardcore {
+                player.set_game_mode(level, mc_data::enums::GameType::Spectator);
+            }
+        },
+    );
 }

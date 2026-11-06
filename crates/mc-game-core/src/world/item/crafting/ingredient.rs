@@ -131,7 +131,9 @@ impl Ingredient {
 
     /// `display()`: `TagSlotDisplay(values)`.
     pub fn display(&self) -> SlotDisplay {
-        SlotDisplay::Tag { tag: self.wire_set() }
+        SlotDisplay::Tag {
+            tag: self.wire_set(),
+        }
     }
 
     /// `optionalIngredientToDisplay`.
@@ -143,14 +145,20 @@ impl Ingredient {
     pub fn wire_set(&self) -> WireHolderSet {
         match &self.values {
             ItemHolderSet::Named(tag) => WireHolderSet::Named(tag.clone()),
-            ItemHolderSet::Direct(items) => WireHolderSet::Direct(items.iter().map(|i| i.id() as i32).collect()),
+            ItemHolderSet::Direct(items) => {
+                WireHolderSet::Direct(items.iter().map(|i| i.id() as i32).collect())
+            }
         }
     }
 
     /// `Ingredient.CODEC`: a non-empty `NON_AIR_HOLDER_SET_CODEC` (`#tag`, one item id, or a list of item ids).
     pub fn codec() -> Codec<Ingredient> {
         let item = registry_by_name_codec::<Item>().validate(|item| {
-            if item == Item::AIR { DataResult::error_str("Item must not be minecraft:air") } else { DataResult::success(item) }
+            if item == Item::AIR {
+                DataResult::error_str("Item must not be minecraft:air")
+            } else {
+                DataResult::success(item)
+            }
         });
         let list = item.list_of();
         let direct = mc_dfu::extra::compact_list_codec_with(&item, &list);
@@ -158,25 +166,35 @@ impl Ingredient {
         let (decode_either, encode_either) = (either.clone(), either);
         let set = Codec::from_fns(
             move |ops, input: &ItemHolderSet, prefix| match input {
-                ItemHolderSet::Named(tag) => encode_either.encode(ops, &Either::Left(tag.clone()), prefix),
-                ItemHolderSet::Direct(items) => encode_either.encode(ops, &Either::Right(items.clone()), prefix),
+                ItemHolderSet::Named(tag) => {
+                    encode_either.encode(ops, &Either::Left(tag.clone()), prefix)
+                }
+                ItemHolderSet::Direct(items) => {
+                    encode_either.encode(ops, &Either::Right(items.clone()), prefix)
+                }
             },
             move |ops, input| {
-                decode_either.decode(ops, input).flat_map(|(either, rest)| match either {
-                    Either::Left(tag) => {
-                        if item_tag_exists(&tag) {
-                            DataResult::success((ItemHolderSet::Named(tag), rest))
-                        } else {
-                            let message = format!("Missing tag: '{tag}' in 'minecraft:item'");
-                            DataResult::error(move || message.clone())
+                decode_either
+                    .decode(ops, input)
+                    .flat_map(|(either, rest)| match either {
+                        Either::Left(tag) => {
+                            if item_tag_exists(&tag) {
+                                DataResult::success((ItemHolderSet::Named(tag), rest))
+                            } else {
+                                let message = format!("Missing tag: '{tag}' in 'minecraft:item'");
+                                DataResult::error(move || message.clone())
+                            }
                         }
-                    }
-                    Either::Right(items) => DataResult::success((ItemHolderSet::Direct(items), rest)),
-                })
+                        Either::Right(items) => {
+                            DataResult::success((ItemHolderSet::Direct(items), rest))
+                        }
+                    })
             },
         );
         set.validate(|set| match &set {
-            ItemHolderSet::Direct(items) if items.is_empty() => DataResult::error_str("List must have contents"),
+            ItemHolderSet::Direct(items) if items.is_empty() => {
+                DataResult::error_str("List must have contents")
+            }
             _ => DataResult::success(set),
         })
         .xmap(Ingredient::from_set, |i: &Ingredient| i.values.clone())
@@ -203,7 +221,10 @@ impl PlacementInfo {
         if ingredient.is_empty() {
             Self::not_placeable()
         } else {
-            PlacementInfo { ingredients: vec![ingredient.clone()], slots_to_ingredient_index: vec![0] }
+            PlacementInfo {
+                ingredients: vec![ingredient.clone()],
+                slots_to_ingredient_index: vec![0],
+            }
         }
     }
 
@@ -225,7 +246,10 @@ impl PlacementInfo {
                 None => slots.push(Self::EMPTY_SLOT),
             }
         }
-        PlacementInfo { ingredients: present, slots_to_ingredient_index: slots }
+        PlacementInfo {
+            ingredients: present,
+            slots_to_ingredient_index: slots,
+        }
     }
 
     /// `create(ingredients)`.
@@ -233,7 +257,10 @@ impl PlacementInfo {
         if ingredients.iter().any(Ingredient::is_empty) {
             return Self::not_placeable();
         }
-        PlacementInfo { ingredients: ingredients.to_vec(), slots_to_ingredient_index: (0..ingredients.len() as i32).collect() }
+        PlacementInfo {
+            ingredients: ingredients.to_vec(),
+            slots_to_ingredient_index: (0..ingredients.len() as i32).collect(),
+        }
     }
 
     pub fn slots_to_ingredient_index(&self) -> &[i32] {

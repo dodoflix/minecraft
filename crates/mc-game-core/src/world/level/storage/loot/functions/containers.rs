@@ -4,15 +4,21 @@ use std::sync::Arc;
 
 use mc_dfu::{Codec, DataResult, MapCodec, record};
 use mc_protocol::components::values::containers::{
-    BUNDLE_CONTENTS, BundleContents, CHARGED_PROJECTILES, CONTAINER, ChargedProjectiles, ItemContainerContents,
+    BUNDLE_CONTENTS, BundleContents, CHARGED_PROJECTILES, CONTAINER, ChargedProjectiles,
+    ItemContainerContents,
 };
 use mc_protocol::components::{ItemStack, ItemStackTemplate};
 
-use super::{ConditionalFunction, FunctionHolder, LootItemFunctionRef, condition_field, function_holder_codec};
+use super::{
+    ConditionalFunction, FunctionHolder, LootItemFunctionRef, condition_field,
+    function_holder_codec,
+};
 use crate::world::item::BundleMutable;
 use crate::world::item::slot::{SlotAccess, SlotCollection, SlotRef};
 use crate::world::level::storage::loot::context::LootContext;
-use crate::world::level::storage::loot::entries::{LootPoolEntry, LootPoolEntryContainer, entry_codec};
+use crate::world::level::storage::loot::entries::{
+    LootPoolEntry, LootPoolEntryContainer, entry_codec,
+};
 use crate::world::level::storage::loot::holder::lift;
 use crate::world::level::storage::loot::predicates::ConditionHolder;
 use crate::world::level::storage::loot::table::create_stack_splitter;
@@ -21,7 +27,11 @@ use crate::world::level::storage::loot::validation::{ValidationContext, validate
 type Entries = Vec<(&'static str, MapCodec<LootItemFunctionRef>)>;
 
 fn entry<F: ConditionalFunction + Clone>(codec: MapCodec<F>) -> MapCodec<LootItemFunctionRef> {
-    lift(codec, |f| Arc::new(f) as LootItemFunctionRef, |t| t.as_any().downcast_ref::<F>())
+    lift(
+        codec,
+        |f| Arc::new(f) as LootItemFunctionRef,
+        |t| t.as_any().downcast_ref::<F>(),
+    )
 }
 
 /// `ContainerComponentManipulator<T>`: the container-like data components (`container`, `bundle_contents`,
@@ -34,7 +44,11 @@ pub enum ContainerComponentManipulator {
 }
 
 fn template(stack: &ItemStack) -> Option<ItemStackTemplate> {
-    if stack.is_empty() { None } else { ItemStackTemplate::from_stack(stack).ok() }
+    if stack.is_empty() {
+        None
+    } else {
+        ItemStackTemplate::from_stack(stack).ok()
+    }
 }
 
 impl ContainerComponentManipulator {
@@ -51,13 +65,20 @@ impl ContainerComponentManipulator {
     pub fn codec() -> Codec<ContainerComponentManipulator> {
         mc_protocol::components::map::type_codec().comap_flat_map(
             |t| match t.name() {
-                "minecraft:container" => DataResult::success(ContainerComponentManipulator::Container),
-                "minecraft:bundle_contents" => DataResult::success(ContainerComponentManipulator::BundleContents),
-                "minecraft:charged_projectiles" => DataResult::success(ContainerComponentManipulator::ChargedProjectiles),
+                "minecraft:container" => {
+                    DataResult::success(ContainerComponentManipulator::Container)
+                }
+                "minecraft:bundle_contents" => {
+                    DataResult::success(ContainerComponentManipulator::BundleContents)
+                }
+                "minecraft:charged_projectiles" => {
+                    DataResult::success(ContainerComponentManipulator::ChargedProjectiles)
+                }
                 _ => DataResult::error_str("No items in component"),
             },
             |m: &ContainerComponentManipulator| {
-                mc_data::DataComponentType::by_name(&format!("minecraft:{}", m.type_name())).expect("registered component type")
+                mc_data::DataComponentType::by_name(&format!("minecraft:{}", m.type_name()))
+                    .expect("registered component type")
             },
         )
     }
@@ -65,15 +86,21 @@ impl ContainerComponentManipulator {
     /// `itemCopies()` of the component (`None` when the stack has no such component).
     fn contents(self, stack: &ItemStack) -> Option<Vec<ItemStack>> {
         match self {
-            ContainerComponentManipulator::Container => stack
-                .get(&CONTAINER)
-                .map(|c| c.items().iter().map(|t| t.as_ref().map_or_else(ItemStack::empty, ItemStackTemplate::create)).collect()),
-            ContainerComponentManipulator::BundleContents => {
-                stack.get(&BUNDLE_CONTENTS).map(|c| c.items().iter().map(ItemStackTemplate::create).collect())
-            }
-            ContainerComponentManipulator::ChargedProjectiles => {
-                stack.get(&CHARGED_PROJECTILES).map(|c| c.items.iter().map(ItemStackTemplate::create).collect())
-            }
+            ContainerComponentManipulator::Container => stack.get(&CONTAINER).map(|c| {
+                c.items()
+                    .iter()
+                    .map(|t| {
+                        t.as_ref()
+                            .map_or_else(ItemStack::empty, ItemStackTemplate::create)
+                    })
+                    .collect()
+            }),
+            ContainerComponentManipulator::BundleContents => stack
+                .get(&BUNDLE_CONTENTS)
+                .map(|c| c.items().iter().map(ItemStackTemplate::create).collect()),
+            ContainerComponentManipulator::ChargedProjectiles => stack
+                .get(&CHARGED_PROJECTILES)
+                .map(|c| c.items.iter().map(ItemStackTemplate::create).collect()),
         }
     }
 
@@ -97,13 +124,22 @@ impl ContainerComponentManipulator {
                 stack.set(BUNDLE_CONTENTS, mutable.to_immutable());
             }
             ContainerComponentManipulator::ChargedProjectiles => {
-                stack.set(CHARGED_PROJECTILES, ChargedProjectiles { items: new_contents.iter().filter_map(template).collect() });
+                stack.set(
+                    CHARGED_PROJECTILES,
+                    ChargedProjectiles {
+                        items: new_contents.iter().filter_map(template).collect(),
+                    },
+                );
             }
         }
     }
 
     /// `modifyItems(itemStack, modifier)`.
-    pub fn modify_items(self, stack: &mut ItemStack, modifier: &mut dyn FnMut(ItemStack) -> ItemStack) {
+    pub fn modify_items(
+        self,
+        stack: &mut ItemStack,
+        modifier: &mut dyn FnMut(ItemStack) -> ItemStack,
+    ) {
         if let Some(contents) = self.contents(stack) {
             let new: Vec<ItemStack> = contents
                 .into_iter()
@@ -124,8 +160,15 @@ impl ContainerComponentManipulator {
     /// `getSlots(itemStack)`: one slot per stored item.
     pub fn get_slots<'a>(self, slot: SlotRef<'a>) -> SlotCollection<'a> {
         let size = self.contents(&slot.get()).map_or(0, |c| c.len());
-        let slots: Vec<SlotRef<'a>> =
-            (0..size).map(|index| Rc::new(ComponentSlot { owner: slot.clone(), manipulator: self, index }) as SlotRef<'a>).collect();
+        let slots: Vec<SlotRef<'a>> = (0..size)
+            .map(|index| {
+                Rc::new(ComponentSlot {
+                    owner: slot.clone(),
+                    manipulator: self,
+                    index,
+                }) as SlotRef<'a>
+            })
+            .collect();
         SlotCollection::of(slots)
     }
 }
@@ -141,7 +184,10 @@ struct ComponentSlot<'a> {
 
 impl SlotAccess for ComponentSlot<'_> {
     fn get(&self) -> ItemStack {
-        self.manipulator.contents(&self.owner.get()).and_then(|c| c.into_iter().nth(self.index)).unwrap_or_default()
+        self.manipulator
+            .contents(&self.owner.get())
+            .and_then(|c| c.into_iter().nth(self.index))
+            .unwrap_or_default()
     }
     fn set(&self, stack: ItemStack) -> bool {
         let mut owner = self.owner.get();
@@ -218,7 +264,8 @@ impl ConditionalFunction for ModifyContainerContents {
             return stack;
         }
         let function = self.modifier.value(context.get_resolver());
-        self.component.modify_items(&mut stack, &mut |c| function.apply(c, context));
+        self.component
+            .modify_items(&mut stack, &mut |c| function.apply(c, context));
         stack
     }
 }

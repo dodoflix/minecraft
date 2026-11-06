@@ -1,12 +1,25 @@
 //! `net.minecraft.world.entity.monster.Enderman` (+ its four goals).
 
+use linkme::distributed_slice;
+use mc_core::ident::Identifier;
+use mc_core::math::mth;
+use mc_core::phys::{AABB, Vec3};
+use mc_core::pos::BlockPos;
+use mc_core::random::RandomSource;
+use mc_data::block::BlockState;
+use mc_data::{Attribute, Block, EntityType, GameEvent, Item, SoundEvent};
+use mc_game_ai::world::entity::ai::goal::ResetUniversalAngerTargetGoal;
 use mc_game_core::define_accessor;
 use mc_game_core::registry::RegistryAccess;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::damagesource::DamageSource;
-use mc_game_core::world::entity::ai::goal::target::{HurtByTargetGoal, NearestAttackableTargetGoal, TargetType, class_of_type};
-use mc_game_ai::world::entity::ai::goal::ResetUniversalAngerTargetGoal;
-use mc_game_core::world::entity::ai::goal::{FloatGoal, Flag, Goal, GoalFlags, LookAtPlayerGoal, MeleeAttackGoal, RandomLookAroundGoal, WaterAvoidingRandomStrollGoal, reduced_tick_delay};
+use mc_game_core::world::entity::ai::goal::target::{
+    HurtByTargetGoal, NearestAttackableTargetGoal, TargetType, class_of_type,
+};
+use mc_game_core::world::entity::ai::goal::{
+    Flag, FloatGoal, Goal, GoalFlags, LookAtPlayerGoal, MeleeAttackGoal, RandomLookAroundGoal,
+    WaterAvoidingRandomStrollGoal, reduced_tick_delay,
+};
 use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
 use mc_game_core::world::entity::ai::targeting::TargetingConditions;
 use mc_game_core::world::entity::attributes::{AttributeModifier, AttributeModifierOperation};
@@ -16,22 +29,16 @@ use mc_game_core::world::entity::living_entity::util::lm;
 use mc_game_core::world::entity::mob::{self, MobData, MobKind, NeutralData, neutral};
 use mc_game_core::world::entity::{Entity, EntityId};
 use mc_game_core::world::item::ItemStack;
-use mc_game_core::world::level::block::helpers::update_from_neighbour_shapes;
 use mc_game_core::world::level::block::BlockStateExt as _;
-use mc_game_core::world::level::collision::{BlockGetterExt as _, ClipBlock, ClipContext, ClipFluid};
-use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor as _;
+use mc_game_core::world::level::block::helpers::update_from_neighbour_shapes;
+use mc_game_core::world::level::collision::{
+    BlockGetterExt as _, ClipBlock, ClipContext, ClipFluid,
+};
 use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_game_core::world::level::pathfinder::PathType;
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor as _;
 use mc_game_core::world::level::storage::loot::LootParams;
 use mc_game_core::world::level::{BlockGetter, LevelAccessor, LevelReader};
-use linkme::distributed_slice;
-use mc_core::ident::Identifier;
-use mc_core::math::mth;
-use mc_core::phys::{AABB, Vec3};
-use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
-use mc_data::block::BlockState;
-use mc_data::{Attribute, Block, EntityType, GameEvent, Item, SoundEvent};
 use mc_nbt::CompoundTag;
 use std::sync::{Arc, LazyLock};
 
@@ -39,13 +46,18 @@ define_accessor!(pub DATA_CARRY_STATE: OptionalBlockState = Enderman);
 define_accessor!(pub DATA_CREEPY: Boolean = Enderman);
 define_accessor!(pub DATA_STARED_AT: Boolean = Enderman);
 
-static SPEED_MODIFIER_ATTACKING_ID: LazyLock<Identifier> = LazyLock::new(|| Identifier::with_default_namespace("attacking").expect("valid id"));
+static SPEED_MODIFIER_ATTACKING_ID: LazyLock<Identifier> =
+    LazyLock::new(|| Identifier::with_default_namespace("attacking").expect("valid id"));
 const MIN_DEAGGRESSION_TIME: i32 = 600;
 /// `TimeUtil.rangeOfSeconds(20, 39)` as (min, max) ticks.
 const PERSISTENT_ANGER_TIME: (i32, i32) = (20 * 20, 39 * 20);
 
 fn attacking_modifier() -> AttributeModifier {
-    AttributeModifier { id: SPEED_MODIFIER_ATTACKING_ID.clone(), amount: f64::from(0.15f32), operation: AttributeModifierOperation::AddValue }
+    AttributeModifier {
+        id: SPEED_MODIFIER_ATTACKING_ID.clone(),
+        amount: f64::from(0.15f32),
+        operation: AttributeModifierOperation::AddValue,
+    }
 }
 
 /// `Enderman`.
@@ -63,7 +75,11 @@ impl Enderman {
             b.define(DATA_CREEPY, false);
             b.define(DATA_STARED_AT, false);
         });
-        let mut enderman = Enderman { mob, last_stare_sound: i32::MIN, target_change_time: 0 };
+        let mut enderman = Enderman {
+            mob,
+            last_stare_sound: i32::MIN,
+            target_change_time: 0,
+        };
         enderman.mob.neutral = Some(NeutralData::default());
         let navigation = StandardPathNavigation::ground(&enderman);
         enderman.mob.set_navigation(Box::new(navigation));
@@ -80,7 +96,10 @@ impl Enderman {
         goals.add_goal(0, Box::new(float));
         goals.add_goal(1, Box::new(EndermanFreezeWhenLookedAt::new()));
         goals.add_goal(2, Box::new(MeleeAttackGoal::new(1.0, false)));
-        goals.add_goal(7, Box::new(WaterAvoidingRandomStrollGoal::with_probability(1.0, 0.0)));
+        goals.add_goal(
+            7,
+            Box::new(WaterAvoidingRandomStrollGoal::with_probability(1.0, 0.0)),
+        );
         goals.add_goal(8, Box::new(look_at));
         goals.add_goal(8, Box::new(RandomLookAroundGoal::new()));
         goals.add_goal(10, Box::new(EndermanLeaveBlockGoal));
@@ -88,13 +107,24 @@ impl Enderman {
         let targets = &mut self.mob.target_selector;
         targets.add_goal(1, Box::new(EndermanLookForPlayerGoal::new()));
         targets.add_goal(2, Box::new(HurtByTargetGoal::new(Vec::new())));
-        targets.add_goal(3, Box::new(NearestAttackableTargetGoal::with_must_reach(TargetType::Class(class_of_type(EntityType::ENDERMITE)), true, false)));
+        targets.add_goal(
+            3,
+            Box::new(NearestAttackableTargetGoal::with_must_reach(
+                TargetType::Class(class_of_type(EntityType::ENDERMITE)),
+                true,
+                false,
+            )),
+        );
         targets.add_goal(4, Box::new(ResetUniversalAngerTargetGoal::new(false)));
     }
 
     /// `setCarriedBlock(carryingBlock)`.
     pub fn set_carried_block(&mut self, carrying_block: Option<BlockState>) {
-        self.mob.living.entity.entity_data.set(DATA_CARRY_STATE, carrying_block);
+        self.mob
+            .living
+            .entity
+            .entity_data
+            .set(DATA_CARRY_STATE, carrying_block);
     }
 
     /// `getCarriedBlock()`.
@@ -138,8 +168,18 @@ impl Enderman {
 
     /// `teleportTowards(entity)`.
     fn teleport_towards(&mut self, level: &mut ServerLevel, target: EntityId) -> bool {
-        let Some((tx, teye, tz)) = level.get_entity(target).map(|t| (t.base().x(), t.base().get_eye_y(), t.base().z())) else { return false };
-        let (x, y, z, y_half) = (self.base().x(), self.base().y(), self.base().z(), self.base().get_y_progress(0.5));
+        let Some((tx, teye, tz)) = level
+            .get_entity(target)
+            .map(|t| (t.base().x(), t.base().get_eye_y(), t.base().z()))
+        else {
+            return false;
+        };
+        let (x, y, z, y_half) = (
+            self.base().x(),
+            self.base().y(),
+            self.base().z(),
+            self.base().get_y_progress(0.5),
+        );
         let dir = Vec3::new(x - tx, y_half - teye, z - tz).normalize();
         let random = &mut self.base_mut().random;
         let xx = x + (random.next_double() - 0.5) * 8.0 - dir.x * 16.0;
@@ -149,7 +189,13 @@ impl Enderman {
     }
 
     /// `teleport(x, y, z)`.
-    pub fn teleport_to_position(&mut self, level: &mut ServerLevel, x: f64, y: f64, z: f64) -> bool {
+    pub fn teleport_to_position(
+        &mut self,
+        level: &mut ServerLevel,
+        x: f64,
+        y: f64,
+        z: f64,
+    ) -> bool {
         if self.base().is_passenger() {
             return false;
         }
@@ -159,11 +205,26 @@ impl Enderman {
             level.game_event_from_entity_ref(&*self, GameEvent::TELEPORT, old_pos);
             if !self.base().is_silent() {
                 let old_block_pos = BlockPos::containing(old_pos.x, old_pos.y, old_pos.z);
-                let packed_diff = clamped_pack_difference_in_position(old_block_pos, self.base().block_position(), 127, 127, 127);
+                let packed_diff = clamped_pack_difference_in_position(
+                    old_block_pos,
+                    self.base().block_position(),
+                    127,
+                    127,
+                    127,
+                );
                 level.level_event(None, 2018, old_block_pos, packed_diff);
                 let (xo, yo, zo) = (self.base().xo, self.base().yo, self.base().zo);
                 let source = self.get_sound_source();
-                level.play_sound_at(None, xo, yo, zo, SoundEvent::ENTITY_ENDERMAN_TELEPORT, source, 1.0, 1.0);
+                level.play_sound_at(
+                    None,
+                    xo,
+                    yo,
+                    zo,
+                    SoundEvent::ENTITY_ENDERMAN_TELEPORT,
+                    source,
+                    1.0,
+                    1.0,
+                );
                 self.play_sound(level, SoundEvent::ENTITY_ENDERMAN_TELEPORT, 1.0, 1.0);
             }
         }
@@ -187,17 +248,30 @@ fn player_not_wearing_disguise_item(player: &dyn Entity) -> bool {
     if !player.is_player() {
         return true;
     }
-    let helmet = player.get_item_by_slot(mc_game_core::world::entity::equipment::EquipmentSlot::Head);
-    !mc_data::tags::get::<Item>("gaze_disguise_equipment").is_some_and(|t| t.contains(helmet.item()))
+    let helmet =
+        player.get_item_by_slot(mc_game_core::world::entity::equipment::EquipmentSlot::Head);
+    !mc_data::tags::get::<Item>("gaze_disguise_equipment")
+        .is_some_and(|t| t.contains(helmet.item()))
 }
 
 /// `Enderman.isBeingStaredBy(player)`.
 fn is_being_stared_by(level: &ServerLevel, enderman: &dyn Entity, player: &dyn Entity) -> bool {
-    player_not_wearing_disguise_item(player) && mob::ext::is_looking_at_me(level, enderman, player, 0.025, true, false, &[enderman.base().get_eye_y()])
+    player_not_wearing_disguise_item(player)
+        && mob::ext::is_looking_at_me(
+            level,
+            enderman,
+            player,
+            0.025,
+            true,
+            false,
+            &[enderman.base().get_eye_y()],
+        )
 }
 
 fn enderman_mut(mob: &mut dyn Entity) -> &mut Enderman {
-    mob.as_any_mut().downcast_mut::<Enderman>().expect("Enderman")
+    mob.as_any_mut()
+        .downcast_mut::<Enderman>()
+        .expect("Enderman")
 }
 
 impl Entity for Enderman {
@@ -213,7 +287,11 @@ impl Entity for Enderman {
         if target.is_none() {
             self.target_change_time = 0;
             self.mob.living.entity.entity_data.set(DATA_CREEPY, false);
-            self.mob.living.entity.entity_data.set(DATA_STARED_AT, false);
+            self.mob
+                .living
+                .entity
+                .entity_data
+                .set(DATA_STARED_AT, false);
             if let Some(speed) = lm(self).attributes.get_instance(Attribute::MOVEMENT_SPEED) {
                 speed.remove_modifier(&SPEED_MODIFIER_ATTACKING_ID);
             }
@@ -263,9 +341,14 @@ impl Entity for Enderman {
     }
 
     fn custom_server_ai_step(&mut self, level: &mut ServerLevel) {
-        if level.is_bright_outside() && self.base().tick_count >= self.target_change_time + MIN_DEAGGRESSION_TIME {
+        if level.is_bright_outside()
+            && self.base().tick_count >= self.target_change_time + MIN_DEAGGRESSION_TIME
+        {
             let br = self.get_light_level_dependent_magic_value(level);
-            if br > 0.5 && level.can_see_sky(self.base().block_position()) && self.base_mut().random.next_float() * 30.0 < (br - 0.4) * 2.0 {
+            if br > 0.5
+                && level.can_see_sky(self.base().block_position())
+                && self.base_mut().random.next_float() * 30.0 < (br - 0.4) * 2.0
+            {
                 self.set_target(level, None);
                 self.teleport_randomly(level);
             }
@@ -280,7 +363,11 @@ impl Entity for Enderman {
     }
 
     fn get_ambient_sound(&self) -> Option<SoundEvent> {
-        Some(if self.is_creepy() { SoundEvent::ENTITY_ENDERMAN_SCREAM } else { SoundEvent::ENTITY_ENDERMAN_AMBIENT })
+        Some(if self.is_creepy() {
+            SoundEvent::ENTITY_ENDERMAN_SCREAM
+        } else {
+            SoundEvent::ENTITY_ENDERMAN_AMBIENT
+        })
     }
 
     fn get_hurt_sound(&self, _source: &DamageSource) -> Option<SoundEvent> {
@@ -291,22 +378,45 @@ impl Entity for Enderman {
         Some(SoundEvent::ENTITY_ENDERMAN_DEATH)
     }
 
-    fn drop_custom_death_loot(&mut self, level: &mut ServerLevel, source: &DamageSource, killed_by_player: bool) {
+    fn drop_custom_death_loot(
+        &mut self,
+        level: &mut ServerLevel,
+        source: &DamageSource,
+        killed_by_player: bool,
+    ) {
         mob::equipment::drop_custom_death_loot(self, level, source, killed_by_player);
         if let Some(carrying_block) = self.get_carried_block() {
             let mut fake_tool = ItemStack::new(Item::DIAMOND_AXE);
             if let Some(provider) = Identifier::try_parse("enderman_loot_drop") {
                 let difficulty = mc_game_core::world::level::server_level_accessor::ServerLevelAccessor::get_current_difficulty_at(&*level, self.base().block_position());
                 let registries = level.registries.clone();
-                mc_game_core::world::item::enchantment_helper::enchant_item_from_provider(&mut fake_tool, &registries, &provider, &difficulty, &mut self.base_mut().random);
+                mc_game_core::world::item::enchantment_helper::enchant_item_from_provider(
+                    &mut fake_tool,
+                    &registries,
+                    &provider,
+                    &difficulty,
+                    &mut self.base_mut().random,
+                );
             }
             let drops = {
                 let this: &dyn Entity = &*self;
-                let builder = LootParams::builder(level).origin(this.position()).tool(&fake_tool).optional_this_entity(Some(this));
-                mc_game_core::world::level::storage::loot::block_drops::state_get_drops(carrying_block, this.base().block_position(), builder)
+                let builder = LootParams::builder(level)
+                    .origin(this.position())
+                    .tool(&fake_tool)
+                    .optional_this_entity(Some(this));
+                mc_game_core::world::level::storage::loot::block_drops::state_get_drops(
+                    carrying_block,
+                    this.base().block_position(),
+                    builder,
+                )
             };
             for stack in drops {
-                mc_game_core::world::entity::item::spawn_at_location(level, self, stack, Vec3::ZERO);
+                mc_game_core::world::entity::item::spawn_at_location(
+                    level,
+                    self,
+                    stack,
+                    Vec3::ZERO,
+                );
             }
         }
     }
@@ -315,16 +425,26 @@ impl Entity for Enderman {
         if self.is_invulnerable_to(level, source) {
             return false;
         }
-        let thrown_potion = source.direct_info().and_then(|d| d.thrown_potion_hurts_water_sensitive);
+        let thrown_potion = source
+            .direct_info()
+            .and_then(|d| d.thrown_potion_hurts_water_sensitive);
         if source.is_tag(level, "is_projectile") && !self.base().is_passenger() {
             self.repeatedly_try_to_teleport(level);
             false
         } else if let Some(hurts) = thrown_potion {
-            let hurt_with_clean_water = if hurts { mc_game_core::world::entity::living_entity::damage::hurt_server(self, level, source, damage) } else { false };
+            let hurt_with_clean_water = if hurts {
+                mc_game_core::world::entity::living_entity::damage::hurt_server(
+                    self, level, source, damage,
+                )
+            } else {
+                false
+            };
             self.repeatedly_try_to_teleport(level);
             hurt_with_clean_water
         } else {
-            let result = mc_game_core::world::entity::living_entity::damage::hurt_server(self, level, source, damage);
+            let result = mc_game_core::world::entity::living_entity::damage::hurt_server(
+                self, level, source, damage,
+            );
             if !source.causing_is_living() && self.base_mut().random.next_int_bounded(10) != 0 {
                 self.teleport_randomly(level);
             }
@@ -362,12 +482,18 @@ impl EndermanFreezeWhenLookedAt {
 impl Goal for EndermanFreezeWhenLookedAt {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         self.target = mob.get_target();
-        let Some(target) = self.target.and_then(|id| level.get_entity(id)) else { return false };
+        let Some(target) = self.target.and_then(|id| level.get_entity(id)) else {
+            return false;
+        };
         if !target.is_player() {
             return false;
         }
         let dist = target.base().distance_to_sqr_vec(mob.position());
-        if dist > 256.0 { false } else { is_being_stared_by(level, mob, target) }
+        if dist > 256.0 {
+            false
+        } else {
+            is_being_stared_by(level, mob, target)
+        }
     }
 
     fn start(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
@@ -376,7 +502,11 @@ impl Goal for EndermanFreezeWhenLookedAt {
 
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         if let Some(target) = self.target.and_then(|id| level.get_entity(id)) {
-            let (x, y, z) = (target.base().x(), target.base().get_eye_y(), target.base().z());
+            let (x, y, z) = (
+                target.base().x(),
+                target.base().get_eye_y(),
+                target.base().z(),
+            );
             mob::look_at_xyz(mob, x, y, z);
         }
     }
@@ -390,13 +520,31 @@ impl Goal for EndermanFreezeWhenLookedAt {
 struct EndermanLeaveBlockGoal;
 
 impl EndermanLeaveBlockGoal {
-    fn can_place_block(level: &ServerLevel, mob: &dyn Entity, pos: BlockPos, carried: BlockState, target_state: BlockState, below_state: BlockState, below: BlockPos) -> bool {
+    fn can_place_block(
+        level: &ServerLevel,
+        mob: &dyn Entity,
+        pos: BlockPos,
+        carried: BlockState,
+        target_state: BlockState,
+        below_state: BlockState,
+        below: BlockPos,
+    ) -> bool {
         target_state.is_air()
             && !below_state.is_air()
             && below_state.block() != Block::BEDROCK
             && below_state.is_collision_shape_full_block_at(level, below)
             && carried.can_survive(level, pos)
-            && level.get_entities(Some(mob.id()), &AABB::unit_cube_from_lower_corner(Vec3::new(f64::from(pos.x()), f64::from(pos.y()), f64::from(pos.z()))), |e| !e.is_spectator()).is_empty()
+            && level
+                .get_entities(
+                    Some(mob.id()),
+                    &AABB::unit_cube_from_lower_corner(Vec3::new(
+                        f64::from(pos.x()),
+                        f64::from(pos.y()),
+                        f64::from(pos.z()),
+                    )),
+                    |e| !e.is_spectator(),
+                )
+                .is_empty()
     }
 }
 
@@ -407,7 +555,10 @@ impl Goal for EndermanLeaveBlockGoal {
         } else if !level.mob_griefing() {
             false
         } else {
-            mob.base_mut().random.next_int_bounded(reduced_tick_delay(2000)) == 0
+            mob.base_mut()
+                .random
+                .next_int_bounded(reduced_tick_delay(2000))
+                == 0
         }
     }
 
@@ -421,11 +572,17 @@ impl Goal for EndermanLeaveBlockGoal {
         let target_state = level.get_block_state(pos);
         let below = pos.below();
         let below_state = level.get_block_state(below);
-        let Some(carried) = enderman_mut(mob).get_carried_block() else { return };
+        let Some(carried) = enderman_mut(mob).get_carried_block() else {
+            return;
+        };
         let carried = update_from_neighbour_shapes(carried, level, pos);
         if Self::can_place_block(level, mob, pos, carried, target_state, below_state, below) {
             level.set_block_and_update(pos, carried);
-            level.game_event_at_block(GameEvent::BLOCK_PLACE, pos, &GameEventContext::of(Some(mob.id()), Some(carried)));
+            level.game_event_at_block(
+                GameEvent::BLOCK_PLACE,
+                pos,
+                &GameEventContext::of(Some(mob.id()), Some(carried)),
+            );
             enderman_mut(mob).set_carried_block(None);
         }
     }
@@ -445,7 +602,10 @@ impl Goal for EndermanTakeBlockGoal {
         } else if !level.mob_griefing() {
             false
         } else {
-            mob.base_mut().random.next_int_bounded(reduced_tick_delay(20)) == 0
+            mob.base_mut()
+                .random
+                .next_int_bounded(reduced_tick_delay(20))
+                == 0
         }
     }
 
@@ -457,13 +617,31 @@ impl Goal for EndermanTakeBlockGoal {
         let zt = mth::floor_f64(z - 2.0 + random.next_double() * 4.0);
         let pos = BlockPos::new(xt, yt, zt);
         let block_state = level.get_block_state(pos);
-        let from = Vec3::new(f64::from(mob.block_position().x()) + 0.5, f64::from(yt) + 0.5, f64::from(mob.block_position().z()) + 0.5);
-        let to = Vec3::new(f64::from(xt) + 0.5, f64::from(yt) + 0.5, f64::from(zt) + 0.5);
-        let result = level.clip(&ClipContext::new(from, to, ClipBlock::Outline, ClipFluid::None, mc_game_core::world::entity::movement::collision_context(mob)));
+        let from = Vec3::new(
+            f64::from(mob.block_position().x()) + 0.5,
+            f64::from(yt) + 0.5,
+            f64::from(mob.block_position().z()) + 0.5,
+        );
+        let to = Vec3::new(
+            f64::from(xt) + 0.5,
+            f64::from(yt) + 0.5,
+            f64::from(zt) + 0.5,
+        );
+        let result = level.clip(&ClipContext::new(
+            from,
+            to,
+            ClipBlock::Outline,
+            ClipFluid::None,
+            mc_game_core::world::entity::movement::collision_context(mob),
+        ));
         let reachable = result.block_pos == pos;
         if block_state.block().is_in_tag("enderman_holdable") && reachable {
             level.remove_block(pos, false);
-            level.game_event_at_block(GameEvent::BLOCK_DESTROY, pos, &GameEventContext::of(Some(mob.id()), Some(block_state)));
+            level.game_event_at_block(
+                GameEvent::BLOCK_DESTROY,
+                pos,
+                &GameEventContext::of(Some(mob.id()), Some(block_state)),
+            );
             enderman_mut(mob).set_carried_block(Some(block_state.block().default_state()));
         }
     }
@@ -485,22 +663,41 @@ struct EndermanLookForPlayerGoal {
 impl EndermanLookForPlayerGoal {
     fn new() -> Self {
         let base = NearestAttackableTargetGoal::build(TargetType::Player, 10, false, false, None)
-            .with_source_selector(Arc::new(|mob: &dyn Entity, target: &dyn Entity, level: &ServerLevel| neutral::is_angry_at(mob, level, target)));
-        Self { base, pending_target: None, aggro_time: 0, teleport_time: 0, continue_aggro_target_conditions: TargetingConditions::for_combat().ignore_line_of_sight() }
+            .with_source_selector(Arc::new(
+                |mob: &dyn Entity, target: &dyn Entity, level: &ServerLevel| {
+                    neutral::is_angry_at(mob, level, target)
+                },
+            ));
+        Self {
+            base,
+            pending_target: None,
+            aggro_time: 0,
+            teleport_time: 0,
+            continue_aggro_target_conditions: TargetingConditions::for_combat()
+                .ignore_line_of_sight(),
+        }
     }
 
     /// `isAngerInducing.test(target, level)`.
     fn is_anger_inducing(mob: &dyn Entity, target: &dyn Entity, level: &ServerLevel) -> bool {
-        (is_being_stared_by(level, mob, target) || neutral::is_angry_at(mob, level, target)) && !mob.has_indirect_passenger(level, target)
+        (is_being_stared_by(level, mob, target) || neutral::is_angry_at(mob, level, target))
+            && !mob.has_indirect_passenger(level, target)
     }
 }
 
 impl Goal for EndermanLookForPlayerGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         let follow = self.base.target_goal.get_follow_distance(mob);
-        let conditions = TargetingConditions::for_combat().range(follow).source_selector(Some(Arc::new(|mob: &dyn Entity, target: &dyn Entity, level: &ServerLevel| Self::is_anger_inducing(mob, target, level))));
+        let conditions = TargetingConditions::for_combat()
+            .range(follow)
+            .source_selector(Some(Arc::new(
+                |mob: &dyn Entity, target: &dyn Entity, level: &ServerLevel| {
+                    Self::is_anger_inducing(mob, target, level)
+                },
+            )));
         let b = mob.base();
-        self.pending_target = mob::ext::get_nearest_player(level, &conditions, mob, b.x(), b.y(), b.z());
+        self.pending_target =
+            mob::ext::get_nearest_player(level, &conditions, mob, b.x(), b.y(), b.z());
         self.pending_target.is_some()
     }
 
@@ -517,7 +714,9 @@ impl Goal for EndermanLookForPlayerGoal {
 
     fn can_continue_to_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         if let Some(pending) = self.pending_target {
-            let Some(target) = level.get_entity(pending) else { return false };
+            let Some(target) = level.get_entity(pending) else {
+                return false;
+            };
             if !Self::is_anger_inducing(mob, target, level) {
                 false
             } else {
@@ -529,7 +728,10 @@ impl Goal for EndermanLookForPlayerGoal {
                 if mob.has_indirect_passenger(level, target) {
                     return false;
                 }
-                if self.continue_aggro_target_conditions.test(level, Some(&*mob), target) {
+                if self
+                    .continue_aggro_target_conditions
+                    .test(level, Some(&*mob), target)
+                {
                     return true;
                 }
             }
@@ -551,7 +753,9 @@ impl Goal for EndermanLookForPlayerGoal {
         } else if let Some(target_id) = self.base.target
             && !mob.base().is_passenger()
         {
-            let Some(target) = level.get_entity(target_id) else { return };
+            let Some(target) = level.get_entity(target_id) else {
+                return;
+            };
             let stared = is_being_stared_by(level, mob, target);
             let dist = target.base().distance_to_sqr_vec(mob.position());
             if stared {
@@ -575,4 +779,7 @@ impl Goal for EndermanLookForPlayerGoal {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static ENDERMAN: EntityRegistration = EntityRegistration { entity_type: EntityType::ENDERMAN, create: |ty, id, registries| Box::new(Enderman::new(ty, id, registries)) };
+static ENDERMAN: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::ENDERMAN,
+    create: |ty, id, registries| Box::new(Enderman::new(ty, id, registries)),
+};

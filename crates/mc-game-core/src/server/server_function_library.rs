@@ -2,11 +2,14 @@
 //! against the command dispatcher of the reload, plus the `tags/function` tags over them.
 
 use super::packs::{FileToIdConverter, ResourceManager};
-use super::reloadable_resources::{ORDER_FUNCTION_LIBRARY, ReloadContext, ReloadListener, ReloadListenerRegistration, RELOAD_LISTENERS};
-use crate::commands::functions::{self, CommandFunction};
+use super::reloadable_resources::{
+    ORDER_FUNCTION_LIBRARY, RELOAD_LISTENERS, ReloadContext, ReloadListener,
+    ReloadListenerRegistration,
+};
 use crate::commands::Commands;
-use crate::registry::tags::{ElementRef, TagLoader};
+use crate::commands::functions::{self, CommandFunction};
 use crate::registry::keys;
+use crate::registry::tags::{ElementRef, TagLoader};
 use crate::server::permissions::PermissionSet;
 use indexmap::IndexMap;
 use mc_core::ident::Identifier;
@@ -61,7 +64,11 @@ impl ServerFunctionLibrary {
     }
 
     /// `reload` (prepare + apply): compile every function, log the ones that fail, then build the tags over the survivors.
-    fn load(manager: &dyn ResourceManager, commands: &Commands, permissions: &PermissionSet) -> FunctionLibraryData {
+    fn load(
+        manager: &dyn ResourceManager,
+        commands: &Commands,
+        permissions: &PermissionSet,
+    ) -> FunctionLibraryData {
         let lister = FileToIdConverter::new("function", ".mcfunction");
         let compilation_context = Commands::create_compilation_context(permissions.clone());
         let mut functions: HashMap<Identifier, Arc<dyn CommandFunction>> = HashMap::new();
@@ -70,18 +77,31 @@ impl ServerFunctionLibrary {
             let lines = match resource.open() {
                 Ok(bytes) => read_lines(&String::from_utf8_lossy(&bytes)),
                 Err(e) => {
-                    log::error!("Failed to load function {id}\njava.util.concurrent.CompletionException: java.io.IOException: {e}");
+                    log::error!(
+                        "Failed to load function {id}\njava.util.concurrent.CompletionException: java.io.IOException: {e}"
+                    );
                     continue;
                 }
             };
-            match functions::from_lines(id.clone(), commands.get_dispatcher(), &compilation_context, &lines) {
+            match functions::from_lines(
+                id.clone(),
+                commands.get_dispatcher(),
+                &compilation_context,
+                &lines,
+            ) {
                 Ok(function) => {
                     functions.insert(id, function);
                 }
                 Err(message) => {
                     // `CommandFunction.checkCommandLineLength` throws `IllegalStateException`, everything else `IllegalArgumentException`.
-                    let class = if message.starts_with("Command too long: ") { "java.lang.IllegalStateException" } else { "java.lang.IllegalArgumentException" };
-                    log::error!("Failed to load function {id}\njava.util.concurrent.CompletionException: {class}: {message}");
+                    let class = if message.starts_with("Command too long: ") {
+                        "java.lang.IllegalStateException"
+                    } else {
+                        "java.lang.IllegalArgumentException"
+                    };
+                    log::error!(
+                        "Failed to load function {id}\njava.util.concurrent.CompletionException: {class}: {message}"
+                    );
                 }
             }
         }
@@ -102,7 +122,15 @@ impl ServerFunctionLibrary {
         let tags = loader
             .build(&builders)
             .into_iter()
-            .map(|(id, values)| (id, values.into_iter().map(|v| ordered[v as usize].clone()).collect()))
+            .map(|(id, values)| {
+                (
+                    id,
+                    values
+                        .into_iter()
+                        .map(|v| ordered[v as usize].clone())
+                        .collect(),
+                )
+            })
             .collect();
         FunctionLibraryData { functions, tags }
     }
@@ -116,7 +144,11 @@ fn read_lines(text: &str) -> Vec<String> {
         match rest.find(['\n', '\r']) {
             Some(end) => {
                 lines.push(rest[..end].to_owned());
-                let skip = if rest[end..].starts_with("\r\n") { 2 } else { 1 };
+                let skip = if rest[end..].starts_with("\r\n") {
+                    2
+                } else {
+                    1
+                };
                 rest = &rest[end + skip..];
             }
             None => {
@@ -134,7 +166,11 @@ impl ReloadListener for ServerFunctionLibrary {
     }
 
     fn reload(&mut self, ctx: &ReloadContext) -> Result<(), String> {
-        self.data = Arc::new(Self::load(ctx.resource_manager, ctx.commands, ctx.function_compilation_permissions));
+        self.data = Arc::new(Self::load(
+            ctx.resource_manager,
+            ctx.commands,
+            ctx.function_compilation_permissions,
+        ));
         Ok(())
     }
 
@@ -148,8 +184,11 @@ impl ReloadListener for ServerFunctionLibrary {
 }
 
 #[linkme::distributed_slice(RELOAD_LISTENERS)]
-static FUNCTION_LIBRARY: ReloadListenerRegistration =
-    ReloadListenerRegistration { name: "function_library", order: ORDER_FUNCTION_LIBRARY, create: || Box::new(ServerFunctionLibrary::new()) };
+static FUNCTION_LIBRARY: ReloadListenerRegistration = ReloadListenerRegistration {
+    name: "function_library",
+    order: ORDER_FUNCTION_LIBRARY,
+    create: || Box::new(ServerFunctionLibrary::new()),
+};
 
 #[cfg(test)]
 mod tests {

@@ -13,12 +13,23 @@ use mc_data::fluid::{Fluid, FluidState};
 use mc_data::{Item, SoundEvent, props};
 
 /// `SimpleWaterloggedBlock.canPlaceLiquid`.
-pub fn can_place_liquid(_user: Option<&dyn Entity>, _level: &dyn BlockGetter, _pos: BlockPos, _state: BlockState, fluid: Fluid) -> bool {
+pub fn can_place_liquid(
+    _user: Option<&dyn Entity>,
+    _level: &dyn BlockGetter,
+    _pos: BlockPos,
+    _state: BlockState,
+    fluid: Fluid,
+) -> bool {
     fluid == Fluid::WATER
 }
 
 /// `SimpleWaterloggedBlock.placeLiquid`.
-pub fn place_liquid(level: &mut dyn LevelAccessor, pos: BlockPos, state: BlockState, fluid_state: FluidState) -> bool {
+pub fn place_liquid(
+    level: &mut dyn LevelAccessor,
+    pos: BlockPos,
+    state: BlockState,
+    fluid_state: FluidState,
+) -> bool {
     if !state.get(props::WATERLOGGED) && fluid_state.fluid() == Fluid::WATER {
         level.set_block_and_update(pos, state.set(props::WATERLOGGED, true));
         super::helpers::schedule_fluid_tick(level, pos, fluid_state.fluid());
@@ -29,7 +40,12 @@ pub fn place_liquid(level: &mut dyn LevelAccessor, pos: BlockPos, state: BlockSt
 }
 
 /// `SimpleWaterloggedBlock.pickupBlock`.
-pub fn pickup_block(_user: Option<&dyn Entity>, level: &mut dyn LevelAccessor, pos: BlockPos, state: BlockState) -> ItemStack {
+pub fn pickup_block(
+    _user: Option<&dyn Entity>,
+    level: &mut dyn LevelAccessor,
+    pos: BlockPos,
+    state: BlockState,
+) -> ItemStack {
     if state.get(props::WATERLOGGED) {
         level.set_block_and_update(pos, state.set(props::WATERLOGGED, false));
         if !state.can_survive(&*level, pos) {
@@ -61,7 +77,9 @@ macro_rules! simple_waterlogged {
             state: ::mc_data::block::BlockState,
             fluid: ::mc_data::fluid::Fluid,
         ) -> bool {
-            $crate::world::level::block::simple_waterlogged::can_place_liquid(user, level, pos, state, fluid)
+            $crate::world::level::block::simple_waterlogged::can_place_liquid(
+                user, level, pos, state, fluid,
+            )
         }
         fn place_liquid(
             &self,
@@ -70,7 +88,12 @@ macro_rules! simple_waterlogged {
             state: ::mc_data::block::BlockState,
             fluid_state: ::mc_data::fluid::FluidState,
         ) -> bool {
-            $crate::world::level::block::simple_waterlogged::place_liquid(level, pos, state, fluid_state)
+            $crate::world::level::block::simple_waterlogged::place_liquid(
+                level,
+                pos,
+                state,
+                fluid_state,
+            )
         }
         fn is_bucket_pickup(&self) -> bool {
             true

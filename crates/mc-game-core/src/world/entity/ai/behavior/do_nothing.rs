@@ -15,7 +15,12 @@ pub struct DoNothing {
 
 impl DoNothing {
     pub fn new(min_duration: i32, max_duration: i32) -> Self {
-        Self { min_duration, max_duration, status: Status::Stopped, end_timestamp: 0 }
+        Self {
+            min_duration,
+            max_duration,
+            status: Status::Stopped,
+            end_timestamp: 0,
+        }
     }
 }
 
@@ -28,10 +33,20 @@ impl BehaviorControl for DoNothing {
         Vec::new()
     }
 
-    fn try_start(&mut self, level: &mut ServerLevel, _body: &mut dyn Entity, timestamp: i64) -> bool {
+    fn try_start(
+        &mut self,
+        level: &mut ServerLevel,
+        _body: &mut dyn Entity,
+        timestamp: i64,
+    ) -> bool {
         self.status = Status::Running;
-        let bound = self.max_duration.wrapping_add(1).wrapping_sub(self.min_duration);
-        let duration = self.min_duration.wrapping_add(level.tick_state.random.next_int_bounded(bound));
+        let bound = self
+            .max_duration
+            .wrapping_add(1)
+            .wrapping_sub(self.min_duration);
+        let duration = self
+            .min_duration
+            .wrapping_add(level.tick_state.random.next_int_bounded(bound));
         self.end_timestamp = timestamp + i64::from(duration);
         true
     }

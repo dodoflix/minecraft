@@ -1,8 +1,22 @@
 //! `Fox`: sleeping, stalking and pouncing, berry eating, mouth item carrying, trusted players, red/snow variants.
 
 use super::fox_goals::{
-    DefendTrustedTargetGoal, FaceplantGoal, FoxBreedGoal, FoxEatBerriesGoal, FoxFloatGoal, FoxFollowParentGoal, FoxLookAtPlayerGoal, FoxMeleeAttackGoal, FoxPanicGoal, FoxPounceGoal,
-    FoxSearchForItemsGoal, FoxStrollThroughVillageGoal, PerchAndSearchGoal, SeekShelterGoal, SleepGoal, StalkPreyGoal,
+    DefendTrustedTargetGoal, FaceplantGoal, FoxBreedGoal, FoxEatBerriesGoal, FoxFloatGoal,
+    FoxFollowParentGoal, FoxLookAtPlayerGoal, FoxMeleeAttackGoal, FoxPanicGoal, FoxPounceGoal,
+    FoxSearchForItemsGoal, FoxStrollThroughVillageGoal, PerchAndSearchGoal, SeekShelterGoal,
+    SleepGoal, StalkPreyGoal,
+};
+use crate::world::entity::animal::turtle::turtle::Turtle;
+use crate::world::entity::animal::wolf::wolf::Wolf;
+use linkme::distributed_slice;
+use mc_core::ident::Identifier;
+use mc_core::phys::Vec3;
+use mc_core::pos::BlockPos;
+use mc_core::random::RandomSource;
+use mc_data::enums::{EntitySpawnReason, Pose};
+use mc_data::{EntityType, Item, SoundEvent};
+use mc_game_ai::world::entity::ai::goal::{
+    AvoidEntityGoal, ClimbOnTopOfPowderSnowGoal, LeapAtTargetGoal,
 };
 use mc_game_core::define_accessor;
 use mc_game_core::registry::RegistryAccess;
@@ -12,15 +26,16 @@ use mc_game_core::world::damagesource::DamageSource;
 use mc_game_core::world::difficulty_instance::DifficultyInstance;
 use mc_game_core::world::entity::ai::control::look_control::{self, LookControl, LookControlBase};
 use mc_game_core::world::entity::ai::control::move_control::{self, MoveControl, MoveControlBase};
-use mc_game_core::world::entity::ai::goal::target::{NearestAttackableTargetGoal, TargetType, class_of};
-use mc_game_ai::world::entity::ai::goal::{AvoidEntityGoal, ClimbOnTopOfPowderSnowGoal, LeapAtTargetGoal};
 use mc_game_core::world::entity::ai::goal::WaterAvoidingRandomStrollGoal;
+use mc_game_core::world::entity::ai::goal::target::{
+    NearestAttackableTargetGoal, TargetType, class_of,
+};
 use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::animal::turtle::turtle::Turtle;
-use crate::world::entity::animal::wolf::wolf::Wolf;
 use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
 use mc_game_core::world::entity::equipment::EquipmentSlot;
-use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
+use mc_game_core::world::entity::factory::{
+    ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest,
+};
 use mc_game_core::world::entity::item::ItemEntity;
 use mc_game_core::world::entity::mob::spawn::AgeableMobGroupData;
 use mc_game_core::world::entity::mob::{self, MobData, MobKind, ageable, ext, tamable};
@@ -32,13 +47,6 @@ use mc_game_core::world::level::block::BlockStateExt as _;
 use mc_game_core::world::level::level_access::{BlockGetter, LevelAccessor as _};
 use mc_game_core::world::level::pathfinder::PathType;
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
-use linkme::distributed_slice;
-use mc_core::ident::Identifier;
-use mc_core::phys::Vec3;
-use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
-use mc_data::enums::{EntitySpawnReason, Pose};
-use mc_data::{EntityType, Item, SoundEvent};
 use mc_nbt::{CompoundTag, ListTag, Tag};
 use mc_protocol::components::{CONSUMABLE, DataComponentMap, FOOD, FOX_VARIANT, FoxVariant};
 use mc_protocol::packets::play::SoundSource;
@@ -71,7 +79,10 @@ pub fn variant_by_id(id: i32) -> FoxVariant {
 /// `BABY_DIMENSIONS`.
 fn baby_dimensions() -> EntityDimensions {
     let base = EntityDimensions::of_type(EntityType::FOX).scale(0.6);
-    base.with_eye_height(0.34375).with_attachments(EntityAttachments::create_default(base.width, base.height).with_passenger(Vec3::new(0.0, 0.375, 0.0)))
+    base.with_eye_height(0.34375).with_attachments(
+        EntityAttachments::create_default(base.width, base.height)
+            .with_passenger(Vec3::new(0.0, 0.375, 0.0)),
+    )
 }
 
 /// `Fox.FoxGroupData`.
@@ -82,7 +93,10 @@ pub struct FoxGroupData {
 
 impl FoxGroupData {
     fn new(variant: FoxVariant) -> Self {
-        Self { base: AgeableMobGroupData::with_baby(false), variant }
+        Self {
+            base: AgeableMobGroupData::with_baby(false),
+            variant,
+        }
     }
 }
 
@@ -106,7 +120,10 @@ pub struct FoxLookControl {
 
 impl Default for FoxLookControl {
     fn default() -> Self {
-        Self { base: LookControlBase::default(), reset_x_rot: true }
+        Self {
+            base: LookControlBase::default(),
+            reset_x_rot: true,
+        }
     }
 }
 
@@ -121,7 +138,10 @@ impl LookControl for FoxLookControl {
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         if !mob.is_sleeping() {
             let fox = mob.as_any().downcast_ref::<Fox>().expect("fox");
-            self.reset_x_rot = !fox.is_pouncing() && !mob.is_crouching() && !fox.is_interested() && !fox.is_faceplanted();
+            self.reset_x_rot = !fox.is_pouncing()
+                && !mob.is_crouching()
+                && !fox.is_interested()
+                && !fox.is_faceplanted();
             look_control::default_tick(self, mob, level);
         }
     }
@@ -146,7 +166,11 @@ impl MoveControl for FoxMoveControl {
     }
 
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
-        if mob.as_any().downcast_ref::<Fox>().is_some_and(Fox::can_move) {
+        if mob
+            .as_any()
+            .downcast_ref::<Fox>()
+            .is_some_and(Fox::can_move)
+        {
             move_control::base_tick(&mut self.base, mob, level);
         }
     }
@@ -181,13 +205,21 @@ impl Fox {
             b.define(DATA_TYPE_ID, DEFAULT_VARIANT.id());
             b.define(DATA_FLAGS_ID, 0i8);
         });
-        let mut fox = Fox { mob, interested_angle: 0.0, interested_angle_o: 0.0, crouch_amount: 0.0, crouch_amount_o: 0.0, ticks_since_eaten: 0 };
+        let mut fox = Fox {
+            mob,
+            interested_angle: 0.0,
+            interested_angle_o: 0.0,
+            crouch_amount: 0.0,
+            crouch_amount_o: 0.0,
+            ticks_since_eaten: 0,
+        };
         let navigation = StandardPathNavigation::ground(&fox);
         fox.mob.set_navigation(Box::new(navigation));
         fox.register_goals();
         fox.mob.look_control = Some(Box::<FoxLookControl>::default());
         fox.mob.move_control = Some(Box::<FoxMoveControl>::default());
-        fox.mob.set_pathfinding_malus(PathType::DamagingInNeighbor, 0.0);
+        fox.mob
+            .set_pathfinding_malus(PathType::DamagingInNeighbor, 0.0);
         fox.mob.set_pathfinding_malus(PathType::Damaging, 0.0);
         fox.mob.can_pick_up_loot = true;
         if let Some(mut n) = fox.mob.navigation.take() {
@@ -222,29 +254,60 @@ impl Fox {
                     1.4,
                     Arc::new(|e: &dyn Entity| !e.is_discrete() && ext::no_creative_or_spectator(e)),
                 )
-                .with_source_selector(Arc::new(|fox: &dyn Entity, target: &dyn Entity, _level: &ServerLevel| {
-                    fox.as_any().downcast_ref::<Fox>().is_some_and(|f| !f.trusts(target) && !f.is_defending())
-                })),
+                .with_source_selector(Arc::new(
+                    |fox: &dyn Entity, target: &dyn Entity, _level: &ServerLevel| {
+                        fox.as_any()
+                            .downcast_ref::<Fox>()
+                            .is_some_and(|f| !f.trusts(target) && !f.is_defending())
+                    },
+                )),
             ),
         );
         goals.add_goal(
             4,
             Box::new(
-                AvoidEntityGoal::with_predicate_on_avoid_entity(Arc::new(|e: &dyn Entity| e.as_any().is::<Wolf>()), 8.0, 1.6, 1.4, Arc::new(|e: &dyn Entity| !tamable::is_tame(e)))
-                    .with_source_selector(Arc::new(|fox: &dyn Entity, _target: &dyn Entity, _level: &ServerLevel| fox.as_any().downcast_ref::<Fox>().is_some_and(|f| !f.is_defending()))),
+                AvoidEntityGoal::with_predicate_on_avoid_entity(
+                    Arc::new(|e: &dyn Entity| e.as_any().is::<Wolf>()),
+                    8.0,
+                    1.6,
+                    1.4,
+                    Arc::new(|e: &dyn Entity| !tamable::is_tame(e)),
+                )
+                .with_source_selector(Arc::new(
+                    |fox: &dyn Entity, _target: &dyn Entity, _level: &ServerLevel| {
+                        fox.as_any()
+                            .downcast_ref::<Fox>()
+                            .is_some_and(|f| !f.is_defending())
+                    },
+                )),
             ),
         );
         goals.add_goal(
             4,
             Box::new(
-                AvoidEntityGoal::with_predicate_on_avoid_entity(Arc::new(|e: &dyn Entity| e.get_type() == EntityType::POLAR_BEAR), 8.0, 1.6, 1.4, Arc::new(|_: &dyn Entity| true))
-                    .with_source_selector(Arc::new(|fox: &dyn Entity, _target: &dyn Entity, _level: &ServerLevel| fox.as_any().downcast_ref::<Fox>().is_some_and(|f| !f.is_defending()))),
+                AvoidEntityGoal::with_predicate_on_avoid_entity(
+                    Arc::new(|e: &dyn Entity| e.get_type() == EntityType::POLAR_BEAR),
+                    8.0,
+                    1.6,
+                    1.4,
+                    Arc::new(|_: &dyn Entity| true),
+                )
+                .with_source_selector(Arc::new(
+                    |fox: &dyn Entity, _target: &dyn Entity, _level: &ServerLevel| {
+                        fox.as_any()
+                            .downcast_ref::<Fox>()
+                            .is_some_and(|f| !f.is_defending())
+                    },
+                )),
             ),
         );
         goals.add_goal(5, Box::new(StalkPreyGoal));
         goals.add_goal(6, Box::new(FoxPounceGoal));
         goals.add_goal(6, Box::new(SeekShelterGoal::new(1.25)));
-        goals.add_goal(7, Box::new(FoxMeleeAttackGoal::new(f64::from(1.2f32), true)));
+        goals.add_goal(
+            7,
+            Box::new(FoxMeleeAttackGoal::new(f64::from(1.2f32), true)),
+        );
         goals.add_goal(7, Box::new(sleep));
         goals.add_goal(8, Box::new(follow_parent));
         goals.add_goal(9, Box::new(FoxStrollThroughVillageGoal::new(32, 200)));
@@ -254,18 +317,24 @@ impl Fox {
         goals.add_goal(11, Box::new(FoxSearchForItemsGoal));
         goals.add_goal(12, Box::new(look_at));
         goals.add_goal(13, Box::new(PerchAndSearchGoal::new()));
-        self.mob.target_selector.add_goal(3, Box::new(DefendTrustedTargetGoal::new()));
+        self.mob
+            .target_selector
+            .add_goal(3, Box::new(DefendTrustedTargetGoal::new()));
     }
 
     /// `setTargetGoals()` (the goal instances `landTargetGoal` / `turtleEggTargetGoal` / `fishTargetGoal` of `registerGoals`).
     pub fn set_target_goals(&mut self) {
         let land = || {
             NearestAttackableTargetGoal::build(
-                TargetType::Class(Arc::new(|e: &dyn Entity| e.mob().is_some_and(|m| m.animal.is_some()))),
+                TargetType::Class(Arc::new(|e: &dyn Entity| {
+                    e.mob().is_some_and(|m| m.animal.is_some())
+                })),
                 10,
                 false,
                 false,
-                Some(Arc::new(|target: &dyn Entity, _level: &ServerLevel| matches!(target.get_type(), EntityType::CHICKEN | EntityType::RABBIT))),
+                Some(Arc::new(|target: &dyn Entity, _level: &ServerLevel| {
+                    matches!(target.get_type(), EntityType::CHICKEN | EntityType::RABBIT)
+                })),
             )
         };
         let turtle = || {
@@ -275,16 +344,22 @@ impl Fox {
                 false,
                 false,
                 // `Turtle.BABY_ON_LAND_SELECTOR`
-                Some(Arc::new(|target: &dyn Entity, _level: &ServerLevel| target.is_baby() && !target.is_in_water())),
+                Some(Arc::new(|target: &dyn Entity, _level: &ServerLevel| {
+                    target.is_baby() && !target.is_in_water()
+                })),
             )
         };
         let fish = || {
             NearestAttackableTargetGoal::build(
-                TargetType::Class(Arc::new(|e: &dyn Entity| crate::world::entity::animal::fish::as_abstract_fish(e).is_some())),
+                TargetType::Class(Arc::new(|e: &dyn Entity| {
+                    crate::world::entity::animal::fish::as_abstract_fish(e).is_some()
+                })),
                 20,
                 false,
                 false,
-                Some(Arc::new(|target: &dyn Entity, _level: &ServerLevel| crate::world::entity::animal::fish::as_schooling_fish(target).is_some())),
+                Some(Arc::new(|target: &dyn Entity, _level: &ServerLevel| {
+                    crate::world::entity::animal::fish::as_schooling_fish(target).is_some()
+                })),
             )
         };
         let targets = &mut self.mob.target_selector;
@@ -306,7 +381,11 @@ impl Fox {
 
     fn set_flag(&mut self, flag: i32, value: bool) {
         let current = i32::from(self.base().entity_data.get(DATA_FLAGS_ID));
-        let new = if value { current | flag } else { current & !flag };
+        let new = if value {
+            current | flag
+        } else {
+            current & !flag
+        };
         self.base_mut().entity_data.set(DATA_FLAGS_ID, new as i8);
     }
 
@@ -395,15 +474,22 @@ impl Fox {
     /// `getTrustedEntities()`.
     pub fn get_trusted_entities(&self) -> Vec<Uuid> {
         let data = &self.base().entity_data;
-        data.get(DATA_TRUSTED_ID_0).into_iter().chain(data.get(DATA_TRUSTED_ID_1)).collect()
+        data.get(DATA_TRUSTED_ID_0)
+            .into_iter()
+            .chain(data.get(DATA_TRUSTED_ID_1))
+            .collect()
     }
 
     /// `addTrustedEntity(reference)`.
     pub fn add_trusted_entity(&mut self, entity: Uuid) {
         if self.base().entity_data.get(DATA_TRUSTED_ID_0).is_some() {
-            self.base_mut().entity_data.set(DATA_TRUSTED_ID_1, Some(entity));
+            self.base_mut()
+                .entity_data
+                .set(DATA_TRUSTED_ID_1, Some(entity));
         } else {
-            self.base_mut().entity_data.set(DATA_TRUSTED_ID_0, Some(entity));
+            self.base_mut()
+                .entity_data
+                .set(DATA_TRUSTED_ID_0, Some(entity));
         }
     }
 
@@ -421,7 +507,10 @@ impl Fox {
 
     /// `canEat(itemInMouth)`.
     fn can_eat(&self, level: &ServerLevel, item_in_mouth: &ItemStack) -> bool {
-        is_consumable_food(item_in_mouth) && mob::tick::get_target_checked(self, level).is_none() && self.base().on_ground() && !self.is_sleeping()
+        is_consumable_food(item_in_mouth)
+            && mob::tick::get_target_checked(self, level).is_none()
+            && self.base().on_ground()
+            && !self.is_sleeping()
     }
 
     /// `spitOutItem(itemStack)`.
@@ -429,7 +518,8 @@ impl Fox {
         if !stack.is_empty() {
             let look = self.get_look_angle();
             let p = self.position();
-            let mut thrown = ItemEntity::with_stack(level, p.x + look.x, p.y + 1.0, p.z + look.z, stack);
+            let mut thrown =
+                ItemEntity::with_stack(level, p.x + look.x, p.y + 1.0, p.z + look.z, stack);
             thrown.set_pick_up_delay(40);
             thrown.set_thrower(self.uuid());
             self.play_sound(level, SoundEvent::ENTITY_FOX_SPIT, 1.0, 1.0);
@@ -446,8 +536,17 @@ impl Fox {
 }
 
 /// `Fox.checkFoxSpawnRules`.
-pub fn check_fox_spawn_rules(_ty: EntityType, level: &dyn ServerLevelAccessor, _reason: EntitySpawnReason, pos: BlockPos, _random: &mut dyn RandomSource) -> bool {
-    level.get_block_state(pos.below()).is_tag("foxes_spawnable_on") && spawn_predicates::is_bright_enough_to_spawn(level, pos)
+pub fn check_fox_spawn_rules(
+    _ty: EntityType,
+    level: &dyn ServerLevelAccessor,
+    _reason: EntitySpawnReason,
+    pos: BlockPos,
+    _random: &mut dyn RandomSource,
+) -> bool {
+    level
+        .get_block_state(pos.below())
+        .is_tag("foxes_spawnable_on")
+        && spawn_predicates::is_bright_enough_to_spawn(level, pos)
 }
 
 mc_game_core::register_spawn_placement!(EntityType::FOX, check_fox_spawn_rules);
@@ -460,7 +559,11 @@ impl Entity for Fox {
     }
 
     fn get_dimensions(&self, _pose: Pose) -> EntityDimensions {
-        if self.is_baby() { baby_dimensions() } else { EntityDimensions::of_type(self.mob.living.entity.entity_type) }
+        if self.is_baby() {
+            baby_dimensions()
+        } else {
+            EntityDimensions::of_type(self.mob.living.entity.entity_type)
+        }
     }
 
     fn ai_step(&mut self, level: &mut ServerLevel) {
@@ -470,20 +573,27 @@ impl Entity for Fox {
             if self.can_eat(level, &item_in_mouth) {
                 if self.ticks_since_eaten > MIN_TICKS_BEFORE_EAT {
                     let mut stack = item_in_mouth;
-                    let remaining = mc_game_core::world::item::finish_using_item(&mut stack, level, self);
+                    let remaining =
+                        mc_game_core::world::item::finish_using_item(&mut stack, level, self);
                     // vanilla shrinks the stack held in the slot in place; the remainder replaces it when non-empty
                     if remaining.is_empty() {
-                        self.mob.living.equipment.set(EquipmentSlot::MainHand, stack);
+                        self.mob
+                            .living
+                            .equipment
+                            .set(EquipmentSlot::MainHand, stack);
                     } else {
                         self.set_item_slot(level, EquipmentSlot::MainHand, remaining);
                     }
                     self.ticks_since_eaten = 0;
-                } else if self.ticks_since_eaten > 560 && self.base_mut().random.next_float() < 0.1 {
+                } else if self.ticks_since_eaten > 560 && self.base_mut().random.next_float() < 0.1
+                {
                     self.play_eating_sound(level);
                     level.broadcast_entity_event(self.id(), 45);
                 }
             }
-            let target_alive = mob::tick::get_target_checked(self, level).and_then(|t| level.get_entity(t)).is_some_and(|t| t.is_alive());
+            let target_alive = mob::tick::get_target_checked(self, level)
+                .and_then(|t| level.get_entity(t))
+                .is_some_and(|t| t.is_alive());
             if !target_alive {
                 self.set_is_crouching(false);
                 self.set_is_interested(false);
@@ -505,7 +615,10 @@ impl Entity for Fox {
         mob::tick::tick(self, level);
         if self.is_effective_ai() {
             let in_water = self.is_in_water();
-            if in_water || mob::tick::get_target_checked(self, level).is_some() || level.is_thundering() {
+            if in_water
+                || mob::tick::get_target_checked(self, level).is_some()
+                || level.is_thundering()
+            {
                 self.wake_up();
             }
             if in_water || self.is_sleeping() {
@@ -549,7 +662,11 @@ impl Entity for Fox {
         mob::tick::set_target(self, level, target);
     }
 
-    fn populate_default_equipment_slots(&mut self, random: &mut dyn RandomSource, _difficulty: &DifficultyInstance) {
+    fn populate_default_equipment_slots(
+        &mut self,
+        random: &mut dyn RandomSource,
+        _difficulty: &DifficultyInstance,
+    ) {
         if random.next_float() < 0.2 {
             let odds = random.next_float();
             let held_in_mouth = if odds < 0.05 {
@@ -557,7 +674,11 @@ impl Entity for Fox {
             } else if odds < 0.2 {
                 ItemStack::new(Item::EGG)
             } else if odds < 0.4 {
-                if random.next_boolean() { ItemStack::new(Item::RABBIT_FOOT) } else { ItemStack::new(Item::RABBIT_HIDE) }
+                if random.next_boolean() {
+                    ItemStack::new(Item::RABBIT_FOOT)
+                } else {
+                    ItemStack::new(Item::RABBIT_HIDE)
+                }
             } else if odds < 0.6 {
                 ItemStack::new(Item::WHEAT)
             } else if odds < 0.8 {
@@ -571,11 +692,18 @@ impl Entity for Fox {
 
     fn can_hold_item(&self, stack: &ItemStack) -> bool {
         let held = self.get_item_by_slot(EquipmentSlot::MainHand);
-        held.is_empty() || self.ticks_since_eaten > 0 && is_consumable_food(stack) && !is_consumable_food(&held)
+        held.is_empty()
+            || self.ticks_since_eaten > 0 && is_consumable_food(stack) && !is_consumable_food(&held)
     }
 
     fn pick_up_item(&mut self, level: &mut ServerLevel, item_id: EntityId) {
-        let Some(mut stack) = level.get_entity(item_id).and_then(|e| e.as_any().downcast_ref::<ItemEntity>()).map(ItemEntity::get_item) else { return };
+        let Some(mut stack) = level
+            .get_entity(item_id)
+            .and_then(|e| e.as_any().downcast_ref::<ItemEntity>())
+            .map(ItemEntity::get_item)
+        else {
+            return;
+        };
         if self.can_hold_item(&stack) {
             let count = stack.count();
             if count > 1 {
@@ -584,7 +712,9 @@ impl Entity for Fox {
             }
             let in_mouth = self.get_item_by_slot(EquipmentSlot::MainHand);
             self.spit_out_item(level, in_mouth);
-            mc_game_core::world::entity::player::pickup::on_item_pickup_by_id(level, &*self, item_id);
+            mc_game_core::world::entity::player::pickup::on_item_pickup_by_id(
+                level, &*self, item_id,
+            );
             let one = stack.split(1);
             self.set_item_slot(level, EquipmentSlot::MainHand, one);
             mob::equipment::set_guaranteed_drop(self, EquipmentSlot::MainHand);
@@ -607,7 +737,12 @@ impl Entity for Fox {
         is_fox_food(stack)
     }
 
-    fn on_offspring_spawned_from_egg(&mut self, level: &mut ServerLevel, spawner: &mut mc_game_core::world::entity::ServerPlayer, offspring: EntityId) {
+    fn on_offspring_spawned_from_egg(
+        &mut self,
+        level: &mut ServerLevel,
+        spawner: &mut mc_game_core::world::entity::ServerPlayer,
+        offspring: EntityId,
+    ) {
         let uuid = spawner.uuid();
         level.with_entity(offspring, |_, e| {
             if let Some(fox) = e.as_any_mut().downcast_mut::<Fox>() {
@@ -617,12 +752,30 @@ impl Entity for Fox {
     }
 
     fn get_leash_offset(&self) -> Vec3 {
-        Vec3::new(0.0, f64::from(0.55f32 * self.base().eye_height), f64::from(self.base().get_bb_width() * 0.4))
+        Vec3::new(
+            0.0,
+            f64::from(0.55f32 * self.base().eye_height),
+            f64::from(self.base().get_bb_width() * 0.4),
+        )
     }
 
-    fn get_breed_offspring(&mut self, level: &mut ServerLevel, partner: EntityId) -> Option<Box<dyn Entity>> {
-        let mut baby = mc_game_core::world::entity::factory::create(EntityType::FOX, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })?;
-        let partner_variant = level.get_entity(partner).and_then(|p| p.as_any().downcast_ref::<Fox>()).map(Fox::get_variant);
+    fn get_breed_offspring(
+        &mut self,
+        level: &mut ServerLevel,
+        partner: EntityId,
+    ) -> Option<Box<dyn Entity>> {
+        let mut baby = mc_game_core::world::entity::factory::create(
+            EntityType::FOX,
+            level,
+            EntitySpawnRequest {
+                reason: EntitySpawnReason::Breeding,
+                ignore_checks: false,
+            },
+        )?;
+        let partner_variant = level
+            .get_entity(partner)
+            .and_then(|p| p.as_any().downcast_ref::<Fox>())
+            .map(Fox::get_variant);
         let variant = match partner_variant {
             Some(partner_variant) if !self.base_mut().random.next_boolean() => partner_variant,
             _ => self.get_variant(),
@@ -643,12 +796,27 @@ impl Entity for Fox {
         let registries = level.registry_access().clone();
         let biome = level.get_biome_id(self.block_position());
         let snow = Identifier::parse("minecraft:spawns_snow_foxes").expect("valid tag id");
-        let mut variant = if biome.is_some_and(|b| registries.registry(keys::BIOME).is_some_and(|r| r.is_in_tag(b.0, &snow))) { FoxVariant::Snow } else { FoxVariant::Red };
+        let mut variant = if biome.is_some_and(|b| {
+            registries
+                .registry(keys::BIOME)
+                .is_some_and(|r| r.is_in_tag(b.0, &snow))
+        }) {
+            FoxVariant::Snow
+        } else {
+            FoxVariant::Red
+        };
         let mut is_baby = false;
         let group_data = match group_data {
             Some(mut data) if data.as_any().is::<FoxGroupData>() => {
-                variant = data.as_any().downcast_ref::<FoxGroupData>().expect("fox group data").variant;
-                if data.as_ageable_mut().is_some_and(|a| a.get_group_size() >= 2) {
+                variant = data
+                    .as_any()
+                    .downcast_ref::<FoxGroupData>()
+                    .expect("fox group data")
+                    .variant;
+                if data
+                    .as_ageable_mut()
+                    .is_some_and(|a| a.get_group_size() >= 2)
+                {
                     is_baby = true;
                 }
                 data
@@ -668,7 +836,9 @@ impl Entity for Fox {
         mob::nbt::add_additional_save_data(self, out);
         let mut trusted = ListTag::new();
         for uuid in self.get_trusted_entities() {
-            trusted.push(Tag::IntArray(mc_core::uuid_util::uuid_to_int_array(&uuid).to_vec()));
+            trusted.push(Tag::IntArray(
+                mc_core::uuid_util::uuid_to_int_array(&uuid).to_vec(),
+            ));
         }
         out.put("Trusted", trusted);
         out.put_boolean("Sleeping", self.is_sleeping());
@@ -688,7 +858,12 @@ impl Entity for Fox {
             }
         }
         self.set_sleeping(input.get_boolean_or("Sleeping", false));
-        self.set_variant(input.get_string("Type").and_then(FoxVariant::from_name).unwrap_or(DEFAULT_VARIANT));
+        self.set_variant(
+            input
+                .get_string("Type")
+                .and_then(FoxVariant::from_name)
+                .unwrap_or(DEFAULT_VARIANT),
+        );
         self.set_sitting(input.get_boolean_or("Sitting", false));
         self.set_is_crouching(input.get_boolean_or("Crouching", false));
         self.set_target_goals();
@@ -714,7 +889,10 @@ impl Entity for Fox {
         } else {
             if !level.is_bright_outside() && self.base_mut().random.next_float() < 0.1 {
                 let bb = self.base().bounding_box().inflate(16.0, 16.0, 16.0);
-                if level.get_entities_of_class(&bb, |e| e.is_player(), |e| !e.is_spectator()).is_empty() {
+                if level
+                    .get_entities_of_class(&bb, |e| e.is_player(), |e| !e.is_spectator())
+                    .is_empty()
+                {
                     return Some(SoundEvent::ENTITY_FOX_SCREECH);
                 }
             }
@@ -735,8 +913,13 @@ impl Entity for Fox {
     }
 
     fn entity_components(&self) -> DataComponentMap {
-        let base = mc_game_core::advancements::predicates::entity::support::base_entity_components(self.base());
-        DataComponentMap::builder().add_all(&base).set(FOX_VARIANT, self.get_variant()).build()
+        let base = mc_game_core::advancements::predicates::entity::support::base_entity_components(
+            self.base(),
+        );
+        DataComponentMap::builder()
+            .add_all(&base)
+            .set(FOX_VARIANT, self.get_variant())
+            .build()
     }
 
     fn apply_implicit_components(&mut self, stack: &ItemStack) {
@@ -748,4 +931,7 @@ impl Entity for Fox {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static FOX: EntityRegistration = EntityRegistration { entity_type: EntityType::FOX, create: |ty, id, registries| Box::new(Fox::new(ty, id, registries)) };
+static FOX: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::FOX,
+    create: |ty, id, registries| Box::new(Fox::new(ty, id, registries)),
+};

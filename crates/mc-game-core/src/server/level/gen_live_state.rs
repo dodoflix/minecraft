@@ -33,11 +33,20 @@ impl Default for GenLiveState {
 
 impl GenLiveState {
     /// Publishes the values of the current tick.
-    pub fn publish(&self, difficulty: Difficulty, spawn_mobs: bool, overworld_clock_time: i64, moon_brightness: f32) {
-        self.difficulty.store(difficulty.get_id(), Ordering::Relaxed);
+    pub fn publish(
+        &self,
+        difficulty: Difficulty,
+        spawn_mobs: bool,
+        overworld_clock_time: i64,
+        moon_brightness: f32,
+    ) {
+        self.difficulty
+            .store(difficulty.get_id(), Ordering::Relaxed);
         self.spawn_mobs.store(spawn_mobs, Ordering::Relaxed);
-        self.overworld_clock_time.store(overworld_clock_time, Ordering::Relaxed);
-        self.moon_brightness.store(moon_brightness.to_bits(), Ordering::Relaxed);
+        self.overworld_clock_time
+            .store(overworld_clock_time, Ordering::Relaxed);
+        self.moon_brightness
+            .store(moon_brightness.to_bits(), Ordering::Relaxed);
     }
 
     /// Installed once by the level factory.
@@ -64,7 +73,8 @@ impl GenLiveState {
 
     /// `registryAccess()` (empty before the factory installed it).
     pub fn registries(&self) -> &RegistryAccess {
-        static EMPTY: std::sync::LazyLock<RegistryAccess> = std::sync::LazyLock::new(RegistryAccess::default);
+        static EMPTY: std::sync::LazyLock<RegistryAccess> =
+            std::sync::LazyLock::new(RegistryAccess::default);
         self.registries.get().unwrap_or(&EMPTY)
     }
 

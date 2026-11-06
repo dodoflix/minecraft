@@ -4,17 +4,25 @@
 //! macro writes overrides - `aiStep`, `mobInteract`, `FromBucket` - that the tadpole replaces).
 
 use super::tadpole_ai;
+use crate::world::entity::animal::fish::abstract_fish;
+use crate::world::entity::animal::fish::water_animal::water_creature_entity;
+use linkme::distributed_slice;
+use mc_core::phys::AABB;
+use mc_core::phys::Vec3;
+use mc_core::phys::shapes::Shapes;
+use mc_data::enums::EntitySpawnReason;
+use mc_data::{EntityType, Item, SoundEvent};
 use mc_game_core::define_accessor;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::damagesource::DamageSource;
-use crate::world::entity::animal::fish::abstract_fish;
-use crate::world::entity::animal::fish::water_animal::water_creature_entity;
 use mc_game_core::world::entity::ai::brain::{Brain, Provider};
 use mc_game_core::world::entity::ai::control::smooth_swimming_look_control::SmoothSwimmingLookControl;
 use mc_game_core::world::entity::ai::control::smooth_swimming_move_control::SmoothSwimmingMoveControl;
 use mc_game_core::world::entity::ai::memory::BrainPacked;
 use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
-use mc_game_core::world::entity::ai::sensing::sensor_type::{FROG_TEMPTATIONS, HURT_BY, NEAREST_LIVING_ENTITIES, NEAREST_PLAYERS};
+use mc_game_core::world::entity::ai::sensing::sensor_type::{
+    FROG_TEMPTATIONS, HURT_BY, NEAREST_LIVING_ENTITIES, NEAREST_PLAYERS,
+};
 use mc_game_core::world::entity::bucketable::{self, Bucketable};
 use mc_game_core::world::entity::dimensions::EntityDimensions;
 use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
@@ -23,12 +31,6 @@ use mc_game_core::world::entity::mob::{self, MobData, MobKind, ageable};
 use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
 use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
-use linkme::distributed_slice;
-use mc_core::phys::Vec3;
-use mc_core::phys::shapes::Shapes;
-use mc_core::phys::AABB;
-use mc_data::enums::EntitySpawnReason;
-use mc_data::{EntityType, Item, SoundEvent};
 use mc_nbt::CompoundTag;
 use mc_protocol::components::{BUCKET_ENTITY_DATA, CustomData};
 use mc_protocol::packets::play::SoundSource;
@@ -39,7 +41,15 @@ define_accessor!(pub AGE_LOCKED: Boolean = Tadpole);
 pub const TICKS_TO_BE_FROG: i32 = 24000;
 
 /// `BRAIN_PROVIDER`.
-static BRAIN_PROVIDER: Provider = Provider::with_activities(&[&NEAREST_LIVING_ENTITIES, &NEAREST_PLAYERS, &HURT_BY, &FROG_TEMPTATIONS], tadpole_ai::get_activities);
+static BRAIN_PROVIDER: Provider = Provider::with_activities(
+    &[
+        &NEAREST_LIVING_ENTITIES,
+        &NEAREST_PLAYERS,
+        &HURT_BY,
+        &FROG_TEMPTATIONS,
+    ],
+    tadpole_ai::get_activities,
+);
 
 /// `Tadpole`.
 pub struct Tadpole {
@@ -57,14 +67,20 @@ impl Tadpole {
             abstract_fish::define_synched_data(b);
             b.define(AGE_LOCKED, false);
         });
-        let mut tadpole = Tadpole { mob, age: 0, age_lock_particle_timer: 0 };
+        let mut tadpole = Tadpole {
+            mob,
+            age: 0,
+            age_lock_particle_timer: 0,
+        };
         // `LivingEntity.<init>`: `this.brain = this.makeBrain(Brain.Packed.EMPTY)`
         let brain = tadpole.make_brain(&BrainPacked::EMPTY);
         tadpole.mob.living.brain = brain;
         let navigation = StandardPathNavigation::water_bound(&tadpole);
         abstract_fish::init_controls(&mut tadpole.mob, navigation);
         abstract_fish::register_goals(&mut tadpole);
-        tadpole.mob.move_control = Some(Box::new(SmoothSwimmingMoveControl::new(85, 10, 0.02, 0.1, true)));
+        tadpole.mob.move_control = Some(Box::new(SmoothSwimmingMoveControl::new(
+            85, 10, 0.02, 0.1, true,
+        )));
         tadpole.mob.look_control = Some(Box::new(SmoothSwimmingLookControl::new(10)));
         tadpole
     }
@@ -111,15 +127,32 @@ impl Tadpole {
         let pos = self.base().position();
         let source = self.get_sound_source();
         let silent = self.base().is_silent();
-        convert::convert_to(self, level, EntityType::FROG, &params, EntitySpawnReason::Conversion, move |frog, level| {
-            let difficulty = ServerLevelAccessor::get_current_difficulty_at(&*level, frog.block_position());
-            frog.finalize_spawn(level, difficulty, EntitySpawnReason::Conversion, None);
-            frog.set_persistence_required();
-            fudge_position_after_size_change(frog, level, &old_dimensions);
-            if !silent {
-                level.play_sound_at(None, pos.x, pos.y, pos.z, SoundEvent::ENTITY_TADPOLE_GROW_UP, source, 0.15, 1.0);
-            }
-        });
+        convert::convert_to(
+            self,
+            level,
+            EntityType::FROG,
+            &params,
+            EntitySpawnReason::Conversion,
+            move |frog, level| {
+                let difficulty =
+                    ServerLevelAccessor::get_current_difficulty_at(&*level, frog.block_position());
+                frog.finalize_spawn(level, difficulty, EntitySpawnReason::Conversion, None);
+                frog.set_persistence_required();
+                fudge_position_after_size_change(frog, level, &old_dimensions);
+                if !silent {
+                    level.play_sound_at(
+                        None,
+                        pos.x,
+                        pos.y,
+                        pos.z,
+                        SoundEvent::ENTITY_TADPOLE_GROW_UP,
+                        source,
+                        0.15,
+                        1.0,
+                    );
+                }
+            },
+        );
     }
 
     /// `getTicksLeftUntilAdult()`.
@@ -156,22 +189,49 @@ fn is_frog_food(stack: &ItemStack) -> bool {
 }
 
 /// `Entity.fudgePositionAfterSizeChange(previousDimensions)`.
-pub fn fudge_position_after_size_change(e: &mut dyn Entity, level: &ServerLevel, previous: &EntityDimensions) -> bool {
+pub fn fudge_position_after_size_change(
+    e: &mut dyn Entity,
+    level: &ServerLevel,
+    previous: &EntityDimensions,
+) -> bool {
     let new_dimensions = e.get_dimensions(e.base().get_pose());
-    let (new_width, new_height) = (f64::from(new_dimensions.width), f64::from(new_dimensions.height));
+    let (new_width, new_height) = (
+        f64::from(new_dimensions.width),
+        f64::from(new_dimensions.height),
+    );
     let (prev_width, prev_height) = (f64::from(previous.width), f64::from(previous.height));
     let old_center = e.position().add(Vec3::new(0.0, prev_height / 2.0, 0.0));
     let width_delta = f64::from((new_dimensions.width - previous.width).max(0.0)) + 1.0E-6;
     let height_delta = f64::from((new_dimensions.height - previous.height).max(0.0)) + 1.0E-6;
-    let allowed_centers = Shapes::create(AABB::of_size(old_center, width_delta, height_delta, width_delta));
-    if let Some(free) = level.find_free_position_for(e, &allowed_centers, old_center, new_width, new_height, new_width) {
+    let allowed_centers = Shapes::create(AABB::of_size(
+        old_center,
+        width_delta,
+        height_delta,
+        width_delta,
+    ));
+    if let Some(free) = level.find_free_position_for(
+        e,
+        &allowed_centers,
+        old_center,
+        new_width,
+        new_height,
+        new_width,
+    ) {
         let p = free.add(Vec3::new(0.0, -new_height / 2.0, 0.0));
         e.set_pos(p.x, p.y, p.z);
         return true;
     }
     if new_width > prev_width && new_height > prev_height {
-        let allowed_centers_ignoring_y = Shapes::create(AABB::of_size(old_center, width_delta, 1.0E-6, width_delta));
-        if let Some(free) = level.find_free_position_for(e, &allowed_centers_ignoring_y, old_center, new_width, prev_height, new_width) {
+        let allowed_centers_ignoring_y =
+            Shapes::create(AABB::of_size(old_center, width_delta, 1.0E-6, width_delta));
+        if let Some(free) = level.find_free_position_for(
+            e,
+            &allowed_centers_ignoring_y,
+            old_center,
+            new_width,
+            prev_height,
+            new_width,
+        ) {
             let p = free.add(Vec3::new(0.0, -prev_height / 2.0 + 1.0E-6, 0.0));
             e.set_pos(p.x, p.y, p.z);
             return true;
@@ -187,7 +247,10 @@ impl Bucketable for Tadpole {
     fn set_from_bucket(&mut self, _from_bucket: bool) {}
     fn save_to_bucket_tag(&self, bucket: &mut ItemStack) {
         bucketable::save_default_data_to_bucket_tag(self, bucket);
-        let mut tag = bucket.get(&BUCKET_ENTITY_DATA).map(|d| d.copy_tag()).unwrap_or_default();
+        let mut tag = bucket
+            .get(&BUCKET_ENTITY_DATA)
+            .map(|d| d.copy_tag())
+            .unwrap_or_default();
         tag.put_int("Age", self.get_age());
         tag.put_boolean("AgeLocked", self.is_age_locked());
         bucket.set(BUCKET_ENTITY_DATA, CustomData::of(&tag));
@@ -224,7 +287,14 @@ impl Entity for Tadpole {
         !Bucketable::from_bucket(self) && !self.base().has_custom_name()
     }
 
-    fn travel_in_water(&mut self, level: &mut ServerLevel, input: Vec3, _base_gravity: f64, _is_falling: bool, _old_y: f64) {
+    fn travel_in_water(
+        &mut self,
+        level: &mut ServerLevel,
+        input: Vec3,
+        _base_gravity: f64,
+        _is_falling: bool,
+        _old_y: f64,
+    ) {
         abstract_fish::travel_in_water(self, level, input);
     }
 
@@ -232,7 +302,13 @@ impl Entity for Tadpole {
         SoundEvent::ENTITY_FISH_SWIM
     }
 
-    fn play_step_sound(&mut self, _level: &mut ServerLevel, _pos: mc_core::pos::BlockPos, _state: mc_data::block::BlockState) {}
+    fn play_step_sound(
+        &mut self,
+        _level: &mut ServerLevel,
+        _pos: mc_core::pos::BlockPos,
+        _state: mc_data::block::BlockState,
+    ) {
+    }
 
     fn as_bucketable(&self) -> Option<&dyn Bucketable> {
         Some(self)
@@ -259,7 +335,8 @@ impl Entity for Tadpole {
         }
         let locked = self.is_age_locked();
         let timer = self.age_lock_particle_timer;
-        self.age_lock_particle_timer = ageable::make_age_locked_particle(level, self, timer, locked);
+        self.age_lock_particle_timer =
+            ageable::make_age_locked_particle(level, self, timer, locked);
     }
 
     fn add_additional_save_data(&self, out: &mut CompoundTag) {
@@ -289,12 +366,22 @@ impl Entity for Tadpole {
         Some(SoundEvent::ENTITY_TADPOLE_DEATH)
     }
 
-    fn mob_interact(&mut self, level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) -> InteractionResult {
+    fn mob_interact(
+        &mut self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        hand: InteractionHand,
+    ) -> InteractionResult {
         let item_stack = player.get_item_in_hand(hand);
         if is_frog_food(&item_stack) && !self.is_age_locked() {
             self.feed(level, player, hand);
             InteractionResult::SUCCESS
-        } else if ageable::can_use_golden_dandelion(&item_stack, true, self.age_lock_particle_timer, self) {
+        } else if ageable::can_use_golden_dandelion(
+            &item_stack,
+            true,
+            self.age_lock_particle_timer,
+            self,
+        ) {
             // `AgeableMob.setAgeLocked(this, this::isAgeLocked, player, itemStack, mob -> this.setAgeLockedData())`
             let locked = !self.is_age_locked();
             self.set_age_locked(locked);
@@ -306,7 +393,11 @@ impl Entity for Tadpole {
                 self.set_persistence_required();
             }
             let pos = self.block_position();
-            let sound = if now_locked { SoundEvent::ITEM_GOLDEN_DANDELION_USE } else { SoundEvent::ITEM_GOLDEN_DANDELION_UNUSE };
+            let sound = if now_locked {
+                SoundEvent::ITEM_GOLDEN_DANDELION_USE
+            } else {
+                SoundEvent::ITEM_GOLDEN_DANDELION_UNUSE
+            };
             level.play_sound(None, pos, sound, SoundSource::Players, 1.0, 1.0);
             InteractionResult::SUCCESS
         } else {
@@ -323,4 +414,7 @@ impl Entity for Tadpole {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static TADPOLE: EntityRegistration = EntityRegistration { entity_type: EntityType::TADPOLE, create: |ty, id, _registries| Box::new(Tadpole::new(ty, id)) };
+static TADPOLE: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::TADPOLE,
+    create: |ty, id, _registries| Box::new(Tadpole::new(ty, id)),
+};

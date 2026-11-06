@@ -35,7 +35,15 @@ fn st_opt(t: Option<ScheduledTick<Block>>) -> String {
 }
 
 fn sv(t: &SavedTick<Block>) -> String {
-    format!("{},{},{},{},{},{}", t.ty.name().trim_start_matches("minecraft:"), t.pos.x(), t.pos.y(), t.pos.z(), t.delay, t.priority.get_value())
+    format!(
+        "{},{},{},{},{},{}",
+        t.ty.name().trim_start_matches("minecraft:"),
+        t.pos.x(),
+        t.pos.y(),
+        t.pos.z(),
+        t.delay,
+        t.priority.get_value()
+    )
 }
 
 fn join<I: IntoIterator<Item = String>>(it: I) -> String {
@@ -51,7 +59,11 @@ fn parse_saved(list: &str) -> Vec<SavedTick<Block>> {
             let f: Vec<&str> = e.split(',').collect();
             SavedTick {
                 ty: block(f[0]),
-                pos: BlockPos::new(f[1].parse().unwrap(), f[2].parse().unwrap(), f[3].parse().unwrap()),
+                pos: BlockPos::new(
+                    f[1].parse().unwrap(),
+                    f[2].parse().unwrap(),
+                    f[3].parse().unwrap(),
+                ),
                 delay: f[4].parse().unwrap(),
                 priority: TickPriority::by_value(f[5].parse().unwrap()),
             }
@@ -82,7 +94,11 @@ fn tick_containers_match_vanilla() {
     let mut checked = 0usize;
     for (ln, line) in TICKS_GOLDEN.lines().enumerate() {
         let mut parts = line.splitn(3, '\t');
-        let (scen, op, expected) = (parts.next().unwrap(), parts.next().unwrap(), parts.next().unwrap_or(""));
+        let (scen, op, expected) = (
+            parts.next().unwrap(),
+            parts.next().unwrap(),
+            parts.next().unwrap_or(""),
+        );
         let f: Vec<&str> = op.split(' ').collect();
         let actual = match (f[0], states.get_mut(scen)) {
             ("NEW", None) if scen.starts_with("CHUNK") => {
@@ -116,7 +132,9 @@ fn tick_containers_match_vanilla() {
                     });
                     c.count().to_string()
                 }
-                "H" => c.has_scheduled_tick(&BlockPos::new(n(f[2]), n(f[3]), n(f[4])), block(f[1])).to_string(),
+                "H" => c
+                    .has_scheduled_tick(&BlockPos::new(n(f[2]), n(f[3]), n(f[4])), block(f[1]))
+                    .to_string(),
                 "K" => st_opt(c.peek().copied()),
                 "P" => st_opt(c.poll()),
                 "R" => {
@@ -143,13 +161,16 @@ fn tick_containers_match_vanilla() {
                     });
                     "ok".to_string()
                 }
-                "H" => p.has_scheduled_tick(&BlockPos::new(n(f[2]), n(f[3]), n(f[4])), block(f[1])).to_string(),
+                "H" => p
+                    .has_scheduled_tick(&BlockPos::new(n(f[2]), n(f[3]), n(f[4])), block(f[1]))
+                    .to_string(),
                 "A" => format!("{}|{}", p.count(), join(p.pack(n(f[1])).iter().map(sv))),
                 o => panic!("op {o}"),
             },
             (_, Some(State::Level(lt))) => match f[0] {
                 "ADD" => {
-                    let mut c = LevelChunkTicks::from_pending(parse_saved(f.get(4).copied().unwrap_or("")));
+                    let mut c =
+                        LevelChunkTicks::from_pending(parse_saved(f.get(4).copied().unwrap_or("")));
                     c.unpack(n(f[3]));
                     lt.add_container(ChunkPos::new(n(f[1]), n(f[2])), c);
                     lt.count().to_string()
@@ -168,15 +189,30 @@ fn tick_containers_match_vanilla() {
                     });
                     lt.count().to_string()
                 }
-                "H" => lt.has_scheduled_tick(&BlockPos::new(n(f[2]), n(f[3]), n(f[4])), block(f[1])).to_string(),
+                "H" => lt
+                    .has_scheduled_tick(&BlockPos::new(n(f[2]), n(f[3]), n(f[4])), block(f[1]))
+                    .to_string(),
                 "T" => {
                     let (cur, max, modulus): (i64, usize, i32) = (n(f[1]), n(f[2]), n(f[3]));
                     let mut ran = vec![];
                     lt.tick(
                         cur,
                         max,
-                        |p| modulus == 0 || (ChunkPos::get_x(p).wrapping_add(ChunkPos::get_z(p))).rem_euclid(modulus) != 0,
-                        |pos, ty| ran.push(format!("{},{},{},{}", ty.name().trim_start_matches("minecraft:"), pos.x(), pos.y(), pos.z())),
+                        |p| {
+                            modulus == 0
+                                || (ChunkPos::get_x(p).wrapping_add(ChunkPos::get_z(p)))
+                                    .rem_euclid(modulus)
+                                    != 0
+                        },
+                        |pos, ty| {
+                            ran.push(format!(
+                                "{},{},{},{}",
+                                ty.name().trim_start_matches("minecraft:"),
+                                pos.x(),
+                                pos.y(),
+                                pos.z()
+                            ))
+                        },
                     );
                     format!("{}|{}", ran.join(";"), lt.count())
                 }
@@ -185,7 +221,10 @@ fn tick_containers_match_vanilla() {
                     lt.count().to_string()
                 }
                 "CP" => {
-                    lt.copy_area(&BoundingBox::new(n(f[1]), 0, n(f[2]), n(f[3]), 2, n(f[4])), &Vec3i::new(n(f[5]), 0, n(f[6])));
+                    lt.copy_area(
+                        &BoundingBox::new(n(f[1]), 0, n(f[2]), n(f[3]), 2, n(f[4])),
+                        &Vec3i::new(n(f[5]), 0, n(f[6])),
+                    );
                     lt.count().to_string()
                 }
                 o => panic!("op {o}"),
@@ -200,12 +239,18 @@ fn tick_containers_match_vanilla() {
 
 #[test]
 fn tick_priority_by_value() {
-    assert_eq!(TickPriority::ALL.map(TickPriority::get_value), [-3, -2, -1, 0, 1, 2, 3]);
+    assert_eq!(
+        TickPriority::ALL.map(TickPriority::get_value),
+        [-3, -2, -1, 0, 1, 2, 3]
+    );
     for v in -10..=10 {
         let p = TickPriority::by_value(v);
         assert_eq!(p.get_value(), v.clamp(-3, 3));
     }
-    assert_eq!(TickPriority::by_value(i32::MIN), TickPriority::ExtremelyHigh);
+    assert_eq!(
+        TickPriority::by_value(i32::MIN),
+        TickPriority::ExtremelyHigh
+    );
     assert_eq!(TickPriority::by_value(i32::MAX), TickPriority::ExtremelyLow);
 }
 
@@ -220,13 +265,21 @@ fn saved_tick_codec_matches_vanilla() {
         let f: Vec<&str> = line.split('\t').collect();
         match f[0] {
             "BLOCK" | "FLUID" => {
-                let key = if f[0] == "BLOCK" { "block_ticks" } else { "fluid_ticks" };
+                let key = if f[0] == "BLOCK" {
+                    "block_ticks"
+                } else {
+                    "fluid_ticks"
+                };
                 let input = compound(&format!("{{{key}:{}}}", f[1]));
                 let expected = snbt::parse(f[2]).unwrap();
                 let actual = if f[0] == "BLOCK" {
                     SavedTick::<Block>::write_list(&SavedTick::<Block>::read_list(&input, key))
                 } else {
-                    SavedTick::<mc_data::fluid::Fluid>::write_list(&SavedTick::<mc_data::fluid::Fluid>::read_list(&input, key))
+                    SavedTick::<mc_data::fluid::Fluid>::write_list(&SavedTick::<
+                        mc_data::fluid::Fluid,
+                    >::read_list(
+                        &input, key
+                    ))
                 };
                 assert_eq!(Tag::List(actual), expected, "{line}");
                 n_checked += 1;
@@ -252,13 +305,26 @@ fn will_tick_this_tick_and_phases() {
     // `willTickThisTick` is only observable between collect and cleanup.
     let mut lt = LevelTicks::<Block>::new();
     let mut c = LevelChunkTicks::new();
-    c.schedule(ScheduledTick::new(Block::STONE, BlockPos::new(1, 2, 3), 5, 0));
-    c.schedule(ScheduledTick::new(Block::DIRT, BlockPos::new(1, 2, 3), 5, 1));
+    c.schedule(ScheduledTick::new(
+        Block::STONE,
+        BlockPos::new(1, 2, 3),
+        5,
+        0,
+    ));
+    c.schedule(ScheduledTick::new(
+        Block::DIRT,
+        BlockPos::new(1, 2, 3),
+        5,
+        1,
+    ));
     lt.add_container(ChunkPos::new(0, 0), c);
     lt.collect_ticks(5, 10, |_| true);
     assert!(lt.will_tick_this_tick(&BlockPos::new(1, 2, 3), Block::STONE));
     assert!(!lt.will_tick_this_tick(&BlockPos::new(1, 2, 4), Block::STONE));
-    assert_eq!(lt.poll_collected_tick(), Some((BlockPos::new(1, 2, 3), Block::STONE)));
+    assert_eq!(
+        lt.poll_collected_tick(),
+        Some((BlockPos::new(1, 2, 3), Block::STONE))
+    );
     assert!(!lt.will_tick_this_tick(&BlockPos::new(1, 2, 3), Block::STONE));
     assert!(lt.will_tick_this_tick(&BlockPos::new(1, 2, 3), Block::DIRT));
     lt.cleanup_after_tick();

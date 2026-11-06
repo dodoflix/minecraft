@@ -10,9 +10,15 @@ use mc_testbot::harness::vanilla;
 
 fn read_dat(dir: &Path) -> CompoundTag {
     let data = dir.join("world/players/data");
-    let file = std::fs::read_dir(&data).unwrap_or_else(|e| panic!("{}: {e}", data.display())).flatten().find(|e| e.path().extension().is_some_and(|x| x == "dat")).expect("player file").path();
+    let file = std::fs::read_dir(&data)
+        .unwrap_or_else(|e| panic!("{}: {e}", data.display()))
+        .flatten()
+        .find(|e| e.path().extension().is_some_and(|x| x == "dat"))
+        .expect("player file")
+        .path();
     let bytes = std::fs::read(file).expect("read dat");
-    mc_nbt::compress::read_compressed(&bytes, &mut mc_nbt::NbtAccounter::unlimited_heap()).expect("nbt")
+    mc_nbt::compress::read_compressed(&bytes, &mut mc_nbt::NbtAccounter::unlimited_heap())
+        .expect("nbt")
 }
 
 fn kind(t: &Tag) -> &'static str {
@@ -39,13 +45,21 @@ fn diff_tag(path: &str, v: &Tag, o: &Tag, out: &mut Vec<String>) {
         (Tag::List(a), Tag::List(b)) => {
             let (a, b): (Vec<&Tag>, Vec<&Tag>) = (a.iter().collect(), b.iter().collect());
             if a.len() != b.len() {
-                out.push(format!("{path}: list length vanilla {} ours {}", a.len(), b.len()));
+                out.push(format!(
+                    "{path}: list length vanilla {} ours {}",
+                    a.len(),
+                    b.len()
+                ));
             }
             for (i, (x, y)) in a.iter().zip(b.iter()).enumerate() {
                 diff_tag(&format!("{path}[{i}]"), x, y, out);
             }
         }
-        _ if kind(v) != kind(o) => out.push(format!("{path}: type vanilla {} ({v:?}) ours {} ({o:?})", kind(v), kind(o))),
+        _ if kind(v) != kind(o) => out.push(format!(
+            "{path}: type vanilla {} ({v:?}) ours {} ({o:?})",
+            kind(v),
+            kind(o)
+        )),
         _ if v != o => out.push(format!("{path}: vanilla {v:?} ours {o:?}")),
         _ => {}
     }
@@ -63,7 +77,12 @@ fn diff_compound(path: &str, v: &CompoundTag, o: &CompoundTag, out: &mut Vec<Str
             out.push(format!("{path}.{k}: extra in ours ({ov:?})"));
         }
     }
-    let common = |c: &CompoundTag, other: &CompoundTag| c.keys().filter(|k| other.get(k).is_some()).cloned().collect::<Vec<_>>();
+    let common = |c: &CompoundTag, other: &CompoundTag| {
+        c.keys()
+            .filter(|k| other.get(k).is_some())
+            .cloned()
+            .collect::<Vec<_>>()
+    };
     let (kv, ko) = (common(v, o), common(o, v));
     if kv != ko {
         out.push(format!("{path}: key order vanilla {kv:?} ours {ko:?}"));
@@ -75,7 +94,9 @@ async fn scenario(console: &(dyn Console + Sync), port: u16, walk: bool) {
     tokio::time::sleep(Duration::from_secs(3)).await;
     if walk {
         let start = bot.position();
-        let _ = bot.walk_to(start.x + 6.0, start.z, 0.4, true, Duration::from_secs(12)).await;
+        let _ = bot
+            .walk_to(start.x + 6.0, start.z, 0.4, true, Duration::from_secs(12))
+            .await;
         bot.stop();
         tokio::time::sleep(Duration::from_secs(8)).await;
     }
@@ -113,8 +134,19 @@ async fn playerdata_matches_vanilla() {
         println!("--- vanilla {name}:\n{v:?}\n--- ours {name}:\n{o:?}");
         report.extend(d.into_iter().map(|l| format!("{name}{l}")));
     }
-    let unexpected: Vec<_> = report.iter().filter(|l| !EXPECTED.iter().any(|e| l.contains(e))).collect();
-    assert!(unexpected.is_empty(), "unexpected player data differences:\n{}", unexpected.iter().map(|s| s.as_str()).collect::<Vec<_>>().join("\n"));
+    let unexpected: Vec<_> = report
+        .iter()
+        .filter(|l| !EXPECTED.iter().any(|e| l.contains(e)))
+        .collect();
+    assert!(
+        unexpected.is_empty(),
+        "unexpected player data differences:\n{}",
+        unexpected
+            .iter()
+            .map(|s| s.as_str())
+            .collect::<Vec<_>>()
+            .join("\n")
+    );
 }
 
 /// Differences that cannot be equal run to run (random per player/world, wall-clock driven); everything else must match.
@@ -136,7 +168,12 @@ const EXPECTED: &[&str] = &[
 fn sort_attributes(c: &mut CompoundTag) {
     if let Some(list) = c.get_list("attributes") {
         let mut v: Vec<_> = list.iter().cloned().collect();
-        v.sort_by_key(|t| t.as_compound().and_then(|c| c.get_string("id")).unwrap_or("").to_string());
+        v.sort_by_key(|t| {
+            t.as_compound()
+                .and_then(|c| c.get_string("id"))
+                .unwrap_or("")
+                .to_string()
+        });
         let mut l = mc_nbt::ListTag::new();
         for t in v {
             l.push(t);

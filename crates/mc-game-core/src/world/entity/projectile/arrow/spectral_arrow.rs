@@ -28,22 +28,51 @@ impl SpectralArrow {
         Self {
             base,
             projectile: ProjectileData::default(),
-            arrow: AbstractArrowData::new(SoundEvent::ENTITY_ARROW_HIT, ItemStack::new(Item::SPECTRAL_ARROW)),
+            arrow: AbstractArrowData::new(
+                SoundEvent::ENTITY_ARROW_HIT,
+                ItemStack::new(Item::SPECTRAL_ARROW),
+            ),
             duration: DEFAULT_DURATION,
         }
     }
 
     /// `SpectralArrow(level, owner, pickupItemStack, firedFromWeapon)`.
-    pub fn from_owner(level: &mut ServerLevel, owner: &dyn Entity, pickup_item_stack: ItemStack, fired_from_weapon: Option<&ItemStack>) -> Self {
+    pub fn from_owner(
+        level: &mut ServerLevel,
+        owner: &dyn Entity,
+        pickup_item_stack: ItemStack,
+        fired_from_weapon: Option<&ItemStack>,
+    ) -> Self {
         let mut arrow = Self::new(EntityType::SPECTRAL_ARROW, level.next_entity_id());
-        super::init_from_owner(&mut arrow, level, owner, pickup_item_stack, fired_from_weapon);
+        super::init_from_owner(
+            &mut arrow,
+            level,
+            owner,
+            pickup_item_stack,
+            fired_from_weapon,
+        );
         arrow
     }
 
     /// `SpectralArrow(level, x, y, z, pickupItemStack, firedFromWeapon)`.
-    pub fn at(level: &mut ServerLevel, x: f64, y: f64, z: f64, pickup_item_stack: ItemStack, fired_from_weapon: Option<&ItemStack>) -> Self {
+    pub fn at(
+        level: &mut ServerLevel,
+        x: f64,
+        y: f64,
+        z: f64,
+        pickup_item_stack: ItemStack,
+        fired_from_weapon: Option<&ItemStack>,
+    ) -> Self {
         let mut arrow = Self::new(EntityType::SPECTRAL_ARROW, level.next_entity_id());
-        super::init_at(&mut arrow, level, x, y, z, pickup_item_stack, fired_from_weapon);
+        super::init_at(
+            &mut arrow,
+            level,
+            x,
+            y,
+            z,
+            pickup_item_stack,
+            fired_from_weapon,
+        );
         arrow
     }
 }
@@ -76,7 +105,15 @@ impl AbstractArrow for SpectralArrow {
     }
 
     fn do_post_hurt_effects(&mut self, level: &mut ServerLevel, mob: &mut dyn Entity) {
-        let effect = MobEffectInstance::new(MobEffect::GLOWING, self.duration, 0, false, true, true, None);
+        let effect = MobEffectInstance::new(
+            MobEffect::GLOWING,
+            self.duration,
+            0,
+            false,
+            true,
+            true,
+            None,
+        );
         let source = self.get_effect_source(level);
         mob.add_effect(level, effect, Some(source));
     }
@@ -107,7 +144,11 @@ impl Entity for SpectralArrow {
         self.arrow.fired_from_weapon.clone()
     }
 
-    fn player_touch(&mut self, level: &mut ServerLevel, player: &mut crate::world::entity::ServerPlayer) {
+    fn player_touch(
+        &mut self,
+        level: &mut ServerLevel,
+        player: &mut crate::world::entity::ServerPlayer,
+    ) {
         super::player_touch(self, level, player);
     }
 
@@ -127,4 +168,7 @@ impl Entity for SpectralArrow {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static SPECTRAL_ARROW_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::SPECTRAL_ARROW, create: |ty, id, _registries| Box::new(SpectralArrow::new(ty, id)) };
+static SPECTRAL_ARROW_FACTORY: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::SPECTRAL_ARROW,
+    create: |ty, id, _registries| Box::new(SpectralArrow::new(ty, id)),
+};

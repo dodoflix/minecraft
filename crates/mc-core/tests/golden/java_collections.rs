@@ -7,7 +7,11 @@ use mc_core::math::java::java_string_hash;
 const GOLDEN: &str = include_str!("../fixtures/java_collections/golden.txt");
 
 fn split(s: &str) -> Vec<&str> {
-    if s.is_empty() { vec![] } else { s.split('\u{1f}').collect() }
+    if s.is_empty() {
+        vec![]
+    } else {
+        s.split('\u{1f}').collect()
+    }
 }
 
 #[test]
@@ -15,7 +19,12 @@ fn matches_java_iteration_order() {
     let mut n = 0;
     for line in GOLDEN.lines() {
         let f: Vec<&str> = line.split('\t').collect();
-        let (kind, cap, keys, want) = (f[0], f[1].parse::<usize>().unwrap(), split(f[2]), split(f[3]));
+        let (kind, cap, keys, want) = (
+            f[0],
+            f[1].parse::<usize>().unwrap(),
+            split(f[2]),
+            split(f[3]),
+        );
         let got: Vec<String> = match kind {
             "hashmap" | "hashmap-copy" | "hashset-copy" => {
                 let h = |k: &String| java_string_hash(k);
@@ -38,8 +47,12 @@ fn matches_java_iteration_order() {
             }
             "fastint" => {
                 let mut m = FastOpenHashMap::with_null_key(cap, |k: &i32| *k, |k| *k == 0);
-                keys.iter().for_each(|k| m.put(k.parse::<i32>().unwrap(), ()));
-                m.into_entries().into_iter().map(|e| e.0.to_string()).collect()
+                keys.iter()
+                    .for_each(|k| m.put(k.parse::<i32>().unwrap(), ()));
+                m.into_entries()
+                    .into_iter()
+                    .map(|e| e.0.to_string())
+                    .collect()
             }
             _ => panic!("kind {kind}"),
         };

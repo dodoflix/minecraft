@@ -6,7 +6,8 @@ use mc_nbt::Tag;
 use mc_text::Component;
 
 use crate::codec::{
-    read_count, read_utf, write_varint, DecodeBounded, DecodeResult, Either, LengthPrefixed, Rest, VarEncode,
+    DecodeBounded, DecodeResult, Either, LengthPrefixed, Rest, VarEncode, read_count, read_utf,
+    write_varint,
 };
 use crate::{Decode, Encode};
 
@@ -121,7 +122,10 @@ pub struct CustomPayload<const MAX: usize> {
 impl<const MAX: usize> CustomPayload<MAX> {
     /// `BrandPayload`
     pub fn brand(brand: &str) -> crate::codec::EncodeResult<Self> {
-        Ok(Self { id: Identifier::with_default_namespace("brand").expect("valid"), data: crate::codec::to_bytes(brand)? })
+        Ok(Self {
+            id: Identifier::with_default_namespace("brand").expect("valid"),
+            data: crate::codec::to_bytes(brand)?,
+        })
     }
 
     /// The brand string when this is a `minecraft:brand` payload.
@@ -147,9 +151,15 @@ impl<const MAX: usize> Decode for CustomPayload<MAX> {
             let before = *input;
             let _brand = String::decode(input)?;
             let used = before.len() - input.len();
-            return Ok(Self { id, data: before[..used].to_vec() });
+            return Ok(Self {
+                id,
+                data: before[..used].to_vec(),
+            });
         }
-        Ok(Self { id, data: Rest::<MAX>::decode(input)?.0 })
+        Ok(Self {
+            id,
+            data: Rest::<MAX>::decode(input)?.0,
+        })
     }
 }
 
@@ -192,7 +202,11 @@ impl Decode for KnownLinkType {
     /// `ByIdMap.OutOfBoundsStrategy.ZERO`
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
         let id = crate::codec::read_varint(input)?;
-        Ok(usize::try_from(id).ok().and_then(|i| Self::VALUES.get(i)).copied().unwrap_or(Self::BugReport))
+        Ok(usize::try_from(id)
+            .ok()
+            .and_then(|i| Self::VALUES.get(i))
+            .copied()
+            .unwrap_or(Self::BugReport))
     }
 }
 
@@ -215,7 +229,7 @@ impl Encode for TagNetworkPayload {
         for (name, ids) in &self.tags {
             name.encode(out)?;
             ids.encode_var(out);
-        };
+        }
         Ok(())
     }
 }
@@ -226,7 +240,9 @@ impl Decode for TagNetworkPayload {
         for _ in 0..count {
             tags.push((Identifier::decode(input)?, Vec::<i32>::decode_var(input)?));
         }
-        Ok(Self { tags: crate::codec::collapse_map(tags) })
+        Ok(Self {
+            tags: crate::codec::collapse_map(tags),
+        })
     }
 }
 
@@ -295,7 +311,8 @@ impl Encode for ClickPayload {
 impl Decode for ClickPayload {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
         let Raw(inner) = LengthPrefixed::<Raw, 65536>::decode(input)?.0;
-        crate::codec::decode_tag_with(&mut &inner[..], crate::codec::NbtLimit::new(32768, 16)).map(Self)
+        crate::codec::decode_tag_with(&mut &inner[..], crate::codec::NbtLimit::new(32768, 16))
+            .map(Self)
     }
 }
 
@@ -412,7 +429,10 @@ macro_rules! common_packets {
         #[packet(state = $state, flow = clientbound, name = "update_tags")]
         pub struct ClientboundUpdateTagsPacket {
             #[mc(map)]
-            pub tags: Vec<(::mc_core::ident::Identifier, $crate::packets::common::TagNetworkPayload)>,
+            pub tags: Vec<(
+                ::mc_core::ident::Identifier,
+                $crate::packets::common::TagNetworkPayload,
+            )>,
         }
 
         /// `ServerboundClientInformationPacket`

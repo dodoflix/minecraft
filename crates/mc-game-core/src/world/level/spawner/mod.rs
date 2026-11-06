@@ -83,7 +83,9 @@ impl LevelSpawnData {
 
     /// Whether any category may spawn this tick (`!spawningCategories.isEmpty()`).
     pub fn has_spawning_categories(&self) -> bool {
-        self.spawn_state.as_ref().is_some_and(|(_, categories)| !categories.is_empty())
+        self.spawn_state
+            .as_ref()
+            .is_some_and(|(_, categories)| !categories.is_empty())
     }
 
     /// `getLastSpawnState()`.
@@ -100,7 +102,10 @@ impl LevelSpawnData {
     }
 
     /// The decoded spawning attributes of the biomes of `registry`.
-    pub fn biome_table(&self, registry: Option<&Arc<BiomeRegistry>>) -> Option<&Arc<BiomeSpawnTable>> {
+    pub fn biome_table(
+        &self,
+        registry: Option<&Arc<BiomeRegistry>>,
+    ) -> Option<&Arc<BiomeSpawnTable>> {
         match self.biome_table.get() {
             Some(table) => Some(table),
             None => {

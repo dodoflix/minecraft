@@ -17,7 +17,10 @@ pub struct MenuSimpleContainer {
 
 impl MenuSimpleContainer {
     pub fn new(size: usize) -> Self {
-        Self { inner: SimpleContainer::new(size), pending: 0 }
+        Self {
+            inner: SimpleContainer::new(size),
+            pending: 0,
+        }
     }
 }
 
@@ -75,9 +78,17 @@ impl Container for MenuSimpleContainer {
 /// The shared tail of every `quickMoveStack`: `if (stack.isEmpty()) slot.setByPlayer(EMPTY) else slot.setChanged();`,
 /// `if (stack.getCount() == clicked.getCount()) return EMPTY;`, `slot.onTake(player, stack)`. `stack` is the detached
 /// stack the move worked on; returns `clicked` (or EMPTY when nothing moved).
-pub fn finish_quick_move(menu: &mut dyn super::AbstractContainerMenu, player: &mut dyn MenuPlayer, slot_index: usize, stack: ItemStack, clicked: &ItemStack) -> ItemStack {
+pub fn finish_quick_move(
+    menu: &mut dyn super::AbstractContainerMenu,
+    player: &mut dyn MenuPlayer,
+    slot_index: usize,
+    stack: ItemStack,
+    clicked: &ItemStack,
+) -> ItemStack {
     if stack.is_empty() {
-        menu.base_mut().with_slot(player, slot_index, |s, e| s.set_by_player_with(e, ItemStack::empty(), clicked));
+        menu.base_mut().with_slot(player, slot_index, |s, e| {
+            s.set_by_player_with(e, ItemStack::empty(), clicked)
+        });
     } else {
         let rest = stack.clone();
         menu.base_mut().with_slot(player, slot_index, |s, e| {
@@ -88,7 +99,8 @@ pub fn finish_quick_move(menu: &mut dyn super::AbstractContainerMenu, player: &m
     if stack.count() == clicked.count() {
         return ItemStack::empty();
     }
-    menu.base_mut().with_slot(player, slot_index, |s, e| s.on_take(e, &stack));
+    menu.base_mut()
+        .with_slot(player, slot_index, |s, e| s.on_take(e, &stack));
     menu.flush_container_events(player);
     clicked.clone()
 }

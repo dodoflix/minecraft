@@ -1,18 +1,19 @@
 //! `net.minecraft.world.level.block.PitcherCropBlock` (extends `DoublePlantBlock`).
-use mc_game_core::{register_block_class, update_shape};
+use mc_data::enums::DoubleBlockHalf;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::item::BlockPlaceContext;
+use mc_game_core::world::level::block::bonemeal::BonemealSource;
 use mc_game_core::world::level::block::impls::crop_block;
 use mc_game_core::world::level::block::impls::double_plant_block;
 use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::world::level::block::impls::vegetation_block::MayPlaceOn;
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::item::BlockPlaceContext;
-use mc_game_core::world::level::block::bonemeal::BonemealSource;
-use mc_data::enums::DoubleBlockHalf;
+use mc_game_core::{register_block_class, update_shape};
 
 pub struct PitcherCropBlock;
 
 fn is_lower(state: BlockState) -> bool {
-    state.is_block(Block::PITCHER_CROP) && state.get(props::DOUBLE_BLOCK_HALF) == DoubleBlockHalf::Lower
+    state.is_block(Block::PITCHER_CROP)
+        && state.get(props::DOUBLE_BLOCK_HALF) == DoubleBlockHalf::Lower
 }
 
 fn is_double(age: i32) -> bool {
@@ -37,7 +38,12 @@ fn can_grow_into(level: &dyn LevelReader, pos: BlockPos) -> bool {
 }
 
 /// `canGrow(level, lowerPos, lowerState, newAge)`.
-fn can_grow(level: &dyn LevelReader, lower_pos: BlockPos, lower_state: BlockState, new_age: i32) -> bool {
+fn can_grow(
+    level: &dyn LevelReader,
+    lower_pos: BlockPos,
+    lower_state: BlockState,
+    new_age: i32,
+) -> bool {
     !is_max_age(lower_state)
         && crop_block::has_sufficient_light(level, lower_pos)
         && !level.is_outside_build_height(lower_pos.above().y())
@@ -51,13 +57,20 @@ fn grow(level: &mut ServerLevel, lower_state: BlockState, lower_pos: BlockPos, i
         let new_lower_state = lower_state.set(props::AGE_4, updated_age);
         level.set_block_flags(lower_pos, new_lower_state, 2);
         if is_double(updated_age) {
-            level.set_block_and_update(lower_pos.above(), new_lower_state.set(props::DOUBLE_BLOCK_HALF, DoubleBlockHalf::Upper));
+            level.set_block_and_update(
+                lower_pos.above(),
+                new_lower_state.set(props::DOUBLE_BLOCK_HALF, DoubleBlockHalf::Upper),
+            );
         }
     }
 }
 
 /// `getLowerHalf(level, pos, state)`.
-fn get_lower_half(level: &dyn LevelReader, pos: BlockPos, state: BlockState) -> Option<(BlockPos, BlockState)> {
+fn get_lower_half(
+    level: &dyn LevelReader,
+    pos: BlockPos,
+    state: BlockState,
+) -> Option<(BlockPos, BlockState)> {
     if is_lower(state) {
         Some((pos, state))
     } else {
@@ -68,13 +81,26 @@ fn get_lower_half(level: &dyn LevelReader, pos: BlockPos, state: BlockState) -> 
 }
 
 impl BlockBehaviour for PitcherCropBlock {
-    fn get_state_for_placement(&self, block: Block, _level: &mut ServerLevel, _context: &BlockPlaceContext) -> Option<BlockState> {
+    fn get_state_for_placement(
+        &self,
+        block: Block,
+        _level: &mut ServerLevel,
+        _context: &BlockPlaceContext,
+    ) -> Option<BlockState> {
         Some(block.default_state())
     }
     fn can_be_replaced(&self, _state: BlockState, _context: &BlockPlaceContext) -> bool {
         false
     }
-    fn set_placed_by(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _placer: Option<&mut mc_game_core::world::entity::ServerPlayer>, _stack: &mc_game_core::world::item::ItemStack) {}
+    fn set_placed_by(
+        &self,
+        _state: BlockState,
+        _level: &mut ServerLevel,
+        _pos: BlockPos,
+        _placer: Option<&mut mc_game_core::world::entity::ServerPlayer>,
+        _stack: &mc_game_core::world::item::ItemStack,
+    ) {
+    }
     fn entity_inside(
         &self,
         _state: BlockState,
@@ -84,21 +110,46 @@ impl BlockBehaviour for PitcherCropBlock {
         _effect_applier: &mut dyn mc_game_core::world::entity::inside_block_effects::InsideBlockEffectApplier,
         _is_precise: bool,
     ) {
-        mc_game_core::world::level::block::impls::vegetation_block::ravager_destroys_crop(level, pos, &*entity);
+        mc_game_core::world::level::block::impls::vegetation_block::ravager_destroys_crop(
+            level, pos, &*entity,
+        );
     }
     fn random_tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         let growth_speed = crop_block::get_growth_speed(state.block(), &*level, pos);
-        if level.random().next_int_bounded((25.0f32 / growth_speed) as i32 + 1) == 0 {
+        if level
+            .random()
+            .next_int_bounded((25.0f32 / growth_speed) as i32 + 1)
+            == 0
+        {
             grow(level, state, pos, 1);
         }
     }
     fn is_bonemealable(&self) -> bool {
         true
     }
-    fn is_valid_bonemeal_target(&self, level: &dyn LevelReader, pos: BlockPos, state: BlockState, _source: BonemealSource) -> bool {
-        get_lower_half(level, pos, state).is_some_and(|(lower_pos, lower_state)| can_grow(level, lower_pos, lower_state, lower_state.get(props::AGE_4) + 1))
+    fn is_valid_bonemeal_target(
+        &self,
+        level: &dyn LevelReader,
+        pos: BlockPos,
+        state: BlockState,
+        _source: BonemealSource,
+    ) -> bool {
+        get_lower_half(level, pos, state).is_some_and(|(lower_pos, lower_state)| {
+            can_grow(
+                level,
+                lower_pos,
+                lower_state,
+                lower_state.get(props::AGE_4) + 1,
+            )
+        })
     }
-    fn perform_bonemeal(&self, level: &mut ServerLevel, pos: BlockPos, state: BlockState, _source: BonemealSource) {
+    fn perform_bonemeal(
+        &self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        state: BlockState,
+        _source: BonemealSource,
+    ) {
         if let Some((lower_pos, lower_state)) = get_lower_half(&*level, pos, state) {
             grow(level, lower_state, lower_pos, 1);
         }
@@ -117,7 +168,13 @@ impl BlockBehaviour for PitcherCropBlock {
     ) {
         double_plant_block::player_destroy(level, player, pos, block_entity, destroyed_with);
     }
-    fn player_will_destroy(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, player: &mut mc_game_core::world::entity::ServerPlayer) -> BlockState {
+    fn player_will_destroy(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        player: &mut mc_game_core::world::entity::ServerPlayer,
+    ) -> BlockState {
         double_plant_block::player_will_destroy(level, pos, state, player)
     }
     fn can_survive(&self, state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
@@ -127,15 +184,17 @@ impl BlockBehaviour for PitcherCropBlock {
             double_plant_block::can_survive(self, state, level, pos)
         }
     }
-    update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
-        if is_double(state.get(props::AGE_4)) {
-            double_plant_block::update_shape(state, &*level, pos, direction, neighbour_state)
-        } else if state.can_survive(&*level, pos) {
-            state
-        } else {
-            air()
+    update_shape!(
+        |self, state, level, pos, direction, neighbour_pos, neighbour_state| {
+            if is_double(state.get(props::AGE_4)) {
+                double_plant_block::update_shape(state, &*level, pos, direction, neighbour_state)
+            } else if state.can_survive(&*level, pos) {
+                state
+            } else {
+                air()
+            }
         }
-    });
+    );
 }
 
 register_block_class!("PitcherCropBlock", |_| Box::new(PitcherCropBlock));

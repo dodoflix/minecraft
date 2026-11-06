@@ -63,6 +63,8 @@ impl<P: Clone + PartialEq + Send + Sync + 'static> CollectionPredicate<P> {
                 }
             }
         }
-        self.size.as_ref().is_none_or(|s| s.matches(values.len() as i32))
+        self.size
+            .as_ref()
+            .is_none_or(|s| s.matches(values.len() as i32))
     }
 }

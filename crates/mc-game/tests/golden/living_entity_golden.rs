@@ -42,18 +42,38 @@ fn parse_state(text: &str) -> BlockState {
         None => (text, ""),
     };
     let block = Block::by_name(name).unwrap_or_else(|| panic!("unknown block {name}"));
-    block.state_from_properties(props.split(',').filter(|p| !p.is_empty()).map(|p| p.split_once('=').expect("prop=value"))).unwrap_or_else(|| panic!("bad state {text}"))
+    block
+        .state_from_properties(
+            props
+                .split(',')
+                .filter(|p| !p.is_empty())
+                .map(|p| p.split_once('=').expect("prop=value")),
+        )
+        .unwrap_or_else(|| panic!("bad state {text}"))
 }
 
 fn effect_modifiers(effect: MobEffect, amplifier: i32) -> Vec<(Attribute, AttributeModifier)> {
     let (attribute, path, base) = match effect {
         e if e == MobEffect::SPEED => (Attribute::MOVEMENT_SPEED, "effect.speed", 0.2f32),
         e if e == MobEffect::SLOWNESS => (Attribute::MOVEMENT_SPEED, "effect.slowness", -0.15f32),
-        e if e == MobEffect::JUMP_BOOST => (Attribute::SAFE_FALL_DISTANCE, "effect.jump_boost", 1.0f32),
+        e if e == MobEffect::JUMP_BOOST => {
+            (Attribute::SAFE_FALL_DISTANCE, "effect.jump_boost", 1.0f32)
+        }
         _ => return Vec::new(),
     };
-    let operation = if attribute == Attribute::SAFE_FALL_DISTANCE { AttributeModifierOperation::AddValue } else { AttributeModifierOperation::AddMultipliedTotal };
-    vec![(attribute, AttributeModifier { id: Identifier::new("minecraft", path).unwrap(), amount: f64::from(base) * f64::from(amplifier + 1), operation })]
+    let operation = if attribute == Attribute::SAFE_FALL_DISTANCE {
+        AttributeModifierOperation::AddValue
+    } else {
+        AttributeModifierOperation::AddMultipliedTotal
+    };
+    vec![(
+        attribute,
+        AttributeModifier {
+            id: Identifier::new("minecraft", path).unwrap(),
+            amount: f64::from(base) * f64::from(amplifier + 1),
+            operation,
+        },
+    )]
 }
 
 fn pose_name(pose: Pose) -> String {
@@ -70,14 +90,32 @@ impl Replay {
     fn new() -> Self {
         let _serial = common::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
         let dir = tempfile::tempdir().unwrap();
-        let (_, stem) = common::load_world(dir.path(), mc_world::level_storage::WorldDataConfiguration::DEFAULT, true).expect("default world loads");
+        let (_, stem) = common::load_world(
+            dir.path(),
+            mc_world::level_storage::WorldDataConfiguration::DEFAULT,
+            true,
+        )
+        .expect("default world loads");
         let mut level = ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap());
         level.registries = stem.registries.composite_access().clone();
-        Replay { level, players: Vec::new(), watched: Vec::new(), out: Vec::new(), tick: 0, next_id: 1 }
+        Replay {
+            level,
+            players: Vec::new(),
+            watched: Vec::new(),
+            out: Vec::new(),
+            tick: 0,
+            next_id: 1,
+        }
     }
 
     fn set(&mut self, x: i32, y: i32, z: i32, state: BlockState) {
-        self.level.set_block(BlockPos::new(x, y, z), state, mc_game::world::level::flags::UPDATE_CLIENTS | mc_game::world::level::flags::UPDATE_KNOWN_SHAPE, 512);
+        self.level.set_block(
+            BlockPos::new(x, y, z),
+            state,
+            mc_game::world::level::flags::UPDATE_CLIENTS
+                | mc_game::world::level::flags::UPDATE_KNOWN_SHAPE,
+            512,
+        );
     }
 
     fn fill(&mut self, a: [i32; 3], b: [i32; 3], state: BlockState) {
@@ -91,14 +129,23 @@ impl Replay {
     }
 
     fn flat_world(&mut self) {
-        let (bedrock, dirt, grass) = (Block::BEDROCK.default_state(), Block::DIRT.default_state(), Block::GRASS_BLOCK.default_state());
+        let (bedrock, dirt, grass) = (
+            Block::BEDROCK.default_state(),
+            Block::DIRT.default_state(),
+            Block::GRASS_BLOCK.default_state(),
+        );
         self.fill([-40, -64, -40], [100, -64, 100], bedrock);
         self.fill([-40, -63, -40], [100, -62, 100], dirt);
         self.fill([-40, -61, -40], [100, -61, 100], grass);
     }
 
     fn player(&mut self, name: &str) -> &mut ServerPlayer {
-        &mut self.players.iter_mut().find(|(n, _)| n == name).unwrap_or_else(|| panic!("no player {name}")).1
+        &mut self
+            .players
+            .iter_mut()
+            .find(|(n, _)| n == name)
+            .unwrap_or_else(|| panic!("no player {name}"))
+            .1
     }
 
     fn run_line(&mut self, line: &str) {
@@ -106,17 +153,40 @@ impl Replay {
         if line.is_empty() || line.starts_with('#') {
             return;
         }
-        let t: Vec<&str> = line.splitn(if line.starts_with("nbt ") { 3 } else { 64 }, ' ').collect();
-        let num = |s: &str| s.parse::<f64>().unwrap_or_else(|_| panic!("number {s} in `{line}`"));
+        let t: Vec<&str> = line
+            .splitn(if line.starts_with("nbt ") { 3 } else { 64 }, ' ')
+            .collect();
+        let num = |s: &str| {
+            s.parse::<f64>()
+                .unwrap_or_else(|_| panic!("number {s} in `{line}`"))
+        };
         match t[0] {
             "level" => self.flat_world(),
-            "fill" => self.fill([num(t[1]) as i32, num(t[2]) as i32, num(t[3]) as i32], [num(t[4]) as i32, num(t[5]) as i32, num(t[6]) as i32], parse_state(t[7])),
-            "block" => self.set(num(t[1]) as i32, num(t[2]) as i32, num(t[3]) as i32, parse_state(t[4])),
+            "fill" => self.fill(
+                [num(t[1]) as i32, num(t[2]) as i32, num(t[3]) as i32],
+                [num(t[4]) as i32, num(t[5]) as i32, num(t[6]) as i32],
+                parse_state(t[7]),
+            ),
+            "block" => self.set(
+                num(t[1]) as i32,
+                num(t[2]) as i32,
+                num(t[3]) as i32,
+                parse_state(t[4]),
+            ),
             "spawn_player" => {
                 let id = self.next_id;
                 self.next_id += 1;
-                let profile = GameProfile { id: uuid::Uuid::from_u128(id as u128), name: t[1].into(), properties: vec![] };
-                let mut p = ServerPlayer::new(id, Identifier::parse("minecraft:overworld").unwrap(), profile, Default::default());
+                let profile = GameProfile {
+                    id: uuid::Uuid::from_u128(id as u128),
+                    name: t[1].into(),
+                    properties: vec![],
+                };
+                let mut p = ServerPlayer::new(
+                    id,
+                    Identifier::parse("minecraft:overworld").unwrap(),
+                    profile,
+                    Default::default(),
+                );
                 let mode = match t[2] {
                     "creative" => GameType::Creative,
                     "spectator" => GameType::Spectator,
@@ -124,7 +194,11 @@ impl Replay {
                     _ => GameType::Survival,
                 };
                 p.set_game_mode_for_player(mode, None);
-                let (yaw, pitch) = if t.len() > 6 && t[6] != "sim" { (num(t[6]) as f32, num(t[7]) as f32) } else { (0.0, 0.0) };
+                let (yaw, pitch) = if t.len() > 6 && t[6] != "sim" {
+                    (num(t[6]) as f32, num(t[7]) as f32)
+                } else {
+                    (0.0, 0.0)
+                };
                 p.snap_to(num(t[3]), num(t[4]), num(t[5]), yaw, pitch);
                 p.base_mut().first_tick = true;
                 p.simulate_local_player = t.last() == Some(&"sim");
@@ -139,21 +213,39 @@ impl Replay {
                     other => panic!("slot {other}"),
                 };
                 let item = Item::by_name(t[3]).unwrap_or_else(|| panic!("item {}", t[3]));
-                self.player(t[1]).player.inventory.equipment_set(slot, ItemStack::new(item));
+                self.player(t[1])
+                    .player
+                    .inventory
+                    .equipment_set(slot, ItemStack::new(item));
             }
             "effect" => {
                 let effect = MobEffect::by_name(t[2]).unwrap_or_else(|| panic!("effect {}", t[2]));
                 let (amplifier, duration) = (num(t[3]) as i32, num(t[4]) as i32);
                 let p = self.player(t[1]);
-                p.player.living.active_effects.insert(effect, MobEffectInstance::new(effect, duration, amplifier, false, true, true, None));
+                p.player.living.active_effects.insert(
+                    effect,
+                    MobEffectInstance::new(effect, duration, amplifier, false, true, true, None),
+                );
                 for (attribute, modifier) in effect_modifiers(effect, amplifier) {
-                    p.player.living.attributes.get_instance(attribute).unwrap().add_transient_modifier(modifier);
+                    p.player
+                        .living
+                        .attributes
+                        .get_instance(attribute)
+                        .unwrap()
+                        .add_transient_modifier(modifier);
                 }
             }
             "attribute" => {
-                let attribute = Attribute::by_name(t[2]).unwrap_or_else(|| panic!("attribute {}", t[2]));
+                let attribute =
+                    Attribute::by_name(t[2]).unwrap_or_else(|| panic!("attribute {}", t[2]));
                 let value = num(t[3]);
-                self.player(t[1]).player.living.attributes.get_instance(attribute).unwrap().set_base_value(value);
+                self.player(t[1])
+                    .player
+                    .living
+                    .attributes
+                    .get_instance(attribute)
+                    .unwrap()
+                    .set_base_value(value);
             }
             "set" => {
                 let value = num(t[3]);
@@ -166,31 +258,62 @@ impl Replay {
             }
             "nbt" => {
                 assert_eq!(t[2], "{FallFlying:1b}", "only the glide flag is replayed");
-                self.player(t[1]).base_mut().set_shared_flag(mc_game::world::entity::entity::FLAG_FALL_FLYING, true);
+                self.player(t[1])
+                    .base_mut()
+                    .set_shared_flag(mc_game::world::entity::entity::FLAG_FALL_FLYING, true);
             }
-            "entity_seed" => self.player(t[1]).base_mut().random = LegacyRandomSource::new(num(t[2]) as i64),
-            "velocity" => self.player(t[1]).base_mut().set_delta_movement_xyz(num(t[2]), num(t[3]), num(t[4])),
+            "entity_seed" => {
+                self.player(t[1]).base_mut().random = LegacyRandomSource::new(num(t[2]) as i64)
+            }
+            "velocity" => {
+                self.player(t[1])
+                    .base_mut()
+                    .set_delta_movement_xyz(num(t[2]), num(t[3]), num(t[4]))
+            }
             "input" => {
                 let flags: Vec<&str> = t[2].split(',').collect();
                 let has = |f: &str| flags.contains(&f);
                 let p = self.player(t[1]);
-                p.last_client_input = Input { forward: has("forward"), backward: has("back"), left: has("left"), right: has("right"), jump: has("jump"), shift: has("sneak"), sprint: has("sprint") };
+                p.last_client_input = Input {
+                    forward: has("forward"),
+                    backward: has("back"),
+                    left: has("left"),
+                    right: has("right"),
+                    jump: has("jump"),
+                    shift: has("sneak"),
+                    sprint: has("sprint"),
+                };
                 // `handlePlayerInput`
                 let shift = p.last_client_input.shift;
-                p.base_mut().set_shared_flag(mc_game::world::entity::entity::FLAG_SHIFT_KEY_DOWN, shift);
+                p.base_mut()
+                    .set_shared_flag(mc_game::world::entity::entity::FLAG_SHIFT_KEY_DOWN, shift);
             }
             "cmd" => {
                 // `effect clear PLAYER EFFECT`
-                assert_eq!(&t[1..3], ["effect", "clear"], "only `effect clear` is replayed");
+                assert_eq!(
+                    &t[1..3],
+                    ["effect", "clear"],
+                    "only `effect clear` is replayed"
+                );
                 let effect = MobEffect::by_name(t[4]).unwrap();
                 let p = self.player(t[3]);
                 if let Some(instance) = p.player.living.active_effects.shift_remove(&effect) {
                     for (attribute, modifier) in effect_modifiers(effect, instance.amplifier) {
-                        p.player.living.attributes.get_instance(attribute).unwrap().remove_modifier(&modifier.id);
+                        p.player
+                            .living
+                            .attributes
+                            .get_instance(attribute)
+                            .unwrap()
+                            .remove_modifier(&modifier.id);
                     }
                 }
             }
-            "watch" => self.watched = t[1..].iter().map(|w| w.strip_prefix("player:").expect("player watch").to_string()).collect(),
+            "watch" => {
+                self.watched = t[1..]
+                    .iter()
+                    .map(|w| w.strip_prefix("player:").expect("player watch").to_string())
+                    .collect()
+            }
             "tick" => {
                 for _ in 0..t.get(1).map_or(1, |n| num(n) as usize) {
                     self.tick_once();
@@ -222,7 +345,18 @@ impl Replay {
             let (pos, dm) = (b.position(), b.delta_movement());
             let line = format!(
                 "P {name} minecraft:player pos={},{},{} delta={},{},{} rot={},{} og={} fall={} air={} pose={}",
-                pos.x, pos.y, pos.z, dm.x, dm.y, dm.z, b.y_rot(), b.x_rot(), u8::from(b.on_ground()), b.fall_distance, b.get_air_supply(), pose_name(b.get_pose())
+                pos.x,
+                pos.y,
+                pos.z,
+                dm.x,
+                dm.y,
+                dm.z,
+                b.y_rot(),
+                b.x_rot(),
+                u8::from(b.on_ground()),
+                b.fall_distance,
+                b.get_air_supply(),
+                pose_name(b.get_pose())
             );
             self.out.push(line);
         }
@@ -242,7 +376,10 @@ fn check(name: &str) {
     let fixture = Fixture::load(name);
     let opts = Options {
         ignore_kinds: vec!["I", "PKT", "C", "#", "B", "EFFECT", "DIG", "HURT"],
-        ignore_fields: vec!["fire", "alive", "hp", "abs", "hurt", "death", "fx", "gm", "food", "sat", "exh", "xp", "sel", "main"],
+        ignore_fields: vec![
+            "fire", "alive", "hp", "abs", "hurt", "death", "fx", "gm", "food", "sat", "exh", "xp",
+            "sel", "main",
+        ],
         ..Default::default()
     };
     fixture.assert_matches(&replay(name), &opts);

@@ -3,10 +3,10 @@
 //! shortcut: items that are `ProjectileItem`s (lingering potions, arrows, ...) are dropped as plain `ItemEntity`s until
 //! `world::item::projectile_item` exists; wire `spawnProjectile` there.
 
+use super::EntityId;
 use super::entity::{self, Entity, EntityData};
 use super::factory::{ENTITY_FACTORIES, EntityRegistration};
 use super::item::ItemEntity;
-use super::EntityId;
 use crate::define_accessor;
 use crate::server::level::ServerLevel;
 use crate::world::item::{ItemStack, ItemStackExt, load_item_stack};
@@ -34,13 +34,17 @@ impl OminousItemSpawner {
             b.define(DATA_ITEM, ItemStack::empty());
         });
         base.no_physics = true;
-        Self { base, spawn_item_after_ticks: 0 }
+        Self {
+            base,
+            spawn_item_after_ticks: 0,
+        }
     }
 
     /// `OminousItemSpawner.create(level, item)`.
     pub fn create(level: &mut ServerLevel, item: ItemStack) -> Self {
         let mut spawner = Self::new(EntityType::OMINOUS_ITEM_SPAWNER, level.next_entity_id());
-        spawner.spawn_item_after_ticks = i64::from(level.random().next_int_between_inclusive(60, 120));
+        spawner.spawn_item_after_ticks =
+            i64::from(level.random().next_int_between_inclusive(60, 120));
         spawner.set_item(item);
         spawner
     }
@@ -92,9 +96,18 @@ impl Entity for OminousItemSpawner {
 
     fn tick(&mut self, level: &mut ServerLevel) {
         self.base_tick(level);
-        if i64::from(self.base.tick_count) == self.spawn_item_after_ticks - TICKS_BEFORE_ABOUT_TO_SPAWN_SOUND {
+        if i64::from(self.base.tick_count)
+            == self.spawn_item_after_ticks - TICKS_BEFORE_ABOUT_TO_SPAWN_SOUND
+        {
             let pos = self.base.block_position();
-            level.play_sound(None, pos, SoundEvent::BLOCK_TRIAL_SPAWNER_ABOUT_TO_SPAWN_ITEM, SoundSource::Neutral, 1.0, 1.0);
+            level.play_sound(
+                None,
+                pos,
+                SoundEvent::BLOCK_TRIAL_SPAWNER_ABOUT_TO_SPAWN_ITEM,
+                SoundSource::Neutral,
+                1.0,
+                1.0,
+            );
         }
         if i64::from(self.base.tick_count) >= self.spawn_item_after_ticks {
             self.spawn_item(level);
@@ -111,7 +124,12 @@ impl Entity for OminousItemSpawner {
     fn is_ignoring_block_triggers(&self) -> bool {
         true
     }
-    fn hurt_server(&mut self, _level: &mut ServerLevel, _source: &crate::world::damagesource::DamageSource, _amount: f32) -> bool {
+    fn hurt_server(
+        &mut self,
+        _level: &mut ServerLevel,
+        _source: &crate::world::damagesource::DamageSource,
+        _amount: f32,
+    ) -> bool {
         false
     }
 
@@ -126,12 +144,17 @@ impl Entity for OminousItemSpawner {
     }
 
     fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        let item = input.get_compound("item").and_then(load_item_stack).unwrap_or_else(ItemStack::empty);
+        let item = input
+            .get_compound("item")
+            .and_then(load_item_stack)
+            .unwrap_or_else(ItemStack::empty);
         self.set_item(item);
         self.spawn_item_after_ticks = input.get_long_or("spawn_item_after_ticks", 0);
     }
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static OMINOUS_ITEM_SPAWNER_FACTORY: EntityRegistration =
-    EntityRegistration { entity_type: EntityType::OMINOUS_ITEM_SPAWNER, create: |ty, id, _registries| Box::new(OminousItemSpawner::new(ty, id)) };
+static OMINOUS_ITEM_SPAWNER_FACTORY: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::OMINOUS_ITEM_SPAWNER,
+    create: |ty, id, _registries| Box::new(OminousItemSpawner::new(ty, id)),
+};

@@ -13,9 +13,21 @@ use crate::densityfunction::codec::{LoadResult, parse_f32};
 #[derive(Clone, Debug, PartialEq)]
 pub enum FloatProvider {
     Constant(f32),
-    Uniform { min: f32, max: f32 },
-    ClampedNormal { mean: f32, deviation: f32, min: f32, max: f32 },
-    Trapezoid { min: f32, max: f32, plateau: f32 },
+    Uniform {
+        min: f32,
+        max: f32,
+    },
+    ClampedNormal {
+        mean: f32,
+        deviation: f32,
+        min: f32,
+        max: f32,
+    },
+    Trapezoid {
+        min: f32,
+        max: f32,
+        plateau: f32,
+    },
 }
 
 impl FloatProvider {
@@ -39,9 +51,12 @@ impl FloatProvider {
         match self {
             FloatProvider::Constant(value) => *value,
             FloatProvider::Uniform { min, max } => mth::random_between(random, *min, *max),
-            FloatProvider::ClampedNormal { mean, deviation, min, max } => {
-                FloatProvider::sample_clamped_normal(random, *mean, *deviation, *min, *max)
-            }
+            FloatProvider::ClampedNormal {
+                mean,
+                deviation,
+                min,
+                max,
+            } => FloatProvider::sample_clamped_normal(random, *mean, *deviation, *min, *max),
             FloatProvider::Trapezoid { min, max, plateau } => {
                 let range = max - min;
                 let plateau_start = (range - plateau) / 2.0;
@@ -107,7 +122,12 @@ impl FloatProvider {
                 let min = f.required("min", parse_f32)?;
                 let max = f.required("max", parse_f32)?;
                 bounds(min, max)?;
-                Ok(FloatProvider::ClampedNormal { mean, deviation, min, max })
+                Ok(FloatProvider::ClampedNormal {
+                    mean,
+                    deviation,
+                    min,
+                    max,
+                })
             }
             "trapezoid" => {
                 let min = f.required("min", parse_f32)?;
@@ -126,7 +146,11 @@ impl FloatProvider {
     }
 
     /// `FloatProviders.codec(minValue, maxValue)`.
-    pub fn from_json_range(value: &Value, min_value: f32, max_value: f32) -> LoadResult<FloatProvider> {
+    pub fn from_json_range(
+        value: &Value,
+        min_value: f32,
+        max_value: f32,
+    ) -> LoadResult<FloatProvider> {
         let provider = FloatProvider::from_json_min(value, min_value)?;
         if provider.max() > max_value {
             return Err(LoadError::new(format!(

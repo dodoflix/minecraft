@@ -26,7 +26,9 @@ const PORTAL_PROPS: &[&str] = &[
 ];
 
 fn fixture_path(scenario: &str) -> std::path::PathBuf {
-    std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/portal_dual").join(format!("{scenario}.txt"))
+    std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("tests/fixtures/portal_dual")
+        .join(format!("{scenario}.txt"))
 }
 
 const NETHER: &str = "minecraft:the_nether";
@@ -43,7 +45,9 @@ fn scan(c: &Ctx, center: (i32, i32), y_range: (i32, i32)) -> (usize, usize, Opti
         for x in center.0 - 24..=center.0 + 24 {
             for z in center.1 - 24..=center.1 + 24 {
                 for y in y_range.0..=y_range.1 {
-                    let Some(st) = s.world.block_state(x, y, z) else { continue };
+                    let Some(st) = s.world.block_state(x, y, z) else {
+                        continue;
+                    };
                     if st.block() == Block::NETHER_PORTAL {
                         portals += 1;
                         let p = BlockPos::new(x, y, z);
@@ -69,7 +73,8 @@ fn corner(p: Option<BlockPos>) -> String {
 /// Frame, ignition, arrival in the Nether (platform / portal location), step out, return.
 async fn portal_roundtrip(c: &Ctx) -> Vec<String> {
     let mut out = Vec::new();
-    c.cmd("gamerule players_nether_portal_default_delay 20").await;
+    c.cmd("gamerule players_nether_portal_default_delay 20")
+        .await;
     c.reset().await;
     // frame along X at z=2: interior x=4..5, y=-60..-58 on grass (y=-61 becomes the obsidian base)
     for cmd in [
@@ -83,11 +88,22 @@ async fn portal_roundtrip(c: &Ctx) -> Vec<String> {
     }
     c.ticks(10).await;
     let (portals, obsidian, min) = scan(c, (5, 2), (-64, -50));
-    out.push(Obs::new("lit").exact("portal_blocks", portals).exact("obsidian", obsidian).exact("min", corner(min)).line());
+    out.push(
+        Obs::new("lit")
+            .exact("portal_blocks", portals)
+            .exact("obsidian", obsidian)
+            .exact("min", corner(min))
+            .line(),
+    );
 
     // step in: the transition happens after the (shortened) portal delay
     c.srv.cmd("tp Bot 4.5 -60 2.5");
-    let entered = c.bot.wait_for(Duration::from_secs(30), |s| (s.dimension.to_string() == NETHER).then_some(())).await;
+    let entered = c
+        .bot
+        .wait_for(Duration::from_secs(30), |s| {
+            (s.dimension.to_string() == NETHER).then_some(())
+        })
+        .await;
     c.ticks(40).await;
     let pos = c.bot.position();
     let (yaw, pitch) = c.bot.with_state(|s| (s.body.yaw, s.body.pitch));
@@ -108,13 +124,31 @@ async fn portal_roundtrip(c: &Ctx) -> Vec<String> {
     );
 
     // leave the portal (3 blocks along z, outside the portal plane) and come back in: return trip
-    c.srv.cmd(&format!("execute in minecraft:the_nether run tp Bot {} {} {}", pos.x, pos.y, pos.z + 3.0));
+    c.srv.cmd(&format!(
+        "execute in minecraft:the_nether run tp Bot {} {} {}",
+        pos.x,
+        pos.y,
+        pos.z + 3.0
+    ));
     c.ticks(40).await;
-    c.srv.cmd(&format!("execute in minecraft:the_nether run tp Bot {} {} {}", pos.x, pos.y, pos.z));
-    let returned = c.bot.wait_for(Duration::from_secs(30), |s| (s.dimension.to_string() == OVERWORLD).then_some(())).await;
+    c.srv.cmd(&format!(
+        "execute in minecraft:the_nether run tp Bot {} {} {}",
+        pos.x, pos.y, pos.z
+    ));
+    let returned = c
+        .bot
+        .wait_for(Duration::from_secs(30), |s| {
+            (s.dimension.to_string() == OVERWORLD).then_some(())
+        })
+        .await;
     c.ticks(40).await;
     if std::env::var("PORTAL_DUAL_DEBUG").is_ok() {
-        for l in c.bot.log_text().lines().filter(|l| l.contains("respawn") || l.contains("player_position") || l.contains("accept_teleport") || l.contains("login")) {
+        for l in c.bot.log_text().lines().filter(|l| {
+            l.contains("respawn")
+                || l.contains("player_position")
+                || l.contains("accept_teleport")
+                || l.contains("login")
+        }) {
             eprintln!("{l}");
         }
     }
@@ -135,16 +169,28 @@ async fn portal_roundtrip(c: &Ctx) -> Vec<String> {
     out
 }
 
-async fn run(bot: &Arc<mc_testbot::Bot>, srv: Arc<dyn Console + Send + Sync>) -> Vec<(String, Vec<String>)> {
-    let ctx = Arc::new(Ctx { bot: bot.clone(), srv });
-    let lines = match tokio::time::timeout(Duration::from_secs(300), tokio::spawn({
-        let ctx = ctx.clone();
-        async move { portal_roundtrip(&ctx).await }
-    }))
+async fn run(
+    bot: &Arc<mc_testbot::Bot>,
+    srv: Arc<dyn Console + Send + Sync>,
+) -> Vec<(String, Vec<String>)> {
+    let ctx = Arc::new(Ctx {
+        bot: bot.clone(),
+        srv,
+    });
+    let lines = match tokio::time::timeout(
+        Duration::from_secs(300),
+        tokio::spawn({
+            let ctx = ctx.clone();
+            async move { portal_roundtrip(&ctx).await }
+        }),
+    )
     .await
     {
         Ok(Ok(l)) => l,
-        Ok(Err(e)) => vec![format!("portal_roundtrip ERROR={}", e.to_string().replace(' ', "_"))],
+        Ok(Err(e)) => vec![format!(
+            "portal_roundtrip ERROR={}",
+            e.to_string().replace(' ', "_")
+        )],
         Err(_) => vec!["portal_roundtrip ERROR=timeout".to_string()],
     };
     println!("SCENARIO portal_roundtrip:\n  {}", lines.join("\n  "));
@@ -154,7 +200,11 @@ async fn run(bot: &Arc<mc_testbot::Bot>, srv: Arc<dyn Console + Send + Sync>) ->
 #[tokio::test(flavor = "multi_thread")]
 #[ignore = "oracle: starts the vanilla server"]
 async fn portal_dual_vanilla() {
-    let server = Arc::new(mc_testbot::harness::vanilla(12345, "survival", PORTAL_PROPS).start().expect("start vanilla"));
+    let server = Arc::new(
+        mc_testbot::harness::vanilla(12345, "survival", PORTAL_PROPS)
+            .start()
+            .expect("start vanilla"),
+    );
     let bot = join("127.0.0.1", server.port, "Bot").await;
     setup(&bot, &*server).await;
     let results = run(&bot, server.clone()).await;
@@ -168,26 +218,42 @@ async fn portal_dual_vanilla() {
             std::fs::write(&path, lines.join("\n") + "\n").unwrap();
             continue;
         }
-        let expected: Vec<String> = std::fs::read_to_string(&path).unwrap_or_default().lines().map(str::to_string).collect();
+        let expected: Vec<String> = std::fs::read_to_string(&path)
+            .unwrap_or_default()
+            .lines()
+            .map(str::to_string)
+            .collect();
         let diffs = compare(&expected, lines);
         if !diffs.is_empty() {
             failures.push(format!("{name}:\n{}", diffs.join("\n")));
         }
     }
-    assert!(failures.is_empty(), "vanilla observations differ from the committed fixtures:\n{}", failures.join("\n"));
+    assert!(
+        failures.is_empty(),
+        "vanilla observations differ from the committed fixtures:\n{}",
+        failures.join("\n")
+    );
 }
 
 #[tokio::test(flavor = "multi_thread")]
 #[ignore = "oracle: starts the mc-server binary"]
 async fn portal_dual_ours() {
-    let server = Arc::new(ours(12345, "survival", PORTAL_PROPS).start().expect("start our server"));
+    let server = Arc::new(
+        ours(12345, "survival", PORTAL_PROPS)
+            .start()
+            .expect("start our server"),
+    );
     let bot = join("127.0.0.1", server.port, "Bot").await;
     setup(&bot, &*server).await;
     let results = run(&bot, server.clone()).await;
     bot.disconnect().await;
     let mut report = String::new();
     for (name, lines) in &results {
-        let expected: Vec<String> = std::fs::read_to_string(fixture_path(name)).unwrap_or_default().lines().map(str::to_string).collect();
+        let expected: Vec<String> = std::fs::read_to_string(fixture_path(name))
+            .unwrap_or_default()
+            .lines()
+            .map(str::to_string)
+            .collect();
         let diffs = compare(&expected, lines);
         if diffs.is_empty() {
             report.push_str(&format!("MATCH {name}\n"));
@@ -199,6 +265,9 @@ async fn portal_dual_ours() {
     let _ = std::fs::write(repo_root().join("run/portal-dual-ours.diff"), &report);
     println!("{report}");
     if std::env::var("PORTAL_DUAL_STRICT").is_ok() {
-        assert!(!report.contains("DIFF "), "our server differs from vanilla:\n{report}");
+        assert!(
+            !report.contains("DIFF "),
+            "our server differs from vanilla:\n{report}"
+        );
     }
 }

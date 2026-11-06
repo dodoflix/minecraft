@@ -5,12 +5,12 @@
 //! classes make.
 
 use mc_core::random::RandomSource as _;
-use mc_game_core::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
-use mc_game_core::world::level::material::FluidStateExt as _;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::entity::Entity;
 use mc_game_core::world::entity::living_entity::util::hurt;
 use mc_game_core::world::entity::mob;
+use mc_game_core::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
+use mc_game_core::world::level::material::FluidStateExt as _;
 
 /// `AMBIENT_SOUND_INTERVAL`.
 pub const AMBIENT_SOUND_INTERVAL: i32 = 120;
@@ -55,13 +55,19 @@ macro_rules! water_creature_entity {
         fn is_pushed_by_fluid(&self) -> bool {
             false
         }
-        fn check_spawn_obstruction(&self, level: &dyn mc_game_core::world::level::server_level_accessor::ServerLevelAccessor) -> bool {
+        fn check_spawn_obstruction(
+            &self,
+            level: &dyn mc_game_core::world::level::server_level_accessor::ServerLevelAccessor,
+        ) -> bool {
             level.is_unobstructed_entity(self)
         }
         fn get_ambient_sound_interval(&self) -> i32 {
             crate::world::entity::animal::fish::water_animal::AMBIENT_SOUND_INTERVAL
         }
-        fn get_base_experience_reward(&mut self, _level: &mc_game_core::server::level::ServerLevel) -> i32 {
+        fn get_base_experience_reward(
+            &mut self,
+            _level: &mc_game_core::server::level::ServerLevel,
+        ) -> i32 {
             crate::world::entity::animal::fish::water_animal::get_base_experience_reward(self)
         }
     };

@@ -6,9 +6,9 @@ use crate::define_accessor;
 use crate::server::level::ServerLevel;
 use crate::world::entity::item::ItemEntity;
 use crate::world::entity::movement;
+use crate::world::item::ItemStack;
 use crate::world::level::block::impls::diode_block::is_diode;
 use crate::world::level::collision::CollisionGetter;
-use crate::world::item::ItemStack;
 use mc_core::direction::Direction;
 use mc_core::math::mth;
 use mc_core::phys::{AABB, Vec3};
@@ -24,7 +24,10 @@ pub const DEFAULT_DIRECTION: Direction = Direction::South;
 
 /// `instanceof HangingEntity`.
 pub fn is_hanging_type(ty: EntityType) -> bool {
-    matches!(ty, EntityType::ITEM_FRAME | EntityType::GLOW_ITEM_FRAME | EntityType::PAINTING)
+    matches!(
+        ty,
+        EntityType::ITEM_FRAME | EntityType::GLOW_ITEM_FRAME | EntityType::PAINTING
+    )
 }
 
 pub trait Hanging: BlockAttached {
@@ -85,12 +88,23 @@ fn is_supporting_block(state: BlockState) -> bool {
 pub fn calculate_support_box<E: Hanging>(e: &E) -> AABB {
     let step = e.get_hanging_direction().get_step();
     // `getDirection().step()` is a float vector, `mul(-0.5F)` stays in float
-    let shift = Vec3::new(f64::from(step.x as f32 * -0.5), f64::from(step.y as f32 * -0.5), f64::from(step.z as f32 * -0.5));
-    e.base().bounding_box().move_vec(shift).deflate_scalar(1.0E-7)
+    let shift = Vec3::new(
+        f64::from(step.x as f32 * -0.5),
+        f64::from(step.y as f32 * -0.5),
+        f64::from(step.z as f32 * -0.5),
+    );
+    e.base()
+        .bounding_box()
+        .move_vec(shift)
+        .deflate_scalar(1.0E-7)
 }
 
 /// `HangingEntity.canCoexist(allowIntersectingSameType)`.
-pub fn can_coexist<E: Hanging>(e: &E, level: &ServerLevel, allow_intersecting_same_type: bool) -> bool {
+pub fn can_coexist<E: Hanging>(
+    e: &E,
+    level: &ServerLevel,
+    allow_intersecting_same_type: bool,
+) -> bool {
     let (id, ty, direction) = (e.id(), e.get_type(), e.get_hanging_direction());
     level
         .get_entities_of_class(
@@ -108,11 +122,17 @@ pub fn can_coexist<E: Hanging>(e: &E, level: &ServerLevel, allow_intersecting_sa
 /// `HangingEntity.hasLevelCollision(popBox)`.
 pub fn has_level_collision<E: Hanging>(e: &E, level: &ServerLevel, pop_box: &AABB) -> bool {
     let context = movement::collision_context(e.as_dyn());
-    !level.no_block_collision(Some(&context), pop_box) || !level.no_border_collision(Some(e.id()), pop_box)
+    !level.no_block_collision(Some(&context), pop_box)
+        || !level.no_border_collision(Some(e.id()), pop_box)
 }
 
 /// `HangingEntity.spawnAtLocation(level, itemStack, yOffs)`.
-pub fn spawn_at_location<E: Hanging>(e: &E, level: &mut ServerLevel, stack: ItemStack, y_offs: f32) {
+pub fn spawn_at_location<E: Hanging>(
+    e: &E,
+    level: &mut ServerLevel,
+    stack: ItemStack,
+    y_offs: f32,
+) {
     let direction = e.get_hanging_direction();
     let p = e.base().position();
     let mut item = ItemEntity::with_stack(

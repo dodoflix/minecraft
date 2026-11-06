@@ -23,7 +23,11 @@ impl<S: 'static> ArgumentType<S> for BoolArgumentType {
         reader.read_boolean().map(value)
     }
 
-    fn list_suggestions(&self, _context: &CommandContext<S>, mut builder: SuggestionsBuilder) -> Suggestions {
+    fn list_suggestions(
+        &self,
+        _context: &CommandContext<S>,
+        mut builder: SuggestionsBuilder,
+    ) -> Suggestions {
         if "true".starts_with(builder.get_remaining_lower_case()) {
             builder.suggest("true");
         }

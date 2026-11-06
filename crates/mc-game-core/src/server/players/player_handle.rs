@@ -6,21 +6,23 @@
 //! (`ServerPlayer::sync_handle`).
 
 use crate::server::chat::chat_type::Bound;
-use crate::server::chat::outgoing_chat_message::{self, OutgoingChatMessage, OutgoingChatState, SendOutcome};
+use crate::server::chat::outgoing_chat_message::{
+    self, OutgoingChatMessage, OutgoingChatState, SendOutcome,
+};
 use crate::server::chat::{PlayerChatMessage, RemoteChatSession};
 use crate::server::network::ConnectionSender;
 use crate::server::players::NameAndId;
 use crate::world::entity::EntityId;
 use crate::world::level::DimensionKey;
 use mc_core::phys::Vec3;
+use mc_data::enums::GameType;
 use mc_protocol::codec::{EnumSet, GameProfile};
 use mc_protocol::packets::common::ChatVisibility;
 use mc_protocol::packets::play::{
-    ClientboundPlayerInfoUpdateAction, ClientboundPlayerInfoUpdateEntry, ClientboundPlayerInfoUpdatePacket, ClientboundSystemChatPacket,
-    GameType as WireGameType,
+    ClientboundPlayerInfoUpdateAction, ClientboundPlayerInfoUpdateEntry,
+    ClientboundPlayerInfoUpdatePacket, ClientboundSystemChatPacket, GameType as WireGameType,
 };
 use mc_text::{ChatFormatting, Component};
-use mc_data::enums::GameType;
 use parking_lot::Mutex;
 use std::sync::Arc;
 use uuid::Uuid;
@@ -76,7 +78,13 @@ impl Clone for PlayerHandle {
 }
 
 impl PlayerHandle {
-    pub fn new(id: EntityId, profile: GameProfile, connection: ConnectionSender, ip_address: String, dimension: DimensionKey) -> Self {
+    pub fn new(
+        id: EntityId,
+        profile: GameProfile,
+        connection: ConnectionSender,
+        ip_address: String,
+        dimension: DimensionKey,
+    ) -> Self {
         Self {
             id,
             uuid: profile.id,
@@ -107,7 +115,9 @@ impl PlayerHandle {
 
     /// `ServerPlayer.shouldFilterMessageTo(receiver)`.
     pub fn should_filter_message_to(&self, receiver: &PlayerHandle) -> bool {
-        !self.same_player(receiver) && (self.shared.lock().text_filtering_enabled || receiver.shared.lock().text_filtering_enabled)
+        !self.same_player(receiver)
+            && (self.shared.lock().text_filtering_enabled
+                || receiver.shared.lock().text_filtering_enabled)
     }
 
     pub fn name(&self) -> &str {
@@ -172,17 +182,31 @@ impl PlayerHandle {
     /// `ServerPlayer.sendSystemMessage(message, overlay)`.
     pub fn send_system_message(&self, message: &Component, overlay: bool) {
         if self.accepts_system_messages(overlay) {
-            self.connection.send(&ClientboundSystemChatPacket { content: message.clone(), overlay });
+            self.connection.send(&ClientboundSystemChatPacket {
+                content: message.clone(),
+                overlay,
+            });
         }
     }
 
     /// `ServerPlayer.sendChatMessage(message, filtered, chatType)`.
-    pub fn send_chat_message(&self, message: &OutgoingChatMessage, filtered: bool, chat_type: &Bound) {
+    pub fn send_chat_message(
+        &self,
+        message: &OutgoingChatMessage,
+        filtered: bool,
+        chat_type: &Bound,
+    ) {
         if !self.accepts_chat_messages() {
             return;
         }
         match message {
-            OutgoingChatMessage::Disguised(content) => outgoing_chat_message::send_disguised_chat_message(&self.connection, content, chat_type),
+            OutgoingChatMessage::Disguised(content) => {
+                outgoing_chat_message::send_disguised_chat_message(
+                    &self.connection,
+                    content,
+                    chat_type,
+                )
+            }
             OutgoingChatMessage::Player(message) => {
                 let filtered_message = message.filter(filtered);
                 if !filtered_message.is_fully_filtered() {
@@ -194,9 +218,15 @@ impl PlayerHandle {
 
     /// `ServerGamePacketListenerImpl.sendPlayerChatMessage` (disconnects past 4096 pending chats).
     pub fn send_player_chat_message(&self, message: &PlayerChatMessage, chat_type: &Bound) {
-        let outcome = self.chat_out.lock().send_player_chat_message(&self.connection, message, chat_type);
+        let outcome =
+            self.chat_out
+                .lock()
+                .send_player_chat_message(&self.connection, message, chat_type);
         if outcome == SendOutcome::TooManyPending {
-            self.disconnect(&Component::translatable("multiplayer.disconnect.too_many_pending_chats", vec![]));
+            self.disconnect(&Component::translatable(
+                "multiplayer.disconnect.too_many_pending_chats",
+                vec![],
+            ));
         }
     }
 
@@ -208,7 +238,9 @@ impl PlayerHandle {
 }
 
 /// `ClientboundPlayerInfoUpdatePacket.createPlayerInitializing(players)`.
-pub fn create_player_initializing<'a>(players: impl IntoIterator<Item = &'a PlayerHandle>) -> ClientboundPlayerInfoUpdatePacket {
+pub fn create_player_initializing<'a>(
+    players: impl IntoIterator<Item = &'a PlayerHandle>,
+) -> ClientboundPlayerInfoUpdatePacket {
     ClientboundPlayerInfoUpdatePacket {
         actions: ClientboundPlayerInfoUpdateAction::initializing(),
         entries: players.into_iter().map(PlayerHandle::info_entry).collect(),
@@ -220,7 +252,10 @@ pub fn create_info_update<'a>(
     actions: EnumSet<ClientboundPlayerInfoUpdateAction>,
     players: impl IntoIterator<Item = &'a PlayerHandle>,
 ) -> ClientboundPlayerInfoUpdatePacket {
-    ClientboundPlayerInfoUpdatePacket { actions, entries: players.into_iter().map(PlayerHandle::info_entry).collect() }
+    ClientboundPlayerInfoUpdatePacket {
+        actions,
+        entries: players.into_iter().map(PlayerHandle::info_entry).collect(),
+    }
 }
 
 /// `Component.translatable("multiplayer.player.joined", name).withStyle(YELLOW)` helper.
@@ -243,10 +278,16 @@ pub(crate) mod test_support {
             let mut out = Vec::new();
             while let Ok(item) = self.0.try_recv() {
                 out.push(match item {
-                    Outbound::Payload(bytes) | Outbound::Write(bytes) => Some(mc_protocol::codec::read_varint(&mut &bytes[..]).unwrap()),
+                    Outbound::Payload(bytes) | Outbound::Write(bytes) => {
+                        Some(mc_protocol::codec::read_varint(&mut &bytes[..]).unwrap())
+                    }
                     Outbound::Close | Outbound::Disconnect(_) => None,
                     // protocol reconfiguration messages are not packets
-                    Outbound::Flush | Outbound::SetCompression(_) | Outbound::EnableEncryption(_) | Outbound::SetState(_) | Outbound::Raw(_) => continue,
+                    Outbound::Flush
+                    | Outbound::SetCompression(_)
+                    | Outbound::EnableEncryption(_)
+                    | Outbound::SetState(_)
+                    | Outbound::Raw(_) => continue,
                 });
             }
             out
@@ -264,8 +305,18 @@ pub(crate) mod test_support {
     pub fn handle(id: i32, name: &str, dimension: &str) -> (PlayerHandle, Wire) {
         let (tx, rx) = unbounded_channel();
         let uuid = mc_core::uuid_util::create_offline_player_uuid(name);
-        let profile = GameProfile { id: uuid, name: name.to_owned(), properties: vec![] };
-        let handle = PlayerHandle::new(id, profile, ConnectionSender::new(tx), "127.0.0.1".into(), DimensionKey::try_parse(dimension).unwrap());
+        let profile = GameProfile {
+            id: uuid,
+            name: name.to_owned(),
+            properties: vec![],
+        };
+        let handle = PlayerHandle::new(
+            id,
+            profile,
+            ConnectionSender::new(tx),
+            "127.0.0.1".into(),
+            DimensionKey::try_parse(dimension).unwrap(),
+        );
         (handle, Wire(rx))
     }
 }

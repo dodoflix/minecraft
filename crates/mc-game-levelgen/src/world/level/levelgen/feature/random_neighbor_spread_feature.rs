@@ -1,16 +1,16 @@
 //! `RandomNeighborSpreadFeature`.
 
-use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature};
+use mc_core::direction::Direction;
+use mc_core::pos::BlockPos;
+use mc_core::random::RandomSource;
 use mc_game_core::world::level::levelgen::blockpredicates::{self, BlockPredicate};
 use mc_game_core::world::level::levelgen::codec::{BlockSet, Fields, LoadResult, TypeEntry};
 use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature};
 use mc_game_core::world::level::levelgen::holder::Holder;
 use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_game_core::world::level::levelgen::stateproviders::BlockStateProvider;
 use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
-use mc_core::direction::Direction;
-use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
 use mc_worldgen::provider::IntProvider;
 use std::sync::Arc;
 
@@ -30,17 +30,27 @@ impl RandomNeighborSpreadFeature {
             accepted_neighbors: fields.required("accepted_neighbors", BlockSet::from_json)?,
             can_replace: fields.required("can_replace", |v| blockpredicates::decode(v, ctx))?,
             attempts: fields.required("attempts", |v| IntProvider::from_json_range(v, 1, 3000))?,
-            xz_offset: fields.required("xz_offset", |v| IntProvider::from_json_range(v, -16, 16))?,
+            xz_offset: fields
+                .required("xz_offset", |v| IntProvider::from_json_range(v, -16, 16))?,
             y_offset: fields.required("y_offset", |v| IntProvider::from_json_range(v, -16, 16))?,
         }))
     }
 }
 
 #[linkme::distributed_slice(FEATURE_TYPES)]
-static RANDOM_NEIGHBOR_SPREAD: TypeEntry<dyn Feature> = TypeEntry { name: "random_neighbor_spread", decode: RandomNeighborSpreadFeature::decode };
+static RANDOM_NEIGHBOR_SPREAD: TypeEntry<dyn Feature> = TypeEntry {
+    name: "random_neighbor_spread",
+    decode: RandomNeighborSpreadFeature::decode,
+};
 
 impl Feature for RandomNeighborSpreadFeature {
-    fn place(&self, level: &mut dyn WorldGenLevel, _generator: &GenEnv, random: &mut dyn RandomSource, origin: BlockPos) -> bool {
+    fn place(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        _generator: &GenEnv,
+        random: &mut dyn RandomSource,
+        origin: BlockPos,
+    ) -> bool {
         let state = self.block.value().get_state(&*level, random, origin);
         level.set_block_flags(origin, state, 2);
         let attempts = self.attempts.sample(random);
@@ -53,7 +63,10 @@ impl Feature for RandomNeighborSpreadFeature {
             if self.can_replace.test(&*level, place_pos) {
                 let mut neighbours = 0;
                 for direction in Direction::ALL {
-                    if self.accepted_neighbors.contains(level.get_block_state(place_pos.relative(direction)).block()) {
+                    if self
+                        .accepted_neighbors
+                        .contains(level.get_block_state(place_pos.relative(direction)).block())
+                    {
                         neighbours += 1;
                     }
                     if neighbours > 1 {

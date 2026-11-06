@@ -11,9 +11,24 @@ use mc_protocol::packets::play::SoundSource;
 use mc_text::Component;
 
 /// `Player.playSound(sound, volume, pitch)`: heard by everybody except the player itself.
-pub fn player_play_sound(level: &mut ServerLevel, player: &dyn Entity, sound: SoundEvent, volume: f32, pitch: f32) {
+pub fn player_play_sound(
+    level: &mut ServerLevel,
+    player: &dyn Entity,
+    sound: SoundEvent,
+    volume: f32,
+    pitch: f32,
+) {
     let p = player.position();
-    level.play_sound_at(Some(player.id()), p.x, p.y, p.z, sound, SoundSource::Players, volume, pitch);
+    level.play_sound_at(
+        Some(player.id()),
+        p.x,
+        p.y,
+        p.z,
+        sound,
+        SoundSource::Players,
+        volume,
+        pitch,
+    );
 }
 
 /// `Entity.playSound(sound, volume, pitch)` / `Player.playSound` of a `LivingEntity` that stops using its item.
@@ -36,7 +51,12 @@ impl ItemBehaviour for SpyglassItem {
         ItemUseAnimation::Spyglass
     }
 
-    fn use_item(&self, level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) -> InteractionResult {
+    fn use_item(
+        &self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        hand: InteractionHand,
+    ) -> InteractionResult {
         player_play_sound(level, player, SoundEvent::ITEM_SPYGLASS_USE, 1.0, 1.0);
         let item = player.get_item_in_hand(hand).item();
         player.award_stat_once(level, Stat::Used(item));
@@ -45,12 +65,23 @@ impl ItemBehaviour for SpyglassItem {
         InteractionResult::CONSUME
     }
 
-    fn finish_using_item(&self, stack: &mut ItemStack, level: &mut ServerLevel, entity: &mut dyn Entity) -> ItemStack {
+    fn finish_using_item(
+        &self,
+        stack: &mut ItemStack,
+        level: &mut ServerLevel,
+        entity: &mut dyn Entity,
+    ) -> ItemStack {
         entity_stop_sound(level, entity, SoundEvent::ITEM_SPYGLASS_STOP_USING);
         stack.clone()
     }
 
-    fn release_using(&self, _stack: &mut ItemStack, level: &mut ServerLevel, entity: &mut dyn Entity, _remaining_time: i32) -> bool {
+    fn release_using(
+        &self,
+        _stack: &mut ItemStack,
+        level: &mut ServerLevel,
+        entity: &mut dyn Entity,
+        _remaining_time: i32,
+    ) -> bool {
         entity_stop_sound(level, entity, SoundEvent::ITEM_SPYGLASS_STOP_USING);
         true
     }
@@ -66,13 +97,18 @@ struct ShieldItem {
 impl ItemBehaviour for ShieldItem {
     fn get_name(&self, stack: &ItemStack) -> Component {
         match stack.get(&BASE_COLOR) {
-            Some(color) => Component::translatable(format!("{}.{}", self.description_id, color.name()), Vec::new()),
+            Some(color) => Component::translatable(
+                format!("{}.{}", self.description_id, color.name()),
+                Vec::new(),
+            ),
             None => PlainItem.get_name(stack),
         }
     }
 }
 
-register_item_class!("ShieldItem", |item| Box::new(ShieldItem { description_id: item.data().description_id }));
+register_item_class!("ShieldItem", |item| Box::new(ShieldItem {
+    description_id: item.data().description_id
+}));
 
 /// `AirItem.getName`: the `item_name` of the item's own default components (an empty stack has none).
 struct AirItem;
@@ -81,7 +117,10 @@ impl ItemBehaviour for AirItem {
     fn get_name(&self, _stack: &ItemStack) -> Component {
         {
             use mc_protocol::components::map::DataComponentGetter as _;
-            mc_protocol::components::item_stack::item_prototype(mc_data::Item::AIR).get(&mc_protocol::components::ITEM_NAME).cloned().unwrap_or_else(|| Component::literal(""))
+            mc_protocol::components::item_stack::item_prototype(mc_data::Item::AIR)
+                .get(&mc_protocol::components::ITEM_NAME)
+                .cloned()
+                .unwrap_or_else(|| Component::literal(""))
         }
     }
 }

@@ -12,13 +12,13 @@ use crate::world::entity::EntityId;
 use crate::world::entity::ai::village::poi::PoiManager;
 use crate::world::level::chunk::LevelChunk;
 use crate::world::level::entity::{PersistentEntitySectionManager, Visibility};
+use crate::world::level::spawner::natural_spawner;
 use crate::world::level::ticket_storage::TicketStorage;
 use crate::world::level::{BlockGetter, DimensionKey, LevelHeight, LevelReader, LightLayer};
 use mc_core::pos::{BlockPos, ChunkPos, SectionPos};
 use mc_data::block::{Block, BlockState};
 use mc_data::fluid::FluidState;
 use mc_world::chunk::ProtoChunk;
-use crate::world::level::spawner::natural_spawner;
 use mc_world::heightmap::HeightmapType;
 use mc_world::palette::PalettedContainerFactory;
 use mc_world::status::ChunkStatus;
@@ -149,7 +149,8 @@ impl ServerLevel {
             view_distance: params.view_distance,
             tickets: TicketStorage::new(),
         };
-        let mut chunk_source = ServerChunkCache::new(data_dir, chunk_params, params.simulation_distance);
+        let mut chunk_source =
+            ServerChunkCache::new(data_dir, chunk_params, params.simulation_distance);
         let tick_state = super::level_tick_state::LevelTickState::default();
         chunk_source.chunk_map.tick_containers = Some(tick_state.ticks.clone());
         Self {
@@ -189,13 +190,28 @@ impl ServerLevel {
     /// A level over a fresh empty temporary directory with a void generator: for tests of code that needs a
     /// `ServerLevel` but no real world.
     pub fn detached(dimension: DimensionKey) -> Self {
-        Self::detached_with_height(dimension, LevelHeight { min_y: -64, height: 384 }, 63)
+        Self::detached_with_height(
+            dimension,
+            LevelHeight {
+                min_y: -64,
+                height: 384,
+            },
+            63,
+        )
     }
 
     /// [`ServerLevel::detached`] with another height range / sea level (e.g. the nether's `0..256`).
-    pub fn detached_with_height(dimension: DimensionKey, level_height: LevelHeight, sea_level: i32) -> Self {
+    pub fn detached_with_height(
+        dimension: DimensionKey,
+        level_height: LevelHeight,
+        sea_level: i32,
+    ) -> Self {
         static COUNTER: std::sync::atomic::AtomicU32 = std::sync::atomic::AtomicU32::new(0);
-        let dir = std::env::temp_dir().join(format!("mc-detached-level-{}-{}", std::process::id(), COUNTER.fetch_add(1, std::sync::atomic::Ordering::Relaxed)));
+        let dir = std::env::temp_dir().join(format!(
+            "mc-detached-level-{}-{}",
+            std::process::id(),
+            COUNTER.fetch_add(1, std::sync::atomic::Ordering::Relaxed)
+        ));
         let (shared, _rx) = ServerShared::new();
         shared.bind_game_thread(); // the test thread is the server thread: `execute` runs inline like vanilla
         let biomes = mc_world::palette::BiomeRegistry::new(vec!["minecraft:plains".to_string()]);
@@ -217,12 +233,16 @@ impl ServerLevel {
             simulation_distance: 10,
             sync_writes: false,
             is_debug: false,
-            level_data: Box::new(super::level_data::PrimaryServerLevelData(super::level_data::default_world_data())),
+            level_data: Box::new(super::level_data::PrimaryServerLevelData(
+                super::level_data::default_world_data(),
+            )),
         })
     }
 
     /// `getPathTypeCache()`.
-    pub fn path_type_cache(&self) -> &parking_lot::Mutex<crate::world::level::pathfinder::PathTypeCache> {
+    pub fn path_type_cache(
+        &self,
+    ) -> &parking_lot::Mutex<crate::world::level::pathfinder::PathTypeCache> {
         &self.path_type_cache
     }
 
@@ -274,7 +294,9 @@ impl ServerLevel {
         match event {
             ChunkMapEvent::FullStep(pos) => {
                 use super::chunk_holder::ChunkSlot;
-                let Some(slot) = self.chunk_source.chunk_map.take_chunk_for_full(pos) else { return };
+                let Some(slot) = self.chunk_source.chunk_map.take_chunk_for_full(pos) else {
+                    return;
+                };
                 let chunk = match slot {
                     ChunkSlot::Proto(proto) => {
                         // `postLoadProtoChunk`: legacy entity NBT of the proto chunk is loaded with the entity code.
@@ -283,7 +305,8 @@ impl ServerLevel {
                     ChunkSlot::Level(chunk) => chunk,
                     other => {
                         // The chunk is lent to the worldgen thread (a neighbour's step reads it): retry after the batch.
-                        if let Some(h) = self.chunk_source.chunk_map.holders.holder_mut(pos.pack()) {
+                        if let Some(h) = self.chunk_source.chunk_map.holders.holder_mut(pos.pack())
+                        {
                             h.slot = other;
                         }
                         self.chunk_source.chunk_map.requeue_full_step(pos);
@@ -306,12 +329,17 @@ impl ServerLevel {
                 self.chunk_source.after_chunk_ready_to_send();
             }
             ChunkMapEvent::FullStatusChanged(pos, status) => {
-                self.entity_manager.update_chunk_status(pos, Visibility::from_full_chunk_status(status));
+                self.entity_manager
+                    .update_chunk_status(pos, Visibility::from_full_chunk_status(status));
                 self.process_entity_events();
             }
             ChunkMapEvent::Unload(chunk) => self.unload(chunk),
             ChunkMapEvent::LegacyEntities(_pos, tags) => {
-                let entities = crate::world::entity::factory::load_entities_recursive(&tags, self, mc_data::enums::EntitySpawnReason::Load);
+                let entities = crate::world::entity::factory::load_entities_recursive(
+                    &tags,
+                    self,
+                    mc_data::enums::EntitySpawnReason::Load,
+                );
                 self.entity_manager.add_legacy_chunk_entities(entities);
                 self.process_entity_events();
             }
@@ -369,19 +397,34 @@ impl ServerLevel {
 
     /// `getChunk(x, z, status, loadOrGenerate)` for `FULL`: loads/generates the chunk and waits for it.
     pub fn chunk_blocking_mut(&mut self, x: i32, z: i32) -> &mut LevelChunk {
-        let future = self.chunk_source.get_chunk_future_main_thread(x, z, ChunkStatus::Full, true);
+        let future = self
+            .chunk_source
+            .get_chunk_future_main_thread(x, z, ChunkStatus::Full, true);
         self.apply_chunk_events();
         self.block_on_chunks(|cs| cs.future_result(future).is_some());
         if self.chunk_source.future_result(future) != Some(true) {
             panic!("Chunk not there when requested: {future:?}");
         }
-        self.chunk_source.get_chunk_now_mut(x, z).expect("full chunk present")
+        self.chunk_source
+            .get_chunk_now_mut(x, z)
+            .expect("full chunk present")
     }
 
     /// `getChunk(x, z, targetStatus, loadOrGenerate)` for statuses below `FULL`: waits and returns the proto chunk.
-    pub fn proto_chunk_blocking(&mut self, x: i32, z: i32, status: ChunkStatus, load_or_generate: bool) -> Option<&ProtoChunk> {
-        assert!(status != ChunkStatus::Full, "use chunk_blocking_mut for FULL");
-        let future = self.chunk_source.get_chunk_future_main_thread(x, z, status, load_or_generate);
+    pub fn proto_chunk_blocking(
+        &mut self,
+        x: i32,
+        z: i32,
+        status: ChunkStatus,
+        load_or_generate: bool,
+    ) -> Option<&ProtoChunk> {
+        assert!(
+            status != ChunkStatus::Full,
+            "use chunk_blocking_mut for FULL"
+        );
+        let future = self
+            .chunk_source
+            .get_chunk_future_main_thread(x, z, status, load_or_generate);
         self.apply_chunk_events();
         if future == ChunkFuture::Unloaded {
             return None;
@@ -435,7 +478,9 @@ impl ServerLevel {
 
     /// `setChunkForced(chunkX, chunkZ, forced)`: whether the forced state changed; a newly forced chunk is loaded.
     pub fn set_chunk_forced(&mut self, chunk_x: i32, chunk_z: i32, forced: bool) -> bool {
-        let updated = self.chunk_source.update_chunk_forced(ChunkPos::new(chunk_x, chunk_z), forced);
+        let updated = self
+            .chunk_source
+            .update_chunk_forced(ChunkPos::new(chunk_x, chunk_z), forced);
         if forced && updated {
             self.chunk_blocking_mut(chunk_x, chunk_z);
         }
@@ -445,17 +490,35 @@ impl ServerLevel {
     // ------------------------------------------------------------------ ticking
 
     /// `ServerChunkCache.tick(haveTime, tickChunks = false)` (levels that only run chunk loading).
-    pub fn tick_chunk_source(&mut self, have_time: &dyn Fn() -> bool, tick_chunks: bool, runs_normally: bool) {
-        assert!(!tick_chunks, "tickChunks needs the tick environment: use tick_chunk_source_with_env");
+    pub fn tick_chunk_source(
+        &mut self,
+        have_time: &dyn Fn() -> bool,
+        tick_chunks: bool,
+        runs_normally: bool,
+    ) {
+        assert!(
+            !tick_chunks,
+            "tickChunks needs the tick environment: use tick_chunk_source_with_env"
+        );
         self.tick_chunk_source_inner(None, have_time, runs_normally);
     }
 
     /// `ServerChunkCache.tick(haveTime, true)`.
-    pub fn tick_chunk_source_with_env(&mut self, env: &dyn super::level_tick::LevelTickEnv, have_time: &dyn Fn() -> bool, runs_normally: bool) {
+    pub fn tick_chunk_source_with_env(
+        &mut self,
+        env: &dyn super::level_tick::LevelTickEnv,
+        have_time: &dyn Fn() -> bool,
+        runs_normally: bool,
+    ) {
         self.tick_chunk_source_inner(Some(env), have_time, runs_normally);
     }
 
-    fn tick_chunk_source_inner(&mut self, env: Option<&dyn super::level_tick::LevelTickEnv>, have_time: &dyn Fn() -> bool, runs_normally: bool) {
+    fn tick_chunk_source_inner(
+        &mut self,
+        env: Option<&dyn super::level_tick::LevelTickEnv>,
+        have_time: &dyn Fn() -> bool,
+        runs_normally: bool,
+    ) {
         self.chunk_source.tick_pre(runs_normally, env.is_some());
         self.apply_chunk_events();
         if let Some(env) = env {
@@ -468,7 +531,12 @@ impl ServerLevel {
 
     /// `ChunkMap.tick()`'s player tracking refresh (the entity tracking half is `entity_tracker`).
     fn tick_chunk_map(&mut self) {
-        let ids: Vec<EntityId> = self.chunk_source.chunk_map.player_map.get_all_players().collect();
+        let ids: Vec<EntityId> = self
+            .chunk_source
+            .chunk_map
+            .player_map
+            .get_all_players()
+            .collect();
         for id in ids {
             self.chunk_source.chunk_map.update_chunk_tracking(id);
         }
@@ -483,18 +551,36 @@ impl ServerLevel {
         }
         if runs_normally {
             // naturalSpawnCount + NaturalSpawner.createState + spawning categories
-            let chunk_count = self.chunk_source.chunk_map.distance_manager.get_natural_spawn_chunk_count();
+            let chunk_count = self
+                .chunk_source
+                .chunk_map
+                .distance_manager
+                .get_natural_spawn_chunk_count();
             let do_mob_spawning = self.spawn_mobs();
             let tick_speed = self.random_tick_speed();
             let spawn_enemies = self.chunk_source.spawn_enemies();
             let spawn_persistent = self.game_time() % 400 == 0;
             // `NaturalSpawner.createState` (always) + `getFilteredSpawningCategories` (only while `spawnMobs`)
             let state = natural_spawner::create_state(chunk_count as i32, self);
-            let categories = if do_mob_spawning { natural_spawner::get_filtered_spawning_categories(&state, spawn_enemies, spawn_persistent) } else { Vec::new() };
+            let categories = if do_mob_spawning {
+                natural_spawner::get_filtered_spawning_categories(
+                    &state,
+                    spawn_enemies,
+                    spawn_persistent,
+                )
+            } else {
+                Vec::new()
+            };
             self.spawning.set_spawn_state(state, categories);
 
             // collectSpawningChunks, Util.shuffle(spawningChunks, level.getRandom())
-            let mut spawning: Vec<ChunkPos> = self.chunk_source.chunk_map.collect_spawning_chunks().into_iter().map(ChunkPos::unpack).collect();
+            let mut spawning: Vec<ChunkPos> = self
+                .chunk_source
+                .chunk_map
+                .collect_spawning_chunks()
+                .into_iter()
+                .map(ChunkPos::unpack)
+                .collect();
             for i in (2..=spawning.len()).rev() {
                 let swap_to = self.tick_state.random.next_int_bounded(i as i32) as usize;
                 spawning.swap(i - 1, swap_to);
@@ -504,7 +590,13 @@ impl ServerLevel {
             }
 
             // tickTickingChunks
-            let ticking: Vec<ChunkPos> = self.chunk_source.chunk_map.block_ticking_chunks().into_iter().map(ChunkPos::unpack).collect();
+            let ticking: Vec<ChunkPos> = self
+                .chunk_source
+                .chunk_map
+                .block_ticking_chunks()
+                .into_iter()
+                .map(ChunkPos::unpack)
+                .collect();
             for pos in ticking {
                 self.tick_chunk(pos, tick_speed);
             }
@@ -517,9 +609,16 @@ impl ServerLevel {
 
     /// `ServerChunkCache.tickSpawningChunk(chunk, spawningCategories, spawnCookie)`.
     fn tick_spawning_chunk(&mut self, pos: ChunkPos, env: &dyn super::level_tick::LevelTickEnv) {
-        let Some(chunk) = self.chunk_now_mut(pos.x, pos.z) else { return };
+        let Some(chunk) = self.chunk_now_mut(pos.x, pos.z) else {
+            return;
+        };
         chunk.data.access.increment_inhabited_time();
-        if self.chunk_source.chunk_map.distance_manager.in_entity_ticking_range(pos.pack()) {
+        if self
+            .chunk_source
+            .chunk_map
+            .distance_manager
+            .in_entity_ticking_range(pos.pack())
+        {
             self.tick_thunder(pos, env);
         }
         if self.spawning.has_spawning_categories() && self.can_spawn_entities_in_chunk(pos) {
@@ -614,7 +713,10 @@ impl BlockGetter for ServerLevel {
     }
 
     fn get_block_entity(&self, pos: BlockPos) -> Option<&dyn BlockEntity> {
-        self.chunk_now(pos.x() >> 4, pos.z() >> 4)?.block_entities.get(&pos).map(|b| &**b)
+        self.chunk_now(pos.x() >> 4, pos.z() >> 4)?
+            .block_entities
+            .get(&pos)
+            .map(|b| &**b)
     }
 
     fn level_height(&self) -> LevelHeight {
@@ -640,7 +742,11 @@ impl LevelReader for ServerLevel {
                     }
                     // `ChunkAccess.getHeight` primes a heightmap the chunk does not maintain (the `_WG` types)
                     let mut primed = mc_world::heightmap::HeightmapMap::new();
-                    mc_world::heightmap::Heightmap::prime_heightmaps(&chunk.data.access.view(true), &mut primed, &[ty]);
+                    mc_world::heightmap::Heightmap::prime_heightmaps(
+                        &chunk.data.access.view(true),
+                        &mut primed,
+                        &[ty],
+                    );
                     return primed[&ty].get_first_available(x & 15, z & 15);
                 }
             }
@@ -659,7 +765,11 @@ impl LevelReader for ServerLevel {
     }
 
     fn get_brightness(&self, layer: LightLayer, pos: BlockPos) -> i32 {
-        let layer = if layer == LightLayer::Sky { mc_light::LightLayer::Sky } else { mc_light::LightLayer::Block };
+        let layer = if layer == LightLayer::Sky {
+            mc_light::LightLayer::Sky
+        } else {
+            mc_light::LightLayer::Block
+        };
         self.light_engine().engine().get_light_value(layer, pos)
     }
 
@@ -668,7 +778,9 @@ impl LevelReader for ServerLevel {
     }
 
     fn get_raw_brightness(&self, pos: BlockPos, sky_darkening: i32) -> i32 {
-        self.light_engine().engine().get_raw_brightness(pos, sky_darkening)
+        self.light_engine()
+            .engine()
+            .get_raw_brightness(pos, sky_darkening)
     }
 
     fn can_see_sky(&self, pos: BlockPos) -> bool {

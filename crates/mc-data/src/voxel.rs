@@ -4,7 +4,9 @@
 use crate::block::BlockState;
 use crate::shape::{ShapeData, ShapeId, ShapeKind, shape_count};
 use mc_core::direction::Direction;
-use mc_core::phys::shapes::{BitSetDiscreteVoxelShape, BooleanOp, Coords, DiscreteVoxelShape, Shapes, VoxelShape};
+use mc_core::phys::shapes::{
+    BitSetDiscreteVoxelShape, BooleanOp, Coords, DiscreteVoxelShape, Shapes, VoxelShape,
+};
 use std::sync::{Arc, OnceLock};
 
 struct Cache {
@@ -28,15 +30,25 @@ fn build(data: &ShapeData) -> VoxelShape {
     let words: Vec<u64> = data
         .bits
         .chunks(8)
-        .map(|c| c.iter().enumerate().fold(0u64, |w, (i, b)| w | u64::from(*b) << (8 * i)))
+        .map(|c| {
+            c.iter()
+                .enumerate()
+                .fold(0u64, |w, (i, b)| w | u64::from(*b) << (8 * i))
+        })
         .collect();
     let [fx, fy, fz] = data.first.map(i32::from);
     let [lx, ly, lz] = data.last.map(i32::from);
-    let discrete: Arc<DiscreteVoxelShape> = Arc::new(BitSetDiscreteVoxelShape::from_raw(xs, ys, zs, &words, fx, fy, fz, lx, ly, lz).into());
+    let discrete: Arc<DiscreteVoxelShape> = Arc::new(
+        BitSetDiscreteVoxelShape::from_raw(xs, ys, zs, &words, fx, fy, fz, lx, ly, lz).into(),
+    );
     match data.kind {
         ShapeKind::Cube => {
             let shape = VoxelShape::cube(discrete);
-            if xs == 1 && ys == 1 && zs == 1 && data.bits.first() == Some(&1) { Shapes::block() } else { shape }
+            if xs == 1 && ys == 1 && zs == 1 && data.bits.first() == Some(&1) {
+                Shapes::block()
+            } else {
+                shape
+            }
         }
         ShapeKind::Array => {
             let [x, y, z] = data.coords.map(|c| Coords::array(c.to_vec()));
@@ -49,7 +61,9 @@ fn build(data: &ShapeData) -> VoxelShape {
 impl ShapeId {
     /// The shape as an mc-core `VoxelShape` (cached; `Shapes.empty()`/`Shapes.block()` keep their identity).
     pub fn voxel_shape(self) -> VoxelShape {
-        cache().shapes[self.0 as usize].get_or_init(|| build(self.data())).clone()
+        cache().shapes[self.0 as usize]
+            .get_or_init(|| build(self.data()))
+            .clone()
     }
 }
 

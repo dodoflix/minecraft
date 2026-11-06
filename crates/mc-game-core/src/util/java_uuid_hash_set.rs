@@ -26,7 +26,10 @@ impl UuidHashSet {
     /// power of two), then the elements are added in order.
     pub fn from_collection(items: &[Uuid]) -> Self {
         let wanted = ((items.len() as f32 / 0.75f32) as usize + 1).max(16);
-        let mut set = Self { table: vec![Vec::new(); wanted.next_power_of_two()], size: 0 };
+        let mut set = Self {
+            table: vec![Vec::new(); wanted.next_power_of_two()],
+            size: 0,
+        };
         for item in items {
             set.insert(*item);
         }
@@ -67,7 +70,11 @@ impl UuidHashSet {
         let mut table = vec![Vec::new(); old_len * 2];
         for (i, bucket) in std::mem::take(&mut self.table).into_iter().enumerate() {
             for uuid in bucket {
-                let index = if spread(&uuid) & old_len == 0 { i } else { i + old_len };
+                let index = if spread(&uuid) & old_len == 0 {
+                    i
+                } else {
+                    i + old_len
+                };
                 table[index].push(uuid);
             }
         }

@@ -1,15 +1,15 @@
 //! `SteppedColumnClusterFeature`: clusters of stepped columns (basalt columns).
 
-use mc_game_core::world::level::levelgen::feature::{Feature, set_block};
-use mc_game_core::world::level::levelgen::blockpredicates::{self, BlockPredicate};
-use mc_game_core::world::level::levelgen::codec::{BlockSet, TypeEntry};
-use mc_game_core::world::level::levelgen::env::GenEnv;
-use mc_game_core::world::level::levelgen::holder::Holder;
-use mc_game_core::world::level::levelgen::stateproviders::BlockStateProvider;
-use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
+use mc_game_core::world::level::levelgen::blockpredicates::{self, BlockPredicate};
+use mc_game_core::world::level::levelgen::codec::{BlockSet, TypeEntry};
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::feature::{Feature, set_block};
+use mc_game_core::world::level::levelgen::holder::Holder;
+use mc_game_core::world::level::levelgen::stateproviders::BlockStateProvider;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_worldgen::provider::IntProvider;
 use std::sync::Arc;
 
@@ -25,7 +25,13 @@ pub struct SteppedColumnClusterFeature {
 }
 
 impl Feature for SteppedColumnClusterFeature {
-    fn place(&self, level: &mut dyn WorldGenLevel, generator: &GenEnv, random: &mut dyn RandomSource, origin: BlockPos) -> bool {
+    fn place(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        generator: &GenEnv,
+        random: &mut dyn RandomSource,
+        origin: BlockPos,
+    ) -> bool {
         let lava_sea_level = generator.get_sea_level();
         if !self.can_place_at(level, origin) {
             return false;
@@ -44,7 +50,8 @@ impl Feature for SteppedColumnClusterFeature {
             let blocks_to_place_y = column_height - pos.dist_manhattan(&origin);
             if blocks_to_place_y >= 0 {
                 let reach = self.column_reach.sample(random);
-                placed |= self.place_column(level, random, lava_sea_level, pos, blocks_to_place_y, reach);
+                placed |=
+                    self.place_column(level, random, lava_sea_level, pos, blocks_to_place_y, reach);
             }
         }
         placed
@@ -52,10 +59,25 @@ impl Feature for SteppedColumnClusterFeature {
 }
 
 impl SteppedColumnClusterFeature {
-    fn place_column(&self, level: &mut dyn WorldGenLevel, random: &mut dyn RandomSource, _lava_sea_level: i32, origin: BlockPos, column_height: i32, reach: i32) -> bool {
+    fn place_column(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        random: &mut dyn RandomSource,
+        _lava_sea_level: i32,
+        origin: BlockPos,
+        column_height: i32,
+        reach: i32,
+    ) -> bool {
         let mut placed_any = false;
 
-        for pos in BlockPos::between_closed_xyz(origin.x() - reach, origin.y(), origin.z() - reach, origin.x() + reach, origin.y(), origin.z() + reach) {
+        for pos in BlockPos::between_closed_xyz(
+            origin.x() - reach,
+            origin.y(),
+            origin.z() - reach,
+            origin.x() + reach,
+            origin.y(),
+            origin.z() + reach,
+        ) {
             let step_limit = pos.dist_manhattan(&origin);
             let column_pos = if self.can_replace.test(&*level, pos) {
                 self.find_surface(level, pos, step_limit)
@@ -84,7 +106,12 @@ impl SteppedColumnClusterFeature {
         placed_any
     }
 
-    fn find_surface(&self, level: &dyn WorldGenLevel, mut cursor: BlockPos, mut limit: i32) -> Option<BlockPos> {
+    fn find_surface(
+        &self,
+        level: &dyn WorldGenLevel,
+        mut cursor: BlockPos,
+        mut limit: i32,
+    ) -> Option<BlockPos> {
         while cursor.y() > level.get_min_y() + 1 && limit > 0 {
             limit -= 1;
             if self.can_place_at(level, cursor) {
@@ -103,7 +130,12 @@ impl SteppedColumnClusterFeature {
         !block_state.is_air() && !self.cannot_place_on.contains(block_state.block())
     }
 
-    fn find_air(&self, level: &dyn WorldGenLevel, mut cursor: BlockPos, mut limit: i32) -> Option<BlockPos> {
+    fn find_air(
+        &self,
+        level: &dyn WorldGenLevel,
+        mut cursor: BlockPos,
+        mut limit: i32,
+    ) -> Option<BlockPos> {
         while cursor.y() <= level.get_max_y() && limit > 0 {
             limit -= 1;
             let block_state = level.get_block_state(cursor);
@@ -125,12 +157,16 @@ static STEPPED_COLUMN_CLUSTER: TypeEntry<dyn Feature> = TypeEntry {
     decode: |fields, ctx| {
         Ok(Arc::new(SteppedColumnClusterFeature {
             block: fields.required("block", |v| ctx.block_state_provider(v))?,
-            continue_through: fields.required("continue_through", |v| blockpredicates::decode(v, ctx))?,
+            continue_through: fields
+                .required("continue_through", |v| blockpredicates::decode(v, ctx))?,
             can_replace: fields.required("can_replace", |v| blockpredicates::decode(v, ctx))?,
             cannot_place_on: fields.required("cannot_place_on", BlockSet::from_json)?,
-            cluster_reach: fields.required("cluster_reach", |v| IntProvider::from_json_range(v, 0, 13))?,
-            column_count: fields.required("column_count", |v| IntProvider::from_json_range(v, 1, 150))?,
-            column_reach: fields.required("column_reach", |v| IntProvider::from_json_range(v, 0, 3))?,
+            cluster_reach: fields
+                .required("cluster_reach", |v| IntProvider::from_json_range(v, 0, 13))?,
+            column_count: fields
+                .required("column_count", |v| IntProvider::from_json_range(v, 1, 150))?,
+            column_reach: fields
+                .required("column_reach", |v| IntProvider::from_json_range(v, 0, 3))?,
             height: fields.required("height", |v| IntProvider::from_json_range(v, 1, 10))?,
         }))
     },

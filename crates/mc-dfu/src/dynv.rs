@@ -45,7 +45,10 @@ impl Dyn {
     /// String-keyed lookup in a `Map` (no JSON-null handling; see `MapLike::get`).
     pub fn map_get(&self, key: &str) -> Option<&Dyn> {
         match self {
-            Dyn::Map(m) => m.iter().find(|(k, _)| k.as_str() == Some(key)).map(|(_, v)| v),
+            Dyn::Map(m) => m
+                .iter()
+                .find(|(k, _)| k.as_str() == Some(key))
+                .map(|(_, v)| v),
             _ => None,
         }
     }
@@ -86,7 +89,11 @@ fn lazy_trunc(text: &str) -> Option<i128> {
         return None;
     }
     let t = d.trunc();
-    if t.abs() < 1.0e38 { Some(t as i128) } else { Some(0) }
+    if t.abs() < 1.0e38 {
+        Some(t as i128)
+    } else {
+        Some(0)
+    }
 }
 
 impl JNum {
@@ -180,7 +187,12 @@ impl From<&Tag> for Dyn {
             Tag::String(s) => Dyn::Str(s.clone()),
             Tag::List(l) => Dyn::List(l.iter().map(Dyn::from).collect()),
             // Java `HashMap` iteration order, which is what vanilla codecs observe
-            Tag::Compound(c) => Dyn::Map(c.iter_java_order().into_iter().map(|(k, v)| (Dyn::Str(k.clone()), Dyn::from(v))).collect()),
+            Tag::Compound(c) => Dyn::Map(
+                c.iter_java_order()
+                    .into_iter()
+                    .map(|(k, v)| (Dyn::Str(k.clone()), Dyn::from(v)))
+                    .collect(),
+            ),
             Tag::IntArray(v) => Dyn::Ints(v.clone()),
             Tag::LongArray(v) => Dyn::Longs(v.clone()),
         }
@@ -209,7 +221,9 @@ impl Dyn {
                         Dyn::Str(s) => {
                             c.put(s.clone(), v.to_tag()?);
                         }
-                        other => return Err(format!("Cannot create map with non-string key: {other}")),
+                        other => {
+                            return Err(format!("Cannot create map with non-string key: {other}"));
+                        }
                     }
                 }
                 Tag::Compound(c)
@@ -227,7 +241,11 @@ impl Dyn {
     /// Parse strict JSON into a tree: numbers keep their text (`JsonNum`), `null` is `Empty`, duplicate object keys
     /// replace the earlier value in place (Gson `JsonObject.add`).
     pub fn from_json_str(text: &str) -> Result<Dyn, String> {
-        let mut p = JsonParser { s: text.as_bytes(), i: 0, depth: 0 };
+        let mut p = JsonParser {
+            s: text.as_bytes(),
+            i: 0,
+            depth: 0,
+        };
         p.ws();
         let v = p.value()?;
         p.ws();
@@ -416,7 +434,12 @@ impl JsonParser<'_> {
             Some(b'-' | b'0'..=b'9') => {
                 let start = self.i;
                 self.i += 1;
-                while self.i < self.s.len() && matches!(self.s[self.i], b'0'..=b'9' | b'.' | b'e' | b'E' | b'+' | b'-') {
+                while self.i < self.s.len()
+                    && matches!(
+                        self.s[self.i],
+                        b'0'..=b'9' | b'.' | b'e' | b'E' | b'+' | b'-'
+                    )
+                {
                     self.i += 1;
                 }
                 let t = std::str::from_utf8(&self.s[start..self.i]).unwrap();
@@ -465,14 +488,18 @@ impl JsonParser<'_> {
         self.i += 1;
         let mut units: Vec<u16> = Vec::new();
         loop {
-            let Some(&c) = self.s.get(self.i) else { return self.err("Unterminated string") };
+            let Some(&c) = self.s.get(self.i) else {
+                return self.err("Unterminated string");
+            };
             match c {
                 b'"' => {
                     self.i += 1;
                     break;
                 }
                 b'\\' => {
-                    let Some(&e) = self.s.get(self.i + 1) else { return self.err("Bad escape") };
+                    let Some(&e) = self.s.get(self.i + 1) else {
+                        return self.err("Bad escape");
+                    };
                     self.i += 2;
                     let u = match e {
                         b'"' => b'"' as u16,
@@ -484,8 +511,13 @@ impl JsonParser<'_> {
                         b'r' => 13,
                         b't' => 9,
                         b'u' => {
-                            let h = self.s.get(self.i..self.i + 4).and_then(|h| std::str::from_utf8(h).ok());
-                            let Some(v) = h.and_then(|h| u16::from_str_radix(h, 16).ok()) else { return self.err("Bad \\u escape") };
+                            let h = self
+                                .s
+                                .get(self.i..self.i + 4)
+                                .and_then(|h| std::str::from_utf8(h).ok());
+                            let Some(v) = h.and_then(|h| u16::from_str_radix(h, 16).ok()) else {
+                                return self.err("Bad \\u escape");
+                            };
                             self.i += 4;
                             v
                         }
@@ -495,7 +527,8 @@ impl JsonParser<'_> {
                 }
                 c if c < 0x20 => return self.err("Control character in string"),
                 _ => {
-                    let rest = std::str::from_utf8(&self.s[self.i..]).map_err(|_| format!("Invalid UTF-8 at offset {}", self.i))?;
+                    let rest = std::str::from_utf8(&self.s[self.i..])
+                        .map_err(|_| format!("Invalid UTF-8 at offset {}", self.i))?;
                     let ch = rest.chars().next().unwrap();
                     let mut buf = [0u16; 2];
                     units.extend_from_slice(ch.encode_utf16(&mut buf));

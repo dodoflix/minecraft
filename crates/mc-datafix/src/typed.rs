@@ -57,7 +57,12 @@ impl Typed {
     #[track_caller]
     pub fn get_typed(&self, f: &OpticFinder) -> Typed {
         let o = self.find(f, f.ty(), false);
-        let v = o.first(&self.value).unwrap_or_else(|| panic!("typed.getTyped: no value found for a finder of type {}", f.ty()));
+        let v = o.first(&self.value).unwrap_or_else(|| {
+            panic!(
+                "typed.getTyped: no value found for a finder of type {}",
+                f.ty()
+            )
+        });
         Typed::new(o.a_type().clone(), self.ops, v)
     }
 
@@ -85,7 +90,8 @@ impl Typed {
     #[track_caller]
     pub fn get_optional_typed(&self, f: &OpticFinder) -> Option<Typed> {
         let o = self.find(f, f.ty(), false);
-        o.first(&self.value).map(|v| Typed::new(o.a_type().clone(), self.ops, v))
+        o.first(&self.value)
+            .map(|v| Typed::new(o.a_type().clone(), self.ops, v))
     }
 
     /// `typed.getOrCreateTyped(optic)`.
@@ -100,7 +106,10 @@ impl Typed {
     #[track_caller]
     pub fn get_all_typed(&self, f: &OpticFinder) -> Vec<Typed> {
         let o = self.find(f, f.ty(), false);
-        o.all(&self.value).into_iter().map(|v| Typed::new(f.ty().clone(), self.ops, v)).collect()
+        o.all(&self.value)
+            .into_iter()
+            .map(|v| Typed::new(f.ty().clone(), self.ops, v))
+            .collect()
     }
 
     /// `typed.getAll(optic)` for an optic already resolved against this type.
@@ -124,7 +133,12 @@ impl Typed {
 
     /// `typed.set(optic, newType, newValue)`.
     #[track_caller]
-    pub fn set_with_type(self, f: &OpticFinder, new_type: &Type, new_value: impl Into<Value>) -> Typed {
+    pub fn set_with_type(
+        self,
+        f: &OpticFinder,
+        new_type: &Type,
+        new_value: impl Into<Value>,
+    ) -> Typed {
         let nv = Typed::new(new_type.clone(), self.ops, new_value.into());
         self.set_typed(f, nv)
     }
@@ -146,17 +160,29 @@ impl Typed {
 
     /// `typed.updateTyped(optic, newType, updater)`.
     #[track_caller]
-    pub fn update_typed_as(self, f: &OpticFinder, new_type: &Type, updater: impl FnMut(Typed) -> Typed) -> Typed {
+    pub fn update_typed_as(
+        self,
+        f: &OpticFinder,
+        new_type: &Type,
+        updater: impl FnMut(Typed) -> Typed,
+    ) -> Typed {
         let field = self.find(f, new_type, false);
         self.update_typed_with(f, &field, updater)
     }
 
-    fn update_typed_with(self, f: &OpticFinder, field: &TypedOptic, mut updater: impl FnMut(Typed) -> Typed) -> Typed {
+    fn update_typed_with(
+        self,
+        f: &OpticFinder,
+        field: &TypedOptic,
+        mut updater: impl FnMut(Typed) -> Typed,
+    ) -> Typed {
         let (ops, ft) = (self.ops, f.ty().clone());
         let b_type = field.b_type().clone();
         self.update_cap(field, move |v| {
             let new_value = updater(Typed::new(ft.clone(), ops, v));
-            b_type.if_same(&new_value).unwrap_or_else(|| panic!("Function didn't update to the expected type"))
+            b_type
+                .if_same(&new_value)
+                .unwrap_or_else(|| panic!("Function didn't update to the expected type"))
         })
     }
 
@@ -169,14 +195,23 @@ impl Typed {
 
     /// `typed.update(optic, newType, updater)`.
     #[track_caller]
-    pub fn update_as(self, f: &OpticFinder, new_type: &Type, updater: impl FnMut(Value) -> Value) -> Typed {
+    pub fn update_as(
+        self,
+        f: &OpticFinder,
+        new_type: &Type,
+        updater: impl FnMut(Value) -> Value,
+    ) -> Typed {
         let field = self.find(f, new_type, false);
         self.update_cap(&field, updater)
     }
 
     /// `typed.updateRecursiveTyped(optic, updater)`.
     #[track_caller]
-    pub fn update_recursive_typed(self, f: &OpticFinder, updater: impl FnMut(Typed) -> Typed) -> Typed {
+    pub fn update_recursive_typed(
+        self,
+        f: &OpticFinder,
+        updater: impl FnMut(Typed) -> Typed,
+    ) -> Typed {
         let field = self.find(f, f.ty(), true);
         self.update_typed_with(f, &field, updater)
     }
@@ -199,7 +234,9 @@ impl Typed {
     /// `typed.update(DSL.remainderFinder(), f)`.
     #[track_caller]
     pub fn update_remainder(self, mut f: impl FnMut(Dynamic) -> Dynamic) -> Typed {
-        self.update(&remainder_finder(), move |v| Value::Dynamic(f(v.into_dynamic())))
+        self.update(&remainder_finder(), move |v| {
+            Value::Dynamic(f(v.into_dynamic()))
+        })
     }
 
     /// `typed.set(DSL.remainderFinder(), dynamic)`.
@@ -229,7 +266,11 @@ impl Typed {
 
     /// `Typed.pair(first, second)`.
     pub fn pair(first: Typed, second: Typed) -> Typed {
-        Typed::new(Type::product(&first.ty, &second.ty), first.ops, Value::pair(first.value, second.value))
+        Typed::new(
+            Type::product(&first.ty, &second.ty),
+            first.ops,
+            Value::pair(first.value, second.value),
+        )
     }
 
     /// `typed.write()`.

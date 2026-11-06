@@ -52,7 +52,11 @@ pub struct WorldGenRegion {
     pub level_height: LevelHeight,
     /// `level.updatePOIOnBlockStateChange(pos, old, new)` of every `setBlock` that changed the POI type at a position
     /// (old type, new type), in call order: the game thread applies them to the `PoiManager` when the batch is back.
-    pub poi_changes: Vec<(mc_core::pos::BlockPos, Option<PoiTypeHolder>, Option<PoiTypeHolder>)>,
+    pub poi_changes: Vec<(
+        mc_core::pos::BlockPos,
+        Option<PoiTypeHolder>,
+        Option<PoiTypeHolder>,
+    )>,
     /// Structure start tags rewritten for chunks this region does not own (see [`Self::update_structure_start`]); the
     /// game thread applies them to the real chunks when the batch is done.
     pub start_updates: Vec<(ChunkPos, String, CompoundTag)>,
@@ -67,7 +71,16 @@ impl WorldGenRegion {
         structure_views: HashMap<i64, Arc<StructureData>>,
         level_height: LevelHeight,
     ) -> Self {
-        Self { center, read_radius, write_radius, chunks, structure_views, level_height, poi_changes: Vec::new(), start_updates: Vec::new() }
+        Self {
+            center,
+            read_radius,
+            write_radius,
+            chunks,
+            structure_views,
+            level_height,
+            poi_changes: Vec::new(),
+            start_updates: Vec::new(),
+        }
     }
 
     /// `getCenter()`.
@@ -77,7 +90,8 @@ impl WorldGenRegion {
 
     /// `hasChunk(x, z)`: inside the step's read radius.
     pub fn has_chunk(&self, x: i32, z: i32) -> bool {
-        self.center.get_chessboard_distance_xz(x, z) <= self.read_radius && self.chunks.contains_key(&ChunkPos::pack_xz(x, z))
+        self.center.get_chessboard_distance_xz(x, z) <= self.read_radius
+            && self.chunks.contains_key(&ChunkPos::pack_xz(x, z))
     }
 
     /// The region's entry for the chunk (lent or read-only snapshot), without any radius check.
@@ -86,7 +100,9 @@ impl WorldGenRegion {
     }
 
     pub fn get_chunk(&self, x: i32, z: i32) -> Option<&ProtoChunk> {
-        self.chunks.get(&ChunkPos::pack_xz(x, z)).map(GenChunk::proto)
+        self.chunks
+            .get(&ChunkPos::pack_xz(x, z))
+            .map(GenChunk::proto)
     }
 
     /// Writable access: only inside the block state write radius (`ensureCanWrite`).
@@ -105,12 +121,17 @@ impl WorldGenRegion {
     /// Any chunk of the region (lent or snapshot) without a write-radius check: for stages that only mark or read
     /// (`Blender.generateBorderTicks`).
     pub fn gen_chunk_mut(&mut self, x: i32, z: i32) -> Option<&mut ProtoChunk> {
-        self.chunks.get_mut(&ChunkPos::pack_xz(x, z)).map(GenChunk::proto_mut)
+        self.chunks
+            .get_mut(&ChunkPos::pack_xz(x, z))
+            .map(GenChunk::proto_mut)
     }
 
     /// The center chunk of the step (always lent).
     pub fn get_chunk_mut_unchecked(&mut self, pos: ChunkPos) -> &mut ProtoChunk {
-        self.chunks.get_mut(&pos.pack()).expect("chunk is part of the region").proto_mut()
+        self.chunks
+            .get_mut(&pos.pack())
+            .expect("chunk is part of the region")
+            .proto_mut()
     }
 
     /// Structure starts/references of any chunk within reach.
@@ -126,13 +147,20 @@ impl WorldGenRegion {
     /// state later): replaces the raw start `structure_id` of the chunk `pos`. A lent chunk keeps it; for any other chunk
     /// the region's own view is updated (later reads in this batch see it) and the change is queued in
     /// [`Self::start_updates`]. `false` when the chunk has no such start.
-    pub fn update_structure_start(&mut self, pos: ChunkPos, structure_id: &str, tag: CompoundTag) -> bool {
+    pub fn update_structure_start(
+        &mut self,
+        pos: ChunkPos,
+        structure_id: &str,
+        tag: CompoundTag,
+    ) -> bool {
         let key = pos.pack();
         match self.chunks.get_mut(&key) {
             Some(chunk) => {
                 let owned = chunk.is_writable();
                 let access = &mut chunk.proto_mut().access;
-                let Some(slot) = access.structures.starts.get_mut(structure_id) else { return false };
+                let Some(slot) = access.structures.starts.get_mut(structure_id) else {
+                    return false;
+                };
                 *slot = tag.clone();
                 access.mark_unsaved();
                 if !owned {
@@ -141,11 +169,15 @@ impl WorldGenRegion {
                 true
             }
             None => {
-                let Some(view) = self.structure_views.get_mut(&key) else { return false };
+                let Some(view) = self.structure_views.get_mut(&key) else {
+                    return false;
+                };
                 if !view.starts.contains_key(structure_id) {
                     return false;
                 }
-                Arc::make_mut(view).starts.insert(structure_id.to_owned(), tag.clone());
+                Arc::make_mut(view)
+                    .starts
+                    .insert(structure_id.to_owned(), tag.clone());
                 self.start_updates.push((pos, structure_id.to_owned(), tag));
                 true
             }
@@ -184,7 +216,13 @@ pub trait ChunkGeneratorBackend: Send + Sync {
         64
     }
     /// `getBaseHeight(x, z, type, heightAccessor, randomState)`.
-    fn get_base_height(&self, x: i32, z: i32, ty: mc_world::heightmap::HeightmapType, height: LevelHeight) -> i32;
+    fn get_base_height(
+        &self,
+        x: i32,
+        z: i32,
+        ty: mc_world::heightmap::HeightmapType,
+        height: LevelHeight,
+    ) -> i32;
 }
 
 /// The generation stages that need block behaviours (structures, features, mob spawning). Implemented by the
@@ -205,11 +243,19 @@ pub trait WorldGenHooks: Send + Sync {
         _source: &dyn crate::world::level::levelgen::structure::manager::StructureDataSource,
         _pos: mc_core::pos::BlockPos,
         _category: mc_data::enums::MobCategory,
-    ) -> Option<mc_worldgen::provider::WeightedList<crate::world::level::levelgen::structure::structure::SpawnerData>> {
+    ) -> Option<
+        mc_worldgen::provider::WeightedList<
+            crate::world::level::levelgen::structure::structure::SpawnerData,
+        >,
+    > {
         None
     }
     /// `NaturalSpawner.isInNetherFortressBounds`: `structureManager.getStructureAt(pos, fortress).isValid()`.
-    fn is_in_nether_fortress(&self, _source: &dyn crate::world::level::levelgen::structure::manager::StructureDataSource, _pos: mc_core::pos::BlockPos) -> bool {
+    fn is_in_nether_fortress(
+        &self,
+        _source: &dyn crate::world::level::levelgen::structure::manager::StructureDataSource,
+        _pos: mc_core::pos::BlockPos,
+    ) -> bool {
         false
     }
     /// `level.onStructureStartsAvailable(chunk)` (structure check cache).
@@ -253,5 +299,3 @@ pub struct WorldGenContext {
     /// The live level values chunk generation reads (difficulty, `spawnMobs`, clocks, registries).
     pub live: Arc<super::gen_live_state::GenLiveState>,
 }
-
-

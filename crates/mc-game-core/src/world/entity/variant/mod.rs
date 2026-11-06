@@ -41,7 +41,9 @@ use serde_json::Value;
 use crate::registry::codec::RegistryDecodeContext;
 use crate::registry::decoders::DecodedEntry;
 use crate::registry::{RegistryAccess, keys};
-use crate::world::item::enchantment::codecs::{holder_set_codec, with_decode_context as with_scoped_context};
+use crate::world::item::enchantment::codecs::{
+    holder_set_codec, with_decode_context as with_scoped_context,
+};
 use crate::world::level::storage::loot::holder::{TypeTable, lift, with_decode_context};
 use mc_core::pos::BlockPos;
 
@@ -73,7 +75,11 @@ pub struct SpawnContext<'a> {
 impl<'a> SpawnContext<'a> {
     /// `SpawnContext.create(level, pos)`.
     pub fn create(level: &'a dyn SpawnContextLevel, pos: BlockPos) -> Self {
-        Self { pos, level, biome: level.biome_at(pos) }
+        Self {
+            pos,
+            level,
+            biome: level.biome_at(pos),
+        }
     }
 
     /// A context over an explicit biome (`new SpawnContext(pos, level, attributes, biome)`).
@@ -111,7 +117,12 @@ pub enum SpawnCondition {
 }
 
 /// `holderSet.contains(holder)` of a reference-only set of the registry `registry` (tags resolve through `registries`).
-pub fn holder_set_contains(registries: &RegistryAccess, registry: &str, set: &HolderSet<NoDirect>, id: &Identifier) -> bool {
+pub fn holder_set_contains(
+    registries: &RegistryAccess,
+    registry: &str,
+    set: &HolderSet<NoDirect>,
+    id: &Identifier,
+) -> bool {
     match set {
         HolderSet::Direct(entries) => entries.iter().any(|h| h.name() == Some(id)),
         HolderSet::Named(tag) => registries.is_in_tag(registry, id, tag),
@@ -132,15 +143,24 @@ impl SpawnCondition {
     pub fn test(&self, context: &SpawnContext<'_>) -> bool {
         match self {
             SpawnCondition::Biome(check) => {
-                let Some(biome) = &context.biome else { return false };
-                holder_set_contains(context.level.variant_registries(), keys::BIOME, &check.required_biomes, biome)
+                let Some(biome) = &context.biome else {
+                    return false;
+                };
+                holder_set_contains(
+                    context.level.variant_registries(),
+                    keys::BIOME,
+                    &check.required_biomes,
+                    biome,
+                )
             }
-            SpawnCondition::MoonBrightness(check) => {
-                check.range.matches(f64::from(context.level.moon_brightness_at(context.pos)))
-            }
+            SpawnCondition::MoonBrightness(check) => check
+                .range
+                .matches(f64::from(context.level.moon_brightness_at(context.pos))),
             SpawnCondition::Structure(check) => {
                 let registries = context.level.variant_registries();
-                let matcher = |id: &Identifier| holder_set_contains(registries, keys::STRUCTURE, &check.required_structures, id);
+                let matcher = |id: &Identifier| {
+                    holder_set_contains(registries, keys::STRUCTURE, &check.required_structures, id)
+                };
                 context.level.has_structure_piece_at(context.pos, &matcher)
             }
         }
@@ -150,13 +170,25 @@ impl SpawnCondition {
     pub fn codec() -> Codec<SpawnCondition> {
         static TYPES: LazyLock<Arc<TypeTable<SpawnCondition>>> = LazyLock::new(|| {
             fn as_structure(c: &SpawnCondition) -> Option<&StructureCheck> {
-                if let SpawnCondition::Structure(s) = c { Some(s) } else { None }
+                if let SpawnCondition::Structure(s) = c {
+                    Some(s)
+                } else {
+                    None
+                }
             }
             fn as_moon(c: &SpawnCondition) -> Option<&MoonBrightnessCheck> {
-                if let SpawnCondition::MoonBrightness(s) = c { Some(s) } else { None }
+                if let SpawnCondition::MoonBrightness(s) = c {
+                    Some(s)
+                } else {
+                    None
+                }
             }
             fn as_biome(c: &SpawnCondition) -> Option<&BiomeCheck> {
-                if let SpawnCondition::Biome(s) = c { Some(s) } else { None }
+                if let SpawnCondition::Biome(s) = c {
+                    Some(s)
+                } else {
+                    None
+                }
             }
             TypeTable::new(
                 "minecraft:spawn_condition_type",
@@ -164,19 +196,31 @@ impl SpawnCondition {
                     (
                         "structure",
                         lift(
-                            record!(StructureCheck { required_structures: holder_set_codec::<NoDirect>(keys::STRUCTURE).field_of("structures") }),
+                            record!(StructureCheck {
+                                required_structures: holder_set_codec::<NoDirect>(keys::STRUCTURE)
+                                    .field_of("structures")
+                            }),
                             |s| Arc::new(SpawnCondition::Structure(s)),
                             as_structure,
                         ),
                     ),
                     (
                         "moon_brightness",
-                        lift(record!(MoonBrightnessCheck { range: Doubles::codec().field_of("range") }), |s| Arc::new(SpawnCondition::MoonBrightness(s)), as_moon),
+                        lift(
+                            record!(MoonBrightnessCheck {
+                                range: Doubles::codec().field_of("range")
+                            }),
+                            |s| Arc::new(SpawnCondition::MoonBrightness(s)),
+                            as_moon,
+                        ),
                     ),
                     (
                         "biome",
                         lift(
-                            record!(BiomeCheck { required_biomes: holder_set_codec::<NoDirect>(keys::BIOME).field_of("biomes") }),
+                            record!(BiomeCheck {
+                                required_biomes: holder_set_codec::<NoDirect>(keys::BIOME)
+                                    .field_of("biomes")
+                            }),
                             |s| Arc::new(SpawnCondition::Biome(s)),
                             as_biome,
                         ),
@@ -185,7 +229,10 @@ impl SpawnCondition {
             )
         });
         static C: LazyLock<Codec<SpawnCondition>> = LazyLock::new(|| {
-            TYPES.codec(|c| c.type_name()).xmap(|a: Arc<SpawnCondition>| (*a).clone(), |c: &SpawnCondition| Arc::new(c.clone()))
+            TYPES.codec(|c| c.type_name()).xmap(
+                |a: Arc<SpawnCondition>| (*a).clone(),
+                |c: &SpawnCondition| Arc::new(c.clone()),
+            )
         });
         C.clone()
     }
@@ -204,7 +251,11 @@ impl Selector {
     /// `Selector.codec(SpawnCondition.CODEC)`.
     pub fn codec() -> Codec<Selector> {
         static C: LazyLock<Codec<Selector>> = LazyLock::new(|| {
-            record!(Selector { condition: SpawnCondition::codec().optional_field_of("condition"), priority: INT.field_of("priority") }).codec()
+            record!(Selector {
+                condition: SpawnCondition::codec().optional_field_of("condition"),
+                priority: INT.field_of("priority")
+            })
+            .codec()
         });
         C.clone()
     }
@@ -224,18 +275,32 @@ impl SpawnPrioritySelectors {
 
     /// `SpawnPrioritySelectors.single(condition, priority)`.
     pub fn single(condition: SpawnCondition, priority: i32) -> Self {
-        Self { selectors: vec![Selector { condition: Some(condition), priority }] }
+        Self {
+            selectors: vec![Selector {
+                condition: Some(condition),
+                priority,
+            }],
+        }
     }
 
     /// `SpawnPrioritySelectors.fallback(priority)`.
     pub fn fallback(priority: i32) -> Self {
-        Self { selectors: vec![Selector { condition: None, priority }] }
+        Self {
+            selectors: vec![Selector {
+                condition: None,
+                priority,
+            }],
+        }
     }
 
     /// `SpawnPrioritySelectors.CODEC`.
     pub fn codec() -> Codec<SpawnPrioritySelectors> {
-        static C: LazyLock<Codec<SpawnPrioritySelectors>> =
-            LazyLock::new(|| Selector::codec().list_of().xmap(|selectors| SpawnPrioritySelectors { selectors }, |s: &SpawnPrioritySelectors| s.selectors.clone()));
+        static C: LazyLock<Codec<SpawnPrioritySelectors>> = LazyLock::new(|| {
+            Selector::codec().list_of().xmap(
+                |selectors| SpawnPrioritySelectors { selectors },
+                |s: &SpawnPrioritySelectors| s.selectors.clone(),
+            )
+        });
         C.clone()
     }
 }
@@ -248,7 +313,10 @@ pub trait PriorityProvider {
 
 /// `PriorityProvider.select(entries, extractor, context)` over `(entry, selectors)`: the entries whose selectors win
 /// (highest matched priority; entries with several winning selectors appear once per selector, like vanilla's stream).
-pub fn select_entries<K: Clone>(entries: impl IntoIterator<Item = (K, Vec<Selector>)>, context: &SpawnContext<'_>) -> Vec<K> {
+pub fn select_entries<K: Clone>(
+    entries: impl IntoIterator<Item = (K, Vec<Selector>)>,
+    context: &SpawnContext<'_>,
+) -> Vec<K> {
     struct Unpacked<K> {
         entry: K,
         priority: i32,
@@ -257,7 +325,11 @@ pub fn select_entries<K: Clone>(entries: impl IntoIterator<Item = (K, Vec<Select
     let mut unpacked: Vec<Unpacked<K>> = Vec::new();
     for (entry, selectors) in entries {
         for s in selectors {
-            unpacked.push(Unpacked { entry: entry.clone(), priority: s.priority, condition: s.condition });
+            unpacked.push(Unpacked {
+                entry: entry.clone(),
+                priority: s.priority,
+                condition: s.condition,
+            });
         }
     }
     // `HIGHEST_PRIORITY_FIRST` (`comparingInt(priority).reversed()`) on a stable `List.sort`
@@ -277,19 +349,34 @@ pub fn select_entries<K: Clone>(entries: impl IntoIterator<Item = (K, Vec<Select
 }
 
 /// [`select_entries`] over registry ids (`u32` entry type).
-pub fn select(entries: impl Iterator<Item = (u32, SpawnPrioritySelectors)>, context: &SpawnContext<'_>) -> Vec<u32> {
+pub fn select(
+    entries: impl Iterator<Item = (u32, SpawnPrioritySelectors)>,
+    context: &SpawnContext<'_>,
+) -> Vec<u32> {
     select_entries(entries.map(|(id, s)| (id, s.selectors)), context)
 }
 
 /// `Util.getRandomSafe(list, random)`.
 pub fn get_random_safe<T: Copy>(list: &[T], random: &mut dyn RandomSource) -> Option<T> {
-    if list.is_empty() { None } else { Some(list[random.next_int_bounded(list.len() as i32) as usize]) }
+    if list.is_empty() {
+        None
+    } else {
+        Some(list[random.next_int_bounded(list.len() as i32) as usize])
+    }
 }
 
 /// `PriorityProvider.pick(entries, extractor, random, context)`.
-pub fn pick<K: Clone>(entries: impl IntoIterator<Item = (K, Vec<Selector>)>, random: &mut dyn RandomSource, context: &SpawnContext<'_>) -> Option<K> {
+pub fn pick<K: Clone>(
+    entries: impl IntoIterator<Item = (K, Vec<Selector>)>,
+    random: &mut dyn RandomSource,
+    context: &SpawnContext<'_>,
+) -> Option<K> {
     let selected = select_entries(entries, context);
-    if selected.is_empty() { None } else { Some(selected[random.next_int_bounded(selected.len() as i32) as usize].clone()) }
+    if selected.is_empty() {
+        None
+    } else {
+        Some(selected[random.next_int_bounded(selected.len() as i32) as usize].clone())
+    }
 }
 
 // ---- VariantUtils ----------------------------------------------------------------------------------------------------
@@ -303,13 +390,23 @@ pub fn select_variant_to_spawn<T: PriorityProvider + Send + Sync + 'static>(
     registry: &str,
     random: &mut dyn RandomSource,
 ) -> Option<Identifier> {
-    let reg = context.level.variant_registries().registry_or_throw(registry);
-    let entries = reg.entries().iter().filter_map(|e| reg.get::<T>(&e.id).map(|v| (e.id.clone(), v.selectors().to_vec())));
+    let reg = context
+        .level
+        .variant_registries()
+        .registry_or_throw(registry);
+    let entries = reg.entries().iter().filter_map(|e| {
+        reg.get::<T>(&e.id)
+            .map(|v| (e.id.clone(), v.selectors().to_vec()))
+    });
     pick(entries, random, context)
 }
 
 /// `Registry.getRandom(random)`: `Util.getRandomSafe(byId, random)` as the entry id.
-pub fn pick_random_entry(registries: &RegistryAccess, registry: &str, random: &mut dyn RandomSource) -> Option<Identifier> {
+pub fn pick_random_entry(
+    registries: &RegistryAccess,
+    registry: &str,
+    random: &mut dyn RandomSource,
+) -> Option<Identifier> {
     let reg = registries.registry_or_throw(registry);
     let count = reg.len();
     if count == 0 {
@@ -319,14 +416,23 @@ pub fn pick_random_entry(registries: &RegistryAccess, registry: &str, random: &m
 }
 
 /// `VariantUtils.getDefaultOrAny(registryAccess, id)`: the registry id of `default`, else the first entry.
-pub fn get_default_or_any(registries: &RegistryAccess, registry: &str, default: &Identifier) -> u32 {
+pub fn get_default_or_any(
+    registries: &RegistryAccess,
+    registry: &str,
+    default: &Identifier,
+) -> u32 {
     let reg = registries.registry_or_throw(registry);
-    reg.id_of(default).or_else(|| (reg.len() > 0).then_some(0)).expect("variant registry must not be empty")
+    reg.id_of(default)
+        .or_else(|| (reg.len() > 0).then_some(0))
+        .expect("variant registry must not be empty")
 }
 
 /// `VariantUtils.getAny(registryAccess, registryId)`: the first entry's registry id.
 pub fn get_any(registries: &RegistryAccess, registry: &str) -> u32 {
-    assert!(registries.registry_or_throw(registry).len() > 0, "variant registry must not be empty");
+    assert!(
+        registries.registry_or_throw(registry).len() > 0,
+        "variant registry must not be empty"
+    );
     0
 }
 
@@ -337,7 +443,9 @@ pub fn write_variant(out: &mut CompoundTag, key: &Identifier) {
 
 /// `VariantUtils.readVariant(input, registryId)`: the variant's identifier (resolve it against the registry).
 pub fn read_variant_key(input: &CompoundTag) -> Option<Identifier> {
-    input.get_string(TAG_VARIANT).and_then(Identifier::try_parse)
+    input
+        .get_string(TAG_VARIANT)
+        .and_then(Identifier::try_parse)
 }
 
 // ---- shared codecs of the variant registries --------------------------------------------------------------------------
@@ -363,7 +471,10 @@ pub fn decode_variant<T: Clone + Send + Sync + 'static>(
     ctx: &RegistryDecodeContext,
 ) -> Result<DecodedEntry, String> {
     let input = Dyn::from_json_str(&json.to_string())?;
-    let value = with_decode_context(ctx, || with_scoped_context(ctx, || direct.parse(&JSON, &input))).into_result()?;
+    let value = with_decode_context(ctx, || {
+        with_scoped_context(ctx, || direct.parse(&JSON, &input))
+    })
+    .into_result()?;
     let tag = network.encode_start(&NBT, &value).into_result()?.to_tag()?;
     Ok(DecodedEntry::with_network(value, tag))
 }

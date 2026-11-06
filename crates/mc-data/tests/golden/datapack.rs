@@ -41,7 +41,10 @@ fn every_file_is_embedded_byte_exact() {
 fn listing() {
     let l: Vec<_> = datapack::list("data/minecraft/tags/block/mineable/").collect();
     assert!(l.contains(&"data/minecraft/tags/block/mineable/pickaxe.json"));
-    assert!(l.iter().all(|p| p.starts_with("data/minecraft/tags/block/mineable/")));
+    assert!(
+        l.iter()
+            .all(|p| p.starts_with("data/minecraft/tags/block/mineable/"))
+    );
     let loot = datapack::read_data("minecraft", "loot_table/blocks/stone.json").unwrap();
     assert!(String::from_utf8_lossy(&loot).contains("minecraft:stone"));
 }
@@ -69,7 +72,12 @@ fn tags_match_vanilla_tag_loader() {
             let mut got: Vec<_> = got.into_iter().filter(|e| reg.id_of(e).is_some()).collect();
             got.sort();
             got.dedup();
-            let want: Vec<String> = entries.as_array().unwrap().iter().map(|e| e.as_str().unwrap().to_string()).collect();
+            let want: Vec<String> = entries
+                .as_array()
+                .unwrap()
+                .iter()
+                .map(|e| e.as_str().unwrap().to_string())
+                .collect();
             assert_eq!(got, want, "{reg_name} {tag}");
             n += 1;
         }
@@ -84,10 +92,22 @@ fn typed_tags() {
     assert!(!pick.contains(Block::OAK_PLANKS));
     assert!(Block::OAK_PLANKS.is_in_tag("planks"));
     assert!(tags::get::<Block>("no_such_tag").is_none());
-    assert!(tags::get::<Item>("minecraft:logs").unwrap().contains(Item::OAK_LOG));
+    assert!(
+        tags::get::<Item>("minecraft:logs")
+            .unwrap()
+            .contains(Item::OAK_LOG)
+    );
     // nested #references are resolved
-    assert!(tags::get::<Block>("minecraft:logs").unwrap().contains(Block::OAK_LOG));
+    assert!(
+        tags::get::<Block>("minecraft:logs")
+            .unwrap()
+            .contains(Block::OAK_LOG)
+    );
     assert!(tags::list("block").contains(&"minecraft:mineable/pickaxe".to_string()));
     // data-driven registries have tags too
-    assert!(tags::names("worldgen/biome", "minecraft:is_ocean").unwrap().contains(&"minecraft:ocean".to_string()));
+    assert!(
+        tags::names("worldgen/biome", "minecraft:is_ocean")
+            .unwrap()
+            .contains(&"minecraft:ocean".to_string())
+    );
 }

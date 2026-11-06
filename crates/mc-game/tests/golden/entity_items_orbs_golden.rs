@@ -35,12 +35,18 @@ use mc_protocol::codec::GameProfile;
 use std::collections::{HashMap, HashSet};
 
 fn registries() -> mc_game::registry::RegistryAccess {
-    static ACCESS: std::sync::OnceLock<mc_game::registry::RegistryAccess> = std::sync::OnceLock::new();
+    static ACCESS: std::sync::OnceLock<mc_game::registry::RegistryAccess> =
+        std::sync::OnceLock::new();
     ACCESS
         .get_or_init(|| {
             let _serial = common::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
             let dir = tempfile::tempdir().unwrap();
-            let (_, stem) = common::load_world(dir.path(), mc_world::level_storage::WorldDataConfiguration::DEFAULT, true).expect("default world loads");
+            let (_, stem) = common::load_world(
+                dir.path(),
+                mc_world::level_storage::WorldDataConfiguration::DEFAULT,
+                true,
+            )
+            .expect("default world loads");
             stem.registries.composite_access().clone()
         })
         .clone()
@@ -51,27 +57,44 @@ fn parse_state(text: &str) -> BlockState {
         Some((n, p)) => (n, p.trim_end_matches(']')),
         None => (text, ""),
     };
-    let block = Block::by_name(name.trim_start_matches("minecraft:")).or_else(|| Block::by_name(name)).unwrap_or_else(|| panic!("unknown block {name}"));
-    let pairs: Vec<(&str, &str)> = props.split(',').filter(|s| !s.is_empty()).map(|kv| kv.split_once('=').expect("k=v")).collect();
-    block.state_from_properties(pairs).unwrap_or_else(|| panic!("bad state {text}"))
+    let block = Block::by_name(name.trim_start_matches("minecraft:"))
+        .or_else(|| Block::by_name(name))
+        .unwrap_or_else(|| panic!("unknown block {name}"));
+    let pairs: Vec<(&str, &str)> = props
+        .split(',')
+        .filter(|s| !s.is_empty())
+        .map(|kv| kv.split_once('=').expect("k=v"))
+        .collect();
+    block
+        .state_from_properties(pairs)
+        .unwrap_or_else(|| panic!("bad state {text}"))
 }
 
 fn parse_stack(spec: &str, count: i32) -> ItemStack {
     use mc_game::commands::CommandBuildContext;
     use mc_game::commands::command_build_context::StaticRegistries;
     use std::sync::Arc;
-    let context = CommandBuildContext::simple(Arc::new(StaticRegistries), mc_world::level_storage::FeatureFlagSet::ALL);
+    let context = CommandBuildContext::simple(
+        Arc::new(StaticRegistries),
+        mc_world::level_storage::FeatureFlagSet::ALL,
+    );
     let mut reader = mc_brigadier::StringReader::new(spec);
-    let input = mc_game::commands::arguments::item::item_parser::ItemParser::new(&context).parse(&mut reader).unwrap_or_else(|e| panic!("stack {spec}: {e:?}"));
+    let input = mc_game::commands::arguments::item::item_parser::ItemParser::new(&context)
+        .parse(&mut reader)
+        .unwrap_or_else(|e| panic!("stack {spec}: {e:?}"));
     // like the driver: oversized stacks are allowed
-    let mut stack = input.create_item_stack(1).unwrap_or_else(|e| panic!("stack {spec}: {e:?}"));
+    let mut stack = input
+        .create_item_stack(1)
+        .unwrap_or_else(|e| panic!("stack {spec}: {e:?}"));
     stack.set_count(count);
     stack
 }
 
 /// `EntityOracleDriver.hash(line)` (Java `long` arithmetic over UTF-16 units).
 fn hash(s: &str) -> i64 {
-    s.encode_utf16().fold(1125899906842597i64, |h, c| h.wrapping_mul(31).wrapping_add(i64::from(c)))
+    s.encode_utf16().fold(1125899906842597i64, |h, c| {
+        h.wrapping_mul(31).wrapping_add(i64::from(c))
+    })
 }
 
 fn item_text(s: &ItemStack) -> String {
@@ -106,29 +129,55 @@ impl Sim {
         let mut level = ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap());
         level.registries = registries();
         let world = mc_game::server::level::level_data::default_world_data();
-        level.level_data = Box::new(mc_game::server::level::level_data::PrimaryServerLevelData(world));
+        level.level_data = Box::new(mc_game::server::level::level_data::PrimaryServerLevelData(
+            world,
+        ));
         // `level flat`: grass at y=-61
         for x in -48..=64 {
             for z in -16..=48 {
-                level.set_block(BlockPos::new(x, -61, z), Block::GRASS_BLOCK.default_state(), 3, 512);
+                level.set_block(
+                    BlockPos::new(x, -61, z),
+                    Block::GRASS_BLOCK.default_state(),
+                    3,
+                    512,
+                );
             }
         }
         for cx in -4..=4 {
             for cz in -2..=4 {
-                level.entity_manager.update_chunk_status(mc_core::pos::ChunkPos::new(cx, cz), mc_game::world::level::entity::Visibility::Ticking);
+                level.entity_manager.update_chunk_status(
+                    mc_core::pos::ChunkPos::new(cx, cz),
+                    mc_game::world::level::entity::Visibility::Ticking,
+                );
             }
         }
         level.random().set_seed(seed ^ 0x5DEECE66D);
         mc_core::random::reseed_uniquifier(8682522807148012);
-        Sim { level, refs: Vec::new(), known: HashSet::new(), auto: HashMap::new(), players: Vec::new(), watches: Vec::new(), out: Vec::new(), ticks: 0, world_created: false }
+        Sim {
+            level,
+            refs: Vec::new(),
+            known: HashSet::new(),
+            auto: HashMap::new(),
+            players: Vec::new(),
+            watches: Vec::new(),
+            out: Vec::new(),
+            ticks: 0,
+            world_created: false,
+        }
     }
 
     fn id_of(&self, name: &str) -> EntityId {
-        self.refs.iter().find(|(n, _)| n == name).unwrap_or_else(|| panic!("unknown ref {name}")).1
+        self.refs
+            .iter()
+            .find(|(n, _)| n == name)
+            .unwrap_or_else(|| panic!("unknown ref {name}"))
+            .1
     }
 
     fn entity(&self, id: EntityId) -> Option<&dyn Entity> {
-        self.level.get_entity(id).or_else(|| self.level.entity_manager.get_removed(id))
+        self.level
+            .get_entity(id)
+            .or_else(|| self.level.entity_manager.get_removed(id))
     }
 
     fn register(&mut self, name: &str, id: EntityId) {
@@ -142,8 +191,22 @@ impl Sim {
         ids.sort_unstable();
         for id in ids {
             if self.known.insert(id) && !self.refs.iter().any(|(_, r)| *r == id) {
-                let ty = self.level.get_entity(id).map(|e| e.get_type().data().name.trim_start_matches("minecraft:").to_string()).unwrap_or_default();
-                let n = self.auto.entry(ty.clone()).and_modify(|n| *n += 1).or_insert(1);
+                let ty = self
+                    .level
+                    .get_entity(id)
+                    .map(|e| {
+                        e.get_type()
+                            .data()
+                            .name
+                            .trim_start_matches("minecraft:")
+                            .to_string()
+                    })
+                    .unwrap_or_default();
+                let n = self
+                    .auto
+                    .entry(ty.clone())
+                    .and_modify(|n| *n += 1)
+                    .or_insert(1);
                 self.refs.push((format!("{ty}#{n}"), id));
             }
         }
@@ -164,7 +227,11 @@ impl Sim {
         let e = self.entity(id)?;
         let b = e.base();
         let player = e.as_any().downcast_ref::<ServerPlayer>();
-        let mut s = format!("{} {name} {}", if player.is_some() { "P" } else { "E" }, e.get_type().data().name);
+        let mut s = format!(
+            "{} {name} {}",
+            if player.is_some() { "P" } else { "E" },
+            e.get_type().data().name
+        );
         let pos = b.position();
         let dm = b.delta_movement();
         s.push_str(&format!(
@@ -182,7 +249,14 @@ impl Sim {
         ));
         if let Some(p) = player {
             let l = &p.player.living;
-            s.push_str(&format!(" hp={} abs={} hurt={}/{} death={}", f(l.get_health()), f(p.player.get_absorption_amount()), l.hurt_time, l.damage_cooldown_time, l.death_time));
+            s.push_str(&format!(
+                " hp={} abs={} hurt={}/{} death={}",
+                f(l.get_health()),
+                f(p.player.get_absorption_amount()),
+                l.hurt_time,
+                l.damage_cooldown_time,
+                l.death_time
+            ));
             s.push_str(&format!(
                 " food={} sat={} exh={} xp={}/{}/{}",
                 p.player.food_data.get_food_level(),
@@ -194,13 +268,27 @@ impl Sim {
             ));
         } else if let Some(i) = e.as_any().downcast_ref::<ItemEntity>() {
             s.push_str(&format!(" item={} age={}", item_text(&i.get_item()), i.age));
-            s.push_str(&format!(" pickup={} health={} owner={} thrower={}", i.pickup_delay, i.health, self.uuid_name(i.target), self.uuid_name(i.thrower)));
+            s.push_str(&format!(
+                " pickup={} health={} owner={} thrower={}",
+                i.pickup_delay,
+                i.health,
+                self.uuid_name(i.target),
+                self.uuid_name(i.thrower)
+            ));
         } else if let Some(o) = e.as_any().downcast_ref::<ExperienceOrb>() {
-            s.push_str(&format!(" value={} count={} age={} health={}", o.get_value(), o.count, o.age, o.health));
+            s.push_str(&format!(
+                " value={} count={} age={} health={}",
+                o.get_value(),
+                o.count,
+                o.age,
+                o.health
+            ));
         } else if let Some(fb) = e.as_any().downcast_ref::<FallingBlockEntity>() {
             s.push_str(&format!(
                 " state={} time={} hurt={} cancel={} drop={}",
-                mc_game::commands::arguments::blocks::block_state_parser::serialize(fb.get_block_state()),
+                mc_game::commands::arguments::blocks::block_state_parser::serialize(
+                    fb.get_block_state()
+                ),
                 fb.time,
                 fb.hurt_entities,
                 fb.cancel_drop,
@@ -222,7 +310,15 @@ impl Sim {
                 }
                 "entities" => {
                     self.name_new_entities();
-                    let mut all: Vec<(String, EntityId)> = self.refs.iter().filter(|(_, id)| !self.players.contains(id) && self.entity(*id).is_some_and(|e| e.is_alive())).cloned().collect();
+                    let mut all: Vec<(String, EntityId)> = self
+                        .refs
+                        .iter()
+                        .filter(|(_, id)| {
+                            !self.players.contains(id)
+                                && self.entity(*id).is_some_and(|e| e.is_alive())
+                        })
+                        .cloned()
+                        .collect();
                     all.sort_by_key(|(_, id)| *id);
                     for (name, id) in all {
                         if let Some(line) = self.describe(&name, id) {
@@ -232,9 +328,18 @@ impl Sim {
                 }
                 "inventory" => {
                     let id = self.id_of(arg);
-                    let Some(p) = self.level.get_entity(id).and_then(|e| e.as_any().downcast_ref::<ServerPlayer>()) else { continue };
+                    let Some(p) = self
+                        .level
+                        .get_entity(id)
+                        .and_then(|e| e.as_any().downcast_ref::<ServerPlayer>())
+                    else {
+                        continue;
+                    };
                     let inv = &p.player.inventory;
-                    let lines: Vec<String> = (0..inv.get_container_size()).filter(|&i| !inv.get_item(i).is_empty()).map(|i| format!("I {arg} {i} {}", item_text(inv.get_item(i)))).collect();
+                    let lines: Vec<String> = (0..inv.get_container_size())
+                        .filter(|&i| !inv.get_item(i).is_empty())
+                        .map(|i| format!("I {arg} {i} {}", item_text(inv.get_item(i))))
+                        .collect();
                     self.out.extend(lines);
                 }
                 "blocks" => {
@@ -256,7 +361,9 @@ impl Sim {
     }
 
     fn tick_once(&mut self) {
-        mc_core::random::reseed_uniquifier(8682522807148012 ^ (self.ticks + 1).wrapping_mul(0x9E3779B97F4A7C15u64 as i64));
+        mc_core::random::reseed_uniquifier(
+            8682522807148012 ^ (self.ticks + 1).wrapping_mul(0x9E3779B97F4A7C15u64 as i64),
+        );
         for id in self.level.entity_manager.tick_list.snapshot() {
             self.level.with_entity(id, |level, e| {
                 if !e.is_removed() {
@@ -284,9 +391,17 @@ impl Sim {
         use mc_game::world::entity::factory::{EntitySpawnRequest, create};
         let name = t[1];
         mc_core::random::reseed_uniquifier(hash(name));
-        let ty = mc_data::EntityType::by_name(&format!("minecraft:{}", t[2].trim_start_matches("minecraft:"))).unwrap_or_else(|| panic!("entity type {}", t[2]));
-        let request = EntitySpawnRequest { reason: mc_data::enums::EntitySpawnReason::Command, ignore_checks: false };
-        let mut e = create(ty, &self.level, request).unwrap_or_else(|| panic!("cannot create {}", t[2]));
+        let ty = mc_data::EntityType::by_name(&format!(
+            "minecraft:{}",
+            t[2].trim_start_matches("minecraft:")
+        ))
+        .unwrap_or_else(|| panic!("entity type {}", t[2]));
+        let request = EntitySpawnRequest {
+            reason: mc_data::enums::EntitySpawnReason::Command,
+            ignore_checks: false,
+        };
+        let mut e =
+            create(ty, &self.level, request).unwrap_or_else(|| panic!("cannot create {}", t[2]));
         let mut n = t.len();
         let snbt = if n > 6 && t[n - 1].starts_with('{') {
             n -= 1;
@@ -295,7 +410,13 @@ impl Sim {
             None
         };
         let num = |i: usize| t[i].parse::<f64>().unwrap();
-        e.snap_to(num(3), num(4), num(5), if n > 7 { num(6) as f32 } else { 0.0 }, if n > 7 { num(7) as f32 } else { 0.0 });
+        e.snap_to(
+            num(3),
+            num(4),
+            num(5),
+            if n > 7 { num(6) as f32 } else { 0.0 },
+            if n > 7 { num(7) as f32 } else { 0.0 },
+        );
         if let Some(snbt) = snbt {
             merge_nbt(e.as_mut(), snbt);
         }
@@ -329,17 +450,34 @@ impl Sim {
                     other => panic!("gamerule {other}"),
                 });
             }
-            "entity_counter" => self.level.entity_id_counter = Some(std::sync::atomic::AtomicI32::new(t[1].parse().unwrap())),
+            "entity_counter" => {
+                self.level.entity_id_counter =
+                    Some(std::sync::atomic::AtomicI32::new(t[1].parse().unwrap()))
+            }
             "reseed" => mc_core::random::reseed_uniquifier(t[1].parse().unwrap()),
             "level_seed" => self.level.random().set_seed(t[1].parse().unwrap()),
             "block" => {
-                self.level.set_block(BlockPos::new(num(1) as i32, num(2) as i32, num(3) as i32), parse_state(t[4]), 3, 512);
+                self.level.set_block(
+                    BlockPos::new(num(1) as i32, num(2) as i32, num(3) as i32),
+                    parse_state(t[4]),
+                    3,
+                    512,
+                );
             }
             "fill" => {
                 let state = parse_state(t[7]);
-                let (x0, x1) = ((num(1) as i32).min(num(4) as i32), (num(1) as i32).max(num(4) as i32));
-                let (y0, y1) = ((num(2) as i32).min(num(5) as i32), (num(2) as i32).max(num(5) as i32));
-                let (z0, z1) = ((num(3) as i32).min(num(6) as i32), (num(3) as i32).max(num(6) as i32));
+                let (x0, x1) = (
+                    (num(1) as i32).min(num(4) as i32),
+                    (num(1) as i32).max(num(4) as i32),
+                );
+                let (y0, y1) = (
+                    (num(2) as i32).min(num(5) as i32),
+                    (num(2) as i32).max(num(5) as i32),
+                );
+                let (z0, z1) = (
+                    (num(3) as i32).min(num(6) as i32),
+                    (num(3) as i32).max(num(6) as i32),
+                );
                 for x in x0..=x1 {
                     for y in y0..=y1 {
                         for z in z0..=z1 {
@@ -354,7 +492,16 @@ impl Sim {
                 let count = t.get(9).map_or(1, |c| c.parse().unwrap());
                 let stack = parse_stack(t[2], count);
                 let e = if t.len() >= 9 {
-                    ItemEntity::with_stack_and_motion(&self.level, num(3), num(4), num(5), stack, num(6), num(7), num(8))
+                    ItemEntity::with_stack_and_motion(
+                        &self.level,
+                        num(3),
+                        num(4),
+                        num(5),
+                        stack,
+                        num(6),
+                        num(7),
+                        num(8),
+                    )
                 } else {
                     ItemEntity::with_stack(&self.level, num(3), num(4), num(5), stack)
                 };
@@ -366,7 +513,13 @@ impl Sim {
                 let id = self.id_of(t[1]);
                 self.level.with_entity(id, |_, e| {
                     let (yr, xr) = (e.base().y_rot(), e.base().x_rot());
-                    e.snap_to(num(2), num(3), num(4), if t.len() > 5 { num(5) as f32 } else { yr }, if t.len() > 6 { num(6) as f32 } else { xr });
+                    e.snap_to(
+                        num(2),
+                        num(3),
+                        num(4),
+                        if t.len() > 5 { num(5) as f32 } else { yr },
+                        if t.len() > 6 { num(6) as f32 } else { xr },
+                    );
                 });
             }
             "nbt" => {
@@ -376,11 +529,15 @@ impl Sim {
             }
             "entity_seed" => {
                 let id = self.id_of(t[1]);
-                self.level.with_entity(id, |_, e| e.base_mut().random.set_seed(t[2].parse().unwrap()));
+                self.level.with_entity(id, |_, e| {
+                    e.base_mut().random.set_seed(t[2].parse().unwrap())
+                });
             }
             "velocity" => {
                 let id = self.id_of(t[1]);
-                self.level.with_entity(id, |_, e| e.base_mut().set_delta_movement_xyz(num(2), num(3), num(4)));
+                self.level.with_entity(id, |_, e| {
+                    e.base_mut().set_delta_movement_xyz(num(2), num(3), num(4))
+                });
             }
             "kill" => {
                 let id = self.id_of(t[1]);
@@ -397,10 +554,25 @@ impl Sim {
             }
             "spawn_player" => {
                 let id = self.level.next_entity_id();
-                let profile = GameProfile { id: uuid::Uuid::from_u128(0x5000 + id as u128), name: t[1].into(), properties: vec![] };
-                let mut p = ServerPlayer::new(id, Identifier::parse("minecraft:overworld").unwrap(), profile, Default::default());
+                let profile = GameProfile {
+                    id: uuid::Uuid::from_u128(0x5000 + id as u128),
+                    name: t[1].into(),
+                    properties: vec![],
+                };
+                let mut p = ServerPlayer::new(
+                    id,
+                    Identifier::parse("minecraft:overworld").unwrap(),
+                    profile,
+                    Default::default(),
+                );
                 p.set_game_mode_for_player(GameType::by_serialized_name(t[2]).unwrap(), None);
-                p.snap_to(num(3), num(4), num(5), if t.len() > 7 { num(6) as f32 } else { 0.0 }, if t.len() > 7 { num(7) as f32 } else { 0.0 });
+                p.snap_to(
+                    num(3),
+                    num(4),
+                    num(5),
+                    if t.len() > 7 { num(6) as f32 } else { 0.0 },
+                    if t.len() > 7 { num(7) as f32 } else { 0.0 },
+                );
                 self.level.add_player(Box::new(p));
                 self.players.push(id);
                 self.register(t[1], id);
@@ -426,7 +598,9 @@ impl Sim {
                             };
                             inv.equipment_set(slot, stack);
                         }
-                        s if s.starts_with("hotbar") => inv.set_item(s[6..].parse().unwrap(), stack),
+                        s if s.starts_with("hotbar") => {
+                            inv.set_item(s[6..].parse().unwrap(), stack)
+                        }
                         s if s.starts_with("inv") => inv.set_item(s[3..].parse().unwrap(), stack),
                         other => panic!("slot {other}"),
                     }
@@ -434,12 +608,15 @@ impl Sim {
             }
             "select" => {
                 let id = self.id_of(t[1]);
-                self.level.with_player(id, |_, p| p.player.inventory.set_selected_slot(t[2].parse().unwrap()));
+                self.level.with_player(id, |_, p| {
+                    p.player.inventory.set_selected_slot(t[2].parse().unwrap())
+                });
             }
             "drop" => {
                 let id = self.id_of(t[1]);
                 let all = t.get(2) == Some(&"all");
-                self.level.with_player(id, |level, p| p.drop_selected(level, all));
+                self.level
+                    .with_player(id, |level, p| p.drop_selected(level, all));
             }
             "use_on" => {
                 // `use_on PLAYER X Y Z FACE [main|off]` at the face centre
@@ -448,21 +625,35 @@ impl Sim {
                 let face = mc_core::direction::Direction::by_name(t[5]).expect("face");
                 let at = |c: i32, step: i32| f64::from(c) + 0.5 + f64::from(step) * 0.5;
                 let hit = mc_core::phys::BlockHitResult {
-                    location: Vec3::new(at(pos.x(), face.get_step_x()), at(pos.y(), face.get_step_y()), at(pos.z(), face.get_step_z())),
+                    location: Vec3::new(
+                        at(pos.x(), face.get_step_x()),
+                        at(pos.y(), face.get_step_y()),
+                        at(pos.z(), face.get_step_z()),
+                    ),
                     direction: face,
                     block_pos: pos,
                     miss: false,
                     inside: false,
                     world_border_hit: false,
                 };
-                let hand = if t.get(6) == Some(&"off") { mc_game::world::item::InteractionHand::OffHand } else { mc_game::world::item::InteractionHand::MainHand };
-                self.level.with_player(id, |level, p| p.use_item_on(level, hand, &hit));
+                let hand = if t.get(6) == Some(&"off") {
+                    mc_game::world::item::InteractionHand::OffHand
+                } else {
+                    mc_game::world::item::InteractionHand::MainHand
+                };
+                self.level
+                    .with_player(id, |level, p| p.use_item_on(level, hand, &hit));
             }
             "award" => {
                 let at = Vec3::new(num(1), num(2), num(3));
                 let amount = t[4].parse().unwrap();
                 if t.len() >= 8 {
-                    ExperienceOrb::award_with_direction(&mut self.level, &at, Vec3::new(num(5), num(6), num(7)), amount);
+                    ExperienceOrb::award_with_direction(
+                        &mut self.level,
+                        &at,
+                        Vec3::new(num(5), num(6), num(7)),
+                        amount,
+                    );
                 } else {
                     ExperienceOrb::award(&mut self.level, &at, amount);
                 }
@@ -470,10 +661,24 @@ impl Sim {
             "hurt" => {
                 let id = self.id_of(t[1]);
                 let key = Identifier::parse(&format!("minecraft:{}", t[2])).unwrap();
-                let data = self.level.registries.get::<mc_game::registry::typed::damage_type::DamageType>("minecraft:damage_type", &key).expect("damage type").clone();
+                let data = self
+                    .level
+                    .registries
+                    .get::<mc_game::registry::typed::damage_type::DamageType>(
+                        "minecraft:damage_type",
+                        &key,
+                    )
+                    .expect("damage type")
+                    .clone();
                 let source = DamageSource::new(key, std::sync::Arc::new(data), None, None, None);
-                let r = self.level.with_entity(id, |level, e| e.hurt_server(level, &source, t[3].parse::<f64>().unwrap() as f32)).unwrap_or(false);
-                self.out.push(format!("HURT {} {} {} -> {}", t[1], t[2], t[3], r));
+                let r = self
+                    .level
+                    .with_entity(id, |level, e| {
+                        e.hurt_server(level, &source, t[3].parse::<f64>().unwrap() as f32)
+                    })
+                    .unwrap_or(false);
+                self.out
+                    .push(format!("HURT {} {} {} -> {}", t[1], t[2], t[3], r));
             }
             "tick" => {
                 for _ in 0..t.get(1).map_or(1, |n| n.parse().unwrap()) {
@@ -501,14 +706,18 @@ impl Sim {
 fn merge_nbt(e: &mut dyn Entity, snbt: &str) {
     let mut tag = mc_nbt::CompoundTag::new();
     e.save_without_id(&mut tag, &|_| None);
-    let patch = mc_nbt::snbt::parse_compound(snbt).unwrap_or_else(|err| panic!("snbt {snbt}: {err:?}"));
+    let patch =
+        mc_nbt::snbt::parse_compound(snbt).unwrap_or_else(|err| panic!("snbt {snbt}: {err:?}"));
     tag.merge(&patch);
     e.load(&tag).expect("entity load");
 }
 
 fn replay(name: &str) -> Vec<String> {
     let text = std::fs::read_to_string(scenario_dir().join(format!("{name}.txt"))).unwrap();
-    let seed = text.lines().find_map(|l| l.trim().strip_prefix("seed ")).map_or(4242, |s| s.trim().parse().unwrap());
+    let seed = text
+        .lines()
+        .find_map(|l| l.trim().strip_prefix("seed "))
+        .map_or(4242, |s| s.trim().parse().unwrap());
     let mut sim = Sim::new(seed);
     for line in text.lines() {
         sim.run_line(line);
@@ -517,14 +726,24 @@ fn replay(name: &str) -> Vec<String> {
 }
 
 fn check(name: &str) {
-    let opts = Options { ignore_kinds: vec!["PKT", "C", "#", "B", "DIG", "EFFECT", "A"], ignore_fields: vec!["pose"], ..Default::default() };
+    let opts = Options {
+        ignore_kinds: vec!["PKT", "C", "#", "B", "DIG", "EFFECT", "A"],
+        ignore_fields: vec!["pose"],
+        ..Default::default()
+    };
     // Player lines: the player physics fields (`og`, `fire`, ...) are covered by the player tests; only items/orbs/falling blocks compare them.
     let text = std::fs::read_to_string(fixture_dir().join(format!("{name}.txt"))).unwrap();
     let text: String = text
         .lines()
         .map(|l| {
             if l.starts_with("P ") {
-                l.split(' ').filter(|t| !["og", "fire", "fx", "gm", "sel", "main"].contains(&t.split('=').next().unwrap_or(""))).collect::<Vec<_>>().join(" ")
+                l.split(' ')
+                    .filter(|t| {
+                        !["og", "fire", "fx", "gm", "sel", "main"]
+                            .contains(&t.split('=').next().unwrap_or(""))
+                    })
+                    .collect::<Vec<_>>()
+                    .join(" ")
             } else {
                 l.to_string()
             }

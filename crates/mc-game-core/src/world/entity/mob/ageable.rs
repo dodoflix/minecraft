@@ -4,8 +4,8 @@ use super::spawn::AgeableMobGroupData;
 use super::{AGE_LOCKED, DATA_BABY_ID};
 use crate::server::level::ServerLevel;
 use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::entity::spawn_group_data::SpawnGroupData;
 use crate::world::entity::Entity;
+use crate::world::entity::spawn_group_data::SpawnGroupData;
 use crate::world::item::InteractionResult;
 use crate::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_data::enums::EntitySpawnReason;
@@ -29,11 +29,15 @@ pub struct AgeableData {
 }
 
 fn ad(e: &dyn Entity) -> &AgeableData {
-    e.mob().and_then(|m| m.ageable.as_ref()).expect("ageable mob")
+    e.mob()
+        .and_then(|m| m.ageable.as_ref())
+        .expect("ageable mob")
 }
 
 fn adm(e: &mut dyn Entity) -> &mut AgeableData {
-    e.mob_mut().and_then(|m| m.ageable.as_mut()).expect("ageable mob")
+    e.mob_mut()
+        .and_then(|m| m.ageable.as_mut())
+        .expect("ageable mob")
 }
 
 /// `getAge()` (server side: the stored age).
@@ -66,7 +70,9 @@ pub fn set_age_in_level(e: &mut dyn Entity, level: &mut ServerLevel, new_age: i3
 pub fn age_boundary_reached(e: &mut dyn Entity, level: &mut ServerLevel) {
     if !e.is_baby() && e.base().is_passenger() {
         if let Some(vehicle) = e.base().vehicle {
-            let boat_without_space = level.get_entity(vehicle).is_some_and(|v| v.has_enough_space_for(level, e.as_dyn()) == Some(false));
+            let boat_without_space = level
+                .get_entity(vehicle)
+                .is_some_and(|v| v.has_enough_space_for(level, e.as_dyn()) == Some(false));
             if boat_without_space {
                 level.stop_riding(e);
             }
@@ -138,10 +144,14 @@ pub fn finalize_spawn(
     _reason: EntitySpawnReason,
     group_data: Option<Box<dyn SpawnGroupData>>,
 ) -> Option<Box<dyn SpawnGroupData>> {
-    let mut group_data = group_data.unwrap_or_else(|| Box::new(AgeableMobGroupData::with_baby(true)));
+    let mut group_data =
+        group_data.unwrap_or_else(|| Box::new(AgeableMobGroupData::with_baby(true)));
     {
         let data = group_data.as_ageable_mut().expect("AgeableMobGroupData");
-        if data.is_should_spawn_baby() && data.get_group_size() > 0 && level.random().next_float() <= data.get_baby_spawn_chance() {
+        if data.is_should_spawn_baby()
+            && data.get_group_size() > 0
+            && level.random().next_float() <= data.get_baby_spawn_chance()
+        {
             let start = e.get_baby_start_age();
             set_age(e, start);
         }
@@ -157,7 +167,17 @@ pub fn ai_step_after(e: &mut dyn Entity, level: &mut ServerLevel) {
             let x = e.base_mut().get_random_x(1.0);
             let y = e.base_mut().get_random_y() + 0.5;
             let z = e.base_mut().get_random_z(1.0);
-            level.send_particles(ParticleOptions::Simple(ParticleType::HAPPY_VILLAGER), x, y, z, 1, 0.0, 0.0, 0.0, 0.0);
+            level.send_particles(
+                ParticleOptions::Simple(ParticleType::HAPPY_VILLAGER),
+                x,
+                y,
+                z,
+                1,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+            );
         }
         adm(e).forced_age_timer -= 1;
     }
@@ -178,15 +198,36 @@ pub fn ai_step_after(e: &mut dyn Entity, level: &mut ServerLevel) {
 }
 
 /// `makeAgeLockedParticle(level, mob, ageLockParticleTimer, isAgeLocked)`.
-pub fn make_age_locked_particle(level: &mut ServerLevel, mob: &mut dyn Entity, mut age_lock_particle_timer: i32, is_age_locked: bool) -> i32 {
+pub fn make_age_locked_particle(
+    level: &mut ServerLevel,
+    mob: &mut dyn Entity,
+    mut age_lock_particle_timer: i32,
+    is_age_locked: bool,
+) -> i32 {
     if age_lock_particle_timer > 0 {
         if age_lock_particle_timer % 2 == 0 {
             let y_particle_offset = if is_age_locked { 0.2f32 } else { 0.0f32 };
             let x = mob.base_mut().get_random_x(1.0);
-            let y = mob.base_mut().get_random_y_spread(0.2) + f64::from(mob.base().get_bb_height()) + f64::from(y_particle_offset);
+            let y = mob.base_mut().get_random_y_spread(0.2)
+                + f64::from(mob.base().get_bb_height())
+                + f64::from(y_particle_offset);
             let z = mob.base_mut().get_random_z(1.0);
-            let particle = if is_age_locked { ParticleType::PAUSE_MOB_GROWTH } else { ParticleType::RESET_MOB_GROWTH };
-            level.send_particles(ParticleOptions::Simple(particle), x, y, z, 1, 0.0, 0.0, 0.0, 0.0);
+            let particle = if is_age_locked {
+                ParticleType::PAUSE_MOB_GROWTH
+            } else {
+                ParticleType::RESET_MOB_GROWTH
+            };
+            level.send_particles(
+                ParticleOptions::Simple(particle),
+                x,
+                y,
+                z,
+                1,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+            );
         }
         age_lock_particle_timer -= 1;
     }
@@ -194,15 +235,26 @@ pub fn make_age_locked_particle(level: &mut ServerLevel, mob: &mut dyn Entity, m
 }
 
 /// `canUseGoldenDandelion(itemInHand, isBaby, cooldown, mob)`.
-pub fn can_use_golden_dandelion(item_in_hand: &crate::world::item::ItemStack, is_baby: bool, cooldown: i32, mob: &dyn Entity) -> bool {
+pub fn can_use_golden_dandelion(
+    item_in_hand: &crate::world::item::ItemStack,
+    is_baby: bool,
+    cooldown: i32,
+    mob: &dyn Entity,
+) -> bool {
     item_in_hand.item() == Item::GOLDEN_DANDELION
         && is_baby
         && cooldown == 0
-        && !mc_data::tags::get::<EntityType>("cannot_be_age_locked").is_some_and(|t| t.contains(mob.get_type()))
+        && !mc_data::tags::get::<EntityType>("cannot_be_age_locked")
+            .is_some_and(|t| t.contains(mob.get_type()))
 }
 
 /// `AgeableMob.mobInteract(player, hand)` golden dandelion part; `None` when the item does not apply.
-pub fn golden_dandelion_interact(e: &mut dyn Entity, level: &mut ServerLevel, held: &mut crate::world::item::ItemStack, player_creative: bool) -> Option<InteractionResult> {
+pub fn golden_dandelion_interact(
+    e: &mut dyn Entity,
+    level: &mut ServerLevel,
+    held: &mut crate::world::item::ItemStack,
+    player_creative: bool,
+) -> Option<InteractionResult> {
     let timer = ad(e).age_lock_particle_timer;
     if can_use_golden_dandelion(held, e.is_baby(), timer, e) {
         // setAgeLockedData
@@ -220,7 +272,11 @@ pub fn golden_dandelion_interact(e: &mut dyn Entity, level: &mut ServerLevel, he
             e.mob_mut().expect("mob").persistence_required = true;
         }
         let pos = e.block_position();
-        let sound = if now_locked { SoundEvent::ITEM_GOLDEN_DANDELION_USE } else { SoundEvent::ITEM_GOLDEN_DANDELION_UNUSE };
+        let sound = if now_locked {
+            SoundEvent::ITEM_GOLDEN_DANDELION_USE
+        } else {
+            SoundEvent::ITEM_GOLDEN_DANDELION_UNUSE
+        };
         level.play_sound(None, pos, sound, SoundSource::Players, 1.0, 1.0);
         Some(InteractionResult::SUCCESS)
     } else {

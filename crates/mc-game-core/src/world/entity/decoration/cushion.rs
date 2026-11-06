@@ -59,10 +59,18 @@ pub struct Cushion {
 impl Cushion {
     /// `Cushion(type, level)`.
     pub fn new(ty: EntityType, id: EntityId) -> Self {
-        let base = EntityData::new(ty, id, crate::world::entity::entity::TOTAL_AIR_SUPPLY, |b| {
-            b.define(DATA_COLOR, to_data(DEFAULT_COLOR));
-        });
-        let mut cushion = Self { base, attached: Attached::default() };
+        let base = EntityData::new(
+            ty,
+            id,
+            crate::world::entity::entity::TOTAL_AIR_SUPPLY,
+            |b| {
+                b.define(DATA_COLOR, to_data(DEFAULT_COLOR));
+            },
+        );
+        let mut cushion = Self {
+            base,
+            attached: Attached::default(),
+        };
         cushion.set_pos(0.0, 0.0, 0.0);
         cushion
     }
@@ -87,7 +95,10 @@ impl Cushion {
         let state = wool_block(self.get_color()).default_state();
         let p = self.base.position();
         level.send_particles(
-            ParticleOptions::Block { particle_type: mc_data::ParticleType::BLOCK, state },
+            ParticleOptions::Block {
+                particle_type: mc_data::ParticleType::BLOCK,
+                state,
+            },
             p.x,
             self.base.get_y_progress(0.6666666666666666),
             p.z,
@@ -117,23 +128,43 @@ impl Cushion {
 
     /// `wouldSurviveAt(level, boundingBox)`.
     pub fn would_survive_at(level: &ServerLevel, bounding_box: &AABB) -> bool {
-        Self::has_anchor_below(level, bounding_box) && !Self::is_covered_by_suffocating_blocks(level, bounding_box)
+        Self::has_anchor_below(level, bounding_box)
+            && !Self::is_covered_by_suffocating_blocks(level, bounding_box)
     }
 
     fn has_anchor_below(level: &ServerLevel, b: &AABB) -> bool {
-        let anchor_box = AABB::new(b.min_x, b.min_y - 0.015625, b.min_z, next_down(b.max_x), b.min_y, next_down(b.max_z));
+        let anchor_box = AABB::new(
+            b.min_x,
+            b.min_y - 0.015625,
+            b.min_z,
+            next_down(b.max_x),
+            b.min_y,
+            next_down(b.max_z),
+        );
         let search = anchor_box.expand_towards(0.0, -0.125, 0.0);
         // `forEachUntil` aborting = a shape whose bounds touch the anchor box was found
         let from = BlockPos::containing_position(&search.get_min_position());
         let to = BlockPos::containing_position(&search.get_max_position());
         BlockPos::between_closed(&from, &to).any(|pos| {
             let shape = level.get_block_state(pos).get_shape(level, pos);
-            !shape.is_empty() && shape.bounds().move_block_pos(&pos).intersects_aabb(&anchor_box)
+            !shape.is_empty()
+                && shape
+                    .bounds()
+                    .move_block_pos(&pos)
+                    .intersects_aabb(&anchor_box)
         })
     }
 
     fn is_anchor_buried(level: &ServerLevel, b: &AABB) -> bool {
-        let resting_slice = AABB::new(b.min_x, b.min_y, b.min_z, b.max_x, b.min_y + 0.015625, b.max_z).next_deflated();
+        let resting_slice = AABB::new(
+            b.min_x,
+            b.min_y,
+            b.min_z,
+            b.max_x,
+            b.min_y + 0.015625,
+            b.max_z,
+        )
+        .next_deflated();
         let mut exposed_surface = Shapes::create(resting_slice);
         for collider in level.get_block_collisions(None, &resting_slice) {
             exposed_surface = Shapes::join(&exposed_surface, &collider, BooleanOp::ONLY_FIRST);
@@ -148,7 +179,8 @@ impl Cushion {
         let deflated = b.next_deflated();
         let from = BlockPos::containing_position(&deflated.get_min_position());
         let to = BlockPos::containing_position(&deflated.get_max_position());
-        BlockPos::between_closed(&from, &to).all(|pos| level.get_block_state(pos).is_suffocating_at(level, pos))
+        BlockPos::between_closed(&from, &to)
+            .all(|pos| level.get_block_state(pos).is_suffocating_at(level, pos))
     }
 }
 
@@ -194,7 +226,12 @@ impl BlockAttached for Cushion {
         let position = self.base.position();
         if collided_with_fluid(self, level, fluid_state, block_pos, position, position) {
             let mut collector = std::mem::take(&mut self.base.inside_effect_collector);
-            crate::world::level::material::fluid_behaviour(fluid_state.get_type()).entity_inside(level, block_pos, self, &mut collector);
+            crate::world::level::material::fluid_behaviour(fluid_state.get_type()).entity_inside(
+                level,
+                block_pos,
+                self,
+                &mut collector,
+            );
             collector.apply_and_clear(self, level);
             self.base.inside_effect_collector = collector;
         }
@@ -265,14 +302,22 @@ impl Entity for Cushion {
     }
     fn hurt_server(&mut self, level: &mut ServerLevel, source: &DamageSource, damage: f32) -> bool {
         let cause = source.causing_info();
-        if cause.is_some_and(|c| c.is_player && !c.may_build) || super::breaking_denied_at(level, cause, self.attached.pos) {
+        if cause.is_some_and(|c| c.is_player && !c.may_build)
+            || super::breaking_denied_at(level, cause, self.attached.pos)
+        {
             false
         } else {
             block_attached::hurt_server(self, level, source, damage)
         }
     }
     /// `interact(player, hand, location)`.
-    fn interact(&mut self, level: &mut ServerLevel, player: &mut ServerPlayer, _hand: InteractionHand, _location: Vec3) -> InteractionResult {
+    fn interact(
+        &mut self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        _hand: InteractionHand,
+        _location: Vec3,
+    ) -> InteractionResult {
         if player.is_shift_key_down() || self.base.is_vehicle() {
             InteractionResult::PASS
         } else if level.start_riding_held(player, self, false, true) {
@@ -294,10 +339,16 @@ impl Entity for Cushion {
     }
     fn read_additional_save_data(&mut self, input: &CompoundTag) {
         block_attached::read_additional_save_data(self, input);
-        let color = input.get_string("color").and_then(DyeColor::from_name).unwrap_or(DEFAULT_COLOR);
+        let color = input
+            .get_string("color")
+            .and_then(DyeColor::from_name)
+            .unwrap_or(DEFAULT_COLOR);
         self.set_color(color);
     }
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static CUSHION_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::CUSHION, create: |ty, id, _registries| Box::new(Cushion::new(ty, id)) };
+static CUSHION_FACTORY: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::CUSHION,
+    create: |ty, id, _registries| Box::new(Cushion::new(ty, id)),
+};

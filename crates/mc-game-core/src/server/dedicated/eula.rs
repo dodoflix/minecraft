@@ -23,7 +23,9 @@ impl Eula {
     }
 
     fn read_file(file: &Path) -> bool {
-        let loaded = fs::read(file).ok().and_then(|bytes| Properties::load_latin1(&bytes).ok());
+        let loaded = fs::read(file)
+            .ok()
+            .and_then(|bytes| Properties::load_latin1(&bytes).ok());
         match loaded {
             Some(properties) => java_boolean(properties.get_property("eula", "false")),
             None => {
@@ -45,7 +47,9 @@ impl Eula {
     fn save_defaults(file: &Path) {
         let mut properties = Properties::new();
         properties.put("eula", "false");
-        let comments = format!("By changing the setting below to TRUE you are indicating your agreement to our EULA ({EULA_LINK}).");
+        let comments = format!(
+            "By changing the setting below to TRUE you are indicating your agreement to our EULA ({EULA_LINK})."
+        );
         if let Err(e) = fs::write(file, properties.store_latin1(Some(&comments))) {
             log::warn!("Failed to save {}\n{e}", file.display());
         }
@@ -63,7 +67,10 @@ mod tests {
         assert!(!Eula::new(&file).has_agreed_to_eula());
         let text = fs::read_to_string(&file).unwrap();
         let lines: Vec<&str> = text.lines().collect();
-        assert_eq!(lines[0], "#By changing the setting below to TRUE you are indicating your agreement to our EULA (https://aka.ms/MinecraftEULA).");
+        assert_eq!(
+            lines[0],
+            "#By changing the setting below to TRUE you are indicating your agreement to our EULA (https://aka.ms/MinecraftEULA)."
+        );
         assert!(lines[1].starts_with('#'));
         assert_eq!(lines[2], "eula=false");
         assert_eq!(lines.len(), 3);

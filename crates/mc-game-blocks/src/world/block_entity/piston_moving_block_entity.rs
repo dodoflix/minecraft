@@ -1,13 +1,6 @@
 //! `PistonMovingBlockEntity` (`block.piston` package): the block that is in transit between two positions while a piston
 //! pushes/pulls it (`minecraft:moving_piston`). Moves entities standing in/on it, becomes the moved block when done.
 
-use mc_game_core::block_entity_base;
-use mc_game_core::world::block_entity::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration};
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::entity::{Entity, MoverType};
-use mc_game_core::world::level::block::piston::{entity_push_reaction, get_movement_area};
-use mc_game_core::world::level::block::{BlockStateExt, helpers};
-use mc_game_core::world::level::{BlockGetter, LevelAccessor};
 use linkme::distributed_slice;
 use mc_core::direction::{Axis, Direction};
 use mc_core::math::mth;
@@ -18,6 +11,15 @@ use mc_data::BlockEntityType;
 use mc_data::block::{Block, BlockState};
 use mc_data::enums::{PistonType, PushReaction};
 use mc_data::props;
+use mc_game_core::block_entity_base;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::block_entity::{
+    BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration,
+};
+use mc_game_core::world::entity::{Entity, MoverType};
+use mc_game_core::world::level::block::piston::{entity_push_reaction, get_movement_area};
+use mc_game_core::world::level::block::{BlockStateExt, helpers};
+use mc_game_core::world::level::{BlockGetter, LevelAccessor};
 use mc_nbt::CompoundTag;
 use std::cell::{Cell, RefCell};
 
@@ -41,30 +43,48 @@ pub struct PistonShapeData {
 
 impl PistonShapeData {
     fn get_extended_progress(&self, progress: f32) -> f32 {
-        if self.extending { progress - 1.0 } else { 1.0 - progress }
+        if self.extending {
+            progress - 1.0
+        } else {
+            1.0 - progress
+        }
     }
 
     fn get_movement_direction(&self) -> Direction {
-        if self.extending { self.direction } else { self.direction.get_opposite() }
+        if self.extending {
+            self.direction
+        } else {
+            self.direction.get_opposite()
+        }
     }
 
     /// `getCollisionShape(level, pos)`.
     pub fn get_collision_shape(&self, level: &dyn BlockGetter, pos: BlockPos) -> VoxelShape {
-        let piston_head_shape = if !self.extending && self.is_source_piston && helpers::is_instance_of(self.moved_state, "PistonBaseBlock") {
-            self.moved_state.set(props::EXTENDED, true).get_collision_shape(level, pos)
+        let piston_head_shape = if !self.extending
+            && self.is_source_piston
+            && helpers::is_instance_of(self.moved_state, "PistonBaseBlock")
+        {
+            self.moved_state
+                .set(props::EXTENDED, true)
+                .get_collision_shape(level, pos)
         } else {
             Shapes::empty()
         };
 
         let no_clip_direction = NOCLIP.with(Cell::get);
-        if f64::from(self.progress) < 1.0 && no_clip_direction == Some(self.get_movement_direction()) {
+        if f64::from(self.progress) < 1.0
+            && no_clip_direction == Some(self.get_movement_direction())
+        {
             return piston_head_shape;
         }
         let block_state = if self.is_source_piston {
             Block::PISTON_HEAD
                 .default_state()
                 .set(props::FACING, self.direction)
-                .set(props::SHORT, self.extending != (1.0f32 - self.progress < 0.25f32))
+                .set(
+                    props::SHORT,
+                    self.extending != (1.0f32 - self.progress < 0.25f32),
+                )
         } else {
             self.moved_state
         };
@@ -72,13 +92,21 @@ impl PistonShapeData {
         let dx = f64::from(self.direction.get_step_x() as f32 * extended_progress);
         let dy = f64::from(self.direction.get_step_y() as f32 * extended_progress);
         let dz = f64::from(self.direction.get_step_z() as f32 * extended_progress);
-        Shapes::or(&piston_head_shape, &block_state.get_collision_shape(level, pos).move_(dx, dy, dz))
+        Shapes::or(
+            &piston_head_shape,
+            &block_state
+                .get_collision_shape(level, pos)
+                .move_(dx, dy, dz),
+        )
     }
 }
 
 /// `MovingPistonBlock.getBlockEntity(level, pos).getCollisionShape(level, pos)` (empty without a block entity).
 pub fn moving_piston_collision_shape(level: &dyn BlockGetter, pos: BlockPos) -> VoxelShape {
-    if let Some(be) = level.get_block_entity(pos).and_then(|be| be.as_any().downcast_ref::<PistonMovingBlockEntity>()) {
+    if let Some(be) = level
+        .get_block_entity(pos)
+        .and_then(|be| be.as_any().downcast_ref::<PistonMovingBlockEntity>())
+    {
         return be.shape_data().get_collision_shape(level, pos);
     }
     let ticking = TICKING.with(|t| t.borrow().filter(|(p, _)| *p == pos).map(|(_, d)| d));
@@ -115,12 +143,31 @@ impl PistonMovingBlockEntity {
     }
 
     /// `MovingPistonBlock.newMovingBlockEntity(pos, state, movedState, direction, extending, isSourcePiston)`.
-    pub fn new_moving(pos: BlockPos, state: BlockState, moved_state: BlockState, direction: Direction, extending: bool, is_source_piston: bool) -> Self {
-        Self { moved_state, direction, extending, is_source_piston, ..Self::new(pos, state) }
+    pub fn new_moving(
+        pos: BlockPos,
+        state: BlockState,
+        moved_state: BlockState,
+        direction: Direction,
+        extending: bool,
+        is_source_piston: bool,
+    ) -> Self {
+        Self {
+            moved_state,
+            direction,
+            extending,
+            is_source_piston,
+            ..Self::new(pos, state)
+        }
     }
 
     fn shape_data(&self) -> PistonShapeData {
-        PistonShapeData { moved_state: self.moved_state, direction: self.direction, extending: self.extending, is_source_piston: self.is_source_piston, progress: self.progress }
+        PistonShapeData {
+            moved_state: self.moved_state,
+            direction: self.direction,
+            extending: self.extending,
+            is_source_piston: self.is_source_piston,
+            progress: self.progress,
+        }
     }
 
     pub fn is_extending(&self) -> bool {
@@ -163,11 +210,21 @@ impl PistonMovingBlockEntity {
 
     /// `getCollisionRelatedBlockState()`.
     fn get_collision_related_block_state(&self) -> BlockState {
-        if !self.extending && self.is_source_piston && helpers::is_instance_of(self.moved_state, "PistonBaseBlock") {
+        if !self.extending
+            && self.is_source_piston
+            && helpers::is_instance_of(self.moved_state, "PistonBaseBlock")
+        {
             Block::PISTON_HEAD
                 .default_state()
                 .set(props::SHORT, self.progress > 0.25)
-                .set(props::PISTON_TYPE, if self.moved_state.is_block(Block::STICKY_PISTON) { PistonType::Sticky } else { PistonType::Default })
+                .set(
+                    props::PISTON_TYPE,
+                    if self.moved_state.is_block(Block::STICKY_PISTON) {
+                        PistonType::Sticky
+                    } else {
+                        PistonType::Default
+                    },
+                )
                 .set(props::FACING, self.moved_state.get(props::FACING))
         } else {
             self.moved_state
@@ -213,16 +270,20 @@ impl PistonMovingBlockEntity {
             level.remove_block_entity(pos);
             self.set_removed();
             if BlockGetter::get_block_state(level, pos).is_block(Block::MOVING_PISTON) {
-                let mut new_state = helpers::update_from_neighbour_shapes(self.moved_state, level, pos);
+                let mut new_state =
+                    helpers::update_from_neighbour_shapes(self.moved_state, level, pos);
                 if new_state.is_air() {
                     level.set_block_flags(pos, self.moved_state, 340);
                     helpers::update_or_destroy(self.moved_state, new_state, level, pos, 3);
                 } else {
-                    if new_state.has_property(props::WATERLOGGED) && new_state.get(props::WATERLOGGED) {
+                    if new_state.has_property(props::WATERLOGGED)
+                        && new_state.get(props::WATERLOGGED)
+                    {
                         new_state = new_state.set(props::WATERLOGGED, false);
                     }
                     level.set_block_flags(pos, new_state, 67);
-                    let orientation = level.initial_orientation(Some(self.get_push_direction()), None);
+                    let orientation =
+                        level.initial_orientation(Some(self.get_push_direction()), None);
                     level.neighbor_changed(pos, new_state.block(), orientation);
                 }
             }
@@ -253,7 +314,9 @@ impl PistonMovingBlockEntity {
     fn move_collided_entities(&self, level: &mut ServerLevel, pos: BlockPos, new_progress: f32) {
         let movement = self.get_movement_direction();
         let delta_progress = f64::from(new_progress - self.progress);
-        let shape = self.get_collision_related_block_state().get_collision_shape(&*level, pos);
+        let shape = self
+            .get_collision_related_block_state()
+            .get_collision_shape(&*level, pos);
         if shape.is_empty() {
             return;
         }
@@ -273,7 +336,8 @@ impl PistonMovingBlockEntity {
                 }
                 if cause_bounce && entity.can_simulate_movement() {
                     let delta_movement = entity.base().delta_movement();
-                    let (mut dx, mut dy, mut dz) = (delta_movement.x, delta_movement.y, delta_movement.z);
+                    let (mut dx, mut dy, mut dz) =
+                        (delta_movement.x, delta_movement.y, delta_movement.z);
                     match movement.get_axis() {
                         Axis::X => dx = f64::from(movement.get_step_x()),
                         Axis::Y => dy = f64::from(movement.get_step_y()),
@@ -284,7 +348,11 @@ impl PistonMovingBlockEntity {
 
                 let mut delta = 0.0f64;
                 for shape_aabb in &shape_aabbs {
-                    let moving_aabb = get_movement_area(&self.move_by_position_and_progress(pos, shape_aabb), movement, delta_progress);
+                    let moving_aabb = get_movement_area(
+                        &self.move_by_position_and_progress(pos, shape_aabb),
+                        movement,
+                        delta_progress,
+                    );
                     let entity_aabb = entity.get_bounding_box();
                     if moving_aabb.intersects_aabb(&entity_aabb) {
                         delta = delta.max(get_movement(&moving_aabb, movement, &entity_aabb));
@@ -314,12 +382,22 @@ impl PistonMovingBlockEntity {
         if !movement.get_axis().is_horizontal() {
             return;
         }
-        let sticky_top = self.moved_state.get_collision_shape(&*level, pos).max(Axis::Y);
-        let aabb = self.move_by_position_and_progress(pos, &AABB::new(0.0, sticky_top, 0.0, 1.0, 1.500001, 1.0));
+        let sticky_top = self
+            .moved_state
+            .get_collision_shape(&*level, pos)
+            .max(Axis::Y);
+        let aabb = self.move_by_position_and_progress(
+            pos,
+            &AABB::new(0.0, sticky_top, 0.0, 1.0, 1.500001, 1.0),
+        );
         let delta_progress = f64::from(new_progress - self.progress);
-        let entities = level.get_entities(None, &aabb, |entity| matches_sticky_criteria(&aabb, entity, pos));
+        let entities = level.get_entities(None, &aabb, |entity| {
+            matches_sticky_criteria(&aabb, entity, pos)
+        });
         for id in entities {
-            level.with_entity(id, |level, entity| move_entity_by_piston(level, movement, entity, delta_progress, movement));
+            level.with_entity(id, |level, entity| {
+                move_entity_by_piston(level, movement, entity, delta_progress, movement)
+            });
         }
     }
 }
@@ -328,7 +406,10 @@ fn matches_sticky_criteria(aabb: &AABB, entity: &dyn Entity, pos: BlockPos) -> b
     entity_push_reaction(entity) == PushReaction::PushPull
         && entity.base().on_ground()
         && (entity.base().main_supporting_block_pos == Some(pos)
-            || (entity.position().x >= aabb.min_x && entity.position().x <= aabb.max_x && entity.position().z >= aabb.min_z && entity.position().z <= aabb.max_z))
+            || (entity.position().x >= aabb.min_x
+                && entity.position().x <= aabb.max_x
+                && entity.position().z >= aabb.min_z
+                && entity.position().z <= aabb.max_z))
 }
 
 /// `getMovement(aabbToBeOutsideOf, movement, aabb)`.
@@ -344,17 +425,37 @@ fn get_movement(aabb_to_be_outside_of: &AABB, movement: Direction, aabb: &AABB) 
 }
 
 /// `moveEntityByPiston(pistonDirection, entity, delta, movement)`.
-fn move_entity_by_piston(level: &mut ServerLevel, piston_direction: Direction, entity: &mut dyn Entity, delta: f64, movement: Direction) {
+fn move_entity_by_piston(
+    level: &mut ServerLevel,
+    piston_direction: Direction,
+    entity: &mut dyn Entity,
+    delta: f64,
+    movement: Direction,
+) {
     NOCLIP.with(|n| n.set(Some(piston_direction)));
     let previous_pos = entity.position();
-    entity.r#move(level, MoverType::Piston, Vec3::new(delta * f64::from(movement.get_step_x()), delta * f64::from(movement.get_step_y()), delta * f64::from(movement.get_step_z())));
+    entity.r#move(
+        level,
+        MoverType::Piston,
+        Vec3::new(
+            delta * f64::from(movement.get_step_x()),
+            delta * f64::from(movement.get_step_y()),
+            delta * f64::from(movement.get_step_z()),
+        ),
+    );
     entity.apply_effects_from_blocks_between(level, previous_pos, entity.position());
     entity.base_mut().movement_this_tick.pop_back();
     NOCLIP.with(|n| n.set(None));
 }
 
 /// `fixEntityWithinPistonBase(pos, entity, direction, deltaProgress)`.
-fn fix_entity_within_piston_base(level: &mut ServerLevel, pos: BlockPos, entity: &mut dyn Entity, direction: Direction, delta_progress: f64) {
+fn fix_entity_within_piston_base(
+    level: &mut ServerLevel,
+    pos: BlockPos,
+    entity: &mut dyn Entity,
+    direction: Direction,
+    delta_progress: f64,
+) {
     let entity_aabb = entity.get_bounding_box();
     let box_ = Shapes::block().bounds().move_block_pos(&pos);
     if entity_aabb.intersects_aabb(&box_) {
@@ -376,7 +477,9 @@ fn read_moved_state(tag: &CompoundTag) -> BlockState {
         compound.put_string("id", name);
         return read_block_state(&compound);
     }
-    tag.get_compound("blockState").map(read_block_state).unwrap_or_else(helpers::air)
+    tag.get_compound("blockState")
+        .map(read_block_state)
+        .unwrap_or_else(helpers::air)
 }
 
 impl BlockEntity for PistonMovingBlockEntity {
@@ -384,7 +487,9 @@ impl BlockEntity for PistonMovingBlockEntity {
 
     fn load_additional(&mut self, tag: &CompoundTag) {
         self.moved_state = read_moved_state(tag);
-        self.direction = tag.get_byte("facing").map_or(Direction::Down, |facing| Direction::from_3d_data_value(i32::from(facing)));
+        self.direction = tag.get_byte("facing").map_or(Direction::Down, |facing| {
+            Direction::from_3d_data_value(i32::from(facing))
+        });
         self.progress = tag.get_float_or("progress", 0.0);
         self.progress_o = self.progress;
         self.extending = tag.get_boolean_or("extending", false);
@@ -419,7 +524,12 @@ impl BlockEntity for PistonMovingBlockEntity {
         self.tick(level);
     }
 
-    fn pre_remove_side_effects(&mut self, level: &mut ServerLevel, _pos: BlockPos, _state: BlockState) {
+    fn pre_remove_side_effects(
+        &mut self,
+        level: &mut ServerLevel,
+        _pos: BlockPos,
+        _state: BlockState,
+    ) {
         self.final_tick(level);
     }
 }
@@ -433,8 +543,16 @@ pub trait MovingPistonLevelExt {
 impl MovingPistonLevelExt for ServerLevel {
     /// `level.getBlockEntity(pos) instanceof PistonMovingBlockEntity`: its `(extending, direction, progress(0), lastTicked)`.
     fn moving_piston_info(&self, pos: BlockPos) -> Option<MovingPistonInfo> {
-        let be = self.get_block_entity(pos)?.as_any().downcast_ref::<PistonMovingBlockEntity>()?;
-        Some(MovingPistonInfo { extending: be.extending, direction: be.direction, progress: be.get_progress(0.0), last_ticked: be.last_ticked })
+        let be = self
+            .get_block_entity(pos)?
+            .as_any()
+            .downcast_ref::<PistonMovingBlockEntity>()?;
+        Some(MovingPistonInfo {
+            extending: be.extending,
+            direction: be.direction,
+            progress: be.get_progress(0.0),
+            last_ticked: be.last_ticked,
+        })
     }
 
     /// `pistonMovingBlockEntity.finalTick()` for the entity at `pos` (if it is one).
@@ -457,4 +575,7 @@ pub struct MovingPistonInfo {
 }
 
 #[distributed_slice(BLOCK_ENTITY_TYPES)]
-static PISTON: BlockEntityRegistration = BlockEntityRegistration { ty: BlockEntityType::PISTON, create: |pos, state| Box::new(PistonMovingBlockEntity::new(pos, state)) };
+static PISTON: BlockEntityRegistration = BlockEntityRegistration {
+    ty: BlockEntityType::PISTON,
+    create: |pos, state| Box::new(PistonMovingBlockEntity::new(pos, state)),
+};

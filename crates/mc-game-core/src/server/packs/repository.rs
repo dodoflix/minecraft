@@ -13,7 +13,8 @@ use mc_world::level_storage::{ContentValidationException, DirectoryValidator, Fe
 
 use super::pack_format::{InclusiveRange, OverlayMetadataSection, PackFormat, PackMetadataSection};
 use super::resources::{
-    EmbeddedResourcesSupplier, FileResourcesSupplier, MetadataError, PackResources, PathResourcesSupplier,
+    EmbeddedResourcesSupplier, FileResourcesSupplier, MetadataError, PackResources,
+    PathResourcesSupplier,
 };
 use super::{GAME_VERSION, PackLocationInfo, PackSelectionConfig, PackType, throwable};
 
@@ -30,7 +31,11 @@ impl KnownPack {
 
     /// `KnownPack.vanilla(id)`.
     pub fn vanilla(id: &str) -> KnownPack {
-        KnownPack { namespace: "minecraft".to_owned(), id: id.to_owned(), version: GAME_VERSION.to_owned() }
+        KnownPack {
+            namespace: "minecraft".to_owned(),
+            id: id.to_owned(),
+            version: GAME_VERSION.to_owned(),
+        }
     }
 
     pub fn is_vanilla(&self) -> bool {
@@ -71,7 +76,10 @@ impl PackSource {
         };
         Component::translatable(
             "pack.nameAndSource",
-            vec![TranslatableArg::Component(pack_description), TranslatableArg::Component(Component::translatable(key, vec![]))],
+            vec![
+                TranslatableArg::Component(pack_description),
+                TranslatableArg::Component(Component::translatable(key, vec![])),
+            ],
         )
         .with_format(ChatFormatting::Gray)
     }
@@ -92,7 +100,10 @@ impl PackCompatibility {
     }
 
     /// `forVersion(packDeclaredVersions, gameSupportedVersion)`.
-    pub fn for_version(declared: InclusiveRange<PackFormat>, game: PackFormat) -> PackCompatibility {
+    pub fn for_version(
+        declared: InclusiveRange<PackFormat>,
+        game: PackFormat,
+    ) -> PackCompatibility {
         if declared.min_inclusive.major == i32::MAX {
             PackCompatibility::Unknown
         } else if declared.max_inclusive < game {
@@ -114,7 +125,8 @@ impl PackCompatibility {
     }
 
     pub fn description(self) -> Component {
-        Component::translatable(format!("pack.incompatible.{}", self.key()), vec![]).with_format(ChatFormatting::Gray)
+        Component::translatable(format!("pack.incompatible.{}", self.key()), vec![])
+            .with_format(ChatFormatting::Gray)
     }
 
     pub fn confirmation(self) -> Component {
@@ -138,7 +150,13 @@ impl PackPosition {
     }
 
     /// `Position.insert(list, value, converter, reverse)`: inserts and returns the index.
-    pub fn insert<T>(self, list: &mut Vec<T>, value: T, converter: impl Fn(&T) -> PackSelectionConfig, reverse: bool) -> usize {
+    pub fn insert<T>(
+        self,
+        list: &mut Vec<T>,
+        value: T,
+        converter: impl Fn(&T) -> PackSelectionConfig,
+        reverse: bool,
+    ) -> usize {
         let side = if reverse { self.opposite() } else { self };
         if side == PackPosition::Bottom {
             let mut index = 0;
@@ -178,7 +196,11 @@ pub struct PackMetadata {
 /// `Pack.ResourcesSupplier`.
 pub trait ResourcesSupplier: Send + Sync {
     fn open_metadata(&self, location: &PackLocationInfo) -> Arc<dyn PackResources>;
-    fn open_resources(&self, location: &PackLocationInfo, metadata: &PackMetadata) -> Vec<Arc<dyn PackResources>>;
+    fn open_resources(
+        &self,
+        location: &PackLocationInfo,
+        metadata: &PackMetadata,
+    ) -> Vec<Arc<dyn PackResources>>;
 }
 
 /// `Pack`.
@@ -191,7 +213,10 @@ pub struct Pack {
 
 impl std::fmt::Debug for Pack {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.debug_struct("Pack").field("id", &self.location.id).field("metadata", &self.metadata).finish()
+        f.debug_struct("Pack")
+            .field("id", &self.location.id)
+            .field("metadata", &self.metadata)
+            .finish()
     }
 }
 
@@ -200,8 +225,18 @@ fn warn_with_throwable(message: &str, class: &str, error: &str) {
 }
 
 impl Pack {
-    pub fn new(location: PackLocationInfo, resources: Arc<dyn ResourcesSupplier>, metadata: PackMetadata, selection_config: PackSelectionConfig) -> Pack {
-        Pack { location, resources, metadata, selection_config }
+    pub fn new(
+        location: PackLocationInfo,
+        resources: Arc<dyn ResourcesSupplier>,
+        metadata: PackMetadata,
+        selection_config: PackSelectionConfig,
+    ) -> Pack {
+        Pack {
+            location,
+            resources,
+            metadata,
+            selection_config,
+        }
     }
 
     /// `readMetaAndCreate`.
@@ -211,19 +246,37 @@ impl Pack {
         pack_type: PackType,
         selection_config: PackSelectionConfig,
     ) -> Option<Pack> {
-        let meta = Pack::read_pack_metadata(&location, resources.as_ref(), pack_type.current_version(), pack_type)?;
+        let meta = Pack::read_pack_metadata(
+            &location,
+            resources.as_ref(),
+            pack_type.current_version(),
+            pack_type,
+        )?;
         Some(Pack::new(location, resources, meta, selection_config))
     }
 
     /// `readPackMetadata`, with vanilla's fallback type and log messages.
-    pub fn read_pack_metadata(location: &PackLocationInfo, resources: &dyn ResourcesSupplier, current: PackFormat, ty: PackType) -> Option<PackMetadata> {
+    pub fn read_pack_metadata(
+        location: &PackLocationInfo,
+        resources: &dyn ResourcesSupplier,
+        current: PackFormat,
+        ty: PackType,
+    ) -> Option<PackMetadata> {
         let pack = resources.open_metadata(location);
         let result = (|| -> Result<Option<PackMetadata>, MetadataError> {
-            let meta = match pack.metadata().and_then(|m| m.get("pack", |v| PackMetadataSection::decode(v, ty))) {
+            let meta = match pack
+                .metadata()
+                .and_then(|m| m.get("pack", |v| PackMetadataSection::decode(v, ty)))
+            {
                 Ok(meta) => meta,
                 Err(MetadataError::Json(e)) => {
-                    warn_with_throwable("Error reading pack metadata, attempting fallback type", "com.google.gson.JsonParseException", &e);
-                    pack.metadata()?.get("pack", PackMetadataSection::decode_fallback)?
+                    warn_with_throwable(
+                        "Error reading pack metadata, attempting fallback type",
+                        "com.google.gson.JsonParseException",
+                        &e,
+                    );
+                    pack.metadata()?
+                        .get("pack", PackMetadataSection::decode_fallback)?
                 }
                 Err(e) => return Err(e),
             };
@@ -232,11 +285,20 @@ impl Pack {
                 return Ok(None);
             };
             let metadata = pack.metadata()?;
-            let required_flags = metadata.get("features", super::pack_format::decode_feature_flags_section)?.unwrap_or(FeatureFlagSet::EMPTY);
+            let required_flags = metadata
+                .get("features", super::pack_format::decode_feature_flags_section)?
+                .unwrap_or(FeatureFlagSet::EMPTY);
             let compatibility = PackCompatibility::for_version(meta.supported_formats, current);
             let overlays = metadata.get("overlays", |v| OverlayMetadataSection::decode(v, ty))?;
-            let overlay_set = overlays.map(|o| o.overlays_for_version(current)).unwrap_or_default();
-            Ok(Some(PackMetadata { description: meta.description, compatibility, requested_features: required_flags, overlays: overlay_set }))
+            let overlay_set = overlays
+                .map(|o| o.overlays_for_version(current))
+                .unwrap_or_default();
+            Ok(Some(PackMetadata {
+                description: meta.description,
+                compatibility,
+                requested_features: required_flags,
+                overlays: overlay_set,
+            }))
         })();
         pack.close();
         match result {
@@ -246,7 +308,11 @@ impl Pack {
                     MetadataError::Json(_) => "com.google.gson.JsonParseException",
                     MetadataError::Io(_) => "java.io.IOException",
                 };
-                warn_with_throwable(&format!("Failed to read pack {} metadata", location.id), class, &e.to_string());
+                warn_with_throwable(
+                    &format!("Failed to read pack {} metadata", location.id),
+                    class,
+                    &e.to_string(),
+                );
                 None
             }
         }
@@ -265,7 +331,8 @@ impl Pack {
     }
 
     pub fn chat_link(&self, enabled: bool) -> Component {
-        self.location.create_chat_link(enabled, &self.metadata.description)
+        self.location
+            .create_chat_link(enabled, &self.metadata.description)
     }
 
     pub fn compatibility(&self) -> PackCompatibility {
@@ -282,7 +349,8 @@ impl Pack {
 
     /// `open()`: the pack's resource layers (one, or an overlayed pack).
     pub fn open(&self) -> Vec<Arc<dyn PackResources>> {
-        self.resources.open_resources(&self.location, &self.metadata)
+        self.resources
+            .open_resources(&self.location, &self.metadata)
     }
 
     pub fn id(&self) -> &str {
@@ -312,7 +380,9 @@ impl Pack {
 
 impl PartialEq for Pack {
     fn eq(&self, other: &Pack) -> bool {
-        self.location.id == other.location.id && self.location.source == other.location.source && self.location.known_pack_info == other.location.known_pack_info
+        self.location.id == other.location.id
+            && self.location.source == other.location.source
+            && self.location.known_pack_info == other.location.known_pack_info
     }
 }
 
@@ -324,7 +394,11 @@ pub trait RepositorySource: Send + Sync {
 }
 
 /// `PackDetector` + `FolderRepositorySource.FolderPackDetector`.
-fn detect_pack_resources(content: &Path, validator: &DirectoryValidator, issues: &mut Vec<mc_world::level_storage::ForbiddenSymlinkInfo>) -> io::Result<Option<Arc<dyn ResourcesSupplier>>> {
+fn detect_pack_resources(
+    content: &Path,
+    validator: &DirectoryValidator,
+    issues: &mut Vec<mc_world::level_storage::ForbiddenSymlinkInfo>,
+) -> io::Result<Option<Arc<dyn ResourcesSupplier>>> {
     let mut target = content.to_path_buf();
     let mut attributes = match fs::symlink_metadata(content) {
         Ok(a) => a,
@@ -344,8 +418,16 @@ fn detect_pack_resources(content: &Path, validator: &DirectoryValidator, issues:
         if !issues.is_empty() {
             return Ok(None);
         }
-        Ok(if target.join("pack.mcmeta").is_file() { Some(Arc::new(PathResourcesSupplier { content: target })) } else { None })
-    } else if attributes.is_file() && target.file_name().is_some_and(|n| n.to_string_lossy().ends_with(".zip")) {
+        Ok(if target.join("pack.mcmeta").is_file() {
+            Some(Arc::new(PathResourcesSupplier { content: target }))
+        } else {
+            None
+        })
+    } else if attributes.is_file()
+        && target
+            .file_name()
+            .is_some_and(|n| n.to_string_lossy().ends_with(".zip"))
+    {
         Ok(Some(Arc::new(FileResourcesSupplier { content: target })))
     } else {
         Ok(None)
@@ -360,23 +442,51 @@ pub struct FolderRepositorySource {
     validator: DirectoryValidator,
 }
 
-const DISCOVERED_PACK_SELECTION_CONFIG: PackSelectionConfig = PackSelectionConfig { required: false, default_position: PackPosition::Top, fixed_position: false };
+const DISCOVERED_PACK_SELECTION_CONFIG: PackSelectionConfig = PackSelectionConfig {
+    required: false,
+    default_position: PackPosition::Top,
+    fixed_position: false,
+};
 
 impl FolderRepositorySource {
-    pub fn new(folder: PathBuf, pack_type: PackType, pack_source: PackSource, validator: DirectoryValidator) -> FolderRepositorySource {
-        FolderRepositorySource { folder, pack_type, pack_source, validator }
+    pub fn new(
+        folder: PathBuf,
+        pack_type: PackType,
+        pack_source: PackSource,
+        validator: DirectoryValidator,
+    ) -> FolderRepositorySource {
+        FolderRepositorySource {
+            folder,
+            pack_type,
+            pack_source,
+            validator,
+        }
     }
 
     /// `discoverPacks(folder, validator, result)`.
-    pub fn discover_packs(folder: &Path, validator: &DirectoryValidator, result: &mut dyn FnMut(&Path, Arc<dyn ResourcesSupplier>)) -> io::Result<()> {
+    pub fn discover_packs(
+        folder: &Path,
+        validator: &DirectoryValidator,
+        result: &mut dyn FnMut(&Path, Arc<dyn ResourcesSupplier>),
+    ) -> io::Result<()> {
         for entry in fs::read_dir(folder)? {
             let content = entry?.path();
             let mut issues = Vec::new();
             match detect_pack_resources(&content, validator, &mut issues) {
-                Ok(_) if !issues.is_empty() => log::warn!("Ignoring potential pack entry: {}", ContentValidationException::message(&content, &issues)),
+                Ok(_) if !issues.is_empty() => log::warn!(
+                    "Ignoring potential pack entry: {}",
+                    ContentValidationException::message(&content, &issues)
+                ),
                 Ok(Some(resources)) => result(&content, resources),
                 Ok(None) => log::info!("Found non-pack entry '{}', ignoring", content.display()),
-                Err(e) => warn_with_throwable(&format!("Failed to read properties of '{}', ignoring", content.display()), "java.io.IOException", &e.to_string()),
+                Err(e) => warn_with_throwable(
+                    &format!(
+                        "Failed to read properties of '{}', ignoring",
+                        content.display()
+                    ),
+                    "java.io.IOException",
+                    &e.to_string(),
+                ),
             }
         }
         Ok(())
@@ -387,22 +497,51 @@ impl RepositorySource for FolderRepositorySource {
     fn load_packs(&self, result: &mut dyn FnMut(Pack)) {
         let discovered = (|| {
             fs::create_dir_all(&self.folder)?;
-            FolderRepositorySource::discover_packs(&self.folder, &self.validator, &mut |content, resources| {
-                let name = content.file_name().map(|n| n.to_string_lossy().into_owned()).unwrap_or_default();
-                let info = PackLocationInfo { id: format!("file/{name}"), title: Component::literal(name), source: self.pack_source, known_pack_info: None };
-                if let Some(pack) = Pack::read_meta_and_create(info, resources, self.pack_type, DISCOVERED_PACK_SELECTION_CONFIG) {
-                    result(pack);
-                }
-            })
+            FolderRepositorySource::discover_packs(
+                &self.folder,
+                &self.validator,
+                &mut |content, resources| {
+                    let name = content
+                        .file_name()
+                        .map(|n| n.to_string_lossy().into_owned())
+                        .unwrap_or_default();
+                    let info = PackLocationInfo {
+                        id: format!("file/{name}"),
+                        title: Component::literal(name),
+                        source: self.pack_source,
+                        known_pack_info: None,
+                    };
+                    if let Some(pack) = Pack::read_meta_and_create(
+                        info,
+                        resources,
+                        self.pack_type,
+                        DISCOVERED_PACK_SELECTION_CONFIG,
+                    ) {
+                        result(pack);
+                    }
+                },
+            )
         })();
         if let Err(e) = discovered {
-            warn_with_throwable(&format!("Failed to list packs in {}", self.folder.display()), "java.io.IOException", &e.to_string());
+            warn_with_throwable(
+                &format!("Failed to list packs in {}", self.folder.display()),
+                "java.io.IOException",
+                &e.to_string(),
+            );
         }
     }
 }
 
-const VANILLA_SELECTION_CONFIG: PackSelectionConfig = PackSelectionConfig { required: false, default_position: PackPosition::Bottom, fixed_position: false };
-const FEATURE_SELECTION_CONFIG: PackSelectionConfig = PackSelectionConfig { required: false, default_position: PackPosition::Top, fixed_position: false };
+const VANILLA_SELECTION_CONFIG: PackSelectionConfig = PackSelectionConfig {
+    required: false,
+    default_position: PackPosition::Bottom,
+    fixed_position: false,
+};
+const FEATURE_SELECTION_CONFIG: PackSelectionConfig = PackSelectionConfig {
+    required: false,
+    default_position: PackPosition::Top,
+    fixed_position: false,
+};
 
 /// Directory of the built-in (feature) packs inside the vanilla pack: `data/minecraft/datapacks`.
 const FEATURE_PACKS_DIR: &str = "data/minecraft/datapacks/";
@@ -438,7 +577,12 @@ impl ServerPacksSource {
             exposed_namespaces: Some(HashSet::from(["minecraft".to_owned()])),
             built_in_metadata: Some(ServerPacksSource::built_in_metadata()),
         });
-        Pack::read_meta_and_create(ServerPacksSource::vanilla_pack_info(), supplier, PackType::ServerData, VANILLA_SELECTION_CONFIG)
+        Pack::read_meta_and_create(
+            ServerPacksSource::vanilla_pack_info(),
+            supplier,
+            PackType::ServerData,
+            VANILLA_SELECTION_CONFIG,
+        )
     }
 
     /// `listBundledPacks`: every directory of `data/minecraft/datapacks/` of the embedded pack that holds a `pack.mcmeta`.
@@ -450,18 +594,40 @@ impl ServerPacksSource {
             .collect();
         ids.into_iter()
             .filter_map(|id| {
-                let info = PackLocationInfo { id: id.to_owned(), title: Component::literal(id), source: PackSource::Feature, known_pack_info: Some(KnownPack::vanilla(id)) };
-                let supplier = Arc::new(EmbeddedResourcesSupplier { root: format!("{FEATURE_PACKS_DIR}{id}/"), exposed_namespaces: None, built_in_metadata: None });
-                Pack::read_meta_and_create(info, supplier, PackType::ServerData, FEATURE_SELECTION_CONFIG)
+                let info = PackLocationInfo {
+                    id: id.to_owned(),
+                    title: Component::literal(id),
+                    source: PackSource::Feature,
+                    known_pack_info: Some(KnownPack::vanilla(id)),
+                };
+                let supplier = Arc::new(EmbeddedResourcesSupplier {
+                    root: format!("{FEATURE_PACKS_DIR}{id}/"),
+                    exposed_namespaces: None,
+                    built_in_metadata: None,
+                });
+                Pack::read_meta_and_create(
+                    info,
+                    supplier,
+                    PackType::ServerData,
+                    FEATURE_SELECTION_CONFIG,
+                )
             })
             .collect()
     }
 
     /// `ServerPacksSource.createPackRepository(datapackDir, validator)`.
-    pub fn create_pack_repository(datapack_dir: PathBuf, validator: DirectoryValidator) -> PackRepository {
+    pub fn create_pack_repository(
+        datapack_dir: PathBuf,
+        validator: DirectoryValidator,
+    ) -> PackRepository {
         PackRepository::new(vec![
             Box::new(ServerPacksSource),
-            Box::new(FolderRepositorySource::new(datapack_dir, PackType::ServerData, PackSource::World, validator)),
+            Box::new(FolderRepositorySource::new(
+                datapack_dir,
+                PackType::ServerData,
+                PackSource::World,
+                validator,
+            )),
         ])
     }
 
@@ -493,21 +659,36 @@ pub struct PackRepository {
 
 impl PackRepository {
     pub fn new(sources: Vec<Box<dyn RepositorySource>>) -> PackRepository {
-        PackRepository { sources, available: BTreeMap::new(), selected: Vec::new() }
+        PackRepository {
+            sources,
+            available: BTreeMap::new(),
+            selected: Vec::new(),
+        }
     }
 
     /// `displayPackList`.
     pub fn display_pack_list<'a>(packs: impl IntoIterator<Item = &'a Arc<Pack>>) -> String {
         packs
             .into_iter()
-            .map(|p| format!("{}{}", p.id(), if p.compatibility().is_compatible() { "" } else { " (incompatible)" }))
+            .map(|p| {
+                format!(
+                    "{}{}",
+                    p.id(),
+                    if p.compatibility().is_compatible() {
+                        ""
+                    } else {
+                        " (incompatible)"
+                    }
+                )
+            })
             .collect::<Vec<_>>()
             .join(", ")
     }
 
     /// `reload()`.
     pub fn reload(&mut self) {
-        let currently_selected: Vec<String> = self.selected.iter().map(|p| p.id().to_owned()).collect();
+        let currently_selected: Vec<String> =
+            self.selected.iter().map(|p| p.id().to_owned()).collect();
         self.available = self.discover_available();
         self.selected = self.rebuild_selected(&currently_selected);
     }
@@ -525,7 +706,8 @@ impl PackRepository {
     /// `isAbleToClearAnyPack()`.
     pub fn is_able_to_clear_any_pack(&self) -> bool {
         let new_selected = self.rebuild_selected::<&str>(&[]);
-        !(self.selected.len() == new_selected.len() && self.selected.iter().zip(&new_selected).all(|(a, b)| a == b))
+        !(self.selected.len() == new_selected.len()
+            && self.selected.iter().zip(&new_selected).all(|(a, b)| a == b))
     }
 
     /// `setSelected(packs)`.
@@ -557,10 +739,18 @@ impl PackRepository {
     }
 
     fn rebuild_selected<S: AsRef<str>>(&self, selected_names: &[S]) -> Vec<Arc<Pack>> {
-        let mut selected_and_present: Vec<Arc<Pack>> = selected_names.iter().filter_map(|id| self.available.get(id.as_ref()).cloned()).collect();
+        let mut selected_and_present: Vec<Arc<Pack>> = selected_names
+            .iter()
+            .filter_map(|id| self.available.get(id.as_ref()).cloned())
+            .collect();
         for pack in self.available.values() {
             if pack.is_required() && !selected_and_present.iter().any(|p| p == pack) {
-                pack.default_position().insert(&mut selected_and_present, pack.clone(), |p| p.selection_config(), false);
+                pack.default_position().insert(
+                    &mut selected_and_present,
+                    pack.clone(),
+                    |p| p.selection_config(),
+                    false,
+                );
             }
         }
         selected_and_present
@@ -577,12 +767,20 @@ impl PackRepository {
     /// `getSelectedIds()` (a `LinkedHashSet`: duplicates collapse, order kept).
     pub fn selected_ids(&self) -> Vec<String> {
         let mut seen = HashSet::new();
-        self.selected.iter().map(|p| p.id()).filter(|id| seen.insert(*id)).map(str::to_owned).collect()
+        self.selected
+            .iter()
+            .map(|p| p.id())
+            .filter(|id| seen.insert(*id))
+            .map(str::to_owned)
+            .collect()
     }
 
     /// `getRequestedFeatureFlags()`.
     pub fn requested_feature_flags(&self) -> FeatureFlagSet {
-        self.selected.iter().map(|p| p.requested_features()).fold(FeatureFlagSet::EMPTY, FeatureFlagSet::join)
+        self.selected
+            .iter()
+            .map(|p| p.requested_features())
+            .fold(FeatureFlagSet::EMPTY, FeatureFlagSet::join)
     }
 
     pub fn selected_packs(&self) -> &[Arc<Pack>] {

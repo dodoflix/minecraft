@@ -3,7 +3,9 @@
 use super::{Behavior, BehaviorBase, DEFAULT_DURATION};
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
-use crate::world::entity::ai::memory::memory_module_type::{BREED_TARGET, HURT_BY, INTERACTION_TARGET, LOOK_TARGET, NEAREST_HOSTILE, PATH, WALK_TARGET};
+use crate::world::entity::ai::memory::memory_module_type::{
+    BREED_TARGET, HURT_BY, INTERACTION_TARGET, LOOK_TARGET, NEAREST_HOSTILE, PATH, WALK_TARGET,
+};
 use crate::world::entity::npc::villager::villager_mut;
 use crate::world::entity::schedule::Activity;
 
@@ -11,7 +13,12 @@ pub struct VillagerPanicTrigger;
 
 impl VillagerPanicTrigger {
     pub fn new() -> BehaviorBase<VillagerPanicTrigger> {
-        BehaviorBase::with_duration(Vec::new(), DEFAULT_DURATION, DEFAULT_DURATION, VillagerPanicTrigger)
+        BehaviorBase::with_duration(
+            Vec::new(),
+            DEFAULT_DURATION,
+            DEFAULT_DURATION,
+            VillagerPanicTrigger,
+        )
     }
 }
 
@@ -26,7 +33,12 @@ pub fn is_hurt(my_body: &dyn Entity) -> bool {
 }
 
 impl Behavior for VillagerPanicTrigger {
-    fn can_still_use(&mut self, _level: &mut ServerLevel, body: &mut dyn Entity, _timestamp: i64) -> bool {
+    fn can_still_use(
+        &mut self,
+        _level: &mut ServerLevel,
+        body: &mut dyn Entity,
+        _timestamp: i64,
+    ) -> bool {
         is_hurt(body) || has_hostile(body)
     }
 

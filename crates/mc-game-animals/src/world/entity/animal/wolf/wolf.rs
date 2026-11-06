@@ -2,23 +2,43 @@
 
 use super::wolf_sound_variant::{WolfSoundSet, WolfSoundVariant};
 use super::wolf_variant::WolfVariant;
+use crate::world::entity::ai::goal::BegGoal;
+use crate::world::entity::animal::turtle;
+use linkme::distributed_slice;
+use mc_core::ident::Identifier;
+use mc_core::math::mth;
+use mc_core::phys::Vec3;
+use mc_core::pos::BlockPos;
+use mc_core::random::RandomSource;
+use mc_data::enums::{EntitySpawnReason, Pose};
+use mc_data::{EntityType, GameEvent, Item, SoundEvent};
+use mc_game_ai::world::entity::ai::goal::target::{
+    NonTameRandomTargetGoal, OwnerHurtByTargetGoal, OwnerHurtTargetGoal,
+};
+use mc_game_ai::world::entity::ai::goal::{
+    AvoidEntityGoal, LeapAtTargetGoal, ResetUniversalAngerTargetGoal,
+};
 use mc_game_core::define_accessor;
 use mc_game_core::registry::RegistryAccess;
 use mc_game_core::registry::keys;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::damagesource::{DamageSource, DamageTypeTags};
 use mc_game_core::world::difficulty_instance::DifficultyInstance;
-use mc_game_ai::world::entity::ai::goal::target::{NonTameRandomTargetGoal, OwnerHurtByTargetGoal, OwnerHurtTargetGoal};
-use mc_game_core::world::entity::ai::goal::target::{HurtByTargetGoal, NearestAttackableTargetGoal, TargetType, class_of_types};
-use crate::world::entity::ai::goal::BegGoal;
-use mc_game_ai::world::entity::ai::goal::{AvoidEntityGoal, LeapAtTargetGoal, ResetUniversalAngerTargetGoal};
-use mc_game_core::world::entity::ai::goal::{BreedGoal, FloatGoal, FollowOwnerGoal, Goal, GoalFlags, LookAtPlayerGoal, MeleeAttackGoal, RandomLookAroundGoal, SitWhenOrderedToGoal, TamableAnimalPanicGoal, WaterAvoidingRandomStrollGoal};
-use crate::world::entity::animal::turtle;
+use mc_game_core::world::entity::ai::goal::target::{
+    HurtByTargetGoal, NearestAttackableTargetGoal, TargetType, class_of_types,
+};
+use mc_game_core::world::entity::ai::goal::{
+    BreedGoal, FloatGoal, FollowOwnerGoal, Goal, GoalFlags, LookAtPlayerGoal, MeleeAttackGoal,
+    RandomLookAroundGoal, SitWhenOrderedToGoal, TamableAnimalPanicGoal,
+    WaterAvoidingRandomStrollGoal,
+};
 use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
 use mc_game_core::world::entity::crackiness::Crackiness;
 use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
 use mc_game_core::world::entity::equipment::EquipmentSlot;
-use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
+use mc_game_core::world::entity::factory::{
+    ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest,
+};
 use mc_game_core::world::entity::living_entity::util::broadcast_entity_event;
 use mc_game_core::world::entity::mob::neutral::{self, NeutralData};
 use mc_game_core::world::entity::mob::spawn::AgeableMobGroupData;
@@ -30,17 +50,9 @@ use mc_game_core::world::item::dye_color;
 use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack, ItemStackExt};
 use mc_game_core::world::level::pathfinder::PathType;
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
-use linkme::distributed_slice;
-use mc_core::ident::Identifier;
-use mc_core::math::mth;
-use mc_core::phys::Vec3;
-use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
-use mc_data::enums::{EntitySpawnReason, Pose};
-use mc_data::{EntityType, GameEvent, Item, SoundEvent};
 use mc_nbt::CompoundTag;
-use std::sync::Arc;
 use mc_protocol::components::{DYE, DyeColor};
+use std::sync::Arc;
 
 define_accessor!(pub DATA_INTERESTED_ID: Boolean = Wolf);
 define_accessor!(pub DATA_COLLAR_COLOR: Int = Wolf);
@@ -56,13 +68,17 @@ const DEFAULT_COLLAR_COLOR: DyeColor = DyeColor::Red;
 
 /// `PREY_SELECTOR`: sheep, rabbits and foxes.
 pub fn prey_selector(target: &dyn Entity, _level: &ServerLevel) -> bool {
-    matches!(target.get_type(), EntityType::SHEEP | EntityType::RABBIT | EntityType::FOX)
+    matches!(
+        target.get_type(),
+        EntityType::SHEEP | EntityType::RABBIT | EntityType::FOX
+    )
 }
 
 /// `BABY_DIMENSIONS`.
 fn baby_dimensions() -> EntityDimensions {
     let dims = EntityDimensions::scalable(0.3, 0.425).with_eye_height(0.34375);
-    let attachments = EntityAttachments::create_default(0.3, 0.425).with_passenger(Vec3::new(0.0, 0.4375, 0.0));
+    let attachments =
+        EntityAttachments::create_default(0.3, 0.425).with_passenger(Vec3::new(0.0, 0.4375, 0.0));
     dims.with_attachments(attachments)
 }
 
@@ -74,7 +90,10 @@ pub struct WolfPackData {
 
 impl WolfPackData {
     pub fn new(variant: Identifier) -> Self {
-        Self { base: AgeableMobGroupData::with_baby(false), variant }
+        Self {
+            base: AgeableMobGroupData::with_baby(false),
+            variant,
+        }
     }
 }
 
@@ -97,16 +116,40 @@ pub struct WolfAvoidEntityGoal {
 
 impl WolfAvoidEntityGoal {
     pub fn new() -> Self {
-        Self { avoid: AvoidEntityGoal::new(class_of_types(&[EntityType::LLAMA, EntityType::TRADER_LLAMA]), 24.0, 1.5, 1.5) }
+        Self {
+            avoid: AvoidEntityGoal::new(
+                class_of_types(&[EntityType::LLAMA, EntityType::TRADER_LLAMA]),
+                24.0,
+                1.5,
+                1.5,
+            ),
+        }
     }
 }
 
 impl Goal for WolfAvoidEntityGoal {
     fn can_use(&mut self, wolf: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        if !(self.avoid.can_use_impl(wolf, level) && self.avoid.to_avoid.and_then(|a| level.get_entity(a)).is_some_and(|a| a.as_any().is::<crate::world::entity::animal::equine::Llama>())) {
+        if !(self.avoid.can_use_impl(wolf, level)
+            && self
+                .avoid
+                .to_avoid
+                .and_then(|a| level.get_entity(a))
+                .is_some_and(|a| {
+                    a.as_any()
+                        .is::<crate::world::entity::animal::equine::Llama>()
+                }))
+        {
             return false;
         }
-        let strength = self.avoid.to_avoid.and_then(|a| level.get_entity(a)).and_then(|a| a.as_any().downcast_ref::<crate::world::entity::animal::equine::Llama>()).map_or(0, |l| l.get_strength());
+        let strength = self
+            .avoid
+            .to_avoid
+            .and_then(|a| level.get_entity(a))
+            .and_then(|a| {
+                a.as_any()
+                    .downcast_ref::<crate::world::entity::animal::equine::Llama>()
+            })
+            .map_or(0, |l| l.get_strength());
         !tamable::is_tame(wolf) && strength >= wolf.base_mut().random.next_int_bounded(5)
     }
     fn can_continue_to_use(&mut self, wolf: &mut dyn Entity, _level: &mut ServerLevel) -> bool {
@@ -150,9 +193,15 @@ pub struct Wolf {
 impl Wolf {
     /// `new Wolf(type, level)` (`registerGoals` and `createNavigation` run as in `Mob.<init>`).
     pub fn new(ty: EntityType, id: EntityId, registries: &RegistryAccess) -> Self {
-        let default_variant = variant::get_default_or_any(registries, keys::WOLF_VARIANT, &Identifier::parse("minecraft:pale").expect("valid id"));
+        let default_variant = variant::get_default_or_any(
+            registries,
+            keys::WOLF_VARIANT,
+            &Identifier::parse("minecraft:pale").expect("valid id"),
+        );
         let sound_registry = registries.registry_or_throw(keys::WOLF_SOUND_VARIANT);
-        let default_sound = sound_registry.id_of(&Identifier::parse("minecraft:classic").expect("valid id")).unwrap_or(0);
+        let default_sound = sound_registry
+            .id_of(&Identifier::parse("minecraft:classic").expect("valid id"))
+            .unwrap_or(0);
         let mob = MobData::new(ty, id, MobKind::TamableAnimal, |b| {
             b.define(DATA_VARIANT_ID, default_variant as i32);
             b.define(DATA_SOUND_VARIANT_ID, default_sound as i32);
@@ -160,9 +209,16 @@ impl Wolf {
             b.define(DATA_COLLAR_COLOR, i32::from(DEFAULT_COLLAR_COLOR.id()));
             b.define(DATA_ANGER_END_TIME, -1i64);
         });
-        let variant_key = registries.registry_or_throw(keys::WOLF_VARIANT).name_of(default_variant).expect("variant entry");
-        let sound_variant_key = sound_registry.name_of(default_sound).expect("sound variant entry");
-        let sound_variant = *registries.get::<WolfSoundVariant>(keys::WOLF_SOUND_VARIANT, &sound_variant_key).expect("typed wolf sound variant");
+        let variant_key = registries
+            .registry_or_throw(keys::WOLF_VARIANT)
+            .name_of(default_variant)
+            .expect("variant entry");
+        let sound_variant_key = sound_registry
+            .name_of(default_sound)
+            .expect("sound variant entry");
+        let sound_variant = *registries
+            .get::<WolfSoundVariant>(keys::WOLF_SOUND_VARIANT, &sound_variant_key)
+            .expect("typed wolf sound variant");
         let mut wolf = Wolf {
             mob,
             interested_angle: 0.0,
@@ -177,13 +233,17 @@ impl Wolf {
             pending_variant: None,
             pending_sound_variant: None,
         };
-        wolf.mob.neutral = Some(NeutralData { end_time_accessor: Some(DATA_ANGER_END_TIME), ..NeutralData::default() });
+        wolf.mob.neutral = Some(NeutralData {
+            end_time_accessor: Some(DATA_ANGER_END_TIME),
+            ..NeutralData::default()
+        });
         let navigation = StandardPathNavigation::ground(&wolf);
         wolf.mob.set_navigation(Box::new(navigation));
         wolf.register_goals();
         tamable::set_tame(&mut wolf, false, false);
         wolf.mob.set_pathfinding_malus(PathType::PowderSnow, -1.0);
-        wolf.mob.set_pathfinding_malus(PathType::OnTopOfPowderSnow, -1.0);
+        wolf.mob
+            .set_pathfinding_malus(PathType::OnTopOfPowderSnow, -1.0);
         wolf
     }
 
@@ -194,7 +254,13 @@ impl Wolf {
         let look_at = LookAtPlayerGoal::new_player(self, 8.0);
         let goals = &mut self.mob.goal_selector;
         goals.add_goal(1, Box::new(float));
-        goals.add_goal(1, Box::new(TamableAnimalPanicGoal::with_tag(1.5, DamageTypeTags::PANIC_ENVIRONMENTAL_CAUSES)));
+        goals.add_goal(
+            1,
+            Box::new(TamableAnimalPanicGoal::with_tag(
+                1.5,
+                DamageTypeTags::PANIC_ENVIRONMENTAL_CAUSES,
+            )),
+        );
         goals.add_goal(2, Box::new(SitWhenOrderedToGoal::new()));
         goals.add_goal(3, Box::new(WolfAvoidEntityGoal::new()));
         goals.add_goal(4, Box::new(LeapAtTargetGoal::new(0.4)));
@@ -208,17 +274,45 @@ impl Wolf {
         let targets = &mut self.mob.target_selector;
         targets.add_goal(1, Box::new(OwnerHurtByTargetGoal::new()));
         targets.add_goal(2, Box::new(OwnerHurtTargetGoal::new()));
-        targets.add_goal(3, Box::new(HurtByTargetGoal::new(vec![]).set_alert_others(vec![])));
+        targets.add_goal(
+            3,
+            Box::new(HurtByTargetGoal::new(vec![]).set_alert_others(vec![])),
+        );
         targets.add_goal(
             4,
-            Box::new(NearestAttackableTargetGoal::build(TargetType::Player, 10, true, false, None).with_source_selector(Arc::new(|mob, target, level| neutral::is_angry_at(mob, level, target)))),
+            Box::new(
+                NearestAttackableTargetGoal::build(TargetType::Player, 10, true, false, None)
+                    .with_source_selector(Arc::new(|mob, target, level| {
+                        neutral::is_angry_at(mob, level, target)
+                    })),
+            ),
         );
-        targets.add_goal(5, Box::new(NonTameRandomTargetGoal::new(TargetType::Class(Arc::new(|e| e.mob().is_some_and(|m| m.animal.is_some()))), false, Some(Arc::new(prey_selector)))));
-        targets.add_goal(6, Box::new(NonTameRandomTargetGoal::new(TargetType::of_type(EntityType::TURTLE), false, Some(Arc::new(turtle::baby_on_land_selector)))));
+        targets.add_goal(
+            5,
+            Box::new(NonTameRandomTargetGoal::new(
+                TargetType::Class(Arc::new(|e| e.mob().is_some_and(|m| m.animal.is_some()))),
+                false,
+                Some(Arc::new(prey_selector)),
+            )),
+        );
+        targets.add_goal(
+            6,
+            Box::new(NonTameRandomTargetGoal::new(
+                TargetType::of_type(EntityType::TURTLE),
+                false,
+                Some(Arc::new(turtle::baby_on_land_selector)),
+            )),
+        );
         targets.add_goal(
             7,
             Box::new(NearestAttackableTargetGoal::new(
-                TargetType::Class(class_of_types(&[EntityType::SKELETON, EntityType::STRAY, EntityType::WITHER_SKELETON, EntityType::BOGGED, EntityType::PARCHED])),
+                TargetType::Class(class_of_types(&[
+                    EntityType::SKELETON,
+                    EntityType::STRAY,
+                    EntityType::WITHER_SKELETON,
+                    EntityType::BOGGED,
+                    EntityType::PARCHED,
+                ])),
                 false,
             )),
         );
@@ -226,13 +320,24 @@ impl Wolf {
     }
 
     fn get_sound_set(&self) -> &WolfSoundSet {
-        if self.is_baby() { &self.sound_variant.baby_sounds } else { &self.sound_variant.adult_sounds }
+        if self.is_baby() {
+            &self.sound_variant.baby_sounds
+        } else {
+            &self.sound_variant.adult_sounds
+        }
     }
 
     /// `setVariant(variant)`.
     pub fn set_variant(&mut self, registries: &RegistryAccess, id: u32) {
-        self.mob.living.entity.entity_data.set(DATA_VARIANT_ID, id as i32);
-        if let Some(name) = registries.registry(keys::WOLF_VARIANT).and_then(|r| r.name_of(id)) {
+        self.mob
+            .living
+            .entity
+            .entity_data
+            .set(DATA_VARIANT_ID, id as i32);
+        if let Some(name) = registries
+            .registry(keys::WOLF_VARIANT)
+            .and_then(|r| r.name_of(id))
+        {
             self.variant_key = name;
         }
     }
@@ -244,8 +349,15 @@ impl Wolf {
 
     /// `setSoundVariant(soundVariant)`.
     pub fn set_sound_variant(&mut self, registries: &RegistryAccess, id: u32) {
-        self.mob.living.entity.entity_data.set(DATA_SOUND_VARIANT_ID, id as i32);
-        if let Some(name) = registries.registry(keys::WOLF_SOUND_VARIANT).and_then(|r| r.name_of(id)) {
+        self.mob
+            .living
+            .entity
+            .entity_data
+            .set(DATA_SOUND_VARIANT_ID, id as i32);
+        if let Some(name) = registries
+            .registry(keys::WOLF_SOUND_VARIANT)
+            .and_then(|r| r.name_of(id))
+        {
             if let Some(v) = registries.get::<WolfSoundVariant>(keys::WOLF_SOUND_VARIANT, &name) {
                 self.sound_variant = *v;
             }
@@ -260,12 +372,20 @@ impl Wolf {
 
     /// `setCollarColor(color)`.
     pub fn set_collar_color(&mut self, color: DyeColor) {
-        self.mob.living.entity.entity_data.set(DATA_COLLAR_COLOR, i32::from(color.id()));
+        self.mob
+            .living
+            .entity
+            .entity_data
+            .set(DATA_COLLAR_COLOR, i32::from(color.id()));
     }
 
     /// `setIsInterested(value)`.
     pub fn set_is_interested(&mut self, value: bool) {
-        self.mob.living.entity.entity_data.set(DATA_INTERESTED_ID, value);
+        self.mob
+            .living
+            .entity
+            .entity_data
+            .set(DATA_INTERESTED_ID, value);
     }
 
     /// `isInterested()`.
@@ -306,7 +426,8 @@ impl Wolf {
 
     /// `canArmorAbsorb(source)`.
     fn can_armor_absorb(&self, level: &ServerLevel, source: &DamageSource) -> bool {
-        self.body_armor().is(Item::WOLF_ARMOR) && !source.is_tag(level, DamageTypeTags::BYPASSES_WOLF_ARMOR)
+        self.body_armor().is(Item::WOLF_ARMOR)
+            && !source.is_tag(level, DamageTypeTags::BYPASSES_WOLF_ARMOR)
     }
 
     /// `tryToTame(player)`.
@@ -340,10 +461,19 @@ impl Entity for Wolf {
     }
 
     fn get_dimensions(&self, _pose: Pose) -> EntityDimensions {
-        if self.is_baby() { baby_dimensions() } else { EntityDimensions::of_type(self.mob.living.entity.entity_type) }
+        if self.is_baby() {
+            baby_dimensions()
+        } else {
+            EntityDimensions::of_type(self.mob.living.entity.entity_type)
+        }
     }
 
-    fn play_step_sound(&mut self, level: &mut ServerLevel, _pos: BlockPos, _state: mc_data::block::BlockState) {
+    fn play_step_sound(
+        &mut self,
+        level: &mut ServerLevel,
+        _pos: BlockPos,
+        _state: mc_data::block::BlockState,
+    ) {
         let sound = self.get_sound_set().step_sound;
         self.play_sound(level, sound, 0.15, 1.0);
     }
@@ -359,20 +489,32 @@ impl Entity for Wolf {
     fn read_additional_save_data(&mut self, input: &CompoundTag) {
         mob::nbt::read_additional_save_data(self, input);
         self.pending_variant = variant::read_variant_key(input);
-        let collar = if input.contains("CollarColor") { dye_color::by_id(i32::from(input.get_byte_or("CollarColor", 0))) } else { DEFAULT_COLLAR_COLOR };
+        let collar = if input.contains("CollarColor") {
+            dye_color::by_id(i32::from(input.get_byte_or("CollarColor", 0)))
+        } else {
+            DEFAULT_COLLAR_COLOR
+        };
         self.set_collar_color(collar);
         neutral::read_persistent_anger_save_data(self, None, input);
-        self.pending_sound_variant = input.get_string("sound_variant").and_then(Identifier::try_parse);
+        self.pending_sound_variant = input
+            .get_string("sound_variant")
+            .and_then(Identifier::try_parse);
     }
 
     fn resolve_registry_refs(&mut self, registries: &RegistryAccess) {
         if let Some(key) = self.pending_variant.take() {
-            if let Some(id) = registries.registry(keys::WOLF_VARIANT).and_then(|r| r.id_of(&key)) {
+            if let Some(id) = registries
+                .registry(keys::WOLF_VARIANT)
+                .and_then(|r| r.id_of(&key))
+            {
                 self.set_variant(registries, id);
             }
         }
         if let Some(key) = self.pending_sound_variant.take() {
-            if let Some(id) = registries.registry(keys::WOLF_SOUND_VARIANT).and_then(|r| r.id_of(&key)) {
+            if let Some(id) = registries
+                .registry(keys::WOLF_SOUND_VARIANT)
+                .and_then(|r| r.id_of(&key))
+            {
                 self.set_sound_variant(registries, id);
             }
         }
@@ -387,9 +529,15 @@ impl Entity for Wolf {
     ) -> Option<Box<dyn SpawnGroupData>> {
         let registries = level.registry_access().clone();
         let mut group_data = group_data;
-        let pack_variant = group_data.as_mut().and_then(|g| g.as_any_mut().downcast_mut::<WolfPackData>()).map(|p| p.variant.clone());
+        let pack_variant = group_data
+            .as_mut()
+            .and_then(|g| g.as_any_mut().downcast_mut::<WolfPackData>())
+            .map(|p| p.variant.clone());
         if let Some(variant_key) = pack_variant {
-            if let Some(id) = registries.registry(keys::WOLF_VARIANT).and_then(|r| r.id_of(&variant_key)) {
+            if let Some(id) = registries
+                .registry(keys::WOLF_VARIANT)
+                .and_then(|r| r.id_of(&variant_key))
+            {
                 self.set_variant(&registries, id);
             }
         } else {
@@ -397,18 +545,30 @@ impl Entity for Wolf {
             let mut selected: Option<Identifier> = None;
             level.with_random_taken(&mut |level, random| {
                 let context = SpawnContext::create(level, pos);
-                selected = variant::select_variant_to_spawn::<WolfVariant>(&context, keys::WOLF_VARIANT, random);
+                selected = variant::select_variant_to_spawn::<WolfVariant>(
+                    &context,
+                    keys::WOLF_VARIANT,
+                    random,
+                );
                 true
             });
             if let Some(key) = selected {
-                if let Some(id) = registries.registry(keys::WOLF_VARIANT).and_then(|r| r.id_of(&key)) {
+                if let Some(id) = registries
+                    .registry(keys::WOLF_VARIANT)
+                    .and_then(|r| r.id_of(&key))
+                {
                     self.set_variant(&registries, id);
                 }
                 group_data = Some(Box::new(WolfPackData::new(key)));
             }
         }
-        if let Some(key) = variant::pick_random_entry(&registries, keys::WOLF_SOUND_VARIANT, level.random()) {
-            if let Some(id) = registries.registry(keys::WOLF_SOUND_VARIANT).and_then(|r| r.id_of(&key)) {
+        if let Some(key) =
+            variant::pick_random_entry(&registries, keys::WOLF_SOUND_VARIANT, level.random())
+        {
+            if let Some(id) = registries
+                .registry(keys::WOLF_SOUND_VARIANT)
+                .and_then(|r| r.id_of(&key))
+            {
                 self.set_sound_variant(&registries, id);
             }
         }
@@ -419,14 +579,22 @@ impl Entity for Wolf {
         if neutral::is_angry(self, level) {
             Some(self.get_sound_set().growl_sound)
         } else if self.base_mut().random.next_int_bounded(3) == 0 {
-            Some(if tamable::is_tame(self) && self.get_health() < 20.0 { self.get_sound_set().whine_sound } else { self.get_sound_set().pant_sound })
+            Some(if tamable::is_tame(self) && self.get_health() < 20.0 {
+                self.get_sound_set().whine_sound
+            } else {
+                self.get_sound_set().pant_sound
+            })
         } else {
             Some(self.get_sound_set().ambient_sound)
         }
     }
 
     fn get_hurt_sound_in(&self, level: &ServerLevel, source: &DamageSource) -> Option<SoundEvent> {
-        Some(if self.can_armor_absorb(level, source) { SoundEvent::ITEM_WOLF_ARMOR_DAMAGE } else { self.get_sound_set().hurt_sound })
+        Some(if self.can_armor_absorb(level, source) {
+            SoundEvent::ITEM_WOLF_ARMOR_DAMAGE
+        } else {
+            self.get_sound_set().hurt_sound
+        })
     }
 
     fn get_death_sound(&self) -> Option<SoundEvent> {
@@ -439,7 +607,11 @@ impl Entity for Wolf {
 
     fn ai_step(&mut self, level: &mut ServerLevel) {
         mob::tick::ai_step(self, level);
-        if self.is_wet && !self.is_shaking && !mob::pathfinder::is_path_finding(self, level) && self.base().on_ground() {
+        if self.is_wet
+            && !self.is_shaking
+            && !mob::pathfinder::is_path_finding(self, level)
+            && self.base().on_ground()
+        {
             self.is_shaking = true;
             self.shake_anim = 0.0;
             self.shake_anim_o = 0.0;
@@ -465,7 +637,10 @@ impl Entity for Wolf {
                 }
             } else if (self.is_wet || self.is_shaking) && self.is_shaking {
                 if self.shake_anim == 0.0 {
-                    let pitch = (self.base_mut().random.next_float() - self.base_mut().random.next_float()) * 0.2 + 1.0;
+                    let pitch = (self.base_mut().random.next_float()
+                        - self.base_mut().random.next_float())
+                        * 0.2
+                        + 1.0;
                     let volume = self.get_sound_volume();
                     self.play_sound(level, SoundEvent::ENTITY_WOLF_SHAKE, volume, pitch);
                     self.game_event(level, GameEvent::ENTITY_ACTION);
@@ -479,11 +654,17 @@ impl Entity for Wolf {
                     self.shake_anim = 0.0;
                 }
                 if self.shake_anim > 0.4 {
-                    let shake_count = (mth::sin(f64::from((self.shake_anim - 0.4) * std::f64::consts::PI as f32)) * 7.0) as i32;
+                    let shake_count = (mth::sin(f64::from(
+                        (self.shake_anim - 0.4) * std::f64::consts::PI as f32,
+                    )) * 7.0) as i32;
                     // `level().addParticle(SPLASH, ...)` is client-only, but the two random draws per particle happen
                     for _ in 0..shake_count {
-                        let _xo = (self.base_mut().random.next_float() * 2.0 - 1.0) * self.base().get_bb_width() * 0.5;
-                        let _zo = (self.base_mut().random.next_float() * 2.0 - 1.0) * self.base().get_bb_width() * 0.5;
+                        let _xo = (self.base_mut().random.next_float() * 2.0 - 1.0)
+                            * self.base().get_bb_width()
+                            * 0.5;
+                        let _zo = (self.base_mut().random.next_float() * 2.0 - 1.0)
+                            * self.base().get_bb_width()
+                            * 0.5;
                     }
                 }
             }
@@ -499,7 +680,11 @@ impl Entity for Wolf {
     }
 
     fn get_max_head_x_rot(&self) -> i32 {
-        if tamable::is_in_sitting_pose(self) { 20 } else { 40 }
+        if tamable::is_in_sitting_pose(self) {
+            20
+        } else {
+            40
+        }
     }
 
     fn hurt_server(&mut self, level: &mut ServerLevel, source: &DamageSource, damage: f32) -> bool {
@@ -512,15 +697,21 @@ impl Entity for Wolf {
 
     fn actually_hurt(&mut self, level: &mut ServerLevel, source: &DamageSource, damage: f32) {
         if !self.can_armor_absorb(level, source) {
-            mc_game_core::world::entity::living_entity::damage::actually_hurt(self, level, source, damage);
+            mc_game_core::world::entity::living_entity::damage::actually_hurt(
+                self, level, source, damage,
+            );
         } else {
             let armor_before = self.body_armor();
             let damage_before = armor_before.get_damage_value();
             let max_damage = armor_before.get_max_damage();
             self.hurt_and_break_equipment(level, EquipmentSlot::Body, mth::ceil_f32(damage));
-            if Crackiness::WOLF_ARMOR.by_damage(damage_before, max_damage) != Crackiness::WOLF_ARMOR.by_damage_item(&self.body_armor()) {
+            if Crackiness::WOLF_ARMOR.by_damage(damage_before, max_damage)
+                != Crackiness::WOLF_ARMOR.by_damage_item(&self.body_armor())
+            {
                 self.play_sound(level, SoundEvent::ITEM_WOLF_ARMOR_CRACK, 1.0, 1.0);
-                let particle = mc_protocol::packets::play::ParticleOptions::Item(mc_protocol::components::ItemStackTemplate::of(Item::ARMADILLO_SCUTE));
+                let particle = mc_protocol::packets::play::ParticleOptions::Item(
+                    mc_protocol::components::ItemStackTemplate::of(Item::ARMADILLO_SCUTE),
+                );
                 let pos = self.position();
                 level.send_particles(particle, pos.x, pos.y + 1.0, pos.z, 20, 0.2, 0.1, 0.2, 0.1);
             }
@@ -529,24 +720,45 @@ impl Entity for Wolf {
 
     fn apply_taming_side_effects(&mut self) {
         if tamable::is_tame(self) {
-            if let Some(i) = self.mob.living.attributes.get_instance(mc_data::Attribute::MAX_HEALTH) {
+            if let Some(i) = self
+                .mob
+                .living
+                .attributes
+                .get_instance(mc_data::Attribute::MAX_HEALTH)
+            {
                 i.set_base_value(40.0);
             }
             self.mob.living.set_health(40.0);
-        } else if let Some(i) = self.mob.living.attributes.get_instance(mc_data::Attribute::MAX_HEALTH) {
+        } else if let Some(i) = self
+            .mob
+            .living
+            .attributes
+            .get_instance(mc_data::Attribute::MAX_HEALTH)
+        {
             i.set_base_value(8.0);
         }
     }
 
     fn hurt_armor(&mut self, level: &mut ServerLevel, source: &DamageSource, damage: f32) {
-        mc_game_core::world::entity::living_entity::damage::do_hurt_equipment(self, level, source, damage, &[EquipmentSlot::Body]);
+        mc_game_core::world::entity::living_entity::damage::do_hurt_equipment(
+            self,
+            level,
+            source,
+            damage,
+            &[EquipmentSlot::Body],
+        );
     }
 
     fn can_shear_equipment(&self, player: &ServerPlayer) -> bool {
         self.is_owned_by_player(player)
     }
 
-    fn mob_interact(&mut self, level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) -> InteractionResult {
+    fn mob_interact(
+        &mut self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        hand: InteractionHand,
+    ) -> InteractionResult {
         let item_stack = player.get_item_in_hand(hand);
         let infinite = player.player.abilities.instabuild;
         if tamable::is_tame(self) {
@@ -554,10 +766,20 @@ impl Entity for Wolf {
                 tamable::feed(self, level, player, hand, &item_stack, 2.0, 2.0);
                 return InteractionResult::SUCCESS;
             }
-            let is_collar_dye = mc_data::tags::get::<Item>("wolf_collar_dyes").is_some_and(|t| t.contains(item_stack.item()));
+            let is_collar_dye = mc_data::tags::get::<Item>("wolf_collar_dyes")
+                .is_some_and(|t| t.contains(item_stack.item()));
             if !is_collar_dye || !self.is_owned_by_player(player) {
-                if self.is_equippable_in_slot(&item_stack, EquipmentSlot::Body) && self.body_armor().is_empty() && self.is_owned_by_player(player) && !self.is_baby() {
-                    mob::equipment::set_item_slot_and_drop_when_killed(self, level, EquipmentSlot::Body, item_stack.copy_with_count(1));
+                if self.is_equippable_in_slot(&item_stack, EquipmentSlot::Body)
+                    && self.body_armor().is_empty()
+                    && self.is_owned_by_player(player)
+                    && !self.is_baby()
+                {
+                    mob::equipment::set_item_slot_and_drop_when_killed(
+                        self,
+                        level,
+                        EquipmentSlot::Body,
+                        item_stack.copy_with_count(1),
+                    );
                     interact::with_hand_stack(player, hand, |stack, _| stack.consume(1, infinite));
                     return InteractionResult::SUCCESS;
                 }
@@ -566,7 +788,9 @@ impl Entity for Wolf {
                     && !armor.is_empty()
                     && self.is_owned_by_player(player)
                     && armor.is_damaged()
-                    && armor.get(&mc_protocol::components::REPAIRABLE).is_some_and(|r| r.is_valid_repair_item(item_stack.item()))
+                    && armor
+                        .get(&mc_protocol::components::REPAIRABLE)
+                        .is_some_and(|r| r.is_valid_repair_item(item_stack.item()))
                 {
                     interact::with_hand_stack(player, hand, |stack, _| stack.shrink(1));
                     self.play_sound(level, SoundEvent::ITEM_WOLF_ARMOR_REPAIR, 1.0, 1.0);
@@ -584,7 +808,9 @@ impl Entity for Wolf {
                     mob::navigation::stop(self, level);
                     mob::tick::set_target(self, level, None);
                     return match InteractionResult::SUCCESS {
-                        InteractionResult::Success(s) => InteractionResult::Success(s.without_item()),
+                        InteractionResult::Success(s) => {
+                            InteractionResult::Success(s.without_item())
+                        }
                         other => other,
                     };
                 }
@@ -625,7 +851,11 @@ impl Entity for Wolf {
     }
 
     fn get_leash_offset(&self) -> Vec3 {
-        Vec3::new(0.0, f64::from(0.6f32 * self.base().eye_height), f64::from(self.base().get_bb_width() * 0.4))
+        Vec3::new(
+            0.0,
+            f64::from(0.6f32 * self.base().eye_height),
+            f64::from(self.base().get_bb_width() * 0.4),
+        )
     }
 
     fn tamed_wolf_owner(&self) -> Option<Option<uuid::Uuid>> {
@@ -636,21 +866,35 @@ impl Entity for Wolf {
         if partner.id() == self.id() || !tamable::is_tame(self) {
             return false;
         }
-        let Some(wolf) = partner.as_any().downcast_ref::<Wolf>() else { return false };
+        let Some(wolf) = partner.as_any().downcast_ref::<Wolf>() else {
+            return false;
+        };
         if !tamable::is_tame(wolf) || tamable::is_in_sitting_pose(wolf) {
             return false;
         }
         mob::animal::is_in_love(self) && mob::animal::is_in_love(wolf)
     }
 
-    fn wants_to_attack(&self, level: &ServerLevel, target: &dyn Entity, owner: &dyn Entity) -> bool {
-        if matches!(target.get_type(), EntityType::CREEPER | EntityType::GHAST | EntityType::ARMOR_STAND) {
+    fn wants_to_attack(
+        &self,
+        level: &ServerLevel,
+        target: &dyn Entity,
+        owner: &dyn Entity,
+    ) -> bool {
+        if matches!(
+            target.get_type(),
+            EntityType::CREEPER | EntityType::GHAST | EntityType::ARMOR_STAND
+        ) {
             return false;
         }
         if let Some(wolf_target) = target.as_any().downcast_ref::<Wolf>() {
-            return !tamable::is_tame(wolf_target) || tamable::get_owner(wolf_target, level) != Some(owner.id());
+            return !tamable::is_tame(wolf_target)
+                || tamable::get_owner(wolf_target, level) != Some(owner.id());
         }
-        if let (Some(player_target), Some(player_owner)) = (target.as_any().downcast_ref::<ServerPlayer>(), owner.as_any().downcast_ref::<ServerPlayer>()) {
+        if let (Some(player_target), Some(player_owner)) = (
+            target.as_any().downcast_ref::<ServerPlayer>(),
+            owner.as_any().downcast_ref::<ServerPlayer>(),
+        ) {
             if !player_owner.can_harm_player(level, &player_target.get_scoreboard_name()) {
                 return false;
             }
@@ -661,22 +905,50 @@ impl Entity for Wolf {
         !(target.mob().is_some_and(|m| m.tamable.is_some()) && tamable::is_tame(target))
     }
 
-    fn get_breed_offspring(&mut self, level: &mut ServerLevel, partner: EntityId) -> Option<Box<dyn Entity>> {
-        let mut baby = mc_game_core::world::entity::factory::create(EntityType::WOLF, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })?;
-        let partner_info = level.get_entity(partner).and_then(|p| p.as_any().downcast_ref::<Wolf>()).map(|p| (p.get_variant(), p.get_collar_color()));
-        if let (Some((partner_variant, partner_collar)), Some(wolf)) = (partner_info, baby.as_any_mut().downcast_mut::<Wolf>()) {
+    fn get_breed_offspring(
+        &mut self,
+        level: &mut ServerLevel,
+        partner: EntityId,
+    ) -> Option<Box<dyn Entity>> {
+        let mut baby = mc_game_core::world::entity::factory::create(
+            EntityType::WOLF,
+            level,
+            EntitySpawnRequest {
+                reason: EntitySpawnReason::Breeding,
+                ignore_checks: false,
+            },
+        )?;
+        let partner_info = level
+            .get_entity(partner)
+            .and_then(|p| p.as_any().downcast_ref::<Wolf>())
+            .map(|p| (p.get_variant(), p.get_collar_color()));
+        if let (Some((partner_variant, partner_collar)), Some(wolf)) =
+            (partner_info, baby.as_any_mut().downcast_mut::<Wolf>())
+        {
             let registries = level.registries.clone();
             let own_variant = self.get_variant();
-            let pick = if self.base_mut().random.next_boolean() { own_variant } else { partner_variant };
+            let pick = if self.base_mut().random.next_boolean() {
+                own_variant
+            } else {
+                partner_variant
+            };
             wolf.set_variant(&registries, pick as u32);
             if tamable::is_tame(self) {
                 tamable::set_owner_reference(wolf, tamable::get_owner_reference(self));
                 wolf.set_tame(None, true, true);
-                let mixed = dye_color::get_mixed_color(level, self.get_collar_color(), partner_collar);
+                let mixed =
+                    dye_color::get_mixed_color(level, self.get_collar_color(), partner_collar);
                 wolf.set_collar_color(mixed);
             }
-            if let Some(key) = variant::pick_random_entry(&registries, keys::WOLF_SOUND_VARIANT, &mut self.base_mut().random) {
-                if let Some(id) = registries.registry(keys::WOLF_SOUND_VARIANT).and_then(|r| r.id_of(&key)) {
+            if let Some(key) = variant::pick_random_entry(
+                &registries,
+                keys::WOLF_SOUND_VARIANT,
+                &mut self.base_mut().random,
+            ) {
+                if let Some(id) = registries
+                    .registry(keys::WOLF_SOUND_VARIANT)
+                    .and_then(|r| r.id_of(&key))
+                {
                     wolf.set_sound_variant(&registries, id);
                 }
             }
@@ -686,13 +958,25 @@ impl Entity for Wolf {
 }
 
 /// `Wolf.checkWolfSpawnRules`.
-fn check_wolf_spawn_rules(_ty: EntityType, level: &dyn ServerLevelAccessor, _reason: EntitySpawnReason, pos: BlockPos, _random: &mut dyn RandomSource) -> bool {
-    use mc_game_core::world::level::block::BlockStateExt as _;
+fn check_wolf_spawn_rules(
+    _ty: EntityType,
+    level: &dyn ServerLevelAccessor,
+    _reason: EntitySpawnReason,
+    pos: BlockPos,
+    _random: &mut dyn RandomSource,
+) -> bool {
     use mc_game_core::world::level::BlockGetter as _;
-    level.get_block_state(pos.below()).is_tag("wolves_spawnable_on") && mc_game_core::world::entity::spawn_predicates::is_bright_enough_to_spawn(level, pos)
+    use mc_game_core::world::level::block::BlockStateExt as _;
+    level
+        .get_block_state(pos.below())
+        .is_tag("wolves_spawnable_on")
+        && mc_game_core::world::entity::spawn_predicates::is_bright_enough_to_spawn(level, pos)
 }
 
 mc_game_core::register_spawn_placement!(EntityType::WOLF, check_wolf_spawn_rules);
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static WOLF: EntityRegistration = EntityRegistration { entity_type: EntityType::WOLF, create: |ty, id, registries| Box::new(Wolf::new(ty, id, registries)) };
+static WOLF: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::WOLF,
+    create: |ty, id, registries| Box::new(Wolf::new(ty, id, registries)),
+};

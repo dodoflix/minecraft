@@ -74,18 +74,30 @@ impl TestHolder {
 
 /// `registryAccess.get(testKey)`: the instance registered under `key`.
 pub fn lookup_test(registries: &RegistryAccess, key: &Identifier) -> Option<TestHolder> {
-    let entry = registries.registry(keys::TEST_INSTANCE)?.entry_by_key(key)?;
+    let entry = registries
+        .registry(keys::TEST_INSTANCE)?
+        .entry_by_key(key)?;
     let value = entry.value.clone()?.downcast::<GameTestInstance>().ok()?;
-    Some(TestHolder { key: key.clone(), value })
+    Some(TestHolder {
+        key: key.clone(),
+        value,
+    })
 }
 
 /// Every `test_instance` entry in registry order (`listElements()`).
 pub fn all_tests(registries: &RegistryAccess) -> Vec<TestHolder> {
-    let Some(registry) = registries.registry(keys::TEST_INSTANCE) else { return Vec::new() };
+    let Some(registry) = registries.registry(keys::TEST_INSTANCE) else {
+        return Vec::new();
+    };
     registry
         .entries()
         .iter()
-        .filter_map(|e| Some(TestHolder { key: e.id.clone(), value: e.value.clone()?.downcast::<GameTestInstance>().ok()? }))
+        .filter_map(|e| {
+            Some(TestHolder {
+                key: e.id.clone(),
+                value: e.value.clone()?.downcast::<GameTestInstance>().ok()?,
+            })
+        })
         .collect()
 }
 
@@ -146,10 +158,15 @@ impl GameTestInstance {
     pub fn run(&self, helper: &mut GameTestHelper<'_>) -> Result<(), GameTestException> {
         match &self.kind {
             GameTestInstanceKind::Function(function) => {
-                let known = helper.registries().registry("minecraft:test_function").is_some_and(|r| r.contains(function));
+                let known = helper
+                    .registries()
+                    .registry("minecraft:test_function")
+                    .is_some_and(|r| r.contains(function));
                 match super::builtin_test_functions::find(function).filter(|_| known) {
                     Some(run) => run(helper),
-                    None => Err(GameTestException::Unknown { reason: format!("Trying to access missing test function: {function}") }),
+                    None => Err(GameTestException::Unknown {
+                        reason: format!("Trying to access missing test function: {function}"),
+                    }),
                 }
             }
             GameTestInstanceKind::BlockBased => super::block_based_test_instance::run(helper),
@@ -168,7 +185,10 @@ impl GameTestInstance {
         match &self.kind {
             GameTestInstanceKind::Function(function) => self
                 .describe_type()
-                .append(description_row("test_instance.description.function", Component::literal(function.to_string())))
+                .append(description_row(
+                    "test_instance.description.function",
+                    Component::literal(function.to_string()),
+                ))
                 .append(self.describe_info()),
             GameTestInstanceKind::BlockBased => self.describe_type().append(self.describe_info()),
         }
@@ -179,25 +199,49 @@ impl GameTestInstance {
     }
 
     fn describe_info(&self) -> Component {
-        description_row("test_instance.description.structure", Component::literal(self.info.structure.to_string()))
-            .append(description_row("test_instance.description.batch", Component::literal(self.info.environment.registered_name())))
-            .append(description_row("test_instance.description.dimension", Component::literal(self.info.dimension.to_string())))
+        description_row(
+            "test_instance.description.structure",
+            Component::literal(self.info.structure.to_string()),
+        )
+        .append(description_row(
+            "test_instance.description.batch",
+            Component::literal(self.info.environment.registered_name()),
+        ))
+        .append(description_row(
+            "test_instance.description.dimension",
+            Component::literal(self.info.dimension.to_string()),
+        ))
     }
 }
 
 /// `descriptionRow(translationKey, value)`.
 fn description_row(key: &str, value: Component) -> Component {
-    Component::translatable(key.to_owned(), vec![value.with_format(ChatFormatting::Blue).into()]).append(Component::literal("\n"))
+    Component::translatable(
+        key.to_owned(),
+        vec![value.with_format(ChatFormatting::Blue).into()],
+    )
+    .append(Component::literal("\n"))
 }
 
 // ---- codec ----
 
 fn positive_int(value: &Value) -> Result<i32, String> {
-    let n = value.as_f64().ok_or_else(|| format!("Not a number: {value}"))? as i32;
-    if n >= 1 { Ok(n) } else { Err(format!("Value must be positive: {n}")) }
+    let n = value
+        .as_f64()
+        .ok_or_else(|| format!("Not a number: {value}"))? as i32;
+    if n >= 1 {
+        Ok(n)
+    } else {
+        Err(format!("Value must be positive: {n}"))
+    }
 }
 
-fn optional<'a, T>(json: &'a Value, key: &str, default: T, read: impl FnOnce(&'a Value) -> Result<T, String>) -> Result<T, String> {
+fn optional<'a, T>(
+    json: &'a Value,
+    key: &str,
+    default: T,
+    read: impl FnOnce(&'a Value) -> Result<T, String>,
+) -> Result<T, String> {
     match json.get(key) {
         None => Ok(default),
         Some(v) => read(v),
@@ -213,21 +257,38 @@ fn boolean(value: &Value) -> Result<bool, String> {
 }
 
 /// `TestData.CODEC` (a `MapCodec`: the fields sit next to the instance's own).
-fn decode_test_data(json: &Value, ctx: &RegistryDecodeContext) -> Result<TestData<EnvironmentRef>, String> {
-    let environment = decode_environment_ref(json.get("environment").ok_or_else(|| format!("No key environment in MapLike[{json}]"))?, ctx)?;
-    let dimension = optional(json, "dimension", Identifier::parse("minecraft:overworld").map_err(|e| e.to_string())?, |v| {
-        Identifier::read(v.as_str().ok_or_else(|| format!("Not a string: {v}"))?)
-    })?;
+fn decode_test_data(
+    json: &Value,
+    ctx: &RegistryDecodeContext,
+) -> Result<TestData<EnvironmentRef>, String> {
+    let environment = decode_environment_ref(
+        json.get("environment")
+            .ok_or_else(|| format!("No key environment in MapLike[{json}]"))?,
+        ctx,
+    )?;
+    let dimension = optional(
+        json,
+        "dimension",
+        Identifier::parse("minecraft:overworld").map_err(|e| e.to_string())?,
+        |v| Identifier::read(v.as_str().ok_or_else(|| format!("Not a string: {v}"))?),
+    )?;
     let structure = Identifier::read(
         json.get("structure")
             .ok_or_else(|| format!("No key structure in MapLike[{json}]"))?
             .as_str()
             .ok_or_else(|| "Not a string: structure".to_owned())?,
     )?;
-    let max_ticks = positive_int(json.get("max_ticks").ok_or_else(|| format!("No key max_ticks in MapLike[{json}]"))?)?;
+    let max_ticks = positive_int(
+        json.get("max_ticks")
+            .ok_or_else(|| format!("No key max_ticks in MapLike[{json}]"))?,
+    )?;
     let setup_ticks = optional(json, "setup_ticks", 0, |v| {
         let n = v.as_f64().ok_or_else(|| format!("Not a number: {v}"))? as i32;
-        if n >= 0 { Ok(n) } else { Err(format!("Value must be non-negative: {n}")) }
+        if n >= 0 {
+            Ok(n)
+        } else {
+            Err(format!("Value must be non-negative: {n}"))
+        }
     })?;
     let required = optional(json, "required", true, boolean)?;
     let rotation = optional(json, "rotation", Rotation::None, |v| {
@@ -240,7 +301,11 @@ fn decode_test_data(json: &Value, ctx: &RegistryDecodeContext) -> Result<TestDat
     let sky_access = optional(json, "sky_access", false, boolean)?;
     let padding = optional(json, "padding", 0, |v| {
         let n = v.as_f64().ok_or_else(|| format!("Not a number: {v}"))? as i32;
-        if (0..=128).contains(&n) { Ok(n) } else { Err(format!("Value {n} outside of range [0:128]")) }
+        if (0..=128).contains(&n) {
+            Ok(n)
+        } else {
+            Err(format!("Value {n} outside of range [0:128]"))
+        }
     })?;
     Ok(TestData {
         environment,
@@ -259,21 +324,39 @@ fn decode_test_data(json: &Value, ctx: &RegistryDecodeContext) -> Result<TestDat
 }
 
 /// `GameTestInstance.DIRECT_CODEC` (dispatch on `type` through `TEST_INSTANCE_TYPE`).
-pub fn decode_instance(json: &Value, ctx: &RegistryDecodeContext) -> Result<GameTestInstance, String> {
+pub fn decode_instance(
+    json: &Value,
+    ctx: &RegistryDecodeContext,
+) -> Result<GameTestInstance, String> {
     if !json.is_object() {
         return Err(format!("Not a JSON object: {json}"));
     }
-    let ty = json.get("type").ok_or_else(|| format!("No key type in MapLike[{json}]"))?;
+    let ty = json
+        .get("type")
+        .ok_or_else(|| format!("No key type in MapLike[{json}]"))?;
     let ty = Identifier::read(ty.as_str().ok_or_else(|| format!("Not a string: {ty}"))?)?;
     let kind = match ty.to_string().as_str() {
         "minecraft:function" => {
-            let function = json.get("function").ok_or_else(|| format!("No key function in MapLike[{json}]"))?;
-            GameTestInstanceKind::Function(Identifier::read(function.as_str().ok_or_else(|| format!("Not a string: {function}"))?)?)
+            let function = json
+                .get("function")
+                .ok_or_else(|| format!("No key function in MapLike[{json}]"))?;
+            GameTestInstanceKind::Function(Identifier::read(
+                function
+                    .as_str()
+                    .ok_or_else(|| format!("Not a string: {function}"))?,
+            )?)
         }
         "minecraft:block_based" => GameTestInstanceKind::BlockBased,
-        other => return Err(format!("Unknown registry key in ResourceKey[minecraft:root / minecraft:test_instance_type]: {other}")),
+        other => {
+            return Err(format!(
+                "Unknown registry key in ResourceKey[minecraft:root / minecraft:test_instance_type]: {other}"
+            ));
+        }
     };
-    Ok(GameTestInstance { kind, info: decode_test_data(json, ctx)? })
+    Ok(GameTestInstance {
+        kind,
+        info: decode_test_data(json, ctx)?,
+    })
 }
 
 fn decode(json: &Value, ctx: &RegistryDecodeContext) -> Result<DecodedEntry, String> {
@@ -281,7 +364,10 @@ fn decode(json: &Value, ctx: &RegistryDecodeContext) -> Result<DecodedEntry, Str
 }
 
 #[linkme::distributed_slice(DYNAMIC_REGISTRY_DECODERS)]
-static DECODER: DynamicRegistryDecoder = DynamicRegistryDecoder { registry: keys::TEST_INSTANCE, decode };
+static DECODER: DynamicRegistryDecoder = DynamicRegistryDecoder {
+    registry: keys::TEST_INSTANCE,
+    decode,
+};
 
 #[cfg(test)]
 mod tests {
@@ -304,8 +390,19 @@ mod tests {
     fn decodes_the_vanilla_always_pass_instance() {
         let json = json!({"type":"minecraft:function","environment":"minecraft:default","function":"minecraft:always_pass","max_ticks":1,"required":false,"setup_ticks":1,"structure":"minecraft:empty"});
         let instance = decode_instance(&json, &RegistryDecodeContext::new(&All)).unwrap();
-        assert!(matches!(&instance.kind, GameTestInstanceKind::Function(f) if f.to_string() == "minecraft:always_pass"));
-        assert_eq!((instance.max_ticks(), instance.setup_ticks(), instance.required(), instance.max_attempts(), instance.padding()), (1, 1, false, 1, 0));
+        assert!(
+            matches!(&instance.kind, GameTestInstanceKind::Function(f) if f.to_string() == "minecraft:always_pass")
+        );
+        assert_eq!(
+            (
+                instance.max_ticks(),
+                instance.setup_ticks(),
+                instance.required(),
+                instance.max_attempts(),
+                instance.padding()
+            ),
+            (1, 1, false, 1, 0)
+        );
         assert_eq!(instance.rotation(), Rotation::None);
         assert_eq!(instance.dimension().to_string(), "minecraft:overworld");
         assert_eq!(instance.batch().registered_name(), "minecraft:default");
@@ -316,11 +413,24 @@ mod tests {
         let ctx = RegistryDecodeContext::new(&All);
         let base = json!({"type":"minecraft:block_based","environment":"minecraft:default","max_ticks":5,"structure":"minecraft:empty"});
         assert!(decode_instance(&base, &ctx).is_ok());
-        for (key, value) in [("max_ticks", json!(0)), ("padding", json!(129)), ("max_attempts", json!(0)), ("rotation", json!("sideways"))] {
+        for (key, value) in [
+            ("max_ticks", json!(0)),
+            ("padding", json!(129)),
+            ("max_attempts", json!(0)),
+            ("rotation", json!("sideways")),
+        ] {
             let mut bad = base.clone();
             bad[key] = value;
-            assert!(decode_instance(&bad, &ctx).is_err(), "{key} should be rejected");
+            assert!(
+                decode_instance(&bad, &ctx).is_err(),
+                "{key} should be rejected"
+            );
         }
-        assert!(decode_instance(&json!({"type":"minecraft:nope"}), &ctx).err().unwrap().contains("test_instance_type"));
+        assert!(
+            decode_instance(&json!({"type":"minecraft:nope"}), &ctx)
+                .err()
+                .unwrap()
+                .contains("test_instance_type")
+        );
     }
 }

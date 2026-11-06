@@ -18,7 +18,9 @@ pub fn clear_pattern_blocks(level: &mut ServerLevel, m: &mut BlockPatternMatch) 
             let block = m.get_block(x, y, 0);
             let pos = block.get_pos();
             level.set_block_flags(pos, super::helpers::air(), 2);
-            let state = block.get_state(&*level).expect("the position is loaded: it was just set");
+            let state = block
+                .get_state(&*level)
+                .expect("the position is loaded: it was just set");
             level.level_event(None, 2001, pos, state.id() as i32);
         }
     }
@@ -35,12 +37,25 @@ pub fn update_pattern_blocks(level: &mut ServerLevel, m: &mut BlockPatternMatch)
 }
 
 /// `EntityType.create(level, TRIGGERED)` for the summoned golem/wither: the entity, not yet added to the level.
-pub fn create_triggered(level: &ServerLevel, ty: EntityType) -> Option<Box<dyn crate::world::entity::Entity>> {
-    factory::create(ty, level, EntitySpawnRequest { reason: EntitySpawnReason::Triggered, ignore_checks: false })
+pub fn create_triggered(
+    level: &ServerLevel,
+    ty: EntityType,
+) -> Option<Box<dyn crate::world::entity::Entity>> {
+    factory::create(
+        ty,
+        level,
+        EntitySpawnRequest {
+            reason: EntitySpawnReason::Triggered,
+            ignore_checks: false,
+        },
+    )
 }
 
 /// `level.addFreshEntity(entity)`: the entity's id when it was added.
-pub fn add_fresh_entity(level: &mut ServerLevel, entity: Box<dyn crate::world::entity::Entity>) -> Option<EntityId> {
+pub fn add_fresh_entity(
+    level: &mut ServerLevel,
+    entity: Box<dyn crate::world::entity::Entity>,
+) -> Option<EntityId> {
     let id = entity.id();
     level.add_fresh_entity(entity).then_some(id)
 }

@@ -9,14 +9,18 @@ use mc_data::{Item, MobEffect, Potion};
 use mc_dfu::extra::{UNSIGNED_BYTE, extra_int_range, non_empty_list};
 use mc_dfu::{BOOL, BYTE, Codec, DataResult, INT, MapCodec, STRING, record};
 use mc_protocol::components::holder::registry_by_name_codec;
-use mc_protocol::components::values::basic::{CUSTOM_MODEL_DATA, DYED_COLOR, DyedItemColor, OminousBottleAmplifier, OMINOUS_BOTTLE_AMPLIFIER};
+use mc_protocol::components::values::basic::{
+    CUSTOM_MODEL_DATA, DYED_COLOR, DyedItemColor, OMINOUS_BOTTLE_AMPLIFIER, OminousBottleAmplifier,
+};
 use mc_protocol::components::values::decor::{
-    BANNER_PATTERNS, BannerPatternLayers, FIREWORKS, FIREWORK_EXPLOSION, FireworkExplosion, FireworkShape, Fireworks, INSTRUMENT, InstrumentComponent,
-    Filterable, WRITABLE_BOOK_CONTENT, WRITTEN_BOOK_CONTENT, WritableBookContent, WrittenBookContent,
+    BANNER_PATTERNS, BannerPatternLayers, FIREWORK_EXPLOSION, FIREWORKS, Filterable,
+    FireworkExplosion, FireworkShape, Fireworks, INSTRUMENT, InstrumentComponent,
+    WRITABLE_BOOK_CONTENT, WRITTEN_BOOK_CONTENT, WritableBookContent, WrittenBookContent,
 };
 use mc_protocol::components::values::effects::{
-    ATTRIBUTE_MODIFIERS, EquipmentSlotGroup, ItemAttributeModifiers, ItemAttributeModifiersDisplay, ItemAttributeModifiersEntry, POTION_CONTENTS,
-    PotionContents, SUSPICIOUS_STEW_EFFECTS, SuspiciousStewEffects, SuspiciousStewEffectsEntry,
+    ATTRIBUTE_MODIFIERS, EquipmentSlotGroup, ItemAttributeModifiers, ItemAttributeModifiersDisplay,
+    ItemAttributeModifiersEntry, POTION_CONTENTS, PotionContents, SUSPICIOUS_STEW_EFFECTS,
+    SuspiciousStewEffects, SuspiciousStewEffectsEntry,
 };
 use mc_protocol::components::values::predicates::data_driven_set_codec;
 use mc_protocol::components::{HolderSet, ItemStack, NoDirect};
@@ -31,13 +35,19 @@ use crate::world::level::storage::loot::predicates::ConditionHolder;
 use crate::world::level::storage::loot::providers::number::{
     FloatHolder, IntHolder, float_holder_codec, int_exactly, int_holder_codec,
 };
-use crate::world::level::storage::loot::validation::{ValidationContext, validate_holder_field, validate_holder_list};
+use crate::world::level::storage::loot::validation::{
+    ValidationContext, validate_holder_field, validate_holder_list,
+};
 use mc_dfu::extra::RGB_COLOR_CODEC;
 
 type Entries = Vec<(&'static str, MapCodec<LootItemFunctionRef>)>;
 
 fn entry<F: ConditionalFunction + Clone>(codec: MapCodec<F>) -> MapCodec<LootItemFunctionRef> {
-    lift(codec, |f| Arc::new(f) as LootItemFunctionRef, |t| t.as_any().downcast_ref::<F>())
+    lift(
+        codec,
+        |f| Arc::new(f) as LootItemFunctionRef,
+        |t| t.as_any().downcast_ref::<F>(),
+    )
 }
 
 macro_rules! conditional {
@@ -67,7 +77,10 @@ pub struct SetPotionFunction {
 impl ConditionalFunction for SetPotionFunction {
     conditional!("set_potion");
     fn run(&self, mut stack: ItemStack, _context: &mut LootContext) -> ItemStack {
-        let mut contents = stack.get(&POTION_CONTENTS).cloned().unwrap_or_else(empty_potion_contents);
+        let mut contents = stack
+            .get(&POTION_CONTENTS)
+            .cloned()
+            .unwrap_or_else(empty_potion_contents);
         contents.potion = Some(self.potion);
         stack.set(POTION_CONTENTS, contents);
         stack
@@ -76,7 +89,12 @@ impl ConditionalFunction for SetPotionFunction {
 
 /// `PotionContents.EMPTY`.
 fn empty_potion_contents() -> PotionContents {
-    PotionContents { potion: None, custom_color: None, custom_effects: Vec::new(), custom_name: None }
+    PotionContents {
+        potion: None,
+        custom_color: None,
+        custom_effects: Vec::new(),
+        custom_name: None,
+    }
 }
 
 #[derive(Clone)]
@@ -90,16 +108,28 @@ impl ConditionalFunction for SetRandomPotionFunction {
     fn run(&self, mut stack: ItemStack, context: &mut LootContext) -> ItemStack {
         let registries = context.get_resolver();
         let potions: Vec<Potion> = match &self.options {
-            Some(set) => crate::world::level::storage::loot::holder::holder_set_ids(registries, "minecraft:potion", set)
-                .iter()
-                .filter_map(|id| mc_data::registry::by_name("minecraft:potion").and_then(|r| r.id_of(&id.to_string())).and_then(Potion::from_id))
-                .collect(),
+            Some(set) => crate::world::level::storage::loot::holder::holder_set_ids(
+                registries,
+                "minecraft:potion",
+                set,
+            )
+            .iter()
+            .filter_map(|id| {
+                mc_data::registry::by_name("minecraft:potion")
+                    .and_then(|r| r.id_of(&id.to_string()))
+                    .and_then(Potion::from_id)
+            })
+            .collect(),
             None => Potion::iter().collect(),
         };
         // `HolderSet.getRandomElement` / `Registry.getRandom`: `random.nextInt(size)`
         if !potions.is_empty() {
-            let potion = potions[context.get_random().next_int_bounded(potions.len() as i32) as usize];
-            let mut contents = stack.get(&POTION_CONTENTS).cloned().unwrap_or_else(empty_potion_contents);
+            let potion =
+                potions[context.get_random().next_int_bounded(potions.len() as i32) as usize];
+            let mut contents = stack
+                .get(&POTION_CONTENTS)
+                .cloned()
+                .unwrap_or_else(empty_potion_contents);
             contents.potion = Some(potion);
             stack.set(POTION_CONTENTS, contents);
         }
@@ -134,12 +164,24 @@ impl ConditionalFunction for SetStewEffectFunction {
             return stack;
         }
         let entry = random_of(&self.effects, context.get_random());
-        let mut duration = entry.duration.value(context.get_resolver()).get_int(context);
+        let mut duration = entry
+            .duration
+            .value(context.get_resolver())
+            .get_int(context);
         if !entry.effect.data().instantaneous {
             duration = duration.wrapping_mul(20);
         }
-        let mut stew = stack.get(&SUSPICIOUS_STEW_EFFECTS).cloned().unwrap_or(SuspiciousStewEffects { effects: Vec::new() });
-        stew.effects.push(SuspiciousStewEffectsEntry { effect: entry.effect, duration });
+        let mut stew =
+            stack
+                .get(&SUSPICIOUS_STEW_EFFECTS)
+                .cloned()
+                .unwrap_or(SuspiciousStewEffects {
+                    effects: Vec::new(),
+                });
+        stew.effects.push(SuspiciousStewEffectsEntry {
+            effect: entry.effect,
+            duration,
+        });
         stack.set(SUSPICIOUS_STEW_EFFECTS, stew);
         stack
     }
@@ -164,15 +206,28 @@ pub struct SetAttributesFunction {
 }
 
 impl SetAttributesFunction {
-    fn update_modifiers(&self, context: &mut LootContext, mut item_modifiers: ItemAttributeModifiers) -> ItemAttributeModifiers {
+    fn update_modifiers(
+        &self,
+        context: &mut LootContext,
+        mut item_modifiers: ItemAttributeModifiers,
+    ) -> ItemAttributeModifiers {
         for modifier in &self.modifiers {
             let slot = random_of(&modifier.slots, context.get_random());
-            let amount = modifier.amount.value(context.get_resolver()).get_float(context);
+            let amount = modifier
+                .amount
+                .value(context.get_resolver())
+                .get_float(context);
             // `withModifierAdded`: replaces an entry of the same attribute and modifier id
-            item_modifiers.modifiers.retain(|e| !(e.attribute == modifier.attribute && e.modifier.id == modifier.id));
+            item_modifiers
+                .modifiers
+                .retain(|e| !(e.attribute == modifier.attribute && e.modifier.id == modifier.id));
             item_modifiers.modifiers.push(ItemAttributeModifiersEntry {
                 attribute: modifier.attribute,
-                modifier: AttributeModifier { id: modifier.id.clone(), amount: f64::from(amount), operation: modifier.operation },
+                modifier: AttributeModifier {
+                    id: modifier.id.clone(),
+                    amount: f64::from(amount),
+                    operation: modifier.operation,
+                },
                 slot,
                 display: ItemAttributeModifiersDisplay::Default,
             });
@@ -190,7 +245,18 @@ impl ConditionalFunction for SetAttributesFunction {
         }
     }
     fn run(&self, mut stack: ItemStack, context: &mut LootContext) -> ItemStack {
-        let base = if self.replace { ItemAttributeModifiers { modifiers: Vec::new() } } else { stack.get(&ATTRIBUTE_MODIFIERS).cloned().unwrap_or(ItemAttributeModifiers { modifiers: Vec::new() }) };
+        let base = if self.replace {
+            ItemAttributeModifiers {
+                modifiers: Vec::new(),
+            }
+        } else {
+            stack
+                .get(&ATTRIBUTE_MODIFIERS)
+                .cloned()
+                .unwrap_or(ItemAttributeModifiers {
+                    modifiers: Vec::new(),
+                })
+        };
         let updated = self.update_modifiers(context, base);
         stack.set(ATTRIBUTE_MODIFIERS, updated);
         stack
@@ -208,10 +274,19 @@ pub struct SetInstrumentFunction {
 impl ConditionalFunction for SetInstrumentFunction {
     conditional!("set_instrument");
     fn run(&self, mut stack: ItemStack, context: &mut LootContext) -> ItemStack {
-        let ids = crate::world::level::storage::loot::holder::holder_set_ids(context.get_resolver(), keys::INSTRUMENT, &self.options);
+        let ids = crate::world::level::storage::loot::holder::holder_set_ids(
+            context.get_resolver(),
+            keys::INSTRUMENT,
+            &self.options,
+        );
         if !ids.is_empty() {
             let id = ids[context.get_random().next_int_bounded(ids.len() as i32) as usize].clone();
-            stack.set(INSTRUMENT, InstrumentComponent { instrument: mc_protocol::components::Holder::Reference(id) });
+            stack.set(
+                INSTRUMENT,
+                InstrumentComponent {
+                    instrument: mc_protocol::components::Holder::Reference(id),
+                },
+            );
         }
         stack
     }
@@ -229,7 +304,13 @@ impl ConditionalFunction for SetOminousBottleAmplifierFunction {
         validate_holder_field(context, "amplifier", &self.amplifier);
     }
     fn run(&self, mut stack: ItemStack, context: &mut LootContext) -> ItemStack {
-        let value = mth::clamp_i32(self.amplifier.value(context.get_resolver()).get_int(context), 0, 4);
+        let value = mth::clamp_i32(
+            self.amplifier
+                .value(context.get_resolver())
+                .get_int(context),
+            0,
+            4,
+        );
         stack.set(OMINOUS_BOTTLE_AMPLIFIER, OminousBottleAmplifier { value });
         stack
     }
@@ -244,7 +325,10 @@ pub struct SetRandomDyesFunction {
 impl ConditionalFunction for SetRandomDyesFunction {
     conditional!("set_random_dyes");
     fn run(&self, stack: ItemStack, context: &mut LootContext) -> ItemStack {
-        let rolls = self.number_of_dyes.value(context.get_resolver()).get_int(context);
+        let rolls = self
+            .number_of_dyes
+            .value(context.get_resolver())
+            .get_int(context);
         if rolls <= 0 {
             return stack;
         }
@@ -259,9 +343,14 @@ impl ConditionalFunction for SetRandomDyesFunction {
 
 /// `DyedItemColor.applyDyes(itemStack, dyes)`.
 fn apply_dyes(stack: &ItemStack, dyes: &[mc_protocol::components::DyeColor]) -> ItemStack {
-    let (mut red_total, mut green_total, mut blue_total, mut intensity_total, mut color_count) = (0i32, 0i32, 0i32, 0i32, 0i32);
+    let (mut red_total, mut green_total, mut blue_total, mut intensity_total, mut color_count) =
+        (0i32, 0i32, 0i32, 0i32, 0i32);
     if let Some(current) = stack.get(&DYED_COLOR) {
-        let (r, g, b) = ((current.rgb >> 16) & 0xFF, (current.rgb >> 8) & 0xFF, current.rgb & 0xFF);
+        let (r, g, b) = (
+            (current.rgb >> 16) & 0xFF,
+            (current.rgb >> 8) & 0xFF,
+            current.rgb & 0xFF,
+        );
         intensity_total += r.max(g.max(b));
         red_total += r;
         green_total += g;
@@ -302,7 +391,10 @@ pub struct SetBookCoverFunction {
 impl ConditionalFunction for SetBookCoverFunction {
     conditional!("set_book_cover");
     fn run(&self, mut stack: ItemStack, _context: &mut LootContext) -> ItemStack {
-        let original = stack.get(&WRITTEN_BOOK_CONTENT).cloned().unwrap_or_default();
+        let original = stack
+            .get(&WRITTEN_BOOK_CONTENT)
+            .cloned()
+            .unwrap_or_default();
         stack.set(
             WRITTEN_BOOK_CONTENT,
             WrittenBookContent {
@@ -349,8 +441,17 @@ impl ConditionalFunction for SetFireworksFunction {
     conditional!("set_fireworks");
     fn run(&self, mut stack: ItemStack, _context: &mut LootContext) -> ItemStack {
         let old = stack.get(&FIREWORKS).cloned().unwrap_or_default();
-        let explosions = self.explosions.as_ref().map_or_else(|| old.explosions.clone(), |op| op.apply(&old.explosions));
-        stack.set(FIREWORKS, Fireworks { flight_duration: self.flight_duration.unwrap_or(old.flight_duration), explosions });
+        let explosions = self
+            .explosions
+            .as_ref()
+            .map_or_else(|| old.explosions.clone(), |op| op.apply(&old.explosions));
+        stack.set(
+            FIREWORKS,
+            Fireworks {
+                flight_duration: self.flight_duration.unwrap_or(old.flight_duration),
+                explosions,
+            },
+        );
         stack
     }
 }
@@ -406,21 +507,45 @@ impl ConditionalFunction for SetCustomModelDataFunction {
         let component = stack.get(&CUSTOM_MODEL_DATA).cloned().unwrap_or_default();
         let floats = match &self.floats {
             Some(op) => {
-                let replacement: Vec<f32> = op.value.iter().map(|p| p.value(context.get_resolver()).get_float(context)).collect();
-                op.operation.apply(&component.floats, &replacement, usize::MAX)
+                let replacement: Vec<f32> = op
+                    .value
+                    .iter()
+                    .map(|p| p.value(context.get_resolver()).get_float(context))
+                    .collect();
+                op.operation
+                    .apply(&component.floats, &replacement, usize::MAX)
             }
             None => component.floats.clone(),
         };
-        let flags = self.flags.as_ref().map_or_else(|| component.flags.clone(), |op| op.apply(&component.flags));
-        let strings = self.strings.as_ref().map_or_else(|| component.strings.clone(), |op| op.apply(&component.strings));
+        let flags = self
+            .flags
+            .as_ref()
+            .map_or_else(|| component.flags.clone(), |op| op.apply(&component.flags));
+        let strings = self.strings.as_ref().map_or_else(
+            || component.strings.clone(),
+            |op| op.apply(&component.strings),
+        );
         let colors = match &self.colors {
             Some(op) => {
-                let replacement: Vec<i32> = op.value.iter().map(|p| p.value(context.get_resolver()).get_int(context)).collect();
-                op.operation.apply(&component.colors, &replacement, usize::MAX)
+                let replacement: Vec<i32> = op
+                    .value
+                    .iter()
+                    .map(|p| p.value(context.get_resolver()).get_int(context))
+                    .collect();
+                op.operation
+                    .apply(&component.colors, &replacement, usize::MAX)
             }
             None => component.colors.clone(),
         };
-        stack.set(CUSTOM_MODEL_DATA, mc_protocol::components::values::basic::CustomModelData { floats, flags, strings, colors });
+        stack.set(
+            CUSTOM_MODEL_DATA,
+            mc_protocol::components::values::basic::CustomModelData {
+                floats,
+                flags,
+                strings,
+                colors,
+            },
+        );
         stack
     }
 }
@@ -435,7 +560,10 @@ pub struct SetWritableBookPagesFunction {
 impl ConditionalFunction for SetWritableBookPagesFunction {
     conditional!("set_writable_book_pages");
     fn run(&self, mut stack: ItemStack, _context: &mut LootContext) -> ItemStack {
-        let original = stack.get(&WRITABLE_BOOK_CONTENT).cloned().unwrap_or_default();
+        let original = stack
+            .get(&WRITABLE_BOOK_CONTENT)
+            .cloned()
+            .unwrap_or_default();
         let pages = self.page_operation.apply(&original.pages, &self.pages, 100);
         stack.set(WRITABLE_BOOK_CONTENT, WritableBookContent { pages });
         stack
@@ -452,8 +580,13 @@ pub struct SetWrittenBookPagesFunction {
 impl ConditionalFunction for SetWrittenBookPagesFunction {
     conditional!("set_written_book_pages");
     fn run(&self, mut stack: ItemStack, _context: &mut LootContext) -> ItemStack {
-        let mut original = stack.get(&WRITTEN_BOOK_CONTENT).cloned().unwrap_or_default();
-        original.pages = self.page_operation.apply(&original.pages, &self.pages, usize::MAX);
+        let mut original = stack
+            .get(&WRITTEN_BOOK_CONTENT)
+            .cloned()
+            .unwrap_or_default();
+        original.pages = self
+            .page_operation
+            .apply(&original.pages, &self.pages, usize::MAX);
         stack.set(WRITTEN_BOOK_CONTENT, original);
         stack
     }
@@ -480,8 +613,15 @@ impl ConditionalFunction for ExplorationMapFunction {
         if stack.is_empty() {
             return stack;
         }
-        let Some(origin) = context.params().origin else { return stack };
-        crate::world::level::storage::loot::map_api::explore(context.get_level(), stack, origin, self)
+        let Some(origin) = context.params().origin else {
+            return stack;
+        };
+        crate::world::level::storage::loot::map_api::explore(
+            context.get_level(),
+            stack,
+            origin,
+            self,
+        )
     }
 }
 
@@ -495,11 +635,17 @@ pub(super) fn register(entries: &mut Entries) {
     let cond = condition_field;
     entries.push((
         "set_potion",
-        entry(record!(SetPotionFunction { condition: cond(), potion: registry_by_name_codec::<Potion>().field_of("id") })),
+        entry(record!(SetPotionFunction {
+            condition: cond(),
+            potion: registry_by_name_codec::<Potion>().field_of("id")
+        })),
     ));
     entries.push((
         "set_random_potion",
-        entry(record!(SetRandomPotionFunction { condition: cond(), options: data_driven_set_codec("minecraft:potion").optional_field_of("options") })),
+        entry(record!(SetRandomPotionFunction {
+            condition: cond(),
+            options: data_driven_set_codec("minecraft:potion").optional_field_of("options")
+        })),
     ));
     entries.push((
         "set_stew_effect",
@@ -512,21 +658,32 @@ pub(super) fn register(entries: &mut Entries) {
         "set_attributes",
         entry(record!(SetAttributesFunction {
             condition: cond(),
-            modifiers: attribute_modifier_spec_codec().list_of().field_of("modifiers"),
+            modifiers: attribute_modifier_spec_codec()
+                .list_of()
+                .field_of("modifiers"),
             replace: BOOL.optional_field_of_default("replace", true),
         })),
     ));
     entries.push((
         "set_instrument",
-        entry(record!(SetInstrumentFunction { condition: cond(), options: data_driven_set_codec(keys::INSTRUMENT).field_of("options") })),
+        entry(record!(SetInstrumentFunction {
+            condition: cond(),
+            options: data_driven_set_codec(keys::INSTRUMENT).field_of("options")
+        })),
     ));
     entries.push((
         "set_ominous_bottle_amplifier",
-        entry(record!(SetOminousBottleAmplifierFunction { condition: cond(), amplifier: int_holder_codec().field_of("amplifier") })),
+        entry(record!(SetOminousBottleAmplifierFunction {
+            condition: cond(),
+            amplifier: int_holder_codec().field_of("amplifier")
+        })),
     ));
     entries.push((
         "set_random_dyes",
-        entry(record!(SetRandomDyesFunction { condition: cond(), number_of_dyes: int_holder_codec().field_of("number_of_dyes") })),
+        entry(record!(SetRandomDyesFunction {
+            condition: cond(),
+            number_of_dyes: int_holder_codec().field_of("number_of_dyes")
+        })),
     ));
     entries.push((
         "set_book_cover",
@@ -549,7 +706,8 @@ pub(super) fn register(entries: &mut Entries) {
         "set_fireworks",
         entry(record!(SetFireworksFunction {
             condition: cond(),
-            explosions: StandAlone::codec(&FireworkExplosion::codec(), 256).optional_field_of("explosions"),
+            explosions: StandAlone::codec(&FireworkExplosion::codec(), 256)
+                .optional_field_of("explosions"),
             flight_duration: UNSIGNED_BYTE.optional_field_of("flight_duration"),
         })),
     ));
@@ -568,10 +726,12 @@ pub(super) fn register(entries: &mut Entries) {
         "set_custom_model_data",
         entry(record!(SetCustomModelDataFunction {
             condition: cond(),
-            floats: StandAlone::codec(&float_holder_codec(), usize::MAX).optional_field_of("floats"),
+            floats: StandAlone::codec(&float_holder_codec(), usize::MAX)
+                .optional_field_of("floats"),
             flags: StandAlone::codec(&BOOL, usize::MAX).optional_field_of("flags"),
             strings: StandAlone::codec(&STRING, usize::MAX).optional_field_of("strings"),
-            colors: StandAlone::codec(&color_provider_codec(), usize::MAX).optional_field_of("colors"),
+            colors: StandAlone::codec(&color_provider_codec(), usize::MAX)
+                .optional_field_of("colors"),
         })),
     ));
     entries.push((
@@ -595,8 +755,13 @@ pub(super) fn register(entries: &mut Entries) {
         entry(record!(ExplorationMapFunction {
             condition: cond(),
             destination: data_driven_set_codec(keys::STRUCTURE).field_of("destination"),
-            map_decoration: crate::world::level::storage::loot::holder::registry_ref_codec("minecraft:map_decoration_type")
-                .optional_field_of_default("decoration", Identifier::new("minecraft", "mansion").expect("valid")),
+            map_decoration: crate::world::level::storage::loot::holder::registry_ref_codec(
+                "minecraft:map_decoration_type"
+            )
+            .optional_field_of_default(
+                "decoration",
+                Identifier::new("minecraft", "mansion").expect("valid")
+            ),
             zoom: BYTE.optional_field_of_default("zoom", 2),
             search_radius: INT.optional_field_of_default("search_radius", 50),
             skip_known_structures: BOOL.optional_field_of_default("skip_existing_chunks", true),
@@ -615,7 +780,9 @@ fn stew_effects_codec() -> Codec<Vec<StewEffectEntry>> {
         for e in &entries {
             if seen.contains(&e.effect) {
                 let name = e.effect.name().to_owned();
-                return DataResult::error(move || format!("Encountered duplicate mob effect: '{name}'"));
+                return DataResult::error(move || {
+                    format!("Encountered duplicate mob effect: '{name}'")
+                });
             }
             seen.push(e.effect);
         }
@@ -624,11 +791,14 @@ fn stew_effects_codec() -> Codec<Vec<StewEffectEntry>> {
 }
 
 fn attribute_modifier_spec_codec() -> Codec<AttributeModifierSpec> {
-    let slots = non_empty_list(&mc_dfu::extra::compact_list_codec(&EquipmentSlotGroup::codec()));
+    let slots = non_empty_list(&mc_dfu::extra::compact_list_codec(
+        &EquipmentSlotGroup::codec(),
+    ));
     record!(AttributeModifierSpec {
         id: mc_dfu::extra::IDENTIFIER.field_of("id"),
         attribute: registry_by_name_codec::<mc_data::Attribute>().field_of("attribute"),
-        operation: mc_protocol::components::values::effects::attribute_operation_codec().field_of("operation"),
+        operation: mc_protocol::components::values::effects::attribute_operation_codec()
+            .field_of("operation"),
         amount: float_holder_codec().field_of("amount"),
         slots: slots.field_of("slot"),
     })
@@ -641,6 +811,9 @@ trait OptionalDefaultVec<T> {
 
 impl<T: Clone + Send + Sync + 'static> OptionalDefaultVec<T> for Codec<Vec<T>> {
     fn optional_field_of_default_vec(&self, name: &str) -> MapCodec<Vec<T>> {
-        self.optional_field_of(name).xmap(|o| o.unwrap_or_default(), |v: &Vec<T>| if v.is_empty() { None } else { Some(v.clone()) })
+        self.optional_field_of(name).xmap(
+            |o| o.unwrap_or_default(),
+            |v: &Vec<T>| if v.is_empty() { None } else { Some(v.clone()) },
+        )
     }
 }

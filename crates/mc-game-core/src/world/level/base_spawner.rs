@@ -52,32 +52,64 @@ pub fn spawn_aabb(ty: EntityType, x: f64, y: f64, z: f64) -> AABB {
     let data = ty.data();
     let half_width = data.spawn_dimensions_scale * data.width / 2.0;
     let height = data.spawn_dimensions_scale * data.height;
-    AABB::new(x - f64::from(half_width), y, z - f64::from(half_width), x + f64::from(half_width), y + f64::from(height), z + f64::from(half_width))
+    AABB::new(
+        x - f64::from(half_width),
+        y,
+        z - f64::from(half_width),
+        x + f64::from(half_width),
+        y + f64::from(height),
+        z + f64::from(half_width),
+    )
 }
 
 /// `level.hasNearbyAlivePlayer(x, y, z, range)`.
 pub fn has_nearby_alive_player(level: &ServerLevel, x: f64, y: f64, z: f64, range: f64) -> bool {
-    level.get_nearest_player(x, y, z, range, |p| !p.is_spectator() && p.is_alive() && p.living().is_some()).is_some()
+    level
+        .get_nearest_player(x, y, z, range, |p| {
+            !p.is_spectator() && p.is_alive() && p.living().is_some()
+        })
+        .is_some()
 }
 
 /// `Vec3 spawnPos = input.read("Pos", Vec3.CODEC)` or the random position around the spawner
 /// (`x: nextDouble - nextDouble`, `y: nextInt(3) - 1`, `z: nextDouble - nextDouble`, in that draw order).
-pub fn read_or_random_spawn_pos(entity_tag: &CompoundTag, level: &mut ServerLevel, pos: BlockPos, spawn_range: i32) -> mc_core::phys::Vec3 {
+pub fn read_or_random_spawn_pos(
+    entity_tag: &CompoundTag,
+    level: &mut ServerLevel,
+    pos: BlockPos,
+    spawn_range: i32,
+) -> mc_core::phys::Vec3 {
     if let Some(p) = read_codec(entity_tag, "Pos", &vec3_codec()) {
         return p;
     }
     let random = level.random();
-    let x = f64::from(pos.x()) + (random.next_double() - random.next_double()) * f64::from(spawn_range) + 0.5;
+    let x = f64::from(pos.x())
+        + (random.next_double() - random.next_double()) * f64::from(spawn_range)
+        + 0.5;
     let y = f64::from(pos.y() + random.next_int_bounded(3) - 1);
-    let z = f64::from(pos.z()) + (random.next_double() - random.next_double()) * f64::from(spawn_range) + 0.5;
+    let z = f64::from(pos.z())
+        + (random.next_double() - random.next_double()) * f64::from(spawn_range)
+        + 0.5;
     mc_core::phys::Vec3::new(x, y, z)
 }
 
 /// `EntityType.loadEntityRecursive(input, level, reason, postLoad)` without `postLoad`: the loaded tree, root first. The
 /// caller applies its post-load step to every entity in this order (a passenger is post-processed after its vehicle).
-pub fn load_entity_tree(tag: &CompoundTag, level: &ServerLevel, reason: EntitySpawnReason) -> Option<LoadedEntities> {
+pub fn load_entity_tree(
+    tag: &CompoundTag,
+    level: &ServerLevel,
+    reason: EntitySpawnReason,
+) -> Option<LoadedEntities> {
     let mut out = Vec::new();
-    factory::load_entity_recursive(tag, level, EntitySpawnRequest { reason, ignore_checks: false }, &mut out);
+    factory::load_entity_recursive(
+        tag,
+        level,
+        EntitySpawnRequest {
+            reason,
+            ignore_checks: false,
+        },
+        &mut out,
+    );
     if out.is_empty() { None } else { Some(out) }
 }
 
@@ -104,7 +136,13 @@ impl BaseSpawner {
     }
 
     /// `setEntityData(entityData, level, random, pos)`: `TypedEntityData.loadInto(spawnData, registry)`.
-    pub fn set_entity_data(&mut self, ty: EntityType, data: &CompoundTag, level: &mut ServerLevel, pos: BlockPos) {
+    pub fn set_entity_data(
+        &mut self,
+        ty: EntityType,
+        data: &CompoundTag,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+    ) {
         let next = self.get_or_create_next_spawn_data(level, pos);
         let mut spawn_data = next.lock();
         spawn_data.entity_to_spawn.put_string("id", ty.data().name);
@@ -112,7 +150,13 @@ impl BaseSpawner {
     }
 
     fn is_near_player(&self, level: &ServerLevel, pos: BlockPos) -> bool {
-        has_nearby_alive_player(level, f64::from(pos.x()) + 0.5, f64::from(pos.y()) + 0.5, f64::from(pos.z()) + 0.5, f64::from(self.required_player_range))
+        has_nearby_alive_player(
+            level,
+            f64::from(pos.x()) + 0.5,
+            f64::from(pos.y()) + 0.5,
+            f64::from(pos.z()) + 0.5,
+            f64::from(self.required_player_range),
+        )
     }
 
     /// `serverTick(level, pos)`.
@@ -135,23 +179,33 @@ impl BaseSpawner {
                 self.delay(level, pos);
                 return;
             };
-            let spawn_pos = read_or_random_spawn_pos(&next.entity_to_spawn, level, pos, self.spawn_range);
+            let spawn_pos =
+                read_or_random_spawn_pos(&next.entity_to_spawn, level, pos, self.spawn_range);
             let spawn_aabb = spawn_aabb(entity_type, spawn_pos.x, spawn_pos.y, spawn_pos.z);
             if !level.no_collision(None, None, &spawn_aabb) {
                 continue;
             }
             let spawn_block_pos = BlockPos::containing(spawn_pos.x, spawn_pos.y, spawn_pos.z);
             if let Some(custom_spawn_rules) = &next.custom_spawn_rules {
-                if !entity_type.data().category.data().friendly && level.difficulty() == Difficulty::Peaceful {
+                if !entity_type.data().category.data().friendly
+                    && level.difficulty() == Difficulty::Peaceful
+                {
                     continue;
                 }
                 if !custom_spawn_rules.is_valid_position(spawn_block_pos, &*level) {
                     continue;
                 }
-            } else if !spawner_mob_seam::check_spawn_placements(level, entity_type, EntitySpawnReason::Spawner, spawn_block_pos) {
+            } else if !spawner_mob_seam::check_spawn_placements(
+                level,
+                entity_type,
+                EntitySpawnReason::Spawner,
+                spawn_block_pos,
+            ) {
                 continue;
             }
-            let Some(mut entities) = load_entity_tree(&next.entity_to_spawn, level, EntitySpawnReason::Spawner) else {
+            let Some(mut entities) =
+                load_entity_tree(&next.entity_to_spawn, level, EntitySpawnReason::Spawner)
+            else {
                 self.delay(level, pos);
                 return;
             };
@@ -160,9 +214,22 @@ impl BaseSpawner {
                 entity.snap_to(spawn_pos.x, spawn_pos.y, spawn_pos.z, y_rot, x_rot);
             }
             let entity_type_loaded = entities[0].get_type();
-            let area = AABB::new(f64::from(pos.x()), f64::from(pos.y()), f64::from(pos.z()), f64::from(pos.x() + 1), f64::from(pos.y() + 1), f64::from(pos.z() + 1))
-                .inflate_scalar(f64::from(self.spawn_range));
-            let near_by = level.get_entities_of_class(&area, |e| e.get_type() == entity_type_loaded, |e| !e.is_spectator()).len() as i32;
+            let area = AABB::new(
+                f64::from(pos.x()),
+                f64::from(pos.y()),
+                f64::from(pos.z()),
+                f64::from(pos.x() + 1),
+                f64::from(pos.y() + 1),
+                f64::from(pos.z() + 1),
+            )
+            .inflate_scalar(f64::from(self.spawn_range));
+            let near_by = level
+                .get_entities_of_class(
+                    &area,
+                    |e| e.get_type() == entity_type_loaded,
+                    |e| !e.is_spectator(),
+                )
+                .len() as i32;
             if near_by >= self.max_nearby_entities {
                 self.delay(level, pos);
                 return;
@@ -185,7 +252,11 @@ impl BaseSpawner {
                 return;
             }
             level.level_event(None, 2004, pos, 0);
-            level.game_event_at_block(GameEvent::ENTITY_PLACE, spawn_block_pos, &crate::world::level::gameevent::GameEventContext::of_entity(Some(root_id)));
+            level.game_event_at_block(
+                GameEvent::ENTITY_PLACE,
+                spawn_block_pos,
+                &crate::world::level::gameevent::GameEventContext::of_entity(Some(root_id)),
+            );
             spawner_mob_seam::spawn_anim(level, root_id);
             delay = true;
         }
@@ -199,7 +270,10 @@ impl BaseSpawner {
         if self.max_spawn_delay <= self.min_spawn_delay {
             self.spawn_delay = self.min_spawn_delay;
         } else {
-            self.spawn_delay = self.min_spawn_delay + level.random().next_int_bounded(self.max_spawn_delay - self.min_spawn_delay);
+            self.spawn_delay = self.min_spawn_delay
+                + level
+                    .random()
+                    .next_int_bounded(self.max_spawn_delay - self.min_spawn_delay);
         }
         let picked = self.spawn_potentials.get_random(level.random()).cloned();
         if let Some(entry) = picked {
@@ -217,7 +291,11 @@ impl BaseSpawner {
         }
         self.spawn_potentials = match read_codec(tag, "SpawnPotentials", &SpawnData::list_codec()) {
             Some(list) => list.map(|d| Arc::new(Mutex::new(d))),
-            None => WeightedList::of_value(self.next_spawn_data.clone().unwrap_or_else(|| Arc::new(Mutex::new(SpawnData::empty())))),
+            None => WeightedList::of_value(
+                self.next_spawn_data
+                    .clone()
+                    .unwrap_or_else(|| Arc::new(Mutex::new(SpawnData::empty()))),
+            ),
         };
         self.min_spawn_delay = tag.get_int_or("MinSpawnDelay", 200);
         self.max_spawn_delay = tag.get_int_or("MaxSpawnDelay", 800);
@@ -241,9 +319,19 @@ impl BaseSpawner {
         {
             tag.put("SpawnData", encoded);
         }
-        let potentials = WeightedList::of(self.spawn_potentials.unwrap().iter().map(|w| Weighted { value: w.value.lock().clone(), weight: w.weight }).collect());
+        let potentials = WeightedList::of(
+            self.spawn_potentials
+                .unwrap()
+                .iter()
+                .map(|w| Weighted {
+                    value: w.value.lock().clone(),
+                    weight: w.weight,
+                })
+                .collect(),
+        );
         if let Some(potentials) = potentials
-            && let Ok(encoded) = mc_dfu::encode_nbt(&SpawnData::list_codec(), &potentials).into_result()
+            && let Ok(encoded) =
+                mc_dfu::encode_nbt(&SpawnData::list_codec(), &potentials).into_result()
         {
             tag.put("SpawnPotentials", encoded);
         }
@@ -254,16 +342,29 @@ impl BaseSpawner {
         id == 1
     }
 
-    fn set_next_spawn_data(&mut self, level: &mut ServerLevel, pos: BlockPos, next: SharedSpawnData) {
+    fn set_next_spawn_data(
+        &mut self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        next: SharedSpawnData,
+    ) {
         self.next_spawn_data = Some(next);
         self.host.next_spawn_data_changed(level, pos);
     }
 
-    fn get_or_create_next_spawn_data(&mut self, level: &mut ServerLevel, pos: BlockPos) -> SharedSpawnData {
+    fn get_or_create_next_spawn_data(
+        &mut self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+    ) -> SharedSpawnData {
         if let Some(next) = &self.next_spawn_data {
             return next.clone();
         }
-        let picked = self.spawn_potentials.get_random(level.random()).cloned().unwrap_or_else(|| Arc::new(Mutex::new(SpawnData::empty())));
+        let picked = self
+            .spawn_potentials
+            .get_random(level.random())
+            .cloned()
+            .unwrap_or_else(|| Arc::new(Mutex::new(SpawnData::empty())));
         self.set_next_spawn_data(level, pos, picked.clone());
         picked
     }

@@ -9,9 +9,9 @@ pub mod java_hash_set;
 pub mod server_explosion;
 
 use crate::world::entity::{Entity, EntityId};
-use crate::world::level::{BlockGetter, LevelAccessor as _};
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::material::FluidStateExt;
+use crate::world::level::{BlockGetter, LevelAccessor as _};
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_data::block::{Block, BlockState};
@@ -30,7 +30,10 @@ pub enum BlockInteraction {
 
 impl BlockInteraction {
     pub fn should_affect_blocklike_entities(self) -> bool {
-        matches!(self, BlockInteraction::Destroy | BlockInteraction::DestroyWithDecay)
+        matches!(
+            self,
+            BlockInteraction::Destroy | BlockInteraction::DestroyWithDecay
+        )
     }
 }
 
@@ -64,19 +67,36 @@ pub trait Explosion {
 }
 
 /// `Explosion.getIndirectSourceEntity(source)`: a primed TNT's owner, a living source itself, a projectile's living owner.
-pub fn get_indirect_source_entity(level: &crate::server::level::ServerLevel, source: Option<&dyn Entity>) -> Option<EntityId> {
+pub fn get_indirect_source_entity(
+    level: &crate::server::level::ServerLevel,
+    source: Option<&dyn Entity>,
+) -> Option<EntityId> {
     source?.explosion_indirect_source(level)
 }
 
 /// `ExplosionDamageCalculator` (the base class is [`DefaultExplosionDamageCalculator`]).
 pub trait ExplosionDamageCalculator {
     /// `getBlockExplosionResistance(explosion, level, pos, block, fluid)`.
-    fn get_block_explosion_resistance(&self, _explosion: &dyn Explosion, _level: &dyn BlockGetter, _pos: BlockPos, block: BlockState, fluid: FluidState) -> Option<f32> {
+    fn get_block_explosion_resistance(
+        &self,
+        _explosion: &dyn Explosion,
+        _level: &dyn BlockGetter,
+        _pos: BlockPos,
+        block: BlockState,
+        fluid: FluidState,
+    ) -> Option<f32> {
         default_block_explosion_resistance(block, fluid)
     }
 
     /// `shouldBlockExplode(explosion, level, pos, state, power)`.
-    fn should_block_explode(&self, _explosion: &dyn Explosion, _level: &dyn BlockGetter, _pos: BlockPos, _state: BlockState, _power: f32) -> bool {
+    fn should_block_explode(
+        &self,
+        _explosion: &dyn Explosion,
+        _level: &dyn BlockGetter,
+        _pos: BlockPos,
+        _state: BlockState,
+        _power: f32,
+    ) -> bool {
         true
     }
 
@@ -91,7 +111,12 @@ pub trait ExplosionDamageCalculator {
     }
 
     /// `getEntityDamageAmount(explosion, entity, exposure)`.
-    fn get_entity_damage_amount(&self, explosion: &dyn Explosion, entity: &dyn Entity, exposure: f32) -> f32 {
+    fn get_entity_damage_amount(
+        &self,
+        explosion: &dyn Explosion,
+        entity: &dyn Entity,
+        exposure: f32,
+    ) -> f32 {
         let double_radius = explosion.radius() * 2.0;
         let center = explosion.center();
         let dist = entity.base().distance_to_sqr_vec(center).sqrt() / f64::from(double_radius);
@@ -105,7 +130,10 @@ pub fn default_block_explosion_resistance(block: BlockState, fluid: FluidState) 
     if block.is_air() && fluid.is_empty() {
         None
     } else {
-        Some(java_max_f32(block.block().data().explosion_resistance, fluid.get_explosion_resistance()))
+        Some(java_max_f32(
+            block.block().data().explosion_resistance,
+            fluid.get_explosion_resistance(),
+        ))
     }
 }
 
@@ -133,12 +161,30 @@ pub struct EntityBasedExplosionDamageCalculator<'a> {
 }
 
 impl ExplosionDamageCalculator for EntityBasedExplosionDamageCalculator<'_> {
-    fn get_block_explosion_resistance(&self, explosion: &dyn Explosion, level: &dyn BlockGetter, pos: BlockPos, block: BlockState, fluid: FluidState) -> Option<f32> {
-        default_block_explosion_resistance(block, fluid).map(|resistance| self.source.get_block_explosion_resistance(explosion, level, pos, block, fluid, resistance))
+    fn get_block_explosion_resistance(
+        &self,
+        explosion: &dyn Explosion,
+        level: &dyn BlockGetter,
+        pos: BlockPos,
+        block: BlockState,
+        fluid: FluidState,
+    ) -> Option<f32> {
+        default_block_explosion_resistance(block, fluid).map(|resistance| {
+            self.source
+                .get_block_explosion_resistance(explosion, level, pos, block, fluid, resistance)
+        })
     }
 
-    fn should_block_explode(&self, explosion: &dyn Explosion, level: &dyn BlockGetter, pos: BlockPos, state: BlockState, power: f32) -> bool {
-        self.source.should_block_explode(explosion, level, pos, state, power)
+    fn should_block_explode(
+        &self,
+        explosion: &dyn Explosion,
+        level: &dyn BlockGetter,
+        pos: BlockPos,
+        state: BlockState,
+        power: f32,
+    ) -> bool {
+        self.source
+            .should_block_explode(explosion, level, pos, state, power)
     }
 }
 
@@ -168,14 +214,28 @@ pub struct SimpleExplosionDamageCalculator {
 }
 
 impl ExplosionDamageCalculator for SimpleExplosionDamageCalculator {
-    fn get_block_explosion_resistance(&self, _explosion: &dyn Explosion, _level: &dyn BlockGetter, _pos: BlockPos, block: BlockState, fluid: FluidState) -> Option<f32> {
+    fn get_block_explosion_resistance(
+        &self,
+        _explosion: &dyn Explosion,
+        _level: &dyn BlockGetter,
+        _pos: BlockPos,
+        block: BlockState,
+        fluid: FluidState,
+    ) -> Option<f32> {
         match &self.immune_blocks {
             Some(immune) => immune.contains(block).then_some(3_600_000.0),
             None => default_block_explosion_resistance(block, fluid),
         }
     }
 
-    fn should_block_explode(&self, _explosion: &dyn Explosion, _level: &dyn BlockGetter, _pos: BlockPos, _state: BlockState, _power: f32) -> bool {
+    fn should_block_explode(
+        &self,
+        _explosion: &dyn Explosion,
+        _level: &dyn BlockGetter,
+        _pos: BlockPos,
+        _state: BlockState,
+        _power: f32,
+    ) -> bool {
         self.explodes_blocks
     }
 
@@ -185,7 +245,11 @@ impl ExplosionDamageCalculator for SimpleExplosionDamageCalculator {
 
     fn get_knockback_multiplier(&self, entity: &dyn Entity) -> f32 {
         let creative_flying = entity.player().is_some_and(|p| p.abilities.flying);
-        if creative_flying { 0.0 } else { self.knockback_multiplier.unwrap_or(1.0) }
+        if creative_flying {
+            0.0
+        } else {
+            self.knockback_multiplier.unwrap_or(1.0)
+        }
     }
 }
 
@@ -203,13 +267,33 @@ pub fn default_on_explosion_hit(
         return;
     }
     let block = state.block();
-    let do_drop_experience_hack = explosion.get_indirect_source_entity().is_some_and(|id| level.players.contains(&id));
+    let do_drop_experience_hack = explosion
+        .get_indirect_source_entity()
+        .is_some_and(|id| level.players.contains(&id));
     if behaviour(block).drop_from_explosion(explosion) {
         // `spawnAfterBreak` only pops experience: reading the block entity after it sees the same data as vanilla's params
-        behaviour(block).spawn_after_break(state, level, pos, &crate::world::item::ItemStack::empty(), do_drop_experience_hack);
-        let radius = (explosion.get_block_interaction() == BlockInteraction::DestroyWithDecay).then(|| explosion.radius());
-        let block_entity = if state.has_block_entity() { level.get_block_entity(pos) } else { None };
-        let drops = crate::world::level::storage::loot::block_drops::block_drops_explosion(level, state, pos, block_entity, explosion.get_direct_source_entity_ref(), radius);
+        behaviour(block).spawn_after_break(
+            state,
+            level,
+            pos,
+            &crate::world::item::ItemStack::empty(),
+            do_drop_experience_hack,
+        );
+        let radius = (explosion.get_block_interaction() == BlockInteraction::DestroyWithDecay)
+            .then(|| explosion.radius());
+        let block_entity = if state.has_block_entity() {
+            level.get_block_entity(pos)
+        } else {
+            None
+        };
+        let drops = crate::world::level::storage::loot::block_drops::block_drops_explosion(
+            level,
+            state,
+            pos,
+            block_entity,
+            explosion.get_direct_source_entity_ref(),
+            radius,
+        );
         for stack in drops {
             on_hit(stack, pos);
         }

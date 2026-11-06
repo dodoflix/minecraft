@@ -57,7 +57,13 @@ fn depth_first_search(
     currently_visiting.insert(current);
     if let Some(next_nodes) = edges.get(&current) {
         for &next in next_nodes {
-            if depth_first_search(edges, discovered, currently_visiting, reverse_topological_order, next) {
+            if depth_first_search(
+                edges,
+                discovered,
+                currently_visiting,
+                reverse_topological_order,
+                next,
+            ) {
                 return true;
             }
         }
@@ -123,7 +129,15 @@ fn build_inner<S, K: Clone + Eq + Hash>(
         if !currently_visiting.is_empty() {
             return Err("You somehow broke the universe; DFS bork (iteration finished with non-empty in-progress vertex set".to_owned());
         }
-        if !discovered.contains(&feature) && depth_first_search(&edges, &mut discovered, &mut currently_visiting, &mut sorted_features, feature) {
+        if !discovered.contains(&feature)
+            && depth_first_search(
+                &edges,
+                &mut discovered,
+                &mut currently_visiting,
+                &mut sorted_features,
+                feature,
+            )
+        {
             if !try_reducing_error {
                 return Err(CYCLE_ERROR.to_owned());
             }
@@ -144,13 +158,22 @@ fn build_inner<S, K: Clone + Eq + Hash>(
                 }
             }
             let involved: Vec<String> = reduced.iter().map(|s| describe(s)).collect();
-            return Err(format!("{CYCLE_ERROR}, involved sources: [{}]", involved.join(", ")));
+            return Err(format!(
+                "{CYCLE_ERROR}, involved sources: [{}]",
+                involved.join(", ")
+            ));
         }
     }
 
     sorted_features.reverse();
     Ok((0..max_step)
-        .map(|step| sorted_features.iter().filter(|(s, _)| *s == step).map(|&(_, index)| features[index as usize].clone()).collect())
+        .map(|step| {
+            sorted_features
+                .iter()
+                .filter(|(s, _)| *s == step)
+                .map(|&(_, index)| features[index as usize].clone())
+                .collect()
+        })
         .collect())
 }
 
@@ -166,7 +189,9 @@ impl From<FeatureKey> for PlacedFeatureRef {
     fn from(key: FeatureKey) -> Self {
         match key {
             FeatureKey::Named(id) => PlacedFeatureRef::Named(id),
-            FeatureKey::FillLayer(height, state) => PlacedFeatureRef::InlineFillLayer { height, state },
+            FeatureKey::FillLayer(height, state) => {
+                PlacedFeatureRef::InlineFillLayer { height, state }
+            }
         }
     }
 }
@@ -175,7 +200,9 @@ impl From<&PlacedFeatureRef> for FeatureKey {
     fn from(feature: &PlacedFeatureRef) -> Self {
         match feature {
             PlacedFeatureRef::Named(id) => FeatureKey::Named(id.clone()),
-            PlacedFeatureRef::InlineFillLayer { height, state } => FeatureKey::FillLayer(*height, *state),
+            PlacedFeatureRef::InlineFillLayer { height, state } => {
+                FeatureKey::FillLayer(*height, *state)
+            }
         }
     }
 }
@@ -191,8 +218,12 @@ impl StepFeature {
     /// `featureRegistry.getResourceKey(feature).map(Object::toString).orElseGet(feature::toString)`.
     fn description(&self) -> String {
         match &self.reference {
-            PlacedFeatureRef::Named(id) => format!("ResourceKey[minecraft:worldgen/placed_feature / {id}]"),
-            PlacedFeatureRef::InlineFillLayer { .. } => "Placed Direct{FillLayerFeature}".to_owned(),
+            PlacedFeatureRef::Named(id) => {
+                format!("ResourceKey[minecraft:worldgen/placed_feature / {id}]")
+            }
+            PlacedFeatureRef::InlineFillLayer { .. } => {
+                "Placed Direct{FillLayerFeature}".to_owned()
+            }
         }
     }
 }
@@ -207,8 +238,15 @@ pub struct StepFeatureData {
 impl StepFeatureData {
     /// `StepFeatureData(features)`: the identity index lookup over the step's features.
     pub fn new(features: Vec<StepFeature>) -> StepFeatureData {
-        let index_mapping = features.iter().enumerate().map(|(index, f)| (FeatureKey::from(&f.reference), index)).collect();
-        StepFeatureData { features, index_mapping }
+        let index_mapping = features
+            .iter()
+            .enumerate()
+            .map(|(index, f)| (FeatureKey::from(&f.reference), index))
+            .collect();
+        StepFeatureData {
+            features,
+            index_mapping,
+        }
     }
 
     /// `indexMapping.applyAsInt(feature)`: `None` is vanilla's `-1`.
@@ -226,12 +264,23 @@ impl StepFeatureData {
                 step.into_iter()
                     .map(|reference| {
                         let feature = match &reference {
-                            PlacedFeatureRef::Named(id) => env.registries.placed_feature(id).ok_or_else(|| format!("Unknown placed feature {id}"))?.value().clone(),
+                            PlacedFeatureRef::Named(id) => env
+                                .registries
+                                .placed_feature(id)
+                                .ok_or_else(|| format!("Unknown placed feature {id}"))?
+                                .value()
+                                .clone(),
                             // `PlacementUtils.inlinePlaced(new FillLayerFeature(height, state))`: no placement modifiers
                             PlacedFeatureRef::InlineFillLayer { height, state } => fill_layers
                                 .entry(FeatureKey::from(&reference))
                                 .or_insert_with(|| {
-                                    Arc::new(PlacedFeature { feature: Holder::direct(Arc::new(FillLayerFeature { height: *height, state: *state })), placement: Vec::new() })
+                                    Arc::new(PlacedFeature {
+                                        feature: Holder::direct(Arc::new(FillLayerFeature {
+                                            height: *height,
+                                            state: *state,
+                                        })),
+                                        placement: Vec::new(),
+                                    })
                                 })
                                 .clone(),
                         };
@@ -246,16 +295,32 @@ impl StepFeatureData {
 
 /// `FeatureSorter.buildFeaturesPerStep(List.copyOf(biomeSource.possibleBiomes()), biome -> generator
 /// .getBiomeGenerationSettings(biome).features(), true)`: the sorted features of every step.
-pub fn sort_features_per_step(generator: &dyn ChunkGenerator, biomes: &BiomeRegistry) -> Result<Vec<Vec<PlacedFeatureRef>>, String> {
+pub fn sort_features_per_step(
+    generator: &dyn ChunkGenerator,
+    biomes: &BiomeRegistry,
+) -> Result<Vec<Vec<PlacedFeatureRef>>, String> {
     let sorted = build_features_per_step(
         generator.biome_source().possible_biomes(),
         &|biome: &BiomeId| {
-            generator.get_biome_generation_settings(*biome).features().iter().map(|step| step.iter().map(FeatureKey::from).collect()).collect()
+            generator
+                .get_biome_generation_settings(*biome)
+                .features()
+                .iter()
+                .map(|step| step.iter().map(FeatureKey::from).collect())
+                .collect()
         },
-        &|biome: &BiomeId| format!("Reference{{ResourceKey[minecraft:worldgen/biome / {}]=Biome}}", biomes.key(*biome)),
+        &|biome: &BiomeId| {
+            format!(
+                "Reference{{ResourceKey[minecraft:worldgen/biome / {}]=Biome}}",
+                biomes.key(*biome)
+            )
+        },
         true,
     )?;
-    Ok(sorted.into_iter().map(|step| step.into_iter().map(PlacedFeatureRef::from).collect()).collect())
+    Ok(sorted
+        .into_iter()
+        .map(|step| step.into_iter().map(PlacedFeatureRef::from).collect())
+        .collect())
 }
 
 // ---------------------------------------------------------------------------------------------------------------
@@ -283,11 +348,15 @@ impl DecorationInput {
     /// Reads the center chunk and its 8 neighbours from the region.
     pub fn from_region(region: &WorldGenRegion) -> DecorationInput {
         let center = region.center;
-        let center_chunk = region.get_chunk(center.x, center.z).expect("the center chunk is part of the region");
+        let center_chunk = region
+            .get_chunk(center.x, center.z)
+            .expect("the center chunk is part of the region");
         let mut biomes_in_range = Vec::new();
         let mut seen = HashSet::new();
         for chunk_pos in ChunkPos::range_closed(&center, 1) {
-            let chunk = region.get_chunk(chunk_pos.x, chunk_pos.z).expect("the decoration region holds the 3x3 chunks");
+            let chunk = region
+                .get_chunk(chunk_pos.x, chunk_pos.z)
+                .expect("the decoration region holds the 3x3 chunks");
             for section in &chunk.access.sections {
                 section.biomes().get_all(|biome| {
                     if seen.insert(biome) {
@@ -296,7 +365,11 @@ impl DecorationInput {
                 });
             }
         }
-        DecorationInput { center, generation_height: center_chunk.get_height_accessor_for_generation(), biomes_in_range }
+        DecorationInput {
+            center,
+            generation_height: center_chunk.get_height_accessor_for_generation(),
+            biomes_in_range,
+        }
     }
 }
 
@@ -304,7 +377,14 @@ impl DecorationInput {
 fn get_writable_area(center: ChunkPos, height: LevelHeight) -> BoundingBox {
     let target_block_x = center.get_min_block_x();
     let target_block_z = center.get_min_block_z();
-    BoundingBox::new(target_block_x, height.min_y + 1, target_block_z, target_block_x + 15, height.max_y(), target_block_z + 15)
+    BoundingBox::new(
+        target_block_x,
+        height.min_y + 1,
+        target_block_z,
+        target_block_x + 15,
+        height.max_y(),
+        target_block_z + 15,
+    )
 }
 
 /// One `random.setFeatureSeed(..)` + placement of the loop, reported to a test observer.
@@ -322,7 +402,12 @@ pub struct DecorationEvent {
 /// `input.center`, `features` the memoized [`StepFeatureData::build`] of `env`.
 ///
 /// Panics inside a structure/feature are re-raised as vanilla's crash reports ([`ReportedException`]).
-pub fn apply_biome_decoration(level: &mut dyn WorldGenLevel, env: &GenEnv, features: &[StepFeatureData], input: &DecorationInput) {
+pub fn apply_biome_decoration(
+    level: &mut dyn WorldGenLevel,
+    env: &GenEnv,
+    features: &[StepFeatureData],
+    input: &DecorationInput,
+) {
     apply_biome_decoration_observed(level, env, features, input, &mut |_| {});
 }
 
@@ -338,10 +423,21 @@ pub fn apply_biome_decoration_observed(
     // `SharedConstants.debugVoidTerrain(centerPos)` is a debug flag that is never set.
     let min_section_y = level.level_height().min_section_y();
     let origin = BlockPos::new(center_pos.x << 4, min_section_y << 4, center_pos.z << 4);
-    let mut random = WorldgenRandom::new(Box::new(XoroshiroRandomSource::new(generate_unique_seed())));
+    let mut random =
+        WorldgenRandom::new(Box::new(XoroshiroRandomSource::new(generate_unique_seed())));
     let decoration_seed = random.set_decoration_seed(level.get_seed(), origin.x(), origin.z());
-    let biome_source_biomes: HashSet<BiomeId> = env.biome_source().possible_biomes().iter().copied().collect();
-    let possible_biomes: Vec<BiomeId> = input.biomes_in_range.iter().copied().filter(|b| biome_source_biomes.contains(b)).collect();
+    let biome_source_biomes: HashSet<BiomeId> = env
+        .biome_source()
+        .possible_biomes()
+        .iter()
+        .copied()
+        .collect();
+    let possible_biomes: Vec<BiomeId> = input
+        .biomes_in_range
+        .iter()
+        .copied()
+        .filter(|b| biome_source_biomes.contains(b))
+        .collect();
     let feature_step_count = features.len();
     let writable_area = get_writable_area(center_pos, input.generation_height);
     let mut placer = FeaturePlacer::new();
@@ -352,14 +448,31 @@ pub fn apply_biome_decoration_observed(
             let mut index = 0;
             if env.generate_structures {
                 for holder in env.structures.structures_for_step(step_index) {
-                    let structure = holder.id().expect("structures of the registry are references");
+                    let structure = holder
+                        .id()
+                        .expect("structures of the registry are references");
                     random.set_feature_seed(decoration_seed, index, step_index as i32);
                     let name = format!("ResourceKey[minecraft:worldgen/structure / {structure}]");
-                    observer(&DecorationEvent { step: step_index as i32, index, structure: true, name: name.clone(), decoration_seed });
+                    observer(&DecorationEvent {
+                        step: step_index as i32,
+                        index,
+                        structure: true,
+                        name: name.clone(),
+                        decoration_seed,
+                    });
                     let currently_generating = name.clone();
-                    level.set_currently_generating(Some(Box::new(move || currently_generating.clone())));
+                    level.set_currently_generating(Some(Box::new(move || {
+                        currently_generating.clone()
+                    })));
                     let placed = catch_unwind(AssertUnwindSafe(|| {
-                        generation::place_structure(level, env, holder, &mut random, &writable_area, center_pos);
+                        generation::place_structure(
+                            level,
+                            env,
+                            holder,
+                            &mut random,
+                            &writable_area,
+                            center_pos,
+                        );
                     }));
                     if let Err(payload) = placed {
                         feature_placement_failure(payload, name);
@@ -384,12 +497,31 @@ pub fn apply_biome_decoration_observed(
                 for global_index in possible_features_this_step {
                     let feature = &step_feature_data.features[global_index];
                     let name = feature.description();
-                    random.set_feature_seed(decoration_seed, global_index as i32, step_index as i32);
-                    observer(&DecorationEvent { step: step_index as i32, index: global_index as i32, structure: false, name: name.clone(), decoration_seed });
+                    random.set_feature_seed(
+                        decoration_seed,
+                        global_index as i32,
+                        step_index as i32,
+                    );
+                    observer(&DecorationEvent {
+                        step: step_index as i32,
+                        index: global_index as i32,
+                        structure: false,
+                        name: name.clone(),
+                        decoration_seed,
+                    });
                     let currently_generating = name.clone();
-                    level.set_currently_generating(Some(Box::new(move || currently_generating.clone())));
+                    level.set_currently_generating(Some(Box::new(move || {
+                        currently_generating.clone()
+                    })));
                     let placed = catch_unwind(AssertUnwindSafe(|| {
-                        placer.place_with_biome_check(&feature.feature, &feature.reference, level, env, &mut random, origin);
+                        placer.place_with_biome_check(
+                            &feature.feature,
+                            &feature.reference,
+                            level,
+                            env,
+                            &mut random,
+                            origin,
+                        );
                     }));
                     if let Err(payload) = placed {
                         feature_placement_failure(payload, name);
@@ -414,7 +546,9 @@ pub fn apply_biome_decoration_observed(
 /// `CrashReport.forThrowable(e, "Feature placement")` with the `Feature` category, thrown as a `ReportedException`.
 fn feature_placement_failure(payload: Box<dyn std::any::Any + Send>, description: String) -> ! {
     let mut report = CrashReport::for_throwable(payload, "Feature placement");
-    report.add_category("Feature").set_detail("Description", description);
+    report
+        .add_category("Feature")
+        .set_detail("Description", description);
     ReportedException::throw(report);
 }
 
@@ -422,14 +556,29 @@ fn feature_placement_failure(payload: Box<dyn std::any::Any + Send>, description
 mod tests {
     use super::*;
 
-    fn sort(sources: &[Vec<Vec<&'static str>>], reduce: bool) -> Result<Vec<Vec<&'static str>>, String> {
-        build_features_per_step(sources, &|s: &Vec<Vec<&'static str>>| s.clone(), &|s| format!("{s:?}"), reduce)
+    fn sort(
+        sources: &[Vec<Vec<&'static str>>],
+        reduce: bool,
+    ) -> Result<Vec<Vec<&'static str>>, String> {
+        build_features_per_step(
+            sources,
+            &|s: &Vec<Vec<&'static str>>| s.clone(),
+            &|s| format!("{s:?}"),
+            reduce,
+        )
     }
 
     #[test]
     fn merges_orders_per_step() {
         // a biome lists b before a in step 0; another lists a, c: the shared order must be consistent
-        let sorted = sort(&[vec![vec!["b", "a"], vec!["x"]], vec![vec!["a", "c"], vec!["y", "x"]]], true).unwrap();
+        let sorted = sort(
+            &[
+                vec![vec!["b", "a"], vec!["x"]],
+                vec![vec!["a", "c"], vec!["y", "x"]],
+            ],
+            true,
+        )
+        .unwrap();
         assert_eq!(sorted, vec![vec!["b", "a", "c"], vec!["y", "x"]]);
     }
 
@@ -447,8 +596,20 @@ mod tests {
 
     #[test]
     fn cycle_lists_only_involved_sources() {
-        let err = sort(&[vec![vec!["a", "b"]], vec![vec!["c"]], vec![vec!["b", "a"]], vec![vec!["d", "e"]]], true).unwrap_err();
-        assert_eq!(err, "Feature order cycle found, involved sources: [[[\"a\", \"b\"]], [[\"b\", \"a\"]]]");
+        let err = sort(
+            &[
+                vec![vec!["a", "b"]],
+                vec![vec!["c"]],
+                vec![vec!["b", "a"]],
+                vec![vec!["d", "e"]],
+            ],
+            true,
+        )
+        .unwrap_err();
+        assert_eq!(
+            err,
+            "Feature order cycle found, involved sources: [[[\"a\", \"b\"]], [[\"b\", \"a\"]]]"
+        );
     }
 
     #[test]
@@ -459,6 +620,16 @@ mod tests {
     #[test]
     fn writable_area_skips_the_bottom_layer() {
         let area = get_writable_area(ChunkPos::new(-2, 3), LevelHeight::new(-64, 384));
-        assert_eq!((area.min_x(), area.min_y(), area.min_z(), area.max_x(), area.max_y(), area.max_z()), (-32, -63, 48, -17, 319, 63));
+        assert_eq!(
+            (
+                area.min_x(),
+                area.min_y(),
+                area.min_z(),
+                area.max_x(),
+                area.max_y(),
+                area.max_z()
+            ),
+            (-32, -63, 48, -17, 319, 63)
+        );
     }
 }

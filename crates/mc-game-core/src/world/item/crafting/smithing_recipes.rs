@@ -42,7 +42,11 @@ impl SmithingTransformRecipe {
     }
 
     pub(super) fn create_placement_info(&self) -> PlacementInfo {
-        PlacementInfo::create_from_optionals(&[self.template.as_ref(), Some(&self.base), self.addition.as_ref()])
+        PlacementInfo::create_from_optionals(&[
+            self.template.as_ref(),
+            Some(&self.base),
+            self.addition.as_ref(),
+        ])
     }
 
     pub(super) fn display(&self) -> Vec<RecipeDisplay> {
@@ -84,35 +88,59 @@ impl SmithingTrimRecipe {
     }
 
     pub(super) fn create_placement_info(&self) -> PlacementInfo {
-        PlacementInfo::create(&[self.template.clone(), self.base.clone(), self.addition.clone()])
+        PlacementInfo::create(&[
+            self.template.clone(),
+            self.base.clone(),
+            self.addition.clone(),
+        ])
     }
 
     pub(super) fn display(&self) -> Vec<RecipeDisplay> {
-        let (base, material, template) = (self.base.display(), self.addition.display(), self.template.display());
+        let (base, material, template) = (
+            self.base.display(),
+            self.addition.display(),
+            self.template.display(),
+        );
         let pattern = match &self.pattern {
-            Holder::Reference(name) => WireHolder::Reference(mc_protocol::registry_context::registry_id("minecraft:trim_pattern", name).unwrap_or(0)),
-            Holder::Direct(p) => WireHolder::Direct(mc_protocol::packets::play::inventory::TrimPattern {
-                asset_id: p.asset_id.clone(),
-                description: p.description.clone(),
-                decal: p.decal,
-            }),
+            Holder::Reference(name) => WireHolder::Reference(
+                mc_protocol::registry_context::registry_id("minecraft:trim_pattern", name)
+                    .unwrap_or(0),
+            ),
+            Holder::Direct(p) => {
+                WireHolder::Direct(mc_protocol::packets::play::inventory::TrimPattern {
+                    asset_id: p.asset_id.clone(),
+                    description: p.description.clone(),
+                    decal: p.decal,
+                })
+            }
         };
         vec![RecipeDisplay::Smithing(SmithingRecipeDisplay {
             template,
             base: base.clone(),
             addition: material.clone(),
-            result: SlotDisplay::SmithingTrim { base: Box::new(base), material: Box::new(material), pattern },
+            result: SlotDisplay::SmithingTrim {
+                base: Box::new(base),
+                material: Box::new(material),
+                pattern,
+            },
             crafting_station: item_display(Item::SMITHING_TABLE),
         })]
     }
 }
 
 /// `SmithingTrimRecipe.applyTrim(baseItem, materialItem, pattern)`.
-pub fn apply_trim(base: &ItemStack, material_item: &ItemStack, pattern: &Holder<TrimPattern>) -> ItemStack {
+pub fn apply_trim(
+    base: &ItemStack,
+    material_item: &ItemStack,
+    pattern: &Holder<TrimPattern>,
+) -> ItemStack {
     let Some(material) = material_item.get(&PROVIDES_TRIM_MATERIAL) else {
         return ItemStack::empty();
     };
-    let new_trim = ArmorTrim { material: material.clone(), pattern: pattern.clone() };
+    let new_trim = ArmorTrim {
+        material: material.clone(),
+        pattern: pattern.clone(),
+    };
     if base.get(&TRIM) == Some(&new_trim) {
         return ItemStack::empty();
     }

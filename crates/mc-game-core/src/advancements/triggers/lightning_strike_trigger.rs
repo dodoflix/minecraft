@@ -12,14 +12,15 @@ pub struct LightningStrikeTriggerInstance {
 
 impl TriggerInstance for LightningStrikeTriggerInstance {
     fn codec() -> Codec<Self> {
-        static C: std::sync::LazyLock<Codec<LightningStrikeTriggerInstance>> = std::sync::LazyLock::new(|| {
-            mc_dfu::record!(LightningStrikeTriggerInstance {
-                player: condition_holder_codec().optional_field_of("player"),
-                lightning: condition_holder_codec().optional_field_of("lightning"),
-                bystander: condition_holder_codec().optional_field_of("bystander"),
-            })
-            .codec()
-        });
+        static C: std::sync::LazyLock<Codec<LightningStrikeTriggerInstance>> =
+            std::sync::LazyLock::new(|| {
+                mc_dfu::record!(LightningStrikeTriggerInstance {
+                    player: condition_holder_codec().optional_field_of("player"),
+                    lightning: condition_holder_codec().optional_field_of("lightning"),
+                    bystander: condition_holder_codec().optional_field_of("bystander"),
+                })
+                .codec()
+            });
         C.clone()
     }
 }
@@ -31,8 +32,16 @@ impl SimpleInstance for LightningStrikeTriggerInstance {
 }
 
 crate::simple_instance!(LightningStrikeTriggerInstance, |this, validator| {
-    crate::world::level::storage::loot::validation::validate_holder_opt(&validator.entity_context(), "lightning", &this.lightning);
-    crate::world::level::storage::loot::validation::validate_holder_opt(&validator.entity_context(), "bystander", &this.bystander);
+    crate::world::level::storage::loot::validation::validate_holder_opt(
+        &validator.entity_context(),
+        "lightning",
+        &this.lightning,
+    );
+    crate::world::level::storage::loot::validation::validate_holder_opt(
+        &validator.entity_context(),
+        "bystander",
+        &this.bystander,
+    );
 });
 
 crate::register_triggers!(LightningStrikeTriggerInstance {
@@ -47,25 +56,44 @@ impl LightningStrikeTriggerInstance {
         }
         match &self.bystander {
             None => true,
-            Some(_) => entities_around.iter_mut().any(|c| holder_matches(&self.bystander, c)),
+            Some(_) => entities_around
+                .iter_mut()
+                .any(|c| holder_matches(&self.bystander, c)),
         }
     }
 }
 
 impl Trigger<LightningStrikeTriggerInstance> {
     /// `trigger(player, lightning, entitiesAround)`.
-    pub fn trigger(&self, level: &mut ServerLevel, player: &mut ServerPlayer, lightning: &dyn Entity, entities_around: &[&dyn Entity]) {
+    pub fn trigger(
+        &self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        lightning: &dyn Entity,
+        entities_around: &[&dyn Entity],
+    ) {
         let matches = self.matches(&*level, &*player, lightning, entities_around);
         matches.award(level, player);
     }
 
     /// The listeners that match; nothing is mutated.
-    pub fn matches(&self, level: &ServerLevel, player: &ServerPlayer, lightning: &dyn Entity, entities_around: &[&dyn Entity]) -> TriggerMatches {
+    pub fn matches(
+        &self,
+        level: &ServerLevel,
+        player: &ServerPlayer,
+        lightning: &dyn Entity,
+        entities_around: &[&dyn Entity],
+    ) -> TriggerMatches {
         let position = player.position();
-        let around_params: Vec<_> = entities_around.iter().map(|e| entity_params(level, position, *e)).collect();
+        let around_params: Vec<_> = entities_around
+            .iter()
+            .map(|e| entity_params(level, position, *e))
+            .collect();
         let mut around: Vec<LootContext> = around_params.iter().map(new_context).collect();
         let lightning_params = entity_params(level, position, lightning);
         let mut lightning_context = new_context(&lightning_params);
-        self.collect(level, player, |t| t.matches(&mut lightning_context, &mut around))
+        self.collect(level, player, |t| {
+            t.matches(&mut lightning_context, &mut around)
+        })
     }
 }

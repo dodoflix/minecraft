@@ -8,7 +8,10 @@ use crate::common::entity_scenario::*;
 
 /// `Entity.baseTick` leaves `remainingFireTicks` at `-getFireImmuneTicks()` (-20) in vanilla; the Rust base tick keeps 0.
 fn gaps() -> Options {
-    Options { ignore_fields: vec!["fire"], ..Default::default() }
+    Options {
+        ignore_fields: vec!["fire"],
+        ..Default::default()
+    }
 }
 
 #[test]
@@ -57,10 +60,21 @@ fn unknown_commands_fail_loudly() {
 
 #[test]
 fn plain_entities_and_notes_replay() {
-    let lines = run_scenario_text("inline", "level flat\nnote hello\nspawn_item a minecraft:diamond 0.5 -50 0.5 0 0 0\ndump entity:a\ntick 2\n");
+    let lines = run_scenario_text(
+        "inline",
+        "level flat\nnote hello\nspawn_item a minecraft:diamond 0.5 -50 0.5 0 0 0\ndump entity:a\ntick 2\n",
+    );
     assert_eq!(lines[0], "# hello");
-    assert!(lines[1].starts_with("E a minecraft:item pos=0.5,-50.0,0.5 "), "{}", lines[1]);
-    assert_eq!(lines.iter().filter(|l| l.starts_with("T ")).count(), 0, "no watch: no T headers");
+    assert!(
+        lines[1].starts_with("E a minecraft:item pos=0.5,-50.0,0.5 "),
+        "{}",
+        lines[1]
+    );
+    assert_eq!(
+        lines.iter().filter(|l| l.starts_with("T ")).count(),
+        0,
+        "no watch: no T headers"
+    );
 }
 
 /// Example mob golden (the ten minute recipe in the harness header): needs the zombie, until then it only documents
@@ -75,13 +89,29 @@ fn example_mob_golden_zombie_chase() {
 #[test]
 fn mob_trades_villagers() {
     let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests");
-    let scenario = std::fs::read_to_string(dir.join("oracle/scenarios/mob_trades.txt")).expect("scenario");
-    let villagers: String = scenario.lines().take_while(|l| !l.starts_with("mobspawn W")).map(|l| format!("{l}\n")).collect();
-    let expected = std::fs::read_to_string(dir.join("fixtures/entity_oracle/mob_trades.txt")).expect("fixture");
-    let expected: Vec<&str> = expected.lines().take_while(|l| !l.contains(" W1 ")).collect();
+    let scenario =
+        std::fs::read_to_string(dir.join("oracle/scenarios/mob_trades.txt")).expect("scenario");
+    let villagers: String = scenario
+        .lines()
+        .take_while(|l| !l.starts_with("mobspawn W"))
+        .map(|l| format!("{l}\n"))
+        .collect();
+    let expected = std::fs::read_to_string(dir.join("fixtures/entity_oracle/mob_trades.txt"))
+        .expect("fixture");
+    let expected: Vec<&str> = expected
+        .lines()
+        .take_while(|l| !l.contains(" W1 "))
+        .collect();
     let actual = run_scenario_text("mob_trades_villagers", &villagers);
-    let actual: Vec<&str> = actual.iter().map(String::as_str).filter(|l| l.starts_with("OFFER")).collect();
-    let expected: Vec<&str> = expected.into_iter().filter(|l| l.starts_with("OFFER")).collect();
+    let actual: Vec<&str> = actual
+        .iter()
+        .map(String::as_str)
+        .filter(|l| l.starts_with("OFFER"))
+        .collect();
+    let expected: Vec<&str> = expected
+        .into_iter()
+        .filter(|l| l.starts_with("OFFER"))
+        .collect();
     for (i, (a, e)) in actual.iter().zip(expected.iter()).enumerate() {
         assert_eq!(a, e, "line {i}");
     }
@@ -99,9 +129,19 @@ fn mob_command_arms_run() {
          tick 2\nlove P1 Steve\nlove P2 Steve\nbreed P1 P2\ndump entities\nage P1 -100\ntarget W Steve\ntarget W -\n\
          path_query P1 8.5 -60 4.5\nnav P2 8.5 -60 6.5 1.0 1\ntick 3\ndump goals:P1 path:P2 attrs:W nbt:W\ntame W Steve\nleash P1 Steve\nleash P1 -\ngive Steve mainhand minecraft:wheat 4\ninteract Steve P2\n",
     );
-    assert!(lines.iter().any(|l| l.starts_with("E pig#1 ")), "the baby is named pig#1: {lines:?}");
-    assert!(lines.iter().any(|l| l.starts_with("PATHQ P1 ")) && lines.iter().any(|l| l.starts_with("NAV P2 ")));
-    assert!(lines.iter().any(|l| l.starts_with("G P1 goal ")) && lines.iter().any(|l| l.starts_with("ATTR W ")) && lines.iter().any(|l| l.starts_with("N W {")));
+    assert!(
+        lines.iter().any(|l| l.starts_with("E pig#1 ")),
+        "the baby is named pig#1: {lines:?}"
+    );
+    assert!(
+        lines.iter().any(|l| l.starts_with("PATHQ P1 "))
+            && lines.iter().any(|l| l.starts_with("NAV P2 "))
+    );
+    assert!(
+        lines.iter().any(|l| l.starts_with("G P1 goal "))
+            && lines.iter().any(|l| l.starts_with("ATTR W "))
+            && lines.iter().any(|l| l.starts_with("N W {"))
+    );
 }
 
 /// Path goldens of the mobs (need the mob dump registrations of the mob spine, `SCENARIO_DUMP_EXTRA` order 10, and its

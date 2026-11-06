@@ -26,7 +26,12 @@ pub struct OneShot {
 
 impl OneShot {
     pub fn new(trigger: impl Trigger, required_memories: Vec<MemoryTypeId>, debug: String) -> Self {
-        Self { status: Status::Stopped, trigger: Box::new(trigger), required_memories, debug }
+        Self {
+            status: Status::Stopped,
+            trigger: Box::new(trigger),
+            required_memories,
+            debug,
+        }
     }
 }
 
@@ -45,7 +50,12 @@ impl BehaviorControl for OneShot {
         self.required_memories.clone()
     }
 
-    fn try_start(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, timestamp: i64) -> bool {
+    fn try_start(
+        &mut self,
+        level: &mut ServerLevel,
+        body: &mut dyn Entity,
+        timestamp: i64,
+    ) -> bool {
         if self.trigger.trigger(level, body, timestamp) {
             self.status = Status::Running;
             true

@@ -28,7 +28,11 @@ pub fn apply_base_implicit_components(entity: &mut dyn Entity, stack: &ItemStack
 
 /// `EntityType.updateCustomEntityTag(level, user, entity, entityData)`; `user_is_op` tells whether the spawning user is an
 /// op player (`server.getPlayerList().isOp(player.nameAndId())`).
-pub fn update_custom_entity_tag(entity: &mut dyn Entity, entity_data: &mc_protocol::components::TypedEntityData<EntityType>, user_is_op: bool) {
+pub fn update_custom_entity_tag(
+    entity: &mut dyn Entity,
+    entity_data: &mc_protocol::components::TypedEntityData<EntityType>,
+    user_is_op: bool,
+) {
     if entity.get_type() != entity_data.ty {
         return;
     }
@@ -51,11 +55,21 @@ pub fn load_into(entity: &mut dyn Entity, tag: &mc_nbt::CompoundTag) {
 
 /// `EntityType.onlyOpCanSetNbt()`.
 pub fn only_op_can_set_nbt(ty: EntityType) -> bool {
-    matches!(ty, EntityType::FALLING_BLOCK | EntityType::COMMAND_BLOCK_MINECART | EntityType::SPAWNER_MINECART)
+    matches!(
+        ty,
+        EntityType::FALLING_BLOCK
+            | EntityType::COMMAND_BLOCK_MINECART
+            | EntityType::SPAWNER_MINECART
+    )
 }
 
 /// `EntityType.createDefaultStackConfig(level, stack, user)` applied to `entity`.
-pub fn apply_default_stack_config(level: &ServerLevel, entity: &mut dyn Entity, stack: &ItemStack, user: Option<&ServerPlayer>) {
+pub fn apply_default_stack_config(
+    level: &ServerLevel,
+    entity: &mut dyn Entity,
+    stack: &ItemStack,
+    user: Option<&ServerPlayer>,
+) {
     entity.apply_implicit_components(stack);
     if let Some(entity_data) = stack.get(&ENTITY_DATA) {
         let user_is_op = user.is_some_and(|p| level.is_op_uuid(Entity::uuid(p)));
@@ -64,7 +78,12 @@ pub fn apply_default_stack_config(level: &ServerLevel, entity: &mut dyn Entity, 
 }
 
 /// `EntityType.getYOffset(level, spawnPos, movedUp, entityBox)`.
-fn get_y_offset(level: &ServerLevel, spawn_pos: BlockPos, moved_up: bool, entity_box: &AABB) -> f64 {
+fn get_y_offset(
+    level: &ServerLevel,
+    spawn_pos: BlockPos,
+    moved_up: bool,
+    entity_box: &AABB,
+) -> f64 {
     use crate::world::level::collision::CollisionGetter;
     use mc_core::direction::Axis;
     use mc_core::phys::shapes::Shapes;
@@ -74,7 +93,12 @@ fn get_y_offset(level: &ServerLevel, spawn_pos: BlockPos, moved_up: bool, entity
     }
     let mut shapes = super::movement::EntityCollisionQuery::entity_collisions(level, None, &aabb);
     shapes.extend(level.get_block_collisions(None, &aabb));
-    1.0 + Shapes::collide(Axis::Y, entity_box, &shapes, if moved_up { -2.0 } else { -1.0 })
+    1.0 + Shapes::collide(
+        Axis::Y,
+        entity_box,
+        &shapes,
+        if moved_up { -2.0 } else { -1.0 },
+    )
 }
 
 /// `EntityType.create(level, postSpawnConfig, spawnPos, reason, tryMoveDown, movedUp)` for entities that are not mobs
@@ -88,15 +112,34 @@ pub fn create_at(
     try_move_down: bool,
     moved_up: bool,
 ) -> Option<Box<dyn Entity>> {
-    let mut entity = factory::create(ty, level, EntitySpawnRequest { reason, ignore_checks: false })?;
+    let mut entity = factory::create(
+        ty,
+        level,
+        EntitySpawnRequest {
+            reason,
+            ignore_checks: false,
+        },
+    )?;
     let y_off = if try_move_down {
-        entity.set_pos(f64::from(spawn_pos.x()) + 0.5, f64::from(spawn_pos.y() + 1), f64::from(spawn_pos.z()) + 0.5);
+        entity.set_pos(
+            f64::from(spawn_pos.x()) + 0.5,
+            f64::from(spawn_pos.y() + 1),
+            f64::from(spawn_pos.z()) + 0.5,
+        );
         get_y_offset(level, spawn_pos, moved_up, &entity.base().bounding_box())
     } else {
         0.0
     };
-    let y_rot = mth::wrap_degrees_f32(crate::world::level::LevelAccessor::random(level).next_float() * 360.0);
-    entity.snap_to(f64::from(spawn_pos.x()) + 0.5, f64::from(spawn_pos.y()) + y_off, f64::from(spawn_pos.z()) + 0.5, y_rot, 0.0);
+    let y_rot = mth::wrap_degrees_f32(
+        crate::world::level::LevelAccessor::random(level).next_float() * 360.0,
+    );
+    entity.snap_to(
+        f64::from(spawn_pos.x()) + 0.5,
+        f64::from(spawn_pos.y()) + y_off,
+        f64::from(spawn_pos.z()) + 0.5,
+        y_rot,
+        0.0,
+    );
     entity.finalize_spawn_on_create(level, reason);
     if let Some(config) = config {
         config(level, entity.as_mut());

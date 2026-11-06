@@ -21,7 +21,12 @@ fn mix(key: &str) -> i32 {
 /// `HashCommon.arraySize(expected, f)`.
 fn array_size(expected: usize, f: f32) -> usize {
     let n = (expected as f32 / f).ceil() as u64;
-    (if n <= 1 { 1 } else { (n - 1).next_power_of_two() }).max(2) as usize
+    (if n <= 1 {
+        1
+    } else {
+        (n - 1).next_power_of_two()
+    })
+    .max(2) as usize
 }
 
 /// `HashCommon.maxFill(n, f)`.
@@ -151,7 +156,11 @@ impl<V> ObjectOpenHashMap<V> {
                     return;
                 };
                 let slot = mix(curr) as u32 as usize & self.mask;
-                let stays = if last <= pos { last >= slot || slot > pos } else { last >= slot && slot > pos };
+                let stays = if last <= pos {
+                    last >= slot || slot > pos
+                } else {
+                    last >= slot && slot > pos
+                };
                 if stays {
                     break;
                 }
@@ -165,7 +174,8 @@ impl<V> ObjectOpenHashMap<V> {
     fn rehash(&mut self, new_n: usize) {
         let mask = new_n - 1;
         let mut new_key: Vec<Option<String>> = vec![None; new_n + 1];
-        let mut new_value: Vec<Option<V>> = std::iter::repeat_with(|| None).take(new_n + 1).collect();
+        let mut new_value: Vec<Option<V>> =
+            std::iter::repeat_with(|| None).take(new_n + 1).collect();
         let mut i = self.n;
         for _ in 0..self.size {
             loop {
@@ -191,7 +201,9 @@ impl<V> ObjectOpenHashMap<V> {
 
     /// Entries in iterator / `forEach` order (table backwards).
     pub fn iter(&self) -> impl Iterator<Item = (&str, &V)> {
-        (0..self.n).rev().filter_map(|p| Some((self.key[p].as_deref()?, self.value[p].as_ref()?)))
+        (0..self.n)
+            .rev()
+            .filter_map(|p| Some((self.key[p].as_deref()?, self.value[p].as_ref()?)))
     }
 
     /// Entries in `stream()` order (table forwards).
@@ -223,7 +235,11 @@ mod tests {
         let golden = include_str!("../../tests/fixtures/object_hash_order.txt");
         let mut lines = golden.lines();
         while let Some(header) = lines.next() {
-            let mut map: ObjectOpenHashMap<()> = if header.starts_with('H') { ObjectOpenHashMap::with_expected(16, 0.5) } else { ObjectOpenHashMap::new() };
+            let mut map: ObjectOpenHashMap<()> = if header.starts_with('H') {
+                ObjectOpenHashMap::with_expected(16, 0.5)
+            } else {
+                ObjectOpenHashMap::new()
+            };
             for op in header[2..].split(' ') {
                 match op.strip_prefix('+') {
                     Some(k) => {
@@ -235,15 +251,28 @@ mod tests {
                 }
             }
             let expect = |line: &str, prefix: &str| -> Vec<String> {
-                line.strip_prefix(prefix).expect("prefix").split(' ').filter(|s| !s.is_empty()).map(str::to_owned).collect()
+                line.strip_prefix(prefix)
+                    .expect("prefix")
+                    .split(' ')
+                    .filter(|s| !s.is_empty())
+                    .map(str::to_owned)
+                    .collect()
             };
             let iterator = expect(lines.next().unwrap(), "I ");
             let for_each = expect(lines.next().unwrap(), "F ");
             let stream = expect(lines.next().unwrap(), "S ");
             lines.next();
-            assert_eq!(map.iter().map(|(k, _)| k.to_owned()).collect::<Vec<_>>(), iterator);
+            assert_eq!(
+                map.iter().map(|(k, _)| k.to_owned()).collect::<Vec<_>>(),
+                iterator
+            );
             assert_eq!(iterator, for_each);
-            assert_eq!(map.iter_stream().map(|(k, _)| k.to_owned()).collect::<Vec<_>>(), stream);
+            assert_eq!(
+                map.iter_stream()
+                    .map(|(k, _)| k.to_owned())
+                    .collect::<Vec<_>>(),
+                stream
+            );
         }
     }
 }

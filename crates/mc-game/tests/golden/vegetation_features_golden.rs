@@ -9,7 +9,6 @@
 //!
 //! `VEG_FILTER=<substring>` restricts the scenarios to feature ids containing it.
 
-
 use crate::common::feature_harness::*;
 use mc_core::ident::Identifier;
 use mc_core::pos::BlockPos;
@@ -17,10 +16,10 @@ use mc_core::random::{LegacyRandomSource, RandomSource, XoroshiroRandomSource};
 use mc_game::world::level::levelgen::feature::{self, Feature};
 use mc_game::world::level::levelgen::gen_level::GenLevel;
 use mc_game::world::level::levelgen::registries::{Cells, DecodeCtx};
-use mc_worldgen::data::{FsDataSource, WorldgenDataSource};
-use std::sync::Arc;
 use mc_game::world::level::{BlockGetter, LevelAccessor};
 use mc_world::status::ChunkStatus;
+use mc_worldgen::data::{FsDataSource, WorldgenDataSource};
+use std::sync::Arc;
 
 fn int(s: &str) -> i32 {
     s.parse().unwrap_or_else(|_| panic!("int {s}"))
@@ -32,7 +31,12 @@ fn heightmap_fold(level: &mut GenLevel<'_>, cx: i32, cz: i32, radius: i32) -> St
     for x in cx - radius..=cx + radius {
         for z in cz - radius..=cz + radius {
             let chunk = level.region().get_chunk(x, z).expect("chunk of the region");
-            let mut maps: Vec<_> = chunk.access.heightmaps.iter().map(|(ty, map)| (heightmap_name(*ty), map)).collect();
+            let mut maps: Vec<_> = chunk
+                .access
+                .heightmaps
+                .iter()
+                .map(|(ty, map)| (heightmap_name(*ty), map))
+                .collect();
             maps.sort_by_key(|(name, _)| *name);
             for (_, map) in maps {
                 for l in map.get_raw_data() {
@@ -46,11 +50,19 @@ fn heightmap_fold(level: &mut GenLevel<'_>, cx: i32, cz: i32, radius: i32) -> St
 
 #[test]
 fn vegetation_features_match_vanilla() {
-    let fixture = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures/vegetation_features.txt")).expect("fixture present");
+    let fixture = std::fs::read_to_string(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/tests/fixtures/vegetation_features.txt"
+    ))
+    .expect("fixture present");
     let filter = std::env::var("VEG_FILTER").ok();
-    assert!(WORLD.features_loaded, "the vanilla feature registries must decode completely");
+    assert!(
+        WORLD.features_loaded,
+        "the vanilla feature registries must decode completely"
+    );
     let mut lines = fixture.lines();
-    let (mut scenarios, mut placements, mut dump_lines, mut placed_true, mut crashed) = (0, 0, 0, 0, 0);
+    let (mut scenarios, mut placements, mut dump_lines, mut placed_true, mut crashed) =
+        (0, 0, 0, 0, 0);
     let mut failures: Vec<String> = Vec::new();
     while let Some(header) = lines.next() {
         let h: Vec<&str> = header.split(' ').collect();
@@ -61,12 +73,24 @@ fn vegetation_features_match_vanilla() {
         // `synthetic:<n>` scenarios carry their configuration (`J <json>`); the others are data-pack entries
         let feature: Arc<dyn Feature> = match body.iter().find_map(|l| l.strip_prefix("J ")) {
             Some(json) => {
-                let source: Arc<dyn WorldgenDataSource> = Arc::new(FsDataSource::new(std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../ref/src/data")));
+                let source: Arc<dyn WorldgenDataSource> = Arc::new(FsDataSource::new(
+                    std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../ref/src/data"),
+                ));
                 let cells = Cells::new(source);
-                let ctx = DecodeCtx { worldgen: &WORLD.worldgen, biomes: &WORLD.biomes, cells: &cells };
-                feature::decode_direct(&serde_json::from_str(json).expect("json"), &ctx).unwrap_or_else(|e| panic!("{name}: {e}"))
+                let ctx = DecodeCtx {
+                    worldgen: &WORLD.worldgen,
+                    biomes: &WORLD.biomes,
+                    cells: &cells,
+                };
+                feature::decode_direct(&serde_json::from_str(json).expect("json"), &ctx)
+                    .unwrap_or_else(|e| panic!("{name}: {e}"))
             }
-            None => WORLD.registries.feature(&Identifier::parse(name).expect("feature id")).unwrap_or_else(|| panic!("feature {name} is not in the registry")).value().clone(),
+            None => WORLD
+                .registries
+                .feature(&Identifier::parse(name).expect("feature id"))
+                .unwrap_or_else(|| panic!("feature {name} is not in the registry"))
+                .value()
+                .clone(),
         };
         let mut synth = SynthRegion::new(seed, cx, cz, ChunkStatus::Features, 2);
         let env = synth.env.clone();
@@ -75,7 +99,12 @@ fn vegetation_features_match_vanilla() {
             let mut level = synth.level();
             for s in body.iter().filter_map(|l| l.strip_prefix("S ")) {
                 let t: Vec<&str> = s.splitn(4, ' ').collect();
-                level.set_block(BlockPos::new(int(t[0]), int(t[1]), int(t[2])), parse_state(t[3]), 2, 512);
+                level.set_block(
+                    BlockPos::new(int(t[0]), int(t[1]), int(t[2])),
+                    parse_state(t[3]),
+                    2,
+                    512,
+                );
             }
         }
         let before = snapshot(&synth);
@@ -92,7 +121,10 @@ fn vegetation_features_match_vanilla() {
                 continue;
             } else if let Some(p) = line.strip_prefix("> P ") {
                 let t: Vec<&str> = p.split(' ').collect();
-                let want = body.next().and_then(|l| l.strip_prefix("= ")).expect("result line");
+                let want = body
+                    .next()
+                    .and_then(|l| l.strip_prefix("= "))
+                    .expect("result line");
                 if want.starts_with("EXC") {
                     // vanilla cannot run this feature on a bare region (needs a ServerLevel): nothing to compare
                     crashed += 1;
@@ -103,8 +135,17 @@ fn vegetation_features_match_vanilla() {
                     continue;
                 }
                 let rs: i64 = t[4].parse().unwrap();
-                let mut random: Box<dyn RandomSource> = if t[3] == "L" { Box::new(LegacyRandomSource::new(rs)) } else { Box::new(XoroshiroRandomSource::new(rs)) };
-                let placed = feature.place(&mut level, &env, &mut *random, BlockPos::new(int(t[0]), int(t[1]), int(t[2])));
+                let mut random: Box<dyn RandomSource> = if t[3] == "L" {
+                    Box::new(LegacyRandomSource::new(rs))
+                } else {
+                    Box::new(XoroshiroRandomSource::new(rs))
+                };
+                let placed = feature.place(
+                    &mut level,
+                    &env,
+                    &mut *random,
+                    BlockPos::new(int(t[0]), int(t[1]), int(t[2])),
+                );
                 let got = format!("{placed} {}", random.next_long());
                 placements += 1;
                 placed_true += usize::from(placed);
@@ -125,12 +166,21 @@ fn vegetation_features_match_vanilla() {
         }
         let mut got_dump: Vec<String> = dump(&mut level, &before)
             .into_iter()
-            .filter(|l| !(l.starts_with("C ") || l.starts_with("T ") || l.starts_with("M ") || l.starts_with("H ")))
+            .filter(|l| {
+                !(l.starts_with("C ")
+                    || l.starts_with("T ")
+                    || l.starts_with("M ")
+                    || l.starts_with("H "))
+            })
             .collect();
         got_dump.push(format!("HFOLD {}", heightmap_fold(&mut level, cx, cz, 2)));
         dump_lines += expected_dump.len();
         if got_dump != expected_dump && !scenario_failed {
-            let first = got_dump.iter().zip(&expected_dump).position(|(a, b)| a != b).unwrap_or(got_dump.len().min(expected_dump.len()));
+            let first = got_dump
+                .iter()
+                .zip(&expected_dump)
+                .position(|(a, b)| a != b)
+                .unwrap_or(got_dump.len().min(expected_dump.len()));
             failures.push(format!(
                 "{name} seed {seed} dump differs at line {first}: ours `{}`, vanilla `{}` ({} vs {} lines)",
                 got_dump.get(first).map_or("<none>", String::as_str),
@@ -141,7 +191,16 @@ fn vegetation_features_match_vanilla() {
         }
         scenarios += 1;
     }
-    assert!(failures.is_empty(), "{scenarios} scenarios ({crashed} vanilla-uncomputable skipped), {placements} placements ({placed_true} placed), {dump_lines} dump lines:\n{}", failures.join("\n"));
-    println!("{scenarios} scenarios, {placements} placements ({placed_true} placed), {dump_lines} dump lines");
-    assert!(filter.is_some() || (scenarios > 80 && placed_true > 200), "fixture too small or features never place");
+    assert!(
+        failures.is_empty(),
+        "{scenarios} scenarios ({crashed} vanilla-uncomputable skipped), {placements} placements ({placed_true} placed), {dump_lines} dump lines:\n{}",
+        failures.join("\n")
+    );
+    println!(
+        "{scenarios} scenarios, {placements} placements ({placed_true} placed), {dump_lines} dump lines"
+    );
+    assert!(
+        filter.is_some() || (scenarios > 80 && placed_true > 200),
+        "fixture too small or features never place"
+    );
 }

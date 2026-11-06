@@ -13,12 +13,19 @@ const PI_F: f32 = std::f32::consts::PI;
 
 impl ServerPlayer {
     /// `createItemStackToDrop(itemStack, randomly, thrownFromHand)`.
-    pub fn create_item_stack_to_drop(&mut self, level: &ServerLevel, stack: ItemStack, randomly: bool, thrown_from_hand: bool) -> Option<ItemEntity> {
+    pub fn create_item_stack_to_drop(
+        &mut self,
+        level: &ServerLevel,
+        stack: ItemStack,
+        randomly: bool,
+        thrown_from_hand: bool,
+    ) -> Option<ItemEntity> {
         if stack.is_empty() {
             return None;
         }
         let y_hand_pos = self.base().get_eye_y() - f64::from(0.3f32);
-        let mut entity = ItemEntity::with_stack(level, self.base().x(), y_hand_pos, self.base().z(), stack);
+        let mut entity =
+            ItemEntity::with_stack(level, self.base().x(), y_hand_pos, self.base().z(), stack);
         entity.set_pick_up_delay(40);
         if thrown_from_hand {
             entity.set_thrower(self.base().uuid);
@@ -27,7 +34,11 @@ impl ServerPlayer {
         if randomly {
             let pow = random.next_float() * 0.5f32;
             let dir = random.next_float() * (PI_F * 2.0);
-            entity.base_mut().set_delta_movement_xyz(f64::from(-mth::sin(f64::from(dir)) * pow), f64::from(0.2f32), f64::from(mth::cos(f64::from(dir)) * pow));
+            entity.base_mut().set_delta_movement_xyz(
+                f64::from(-mth::sin(f64::from(dir)) * pow),
+                f64::from(0.2f32),
+                f64::from(mth::cos(f64::from(dir)) * pow),
+            );
         } else {
             let (x_rot, y_rot) = (self.base().x_rot(), self.base().y_rot());
             let deg = PI_F / 180.0;
@@ -49,12 +60,26 @@ impl ServerPlayer {
     }
 
     /// `ServerPlayer.drop(itemStack, thrownFromHand, prediction)` (`LivingEntity.drop` + stats): spawns the item entity.
-    pub fn drop(&mut self, level: &mut ServerLevel, stack: ItemStack, thrown_from_hand: bool, prediction: Prediction) -> bool {
+    pub fn drop(
+        &mut self,
+        level: &mut ServerLevel,
+        stack: ItemStack,
+        thrown_from_hand: bool,
+        prediction: Prediction,
+    ) -> bool {
         if stack.is_empty() {
             return false;
         }
-        self.swing(level, crate::world::item::InteractionHand::MainHand, super::item_use::SWING_ANIMATION_DEFAULT, prediction != Prediction::Predicted);
-        let Some(entity) = self.create_item_stack_to_drop(level, stack, false, thrown_from_hand) else { return false };
+        self.swing(
+            level,
+            crate::world::item::InteractionHand::MainHand,
+            super::item_use::SWING_ANIMATION_DEFAULT,
+            prediction != Prediction::Predicted,
+        );
+        let Some(entity) = self.create_item_stack_to_drop(level, stack, false, thrown_from_hand)
+        else {
+            return false;
+        };
         // `awardStat(ITEM_DROPPED, DROP)`: statistics are not ported yet
         level.add_fresh_entity(Box::new(entity))
     }
@@ -67,7 +92,9 @@ impl ServerPlayer {
         let key = crate::world::inventory::ContainerKey::PlayerInventory;
         let current = self.player.menus.current_mut();
         if let Some(slot_index) = current.base().find_slot(&key, selected) {
-            current.base_mut().set_remote_slot(slot_index, &selected_now);
+            current
+                .base_mut()
+                .set_remote_slot(slot_index, &selected_now);
         }
         if self.player.living.use_item.is_empty() {
             self.stop_using_item(level);

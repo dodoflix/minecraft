@@ -5,25 +5,27 @@ use super::config::{FullConfig, TrialSpawnerConfig};
 use super::player_detector::{PlayerDetector, in_line_of_sight};
 use super::state::TrialSpawnerStateExt;
 use super::state_data::{Packed, TrialSpawnerStateData, dispensing_from_drops};
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::block_entity::set_changed;
-use mc_game_core::world::entity::effect::MobEffectInstance;
-use mc_game_core::world::entity::factory::{self, EntitySpawnRequest};
-use mc_game_core::world::entity::{Entity, RemovalReason};
-use mc_game_core::world::item::ItemStack;
-use mc_game_core::world::level::base_spawner::{load_entity_tree, read_or_random_spawn_pos, spawn_aabb};
-use mc_game_core::world::level::collision::CollisionGetter;
-use mc_game_core::world::level::spawn_data::{SpawnData, has_no_configuration};
-use mc_game_core::world::level::spawner_mob_seam::{self, MobSpawnSteps};
-use mc_game_core::world::level::storage::loot::loading::get_loot_table;
-use mc_game_core::world::level::storage::loot::{LootContextParamSets, LootParams};
-use mc_game_core::world::level::{BlockGetter, LevelAccessor};
 use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_data::block::BlockState;
 use mc_data::enums::{EntitySpawnReason, TrialSpawnerState};
 use mc_data::{EntityType, GameEvent, MobEffect, SoundEvent, props};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::block_entity::set_changed;
+use mc_game_core::world::entity::effect::MobEffectInstance;
+use mc_game_core::world::entity::factory::{self, EntitySpawnRequest};
+use mc_game_core::world::entity::{Entity, RemovalReason};
+use mc_game_core::world::item::ItemStack;
+use mc_game_core::world::level::base_spawner::{
+    load_entity_tree, read_or_random_spawn_pos, spawn_aabb,
+};
+use mc_game_core::world::level::collision::CollisionGetter;
+use mc_game_core::world::level::spawn_data::{SpawnData, has_no_configuration};
+use mc_game_core::world::level::spawner_mob_seam::{self, MobSpawnSteps};
+use mc_game_core::world::level::storage::loot::loading::get_loot_table;
+use mc_game_core::world::level::storage::loot::{LootContextParamSets, LootParams};
+use mc_game_core::world::level::{BlockGetter, LevelAccessor};
 use mc_protocol::packets::play::level::SoundSource;
 use std::sync::Arc;
 use uuid::Uuid;
@@ -70,7 +72,11 @@ impl TrialSpawner {
 
     /// `activeConfig()`.
     pub fn active_config(&self, level: &ServerLevel) -> Arc<TrialSpawnerConfig> {
-        if self.is_ominous { self.config.ominous.value(level) } else { self.config.normal.value(level) }
+        if self.is_ominous {
+            self.config.ominous.value(level)
+        } else {
+            self.config.normal.value(level)
+        }
     }
 
     /// `ominousConfig()`.
@@ -81,18 +87,26 @@ impl TrialSpawner {
     /// `load(input)`.
     pub fn load(&mut self, tag: &mc_nbt::CompoundTag) {
         let root = mc_nbt::Tag::Compound(tag.clone());
-        if let Some(packed) = mc_dfu::parse_nbt(&Packed::map_codec().codec(), &root).result_or_partial() {
+        if let Some(packed) =
+            mc_dfu::parse_nbt(&Packed::map_codec().codec(), &root).result_or_partial()
+        {
             self.data.apply(packed);
         }
-        self.config = mc_dfu::parse_nbt(&FullConfig::map_codec().codec(), &root).result_or_partial().unwrap_or_default();
+        self.config = mc_dfu::parse_nbt(&FullConfig::map_codec().codec(), &root)
+            .result_or_partial()
+            .unwrap_or_default();
     }
 
     /// `store(output)`.
     pub fn store(&self, tag: &mut mc_nbt::CompoundTag) {
-        if let Ok(mc_nbt::Tag::Compound(packed)) = mc_dfu::encode_nbt(&Packed::map_codec().codec(), &self.data.pack()).into_result() {
+        if let Ok(mc_nbt::Tag::Compound(packed)) =
+            mc_dfu::encode_nbt(&Packed::map_codec().codec(), &self.data.pack()).into_result()
+        {
             tag.merge(&packed);
         }
-        if let Ok(mc_nbt::Tag::Compound(config)) = mc_dfu::encode_nbt(&FullConfig::map_codec().codec(), &self.config).into_result() {
+        if let Ok(mc_nbt::Tag::Compound(config)) =
+            mc_dfu::encode_nbt(&FullConfig::map_codec().codec(), &self.config).into_result()
+        {
             tag.merge(&config);
         }
     }
@@ -108,7 +122,9 @@ impl TrialSpawner {
 
     /// `removeOminous(level, spawnerPos)`.
     pub fn remove_ominous(&mut self, level: &mut ServerLevel, spawner_pos: BlockPos) {
-        let state = level.get_block_state(spawner_pos).set(props::OMINOUS, false);
+        let state = level
+            .get_block_state(spawner_pos)
+            .set(props::OMINOUS, false);
         level.set_block_and_update(spawner_pos, state);
         self.is_ominous = false;
     }
@@ -131,13 +147,20 @@ impl TrialSpawner {
 
     /// `getState()` (`INACTIVE` when the cached block state has no such property).
     pub fn get_state(&self) -> TrialSpawnerState {
-        if self.block_state.has_property(props::TRIAL_SPAWNER_STATE) { self.block_state.get(props::TRIAL_SPAWNER_STATE) } else { TrialSpawnerState::Inactive }
+        if self.block_state.has_property(props::TRIAL_SPAWNER_STATE) {
+            self.block_state.get(props::TRIAL_SPAWNER_STATE)
+        } else {
+            TrialSpawnerState::Inactive
+        }
     }
 
     /// `setState(level, state)` (`TrialSpawnerBlockEntity.setState`).
     pub fn set_state(&mut self, level: &mut ServerLevel, state: TrialSpawnerState) {
         set_changed(level, self.pos, self.block_state);
-        level.set_block_and_update(self.pos, self.block_state.set(props::TRIAL_SPAWNER_STATE, state));
+        level.set_block_and_update(
+            self.pos,
+            self.block_state.set(props::TRIAL_SPAWNER_STATE, state),
+        );
     }
 
     /// `markUpdated()` (`TrialSpawnerBlockEntity.markUpdated`).
@@ -159,8 +182,15 @@ impl TrialSpawner {
         if let Some(next) = &self.data.next_spawn_data {
             return next.clone();
         }
-        let potentials = self.active_config(level).spawn_potentials_definition.clone();
-        let selected = if potentials.is_empty() { None } else { potentials.get_random(level.random()).cloned() };
+        let potentials = self
+            .active_config(level)
+            .spawn_potentials_definition
+            .clone();
+        let selected = if potentials.is_empty() {
+            None
+        } else {
+            potentials.get_random(level.random()).cloned()
+        };
         let next = selected.unwrap_or_else(SpawnData::empty);
         self.data.next_spawn_data = Some(next.clone());
         self.mark_updated(level);
@@ -169,12 +199,25 @@ impl TrialSpawner {
 
     /// `hasMobToSpawn(trialSpawner, random)`.
     pub fn has_mob_to_spawn(&mut self, level: &mut ServerLevel) -> bool {
-        let has_next = matches!(self.get_or_create_next_spawn_data(level).entity_to_spawn.get("id"), Some(mc_nbt::Tag::String(_)));
-        has_next || !self.active_config(level).spawn_potentials_definition.is_empty()
+        let has_next = matches!(
+            self.get_or_create_next_spawn_data(level)
+                .entity_to_spawn
+                .get("id"),
+            Some(mc_nbt::Tag::String(_))
+        );
+        has_next
+            || !self
+                .active_config(level)
+                .spawn_potentials_definition
+                .is_empty()
     }
 
     /// `getOrCreateDisplayEntity(trialSpawner, level, state)` (only whether it exists matters on the server).
-    pub fn get_or_create_display_entity(&mut self, level: &mut ServerLevel, state: TrialSpawnerState) -> bool {
+    pub fn get_or_create_display_entity(
+        &mut self,
+        level: &mut ServerLevel,
+        state: TrialSpawnerState,
+    ) -> bool {
         if !state.has_spinning_mob() {
             return false;
         }
@@ -182,7 +225,15 @@ impl TrialSpawner {
             let tag = self.get_or_create_next_spawn_data(level).entity_to_spawn;
             if matches!(tag.get("id"), Some(mc_nbt::Tag::String(_))) {
                 let mut out = Vec::new();
-                factory::load_entity_recursive(&tag, level, EntitySpawnRequest { reason: EntitySpawnReason::TrialSpawner, ignore_checks: true }, &mut out);
+                factory::load_entity_recursive(
+                    &tag,
+                    level,
+                    EntitySpawnRequest {
+                        reason: EntitySpawnReason::TrialSpawner,
+                        ignore_checks: true,
+                    },
+                    &mut out,
+                );
                 self.data.display_entity_created = !out.is_empty();
             }
         }
@@ -207,7 +258,10 @@ impl TrialSpawner {
                 if effect == MobEffect::BAD_OMEN {
                     transform_bad_omen_into_trial_omen(level, player);
                 }
-                let eye = level.get_entity(player).map(|p| p.base().get_eye_position()).unwrap_or(Vec3::ZERO);
+                let eye = level
+                    .get_entity(player)
+                    .map(|p| p.base().get_eye_position())
+                    .unwrap_or(Vec3::ZERO);
                 level.level_event(None, 3020, BlockPos::containing(eye.x, eye.y, eye.z), 0);
                 self.apply_ominous(level, pos);
             }
@@ -217,9 +271,14 @@ impl TrialSpawner {
         }
         if self.get_state() != TrialSpawnerState::Cooldown || became_ominous {
             let searching_for_first_player = self.data.detected_players.is_empty();
-            let found = if searching_for_first_player { in_line_of_sight_players } else { self.player_detector.detect(level, pos, range, false) };
+            let found = if searching_for_first_player {
+                in_line_of_sight_players
+            } else {
+                self.player_detector.detect(level, pos, range, false)
+            };
             if self.data.detected_players.extend_from(found) {
-                self.data.next_mob_spawns_at = (level.game_time() + 40).max(self.data.next_mob_spawns_at);
+                self.data.next_mob_spawns_at =
+                    (level.game_time() + 40).max(self.data.next_mob_spawns_at);
                 if !became_ominous {
                     let event = if self.is_ominous { 3019 } else { 3013 };
                     level.level_event(None, event, pos, self.data.detected_players.len() as i32);
@@ -232,7 +291,9 @@ impl TrialSpawner {
     fn reset_after_becoming_ominous(&mut self, level: &mut ServerLevel) {
         let mobs: Vec<Uuid> = self.data.current_mobs.iter().copied().collect();
         for uuid in mobs {
-            let Some(id) = level.get_entity_by_uuid(uuid).map(|e| e.id()) else { continue };
+            let Some(id) = level.get_entity_by_uuid(uuid).map(|e| e.id()) else {
+                continue;
+            };
             let block_pos = level.get_entity(id).map(|e| e.block_position());
             if let Some(block_pos) = block_pos {
                 level.level_event(None, 3012, block_pos, FLAME_NORMAL);
@@ -256,15 +317,29 @@ impl TrialSpawner {
         let next_spawn_data = self.get_or_create_next_spawn_data(level);
         let entity_type: EntityType = factory::by(&next_spawn_data.entity_to_spawn)?;
         let spawn_range = self.active_config(level).spawn_range;
-        let spawn_pos = read_or_random_spawn_pos(&next_spawn_data.entity_to_spawn, level, spawner_pos, spawn_range);
-        if !level.no_collision(None, None, &spawn_aabb(entity_type, spawn_pos.x, spawn_pos.y, spawn_pos.z)) {
+        let spawn_pos = read_or_random_spawn_pos(
+            &next_spawn_data.entity_to_spawn,
+            level,
+            spawner_pos,
+            spawn_range,
+        );
+        if !level.no_collision(
+            None,
+            None,
+            &spawn_aabb(entity_type, spawn_pos.x, spawn_pos.y, spawn_pos.z),
+        ) {
             return None;
         }
         if !in_line_of_sight(level, Vec3::at_center_of(&spawner_pos), spawn_pos) {
             return None;
         }
         let spawn_block_pos = BlockPos::containing(spawn_pos.x, spawn_pos.y, spawn_pos.z);
-        if !spawner_mob_seam::check_spawn_placements(level, entity_type, EntitySpawnReason::TrialSpawner, spawn_block_pos) {
+        if !spawner_mob_seam::check_spawn_placements(
+            level,
+            entity_type,
+            EntitySpawnReason::TrialSpawner,
+            spawn_block_pos,
+        ) {
             return None;
         }
         if let Some(rules) = &next_spawn_data.custom_spawn_rules
@@ -272,7 +347,11 @@ impl TrialSpawner {
         {
             return None;
         }
-        let mut entities = load_entity_tree(&next_spawn_data.entity_to_spawn, level, EntitySpawnReason::TrialSpawner)?;
+        let mut entities = load_entity_tree(
+            &next_spawn_data.entity_to_spawn,
+            level,
+            EntitySpawnReason::TrialSpawner,
+        )?;
         for entity in &mut entities {
             let yaw = level.random().next_float() * 360.0;
             entity.snap_to(spawn_pos.x, spawn_pos.y, spawn_pos.z, yaw, 0.0);
@@ -283,22 +362,40 @@ impl TrialSpawner {
             set_persistence_required: true,
             equipment: next_spawn_data.equipment.as_ref(),
         };
-        if !spawner_mob_seam::prepare_mob(entities[0].as_mut(), level, EntitySpawnReason::TrialSpawner, &steps) {
+        if !spawner_mob_seam::prepare_mob(
+            entities[0].as_mut(),
+            level,
+            EntitySpawnReason::TrialSpawner,
+            &steps,
+        ) {
             return None;
         }
         let (uuid, id) = (entities[0].uuid(), entities[0].id());
         if !level.try_add_fresh_entity_with_passengers(entities) {
             return None;
         }
-        let flame = if self.is_ominous { FLAME_OMINOUS } else { FLAME_NORMAL };
+        let flame = if self.is_ominous {
+            FLAME_OMINOUS
+        } else {
+            FLAME_NORMAL
+        };
         level.level_event(None, 3011, spawner_pos, flame);
         level.level_event(None, 3012, spawn_block_pos, flame);
-        level.game_event_at_block(GameEvent::ENTITY_PLACE, spawn_block_pos, &mc_game_core::world::level::gameevent::GameEventContext::of_entity(Some(id)));
+        level.game_event_at_block(
+            GameEvent::ENTITY_PLACE,
+            spawn_block_pos,
+            &mc_game_core::world::level::gameevent::GameEventContext::of_entity(Some(id)),
+        );
         Some(uuid)
     }
 
     /// `ejectReward(level, pos, ejectingLootTable)`.
-    pub fn eject_reward(&mut self, level: &mut ServerLevel, pos: BlockPos, ejecting_loot_table: &Identifier) {
+    pub fn eject_reward(
+        &mut self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        ejecting_loot_table: &Identifier,
+    ) {
         let table = get_loot_table(&level.registries, ejecting_loot_table);
         let drops = {
             let params = LootParams::builder(level).create(&LootContextParamSets::EMPTY);
@@ -306,14 +403,26 @@ impl TrialSpawner {
         };
         if !drops.is_empty() {
             for item in drops {
-                crate::world::block_entity::loot_roll::spawn_item(level, item, 2, mc_core::direction::Direction::Up, Vec3::at_bottom_center_of(&pos).relative(mc_core::direction::Direction::Up, 1.2));
+                crate::world::block_entity::loot_roll::spawn_item(
+                    level,
+                    item,
+                    2,
+                    mc_core::direction::Direction::Up,
+                    Vec3::at_bottom_center_of(&pos)
+                        .relative(mc_core::direction::Direction::Up, 1.2),
+                );
             }
             level.level_event(None, 3014, pos, 0);
         }
     }
 
     /// `getDispensingItems(level, config, pos)` (`None` for the empty list, which is not cached).
-    pub fn get_dispensing_items(&mut self, level: &mut ServerLevel, config: &TrialSpawnerConfig, pos: BlockPos) -> Option<&mc_game_core::util::weighted_list::WeightedList<ItemStack>> {
+    pub fn get_dispensing_items(
+        &mut self,
+        level: &mut ServerLevel,
+        config: &TrialSpawnerConfig,
+        pos: BlockPos,
+    ) -> Option<&mc_game_core::util::weighted_list::WeightedList<ItemStack>> {
         if self.data.dispensing.is_none() {
             let table = get_loot_table(&level.registries, &config.items_to_drop_when_ominous);
             let seed = low_resolution_position(level, pos);
@@ -330,12 +439,22 @@ impl TrialSpawner {
     }
 
     /// `tickServer(serverLevel, spawnerPos, isOminous)`.
-    pub fn tick_server(&mut self, level: &mut ServerLevel, spawner_pos: BlockPos, is_ominous: bool) {
+    pub fn tick_server(
+        &mut self,
+        level: &mut ServerLevel,
+        spawner_pos: BlockPos,
+        is_ominous: bool,
+    ) {
         self.is_ominous = is_ominous;
         let current_state = self.get_state();
         let spawner_block = spawner_pos;
-        if self.data.current_mobs.remove_if(|id| should_mob_be_untracked(level, spawner_block, id)) {
-            self.data.next_mob_spawns_at = level.game_time() + i64::from(self.active_config(level).ticks_between_spawn);
+        if self
+            .data
+            .current_mobs
+            .remove_if(|id| should_mob_be_untracked(level, spawner_block, id))
+        {
+            self.data.next_mob_spawns_at =
+                level.game_time() + i64::from(self.active_config(level).ticks_between_spawn);
         }
         let next_state = current_state.tick_and_get_next(spawner_pos, self, level);
         if next_state != current_state {
@@ -351,7 +470,12 @@ impl TrialSpawner {
     }
 
     /// `overrideEntityToSpawn(entityData, level)`.
-    pub fn override_entity_data(&mut self, level: &mut ServerLevel, ty: EntityType, data: &mc_nbt::CompoundTag) {
+    pub fn override_entity_data(
+        &mut self,
+        level: &mut ServerLevel,
+        ty: EntityType,
+        data: &mc_nbt::CompoundTag,
+    ) {
         self.data.reset();
         self.config = self.config.override_entity_data(level, ty, data);
         self.set_state(level, TrialSpawnerState::Inactive);
@@ -361,16 +485,26 @@ impl TrialSpawner {
 fn should_mob_be_untracked(level: &ServerLevel, spawner_pos: BlockPos, id: &Uuid) -> bool {
     match level.get_entity_by_uuid(*id) {
         None => true,
-        Some(entity) => !entity.is_alive() || entity.block_position().dist_sqr(&spawner_pos) > MAX_MOB_TRACKING_DISTANCE_SQR,
+        Some(entity) => {
+            !entity.is_alive()
+                || entity.block_position().dist_sqr(&spawner_pos) > MAX_MOB_TRACKING_DISTANCE_SQR
+        }
     }
 }
 
 /// `findPlayerWithOminousEffect(level, inLineOfSightPlayers)`: a player with trial omen, else the last one with bad omen.
-fn find_player_with_ominous_effect(level: &ServerLevel, players: &[Uuid]) -> Option<(mc_game_core::world::entity::EntityId, MobEffect)> {
+fn find_player_with_ominous_effect(
+    level: &ServerLevel,
+    players: &[Uuid],
+) -> Option<(mc_game_core::world::entity::EntityId, MobEffect)> {
     let mut player_with_bad_omen = None;
     for uuid in players {
-        let Some(id) = level.get_player_by_uuid(*uuid) else { continue };
-        let Some(player) = level.get_entity(id) else { continue };
+        let Some(id) = level.get_player_by_uuid(*uuid) else {
+            continue;
+        };
+        let Some(player) = level.get_entity(id) else {
+            continue;
+        };
         if player.has_effect(MobEffect::TRIAL_OMEN) {
             return Some((id, MobEffect::TRIAL_OMEN));
         }
@@ -382,13 +516,20 @@ fn find_player_with_ominous_effect(level: &ServerLevel, players: &[Uuid]) -> Opt
 }
 
 /// `transformBadOmenIntoTrialOmen(player)`.
-fn transform_bad_omen_into_trial_omen(level: &mut ServerLevel, player: mc_game_core::world::entity::EntityId) {
+fn transform_bad_omen_into_trial_omen(
+    level: &mut ServerLevel,
+    player: mc_game_core::world::entity::EntityId,
+) {
     level.with_entity(player, |level, p| {
         if let Some(bad_omen) = p.get_effect(MobEffect::BAD_OMEN) {
             let amplifier = bad_omen.amplifier + 1;
             let duration = TRIAL_OMEN_PER_BAD_OMEN_LEVEL.wrapping_mul(amplifier);
             p.remove_effect(level, MobEffect::BAD_OMEN);
-            p.add_effect(level, MobEffectInstance::of(MobEffect::TRIAL_OMEN, duration, 0), None);
+            p.add_effect(
+                level,
+                MobEffectInstance::of(MobEffect::TRIAL_OMEN, duration, 0),
+                None,
+            );
         }
     });
 }
@@ -400,7 +541,11 @@ fn low_resolution_position(level: &ServerLevel, pos: BlockPos) -> i64 {
         mc_core::math::mth::floor_f32(pos.y() as f32 / 20.0),
         mc_core::math::mth::floor_f32(pos.z() as f32 / 30.0),
     );
-    level.server_state.loot.world_seed.wrapping_add(low.as_long())
+    level
+        .server_state
+        .loot
+        .world_seed
+        .wrapping_add(low.as_long())
 }
 
 /// The sounds the state machine plays (`SoundSource.BLOCKS`, volume 1, pitch 1).

@@ -15,7 +15,10 @@ mod index {
 use index::INDEX;
 
 fn entry(path: &str) -> Option<&'static (&'static str, bool, u32, u32, u32)> {
-    INDEX.binary_search_by(|e| e.0.cmp(path)).ok().map(|i| &INDEX[i])
+    INDEX
+        .binary_search_by(|e| e.0.cmp(path))
+        .ok()
+        .map(|i| &INDEX[i])
 }
 
 fn stored(e: &(&'static str, bool, u32, u32, u32)) -> &'static [u8] {
@@ -35,7 +38,9 @@ pub fn read(path: &str) -> Option<Cow<'static, [u8]>> {
         return Some(Cow::Borrowed(data));
     }
     let mut out = Vec::with_capacity(e.4 as usize);
-    flate2::read::DeflateDecoder::new(data).read_to_end(&mut out).expect("embedded data pack is valid deflate");
+    flate2::read::DeflateDecoder::new(data)
+        .read_to_end(&mut out)
+        .expect("embedded data pack is valid deflate");
     Some(Cow::Owned(out))
 }
 
@@ -62,5 +67,8 @@ pub fn paths() -> impl ExactSizeIterator<Item = &'static str> + Clone {
 /// All file paths starting with `prefix` (e.g. `data/minecraft/tags/block/`), sorted.
 pub fn list(prefix: &'static str) -> impl Iterator<Item = &'static str> {
     let start = INDEX.partition_point(|e| e.0 < prefix);
-    INDEX[start..].iter().map(|e| e.0).take_while(move |p| p.starts_with(prefix))
+    INDEX[start..]
+        .iter()
+        .map(|e| e.0)
+        .take_while(move |p| p.starts_with(prefix))
 }

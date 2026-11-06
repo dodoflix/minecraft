@@ -27,7 +27,11 @@ pub struct DragonFireball {
 impl DragonFireball {
     /// `DragonFireball(type, level)`.
     pub fn new(ty: EntityType, id: EntityId) -> Self {
-        Self { base: EntityData::new(ty, id, entity::TOTAL_AIR_SUPPLY, |_| {}), projectile: ProjectileData::default(), hurting: HurtingProjectileData::default() }
+        Self {
+            base: EntityData::new(ty, id, entity::TOTAL_AIR_SUPPLY, |_| {}),
+            projectile: ProjectileData::default(),
+            hurting: HurtingProjectileData::default(),
+        }
     }
 
     /// `DragonFireball(level, mob, direction)`.
@@ -47,7 +51,9 @@ impl Projectile for DragonFireball {
     fn on_hit(&mut self, level: &mut ServerLevel, hit: &HitResult) {
         crate::world::entity::projectile::on_hit_base(self, level, hit);
         let owned_by_hit_entity = match hit {
-            HitResult::Entity(e) if hit.get_type() == HitType::Entity => level.get_entity(e.entity).is_some_and(|t| self.owned_by(t)),
+            HitResult::Entity(e) if hit.get_type() == HitType::Entity => {
+                level.get_entity(e.entity).is_some_and(|t| self.owned_by(t))
+            }
             _ => false,
         };
         if hit.get_type() != HitType::Entity || !owned_by_hit_entity {
@@ -57,14 +63,19 @@ impl Projectile for DragonFireball {
             if let Some(owner) = self.get_owner(level).filter(|o| o.living().is_some()) {
                 cloud.set_owner(Some(owner));
             }
-            cloud.set_custom_particle(Some(ParticleOptions::Power { particle_type: ParticleType::DRAGON_BREATH, power: 1.0 }));
+            cloud.set_custom_particle(Some(ParticleOptions::Power {
+                particle_type: ParticleType::DRAGON_BREATH,
+                power: 1.0,
+            }));
             cloud.set_radius(3.0);
             cloud.set_duration(600);
             cloud.set_radius_per_tick((7.0 - cloud.get_radius()) / cloud.get_duration() as f32);
             cloud.set_potion_duration_scale(0.25);
             cloud.add_effect(&MobEffectInstance::of(MobEffect::INSTANT_DAMAGE, 1, 1));
             for id in living {
-                let Some(entity) = level.get_entity(id) else { continue };
+                let Some(entity) = level.get_entity(id) else {
+                    continue;
+                };
                 let dist = self.base.distance_to_sqr_vec(entity.position());
                 if dist < 16.0 {
                     let p = entity.position();
@@ -105,4 +116,7 @@ impl Entity for DragonFireball {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static DRAGON_FIREBALL_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::DRAGON_FIREBALL, create: |ty, id, _registries| Box::new(DragonFireball::new(ty, id)) };
+static DRAGON_FIREBALL_FACTORY: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::DRAGON_FIREBALL,
+    create: |ty, id, _registries| Box::new(DragonFireball::new(ty, id)),
+};

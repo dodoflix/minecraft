@@ -40,5 +40,10 @@ fn iteration_order_matches_java() {
             }
         }
     }
-    assert!(mismatches.is_empty(), "{} of 144 sets differ:\n{}", mismatches.len(), mismatches.join("\n"));
+    assert!(
+        mismatches.is_empty(),
+        "{} of 144 sets differ:\n{}",
+        mismatches.len(),
+        mismatches.join("\n")
+    );
 }

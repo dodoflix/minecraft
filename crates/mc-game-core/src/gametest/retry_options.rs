@@ -8,7 +8,10 @@ pub struct RetryOptions {
 
 impl RetryOptions {
     pub const fn new(number_of_tries: i32, halt_on_failure: bool) -> Self {
-        Self { number_of_tries, halt_on_failure }
+        Self {
+            number_of_tries,
+            halt_on_failure,
+        }
     }
 
     /// `noRetries()`.
@@ -40,8 +43,17 @@ mod tests {
         let none = RetryOptions::no_retries();
         assert!(!none.has_retries() && !none.has_tries_left(1, 1));
         let three = RetryOptions::new(3, false);
-        assert!(three.has_retries() && three.has_tries_left(1, 0) && three.has_tries_left(2, 2) && !three.has_tries_left(3, 3));
+        assert!(
+            three.has_retries()
+                && three.has_tries_left(1, 0)
+                && three.has_tries_left(2, 2)
+                && !three.has_tries_left(3, 3)
+        );
         let until_failed = RetryOptions::new(0, true);
-        assert!(until_failed.unlimited_tries() && until_failed.has_tries_left(50, 50) && !until_failed.has_tries_left(50, 49));
+        assert!(
+            until_failed.unlimited_tries()
+                && until_failed.has_tries_left(50, 50)
+                && !until_failed.has_tries_left(50, 49)
+        );
     }
 }

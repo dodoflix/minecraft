@@ -1,16 +1,17 @@
 //! `Sniffing`.
 
 use super::{warden, warden_mut};
+use crate::world::entity::monster::warden::warden_ai;
+use mc_data::SoundEvent;
+use mc_data::enums::Pose;
 use mc_game_core::entry_condition;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::entity::Entity;
 use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase};
 use mc_game_core::world::entity::ai::memory::memory_module_type::{
-    ATTACK_TARGET, DISTURBANCE_LOCATION, IS_SNIFFING, LOOK_TARGET, NEAREST_ATTACKABLE, SNIFF_COOLDOWN, WALK_TARGET,
+    ATTACK_TARGET, DISTURBANCE_LOCATION, IS_SNIFFING, LOOK_TARGET, NEAREST_ATTACKABLE,
+    SNIFF_COOLDOWN, WALK_TARGET,
 };
-use crate::world::entity::monster::warden::warden_ai;
-use mc_data::SoundEvent;
-use mc_data::enums::Pose;
 
 const ANGER_FROM_SNIFFING_MAX_DISTANCE_XZ: f64 = 6.0;
 const ANGER_FROM_SNIFFING_MAX_DISTANCE_Y: f64 = 20.0;
@@ -38,7 +39,12 @@ impl Sniffing {
 }
 
 impl Behavior for Sniffing {
-    fn can_still_use(&mut self, _level: &mut ServerLevel, _body: &mut dyn Entity, _timestamp: i64) -> bool {
+    fn can_still_use(
+        &mut self,
+        _level: &mut ServerLevel,
+        _body: &mut dyn Entity,
+        _timestamp: i64,
+    ) -> bool {
         true
     }
 
@@ -55,11 +61,23 @@ impl Behavior for Sniffing {
             .brain()
             .get_memory(&NEAREST_ATTACKABLE)
             .map(|r| r.0)
-            .filter(|id| level.get_entity(*id).is_some_and(|e| warden(body).can_target_entity_ref(level, e)));
+            .filter(|id| {
+                level
+                    .get_entity(*id)
+                    .is_some_and(|e| warden(body).can_target_entity_ref(level, e))
+            });
         if let Some(entity_id) = attackable {
             let (close, block_pos) = {
                 let entity = level.get_entity(entity_id).expect("checked above");
-                (crate::world::entity::monster::warden::closer_than_xz_y(body, entity, ANGER_FROM_SNIFFING_MAX_DISTANCE_XZ, ANGER_FROM_SNIFFING_MAX_DISTANCE_Y), entity.block_position())
+                (
+                    crate::world::entity::monster::warden::closer_than_xz_y(
+                        body,
+                        entity,
+                        ANGER_FROM_SNIFFING_MAX_DISTANCE_XZ,
+                        ANGER_FROM_SNIFFING_MAX_DISTANCE_Y,
+                    ),
+                    entity.block_position(),
+                )
             };
             if close {
                 warden_mut(body).increase_anger_at_default(level, Some(entity_id));

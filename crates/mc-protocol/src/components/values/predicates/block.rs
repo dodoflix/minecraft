@@ -1,8 +1,8 @@
 //! `net.minecraft.advancements.predicates.BlockPredicate`.
 
-use crate::codec::EncodeResult;
 use super::matchers::DataComponentMatchers;
 use super::state::{NbtPredicate, StatePropertiesPredicate};
+use crate::codec::EncodeResult;
 use crate::codec::{Decode, DecodeResult, Encode};
 use crate::components::common::RegistrySet;
 use mc_dfu::{Codec, MapCodec};
@@ -29,7 +29,8 @@ impl BlockPredicate {
 
     /// `BlockPredicate.CODEC`.
     pub fn codec() -> Codec<BlockPredicate> {
-        static C: std::sync::LazyLock<Codec<BlockPredicate>> = std::sync::LazyLock::new(|| BlockPredicate::map_codec().codec());
+        static C: std::sync::LazyLock<Codec<BlockPredicate>> =
+            std::sync::LazyLock::new(|| BlockPredicate::map_codec().codec());
         C.clone()
     }
 
@@ -62,7 +63,11 @@ impl Encode for BlockPredicate {
 }
 impl Decode for BlockPredicate {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
-        let blocks = if bool::decode(input)? { Some(RegistrySet::<mc_data::Block>::decode_stream(input)?) } else { None };
+        let blocks = if bool::decode(input)? {
+            Some(RegistrySet::<mc_data::Block>::decode_stream(input)?)
+        } else {
+            None
+        };
         Ok(BlockPredicate {
             blocks,
             properties: Option::<StatePropertiesPredicate>::decode(input)?,

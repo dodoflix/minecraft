@@ -6,18 +6,30 @@ use crate::{CompoundTag, Tag};
 /// `expected` always matches; compounds match when every expected entry matches; lists match
 /// element-wise equal, or (with `partial_list_matches`) when each expected element matches some
 /// actual element.
-pub fn compare_nbt(expected: Option<&Tag>, actual: Option<&Tag>, partial_list_matches: bool) -> bool {
-    let Some(expected) = expected else { return true };
+pub fn compare_nbt(
+    expected: Option<&Tag>,
+    actual: Option<&Tag>,
+    partial_list_matches: bool,
+) -> bool {
+    let Some(expected) = expected else {
+        return true;
+    };
     let Some(actual) = actual else { return false };
     match (expected, actual) {
         (Tag::Compound(e), Tag::Compound(a)) => {
-            a.len() >= e.len() && e.iter().all(|(k, v)| compare_nbt(Some(v), a.get(k), partial_list_matches))
+            a.len() >= e.len()
+                && e.iter()
+                    .all(|(k, v)| compare_nbt(Some(v), a.get(k), partial_list_matches))
         }
         (Tag::List(e), Tag::List(a)) if partial_list_matches => {
             if e.is_empty() {
                 a.is_empty()
             } else {
-                a.len() >= e.len() && e.iter().all(|et| a.iter().any(|at| compare_nbt(Some(et), Some(at), partial_list_matches)))
+                a.len() >= e.len()
+                    && e.iter().all(|et| {
+                        a.iter()
+                            .any(|at| compare_nbt(Some(et), Some(at), partial_list_matches))
+                    })
             }
         }
         (e, a) => std::mem::discriminant(e) == std::mem::discriminant(a) && e == a,

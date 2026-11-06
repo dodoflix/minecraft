@@ -7,7 +7,11 @@ pub struct ExperimentalRedstoneUtils;
 
 impl ExperimentalRedstoneUtils {
     /// `initialOrientation(level, front, up)`: `None` unless `REDSTONE_EXPERIMENTS` is enabled (then one `nextInt(48)`).
-    pub fn initial_orientation(level: &mut ServerLevel, front: Option<Direction>, up: Option<Direction>) -> Option<Orientation> {
+    pub fn initial_orientation(
+        level: &mut ServerLevel,
+        front: Option<Direction>,
+        up: Option<Direction>,
+    ) -> Option<Orientation> {
         level.initial_orientation(front, up)
     }
 

@@ -4,8 +4,8 @@
 
 use super::{Goal, reduced_tick_delay};
 use crate::server::level::ServerLevel;
-use crate::world::entity::mob::navigation;
 use crate::world::entity::Entity;
+use crate::world::entity::mob::navigation;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 
@@ -34,7 +34,11 @@ impl MoveToBlockData {
     }
 
     /// `MoveToBlockGoal(mob, speedModifier, searchRange, verticalSearchRange)`.
-    pub fn with_vertical(speed_modifier: f64, search_range: i32, vertical_search_range: i32) -> Self {
+    pub fn with_vertical(
+        speed_modifier: f64,
+        search_range: i32,
+        vertical_search_range: i32,
+    ) -> Self {
         Self {
             speed_modifier,
             next_start_tick: 0,
@@ -99,7 +103,11 @@ pub trait MoveToBlock: Goal {
 }
 
 /// `canUse()`.
-pub fn can_use<G: MoveToBlock + ?Sized>(goal: &mut G, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
+pub fn can_use<G: MoveToBlock + ?Sized>(
+    goal: &mut G,
+    mob: &mut dyn Entity,
+    level: &mut ServerLevel,
+) -> bool {
     if goal.mtb().next_start_tick > 0 {
         goal.mtb_mut().next_start_tick -= 1;
         false
@@ -111,9 +119,15 @@ pub fn can_use<G: MoveToBlock + ?Sized>(goal: &mut G, mob: &mut dyn Entity, leve
 }
 
 /// `canContinueToUse()`.
-pub fn can_continue_to_use<G: MoveToBlock + ?Sized>(goal: &G, mob: &dyn Entity, level: &ServerLevel) -> bool {
+pub fn can_continue_to_use<G: MoveToBlock + ?Sized>(
+    goal: &G,
+    mob: &dyn Entity,
+    level: &ServerLevel,
+) -> bool {
     let d = goal.mtb();
-    d.try_ticks >= -d.max_stay_ticks && d.try_ticks <= GIVE_UP_TICKS && goal.is_valid_target(mob, level, d.block_pos)
+    d.try_ticks >= -d.max_stay_ticks
+        && d.try_ticks <= GIVE_UP_TICKS
+        && goal.is_valid_target(mob, level, d.block_pos)
 }
 
 /// `start()`.
@@ -125,9 +139,20 @@ pub fn start<G: MoveToBlock + ?Sized>(goal: &mut G, mob: &mut dyn Entity, level:
 }
 
 /// `moveMobToBlock()`.
-pub fn move_mob_to_block<G: MoveToBlock + ?Sized>(goal: &G, mob: &mut dyn Entity, level: &mut ServerLevel) {
+pub fn move_mob_to_block<G: MoveToBlock + ?Sized>(
+    goal: &G,
+    mob: &mut dyn Entity,
+    level: &mut ServerLevel,
+) {
     let d = goal.mtb();
-    navigation::move_to(mob, level, f64::from(d.block_pos.x()) + 0.5, f64::from(d.block_pos.y() + 1), f64::from(d.block_pos.z()) + 0.5, d.speed_modifier);
+    navigation::move_to(
+        mob,
+        level,
+        f64::from(d.block_pos.x()) + 0.5,
+        f64::from(d.block_pos.y() + 1),
+        f64::from(d.block_pos.z()) + 0.5,
+        d.speed_modifier,
+    );
 }
 
 /// `tick()`.
@@ -138,7 +163,14 @@ pub fn tick<G: MoveToBlock + ?Sized>(goal: &mut G, mob: &mut dyn Entity, level: 
         goal.mtb_mut().try_ticks += 1;
         if goal.should_recalculate_path() {
             let speed = goal.mtb().speed_modifier;
-            navigation::move_to(mob, level, f64::from(move_to_target.x()) + 0.5, f64::from(move_to_target.y()), f64::from(move_to_target.z()) + 0.5, speed);
+            navigation::move_to(
+                mob,
+                level,
+                f64::from(move_to_target.x()) + 0.5,
+                f64::from(move_to_target.y()),
+                f64::from(move_to_target.z()) + 0.5,
+                speed,
+            );
         }
     } else {
         goal.mtb_mut().reached_target = true;
@@ -147,7 +179,11 @@ pub fn tick<G: MoveToBlock + ?Sized>(goal: &mut G, mob: &mut dyn Entity, level: 
 }
 
 /// `findNearestBlock()`.
-pub fn find_nearest_block<G: MoveToBlock + ?Sized>(goal: &mut G, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
+pub fn find_nearest_block<G: MoveToBlock + ?Sized>(
+    goal: &mut G,
+    mob: &mut dyn Entity,
+    level: &mut ServerLevel,
+) -> bool {
     let horizontal_search = goal.mtb().search_range;
     let vertical_search = goal.mtb().vertical_search_range;
     let mob_pos = mob.block_position();
@@ -159,7 +195,9 @@ pub fn find_nearest_block<G: MoveToBlock + ?Sized>(goal: &mut G, mob: &mut dyn E
                 let mut z = if x < r && x > -r { r } else { 0 };
                 while z <= r {
                     let pos = mob_pos.offset(x, y - 1, z);
-                    if mob.mob().is_some_and(|m| m.is_within_home_pos(pos)) && goal.is_valid_target(mob, level, pos) {
+                    if mob.mob().is_some_and(|m| m.is_within_home_pos(pos))
+                        && goal.is_valid_target(mob, level, pos)
+                    {
                         goal.mtb_mut().block_pos = pos;
                         return true;
                     }

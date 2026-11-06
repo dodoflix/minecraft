@@ -1,11 +1,13 @@
 //! GoalSelector arbitration (priority replacement, flag locks, disabled flags, interruptibility, tick rates).
 
 use super::JUMP_GOAL_FLAGS;
-use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags, GoalSelector, reduced_tick_delay};
-use mc_game_core::world::entity::Entity;
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::entity::plain::PlainEntity;
 use mc_data::EntityType;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::ai::goal::{
+    Flag, Goal, GoalFlags, GoalSelector, reduced_tick_delay,
+};
+use mc_game_core::world::entity::plain::PlainEntity;
 use std::cell::RefCell;
 use std::rc::Rc;
 
@@ -25,7 +27,15 @@ impl TestGoal {
     fn new(name: &'static str, flags: &[Flag], log: &Log) -> (Self, Rc<RefCell<bool>>) {
         let uses = Rc::new(RefCell::new(true));
         (
-            Self { name, flags: GoalFlags::of(flags), uses: uses.clone(), keeps: Rc::new(RefCell::new(true)), interruptable: true, every_tick: false, log: log.clone() },
+            Self {
+                name,
+                flags: GoalFlags::of(flags),
+                uses: uses.clone(),
+                keeps: Rc::new(RefCell::new(true)),
+                interruptable: true,
+                every_tick: false,
+                log: log.clone(),
+            },
             uses,
         )
     }
@@ -59,7 +69,11 @@ impl Goal for TestGoal {
 }
 
 fn setup() -> (PlainEntity, ServerLevel, Log) {
-    (PlainEntity::new(EntityType::PIG, 1), ServerLevel::detached(mc_core::ident::Identifier::new("minecraft", "overworld").unwrap()), Log::default())
+    (
+        PlainEntity::new(EntityType::PIG, 1),
+        ServerLevel::detached(mc_core::ident::Identifier::new("minecraft", "overworld").unwrap()),
+        Log::default(),
+    )
 }
 
 fn take(log: &Log) -> Vec<String> {
@@ -172,7 +186,14 @@ fn remove_all_goals_stops_running_matches() {
 
 #[test]
 fn reduced_tick_delay_is_ceil_half() {
-    assert_eq!((reduced_tick_delay(1), reduced_tick_delay(10), reduced_tick_delay(61)), (1, 5, 31));
+    assert_eq!(
+        (
+            reduced_tick_delay(1),
+            reduced_tick_delay(10),
+            reduced_tick_delay(61)
+        ),
+        (1, 5, 31)
+    );
 }
 
 #[test]

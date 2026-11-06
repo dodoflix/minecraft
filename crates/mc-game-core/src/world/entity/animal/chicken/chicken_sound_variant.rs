@@ -30,10 +30,10 @@ impl ChickenSoundSet {
     pub fn codec() -> Codec<ChickenSoundSet> {
         static C: LazyLock<Codec<ChickenSoundSet>> = LazyLock::new(|| {
             record!(ChickenSoundSet {
-            ambient_sound: sound_event_codec().field_of("ambient_sound"),
-            hurt_sound: sound_event_codec().field_of("hurt_sound"),
-            death_sound: sound_event_codec().field_of("death_sound"),
-            step_sound: sound_event_codec().field_of("step_sound"),
+                ambient_sound: sound_event_codec().field_of("ambient_sound"),
+                hurt_sound: sound_event_codec().field_of("hurt_sound"),
+                death_sound: sound_event_codec().field_of("death_sound"),
+                step_sound: sound_event_codec().field_of("step_sound"),
             })
             .codec()
         });
@@ -63,8 +63,16 @@ impl ChickenSoundVariant {
 }
 
 fn decode(json: &Value, ctx: &RegistryDecodeContext) -> Result<DecodedEntry, String> {
-    decode_variant(&ChickenSoundVariant::codec(), &ChickenSoundVariant::codec(), json, ctx)
+    decode_variant(
+        &ChickenSoundVariant::codec(),
+        &ChickenSoundVariant::codec(),
+        json,
+        ctx,
+    )
 }
 
 #[linkme::distributed_slice(DYNAMIC_REGISTRY_DECODERS)]
-static DECODER: DynamicRegistryDecoder = DynamicRegistryDecoder { registry: keys::CHICKEN_SOUND_VARIANT, decode };
+static DECODER: DynamicRegistryDecoder = DynamicRegistryDecoder {
+    registry: keys::CHICKEN_SOUND_VARIANT,
+    decode,
+};

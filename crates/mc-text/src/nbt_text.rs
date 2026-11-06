@@ -4,7 +4,7 @@
 use crate::chat_formatting::ChatFormatting;
 use crate::component::Component;
 use crate::style::Style;
-use mc_nbt::{snbt, Tag};
+use mc_nbt::{Tag, snbt};
 
 const MAX_DEPTH: usize = 64;
 const MAX_LENGTH: usize = 128;
@@ -52,7 +52,7 @@ impl Token {
             Token::ByteArrayPrefix => "B",
             Token::ShortSuffix => "s",
             Token::IntArrayPrefix => "I",
-            Token::LongSuffix | Token::LongArrayPrefix => "L" ,
+            Token::LongSuffix | Token::LongArrayPrefix => "L",
             Token::FloatSuffix => "f",
             Token::DoubleSuffix => "d",
         }
@@ -87,7 +87,9 @@ impl Styling {
             return literal;
         }
         match token {
-            Token::Folded => literal.set_style(Style::EMPTY.with_color_formatting(Some(ChatFormatting::Gray))),
+            Token::Folded => {
+                literal.set_style(Style::EMPTY.with_color_formatting(Some(ChatFormatting::Gray)))
+            }
             Token::ByteSuffix
             | Token::ByteArrayPrefix
             | Token::ShortSuffix
@@ -95,7 +97,9 @@ impl Styling {
             | Token::LongSuffix
             | Token::LongArrayPrefix
             | Token::FloatSuffix
-            | Token::DoubleSuffix => literal.set_style(Style::EMPTY.with_color_formatting(Some(ChatFormatting::Red))),
+            | Token::DoubleSuffix => {
+                literal.set_style(Style::EMPTY.with_color_formatting(Some(ChatFormatting::Red)))
+            }
             _ => literal,
         }
     }
@@ -120,7 +124,14 @@ impl TextComponentTagVisitor {
     }
 
     pub fn with_options(indentation: &str, styling: Styling, sort_keys: bool) -> Self {
-        TextComponentTagVisitor { indentation: indentation.to_owned(), styling, sort_keys, indent_depth: 0, depth: 0, result: Component::empty() }
+        TextComponentTagVisitor {
+            indentation: indentation.to_owned(),
+            styling,
+            sort_keys,
+            indent_depth: 0,
+            depth: 0,
+            result: Component::empty(),
+        }
     }
 
     /// `visit(Tag)`.
@@ -130,7 +141,8 @@ impl TextComponentTagVisitor {
     }
 
     fn append_str(&mut self, s: &str, style: &Style) {
-        self.result.push_sibling(Component::literal(s).with_style(style));
+        self.result
+            .push_sibling(Component::literal(s).with_style(style));
     }
 
     fn append(&mut self, c: Component) {
@@ -157,8 +169,14 @@ impl TextComponentTagVisitor {
             Tag::Short(v) => self.number(&v.to_string(), Some(Token::ShortSuffix)),
             Tag::Int(v) => self.number(&v.to_string(), None),
             Tag::Long(v) => self.number(&v.to_string(), Some(Token::LongSuffix)),
-            Tag::Float(v) => self.number(&crate::value::java_float_to_string(*v), Some(Token::FloatSuffix)),
-            Tag::Double(v) => self.number(&crate::value::java_double_to_string(*v), Some(Token::DoubleSuffix)),
+            Tag::Float(v) => self.number(
+                &crate::value::java_float_to_string(*v),
+                Some(Token::FloatSuffix),
+            ),
+            Tag::Double(v) => self.number(
+                &crate::value::java_double_to_string(*v),
+                Some(Token::DoubleSuffix),
+            ),
             Tag::String(s) => {
                 let quoted = snbt::quote_and_escape(s);
                 let quote = Component::literal(&quoted[..1]);
@@ -167,15 +185,36 @@ impl TextComponentTagVisitor {
                 self.append_str(&quoted[1..quoted.len() - 1], &style);
                 self.append(quote);
             }
-            Tag::ByteArray(a) => self.visit_array(Token::ByteArrayPrefix, a.iter().map(|v| v.to_string()), a.len(), Some(Token::ByteSuffix)),
-            Tag::IntArray(a) => self.visit_array(Token::IntArrayPrefix, a.iter().map(|v| v.to_string()), a.len(), None),
-            Tag::LongArray(a) => self.visit_array(Token::LongArrayPrefix, a.iter().map(|v| v.to_string()), a.len(), Some(Token::LongSuffix)),
+            Tag::ByteArray(a) => self.visit_array(
+                Token::ByteArrayPrefix,
+                a.iter().map(|v| v.to_string()),
+                a.len(),
+                Some(Token::ByteSuffix),
+            ),
+            Tag::IntArray(a) => self.visit_array(
+                Token::IntArrayPrefix,
+                a.iter().map(|v| v.to_string()),
+                a.len(),
+                None,
+            ),
+            Tag::LongArray(a) => self.visit_array(
+                Token::LongArrayPrefix,
+                a.iter().map(|v| v.to_string()),
+                a.len(),
+                Some(Token::LongSuffix),
+            ),
             Tag::List(l) => self.visit_list(l),
             Tag::Compound(c) => self.visit_compound(c),
         }
     }
 
-    fn visit_array(&mut self, prefix: Token, values: impl Iterator<Item = String>, len: usize, suffix: Option<Token>) {
+    fn visit_array(
+        &mut self,
+        prefix: Token,
+        values: impl Iterator<Item = String>,
+        len: usize,
+        suffix: Option<Token>,
+    ) {
         self.token(Token::ListOpen);
         self.token(prefix);
         self.token(Token::ListTypeSeparator);
@@ -220,7 +259,11 @@ impl TextComponentTagVisitor {
                 self.append(Component::literal("\n"));
             }
             let entry_indent = Component::literal(self.indentation.repeat(self.indent_depth + 1));
-            let element_spacing = if self.indentation.is_empty() { Component::literal(" ") } else { Component::literal("\n") };
+            let element_spacing = if self.indentation.is_empty() {
+                Component::literal(" ")
+            } else {
+                Component::literal("\n")
+            };
             for (i, e) in list.iter().take(MAX_LENGTH).enumerate() {
                 self.append(entry_indent.clone());
                 self.append_sub_tag(e, true);
@@ -235,7 +278,9 @@ impl TextComponentTagVisitor {
             }
             if !self.indentation.is_empty() {
                 self.append(Component::literal("\n"));
-                self.append(Component::literal(self.indentation.repeat(self.indent_depth)));
+                self.append(Component::literal(
+                    self.indentation.repeat(self.indent_depth),
+                ));
             }
             self.token(Token::ListClose);
         }
@@ -260,7 +305,11 @@ impl TextComponentTagVisitor {
                 self.append(Component::literal("\n"));
             }
             let entry_indent = Component::literal(self.indentation.repeat(self.indent_depth + 1));
-            let element_spacing = if self.indentation.is_empty() { Component::literal(" ") } else { Component::literal("\n") };
+            let element_spacing = if self.indentation.is_empty() {
+                Component::literal(" ")
+            } else {
+                Component::literal("\n")
+            };
             let last = entries.len() - 1;
             for (i, (key, value)) in entries.into_iter().enumerate() {
                 self.append(entry_indent.clone());
@@ -276,7 +325,9 @@ impl TextComponentTagVisitor {
             }
             if !self.indentation.is_empty() {
                 self.append(Component::literal("\n"));
-                self.append(Component::literal(self.indentation.repeat(self.indent_depth)));
+                self.append(Component::literal(
+                    self.indentation.repeat(self.indent_depth),
+                ));
             }
             self.token(Token::StructClose);
         }
@@ -296,14 +347,19 @@ impl TextComponentTagVisitor {
 
     fn handle_escape_pretty(&self, input: &str) -> Component {
         let key_style = self.styling.key_style();
-        let simple = !input.is_empty() && input.chars().all(|c| c.is_ascii_alphanumeric() || matches!(c, '.' | '_' | '+' | '-'));
+        let simple = !input.is_empty()
+            && input
+                .chars()
+                .all(|c| c.is_ascii_alphanumeric() || matches!(c, '.' | '_' | '+' | '-'));
         if simple {
             Component::literal(input).with_style(&key_style)
         } else {
             let quoted = snbt::quote_and_escape(input);
             let quote = &quoted[..1];
             let inner = Component::literal(&quoted[1..quoted.len() - 1]).with_style(&key_style);
-            Component::literal(quote).append(inner).append(Component::literal(quote))
+            Component::literal(quote)
+                .append(inner)
+                .append(Component::literal(quote))
         }
     }
 }

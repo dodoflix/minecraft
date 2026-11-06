@@ -35,7 +35,10 @@ impl BreedGoal {
     }
 
     /// `BreedGoal(animal, speedModifier, clazz)` for a class that spans several Rust types (`AbstractHorse`).
-    pub fn with_class_test(speed_modifier: f64, partner_class: Arc<dyn Fn(&dyn Entity) -> bool + Send + Sync>) -> Self {
+    pub fn with_class_test(
+        speed_modifier: f64,
+        partner_class: Arc<dyn Fn(&dyn Entity) -> bool + Send + Sync>,
+    ) -> Self {
         Self::build(speed_modifier, PartnerClass::Test(partner_class))
     }
 
@@ -45,7 +48,9 @@ impl BreedGoal {
             partner: None,
             love_time: 0,
             speed_modifier,
-            partner_targeting: TargetingConditions::for_non_combat().range(8.0).ignore_line_of_sight(),
+            partner_targeting: TargetingConditions::for_non_combat()
+                .range(8.0)
+                .ignore_line_of_sight(),
         }
     }
 
@@ -66,8 +71,13 @@ impl BreedGoal {
         let mut dist = f64::MAX;
         let mut partner = None;
         for id in animals {
-            let Some(potential) = level.get_entity(id) else { continue };
-            if animal.can_mate(potential) && !potential.is_panicking() && animal.base().distance_to_sqr_vec(potential.position()) < dist {
+            let Some(potential) = level.get_entity(id) else {
+                continue;
+            };
+            if animal.can_mate(potential)
+                && !potential.is_panicking()
+                && animal.base().distance_to_sqr_vec(potential.position()) < dist
+            {
                 partner = Some(id);
                 dist = animal.base().distance_to_sqr_vec(potential.position());
             }
@@ -86,7 +96,11 @@ impl Goal for BreedGoal {
     }
 
     fn can_continue_to_use(&mut self, _animal: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        self.partner.and_then(|p| level.get_entity(p)).is_some_and(|p| p.is_alive() && animal::is_in_love(p) && self.love_time < 60 && !p.is_panicking())
+        self.partner
+            .and_then(|p| level.get_entity(p))
+            .is_some_and(|p| {
+                p.is_alive() && animal::is_in_love(p) && self.love_time < 60 && !p.is_panicking()
+            })
     }
 
     fn stop(&mut self, _animal: &mut dyn Entity, _level: &mut ServerLevel) {
@@ -95,7 +109,9 @@ impl Goal for BreedGoal {
     }
 
     fn tick(&mut self, animal: &mut dyn Entity, level: &mut ServerLevel) {
-        self.tick_with(animal, level, &mut |a, l, partner| animal::spawn_child_from_breeding(a, l, partner));
+        self.tick_with(animal, level, &mut |a, l, partner| {
+            animal::spawn_child_from_breeding(a, l, partner)
+        });
     }
 
     fn flags(&self) -> GoalFlags {
@@ -105,16 +121,27 @@ impl Goal for BreedGoal {
 
 impl BreedGoal {
     /// `tick()` with `breed()` supplied by the subclass (`FoxBreedGoal`, `PandaBreedGoal`, `TurtleBreedGoal`).
-    pub fn tick_with(&mut self, animal: &mut dyn Entity, level: &mut ServerLevel, breed: &mut dyn FnMut(&mut dyn Entity, &mut ServerLevel, EntityId)) {
-        let Some(partner_id) = self.partner else { return };
+    pub fn tick_with(
+        &mut self,
+        animal: &mut dyn Entity,
+        level: &mut ServerLevel,
+        breed: &mut dyn FnMut(&mut dyn Entity, &mut ServerLevel, EntityId),
+    ) {
+        let Some(partner_id) = self.partner else {
+            return;
+        };
         let max_head_x_rot = animal.get_max_head_x_rot() as f32;
-        let Some(partner_pos) = level.get_entity(partner_id).map(|p| p.block_position()) else { return };
+        let Some(partner_pos) = level.get_entity(partner_id).map(|p| p.block_position()) else {
+            return;
+        };
         if let Some(partner) = level.get_entity(partner_id) {
             mob::look_at_entity_full(animal, partner, 10.0, max_head_x_rot);
         }
         navigation::move_to_entity(animal, level, partner_pos, self.speed_modifier);
         self.love_time += 1;
-        let close = level.get_entity(partner_id).is_some_and(|p| animal.base().distance_to_sqr_vec(p.position()) < 9.0);
+        let close = level
+            .get_entity(partner_id)
+            .is_some_and(|p| animal.base().distance_to_sqr_vec(p.position()) < 9.0);
         if self.love_time >= self.adjusted_tick_delay(60) && close {
             breed(animal, level, partner_id);
         }

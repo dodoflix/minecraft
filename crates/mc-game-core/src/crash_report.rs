@@ -60,7 +60,10 @@ pub struct CrashReportCategory {
 
 impl CrashReportCategory {
     pub fn new(title: impl Into<String>) -> Self {
-        Self { title: title.into(), entries: Vec::new() }
+        Self {
+            title: title.into(),
+            entries: Vec::new(),
+        }
     }
 
     pub fn set_detail(&mut self, key: impl Into<String>, value: impl Display) -> &mut Self {
@@ -70,11 +73,18 @@ impl CrashReportCategory {
 
     /// `setDetail(key, CrashReportDetail)`: a panicking supplier is recorded as `~~ERROR~~ ...` like
     /// `setDetailError`.
-    pub fn set_detail_with(&mut self, key: impl Into<String>, supplier: impl FnOnce() -> String) -> &mut Self {
+    pub fn set_detail_with(
+        &mut self,
+        key: impl Into<String>,
+        supplier: impl FnOnce() -> String,
+    ) -> &mut Self {
         let key = key.into();
         match panic::catch_unwind(AssertUnwindSafe(supplier)) {
             Ok(value) => self.entries.push((key, value)),
-            Err(payload) => self.entries.push((key, format!("~~ERROR~~ {}", panic_message(payload.as_ref())))),
+            Err(payload) => self.entries.push((
+                key,
+                format!("~~ERROR~~ {}", panic_message(payload.as_ref())),
+            )),
         }
         self
     }
@@ -106,11 +116,26 @@ impl Default for SystemReport {
 
 impl SystemReport {
     pub fn new() -> Self {
-        let mut report = Self { entries: Vec::new() };
+        let mut report = Self {
+            entries: Vec::new(),
+        };
         report.set_detail("Minecraft Version", WORLD_VERSION_NAME);
         report.set_detail("Minecraft Version ID", WORLD_VERSION_NAME);
-        report.set_detail("Operating System", format!("{} ({}) version {}", os_name(), std::env::consts::ARCH, os_version()));
-        report.set_detail("CPUs", std::thread::available_parallelism().map_or(1, |n| n.get()).to_string());
+        report.set_detail(
+            "Operating System",
+            format!(
+                "{} ({}) version {}",
+                os_name(),
+                std::env::consts::ARCH,
+                os_version()
+            ),
+        );
+        report.set_detail(
+            "CPUs",
+            std::thread::available_parallelism()
+                .map_or(1, |n| n.get())
+                .to_string(),
+        );
         report
     }
 
@@ -135,7 +160,11 @@ impl SystemReport {
 
     /// `toLineSeparatedString()`: `key: value` lines.
     pub fn to_line_separated_string(&self) -> String {
-        self.entries.iter().map(|(k, v)| format!("{k}: {v}")).collect::<Vec<_>>().join("\n")
+        self.entries
+            .iter()
+            .map(|(k, v)| format!("{k}: {v}"))
+            .collect::<Vec<_>>()
+            .join("\n")
     }
 
     pub fn append_to_crash_report_string(&self, out: &mut String) {
@@ -159,7 +188,11 @@ fn os_version() -> String {
 
 fn read_os_release(key: &str) -> Option<String> {
     let text = std::fs::read_to_string("/etc/os-release").ok()?;
-    text.lines().find_map(|line| line.strip_prefix(key)?.strip_prefix('=').map(|v| v.trim_matches('"').to_owned()))
+    text.lines().find_map(|line| {
+        line.strip_prefix(key)?
+            .strip_prefix('=')
+            .map(|v| v.trim_matches('"').to_owned())
+    })
 }
 
 /// `CrashReport`.
@@ -175,7 +208,13 @@ pub struct CrashReport {
 
 impl CrashReport {
     pub fn new(title: impl Into<String>, exception: impl Into<String>) -> Self {
-        Self { title: title.into(), exception: exception.into(), details: Vec::new(), system_report: SystemReport::new(), save_file: None }
+        Self {
+            title: title.into(),
+            exception: exception.into(),
+            details: Vec::new(),
+            system_report: SystemReport::new(),
+            save_file: None,
+        }
     }
 
     /// `CrashReport.forThrowable`: a [`ReportedException`] payload yields its own report; anything else gets a new
@@ -266,7 +305,9 @@ impl CrashReport {
 
 /// `ReportErrorComment`: `nuggets.get((int)(Util.getNanos() % size))`.
 fn error_comment() -> &'static str {
-    let nanos = std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).map_or(0, |d| d.as_nanos());
+    let nanos = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map_or(0, |d| d.as_nanos());
     CRASH_NUGGETS[(nanos % CRASH_NUGGETS.len() as u128) as usize]
 }
 
@@ -323,7 +364,9 @@ pub fn install_panic_hook() {
         if info.payload().is::<ReportedException>() {
             return;
         }
-        let location = info.location().map_or_else(String::new, |l| format!("\tat {}:{}:{}\n", l.file(), l.line(), l.column()));
+        let location = info.location().map_or_else(String::new, |l| {
+            format!("\tat {}:{}:{}\n", l.file(), l.line(), l.column())
+        });
         let trace = format!("{location}{}", std::backtrace::Backtrace::force_capture());
         LAST_PANIC_TRACE.with(|t| *t.borrow_mut() = Some(trace));
         previous(info);
@@ -336,8 +379,13 @@ mod tests {
 
     #[test]
     fn report_layout_matches_vanilla() {
-        let mut report = CrashReport::new("Exception in server tick loop", "IllegalStateException: boom");
-        report.add_category("Performance stats").set_detail("Random tick rate", 3);
+        let mut report = CrashReport::new(
+            "Exception in server tick loop",
+            "IllegalStateException: boom",
+        );
+        report
+            .add_category("Performance stats")
+            .set_detail("Random tick rate", 3);
         report.system_report().set_detail("Server Running", "true");
         let text = report.get_friendly_report();
         assert!(text.starts_with("---- Minecraft Crash Report ----\n// "));
@@ -349,7 +397,8 @@ mod tests {
 
     #[test]
     fn reported_exception_roundtrip() {
-        let caught = panic::catch_unwind(|| ReportedException::throw(CrashReport::new("t", "e"))).unwrap_err();
+        let caught = panic::catch_unwind(|| ReportedException::throw(CrashReport::new("t", "e")))
+            .unwrap_err();
         let report = CrashReport::for_throwable(caught, "other");
         assert_eq!(report.title(), "t");
     }
@@ -361,7 +410,11 @@ mod tests {
         let mut report = CrashReport::new("t", "e");
         assert!(report.save_to_file(&file));
         assert!(!report.save_to_file(&file));
-        assert!(std::fs::read_to_string(&file).unwrap().contains("Description: t"));
+        assert!(
+            std::fs::read_to_string(&file)
+                .unwrap()
+                .contains("Description: t")
+        );
     }
 }
 
@@ -386,7 +439,9 @@ const PROFILE_NUGGETS: [&str; 15] = [
 
 /// `ReportType.PROFILE.appendHeader(builder, List.of())`.
 pub fn append_profile_report_header(builder: &mut String) {
-    let nanos = std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).map_or(0, |d| d.as_nanos());
+    let nanos = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map_or(0, |d| d.as_nanos());
     builder.push_str("---- Minecraft Profiler Results ----\n// ");
     builder.push_str(PROFILE_NUGGETS[(nanos % PROFILE_NUGGETS.len() as u128) as usize]);
     builder.push_str("\n\n");

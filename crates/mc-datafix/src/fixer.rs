@@ -3,8 +3,8 @@
 //! Not ported: `DataFixerBuilder.Result.optimize` (pre-warming the rewrite caches on an executor; the caches fill
 //! lazily instead) and `DataFixerUpper.ERRORS_ARE_FATAL` (always `false` in vanilla).
 
-use crate::dsl::TypeReference;
 use crate::datafix::DataFix;
+use crate::dsl::TypeReference;
 use crate::rewrite::{OptimizationRule, TypeRewriteRule};
 use crate::schema::Schema;
 use crate::ty::Type;
@@ -29,7 +29,11 @@ pub fn get_sub_version(key: i32) -> i32 {
 /// `version_key` precedes all of them).
 fn lowest_schema_same_version(schemas: &BTreeMap<i32, Schema>, version_key: i32) -> i32 {
     let first = *schemas.keys().next().expect("no schemas registered");
-    if version_key < first { first } else { *schemas.range(..=version_key).next_back().unwrap().0 }
+    if version_key < first {
+        first
+    } else {
+        *schemas.range(..=version_key).next_back().unwrap().0
+    }
 }
 
 pub struct DataFixerBuilder {
@@ -43,16 +47,31 @@ pub struct DataFixerBuilder {
 impl DataFixerBuilder {
     /// `new DataFixerBuilder(dataVersion)`.
     pub fn new(data_version: i32) -> DataFixerBuilder {
-        DataFixerBuilder { data_version, schemas: BTreeMap::new(), global_list: Vec::new(), fixer_versions: BTreeSet::new(), unported: Vec::new() }
+        DataFixerBuilder {
+            data_version,
+            schemas: BTreeMap::new(),
+            global_list: Vec::new(),
+            fixer_versions: BTreeSet::new(),
+            unported: Vec::new(),
+        }
     }
 
     /// `addSchema(version, factory)`; `factory(versionKey, parent)` builds the schema (see `Schema::same`).
-    pub fn add_schema(&mut self, version: i32, factory: impl FnOnce(i32, Option<Schema>) -> Schema) -> Schema {
+    pub fn add_schema(
+        &mut self,
+        version: i32,
+        factory: impl FnOnce(i32, Option<Schema>) -> Schema,
+    ) -> Schema {
         self.add_schema_sub(version, 0, factory)
     }
 
     /// `addSchema(version, subVersion, factory)`.
-    pub fn add_schema_sub(&mut self, version: i32, sub_version: i32, factory: impl FnOnce(i32, Option<Schema>) -> Schema) -> Schema {
+    pub fn add_schema_sub(
+        &mut self,
+        version: i32,
+        sub_version: i32,
+        factory: impl FnOnce(i32, Option<Schema>) -> Schema,
+    ) -> Schema {
         let key = make_key(version, sub_version);
         let parent = if self.schemas.is_empty() {
             None
@@ -73,7 +92,10 @@ impl DataFixerBuilder {
     pub fn add_fixer(&mut self, fix: DataFix) {
         let version = get_version(fix.version_key());
         if version > self.data_version {
-            log::warn!("Ignored fix registered for version: {version} as the DataVersion of the game is: {}", self.data_version);
+            log::warn!(
+                "Ignored fix registered for version: {version} as the DataVersion of the game is: {}",
+                self.data_version
+            );
         } else {
             self.fixer_versions.insert(fix.version_key());
             self.global_list.push(fix);
@@ -83,7 +105,8 @@ impl DataFixerBuilder {
     /// Marks a fix of `DataFixers.addFixers` that is not ported yet: `step_is_complete(version)` stays false and
     /// the differential harness skips that step. Remove the call when the fix is registered with `add_fixer`.
     pub fn unported(&mut self, schema: &Schema, fix: &str) {
-        self.unported.push((get_version(schema.version_key()), fix.to_string()));
+        self.unported
+            .push((get_version(schema.version_key()), fix.to_string()));
     }
 
     /// `build().fixer()`.
@@ -118,8 +141,20 @@ impl DataFixer {
     }
 
     fn lowest_fix_same_version(&self, version_key: i32) -> i32 {
-        let first = *self.fixer_versions.iter().next().expect("no fixes registered");
-        if version_key < first { first - 1 } else { *self.fixer_versions.range(..=version_key).next_back().unwrap() }
+        let first = *self
+            .fixer_versions
+            .iter()
+            .next()
+            .expect("no fixes registered");
+        if version_key < first {
+            first - 1
+        } else {
+            *self
+                .fixer_versions
+                .range(..=version_key)
+                .next_back()
+                .unwrap()
+        }
     }
 
     /// `getRule(version, newVersion)`.
@@ -143,20 +178,35 @@ impl DataFixer {
             }
         }
         let rule = TypeRewriteRule::seq_list(rules);
-        self.rules.lock().unwrap().insert((version, new_version), rule.clone());
+        self.rules
+            .lock()
+            .unwrap()
+            .insert((version, new_version), rule.clone());
         rule
     }
 
     /// `DataFixer.update(type, input, version, newVersion)`: any codec error is logged and the input returned
     /// unchanged (partial results are used when present).
-    pub fn update(&self, ty: &TypeReference, input: Dynamic, version: i32, new_version: i32) -> Dynamic {
+    pub fn update(
+        &self,
+        ty: &TypeReference,
+        input: Dynamic,
+        version: i32,
+        new_version: i32,
+    ) -> Dynamic {
         if version >= new_version {
             return input;
         }
         let data_type = self.get_type(ty, version);
         let new_type = self.get_type(ty, new_version);
         let rule = self.get_rule(version, new_version);
-        let read = data_type.read_and_write(&input.ops, &new_type, &rule, OptimizationRule::Standard, &input.value);
+        let read = data_type.read_and_write(
+            &input.ops,
+            &new_type,
+            &rule,
+            OptimizationRule::Standard,
+            &input.value,
+        );
         if let Some(m) = read.error_message() {
             log::error!("{m}");
         }
@@ -169,12 +219,20 @@ impl DataFixer {
 
     /// Sorted distinct data versions that have at least one registered fix.
     pub fn step_versions(&self) -> Vec<i32> {
-        self.fixer_versions.iter().map(|k| get_version(*k)).collect::<BTreeSet<_>>().into_iter().collect()
+        self.fixer_versions
+            .iter()
+            .map(|k| get_version(*k))
+            .collect::<BTreeSet<_>>()
+            .into_iter()
+            .collect()
     }
 
     /// Number of fixes registered for data version `k` (all sub-versions).
     pub fn fixes_in_step(&self, k: i32) -> usize {
-        self.global_list.iter().filter(|f| get_version(f.version_key()) == k).count()
+        self.global_list
+            .iter()
+            .filter(|f| get_version(f.version_key()) == k)
+            .count()
     }
 
     /// `false` while a fix of version `k` is still marked [`DataFixerBuilder::unported`].
@@ -184,7 +242,11 @@ impl DataFixer {
 
     /// The fixes (class names) of version `k` not ported yet.
     pub fn unported_in_step(&self, k: i32) -> Vec<&str> {
-        self.unported.iter().filter(|(v, _)| *v == k).map(|(_, n)| n.as_str()).collect()
+        self.unported
+            .iter()
+            .filter(|(v, _)| *v == k)
+            .map(|(_, n)| n.as_str())
+            .collect()
     }
 
     /// Like `update`, but applying only the fixes registered at data version `k` (sub-versions k.0..k.9): input

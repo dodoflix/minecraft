@@ -11,7 +11,11 @@ enum FinderKind {
     /// `NamedChoiceFinder(name, type)`.
     NamedChoice { name: String, ty: Type },
     /// `outer.inField(name, type)`.
-    InField { outer: OpticFinder, name: Option<String>, ty: Type },
+    InField {
+        outer: OpticFinder,
+        name: Option<String>,
+        ty: Type,
+    },
 }
 
 /// `OpticFinder<FT>`; `ty()` is the focused type `FT`.
@@ -21,12 +25,18 @@ pub struct OpticFinder(Arc<FinderKind>);
 impl OpticFinder {
     /// `DSL.fieldFinder(name, type)` / `DSL.typeFinder(type)` (`name = None`).
     pub fn field(name: Option<&str>, ty: &Type) -> OpticFinder {
-        OpticFinder(Arc::new(FinderKind::Field { name: name.map(str::to_string), ty: ty.clone() }))
+        OpticFinder(Arc::new(FinderKind::Field {
+            name: name.map(str::to_string),
+            ty: ty.clone(),
+        }))
     }
 
     /// `DSL.namedChoice(name, type)`.
     pub fn named_choice(name: &str, ty: &Type) -> OpticFinder {
-        OpticFinder(Arc::new(FinderKind::NamedChoice { name: name.to_string(), ty: ty.clone() }))
+        OpticFinder(Arc::new(FinderKind::NamedChoice {
+            name: name.to_string(),
+            ty: ty.clone(),
+        }))
     }
 
     /// `finder.type()`.
@@ -39,21 +49,44 @@ impl OpticFinder {
 
     /// `finder.inField(name, type)`: this finder, searched inside field `name` of type `ty`.
     pub fn in_field(&self, name: Option<&str>, ty: &Type) -> OpticFinder {
-        OpticFinder(Arc::new(FinderKind::InField { outer: self.clone(), name: name.map(str::to_string), ty: ty.clone() }))
+        OpticFinder(Arc::new(FinderKind::InField {
+            outer: self.clone(),
+            name: name.map(str::to_string),
+            ty: ty.clone(),
+        }))
     }
 
     /// `finder.findType(containerType, resultType, recurse)`.
-    pub fn find_type(&self, container: &Type, result: &Type, recurse: bool) -> Result<TypedOptic, FindError> {
+    pub fn find_type(
+        &self,
+        container: &Type,
+        result: &Type,
+        recurse: bool,
+    ) -> Result<TypedOptic, FindError> {
         match &*self.0 {
-            FinderKind::Field { name, ty } => {
-                container.find_type(&Matcher::Field { name: name.clone(), ty: ty.clone(), result: result.clone() }, recurse)
-            }
-            FinderKind::NamedChoice { name, ty } => {
-                container.find_type(&Matcher::NamedChoice { name: name.clone(), ty: ty.clone(), result: result.clone() }, recurse)
-            }
+            FinderKind::Field { name, ty } => container.find_type(
+                &Matcher::Field {
+                    name: name.clone(),
+                    ty: ty.clone(),
+                    result: result.clone(),
+                },
+                recurse,
+            ),
+            FinderKind::NamedChoice { name, ty } => container.find_type(
+                &Matcher::NamedChoice {
+                    name: name.clone(),
+                    ty: ty.clone(),
+                    result: result.clone(),
+                },
+                recurse,
+            ),
             FinderKind::InField { outer, name, ty } => {
                 let l1 = outer.find_type(ty, result, recurse)?;
-                let first = OpticFinder::field(name.as_deref(), ty).find_type(container, l1.t_type(), recurse)?;
+                let first = OpticFinder::field(name.as_deref(), ty).find_type(
+                    container,
+                    l1.t_type(),
+                    recurse,
+                )?;
                 Ok(first.compose(&l1))
             }
         }

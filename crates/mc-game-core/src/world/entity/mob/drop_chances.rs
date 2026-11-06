@@ -14,7 +14,9 @@ pub struct DropChances {
 }
 
 impl DropChances {
-    pub const DEFAULT: DropChances = DropChances { by_equipment: [DEFAULT_EQUIPMENT_DROP_CHANCE; 8] };
+    pub const DEFAULT: DropChances = DropChances {
+        by_equipment: [DEFAULT_EQUIPMENT_DROP_CHANCE; 8],
+    };
 
     /// `byEquipment(slot)`.
     pub fn by_equipment(&self, slot: EquipmentSlot) -> f32 {
@@ -28,7 +30,10 @@ impl DropChances {
 
     /// `withEquipmentChance(slot, chance)`: panics on a negative chance like vanilla's `IllegalArgumentException`.
     pub fn with_equipment_chance(mut self, slot: EquipmentSlot, chance: f32) -> Self {
-        assert!(chance >= 0.0, "Tried to set invalid equipment chance {chance} for {slot:?}");
+        assert!(
+            chance >= 0.0,
+            "Tried to set invalid equipment chance {chance} for {slot:?}"
+        );
         self.by_equipment[slot as usize] = chance;
         self
     }

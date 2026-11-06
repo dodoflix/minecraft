@@ -11,7 +11,9 @@ pub mod storage;
 pub mod threaded;
 
 pub use chunk_source::{ChunkMapGetter, LightChunk, LightChunkGetter};
-pub use engine::{LightEngine, MAX_LEVEL, get_light_dampening_into, has_different_light_properties};
+pub use engine::{
+    LightEngine, MAX_LEVEL, get_light_dampening_into, has_different_light_properties,
+};
 pub use level_light_engine::{LIGHT_SECTION_PADDING, LevelLightEngine, LightReader};
 pub use mc_world::sky_light_sources::{ChunkSkyLightSources, get_occlusion_shape, is_empty_shape};
 pub use storage::{LightLayer, SectionType};

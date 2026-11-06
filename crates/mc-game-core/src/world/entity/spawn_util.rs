@@ -5,13 +5,13 @@
 //! of the creation that does not need the mob layer (factory, `snapTo` with the random yaw). `Mob.finalizeSpawn`,
 //! `checkSpawnRules`, `checkSpawnObstruction` and `playAmbientSound` belong to the mob layer and are marked below.
 
-use crate::world::level::LevelAccessor as _;
 use super::factory::{self, EntitySpawnRequest};
 use super::{Entity, EntityId};
 use crate::server::level::ServerLevel;
+use crate::world::level::BlockGetter;
+use crate::world::level::LevelAccessor as _;
 use crate::world::level::block::{BlockStateExt, helpers};
 use crate::world::level::collision::CollisionGetter;
-use crate::world::level::BlockGetter;
 use mc_core::direction::Direction;
 use mc_core::math::mth;
 use mc_core::phys::AABB;
@@ -33,7 +33,14 @@ pub enum Strategy {
 
 impl Strategy {
     /// `canSpawnOn(level, pos, blockState, abovePos, aboveState)`.
-    pub fn can_spawn_on(self, level: &ServerLevel, pos: BlockPos, block_state: BlockState, above_pos: BlockPos, above_state: BlockState) -> bool {
+    pub fn can_spawn_on(
+        self,
+        level: &ServerLevel,
+        pos: BlockPos,
+        block_state: BlockState,
+        above_pos: BlockPos,
+        above_state: BlockState,
+    ) -> bool {
         match self {
             Strategy::LegacyIronGolem => {
                 let block = block_state.block();
@@ -56,14 +63,24 @@ impl Strategy {
                 {
                     false
                 } else {
-                    (above_state.is_air() || above_state.liquid()) && (block_state.is_solid() || block == Block::POWDER_SNOW)
+                    (above_state.is_air() || above_state.liquid())
+                        && (block_state.is_solid() || block == Block::POWDER_SNOW)
                 }
             }
-            Strategy::OnTopOfCollider => above_state.get_collision_shape(level, above_pos).is_empty() && helpers::is_face_full(&block_state.get_collision_shape(level, pos), Direction::Up),
+            Strategy::OnTopOfCollider => {
+                above_state.get_collision_shape(level, above_pos).is_empty()
+                    && helpers::is_face_full(
+                        &block_state.get_collision_shape(level, pos),
+                        Direction::Up,
+                    )
+            }
             Strategy::OnTopOfColliderNoLeaves => {
                 above_state.get_collision_shape(level, above_pos).is_empty()
                     && !block_state.is_tag("leaves")
-                    && helpers::is_face_full(&block_state.get_collision_shape(level, pos), Direction::Up)
+                    && helpers::is_face_full(
+                        &block_state.get_collision_shape(level, pos),
+                        Direction::Up,
+                    )
             }
         }
     }
@@ -90,7 +107,16 @@ pub fn try_spawn_mob(
         if level.is_within_world_border(search_pos)
             && move_to_possible_spawn_position(level, spawn_range_y, &mut search_pos, strategy)
             && (!check_collisions
-                || level.no_collision(None, None, &spawn_aabb(entity_type, f64::from(search_pos.x()) + 0.5, f64::from(search_pos.y()), f64::from(search_pos.z()) + 0.5)))
+                || level.no_collision(
+                    None,
+                    None,
+                    &spawn_aabb(
+                        entity_type,
+                        f64::from(search_pos.x()) + 0.5,
+                        f64::from(search_pos.y()),
+                        f64::from(search_pos.z()) + 0.5,
+                    ),
+                ))
         {
             if let Some(mob) = create_at(level, entity_type, search_pos, spawn_reason) {
                 // mob layer: `mob.checkSpawnRules(level, spawnReason) && mob.checkSpawnObstruction(level)` (else `mob.discard()`)
@@ -109,20 +135,50 @@ pub fn spawn_aabb(entity_type: EntityType, x: f64, y: f64, z: f64) -> AABB {
     let data = entity_type.data();
     let half_width = data.spawn_dimensions_scale * data.width / 2.0;
     let height = data.spawn_dimensions_scale * data.height;
-    AABB::new(x - f64::from(half_width), y, z - f64::from(half_width), x + f64::from(half_width), y + f64::from(height), z + f64::from(half_width))
+    AABB::new(
+        x - f64::from(half_width),
+        y,
+        z - f64::from(half_width),
+        x + f64::from(half_width),
+        y + f64::from(height),
+        z + f64::from(half_width),
+    )
 }
 
 /// `EntityType.create(level, null, spawnPos, spawnReason, false, false)`.
-pub fn create_at(level: &mut ServerLevel, entity_type: EntityType, spawn_pos: BlockPos, spawn_reason: EntitySpawnReason) -> Option<Box<dyn Entity>> {
-    let mut entity = factory::create(entity_type, level, EntitySpawnRequest { reason: spawn_reason, ignore_checks: false })?;
+pub fn create_at(
+    level: &mut ServerLevel,
+    entity_type: EntityType,
+    spawn_pos: BlockPos,
+    spawn_reason: EntitySpawnReason,
+) -> Option<Box<dyn Entity>> {
+    let mut entity = factory::create(
+        entity_type,
+        level,
+        EntitySpawnRequest {
+            reason: spawn_reason,
+            ignore_checks: false,
+        },
+    )?;
     let y_rot = mth::wrap_degrees_f32(level.random().next_float() * 360.0);
-    entity.snap_to(f64::from(spawn_pos.x()) + 0.5, f64::from(spawn_pos.y()), f64::from(spawn_pos.z()) + 0.5, y_rot, 0.0);
+    entity.snap_to(
+        f64::from(spawn_pos.x()) + 0.5,
+        f64::from(spawn_pos.y()),
+        f64::from(spawn_pos.z()) + 0.5,
+        y_rot,
+        0.0,
+    );
     // mob layer: `mob.yHeadRot = mob.yBodyRot = yRot; mob.finalizeSpawn(level, difficulty, spawnReason, null)`
     Some(entity)
 }
 
 /// `moveToPossibleSpawnPosition(level, spawnRangeY, searchPos, strategy)`.
-fn move_to_possible_spawn_position(level: &ServerLevel, spawn_range_y: i32, search_pos: &mut BlockPos, strategy: Strategy) -> bool {
+fn move_to_possible_spawn_position(
+    level: &ServerLevel,
+    spawn_range_y: i32,
+    search_pos: &mut BlockPos,
+    strategy: Strategy,
+) -> bool {
     let mut above_state = level.get_block_state(*search_pos);
     for _ in -spawn_range_y..=spawn_range_y {
         *search_pos = search_pos.below();

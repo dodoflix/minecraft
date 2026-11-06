@@ -12,7 +12,10 @@ use mc_core::pos::{BlockPos, ChunkPos};
 use mc_dfu::extra::RGB_COLOR_CODEC;
 use mc_dfu::{Codec, MapCodec};
 use mc_protocol::codec::RgbColor;
-use mc_protocol::packets::play::{ClientboundTrackedWaypointPacket, TrackedWaypoint, TrackedWaypointData, WaypointIcon, WaypointOperation};
+use mc_protocol::packets::play::{
+    ClientboundTrackedWaypointPacket, TrackedWaypoint, TrackedWaypointData, WaypointIcon,
+    WaypointOperation,
+};
 use uuid::Uuid;
 
 /// `WaypointTransmitter.REALLY_FAR_DISTANCE`
@@ -35,7 +38,10 @@ pub struct Icon {
 
 impl Default for Icon {
     fn default() -> Self {
-        Self { style: default_style(), color: None }
+        Self {
+            style: default_style(),
+            color: None,
+        }
     }
 }
 
@@ -48,7 +54,10 @@ impl Icon {
     /// `cloneAndAssignStyle(livingEntity)`: `team_color` is the RGB of the entity's team color (`BLACK` mapped to
     /// [`TEAM_BLACK_ICON_COLOR`]), used when the icon has no color of its own.
     pub fn clone_and_assign_style(&self, team_color: Option<i32>) -> Icon {
-        Icon { style: self.style.clone(), color: self.color.or(team_color) }
+        Icon {
+            style: self.style.clone(),
+            color: self.color.or(team_color),
+        }
     }
 
     /// `copyFrom(other)`
@@ -59,7 +68,10 @@ impl Icon {
 
     /// `Waypoint.Icon.STREAM_CODEC`'s wire value.
     pub fn to_wire(&self) -> WaypointIcon {
-        WaypointIcon { style: self.style.clone(), color: self.color.map(RgbColor) }
+        WaypointIcon {
+            style: self.style.clone(),
+            color: self.color.map(RgbColor),
+        }
     }
 
     /// `Waypoint.Icon.CODEC`: `{style, color?}` (saved as `locator_bar_icon`).
@@ -72,7 +84,17 @@ impl Icon {
             style: mc_dfu::extra::IDENTIFIER.field_of("style"),
             color: RGB_COLOR_CODEC.optional_field_of("color"),
         });
-        map.xmap(|f| Icon { style: f.style, color: f.color }, |i: &Icon| IconFields { style: i.style.clone(), color: i.color }).codec()
+        map.xmap(
+            |f| Icon {
+                style: f.style,
+                color: f.color,
+            },
+            |i: &Icon| IconFields {
+                style: i.style.clone(),
+                color: i.color,
+            },
+        )
+        .codec()
     }
 }
 
@@ -128,7 +150,11 @@ fn distance_to(a: Vec3, b: Vec3) -> f32 {
 }
 
 /// `WaypointTransmitter.doesSourceIgnoreReceiver(source, receiver)`
-pub fn does_source_ignore_receiver(ctx: &dyn WaypointContext, source: &TransmitterView, receiver: &ReceiverView) -> bool {
+pub fn does_source_ignore_receiver(
+    ctx: &dyn WaypointContext,
+    source: &TransmitterView,
+    receiver: &ReceiverView,
+) -> bool {
     if receiver.spectator {
         false
     } else if !source.spectator && !ctx.has_indirect_passenger(source.id, receiver.id) {
@@ -155,29 +181,66 @@ fn azimuth(source: Vec3, receiver: Vec3) -> f32 {
 #[derive(Clone, Debug)]
 pub enum Connection {
     /// `EntityAzimuthConnection`
-    Azimuth { source: i32, source_uuid: Uuid, icon: Icon, receiver: i32, last_angle: f32 },
+    Azimuth {
+        source: i32,
+        source_uuid: Uuid,
+        icon: Icon,
+        receiver: i32,
+        last_angle: f32,
+    },
     /// `EntityBlockConnection`
-    Block { source: i32, source_uuid: Uuid, icon: Icon, receiver: i32, last_position: BlockPos },
+    Block {
+        source: i32,
+        source_uuid: Uuid,
+        icon: Icon,
+        receiver: i32,
+        last_position: BlockPos,
+    },
     /// `EntityChunkConnection`
-    Chunk { source: i32, source_uuid: Uuid, icon: Icon, receiver: i32, last_position: ChunkPos },
+    Chunk {
+        source: i32,
+        source_uuid: Uuid,
+        icon: Icon,
+        receiver: i32,
+        last_position: ChunkPos,
+    },
 }
 
-fn packet(operation: WaypointOperation, uuid: Uuid, icon: &Icon, data: TrackedWaypointData) -> ClientboundTrackedWaypointPacket {
+fn packet(
+    operation: WaypointOperation,
+    uuid: Uuid,
+    icon: &Icon,
+    data: TrackedWaypointData,
+) -> ClientboundTrackedWaypointPacket {
     ClientboundTrackedWaypointPacket {
         operation,
-        waypoint: TrackedWaypoint { identifier: mc_protocol::codec::Either::Left(uuid), icon: icon.to_wire(), data },
+        waypoint: TrackedWaypoint {
+            identifier: mc_protocol::codec::Either::Left(uuid),
+            icon: icon.to_wire(),
+            data,
+        },
     }
 }
 
 /// `ClientboundTrackedWaypointPacket.removeWaypoint(uuid)`
 pub fn remove_packet(uuid: Uuid) -> ClientboundTrackedWaypointPacket {
-    ClientboundTrackedWaypointPacket { operation: WaypointOperation::Untrack, waypoint: TrackedWaypoint::empty(uuid) }
+    ClientboundTrackedWaypointPacket {
+        operation: WaypointOperation::Untrack,
+        waypoint: TrackedWaypoint::empty(uuid),
+    }
 }
 
 impl Connection {
     /// `LivingEntity.makeWaypointConnectionWith(player)`
-    pub fn make(ctx: &dyn WaypointContext, source: &TransmitterView, receiver: &ReceiverView) -> Option<Connection> {
-        if source.first_tick || source.id == receiver.id || does_source_ignore_receiver(ctx, source, receiver) {
+    pub fn make(
+        ctx: &dyn WaypointContext,
+        source: &TransmitterView,
+        receiver: &ReceiverView,
+    ) -> Option<Connection> {
+        if source.first_tick
+            || source.id == receiver.id
+            || does_source_ignore_receiver(ctx, source, receiver)
+        {
             return None;
         }
         let icon = source.icon.clone_and_assign_style(source.team_color);
@@ -190,32 +253,76 @@ impl Connection {
                 last_angle: azimuth(source.position, receiver.position),
             }
         } else if !ctx.is_chunk_visible(receiver.id, source.chunk_position) {
-            Connection::Chunk { source: source.id, source_uuid: source.uuid, icon, receiver: receiver.id, last_position: source.chunk_position }
+            Connection::Chunk {
+                source: source.id,
+                source_uuid: source.uuid,
+                icon,
+                receiver: receiver.id,
+                last_position: source.chunk_position,
+            }
         } else {
-            Connection::Block { source: source.id, source_uuid: source.uuid, icon, receiver: receiver.id, last_position: source.block_position }
+            Connection::Block {
+                source: source.id,
+                source_uuid: source.uuid,
+                icon,
+                receiver: receiver.id,
+                last_position: source.block_position,
+            }
         })
     }
 
     fn receiver(&self) -> i32 {
         match self {
-            Connection::Azimuth { receiver, .. } | Connection::Block { receiver, .. } | Connection::Chunk { receiver, .. } => *receiver,
+            Connection::Azimuth { receiver, .. }
+            | Connection::Block { receiver, .. }
+            | Connection::Chunk { receiver, .. } => *receiver,
         }
     }
 
     fn source(&self) -> i32 {
         match self {
-            Connection::Azimuth { source, .. } | Connection::Block { source, .. } | Connection::Chunk { source, .. } => *source,
+            Connection::Azimuth { source, .. }
+            | Connection::Block { source, .. }
+            | Connection::Chunk { source, .. } => *source,
         }
     }
 
     /// `connect()`
     pub fn connect(&self, ctx: &dyn WaypointContext) {
         let p = match self {
-            Connection::Azimuth { source_uuid, icon, last_angle, .. } => packet(WaypointOperation::Track, *source_uuid, icon, TrackedWaypointData::Azimuth(*last_angle)),
-            Connection::Block { source_uuid, icon, last_position, .. } => {
-                packet(WaypointOperation::Track, *source_uuid, icon, TrackedWaypointData::Vec3i(vec3i(*last_position)))
-            }
-            Connection::Chunk { source_uuid, icon, last_position, .. } => packet(WaypointOperation::Track, *source_uuid, icon, TrackedWaypointData::Chunk(*last_position)),
+            Connection::Azimuth {
+                source_uuid,
+                icon,
+                last_angle,
+                ..
+            } => packet(
+                WaypointOperation::Track,
+                *source_uuid,
+                icon,
+                TrackedWaypointData::Azimuth(*last_angle),
+            ),
+            Connection::Block {
+                source_uuid,
+                icon,
+                last_position,
+                ..
+            } => packet(
+                WaypointOperation::Track,
+                *source_uuid,
+                icon,
+                TrackedWaypointData::Vec3i(vec3i(*last_position)),
+            ),
+            Connection::Chunk {
+                source_uuid,
+                icon,
+                last_position,
+                ..
+            } => packet(
+                WaypointOperation::Track,
+                *source_uuid,
+                icon,
+                TrackedWaypointData::Chunk(*last_position),
+            ),
         };
         ctx.send(self.receiver(), p);
     }
@@ -223,7 +330,9 @@ impl Connection {
     /// `disconnect()`
     pub fn disconnect(&self, ctx: &dyn WaypointContext) {
         let uuid = match self {
-            Connection::Azimuth { source_uuid, .. } | Connection::Block { source_uuid, .. } | Connection::Chunk { source_uuid, .. } => *source_uuid,
+            Connection::Azimuth { source_uuid, .. }
+            | Connection::Block { source_uuid, .. }
+            | Connection::Chunk { source_uuid, .. } => *source_uuid,
         };
         ctx.send(self.receiver(), remove_packet(uuid));
     }
@@ -231,27 +340,70 @@ impl Connection {
     /// `update()`
     pub fn update(&mut self, ctx: &dyn WaypointContext) {
         let receiver_id = self.receiver();
-        let Some(source) = ctx.transmitter(self.source()) else { return };
+        let Some(source) = ctx.transmitter(self.source()) else {
+            return;
+        };
         match self {
-            Connection::Azimuth { source_uuid, icon, last_angle, .. } => {
-                let Some(receiver) = ctx.receiver(receiver_id) else { return };
+            Connection::Azimuth {
+                source_uuid,
+                icon,
+                last_angle,
+                ..
+            } => {
+                let Some(receiver) = ctx.receiver(receiver_id) else {
+                    return;
+                };
                 let current_angle = azimuth(source.position, receiver.position);
                 if (current_angle - *last_angle).abs() > 0.008726646f32 {
-                    ctx.send(receiver_id, packet(WaypointOperation::Update, *source_uuid, icon, TrackedWaypointData::Azimuth(current_angle)));
+                    ctx.send(
+                        receiver_id,
+                        packet(
+                            WaypointOperation::Update,
+                            *source_uuid,
+                            icon,
+                            TrackedWaypointData::Azimuth(current_angle),
+                        ),
+                    );
                     *last_angle = current_angle;
                 }
             }
-            Connection::Block { source_uuid, icon, last_position, .. } => {
+            Connection::Block {
+                source_uuid,
+                icon,
+                last_position,
+                ..
+            } => {
                 let current = source.block_position;
                 if current.dist_manhattan(last_position) > 0 {
-                    ctx.send(receiver_id, packet(WaypointOperation::Update, *source_uuid, icon, TrackedWaypointData::Vec3i(vec3i(current))));
+                    ctx.send(
+                        receiver_id,
+                        packet(
+                            WaypointOperation::Update,
+                            *source_uuid,
+                            icon,
+                            TrackedWaypointData::Vec3i(vec3i(current)),
+                        ),
+                    );
                     *last_position = current;
                 }
             }
-            Connection::Chunk { source_uuid, icon, last_position, .. } => {
+            Connection::Chunk {
+                source_uuid,
+                icon,
+                last_position,
+                ..
+            } => {
                 let current = source.chunk_position;
                 if current.get_chessboard_distance(last_position) > 0 {
-                    ctx.send(receiver_id, packet(WaypointOperation::Update, *source_uuid, icon, TrackedWaypointData::Chunk(current)));
+                    ctx.send(
+                        receiver_id,
+                        packet(
+                            WaypointOperation::Update,
+                            *source_uuid,
+                            icon,
+                            TrackedWaypointData::Chunk(current),
+                        ),
+                    );
                     *last_position = current;
                 }
             }
@@ -260,7 +412,12 @@ impl Connection {
 
     /// `isBroken()`
     pub fn is_broken(&self, ctx: &dyn WaypointContext) -> bool {
-        let (Some(source), Some(receiver)) = (ctx.transmitter(self.source()), ctx.receiver(self.receiver())) else { return true };
+        let (Some(source), Some(receiver)) = (
+            ctx.transmitter(self.source()),
+            ctx.receiver(self.receiver()),
+        ) else {
+            return true;
+        };
         match self {
             Connection::Azimuth { .. } => {
                 does_source_ignore_receiver(ctx, &source, &receiver)
@@ -268,7 +425,8 @@ impl Connection {
                     || !is_really_far(&source, &receiver)
             }
             Connection::Block { last_position, .. } => {
-                source.block_position.dist_manhattan(last_position) > 1 || does_source_ignore_receiver(ctx, &source, &receiver)
+                source.block_position.dist_manhattan(last_position) > 1
+                    || does_source_ignore_receiver(ctx, &source, &receiver)
             }
             Connection::Chunk { last_position, .. } => {
                 // `!ChunkConnection.isBroken() && !ignore ? isChunkVisible(lastPosition) : true`

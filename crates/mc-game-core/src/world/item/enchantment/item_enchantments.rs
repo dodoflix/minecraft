@@ -1,7 +1,9 @@
 //! `ItemEnchantments.Mutable` and the stack-level enchantment accessors.
 
 use mc_core::ident::Identifier;
-use mc_protocol::components::{ENCHANTMENTS, EnchantmentHolder, Holder, ItemEnchantments, STORED_ENCHANTMENTS};
+use mc_protocol::components::{
+    ENCHANTMENTS, EnchantmentHolder, Holder, ItemEnchantments, STORED_ENCHANTMENTS,
+};
 
 use crate::world::item::ItemStack;
 
@@ -14,7 +16,9 @@ pub struct ItemEnchantmentsMutable {
 impl ItemEnchantmentsMutable {
     /// `new Mutable(enchantments)`.
     pub fn new(enchantments: &ItemEnchantments) -> ItemEnchantmentsMutable {
-        ItemEnchantmentsMutable { entries: enchantments.entries().to_vec() }
+        ItemEnchantmentsMutable {
+            entries: enchantments.entries().to_vec(),
+        }
     }
 
     fn position(&self, enchantment: &EnchantmentHolder) -> Option<usize> {
@@ -51,7 +55,8 @@ impl ItemEnchantmentsMutable {
 
     /// `getLevel(enchantment)`: 0 when absent.
     pub fn get_level(&self, enchantment: &EnchantmentHolder) -> i32 {
-        self.position(enchantment).map_or(0, |at| self.entries[at].1)
+        self.position(enchantment)
+            .map_or(0, |at| self.entries[at].1)
     }
 
     /// `keySet()`.
@@ -77,7 +82,9 @@ pub fn get_enchantments(stack: &ItemStack) -> ItemEnchantments {
 
 /// `ItemStack.enchant(enchantment, level)` (`EnchantmentHelper.updateEnchantments` + `upgrade`).
 pub fn enchant(stack: &mut ItemStack, enchantment: &Identifier, level: i32) {
-    super::super::enchantment_helper::update_enchantments(stack, |m| m.upgrade(&holder(enchantment), level));
+    super::super::enchantment_helper::update_enchantments(stack, |m| {
+        m.upgrade(&holder(enchantment), level)
+    });
 }
 
 /// The component an enchantment set of `stack` lives in (`getComponentType`): enchanted books store theirs separately.
@@ -85,6 +92,12 @@ pub fn is_book(stack: &ItemStack) -> bool {
     stack.is(mc_data::Item::ENCHANTED_BOOK)
 }
 
-pub(crate) fn component_key(stack: &ItemStack) -> mc_protocol::components::ComponentKey<ItemEnchantments> {
-    if is_book(stack) { STORED_ENCHANTMENTS } else { ENCHANTMENTS }
+pub(crate) fn component_key(
+    stack: &ItemStack,
+) -> mc_protocol::components::ComponentKey<ItemEnchantments> {
+    if is_book(stack) {
+        STORED_ENCHANTMENTS
+    } else {
+        ENCHANTMENTS
+    }
 }

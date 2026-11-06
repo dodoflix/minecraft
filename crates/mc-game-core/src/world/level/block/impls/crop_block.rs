@@ -59,7 +59,10 @@ pub fn get_growth_speed(block_type: Block, level: &dyn BlockGetter, pos: BlockPo
     if horizontal && vertical {
         speed /= 2.0;
     } else {
-        let diagonal = is_type(west.north()) || is_type(east.north()) || is_type(east.south()) || is_type(west.south());
+        let diagonal = is_type(west.north())
+            || is_type(east.north())
+            || is_type(east.south())
+            || is_type(west.south());
         if diagonal {
             speed /= 2.0;
         }
@@ -78,7 +81,11 @@ impl CropBlock {
 
     /// `getStateForAge(age)`.
     fn get_state_for_age(&self, block: Block, age: i32) -> BlockState {
-        if self.kind == Kind::Torchflower && age == 2 { Block::TORCHFLOWER.default_state() } else { block.default_state().set(self.age, age) }
+        if self.kind == Kind::Torchflower && age == 2 {
+            Block::TORCHFLOWER.default_state()
+        } else {
+            block.default_state().set(self.age, age)
+        }
     }
 
     /// `getBonemealAgeIncrease(level)`.
@@ -92,7 +99,9 @@ impl CropBlock {
 
     /// `growCrops(level, pos, state)`.
     pub fn grow_crops(&self, level: &mut ServerLevel, pos: BlockPos, state: BlockState) {
-        let age = self.max_age.min(self.get_age(state) + self.get_bonemeal_age_increase(level));
+        let age = self
+            .max_age
+            .min(self.get_age(state) + self.get_bonemeal_age_increase(level));
         level.set_block_flags(pos, self.get_state_for_age(state.block(), age), 2);
     }
 
@@ -102,7 +111,11 @@ impl CropBlock {
             let age = self.get_age(state);
             if age < self.max_age {
                 let growth_speed = get_growth_speed(state.block(), &*level, pos);
-                if level.random().next_int_bounded((25.0f32 / growth_speed) as i32 + 1) == 0 {
+                if level
+                    .random()
+                    .next_int_bounded((25.0f32 / growth_speed) as i32 + 1)
+                    == 0
+                {
                     level.set_block_flags(pos, self.get_state_for_age(state.block(), age + 1), 2);
                 }
             }
@@ -120,9 +133,11 @@ impl BlockBehaviour for CropBlock {
     fn can_survive(&self, _state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         has_sufficient_light(level, pos) && vegetation_block::can_survive(self, level, pos)
     }
-    update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
-        vegetation_block::update_shape(state, &*level, pos)
-    });
+    update_shape!(
+        |self, state, level, pos, direction, neighbour_pos, neighbour_state| {
+            vegetation_block::update_shape(state, &*level, pos)
+        }
+    );
     fn random_tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         if self.kind != Kind::Crop && level.random().next_int_bounded(3) == 0 {
             return;
@@ -140,27 +155,70 @@ impl BlockBehaviour for CropBlock {
     ) {
         vegetation_block::ravager_destroys_crop(level, pos, &*entity);
     }
-    fn get_clone_item_stack(&self, _state: BlockState, _level: &ServerLevel, _pos: BlockPos, _include_data: bool) -> ItemStack {
+    fn get_clone_item_stack(
+        &self,
+        _state: BlockState,
+        _level: &ServerLevel,
+        _pos: BlockPos,
+        _include_data: bool,
+    ) -> ItemStack {
         ItemStack::new(self.seed)
     }
     fn is_bonemealable(&self) -> bool {
         true
     }
-    fn is_valid_bonemeal_target(&self, _level: &dyn LevelReader, _pos: BlockPos, state: BlockState, _source: BonemealSource) -> bool {
+    fn is_valid_bonemeal_target(
+        &self,
+        _level: &dyn LevelReader,
+        _pos: BlockPos,
+        state: BlockState,
+        _source: BonemealSource,
+    ) -> bool {
         !self.is_max_age(state)
     }
-    fn perform_bonemeal(&self, level: &mut ServerLevel, pos: BlockPos, state: BlockState, _source: BonemealSource) {
+    fn perform_bonemeal(
+        &self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        state: BlockState,
+        _source: BonemealSource,
+    ) {
         self.grow_crops(level, pos, state);
     }
 }
 
 fn crop(class: &str) -> CropBlock {
     match class {
-        "CarrotBlock" => CropBlock { kind: Kind::Crop, age: props::AGE_7, max_age: 7, seed: Item::CARROT },
-        "PotatoBlock" => CropBlock { kind: Kind::Crop, age: props::AGE_7, max_age: 7, seed: Item::POTATO },
-        "BeetrootBlock" => CropBlock { kind: Kind::Beetroot, age: props::AGE_3, max_age: 3, seed: Item::BEETROOT_SEEDS },
-        "TorchflowerCropBlock" => CropBlock { kind: Kind::Torchflower, age: props::AGE_1, max_age: 2, seed: Item::TORCHFLOWER_SEEDS },
-        _ => CropBlock { kind: Kind::Crop, age: props::AGE_7, max_age: 7, seed: Item::WHEAT_SEEDS },
+        "CarrotBlock" => CropBlock {
+            kind: Kind::Crop,
+            age: props::AGE_7,
+            max_age: 7,
+            seed: Item::CARROT,
+        },
+        "PotatoBlock" => CropBlock {
+            kind: Kind::Crop,
+            age: props::AGE_7,
+            max_age: 7,
+            seed: Item::POTATO,
+        },
+        "BeetrootBlock" => CropBlock {
+            kind: Kind::Beetroot,
+            age: props::AGE_3,
+            max_age: 3,
+            seed: Item::BEETROOT_SEEDS,
+        },
+        "TorchflowerCropBlock" => CropBlock {
+            kind: Kind::Torchflower,
+            age: props::AGE_1,
+            max_age: 2,
+            seed: Item::TORCHFLOWER_SEEDS,
+        },
+        _ => CropBlock {
+            kind: Kind::Crop,
+            age: props::AGE_7,
+            max_age: 7,
+            seed: Item::WHEAT_SEEDS,
+        },
     }
 }
 
@@ -168,15 +226,26 @@ register_block_class!("CropBlock", |_| Box::new(crop("CropBlock")));
 register_block_class!("CarrotBlock", |_| Box::new(crop("CarrotBlock")));
 register_block_class!("PotatoBlock", |_| Box::new(crop("PotatoBlock")));
 register_block_class!("BeetrootBlock", |_| Box::new(crop("BeetrootBlock")));
-register_block_class!("TorchflowerCropBlock", |_| Box::new(crop("TorchflowerCropBlock")));
+register_block_class!("TorchflowerCropBlock", |_| Box::new(crop(
+    "TorchflowerCropBlock"
+)));
 
 /// `Bee.BeeGrowCropGoal`: for a `CropBlock` state that is not at its max age, `cropBlock.getStateForAge(getAge(state) + 1)`;
 /// `None` for max-age crops and for non-crops.
 pub fn next_age_state_if_not_max(state: BlockState) -> Option<BlockState> {
     let classes = &state.block().data().classes;
-    let class = ["TorchflowerCropBlock", "BeetrootBlock", "CarrotBlock", "PotatoBlock", "CropBlock"].into_iter().find(|c| classes.contains(c))?;
+    let class = [
+        "TorchflowerCropBlock",
+        "BeetrootBlock",
+        "CarrotBlock",
+        "PotatoBlock",
+        "CropBlock",
+    ]
+    .into_iter()
+    .find(|c| classes.contains(c))?;
     let crop = crop(class);
-    (!crop.is_max_age(state)).then(|| crop.get_state_for_age(state.block(), crop.get_age(state) + 1))
+    (!crop.is_max_age(state))
+        .then(|| crop.get_state_for_age(state.block(), crop.get_age(state) + 1))
 }
 
 /// `block instanceof CropBlock crop && crop.isMaxAge(state)`: `None` when the state is not a `CropBlock` (or subclass).

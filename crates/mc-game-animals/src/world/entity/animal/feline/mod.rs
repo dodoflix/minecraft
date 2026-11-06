@@ -10,8 +10,8 @@ pub use cat_sound_variant::{CatSoundSet, CatSoundVariant};
 pub use cat_variant::CatVariant;
 pub use ocelot::Ocelot;
 
-use mc_game_core::world::entity::Entity;
 use mc_data::enums::Pose;
+use mc_game_core::world::entity::Entity;
 
 pub const CROUCH_SPEED_MOD: f64 = 0.6;
 pub const WALK_SPEED_MOD: f64 = 0.8;
@@ -19,7 +19,11 @@ pub const SPRINT_SPEED_MOD: f64 = 1.33;
 
 /// `Cat.customServerAiStep` / `Ocelot.customServerAiStep` (identical; neither calls `Animal`'s).
 pub fn custom_server_ai_step(e: &mut dyn Entity) {
-    let wanted = e.mob().and_then(|m| m.move_control.as_deref()).filter(|c| c.has_wanted()).map(|c| c.get_speed_modifier());
+    let wanted = e
+        .mob()
+        .and_then(|m| m.move_control.as_deref())
+        .filter(|c| c.has_wanted())
+        .map(|c| c.get_speed_modifier());
     match wanted {
         Some(speed) if speed == CROUCH_SPEED_MOD => {
             e.set_pose(Pose::Crouching);

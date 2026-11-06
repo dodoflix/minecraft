@@ -57,10 +57,16 @@ impl NumberFormat {
             "minecraft:blank" => Ok(NumberFormat::Blank),
             "minecraft:fixed" => {
                 let value = codec::field(m, "value")?;
-                Component::from_nbt(value).map(NumberFormat::Fixed).map_err(|e| e.to_string())
+                Component::from_nbt(value)
+                    .map(NumberFormat::Fixed)
+                    .map_err(|e| e.to_string())
             }
-            "minecraft:styled" => Style::from_nbt(tag).map(NumberFormat::Styled).map_err(|e| e.to_string()),
-            _ => Err(format!("Unknown registry key in ResourceKey[minecraft:root / minecraft:number_format_type]: {ty}")),
+            "minecraft:styled" => Style::from_nbt(tag)
+                .map(NumberFormat::Styled)
+                .map_err(|e| e.to_string()),
+            _ => Err(format!(
+                "Unknown registry key in ResourceKey[minecraft:root / minecraft:number_format_type]: {ty}"
+            )),
         }
     }
 
@@ -68,7 +74,9 @@ impl NumberFormat {
     pub fn encode(&self) -> DataResult<Tag> {
         let mut m = match self {
             NumberFormat::Blank => CompoundTag::new(),
-            NumberFormat::Fixed(c) => CompoundTag::new().with("value", c.to_nbt().map_err(|e| e.to_string())?),
+            NumberFormat::Fixed(c) => {
+                CompoundTag::new().with("value", c.to_nbt().map_err(|e| e.to_string())?)
+            }
             NumberFormat::Styled(style) => match style.to_nbt().map_err(|e| e.to_string())? {
                 Tag::Compound(c) => c,
                 other => return Err(format!("Not a map: {other}")),
@@ -87,16 +95,37 @@ mod tests {
     fn codec_round_trip_and_format() {
         for (snbt, f) in [
             ("{type:\"minecraft:blank\"}", NumberFormat::Blank),
-            ("{type:\"minecraft:fixed\",value:\"hi\"}", NumberFormat::Fixed(Component::literal("hi"))),
-            ("{type:\"minecraft:styled\",color:\"red\",bold:1b}", NumberFormat::Styled(Style::EMPTY.with_color_formatting(Some(ChatFormatting::Red)).with_bold(Some(true)))),
+            (
+                "{type:\"minecraft:fixed\",value:\"hi\"}",
+                NumberFormat::Fixed(Component::literal("hi")),
+            ),
+            (
+                "{type:\"minecraft:styled\",color:\"red\",bold:1b}",
+                NumberFormat::Styled(
+                    Style::EMPTY
+                        .with_color_formatting(Some(ChatFormatting::Red))
+                        .with_bold(Some(true)),
+                ),
+            ),
         ] {
             let tag = mc_nbt::snbt::parse(snbt).unwrap();
             assert_eq!(NumberFormat::decode(&tag).unwrap(), f, "{snbt}");
             assert_eq!(f.encode().unwrap(), tag, "{snbt}");
         }
         assert_eq!(NumberFormat::Blank.format(5).get_string(), "");
-        assert_eq!(NumberFormat::Fixed(Component::literal("x")).format(5).get_string(), "x");
-        assert_eq!(NumberFormat::sidebar_default().format(-7).get_string(), "-7");
-        assert!(NumberFormat::decode(&mc_nbt::snbt::parse("{type:\"minecraft:nope\"}").unwrap()).is_err());
+        assert_eq!(
+            NumberFormat::Fixed(Component::literal("x"))
+                .format(5)
+                .get_string(),
+            "x"
+        );
+        assert_eq!(
+            NumberFormat::sidebar_default().format(-7).get_string(),
+            "-7"
+        );
+        assert!(
+            NumberFormat::decode(&mc_nbt::snbt::parse("{type:\"minecraft:nope\"}").unwrap())
+                .is_err()
+        );
     }
 }

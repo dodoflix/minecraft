@@ -10,7 +10,7 @@ use mc_nbt::Tag;
 
 use super::common::{common_packets, cookie_packets};
 use crate::codec::Holder;
-use crate::{packet_enum, Decode, Encode, Packet};
+use crate::{Decode, Encode, Packet, packet_enum};
 
 pub mod chat;
 pub mod debug;

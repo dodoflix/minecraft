@@ -38,7 +38,10 @@ impl SessionClient {
             .read_timeout(TIMEOUT)
             .build()
             .expect("TLS backend initialisation");
-        Self { base_url: base_url.into().trim_end_matches('/').to_owned(), http }
+        Self {
+            base_url: base_url.into().trim_end_matches('/').to_owned(),
+            http,
+        }
     }
 
     /// `SessionService.hasJoinedServer`. `Ok(None)` means the player is not verified: 204/empty body,
@@ -56,7 +59,11 @@ impl SessionClient {
         if let Some(ip) = ip {
             query.push_str(&format!("ip={}&", url_encode(ip)));
         }
-        query.push_str(&format!("serverId={}&username={}", url_encode(server_hash), url_encode(username)));
+        query.push_str(&format!(
+            "serverId={}&username={}",
+            url_encode(server_hash),
+            url_encode(username)
+        ));
         let url = format!("{}/session/minecraft/hasJoined?{query}", self.base_url);
 
         let response = self.http.get(url).send().await?;
@@ -86,11 +93,18 @@ fn parse_profile(body: &[u8], username: &str) -> Option<GameProfile> {
             Some(Property {
                 name: p.get("name")?.as_str()?.to_owned(),
                 value: p.get("value")?.as_str()?.to_owned(),
-                signature: p.get("signature").and_then(Value::as_str).map(str::to_owned),
+                signature: p
+                    .get("signature")
+                    .and_then(Value::as_str)
+                    .map(str::to_owned),
             })
         })
         .collect();
-    Some(GameProfile { id, name: username.to_owned(), properties })
+    Some(GameProfile {
+        id,
+        name: username.to_owned(),
+        properties,
+    })
 }
 
 /// `java.net.URLEncoder.encode(s, UTF_8)` (application/x-www-form-urlencoded).
@@ -98,7 +112,9 @@ fn url_encode(s: &str) -> String {
     let mut out = String::with_capacity(s.len());
     for &b in s.as_bytes() {
         match b {
-            b'a'..=b'z' | b'A'..=b'Z' | b'0'..=b'9' | b'.' | b'-' | b'*' | b'_' => out.push(b as char),
+            b'a'..=b'z' | b'A'..=b'Z' | b'0'..=b'9' | b'.' | b'-' | b'*' | b'_' => {
+                out.push(b as char)
+            }
             b' ' => out.push('+'),
             _ => out.push_str(&format!("%{b:02X}")),
         }

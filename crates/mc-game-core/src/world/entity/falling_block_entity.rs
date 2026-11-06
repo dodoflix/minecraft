@@ -8,6 +8,7 @@ use crate::define_accessor;
 use crate::server::level::ServerLevel;
 use crate::server::level::server_entity::encode_payload;
 use crate::world::damagesource::DamageSource;
+use crate::world::item::enchantment::value_codecs::block_state_codec;
 use crate::world::item::{BlockPlaceContext, ItemStack};
 use crate::world::level::block::{BlockStateExt, behaviour};
 use crate::world::level::collision::{BlockGetterExt, ClipBlock, ClipContext, ClipFluid};
@@ -23,8 +24,9 @@ use mc_data::EntityType;
 use mc_data::block::{Block, BlockState};
 use mc_data::props;
 use mc_nbt::{CompoundTag, Tag};
-use mc_protocol::packets::play::{ClientboundAddEntityPacket, ClientboundAddTransientBlockPacket, ClientboundBlockUpdatePacket};
-use crate::world::item::enchantment::value_codecs::block_state_codec;
+use mc_protocol::packets::play::{
+    ClientboundAddEntityPacket, ClientboundAddTransientBlockPacket, ClientboundBlockUpdatePacket,
+};
 use std::any::Any;
 
 define_accessor!(pub DATA_START_POS: BlockPos = FallingBlockEntity);
@@ -81,9 +83,24 @@ impl FallingBlockEntity {
 
     /// `fall(level, pos, state)`: the block at `pos` becomes its fluid and a falling entity takes its place.
     /// `before_add` runs on the entity before it enters the level (`FallingBlock.falling(entity)`).
-    pub fn fall_with(level: &mut ServerLevel, pos: BlockPos, state: BlockState, before_add: impl FnOnce(&mut FallingBlockEntity)) -> EntityId {
-        let entity_state = if state.has_property(props::WATERLOGGED) { state.set(props::WATERLOGGED, false) } else { state };
-        let mut entity = Self::at(level, f64::from(pos.x()) + 0.5, f64::from(pos.y()), f64::from(pos.z()) + 0.5, entity_state);
+    pub fn fall_with(
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        state: BlockState,
+        before_add: impl FnOnce(&mut FallingBlockEntity),
+    ) -> EntityId {
+        let entity_state = if state.has_property(props::WATERLOGGED) {
+            state.set(props::WATERLOGGED, false)
+        } else {
+            state
+        };
+        let mut entity = Self::at(
+            level,
+            f64::from(pos.x()) + 0.5,
+            f64::from(pos.y()),
+            f64::from(pos.z()) + 0.5,
+            entity_state,
+        );
         level.set_block_and_update(pos, state.get_fluid_state().create_legacy_block());
         before_add(&mut entity);
         let id = entity.base.id;
@@ -137,7 +154,12 @@ impl FallingBlockEntity {
 
     /// `spawnAtLocation(level, block)` (`ItemStack(block)` of the falling block).
     fn spawn_block_item(&self, level: &mut ServerLevel, block: Block) {
-        spawn_at_location(level, self, block.item().map_or_else(ItemStack::empty, ItemStack::new), Vec3::ZERO);
+        spawn_at_location(
+            level,
+            self,
+            block.item().map_or_else(ItemStack::empty, ItemStack::new),
+            Vec3::ZERO,
+        );
     }
 
     fn drops_enabled(&self, level: &ServerLevel) -> bool {
@@ -181,11 +203,24 @@ impl Entity for FallingBlockEntity {
     }
 
     /// `getAddEntityPacket(serverEntity)`: the data is the block state id.
-    fn get_add_entity_packet(&self, server_entity: &crate::server::level::ServerEntity) -> ClientboundAddEntityPacket {
-        server_entity.add_entity_packet(self.base.id, self.base.uuid, self.get_type(), self.block_state.id() as i32)
+    fn get_add_entity_packet(
+        &self,
+        server_entity: &crate::server::level::ServerEntity,
+    ) -> ClientboundAddEntityPacket {
+        server_entity.add_entity_packet(
+            self.base.id,
+            self.base.uuid,
+            self.get_type(),
+            self.block_state.id() as i32,
+        )
     }
 
-    fn hurt_server(&mut self, level: &mut ServerLevel, source: &DamageSource, _damage: f32) -> bool {
+    fn hurt_server(
+        &mut self,
+        level: &mut ServerLevel,
+        source: &DamageSource,
+        _damage: f32,
+    ) -> bool {
         if !self.is_invulnerable_to_base(level, source) {
             self.mark_hurt();
         }
@@ -206,7 +241,10 @@ impl Entity for FallingBlockEntity {
         self.handle_portal(level);
         if self.is_alive() || self.force_tick_after_teleport_to_duplicate {
             let mut pos = self.base.block_position();
-            let is_concrete = crate::world::level::block::helpers::is_instance_of(self.block_state, "ConcretePowderBlock");
+            let is_concrete = crate::world::level::block::helpers::is_instance_of(
+                self.block_state,
+                "ConcretePowderBlock",
+            );
             let mut is_stuck_in_water = is_concrete && level.get_fluid_state(pos).is_tag("water");
             let move_vec = self.base.delta_movement().length_sqr();
             if is_concrete && move_vec > 1.0 {
@@ -223,7 +261,9 @@ impl Entity for FallingBlockEntity {
                 }
             }
             if !self.base.on_ground() && !is_stuck_in_water {
-                if self.time > 100 && (pos.y() <= level.get_min_y() || pos.y() > level.get_max_y()) || self.time > 600 {
+                if self.time > 100 && (pos.y() <= level.get_min_y() || pos.y() > level.get_max_y())
+                    || self.time > 600
+                {
                     if self.drops_enabled(level) {
                         self.spawn_block_item(level, block);
                     }
@@ -235,20 +275,51 @@ impl Entity for FallingBlockEntity {
                 self.base.set_delta_movement(m.multiply_xyz(0.7, -0.5, 0.7));
                 if !current_state.is_block(Block::MOVING_PISTON) {
                     if !self.cancel_drop {
-                        let may_replace = current_state.can_be_replaced_by(&BlockPlaceContext::directional(pos, Direction::Down, ItemStack::empty(), Direction::Up));
-                        let would_continue_falling = crate::world::level::block::impls::falling_block::is_free(level.get_block_state(pos.below())) && (!is_concrete || !is_stuck_in_water);
-                        let would_survive = self.block_state.can_survive(level, pos) && !would_continue_falling;
+                        let may_replace =
+                            current_state.can_be_replaced_by(&BlockPlaceContext::directional(
+                                pos,
+                                Direction::Down,
+                                ItemStack::empty(),
+                                Direction::Up,
+                            ));
+                        let would_continue_falling =
+                            crate::world::level::block::impls::falling_block::is_free(
+                                level.get_block_state(pos.below()),
+                            ) && (!is_concrete || !is_stuck_in_water);
+                        let would_survive =
+                            self.block_state.can_survive(level, pos) && !would_continue_falling;
                         if may_replace && would_survive {
-                            if self.block_state.has_property(props::WATERLOGGED) && level.get_fluid_state(pos).get_type() == mc_data::fluid::Fluid::WATER {
+                            if self.block_state.has_property(props::WATERLOGGED)
+                                && level.get_fluid_state(pos).get_type()
+                                    == mc_data::fluid::Fluid::WATER
+                            {
                                 self.block_state = self.block_state.set(props::WATERLOGGED, true);
                             }
                             if level.set_block_and_update(pos, self.block_state) {
                                 let placed = level.get_block_state(pos);
                                 let id = self.base.id;
-                                level.entity_tracker.send_to_tracking_players(id, &encode_payload(&ClientboundBlockUpdatePacket { pos, block_state: placed }));
-                                level.entity_tracker.send_to_tracking_players(id, &encode_payload(&ClientboundAddTransientBlockPacket { pos, block_state: placed }));
+                                level.entity_tracker.send_to_tracking_players(
+                                    id,
+                                    &encode_payload(&ClientboundBlockUpdatePacket {
+                                        pos,
+                                        block_state: placed,
+                                    }),
+                                );
+                                level.entity_tracker.send_to_tracking_players(
+                                    id,
+                                    &encode_payload(&ClientboundAddTransientBlockPacket {
+                                        pos,
+                                        block_state: placed,
+                                    }),
+                                );
                                 self.discard();
-                                behaviour(block).on_land(level, pos, self.block_state, current_state, self);
+                                behaviour(block).on_land(
+                                    level,
+                                    pos,
+                                    self.block_state,
+                                    current_state,
+                                    self,
+                                );
                                 if let Some(block_data) = &self.block_data
                                     && self.block_state.has_block_entity()
                                 {
@@ -286,11 +357,19 @@ impl Entity for FallingBlockEntity {
             }
         }
         let m = self.base.delta_movement();
-        self.base.set_delta_movement(m.scale(f64::from(self.get_air_drag())));
-        self.base.requires_precise_position = self.base.horizontal_collision || self.base.vertical_collision;
+        self.base
+            .set_delta_movement(m.scale(f64::from(self.get_air_drag())));
+        self.base.requires_precise_position =
+            self.base.horizontal_collision || self.base.vertical_collision;
     }
 
-    fn cause_fall_damage(&mut self, level: &mut ServerLevel, fall_distance: f64, _damage_modifier: f32, _source: &DamageSource) -> bool {
+    fn cause_fall_damage(
+        &mut self,
+        level: &mut ServerLevel,
+        fall_distance: f64,
+        _damage_modifier: f32,
+        _source: &DamageSource,
+    ) -> bool {
         if !self.hurt_entities {
             return false;
         }
@@ -299,18 +378,23 @@ impl Entity for FallingBlockEntity {
             return false;
         }
         let actual_source = behaviour(self.block_state.block()).get_fall_damage_source(level, self);
-        let damage = mth::floor_f32(fall_distance_int as f32 * self.fall_damage_per_distance).min(self.fall_damage_max) as f32;
+        let damage = mth::floor_f32(fall_distance_int as f32 * self.fall_damage_per_distance)
+            .min(self.fall_damage_max) as f32;
         let bb = self.base.bounding_box();
         // `EntitySelector.NO_CREATIVE_OR_SPECTATOR.and(LIVING_ENTITY_STILL_ALIVE)`
         let victims = level.get_entities(Some(self.base.id), &bb, |e| {
-            let not_creative_or_spectator = !(e.is_player() && (e.is_spectator() || e.player().is_some_and(|p| p.abilities.instabuild)));
+            let not_creative_or_spectator = !(e.is_player()
+                && (e.is_spectator() || e.player().is_some_and(|p| p.abilities.instabuild)));
             not_creative_or_spectator && e.is_alive() && e.living().is_some()
         });
         for id in victims {
             level.with_entity(id, |level, e| e.hurt_server(level, &actual_source, damage));
         }
         let is_anvil = self.block_state.is_tag("anvil");
-        if is_anvil && damage > 0.0 && self.base.random.next_float() < 0.05f32 + fall_distance_int as f32 * 0.05f32 {
+        if is_anvil
+            && damage > 0.0
+            && self.base.random.next_float() < 0.05f32 + fall_distance_int as f32 * 0.05f32
+        {
             match crate::world::level::block::impls::anvil_block::damage(self.block_state) {
                 None => self.cancel_drop = true,
                 Some(new_state) => self.block_state = new_state,
@@ -321,7 +405,11 @@ impl Entity for FallingBlockEntity {
 
     fn add_additional_save_data(&self, out: &mut CompoundTag) {
         // `BlockState.CODEC`: a bare block id for the default state, else `{id, properties}`
-        if let Some(tag) = block_state_codec().encode_start(&mc_dfu::NBT, &self.block_state).result().and_then(|d| d.to_tag().ok()) {
+        if let Some(tag) = block_state_codec()
+            .encode_start(&mc_dfu::NBT, &self.block_state)
+            .result()
+            .and_then(|d| d.to_tag().ok())
+        {
             out.put("BlockState", tag);
         }
         out.put_int("Time", self.time);
@@ -336,7 +424,14 @@ impl Entity for FallingBlockEntity {
     }
 
     fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        self.block_state = input.get("BlockState").and_then(|t| block_state_codec().parse(&mc_dfu::NBT, &mc_dfu::Dyn::from(t)).result()).unwrap_or_else(|| Block::SAND.default_state());
+        self.block_state = input
+            .get("BlockState")
+            .and_then(|t| {
+                block_state_codec()
+                    .parse(&mc_dfu::NBT, &mc_dfu::Dyn::from(t))
+                    .result()
+            })
+            .unwrap_or_else(|| Block::SAND.default_state());
         self.time = input.get_int_or("Time", 0);
         let default_hurt_entities = self.block_state.is_tag("anvil");
         self.hurt_entities = input.get_boolean_or("HurtEntities", default_hurt_entities);

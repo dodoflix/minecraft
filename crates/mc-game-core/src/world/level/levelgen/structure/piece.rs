@@ -46,7 +46,10 @@ pub struct StructurePieceSerializationContext<'a> {
 pub struct StructurePieceType {
     /// Lower-case path of the `minecraft:` registry key (`setPieceId` lower-cases the constant's id).
     pub id: &'static str,
-    pub load: fn(&StructurePieceSerializationContext<'_>, &CompoundTag) -> Result<Box<dyn StructurePiece>, String>,
+    pub load: fn(
+        &StructurePieceSerializationContext<'_>,
+        &CompoundTag,
+    ) -> Result<Box<dyn StructurePiece>, String>,
 }
 
 impl StructurePieceType {
@@ -57,7 +60,9 @@ impl StructurePieceType {
 
     /// `BuiltInRegistries.STRUCTURE_PIECE.getValue(id)` for a `minecraft:` id.
     pub fn by_key(namespace: &str, path: &str) -> Option<&'static StructurePieceType> {
-        (namespace == "minecraft").then(|| STRUCTURE_PIECE_TYPES.iter().find(|t| t.id == path)).flatten()
+        (namespace == "minecraft")
+            .then(|| STRUCTURE_PIECE_TYPES.iter().find(|t| t.id == path))
+            .flatten()
     }
 }
 
@@ -89,16 +94,35 @@ impl std::fmt::Debug for StructurePieceType {
 
 impl PieceBase {
     /// `StructurePiece(type, genDepth, boundingBox)` (no orientation: rotation/mirror `NONE`).
-    pub fn new(piece_type: &'static StructurePieceType, gen_depth: i32, bounding_box: BoundingBox) -> PieceBase {
-        PieceBase { piece_type, bounding_box, orientation: None, mirror: Mirror::None, rotation: Rotation::None, gen_depth }
+    pub fn new(
+        piece_type: &'static StructurePieceType,
+        gen_depth: i32,
+        bounding_box: BoundingBox,
+    ) -> PieceBase {
+        PieceBase {
+            piece_type,
+            bounding_box,
+            orientation: None,
+            mirror: Mirror::None,
+            rotation: Rotation::None,
+            gen_depth,
+        }
     }
 
     /// `StructurePiece(type, tag)`: `GD`, `BB`, `O`. `BB` must be an int array (or list) of exactly 6 ints.
-    pub fn load(piece_type: &'static StructurePieceType, tag: &CompoundTag) -> Result<PieceBase, String> {
-        let bounding_box = read_bounding_box(tag.get("BB")).ok_or_else(|| "No value present".to_owned())?;
+    pub fn load(
+        piece_type: &'static StructurePieceType,
+        tag: &CompoundTag,
+    ) -> Result<PieceBase, String> {
+        let bounding_box =
+            read_bounding_box(tag.get("BB")).ok_or_else(|| "No value present".to_owned())?;
         let mut base = PieceBase::new(piece_type, tag.get_int_or("GD", 0), bounding_box);
         let orientation = tag.get_int_or("O", 0);
-        base.set_orientation(if orientation == -1 { None } else { Some(Direction::from_2d_data_value(orientation)) });
+        base.set_orientation(if orientation == -1 {
+            None
+        } else {
+            Some(Direction::from_2d_data_value(orientation))
+        });
         Ok(base)
     }
 
@@ -130,14 +154,24 @@ impl PieceBase {
     fn write_header(&self, tag: &mut CompoundTag) {
         tag.put_string("id", self.piece_type.registry_key());
         tag.put_int_array("BB", bounding_box_to_ints(&self.bounding_box));
-        tag.put_int("O", self.orientation.map_or(-1, Direction::get_2d_data_value));
+        tag.put_int(
+            "O",
+            self.orientation.map_or(-1, Direction::get_2d_data_value),
+        );
         tag.put_int("GD", self.gen_depth);
     }
 }
 
 /// `BoundingBox.CODEC` encode: `[minX, minY, minZ, maxX, maxY, maxZ]`.
 pub fn bounding_box_to_ints(bb: &BoundingBox) -> Vec<i32> {
-    vec![bb.min_x(), bb.min_y(), bb.min_z(), bb.max_x(), bb.max_y(), bb.max_z()]
+    vec![
+        bb.min_x(),
+        bb.min_y(),
+        bb.min_z(),
+        bb.max_x(),
+        bb.max_y(),
+        bb.max_z(),
+    ]
 }
 
 /// `BoundingBox.CODEC` decode (`Codec.INT_STREAM` over an `IntArrayTag`/`ByteArrayTag`/`LongArrayTag` or a list of
@@ -147,7 +181,10 @@ pub fn read_bounding_box(tag: Option<&Tag>) -> Option<BoundingBox> {
         Tag::IntArray(v) => v.to_vec(),
         Tag::ByteArray(v) => v.iter().map(|&b| i32::from(b)).collect(),
         Tag::LongArray(v) => v.iter().map(|&l| l as i32).collect(),
-        Tag::List(list) => list.iter().map(|t| t.as_number().map(|n| n.int_value())).collect::<Option<Vec<_>>>()?,
+        Tag::List(list) => list
+            .iter()
+            .map(|t| t.as_number().map(|n| n.int_value()))
+            .collect::<Option<Vec<_>>>()?,
         _ => return None,
     };
     match ints[..] {
@@ -159,7 +196,14 @@ pub fn read_bounding_box(tag: Option<&Tag>) -> Option<BoundingBox> {
 /// `StructurePiece.BlockSelector`.
 pub trait BlockSelector {
     /// `next(random, worldX, worldY, worldZ, isEdge)`.
-    fn next(&mut self, random: &mut dyn RandomSource, world_x: i32, world_y: i32, world_z: i32, is_edge: bool);
+    fn next(
+        &mut self,
+        random: &mut dyn RandomSource,
+        world_x: i32,
+        world_y: i32,
+        world_z: i32,
+        is_edge: bool,
+    );
     /// `getNext()`.
     fn get_next(&self) -> BlockState;
 }
@@ -190,7 +234,15 @@ fn shape_check_blocks() -> &'static [Block; 12] {
 }
 
 /// `StructurePiece.makeBoundingBox(x, y, z, direction, width, height, depth)`.
-pub fn make_bounding_box(x: i32, y: i32, z: i32, direction: Direction, width: i32, height: i32, depth: i32) -> BoundingBox {
+pub fn make_bounding_box(
+    x: i32,
+    y: i32,
+    z: i32,
+    direction: Direction,
+    width: i32,
+    height: i32,
+    depth: i32,
+) -> BoundingBox {
     if direction.get_axis() == Axis::Z {
         BoundingBox::new(x, y, z, x + width - 1, y + height - 1, z + depth - 1)
     } else {
@@ -204,18 +256,29 @@ pub fn get_random_horizontal_direction(random: &mut dyn RandomSource) -> Directi
 }
 
 /// `StructurePiece.createBoundingBox(pieces)`; panics like vanilla's `IllegalStateException` without pieces.
-pub fn create_bounding_box<'a>(pieces: impl IntoIterator<Item = &'a dyn StructurePiece>) -> BoundingBox {
+pub fn create_bounding_box<'a>(
+    pieces: impl IntoIterator<Item = &'a dyn StructurePiece>,
+) -> BoundingBox {
     BoundingBox::encapsulating_boxes(pieces.into_iter().map(|p| p.base().bounding_box))
         .expect("Unable to calculate boundingbox without pieces")
 }
 
 /// `StructurePiece.findCollisionPiece(pieces, box)`.
-pub fn find_collision_piece<'a>(pieces: impl IntoIterator<Item = &'a dyn StructurePiece>, bounding_box: &BoundingBox) -> Option<&'a dyn StructurePiece> {
-    pieces.into_iter().find(|p| p.base().bounding_box.intersects(bounding_box))
+pub fn find_collision_piece<'a>(
+    pieces: impl IntoIterator<Item = &'a dyn StructurePiece>,
+    bounding_box: &BoundingBox,
+) -> Option<&'a dyn StructurePiece> {
+    pieces
+        .into_iter()
+        .find(|p| p.base().bounding_box.intersects(bounding_box))
 }
 
 /// `StructurePiece.reorient(level, blockPos, blockState)` for a chest-like `FACING` state.
-pub fn reorient(level: &dyn BlockGetter, block_pos: BlockPos, block_state: BlockState) -> BlockState {
+pub fn reorient(
+    level: &dyn BlockGetter,
+    block_pos: BlockPos,
+    block_state: BlockState,
+) -> BlockState {
     let mut solid_neighbor: Option<Direction> = None;
     for direction in Plane::Horizontal.iter() {
         let state = level.get_block_state(block_pos.relative(direction));
@@ -251,8 +314,15 @@ pub fn reorient(level: &dyn BlockGetter, block_pos: BlockPos, block_state: Block
 
 /// `RandomizableContainer.setLootTable(table, seed)` on the raw block entity NBT the level holds at `pos`
 /// (`LootTable`, and `LootTableSeed` only when non-zero: `trySaveLootTable`). Returns whether a block entity exists.
-pub fn set_loot_table(level: &mut dyn WorldGenLevel, pos: BlockPos, loot_table: &str, seed: i64) -> bool {
-    let Some(existing) = level.get_block_entity_nbt(pos) else { return false };
+pub fn set_loot_table(
+    level: &mut dyn WorldGenLevel,
+    pos: BlockPos,
+    loot_table: &str,
+    seed: i64,
+) -> bool {
+    let Some(existing) = level.get_block_entity_nbt(pos) else {
+        return false;
+    };
     let mut tag = existing;
     tag.remove("Items");
     tag.put_string("LootTable", loot_table);
@@ -268,9 +338,17 @@ pub fn set_loot_table(level: &mut dyn WorldGenLevel, pos: BlockPos, loot_table: 
 
 /// `StructurePiece.createChest(level, chunkBB, random, pos, lootTable, blockState)` (a free function for pieces that call
 /// it from a data marker handler while their template data is borrowed).
-pub fn create_chest_at(level: &mut dyn WorldGenLevel, chunk_bb: &BoundingBox, random: &mut dyn RandomSource, pos: BlockPos, loot_table: &str, block_state: Option<BlockState>) -> bool {
+pub fn create_chest_at(
+    level: &mut dyn WorldGenLevel,
+    chunk_bb: &BoundingBox,
+    random: &mut dyn RandomSource,
+    pos: BlockPos,
+    loot_table: &str,
+    block_state: Option<BlockState>,
+) -> bool {
     if chunk_bb.is_inside(&pos) && level.get_block_state(pos).block() != Block::CHEST {
-        let state = block_state.unwrap_or_else(|| reorient(level, pos, Block::CHEST.default_state()));
+        let state =
+            block_state.unwrap_or_else(|| reorient(level, pos, Block::CHEST.default_state()));
         level.set_block_flags(pos, state, 2);
         set_block_entity_loot_table(level, random, pos, loot_table);
         true
@@ -285,13 +363,23 @@ pub trait StructurePiece: Any + Send + Sync {
     fn base_mut(&mut self) -> &mut PieceBase;
 
     /// `addAdditionalSaveData(context, tag)`: the subclass fields (the base writes `id`, `BB`, `O`, `GD` first).
-    fn add_additional_save_data(&self, context: &StructurePieceSerializationContext<'_>, tag: &mut CompoundTag);
+    fn add_additional_save_data(
+        &self,
+        context: &StructurePieceSerializationContext<'_>,
+        tag: &mut CompoundTag,
+    );
 
     /// `addChildren(startPiece, builder, random)`. Vanilla passes the piece itself as `startPiece` for the first call:
     /// that is `start_piece == None` here (`self` is the start piece); otherwise `Some(start)` is another piece of the
     /// builder. Run it through [`StructurePiecesBuilder::add_piece_and_children`] so the piece stays visible to
     /// `find_collision_piece` while its children are generated.
-    fn add_children(&mut self, _start_piece: Option<&mut dyn StructurePiece>, _builder: &mut StructurePiecesBuilder, _random: &mut dyn RandomSource) {}
+    fn add_children(
+        &mut self,
+        _start_piece: Option<&mut dyn StructurePiece>,
+        _builder: &mut StructurePiecesBuilder,
+        _random: &mut dyn RandomSource,
+    ) {
+    }
 
     /// `postProcess(level, structureManager, generator, random, chunkBB, chunkPos, referencePos)`.
     #[allow(clippy::too_many_arguments)]
@@ -335,7 +423,12 @@ pub trait StructurePiece: Any + Send + Sync {
     fn is_close_to_chunk(&self, pos: ChunkPos, distance: i32) -> bool {
         let cx = pos.get_min_block_x();
         let cz = pos.get_min_block_z();
-        self.base().bounding_box.intersects_xz(cx - distance, cz - distance, cx + 15 + distance, cz + 15 + distance)
+        self.base().bounding_box.intersects_xz(
+            cx - distance,
+            cz - distance,
+            cx + 15 + distance,
+            cz + 15 + distance,
+        )
     }
 
     /// `getLocatorPosition()`.
@@ -366,7 +459,11 @@ pub trait StructurePiece: Any + Send + Sync {
 
     /// `getWorldPos(x, y, z)`.
     fn get_world_pos(&self, x: i32, y: i32, z: i32) -> BlockPos {
-        BlockPos::new(self.get_world_x(x, z), self.get_world_y(y), self.get_world_z(x, z))
+        BlockPos::new(
+            self.get_world_x(x, z),
+            self.get_world_y(y),
+            self.get_world_z(x, z),
+        )
     }
 
     /// `getWorldX(x, z)`.
@@ -384,7 +481,11 @@ pub trait StructurePiece: Any + Send + Sync {
     /// `getWorldY(y)`.
     fn get_world_y(&self, y: i32) -> i32 {
         let base = self.base();
-        if base.orientation.is_none() { y } else { y + base.bounding_box.min_y() }
+        if base.orientation.is_none() {
+            y
+        } else {
+            y + base.bounding_box.min_y()
+        }
     }
 
     /// `getWorldZ(x, z)`.
@@ -400,7 +501,15 @@ pub trait StructurePiece: Any + Send + Sync {
     }
 
     /// `placeBlock(level, blockState, x, y, z, chunkBB)`.
-    fn place_block(&self, level: &mut dyn WorldGenLevel, block_state: BlockState, x: i32, y: i32, z: i32, chunk_bb: &BoundingBox) {
+    fn place_block(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        block_state: BlockState,
+        x: i32,
+        y: i32,
+        z: i32,
+        chunk_bb: &BoundingBox,
+    ) {
         let pos = self.get_world_pos(x, y, z);
         if !chunk_bb.is_inside(&pos) || !self.can_be_replaced(level, x, y, z, chunk_bb) {
             return;
@@ -423,25 +532,61 @@ pub trait StructurePiece: Any + Send + Sync {
     }
 
     /// `canBeReplaced(level, x, y, z, chunkBB)` (overridable; vanilla's base answers `true`).
-    fn can_be_replaced(&self, _level: &dyn LevelReader, _x: i32, _y: i32, _z: i32, _chunk_bb: &BoundingBox) -> bool {
+    fn can_be_replaced(
+        &self,
+        _level: &dyn LevelReader,
+        _x: i32,
+        _y: i32,
+        _z: i32,
+        _chunk_bb: &BoundingBox,
+    ) -> bool {
         true
     }
 
     /// `getBlock(level, x, y, z, chunkBB)`: `AIR` outside the chunk box.
-    fn get_block(&self, level: &dyn BlockGetter, x: i32, y: i32, z: i32, chunk_bb: &BoundingBox) -> BlockState {
+    fn get_block(
+        &self,
+        level: &dyn BlockGetter,
+        x: i32,
+        y: i32,
+        z: i32,
+        chunk_bb: &BoundingBox,
+    ) -> BlockState {
         let pos = self.get_world_pos(x, y, z);
-        if chunk_bb.is_inside(&pos) { level.get_block_state(pos) } else { Block::AIR.default_state() }
+        if chunk_bb.is_inside(&pos) {
+            level.get_block_state(pos)
+        } else {
+            Block::AIR.default_state()
+        }
     }
 
     /// `isInterior(level, x, y, z, chunkBB)`.
-    fn is_interior(&self, level: &dyn LevelReader, x: i32, y: i32, z: i32, chunk_bb: &BoundingBox) -> bool {
+    fn is_interior(
+        &self,
+        level: &dyn LevelReader,
+        x: i32,
+        y: i32,
+        z: i32,
+        chunk_bb: &BoundingBox,
+    ) -> bool {
         let pos = self.get_world_pos(x, y + 1, z);
-        chunk_bb.is_inside(&pos) && pos.y() < level.get_height_at(HeightmapType::OceanFloorWg, pos.x(), pos.z())
+        chunk_bb.is_inside(&pos)
+            && pos.y() < level.get_height_at(HeightmapType::OceanFloorWg, pos.x(), pos.z())
     }
 
     /// `generateAirBox(level, chunkBB, x0, y0, z0, x1, y1, z1)`.
     #[allow(clippy::too_many_arguments)]
-    fn generate_air_box(&self, level: &mut dyn WorldGenLevel, chunk_bb: &BoundingBox, x0: i32, y0: i32, z0: i32, x1: i32, y1: i32, z1: i32) {
+    fn generate_air_box(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        chunk_bb: &BoundingBox,
+        x0: i32,
+        y0: i32,
+        z0: i32,
+        x1: i32,
+        y1: i32,
+        z1: i32,
+    ) {
         let air = Block::AIR.default_state();
         for y in y0..=y1 {
             for x in x0..=x1 {
@@ -484,7 +629,15 @@ pub trait StructurePiece: Any + Send + Sync {
     }
 
     /// `generateBox(level, chunkBB, boxBB, edgeBlock, fillBlock, skipAir)`.
-    fn generate_box_bb(&self, level: &mut dyn WorldGenLevel, chunk_bb: &BoundingBox, box_bb: &BoundingBox, edge_block: BlockState, fill_block: BlockState, skip_air: bool) {
+    fn generate_box_bb(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        chunk_bb: &BoundingBox,
+        box_bb: &BoundingBox,
+        edge_block: BlockState,
+        fill_block: BlockState,
+        skip_air: bool,
+    ) {
         self.generate_box(
             level,
             chunk_bb,
@@ -520,7 +673,13 @@ pub trait StructurePiece: Any + Send + Sync {
             for x in x0..=x1 {
                 for z in z0..=z1 {
                     if !skip_air || !self.get_block(level, x, y, z, chunk_bb).is_air() {
-                        selector.next(random, x, y, z, y == y0 || y == y1 || x == x0 || x == x1 || z == z0 || z == z1);
+                        selector.next(
+                            random,
+                            x,
+                            y,
+                            z,
+                            y == y0 || y == y1 || x == x0 || x == x1 || z == z0 || z == z1,
+                        );
                         self.place_block(level, selector.get_next(), x, y, z, chunk_bb);
                     }
                 }
@@ -592,7 +751,17 @@ pub trait StructurePiece: Any + Send + Sync {
 
     /// `maybeGenerateBlock(level, chunkBB, random, probability, x, y, z, blockState)`.
     #[allow(clippy::too_many_arguments)]
-    fn maybe_generate_block(&self, level: &mut dyn WorldGenLevel, chunk_bb: &BoundingBox, random: &mut dyn RandomSource, probability: f32, x: i32, y: i32, z: i32, block_state: BlockState) {
+    fn maybe_generate_block(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        chunk_bb: &BoundingBox,
+        random: &mut dyn RandomSource,
+        probability: f32,
+        x: i32,
+        y: i32,
+        z: i32,
+        block_state: BlockState,
+    ) {
         if random.next_float() < probability {
             self.place_block(level, block_state, x, y, z, chunk_bb);
         }
@@ -600,7 +769,19 @@ pub trait StructurePiece: Any + Send + Sync {
 
     /// `generateUpperHalfSphere(level, chunkBB, x0, y0, z0, x1, y1, z1, fillBlock, skipAir)` (`float` maths).
     #[allow(clippy::too_many_arguments)]
-    fn generate_upper_half_sphere(&self, level: &mut dyn WorldGenLevel, chunk_bb: &BoundingBox, x0: i32, y0: i32, z0: i32, x1: i32, y1: i32, z1: i32, fill_block: BlockState, skip_air: bool) {
+    fn generate_upper_half_sphere(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        chunk_bb: &BoundingBox,
+        x0: i32,
+        y0: i32,
+        z0: i32,
+        x1: i32,
+        y1: i32,
+        z1: i32,
+        fill_block: BlockState,
+        skip_air: bool,
+    ) {
         let diag_x = (x1 - x0 + 1) as f32;
         let diag_y = (y1 - y0 + 1) as f32;
         let diag_z = (z1 - z0 + 1) as f32;
@@ -626,10 +807,20 @@ pub trait StructurePiece: Any + Send + Sync {
     }
 
     /// `fillColumnDown(level, blockState, x, startY, z, chunkBB)`.
-    fn fill_column_down(&self, level: &mut dyn WorldGenLevel, block_state: BlockState, x: i32, start_y: i32, z: i32, chunk_bb: &BoundingBox) {
+    fn fill_column_down(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        block_state: BlockState,
+        x: i32,
+        start_y: i32,
+        z: i32,
+        chunk_bb: &BoundingBox,
+    ) {
         let mut pos = self.get_world_pos(x, start_y, z);
         if chunk_bb.is_inside(&pos) {
-            while self.is_replaceable_by_structures(level.get_block_state(pos)) && pos.y() > level.get_min_y() + 1 {
+            while self.is_replaceable_by_structures(level.get_block_state(pos))
+                && pos.y() > level.get_min_y() + 1
+            {
                 level.set_block_flags(pos, block_state, 2);
                 pos = pos.below();
             }
@@ -638,27 +829,73 @@ pub trait StructurePiece: Any + Send + Sync {
 
     /// `isReplaceableByStructures(state)`.
     fn is_replaceable_by_structures(&self, state: BlockState) -> bool {
-        state.is_air() || state.liquid() || matches!(state.block(), Block::GLOW_LICHEN | Block::SEAGRASS | Block::TALL_SEAGRASS)
+        state.is_air()
+            || state.liquid()
+            || matches!(
+                state.block(),
+                Block::GLOW_LICHEN | Block::SEAGRASS | Block::TALL_SEAGRASS
+            )
     }
 
     /// `createChest(level, chunkBB, random, x, y, z, lootTable)`.
     #[allow(clippy::too_many_arguments)]
-    fn create_chest(&self, level: &mut dyn WorldGenLevel, chunk_bb: &BoundingBox, random: &mut dyn RandomSource, x: i32, y: i32, z: i32, loot_table: &str) -> bool {
-        self.create_chest_at(level, chunk_bb, random, self.get_world_pos(x, y, z), loot_table, None)
+    fn create_chest(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        chunk_bb: &BoundingBox,
+        random: &mut dyn RandomSource,
+        x: i32,
+        y: i32,
+        z: i32,
+        loot_table: &str,
+    ) -> bool {
+        self.create_chest_at(
+            level,
+            chunk_bb,
+            random,
+            self.get_world_pos(x, y, z),
+            loot_table,
+            None,
+        )
     }
 
     /// `createChest(level, chunkBB, random, pos, lootTable, blockState)`.
     #[allow(clippy::too_many_arguments)]
-    fn create_chest_at(&self, level: &mut dyn WorldGenLevel, chunk_bb: &BoundingBox, random: &mut dyn RandomSource, pos: BlockPos, loot_table: &str, block_state: Option<BlockState>) -> bool {
+    fn create_chest_at(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        chunk_bb: &BoundingBox,
+        random: &mut dyn RandomSource,
+        pos: BlockPos,
+        loot_table: &str,
+        block_state: Option<BlockState>,
+    ) -> bool {
         create_chest_at(level, chunk_bb, random, pos, loot_table, block_state)
     }
 
     /// `createDispenser(level, chunkBB, random, x, y, z, facing, lootTable)`.
     #[allow(clippy::too_many_arguments)]
-    fn create_dispenser(&self, level: &mut dyn WorldGenLevel, chunk_bb: &BoundingBox, random: &mut dyn RandomSource, x: i32, y: i32, z: i32, facing: Direction, loot_table: &str) -> bool {
+    fn create_dispenser(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        chunk_bb: &BoundingBox,
+        random: &mut dyn RandomSource,
+        x: i32,
+        y: i32,
+        z: i32,
+        facing: Direction,
+        loot_table: &str,
+    ) -> bool {
         let pos = self.get_world_pos(x, y, z);
         if chunk_bb.is_inside(&pos) && level.get_block_state(pos).block() != Block::DISPENSER {
-            self.place_block(level, Block::DISPENSER.default_state().set(props::FACING, facing), x, y, z, chunk_bb);
+            self.place_block(
+                level,
+                Block::DISPENSER.default_state().set(props::FACING, facing),
+                x,
+                y,
+                z,
+                chunk_bb,
+            );
             set_block_entity_loot_table(level, random, pos, loot_table);
             true
         } else {
@@ -681,13 +918,19 @@ impl dyn StructurePiece {
 mod tests {
     use super::*;
 
-    static TEST_TYPE: StructurePieceType = StructurePieceType { id: "test_piece", load: |_, _| Err("unused".to_owned()) };
+    static TEST_TYPE: StructurePieceType = StructurePieceType {
+        id: "test_piece",
+        load: |_, _| Err("unused".to_owned()),
+    };
 
     #[test]
     fn header_round_trip_and_orientation() {
         let mut base = PieceBase::new(&TEST_TYPE, 7, BoundingBox::new(-3, 10, 4, 12, 20, 40));
         base.set_orientation(Some(Direction::West));
-        assert_eq!((base.mirror(), base.rotation()), (Mirror::LeftRight, Rotation::Clockwise90));
+        assert_eq!(
+            (base.mirror(), base.rotation()),
+            (Mirror::LeftRight, Rotation::Clockwise90)
+        );
         let mut tag = CompoundTag::new();
         base.write_header(&mut tag);
         assert_eq!(tag.get_string("id"), Some("minecraft:test_piece"));
@@ -698,14 +941,23 @@ mod tests {
         assert_eq!(loaded.orientation(), Some(Direction::West));
         assert_eq!(loaded.gen_depth, 7);
         tag.put_int("O", -1);
-        assert_eq!(PieceBase::load(&TEST_TYPE, &tag).unwrap().orientation(), None);
+        assert_eq!(
+            PieceBase::load(&TEST_TYPE, &tag).unwrap().orientation(),
+            None
+        );
         tag.remove("BB");
         assert!(PieceBase::load(&TEST_TYPE, &tag).is_err());
     }
 
     #[test]
     fn make_bounding_box_swaps_for_x_axis() {
-        assert_eq!(make_bounding_box(0, 0, 0, Direction::North, 5, 3, 7), BoundingBox::new(0, 0, 0, 4, 2, 6));
-        assert_eq!(make_bounding_box(0, 0, 0, Direction::East, 5, 3, 7), BoundingBox::new(0, 0, 0, 6, 2, 4));
+        assert_eq!(
+            make_bounding_box(0, 0, 0, Direction::North, 5, 3, 7),
+            BoundingBox::new(0, 0, 0, 4, 2, 6)
+        );
+        assert_eq!(
+            make_bounding_box(0, 0, 0, Direction::East, 5, 3, 7),
+            BoundingBox::new(0, 0, 0, 6, 2, 4)
+        );
     }
 }

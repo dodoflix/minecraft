@@ -41,7 +41,9 @@ fn parse_signed(s: &str, radix: u32, bits: u32) -> Option<i64> {
 }
 
 pub fn parse_int(s: &str, radix: u32) -> Result<i32, String> {
-    parse_signed(s, radix, 32).map(|v| v as i32).ok_or_else(|| for_input_string(s, radix))
+    parse_signed(s, radix, 32)
+        .map(|v| v as i32)
+        .ok_or_else(|| for_input_string(s, radix))
 }
 
 pub fn parse_long(s: &str, radix: u32) -> Result<i64, String> {
@@ -61,13 +63,21 @@ pub fn parse_short(s: &str, radix: u32) -> Result<i16, String> {
 /// Guava `UnsignedBytes.parseUnsignedByte`.
 pub fn parse_unsigned_byte(s: &str, radix: u32) -> Result<i8, String> {
     let i = parse_int(s, radix)?;
-    if i >> 8 == 0 { Ok(i as i8) } else { Err(format!("out of range: {i}")) }
+    if i >> 8 == 0 {
+        Ok(i as i8)
+    } else {
+        Err(format!("out of range: {i}"))
+    }
 }
 
 /// `SnbtGrammar.parseUnsignedShort`.
 pub fn parse_unsigned_short(s: &str, radix: u32) -> Result<i16, String> {
     let i = parse_int(s, radix)?;
-    if i >> 16 == 0 { Ok(i as i16) } else { Err(format!("out of range: {i}")) }
+    if i >> 16 == 0 {
+        Ok(i as i16)
+    } else {
+        Err(format!("out of range: {i}"))
+    }
 }
 
 /// `Integer.parseUnsignedInt` / `Long.parseUnsignedLong` for digit strings that are valid in
@@ -77,7 +87,9 @@ fn parse_unsigned(s: &str, radix: u32, max: u128, what: &str) -> Result<u128, St
         return Err(for_input_string("", radix));
     }
     if s.starts_with('-') {
-        return Err(format!("Illegal leading minus sign on unsigned string {s}."));
+        return Err(format!(
+            "Illegal leading minus sign on unsigned string {s}."
+        ));
     }
     let mut acc: u128 = 0;
     for c in s.chars() {
@@ -85,7 +97,9 @@ fn parse_unsigned(s: &str, radix: u32, max: u128, what: &str) -> Result<u128, St
         acc = acc * radix as u128 + d;
         if acc > max {
             // keep validating the remaining digits would not change the outcome for grammar input
-            return Err(format!("String value {s} exceeds range of unsigned {what}."));
+            return Err(format!(
+                "String value {s} exceeds range of unsigned {what}."
+            ));
         }
     }
     Ok(acc)

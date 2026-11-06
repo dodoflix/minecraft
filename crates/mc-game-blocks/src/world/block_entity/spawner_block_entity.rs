@@ -1,14 +1,16 @@
 //! `SpawnerBlockEntity`: the monster spawner. All logic is `BaseSpawner`'s.
 
-use mc_game_core::block_entity_base;
-use mc_game_core::world::block_entity::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, set_changed};
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::level::BlockGetter;
-use mc_game_core::world::level::base_spawner::{BaseSpawner, BaseSpawnerHost};
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
 use mc_data::block::{Block, BlockState};
 use mc_data::{BlockEntityType, EntityType};
+use mc_game_core::block_entity_base;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::block_entity::{
+    BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, set_changed,
+};
+use mc_game_core::world::level::BlockGetter;
+use mc_game_core::world::level::base_spawner::{BaseSpawner, BaseSpawnerHost};
 use mc_nbt::CompoundTag;
 use mc_protocol::packets::play::level::ClientboundBlockEntityDataPacket;
 
@@ -35,7 +37,10 @@ pub struct SpawnerBlockEntity {
 
 impl SpawnerBlockEntity {
     pub fn new(pos: BlockPos, state: BlockState) -> Self {
-        Self { base: BlockEntityData::new(BlockEntityType::MOB_SPAWNER, pos, state), spawner: BaseSpawner::new(Box::new(SpawnerHost)) }
+        Self {
+            base: BlockEntityData::new(BlockEntityType::MOB_SPAWNER, pos, state),
+            spawner: BaseSpawner::new(Box::new(SpawnerHost)),
+        }
     }
 
     fn changed(&self, level: &mut ServerLevel) {
@@ -78,7 +83,11 @@ impl BlockEntity for SpawnerBlockEntity {
     }
 
     fn get_update_packet(&self) -> Option<ClientboundBlockEntityDataPacket> {
-        Some(ClientboundBlockEntityDataPacket { pos: self.get_block_pos(), r#type: self.get_type(), tag: self.get_update_tag() })
+        Some(ClientboundBlockEntityDataPacket {
+            pos: self.get_block_pos(),
+            r#type: self.get_type(),
+            tag: self.get_update_tag(),
+        })
     }
 
     /// `saveCustomOnly` without `SpawnPotentials`.
@@ -99,5 +108,7 @@ impl BlockEntity for SpawnerBlockEntity {
 }
 
 #[distributed_slice(BLOCK_ENTITY_TYPES)]
-static MOB_SPAWNER: BlockEntityRegistration =
-    BlockEntityRegistration { ty: BlockEntityType::MOB_SPAWNER, create: |pos, state| Box::new(SpawnerBlockEntity::new(pos, state)) };
+static MOB_SPAWNER: BlockEntityRegistration = BlockEntityRegistration {
+    ty: BlockEntityType::MOB_SPAWNER,
+    create: |pos, state| Box::new(SpawnerBlockEntity::new(pos, state)),
+};

@@ -6,8 +6,8 @@
 
 use super::MerchantOffers;
 use crate::server::level::ServerLevel;
-use crate::world::entity::player::ServerPlayer;
 use crate::world::entity::EntityId;
+use crate::world::entity::player::ServerPlayer;
 use crate::world::inventory::{MenuPlayer, MerchantMenu, SimpleMenuProvider};
 use crate::world::item::ItemStack;
 use mc_data::SoundEvent;
@@ -46,31 +46,68 @@ pub trait Merchant {
 }
 
 /// Runs `f` on the merchant entity `id` (taken out of the level meanwhile); `None` if it is gone or not a merchant.
-pub fn with_merchant<R>(player: &mut dyn MenuPlayer, id: EntityId, f: impl FnOnce(&mut ServerLevel, &mut dyn Merchant) -> R) -> Option<R> {
+pub fn with_merchant<R>(
+    player: &mut dyn MenuPlayer,
+    id: EntityId,
+    f: impl FnOnce(&mut ServerLevel, &mut dyn Merchant) -> R,
+) -> Option<R> {
     let level = player.level()?;
-    level.with_entity(id, |level, e| e.as_merchant_mut().map(|m| f(level, m))).flatten()
+    level
+        .with_entity(id, |level, e| e.as_merchant_mut().map(|m| f(level, m)))
+        .flatten()
 }
 
 /// `Merchant.openTradingScreen(player, title, level)`.
-pub fn open_trading_screen(player: &mut ServerPlayer, level: &mut ServerLevel, merchant: EntityId, title: Component, merchant_level: i32) {
-    let provider = SimpleMenuProvider::new(title, move |id, _player| Some(Box::new(MerchantMenu::new(id, merchant)) as Box<dyn crate::world::inventory::AbstractContainerMenu>));
-    let Some(container_id) = player.open_menu(level, &provider) else { return };
+pub fn open_trading_screen(
+    player: &mut ServerPlayer,
+    level: &mut ServerLevel,
+    merchant: EntityId,
+    title: Component,
+    merchant_level: i32,
+) {
+    let provider = SimpleMenuProvider::new(title, move |id, _player| {
+        Some(Box::new(MerchantMenu::new(id, merchant))
+            as Box<dyn crate::world::inventory::AbstractContainerMenu>)
+    });
+    let Some(container_id) = player.open_menu(level, &provider) else {
+        return;
+    };
     let data = level.with_entity(merchant, |level, e| {
         let m = e.as_merchant_mut()?;
         let offers = m.get_offers(level);
         if offers.is_empty() {
             return None;
         }
-        Some((offers.clone(), m.get_villager_xp(), m.show_progress_bar(), m.can_restock()))
+        Some((
+            offers.clone(),
+            m.get_villager_xp(),
+            m.show_progress_bar(),
+            m.can_restock(),
+        ))
     });
     if let Some(Some((offers, xp, show_progress, can_restock))) = data {
-        player.send_merchant_offers(container_id, &offers, merchant_level, xp, show_progress, can_restock);
+        player.send_merchant_offers(
+            container_id,
+            &offers,
+            merchant_level,
+            xp,
+            show_progress,
+            can_restock,
+        );
     }
 }
 
 impl ServerPlayer {
     /// `ServerPlayer.sendMerchantOffers(containerId, offers, merchantLevel, merchantXp, showProgressBar, canRestock)`.
-    pub fn send_merchant_offers(&self, container_id: i32, offers: &MerchantOffers, merchant_level: i32, merchant_xp: i32, show_progress: bool, can_restock: bool) {
+    pub fn send_merchant_offers(
+        &self,
+        container_id: i32,
+        offers: &MerchantOffers,
+        merchant_level: i32,
+        merchant_xp: i32,
+        show_progress: bool,
+        can_restock: bool,
+    ) {
         self.send(&ClientboundMerchantOffersPacket {
             container_id,
             offers: offers.to_wire(),

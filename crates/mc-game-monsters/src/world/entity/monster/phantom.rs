@@ -1,11 +1,20 @@
 //! `Phantom`: the flying night mob (circle / swoop attack phases, size scaled dimensions and damage).
 
+use linkme::distributed_slice;
+use mc_core::math::mth;
+use mc_core::phys::Vec3;
+use mc_core::pos::BlockPos;
+use mc_core::random::RandomSource;
+use mc_data::enums::{EntitySpawnReason, Pose};
+use mc_data::{Attribute, EntityType, SoundEvent};
 use mc_game_core::define_accessor;
 use mc_game_core::registry::RegistryAccess;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::damagesource::DamageSource;
 use mc_game_core::world::difficulty_instance::DifficultyInstance;
-use mc_game_core::world::entity::ai::control::body_rotation_control::{BodyRotationControl, BodyRotationControlBase};
+use mc_game_core::world::entity::ai::control::body_rotation_control::{
+    BodyRotationControl, BodyRotationControlBase,
+};
 use mc_game_core::world::entity::ai::control::look_control::{LookControl, LookControlBase};
 use mc_game_core::world::entity::ai::control::move_control::{MoveControl, MoveControlBase};
 use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags, reduced_tick_delay};
@@ -17,17 +26,10 @@ use mc_game_core::world::entity::living_entity::util::{l, lm};
 use mc_game_core::world::entity::mob::{self, MobData, MobKind};
 use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
 use mc_game_core::world::entity::{Entity, EntityId};
-use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_game_core::world::level::BlockGetter;
-use mc_game_core::world::level::block::state::BlockStateExt;
-use linkme::distributed_slice;
-use mc_core::math::mth;
-use mc_core::phys::Vec3;
-use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
 use mc_game_core::world::level::LevelReader;
-use mc_data::enums::{EntitySpawnReason, Pose};
-use mc_data::{Attribute, EntityType, SoundEvent};
+use mc_game_core::world::level::block::state::BlockStateExt;
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_nbt::CompoundTag;
 use mc_protocol::packets::play::SoundSource;
 use mc_world::heightmap::HeightmapType;
@@ -61,10 +63,22 @@ impl Phantom {
         });
         mob.enemy = true;
         mob.xp_reward = 5;
-        mob.move_control = Some(Box::new(PhantomMoveControl { base: MoveControlBase::default(), speed: 0.1 }));
-        mob.look_control = Some(Box::new(PhantomLookControl { base: LookControlBase::default() }));
-        mob.body_rotation_control = Some(Box::new(PhantomBodyRotationControl { base: BodyRotationControlBase::default() }));
-        let mut phantom = Phantom { mob, move_target_point: Vec3::ZERO, anchor_point: None, attack_phase: AttackPhase::Circle };
+        mob.move_control = Some(Box::new(PhantomMoveControl {
+            base: MoveControlBase::default(),
+            speed: 0.1,
+        }));
+        mob.look_control = Some(Box::new(PhantomLookControl {
+            base: LookControlBase::default(),
+        }));
+        mob.body_rotation_control = Some(Box::new(PhantomBodyRotationControl {
+            base: BodyRotationControlBase::default(),
+        }));
+        let mut phantom = Phantom {
+            mob,
+            move_target_point: Vec3::ZERO,
+            anchor_point: None,
+            attack_phase: AttackPhase::Circle,
+        };
         let navigation = StandardPathNavigation::ground(&phantom);
         phantom.mob.set_navigation(Box::new(navigation));
         phantom.register_goals();
@@ -73,15 +87,44 @@ impl Phantom {
 
     /// `registerGoals()`.
     fn register_goals(&mut self) {
-        self.mob.goal_selector.add_goal(1, Box::new(PhantomAttackStrategyGoal { next_sweep_tick: 0 }));
-        self.mob.goal_selector.add_goal(2, Box::new(PhantomSweepAttackGoal { is_scared_of_cat: false, cat_search_tick: 0 }));
-        self.mob.goal_selector.add_goal(3, Box::new(PhantomCircleAroundAnchorGoal { angle: 0.0, distance: 0.0, height: 0.0, clockwise: 0.0 }));
-        self.mob.target_selector.add_goal(1, Box::new(PhantomAttackPlayerTargetGoal { attack_targeting: TargetingConditions::for_combat().range(64.0), next_scan_tick: reduced_tick_delay(20) }));
+        self.mob.goal_selector.add_goal(
+            1,
+            Box::new(PhantomAttackStrategyGoal { next_sweep_tick: 0 }),
+        );
+        self.mob.goal_selector.add_goal(
+            2,
+            Box::new(PhantomSweepAttackGoal {
+                is_scared_of_cat: false,
+                cat_search_tick: 0,
+            }),
+        );
+        self.mob.goal_selector.add_goal(
+            3,
+            Box::new(PhantomCircleAroundAnchorGoal {
+                angle: 0.0,
+                distance: 0.0,
+                height: 0.0,
+                clockwise: 0.0,
+            }),
+        );
+        self.mob.target_selector.add_goal(
+            1,
+            Box::new(PhantomAttackPlayerTargetGoal {
+                attack_targeting: TargetingConditions::for_combat().range(64.0),
+                next_scan_tick: reduced_tick_delay(20),
+            }),
+        );
     }
 
     /// `setPhantomSize(size)`.
     pub fn set_phantom_size(&mut self, size: i32) {
-        if self.mob.living.entity.entity_data.set(ID_SIZE, mth::clamp_i32(size, 0, 64)) {
+        if self
+            .mob
+            .living
+            .entity
+            .entity_data
+            .set(ID_SIZE, mth::clamp_i32(size, 0, 64))
+        {
             self.on_synced_data_updated(ID_SIZE.id());
         }
     }
@@ -116,7 +159,8 @@ impl Entity for Phantom {
 
     fn get_dimensions(&self, _pose: Pose) -> EntityDimensions {
         let size = self.get_phantom_size();
-        EntityDimensions::of_type(self.mob.living.entity.entity_type).scale(1.0 + 0.15 * size as f32)
+        EntityDimensions::of_type(self.mob.living.entity.entity_type)
+            .scale(1.0 + 0.15 * size as f32)
     }
 
     fn on_synced_data_updated(&mut self, accessor_id: u8) {
@@ -128,7 +172,15 @@ impl Entity for Phantom {
         }
     }
 
-    fn check_fall_damage(&mut self, _level: &mut ServerLevel, _ya: f64, _on_ground: bool, _on_state: mc_data::block::BlockState, _pos: BlockPos) {}
+    fn check_fall_damage(
+        &mut self,
+        _level: &mut ServerLevel,
+        _ya: f64,
+        _on_ground: bool,
+        _on_state: mc_data::block::BlockState,
+        _pos: BlockPos,
+    ) {
+    }
 
     fn on_climbable(&self, _level: &ServerLevel) -> bool {
         false
@@ -176,13 +228,21 @@ impl Entity for Phantom {
 
     fn read_additional_save_data(&mut self, input: &CompoundTag) {
         mob::nbt::read_additional_save_data(self, input);
-        self.anchor_point = input.get_int_array("anchor_pos").filter(|a| a.len() == 3).map(|a| BlockPos::new(a[0], a[1], a[2]));
+        self.anchor_point = input
+            .get_int_array("anchor_pos")
+            .filter(|a| a.len() == 3)
+            .map(|a| BlockPos::new(a[0], a[1], a[2]));
         self.set_phantom_size(input.get_int_or("size", 0));
     }
 }
 
 /// `canAttack(level, target, conditions)`.
-fn can_attack(phantom: &dyn Entity, level: &ServerLevel, target: &dyn Entity, conditions: &TargetingConditions) -> bool {
+fn can_attack(
+    phantom: &dyn Entity,
+    level: &ServerLevel,
+    target: &dyn Entity,
+    conditions: &TargetingConditions,
+) -> bool {
     conditions.test(level, Some(phantom), target)
 }
 
@@ -211,9 +271,13 @@ impl Goal for PhantomAttackPlayerTargetGoal {
         // `level.getNearbyPlayers(attackTargeting, this, bb)`: the players of the level in list order inside the box
         let mut players: Vec<(EntityId, f64)> = Vec::new();
         for &player_id in level.players() {
-            let Some(player) = level.get_entity(player_id) else { continue };
+            let Some(player) = level.get_entity(player_id) else {
+                continue;
+            };
             let b = player.base();
-            if bb.contains(b.x(), b.y(), b.z()) && self.attack_targeting.test(level, Some(&*mob), player) {
+            if bb.contains(b.x(), b.y(), b.z())
+                && self.attack_targeting.test(level, Some(&*mob), player)
+            {
                 players.push((player_id, b.y()));
             }
         }
@@ -223,7 +287,9 @@ impl Goal for PhantomAttackPlayerTargetGoal {
         // `players.sort(comparing(Entity::getY).reversed())` (stable)
         players.sort_by(|a, b| b.1.total_cmp(&a.1));
         for (player_id, _) in players {
-            let attackable = level.get_entity(player_id).is_some_and(|p| can_attack(&*mob, level, p, &default_conditions()));
+            let attackable = level
+                .get_entity(player_id)
+                .is_some_and(|p| can_attack(&*mob, level, p, &default_conditions()));
             if attackable {
                 mob.set_target(level, Some(player_id));
                 return true;
@@ -234,7 +300,9 @@ impl Goal for PhantomAttackPlayerTargetGoal {
 
     fn can_continue_to_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         match mob::tick::get_target_checked(mob, level) {
-            Some(target) => level.get_entity(target).is_some_and(|t| can_attack(&*mob, level, t, &default_conditions())),
+            Some(target) => level
+                .get_entity(target)
+                .is_some_and(|t| can_attack(&*mob, level, t, &default_conditions())),
             None => false,
         }
     }
@@ -252,7 +320,9 @@ struct PhantomAttackStrategyGoal {
 impl PhantomAttackStrategyGoal {
     fn set_anchor_above_target(mob: &mut dyn Entity, level: &mut ServerLevel) {
         if phantom(mob).anchor_point.is_some() {
-            let target_pos = mob::tick::get_target_checked(mob, level).and_then(|t| level.get_entity(t)).map(|t| t.block_position());
+            let target_pos = mob::tick::get_target_checked(mob, level)
+                .and_then(|t| level.get_entity(t))
+                .map(|t| t.block_position());
             let Some(target_pos) = target_pos else { return };
             let above = 20 + mob.base_mut().random.next_int_bounded(20);
             let mut anchor = target_pos.above_n(above);
@@ -267,7 +337,9 @@ impl PhantomAttackStrategyGoal {
 impl Goal for PhantomAttackStrategyGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         match mob::tick::get_target_checked(mob, level) {
-            Some(target) => level.get_entity(target).is_some_and(|t| can_attack(&*mob, level, t, &default_conditions())),
+            Some(target) => level
+                .get_entity(target)
+                .is_some_and(|t| can_attack(&*mob, level, t, &default_conditions())),
             None => false,
         }
     }
@@ -292,7 +364,8 @@ impl Goal for PhantomAttackStrategyGoal {
             if self.next_sweep_tick <= 0 {
                 phantom_mut(mob).attack_phase = AttackPhase::Swoop;
                 Self::set_anchor_above_target(mob, level);
-                self.next_sweep_tick = self.adjusted_tick_delay((8 + mob.base_mut().random.next_int_bounded(4)) * 20);
+                self.next_sweep_tick =
+                    self.adjusted_tick_delay((8 + mob.base_mut().random.next_int_bounded(4)) * 20);
                 let pitch = 0.95 + mob.base_mut().random.next_float() * 0.1;
                 mob.play_sound(level, SoundEvent::ENTITY_PHANTOM_SWOOP, 10.0, pitch);
             }
@@ -306,7 +379,11 @@ impl Goal for PhantomAttackStrategyGoal {
 
 /// `touchingTarget()` of `PhantomMoveTargetGoal`.
 fn touching_target(mob: &dyn Entity) -> bool {
-    phantom(mob).move_target_point.distance_to_sqr_xyz(mob.base().x(), mob.base().y(), mob.base().z()) < 4.0
+    phantom(mob).move_target_point.distance_to_sqr_xyz(
+        mob.base().x(),
+        mob.base().y(),
+        mob.base().z(),
+    ) < 4.0
 }
 
 /// `PhantomCircleAroundAnchorGoal`.
@@ -327,13 +404,18 @@ impl PhantomCircleAroundAnchorGoal {
         let anchor = phantom(mob).anchor_point.expect("anchor");
         let lower_corner = Vec3::at_lower_corner_of(&anchor);
         let d = f64::from(self.distance);
-        phantom_mut(mob).move_target_point = lower_corner.add_xyz(d * f64::from(mth::cos(f64::from(self.angle))), f64::from(-4.0 + self.height), d * f64::from(mth::sin(f64::from(self.angle))));
+        phantom_mut(mob).move_target_point = lower_corner.add_xyz(
+            d * f64::from(mth::cos(f64::from(self.angle))),
+            f64::from(-4.0 + self.height),
+            d * f64::from(mth::sin(f64::from(self.angle))),
+        );
     }
 }
 
 impl Goal for PhantomCircleAroundAnchorGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        mob::tick::get_target_checked(mob, level).is_none() || phantom(mob).attack_phase == AttackPhase::Circle
+        mob::tick::get_target_checked(mob, level).is_none()
+            || phantom(mob).attack_phase == AttackPhase::Circle
     }
 
     fn start(&mut self, mob: &mut dyn Entity, _level: &mut ServerLevel) {
@@ -365,11 +447,19 @@ impl Goal for PhantomCircleAroundAnchorGoal {
         if touching_target(mob) {
             self.select_next(mob);
         }
-        if phantom(mob).move_target_point.y < mob.base().y() && level.get_block_state(mob.block_position().below_n(1)).is_air() {
+        if phantom(mob).move_target_point.y < mob.base().y()
+            && level
+                .get_block_state(mob.block_position().below_n(1))
+                .is_air()
+        {
             self.height = self.height.max(1.0);
             self.select_next(mob);
         }
-        if phantom(mob).move_target_point.y > mob.base().y() && level.get_block_state(mob.block_position().above_n(1)).is_air() {
+        if phantom(mob).move_target_point.y > mob.base().y()
+            && level
+                .get_block_state(mob.block_position().above_n(1))
+                .is_air()
+        {
             self.height = self.height.min(-1.0);
             self.select_next(mob);
         }
@@ -388,16 +478,23 @@ struct PhantomSweepAttackGoal {
 
 impl Goal for PhantomSweepAttackGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        mob::tick::get_target_checked(mob, level).is_some() && phantom(mob).attack_phase == AttackPhase::Swoop
+        mob::tick::get_target_checked(mob, level).is_some()
+            && phantom(mob).attack_phase == AttackPhase::Swoop
     }
 
     fn can_continue_to_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        let Some(target) = mob::tick::get_target_checked(mob, level) else { return false };
-        let Some(target_entity) = level.get_entity(target) else { return false };
+        let Some(target) = mob::tick::get_target_checked(mob, level) else {
+            return false;
+        };
+        let Some(target_entity) = level.get_entity(target) else {
+            return false;
+        };
         if !target_entity.is_alive() {
             return false;
         }
-        if target_entity.is_player() && (target_entity.is_spectator() || mob::ext::is_creative_player(target_entity)) {
+        if target_entity.is_player()
+            && (target_entity.is_spectator() || mob::ext::is_creative_player(target_entity))
+        {
             return false;
         }
         if !self.can_use(mob, level) {
@@ -406,7 +503,11 @@ impl Goal for PhantomSweepAttackGoal {
         if mob.base().tick_count > self.cat_search_tick {
             self.cat_search_tick = mob.base().tick_count + 20;
             let bb = mob.base().bounding_box().inflate(16.0, 16.0, 16.0);
-            let cats = level.get_entities_of_class(&bb, |e| e.get_type() == EntityType::CAT, |e| e.is_alive());
+            let cats = level.get_entities_of_class(
+                &bb,
+                |e| e.get_type() == EntityType::CAT,
+                |e| e.is_alive(),
+            );
             for &cat in &cats {
                 level.with_entity(cat, |level, cat| cat.hiss(level));
             }
@@ -421,10 +522,26 @@ impl Goal for PhantomSweepAttackGoal {
     }
 
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
-        let Some(target) = mob::tick::get_target_checked(mob, level) else { return };
-        let Some((tx, ty, tz, target_bb)) = level.get_entity(target).map(|t| (t.base().x(), t.base().get_y_progress(0.5), t.base().z(), t.base().bounding_box())) else { return };
+        let Some(target) = mob::tick::get_target_checked(mob, level) else {
+            return;
+        };
+        let Some((tx, ty, tz, target_bb)) = level.get_entity(target).map(|t| {
+            (
+                t.base().x(),
+                t.base().get_y_progress(0.5),
+                t.base().z(),
+                t.base().bounding_box(),
+            )
+        }) else {
+            return;
+        };
         phantom_mut(mob).move_target_point = Vec3::new(tx, ty, tz);
-        if mob.base().bounding_box().inflate(f64::from(0.2f32), f64::from(0.2f32), f64::from(0.2f32)).intersects_aabb(&target_bb) {
+        if mob
+            .base()
+            .bounding_box()
+            .inflate(f64::from(0.2f32), f64::from(0.2f32), f64::from(0.2f32))
+            .intersects_aabb(&target_bb)
+        {
             let _ = level.with_entity(target, |level, t| mob.do_hurt_target(level, t));
             phantom_mut(mob).attack_phase = AttackPhase::Circle;
             if !mob.base().is_silent() {
@@ -527,13 +644,17 @@ impl MoveControl for PhantomMoveControl {
             } else {
                 self.speed = mth::approach(self.speed, 0.2, 0.025);
             }
-            let x_rot_d = (-(mth::atan2(-tdy, sd) * f64::from(180.0f32) / f64::from(std::f32::consts::PI))) as f32;
+            let x_rot_d = (-(mth::atan2(-tdy, sd) * f64::from(180.0f32)
+                / f64::from(std::f32::consts::PI))) as f32;
             mob.set_x_rot(x_rot_d);
             let move_angle = mob.base().y_rot() + 90.0;
             let deg_to_rad = (std::f64::consts::PI / 180.0) as f32;
-            let txd = f64::from(self.speed * mth::cos(f64::from(move_angle * deg_to_rad))) * (tdx / sd2).abs();
-            let tzd = f64::from(self.speed * mth::sin(f64::from(move_angle * deg_to_rad))) * (tdz / sd2).abs();
-            let tyd = f64::from(self.speed * mth::sin(f64::from(x_rot_d * deg_to_rad))) * (tdy / sd2).abs();
+            let txd = f64::from(self.speed * mth::cos(f64::from(move_angle * deg_to_rad)))
+                * (tdx / sd2).abs();
+            let tzd = f64::from(self.speed * mth::sin(f64::from(move_angle * deg_to_rad)))
+                * (tdz / sd2).abs();
+            let tyd = f64::from(self.speed * mth::sin(f64::from(x_rot_d * deg_to_rad)))
+                * (tdy / sd2).abs();
             let movement = mob.base().delta_movement();
             let new_movement = movement.add(Vec3::new(txd, tyd, tzd).subtract(movement).scale(0.2));
             mob.base_mut().set_delta_movement(new_movement);
@@ -542,4 +663,7 @@ impl MoveControl for PhantomMoveControl {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static PHANTOM: EntityRegistration = EntityRegistration { entity_type: EntityType::PHANTOM, create: |ty, id, registries| Box::new(Phantom::new(ty, id, registries)) };
+static PHANTOM: EntityRegistration = EntityRegistration {
+    entity_type: EntityType::PHANTOM,
+    create: |ty, id, registries| Box::new(Phantom::new(ty, id, registries)),
+};

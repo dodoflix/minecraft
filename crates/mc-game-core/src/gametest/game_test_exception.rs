@@ -10,7 +10,12 @@ pub enum GameTestException {
     /// `GameTestAssertException(message, tick)`.
     Assert { message: Component, tick: i32 },
     /// `GameTestAssertPosException(baseMessage, absolutePos, relativePos, tick)`.
-    AssertPos { message: Component, absolute_pos: BlockPos, relative_pos: BlockPos, tick: i32 },
+    AssertPos {
+        message: Component,
+        absolute_pos: BlockPos,
+        relative_pos: BlockPos,
+        tick: i32,
+    },
     /// `GameTestTimeoutException(message)`.
     Timeout { message: Component },
     /// `UnknownGameTestException(reason)`: the message of the wrapped throwable.
@@ -25,8 +30,15 @@ impl GameTestException {
     /// `getDescription()`.
     pub fn description(&self) -> Component {
         match self {
-            Self::Assert { message, tick } => translatable!("test.error.tick", message.clone(), *tick),
-            Self::AssertPos { message, absolute_pos, relative_pos, tick } => translatable!(
+            Self::Assert { message, tick } => {
+                translatable!("test.error.tick", message.clone(), *tick)
+            }
+            Self::AssertPos {
+                message,
+                absolute_pos,
+                relative_pos,
+                tick,
+            } => translatable!(
                 "test.error.position",
                 message.clone(),
                 absolute_pos.x(),
@@ -60,7 +72,11 @@ impl GameTestException {
     /// `GameTestAssertPosException.getMessageToShowAtBlock()` / `getAbsolutePos()`.
     pub fn pos_info(&self) -> Option<(BlockPos, Component)> {
         match self {
-            Self::AssertPos { message, absolute_pos, .. } => Some((*absolute_pos, message.clone())),
+            Self::AssertPos {
+                message,
+                absolute_pos,
+                ..
+            } => Some((*absolute_pos, message.clone())),
             _ => None,
         }
     }
@@ -72,7 +88,10 @@ impl GameTestException {
 pub enum TestFailure {
     Exception(GameTestException),
     /// `new ExhaustedAttemptsException(attempts, successes, testInfo)`: message + cause.
-    Exhausted { message: String, cause: Option<GameTestException> },
+    Exhausted {
+        message: String,
+        cause: Option<GameTestException>,
+    },
 }
 
 impl TestFailure {
@@ -117,12 +136,37 @@ mod tests {
     fn descriptions_and_messages() {
         let assert = GameTestException::assert(Component::literal("boom"), 7);
         assert_eq!(assert.get_message(), "boom on tick 7");
-        let at = GameTestException::AssertPos { message: Component::literal("bad"), absolute_pos: BlockPos::new(1, 2, 3), relative_pos: BlockPos::new(0, 1, 2), tick: 4 };
-        assert_eq!(at.get_message(), "bad at 1, 2, 3 (relative: 0, 1, 2) on tick 4");
-        assert_eq!(GameTestException::Timeout { message: Component::literal("late") }.get_message(), "late");
-        assert_eq!(GameTestException::Unknown { reason: "x".into() }.description().get_string(), "Unknown internal error: x");
-        let failure = TestFailure::Exhausted { message: "m".into(), cause: Some(at) };
-        assert_eq!(failure.describe_error(), "bad at 1, 2, 3 (relative: 0, 1, 2) on tick 4");
+        let at = GameTestException::AssertPos {
+            message: Component::literal("bad"),
+            absolute_pos: BlockPos::new(1, 2, 3),
+            relative_pos: BlockPos::new(0, 1, 2),
+            tick: 4,
+        };
+        assert_eq!(
+            at.get_message(),
+            "bad at 1, 2, 3 (relative: 0, 1, 2) on tick 4"
+        );
+        assert_eq!(
+            GameTestException::Timeout {
+                message: Component::literal("late")
+            }
+            .get_message(),
+            "late"
+        );
+        assert_eq!(
+            GameTestException::Unknown { reason: "x".into() }
+                .description()
+                .get_string(),
+            "Unknown internal error: x"
+        );
+        let failure = TestFailure::Exhausted {
+            message: "m".into(),
+            cause: Some(at),
+        };
+        assert_eq!(
+            failure.describe_error(),
+            "bad at 1, 2, 3 (relative: 0, 1, 2) on tick 4"
+        );
         assert!(failure.root_cause_pos_info().is_some());
     }
 }

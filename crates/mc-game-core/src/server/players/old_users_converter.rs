@@ -13,7 +13,9 @@ use super::ban_list_entry::{IpBanListEntry, UserBanListEntry, parse_date};
 use super::java_hash_map::JavaHashMap;
 use super::name_and_id::NameAndId;
 use super::name_resolver::{ProfileLookup, UserNameToIdResolver};
-use super::user_lists::{IpBanList, ServerOpList, ServerOpListEntry, UserBanList, UserWhiteList, UserWhiteListEntry};
+use super::user_lists::{
+    IpBanList, ServerOpList, ServerOpListEntry, UserBanList, UserWhiteList, UserWhiteListEntry,
+};
 use crate::server::notifications::EmptyNotificationService;
 use crate::server::permissions::LevelBasedPermissionSet;
 
@@ -42,7 +44,11 @@ impl ConversionContext {
     }
 
     /// `lookupPlayers`: `(canonical name, uuid)` per resolvable name, `None` for names Mojang does not know.
-    fn lookup_players<'a>(&self, names: impl IntoIterator<Item = &'a str>, mut on_result: impl FnMut(&str, Option<Uuid>)) {
+    fn lookup_players<'a>(
+        &self,
+        names: impl IntoIterator<Item = &'a str>,
+        mut on_result: impl FnMut(&str, Option<Uuid>),
+    ) {
         for name in names.into_iter().filter(|s| !s.is_empty()) {
             if self.uses_authentication {
                 match self.profile_lookup.find_profile_by_name(name) {
@@ -50,7 +56,10 @@ impl ConversionContext {
                     None => on_result(name, None),
                 }
             } else {
-                on_result(name, Some(mc_core::uuid_util::create_offline_player_uuid(name)));
+                on_result(
+                    name,
+                    Some(mc_core::uuid_util::create_offline_player_uuid(name)),
+                );
             }
         }
     }
@@ -66,7 +75,10 @@ fn split_pipe(line: &str) -> Vec<String> {
 }
 
 /// `readOldListFormat`: fills `user_map` (lower-case first column -> columns) and returns the raw lines.
-fn read_old_list_format(file: &Path, user_map: &mut JavaHashMap<Vec<String>>) -> std::io::Result<Vec<String>> {
+fn read_old_list_format(
+    file: &Path,
+    user_map: &mut JavaHashMap<Vec<String>>,
+) -> std::io::Result<Vec<String>> {
     let lines = read_lines(file)?;
     for line in &lines {
         let line = line.trim();
@@ -80,7 +92,10 @@ fn read_old_list_format(file: &Path, user_map: &mut JavaHashMap<Vec<String>>) ->
 
 /// Guava `Files.readLines(file, UTF_8)`.
 fn read_lines(file: &Path) -> std::io::Result<Vec<String>> {
-    Ok(String::from_utf8_lossy(&fs::read(file)?).lines().map(str::to_owned).collect())
+    Ok(String::from_utf8_lossy(&fs::read(file)?)
+        .lines()
+        .map(str::to_owned)
+        .collect())
 }
 
 fn is_file(path: &Path) -> bool {
@@ -88,11 +103,21 @@ fn is_file(path: &Path) -> bool {
 }
 
 fn rename_old_file(path: &Path) {
-    let name = path.file_name().map(|n| n.to_string_lossy().into_owned()).unwrap_or_default();
+    let name = path
+        .file_name()
+        .map(|n| n.to_string_lossy().into_owned())
+        .unwrap_or_default();
     let _ = fs::rename(path, path.with_file_name(format!("{name}.converted")));
 }
 
-fn old_columns(def: &[String]) -> (Option<super::ban_list_entry::Date>, Option<&str>, Option<super::ban_list_entry::Date>, Option<&str>) {
+fn old_columns(
+    def: &[String],
+) -> (
+    Option<super::ban_list_entry::Date>,
+    Option<&str>,
+    Option<super::ban_list_entry::Date>,
+    Option<&str>,
+) {
     let created = def.get(1).and_then(|d| parse_date(d));
     let source = def.get(2).map(String::as_str);
     let expires = def.get(3).and_then(|d| parse_date(d));
@@ -106,7 +131,10 @@ pub fn convert_user_banlist(ctx: &ConversionContext) -> bool {
     if !is_file(&old) {
         return true;
     }
-    let mut bans = UserBanList::new(ctx.path("banned-players.json"), Arc::new(EmptyNotificationService));
+    let mut bans = UserBanList::new(
+        ctx.path("banned-players.json"),
+        Arc::new(EmptyNotificationService),
+    );
     if bans.get_file().exists() {
         if let Err(e) = bans.load() {
             log::warn!("Could not load existing file banned-players.json\n{e}");
@@ -137,7 +165,9 @@ pub fn convert_user_banlist(ctx: &ConversionContext) -> bool {
         None => log::warn!("Could not lookup user banlist entry for {name}\ncom.mojang.authlib.yggdrasil.ProfileNotFoundException: Server returned HTTP response code: 204"),
     });
     if failed {
-        log::error!("Conversion failed, please try again later\ncom.mojang..ConversionError: Profile not in the conversionlist");
+        log::error!(
+            "Conversion failed, please try again later\ncom.mojang..ConversionError: Profile not in the conversionlist"
+        );
         return false;
     }
     if let Err(e) = bans.save() {
@@ -154,7 +184,10 @@ pub fn convert_ip_banlist(ctx: &ConversionContext) -> bool {
     if !is_file(&old) {
         return true;
     }
-    let mut ip_bans = IpBanList::new(ctx.path("banned-ips.json"), Arc::new(EmptyNotificationService));
+    let mut ip_bans = IpBanList::new(
+        ctx.path("banned-ips.json"),
+        Arc::new(EmptyNotificationService),
+    );
     if ip_bans.get_file().exists() {
         if let Err(e) = ip_bans.load() {
             log::warn!("Could not load existing file banned-ips.json\n{e}");
@@ -167,7 +200,13 @@ pub fn convert_ip_banlist(ctx: &ConversionContext) -> bool {
     }
     for (key, def) in user_map.iter() {
         let (created, source, expires, reason) = old_columns(def);
-        ip_bans.add(IpBanListEntry::new(Some(key.to_owned()), created, source, expires, reason));
+        ip_bans.add(IpBanListEntry::new(
+            Some(key.to_owned()),
+            created,
+            source,
+            expires,
+            reason,
+        ));
     }
     if let Err(e) = ip_bans.save() {
         log::warn!("Could not parse old ip banlist to convert it!\n{e}");
@@ -218,7 +257,10 @@ pub fn convert_white_list(ctx: &ConversionContext) -> bool {
     if !is_file(&old) {
         return true;
     }
-    let mut whitelist = UserWhiteList::new(ctx.path("whitelist.json"), Arc::new(EmptyNotificationService));
+    let mut whitelist = UserWhiteList::new(
+        ctx.path("whitelist.json"),
+        Arc::new(EmptyNotificationService),
+    );
     if whitelist.get_file().exists() {
         if let Err(e) = whitelist.load() {
             log::warn!("Could not load existing file whitelist.json\n{e}");
@@ -280,7 +322,9 @@ pub fn convert_players(ctx: &ConversionContext, world_dir: &Path) -> bool {
     if !old_dir.is_dir() {
         return true;
     }
-    let Ok(read) = fs::read_dir(&old_dir) else { return true };
+    let Ok(read) = fs::read_dir(&old_dir) else {
+        return true;
+    };
     let mut names = Vec::new();
     for entry in read.flatten() {
         let file_name = entry.file_name().to_string_lossy().into_owned();
@@ -321,7 +365,10 @@ pub fn convert_players(ctx: &ConversionContext, world_dir: &Path) -> bool {
 
 /// `areOldUserlistsRemoved`.
 pub fn are_old_userlists_removed(dir: &Path) -> bool {
-    let found: Vec<&str> = [OLD_USERBANLIST, OLD_IPBANLIST, OLD_OPLIST, OLD_WHITELIST].into_iter().filter(|f| is_file(&dir.join(f))).collect();
+    let found: Vec<&str> = [OLD_USERBANLIST, OLD_IPBANLIST, OLD_OPLIST, OLD_WHITELIST]
+        .into_iter()
+        .filter(|f| is_file(&dir.join(f)))
+        .collect();
     if found.is_empty() {
         return true;
     }
@@ -344,7 +391,10 @@ mod tests {
             uses_authentication: false,
             is_singleplayer: false,
             profile_lookup: Arc::new(NoProfileLookup),
-            name_to_id_cache: Arc::new(CachedUserNameToIdResolver::new(Arc::new(NoProfileLookup), dir.join("usercache.json"))),
+            name_to_id_cache: Arc::new(CachedUserNameToIdResolver::new(
+                Arc::new(NoProfileLookup),
+                dir.join("usercache.json"),
+            )),
             operator_permissions: LevelBasedPermissionSet::OWNER,
         }
     }
@@ -355,24 +405,46 @@ mod tests {
         let d = dir.path();
         fs::write(d.join(OLD_WHITELIST), "Alice\n\nbob\n").unwrap();
         fs::write(d.join(OLD_OPLIST), "Alice\n").unwrap();
-        fs::write(d.join(OLD_USERBANLIST), "# comment\nGrief|2013-01-02 03:04:05 +0000|Server|forever|bad person\n").unwrap();
-        fs::write(d.join(OLD_IPBANLIST), "1.2.3.4|2013-01-02 03:04:05 +0000|Server|forever|spam\n").unwrap();
+        fs::write(
+            d.join(OLD_USERBANLIST),
+            "# comment\nGrief|2013-01-02 03:04:05 +0000|Server|forever|bad person\n",
+        )
+        .unwrap();
+        fs::write(
+            d.join(OLD_IPBANLIST),
+            "1.2.3.4|2013-01-02 03:04:05 +0000|Server|forever|spam\n",
+        )
+        .unwrap();
         let c = ctx(d);
         assert!(!are_old_userlists_removed(d));
-        assert!(convert_white_list(&c) && convert_ops_list(&c) && convert_user_banlist(&c) && convert_ip_banlist(&c));
+        assert!(
+            convert_white_list(&c)
+                && convert_ops_list(&c)
+                && convert_user_banlist(&c)
+                && convert_ip_banlist(&c)
+        );
         assert!(are_old_userlists_removed(d));
         for f in [OLD_WHITELIST, OLD_OPLIST, OLD_USERBANLIST, OLD_IPBANLIST] {
             assert!(d.join(format!("{f}.converted")).exists());
         }
         let alice = NameAndId::create_offline("Alice");
         let wl = fs::read_to_string(d.join("whitelist.json")).unwrap();
-        assert!(wl.contains(&alice.id.to_string()) && wl.contains("bob"), "{wl}");
+        assert!(
+            wl.contains(&alice.id.to_string()) && wl.contains("bob"),
+            "{wl}"
+        );
         let ops = fs::read_to_string(d.join("ops.json")).unwrap();
         assert!(ops.contains("\"level\": 4"), "{ops}");
         let bans = fs::read_to_string(d.join("banned-players.json")).unwrap();
-        assert!(bans.contains("\"reason\": \"bad person\"") && bans.contains("\"source\": \"Server\""), "{bans}");
+        assert!(
+            bans.contains("\"reason\": \"bad person\"") && bans.contains("\"source\": \"Server\""),
+            "{bans}"
+        );
         let ips = fs::read_to_string(d.join("banned-ips.json")).unwrap();
-        assert!(ips.contains("\"ip\": \"1.2.3.4\"") && ips.contains("\"reason\": \"spam\""), "{ips}");
+        assert!(
+            ips.contains("\"ip\": \"1.2.3.4\"") && ips.contains("\"reason\": \"spam\""),
+            "{ips}"
+        );
     }
 
     #[test]
@@ -380,9 +452,20 @@ mod tests {
         let dir = tempfile::tempdir().unwrap();
         let c = ctx(dir.path());
         // the name cache looks names up lower-cased (so an offline profile is made for "notch"), as vanilla does
-        assert_eq!(convert_mob_owner_if_necessary(&c, "Notch"), Some(mc_core::uuid_util::create_offline_player_uuid("notch")));
-        assert_eq!(convert_mob_owner_if_necessary(&c, "069a79f4-44e9-4726-a5be-fca90e38aaf5").unwrap().to_string(), "069a79f4-44e9-4726-a5be-fca90e38aaf5");
-        assert_eq!(convert_mob_owner_if_necessary(&c, "not a uuid at all, too long"), None);
+        assert_eq!(
+            convert_mob_owner_if_necessary(&c, "Notch"),
+            Some(mc_core::uuid_util::create_offline_player_uuid("notch"))
+        );
+        assert_eq!(
+            convert_mob_owner_if_necessary(&c, "069a79f4-44e9-4726-a5be-fca90e38aaf5")
+                .unwrap()
+                .to_string(),
+            "069a79f4-44e9-4726-a5be-fca90e38aaf5"
+        );
+        assert_eq!(
+            convert_mob_owner_if_necessary(&c, "not a uuid at all, too long"),
+            None
+        );
         let world = dir.path().join("world");
         fs::create_dir_all(world.join("players")).unwrap();
         fs::write(world.join("players/Steve.dat"), b"x").unwrap();

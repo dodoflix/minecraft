@@ -1,7 +1,7 @@
 //! `net.minecraft.world.level.block.FireBlock`.
 use super::prelude::*;
-use mc_core::random::RandomSource;
 use crate::server::level::ServerLevel;
+use mc_core::random::RandomSource;
 
 pub struct FireBlock;
 
@@ -54,7 +54,8 @@ fn check_burn_out(level: &mut ServerLevel, pos: BlockPos, chance: i32, age: i32)
     let odds = burn_odds(level.get_block_state(pos));
     if LevelAccessor::random(level).next_int_bounded(chance) < odds {
         let old_state = level.get_block_state(pos);
-        if LevelAccessor::random(level).next_int_bounded(age + 10) < 5 && !level.is_raining_at(pos) {
+        if LevelAccessor::random(level).next_int_bounded(age + 10) < 5 && !level.is_raining_at(pos)
+        {
             let new_age = (age + LevelAccessor::random(level).next_int_bounded(5) / 4).min(15);
             let state = get_state_with_age(&*level, pos, new_age);
             level.set_block_and_update(pos, state);
@@ -83,7 +84,10 @@ pub fn get_state_for_placement(level: &dyn BlockGetter, pos: BlockPos) -> BlockS
     let mut result = fire;
     for direction in Direction::ALL {
         if direction != Direction::Down {
-            result = result.set(helpers::pipe_property(direction), can_burn(level.get_block_state(pos.relative(direction))));
+            result = result.set(
+                helpers::pipe_property(direction),
+                can_burn(level.get_block_state(pos.relative(direction))),
+            );
         }
     }
     result
@@ -91,20 +95,37 @@ pub fn get_state_for_placement(level: &dyn BlockGetter, pos: BlockPos) -> BlockS
 
 /// `FireBlock.isValidFireLocation`.
 fn is_valid_fire_location(level: &dyn BlockGetter, pos: BlockPos) -> bool {
-    Direction::ALL.into_iter().any(|direction| can_burn(level.get_block_state(pos.relative(direction))))
+    Direction::ALL
+        .into_iter()
+        .any(|direction| can_burn(level.get_block_state(pos.relative(direction))))
 }
 
 /// `FireBlock.getStateWithAge`.
 fn get_state_with_age(level: &dyn BlockGetter, pos: BlockPos, age: i32) -> BlockState {
     let state = super::base_fire_block::get_state(level, pos);
-    if state.is_block(Block::FIRE) { state.set(props::AGE_15, age) } else { state }
+    if state.is_block(Block::FIRE) {
+        state.set(props::AGE_15, age)
+    } else {
+        state
+    }
 }
 
 impl BlockBehaviour for FireBlock {
-    fn get_state_for_placement(&self, _block: Block, level: &mut ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+    fn get_state_for_placement(
+        &self,
+        _block: Block,
+        level: &mut ServerLevel,
+        context: &crate::world::item::BlockPlaceContext,
+    ) -> Option<BlockState> {
         Some(get_state_for_placement(&*level, context.get_clicked_pos()))
     }
-    fn player_will_destroy(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, player: &mut crate::world::entity::ServerPlayer) -> BlockState {
+    fn player_will_destroy(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        player: &mut crate::world::entity::ServerPlayer,
+    ) -> BlockState {
         super::base_fire_block::player_will_destroy(state, level, pos, player)
     }
     fn tick(&self, mut state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
@@ -135,17 +156,27 @@ impl BlockBehaviour for FireBlock {
         if !infini_burn {
             if !is_valid_fire_location(&*level, pos) {
                 let below = pos.below();
-                if !level.get_block_state(below).is_face_sturdy_at(&*level, below, Direction::Up) || age > 3 {
+                if !level
+                    .get_block_state(below)
+                    .is_face_sturdy_at(&*level, below, Direction::Up)
+                    || age > 3
+                {
                     level.remove_block(pos, false);
                 }
                 return;
             }
-            if age == 15 && LevelAccessor::random(level).next_int_bounded(4) == 0 && !can_burn(level.get_block_state(pos.below())) {
+            if age == 15
+                && LevelAccessor::random(level).next_int_bounded(4) == 0
+                && !can_burn(level.get_block_state(pos.below()))
+            {
                 level.remove_block(pos, false);
                 return;
             }
         }
-        let increased_burnout = level.attribute_bool(crate::world::attribute::attributes::INCREASED_FIRE_BURNOUT, pos);
+        let increased_burnout = level.attribute_bool(
+            crate::world::attribute::attributes::INCREASED_FIRE_BURNOUT,
+            pos,
+        );
         let extra = if increased_burnout { -50 } else { 0 };
         check_burn_out(level, pos.east(), 300 + extra, age);
         check_burn_out(level, pos.west(), 300 + extra, age);
@@ -166,7 +197,8 @@ impl BlockBehaviour for FireBlock {
                     let test_pos = BlockPos::new(pos.x() + xx, pos.y() + yy, pos.z() + zz);
                     let ignite_odds = get_ignite_odds_at(&*level, test_pos);
                     if ignite_odds > 0 {
-                        let mut odds = (ignite_odds + 40 + level.difficulty().get_id() * 7) / (age + 30);
+                        let mut odds =
+                            (ignite_odds + 40 + level.difficulty().get_id() * 7) / (age + 30);
                         if increased_burnout {
                             odds /= 2;
                         }
@@ -174,7 +206,8 @@ impl BlockBehaviour for FireBlock {
                             && LevelAccessor::random(level).next_int_bounded(rate) <= odds
                             && (!level.is_raining() || !is_near_rain(level, test_pos))
                         {
-                            let spread_age = 15.min(age + LevelAccessor::random(level).next_int_bounded(5) / 4);
+                            let spread_age =
+                                15.min(age + LevelAccessor::random(level).next_int_bounded(5) / 4);
                             let spread = get_state_with_age(&*level, test_pos, spread_age);
                             level.set_block_and_update(test_pos, spread);
                         }
@@ -195,18 +228,34 @@ impl BlockBehaviour for FireBlock {
         super::base_fire_block::entity_inside(effect_applier, 1.0);
     }
     /// `BaseFireBlock.onPlace` (portal ignition) + `FireBlock.onPlace`.
-    fn on_place(&self, state: BlockState, level: &mut crate::server::level::ServerLevel, pos: BlockPos, old_state: BlockState, _moved_by_piston: bool) {
+    fn on_place(
+        &self,
+        state: BlockState,
+        level: &mut crate::server::level::ServerLevel,
+        pos: BlockPos,
+        old_state: BlockState,
+        _moved_by_piston: bool,
+    ) {
         super::base_fire_block::on_place(state, level, pos, old_state);
         let delay = 30 + level.random().next_int_bounded(10);
         helpers::schedule_block_tick(level, pos, state.block(), delay);
     }
     fn can_survive(&self, _state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         let below = pos.below();
-        level.get_block_state(below).is_face_sturdy_at(level, below, Direction::Up) || is_valid_fire_location(level, pos)
+        level
+            .get_block_state(below)
+            .is_face_sturdy_at(level, below, Direction::Up)
+            || is_valid_fire_location(level, pos)
     }
-    update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
-        if self.can_survive(state, &*level, pos) { get_state_with_age(&*level, pos, state.get(props::AGE_15)) } else { air() }
-    });
+    update_shape!(
+        |self, state, level, pos, direction, neighbour_pos, neighbour_state| {
+            if self.can_survive(state, &*level, pos) {
+                get_state_with_age(&*level, pos, state.get(props::AGE_15))
+            } else {
+                air()
+            }
+        }
+    );
 }
 
 register_block_class!("FireBlock", |_| Box::new(FireBlock));

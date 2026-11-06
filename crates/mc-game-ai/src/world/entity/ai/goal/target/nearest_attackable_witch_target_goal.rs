@@ -1,9 +1,9 @@
 //! `NearestAttackableWitchTargetGoal` (extends `NearestAttackableTargetGoal`; `Raider` witches stop targeting while drinking).
 
-use mc_game_core::world::entity::ai::goal::target::NearestAttackableTargetGoal;
 use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::entity::ai::goal::{Goal, GoalFlags};
 use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::ai::goal::target::NearestAttackableTargetGoal;
+use mc_game_core::world::entity::ai::goal::{Goal, GoalFlags};
 
 pub struct NearestAttackableWitchTargetGoal {
     pub inner: NearestAttackableTargetGoal,
@@ -14,7 +14,10 @@ impl NearestAttackableWitchTargetGoal {
     /// `NearestAttackableWitchTargetGoal(raider, targetType, randomInterval, mustSee, mustReach, subselector)`: build the
     /// `NearestAttackableTargetGoal` with [`NearestAttackableTargetGoal::build`].
     pub fn new(inner: NearestAttackableTargetGoal) -> Self {
-        Self { inner, can_attack: true }
+        Self {
+            inner,
+            can_attack: true,
+        }
     }
 
     /// `setCanAttack(canAttack)`.

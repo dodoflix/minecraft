@@ -24,7 +24,9 @@ fn hex(b: &[u8]) -> String {
 
 fn name_of(state: ConnectionState, payload: &[u8]) -> String {
     let id = read_varint(&mut &payload[..]).unwrap();
-    packet_name(state, PacketFlow::Clientbound, id).unwrap_or("?").to_owned()
+    packet_name(state, PacketFlow::Clientbound, id)
+        .unwrap_or("?")
+        .to_owned()
 }
 
 fn login_bytes(p: ServerboundLoginPacket) -> Vec<u8> {
@@ -40,7 +42,14 @@ fn config_bytes(p: ServerboundConfigurationPacket) -> Vec<u8> {
 }
 
 async fn hello(c: &mut Connection<TcpStream>, name: &str) {
-    write_payload(c, &login_bytes(ServerboundLoginPacket::Hello(ServerboundHelloPacket { name: name.into(), profile_id: Uuid::nil() }))).await;
+    write_payload(
+        c,
+        &login_bytes(ServerboundLoginPacket::Hello(ServerboundHelloPacket {
+            name: name.into(),
+            profile_id: Uuid::nil(),
+        })),
+    )
+    .await;
 }
 
 /// Raw payload of the one packet the server sends before closing (hex), or `closed`.
@@ -67,7 +76,11 @@ async fn transcript(addr: SocketAddr) -> Vec<String> {
     // legacy pings: 1.4-1.5, 1.6 (MC|PingHost), pre-1.4
     t.push(format!("legacy0 {}", legacy(addr, &[0xfe]).await));
     t.push(format!("legacy1 {}", legacy(addr, &[0xfe, 0x01]).await));
-    let utf16 = |s: &str| s.encode_utf16().flat_map(u16::to_be_bytes).collect::<Vec<u8>>();
+    let utf16 = |s: &str| {
+        s.encode_utf16()
+            .flat_map(u16::to_be_bytes)
+            .collect::<Vec<u8>>()
+    };
     let mut payload = vec![78u8];
     payload.extend(9u16.to_be_bytes());
     payload.extend(utf16("localhost"));
@@ -80,10 +93,18 @@ async fn transcript(addr: SocketAddr) -> Vec<String> {
     t.push(format!("legacy16 {}", legacy(addr, &req).await));
 
     // handshake rejects
-    for (protocol, intent) in [(753, ClientIntent::Login), (754, ClientIntent::Login), (PROTOCOL_VERSION + 1, ClientIntent::Login), (10, ClientIntent::Transfer)] {
+    for (protocol, intent) in [
+        (753, ClientIntent::Login),
+        (754, ClientIntent::Login),
+        (PROTOCOL_VERSION + 1, ClientIntent::Login),
+        (10, ClientIntent::Transfer),
+    ] {
         let mut c = connect(addr).await;
         handshake(&mut c, protocol, intent).await;
-        t.push(format!("handshake {protocol} {intent:?} {}", single_reply(&mut c).await));
+        t.push(format!(
+            "handshake {protocol} {intent:?} {}",
+            single_reply(&mut c).await
+        ));
     }
 
     // login errors
@@ -95,22 +116,37 @@ async fn transcript(addr: SocketAddr) -> Vec<String> {
     }
     let mut c = connect(addr).await;
     handshake(&mut c, PROTOCOL_VERSION, ClientIntent::Login).await;
-    write_payload(&mut c, &login_bytes(ServerboundLoginPacket::LoginAcknowledged(ServerboundLoginAcknowledgedPacket))).await;
+    write_payload(
+        &mut c,
+        &login_bytes(ServerboundLoginPacket::LoginAcknowledged(
+            ServerboundLoginAcknowledgedPacket,
+        )),
+    )
+    .await;
     t.push(format!("early ack {}", single_reply(&mut c).await));
     let mut c = connect(addr).await;
     handshake(&mut c, PROTOCOL_VERSION, ClientIntent::Login).await;
     write_payload(
         &mut c,
-        &login_bytes(ServerboundLoginPacket::CookieResponse(mc_protocol::packets::login::ServerboundCookieResponsePacket {
-            key: mc_core::ident::Identifier::with_default_namespace("x").unwrap(),
-            payload: None,
-        })),
+        &login_bytes(ServerboundLoginPacket::CookieResponse(
+            mc_protocol::packets::login::ServerboundCookieResponsePacket {
+                key: mc_core::ident::Identifier::with_default_namespace("x").unwrap(),
+                payload: None,
+            },
+        )),
     )
     .await;
     t.push(format!("cookie {}", single_reply(&mut c).await));
     let mut c = connect(addr).await;
     handshake(&mut c, PROTOCOL_VERSION, ClientIntent::Login).await;
-    write_payload(&mut c, &login_bytes(ServerboundLoginPacket::Key(ServerboundKeyPacket { keybytes: vec![1], encrypted_challenge: vec![2] }))).await;
+    write_payload(
+        &mut c,
+        &login_bytes(ServerboundLoginPacket::Key(ServerboundKeyPacket {
+            keybytes: vec![1],
+            encrypted_challenge: vec![2],
+        })),
+    )
+    .await;
     t.push(format!("early key {}", single_reply(&mut c).await));
 
     // full offline flow up to the first play packet
@@ -121,9 +157,22 @@ async fn transcript(addr: SocketAddr) -> Vec<String> {
     t.push(format!("login {}", hex(&p)));
     c.set_compression(256, true);
     let p = read(&mut c).await;
-    let ClientboundLoginPacket::LoginFinished(f) = ClientboundLoginPacket::decode_payload(&p).unwrap() else { panic!("finished") };
-    t.push(format!("finished {} {} {:?}", f.game_profile.id, f.game_profile.name, f.game_profile.properties));
-    write_payload(&mut c, &login_bytes(ServerboundLoginPacket::LoginAcknowledged(ServerboundLoginAcknowledgedPacket))).await;
+    let ClientboundLoginPacket::LoginFinished(f) =
+        ClientboundLoginPacket::decode_payload(&p).unwrap()
+    else {
+        panic!("finished")
+    };
+    t.push(format!(
+        "finished {} {} {:?}",
+        f.game_profile.id, f.game_profile.name, f.game_profile.properties
+    ));
+    write_payload(
+        &mut c,
+        &login_bytes(ServerboundLoginPacket::LoginAcknowledged(
+            ServerboundLoginAcknowledgedPacket,
+        )),
+    )
+    .await;
     let mut registry_run = false;
     loop {
         let p = read(&mut c).await;
@@ -136,19 +185,33 @@ async fn transcript(addr: SocketAddr) -> Vec<String> {
                 }
                 continue;
             }
-            "minecraft:custom_payload" | "minecraft:update_enabled_features" | "minecraft:select_known_packs" => {
+            "minecraft:custom_payload"
+            | "minecraft:update_enabled_features"
+            | "minecraft:select_known_packs" => {
                 t.push(format!("config {name} {}", hex(&p)));
                 if name == "minecraft:select_known_packs" {
-                    let ClientboundConfigurationPacket::SelectKnownPacks(k) = ClientboundConfigurationPacket::decode_payload(&p).unwrap() else { panic!() };
+                    let ClientboundConfigurationPacket::SelectKnownPacks(k) =
+                        ClientboundConfigurationPacket::decode_payload(&p).unwrap()
+                    else {
+                        panic!()
+                    };
                     let known = k.known_packs;
                     write_payload(
                         &mut c,
-                        &config_bytes(ServerboundConfigurationPacket::ClientInformation(ServerboundClientInformationPacket {
-                            information: ClientInformation::default(),
-                        })),
+                        &config_bytes(ServerboundConfigurationPacket::ClientInformation(
+                            ServerboundClientInformationPacket {
+                                information: ClientInformation::default(),
+                            },
+                        )),
                     )
                     .await;
-                    write_payload(&mut c, &config_bytes(ServerboundConfigurationPacket::SelectKnownPacks(ServerboundSelectKnownPacks { known_packs: known }))).await;
+                    write_payload(
+                        &mut c,
+                        &config_bytes(ServerboundConfigurationPacket::SelectKnownPacks(
+                            ServerboundSelectKnownPacks { known_packs: known },
+                        )),
+                    )
+                    .await;
                 }
             }
             _ => t.push(format!("config {name}")),
@@ -162,9 +225,16 @@ async fn transcript(addr: SocketAddr) -> Vec<String> {
 
 struct SomeRegistries;
 impl RegistrySynchronization for SomeRegistries {
-    fn pack_registries(&self, _negotiated: &std::collections::HashSet<KnownPack>) -> Vec<ClientboundRegistryDataPacket> {
+    fn pack_registries(
+        &self,
+        _negotiated: &std::collections::HashSet<KnownPack>,
+    ) -> Vec<ClientboundRegistryDataPacket> {
         (0..3)
-            .map(|i| ClientboundRegistryDataPacket { registry: mc_core::ident::Identifier::with_default_namespace(&format!("r{i}")).unwrap(), entries: vec![] })
+            .map(|i| ClientboundRegistryDataPacket {
+                registry: mc_core::ident::Identifier::with_default_namespace(&format!("r{i}"))
+                    .unwrap(),
+                entries: vec![],
+            })
             .collect()
     }
     fn tags(&self) -> ClientboundUpdateTagsPacket {
@@ -175,7 +245,10 @@ impl RegistrySynchronization for SomeRegistries {
 #[tokio::test(flavor = "multi_thread")]
 #[ignore = "oracle: starts the vanilla server"]
 async fn transcripts_equal_the_real_vanilla_server() {
-    let vanilla = mc_testkit::Server::vanilla().properties(PROPERTIES).start().expect("start vanilla");
+    let vanilla = mc_testkit::Server::vanilla()
+        .properties(PROPERTIES)
+        .start()
+        .expect("start vanilla");
     let theirs = transcript(SocketAddr::from(([127, 0, 0, 1], vanilla.port))).await;
     drop(vanilla);
 
@@ -206,20 +279,42 @@ async fn registry_transcript(addr: SocketAddr) -> Vec<String> {
     let _ = read(&mut c).await; // compression
     c.set_compression(256, true);
     let _ = read(&mut c).await; // login finished
-    write_payload(&mut c, &login_bytes(ServerboundLoginPacket::LoginAcknowledged(ServerboundLoginAcknowledgedPacket))).await;
+    write_payload(
+        &mut c,
+        &login_bytes(ServerboundLoginPacket::LoginAcknowledged(
+            ServerboundLoginAcknowledgedPacket,
+        )),
+    )
+    .await;
     loop {
         let p = read(&mut c).await;
         let name = name_of(ConnectionState::Configuration, &p);
         t.push(format!("{name} {}", hex(&p)));
         match name.as_str() {
             "minecraft:select_known_packs" => {
-                let ClientboundConfigurationPacket::SelectKnownPacks(k) = ClientboundConfigurationPacket::decode_payload(&p).unwrap() else { panic!() };
+                let ClientboundConfigurationPacket::SelectKnownPacks(k) =
+                    ClientboundConfigurationPacket::decode_payload(&p).unwrap()
+                else {
+                    panic!()
+                };
                 write_payload(
                     &mut c,
-                    &config_bytes(ServerboundConfigurationPacket::ClientInformation(ServerboundClientInformationPacket { information: ClientInformation::default() })),
+                    &config_bytes(ServerboundConfigurationPacket::ClientInformation(
+                        ServerboundClientInformationPacket {
+                            information: ClientInformation::default(),
+                        },
+                    )),
                 )
                 .await;
-                write_payload(&mut c, &config_bytes(ServerboundConfigurationPacket::SelectKnownPacks(ServerboundSelectKnownPacks { known_packs: k.known_packs }))).await;
+                write_payload(
+                    &mut c,
+                    &config_bytes(ServerboundConfigurationPacket::SelectKnownPacks(
+                        ServerboundSelectKnownPacks {
+                            known_packs: k.known_packs,
+                        },
+                    )),
+                )
+                .await;
             }
             "minecraft:update_tags" => return t,
             _ => {}
@@ -228,13 +323,24 @@ async fn registry_transcript(addr: SocketAddr) -> Vec<String> {
 }
 
 fn normalized_tags(line: &str) -> Vec<(String, Vec<(String, Vec<i32>)>)> {
-    let bytes: Vec<u8> = (0..line.split(' ').nth(1).unwrap().len()).step_by(2).map(|i| u8::from_str_radix(&line.split(' ').nth(1).unwrap()[i..i + 2], 16).unwrap()).collect();
-    let ClientboundConfigurationPacket::UpdateTags(p) = ClientboundConfigurationPacket::decode_payload(&bytes).unwrap() else { panic!() };
+    let bytes: Vec<u8> = (0..line.split(' ').nth(1).unwrap().len())
+        .step_by(2)
+        .map(|i| u8::from_str_radix(&line.split(' ').nth(1).unwrap()[i..i + 2], 16).unwrap())
+        .collect();
+    let ClientboundConfigurationPacket::UpdateTags(p) =
+        ClientboundConfigurationPacket::decode_payload(&bytes).unwrap()
+    else {
+        panic!()
+    };
     let mut out: Vec<_> = p
         .tags
         .into_iter()
         .map(|(k, v)| {
-            let mut tags: Vec<_> = v.tags.into_iter().map(|(id, ids)| (id.to_string(), ids)).collect();
+            let mut tags: Vec<_> = v
+                .tags
+                .into_iter()
+                .map(|(id, ids)| (id.to_string(), ids))
+                .collect();
             tags.sort();
             (k.to_string(), tags)
         })
@@ -247,12 +353,29 @@ fn normalized_tags(line: &str) -> Vec<(String, Vec<(String, Vec<i32>)>)> {
 /// random per run; `mc_core::java_collections`): re-ordering the packet's order must be the identity.
 fn assert_hash_map_tag_order(who: &str, line: &str) {
     let hex = line.split(' ').nth(1).unwrap();
-    let bytes: Vec<u8> = (0..hex.len()).step_by(2).map(|i| u8::from_str_radix(&hex[i..i + 2], 16).unwrap()).collect();
-    let ClientboundConfigurationPacket::UpdateTags(p) = ClientboundConfigurationPacket::decode_payload(&bytes).unwrap() else { panic!() };
+    let bytes: Vec<u8> = (0..hex.len())
+        .step_by(2)
+        .map(|i| u8::from_str_radix(&hex[i..i + 2], 16).unwrap())
+        .collect();
+    let ClientboundConfigurationPacket::UpdateTags(p) =
+        ClientboundConfigurationPacket::decode_payload(&bytes).unwrap()
+    else {
+        panic!()
+    };
     for (registry, payload) in p.tags {
-        let hashes: Vec<i32> = payload.tags.iter().map(|(id, _)| id.java_hash_code()).collect();
-        let order = mc_core::java_collections::hash_map_order(&hashes, mc_core::java_collections::HASH_MAP_DEFAULT_CAPACITY);
-        assert!(order.iter().enumerate().all(|(i, &j)| i == j), "{who}: tags of {registry} are not in HashMap bucket order");
+        let hashes: Vec<i32> = payload
+            .tags
+            .iter()
+            .map(|(id, _)| id.java_hash_code())
+            .collect();
+        let order = mc_core::java_collections::hash_map_order(
+            &hashes,
+            mc_core::java_collections::HASH_MAP_DEFAULT_CAPACITY,
+        );
+        assert!(
+            order.iter().enumerate().all(|(i, &j)| i == j),
+            "{who}: tags of {registry} are not in HashMap bucket order"
+        );
     }
 }
 
@@ -275,21 +398,38 @@ const PROPERTIES: [&str; 11] = [
 #[tokio::test(flavor = "multi_thread")]
 #[ignore = "oracle: starts the vanilla server and the mc-server binary"]
 async fn real_server_registry_and_tag_packets_equal_vanilla() {
-    let vanilla = mc_testkit::Server::vanilla().properties(PROPERTIES).start().expect("start vanilla");
+    let vanilla = mc_testkit::Server::vanilla()
+        .properties(PROPERTIES)
+        .start()
+        .expect("start vanilla");
     let theirs = registry_transcript(SocketAddr::from(([127, 0, 0, 1], vanilla.port))).await;
     drop(vanilla);
-    let ours_server = mc_testkit::Server::ours(env!("CARGO_BIN_EXE_mc-server")).properties(PROPERTIES).start().expect("start our server");
+    let ours_server = mc_testkit::Server::ours(env!("CARGO_BIN_EXE_mc-server"))
+        .properties(PROPERTIES)
+        .start()
+        .expect("start our server");
     let ours = registry_transcript(SocketAddr::from(([127, 0, 0, 1], ours_server.port))).await;
-    println!("vanilla: {} packets, ours: {} packets", theirs.len(), ours.len());
+    println!(
+        "vanilla: {} packets, ours: {} packets",
+        theirs.len(),
+        ours.len()
+    );
     for (i, (a, b)) in theirs.iter().zip(&ours).enumerate() {
         let name = a.split(' ').next().unwrap();
         if name == "minecraft:update_tags" {
             // Vanilla sends Java `HashMap` order (registries and tags); only the content is comparable.
-            assert_eq!(normalized_tags(a), normalized_tags(b), "update_tags content differs: vanilla (left) vs ours (right)");
+            assert_eq!(
+                normalized_tags(a),
+                normalized_tags(b),
+                "update_tags content differs: vanilla (left) vs ours (right)"
+            );
             assert_hash_map_tag_order("vanilla", a);
             assert_hash_map_tag_order("ours", b);
         } else {
-            assert_eq!(a, b, "packet #{i} ({name}) differs: vanilla (left) vs ours (right)");
+            assert_eq!(
+                a, b,
+                "packet #{i} ({name}) differs: vanilla (left) vs ours (right)"
+            );
         }
     }
     assert_eq!(theirs.len(), ours.len());

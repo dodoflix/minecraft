@@ -1,15 +1,21 @@
 //! `PosRuleTest`: a predicate over the template-relative / world positions of a block (dispatched on `predicate_type`).
 
-use mc_game_core::world::level::levelgen::codec::{LoadResult, TypeEntry, decode_dispatch_on};
-use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
+use mc_game_core::world::level::levelgen::codec::{LoadResult, TypeEntry, decode_dispatch_on};
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use serde_json::Value;
 use std::sync::Arc;
 
 pub trait PosRuleTest: Send + Sync {
     /// `test(inTemplatePos, worldPos, worldReference, random)`.
-    fn test(&self, in_template_pos: BlockPos, world_pos: BlockPos, world_reference: BlockPos, random: &mut dyn RandomSource) -> bool;
+    fn test(
+        &self,
+        in_template_pos: BlockPos,
+        world_pos: BlockPos,
+        world_reference: BlockPos,
+        random: &mut dyn RandomSource,
+    ) -> bool;
 }
 
 #[linkme::distributed_slice]

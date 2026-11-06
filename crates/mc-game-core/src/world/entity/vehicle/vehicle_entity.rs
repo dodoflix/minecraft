@@ -72,7 +72,12 @@ pub trait VehicleEntity: Entity {
 }
 
 /// `VehicleEntity.hurtServer(level, source, damage)`.
-pub fn hurt_server<E: VehicleEntity + ?Sized>(e: &mut E, level: &mut ServerLevel, source: &DamageSource, damage: f32) -> bool {
+pub fn hurt_server<E: VehicleEntity + ?Sized>(
+    e: &mut E,
+    level: &mut ServerLevel,
+    source: &DamageSource,
+    damage: f32,
+) -> bool {
     if e.is_removed() {
         return true;
     }
@@ -85,11 +90,20 @@ pub fn hurt_server<E: VehicleEntity + ?Sized>(e: &mut E, level: &mut ServerLevel
     e.mark_hurt();
     let new_damage = get_damage(e.base()) + damage * 10.0;
     set_damage(e.base_mut(), new_damage);
-    level.game_event_from_entity(source.get_entity(), GameEvent::ENTITY_DAMAGE, e.base().position());
+    level.game_event_from_entity(
+        source.get_entity(),
+        GameEvent::ENTITY_DAMAGE,
+        e.base().position(),
+    );
     let creative_player = source.is_creative_player();
-    if (creative_player || !(get_damage(e.base()) > 40.0)) && !e.should_source_destroy(level, source) {
+    if (creative_player || !(get_damage(e.base()) > 40.0))
+        && !e.should_source_destroy(level, source)
+    {
         if creative_player {
-            level.remove_held_entity(e.as_dyn_mut(), crate::world::entity::RemovalReason::Discarded);
+            level.remove_held_entity(
+                e.as_dyn_mut(),
+                crate::world::entity::RemovalReason::Discarded,
+            );
         }
     } else {
         e.destroy(level, source);
@@ -111,12 +125,22 @@ pub fn destroy_item<E: Entity + ?Sized>(e: &mut E, level: &mut ServerLevel, drop
 
 /// `instanceof Mob` (a living entity that is neither a player, an armor stand nor a mannequin).
 pub fn is_mob(e: &dyn Entity) -> bool {
-    e.living().is_some() && !e.is_player() && !matches!(e.get_type(), EntityType::ARMOR_STAND | EntityType::MANNEQUIN)
+    e.living().is_some()
+        && !e.is_player()
+        && !matches!(
+            e.get_type(),
+            EntityType::ARMOR_STAND | EntityType::MANNEQUIN
+        )
 }
 
 pub fn ignore_explosion(level: &ServerLevel, explosion: &dyn Explosion) -> bool {
-    let Some(indirect) = explosion.get_indirect_source_entity() else { return false };
+    let Some(indirect) = explosion.get_indirect_source_entity() else {
+        return false;
+    };
     // the exploding entity usually runs outside the level
-    let source = explosion.get_direct_source_entity_ref().filter(|d| d.id() == indirect).or_else(|| level.get_entity(indirect));
+    let source = explosion
+        .get_direct_source_entity_ref()
+        .filter(|d| d.id() == indirect)
+        .or_else(|| level.get_entity(indirect));
     source.is_some_and(is_mob) && !level.mob_griefing()
 }

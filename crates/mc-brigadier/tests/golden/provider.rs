@@ -46,14 +46,18 @@ impl BuiltInExceptionProvider for Translating {
     fn dispatcher_parse_exception(&self) -> &DynamicCommandExceptionType<String> {
         // Not delegated on purpose: proves custom types plug in.
         static T: std::sync::LazyLock<DynamicCommandExceptionType<String>> =
-            std::sync::LazyLock::new(|| DynamicCommandExceptionType::new(|m| tr("command.exception", vec![m])));
+            std::sync::LazyLock::new(|| {
+                DynamicCommandExceptionType::new(|m| tr("command.exception", vec![m]))
+            });
         &T
     }
 }
 
 #[test]
 fn replaced_provider_is_used_and_message_is_downcastable() {
-    CommandSyntaxException::set_built_in_exceptions(Arc::new(Translating(BuiltInExceptions::new())));
+    CommandSyntaxException::set_built_in_exceptions(Arc::new(
+        Translating(BuiltInExceptions::new()),
+    ));
     let e = StringReader::new("x").read_int().unwrap_err();
     assert_eq!(e.get_message(), "Expected integer at position 0: <--[HERE]");
 
@@ -67,6 +71,11 @@ fn replaced_provider_is_used_and_message_is_downcastable() {
     d.register(literal("a").then(argument("b", Boom)));
     let e = d.execute("a b", ()).unwrap_err();
     let raw = e.get_raw_message();
-    let t = raw.downcast_ref::<Translatable>().expect("custom message type survives");
-    assert_eq!((t.0, t.1.clone()), ("command.exception", vec!["bad".to_owned()]));
+    let t = raw
+        .downcast_ref::<Translatable>()
+        .expect("custom message type survives");
+    assert_eq!(
+        (t.0, t.1.clone()),
+        ("command.exception", vec!["bad".to_owned()])
+    );
 }

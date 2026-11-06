@@ -1,17 +1,17 @@
 //! `HugeRedMushroomFeature`.
 
 use super::abstract_huge_mushroom_feature::{self, AbstractHugeMushroomFeature};
-use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature};
+use mc_core::pos::BlockPos;
+use mc_core::random::RandomSource;
+use mc_data::props;
 use mc_game_core::world::level::levelgen::blockpredicates::{self, BlockPredicate};
 use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry, parse_int};
 use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature};
 use mc_game_core::world::level::levelgen::holder::Holder;
 use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_game_core::world::level::levelgen::stateproviders::BlockStateProvider;
 use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
-use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
-use mc_data::props;
 use std::sync::Arc;
 
 pub struct HugeRedMushroomFeature {
@@ -33,7 +33,10 @@ impl HugeRedMushroomFeature {
 }
 
 #[linkme::distributed_slice(FEATURE_TYPES)]
-static HUGE_RED_MUSHROOM: TypeEntry<dyn Feature> = TypeEntry { name: "huge_red_mushroom", decode: HugeRedMushroomFeature::decode };
+static HUGE_RED_MUSHROOM: TypeEntry<dyn Feature> = TypeEntry {
+    name: "huge_red_mushroom",
+    decode: HugeRedMushroomFeature::decode,
+};
 
 impl AbstractHugeMushroomFeature for HugeRedMushroomFeature {
     fn cap_provider(&self) -> &Holder<dyn BlockStateProvider> {
@@ -52,9 +55,19 @@ impl AbstractHugeMushroomFeature for HugeRedMushroomFeature {
         &*self.can_place_on
     }
 
-    fn make_cap(&self, level: &mut dyn WorldGenLevel, random: &mut dyn RandomSource, origin: BlockPos, tree_height: i32) {
+    fn make_cap(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        random: &mut dyn RandomSource,
+        origin: BlockPos,
+        tree_height: i32,
+    ) {
         for dy in tree_height - 3..=tree_height {
-            let radius = if dy < tree_height { self.foliage_radius } else { self.foliage_radius - 1 };
+            let radius = if dy < tree_height {
+                self.foliage_radius
+            } else {
+                self.foliage_radius - 1
+            };
             let center = self.foliage_radius - 2;
 
             for dx in -radius..=radius {
@@ -67,7 +80,8 @@ impl AbstractHugeMushroomFeature for HugeRedMushroomFeature {
                     let z_edge = min_z || max_z;
                     if dy >= tree_height || x_edge != z_edge {
                         let block_pos = origin.offset(dx, dy, dz);
-                        let mut state = self.cap_provider.value().get_state(&*level, random, origin);
+                        let mut state =
+                            self.cap_provider.value().get_state(&*level, random, origin);
                         if state.has_property(props::WEST)
                             && state.has_property(props::EAST)
                             && state.has_property(props::NORTH)
@@ -88,7 +102,13 @@ impl AbstractHugeMushroomFeature for HugeRedMushroomFeature {
         }
     }
 
-    fn get_tree_radius_for_height(&self, _trunk_height: i32, tree_height: i32, leaf_radius: i32, yo: i32) -> i32 {
+    fn get_tree_radius_for_height(
+        &self,
+        _trunk_height: i32,
+        tree_height: i32,
+        leaf_radius: i32,
+        yo: i32,
+    ) -> i32 {
         let mut radius = 0;
         if yo < tree_height && yo >= tree_height - 3 {
             radius = leaf_radius;
@@ -104,7 +124,13 @@ impl Feature for HugeRedMushroomFeature {
         Some(self.foliage_radius)
     }
 
-    fn place(&self, level: &mut dyn WorldGenLevel, _generator: &GenEnv, random: &mut dyn RandomSource, origin: BlockPos) -> bool {
+    fn place(
+        &self,
+        level: &mut dyn WorldGenLevel,
+        _generator: &GenEnv,
+        random: &mut dyn RandomSource,
+        origin: BlockPos,
+    ) -> bool {
         abstract_huge_mushroom_feature::place(self, level, random, origin)
     }
 }

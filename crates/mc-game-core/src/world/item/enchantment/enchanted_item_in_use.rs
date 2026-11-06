@@ -26,12 +26,33 @@ pub struct EnchantedItemInUse {
 
 impl EnchantedItemInUse {
     /// `new EnchantedItemInUse(itemStack, inSlot, owner)`: breaking notifies the owner.
-    pub fn new(item_stack: ItemStack, in_slot: Option<EquipmentSlot>, owner: EntityId) -> EnchantedItemInUse {
-        EnchantedItemInUse { item_stack, in_slot, owner: Some(owner), on_break: OnBreak::OwnerEquipped, modified: false }
+    pub fn new(
+        item_stack: ItemStack,
+        in_slot: Option<EquipmentSlot>,
+        owner: EntityId,
+    ) -> EnchantedItemInUse {
+        EnchantedItemInUse {
+            item_stack,
+            in_slot,
+            owner: Some(owner),
+            on_break: OnBreak::OwnerEquipped,
+            modified: false,
+        }
     }
 
     /// `new EnchantedItemInUse(itemStack, inSlot, owner, onBreak)`.
-    pub fn with_on_break(item_stack: ItemStack, in_slot: Option<EquipmentSlot>, owner: Option<EntityId>, on_break: OnBreak) -> EnchantedItemInUse {
-        EnchantedItemInUse { item_stack, in_slot, owner, on_break, modified: false }
+    pub fn with_on_break(
+        item_stack: ItemStack,
+        in_slot: Option<EquipmentSlot>,
+        owner: Option<EntityId>,
+        on_break: OnBreak,
+    ) -> EnchantedItemInUse {
+        EnchantedItemInUse {
+            item_stack,
+            in_slot,
+            owner,
+            on_break,
+            modified: false,
+        }
     }
 }

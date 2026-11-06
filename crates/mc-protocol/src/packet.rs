@@ -65,13 +65,20 @@ impl PacketEncodeError {
     /// `Throwable.toString()` of the exception that reaches `Connection.exceptionCaught`: the
     /// `EncoderException("Failed to encode packet '<type>'", cause)` wrapper of `IdDispatchCodec.encode`.
     pub fn exception_text(&self) -> String {
-        format!("io.netty.handler.codec.EncoderException: Failed to encode packet '{}'", self.packet_type)
+        format!(
+            "io.netty.handler.codec.EncoderException: Failed to encode packet '{}'",
+            self.packet_type
+        )
     }
 }
 
 impl std::fmt::Display for PacketEncodeError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "Failed to encode packet '{}': {}", self.packet_type, self.cause)
+        write!(
+            f,
+            "Failed to encode packet '{}': {}",
+            self.packet_type, self.cause
+        )
     }
 }
 
@@ -83,7 +90,11 @@ pub fn encode_packet<P: Packet>(packet: &P) -> Result<Vec<u8>, PacketEncodeError
     crate::codec::write_varint(&mut buf, P::ID);
     match packet.encode(&mut buf) {
         Ok(()) => Ok(buf),
-        Err(cause) => Err(PacketEncodeError { packet_type: format!("{}/{}", P::FLOW.id(), P::NAME), skippable: P::SKIPPABLE, cause }),
+        Err(cause) => Err(PacketEncodeError {
+            packet_type: format!("{}/{}", P::FLOW.id(), P::NAME),
+            skippable: P::SKIPPABLE,
+            cause,
+        }),
     }
 }
 
@@ -108,7 +119,10 @@ pub fn packet_names(state: ConnectionState, flow: PacketFlow) -> &'static [(i32,
 
 /// Resource name of packet `id`, if any.
 pub fn packet_name(state: ConnectionState, flow: PacketFlow, id: i32) -> Option<&'static str> {
-    packet_names(state, flow).iter().find(|(i, _)| *i == id).map(|(_, n)| *n)
+    packet_names(state, flow)
+        .iter()
+        .find(|(i, _)| *i == id)
+        .map(|(_, n)| *n)
 }
 
 /// Declares an enum with one variant per packet of a `(state, flow)` plus id-dispatched
