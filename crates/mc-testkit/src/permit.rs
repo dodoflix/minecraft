@@ -50,3 +50,15 @@ pub(crate) fn acquire() -> Arc<Permit> {
     HELD.with(|h| *h.borrow_mut() = Arc::downgrade(&permit));
     permit
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn a_test_shares_its_permit_between_its_servers() {
+        let first = acquire();
+        let second = acquire();
+        assert!(Arc::ptr_eq(&first, &second));
+    }
+}
