@@ -94,14 +94,14 @@ public class PredicateProviderOracle {
     }
 
     /** {@code region.getLevel().getChunkSource().getGenerator()} (WorldGenerationContext.of) over the shared overworld generator. */
-    static void giveLevel(WorldGenRegion region) throws Exception {
+    static void giveLevel(FeatureOracleBase.Region region) throws Exception {
         ServerLevel level = (ServerLevel) unsafe.allocateInstance(ServerLevel.class);
         ServerChunkCache cache = (ServerChunkCache) unsafe.allocateInstance(ServerChunkCache.class);
         ChunkMap map = (ChunkMap) unsafe.allocateInstance(ChunkMap.class);
         set(map, ChunkMap.class, "worldGenContext", new WorldGenContext(null, FeatureOracleBase.generator(), null, null, null, null));
         set(cache, ServerChunkCache.class, "chunkMap", map);
         set(level, ServerLevel.class, "chunkSource", cache);
-        set(region, WorldGenRegion.class, "level", level);
+        region.serverLevel = level;
     }
 
     static String oneLine(String s) {

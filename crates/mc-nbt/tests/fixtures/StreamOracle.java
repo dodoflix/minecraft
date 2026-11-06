@@ -14,7 +14,7 @@ import java.util.*;
  * Inputs: a deterministic selection of the "O" rows of snbt_golden.tsv (named hex; non-compound rows get an empty name),
  * truncations of some of them, and hand-made cases (SNBT-built tags, malformed bytes).
  * Usage: scripts/vanilla-java.sh -o crates/mc-nbt/tests/fixtures/stream_golden.tsv crates/mc-nbt/tests/fixtures/StreamOracle.java crates/mc-nbt/tests/fixtures/stream_golden.tsv crates/mc-nbt/tests/fixtures/snbt_golden.tsv.gz
- * Output: crates/mc-nbt/tests/fixtures/stream_golden.tsv (reads snbt_golden.tsv: regenerate that first)
+ * Output: crates/mc-nbt/tests/fixtures/stream_golden.tsv (reads snbt_golden.tsv.gz: regenerate that first)
  */
 public class StreamOracle {
     static final long QUOTA = 104857600L;

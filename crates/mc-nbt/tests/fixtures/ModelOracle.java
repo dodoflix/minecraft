@@ -10,7 +10,7 @@ import java.util.*;
  *   "Z\t<hex any-tag bytes>\t<sizeInBytes>"                                              Tag.sizeInBytes over the snbt corpus
  *   "C\t<expected snbt>\t<actual snbt>\t<partial 0/1>\t<result>"                          NbtUtils.compareNbt
  * Usage: scripts/vanilla-java.sh -o crates/mc-nbt/tests/fixtures/model_golden.tsv crates/mc-nbt/tests/fixtures/ModelOracle.java crates/mc-nbt/tests/fixtures/model_golden.tsv crates/mc-nbt/tests/fixtures/snbt_golden.tsv.gz
- * Output: crates/mc-nbt/tests/fixtures/model_golden.tsv (reads snbt_golden.tsv: regenerate that first)
+ * Output: crates/mc-nbt/tests/fixtures/model_golden.tsv (reads snbt_golden.tsv.gz: regenerate that first)
  */
 public class ModelOracle {
     static byte[] unhex(String h) {
