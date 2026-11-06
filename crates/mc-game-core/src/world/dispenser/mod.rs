@@ -194,6 +194,7 @@ pub fn get_dispense_method(
 }
 
 /// `DispenserBlock.getDefaultDispenseMethod(itemStack)`.
+/// Not implemented: the equipment, sulfur cube and spawn egg behaviors vanilla picks here; every stack drops as an item.
 fn get_default_dispense_method(_stack: &ItemStack) -> &'static dyn DispenseItemBehavior {
     default_behavior()
 }

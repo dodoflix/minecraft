@@ -3434,6 +3434,8 @@ pub trait Entity: Any {
         None
     }
     /// `ItemSteerable.boost()` (`Pig`, `Strider`: the carrot-on-a-stick boost).
+    /// Not implemented: nothing calls it, because `FoodOnAStickItem` (carrot on a stick, warped fungus on a stick) has no
+    /// item behaviour, so a ridden pig or strider can be steered but never boosted.
     fn boost(&mut self) -> bool {
         false
     }

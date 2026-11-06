@@ -102,7 +102,7 @@ Reviewers check:
 - Tests are at the right tier and golden values come from the oracle, not guesses.
 - No silencers: `fn _x`, `let _ = ident;`, `let _ = (a, b);`, `#[allow(dead_code)]` on production items, or blanket allows without `reason`.
 - Every file is in the module tree.
-- No stub or no-op hook without a caller. A skipped vanilla behaviour is documented in the code and listed in the README status.
+- No stub or no-op hook without a caller. A skipped vanilla behaviour has a `Not implemented:` comment at the site that skips it.
 - Hook installers and traits have both a caller and an implementor.
 - One definition per Java-compat primitive (`String.hashCode`, `floor_div`, ...), in `mc-core`.
 - Comments explain why. They never narrate history or paste Java statements.

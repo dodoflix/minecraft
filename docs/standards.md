@@ -195,7 +195,7 @@ Generators (scripts that write fixtures or goldens):
 - `TODO`, `FIXME` and similar marker comments carry an issue number (`TODO(#123): ...`). Enforced: review.
 - `shortcut: <limit>` marks a deliberate, known limit: a case where the Rust differs from vanilla (or from the obvious
   implementation) and is not modelled, with what differs and when it would matter or be worth upgrading. It is for
-  behaviour that vanilla play does not reach or that is listed in the README gaps; unfinished work uses `TODO(#n)` instead.
+  behaviour that vanilla play does not reach or that has a `Not implemented:` comment; unfinished work uses `TODO(#n)` instead.
   `git grep 'shortcut:'` lists them. Enforced: review.
 - Prose does not hard-code exact figures that drift (number of crates, tests, files or lines, measured durations).
   Approximate size hints for a prerequisite (disk, memory) are fine. Enforced: review.
@@ -204,9 +204,10 @@ Generators (scripts that write fixtures or goldens):
   tiers and fixtures), `SECURITY.md` (vulnerability reporting), `tests/e2e/README.md` (end-to-end harness). Do not
   add a second document for a purpose that has one.
 - Docs describe what is, not plans. Open work is tracked as GitHub issues.
-- A public item that skips vanilla behaviour (a stub that ignores its arguments and returns a default) documents what it
-  skips. A gap that a player, a vanilla client, a command user or a data pack author can observe is also listed in the
-  README status section; the comment at the item is the authority for smaller internal gaps. Enforced: review.
+- Skipped vanilla behaviour is recorded where it is skipped: every stub, hook or class that omits vanilla behaviour
+  carries a `Not implemented: <what vanilla does and what happens instead>` doc comment at that site. These comments
+  are the authoritative record. The README "Known gaps" section only gives an overview by category and links to the
+  `parity` issue that tracks each category; it does not list individual behaviours. Enforced: review.
 - A hook installer or trait with no caller or no implementor is deleted, or wired in the same change. Enforced: review.
 - Doc links resolve: `RUSTDOCFLAGS="-D warnings" cargo doc --no-deps`. Enforced: the CI `doc` job and `scripts/check.sh`.
 

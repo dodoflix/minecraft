@@ -1,5 +1,8 @@
 //! `CarvedPumpkinBlock.clearPatternBlocks` / `updatePatternBlocks` (also used by `WitherSkullBlock.checkSpawn`) and the
 //! entity creation shared by the golem/wither summoning.
+//!
+//! Not implemented: `CarvedPumpkinBlock.onPlace` (`trySpawnGolem`) is not ported, so a carved pumpkin or jack o'lantern
+//! never builds a snow or iron golem; only the wither pattern uses these helpers.
 
 use super::pattern::BlockPatternMatch;
 use crate::server::level::ServerLevel;

@@ -30,81 +30,21 @@ Gameplay is split over `mc-game-core` and the `mc-game-*` area crates, re-export
 
 ## Known gaps
 
-Vanilla behaviour that a player, a client, a command user or a data pack author can observe and that is skipped.
-Each gap is also documented at the code that skips it; smaller internal gaps are only documented there.
+Skipped vanilla behaviour is recorded where it is skipped, in a `Not implemented:` comment in the code
+(`git grep 'Not implemented:'`). That is the authoritative list. This section only gives an overview by category; each
+bullet links to the `parity` issue that tracks the category, and known differences from vanilla are tracked in the other
+[`parity` issues](https://github.com/dodoflix/minecraft/labels/parity).
 
-### Entities that do not exist
-
-These entity types have no implementation: they cannot be spawned, summoned or loaded.
-
-- Illagers and raiders: pillager, vindicator, evoker, illusioner, ravager and witch. Raids exist (tracking, waves,
-  boss bar) but spawn no raiders.
-- Bosses: wither, ender dragon and end crystal.
-- Animals and creatures: allay, armadillo, bee (hives cannot release bees), camel and camel husk, goat, happy ghast,
-  nautilus and zombie nautilus, sniffer, copper golem, and the wandering trader.
-- All minecarts: minecart, chest, furnace, hopper, TNT, command block and spawner minecart.
-- Poplar boat and poplar chest boat.
-- Display entities (block, item, text), marker, interaction and leash knot.
-- Projectiles: thrown egg, ender pearl, eye of ender, splash and lingering potion, fishing bobber.
-
-### Mobs and spawning
-
-- Skeletons, strays and bogged never shoot: `RangedBowAttackGoal` exists but is not wired in, and a skeleton holding a
-  bow has no attack goal.
-- Zombies and zombified piglins do not use spears: `SpearUseGoal` exists but is never constructed.
-- Zombified piglins do not reset their anger target: `ResetUniversalAngerTargetGoal` is never added.
-- Zombie villagers cannot be cured (the timer starts and never finishes), and zombies do not turn villagers into
-  zombie villagers.
-- Mobs created by block spawners skip the `Mob` hooks (`finalizeSpawn`, equipment, spawn rules).
-- Piglins do not get angry when a player opens a chest or breaks gold.
-- Dolphins cannot find treasure.
-- Mobs cannot be tied to a lead knot, and boats cannot be leashed.
-- Lightning traps spawn no skeleton horse.
-- The patrol, cat, village siege and wandering trader spawners do not exist; only the phantom spawner runs.
-- The Bad Omen and Raid Omen effects do not start a raid, and the Oozing and Infested effects spawn no slimes or
-  silverfish.
-
-### Items
-
-- The brush does nothing.
-- These items do nothing when used: ender pearl, eye of ender, egg, fishing rod, wind charge, flint and steel, fire
-  charge, minecart items, end crystal and lead on a fence.
-- Dyes do not dye sheep or signs, ink and glow ink sacs do not ink signs, and honeycomb does not wax signs.
-- Shears do not carve a pumpkin.
-- A spear lunge damages nobody.
-- Scaffolding placement has no stability distance.
-
-### Blocks and menus
-
-- No block opens a menu for the crafting table, furnaces (furnace, blast furnace, smoker), stonecutter, loom,
-  cartography table, smithing table, crafter, enchanting table, anvil or grindstone. The anvil, grindstone and
-  enchantment menus exist but nothing opens them; the other menus do not exist.
-- Furnaces, campfires and the crafter have no block entity, so campfires cook nothing.
-- The 2x2 crafting grid of the player inventory never produces a result, and the recipe book cannot place a recipe.
-- Shelves have no block entity, item storage, powered state, side-chain connection or comparator signal.
-- The copper golem statue has no block entity, pose change or comparator signal.
-- Sign click commands are not run.
-- Statistics are not counted for tuning a note block, planting a flower pot, dropping an item or using a map.
-
-### Commands, advancements and loot
-
-- No advancement data is loaded: the `advancements` selector option never matches, `/advancement` grants and revokes
-  nothing, and advancement rewards (recipes, functions) are not given.
-- Several advancement criteria are never fired: opening a loot container, killing near a sculk catalyst, summoning a
-  wither and avoiding a vibration.
-- Command number providers (`/data`, `/execute store` computing a provider) and the `predicate` selector option
-  cannot be evaluated, because loot contexts cannot be built.
-- The `exploration_map` loot function (explorer map trades and chests) returns its map untouched: no structure search
-  and no map data.
-- `/data` never produces `SelectedItem`, and `/teleport` does not stop a mob's navigation.
-
-### Server
-
-- World data is not upgraded: no data fix of `DataFixers.addFixers` is ported, and there is no per-version fixer
-  stepping or file fixer, so old worlds are not upgraded.
-- Server links are not sent, and text filtering uses the dummy filter (no moderation endpoint).
-- The bonus chest is not generated.
-- A spectator cannot use a portal teleport, and a spectator that teleports to a target does not leave its bed.
+- **Entity types without behaviour:** wither, ender dragon, illagers, minecarts, display entities, projectiles such as ender pearls and potions, and several animals. They can be summoned and loaded as inert placeholder entities that keep their NBT, but they have no AI, physics, interaction or drops. ([#13](https://github.com/dodoflix/minecraft/issues/13))
+- **Mob AI and spawning:** skeletons never shoot, zombies do not use spears or cure villagers, block spawners skip the mob hooks, and leads, dolphin treasure and piglin anger are missing. ([#14](https://github.com/dodoflix/minecraft/issues/14))
+- **Items:** several items do nothing when used (ender pearl, egg, fishing rod, flint and steel, minecarts, brush, dyes on signs, carrot on a stick boost, and more). ([#15](https://github.com/dodoflix/minecraft/issues/15))
+- **Dispensers:** only five dispense behaviours exist; every other item is dropped. ([#16](https://github.com/dodoflix/minecraft/issues/16))
+- **Workstations and menus:** most crafting and workstation blocks open no menu, furnaces, campfires and the crafter have no block entity, and the recipe book cannot place recipes. ([#17](https://github.com/dodoflix/minecraft/issues/17))
+- **Redstone and blocks:** carved pumpkins build no golems, and shelves, the copper golem statue, sign commands and some statistics are incomplete. ([#18](https://github.com/dodoflix/minecraft/issues/18))
+- **Commands, advancements and loot:** advancement data is loaded and tracked, but `/advancement` and the `advancements` selector do not reach it; loot contexts cannot be built by the commands, and some criteria are never fired. ([#22](https://github.com/dodoflix/minecraft/issues/22))
+- **Raids and custom spawners:** raids spawn no raiders, omen effects start no raid, and only the phantom spawner runs. ([#19](https://github.com/dodoflix/minecraft/issues/19))
+- **World upgrade and data fixers:** no data fix is ported, so old worlds are not upgraded. ([#20](https://github.com/dodoflix/minecraft/issues/20))
+- **Server features:** server links, a moderation text filter, the bonus chest and some spectator behaviour are missing. ([#21](https://github.com/dodoflix/minecraft/issues/21))
 
 ## Prerequisites
 
