@@ -12,7 +12,6 @@ fn powered_and_activator_rail_propagation() {
 }
 
 #[test]
-#[ignore = "until the block oracle replay supports spawn/spawn_item/kill (minecart entities)"]
 fn detector_rail_minecart_detection() {
     check("blk_rails_detector");
 }

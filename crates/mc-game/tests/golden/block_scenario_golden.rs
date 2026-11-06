@@ -15,13 +15,11 @@ fn block_entity_nbt_merge_round_trip() {
 }
 
 #[test]
-#[ignore = "until fluids are ported: WaterFluid.getTickDelay (waterlogged shape updates schedule water ticks)"]
 fn waterlogged_stairs_schedule_water_ticks() {
     check("blk_harness_waterlog");
 }
 
 #[test]
-#[ignore = "until RedStoneWireBlock and RedstoneLampBlock are ported"]
 fn redstone_block_dust_lamp_15_ticks() {
     check("blk_harness_redstone");
 }
@@ -39,7 +37,7 @@ fn player_item_entity_dig_and_events() {
 }
 
 #[test]
-#[ignore = "explosion drops: Rust merges the dirt items into dirt*16 where vanilla has dirt*11 (ServerExplosion drop stacking / item merge order)"]
+#[ignore = "deviation: explosion drops differ in stack size and position (#4)"]
 fn explosion_destroys_blocks_with_level_random() {
     check("blk_harness_explode");
 }

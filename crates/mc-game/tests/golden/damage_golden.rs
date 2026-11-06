@@ -1036,31 +1036,31 @@ fn enchantment_protections() {
 }
 
 #[test]
-#[ignore = "player_combat_kill message of the shield scenario differs from vanilla (S dies from the 30 damage hit): see damage_golden shield_blocking diff"]
+#[ignore = "deviation: the item behaviour table panics on the poplar boat items (#1)"]
 fn shield_blocking() {
     check("damage_shield");
 }
 
 #[test]
-#[ignore = "knockback direction of mob_attack at a NoAI zombie depends on the entity seed sequence (harness reseed added, unverified) and D3 player_combat_kill message differs"]
+#[ignore = "deviation: hurt_animation yaw differs by one bit (#2)"]
 fn difficulty_scaling() {
     check("damage_difficulty");
 }
 
 #[test]
-#[ignore = "stand-in Mob must not tick physics (NoAI) - fixed in the harness, awaiting a verified run"]
+#[ignore = "deviation: the item behaviour table panics on the poplar boat items (#1)"]
 fn zombie_hits_player() {
     check("hurt_basic");
 }
 
 #[test]
-#[ignore = "death drop/orb motion needs the oracle seed sequence (harness reseed added) and respawn position; awaiting a verified run"]
+#[ignore = "deviation: the item behaviour table panics on the poplar boat items (#1)"]
 fn player_death_drops_xp_totem_and_respawn() {
     check("death_basic");
 }
 
 #[test]
-#[ignore = "respawn permission-level entity event added to the harness; awaiting a verified run"]
+#[ignore = "deviation: the item behaviour table panics on the poplar boat items (#1)"]
 fn death_messages_for_every_damage_type() {
     check("death_messages");
 }
@@ -1071,7 +1071,6 @@ fn drowning_and_freezing() {
 }
 
 #[test]
-#[ignore = "initial onGround of a mid-air player derived from collision below (fixed in harness); awaiting a verified run"]
 fn starvation_void_and_fall_by_difficulty() {
     check("damage_starve_void");
 }

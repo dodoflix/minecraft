@@ -1088,3 +1088,161 @@ args_case!(
         src
     ),
 );
+
+// Cases whose recorded vanilla behaviour is not matched yet carry an `ignore` with the issue.
+use mc_game::commands::arguments as a;
+
+macro_rules! case {
+    ($(#[$attr:meta])* $test:ident, $name:literal, $make:expr, $render:expr) => {
+        #[test]
+        $(#[$attr])*
+        fn $test() {
+            args_common::replay(
+                $name,
+                include_str!(concat!("../../fixtures/args/", $name, "_golden.txt")),
+                $make,
+                $render,
+            );
+        }
+    };
+}
+
+/// `ResourceOrIdArgument` over one registry: every case shares the render.
+macro_rules! resource_or_id_case {
+    ($(#[$attr:meta])* $test:ident, $name:literal, $make:expr) => {
+        case!(
+            $(#[$attr])*
+            $test,
+            $name,
+            $make,
+            |v, _| args_common::render_resource_or_id(v.downcast_ref::<a::resource_arguments::ResourceOrId>().expect("resource or id"))
+        );
+    };
+}
+
+case!(
+    #[ignore = "deviation: codec error text of the component argument differs (#10)"]
+    component_matches_vanilla,
+    "component",
+    |_ctx| Arc::new(a::ComponentArgument::text_component()),
+    |v, _src| args_common::canon_json(
+        &v.downcast_ref::<mc_text::Component>()
+            .expect("component")
+            .to_json()
+            .expect("json")
+    )
+);
+
+case!(
+    #[ignore = "deviation: codec error text of the item argument prints NBT values as JSON (#10)"]
+    item_matches_vanilla,
+    "item",
+    |ctx| Arc::new(a::item::item_argument::ItemArgument::item(ctx)),
+    |v, _src| {
+        let i = v
+            .downcast_ref::<a::item::item_input::ItemInput>()
+            .expect("item");
+        let patch = mc_dfu::encode_nbt(
+            &mc_protocol::components::DataComponentPatch::codec(),
+            &i.components,
+        )
+        .into_result()
+        .map_or("<encode failed>".to_owned(), |t| t.to_string());
+        format!("{}|{patch}", i.item.name())
+    }
+);
+
+case!(
+    #[ignore = "deviation: SNBT suggestions miss the word terminals (#9)"]
+    nbt_tag_matches_vanilla,
+    "nbt_tag",
+    |_ctx| Arc::new(a::NbtTagArgument::nbt_tag()),
+    |v, _src| v.downcast_ref::<mc_nbt::Tag>().expect("tag").to_string()
+);
+
+case!(
+    #[ignore = "deviation: slot source suggestions miss the slot ranges and registry elements (#9)"]
+    slot_source_matches_vanilla,
+    "slot_source",
+    |ctx| Arc::new(a::slot_arguments::SlotSourceArgument::slot_source(ctx)),
+    |v, _| {
+        let r = v
+            .downcast_ref::<a::slot_arguments::SlotSourceResult>()
+            .expect("slot source");
+        format!(
+            "{}|{}",
+            r.name().unwrap_or_else(|| "<unnamed>".to_owned()),
+            if matches!(r, a::slot_arguments::SlotSourceResult::Literal(_)) {
+                "literal"
+            } else {
+                "holder"
+            }
+        )
+    }
+);
+
+case!(
+    #[ignore = "deviation: codec error text of the style argument differs (#10)"]
+    style_matches_vanilla,
+    "style",
+    |_ctx| Arc::new(a::StyleArgument::style()),
+    |v, _src| args_common::canon_json(
+        &v.downcast_ref::<mc_text::Style>()
+            .expect("style")
+            .to_json()
+            .expect("json")
+    )
+);
+
+case!(
+    #[ignore = "permanent: vanilla's message contains a lone surrogate (UTF-16 split of an emoji), which a Rust String cannot hold"]
+    swizzle_matches_vanilla,
+    "swizzle",
+    |_| Arc::new(a::coordinates::swizzle_argument::SwizzleArgument::swizzle()),
+    |v, _| format!(
+        "[{}]",
+        v.downcast_ref::<std::collections::BTreeSet<mc_core::direction::Axis>>()
+            .expect("axes")
+            .iter()
+            .map(|a| format!("{a:?}").to_lowercase())
+            .collect::<Vec<_>>()
+            .join(", ")
+    )
+);
+
+resource_or_id_case!(
+    resource_or_id_dialog_matches_vanilla,
+    "resource_or_id_dialog",
+    |ctx| Arc::new(a::resource_arguments::DialogArgument::dialog(ctx))
+);
+resource_or_id_case!(
+    #[ignore = "deviation: inline feature definitions are read differently from vanilla (#11)"]
+    resource_or_id_feature_matches_vanilla,
+    "resource_or_id_feature",
+    |ctx| Arc::new(a::resource_arguments::FeatureArgument::feature(ctx))
+);
+resource_or_id_case!(
+    #[ignore = "deviation: inline float provider definitions are read differently from vanilla (#11)"]
+    resource_or_id_float_provider_matches_vanilla,
+    "resource_or_id_float_provider",
+    |ctx| Arc::new(a::resource_arguments::ContextFloatProviderArgument::float_provider(ctx))
+);
+resource_or_id_case!(
+    #[ignore = "deviation: inline int provider definitions are read differently from vanilla (#11)"]
+    resource_or_id_int_provider_matches_vanilla,
+    "resource_or_id_int_provider",
+    |ctx| Arc::new(a::resource_arguments::ContextIntProviderArgument::int_provider(ctx))
+);
+resource_or_id_case!(
+    #[ignore = "deviation: codec error text of the loot modifier argument differs (#10)"]
+    resource_or_id_loot_modifier_matches_vanilla,
+    "resource_or_id_loot_modifier",
+    |ctx| Arc::new(a::resource_arguments::LootModifierArgument::loot_modifier(
+        ctx
+    ))
+);
+resource_or_id_case!(
+    resource_or_id_loot_predicate_matches_vanilla,
+    "resource_or_id_loot_predicate",
+    |ctx| Arc::new(a::resource_arguments::LootPredicateArgument::loot_predicate(ctx))
+);

@@ -24,10 +24,10 @@ fn jump() {
     run_scenario_test_with("jump", &gaps());
 }
 
-/// Rust gap: from tick 68 (player at the water surface, eye y=-50.2 vs surface -50) vanilla keeps draining the air supply
+/// From tick 68 (player at the water surface, eye y=-50.2 vs surface -50) vanilla keeps draining the air supply
 /// while our `LivingEntity` starts refilling it (eye-in-fluid evaluation), which changes the whole trajectory afterwards.
 #[test]
-#[ignore = "known Rust gap: eyeInFluid/air supply at the water surface diverges from tick 68"]
+#[ignore = "deviation: air supply refills at the water surface where vanilla keeps draining (#6)"]
 fn swim() {
     run_scenario_test_with("swim", &gaps());
 }
@@ -77,10 +77,9 @@ fn plain_entities_and_notes_replay() {
     );
 }
 
-/// Example mob golden (the ten minute recipe in the harness header): needs the zombie, until then it only documents
-/// the three steps (scenario + fixture exist already, comparison fails on the missing mob fields).
+/// Example mob golden (the recipe in the harness header): a zombie chasing a player.
 #[test]
-#[ignore = "example: enable when ZOMBIE + the mob dump registrations exist"]
+#[ignore = "deviation: the scenario replay lacks the mob_drops rule and command feedback lines (#7)"]
 fn example_mob_golden_zombie_chase() {
     run_scenario_test("mob_zombie_chase");
 }
@@ -144,24 +143,23 @@ fn mob_command_arms_run() {
     );
 }
 
-/// Path goldens of the mobs (need the mob dump registrations of the mob spine, `SCENARIO_DUMP_EXTRA` order 10, and its
-/// `SCENARIO_FINALIZE_SPAWN` hook).
+/// Path goldens of the mobs.
 #[test]
-#[ignore = "enable when the mob dump registrations exist"]
+#[ignore = "deviation: a cow finds no walkable path across the river (#8)"]
 fn mob_path_ground() {
     run_scenario_test("mob_path_ground");
 }
 
 /// Piglin barter / admire / hostility toward a player without gold armor.
 #[test]
-#[ignore = "vanilla fixture generated, Rust replay not yet run/verified (piglin brain trace)"]
+#[ignore = "deviation: the item behaviour table panics on the poplar boat items (#1)"]
 fn mob_piglin_barter() {
     run_scenario_test("mob_piglin_barter");
 }
 
 /// Hoglin attack and throwTarget knockback against a player.
 #[test]
-#[ignore = "vanilla fixture generated, Rust replay not yet run/verified (hoglin attack trace)"]
+#[ignore = "deviation: the scenario replay lacks the mob_drops rule and command feedback lines (#7)"]
 fn mob_hoglin_vs_player() {
     run_scenario_test("mob_hoglin_vs_player");
 }
