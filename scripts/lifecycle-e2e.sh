@@ -5,7 +5,8 @@
 #   scripts/lifecycle-e2e.sh [--bin PATH_TO_mc-server] [--port N=25620] [--seconds N=20]
 #
 # Scratch: run/servers/lc-e2e (ours), run/servers/lc-e2e-vanilla (vanilla loading the resulting world).
-# Needs: java, python3, ref/, the e2e client prerequisites of scripts/real-client.sh, our mc-server binary, MC_ACCEPT_EULA=1.
+# Needs: java, python3, ref/, the e2e client prerequisites of scripts/real-client.sh, our mc-server binary
+# (default target/release/mc-server: cargo build --locked --release -p mc-server; MC_SERVER_BIN or --bin override), MC_ACCEPT_EULA=1.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 # shellcheck source=scripts/lib.sh
@@ -13,7 +14,7 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 help_flag "$@"
 need java python3 mkfifo setsid
 require_eula
-BIN="${MC_SERVER_BIN:-$ROOT/target/gamelifecycle/debug/mc-server}"
+BIN="${MC_SERVER_BIN:-$ROOT/target/release/mc-server}"
 PORT=25620 SECS=20
 while (($#)); do
   case "$1" in
@@ -23,7 +24,8 @@ while (($#)); do
     *) echo "unknown option $1" >&2; exit 2;;
   esac
 done
-BIN="$(realpath "$BIN")"
+BIN="$(realpath "$BIN" 2>/dev/null || echo "$BIN")"
+[[ -x "$BIN" ]] || die "mc-server binary not found: $BIN (build it: cargo build --locked --release -p mc-server)"
 D="$ROOT/run/servers/lc-e2e"
 fail() { echo "FAIL: $*" >&2; exit 1; }
 

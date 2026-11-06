@@ -13,7 +13,7 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 help_flag "$@"
 need python3 mkfifo
 BIN="${1:-$ROOT/target/debug/mc-server}"
-[ -x "$BIN" ] || die "$BIN not found (cargo build -p mc-server)"
+[ -x "$BIN" ] || die "$BIN not found (cargo build --locked -p mc-server)"
 fail=0
 while read -r seed x y z; do
   [[ -z "$seed" || "$seed" == \#* ]] && continue

@@ -7,7 +7,8 @@
 #
 # Output: diff of the logs (exit 0 iff identical after normalization, vanilla-only worker-thread noise ignored),
 # "vanilla loaded our world: ok" on success. Scratch dirs: run/servers/lc-ours, run/servers/lc-vanilla, run/servers/lc-reload.
-# Needs: java, ref/, our mc-server binary, MC_ACCEPT_EULA=1.
+# Needs: java, ref/, our mc-server binary (default target/release/mc-server: cargo build --locked --release -p mc-server; MC_SERVER_BIN or
+# --bin override), MC_ACCEPT_EULA=1.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 # shellcheck source=scripts/lib.sh
@@ -15,7 +16,7 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 help_flag "$@"
 need java mkfifo setsid
 require_eula
-BIN="${MC_SERVER_BIN:-$ROOT/target/gamelifecycle/debug/mc-server}"
+BIN="${MC_SERVER_BIN:-$ROOT/target/release/mc-server}"
 PORT=25590 SEED=12345
 while (($#)); do
   case "$1" in
@@ -26,7 +27,7 @@ while (($#)); do
   esac
 done
 BIN="$(realpath "$BIN" 2>/dev/null || echo "$BIN")"
-[[ -x "$BIN" ]] || { echo "mc-server binary not found: $BIN (build it: CARGO_TARGET_DIR=target/gamelifecycle cargo build -p mc-server)" >&2; exit 2; }
+[[ -x "$BIN" ]] || { echo "mc-server binary not found: $BIN (build it: cargo build --locked --release -p mc-server)" >&2; exit 2; }
 
 OURS="$ROOT/run/servers/lc-ours"
 rm -rf "$OURS"; mkdir -p "$OURS"

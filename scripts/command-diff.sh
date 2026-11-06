@@ -76,7 +76,7 @@ while (($#)); do
 done
 TARGET="${CARGO_TARGET_DIR:-$ROOT/target}"
 if ((BUILD)); then
-  (cd "$ROOT" && cargo build -q -p mc-server -p mc-testbot) >&2 || { echo "command-diff: build failed" >&2; exit 2; }
+  (cd "$ROOT" && cargo build --locked -q -p mc-server -p mc-testbot) >&2 || { echo "command-diff: build failed" >&2; exit 2; }
 fi
 [[ -n "$BIN" ]] || BIN="$TARGET/debug/mc-server"
 RUNNER="$TARGET/debug/mc-command-diff"

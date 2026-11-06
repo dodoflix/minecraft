@@ -7,7 +7,7 @@
 # Output (DIR default run/mob-e2e/NAME): vanilla.jsonl / ours.jsonl (packet logs), vanilla.obs / ours.obs (`observe` lines), diff.txt
 # (`mc-testbot diff vanilla.jsonl ours.jsonl`) and obs.diff (plain diff of the observation files). Exit 0 iff both diffs are empty
 # (with --sides vanilla only: just records the oracle). Needs: ref/server.jar, java, target/debug/{mc-testbot,mc-server}
-# (`cargo build -p mc-testbot -p mc-server`; MC_SERVER_BIN / MC_TESTBOT_BIN override). MC_ACCEPT_EULA=1 is required (both servers).
+# (`cargo build --locked -p mc-testbot -p mc-server`; MC_SERVER_BIN / MC_TESTBOT_BIN override). MC_ACCEPT_EULA=1 is required (both servers).
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 # shellcheck source=scripts/lib.sh
@@ -31,7 +31,7 @@ while (($#)); do
 done
 BOT="${MC_TESTBOT_BIN:-$ROOT/target/debug/mc-testbot}"
 SERVER="${MC_SERVER_BIN:-$ROOT/target/debug/mc-server}"
-[ -x "$BOT" ] || { echo "no mc-testbot binary: cargo build -p mc-testbot" >&2; exit 1; }
+[ -x "$BOT" ] || { echo "no mc-testbot binary: cargo build --locked -p mc-testbot" >&2; exit 1; }
 mkdir -p "$OUT"
 PORT=$((20000 + RANDOM % 20000))
 # same world for both sides: flat, normal difficulty, nothing spawns on its own, survival
@@ -52,7 +52,7 @@ run_vanilla() {
 }
 
 run_ours() {
-  [ -x "$SERVER" ] || { echo "no mc-server binary: cargo build -p mc-server" >&2; return 1; }
+  [ -x "$SERVER" ] || { echo "no mc-server binary: cargo build --locked -p mc-server" >&2; return 1; }
   local d; d="$(mktemp -d)"
   write_eula "$d"
   { printf 'online-mode=false\nserver-ip=127.0.0.1\nserver-port=%s\nlevel-seed=%s\nmax-tick-time=-1\nview-distance=4\nsimulation-distance=4\n' "$PORT" "$SEED"
