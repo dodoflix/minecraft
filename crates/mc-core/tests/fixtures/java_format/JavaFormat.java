@@ -11,8 +11,8 @@ import net.minecraft.world.phys.Vec3;
  */
 public class JavaFormat {
     static StringBuilder out = new StringBuilder();
-    static String hx(double d) { return String.format("%016x", Double.doubleToRawLongBits(d)); }
-    static String hf(float f) { return String.format("%08x", Float.floatToRawIntBits(f)); }
+    static String hx(double d) { return String.format(java.util.Locale.ROOT, "%016x", Double.doubleToRawLongBits(d)); }
+    static String hf(float f) { return String.format(java.util.Locale.ROOT, "%08x", Float.floatToRawIntBits(f)); }
     static void d(double v) { out.append("d ").append(hx(v)).append(' ').append(Double.toString(v)).append('\n'); }
     static void f(float v) { out.append("f ").append(hf(v)).append(' ').append(Float.toString(v)).append('\n'); }
 

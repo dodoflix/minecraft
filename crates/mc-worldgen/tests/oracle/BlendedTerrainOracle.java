@@ -133,7 +133,7 @@ public class BlendedTerrainOracle {
       return h;
    }
    static long fnv(long h, long word) { return fnv(fnv(h, (int)word), (int)(word >>> 32)); }
-   static String hex(long h) { return String.format("%016x", h); }
+   static String hex(long h) { return String.format(java.util.Locale.ROOT, "%016x", h); }
 
    static String sectionHashes(ChunkAccess chunk) {
       StringBuilder sb = new StringBuilder();

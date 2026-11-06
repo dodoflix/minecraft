@@ -48,7 +48,7 @@ public class RecipeBookGolden {
       net.minecraft.network.RegistryFriendlyByteBuf buf = new net.minecraft.network.RegistryFriendlyByteBuf(io.netty.buffer.Unpooled.buffer(), access);
       c.encode(buf, p);
       StringBuilder b = new StringBuilder();
-      while (buf.isReadable()) b.append(String.format("%02x", buf.readByte() & 0xff));
+      while (buf.isReadable()) b.append(String.format(java.util.Locale.ROOT, "%02x", buf.readByte() & 0xff));
       return b.toString();
    }
 
@@ -56,7 +56,7 @@ public class RecipeBookGolden {
       net.minecraft.network.FriendlyByteBuf buf = new net.minecraft.network.FriendlyByteBuf(io.netty.buffer.Unpooled.buffer());
       c.encode(buf, p);
       StringBuilder b = new StringBuilder();
-      while (buf.isReadable()) b.append(String.format("%02x", buf.readByte() & 0xff));
+      while (buf.isReadable()) b.append(String.format(java.util.Locale.ROOT, "%02x", buf.readByte() & 0xff));
       return b.toString();
    }
 
@@ -64,7 +64,7 @@ public class RecipeBookGolden {
       io.netty.buffer.ByteBuf buf = io.netty.buffer.Unpooled.buffer();
       c.encode(buf, p);
       StringBuilder b = new StringBuilder();
-      while (buf.isReadable()) b.append(String.format("%02x", buf.readByte() & 0xff));
+      while (buf.isReadable()) b.append(String.format(java.util.Locale.ROOT, "%02x", buf.readByte() & 0xff));
       return b.toString();
    }
 

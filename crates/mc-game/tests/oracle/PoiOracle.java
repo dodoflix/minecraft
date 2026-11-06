@@ -118,7 +118,7 @@ public class PoiOracle {
         ByteArrayOutputStream bo = new ByteArrayOutputStream();
         NbtIo.write(tag, new DataOutputStream(bo));
         StringBuilder sb = new StringBuilder();
-        for (byte b : bo.toByteArray()) sb.append(String.format("%02x", b));
+        for (byte b : bo.toByteArray()) sb.append(String.format(java.util.Locale.ROOT, "%02x", b));
         return sb.toString();
     }
 

@@ -27,7 +27,7 @@ public class StatusJsonGolden {
    static String hex(String s) {
       StringBuilder b = new StringBuilder();
       for (byte x : s.getBytes(StandardCharsets.UTF_8)) {
-         b.append(String.format("%02x", x));
+         b.append(String.format(java.util.Locale.ROOT, "%02x", x));
       }
       return b.toString();
    }

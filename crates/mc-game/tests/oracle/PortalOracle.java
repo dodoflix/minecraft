@@ -113,9 +113,9 @@ public final class PortalOracle {
       Files.createDirectories(pack.resolve("data/portal/worldgen/world_preset"));
       Files.writeString(pack.resolve("pack.mcmeta"), "{\"pack\":{\"description\":\"void\",\"min_format\":121,\"max_format\":121}}");
       Files.writeString(pack.resolve("data/portal/worldgen/world_preset/void.json"),
-         "{\"dimensions\":{\"minecraft:overworld\":{\"type\":\"minecraft:overworld\",\"generator\":" + flat.formatted("minecraft:plains")
-            + "},\"minecraft:the_nether\":{\"type\":\"minecraft:the_nether\",\"generator\":" + flat.formatted("minecraft:nether_wastes")
-            + "},\"minecraft:the_end\":{\"type\":\"minecraft:the_end\",\"generator\":" + flat.formatted("minecraft:the_end") + "}}}");
+         "{\"dimensions\":{\"minecraft:overworld\":{\"type\":\"minecraft:overworld\",\"generator\":" + String.format(java.util.Locale.ROOT, flat, "minecraft:plains")
+            + "},\"minecraft:the_nether\":{\"type\":\"minecraft:the_nether\",\"generator\":" + String.format(java.util.Locale.ROOT, flat, "minecraft:nether_wastes")
+            + "},\"minecraft:the_end\":{\"type\":\"minecraft:the_end\",\"generator\":" + String.format(java.util.Locale.ROOT, flat, "minecraft:the_end") + "}}}");
       Files.writeString(dir.resolve("server.properties"),
          "level-type=portal:void\nlevel-seed=4242\nonline-mode=false\nenforce-secure-profile=false\nspawn-protection=0\ndifficulty=normal\n"
             + "generate-structures=false\nview-distance=4\nsimulation-distance=4\nspawn-monsters=false\nspawn-animals=false\nspawn-npcs=false\n"

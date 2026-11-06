@@ -27,7 +27,7 @@ public class NbtText {
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
                 NbtIo.writeUnnamedTag(tag, new DataOutputStream(bos));
                 StringBuilder hex = new StringBuilder();
-                for (byte b : bos.toByteArray()) hex.append(String.format("%02x", b));
+                for (byte b : bos.toByteArray()) hex.append(String.format(java.util.Locale.ROOT, "%02x", b));
                 JsonObject rec = new JsonObject();
                 rec.addProperty("src", line);
                 rec.addProperty("nbt", hex.toString());

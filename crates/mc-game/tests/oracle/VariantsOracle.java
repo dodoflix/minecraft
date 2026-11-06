@@ -160,7 +160,7 @@ public final class VariantsOracle {
    static String sha1(String s) {
       try {
          StringBuilder sb = new StringBuilder();
-         for (byte b : MessageDigest.getInstance("SHA-1").digest(s.getBytes(StandardCharsets.UTF_8))) sb.append(String.format("%02x", b));
+         for (byte b : MessageDigest.getInstance("SHA-1").digest(s.getBytes(StandardCharsets.UTF_8))) sb.append(String.format(java.util.Locale.ROOT, "%02x", b));
          return sb.toString();
       } catch (java.security.NoSuchAlgorithmException e) {
          throw new IllegalStateException(e);

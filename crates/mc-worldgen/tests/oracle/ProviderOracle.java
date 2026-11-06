@@ -55,7 +55,7 @@ public class ProviderOracle {
    }
 
    static String bits(float f) {
-      return String.format("%08x", Float.floatToRawIntBits(f));
+      return String.format(java.util.Locale.ROOT, "%08x", Float.floatToRawIntBits(f));
    }
 
    interface Sampler {

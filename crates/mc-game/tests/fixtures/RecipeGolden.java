@@ -46,7 +46,7 @@ public class RecipeGolden {
       RegistryFriendlyByteBuf buf = new RegistryFriendlyByteBuf(Unpooled.buffer(), access);
       w.accept(buf);
       StringBuilder b = new StringBuilder();
-      while (buf.isReadable()) b.append(String.format("%02x", buf.readByte() & 0xff));
+      while (buf.isReadable()) b.append(String.format(java.util.Locale.ROOT, "%02x", buf.readByte() & 0xff));
       return b.toString();
    }
 
@@ -312,10 +312,10 @@ public class RecipeGolden {
          grid(S("{id:\"minecraft:firework_star\",count:1}"), S(dye));
          // repair item
          String pick = "{id:\"minecraft:iron_pickaxe\",count:1,components:{damage:%d%s}}";
-         grid(S(String.format(pick, 100, "")), S(String.format(pick, 50, "")));
-         grid(S(String.format(pick, 100, ",enchantments:{\"minecraft:vanishing_curse\":1,\"minecraft:efficiency\":3}")), S(String.format(pick, 200, ",enchantments:{\"minecraft:binding_curse\":1,\"minecraft:vanishing_curse\":1}")));
-         grid(S(String.format(pick, 100, "")), S("{id:\"minecraft:iron_axe\",count:1,components:{damage:5}}"));
-         grid(S(String.format(pick, 100, "")), S(String.format(pick, 50, "")), S(String.format(pick, 50, "")));
+         grid(S(String.format(java.util.Locale.ROOT, pick, 100, "")), S(String.format(java.util.Locale.ROOT, pick, 50, "")));
+         grid(S(String.format(java.util.Locale.ROOT, pick, 100, ",enchantments:{\"minecraft:vanishing_curse\":1,\"minecraft:efficiency\":3}")), S(String.format(java.util.Locale.ROOT, pick, 200, ",enchantments:{\"minecraft:binding_curse\":1,\"minecraft:vanishing_curse\":1}")));
+         grid(S(String.format(java.util.Locale.ROOT, pick, 100, "")), S("{id:\"minecraft:iron_axe\",count:1,components:{damage:5}}"));
+         grid(S(String.format(java.util.Locale.ROOT, pick, 100, "")), S(String.format(java.util.Locale.ROOT, pick, 50, "")), S(String.format(java.util.Locale.ROOT, pick, 50, "")));
          grid(S("{id:\"minecraft:diamond_chestplate\",count:1,components:{damage:0,enchantments:{\"minecraft:binding_curse\":1}}}"), S("{id:\"minecraft:diamond_chestplate\",count:1,components:{damage:1000}}"));
          grid(S("{id:\"minecraft:stick\",count:1}"), S("{id:\"minecraft:stick\",count:1}"));
          // armor dye / dyed colors

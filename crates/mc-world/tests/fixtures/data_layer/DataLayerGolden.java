@@ -7,7 +7,7 @@ import net.minecraft.world.level.chunk.DataLayer;
  * Output: crates/mc-world/tests/fixtures/data_layer/golden.txt
  */
 public class DataLayerGolden {
-    static String hex(byte[] b) { StringBuilder sb = new StringBuilder(); for (byte x : b) sb.append(String.format("%02x", x & 0xFF)); return sb.toString(); }
+    static String hex(byte[] b) { StringBuilder sb = new StringBuilder(); for (byte x : b) sb.append(String.format(java.util.Locale.ROOT, "%02x", x & 0xFF)); return sb.toString(); }
 
     static void state(PrintWriter out, DataLayer d) {
         out.println("STATE " + (d.isDefinitelyHomogenous() ? 1 : 0) + (d.isEmpty() ? 1 : 0) + (d.isDefinitelyFilledWith(0) ? 1 : 0)

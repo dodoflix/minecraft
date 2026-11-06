@@ -21,7 +21,7 @@ public class Golden {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         NbtIo.writeUnnamedTag(t, new DataOutputStream(bos));
         StringBuilder sb = new StringBuilder();
-        for (byte b : bos.toByteArray()) sb.append(String.format("%02x", b));
+        for (byte b : bos.toByteArray()) sb.append(String.format(java.util.Locale.ROOT, "%02x", b));
         return sb.toString();
     }
 

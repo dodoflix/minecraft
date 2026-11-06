@@ -11,7 +11,7 @@ public class IdentGolden {
       if (s == null) return "null";
       StringBuilder b = new StringBuilder();
       for (char c : s.toCharArray()) {
-         if (c < 0x20 || c > 0x7e || c == '\\') b.append(String.format("\\u%04x", (int) c));
+         if (c < 0x20 || c > 0x7e || c == '\\') b.append(String.format(java.util.Locale.ROOT, "\\u%04x", (int) c));
          else b.append(c);
       }
       return b.toString();

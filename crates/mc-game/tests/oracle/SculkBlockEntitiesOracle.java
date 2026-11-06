@@ -51,7 +51,7 @@ public class SculkBlockEntitiesOracle {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         NbtIo.write(tag, new DataOutputStream(bytes));
         StringBuilder sb = new StringBuilder();
-        for (byte b : bytes.toByteArray()) sb.append(String.format("%02x", b & 0xFF));
+        for (byte b : bytes.toByteArray()) sb.append(String.format(java.util.Locale.ROOT, "%02x", b & 0xFF));
         return sb.toString();
     }
 

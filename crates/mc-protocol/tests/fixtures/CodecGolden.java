@@ -48,7 +48,7 @@ public class CodecGolden {
             ByteBuf enc = Unpooled.buffer();
             Vec3.LP_STREAM_CODEC.encode(enc, new Vec3(lp[i][0], lp[i][1], lp[i][2]));
             Vec3 dec = Vec3.LP_STREAM_CODEC.decode(enc);
-            W.println("lpvec3_decoded/" + i + ":" + String.format("%016x%016x%016x", Double.doubleToLongBits(dec.x), Double.doubleToLongBits(dec.y), Double.doubleToLongBits(dec.z)));
+            W.println("lpvec3_decoded/" + i + ":" + String.format(java.util.Locale.ROOT, "%016x%016x%016x", Double.doubleToLongBits(dec.x), Double.doubleToLongBits(dec.y), Double.doubleToLongBits(dec.z)));
         }
         out("vec3/0", Vec3.STREAM_CODEC, new Vec3(1.5, -2.25, 1e300));
         out("vec3i/0", Vec3i.STREAM_CODEC, new Vec3i(1, -1, 300000));

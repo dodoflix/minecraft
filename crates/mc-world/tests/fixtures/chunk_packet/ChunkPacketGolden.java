@@ -20,7 +20,7 @@ import net.minecraft.world.level.levelgen.Heightmap;
  * Output: crates/mc-world/tests/fixtures/chunk_packet/golden.txt
  */
 public class ChunkPacketGolden {
-  static String hex(byte[] b) { StringBuilder s = new StringBuilder(); for (byte x : b) s.append(String.format("%02x", x)); return s.toString(); }
+  static String hex(byte[] b) { StringBuilder s = new StringBuilder(); for (byte x : b) s.append(String.format(java.util.Locale.ROOT, "%02x", x)); return s.toString(); }
 
   @SuppressWarnings({"unchecked", "rawtypes"})
   public static void main(String[] a) throws Exception {

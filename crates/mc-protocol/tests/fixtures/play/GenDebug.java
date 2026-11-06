@@ -116,7 +116,7 @@ public class GenDebug {
          List.of(), List.of(node(1, 1, 1, 0, 0, true, PathType.OPEN, 0)), set(target(5, 5, 5, 2.0F, 2.0F, false, PathType.FENCE, 2.0F))), Float.MAX_VALUE), 3);
 
       for (DebugEntityBlockIntersection x : DebugEntityBlockIntersection.values()) {
-         all("intersection_" + x.name().toLowerCase(), DebugSubscriptions.ENTITY_BLOCK_INTERSECTIONS, x, 1 + x.ordinal());
+         all("intersection_" + x.name().toLowerCase(java.util.Locale.ROOT), DebugSubscriptions.ENTITY_BLOCK_INTERSECTIONS, x, 1 + x.ordinal());
       }
 
       all("hive_beehive", DebugSubscriptions.BEE_HIVES, new DebugHiveInfo(Blocks.BEEHIVE, 3, 5, true), 1);
@@ -232,20 +232,20 @@ public class GenDebug {
          new ServerboundSetGameRulePacket.Entry(rk("block_drops"), "y".repeat(32767)))));
 
       for (TestBlockMode mode : TestBlockMode.values()) {
-         PlayHarness.sb("testblock_" + mode.name().toLowerCase() + "_empty", new ServerboundSetTestBlockPacket(bp(1, 2, 3), mode, ""));
-         PlayHarness.sb("testblock_" + mode.name().toLowerCase() + "_msg", new ServerboundSetTestBlockPacket(bp(-1, -2, -3), mode, "hello \uD83D\uDE00 \u00e9"));
+         PlayHarness.sb("testblock_" + mode.name().toLowerCase(java.util.Locale.ROOT) + "_empty", new ServerboundSetTestBlockPacket(bp(1, 2, 3), mode, ""));
+         PlayHarness.sb("testblock_" + mode.name().toLowerCase(java.util.Locale.ROOT) + "_msg", new ServerboundSetTestBlockPacket(bp(-1, -2, -3), mode, "hello \uD83D\uDE00 \u00e9"));
       }
       PlayHarness.sb("testblock_long", new ServerboundSetTestBlockPacket(bp(33554431, 2047, -33554432), TestBlockMode.ACCEPT, "z".repeat(32767)));
 
       for (ServerboundTestInstanceBlockActionPacket.Action a : ServerboundTestInstanceBlockActionPacket.Action.values()) {
-         PlayHarness.sb("testaction_" + a.name().toLowerCase(), new ServerboundTestInstanceBlockActionPacket(bp(4, 5, 6), a,
+         PlayHarness.sb("testaction_" + a.name().toLowerCase(java.util.Locale.ROOT), new ServerboundTestInstanceBlockActionPacket(bp(4, 5, 6), a,
             new TestInstanceBlockEntity.Data(Optional.empty(), new Vec3i(1, 1, 1), Rotation.NONE, false, TestInstanceBlockEntity.Status.CLEARED, Optional.empty())));
       }
       int r = 0;
       for (Rotation rot : Rotation.values()) {
          for (TestInstanceBlockEntity.Status st : TestInstanceBlockEntity.Status.values()) {
             boolean ignore = (r & 1) == 0;
-            PlayHarness.sb("testdata_" + rot.name().toLowerCase() + "_" + st.name().toLowerCase(), new ServerboundTestInstanceBlockActionPacket(bp(-r, r, r), ServerboundTestInstanceBlockActionPacket.Action.SET,
+            PlayHarness.sb("testdata_" + rot.name().toLowerCase(java.util.Locale.ROOT) + "_" + st.name().toLowerCase(java.util.Locale.ROOT), new ServerboundTestInstanceBlockActionPacket(bp(-r, r, r), ServerboundTestInstanceBlockActionPacket.Action.SET,
                new TestInstanceBlockEntity.Data(Optional.of(ResourceKey.create(Registries.TEST_INSTANCE, Identifier.fromNamespaceAndPath("mod", "tests/t" + r))), new Vec3i(r, -r, 300 * r), rot, ignore, st,
                   (r % 3 == 0) ? Optional.of(Component.literal("failed \uD83D\uDE00")) : (r % 3 == 1) ? Optional.of(styled()) : Optional.empty())));
             r++;

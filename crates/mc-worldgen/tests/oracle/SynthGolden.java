@@ -120,7 +120,7 @@ public class SynthGolden {
     }
 
     static void params(NormalNoise.Normalization norm, double baseAmp, int baseOctave, int octaveCount, double[] mods) {
-        StringBuilder sb = new StringBuilder("params " + d(baseAmp) + " " + baseOctave + " " + octaveCount + " " + norm.name().toLowerCase());
+        StringBuilder sb = new StringBuilder("params " + d(baseAmp) + " " + baseOctave + " " + octaveCount + " " + norm.name().toLowerCase(java.util.Locale.ROOT));
         for (double m : mods) sb.append(' ').append(d(m));
         meta(sb.toString());
     }

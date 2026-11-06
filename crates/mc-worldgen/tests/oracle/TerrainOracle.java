@@ -107,7 +107,7 @@ public class TerrainOracle {
    static final long FNV_INIT = 0xcbf29ce484222325L;
 
    static String hex(long h) {
-      return String.format("%016x", h);
+      return String.format(java.util.Locale.ROOT, "%016x", h);
    }
 
    static int stateId(BlockState state) {

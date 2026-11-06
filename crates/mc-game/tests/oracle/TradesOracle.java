@@ -175,14 +175,14 @@ public final class TradesOracle {
 
    static String hex(ByteBuf buf) {
       StringBuilder sb = new StringBuilder();
-      for (int i = buf.readerIndex(); i < buf.writerIndex(); i++) sb.append(String.format("%02x", buf.getByte(i)));
+      for (int i = buf.readerIndex(); i < buf.writerIndex(); i++) sb.append(String.format(java.util.Locale.ROOT, "%02x", buf.getByte(i)));
       return sb.toString();
    }
 
    static String sha1(String s) {
       try {
          StringBuilder sb = new StringBuilder();
-         for (byte b : MessageDigest.getInstance("SHA-1").digest(s.getBytes(StandardCharsets.UTF_8))) sb.append(String.format("%02x", b));
+         for (byte b : MessageDigest.getInstance("SHA-1").digest(s.getBytes(StandardCharsets.UTF_8))) sb.append(String.format(java.util.Locale.ROOT, "%02x", b));
          return sb.toString();
       } catch (java.security.NoSuchAlgorithmException e) {
          throw new IllegalStateException(e);

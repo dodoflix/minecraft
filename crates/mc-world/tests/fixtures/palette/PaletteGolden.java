@@ -18,7 +18,7 @@ import net.minecraft.world.level.chunk.*;
 public class PaletteGolden {
   static StringBuilder out = new StringBuilder();
 
-  static String hex(byte[] b) { StringBuilder s = new StringBuilder(); for (byte x : b) s.append(String.format("%02x", x)); return s.toString(); }
+  static String hex(byte[] b) { StringBuilder s = new StringBuilder(); for (byte x : b) s.append(String.format(java.util.Locale.ROOT, "%02x", x)); return s.toString(); }
 
   static <T> void check(PalettedContainer<T> c, Strategy<T> strategy, Codec<PalettedContainer<T>> codec, java.util.function.ToIntFunction<T> id) {
     out.append("CHECK\n");

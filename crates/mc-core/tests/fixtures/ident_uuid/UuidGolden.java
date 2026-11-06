@@ -10,7 +10,7 @@ public class UuidGolden {
    static String esc(String s) {
       StringBuilder b = new StringBuilder();
       for (char c : s.toCharArray()) {
-         if (c < 0x20 || c > 0x7e || c == '\\') b.append(String.format("\\u%04x", (int) c));
+         if (c < 0x20 || c > 0x7e || c == '\\') b.append(String.format(java.util.Locale.ROOT, "\\u%04x", (int) c));
          else b.append(c);
       }
       return b.toString();
@@ -28,7 +28,7 @@ public class UuidGolden {
          UUID u = UUIDUtil.createOfflinePlayerUUID(n);
          int[] arr = UUIDUtil.uuidToIntArray(u);
          StringBuilder bytes = new StringBuilder();
-         for (byte b : UUIDUtil.uuidToByteArray(u)) bytes.append(String.format("%02x", b));
+         for (byte b : UUIDUtil.uuidToByteArray(u)) bytes.append(String.format(java.util.Locale.ROOT, "%02x", b));
          out.append("offline\t").append(esc(n)).append('\t').append(u).append('\t').append(u.getMostSignificantBits()).append('\t').append(u.getLeastSignificantBits())
             .append('\t').append(Arrays.toString(arr).replace(" ", "")).append('\t').append(bytes).append('\t').append(UndashedUuid.toString(u))
             .append('\t').append(u.hashCode()).append('\t').append(u.version()).append('\n');

@@ -33,7 +33,7 @@ public class BeardifierOracle {
    }
 
    static String bits(float f) {
-      return String.format("%08x", Float.floatToRawIntBits(f));
+      return String.format(java.util.Locale.ROOT, "%08x", Float.floatToRawIntBits(f));
    }
 
    public static void main(String[] args) {
@@ -102,7 +102,7 @@ public class BeardifierOracle {
             b.sampleVolume(ctx, buf, vol);
             long h = 0xcbf29ce484222325L;
             for (int i = 0; i < vol.size(); i++) h = fnv(h, Float.floatToRawIntBits(buf.get(i)));
-            out.println("V " + c + " " + v[0] + " " + v[1] + " " + v[2] + " " + v[3] + " " + v[4] + " " + v[5] + " " + v[6] + " " + v[7] + " " + v[8] + " " + String.format("%016x", h));
+            out.println("V " + c + " " + v[0] + " " + v[1] + " " + v[2] + " " + v[3] + " " + v[4] + " " + v[5] + " " + v[6] + " " + v[7] + " " + v[8] + " " + String.format(java.util.Locale.ROOT, "%016x", h));
          }
       }
       Beardifier kernel = new Beardifier(List.of(), List.of(new JigsawJunction(0, 0, 0, 0, StructureTemplatePool.Projection.RIGID)), new BoundingBox(-30, -30, -30, 30, 30, 30));
@@ -111,7 +111,7 @@ public class BeardifierOracle {
          for (int x = -14; x <= 14; x++)
             for (int y = -14; y <= 14; y++)
                h = fnv(h, Float.floatToRawIntBits(kernel.sampleValue(SamplerContext.EMPTY_UNCACHED, x, y, z)));
-      out.println("KERNEL " + String.format("%016x", h));
+      out.println("KERNEL " + String.format(java.util.Locale.ROOT, "%016x", h));
       out.flush();
    }
 }

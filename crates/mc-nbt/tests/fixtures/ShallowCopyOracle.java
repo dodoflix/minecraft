@@ -18,7 +18,7 @@ public class ShallowCopyOracle {
          ByteArrayOutputStream o = new ByteArrayOutputStream();
          NbtIo.write(d, new DataOutputStream(o));
          StringBuilder sb = new StringBuilder();
-         for (byte x : o.toByteArray()) sb.append(String.format("%02x", x));
+         for (byte x : o.toByteArray()) sb.append(String.format(java.util.Locale.ROOT, "%02x", x));
          out.append(n).append('\t').append(sb).append('\n');
       }
       Files.writeString(Path.of(args[0]), out.toString());

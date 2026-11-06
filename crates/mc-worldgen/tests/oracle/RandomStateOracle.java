@@ -41,7 +41,7 @@ public class RandomStateOracle {
    };
 
    static String bits(float f) {
-      return String.format("%08x", Float.floatToRawIntBits(f));
+      return String.format(java.util.Locale.ROOT, "%08x", Float.floatToRawIntBits(f));
    }
 
    public static void main(String[] args) throws Exception {

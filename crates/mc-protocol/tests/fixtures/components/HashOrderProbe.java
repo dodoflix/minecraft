@@ -26,7 +26,7 @@ public class HashOrderProbe {
       ItemEnchantments.STREAM_CODEC.encode(buf, e);
       byte[] b = new byte[buf.readableBytes()]; buf.readBytes(b);
       StringBuilder sb = new StringBuilder();
-      for (byte x : b) sb.append(String.format("%02x", x));
+      for (byte x : b) sb.append(String.format(java.util.Locale.ROOT, "%02x", x));
       System.out.println("ENCH_WIRE " + sb);
       StringBuilder ks = new StringBuilder();
       e.keySet().forEach(h -> ks.append(h.getRegisteredName()).append(' ').append(System.identityHashCode(h)).append(' '));
@@ -39,7 +39,7 @@ public class HashOrderProbe {
       HashedStack.STREAM_CODEC.encode(buf, HashedStack.create(st, gen));
       b = new byte[buf.readableBytes()]; buf.readBytes(b);
       sb = new StringBuilder();
-      for (byte x : b) sb.append(String.format("%02x", x));
+      for (byte x : b) sb.append(String.format(java.util.Locale.ROOT, "%02x", x));
       System.out.println("HASHED " + sb);
       System.out.println("PATCH " + st.getComponentsPatch());
       StringBuilder cs = new StringBuilder();

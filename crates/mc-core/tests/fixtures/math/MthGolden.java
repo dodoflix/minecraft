@@ -13,8 +13,8 @@ public class MthGolden {
    static StringBuilder out = new StringBuilder();
 
    static String t(Object o) {
-      if (o instanceof Double d) return String.format("%016x", Double.doubleToRawLongBits(d));
-      if (o instanceof Float f) return String.format("%08x", Float.floatToRawIntBits(f));
+      if (o instanceof Double d) return String.format(java.util.Locale.ROOT, "%016x", Double.doubleToRawLongBits(d));
+      if (o instanceof Float f) return String.format(java.util.Locale.ROOT, "%08x", Float.floatToRawIntBits(f));
       if (o instanceof int[] a) return Arrays.toString(a).replace(" ", "");
       return String.valueOf(o);
    }
@@ -91,7 +91,7 @@ public class MthGolden {
          double[] tab = (double[]) tf.get(null);
          long h = 0;
          for (double v : tab) h = h * 1000003L + Double.doubleToRawLongBits(v);
-         out.append(name.toLowerCase()).append("_hash ").append(h).append('\n');
+         out.append(name.toLowerCase(java.util.Locale.ROOT)).append("_hash ").append(h).append('\n');
       }
       e("consts", "x", Mth.PI, Mth.HALF_PI, Mth.TWO_PI, Mth.DEG_TO_RAD, Mth.RAD_TO_DEG, Mth.EPSILON, Mth.SQRT_OF_TWO);
 

@@ -25,8 +25,8 @@ public class GeometryDir {
       OUT.append(op).append(' ').append(in).append(" = ").append(out).append('\n');
    }
 
-   static String d(double v) { return String.format("%016x", Double.doubleToLongBits(v)); }
-   static String f(float v) { return String.format("%08x", Float.floatToIntBits(v)); }
+   static String d(double v) { return String.format(java.util.Locale.ROOT, "%016x", Double.doubleToLongBits(v)); }
+   static String f(float v) { return String.format(java.util.Locale.ROOT, "%08x", Float.floatToIntBits(v)); }
    static String b(boolean v) { return v ? "1" : "0"; }
    static String v3(Vec3 v) { return v == null ? "null" : d(v.x) + " " + d(v.y) + " " + d(v.z); }
    static String v2(Vec2 v) { return f(v.x) + " " + f(v.y); }

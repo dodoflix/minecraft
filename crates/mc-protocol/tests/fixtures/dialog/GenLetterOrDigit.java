@@ -14,7 +14,7 @@ public class GenLetterOrDigit {
             boolean on = c < 0x10000 && Character.isLetterOrDigit((char) c);
             if (on && start < 0) start = c;
             if (!on && start >= 0) {
-                sb.append(String.format("    (0x%04X, 0x%04X),\n", start, c - 1));
+                sb.append(String.format(java.util.Locale.ROOT, "    (0x%04X, 0x%04X),\n", start, c - 1));
                 start = -1;
                 n++;
             }

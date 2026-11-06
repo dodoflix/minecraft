@@ -20,7 +20,7 @@ public class UnicodeNamesGen {
                 if (cp == 0x110000) break;
                 String n = Character.getName(cp);
                 if (n == null) continue;
-                String fb = b == null ? null : b.toString().replace('_', ' ') + " " + Integer.toHexString(cp).toUpperCase();
+                String fb = b == null ? null : b.toString().replace('_', ' ') + " " + Integer.toHexString(cp).toUpperCase(java.util.Locale.ROOT);
                 if (!n.equals(fb)) out.print("N\t" + Integer.toHexString(cp) + "\t" + n + "\n");
             }
         }

@@ -21,7 +21,7 @@ public class StreamOracle {
 
     static String hex(byte[] b) {
         StringBuilder sb = new StringBuilder();
-        for (byte x : b) sb.append(String.format("%02x", x));
+        for (byte x : b) sb.append(String.format(java.util.Locale.ROOT, "%02x", x));
         return sb.toString();
     }
 
@@ -40,7 +40,7 @@ public class StreamOracle {
             else if (c == '\n') b.append("\\n");
             else if (c == '\t') b.append("\\t");
             else if (c == '\r') b.append("\\r");
-            else if (c < 0x20) b.append(String.format("\\x%02X", (int) c));
+            else if (c < 0x20) b.append(String.format(java.util.Locale.ROOT, "\\x%02X", (int) c));
             else b.append(c);
         }
         return b.toString();

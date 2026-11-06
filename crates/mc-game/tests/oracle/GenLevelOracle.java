@@ -159,10 +159,10 @@ public class GenLevelOracle {
             else if (k < 71) out.add("within " + p);
             else if (k < 72) out.add("haschunk " + hi(r, cx - 10, cx + 10) + " " + hi(r, cz - 10, cz + 10));
             else if (k < 76) out.add("postproc " + p);
-            else if (k < 80) out.add("setbe " + String.format(BE_SNBT[r.nextInt(BE_SNBT.length)], i(pp[0]), i(pp[1]), i(pp[2])));
+            else if (k < 80) out.add("setbe " + String.format(java.util.Locale.ROOT, BE_SNBT[r.nextInt(BE_SNBT.length)], i(pp[0]), i(pp[1]), i(pp[2])));
             else if (k < 83) out.add("getbe " + p);
             else if (k < 85) out.add("rmbe " + p);
-            else if (k < 87) out.add("entity " + String.format(ENTITY_SNBT[r.nextInt(ENTITY_SNBT.length)], (hi(r, x0, x1) + 0.5) + "d", (hi(r, 40, 100) + 0.0) + "d", (hi(r, z0, z1) + 0.25) + "d"));
+            else if (k < 87) out.add("entity " + String.format(java.util.Locale.ROOT, ENTITY_SNBT[r.nextInt(ENTITY_SNBT.length)], (hi(r, x0, x1) + 0.5) + "d", (hi(r, 40, 100) + 0.0) + "d", (hi(r, z0, z1) + 0.25) + "d"));
             else if (k < 91) out.add("tickb " + p + " " + TICK_BLOCKS[r.nextInt(TICK_BLOCKS.length)] + " " + hi(r, 0, 40) + " " + hi(r, -3, 3));
             else if (k < 94) out.add("tickf " + p + " " + TICK_FLUIDS[r.nextInt(TICK_FLUIDS.length)] + " " + hi(r, 0, 40) + " " + hi(r, -3, 3));
             else if (k < 96) out.add("hastickb " + p + " " + TICK_BLOCKS[r.nextInt(TICK_BLOCKS.length)]);

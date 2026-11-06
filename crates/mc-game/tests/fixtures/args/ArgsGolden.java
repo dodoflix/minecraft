@@ -164,11 +164,11 @@ public class ArgsGolden {
          if (c == '\\') {
             b.append("\\\\");
          } else if (c < 0x20 || c == 0x7f) {
-            b.append(String.format("\\u%04x", (int) c));
+            b.append(String.format(java.util.Locale.ROOT, "\\u%04x", (int) c));
          } else if (Character.isHighSurrogate(c) && i + 1 < s.length() && Character.isLowSurrogate(s.charAt(i + 1))) {
             b.append(c).append(s.charAt(++i));
          } else if (Character.isSurrogate(c)) {
-            b.append(String.format("\\u%04x", (int) c));
+            b.append(String.format(java.util.Locale.ROOT, "\\u%04x", (int) c));
          } else {
             b.append(c);
          }

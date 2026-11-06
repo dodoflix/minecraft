@@ -26,7 +26,7 @@ public class RegionTool {
 
     static String hex(byte[] b) throws Exception {
         StringBuilder sb = new StringBuilder();
-        for (byte x : MessageDigest.getInstance("SHA-256").digest(b)) sb.append(String.format("%02x", x));
+        for (byte x : MessageDigest.getInstance("SHA-256").digest(b)) sb.append(String.format(java.util.Locale.ROOT, "%02x", x));
         return sb.toString();
     }
 

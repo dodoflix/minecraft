@@ -24,7 +24,7 @@ public class SnbtOracle {
             else if (c == '\t') b.append("\\t");
             else if (c == '\r') b.append("\\r");
             else if (c < 0x20 || (c >= 0xD800 && c <= 0xDFFF && !(Character.isHighSurrogate(c) && i + 1 < s.length() && Character.isLowSurrogate(s.charAt(i + 1))) && !(Character.isLowSurrogate(c) && i > 0 && Character.isHighSurrogate(s.charAt(i - 1)))))
-                b.append(String.format("\\x%02X", (int) c));
+                b.append(String.format(java.util.Locale.ROOT, "\\x%02X", (int) c));
             else b.append(c);
         }
         return b.toString();
@@ -41,7 +41,7 @@ public class SnbtOracle {
 
     static String hex(byte[] b) {
         StringBuilder sb = new StringBuilder();
-        for (byte x : b) sb.append(String.format("%02x", x));
+        for (byte x : b) sb.append(String.format(java.util.Locale.ROOT, "%02x", x));
         return sb.toString();
     }
 
@@ -209,7 +209,7 @@ public class SnbtOracle {
             String name = Character.getName(cp);
             if (name == null) continue;
             switch (rnd.nextInt(5)) {
-                case 0: name = name.toLowerCase(); break;
+                case 0: name = name.toLowerCase(java.util.Locale.ROOT); break;
                 case 1: name = "  " + name + " "; break;
                 case 2: { int p = rnd.nextInt(name.length()); name = name.substring(0, p) + (char) ('A' + rnd.nextInt(26)) + name.substring(p + 1); break; }
                 case 3: name = name.replace(' ', '-'); break;

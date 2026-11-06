@@ -69,7 +69,7 @@ public class CommandTreeGolden {
                   byte[] bytes = new byte[buf.readableBytes()];
                   buf.readBytes(bytes);
                   StringBuilder hex = new StringBuilder();
-                  for (byte b : bytes) hex.append(String.format("%02x", b));
+                  for (byte b : bytes) hex.append(String.format(java.util.Locale.ROOT, "%02x", b));
                   out.println(sel + " " + level + " " + (subset ? "subset" : "full") + " " + hex);
                }
             }
