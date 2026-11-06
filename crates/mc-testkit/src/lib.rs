@@ -26,6 +26,7 @@ use std::time::{Duration, Instant};
 
 use tempfile::TempDir;
 
+mod permit;
 mod worldref;
 pub use worldref::worldref;
 
@@ -222,6 +223,8 @@ pub struct Server {
     dir: PathBuf,
     /// Dropped after `proc`: the directory is removed only once the process is dead.
     _temp: Option<TempDir>,
+    /// Released last: the next test starts its server only after this one is gone (`permit.rs`).
+    _permit: Option<Arc<permit::Permit>>,
 }
 
 impl Server {
@@ -368,12 +371,13 @@ impl Builder {
 
     /// Starts the server and returns once it answers status pings.
     pub fn start(mut self) -> Result<Server> {
+        let permit = permit::acquire();
         let (dir, temp) = self.prepare_dir()?;
         let mut last = None;
         for _ in 0..PORT_ATTEMPTS {
             let server = self.launch(&dir)?;
             match server.wait_ready() {
-                Ok(()) => return Ok(Server { _temp: temp, ..server }),
+                Ok(()) => return Ok(Server { _temp: temp, _permit: Some(permit), ..server }),
                 Err(e) if server.log().contains("FAILED TO BIND") => last = Some(e),
                 Err(e) => return Err(e),
             }
@@ -384,8 +388,9 @@ impl Builder {
     /// Starts the server without waiting for readiness: for a server that is expected to fail while starting.
     /// Use [`Server::wait_exit`] and [`Server::log`] on the result.
     pub fn start_unready(mut self) -> Result<Server> {
+        let permit = permit::acquire();
         let (dir, temp) = self.prepare_dir()?;
-        Ok(Server { _temp: temp, ..self.launch(&dir)? })
+        Ok(Server { _temp: temp, _permit: Some(permit), ..self.launch(&dir)? })
     }
 
     fn prepare_dir(&mut self) -> Result<(PathBuf, Option<TempDir>)> {
@@ -443,7 +448,7 @@ impl Builder {
             (io::ErrorKind::NotFound, Program::Vanilla) => Error("java was not found on PATH: install JDK 25 (scripts/setup-ref.sh needs it too)".into()),
             _ => Error(format!("cannot start {program}: {e}")),
         })?;
-        Ok(Server { port, proc, dir: dir.to_path_buf(), _temp: None })
+        Ok(Server { port, proc, dir: dir.to_path_buf(), _temp: None, _permit: None })
     }
 }
 
