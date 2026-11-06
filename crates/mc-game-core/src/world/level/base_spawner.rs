@@ -3,7 +3,7 @@
 
 use super::LevelAccessor;
 use super::spawn_data::{SpawnData, has_no_configuration};
-use super::spawner_mob_seam::{self, MobSpawnSteps};
+use super::spawner_mob_steps::{self, MobSpawnSteps};
 use crate::server::level::ServerLevel;
 use crate::util::weighted_list::{Weighted, WeightedList};
 use crate::world::block_entity::read_codec;
@@ -195,7 +195,7 @@ impl BaseSpawner {
                 if !custom_spawn_rules.is_valid_position(spawn_block_pos, &*level) {
                     continue;
                 }
-            } else if !spawner_mob_seam::check_spawn_placements(
+            } else if !spawner_mob_steps::check_spawn_placements(
                 level,
                 entity_type,
                 EntitySpawnReason::Spawner,
@@ -243,7 +243,7 @@ impl BaseSpawner {
                 set_persistence_required: false,
                 equipment: next.equipment.as_ref(),
             };
-            if !spawner_mob_seam::prepare_mob(root, level, EntitySpawnReason::Spawner, &steps) {
+            if !spawner_mob_steps::prepare_mob(root, level, EntitySpawnReason::Spawner, &steps) {
                 continue;
             }
             let root_id: EntityId = entities[0].id();
@@ -257,7 +257,7 @@ impl BaseSpawner {
                 spawn_block_pos,
                 &crate::world::level::gameevent::GameEventContext::of_entity(Some(root_id)),
             );
-            spawner_mob_seam::spawn_anim(level, root_id);
+            spawner_mob_steps::spawn_anim(level, root_id);
             delay = true;
         }
         if delay {

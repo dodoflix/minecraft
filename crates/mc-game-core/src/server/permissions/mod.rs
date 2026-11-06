@@ -215,11 +215,6 @@ impl From<LevelBasedPermissionSet> for PermissionSet {
     }
 }
 
-/// `PermissionSetSupplier`.
-pub trait PermissionSetSupplier {
-    fn permissions(&self) -> PermissionSet;
-}
-
 /// `PermissionCheck` (`AlwaysPass` / `Require`).
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub enum PermissionCheck {
@@ -233,11 +228,6 @@ impl PermissionCheck {
             PermissionCheck::AlwaysPass => true,
             PermissionCheck::Require(permission) => source.has_permission(permission),
         }
-    }
-
-    /// `PermissionProviderCheck.test`.
-    pub fn test(&self, supplier: &impl PermissionSetSupplier) -> bool {
-        self.check(&supplier.permissions())
     }
 }
 

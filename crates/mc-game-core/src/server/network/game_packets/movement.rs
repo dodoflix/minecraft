@@ -2,7 +2,7 @@
 //! `teleport`, the `tick()` floating/keep-alive/idle logic and the support-block resend. Every threshold, log line
 //! and ordering is vanilla's `ServerGamePacketListenerImpl`.
 
-use super::{PlayCtx, seam};
+use super::{PlayCtx, play_helpers};
 use crate::world::entity::{Entity, MoverType};
 use crate::world::level::BlockGetter;
 use mc_core::math::mth;
@@ -414,7 +414,7 @@ impl PlayCtx<'_> {
             );
         }
 
-        if (fail && seam::no_collision(self.level, &*vehicle, &old_aabb))
+        if (fail && play_helpers::no_collision(self.level, &*vehicle, &old_aabb))
             || self.is_entity_colliding_with_anything_new(
                 &*vehicle, &old_aabb, target_x, target_y, target_z,
             )
@@ -470,7 +470,7 @@ impl PlayCtx<'_> {
             .bounding_box()
             .inflate_scalar(0.0625)
             .expand_towards(0.0, -0.55, 0.0);
-        seam::all_blocks_in_are_air(self.level, &aabb)
+        play_helpers::all_blocks_in_are_air(self.level, &aabb)
     }
 
     /// `handleAcceptTeleportPacket`.
@@ -677,7 +677,7 @@ impl PlayCtx<'_> {
 
         let accepted = self.player.base().no_physics
             || self.player.is_sleeping()
-            || (!fail || !seam::no_collision(self.level, &*self.player, &old_aabb))
+            || (!fail || !play_helpers::no_collision(self.level, &*self.player, &old_aabb))
                 && !self.is_entity_colliding_with_anything_new(
                     &*self.player,
                     &old_aabb,
@@ -843,7 +843,7 @@ impl PlayCtx<'_> {
                 .base()
                 .bounding_box()
                 .move_(new_x - pos.x, new_y - pos.y, new_z - pos.z);
-        let new_collisions = seam::get_pre_move_collisions(
+        let new_collisions = play_helpers::get_pre_move_collisions(
             self.level,
             entity,
             &new_aabb.deflate_scalar(f64::from(1.0E-5f32)),

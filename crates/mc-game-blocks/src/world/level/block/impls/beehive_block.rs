@@ -1,7 +1,5 @@
 //! `net.minecraft.world.level.block.BeehiveBlock` (`bee_nest`, `beehive`).
 use mc_core::ident::Identifier;
-use mc_core::phys::AABB;
-use mc_data::EntityType;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::block_entity::{BeeReleaseStatus, BeehiveBlockEntity};
 use mc_game_core::world::entity::ServerPlayer;
@@ -20,32 +18,6 @@ pub fn reset_honey_level(level: &mut ServerLevel, state: BlockState, pos: BlockP
     level.set_block_and_update(pos, state.set(props::LEVEL_HONEY, 0));
 }
 
-/// `BeehiveBlock.angerNearbyBees(level, pos)`: bees without a target near the hive pick a random nearby player.
-pub fn anger_nearby_bees(level: &mut ServerLevel, pos: BlockPos) {
-    let area = AABB::from_block_pos(&pos).inflate(8.0, 6.0, 8.0);
-    let bees = level.get_entities_of_class(&area, |e| e.get_type() == EntityType::BEE, |_| true);
-    if bees.is_empty() {
-        return;
-    }
-    let players = level.get_entities_of_class(&area, |e| e.is_player(), |_| true);
-    if players.is_empty() {
-        return;
-    }
-    for bee in bees {
-        let has_target = level
-            .get_entity_mut(bee)
-            .and_then(|e| e.as_bee_access())
-            .is_some_and(|b| b.get_target().is_some());
-        if !has_target {
-            // `Util.getRandom(playersToBeAngryAt, level.getRandom())`
-            let target = players[level.random().next_int_bounded(players.len() as i32) as usize];
-            if let Some(access) = level.get_entity_mut(bee).and_then(|e| e.as_bee_access()) {
-                access.set_target(Some(target));
-            }
-        }
-    }
-}
-
 impl BlockBehaviour for BeehiveBlock {
     fn on_explosion_hit(
         &self,
@@ -56,7 +28,6 @@ impl BlockBehaviour for BeehiveBlock {
         on_hit: &mut dyn FnMut(ItemStack, BlockPos),
     ) {
         default_on_explosion_hit(state, level, pos, explosion, on_hit);
-        anger_nearby_bees(level, pos);
     }
     fn player_destroy(
         &self,
@@ -93,14 +64,8 @@ impl BlockBehaviour for BeehiveBlock {
                     bees: hive.get_bees(),
                 });
                 copy.saved_flower_pos = hive.saved_flower_pos;
-                copy.empty_all_living_from_hive(
-                    level,
-                    Some(player.base_id()),
-                    state,
-                    BeeReleaseStatus::Emergency,
-                );
+                copy.empty_all_living_from_hive(level, state, BeeReleaseStatus::Emergency);
                 level.update_neighbour_for_output_signal(pos, state.block());
-                anger_nearby_bees(level, pos);
             }
             // CriteriaTriggers.BEE_NEST_DESTROYED.trigger(player, state, destroyedWith, hive.getOccupantCount()): with the triggers
         }
@@ -154,7 +119,6 @@ impl BlockBehaviour for BeehiveBlock {
                     if let Some(hive) = be.as_any_mut().downcast_mut::<BeehiveBlockEntity>() {
                         hive.empty_all_living_from_hive(
                             level,
-                            None,
                             state,
                             mc_game_core::world::block_entity::BeeReleaseStatus::Emergency,
                         );

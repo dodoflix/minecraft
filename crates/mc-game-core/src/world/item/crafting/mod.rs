@@ -34,8 +34,7 @@ pub use inputs::{
     SmithingRecipeInput,
 };
 pub use place_recipe::{
-    PlaceRecipeMenu, PostPlaceAction, RecipeBookMenu, place_recipe, place_recipe_helper,
-    place_recipe_sized,
+    PlaceRecipeMenu, PostPlaceAction, place_recipe, place_recipe_helper, place_recipe_sized,
 };
 pub use recipe::{
     CommonInfo, CookingBookCategory, CookingBookInfo, CraftingBookCategory, CraftingBookInfo,

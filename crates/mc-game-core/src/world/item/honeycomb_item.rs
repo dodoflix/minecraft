@@ -1,5 +1,4 @@
-//! `HoneycombItem`: waxing copper blocks (`useOn`). Waxing signs (`SignApplicator`) is wired by the sign applicator
-//! dispatch (`BooksMisc`), which calls [`HoneycombItem`].
+//! `HoneycombItem`: waxing copper blocks (`useOn`). Waxing signs is not implemented.
 
 use super::{InteractionResult, ItemBehaviour, UseOnContext};
 use crate::register_item_class;

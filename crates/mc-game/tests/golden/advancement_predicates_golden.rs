@@ -34,7 +34,7 @@ use uuid::Uuid;
 // ---------------------------------------------------------------------------------------------------- test entity
 
 /// A living non-player entity of any type (vanilla's `Mob`s are not ported yet): carries the state the oracle scripts
-/// set (baby, sheared, cube size, raider flags, target) and answers the predicates' seam hooks with it.
+/// set (baby, sheared, cube size, raider flags, target) and answers the predicates' hooks with it.
 struct TestMob {
     living: LivingEntityData,
     baby: bool,

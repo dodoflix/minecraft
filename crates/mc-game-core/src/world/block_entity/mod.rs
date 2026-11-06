@@ -102,7 +102,7 @@ pub mod test_instance_block_entity;
 mod the_end_gateway_block_entity;
 pub mod vibration;
 
-pub use beehive_block_entity::{BeeAccess, BeeReleaseStatus, BeehiveBlockEntity};
+pub use beehive_block_entity::{BeeReleaseStatus, BeehiveBlockEntity};
 pub use bell_block_entity::BellBlockEntity;
 pub use command_block_entity::CommandBlockEntity;
 pub use dispenser_block_entity::DispenserBlockEntity;

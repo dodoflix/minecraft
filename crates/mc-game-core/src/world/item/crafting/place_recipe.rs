@@ -1,12 +1,11 @@
-//! `RecipeBookMenu`'s placement side: `ServerPlaceRecipe` (the "click a recipe in the book" algorithm that moves the needed
-//! items from the inventory into the crafting grid) and `PlaceRecipeHelper`.
+//! The placement algorithm of `RecipeBookMenu`: `ServerPlaceRecipe` (the "click a recipe in the book" algorithm that moves
+//! the needed items from the inventory into the crafting grid) and `PlaceRecipeHelper`.
 //!
 //! Menus never hold the player in this port, so the menu side of `ServerPlaceRecipe.CraftingMenuAccess` plus the slot lists is
-//! the [`PlaceRecipeMenu`] trait (implemented by the crafting/furnace menus over their slots) and the inventory is reached
-//! through the [`MenuPlayer`].
+//! the [`PlaceRecipeMenu`] trait and the inventory is reached through the [`MenuPlayer`]. No menu implements the trait yet:
+//! the `place_recipe` packet is not handled.
 
 use mc_data::Item;
-use mc_protocol::packets::play::inventory::RecipeBookType;
 
 use super::recipe::{Recipe, RecipeKind};
 use super::recipe_manager::RecipeHolder;
@@ -20,28 +19,6 @@ use crate::world::item::ItemStack;
 pub enum PostPlaceAction {
     Nothing,
     PlaceGhostRecipe,
-}
-
-/// `RecipeBookMenu`: what the `place_recipe` packet handler needs from the player's current menu.
-pub trait RecipeBookMenu {
-    /// `handlePlacement(useMaxItems, allowDroppingItemsToClear, recipe, level, inventory)`.
-    fn handle_placement(
-        &mut self,
-        player: &mut dyn MenuPlayer,
-        use_max_items: bool,
-        allow_dropping_items_to_clear: bool,
-        recipe: &RecipeHolder,
-    ) -> PostPlaceAction;
-
-    /// `fillCraftSlotsStackedContents(stackedContents)`.
-    fn fill_craft_slots_stacked_contents(
-        &self,
-        player: &mut dyn MenuPlayer,
-        contents: &mut StackedItemContents,
-    );
-
-    /// `getRecipeBookType()`.
-    fn get_recipe_book_type(&self) -> RecipeBookType;
 }
 
 /// `ServerPlaceRecipe.CraftingMenuAccess` + `Slot` access of the input grid / slots to clear.

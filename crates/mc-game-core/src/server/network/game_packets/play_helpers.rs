@@ -1,6 +1,5 @@
-//! Vanilla-named accessors the listener uses on `ServerPlayer`, the level and the server, expressed over the data the
-//! entity/level/server slices expose. Everything the listener reads or does to *its own* player lives here so a rename
-//! in another module is a one-file fix.
+//! Vanilla-named helpers the play packet listener uses on `ServerPlayer`, the level and the server, expressed over the
+//! data the entity, level and server modules expose.
 
 use super::PlayCtx;
 use crate::server::level::ServerLevel;

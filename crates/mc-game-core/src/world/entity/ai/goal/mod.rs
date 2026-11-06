@@ -6,7 +6,6 @@
 //! selectors themselves. A goal that needs the concrete mob type does `mob.as_any().downcast_ref::<Chicken>()`.
 
 mod abstract_horse_access;
-mod abstract_villager_access;
 mod break_door;
 mod breed;
 pub mod door_interact;
@@ -38,7 +37,6 @@ mod water_avoiding_random_stroll;
 mod zombie_attack;
 
 pub use abstract_horse_access::AbstractHorseAccess;
-pub use abstract_villager_access::AbstractVillagerAccess;
 pub use break_door::{BreakDoorGoal, DifficultyPredicate};
 pub use breed::BreedGoal;
 pub use door_interact::DoorInteractData;

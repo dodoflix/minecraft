@@ -16,17 +16,9 @@ mod interact_goal;
 
 pub use interact_goal::InteractGoal;
 
-mod look_at_trading_player;
-
-pub use look_at_trading_player::LookAtTradingPlayerGoal;
-
 mod offer_flower;
 
 pub use offer_flower::{OfferFlowerFn, OfferFlowerGoal};
-
-mod trade_with_player;
-
-pub use trade_with_player::TradeWithPlayerGoal;
 
 mod use_item;
 

@@ -20,7 +20,7 @@ mod chat;
 mod commands_host;
 mod interaction;
 mod movement;
-pub(crate) mod seam;
+pub(crate) mod play_helpers;
 mod services_keys;
 mod session;
 mod technical_blocks;

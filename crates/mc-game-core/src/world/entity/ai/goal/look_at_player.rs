@@ -19,7 +19,7 @@ pub enum LookAtType {
 }
 
 pub struct LookAtPlayerGoal {
-    /// `lookAt` (protected: `LookAtTradingPlayerGoal` assigns it).
+    /// `lookAt`.
     pub look_at: Option<EntityId>,
     pub look_distance: f32,
     pub look_time: i32,

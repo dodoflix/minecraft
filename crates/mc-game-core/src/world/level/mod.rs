@@ -25,7 +25,7 @@ pub mod shapes;
 pub mod signal_getter;
 pub mod spawn_data;
 pub mod spawner;
-pub mod spawner_mob_seam;
+pub mod spawner_mob_steps;
 pub mod storage;
 pub mod ticket_storage;
 

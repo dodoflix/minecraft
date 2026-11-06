@@ -249,7 +249,7 @@ impl ItemFrame {
     /// `removeFramedMap(itemStack)`: the map data forgets this frame.
     fn remove_framed_map(&self, level: &mut ServerLevel, stack: &ItemStack) {
         if let Some(map_id) = Self::get_framed_map_id(stack) {
-            super::map_seam::removed_from_frame(level, map_id, self.attached.pos, self.base.id);
+            super::map_tracking::removed_from_frame(level, map_id, self.attached.pos, self.base.id);
         }
     }
 
@@ -541,7 +541,7 @@ impl Entity for ItemFrame {
         if self.get_item().is_empty() {
             if !held.is_empty() && !self.is_removed() {
                 if let Some(over_limit) =
-                    super::map_seam::tracked_count_over_limit(level, &held, 256)
+                    super::map_tracking::tracked_count_over_limit(level, &held, 256)
                     && over_limit
                 {
                     return InteractionResult::FAIL;

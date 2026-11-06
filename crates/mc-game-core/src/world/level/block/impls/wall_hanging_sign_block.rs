@@ -71,7 +71,7 @@ impl BlockBehaviour for WallHangingSignBlock {
         level: &mut ServerLevel,
         pos: BlockPos,
         player: &mut ServerPlayer,
-        hand: InteractionHand,
+        _hand: InteractionHand,
         hit: &mc_core::phys::BlockHitResult,
     ) -> InteractionResult {
         let editable_side =
@@ -79,7 +79,7 @@ impl BlockBehaviour for WallHangingSignBlock {
         if sign_block::chains_hanging_sign(level, pos, player, stack, || !editable_side) {
             InteractionResult::PASS
         } else {
-            sign_block::use_item_on(stack, level, pos, player, hand)
+            InteractionResult::TRY_WITH_EMPTY_HAND
         }
     }
     fn get_state_for_placement(

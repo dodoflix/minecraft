@@ -235,8 +235,6 @@ pub trait PlayHandlers: Sync {
         packet: &ServerboundContainerSlotStateChangedPacket,
     ) {
     }
-    /// `handlePlaceRecipe` (after `resetLastActionTime`).
-    fn handle_place_recipe(&self, ctx: &mut PlayCtx, packet: &ServerboundPlaceRecipePacket) {}
     /// `handleRecipeBookSeenRecipePacket`.
     fn handle_recipe_book_seen_recipe(
         &self,
@@ -401,10 +399,8 @@ impl PlayCtx<'_> {
             P::ContainerSlotStateChanged(p) => {
                 self.hooks(|h, c| h.handle_container_slot_state_changed(c, &p))
             }
-            P::PlaceRecipe(p) => {
-                self.player.reset_last_action_time();
-                self.hooks(|h, c| h.handle_place_recipe(c, &p));
-            }
+            // `handlePlaceRecipe`: the placement itself is not implemented, only the activity timestamp.
+            P::PlaceRecipe(_) => self.player.reset_last_action_time(),
             P::RecipeBookSeenRecipe(p) => {
                 self.hooks(|h, c| h.handle_recipe_book_seen_recipe(c, &p))
             }
@@ -477,7 +473,8 @@ impl PlayCtx<'_> {
         }
         let drop = packet.slot_num < 0;
         let item_stack = &packet.item_stack;
-        if !crate::server::network::game_packets::seam::item_enabled(self.level, item_stack) {
+        if !crate::server::network::game_packets::play_helpers::item_enabled(self.level, item_stack)
+        {
             return;
         }
         let valid_slot = (1..=45).contains(&packet.slot_num);

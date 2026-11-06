@@ -1,10 +1,9 @@
 //! `net.minecraft.world.level.border`: `WorldBorder` (saved as `dimensions/<d>/data/minecraft/world_border.dat`),
-//! `WorldBorder.Settings`, `BorderStatus`, `BorderChangeListener`.
+//! `WorldBorder.Settings`, `BorderStatus`.
 //!
 //! Listeners: vanilla keeps `BorderChangeListener`s that receive `(border, ...)` callbacks. A listener cannot borrow
 //! the border while the border is being mutated, so every change is recorded as a [`BorderEvent`] (in vanilla's call
-//! order) which the owner drains with [`WorldBorder::take_events`] right after the mutation and replays into its
-//! [`BorderChangeListener`]s with [`BorderEvent::dispatch`].
+//! order) which the owner drains with [`WorldBorder::take_events`] right after the mutation.
 
 use mc_core::ident::Identifier;
 use mc_core::math::mth::{abs_max_f64, clamp_f64, lerp_f64};
@@ -41,24 +40,6 @@ impl BorderStatus {
     }
 }
 
-/// `BorderChangeListener`.
-pub trait BorderChangeListener {
-    fn on_set_size(&mut self, border: &WorldBorder, new_size: f64);
-    fn on_lerp_size(
-        &mut self,
-        border: &WorldBorder,
-        from_size: f64,
-        target_size: f64,
-        ticks: i64,
-        game_time: i64,
-    );
-    fn on_set_center(&mut self, border: &WorldBorder, x: f64, z: f64);
-    fn on_set_warning_time(&mut self, border: &WorldBorder, time: i32);
-    fn on_set_warning_blocks(&mut self, border: &WorldBorder, blocks: i32);
-    fn on_set_damage_per_block(&mut self, border: &WorldBorder, damage_per_block: f64);
-    fn on_set_safe_zone(&mut self, border: &WorldBorder, safe_zone: f64);
-}
-
 /// One recorded `BorderChangeListener` call.
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub enum BorderEvent {
@@ -77,25 +58,6 @@ pub enum BorderEvent {
     SetWarningBlocks(i32),
     SetDamagePerBlock(f64),
     SetSafeZone(f64),
-}
-
-impl BorderEvent {
-    pub fn dispatch(self, border: &WorldBorder, listener: &mut dyn BorderChangeListener) {
-        match self {
-            BorderEvent::SetSize(s) => listener.on_set_size(border, s),
-            BorderEvent::LerpSize {
-                from,
-                to,
-                ticks,
-                game_time,
-            } => listener.on_lerp_size(border, from, to, ticks, game_time),
-            BorderEvent::SetCenter { x, z } => listener.on_set_center(border, x, z),
-            BorderEvent::SetWarningTime(t) => listener.on_set_warning_time(border, t),
-            BorderEvent::SetWarningBlocks(b) => listener.on_set_warning_blocks(border, b),
-            BorderEvent::SetDamagePerBlock(d) => listener.on_set_damage_per_block(border, d),
-            BorderEvent::SetSafeZone(z) => listener.on_set_safe_zone(border, z),
-        }
-    }
 }
 
 /// `WorldBorder.Settings`.

@@ -53,27 +53,27 @@ repository = "https://github.com/dodoflix/minecraft"
 rust-version = "1.97"
 publish = false
 
-# Lint policy: docs/standards.md. Levels start at `warn` where the code does not meet them yet; a lint becomes `deny`
-# in the change that brings its count to zero.
+# Lint policy: docs/standards.md. A lint stays at `warn` while the code does not meet it yet and becomes `deny` in the
+# change that brings its count to zero.
 # `unsafe_code` is not set: every `linkme` registration expands to a `#[link_section]` static, which that lint flags
 # hundreds of times. Direct `unsafe` is covered by `undocumented_unsafe_blocks` and review.
 [workspace.lints.clippy]
-all = { level = "warn", priority = -1 }
+all = { level = "deny", priority = -1 }
 dbg_macro = "deny"
 todo = "deny"
 unimplemented = "deny"
-print_stdout = "warn"
-print_stderr = "warn"
-undocumented_unsafe_blocks = "warn"
-allow_attributes_without_reason = "warn"
-ignore_without_reason = "warn"
+print_stdout = "deny"
+print_stderr = "deny"
+undocumented_unsafe_blocks = "deny"
+allow_attributes_without_reason = "deny"
+ignore_without_reason = "deny"
 # The next three lints fire on code that mirrors vanilla's shapes (negated float comparisons, `Foo::foo` modules,
 # `next()`-style method names); mirroring wins, so they are off for the whole workspace.
 neg_cmp_op_on_partial_ord = "allow"
 module_inception = "allow"
 should_implement_trait = "allow"
 
-# Full debuginfo + incremental caches made each checkout's target/ 25-47 GB, so keep them small.
+# Line-table debuginfo and no incremental caches keep each checkout's target/ small.
 [profile.dev]
 opt-level = 1
 debug = "line-tables-only"

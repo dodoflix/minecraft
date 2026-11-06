@@ -7,7 +7,7 @@ pub mod cushion;
 pub mod hanging;
 pub mod item_frame;
 pub mod mannequin;
-pub mod map_seam;
+pub mod map_tracking;
 pub mod painting;
 
 use crate::server::level::ServerLevel;

@@ -298,11 +298,6 @@ pub trait ItemBehaviour: Send + Sync + 'static {
         None
     }
 
-    // ==== [Blocks:Signs] SignApplicator ====
-    /// `this instanceof SignApplicator` (`DyeItem`, `HoneycombItem`, `InkSacItem`, `GlowInkSacItem`).
-    fn as_sign_applicator(&self) -> Option<&dyn super::sign_applicator::SignApplicator> {
-        None
-    }
     /// `item instanceof ProjectileItem`.
     fn as_projectile_item(&self) -> Option<&dyn super::ProjectileItem> {
         None

@@ -40,7 +40,6 @@ mod projectile_item;
 pub mod projectile_weapon_item;
 mod registry_hook;
 pub mod shears_item;
-pub mod sign_applicator;
 mod simple_items;
 pub mod slot;
 pub mod spawn_egg_item;

@@ -56,7 +56,7 @@ impl JsonRpcError {
 
 /// The exceptions an incoming method can throw.
 #[derive(Debug, Clone, PartialEq, Eq)]
-pub enum RpcException {
+pub enum RpcError {
     InvalidParameter(String),
     Encode(String),
     InvalidRequest(String),
@@ -65,13 +65,13 @@ pub enum RpcException {
     Internal(String),
 }
 
-impl From<DecodeError> for RpcException {
+impl From<DecodeError> for RpcError {
     fn from(e: DecodeError) -> Self {
-        RpcException::InvalidParameter(e.0)
+        RpcError::InvalidParameter(e.0)
     }
 }
 
-type RpcResult = Result<JsonElement, RpcException>;
+type RpcResult = Result<JsonElement, RpcError>;
 
 /// `JsonRpcLogger.log`.
 pub fn rpc_log(client: ClientInfo, message: impl std::fmt::Display) {
@@ -792,7 +792,7 @@ fn gamerules_update(c: &Ctx, p: &JsonElement) -> RpcResult {
     let updated = c
         .api
         .update_game_rule(&key, value)
-        .map_err(RpcException::InvalidParameter)?;
+        .map_err(RpcError::InvalidParameter)?;
     let show = |v: super::api::GameRuleValue| match v {
         super::api::GameRuleValue::Bool(b) => b.to_string(),
         super::api::GameRuleValue::Int(i) => i.to_string(),
@@ -1180,21 +1180,21 @@ impl Dispatcher {
                 response.add("result", result);
                 JsonElement::Object(response)
             }),
-            Err(RpcException::InvalidParameter(m)) => {
+            Err(RpcError::InvalidParameter(m)) => {
                 log::debug!("Invalid parameter invocation {method}: {m}");
                 send_response.then(|| JsonRpcError::InvalidParams.create(&id_value, Some(&m)))
             }
-            Err(RpcException::Encode(m)) => {
+            Err(RpcError::Encode(m)) => {
                 log::error!("Failed to encode json rpc response {method}\n{m}");
                 send_response.then(|| JsonRpcError::InternalError.create(&id_value, Some(&m)))
             }
-            Err(RpcException::InvalidRequest(m)) => {
+            Err(RpcError::InvalidRequest(m)) => {
                 send_response.then(|| JsonRpcError::InvalidRequest.create(&id_value, Some(&m)))
             }
-            Err(RpcException::MethodNotFound(m)) => {
+            Err(RpcError::MethodNotFound(m)) => {
                 send_response.then(|| JsonRpcError::MethodNotFound.create(&id_value, Some(&m)))
             }
-            Err(RpcException::Internal(m)) => {
+            Err(RpcError::Internal(m)) => {
                 log::error!("Error while dispatching rpc method {method}\n{m}");
                 send_response.then(|| JsonRpcError::InternalError.create(&id_value, None))
             }
@@ -1209,7 +1209,7 @@ impl Dispatcher {
         client: ClientInfo,
     ) -> RpcResult {
         let Some(identifier) = Identifier::try_parse(method) else {
-            return Err(RpcException::InvalidRequest(format!(
+            return Err(RpcError::InvalidRequest(format!(
                 "Failed to parse method value: {method}"
             )));
         };
@@ -1217,12 +1217,12 @@ impl Dispatcher {
             .then(|| METHODS.get(identifier.path()))
             .flatten();
         let Some(entry) = entry else {
-            return Err(RpcException::MethodNotFound(format!(
+            return Err(RpcError::MethodNotFound(format!(
                 "Method not found: {method}"
             )));
         };
         if !self.api.server_attached() && !entry.allow_pre_server_init {
-            return Err(RpcException::InvalidRequest(format!(
+            return Err(RpcError::InvalidRequest(format!(
                 "Method cannot be dispatched pre server initialization: {method}"
             )));
         }
@@ -1241,7 +1241,7 @@ impl Dispatcher {
                 }));
             }
             slot.unwrap_or_else(|| {
-                Err(RpcException::Internal(
+                Err(RpcError::Internal(
                     "the server thread dropped the task".to_owned(),
                 ))
             })
@@ -1252,11 +1252,8 @@ impl Dispatcher {
 }
 
 /// The parameter handling of `Method.apply` / `ParameterlessMethod.apply`.
-fn extract_param(
-    method: &Method,
-    params: Option<&JsonElement>,
-) -> Result<JsonElement, RpcException> {
-    let invalid = |m: &str| RpcException::InvalidParameter(m.to_owned());
+fn extract_param(method: &Method, params: Option<&JsonElement>) -> Result<JsonElement, RpcError> {
+    let invalid = |m: &str| RpcError::InvalidParameter(m.to_owned());
     match &method.param {
         None => match params {
             None => Ok(JsonElement::Null),
@@ -1265,7 +1262,7 @@ fn extract_param(
         },
         Some(name) => match params {
             Some(JsonElement::Object(o)) => o.get(name).cloned().ok_or_else(|| {
-                RpcException::InvalidParameter(format!(
+                RpcError::InvalidParameter(format!(
                     "Params passed by-name, but expected param [{name}] does not exist"
                 ))
             }),

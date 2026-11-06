@@ -1,7 +1,6 @@
 //! The entity commands (`summon`, `kill`, `damage`, `effect`, `attribute`, `experience`, `ride`, `rotate`, `spectate`, `swing`) against a
 //! real `MinecraftServer` with one void overworld that holds two survival players (`Dev`, `Other`): feedback texts (the strings of
-//! `en_us.json`), results and the state the commands leave behind. Mobs are loaded as plain entities until mobs are ported, so the
-//! living-entity commands run on the players. The dual-server corpus (`commands_corpus/entity_*.txt`) compares against real vanilla.
+//! `en_us.json`), results and the state the commands leave behind. The living-entity commands run on the two players. The dual-server corpus (`commands_corpus/entity_*.txt`) compares against real vanilla.
 
 use crate::command_common;
 

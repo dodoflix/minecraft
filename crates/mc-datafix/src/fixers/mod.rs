@@ -1,6 +1,5 @@
 //! `DataFixers.addFixers`, split by version range. Each `range_*` module mirrors the Java statements of its range in
-//! order (schema registrations and `addFixer` calls); fixes not ported yet are marked with
-//! `b.unported(&schema, "ClassName")` in place of the `addFixer` line so the differential harness skips the step.
+//! order (schema registrations and `addFixer` calls).
 
 use crate::fixer::DataFixerBuilder;
 

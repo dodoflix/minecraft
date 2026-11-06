@@ -22,7 +22,7 @@ use mc_game_core::world::level::base_spawner::{
 };
 use mc_game_core::world::level::collision::CollisionGetter;
 use mc_game_core::world::level::spawn_data::{SpawnData, has_no_configuration};
-use mc_game_core::world::level::spawner_mob_seam::{self, MobSpawnSteps};
+use mc_game_core::world::level::spawner_mob_steps::{self, MobSpawnSteps};
 use mc_game_core::world::level::storage::loot::loading::get_loot_table;
 use mc_game_core::world::level::storage::loot::{LootContextParamSets, LootParams};
 use mc_game_core::world::level::{BlockGetter, LevelAccessor};
@@ -297,7 +297,7 @@ impl TrialSpawner {
             if let Some(block_pos) = block_pos {
                 level.level_event(None, 3012, block_pos, FLAME_NORMAL);
             }
-            spawner_mob_seam::drop_preserved_equipment(level, id);
+            spawner_mob_steps::drop_preserved_equipment(level, id);
             level.with_entity(id, |_, e| e.remove(RemovalReason::Discarded));
         }
         let ominous = self.ominous_config(level);
@@ -333,7 +333,7 @@ impl TrialSpawner {
             return None;
         }
         let spawn_block_pos = BlockPos::containing(spawn_pos.x, spawn_pos.y, spawn_pos.z);
-        if !spawner_mob_seam::check_spawn_placements(
+        if !spawner_mob_steps::check_spawn_placements(
             level,
             entity_type,
             EntitySpawnReason::TrialSpawner,
@@ -361,7 +361,7 @@ impl TrialSpawner {
             set_persistence_required: true,
             equipment: next_spawn_data.equipment.as_ref(),
         };
-        if !spawner_mob_seam::prepare_mob(
+        if !spawner_mob_steps::prepare_mob(
             entities[0].as_mut(),
             level,
             EntitySpawnReason::TrialSpawner,

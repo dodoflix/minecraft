@@ -5,13 +5,9 @@ use crate::server::level::ServerLevel;
 use crate::world::block_entity::BlockEntity;
 use crate::world::block_entity::sign_block_entity::{SignBlockEntity, SignTextExt, SignTextSlot};
 use crate::world::entity::{Entity, ServerPlayer};
-use crate::world::item::{
-    InteractionHand, InteractionResult, ItemStack, ItemStackExt, behaviour as item_behaviour,
-};
+use crate::world::item::{InteractionResult, ItemStack};
 use crate::world::level::block::rotation_segment;
-use crate::world::level::gameevent::GameEventContext;
 use mc_core::phys::Vec3;
-use mc_data::GameEvent;
 use mc_protocol::packets::play::ClientboundOpenSignEditorPacket;
 use mc_protocol::packets::play::level::{ClientboundBlockUpdatePacket, SoundSource};
 
@@ -71,51 +67,6 @@ pub fn open_text_edit(
     player.send(&ClientboundOpenSignEditorPacket { pos, slot });
 }
 
-/// `SignBlock.useItemOn`. The held stack of the player is consumed through the player (vanilla mutates the shared stack).
-pub fn use_item_on(
-    stack: &ItemStack,
-    level: &mut ServerLevel,
-    pos: BlockPos,
-    player: &mut ServerPlayer,
-    hand: InteractionHand,
-) -> InteractionResult {
-    let result = level.with_block_entity(pos, |level, be| {
-        let sign = be.as_any_mut().downcast_mut::<SignBlockEntity>()?;
-        let applicator = item_behaviour(stack.item());
-        let applicator = applicator.as_sign_applicator();
-        let has_applicator_to_use = applicator.is_some() && player.player.abilities.may_build;
-        Some(match applicator {
-            Some(applicator)
-                if has_applicator_to_use
-                    && !sign.is_waxed()
-                    && !other_player_is_editing_sign(player, sign) =>
-            {
-                let slot = sign.get_slot_player_is_facing(player.base().x(), player.base().z());
-                let text = sign.get_text(slot).clone();
-                if applicator.can_apply_to_sign(&text, stack, player)
-                    && applicator.try_apply_to_sign(level, sign, slot, stack, player)
-                {
-                    sign.execute_click_commands_if_present(level, player, pos, slot);
-                    player.award_stat_once(level, crate::stats::Stat::Used(stack.item()));
-                    level.game_event_at_block(
-                        GameEvent::BLOCK_CHANGE,
-                        sign.get_block_pos(),
-                        &GameEventContext::of(Some(player.base_id()), Some(sign.get_block_state())),
-                    );
-                    let mut held = player.get_item_in_hand(hand);
-                    held.consume(1, player.player.abilities.instabuild);
-                    player.set_item_in_hand(hand, held);
-                    InteractionResult::SUCCESS
-                } else {
-                    InteractionResult::TRY_WITH_EMPTY_HAND
-                }
-            }
-            _ => InteractionResult::TRY_WITH_EMPTY_HAND,
-        })
-    });
-    result.flatten().unwrap_or(InteractionResult::PASS)
-}
-
 /// `SignBlock.useWithoutItem`.
 pub fn use_without_item(
     level: &mut ServerLevel,
@@ -169,27 +120,13 @@ pub fn set_placed_by(level: &mut ServerLevel, pos: BlockPos, placer: Option<&mut
     });
 }
 
-/// `SignBlock.isPossibleToRespawnInThis` + `useItemOn` / `useWithoutItem` / `setPlacedBy`, expanded into the `BlockBehaviour`
-/// impl of every concrete sign class.
+/// `SignBlock.isPossibleToRespawnInThis` + `useWithoutItem` / `setPlacedBy`, expanded into the `BlockBehaviour` impl of every
+/// concrete sign class.
 #[macro_export]
 macro_rules! sign_block_common {
     () => {
         fn is_possible_to_respawn_in_this(&self, _state: BlockState) -> bool {
             true
-        }
-        fn use_item_on(
-            &self,
-            stack: &$crate::world::item::ItemStack,
-            _state: BlockState,
-            level: &mut $crate::server::level::ServerLevel,
-            pos: BlockPos,
-            player: &mut $crate::world::entity::ServerPlayer,
-            hand: $crate::world::item::InteractionHand,
-            _hit: &mc_core::phys::BlockHitResult,
-        ) -> $crate::world::item::InteractionResult {
-            $crate::world::level::block::impls::sign_block::use_item_on(
-                stack, level, pos, player, hand,
-            )
         }
         fn use_without_item(
             &self,

@@ -3624,17 +3624,6 @@ pub trait Entity: Any {
     ) -> Option<&mut dyn crate::world::entity::ai::goal::AbstractHorseAccess> {
         None
     }
-    /// `this instanceof AbstractVillager` (the `Merchant` surface the trading goals use).
-    fn as_abstract_villager(
-        &self,
-    ) -> Option<&dyn crate::world::entity::ai::goal::AbstractVillagerAccess> {
-        None
-    }
-    fn as_abstract_villager_mut(
-        &mut self,
-    ) -> Option<&mut dyn crate::world::entity::ai::goal::AbstractVillagerAccess> {
-        None
-    }
     /// `this instanceof ShoulderRidingEntity` (parrots).
     fn as_shoulder_riding(
         &self,
@@ -4342,10 +4331,6 @@ pub trait Entity: Any {
     /// `Entity.move(MoverType.SHULKER_BOX, delta)` override: `true` = handled (`Shulker` teleports instead of moving).
     fn on_moved_by_shulker_box(&mut self, _level: &mut ServerLevel) -> bool {
         false
-    }
-    /// `this instanceof Bee`: the `Bee` methods `BeehiveBlockEntity` / `BeehiveBlock` call (implemented by the bee entity).
-    fn as_bee_access(&mut self) -> Option<&mut dyn crate::world::block_entity::BeeAccess> {
-        None
     }
     /// `getBrain().setMemory(MemoryModuleType.HEARD_BELL_TIME, gameTime)` (`BellBlockEntity.updateEntities`): entities whose
     /// brain registers the memory (villagers, ...) override this; the memory write is a no-op for brains without it.

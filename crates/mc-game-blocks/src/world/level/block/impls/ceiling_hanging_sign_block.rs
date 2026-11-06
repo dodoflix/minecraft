@@ -42,7 +42,7 @@ impl BlockBehaviour for CeilingHangingSignBlock {
         level: &mut ServerLevel,
         pos: BlockPos,
         player: &mut mc_game_core::world::entity::ServerPlayer,
-        hand: InteractionHand,
+        _hand: InteractionHand,
         hit: &mc_core::phys::BlockHitResult,
     ) -> InteractionResult {
         if sign_block::chains_hanging_sign(level, pos, player, stack, || {
@@ -50,7 +50,7 @@ impl BlockBehaviour for CeilingHangingSignBlock {
         }) {
             InteractionResult::PASS
         } else {
-            sign_block::use_item_on(stack, level, pos, player, hand)
+            InteractionResult::TRY_WITH_EMPTY_HAND
         }
     }
     fn can_survive(&self, _state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {

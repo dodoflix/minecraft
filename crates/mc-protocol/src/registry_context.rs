@@ -86,8 +86,8 @@ impl RegistryContext {
 
     /// The vanilla data pack's data-driven registries, entries ordered by identifier.
     ///
-    /// \[INFERENCE\] This matches vanilla's registry ids for an unmodified data pack (the loader lists resources in
-    /// sorted order); the golden tests compare it to the real server's tables.
+    /// This matches vanilla's registry ids for an unmodified data pack (the loader lists resources in sorted order); the
+    /// golden tests compare it to the real server's tables.
     pub fn vanilla() -> Self {
         let mut ctx = RegistryContext::new();
         for dir in crate::registry_context::DATA_DRIVEN_REGISTRIES {
