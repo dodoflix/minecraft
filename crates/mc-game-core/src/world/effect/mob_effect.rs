@@ -2,8 +2,9 @@
 //! the effect (`MobEffectData.class`): tick actions, tick intervals, instantaneous application, start/added/removed/
 //! hurt callbacks, particles and attribute modifier templates.
 //!
-//! Gaps: `OozingMobEffect`/`InfestedMobEffect` spawn `Slime`/`Silverfish`, which only happens once those classes
-//! register an entity factory; `BadOmenMobEffect`/`RaidOmenMobEffect` do nothing (no raid manager or POI manager).
+//! Not implemented: `OozingMobEffect` and `InfestedMobEffect` never spawn their `Slime` / `Silverfish` (the entities
+//! exist), and `BadOmenMobEffect` / `RaidOmenMobEffect` do nothing: neither starts a raid (the raid manager and the POI
+//! manager exist, nothing calls them from here).
 
 use super::reactions;
 use crate::server::level::ServerLevel;
@@ -336,7 +337,7 @@ impl MobEffectExt for MobEffect {
         if reason != RemovalReason::Killed {
             return;
         }
-        // `OozingMobEffect`: spawns `Slime` (size 2) offspring; needs the slime class (mobs)
+        // `OozingMobEffect`: spawns `Slime` (size 2) offspring. Not implemented.
         if self.class() == "WeavingMobEffect" {
             reactions::weaving(level, mob);
         }

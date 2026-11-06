@@ -1,4 +1,5 @@
-//! `net.minecraft.world.level.block.ShelfBlock`.
+//! `net.minecraft.world.level.block.ShelfBlock`: waterlogging, `rotate` and `mirror` only. Not implemented: the block
+//! entity (stored items), `useItemOn`, the `powered` state with its side-chain connection, and the comparator signal.
 use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::{register_block_class, update_shape};
 

@@ -1,7 +1,7 @@
 //! The goal registration of the zombie family (`registerGoals()`'s egg goal and `addBehaviourGoals()` of `Zombie`,
 //! `Drowned`, `ZombifiedPiglin`).
 //!
-//! Not implemented: `SpearUseGoal`, `ResetUniversalAngerTargetGoal`.
+//! Not implemented: `SpearUseGoal` and `ResetUniversalAngerTargetGoal` exist in `mc-game-ai` but are never added here.
 
 use super::drowned::{self, DrownedGoToWaterGoal, DrownedSwimUpGoal};
 use super::{Zombie, ZombieKind};
@@ -188,7 +188,7 @@ pub fn add_behaviour_goals(zombie: &mut Zombie) {
             );
         }
         ZombieKind::ZombifiedPiglin(_) => {
-            // SpearUseGoal(1) pending
+            // `SpearUseGoal(1)`: not added
             zombie
                 .mob
                 .goal_selector
@@ -209,10 +209,10 @@ pub fn add_behaviour_goals(zombie: &mut Zombie) {
                         },
                     ));
             t.add_goal(2, Box::new(angry));
-            // ResetUniversalAngerTargetGoal(3) pending
+            // `ResetUniversalAngerTargetGoal(3)`: not added
         }
         _ => {
-            // SpearUseGoal(2) pending
+            // `SpearUseGoal(2)`: not added
             let can_break_doors: EntityClass =
                 Arc::new(|e: &dyn Entity| e.as_zombie().is_some_and(|z| z.can_break_doors()));
             zombie

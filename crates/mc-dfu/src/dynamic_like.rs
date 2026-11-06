@@ -27,8 +27,8 @@
 //! | `d.map(f)` (value mapper) | `map_value(FnOnce(&Dyn) -> Dyn)` |
 //! | `getValue()` `getOps()` | `value() -> &Dyn` (`into_value()` moves), `ops() -> Ops` |
 //! | `castTyped(ops)` / `cast(ops)` | `cast_typed(&Ops) -> &Dynamic` / `cast(&Ops) -> &Dyn`; panic `Dynamic type doesn't match` when the ops differ |
-//! | `convert(ops)` | `convert(&Ops) -> Dynamic` (the old raw-value form is `convert_value`) |
-//! //! | `decode(codec)` `read(codec)` `readList(codec)` `readMap(kc, vc)` | `decode -> DataResult<(A, Dyn)>`, `read -> DataResult<A>`, `read_list(&Codec<E>)`, `read_map(&Codec<K>, &Codec<V>)`; the lambda overloads are `read_list_with`, `read_map_with`, `read_map_fold` |
+//! | `convert(ops)` | `convert(&Ops) -> Dynamic` (on the raw-value type `Dyn` it is `Dyn::convert_value`) |
+//! | `decode(codec)` `read(codec)` `readList(codec)` `readMap(kc, vc)` | `decode -> DataResult<(A, Dyn)>`, `read -> DataResult<A>`, `read_list(&Codec<E>)`, `read_map(&Codec<K>, &Codec<V>)`; the lambda overloads are `read_list_with`, `read_map_with`, `read_map_fold` |
 //! | `equals` / `hashCode` / `toString` | `==` (Java semantics: ops equal and values equal, map order ignored, `Float.equals` bit rules) / `hash_code() -> i32` / `Display` = `NBT[{snbt}]`, `JSON[{json}]` |
 //!
 //! Java methods whose Java signature takes a `Dynamic<?>` take a `Dynamic` by value here (move it or `.clone()`).

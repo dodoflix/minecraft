@@ -102,7 +102,8 @@ impl MinecraftServer {
         }
 
         if spawn_bonus_chest {
-            // `MiscOverworldFeatures.BONUS_CHEST` placement needs the feature system, which is not available yet.
+            // `MiscOverworldFeatures.BONUS_CHEST` placement is not implemented: configured feature placement lives in
+            // `mc-game-levelgen`, which `mc-game-core` cannot call.
             log::warn!(
                 "The bonus chest cannot be placed: configured feature placement is not available"
             );

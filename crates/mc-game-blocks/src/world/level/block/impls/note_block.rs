@@ -123,7 +123,7 @@ impl BlockBehaviour for NoteBlock {
         let state = state.cycle(props::NOTE);
         level.set_block_and_update(pos, state);
         play_note(Some(player.id()), state, level, pos);
-        // `player.awardStat(Stats.TUNE_NOTEBLOCK)`: not implemented (the server player has no statistics counter)
+        // `player.awardStat(Stats.TUNE_NOTEBLOCK)`: not implemented (`Stats::TUNE_NOTEBLOCK` exists, this block does not award it)
         InteractionResult::SUCCESS
     }
     fn attack(

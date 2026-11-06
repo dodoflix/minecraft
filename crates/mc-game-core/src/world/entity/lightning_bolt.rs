@@ -348,7 +348,8 @@ static LIGHTNING_BOLT_FACTORY: EntityRegistration = EntityRegistration {
     create: |ty, id, _registries| Box::new(LightningBolt::new(ty, id)),
 };
 
-/// The spawn half of `ServerLevel.tickThunder` (`LevelTickState::lightning_spawn`).
+/// The spawn half of `ServerLevel.tickThunder` (`LevelTickState::lightning_spawn`). Not implemented: for a trap
+/// (`is_trap`) the bolt is only made visual; the trap skeleton horse vanilla spawns with it is not.
 pub fn spawn_from_thunder(level: &mut ServerLevel, pos: BlockPos, is_trap: bool) {
     let mut bolt = LightningBolt::new(EntityType::LIGHTNING_BOLT, level.next_entity_id());
     let at = Vec3::at_bottom_center_of(&pos);

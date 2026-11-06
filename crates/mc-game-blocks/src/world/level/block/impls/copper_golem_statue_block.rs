@@ -1,4 +1,5 @@
-//! `net.minecraft.world.level.block.CopperGolemStatueBlock`.
+//! `net.minecraft.world.level.block.CopperGolemStatueBlock`: waterlogging, `rotate` and `mirror` only. Not implemented:
+//! the block entity, the pose change in `useItemOn`, and the comparator signal.
 use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::{register_block_class, update_shape};
 

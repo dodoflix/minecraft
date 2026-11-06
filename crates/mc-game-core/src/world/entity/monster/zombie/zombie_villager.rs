@@ -1,5 +1,6 @@
-//! `ZombieVillager` (a `Zombie` of kind `ZombieKind::ZombieVillager`):
-//! cured with a golden apple + weakness, converts back to a villager.
+//! `ZombieVillager` (a `Zombie` of kind `ZombieKind::ZombieVillager`): a golden apple on a weakened one starts the cure
+//! timer. Not implemented: finishing it (the zombie villager never converts back to a villager), turning a killed villager
+//! into a zombie villager, the villager type on spawn, and the villager data in the save data.
 
 use super::{Zombie, ZombieKind, base};
 use crate::define_accessor;
@@ -270,7 +271,7 @@ pub fn finalize_spawn(
     base::finalize_spawn(zombie, level, difficulty, reason, group_data)
 }
 
-// ==== Not implemented: the functions below are no-ops because they need the `Villager` class ====
+// ==== Not implemented: the functions below do nothing (no villager type on spawn, no conversion back, no villager save data) ====
 
 /// `VillagerDataHolder.finalizeVillagerType(level, pos)`.
 fn finalize_villager_type(

@@ -300,7 +300,7 @@ impl PlayCtx<'_> {
         {
             return;
         }
-        // `AbstractArrow && !isAttackable()`: not implemented (no arrow entity)
+        // `AbstractArrow && !isAttackable()`: not implemented; the target info has no arrow flag, so no arrow is rejected here.
         let unattackable_arrow = false;
         if target.is_item_entity
             || target.is_experience_orb
