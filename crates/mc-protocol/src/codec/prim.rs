@@ -105,7 +105,7 @@ impl Decode for () {
 macro_rules! tuple {
     ($($n:ident),+) => {
         impl<$($n: Encode),+> Encode for ($($n,)+) {
-            #[allow(non_snake_case, reason = "tuple element bindings reuse the uppercase generic parameter names")]
+            #[expect(non_snake_case, reason = "tuple element bindings reuse the uppercase generic parameter names")]
             fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> { let ($($n,)+) = self; $($n.encode(out)?;)+ Ok(()) }
         }
         impl<$($n: Decode),+> Decode for ($($n,)+) {

@@ -38,10 +38,6 @@ pub trait BiomeSource: Send + Sync {
 
     /// `createResolverForChunk(...)`: a resolver for the quart box starting at `min_quart_*` with the given
     /// sizes; defaults to [`Self::create_resolver`].
-    #[allow(
-        clippy::too_many_arguments,
-        reason = "mirrors the vanilla `createResolverForChunk` parameter list"
-    )]
     fn create_resolver_for_chunk<'a>(
         &'a self,
         sampler: Sampler,
@@ -73,10 +69,6 @@ pub trait BiomeSource: Send + Sync {
     }
 
     /// `findBiomeHorizontal(x, y, z, searchRadius, allowed, random, randomState)`.
-    #[allow(
-        clippy::too_many_arguments,
-        reason = "mirrors the vanilla `findBiomeHorizontal` parameter list"
-    )]
     fn find_biome_horizontal(
         &self,
         x: i32,
@@ -102,10 +94,6 @@ pub trait BiomeSource: Send + Sync {
 
     /// `findBiomeHorizontal(originX, originY, originZ, searchRadius, skipSteps, allowed, random, findClosest,
     /// randomState)`.
-    #[allow(
-        clippy::too_many_arguments,
-        reason = "mirrors the vanilla `findBiomeHorizontalStepped` parameter list"
-    )]
     fn find_biome_horizontal_stepped(
         &self,
         origin_x: i32,
@@ -168,10 +156,6 @@ pub trait BiomeSource: Send + Sync {
 
     /// `findClosestBiome3d(origin, searchRadius, sampleResolutionHorizontal, sampleResolutionVertical, allowed,
     /// randomState, level)`; `level` supplies `getMinY()`/`getMaxY()`.
-    #[allow(
-        clippy::too_many_arguments,
-        reason = "mirrors the vanilla `findClosestBiome3D` parameter list"
-    )]
     fn find_closest_biome_3d(
         &self,
         origin: BlockPos,

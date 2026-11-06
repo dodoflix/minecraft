@@ -50,10 +50,6 @@ impl PerlinNoise {
     }
 
     /// `sampleAndLerp`.
-    #[allow(
-        clippy::too_many_arguments,
-        reason = "mirrors the vanilla `sampleAndLerp` parameter list"
-    )]
     pub(super) fn sample_and_lerp(
         &self,
         x: i32,
@@ -127,10 +123,6 @@ impl PerlinNoise {
         )
     }
 
-    #[allow(
-        clippy::too_many_arguments,
-        reason = "mirrors the vanilla `sampleWithDerivative` parameter list"
-    )]
     fn sample_with_derivative(
         &self,
         x: i32,

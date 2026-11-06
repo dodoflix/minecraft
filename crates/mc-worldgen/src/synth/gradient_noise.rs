@@ -123,10 +123,6 @@ pub(super) struct CachedCorners {
 }
 
 impl CachedCorners {
-    #[allow(
-        clippy::too_many_arguments,
-        reason = "mirrors the vanilla `load` parameter list"
-    )]
     pub fn load(
         &mut self,
         noise: &GradientNoise,

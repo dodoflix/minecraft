@@ -340,7 +340,7 @@ impl<K: Into<String>, T: Into<Tag>> FromIterator<(K, T)> for CompoundTag {
 #[macro_export]
 macro_rules! compound {
     ($($k:expr => $v:expr),* $(,)?) => {{
-        #[allow(unused_mut)]
+        #[allow(unused_mut, reason = "an empty `compound! {}` never mutates; the macro cannot tell")]
         let mut c = $crate::CompoundTag::new();
         $( c.put($k, $v); )*
         c

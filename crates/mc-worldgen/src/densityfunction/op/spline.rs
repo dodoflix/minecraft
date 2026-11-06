@@ -64,6 +64,10 @@ pub struct Sampler {
 
 impl Sampler {
     pub fn new(ctx: &dyn CompileContext, spline: &CubicSpline<DensityFunction>) -> Sampler {
+        #[expect(
+            clippy::mutable_key_type,
+            reason = "DensityFunction memoizes range()/domain_axes() in OnceLocks; neither participates in Eq/Hash"
+        )]
         let mut coordinates: HashMap<DensityFunction, SamplerCoordinate> = HashMap::new();
         let spline = spline.map_coordinates(&mut |function| {
             let index = coordinates.len();

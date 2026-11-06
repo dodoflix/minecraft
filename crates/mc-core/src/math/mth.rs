@@ -18,7 +18,7 @@ pub const DEG_TO_RAD: f32 = (std::f64::consts::PI / 180.0) as f32;
 pub const RAD_TO_DEG: f32 = 180.0f32 / PI;
 pub const EPSILON: f32 = 1.0E-5;
 /// `sqrt(2.0F)`
-#[allow(
+#[expect(
     clippy::approx_constant,
     reason = "Mth.SQRT_OF_TWO is the literal 1.4142135F"
 )]

@@ -611,10 +611,9 @@ impl StructurePiece for MonumentPiece {
     }
 }
 
-#[allow(
+#[expect(
     unused_variables,
     unused_mut,
-    clippy::needless_late_init,
     reason = "1:1 port of the OceanMonumentPieces room generators keeps vanilla locals and declaration shape"
 )]
 impl MonumentPiece {
@@ -5270,9 +5269,8 @@ impl StructurePiece for MonumentBuilding {
     }
 }
 
-#[allow(
+#[expect(
     unused_variables,
-    unused_mut,
     reason = "1:1 port of OceanMonumentPieces.MonumentBuilding keeps vanilla locals and declaration shape"
 )]
 impl MonumentBuilding {

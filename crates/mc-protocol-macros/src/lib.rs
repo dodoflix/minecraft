@@ -290,7 +290,7 @@ fn expand_encode(input: &DeriveInput) -> Result<TokenStream2> {
     };
     Ok(quote! {
         impl #impl_g #k::codec::Encode for #name #ty_g #where_c {
-            #[allow(unused_variables)]
+            #[allow(unused_variables, reason = "a unit struct or fieldless variant binds nothing")]
             fn encode(&self, out: &mut ::std::vec::Vec<u8>) -> ::std::result::Result<(), #k::codec::EncodeError> { #body }
         }
     })
@@ -331,7 +331,7 @@ fn expand_decode(input: &DeriveInput) -> Result<TokenStream2> {
     };
     Ok(quote! {
         impl #impl_g #k::codec::Decode for #name #ty_g #where_c {
-            #[allow(unused_variables)]
+            #[allow(unused_variables, reason = "a unit struct or fieldless variant binds nothing")]
             fn decode(input: &mut &[u8]) -> ::std::result::Result<Self, #k::codec::DecodeError> { #body }
         }
     })

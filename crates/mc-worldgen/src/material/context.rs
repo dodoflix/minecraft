@@ -85,10 +85,6 @@ pub struct MaterialRuleContext<'a> {
 }
 
 impl<'a> MaterialRuleContext<'a> {
-    #[allow(
-        clippy::too_many_arguments,
-        reason = "mirrors the vanilla constructor parameter list"
-    )]
     pub(crate) fn new(
         system: &'a MaterialSystem,
         random_state: &'a RandomState,

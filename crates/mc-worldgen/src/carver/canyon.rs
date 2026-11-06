@@ -71,7 +71,7 @@ impl CanyonWorldCarver {
         CanyonWorldCarver::from_fields(&Fields::new(value)?)
     }
 
-    #[allow(
+    #[expect(
         clippy::too_many_arguments,
         reason = "mirrors the vanilla `doCarve` parameter list"
     )]

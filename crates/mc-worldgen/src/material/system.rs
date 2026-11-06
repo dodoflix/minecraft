@@ -109,10 +109,6 @@ impl MaterialSystem {
     /// `buildSurface(randomState, biomeManager, generationContext, protoChunk, noiseChunk, ruleSource, possibleBiomes)`.
     /// `volume` is `noiseChunk.volume()`, `samplers` is `noiseChunk.cachingSamplers()`; `biomes` resolves
     /// biome handles to their data (temperature checks).
-    #[allow(
-        clippy::too_many_arguments,
-        reason = "mirrors the vanilla `buildSurface` parameter list"
-    )]
     pub fn build_surface(
         &self,
         random_state: &RandomState,
@@ -275,10 +271,6 @@ impl MaterialSystem {
     }
 
     /// `topMaterial(ruleSource, randomState, worldGenerationContext, biomeGetter, chunk, densitySamplers, pos, underFluid)`.
-    #[allow(
-        clippy::too_many_arguments,
-        reason = "mirrors the vanilla `topMaterial` parameter list"
-    )]
     pub fn top_material(
         &self,
         rule_source: &MaterialRule,
@@ -365,10 +357,6 @@ impl MaterialSystem {
         }
     }
 
-    #[allow(
-        clippy::too_many_arguments,
-        reason = "mirrors the vanilla `frozenOceanExtension` parameter list"
-    )]
     fn frozen_ocean_extension(
         &self,
         min_surface_level: i32,

@@ -78,10 +78,6 @@ impl DensityVolume {
     pub const NO_BLOCK: i32 = -1;
 
     /// Panics on non-positive size/step (Java IllegalArgumentException).
-    #[allow(
-        clippy::too_many_arguments,
-        reason = "mirrors the vanilla constructor parameter list"
-    )]
     pub fn new(
         size_x: i32,
         size_y: i32,

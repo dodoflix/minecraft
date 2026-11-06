@@ -1335,10 +1335,6 @@ impl OverworldBiomeBuilder {
             .unwrap_or_else(|| self.pick_middle_biome(temperature_index, humidity_index, weirdness))
     }
 
-    #[allow(
-        clippy::too_many_arguments,
-        reason = "mirrors the vanilla `addSurfaceBiome` parameter list"
-    )]
     fn add_surface_biome(
         &self,
         biomes: BiomeSink,
@@ -1376,10 +1372,6 @@ impl OverworldBiomeBuilder {
         );
     }
 
-    #[allow(
-        clippy::too_many_arguments,
-        reason = "mirrors the vanilla `addUndergroundBiome` parameter list"
-    )]
     fn add_underground_biome(
         &self,
         biomes: BiomeSink,
@@ -1405,10 +1397,6 @@ impl OverworldBiomeBuilder {
         );
     }
 
-    #[allow(
-        clippy::too_many_arguments,
-        reason = "mirrors the vanilla `addBottomBiome` parameter list"
-    )]
     fn add_bottom_biome(
         &self,
         biomes: BiomeSink,

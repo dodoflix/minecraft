@@ -4,10 +4,6 @@ use crate::dsl::TypeReference;
 
 pub struct References;
 
-#[allow(
-    dead_code,
-    reason = "complete table of the vanilla References constants"
-)]
 impl References {
     pub const LEVEL: TypeReference = TypeReference("level");
     pub const LIGHTWEIGHT_LEVEL: TypeReference = TypeReference("lightweight_level");
