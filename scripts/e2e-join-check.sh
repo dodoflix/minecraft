@@ -15,6 +15,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 host="${1:?HOST}"; port="${2:?PORT}"; shift 2
 secs=15 jt=90 user=E2EBot out="" rd=4 keep=0
+# shellcheck disable=SC2034  # `keep` is read by the EXIT trap below
 while (($#)); do
   case "$1" in
     --seconds) secs="$2"; shift 2;;

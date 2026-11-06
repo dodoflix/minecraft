@@ -16,6 +16,7 @@ failure "<package> <binary> <crashed>", and a cargo error without a failed test 
 Listed tests that now pass are reported so their line can be deleted.
 """
 import json
+import os
 import re
 import subprocess
 import sys
@@ -34,7 +35,9 @@ def run_package(package, cargo_args, libtest_args):
     """Returns {key: "ok" | "FAILED" | "ignored"} for one `cargo test` run."""
     cmd = ["cargo", "test", "--locked", "--no-fail-fast", "-p", package, *cargo_args, "--", *libtest_args]
     print("+", " ".join(cmd), flush=True)
-    proc = subprocess.run(cmd, cwd=ROOT, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    # colour codes would split "Running" from the rest of the line (CI sets CARGO_TERM_COLOR=always)
+    env = {**os.environ, "CARGO_TERM_COLOR": "never"}
+    proc = subprocess.run(cmd, cwd=ROOT, env=env, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     results, binary, unfinished = {}, "?", set()
     for line in proc.stdout.splitlines():
         if m := re.match(r"\s*Running (\S+)", line):

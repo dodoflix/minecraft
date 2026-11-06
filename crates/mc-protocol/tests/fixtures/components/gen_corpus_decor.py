@@ -4,7 +4,6 @@ banner_patterns, pot_decorations, sign_text_front/back, instrument, jukebox_play
 provides_banner_patterns, provides_pottery_pattern).
 Run from this directory: ./gen_corpus_decor.py && ./gen.sh corpus/50-decor.txt"""
 import json
-import random
 import corpus_lib as L
 
 P = "minecraft:"

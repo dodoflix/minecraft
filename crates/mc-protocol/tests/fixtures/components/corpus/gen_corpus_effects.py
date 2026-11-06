@@ -10,7 +10,6 @@ Also imported by gen_corpus_combat.py (helpers below).
     python3 gen_corpus_effects.py > 20-effects.txt     (deterministic)
 """
 import json
-import os
 import random
 import sys
 

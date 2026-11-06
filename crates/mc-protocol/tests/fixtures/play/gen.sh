@@ -10,7 +10,7 @@ BUILD="$ROOT/target/play-golden-build"
 mkdir -p "$BUILD"
 javac -nowarn -d "$BUILD" -cp "$CP" "$ROOT/tools/extractor/src/extractor/Setup.java" "$HERE/PlayHarness.java"
 GEN="$1"; shift
-OUT="$HERE/$(basename "$GEN" .java | sed 's/^Gen//' | tr 'A-Z' 'a-z').golden"
+OUT="$HERE/$(basename "$GEN" .java | sed 's/^Gen//' | tr '[:upper:]' '[:lower:]').golden"
 cd "$ROOT"
 java -cp "$BUILD:$CP" "$HERE/$GEN" "$OUT" "$@"
 echo "wrote $OUT"

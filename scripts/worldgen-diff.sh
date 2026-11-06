@@ -128,6 +128,7 @@ X1=$((CX - RADIUS)) X2=$((CX + RADIUS)) Z1=$((CZ - RADIUS)) Z2=$((CZ + RADIUS))
 dim_id() { case "$1" in overworld) echo minecraft:overworld;; nether|the_nether) echo minecraft:the_nether;; end|the_end) echo minecraft:the_end;; *:*) echo "$1";; *) die "unknown dimension $1";; esac; }
 
 # --- server dir helpers -------------------------------------------------------------------------------------------
+# shellcheck disable=SC2016  # the inner script expands in the child shell
 send() { timeout 10 sh -c 'printf "%s\n" "$1" > "$2"' _ "$2" "$1/stdin.fifo"; }   # send DIR "command" (never blocks on a dead server)
 logf() { echo "$1/logs/latest.log"; }
 # wait_log DIR REGEX [TIMEOUT]: wait for an extended regex in the server log (fails early if the process died)
@@ -249,8 +250,9 @@ run_side() {   # run_side LABEL KIND
   fi
 }
 
+# shellcheck disable=SC2329  # runs from the EXIT trap below
 cleanup() {
-  for p in "$ROOT"/run/servers/wgdiff-$$-*/server.pid "$OUT"/*/server.pid; do
+  for p in "$ROOT/run/servers/wgdiff-$$-"*/server.pid "$OUT"/*/server.pid; do
     [[ -f "$p" ]] && kill -9 "$(cat "$p")" 2>/dev/null || true
   done
 }

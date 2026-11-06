@@ -100,7 +100,6 @@ def cooldown():
 
 def crit_sprint_sweep():
     s = Scenario("Critical hits (falling, airborne, not sprinting/blind/in water), sprint knockback hits, weak/strong sounds, sweep attacks (sword, on ground, full strength, slow, no crit/sprint) with sweeping edge and bystanders.", spacing=8, per_row=12)
-    A_PREP = ["tick 40"]
     def row(ref, item, setup, extra_victims=(), post=lambda x, z: (), kind="husk"):
         x, z = s.slot()
         s.mob(ref, kind, x, z)

@@ -102,13 +102,14 @@ LAUNCH
   ;;
 screenshot)
   out="${1:-}"; sdir="$D/game/screenshots"; mkdir -p "$sdir"
-  before="$(ls "$sdir" 2>/dev/null | wc -l)"
+  count() { find "$sdir" -mindepth 1 -maxdepth 1 | wc -l; }
+  before="$(count)"
   DISPLAY="$(display_of "$name")" xdotool key --clearmodifiers F2
   for _ in $(seq 60); do
-    [[ "$(ls "$sdir" | wc -l)" -gt "$before" ]] && break; sleep 0.2
+    [[ "$(count)" -gt "$before" ]] && break; sleep 0.2
   done
-  f="$sdir/$(ls -t "$sdir" | head -1)"
-  [[ "$(ls "$sdir" | wc -l)" -gt "$before" ]] || die "no screenshot appeared in $sdir"
+  [[ "$(count)" -gt "$before" ]] || die "no screenshot appeared in $sdir"
+  f="$(find "$sdir" -mindepth 1 -maxdepth 1 -printf '%T@ %p\n' | sort -rn | head -1 | cut -d' ' -f2-)"
   sleep 0.3  # file is written by a worker thread
   if [[ -n "$out" ]]; then mkdir -p "$(dirname "$out")"; cp "$f" "$out"; echo "$out"; else echo "$f"; fi
   ;;

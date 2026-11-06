@@ -78,7 +78,9 @@ RUNNER="$TARGET/debug/mc-command-diff"
 [[ -x "$BIN" ]] || { echo "command-diff: mc-server binary $BIN missing" >&2; exit 2; }
 [[ -f "$ROOT/ref/server.jar" ]] || { echo "command-diff: ref/server.jar missing (scripts/setup-ref.sh)" >&2; exit 2; }
 
-export MC_CMDDIFF_RUN_ID="$$-$(date +%H%M%S)"
+MC_CMDDIFF_RUN_ID="$$-$(date +%H%M%S)"
+export MC_CMDDIFF_RUN_ID
+# shellcheck disable=SC2329  # runs from the EXIT trap below
 cleanup() {
   # a killed runner never ran its destructors: stop this run's vanilla servers
   for d in "$ROOT"/run/servers/cmddiff-"$MC_CMDDIFF_RUN_ID"-*; do

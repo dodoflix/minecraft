@@ -72,6 +72,7 @@ start)
   mv "$D/server.properties.new" "$D/server.properties"
   rm -f "$D/stdin.fifo" "$D/logs/latest.log"; mkfifo "$D/stdin.fifo"
   # The child opens the fifo read-write so stdin never sees EOF between writers.
+  # shellcheck disable=SC2016  # the inner script expands in the child shell
   (cd "$D" && setsid bash -c '
       exec 3<>stdin.fifo
       echo $$ > server.pid

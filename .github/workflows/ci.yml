@@ -93,10 +93,9 @@ jobs:
         run: rustup show
       - uses: taiki-e/install-action@c509219cf42fba86913069efd0ade2458c59337b # v2.90.1
         with:
-          tool: cargo-deny
+          tool: cargo-deny,shellcheck@0.11.0
       - name: Install ruff
         run: pipx install ruff==0.17.4
-      # shellcheck is preinstalled on the runner image.
       - run: scripts/check.sh --fast
 
   # Pull requests only: the title (the squash-merge commit message) and every commit. Maintainer pushes to main go

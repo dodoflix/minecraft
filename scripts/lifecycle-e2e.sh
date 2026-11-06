@@ -23,6 +23,7 @@ fail() { echo "FAIL: $*" >&2; exit 1; }
 
 start_ours() {
   rm -f "$D/stdin.fifo" "$D/server.pid"; mkfifo "$D/stdin.fifo"
+  # shellcheck disable=SC2016  # the inner script expands in the child shell
   (cd "$D" && setsid bash -c '
       exec 3<>stdin.fifo
       echo $$ > server.pid
@@ -74,7 +75,7 @@ cmd "gamerule keep_inventory true"
 sleep 3
 stop_ours
 tail -8 "$D/logs/latest.log"
-ls "$D/world/players/data" | grep -q '\.dat$' || fail "no player data file written"
+compgen -G "$D/world/players/data/*.dat" >/dev/null || fail "no player data file written"
 [[ -f "$D/world/level.dat" ]] || fail "no level.dat"
 
 echo "== run 2: restart, check persistence =="

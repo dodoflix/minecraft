@@ -9,7 +9,7 @@ import random
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from gen_corpus_effects import Out, emit_component, js, snbt  # noqa: E402
+from gen_corpus_effects import Out, emit_component  # noqa: E402
 
 BLOCKS = ["stone", "dirt", "oak_log", "cobweb", "obsidian", "glass", "sand", "netherrack", "nope", "air", "bedrock"]
 BLOCK_TAGS = ["mineable/pickaxe", "mineable/axe", "mineable/shovel", "mineable/hoe", "logs", "leaves", "wool", "planks", "needs_diamond_tool",

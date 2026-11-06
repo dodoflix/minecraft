@@ -31,7 +31,8 @@ PATCHED="$SHADOW/$(basename "$SERVER_JAR")"
 if [ ! -f "$PATCHED" ] || [ -n "$(find "$SHADOW_SRC" -name '*.java' -newer "$PATCHED" -print -quit)" ]; then
   mkdir -p "$SHADOW/classes"
   rm -rf "$SHADOW/classes"; mkdir -p "$SHADOW/classes"
-  javac -nowarn -cp "$CP" -d "$SHADOW/classes" $(find "$SHADOW_SRC" -name '*.java') 2>/dev/null
+  mapfile -t shadow_sources < <(find "$SHADOW_SRC" -name '*.java')
+  javac -nowarn -cp "$CP" -d "$SHADOW/classes" "${shadow_sources[@]}" 2>/dev/null
   python3 - "$SERVER_JAR" "$PATCHED" "$SHADOW/classes" <<'PY'
 import sys, zipfile, os
 src, dst, classes = sys.argv[1:]

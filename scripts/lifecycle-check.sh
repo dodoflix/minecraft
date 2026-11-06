@@ -39,6 +39,7 @@ motd=lifecycle check
 EOF
 echo "eula=true" > "$OURS/eula.txt"
 mkfifo "$OURS/stdin.fifo"
+# shellcheck disable=SC2016  # the inner script expands in the child shell
 (cd "$OURS" && setsid bash -c '
     exec 3<>stdin.fifo
     echo $$ > server.pid
