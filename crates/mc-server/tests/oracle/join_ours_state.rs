@@ -132,6 +132,7 @@ async fn join_with_scoreboard_boss_bar_and_border() {
     }
     std::fs::write("/tmp/ours_state_join.txt", &details).unwrap();
     let _ = child.kill();
+    let _ = child.wait();
     let count = |n: &str| names.iter().filter(|x| x.as_str() == n).count();
     assert_eq!(count("set_player_team"), 2, "{names:?}");
     assert!(

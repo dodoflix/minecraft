@@ -87,6 +87,7 @@ async fn join_our_server() {
     }
     std::fs::write("/tmp/ours_join_seq.txt", &out).unwrap();
     let _ = child.kill();
+    let _ = child.wait();
 }
 
 #[tokio::test(flavor = "multi_thread")]

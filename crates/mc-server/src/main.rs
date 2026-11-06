@@ -26,6 +26,10 @@ fn fatal(error: impl std::fmt::Display) {
     log::error!("Failed to start the minecraft server\n{error}");
 }
 
+#[expect(
+    clippy::print_stderr,
+    reason = "the usage text and a logging-init failure go to stderr before the logger exists"
+)]
 fn run() -> ExitCode {
     if let Err(e) = logging::init("logs", LevelFilter::Info) {
         eprintln!("Failed to initialize logging: {e}");
@@ -42,10 +46,10 @@ fn run() -> ExitCode {
     if let Some(e) = &options.early_error {
         return report(e);
     }
-    if let Some(pid_file) = &options.pid_file {
-        if let Err(e) = std::fs::write(pid_file, std::process::id().to_string()) {
-            return report(format!("java.io.UncheckedIOException: {e}"));
-        }
+    if let Some(pid_file) = &options.pid_file
+        && let Err(e) = std::fs::write(pid_file, std::process::id().to_string())
+    {
+        return report(format!("java.io.UncheckedIOException: {e}"));
     }
 
     let settings_file = Path::new("server.properties");

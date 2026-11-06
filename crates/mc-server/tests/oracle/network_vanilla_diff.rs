@@ -322,7 +322,9 @@ async fn registry_transcript(addr: SocketAddr) -> Vec<String> {
     }
 }
 
-fn normalized_tags(line: &str) -> Vec<(String, Vec<(String, Vec<i32>)>)> {
+type TagRegistries = Vec<(String, Vec<(String, Vec<i32>)>)>;
+
+fn normalized_tags(line: &str) -> TagRegistries {
     let bytes: Vec<u8> = (0..line.split(' ').nth(1).unwrap().len())
         .step_by(2)
         .map(|i| u8::from_str_radix(&line.split(' ').nth(1).unwrap()[i..i + 2], 16).unwrap())

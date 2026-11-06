@@ -1,6 +1,12 @@
 //! Oracle tests (T2): scripted clients against the real vanilla server and our `mc-server` binary; one module per topic.
 //! Run with `MC_ACCEPT_EULA=1 cargo test -p mc-server --test oracle -- --ignored`.
 
+#![expect(
+    clippy::print_stdout,
+    clippy::print_stderr,
+    reason = "oracle scenarios report their progress and findings on the test's stdio"
+)]
+
 #[path = "../../../mc-game/tests/golden/net_common/mod.rs"]
 mod net_support;
 
