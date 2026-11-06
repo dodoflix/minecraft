@@ -2,7 +2,7 @@
 //! build an obsidian frame in the flat overworld, light it with `fire` (BaseFireBlock.onPlace), stand in it, arrive in the
 //! Nether (PortalForcer.createPortal on the real nether terrain), step out, step back in and return to the overworld portal.
 //!
-//! `portal_dual_vanilla` checks the vanilla observations against `tests/fixtures/portal_dual/*.txt` (`PORTAL_DUAL_UPDATE=1`
+//! `portal_dual_vanilla` checks the vanilla observations against `tests/fixtures/portal_dual/*.txt` (`MC_UPDATE_FIXTURES=1`
 //! rewrites them); `portal_dual_ours` diffs our server's observations against them (`run/portal-dual-ours.diff`,
 //! `PORTAL_DUAL_STRICT=1` makes differences a failure).
 use std::sync::Arc;
@@ -209,7 +209,7 @@ async fn portal_dual_vanilla() {
     setup(&bot, &*server).await;
     let results = run(&bot, server.clone()).await;
     bot.disconnect().await;
-    let update = std::env::var("PORTAL_DUAL_UPDATE").is_ok();
+    let update = std::env::var("MC_UPDATE_FIXTURES").is_ok_and(|v| v == "1");
     let mut failures = Vec::new();
     for (name, lines) in &results {
         let path = fixture_path(name);

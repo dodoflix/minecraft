@@ -2,7 +2,7 @@
 //! the border/ticking/spawn/chat packets each command produces (packet debug forms, timestamps stripped, digits of
 //! timing dependent tick/sprint reports masked) are compared.
 //! `world_commands_vanilla`  runs the script on the real server and checks it against `tests/fixtures/world_commands_dual.txt`
-//!                           (`WC_DUAL_UPDATE=1` rewrites the fixture).
+//!                           (`MC_UPDATE_FIXTURES=1` rewrites the fixture).
 //! `world_commands_ours`     runs it on `mc-server` and fails on any difference from the fixture.
 use std::time::Duration;
 
@@ -145,7 +145,7 @@ async fn world_commands_vanilla() {
     let lines = run(&bot, &|c| server.cmd(c)).await;
     bot.disconnect().await;
     server.stop();
-    if std::env::var("WC_DUAL_UPDATE").is_ok() {
+    if std::env::var("MC_UPDATE_FIXTURES").is_ok_and(|v| v == "1") {
         std::fs::write(fixture(), lines.join("\n") + "\n").unwrap();
         return;
     }

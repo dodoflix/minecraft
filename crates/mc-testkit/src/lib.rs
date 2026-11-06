@@ -11,8 +11,8 @@
 //! - A missing prerequisite (`java`, `ref/server.jar`, the EULA opt-in) is an error with the command that fixes it.
 //!   `start` returns it; tests `expect` it, so they fail instead of skipping.
 //!
-//! Starting the vanilla server accepts the Minecraft EULA on the caller's behalf, so it needs `MC_ACCEPT_EULA=1`
-//! (`docs/testing.md`). This is the only code that writes `eula=true` for the vanilla server.
+//! Starting a server writes `eula=true` into its directory, which accepts the Minecraft EULA on the caller's behalf, so
+//! it needs `MC_ACCEPT_EULA=1` (`docs/testing.md`). This is the only Rust code that writes `eula=true`.
 
 use std::fmt;
 use std::fs::{self, File};
@@ -250,7 +250,7 @@ impl Server {
         Builder::new(Program::Vanilla)
     }
 
-    /// Our own server binary (`mc-server`).
+    /// Our own server binary (`mc-server`). Needs `MC_ACCEPT_EULA=1`, because it reads the same `eula.txt`.
     pub fn ours(bin: impl Into<PathBuf>) -> Builder {
         Builder::new(Program::Ours(bin.into()))
     }
@@ -453,12 +453,11 @@ impl Builder {
     }
 
     fn prepare_dir(&mut self) -> Result<(PathBuf, Option<TempDir>)> {
-        if matches!(self.program, Program::Vanilla) {
-            if !repo_root().join("ref/server.jar").is_file() {
-                return fail("ref/server.jar is missing: run scripts/setup-ref.sh");
-            }
-            eula_opt_in(std::env::var("MC_ACCEPT_EULA").ok().as_deref())?;
+        if matches!(self.program, Program::Vanilla) && !repo_root().join("ref/server.jar").is_file()
+        {
+            return fail("ref/server.jar is missing: run scripts/setup-ref.sh");
         }
+        eula_opt_in(std::env::var("MC_ACCEPT_EULA").ok().as_deref())?;
         let io = |what: &str, e: io::Error| Error(format!("{what}: {e}"));
         let (dir, temp) = match &self.dir {
             Some(dir) => (dir.clone(), None),
@@ -471,7 +470,7 @@ impl Builder {
             }
         };
         fs::create_dir_all(&dir).map_err(|e| io("create the server directory", e))?;
-        // The opt-in above is the Minecraft EULA; our own server only reads the same file.
+        // Guarded by the opt-in above; our own server reads the same file.
         fs::write(dir.join("eula.txt"), "eula=true\n").map_err(|e| io("write eula.txt", e))?;
         if let Some(prepare) = self.prepare.take() {
             prepare(&dir);
@@ -540,7 +539,7 @@ fn eula_opt_in(value: Option<&str>) -> Result<()> {
         return Ok(());
     }
     fail(format!(
-        "starting the vanilla server accepts the Minecraft EULA ({EULA_URL}) in your name: set MC_ACCEPT_EULA=1 if you accept it"
+        "starting a server accepts the Minecraft EULA ({EULA_URL}) in your name: set MC_ACCEPT_EULA=1 if you accept it"
     ))
 }
 

@@ -58,7 +58,6 @@ fn server_with_pack() -> (MinecraftServer, std::path::PathBuf, Box<dyn std::any:
     use mc_game::server::dedicated::properties::DedicatedServerSettings;
     common::init_logger();
     let dir = tempfile::tempdir().expect("temp dir");
-    std::fs::write(dir.path().join("eula.txt"), "eula=true\n").unwrap();
     let pack_dir = dir.path().join("world/datapacks/fnpack");
     copy_dir(Path::new(PACK), &pack_dir);
     let options = ServerOptions {

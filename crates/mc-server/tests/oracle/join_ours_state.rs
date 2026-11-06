@@ -1,7 +1,5 @@
 //! Joins OUR server on a world with scoreboard / custom boss event / world border saved data (saved by the vanilla
 //! server from console commands and copied over) and checks the matching join packets arrive.
-use std::io::{BufRead, BufReader};
-use std::process::{Command, Stdio};
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
 
@@ -57,48 +55,20 @@ async fn vanilla_seed_world(dir: &std::path::Path) {
 #[tokio::test(flavor = "multi_thread")]
 #[ignore = "oracle: starts the vanilla server and the mc-server binary"]
 async fn join_with_scoreboard_boss_bar_and_border() {
-    let bin = env!("CARGO_BIN_EXE_mc-server");
     let seed = tempfile::tempdir().expect("temp dir");
     vanilla_seed_world(seed.path()).await;
-    let port = std::net::TcpListener::bind("127.0.0.1:0")
-        .unwrap()
-        .local_addr()
-        .unwrap()
-        .port();
-    let dir = std::env::temp_dir().join(format!("mc-join-state-{}-{port}", std::process::id()));
-    copy_dir(&seed.path().join("world"), &dir.join("world"));
-    std::fs::write(dir.join("eula.txt"), "eula=true\n").unwrap();
-    std::fs::write(
-        dir.join("server.properties"),
-        format!("online-mode=false\nwhite-list=false\nserver-port={port}\nserver-ip=127.0.0.1\ngenerate-structures=false\nspawn-protection=0\nmax-tick-time=-1\nview-distance=2\nsimulation-distance=2\nenable-rcon=false\nenable-query=false\nrate-limit=0\nlevel-seed=12345\n"),
+    let server = crate::common::ours(
+        12345,
+        "survival",
+        &["view-distance=2", "simulation-distance=2"],
     )
-    .unwrap();
-    let mut child = Command::new(bin)
-        .arg("nogui")
-        .current_dir(&dir)
-        .stdin(Stdio::piped())
-        .stdout(Stdio::piped())
-        .stderr(Stdio::inherit())
-        .spawn()
-        .unwrap();
-    let stdout = child.stdout.take().unwrap();
-    let (tx, rx) = std::sync::mpsc::channel();
-    std::thread::spawn(move || {
-        let mut all = String::new();
-        for line in BufReader::new(stdout).lines().map_while(Result::ok) {
-            all.push_str(&line);
-            all.push('\n');
-            let _ = std::fs::write("/tmp/ours_state_server.log", &all);
-            if line.contains("Done (") {
-                let _ = tx.send(());
-            }
-        }
-    });
-    rx.recv_timeout(Duration::from_secs(240))
-        .expect("server start");
-    tokio::time::sleep(Duration::from_secs(1)).await;
-
-    let opts = BotOptions::new("127.0.0.1", port, "Bot");
+    .prepare({
+        let world = seed.path().join("world");
+        move |dir| copy_dir(&world, &dir.join("world"))
+    })
+    .start()
+    .expect("start ours");
+    let opts = BotOptions::new("127.0.0.1", server.port, "Bot");
     let log = Arc::new(Mutex::new(PacketLog::new()));
     let mut conn = open(&opts, log.clone()).await.unwrap();
     login_and_configure(&mut conn, &opts)
@@ -131,8 +101,7 @@ async fn join_with_scoreboard_boss_bar_and_border() {
         names.push(name.trim_start_matches("minecraft:").to_string());
     }
     std::fs::write("/tmp/ours_state_join.txt", &details).unwrap();
-    let _ = child.kill();
-    let _ = child.wait();
+    server.kill();
     let count = |n: &str| names.iter().filter(|x| x.as_str() == n).count();
     assert_eq!(count("set_player_team"), 2, "{names:?}");
     assert!(

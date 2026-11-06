@@ -69,7 +69,6 @@ pub fn test_server() -> (mc_game::server::MinecraftServer, Box<dyn std::any::Any
     use mc_game::server::dedicated::options::ServerOptions;
     use mc_game::server::dedicated::properties::DedicatedServerSettings;
     let dir = tempfile::tempdir().expect("temp dir");
-    std::fs::write(dir.path().join("eula.txt"), "eula=true\n").expect("eula");
     let options = ServerOptions {
         universe: dir.path().to_string_lossy().into_owned(),
         ..ServerOptions::default()

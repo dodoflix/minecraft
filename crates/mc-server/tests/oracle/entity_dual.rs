@@ -1,6 +1,6 @@
 //! Survival behaviour of vanilla vs OUR server through the same bot script (see `common/dual.rs`).
 //! `entity_dual_vanilla`  runs the scenarios against the real vanilla server and checks them against the committed observations
-//!                        in `tests/fixtures/entity_dual/*.txt` (`ENTITY_DUAL_UPDATE=1` rewrites them; `ENTITY_DUAL_ONLY=name`
+//!                        in `tests/fixtures/entity_dual/*.txt` (`MC_UPDATE_FIXTURES=1` rewrites them; `ENTITY_DUAL_ONLY=name`
 //!                        runs one scenario).
 //! `entity_dual_ours`     runs the scenarios against `mc-server`, writes
 //!                        `run/entity-dual-ours.diff` and fails on differences only with `ENTITY_DUAL_STRICT=1`.
@@ -32,7 +32,7 @@ async fn entity_dual_vanilla() {
     setup(&bot, &*server).await;
     let results = run_all(&bot, server.clone(), only().as_deref()).await;
     bot.disconnect().await;
-    let update = std::env::var("ENTITY_DUAL_UPDATE").is_ok();
+    let update = std::env::var("MC_UPDATE_FIXTURES").is_ok_and(|v| v == "1");
     let mut failures = Vec::new();
     for (name, lines) in &results {
         let path = fixture_path(name);

@@ -12,7 +12,7 @@ use mc_protocol::codec::{Decode, read_varint};
 use mc_protocol::command_tree_diff::{canonical, diff_trees};
 use mc_protocol::packets::play::ClientboundCommandsPacket;
 use mc_testbot::Bot;
-use mc_testbot::harness::{OurServer, repo_root};
+use mc_testbot::harness::repo_root;
 use mc_testbot::join::BotOptions;
 use mc_testbot::log::Dir;
 use regex::Regex;
@@ -201,38 +201,6 @@ impl Norm {
 
 // ---- servers ----------------------------------------------------------------------------------------------------
 
-enum Srv {
-    Vanilla(mc_testkit::Server),
-    Ours(OurServer),
-}
-
-impl Srv {
-    fn port(&self) -> u16 {
-        match self {
-            Srv::Vanilla(v) => v.port,
-            Srv::Ours(o) => o.port,
-        }
-    }
-    fn cmd(&self, c: &str) {
-        match self {
-            Srv::Vanilla(v) => v.cmd(c),
-            Srv::Ours(o) => o.cmd(c),
-        }
-    }
-    fn log_path(&self) -> PathBuf {
-        match self {
-            Srv::Vanilla(v) => v.log_path(),
-            Srv::Ours(o) => o.log_path(),
-        }
-    }
-    fn dir(&self) -> PathBuf {
-        match self {
-            Srv::Vanilla(v) => v.dir().to_path_buf(),
-            Srv::Ours(o) => o.dir().to_path_buf(),
-        }
-    }
-}
-
 #[derive(Clone)]
 struct Opts {
     seed: i64,
@@ -292,7 +260,7 @@ fn copy_dir(src: &Path, dst: &Path) -> std::io::Result<()> {
     Ok(())
 }
 
-fn start_server(ours: bool, o: &Opts, tag: &str, datapacks: &[String]) -> Res<Srv> {
+fn start_server(ours: bool, o: &Opts, tag: &str, datapacks: &[String]) -> Res<mc_testkit::Server> {
     let level = format!("level-type={}", o.level_type);
     // `MC_CMDDIFF_STRUCTURES=1`: structures on (for `/locate structure` corpora).
     let structures = std::env::var_os("MC_CMDDIFF_STRUCTURES").is_some();
@@ -315,8 +283,9 @@ fn start_server(ours: bool, o: &Opts, tag: &str, datapacks: &[String]) -> Res<Sr
             .join(tag)
             .join("ours");
         prepare(&dir)?;
-        OurServer::start_in(&o.ours_bin, o.seed, &o.gamemode, &props, Some(dir), o.keep)
-            .map(Srv::Ours)
+        mc_testbot::harness::ours(&o.ours_bin, o.seed, &o.gamemode, &props)
+            .dir(dir)
+            .start()
             .map_err(|e| e.to_string())
     } else {
         let dir = repo_root()
@@ -326,7 +295,6 @@ fn start_server(ours: bool, o: &Opts, tag: &str, datapacks: &[String]) -> Res<Sr
         mc_testbot::harness::vanilla(o.seed, &o.gamemode, &props)
             .dir(dir)
             .start()
-            .map(Srv::Vanilla)
             .map_err(|e| e.to_string())
     }
 }
@@ -346,7 +314,7 @@ struct Mark {
 
 struct Side {
     label: &'static str,
-    srv: Srv,
+    srv: mc_testkit::Server,
     bots: [Option<Bot>; 2],
     log_off: usize,
     marker: u32,
@@ -361,7 +329,7 @@ const MARKER_TIMEOUT: Duration = Duration::from_secs(30);
 
 impl Side {
     async fn join_bot(&mut self, i: usize) -> Res<()> {
-        let mut o = BotOptions::new("127.0.0.1", self.srv.port(), BOTS[i]);
+        let mut o = BotOptions::new("127.0.0.1", self.srv.port, BOTS[i]);
         o.timeout = Duration::from_secs(120);
         o.record_raw = self.raw_packets;
         let bot = Bot::connect(o)
@@ -716,9 +684,9 @@ async fn run_side(ours: bool, o: &Opts, tag: &str, lines: &[Line]) -> Res<SideOu
     for b in side.bots.iter().flatten() {
         b.disconnect().await;
     }
-    let dir = side.srv.dir();
+    let dir = side.srv.dir().to_path_buf();
     drop(side);
-    if !o.keep && !ours {
+    if !o.keep {
         let _ = std::fs::remove_dir_all(dir);
     }
     result.map(|()| SideOut { segs, trees })
