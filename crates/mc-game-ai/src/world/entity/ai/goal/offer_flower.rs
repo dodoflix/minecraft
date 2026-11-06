@@ -11,8 +11,6 @@ use mc_game_core::world::entity::mob;
 use mc_game_core::world::entity::{Entity, EntityId};
 use mc_game_core::world::item::ItemStack;
 
-pub const OFFER_TICKS: i32 = 400;
-
 /// `IronGolem.offerFlower(offering)`: supplied by the golem's constructor (`|golem, offering| ...` downcasting to `IronGolem`).
 pub type OfferFlowerFn = fn(&mut dyn Entity, &mut ServerLevel, bool);
 
@@ -82,27 +80,27 @@ impl Goal for OfferFlowerGoal {
 
     fn stop(&mut self, golem: &mut dyn Entity, level: &mut ServerLevel) {
         (self.offer_flower)(golem, level, false);
-        if self.tick == 0 {
-            if let Some(id) = self.entity {
-                let accepts = mc_data::tags::get::<EntityType>("accepts_iron_golem_gift");
-                let golem_bb = Self::get_golem_bounding_box(golem);
-                let ok = level.get_entity(id).is_some_and(|m| {
-                    m.mob().is_some()
-                        && accepts.is_some_and(|t| t.contains(m.get_type()))
-                        && m.get_item_by_slot(EquipmentSlot::Saddle).is_empty()
-                        && golem_bb.intersects_aabb(&m.base().bounding_box())
+        if self.tick == 0
+            && let Some(id) = self.entity
+        {
+            let accepts = mc_data::tags::get::<EntityType>("accepts_iron_golem_gift");
+            let golem_bb = Self::get_golem_bounding_box(golem);
+            let ok = level.get_entity(id).is_some_and(|m| {
+                m.mob().is_some()
+                    && accepts.is_some_and(|t| t.contains(m.get_type()))
+                    && m.get_item_by_slot(EquipmentSlot::Saddle).is_empty()
+                    && golem_bb.intersects_aabb(&m.base().bounding_box())
+            });
+            if ok {
+                level.with_entity(id, |level, m| {
+                    mob::equipment::set_item_slot(
+                        m,
+                        level,
+                        EquipmentSlot::Saddle,
+                        ItemStack::new(Item::POPPY),
+                    );
+                    mob::equipment::set_guaranteed_drop(m, EquipmentSlot::Saddle);
                 });
-                if ok {
-                    level.with_entity(id, |level, m| {
-                        mob::equipment::set_item_slot(
-                            m,
-                            level,
-                            EquipmentSlot::Saddle,
-                            ItemStack::new(Item::POPPY),
-                        );
-                        mob::equipment::set_guaranteed_drop(m, EquipmentSlot::Saddle);
-                    });
-                }
             }
         }
         self.entity = None;

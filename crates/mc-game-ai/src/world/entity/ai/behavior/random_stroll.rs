@@ -13,7 +13,6 @@ use mc_game_core::world::entity::ai::util::{
 };
 use mc_game_core::world::entity::entity::Entity;
 use mc_game_core::world::level::BlockGetter;
-use mc_game_core::world::level::material::FluidStateExt;
 
 const MAX_XZ_DIST: i32 = 10;
 const MAX_Y_DIST: i32 = 7;

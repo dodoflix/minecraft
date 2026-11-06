@@ -1,6 +1,5 @@
 //! `LongJumpMidJump`.
 
-use mc_core::phys::Vec3;
 use mc_core::random::RandomSource;
 use mc_data::SoundEvent;
 use mc_data::enums::Pose;

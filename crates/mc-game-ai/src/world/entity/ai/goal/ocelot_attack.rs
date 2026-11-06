@@ -11,6 +11,12 @@ pub struct OcelotAttackGoal {
     attack_time: i32,
 }
 
+impl Default for OcelotAttackGoal {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl OcelotAttackGoal {
     pub fn new() -> Self {
         Self {

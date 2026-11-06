@@ -30,14 +30,17 @@ pub struct RamCandidate {
     target: EntityId,
 }
 
+type EntityI32Getter = Box<dyn Fn(&dyn Entity) -> i32>;
+type SoundGetter = Box<dyn Fn(&dyn Entity) -> SoundEvent>;
+
 pub struct PrepareRamNearestTarget {
-    get_cooldown_on_fail: Box<dyn Fn(&dyn Entity) -> i32>,
+    get_cooldown_on_fail: EntityI32Getter,
     min_ram_distance: i32,
     max_ram_distance: i32,
     walk_speed: f32,
     ram_targeting: TargetingConditions,
     ram_prepare_time: i32,
-    get_prepare_ram_sound: Box<dyn Fn(&dyn Entity) -> SoundEvent>,
+    get_prepare_ram_sound: SoundGetter,
     reached_ram_position_timestamp: Option<i64>,
     ram_candidate: Option<RamCandidate>,
 }

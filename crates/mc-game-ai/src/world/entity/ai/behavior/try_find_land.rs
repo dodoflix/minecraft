@@ -18,7 +18,6 @@ use mc_game_core::world::entity::movement::collision_context;
 use mc_game_core::world::level::BlockGetter;
 use mc_game_core::world::level::block::state::BlockStateExt;
 use mc_game_core::world::level::collision::CollisionContext;
-use mc_game_core::world::level::material::FluidStateExt;
 
 /// `COOLDOWN_TICKS`.
 const COOLDOWN_TICKS: i64 = 60;

@@ -3,15 +3,13 @@
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource as _;
 use mc_core::random::RandomSource;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::entity::Entity;
 use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags, reduced_tick_delay};
 use mc_game_core::world::entity::mob::navigation;
-use mc_game_core::world::level::LevelAccessor;
 use mc_game_core::world::level::block::state::BlockStateExt;
-use mc_game_core::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
+use mc_game_core::world::level::level_access::BlockGetter as _;
 use mc_game_core::world::level::material::FluidStateExt as _;
 
 const STEPS_TO_CHECK: [i32; 6] = [0, 1, 4, 5, 6, 7];

@@ -18,6 +18,8 @@ pub type TargetPositionGetter =
     Arc<dyn Fn(&ServerLevel, &dyn Entity) -> Option<PositionTracker> + Send + Sync>;
 /// `ItemThrower.throwItem(level, thrower, targetPos)`.
 pub type ItemThrower = Arc<dyn Fn(&mut ServerLevel, &mut dyn Entity, Vec3) + Send + Sync>;
+/// `Predicate<LivingEntity> hasItemPredicate`.
+type HasItemPredicate = Arc<dyn Fn(&dyn Entity) -> bool + Send + Sync>;
 
 pub struct GoAndGiveItemsToTarget {
     target_position_getter: TargetPositionGetter,
@@ -25,7 +27,7 @@ pub struct GoAndGiveItemsToTarget {
     item_thrower: ItemThrower,
     cooldown_memory: MemoryModuleType<i32>,
     cooldown_duration: i32,
-    has_item_predicate: Arc<dyn Fn(&dyn Entity) -> bool + Send + Sync>,
+    has_item_predicate: HasItemPredicate,
 }
 
 impl GoAndGiveItemsToTarget {
@@ -36,7 +38,7 @@ impl GoAndGiveItemsToTarget {
         item_thrower: ItemThrower,
         cooldown_memory: MemoryModuleType<i32>,
         cooldown_duration: i32,
-        has_item_predicate: Arc<dyn Fn(&dyn Entity) -> bool + Send + Sync>,
+        has_item_predicate: HasItemPredicate,
     ) -> BehaviorBase<GoAndGiveItemsToTarget> {
         BehaviorBase::with_timeout(
             entry_condition![LOOK_TARGET => Registered, WALK_TARGET => Registered, cooldown_memory => Registered],

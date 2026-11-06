@@ -16,14 +16,12 @@ impl TradeWithPlayerGoal {
 
 impl Goal for TradeWithPlayerGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        if !mob.is_alive() {
-            false
-        } else if mob.is_in_water() {
-            false
-        } else if !mob.base().on_ground() {
-            false
-        } else if mob.living().is_some_and(|l| l.hurt_time > 0) {
+        if !mob.is_alive()
+            || mob.is_in_water()
+            || !mob.base().on_ground()
             // `wasHurtRecently()`
+            || mob.living().is_some_and(|l| l.hurt_time > 0)
+        {
             false
         } else {
             match mob

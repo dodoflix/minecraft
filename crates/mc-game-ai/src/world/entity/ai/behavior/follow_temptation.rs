@@ -16,9 +16,12 @@ pub const TEMPTATION_COOLDOWN: i32 = 100;
 pub const DEFAULT_CLOSE_ENOUGH_DIST: f64 = 2.5;
 pub const BACKED_UP_CLOSE_ENOUGH_DIST: f64 = 3.5;
 
+type EntityF32Getter = Box<dyn Fn(&dyn Entity) -> f32>;
+type EntityF64Getter = Box<dyn Fn(&dyn Entity) -> f64>;
+
 pub struct FollowTemptation {
-    speed_modifier: Box<dyn Fn(&dyn Entity) -> f32>,
-    close_enough_distance: Box<dyn Fn(&dyn Entity) -> f64>,
+    speed_modifier: EntityF32Getter,
+    close_enough_distance: EntityF64Getter,
     look_in_the_eyes: bool,
 }
 

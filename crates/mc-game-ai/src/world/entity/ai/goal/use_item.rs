@@ -11,9 +11,12 @@ use mc_game_core::world::entity::mob::equipment;
 use mc_game_core::world::item::{InteractionHand, ItemStack};
 use std::sync::Arc;
 
+/// `Predicate<? super T> canUseSelector`.
+pub type CanUseSelector = Arc<dyn Fn(&dyn Entity) -> bool + Send + Sync>;
+
 pub struct UseItemGoal {
     item: ItemStack,
-    can_use_selector: Arc<dyn Fn(&dyn Entity) -> bool + Send + Sync>,
+    can_use_selector: CanUseSelector,
     finish_using_sound: Option<SoundEvent>,
 }
 
@@ -22,7 +25,7 @@ impl UseItemGoal {
     pub fn new(
         item: ItemStack,
         finish_using_sound: Option<SoundEvent>,
-        can_use_selector: Arc<dyn Fn(&dyn Entity) -> bool + Send + Sync>,
+        can_use_selector: CanUseSelector,
     ) -> Self {
         Self {
             item,

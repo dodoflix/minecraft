@@ -26,6 +26,12 @@ impl DefendVillageTargetGoal {
     }
 }
 
+impl Default for DefendVillageTargetGoal {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl Goal for DefendVillageTargetGoal {
     fn can_use(&mut self, golem: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         let grow = golem.base().bounding_box().inflate(10.0, 8.0, 10.0);

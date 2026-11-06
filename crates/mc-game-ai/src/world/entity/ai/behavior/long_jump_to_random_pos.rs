@@ -40,6 +40,9 @@ pub struct PossibleJump {
 /// `BiPredicate<E, BlockPos> acceptableLandingSpot`.
 pub type LandingSpotPredicate = Box<dyn Fn(&mut dyn Entity, &ServerLevel, BlockPos) -> bool>;
 
+/// `Function<E, SoundEvent> getJumpSound`.
+type JumpSoundGetter = Box<dyn Fn(&dyn Entity) -> SoundEvent>;
+
 /// `LongJumpToPreferredBlock`'s extra state.
 struct Preferred {
     preferred_block_tag: &'static str,
@@ -58,7 +61,7 @@ pub struct LongJumpToRandomPos {
     chosen_jump: Option<Vec3>,
     find_jump_tries: i32,
     prepare_jump_start: i64,
-    get_jump_sound: Box<dyn Fn(&dyn Entity) -> SoundEvent>,
+    get_jump_sound: JumpSoundGetter,
     acceptable_landing_spot: LandingSpotPredicate,
     preferred: Option<Preferred>,
 }
@@ -115,7 +118,6 @@ impl LongJumpToRandomPos {
 
     /// `new LongJumpToPreferredBlock(timeBetweenLongJumps, maxLongJumpHeight, maxLongJumpWidth, maxJumpVelocity, getJumpSound,
     /// preferredBlockTag, preferredBlocksChance, acceptableLandingSpot)`.
-    #[allow(clippy::too_many_arguments)]
     pub fn preferred_block(
         time_between_long_jumps: (i32, i32),
         max_long_jump_height: i32,
@@ -147,7 +149,7 @@ impl LongJumpToRandomPos {
         max_long_jump_height: i32,
         max_long_jump_width: i32,
         max_jump_velocity_multiplier: f32,
-        get_jump_sound: Box<dyn Fn(&dyn Entity) -> SoundEvent>,
+        get_jump_sound: JumpSoundGetter,
         acceptable_landing_spot: LandingSpotPredicate,
         preferred: Option<Preferred>,
     ) -> BehaviorBase<LongJumpToRandomPos> {

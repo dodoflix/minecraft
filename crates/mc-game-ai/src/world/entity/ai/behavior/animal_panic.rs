@@ -23,10 +23,13 @@ const PANIC_MAX_DURATION: i32 = 120;
 const PANIC_DISTANCE_HORIZONTAL: i32 = 5;
 const PANIC_DISTANCE_VERTICAL: i32 = 4;
 
+type DamageTypeGetter = Box<dyn Fn(&dyn Entity) -> &'static str>;
+type PanicPositionGetter = Box<dyn FnMut(&mut ServerLevel, &mut dyn Entity) -> Option<Vec3>>;
+
 pub struct AnimalPanic {
     speed_multiplier: f32,
-    panic_causing_damage_types: Box<dyn Fn(&dyn Entity) -> &'static str>,
-    position_getter: Box<dyn FnMut(&mut ServerLevel, &mut dyn Entity) -> Option<Vec3>>,
+    panic_causing_damage_types: DamageTypeGetter,
+    position_getter: PanicPositionGetter,
 }
 
 impl AnimalPanic {

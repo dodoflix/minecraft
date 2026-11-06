@@ -15,7 +15,6 @@ use mc_game_core::world::entity::ai::memory::memory_module_type::{
 use mc_game_core::world::entity::movement::collision_context;
 use mc_game_core::world::level::BlockGetter;
 use mc_game_core::world::level::block::state::BlockStateExt;
-use mc_game_core::world::level::material::FluidStateExt;
 
 /// `create(range, speedModifier, fluidTag)`.
 pub fn create(range: i32, speed_modifier: f32, fluid_tag: &'static str) -> OneShot {
@@ -47,12 +46,10 @@ pub fn create(range: i32, speed_modifier: f32, fluid_tag: &'static str) -> OneSh
                         if !state
                             .get_collision_shape_ctx(level, pos, &context)
                             .is_empty()
-                        {
-                            false
-                        } else if level
-                            .get_block_state(pos.relative(Direction::Down))
-                            .get_collision_shape_ctx(level, pos, &context)
-                            .is_empty()
+                            || level
+                                .get_block_state(pos.relative(Direction::Down))
+                                .get_collision_shape_ctx(level, pos, &context)
+                                .is_empty()
                         {
                             false
                         } else {

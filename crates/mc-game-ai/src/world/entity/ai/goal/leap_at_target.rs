@@ -27,7 +27,7 @@ impl Goal for LeapAtTargetGoal {
             return false;
         };
         let d = mob.base().distance_to_sqr_vec(target.position());
-        if d < 4.0 || d > 16.0 {
+        if !(4.0..=16.0).contains(&d) {
             return false;
         }
         if !mob.base().on_ground() {

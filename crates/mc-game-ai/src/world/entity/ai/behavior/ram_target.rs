@@ -27,15 +27,20 @@ pub const TIME_OUT_DURATION: i32 = 200;
 /// `RAM_SPEED_FORCE_FACTOR`.
 pub const RAM_SPEED_FORCE_FACTOR: f32 = 1.65;
 
+type TimeBetweenRamsGetter = Box<dyn Fn(&dyn Entity) -> (i32, i32)>;
+type KnockbackForceGetter = Box<dyn Fn(&dyn Entity) -> f64>;
+type SoundGetter = Box<dyn Fn(&dyn Entity) -> SoundEvent>;
+type DropHorn = Box<dyn FnMut(&mut ServerLevel, &mut dyn Entity) -> bool>;
+
 pub struct RamTarget {
-    get_time_between_rams: Box<dyn Fn(&dyn Entity) -> (i32, i32)>,
+    get_time_between_rams: TimeBetweenRamsGetter,
     ram_targeting: TargetingConditions,
     speed: f32,
-    get_knockback_force: Box<dyn Fn(&dyn Entity) -> f64>,
+    get_knockback_force: KnockbackForceGetter,
     ram_direction: Vec3,
-    get_impact_sound: Box<dyn Fn(&dyn Entity) -> SoundEvent>,
-    get_horn_break_sound: Box<dyn Fn(&dyn Entity) -> SoundEvent>,
-    drop_horn: Box<dyn FnMut(&mut ServerLevel, &mut dyn Entity) -> bool>,
+    get_impact_sound: SoundGetter,
+    get_horn_break_sound: SoundGetter,
+    drop_horn: DropHorn,
 }
 
 impl RamTarget {

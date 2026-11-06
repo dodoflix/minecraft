@@ -13,7 +13,6 @@ use mc_game_core::world::entity::ai::memory::memory_module_type::{
     ATTACK_TARGET, LOOK_TARGET, WALK_TARGET,
 };
 use mc_game_core::world::level::BlockGetter;
-use mc_game_core::world::level::block::state::BlockStateExt;
 
 /// `create(range, speedModifier, fluidTag)`.
 pub fn create(range: i32, speed_modifier: f32, fluid_tag: &'static str) -> OneShot {

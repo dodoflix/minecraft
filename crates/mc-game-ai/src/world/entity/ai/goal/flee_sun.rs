@@ -61,15 +61,12 @@ impl FleeSunGoal {
 
 impl Goal for FleeSunGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        if tick::get_target_checked(mob, level).is_some() {
-            false
-        } else if !level.is_bright_outside() {
-            false
-        } else if !mob.is_on_fire() {
-            false
-        } else if !level.can_see_sky(mob.block_position()) {
-            false
-        } else if !mob.get_item_by_slot(EquipmentSlot::Head).is_empty() {
+        if tick::get_target_checked(mob, level).is_some()
+            || !level.is_bright_outside()
+            || !mob.is_on_fire()
+            || !level.can_see_sky(mob.block_position())
+            || !mob.get_item_by_slot(EquipmentSlot::Head).is_empty()
+        {
             false
         } else {
             self.set_wanted_pos(mob, level)

@@ -2,7 +2,6 @@
 
 use mc_core::phys::Vec3;
 use mc_core::pos::{BlockPos, SectionPos};
-use mc_core::random::RandomSource;
 use mc_data::EntityType;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::entity::Entity;

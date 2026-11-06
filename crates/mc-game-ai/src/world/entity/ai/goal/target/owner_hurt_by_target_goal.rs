@@ -14,6 +14,12 @@ pub struct OwnerHurtByTargetGoal {
     timestamp: i32,
 }
 
+impl Default for OwnerHurtByTargetGoal {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl OwnerHurtByTargetGoal {
     pub fn new() -> Self {
         Self {

@@ -10,8 +10,6 @@ use mc_game_core::world::entity::ai::util::land_random_pos;
 use mc_game_core::world::entity::mob::navigation;
 use mc_world::heightmap::HeightmapType;
 
-pub const DISTANCE_THRESHOLD: i32 = 10;
-
 pub struct StrollThroughVillageGoal {
     interval: i32,
     wanted_pos: Option<BlockPos>,
@@ -49,11 +47,10 @@ impl StrollThroughVillageGoal {
 
 impl Goal for StrollThroughVillageGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        if mob.has_controlling_passenger() {
-            false
-        } else if level.is_bright_outside() {
-            false
-        } else if mob.base_mut().random.next_int_bounded(self.interval) != 0 {
+        if mob.has_controlling_passenger()
+            || level.is_bright_outside()
+            || mob.base_mut().random.next_int_bounded(self.interval) != 0
+        {
             false
         } else {
             let pos = mob.block_position();
