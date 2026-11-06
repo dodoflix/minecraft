@@ -141,10 +141,12 @@ impl Matcher {
 
 // ---- hook functions -----------------------------------------------------------------------------------------------
 
+type HookFn = dyn Fn(&Ops, Dyn) -> Dyn + Send + Sync;
+
 /// `Hook.HookFunction`: a pre-read / post-write transformation of the raw data. Equality is identity (like the Java
 /// anonymous classes): keep one `HookFunction` value (e.g. in a `LazyLock`) per Java constant.
 #[derive(Clone)]
-pub struct HookFunction(Arc<dyn Fn(&Ops, Dyn) -> Dyn + Send + Sync>);
+pub struct HookFunction(Arc<HookFn>);
 
 impl HookFunction {
     pub fn new(f: impl Fn(&Ops, Dyn) -> Dyn + Send + Sync + 'static) -> HookFunction {
@@ -1019,6 +1021,10 @@ impl Type {
     }
 
     /// `type.all(rule, recurse, checkIndex)`.
+    #[expect(
+        clippy::only_used_in_recursion,
+        reason = "mirrors Type.all(rule, recurse, checkIndex); `recurse` is only forwarded by the vanilla signature"
+    )]
     pub fn all(&self, rule: &TypeRewriteRule, recurse: bool, check_index: bool) -> RewriteResult {
         use TypeKind::*;
         match &self.0.kind {
@@ -1725,7 +1731,7 @@ fn decode_compound_list(key: &Type, element: &Type, ops: &Ops, input: &Dyn) -> D
     for (k, v) in entries {
         let kr = key.decode(ops, k).map(|(a, _)| a);
         let vr = element.decode(ops, v).map(|(a, _)| a);
-        let entry = kr.apply2(vr, |a, b| Value::pair(a, b));
+        let entry = kr.apply2(vr, Value::pair);
         if entry.is_error() {
             Dyn::map_put(&mut failed, k.clone(), v.clone());
         }

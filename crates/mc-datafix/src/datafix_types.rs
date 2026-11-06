@@ -8,7 +8,10 @@ use mc_dfu::{Codec, DataResult, Dyn, Dynamic, NBT};
 use mc_nbt::{CompoundTag, Tag};
 
 #[derive(Clone, Copy, PartialEq, Eq, Hash, Debug)]
-#[allow(non_camel_case_types)]
+#[expect(
+    non_camel_case_types,
+    reason = "variants mirror the vanilla enum constant names"
+)]
 pub enum DataFixTypes {
     LEVEL,
     LEVEL_SUMMARY,

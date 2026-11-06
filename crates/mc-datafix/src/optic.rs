@@ -92,7 +92,7 @@ impl Optic {
                 Value::Right(b) => Value::right(f(*b)),
                 other => other,
             },
-            Optic::ListTraversal => Value::List(s.into_list().into_iter().map(|v| f(v)).collect()),
+            Optic::ListTraversal => Value::List(s.into_list().into_iter().map(f).collect()),
             Optic::InjTagged(key) => {
                 let (k, v) = s.into_pair();
                 if matches!(&k, Value::Str(s) if s == key) {
@@ -134,7 +134,7 @@ impl Optic {
                     f(b)
                 }
             }
-            Optic::ListTraversal => s.as_list().iter().for_each(|v| f(v)),
+            Optic::ListTraversal => s.as_list().iter().for_each(f),
             Optic::InjTagged(key) => {
                 let (k, v) = s.as_pair();
                 if matches!(k, Value::Str(s) if s == key) {

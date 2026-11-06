@@ -112,10 +112,11 @@ fn builder_with_fix(mark: bool) -> DataFixer {
         let ty = fix.input_schema().get_type(&References::ENTITY);
         fix.fix_type_everywhere_typed("ZombieMark", &ty, move |typed| {
             typed.update_remainder(|mut d: Dynamic| {
-                if mark && d.value.map_get("id").and_then(|i| i.as_str()) == Some("Zombie") {
-                    if let Dyn::Map(m) = &mut d.value {
-                        Dyn::map_put(m, s("marked"), Dyn::Byte(1));
-                    }
+                if mark
+                    && d.value.map_get("id").and_then(|i| i.as_str()) == Some("Zombie")
+                    && let Dyn::Map(m) = &mut d.value
+                {
+                    Dyn::map_put(m, s("marked"), Dyn::Byte(1));
                 }
                 d
             })
