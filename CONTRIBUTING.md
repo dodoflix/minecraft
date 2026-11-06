@@ -39,7 +39,7 @@ CI runs `scripts/check-commits.sh` on a pull request's title and every commit: k
 
 ## Checks
 
-Run `scripts/check.sh` before you push. `--fast` skips clippy. A missing tool is a failure, not a skip, and the script exits 2 with a message. `scripts/check.sh --list` prints an index of the scripts.
+Run `scripts/check.sh` before you push. `--fast` skips clippy and rustdoc. A missing tool is a failure, not a skip, and the script exits 2 with a message. `scripts/check.sh --list` prints an index of the scripts.
 
 CI (`.github/workflows/ci.yml`) runs on every pull request and every push to `main`. Its jobs, and the one command each runs:
 
@@ -48,6 +48,7 @@ CI (`.github/workflows/ci.yml`) runs on every pull request and every push to `ma
 | `fmt` | `cargo fmt --all --check` |
 | `clippy` | `cargo clippy --workspace --all-targets --all-features --locked --keep-going -- -D warnings` |
 | `deny` | `cargo deny check licenses bans sources` |
+| `doc` | `RUSTDOCFLAGS="-D warnings" cargo doc --no-deps --workspace --locked --keep-going` |
 | `hygiene` | `scripts/check.sh --fast` (shellcheck, ruff, source and provenance checks) |
 | `commits` | `scripts/check-commits.sh` on the PR title and commits |
 | `test` | `scripts/test-known-failures.py`: `cargo test` per package (T0/T1) |

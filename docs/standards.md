@@ -1,7 +1,7 @@
 # Standards
 
 Rules for code, scripts and docs in this repository. Each rule says how it is enforced: `scripts/check.sh` (run it
-before every push; `scripts/check.sh --fast` skips clippy), a named clippy lint, CI, or review. "Review" means a
+before every push; `scripts/check.sh --fast` skips clippy and rustdoc), a named clippy lint, CI, or review. "Review" means a
 maintainer checks it in the diff; nothing fails automatically.
 
 `scripts/check.sh` passes on `main`. The list at the end says which rules the tree does not meet yet. For a lint with
@@ -59,7 +59,7 @@ Enforced: `scripts/check.sh` runs `cargo clippy --workspace --all-targets --all-
   a helper that one of the crate's two targets does not use would otherwise warn. Enforced: review.
 - Test code may `unwrap`, `expect`, `panic!`, index, print and use `dbg!` (`clippy.toml` `allow-*-in-tests`). Tests that
   compare NaN on purpose use `#[expect(clippy::eq_op, reason = "NaN != NaN")]`.
-- Output: library crates log through the `log` crate; `print_stdout` and `print_stderr` are `warn`. The binaries that print
+- Output: library crates log through the `log` crate; `print_stdout` and `print_stderr` are `deny`. The binaries that print
   (`mc-testbot`, `worldcmp`) and examples are exempt through a crate-root
   `#![expect(clippy::print_stdout, clippy::print_stderr, reason = "...")]` that says why. Enforced: clippy.
 - Documentation lint policy:
@@ -69,7 +69,7 @@ Enforced: `scripts/check.sh` runs `cargo clippy --workspace --all-targets --all-
     `mc-dfu`, `mc-text`, `mc-brigadier`, then others as they reach zero. It is not enabled on `mc-protocol`,
     `mc-data` or the `mc-game-*` crates before 1.0.
   - `unreachable_pub` stays off: the area crates export their modules `pub` for each other and for the `mc-game` facade.
-  - Links in docs must resolve: `RUSTDOCFLAGS="-D warnings" cargo doc --no-deps`. Enforced: review.
+  - Links in docs must resolve: `RUSTDOCFLAGS="-D warnings" cargo doc --no-deps`. Enforced: the CI `doc` job and `scripts/check.sh`.
 
 ## 4. Panics and untrusted input
 
@@ -113,7 +113,7 @@ Rules:
   flags, which is far more sites than real `unsafe`. New `unsafe` is checked in review; keep it in the smallest function
   that needs it.
 - Every `unsafe` block has a `// SAFETY:` comment stating the invariant. Enforced: `clippy::undocumented_unsafe_blocks`
-  (`warn` today; `deny` once the remaining blocks have comments).
+  (`deny`).
 - A new lifetime-erasing `transmute` needs explicit sign-off from a maintainer in the review. Enforced: review.
 
 ## 6. Error handling
@@ -203,7 +203,7 @@ Generators (scripts that write fixtures or goldens):
 - A public item that skips vanilla behaviour (a stub that ignores its arguments and returns a default) documents what it
   skips, and the gap is listed in the README status section. Enforced: review.
 - A hook installer or trait with no caller or no implementor is deleted, or wired in the same change. Enforced: review.
-- Doc links resolve: `RUSTDOCFLAGS="-D warnings" cargo doc --no-deps`. Enforced: review.
+- Doc links resolve: `RUSTDOCFLAGS="-D warnings" cargo doc --no-deps`. Enforced: the CI `doc` job and `scripts/check.sh`.
 
 ## 11. Syntactic slop checks
 

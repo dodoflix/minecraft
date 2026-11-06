@@ -220,6 +220,7 @@ status check and passes only when every job passed:
 - `fmt`: `cargo fmt --all --check`.
 - `clippy`: `cargo clippy --workspace --all-targets --all-features --locked --keep-going -- -D warnings`.
 - `deny`: `cargo deny check licenses bans sources`.
+- `doc`: `RUSTDOCFLAGS="-D warnings" cargo doc --no-deps --workspace --locked --keep-going` (broken documentation links).
 - `hygiene`: `scripts/check.sh --fast` (shellcheck, ruff, syntactic slop and provenance checks).
 - `commits`: `scripts/check-commits.sh` on the pull request title and commits (Conventional Commits).
 - `test`: `scripts/test-known-failures.py`, which runs `cargo test --no-fail-fast` for each workspace package (T0/T1)

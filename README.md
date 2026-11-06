@@ -16,9 +16,9 @@ have its final name yet.
 - **Working:** the wire protocol codecs, NBT/SNBT, chat components, Anvil region and
   level storage, the light engine, and the dedicated-server start-up flow
   (`server.properties`, `eula.txt`, command-line options).
-- **Working:** the vanilla commands and Brigadier, DataFixerUpper and data fixers
+- **Working:** the vanilla commands and Brigadier, the DataFixerUpper machinery
   ported from Mojang's libraries, plus the entity, block and item behaviour
-  implemented so far in the `mc-game-*` crates.
+  implemented so far in the `mc-game-*` crates (see the gaps below).
 - **In progress:** world generation. Noise, density functions, biome sources and
   state-only chunk generation exist; behaviour is checked against vanilla output
   where fixtures exist.
@@ -33,13 +33,16 @@ have its final name yet.
     counted for tuning a note block or planting a flower pot.
   - Mobs and raids: raids and the Bad Omen and Raid Omen effects do nothing; piglins do not get angry when a player
     opens a chest or breaks gold; dolphins cannot find treasure; zombie villagers cannot be cured; there is no lead
-    knot, no leashing of boats and no spear-use goal; lightning traps spawn no skeleton horses.
+    knot, no leashing of boats and no spear-use goal; lightning traps spawn no skeleton horses; there are no bees
+    (hives release occupants but no bee behaviour exists), villagers or wandering traders with their trading goals;
+    evokers and illusioners cast no spells.
   - Items and projectiles: splash and lingering potions have no projectile entity; chest boats and chest minecarts
     open no menu; scaffolding placement has no stability distance.
-  - Redstone: the detector rail does not feed a comparator.
+  - Redstone and blocks: the detector rail does not feed a comparator; shelves have no powered side-chain connection.
   - Server: structure types that are not ported do not generate, world data is not upgraded through the file fixer,
     server links and text filtering are not sent, the bonus chest is not generated, and a spectator cannot use a
-    portal teleport or leave a bed on teleporting to a target.
+    portal teleport or leave a bed on teleporting to a target; no data fix of `DataFixers.addFixers` is ported, so
+    old worlds are not upgraded, and there is no per-version fixer stepping.
 - **Layout:** gameplay is split over `mc-game-core` and the `mc-game-*` area crates, re-exported by the `mc-game` facade;
   see [ARCHITECTURE.md](ARCHITECTURE.md).
 
