@@ -8,7 +8,7 @@ This is a Rust port of the vanilla Minecraft Java Edition 26.3 server (protocol 
 - Install JDK 25. The build script of `mc-data` reads the extractor output under `ref/`.
 - Run `scripts/setup-ref.sh`. It downloads the vanilla server from Mojang into `ref/`. You accept Mojang's EULA yourself; nothing from `ref/` is ever committed.
 - Install the tools `scripts/check.sh` needs: rustfmt, clippy, cargo-deny, shellcheck, ruff.
-- Run `git config blame.ignoreRevsFile .git-blame-ignore-revs`. The file appears with the one-off formatting commit and keeps `git blame` useful.
+- Run `git config blame.ignoreRevsFile .git-blame-ignore-revs`. The file lists the one-off rustfmt commit (and any later bulk reformat), so `git blame` skips it and keeps pointing at the real change. GitHub's blame view reads it automatically.
 - Compiling `mc-game-core` is memory hungry. On a small machine set `CARGO_BUILD_JOBS` (for example `CARGO_BUILD_JOBS=2`).
 
 ## Workflow
