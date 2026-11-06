@@ -119,8 +119,9 @@ crate can use it as a dev-dependency.
   `#![allow(dead_code, reason = "...")]` stating why (not every module uses every helper). A helper two targets of one
   crate both need is split so each keeps only what it uses; the few exceptions load one helper file with `#[path]`.
 - No `#[path]` attributes and no reaching into another crate's `tests/` directory. Review. Not met yet
-  (`git grep -n '#\[path' -- 'crates/*/tests'` lists the sites): the golden target of `mc-game-core` and the oracle target
-  of `mc-server` load helper modules from the golden target of `mc-game` (`common`, `args_common`, `net_common`, ...), and
+  (`git grep -n '#\[path' -- 'crates/*/tests/*'` lists the sites): the golden target of `mc-game-core` loads helper modules
+  from the golden target of `mc-game` (`command_common`, `common`, `decoration_common`, `net_common`), the oracle target
+  of `mc-server` loads `net_common` from there, and
   the oracle targets of `mc-game`, `mc-game-core` and `mc-world` load helper modules of their own golden targets. The `mc-game-core` tests
   pass on the core crate alone but share their helpers and recordings with the tests that need the area crates; some
   modules read another crate's fixtures through `../<crate>/tests/fixtures`.

@@ -35,7 +35,7 @@ Commits follow [Conventional Commits](https://www.conventionalcommits.org): `typ
 
 Example: `fix(worldgen): use vanilla lava level in aquifer picker`.
 
-CI runs `scripts/check-commits.sh` on a pull request's title and every commit: known type, scope from the list above if present, no trailing period, at most 100 characters (over 72 only warns). Run it yourself with `scripts/check-commits.sh origin/main..HEAD`.
+CI runs `scripts/check-commits.sh` on a pull request's title and every commit: known type, scope from the list above if present, no trailing period, at most 100 characters (over 72 only warns). Run it yourself with `scripts/check-commits.sh origin/main..HEAD`. Only new commits are checked: subjects up to and including `d0016913` are history, are not rewritten, and do not all meet the rule.
 
 ## Checks
 

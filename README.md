@@ -22,11 +22,24 @@ have its final name yet.
 - **In progress:** world generation. Noise, density functions, biome sources and
   state-only chunk generation exist; behaviour is checked against vanilla output
   where fixtures exist.
-- **Known gap:** the command host (`crates/mc-game-core/src/commands/host.rs`) evaluates the `advancements` and
-  `predicate` selector options against empty registries. Advancement data and loot
-  predicates are not loaded yet, so those options never match.
-- **Known gap:** crafting never produces a result. No recipe is matched in
-  `crates/mc-game-core/src/world/inventory/crafting.rs`, so the result slot stays empty.
+- **Known gaps** (vanilla behaviour that is skipped; each skip is also documented at the item that skips it):
+  - Advancements: no advancement data is loaded. The `advancements` selector option never matches, `/advancement`
+    grants and revokes nothing, advancement rewards (recipes, functions) are not given, and several criteria
+    (opening a loot container, killing near a sculk catalyst, summoning a wither, avoiding a vibration) are not fired.
+  - Loot contexts: command number providers (`/data`, `/execute store` computing a provider) and the `predicate`
+    selector option cannot be evaluated; explorer maps get no target decoration.
+  - Crafting: no recipe is matched, so every crafting result slot is empty (including the 2x2 grid); the recipe book
+    cannot place a recipe; campfires do not cook food; signs cannot be dyed, inked or waxed; no statistics are
+    counted for tuning a note block or planting a flower pot.
+  - Mobs and raids: raids and the Bad Omen and Raid Omen effects do nothing; piglins do not get angry when a player
+    opens a chest or breaks gold; dolphins cannot find treasure; zombie villagers cannot be cured; there is no lead
+    knot, no leashing of boats and no spear-use goal; lightning traps spawn no skeleton horses.
+  - Items and projectiles: splash and lingering potions have no projectile entity; chest boats and chest minecarts
+    open no menu; scaffolding placement has no stability distance.
+  - Redstone: the detector rail does not feed a comparator.
+  - Server: structure types that are not ported do not generate, world data is not upgraded through the file fixer,
+    server links and text filtering are not sent, the bonus chest is not generated, and a spectator cannot use a
+    portal teleport or leave a bed on teleporting to a target.
 - **Layout:** gameplay is split over `mc-game-core` and the `mc-game-*` area crates, re-exported by the `mc-game` facade;
   see [ARCHITECTURE.md](ARCHITECTURE.md).
 

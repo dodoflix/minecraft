@@ -68,7 +68,7 @@ Enforced: `scripts/check.sh` runs `cargo clippy --workspace --all-targets --all-
   - `#![warn(missing_docs)]` is enabled per crate, and only once that crate has zero missing items. Order: `mc-nbt`,
     `mc-dfu`, `mc-text`, `mc-brigadier`, then others as they reach zero. It is not enabled on `mc-protocol`,
     `mc-data` or the `mc-game-*` crates before 1.0.
-  - `unreachable_pub` stays off until the re-export bridge (section 8) is gone.
+  - `unreachable_pub` stays off: the area crates export their modules `pub` for each other and for the `mc-game` facade.
   - Links in docs must resolve: `RUSTDOCFLAGS="-D warnings" cargo doc --no-deps`. Enforced: review.
 
 ## 4. Panics and untrusted input
@@ -238,4 +238,4 @@ These are open. CI does not enforce them; everything else in this document that 
   per-module `warn` attributes are not in place. `mc-brigadier`'s `StringReader` panics on an out-of-range cursor like
   Java's `charAt`; the command dispatcher contains it.
 - `missing_docs` is not enabled on any crate yet, and some crates lack a three-line crate doc.
-- The `mc-game-*` bridge layout is still in place.
+- Commit subjects: the format rule in `CONTRIBUTING.md` applies to commits after `d0016913`; older subjects are not rewritten.

@@ -10,6 +10,8 @@
 # crate name without the `mc-` prefix (read from `cargo metadata`) or one of ci, deps, scripts, tools, docs.
 # Subjects over 72 characters only warn; over 100 characters, a trailing period, or a missing type fail.
 # Merge commits are skipped. Exit status: 0 ok, 1 a subject failed, 2 usage error.
+# Only new commits are checked (CI: a pull request's range; the merge gate: main..HEAD). `d0016913..origin/main` is the
+# oldest range that passes; subjects up to and including `d0016913` are history and are not rewritten.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
