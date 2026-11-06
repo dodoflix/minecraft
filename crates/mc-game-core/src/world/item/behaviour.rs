@@ -365,6 +365,8 @@ fn build(item: Item) -> Box<dyn ItemBehaviour> {
             return (r.create)(item);
         }
     }
+    // Not implemented: the item-specific behaviour of every item without a registration (see the README's item gaps).
+    // Vanilla uses the item's own class; these items behave like a plain item (no use action).
     Box::new(PlainItem)
 }
 

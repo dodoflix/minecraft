@@ -72,6 +72,8 @@ pub fn instantiate(
 ) -> Box<dyn Entity> {
     match factories().get(&ty) {
         Some(reg) => (reg.create)(ty, id, registries),
+        // Not implemented: every entity type without a registered factory (see the README's entity-type gaps). Vanilla
+        // creates the type's own class; this creates an inert placeholder that keeps its NBT.
         None => Box::new(PlainEntity::new(ty, id)),
     }
 }

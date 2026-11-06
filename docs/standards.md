@@ -224,7 +224,8 @@ Generators (scripts that write fixtures or goldens):
 
 ## 12. Provenance guard
 
-The repository holds our code only. Mojang's sources and assets are never committed. Releases are source-only: builds
+The repository holds our code only. Mojang's sources and assets are never committed; the only Mojang text kept for output
+parity is listed in `NOTICE`. Releases are source-only: builds
 embed Mojang data, so no binary artifacts are published.
 
 `scripts/check.sh` fails if the tree contains:
