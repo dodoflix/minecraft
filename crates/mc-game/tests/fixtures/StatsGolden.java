@@ -1,6 +1,6 @@
 // Golden for ServerStatsCounter: parse of stats files (valid and malformed), toJson (file content, incl. key order),
 // and the ClientboundAwardStatsPacket entry order (dirty HashSet -> fastutil Object2IntOpenHashMap).
-// Usage: scripts/golden-stats.sh
+// Usage: scripts/golden-stats.sh (runs scripts/vanilla-java.sh -o OUT StatsGolden.java OUT)
 // Output: crates/mc-game/tests/fixtures/stats_golden.txt
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -76,7 +76,8 @@ public class StatsGolden {
    static String valueName(Stat<?> s) { return ((Registry) s.getType().getRegistry()).getKey(s.getValue()).toString(); }
 
    public static void main(String[] args) throws Exception {
-      out = new java.io.PrintStream(new java.io.FileOutputStream(java.io.FileDescriptor.out), true, "UTF-8");
+      // the log lines vanilla prints for malformed files (with a clock) go to stdout: the golden is written to the file argument
+      out = new java.io.PrintStream(new java.io.FileOutputStream(args[0]), true, "UTF-8");
       net.minecraft.SharedConstants.tryDetectVersion();
       net.minecraft.server.Bootstrap.bootStrap();
       parseCase("{}");

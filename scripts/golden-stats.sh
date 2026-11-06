@@ -12,5 +12,7 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 help_flag "$@"
 need java
 F="$ROOT/crates/mc-game/tests/fixtures"
-"$ROOT/scripts/vanilla-java.sh" -o "$F/stats_golden.txt" "$F/StatsGolden.java"
+# -XX:hashCode=2 gives every identity hash the same value: the key order of the stat types (HashMap over StatType objects) is then
+# the same in every run
+quiet env JAVA_TOOL_OPTIONS="-XX:+UnlockExperimentalVMOptions -XX:hashCode=2" "$ROOT/scripts/vanilla-java.sh" -o "$F/stats_golden.txt" "$F/StatsGolden.java" "$F/stats_golden.txt"
 wc -l "$F/stats_golden.txt"
