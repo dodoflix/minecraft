@@ -18,33 +18,93 @@ have its final name yet.
   (`server.properties`, `eula.txt`, command-line options).
 - **Working:** the vanilla commands and Brigadier, the DataFixerUpper machinery
   ported from Mojang's libraries, plus the entity, block and item behaviour
-  implemented so far in the `mc-game-*` crates (see the gaps below).
+  implemented so far in the `mc-game-*` crates (see the known gaps below).
 - **In progress:** world generation. Noise, density functions, biome sources and
   state-only chunk generation exist; behaviour is checked against vanilla output
   where fixtures exist.
-- **Known gaps** (vanilla behaviour that is skipped; each skip is also documented at the item that skips it):
-  - Advancements: no advancement data is loaded. The `advancements` selector option never matches, `/advancement`
-    grants and revokes nothing, advancement rewards (recipes, functions) are not given, and several criteria
-    (opening a loot container, killing near a sculk catalyst, summoning a wither, avoiding a vibration) are not fired.
-  - Loot contexts: command number providers (`/data`, `/execute store` computing a provider) and the `predicate`
-    selector option cannot be evaluated; explorer maps get no target decoration.
-  - Crafting: no recipe is matched, so every crafting result slot is empty (including the 2x2 grid); the recipe book
-    cannot place a recipe; campfires do not cook food; signs cannot be dyed, inked or waxed; no statistics are
-    counted for tuning a note block or planting a flower pot.
-  - Mobs and raids: raids and the Bad Omen and Raid Omen effects do nothing; piglins do not get angry when a player
-    opens a chest or breaks gold; dolphins cannot find treasure; zombie villagers cannot be cured; there is no lead
-    knot, no leashing of boats and no spear-use goal; lightning traps spawn no skeleton horses; there are no bees
-    (hives release occupants but no bee behaviour exists), villagers or wandering traders with their trading goals;
-    evokers and illusioners cast no spells.
-  - Items and projectiles: splash and lingering potions have no projectile entity; chest boats and chest minecarts
-    open no menu; scaffolding placement has no stability distance.
-  - Redstone and blocks: the detector rail does not feed a comparator; shelves have no powered side-chain connection.
-  - Server: structure types that are not ported do not generate, world data is not upgraded through the file fixer,
-    server links and text filtering are not sent, the bonus chest is not generated, and a spectator cannot use a
-    portal teleport or leave a bed on teleporting to a target; no data fix of `DataFixers.addFixers` is ported, so
-    old worlds are not upgraded, and there is no per-version fixer stepping.
-- **Layout:** gameplay is split over `mc-game-core` and the `mc-game-*` area crates, re-exported by the `mc-game` facade;
-  see [ARCHITECTURE.md](ARCHITECTURE.md).
+
+## Layout
+
+Gameplay is split over `mc-game-core` and the `mc-game-*` area crates, re-exported by the
+`mc-game` facade; see [ARCHITECTURE.md](ARCHITECTURE.md).
+
+## Known gaps
+
+Vanilla behaviour that a player, a client, a command user or a data pack author can observe and that is skipped.
+Each gap is also documented at the code that skips it; smaller internal gaps are only documented there.
+
+### Entities that do not exist
+
+These entity types have no implementation: they cannot be spawned, summoned or loaded.
+
+- Illagers and raiders: pillager, vindicator, evoker, illusioner, ravager and witch. Raids exist (tracking, waves,
+  boss bar) but spawn no raiders.
+- Bosses: wither, ender dragon and end crystal.
+- Animals and creatures: allay, armadillo, bee (hives cannot release bees), camel and camel husk, goat, happy ghast,
+  nautilus and zombie nautilus, sniffer, copper golem, and the wandering trader.
+- All minecarts: minecart, chest, furnace, hopper, TNT, command block and spawner minecart.
+- Poplar boat and poplar chest boat.
+- Display entities (block, item, text), marker, interaction and leash knot.
+- Projectiles: thrown egg, ender pearl, eye of ender, splash and lingering potion, fishing bobber.
+
+### Mobs and spawning
+
+- Skeletons, strays and bogged never shoot: `RangedBowAttackGoal` exists but is not wired in, and a skeleton holding a
+  bow has no attack goal.
+- Zombies and zombified piglins do not use spears: `SpearUseGoal` exists but is never constructed.
+- Zombified piglins do not reset their anger target: `ResetUniversalAngerTargetGoal` is never added.
+- Zombie villagers cannot be cured (the timer starts and never finishes), and zombies do not turn villagers into
+  zombie villagers.
+- Mobs created by block spawners skip the `Mob` hooks (`finalizeSpawn`, equipment, spawn rules).
+- Piglins do not get angry when a player opens a chest or breaks gold.
+- Dolphins cannot find treasure.
+- Mobs cannot be tied to a lead knot, and boats cannot be leashed.
+- Lightning traps spawn no skeleton horse.
+- The patrol, cat, village siege and wandering trader spawners do not exist; only the phantom spawner runs.
+- The Bad Omen and Raid Omen effects do not start a raid, and the Oozing and Infested effects spawn no slimes or
+  silverfish.
+
+### Items
+
+- The brush does nothing.
+- These items do nothing when used: ender pearl, eye of ender, egg, fishing rod, wind charge, flint and steel, fire
+  charge, minecart items, end crystal and lead on a fence.
+- Dyes do not dye sheep or signs, ink and glow ink sacs do not ink signs, and honeycomb does not wax signs.
+- Shears do not carve a pumpkin.
+- A spear lunge damages nobody.
+- Scaffolding placement has no stability distance.
+
+### Blocks and menus
+
+- No block opens a menu for the crafting table, furnaces (furnace, blast furnace, smoker), stonecutter, loom,
+  cartography table, smithing table, crafter, enchanting table, anvil or grindstone. The anvil, grindstone and
+  enchantment menus exist but nothing opens them; the other menus do not exist.
+- Furnaces, campfires and the crafter have no block entity, so campfires cook nothing.
+- The 2x2 crafting grid of the player inventory never produces a result, and the recipe book cannot place a recipe.
+- Shelves have no block entity, item storage, powered state, side-chain connection or comparator signal.
+- The copper golem statue has no block entity, pose change or comparator signal.
+- Sign click commands are not run.
+- Statistics are not counted for tuning a note block, planting a flower pot, dropping an item or using a map.
+
+### Commands, advancements and loot
+
+- No advancement data is loaded: the `advancements` selector option never matches, `/advancement` grants and revokes
+  nothing, and advancement rewards (recipes, functions) are not given.
+- Several advancement criteria are never fired: opening a loot container, killing near a sculk catalyst, summoning a
+  wither and avoiding a vibration.
+- Command number providers (`/data`, `/execute store` computing a provider) and the `predicate` selector option
+  cannot be evaluated, because loot contexts cannot be built.
+- The `exploration_map` loot function (explorer map trades and chests) returns its map untouched: no structure search
+  and no map data.
+- `/data` never produces `SelectedItem`, and `/teleport` does not stop a mob's navigation.
+
+### Server
+
+- World data is not upgraded: no data fix of `DataFixers.addFixers` is ported, and there is no per-version fixer
+  stepping or file fixer, so old worlds are not upgraded.
+- Server links are not sent, and text filtering uses the dummy filter (no moderation endpoint).
+- The bonus chest is not generated.
+- A spectator cannot use a portal teleport, and a spectator that teleports to a target does not leave its bed.
 
 ## Prerequisites
 
@@ -54,7 +114,9 @@ have its final name yet.
 - JDK 25 or newer, including `javac`
 - `curl`, `unzip`, `jq`, `sha1sum`
 - a C toolchain (compiler and linker)
-- a few hundred MB of disk for `ref/` (more with `--decompile`) and several GB for `target/` once you build the tests
+- a few hundred MB of disk for `ref/` (more with `--decompile`), about 70 MB more for the `libraries/`, `versions/` and
+  `logs/` directories that the setup script leaves in the working directory (see Setup), and several GB for `target/`
+  once you build the tests
 
 ## Setup
 
@@ -72,6 +134,9 @@ To read the vanilla source that this project ports, or to run the oracle and
 fixture-regeneration scripts, run `scripts/setup-ref.sh --decompile`: it decompiles
 the server jar into `ref/src/net/minecraft/`. Without it only the data and the
 reports exist under `ref/`.
+
+The vanilla data generator unpacks the server bundle into the current directory, so run the script from the repository
+root, where `libraries/`, `versions/` and `logs/` are gitignored; from any other directory they are left there, untracked.
 
 By running the script you accept Mojang's EULA and terms yourself. Never
 redistribute `ref/` or a build that embeds it.
