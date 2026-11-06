@@ -50,11 +50,10 @@ fn heightmap_fold(level: &mut GenLevel<'_>, cx: i32, cz: i32, radius: i32) -> St
 
 #[test]
 fn vegetation_features_match_vanilla() {
-    let fixture = std::fs::read_to_string(concat!(
+    let fixture = mc_testkit::read_gz(concat!(
         env!("CARGO_MANIFEST_DIR"),
-        "/tests/fixtures/vegetation_features.txt"
-    ))
-    .expect("fixture present");
+        "/tests/fixtures/vegetation_features.txt.gz"
+    ));
     let filter = std::env::var("VEG_FILTER").ok();
     assert!(
         WORLD.features_loaded,

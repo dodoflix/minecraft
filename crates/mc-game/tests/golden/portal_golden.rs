@@ -287,11 +287,15 @@ fn same(a: &str, b: &str) -> bool {
 }
 
 fn replay(fixture: &str) {
-    let text = std::fs::read_to_string(format!(
+    let path = format!(
         "{}/tests/fixtures/portal/{fixture}",
         env!("CARGO_MANIFEST_DIR")
-    ))
-    .unwrap_or_else(|e| panic!("{fixture}: {e}"));
+    );
+    let text = if fixture.ends_with(".gz") {
+        mc_testkit::read_gz(&path)
+    } else {
+        std::fs::read_to_string(&path).unwrap_or_else(|e| panic!("{fixture}: {e}"))
+    };
     let lines: Vec<&str> = text.lines().collect();
     let mut r = Replay::new();
     let mut failures = Vec::new();
@@ -333,7 +337,7 @@ fn replay(fixture: &str) {
 
 #[test]
 fn portal_shapes() {
-    replay("shapes.txt");
+    replay("shapes.txt.gz");
 }
 
 #[test]

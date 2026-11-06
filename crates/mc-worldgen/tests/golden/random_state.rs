@@ -63,22 +63,21 @@ fn functions(settings: &NoiseGeneratorSettings) -> BTreeMap<String, DensityFunct
 /// Router + aquifer functions of every vanilla noise settings.
 #[test]
 fn router_functions_match_vanilla() {
-    check_fixture("random_state.txt", 30_000);
+    check_fixture("random_state.txt.gz", 30_000);
 }
 
 /// Every registered density function (caves, ore veins, ...) under overworld/nether/end random states.
 #[test]
 fn all_registered_density_functions_match_vanilla() {
-    check_fixture("density_functions.txt", 10_000);
+    check_fixture("density_functions.txt.gz", 10_000);
 }
 
 fn check_fixture(file: &str, min_samples: usize) {
-    let fixture = std::fs::read_to_string(
+    let fixture = mc_testkit::read_gz(
         PathBuf::from(env!("CARGO_MANIFEST_DIR"))
             .join("tests/fixtures")
             .join(file),
-    )
-    .expect("fixture present");
+    );
     let registries = Arc::new(WorldgenRegistries::new(Arc::new(FsDataSource::new(
         data_root(),
     ))));

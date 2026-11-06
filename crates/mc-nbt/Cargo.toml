@@ -12,5 +12,8 @@ publish.workspace = true
 flate2 = { workspace = true }
 indexmap = { workspace = true }
 
+[dev-dependencies]
+mc-testkit = { path = "../mc-testkit" }
+
 [lints]
 workspace = true

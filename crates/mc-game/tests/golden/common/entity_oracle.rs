@@ -1,6 +1,6 @@
 //! Reader/comparator of the entity-oracle fixtures (producer: `tests/oracle/EntityOracleDriver.java`, run through
 //! `scripts/entity-oracle.sh`; scenarios in `tests/oracle/scenarios/NAME.txt`, committed output in
-//! `tests/fixtures/entity_oracle/NAME.txt`).
+//! `tests/fixtures/entity_oracle/NAME.txt`, `NAME.txt.gz` when over 1 MB).
 //!
 //! Typical golden test:
 //! ```ignore
@@ -119,12 +119,17 @@ pub struct Fixture {
 impl Fixture {
     pub fn load(name: &str) -> Fixture {
         let path = fixture_dir().join(format!("{name}.txt"));
-        let text = std::fs::read_to_string(&path).unwrap_or_else(|e| {
-            panic!(
-                "fixture {}: {e} (regenerate with scripts/entity-oracle.sh --regen)",
-                path.display()
-            )
-        });
+        let gz = path.with_extension("txt.gz");
+        let text = if gz.exists() {
+            mc_testkit::read_gz(gz)
+        } else {
+            std::fs::read_to_string(&path).unwrap_or_else(|e| {
+                panic!(
+                    "fixture {}: {e} (regenerate with scripts/entity-oracle.sh --regen)",
+                    path.display()
+                )
+            })
+        };
         Fixture::from_text(name, &text)
     }
 

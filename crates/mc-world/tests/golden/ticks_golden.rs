@@ -9,9 +9,11 @@ use mc_nbt::snbt;
 use mc_nbt::{CompoundTag, Tag};
 use mc_world::ticks::*;
 use std::collections::HashMap;
+use std::sync::LazyLock;
 
 const SAVED_TICK_GOLDEN: &str = include_str!("../fixtures/ticks/saved_tick_golden.txt");
-const TICKS_GOLDEN: &str = include_str!("../fixtures/ticks/ticks_golden.txt");
+static TICKS_GOLDEN: LazyLock<String> =
+    LazyLock::new(|| mc_testkit::include_gz!("../fixtures/ticks/ticks_golden.txt.gz"));
 
 fn block(name: &str) -> Block {
     Block::by_name(name).unwrap_or_else(|| panic!("unknown block {name}"))

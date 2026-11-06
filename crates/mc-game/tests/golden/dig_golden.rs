@@ -40,11 +40,10 @@ struct Case {
 }
 
 fn parse_fixture() -> Vec<Case> {
-    let text = std::fs::read_to_string(concat!(
+    let text = mc_testkit::read_gz(concat!(
         env!("CARGO_MANIFEST_DIR"),
-        "/tests/fixtures/entity_oracle/dig.txt"
-    ))
-    .expect("dig fixture");
+        "/tests/fixtures/entity_oracle/dig.txt.gz"
+    ));
     let mut cases: Vec<Case> = Vec::new();
     let mut tick = 0;
     for line in text.lines() {

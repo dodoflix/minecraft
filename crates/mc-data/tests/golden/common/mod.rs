@@ -16,6 +16,6 @@ pub fn read_json(rel: &str) -> Value {
 }
 
 pub fn golden() -> Vec<Value> {
-    let p = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/block_golden.json");
-    serde_json::from_str(&std::fs::read_to_string(p).unwrap()).unwrap()
+    let p = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/block_golden.json.gz");
+    serde_json::from_str(&mc_testkit::read_gz(p)).unwrap()
 }

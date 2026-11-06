@@ -9,7 +9,7 @@ use crate::common::structure_golden::{run_fixture, structure};
 #[test]
 fn stronghold_matches_vanilla() {
     let stronghold = structure("stronghold");
-    let stats = run_fixture("stronghold.txt", &|_| &stronghold);
+    let stats = run_fixture("stronghold.txt.gz", &|_| &stronghold);
     assert!(
         stats.starts >= 40 && stats.pieces > 2000 && stats.placements >= 400,
         "fixture too small: {} starts, {} pieces, {} placements",

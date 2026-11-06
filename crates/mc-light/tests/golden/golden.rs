@@ -206,8 +206,8 @@ impl Scenario {
 
 #[test]
 fn matches_vanilla_light_engine() {
-    let path = Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/light_golden.txt");
-    let text = std::fs::read_to_string(&path).unwrap();
+    let path = Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/light_golden.txt.gz");
+    let text = mc_testkit::read_gz(&path);
     let biomes = BiomeRegistry::new(vec!["minecraft:plains".to_string()]);
     let factory = PalettedContainerFactory::create(biomes).unwrap();
     let mut scen: Option<Scenario> = None;

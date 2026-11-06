@@ -1,6 +1,6 @@
 // Generates geometry_dir.txt: golden values for Direction/AxisCycle/CompositeDirection/Rotation/Mirror/Vec2/Vec3/AABB.
-// Usage: scripts/vanilla-java.sh -o crates/mc-core/tests/fixtures/geometry_dir/geometry_dir.txt crates/mc-core/tests/fixtures/geometry_dir/GeometryDir.java
-// Output: crates/mc-core/tests/fixtures/geometry_dir/geometry_dir.txt
+// Usage: scripts/vanilla-java.sh -o crates/mc-core/tests/fixtures/geometry_dir/geometry_dir.txt.gz crates/mc-core/tests/fixtures/geometry_dir/GeometryDir.java
+// Output: crates/mc-core/tests/fixtures/geometry_dir/geometry_dir.txt.gz
 // Line format: `op in-tokens = out-tokens`. doubles: 16 hex digits of Double.doubleToLongBits, floats: 8 hex digits of
 // Float.floatToIntBits, ints decimal, booleans 0/1, directions/axes by name, absent values `null`, exceptions `ERR`.
 import java.lang.reflect.Field;

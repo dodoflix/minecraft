@@ -9,7 +9,7 @@ import java.util.*;
  *   "N\t<kind>\t<value-bits-hex>\tbyte\tshort\tint\tlong\tfloatBits\tdoubleBits\tbool"  numeric conversions
  *   "Z\t<hex any-tag bytes>\t<sizeInBytes>"                                              Tag.sizeInBytes over the snbt corpus
  *   "C\t<expected snbt>\t<actual snbt>\t<partial 0/1>\t<result>"                          NbtUtils.compareNbt
- * Usage: scripts/vanilla-java.sh -o crates/mc-nbt/tests/fixtures/model_golden.tsv crates/mc-nbt/tests/fixtures/ModelOracle.java crates/mc-nbt/tests/fixtures/model_golden.tsv crates/mc-nbt/tests/fixtures/snbt_golden.tsv
+ * Usage: scripts/vanilla-java.sh -o crates/mc-nbt/tests/fixtures/model_golden.tsv crates/mc-nbt/tests/fixtures/ModelOracle.java crates/mc-nbt/tests/fixtures/model_golden.tsv crates/mc-nbt/tests/fixtures/snbt_golden.tsv.gz
  * Output: crates/mc-nbt/tests/fixtures/model_golden.tsv (reads snbt_golden.tsv: regenerate that first)
  */
 public class ModelOracle {
@@ -39,6 +39,13 @@ public class ModelOracle {
             + Integer.toHexString(Float.floatToIntBits(t.floatValue())) + "\t" + Long.toHexString(Double.doubleToLongBits(t.doubleValue())) + "\t" + (t.byteValue() != 0));
     }
 
+    /** Lines of a gzip-compressed UTF-8 file (the generated corpora are committed as .gz). */
+    static List<String> gzLines(String path) throws IOException {
+        try (BufferedReader r = new BufferedReader(new InputStreamReader(new java.util.zip.GZIPInputStream(new FileInputStream(path)), StandardCharsets.UTF_8))) {
+            return r.lines().toList();
+        }
+    }
+
     public static void main(String[] args) throws Exception {
         net.minecraft.SharedConstants.tryDetectVersion();
         net.minecraft.server.Bootstrap.bootStrap();
@@ -66,7 +73,7 @@ public class ModelOracle {
             }
             List<String> hexes = new ArrayList<>();
             List<String> snbts = new ArrayList<>();
-            for (String line : Files.readAllLines(Paths.get(args[1]), StandardCharsets.UTF_8)) {
+            for (String line : gzLines(args[1])) {
                 String[] f = line.split("\t", -1);
                 if (f[1].equals("O")) { hexes.add(f[4]); snbts.add(unesc(f[2])); }
             }

@@ -14,6 +14,7 @@ serde = { workspace = true }
 uuid = { workspace = true, features = ["v3"] }
 
 [dev-dependencies]
+mc-testkit = { path = "../mc-testkit" }
 serde_json = { workspace = true }
 
 [lints]

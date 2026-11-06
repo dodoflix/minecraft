@@ -14,5 +14,8 @@ mc-nbt = { path = "../mc-nbt" }
 # preserve_order: JSON objects keep vanilla's field order (contents, extra, style fields)
 serde_json = { workspace = true }
 
+[dev-dependencies]
+mc-testkit = { path = "../mc-testkit" }
+
 [lints]
 workspace = true

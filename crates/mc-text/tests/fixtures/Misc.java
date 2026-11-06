@@ -4,12 +4,13 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.*;
 import net.minecraft.util.StringDecomposer;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.*;
 
 /**
  * Golden generator for TextColor / ChatFormatting / StringDecomposer / Style operations.
- * Usage: scripts/vanilla-java.sh -o crates/mc-text/tests/fixtures/misc.jsonl crates/mc-text/tests/fixtures/Misc.java crates/mc-text/tests/fixtures/golden.jsonl
+ * Usage: scripts/vanilla-java.sh -o crates/mc-text/tests/fixtures/misc.jsonl crates/mc-text/tests/fixtures/Misc.java crates/mc-text/tests/fixtures/golden.jsonl.gz
  * Output: crates/mc-text/tests/fixtures/misc.jsonl
  * (styles are taken from the J cases of golden.jsonl that decode successfully)
  */
@@ -18,6 +19,13 @@ public class Misc {
 
     static JsonElement style(Style s) {
         return Style.Serializer.CODEC.encodeStart(JsonOps.INSTANCE, s).getOrThrow();
+    }
+
+    /** Lines of a gzip-compressed UTF-8 file (the generated corpora are committed as .gz). */
+    static List<String> gzLines(String path) throws IOException {
+        try (BufferedReader r = new BufferedReader(new InputStreamReader(new java.util.zip.GZIPInputStream(new FileInputStream(path)), StandardCharsets.UTF_8))) {
+            return r.lines().toList();
+        }
     }
 
     public static void main(String[] args) throws Exception {
@@ -55,7 +63,7 @@ public class Misc {
         }
 
         List<Style> styles = new ArrayList<>();
-        for (String line : Files.readAllLines(Path.of(args[0]))) {
+        for (String line : gzLines(args[0])) {
             JsonObject rec = JsonParser.parseString(line).getAsJsonObject();
             if (!rec.get("kind").getAsString().equals("J") || !rec.get("ok").getAsBoolean()) continue;
             Component c = ComponentSerialization.CODEC.parse(JsonOps.INSTANCE, JsonParser.parseString(rec.get("input").getAsString())).getOrThrow();

@@ -32,11 +32,10 @@ fn hex(b: &[u8]) -> String {
 
 #[test]
 fn snbt_matches_vanilla() {
-    let data = std::fs::read_to_string(concat!(
+    let data = mc_testkit::read_gz(concat!(
         env!("CARGO_MANIFEST_DIR"),
-        "/tests/fixtures/snbt_golden.tsv"
-    ))
-    .unwrap();
+        "/tests/fixtures/snbt_golden.tsv.gz"
+    ));
     let mut failures = Vec::new();
     let mut n = 0;
     for line in data.lines() {

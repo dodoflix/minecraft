@@ -13,7 +13,7 @@ import java.util.*;
  *   accept cells: operate on the tag read back with NbtIo.readUnnamedTag ("-" when that fails).
  * Inputs: a deterministic selection of the "O" rows of snbt_golden.tsv (named hex; non-compound rows get an empty name),
  * truncations of some of them, and hand-made cases (SNBT-built tags, malformed bytes).
- * Usage: scripts/vanilla-java.sh -o crates/mc-nbt/tests/fixtures/stream_golden.tsv crates/mc-nbt/tests/fixtures/StreamOracle.java crates/mc-nbt/tests/fixtures/stream_golden.tsv crates/mc-nbt/tests/fixtures/snbt_golden.tsv
+ * Usage: scripts/vanilla-java.sh -o crates/mc-nbt/tests/fixtures/stream_golden.tsv crates/mc-nbt/tests/fixtures/StreamOracle.java crates/mc-nbt/tests/fixtures/stream_golden.tsv crates/mc-nbt/tests/fixtures/snbt_golden.tsv.gz
  * Output: crates/mc-nbt/tests/fixtures/stream_golden.tsv (reads snbt_golden.tsv: regenerate that first)
  */
 public class StreamOracle {
@@ -248,6 +248,13 @@ public class StreamOracle {
         return false;
     }
 
+    /** Lines of a gzip-compressed UTF-8 file (the generated corpora are committed as .gz). */
+    static List<String> gzLines(String path) throws IOException {
+        try (BufferedReader r = new BufferedReader(new InputStreamReader(new java.util.zip.GZIPInputStream(new FileInputStream(path)), StandardCharsets.UTF_8))) {
+            return r.lines().toList();
+        }
+    }
+
     public static void main(String[] args) throws Exception {
         net.minecraft.SharedConstants.tryDetectVersion();
         net.minecraft.server.Bootstrap.bootStrap();
@@ -255,7 +262,7 @@ public class StreamOracle {
 
         Set<String> inputs = new LinkedHashSet<>();
         int richSeen = 0, plainSeen = 0, richTaken = 0;
-        for (String line : Files.readAllLines(Paths.get(args[1]), StandardCharsets.UTF_8)) {
+        for (String line : gzLines(args[1])) {
             String[] f = line.split("\t", -1);
             if (!f[1].equals("O")) continue;
             String any = f[4];

@@ -6,8 +6,8 @@ import net.minecraft.world.phys.Vec3;
 
 /**
  * Prints `d <bits16> <Double.toString>`, `f <bits8> <Float.toString>`, `v3 <3 bits> <Vec3.toString>`, `aabb <6 bits> <AABB.toString>`.
- * Usage: scripts/vanilla-java.sh -o crates/mc-core/tests/fixtures/java_format/java_format.txt crates/mc-core/tests/fixtures/java_format/JavaFormat.java crates/mc-core/tests/fixtures/java_format/java_format.txt
- * Output: crates/mc-core/tests/fixtures/java_format/java_format.txt
+ * Usage: scripts/vanilla-java.sh -o crates/mc-core/tests/fixtures/java_format/java_format.txt.gz crates/mc-core/tests/fixtures/java_format/JavaFormat.java crates/mc-core/tests/fixtures/java_format/java_format.txt.gz
+ * Output: crates/mc-core/tests/fixtures/java_format/java_format.txt.gz
  */
 public class JavaFormat {
     static StringBuilder out = new StringBuilder();

@@ -22,11 +22,10 @@ fn unhex(s: &str) -> Vec<u8> {
 
 #[test]
 fn chunk_and_light_packet_data_match_vanilla() {
-    let text = std::fs::read_to_string(concat!(
+    let text = mc_testkit::read_gz(concat!(
         env!("CARGO_MANIFEST_DIR"),
-        "/tests/fixtures/chunk_packet/golden.txt"
-    ))
-    .unwrap();
+        "/tests/fixtures/chunk_packet/golden.txt.gz"
+    ));
     let mut lines = text.lines();
     let mut cases = 0;
     while let Some(head) = lines.next() {

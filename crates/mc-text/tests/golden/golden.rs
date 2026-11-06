@@ -10,10 +10,13 @@ use mc_text::{
     set_validators,
 };
 use serde_json::Value;
+use std::sync::LazyLock;
 use std::sync::Once;
 
-const GOLDEN: &str = include_str!("../fixtures/golden.jsonl");
-const TRANSLATIONS: &str = include_str!("../fixtures/translations.jsonl");
+static GOLDEN: LazyLock<String> =
+    LazyLock::new(|| mc_testkit::include_gz!("../fixtures/golden.jsonl.gz"));
+static TRANSLATIONS: LazyLock<String> =
+    LazyLock::new(|| mc_testkit::include_gz!("../fixtures/translations.jsonl.gz"));
 const MISC: &str = include_str!("../fixtures/misc.jsonl");
 const NBT_TEXT: &str = include_str!("../fixtures/nbt_text.jsonl");
 
@@ -78,7 +81,7 @@ fn component_codec_matches_vanilla() {
     let golden = std::env::var("MC_TEXT_GOLDEN")
         .ok()
         .map(|p| std::fs::read_to_string(p).unwrap());
-    let golden = golden.as_deref().unwrap_or(GOLDEN);
+    let golden = golden.as_deref().unwrap_or(&GOLDEN);
     let mut ok_cases = 0;
     let mut err_cases = 0;
     let mut failures = Vec::new();

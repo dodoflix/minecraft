@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Regenerates golden.txt from the real vanilla/JDK/fastutil classes (HashOrderGolden.java).
+# Regenerates golden.txt.gz from the real vanilla/JDK/fastutil classes (HashOrderGolden.java).
 # Usage: crates/mc-core/tests/fixtures/java_collections/gen.sh
-# Output: crates/mc-core/tests/fixtures/java_collections/golden.txt
+# Output: crates/mc-core/tests/fixtures/java_collections/golden.txt.gz
 # Needs: java, javac, ref/ (scripts/setup-ref.sh).
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/../../../../.." && pwd)"
@@ -15,5 +15,6 @@ OUT="$(mktemp -d)"
 trap 'rm -rf "$OUT"' EXIT
 javac -nowarn -cp "$CP" -d "$OUT" "$HERE/HashOrderGolden.java"
 java -cp "$OUT:$CP" HashOrderGolden "$OUT/golden.txt"
-mv "$OUT/golden.txt" "$HERE/golden.txt"
-wc -l "$HERE/golden.txt"
+gzip -9n <"$OUT/golden.txt" >"$OUT/golden.txt.gz"
+mv "$OUT/golden.txt.gz" "$HERE/golden.txt.gz"
+wc -l <"$OUT/golden.txt"

@@ -7,10 +7,10 @@
 #   scripts/entity-oracle.sh SCENARIO.txt -o OUT     same, written to OUT (only if the run succeeded)
 #   scripts/entity-oracle.sh MyScenario.java [args]  run your own Java program against the harness classes
 #   scripts/entity-oracle.sh MyScenario.java -o OUT [args]   same, its stdout written to OUT (only if the run succeeded)
-#   scripts/entity-oracle.sh --regen                 regenerate every crates/mc-game/tests/fixtures/entity_oracle/*.txt from its
+#   scripts/entity-oracle.sh --regen                 regenerate every crates/mc-game/tests/fixtures/entity_oracle/*.txt[.gz] from its
 #                                                    scenarios/*.txt twin
 #
-# Output: stdout, or OUT with -o (replaced only when the run succeeded; --regen writes crates/mc-game/tests/fixtures/entity_oracle/*.txt).
+# Output: stdout, or OUT with -o (replaced only when the run succeeded; --regen writes crates/mc-game/tests/fixtures/entity_oracle/*.txt[.gz]).
 # Needs: java, javac, python3, ref/ with decompiled sources (setup-ref.sh --decompile) and MC_ACCEPT_EULA=1 (the oracle starts a vanilla
 # level). The shadow classes Holder/RandomSource/RandomSupport (vanilla + tests/oracle/shadow.patch, see oracle-shadow.sh) are
 # generated and compiled into target/entity-oracle-shadow on demand.
@@ -26,7 +26,9 @@ if [ "${1:-}" = --regen ]; then
   for sc in "$T"/oracle/scenarios/*.txt; do
     n="$(basename "$sc")"
     echo "== $n" >&2
-    "$0" "$sc" -o "$T/fixtures/entity_oracle/$n"
+    fixture="$T/fixtures/entity_oracle/$n"
+    [ ! -e "$fixture.gz" ] || fixture="$fixture.gz"
+    "$0" "$sc" -o "$fixture"
   done
   exit 0
 fi

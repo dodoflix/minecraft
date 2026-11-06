@@ -70,10 +70,9 @@ fn loot_tables_equal_vanilla() {
     let mut level = ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap());
     level.registries = stem.registries.composite_access().clone();
 
-    let text = std::fs::read_to_string(
-        std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/loot_golden.txt"),
-    )
-    .unwrap();
+    let text = mc_testkit::read_gz(
+        std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/loot_golden.txt.gz"),
+    );
     let mut cases: Vec<(String, Vec<String>)> = Vec::new();
     for line in text.lines() {
         if let Some(h) = line.strip_prefix("T ") {

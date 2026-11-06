@@ -2,8 +2,10 @@
 use mc_core::math::java;
 use mc_core::math::mth::*;
 use mc_core::phys::{AABB, Vec3};
+use std::sync::LazyLock;
 
-const FIXTURE: &str = include_str!("../fixtures/math/mth.txt");
+static FIXTURE: LazyLock<String> =
+    LazyLock::new(|| mc_testkit::include_gz!("../fixtures/math/mth.txt.gz"));
 
 fn d(s: &str) -> f64 {
     f64::from_bits(u64::from_str_radix(s, 16).unwrap())

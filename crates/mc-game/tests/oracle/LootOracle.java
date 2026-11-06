@@ -23,7 +23,7 @@ import net.minecraft.world.phys.Vec3;
  * rolled by the real vanilla {@code LootTable.getRandomItems(params, seed)}. Stdout format: {@code T table paramset seed tool}
  * then one {@code I item count +component,-component} line per stack.
  * Usage: scripts/golden-loot.sh
- * Output: crates/mc-game/tests/fixtures/loot_golden.txt
+ * Output: crates/mc-game/tests/fixtures/loot_golden.txt.gz
  */
 public final class LootOracle {
    public static void main(String[] args) throws Exception {

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generates explosion_blocks.txt (scenario of the entity oracle): random terrain boxes + Level.explode, dumps the blocks left.
 Replayed by tests/golden/explosion_golden.rs. Fixture: scripts/entity-oracle.sh crates/mc-game/tests/oracle/scenarios/explosion_blocks.txt
--o crates/mc-game/tests/fixtures/entity_oracle/explosion_blocks.txt
+-o crates/mc-game/tests/fixtures/entity_oracle/explosion_blocks.txt.gz
 
 Usage: python3 crates/mc-game/tests/oracle/scenarios/gen_explosion_blocks.py crates/mc-game/tests/oracle/scenarios/explosion_blocks.txt
 Output: crates/mc-game/tests/oracle/scenarios/explosion_blocks.txt (replaced only when generation succeeds)."""

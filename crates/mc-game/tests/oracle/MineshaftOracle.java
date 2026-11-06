@@ -10,9 +10,9 @@ import net.minecraft.world.level.levelgen.structure.StructureStart;
 /**
  * Oracle of crates/mc-game/tests/golden/mineshaft_golden.rs: the real vanilla `minecraft:mineshaft` and `minecraft:mineshaft_mesa`
  * structures (output format: StructureGoldenBase.java).
- * Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/mineshaft.txt crates/mc-game/tests/oracle/MineshaftOracle.java crates/mc-game/tests/fixtures/mineshaft.txt
+ * Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/mineshaft.txt.gz crates/mc-game/tests/oracle/MineshaftOracle.java crates/mc-game/tests/fixtures/mineshaft.txt.gz
  * (FeatureOracleBase.java and StructureGoldenBase.java next to this file)
- * Output: crates/mc-game/tests/fixtures/mineshaft.txt
+ * Output: crates/mc-game/tests/fixtures/mineshaft.txt.gz
  */
 public class MineshaftOracle {
     public static void main(String[] args) throws Exception {

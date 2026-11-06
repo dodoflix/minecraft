@@ -67,8 +67,7 @@ fn explosion_block_sets_match_vanilla() {
         std::fs::read_to_string(common::entity_oracle::scenario_dir().join("explosion_blocks.txt"))
             .unwrap();
     let expected =
-        std::fs::read_to_string(common::entity_oracle::fixture_dir().join("explosion_blocks.txt"))
-            .unwrap();
+        mc_testkit::read_gz(common::entity_oracle::fixture_dir().join("explosion_blocks.txt.gz"));
     let mut level = ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap());
     level.registries = registries();
     let mut actual: Vec<String> = Vec::new();

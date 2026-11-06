@@ -26,8 +26,10 @@ use std::time::{Duration, Instant};
 
 use tempfile::TempDir;
 
+mod fixture;
 mod permit;
 mod worldref;
+pub use fixture::{gunzip, read_gz};
 pub use worldref::worldref;
 
 /// Time for `Done (` and the first answered status ping, cold JVM on a loaded machine included.

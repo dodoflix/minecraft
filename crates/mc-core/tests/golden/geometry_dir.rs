@@ -15,8 +15,10 @@ use mc_core::random::{self, RandomSource};
 use mc_core::rotation::Rotation;
 use std::collections::BTreeMap;
 use std::panic::{AssertUnwindSafe, catch_unwind};
+use std::sync::LazyLock;
 
-const FIXTURE: &str = include_str!("../fixtures/geometry_dir/geometry_dir.txt");
+static FIXTURE: LazyLock<String> =
+    LazyLock::new(|| mc_testkit::include_gz!("../fixtures/geometry_dir/geometry_dir.txt.gz"));
 
 // ---- formatting (Rust values -> fixture tokens) ----
 fn d(v: f64) -> String {

@@ -341,6 +341,18 @@ pub fn replay(
     replay_with(name, fixture, make, render, None)
 }
 
+/// The committed golden of argument type `name`: `fixtures/args/<name>_golden.txt`, or `.txt.gz` when it is over 1 MB.
+pub fn golden_text(name: &str) -> String {
+    let base = format!(
+        "{}/tests/fixtures/args/{name}_golden.txt",
+        env!("CARGO_MANIFEST_DIR")
+    );
+    match std::fs::read_to_string(&base) {
+        Ok(text) => text,
+        Err(_) => mc_testkit::read_gz(format!("{base}.gz")),
+    }
+}
+
 /// [`replay`] with an explicit suggestion provider on the argument node (`.suggests(..)`).
 pub fn replay_with(
     name: &str,

@@ -14,7 +14,9 @@ fn mineshaft_matches_vanilla() {
     // one fixture, two structures: the oracle alternates normal, normal, mesa
     let structures: [Holder<dyn Structure>; 2] =
         [structure("mineshaft"), structure("mineshaft_mesa")];
-    let stats = run_fixture("mineshaft.txt", &|i| &structures[usize::from(i % 3 == 2)]);
+    let stats = run_fixture("mineshaft.txt.gz", &|i| {
+        &structures[usize::from(i % 3 == 2)]
+    });
     assert!(
         stats.starts >= 40 && stats.pieces > 1000 && stats.placements >= 200,
         "fixture too small: {} starts, {} pieces, {} placements",

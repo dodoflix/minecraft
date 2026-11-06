@@ -32,7 +32,11 @@ fn fixture(name: &str) -> String {
     let path = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
         .join("tests/fixtures")
         .join(name);
-    std::fs::read_to_string(&path).unwrap_or_else(|e| panic!("{}: {e}", path.display()))
+    if path.extension().is_some_and(|e| e == "gz") {
+        mc_testkit::read_gz(&path)
+    } else {
+        std::fs::read_to_string(&path).unwrap_or_else(|e| panic!("{}: {e}", path.display()))
+    }
 }
 
 fn decode(json: &Value) -> LoadResult<Arc<dyn PlacementModifier>> {
@@ -187,7 +191,7 @@ fn run_chains(can_survive: bool) {
     let mut skipped = 0usize;
     let mut nonempty = 0usize;
     let mut failures: Vec<String> = Vec::new();
-    let text = fixture("placement_golden.txt");
+    let text = fixture("placement_golden.txt.gz");
     let mut lines = text.lines().peekable();
     while let Some(header) = lines.next() {
         let h: Vec<&str> = header.split(' ').collect();

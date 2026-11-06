@@ -20,8 +20,8 @@ import net.minecraft.world.level.levelgen.heightproviders.HeightProvider;
 
 /**
  * Golden generator for IntProvider / FloatProvider / HeightProvider codecs and sampling.
- * Usage: scripts/vanilla-java.sh -o crates/mc-worldgen/tests/fixtures/providers.txt crates/mc-worldgen/tests/oracle/ProviderOracle.java crates/mc-worldgen/tests/fixtures/providers.txt
- * Output: crates/mc-worldgen/tests/fixtures/providers.txt
+ * Usage: scripts/vanilla-java.sh -o crates/mc-worldgen/tests/fixtures/providers.txt.gz crates/mc-worldgen/tests/oracle/ProviderOracle.java crates/mc-worldgen/tests/fixtures/providers.txt.gz
+ * Output: crates/mc-worldgen/tests/fixtures/providers.txt.gz
  *
  * Line: KIND \t json \t OK|ERR \t [min \t max \t] sample-lines...
  *   KIND: int | int_nn | int_pos | int_r:min:max | float | float_min:v | float_r:min:max | height

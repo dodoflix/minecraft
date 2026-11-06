@@ -25,7 +25,7 @@ macro_rules! args_case {
         fn $test() {
             #[allow(unused_imports, reason = "the glob brings the scope module's names in; cases that need none leave it unused")]
             use $($scope)::+::*;
-            args_common::replay_with($name, include_str!(concat!("../../fixtures/args/", $name, "_golden.txt")), $make, $render, $provider);
+            args_common::replay_with($name, &args_common::golden_text($name), $make, $render, $provider);
         }
     };
 }
@@ -1099,7 +1099,7 @@ macro_rules! case {
         fn $test() {
             args_common::replay(
                 $name,
-                include_str!(concat!("../../fixtures/args/", $name, "_golden.txt")),
+                &args_common::golden_text($name),
                 $make,
                 $render,
             );

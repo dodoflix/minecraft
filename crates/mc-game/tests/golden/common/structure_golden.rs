@@ -145,7 +145,11 @@ pub fn run_fixture<'a>(
             env!("CARGO_MANIFEST_DIR")
         )
     });
-    let fixture = std::fs::read_to_string(&path).unwrap_or_else(|e| panic!("fixture {path}: {e}"));
+    let fixture = if path.ends_with(".gz") {
+        mc_testkit::read_gz(&path)
+    } else {
+        std::fs::read_to_string(&path).unwrap_or_else(|e| panic!("fixture {path}: {e}"))
+    };
     let mut lines = fixture.lines().peekable();
     let mut stats = Stats::default();
     let mut failures: Vec<String> = Vec::new();

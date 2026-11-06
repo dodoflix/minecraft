@@ -1,6 +1,6 @@
 // Golden generator for the play `chat` packet group (chat.golden): see PlayHarness.java / gen.sh.
 // Usage: crates/mc-protocol/tests/fixtures/play/gen.sh GenChat.java
-// Output: crates/mc-protocol/tests/fixtures/play/chat.golden
+// Output: crates/mc-protocol/tests/fixtures/play/chat.golden.gz
 // Besides packet lines (`label:id+body`) it writes, for decode checks against the real vanilla codecs:
 //   `<label>` + `<label>_err`: bytes vanilla refuses to decode, and the exception message (as a writeUtf string);
 //   `<label>` + `<label>_re`:  bytes vanilla accepts and the bytes it encodes back from what it decoded.

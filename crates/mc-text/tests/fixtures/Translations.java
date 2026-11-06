@@ -7,8 +7,8 @@ import java.util.*;
 /**
  * Golden generator for translatable formatting: for every key of en_us.json (plus keys from deprecated.json and a few
  * unknown ones) the plain text of `Component.translatable(key, a1..an).getString()` for n in {0, 2, 6}.
- * Usage: scripts/vanilla-java.sh -o crates/mc-text/tests/fixtures/translations.jsonl crates/mc-text/tests/fixtures/Translations.java ref/src/assets/minecraft/lang
- * Output: crates/mc-text/tests/fixtures/translations.jsonl
+ * Usage: scripts/vanilla-java.sh -o crates/mc-text/tests/fixtures/translations.jsonl.gz crates/mc-text/tests/fixtures/Translations.java ref/src/assets/minecraft/lang
+ * Output: crates/mc-text/tests/fixtures/translations.jsonl.gz
  */
 public class Translations {
     public static void main(String[] args) throws Exception {

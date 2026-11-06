@@ -81,11 +81,10 @@ fn brewing_stands_match_vanilla() {
         "/tests/oracle/scenarios/brewing_cross.txt"
     ))
     .unwrap();
-    let fixture = std::fs::read_to_string(concat!(
+    let fixture = mc_testkit::read_gz(concat!(
         env!("CARGO_MANIFEST_DIR"),
-        "/tests/fixtures/entity_oracle/brewing_cross.txt"
-    ))
-    .unwrap();
+        "/tests/fixtures/entity_oracle/brewing_cross.txt.gz"
+    ));
 
     // stands in scenario order
     let mut stands: Vec<(i32, i32, BrewingStandBlockEntity)> = Vec::new();

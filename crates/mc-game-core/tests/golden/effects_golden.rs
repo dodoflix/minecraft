@@ -13,8 +13,11 @@ use mc_game::world::entity::attributes::{
 use mc_game::world::entity::effect::MobEffectInstance;
 use mc_nbt::Tag;
 use mc_protocol::packets::play::ParticleOptions;
+use std::sync::LazyLock;
 
-const GOLDEN: &str = include_str!("../../../mc-game/tests/fixtures/effects_golden.txt");
+static GOLDEN: LazyLock<String> = LazyLock::new(|| {
+    mc_testkit::include_gz!("../../../mc-game/tests/fixtures/effects_golden.txt.gz")
+});
 
 fn effect(name: &str) -> MobEffect {
     MobEffect::by_name(name).unwrap_or_else(|| panic!("effect {name}"))

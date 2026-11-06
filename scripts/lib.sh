@@ -29,6 +29,16 @@ to_file() {
   mv "$tmp" "$out"
 }
 
+# place_fixture SRC DEST: moves SRC to DEST, or gzip -9n to DEST.gz when SRC is over 1 MiB (docs/testing.md), and removes
+# the other form so a fixture never exists twice.
+place_fixture() {
+  if [ "$(stat -c %s "$1")" -gt 1048576 ]; then
+    gzip -9n <"$1" >"$2.gz.tmp" && mv "$2.gz.tmp" "$2.gz" && rm -f "$1" "$2"
+  else
+    mv "$1" "$2" && rm -f "$2.gz"
+  fi
+}
+
 # require_eula: exits unless the user opted in to the Minecraft EULA with MC_ACCEPT_EULA=1.
 require_eula() {
   [ "${MC_ACCEPT_EULA:-}" = 1 ] || die "starting a server accepts the Minecraft EULA (https://aka.ms/MinecraftEULA) in your name: set MC_ACCEPT_EULA=1 if you accept it"

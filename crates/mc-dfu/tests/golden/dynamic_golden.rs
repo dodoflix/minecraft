@@ -4,8 +4,10 @@
 use mc_core::math::java::{java_double_to_string, java_float_to_string};
 use mc_dfu::{DataResult, Dyn, Dynamic, JNum, JSON, NBT, Ops};
 use std::panic::{AssertUnwindSafe, catch_unwind};
+use std::sync::LazyLock;
 
-const GOLDEN: &str = include_str!("../fixtures/dynamic/golden.txt");
+static GOLDEN: LazyLock<String> =
+    LazyLock::new(|| mc_testkit::include_gz!("../fixtures/dynamic/golden.txt.gz"));
 
 fn dump(d: &Dyn) -> String {
     let arr = |it: &mut dyn Iterator<Item = String>| it.collect::<Vec<_>>().join(",");

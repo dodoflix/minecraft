@@ -101,11 +101,10 @@ macro_rules! check_block {
 
 #[test]
 fn palette_matches_vanilla() {
-    let text = std::fs::read_to_string(concat!(
+    let text = mc_testkit::read_gz(concat!(
         env!("CARGO_MANIFEST_DIR"),
-        "/tests/fixtures/palette/golden.txt"
-    ))
-    .unwrap();
+        "/tests/fixtures/palette/golden.txt.gz"
+    ));
     let mut lines = text.lines().peekable();
     let mut checks = 0;
     while let Some(head) = lines.next() {

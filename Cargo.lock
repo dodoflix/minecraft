@@ -1061,6 +1061,7 @@ version = "0.1.0"
 name = "mc-core"
 version = "0.1.0"
 dependencies = [
+ "mc-testkit",
  "md-5",
  "serde",
  "serde_json",
@@ -1073,6 +1074,7 @@ version = "0.1.0"
 dependencies = [
  "flate2",
  "mc-core",
+ "mc-testkit",
  "serde_json",
 ]
 
@@ -1092,6 +1094,7 @@ version = "0.1.0"
 dependencies = [
  "mc-core",
  "mc-nbt",
+ "mc-testkit",
 ]
 
 [[package]]
@@ -1295,6 +1298,7 @@ version = "0.1.0"
 dependencies = [
  "flate2",
  "indexmap",
+ "mc-testkit",
 ]
 
 [[package]]
@@ -1375,6 +1379,7 @@ dependencies = [
 name = "mc-testkit"
 version = "0.1.0"
 dependencies = [
+ "flate2",
  "libc",
  "regex",
  "tempfile",
@@ -1386,6 +1391,7 @@ version = "0.1.0"
 dependencies = [
  "mc-core",
  "mc-nbt",
+ "mc-testkit",
  "serde_json",
 ]
 
@@ -1416,6 +1422,7 @@ dependencies = [
  "mc-core",
  "mc-data",
  "mc-nbt",
+ "mc-testkit",
  "mc-world",
  "serde_json",
 ]

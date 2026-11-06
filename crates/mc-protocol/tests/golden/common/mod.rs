@@ -1,5 +1,5 @@
 //! Helpers shared by the play-packet golden tests: load `tests/fixtures/play/<name>.golden`
-//! (`label:hex` lines from vanilla's `GameProtocols` codecs, hex = VarInt packet id + body), compare encodings
+//! (`label:hex` lines, `.golden.gz` when over 1 MB, from vanilla's `GameProtocols` codecs, hex = VarInt packet id + body), compare encodings
 //! byte for byte and decode the vanilla bytes back.
 #![allow(
     dead_code,
@@ -28,8 +28,12 @@ impl Golden {
             "{}/tests/fixtures/play/{name}.golden",
             env!("CARGO_MANIFEST_DIR")
         );
-        let text = std::fs::read_to_string(&path)
-            .unwrap_or_else(|e| panic!("{path}: {e} (run fixtures/play/gen.sh)"));
+        let text = std::fs::read_to_string(&path).unwrap_or_else(|e| {
+            if !std::path::Path::new(&format!("{path}.gz")).exists() {
+                panic!("{path}: {e} (run fixtures/play/gen.sh)");
+            }
+            mc_testkit::read_gz(format!("{path}.gz"))
+        });
         let lines = text
             .lines()
             .map(|l| {

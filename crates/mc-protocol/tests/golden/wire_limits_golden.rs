@@ -36,7 +36,7 @@ enum Verdict {
 }
 
 fn golden() -> BTreeMap<String, Verdict> {
-    include_str!("../fixtures/wire_limits.golden")
+    mc_testkit::include_gz!("../fixtures/wire_limits.golden.gz")
         .lines()
         .map(|l| {
             let mut f = l.split('\t');

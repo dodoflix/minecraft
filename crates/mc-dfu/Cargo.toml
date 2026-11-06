@@ -12,5 +12,8 @@ publish.workspace = true
 mc-core = { path = "../mc-core" }
 mc-nbt = { path = "../mc-nbt" }
 
+[dev-dependencies]
+mc-testkit = { path = "../mc-testkit" }
+
 [lints]
 workspace = true

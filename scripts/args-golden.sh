@@ -3,8 +3,8 @@
 # Usage:
 #   scripts/args-golden.sh [TYPE ...]     (default: every type)
 #
-# Output: crates/mc-game/tests/fixtures/args/<type>_golden.txt (the generator writes into a temp dir; the files are moved
-# into place only when it succeeds)
+# Output: crates/mc-game/tests/fixtures/args/<type>_golden.txt, or <type>_golden.txt.gz when over 1 MiB (the generator writes into
+# a temp dir; the files are moved into place only when it succeeds)
 # Needs: java, ref/ (scripts/setup-ref.sh) and the extractor build (scripts/extract.sh; MC_EXTRACTOR_BUILD overrides its directory).
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -17,4 +17,4 @@ D="$ROOT/crates/mc-game/tests/fixtures/args"
 tmp="$(mktemp -d)"
 trap 'rm -rf "$tmp"' EXIT
 "$ROOT/scripts/vanilla-java.sh" "$D/ArgsGolden.java" "$tmp" "$@"
-mv "$tmp"/*_golden.txt "$D/"
+for f in "$tmp"/*_golden.txt; do place_fixture "$f" "$D/$(basename "$f")"; done

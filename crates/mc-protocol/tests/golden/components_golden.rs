@@ -430,12 +430,17 @@ fn records_match(file: &str, kind: &str, name: &str, expected: &str, got: &str) 
     })
 }
 
-fn golden_files() -> Vec<std::path::PathBuf> {
+/// `(corpus name, path)` of every golden file; files over 1 MB are committed as `<name>.gz`.
+fn golden_files() -> Vec<(String, std::path::PathBuf)> {
     let dir =
         std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/components/golden");
     let mut v: Vec<_> = std::fs::read_dir(dir)
         .unwrap()
-        .map(|e| e.unwrap().path())
+        .map(|e| {
+            let path = e.unwrap().path();
+            let name = path.file_name().unwrap().to_str().unwrap();
+            (name.strip_suffix(".gz").unwrap_or(name).to_owned(), path)
+        })
         .collect();
     v.sort();
     v
@@ -448,14 +453,15 @@ fn components_golden() {
     install_registries();
     let only = std::env::var("MC_GOLDEN_FILE").ok();
     let (mut total, mut skipped, mut failures) = (0, 0, Vec::new());
-    for path in golden_files() {
-        if only
-            .as_deref()
-            .is_some_and(|o| path.file_name().unwrap().to_str() != Some(o))
-        {
+    for (file, path) in golden_files() {
+        if only.as_deref().is_some_and(|o| file != o) {
             continue;
         }
-        let text = std::fs::read_to_string(&path).unwrap();
+        let text = if path.extension().is_some_and(|e| e == "gz") {
+            mc_testkit::read_gz(&path)
+        } else {
+            std::fs::read_to_string(&path).unwrap()
+        };
         for line in text.lines() {
             let f: Vec<&str> = line.splitn(4, '\t').collect();
             if f.len() < 4 {
@@ -472,14 +478,10 @@ fn components_golden() {
             total += 1;
             let expected = if f[3].starts_with("ERR") { "ERR" } else { f[3] };
             let got = run(f[0], f[1], f[2]);
-            let file = path.file_name().unwrap().to_str().unwrap();
-            if !records_match(file, f[0], f[1], expected, &got) {
+            if !records_match(&file, f[0], f[1], expected, &got) {
                 failures.push(format!(
                     "[{}] {}\t{}\t{}\n   expected {expected}\n   got      {got}",
-                    path.file_name().unwrap().to_str().unwrap(),
-                    f[0],
-                    f[1],
-                    f[2]
+                    file, f[0], f[1], f[2]
                 ));
             }
         }

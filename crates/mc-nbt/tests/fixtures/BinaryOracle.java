@@ -10,8 +10,8 @@ import java.util.*;
  *   "R\t<hex>\t<usage>\t<r1>\t<r2>\t<r3>\t<r4>"  reads of every OK case of snbt_golden.tsv (+ hand cases):
  *        usage with unlimited quota, then results with quota usage-1, usage/2, truncated-1, truncated-half
  *   "H\t<hex>\t<result>"                     hand-made malformed inputs read with the default quota
- * Usage: scripts/vanilla-java.sh -o crates/mc-nbt/tests/fixtures/binary_golden.tsv crates/mc-nbt/tests/fixtures/BinaryOracle.java crates/mc-nbt/tests/fixtures/binary_golden.tsv crates/mc-nbt/tests/fixtures/snbt_golden.tsv
- * Output: crates/mc-nbt/tests/fixtures/binary_golden.tsv (reads snbt_golden.tsv: regenerate that first)
+ * Usage: scripts/vanilla-java.sh -o crates/mc-nbt/tests/fixtures/binary_golden.tsv.gz crates/mc-nbt/tests/fixtures/BinaryOracle.java crates/mc-nbt/tests/fixtures/binary_golden.tsv.gz crates/mc-nbt/tests/fixtures/snbt_golden.tsv.gz
+ * Output: crates/mc-nbt/tests/fixtures/binary_golden.tsv.gz (reads snbt_golden.tsv: regenerate that first)
  */
 public class BinaryOracle {
     static String hex(byte[] b) {
@@ -47,6 +47,13 @@ public class BinaryOracle {
             return "IO:" + e.getClass().getSimpleName() + ":" + e.getMessage();
         } catch (Exception e) {
             return "X:" + e;
+        }
+    }
+
+    /** Lines of a gzip-compressed UTF-8 file (the generated corpora are committed as .gz). */
+    static List<String> gzLines(String path) throws IOException {
+        try (BufferedReader r = new BufferedReader(new InputStreamReader(new java.util.zip.GZIPInputStream(new FileInputStream(path)), StandardCharsets.UTF_8))) {
+            return r.lines().toList();
         }
     }
 
@@ -144,7 +151,7 @@ public class BinaryOracle {
 
             // ---- accounter / truncation reads over the snbt golden corpus
             List<String> hexes = new ArrayList<>();
-            for (String line : Files.readAllLines(Paths.get(args[1]), StandardCharsets.UTF_8)) {
+            for (String line : gzLines(args[1])) {
                 String[] f = line.split("\t", -1);
                 if (f[1].equals("O")) hexes.add(f[4]);
             }

@@ -20,8 +20,8 @@ import net.minecraft.world.level.levelgen.synth.NormalNoise;
 /**
  * Golden generator: EVERY registered density function (not just router entries) per setting/seed.
  * Same line format as RandomStateOracle; function names are "df:<identifier>".
- * Usage: scripts/vanilla-java.sh -o crates/mc-worldgen/tests/fixtures/density_functions.txt crates/mc-worldgen/tests/oracle/DensityFunctionsOracle.java
- * Output: crates/mc-worldgen/tests/fixtures/density_functions.txt (the wrapper captures stdout)
+ * Usage: scripts/vanilla-java.sh -o crates/mc-worldgen/tests/fixtures/density_functions.txt.gz crates/mc-worldgen/tests/oracle/DensityFunctionsOracle.java
+ * Output: crates/mc-worldgen/tests/fixtures/density_functions.txt.gz (the wrapper captures stdout)
  *
  * Lines:  P setting seed fn x y z bits        point sample (EMPTY_UNCACHED)
  *         C setting seed fn x y z bits        point sample with caches enabled (one context for the whole grid)

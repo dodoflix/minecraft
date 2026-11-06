@@ -3,8 +3,10 @@
 
 use mc_core::java_collections::*;
 use mc_core::math::java::java_string_hash;
+use std::sync::LazyLock;
 
-const GOLDEN: &str = include_str!("../fixtures/java_collections/golden.txt");
+static GOLDEN: LazyLock<String> =
+    LazyLock::new(|| mc_testkit::include_gz!("../fixtures/java_collections/golden.txt.gz"));
 
 fn split(s: &str) -> Vec<&str> {
     if s.is_empty() {

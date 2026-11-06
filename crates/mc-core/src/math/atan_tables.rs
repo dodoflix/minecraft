@@ -530,7 +530,7 @@ mod tests {
             bits.iter()
                 .fold(0i64, |h, b| h.wrapping_mul(1000003).wrapping_add(*b as i64))
         };
-        let fixture = include_str!("../../tests/fixtures/math/mth.txt");
+        let fixture = mc_testkit::include_gz!("../../tests/fixtures/math/mth.txt.gz");
         let want = |name: &str| -> i64 {
             fixture
                 .lines()

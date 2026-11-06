@@ -19,8 +19,8 @@ import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
 /**
  * Golden generator for mc-worldgen RandomState/noise-router tests.
- * Usage: scripts/vanilla-java.sh -o crates/mc-worldgen/tests/fixtures/random_state.txt crates/mc-worldgen/tests/oracle/RandomStateOracle.java
- * Output: crates/mc-worldgen/tests/fixtures/random_state.txt (the wrapper captures stdout)
+ * Usage: scripts/vanilla-java.sh -o crates/mc-worldgen/tests/fixtures/random_state.txt.gz crates/mc-worldgen/tests/oracle/RandomStateOracle.java
+ * Output: crates/mc-worldgen/tests/fixtures/random_state.txt.gz (the wrapper captures stdout)
  *
  * Lines:  P setting seed fn x y z bits        point sample (EMPTY_UNCACHED)
  *         C setting seed fn x y z bits        point sample with caches enabled (one context for the whole grid)

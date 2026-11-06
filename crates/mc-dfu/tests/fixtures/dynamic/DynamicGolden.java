@@ -17,7 +17,7 @@ import net.minecraft.nbt.*;
  * Golden generator for mc_dfu::dynamic_like (Dynamic / OptionalDynamic API over NbtOps and JsonOps).
  * Line: op TAB kind(nbt|json) TAB input TAB nargs TAB args... TAB result. Compound/object iteration order is part of the result.
  * Usage: crates/mc-dfu/tests/fixtures/dynamic/gen.sh
- * Output: crates/mc-dfu/tests/fixtures/dynamic/golden.txt
+ * Output: crates/mc-dfu/tests/fixtures/dynamic/golden.txt.gz
  */
 public class DynamicGolden {
    static final StringBuilder OUT = new StringBuilder();

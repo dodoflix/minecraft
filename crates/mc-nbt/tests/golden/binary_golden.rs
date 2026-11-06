@@ -192,11 +192,10 @@ fn scenario(name: &str) -> CompoundTag {
 
 #[test]
 fn binary_matches_vanilla() {
-    let data = std::fs::read_to_string(concat!(
+    let data = mc_testkit::read_gz(concat!(
         env!("CARGO_MANIFEST_DIR"),
-        "/tests/fixtures/binary_golden.tsv"
-    ))
-    .unwrap();
+        "/tests/fixtures/binary_golden.tsv.gz"
+    ));
     let mut failures = Vec::new();
     let (mut scenarios, mut reads, mut hands) = (0, 0, 0);
     for line in data.lines() {
@@ -274,11 +273,10 @@ fn binary_matches_vanilla() {
 /// (heterogeneous lists are wrapped on write and unwrapped on read).
 #[test]
 fn roundtrip_snbt_corpus() {
-    let data = std::fs::read_to_string(concat!(
+    let data = mc_testkit::read_gz(concat!(
         env!("CARGO_MANIFEST_DIR"),
-        "/tests/fixtures/snbt_golden.tsv"
-    ))
-    .unwrap();
+        "/tests/fixtures/snbt_golden.tsv.gz"
+    ));
     let mut n = 0;
     for line in data.lines() {
         let f: Vec<&str> = line.split('\t').collect();

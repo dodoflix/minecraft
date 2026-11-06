@@ -15,8 +15,8 @@ import net.minecraft.network.protocol.game.ClientboundLightUpdatePacketData;
 
 /**
  * Drives the real vanilla LevelLightEngine (sky + block) over real ProtoChunks and records everything observable.
- * Usage: scripts/vanilla-java.sh -o crates/mc-light/tests/fixtures/light_golden.txt crates/mc-light/tests/fixtures/LightGolden.java crates/mc-light/tests/fixtures/light_golden.txt
- * Output: crates/mc-light/tests/fixtures/light_golden.txt
+ * Usage: scripts/vanilla-java.sh -o crates/mc-light/tests/fixtures/light_golden.txt.gz crates/mc-light/tests/fixtures/LightGolden.java crates/mc-light/tests/fixtures/light_golden.txt.gz
+ * Output: crates/mc-light/tests/fixtures/light_golden.txt.gz
  *
  * Format (one scenario after the other):
  *   SCEN <name> <minY> <height> <hasSky> <gridMin> <gridSize>

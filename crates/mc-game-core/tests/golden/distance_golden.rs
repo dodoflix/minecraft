@@ -53,7 +53,8 @@ fn parse_key_list(line: &str) -> Vec<String> {
 
 #[test]
 fn distance_manager_matches_vanilla() {
-    let golden = include_str!("../../../mc-game/tests/fixtures/chunkmap/distance_golden.txt");
+    let golden =
+        mc_testkit::include_gz!("../../../mc-game/tests/fixtures/chunkmap/distance_golden.txt.gz");
     let types = [
         TicketType::PLAYER_SPAWN,
         TicketType::DRAGON,

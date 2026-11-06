@@ -198,11 +198,10 @@ fn input(name: &str) -> ContainerInput {
 
 #[test]
 fn menu_click_golden() {
-    let text = std::fs::read_to_string(concat!(
+    let text = mc_testkit::read_gz(concat!(
         env!("CARGO_MANIFEST_DIR"),
-        "/tests/fixtures/menu_golden.txt"
-    ))
-    .expect("fixture");
+        "/tests/fixtures/menu_golden.txt.gz"
+    ));
     let sync = Rc::new(RefCell::new(Vec::new()));
     let mut player: Option<TestPlayer> = None;
     let mut menu: Option<InventoryMenu> = None;

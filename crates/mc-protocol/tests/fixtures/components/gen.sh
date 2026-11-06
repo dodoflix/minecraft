@@ -4,7 +4,7 @@
 #   (no argument)           all corpus/*.txt -> golden/<same name>, plus registries.golden
 #   corpus/10-x.txt ...     only the given corpus files (paths relative to this dir)
 #   --registries            only registries.golden
-# Output: crates/mc-protocol/tests/fixtures/components/golden/<corpus name>.txt, crates/mc-protocol/tests/fixtures/components/registries.golden
+# Output: crates/mc-protocol/tests/fixtures/components/golden/<corpus name>.txt (<name>.txt.gz when over 1 MiB), crates/mc-protocol/tests/fixtures/components/registries.golden
 #   (each file is written to a temp dir first and moved into place only when ComponentGolden succeeds)
 # Corpus line: kind<TAB>component-name-or-"-"<TAB>payload  (see ComponentGolden.java for kinds).
 # Needs: java, javac, ref/ (scripts/setup-ref.sh).
@@ -24,7 +24,8 @@ mkdir -p "$HERE/golden"
 # gen INPUT DEST: runs ComponentGolden INPUT into a temp file, moves it to DEST only on success.
 gen() {
   java -cp "$OUT:$CP" ComponentGolden "$1" "$OUT/result.tmp" 2>"$OUT/stderr.log" || { cat "$OUT/stderr.log" >&2; die "ComponentGolden $1 failed"; }
-  mv "$OUT/result.tmp" "$2"
+  records="$(wc -l <"$OUT/result.tmp")"
+  place_fixture "$OUT/result.tmp" "$2"
 }
 
 if [[ "${1:-}" == "--registries" ]]; then
@@ -38,5 +39,5 @@ fi
 for f in "$@"; do
   [[ -f "$f" ]] || f="$HERE/$f"
   gen "$f" "$HERE/golden/$(basename "$f")"
-  echo "$(basename "$f"): $(wc -l < "$HERE/golden/$(basename "$f")") records"
+  echo "$(basename "$f"): $records records"
 done

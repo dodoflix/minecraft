@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Regenerates a play golden fixture from the real vanilla classes.
 # Usage: crates/mc-protocol/tests/fixtures/play/gen.sh Gen<Group>.java
-# Output: crates/mc-protocol/tests/fixtures/play/<group>.golden (group = the name after Gen, lower-cased; moved into place only when the generator succeeds)
+# Output: crates/mc-protocol/tests/fixtures/play/<group>.golden, or <group>.golden.gz when over 1 MiB (group = the name after Gen, lower-cased; moved into place only when the generator succeeds)
 # Compiles tools/extractor's Setup.java + PlayHarness.java into target/play-golden-build, then runs the generator with the vanilla classpath.
 # Needs: java, javac, ref/ (scripts/setup-ref.sh).
 set -euo pipefail
@@ -23,5 +23,5 @@ TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
 cd "$ROOT"
 java -cp "$BUILD:$CP" "$HERE/$GEN" "$TMP/out.golden" "$@"
-mv "$TMP/out.golden" "$DEST"
+place_fixture "$TMP/out.golden" "$DEST"
 echo "wrote $DEST"
