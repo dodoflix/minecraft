@@ -433,13 +433,12 @@ impl Entity for Frog {
     }
 
     fn resolve_registry_refs(&mut self, registries: &RegistryAccess) {
-        if let Some(key) = self.pending_variant.take() {
-            if let Some(id) = registries
+        if let Some(key) = self.pending_variant.take()
+            && let Some(id) = registries
                 .registry(keys::FROG_VARIANT)
                 .and_then(|r| r.id_of(&key))
-            {
-                self.set_variant(registries, id);
-            }
+        {
+            self.set_variant(registries, id);
         }
     }
 }

@@ -46,7 +46,7 @@ pub fn is_cow_food(stack: &ItemStack) -> bool {
 }
 
 /// `AbstractCow.registerGoals()`.
-pub fn register_goals(cow: &mut (impl Entity + ?Sized + Sized)) {
+pub fn register_goals(cow: &mut (impl Entity + Sized)) {
     let float = FloatGoal::new(cow);
     let breed = BreedGoal::new(cow, 1.0);
     let follow_parent = FollowParentGoal::new(cow, 1.25);
@@ -312,13 +312,11 @@ impl Entity for Cow {
         let registries = self.registries.clone();
         if let Some(key) =
             variant::pick_random_entry(&registries, keys::COW_SOUND_VARIANT, level.random())
-        {
-            if let Some(id) = registries
+            && let Some(id) = registries
                 .registry(keys::COW_SOUND_VARIANT)
                 .and_then(|r| r.id_of(&key))
-            {
-                self.set_sound_variant(id);
-            }
+        {
+            self.set_sound_variant(id);
         }
         mob::spawn::finalize_spawn(self, level, difficulty, reason, group_data)
     }
@@ -366,23 +364,21 @@ impl Entity for Cow {
     }
 
     fn apply_implicit_components(&mut self, stack: &ItemStack) {
-        if let Some(Holder::Reference(key)) = stack.get(&COW_VARIANT) {
-            if let Some(id) = self
+        if let Some(Holder::Reference(key)) = stack.get(&COW_VARIANT)
+            && let Some(id) = self
                 .registries
                 .registry(keys::COW_VARIANT)
                 .and_then(|r| r.id_of(key))
-            {
-                self.set_variant(id);
-            }
+        {
+            self.set_variant(id);
         }
-        if let Some(Holder::Reference(key)) = stack.get(&COW_SOUND_VARIANT) {
-            if let Some(id) = self
+        if let Some(Holder::Reference(key)) = stack.get(&COW_SOUND_VARIANT)
+            && let Some(id) = self
                 .registries
                 .registry(keys::COW_SOUND_VARIANT)
                 .and_then(|r| r.id_of(key))
-            {
-                self.set_sound_variant(id);
-            }
+        {
+            self.set_sound_variant(id);
         }
         mc_game_core::world::entity::spawn_config::apply_base_implicit_components(self, stack);
     }

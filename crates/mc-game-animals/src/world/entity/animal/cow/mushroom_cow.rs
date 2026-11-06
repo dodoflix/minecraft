@@ -398,14 +398,13 @@ impl Entity for MushroomCow {
     fn add_additional_save_data(&self, out: &mut CompoundTag) {
         mob::nbt::add_additional_save_data(self, out);
         out.put_string("Type", self.get_variant().name());
-        if let Some(effects) = &self.stew_effects {
-            if let Ok(tag) = SuspiciousStewEffects::codec()
+        if let Some(effects) = &self.stew_effects
+            && let Ok(tag) = SuspiciousStewEffects::codec()
                 .encode_start(&NBT, effects)
                 .into_result()
                 .and_then(|d| d.to_tag())
-            {
-                out.put("stew_effects", tag);
-            }
+        {
+            out.put("stew_effects", tag);
         }
     }
 

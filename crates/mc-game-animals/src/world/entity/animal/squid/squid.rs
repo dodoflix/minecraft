@@ -7,7 +7,6 @@ use linkme::distributed_slice;
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource as _;
 use mc_data::enums::{EntitySpawnReason, Pose};
 use mc_data::{EntityType, MobEffect, SoundEvent};
 use mc_game_core::server::level::ServerLevel;
@@ -25,7 +24,7 @@ use mc_game_core::world::entity::mob::spawn::AgeableMobGroupData;
 use mc_game_core::world::entity::mob::{self, MobData, MobKind};
 use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
 use mc_game_core::world::entity::{Entity, EntityId, MoverType};
-use mc_game_core::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
+use mc_game_core::world::level::level_access::BlockGetter as _;
 use mc_game_core::world::level::material::FluidStateExt as _;
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_protocol::packets::play::ParticleOptions;
@@ -50,7 +49,6 @@ pub struct SquidData {
     pub old_tentacle_movement: f32,
     pub tentacle_angle: f32,
     pub old_tentacle_angle: f32,
-    speed: f32,
     tentacle_speed: f32,
     rotate_speed: f32,
     pub movement_vector: Vec3,
@@ -70,7 +68,6 @@ impl SquidData {
             old_tentacle_movement: 0.0,
             tentacle_angle: 0.0,
             old_tentacle_angle: 0.0,
-            speed: 0.0,
             tentacle_speed,
             rotate_speed: 0.0,
             movement_vector: Vec3::ZERO,

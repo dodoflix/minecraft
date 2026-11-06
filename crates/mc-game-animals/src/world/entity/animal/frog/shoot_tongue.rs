@@ -78,15 +78,15 @@ impl ShootTongue {
             2.0,
             1.0,
         );
-        if let Some(target) = get_tongue_target(&*body, level) {
-            if level.get_entity(target).is_some_and(|t| t.is_alive()) {
-                combat::do_hurt_target(body, level, target);
-                level.with_entity(target, |_, t| {
-                    if !t.is_alive() {
-                        t.remove(RemovalReason::Killed);
-                    }
-                });
-            }
+        if let Some(target) = get_tongue_target(&*body, level)
+            && level.get_entity(target).is_some_and(|t| t.is_alive())
+        {
+            combat::do_hurt_target(body, level, target);
+            level.with_entity(target, |_, t| {
+                if !t.is_alive() {
+                    t.remove(RemovalReason::Killed);
+                }
+            });
         }
     }
 }
@@ -159,7 +159,7 @@ impl Behavior for ShootTongue {
         }
         can_pathfind
             && body.base().get_pose() != Pose::Croaking
-            && level.get_entity(target).is_some_and(|t| frog_can_eat(t))
+            && level.get_entity(target).is_some_and(frog_can_eat)
     }
 
     fn can_still_use(

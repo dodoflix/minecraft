@@ -9,8 +9,6 @@ use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::entity::Entity;
 use mc_game_core::world::entity::living_entity::util::hurt;
 use mc_game_core::world::entity::mob;
-use mc_game_core::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
-use mc_game_core::world::level::material::FluidStateExt as _;
 
 /// `AMBIENT_SOUND_INTERVAL`.
 pub const AMBIENT_SOUND_INTERVAL: i32 = 120;

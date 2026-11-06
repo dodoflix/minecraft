@@ -65,12 +65,7 @@ impl SkeletonTrapGoal {
                 ignore_checks: false,
             },
         )?;
-        skeleton.finalize_spawn(
-            level,
-            difficulty.clone(),
-            EntitySpawnReason::Triggered,
-            None,
-        );
+        skeleton.finalize_spawn(level, difficulty, EntitySpawnReason::Triggered, None);
         let p = horse.position();
         skeleton.set_pos(p.x, p.y, p.z);
         skeleton.base_mut().invulnerable_time = LIGHTNING_INVULNERABLE_TICKS;
@@ -157,17 +152,17 @@ impl Goal for SkeletonTrapGoal {
             b.set_visual_only(true);
         }
         level.add_fresh_entity(bolt);
-        let Some(mut skeleton) = self.create_skeleton(level, difficulty.clone(), horse) else {
+        let Some(mut skeleton) = self.create_skeleton(level, difficulty, horse) else {
             return;
         };
         level.start_riding_held(skeleton.as_mut(), horse, false, true);
         level.add_fresh_entity_with_passengers(vec![skeleton]);
         for _ in 0..3 {
-            let Some(mut other_horse) = self.create_horse(horse, level, difficulty.clone()) else {
+            let Some(mut other_horse) = self.create_horse(horse, level, difficulty) else {
                 continue;
             };
             let Some(mut other_skeleton) =
-                self.create_skeleton(level, difficulty.clone(), other_horse.as_ref())
+                self.create_skeleton(level, difficulty, other_horse.as_ref())
             else {
                 continue;
             };

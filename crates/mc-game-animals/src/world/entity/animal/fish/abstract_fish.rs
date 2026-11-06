@@ -20,8 +20,6 @@ use mc_game_core::world::entity::mob::{self, MobData};
 use mc_game_core::world::entity::movement;
 use mc_game_core::world::entity::{Entity, MoverType};
 use mc_game_core::world::item::ItemStack;
-use mc_game_core::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
-use mc_game_core::world::level::material::FluidStateExt as _;
 use mc_nbt::CompoundTag;
 use std::sync::Arc;
 

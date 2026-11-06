@@ -33,7 +33,6 @@ use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
 use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
 use mc_game_core::world::level::block::BlockStateExt as _;
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
-use mc_game_core::world::level::{BlockGetter as _, LevelReader as _};
 use mc_nbt::CompoundTag;
 use std::any::Any;
 use std::sync::Arc;
@@ -61,6 +60,12 @@ fn is_trusting(mob: &dyn Entity) -> bool {
 /// `Ocelot.OcelotAvoidEntityGoal<Player>`.
 pub struct OcelotAvoidEntityGoal {
     avoid: AvoidEntityGoal,
+}
+
+impl Default for OcelotAvoidEntityGoal {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl OcelotAvoidEntityGoal {
@@ -95,6 +100,12 @@ impl Goal for OcelotAvoidEntityGoal {
 /// `Ocelot.OcelotTemptGoal`.
 pub struct OcelotTemptGoal {
     tempt: TemptGoal,
+}
+
+impl Default for OcelotTemptGoal {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl OcelotTemptGoal {

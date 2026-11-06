@@ -37,11 +37,11 @@ impl Goal for LlamaHurtByTargetGoal {
     }
 
     fn can_continue_to_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        if let Some(llama) = mob.as_any_mut().downcast_mut::<Llama>() {
-            if llama.did_spit() {
-                llama.set_did_spit(false);
-                return false;
-            }
+        if let Some(llama) = mob.as_any_mut().downcast_mut::<Llama>()
+            && llama.did_spit()
+        {
+            llama.set_did_spit(false);
+            return false;
         }
         self.inner.can_continue_to_use(mob, level)
     }

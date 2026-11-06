@@ -31,7 +31,6 @@ use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
 use mc_game_core::world::entity::spawn_predicates;
 use mc_game_core::world::entity::{Entity, EntityId};
 use mc_game_core::world::item::ItemStack;
-use mc_game_core::world::level::BlockGetter as _;
 use mc_game_core::world::level::block::BlockStateExt as _;
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_nbt::CompoundTag;

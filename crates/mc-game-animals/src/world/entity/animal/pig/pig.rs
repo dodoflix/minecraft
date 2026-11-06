@@ -475,13 +475,11 @@ impl Entity for Pig {
         let registries = self.registries.clone();
         if let Some(key) =
             variant::pick_random_entry(&registries, keys::PIG_SOUND_VARIANT, level.random())
-        {
-            if let Some(id) = registries
+            && let Some(id) = registries
                 .registry(keys::PIG_SOUND_VARIANT)
                 .and_then(|r| r.id_of(&key))
-            {
-                self.set_sound_variant(id);
-            }
+        {
+            self.set_sound_variant(id);
         }
         mob::spawn::finalize_spawn(self, level, difficulty, reason, group_data)
     }
@@ -529,23 +527,21 @@ impl Entity for Pig {
     }
 
     fn apply_implicit_components(&mut self, stack: &ItemStack) {
-        if let Some(Holder::Reference(key)) = stack.get(&PIG_VARIANT) {
-            if let Some(id) = self
+        if let Some(Holder::Reference(key)) = stack.get(&PIG_VARIANT)
+            && let Some(id) = self
                 .registries
                 .registry(keys::PIG_VARIANT)
                 .and_then(|r| r.id_of(key))
-            {
-                self.set_variant(id);
-            }
+        {
+            self.set_variant(id);
         }
-        if let Some(Holder::Reference(key)) = stack.get(&PIG_SOUND_VARIANT) {
-            if let Some(id) = self
+        if let Some(Holder::Reference(key)) = stack.get(&PIG_SOUND_VARIANT)
+            && let Some(id) = self
                 .registries
                 .registry(keys::PIG_SOUND_VARIANT)
                 .and_then(|r| r.id_of(key))
-            {
-                self.set_sound_variant(id);
-            }
+        {
+            self.set_sound_variant(id);
         }
         mc_game_core::world::entity::spawn_config::apply_base_implicit_components(self, stack);
     }

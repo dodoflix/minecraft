@@ -18,7 +18,7 @@ use mc_game_core::world::entity::mob::{self, MobData, MobKind};
 use mc_game_core::world::entity::{Entity, EntityId, MovementEmission};
 use mc_game_core::world::level::block::BlockStateExt as _;
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
-use mc_game_core::world::level::{BlockGetter as _, LevelAccessor as _, LevelReader as _};
+use mc_game_core::world::level::{BlockGetter as _, LevelReader as _};
 use mc_nbt::CompoundTag;
 use mc_world::heightmap::HeightmapType;
 use std::sync::LazyLock;
@@ -176,10 +176,10 @@ impl Entity for Bat {
                 }
             }
         } else {
-            if let Some(target) = self.target_position {
-                if !level.is_empty_block(target) || target.y() <= level.get_min_y() {
-                    self.target_position = None;
-                }
+            if let Some(target) = self.target_position
+                && (!level.is_empty_block(target) || target.y() <= level.get_min_y())
+            {
+                self.target_position = None;
             }
             let position = self.base().position();
             let needs_new_target = match self.target_position {
@@ -272,6 +272,10 @@ impl Entity for Bat {
 }
 
 /// `Bat.checkBatSpawnRules(type, level, spawnReason, pos, random)`.
+#[expect(
+    clippy::if_same_then_else,
+    reason = "mirrors Bat.checkBatSpawnRules branch structure (the conditions draw from the random source)"
+)]
 pub fn check_bat_spawn_rules(
     ty: EntityType,
     level: &dyn ServerLevelAccessor,

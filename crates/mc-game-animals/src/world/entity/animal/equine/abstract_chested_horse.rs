@@ -10,7 +10,7 @@ use mc_game_core::world::entity::animal::equine::abstract_horse::{
     self, AbstractHorse, add_behaviour_goals, is_tamed, make_mad,
 };
 use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
-use mc_game_core::world::entity::mob::{self, interact::with_hand_stack};
+use mc_game_core::world::entity::mob::interact::with_hand_stack;
 use mc_game_core::world::entity::{Entity, ServerPlayer};
 use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack, ItemStackExt as _};
 use mc_nbt::CompoundTag;

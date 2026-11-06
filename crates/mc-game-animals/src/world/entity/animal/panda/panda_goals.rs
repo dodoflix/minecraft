@@ -464,6 +464,10 @@ impl Goal for PandaPanicGoal {
 pub struct PandaRollGoal;
 
 impl Goal for PandaRollGoal {
+    #[expect(
+        clippy::if_same_then_else,
+        reason = "mirrors PandaRollGoal.canUse branch structure (the conditions draw from the random source)"
+    )]
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         if (mob.is_baby() || panda(mob).is_playful()) && mob.base().on_ground() {
             if !panda(mob).can_perform_action(level) {

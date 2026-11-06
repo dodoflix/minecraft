@@ -14,8 +14,7 @@ use mc_game_core::world::entity::ai::goal::{Goal, GoalFlags, reduced_tick_delay}
 use mc_game_core::world::entity::mob::{self, navigation};
 use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
 use mc_game_core::world::entity::{Entity, EntityId};
-use mc_game_core::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
-use mc_game_core::world::level::material::FluidStateExt as _;
+use mc_game_core::world::level::level_access::LevelAccessor as _;
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use std::sync::Arc;
 use std::sync::atomic::{AtomicI32, Ordering};
@@ -316,10 +315,9 @@ impl Goal for FollowFlockLeaderGoal {
             let Some(me) = as_schooling(mob) else { return };
             if me.school().is_follower(level)
                 && let Some(leader) = me.school().leader()
+                && let Some(target_pos) = level.get_entity(leader).map(|l| l.block_position())
             {
-                if let Some(target_pos) = level.get_entity(leader).map(|l| l.block_position()) {
-                    navigation::move_to_entity(mob, level, target_pos, 1.0);
-                }
+                navigation::move_to_entity(mob, level, target_pos, 1.0);
             }
         }
     }

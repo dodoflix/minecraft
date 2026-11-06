@@ -81,6 +81,12 @@ pub struct CatAvoidEntityGoal {
     avoid: AvoidEntityGoal,
 }
 
+impl Default for CatAvoidEntityGoal {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl CatAvoidEntityGoal {
     pub fn new() -> Self {
         Self {
@@ -114,6 +120,12 @@ impl Goal for CatAvoidEntityGoal {
 pub struct CatTemptGoal {
     tempt: TemptGoal,
     selected_player: Option<EntityId>,
+}
+
+impl Default for CatTemptGoal {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl CatTemptGoal {
@@ -177,6 +189,12 @@ pub struct CatRelaxOnOwnerGoal {
     owner_player: Option<EntityId>,
     goal_pos: Option<BlockPos>,
     on_bed_ticks: i32,
+}
+
+impl Default for CatRelaxOnOwnerGoal {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl CatRelaxOnOwnerGoal {
@@ -544,7 +562,7 @@ impl Cat {
             b.define(DATA_SOUND_VARIANT_ID, default_sound as i32);
             b.define(IS_LYING, false);
             b.define(RELAX_STATE_ONE, false);
-            b.define(DATA_COLLAR_COLOR, i32::from(DEFAULT_COLLAR_COLOR.id()));
+            b.define(DATA_COLLAR_COLOR, DEFAULT_COLLAR_COLOR.id());
         });
         let variant_key = registries
             .registry_or_throw(keys::CAT_VARIANT)
@@ -707,7 +725,7 @@ impl Cat {
             .living
             .entity
             .entity_data
-            .set(DATA_COLLAR_COLOR, i32::from(color.id()));
+            .set(DATA_COLLAR_COLOR, color.id());
     }
 
     pub fn is_lying_on_top_of_sleeping_player(&self) -> bool {
@@ -802,7 +820,7 @@ impl Entity for Cat {
     fn add_additional_save_data(&self, out: &mut CompoundTag) {
         mob::nbt::add_additional_save_data(self, out);
         variant::write_variant(out, &self.variant_key);
-        out.put_string("sound_variant", &self.sound_variant_key.to_string());
+        out.put_string("sound_variant", self.sound_variant_key.to_string());
         out.put_byte("CollarColor", self.get_collar_color().id() as i8);
     }
 
@@ -821,21 +839,19 @@ impl Entity for Cat {
     }
 
     fn resolve_registry_refs(&mut self, registries: &RegistryAccess) {
-        if let Some(key) = self.pending_variant.take() {
-            if let Some(id) = registries
+        if let Some(key) = self.pending_variant.take()
+            && let Some(id) = registries
                 .registry(keys::CAT_VARIANT)
                 .and_then(|r| r.id_of(&key))
-            {
-                self.set_variant(registries, id);
-            }
+        {
+            self.set_variant(registries, id);
         }
-        if let Some(key) = self.pending_sound_variant.take() {
-            if let Some(id) = registries
+        if let Some(key) = self.pending_sound_variant.take()
+            && let Some(id) = registries
                 .registry(keys::CAT_SOUND_VARIANT)
                 .and_then(|r| r.id_of(&key))
-            {
-                self.set_sound_variant(registries, id);
-            }
+        {
+            self.set_sound_variant(registries, id);
         }
     }
 
@@ -954,23 +970,20 @@ impl Entity for Cat {
                 variant::select_variant_to_spawn::<CatVariant>(&context, keys::CAT_VARIANT, random);
             true
         });
-        if let Some(key) = selected {
-            if let Some(id) = registries
+        if let Some(key) = selected
+            && let Some(id) = registries
                 .registry(keys::CAT_VARIANT)
                 .and_then(|r| r.id_of(&key))
-            {
-                self.set_variant(&registries, id);
-            }
+        {
+            self.set_variant(&registries, id);
         }
         if let Some(key) =
             variant::pick_random_entry(&registries, keys::CAT_SOUND_VARIANT, level.random())
-        {
-            if let Some(id) = registries
+            && let Some(id) = registries
                 .registry(keys::CAT_SOUND_VARIANT)
                 .and_then(|r| r.id_of(&key))
-            {
-                self.set_sound_variant(&registries, id);
-            }
+        {
+            self.set_sound_variant(&registries, id);
         }
         group_data
     }
@@ -988,15 +1001,15 @@ impl Entity for Cat {
                 let is_collar_dye = mc_data::tags::get::<Item>("cat_collar_dyes")
                     .is_some_and(|t| t.contains(item_stack.item()));
                 if is_collar_dye {
-                    if let Some(color) = item_stack.get(&DYE).copied() {
-                        if color != self.get_collar_color() {
-                            self.set_collar_color(color);
-                            interact::with_hand_stack(player, hand, |stack, _| {
-                                stack.consume(1, infinite)
-                            });
-                            self.set_persistence_required();
-                            return InteractionResult::SUCCESS;
-                        }
+                    if let Some(color) = item_stack.get(&DYE).copied()
+                        && color != self.get_collar_color()
+                    {
+                        self.set_collar_color(color);
+                        interact::with_hand_stack(player, hand, |stack, _| {
+                            stack.consume(1, infinite)
+                        });
+                        self.set_persistence_required();
+                        return InteractionResult::SUCCESS;
                     }
                 } else if self.is_food(&item_stack)
                     && self.get_health() < self.mob.living.get_max_health()

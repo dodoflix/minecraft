@@ -419,25 +419,23 @@ impl Panda {
 
     /// `setAttributes()`.
     pub fn set_attributes(&mut self) {
-        if self.is_weak() {
-            if let Some(health) = self
+        if self.is_weak()
+            && let Some(health) = self
                 .mob
                 .living
                 .attributes
                 .get_instance(Attribute::MAX_HEALTH)
-            {
-                health.set_base_value(10.0);
-            }
+        {
+            health.set_base_value(10.0);
         }
-        if self.is_lazy() {
-            if let Some(speed) = self
+        if self.is_lazy()
+            && let Some(speed) = self
                 .mob
                 .living
                 .attributes
                 .get_instance(Attribute::MOVEMENT_SPEED)
-            {
-                speed.set_base_value(f64::from(0.07f32));
-            }
+        {
+            speed.set_base_value(f64::from(0.07f32));
         }
     }
 

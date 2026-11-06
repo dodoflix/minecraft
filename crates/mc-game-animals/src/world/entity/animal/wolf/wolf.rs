@@ -42,7 +42,7 @@ use mc_game_core::world::entity::factory::{
 use mc_game_core::world::entity::living_entity::util::broadcast_entity_event;
 use mc_game_core::world::entity::mob::neutral::{self, NeutralData};
 use mc_game_core::world::entity::mob::spawn::AgeableMobGroupData;
-use mc_game_core::world::entity::mob::{self, MobData, MobKind, ext, interact, tamable};
+use mc_game_core::world::entity::mob::{self, MobData, MobKind, interact, tamable};
 use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
 use mc_game_core::world::entity::variant::{self, SpawnContext};
 use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
@@ -112,6 +112,12 @@ impl SpawnGroupData for WolfPackData {
 /// `Wolf.WolfAvoidEntityGoal<Llama>`.
 pub struct WolfAvoidEntityGoal {
     avoid: AvoidEntityGoal,
+}
+
+impl Default for WolfAvoidEntityGoal {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl WolfAvoidEntityGoal {
@@ -206,7 +212,7 @@ impl Wolf {
             b.define(DATA_VARIANT_ID, default_variant as i32);
             b.define(DATA_SOUND_VARIANT_ID, default_sound as i32);
             b.define(DATA_INTERESTED_ID, false);
-            b.define(DATA_COLLAR_COLOR, i32::from(DEFAULT_COLLAR_COLOR.id()));
+            b.define(DATA_COLLAR_COLOR, DEFAULT_COLLAR_COLOR.id());
             b.define(DATA_ANGER_END_TIME, -1i64);
         });
         let variant_key = registries
@@ -376,7 +382,7 @@ impl Wolf {
             .living
             .entity
             .entity_data
-            .set(DATA_COLLAR_COLOR, i32::from(color.id()));
+            .set(DATA_COLLAR_COLOR, color.id());
     }
 
     /// `setIsInterested(value)`.
@@ -483,7 +489,7 @@ impl Entity for Wolf {
         out.put_byte("CollarColor", self.get_collar_color().id() as i8);
         variant::write_variant(out, &self.variant_key);
         neutral::add_persistent_anger_save_data(self, out);
-        out.put_string("sound_variant", &self.sound_variant_key.to_string());
+        out.put_string("sound_variant", self.sound_variant_key.to_string());
     }
 
     fn read_additional_save_data(&mut self, input: &CompoundTag) {
@@ -502,21 +508,19 @@ impl Entity for Wolf {
     }
 
     fn resolve_registry_refs(&mut self, registries: &RegistryAccess) {
-        if let Some(key) = self.pending_variant.take() {
-            if let Some(id) = registries
+        if let Some(key) = self.pending_variant.take()
+            && let Some(id) = registries
                 .registry(keys::WOLF_VARIANT)
                 .and_then(|r| r.id_of(&key))
-            {
-                self.set_variant(registries, id);
-            }
+        {
+            self.set_variant(registries, id);
         }
-        if let Some(key) = self.pending_sound_variant.take() {
-            if let Some(id) = registries
+        if let Some(key) = self.pending_sound_variant.take()
+            && let Some(id) = registries
                 .registry(keys::WOLF_SOUND_VARIANT)
                 .and_then(|r| r.id_of(&key))
-            {
-                self.set_sound_variant(registries, id);
-            }
+        {
+            self.set_sound_variant(registries, id);
         }
     }
 
@@ -564,13 +568,11 @@ impl Entity for Wolf {
         }
         if let Some(key) =
             variant::pick_random_entry(&registries, keys::WOLF_SOUND_VARIANT, level.random())
-        {
-            if let Some(id) = registries
+            && let Some(id) = registries
                 .registry(keys::WOLF_SOUND_VARIANT)
                 .and_then(|r| r.id_of(&key))
-            {
-                self.set_sound_variant(&registries, id);
-            }
+        {
+            self.set_sound_variant(&registries, id);
         }
         mob::spawn::finalize_spawn(self, level, difficulty, reason, group_data)
     }
@@ -817,12 +819,12 @@ impl Entity for Wolf {
                 return interaction_result;
             }
             let color = item_stack.get(&DYE).copied();
-            if let Some(color) = color {
-                if color != self.get_collar_color() {
-                    self.set_collar_color(color);
-                    interact::with_hand_stack(player, hand, |stack, _| stack.consume(1, infinite));
-                    return InteractionResult::SUCCESS;
-                }
+            if let Some(color) = color
+                && color != self.get_collar_color()
+            {
+                self.set_collar_color(color);
+                interact::with_hand_stack(player, hand, |stack, _| stack.consume(1, infinite));
+                return InteractionResult::SUCCESS;
             }
         } else if item_stack.is(Item::BONE) && !neutral::is_angry(self, level) {
             interact::with_hand_stack(player, hand, |stack, _| stack.consume(1, infinite));
@@ -894,10 +896,9 @@ impl Entity for Wolf {
         if let (Some(player_target), Some(player_owner)) = (
             target.as_any().downcast_ref::<ServerPlayer>(),
             owner.as_any().downcast_ref::<ServerPlayer>(),
-        ) {
-            if !player_owner.can_harm_player(level, &player_target.get_scoreboard_name()) {
-                return false;
-            }
+        ) && !player_owner.can_harm_player(level, &player_target.get_scoreboard_name())
+        {
+            return false;
         }
         if target.as_abstract_horse().is_some_and(|h| h.is_tamed()) {
             return false;
@@ -944,13 +945,11 @@ impl Entity for Wolf {
                 &registries,
                 keys::WOLF_SOUND_VARIANT,
                 &mut self.base_mut().random,
-            ) {
-                if let Some(id) = registries
-                    .registry(keys::WOLF_SOUND_VARIANT)
-                    .and_then(|r| r.id_of(&key))
-                {
-                    wolf.set_sound_variant(&registries, id);
-                }
+            ) && let Some(id) = registries
+                .registry(keys::WOLF_SOUND_VARIANT)
+                .and_then(|r| r.id_of(&key))
+            {
+                wolf.set_sound_variant(&registries, id);
             }
         }
         Some(baby)
@@ -965,7 +964,6 @@ fn check_wolf_spawn_rules(
     pos: BlockPos,
     _random: &mut dyn RandomSource,
 ) -> bool {
-    use mc_game_core::world::level::BlockGetter as _;
     use mc_game_core::world::level::block::BlockStateExt as _;
     level
         .get_block_state(pos.below())

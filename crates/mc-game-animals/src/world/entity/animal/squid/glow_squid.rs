@@ -3,7 +3,6 @@
 use super::squid::{self, SquidData, SquidLike, squid_entity};
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource as _;
 use mc_core::random::RandomSource;
 use mc_data::block::Block;
 use mc_data::enums::EntitySpawnReason;
@@ -16,8 +15,6 @@ use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
 use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
 use mc_game_core::world::entity::mob::{self, MobData, MobKind};
 use mc_game_core::world::entity::{Entity, EntityId};
-use mc_game_core::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
-use mc_game_core::world::level::material::FluidStateExt as _;
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_nbt::CompoundTag;
 use mc_protocol::packets::play::ParticleOptions;

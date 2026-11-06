@@ -85,12 +85,11 @@ fn alertable_entities_selector(
         true
     } else if target.mob().is_some_and(|m| m.tamable.is_some()) {
         !tamable::is_tame(target)
-    } else if target.is_player() && (target.is_spectator() || ext::is_creative_player(target)) {
-        false
-    } else if fox
-        .as_any()
-        .downcast_ref::<Fox>()
-        .is_some_and(|f| f.trusts(target))
+    } else if (target.is_player() && (target.is_spectator() || ext::is_creative_player(target)))
+        || fox
+            .as_any()
+            .downcast_ref::<Fox>()
+            .is_some_and(|f| f.trusts(target))
     {
         false
     } else {
@@ -305,10 +304,10 @@ fn fox_breed(animal: &mut dyn Entity, level: &mut ServerLevel, partner: EntityId
     if let Some(cause) = animal_love_cause {
         fox_mut(&mut *offspring).add_trusted_entity(cause);
     }
-    if let Some(cause) = partner_love_cause {
-        if animal_love_cause != Some(cause) {
-            fox_mut(&mut *offspring).add_trusted_entity(cause);
-        }
+    if let Some(cause) = partner_love_cause
+        && animal_love_cause != Some(cause)
+    {
+        fox_mut(&mut *offspring).add_trusted_entity(cause);
     }
     ageable::set_baby(&mut *offspring, true);
     let p = animal.position();
@@ -756,20 +755,20 @@ impl Goal for FoxPounceGoal {
         let f = fox_mut(mob);
         f.set_is_pouncing(true);
         f.set_is_interested(false);
-        if let Some(target_id) = target_of(mob, level) {
-            if let Some(target) = level.get_entity(target_id) {
-                mob::look_at_entity_full(mob, target, 60.0, 30.0);
-                let p = mob.position();
-                let uv = Vec3::new(
-                    target.base().x() - p.x,
-                    target.base().y() - p.y,
-                    target.base().z() - p.z,
-                )
-                .normalize();
-                let movement = mob.base().delta_movement();
-                mob.base_mut()
-                    .set_delta_movement(movement.add_xyz(uv.x * 0.8, 0.9, uv.z * 0.8));
-            }
+        if let Some(target_id) = target_of(mob, level)
+            && let Some(target) = level.get_entity(target_id)
+        {
+            mob::look_at_entity_full(mob, target, 60.0, 30.0);
+            let p = mob.position();
+            let uv = Vec3::new(
+                target.base().x() - p.x,
+                target.base().y() - p.y,
+                target.base().z() - p.z,
+            )
+            .normalize();
+            let movement = mob.base().delta_movement();
+            mob.base_mut()
+                .set_delta_movement(movement.add_xyz(uv.x * 0.8, 0.9, uv.z * 0.8));
         }
         navigation::stop(mob, level);
     }
@@ -869,6 +868,10 @@ fn move_to_first_item(mob: &mut dyn Entity, level: &mut ServerLevel, items: &[En
 }
 
 impl Goal for FoxSearchForItemsGoal {
+    #[expect(
+        clippy::if_same_then_else,
+        reason = "mirrors FoxSearchForItemsGoal.canUse branch structure (the random draw must stay ordered)"
+    )]
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         let mainhand = mc_game_core::world::entity::equipment::EquipmentSlot::MainHand;
         if !mob.get_item_by_slot(mainhand).is_empty() {

@@ -511,12 +511,12 @@ impl Entity for Rabbit {
         if mob::move_control_speed_modifier(self) <= 0.6 {
             base_jump_power = 0.2;
         }
-        if let Some(Some(path)) = navigation::with_navigation_ref(self, level, |n| n.get_path()) {
-            if !path.is_done() {
-                let current_pos = path.get_next_entity_pos(self.base().get_bb_width());
-                if current_pos.y > self.base().y() + 0.5 {
-                    base_jump_power = 0.5;
-                }
+        if let Some(Some(path)) = navigation::with_navigation_ref(self, level, |n| n.get_path())
+            && !path.is_done()
+        {
+            let current_pos = path.get_next_entity_pos(self.base().get_bb_width());
+            if current_pos.y > self.base().y() + 0.5 {
+                base_jump_power = 0.5;
             }
         }
         let wanted_y = self
@@ -572,16 +572,17 @@ impl Entity for Rabbit {
                 self.set_jumping(level, false);
                 self.check_landing_delay();
             }
-            if self.get_variant() == RabbitVariant::Evil && self.jump_delay_ticks == 0 {
-                if let Some(target) = self.get_target().and_then(|id| level.get_entity(id)) {
-                    let (tx, ty, tz) = (target.base().x(), target.base().y(), target.base().z());
-                    if self.base().distance_to_sqr_vec(target.position()) < 16.0 {
-                        let speed = mob::move_control_speed_modifier(self);
-                        self.face_point(tx, tz);
-                        mob::set_wanted_position(self, tx, ty, tz, speed);
-                        self.start_jumping(level);
-                        self.was_on_ground = true;
-                    }
+            if self.get_variant() == RabbitVariant::Evil
+                && self.jump_delay_ticks == 0
+                && let Some(target) = self.get_target().and_then(|id| level.get_entity(id))
+            {
+                let (tx, ty, tz) = (target.base().x(), target.base().y(), target.base().z());
+                if self.base().distance_to_sqr_vec(target.position()) < 16.0 {
+                    let speed = mob::move_control_speed_modifier(self);
+                    self.face_point(tx, tz);
+                    mob::set_wanted_position(self, tx, ty, tz, speed);
+                    self.start_jumping(level);
+                    self.was_on_ground = true;
                 }
             }
             if !self.rabbit_jump_control().want_jump() {
@@ -599,10 +600,9 @@ impl Entity for Rabbit {
                     let mut pos = Vec3::new(wx, wy, wz);
                     if let Some(Some(path)) =
                         navigation::with_navigation_ref(self, level, |n| n.get_path())
+                        && !path.is_done()
                     {
-                        if !path.is_done() {
-                            pos = path.get_next_entity_pos(self.base().get_bb_width());
-                        }
+                        pos = path.get_next_entity_pos(self.base().get_bb_width());
                     }
                     self.face_point(pos.x, pos.z);
                     self.start_jumping(level);

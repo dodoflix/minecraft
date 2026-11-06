@@ -277,10 +277,10 @@ pub fn on_stop_attacking(level: &mut ServerLevel, body: &mut dyn Entity, target:
         .bounding_box()
         .inflate_scalar(PLAYER_REGEN_DETECTION_RANGE);
     let players_in_range = level.get_entities_of_class(&range, |e| e.is_player(), |_| true);
-    if players_in_range.contains(&player) {
-        if let Some(axolotl) = body.as_any().downcast_ref::<Axolotl>() {
-            axolotl.apply_supporting_effects(level, player);
-        }
+    if players_in_range.contains(&player)
+        && let Some(axolotl) = body.as_any().downcast_ref::<Axolotl>()
+    {
+        axolotl.apply_supporting_effects(level, player);
     }
 }
 

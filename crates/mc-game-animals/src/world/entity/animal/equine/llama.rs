@@ -46,6 +46,9 @@ define_accessor!(pub DATA_VARIANT_ID: Int = Llama);
 const MAX_STRENGTH: i32 = 5;
 const DEFAULT_DESPAWN_DELAY: i32 = 47999;
 
+/// `FollowParentGoal`/`BreedGoal` parent-class test.
+type EntityClassTest = Arc<dyn Fn(&dyn Entity) -> bool + Send + Sync>;
+
 /// `Llama.Variant.byId(id)` (`ByIdMap.continuous(.., CLAMP)`).
 pub fn variant_by_id(id: i32) -> LlamaVariant {
     LlamaVariant::ALL[id.clamp(0, LlamaVariant::ALL.len() as i32 - 1) as usize]
@@ -200,7 +203,7 @@ impl Llama {
     }
 
     /// The class `FollowParentGoal`/`BreedGoal` match: `Llama.class` (incl. trader llamas) or `TraderLlama.class`.
-    fn class_test(&self) -> Arc<dyn Fn(&dyn Entity) -> bool + Send + Sync> {
+    fn class_test(&self) -> EntityClassTest {
         if self.is_trader_llama() {
             Arc::new(|e: &dyn Entity| e.get_type() == EntityType::TRADER_LLAMA)
         } else {
@@ -214,7 +217,7 @@ impl Llama {
             .living
             .entity
             .entity_data
-            .set(DATA_STRENGTH_ID, strength.min(MAX_STRENGTH).max(1));
+            .set(DATA_STRENGTH_ID, strength.clamp(1, MAX_STRENGTH));
     }
 
     /// `setRandomStrength(random)`.
@@ -492,15 +495,15 @@ impl AbstractHorse for Llama {
             abstract_horse::modify_temper(self, temper);
             item_used = true;
         }
-        if item_used && !self.base().is_silent() {
-            if let Some(sound) = self.get_eating_sound() {
-                let pitch = 1.0
-                    + (self.base_mut().random.next_float() - self.base_mut().random.next_float())
-                        * 0.2;
-                let p = self.position();
-                let source = self.get_sound_source();
-                level.play_sound_at(None, p.x, p.y, p.z, sound, source, 1.0, pitch);
-            }
+        if item_used
+            && !self.base().is_silent()
+            && let Some(sound) = self.get_eating_sound()
+        {
+            let pitch = 1.0
+                + (self.base_mut().random.next_float() - self.base_mut().random.next_float()) * 0.2;
+            let p = self.position();
+            let source = self.get_sound_source();
+            level.play_sound_at(None, p.x, p.y, p.z, sound, source, 1.0, pitch);
         }
         item_used
     }

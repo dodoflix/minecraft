@@ -35,14 +35,13 @@ use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
 use mc_game_core::world::entity::spawn_predicates;
 use mc_game_core::world::entity::{Entity, EntityId, MoverType};
 use mc_game_core::world::item::ItemStack;
+use mc_game_core::world::level::BlockGetter as _;
 use mc_game_core::world::level::LevelReader;
-use mc_game_core::world::level::block::BlockStateExt as _;
 use mc_game_core::world::level::block::impls::turtle_egg_block;
 use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_game_core::world::level::level_access::LevelAccessor as _;
 use mc_game_core::world::level::material::FluidStateExt as _;
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
-use mc_game_core::world::level::{BlockGetter as _, LevelReader as _};
 use mc_nbt::CompoundTag;
 use mc_protocol::packets::play::level::SoundSource;
 use std::sync::Arc;
@@ -423,16 +422,14 @@ impl Goal for TurtleGoHomeGoal {
             if next_pos.is_none() {
                 next_pos = default_random_pos::get_pos_towards(mob, level, 8, 7, home_vec, pi2);
             }
-            if let Some(p) = next_pos {
-                if !close_to_home
-                    && level
-                        .get_block_state(BlockPos::containing(p.x, p.y, p.z))
-                        .block()
-                        != Block::WATER
-                {
-                    next_pos =
-                        default_random_pos::get_pos_towards(mob, level, 16, 5, home_vec, pi2);
-                }
+            if let Some(p) = next_pos
+                && !close_to_home
+                && level
+                    .get_block_state(BlockPos::containing(p.x, p.y, p.z))
+                    .block()
+                    != Block::WATER
+            {
+                next_pos = default_random_pos::get_pos_towards(mob, level, 16, 5, home_vec, pi2);
             }
             match next_pos {
                 None => self.stuck = true,
@@ -479,9 +476,9 @@ impl MoveToBlock for TurtleGoToWaterGoal {
 
 impl Goal for TurtleGoToWaterGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        if mob.is_baby() && !mob.is_in_water() {
-            move_to_block::can_use(self, mob, level)
-        } else if !turtle(mob).going_home && !mob.is_in_water() && !turtle(mob).has_egg() {
+        if (mob.is_baby() && !mob.is_in_water())
+            || (!turtle(mob).going_home && !mob.is_in_water() && !turtle(mob).has_egg())
+        {
             move_to_block::can_use(self, mob, level)
         } else {
             false
@@ -856,9 +853,9 @@ impl Entity for Turtle {
     }
 
     fn get_walk_target_value(&self, pos: BlockPos, level: &dyn LevelReader) -> f32 {
-        if !self.going_home && level.get_fluid_state(pos).is_tag("water") {
-            10.0
-        } else if turtle_egg_block::on_sand(level, pos) {
+        if (!self.going_home && level.get_fluid_state(pos).is_tag("water"))
+            || turtle_egg_block::on_sand(level, pos)
+        {
             10.0
         } else {
             level.get_pathfinding_cost_from_light_levels(pos)
