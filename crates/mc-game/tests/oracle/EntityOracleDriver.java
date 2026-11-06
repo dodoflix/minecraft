@@ -82,7 +82,7 @@ import net.minecraft.util.RandomSource;
  * Usage: scripts/entity-oracle.sh crates/mc-game/tests/oracle/scenarios/NAME.txt -o crates/mc-game/tests/fixtures/entity_oracle/NAME.txt
  * Output: crates/mc-game/tests/fixtures/entity_oracle/NAME.txt (scripts/entity-oracle.sh --regen rewrites all of them)
  * <p>The scenario is a line-based script, the fixture is the text this driver prints (stdout; vanilla log noise goes to stderr).
- * Commit scenario + fixture; Rust reads the fixture with {@code tests/common/entity_oracle.rs}.
+ * Commit scenario + fixture (a scenario over 1 MB is committed as NAME.txt.gz); Rust reads the fixture with {@code tests/common/entity_oracle.rs}.
  *
  * <p>Syntax: one command per line, tokens split on whitespace ({@code [..]}, {@code {..}} and "..." keep spaces), {@code #}
  * starts a comment line. {@code <ref>} is a player name (from spawn_player) or the name given to spawn/spawn_item; every
@@ -215,7 +215,16 @@ public final class EntityOracleDriver {
 
    public static void main(String[] args) throws Exception {
       EntityOracleDriver d = new EntityOracleDriver();
-      List<String> lines = Files.readAllLines(java.nio.file.Path.of(args[0]));
+      java.nio.file.Path scenario = java.nio.file.Path.of(args[0]);
+      List<String> lines;
+      if (args[0].endsWith(".gz")) {
+         try (java.io.BufferedReader r = new java.io.BufferedReader(new java.io.InputStreamReader(
+               new java.util.zip.GZIPInputStream(Files.newInputStream(scenario)), java.nio.charset.StandardCharsets.UTF_8))) {
+            lines = r.lines().toList();
+         }
+      } else {
+         lines = Files.readAllLines(scenario);
+      }
       try {
          for (int i = 0; i < lines.size(); i++) {
             d.lineNo = i + 1;

@@ -8,7 +8,7 @@
 #   scripts/entity-oracle.sh MyScenario.java [args]  run your own Java program against the harness classes
 #   scripts/entity-oracle.sh MyScenario.java -o OUT [args]   same, its stdout written to OUT (only if the run succeeded)
 #   scripts/entity-oracle.sh --regen                 regenerate every crates/mc-game/tests/fixtures/entity_oracle/*.txt[.gz] from its
-#                                                    scenarios/*.txt twin
+#                                                    scenarios/*.txt[.gz] twin
 #
 # Output: stdout, or OUT with -o (replaced only when the run succeeded; --regen writes crates/mc-game/tests/fixtures/entity_oracle/*.txt[.gz]).
 # Needs: java, javac, python3, ref/ with decompiled sources (setup-ref.sh --decompile) and MC_ACCEPT_EULA=1 (the oracle starts a vanilla
@@ -23,8 +23,9 @@ need java javac python3
 require_eula
 T="$ROOT/crates/mc-game/tests"
 if [ "${1:-}" = --regen ]; then
-  for sc in "$T"/oracle/scenarios/*.txt; do
-    n="$(basename "$sc")"
+  for sc in "$T"/oracle/scenarios/*.txt "$T"/oracle/scenarios/*.txt.gz; do
+    [ -e "$sc" ] || continue
+    n="$(basename "$sc" .gz)"
     echo "== $n" >&2
     fixture="$T/fixtures/entity_oracle/$n"
     [ ! -e "$fixture.gz" ] || fixture="$fixture.gz"
