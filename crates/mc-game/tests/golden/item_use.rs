@@ -197,6 +197,28 @@ fn full_player_cannot_eat_ordinary_food() {
 }
 
 #[test]
+fn poplar_boats_build_behaviours_and_place() {
+    // the first `behaviour` call builds the table for every item: a boat item without a boat type must not fail it
+    let _ = mc_game::world::item::behaviour(Item::POPLAR_BOAT);
+    for item in [Item::POPLAR_BOAT, Item::POPLAR_CHEST_BOAT] {
+        let mut level = level();
+        let mut p = player();
+        level.set_block(
+            BlockPos::new(0, 62, 0),
+            Block::STONE.default_state(),
+            3,
+            512,
+        );
+        p.base_mut().set_pos_raw_and_box(0.5, 63.0, 0.5);
+        p.base_mut().set_rot(0.0, 90.0);
+        p.set_item_in_hand(InteractionHand::MainHand, ItemStack::with_count(item, 1));
+        let result = p.use_item(&mut level, InteractionHand::MainHand);
+        assert!(result.consumes_action(), "{item:?}: {result:?}");
+        assert!(p.get_item_in_hand(InteractionHand::MainHand).is_empty());
+    }
+}
+
+#[test]
 fn swing_is_gated_by_swing_state() {
     use mc_game::world::entity::player::item_use::SWING_ANIMATION_DEFAULT as ANIM;
     let mut level = level();

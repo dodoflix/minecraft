@@ -8,14 +8,16 @@ use crate::world::entity::spawn_config::apply_default_stack_config;
 use crate::world::entity::vehicle::no_collision;
 use crate::world::entity::{Entity, ServerPlayer};
 use crate::world::item::player_pov_hit_result_fluid;
-use crate::world::item::{InteractionHand, InteractionResult, ItemBehaviour, ItemStackExt};
+use crate::world::item::{
+    InteractionHand, InteractionResult, ItemBehaviour, ItemStackExt, PlainItem,
+};
 use crate::world::level::collision::ClipFluid;
 use mc_data::enums::EntitySpawnReason;
 use mc_data::{EntityType, GameEvent, Item};
 use mc_protocol::packets::play::Stat;
 
 /// Every boat entity type (the `EntityType` a `BoatItem` places is the one whose drop item it is).
-const BOAT_TYPES: [EntityType; 20] = [
+const BOAT_TYPES: [EntityType; 22] = [
     EntityType::OAK_BOAT,
     EntityType::OAK_CHEST_BOAT,
     EntityType::SPRUCE_BOAT,
@@ -34,12 +36,15 @@ const BOAT_TYPES: [EntityType; 20] = [
     EntityType::PALE_OAK_CHEST_BOAT,
     EntityType::MANGROVE_BOAT,
     EntityType::MANGROVE_CHEST_BOAT,
+    EntityType::POPLAR_BOAT,
+    EntityType::POPLAR_CHEST_BOAT,
     EntityType::BAMBOO_RAFT,
     EntityType::BAMBOO_CHEST_RAFT,
 ];
 
 struct BoatItem {
     entity_type: EntityType,
+    item: Item,
 }
 
 impl BoatItem {
@@ -108,20 +113,18 @@ impl ItemBehaviour for BoatItem {
         level.game_event_from_entity(Some(player.id()), GameEvent::ENTITY_PLACE, hit.location);
         stack.consume(1, player.player.abilities.instabuild);
         player.set_item_in_hand_slot(level, hand, stack);
-        player.award_stat_once(level, Stat::Used(self.item_of_type()));
+        player.award_stat_once(level, Stat::Used(self.item));
         InteractionResult::SUCCESS
     }
 }
 
-impl BoatItem {
-    fn item_of_type(&self) -> Item {
-        boat_spec(self.entity_type).expect("boat type").0
-    }
-}
-
-register_item_class!("BoatItem", |item| Box::new(BoatItem {
-    entity_type: *BOAT_TYPES
+register_item_class!("BoatItem", |item| {
+    let placed = BOAT_TYPES
         .iter()
-        .find(|ty| boat_spec(**ty).is_some_and(|(drop, _, _)| drop == item))
-        .expect("a boat item places a boat type"),
-}));
+        .find(|ty| boat_spec(**ty).is_some_and(|(drop, _, _)| drop == item));
+    match placed {
+        Some(&entity_type) => Box::new(BoatItem { entity_type, item }),
+        // A boat item without a boat type behaves like a plain item instead of failing the table build.
+        None => Box::new(PlainItem),
+    }
+});
