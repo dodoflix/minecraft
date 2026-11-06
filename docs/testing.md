@@ -79,8 +79,9 @@ T2 and T3 start the real vanilla server, which requires accepting the
 [Minecraft EULA](https://www.minecraft.net/en-us/eula). Running them is your acceptance, not the project's.
 
 Rule: no helper or script writes `eula=true` unless `MC_ACCEPT_EULA=1` is set; without it they print the EULA URL
-and exit non-zero. CI sets the variable explicitly for the oracle lane. Enforced: review. In Rust the guarded helper is
-`mc-testkit` (below); the scripts share one guarded helper in `scripts/lib.sh`.
+and exit non-zero. CI sets the variable explicitly for the oracle lane. In Rust the guarded helper is `mc-testkit` (below); the
+scripts write `eula=true` only through `write_eula` in `scripts/lib.sh`. Enforced: `scripts/check.sh` fails on `eula=true`
+in a shell script other than `scripts/lib.sh`; review elsewhere.
 
 ### The server helper
 
@@ -155,7 +156,7 @@ generator without both headers.
   oracle target. This is the single variable for it; it counts only when set to `1`. Enforced: review.
 
 **Format and size.** Fixtures are plain text and there is no Git LFS. The one exception is a generated fixture that is
-larger than 1 MB uncompressed: it is committed as `<name>.txt.gz` (the generator writes it with `gzip -n`, so the output is
+larger than 1 MB uncompressed: it is committed as `<name>.txt.gz` (the generator writes it gzip-compressed without a timestamp, so the output is
 deterministic) and its `Output:` header names the `.gz` path. Smaller fixtures are not compressed. No tracked file may
 exceed 8 MiB (`scripts/check.sh`).
 

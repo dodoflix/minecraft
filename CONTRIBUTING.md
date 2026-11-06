@@ -39,7 +39,7 @@ CI runs `scripts/check-commits.sh` on a pull request's title and every commit: k
 
 ## Checks
 
-Run `scripts/check.sh` before you push. `--fast` skips clippy. A missing tool is a failure, not a skip, and the script exits 2 with a message.
+Run `scripts/check.sh` before you push. `--fast` skips clippy. A missing tool is a failure, not a skip, and the script exits 2 with a message. `scripts/check.sh --list` prints an index of the scripts.
 
 CI (`.github/workflows/ci.yml`) runs on every pull request and every push to `main`. Its jobs, and the one command each runs:
 
