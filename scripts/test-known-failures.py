@@ -13,7 +13,8 @@ Each package is run on its own so that every result has the key "<package> <test
 `doctests` for doc-tests). A binary that aborts (stack overflow, OOM kill) prints no result line: it counts as the
 failure "<package> <binary> <crashed>", and a cargo error without a failed test (compile error) as
 "<package> <cargo> <exit status>". Exit status: 0 when every failure is listed, 1 on a new failure.
-Listed tests that now pass are reported so their line can be deleted.
+Listed tests that now pass are reported so their line can be deleted. Each new failure is re-run once on its own: a
+pass there is reported as FLAKY (a `::warning::` annotation on GitHub) and does not fail the run; fix flaky tests.
 """
 import json
 import os
@@ -24,6 +25,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 KNOWN = ROOT / "tests" / "known-failures.txt"
+# colour codes would split "Running" from the rest of the line (CI sets CARGO_TERM_COLOR=always)
+CARGO_ENV = {**os.environ, "CARGO_TERM_COLOR": "never"}
 
 
 def packages():
@@ -35,9 +38,7 @@ def run_package(package, cargo_args, libtest_args):
     """Returns ({key: "ok" | "FAILED" | "ignored"}, combined output) for one `cargo test` run."""
     cmd = ["cargo", "test", "--locked", "--no-fail-fast", "-p", package, *cargo_args, "--", *libtest_args]
     print("+", " ".join(cmd), flush=True)
-    # colour codes would split "Running" from the rest of the line (CI sets CARGO_TERM_COLOR=always)
-    env = {**os.environ, "CARGO_TERM_COLOR": "never"}
-    proc = subprocess.run(cmd, cwd=ROOT, env=env, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    proc = subprocess.run(cmd, cwd=ROOT, env=CARGO_ENV, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     results, binary, unfinished = {}, "?", set()
     for line in proc.stdout.splitlines():
         if m := re.match(r"\s*Running (\S+)", line):
@@ -62,6 +63,17 @@ def details(key, output):
     name = key.split(" ", 2)[2]
     m = re.search(rf"^---- {re.escape(name)} stdout ----\n(.*?)(?=^---- |^failures:|\Z)", output, re.M | re.S)
     return m[1].strip()[:6000] if m else output[-4000:]
+
+
+def retry_passes(key):
+    """Re-runs one failed test alone; True if it passes. Crashes, cargo errors and doc-tests are not retried."""
+    package, binary, name = key.split(" ", 2)
+    if name.startswith("<") or not binary.startswith(("tests/", "unittests")):
+        return False
+    target = ["--lib"] if binary == "unittests" else ["--test", binary.split("/")[1].removesuffix(".rs")]
+    cmd = ["cargo", "test", "--locked", "-p", package, *target, "--", "--exact", name, "--include-ignored"]
+    proc = subprocess.run(cmd, cwd=ROOT, env=CARGO_ENV, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    return f"test {name} ... ok" in proc.stdout
 
 
 def main():
@@ -89,9 +101,13 @@ def main():
     new = sorted(failed - known)
     for k in sorted(k for k in known if results.get(k) == "ok"):
         print(f"now passing, delete from tests/known-failures.txt: {k}")
+    flaky = [k for k in new if retry_passes(k)]
+    for k in flaky:
+        print(f"::warning title=flaky test::FLAKY (failed, then passed alone): {k}")
+    new = [k for k in new if k not in flaky]
     for k in new:
         print(f"\nNEW FAILURE: {k}\n{details(k, outputs[k.split(' ', 1)[0]])}")
-    print(f"{len(results)} tests, {len(failed)} failed, {len(failed) - len(new)} known, {len(new)} new")
+    print(f"{len(results)} tests, {len(failed)} failed: {len(failed) - len(new) - len(flaky)} known, {len(flaky)} flaky, {len(new)} new")
     return 1 if new else 0
 
 

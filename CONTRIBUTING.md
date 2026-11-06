@@ -54,7 +54,7 @@ CI (`.github/workflows/ci.yml`) runs on every pull request and every push to `ma
 | `ref` | builds or restores the cached `ref/` that `clippy` and `test` need | seconds cached, 10 to 15 min cold |
 | `ci-ok` | passes only when all of the above passed; the one required check | seconds |
 
-`scripts/test-known-failures.py` fails only on a test that `tests/known-failures.txt` does not list; run it locally the same way (`-p <crate>` limits it). A change that makes a listed test pass deletes its line.
+`scripts/test-known-failures.py` fails only on a test that `tests/known-failures.txt` does not list; run it locally the same way (`-p <crate>` limits it). A change that makes a listed test pass deletes its line. A new failure is re-run once alone; if it passes, the run reports it as flaky (a warning) instead of failing, and the flaky test gets fixed.
 
 `.github/workflows/nightly.yml` runs once a day and on demand: `cargo deny check advisories` and the oracle tier (`scripts/test-known-failures.py --oracle`, which starts the vanilla server and sets `MC_ACCEPT_EULA=1`). Neither blocks a pull request; the oracle tier must be green before a release is tagged. To run CI on a branch without a pull request: `gh workflow run ci.yml --ref <branch>`.
 

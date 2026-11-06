@@ -223,7 +223,8 @@ status check and passes only when every job passed:
 - `commits`: `scripts/check-commits.sh` on the pull request title and commits (Conventional Commits).
 - `test`: `scripts/test-known-failures.py`, which runs `cargo test --no-fail-fast` for each workspace package (T0/T1)
   and fails only on a failure that `tests/known-failures.txt` does not list. A binary that aborts counts as a failure.
-  The script prints listed tests that now pass; delete their lines (section 8).
+  The script prints listed tests that now pass; delete their lines (section 8). A new failure is re-run once alone: a
+  pass is reported as flaky (a warning, not a failure). Flaky tests are fixed, never listed.
 - `ref`: builds `ref/` from Mojang's download, or restores it from the cache keyed on the scripts that produce it.
   `clippy` and `test` need it (`mc-data`'s build script reads the extractor output).
 
