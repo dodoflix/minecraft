@@ -1,5 +1,5 @@
 # Subset of worldgen-diff-cases.txt summarised by scripts/worldgen-diff-summary.py (smaller radii: vanilla generation is the slow half;
-# controls are placed ~250 chunks from the spawn so no spawn-area ticking noise). Run: scripts/worldgen-diff.sh --cases scripts/worldgen-diff-cases-report.txt [--only REGEX]
+# controls are placed ~250 chunks from the spawn so no spawn-area ticking noise). Run: scripts/worldgen-diff.sh --cases scripts/worldgen-diff-cases-subset.txt [--only REGEX]
 # seed dim center_x center_z radius_chunks label   (centres are BLOCK coordinates)
 12345 overworld 4000 4000 2 control
 12345 the_nether 4000 4000 2 control

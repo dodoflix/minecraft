@@ -1,7 +1,7 @@
 # End-to-end harness: real 26.3 client + real vanilla server
 
-Everything lives in `scripts/`; all state goes under `run/` (gitignored). Needs: `java` (>= 25), `python3`, `xdotool`,
-`gamescope` (headless compositor, already installed), network access on first run (downloads via Python urllib). No root, and the
+Everything lives in `scripts/`; all state goes under `run/` (gitignored). Needs: JDK 25 or newer, `python3`, `xdotool`,
+`gamescope` (headless compositor), network access on first run (downloads via Python urllib). No root, and the
 desktop's `DISPLAY`/`WAYLAND_DISPLAY` are never used: the client renders on the GPU inside
 `gamescope --backend headless` with its own private Xwayland.
 
@@ -74,3 +74,16 @@ residuals, `--report x.json` for a machine-readable summary). Output: `DIR/{A,B}
 `scripts/worldgen-diff.sh --cases scripts/worldgen-diff-cases.txt [--only REGEX]`; new structure locations for a seed:
 `scripts/worldgen-locate.sh SEED...` (real `/locate`). Details/limits: header of `scripts/worldgen-diff.sh`.
 Standalone: `cargo run -p worldcmp -- WORLD_A WORLD_B --dim overworld --chunks -4,-4,4,4`.
+
+## Mob scenarios (vanilla vs ours, bot over the wire)
+
+`scripts/mob-e2e.sh tests/e2e/mobs/NAME.scn` runs one `mc-testbot` scenario against the real vanilla server and then against
+`mc-server`, and diffs what the bot observed (packets, entity metadata, positions, offers, chat). Outputs go to
+`run/mob-e2e/NAME/` (`vanilla.{jsonl,obs}`, `ours.{jsonl,obs}`, `diff.txt`, `obs.diff`); `--sides vanilla` only records the
+oracle, `--ignore PACKET` drops noisy packets from the diff. Build first: `cargo build -p mc-testbot -p mc-server`.
+The scenario language is documented in `crates/mc-testbot/src/scenario.rs`; start a new scenario from
+`tests/e2e/mobs/template.scn` (all state changes through `cmd`, observations through `observe`). Exact server-side mob state
+(paths, goals, RNG-driven choices) is covered by the in-process entity oracle (`scripts/entity-oracle.sh`), assertions that
+must run in CI belong in `crates/mc-server/tests/oracle/entity_dual.rs`.
+Scenarios: `summon_mobs` (initial metadata, variants), `darkness_spawning` (natural spawning at night), `combat`, `breeding`,
+`villager_trading`, `raid_start`.

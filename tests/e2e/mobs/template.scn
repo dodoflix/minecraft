@@ -1,4 +1,4 @@
-# Template for a mob scenario (copy, rename, edit). Run: scripts/mob-e2e.sh tests/e2e/mobs/NAME.scn   (README.md next to this file).
+# Template for a mob scenario (copy, rename, edit). Run: scripts/mob-e2e.sh tests/e2e/mobs/NAME.scn   (tests/e2e/README.md).
 # The bot is op'd by the script, stands at the flat-world spawn (surface y=-61, standing y=-60), difficulty normal, no natural spawning,
 # frozen clock. Everything observable by a vanilla client is written to the packet log (diffed) and by `observe` to the obs file (diffed).
 cmd gamerule advance_time false

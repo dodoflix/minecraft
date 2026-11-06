@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Markdown summary of scripts/worldgen-diff.sh runs: one row per case of a cases file (default scripts/worldgen-diff-cases-report.txt).
+"""Markdown summary of scripts/worldgen-diff.sh runs: one row per case of a cases file (default scripts/worldgen-diff-cases-subset.txt).
 
   scripts/worldgen-diff-summary.py [CASES_FILE] [--runs run/wgdiff]
 
@@ -18,7 +18,7 @@ runs = root / "run/wgdiff"
 if "--runs" in sys.argv:
     runs = Path(sys.argv[sys.argv.index("--runs") + 1])
     args = [a for a in args if a != str(runs)]
-cases = Path(args[0]) if args else root / "scripts/worldgen-diff-cases-report.txt"
+cases = Path(args[0]) if args else root / "scripts/worldgen-diff-cases-subset.txt"
 COLS = ["blocks", "block_entities", "biomes", "heightmaps", "structures", "entities", "ticks", "post_processing", "other"]
 MERGE = {"structure_starts": "structures", "structure_references": "structures"}
 
