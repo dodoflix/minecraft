@@ -31,7 +31,6 @@ impl Vec2 {
         self.x * v.x + self.y * v.y
     }
 
-    #[allow(clippy::should_implement_trait)]
     pub fn add(&self, rhs: Vec2) -> Vec2 {
         Vec2::new(self.x + rhs.x, self.y + rhs.y)
     }

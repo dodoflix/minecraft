@@ -2,9 +2,6 @@
 //!
 //! The `rotate*` family returns `HashMap`s where vanilla returns `EnumMap`s.
 
-// Vanilla writes `!(a > b)`; the NaN behaviour differs from `a <= b`, so keep it literal.
-#![allow(clippy::neg_cmp_op_on_partial_ord)]
-
 use std::collections::HashMap;
 use std::sync::LazyLock;
 

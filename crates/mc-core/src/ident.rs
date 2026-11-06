@@ -182,7 +182,7 @@ impl Identifier {
     }
 
     pub fn to_debug_file_name(&self) -> String {
-        self.to_string().replace('/', "_").replace(':', "_")
+        self.to_string().replace(['/', ':'], "_")
     }
 
     pub fn to_language_key(&self) -> String {

@@ -75,7 +75,6 @@ impl BoundingBox {
     }
 
     /// `orientBox`: `Up`/`Down` take vanilla's `default` branch (same as `South`).
-    #[allow(clippy::too_many_arguments)]
     pub const fn orient_box(
         foot_x: i32,
         foot_y: i32,

@@ -141,7 +141,6 @@ impl BitSetDiscreteVoxelShape {
     }
 
     /// Exact internal state: sizes, bit words (`BitSet.toLongArray()` layout) and the six bounds.
-    #[allow(clippy::too_many_arguments)]
     pub fn from_raw(
         x_size: i32,
         y_size: i32,
@@ -169,7 +168,6 @@ impl BitSetDiscreteVoxelShape {
         }
     }
 
-    #[allow(clippy::too_many_arguments)]
     pub fn with_filled_bounds(
         x_size: i32,
         y_size: i32,

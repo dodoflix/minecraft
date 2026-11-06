@@ -53,7 +53,7 @@ fn simple_bit_storage_matches_vanilla() {
                     ..=2 => s.set(idx, val),
                     3..=5 => acc = mix(acc, s.get_and_set(idx, val).into()),
                     6 => acc = mix(acc, s.get(idx).into()),
-                    _ if rng.next() % 16 == 0 => s.fill(val),
+                    _ if rng.next().is_multiple_of(16) => s.fill(val),
                     _ => acc = mix(acc, s.get(idx).into()),
                 }
             }

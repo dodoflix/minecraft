@@ -18,7 +18,10 @@ pub const DEG_TO_RAD: f32 = (std::f64::consts::PI / 180.0) as f32;
 pub const RAD_TO_DEG: f32 = 180.0f32 / PI;
 pub const EPSILON: f32 = 1.0E-5;
 /// `sqrt(2.0F)`
-#[allow(clippy::approx_constant)]
+#[allow(
+    clippy::approx_constant,
+    reason = "Mth.SQRT_OF_TWO is the literal 1.4142135F"
+)]
 pub const SQRT_OF_TWO: f32 = 1.4142135;
 
 const SIN_MASK: i64 = 65535;
@@ -38,7 +41,9 @@ const MULTIPLY_DE_BRUIJN_BIT_POSITION: [i32; 32] = [
 ];
 
 /// (ASIN_TAB, COS_TAB)
-static ATAN_TABLES: LazyLock<(Box<[f64]>, Box<[f64]>)> = LazyLock::new(|| {
+type TrigTables = (Box<[f64]>, Box<[f64]>);
+
+static ATAN_TABLES: LazyLock<TrigTables> = LazyLock::new(|| {
     let conv = |bits: &[u64; 257]| {
         bits.iter()
             .map(|b| f64::from_bits(*b))
@@ -335,7 +340,7 @@ pub fn ceillog2(input: i32) -> i32 {
     } else {
         smallest_encompassing_power_of_two(input)
     };
-    MULTIPLY_DE_BRUIJN_BIT_POSITION[((i64::from(input) * 125613361 >> 27) as i32 & 31) as usize]
+    MULTIPLY_DE_BRUIJN_BIT_POSITION[(((i64::from(input) * 125613361) >> 27) as i32 & 31) as usize]
 }
 
 pub fn log2(input: i32) -> i32 {
@@ -552,7 +557,6 @@ pub fn lerp2_f32(alpha1: f32, alpha2: f32, x00: f32, x10: f32, x01: f32, x11: f3
     )
 }
 
-#[allow(clippy::too_many_arguments)]
 pub fn lerp3_f32(
     alpha1: f32,
     alpha2: f32,
@@ -593,7 +597,6 @@ pub fn lerp2_f64(alpha1: f64, alpha2: f64, x00: f64, x10: f64, x01: f64, x11: f6
     )
 }
 
-#[allow(clippy::too_many_arguments)]
 pub fn lerp3_f64(
     alpha1: f64,
     alpha2: f64,

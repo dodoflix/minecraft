@@ -3,7 +3,6 @@
 mod boolean_op;
 mod coords;
 mod discrete;
-#[allow(clippy::module_inception)]
 mod shapes;
 mod voxel_shape;
 

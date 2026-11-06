@@ -466,10 +466,15 @@ fn run(op: &str, mut t: Toks) -> String {
         "vec3_flags" => {
             let a = t.v3();
             let copy = Vec3::new(a.x, a.y, a.z);
+            #[expect(
+                clippy::eq_op,
+                reason = "NaN != NaN: checks a NaN component breaks self-equality"
+            )]
+            let eq_self = a == a;
             format!(
                 "{} {} {} {} {} {}",
                 b(a.is_finite()),
-                b(a == a),
+                b(eq_self),
                 b(a == copy),
                 a.hash_code(),
                 d(a.length()),

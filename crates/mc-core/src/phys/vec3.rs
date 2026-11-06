@@ -146,7 +146,6 @@ impl Vec3 {
         self.add_xyz(value, value, value)
     }
 
-    #[allow(clippy::should_implement_trait)]
     pub fn add(&self, vec: Vec3) -> Vec3 {
         self.add_xyz(vec.x, vec.y, vec.z)
     }

@@ -54,7 +54,15 @@ pub trait RandomSource: Send {
 
 pub trait PositionalRandomFactory: Send + Sync {
     fn at(&self, x: i32, y: i32, z: i32) -> Box<dyn RandomSource>;
+    #[expect(
+        clippy::wrong_self_convention,
+        reason = "mirrors PositionalRandomFactory.fromHashOf"
+    )]
     fn from_hash_of(&self, name: &str) -> Box<dyn RandomSource>;
+    #[expect(
+        clippy::wrong_self_convention,
+        reason = "mirrors PositionalRandomFactory.fromSeed"
+    )]
     fn from_seed(&self, seed: i64) -> Box<dyn RandomSource>;
     fn parity_config_string(&self, sb: &mut String);
 
@@ -62,6 +70,10 @@ pub trait PositionalRandomFactory: Send + Sync {
         self.at(pos.x(), pos.y(), pos.z())
     }
 
+    #[expect(
+        clippy::wrong_self_convention,
+        reason = "mirrors PositionalRandomFactory.fromHashOf(Identifier)"
+    )]
     fn from_hash_of_identifier(&self, name: &Identifier) -> Box<dyn RandomSource> {
         self.from_hash_of(&name.to_string())
     }

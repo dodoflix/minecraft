@@ -190,7 +190,6 @@ impl IndexMerger {
                 second.get_double(current_second_index as usize)
             };
             // Written as vanilla's `!(lastValue >= nextValue - 1.0E-7)`: NaN must take this branch.
-            #[allow(clippy::neg_cmp_op_on_partial_ord)]
             if !(last_value >= next_value - 1.0E-7) {
                 first_indices[result_index] = current_first_index;
                 second_indices[result_index] = current_second_index;

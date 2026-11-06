@@ -410,7 +410,6 @@ impl AABB {
     }
 
     /// Static `clip(double x6, Vec3 from, Vec3 to)`.
-    #[allow(clippy::too_many_arguments)]
     pub fn clip_box_coords(
         min_x: f64,
         min_y: f64,
@@ -506,7 +505,6 @@ impl AABB {
     }
 
     /// Vanilla-private `getDirection(double x6, ..)`.
-    #[allow(clippy::too_many_arguments)]
     pub fn get_direction_coords(
         min_x: f64,
         min_y: f64,
@@ -633,7 +631,7 @@ impl AABB {
     }
 
     /// Vanilla-private `clipPoint`.
-    #[allow(clippy::too_many_arguments)]
+    #[expect(clippy::too_many_arguments, reason = "mirrors AABB.clipPoint")]
     pub fn clip_point(
         scale_reference: &mut f64,
         direction: Option<Direction>,

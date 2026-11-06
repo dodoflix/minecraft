@@ -325,7 +325,6 @@ impl BlockPos {
     }
 
     /// `randomBetweenClosed`: draws x, then y, then z, each via `nextInt(extent)`.
-    #[allow(clippy::too_many_arguments)]
     pub fn random_between_closed<'a>(
         random: &'a mut dyn RandomSource,
         limit: i32,
@@ -647,7 +646,6 @@ impl BlockPos {
         )
     }
 
-    #[allow(clippy::too_many_arguments)]
     pub fn between_corners_in_direction_xyz(
         first_corner_x: i32,
         first_corner_y: i32,

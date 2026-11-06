@@ -274,7 +274,7 @@ impl SimpleBitStorage {
         let mask = (1i64 << bits) - 1;
         let values_per_long = 64 / bits;
         let row = 3 * (values_per_long as usize - 1);
-        let required_length = (size + values_per_long as usize - 1) / values_per_long as usize;
+        let required_length = size.div_ceil(values_per_long as usize);
         let data = match data {
             Some(d) if d.len() != required_length => {
                 return Err(InitializationException(format!(
