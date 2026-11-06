@@ -308,8 +308,7 @@ impl Llama {
             level,
             self.as_dyn(),
         );
-        let (sx, sy, sz) = (self.base().x(), spit.base().y(), self.base().z());
-        let _ = (sx, sz);
+        let sy = spit.base().y();
         let xd = tx - self.base().x();
         let yd = ty - sy;
         let zd = tz - self.base().z();

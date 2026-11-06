@@ -3,7 +3,7 @@
 
 use mc_core::ident::Identifier;
 use mc_core::pos::{BlockPos, ChunkPos};
-use mc_game::server::level::{ChunkMap, ServerLevel, ServerLevelParams, Ticket, TicketType};
+use mc_game::server::level::{ServerLevel, ServerLevelParams};
 use mc_game::server::shared::ServerShared;
 use mc_game::world::level::{BlockGetter, LevelReader};
 use mc_nbt::CompoundTag;
@@ -11,7 +11,6 @@ use mc_world::chunk::LevelHeight;
 use mc_world::palette::{BiomeRegistry, PalettedContainerFactory};
 use mc_world::region::{RegionFileStorage, RegionStorageInfo};
 use mc_world::serial::SerializableChunkData;
-use mc_world::status::ChunkStatus;
 use std::path::{Path, PathBuf};
 use std::sync::Arc;
 
@@ -293,10 +292,5 @@ fn saved_chunks_round_trip() {
         .unwrap()
         .1;
     assert_eq!(tag.get_string("Status"), Some("minecraft:full"));
-    let _ = (
-        ChunkStatus::Full,
-        ChunkMap::size as fn(&ChunkMap) -> usize,
-        Ticket::new(TicketType::UNKNOWN, 33),
-    );
     let _ = std::fs::remove_dir_all(&tmp);
 }

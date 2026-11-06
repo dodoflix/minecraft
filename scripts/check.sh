@@ -75,7 +75,7 @@ fi
 
 # Syntactic slop checks (docs/standards.md): code that exists only to silence a lint, files the compiler never sees.
 run "no silencer functions (fn _name)" no_match '^\s*(pub(\([a-z]+\))? )?fn _[a-z0-9_]+\s*[(<]'
-run "no 'let _ = ident;' statements" no_match '^\s*let _ = &?[A-Za-z_][A-Za-z0-9_:]*;\s*(//.*)?$'
+run "no 'let _ = ident;' / 'let _ = (a, b);' statements" no_match '^\s*let _ = (&?[A-Za-z_][A-Za-z0-9_:]*;\s*(//.*)?$|\()'
 run "no commented-out mod/use/fn/let" no_match '^\s*//\s*(pub )?(mod \w+;|use [A-Za-z_][^;]*;|fn \w+|let (mut )?\w+ =)'
 run "every .rs file is in a module tree" python3 scripts/check-modules.py
 

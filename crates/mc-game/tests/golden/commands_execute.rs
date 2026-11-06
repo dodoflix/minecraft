@@ -8,7 +8,6 @@ use mc_brigadier::arguments::integer;
 use mc_brigadier::{
     ArgumentBuilder, CommandDispatcher, SimpleCommandExceptionType, literal as lit,
 };
-use mc_core::phys::{Vec2, Vec3};
 use mc_game::commands::{
     BrigadierExceptions, CommandRegistrationContext, CommandSelection, CommandSource,
     CommandSourceStack, Commands, argument, literal,
@@ -428,7 +427,6 @@ fn fork_limit_reports_the_limit() {
         log.lock().unwrap().iter().filter(|l| *l == "ret 1").count(),
         3
     );
-    let _ = (Vec2::ZERO, Vec3::ZERO);
 }
 
 /// The path (`literal` / `<argument>` names from the root, redirects not followed) of every node.

@@ -723,12 +723,11 @@ pub fn export_test(
 /// directory on a dedicated server (`testTemplates()` is `null`), so this always reports that exporting is disabled;
 /// returns `true` like vanilla (`export` answers `true` on every failure path).
 pub fn export(
-    server: &mut MinecraftServer,
-    dimension: &DimensionKey,
+    _server: &mut MinecraftServer,
+    _dimension: &DimensionKey,
     _structure_id: &Identifier,
     feedback: &mut dyn FnMut(Component),
 ) -> bool {
-    let _ = (server, dimension);
     feedback(
         Component::literal("Test structure exporting is disabled").with_format(ChatFormatting::Red),
     );

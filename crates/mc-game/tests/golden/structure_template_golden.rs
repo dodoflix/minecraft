@@ -11,10 +11,9 @@
 
 use crate::common::feature_harness::*;
 use mc_core::bounding_box::BoundingBox;
-use mc_core::math::mth;
 use mc_core::mirror::Mirror;
 use mc_core::phys::Vec3;
-use mc_core::pos::{BlockPos, Vec3i};
+use mc_core::pos::BlockPos;
 use mc_core::random::{self, RandomSource};
 use mc_core::rotation::Rotation;
 use mc_data::block::Block;
@@ -395,7 +394,6 @@ fn place_in_world_matches_vanilla() {
                 ));
             }
         }
-        let _ = (Vec3i::ZERO, mth::get_seed_xyz(0, 0, 0));
     }
     assert!(
         failures.is_empty(),

@@ -107,8 +107,6 @@ pub fn tick(entity: &mut dyn Entity, level: &mut ServerLevel) {
     while b.x_rot() - b.x_rot_o >= 180.0 {
         b.x_rot_o += 360.0;
     }
-    let (y_rot, x_rot) = (entity.base().y_rot(), entity.base().x_rot());
-    let _ = (y_rot, x_rot);
     let living = lm(entity);
     while living.y_body_rot - living.y_body_rot_o < -180.0 {
         living.y_body_rot_o -= 360.0;

@@ -3,9 +3,8 @@
 
 use crate::command_common;
 
-use mc_game::commands::{CommandSource, CommandSourceStack};
+use mc_game::commands::CommandSource;
 use mc_game::server::MinecraftServer;
-use mc_game::server::permissions::{LevelBasedPermissionSet, PermissionSet};
 use mc_text::Component;
 use std::sync::{Arc, Mutex};
 
@@ -33,11 +32,6 @@ fn run(server: &mut MinecraftServer, command: &str) -> Vec<String> {
     let capture = Arc::new(Capture::default());
     let mut source = server.create_command_source_stack();
     source = source.with_source(capture.clone());
-    let _ = (
-        PermissionSet::AllPermissions,
-        LevelBasedPermissionSet::OWNER,
-        CommandSourceStack::clone(&source),
-    );
     let commands = server.commands.clone();
     commands.perform_prefixed_command(server, source, command);
     capture.0.lock().unwrap().clone()

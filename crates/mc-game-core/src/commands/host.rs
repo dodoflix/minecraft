@@ -298,12 +298,11 @@ pub enum AdvancementExpectation {
 /// The `predicate` option: evaluates the loot predicate `id` with `THIS_ENTITY = entity`.
 /// No loot predicates are available (`ReloadableServerRegistries.lookup` has none), so `lookup(id) == null`: false.
 pub fn loot_predicate_matches(
-    server: &MinecraftServer,
-    dimension: &DimensionKey,
-    entity: &dyn Entity,
-    id: &mc_core::ident::Identifier,
+    _server: &MinecraftServer,
+    _dimension: &DimensionKey,
+    _entity: &dyn Entity,
+    _id: &mc_core::ident::Identifier,
 ) -> bool {
-    let _ = (server, dimension, entity, id);
     false
 }
 
@@ -1014,8 +1013,7 @@ pub struct AdvancementProgressRef {
 
 /// `server.getAdvancements().get(id)`.
 /// Not implemented: the server holds no `ServerAdvancementManager`, so nothing is found.
-pub fn advancement_get(server: &MinecraftServer, id: &Identifier) -> Option<AdvancementRef> {
-    let _ = (server, id);
+pub fn advancement_get(_server: &MinecraftServer, _id: &Identifier) -> Option<AdvancementRef> {
     None
 }
 
@@ -1027,19 +1025,17 @@ pub fn advancement_all(_server: &MinecraftServer) -> Vec<AdvancementRef> {
 
 /// `server.getAdvancements().tree().get(holder)`.
 /// Not implemented: always `None` (no `ServerAdvancementManager`).
-pub fn advancement_node(server: &MinecraftServer, id: &Identifier) -> Option<AdvancementNodeRef> {
-    let _ = (server, id);
+pub fn advancement_node(_server: &MinecraftServer, _id: &Identifier) -> Option<AdvancementNodeRef> {
     None
 }
 
 /// `player.getAdvancements().getOrStartProgress(holder)`.
 /// Not implemented: no progress is ever recorded, the result is "nothing done".
 pub fn player_advancement_progress(
-    server: &mut MinecraftServer,
-    player: &EntityRef,
-    id: &Identifier,
+    _server: &mut MinecraftServer,
+    _player: &EntityRef,
+    _id: &Identifier,
 ) -> AdvancementProgressRef {
-    let _ = (server, player, id);
     AdvancementProgressRef {
         done: false,
         has_progress: false,
@@ -1051,35 +1047,32 @@ pub fn player_advancement_progress(
 /// `player.getAdvancements().award(holder, criterion)`.
 /// Not implemented: awards nothing and returns `false`.
 pub fn player_advancement_award(
-    server: &mut MinecraftServer,
-    player: &EntityRef,
-    id: &Identifier,
-    criterion: &str,
+    _server: &mut MinecraftServer,
+    _player: &EntityRef,
+    _id: &Identifier,
+    _criterion: &str,
 ) -> bool {
-    let _ = (server, player, id, criterion);
     false
 }
 
 /// `player.getAdvancements().revoke(holder, criterion)`.
 /// Not implemented: revokes nothing and returns `false`.
 pub fn player_advancement_revoke(
-    server: &mut MinecraftServer,
-    player: &EntityRef,
-    id: &Identifier,
-    criterion: &str,
+    _server: &mut MinecraftServer,
+    _player: &EntityRef,
+    _id: &Identifier,
+    _criterion: &str,
 ) -> bool {
-    let _ = (server, player, id, criterion);
     false
 }
 
 /// `player.getAdvancements().flushDirty(player, showAdvancements)`.
 /// Not implemented: does nothing.
 pub fn player_advancements_flush_dirty(
-    server: &mut MinecraftServer,
-    player: &EntityRef,
-    show_advancements: bool,
+    _server: &mut MinecraftServer,
+    _player: &EntityRef,
+    _show_advancements: bool,
 ) {
-    let _ = (server, player, show_advancements);
 }
 
 /// `server.getRecipeManager().byKey(key)` filtered by `!recipe.isSpecial()`.

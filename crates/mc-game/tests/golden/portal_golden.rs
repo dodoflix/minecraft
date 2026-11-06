@@ -6,11 +6,10 @@
 //! lines are what vanilla printed after the command. The command list is in the header of the Java file.
 
 use crate::common::feature_harness::{parse_state, state_string};
-use mc_core::direction::{Axis, Direction};
+use mc_core::direction::Axis;
 use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
-use mc_data::block::Block;
 use mc_game::registry::typed::dimension_type::DimensionType;
 use mc_game::server::level::ServerLevel;
 use mc_game::util::block_util;
@@ -332,7 +331,6 @@ fn replay(fixture: &str) {
         failures.join("\n")
     );
     assert!(commands > 0);
-    let _ = (Block::AIR, Direction::Up);
 }
 
 #[test]

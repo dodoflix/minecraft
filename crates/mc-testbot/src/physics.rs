@@ -747,13 +747,13 @@ impl PlayerBody {
             // head bump keeps accumulated fall distance
         }
         if self.horizontal_collision || (self.vertical_collision) {
-            self.restitute(world, x_col, z_col, movement);
+            self.restitute(world, movement);
         }
         let f = self.block_speed_factor(world) as f64;
         self.vel = Vec3::new(self.vel.x * f, self.vel.y, self.vel.z * f);
     }
 
-    fn restitute<W: BlockView>(&mut self, world: &W, x_col: bool, z_col: bool, movement: Vec3) {
+    fn restitute<W: BlockView>(&mut self, world: &W, movement: Vec3) {
         // restitution only from block bounciness (slime) when not sneaking
         let mut v = self.vel;
         if self.vertical_collision && self.vertical_collision_below && !self.crouching {
@@ -776,7 +776,6 @@ impl PlayerBody {
                 self.vel = v;
             }
         }
-        let _ = (x_col, z_col);
     }
 
     /// One client tick of `LocalPlayer.aiStep` + `LivingEntity.travel`. Returns nothing; use

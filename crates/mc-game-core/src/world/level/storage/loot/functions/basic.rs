@@ -1179,7 +1179,6 @@ pub(super) fn register(entries: &mut Entries) {
             seed: LONG.optional_field_of_default("seed", 0),
         })),
     ));
-    let _ = (FLOAT.clone(), MERGE_STRATEGIES);
 }
 
 #[derive(Clone)]
