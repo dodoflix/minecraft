@@ -833,6 +833,14 @@ impl Raid {
         mut raider: Box<dyn Entity>,
         pos: BlockPos,
     ) -> Option<EntityId> {
+        if raider.raider().is_none() {
+            // Not implemented: raider entity types without a port are inert placeholders; they cannot join a raid.
+            log::warn!(
+                "Skipping raid spawn of {:?}: the entity type is not a raider",
+                raider.get_type()
+            );
+            return None;
+        }
         self.add_wave_mob(level, group_number, &*raider, true);
         raider::set_current_raid(&mut *raider, Some(self.id));
         raider::set_wave(&mut *raider, group_number);
