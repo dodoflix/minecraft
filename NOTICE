@@ -28,6 +28,12 @@ data derived from it: the registries, block and item data and data pack
 (crates/mc-text). None of that data is committed; it is Mojang's, not relicensed
 here.
 
+One exception is committed in source form: the witty comments and profile report
+comments that Mojang's CrashReport prints (CRASH_NUGGETS and PROFILE_NUGGETS in
+crates/mc-game-core/src/crash_report.rs). They are kept so that crash and
+profiling reports read like vanilla's. They are Mojang's text, not relicensed
+here.
+
 (c) Ports of Mojang's MIT-licensed libraries
 
 crates/mc-brigadier is a port of Brigadier (https://github.com/Mojang/brigadier).

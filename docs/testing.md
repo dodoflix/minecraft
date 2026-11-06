@@ -62,7 +62,7 @@ A test whose prerequisite is absent panics with the command that fixes it, for e
 
 `eprintln!("skipping ...")` followed by an early return is forbidden in `crates/*/tests`. Enforced: review.
 
-The tree meets this rule. Two cases needed work:
+Two cases need care:
 
 - Tests that need our server binary use `env!("CARGO_BIN_EXE_mc-server")`, which Cargo only defines for the
   integration tests of package `mc-server`. They live in `crates/mc-server/tests/oracle`, which builds the binary

@@ -35,7 +35,7 @@ import net.minecraft.world.level.levelgen.structure.StructureSet;
  * chunk of a start over the synthetic world of FeatureOracleBase (a 3x3 FEATURES region per chunk, as the decoration step places).
  * Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/FIXTURE crates/mc-game/tests/oracle/StructMonumentMansionOracle.java crates/mc-game/tests/fixtures/FIXTURE monument|mansion|end_city <seed,seed,..> <regionRadius> <maxStartsPerSeed> [full]
  * (FIXTURE = struct_monument.txt | struct_mansion.txt.gz | struct_end_city.txt.gz for monument | mansion | end_city; FeatureOracleBase.java next to this file)
- * Output: crates/mc-game/tests/fixtures/FIXTURE
+ * Output: crates/mc-game/tests/fixtures/struct_monument.txt, struct_mansion.txt.gz or struct_end_city.txt.gz (the FIXTURE argument)
  *
  * Lines: per examined potential chunk either {@code NONE seed cx cz} (no valid start) or {@code START seed cx cz count} + one
  * {@code P <piece tag SNBT>} line per piece (StructurePiece.createTag), then per chunk of the start's box {@code PLACE cx cz}, the
