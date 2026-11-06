@@ -42,7 +42,7 @@ crates/
   mc-text             Chat Component model + JSON and NBT codecs
   mc-brigadier        Port of com.mojang.brigadier
   mc-dfu              Port of the DFU Codec/DataResult/DynamicOps framework (NBT, JSON, CRC32C-hash ops) for vanilla data codecs
-  mc-datafix          Port of the vanilla data fixers (schemas, fixes, DataFixTypes) on top of mc-dfu
+  mc-datafix          Port of the DataFixerUpper type system, `DataFixTypes` and the global `DataFixer` on top of mc-dfu; no schema or fix is ported yet
   mc-data             Generated static data (blocks/states/items/entities/registries/packet ids) + vanilla data pack access
   mc-protocol         Wire codec primitives, framing, compression, encryption, packet structs (all states);
                       module `components`: all data component types + DataComponentMap/Patch + ItemStack value type,
@@ -61,9 +61,9 @@ crates/
   mc-game-cmds        the vanilla commands, registered via linkme               (leaf over core)
   mc-game-ai          concrete goals/behaviors/sensors                          (leaf over core)
   mc-game-animals     animals + ambient mobs                                    (over mc-game-ai)
-  mc-game-monsters    monsters, npc, raid parts, creaking heart                 (over mc-game-ai)
+  mc-game-monsters    monsters, the zombie horse, creaking heart                (over mc-game-ai)
   mc-game             thin facade: re-exports the crates above so `mc_game::...` is the public API; integration tests, examples
-  mc-server           thin binary: CLI args, server.properties, console, JSON-RPC management, starts mc-game
+  mc-server           thin binary: parses the command line, sets up logging, `server.properties` and `eula.txt`, then starts mc-game
   mc-testbot          headless protocol client (scriptable bot) used by integration/E2E tests
   mc-testkit          test support: guarded launcher for the vanilla server and our own (no workspace dependencies)
 tools/                tools/extractor (Java data extractor), tools/worldcmp (chunk-by-chunk comparison of two world directories)
@@ -155,8 +155,7 @@ re-exports all of them under the vanilla-shaped `mc_game::world::...` paths). Ev
 
 Workflow, commit format, local checks and the review checklist are in [CONTRIBUTING.md](CONTRIBUTING.md); code
 standards are in [docs/standards.md](docs/standards.md) and test tiers in [docs/testing.md](docs/testing.md). Builds read
-`ref/extracted`, `ref/generated`, ... so `ref/` must be set up in every checkout (`scripts/setup-ref.sh`; add `--decompile` to
-read the vanilla source).
+`ref/extracted`, `ref/generated`, ... so `ref/` must be set up in every checkout (`scripts/setup-ref.sh`).
 
 ## Conventions
 

@@ -1,5 +1,5 @@
-//! `DataFixers.addFixers`, split by version range. Each `range_*` module mirrors the Java statements of its range in
-//! order (schema registrations and `addFixer` calls).
+//! `DataFixers.addFixers`, split by version range. Not implemented: no range registers a schema or a fix yet, so the
+//! chain is empty.
 
 use crate::fixer::DataFixerBuilder;
 

@@ -1,5 +1,9 @@
-//! Port of `net.minecraft.util.datafix` on top of a Rust port of the DFU type system (`com.mojang.datafixers`):
-//! schemas V99..current, all fixes, `DataFixTypes`, and the global `DataFixer`.
+//! Port of `net.minecraft.util.datafix` on top of a Rust port of the DFU type system (`com.mojang.datafixers`).
+//!
+//! What exists: the type system and rewrite machinery, `DataFixTypes`, the `References` constants, `DataFixerBuilder`,
+//! `DataFixer` and the global [`data_fixer`] accessor. What does not exist yet: no schema (`V99`..current) and no fix
+//! is ported, so the global fixer registers neither (`DataFixer::update` on it panics for lack of a schema), and no
+//! other crate depends on this one.
 //!
 //! # Architecture
 //! DFU's statically typed `Type<A>`/`Typed<A>`/optics are ported *dynamically*: a [`typed::Typed`] is
@@ -20,6 +24,9 @@
 //! elsewhere, `Either` is `Value::Left/Right`, an `optional(..)` field is `Value::some(v)` / `Value::none()`.
 //! Java overloads on `TypeTemplate` vs `Type` become `name` vs `name_type` ([`dsl::DSL`]). `Typed` update methods
 //! consume `self` (clone if you still need it); getters borrow. Finder misuse panics (Java throws).
+//!
+//! The rows below are the mapping; the schemas and fixes they name (`schemas::v100`, `X`, ...) are examples, not ported
+//! items.
 //!
 //! | Java | Rust |
 //! |---|---|
