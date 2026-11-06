@@ -30,9 +30,9 @@ pub const VILLAGER_CONVERSION_WAIT_MIN: i32 = 3600;
 pub const VILLAGER_CONVERSION_WAIT_MAX: i32 = 6000;
 pub const MAX_SPECIAL_BLOCKS_COUNT: i32 = 14;
 pub const SPECIAL_BLOCK_RADIUS: i32 = 4;
-const NOT_CONVERTING: i32 = -1;
 
 /// The fields `ZombieVillager` adds to `Zombie`.
+#[derive(Default)]
 pub struct ZombieVillagerData {
     /// `villagerConversionTime`.
     pub villager_conversion_time: i32,
@@ -42,17 +42,6 @@ pub struct ZombieVillagerData {
     pub trade_offers: Option<MerchantOffers>,
     /// `villagerXp`.
     pub villager_xp: i32,
-}
-
-impl Default for ZombieVillagerData {
-    fn default() -> Self {
-        Self {
-            villager_conversion_time: 0,
-            conversion_starter: None,
-            trade_offers: None,
-            villager_xp: 0,
-        }
-    }
 }
 
 fn data(zombie: &Zombie) -> &ZombieVillagerData {

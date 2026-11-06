@@ -238,10 +238,11 @@ pub fn read_leash_data(
 ) {
     let new_data = input.get("leash").and_then(read_leash_tag);
     let had = data(e).is_some();
-    if had && new_data.is_none() {
-        if let Some(level) = level_hint {
-            remove_leash(e, level);
-        }
+    if had
+        && new_data.is_none()
+        && let Some(level) = level_hint
+    {
+        remove_leash(e, level);
     }
     if let Some(m) = e.mob_mut() {
         m.leash_data = new_data;

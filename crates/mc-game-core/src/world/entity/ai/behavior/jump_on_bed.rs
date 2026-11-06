@@ -11,7 +11,6 @@ use crate::world::level::BlockGetter;
 use crate::world::level::LevelAccessor as _;
 use crate::world::level::block::BlockStateExt;
 use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
 
 const MAX_TIME_TO_REACH_BED: i32 = 100;
 const MIN_JUMPS: i32 = 3;

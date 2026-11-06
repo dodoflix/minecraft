@@ -7,7 +7,6 @@ use crate::world::entity::ai::memory::memory_module_type::{HOME, WALK_TARGET};
 use crate::world::entity::ai::village::poi::{Occupancy, PoiTypeHolder, PoiTypes};
 use crate::world::level::LevelAccessor as _;
 use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
 use std::collections::HashMap;
 
 const CACHE_TIMEOUT: i64 = 40;

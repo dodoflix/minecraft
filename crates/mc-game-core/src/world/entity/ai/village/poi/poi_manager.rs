@@ -9,7 +9,7 @@
 //! `getPoiManager()` from a `ServerLevel`. A borrow is only held while a section is loaded/read; predicates and filters
 //! run with the manager unborrowed, so they may use the level (and the manager) freely.
 
-use super::poi_codec;
+use super::poi_codec::{self, PackedPoiSection};
 use super::poi_record::PoiRecord;
 use super::poi_section::{Occupancy, PoiNeverRegistered, PoiSection};
 use super::poi_type::{PoiTypeHolder, PoiTypes};
@@ -237,11 +237,7 @@ impl Storage {
 
     /// `unpackChunk(pos, packedChunk)`. `versionChanged` is always `true` in vanilla (`upgradeChunkTag(Dynamic)` returns a
     /// new object, compared by reference), so every loaded section is marked dirty.
-    fn unpack_packed(
-        &mut self,
-        chunk_pos: ChunkPos,
-        packed: Option<Vec<(i32, (bool, Vec<PoiRecord>))>>,
-    ) {
+    fn unpack_packed(&mut self, chunk_pos: ChunkPos, packed: Option<Vec<PackedPoiSection>>) {
         let (min_y, max_y) = (
             self.level_height.min_section_y(),
             self.level_height.max_section_y(),
@@ -492,12 +488,10 @@ impl PoiManager {
                     update_from_section(block_section, section_pos, output);
                 }
             });
-        } else if may_have_poi {
-            if let Some(new_section) = s.get_or_create(key) {
-                update_from_section(block_section, section_pos, &mut |pos, poi_type| {
-                    changed |= new_section.add(pos, poi_type).is_some();
-                });
-            }
+        } else if may_have_poi && let Some(new_section) = s.get_or_create(key) {
+            update_from_section(block_section, section_pos, &mut |pos, poi_type| {
+                changed |= new_section.add(pos, poi_type).is_some();
+            });
         }
         if changed {
             s.set_dirty(key);

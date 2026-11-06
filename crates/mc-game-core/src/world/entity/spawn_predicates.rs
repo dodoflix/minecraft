@@ -2,10 +2,10 @@
 //! `Animal`, `Monster`, `WaterAnimal` and `AgeableWaterCreature`), all with the [`SpawnPredicate`](super::spawn_placements::SpawnPredicate)
 //! signature so mob classes can call them from their own predicates (`Monster.checkMonsterSpawnRules(type, level, ..)`).
 
+use crate::world::level::LightLayer;
 use crate::world::level::block::BlockStateExt as _;
 use crate::world::level::material::FluidStateExt as _;
 use crate::world::level::server_level_accessor::ServerLevelAccessor;
-use crate::world::level::{BlockGetter as _, LevelReader as _, LightLayer};
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::EntityType;

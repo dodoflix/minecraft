@@ -6,15 +6,14 @@ use super::menu_ctx::{PlayerCtx, ServerPlayerMenuInit};
 use crate::advancements::triggers::CriteriaTriggers;
 use crate::server::level::ServerLevel;
 use crate::stats::stats::Stats;
+use crate::world::entity::Entity;
 use crate::world::entity::attributes::{AttributeModifier, AttributeModifierOperation};
-use crate::world::entity::{Entity, EntityId};
 use crate::world::entity::{living_entity, movement};
 use crate::world::inventory::PlayerMenus;
 use crate::world::scores::ObjectiveCriteria;
 use mc_core::ident::Identifier;
 use mc_core::math::mth;
 use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
 use mc_protocol::packets::play::{ClientboundSetExperiencePacket, ClientboundSetHealthPacket};
 
 impl ServerPlayer {
@@ -28,7 +27,7 @@ impl ServerPlayer {
             player: self,
             level,
         };
-        let mut menus = std::mem::replace(&mut ctx.player.player.menus, PlayerMenus::new());
+        let mut menus = std::mem::take(&mut ctx.player.player.menus);
         menus.init_inventory_menu(&init, &mut ctx);
         ctx.player.player.menus = menus;
     }
@@ -52,7 +51,7 @@ impl ServerPlayer {
             player: self,
             level,
         };
-        let mut menus = std::mem::replace(&mut ctx.player.player.menus, PlayerMenus::new());
+        let mut menus = std::mem::take(&mut ctx.player.player.menus);
         menus.inventory_menu_mut().slots_changed(
             &mut ctx,
             &crate::world::inventory::ContainerKey::PlayerInventory,

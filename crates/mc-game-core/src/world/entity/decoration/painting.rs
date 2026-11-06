@@ -364,7 +364,7 @@ impl Entity for Painting {
         );
         block_attached::add_additional_save_data(self, out);
         if let Some(key) = &self.variant_key {
-            out.put_string("variant", &key.to_string());
+            out.put_string("variant", key.to_string());
         }
     }
     fn read_additional_save_data(&mut self, input: &CompoundTag) {

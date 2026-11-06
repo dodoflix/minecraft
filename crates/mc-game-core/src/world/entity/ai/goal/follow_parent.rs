@@ -2,14 +2,10 @@
 
 use super::{Goal, GoalFlags};
 use crate::server::level::ServerLevel;
+use crate::world::entity::ai::goal::target::EntityClass;
 use crate::world::entity::mob::{ageable, navigation};
 use crate::world::entity::{Entity, EntityId};
 use std::any::TypeId;
-use std::sync::Arc;
-
-pub const HORIZONTAL_SCAN_RANGE: i32 = 8;
-pub const VERTICAL_SCAN_RANGE: i32 = 4;
-pub const DONT_FOLLOW_IF_CLOSER_THAN: i32 = 3;
 
 pub struct FollowParentGoal {
     parent: Option<EntityId>,
@@ -21,7 +17,7 @@ pub struct FollowParentGoal {
 /// The class of the parents: the animal's own concrete type, or an arbitrary `instanceof` test.
 enum ParentClass {
     Exact(TypeId),
-    Test(Arc<dyn Fn(&dyn Entity) -> bool + Send + Sync>),
+    Test(EntityClass),
 }
 
 impl FollowParentGoal {
@@ -36,10 +32,7 @@ impl FollowParentGoal {
     }
 
     /// `FollowParentGoal(animal, speedModifier)` for a class that spans several Rust types or entity types (`Llama`/`TraderLlama`).
-    pub fn with_class_test(
-        speed_modifier: f64,
-        class: Arc<dyn Fn(&dyn Entity) -> bool + Send + Sync>,
-    ) -> Self {
+    pub fn with_class_test(speed_modifier: f64, class: EntityClass) -> Self {
         Self {
             parent: None,
             speed_modifier,

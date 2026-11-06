@@ -11,7 +11,6 @@ use crate::world::entity::living_entity::util::lm;
 use crate::world::entity::mob::{self, NeutralData, ext};
 use crate::world::entity::{Entity, EntityId};
 use crate::world::item::ItemStack;
-use crate::world::level::BlockGetter;
 use crate::world::level::block::state::BlockStateExt;
 use crate::world::level::pathfinder::PathType;
 use crate::world::level::server_level_accessor::ServerLevelAccessor;

@@ -5,9 +5,7 @@
 //! its `impl Entity` (accessors, `tick`, drag, portal use, the `Projectile` entity overrides) and
 //! [`impl_throwable_projectile!`] inside `impl Projectile` (the data accessors).
 
-use super::{
-    HitType, Projectile, ProjectileData, hit_target_or_deflect_self, update_rotation, util,
-};
+use super::{HitType, Projectile, hit_target_or_deflect_self, update_rotation, util};
 use crate::define_accessor;
 use crate::server::level::ServerLevel;
 use crate::world::entity::inside_block_effects::NoopApplier;

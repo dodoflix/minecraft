@@ -147,7 +147,7 @@ pub const fn accessor_id(class: &str, field: &str, serializer_name: &str) -> u8 
                 str_eq(table[i].serializer, serializer_name),
                 "entity data accessor has a different serializer"
             );
-            return table[i].id as u8;
+            return table[i].id;
         }
         i += 1;
     }

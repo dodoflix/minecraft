@@ -65,7 +65,7 @@ impl VecDeltaCodec {
     /// `tryEncode(Vec3)`: `None` when a delta doesn't fit a short.
     pub fn try_encode(&self, pos: Vec3) -> Option<VecDeltaLinear> {
         let (xa, ya, za) = (self.encode_x(pos), self.encode_y(pos), self.encode_z(pos));
-        (!is_delta_too_big(xa, ya, za)).then(|| VecDeltaLinear {
+        (!is_delta_too_big(xa, ya, za)).then_some(VecDeltaLinear {
             xa: xa as i16,
             ya: ya as i16,
             za: za as i16,

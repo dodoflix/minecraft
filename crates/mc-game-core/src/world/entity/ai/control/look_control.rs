@@ -5,7 +5,6 @@ use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
 use crate::world::entity::mob;
 use mc_core::math::mth;
-use mc_core::phys::Vec3;
 use std::any::Any;
 
 /// The fields of `LookControl`.

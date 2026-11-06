@@ -21,10 +21,9 @@ fn remove_frost(entity: &mut dyn Entity) {
     if let Some(speed) = lm(entity)
         .attributes
         .get_instance(Attribute::MOVEMENT_SPEED)
+        && speed.get_modifier(&SPEED_MODIFIER_POWDER_SNOW_ID).is_some()
     {
-        if speed.get_modifier(&SPEED_MODIFIER_POWDER_SNOW_ID).is_some() {
-            speed.remove_modifier(&SPEED_MODIFIER_POWDER_SNOW_ID);
-        }
+        speed.remove_modifier(&SPEED_MODIFIER_POWDER_SNOW_ID);
     }
 }
 

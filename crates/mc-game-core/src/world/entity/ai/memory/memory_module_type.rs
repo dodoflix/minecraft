@@ -136,7 +136,11 @@ impl<U> From<&MemoryModuleType<U>> for MemoryTypeId {
 
 macro_rules! memory_types {
     ($($ident:ident: $ty:ty = $name:literal, $codec:ident;)*) => {
-        #[allow(non_camel_case_types, clippy::upper_case_acronyms)]
+        #[expect(
+            non_camel_case_types,
+            clippy::upper_case_acronyms,
+            reason = "variants reuse the vanilla `MemoryModuleType` constant names"
+        )]
         #[repr(u16)]
         enum Index { $($ident),* }
         $(pub const $ident: MemoryModuleType<$ty> = MemoryModuleType::new(Index::$ident as u16);)*

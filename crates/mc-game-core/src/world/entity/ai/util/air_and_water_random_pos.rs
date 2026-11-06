@@ -9,7 +9,6 @@ use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 
 /// `getPos(...)`.
-#[allow(clippy::too_many_arguments)]
 pub fn get_pos(
     mob: &mut dyn Entity,
     level: &mut ServerLevel,
@@ -37,7 +36,6 @@ pub fn get_pos(
 }
 
 /// `generateRandomPos(...)`.
-#[allow(clippy::too_many_arguments)]
 pub fn generate_random_pos(
     mob: &mut dyn Entity,
     level: &mut ServerLevel,

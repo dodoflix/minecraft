@@ -131,7 +131,7 @@ pub fn do_move(
     mover: crate::world::entity::MoverType,
     delta: Vec3,
 ) {
-    let _ = entity.r#move(level, mover, delta);
+    entity.r#move(level, mover, delta);
 }
 
 /// `Entity.moveRelative(speed, input)`.

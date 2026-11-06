@@ -5,7 +5,6 @@ use crate::world::entity::ai::memory::memory_module_type::MEETING_POINT;
 use crate::world::level::BlockGetter;
 use crate::world::level::LevelAccessor as _;
 use crate::world::level::block::impls::bell_block;
-use mc_core::random::RandomSource;
 use mc_data::block::Block;
 
 const BELL_RING_CHANCE: f32 = 0.95;

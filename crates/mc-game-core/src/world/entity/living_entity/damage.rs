@@ -445,36 +445,36 @@ pub fn get_damage_after_magic_absorb(
         .active_effects
         .get(&MobEffect::RESISTANCE)
         .map(|e| e.amplifier);
-    if let Some(amplifier) = resistance {
-        if !source.is_tag(level, DamageTypeTags::BYPASSES_RESISTANCE) {
-            let absorb_value = (amplifier + 1) * 5;
-            let absorb = 25 - absorb_value;
-            let v = damage * absorb as f32;
-            let old_damage = damage;
-            damage = (v / 25.0).max(0.0);
-            let damage_resisted = old_damage - damage;
-            if damage_resisted > 0.0 && damage_resisted < STAT_DAMAGE_LIMIT {
-                if let Some(player) = as_server_player(entity) {
-                    player.award_stat(
-                        level,
-                        crate::stats::stats::Stats::DAMAGE_RESISTED,
-                        mc_core::math::java::round_f32(damage_resisted * 10.0),
-                    );
-                } else if source.causing_is_player() {
-                    let causing = source.causing_entity.expect("causing");
-                    level.with_entity_or_defer(causing, move |level, e| {
-                        if let Some(p) = e
-                            .as_any_mut()
-                            .downcast_mut::<crate::world::entity::ServerPlayer>()
-                        {
-                            p.award_stat(
-                                level,
-                                crate::stats::stats::Stats::DAMAGE_DEALT_RESISTED,
-                                mc_core::math::java::round_f32(damage_resisted * 10.0),
-                            );
-                        }
-                    });
-                }
+    if let Some(amplifier) = resistance
+        && !source.is_tag(level, DamageTypeTags::BYPASSES_RESISTANCE)
+    {
+        let absorb_value = (amplifier + 1) * 5;
+        let absorb = 25 - absorb_value;
+        let v = damage * absorb as f32;
+        let old_damage = damage;
+        damage = (v / 25.0).max(0.0);
+        let damage_resisted = old_damage - damage;
+        if damage_resisted > 0.0 && damage_resisted < STAT_DAMAGE_LIMIT {
+            if let Some(player) = as_server_player(entity) {
+                player.award_stat(
+                    level,
+                    crate::stats::stats::Stats::DAMAGE_RESISTED,
+                    mc_core::math::java::round_f32(damage_resisted * 10.0),
+                );
+            } else if source.causing_is_player() {
+                let causing = source.causing_entity.expect("causing");
+                level.with_entity_or_defer(causing, move |level, e| {
+                    if let Some(p) = e
+                        .as_any_mut()
+                        .downcast_mut::<crate::world::entity::ServerPlayer>()
+                    {
+                        p.award_stat(
+                            level,
+                            crate::stats::stats::Stats::DAMAGE_DEALT_RESISTED,
+                            mc_core::math::java::round_f32(damage_resisted * 10.0),
+                        );
+                    }
+                });
             }
         }
     }
@@ -653,7 +653,6 @@ pub fn calculate_fall_damage(entity: &dyn Entity, fall_distance: f64, damage_mod
 
 /// `LivingEntity.playBlockFallSound()`.
 pub fn play_block_fall_sound(entity: &mut dyn Entity, level: &mut ServerLevel) {
-    use crate::world::level::block::state::BlockStateExt as _;
     use crate::world::level::level_access::BlockGetter as _;
     if entity.base().is_silent() {
         return;

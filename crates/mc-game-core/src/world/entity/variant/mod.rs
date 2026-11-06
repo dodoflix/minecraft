@@ -333,7 +333,7 @@ pub fn select_entries<K: Clone>(
         }
     }
     // `HIGHEST_PRIORITY_FIRST` (`comparingInt(priority).reversed()`) on a stable `List.sort`
-    unpacked.sort_by(|a, b| b.priority.cmp(&a.priority));
+    unpacked.sort_by_key(|e| std::cmp::Reverse(e.priority));
     let mut highest_matched_priority = i32::MIN;
     let mut result = Vec::new();
     for entry in unpacked {
@@ -423,14 +423,14 @@ pub fn get_default_or_any(
 ) -> u32 {
     let reg = registries.registry_or_throw(registry);
     reg.id_of(default)
-        .or_else(|| (reg.len() > 0).then_some(0))
+        .or_else(|| (!reg.is_empty()).then_some(0))
         .expect("variant registry must not be empty")
 }
 
 /// `VariantUtils.getAny(registryAccess, registryId)`: the first entry's registry id.
 pub fn get_any(registries: &RegistryAccess, registry: &str) -> u32 {
     assert!(
-        registries.registry_or_throw(registry).len() > 0,
+        !registries.registry_or_throw(registry).is_empty(),
         "variant registry must not be empty"
     );
     0
@@ -438,7 +438,7 @@ pub fn get_any(registries: &RegistryAccess, registry: &str) -> u32 {
 
 /// `VariantUtils.writeVariant(output, holder)`.
 pub fn write_variant(out: &mut CompoundTag, key: &Identifier) {
-    out.put_string(TAG_VARIANT, &key.to_string());
+    out.put_string(TAG_VARIANT, key.to_string());
 }
 
 /// `VariantUtils.readVariant(input, registryId)`: the variant's identifier (resolve it against the registry).

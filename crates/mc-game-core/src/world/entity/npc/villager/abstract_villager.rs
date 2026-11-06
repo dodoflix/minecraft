@@ -60,13 +60,10 @@ pub fn set_unhappy_counter(e: &mut dyn Entity, value: i32) {
 
 /// `AbstractVillager.addAdditionalSaveData` (after `super`).
 pub fn add_additional_save_data(data: &AbstractVillagerData, out: &mut CompoundTag) {
-    if let Some(offers) = &data.offers {
-        if let Some(tag) = mc_dfu::encode_nbt(&MerchantOffers::codec(), offers)
-            .into_result()
-            .ok()
-        {
-            out.put("Offers", tag);
-        }
+    if let Some(offers) = &data.offers
+        && let Ok(tag) = mc_dfu::encode_nbt(&MerchantOffers::codec(), offers).into_result()
+    {
+        out.put("Offers", tag);
     }
     inventory_carrier::write_inventory_to_tag(&data.inventory, out);
 }

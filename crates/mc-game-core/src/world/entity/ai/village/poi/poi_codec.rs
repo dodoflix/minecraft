@@ -127,12 +127,15 @@ pub fn decode_section(tag: &Tag) -> Option<(bool, Vec<PoiRecord>)> {
     Some((is_valid, records))
 }
 
+/// A decoded section: its y, `is_valid` and its records.
+pub type PackedPoiSection = (i32, (bool, Vec<PoiRecord>));
+
 /// `PackedChunk.parse`: the decoded sections of `min_section_y..=max_section_y` by section y.
 pub fn decode_chunk(
     tag: &CompoundTag,
     min_section_y: i32,
     max_section_y: i32,
-) -> Vec<(i32, (bool, Vec<PoiRecord>))> {
+) -> Vec<PackedPoiSection> {
     let Some(sections) = tag.get_compound(SECTIONS_TAG) else {
         return Vec::new();
     };

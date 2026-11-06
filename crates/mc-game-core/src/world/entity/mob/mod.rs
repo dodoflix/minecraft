@@ -22,6 +22,7 @@
 //!    `AgeableMob`/`Animal`/`Monster` additions that apply to this mob), [`nbt::add_additional_save_data`] /
 //!    [`nbt::read_additional_save_data`], [`spawn::finalize_spawn`], [`interact::mob_interact`], ... Intermediate concrete
 //!    classes expose their own such functions (`zombie::ai_step`), so the chain is explicit.
+//!
 //! 3b. **Virtual hooks** (all `trait Entity` methods with vanilla snake_case names): `get_ambient_sound`,
 //!    `get_ambient_sound_interval`, `custom_server_ai_step`, `get_max_head_x_rot` / `get_max_head_y_rot` /
 //!    `get_head_rot_speed`, `can_hold_item`, `wants_to_pick_up`, `remove_when_far_away`, `requires_custom_persistence`,
@@ -437,10 +438,10 @@ pub fn look_at_entity_full(
 
 /// `getJumpControl().jump()`.
 pub fn jump_control_jump(mob: &mut dyn Entity) {
-    if let Some(m) = mob.mob_mut() {
-        if let Some(j) = m.jump_control.as_deref_mut() {
-            j.jump();
-        }
+    if let Some(m) = mob.mob_mut()
+        && let Some(j) = m.jump_control.as_deref_mut()
+    {
+        j.jump();
     }
 }
 
@@ -450,10 +451,10 @@ pub fn get_pathfinding_malus(mob: &dyn Entity, level: &ServerLevel, ty: PathType
     let mut inherit_from = mob;
     if let Some(vehicle) =
         navigation::controlled_vehicle(mob, level).and_then(|id| level.get_entity(id))
+        && vehicle.mob().is_some()
+        && vehicle.should_passengers_inherit_malus()
     {
-        if vehicle.mob().is_some() && vehicle.should_passengers_inherit_malus() {
-            inherit_from = vehicle;
-        }
+        inherit_from = vehicle;
     }
     inherit_from
         .mob()

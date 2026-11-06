@@ -937,7 +937,6 @@ pub fn default_create_path_entity<N: PathNavigation + ?Sized>(
 }
 
 /// `createPath(targets, radiusOffset, above, reachRange, maxPathLength)`.
-#[allow(clippy::too_many_arguments)]
 pub fn create_path_targets<N: PathNavigation + ?Sized>(
     this: &mut N,
     mob: &mut dyn Entity,
@@ -980,7 +979,6 @@ pub fn create_path_targets<N: PathNavigation + ?Sized>(
 
 /// The path-finding part of `createPath(targets, radiusOffset, above, reachRange, maxPathLength)` after the guards:
 /// builds the `PathNavigationRegion`, runs the finder and records the target.
-#[allow(clippy::too_many_arguments)]
 pub fn create_path_with_finder(
     d: &mut NavigationData,
     mob: &mut dyn PathfindingMob,
@@ -997,8 +995,8 @@ pub fn create_path_with_finder(
     let radius = (max_path_length + radius_offset as f32) as i32;
     let region = PathNavigationRegion::new(
         level,
-        from_pos.offset(-radius, -radius, -radius).into(),
-        from_pos.offset(radius, radius, radius).into(),
+        from_pos.offset(-radius, -radius, -radius),
+        from_pos.offset(radius, radius, radius),
     );
     let path = d.path_finder.find_path(
         &region,
@@ -1340,5 +1338,3 @@ pub type PathNode = Node;
 pub type MobView<'a> = EntityMob<'a>;
 /// The `PathfindingMob` view trait (overrides of evaluators use it).
 pub use crate::world::level::pathfinder::PathfindingMob as NavMob;
-#[allow(unused_imports)]
-use PathfindingMob as _;

@@ -25,17 +25,15 @@ pub fn create() -> OneShot {
             return true;
         }
         // `server.getLevel(pos.dimension())`: only the level the villager is in is reachable from here
-        if pos.dimension == c.level.dimension {
-            if let Some(poi_type) = c.level.poi_manager().get_type(pos.pos) {
-                if let Some(profession) = VillagerProfession::iter()
-                    .find(|&p| profession_data::data(p).held_job_site.test(poi_type))
-                {
-                    let villager = villager_mut(c.body);
-                    let data = villager.get_villager_data().with_profession(profession);
-                    villager.set_villager_data(data);
-                    villager.refresh_brain(c.level);
-                }
-            }
+        if pos.dimension == c.level.dimension
+            && let Some(poi_type) = c.level.poi_manager().get_type(pos.pos)
+            && let Some(profession) = VillagerProfession::iter()
+                .find(|&p| profession_data::data(p).held_job_site.test(poi_type))
+        {
+            let villager = villager_mut(c.body);
+            let data = villager.get_villager_data().with_profession(profession);
+            villager.set_villager_data(data);
+            villager.refresh_brain(c.level);
         }
         true
     })

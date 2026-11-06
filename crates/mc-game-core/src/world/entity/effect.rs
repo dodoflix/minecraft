@@ -192,12 +192,12 @@ impl MobEffectInstance {
 
     /// `downgradeToHiddenEffect()`: when this effect ran out and a hidden one exists, it takes over.
     pub fn downgrade_to_hidden_effect(&mut self) -> bool {
-        if self.duration == 0 {
-            if let Some(h) = self.hidden_effect.take() {
-                self.set_details_from(&h);
-                self.hidden_effect = h.hidden_effect;
-                return true;
-            }
+        if self.duration == 0
+            && let Some(h) = self.hidden_effect.take()
+        {
+            self.set_details_from(&h);
+            self.hidden_effect = h.hidden_effect;
+            return true;
         }
         false
     }

@@ -220,8 +220,7 @@ pub fn get_hurt_sound(source: &DamageSource) -> SoundEvent {
 
 /// `ServerPlayer.indicateDamage(xd, zd)`.
 pub fn indicate_damage(player: &mut ServerPlayer, xd: f64, zd: f64) {
-    player.player.hurt_dir = (mth::atan2(zd, xd) * 180.0 / f64::from(std::f32::consts::PI) as f64)
-        as f32
+    player.player.hurt_dir = (mth::atan2(zd, xd) * 180.0 / f64::from(std::f32::consts::PI)) as f32
         - player.base().y_rot();
     let packet = ClientboundHurtAnimationPacket {
         id: player.id(),
@@ -306,7 +305,7 @@ fn destroy_vanishing_cursed_items(
     let size = player.player.inventory.get_container_size();
     for i in 0..size {
         let stack = player.player.inventory.get_item(i);
-        if !stack.is_empty() && crate::world::item::enchantment_helper::has(&level_registries, &stack, crate::world::item::enchantment::enchantment_effect_components::EffectComponent::prevent_equipment_drop) {
+        if !stack.is_empty() && crate::world::item::enchantment_helper::has(level_registries, stack, crate::world::item::enchantment::enchantment_effect_components::EffectComponent::prevent_equipment_drop) {
             player.player.inventory.remove_item_no_update(i);
         }
     }

@@ -21,6 +21,7 @@ use super::{
 };
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
+use crate::world::entity::ai::goal::target::EntityClass;
 use crate::world::entity::ai::memory::MemoryStatus;
 use crate::world::entity::ai::memory::memory_module_type::{
     BREED_TARGET, HOME, HURT_BY_ENTITY, INTERACTION_TARGET, JOB_SITE, MEETING_POINT,
@@ -315,7 +316,7 @@ pub fn get_meet_package(speed_modifier: f32) -> Pairs {
 
 /// `getIdlePackage(speedModifier)`.
 pub fn get_idle_package(speed_modifier: f32) -> Pairs {
-    let can_breed: Arc<dyn Fn(&dyn Entity) -> bool + Send + Sync> = Arc::new(|e| e.can_breed());
+    let can_breed: EntityClass = Arc::new(|e| e.can_breed());
     vec![
         (
             2,

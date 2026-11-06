@@ -153,7 +153,6 @@ pub use shuffling_list::ShufflingList;
 use crate::server::level::ServerLevel;
 use crate::world::entity::ai::memory::{MemoryStatus, MemoryTypeId};
 use crate::world::entity::entity::Entity;
-use mc_core::random::RandomSource;
 
 /// `Behavior.Status`.
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]

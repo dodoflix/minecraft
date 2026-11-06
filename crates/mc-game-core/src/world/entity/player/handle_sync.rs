@@ -2,8 +2,6 @@
 //! another player or the player list reads off a `ServerPlayer` from outside its level.
 
 use super::ServerPlayer;
-use crate::server::players::PlayerHandle;
-use crate::world::entity::entity::Entity;
 
 /// `PlayerModelPart.HAT.getMask()` (`1 << 6`).
 const HAT_MASK: u8 = 1 << 6;

@@ -3,6 +3,7 @@
 use super::position_tracker::{EntityTracker, PositionTracker};
 use super::{BehaviorBuilder, OneShot};
 use crate::world::entity::Entity;
+use crate::world::entity::ai::goal::target::EntityClass;
 use crate::world::entity::ai::memory::memory_module_type::{
     LOOK_TARGET, NEAREST_VISIBLE_LIVING_ENTITIES, WALK_TARGET,
 };
@@ -33,8 +34,8 @@ pub fn of(
 pub fn of_filtered(
     ty: EntityType,
     interaction_range: i32,
-    self_filter: Arc<dyn Fn(&dyn Entity) -> bool + Send + Sync>,
-    target_filter: Arc<dyn Fn(&dyn Entity) -> bool + Send + Sync>,
+    self_filter: EntityClass,
+    target_filter: EntityClass,
     interaction_target: MemoryModuleType<EntityRef>,
     speed_modifier: f32,
     stop_distance: i32,
@@ -55,18 +56,18 @@ pub fn of_filtered(
                 mob.base().distance_to_sqr_vec(body_pos) <= f64::from(interaction_range_sqr)
                     && is_target_valid(mob)
             });
-            if let Some(EntityRef(id)) = closest {
-                if let Some(mob) = c.level.get_entity(id) {
-                    let look = PositionTracker::Entity(EntityTracker::new(mob, true));
-                    let walk = WalkTarget::new(
-                        PositionTracker::Entity(EntityTracker::new(mob, false)),
-                        speed_modifier,
-                        stop_distance,
-                    );
-                    c.set(&target, EntityRef(id));
-                    c.set(&look_target, look);
-                    c.set(&walk_target, walk);
-                }
+            if let Some(EntityRef(id)) = closest
+                && let Some(mob) = c.level.get_entity(id)
+            {
+                let look = PositionTracker::Entity(EntityTracker::new(mob, true));
+                let walk = WalkTarget::new(
+                    PositionTracker::Entity(EntityTracker::new(mob, false)),
+                    speed_modifier,
+                    stop_distance,
+                );
+                c.set(&target, EntityRef(id));
+                c.set(&look_target, look);
+                c.set(&walk_target, walk);
             }
             true
         } else {

@@ -559,14 +559,13 @@ impl ObtainRaidLeaderBannerGoal {
         let raid = get_current_raid(mob)
             .and_then(|id| level.get_raid(id))
             .expect("active raid");
-        if raid.is_over() {
-            true
-        } else if !mob.can_be_leader() {
-            true
-        } else if banner_matches(
-            &level.registries,
-            &mob.get_item_by_slot(EquipmentSlot::Head),
-        ) {
+        if raid.is_over()
+            || !mob.can_be_leader()
+            || banner_matches(
+                &level.registries,
+                &mob.get_item_by_slot(EquipmentSlot::Head),
+            )
+        {
             true
         } else {
             let leader = raid
@@ -633,9 +632,9 @@ impl Goal for ObtainRaidLeaderBannerGoal {
         let Some(pursued) = self.pursued_banner_item_entity else {
             return false;
         };
-        if self.path_to_banner.as_ref().is_none_or(|p| p.is_done()) {
-            false
-        } else if level.get_entity(pursued).is_none_or(|b| b.is_removed()) {
+        if self.path_to_banner.as_ref().is_none_or(|p| p.is_done())
+            || level.get_entity(pursued).is_none_or(|b| b.is_removed())
+        {
             false
         } else {
             !self.cannot_pick_up_banner(mob, level)
@@ -699,10 +698,11 @@ impl Goal for RaiderCelebration {
 
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         let delay100 = self.adjusted_tick_delay(100);
-        if !mob.base().is_silent() && mob.base_mut().random.next_int_bounded(delay100) == 0 {
-            if let Some(sound) = mob.get_celebrate_sound() {
-                crate::world::entity::living_entity::damage::make_sound(mob, level, sound);
-            }
+        if !mob.base().is_silent()
+            && mob.base_mut().random.next_int_bounded(delay100) == 0
+            && let Some(sound) = mob.get_celebrate_sound()
+        {
+            crate::world::entity::living_entity::damage::make_sound(mob, level, sound);
         }
         let delay50 = self.adjusted_tick_delay(50);
         if !mob.base().is_passenger() && mob.base_mut().random.next_int_bounded(delay50) == 0 {

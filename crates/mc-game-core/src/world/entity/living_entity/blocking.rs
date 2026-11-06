@@ -70,12 +70,10 @@ fn resolve_blocked_damage(
     for reduction in &blocks_attacks.damage_reductions {
         let resolved = if angle
             > f64::from((std::f64::consts::PI / 180.0) as f32 * reduction.horizontal_blocking_angle)
-        {
-            0.0
-        } else if reduction
-            .r#type
-            .as_ref()
-            .is_some_and(|t| !source.is_in_holder_set(level, t))
+            || reduction
+                .r#type
+                .as_ref()
+                .is_some_and(|t| !source.is_in_holder_set(level, t))
         {
             0.0
         } else {
@@ -130,10 +128,11 @@ pub fn apply_item_blocking(
     };
     let damage_blocked = resolve_blocked_damage(&blocks_attacks, level, source, damage, angle);
     hurt_blocking_item(entity, level, &blocks_attacks, damage_blocked);
-    if damage_blocked > 0.0 && !source.is_tag(level, DamageTypeTags::IS_PROJECTILE) {
-        if let Some(direct) = source.direct_info().filter(|d| d.is_living).cloned() {
-            entity.block_using_item(level, &direct, source, damage, damage_blocked >= damage);
-        }
+    if damage_blocked > 0.0
+        && !source.is_tag(level, DamageTypeTags::IS_PROJECTILE)
+        && let Some(direct) = source.direct_info().filter(|d| d.is_living).cloned()
+    {
+        entity.block_using_item(level, &direct, source, damage, damage_blocked >= damage);
     }
     damage_blocked
 }

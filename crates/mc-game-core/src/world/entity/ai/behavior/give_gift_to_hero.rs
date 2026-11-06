@@ -12,12 +12,10 @@ use crate::world::entity::ai::memory::memory_module_type::{
 use crate::world::entity::mob::ext::drop_from_gift_loot_table;
 use crate::world::entity::npc::villager::villager_mut;
 use mc_core::ident::Identifier;
-use mc_core::random::RandomSource;
 use mc_data::{MobEffect, VillagerProfession};
 
 const THROW_GIFT_AT_DISTANCE: f64 = 5.0;
 const MIN_TIME_BETWEEN_GIFTS: i32 = 600;
-const MAX_TIME_BETWEEN_GIFTS: i32 = 6600;
 const TIME_TO_DELAY_FOR_HEAD_TO_FINISH_TURNING: i64 = 20;
 const SPEED_MODIFIER: f32 = 0.5;
 

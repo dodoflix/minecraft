@@ -88,10 +88,10 @@ impl Behavior for SleepInBed {
                 interact_with_door::close_doors_in_memory(level, body, nearest_entities.as_deref());
             }
             let home = body.brain().get_memory(&HOME).map(|h| h.pos);
-            if let Some(home) = home {
-                if body.start_sleeping(level, home) {
-                    body.brain_mut().set_memory(&LAST_SLEPT, timestamp);
-                }
+            if let Some(home) = home
+                && body.start_sleeping(level, home)
+            {
+                body.brain_mut().set_memory(&LAST_SLEPT, timestamp);
             }
             body.brain_mut().erase_memory(&WALK_TARGET);
             body.brain_mut().erase_memory(&CANT_REACH_WALK_TARGET_SINCE);

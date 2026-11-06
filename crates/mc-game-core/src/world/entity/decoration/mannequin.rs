@@ -1,7 +1,6 @@
 //! `net.minecraft.world.entity.decoration.Mannequin` (an `Avatar`: a living entity wearing a player model).
 
 use crate::define_accessor;
-use crate::server::level::ServerLevel;
 use crate::world::entity::dimensions::EntityDimensions;
 use crate::world::entity::entity::{EntityData, TOTAL_AIR_SUPPLY};
 use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};

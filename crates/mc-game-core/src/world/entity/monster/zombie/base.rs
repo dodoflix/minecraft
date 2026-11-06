@@ -129,7 +129,7 @@ fn remove_break_door_goal(zombie: &mut Zombie) {
     if let Some((goal, was_running)) = zombie
         .mob
         .goal_selector
-        .take_goal_where(|g| super::goals::is_break_door_goal(g))
+        .take_goal_where(super::goals::is_break_door_goal)
     {
         if was_running {
             zombie.goals_to_stop.push(goal);
@@ -261,14 +261,13 @@ pub fn hurt_server(
     if target.is_none() && source.causing_is_living() {
         target = source.get_entity();
     }
-    if let Some(target) = target {
-        if level.difficulty() == Difficulty::Hard
-            && f64::from(zombie.base_mut().random.next_float())
-                < mob::attribute_value(zombie, Attribute::SPAWN_REINFORCEMENTS)
-            && level.is_spawning_monsters()
-        {
-            call_reinforcements(zombie, level, target);
-        }
+    if let Some(target) = target
+        && level.difficulty() == Difficulty::Hard
+        && f64::from(zombie.base_mut().random.next_float())
+            < mob::attribute_value(zombie, Attribute::SPAWN_REINFORCEMENTS)
+        && level.is_spawning_monsters()
+    {
+        call_reinforcements(zombie, level, target);
     }
     true
 }
@@ -532,11 +531,11 @@ fn spawn_chicken_jockey(
                 |e| e.is_alive() && !e.base().is_vehicle() && !e.base().is_passenger(),
             )
         });
-        if let Some(&chicken_id) = chickens.first() {
-            if let Some(sl) = level.as_server_level_mut() {
-                sl.with_entity(chicken_id, |_, chicken| set_chicken_jockey(chicken));
-                sl.start_riding(zombie, chicken_id, false, false);
-            }
+        if let Some(&chicken_id) = chickens.first()
+            && let Some(sl) = level.as_server_level_mut()
+        {
+            sl.with_entity(chicken_id, |_, chicken| set_chicken_jockey(chicken));
+            sl.start_riding(zombie, chicken_id, false, false);
         }
     } else if f64::from(level.random().next_float()) < 0.05 {
         let Some(mut chicken) = level.create_entity(
@@ -639,14 +638,14 @@ pub fn handle_attributes(
     }
     let follow_range_modifier =
         zombie.base_mut().random.next_double() * 1.5 * f64::from(difficulty_modifier);
-    if follow_range_modifier > 1.0 {
-        if let Some(a) = lm(zombie).attributes.get_instance(Attribute::FOLLOW_RANGE) {
-            a.add_or_replace_permanent_modifier(AttributeModifier {
-                id: ZOMBIE_RANDOM_SPAWN_BONUS_ID.clone(),
-                amount: follow_range_modifier,
-                operation: AttributeModifierOperation::AddMultipliedTotal,
-            });
-        }
+    if follow_range_modifier > 1.0
+        && let Some(a) = lm(zombie).attributes.get_instance(Attribute::FOLLOW_RANGE)
+    {
+        a.add_or_replace_permanent_modifier(AttributeModifier {
+            id: ZOMBIE_RANDOM_SPAWN_BONUS_ID.clone(),
+            amount: follow_range_modifier,
+            operation: AttributeModifierOperation::AddMultipliedTotal,
+        });
     }
     if zombie.base_mut().random.next_float() < difficulty_modifier * 0.05 {
         let reinforcements = zombie.base_mut().random.next_double() * 0.25 + 0.5;

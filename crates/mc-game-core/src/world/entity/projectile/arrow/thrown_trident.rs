@@ -10,8 +10,8 @@ use crate::world::entity::projectile::{
     EntityHitResult, Projectile, ProjectileData, ProjectileDeflection,
 };
 use crate::world::entity::{Entity, EntityData, EntityId, entity};
+use crate::world::item::ItemStack;
 use crate::world::item::enchantment::actors::Actors;
-use crate::world::item::{ItemStack, ItemStackExt as _};
 use linkme::distributed_slice;
 use mc_core::math::mth;
 use mc_core::phys::{BlockHitResult, Vec3};

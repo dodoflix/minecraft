@@ -538,14 +538,14 @@ pub fn equip_body_armor(
 /// `eating()`.
 fn eating(e: &mut (impl AbstractHorse + ?Sized), level: &mut ServerLevel) {
     open_mouth(e);
-    if !e.base().is_silent() {
-        if let Some(sound) = e.get_eating_sound() {
-            let pitch =
-                1.0 + (e.base_mut().random.next_float() - e.base_mut().random.next_float()) * 0.2;
-            let p = e.position();
-            let source = e.get_sound_source();
-            level.play_sound_at(None, p.x, p.y, p.z, sound, source, 1.0, pitch);
-        }
+    if !e.base().is_silent()
+        && let Some(sound) = e.get_eating_sound()
+    {
+        let pitch =
+            1.0 + (e.base_mut().random.next_float() - e.base_mut().random.next_float()) * 0.2;
+        let p = e.position();
+        let source = e.get_sound_source();
+        level.play_sound_at(None, p.x, p.y, p.z, sound, source, 1.0, pitch);
     }
 }
 
@@ -621,7 +621,6 @@ pub fn play_step_sound(
     pos: BlockPos,
     block_state: mc_data::block::BlockState,
 ) {
-    use crate::world::level::block::state::BlockStateExt as _;
     use crate::world::level::level_access::BlockGetter as _;
     if !block_state.liquid() {
         let above_state = level.get_block_state(pos.above());
@@ -1458,7 +1457,7 @@ fn get_dismount_location_in_direction(
     passenger: &dyn Entity,
 ) -> Option<Vec3> {
     use crate::world::entity::dismount_helper;
-    use crate::world::level::collision::{BlockGetterExt as _, CollisionGetter as _};
+    use crate::world::level::collision::BlockGetterExt as _;
     let target_x = e.base().x() + direction.x;
     let target_y = e.base().bounding_box().min_y;
     let target_z = e.base().z() + direction.z;

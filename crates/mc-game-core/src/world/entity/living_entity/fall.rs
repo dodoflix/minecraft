@@ -1,6 +1,6 @@
 //! The `LivingEntity.checkFallDamage` override around `Entity.checkFallDamage`.
 
-use super::util::{self, l, lm};
+use super::util::{l, lm};
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
 use crate::world::item::enchantment::actors::Actors;

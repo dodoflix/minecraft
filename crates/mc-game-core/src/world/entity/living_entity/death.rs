@@ -223,7 +223,8 @@ pub fn loot_table_items(
     use crate::world::level::storage::loot::{LootContextParamSets, LootParams, loading};
     let table = loading::get_loot_table(&level.registries, table_id);
     let seed = entity.get_loot_table_seed();
-    let items = {
+
+    {
         let causing_guard = source.causing_snapshot(level);
         let direct_guard = source.direct_snapshot(level);
         let attacker: Option<&dyn Entity> = match source.get_entity() {
@@ -263,8 +264,7 @@ pub fn loot_table_items(
         }
         let params = builder.create(&LootContextParamSets::ENTITY);
         table.get_random_items_with_seed(&params, seed)
-    };
-    items
+    }
 }
 
 /// `LivingEntity.getExperienceReward(level, killer)` (the killer is the entity of `source`).

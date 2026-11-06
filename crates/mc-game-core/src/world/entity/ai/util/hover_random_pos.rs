@@ -10,7 +10,6 @@ use mc_core::phys::Vec3;
 use mc_core::random::RandomSource;
 
 /// `getPos(...)`.
-#[allow(clippy::too_many_arguments)]
 pub fn get_pos(
     mob: &mut dyn Entity,
     level: &mut ServerLevel,

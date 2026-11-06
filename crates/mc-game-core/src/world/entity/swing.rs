@@ -27,10 +27,11 @@ impl SwingState {
         animation: SwingAnimation,
         duration_ticks: i32,
     ) -> bool {
-        if let Some(cur) = &self.current_swing {
-            if self.ticks <= cur.duration_ticks / 2 && self.ticks > 0 {
-                return false;
-            }
+        if let Some(cur) = &self.current_swing
+            && self.ticks <= cur.duration_ticks / 2
+            && self.ticks > 0
+        {
+            return false;
         }
         let old = self.current_swing;
         let new = SwingDescription {

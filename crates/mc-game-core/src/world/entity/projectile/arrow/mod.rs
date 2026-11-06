@@ -22,7 +22,7 @@ use crate::define_accessor;
 use crate::server::level::ServerLevel;
 use crate::world::entity::movement::collision_context;
 use crate::world::entity::player::ServerPlayer;
-use crate::world::entity::{Entity, EntityId, MoverType, entity};
+use crate::world::entity::{Entity, EntityId, MoverType};
 use crate::world::item::enchantment::actors::Actors;
 use crate::world::item::{ItemStack, ItemStackExt as _};
 use crate::world::level::BlockGetter;
@@ -40,7 +40,6 @@ define_accessor!(pub IN_GROUND: Boolean = AbstractArrow);
 
 const ARROW_BASE_DAMAGE: f64 = 2.0;
 const SHAKE_TIME: i32 = 7;
-const INERTIA: f32 = 0.99;
 const FLAG_CRIT: i32 = 1;
 const FLAG_NOPHYSICS: i32 = 2;
 
@@ -660,7 +659,7 @@ pub fn on_hit_entity(
             .get_or_insert_with(|| Vec::with_capacity(5));
         d.pierced_and_killed_entities
             .get_or_insert_with(|| Vec::with_capacity(5));
-        if ignore.len() as i32 >= i32::from(pierce_level) + 1 {
+        if ignore.len() as i32 > i32::from(pierce_level) {
             arrow.discard();
             return;
         }

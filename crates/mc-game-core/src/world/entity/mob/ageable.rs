@@ -68,14 +68,15 @@ pub fn set_age_in_level(e: &mut dyn Entity, level: &mut ServerLevel, new_age: i3
 
 /// `ageBoundaryReached()`: a grown-up that rides a boat without enough space stops riding.
 pub fn age_boundary_reached(e: &mut dyn Entity, level: &mut ServerLevel) {
-    if !e.is_baby() && e.base().is_passenger() {
-        if let Some(vehicle) = e.base().vehicle {
-            let boat_without_space = level
-                .get_entity(vehicle)
-                .is_some_and(|v| v.has_enough_space_for(level, e.as_dyn()) == Some(false));
-            if boat_without_space {
-                level.stop_riding(e);
-            }
+    if !e.is_baby()
+        && e.base().is_passenger()
+        && let Some(vehicle) = e.base().vehicle
+    {
+        let boat_without_space = level
+            .get_entity(vehicle)
+            .is_some_and(|v| v.has_enough_space_for(level, e.as_dyn()) == Some(false));
+        if boat_without_space {
+            level.stop_riding(e);
         }
     }
 }

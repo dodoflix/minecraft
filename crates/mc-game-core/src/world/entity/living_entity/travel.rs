@@ -44,12 +44,9 @@ pub fn on_climbable(entity: &dyn Entity, level: &ServerLevel) -> bool {
         false
     } else if state.block().is_in_tag("climbable") {
         true
-    } else if helpers::is_instance_of(state, "TrapDoorBlock")
-        && trapdoor_usable_as_ladder(level, pos, state)
-    {
-        true
     } else {
-        false
+        helpers::is_instance_of(state, "TrapDoorBlock")
+            && trapdoor_usable_as_ladder(level, pos, state)
     }
 }
 

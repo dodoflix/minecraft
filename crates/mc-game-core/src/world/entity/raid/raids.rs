@@ -166,6 +166,10 @@ impl Raids {
 
     // ---- saved data ----------------------------------------------------------------------------------------------
 
+    #[expect(
+        clippy::result_large_err,
+        reason = "`DecodeResult` returns the partially decoded value as the error, like DFU's partial result"
+    )]
     fn decode(tag: &Tag) -> DecodeResult<Raids> {
         let m = codec::compound(tag)?;
         let mut raids = Raids {

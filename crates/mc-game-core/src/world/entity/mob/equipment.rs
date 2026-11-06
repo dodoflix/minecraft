@@ -337,10 +337,10 @@ pub fn populate_default_equipment_slots(
                 break;
             }
             first = false;
-            if item_stack.is_empty() {
-                if let Some(equip) = get_equipment_for_slot(slot, armor_type) {
-                    set_item_slot_spawn(e, slot, ItemStack::new(equip));
-                }
+            if item_stack.is_empty()
+                && let Some(equip) = get_equipment_for_slot(slot, armor_type)
+            {
+                set_item_slot_spawn(e, slot, ItemStack::new(equip));
             }
         }
     }

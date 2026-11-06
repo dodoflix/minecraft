@@ -6,7 +6,7 @@ use crate::world::entity::Entity;
 use crate::world::entity::ai::memory::memory_module_type::{
     DOORS_TO_CLOSE, NEAREST_LIVING_ENTITIES, PATH,
 };
-use crate::world::entity::ai::memory::{EntityRef, GlobalPosSet, PositionTracker as _};
+use crate::world::entity::ai::memory::{EntityRef, GlobalPosSet};
 use crate::world::level::BlockGetter;
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::block::helpers;
@@ -113,26 +113,16 @@ pub fn close_doors_that_i_have_opened_or_passed_through(
         if moving_from_node.is_none_or(|n| n.as_block_pos() != door_pos)
             && moving_to_node.is_none_or(|n| n.as_block_pos() != door_pos)
         {
-            if is_door_too_far_away(level, body, &door_global_pos) {
-                doors.remove(&door_global_pos);
-            } else {
+            if !is_door_too_far_away(level, body, &door_global_pos) {
                 let state = level.get_block_state(door_pos);
-                if !is_interactable_door(state) {
-                    doors.remove(&door_global_pos);
-                } else if !state.get(props::OPEN) {
-                    doors.remove(&door_global_pos);
-                } else if are_other_mobs_coming_through_door(
-                    level,
-                    body,
-                    door_pos,
-                    nearest_entities,
-                ) {
-                    doors.remove(&door_global_pos);
-                } else {
+                if is_interactable_door(state)
+                    && state.get(props::OPEN)
+                    && !are_other_mobs_coming_through_door(level, body, door_pos, nearest_entities)
+                {
                     set_open_at(Some(body.id()), level, state, door_pos, false);
-                    doors.remove(&door_global_pos);
                 }
             }
+            doors.remove(&door_global_pos);
         }
     }
 }

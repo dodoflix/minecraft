@@ -2,16 +2,16 @@
 
 use super::{Flag, Goal, GoalFlags};
 use crate::server::level::ServerLevel;
+use crate::world::entity::ai::goal::target::EntityClass;
 use crate::world::entity::ai::targeting::TargetingConditions;
 use crate::world::entity::mob::{self, animal, ext, navigation};
 use crate::world::entity::{Entity, EntityId};
 use std::any::TypeId;
-use std::sync::Arc;
 
 /// The class of the partners: the animal's own concrete type, or an arbitrary `instanceof` test.
 enum PartnerClass {
     Exact(TypeId),
-    Test(Arc<dyn Fn(&dyn Entity) -> bool + Send + Sync>),
+    Test(EntityClass),
 }
 
 pub struct BreedGoal {
@@ -35,10 +35,7 @@ impl BreedGoal {
     }
 
     /// `BreedGoal(animal, speedModifier, clazz)` for a class that spans several Rust types (`AbstractHorse`).
-    pub fn with_class_test(
-        speed_modifier: f64,
-        partner_class: Arc<dyn Fn(&dyn Entity) -> bool + Send + Sync>,
-    ) -> Self {
+    pub fn with_class_test(speed_modifier: f64, partner_class: EntityClass) -> Self {
         Self::build(speed_modifier, PartnerClass::Test(partner_class))
     }
 

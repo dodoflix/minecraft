@@ -8,6 +8,7 @@
 //! * `getRecords` (queries): types in registration order (vanilla iterates a `HashMap` keyed by identity hashes, which is
 //!   not reproducible), each type's `HashSet<PoiRecord>` in Java order (`BlockPos.hashCode`, bucket order, insertion order
 //!   inside a bucket, splitting at 0.75 load).
+//!
 //! shortcut: tree bins are not emulated (Java treeifies a bin of >= 9 colliding positions in a table of >= 64 buckets).
 
 use super::poi_record::PoiRecord;

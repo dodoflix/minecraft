@@ -10,7 +10,6 @@ use crate::world::item::ItemStack;
 use mc_core::math::mth;
 use mc_core::phys::AABB;
 use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
 use mc_data::EntityType;
 use mc_data::enums::EntitySpawnReason;
 use mc_protocol::components::{CUSTOM_DATA, CUSTOM_NAME, ENTITY_DATA};
@@ -101,12 +100,15 @@ fn get_y_offset(
     )
 }
 
+/// `postSpawnConfig`: runs on the freshly created entity before it is added.
+pub type SpawnConfig<'a> = &'a mut dyn FnMut(&mut ServerLevel, &mut dyn Entity);
+
 /// `EntityType.create(level, postSpawnConfig, spawnPos, reason, tryMoveDown, movedUp)` for entities that are not mobs
 /// (mobs additionally get `yHeadRot`/`yBodyRot` and `finalizeSpawn`, owned by the mob code through `Entity::finalize_spawn_on_create`).
 pub fn create_at(
     level: &mut ServerLevel,
     ty: EntityType,
-    config: Option<&mut dyn FnMut(&mut ServerLevel, &mut dyn Entity)>,
+    config: Option<SpawnConfig<'_>>,
     spawn_pos: BlockPos,
     reason: EntitySpawnReason,
     try_move_down: bool,

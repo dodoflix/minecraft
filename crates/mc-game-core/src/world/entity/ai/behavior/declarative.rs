@@ -27,7 +27,6 @@ pub struct Present<U> {
 }
 /// `i.absent(memory)`: the memory must be registered and empty; only the setters apply.
 pub struct Absent<U> {
-    index: usize,
     memory: MemoryModuleType<U>,
 }
 /// `i.registered(memory)`: the memory only has to be registered; `try_get` gives the value if any.
@@ -191,10 +190,8 @@ impl BehaviorBuilder {
 
     /// `i.absent(memory)`.
     pub fn absent<U: MemoryData>(&mut self, memory: &MemoryModuleType<U>) -> Absent<U> {
-        Absent {
-            index: self.add_memory(memory.id(), Kind::Absent),
-            memory: *memory,
-        }
+        self.add_memory(memory.id(), Kind::Absent);
+        Absent { memory: *memory }
     }
 
     /// `i.registered(memory)`.

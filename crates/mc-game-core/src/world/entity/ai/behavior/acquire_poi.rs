@@ -10,7 +10,6 @@ use crate::world::entity::mob::navigation as nav;
 use crate::world::level::LevelAccessor as _;
 use crate::world::level::pathfinder::Path;
 use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
 use mc_protocol::codec::GlobalPos;
 use std::collections::HashMap;
 use std::sync::Arc;

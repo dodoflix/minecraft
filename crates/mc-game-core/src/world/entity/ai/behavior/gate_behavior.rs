@@ -188,6 +188,10 @@ pub struct RunOne;
 
 impl RunOne {
     /// `new RunOne(weightedBehaviors)`.
+    #[expect(
+        clippy::new_ret_no_self,
+        reason = "`RunOne` is a vanilla constructor of a `GateBehavior`; the unit struct only names it"
+    )]
     pub fn new(weighted_behaviors: Vec<(Box<dyn BehaviorControl>, i32)>) -> GateBehavior {
         Self::with_entry_condition(Vec::new(), weighted_behaviors)
     }

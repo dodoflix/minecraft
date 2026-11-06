@@ -2,7 +2,7 @@
 //! of the vanilla oracle (`describeMob` of `tests/oracle/EntityOracleDriver.java`) and the `finalizeSpawn` hook of `mobspawn`.
 //! Order 10 = `Mob`, 11 = `AgeableMob`, 12 = `Animal`, 13 = `TamableAnimal`.
 
-use super::{ageable, animal, leashable, tamable, tick};
+use super::{animal, leashable, tamable, tick};
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
 use crate::world::entity::equipment::EquipmentSlot;
@@ -154,7 +154,6 @@ fn mob_fields(
         .filter_map(|s| {
             let st = e.get_item_by_slot(*s);
             (!st.is_empty()).then(|| {
-                use crate::world::item::ItemStackExt as _;
                 let mut r = format!("{}*{}", st.item().name(), st.count());
                 if st.is_damageable_item() && st.get_damage_value() != 0 {
                     r.push_str(&format!("/dmg={}", st.get_damage_value()));

@@ -120,13 +120,11 @@ impl Sensor for PiglinSpecificSensor {
         let repellent = find_nearest_block(level, body.block_position(), is_valid_piglin_repellent);
         body.brain_mut()
             .set_memory_opt(&NEAREST_REPELLENT, repellent);
-        let (mut nemesis, mut huntable_hoglin, mut baby_hoglin, mut baby_piglin, mut zombified): (
-            Option<EntityRef>,
-            Option<EntityRef>,
-            Option<EntityRef>,
-            Option<EntityRef>,
-            Option<EntityRef>,
-        ) = (None, None, None, None, None);
+        let mut nemesis: Option<EntityRef> = None;
+        let mut huntable_hoglin: Option<EntityRef> = None;
+        let mut baby_hoglin: Option<EntityRef> = None;
+        let mut baby_piglin: Option<EntityRef> = None;
+        let mut zombified: Option<EntityRef> = None;
         let (mut player_not_wearing_gold, mut player_holding_wanted_item) =
             (None::<EntityRef>, None::<EntityRef>);
         let mut visible_adult_hoglin_count = 0i32;

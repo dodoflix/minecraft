@@ -55,7 +55,6 @@ impl InsideBlockEffectType {
 
 /// `BaseFireBlock.fireIgnite(entity)`.
 pub fn fire_ignite(entity: &mut dyn Entity, level: &mut ServerLevel) {
-    use mc_core::random::RandomSource;
     if entity.fire_immune() {
         return;
     }

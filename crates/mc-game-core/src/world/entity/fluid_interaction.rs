@@ -4,7 +4,6 @@
 use super::entity::Entity;
 use crate::server::level::ServerLevel;
 use crate::world::level::BlockGetter;
-use crate::world::level::block::BlockStateExt;
 use crate::world::level::material::FluidStateExt;
 use mc_core::math::mth;
 use mc_core::phys::Vec3;

@@ -6,7 +6,7 @@ use crate::world::entity::effect::MobEffectInstance;
 use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
 use crate::world::entity::projectile::{Projectile, ProjectileData};
 use crate::world::entity::{Entity, EntityData, EntityId, entity};
-use crate::world::item::{ItemStack, ItemStackExt as _};
+use crate::world::item::ItemStack;
 use linkme::distributed_slice;
 use mc_data::{EntityType, Item, MobEffect, SoundEvent};
 use mc_nbt::CompoundTag;

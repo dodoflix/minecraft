@@ -12,7 +12,6 @@ use crate::server::level::ServerLevel;
 use crate::world::item::{ItemStack, ItemStackExt, load_item_stack};
 use crate::world::level::LevelAccessor;
 use linkme::distributed_slice;
-use mc_core::random::RandomSource;
 use mc_data::{EntityType, GameEvent, SoundEvent};
 use mc_nbt::{CompoundTag, Tag};
 use mc_protocol::packets::play::level::SoundSource;

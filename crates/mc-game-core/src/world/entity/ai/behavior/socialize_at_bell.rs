@@ -8,7 +8,6 @@ use crate::world::entity::ai::memory::memory_module_type::{
     INTERACTION_TARGET, LOOK_TARGET, MEETING_POINT, NEAREST_VISIBLE_LIVING_ENTITIES, WALK_TARGET,
 };
 use crate::world::level::LevelAccessor as _;
-use mc_core::random::RandomSource;
 use mc_data::EntityType;
 
 const SPEED_MODIFIER: f32 = 0.3;
@@ -38,18 +37,18 @@ pub fn create() -> OneShot {
                         && mob.base().distance_to_sqr_vec(body_pos) <= 32.0
                 })
             };
-            if let Some(EntityRef(mob_id)) = closest {
-                if let Some(mob) = c.level.get_entity(mob_id) {
-                    let look = PositionTracker::Entity(EntityTracker::new(mob, true));
-                    let walk = WalkTarget::new(
-                        PositionTracker::Entity(EntityTracker::new(mob, false)),
-                        SPEED_MODIFIER,
-                        1,
-                    );
-                    c.set(&interaction_target, EntityRef(mob_id));
-                    c.set(&look_target, look);
-                    c.set(&walk_target, walk);
-                }
+            if let Some(EntityRef(mob_id)) = closest
+                && let Some(mob) = c.level.get_entity(mob_id)
+            {
+                let look = PositionTracker::Entity(EntityTracker::new(mob, true));
+                let walk = WalkTarget::new(
+                    PositionTracker::Entity(EntityTracker::new(mob, false)),
+                    SPEED_MODIFIER,
+                    1,
+                );
+                c.set(&interaction_target, EntityRef(mob_id));
+                c.set(&look_target, look);
+                c.set(&walk_target, walk);
             }
             true
         } else {

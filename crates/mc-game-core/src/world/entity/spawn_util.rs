@@ -87,7 +87,6 @@ impl Strategy {
 }
 
 /// `SpawnUtil.trySpawnMob(entityType, spawnReason, level, start, spawnAttempts, spawnRangeXZ, spawnRangeY, strategy, checkCollisions)`.
-#[allow(clippy::too_many_arguments)]
 pub fn try_spawn_mob(
     level: &mut ServerLevel,
     entity_type: EntityType,
@@ -117,14 +116,13 @@ pub fn try_spawn_mob(
                         f64::from(search_pos.z()) + 0.5,
                     ),
                 ))
+            && let Some(mob) = create_at(level, entity_type, search_pos, spawn_reason)
         {
-            if let Some(mob) = create_at(level, entity_type, search_pos, spawn_reason) {
-                // mob layer: `mob.checkSpawnRules(level, spawnReason) && mob.checkSpawnObstruction(level)` (else `mob.discard()`)
-                let id = mob.id();
-                level.add_fresh_entity_with_passengers(vec![mob]);
-                // mob layer: `mob.playAmbientSound()`
-                return Some(id);
-            }
+            // mob layer: `mob.checkSpawnRules(level, spawnReason) && mob.checkSpawnObstruction(level)` (else `mob.discard()`)
+            let id = mob.id();
+            level.add_fresh_entity_with_passengers(vec![mob]);
+            // mob layer: `mob.playAmbientSound()`
+            return Some(id);
         }
     }
     None

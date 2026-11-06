@@ -216,7 +216,7 @@ impl Entity for Chicken {
         if self.is_baby() {
             baby_dimensions()
         } else {
-            { EntityDimensions::of_type(self.mob.living.entity.entity_type) }
+            EntityDimensions::of_type(self.mob.living.entity.entity_type)
         }
     }
 
@@ -404,7 +404,7 @@ impl Entity for Chicken {
         out.put_boolean("IsChickenJockey", self.is_chicken_jockey);
         out.put_int("EggLayTime", self.egg_time);
         variant::write_variant(out, &self.variant_key);
-        out.put_string("sound_variant", &self.sound_variant_key.to_string());
+        out.put_string("sound_variant", self.sound_variant_key.to_string());
     }
 
     fn read_additional_save_data(&mut self, input: &CompoundTag) {
@@ -420,15 +420,15 @@ impl Entity for Chicken {
     }
 
     fn resolve_registry_refs(&mut self, registries: &RegistryAccess) {
-        if let Some(key) = self.pending_variant.take() {
-            if let Some(id) = id_of(registries, keys::CHICKEN_VARIANT, &key) {
-                self.set_variant(registries, id as u32);
-            }
+        if let Some(key) = self.pending_variant.take()
+            && let Some(id) = id_of(registries, keys::CHICKEN_VARIANT, &key)
+        {
+            self.set_variant(registries, id as u32);
         }
-        if let Some(key) = self.pending_sound_variant.take() {
-            if let Some(id) = id_of(registries, keys::CHICKEN_SOUND_VARIANT, &key) {
-                self.set_sound_variant(registries, id as u32);
-            }
+        if let Some(key) = self.pending_sound_variant.take()
+            && let Some(id) = id_of(registries, keys::CHICKEN_SOUND_VARIANT, &key)
+        {
+            self.set_sound_variant(registries, id as u32);
         }
     }
 }

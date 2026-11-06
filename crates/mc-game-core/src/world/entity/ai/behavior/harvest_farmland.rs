@@ -15,7 +15,6 @@ use crate::world::item::ItemStack;
 use crate::world::level::block::impls::crop_block;
 use crate::world::level::{BlockGetter, LevelAccessor as _};
 use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
 use mc_data::block::Block;
 use mc_data::{GameEvent, Item, SoundEvent, VillagerProfession};
 use mc_protocol::packets::play::level::SoundSource;
@@ -98,21 +97,21 @@ impl Behavior for HarvestFarmland {
     }
 
     fn start(&mut self, _level: &mut ServerLevel, body: &mut dyn Entity, timestamp: i64) {
-        if timestamp > self.next_ok_start_time {
-            if let Some(pos) = self.above_farmland_pos {
-                body.brain_mut().set_memory(
-                    &LOOK_TARGET,
+        if timestamp > self.next_ok_start_time
+            && let Some(pos) = self.above_farmland_pos
+        {
+            body.brain_mut().set_memory(
+                &LOOK_TARGET,
+                PositionTracker::Block(BlockPosTracker::new(pos)),
+            );
+            body.brain_mut().set_memory(
+                &WALK_TARGET,
+                WalkTarget::new(
                     PositionTracker::Block(BlockPosTracker::new(pos)),
-                );
-                body.brain_mut().set_memory(
-                    &WALK_TARGET,
-                    WalkTarget::new(
-                        PositionTracker::Block(BlockPosTracker::new(pos)),
-                        SPEED_MODIFIER,
-                        1,
-                    ),
-                );
-            }
+                    SPEED_MODIFIER,
+                    1,
+                ),
+            );
         }
     }
 
@@ -149,20 +148,19 @@ impl Behavior for HarvestFarmland {
                         let mut ok = false;
                         if !item_stack.is_empty()
                             && plantable.is_some_and(|t| t.contains(item_stack.item()))
+                            && let Some(block) = item_stack.item().block()
                         {
-                            if let Some(block) = item_stack.item().block() {
-                                let place = block.default_state();
-                                level.set_block_and_update(pos, place);
-                                level.game_event_at_block(
-                                    GameEvent::BLOCK_PLACE,
-                                    pos,
-                                    &crate::world::level::gameevent::GameEventContext::of(
-                                        Some(body.id()),
-                                        Some(place),
-                                    ),
-                                );
-                                ok = true;
-                            }
+                            let place = block.default_state();
+                            level.set_block_and_update(pos, place);
+                            level.game_event_at_block(
+                                GameEvent::BLOCK_PLACE,
+                                pos,
+                                &crate::world::level::gameevent::GameEventContext::of(
+                                    Some(body.id()),
+                                    Some(place),
+                                ),
+                            );
+                            ok = true;
                         }
                         if ok {
                             level.play_sound(

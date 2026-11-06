@@ -212,7 +212,7 @@ impl Entity for PrimedTnt {
         self.handle_portal(level);
         self.apply_gravity();
         let movement = self.base.delta_movement();
-        let _ = self.r#move(level, MoverType::SelfMover, movement);
+        self.r#move(level, MoverType::SelfMover, movement);
         self.apply_effects_from_blocks(level);
         let drag = f64::from(self.get_air_drag());
         self.base

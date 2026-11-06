@@ -305,10 +305,10 @@ pub fn mob_interact(
     player: &mut ServerPlayer,
     hand: InteractionHand,
 ) -> InteractionResult {
-    if e.mob().is_some_and(|m| m.animal.is_some()) {
-        if let Some(r) = super::animal::mob_interact(e, level, player, hand) {
-            return r;
-        }
+    if e.mob().is_some_and(|m| m.animal.is_some())
+        && let Some(r) = super::animal::mob_interact(e, level, player, hand)
+    {
+        return r;
     }
     if e.mob().is_some_and(|m| m.ageable.is_some()) {
         let creative = player.player.abilities.instabuild;

@@ -27,7 +27,6 @@ pub mod tick;
 pub mod travel;
 pub mod warden_spawn_tracker;
 
-use crate::world::container::SimpleContainer;
 use crate::world::inventory::PlayerMenus;
 pub use abilities::Abilities;
 pub use food_data::FoodData;

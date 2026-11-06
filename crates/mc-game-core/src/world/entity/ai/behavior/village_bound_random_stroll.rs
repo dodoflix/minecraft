@@ -1,6 +1,5 @@
 //! `VillageBoundRandomStroll`.
 
-use super::behavior_utils;
 use super::{BehaviorBuilder, OneShot};
 use crate::world::entity::ai::memory::WalkTarget;
 use crate::world::entity::ai::memory::memory_module_type::WALK_TARGET;

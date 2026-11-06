@@ -11,7 +11,6 @@ use crate::world::entity::ai::memory::memory_module_type::{
 use crate::world::entity::npc::villager::villager_mut;
 use crate::world::entity::npc::villager::villager_profession as profession_data;
 use crate::world::level::LevelAccessor as _;
-use mc_core::random::RandomSource;
 
 const CHECK_COOLDOWN: i64 = 300;
 const DISTANCE: f64 = 1.73;
@@ -52,9 +51,9 @@ impl Behavior for WorkAtPoi {
         level: &mut ServerLevel,
         body: &mut dyn Entity,
     ) -> bool {
-        if level.game_time() - self.last_check < CHECK_COOLDOWN {
-            false
-        } else if level.random().next_int_bounded(2) != 0 {
+        if level.game_time() - self.last_check < CHECK_COOLDOWN
+            || level.random().next_int_bounded(2) != 0
+        {
             false
         } else {
             self.last_check = level.game_time();

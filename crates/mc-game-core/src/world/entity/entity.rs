@@ -2376,10 +2376,10 @@ pub trait Entity: Any {
         if let Some(controller) = self
             .get_controlling_passenger()
             .and_then(|id| level.entity_manager.get_any(id))
+            && controller.is_player()
+            && self.is_alive()
         {
-            if controller.is_player() && self.is_alive() {
-                return controller.get_known_movement(level);
-            }
+            return controller.get_known_movement(level);
         }
         self.base().delta_movement()
     }
@@ -2388,10 +2388,10 @@ pub trait Entity: Any {
         if let Some(controller) = self
             .get_controlling_passenger()
             .and_then(|id| level.entity_manager.get_any(id))
+            && controller.is_player()
+            && self.is_alive()
         {
-            if controller.is_player() && self.is_alive() {
-                return controller.get_known_speed(level);
-            }
+            return controller.get_known_speed(level);
         }
         self.base().last_known_speed
     }
@@ -4051,10 +4051,10 @@ pub trait Entity: Any {
     }
     /// `onLeashRemoved()`.
     fn on_leash_removed(&mut self) {
-        if let Some(m) = self.mob_mut() {
-            if m.leash_data.is_none() {
-                m.clear_home();
-            }
+        if let Some(m) = self.mob_mut()
+            && m.leash_data.is_none()
+        {
+            m.clear_home();
         }
     }
     /// `whenLeashedTo(holder)`.
@@ -4634,10 +4634,10 @@ pub fn push_entity_base<E: Entity + ?Sized>(
 
 /// `Entity.saveAsPassenger(output)`: `None` when the entity isn't saved (removal reason / non-serializable type).
 pub fn save_as_passenger(entity: &dyn Entity, lookup: &EntityLookupFn<'_>) -> Option<CompoundTag> {
-    if let Some(r) = entity.base().removal_reason() {
-        if !r.should_save() {
-            return None;
-        }
+    if let Some(r) = entity.base().removal_reason()
+        && !r.should_save()
+    {
+        return None;
     }
     let id = entity.get_encode_id()?;
     let mut out = CompoundTag::new();
@@ -4732,10 +4732,10 @@ pub fn save_without_id<E: Entity + ?Sized>(
     if !b.passengers.is_empty() {
         let mut passengers = ListTag::new();
         for &pid in &b.passengers {
-            if let Some(p) = lookup(pid) {
-                if let Some(tag) = save_as_passenger(p, lookup) {
-                    passengers.push(Tag::Compound(tag));
-                }
+            if let Some(p) = lookup(pid)
+                && let Some(tag) = save_as_passenger(p, lookup)
+            {
+                passengers.push(Tag::Compound(tag));
             }
         }
         if !passengers.is_empty() {
@@ -4848,12 +4848,12 @@ pub fn load<E: Entity + ?Sized>(entity: &mut E, input: &CompoundTag) -> Result<(
         b.has_visual_fire = input.get_boolean_or("HasVisualFire", false);
         b.custom_data = input.get_compound(TAG_DATA).cloned().unwrap_or_default();
         b.tags.clear();
-        if let Some(list) = input.get_list("Tags") {
-            if list.len() <= MAX_ENTITY_TAG_COUNT {
-                for t in list.iter() {
-                    if let Some(s) = t.as_string() {
-                        b.tags.insert(s);
-                    }
+        if let Some(list) = input.get_list("Tags")
+            && list.len() <= MAX_ENTITY_TAG_COUNT
+        {
+            for t in list.iter() {
+                if let Some(s) = t.as_string() {
+                    b.tags.insert(s);
                 }
             }
         }
@@ -5010,7 +5010,6 @@ pub fn calculate_view_vector(x_rot: f32, y_rot: f32) -> Vec3 {
 
 /// `Entity.sendBubbleColumnParticles(level, pos)`.
 pub fn send_bubble_column_particles(level: &mut ServerLevel, pos: BlockPos) {
-    use mc_core::random::RandomSource;
     use mc_protocol::packets::play::ParticleOptions;
     for _ in 0..2 {
         let rx = crate::world::level::LevelAccessor::random(level).next_double();

@@ -64,19 +64,16 @@ impl Goal for LandOnOwnersShoulderGoal {
         if !self.is_sitting_on_shoulder
             && !tamable::is_in_sitting_pose(entity)
             && !leashable::is_leashed(entity)
+            && let Some(owner) = Self::owner_player(entity, level)
+            && level.get_entity(owner).is_some_and(|o| {
+                entity
+                    .base()
+                    .bounding_box()
+                    .intersects_aabb(&o.base().bounding_box())
+            })
+            && let Some(s) = entity.as_shoulder_riding_mut()
         {
-            if let Some(owner) = Self::owner_player(entity, level) {
-                if level.get_entity(owner).is_some_and(|o| {
-                    entity
-                        .base()
-                        .bounding_box()
-                        .intersects_aabb(&o.base().bounding_box())
-                }) {
-                    if let Some(s) = entity.as_shoulder_riding_mut() {
-                        self.is_sitting_on_shoulder = s.set_entity_on_shoulder(level, owner);
-                    }
-                }
-            }
+            self.is_sitting_on_shoulder = s.set_entity_on_shoulder(level, owner);
         }
     }
 

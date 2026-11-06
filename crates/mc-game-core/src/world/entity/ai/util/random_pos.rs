@@ -26,7 +26,6 @@ pub fn generate_random_direction(
 }
 
 /// `generateRandomDirectionWithinRadians(...)`.
-#[allow(clippy::too_many_arguments)]
 pub fn generate_random_direction_within_radians(
     random: &mut dyn RandomSource,
     min_horizontal_dist: f64,
@@ -108,7 +107,7 @@ pub fn generate_random_pos(
     supplier: PosSupplier<'_>,
 ) -> Option<Vec3> {
     generate_random_pos_weighted(mob, level, supplier, &mut |mob, level, pos| {
-        f64::from(mob.get_walk_target_value(pos, &*level))
+        f64::from(mob.get_walk_target_value(pos, level))
     })
 }
 

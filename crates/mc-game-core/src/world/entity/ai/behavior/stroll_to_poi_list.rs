@@ -4,7 +4,6 @@ use super::{BehaviorBuilder, OneShot};
 use crate::world::entity::ai::memory::memory_module_type::WALK_TARGET;
 use crate::world::entity::ai::memory::{MemoryModuleType, WalkTarget};
 use crate::world::level::LevelAccessor as _;
-use mc_core::random::RandomSource;
 use mc_protocol::codec::GlobalPos;
 
 /// `create(strollToMemoryType, speedModifier, closeEnoughDist, maxDistanceFromPoi, mustBeCloseToMemoryType)`.

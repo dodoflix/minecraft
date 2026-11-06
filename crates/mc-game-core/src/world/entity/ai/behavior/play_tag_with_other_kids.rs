@@ -10,7 +10,6 @@ use crate::world::entity::ai::memory::{EntityRef, WalkTarget};
 use crate::world::entity::ai::util::land_random_pos;
 use crate::world::level::LevelAccessor as _;
 use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
 
 const MAX_FLEE_XZ_DIST: i32 = 20;
 const MAX_FLEE_Y_DIST: i32 = 8;
@@ -41,34 +40,33 @@ pub fn create() -> OneShot {
         if !other_kid_chasing_me {
             let chase = find_someone_being_chased(c.level, &friends_nearby)
                 .or_else(|| friends_nearby.first().map(|f| f.0));
-            if let Some(kid) = chase {
-                if let Some(entity) = c.level.get_entity(kid) {
-                    let look = PositionTracker::Entity(EntityTracker::new(entity, true));
-                    let walk = WalkTarget::new(
-                        PositionTracker::Entity(EntityTracker::new(entity, false)),
-                        CHASE_SPEED_MODIFIER,
-                        1,
-                    );
-                    c.set(&interaction_target, EntityRef(kid));
-                    c.set(&look_target, look);
-                    c.set(&walk_target, walk);
-                }
+            if let Some(kid) = chase
+                && let Some(entity) = c.level.get_entity(kid)
+            {
+                let look = PositionTracker::Entity(EntityTracker::new(entity, true));
+                let walk = WalkTarget::new(
+                    PositionTracker::Entity(EntityTracker::new(entity, false)),
+                    CHASE_SPEED_MODIFIER,
+                    1,
+                );
+                c.set(&interaction_target, EntityRef(kid));
+                c.set(&look_target, look);
+                c.set(&walk_target, walk);
             }
             true
         } else {
             for _ in 0..10 {
                 let pos =
                     land_random_pos::get_pos(c.body, c.level, MAX_FLEE_XZ_DIST, MAX_FLEE_Y_DIST);
-                if let Some(pos) = pos {
-                    if c.level
+                if let Some(pos) = pos
+                    && c.level
                         .is_village(BlockPos::containing(pos.x, pos.y, pos.z))
-                    {
-                        c.set(
-                            &walk_target,
-                            WalkTarget::from_vec3(pos, FLEE_SPEED_MODIFIER, 0),
-                        );
-                        break;
-                    }
+                {
+                    c.set(
+                        &walk_target,
+                        WalkTarget::from_vec3(pos, FLEE_SPEED_MODIFIER, 0),
+                    );
+                    break;
                 }
             }
             true

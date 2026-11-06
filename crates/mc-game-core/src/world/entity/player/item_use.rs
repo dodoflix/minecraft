@@ -6,14 +6,13 @@ use super::ServerPlayer;
 use crate::server::level::ServerLevel;
 use crate::server::level::level_events::encode_packet;
 use crate::world::entity::Entity;
-use crate::world::entity::equipment::{EquipmentSlot, EquipmentSlotType};
+use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::living::{LIVING_ENTITY_FLAG_IS_USING, LIVING_ENTITY_FLAG_OFF_HAND};
 use crate::world::item::{InteractionHand, ItemStack, behaviour};
-use mc_data::{GameEvent, SoundEvent};
-use mc_protocol::components::{EQUIPPABLE, USE_EFFECTS};
+use mc_data::GameEvent;
+use mc_protocol::components::USE_EFFECTS;
 use mc_protocol::packets::play::{
-    ClientboundCooldownPacket, ClientboundSetEquipmentPacket, SoundSource, SwingAnimation,
-    SwingAnimationType,
+    ClientboundCooldownPacket, ClientboundSetEquipmentPacket, SwingAnimation, SwingAnimationType,
 };
 
 /// `SwingAnimation.DEFAULT`.
@@ -238,10 +237,7 @@ impl ServerPlayer {
             player: self,
             level,
         };
-        let mut menus = std::mem::replace(
-            &mut ctx.player.player.menus,
-            crate::world::inventory::PlayerMenus::new(),
-        );
+        let mut menus = std::mem::take(&mut ctx.player.player.menus);
         menus.do_close_container(&mut ctx);
         ctx.player.player.menus = menus;
     }

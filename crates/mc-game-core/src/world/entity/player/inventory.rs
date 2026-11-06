@@ -443,7 +443,7 @@ impl Container for Inventory {
         if slot < self.items.len() {
             &self.items[slot]
         } else {
-            equipment_slot_for(slot).map_or_else(|| empty_stack(), |s| self.equipment.get(s))
+            equipment_slot_for(slot).map_or(empty_stack(), |s| self.equipment.get(s))
         }
     }
 

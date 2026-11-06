@@ -85,10 +85,10 @@ impl HurtByTargetGoal {
             if mob.id() == other.id() || tick::get_target_checked(other, level).is_some() {
                 continue;
             }
-            if let Some(owner) = tamable_owner {
-                if owner != tamable::get_owner(other, level) {
-                    continue;
-                }
+            if let Some(owner) = tamable_owner
+                && owner != tamable::get_owner(other, level)
+            {
+                continue;
             }
             if hurt_by
                 .and_then(|h| level.get_entity(h))
@@ -96,10 +96,10 @@ impl HurtByTargetGoal {
             {
                 continue;
             }
-            if let Some(ignore) = &self.to_ignore_alert {
-                if ignore.iter().any(|class| class(other)) {
-                    continue;
-                }
+            if let Some(ignore) = &self.to_ignore_alert
+                && ignore.iter().any(|class| class(other))
+            {
+                continue;
             }
             self.alert_other(level, other_id, hurt_by);
         }
@@ -120,26 +120,26 @@ impl Goal for HurtByTargetGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         let timestamp = combat::get_last_hurt_by_mob_timestamp(mob);
         let last_hurt_by_mob = combat::get_last_hurt_by_mob(mob, level);
-        if timestamp != self.timestamp {
-            if let Some(hurt_by) = last_hurt_by_mob {
-                let Some(hurt_by_entity) = level.get_entity(hurt_by) else {
-                    return false;
-                };
-                if hurt_by_entity.get_type() == EntityType::PLAYER && level.universal_anger() {
-                    return false;
-                }
-                if self
-                    .to_ignore_damage
-                    .iter()
-                    .any(|class| class(hurt_by_entity))
-                {
-                    return false;
-                }
-                let conditions = self.hurt_by_targeting.clone();
-                return self
-                    .target_goal
-                    .can_attack(mob, level, Some(hurt_by), &conditions);
+        if timestamp != self.timestamp
+            && let Some(hurt_by) = last_hurt_by_mob
+        {
+            let Some(hurt_by_entity) = level.get_entity(hurt_by) else {
+                return false;
+            };
+            if hurt_by_entity.get_type() == EntityType::PLAYER && level.universal_anger() {
+                return false;
             }
+            if self
+                .to_ignore_damage
+                .iter()
+                .any(|class| class(hurt_by_entity))
+            {
+                return false;
+            }
+            let conditions = self.hurt_by_targeting.clone();
+            return self
+                .target_goal
+                .can_attack(mob, level, Some(hurt_by), &conditions);
         }
         false
     }

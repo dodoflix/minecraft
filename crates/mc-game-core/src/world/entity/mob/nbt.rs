@@ -47,7 +47,7 @@ pub fn mob_add_additional_save_data(e: &dyn Entity, out: &mut CompoundTag) {
     }
     out.put_boolean("LeftHanded", m.is_left_handed());
     if let Some(table) = &m.loot_table {
-        out.put_string("DeathLootTable", &table.to_string());
+        out.put_string("DeathLootTable", table.to_string());
     }
     if m.loot_table_seed != 0 {
         out.put_long("DeathLootTableSeed", m.loot_table_seed);
@@ -97,7 +97,7 @@ pub fn mob_read_additional_save_data(e: &mut dyn Entity, input: &CompoundTag) {
     m.set_left_handed(input.get_boolean_or("LeftHanded", false));
     m.loot_table = input
         .get_string("DeathLootTable")
-        .and_then(|s| Identifier::try_parse(s));
+        .and_then(Identifier::try_parse);
     m.loot_table_seed = input.get_long_or("DeathLootTableSeed", 0);
     m.set_no_ai(input.get_boolean_or("NoAI", false));
 }

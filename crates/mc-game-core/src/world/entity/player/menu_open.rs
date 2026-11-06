@@ -119,7 +119,7 @@ impl ServerPlayer {
 
     /// `initMenu(menu)` + `containerMenu = menu`.
     fn init_menu(&mut self, level: &mut ServerLevel, menu: Box<dyn AbstractContainerMenu>) {
-        let mut menus = std::mem::replace(&mut self.player.menus, PlayerMenus::new());
+        let mut menus = std::mem::take(&mut self.player.menus);
         match self.connection.clone() {
             Some(connection) => {
                 let init = ServerPlayerMenuInit { connection };
@@ -162,7 +162,7 @@ impl ServerPlayer {
     /// The tail of `Player.remove(reason)`: `inventoryMenu.removed(this)`, then `doCloseContainer()` if a container
     /// is open (releases chest open counters, returns carried items, ...).
     pub fn close_menus_on_removal(&mut self, level: &mut ServerLevel) {
-        let mut menus = std::mem::replace(&mut self.player.menus, PlayerMenus::new());
+        let mut menus = std::mem::take(&mut self.player.menus);
         {
             let mut ctx = PlayerCtx {
                 player: self,

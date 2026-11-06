@@ -10,7 +10,7 @@ use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
 use crate::world::entity::living::{self, LivingEntityData};
 use crate::world::entity::living_entity::equipment::on_equip_item;
 use crate::world::entity::{Entity, EntityId, RemovalReason, ServerPlayer};
-use crate::world::item::{InteractionHand, InteractionResult, ItemStack, ItemStackExt};
+use crate::world::item::{InteractionHand, InteractionResult, ItemStack};
 use linkme::distributed_slice;
 use mc_core::phys::Vec3;
 use mc_data::enums::{Pose, PushReaction};
@@ -294,12 +294,10 @@ impl ArmorStand {
         hand: InteractionHand,
     ) -> bool {
         let item_stack = self.living.equipment.get(slot).clone();
-        if !item_stack.is_empty()
-            && (self.disabled_slots & (1 << slot.get_id() + DISABLE_TAKING_OFFSET)) != 0
-        {
-            false
-        } else if item_stack.is_empty()
-            && (self.disabled_slots & (1 << slot.get_id() + DISABLE_PUTTING_OFFSET)) != 0
+        if (!item_stack.is_empty()
+            && (self.disabled_slots & (1 << (slot.get_id() + DISABLE_TAKING_OFFSET))) != 0)
+            || (item_stack.is_empty()
+                && (self.disabled_slots & (1 << (slot.get_id() + DISABLE_PUTTING_OFFSET))) != 0)
         {
             false
         } else if player.has_infinite_materials()

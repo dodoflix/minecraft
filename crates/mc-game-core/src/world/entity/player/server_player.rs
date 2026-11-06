@@ -519,10 +519,10 @@ impl Entity for ServerPlayer {
     /// `ServerPlayer.resetFallDistance()`: the `FALL_FROM_HEIGHT` trigger is queued (callers have no level to award with) and
     /// fires in `tick_server_player`.
     fn reset_fall_distance(&mut self) {
-        if self.get_health() > 0.0 {
-            if let Some(start) = self.starting_to_fall_position {
-                self.pending_fall_from_height.push(start);
-            }
+        if self.get_health() > 0.0
+            && let Some(start) = self.starting_to_fall_position
+        {
+            self.pending_fall_from_height.push(start);
         }
         self.starting_to_fall_position = None;
         self.base_mut().fall_distance = 0.0;

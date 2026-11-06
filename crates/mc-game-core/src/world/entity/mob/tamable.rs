@@ -94,9 +94,9 @@ pub fn get_root_owner(level: &ServerLevel, e: &dyn Entity) -> Option<EntityId> {
             return None;
         }
         seen.push(owner);
-        match owners_owner {
-            Some(o) => owner = o,
-            None => return None,
+        {
+            let o = owners_owner?;
+            owner = o
         }
     }
 }
@@ -244,17 +244,16 @@ pub fn die(
     level: &mut ServerLevel,
     source: &crate::world::damagesource::DamageSource,
 ) {
-    if level.show_death_messages() {
-        if let Some(owner) =
+    if level.show_death_messages()
+        && let Some(owner) =
             get_owner(e, level).filter(|o| level.get_entity(*o).is_some_and(|o| o.is_player()))
-        {
-            let message = e
-                .living()
-                .expect("living")
-                .combat_tracker
-                .get_death_message(level, e);
-            level.with_player(owner, |_, p| p.send_system_message(message.clone()));
-        }
+    {
+        let message = e
+            .living()
+            .expect("living")
+            .combat_tracker
+            .get_death_message(level, e);
+        level.with_player(owner, |_, p| p.send_system_message(message.clone()));
     }
     crate::world::entity::living_entity::damage::die(e, level, source);
 }

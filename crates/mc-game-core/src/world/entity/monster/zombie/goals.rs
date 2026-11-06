@@ -9,6 +9,7 @@ use super::{Zombie, ZombieKind};
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
 use crate::world::entity::ai::goal::move_to_block::{self, MoveToBlock, MoveToBlockData};
+use crate::world::entity::ai::goal::target::EntityClass;
 use crate::world::entity::ai::goal::target::{
     HurtByTargetGoal, NearestAttackableTargetGoal, TargetType, class_of_type,
 };
@@ -20,7 +21,6 @@ use crate::world::entity::ai::goal::{
 use crate::world::entity::ai::targeting::TargetSelector;
 use crate::world::entity::mob::{self, neutral};
 use crate::world::level::LevelAccessor;
-use crate::world::level::block::state::BlockStateExt;
 use crate::world::level::{BlockGetter, LevelReader};
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
@@ -109,7 +109,7 @@ pub fn add_egg_goal(zombie: &mut Zombie) {
     );
 }
 
-fn alert_class(zombie: &Zombie) -> Arc<dyn Fn(&dyn Entity) -> bool + Send + Sync> {
+fn alert_class(zombie: &Zombie) -> EntityClass {
     match zombie.kind {
         // `getEntitiesOfClass(Zombie.class)` includes every subclass
         ZombieKind::Zombie => Arc::new(|e: &dyn Entity| e.as_zombie().is_some()),
@@ -214,7 +214,7 @@ pub fn add_behaviour_goals(zombie: &mut Zombie) {
         }
         _ => {
             // SpearUseGoal(2) pending
-            let can_break_doors: Arc<dyn Fn(&dyn Entity) -> bool + Send + Sync> =
+            let can_break_doors: EntityClass =
                 Arc::new(|e: &dyn Entity| e.as_zombie().is_some_and(|z| z.can_break_doors()));
             zombie
                 .mob

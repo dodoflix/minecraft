@@ -737,24 +737,23 @@ impl Entity for AbstractBoat {
                 if !self.base.is_silent()
                     && self.paddle_positions[i] % TWO_PI <= QUARTER_PI
                     && (self.paddle_positions[i] + PADDLE_SPEED) % TWO_PI >= QUARTER_PI
+                    && let Some(sound) = self.get_paddle_sound(level)
                 {
-                    if let Some(sound) = self.get_paddle_sound(level) {
-                        let view = self.get_view_vector(1.0);
-                        let dx = if i == 1 { -view.z } else { view.z };
-                        let dz = if i == 1 { view.x } else { -view.x };
-                        let pitch = 0.8 + 0.4 * self.base.random.next_float();
-                        let p = self.base.position();
-                        level.play_sound_at(
-                            None,
-                            p.x + dx,
-                            p.y,
-                            p.z + dz,
-                            sound,
-                            self.get_sound_source(),
-                            1.0,
-                            pitch,
-                        );
-                    }
+                    let view = self.get_view_vector(1.0);
+                    let dx = if i == 1 { -view.z } else { view.z };
+                    let dz = if i == 1 { view.x } else { -view.x };
+                    let pitch = 0.8 + 0.4 * self.base.random.next_float();
+                    let p = self.base.position();
+                    level.play_sound_at(
+                        None,
+                        p.x + dx,
+                        p.y,
+                        p.z + dz,
+                        sound,
+                        self.get_sound_source(),
+                        1.0,
+                        pitch,
+                    );
                 }
                 self.paddle_positions[i] += PADDLE_SPEED;
             } else {
@@ -1014,12 +1013,10 @@ impl Entity for AbstractBoat {
 
     /// `AbstractChestBoat.remove(reason)` (contents) and `AbstractBoat.remove(reason)` (leash) run before `setRemoved`.
     fn before_remove(&mut self, level: &mut ServerLevel, reason: RemovalReason) {
-        if reason.should_destroy() {
-            if self.chest.is_some() {
-                self.drop_chest_contents(level);
-            }
-            // SEAM(mobs): `if (isLeashed()) dropLeash()`
+        if reason.should_destroy() && self.chest.is_some() {
+            self.drop_chest_contents(level);
         }
+        // SEAM(mobs): `if (isLeashed()) dropLeash()`
     }
 
     fn add_additional_save_data(&self, out: &mut CompoundTag) {

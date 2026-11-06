@@ -5,9 +5,7 @@ use super::{EntityHitResult, HitResult, RAD_TO_DEG};
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
 use crate::world::entity::movement::collision_context;
-use crate::world::level::collision::{
-    BlockGetterExt, BlockHitResultExt, ClipBlock, ClipContext, ClipFluid,
-};
+use crate::world::level::collision::{BlockGetterExt, ClipBlock, ClipContext, ClipFluid};
 use mc_core::direction::Direction;
 use mc_core::phys::{AABB, BlockHitResult, Vec3};
 use mc_core::pos::BlockPos;
@@ -158,7 +156,6 @@ pub fn get_hit_entities_along(
     )
 }
 
-#[allow(clippy::too_many_arguments)]
 fn get_hit_entities_along_impl(
     level: &ServerLevel,
     source: &dyn Entity,
@@ -344,7 +341,6 @@ pub fn get_many_entity_hit_result(
 }
 
 /// `getManyEntityHitResult(.., entityMargin, clipType, includeFromEntity, projectSurfaceHitLocation)`.
-#[allow(clippy::too_many_arguments)]
 pub fn get_many_entity_hit_result_margin(
     level: &ServerLevel,
     source: &dyn Entity,
@@ -437,6 +433,3 @@ pub fn rotate_towards_movement(projectile: &mut dyn Entity, rotation_speed: f32)
         b.set_y_rot(y);
     }
 }
-
-#[allow(unused_imports)]
-use BlockHitResultExt as _;

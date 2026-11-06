@@ -3,7 +3,7 @@
 use super::ServerPlayer;
 use super::server_player::WardenSpawnTracker;
 use crate::server::level::ServerLevel;
-use crate::world::entity::{Entity, EntityId};
+use crate::world::entity::EntityId;
 use mc_core::math::mth;
 use mc_core::phys::{AABB, Vec3};
 use mc_core::pos::BlockPos;

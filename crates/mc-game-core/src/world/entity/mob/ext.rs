@@ -90,14 +90,15 @@ pub fn considers_entity_as_ally_default(
     e: &dyn Entity,
     other: &dyn Entity,
 ) -> bool {
-    if e.mob().and_then(|m| m.tamable.as_ref()).is_some() && super::tamable::is_tame(e) {
-        if let Some(owner_id) = super::tamable::get_root_owner(level, e) {
-            if owner_id == other.id() {
-                return true;
-            }
-            if let Some(owner) = level.get_entity(owner_id) {
-                return owner.considers_entity_as_ally(level, other);
-            }
+    if e.mob().and_then(|m| m.tamable.as_ref()).is_some()
+        && super::tamable::is_tame(e)
+        && let Some(owner_id) = super::tamable::get_root_owner(level, e)
+    {
+        if owner_id == other.id() {
+            return true;
+        }
+        if let Some(owner) = level.get_entity(owner_id) {
+            return owner.considers_entity_as_ally(level, other);
         }
     }
     let scoreboard = level.scoreboard();
@@ -142,17 +143,12 @@ pub fn get_visibility_percent(entity: &dyn Entity, targeting_entity: Option<&dyn
     if let Some(targeting) = targeting_entity {
         for slot in EquipmentSlot::VALUES {
             let item = entity.get_item_by_slot(slot);
-            if let Some(visibility) = item.get(&MOB_VISIBILITY) {
-                if let Some(equippable) = item.get(&EQUIPPABLE) {
-                    if slot == EquipmentSlot::from_protocol(equippable.slot)
-                        && entity_set_contains(
-                            &visibility.targeting_entity_types,
-                            targeting.get_type(),
-                        )
-                    {
-                        visibility_percent *= f64::from(visibility.visibility);
-                    }
-                }
+            if let Some(visibility) = item.get(&MOB_VISIBILITY)
+                && let Some(equippable) = item.get(&EQUIPPABLE)
+                && slot == EquipmentSlot::from_protocol(equippable.slot)
+                && entity_set_contains(&visibility.targeting_entity_types, targeting.get_type())
+            {
+                visibility_percent *= f64::from(visibility.visibility);
             }
         }
     }

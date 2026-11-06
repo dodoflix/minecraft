@@ -484,16 +484,14 @@ impl Entity for Zombie {
     }
 
     fn after_ride_tick(&mut self, level: &ServerLevel) {
-        if let ZombieKind::Drowned(_) = self.kind {
-            if let Some(vehicle) =
+        if let ZombieKind::Drowned(_) = self.kind
+            && let Some(vehicle) =
                 mob::navigation::controlled_vehicle(self, level).and_then(|v| level.get_entity(v))
-            {
-                if vehicle.mob().is_some_and(|m| m.kind.is_pathfinder()) {
-                    let body = vehicle.living().map(|l| l.y_body_rot);
-                    if let (Some(body), Some(l)) = (body, self.living_mut()) {
-                        l.y_body_rot = body;
-                    }
-                }
+            && vehicle.mob().is_some_and(|m| m.kind.is_pathfinder())
+        {
+            let body = vehicle.living().map(|l| l.y_body_rot);
+            if let (Some(body), Some(l)) = (body, self.living_mut()) {
+                l.y_body_rot = body;
             }
         }
     }
@@ -584,10 +582,10 @@ impl Entity for Zombie {
     }
 
     fn conversion_common_extra(&self, to: &mut dyn Entity) {
-        if self.can_break_doors {
-            if let Some(zombie) = to.as_zombie_mut() {
-                zombie.set_can_break_doors(true);
-            }
+        if self.can_break_doors
+            && let Some(zombie) = to.as_zombie_mut()
+        {
+            zombie.set_can_break_doors(true);
         }
     }
 

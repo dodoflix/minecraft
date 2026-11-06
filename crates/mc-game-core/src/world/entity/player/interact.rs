@@ -48,9 +48,7 @@ impl ServerPlayer {
                 self.get_item_in_hand(hand)
             };
             let result = level.with_entity(target, |level, entity| {
-                if entity.living().is_none() {
-                    return None;
-                }
+                entity.living()?;
                 Some((
                     crate::world::item::interact_living_entity(
                         level, &mut stack, self, entity, hand,

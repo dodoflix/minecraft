@@ -65,10 +65,10 @@ pub fn when_leashed_to(e: &mut dyn Entity, level: &mut ServerLevel, holder: Enti
     if let Some(h) = level.get_entity(holder) {
         let pos = h.block_position();
         let radius = e.leash_elastic_distance() as i32 - 1;
-        if e.mob().is_some_and(|m| m.kind.is_pathfinder()) {
-            if let Some(m) = e.mob_mut() {
-                m.set_home_to(pos, radius);
-            }
+        if e.mob().is_some_and(|m| m.kind.is_pathfinder())
+            && let Some(m) = e.mob_mut()
+        {
+            m.set_home_to(pos, radius);
         }
     }
     leashable::when_leashed_to(e, level, holder);

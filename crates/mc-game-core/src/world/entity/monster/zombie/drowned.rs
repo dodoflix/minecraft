@@ -74,10 +74,10 @@ pub fn is_searching_for_land(e: &dyn Entity) -> bool {
 
 /// `setSearchingForLand(searchingForLand)`.
 pub fn set_searching_for_land(e: &mut dyn Entity, searching_for_land: bool) {
-    if let Some(z) = e.as_zombie_mut() {
-        if let ZombieKind::Drowned(d) = &mut z.kind {
-            d.searching_for_land = searching_for_land;
-        }
+    if let Some(z) = e.as_zombie_mut()
+        && let ZombieKind::Drowned(d) = &mut z.kind
+    {
+        d.searching_for_land = searching_for_land;
     }
 }
 
@@ -156,28 +156,27 @@ pub fn finalize_spawn(
         && level.random().next_float() < ZOMBIE_NAUTILUS_JOCKEY_CHANCE
         && !zombie.is_baby()
         && !level.biome_is_tag(zombie.block_position(), "more_frequent_drowned_spawns")
-    {
-        if let Some(mut zombie_nautilus) = level.create_entity(
+        && let Some(mut zombie_nautilus) = level.create_entity(
             EntityType::ZOMBIE_NAUTILUS,
             EntitySpawnRequest {
                 reason: EntitySpawnReason::Jockey,
                 ignore_checks: false,
             },
-        ) {
-            if reason == EntitySpawnReason::Structure {
-                zombie_nautilus.set_persistence_required();
-            }
-            let (x, y, z, y_rot) = (
-                zombie.base().x(),
-                zombie.base().y(),
-                zombie.base().z(),
-                zombie.base().y_rot(),
-            );
-            zombie_nautilus.snap_to(x, y, z, y_rot, 0.0);
-            zombie_nautilus.finalize_spawn(level, difficulty, reason, None);
-            base::start_riding_fresh_vehicle(zombie, &mut *zombie_nautilus, false, false, level);
-            level.add_fresh_entity_with_passengers(zombie_nautilus);
+        )
+    {
+        if reason == EntitySpawnReason::Structure {
+            zombie_nautilus.set_persistence_required();
         }
+        let (x, y, z, y_rot) = (
+            zombie.base().x(),
+            zombie.base().y(),
+            zombie.base().z(),
+            zombie.base().y_rot(),
+        );
+        zombie_nautilus.snap_to(x, y, z, y_rot, 0.0);
+        zombie_nautilus.finalize_spawn(level, difficulty, reason, None);
+        base::start_riding_fresh_vehicle(zombie, &mut *zombie_nautilus, false, false, level);
+        level.add_fresh_entity_with_passengers(zombie_nautilus);
     }
     group_data
 }
@@ -231,7 +230,7 @@ pub fn travel_in_water(
     if zombie.is_under_water() && wants_to_swim(zombie, level) {
         zombie.move_relative(0.01, input);
         let movement = zombie.base().delta_movement();
-        let _ = zombie.r#move(level, MoverType::SelfMover, movement);
+        zombie.r#move(level, MoverType::SelfMover, movement);
         let scaled = zombie.base().delta_movement().scale(0.9);
         zombie.base_mut().set_delta_movement(scaled);
     } else {
@@ -370,7 +369,6 @@ impl Goal for DrownedSwimUpGoal {
             ) {
                 None => {
                     self.stuck = true;
-                    return;
                 }
                 Some(next) => {
                     navigation::move_to(mob, level, next.x, next.y, next.z, self.speed_modifier);

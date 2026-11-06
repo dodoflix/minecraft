@@ -7,7 +7,6 @@ use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
 use crate::world::entity::schedule::Activity;
 use crate::world::level::LevelAccessor as _;
-use mc_core::random::RandomSource;
 
 pub fn create() -> OneShot {
     BehaviorBuilder::point(

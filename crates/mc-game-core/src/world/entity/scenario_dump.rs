@@ -64,8 +64,12 @@ impl ScenarioDumpCtx<'_> {
 pub struct ScenarioDumpExtra {
     pub order: i32,
     pub applies: fn(&dyn Entity) -> bool,
-    pub fields: fn(&dyn Entity, &ServerLevel, &ScenarioDumpCtx<'_>) -> Vec<(String, String)>,
+    pub fields: ScenarioFieldsFn,
 }
+
+/// Renders an entity's extra scenario-dump fields as `(name, value)` pairs.
+pub type ScenarioFieldsFn =
+    fn(&dyn Entity, &ServerLevel, &ScenarioDumpCtx<'_>) -> Vec<(String, String)>;
 
 #[distributed_slice]
 pub static SCENARIO_DUMP_EXTRA: [ScenarioDumpExtra];
@@ -141,7 +145,7 @@ pub fn path_lines(name: &str, path: Option<&crate::world::level::pathfinder::Pat
         jf(p.get_dist_to_target())
     )];
     for i in 0..p.get_node_count() {
-        let n = p.get_node(i as usize);
+        let n = p.get_node(i);
         out.push(format!(
             "PN {name} {i} pos={},{},{} type={} malus={} walked={}",
             n.x,

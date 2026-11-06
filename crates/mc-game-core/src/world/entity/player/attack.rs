@@ -351,7 +351,6 @@ impl ServerPlayer {
     }
 
     /// `Player.attackVisualEffects(...)`.
-    #[allow(clippy::too_many_arguments)]
     fn attack_visual_effects(
         &self,
         level: &mut ServerLevel,

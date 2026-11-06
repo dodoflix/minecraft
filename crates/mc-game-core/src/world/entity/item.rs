@@ -9,8 +9,8 @@ use crate::server::level::ServerLevel;
 use crate::world::damagesource::DamageSource;
 use crate::world::entity::ServerPlayer;
 use crate::world::item::{ItemStack, ItemStackExt, load_item_stack};
+use crate::world::level::BlockGetter;
 use crate::world::level::block::BlockStateExt;
-use crate::world::level::{BlockGetter, LevelAccessor};
 use linkme::distributed_slice;
 use mc_core::direction::{Axis, Direction};
 use mc_core::math::mth;
@@ -197,10 +197,10 @@ impl ItemEntity {
         );
         for id in ids {
             level.with_entity(id, |_, other| {
-                if let Some(other) = other.as_any_mut().downcast_mut::<ItemEntity>() {
-                    if other.is_mergable() {
-                        self.try_to_merge(other);
-                    }
+                if let Some(other) = other.as_any_mut().downcast_mut::<ItemEntity>()
+                    && other.is_mergable()
+                {
+                    self.try_to_merge(other);
                 }
             });
             if self.is_removed() {
@@ -520,7 +520,7 @@ pub fn move_towards_closest_space(
     y: f64,
     z: f64,
 ) {
-    use crate::world::level::{BlockGetter, LevelAccessor};
+    use crate::world::level::BlockGetter;
     let pos = BlockPos::containing(x, y, z);
     let delta = Vec3::new(
         x - f64::from(pos.x()),

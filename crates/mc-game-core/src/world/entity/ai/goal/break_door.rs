@@ -60,9 +60,7 @@ impl BreakDoorGoal {
 
 impl Goal for BreakDoorGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        if !self.base.can_use(mob, level) {
-            false
-        } else if !level.mob_griefing() {
+        if !self.base.can_use(mob, level) || !level.mob_griefing() {
             false
         } else {
             self.is_valid_difficulty(level.difficulty()) && !self.base.is_open(level)

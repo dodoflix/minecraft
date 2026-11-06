@@ -13,7 +13,6 @@ use crate::world::level::collision::{
     BlockGetterExt, ClipBlock, ClipContext, ClipFluid, CollisionContext, CollisionGetter,
 };
 use crate::world::level::gameevent::GameEventContext;
-use crate::world::level::material::FluidStateExt;
 use mc_core::direction::Axis;
 use mc_core::math::mth;
 use mc_core::phys::shapes::{BooleanOp, Shapes, VoxelShape};
@@ -311,7 +310,7 @@ pub fn get_on_pos<L: MovementLevel>(entity: &dyn Entity, level: &L, offset: f32)
         let is_fence = block.is_in_tag("fences");
         if (offset <= 0.5 && is_fence)
             || block.is_in_tag("walls")
-            || block.data().classes.iter().any(|c| *c == "FenceGateBlock")
+            || block.data().classes.contains(&"FenceGateBlock")
         {
             support
         } else {

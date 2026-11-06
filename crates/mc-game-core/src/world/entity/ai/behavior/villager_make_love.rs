@@ -13,7 +13,6 @@ use crate::world::entity::ai::village::poi::{PoiTypeHolder, PoiTypes};
 use crate::world::entity::mob::ageable;
 use crate::world::entity::mob::navigation as nav;
 use crate::world::entity::npc::villager::{Villager, villager_mut};
-use crate::world::level::LevelAccessor as _;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::EntityType;

@@ -85,10 +85,10 @@ impl TargetingConditions {
         if self.selector.as_ref().is_some_and(|s| !s(target, level)) {
             return false;
         }
-        if let (Some(s), Some(source)) = (self.source_selector.as_ref(), targeter) {
-            if !s(source, target, level) {
-                return false;
-            }
+        if let (Some(s), Some(source)) = (self.source_selector.as_ref(), targeter)
+            && !s(source, target, level)
+        {
+            return false;
         }
         match targeter {
             None => {
@@ -122,12 +122,11 @@ impl TargetingConditions {
                         return false;
                     }
                 }
-                if self.check_line_of_sight {
-                    if let Some(mob) = targeter.mob() {
-                        if !mob.sensing.has_line_of_sight(level, targeter, target) {
-                            return false;
-                        }
-                    }
+                if self.check_line_of_sight
+                    && let Some(mob) = targeter.mob()
+                    && !mob.sensing.has_line_of_sight(level, targeter, target)
+                {
+                    return false;
                 }
             }
         }

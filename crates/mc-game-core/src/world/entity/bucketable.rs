@@ -9,6 +9,10 @@ use mc_protocol::components::{BUCKET_ENTITY_DATA, CUSTOM_NAME, CustomData};
 
 pub trait Bucketable {
     /// `fromBucket()`.
+    #[expect(
+        clippy::wrong_self_convention,
+        reason = "mirrors the vanilla accessor `Bucketable.fromBucket`"
+    )]
     fn from_bucket(&self) -> bool;
     /// `setFromBucket(fromBucket)`.
     fn set_from_bucket(&mut self, from_bucket: bool);
@@ -59,10 +63,10 @@ pub fn save_default_data_to_bucket_tag(entity: &dyn Entity, bucket: &mut ItemSta
 
 /// `Bucketable.loadDefaultDataFromBucketTag(entity, tag)`.
 pub fn load_default_data_from_bucket_tag(entity: &mut dyn Entity, tag: &CompoundTag) {
-    if let Some(v) = tag.get_boolean("NoAI") {
-        if let Some(mob) = entity.mob_mut() {
-            mob.set_no_ai(v);
-        }
+    if let Some(v) = tag.get_boolean("NoAI")
+        && let Some(mob) = entity.mob_mut()
+    {
+        mob.set_no_ai(v);
     }
     if let Some(v) = tag.get_boolean("Silent") {
         entity.base_mut().set_silent(v);
@@ -79,10 +83,10 @@ pub fn load_default_data_from_bucket_tag(entity: &mut dyn Entity, tag: &Compound
     if tag.get_boolean("PersistenceRequired") == Some(true) {
         entity.set_persistence_required();
     }
-    if let Some(v) = tag.get_float("Health") {
-        if let Some(living) = entity.living_mut() {
-            living.set_health(v);
-        }
+    if let Some(v) = tag.get_float("Health")
+        && let Some(living) = entity.living_mut()
+    {
+        living.set_health(v);
     }
 }
 

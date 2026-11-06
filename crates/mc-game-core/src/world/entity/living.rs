@@ -291,15 +291,14 @@ pub fn add_additional_save_data(
     }
     out.put("attributes", living.attributes.pack());
     out.put("Brain", Tag::Compound(living.brain.pack().to_nbt()));
-    if living.locator_bar_icon.has_data() {
-        if let Ok(tag) = mc_dfu::encode_nbt(
+    if living.locator_bar_icon.has_data()
+        && let Ok(tag) = mc_dfu::encode_nbt(
             &crate::world::waypoints::Icon::codec(),
             &living.locator_bar_icon,
         )
         .into_result()
-        {
-            out.put("locator_bar_icon", tag);
-        }
+    {
+        out.put("locator_bar_icon", tag);
     }
     if !living.active_effects.is_empty() {
         let mut list = ListTag::new();

@@ -110,10 +110,10 @@ impl MeleeAttackGoal {
     pub fn stop_impl(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         // `!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(target)` on `getTarget()` (already filtered by `asValidTarget`)
         if let Some(target) = tick::get_target_checked(mob, level).and_then(|t| level.get_entity(t))
+            && target.is_player()
+            && (target.is_spectator() || ext::is_creative_player(target))
         {
-            if target.is_player() && (target.is_spectator() || ext::is_creative_player(target)) {
-                mob.set_target(level, None);
-            }
+            mob.set_target(level, None);
         }
         mob.mob_mut().expect("mob").set_aggressive(false);
         navigation::stop(mob, level);

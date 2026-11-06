@@ -21,7 +21,6 @@ use crate::world::entity::spawn_placements;
 use crate::world::entity::{Entity, EntityId, ServerPlayer};
 use crate::world::item::ItemStack;
 use crate::world::level::block::BlockStateExt as _;
-use crate::world::level::server_level_accessor::ServerLevelAccessor as _;
 use crate::world::level::{BlockGetter as _, LevelReader as _};
 use mc_core::ident::Identifier;
 use mc_core::math::mth;
@@ -727,23 +726,22 @@ impl Raid {
                 .downcast_ref::<ServerPlayer>()
                 .and_then(|p| p.handle.as_ref())
                 .is_some_and(|h| players_in_raid.iter().any(|p| p.same_player(h)));
-            if dist_btwn <= f64::from(range) || in_raid {
-                if let Some(connection) = player
+            if (dist_btwn <= f64::from(range) || in_raid)
+                && let Some(connection) = player
                     .as_any()
                     .downcast_ref::<ServerPlayer>()
                     .and_then(|p| p.connection.as_ref())
-                {
-                    connection.send(&ClientboundSoundPacket::new(
-                        SoundEventHolder::Reference(SoundEvent::EVENT_RAID_HORN),
-                        SoundSource::Neutral,
-                        x3,
-                        player.base().y(),
-                        z3,
-                        64.0,
-                        1.0,
-                        seed,
-                    ));
-                }
+            {
+                connection.send(&ClientboundSoundPacket::new(
+                    SoundEventHolder::Reference(SoundEvent::EVENT_RAID_HORN),
+                    SoundSource::Neutral,
+                    x3,
+                    player.base().y(),
+                    z3,
+                    64.0,
+                    1.0,
+                    seed,
+                ));
             }
         }
     }
@@ -1200,6 +1198,10 @@ impl Raid {
     // ---- saved data (`Raid.MAP_CODEC`) -------------------------------------------------------------------------
 
     /// `Raid.MAP_CODEC` decode (the fields of the raid are the record's, flat in `map`).
+    #[expect(
+        clippy::result_large_err,
+        reason = "`DecodeResult` returns the partially decoded value as the error, like DFU's partial result"
+    )]
     pub fn decode(map: &CompoundTag) -> DecodeResult<Raid> {
         let started = codec::boolean(codec::field(map, "started")?)?;
         let active = codec::boolean(codec::field(map, "active")?)?;

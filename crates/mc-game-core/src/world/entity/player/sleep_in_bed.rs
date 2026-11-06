@@ -7,9 +7,9 @@ use crate::world::attribute::BedRule;
 use crate::world::entity::Entity;
 use crate::world::entity::living_entity::sleeping;
 use crate::world::entity::respawn::{RespawnConfig, respawn_data_of};
+use crate::world::level::BlockGetter;
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::block::impls::abstract_bed_block;
-use crate::world::level::{BlockGetter, LevelAccessor};
 use mc_core::direction::Direction;
 use mc_core::phys::{AABB, Vec3};
 use mc_core::pos::BlockPos;
@@ -83,6 +83,10 @@ const MONSTER_TYPES: [EntityType; 34] = [
 
 impl ServerPlayer {
     /// `ServerPlayer.startSleepInBed(bedBlock, bedBlockState, rule, pos)`.
+    #[expect(
+        clippy::result_large_err,
+        reason = "`BedSleepingProblem` carries the failure message like vanilla's; it is built once per sleep attempt"
+    )]
     pub fn start_sleep_in_bed(
         &mut self,
         level: &mut ServerLevel,

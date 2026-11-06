@@ -52,12 +52,11 @@ pub fn tick_death(entity: &mut dyn Entity, level: &mut ServerLevel) {
 /// `LivingEntity.baseTick()`.
 pub fn base_tick(entity: &mut dyn Entity, level: &mut ServerLevel) {
     lm(entity).swing_state.tick();
-    if entity.base().first_tick {
-        if let Some(bed) = l(entity).get_sleeping_pos() {
-            if !super::sleeping::set_pos_to_bed(entity, level, bed) {
-                super::sleeping::stop_sleeping(entity, level);
-            }
-        }
+    if entity.base().first_tick
+        && let Some(bed) = l(entity).get_sleeping_pos()
+        && !super::sleeping::set_pos_to_bed(entity, level, bed)
+    {
+        super::sleeping::stop_sleeping(entity, level);
     }
     {
         let id = entity.id();
@@ -110,13 +109,12 @@ pub fn base_tick(entity: &mut dyn Entity, level: &mut ServerLevel) {
                 let increased = entity.increase_air_supply(supply);
                 entity.base_mut().set_air_supply(increased);
             }
-            if let Some(vehicle_id) = entity.base().vehicle {
-                if level
+            if let Some(vehicle_id) = entity.base().vehicle
+                && level
                     .get_entity(vehicle_id)
-                    .is_some_and(|v| dismounts_underwater(v))
-                {
-                    level.stop_riding(entity);
-                }
+                    .is_some_and(dismounts_underwater)
+            {
+                level.stop_riding(entity);
             }
         } else if entity.base().get_air_supply() < entity.get_max_air_supply() {
             let supply = entity.base().get_air_supply();
@@ -151,23 +149,22 @@ pub fn base_tick(entity: &mut dyn Entity, level: &mut ServerLevel) {
     } else {
         lm(entity).last_hurt_by_player = None;
     }
-    if let Some(target) = l(entity).last_hurt_mob {
-        if !level.get_entity(target).is_some_and(|t| t.is_alive()) {
-            lm(entity).last_hurt_mob = None;
-        }
+    if let Some(target) = l(entity).last_hurt_mob
+        && !level.get_entity(target).is_some_and(|t| t.is_alive())
+    {
+        lm(entity).last_hurt_mob = None;
     }
-    if let Some(uuid) = l(entity).last_hurt_by_mob {
-        if let Some(hurt_by) = level
+    if let Some(uuid) = l(entity).last_hurt_by_mob
+        && let Some(hurt_by) = level
             .get_entity_by_uuid(uuid)
             .filter(|e| e.living().is_some())
-        {
-            let hurt_by_alive = hurt_by.is_alive();
-            let tick_count = entity.base().tick_count;
-            if !hurt_by_alive || tick_count - l(entity).last_hurt_by_mob_timestamp > 100 {
-                let living = lm(entity);
-                living.last_hurt_by_mob = None;
-                living.last_hurt_by_mob_timestamp = tick_count;
-            }
+    {
+        let hurt_by_alive = hurt_by.is_alive();
+        let tick_count = entity.base().tick_count;
+        if !hurt_by_alive || tick_count - l(entity).last_hurt_by_mob_timestamp > 100 {
+            let living = lm(entity);
+            living.last_hurt_by_mob = None;
+            living.last_hurt_by_mob_timestamp = tick_count;
         }
     }
     super::effects::tick_effects(entity, level);

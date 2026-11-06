@@ -65,7 +65,6 @@ pub fn random_teleport(
     false
 }
 
-#[allow(clippy::too_many_arguments)]
 fn check_position_and_teleport(
     entity: &mut dyn Entity,
     level: &mut ServerLevel,

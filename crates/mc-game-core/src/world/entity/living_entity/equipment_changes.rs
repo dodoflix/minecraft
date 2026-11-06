@@ -124,15 +124,16 @@ fn collect_equipment_changes(entity: &mut dyn Entity) -> Option<Vec<(EquipmentSl
     }
     if let Some(changed) = &changed {
         for (slot, current) in changed {
-            if !current.is_empty() && !current.is_broken() {
-                if let Some(living) = entity.living_mut() {
-                    for_each_modifier(current, *slot, |attribute, modifier| {
-                        if let Some(instance) = living.attributes.get_instance(attribute) {
-                            instance.remove_modifier(&modifier.id);
-                            instance.add_transient_modifier(modifier.clone());
-                        }
-                    });
-                }
+            if !current.is_empty()
+                && !current.is_broken()
+                && let Some(living) = entity.living_mut()
+            {
+                for_each_modifier(current, *slot, |attribute, modifier| {
+                    if let Some(instance) = living.attributes.get_instance(attribute) {
+                        instance.remove_modifier(&modifier.id);
+                        instance.add_transient_modifier(modifier.clone());
+                    }
+                });
             }
         }
     }

@@ -23,24 +23,23 @@ pub fn on_equip_item(
     }
     if !ItemStack::is_same_item_same_components(old, new) && !entity.base().first_tick {
         let equippable = new.get(&EQUIPPABLE);
-        if !entity.base().is_silent() {
-            if let Some(eq) = equippable {
-                if slot == EquipmentSlot::from_protocol(eq.slot) {
-                    let own = eq
-                        .equip_sound
-                        .name()
-                        .and_then(|n| SoundEvent::by_name(&n.to_string()));
-                    if let Some(sound) = entity.get_equip_sound_override(slot).or(own) {
-                        let seed = entity.base_mut().random.next_long();
-                        let p = entity.base().position();
-                        let source = if entity.is_player() {
-                            SoundSource::Players
-                        } else {
-                            SoundSource::Neutral
-                        };
-                        level.play_seeded_sound(None, p.x, p.y, p.z, sound, source, 1.0, 1.0, seed);
-                    }
-                }
+        if !entity.base().is_silent()
+            && let Some(eq) = equippable
+            && slot == EquipmentSlot::from_protocol(eq.slot)
+        {
+            let own = eq
+                .equip_sound
+                .name()
+                .and_then(|n| SoundEvent::by_name(&n.to_string()));
+            if let Some(sound) = entity.get_equip_sound_override(slot).or(own) {
+                let seed = entity.base_mut().random.next_long();
+                let p = entity.base().position();
+                let source = if entity.is_player() {
+                    SoundSource::Players
+                } else {
+                    SoundSource::Neutral
+                };
+                level.play_seeded_sound(None, p.x, p.y, p.z, sound, source, 1.0, 1.0, seed);
             }
         }
         if entity.does_emit_equip_event(slot) {

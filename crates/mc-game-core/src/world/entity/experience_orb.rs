@@ -7,7 +7,6 @@ use crate::define_accessor;
 use crate::server::level::ServerLevel;
 use crate::world::level::BlockGetter;
 use crate::world::level::LevelAccessor;
-use crate::world::level::block::BlockStateExt;
 use crate::world::level::collision::CollisionGetter;
 use crate::world::level::material::FluidStateExt;
 use linkme::distributed_slice;

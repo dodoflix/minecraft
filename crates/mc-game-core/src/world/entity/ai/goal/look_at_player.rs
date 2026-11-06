@@ -2,6 +2,7 @@
 
 use super::{Flag, Goal, GoalFlags};
 use crate::server::level::ServerLevel;
+use crate::world::entity::ai::goal::target::EntityClass;
 use crate::world::entity::ai::targeting::TargetingConditions;
 use crate::world::entity::mob::{self, ext, tick};
 use crate::world::entity::{Entity, EntityId};
@@ -14,7 +15,7 @@ pub const DEFAULT_PROBABILITY: f32 = 0.02;
 #[derive(Clone)]
 pub enum LookAtType {
     Player,
-    Class(Arc<dyn Fn(&dyn Entity) -> bool + Send + Sync>),
+    Class(EntityClass),
 }
 
 pub struct LookAtPlayerGoal {

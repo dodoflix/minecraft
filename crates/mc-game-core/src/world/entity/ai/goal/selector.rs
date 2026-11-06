@@ -202,10 +202,10 @@ impl GoalSelector {
             }
         }
         for slot in &mut self.locked_flags {
-            if let Some(id) = *slot {
-                if !self.available_goals.iter().any(|g| g.id == id && g.running) {
-                    *slot = None;
-                }
+            if let Some(id) = *slot
+                && !self.available_goals.iter().any(|g| g.id == id && g.running)
+            {
+                *slot = None;
             }
         }
         // goalUpdate
@@ -218,10 +218,10 @@ impl GoalSelector {
             {
                 let id = self.available_goals[i].id;
                 for flag in flags.iter() {
-                    if let Some(current) = self.locked_flags[flag as usize] {
-                        if let Some(c) = self.available_goals.iter().position(|g| g.id == current) {
-                            self.available_goals[c].stop(mob, level);
-                        }
+                    if let Some(current) = self.locked_flags[flag as usize]
+                        && let Some(c) = self.available_goals.iter().position(|g| g.id == current)
+                    {
+                        self.available_goals[c].stop(mob, level);
                     }
                     self.locked_flags[flag as usize] = Some(id);
                 }

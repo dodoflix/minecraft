@@ -320,10 +320,10 @@ impl Goal for CubeMobAttackGoal {
     }
 
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
-        if let Some(target) = mob::tick::get_target_checked(mob, level) {
-            if let Some(target) = level.get_entity(target) {
-                mob::ext::mob_look_at(mob, target, 10.0, 10.0);
-            }
+        if let Some(target) = mob::tick::get_target_checked(mob, level)
+            && let Some(target) = level.get_entity(target)
+        {
+            mob::ext::mob_look_at(mob, target, 10.0, 10.0);
         }
         if has_cube_move_control(mob) {
             let can_deal_damage = cube(mob).can_deal_damage();

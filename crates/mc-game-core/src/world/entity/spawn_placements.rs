@@ -271,7 +271,6 @@ impl SpawnPlacementTypeExt for SpawnPlacementType {
     ) -> bool {
         use crate::world::level::block::BlockStateExt as _;
         use crate::world::level::material::FluidStateExt as _;
-        use crate::world::level::{BlockGetter as _, LevelReader as _};
         match self {
             SpawnPlacementType::NoRestrictions => true,
             SpawnPlacementType::InWater => {
@@ -309,7 +308,6 @@ impl SpawnPlacementTypeExt for SpawnPlacementType {
         level: &dyn ServerLevelAccessor,
         candidate: BlockPos,
     ) -> BlockPos {
-        use crate::world::level::BlockGetter as _;
         use crate::world::level::block::BlockStateExt as _;
         match self {
             SpawnPlacementType::OnGround => {
@@ -334,7 +332,6 @@ fn is_valid_empty_spawn_block_at(
     pos: BlockPos,
     ty: EntityType,
 ) -> bool {
-    use crate::world::level::BlockGetter as _;
     let state = level.get_block_state(pos);
     natural_spawner::is_valid_empty_spawn_block(level, pos, state, state.get_fluid_state(), ty)
 }

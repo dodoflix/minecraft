@@ -9,12 +9,11 @@ use crate::world::entity::projectile::{
     EntityHitResult, HitResult, Projectile, ProjectileData, ProjectileDeflection,
 };
 use crate::world::entity::{Entity, EntityData, EntityId, entity};
-use crate::world::item::ItemStack;
 use crate::world::item::enchantment::actors::Actors;
+use crate::world::level::BlockGetter as _;
 use crate::world::level::explosion::{
     ExplosionDamageCalculator, ExplosionInteraction, ImmuneBlocks, SimpleExplosionDamageCalculator,
 };
-use crate::world::level::{BlockGetter as _, LevelReader as _};
 use linkme::distributed_slice;
 use mc_core::phys::{AABB, BlockHitResult, Vec3};
 use mc_data::{EntityType, ParticleType, SoundEvent};
@@ -296,8 +295,9 @@ impl WindCharge {
     /// `WindCharge(type, level)` (`accelerationPower = 0`).
     pub fn new(ty: EntityType, id: EntityId) -> Self {
         let base = EntityData::new(ty, id, entity::TOTAL_AIR_SUPPLY, |_| {});
-        let mut hurting = HurtingProjectileData::default();
-        hurting.acceleration_power = 0.0;
+        let hurting = HurtingProjectileData {
+            acceleration_power: 0.0,
+        };
         Self {
             base,
             projectile: ProjectileData::default(),
@@ -405,8 +405,9 @@ impl BreezeWindCharge {
     /// `BreezeWindCharge(type, level)`.
     pub fn new(ty: EntityType, id: EntityId) -> Self {
         let base = EntityData::new(ty, id, entity::TOTAL_AIR_SUPPLY, |_| {});
-        let mut hurting = HurtingProjectileData::default();
-        hurting.acceleration_power = 0.0;
+        let hurting = HurtingProjectileData {
+            acceleration_power: 0.0,
+        };
         Self {
             base,
             projectile: ProjectileData::default(),

@@ -136,13 +136,13 @@ impl PanicGoal {
         if !should_panic {
             return false;
         }
-        if mob.is_on_fire() {
-            if let Some(pos) = Self::look_for_water(level, mob, water_range) {
-                self.pos_x = f64::from(pos.x());
-                self.pos_y = f64::from(pos.y());
-                self.pos_z = f64::from(pos.z());
-                return true;
-            }
+        if mob.is_on_fire()
+            && let Some(pos) = Self::look_for_water(level, mob, water_range)
+        {
+            self.pos_x = f64::from(pos.x());
+            self.pos_y = f64::from(pos.y());
+            self.pos_z = f64::from(pos.z());
+            return true;
         }
         self.find_random_position(mob, level)
     }

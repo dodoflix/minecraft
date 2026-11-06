@@ -36,12 +36,12 @@ pub fn with_navigation<R>(
     level: &mut ServerLevel,
     f: impl FnOnce(&mut dyn PathNavigation, &mut dyn Entity, &mut ServerLevel) -> R,
 ) -> Option<R> {
-    if let Some(vehicle) = controlled_vehicle(mob, level) {
-        if level.get_entity(vehicle).is_some_and(|v| v.mob().is_some()) {
-            return level
-                .with_entity(vehicle, |level, v| with_own_navigation(v, level, f))
-                .flatten();
-        }
+    if let Some(vehicle) = controlled_vehicle(mob, level)
+        && level.get_entity(vehicle).is_some_and(|v| v.mob().is_some())
+    {
+        return level
+            .with_entity(vehicle, |level, v| with_own_navigation(v, level, f))
+            .flatten();
     }
     with_own_navigation(mob, level, f)
 }
@@ -52,10 +52,10 @@ pub fn with_navigation_ref<R>(
     level: &ServerLevel,
     f: impl FnOnce(&dyn PathNavigation) -> R,
 ) -> Option<R> {
-    if let Some(vehicle) = controlled_vehicle(mob, level).and_then(|id| level.get_entity(id)) {
-        if let Some(m) = vehicle.mob() {
-            return m.navigation.as_deref().map(f);
-        }
+    if let Some(vehicle) = controlled_vehicle(mob, level).and_then(|id| level.get_entity(id))
+        && let Some(m) = vehicle.mob()
+    {
+        return m.navigation.as_deref().map(f);
     }
     mob.mob()?.navigation.as_deref().map(f)
 }
