@@ -74,7 +74,6 @@ impl Style {
     pub const NO_SHADOW: i32 = 0;
 
     /// Used by the codec (`Style.create`).
-    #[allow(clippy::too_many_arguments)]
     pub(crate) fn create(
         color: Option<TextColor>,
         shadow_color: Option<i32>,
