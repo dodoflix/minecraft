@@ -66,7 +66,8 @@ The tree meets this rule. Two cases needed work:
   integration tests of package `mc-server`. They live in `crates/mc-server/tests/oracle`, which builds the binary
   itself. There is no `MC_SERVER_BIN` variable for tests.
 - Tests that read a vanilla-generated world get it from `mc_testkit::worldref()`. The first call starts the vanilla
-  server once (seed 12345, spawn area, clean stop) and leaves the world in `run/servers/worldref`; later calls and
+  server once (seed 12345, 7x7 chunks force-loaded in each dimension, 30 s of game time, clean stop) and leaves the
+  world in `run/servers/worldref`; later calls and
   other test processes reuse it. Delete that directory to regenerate it. Because generating it spawns a JVM, these
   tests are T2.
 
@@ -94,6 +95,9 @@ crate can use it as a dev-dependency.
 - Each server runs in its own temporary directory (or one the test passes with `.dir(..)`), never in `run/servers/<name>`.
 - A missing `java`, `ref/server.jar` or `MC_ACCEPT_EULA=1` makes `start()` return an error that names the fix; tests
   `expect` it and fail.
+- At most two tests of one process run servers at the same time, whatever `--test-threads` says: a test takes a
+  permit with its first server and keeps it until its last server is dropped (`MC_TESTKIT_TESTS=<n>` changes the
+  limit). Without it, a default `cargo test --test oracle` would start one JVM per core.
 
 ## 4. Layout
 
