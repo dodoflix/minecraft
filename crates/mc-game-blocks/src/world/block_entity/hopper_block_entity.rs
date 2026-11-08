@@ -146,7 +146,11 @@ impl BlockEntity for HopperBlockEntity {
         push_items_tick(level, pos, state, self);
     }
 
-    fn unpack_loot_table(&mut self, level: &ServerLevel, player: Option<&dyn Entity>) {
+    fn unpack_loot_table(
+        &mut self,
+        level: &mut ServerLevel,
+        player: Option<&mut mc_game_core::world::entity::ServerPlayer>,
+    ) {
         let pos = self.base.pos;
         let mut loot = std::mem::take(&mut self.loot);
         unpack_loot_table(level, pos, &mut loot, self, player);
@@ -714,7 +718,11 @@ pub fn with_container<R>(
         ContainerTarget::BlockEntity(pos) => level.with_block_entity(*pos, |level, be| {
             be.unpack_loot_table(level, None);
             let container = be.as_container_mut()?;
-            Some(f(level, container))
+            let result = f(level, container);
+            if be.container_pending() {
+                be.container_accessed(level);
+            }
+            Some(result)
         })?,
         ContainerTarget::DoubleChest(first, second) => {
             let mut a = level.take_block_entity(*first)?;

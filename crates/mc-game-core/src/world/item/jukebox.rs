@@ -42,7 +42,10 @@ pub fn jukebox_song_from_stack(stack: &ItemStack) -> Option<Holder<JukeboxSong>>
 }
 
 /// `holder.value()` of a song holder.
-fn song_value(registries: &RegistryAccess, song: &Holder<JukeboxSong>) -> Option<JukeboxSong> {
+pub fn jukebox_song_value(
+    registries: &RegistryAccess,
+    song: &Holder<JukeboxSong>,
+) -> Option<JukeboxSong> {
     match song {
         Holder::Reference(id) => registries
             .get::<JukeboxSong>(keys::JUKEBOX_SONG, id)
@@ -86,7 +89,9 @@ impl JukeboxSongPlayer {
 
     /// `getSong()`.
     pub fn get_song(&self, registries: &RegistryAccess) -> Option<JukeboxSong> {
-        self.song.as_ref().and_then(|s| song_value(registries, s))
+        self.song
+            .as_ref()
+            .and_then(|s| jukebox_song_value(registries, s))
     }
 
     pub fn get_ticks_since_song_started(&self) -> i64 {
@@ -100,7 +105,7 @@ impl JukeboxSongPlayer {
         song: Holder<JukeboxSong>,
         ticks_since_song_started: i64,
     ) {
-        if song_value(registries, &song)
+        if jukebox_song_value(registries, &song)
             .is_some_and(|v| !has_finished(&v, ticks_since_song_started))
         {
             self.song = Some(song);
@@ -146,7 +151,7 @@ impl JukeboxSongPlayer {
         let Some(song) = self.song.as_ref() else {
             return false;
         };
-        let finished = match song_value(&level.registries, song) {
+        let finished = match jukebox_song_value(&level.registries, song) {
             Some(value) => has_finished(&value, self.ticks_since_song_started),
             None => return false,
         };

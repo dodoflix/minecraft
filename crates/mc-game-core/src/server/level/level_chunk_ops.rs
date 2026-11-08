@@ -196,10 +196,15 @@ impl ServerLevel {
             if taken.removed {
                 block_entity.set_removed();
             } else {
-                if let Some(state) = taken.new_state {
+                let new_state = taken.new_state;
+                if let Some(state) = new_state {
                     block_entity.set_block_state(state);
                 }
                 self.put_back_block_entity(pos, block_entity);
+                if new_state.is_some() {
+                    // `LevelChunk.setBlockState` re-binds the ticker to the new state (a jukebox ticks while it has a record)
+                    self.update_block_entity_ticker(pos);
+                }
             }
         }
         crate::world::block_entity::deferred::leave(self);

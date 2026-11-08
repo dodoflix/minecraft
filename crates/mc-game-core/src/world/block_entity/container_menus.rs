@@ -75,10 +75,7 @@ impl MenuProvider for BlockEntityMenuProvider {
             player.with_server_player(&mut |level, sp| {
                 for pos in [Some(first), second].into_iter().flatten() {
                     level.with_block_entity(pos, |level, be| {
-                        be.unpack_loot_table(
-                            &*level,
-                            Some(&*sp as &dyn crate::world::entity::Entity),
-                        )
+                        be.unpack_loot_table(level, Some(&mut *sp))
                     });
                 }
             });

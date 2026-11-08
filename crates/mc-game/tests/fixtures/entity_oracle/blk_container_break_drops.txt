@@ -1,0 +1,306 @@
+# chest destroyed
+DESTROY true
+EV level_event r=64.0 ex=0 type=2001 pos=2,-60,0 data=5544 global=0
+# barrel destroyed
+DESTROY true
+EV level_event r=64.0 ex=0 type=2001 pos=3,-60,0 data=24108 global=0
+# shulker box destroyed (the contents stay in the dropped box)
+DESTROY true
+EV level_event r=64.0 ex=0 type=2001 pos=4,-60,0 data=16849 global=0
+# hopper destroyed
+DESTROY true
+EV level_event r=64.0 ex=0 type=2001 pos=5,-60,0 data=13080 global=0
+# dispenser destroyed
+DESTROY true
+EV level_event r=64.0 ex=0 type=2001 pos=6,-60,0 data=674 global=0
+# named dispenser destroyed (custom_name is copied to the dropped item)
+DESTROY true
+EV level_event r=64.0 ex=0 type=2001 pos=7,-60,0 data=674 global=0
+# dropper destroyed
+DESTROY true
+EV level_event r=64.0 ex=0 type=2001 pos=8,-60,0 data=13210 global=0
+# brewing stand destroyed
+DESTROY true
+EV level_event r=64.0 ex=0 type=2001 pos=9,-60,0 data=11193 global=0
+# lectern with a book destroyed
+DESTROY true
+EV level_event r=64.0 ex=0 type=2001 pos=10,-60,0 data=24142 global=0
+# jukebox with a disc destroyed
+DESTROY true
+EV level_event r=64.0 ex=0 type=2001 pos=11,-60,0 data=8633 global=0
+EV level_event r=64.0 ex=0 type=1011 pos=11,-60,0 data=0 global=0
+# empty jukebox destroyed
+DESTROY true
+EV level_event r=64.0 ex=0 type=2001 pos=12,-60,0 data=8634 global=0
+EV level_event r=64.0 ex=0 type=1011 pos=12,-60,0 data=0 global=0
+# chest with an unrolled loot table destroyed
+DESTROY true
+EV level_event r=64.0 ex=0 type=2001 pos=13,-60,0 data=5544 global=0
+E item#1 minecraft:item pos=2.615707848118841,-59.67859278171605,0.6429651653254516 delta=0.040744542604736395,0.2,0.09883109551679667 rot=237.77933,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:chest*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=2.60427761906054,-59.44013087672543,0.851543364148319 delta=0.0865703390432737,0.19578669341487687,-0.011870362546600661 rot=84.457184,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*7 age=0 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=2.6820331224925202,-59.77727084267761,0.18419051237010442 delta=-0.01331253289211647,0.11924821361062175,-0.06414686132023024 rot=93.60931,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*9 age=0 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=3.6140505927836295,-59.54202145158222,0.6934674574357618 delta=0.01984037304001414,0.2,-0.0417852011757363 rot=152.45499,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:barrel*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=3.562548683470638,-59.66678608377172,0.7744846647772609 delta=-0.018435685754660203,0.2348412621403678,-0.016747456671794413 rot=245.64009,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*11 age=0 pickup=0 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=3.562548683470638,-59.66678608377172,0.7744846647772609 delta=-0.031574628290246286,0.18629843103796484,0.030846398592797974 rot=58.245586,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=3.4999040508693398,-59.39576996789308,0.3567938555479232 delta=0.04418800270716112,0.20327371421005722,0.09108797071547874 rot=149.01077,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*23 age=0 pickup=0 health=5 owner=- thrower=-
+E item#8 minecraft:item pos=3.4999040508693398,-59.39576996789308,0.3567938555479232 delta=0.008177945879922287,0.21817319988057182,-0.024714592599534197 rot=285.0805,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*17 age=0 pickup=0 health=5 owner=- thrower=-
+E item#9 minecraft:item pos=4.614005801897527,-59.45724925367187,0.4786161728661467 delta=-0.05825156477088585,0.2,-0.08688533519216463 rot=213.0247,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:shulker_box*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#10 minecraft:item pos=5.614140174555835,-59.71156584740294,0.6231700340255724 delta=-0.024414262181265703,0.2,-0.01649462119840213 rot=29.213655,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:hopper*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#11 minecraft:item pos=5.139128629559564,-59.47210200886036,0.5151364905935936 delta=-0.012759685431819575,0.2172099315109275,0.02697292919964082 rot=209.07198,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=0 pickup=0 health=5 owner=- thrower=-
+E item#12 minecraft:item pos=5.256305963917279,-59.29849530488444,0.5442514691461391 delta=0.06458537107017702,0.1445649136944971,-0.021278710555045304 rot=167.08662,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*19 age=0 pickup=0 health=5 owner=- thrower=-
+E item#13 minecraft:item pos=5.256305963917279,-59.29849530488444,0.5442514691461391 delta=0.009466059250623625,0.19448357031938301,0.0024772641070051555 rot=322.14285,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*22 age=0 pickup=0 health=5 owner=- thrower=-
+E item#14 minecraft:item pos=5.256305963917279,-59.29849530488444,0.5442514691461391 delta=-0.010712682240431353,0.2957893435974265,-0.013442169428254155 rot=117.63478,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*14 age=0 pickup=0 health=5 owner=- thrower=-
+E item#15 minecraft:item pos=5.256305963917279,-59.29849530488444,0.5442514691461391 delta=0.07176256913912446,0.2877440764449313,0.023536580509002678 rot=223.58932,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*9 age=0 pickup=0 health=5 owner=- thrower=-
+E item#16 minecraft:item pos=5.339907562303633,-59.7231845237219,0.8348243100232497 delta=-0.046265179996829095,0.22197717199499176,0.010632442458635732 rot=330.1532,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#17 minecraft:item pos=6.614095376219152,-59.62679364949258,0.40831874945595736 delta=0.059034761477124886,0.2,-0.08534559013471493 rot=39.593803,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dispenser*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#18 minecraft:item pos=6.725838667690972,-59.944444046316036,0.26981057768542716 delta=-0.015597687304638277,0.16860059682564765,0.0051127379753215865 rot=188.78273,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:arrow*16 age=0 pickup=0 health=5 owner=- thrower=-
+E item#19 minecraft:item pos=6.3493150245133645,-59.33583512956938,0.813758105530273 delta=0.010170927724887216,0.28259622015239566,0.005250369119712808 rot=284.1869,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*3 age=0 pickup=0 health=5 owner=- thrower=-
+E item#20 minecraft:item pos=7.61387142923922,-59.70293265994079,0.3340623042561405 delta=0.03127214959447375,0.2,0.09628428439872791 rot=175.35352,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dispenser*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#21 minecraft:item pos=7.2838137442830035,-59.725724731967745,0.3707215821707943 delta=-0.06591781420291667,0.2291830015554057,-0.002106794641137443 rot=244.66298,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:arrow*5 age=0 pickup=0 health=5 owner=- thrower=-
+E item#22 minecraft:item pos=8.613826638353117,-59.61816046203044,0.6192110122359449 delta=0.06419759011518139,0.2,0.0022869125880724817 rot=124.284294,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dropper*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#23 minecraft:item pos=8.576838093997576,-59.322508961686374,0.5811133603063896 delta=-0.01646286806191275,0.23902398716096432,-0.05857703930191718 rot=350.67316,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*25 age=0 pickup=0 health=5 owner=- thrower=-
+E item#24 minecraft:item pos=8.576838093997576,-59.322508961686374,0.5811133603063896 delta=-0.07365166767774009,0.20573598494260995,0.010370992974108493 rot=323.04324,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*18 age=0 pickup=0 health=5 owner=- thrower=-
+E item#25 minecraft:item pos=8.576838093997576,-59.322508961686374,0.5811133603063896 delta=0.026062047057036155,0.21157890935002444,0.10508531850698748 rot=215.79526,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*11 age=0 pickup=0 health=5 owner=- thrower=-
+E item#26 minecraft:item pos=8.576838093997576,-59.322508961686374,0.5811133603063896 delta=0.043102154881190666,0.21562981094499223,0.012160339766887867 rot=320.39795,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*10 age=0 pickup=0 health=5 owner=- thrower=-
+E item#27 minecraft:item pos=8.469934393284145,-59.34472205813669,0.8558955061661515 delta=0.04208908355683031,0.21604773402884964,-0.05807386602850363 rot=10.967123,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*18 age=0 pickup=0 health=5 owner=- thrower=-
+E item#28 minecraft:item pos=8.469934393284145,-59.34472205813669,0.8558955061661515 delta=0.07362239427711895,0.24877266839003706,0.02278280428803077 rot=103.40688,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*15 age=0 pickup=0 health=5 owner=- thrower=-
+E item#29 minecraft:item pos=8.469934393284145,-59.34472205813669,0.8558955061661515 delta=-0.042483796489266125,0.19327643412348636,-0.03602299962439148 rot=221.30171,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*14 age=0 pickup=0 health=5 owner=- thrower=-
+E item#30 minecraft:item pos=8.469934393284145,-59.34472205813669,0.8558955061661515 delta=0.012292266502802312,0.2141470202434577,-0.030676310206160434 rot=309.85916,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*17 age=0 pickup=0 health=5 owner=- thrower=-
+E item#31 minecraft:item pos=9.613961011011424,-59.87247704831093,0.2637648808459511 delta=-0.04423248571993832,0.2,0.04032486651810402 rot=130.86221,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:brewing_stand*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#32 minecraft:item pos=9.235968748557584,-59.86147014750721,0.28383285013679904 delta=-0.024111686077500825,0.13762258934701135,0.054382164302363895 rot=232.72766,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glass_bottle*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#33 minecraft:item pos=9.666854546967437,-59.50206592379831,0.5717649642273107 delta=-0.005476939282266293,0.220590093803511,0.018476274710899396 rot=40.245365,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:nether_wart*2 age=0 pickup=0 health=5 owner=- thrower=-
+E item#34 minecraft:item pos=9.27604550993563,-59.83049877158526,0.8010624424382364 delta=0.08955584332165831,0.2178031803624386,-0.04317705665261921 rot=79.454735,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:blaze_powder*5 age=0 pickup=0 health=5 owner=- thrower=-
+E item#35 minecraft:item pos=10.613916212674742,-59.78770485040057,0.5489135962763361 delta=0.03957587350766206,0.2,0.05310339261744715 rot=322.06546,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:lectern*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#36 minecraft:item pos=10.5,-59.0,0.25 delta=-0.047411343818059164,0.2,0.06906944728820344 rot=77.33989,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:book*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#37 minecraft:item pos=11.61369226569481,-59.86384386084878,0.47465714362593864 delta=-0.022235374688590742,0.2,0.05532638031094855 rot=43.168694,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:jukebox*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#38 minecraft:item pos=11.739146947860718,-58.99,0.7040022909641266 delta=-0.07940188539860747,0.2,-0.086267622726318 rot=162.08447,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:music_disc_13*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#39 minecraft:item pos=12.613647474808706,-59.77907166293842,0.25980585160574304 delta=0.002144178286274695,0.2,-0.06887370706279955 rot=193.71147,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:jukebox*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#40 minecraft:item pos=13.613781840016435,-59.53338826412008,0.4043597276663299 delta=0.03793636947351969,0.2,-0.052480276979188646 rot=144.61748,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:chest*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#41 minecraft:item pos=13.40158718505848,-59.79318894791872,0.472740181856865 delta=0.09718840881797994,0.1436280180604389,0.07439284087424979 rot=195.13672,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_planks*3 age=0 pickup=0 health=5 owner=- thrower=-
+E item#42 minecraft:item pos=13.18521445892779,-59.932001623297,0.7239627431864094 delta=-0.052816875541557715,0.13610341577263746,0.026740725882959237 rot=8.891781,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_planks*5 age=0 pickup=0 health=5 owner=- thrower=-
+E item#43 minecraft:item pos=13.450995813855458,-59.65701217916642,0.47951631565689157 delta=0.05875206481999265,0.11546632437586303,0.014915733874334949 rot=131.29958,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_planks*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#44 minecraft:item pos=13.383621277428494,-59.278134842972975,0.48599599100564406 delta=-0.02433649539299249,0.24416329355492533,0.023039830963258113 rot=296.83752,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bread*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#45 minecraft:item pos=13.778860946973628,-59.395701793003504,0.587160263776384 delta=-0.0036557372850344323,0.21385660298252268,-0.0569645077640977 rot=197.03194,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_planks*2 age=0 pickup=0 health=5 owner=- thrower=-
+E item#46 minecraft:item pos=13.617855261701113,-59.25080875821513,0.7220217246760914 delta=-0.042617283230043275,0.1989467852403739,-0.019663414371968703 rot=335.98602,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:mangrove_log*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#47 minecraft:item pos=13.609673984098233,-59.42215077166954,0.7955320968638067 delta=-0.03804104056800465,0.19929186869251342,0.09161132435873112 rot=107.58665,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_planks*2 age=0 pickup=0 health=5 owner=- thrower=-
+E item#48 minecraft:item pos=13.815386590711507,-59.79188537598784,0.7265151699835152 delta=0.0397708358523214,0.26595761730583134,0.07644429030338347 rot=13.870647,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bread*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#49 minecraft:item pos=13.194710112706092,-59.9797275998384,0.5362510187988137 delta=-0.0666509731868816,0.2194049256554599,-9.330812907936623E-4 rot=153.34987,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:mangrove_log*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#50 minecraft:item pos=13.35231789389799,-59.58010774943834,0.44338789606369355 delta=0.050606594866391096,0.16478312494929287,0.02801124630385966 rot=107.52051,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:mangrove_log*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#51 minecraft:item pos=13.802718821062681,-59.37472529917773,0.3201452233746004 delta=-0.02165165946506104,0.14150072774028036,0.08753680913916037 rot=47.008804,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_planks*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#52 minecraft:item pos=13.8719807027507,-59.27315728359207,0.5037839683670163 delta=0.024981709534552077,0.24586220481450463,0.01903418781295212 rot=240.25595,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#53 minecraft:item pos=13.86373440400989,-59.90315498512157,0.5855711181491918 delta=-0.051589759375853396,0.19913701747140045,0.0074965193661220226 rot=140.16576,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:wooden_axe*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#54 minecraft:item pos=13.419321334062804,-59.656589684289315,0.2638537744305106 delta=0.058682508980030024,0.24258579910502598,0.050158132194694525 rot=319.1525,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:wooden_pickaxe*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#55 minecraft:item pos=13.486673791003497,-59.57043618767036,0.512975203279322 delta=0.1048839912163835,0.19155219440890245,0.04088361127570792 rot=279.09244,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_planks*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#56 minecraft:item pos=13.136255692143992,-59.78031696779645,0.37258023662756945 delta=-0.035841383210610096,0.19683400949449475,0.015100745832845113 rot=157.69774,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bread*1 age=0 pickup=0 health=5 owner=- thrower=-
+# survival player digs the chest
+DIG Steve ticks=9 broken=true
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=2,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=2,-60,10 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=2,-60,10 data=5544 global=0
+I Steve 0 minecraft:netherite_axe*1/dmg=1
+I Steve 1 minecraft:iron_ingot*7
+I Steve 2 minecraft:gold_ingot*9
+I Steve 3 minecraft:chest*1
+# survival player digs the barrel
+DIG Steve ticks=9 broken=true
+EV level_event r=64.0 ex=0 type=2019 pos=3,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=3,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=3,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=3,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=3,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=3,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=3,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=3,-60,10 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=3,-60,10 data=24108 global=0
+I Steve 0 minecraft:netherite_axe*1/dmg=1
+I Steve 1 minecraft:iron_ingot*7
+I Steve 2 minecraft:gold_ingot*9
+I Steve 3 minecraft:chest*1
+I Steve 4 minecraft:coal*12
+I Steve 5 minecraft:barrel*1
+# survival player digs the shulker box (loot table keeps the contents)
+DIG Steve ticks=7 broken=true
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,10 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=4,-60,10 data=16849 global=0
+I Steve 0 minecraft:netherite_pickaxe*1/dmg=1
+I Steve 1 minecraft:iron_ingot*7
+I Steve 2 minecraft:gold_ingot*9
+I Steve 3 minecraft:chest*1
+I Steve 4 minecraft:coal*12
+I Steve 5 minecraft:barrel*1
+I Steve 6 minecraft:shulker_box*1
+# survival player digs the hopper
+DIG Steve ticks=10 broken=true
+EV level_event r=64.0 ex=0 type=2019 pos=5,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=5,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=5,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=5,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=5,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=5,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=5,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=5,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=5,-60,10 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=5,-60,10 data=13080 global=0
+I Steve 0 minecraft:netherite_pickaxe*1/dmg=1
+I Steve 1 minecraft:iron_ingot*7
+I Steve 2 minecraft:gold_ingot*9
+I Steve 3 minecraft:chest*1
+I Steve 4 minecraft:coal*12
+I Steve 5 minecraft:barrel*1
+I Steve 6 minecraft:shulker_box*1
+I Steve 7 minecraft:diamond*3
+I Steve 8 minecraft:apple*2
+I Steve 9 minecraft:hopper*1
+# survival player digs the dispenser
+DIG Steve ticks=12 broken=true
+EV level_event r=64.0 ex=0 type=2019 pos=6,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=6,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=6,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=6,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=6,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=6,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=6,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=6,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=6,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=6,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=6,-60,10 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=6,-60,10 data=674 global=0
+I Steve 0 minecraft:netherite_pickaxe*1/dmg=1
+I Steve 1 minecraft:iron_ingot*7
+I Steve 2 minecraft:gold_ingot*9
+I Steve 3 minecraft:chest*1
+I Steve 4 minecraft:coal*12
+I Steve 5 minecraft:barrel*1
+I Steve 6 minecraft:shulker_box*1
+I Steve 7 minecraft:diamond*3
+I Steve 8 minecraft:apple*2
+I Steve 9 minecraft:hopper*1
+I Steve 10 minecraft:arrow*16
+I Steve 11 minecraft:dispenser*1
+# survival player digs the dropper
+DIG Steve ticks=12 broken=true
+EV level_event r=64.0 ex=0 type=2019 pos=7,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=7,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=7,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=7,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=7,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=7,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=7,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=7,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=7,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=7,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=7,-60,10 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=7,-60,10 data=13210 global=0
+I Steve 0 minecraft:netherite_pickaxe*1/dmg=1
+I Steve 1 minecraft:iron_ingot*7
+I Steve 2 minecraft:gold_ingot*9
+I Steve 3 minecraft:chest*1
+I Steve 4 minecraft:coal*12
+I Steve 5 minecraft:barrel*1
+I Steve 6 minecraft:shulker_box*1
+I Steve 7 minecraft:diamond*3
+I Steve 8 minecraft:apple*2
+I Steve 9 minecraft:hopper*1
+I Steve 10 minecraft:arrow*16
+I Steve 11 minecraft:dispenser*1
+I Steve 12 minecraft:cobblestone*20
+I Steve 13 minecraft:dropper*1
+# survival player digs the brewing stand
+DIG Steve ticks=2 broken=true
+EV level_event r=64.0 ex=0 type=2019 pos=8,-60,10 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=8,-60,10 data=11193 global=0
+I Steve 0 minecraft:netherite_pickaxe*1/dmg=1
+I Steve 1 minecraft:iron_ingot*7
+I Steve 2 minecraft:gold_ingot*9
+I Steve 3 minecraft:chest*1
+I Steve 4 minecraft:coal*12
+I Steve 5 minecraft:barrel*1
+I Steve 6 minecraft:shulker_box*1
+I Steve 7 minecraft:diamond*3
+I Steve 8 minecraft:apple*2
+I Steve 9 minecraft:hopper*1
+I Steve 10 minecraft:arrow*16
+I Steve 11 minecraft:dispenser*1
+I Steve 12 minecraft:cobblestone*20
+I Steve 13 minecraft:dropper*1
+I Steve 14 minecraft:nether_wart*2
+I Steve 15 minecraft:brewing_stand*1
+# survival player digs the lectern
+DIG Steve ticks=9 broken=true
+EV level_event r=64.0 ex=0 type=2019 pos=9,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=9,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=9,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=9,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=9,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=9,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=9,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=9,-60,10 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=9,-60,10 data=24142 global=0
+I Steve 0 minecraft:netherite_axe*1/dmg=1
+I Steve 1 minecraft:iron_ingot*7
+I Steve 2 minecraft:gold_ingot*9
+I Steve 3 minecraft:chest*1
+I Steve 4 minecraft:coal*12
+I Steve 5 minecraft:barrel*1
+I Steve 6 minecraft:shulker_box*1
+I Steve 7 minecraft:diamond*3
+I Steve 8 minecraft:apple*2
+I Steve 9 minecraft:hopper*1
+I Steve 10 minecraft:arrow*16
+I Steve 11 minecraft:dispenser*1
+I Steve 12 minecraft:cobblestone*20
+I Steve 13 minecraft:dropper*1
+I Steve 14 minecraft:nether_wart*2
+I Steve 15 minecraft:brewing_stand*1
+I Steve 16 minecraft:book*1
+I Steve 17 minecraft:lectern*1
+# survival player digs the jukebox
+DIG Steve ticks=7 broken=true
+EV level_event r=64.0 ex=0 type=2019 pos=10,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=10,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=10,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=10,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=10,-60,10 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=10,-60,10 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=10,-60,10 data=8633 global=0
+EV level_event r=64.0 ex=0 type=1011 pos=10,-60,10 data=0 global=0
+I Steve 0 minecraft:netherite_axe*1/dmg=1
+I Steve 1 minecraft:iron_ingot*7
+I Steve 2 minecraft:gold_ingot*9
+I Steve 3 minecraft:chest*1
+I Steve 4 minecraft:coal*12
+I Steve 5 minecraft:barrel*1
+I Steve 6 minecraft:shulker_box*1
+I Steve 7 minecraft:diamond*3
+I Steve 8 minecraft:apple*2
+I Steve 9 minecraft:hopper*1
+I Steve 10 minecraft:arrow*16
+I Steve 11 minecraft:dispenser*1
+I Steve 12 minecraft:cobblestone*20
+I Steve 13 minecraft:dropper*1
+I Steve 14 minecraft:nether_wart*2
+I Steve 15 minecraft:brewing_stand*1
+I Steve 16 minecraft:book*1
+I Steve 17 minecraft:lectern*1
+I Steve 18 minecraft:music_disc_13*1
+I Steve 19 minecraft:jukebox*1
+# creative player digs the shulker box (the box drops with its contents)
+DIG Alex ticks=0 broken=true
+EV level_event r=64.0 ex=1 type=2001 pos=4,-60,14 data=16849 global=0
+I Alex 0 minecraft:shulker_box*1
+# creative player digs the chest
+DIG Alex ticks=0 broken=true
+EV level_event r=64.0 ex=1 type=2001 pos=2,-60,14 data=5544 global=0
+I Alex 0 minecraft:shulker_box*1
+I Alex 1 minecraft:iron_ingot*7

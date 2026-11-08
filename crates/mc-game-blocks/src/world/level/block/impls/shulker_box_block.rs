@@ -125,10 +125,7 @@ impl BlockBehaviour for ShulkerBoxBlock {
                 level.add_fresh_entity(Box::new(entity));
             } else {
                 level.with_block_entity(pos, |level, be| {
-                    be.unpack_loot_table(
-                        &*level,
-                        Some(&*player as &dyn mc_game_core::world::entity::Entity),
-                    )
+                    be.unpack_loot_table(level, Some(&mut *player))
                 });
             }
         }

@@ -70,7 +70,7 @@ pub use instrument::get_instrument;
 pub use interaction::*;
 pub use item_use_helpers::{may_interact, may_use_item_at, player_play_sound};
 pub use item_utils::*;
-pub use jukebox::{JukeboxSongPlayer, jukebox_song_from_stack};
+pub use jukebox::{JukeboxSongPlayer, jukebox_song_from_stack, jukebox_song_value};
 pub use mc_protocol::components::{HashedStack, ItemStack};
 pub use projectile_item::{DispenseConfig, PositionFunction, ProjectileItem, projectile_item};
 pub use registry_hook::{set_item_registries, with_item_registries};

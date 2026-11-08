@@ -256,11 +256,14 @@ pub fn apply_container_writes(
     if writes.is_empty() {
         return;
     }
-    level.with_block_entity(pos, |_, block_entity| {
+    level.with_block_entity(pos, |level, block_entity| {
         if let Some(container) = block_entity.as_container_mut() {
             for (slot, stack) in writes {
                 container.set_item(slot, stack);
             }
+        }
+        if block_entity.container_pending() {
+            block_entity.container_accessed(level);
         }
     });
 }

@@ -352,8 +352,8 @@ pub trait BlockEntity: Any {
     /// out of its chunk while this runs. See `randomizable_container`.
     fn unpack_loot_table(
         &mut self,
-        _level: &crate::server::level::ServerLevel,
-        _player: Option<&dyn crate::world::entity::Entity>,
+        _level: &mut crate::server::level::ServerLevel,
+        _player: Option<&mut crate::world::entity::ServerPlayer>,
     ) {
     }
     /// `RandomizableContainer.getLootTable() != null`: an unpack would roll a table.

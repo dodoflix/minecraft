@@ -1,6 +1,6 @@
 //! The `ServerGamePacketListenerImpl` handlers of the technical blocks' editor screens: `handleSetCommandBlock`,
-//! `handleSetStructureBlock`, `handleSetJigsawBlock`, `handleJigsawGenerate`. (`handleSetCommandMinecart` belongs to the
-//! command minecart entity, `handleSetTestBlock` / `handleTestInstanceBlockAction` to the test blocks.)
+//! `handleSetStructureBlock`, `handleSetJigsawBlock`. (`handleJigsawGenerate` needs the structure placement and lives in
+//! `mc-game-levelgen`; `handleSetCommandMinecart` belongs to the command minecart entity, `handleSetTestBlock` / `handleTestInstanceBlockAction` to the test blocks.)
 
 use super::PlayCtx;
 use super::hooks::{PLAY_HANDLERS, PlayHandlers};

@@ -1,0 +1,54 @@
+# RandomizableContainer.unpackLootTable(player) fires CriteriaTriggers.GENERATE_LOOT before the fill when a player opens the
+# container (advancement nether/loot_bastion: any bastion chest table, announced in chat); the hopper/dropper/comparator reads and
+# a spectator (cannot open a lootable container) fire nothing and leave the table unrolled.
+level flat
+preload 2
+spawn_player Steve survival 0.5 -60 2.5 180 0
+spawn_player Alex survival 4.5 -60 2.5 180 0
+spawn_player Bob survival 8.5 -60 2.5 180 0
+spawn_player Cy survival 12.5 -60 2.5 180 0
+spawn_player Dee survival 16.5 -60 2.5 180 0
+spawn_player Eve spectator 20.5 -60 2.5 180 0
+dump packets:Steve:none
+note Steve opens a chest with a bastion table
+block 0 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+be_nbt 0 -60 0 {LootTable:"minecraft:chests/bastion_other",LootTableSeed:11L}
+use_on Steve 0 -60 0 south main
+tick 2
+dump be:0,-60,0 inventory:Steve packets:Steve:system_chat
+note Alex opens a barrel with another bastion table
+block 4 -60 0 minecraft:barrel[facing=up,open=false]
+be_nbt 4 -60 0 {LootTable:"minecraft:chests/bastion_treasure",LootTableSeed:12L}
+use_on Alex 4 -60 0 south main
+tick 2
+dump be:4,-60,0 packets:Steve:system_chat
+note Bob opens a shulker box
+block 8 -60 0 minecraft:shulker_box[facing=up]
+be_nbt 8 -60 0 {LootTable:"minecraft:chests/bastion_bridge",LootTableSeed:13L}
+use_on Bob 8 -60 0 south main
+tick 8
+dump be:8,-60,0 packets:Steve:system_chat
+note Cy opens a hopper
+block 12 -60 0 minecraft:hopper[enabled=false,facing=down]
+be_nbt 12 -60 0 {LootTable:"minecraft:chests/bastion_hoglin_stable",LootTableSeed:14L}
+use_on Cy 12 -60 0 south main
+tick 2
+dump be:12,-60,0 packets:Steve:system_chat
+note Dee opens a dispenser
+block 16 -60 0 minecraft:dispenser[facing=up,triggered=false]
+be_nbt 16 -60 0 {LootTable:"minecraft:chests/bastion_other",LootTableSeed:15L}
+use_on Dee 16 -60 0 south main
+tick 2
+dump be:16,-60,0 packets:Steve:system_chat
+note a spectator cannot open a lootable chest: nothing is rolled
+block 20 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+be_nbt 20 -60 0 {LootTable:"minecraft:chests/bastion_other",LootTableSeed:16L}
+use_on Eve 20 -60 0 south main
+tick 2
+dump be:20,-60,0 packets:Steve:system_chat
+note a hopper under a lootable chest rolls it without a player: no trigger
+block 24 -61 0 minecraft:hopper[enabled=true,facing=down]
+block 24 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+be_nbt 24 -60 0 {LootTable:"minecraft:chests/bastion_other",LootTableSeed:17L}
+tick 12
+dump be:24,-60,0 be:24,-61,0 packets:Steve:system_chat

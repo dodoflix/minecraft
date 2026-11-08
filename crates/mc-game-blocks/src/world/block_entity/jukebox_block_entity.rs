@@ -1,104 +1,45 @@
-//! `JukeboxBlockEntity` + `JukeboxSongPlayer` (`world.item`): one record, song playing state, ticking while `has_record`.
+//! `JukeboxBlockEntity`: one record (a one-slot `Container`, vanilla `ContainerSingleItem`), the item-side
+//! [`JukeboxSongPlayer`], ticking while `has_record`.
 
 use linkme::distributed_slice;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_data::block::BlockState;
-use mc_data::{BlockEntityType, GameEvent, ParticleType, props};
+use mc_data::{BlockEntityType, GameEvent, props};
 use mc_game_core::block_entity_base;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::block_entity::{
-    BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration,
+    BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, changed_log,
+    deferred,
 };
+use mc_game_core::world::container::{Container, empty_stack, still_valid_block_entity};
 use mc_game_core::world::entity::item::ItemEntity;
-use mc_game_core::world::item::ItemStack;
+use mc_game_core::world::inventory::MenuPlayer;
+use mc_game_core::world::item::{
+    ItemStack, JukeboxSongPlayer, jukebox_song_from_stack, jukebox_song_value,
+};
 use mc_game_core::world::level::LevelAccessor;
 use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_nbt::CompoundTag;
 use mc_protocol::components::{Holder, JUKEBOX_PLAYABLE, JukeboxSong};
-use mc_protocol::packets::play::ParticleOptions;
+use std::any::Any;
 
-/// Resolved `JukeboxSong` values of the data pack entry (`length_in_seconds`, `comparator_output`, registry id).
-#[derive(Clone, Copy, Debug)]
-pub struct SongInfo {
-    pub id: i32,
-    pub length_in_ticks: i32,
-    pub comparator_output: i32,
-}
-
-impl SongInfo {
-    /// `hasFinished(ticksElapsed)`.
-    pub fn has_finished(&self, ticks_elapsed: i64) -> bool {
-        ticks_elapsed >= i64::from(self.length_in_ticks) + 20
-    }
-}
-
-/// `JukeboxSong.fromStack(stack)` resolved through the level's `jukebox_song` registry.
-pub fn song_of_stack(
-    level: &ServerLevel,
-    stack: &ItemStack,
-) -> Option<(Holder<JukeboxSong>, SongInfo)> {
-    let holder = stack.get(&JUKEBOX_PLAYABLE)?.song.clone();
-    let info = song_info(level, &holder)?;
-    Some((holder, info))
-}
-
-pub fn song_info(level: &ServerLevel, holder: &Holder<JukeboxSong>) -> Option<SongInfo> {
-    match holder {
-        Holder::Reference(name) => {
-            let registry = level.registries.registry("jukebox_song")?;
-            let entry = registry.entry_by_key(name)?;
-            let seconds = entry.json.get("length_in_seconds")?.as_f64()? as f32;
-            let comparator_output = entry.json.get("comparator_output")?.as_i64()? as i32;
-            Some(SongInfo {
-                id: registry.id_of(name)? as i32,
-                length_in_ticks: mc_core::math::mth::ceil_f32(seconds * 20.0),
-                comparator_output,
-            })
-        }
-        Holder::Direct(song) => Some(SongInfo {
-            id: -1,
-            length_in_ticks: mc_core::math::mth::ceil_f32(song.length_in_seconds * 20.0),
-            comparator_output: song.comparator_output,
-        }),
-    }
-}
-
-/// `JukeboxSongPlayer`.
-#[derive(Clone, Debug, Default)]
-pub struct JukeboxSongPlayer {
-    ticks_since_song_started: i64,
-    song: Option<(Holder<JukeboxSong>, SongInfo)>,
-}
-
-impl JukeboxSongPlayer {
-    pub fn is_playing(&self) -> bool {
-        self.song.is_some()
-    }
-
-    pub fn get_ticks_since_song_started(&self) -> i64 {
-        self.ticks_since_song_started
-    }
-
-    /// `setSongWithoutPlaying(song, ticksSinceSongStarted)`.
-    pub fn set_song_without_playing(
-        &mut self,
-        song: (Holder<JukeboxSong>, SongInfo),
-        ticks_since_song_started: i64,
-    ) {
-        if !song.1.has_finished(ticks_since_song_started) {
-            self.song = Some(song);
-            self.ticks_since_song_started = ticks_since_song_started;
-        }
-    }
+/// `JukeboxSong.fromStack(stack)` resolved against the level's `jukebox_song` registry.
+fn resolve_song(level: &ServerLevel, stack: &ItemStack) -> Option<Holder<JukeboxSong>> {
+    jukebox_song_from_stack(stack)
+        .filter(|song| jukebox_song_value(&level.registries, song).is_some())
 }
 
 pub struct JukeboxBlockEntity {
     base: BlockEntityData,
     item: ItemStack,
     song_player: JukeboxSongPlayer,
-    /// `ticks_since_song_started` was loaded; the song is resolved against the registry on the first tick.
-    pending_song: bool,
+    /// The song and `ticks_since_song_started` that were loaded: the registry is not reachable while loading, so the song is
+    /// set (`setSongWithoutPlaying`) on the first access with a level (and written back as is meanwhile).
+    pending_song: Option<(Holder<JukeboxSong>, i64)>,
+    /// The stacks the `Container` view stored since the last [`BlockEntity::container_accessed`]: vanilla's `setTheItem`
+    /// effects need the level, which `Container::set_item` has not.
+    pending_items: Vec<ItemStack>,
 }
 
 impl JukeboxBlockEntity {
@@ -106,13 +47,22 @@ impl JukeboxBlockEntity {
         Self {
             base: BlockEntityData::new(BlockEntityType::JUKEBOX, pos, state),
             item: ItemStack::empty(),
-            song_player: JukeboxSongPlayer::default(),
-            pending_song: false,
+            song_player: JukeboxSongPlayer::new(pos),
+            pending_song: None,
+            pending_items: Vec::new(),
         }
     }
 
     pub fn is_playing(&self) -> bool {
-        self.song_player.is_playing()
+        self.song_player.is_playing() || self.pending_song.is_some()
+    }
+
+    /// Sets the loaded song once a level is at hand (vanilla does it in `loadAdditional`).
+    fn resolve_pending_song(&mut self, level: &ServerLevel) {
+        if let Some((song, ticks)) = self.pending_song.take() {
+            self.song_player
+                .set_song_without_playing(&level.registries, song, ticks);
+        }
     }
 
     pub fn get_the_item(&self) -> &ItemStack {
@@ -121,37 +71,18 @@ impl JukeboxBlockEntity {
 
     /// `getComparatorOutput()`.
     pub fn comparator_output(&self, level: &ServerLevel) -> i32 {
-        song_of_stack(level, &self.item).map_or(0, |(_, info)| info.comparator_output)
+        resolve_song(level, &self.item)
+            .and_then(|song| jukebox_song_value(&level.registries, &song))
+            .map_or(0, |song| song.comparator_output)
     }
 
-    /// `onSongChanged()`.
+    /// `onSongChanged()`: the neighbours read this block entity's signal, so it runs once the entity is back in its chunk.
     fn on_song_changed(&self, level: &mut ServerLevel) {
-        level.update_neighbors_at(self.base.pos, self.base.block_state.block());
-        mc_game_core::world::block_entity::set_changed(level, self.base.pos, self.base.block_state);
-    }
-
-    /// `JukeboxSongPlayer.play(level, song)`.
-    fn play(&mut self, level: &mut ServerLevel, song: (Holder<JukeboxSong>, SongInfo)) {
-        let id = song.1.id;
-        self.song_player.song = Some(song);
-        self.song_player.ticks_since_song_started = 0;
-        level.level_event(None, 1010, self.base.pos, id);
-        self.on_song_changed(level);
-    }
-
-    /// `JukeboxSongPlayer.stop(level, blockState)`.
-    fn stop(&mut self, level: &mut ServerLevel, state: BlockState) {
-        if self.song_player.song.is_some() {
-            self.song_player.song = None;
-            self.song_player.ticks_since_song_started = 0;
-            level.game_event_at_block(
-                GameEvent::JUKEBOX_STOP_PLAY,
-                self.base.pos,
-                &GameEventContext::of_state(Some(state)),
-            );
-            level.level_event(None, 1011, self.base.pos, 0);
-            self.on_song_changed(level);
-        }
+        let (pos, state) = (self.base.pos, self.base.block_state);
+        deferred::run_or_push(level, move |level| {
+            level.update_neighbors_at(pos, state.block());
+            mc_game_core::world::block_entity::set_changed(level, pos, state);
+        });
     }
 
     /// `notifyItemChangedInJukebox(wasInserted)`.
@@ -173,16 +104,23 @@ impl JukeboxBlockEntity {
 
     /// `setTheItem(itemStack)`.
     pub fn set_the_item(&mut self, level: &mut ServerLevel, stack: ItemStack) {
+        self.resolve_pending_song(level);
         self.item = stack;
+        self.item_changed(level);
+    }
+
+    /// What `setTheItem` does once `item` is stored: block state, game event and song start/stop.
+    fn item_changed(&mut self, level: &mut ServerLevel) {
         let inserted = !self.item.is_empty();
-        let maybe_song = song_of_stack(level, &self.item);
+        let maybe_song = resolve_song(level, &self.item);
         self.notify_item_changed(level, inserted);
-        match maybe_song {
-            Some(song) if inserted => self.play(level, song),
-            _ => {
-                let state = self.base.block_state;
-                self.stop(level, state);
-            }
+        let state = self.base.block_state;
+        let song_changed = match maybe_song {
+            Some(song) if inserted => self.song_player.play(level, song),
+            _ => self.song_player.stop(level, Some(state)),
+        };
+        if song_changed {
+            self.on_song_changed(level);
         }
     }
 
@@ -214,15 +152,14 @@ impl BlockEntity for JukeboxBlockEntity {
             .unwrap_or_else(ItemStack::empty);
         if !self.item.is_empty() && !ItemStack::is_same_item_same_components(&new_item, &self.item)
         {
-            self.song_player.song = None;
-            self.song_player.ticks_since_song_started = 0;
+            // vanilla stops the player with the level; there is none here, so the song just ends
+            self.song_player = JukeboxSongPlayer::new(self.base.pos);
         }
         self.item = new_item;
-        if let Some(ticks) = tag.get_long("ticks_since_song_started") {
-            // resolved lazily: the registry is not reachable here, the song is re-resolved by `server_tick`
-            self.song_player.ticks_since_song_started = ticks;
-            self.pending_song = true;
-        }
+        self.pending_song = tag
+            .get_long("ticks_since_song_started")
+            .zip(jukebox_song_from_stack(&self.item))
+            .map(|(ticks, song)| (song, ticks));
     }
 
     fn save_additional(&self, tag: &mut CompoundTag) {
@@ -231,11 +168,13 @@ impl BlockEntity for JukeboxBlockEntity {
         {
             tag.put("RecordItem", t);
         }
-        if self.song_player.song.is_some() {
+        if self.song_player.is_playing() {
             tag.put_long(
                 "ticks_since_song_started",
-                self.song_player.ticks_since_song_started,
+                self.song_player.get_ticks_since_song_started(),
             );
+        } else if let Some((_, ticks)) = &self.pending_song {
+            tag.put_long("ticks_since_song_started", *ticks);
         }
     }
 
@@ -244,44 +183,10 @@ impl BlockEntity for JukeboxBlockEntity {
     }
 
     fn server_tick(&mut self, level: &mut ServerLevel) {
+        self.resolve_pending_song(level);
         let state = self.base.block_state;
-        let pos = self.base.pos;
-        if self.pending_song {
-            self.pending_song = false;
-            if let Some(song) = song_of_stack(level, &self.item) {
-                let ticks = self.song_player.ticks_since_song_started;
-                self.song_player.ticks_since_song_started = 0;
-                self.song_player.set_song_without_playing(song, ticks);
-            }
-        }
-        let Some((_, info)) = self.song_player.song.clone() else {
-            return;
-        };
-        if info.has_finished(self.song_player.ticks_since_song_started) {
-            self.stop(level, state);
-        } else {
-            if self.song_player.ticks_since_song_started % 20 == 0 {
-                level.game_event_at_block(
-                    GameEvent::JUKEBOX_PLAY,
-                    pos,
-                    &GameEventContext::of_state(Some(state)),
-                );
-                let p = Vec3::at_bottom_center_of(&pos).add_xyz(0.0, f64::from(1.2f32), 0.0);
-                let random_color =
-                    f64::from(LevelAccessor::random(level).next_int_bounded(4) as f32 / 24.0);
-                level.send_particles(
-                    ParticleOptions::Simple(ParticleType::NOTE),
-                    p.x,
-                    p.y,
-                    p.z,
-                    0,
-                    random_color,
-                    0.0,
-                    0.0,
-                    1.0,
-                );
-            }
-            self.song_player.ticks_since_song_started += 1;
+        if self.song_player.tick(level, Some(state)) {
+            self.on_song_changed(level);
         }
     }
 
@@ -294,6 +199,29 @@ impl BlockEntity for JukeboxBlockEntity {
         self.pop_out_the_item(level);
     }
 
+    fn as_container(&self) -> Option<&dyn Container> {
+        Some(self)
+    }
+
+    fn as_container_mut(&mut self) -> Option<&mut dyn Container> {
+        Some(self)
+    }
+
+    fn container_pending(&self) -> bool {
+        !self.pending_items.is_empty()
+    }
+
+    /// The `setTheItem` effects of every `Container::set_item` / `remove_item` since the last call, in order.
+    fn container_accessed(&mut self, level: &mut ServerLevel) {
+        self.resolve_pending_song(level);
+        let latest = std::mem::take(&mut self.item);
+        for stack in std::mem::take(&mut self.pending_items) {
+            self.item = stack;
+            self.item_changed(level);
+        }
+        self.item = latest;
+    }
+
     fn set_removed_in_level(&mut self, level: &mut ServerLevel) {
         self.set_removed();
         level.game_event_at_block(
@@ -302,6 +230,64 @@ impl BlockEntity for JukeboxBlockEntity {
             &GameEventContext::of_state(Some(self.base.block_state)),
         );
         level.level_event(None, 1011, self.base.pos, 0);
+    }
+}
+
+/// `ContainerSingleItem.BlockContainerSingleItem`: the jukebox is a one-slot `Container` for hoppers, droppers,
+/// `/item replace` and `/loot insert`. Vanilla's `setTheItem` effects run in [`BlockEntity::container_accessed`].
+impl Container for JukeboxBlockEntity {
+    fn as_any(&self) -> &dyn Any {
+        self
+    }
+    fn as_any_mut(&mut self) -> &mut dyn Any {
+        self
+    }
+    fn get_container_size(&self) -> usize {
+        1
+    }
+    fn is_empty(&self) -> bool {
+        self.item.is_empty()
+    }
+    fn get_item(&self, slot: usize) -> &ItemStack {
+        if slot == 0 { &self.item } else { empty_stack() }
+    }
+    fn get_item_mut(&mut self, slot: usize) -> Option<&mut ItemStack> {
+        (slot == 0).then_some(&mut self.item)
+    }
+    /// `splitTheItem(count)` (the whole item, whatever the count) then `setTheItem(EMPTY)`.
+    fn remove_item(&mut self, slot: usize, _count: i32) -> ItemStack {
+        if slot != 0 {
+            return ItemStack::empty();
+        }
+        self.pending_items.push(ItemStack::empty());
+        std::mem::take(&mut self.item)
+    }
+    fn remove_item_no_update(&mut self, slot: usize) -> ItemStack {
+        self.remove_item(slot, 1)
+    }
+    fn set_item(&mut self, slot: usize, stack: ItemStack) {
+        if slot == 0 {
+            self.item = stack.clone();
+            self.pending_items.push(stack);
+        }
+    }
+    fn clear_content(&mut self) {
+        self.remove_item(0, 1);
+    }
+    fn set_changed(&mut self) {
+        changed_log::push(self.base.pos);
+    }
+    fn still_valid(&self, player: &dyn MenuPlayer) -> bool {
+        still_valid_block_entity(self.base.pos, player)
+    }
+    fn get_max_stack_size(&self) -> i32 {
+        1
+    }
+    fn can_place_item(&self, slot: usize, stack: &ItemStack) -> bool {
+        stack.get(&JUKEBOX_PLAYABLE).is_some() && self.get_item(slot).is_empty()
+    }
+    fn can_take_item(&self, into: &dyn Container, _slot: usize, _stack: &ItemStack) -> bool {
+        into.has_any_matching(&ItemStack::is_empty)
     }
 }
 

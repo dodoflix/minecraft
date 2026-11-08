@@ -1,4 +1,4 @@
-//! `JigsawBlockEntity`: name / target / pool / joint / final state / priorities of a jigsaw block and its `generate`.
+//! `JigsawBlockEntity`: name / target / pool / joint / final state / priorities of a jigsaw block (`generate` is in `mc-game-levelgen`, which owns the placement).
 
 use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration};
 use crate::world::level::levelgen::structure::templatesystem::structure_template::{

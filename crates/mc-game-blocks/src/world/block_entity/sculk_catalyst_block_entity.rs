@@ -8,6 +8,7 @@ use mc_core::pos::BlockPos;
 use mc_data::block::BlockState;
 use mc_data::props;
 use mc_data::{BlockEntityType, GameEvent, SoundEvent};
+use mc_game_core::advancements::triggers::CriteriaTriggers;
 use mc_game_core::block_entity_base;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::block_entity::{
@@ -15,6 +16,7 @@ use mc_game_core::world::block_entity::{
 };
 use mc_game_core::world::entity::Entity;
 use mc_game_core::world::entity::living_entity::death::get_experience_reward;
+use mc_game_core::world::entity::mob::ext::get_last_damage_source;
 use mc_game_core::world::entity::player::ServerPlayer;
 use mc_game_core::world::level::LevelAccessor as _;
 use mc_game_core::world::level::block::sculk_spreader::SculkSpreader;
@@ -98,9 +100,7 @@ fn handle_game_event(
         .living()
         .is_some_and(|living| !living.skip_drop_experience)
     {
-        let last_damage_source = mob
-            .living()
-            .and_then(|living| living.last_damage_source.clone());
+        let last_damage_source = get_last_damage_source(level, &*mob, 40);
         let experience_would_drop =
             get_experience_reward(&mut *mob, level, last_damage_source.as_ref());
         if mob.should_drop_experience() && experience_would_drop > 0 {
@@ -127,16 +127,22 @@ fn handle_game_event(
 }
 
 /// `tryAwardItSpreadsAdvancement(level, mob)`.
-fn try_award_it_spreads_advancement(level: &ServerLevel, mob: &dyn Entity) {
-    let player = mob
+fn try_award_it_spreads_advancement(level: &mut ServerLevel, mob: &dyn Entity) {
+    let Some(player) = mob
         .living()
         .and_then(|living| living.last_hurt_by_mob)
         .and_then(|uuid| level.get_entity_by_uuid(uuid))
-        .filter(|e| e.as_any().is::<ServerPlayer>());
-    if let Some(_player) = player {
-        // Not implemented: vanilla fires `CriteriaTriggers.KILL_MOB_NEAR_SCULK_CATALYST` for `player` here (damage source:
-        // `mob.getLastDamageSource()`, else `damageSources().playerAttack(player)`).
-    }
+        .filter(|e| e.as_any().is::<ServerPlayer>())
+        .map(|e| e.id())
+    else {
+        return;
+    };
+    let damage_source = get_last_damage_source(level, mob, 40);
+    level.with_player(player, |level, player| {
+        let source =
+            damage_source.unwrap_or_else(|| level.damage_sources().player_attack(&*player));
+        CriteriaTriggers::KILL_MOB_NEAR_SCULK_CATALYST.trigger(level, player, mob, &source);
+    });
 }
 
 /// `CatalystListener.bloom(level, pos, state, random)`.

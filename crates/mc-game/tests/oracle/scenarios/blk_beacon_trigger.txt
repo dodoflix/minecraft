@@ -1,0 +1,26 @@
+# BeaconBlockEntity.tick: the activation (levels > 0 with a beam) fires CONSTRUCT_BEACON(levels) for every ServerPlayer in
+# AABB(x, y, z, x, y - 4, z).inflate(10, 5, 10) (advancements nether/create_beacon, nether/create_full_beacon; chat announcements).
+level flat
+preload 4
+spawn_player Steve survival 0.5 -60 6.5
+spawn_player Alex survival 40.5 -60 6.5
+spawn_player Far survival 0.5 -60 40.5
+dump packets:Steve:none
+note level 1 beacon at 0,-60,0 (Steve in range), level 4 beacon at 40,-60,0 (Alex in range), Far is out of range of both
+fill -1 -61 -1 1 -61 1 minecraft:iron_block
+block 0 -60 0 minecraft:beacon
+fill 39 -61 -1 41 -61 1 minecraft:iron_block
+fill 38 -62 -2 42 -62 2 minecraft:iron_block
+fill 37 -63 -3 43 -63 3 minecraft:iron_block
+fill 36 -64 -4 44 -64 4 minecraft:iron_block
+block 40 -60 0 minecraft:beacon
+tick 100
+dump be:0,-60,0 be:40,-60,0 packets:Steve:system_chat
+tick 100
+dump be:0,-60,0 be:40,-60,0 packets:Steve:system_chat
+note the level 1 beacon loses its base and reactivates: the trigger fires again but the advancement is done
+fill -1 -61 -1 1 -61 1 minecraft:dirt
+tick 100
+fill -1 -61 -1 1 -61 1 minecraft:iron_block
+tick 160
+dump be:0,-60,0 packets:Steve:system_chat

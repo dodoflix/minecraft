@@ -7,7 +7,6 @@ use super::{
 };
 use crate::server::level::ServerLevel;
 use crate::world::container::{Container, empty_stack, helper};
-use crate::world::entity::Entity;
 use crate::world::inventory::MenuPlayer;
 use crate::world::item::ItemStack;
 use mc_core::pos::BlockPos;
@@ -106,13 +105,17 @@ impl BlockEntity for DispenserBlockEntity {
     fn save_additional(&self, tag: &mut CompoundTag) {
         self.container.save(tag);
         if !self.loot.try_save_loot_table(tag)
-            && let Some(list) = helper::save_all_items(&self.items, false)
+            && let Some(list) = helper::save_all_items(&self.items, true)
         {
             tag.put("Items", list);
         }
     }
 
-    fn unpack_loot_table(&mut self, level: &ServerLevel, player: Option<&dyn Entity>) {
+    fn unpack_loot_table(
+        &mut self,
+        level: &mut ServerLevel,
+        player: Option<&mut crate::world::entity::ServerPlayer>,
+    ) {
         let pos = self.base.pos;
         let mut loot = std::mem::take(&mut self.loot);
         unpack_loot_table(level, pos, &mut loot, self, player);

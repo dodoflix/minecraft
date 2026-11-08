@@ -3,13 +3,33 @@ use mc_data::enums::TestBlockMode;
 use mc_game_core::register_block_class;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::block_entity::test_block_entity;
-use mc_game_core::world::item::{InteractionResult, ItemStack};
+use mc_game_core::world::item::{BlockPlaceContext, InteractionResult, ItemStack};
 use mc_game_core::world::level::block::impls::prelude::*;
 use mc_protocol::components::values::containers::{BLOCK_STATE, BlockItemStateProperties};
 
 pub struct TestBlock;
 
 impl BlockBehaviour for TestBlock {
+    /// `getStateForPlacement`: the `mode` of the item's `block_state` component.
+    fn get_state_for_placement(
+        &self,
+        block: Block,
+        _level: &mut ServerLevel,
+        context: &BlockPlaceContext,
+    ) -> Option<BlockState> {
+        let mut to_place = block.default_state();
+        if let Some(properties) = context.use_on.get_item_in_hand().get(&BLOCK_STATE)
+            && let Some((_, mode)) = properties
+                .properties
+                .iter()
+                .find(|(name, _)| name == "mode")
+            && let Some(state) = to_place.with_property_str("mode", mode)
+        {
+            to_place = state;
+        }
+        Some(to_place)
+    }
+
     /// `useWithoutItem`: the screen opens client side; the server only decides whether the click is consumed.
     fn use_without_item(
         &self,

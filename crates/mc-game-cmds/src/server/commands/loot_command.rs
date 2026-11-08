@@ -318,13 +318,16 @@ fn block_distribute(
         if container_at(level, pos).is_none() {
             return Err(not_a_container(pos));
         }
-        level.with_block_entity(pos, |_, block_entity| {
+        level.with_block_entity(pos, |level, block_entity| {
             let container = block_entity.as_container_mut().expect("checked above");
             for drop in drops {
                 if distribute_to_container(container, drop.copy()) {
                     container.set_changed();
                     used.track(drop, 1);
                 }
+            }
+            if block_entity.container_pending() {
+                block_entity.container_accessed(level);
             }
         });
         Ok(())

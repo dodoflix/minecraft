@@ -81,8 +81,8 @@ impl DecoratedPotBlockEntity {
 
     pub fn unpack(
         &mut self,
-        level: &ServerLevel,
-        player: Option<&dyn mc_game_core::world::entity::Entity>,
+        level: &mut ServerLevel,
+        player: Option<&mut mc_game_core::world::entity::ServerPlayer>,
     ) {
         let mut loot = std::mem::take(&mut self.loot);
         let pos = self.base.pos;
@@ -259,8 +259,8 @@ impl BlockEntity for DecoratedPotBlockEntity {
 
     fn unpack_loot_table(
         &mut self,
-        level: &ServerLevel,
-        player: Option<&dyn mc_game_core::world::entity::Entity>,
+        level: &mut ServerLevel,
+        player: Option<&mut mc_game_core::world::entity::ServerPlayer>,
     ) {
         self.unpack(level, player);
     }

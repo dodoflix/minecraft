@@ -75,7 +75,7 @@ impl MenuProvider for BlockEntityMenuProvider {
         if can_open {
             player.with_server_player(&mut |level, server_player| {
                 level.with_block_entity(pos, |level, be| {
-                    be.unpack_loot_table(level, Some(&*server_player))
+                    be.unpack_loot_table(level, Some(&mut *server_player))
                 });
             });
             Some(if self.hopper {

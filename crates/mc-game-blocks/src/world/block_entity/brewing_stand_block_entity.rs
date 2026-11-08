@@ -276,7 +276,7 @@ impl BlockEntity for BrewingStandBlockEntity {
         self.container.save(tag);
         tag.put_int("BrewTime", self.brew_time);
         tag.put_int("total_brew_time", self.total_brew_time);
-        if let Some(items) = helper::save_all_items(&self.items, false) {
+        if let Some(items) = helper::save_all_items(&self.items, true) {
             tag.put("Items", mc_nbt::Tag::List(items));
         }
         tag.put_int("Fuel", self.fuel);

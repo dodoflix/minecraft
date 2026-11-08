@@ -36,6 +36,16 @@ pub fn push(action: impl FnOnce(&mut ServerLevel) + 'static) {
     QUEUE.with(|q| q.borrow_mut().push(Box::new(action)));
 }
 
+/// Runs `action` now when the entity is not out of its chunk (no `with_block_entity` is running, for example
+/// `preRemoveSideEffects`), else queues it like [`push`].
+pub fn run_or_push(level: &mut ServerLevel, action: impl FnOnce(&mut ServerLevel) + 'static) {
+    if DEPTH.with(Cell::get) == 0 {
+        action(level);
+    } else {
+        push(action);
+    }
+}
+
 /// Runs the queued actions in order (actions queued meanwhile run too).
 fn run_all(level: &mut ServerLevel) {
     loop {

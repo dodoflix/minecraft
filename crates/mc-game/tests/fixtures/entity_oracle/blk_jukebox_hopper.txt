@@ -1,0 +1,53 @@
+# hopper above a jukebox pushes the disc (slot 0) in, the dirt stays
+B 2 -60 0 minecraft:jukebox[has_record=true]
+B 2 -59 0 minecraft:hopper[enabled=false,facing=down]
+BE 2 -60 0 {RecordItem:{count:1,id:"minecraft:music_disc_13"},components:{},id:"minecraft:jukebox",ticks_since_song_started:11L,x:2,y:-60,z:0}
+BE 2 -59 0 {Items:[{Slot:1b,count:3,id:"minecraft:dirt"}],TransferCooldown:0,components:{},id:"minecraft:hopper",x:2,y:-59,z:0}
+EV level_event r=64.0 ex=0 type=1010 pos=2,-60,0 data=1 global=0
+B 2 -60 0 minecraft:jukebox[has_record=true]
+B 2 -59 0 minecraft:hopper[enabled=false,facing=down]
+BE 2 -60 0 {RecordItem:{count:1,id:"minecraft:music_disc_13"},components:{},id:"minecraft:jukebox",ticks_since_song_started:41L,x:2,y:-60,z:0}
+BE 2 -59 0 {Items:[{Slot:1b,count:3,id:"minecraft:dirt"}],TransferCooldown:0,components:{},id:"minecraft:hopper",x:2,y:-59,z:0}
+# hopper above a jukebox that already holds a disc: nothing moves
+B 4 -60 0 minecraft:jukebox[has_record=true]
+B 4 -59 0 minecraft:hopper[enabled=true,facing=down]
+BE 4 -60 0 {RecordItem:{count:1,id:"minecraft:music_disc_cat"},components:{},id:"minecraft:jukebox",x:4,y:-60,z:0}
+BE 4 -59 0 {Items:[{Slot:0b,count:1,id:"minecraft:music_disc_13"}],TransferCooldown:0,components:{},id:"minecraft:hopper",x:4,y:-59,z:0}
+# hopper above a jukebox with only dirt: nothing moves
+B 6 -60 0 minecraft:jukebox[has_record=false]
+B 6 -59 0 minecraft:hopper[enabled=true,facing=down]
+BE 6 -60 0 {components:{},id:"minecraft:jukebox",x:6,y:-60,z:0}
+BE 6 -59 0 {Items:[{Slot:0b,count:3,id:"minecraft:dirt"}],TransferCooldown:0,components:{},id:"minecraft:hopper",x:6,y:-59,z:0}
+# hopper under a playing jukebox pulls the disc out into a chest beside it
+B 7 -61 2 minecraft:hopper[enabled=true,facing=east]
+B 7 -60 2 minecraft:jukebox[has_record=false]
+B 8 -61 2 minecraft:chest[facing=north,type=single,waterlogged=false]
+BE 7 -60 2 {components:{},id:"minecraft:jukebox",x:7,y:-60,z:2}
+BE 7 -61 2 {Items:[{Slot:0b,count:1,id:"minecraft:music_disc_cat"}],TransferCooldown:6,components:{},id:"minecraft:hopper",x:7,y:-61,z:2}
+BE 8 -61 2 {Items:[],components:{},id:"minecraft:chest",x:8,y:-61,z:2}
+EV level_event r=64.0 ex=0 type=1011 pos=7,-60,2 data=0 global=0
+B 7 -61 2 minecraft:hopper[enabled=true,facing=east]
+B 7 -60 2 minecraft:jukebox[has_record=false]
+B 8 -61 2 minecraft:chest[facing=north,type=single,waterlogged=false]
+BE 7 -60 2 {components:{},id:"minecraft:jukebox",x:7,y:-60,z:2}
+BE 7 -61 2 {Items:[],TransferCooldown:2,components:{},id:"minecraft:hopper",x:7,y:-61,z:2}
+BE 8 -61 2 {Items:[{Slot:0b,count:1,id:"minecraft:music_disc_cat"}],components:{},id:"minecraft:chest",x:8,y:-61,z:2}
+# hopper under a jukebox with a full inventory: the disc stays (canTakeItem)
+B 11 -61 2 minecraft:hopper[enabled=true,facing=down]
+B 11 -60 2 minecraft:jukebox[has_record=true]
+BE 11 -60 2 {RecordItem:{count:1,id:"minecraft:music_disc_13"},components:{},id:"minecraft:jukebox",x:11,y:-60,z:2}
+BE 11 -61 2 {Items:[{Slot:0b,count:64,id:"minecraft:stone"},{Slot:1b,count:64,id:"minecraft:stone"},{Slot:2b,count:64,id:"minecraft:stone"},{Slot:3b,count:64,id:"minecraft:stone"},{Slot:4b,count:64,id:"minecraft:stone"}],TransferCooldown:0,components:{},id:"minecraft:hopper",x:11,y:-61,z:2}
+# dropper pushes a disc into the jukebox in front of it
+B 14 -60 4 minecraft:dropper[facing=east,triggered=true]
+B 14 -59 4 minecraft:redstone_block
+B 15 -60 4 minecraft:jukebox[has_record=true]
+BE 14 -60 4 {Items:[],components:{},id:"minecraft:dropper",x:14,y:-60,z:4}
+BE 15 -60 4 {RecordItem:{count:1,id:"minecraft:music_disc_pigstep"},components:{},id:"minecraft:jukebox",ticks_since_song_started:5L,x:15,y:-60,z:4}
+EV level_event r=64.0 ex=0 type=1010 pos=15,-60,4 data=14 global=0
+# a player inserts a disc, then takes it out again with an empty hand
+B 18 -60 4 minecraft:jukebox[has_record=true]
+BE 18 -60 4 {RecordItem:{count:1,id:"minecraft:music_disc_13"},components:{},id:"minecraft:jukebox",ticks_since_song_started:5L,x:18,y:-60,z:4}
+EV level_event r=64.0 ex=0 type=1010 pos=18,-60,4 data=1 global=0
+B 18 -60 4 minecraft:jukebox[has_record=false]
+BE 18 -60 4 {components:{},id:"minecraft:jukebox",x:18,y:-60,z:4}
+EV level_event r=64.0 ex=0 type=1011 pos=18,-60,4 data=0 global=0

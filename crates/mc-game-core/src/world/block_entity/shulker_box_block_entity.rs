@@ -154,8 +154,8 @@ impl ShulkerBoxBlockEntity {
 
     pub fn unpack(
         &mut self,
-        level: &ServerLevel,
-        player: Option<&dyn crate::world::entity::Entity>,
+        level: &mut ServerLevel,
+        player: Option<&mut crate::world::entity::ServerPlayer>,
     ) {
         let mut loot = std::mem::take(&mut self.loot);
         let pos = self.base.pos;
@@ -385,8 +385,8 @@ impl BlockEntity for ShulkerBoxBlockEntity {
 
     fn unpack_loot_table(
         &mut self,
-        level: &ServerLevel,
-        player: Option<&dyn crate::world::entity::Entity>,
+        level: &mut ServerLevel,
+        player: Option<&mut crate::world::entity::ServerPlayer>,
     ) {
         self.unpack(level, player);
     }

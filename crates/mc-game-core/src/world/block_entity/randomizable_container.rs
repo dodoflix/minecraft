@@ -6,11 +6,12 @@
 //! comparator read through `container::unpack_loot_for_signal`, ...). Observable behavior is the same: every vanilla
 //! access path unpacks before it reads, and the fill uses its own seeded random. The `setChanged` notifications of the
 //! fill run after it, not inside each `setItem`.
-//! Not implemented: the `GENERATE_LOOT` criterion trigger of a player's unpack is not fired.
+//! A player's unpack fires the `GENERATE_LOOT` criterion trigger before the fill, like vanilla.
 
+use crate::advancements::triggers::CriteriaTriggers;
 use crate::server::level::ServerLevel;
 use crate::world::container::Container;
-use crate::world::entity::Entity;
+use crate::world::entity::{Entity, ServerPlayer};
 use crate::world::level::storage::loot::{LootContextParamSets, LootParams, loading};
 use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
@@ -77,22 +78,25 @@ impl RandomizableContainerData {
     }
 }
 
-/// `RandomizableContainer.unpackLootTable(player)` for a block entity that is out of its chunk: rolls the table into
-/// the empty slots (`LootTable.fill` with the `chest` parameter set: origin = center of the block, the player's luck
-/// and `this_entity`).
+/// `RandomizableContainer.unpackLootTable(player)` for a block entity that is out of its chunk: fires `GENERATE_LOOT` for a
+/// player, then rolls the table into the empty slots (`LootTable.fill` with the `chest` parameter set: origin = center of
+/// the block, the player's luck and `this_entity`).
 pub fn unpack_loot_table(
-    level: &ServerLevel,
+    level: &mut ServerLevel,
     pos: BlockPos,
     data: &mut RandomizableContainerData,
     container: &mut dyn Container,
-    player: Option<&dyn Entity>,
+    mut player: Option<&mut ServerPlayer>,
 ) {
     let Some(table_key) = data.loot_table.take() else {
         return;
     };
+    if let Some(player) = player.as_deref_mut() {
+        CriteriaTriggers::GENERATE_LOOT.trigger(level, player, &table_key);
+    }
     let table = loading::get_loot_table(&level.registries, &table_key);
     let mut builder = LootParams::builder(level).origin(Vec3::at_center_of(&pos));
-    if let Some(player) = player {
+    if let Some(player) = player.as_deref() {
         let luck = player.living().map_or(0.0, |l| {
             l.get_attribute_value(mc_data::Attribute::LUCK) as f32
         });

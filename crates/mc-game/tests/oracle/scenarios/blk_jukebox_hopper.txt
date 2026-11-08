@@ -1,0 +1,63 @@
+# JukeboxBlockEntity as a ContainerSingleItem: a hopper pushes a disc in (canPlaceItem: jukebox_playable and slot empty),
+# pulls one out (canTakeItem: the hopper has a free slot), a dropper pushes a disc in; setTheItem sets has_record, plays or
+# stops the song (level events 1010/1011, game events) and updates neighbours.
+level flat
+preload 2
+spawn_player Steve creative 10.5 -60 -10.5
+note hopper above a jukebox pushes the disc (slot 0) in, the dirt stays
+block 2 -60 0 minecraft:jukebox[has_record=false]
+block 2 -59 0 minecraft:hopper[enabled=true,facing=down]
+be_nbt 2 -59 0 {Items:[{Slot:0b,id:"minecraft:music_disc_13",count:1},{Slot:1b,id:"minecraft:dirt",count:3}]}
+tick 12
+dump blocks:2,-60,0,2,-59,0 be:2,-60,0 be:2,-59,0 entities events
+tick 30
+dump blocks:2,-60,0,2,-59,0 be:2,-60,0 be:2,-59,0 events
+note hopper above a jukebox that already holds a disc: nothing moves
+block 4 -60 0 minecraft:jukebox[has_record=true]
+be_nbt 4 -60 0 {RecordItem:{id:"minecraft:music_disc_cat",count:1}}
+block 4 -59 0 minecraft:hopper[enabled=true,facing=down]
+be_nbt 4 -59 0 {Items:[{Slot:0b,id:"minecraft:music_disc_13",count:1}]}
+tick 12
+dump blocks:4,-60,0,4,-59,0 be:4,-60,0 be:4,-59,0 events
+note hopper above a jukebox with only dirt: nothing moves
+block 6 -60 0 minecraft:jukebox[has_record=false]
+block 6 -59 0 minecraft:hopper[enabled=true,facing=down]
+be_nbt 6 -59 0 {Items:[{Slot:0b,id:"minecraft:dirt",count:3}]}
+tick 12
+dump blocks:6,-60,0,6,-59,0 be:6,-60,0 be:6,-59,0 events
+note hopper under a playing jukebox pulls the disc out into a chest beside it
+block 8 -61 2 minecraft:chest[facing=north,type=single,waterlogged=false]
+block 7 -61 2 minecraft:hopper[enabled=true,facing=east]
+block 7 -60 2 minecraft:jukebox[has_record=true]
+be_nbt 7 -60 2 {RecordItem:{id:"minecraft:music_disc_cat",count:1},ticks_since_song_started:5L}
+tick 3
+dump blocks:7,-61,2,8,-60,2 be:7,-60,2 be:7,-61,2 be:8,-61,2 events
+tick 12
+dump blocks:7,-61,2,8,-60,2 be:7,-60,2 be:7,-61,2 be:8,-61,2 entities events
+note hopper under a jukebox with a full inventory: the disc stays (canTakeItem)
+block 11 -61 2 minecraft:hopper[enabled=true,facing=down]
+be_nbt 11 -61 2 {Items:[{Slot:0b,id:"minecraft:stone",count:64},{Slot:1b,id:"minecraft:stone",count:64},{Slot:2b,id:"minecraft:stone",count:64},{Slot:3b,id:"minecraft:stone",count:64},{Slot:4b,id:"minecraft:stone",count:64}]}
+block 11 -60 2 minecraft:jukebox[has_record=true]
+be_nbt 11 -60 2 {RecordItem:{id:"minecraft:music_disc_13",count:1}}
+tick 12
+dump blocks:11,-61,2,11,-60,2 be:11,-60,2 be:11,-61,2 events
+note dropper pushes a disc into the jukebox in front of it
+block 14 -60 4 minecraft:dropper[facing=east,triggered=false]
+be_nbt 14 -60 4 {Items:[{Slot:0b,id:"minecraft:music_disc_pigstep",count:1}]}
+block 15 -60 4 minecraft:jukebox[has_record=false]
+level_seed 5
+block 14 -59 4 minecraft:redstone_block
+tick 8
+dump blocks:14,-60,4,15,-59,4 be:14,-60,4 be:15,-60,4 entities events
+note a player inserts a disc, then takes it out again with an empty hand
+spawn_player Alex survival 18.5 -60 6.5
+block 18 -60 4 minecraft:jukebox[has_record=false]
+give Alex mainhand minecraft:music_disc_13
+level_seed 6
+use_on Alex 18 -60 4 up main
+tick 5
+dump blocks:18,-60,4,18,-60,4 be:18,-60,4 inventory:Alex events
+give Alex mainhand minecraft:air
+use_on Alex 18 -60 4 up main
+tick 3
+dump blocks:18,-60,4,18,-60,4 be:18,-60,4 events

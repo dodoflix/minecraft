@@ -64,20 +64,29 @@ pub fn with_worldgen_level<R>(
     dimension: &DimensionKey,
     f: impl FnOnce(&mut ServerLevel) -> R,
 ) -> Option<R> {
-    use crate::server::level::level_tick::LevelTickEnv as _;
     server.with_level(dimension, |server, level| {
-        let env = crate::server::level_tick_env::ServerTickEnv {
-            server,
-            dimension: dimension.clone(),
-        };
-        level.worldgen_clock = Some(WorldGenClock {
-            overworld_clock_time: env.overworld_clock_time(),
-            moon_brightness: level.get_moon_brightness(BlockPos::new(0, 0, 0)),
-        });
-        let result = f(level);
-        level.worldgen_clock = None;
-        result
+        with_worldgen_clock(server, level, f)
     })
+}
+
+/// [`with_worldgen_level`] for a level the caller already holds (a packet handler's `player.level()`).
+pub fn with_worldgen_clock<R>(
+    server: &mut MinecraftServer,
+    level: &mut ServerLevel,
+    f: impl FnOnce(&mut ServerLevel) -> R,
+) -> R {
+    use crate::server::level::level_tick::LevelTickEnv as _;
+    let env = crate::server::level_tick_env::ServerTickEnv {
+        server,
+        dimension: level.dimension.clone(),
+    };
+    level.worldgen_clock = Some(WorldGenClock {
+        overworld_clock_time: env.overworld_clock_time(),
+        moon_brightness: level.get_moon_brightness(BlockPos::new(0, 0, 0)),
+    });
+    let result = f(level);
+    level.worldgen_clock = None;
+    result
 }
 
 impl WorldGenLevel for ServerLevel {

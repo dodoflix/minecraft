@@ -1,0 +1,185 @@
+# Container block entities when their block goes: the contents drop through preRemoveSideEffects (hopper, dispenser, dropper,
+# chest, barrel, brewing stand, lectern book, jukebox disc, shulker box via its loot table), the block's own loot table drops the
+# block item (custom_name copied from the block entity). Level.destroyBlock (no breaker, empty tool) and a digging player.
+level flat
+preload 2
+spawn_player Steve survival 0.5 -60 0.5
+spawn_player Alex creative 0.5 -60 14.5
+note chest destroyed
+block 2 -60 0 minecraft:chest[facing=north,type=single,waterlogged=false]
+be_nbt 2 -60 0 {Items:[{Slot:0b,id:"minecraft:iron_ingot",count:7},{Slot:26b,id:"minecraft:gold_ingot",count:9}]}
+level_seed 31
+destroy 2 -60 0
+dump blocks:2,-60,0,2,-60,0 events
+note barrel destroyed
+block 3 -60 0 minecraft:barrel[facing=up,open=false]
+be_nbt 3 -60 0 {Items:[{Slot:0b,id:"minecraft:coal",count:12},{Slot:13b,id:"minecraft:stick",count:40}]}
+level_seed 32
+destroy 3 -60 0
+dump blocks:3,-60,0,3,-60,0 events
+note shulker box destroyed (the contents stay in the dropped box)
+block 4 -60 0 minecraft:shulker_box
+be_nbt 4 -60 0 {Items:[{Slot:0b,id:"minecraft:diamond",count:3},{Slot:5b,id:"minecraft:stone",count:64}]}
+level_seed 33
+destroy 4 -60 0
+dump blocks:4,-60,0,4,-60,0 events
+note hopper destroyed
+block 5 -60 0 minecraft:hopper[enabled=true,facing=down]
+be_nbt 5 -60 0 {Items:[{Slot:0b,id:"minecraft:diamond",count:3},{Slot:2b,id:"minecraft:stone",count:64},{Slot:4b,id:"minecraft:apple",count:1}]}
+level_seed 34
+destroy 5 -60 0
+dump blocks:5,-60,0,5,-60,0 events
+note dispenser destroyed
+block 6 -60 0 minecraft:dispenser[facing=up,triggered=false]
+be_nbt 6 -60 0 {Items:[{Slot:0b,id:"minecraft:arrow",count:16},{Slot:8b,id:"minecraft:stone",count:3}]}
+level_seed 35
+destroy 6 -60 0
+dump blocks:6,-60,0,6,-60,0 events
+note named dispenser destroyed (custom_name is copied to the dropped item)
+block 7 -60 0 minecraft:dispenser[facing=up,triggered=false]
+be_nbt 7 -60 0 {CustomName:"Named",Items:[{Slot:1b,id:"minecraft:arrow",count:5}]}
+level_seed 36
+destroy 7 -60 0
+dump blocks:7,-60,0,7,-60,0 events
+note dropper destroyed
+block 8 -60 0 minecraft:dropper[facing=down,triggered=false]
+be_nbt 8 -60 0 {Items:[{Slot:3b,id:"minecraft:cobblestone",count:64},{Slot:4b,id:"minecraft:cobblestone",count:64}]}
+level_seed 37
+destroy 8 -60 0
+dump blocks:8,-60,0,8,-60,0 events
+note brewing stand destroyed
+block 9 -60 0 minecraft:brewing_stand[has_bottle_0=false,has_bottle_1=false,has_bottle_2=false]
+be_nbt 9 -60 0 {Items:[{Slot:0b,id:"minecraft:glass_bottle",count:1},{Slot:3b,id:"minecraft:nether_wart",count:2},{Slot:4b,id:"minecraft:blaze_powder",count:5}]}
+level_seed 38
+destroy 9 -60 0
+dump blocks:9,-60,0,9,-60,0 events
+note lectern with a book destroyed
+block 10 -60 0 minecraft:lectern[facing=north,has_book=true,powered=false]
+be_nbt 10 -60 0 {Book:{id:"minecraft:book",count:1},Page:0}
+level_seed 39
+destroy 10 -60 0
+dump blocks:10,-60,0,10,-60,0 events
+note jukebox with a disc destroyed
+block 11 -60 0 minecraft:jukebox[has_record=true]
+be_nbt 11 -60 0 {RecordItem:{id:"minecraft:music_disc_13",count:1}}
+level_seed 40
+destroy 11 -60 0
+dump blocks:11,-60,0,11,-60,0 events
+note empty jukebox destroyed
+block 12 -60 0 minecraft:jukebox[has_record=false]
+level_seed 41
+destroy 12 -60 0
+dump blocks:12,-60,0,12,-60,0 events
+note chest with an unrolled loot table destroyed
+block 13 -60 0 minecraft:chest[facing=north,type=single,waterlogged=false]
+be_nbt 13 -60 0 {LootTable:"minecraft:chests/spawn_bonus_chest",LootTableSeed:77L}
+level_seed 42
+destroy 13 -60 0
+dump blocks:13,-60,0,13,-60,0 events
+dump entities
+note survival player digs the chest
+block 2 -60 10 minecraft:chest[facing=north,type=single,waterlogged=false]
+be_nbt 2 -60 10 {Items:[{Slot:0b,id:"minecraft:iron_ingot",count:7},{Slot:26b,id:"minecraft:gold_ingot",count:9}]}
+level_seed 43
+give Steve mainhand minecraft:netherite_axe
+snap Steve 2.5 -60 12.5
+dig Steve 2 -60 10
+snap Steve 2.5 -60 10.5
+tick 15
+dump blocks:2,-60,10,2,-60,10 events inventory:Steve
+note survival player digs the barrel
+block 3 -60 10 minecraft:barrel[facing=up,open=false]
+be_nbt 3 -60 10 {Items:[{Slot:0b,id:"minecraft:coal",count:12}]}
+level_seed 44
+give Steve mainhand minecraft:netherite_axe
+snap Steve 3.5 -60 12.5
+dig Steve 3 -60 10
+snap Steve 3.5 -60 10.5
+tick 15
+dump blocks:3,-60,10,3,-60,10 events inventory:Steve
+note survival player digs the shulker box (loot table keeps the contents)
+block 4 -60 10 minecraft:shulker_box
+be_nbt 4 -60 10 {Items:[{Slot:0b,id:"minecraft:diamond",count:3}]}
+level_seed 45
+give Steve mainhand minecraft:netherite_pickaxe
+snap Steve 4.5 -60 12.5
+dig Steve 4 -60 10
+snap Steve 4.5 -60 10.5
+tick 15
+dump blocks:4,-60,10,4,-60,10 events inventory:Steve
+note survival player digs the hopper
+block 5 -60 10 minecraft:hopper[enabled=true,facing=down]
+be_nbt 5 -60 10 {Items:[{Slot:0b,id:"minecraft:diamond",count:3},{Slot:3b,id:"minecraft:apple",count:2}]}
+level_seed 46
+give Steve mainhand minecraft:netherite_pickaxe
+snap Steve 5.5 -60 12.5
+dig Steve 5 -60 10
+snap Steve 5.5 -60 10.5
+tick 15
+dump blocks:5,-60,10,5,-60,10 events inventory:Steve
+note survival player digs the dispenser
+block 6 -60 10 minecraft:dispenser[facing=up,triggered=false]
+be_nbt 6 -60 10 {Items:[{Slot:0b,id:"minecraft:arrow",count:16}]}
+level_seed 47
+give Steve mainhand minecraft:netherite_pickaxe
+snap Steve 6.5 -60 12.5
+dig Steve 6 -60 10
+snap Steve 6.5 -60 10.5
+tick 15
+dump blocks:6,-60,10,6,-60,10 events inventory:Steve
+note survival player digs the dropper
+block 7 -60 10 minecraft:dropper[facing=down,triggered=false]
+be_nbt 7 -60 10 {Items:[{Slot:3b,id:"minecraft:cobblestone",count:20}]}
+level_seed 48
+give Steve mainhand minecraft:netherite_pickaxe
+snap Steve 7.5 -60 12.5
+dig Steve 7 -60 10
+snap Steve 7.5 -60 10.5
+tick 15
+dump blocks:7,-60,10,7,-60,10 events inventory:Steve
+note survival player digs the brewing stand
+block 8 -60 10 minecraft:brewing_stand[has_bottle_0=false,has_bottle_1=false,has_bottle_2=false]
+be_nbt 8 -60 10 {Items:[{Slot:3b,id:"minecraft:nether_wart",count:2}]}
+level_seed 49
+give Steve mainhand minecraft:netherite_pickaxe
+snap Steve 8.5 -60 12.5
+dig Steve 8 -60 10
+snap Steve 8.5 -60 10.5
+tick 15
+dump blocks:8,-60,10,8,-60,10 events inventory:Steve
+note survival player digs the lectern
+block 9 -60 10 minecraft:lectern[facing=north,has_book=true,powered=false]
+be_nbt 9 -60 10 {Book:{id:"minecraft:book",count:1},Page:0}
+level_seed 50
+give Steve mainhand minecraft:netherite_axe
+snap Steve 9.5 -60 12.5
+dig Steve 9 -60 10
+snap Steve 9.5 -60 10.5
+tick 15
+dump blocks:9,-60,10,9,-60,10 events inventory:Steve
+note survival player digs the jukebox
+block 10 -60 10 minecraft:jukebox[has_record=true]
+be_nbt 10 -60 10 {RecordItem:{id:"minecraft:music_disc_13",count:1}}
+level_seed 51
+give Steve mainhand minecraft:netherite_axe
+snap Steve 10.5 -60 12.5
+dig Steve 10 -60 10
+snap Steve 10.5 -60 10.5
+tick 15
+dump blocks:10,-60,10,10,-60,10 events inventory:Steve
+note creative player digs the shulker box (the box drops with its contents)
+block 4 -60 14 minecraft:shulker_box
+be_nbt 4 -60 14 {Items:[{Slot:0b,id:"minecraft:diamond",count:3}]}
+level_seed 52
+dig Alex 4 -60 14
+snap Alex 4.5 -60 14.5
+tick 15
+dump blocks:4,-60,14,4,-60,14 events inventory:Alex
+note creative player digs the chest
+block 2 -60 14 minecraft:chest[facing=north,type=single,waterlogged=false]
+be_nbt 2 -60 14 {Items:[{Slot:0b,id:"minecraft:iron_ingot",count:7}]}
+level_seed 53
+dig Alex 2 -60 14
+snap Alex 2.5 -60 14.5
+tick 15
+dump blocks:2,-60,14,2,-60,14 events inventory:Alex

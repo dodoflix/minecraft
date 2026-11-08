@@ -6,6 +6,7 @@ use mc_core::phys::AABB;
 use mc_core::pos::BlockPos;
 use mc_data::block::{Block, BlockState};
 use mc_data::{BlockEntityType, MobEffect, SoundEvent};
+use mc_game_core::advancements::triggers::CriteriaTriggers;
 use mc_game_core::block_entity_base;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::block_entity::{
@@ -387,8 +388,14 @@ impl BlockEntity for BeaconBlockEntity {
             let is_active = self.levels > 0;
             if !was_active && is_active {
                 play_sound(level, pos, SoundEvent::BLOCK_BEACON_ACTIVATE);
-                // CriteriaTriggers.CONSTRUCT_BEACON.trigger(player, levels) for the ServerPlayers in
-                // `new AABB(x, y, z, x, y - 4, z).inflate(10.0, 5.0, 10.0)`: wired with the advancement triggers
+                let (fx, fy, fz) = (f64::from(x), f64::from(y), f64::from(z));
+                let bb = AABB::new(fx, fy, fz, fx, fy - 4.0, fz).inflate(10.0, 5.0, 10.0);
+                let levels = self.levels;
+                for id in level.get_entities_of_class(&bb, |e| e.is_player(), |_| true) {
+                    level.with_player(id, |level, player| {
+                        CriteriaTriggers::CONSTRUCT_BEACON.trigger(level, player, levels);
+                    });
+                }
             } else if was_active && !is_active {
                 play_sound(level, pos, SoundEvent::BLOCK_BEACON_DEACTIVATE);
             }
