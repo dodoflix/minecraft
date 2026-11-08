@@ -1,0 +1,92 @@
+# Copper golem statues: placement (facing opposite the player, waterlogged in water), pose cycling with every item kind
+# (waxed and unwaxed classes, honeycomb passes on a weathering statue and waxes it keeping the block entity), the comparator
+# signal pose+1, and which block replacements keep the block entity (shouldChangedStateKeepBlockEntity).
+level flat
+preload 3
+spawn_player Steve survival 0.5 -60 -2.5 0 0
+spawn_player Alex survival 4.5 -60 -2.5 90 0
+spawn_player Bob creative 8.5 -60 -2.5 180 0
+spawn_player Cid survival 12.5 -60 -2.5 270 0
+give Steve hotbar0 minecraft:copper_golem_statue 2
+give Alex hotbar0 minecraft:exposed_copper_golem_statue 2
+give Bob hotbar0 minecraft:waxed_weathered_copper_golem_statue 2
+give Cid hotbar0 minecraft:oxidized_copper_golem_statue 2
+select Steve 0
+select Alex 0
+select Bob 0
+select Cid 0
+block 12 -60 0 minecraft:water
+note placement: each player faces a different way; the statue faces opposite; the last one replaces water and is waterlogged
+use_on Steve 0 -61 0 up main 0.5 1.0 0.5
+use_on Alex 4 -61 0 up main 0.5 1.0 0.5
+use_on Bob 8 -61 0 up main 0.5 1.0 0.5
+use_on Cid 12 -61 0 up main 0.5 1.0 0.5
+tick 2
+dump blocks:0,-60,0,12,-60,0 be:0,-60,0 be:4,-60,0 be:8,-60,0 be:12,-60,0 inventory:Steve inventory:Cid events ticks
+note a statue placed in water keeps ticking its water; the waterlogged flag survives a pose change
+block 16 -60 0 minecraft:copper_golem_statue[facing=south,copper_golem_pose=standing,waterlogged=true]
+tick 3
+dump blocks:16,-60,0,16,-60,0 ticks
+note pose cycling with an empty hand (wraps after star), then the standing pose again
+select Steve 8
+use_on Steve 0 -60 0 north main 0.5 0.5 0.0
+dump blocks:0,-60,0,0,-60,0 events
+use_on Steve 0 -60 0 north main 0.5 0.5 0.0
+dump blocks:0,-60,0,0,-60,0
+use_on Steve 0 -60 0 north main 0.5 0.5 0.0
+dump blocks:0,-60,0,0,-60,0
+use_on Steve 0 -60 0 north main 0.5 0.5 0.0
+dump blocks:0,-60,0,0,-60,0 events
+note unwaxed weathering statue with a stick and a honeycomb: stick cycles; honeycomb passes, then waxes the statue and keeps the block entity and its name
+be_nbt 4 -60 0 {components:{"minecraft:custom_name":'"Rusty"'}}
+give Alex hotbar1 minecraft:stick 1
+give Alex hotbar2 minecraft:honeycomb 3
+select Alex 1
+use_on Alex 4 -60 0 north main 0.5 0.5 0.0
+dump blocks:4,-60,0,4,-60,0 be:4,-60,0 beu:4,-60,0 inventory:Alex events
+select Alex 2
+use_on Alex 4 -60 0 north main 0.5 0.5 0.0
+dump blocks:4,-60,0,4,-60,0 be:4,-60,0 beu:4,-60,0 inventory:Alex events
+note waxed statue (plain class) with a honeycomb and a stick: always cycles the pose
+give Bob hotbar1 minecraft:honeycomb 3
+give Bob hotbar2 minecraft:stick 1
+select Bob 1
+use_on Bob 8 -60 0 north main 0.5 0.5 0.0
+select Bob 2
+use_on Bob 8 -60 0 north main 0.5 0.5 0.0
+dump blocks:8,-60,0,8,-60,0 be:8,-60,0 inventory:Bob events
+note an oxidized statue and the off hand: the off hand also cycles; a statue without any item cycles too
+give Cid offhand minecraft:stick 1
+use_on Cid 12 -60 0 north off 0.5 0.5 0.0
+dump blocks:12,-60,0,12,-60,0 inventory:Cid events
+note block entity retention: a named statue keeps its name when replaced by another statue block (tag copper_golem_statues) and loses it when replaced by stone
+be_nbt 0 -60 0 {components:{"minecraft:custom_name":'"Keep"'}}
+dump be:0,-60,0 beu:0,-60,0
+block 0 -60 0 minecraft:exposed_copper_golem_statue[facing=east,copper_golem_pose=running,waterlogged=false]
+dump blocks:0,-60,0,0,-60,0 be:0,-60,0 beu:0,-60,0
+block 0 -60 0 minecraft:waxed_oxidized_copper_golem_statue[facing=south,copper_golem_pose=star,waterlogged=false]
+dump blocks:0,-60,0,0,-60,0 be:0,-60,0
+block 0 -60 0 minecraft:stone
+dump blocks:0,-60,0,0,-60,0 be:0,-60,0
+block 0 -60 0 minecraft:copper_golem_statue
+dump blocks:0,-60,0,0,-60,0 be:0,-60,0
+note comparator signal is pose ordinal + 1, also after pose changes and after the statue is broken
+fill 20 -60 0 23 -60 0 minecraft:air
+block 20 -60 0 minecraft:copper_golem_statue[facing=north,copper_golem_pose=standing]
+block 21 -60 0 minecraft:copper_golem_statue[facing=north,copper_golem_pose=sitting]
+block 22 -60 0 minecraft:copper_golem_statue[facing=north,copper_golem_pose=running]
+block 23 -60 0 minecraft:copper_golem_statue[facing=north,copper_golem_pose=star]
+block 20 -60 1 minecraft:comparator[facing=north]
+block 21 -60 1 minecraft:comparator[facing=north]
+block 22 -60 1 minecraft:comparator[facing=north]
+block 23 -60 1 minecraft:comparator[facing=north]
+tick 4
+dump blocks:20,-60,0,23,-60,1 be:20,-60,1 be:21,-60,1 be:22,-60,1 be:23,-60,1
+spawn_player Dan survival 21.5 -60 -2.5 0 0
+use_on Dan 20 -60 0 north main 0.5 0.5 0.0
+use_on Dan 23 -60 0 north main 0.5 0.5 0.0
+tick 4
+dump blocks:20,-60,0,23,-60,1 be:20,-60,1 be:23,-60,1 events
+block 22 -60 0 minecraft:air
+tick 4
+dump blocks:20,-60,0,23,-60,1 be:22,-60,1

@@ -190,3 +190,13 @@ B 26 -60 18 minecraft:oxidized_lightning_rod[facing=up,powered=false,waterlogged
 B 27 -60 2 minecraft:waxed_copper_bulb[lit=false,powered=false]
 B 27 -60 9 minecraft:waxed_copper_chest[facing=north,type=single,waterlogged=false]
 B 27 -60 18 minecraft:waxed_lightning_rod[facing=up,powered=false,waterlogged=false]
+B 41 -60 2 minecraft:weathered_copper_chest[facing=north,type=single,waterlogged=false]
+B 45 -60 7 minecraft:weathered_copper_chest[facing=north,type=left,waterlogged=false]
+B 46 -60 7 minecraft:weathered_copper_chest[facing=north,type=right,waterlogged=false]
+B 47 -60 2 minecraft:weathered_copper_chest[facing=north,type=single,waterlogged=false]
+EV sound at=47.5,-59.5,2.5 r=16.0 ex=0 event=minecraft:block.copper_chest_weathered.open source=block vol=0.5 pitch=0.9618993
+EV sound at=46.0,-59.5,7.5 r=16.0 ex=0 event=minecraft:block.copper_chest_weathered.open source=block vol=0.5 pitch=0.92673415
+B 41 -60 2 minecraft:oxidized_copper_chest[facing=north,type=single,waterlogged=false]
+B 45 -60 7 minecraft:weathered_copper_chest[facing=north,type=left,waterlogged=false]
+B 46 -60 7 minecraft:weathered_copper_chest[facing=north,type=right,waterlogged=false]
+B 47 -60 2 minecraft:weathered_copper_chest[facing=north,type=single,waterlogged=false]

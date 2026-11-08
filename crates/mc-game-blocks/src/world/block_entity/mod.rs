@@ -26,6 +26,8 @@ pub mod chiseled_book_shelf_block_entity;
 
 pub mod shelf_block_entity;
 
+pub mod copper_golem_statue_block_entity;
+
 pub mod decorated_pot_block_entity;
 
 pub mod jukebox_block_entity;

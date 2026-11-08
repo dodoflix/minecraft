@@ -10,6 +10,7 @@ mod args;
 mod args_common;
 mod arrow_golden;
 mod attack_golden;
+mod blk_copper_statue_golden;
 mod blk_doors_connect_golden;
 mod blk_shelf_golden;
 mod block_behaviour_golden;

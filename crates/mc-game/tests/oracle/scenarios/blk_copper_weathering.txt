@@ -177,3 +177,30 @@ tick_chunk 0 1 30000
 tick_chunk 1 0 30000
 tick_chunk 1 1 30000
 dump blocks:0,-60,0,31,-59,31
+# A weathered chest with a player viewing it never oxidizes (WeatheringCopperChestBlock.randomTick: nobody has the container open),
+# neither does either half of a double chest viewed through its right half; the unwatched control chest oxidizes.
+fill 40 -61 0 47 -61 7 minecraft:stone
+block 41 -60 2 minecraft:weathered_copper_chest[facing=north]
+block 47 -60 2 minecraft:weathered_copper_chest[facing=north]
+block 45 -60 7 minecraft:weathered_copper_chest[facing=north,type=left]
+block 46 -60 7 minecraft:weathered_copper_chest[facing=north,type=right]
+spawn_player Steve survival 44.5 -60 4.5 0 0
+spawn_player Alex survival 44.5 -60 5.5 0 0
+use_on Steve 47 -60 2 up
+use_on Alex 46 -60 7 up
+dump blocks:40,-60,0,47,-60,7 events
+tick_chunk 2 0 30000
+tick_chunk 2 0 30000
+tick_chunk 2 0 30000
+tick_chunk 2 0 30000
+tick_chunk 2 0 30000
+tick_chunk 2 0 30000
+tick_chunk 2 0 30000
+tick_chunk 2 0 30000
+tick_chunk 2 0 30000
+tick_chunk 2 0 30000
+tick_chunk 2 0 30000
+tick_chunk 2 0 30000
+tick_chunk 2 0 30000
+tick_chunk 2 0 30000
+dump blocks:40,-60,0,47,-60,7

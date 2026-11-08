@@ -10,6 +10,7 @@
 //! `BlockStateExt::random_tick` instead of masking the parent behaviours.
 
 use super::BlockStateExt;
+use super::impls::chest_block;
 use crate::server::level::ServerLevel;
 use crate::world::level::{BlockGetter, LevelAccessor};
 use mc_core::pos::BlockPos;
@@ -212,7 +213,7 @@ pub fn random_tick(state: BlockState, level: &mut ServerLevel, pos: BlockPos) ->
         state.get(props::DOUBLE_BLOCK_HALF) == DoubleBlockHalf::Lower
     } else if state.has_property(props::CHEST_TYPE) {
         // WeatheringCopperChestBlock
-        state.get(props::CHEST_TYPE) != ChestType::Right && !chest_in_use(level, pos)
+        state.get(props::CHEST_TYPE) != ChestType::Right && chest_block::chest_idle(level, pos)
     } else {
         true
     };
@@ -220,9 +221,4 @@ pub fn random_tick(state: BlockState, level: &mut ServerLevel, pos: BlockPos) ->
         change_over_time(state, level, pos);
     }
     true
-}
-
-/// `!(level.getBlockEntity(pos) instanceof ChestBlockEntity c && c.getEntitiesWithContainerOpen().isEmpty())`.
-fn chest_in_use(_level: &ServerLevel, _pos: BlockPos) -> bool {
-    false
 }
