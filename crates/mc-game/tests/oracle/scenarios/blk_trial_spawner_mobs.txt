@@ -1,0 +1,40 @@
+# Trial spawner mob steps (fixed Pos: the level random is not aligned between the servers while natural spawning runs): equipment table with drop chances,
+# persistence required, no finalizeSpawn when the entity tag has data, spawn-placement rejection (cow on stone), custom spawn rules, obstruction by liquid.
+# One mob per section, dumped in its spawn tick (the mob's own random walk would draw from entity seeds the two servers do not share), then killed.
+level flat
+time 18000
+gamerule spawn_mobs true
+spawn_player p survival 8.5 -60 8.5 0 0
+tick 10
+fill 0 -61 16 16 -61 24 minecraft:stone
+block 8 -60 12 minecraft:trial_spawner
+be_nbt 8 -60 12 {required_player_range:14,normal_config:{total_mobs:1.0,simultaneous_mobs:1.0,total_mobs_added_per_player:0.0,simultaneous_mobs_added_per_player:0.0,ticks_between_spawn:1,spawn_range:3,spawn_potentials:[{weight:1,data:{entity:{id:"minecraft:skeleton",Pos:[6.5d,-60.0d,15.5d]},equipment:{loot_table:"minecraft:equipment/trial_chamber_ranged",slot_drop_chances:0.25f}}}]}}
+tick 50
+dump blocks:8,-60,12,8,-60,12
+dump entities
+dump nbt:skeleton#1
+kill skeleton#1
+block 8 -60 12 minecraft:air
+block 4 -60 12 minecraft:trial_spawner
+be_nbt 4 -60 12 {required_player_range:14,normal_config:{total_mobs:1.0,simultaneous_mobs:1.0,total_mobs_added_per_player:0.0,simultaneous_mobs_added_per_player:0.0,ticks_between_spawn:1,spawn_range:3,spawn_potentials:[{weight:1,data:{entity:{id:"minecraft:zombie",Pos:[4.5d,-60.0d,15.5d],Health:5.0f}}}]}}
+tick 56
+dump blocks:4,-60,12,4,-60,12
+dump entities
+dump nbt:zombie#1
+kill zombie#1
+block 4 -60 12 minecraft:air
+block 12 -60 12 minecraft:trial_spawner
+be_nbt 12 -60 12 {required_player_range:14,normal_config:{total_mobs:1.0,simultaneous_mobs:1.0,total_mobs_added_per_player:0.0,simultaneous_mobs_added_per_player:0.0,ticks_between_spawn:1,spawn_range:3,spawn_potentials:[{weight:1,data:{entity:{id:"minecraft:zombie",Pos:[12.5d,-60.0d,15.5d]},equipment:{loot_table:"minecraft:equipment/trial_chamber_melee",slot_drop_chances:0.0f}}}]}}
+tick 48
+dump blocks:12,-60,12,12,-60,12
+dump entities
+dump nbt:zombie#2
+kill zombie#2
+block 12 -60 12 minecraft:air
+block 6 -60 9 minecraft:water
+block 6 -60 6 minecraft:trial_spawner
+be_nbt 6 -60 6 {required_player_range:14,normal_config:{total_mobs:1.0,simultaneous_mobs:1.0,total_mobs_added_per_player:0.0,simultaneous_mobs_added_per_player:0.0,ticks_between_spawn:1,spawn_range:3,spawn_potentials:[{weight:1,data:{entity:{id:"minecraft:zombie",Pos:[6.5d,-60.0d,9.5d]}}}]}}
+tick 90
+dump blocks:6,-60,6,6,-60,6
+dump entities
+block 6 -60 6 minecraft:air

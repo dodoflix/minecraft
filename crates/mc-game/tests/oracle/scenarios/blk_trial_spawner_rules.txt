@@ -1,0 +1,37 @@
+# Trial spawner mob steps (fixed Pos: the level random is not aligned between the servers while natural spawning runs): equipment table with drop chances,
+# persistence required, no finalizeSpawn when the entity tag has data, spawn-placement rejection (cow on stone), custom spawn rules, obstruction by liquid.
+# One mob per section, dumped in its spawn tick (the mob's own random walk would draw from entity seeds the two servers do not share), then killed.
+level flat
+time 18000
+gamerule spawn_mobs true
+spawn_player p survival 8.5 -60 8.5 0 0
+tick 10
+fill 0 -61 16 16 -61 24 minecraft:stone
+block 8 -60 20 minecraft:trial_spawner
+be_nbt 8 -60 20 {required_player_range:14,normal_config:{total_mobs:1.0,simultaneous_mobs:1.0,total_mobs_added_per_player:0.0,simultaneous_mobs_added_per_player:0.0,ticks_between_spawn:1,spawn_range:3,spawn_potentials:[{weight:1,data:{entity:{id:"minecraft:cow",Pos:[8.5d,-60.0d,23.5d]}}}]}}
+tick 90
+dump blocks:8,-60,20,8,-60,20
+dump entities
+block 8 -60 20 minecraft:air
+block 10 -60 6 minecraft:trial_spawner
+be_nbt 10 -60 6 {required_player_range:14,normal_config:{total_mobs:1.0,simultaneous_mobs:1.0,total_mobs_added_per_player:0.0,simultaneous_mobs_added_per_player:0.0,ticks_between_spawn:1,spawn_range:3,spawn_potentials:[{weight:1,data:{entity:{id:"minecraft:cow",Pos:[10.5d,-60.0d,9.5d]}}}]}}
+tick 48
+dump blocks:10,-60,6,10,-60,6
+dump entities
+dump nbt:cow#1
+kill cow#1
+block 10 -60 6 minecraft:air
+block 2 -60 6 minecraft:trial_spawner
+be_nbt 2 -60 6 {required_player_range:14,normal_config:{total_mobs:1.0,simultaneous_mobs:1.0,total_mobs_added_per_player:0.0,simultaneous_mobs_added_per_player:0.0,ticks_between_spawn:1,spawn_range:3,spawn_potentials:[{weight:1,data:{entity:{id:"minecraft:cow",Pos:[2.5d,-60.0d,9.5d]},custom_spawn_rules:{block_light_limit:[0,15],sky_light_limit:[0,15]}}}]}}
+tick 52
+dump blocks:2,-60,6,2,-60,6
+dump entities
+dump nbt:cow#2
+kill cow#2
+block 2 -60 6 minecraft:air
+block 14 -60 6 minecraft:trial_spawner
+be_nbt 14 -60 6 {required_player_range:14,normal_config:{total_mobs:1.0,simultaneous_mobs:1.0,total_mobs_added_per_player:0.0,simultaneous_mobs_added_per_player:0.0,ticks_between_spawn:1,spawn_range:3,spawn_potentials:[{weight:1,data:{entity:{id:"minecraft:zombie",Pos:[14.5d,-60.0d,9.5d]},custom_spawn_rules:{block_light_limit:[15,15],sky_light_limit:[15,15]}}}]}}
+tick 90
+dump blocks:14,-60,6,14,-60,6
+dump entities
+block 14 -60 6 minecraft:air

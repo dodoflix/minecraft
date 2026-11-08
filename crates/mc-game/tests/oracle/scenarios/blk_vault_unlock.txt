@@ -1,0 +1,36 @@
+# Vault: inactive -> active when a player is near, key insertion (wrong item, ominous key on a normal vault, right key), unlocking, ejecting the reward loot
+# (display item first, then the rolled items), back to active, and the same player is refused a second reward.
+level flat
+time 6000
+spawn_player p survival 8.5 -60 9.5 0 0
+tick 10
+block 8 -60 12 minecraft:vault[facing=north]
+dump be:8,-60,12 blocks:8,-60,12,8,-60,12
+watch events
+tick 5
+dump be:8,-60,12 blocks:8,-60,12,8,-60,12
+give p mainhand minecraft:stick
+use_on p 8 -60 12 north main
+tick 2
+give p mainhand minecraft:ominous_trial_key
+use_on p 8 -60 12 north main
+tick 2
+dump inventory:p
+give p mainhand minecraft:trial_key
+level_seed 31
+use_on p 8 -60 12 north main
+dump inventory:p be:8,-60,12 blocks:8,-60,12,8,-60,12
+tick 10
+dump be:8,-60,12 blocks:8,-60,12,8,-60,12 entities
+tick 10
+dump be:8,-60,12 blocks:8,-60,12,8,-60,12 entities
+tick 20
+dump be:8,-60,12 blocks:8,-60,12,8,-60,12 entities
+tick 40
+dump be:8,-60,12 blocks:8,-60,12,8,-60,12 entities
+tick 40
+dump be:8,-60,12 blocks:8,-60,12,8,-60,12 entities
+give p mainhand minecraft:trial_key
+use_on p 8 -60 12 north main
+tick 40
+dump inventory:p be:8,-60,12 blocks:8,-60,12,8,-60,12 entities

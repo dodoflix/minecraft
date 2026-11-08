@@ -1,0 +1,98 @@
+# Spawner block (BaseSpawner.serverTick): spawn count, spawn-rule rejection, finalizeSpawn on a bare {id} tag (slime size),
+# no finalize with extra entity data, equipment table, custom spawn rules. Level random seeded; the spawn positions come from it.
+# Only light-independent mobs: the harness level has no sky darkening at night, a monster's spawn rule reads the light.
+# Each section dumps right after the spawn tick and kills its mobs, so no mob AI (its sounds draw from the level random) runs.
+level flat
+time 18000
+spawn_player p survival 8.5 -60 8.5 0 0
+tick 10
+fill 0 -61 20 16 -61 27 minecraft:stone
+block 8 -59 12 minecraft:spawner
+be_nbt 8 -59 12 {Delay:1,SpawnCount:20,MaxNearbyEntities:50,SpawnRange:3,SpawnData:{entity:{id:"minecraft:slime"}},SpawnPotentials:[{weight:1,data:{entity:{id:"minecraft:slime"}}}]}
+level_seed 7
+tick 2
+dump be:8,-59,12
+dump entities
+dump events
+dump nbt:slime#1 nbt:slime#2
+kill slime#1
+kill slime#2
+kill slime#3
+kill slime#4
+kill slime#5
+kill slime#6
+kill slime#7
+kill slime#8
+kill slime#9
+kill slime#10
+block 8 -59 4 minecraft:spawner
+be_nbt 8 -59 4 {Delay:1,SpawnCount:20,MaxNearbyEntities:50,SpawnRange:3,SpawnData:{entity:{id:"minecraft:slime"},equipment:{loot_table:"minecraft:equipment/trial_chamber_melee",slot_drop_chances:0.25f}},SpawnPotentials:[{weight:1,data:{entity:{id:"minecraft:slime"},equipment:{loot_table:"minecraft:equipment/trial_chamber_melee",slot_drop_chances:0.25f}}}]}
+level_seed 7
+tick 2
+dump be:8,-59,4
+dump entities
+dump events
+dump nbt:slime#11 nbt:slime#12
+kill slime#11
+kill slime#12
+kill slime#13
+kill slime#14
+kill slime#15
+kill slime#16
+kill slime#17
+kill slime#18
+kill slime#19
+kill slime#20
+block 14 -59 8 minecraft:spawner
+be_nbt 14 -59 8 {Delay:1,SpawnCount:20,MaxNearbyEntities:50,SpawnRange:3,SpawnData:{entity:{id:"minecraft:slime",Health:5.0f}},SpawnPotentials:[{weight:1,data:{entity:{id:"minecraft:slime",Health:5.0f}}}]}
+level_seed 7
+tick 2
+dump be:14,-59,8
+dump entities
+dump events
+dump nbt:slime#21 nbt:slime#22
+kill slime#21
+kill slime#22
+kill slime#23
+kill slime#24
+kill slime#25
+kill slime#26
+kill slime#27
+block 4 -59 22 minecraft:spawner
+be_nbt 4 -59 22 {Delay:1,SpawnCount:20,MaxNearbyEntities:50,SpawnRange:3,SpawnData:{entity:{id:"minecraft:cow"}},SpawnPotentials:[{weight:1,data:{entity:{id:"minecraft:cow"}}}]}
+level_seed 7
+tick 2
+dump be:4,-59,22
+dump entities
+dump events
+block 10 -59 16 minecraft:spawner
+be_nbt 10 -59 16 {Delay:1,SpawnCount:20,MaxNearbyEntities:50,SpawnRange:3,SpawnData:{entity:{id:"minecraft:cow"}},SpawnPotentials:[{weight:1,data:{entity:{id:"minecraft:cow"}}}]}
+level_seed 7
+tick 2
+dump be:10,-59,16
+dump entities
+dump events
+dump nbt:cow#1 nbt:cow#2
+kill cow#1
+kill cow#2
+kill cow#3
+kill cow#4
+kill cow#5
+block 12 -59 22 minecraft:spawner
+be_nbt 12 -59 22 {Delay:1,SpawnCount:20,MaxNearbyEntities:50,SpawnRange:3,SpawnData:{entity:{id:"minecraft:cow"},custom_spawn_rules:{block_light_limit:[0,15],sky_light_limit:[0,15]}},SpawnPotentials:[{weight:1,data:{entity:{id:"minecraft:cow"},custom_spawn_rules:{block_light_limit:[0,15],sky_light_limit:[0,15]}}}]}
+level_seed 7
+tick 2
+dump be:12,-59,22
+dump entities
+dump events
+dump nbt:cow#6
+kill cow#6
+kill cow#7
+kill cow#8
+kill cow#9
+kill cow#10
+kill cow#11
+kill cow#12
+kill cow#13
+kill cow#14
+kill cow#15

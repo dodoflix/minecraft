@@ -1,0 +1,10 @@
+C Set minecraft:overworld to 18000 tick(s)
+C Game rule spawn_mobs is now set to true
+B 8 -60 20 minecraft:trial_spawner[ominous=false,trial_spawner_state=active]
+B 10 -60 6 minecraft:trial_spawner[ominous=false,trial_spawner_state=active]
+E cow#1 minecraft:cow pos=10.5,-60.0,9.5 delta=0.0,0.0,0.0 rot=87.10639,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+N cow#1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[10.5d,-60.0d,9.5d],Rotation:[87.10639f,0.0f],attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:classic",variant:"minecraft:temperate"}
+B 2 -60 6 minecraft:trial_spawner[ominous=false,trial_spawner_state=active]
+E cow#2 minecraft:cow pos=2.5,-60.0,9.5 delta=0.0,0.0,0.0 rot=95.464005,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+N cow#2 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[2.5d,-60.0d,9.5d],Rotation:[95.464005f,0.0f],attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:classic",variant:"minecraft:temperate"}
+B 14 -60 6 minecraft:trial_spawner[ominous=false,trial_spawner_state=active]
