@@ -717,8 +717,8 @@ pub fn with_container<R>(
     match target {
         ContainerTarget::BlockEntity(pos) => level.with_block_entity(*pos, |level, be| {
             be.unpack_loot_table(level, None);
-            let container = be.as_container_mut()?;
-            let result = f(level, container);
+            let result = f(level, be.as_container_mut()?);
+            // the `setChanged()` calls of the operation update the comparators beside the container
             if be.container_pending() {
                 be.container_accessed(level);
             }
@@ -742,6 +742,13 @@ pub fn with_container<R>(
             let result = f(level, &mut compound);
             level.put_back_block_entity(*first, compound.container1.0);
             level.put_back_block_entity(*second, compound.container2.0);
+            for pos in [*first, *second] {
+                level.with_block_entity(pos, |level, be| {
+                    if be.container_pending() {
+                        be.container_accessed(level);
+                    }
+                });
+            }
             Some(result)
         }
         ContainerTarget::Holder(pos, state) => {

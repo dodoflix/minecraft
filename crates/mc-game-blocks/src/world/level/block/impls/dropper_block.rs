@@ -73,61 +73,63 @@ impl BlockBehaviour for DropperBlock {
 
 /// `DropperBlock.dispenseFrom(level, state, pos)`.
 fn dispense_from(level: &mut ServerLevel, state: BlockState, pos: BlockPos) {
-    let taken = level
-        .take_block_entity(pos)
-        .filter(|be| be.get_type() == BlockEntityType::DROPPER);
-    let Some(mut be) = taken else {
+    let dispensed = level.with_block_entity(pos, |level, be| {
+        if be.get_type() != BlockEntityType::DROPPER {
+            return false;
+        }
+        be.unpack_loot_table(level, None);
+        if let Some(dropper) = be.as_any_mut().downcast_mut::<DispenserBlockEntity>() {
+            let slot = dropper.get_random_slot(level.random());
+            if slot < 0 {
+                level.level_event(None, 1001, pos, 0);
+            } else {
+                let slot = slot as usize;
+                let item_stack = dropper.get_item(slot).clone();
+                if !item_stack.is_empty() {
+                    let direction = BlockGetter::get_block_state(level, pos).get(props::FACING);
+                    let remaining = match get_container_at(level, pos.relative(direction)) {
+                        None => {
+                            let mut source = BlockSource {
+                                level,
+                                pos,
+                                state,
+                                block_entity: dropper,
+                            };
+                            default_behavior().dispense(&mut source, item_stack)
+                        }
+                        Some(into) => {
+                            let moved = with_container(level, &into, |level, container| {
+                                add_item(
+                                    level,
+                                    Some(&*dropper as &dyn Container),
+                                    container,
+                                    item_stack.copy_with_count(1),
+                                    Some(direction.get_opposite()),
+                                )
+                            })
+                            .is_some_and(|remaining| remaining.is_empty());
+                            // `with_container` returning `None` (owner vanished) cannot happen: it was just resolved
+                            let mut remaining = item_stack.copy();
+                            if moved {
+                                remaining.shrink(1);
+                            }
+                            remaining
+                        }
+                    };
+                    dropper.set_item(slot, remaining);
+                }
+            }
+        }
+        // the entity's own `setChanged` waits for its put-back, so the comparators beside it read the live entity
+        changed_log::flush(level);
+        true
+    });
+    if dispensed != Some(true) {
         log::warn!(
             "Ignoring dispensing attempt for Dropper without matching block entity at {}",
             pos.to_short_string()
         );
-        return;
-    };
-    be.unpack_loot_table(level, None);
-    if let Some(dropper) = be.as_any_mut().downcast_mut::<DispenserBlockEntity>() {
-        let slot = dropper.get_random_slot(level.random());
-        if slot < 0 {
-            level.level_event(None, 1001, pos, 0);
-        } else {
-            let slot = slot as usize;
-            let item_stack = dropper.get_item(slot).clone();
-            if !item_stack.is_empty() {
-                let direction = BlockGetter::get_block_state(level, pos).get(props::FACING);
-                let remaining = match get_container_at(level, pos.relative(direction)) {
-                    None => {
-                        let mut source = BlockSource {
-                            level,
-                            pos,
-                            state,
-                            block_entity: dropper,
-                        };
-                        default_behavior().dispense(&mut source, item_stack)
-                    }
-                    Some(into) => {
-                        let moved = with_container(level, &into, |level, container| {
-                            add_item(
-                                level,
-                                Some(&*dropper as &dyn Container),
-                                container,
-                                item_stack.copy_with_count(1),
-                                Some(direction.get_opposite()),
-                            )
-                        })
-                        .is_some_and(|remaining| remaining.is_empty());
-                        // `with_container` returning `None` (owner vanished) cannot happen: it was just resolved
-                        let mut remaining = item_stack.copy();
-                        if moved {
-                            remaining.shrink(1);
-                        }
-                        remaining
-                    }
-                };
-                dropper.set_item(slot, remaining);
-            }
-        }
     }
-    changed_log::flush(level);
-    level.put_back_block_entity(pos, be);
 }
 
 register_block_class!("DropperBlock", |_| Box::new(DropperBlock));

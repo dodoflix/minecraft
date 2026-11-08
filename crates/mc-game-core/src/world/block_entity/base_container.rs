@@ -1,14 +1,11 @@
 //! The state and helpers of vanilla's `BaseContainerBlockEntity` (`lockKey`, `name`, implicit item components, locked
 //! notification). Rust block entities embed a [`BaseContainer`] (composition) and implement `Container` themselves.
 
-use super::BlockEntityData;
 use crate::server::level::ServerLevel;
 use crate::world::entity::ServerPlayer;
 use crate::world::inventory::MenuPlayer;
 use crate::world::item::ItemStack;
 use mc_core::phys::Vec3;
-use mc_core::pos::BlockPos;
-use mc_data::block::BlockState;
 use mc_nbt::CompoundTag;
 use mc_protocol::components::{
     CONTAINER, CUSTOM_NAME, DataComponentMapBuilder, ItemContainerContents, LOCK, LockCode,
@@ -137,18 +134,4 @@ pub fn send_chest_locked_notifications(
         1.0,
         1.0,
     );
-}
-
-/// `BlockEntity.setChanged(level, pos, state)`: `level.blockEntityChanged(pos)` and, for a non-air state,
-/// `level.updateNeighbourForOutputSignal(pos, state.getBlock())`.
-pub fn set_changed(level: &mut ServerLevel, pos: BlockPos, state: BlockState) {
-    level.block_entity_changed(pos);
-    if !state.is_air() {
-        level.update_neighbour_for_output_signal(pos, state.block());
-    }
-}
-
-/// `BlockEntity.setChanged()` for a block entity currently taken out of its chunk: `base` carries the position/state.
-pub fn set_changed_of(level: &mut ServerLevel, base: &BlockEntityData) {
-    set_changed(level, base.pos, base.block_state);
 }

@@ -149,39 +149,41 @@ pub fn open_container(
 
 /// `DispenserBlock.dispenseFrom(level, state, pos)`.
 fn dispense_from(level: &mut ServerLevel, state: BlockState, pos: BlockPos) {
-    let taken = level
-        .take_block_entity(pos)
-        .filter(|be| be.get_type() == BlockEntityType::DISPENSER);
-    let Some(mut be) = taken else {
+    let dispensed = level.with_block_entity(pos, |level, be| {
+        if be.get_type() != BlockEntityType::DISPENSER {
+            return false;
+        }
+        be.unpack_loot_table(level, None);
+        if let Some(dispenser) = be.as_any_mut().downcast_mut::<DispenserBlockEntity>() {
+            let slot = dispenser.get_random_slot(level.random());
+            if slot < 0 {
+                level.level_event(None, 1001, pos, 0);
+                let context = GameEventContext::of_state(Some(dispenser.get_block_state()));
+                level.game_event_at_block(GameEvent::BLOCK_ACTIVATE, pos, &context);
+            } else {
+                let slot = slot as usize;
+                let item_stack = dispenser.get_item(slot).clone();
+                let behavior = get_dispense_method(level, &item_stack);
+                let mut source = BlockSource {
+                    level,
+                    pos,
+                    state,
+                    block_entity: dispenser,
+                };
+                let result = behavior.dispense(&mut source, item_stack);
+                dispenser.set_item(slot, result);
+            }
+        }
+        // the entity's own `setChanged` waits for its put-back, so the comparators beside it read the live entity
+        changed_log::flush(level);
+        true
+    });
+    if dispensed != Some(true) {
         log::warn!(
             "Ignoring dispensing attempt for Dispenser without matching block entity at {}",
             pos.to_short_string()
         );
-        return;
-    };
-    be.unpack_loot_table(level, None);
-    if let Some(dispenser) = be.as_any_mut().downcast_mut::<DispenserBlockEntity>() {
-        let slot = dispenser.get_random_slot(level.random());
-        if slot < 0 {
-            level.level_event(None, 1001, pos, 0);
-            let context = GameEventContext::of_state(Some(dispenser.get_block_state()));
-            level.game_event_at_block(GameEvent::BLOCK_ACTIVATE, pos, &context);
-        } else {
-            let slot = slot as usize;
-            let item_stack = dispenser.get_item(slot).clone();
-            let behavior = get_dispense_method(level, &item_stack);
-            let mut source = BlockSource {
-                level,
-                pos,
-                state,
-                block_entity: dispenser,
-            };
-            let result = behavior.dispense(&mut source, item_stack);
-            dispenser.set_item(slot, result);
-        }
     }
-    changed_log::flush(level);
-    level.put_back_block_entity(pos, be);
 }
 
 register_block_class!("DispenserBlock", |_| Box::new(DispenserBlock));

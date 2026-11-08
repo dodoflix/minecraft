@@ -78,14 +78,12 @@ impl ServerLevel {
             && old_state.has_block_entity()
             && !state.should_changed_state_keep_block_entity(old_state)
         {
-            if let Some(taken) = self
-                .tick_state
-                .taken_block_entities
-                .iter_mut()
-                .rev()
-                .find(|t| t.pos == pos)
-            {
-                // the block entity is out of its chunk running its own code: it is dropped when that code returns
+            let in_chunk = self
+                .chunk_at(pos)
+                .is_some_and(|c| c.block_entities.contains_key(&pos));
+            if !in_chunk && let Some(taken) = self.live_taken_block_entity(pos) {
+                // the block entity is out of its chunk running its own code: it is dropped when that code returns.
+                // Not implemented: its `preRemoveSideEffects` (vanilla runs it while the entity is still in the chunk)
                 taken.removed = true;
             } else if side_effects && let Some(mut block_entity) = self.take_block_entity(pos) {
                 block_entity.pre_remove_side_effects(self, pos, old_state);
@@ -106,16 +104,10 @@ impl ServerLevel {
         if flags & UPDATE_SKIP_ON_PLACE == 0 {
             state.on_place(self, pos, old_state, moved_by_piston);
         }
-        if let Some(taken) = self
-            .tick_state
-            .taken_block_entities
-            .iter_mut()
-            .rev()
-            .find(|t| t.pos == pos)
-        {
+        if let Some(taken) = self.live_taken_block_entity(pos) {
             // `setBlock` from inside the block entity's own code (brewing stand `HAS_BOTTLE`, ...): the live
             // block entity keeps living, it just learns its new state when it is put back
-            if !taken.removed && state.has_block_entity() {
+            if state.has_block_entity() {
                 taken.new_state = Some(state);
             }
         } else if state.has_block_entity()
@@ -156,6 +148,26 @@ impl ServerLevel {
             chunk.data.access.mark_unsaved();
         }
         Some(old_state)
+    }
+
+    /// Whether the block entity at `pos` is out of its chunk running its own code (`with_block_entity`) and still live.
+    pub fn is_block_entity_taken(&self, pos: BlockPos) -> bool {
+        self.tick_state
+            .taken_block_entities
+            .iter()
+            .any(|t| t.pos == pos && !t.removed)
+    }
+
+    /// The innermost block entity at `pos` that is out of its chunk running its own code and was not replaced meanwhile.
+    fn live_taken_block_entity(
+        &mut self,
+        pos: BlockPos,
+    ) -> Option<&mut super::level_tick_state::TakenBlockEntity> {
+        self.tick_state
+            .taken_block_entities
+            .iter_mut()
+            .rev()
+            .find(|t| t.pos == pos && !t.removed)
     }
 
     // ------------------------------------------------------------------------------------------- block entities

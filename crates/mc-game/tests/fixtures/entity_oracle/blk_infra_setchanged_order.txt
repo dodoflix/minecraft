@@ -1,0 +1,233 @@
+# hopper chain: the chest above A is sucked into A, A pushes into B, B into the chest below; comparators beside every container
+T 6
+TICK block 1 -60 3 minecraft:comparator delay=1 prio=0
+TICK block 1 -60 1 minecraft:comparator delay=2 prio=0
+T 7
+TICK block 1 -60 1 minecraft:comparator delay=1 prio=0
+T 8
+T 9
+T 10
+T 11
+T 12
+T 13
+T 14
+TICK block 1 -60 2 minecraft:comparator delay=2 prio=0
+T 15
+TICK block 1 -60 2 minecraft:comparator delay=1 prio=0
+T 16
+T 17
+T 18
+T 19
+T 20
+T 21
+TICK block 1 -60 2 minecraft:comparator delay=2 prio=0
+T 22
+TICK block 1 -60 2 minecraft:comparator delay=1 prio=0
+T 23
+T 24
+T 25
+T 26
+T 27
+T 28
+T 29
+TICK block 1 -60 2 minecraft:comparator delay=2 prio=0
+T 30
+TICK block 1 -60 2 minecraft:comparator delay=1 prio=0
+T 31
+T 32
+T 33
+T 34
+T 35
+T 36
+T 37
+TICK block 1 -60 2 minecraft:comparator delay=2 prio=0
+T 38
+TICK block 1 -60 2 minecraft:comparator delay=1 prio=0
+T 39
+T 40
+T 41
+T 42
+T 43
+T 44
+T 45
+TICK block 1 -60 2 minecraft:comparator delay=2 prio=0
+BE 0 -59 1 {Items:[{Slot:0b,count:59,id:"minecraft:stone"},{Slot:1b,count:30,id:"minecraft:stone"}],components:{},id:"minecraft:chest",x:0,y:-59,z:1}
+BE 0 -60 1 {Items:[{Slot:0b,count:1,id:"minecraft:stone"}],TransferCooldown:1,components:{},id:"minecraft:hopper",x:0,y:-60,z:1}
+BE 0 -60 2 {Items:[],TransferCooldown:8,components:{},id:"minecraft:hopper",x:0,y:-60,z:2}
+BE 0 -60 3 {Items:[{Slot:0b,count:5,id:"minecraft:dirt"},{Slot:1b,count:4,id:"minecraft:stone"}],components:{},id:"minecraft:chest",x:0,y:-60,z:3}
+BE 1 -59 1 -
+BE 1 -60 1 {OutputSignal:1,components:{},id:"minecraft:comparator",x:1,y:-60,z:1}
+BE 1 -60 2 {OutputSignal:1,components:{},id:"minecraft:comparator",x:1,y:-60,z:2}
+BE 1 -60 3 {OutputSignal:1,components:{},id:"minecraft:comparator",x:1,y:-60,z:3}
+B 0 -60 1 minecraft:hopper[enabled=true,facing=south]
+B 0 -60 2 minecraft:hopper[enabled=true,facing=south]
+B 0 -60 3 minecraft:chest[facing=north,type=single,waterlogged=false]
+B 0 -59 1 minecraft:chest[facing=north,type=single,waterlogged=false]
+B 1 -60 1 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 2 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 3 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 1 minecraft:redstone_lamp[lit=true]
+B 2 -60 2 minecraft:redstone_lamp[lit=true]
+B 2 -60 3 minecraft:redstone_lamp[lit=true]
+B 2 -59 1 minecraft:redstone_lamp[lit=true]
+# hopper sucking from a chest above while pushing into one below, comparators on every container
+T 46
+TICK block 1 -60 2 minecraft:comparator delay=1 prio=0
+T 47
+T 48
+T 49
+T 50
+T 51
+T 52
+T 53
+TICK block 1 -60 2 minecraft:comparator delay=2 prio=0
+T 54
+TICK block 1 -60 2 minecraft:comparator delay=1 prio=0
+TICK block 11 -61 0 minecraft:comparator delay=2 prio=0
+T 55
+TICK block 11 -61 0 minecraft:comparator delay=1 prio=0
+T 56
+T 57
+T 58
+T 59
+T 60
+T 61
+TICK block 1 -60 2 minecraft:comparator delay=2 prio=0
+T 62
+TICK block 1 -60 2 minecraft:comparator delay=1 prio=0
+T 63
+T 64
+T 65
+T 66
+T 67
+T 68
+T 69
+TICK block 1 -60 2 minecraft:comparator delay=2 prio=0
+T 70
+TICK block 1 -60 2 minecraft:comparator delay=1 prio=0
+T 71
+T 72
+T 73
+T 74
+T 75
+BE 10 -59 0 {Items:[{Slot:1b,count:1,id:"minecraft:bread"}],components:{},id:"minecraft:chest",x:10,y:-59,z:0}
+BE 10 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:bread"}],TransferCooldown:3,components:{},id:"minecraft:hopper",x:10,y:-60,z:0}
+BE 10 -61 0 {Items:[{Slot:0b,count:3,id:"minecraft:apple"}],components:{},id:"minecraft:chest",x:10,y:-61,z:0}
+BE 11 -59 0 -
+BE 11 -60 0 -
+BE 11 -61 0 {OutputSignal:1,components:{},id:"minecraft:comparator",x:11,y:-61,z:0}
+# dropper into a chest and a dropper into the air, comparators on dropper and chest; the redstone block powers it
+T 76
+TICK block 21 -60 0 minecraft:comparator delay=1 prio=0
+TICK block 20 -60 0 minecraft:dropper delay=3 prio=0
+T 77
+TICK block 20 -60 0 minecraft:dropper delay=2 prio=0
+TICK block 1 -60 2 minecraft:comparator delay=2 prio=0
+T 78
+TICK block 20 -60 0 minecraft:dropper delay=1 prio=0
+TICK block 1 -60 2 minecraft:comparator delay=1 prio=0
+T 79
+TICK block 21 -60 1 minecraft:comparator delay=2 prio=0
+T 80
+TICK block 21 -60 1 minecraft:comparator delay=1 prio=0
+T 81
+T 82
+T 83
+T 84
+T 85
+TICK block 1 -60 2 minecraft:comparator delay=2 prio=0
+T 86
+TICK block 1 -60 2 minecraft:comparator delay=1 prio=0
+T 87
+T 88
+TICK block 20 -60 0 minecraft:dropper delay=3 prio=0
+T 89
+TICK block 20 -60 0 minecraft:dropper delay=2 prio=0
+T 90
+TICK block 20 -60 0 minecraft:dropper delay=1 prio=0
+T 91
+T 92
+T 93
+TICK block 1 -60 2 minecraft:comparator delay=2 prio=0
+T 94
+TICK block 1 -60 2 minecraft:comparator delay=1 prio=0
+T 95
+T 96
+T 97
+BE 20 -60 0 {Items:[{Slot:0b,count:3,id:"minecraft:cobblestone"},{Slot:1b,count:3,id:"minecraft:cobblestone"}],components:{},id:"minecraft:dropper",x:20,y:-60,z:0}
+BE 20 -60 1 {Items:[{Slot:0b,count:2,id:"minecraft:cobblestone"}],components:{},id:"minecraft:chest",x:20,y:-60,z:1}
+BE 21 -60 0 {OutputSignal:1,components:{},id:"minecraft:comparator",x:21,y:-60,z:0}
+BE 21 -60 1 {OutputSignal:1,components:{},id:"minecraft:comparator",x:21,y:-60,z:1}
+# dispenser spitting an item out, a comparator beside it
+T 98
+TICK block 31 -60 0 minecraft:comparator delay=1 prio=0
+TICK block 30 -60 0 minecraft:dispenser delay=3 prio=0
+T 99
+TICK block 30 -60 0 minecraft:dispenser delay=2 prio=0
+T 100
+TICK block 30 -60 0 minecraft:dispenser delay=1 prio=0
+T 101
+TICK block 1 -60 2 minecraft:comparator delay=2 prio=0
+T 102
+TICK block 1 -60 2 minecraft:comparator delay=1 prio=0
+T 103
+T 104
+T 105
+T 106
+T 107
+T 108
+T 109
+TICK block 1 -60 2 minecraft:comparator delay=2 prio=0
+T 110
+TICK block 1 -60 2 minecraft:comparator delay=1 prio=0
+TICK block 30 -60 0 minecraft:dispenser delay=3 prio=0
+T 111
+TICK block 30 -60 0 minecraft:dispenser delay=2 prio=0
+T 112
+TICK block 30 -60 0 minecraft:dispenser delay=1 prio=0
+T 113
+TICK block 31 -60 0 minecraft:comparator delay=2 prio=0
+T 114
+TICK block 31 -60 0 minecraft:comparator delay=1 prio=0
+T 115
+TICK block 32 -60 0 minecraft:redstone_lamp delay=4 prio=0
+T 116
+TICK block 32 -60 0 minecraft:redstone_lamp delay=3 prio=0
+T 117
+TICK block 32 -60 0 minecraft:redstone_lamp delay=2 prio=0
+TICK block 1 -60 2 minecraft:comparator delay=2 prio=0
+T 118
+TICK block 32 -60 0 minecraft:redstone_lamp delay=1 prio=0
+TICK block 1 -60 2 minecraft:comparator delay=1 prio=0
+T 119
+BE 30 -60 0 {Items:[],components:{},id:"minecraft:dispenser",x:30,y:-60,z:0}
+BE 31 -60 0 {OutputSignal:0,components:{},id:"minecraft:comparator",x:31,y:-60,z:0}
+# item entity sucked into a hopper with a comparator beside it
+T 120
+TICK block 41 -60 0 minecraft:comparator delay=2 prio=0
+T 121
+TICK block 41 -60 0 minecraft:comparator delay=1 prio=0
+T 122
+T 123
+T 124
+T 125
+TICK block 1 -60 2 minecraft:comparator delay=2 prio=0
+T 126
+TICK block 1 -60 2 minecraft:comparator delay=1 prio=0
+T 127
+T 128
+T 129
+T 130
+T 131
+T 132
+T 133
+TICK block 1 -60 2 minecraft:comparator delay=2 prio=0
+T 134
+TICK block 1 -60 2 minecraft:comparator delay=1 prio=0
+T 135
+T 136
+T 137
+T 138
+T 139
+BE 40 -60 0 {Items:[{Slot:0b,count:5,id:"minecraft:stick"}],TransferCooldown:0,components:{},id:"minecraft:hopper",x:40,y:-60,z:0}
+BE 41 -60 0 {OutputSignal:1,components:{},id:"minecraft:comparator",x:41,y:-60,z:0}

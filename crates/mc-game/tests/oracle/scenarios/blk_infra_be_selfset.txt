@@ -1,0 +1,32 @@
+# A block entity that sets its own block while its code runs: vanilla keeps it in the chunk, so a nested read of its own
+# position still finds it (a comparator beside the barrel reads the barrel's items from the barrel's own recheck tick),
+# and the hopper's own setChanged updates the comparator beside the hopper.
+level flat
+preload 2
+spawn_player Steve creative 0.5 -60 -2.5 0 0
+tick 30
+watch blocks:-1,-60,-1,6,-60,16 ticks events
+note barrel recheck: the open-state setBlock updates the comparator, which reads the barrel from inside the barrel's own tick
+block 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 0 minecraft:redstone_lamp
+block 0 -60 0 minecraft:barrel[facing=up,open=false]
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:stone",count:64},{Slot:1b,id:"minecraft:stone",count:64},{Slot:2b,id:"minecraft:stone",count:10}]}
+tick 6
+dump be:0,-60,0 be:1,-60,0
+level_seed 41
+use_on Steve 0 -60 0 up main 0.5 1.0 0.5
+tick 3
+level_seed 42
+tp Steve 0.5 -60 20.5
+tick 12
+dump be:0,-60,0 be:1,-60,0 ticks
+note hopper pushing into a chest: the hopper's own setChanged updates the comparator beside the hopper (read from the hopper's own tick)
+block 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 4 minecraft:redstone_lamp
+block 0 -60 4 minecraft:hopper[enabled=true,facing=south]
+be_nbt 0 -60 4 {Items:[{Slot:0b,id:"minecraft:diamond",count:3},{Slot:1b,id:"minecraft:diamond",count:3},{Slot:2b,id:"minecraft:diamond",count:3},{Slot:3b,id:"minecraft:diamond",count:3},{Slot:4b,id:"minecraft:diamond",count:3}]}
+block 0 -60 5 minecraft:chest[facing=north,type=single,waterlogged=false]
+tick 6
+dump be:0,-60,4 be:1,-60,4 be:0,-60,5
+tick 20
+dump be:0,-60,4 be:1,-60,4 be:0,-60,5 ticks

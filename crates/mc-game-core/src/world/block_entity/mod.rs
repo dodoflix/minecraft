@@ -474,12 +474,18 @@ pub fn new_block_entity(pos: BlockPos, state: BlockState) -> Option<Box<dyn Bloc
 }
 
 /// `BlockEntity.setChanged(level, pos, state)` (the static form the `BlockEntity.setChanged()` instance method delegates
-/// to): marks the chunk unsaved and notifies comparators when the state is not air.
+/// to): marks the chunk unsaved and notifies comparators when the state is not air. A block entity that is out of its chunk
+/// running its own code is invisible to the comparators it updates, so the notification waits for the put-back (see
+/// [`deferred`]); vanilla's comparators read the live entity.
 pub fn set_changed(
     level: &mut crate::server::level::ServerLevel,
     pos: BlockPos,
     state: BlockState,
 ) {
+    if level.is_block_entity_taken(pos) {
+        deferred::push(move |level| set_changed(level, pos, state));
+        return;
+    }
     level.block_entity_changed(pos);
     if !state.is_air() {
         level.update_neighbour_for_output_signal(pos, state.block());

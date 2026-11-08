@@ -1,0 +1,312 @@
+# barrel recheck: the open-state setBlock updates the comparator, which reads the barrel from inside the barrel's own tick
+T 31
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+TICK block 1 -60 0 minecraft:comparator delay=1 prio=0
+T 32
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+T 33
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+T 34
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+T 35
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+T 36
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+BE 0 -60 0 {Items:[{Slot:0b,count:64,id:"minecraft:stone"},{Slot:1b,count:64,id:"minecraft:stone"},{Slot:2b,count:10,id:"minecraft:stone"}],components:{},id:"minecraft:barrel",x:0,y:-60,z:0}
+BE 1 -60 0 {OutputSignal:2,components:{},id:"minecraft:comparator",x:1,y:-60,z:0}
+T 37
+B 0 -60 0 minecraft:barrel[facing=up,open=true]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 0 -60 0 minecraft:barrel delay=4 prio=0
+EV sound at=0.5,-59.0,0.5 r=16.0 ex=0 event=minecraft:block.barrel.open source=block vol=0.5 pitch=0.97272944
+T 38
+B 0 -60 0 minecraft:barrel[facing=up,open=true]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 0 -60 0 minecraft:barrel delay=3 prio=0
+T 39
+B 0 -60 0 minecraft:barrel[facing=up,open=true]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 0 -60 0 minecraft:barrel delay=2 prio=0
+T 40
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 0 -60 0 minecraft:barrel delay=1 prio=0
+EV sound at=0.5,-59.0,0.5 r=16.0 ex=0 event=minecraft:block.barrel.close source=block vol=0.5 pitch=0.9031418
+T 41
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+T 42
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+T 43
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+T 44
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+T 45
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+T 46
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+T 47
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+T 48
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+T 49
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+T 50
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+T 51
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+BE 0 -60 0 {Items:[{Slot:0b,count:64,id:"minecraft:stone"},{Slot:1b,count:64,id:"minecraft:stone"},{Slot:2b,count:10,id:"minecraft:stone"}],components:{},id:"minecraft:barrel",x:0,y:-60,z:0}
+BE 1 -60 0 {OutputSignal:2,components:{},id:"minecraft:comparator",x:1,y:-60,z:0}
+# hopper pushing into a chest: the hopper's own setChanged updates the comparator beside the hopper (read from the hopper's own tick)
+T 52
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 0 -60 4 minecraft:hopper[enabled=true,facing=south]
+B 0 -60 5 minecraft:chest[facing=north,type=single,waterlogged=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+TICK block 1 -60 4 minecraft:comparator delay=1 prio=0
+T 53
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 0 -60 4 minecraft:hopper[enabled=true,facing=south]
+B 0 -60 5 minecraft:chest[facing=north,type=single,waterlogged=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+T 54
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 0 -60 4 minecraft:hopper[enabled=true,facing=south]
+B 0 -60 5 minecraft:chest[facing=north,type=single,waterlogged=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+T 55
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 0 -60 4 minecraft:hopper[enabled=true,facing=south]
+B 0 -60 5 minecraft:chest[facing=north,type=single,waterlogged=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+T 56
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 0 -60 4 minecraft:hopper[enabled=true,facing=south]
+B 0 -60 5 minecraft:chest[facing=north,type=single,waterlogged=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+T 57
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 0 -60 4 minecraft:hopper[enabled=true,facing=south]
+B 0 -60 5 minecraft:chest[facing=north,type=single,waterlogged=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+BE 0 -60 4 {Items:[{Slot:0b,count:2,id:"minecraft:diamond"},{Slot:1b,count:3,id:"minecraft:diamond"},{Slot:2b,count:3,id:"minecraft:diamond"},{Slot:3b,count:3,id:"minecraft:diamond"},{Slot:4b,count:3,id:"minecraft:diamond"}],TransferCooldown:3,components:{},id:"minecraft:hopper",x:0,y:-60,z:4}
+BE 1 -60 4 {OutputSignal:1,components:{},id:"minecraft:comparator",x:1,y:-60,z:4}
+BE 0 -60 5 {Items:[{Slot:0b,count:1,id:"minecraft:diamond"}],components:{},id:"minecraft:chest",x:0,y:-60,z:5}
+T 58
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 0 -60 4 minecraft:hopper[enabled=true,facing=south]
+B 0 -60 5 minecraft:chest[facing=north,type=single,waterlogged=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+T 59
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 0 -60 4 minecraft:hopper[enabled=true,facing=south]
+B 0 -60 5 minecraft:chest[facing=north,type=single,waterlogged=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+T 60
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 0 -60 4 minecraft:hopper[enabled=true,facing=south]
+B 0 -60 5 minecraft:chest[facing=north,type=single,waterlogged=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+T 61
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 0 -60 4 minecraft:hopper[enabled=true,facing=south]
+B 0 -60 5 minecraft:chest[facing=north,type=single,waterlogged=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+T 62
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 0 -60 4 minecraft:hopper[enabled=true,facing=south]
+B 0 -60 5 minecraft:chest[facing=north,type=single,waterlogged=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+T 63
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 0 -60 4 minecraft:hopper[enabled=true,facing=south]
+B 0 -60 5 minecraft:chest[facing=north,type=single,waterlogged=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+T 64
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 0 -60 4 minecraft:hopper[enabled=true,facing=south]
+B 0 -60 5 minecraft:chest[facing=north,type=single,waterlogged=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+T 65
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 0 -60 4 minecraft:hopper[enabled=true,facing=south]
+B 0 -60 5 minecraft:chest[facing=north,type=single,waterlogged=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+T 66
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 0 -60 4 minecraft:hopper[enabled=true,facing=south]
+B 0 -60 5 minecraft:chest[facing=north,type=single,waterlogged=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+T 67
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 0 -60 4 minecraft:hopper[enabled=true,facing=south]
+B 0 -60 5 minecraft:chest[facing=north,type=single,waterlogged=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+T 68
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 0 -60 4 minecraft:hopper[enabled=true,facing=south]
+B 0 -60 5 minecraft:chest[facing=north,type=single,waterlogged=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+T 69
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 0 -60 4 minecraft:hopper[enabled=true,facing=south]
+B 0 -60 5 minecraft:chest[facing=north,type=single,waterlogged=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+T 70
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 0 -60 4 minecraft:hopper[enabled=true,facing=south]
+B 0 -60 5 minecraft:chest[facing=north,type=single,waterlogged=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+T 71
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 0 -60 4 minecraft:hopper[enabled=true,facing=south]
+B 0 -60 5 minecraft:chest[facing=north,type=single,waterlogged=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+T 72
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 0 -60 4 minecraft:hopper[enabled=true,facing=south]
+B 0 -60 5 minecraft:chest[facing=north,type=single,waterlogged=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+T 73
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 0 -60 4 minecraft:hopper[enabled=true,facing=south]
+B 0 -60 5 minecraft:chest[facing=north,type=single,waterlogged=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+T 74
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 0 -60 4 minecraft:hopper[enabled=true,facing=south]
+B 0 -60 5 minecraft:chest[facing=north,type=single,waterlogged=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+T 75
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 0 -60 4 minecraft:hopper[enabled=true,facing=south]
+B 0 -60 5 minecraft:chest[facing=north,type=single,waterlogged=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+T 76
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 0 -60 4 minecraft:hopper[enabled=true,facing=south]
+B 0 -60 5 minecraft:chest[facing=north,type=single,waterlogged=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+T 77
+B 0 -60 0 minecraft:barrel[facing=up,open=false]
+B 0 -60 4 minecraft:hopper[enabled=true,facing=south]
+B 0 -60 5 minecraft:chest[facing=north,type=single,waterlogged=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+BE 0 -60 4 {Items:[{Slot:1b,count:2,id:"minecraft:diamond"},{Slot:2b,count:3,id:"minecraft:diamond"},{Slot:3b,count:3,id:"minecraft:diamond"},{Slot:4b,count:3,id:"minecraft:diamond"}],TransferCooldown:7,components:{},id:"minecraft:hopper",x:0,y:-60,z:4}
+BE 1 -60 4 {OutputSignal:1,components:{},id:"minecraft:comparator",x:1,y:-60,z:4}
+BE 0 -60 5 {Items:[{Slot:0b,count:4,id:"minecraft:diamond"}],components:{},id:"minecraft:chest",x:0,y:-60,z:5}

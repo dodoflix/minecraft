@@ -140,7 +140,10 @@ re-exports all of them under the vanilla-shaped `mc_game::world::...` paths). Ev
   overrides call the parent behavior explicitly (free functions like `living_entity::base_tick`). Entities are stored
   as `Box<dyn Entity>` in the level's entity storage keyed by entity id; while an entity ticks it is taken out of the
   slot and put back afterwards (lookups during its own tick exclude it, as vanilla queries do).
-- **Block entities** likewise `Box<dyn BlockEntity>` in the chunk, same take-out pattern while ticking.
+- **Block entities** likewise `Box<dyn BlockEntity>` in the chunk, same take-out pattern while ticking. Vanilla runs a
+  block entity's level effects while it is still in the chunk (a comparator beside a container reads it, `setBlock` on
+  its own position finds it), so effects that must see the entity (`setChanged`, own-block updates) are queued in
+  `world::block_entity::deferred` and run when the call that took it out ends.
 - **Items.** `trait ItemBehaviour` static per item (vanilla `Item` subclasses); `ItemStack` value type comes from
   `mc-protocol` (`components`); behavior functions take `&mut ServerLevel`, player, hand, …
 - **Level access traits** mirror vanilla interfaces (`BlockGetter`, `LevelReader`, `LevelAccessor`, `WorldGenLevel`)
